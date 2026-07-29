@@ -1,165 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3C024DCF6;
-	Wed, 29 Jul 2026 23:02:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A122D40DB32;
+	Wed, 29 Jul 2026 23:07:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785366128; cv=none; b=RbSfl2J0DOxcb/Bb7mPxaOhGN5a6xSdJxlz0kPvx8Ed7qCIMxfTTk3QXgIF1vu5uDLy35EscSe/5M9+P3JWe2232EXN0ONhV4IX0eMV5rS9O8hc8TEkVgDcLQyis2KGNevGpK08uSu4V4DK6SVMzv2KgrLUx1ADzdauN1lhEi9Y=
+	t=1785366467; cv=none; b=KrzqqCBlE8jJ4nsFr/dAZnUtFM/Jkq9WW3H/TOC4LJkh0lg+oTa/glRxxLm8qmUNBTqVAC7dLDpSaIrQ6hROqCY+5pyTxeSVI+xxqGOERU7i1t+6GEzqdu53rx5Sg/McwPqzhKdHLjzHHTa+hq44WPCCFypEpK3pMj3wfs0+ALg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785366128; c=relaxed/simple;
-	bh=Hsd4LrrR27fy2wW7P0lw+esaLm3Ap/8gOMxkPxt5fCw=;
-	h=Date:To:From:Subject:Message-Id; b=aLEzfLfaRqmMdQds3bNhqTxrfqP9HMwg3kxOfkp68BarwlXT5jWxk4HpZj4iBR/mfThmBWnXmivxS55RwcjzYFFYJvEBRpOrJBxwyDPraKx3o8TIXjF4pJ+USdB4vkfhujMu1nP3fFwChsVEZkwKDTq4X96fMMC1kzXt3KWiqKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=k+gx/mjq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785366467; c=relaxed/simple;
+	bh=rdmG6yp05gQHxe+lqv4pQpNBEUssKvGi7ipbvGC2TjQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rXNP7w6ul7EAator6oaeehl1rvDJ3LBwbVCLTiZR35MmDIXAITOv0xTz0TL0JyUfk8EtOsECmAXslqueo+v3m5v5A+L4FBlBs+d6azjq9Eqs3lkY/2nBfnLzzr0p3IanCUoeeNTYsnliu8G05ImQ12r+uj+JBWTOupD0E6ZmK5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=mQa8EfmQ; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="k+gx/mjq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC1A1F000E9;
-	Wed, 29 Jul 2026 23:02:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785366127;
-	bh=+xvKKAaviKnSddmXSfo8kpK2NFqXXocwXINcVhjj16E=;
-	h=Date:To:From:Subject;
-	b=k+gx/mjquOv8DGEZXSAgTiBe9I/NFf8NF23dqGk9BW7DjnaJlX/yPejvfwVMsmGGQ
-	 pXl+ehLeHS/zL/kwObPB2OJGKx03/JnOAuc/pFfvYUUp77ArVhE4onVdIzwyLG4P9E
-	 0AT7khF1YACLGq4IRoYI5olhTYSfZOYznkhE+8oA=
-Date: Wed, 29 Jul 2026 16:02:06 -0700
-To: mm-commits@vger.kernel.org,yosry@kernel.org,tj@kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,nphamcs@gmail.com,muchun.song@linux.dev,mkoutny@suse.com,mhocko@kernel.org,hannes@cmpxchg.org,chengming.zhou@linux.dev,jiahao1@lixiang.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-zswap-fix-global-shrinker-when-memory-cgroup-is-disabled.patch added to mm-new branch
-Message-Id: <20260729230207.2DC1A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="mQa8EfmQ"
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id B002A60191;
+	Thu, 30 Jul 2026 01:07:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1785366461;
+	bh=8XUrG4xoVcf+zD32+/LksVUfhMtKplZQtZLCg9xnRqg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mQa8EfmQQbmLwHCR9xIVsSRVFFLMGqwIBCH1dAZhtbbsoswHshwMqG7gJJ0yOEJdI
+	 9U4Q+2uSllmu1I6lFIb0sL7cxIS1egPdYI1u01aHTD9R2N4vFu/I+Ix3FlJSth9QwP
+	 1swK0IwqIlfZHcQ2V0pe40fff9xGCe95EPTMnjXOEAF5e8CQq9JvxctR/O5WW8cqX6
+	 /y/GL2iK2/l28d9DjlEP308f+rBXa3UNjA5oWJIZ9NhhQ8mPOCRtaf0IIMXdQ45EYw
+	 qzZ9/yoL4jBCOHRMDWx/ekErcbvZ2QI0WTCHfe2pUEIqcfNIGJpgqrWtuYlmdU4A40
+	 r+E6l3Vnexqnw==
+Date: Thu, 30 Jul 2026 01:07:39 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Ilya Maximets <i.maximets@ovn.org>
+Cc: stable@vger.kernel.org, netfilter-devel@vger.kernel.org
+Subject: Re: Backport request: "netfilter: nf_conntrack_expect: restore
+ helper propagation via expectation"
+Message-ID: <amqHu5H6xu02Izo8@chamomile>
+References: <ee95f6ac-181e-4315-a2ae-e4d1388c5e69@ovn.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ee95f6ac-181e-4315-a2ae-e4d1388c5e69@ovn.org>
 
+On Wed, Jul 29, 2026 at 11:38:17PM +0200, Ilya Maximets wrote:
+> Hi.  The mentioned commit dcb0f9aefdd604d36710fda53c25bd7cf4a3e37a
+> was backported to 7.0, but not further, while two commits it is fixing
+> were backported down to 6.1.
+> 
+> Admittedly, the patch is not very important as far as functionality
+> goes (at least for FTP), but the issue does change the user visible
+> behavior and that makes all the FTP system tests in openvswitch
+> project (in userspace) to fail.  This makes it harder to validate OVS
+> on kernels below 7.0 and makes it unnecessarily harder to validate
+> changes for the openvswitch kernel module on stable kernels.
+> 
+> So, it would be really nice to have the fix backported to the same
+> branches where the commits it fixes were (6.1).
+> 
+> AFAICT, cherry-pick works without conflicts down to 6.6.  For 6.1
+> there is a minor conflict, 6.1.y has the extra debug message:
+> 
+> diff --cc net/netfilter/nf_conntrack_core.c
+> index f5c466ea1e7d,8ba5b22a1eef..000000000000
+> --- a/net/netfilter/nf_conntrack_core.c
+> +++ b/net/netfilter/nf_conntrack_core.c
+> @@@ -1800,8 -1811,8 +1800,10 @@@ init_conntrack(struct net *net, struct 
+>   		spin_lock_bh(&nf_conntrack_expect_lock);
+>   		exp = nf_ct_find_expectation(net, zone, tuple, !tmpl || nf_ct_is_confirmed(tmpl));
+>   		if (exp) {
+> + 			struct nf_conntrack_helper *assign_helper;
+> + 
+>  +			pr_debug("expectation arrives ct=%p exp=%p\n",
+>  +				 ct, exp);
+>   			/* Welcome, Mr. Bond.  We've been expecting you... */
+>   			__set_bit(IPS_EXPECTED_BIT, &ct->status);
+>   			/* exp->master safe, refcnt bumped in nf_ct_find_expectation */
+> ---
+> 
+> WDYT?
 
-The patch titled
-     Subject: mm/zswap: fix global shrinker when memory cgroup is disabled
-has been added to the -mm mm-new branch.  Its filename is
-     mm-zswap-fix-global-shrinker-when-memory-cgroup-is-disabled.patch
-
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-zswap-fix-global-shrinker-when-memory-cgroup-is-disabled.patch
-
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Hao Jia <jiahao1@lixiang.com>
-Subject: mm/zswap: fix global shrinker when memory cgroup is disabled
-Date: Wed, 29 Jul 2026 16:42:05 +0800
-
-Patch series "mm/zswap: Fixes and improves the zswap shrink", v3.
-
-This series fixes and improves the zswap global shrinker
-(shrink_worker()).
-
-
-This patch (of 2):
-
-Zswap writeback when the global pool limit is hit fails when memory
-cgroup is disabled. The pool remains full until it is organically
-drained by swapins or memory freeing, leading to zswap store failures
-and pages bypassing getting written directly to the backing swap device,
-causing LRU inversion (hotter pages with higher fault latency).
-
-This happens because mem_cgroup_iter() always returns NULL when
-memory cgroups are disabled. As a result, the global shrinker
-shrink_worker() repeatedly takes empty walks. After MAX_RECLAIM_RETRIES
-failed attempts, the worker gives up without writing back any pages.
-
-Therefore, when memory cgroup is disabled, fall through with the !memcg
-branch and shrink the root memcg directly.
-
-With memcg disabled, shrink_memcg() only returns -ENOENT when the root
-LRU is empty, which means the total pages are already below thr. In the
-absence of heavy concurrent zswap stores, the loop then safely bails out
-via the zswap_total_pages() <= thr check; otherwise, it will resume
-shrinking the memcg after processing the reschedule check. For any other
-return value from shrink_memcg(), the loop is guaranteed to terminate,
-either after MAX_RECLAIM_RETRIES failures or once the threshold is met.
-
-Link: https://lore.kernel.org/20260729084206.77793-1-jiahao.kernel@gmail.com
-Link: https://lore.kernel.org/20260729084206.77793-2-jiahao.kernel@gmail.com
-Fixes: a65b0e7607cc ("zswap: make shrinking memcg-aware")
-Signed-off-by: Hao Jia <jiahao1@lixiang.com>
-Suggested-by: Nhat Pham <nphamcs@gmail.com>
-Acked-by: Nhat Pham <nphamcs@gmail.com>
-Acked-by: Yosry Ahmed <yosry@kernel.org>
-Reported-by: Yosry Ahmed <yosry@kernel.org>
-Closes: https://lore.kernel.org/all/CAO9r8zPVzMKFbCixxD-qgtRrkFxWVrHiZZeLc=eyTPKPVQgX4g@mail.gmail.com
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Michal Koutný <mkoutny@suse.com>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/zswap.c |   13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
-
---- a/mm/zswap.c~mm-zswap-fix-global-shrinker-when-memory-cgroup-is-disabled
-+++ a/mm/zswap.c
-@@ -1358,11 +1358,12 @@ static void shrink_worker(struct work_st
- 		} while (memcg && !mem_cgroup_tryget_online(memcg));
- 		spin_unlock(&zswap_shrink_lock);
- 
--		if (!memcg) {
--			/*
--			 * Continue shrinking without incrementing failures if
--			 * we found candidate memcgs in the last tree walk.
--			 */
-+		/*
-+		 * A NULL memcg ends a full hierarchy pass (except when memcg is
-+		 * disabled, where it is always NULL: fall through to the root LRU).
-+		 * Count a failure only if the last pass found no candidates.
-+		 */
-+		if (!memcg && !mem_cgroup_disabled()) {
- 			if (!attempts && ++failures == MAX_RECLAIM_RETRIES)
- 				break;
- 
-@@ -1381,7 +1382,7 @@ static void shrink_worker(struct work_st
- 		 * and failures.
- 		 */
- 		if (ret == -ENOENT)
--			continue;
-+			goto resched;
- 		++attempts;
- 
- 		if (ret && ++failures == MAX_RECLAIM_RETRIES)
-_
-
-Patches currently in -mm which might be from jiahao1@lixiang.com are
-
-mm-zswap-fix-global-shrinker-when-memory-cgroup-is-disabled.patch
-mm-zswap-support-batch-writeback-in-shrink_memcg.patch
-
+I am fine with getting dcb0f9aefdd604d36710fda53c25bd7cf4a3e37a into
+-stable release < 7.0 if that is what you mean.
