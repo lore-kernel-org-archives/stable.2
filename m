@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A32453A32
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:35:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59CE453A4F
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:36:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785335728; cv=none; b=LwhTQUULq8JBOT6mY8lLXXfFxIWLKnVMG1LlZAhEUlg31MasgrHTIYSWUJ7rvuu9hnMZccJBmHpBQKYvlUZ948zsMlqFygTuwUyVTA+LEc4p5rZUAZfTT7/MltyCvo5CKWWeeJCo7/o/dxgaz1//oGOd+oLX4xSqW7noX0mIYKs=
+	t=1785335789; cv=none; b=oWqpCtrNyxzmF6Zu1Ju+jbX4U9QGVKvv0/DAwIIzqe4aKzGvpykG8pxm2w3I0tgLkNOp4e7QWvcuzOVw34mdlWVEtabe7oRxbanmCjHL6cow8RI8Fm3e3AF6r2Cs+YrjcbWCdSCN5M22O3uBeAugrngXeHCSLs1E/0bHT8oVsw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785335728; c=relaxed/simple;
-	bh=maAaFWp+36pOtEouL2QkjxGNCrl3ryYg1b+z7VXUdSU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=aTGz+2k2YldSggIsl0ZlJ21YT/SNMUYP2crRTgTwAPWZ+YMneCRk9LDhQL8+DblK4vyYiCm3bbRXLKsRT0I9SCC32wCBHlNdqhDg2R/PlgZjvVWJ0i1Vph0vVp73Op5/WI8Vsa/QP31oHjtUQZEt0S3HAxcKxs3QfDuF0VZKQWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z+ZYnjyL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785335789; c=relaxed/simple;
+	bh=bgjHGXhsoe6tIDDRzunO0L5/VZjO1HAW6tgobW71CnI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=suxgK0pH6sh+Qb2CHQN+1VYwOmvC0S22OqSs28ZGiJYkzX/hAfwBQtRECkMGsZKmxBUhqylnsQSC+EjGxEx3V2qE7lSxqTT+6Dc8WMC3do3BGpM98DRBLwhAxO/L3eVEo/1dYlHXfHZfZcg24pdnL1E1UJwRP44WznmCdvnN7hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AhS/6sWm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z+ZYnjyL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71ECD1F000E9;
-	Wed, 29 Jul 2026 14:35:26 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AhS/6sWm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C50631F00A3A;
+	Wed, 29 Jul 2026 14:36:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785335727;
-	bh=gRrAqY98vY/wZnbD56h9E2w6g9s+sY/BfGYdbOqgMzI=;
+	s=korg; t=1785335788;
+	bh=IFgsxEWXMwrb0f8ycaXV/5RF0mwMNFnfpGXwobYyRSY=;
 	h=Subject:To:Cc:From:Date;
-	b=Z+ZYnjyLUt9CqnP1JF3s424oyoys8vHpalL8atwohqJMFDAGGtJbXhVdeE6PUgCtF
-	 wqRTOqDMxxYKIqPNhv92NB+Y8SUwdy4dyDPnyqebKwRw2TPT9Egl5AbGoiT2NrWlgf
-	 v/HuutodKzg0EwWNFFpKliBhGIV8TGHx8YZMKUXg=
-Subject: FAILED: patch "[PATCH] amt: fix use-after-free in AMT delayed works" failed to apply to 6.1-stable tree
-To: shlomojune6@gmail.com,ap420073@gmail.com,horms@kernel.org,kuba@kernel.org
+	b=AhS/6sWmghnNOgWivykT2hu1ZkGs9phSoSfJQc9enoh9Ok04g9varB8OJh6YKSAkW
+	 TXPAUkWcll8EhY1xmeSUAc3wJOWbLyX118K6KWXdCRZwQJ9pwuzEN58KUDz98VwNl1
+	 x8VrX4L4uYgooCMQ1syq24lu32k0oVn3vDwz7ibA=
+Subject: FAILED: patch "[PATCH] ceph: add owner/capability checks for CEPH_IOC_SET_LAYOUT*" failed to apply to 6.1-stable tree
+To: max.kellermann@ionos.com,idryomov@gmail.com,xiubo.li@clyso.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 16:35:05 +0200
-Message-ID: <2026072905-corny-tried-6651@gregkh>
+Date: Wed, 29 Jul 2026 16:36:14 +0200
+Message-ID: <2026072914-recast-scared-532f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x ea20c44935d6142daecfa9b39d635033a7553e1b
+git cherry-pick -x cee38bbf5556a8e0a232ccae41649580827d7806
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072905-corny-tried-6651@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072914-recast-scared-532f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,87 +62,50 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ea20c44935d6142daecfa9b39d635033a7553e1b Mon Sep 17 00:00:00 2001
-From: Shihuang Liu <shlomojune6@gmail.com>
-Date: Wed, 22 Jul 2026 19:39:19 +0800
-Subject: [PATCH] amt: fix use-after-free in AMT delayed works
+From cee38bbf5556a8e0a232ccae41649580827d7806 Mon Sep 17 00:00:00 2001
+From: Max Kellermann <max.kellermann@ionos.com>
+Date: Tue, 21 Jul 2026 08:20:46 +0200
+Subject: [PATCH] ceph: add owner/capability checks for CEPH_IOC_SET_LAYOUT*
 
-When an AMT device is removed, pending delayed works can still access
-the freed amt_dev structure, which may result in kernel crashes or
-memory corruption.
+These permission checks were already missing in the initial
+impementation of these ioctls.  This Ceph allows any user who owns a
+file descriptor to manipulate the layout of any file, even if they
+don't have write permissions.
 
-amt_dev_stop() cancels req_wq and discovery_wq with
-cancel_delayed_work_sync(), but these works can be scheduled again
-from event_wq after the cancellation. This allows delayed works to
-access the freed amt_dev structure after the netdev has been released.
+It might be a good idea to guard other ioctls with permission checks
+as well or even disallow regular users (even if they own the file) to
+manipulate layout settings completely, as this may be abused to DoS
+the Ceph servers, but right now, I find it most urgent to have setter
+checks at all.
 
-The following is a simple race scenario:
-
-CPU0                         CPU1
-
-amt_dev_stop()
-cancel_delayed_work_sync()
-                             amt_event_work()
-                             mod_delayed_work(req_wq)
-free netdev
-                             req_wq accesses freed amt_dev
-
-Use disable_delayed_work_sync() in amt_dev_stop() to prevent req_wq and
-discovery_wq from being queued again and wait for running work items
-to complete.
-
-The delayed works are disabled after initialization in
-amt_newlink() and enabled only when the device is successfully opened.
-This keeps the delayed work lifecycle synchronized with the lifetime
-of the AMT device.
-
-Fixes: cbc21dc1cfe9 ("amt: add data plane of amt interface")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Reviewed-by: Taehee Yoo <ap420073@gmail.com>
-Link: https://patch.msgid.link/20260722113919.7723-1-shlomojune6@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: 8f4e91dee2a2 ("ceph: ioctls")
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 
-diff --git a/drivers/net/amt.c b/drivers/net/amt.c
-index b733309b866f..182a41d59a75 100644
---- a/drivers/net/amt.c
-+++ b/drivers/net/amt.c
-@@ -3034,9 +3034,15 @@ static int amt_dev_open(struct net_device *dev)
- 	amt->event_idx = 0;
- 	amt->nr_events = 0;
+diff --git a/fs/ceph/ioctl.c b/fs/ceph/ioctl.c
+index 15cde055f3da..de07f19b0caa 100644
+--- a/fs/ceph/ioctl.c
++++ b/fs/ceph/ioctl.c
+@@ -72,6 +72,9 @@ static long ceph_ioctl_set_layout(struct file *file, void __user *arg)
+ 	struct ceph_ioctl_layout nl;
+ 	int err;
  
-+	enable_delayed_work(&amt->discovery_wq);
-+	enable_delayed_work(&amt->req_wq);
++	if (!inode_owner_or_capable(&nop_mnt_idmap, inode))
++		return -EACCES;
 +
- 	err = amt_socket_create(amt);
--	if (err)
-+	if (err) {
-+		disable_delayed_work(&amt->req_wq);
-+		disable_delayed_work(&amt->discovery_wq);
- 		return err;
-+	}
+ 	if (copy_from_user(&l, arg, sizeof(l)))
+ 		return -EFAULT;
  
- 	amt->req_cnt = 0;
- 	amt->remote_ip = 0;
-@@ -3062,8 +3068,8 @@ static int amt_dev_stop(struct net_device *dev)
- 	struct sock *sk;
- 	int i;
+@@ -142,6 +145,9 @@ static long ceph_ioctl_set_layout_policy (struct file *file, void __user *arg)
+ 	int err;
+ 	struct ceph_mds_client *mdsc = ceph_sb_to_fs_client(inode->i_sb)->mdsc;
  
--	cancel_delayed_work_sync(&amt->req_wq);
--	cancel_delayed_work_sync(&amt->discovery_wq);
-+	disable_delayed_work_sync(&amt->req_wq);
-+	disable_delayed_work_sync(&amt->discovery_wq);
- 	cancel_delayed_work_sync(&amt->secret_wq);
- 
- 	/* shutdown */
-@@ -3317,6 +3323,8 @@ static int amt_newlink(struct net_device *dev,
- 	INIT_DELAYED_WORK(&amt->req_wq, amt_req_work);
- 	INIT_DELAYED_WORK(&amt->secret_wq, amt_secret_work);
- 	INIT_WORK(&amt->event_wq, amt_event_work);
-+	disable_delayed_work(&amt->req_wq);
-+	disable_delayed_work(&amt->discovery_wq);
- 	INIT_LIST_HEAD(&amt->tunnel_list);
- 	return 0;
- err:
++	if (!inode_owner_or_capable(&nop_mnt_idmap, inode))
++		return -EACCES;
++
+ 	/* copy and validate */
+ 	if (copy_from_user(&l, arg, sizeof(l)))
+ 		return -EFAULT;
 
