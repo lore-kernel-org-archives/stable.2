@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0345536F8F5
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:20:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2FBF209F43
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:20:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785295223; cv=none; b=jN6l/Qoa83O/cOc7sHbESazzMD77AA98rL1/kG+UdGSNg0BobWG95t2nJZKFPQsKTwY1RBe6pDDKHONC7iAcsuD9zSI7nyVe3O7Vdsga47hUJvMGSVXyYm+CsnExXLOCqxNWmz63pSoiEB5FP1j15ncm/j5ymnE7TjbVyTm0D5A=
+	t=1785295224; cv=none; b=nFh8XxMaJpJ1Wd2ARWixd1u8IXzKYHbfpvxxn7xg4qxOeISAKLAtaJBmDiWeuvi9H4mOSg1Y9OGE3FsSdVYR9uVmiUG7o/iqOwHtYPKXGCTbShBxPrp4tvCnqGGVueppgoSFS6hHdv6Me1jiH8AOtges/f9pUNHau7rsf4rjAeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785295223; c=relaxed/simple;
-	bh=ATA3YWjSdmR41r1wug9OcPT2u3mMSEF1lmSrqN8DHOs=;
+	s=arc-20240116; t=1785295224; c=relaxed/simple;
+	bh=Sh73miKYB6uYbxoBDAbeOehREZPwxWoWuKi9QRU7fXs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L8mgCXVAHU7Ng4EWmXqtyNtfM1rQlk0uIBarfOAjZ3Ya7gCrdxRBv2/6Nn1KeyQpsPpq44n11NtTS5U//OLe0w2cpFzxQ3m+tqdovODPnLTgxlObEpuPd4DZ9qLwCvcHNuwcvfZIqzpOPzddDUbOQF2g+CRUfyNBIJZrkUXJjWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hfakrsgH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HxF3QKdcd7/AiIgbEcDZKSdV1NOgc0BOMFyZm79m/R1oJZNellgUu7HqpoDMT+muMWTw0MYTuvSmup38AnJKqlsrB6baWZ+5i2q+0J7/a387mgNUXMU+L3R77GQT5nZSfHzhDXR9hSUEGwUv2N1P6v6btcM7AShxU45DRwvtxj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fxJjkXti; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hfakrsgH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF7D61F00A3D;
-	Wed, 29 Jul 2026 03:20:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fxJjkXti"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9FDB1F00A3A;
+	Wed, 29 Jul 2026 03:20:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785295221;
-	bh=+TXyuQjvDiZNxdoSat9qkW8jz0RgSA5nz1rh8tAw06g=;
+	s=k20260515; t=1785295222;
+	bh=Xntsj1reXEcDjAlqPx5ROKdUKmE5ZaNGEF7cvxchLAw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hfakrsgHrrl15X0og0CuhyAn4RL6VcXdhYpWJic967h0OAYDJgohzZSlCQ+GiFEOD
-	 uD1BaFMACb6Ikb+PLqxApSvsSdWE84CrHirHHt5pMDaZbqRupxjfEJm+GoS4X/i87h
-	 fSQ3kYnbeyFrE4Cueoy7VE96LLNV5CJ3KVy40DhtldYxMLgD0MfA/5hy+HVNb4i4jB
-	 VZJhecWAxJUStkyhRL7CL5149t2LaeLngNjwfA8V4emRvhPz1QDAUH0/gQq+H6sMr9
-	 zQXnP15Lyyo0JoEWMC02tGvbL5Cj0t/jUl2rod7Q/0nIIExU5YsidArbhbAbrRqM9O
-	 C+HIgJujKjsiw==
+	b=fxJjkXtiHfLKSGN1/7c5WQZvmb6DG/Xu5zkL86GCLczIa94angxGE0gXAlZJt7ibX
+	 p8vXBoXkndhk4Hjd31xbglchOXDTJyg/MAJnP1DjbIqAc0izBCzdSBZoy4q5d6HiiB
+	 lE6CXYiZy4Ntp2Ai3+F3U/yPv2vjP+sqS0L4ZI6+mOZHhwsBue9HLA9ddsypi2aiWw
+	 x18pIAGTFQUN4e/VEW1Jbdt2xjm0RsbbqiwY9LkRFwPByu96KkahkqLflBt5k/+5Bb
+	 Lqs05EGy1bfIRhX9UYljlxpDCF4faEMdlLRYGmOVQrUS8dsG3+rb9bEXvym+YNDcKS
+	 y5QzaxdVP8wXA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Crystal Wood <crwood@redhat.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
+Cc: Haoxiang Li <haoxiang_li2024@163.com>,
+	Larysa Zaremba <larysa.zaremba@intel.com>,
+	Alex Elder <elder@riscstar.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] tracing/osnoise: Call synchronize_rcu() when unregistering
-Date: Tue, 28 Jul 2026 23:20:18 -0400
-Message-ID: <20260729032018.1223942-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] net: ipa: fix SMEM state handle leaks in SMP2P init
+Date: Tue, 28 Jul 2026 23:20:20 -0400
+Message-ID: <20260729032020.1223984-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260729032018.1223942-1-sashal@kernel.org>
-References: <2026072147-clang-iguana-51e4@gregkh>
- <20260729032018.1223942-1-sashal@kernel.org>
+In-Reply-To: <2026072133-carload-confess-3274@gregkh>
+References: <2026072133-carload-confess-3274@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,40 +47,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Crystal Wood <crwood@redhat.com>
+From: Haoxiang Li <haoxiang_li2024@163.com>
 
-[ Upstream commit fe58f457ad8d0a2bef4e053cfecca4b5cd266b1a ]
+[ Upstream commit 96ca1e658ae459276292bd6d971ab5d8c7e0379a ]
 
-This ensures that any RCU readers traversing the instance list
-have finished, before releasing the reference on the tracer that
-the instance points to.
+ipa_smp2p_init() acquires two Qualcomm SMEM state handles with
+qcom_smem_state_get(). However, neither the init error paths
+nor ipa_smp2p_exit() release them.
 
+Release both handles with qcom_smem_state_put() in the init
+error paths and in ipa_smp2p_exit().
+
+Fixes: 530f9216a953 ("soc: qcom: ipa: AP/modem communications")
 Cc: stable@vger.kernel.org
-Fixes: a6ed2aee54644 ("tracing: Switch to kvfree_rcu() API")
-Link: https://patch.msgid.link/20260609045430.1589786-1-crwood@redhat.com
-Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Crystal Wood <crwood@redhat.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Reviewed-by: Larysa Zaremba <larysa.zaremba@intel.com>
+Reviewed-by: Alex Elder <elder@riscstar.com>
+Link: https://patch.msgid.link/20260624065955.2822765-1-haoxiang_li2024@163.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ kzalloc_obj() context line kept as kzalloc(sizeof(*smp2p), GFP_KERNEL) since ipa_smp2p.c was not yet converted in this tree ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_osnoise.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/net/ipa/ipa_smp2p.c | 30 ++++++++++++++++++++++--------
+ 1 file changed, 22 insertions(+), 8 deletions(-)
 
-diff --git a/kernel/trace/trace_osnoise.c b/kernel/trace/trace_osnoise.c
-index 417b62f7550978..3b3f31ca45831b 100644
---- a/kernel/trace/trace_osnoise.c
-+++ b/kernel/trace/trace_osnoise.c
-@@ -137,7 +137,9 @@ static void osnoise_unregister_instance(struct trace_array *tr)
- 	if (!found)
- 		return;
+diff --git a/drivers/net/ipa/ipa_smp2p.c b/drivers/net/ipa/ipa_smp2p.c
+index cbf3d4761ce357..225d952c01af81 100644
+--- a/drivers/net/ipa/ipa_smp2p.c
++++ b/drivers/net/ipa/ipa_smp2p.c
+@@ -233,19 +233,27 @@ int ipa_smp2p_init(struct ipa *ipa, bool modem_init)
+ 					  &valid_bit);
+ 	if (IS_ERR(valid_state))
+ 		return PTR_ERR(valid_state);
+-	if (valid_bit >= 32)		/* BITS_PER_U32 */
+-		return -EINVAL;
++	if (valid_bit >= 32) {		/* BITS_PER_U32 */
++		ret = -EINVAL;
++		goto err_valid_state_put;
++	}
  
--	kvfree_rcu_mightsleep(inst);
-+	/* Do a full sync to ensure that tr remains valid, not just inst */
-+	synchronize_rcu();
-+	kvfree(inst);
+ 	enabled_state = qcom_smem_state_get(dev, "ipa-clock-enabled",
+ 					    &enabled_bit);
+-	if (IS_ERR(enabled_state))
+-		return PTR_ERR(enabled_state);
+-	if (enabled_bit >= 32)		/* BITS_PER_U32 */
+-		return -EINVAL;
++	if (IS_ERR(enabled_state)) {
++		ret = PTR_ERR(enabled_state);
++		goto err_valid_state_put;
++	}
++	if (enabled_bit >= 32) {		/* BITS_PER_U32 */
++		ret = -EINVAL;
++		goto err_enabled_state_put;
++	}
+ 
+ 	smp2p = kzalloc(sizeof(*smp2p), GFP_KERNEL);
+-	if (!smp2p)
+-		return -ENOMEM;
++	if (!smp2p) {
++		ret = -ENOMEM;
++		goto err_enabled_state_put;
++	}
+ 
+ 	smp2p->ipa = ipa;
+ 
+@@ -290,6 +298,10 @@ int ipa_smp2p_init(struct ipa *ipa, bool modem_init)
+ 	ipa->smp2p = NULL;
+ 	mutex_destroy(&smp2p->mutex);
+ 	kfree(smp2p);
++err_enabled_state_put:
++	qcom_smem_state_put(enabled_state);
++err_valid_state_put:
++	qcom_smem_state_put(valid_state);
+ 
+ 	return ret;
+ }
+@@ -306,6 +318,8 @@ void ipa_smp2p_exit(struct ipa *ipa)
+ 	ipa_smp2p_power_release(ipa);
+ 	ipa->smp2p = NULL;
+ 	mutex_destroy(&smp2p->mutex);
++	qcom_smem_state_put(smp2p->enabled_state);
++	qcom_smem_state_put(smp2p->valid_state);
+ 	kfree(smp2p);
  }
  
- /*
 -- 
 2.53.0
 
