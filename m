@@ -1,260 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7096947DFBB
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B30480973;
+	Wed, 29 Jul 2026 14:45:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785336306; cv=none; b=f5PrqVcENUubKNBbYxYAvadE4TueUAalcrGDeRidcT7Uimaau7+ZIfEfwSoLT/KLyeWtwh7920sP/jQGkzObLXdZte7Cpqu7Dplr3oH6fRnpMXEOTZIKvATlKCWfZHMaBkiPKNY2CLk2wkdp7ZbvMRztbinxPMxaHzITByMiDvE=
+	t=1785336312; cv=none; b=R+qPIs6zX6+c13wm93hgexuxxFAaj1FkG08L/yFGD0exm+uTjkZkGpPNX295e04NDpBSuoEsLNW2/SzDJq84/CrkaCeGU6WXXcixOjBAaxFcv5ts957mwhXfzmeluTwnz35pVbL8EAC0KMGSF9JpmZFtRoE5HZGfAYz42//WKoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785336306; c=relaxed/simple;
-	bh=QT9zMD5G8nLpycaF6mJQ1dh23cnzCQF2A9zDISV0QL0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FsE3+kSfSwBjUA8/BRHK95YEVccT90l9gThmxP6B86BP7KzlfwJ170RxBjfgd9Iaq/PMSBdxc7mB9WaYcroSy6e1/lvws5/yakprlSRh32erbHqajlI9q6jNAa+takK4MpMS/8IF94fWwxLCkMTIt8S+AHso76ZvJD/CUO5a99k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ULjNCaWa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785336312; c=relaxed/simple;
+	bh=bXWHlNFFqWc8hoUa1BhjixQ+su1V7I+cc3/IV3jnf7o=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=IEuxYV2r3wT9EOkp9xgyxbbBSF2lHzaKHGN07dkqKJsdcYCkotOTGvbNwAkfsVJ0yk5pFOecPRHpRFbl5ZWiZV4Rpqr2ai9lR3ykogwQdrl3E73Ntfl3nyfnwsjKLjo7f57HyeUfclqLmYySY2NgHol2sQEZHlejLPL7iRIwmCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=KpQCwMoP; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ULjNCaWa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0F4B1F000E9;
-	Wed, 29 Jul 2026 14:45:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785336303;
-	bh=G6u30/ZyTk8aE46Kvww/xvAlspFLjFUJujhDV2Xs1eo=;
-	h=Subject:To:Cc:From:Date;
-	b=ULjNCaWazXQq19RwzSeItXzKteje16dwiGTKJSPMNL8pOJXiBfnzn5hdGRrej+8xq
-	 yEq67m6gC7g9MhzeoE/P+8Zw/tBmxvh3mnqFQEqFeYIDKJbn3oCDFXBV2CCqG0v/Go
-	 u75De71a50+Fa6zATZ2uDseR+eLu07w+g9wSUUSk=
-Subject: FAILED: patch "[PATCH] openvswitch: fix GSO userspace truncation underflow" failed to apply to 6.6-stable tree
-To: kylebot@openai.com,aconole@redhat.com,i.maximets@ovn.org,pabeni@redhat.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 16:44:49 +0200
-Message-ID: <2026072949-transform-lagoon-f0a4@gregkh>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="KpQCwMoP"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=cedqOYtFSfQFA+PIn+vDDyLZ60Xw1oFxndd4sPmxa48=; b=KpQCwMoP+r7S0f1yKSjaXwmJpZ
+	kQUoXmioOZDbpLhFxgsbBrl+A7dw1C4BhIRv+HiGIDsOci1kxWtYz1dvAqfXqnQn+KBUOWGusOXph
+	cshLs27zveHzaKIz8jg5eNi0OApmnm4pWG/zwtSHwChvuzQSdQNwiZ/wStjt1xHAPmBXiSpWp07Gq
+	hDo/1AOXt+hRc22pWqawHE8kIAHE+DzskX1K3eJRL+m9f5cNINcORFxmPTLswvqj6OWhtKnDuL5Zw
+	Ubj/YRZf+7hymFWKyCqMGe6fwV8/HCjewxITTzFtYUpQl0XL1T9hizNPHGDXnmSZQPrBeKCm1eG6J
+	VlEoMtIA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1wp5Wi-008WbI-2i;
+	Wed, 29 Jul 2026 14:44:57 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Wed, 29 Jul 2026 07:44:40 -0700
+Subject: [PATCH] uprobes: Fix NULL pointer dereference in hprobe_expire()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260729-uprobe-v1-1-61896b87c867@debian.org>
+X-B4-Tracking: v=1; b=H4sIANcRamoC/x3MSwqAMAwFwKuEt7ZQ479XERdWo2aj0qII0rsLz
+ gHmRZSgEuHoRZBbox47HOUZYdrGfRWjMxyBLde24c5cZzi8GJ+X7G1bF1XDyAhnkEWfP+qHlD5
+ cBmAuWAAAAA==
+X-Change-ID: 20260729-uprobe-b142b0863572
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Andrii Nakryiko <andrii@kernel.org>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, kernel-team@meta.com, 
+ stable@vger.kernel.org, Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.16-dev-d5d98
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2184; i=leitao@debian.org;
+ h=from:subject:message-id; bh=bXWHlNFFqWc8hoUa1BhjixQ+su1V7I+cc3/IV3jnf7o=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqahHkGn6PxPpFigsr9bK4vbcC8PQ0EnL1VvSK0
+ NkX3M5f6yaJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCamoR5AAKCRA1o5Of/Hh3
+ baAgD/9Ydp2V9zy3Mo26lARnfy9qe7whhZLkeqiRR2Y01NUAzkpNUOFziR6m5269h6RG6LF7Ri5
+ Pvtg3HS4alk1MEKldOjDm0pERODyOMWEr/a2SemKL1bL9o+WGuwiVZvNBb1v26IOgxidxfhVzt2
+ x83XIkxPVEAhW7PWOeMi2EwXTK1HFVE0k2mjSiK6WDYpK/ZsvkSCSP/GIABeAsWQKs1fEu66s6O
+ yYq+iQUyNgVtMhUuLALmuyPQwmn7bqMxu37h5E2TpvHGC6rOWXi4C+79lxFMN2q+6jbqFykt4jh
+ o0Do9ZCi4S98HyiGOTtFxEd7Vj7SIg+RqCjfJbfy1k52PSt4ycpkxdbtZyxTUDPpMIE1k9/0BYM
+ t1BA0/UtNor0h+FfBpXjJcV39+PzBt/HLr2zN+G1Lb6xB/Z0qcRzVotRoxaIRmDmHPg3PHEd35f
+ 1O4JhihAnPtXwEHjiNOxbafDm5iDXvtpd7jQThA95bhCa7H8xFWth4/3/Ob9+xXFdF3ZqjZ8Nqz
+ pv4qFD7+a9nihXFbmMhW0PAsS51+bKjd6V3F5+6TvL1nkhmlXdrgA5Nsm1CLHBid5QcLQ4IEOkd
+ Y6cP40CN8nnj8zluQjarzrXsljDNnFmSMiaWkb7xtfd302gQhr78D/RoWId511Afug5B0bEn+At
+ BYnW8kM62PAN/4Q==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
+Forking a task that has a pending uretprobe can oops the kernel with a
+NULL pointer dereference in the clone() path:
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+  BUG: kernel NULL pointer dereference, address: 0000000000000018
+  Oops: 0002 [#1] SMP NOPTI
+  RIP: 0010:hprobe_expire
+  CR2: 0000000000000018
+  Call Trace:
+   uprobe_copy_process
+   copy_process
+   kernel_clone
+   __x64_sys_clone
+   do_syscall_64
+   entry_SYSCALL_64_after_hwframe
 
-To reproduce the conflict and resubmit, you may use the following commands:
+This was found on real hosts on Meta fleet.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x 4032f8ed10fcb84d41c508dfb04be96589f78dfe
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072949-transform-lagoon-f0a4@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+I've got the impression that this is what is happening:
 
-Possible dependencies:
+  CPU 1                          CPU 2 (traced task)
+  -----                          -------------------
+                                 hit uprobe, prepare_uretprobe():
+                                   hprobe LEASED, refcount >= 1
+  uprobe_unregister()
+    put_uprobe(): refcount -> 0
+                                 fork() -> dup_utask()
+                                   hprobe_expire(hprobe, true)
+                                     try_get_uprobe() -> NULL
+                                     get_uprobe(NULL)   <-- Oops
 
+Only take the extra reference when the uprobe is non-NULL; a NULL means
+it is gone and is the correct value to return.
 
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 4032f8ed10fcb84d41c508dfb04be96589f78dfe Mon Sep 17 00:00:00 2001
-From: Kyle Zeng <kylebot@openai.com>
-Date: Tue, 7 Jul 2026 15:16:35 -0700
-Subject: [PATCH] openvswitch: fix GSO userspace truncation underflow
-
-OVS_ACTION_ATTR_TRUNC currently stores a delta from the original skb
-length in OVS_CB(skb)->cutlen. When a later userspace action segments a
-GSO skb, queue_gso_packets() reuses that delta for each smaller segment.
-A segment can then reach queue_userspace_packet() with cutlen greater
-than skb->len, underflowing the length passed to skb_zerocopy().
-
-Store the maximum preserved length instead and bound each consumer
-against the current skb length. Use U32_MAX as the no-truncation
-sentinel so the value remains valid if skb geometry changes before a
-consumer handles it.
-
-Fixes: f2a4d086ed4c ("openvswitch: Add packet truncation support.")
+Fixes: dd1a7567784e ("uprobes: SRCU-protect uretprobe lifetime (with timeout)")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
-Reviewed-by: Aaron Conole <aconole@redhat.com>
-Link: https://patch.msgid.link/20260707221635.27489-1-kylebot@openai.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ kernel/events/uprobes.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
-index 140388a18ae0..513fca6a8e8a 100644
---- a/net/openvswitch/actions.c
-+++ b/net/openvswitch/actions.c
-@@ -837,12 +837,8 @@ static void do_output(struct datapath *dp, struct sk_buff *skb, int out_port,
- 		u16 mru = OVS_CB(skb)->mru;
- 		u32 cutlen = OVS_CB(skb)->cutlen;
- 
--		if (unlikely(cutlen > 0)) {
--			if (skb->len - cutlen > ovs_mac_header_len(key))
--				pskb_trim(skb, skb->len - cutlen);
--			else
--				pskb_trim(skb, ovs_mac_header_len(key));
--		}
-+		if (unlikely(cutlen < skb->len))
-+			pskb_trim(skb, max(cutlen, ovs_mac_header_len(key)));
- 
- 		if (likely(!mru ||
- 		           (skb->len <= mru + vport->dev->hard_header_len))) {
-@@ -1234,7 +1230,7 @@ static void execute_psample(struct datapath *dp, struct sk_buff *skb,
- 
- 	psample_group.net = ovs_dp_get_net(dp);
- 	md.in_ifindex = OVS_CB(skb)->input_vport->dev->ifindex;
--	md.trunc_size = skb->len - OVS_CB(skb)->cutlen;
-+	md.trunc_size = min(skb->len, OVS_CB(skb)->cutlen);
- 	md.rate_as_probability = 1;
- 
- 	rate = OVS_CB(skb)->probability ? OVS_CB(skb)->probability : U32_MAX;
-@@ -1284,22 +1280,21 @@ static int do_execute_actions(struct datapath *dp, struct sk_buff *skb,
- 			clone = skb_clone(skb, GFP_ATOMIC);
- 			if (clone)
- 				do_output(dp, clone, port, key);
--			OVS_CB(skb)->cutlen = 0;
-+			OVS_CB(skb)->cutlen = U32_MAX;
- 			break;
+diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
+index 07f69dd3093d5..950108f92079d 100644
+--- a/kernel/events/uprobes.c
++++ b/kernel/events/uprobes.c
+@@ -832,7 +832,7 @@ static struct uprobe *hprobe_expire(struct hprobe *hprobe, bool get)
+ 		if (try_cmpxchg(&hprobe->state, &hstate, uprobe ? HPROBE_STABLE : HPROBE_GONE)) {
+ 			/* We won the race, we are the ones to unlock SRCU */
+ 			__srcu_read_unlock(&uretprobes_srcu, hprobe->srcu_idx);
+-			return get ? get_uprobe(uprobe) : uprobe;
++			return get && uprobe ? get_uprobe(uprobe) : uprobe;
  		}
  
- 		case OVS_ACTION_ATTR_TRUNC: {
- 			struct ovs_action_trunc *trunc = nla_data(a);
- 
--			if (skb->len > trunc->max_len)
--				OVS_CB(skb)->cutlen = skb->len - trunc->max_len;
-+			OVS_CB(skb)->cutlen = trunc->max_len;
- 			break;
- 		}
- 
- 		case OVS_ACTION_ATTR_USERSPACE:
- 			output_userspace(dp, skb, key, a, attr,
- 						     len, OVS_CB(skb)->cutlen);
--			OVS_CB(skb)->cutlen = 0;
-+			OVS_CB(skb)->cutlen = U32_MAX;
- 			if (nla_is_last(a, rem)) {
- 				consume_skb(skb);
- 				return 0;
-@@ -1453,7 +1448,7 @@ static int do_execute_actions(struct datapath *dp, struct sk_buff *skb,
- 
- 		case OVS_ACTION_ATTR_PSAMPLE:
- 			execute_psample(dp, skb, a);
--			OVS_CB(skb)->cutlen = 0;
-+			OVS_CB(skb)->cutlen = U32_MAX;
- 			if (nla_is_last(a, rem)) {
- 				consume_skb(skb);
- 				return 0;
-diff --git a/net/openvswitch/datapath.c b/net/openvswitch/datapath.c
-index f0164817d9b7..eaf332b156d7 100644
---- a/net/openvswitch/datapath.c
-+++ b/net/openvswitch/datapath.c
-@@ -276,7 +276,7 @@ void ovs_dp_process_packet(struct sk_buff *skb, struct sw_flow_key *key)
- 			upcall.portid = ovs_vport_find_upcall_portid(p, skb);
- 
- 		upcall.mru = OVS_CB(skb)->mru;
--		error = ovs_dp_upcall(dp, skb, key, &upcall, 0);
-+		error = ovs_dp_upcall(dp, skb, key, &upcall, U32_MAX);
- 		switch (error) {
- 		case 0:
- 		case -EAGAIN:
-@@ -457,7 +457,8 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
- 	struct sk_buff *nskb = NULL;
- 	struct sk_buff *user_skb = NULL; /* to be queued to userspace */
- 	struct nlattr *nla;
--	size_t len;
-+	size_t msg_size;
-+	size_t skb_len;
- 	unsigned int hlen;
- 	int err, dp_ifindex;
- 	u64 hash;
-@@ -478,7 +479,8 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
- 		skb = nskb;
- 	}
- 
--	if (nla_attr_size(skb->len) > USHRT_MAX) {
-+	skb_len = min(skb->len, cutlen);
-+	if (nla_attr_size(skb_len) > USHRT_MAX) {
- 		err = -EFBIG;
- 		goto out;
- 	}
-@@ -493,13 +495,13 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
- 	 * padding logic. Only perform zerocopy if padding is not required.
- 	 */
- 	if (dp->user_features & OVS_DP_F_UNALIGNED)
--		hlen = skb_zerocopy_headlen(skb);
-+		hlen = min(skb_zerocopy_headlen(skb), cutlen);
- 	else
--		hlen = skb->len;
-+		hlen = skb_len;
- 
--	len = upcall_msg_size(upcall_info, hlen - cutlen,
--			      OVS_CB(skb)->acts_origlen);
--	user_skb = genlmsg_new(len, GFP_ATOMIC);
-+	msg_size = upcall_msg_size(upcall_info, hlen,
-+				   OVS_CB(skb)->acts_origlen);
-+	user_skb = genlmsg_new(msg_size, GFP_ATOMIC);
- 	if (!user_skb) {
- 		err = -ENOMEM;
- 		goto out;
-@@ -560,7 +562,7 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
- 	}
- 
- 	/* Add OVS_PACKET_ATTR_LEN when packet is truncated */
--	if (cutlen > 0 &&
-+	if (skb_len < skb->len &&
- 	    nla_put_u32(user_skb, OVS_PACKET_ATTR_LEN, skb->len)) {
- 		err = -ENOBUFS;
- 		goto out;
-@@ -585,9 +587,9 @@ static int queue_userspace_packet(struct datapath *dp, struct sk_buff *skb,
- 		err = -ENOBUFS;
- 		goto out;
- 	}
--	nla->nla_len = nla_attr_size(skb->len - cutlen);
-+	nla->nla_len = nla_attr_size(skb_len);
- 
--	err = skb_zerocopy(user_skb, skb, skb->len - cutlen, hlen);
-+	err = skb_zerocopy(user_skb, skb, skb_len, hlen);
- 	if (err)
- 		goto out;
- 
-@@ -644,6 +646,7 @@ static int ovs_packet_cmd_execute(struct sk_buff *skb, struct genl_info *info)
- 		packet->ignore_df = 1;
- 	}
- 	OVS_CB(packet)->mru = mru;
-+	OVS_CB(packet)->cutlen = U32_MAX;
- 
- 	if (a[OVS_PACKET_ATTR_HASH]) {
- 		hash = nla_get_u64(a[OVS_PACKET_ATTR_HASH]);
-diff --git a/net/openvswitch/datapath.h b/net/openvswitch/datapath.h
-index db0c3e69d66c..696640e88fa7 100644
---- a/net/openvswitch/datapath.h
-+++ b/net/openvswitch/datapath.h
-@@ -118,7 +118,7 @@ struct datapath {
-  * @mru: The maximum received fragement size; 0 if the packet is not
-  * fragmented.
-  * @acts_origlen: The netlink size of the flow actions applied to this skb.
-- * @cutlen: The number of bytes from the packet end to be removed.
-+ * @cutlen: The number of bytes in the packet to preserve on output.
-  * @probability: The sampling probability that was applied to this skb; 0 means
-  * no sampling has occurred; U32_MAX means 100% probability.
-  * @upcall_pid: Netlink socket PID to use for sending this packet to userspace;
-diff --git a/net/openvswitch/vport.c b/net/openvswitch/vport.c
-index 56b2e2d1a749..12741485c939 100644
---- a/net/openvswitch/vport.c
-+++ b/net/openvswitch/vport.c
-@@ -502,7 +502,7 @@ int ovs_vport_receive(struct vport *vport, struct sk_buff *skb,
- 
- 	OVS_CB(skb)->input_vport = vport;
- 	OVS_CB(skb)->mru = 0;
--	OVS_CB(skb)->cutlen = 0;
-+	OVS_CB(skb)->cutlen = U32_MAX;
- 	OVS_CB(skb)->probability = 0;
- 	OVS_CB(skb)->upcall_pid = 0;
- 	if (unlikely(dev_net(skb->dev) != ovs_dp_get_net(vport->dp))) {
+ 		/*
+
+---
+base-commit: 3652b49adac266a3d27cb41cdfdb7d8790fc3633
+change-id: 20260729-uprobe-b142b0863572
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
