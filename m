@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6EE23BCED
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 00:30:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5F823BCED
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 00:30:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785285053; cv=none; b=RhQ+uuuyX3VHkxyrl4s5pFQXk+WNRAAB6W5aUBzlCBLsHXypNEVwqqpDzzhTVSl15PBf3wEZl5EXBJxDg974sXaSLmDzKSfoVbd0umLlKmALfpppIHt5XA+1JixGX/mCsBiGlaTo8Ta6t5gshjK2XWSeMSzUNaoIRpGjTzBeBDg=
+	t=1785285058; cv=none; b=CDf4amMSQzfvKcuQ0HhU8f+tgV5HOIoFH3Y3711uHKB9CDeqWJWPjQ99dhoe+0AuX9GEVsjxXrJULvcT2szh9SZyEsD0RmldhwhF//7/7uIa8rXUkqIuZMyzAxrf5RH4NtvH2c/wPRcfvgHFloCY3UOOLevQEiTTK1uSwSS02tY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785285053; c=relaxed/simple;
-	bh=AtyNHYpr19erox4R+gWPHaSLt+ABfgKT8VOj+wU1Fr8=;
+	s=arc-20240116; t=1785285058; c=relaxed/simple;
+	bh=MxILQiYtH5G73HD6g/Njgwl1zLJjWOI9sUsxEDnxuzs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dQmcQ0KfIz2kR/UI/6jMPYoSVDz4qQE+j9pCBSCNK0ZiAQQsTalBqDpsrieSNARPy1KdxIiJR8Jqr0k9xEHELZEtnnFwtOckLdpicTN1iVvF2/kHbEShQ/lan3LfdPuUAEUYMkuqwjoVQWOkCE1FI4DeUWsJby6kJAnz8ttxXdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WOG3bmpq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PkG76NcXJR6SWWVIpAwsYQkQEQRj9Tw3u9+/wxGzI77w7ZV9FXp2ldUCitzuft2ORcn15nMDzWenHY9TfKTG9cOu81D7nMv3dRHKdXPhntCxIoSm5PXu5eVnNZCMk0EEFLqsYp8KBfuyNa+6DVXrs6xAWlBJX4MWqoUVKyNxi3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EG1SGpCJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WOG3bmpq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A5181F000E9;
-	Wed, 29 Jul 2026 00:30:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EG1SGpCJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DC631F000E9;
+	Wed, 29 Jul 2026 00:30:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785285051;
-	bh=hoSzebHC6Iau7EYX9g/a5oz2HCcKuqgHJ+OsXElKmh8=;
+	s=k20260515; t=1785285056;
+	bh=TcD6KL9fXe0yYw6XYpVRWNXWmVM4itposG0kzsSEZKs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WOG3bmpqJ3O93by6zNufrTioJD147BcyJBYXNh61zFxelruSP/JyZf2boyl6tjoQ1
-	 0i8EtJBretPPU74ki/kYzi06hPFLg9K30lC2ngb9rD9T0ZeoULKU4sTpLTseYmSp+J
-	 uVLZpz09/CH5uQhwaTip2quTNXt6q4uyd6vv/raGv18EgfKEnJT8rOQd7Srk1ISqL9
-	 hcRfW+ow0xBj8UDVi22vIhA1Xrw+KhExmUXP6qsFH0LU+Z2U1ofoaWiMj2nDRrop4t
-	 TvBMRtsj/In2im6J3B0fLk8/paou7UAVoeXEq+NsD7z6ONWQKo8jdiaFQffAM1GmdH
-	 XnHOrm6fZ+TNw==
+	b=EG1SGpCJ+9+PqomyrH68Bb5wa7Nn8eAAQxH2XSQlnTybSAGjvGoin5eaMbE1ytywN
+	 rkYu18jrskmGa8Qirps7xcWG0D0hgWJDXZe1EpnORfWNQ7PA7OdqzcJQ3ozoH4RBo3
+	 py4BZlIiuBW8xTCobtkllHDOnJBUrWJcKZf0aVzLoG9AUeyvQU7kHZhK7b7AYhoiC6
+	 yN+lfSL2g05EXBvwcGWpHWCvx83I+R1KdCLkxXhszUilTumF++/AtC3GSSBya8l0D+
+	 b+w4xO1rGOgsXIzgEWjnwQ4+l4aX6VS02o8Ksd/YShdg23qKkSbmY2rGVho7xdT2pw
+	 +G3FK60lxhOsg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
+Cc: Dawei Feng <dawei.feng@seu.edu.cn>,
+	Ratheesh Kannoth <rkannoth@marvell.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ata: libata-core: Reject an invalid concurrent positioning ranges count
-Date: Tue, 28 Jul 2026 20:30:49 -0400
-Message-ID: <20260729003049.888768-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] octeontx2-pf: fix SQB pointer leak on init failure
+Date: Tue, 28 Jul 2026 20:30:53 -0400
+Message-ID: <20260729003053.889460-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072112-opacity-hamster-c113@gregkh>
-References: <2026072112-opacity-hamster-c113@gregkh>
+In-Reply-To: <2026072127-glitch-eel-f400@gregkh>
+References: <2026072127-glitch-eel-f400@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,103 +46,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+From: Dawei Feng <dawei.feng@seu.edu.cn>
 
-[ Upstream commit 533a0b940f901c15e5cbbd4b5d66e871c209e8ce ]
+[ Upstream commit 62e7df6d042aeebd5efb581074e28865c04477be ]
 
-ata_dev_config_cpr() takes the number of range descriptors from buf[0]
-of the concurrent positioning ranges log (up to 255), which the device
-reports independently of the log size in the GPL directory. The count is
-then walked at a fixed 32-byte stride in two places with no bound: the
-log read here, and the INQUIRY VPD page B9h emitter, which writes one
-descriptor per range into the fixed 2048-byte ata_scsi_rbuf. A device
-reporting a count larger than its own log overflows the read buffer (up
-to 7704 bytes past a 512-byte slab), and a count above 62 overflows the
-response buffer on the emit side.
+otx2_init_hw_resources() initializes SQ aura and pool resources before
+several later setup steps. On failure, err_free_sq_ptrs only frees SQB
+pages, leaving the per-SQ sqb_ptrs arrays behind.
 
-Bound the count once, on probe, against both the log the device returned
-and the number of descriptors the VPD B9h response buffer can hold
-(ATA_DEV_MAX_CPR, derived from the rbuf size). Reject an out-of-range
-count with a warning; this keeps the emitter in bounds with no separate
-change there.
+Use otx2_free_sq_res() for the SQ unwind path and let it free sqb_ptrs
+even when sq->sqe has not been allocated yet.
 
-Suggested-by: Damien Le Moal <dlemoal@kernel.org>
-Fixes: fe22e1c2f705 ("libata: support concurrent positioning ranges log")
-Fixes: c745dfc541e7 ("libata: fix reading concurrent positioning ranges log")
+The bug was first flagged by an experimental analysis tool we are
+developing for kernel memory-management bugs while analyzing
+v6.13-rc1. The tool is still under development and is not yet publicly
+available. Manual inspection confirms that the bug is still
+present in v7.1.1.
+
+An x86_64 allyesconfig build showed no new warnings. As we do not have an
+OcteonTX2 PF device and the corresponding AF mailbox setup to test with,
+no runtime testing was able to be performed.
+
+Fixes: caa2da34fd25 ("octeontx2-pf: Initialize and config queues")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Niklas Cassel <cassel@kernel.org>
-Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
-[ adapted `kzalloc_flex()` allocation to `kzalloc(struct_size(...), GFP_KERNEL)` and adjusted context offsets. ]
+Reviewed-by: Ratheesh Kannoth <rkannoth@marvell.com>
+Signed-off-by: Dawei Feng <dawei.feng@seu.edu.cn>
+Link: https://patch.msgid.link/20260630071625.349996-1-dawei.feng@seu.edu.cn
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ata/libata-core.c | 18 ++++++++++++++++++
- drivers/ata/libata-scsi.c |  2 --
- drivers/ata/libata.h      |  9 +++++++++
- 3 files changed, 27 insertions(+), 2 deletions(-)
+ .../ethernet/marvell/octeontx2/nic/otx2_pf.c    | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
-index 22ce6accbc5bb5..f0753f5e57a8e1 100644
---- a/drivers/ata/libata-core.c
-+++ b/drivers/ata/libata-core.c
-@@ -2833,6 +2833,24 @@ static void ata_dev_config_cpr(struct ata_device *dev)
- 	if (!nr_cpr)
- 		goto out;
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+index b0b0b4929e8ce2..b36da00bf13b2e 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+@@ -1439,13 +1439,13 @@ static void otx2_free_sq_res(struct otx2_nic *pf)
+ 	otx2_sq_free_sqbs(pf);
+ 	for (qidx = 0; qidx < otx2_get_total_tx_queues(pf); qidx++) {
+ 		sq = &qset->sq[qidx];
+-		/* Skip freeing Qos queues if they are not initialized */
+-		if (!sq->sqe)
+-			continue;
+-		qmem_free(pf->dev, sq->sqe);
+-		qmem_free(pf->dev, sq->tso_hdrs);
+-		qmem_free(pf->dev, sq->timestamps);
+-		kfree(sq->sg);
++		/* sq->sqe is not initialized for unused QoS queues */
++		if (sq->sqe) {
++			qmem_free(pf->dev, sq->sqe);
++			qmem_free(pf->dev, sq->tso_hdrs);
++			qmem_free(pf->dev, sq->timestamps);
++			kfree(sq->sg);
++		}
+ 		kfree(sq->sqb_ptrs);
+ 	}
+ }
+@@ -1571,13 +1571,12 @@ static int otx2_init_hw_resources(struct otx2_nic *pf)
+ 	return err;
  
-+	/*
-+	 * The device reports the number of CPR descriptors independently of the
-+	 * log size, and that count is also used to emit VPD page B9h into the
-+	 * fixed-size rbuf. Reject a count larger than what that buffer can hold
-+	 * (ATA_DEV_MAX_CPR) or larger than the log the device actually returned.
-+	 */
-+	if (nr_cpr > ATA_DEV_MAX_CPR) {
-+		ata_dev_warn(dev,
-+			     "Too many concurrent positioning ranges\n");
-+		goto out;
-+	}
-+
-+	if (buf_len < 64 + (size_t)nr_cpr * 32) {
-+		ata_dev_warn(dev,
-+			     "Invalid number of concurrent positioning ranges\n");
-+		goto out;
-+	}
-+
- 	cpr_log = kzalloc(struct_size(cpr_log, cpr, nr_cpr), GFP_KERNEL);
- 	if (!cpr_log)
- 		goto out;
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index 46ef1ef6f81282..a7916b50cbfcad 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -37,8 +37,6 @@
- #include "libata.h"
- #include "libata-transport.h"
- 
--#define ATA_SCSI_RBUF_SIZE	2048
--
- static DEFINE_SPINLOCK(ata_scsi_rbuf_lock);
- static u8 ata_scsi_rbuf[ATA_SCSI_RBUF_SIZE];
- 
-diff --git a/drivers/ata/libata.h b/drivers/ata/libata.h
-index 0002994ddfc9b4..56c4136b741798 100644
---- a/drivers/ata/libata.h
-+++ b/drivers/ata/libata.h
-@@ -144,6 +144,15 @@ static inline void ata_acpi_bind_dev(struct ata_device *dev) {}
- #endif
- 
- /* libata-scsi.c */
-+#define ATA_SCSI_RBUF_SIZE	2048
-+
-+/*
-+ * Maximum number of concurrent positioning ranges (CPR) supported. The ACS
-+ * specifications allow up to 255, but we limit this to the number of CPR
-+ * descriptors that fit in the rbuf buffer used to emit VPD page B9h.
-+ */
-+#define ATA_DEV_MAX_CPR		min(255, ((ATA_SCSI_RBUF_SIZE - 64) / 32))
-+
- extern struct ata_device *ata_scsi_find_dev(struct ata_port *ap,
- 					    const struct scsi_device *scsidev);
- extern int ata_scsi_add_hosts(struct ata_host *host,
+ err_free_nix_queues:
+-	otx2_free_sq_res(pf);
+ 	otx2_free_cq_res(pf);
+ 	otx2_ctx_disable(mbox, NIX_AQ_CTYPE_RQ, false);
+ err_free_txsch:
+ 	otx2_txschq_stop(pf);
+ err_free_sq_ptrs:
+-	otx2_sq_free_sqbs(pf);
++	otx2_free_sq_res(pf);
+ err_free_rq_ptrs:
+ 	otx2_free_aura_ptr(pf, AURA_NIX_RQ);
+ 	otx2_ctx_disable(mbox, NPA_AQ_CTYPE_POOL, true);
 -- 
 2.53.0
 
