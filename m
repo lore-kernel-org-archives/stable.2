@@ -1,197 +1,300 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822D5455167
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:28:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785338932; cv=pass; b=CEz2u37/z0SxByjQStZ05ApV+vZcn7GeZYKNKzK0SlgTlAKzcVkEmdpV5yhfPkNYd431Cw9pdRIN2qfK60FXiaLSoHr2acVkGbmOpT4Xl9QTqs5QnOqq0wWyWdE9lFfph+urlHV47eCK0yy7Hl+YV6xDjuQ3Pq8VgcYY5iAxlRg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785338932; c=relaxed/simple;
-	bh=C6R/o07THPKaUY0DQJZ5/BVO3pGAOQVKEDgT/HGBRcM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OskpYNBPTbUk+bt+4L5B0OsqnNkWz0JOkK28rkK7ZJT2SGgb/8pjVzLViO9KlXiK/RaI+klToTp12YBjWDlV9y8wGOUIUybkinKDvZO213TEgYlr8kTcsuzZHCgtxZcsAgaC4zhXwYqSCzNnVP2HQN2YvORc9kGVwgv35+yAUVg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=eVeTdH/c; arc=pass smtp.client-ip=209.85.208.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CD045516D;
+	Wed, 29 Jul 2026 15:29:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785338947; cv=none; b=u7rK0142aIPx5TnoWEi4IF0BCqgroXXZId7lyb1cGPmatBj+cWaA4QflBa0/tZK7MWsYwdE3/opLpwVH7vXY7w+OFqDKWBzSvpUxopcWrF67/HNafodjVmQ7DNN5apZhVT8plOewMz+hZ+d1DBWvaOMQxktIP0QGT5eMG+1Av0s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785338947; c=relaxed/simple;
+	bh=8FXNGIbcD7fVthHQ5MX5mh8TM8dY3SYmyPBAnyzpT54=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nB9gZOMoUM7VCIEVjDVM1glHVG/G1p0LLZ+mAEo3oRFY6KLWQDqF8NoYZzTvwjdPSc702W76laalWeL4ahVGT580s75yGBXYJbVYaEp9+ioYbG7tgvzx9+ual/2aJ1Il3NFnpyEVwB6NIK7aup4SnFzDiUVQ7SSry/l2pZBNn8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k/mKD4SE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="eVeTdH/c"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39c74722e27so11931821fa.0
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 08:28:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785338928; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qqjO920T3BJjESyoYNQoZTN8kUl/yONxMP6zFa2tJILIDW2lYCd1PjnaYS5vZMo9BN
-         mUy37xYsip7Z+CemnwLvS9PUUDSuyahqiCht7a8YZWkPWF8mqVGt+mWRNK3X5oAbTuho
-         jQuPbH/6HnDvgm0dGTngXqFpV4eRVeI5AFjRx/SpA9mRdX6poSmRRzU/mHetKPJVoQDr
-         il17L/WAAxri9fN+QhtF8Jm7HgqZF/Ly6TUfmjTRowDJNJYvJsoyZTBTFw23aEtoI1co
-         ohgPZ4nT0dUW+UuP6+YfKUdwgUp/EoRQkirxVCRcdGwrhenxCwP/Ehzm0ABY6VTYkt/9
-         jF7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Bk2WQ2GjrElQ8urTZLjvYR9a94JRaLak6rNQmM8ggPE=;
-        fh=lUyuudpJO/OtbOohSEywrJAN+RSKxL2tpVsFTUIC/iU=;
-        b=GNVwyXjke1sTfepX9j5fUdDwUgQr4lfNw2VPBDctk+B6bio0CJsESvJCzthVeL2LCM
-         Dz2xZqsgk535otM3BYHqPB1sEzX3x17u/dTzg+c9q/kpVMFxFz1VW6E2tViDqrWZMpFe
-         R4axwlLvVnE0v+c8grVUXTYwbq8Fht9CKbIaVGvJPD4hfKrQZdQWgktJTsVSL/PrXwMp
-         TaIFMt2wl8NxS/gdvUmur5TaHCarsXEMMwZ1gwYx+Ky7jwglaSqikRdI/kW4srwbKgi5
-         QTY1MoEDdZyyjuobtso+JCn2hFIFOPwklfqMo5amWS3j2KP+m4Qe0n2xq5lPS4hjze3h
-         36Jg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1785338928; x=1785943728; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Bk2WQ2GjrElQ8urTZLjvYR9a94JRaLak6rNQmM8ggPE=;
-        b=eVeTdH/c78UYWKJqJmYBWEHeI1yzKrrTk5QIIgL+NP3rAWbg7ex1ta23i53hDl4YmW
-         3hMw288ZGdPgVzXbApRTyX57p2BryMSR1xuCVDgFThx5dYj5fRsrH+4NtH5YqL/mbZSs
-         dLx04tFLwxn76QoJ1wlIikOCyysBUKYW/hkRC3Kl1gTOfUmJIJkYXU+8WBXhwGRWlFAW
-         3vS/tTBPMms6TVZ7wZikAfkUrP01l4AiYz32bIxuyzKy+JqAUTqfcPpuR8CE/Yt3H88t
-         ixQd7fWko9z6FH6fiaIk3w6LG9AhH/82JWXi4wJTyvyxrA/Sas5DpAVm4sSUzbjIGSzY
-         0Nkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785338928; x=1785943728;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bk2WQ2GjrElQ8urTZLjvYR9a94JRaLak6rNQmM8ggPE=;
-        b=L8PiKfRoQbJQjOYCyrBj5cBcIgZoFdnc8DJmK8GjndnFGc6W/MKHT7S22vg8f5YNeb
-         XkgJF7JexYcMnuQaXs+B3asiVLx9FaGIEw77VmF4DnUW2cxgK9vehBGu/lJ7dW9N55Lk
-         SxI/DHWlaOKvBirt5KMqJ8IrCJ0OrsVQc3eqjVlZ4exmJ2wqlPeciiMVwwxSs1m0Pe12
-         UJJkjdZ7TQV/QkoWlCEGdSNc1IUu9Dj5S7M/43hdl+JfKdgIWsrOinZaJuMKtfXxkuJU
-         mVhXPTb82fXk/ZEiGH6TnKQfmX+jCACWR0di3trqXQ0m1z3CQzLHoMzeJ/ZVFXTI1JQr
-         YM0g==
-X-Forwarded-Encrypted: i=1; AHgh+Rp7o5RR4CpES7jEtwG1b3dpzdichF57zIzeqAPKFPhfcrjimnIpKtDtU2zB+hzH8+NfWgryYws=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzEesjGMCTk6tteOVpmmcFcgeWVcdN1FcK7UlSoMHydpwiqELiK
-	wFqrOh6IIqUo7C9v/xyHXYBQivN3QYRZIpY/8TEmj7MT5ZUWkYevAwdJwh25L+FS4Ku4ydrfkga
-	ufUlEUAOUdMQ7LK494ptlGktrJAhZMJUPtLn1kRMhCOk=
-X-Gm-Gg: AR+sD10VcBu7AlShGWJG/D7w982EI34/Zrv3C+0fUiK0jm2nycfwcRBLiMZOwBJhzEP
-	+G0PNOQORv/ejdzs/vW3tAwQmx00MNrfHuWSZYi3gi8VibRhKo2XVYEvlX+1kCX4l5JpUX7UtSb
-	sa6Il9rWeqJtduT0XzkFIAQ07ARgAotkBn1bYF+mi1mNUTnQJkA32CLVo+5h37LL8s7Q6GIU7m9
-	oAopWRWjQc4+EC19ye5FilTZngi7LCsxLuE7Cn4sBpzv+I8rXXtwBaeFMLLviqZx1s6lGeY/lsN
-	MJ5zEHAw+bNc2lH/2l507IGvifQ19bwC9gZS3DP8m67pNE/506pU3Q==
-X-Received: by 2002:a2e:b017:0:b0:39e:bcf4:419a with SMTP id
- 38308e7fff4ca-39f6058be4dmr5587991fa.5.1785338928506; Wed, 29 Jul 2026
- 08:28:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k/mKD4SE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EC5D1F000E9;
+	Wed, 29 Jul 2026 15:29:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785338945;
+	bh=WaesI/5GaSHtwRmPEhp5DbEmRnvxo8PvnSq6mqTrtwY=;
+	h=From:To:Cc:Subject:Date;
+	b=k/mKD4SEwys5QfNsdVFqJKyPCrlfnT8f3PH+RGCWhoLU3FseuWLeBlpD7/KhsOAPw
+	 X2Deznag3Jpua9+LhoqGzgcqnTEmeDyvcvGzdlaaT7tayCHkVdulDctCvcVX+Zl8Be
+	 W8XEce8EPl7FFdCtdFY5cmjz3RRA8K3z5YbLPmRUpdSq2d326U4YelZ7gFfETQq2Fi
+	 dIF1xPNCV0sVfYAesmjIeJ344o2fBM8RF8QQLNj0gwBUmTWwNyZ7z6HFsZ73Pk+KuT
+	 /e5anCzSV8VNhln7X1W3NvHekBZkkbNwVddKfaVDNWdGTFg2+K6H0LT+9n3QC1DVAO
+	 PdwjXNuIQrgQA==
+From: Eric Biggers <ebiggers@kernel.org>
+To: stable@vger.kernel.org
+Cc: linux-fscrypt@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	Christoph Hellwig <hch@lst.de>,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH 6.1] fscrypt: Avoid dynamic allocation in fscrypt_get_devices()
+Date: Wed, 29 Jul 2026 08:26:55 -0700
+Message-ID: <20260729152655.28111-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1785307980.git.zihanx@nebusec.ai> <b9b0022c68b6d0ac1a729f768466e3400a825a87.1785307981.git.zihanx@nebusec.ai>
- <amoVNFtNX5mpbum_@strlen.de>
-In-Reply-To: <amoVNFtNX5mpbum_@strlen.de>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Wed, 29 Jul 2026 23:28:36 +0800
-X-Gm-Features: AUfX_mxe4sRXouHcR4pSk1Bo3uWvGfQC9V--4kk-W--y-MegDLaNaVyOTDw84tw
-Message-ID: <CAANe3eQHBikBexNfBaKpfUgzP8iXM=bf_2Xj7pFnT5yJRbOQUA@mail.gmail.com>
-Subject: Re: [PATCH nf 1/1] netfilter: nf_conntrack_tcp: defer invalid logging
- until after unlock
-To: Florian Westphal <fw@strlen.de>
-Cc: netfilter-devel@vger.kernel.org, pablo@netfilter.org, phil@nwl.cc, 
-	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org, 
-	chamaken@gmail.com, vega@nebusec.ai, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 29, 2026 at 10:59=E2=80=AFPM Florian Westphal <fw@strlen.de> wr=
-ote:
->
-> Zihan Xi <zihanx@nebusec.ai> wrote:
-> > nf_conntrack_tcp_packet() can log invalid packets while ct->lock is sti=
-ll
-> > held. This happens both through tcp_in_window() -> nf_tcp_log_invalid()
-> > and through the NFCT_TCP_INVALID path -> nf_tcp_handle_invalid().
->
-> Correct, this is a bug. While I like the general direction, I find this
-> patch too large and too complicated.
->
-> Please consider making at least two patches to fix this.
->
-> - One patch to make nf_tcp_handle_invalid() return bool, then log
-> outside of spinlock().  The timeout doesn't even have to be included,
->         you can change the message to omit it (e.g. lowered timeout to
->                         UNACK or whatever).
->
-> This will help with review and it will simplify this patch too.
->
-> > +enum nf_tcp_invalid_log_type {
-> > +     NF_TCP_LOG_NONE,
-> > +     NF_TCP_LOG_OVERSHOT,
-> > +     NF_TCP_LOG_SEQ_OVER,
-> > +     NF_TCP_LOG_ACK_OVER,
-> > +     NF_TCP_LOG_SEQ_UNDER,
-> > +     NF_TCP_LOG_ACK_UNDER,
->
-> This is fine.
->
-> > +struct nf_tcp_invalid_log {
-> > +     enum nf_tcp_invalid_log_type type;
-> > +     u32 value;
-> > +     u8 index;
-> > +     u8 dir;
-> > +     u8 last_index;
->
-> index, dir, last_index no longer need this stashing once lowered-timeout
-> is solved as outlined above.
->
-> > +struct nf_tcp_invalid_logs {
-> > +     /* At most one tcp_in_window() log plus one lower-timeout log. */
-> > +     struct nf_tcp_invalid_log entries[2];
->
-> Same, once the lower-timeout is handled differently this is not needed.
->
-> > +static enum nf_ct_tcp_action
-> > +nf_tcp_log_invalid(const struct nf_conn *ct,
-> > +                const struct ip_ct_tcp_state *sender,
-> > +                struct nf_tcp_invalid_logs *logs,
-> > +                enum nf_ct_tcp_action ret,
-> > +                enum nf_tcp_invalid_log_type type,
-> > +                u32 value)
-> >  {
->
-> This function doesn't log anymore.
->
-> >  static enum nf_ct_tcp_action
-> >  tcp_in_window(struct nf_conn *ct, enum ip_conntrack_dir dir,
-> >             unsigned int index, const struct sk_buff *skb,
-> >             unsigned int dataoff, const struct tcphdr *tcph,
-> > -           const struct nf_hook_state *hook_state)
-> > +           struct nf_tcp_invalid_logs *logs)
-> >  {
-> >       struct ip_ct_tcp *state =3D &ct->proto.tcp;
-> >       struct ip_ct_tcp_state *sender =3D &state->seen[dir];
-> > @@ -640,31 +728,29 @@ tcp_in_window(struct nf_conn *ct, enum ip_conntra=
-ck_dir dir,
-> >                       sender->td_end =3D end;
-> >                       sender->flags |=3D IP_CT_TCP_FLAG_DATA_UNACKNOWLE=
-DGED;
-> >
-> > -                     return nf_tcp_log_invalid(skb, ct, hook_state, se=
-nder, NFCT_TCP_IGNORE,
-> > -                                               "%u bytes more than exp=
-ected", overshot);
-> > +                     return nf_tcp_log_invalid(ct, sender, logs, NFCT_=
-TCP_IGNORE,
-> > +                                       NF_TCP_LOG_OVERSHOT, overshot);
->
-> Maybe rename to nf_tcp_store_invalid() or similar.  It only has to stash
-> the value (overshoot in this case) and NF_TCP_LOG_OVERSHOT.
->
-> Could you also add a lockdep_assert_not_held(ct->Lock) to the old
-> nf_ct_log_invalid() plus a comment explaining that we must not call into
-> nfnetlink_log with that lock held?
->
-> Thanks!
+commit 6fe4e4b8259e1330945b5f3c9476e08473b8e0e8 upstream.
 
-Thanks, this makes sense. I=E2=80=99ll split the fix into at least two
-patches, first handling the nf_tcp_handle_invalid() timeout-lowering
-log separately by deferring it until after unlocking, then simplifying
-the remaining tcp_in_window() invalid logging path and renaming the
-helper accordingly. I=E2=80=99ll also add a lockdep assertion/comment to ma=
-ke
-the no-log-under-ct->lock rule explicit in v2.
+When a blk_crypto_key starts being used or is evicted, fs/crypto/ calls
+fscrypt_get_devices() to get the filesystem's list of block devices,
+then iterates over them and calls blk_crypto_config_supported(),
+blk_crypto_start_using_key(), or blk_crypto_evict_key() on each one.
+
+Currently, the block device pointers are placed in a dynamically
+allocated array.  This dynamic allocation is problematic because:
+
+- It can fail, especially at the fscrypt_destroy_inline_crypt_key() call
+  site when it's invoked for inode eviction under direct reclaim.
+
+- fscrypt_destroy_inline_crypt_key() doesn't handle the failure.  It
+  just zeroizes and frees the blk_crypto_key without calling
+  blk_crypto_evict_key().  That causes a use-after-free.
+
+For now, let's fix this in the straightforward and easily-backportable
+way by switching to an on-stack array.  Currently the fscrypt
+multi-device functionality is used only by f2fs, which has a hardcoded
+limit of 8 block devices.  An on-stack array works fine for that.
+
+(Of course, this solution won't scale up to large number of block
+devices.  For that we'd need a different solution, like moving the block
+device iteration into the filesystem.  Or in the case of btrfs, which
+will only support blk-crypto-fallback, we should make it just call
+blk-crypto-fallback directly, so the block devices won't be needed.)
+
+Fixes: 22e9947a4b2b ("fscrypt: stop holding extra request_queue references")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260713023708.9245-1-ebiggers%40kernel.org
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Link: https://patch.msgid.link/20260719055602.78828-1-ebiggers@kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+---
+ fs/crypto/inline_crypt.c | 57 ++++++++++++++--------------------------
+ fs/f2fs/super.c          | 25 ++++++++++--------
+ include/linux/fscrypt.h  | 18 +++++++------
+ 3 files changed, 44 insertions(+), 56 deletions(-)
+
+diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
+index 8bfb3ce864766..47645c5539bc8 100644
+--- a/fs/crypto/inline_crypt.c
++++ b/fs/crypto/inline_crypt.c
+@@ -21,22 +21,14 @@
+ 
+ #include "fscrypt_private.h"
+ 
+-static struct block_device **fscrypt_get_devices(struct super_block *sb,
+-						 unsigned int *num_devs)
++static unsigned int
++fscrypt_get_devices(struct super_block *sb,
++		    struct block_device *devs[FSCRYPT_MAX_DEVICES])
+ {
+-	struct block_device **devs;
+-
+-	if (sb->s_cop->get_devices) {
+-		devs = sb->s_cop->get_devices(sb, num_devs);
+-		if (devs)
+-			return devs;
+-	}
+-	devs = kmalloc(sizeof(*devs), GFP_KERNEL);
+-	if (!devs)
+-		return ERR_PTR(-ENOMEM);
++	if (sb->s_cop->get_devices)
++		return sb->s_cop->get_devices(sb, devs);
+ 	devs[0] = sb->s_bdev;
+-	*num_devs = 1;
+-	return devs;
++	return 1;
+ }
+ 
+ static unsigned int fscrypt_get_dun_bytes(const struct fscrypt_info *ci)
+@@ -95,7 +87,7 @@ int fscrypt_select_encryption_impl(struct fscrypt_info *ci)
+ 	const struct inode *inode = ci->ci_inode;
+ 	struct super_block *sb = inode->i_sb;
+ 	struct blk_crypto_config crypto_cfg;
+-	struct block_device **devs;
++	struct block_device *devs[FSCRYPT_MAX_DEVICES];
+ 	unsigned int num_devs;
+ 	unsigned int i;
+ 
+@@ -132,20 +124,15 @@ int fscrypt_select_encryption_impl(struct fscrypt_info *ci)
+ 	crypto_cfg.data_unit_size = sb->s_blocksize;
+ 	crypto_cfg.dun_bytes = fscrypt_get_dun_bytes(ci);
+ 
+-	devs = fscrypt_get_devices(sb, &num_devs);
+-	if (IS_ERR(devs))
+-		return PTR_ERR(devs);
+-
++	num_devs = fscrypt_get_devices(sb, devs);
+ 	for (i = 0; i < num_devs; i++) {
+ 		if (!blk_crypto_config_supported(devs[i], &crypto_cfg))
+-			goto out_free_devs;
++			return 0;
+ 	}
+ 
+ 	fscrypt_log_blk_crypto_impl(ci->ci_mode, devs, num_devs, &crypto_cfg);
+ 
+ 	ci->ci_inlinecrypt = true;
+-out_free_devs:
+-	kfree(devs);
+ 
+ 	return 0;
+ }
+@@ -158,7 +145,7 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+ 	struct super_block *sb = inode->i_sb;
+ 	enum blk_crypto_mode_num crypto_mode = ci->ci_mode->blk_crypto_mode;
+ 	struct blk_crypto_key *blk_key;
+-	struct block_device **devs;
++	struct block_device *devs[FSCRYPT_MAX_DEVICES];
+ 	unsigned int num_devs;
+ 	unsigned int i;
+ 	int err;
+@@ -175,17 +162,12 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+ 	}
+ 
+ 	/* Start using blk-crypto on all the filesystem's block devices. */
+-	devs = fscrypt_get_devices(sb, &num_devs);
+-	if (IS_ERR(devs)) {
+-		err = PTR_ERR(devs);
+-		goto fail;
+-	}
++	num_devs = fscrypt_get_devices(sb, devs);
+ 	for (i = 0; i < num_devs; i++) {
+ 		err = blk_crypto_start_using_key(devs[i], blk_key);
+ 		if (err)
+ 			break;
+ 	}
+-	kfree(devs);
+ 	if (err) {
+ 		fscrypt_err(inode, "error %d starting to use blk-crypto", err);
+ 		goto fail;
+@@ -209,20 +191,21 @@ void fscrypt_destroy_inline_crypt_key(struct super_block *sb,
+ 				      struct fscrypt_prepared_key *prep_key)
+ {
+ 	struct blk_crypto_key *blk_key = prep_key->blk_key;
+-	struct block_device **devs;
++	struct block_device *devs[FSCRYPT_MAX_DEVICES];
+ 	unsigned int num_devs;
+ 	unsigned int i;
+ 
+ 	if (!blk_key)
+ 		return;
+ 
+-	/* Evict the key from all the filesystem's block devices. */
+-	devs = fscrypt_get_devices(sb, &num_devs);
+-	if (!IS_ERR(devs)) {
+-		for (i = 0; i < num_devs; i++)
+-			blk_crypto_evict_key(devs[i], blk_key);
+-		kfree(devs);
+-	}
++	/*
++	 * Evict the key from all the filesystem's block devices.
++	 * This *must* be done before the key is freed.
++	 */
++	num_devs = fscrypt_get_devices(sb, devs);
++	for (i = 0; i < num_devs; i++)
++		blk_crypto_evict_key(devs[i], blk_key);
++
+ 	kfree_sensitive(blk_key);
+ }
+ 
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 7c8e05a81a0c6..9d1b5699f5bf1 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -3126,24 +3126,27 @@ static void f2fs_get_ino_and_lblk_bits(struct super_block *sb,
+ 	*lblk_bits_ret = 8 * sizeof(block_t);
+ }
+ 
+-static struct block_device **f2fs_get_devices(struct super_block *sb,
+-					      unsigned int *num_devs)
++static unsigned int
++f2fs_get_devices(struct super_block *sb,
++		 struct block_device *devs[FSCRYPT_MAX_DEVICES])
+ {
+ 	struct f2fs_sb_info *sbi = F2FS_SB(sb);
+-	struct block_device **devs;
++	int ndevs;
+ 	int i;
+ 
+-	if (!f2fs_is_multi_device(sbi))
+-		return NULL;
++	static_assert(MAX_DEVICES <= FSCRYPT_MAX_DEVICES);
+ 
+-	devs = kmalloc_array(sbi->s_ndevs, sizeof(*devs), GFP_KERNEL);
+-	if (!devs)
+-		return ERR_PTR(-ENOMEM);
++	if (!f2fs_is_multi_device(sbi)) {
++		devs[0] = sb->s_bdev;
++		return 1;
++	}
++	ndevs = sbi->s_ndevs;
++	if (WARN_ON_ONCE(ndevs > FSCRYPT_MAX_DEVICES))
++		ndevs = FSCRYPT_MAX_DEVICES;
+ 
+-	for (i = 0; i < sbi->s_ndevs; i++)
++	for (i = 0; i < ndevs; i++)
+ 		devs[i] = FDEV(i).bdev;
+-	*num_devs = sbi->s_ndevs;
+-	return devs;
++	return ndevs;
+ }
+ 
+ static const struct fscrypt_operations f2fs_cryptops = {
+diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
+index 4f5f8a6512132..fe842c9af9dcb 100644
+--- a/include/linux/fscrypt.h
++++ b/include/linux/fscrypt.h
+@@ -57,6 +57,9 @@ struct fscrypt_name {
+ /* Maximum value for the third parameter of fscrypt_operations.set_context(). */
+ #define FSCRYPT_SET_CONTEXT_MAX_SIZE	40
+ 
++/* Maximum supported number of block devices per filesystem */
++#define FSCRYPT_MAX_DEVICES	8
++
+ #ifdef CONFIG_FS_ENCRYPTION
+ 
+ /*
+@@ -161,21 +164,20 @@ struct fscrypt_operations {
+ 				      int *ino_bits_ret, int *lblk_bits_ret);
+ 
+ 	/*
+-	 * Return an array of pointers to the block devices to which the
+-	 * filesystem may write encrypted file contents, NULL if the filesystem
+-	 * only has a single such block device, or an ERR_PTR() on error.
++	 * Retrieve the list of block devices to which the filesystem may write
++	 * encrypted file contents.
+ 	 *
+-	 * On successful non-NULL return, *num_devs is set to the number of
+-	 * devices in the returned array.  The caller must free the returned
+-	 * array using kfree().
++	 * This writes the block_device pointers to @devs and returns the count
++	 * (between 1 and FSCRYPT_MAX_DEVICES inclusively).
+ 	 *
+ 	 * If the filesystem can use multiple block devices (other than block
+ 	 * devices that aren't used for encrypted file contents, such as
+ 	 * external journal devices), and wants to support inline encryption,
+ 	 * then it must implement this function.  Otherwise it's not needed.
+ 	 */
+-	struct block_device **(*get_devices)(struct super_block *sb,
+-					     unsigned int *num_devs);
++	unsigned int (*get_devices)(
++		struct super_block *sb,
++		struct block_device *devs[FSCRYPT_MAX_DEVICES]);
+ };
+ 
+ static inline struct fscrypt_info *fscrypt_get_info(const struct inode *inode)
+
+base-commit: dc5c83b7f5f83ea99aea5c771b1ec77458263a15
+-- 
+2.55.0
+
