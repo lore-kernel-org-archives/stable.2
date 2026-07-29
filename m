@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51D549250A
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:55:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0005E4949F7
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:55:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333358; cv=none; b=Z4XGPaM0kwKEc1bEOPkxsb4ZJRC7uHVXlBk5WXUd5QbBFkWeojGTBtKGq6N3w0NzDWAo5qyXe79yVkxUfESptk7JBdJI98yo9tJPteg0U2oR9uAnzgL+xYhyshA7+dUKJ2L5He+QLtan63EAa8msLLO9qpCjBYwnf0y+9rm4GUQ=
+	t=1785333362; cv=none; b=oqbKQgMek0sOSHnJsfzXegEF5n+DwYf14gKVBRlGtkliXbwNGhBhA2pZymqRBV85P9jKdk3GMU9OV9TxT/aCMAuoZ7p7EGB92ZY6uwbgcIVd7psUyCplrFZSR9tD31brtcvc6LvqXuA452mJfyKCdXrJHBwDNwoJf2PmZOUpXg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333358; c=relaxed/simple;
-	bh=+O8+lSRdul7pYzXEQXiEiefEdBcjg6B34IdoY018GKM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=E7mzhn9Hi1w3uoyE9WIMKSHiXKl7BpFgGa+xASup8s+N8U4A7BA2S7a9CwdaaNzWtT5QOrOztjr8nUmRRWtug5M9jXRs1L52rhGihn//j56yghhuUopYC0alsZRWwKONZG+Z+H0CoHvyWBu9Sw5Crz4XPwMsN3VSrBXORTFUoAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LA/+cuSS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785333362; c=relaxed/simple;
+	bh=zZQz+jpj+yBkgFaKCHwvrWd6caNBd30UJZdL2wV9Xvo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RY52/hKLSbGbdwONxi32VXJJ2aLv+kp7uoC2BNjSM5zlPjY7diAQKxMDoMV2VGx+8avaNc6mYwfa2T28gBK1ne41x1s5WYo4e4iXNhnlzz9scY0vsIqEBq4+DCCa6K9uh3ZB2dFrDDCClyZ7m6uxhhl9vs6EBI+JJRm+3NstRQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=T2FkJgnm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LA/+cuSS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278851F00A3A;
-	Wed, 29 Jul 2026 13:55:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="T2FkJgnm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E7D21F000E9;
+	Wed, 29 Jul 2026 13:55:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785333354;
-	bh=/rFS5GdsvtIb44NoFMr4y+u9DO9OhEF9sW3nDDIuCPc=;
+	s=korg; t=1785333357;
+	bh=iqtA6T58QCSDNt9UGAWzgQuIAzwTBfWCWdsJtufw+p0=;
 	h=Subject:To:Cc:From:Date;
-	b=LA/+cuSSrKEcPu+/XaRhOpwHJGce5q+a2BWox7uekE4zIe7dQ5WLyiijvQJs1l/J9
-	 dD0o1MzFGSm1VO4+kcQ5Xr7g5qhtrdRQXAFFMxdkYP+EdFjsKq8/lFdWP8KXfZDDkx
-	 ojhmco4UFoIs6JXKHhzeyVDPqs15u+L7wL2BAHs8=
-Subject: FAILED: patch "[PATCH] ksmbd: validate minimum PDU size for transform requests" failed to apply to 5.15-stable tree
-To: linkinjeon@kernel.org,stfrench@microsoft.com
+	b=T2FkJgnm1djWQy2KTe1QO3xIv7VUjJxwrtjHLEDgWCeH8YUetGUxPrSc3uD0CFDwJ
+	 063bL9P7AErQHjnv4Z9zcI7t3JQ+ap2I0wn7igA8qCecybA+PHlRjuPdK16U/jQzdx
+	 W6LR8378y+vdjXhas/lfhf39W/PI/USCm/696WFg=
+Subject: FAILED: patch "[PATCH] ksmbd: restore DACL size on check_add_overflow() to avoid" failed to apply to 7.1-stable tree
+To: guanwentao@uniontech.com,linkinjeon@kernel.org,stfrench@microsoft.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:55:26 +0200
-Message-ID: <2026072926-trapped-grumbling-0f6e@gregkh>
+Date: Wed, 29 Jul 2026 15:55:35 +0200
+Message-ID: <2026072935-handyman-fascism-82fa@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x cfc0b8e5080aec87700774e8568765eaa4b7b92b
+git cherry-pick -x bbf0a8e931204ecdab494a88d43b0a24a04285c5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072926-trapped-grumbling-0f6e@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072935-handyman-fascism-82fa@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,72 +62,84 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From cfc0b8e5080aec87700774e8568765eaa4b7b92b Mon Sep 17 00:00:00 2001
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sat, 4 Jul 2026 11:30:27 +0900
-Subject: [PATCH] ksmbd: validate minimum PDU size for transform requests
+From bbf0a8e931204ecdab494a88d43b0a24a04285c5 Mon Sep 17 00:00:00 2001
+From: Wentao Guan <guanwentao@uniontech.com>
+Date: Fri, 3 Jul 2026 11:22:09 +0900
+Subject: [PATCH] ksmbd: restore DACL size on check_add_overflow() to avoid
+ malformed ACL
 
-The receive path applies the minimum SMB2 PDU size check only when
-ProtocolId is SMB2_PROTO_NUMBER. A packet carrying
-SMB2_TRANSFORM_PROTO_NUM bypasses the check even when the negotiated
-dialect does not provide transform handling.
+check_add_overflow() unconditionally writes the truncated sum into *d
+even on overflow, per its contract in include/linux/overflow.h.
+The four check_add_overflow() guards in set_posix_acl_entries_dacl()
+and set_ntacl_dacl() break out of the ACE-building loops on overflow,
+but the truncated *size is then consumed downstream at the end of
+set_ntacl_dacl():
 
-On an SMB 2.1 connection, a short transform packet therefore reaches
-init_smb2_rsp_hdr(), which interprets the request as a full SMB2 header
-and reads beyond the request allocation. The copied fields can then be
-returned to the unauthenticated client.
+    pndacl->size = cpu_to_le16(le16_to_cpu(pndacl->size) + size);
 
-Compression transforms are converted to ordinary SMB2 messages before
-protocol validation. After that conversion, validate ordinary SMB2
-requests against SMB2_MIN_SUPPORTED_PDU_SIZE and require encryption
-transform requests to contain both a transform header and an SMB2
-header. This rejects truncated requests before work allocation.
+This produces an on-wire NT ACL whose pndacl->size under-reports the
+bytes actually written by the preceding fill_ace_for_sid()/memcpy()
+calls, yielding a malformed ACL that can trigger out-of-bounds reads
+when re-parsed by clients or ksmbd itself.
 
-Fixes: 368ba06881c3 ("ksmbd: check the validation of pdu_size in ksmbd_conn_handler_loop")
+Restore *size to its pre-addition value on each overflow branch (via
+`*size -= ace_sz` / `size -= nt_ace_size`) so that after the break,
+*size once again holds the cumulative size of the successfully-written
+ACEs. The committed ACL is then truncated-but-self-consistent rather
+than malformed.
+
+The ksmbd DACL builders are the only check_add_overflow() sites found
+where an overflow path breaks out of a loop and the destination value
+is consumed afterward. The other nearby break-style cases either
+return -EINVAL on overflow (transport_ipc.c) or break without
+consuming the overflowed destination value afterward (buildid.c).
+
+Fixes: 299f962c0b02 ("ksmbd: use check_add_overflow() to prevent u16 DACL size overflow")
+Assisted-by: atomcode:glm-5.2
+Assisted-by: Codex:gpt-5.5
 Cc: stable@vger.kernel.org
-Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-31063
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+Acked-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Steve French <stfrench@microsoft.com>
 
-diff --git a/fs/smb/server/connection.c b/fs/smb/server/connection.c
-index 9e8fdb39e5a2..dee8e4aced99 100644
---- a/fs/smb/server/connection.c
-+++ b/fs/smb/server/connection.c
-@@ -441,6 +441,8 @@ bool ksmbd_conn_alive(struct ksmbd_conn *conn)
- /* "+2" for BCC field (ByteCount, 2 bytes) */
- #define SMB1_MIN_SUPPORTED_PDU_SIZE (sizeof(struct smb_hdr) + 2)
- #define SMB2_MIN_SUPPORTED_PDU_SIZE (sizeof(struct smb2_pdu))
-+#define SMB2_TRANSFORM_MIN_SUPPORTED_PDU_SIZE	\
-+	(sizeof(struct smb2_transform_hdr) + sizeof(struct smb2_hdr))
- 
- /**
-  * ksmbd_conn_handler_loop() - session thread to listen on new smb requests
-@@ -455,6 +457,7 @@ int ksmbd_conn_handler_loop(void *p)
- 	struct ksmbd_conn *conn = (struct ksmbd_conn *)p;
- 	struct ksmbd_transport *t = conn->transport;
- 	unsigned int pdu_size, max_allowed_pdu_size, max_req;
-+	__le32 proto;
- 	char hdr_buf[4] = {0,};
- 	int size;
- 
-@@ -546,11 +549,14 @@ int ksmbd_conn_handler_loop(void *p)
- 		if (!ksmbd_smb_request(conn))
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index d28289188e44..f285b4f24a5b 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -663,6 +663,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
+ 		ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED, flags,
+ 				pace->e_perm, 0777);
+ 		if (check_add_overflow(*size, ace_sz, size)) {
++			*size -= ace_sz;
+ 			kfree(sid);
  			break;
+ 		}
+@@ -677,6 +678,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
+ 			ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED,
+ 					0x03, pace->e_perm, 0777);
+ 			if (check_add_overflow(*size, ace_sz, size)) {
++				*size -= ace_sz;
+ 				kfree(sid);
+ 				break;
+ 			}
+@@ -722,6 +724,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
+ 		ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED, 0x0b,
+ 				pace->e_perm, 0777);
+ 		if (check_add_overflow(*size, ace_sz, size)) {
++			*size -= ace_sz;
+ 			kfree(sid);
+ 			break;
+ 		}
+@@ -765,8 +768,10 @@ static void set_ntacl_dacl(struct mnt_idmap *idmap,
+ 				goto next_ace;
  
--		if (((struct smb2_hdr *)smb_get_msg(conn->request_buf))->ProtocolId ==
--		    SMB2_PROTO_NUMBER) {
--			if (pdu_size < SMB2_MIN_SUPPORTED_PDU_SIZE)
--				break;
--		}
-+		proto = *(__le32 *)smb_get_msg(conn->request_buf);
-+		if (proto == SMB2_PROTO_NUMBER &&
-+		    pdu_size < SMB2_MIN_SUPPORTED_PDU_SIZE)
-+			break;
-+
-+		if (proto == SMB2_TRANSFORM_PROTO_NUM &&
-+		    pdu_size < SMB2_TRANSFORM_MIN_SUPPORTED_PDU_SIZE)
-+			break;
+ 			memcpy((char *)pndace + size, ntace, nt_ace_size);
+-			if (check_add_overflow(size, nt_ace_size, &size))
++			if (check_add_overflow(size, nt_ace_size, &size)) {
++				size -= nt_ace_size;
+ 				break;
++			}
+ 			num_aces++;
  
- 		if (!default_conn_ops.process_fn) {
- 			pr_err("No connection request callback\n");
+ next_ace:
 
