@@ -1,341 +1,200 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B7F12DC331
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 01:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785289126; cv=none; b=aZspgh3VziZALrTm0QUK6Ryp+531BV3TCWNUv7D/eY6kUV2C5DGSE77jrhoaQkY0uSSvFM+dp6Lr6NZOwubJ30wRnGM5TZyLFD1RNJT/uxtoxBfHHBhNQCoTNIrl7Eyw0B8wRoHd5AFfL7mnR3YE+il3q1pMAY0fLnQiWRbyWpk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785289126; c=relaxed/simple;
-	bh=kXaQxA1nEOCSODRDP3XxG6GGG4fJuJ1l6nQVLqPaVP4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U10o+hqgzHQFOgFdzBFwSceGiJJ8YMWZPwpSFp3CB2M2C+BBNSjy43WtLwLYiE9PgK8GysPGy/W/QcmbXT/WYrtG+sl4HBC7O+3g7FklzuZoG5YAGiEsPFJVuQMTpt5sFKwIh3HrZqDTRBIaY7bH1PJliBjfm5LjKL0iG3RgXAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=SIrYCYZ5; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAFC4F5E0;
+	Wed, 29 Jul 2026 01:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.165.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785289213; cv=fail; b=pGvjNLPJ0udpmR1W0VZVgXtkLBCIOCRO2gD823YAueJJZ/qjj8oGTEeOIvyJi7BGhb7IxgXWIHY6lw4ESPq1fPUrGMiVQEwuIhGrsCM0CJb6ZuyK1D4M/Au9B8mTCXYZoIMbgOgW050PeDzGQ9fYnXfAAS6DVQ4YmF/hWQgnKfc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785289213; c=relaxed/simple;
+	bh=ArJzwdDKsEk3OBF9FJAtfWdDiPvLemjYSD05fcifx9s=;
+	h=To:Cc:Subject:From:In-Reply-To:Message-ID:References:Date:
+	 Content-Type:MIME-Version; b=JmHGCwUP9vJ6NG/8EfMd9QXPAOkW4ar/kT+nes7Kwr+2DP5BGASoSk+9qu1d1KAKxIlObwJnggborPEFu9bAqgkhqi9ZBhiZblVb+90ISBsHI5mYF9ouPI2fOJYwsJZJO1Kk3uhPRFIRaLBQW65LqKRY3N6XGQ0Xj+Ie+OGk/vc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=fvUZ7Bru; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=MEnVU0Ir; arc=fail smtp.client-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="SIrYCYZ5"
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="fvUZ7Bru";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="MEnVU0Ir"
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66SItXs01122251;
+	Wed, 29 Jul 2026 01:40:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=corp-2025-04-25; bh=qbfcC6aaBWt2CDSkTM
+	fcvWiTdnm5/q/yzMF4uM9wUW8=; b=fvUZ7Bru0eC3AR4kcYWcnM3PPHCHJxeO9r
+	FJqDj+1/2S+O2gyxuHfsK+PMzi7KvDYQOE4nUattrCSc9ebbm7OOoYWTm4Ge46EA
+	+pXkr42qmx9upVo8ZzgiAFi+8QlELyKHggnhbmRqW+2shK5rs5KINZ5tlIo2/iNe
+	bjWh412OPDJ5C4H/kgtdwOLz4rNuhu0O88qI3XfK4hdUIAECGU7X4mYMFx8EnVNT
+	ctvszqjdVkUlmvY9JayiC96/j6kzuLN4/O8/bO9YqUzi5T4l6XcBwKb5LvzjzGm2
+	cbjSHQjFv8gI4netLqpP7OVw/zpJoMMh2Gy7dhuF2Y1PHSsEehXw==
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4fmr5xw60a-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 29 Jul 2026 01:40:00 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 66T1dvjk010086;
+	Wed, 29 Jul 2026 01:40:00 GMT
+Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013027.outbound.protection.outlook.com [40.93.196.27])
+	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4fnhek9r9w-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 29 Jul 2026 01:40:00 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tThTQH8zIB2KX8fiARLlPAadFFVbIH0vjFyZqTBC8Yait6mrHodtCmil/qhigvfz3f4SBJR49nOQdfyrxQJsCFuNfvpNKl104Xu5yTLV85dikutKFRB3XAjALXtVzo2ffdptkIxkhOqpk/z5KvZ0gwhAEPPWsVBJmng2Cmh20BGtMrrPNalTMliU5AcP154FtmySREcK6asR+QJQsPBsySKowK8+Rjpy1loOIrnfnQzmthHJI25MzahvBtkguLi3OfRt9FNJUCmRn+Hcg7FWJYwOK3TG1UADftF4PQlAx+BozOdI7ZxWP5jExq8251O4fhyxAyFYE9Rt74o9tHPPMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qbfcC6aaBWt2CDSkTMfcvWiTdnm5/q/yzMF4uM9wUW8=;
+ b=rTFGAH1/8x/e9KCtwEzLYhjOgByA+gN4sAcq5ALw4A+nHoSy+Va1ui2zdODf+0tynbXOUN/Jrpv200Qvi3tl22JUa7GD3OQPOdKjcPUCIcNdk6maZlkscSVwSSz/y7aqW2QSYP1JJ0g2b5/7SrIWTO0LcBh0T6OrjkV2uWJi5SqPre4MKThKl2zN2MPayDkmubboLQ9dXoD0Yk5E5FgkfiU3+55/w48cHaXvHvcjdIPEIASMItKJylw54R0Snf2eDcTWWuvcA6hczo7mzAqJ7W2OqOep0Mgn14jnVzCuKaOZ79EF8+mLvkGXwaTMOZbsd5UZirlb2MQ2yYG6a1HaHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=0XBvUHqr/fQwOxuRZus/qJvIzx2JA9Ojxk
-	yHzypyr3A=; b=SIrYCYZ5wWulHgOB2cCP0aKGO0iU8rOVEkl41tzQ0E+UV+tQ+M
-	0wBUIKDNrUrk6d6evkp85202tN5ziTuoRXtTorIxzlA2f3esVuaByph1RybdzSTn
-	YyrB6OfXIyM6uvmmiU5yPaZf8iM3RU3TV66ktY6L/LXvm5n3Nc/y5EOWE=
-Received: from ur-dp1000 (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkOdWWlqC6YVAA--.17834S2;
-	Wed, 29 Jul 2026 09:38:45 +0800 (CST)
-From: Xie Bo <xb@ultrarisc.com>
-To: stable@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	sashal@kernel.org
-Cc: Xie Bo <xb@ultrarisc.com>,
-	Anup Patel <anup@brainfault.org>
-Subject: [PATCH 6.1.y] RISC-V: KVM: Serialize virtual interrupt pending state updates
-Date: Wed, 29 Jul 2026 09:38:09 +0800
-Message-ID: <20260729013809.1745-1-xb@ultrarisc.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <2026072503-strewn-unrobed-7eca@gregkh>
-References: <2026072503-strewn-unrobed-7eca@gregkh>
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qbfcC6aaBWt2CDSkTMfcvWiTdnm5/q/yzMF4uM9wUW8=;
+ b=MEnVU0IrdqPsNVc0J4v8VAYHosqix5fMRBArQVS7cyRNZLQXWPvj9AhNAQDtOUFOZ0idAf0xcadLuASHv9JCl7GPYbrbW8+ETI02+CLu1JX48qf9NorRTZDpnlPmAnemIefl1UOAt/Ii0O4ZH1qhIFt7P2ogJJMjNrZxCDEJfHM=
+Received: from DS7PR10MB5344.namprd10.prod.outlook.com (2603:10b6:5:3ab::6) by
+ LV8PR10MB7798.namprd10.prod.outlook.com (2603:10b6:408:1f7::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
+ 2026 01:39:28 +0000
+Received: from DS7PR10MB5344.namprd10.prod.outlook.com
+ ([fe80::21c0:ebf5:641:3dee]) by DS7PR10MB5344.namprd10.prod.outlook.com
+ ([fe80::21c0:ebf5:641:3dee%4]) with mapi id 15.21.0270.009; Wed, 29 Jul 2026
+ 01:39:28 +0000
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
+        Manivannan
+ Sadhasivam <mani@kernel.org>,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        Avri Altman <avri.altman@sandisk.com>,
+        Bart Van Assche
+ <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Kumar Dwivedi
+ <ram.dwivedi@oss.qualcomm.com>,
+        Anjana Hari
+ <anjana.hari@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-scsi@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: Re: [PATCH v2] scsi: ufs: dt-bindings: Add missing mcq reg for
+ qcom,sa8255p-ufshc
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+In-Reply-To: <amhxT25_uwzYGr95@QCOM-aGQu4IUr3Y> (Shawn Guo's message of "Tue,
+	28 Jul 2026 17:07:27 +0800")
+Message-ID: <yq18q6uy3vg.fsf@ca-mkp.ca.oracle.com>
+References: <20260720023552.2667237-1-shengchao.guo@oss.qualcomm.com>
+	<amhxT25_uwzYGr95@QCOM-aGQu4IUr3Y>
+Date: Tue, 28 Jul 2026 21:39:26 -0400
+Content-Type: text/plain
+X-ClientProxiedBy: YQBPR0101CA0208.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:67::31) To DS7PR10MB5344.namprd10.prod.outlook.com
+ (2603:10b6:5:3ab::6)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:AQAAfwAnEkOdWWlqC6YVAA--.17834S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3ZFW5tryrZr15Zr1fGFyxAFb_yoWDWFy3pF
-	WxCw4Y9r48Jry8u34agF1Fvr1Fg3s5Kr45urZrurW3Jr1YqFy5urn7Ga45ZFy8CryFv3Zr
-	ZFyYkFy09a4UZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv214x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
-	6r4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r1j6r
-	4UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
-	6r1DMxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s
-	026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_
-	JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20x
-	vEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE
-	14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa
-	7VUjuHq7UUUUU==
-X-CM-SenderInfo: l0e63zxwud2x1vfou0bp/1tbiAQATB2pkMtIAAQATsp
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR10MB5344:EE_|LV8PR10MB7798:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a817f95-b19e-4c1e-f20e-08deed123aa7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|56012099006|4143699003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	LHG7shzKdMyIfElAEe6RgJMRBsPKXr+wfHXUChHePkg5tjs4yB6Lc9wMoynmvnEDVRaVL1+0fkOsEwDDNwxFm+MXgqjenG3DB/TqMt1NECVHy6/yDz4rh4Hm9tDTcSe93lk+Z8cmTp9LUYdpQ9PfoSKOLiNuyZJOKYMlPWrY6UYTcdZnpk4wfbbWFxmC71yNk5mcZOs1hZpwnV3fUFHlKxO8yQPHnvk/qrCSJSdjQMOm0og/yvVWM9O+RPAuk7Dsy5aBlr03O8A3gr2yT9wxC6sDUbTKMXe1JPfRqpJduo1G9EvcoEfP8rb8AOTwJbVQJObBXOeYMFMULiFbhU0HU4Pa7w8bCCjx7HBrlut49rzNCHkGEdiVboOToKcmkbAiVp4Ab0LxFiV8aYbYrGheyW4erQHXkfaaeHabGAAXdTMik5VgjjaUCYbK7hSfKp7jHtMg4I9q/NB023RlnCyBmG02El3LD/bIoD0Ax2vzZEo4bJpL1LxT7CGyBOzTRQb1odP1/cP0xUMqQ6pInQfcLYVovZYXZh+eKUkGm0iW84OT0XU+BBNSkjvZCTWaIWgDvM6fg8jZM119apDZ4IXoq9LywTo6NaxtE33sHSnnk/0id7Wl8SZV7RwWnu13Q7OEMRTVM7189OzZ8pkdpkSqa3JXlhTayg09zmjBDi1B6yg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR10MB5344.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?5UgOhPvtbzAp76DCVl8ceE32PfUFOjXE5mgjcR+5akDu66M2YUROJl6ycqIP?=
+ =?us-ascii?Q?jmuvx3thybqzR3Ygw9eUy87r1bdQtiHedeEho+mgejOTJ2VfYpTRzXiA446r?=
+ =?us-ascii?Q?R3mg11XsF65bjhvLAXQNj3wMnQnMhzY5/0MDtdi9xRoaDY+dLL+Vy0U0YRlD?=
+ =?us-ascii?Q?015eAijfcVsmba1tH/U7QO2lVI+AA+MZYOL7OJkeivTnwjnT4MR8gTgKP6/A?=
+ =?us-ascii?Q?8qfskTq0Zw63EuxBMZQmbVdc+ly+jgVzwa0KiWE9Q6LEQTlpUw9b4wIgPl+2?=
+ =?us-ascii?Q?RLvcNMAR+sE0ceW3HpjMi4X0tOKSWiAeV6b/lzNNNObUrZqlqYfAdRlt8A2S?=
+ =?us-ascii?Q?YYdSjvVrmrb1rr1/5j40ICjB9qNhSfY4RzJEA0rLCI6ITEn9i3GjFlNzH2Nj?=
+ =?us-ascii?Q?ej5ljyscwkQJqJwDjjQ0aGSkPzzo9LBD8IWPBOIRM3WG5ZhzK9PRT7APHL1T?=
+ =?us-ascii?Q?Z+Iefh7OamMqLdabgH0NWYfZEW88tLa4DE0FxSuCABTj8BvGBZez8hEvHTUI?=
+ =?us-ascii?Q?zzrhvlxa+ggot0Iq/7te6rZ/wxsJYyAguVIAjEEZ0XNuC9KonpUQHIANBwIr?=
+ =?us-ascii?Q?0hrS+vw64qKPZBEEgIHtBzLSRC57HiMzcWayfyFjtO29Zo3n6Xa5VKRpB3+w?=
+ =?us-ascii?Q?CWIy47649XVJ/jlQw50CHfjfVOXFrYKjPf4iv3Q9hh9wvCAuAX1EN3gXbjmV?=
+ =?us-ascii?Q?AVs8KkOhS1cQENNke1WlAt/B156jjOcagtyO8cdXnKnwUkYxNvN2Yqf+k8zg?=
+ =?us-ascii?Q?VXDC4laLVrut0toD18IxsKdl+guijOygb45JYMF00wgGMmIqK9mUquQw3cTM?=
+ =?us-ascii?Q?sWX7kwWM4b46xj7/VorFr6NDIyWEc/MXgKu6GLh2G6wWq2/h6Eq32Aru7PpY?=
+ =?us-ascii?Q?I05xtVG4D44WPcARRnoF8N72L7ZW5wQfq3JiS36U1vJJX4agtn6hwuoyf/c+?=
+ =?us-ascii?Q?Z9mS0LaMldAfMzh6synqckdgpLiWijxwTN1K77U12LWHnE+Wl71nvvxIoqhi?=
+ =?us-ascii?Q?D6gRxY17XPjXhey52Qsr5l7UL3XijuMCr4mWe0rCnHH9a0bvvGfUocSpBrN9?=
+ =?us-ascii?Q?9HKSqt6M+GGe9h5zL2FN6Bpkp8hki6+ULHB8iVkBiHOXKUwud9K/U+Tspxz9?=
+ =?us-ascii?Q?KS7L5vI6y6MVvN+ZqLZ9w/YPyZgfe25+DkNyfuQrk80GjweVP4rMwYVt++1B?=
+ =?us-ascii?Q?zckmItx5/tE8XCDy3mj2CWnXtBHz8sNjuyu1+xkBwv4Z8UsK09TLkUdakz8m?=
+ =?us-ascii?Q?w6+ZN8dD0h6SFPuA2AqT5Kn7FXHdc6lC9HPiwMMIr4LgImUb3G7ETxNQ35rN?=
+ =?us-ascii?Q?6JpYm3calh7DvktfrwhTADhQnCamcDSkLm/PWyf9ZdOrvKyUg6hZxdrqrT18?=
+ =?us-ascii?Q?CkjF73wt4JrfnlrWMg/gXA/q1O5CegQbxIekY01DyfABybBsQ6vGk790N7jH?=
+ =?us-ascii?Q?dn8tV8E6WT1XcdPtguba2826KyXheV6/SMq/AvM4FnjnoiSLruUi8l21W97g?=
+ =?us-ascii?Q?7IKEI3CpyA99PHrkOBYWHVjUU1COegDz6HaQeduPWXjunZkJ3RoPh4Ts2+17?=
+ =?us-ascii?Q?Bxlaj+OOxNCl6UPvJVhnP+vVV6v9CfDefN415d6168Cqo+amu7VjAY+zh9ln?=
+ =?us-ascii?Q?j+zyehSf1V0093R9LHxRik6kBlM2o9YnRgmmCDepIt1aRNLhXPJFl1EuP7AG?=
+ =?us-ascii?Q?VTLGsPbTgwe7JjZcvolYO8+p2Woa+KjX/nIF3QVe82TPzl+ygTKOq7Sujyhj?=
+ =?us-ascii?Q?4ulBrqOw0vdQGnvvVpmbDbw7SMrk31g=3D?=
+X-Exchange-RoutingPolicyChecked:
+	hT1VBsuavNVI5sgZ0KwIkF7eTi1dFo62L+1xD+7Scdrm+XGyCjtW5YnfDT+P0ZVCwopJG61n7OtsaKYr/NeBDDRueFtnrVR6sLKjsbmovugnggu3vlWM4dpj/10ZthBkZ3G4XqgpAoZ3S5np4ycVZj1oZ0fr37p35NjKcCilM5/sp6oM0blzREIh8iQDyN2D5tw10giihjhIg/USKsY1jbQ82PXOPCQBA+k4bFzbieNkjHHTGBxGSCyLlzJkUU7ZE3LhSDpeCv2fvA3+h/NPHzl52SH4BfP2uTBmxL22AzOFjiLGQiDmtEe2y5ArGWJ3zOINubLAC3QkGMBe4a3WNQ==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	/zqIdmDsZpjv0RAL9csHnDPNkp2vXpflOeglit09MrKXZAHBdvhEqt9qrhpQIV8grg8uFMKARENHm50RvW29xWspop3p/8qxdvmdwLEv6uFXDEoaMLjeoaB8YiDXb5PR0k/CrA44vL/vRD0I0Tb4mmkKaAJ+hYLq+G2naddxF1NHhXZXC/ZG94vAQhijh1XJXkjoRWyOgKxJQeQ8+ZMrMtritAEjlacsxOzlXrYevRDEvn4lx6v2BXgwNJpD4Ud2W4x3JIUrDExoadF1+5bg77oBg6SeURWBD2oBeAqCzoxROojuTf20NJrsBHendadT+xr0USGsJb6X9SzgKmRfoQCRAh0RNmrMK2mHQyJhzYFzbZZ2YJ+HKNK760pRGJdtyCTPY8RwWtx5Y8Ztp4JwEE2htzldmgkec1d6jFDE5uYWvxCfTVAtXfEDGYCOptESzsPu4f5uP/riL9fYhVZxFg/SRquncAy724rtcIMlZfgzfN5bcIbTgygSkSg+FImEFOaSxKEqLQIzKi+nYIu89lJENY2j0+GCmIpgatFhMWA73Et2uGVIhIEf3M0AgLVmF3cMvdItkrSoUtsCSPe4BXhtNeXns8U+ULSMPGzSMro=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a817f95-b19e-4c1e-f20e-08deed123aa7
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR10MB5344.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 01:39:28.3754
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: clei0mVDUcTWCP+CKGWW2gYh1fUtCkppb3GhIMUEet5WnWhqUdYRZU+QlOoy+MKW9o7lIBzPHYyZW+aCN8p73JVuI2F5w/GYzQcPsZNPsnM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR10MB7798
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_01,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ mlxscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 mlxlogscore=760
+ spamscore=0 adultscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2606160000 definitions=main-2607290011
+X-Proofpoint-ORIG-GUID: x-PeHncB8jVLP8pm3vYmKPeJt4nEnnL7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDAxMCBTYWx0ZWRfX/1wq7ptgdMEZ
+ QM3DghR140eDcwBRN3Zhai5s/HSFzoRdjByT1jF7idMCZNzliQm3WUQOxq0kRgbi0p74XfWcVpQ
+ tkW6PqRQ/3zDURfpi7eK9hOh+Kc/pS8D4TzGLzI4DkDf94ecYKYElT8wQ8euX8qP+jk5k//RK6o
+ wUXVtTur9shpH2HX8it+VkTlH1cCuC2xvRkflTE2DLaOzsxc5Vb/SVKxPvaP21M+2daTZSiRGMf
+ zL73hBCdu25TYVSUUTSDX/H2IqziSIeJ0JiJfons0XZowMz+OQVJPH0XbikGUTBnPYeTcW7JCZF
+ 7fsy9XGZ/WfJgzN+ID1aj2PnX95SXovnJ+hyM0cicMxQE0m0HufHUZqQ/f+WVOKzZ85jEfcfo8f
+ unFdf4WAVcORW0TsBgF/AYCu8dhPOXNDkIZi6E9qnQYf3Z2jHSilJDohCux9ORydzTcdojHmgpI
+ XD+sAaqrOWHF36YCXRw==
+X-Proofpoint-GUID: x-PeHncB8jVLP8pm3vYmKPeJt4nEnnL7
+X-Authority-Analysis: v=2.4 cv=A6Jc+aWG c=1 sm=1 tr=0 ts=6a6959f1 cx=c_pps
+ a=XiAAW1AwiKB2Y8Wsi+sD2Q==:117 a=XiAAW1AwiKB2Y8Wsi+sD2Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=RAioF0-LDSMA:10
+ a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
+ a=RD47p0oAkeU5bO7t-o6f:22 a=2Pg8bzTh1uANNiGIuD4A:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDAxMCBTYWx0ZWRfX6W4iGiF4NQ3w
+ faAg6puFQRpCniE9xAGAw/sZaYAsw/ik+z4qUqIBuLiLOTQshHrJW/qNP7m7cDDy8lPLkS6rgWJ
+ hAj+GaOaV3bhrotzuyoBUrj29Q1VhDpwVbepEEdToyX7a0l5Te0p
 
-KVM RISC-V tracks guest local interrupt state with two bitmaps:
 
-  - irqs_pending: interrupts that should be visible to the guest
-  - irqs_pending_mask: interrupts whose pending state changed
+Shawn,
 
-The current code updates those bitmaps with independent atomic bitops
-and assumes a multiple-producer, single-consumer protocol. That model
-does not actually hold.
+> I don't mean to rush you. But I do wonder whether you are fine to
+> accept it as a fix for 7.2 release. Thank you!
 
-kvm_riscv_vcpu_sync_interrupts() is not a pure consumer. When the guest
-changes guest-visible HVIP state, sync_interrupts() writes both
-irqs_pending and irqs_pending_mask to reflect the new guest state back
-into KVM state. As a result, irqs_pending and irqs_pending_mask form a
-single logical state transition, but they are not updated atomically as
-a pair.
+It's been in my fixes branch for a few days, I've just been unable to
+push my tree while away. It'll go out shortly.
 
-This allows a race where a newly injected interrupt is lost. For
-example:
-
-  CPU0                              CPU1
-  ----                              ----
-  kvm_riscv_vcpu_set_interrupt(VS_SOFT)
-    set_bit(VS_SOFT, irqs_pending)
-                                    kvm_riscv_vcpu_sync_interrupts()
-                                      sees guest-cleared HVIP.VSSIP
-                                      sets irqs_pending_mask
-                                      clear_bit(IRQ_VS_SOFT, irqs_pending)
-    set_bit(VS_SOFT, irqs_pending_mask)
-    kvm_vcpu_kick()
-
-After that interleaving, a later flush can update HVIP without VSSIP
-even though a new virtual interrupt was injected. In practice, the
-guest can remain blocked in WFI with work pending.
-
-The same pending/mask protocol is shared by VS soft interrupts, PMU
-overflow delivery, and AIA high interrupt synchronization, so the race
-is not limited to one interrupt source.
-
-Fix this by serializing all updates to irqs_pending and irqs_pending_mask
-with a per-vCPU raw spinlock. This keeps the pending bit and the dirty
-mask as one state transition across:
-
-  - set/unset interrupt
-  - guest HVIP sync
-  - interrupt flush to guest CSR state
-  - vCPU reset
-  - AIA CSR writes that clear dirty state
-
-Use non-atomic bitmap operations while holding the lock. Hold the lock
-across the AIA sync, flush, and pending checks as well, so both bitmap
-words share the same serialization domain.
-
-This intentionally replaces the existing lockless protocol instead of
-trying to repair it with additional barriers. The problem is not memory
-ordering on a single field; it is that two separate bitmaps encode one
-shared state machine while both producers and sync paths can modify
-them. A per-vCPU raw spinlock keeps the fix small, local, and suitable
-for backporting.
-
-Fixes: cce69aff689e ("RISC-V: KVM: Implement VCPU interrupts and requests handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xie Bo <xb@ultrarisc.com>
-Reviewed-by: Anup Patel <anup@brainfault.org>
-Link: https://lore.kernel.org/r/20260715020359.1521354-2-xb@ultrarisc.com
-Signed-off-by: Anup Patel <anup@brainfault.org>
-
-[ bo: Adapt to the scalar interrupt state in 6.1.y and its CSR one-reg
-  helpers in vcpu.c. Drop AIA and PMU overflow handling, which are not
-  present in this tree. ]
-(cherry picked from commit d024a0a7879e6f37c0152aacf6d8e37b214a1738)
----
- arch/riscv/include/asm/kvm_host.h | 10 ++--
- arch/riscv/kvm/vcpu.c             | 78 ++++++++++++++++++++++---------
- 2 files changed, 60 insertions(+), 28 deletions(-)
-
-diff --git a/arch/riscv/include/asm/kvm_host.h b/arch/riscv/include/asm/kvm_host.h
-index dbbf43d..dc5e553 100644
---- a/arch/riscv/include/asm/kvm_host.h
-+++ b/arch/riscv/include/asm/kvm_host.h
-@@ -192,12 +192,12 @@ struct kvm_vcpu_arch {
- 	/*
- 	 * VCPU interrupts
- 	 *
--	 * We have a lockless approach for tracking pending VCPU interrupts
--	 * implemented using atomic bitops. The irqs_pending bitmap represent
--	 * pending interrupts whereas irqs_pending_mask represent bits changed
--	 * in irqs_pending. Our approach is modeled around multiple producer
--	 * and single consumer problem where the consumer is the VCPU itself.
-+	 * The irqs_pending field represents pending interrupts whereas
-+	 * irqs_pending_mask represents bits changed in irqs_pending. Updates
-+	 * to these fields are serialized so vcpu interrupt sync/flush cannot
-+	 * drop a newly injected interrupt while syncing guest-visible HVIP.
- 	 */
-+	raw_spinlock_t irqs_pending_lock;
- 	unsigned long irqs_pending;
- 	unsigned long irqs_pending_mask;
- 
-diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
-index 5174ef5..c6afbf0 100644
---- a/arch/riscv/kvm/vcpu.c
-+++ b/arch/riscv/kvm/vcpu.c
-@@ -112,6 +112,7 @@ static void kvm_riscv_reset_vcpu(struct kvm_vcpu *vcpu)
- 	struct kvm_vcpu_csr *reset_csr = &vcpu->arch.guest_reset_csr;
- 	struct kvm_cpu_context *cntx = &vcpu->arch.guest_context;
- 	struct kvm_cpu_context *reset_cntx = &vcpu->arch.guest_reset_context;
-+	unsigned long flags;
- 	bool loaded;
- 
- 	/**
-@@ -134,8 +135,10 @@ static void kvm_riscv_reset_vcpu(struct kvm_vcpu *vcpu)
- 
- 	kvm_riscv_vcpu_timer_reset(vcpu);
- 
--	WRITE_ONCE(vcpu->arch.irqs_pending, 0);
--	WRITE_ONCE(vcpu->arch.irqs_pending_mask, 0);
-+	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
-+	vcpu->arch.irqs_pending = 0;
-+	vcpu->arch.irqs_pending_mask = 0;
-+	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
- 
- 	vcpu->arch.hfence_head = 0;
- 	vcpu->arch.hfence_tail = 0;
-@@ -173,6 +176,7 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
- 
- 	/* Setup VCPU hfence queue */
- 	spin_lock_init(&vcpu->arch.hfence_lock);
-+	raw_spin_lock_init(&vcpu->arch.irqs_pending_lock);
- 
- 	/* Setup reset state of shadow SSTATUS and HSTATUS CSRs */
- 	cntx = &vcpu->arch.guest_reset_context;
-@@ -444,7 +448,7 @@ static int kvm_riscv_vcpu_set_reg_csr(struct kvm_vcpu *vcpu,
- 	unsigned long reg_num = reg->id & ~(KVM_REG_ARCH_MASK |
- 					    KVM_REG_SIZE_MASK |
- 					    KVM_REG_RISCV_CSR);
--	unsigned long reg_val;
-+	unsigned long flags, reg_val;
- 
- 	if (KVM_REG_SIZE(reg->id) != sizeof(unsigned long))
- 		return -EINVAL;
-@@ -461,8 +465,11 @@ static int kvm_riscv_vcpu_set_reg_csr(struct kvm_vcpu *vcpu,
- 
- 	((unsigned long *)csr)[reg_num] = reg_val;
- 
--	if (reg_num == KVM_REG_RISCV_CSR_REG(sip))
--		WRITE_ONCE(vcpu->arch.irqs_pending_mask, 0);
-+	if (reg_num == KVM_REG_RISCV_CSR_REG(sip)) {
-+		raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
-+		vcpu->arch.irqs_pending_mask = 0;
-+		raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
-+	}
- 
- 	return 0;
- }
-@@ -679,19 +686,26 @@ void kvm_riscv_vcpu_flush_interrupts(struct kvm_vcpu *vcpu)
- {
- 	struct kvm_vcpu_csr *csr = &vcpu->arch.guest_csr;
- 	unsigned long mask, val;
-+	unsigned long flags;
- 
--	if (READ_ONCE(vcpu->arch.irqs_pending_mask)) {
--		mask = xchg_acquire(&vcpu->arch.irqs_pending_mask, 0);
--		val = READ_ONCE(vcpu->arch.irqs_pending) & mask;
-+	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
-+
-+	mask = vcpu->arch.irqs_pending_mask;
-+	if (mask) {
-+		vcpu->arch.irqs_pending_mask = 0;
-+		val = vcpu->arch.irqs_pending & mask;
- 
- 		csr->hvip &= ~mask;
- 		csr->hvip |= val;
- 	}
-+
-+	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
- }
- 
- void kvm_riscv_vcpu_sync_interrupts(struct kvm_vcpu *vcpu)
- {
- 	unsigned long hvip;
-+	unsigned long flags;
- 	struct kvm_vcpu_arch *v = &vcpu->arch;
- 	struct kvm_vcpu_csr *csr = &vcpu->arch.guest_csr;
- 
-@@ -700,32 +714,40 @@ void kvm_riscv_vcpu_sync_interrupts(struct kvm_vcpu *vcpu)
- 
- 	/* Sync-up HVIP.VSSIP bit changes does by Guest */
- 	hvip = csr_read(CSR_HVIP);
-+
-+	raw_spin_lock_irqsave(&v->irqs_pending_lock, flags);
-+
- 	if ((csr->hvip ^ hvip) & (1UL << IRQ_VS_SOFT)) {
- 		if (hvip & (1UL << IRQ_VS_SOFT)) {
--			if (!test_and_set_bit(IRQ_VS_SOFT,
--					      &v->irqs_pending_mask))
--				set_bit(IRQ_VS_SOFT, &v->irqs_pending);
-+			if (!__test_and_set_bit(IRQ_VS_SOFT,
-+						&v->irqs_pending_mask))
-+				__set_bit(IRQ_VS_SOFT, &v->irqs_pending);
- 		} else {
--			if (!test_and_set_bit(IRQ_VS_SOFT,
--					      &v->irqs_pending_mask))
--				clear_bit(IRQ_VS_SOFT, &v->irqs_pending);
-+			if (!__test_and_set_bit(IRQ_VS_SOFT,
-+						&v->irqs_pending_mask))
-+				__clear_bit(IRQ_VS_SOFT, &v->irqs_pending);
- 		}
- 	}
- 
-+	raw_spin_unlock_irqrestore(&v->irqs_pending_lock, flags);
-+
- 	/* Sync-up timer CSRs */
- 	kvm_riscv_vcpu_timer_sync(vcpu);
- }
- 
- int kvm_riscv_vcpu_set_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
- {
-+	unsigned long flags;
-+
- 	if (irq != IRQ_VS_SOFT &&
- 	    irq != IRQ_VS_TIMER &&
- 	    irq != IRQ_VS_EXT)
- 		return -EINVAL;
- 
--	set_bit(irq, &vcpu->arch.irqs_pending);
--	smp_mb__before_atomic();
--	set_bit(irq, &vcpu->arch.irqs_pending_mask);
-+	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
-+	__set_bit(irq, &vcpu->arch.irqs_pending);
-+	__set_bit(irq, &vcpu->arch.irqs_pending_mask);
-+	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
- 
- 	kvm_vcpu_kick(vcpu);
- 
-@@ -734,24 +756,34 @@ int kvm_riscv_vcpu_set_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
- 
- int kvm_riscv_vcpu_unset_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
- {
-+	unsigned long flags;
-+
- 	if (irq != IRQ_VS_SOFT &&
- 	    irq != IRQ_VS_TIMER &&
- 	    irq != IRQ_VS_EXT)
- 		return -EINVAL;
- 
--	clear_bit(irq, &vcpu->arch.irqs_pending);
--	smp_mb__before_atomic();
--	set_bit(irq, &vcpu->arch.irqs_pending_mask);
-+	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
-+	__clear_bit(irq, &vcpu->arch.irqs_pending);
-+	__set_bit(irq, &vcpu->arch.irqs_pending_mask);
-+	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
- 
- 	return 0;
- }
- 
- bool kvm_riscv_vcpu_has_interrupts(struct kvm_vcpu *vcpu, unsigned long mask)
- {
--	unsigned long ie = ((vcpu->arch.guest_csr.vsie & VSIP_VALID_MASK)
--			    << VSIP_TO_HVIP_SHIFT) & mask;
-+	unsigned long flags;
-+	unsigned long ie;
-+	bool ret;
-+
-+	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
-+	ie = ((vcpu->arch.guest_csr.vsie & VSIP_VALID_MASK)
-+	      << VSIP_TO_HVIP_SHIFT) & mask;
-+	ret = vcpu->arch.irqs_pending & ie;
-+	raw_spin_unlock_irqrestore(&vcpu->arch.irqs_pending_lock, flags);
- 
--	return (READ_ONCE(vcpu->arch.irqs_pending) & ie) ? true : false;
-+	return ret;
- }
- 
- void kvm_riscv_vcpu_power_off(struct kvm_vcpu *vcpu)
 -- 
-2.54.0
-
+Martin K. Petersen
