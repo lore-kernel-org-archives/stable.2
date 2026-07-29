@@ -1,53 +1,51 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4188A411F82;
-	Wed, 29 Jul 2026 10:03:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D505C3F4822;
+	Wed, 29 Jul 2026 10:29:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785319385; cv=none; b=tMvJzviXCuZDHplPUySk7W7OBqXoR4zCxwzRVgb0r0PdcmeFoqmVSzVKv1dHX1ApUXcBbTENUjlbNQj0ezgZym2Ihber2j7dXH82ulpA54YKTdD7AN/KwsHsA/a5iZane4l8Ovl5Sxb958g4khvIC/ENmug17ckJ2Og12D4kgVs=
+	t=1785320970; cv=none; b=tCgoJcEr3YV/fltPZZRTXbdbMcOcmW8VMBkzBwAOFpAKE8z7WScb8x121Tu3QvXzyGfbRrZo5CB/a4VH51L+lBZS4ei4ShEyapQEgoUcIDKSwstXZEP3rkq9IFM6NENtCRCjY9NLg8Hag602IXEUhjs/urhuccgIyFa7ngEWVGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785319385; c=relaxed/simple;
-	bh=MarEHk2652I/6KoWbb1IPd7ch3p/VBSZ1ZmAfKZ5Jcc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=NC0YLHqtD5/QPSO15g6yCtkvQqXAxRC1Y2xdKvOQ/otPHEgFvG3ShJjh2CikozATVif/kxcfedhAvGEgbjMSzfpajjshaYTR3LSgxpE8Wt56JJ3svYgSg2a812G+AoZY39GByOaMeWsCgDBAEg37NArHaXutsJDE1hraFEz/Qa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=PBCKqK5c; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="PBCKqK5c"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6A43915A1;
-	Wed, 29 Jul 2026 03:02:58 -0700 (PDT)
-Received: from e127648.cambridge.arm.com (e127648.arm.com [10.1.39.91])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C15103F86F;
-	Wed, 29 Jul 2026 03:02:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1785319382; bh=MarEHk2652I/6KoWbb1IPd7ch3p/VBSZ1ZmAfKZ5Jcc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=PBCKqK5crlCmmhSNVY38suluveZb5gLr5BgYpAt9LUlHSQTfBMjO3vHfGiD7+4JCG
-	 HVaOYeaUvnGZ8qlfFt4ti2YxAwIDFndqsNDIiIKye2Kb9D4PRs7rpjUHjBCKHqQDTD
-	 phT5Q0TxDFRLYDs781U0CXTkCrn9CQVRbcGVV6Mw=
-From: Christian Loehle <christian.loehle@arm.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Len Brown <lenb@kernel.org>,
-	Jie Zhan <zhanjie9@hisilicon.com>,
-	Lifeng Zheng <zhenglifeng1@huawei.com>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Ionela Voinescu <ionela.voinescu@arm.com>,
-	zhongqiu.han@oss.qualcomm.com,
-	Christian Loehle <christian.loehle@arm.com>,
-	stable@vger.kernel.org
-Subject: [PATCHv2 2/3] ACPI: CPPC: Skip desired_perf read in cppc_get_perf()
-Date: Wed, 29 Jul 2026 11:02:44 +0100
-Message-Id: <20260729100245.2628302-3-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260729100245.2628302-1-christian.loehle@arm.com>
-References: <20260729100245.2628302-1-christian.loehle@arm.com>
+	s=arc-20240116; t=1785320970; c=relaxed/simple;
+	bh=b39/whaeh4iT8w6BfCJhWUVT0ZUiCc8Gifio0tZV4vg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GO+n8+Kwhkwggy62l6lYWAk6AYIl5yzMs2BPCAKW5hnTnUVZckDJ1qmxg96EQA05vimU5xIrUDQBJNykH9sQHGwS5JeVUHB9tKhlagEQVo1giue936ZoxGw8RW1bT8dt3xF3yfiQuKJ6xM9RjH1lJR9T+ZMhpDtkdoHEL4SppTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E4C86202B58;
+	Wed, 29 Jul 2026 12:29:25 +0200 (CEST)
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1wp1XR-001rmu-26;
+	Wed, 29 Jul 2026 12:29:25 +0200
+Received: from blackshift.org (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 3E1AD575DCF;
+	Wed, 29 Jul 2026 10:28:11 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	linux-can@vger.kernel.org,
+	kernel@pengutronix.de,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	stable@vger.kernel.org,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [PATCH net 12/20] can: peak_usb: validate uCAN receive record lengths
+Date: Wed, 29 Jul 2026 12:12:52 +0200
+Message-ID: <20260729102802.505168-13-mkl@pengutronix.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260729102802.505168-1-mkl@pengutronix.de>
+References: <20260729102802.505168-1-mkl@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,55 +54,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ACPI 6.6 changed the Optional Attribute of Desired Performance from
-Read/Write to Write. cppc_get_perf() nevertheless reads the register when
-initializing performance controls, even though cppc-cpufreq overwrites the
-value before using it.
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-Use the readability check from cppc_get_desired_perf() and leave
-desired_perf zero instead of reading it on ACPI 6.6 or later. Also exclude
-the register from PCC read-command detection so it cannot trigger an
-otherwise unnecessary read command.
+pcan_usb_fd_decode_buf() walks uCAN records packed in one USB
+receive buffer.
 
-Fixes: 658fa7b1c47a ("ACPI: CPPC: Add cppc_get_perf() API to read performance controls")
+Require each record to contain the fixed header for its type, and verify
+CAN payload bytes before copying them into the skb.
+
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Link: https://patch.msgid.link/20260706092836.79754-1-pengpeng@iscas.ac.cn
+Fixes: 0a25e1f4f185 ("can: peak_usb: add support for PEAK new CANFD USB adapters")
 Cc: stable@vger.kernel.org
-Suggested-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/acpi/cppc_acpi.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/net/can/usb/peak_usb/pcan_usb_fd.c | 40 +++++++++++++++++++++-
+ 1 file changed, 39 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index 6e5381f8de38..210988d57b71 100644
---- a/drivers/acpi/cppc_acpi.c
-+++ b/drivers/acpi/cppc_acpi.c
-@@ -1843,6 +1843,7 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
- 	u64 desired_perf = 0, min = 0, max = 0, energy_perf = 0, auto_sel = 0;
- 	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, cpu);
- 	struct cppc_pcc_data *pcc_ss_data = NULL;
-+	bool read_desired_perf = cppc_desired_perf_readable();
- 	int ret = 0, regs_in_pcc = 0;
- 
- 	if (!cpc_desc) {
-@@ -1862,7 +1863,8 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
- 	auto_sel_reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
- 
- 	/* Are any of the regs PCC ?*/
--	if (CPC_IN_PCC(desired_perf_reg) || CPC_IN_PCC(min_perf_reg) ||
-+	if ((read_desired_perf && CPC_IN_PCC(desired_perf_reg)) ||
-+	    CPC_IN_PCC(min_perf_reg) ||
- 	    CPC_IN_PCC(max_perf_reg) || CPC_IN_PCC(energy_perf_reg) ||
- 	    CPC_IN_PCC(auto_sel_reg)) {
- 		if (pcc_ss_id < 0) {
-@@ -1894,7 +1896,7 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
+index ef9fd693e9bd..0d46f4ce5dca 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
+@@ -566,6 +566,13 @@ static int pcan_usb_fd_decode_canmsg(struct pcan_usb_fd_if *usb_if,
+ 				     dev->can.ctrlmode);
  	}
- 	perf_ctrls->min_perf = min;
  
--	if (CPC_SUPPORTED(desired_perf_reg)) {
-+	if (read_desired_perf && CPC_SUPPORTED(desired_perf_reg)) {
- 		ret = cpc_read(cpu, desired_perf_reg, &desired_perf);
- 		if (ret)
- 			goto out_err;
++	if (!(rx_msg_flags & PUCAN_MSG_RTR) &&
++	    le16_to_cpu(rx_msg->size) - offsetof(struct pucan_rx_msg, d) <
++	    cfd->len) {
++		kfree_skb(skb);
++		return -EBADMSG;
++	}
++
+ 	cfd->can_id = le32_to_cpu(rm->can_id);
+ 
+ 	if (rx_msg_flags & PUCAN_MSG_EXT_ID)
+@@ -714,6 +721,24 @@ static void pcan_usb_fd_decode_ts(struct pcan_usb_fd_if *usb_if,
+ 		peak_usb_set_ts_now(&usb_if->time_ref, le32_to_cpu(ts->ts_low));
+ }
+ 
++static size_t pcan_usb_fd_rx_msg_min_size(u16 rx_msg_type)
++{
++	switch (rx_msg_type) {
++	case PUCAN_MSG_CAN_RX:
++		return offsetof(struct pucan_rx_msg, d);
++	case PCAN_UFD_MSG_CALIBRATION:
++		return sizeof(struct pcan_ufd_ts_msg);
++	case PUCAN_MSG_ERROR:
++		return sizeof(struct pucan_error_msg);
++	case PUCAN_MSG_STATUS:
++		return sizeof(struct pucan_status_msg);
++	case PCAN_UFD_MSG_OVERRUN:
++		return sizeof(struct pcan_ufd_ovr_msg);
++	default:
++		return sizeof(struct pucan_msg);
++	}
++}
++
+ /* callback for bulk IN urb */
+ static int pcan_usb_fd_decode_buf(struct peak_usb_device *dev, struct urb *urb)
+ {
+@@ -728,6 +753,12 @@ static int pcan_usb_fd_decode_buf(struct peak_usb_device *dev, struct urb *urb)
+ 	msg_end = urb->transfer_buffer + urb->actual_length;
+ 	for (; msg_ptr < msg_end;) {
+ 		u16 rx_msg_type, rx_msg_size;
++		size_t rx_msg_min_size;
++
++		if (msg_end - msg_ptr < sizeof(*rx_msg)) {
++			err = -EBADMSG;
++			break;
++		}
+ 
+ 		rx_msg = (struct pucan_msg *)msg_ptr;
+ 		if (!rx_msg->size) {
+@@ -739,13 +770,20 @@ static int pcan_usb_fd_decode_buf(struct peak_usb_device *dev, struct urb *urb)
+ 		rx_msg_type = le16_to_cpu(rx_msg->type);
+ 
+ 		/* check if the record goes out of current packet */
+-		if (msg_ptr + rx_msg_size > msg_end) {
++		if (rx_msg_size > msg_end - msg_ptr) {
+ 			netdev_err(netdev,
+ 				   "got frag rec: should inc usb rx buf sze\n");
+ 			err = -EBADMSG;
+ 			break;
+ 		}
+ 
++		rx_msg_min_size = pcan_usb_fd_rx_msg_min_size(rx_msg_type);
++		if (rx_msg_size < rx_msg_min_size) {
++			netdev_err(netdev, "got short rec\n");
++			err = -EBADMSG;
++			break;
++		}
++
+ 		switch (rx_msg_type) {
+ 		case PUCAN_MSG_CAN_RX:
+ 			err = pcan_usb_fd_decode_canmsg(usb_if, rx_msg);
 -- 
-2.34.1
+2.53.0
 
