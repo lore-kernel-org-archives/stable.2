@@ -1,75 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2876E2F851;
-	Wed, 29 Jul 2026 01:49:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB1231F9B4
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:09:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785289759; cv=none; b=BVh+yRPxbPKCRa8hyPkfqwyinU0jOMrLhNybA6ctcBQWrhQKMucXu4hue86EJPVbKZCJ1NkBW0ngBZdOSdDKcIeD0WsnnQ2YaLEmYsQyaloU10D1H6AHXqEdxqUOUz8BatyC4eCKUyK5KDobY30Lv+uvkmsNexBrYQkPEsDm/yI=
+	t=1785290976; cv=none; b=jjX6/dRmUqBHzPq3G+clJE9hsUbBQ5vszVXzVYW/A8g9bjbHO564i05Zll34o+2pR3VmtuHNZenR6pC4iA0VT+tdsdqyh1pYDAdVOaWi+GKu0geMutHX5JVE25FwsilnLEGjqxQbtQYsaYQ8ZMZalB5r79+yxkq/MeU8c/heBcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785289759; c=relaxed/simple;
-	bh=urwml6ZFYPDCytIWgbLjz4DmPLPX5J/0Guva5Pv4kx8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eNzOFCpcPYF3k5frPgO6/PZhABwa8r9KNr0Ghf0FYhbv4xuXp2ChVoL7I407bKAMhrpXVt7WAlwN3IbqLZpiTzlI4BU+SI3+UIrOxTwxn0684Tdy0TPPjxgHz3BSBMvufwSE1+RhVhuDTea+DzSk5IkUcI9UGUZvLd5GpvJPTHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KPiJqSLZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785290976; c=relaxed/simple;
+	bh=aoWCB7e23RflCVloo+41eZtueA7DFsV81XtQ7IdnGkk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=V19QIAI6ypqVc62/wK7dFRRuuD1NPzrQBYIANQUbqKF4q2Sop9ngKl7mhdj3DfHisAy7jVoz6pYgfzEKlmQNsH7Z3ZiZVYKn00QQlaTRenjlQu43fpHyErmM2lMKemlfg3nwmZeHBoW/GLCzJYsyIEGAJi5us9RhCr69bj3w5bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=faN170J1; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KPiJqSLZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49AF61F000E9;
-	Wed, 29 Jul 2026 01:49:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785289758;
-	bh=9pyw3W/GQtvmE74CCOK+KwDbDpQSHlFRnAiMSIgOMM0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KPiJqSLZgehZreDhFOPO1Q3noUMd67qgU1SI3vG3PDqMB1A/ujeMBqXS3kCcJyMTY
-	 fTP25KQnqXNNTqx5HCJELl3WFbDT/SIsqM33U9RB0GOgb6ePbP9l7AjwTzW6qLYk4Q
-	 Bi0AnDWk8DM1a94m5Sp5MGGIklQ7Xd8unwD6nFyLNyYFG6F7ckYq6Qu6QdAhLNam7K
-	 j3HeuMweyZdixuUjUP710rv22iZ59DDWsS18deRVMJumdwBSUQCju57E1h2tdS4wEx
-	 11RdLVxtHSEie95J/4agcxfUQMrxKaAVmu2s3cJ8k2ZFqivroH1s1ItZSQysZzxPMR
-	 2lRYC2MiOe8qQ==
-Message-ID: <42d66aa3-e996-487f-a44f-ad3d1fd8be69@kernel.org>
-Date: Wed, 29 Jul 2026 10:49:13 +0900
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="faN170J1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:From:From:Reply-To;
+	bh=jQ3MEIzPVK1aM8W85E2IKoZrQwrN2eJRt2nDMRqmdfM=; b=faN170J1eEVrtZ75h0JxlZ5sD5
+	cg4vNGLG6UOqSAyw/QKzhF2HdOwPsPdfGm6iggFq67/voP0sarhgXqhPiNYvHmjGoiNjVXxOUZl5t
+	PKk8p19jgCdPmLWYWDLU9L8/v2dZAq8RiIVbQdw1WTjWC/+sx65l6l6ZXxxaMe987qMBmB4k9h8tz
+	n57V2oGFnj9TuXMk3XsReeCjqt4MOu7Ei43ICd5KCQzzxiLcVZZfz6Jku88xc6yes0ln8O5bat1D9
+	Fu1GcU1jngIgXTVwHw+z3xwqfKYyEmTb5w+fK4gaMGt9Mw3rLnCv7FQlMzyk53fLrt34IZXa4hThR
+	COagbF9Q==;
+Received: from [187.36.208.132] (helo=[192.168.1.221])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1wotjd-007FxT-Sl; Wed, 29 Jul 2026 04:09:30 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH 0/2] drm/v3d: Fix system freezes by serializing the GPU
+ reset
+Date: Tue, 28 Jul 2026 23:09:21 -0300
+Message-Id: <20260728-v3d-order-global-reset-v1-0-e47be838158d@igalia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ata: libata-sata: fix ata_scsi_lpm_supported() iteration
-To: Niklas Cassel <cassel@kernel.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
- linux-ide@vger.kernel.org
-References: <20260728113841.727256-2-cassel@kernel.org>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20260728113841.727256-2-cassel@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqEMBBF0a1IjS2I8RNxK9ID03lqgRipNCKIe
+ zf08AzuvSlBBYmG4ibFKUninlGVBX3XaV/AErLJGtsZZ3s+68BRA5SXLfppY0XCj52rO980LYz
+ vKceHYpbrPx4/z/MCI7FdaWgAAAA=
+X-Change-ID: 20260728-v3d-order-global-reset-7736b445e0b8
+To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1919; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=aoWCB7e23RflCVloo+41eZtueA7DFsV81XtQ7IdnGkk=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqaWDWwS8yF++ZdqPclBhFNySaMkOkfl94xX3No
+ O7ur+3e3Y+JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCamlg1gAKCRA/8w6Kdoj6
+ qhOcCACgGcIDqzKdSfhnJPmYf/uxigm5M+rk+kHwpCRjQn2AlF7GkxrVLoqMXctCL6OFLrmEjy9
+ xBqVDhykQXMMiR2ICKek2eSpYmEz7XhOpMzmORoOQleLmtp5g0ufdKEO5B8UtFYD3ZxZnyaWAnZ
+ vm8KtY7Sy3Rrt7PiJtIrV3aOGJfOQcx3jZGI3aEvvIjFSb05DIm8ZE5EHmWDOY0uTcVPbO23qV3
+ SI+DMYwlCvYwa0gm9XL2H9PoDUMELd0iHIkq/2hlldqqLNkE42VcGP4yTH+lmfpU+zDWRZz3/id
+ 2nFd6NwYW5GWCHwxkj6xTbGaqd3CzHMey1K+IFDHIgdiL99j
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-On 7/28/26 20:38, Niklas Cassel wrote:
-> The inner loop of ata_scsi_lpm_supported() user the wrong variable when
-> iterating.
-> 
-> It should obviously use the link that we are currently iterating over,
-> rather than always using the host link.
-> 
-> ata_scsi_lpm_supported() is used to control if a user should be allowed
-> to change lpm policy (from the default) via sysfs.
-> 
-> Thus, this bug could potentially disallow users to change the LPM policy
-> for certain SATA devices via sysfs.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 0060beec0bfa ("ata: libata-sata: Add link_power_management_supported sysfs attribute")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/linux-ide/20260728112200.B99F21F000E9@smtp.kernel.org/
-> Signed-off-by: Niklas Cassel <cassel@kernel.org>
+V3D exposes several independent hardware queues, but it only has a single,
+global reset. Therefore, when a job times out in one queue, the timeout
+handler has to stop, reset and restart the schedulers of every other queue
+as well. As each scheduler queues its timeout work on the system workqueue,
+those handlers run concurrently and can interfere with each other.
 
-Applied to for-7.2-fixes, with the message typo fixed. Thanks!
+This can be reproduced on a Raspberry Pi 4 or 5 by running glmark2-wayland,
+which keeps the CL queues busy, while a second application triggers a GPU
+reset in the CSD queue every 0.5 seconds. The failure is non-deterministic,
+but it usually shows up after a dozen resets: the DRM scheduler warns about
+a credit imbalance in one of the CL queues,
 
+    WARNING: CPU: 2 PID: 43 at drivers/gpu/drm/scheduler/sched_main.c:102 drm_sched_run_job_work+0x238/0x4d0 [gpu_sched]
 
--- 
-Damien Le Moal
-Western Digital Research
+and, from that point on, the UI freezes and the machine is unusable.
+
+The DRM scheduler already provides the synchronization that this kind of
+hardware needs: an ordered workqueue passed as drm_sched_init()'s
+@timeout_wq parameter, which guarantees that the timeout handlers of the
+different schedulers are executed sequentially. Patch 1 gives all of the
+V3D queues such a workqueue. Patch 2 removes `reset_lock`, which only
+ever covered the driver's callback and is made redundant by the ordered
+workqueue.
+
+Only patch 1 is Cc'ed to stable, in order to keep the backport minimal.
+
+Best regards,
+- Maíra
+
+---
+Maíra Canal (2):
+      drm/v3d: Serialize the scheduler timeout handlers
+      drm/v3d: Remove the now-redundant reset lock
+
+ drivers/gpu/drm/v3d/v3d_drv.h   |  8 ++++----
+ drivers/gpu/drm/v3d/v3d_gem.c   |  3 ---
+ drivers/gpu/drm/v3d/v3d_sched.c | 13 ++++++++-----
+ 3 files changed, 12 insertions(+), 12 deletions(-)
+---
+base-commit: 48a570c964d8e37d353381e4195106277e17f5cb
+change-id: 20260728-v3d-order-global-reset-7736b445e0b8
+
