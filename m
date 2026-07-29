@@ -1,42 +1,42 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6245480952;
-	Wed, 29 Jul 2026 12:28:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4E15479871;
+	Wed, 29 Jul 2026 12:28:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785328104; cv=none; b=hbUOwN/+W/aH4n6Rus1tYBbTk+hSsyxcchck3LkPBMzEIs3Ruo4i0ROLynDflhD3ZdBoAhQ5rXZBVWA9S+8WtremJpUAzhO85dtwVbV9fyA/+yp94shPqoQuVrR6b02A45yE8WHtRcqmTnnuHvMzWacdPETcigFrFe3oC/OBuZI=
+	t=1785328107; cv=none; b=RhURAA+VIjUZtIjcPSWOLGRdVBU0KLGQU3xstSGVDOmgQ2yfbGJ/VU17/XMQx94glaoT6BsFu+9uOUWy0M1hEDTFv+hjMmBePFBicRHzKoTP/IP+qogP35dgWP5I4fRutLJSQ6joAu5F1q6U3nY3ioiR9RkAmoSd2o3i4Ud79/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785328104; c=relaxed/simple;
-	bh=CUc/aAlP2rg7uSm23RFsoxSRF8/4wbZLYn+DoGVAVcg=;
+	s=arc-20240116; t=1785328107; c=relaxed/simple;
+	bh=oRrUTYWgMVtYtvO+yjVrNdlmthvRQeQ9FVYDf8+4kJA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Jh3vKiYbMcuvi2X/mMR/8TVg1BBz8IbJkAX9fDf/PkJlZ8FvwnMghCLbBNsbfyG+V4cs67f84u0Vs/q9uaS9VT8Dv6CWBsn2Rvceq14pVlchaDseNbmFDEFbTQBFC7Bv3JyYSzHNrYHf7K2EjIwz6JrUPPaxK68s9Hmllschtew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ct8kfuhG; arc=none smtp.client-ip=185.246.85.4
+	 In-Reply-To:To:Cc; b=Q2O0t6bmP0G1lfe7Wyx33qwFgb2fnvJf8h2ds3jz1Q0oofOzypxJulxn2PSF7PanjU09dDENVihg7Pn+7H2qFQiYHCs/isq5/oFb95TGGeMprVTIJ4+lNIbzkE/XvGnzvkgO/oNfQq6eczB4bKffWSRg1yJY5kWvsmHoPMLxyjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=lhzGuDQ8; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ct8kfuhG"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="lhzGuDQ8"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 08AC34E40FD7;
-	Wed, 29 Jul 2026 12:28:10 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 754B21A1304;
+	Wed, 29 Jul 2026 12:28:13 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D142B6039A;
-	Wed, 29 Jul 2026 12:28:09 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 70FC311C14DD0;
-	Wed, 29 Jul 2026 14:28:07 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4A6EC6039A;
+	Wed, 29 Jul 2026 12:28:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BF41711C14DCE;
+	Wed, 29 Jul 2026 14:28:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1785328088; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1785328092; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=U4cC7SFSqtTL9g1/BW0LoxbBIsLu40pyx25taDIRET8=;
-	b=ct8kfuhGmtnxEEFoqNJ7yrNtnWD8X2DLwO0IPh1qV5qmDhhh2Vr+RGAeXzNtmHZuNcJUsZ
-	5FV7Fcln4Ng/UqxTLvBgWZU0St5BB7IqEtvHIZ1LdQNMx1LrIdgt0cByE9CyyS8LLE6KC0
-	6/50lk7LnxSenHkxuFIg0EvIXSQ7CA1wtHQS1TrMdu7bov8JYB/f+x/KOV0cX9HYXZArxI
-	Q+QxB8Ig2EaVrunwFwepZJWWAjVWtY1gkfRxD140bBBNmm4LB/n0EYF5YuSuBIcKBbT9nC
-	pWqnRn3bs6y7JEmxapXHlk1J7bUzWfO5TW4JsdNTOyLYRtkLWPoEnDXGy/bDxw==
+	bh=62401MNJZd+NmwPO/Zom0O45zUQA8pu5GRnhVjurZNY=;
+	b=lhzGuDQ8XOwq2z0owD5QZ53Wkcv+/B7Pc94F+tfdSZq677xcZ+CndNeIGYDJCvz4ubtcHf
+	GxvR3AYcay/FozXA7tQ/snLTXsuOPln360Mp7l80tf9Nq14RLICgDCi+qAO5rOcgoyAfDn
+	OX4pg2PN8/swPJX5MazSrguRgRFzf2Io78zlSNt5eekW0HO9nm2C7pSwsyfzL6FAtMs8Az
+	e2fJrqDovncn/zJteFhwzef54U307jtc8+HPZKvngCP3bu+eoQybT+fw44lMpUlHf5li+R
+	Wbag7s/su2Y5qXhwLL9Uw+C6XnFeByjEp2Fv0WizpbMyecdhwvkDwJP2WqUEYw==
 From: "Diogo Ivo (Schneider Electric)" <diogo.ivo@bootlin.com>
-Date: Wed, 29 Jul 2026 14:25:42 +0200
-Subject: [PATCH 1/3] mmc: sdhci_am654: Reset command and data lines on
- failed tuning
+Date: Wed, 29 Jul 2026 14:25:44 +0200
+Subject: [PATCH 3/3] mmc: sdhci_am654: Fallback to DT-provided itap delay
+ on DDR50 tuning failure
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260729-am654-sdhci-v1-1-7568108e4b9a@bootlin.com>
+Message-Id: <20260729-am654-sdhci-v1-3-7568108e4b9a@bootlin.com>
 References: <20260729-am654-sdhci-v1-0-7568108e4b9a@bootlin.com>
 In-Reply-To: <20260729-am654-sdhci-v1-0-7568108e4b9a@bootlin.com>
 To: Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>, 
@@ -57,57 +57,72 @@ Cc: linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
  "Diogo Ivo (Schneider Electric)" <diogo.ivo@bootlin.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1248; i=diogo.ivo@bootlin.com;
- h=from:subject:message-id; bh=CUc/aAlP2rg7uSm23RFsoxSRF8/4wbZLYn+DoGVAVcg=;
- b=owEBbQKS/ZANAwAKAQa+fFtWXslFAcsmYgBqafHPPl1ZEr/gDa8mp7f/afviIKzqhDxtwbPyf
- dXgRs2As22JAjMEAAEKAB0WIQTma35o1i1081e8B2UGvnxbVl7JRQUCamnxzwAKCRAGvnxbVl7J
- RbexD/9jNywtdM5za/sABm1KTnVrJHvlwJ7Q2c5cuLaAlUDfaytIPqqUQG0W7Jl/+kzdX09szTn
- nMCMdKDI87Ge+7WU7mx9/tM0cL3Fl1JZ5UgI3zOQP928Gm165To0K4iLRm5R1JN3Pjau+k9akHc
- sBppzhGZy/K7Oy2zP8/BfZuJVN/tfckBt9vUT7/IPe1MdT4PFP4fKoTdSX/3VG+r2VIVAQVKtpt
- 4+ElMh60ceACoX6ycffhGkCN++rZoP2CUv6Zq6F8AM5A94zsAldizSrQB3hZKo/r32vqte4aEwA
- PiDZ1FLSwKiqGP+jIf4cZq1gUFjeRS2/+9Wssk5dJMoCrijrotxOQ3oOkejIObOgvcCaPzTAgp7
- NUMGdO4ESDODHXPGmKmPd4k0Yyk1ulhsr8/3HlDdsAtWrr6WVPF0lAEuIWrnpVKQXbVLxZjRK41
- P+p4gyVLDSNJ1G9ummtyFqtKtx1HPNN9xG9n4BPKgwIXV0yhg8rO15kKsIQ044qJZgtpBd5QrST
- eSHnVdWazoNaDRRVoTPQbIzwUWL48glg6KNkEC+MRMAwqDTJglVLSe+FoJ8lruvF8OQoNHsw1P7
- 9m2KTyIMd4Ue3NGwQssGvNmGy7G0yFjWXgexL+5Uxw2Aqn9HR99uZkWf0E7ieXTmuQUzgUu7Y6o
- gYp08M3MNyV8YQQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1890; i=diogo.ivo@bootlin.com;
+ h=from:subject:message-id; bh=oRrUTYWgMVtYtvO+yjVrNdlmthvRQeQ9FVYDf8+4kJA=;
+ b=owEBbQKS/ZANAwAKAQa+fFtWXslFAcsmYgBqafHPYfhalSO375YP6WpjElK/d1l+8DRDP+EaB
+ T8SKB1YeReJAjMEAAEKAB0WIQTma35o1i1081e8B2UGvnxbVl7JRQUCamnxzwAKCRAGvnxbVl7J
+ Rer3D/9x479kR3xhmBc1TdtzLVowHEdBrwyjMtU2pgWQKzSCUCx/Yurlv/q8sLGkUteN15p+93Z
+ 5JcQBdfK+Up8q1KqOarSJv6rBPcRtQsaTjVF+9R3P2lFZKk7s2c4HCydhfIR7Xl9dJbvorPt2Fp
+ Z9geeHg1eWsQRnZoHIV93UyoQZ6SD+7hgReQ713+BMzzMRVk9kw9VRmj+Duh4BEGQRqHNZPygSm
+ o+qeHuxNXEkhtPvJqmJa9v62MBKZkJsjqnQ1x94CV0vsovfe4VjZ6oOblG9RcyDiyYHhQU5Ws6e
+ cYXBvfqNzgE/+xB7lvX5l9nWOZklr/tnoITQrp0crozO84uC2dNxX54xeX3iSMKMzmfvvKmfE06
+ rONBjmd0hcp+FiYPzzqeyJQBjFep0NrYlzmpq3TkGMlA2b93M77jgPie5tnDkdnivMMJyM/XXx1
+ BwwKaRZx+cxIUc+BwNruCoMgVs9aPy8N8Za6tA17zduKi9ewTbHwgwoschbRCfI0qfdpKrjU9IG
+ 6z9pqq6gHmwzlQupu5STN2EwoZGfnh/lKqOLFe8bGsoFkjoCvQQb+acHNz3AMiOxWbobfB8Tjvt
+ aRjqSfPH/nMe3Abz+FuYk5BOZ9oeoQ3rZS9eDLHTnX4M0Y+VkxJe49TPgYV1CJW4fBItOYzb3za
+ kEOkRcZye5hqrwQ==
 X-Developer-Key: i=diogo.ivo@bootlin.com; a=openpgp;
  fpr=E66B7E68D62D74F357BC076506BE7C5B565EC945
 X-Last-TLS-Session-Version: TLSv1.3
 
-The CMD/DATA reset after tuning should be performed regardless of
-whether tuning succeeded or failed, since tuning data may remain in
-the buffer in either case. Move the error return after the reset so
-that the controller is always cleaned up.
+DDR50 mode is not required to support the tuning command CMD19, meaning
+that calibration may fail on cards that do not implement it, in which
+case a known-good itap delay value should be programmed into the host
+controller.
 
-Fixes: de31f6ab68a3 ("mmc: sdhci_am654: Reset Command and Data line after tuning")
+Do this by reading the (already defined) itap delay DT property for DDR50
+and, if tuning fails for this mode, fall back to the DT-provided itap delay
+value.
+
+Fixes: 901d16e46296 ("mmc: sdhci_am654: Add retry tuning")
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Diogo Ivo (Schneider Electric) <diogo.ivo@bootlin.com>
 ---
- drivers/mmc/host/sdhci_am654.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/mmc/host/sdhci_am654.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/mmc/host/sdhci_am654.c b/drivers/mmc/host/sdhci_am654.c
-index d235b0aecfdb..f76aab7e3a16 100644
+index 806544db0128..a7c64c5ac636 100644
 --- a/drivers/mmc/host/sdhci_am654.c
 +++ b/drivers/mmc/host/sdhci_am654.c
-@@ -443,15 +443,13 @@ static int sdhci_am654_execute_tuning(struct mmc_host *mmc, u32 opcode)
- 	struct sdhci_host *host = mmc_priv(mmc);
- 	int err = sdhci_execute_tuning(mmc, opcode);
+@@ -126,7 +126,7 @@ static const struct timing_data td[] = {
+ 				   NULL,
+ 				   MMC_CAP_UHS_SDR104},
+ 	[MMC_TIMING_UHS_DDR50]	= {"ti,otap-del-sel-ddr50",
+-				   NULL,
++				   "ti,itap-del-sel-ddr50",
+ 				   MMC_CAP_UHS_DDR50},
+ 	[MMC_TIMING_MMC_DDR52]	= {"ti,otap-del-sel-ddr52",
+ 				   "ti,itap-del-sel-ddr52",
+@@ -580,9 +580,15 @@ static int sdhci_am654_platform_execute_tuning(struct sdhci_host *host,
+ 	} while (++sdhci_am654->tuning_loop < RETRY_TUNING_MAX);
  
--	if (err)
--		return err;
- 	/*
- 	 * Tuning data remains in the buffer after tuning.
- 	 * Do a command and data reset to get rid of it
- 	 */
- 	sdhci_reset(host, SDHCI_RESET_CMD | SDHCI_RESET_DATA);
+ 	if (itapdly < 0) {
+-		dev_err(dev, "Failed to find itapdly, fail tuning\n");
+-		/* Explicitly clear ITAPDLY */
+-		sdhci_am654_write_itapdly(sdhci_am654, 0, 0);
++		if (timing == MMC_TIMING_UHS_DDR50) {
++			sdhci_am654_write_itapdly(sdhci_am654,
++						  sdhci_am654->itap_del_sel[timing],
++						  sdhci_am654->itap_del_ena[timing]);
++		} else {
++			dev_err(dev, "Failed to find itapdly, fail tuning\n");
++			/* Explicitly clear ITAPDLY */
++			sdhci_am654_write_itapdly(sdhci_am654, 0, 0);
++		}
+ 		return -1;
+ 	}
  
--	return 0;
-+	return err;
- }
- 
- static u32 sdhci_am654_cqhci_irq(struct sdhci_host *host, u32 intmask)
 
 -- 
 2.55.0
