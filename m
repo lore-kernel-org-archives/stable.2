@@ -1,157 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D52453A5E
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:37:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8239839792D
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:38:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785335878; cv=none; b=ZUsHyvQUt6w02JhOXfXDXiHRxl75N9Gp1hQJE+tUSdfSrEibJcLvM/r6APlx+4iBMgjB2aBQ9an8KJdXwbiQq7L85nTc5kbsifDWOGM3T6iVGmuuBWTYlMHvvPUlafnuS2ts743yxvQNTFEsI8XaI4WVFRF7ZwlAyvkUTrZIYV8=
+	t=1785335892; cv=none; b=ER9h1K4JJRt9aX1NKrL/b1nPycfvQcBBY3RpneAIEz/yVo8j0GpNh/pi9uNdKlTtoQEJ5qKjVmtRd2B3Z33wG7X+0iRGAkhnHNy7K9VlHf3EtkI2eGvi549mCuSd0ZgFRBcZSa4e9Jzdfxb9EB0NRMySRekpxLmnewSkXXA31qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785335878; c=relaxed/simple;
-	bh=WQMqMT1aDPgeSjsMSLfjJ7+1g8cxi+9pp+d4Bf+jkac=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=H8Wld2aVhMURoJevfwCN/2HbisnUSsO3n/fAwI3DhPgN+rJkxwYyADpWPUKjxr6dF9L08VN3UagoT5+N5NuL8ZZ5rMOJXVljGkpFX99aEQseQ6aYz84L5zbwBd3DJy8DF1rXBHTW90ScVRvBDwcTCU3DOFWP27dL/mc7caL7Tro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ek3s/eRA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785335892; c=relaxed/simple;
+	bh=crpU8/ryFZF2OEhZ8cRAVjVjAfWir/TzdNA/Mv1+UZg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Cl4mUYiMO7r8yyuH8L/ogrCUshvMrlVlDf91OxubMjzZ4d8fwGQxtc5WSULJJiq/B9bei5asmLFYWvHhuxOx1t9Qt2TuVOruJTlRSor/c6j3f2Fk997RG5h+Rhdtz5xszvQOZvspkvxAL5PZJc7aTFI8/W+jh+v3iaiRtMw/kYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WTXTPCus; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ek3s/eRA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07CE01F000E9;
-	Wed, 29 Jul 2026 14:37:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785335874;
-	bh=Be+lDX0UIlr5bDYax2SZMLvmCfVsd1pcNrTou8t+Qsc=;
-	h=Subject:To:Cc:From:Date;
-	b=Ek3s/eRAmIrFKNMhfoRxoBKhJbshzDJklcjEwO6RaD90dIPy6uUU0zL7J98NqJF+R
-	 WPyPfuQXtNdeoq5MRKYzQYQsm1BpWpLPIL1m+CikpYjQK/CXNU7F7bmebT0Sp0z+3N
-	 nw+JIftlkn9Mvhgo9axa2uMvqxsVZdXMKgFmonCI=
-Subject: FAILED: patch "[PATCH] ftrace: Add global mutex to serialize trace_parser access" failed to apply to 5.10-stable tree
-To: wutengda@huaweicloud.com,rostedt@goodmis.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 16:37:33 +0200
-Message-ID: <2026072933-reprint-squad-0d54@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WTXTPCus"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785335887; x=1816871887;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=crpU8/ryFZF2OEhZ8cRAVjVjAfWir/TzdNA/Mv1+UZg=;
+  b=WTXTPCuszcRbbbg4/5r0p4IxRJOOCrKpkMiMhsf4hbo3Q5NwX5d/NX2o
+   gz42ZfhPWXXEunO6SgOBCTICxm19tzTz2g3okI5pmBH9m66VhGgnBLdU3
+   pBM6RSs9R1WxzsW0XlPn21LNGoFm7+Vx7ed2gTz7T11PILGTc/3BipUfM
+   EqP0GE67I6Bl2v/7Zb2/Bc1lTThMybW4M9gzFEDM7bj0tvToAKhJ7gM00
+   QSzaZEEggeXM21LWx7zsC6GZtPq1NQ7RdXRGaC5GlxWpSF8x8xD8lbMTv
+   8EW8uBm5GkYECxR8f3hXo+u30Oyp+VmktW1vMaSYeHqZ7avVnpbXl19lY
+   g==;
+X-CSE-ConnectionGUID: Ui3x/0MZQmKpvTuMa8K+lw==
+X-CSE-MsgGUID: QKd8o8MvRY6dVB0/gtefDg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="97455341"
+X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; 
+   d="scan'208";a="97455341"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jul 2026 07:38:04 -0700
+X-CSE-ConnectionGUID: 0WirsqYwQB+EJ/sXVEybUw==
+X-CSE-MsgGUID: BdBXoyxXRmm3gW9dzWzVHw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; 
+   d="scan'208";a="265058137"
+Received: from dut6094bmgfrd.fm.intel.com ([10.80.55.54])
+  by fmviesa005.fm.intel.com with ESMTP; 29 Jul 2026 07:38:04 -0700
+From: Jia Yao <jia.yao@intel.com>
+To: stable@vger.kernel.org
+Cc: Jia Yao <jia.yao@intel.com>,
+	Shuicheng Lin <shuicheng.lin@intel.com>,
+	Mathew Alwin <alwin.mathew@intel.com>,
+	Michal Mrozek <michal.mrozek@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Matthew Auld <matthew.auld@intel.com>
+Subject: [PATCH 6.18.y] drm/xe/uapi: Reject coh_none PAT index for CPU_ADDR_MIRROR
+Date: Wed, 29 Jul 2026 14:37:59 +0000
+Message-ID: <20260729143759.152317-1-jia.yao@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026072910-darkroom-avenue-7ff8@gregkh>
+References: <2026072910-darkroom-avenue-7ff8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+Add validation in xe_vm_bind_ioctl() to reject PAT indices
+with XE_COH_NONE coherency mode when used with
+DRM_XE_VM_BIND_FLAG_CPU_ADDR_MIRROR.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+CPU address mirror mappings use system memory that is CPU
+cached, which makes them incompatible with COH_NONE PAT
+indices. Allowing COH_NONE with CPU cached buffers is a
+security risk, as the GPU may bypass CPU caches and read
+stale sensitive data from DRAM.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Although CPU_ADDR_MIRROR does not create an immediate
+mapping, the backing system memory is still CPU cached.
+Apply the same PAT coherency restrictions as
+DRM_XE_VM_BIND_OP_MAP_USERPTR.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 7720b63bcef3f54c7fe288774b720a227d54a306
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072933-reprint-squad-0d54@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+v2:
+- Correct fix tag
 
-Possible dependencies:
+v6:
+- No change
 
+v7:
+- Correct fix tag
 
+v8:
+- Rebase
 
-thanks,
+v9:
+- Limit the restrictions to iGPU
 
-greg k-h
+v10:
+- Just add the iGPU logic but keep dGPU logic
 
------------------- original commit in Linus's tree ------------------
+Fixes: b43e864af0d4 ("drm/xe/uapi: Add DRM_XE_VM_BIND_FLAG_CPU_ADDR_MIRROR")
+Cc: <stable@vger.kernel.org> # v6.15+
+Cc: Shuicheng Lin <shuicheng.lin@intel.com>
+Cc: Mathew Alwin <alwin.mathew@intel.com>
+Cc: Michal Mrozek <michal.mrozek@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Jia Yao <jia.yao@intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Acked-by: Michal Mrozek <michal.mrozek@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Link: https://patch.msgid.link/20260417055917.2027459-3-jia.yao@intel.com
+(cherry picked from commit 4d58d7535e826a3175527b6174502f0db319d7f6)
+---
+ drivers/gpu/drm/xe/xe_vm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-From 7720b63bcef3f54c7fe288774b720a227d54a306 Mon Sep 17 00:00:00 2001
-From: Tengda Wu <wutengda@huaweicloud.com>
-Date: Sat, 25 Jul 2026 02:47:21 +0000
-Subject: [PATCH] ftrace: Add global mutex to serialize trace_parser access
-
-In ftrace, the trace_parser structure is allocated and initialized when
-a trace file is opened, and is subsequently used across write and release
-handlers to parse user input.
-
-The affected handler paths and their specific functions are:
-  - Open paths: ftrace_regex_open(), ftrace_graph_open()
-  - Write paths: ftrace_regex_write(), ftrace_graph_write()
-  - Release paths: ftrace_regex_release(), ftrace_graph_release()
-
-If userspace opens a trace file descriptor and shares it across multiple
-threads, concurrent write calls will race on the parser's internal state,
-specifically the 'idx', 'cont', and 'buffer' fields, leading to corrupted
-input or undefined behavior.
-
-Fix this by adding a global mutex, parser_lock, to serialize all access
-to trace_parser across write and release paths, preventing concurrent
-corruption of parser state.
-
-Fixes: e704eff3ff51 ("ftrace: Have set_graph_function handle multiple functions in one write")
-Fixes: 689fd8b65d66 ("tracing: trace parser support for function and graph")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260725024721.1983675-1-wutengda@huaweicloud.com
-Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index f93e34dd2328..6c47a94f5924 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -1097,6 +1097,12 @@ struct ftrace_ops global_ops = {
- 					  FTRACE_OPS_FL_PID,
- };
- 
-+/*
-+ * parser_lock - Protects trace_parser state against concurrent operations.
-+ * Held across trace_get_user() and subsequent buffer parsing to prevent races.
-+ */
-+static DEFINE_MUTEX(parser_lock);
-+
- /*
-  * Used by the stack unwinder to know about dynamic ftrace trampolines.
-  */
-@@ -5842,6 +5848,8 @@ ftrace_regex_write(struct file *file, const char __user *ubuf,
- 	/* iter->hash is a local copy, so we don't need regex_lock */
- 
- 	parser = &iter->parser;
-+
-+	guard(mutex)(&parser_lock);
- 	read = trace_get_user(parser, ubuf, cnt, ppos);
- 
- 	if (read >= 0 && trace_parser_loaded(parser) &&
-@@ -6984,12 +6992,14 @@ int ftrace_regex_release(struct inode *inode, struct file *file)
- 		iter = file->private_data;
- 
- 	parser = &iter->parser;
-+	mutex_lock(&parser_lock);
- 	if (trace_parser_loaded(parser)) {
- 		int enable = !(iter->flags & FTRACE_ITER_NOTRACE);
- 
- 		ftrace_process_regex(iter, parser->buffer,
- 				     parser->idx, enable);
- 	}
-+	mutex_unlock(&parser_lock);
- 
- 	trace_parser_put(parser);
- 
-@@ -7321,10 +7331,12 @@ ftrace_graph_release(struct inode *inode, struct file *file)
- 
- 		parser = &fgd->parser;
- 
-+		mutex_lock(&parser_lock);
- 		if (trace_parser_loaded((parser))) {
- 			ret = ftrace_graph_set_hash(fgd->new_hash,
- 						    parser->buffer);
- 		}
-+		mutex_unlock(&parser_lock);
- 
- 		trace_parser_put(parser);
- 
-@@ -7437,6 +7449,7 @@ ftrace_graph_write(struct file *file, const char __user *ubuf,
- 
- 	parser = &fgd->parser;
- 
-+	guard(mutex)(&parser_lock);
- 	read = trace_get_user(parser, ubuf, cnt, ppos);
- 
- 	if (read >= 0 && trace_parser_loaded(parser) &&
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index 8f7b8f2da06b..08ee586cbc7b 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -3393,6 +3393,8 @@ static int vm_bind_ioctl_check_args(struct xe_device *xe, struct xe_vm *vm,
+ 				 op == DRM_XE_VM_BIND_OP_MAP_USERPTR) ||
+ 		    XE_IOCTL_DBG(xe, coh_mode == XE_COH_NONE &&
+ 				 op == DRM_XE_VM_BIND_OP_MAP_USERPTR) ||
++		    XE_IOCTL_DBG(xe, !IS_DGFX(xe) && coh_mode == XE_COH_NONE &&
++				 is_cpu_addr_mirror) ||
+ 		    XE_IOCTL_DBG(xe, op == DRM_XE_VM_BIND_OP_MAP_USERPTR &&
+ 				 !IS_ENABLED(CONFIG_DRM_GPUSVM)) ||
+ 		    XE_IOCTL_DBG(xe, obj &&
+-- 
+2.43.0
 
