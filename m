@@ -1,119 +1,107 @@
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D502039659A;
-	Wed, 29 Jul 2026 02:56:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.177.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB1D367B9C
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 03:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785293800; cv=none; b=TFqCdCERpdt+YKNyA0AH4dHWTb4dMC/OD0zgtDbNviYoDuXDy2Y0/5hJ25mu4pO+thsqgatrpn119oWTwWMvVwlBRbgsGamkPgzcykXjZn/7Tf5HDE005oGpm1a6sciotfQ1/i7VM/SXtzvlZ2m9u90uj4rxqBXaEqH5lVxQG+s=
+	t=1785294071; cv=none; b=GPrgM4yFAno9WUnhqOcSz7tOFFeC+gtEZ8y1F2pZKp9DYfivuBMKQp3VAAQ6Y/kCQfoLnBWTvztiFYztQ3NNqCV9SUq9/dYX0I0a6fWqSQJrebZSDV9CoigDpYCNr8PoWcB3gzR1xKwJt9rFY3/kdBb8yOgEIsNIxYWL9OXnYs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785293800; c=relaxed/simple;
-	bh=HeDG8zxBtRfgKpJEIIAzqHrB1eVnlJnTJ0uTG5kWf+w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=abxBZMUWQ7GuKgZEKyGJQ+AoM145xBlt4Foz8YZTKz/PsKzVDjmcYbQMM2SECUwpr8neFcj3JhKIrDMoxgKB4csmBr9SG/ZfGDe79UvkaH671IfrOVy7kZ4QYTn76nBLPLnzySJr+Hi5HBNb2PlaeOTx3NjaCLARQXCUkxghNNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=ILX9ygqH; arc=none smtp.client-ip=205.220.177.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	s=arc-20240116; t=1785294071; c=relaxed/simple;
+	bh=QADeywbTPdfKB8Qp6OcHSYccEUAFfm+PWOQ/PnFtrK8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ui53B3DiMNpgSIgdannNTHRXnYrj+Y1del8M7vfxI2r/RsG01/lHNvoS+cX5gdU5cuuLDfPeS0lJswE++JnqY8zH7J3mT14jRKPeWkKW8CWCrKLSFYf3xhtpX/ocDeDkprtiQjDo7W82Z4M8x6vyv6tjZtA0nc0/AlhzOgmBHZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bfABCdKF; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="ILX9ygqH"
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66SItYIk1094343;
-	Wed, 29 Jul 2026 02:56:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=m5fUU2sK1VnSiUr+PG3BaHBxWiKTdn/SyMV4j3dspGM=; b=
-	ILX9ygqH7vbwUYhJEKArR4HeCn75pkvMQSo8xbAQ7N4NEwkCAf/aDbHWn2JkDPB9
-	peTHtyuHt7bgWagenQIkvFOTQ4qsj4nEa2GwVCN5aJGectG8Q0aTUJUmnFebtHB0
-	er1FuK4MNRbQeWqWY1IPkwH7sT0B7kTLaE3j1LZHyq/NoG3EYbIeUbiZ5YXX70rO
-	Jqv4/XaJQKsLfxgDr6xL3gg9J3jIahjQc971DpESgwtWa4d4uzEXhkVQ+iRQojyX
-	y0qqmalgKfXnbyGGQFfKJEXKIQukVebIsJM+ypBXgZGxqtOTBxnnwlKybUKvgoEh
-	+fgP6/OafgjZEdr1O/OANw==
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4fmqym540y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 29 Jul 2026 02:56:28 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 66T2oYOo034630;
-	Wed, 29 Jul 2026 02:56:27 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4fnh6ddkrv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 29 Jul 2026 02:56:27 +0000 (GMT)
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66T2uMAF006812;
-	Wed, 29 Jul 2026 02:56:26 GMT
-Received: from ca-mkp2.ca.oracle.com.com (mpeterse-ol9.allregionaliads.osdevelopmeniad.oraclevcn.com [100.100.251.135])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4fnh6ddkq0-11;
-	Wed, 29 Jul 2026 02:56:26 +0000 (GMT)
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        Avri Altman <avri.altman@sandisk.com>,
-        Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Kumar Dwivedi <ram.dwivedi@oss.qualcomm.com>,
-        Anjana Hari <anjana.hari@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-scsi@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH v2] scsi: ufs: dt-bindings: Add missing mcq reg for qcom,sa8255p-ufshc
-Date: Tue, 28 Jul 2026 22:56:18 -0400
-Message-ID: <178529373848.132455.4656284480950878568.b4-ty@oracle.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260720023552.2667237-1-shengchao.guo@oss.qualcomm.com>
-References: <20260720023552.2667237-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bfABCdKF"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cecdc24b1cso79155ad.1
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 20:01:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785294070; x=1785898870; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OG4+KkePz7FqiZVxRiKijjGdnD6TtTFfUDUGu0gsNfA=;
+        b=bfABCdKF1X5u1rvpnwEtk3LNgv/n9zXufz/o3Ort5I/pq0AHnokDbemxXR+Pio8s52
+         RaTEi1rJgC6NaBj9LpIal97z5SQneQykMuRpOQzk5uf7OcaHwPgK8Izd4d9ocZ3+tHRb
+         EDWFRLFe2lRAg2XVbC+JWyigs2INIwK8ggxpGL1+f3yyGOQTWxQ/5qHU+QLbFFXHLAeW
+         +wHMeCOlxmzR9lPJ6fMeHkJEwkwMxmgj1qhCK1CF5C+sAbFngPchTaV2FPxyUC+5cV++
+         7ocoq0xXPzjUnvmTfcVJU7GQAHkchnmII5TmP/RXZjEW7C3xoL0VZxGqhAcGm1IF7bW2
+         5f0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785294070; x=1785898870;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OG4+KkePz7FqiZVxRiKijjGdnD6TtTFfUDUGu0gsNfA=;
+        b=dLEscoalr+cohig1Ei88xBVD0JDOGMZutktqtzBx6jGTQsluhSl9wExaPilX95e5bW
+         tDfBPIkKQYPrqorDZYZHnjOHsu6W/lHUnFnClG/QjIImxxi9n/e6+Pg5EUbxlX3rXpVq
+         PXSB711zXOV/ZuE1kKb9J+VpuKNvBZx+KPy9r5VHhHa9FBf+dPPzaHg7dnUsw3hh6UBO
+         LvJU0ymuYQ1SIPsRbx88PoACyB5nbIZtuLmaf1QmaBuOl8sHKwuz+n3TBlnP1yN8ixAZ
+         KjU847LOQfATHGERpVJr7gqnrdNDtBEF8YtC5vPX/OO0QQFLa5JbB16KROasU7mxbdrO
+         96HQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrwRbKrljLIP1PiSHLLiY6qeCT96kGMQtPN+2jXEKkgmW50thjj1K5M6ei2GQHgCcKkB3yE9Co=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxgvd5vFQZMeY+t+s8cjVMHIlNjpq1pOgMf2hpEfw6gWppQWV9r
+	LFiG9Z8EuW741YSPhIOfC1iyxsgEg++qbUPdBpzY99fYOnjq1a+YwBBU
+X-Gm-Gg: AR+sD11wXC9PfyZA9Dd6pnXwbG2ZLg7+kgQ1DVmbmuBRn+wbAoapd+68O6O8wsOgSCC
+	u84abqs5LWoP9gGVvgLMtx41Nj6RY7zD5z3AMU5d0pPuz7OfqkjAIwE45gMbGrZAdYaZY15ojeQ
+	K5rhzwoN7fGygFF99CUK8Q+RDH8Uijd9oPkiBOB+Dl8lf1D3PjqEZMw/m5sAYSpBjYnuzbTLO6j
+	A0Sgx8/qWewlDNglul11QaDOagteZMC3JxmgHMoPUgT4p67BG5Z/XMfK9qXzXDWWIX5/WKu9M33
+	cEqX3SnrQnwnUazCRMIw//UOhZ//cmklZN6kl3xyhXw8UvcYwQZXPUudzDXgKG78zDfPOeAAGVd
+	J9Io2Eak7d/2flmufnzf2SWmEXe2k9CPZeM6ufXs/TiHZ5rFlTQHDJW3+QP6RxCIeLknZJvawS9
+	D/O6TrreGhAsgd6LFolspPC9Iyzu+ADuT2QGyEbm3oeH4fmzXUkEvPx3+L85xQ3ib3nMyBhnBXY
+	mxT5UhGn28uN8vZau0WoMmxP69Vs9+hHt7fZmX5MCVFpmXQNaa7wKqoBE3e7hw=
+X-Received: by 2002:a17:903:2f07:b0:2cc:d6de:d58e with SMTP id d9443c01a7336-2d015c2fa1bmr45167035ad.4.1785294069801;
+        Tue, 28 Jul 2026 20:01:09 -0700 (PDT)
+Received: from localhost.localdomain ([139.159.170.72])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bf4bfesm4086165ad.58.2026.07.28.20.01.03
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 28 Jul 2026 20:01:09 -0700 (PDT)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: netdev@vger.kernel.org
+Cc: willemdebruijn.kernel@gmail.com,
+	daniel.zahka@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	stable@vger.kernel.org,
+	Qihang <q.h.hack.winter@gmail.com>
+Subject: [PATCH net v4 0/2] packet: use consistent hard_header_len in send paths
+Date: Wed, 29 Jul 2026 11:00:53 +0800
+Message-ID: <20260729030055.21334-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_01,2026-07-28_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- adultscore=0 spamscore=0 suspectscore=0 mlxlogscore=751 malwarescore=0
- phishscore=0 lowpriorityscore=0 bulkscore=0 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.19.0-2606160000 definitions=main-2607290021
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDAyMSBTYWx0ZWRfX4PHP6cXExD26
- 0vlE1iF3JvYYpwDhJAayFkK3iAhg/ZRR4FbUA3IeDqRsVAHPzah88DKT7dYBzZ1Gn/57d/YCS0/
- enOpUHFg55tG/CEQT6+y4rMX2OjK9yIDGfJgPKR934d6NDLNays2
-X-Proofpoint-ORIG-GUID: J_RdDsVaafSjPxHFtYLGqxD4uqqYk7hH
-X-Proofpoint-GUID: J_RdDsVaafSjPxHFtYLGqxD4uqqYk7hH
-X-Authority-Analysis: v=2.4 cv=UOrt2ify c=1 sm=1 tr=0 ts=6a696bdc b=1 cx=c_pps
- a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=3I1J8UUJPc9JN9BFgKH3:22 a=VwQbUJbxAAAA:8
- a=WfiShAZ5_vkT_QGmtBIA:9 a=QEXdDO2ut3YA:10 a=5yU3S35YU4bGjq-dph-N:22
- a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:13517
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDAyMSBTYWx0ZWRfX8N+UnrQW0HCF
- k1lPixeEhcy0sJS3dBAhJajzpYMeR6lh0I/eZ+QJkBsQ9Ok8qLBS+P3GAcfofyANHIpGY5B0BNY
- W78mr9ZiMcgZkShB/lVgwgvN6JKq8Q3jJ5bL+2g6Dx6qsVm4mm358l0HmIA0ScJgLKHOuL0xeQy
- 0MWQPNcpgdMJRANAWW5/QPKeBcbA/e0LRnYwYrqGPljVy+goi2PrfJk0b/x0IUwhDvPbP6gKbmU
- 7X+CRRbZIEDTb5Rb31yOJHN7NUaTjhT6991No7mLMkQGm05v+2u6RX01pYnZi0mCBQrR0mwuXF+
- U9EO/WVG6BZxJmK180HHPuT8eY5sCIQn0rQnkhE4dN7IRhRMsTOFdhx9gcMd0LARwaOLxGdgSAh
- g+aGAAoZEYQDpfEkXtdGjzHbp0FjCA59+iMKWW7x7c8/9dI+im150E38a+ncutbgK9gQYqUPpky
- 82J8pY5DngZz/GN1xM2IMZNpsG6qzFCWfbVo6ByQ=
 
-On Mon, 20 Jul 2026 10:35:52 +0800, Shawn Guo wrote:
+AF_PACKET send paths read dev->hard_header_len at several stages of skb
+allocation and construction. Concurrent netdevice reconfiguration can
+make those reads inconsistent and cause skb headroom underflow.
 
-> Qualcomm UFS controller found on SoCs SA8255P/SA8797P has a MCQ I/O
-> address space. It should be defined in the bindings even though Linux
-> driver currently doesn't utilize it. Fix the binding before it gets
-> adopted by DTS.
-> 
-> 
+Split the regular and TX_RING paths so each patch has one Fixes tag.
+The separate SOCK_DGRAM consistency issue between hard_header_len and
+header_ops->create remains outside this series.
 
-Applied to 7.2/scsi-fixes, thanks!
+Changes in v4:
+- Use one hard_header_len snapshot throughout tpacket_snd(), including
+  reserve and per-frame skb construction.
+- Carry Willem's Reviewed-by on patch 1.
 
-[1/1] scsi: ufs: dt-bindings: Add missing mcq reg for qcom,sa8255p-ufshc
-      https://git.kernel.org/mkp/scsi/c/4d5282c06ca1
+Link to v3: https://lore.kernel.org/netdev/20260728031345.49562-1-q.h.hack.winter@gmail.com/
+
+Qihang (2):
+  packet: use consistent hard_header_len in non-ring send paths
+  packet: use consistent hard_header_len in TX_RING send path
+
+ include/linux/netdevice.h |  6 +++--
+ net/packet/af_packet.c    | 46 ++++++++++++++++++++++++---------------
+ 2 files changed, 32 insertions(+), 20 deletions(-)
 
 -- 
-Martin K. Petersen
+2.50.1 (Apple Git-155)
