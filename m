@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF2D494A03
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:50:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C6848AE17
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:51:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333050; cv=none; b=Oqxcn5qwGRCgFLs4DVDwp0xDE0XCRLP5qHnIVJ9VP+Yea2Kxzb5kSo290NL3gHvt3fOU/+3u5zFeVGdDCpkYAkvO3u1+g5oA40JKVBpKTPmpvvPZQNWbPi82Ngv/pQkcMDK/uaVqWnAD4XOWhcHm4SYiaVa/BQSwuMbFESL+460=
+	t=1785333070; cv=none; b=anflv82gnu0N+QMywb86BfDCZVWtun4kHlPrnQeKGzF3egJLvNX9mwbQYwvh42zdNP2OIRy8u0VOLnX/BNpvvwHd9fHjLKH9YPxE8cOgOYkdYCORWeF6yDZwvYfPzidKm7tqM8Ws/C134YWcgWob2zO7i57AU9hfvwLe3/IpYxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333050; c=relaxed/simple;
-	bh=5OvR86fzlJn5Qf5EB8X/C8qS1jk8rZyrGOa33fvAkyA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pX4gu2JmZjWex7qCx9PUqzmpOPdgTfD08Ou+dx8RTr9AGrfIxGKYHu1xtQrOXd+4mha1KbFrEndDLRpye4r2RqsMLlcuGNVMYihWfDbfvJab3Z5I5ib0X9WSRS2tcZvw9Ss2lq6Fisf3EXrKG4wl8QDpRTU1waBIVVQGdcvt6O0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jV0hHkM4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785333070; c=relaxed/simple;
+	bh=egcRscMAsE92kMhSVehqLfx/TQaGNHPHjT1Y4wS1low=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sKrccQW2ehA/Oxp5C5AyemTyDP9r+ANS4twGBBUjUd/iSw0VemiQZNXI97WcxJNajXvIqS0jSfiU2D4wXGqGBt8oo3H3pfEagfKyRmzOTREHqFaRdGWVN+0+Ww4N0pn7/udTaoQNU/aGdWXlnL+2UiyS5IeWQYXWRAaeN1pvo/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dauIAXgb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jV0hHkM4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0C411F00A3A;
-	Wed, 29 Jul 2026 13:50:41 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dauIAXgb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588C01F000E9;
+	Wed, 29 Jul 2026 13:51:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785333042;
-	bh=V06Udu19xUqDdprGJfClkCwS2AxXhbAx7TNtd4KCwFE=;
+	s=korg; t=1785333065;
+	bh=+D969LNYm5AHg9/V/sFF6rxB6DrOBFKoWYgQBEoCSSI=;
 	h=Subject:To:Cc:From:Date;
-	b=jV0hHkM4L3LLDpCfV7yiGoTRLcqQj6m80w5xYH85Vhv16e5xhTLPHLyVQM2A2S1kV
-	 Q+FEzP8kdZZ/HcZ76McCSxgspeSvSsGklYE2d0fFastu2BNagHx65jcQ1UHL1kKZ4e
-	 aNlUSLT+JvcA9b2DyXb7I56K9ir/j288pqykiUt8=
-Subject: FAILED: patch "[PATCH] iomap: fix out-of-bounds bitmap_set() with zero-length range" failed to apply to 6.6-stable tree
-To: yi.zhang@huawei.com,brauner@kernel.org,djwong@kernel.org,hch@lst.de,joannelkoong@gmail.com
+	b=dauIAXgbWt28QV3Hh3D/Qh9p6zoz6xFpcy5bAequnhnLe/NJekvep0UA4Yl2RTuD3
+	 GSvELtXW4Ft24tNtL8HCaYu8ZrvCGq19Sq81XVtG3ozriVVfefrHW6QWmyEeQUPs2x
+	 kMIya1zQtVvnT2yLtKFU+YgbIqUjHZe3kidfmrho=
+Subject: FAILED: patch "[PATCH] mm/slub: fix lost local objects when bulk remote free batch" failed to apply to 6.18-stable tree
+To: hu.shengming@zte.com.cn,harry@kernel.org,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:50:23 +0200
-Message-ID: <2026072923-divinely-glorifier-714d@gregkh>
+Date: Wed, 29 Jul 2026 15:50:52 +0200
+Message-ID: <2026072952-macaroni-erased-2eca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9c7d8f7c8994c790fca501dc45ce66e7356cbe05
+git cherry-pick -x af9ea231c0b4530edc389a3126a69e0699b7699d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072923-divinely-glorifier-714d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072952-macaroni-erased-2eca@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,79 +62,94 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9c7d8f7c8994c790fca501dc45ce66e7356cbe05 Mon Sep 17 00:00:00 2001
-From: Zhang Yi <yi.zhang@huawei.com>
-Date: Tue, 14 Jul 2026 16:23:24 +0800
-Subject: [PATCH] iomap: fix out-of-bounds bitmap_set() with zero-length range
+From af9ea231c0b4530edc389a3126a69e0699b7699d Mon Sep 17 00:00:00 2001
+From: Shengming Hu <hu.shengming@zte.com.cn>
+Date: Mon, 6 Jul 2026 21:39:09 +0800
+Subject: [PATCH] mm/slub: fix lost local objects when bulk remote free batch
+ fills
 
-ifs_set_range_dirty() and ifs_set_range_uptodate() compute last_blk
-as (off + len - 1) >> i_blkbits.  When off is 0 and len is 0, the
-unsigned subtraction underflows to SIZE_MAX, producing a huge
-last_blk and nr_blks value that causes bitmap_set() to write far
-beyond the ifs->state allocation.
+In free_to_pcs_bulk(), when remote_objects[] fills to PCS_BATCH_MAX,
+the code jumps to flush_remote to free the batch. If all remote entries
+have already been compacted out of p[] via tail swaps while local objects
+remain, the flush_remote path returns early since `i < size` no longer
+holds. The leftover local objects are then neither cached in the sheaf
+nor returned to the slab freelist, causing a memory leak.
 
-Regarding ifs_set_range_uptodate(), it is temporarily safe because len
-cannot be passed in as 0. However, for ifs_set_range_dirty() this is
-reachable from __iomap_write_end(): when copy_folio_from_iter_atomic()
-returns 0 (e.g. user buffer fault) and the folio is already uptodate,
-the guard at the top of __iomap_write_end() does not trigger because
-!folio_test_uptodate() is false, and iomap_set_range_dirty() is called
-with copied == 0.
+For illustration:
+ size = 64, local objects at p[0..31], remote objects at p[32..63]
+ After scanning all remotes: i = 32, size = 32
+ p[0..31] local objects are dropped.
 
-Add a !len guard to both functions before the computation, so that a
-zero-length range is a no-op.
+Harry pointed out that, although the logic contains a real leak, it does
+not appear to be triggerable with the current in-tree users. To hit this
+path, at least PCS_BATCH_MAX objects, currently hardcoded to 32, need to
+be collected in remote_objects[]. Looking at current kmem_cache_free_bulk()
+users:
 
-Fixes: 4ce02c679722 ("iomap: Add per-block dirty state tracking to improve performance")
-Cc: stable@vger.kernel.org # v6.6
-Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
-Link: https://patch.msgid.link/20260714082325.325163-5-yi.zhang@huaweicloud.com
-Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+* maple_node has sheaf_capacity = 32
+* skbuff_head_cache has sheaf_capacity = 28
+* panthor and msm drivers have sheaf_capacity = 4
 
-diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-index 0cf62e516827..3a3ac3051fb0 100644
---- a/fs/iomap/buffered-io.c
-+++ b/fs/iomap/buffered-io.c
-@@ -68,11 +68,13 @@ static bool ifs_set_range_uptodate(struct folio *folio,
- 		struct iomap_folio_state *ifs, size_t off, size_t len)
- {
- 	struct inode *inode = folio->mapping->host;
--	unsigned int first_blk = off >> inode->i_blkbits;
--	unsigned int last_blk = (off + len - 1) >> inode->i_blkbits;
--	unsigned int nr_blks = last_blk - first_blk + 1;
-+	unsigned int first_blk, last_blk;
+The sheaf capacity is, at least for now, derived purely from the object
+size, with the user-requested capacity used as a minimum. Therefore, among
+the current users, only maple_node has a sheaf_capacity large enough to
+reach PCS_BATCH_MAX.
+
+However, for the bug to trigger in maple_node, all objects in the sheaf
+would have to be from remote nodes. In that case, there would be no local
+objects left to leak. So this issue was found by code review rather than
+from a runtime report, and it does not seem to be triggerable by current
+users.
+
+Still, the bug could become reachable with future users, a different sheaf
+capacity, or a change to PCS_BATCH_MAX. Fix the logic by freeing a full
+remote batch in place during the scan and then continuing to process the
+compacted array. This keeps all local objects on the normal fast path,
+while the tail path only handles any leftover partial remote batch. The
+redundant next_remote_batch jump label is removed as well.
+
+Fixes: 989b09b73978 ("slab: skip percpu sheaves for remote object freeing")
+Signed-off-by: Shengming Hu <hu.shengming@zte.com.cn>
+Link: https://patch.msgid.link/202607062139095043SOsLi6TIf403tcjPf8fm@zte.com.cn
+Cc: stable@vger.kernel.org
+Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+
+diff --git a/mm/slub.c b/mm/slub.c
+index 9ec774dc7009..65febe957886 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -6217,7 +6217,6 @@ static void free_to_pcs_bulk(struct kmem_cache *s, size_t size, void **p)
+ 	void *remote_objects[PCS_BATCH_MAX];
+ 	unsigned int remote_nr = 0;
  
--	bitmap_set(ifs->state, first_blk, nr_blks);
-+	if (len) {
-+		first_blk = off >> inode->i_blkbits;
-+		last_blk = (off + len - 1) >> inode->i_blkbits;
-+		bitmap_set(ifs->state, first_blk, last_blk - first_blk + 1);
-+	}
- 	return ifs_is_fully_uptodate(folio, ifs);
- }
+-next_remote_batch:
+ 	while (i < size) {
+ 		struct slab *slab = virt_to_slab(p[i]);
  
-@@ -204,13 +206,17 @@ static void ifs_set_range_dirty(struct folio *folio,
- {
- 	struct inode *inode = folio->mapping->host;
- 	unsigned int blks_per_folio = i_blocks_per_folio(inode, folio);
--	unsigned int first_blk = (off >> inode->i_blkbits);
--	unsigned int last_blk = (off + len - 1) >> inode->i_blkbits;
--	unsigned int nr_blks = last_blk - first_blk + 1;
-+	unsigned int first_blk, last_blk;
- 	unsigned long flags;
+@@ -6232,8 +6231,11 @@ static void free_to_pcs_bulk(struct kmem_cache *s, size_t size, void **p)
+ 		if (unlikely(!can_free_to_pcs(slab))) {
+ 			remote_objects[remote_nr] = p[i];
+ 			p[i] = p[--size];
+-			if (++remote_nr >= PCS_BATCH_MAX)
+-				goto flush_remote;
++			if (++remote_nr >= PCS_BATCH_MAX) {
++				__kmem_cache_free_bulk(s, remote_nr, &remote_objects[0]);
++				stat_add(s, FREE_SLOWPATH, remote_nr);
++				remote_nr = 0;
++			}
+ 			continue;
+ 		}
  
-+	if (!len)
-+		return;
-+
-+	first_blk = off >> inode->i_blkbits;
-+	last_blk = (off + len - 1) >> inode->i_blkbits;
- 	spin_lock_irqsave(&ifs->state_lock, flags);
--	bitmap_set(ifs->state, first_blk + blks_per_folio, nr_blks);
-+	bitmap_set(ifs->state, first_blk + blks_per_folio,
-+		   last_blk - first_blk + 1);
- 	spin_unlock_irqrestore(&ifs->state_lock, flags);
+@@ -6317,10 +6319,6 @@ static void free_to_pcs_bulk(struct kmem_cache *s, size_t size, void **p)
+ 	if (remote_nr) {
+ 		__kmem_cache_free_bulk(s, remote_nr, &remote_objects[0]);
+ 		stat_add(s, FREE_SLOWPATH, remote_nr);
+-		if (i < size) {
+-			remote_nr = 0;
+-			goto next_remote_batch;
+-		}
+ 	}
  }
  
 
