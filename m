@@ -1,62 +1,110 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023141.outbound.protection.outlook.com [40.107.44.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4BC3AB260;
-	Wed, 29 Jul 2026 06:52:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785307979; cv=none; b=Xs9Aii2D/c3134yXKnOT9k5wnEzsO3WipOkBcVd5TcgUjNHIUXk+kQkYbf7pkarDWIP8EtzmJWa/Hl25V12qkjJSy/r5xhGwV6j8hznD67qTppJU/QVa43A7POeTQtjJwYM4dZ09SP9W0GWNwscjY2nCpLdvJAI0CKu8cPa9DP0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785307979; c=relaxed/simple;
-	bh=x7RZQvvPvxXbMfuXWGrKVps+LeWW4nbQZ2SLee/v/eE=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69D9632;
+	Wed, 29 Jul 2026 06:58:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785308320; cv=fail; b=Iu5ZjRbKbN86TMoGJbF3s+hLq4oG+kqYcQvF0Hedzh+fQs48fbY7udZURjx3wMX91eYPZ6fwL22M2NEdOOWEylk/OeaXPrNmQqBktLJzR1yDkDdUxJeajIMPPLVByvIE4ar5StInRlynX1MACNy7FAyvmlZmrOH9MyLQdhZySbs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785308320; c=relaxed/simple;
+	bh=t5+lnFDeu6w5l15MCFL8471OnIvXzAEwjCgHMz4JVw8=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=gdrUdbsA1fIdvpFyVyYh/mMtQvmfQn6D35cjLtu4fbeAzqO/xRiBDaPtiiBNdk0EhZMioWCTaV1trWyKXjmZ5KjH62EGe3KiIJXvcpJ3IMlppki2WUQH/pGiYZB4ke4Y0WN6He3UXqPut9EgYurpnNcFZJUAVB9CQ7as1GN6SoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=vcN10VWz; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="vcN10VWz"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 66T6qpdZ7254779, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1785307971; bh=WHRWHJD3QHcEEMI+e56YiNfInwYHe63bnjzMDvKJAg0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=vcN10VWzo4j5oBnmRtzLZGpZZVUi8a7bDrJpac6AmpWBsoPhqIAjOqTQpDIO5xvFb
-	 2G56FDIQQTnOBQsmJ8PELdxEB86ujkdsePRDFXvwKfY/vZ8WaiPlPwYR3FileewLWs
-	 sSWq8q4SXJe+6FIXvRo1uftn24b60wV1NUOntx7lalLgMjdytQZJQSCHJbjscQCOY6
-	 ojkjSjSrm2n0TNfUhZQE13THzV2x4tB+AEUcjXJTREJO/2guinA86Guoyylf+Cht3W
-	 q+JIcIXY9rUUX6WWXYCtqWU1Dc4pcMq2nvgOicvYQCxHvjjafCpzt9WaI+QwdmFrEB
-	 0w/sVsWAYGGxw==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 66T6qpdZ7254779
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 29 Jul 2026 14:52:51 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 29 Jul 2026 14:52:51 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
- 15.02.2562.017; Wed, 29 Jul 2026 14:52:51 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: "yhchen312@gmail.com" <yhchen312@gmail.com>
-CC: Damon Chen <damon.chen@realtek.com>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: RE: [PATCH v2] wifi: rtw89: pci: add .shutdown callback to stop
- rfkill polling on reboot
-Thread-Topic: [PATCH v2] wifi: rtw89: pci: add .shutdown callback to stop
- rfkill polling on reboot
-Thread-Index: AQHdHvt1Pu/352P+/U6+Mc52K++5r7aED6Yw
-Date: Wed, 29 Jul 2026 06:52:51 +0000
-Message-ID: <1c11e1e5c94b4a80835df4c5bafb55ea@realtek.com>
-References: <142c91dfc7334136a5dabc4f91504ec6@realtek.com>
- <20260729014142.2746777-1-yhchen312@gmail.com>
-In-Reply-To: <20260729014142.2746777-1-yhchen312@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
+	 Content-Type:MIME-Version; b=qn62j1ONLNXKMokXoyLDvCoR/y7d5sllfXY7iWto+qSoPFj7LwynPXoypxBjjVcNt0XAliZU9pgvr+SU5hrzYIT+3tUriOfPY85oJ5Hfb7OcLxE7vHlMAqFXvi+/Yk5weiBKyr274n4PSR2iFOnjOuieIWrRPBQPxONtZ8ys+q0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nova.gal; spf=pass smtp.mailfrom=nova.gal; arc=fail smtp.client-ip=40.107.44.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nova.gal
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nova.gal
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n8HdX8EBu+RnGl1/LKWzzkVm0+TcKL6ktDCXGsm71bc0IQIJiDXnKeH9AiNrqZqYy0QT8b8qybbNOkH3o41buCHIlG0HIc1LKZ9KUaE0XaRbM/fHX53RCzBl1ZSwCHdYQ3p/Z0iCTjGnIlFCBN7KTKMokY4AkVisB4UabCPiAKNGmxW6MU/soKsLKKkonep45hQXGC94mXzo1Yek8acQt/SPB5mKnvB0iVKqQSwgaW/gA81MpoA9Gfmzk/9EA1tmzUmboevBOLIN7sCGHufzN1JTZNZraRxzYdN+YW9IVM1VLf+4yXlOK8vtyi0/HIDTSqa9xMNEIiD/xl7lV+64JA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/dK+LOTw6d1sJc+3Z4LdwWYWfKzVwbAaz3G3t/HcbEo=;
+ b=q6SqDktIJ6X/K/K++Q/+WC5tYqv70ns8A813UV4U6w7oyV2U1RQ6KEIn5ScDmsWA5a1RhdFhtfAda7cecq9seklCK6SzRjywNB0Be7874/9ppmfJMcbcA4m5G+I6fndczlg/BVe/FtRMSKZQsFKtxbVfmvLD/wdX2Lw8mQvMApqqDdhruUSSEHpJFb4AUbiasUUlaK0BXVHM91tA5UMWkK3FwVEkc13I10m5RXBMI+l9Maba3aABaF0PETyXFbPw1SMPwQvvUNc9T+/JMe+z4KxqdwsBumKPKpM8EP9SUNj6/wRZLh0a6c0u6590LLPZylzRzUUPD6Z8YhX2yeLRag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nova.gal; dmarc=pass action=none header.from=nova.gal;
+ dkim=pass header.d=nova.gal; arc=none
+Received: from SE3PR03MB9967.apcprd03.prod.outlook.com (2603:1096:101:336::7)
+ by TYZPR03MB8018.apcprd03.prod.outlook.com (2603:1096:400:463::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
+ 2026 06:58:33 +0000
+Received: from SE3PR03MB9967.apcprd03.prod.outlook.com
+ ([fe80::98a1:50ec:e93e:e0ee]) by SE3PR03MB9967.apcprd03.prod.outlook.com
+ ([fe80::98a1:50ec:e93e:e0ee%5]) with mapi id 15.21.0270.009; Wed, 29 Jul 2026
+ 06:58:33 +0000
+From: MuElnova <muel@nova.gal>
+To: "Darrick J. Wong" <djwong@kernel.org>
+CC: "linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>, "cem@kernel.org"
+	<cem@kernel.org>, "bfoster@redhat.com" <bfoster@redhat.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH xfs] xfs: validate remote attr value length in the leaf
+ verifier
+Thread-Topic: [PATCH xfs] xfs: validate remote attr value length in the leaf
+ verifier
+Thread-Index: AQHdHlnQbKvHdJ/HUEGg+U6p9/toE7aDCfgAgAEIJ30=
+Date: Wed, 29 Jul 2026 06:58:33 +0000
+Message-ID:
+ <SE3PR03MB99671599AB8C4D9C92A16BF6B9CA2@SE3PR03MB9967.apcprd03.prod.outlook.com>
+References: <20260728062451.1296908-1-muel@nova.gal>
+ <20260728151116.GL2901224@frogsfrogsfrogs>
+In-Reply-To: <20260728151116.GL2901224@frogsfrogsfrogs>
+Accept-Language: en-VG, zh-CN, en-US
+Content-Language: aa
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_defa4170-0d19-0005-0004-bc88714345d2_Enabled=True;MSIP_Label_defa4170-0d19-0005-0004-bc88714345d2_SiteId=2adae87f-1bb3-4442-a538-a57c857641f5;MSIP_Label_defa4170-0d19-0005-0004-bc88714345d2_SetDate=2026-07-29T06:58:32.959Z;MSIP_Label_defa4170-0d19-0005-0004-bc88714345d2_Name=All
+ Employees
+ (unrestricted);MSIP_Label_defa4170-0d19-0005-0004-bc88714345d2_ContentBits=1;MSIP_Label_defa4170-0d19-0005-0004-bc88714345d2_Method=Standard;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nova.gal;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SE3PR03MB9967:EE_|TYZPR03MB8018:EE_
+x-ms-office365-filtering-correlation-id: 8a2d6c74-dcf4-4bea-3502-08deed3ecdfc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|41320700013|23010399003|34036016|376014|56012099006|11063799006|10067099003|4143699003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ YwIVpOaJ1wjQX4xsSL4Ep71fpF5wGS/0dhTznP1KZxMkSyLa2a8qCKG3TPvxjUkDG5UmjPtn/JK5f3/8yPr0QJoIHEIZIfznRr7WjTkge74o8gZLqwPqhH1GSS01N9NdqoMNZxQrtNAf5vtLEKOtlVAa2AT1meyclTvpx52i735R3wNEwpAZRRuILKXSFYdG+LIZVxjgvuypnOnRRpHV06H+fPpYifJvWAPcJwnDLSNsotBVnttOclKUOHYQV4kLgEQxsBR6YlMDFIMB3XXwHCye5BuELZhSG0BT6kE/c+4aL/z/5hLZoxfuQMFCJ8Rn6g77YU/dX6fKuVaM/Bz7E0JB+nVdnB9jiiOPn306lK05mQ7TjUdQPulRwbmm5xvRgquVsUXmFA3ioEQ9CBwSfMnPqjs9QyQq9SnKl+t/0umaorjG/ooQpPQO1wztLO0l4bbpn/C3TAY2YUTaqM53XzCwLYfi+XPDkYE4CO6GQQSpzSP6YxOZtoEQiKcVkAnQkdn5MS1eSIEQ26CMFofzAhjV9REqG6HExmt3cbc1IbaeSInX7AI/koGqp64UFfCbgAnVMeGxpCxNUsjCjxcYC7fTFDZVgLrUoYwBbkKaU+hsaVf5KJXTxDE0cPYyuXbkC5RNNDs0fjEXrlQagENjWaO1eFzMQpRlmc1sTTy7plDoW7iV+/PQUfWTARbNxOTcR3PARYL727jybqhCWxQ5vMbFyYi7gctSO8Egh+776X4=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SE3PR03MB9967.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(41320700013)(23010399003)(34036016)(376014)(56012099006)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?Windows-1252?Q?chFRNEpX43J6xf2LvOWkBKdam7C5TB6bVLSSezsKn3zHI/OKHmtrZkbD?=
+ =?Windows-1252?Q?Lwr/01jbTDL4tERCujRfAQso4JbsqQ9ufzXJ+LQsvNj88U5h+u0WWTYE?=
+ =?Windows-1252?Q?NIi8PrHd9nPh8nShBSAgIvfl579VnyJEpyHFiTeFA/jrwwkTAgJG2XmL?=
+ =?Windows-1252?Q?qo+hR7ZkxiqPs6dzgAwIbVzUM6KbvyUYT8meXDC4DveCZTs0FtM6csFh?=
+ =?Windows-1252?Q?WnnT4W0q5xXIvDj4Ux+m8PVa9jgFX/U/6P2xIpqq9L2sMax+OsPNY8CD?=
+ =?Windows-1252?Q?1kKzZON1/o0JwCAXEHKDn2RBxm1wBrAoAO3GbN2OvHM7Fcq4vd8e3Rg7?=
+ =?Windows-1252?Q?zUNhvIpOTKPNX+tmPM8DJYQHxvGfqejtPoxT7upiYi0EGmprH5TSIVa5?=
+ =?Windows-1252?Q?3oODt+dfsWOSWpqojiusxtDaEQkRMz6+iTyhguCqQLK+6k9oEUYxhLWm?=
+ =?Windows-1252?Q?yucwCcOU1OFfptRMydSSoisU0SAI8S94iCWnweTwhOSrP5PaFQv1s+1s?=
+ =?Windows-1252?Q?dgju4x2J++0mJoSvtwuy87QQ6/GW1qHdXt5QPvGQkw6Mr/ATFa+It6ui?=
+ =?Windows-1252?Q?obe47xJCQUKvPCJo3hpDcBYdHF1omn+WkLZEXZ4UW9SQrN/UI2huGvEo?=
+ =?Windows-1252?Q?CVv0VbvGzDw9bPjybUra5DFsQ9RppM/OouBv+0OnsEw63GXc/Rfn9gpg?=
+ =?Windows-1252?Q?wvUeypxOPj8CvNZAo5MPv/6GYqzKHCXIf1tjCEfCpCH/iWyVg9N91G9l?=
+ =?Windows-1252?Q?bWPlYB26BjuN+typygwSz7h3x0ABWhhLxsJHyPKJvHXGDKJFRVUR/xL9?=
+ =?Windows-1252?Q?OK1aFbKAHTh79G0ACqxXecgGgHjBSqUvwL/xaDx8V055kqWTrTfWU4AW?=
+ =?Windows-1252?Q?PAJA/wO0/WdvD1HWuMXmPfx459WQvkullxnCSdqxYga2IAZ9R5ESd6lV?=
+ =?Windows-1252?Q?LnS2L2Y1hgsHYumO2NYsAsAuBnQqGSu6mJPuGGx/p6Q+XvcaTFcry5mu?=
+ =?Windows-1252?Q?bf375mCu3M7+KjJrgfkydiNYNyAwZC8Ao90/sllxnT6vXQA7U8p79wqc?=
+ =?Windows-1252?Q?Re2FU8w0e7xv3Dwrxa9xnwGDgR24vSABbxU7BN4jvstUhTtQSgPgNDpj?=
+ =?Windows-1252?Q?SQxj36I049hNF53J+8ulOAWZ9yebNjNMPdptymgbsDCnHS9yevsAZEil?=
+ =?Windows-1252?Q?VcmfvG/nXom/yyRAllJrIuvI3j7iumMQxRa3Swdv01DnCw979DX4t+Uz?=
+ =?Windows-1252?Q?X/g4KdH2k8NOlm+Fv79ElHOmYneBOjlkF+1SHkOg6dShV9vnJ/KBZHtX?=
+ =?Windows-1252?Q?Tcu6JzR1adVxJwEdrqdbveibunRPJaKa4lCvVOGyzGXnzw7okFpff7HZ?=
+ =?Windows-1252?Q?7WOBJ3wq3YWTMHO8cBciLFvdUqkJeI+zNBIDHBu5Jvyu/ReMkj62Gian?=
+ =?Windows-1252?Q?vJa4UWN4psRNHHsPxBonqv9LDKWtYOSjsjcJg2fdxx4+1IxyA5JdfX9w?=
+ =?Windows-1252?Q?4OWXbHB6LLffbGi2S2HFQwxklXiJbJyfFZMcEwi29ffkxBhfFKTs2ocZ?=
+ =?Windows-1252?Q?5HQGZj+li6kFM1HCxTi518fAB64AALMBljRvmeg3PX9RnwF8T7A1QSGy?=
+ =?Windows-1252?Q?FXg8t4w982qCLr4akS1yxCo3exZoFhaPjG7ITYl+ztr6pswsv68ORgTn?=
+ =?Windows-1252?Q?liFMit1RDt57yKBhfY4FKQZHvTlLBz7NdqSrVw7Jc9hewgDNWcOQr0yN?=
+ =?Windows-1252?Q?NB9IhGVmSxgxneCZPGo6OYddoFXMLGTZ4axEb37Qi0rAeKL59R/Y8itm?=
+ =?Windows-1252?Q?QtjuhaeDUTsLmesrQ9ijjInPko4=3D?=
+Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -64,46 +112,33 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-OriginatorOrg: nova.gal
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SE3PR03MB9967.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a2d6c74-dcf4-4bea-3502-08deed3ecdfc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2026 06:58:33.2721
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 2adae87f-1bb3-4442-a538-a57c857641f5
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: v11QWRwRGC3si9dxm9wF+piHGEEK4NdhAmHG9q0lHHMHnodt1LRxND0i8cdPTPzw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB8018
 
-yhchen312@gmail.com <yhchen312@gmail.com> wrote:
-> From: "Yuhang.chen" <yhchen312@gmail.com>
->=20
-> Since the hardware rfkill polling was introduced, arm64 platforms can
-> panic with an asynchronous SError during warm reboot:
->=20
->   SError Interrupt on CPU8, code 0x00000000be000011 -- SError
->   Workqueue: events_power_efficient rfkill_poll [rfkill]
->     rtw89_pci_ops_read8+0x94/0x160 [rtw89_pci]
->     rtw89_core_rfkill_poll+0x50/0x1e0 [rtw89_core]
->     rtw89_ops_rfkill_poll+0x40/0x68 [rtw89_core]
->     ieee80211_rfkill_poll+0x3c/0x70 [mac80211]
->     cfg80211_rfkill_poll+0x40/0x2a0 [cfg80211]
->     rfkill_poll+0x30/0x88 [rfkill]
->   Kernel panic - not syncing: Asynchronous SError Interrupt
->=20
-> On the reboot path the kernel only runs device_shutdown(), which calls
-> each driver's .shutdown callback; .remove is not invoked.  The rtw89 PCI
-> driver had no .shutdown callback, so nothing stopped the rfkill polling
-> work while the platform was tearing the PCIe link down.  Once the link
-> is gone, the next MMIO read from the poll handler targets a
-> non-responding device and is reported as a fatal asynchronous SError on
-> arm64.
->=20
-> Add rtw89_pci_shutdown(), wired to all rtw89 PCI device drivers, which
-> sets a new RTW89_FLAG_SHUTDOWN flag (mirroring the USB
-> RTW89_FLAG_UNPLUGGED pattern).  When the flag is set,
-> rtw89_ops_rfkill_poll() returns early, so no MMIO read is issued to the
-> chip after shutdown begins and the SError no longer occurs.
->=20
-> This does not call the full .remove path from .shutdown, to keep the
-> shutdown handler minimal and avoid running the non-idempotent teardown
-> twice.
->=20
-> Fixes: 0b38e6277aed ("wifi: rtw89: add support for hardware rfkill")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Ping-Ke Shih <pkshih@realtek.com>
-> Signed-off-by: Yuhang.chen <yhchen312@gmail.com>
-
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
-
-
+     > Isn't this a duplicate of=0A=
+     > https://lore.kernel.org/linux-xfs/20260707190038.3811440-3-qwe.aldo@=
+gmail.com/#t=0A=
+     > ?=0A=
+=0A=
+     Yes, it is =97 same root cause and effectively the same verifier check=
+.=0A=
+     My dedup search was limited to torvalds/linux.git (lore and=0A=
+     git.kernel.org are unreachable from my test environment), so I missed=
+=0A=
+     Aldo's series. Sorry for the noise.=0A=
+=0A=
+     His series looks correct to me, and the 1/2 change to=0A=
+     xfs_attr_copy_value() closes the signedness bypass at the=0A=
+     consumption site as well, which my patch did not touch.=0A=
+=0A=
+     Thanks,=0A=
+     Miao=
