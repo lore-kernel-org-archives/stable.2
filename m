@@ -1,64 +1,40 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 182504DB54D;
-	Wed, 29 Jul 2026 15:23:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2921E4119FC;
+	Wed, 29 Jul 2026 15:23:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785338604; cv=none; b=HzQ3DhwWYtl6nu74cBP6wIYIxbBAfYHSTLJOpxKmdKmpgg0n4Fam3oBMCT3V9a5saDzpJSuFeppY7ONZBcpF1y4Pr1p8a9HED7NDQkuWYs83CZhclgEHVjFoTdmZfs/6tX3J6heVx2zEIgJbPj/xHafx7ggm98YYVOA6oXrVAu0=
+	t=1785338612; cv=none; b=aeHaVz0q8XsT1U/XGMlvLAkgsvIPKFelmRbDFMIFMaf8/0E5gb11aodL9VgjzpTrxS/ALkNbDFzenlRQS5AhEWWuRxBaAChsubYtUOlsaKE6ofHCndJf2ZOCVKr1MDtEVtk8uOrg6n+RN7GFZFhVqovgpw4aGItREGxbzOAEmE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785338604; c=relaxed/simple;
-	bh=JhRsa/+QJ/5jIRYkq2jU5uCGsEOE/Y+PdGu7VsOeChY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BU5D47ItyArv21WLl+ND207ydl78zyvZdSOI0A9hh2EaJL/DhTunj5dLUHKuqYboHukjjiNJglFSw4fLewxQkAFcbUQOmKdk/6SFStIZeRg3YsALrqSENB2D519RKCkUyY83tdNmujGXx56p+44NRRneRjvIa715wUEO2bgeJhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=aP7ZMSMr; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=Qu/jsoQD; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1785338612; c=relaxed/simple;
+	bh=m+1l9OCQ2499P4R8+Wp4R7hjePCcwbgglU6/3mD4C0Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YJIJVd1i59kd0EjZQb2H9uL5yN3llsQEMEpTRbUh7Pxh+3b32iFHY3HOXQ9btYFDKVuQWFLlmuvKzv74WAvgIDd0JXUSIfdPmxbxEG6epVmRzpOeRgIP5bO/KJV09ZjrHYnJMWUnEG65Zc2PqPyy+o7BzcMdn98MaeG5gd7drQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBFSt2qe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="aP7ZMSMr";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="Qu/jsoQD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1785338599; bh=JhRsa/+QJ/5jIRYkq2jU5uCGsEOE/Y+PdGu7VsOeChY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=aP7ZMSMrKTTXhdaq6ocEnxKw1TYEP/vyvF9gcVNnkWIqmdkaCyx95zsy1V1V8yI+Y
-	 t9mqevrwZUioKVPCFrEltPu0PLoS7QeX+T4M+OIK1Rf68OLGaBT5sLPi5XhKqp4gPi
-	 /CYg1id5yH3PWI1zuq3p5yx8S8Mw0+U4pPKxXDfRqOu6rBHhmqVEJHvRUInYQ9kSkE
-	 Mq+ApoxLzvckPfGgO5VFVh+C8xKVlHcvFwdFRq1tcfa8fTVvInIXoGdBqSl2RHZ7lH
-	 Dvu5P8MgKxvfmPm9bUG4qF+BaBNH2VflwqetPrN0EmfdryOeL5Hb0GA9OHQrFXoCuF
-	 aq3/aNoavlwSQ==
-Received: by extorris.mess.org (Postfix, from userid 1004)
-	id D343942548; Wed, 29 Jul 2026 16:23:19 +0100 (BST)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1785338598; bh=JhRsa/+QJ/5jIRYkq2jU5uCGsEOE/Y+PdGu7VsOeChY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Qu/jsoQDdxe+5yQW8bK7YAj/a2j9NLkQsjNKlqFU2jcWQtYdOMkF9FyjpI+dpBvip
-	 4JqDVasgi7NXB5pXvdi9YqlXWqs5YTavj9qF+aDP+XMrJZBQMbDq53fOnspZN4C9yY
-	 90jjLyLNjPmyjkBy0lMATtt7TiBKlCdyFPQ9Us6JTfbO7W9Clvijh3aBt/XDXWR9tX
-	 qYH7r931K5j4qIZJQPIgGhbSXY2lO4HHyuVrUvBTGPlsiFDpjff7u1IIhW17hu8PFb
-	 EAAabhhGKYk9OkH7C1vRHTubwQ05H1p4T8RxX04ysIH2HKx9Ec0BWrvf/X6HRYkYqd
-	 Uqu/EcSDN7T9g==
-Received: from maru.local (unknown [62.232.99.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 0C21142556;
-	Wed, 29 Jul 2026 16:23:18 +0100 (BST)
-From: Sean Young <sean@mess.org>
-To: linux-media@vger.kernel.org,
-	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: [PATCH v5 15/15] media: rc: Fix use after free in bpf progs
-Date: Wed, 29 Jul 2026 16:22:53 +0100
-Message-ID: <4e85ac724e45244099b242747684529016c5ed83.1785338381.git.sean@mess.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBFSt2qe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400EA1F00A3A;
+	Wed, 29 Jul 2026 15:23:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785338610;
+	bh=r9MuuVbYjlaYdf0i4Dkeotbr1VPl+bXPqXMFVzlzhH0=;
+	h=From:To:Cc:Subject:Date;
+	b=fBFSt2qeY/3kt0gbhRAaY5ee8RKqnqcqIccVvhmn+9TzMPLaCm8q3sAYgenCFiQfh
+	 JgNHHMlrVUm2WyUABqdI7uvzeLkoITf7/kw73Wyz7i2RBCD39usG9nGclmZlTY03Fq
+	 QA5lAzuVKA599SHxIAxm3gFXjHu6nyZ35YtKK4ayvRU6Wx9Zz2JM5IPtblf8WKJZDy
+	 AwBNZWP0RHZggl9RoY54rWoXyxBui9z9MyisozNu5ogAomSEOufyPvvuqw3PXsBFDX
+	 M+QkpnRTaT6XpLNuE10ifWSh5sQuccW7VxWi9fts2o6T4gezodXhAgRupuaLLnxa//
+	 QGCCMMjTU/EUQ==
+From: Eric Biggers <ebiggers@kernel.org>
+To: stable@vger.kernel.org
+Cc: linux-fscrypt@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	Christoph Hellwig <hch@lst.de>,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH 6.12] fscrypt: Avoid dynamic allocation in fscrypt_get_devices()
+Date: Wed, 29 Jul 2026 08:21:27 -0700
+Message-ID: <20260729152127.11918-1-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1785338381.git.sean@mess.org>
-References: <cover.1785338381.git.sean@mess.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,114 +43,258 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit dccc0c3ddf8f ("media: rc: fix race between unregister and
-urb/irq callbacks"), rcdev->raw is no longer set to NULL after device
-unregister. raw->progs could point to stale data.
+commit 6fe4e4b8259e1330945b5f3c9476e08473b8e0e8 upstream.
 
-Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
-Signed-off-by: Sean Young <sean@mess.org>
+When a blk_crypto_key starts being used or is evicted, fs/crypto/ calls
+fscrypt_get_devices() to get the filesystem's list of block devices,
+then iterates over them and calls blk_crypto_config_supported(),
+blk_crypto_start_using_key(), or blk_crypto_evict_key() on each one.
+
+Currently, the block device pointers are placed in a dynamically
+allocated array.  This dynamic allocation is problematic because:
+
+- It can fail, especially at the fscrypt_destroy_inline_crypt_key() call
+  site when it's invoked for inode eviction under direct reclaim.
+
+- fscrypt_destroy_inline_crypt_key() doesn't handle the failure.  It
+  just zeroizes and frees the blk_crypto_key without calling
+  blk_crypto_evict_key().  That causes a use-after-free.
+
+For now, let's fix this in the straightforward and easily-backportable
+way by switching to an on-stack array.  Currently the fscrypt
+multi-device functionality is used only by f2fs, which has a hardcoded
+limit of 8 block devices.  An on-stack array works fine for that.
+
+(Of course, this solution won't scale up to large number of block
+devices.  For that we'd need a different solution, like moving the block
+device iteration into the filesystem.  Or in the case of btrfs, which
+will only support blk-crypto-fallback, we should make it just call
+blk-crypto-fallback directly, so the block devices won't be needed.)
+
+Fixes: 22e9947a4b2b ("fscrypt: stop holding extra request_queue references")
 Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260713023708.9245-1-ebiggers%40kernel.org
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Link: https://patch.msgid.link/20260719055602.78828-1-ebiggers@kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- drivers/media/rc/bpf-lirc.c  | 18 +++++++++++++-----
- drivers/media/rc/rc-ir-raw.c | 11 +++--------
- 2 files changed, 16 insertions(+), 13 deletions(-)
+ fs/crypto/inline_crypt.c | 57 ++++++++++++++--------------------------
+ fs/f2fs/super.c          | 25 ++++++++++--------
+ include/linux/fscrypt.h  | 18 +++++++------
+ 3 files changed, 44 insertions(+), 56 deletions(-)
 
-diff --git a/drivers/media/rc/bpf-lirc.c b/drivers/media/rc/bpf-lirc.c
-index 2f7564f26445..14ab611e7445 100644
---- a/drivers/media/rc/bpf-lirc.c
-+++ b/drivers/media/rc/bpf-lirc.c
-@@ -148,12 +148,13 @@ static int lirc_bpf_attach(struct rc_dev *rcdev, struct bpf_prog *prog)
- 	if (ret)
- 		return ret;
+diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
+index 4b1f10f1cbd85..0a216d20e6950 100644
+--- a/fs/crypto/inline_crypt.c
++++ b/fs/crypto/inline_crypt.c
+@@ -21,22 +21,14 @@
  
--	raw = rcdev->raw;
--	if (!raw) {
-+	if (!rcdev->registered) {
- 		ret = -ENODEV;
- 		goto unlock;
- 	}
+ #include "fscrypt_private.h"
  
-+	raw = rcdev->raw;
-+
- 	old_array = lirc_rcu_dereference(raw->progs);
- 	if (old_array && bpf_prog_array_length(old_array) >= BPF_MAX_PROGS) {
- 		ret = -E2BIG;
-@@ -186,12 +187,13 @@ static int lirc_bpf_detach(struct rc_dev *rcdev, struct bpf_prog *prog)
- 	if (ret)
- 		return ret;
- 
--	raw = rcdev->raw;
--	if (!raw) {
-+	if (!rcdev->registered) {
- 		ret = -ENODEV;
- 		goto unlock;
- 	}
- 
-+	raw = rcdev->raw;
-+
- 	old_array = lirc_rcu_dereference(raw->progs);
- 	ret = bpf_prog_array_copy(old_array, prog, NULL, 0, &new_array);
- 	/*
-@@ -235,7 +237,8 @@ void lirc_bpf_free(struct rc_dev *rcdev)
- 	struct bpf_prog_array_item *item;
- 	struct bpf_prog_array *array;
- 
--	array = lirc_rcu_dereference(rcdev->raw->progs);
-+	array = rcu_replace_pointer(rcdev->raw->progs, NULL,
-+				    lockdep_is_held(&ir_raw_handler_lock));
- 	if (!array)
- 		return;
- 
-@@ -316,6 +319,11 @@ int lirc_prog_query(const union bpf_attr *attr, union bpf_attr __user *uattr)
- 	if (ret)
- 		goto put;
- 
-+	if (!rcdev->registered) {
-+		ret = -ENODEV;
-+		goto unlock;
-+	}
-+
- 	progs = lirc_rcu_dereference(rcdev->raw->progs);
- 	cnt = progs ? bpf_prog_array_length(progs) : 0;
- 
-diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
-index 86de1b26731d..54b323becb1f 100644
---- a/drivers/media/rc/rc-ir-raw.c
-+++ b/drivers/media/rc/rc-ir-raw.c
-@@ -632,8 +632,11 @@ void ir_raw_event_free(struct rc_dev *dev)
+-static struct block_device **fscrypt_get_devices(struct super_block *sb,
+-						 unsigned int *num_devs)
++static unsigned int
++fscrypt_get_devices(struct super_block *sb,
++		    struct block_device *devs[FSCRYPT_MAX_DEVICES])
  {
- 	if (dev->raw) {
- 		timer_delete_sync(&dev->raw->edge_handle);
-+		mutex_lock(&ir_raw_handler_lock);
- 		if (dev->raw->thread)
- 			put_task_struct(dev->raw->thread);
-+		lirc_bpf_free(dev);
-+		mutex_unlock(&ir_raw_handler_lock);
- 		kfree(dev->raw);
- 		dev->raw = NULL;
- 	}
-@@ -643,9 +646,6 @@ void ir_raw_event_unregister(struct rc_dev *dev)
- {
- 	struct ir_raw_handler *handler;
- 
--	if (!dev || !dev->raw)
--		return;
+-	struct block_device **devs;
 -
- 	/*
- 	 * After ir_raw_event_unregister() is called, an sync
- 	 * call to ir_raw_event_handle() can still arrive. This function
-@@ -665,11 +665,6 @@ void ir_raw_event_unregister(struct rc_dev *dev)
- 
- 	lirc_bpf_free(dev);
- 
--	/*
--	 * A user can be calling bpf(BPF_PROG_{QUERY|ATTACH|DETACH}), so
--	 * ensure that the raw member is null on unlock; this is how
--	 * "device gone" is checked.
--	 */
- 	mutex_unlock(&ir_raw_handler_lock);
+-	if (sb->s_cop->get_devices) {
+-		devs = sb->s_cop->get_devices(sb, num_devs);
+-		if (devs)
+-			return devs;
+-	}
+-	devs = kmalloc(sizeof(*devs), GFP_KERNEL);
+-	if (!devs)
+-		return ERR_PTR(-ENOMEM);
++	if (sb->s_cop->get_devices)
++		return sb->s_cop->get_devices(sb, devs);
+ 	devs[0] = sb->s_bdev;
+-	*num_devs = 1;
+-	return devs;
++	return 1;
  }
  
+ static unsigned int fscrypt_get_dun_bytes(const struct fscrypt_inode_info *ci)
+@@ -94,7 +86,7 @@ int fscrypt_select_encryption_impl(struct fscrypt_inode_info *ci)
+ 	const struct inode *inode = ci->ci_inode;
+ 	struct super_block *sb = inode->i_sb;
+ 	struct blk_crypto_config crypto_cfg;
+-	struct block_device **devs;
++	struct block_device *devs[FSCRYPT_MAX_DEVICES];
+ 	unsigned int num_devs;
+ 	unsigned int i;
+ 
+@@ -131,20 +123,15 @@ int fscrypt_select_encryption_impl(struct fscrypt_inode_info *ci)
+ 	crypto_cfg.data_unit_size = 1U << ci->ci_data_unit_bits;
+ 	crypto_cfg.dun_bytes = fscrypt_get_dun_bytes(ci);
+ 
+-	devs = fscrypt_get_devices(sb, &num_devs);
+-	if (IS_ERR(devs))
+-		return PTR_ERR(devs);
+-
++	num_devs = fscrypt_get_devices(sb, devs);
+ 	for (i = 0; i < num_devs; i++) {
+ 		if (!blk_crypto_config_supported(devs[i], &crypto_cfg))
+-			goto out_free_devs;
++			return 0;
+ 	}
+ 
+ 	fscrypt_log_blk_crypto_impl(ci->ci_mode, devs, num_devs, &crypto_cfg);
+ 
+ 	ci->ci_inlinecrypt = true;
+-out_free_devs:
+-	kfree(devs);
+ 
+ 	return 0;
+ }
+@@ -157,7 +144,7 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+ 	struct super_block *sb = inode->i_sb;
+ 	enum blk_crypto_mode_num crypto_mode = ci->ci_mode->blk_crypto_mode;
+ 	struct blk_crypto_key *blk_key;
+-	struct block_device **devs;
++	struct block_device *devs[FSCRYPT_MAX_DEVICES];
+ 	unsigned int num_devs;
+ 	unsigned int i;
+ 	int err;
+@@ -175,17 +162,12 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+ 	}
+ 
+ 	/* Start using blk-crypto on all the filesystem's block devices. */
+-	devs = fscrypt_get_devices(sb, &num_devs);
+-	if (IS_ERR(devs)) {
+-		err = PTR_ERR(devs);
+-		goto fail;
+-	}
++	num_devs = fscrypt_get_devices(sb, devs);
+ 	for (i = 0; i < num_devs; i++) {
+ 		err = blk_crypto_start_using_key(devs[i], blk_key);
+ 		if (err)
+ 			break;
+ 	}
+-	kfree(devs);
+ 	if (err) {
+ 		fscrypt_err(inode, "error %d starting to use blk-crypto", err);
+ 		goto fail;
+@@ -203,20 +185,21 @@ void fscrypt_destroy_inline_crypt_key(struct super_block *sb,
+ 				      struct fscrypt_prepared_key *prep_key)
+ {
+ 	struct blk_crypto_key *blk_key = prep_key->blk_key;
+-	struct block_device **devs;
++	struct block_device *devs[FSCRYPT_MAX_DEVICES];
+ 	unsigned int num_devs;
+ 	unsigned int i;
+ 
+ 	if (!blk_key)
+ 		return;
+ 
+-	/* Evict the key from all the filesystem's block devices. */
+-	devs = fscrypt_get_devices(sb, &num_devs);
+-	if (!IS_ERR(devs)) {
+-		for (i = 0; i < num_devs; i++)
+-			blk_crypto_evict_key(devs[i], blk_key);
+-		kfree(devs);
+-	}
++	/*
++	 * Evict the key from all the filesystem's block devices.
++	 * This *must* be done before the key is freed.
++	 */
++	num_devs = fscrypt_get_devices(sb, devs);
++	for (i = 0; i < num_devs; i++)
++		blk_crypto_evict_key(devs[i], blk_key);
++
+ 	kfree_sensitive(blk_key);
+ }
+ 
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 1bce35d6f4e25..8ceffecf28c80 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -3282,24 +3282,27 @@ static bool f2fs_has_stable_inodes(struct super_block *sb)
+ 	return true;
+ }
+ 
+-static struct block_device **f2fs_get_devices(struct super_block *sb,
+-					      unsigned int *num_devs)
++static unsigned int
++f2fs_get_devices(struct super_block *sb,
++		 struct block_device *devs[FSCRYPT_MAX_DEVICES])
+ {
+ 	struct f2fs_sb_info *sbi = F2FS_SB(sb);
+-	struct block_device **devs;
++	int ndevs;
+ 	int i;
+ 
+-	if (!f2fs_is_multi_device(sbi))
+-		return NULL;
++	static_assert(MAX_DEVICES <= FSCRYPT_MAX_DEVICES);
+ 
+-	devs = kmalloc_array(sbi->s_ndevs, sizeof(*devs), GFP_KERNEL);
+-	if (!devs)
+-		return ERR_PTR(-ENOMEM);
++	if (!f2fs_is_multi_device(sbi)) {
++		devs[0] = sb->s_bdev;
++		return 1;
++	}
++	ndevs = sbi->s_ndevs;
++	if (WARN_ON_ONCE(ndevs > FSCRYPT_MAX_DEVICES))
++		ndevs = FSCRYPT_MAX_DEVICES;
+ 
+-	for (i = 0; i < sbi->s_ndevs; i++)
++	for (i = 0; i < ndevs; i++)
+ 		devs[i] = FDEV(i).bdev;
+-	*num_devs = sbi->s_ndevs;
+-	return devs;
++	return ndevs;
+ }
+ 
+ static const struct fscrypt_operations f2fs_cryptops = {
+diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
+index 772f822dc6b82..3cb1e449d8cfc 100644
+--- a/include/linux/fscrypt.h
++++ b/include/linux/fscrypt.h
+@@ -57,6 +57,9 @@ struct fscrypt_name {
+ /* Maximum value for the third parameter of fscrypt_operations.set_context(). */
+ #define FSCRYPT_SET_CONTEXT_MAX_SIZE	40
+ 
++/* Maximum supported number of block devices per filesystem */
++#define FSCRYPT_MAX_DEVICES	8
++
+ #ifdef CONFIG_FS_ENCRYPTION
+ 
+ /* Crypto operations for filesystems */
+@@ -175,21 +178,20 @@ struct fscrypt_operations {
+ 	bool (*has_stable_inodes)(struct super_block *sb);
+ 
+ 	/*
+-	 * Return an array of pointers to the block devices to which the
+-	 * filesystem may write encrypted file contents, NULL if the filesystem
+-	 * only has a single such block device, or an ERR_PTR() on error.
++	 * Retrieve the list of block devices to which the filesystem may write
++	 * encrypted file contents.
+ 	 *
+-	 * On successful non-NULL return, *num_devs is set to the number of
+-	 * devices in the returned array.  The caller must free the returned
+-	 * array using kfree().
++	 * This writes the block_device pointers to @devs and returns the count
++	 * (between 1 and FSCRYPT_MAX_DEVICES inclusively).
+ 	 *
+ 	 * If the filesystem can use multiple block devices (other than block
+ 	 * devices that aren't used for encrypted file contents, such as
+ 	 * external journal devices), and wants to support inline encryption,
+ 	 * then it must implement this function.  Otherwise it's not needed.
+ 	 */
+-	struct block_device **(*get_devices)(struct super_block *sb,
+-					     unsigned int *num_devs);
++	unsigned int (*get_devices)(
++		struct super_block *sb,
++		struct block_device *devs[FSCRYPT_MAX_DEVICES]);
+ };
+ 
+ int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags);
+
+base-commit: 588b2d2beb4b3d1878a7fd9cdc876bab53326476
 -- 
 2.55.0
 
