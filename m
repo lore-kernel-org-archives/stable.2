@@ -1,277 +1,243 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD0E481661
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:46:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785336381; cv=fail; b=VBqr72jfhhT1V8b5h1urIPR6i+zodkxnB3c0r2Ql3sy0Sj3lsCdfxkR1TU85ZocEKFDEBY+NPsLNOemr68w8WaxY5WUnuCUJE/+hY847Hw1BD01bSTm2f3dAnzK/9cWXiNwMZA21/BcziX04D6N6DZwtVb25kEdpsJeUcdUiW8o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785336381; c=relaxed/simple;
-	bh=TSdu8gNepro0/MiyRieKw94aZ6/hGAMaxeCXfsC+H/I=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=nsAxPG8j7LnwHMCyY1aV2A7RxOyYxLgy1sKFRS9dFsLKWueJPrH5yB7qV7gFNrYYl8vbcGYxZc5fLdYsAPwy56SM2c9rB6BcOoeFjiNlSvCnGA7ePQNbUxP4aOv3sYtObkHVZLVRCL4rpioKz9OUbY0tfqJD95K5ugkHEXQa0yA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M5HddSv9; arc=fail smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4417B484220
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:47:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785336438; cv=none; b=J+JJn5VhB+IW9PCoJBzFNp2vAohuAELaRqkOAXM6B7PS9DmfpoyQfEOQ90ZNJwyOb6FOjgcyRPoh4Y9ejfDiAbmfr1gVrxqTnDIdGGR67+6oXWcOA4s26WdIdOKoLxwT+s0O6YiiQOsTzbIZth4OAJDxlnaqb8q6+mdjrY7GQ7E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785336438; c=relaxed/simple;
+	bh=F7gJ/ECoIn0yMRAvxBO25GQLBgLR0EPLHh+0r9A2Y1k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DWOEyPdXYyxZGXoxN9Ss01zghH8e5ibAnYQfwJYt0baIHpEMmJFtYP2N1SCn30moP58ObxpsYBWm96kF1hsROD40AP5LjCqACmJAc20xafGTfAIU+kj7xupy41irIsgwQZlqP9QGP2NBajj7HwMq2JpnI6YKIr0m3Dcy18zaK60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WTmRgDcI; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=KBnU0bLk; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M5HddSv9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785336378; x=1816872378;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=TSdu8gNepro0/MiyRieKw94aZ6/hGAMaxeCXfsC+H/I=;
-  b=M5HddSv9WrG/6rS1Qc+xwNmGfNA2qIUKYGrbe6i9X3j9/qR5u8IOgOOS
-   DnDhjCN3VfuK368jYJhon7JeK+KJ8JO5WGmsljcoHF9DUWh6sFTaA7mHV
-   U5bD8+5bDhUJ3/52l08tOtIZyAVZRpYTiwOzjdQPng2VE7kKUJ7BRwXAA
-   vg0uAnt5hE6OfpAVrLwao58pRTl5nXX3DMhgVwm1TpY48pvsNRooknuap
-   UgBZRu8lTYT8CVlTE6Uhvp0LgeksShVK/bS+7MCOvJ5jaGi/0x8bsgYEt
-   PoevptsIAPkSFDVfc/Uz3PUTI0Ya/HRpdzpQVo+g4AdVb8CmHKTyAK5JO
-   A==;
-X-CSE-ConnectionGUID: Hd3GKXylS+aqmbwYFDkUQw==
-X-CSE-MsgGUID: 05LEvdB6Q0qjRYUVunQsFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="97456707"
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; 
-   d="scan'208";a="97456707"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jul 2026 07:46:17 -0700
-X-CSE-ConnectionGUID: bxVDnj+7RGGuCT3xWEmk9A==
-X-CSE-MsgGUID: 6R/zOnRoTp6ATXpwRPXShg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; 
-   d="scan'208";a="265061047"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jul 2026 07:46:17 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 29 Jul 2026 07:46:16 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Wed, 29 Jul 2026 07:46:16 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.0) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 29 Jul 2026 07:46:15 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yZ6aU3lCu1enS+hLACBL+z+MUFTJZXUS5a0VXoAJptQRX7iZgVS7bQ/t93S3JOKJgwlU0o7zHfEVRg5RxdlVmqYE2s9VP/jKD+DFRiNPT0iBuiIw8Ii6ypPQNExITOMbzpiEnHu5D8thwlB4gY1p5KnOFC48bPtZgdkF0BIks98JxIlBKP+mJqUqF5z+kM2VfQHTcdagz3WgusyfqGl2JHj9ae2gs3JaKCY35jkAfiPfbSprEEpXkb6CVZRNupFui37b07pQA+xXLOgXdt1TNPAI7vM7dgjvR+G8m6lOCCqKSRvMaLjWTUFlMWSGTcr3UrrWhNy3A0nP4K39rmG4sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PM0T0xFw1ylMlZxyqDE+13VAZAVw872kN6md/bGocuI=;
- b=JjyUrmWeHapYPTBC2onmmFf2fv4+W1KX8/hmY9oYD3rNtST18hE8VCP0DVa42s5crhtweuw7shjXnz1AOxctLf4Nr+THBRmwTdSkP4hgEDSJNURzuNgmNC8hjq/7dmgZyhCYcqB+v2zl5ZsO+rq+uuOWxdtp0duxxqzXH40Mjedo1LW34YxbrR3tr6sY2+t8B8hULTfKI1kV7C/6oMorK6xaEaUjaVzTv/L+6MkqBMrPBbmmdL/JAxtVvtcF9cPsCGHn7IkfU07Mqz8MiFE9KwVT9XyjOF4m7EVzwP7Ycw1fU1MbCHITo7kpsvqE2Ag8DPpjgSjJTKKcrMeoQJdiAg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH8PR11MB8040.namprd11.prod.outlook.com (2603:10b6:510:238::11)
- by CH3PR11MB8752.namprd11.prod.outlook.com (2603:10b6:610:1c2::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
- 2026 14:46:07 +0000
-Received: from PH8PR11MB8040.namprd11.prod.outlook.com
- ([fe80::89bf:2274:1371:50c5]) by PH8PR11MB8040.namprd11.prod.outlook.com
- ([fe80::89bf:2274:1371:50c5%3]) with mapi id 15.21.0245.012; Wed, 29 Jul 2026
- 14:46:07 +0000
-From: "Yao, Jia" <jia.yao@intel.com>
-To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Mathew, Alwin"
-	<alwin.mathew@intel.com>, "Auld, Matthew" <matthew.auld@intel.com>, "Brost,
- Matthew" <matthew.brost@intel.com>, "Mrozek, Michal"
-	<michal.mrozek@intel.com>, "Lin, Shuicheng" <shuicheng.lin@intel.com>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-CC: "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: FAILED: patch "[PATCH] drm/xe/uapi: Reject coh_none PAT index for
- CPU_ADDR_MIRROR" failed to apply to 7.1-stable tree
-Thread-Topic: FAILED: patch "[PATCH] drm/xe/uapi: Reject coh_none PAT index
- for CPU_ADDR_MIRROR" failed to apply to 7.1-stable tree
-Thread-Index: AQHdH0ZJJKtvVzFi2EWIGa+xN0LIF7aEk12g
-Date: Wed, 29 Jul 2026 14:46:07 +0000
-Message-ID: <PH8PR11MB80404D07718D6CF61BFD47DFF4CA2@PH8PR11MB8040.namprd11.prod.outlook.com>
-References: <2026072909-boil-smartness-3be9@gregkh>
-In-Reply-To: <2026072909-boil-smartness-3be9@gregkh>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH8PR11MB8040:EE_|CH3PR11MB8752:EE_
-x-ms-office365-filtering-correlation-id: 5452b98d-727a-47d4-bcbb-08deed801f99
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|42112799006|366016|23010399003|1800799024|376014|38070700021|10067099003|56012099006|11063799006|3023799007|921020|18002099003|22082099003;
-x-microsoft-antispam-message-info: LptDBAEkUP2CbpfnS1c51Irdk2eZJA+EvhSi9EJxo2YZJkoLvniXnq19O/NSAJiECGTMSguIcCvZz/YmxlKdRpT80+fi7i6e1PmtSA4TdhRxEWo9SpFMRljw+UYEBIPWJQLNPfDRedbzmUBJderb3hBgGsiu1ZVr7m24y54gn/Rd46R5wdnShQtM3m+c4rbyHU2YyrU32eW4/USBovIGiT45cSFxP3MtwJ29DY9YJ5Co2s50NeFQPXIbTdyH9VXwnNNRbjQznCO2HGIesu08mZ6QK0trrLNQ3a5Owb1jInAn2aE0LzKzUF2dr3paDUUyY2MCxNUoO1KRHAobsLR2jYYUSMZvHnQOZIRHs33nbBNacrpIa+RolvzrSBm/uF1JtixzkPRDLxyfQnxXrYvMxEoCEG8zMWxaqqvXUWnGK8cCCym63sgxoWxcVlxmweTu3SaOunu/mDNLOTCVmyWbp1nJo+b/VX5YCg5Oxyn90hc6+DV46zO9p82JGpZXPuK5Bi4KF6sNKYzPz/xC4EO0jzSW+z8yeJ3k6GnebnAsfOxSYDwy64KvaVUjYlI4acGhqjGv50gG6CSJs24tO8AIiljThd1uwpIC6HdezfiwkIjE1zvT2yF5YjCmabVlNrpO8AYusq9gdy//6QM8r5gVPtRpNi5/S2P5ZOmyIubaHrD7CGx/R3tInVxLBfdTv3lK
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR11MB8040.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(366016)(23010399003)(1800799024)(376014)(38070700021)(10067099003)(56012099006)(11063799006)(3023799007)(921020)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?3aewJ3j7PD22PiB6HrXmO6nAB/pP9i1YCJpcHXKMP2K+qa2ud46PqCf5ffh9?=
- =?us-ascii?Q?elKpCvU9fK9jEkoCnuyv2JYrq2ipSfUhFNLr1RAXr7SH2Fmiw0XzqhvKFcnc?=
- =?us-ascii?Q?X6ILJXfWwJbgktUxzLt1Zfouv7U+WEmTI0YbqwMRWhup9dh41thtg7n+N8ie?=
- =?us-ascii?Q?EPStlDBo/VJtVK+M3PRgaqZeoMcyN+loKia5jq1IfFyRES5MwzdfpW2WgzI1?=
- =?us-ascii?Q?kitLmgeVLjo+fCiVl3OmEBCnAzg1zPht830TDTOx4k50FXCQsPVqEe6208Kn?=
- =?us-ascii?Q?h1kbWzpGnfOsBWz7qW1sGc1+HD6OYlGcIkqVZya2xssUihPYZmL4NNiSf6cD?=
- =?us-ascii?Q?UcUDBY9w+4vKPycSFE9e7JQJ6k09z8oh2DLHYrhfKZ1VNQ+mLieseQ3fexAT?=
- =?us-ascii?Q?ktE1P46gOtin5a3OATQd0YwtUEORb2BcM5vPvavuDcfjvjLY92vicrpQlj1J?=
- =?us-ascii?Q?/mkl+g04See2FzkNFENjW17EMo4CO4VKjE2q0NStYbyBxLgjer8J/60j0/k4?=
- =?us-ascii?Q?WG8MZs4KDHs8Ttlt9knMH0FKG3OSzqkiE4V+BNfrLdv9seujEe00+Das+iPx?=
- =?us-ascii?Q?SWZ64uQJyg/8WOQbNbBa1HLo1VStwWbUsT3iiD4+LYWiweWImwx3AWDvtOej?=
- =?us-ascii?Q?GHPLjCG9ffApM8QAkpV3cyLG2ygA6GqoBUlBVlle0m5Qj9omqlZZriYkfCGd?=
- =?us-ascii?Q?TIIB7NLvuDx786MeE7LEmb/8v/qdKQ9XkI1s9hfLcjdIu6vKfLHjS42c+blO?=
- =?us-ascii?Q?2NBHENEWHg2iVqCXJLAn4KIqQN6TlDYGbCThJOryMSOWeaqN0qRZPvG9sgBm?=
- =?us-ascii?Q?paOBvEYO8WFsz4/gGJYAFDHZnWuZIJou8SjplTn2ndMtDnSGPNhbK4SZ9IGn?=
- =?us-ascii?Q?pLPeGS8/jxL/9i/qeUnuo5wj90gUhb2YJli5vlXrgUC4gAiQBQR5HVKeqFQH?=
- =?us-ascii?Q?CtYDSW5GQqjlhMK3e0G5Dpm5ME6mVCanKgf4zQJ9tTftJuZHMzTPVETrfMcm?=
- =?us-ascii?Q?R0gAJ7h3e6kbanQKvhjGOlgPEjmpANylKdTVSktRXQsFLJaa7drApQF7i1wu?=
- =?us-ascii?Q?wzQg2hv1iq7Mm+gAe2JZc7aKZmC0L4xmuRvY+qzAyHYbg+LoK8zt0UqpgQ7f?=
- =?us-ascii?Q?E30LWuORm+PEU2DLa1isT66boXZsRUd/SBjfdpDI4N+ACMzWe8mqajLhbXVc?=
- =?us-ascii?Q?+BtdyXMVQdu65CK3tDe0Nu1Z+SQXz4czif/6UHVwN2Au0V+i94AP9/Miw0Nm?=
- =?us-ascii?Q?3BqezzPXY+8MunNaLGUEla607WB8Jn3dW3e5uHu32N0KVFsEWDlhA1aN8W7n?=
- =?us-ascii?Q?BIJG99JsisOSrQ9AUP88jEcyLAblLB0LWxOhM01DQqxGg6hdHsfO205066ZN?=
- =?us-ascii?Q?aFzklrn4FYPpAUdjDtbhwBbisn0hSXFWcHvgCGDjrSINKSNRSYCtKAjskQZ/?=
- =?us-ascii?Q?IOQ8SIti5W/ndktCbSVs2ck26gDwy90LZqcLtL9ZU3F6MrOrUKw3c9M8P4Ua?=
- =?us-ascii?Q?yKqQ8QQALVvTiGEoPrv+YB8yNOc2u1sryLqmirCn4C7QAU/1n8kcPZnKtGLS?=
- =?us-ascii?Q?1IyQCfP0uuLUw0kCIR1CHDSyNnAD0oRNohFOyG2vrmlSQx9WdLTBNFPF1EKY?=
- =?us-ascii?Q?kveJNRWhPl1OWaWKoh1Ibxi4vN8frFda+MbHHBoWAzlWUDGa1ApTwdn36Dmf?=
- =?us-ascii?Q?z3szdcdnCLngWFTq06xjh5CCS+FLlDH6aiRRhtkZze/mM7Ns?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WTmRgDcI";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="KBnU0bLk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785336431;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iUO+shHcXPXkW8jm7U6qNBfIeZI1sbU1fzZ8TMtvFnQ=;
+	b=WTmRgDcIqkc6RU5BBv9wCgrEJAc4Y6aeRSv0FpUvdzv8yBVrBNTTgDBg/idnjOwio9ZRoG
+	6Ka/g87/P92mBYXmavEliAu2afy9zN1WKpTHrw5cBF4AkSjeNhV4iCIBsxWuHeTstf7IEk
+	auIHm3oYPJ+PJhuSvWnLS8TI6/0utzg=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-365-B3Bht--7Pz6VqhKeF5u18A-1; Wed, 29 Jul 2026 10:47:10 -0400
+X-MC-Unique: B3Bht--7Pz6VqhKeF5u18A-1
+X-Mimecast-MFC-AGG-ID: B3Bht--7Pz6VqhKeF5u18A_1785336429
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-492488f8583so9494535e9.2
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 07:47:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1785336429; x=1785941229; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iUO+shHcXPXkW8jm7U6qNBfIeZI1sbU1fzZ8TMtvFnQ=;
+        b=KBnU0bLkgwVQuJQLZ3V7g+i1TV6HmLZJatMBRTpofkTxJnOeKFXXFNgmX1iGcXr9Oc
+         zGZTPm00fuAOSGFyQkJmo54LoGCp7ltRTo9KZ8HBx3yGkPjxBTWR41oo3y0uageKCXzC
+         aCMVUfMXbcd344cdEpANGJu8Gms6+BcR7Gl4TLVnqsOPqg721MhMN2QiduTBl7dntHlV
+         WMypzMt+gq1+fZ0wV2tx2exrfVzsoxPmnymTKfBS4MCdiSQGRI0oM6tMRTGKfCCydiv7
+         mQls58TQ9YD4ykIQfNyxDu51pwLXNARPpyw9o9okb+GT7d8dfPOgA3JQjCGIutgvbBkH
+         DPIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785336429; x=1785941229;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iUO+shHcXPXkW8jm7U6qNBfIeZI1sbU1fzZ8TMtvFnQ=;
+        b=bjBI08ZPwr92f4SIYniGBaALG5iFqaRgagesIAmXzNoTYug1mDhY95ZkBbh1/exmGy
+         ntVmUq4D32ldsb7AVTr25KM/QG0R7YxCYLWuTOig/McS8KR6u6kfVeHFpROXQ7wqteFk
+         lWLw67CuQ677msbAr/a3XTeL7Wat9cPNUr7EH0HrIzvwrK303z3SWPKie9eOHZZ1cQfu
+         tQOvDkI60gokA20MJrMVmsrBSCOTRFS6zHYXFY0qnirxru9I7MCoD+ZHER4mzx2RFPhm
+         TsBLU+I8s43MgnR4BUK1zEgkPb5uR2fBfgh9wbmaqFE2HKmCWbWQyjhpsc5tGKfFLMAp
+         ajAw==
+X-Forwarded-Encrypted: i=1; AHgh+RrXCkcVKVbgvTHeCKJRJv1/xkvQAZ8wBGfOaGxvTYpBFRfk9SyYXsp4ncCibwUDNlTca2iktn0=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxu1L+vwyW7n3Fz5KKhhVRPHHK7M2EuUwZTTvMO5Fdx1FAYueWo
+	5hB0p8qUYMNAsd1m+PnxaNWnHNVQOqNOxjOGjCcBeoeX2G+lsTiTNHxwW3SLDbgmTuXmgaOVvY8
+	tfN4XAOCLB0/E3VE5jefCcv5e6Zp8htD2JnsLHEJjxlpIJ+Z+Byt39kpSDLBzwLB5oA==
+X-Gm-Gg: AR+sD12NslMvfN4EcnKfIZv6VeQKBZMGhkYQexjh0SnVV7a/d4CHAYuftFEO9+tbyz8
+	7ClYVpDaiqeDRFLQk0YJiu/QttZWm89pUrbCf69GMq7af8O9yy8+rjXNI67Bs5G71SdY6izy7Ce
+	kz32IJW+XLlRNkvPEKwWGSyWWQNB6JEfcoPv7/hA5Gx7hZmZmzGwtO6CmprOR60E/+1GM+KM4uI
+	rVZVZQNMrjCQ774IN6xZewEzB5iyB7xv3D5JuIzcpBXYRkEOxwVDjjhKh58Vi+QRtwClv4+Ay4s
+	w60SS4jmKZUnACysPlMHZQjw2/D0GCZgLBhBa8pG7WSHXh2ZTtFYK6HmCapU44ihgcZhYNwkVfO
+	tvJjAoBLwrWQEpxb1gTatEXIAjXjV1bQfWHeV7iXzYCQ=
+X-Received: by 2002:a05:600c:4fc7:b0:495:5dcc:52b4 with SMTP id 5b1f17b1804b1-496c641505fmr101132085e9.3.1785336428946;
+        Wed, 29 Jul 2026 07:47:08 -0700 (PDT)
+X-Received: by 2002:a05:600c:4fc7:b0:495:5dcc:52b4 with SMTP id 5b1f17b1804b1-496c641505fmr101131455e9.3.1785336428269;
+        Wed, 29 Jul 2026 07:47:08 -0700 (PDT)
+Received: from sgarzare-redhat (ip139-137-192-82.pool-bba.aruba.it. [82.192.137.139])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4976bd6dcb3sm65934695e9.11.2026.07.29.07.47.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 07:47:07 -0700 (PDT)
+Date: Wed, 29 Jul 2026 16:47:02 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Bobby Eshleman <bobbyeshleman@gmail.com>
+Cc: Weiming Shi <bestswngs@gmail.com>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, 
+	Stefan Hajnoczi <stefanha@redhat.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, virtualization@lists.linux.dev, 
+	kvm@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
+Subject: Re: [PATCH] vsock/virtio: prevent workers from using deleted
+ virtqueues
+Message-ID: <amoR0pnMO2OQ2E6z@sgarzare-redhat>
+References: <20260727035804.1860862-1-bestswngs@gmail.com>
+ <amjkQ2F+NEK9SPAj@devvm29614.prn0.facebook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: eAFduMt9Zr5PpXX6I6KHXB1f5OOq4RXYc4DFuEOv7YSIcS/Yc7NzLGVPn8WeQo8JrV1fRDv16mjnP85maYIbAj+z4yoThcoYch92Qfmi/AOqktoIsUKvldvR6lOu9iHxvIC+6c776H6TNo39zn+wWb34e9xDZsyxBQziEzobyfgdM5Cj7+QpXUdQzaFsz6OXdy4zYPA0F9/j6wK1IAn+xGH7LNKmrBD3D5t/UfqRVW0rptMmlPBOfQmCCx60SVXZgp68sCVpy0SS4r8MUTzISp9JvDwIdoWqe9fSUzuslO68N1HLIn7T2QVD9KBCcDHJDuz2A12Myp9f8VsYs8Svlw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB8040.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5452b98d-727a-47d4-bcbb-08deed801f99
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2026 14:46:07.4916
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EwiJcXaHkNCw33nvD+D6ac8B/jwbyItV4r+SY5Y+29dFMnQBs4G9+dR3V+AfEHkdMW08kkTNTwcBWf3TfYbHdQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8752
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <amjkQ2F+NEK9SPAj@devvm29614.prn0.facebook.com>
 
-The fix is already present in linux-7.1.y at xe_vm.c:3694. No action needed=
-.
+On Tue, Jul 28, 2026 at 10:17:55AM -0700, Bobby Eshleman wrote:
+>On Sun, Jul 26, 2026 at 08:58:01PM -0700, Weiming Shi wrote:
+>> The RX, TX and event workers read their virtqueue pointers before taking
+>> the mutex that protects the queue and its run flag. A work item delayed
+>> across freeze and restore can therefore retain a pointer deleted by
+>> virtio_vsock_vqs_del(), observe the run flag for the replacement queues,
+>> and use the freed pointer.
+>>
+>> RX has an additional path: when rx_run is clear, the common exit still
+>> refills the RX queue. A queued worker can consequently call
+>> virtqueue_add_sgs() immediately after freeze deletes the virtqueues.
+>>
+>> BUG: KASAN: slab-use-after-free in virtqueue_add_sgs
+>> Read of size 4 by task kworker/2:1
+>> Workqueue: virtio_vsock virtio_transport_rx_work
+>> Call Trace:
+>>  virtqueue_add_sgs (drivers/virtio/virtio_ring.c:2796)
+>>  virtio_vsock_rx_fill (net/vmw_vsock/virtio_transport.c:332)
+>>  virtio_transport_rx_work (net/vmw_vsock/virtio_transport.c:701)
+>>  process_one_work (kernel/workqueue.c:3314)
+>>  worker_thread (kernel/workqueue.c:3478)
+>>  kthread (kernel/kthread.c:436)
+>>  ret_from_fork (arch/x86/kernel/process.c:158)
+>>  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+>> ...
+>> Freed by task 141:
+>>  kfree (mm/slub.c:6566)
+>>  vp_del_vq (drivers/virtio/virtio_pci_common.c:259)
+>>  vp_del_vqs (drivers/virtio/virtio_pci_common.c:285)
+>>  virtio_vsock_freeze (net/vmw_vsock/virtio_transport.c:912)
+>>  virtio_device_freeze (drivers/virtio/virtio.c:658)
+>>  virtio_pci_freeze (drivers/virtio/virtio_pci_common.c:601)
+>>  pci_pm_freeze (drivers/pci/pci-driver.c:1098)
+>>  device_suspend (drivers/base/power/main.c:1968)
+>> Kernel panic - not syncing: KASAN: panic_on_warn set ...
+>>
+>> Read each worker's virtqueue under its mutex after confirming that the
+>> queue is running, and only refill RX while RX is running.
+>>
+>> Fixes: b917507e5ad9 ("vsock/virtio: stop workers during the .remove()")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Xiang Mei <xmei5@asu.edu>
+>> Assisted-by: OpenAI-Codex:gpt-5
+>> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+>> ---
+>>  net/vmw_vsock/virtio_transport.c | 14 ++++++++------
+>>  1 file changed, 8 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+>> index 57f2d6ec3ffc..79cf19f58943 100644
+>> --- a/net/vmw_vsock/virtio_transport.c
+>> +++ b/net/vmw_vsock/virtio_transport.c
+>> @@ -346,12 +346,13 @@ static void virtio_transport_tx_work(struct work_struct *work)
+>>  	struct virtqueue *vq;
+>>  	bool added = false;
+>>
+>> -	vq = vsock->vqs[VSOCK_VQ_TX];
+>>  	mutex_lock(&vsock->tx_lock);
+>>
+>>  	if (!vsock->tx_run)
+>>  		goto out;
+>>
+>> +	vq = vsock->vqs[VSOCK_VQ_TX];
+>> +
+>>  	do {
+>>  		struct sk_buff *skb;
+>>  		unsigned int len;
+>> @@ -451,13 +452,13 @@ static void virtio_transport_event_work(struct work_struct *work)
+>>  		container_of(work, struct virtio_vsock, event_work);
+>>  	struct virtqueue *vq;
+>>
+>> -	vq = vsock->vqs[VSOCK_VQ_EVENT];
+>> -
+>>  	mutex_lock(&vsock->event_lock);
+>>
+>>  	if (!vsock->event_run)
+>>  		goto out;
+>>
+>> +	vq = vsock->vqs[VSOCK_VQ_EVENT];
+>> +
+>>  	do {
+>>  		struct virtio_vsock_event *event;
+>>  		unsigned int len;
+>> @@ -634,13 +635,13 @@ static void virtio_transport_rx_work(struct work_struct *work)
+>>  		container_of(work, struct virtio_vsock, rx_work);
+>>  	struct virtqueue *vq;
+>>
+>> -	vq = vsock->vqs[VSOCK_VQ_RX];
+>> -
+>>  	mutex_lock(&vsock->rx_lock);
+>>
+>>  	if (!vsock->rx_run)
+>>  		goto out;
+>>
+>> +	vq = vsock->vqs[VSOCK_VQ_RX];
+>> +
+>>  	do {
+>>  		virtqueue_disable_cb(vq);
+>>  		for (;;) {
+>> @@ -689,7 +690,8 @@ static void virtio_transport_rx_work(struct work_struct *work)
+>>  	} while (!virtqueue_enable_cb(vq));
+>>
+>>  out:
+>> -	if (vsock->rx_buf_nr < vsock->rx_buf_max_nr / 2)
+>> +	if (vsock->rx_run &&
+>> +	    vsock->rx_buf_nr < vsock->rx_buf_max_nr / 2)
+>>  		virtio_vsock_rx_fill(vsock);
+>>  	mutex_unlock(&vsock->rx_lock);
+>>  }
+>> --
+>> 2.55.0
+>
+>Not a strong opinion from me, but since this last hunk is the one that
+>fixes the bug and the other hunks are moreso hardening, maybe break
+>these out into two patches?
 
-> -----Original Message-----
-> From: gregkh@linuxfoundation.org <gregkh@linuxfoundation.org>
-> Sent: Wednesday, July 29, 2026 3:37 AM
-> To: Yao, Jia <jia.yao@intel.com>; Mathew, Alwin <alwin.mathew@intel.com>;
-> Auld, Matthew <matthew.auld@intel.com>; Brost, Matthew
-> <matthew.brost@intel.com>; Mrozek, Michal <michal.mrozek@intel.com>;
-> Lin, Shuicheng <shuicheng.lin@intel.com>; stable@vger.kernel.org
-> Cc: stable@vger.kernel.org
-> Subject: FAILED: patch "[PATCH] drm/xe/uapi: Reject coh_none PAT index fo=
-r
-> CPU_ADDR_MIRROR" failed to apply to 7.1-stable tree
->=20
->=20
-> The patch below does not apply to the 7.1-stable tree.
-> If someone wants it applied there, or to any other stable or longterm tre=
-e,
-> then please email the backport, including the original git commit id to
-> <stable@vger.kernel.org>.
->=20
-> To reproduce the conflict and resubmit, you may use the following command=
-s:
->=20
-> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.gi=
-t/
-> linux-7.1.y git checkout FETCH_HEAD git cherry-pick -x
-> 4d58d7535e826a3175527b6174502f0db319d7f6
-> # <resolve conflicts, build, test, etc.> git commit -s git send-email --t=
-o
-> '<stable@vger.kernel.org>' --in-reply-to '2026072909-boil-smartness-
-> 3be9@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
->=20
-> Possible dependencies:
->=20
->=20
->=20
-> thanks,
->=20
-> greg k-h
->=20
-> ------------------ original commit in Linus's tree ------------------
->=20
-> From 4d58d7535e826a3175527b6174502f0db319d7f6 Mon Sep 17
-> 00:00:00 2001
-> From: Jia Yao <jia.yao@intel.com>
-> Date: Fri, 17 Apr 2026 05:59:17 +0000
-> Subject: [PATCH] drm/xe/uapi: Reject coh_none PAT index for
-> CPU_ADDR_MIRROR
->=20
-> Add validation in xe_vm_bind_ioctl() to reject PAT indices with XE_COH_NO=
-NE
-> coherency mode when used with
-> DRM_XE_VM_BIND_FLAG_CPU_ADDR_MIRROR.
->=20
-> CPU address mirror mappings use system memory that is CPU cached, which
-> makes them incompatible with COH_NONE PAT indices. Allowing COH_NONE
-> with CPU cached buffers is a security risk, as the GPU may bypass CPU cac=
-hes
-> and read stale sensitive data from DRAM.
->=20
-> Although CPU_ADDR_MIRROR does not create an immediate mapping, the
-> backing system memory is still CPU cached.
-> Apply the same PAT coherency restrictions as
-> DRM_XE_VM_BIND_OP_MAP_USERPTR.
->=20
-> v2:
-> - Correct fix tag
->=20
-> v6:
-> - No change
->=20
-> v7:
-> - Correct fix tag
->=20
-> v8:
-> - Rebase
->=20
-> v9:
-> - Limit the restrictions to iGPU
->=20
-> v10:
-> - Just add the iGPU logic but keep dGPU logic
->=20
-> Fixes: b43e864af0d4 ("drm/xe/uapi: Add
-> DRM_XE_VM_BIND_FLAG_CPU_ADDR_MIRROR")
-> Cc: <stable@vger.kernel.org> # v6.15+
-> Cc: Shuicheng Lin <shuicheng.lin@intel.com>
-> Cc: Mathew Alwin <alwin.mathew@intel.com>
-> Cc: Michal Mrozek <michal.mrozek@intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Signed-off-by: Jia Yao <jia.yao@intel.com>
-> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-> Acked-by: Michal Mrozek <michal.mrozek@intel.com>
-> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-> Link: https://patch.msgid.link/20260417055917.2027459-3-
-> jia.yao@intel.com
->=20
-> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c inde=
-x
-> 5f4220125c76..c3836f6eab35 100644
-> --- a/drivers/gpu/drm/xe/xe_vm.c
-> +++ b/drivers/gpu/drm/xe/xe_vm.c
-> @@ -3658,6 +3658,8 @@ static int vm_bind_ioctl_check_args(struct
-> xe_device *xe, struct xe_vm *vm,
->  				 op =3D=3D
-> DRM_XE_VM_BIND_OP_MAP_USERPTR) ||
->  		    XE_IOCTL_DBG(xe, coh_mode =3D=3D XE_COH_NONE &&
->  				 op =3D=3D
-> DRM_XE_VM_BIND_OP_MAP_USERPTR) ||
-> +		    XE_IOCTL_DBG(xe, !IS_DGFX(xe) && coh_mode =3D=3D
-> XE_COH_NONE &&
-> +				 is_cpu_addr_mirror) ||
->  		    XE_IOCTL_DBG(xe, xe_device_is_l2_flush_optimized(xe) &&
->  				 (op =3D=3D
-> DRM_XE_VM_BIND_OP_MAP_USERPTR ||
->  				  is_cpu_addr_mirror) &&
+I think also the other hunks fix an issue, but I agree on the split 
+since IMO we are fixing 2 different commits. Commit b917507e5ad9 
+("vsock/virtio: stop workers during the .remove()") was before 
+freeze/resume added by commit bd50c5dc182b ("vsock/virtio: add support 
+for device suspend/resume"). Only after that one we can have the false 
+-> true transition of *_run variables.
+
+So IMO hunks 1-3 should have Fixes: bd50c5dc182b ... and hunk 4 should
+have Fixes: b917507e5ad9 ...
+
+That said, it's not a strong opinion here too, but if you prefer a 
+single patch, please add both Fixes.
+
+Thanks,
+Stefano
+
+>
+>Besides, that all looks good to me.
+>
+>Reviewed-by: Bobby Eshleman <bobbyeshleman@meta.com>
+>
 
