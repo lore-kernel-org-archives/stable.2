@@ -1,153 +1,300 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E1F671DA23;
-	Wed, 29 Jul 2026 15:15:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D6C1799F;
+	Wed, 29 Jul 2026 15:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785338123; cv=none; b=Kfxac34ruiCWbR8+OQyAQjet+4tNRceNIg/4KfK6jAxEs0L/zaNwIOGEkMIYdE2pN3JHsJMvdjaOUt1hrpiUxGprziOvaR6uijlf+k83/Y0BDmS2ZS75OnLC2ZoiJxJAxVYr7yLqdyw4AECbE2P1nLxHwzmcPYvhKtqvlf+D9SE=
+	t=1785338489; cv=none; b=IrhCGhP0nXGLTVmDPuhhoZ79Z2cZCYRdrOtCPZt9SKqy24BZbgrsN/9HGrtTLC36NdrpKLEkqC+Gehtpl0eZBB4fnHC6zjLYsP4s7Pa8DVWE0eCm/tkJB8rV6A0MqssaC5D9M+6Of7Fnfigq+nlDs4fzhdyXnFcDBrhFveRZgrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785338123; c=relaxed/simple;
-	bh=CPFdNH+tk0hD8BapufMSerUii6drip63LAtDN7QslUw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sDHZ8npHNUDG/QckMqcnUTmGYbdfLE5/raOS+cIGjFDjk7bYyFF+Vi51c7gf6AiEtM6rzALT8ENixyXYnZTghX8eGG8TBWv1/37te4GllzCu9ZWMIWvSzHa9SC3KrGHaDigaQ691u+6c8XYahCkE4QVod7hBwQ0rgS2Y3I0WYxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=J4ytwFsG; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1785338489; c=relaxed/simple;
+	bh=sN4b0qs5cHEghQ3d+PFGTq66jo5xFpcTvktk6EV0g5o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g+SEbCkJXYFvTy5rpTV3BfitqbVvYmjnNoifGQhwPQiKqpZAaykLDgqMjKLTp1JOUlvRYoSJ2ODREt1D/7P5vV1oX8eqgEb48E1/ANgOTANqVeVt80yCgliN/zaNdXGMtxNLfU4Sn/pOUnaLoisxscPAiI3Z+H631tvEIR66LUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CZIePGF5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="J4ytwFsG"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2A9231684;
-	Wed, 29 Jul 2026 08:15:16 -0700 (PDT)
-Received: from [10.57.87.210] (unknown [10.57.87.210])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 383AF3F763;
-	Wed, 29 Jul 2026 08:15:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1785338120; bh=CPFdNH+tk0hD8BapufMSerUii6drip63LAtDN7QslUw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=J4ytwFsGQ01y2LZYOh7FPczFETL0UNRsiyHnDkI3OKK3UJGzphgeBWwiPK/wowtrr
-	 oGbidGhT4wmpfg76hOnOVNHI1Xgt1A4epC61K09f1P73wmzkHZw4ctnjB4SOR9ec4k
-	 Gzr+qOhnnxGJeAZiWwJrxVTCYAVHWhbdQMTuWrgo=
-Message-ID: <445ea3c7-9fa8-4653-90cf-2c815347f83c@arm.com>
-Date: Wed, 29 Jul 2026 16:15:15 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CZIePGF5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A6421F00A3A;
+	Wed, 29 Jul 2026 15:21:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785338487;
+	bh=RltkKNIxqbXfedvBZ+fsnyiDQtz4LQ2Yf+BgfLGX4C4=;
+	h=From:To:Cc:Subject:Date;
+	b=CZIePGF5y8iamlnv1OPTRzFTRjlzBrELK+ed7QwOveIsbrrXqOKsuduH+M8JJuhej
+	 aIQB7qbTquqh4yJCwyezr1YAEpb8vUqL+Esa38aVFAi+0ZaO8jncf0f9CUKRmoD+je
+	 9LJo41ybmCVx8kPJMpChFsKc6LDkQJUkjqqwPQHu/PKMZkuzr/kJdD5B5vMQhDBuGj
+	 gtAfGo8N/710t6ty17KwsUgcY63bQOeOR97koKiO7/jy+nYI8qq2NNyIGICFunoIpu
+	 h+O3iWJo44OZnCPmUgW/shmxsAILS2m/+VYxAQTRjcTAg+gJVeRyo6MtbvU9W9zsEB
+	 039Q29ENBsmtQ==
+From: Eric Biggers <ebiggers@kernel.org>
+To: stable@vger.kernel.org
+Cc: linux-fscrypt@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	Christoph Hellwig <hch@lst.de>,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH 6.18] fscrypt: Avoid dynamic allocation in fscrypt_get_devices()
+Date: Wed, 29 Jul 2026 08:19:05 -0700
+Message-ID: <20260729151905.8303-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/panthor: validate firmware interface structure sizes
-To: Osama Abdelkader <osama.abdelkader@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+
+commit 6fe4e4b8259e1330945b5f3c9476e08473b8e0e8 upstream.
+
+When a blk_crypto_key starts being used or is evicted, fs/crypto/ calls
+fscrypt_get_devices() to get the filesystem's list of block devices,
+then iterates over them and calls blk_crypto_config_supported(),
+blk_crypto_start_using_key(), or blk_crypto_evict_key() on each one.
+
+Currently, the block device pointers are placed in a dynamically
+allocated array.  This dynamic allocation is problematic because:
+
+- It can fail, especially at the fscrypt_destroy_inline_crypt_key() call
+  site when it's invoked for inode eviction under direct reclaim.
+
+- fscrypt_destroy_inline_crypt_key() doesn't handle the failure.  It
+  just zeroizes and frees the blk_crypto_key without calling
+  blk_crypto_evict_key().  That causes a use-after-free.
+
+For now, let's fix this in the straightforward and easily-backportable
+way by switching to an on-stack array.  Currently the fscrypt
+multi-device functionality is used only by f2fs, which has a hardcoded
+limit of 8 block devices.  An on-stack array works fine for that.
+
+(Of course, this solution won't scale up to large number of block
+devices.  For that we'd need a different solution, like moving the block
+device iteration into the filesystem.  Or in the case of btrfs, which
+will only support blk-crypto-fallback, we should make it just call
+blk-crypto-fallback directly, so the block devices won't be needed.)
+
+Fixes: 22e9947a4b2b ("fscrypt: stop holding extra request_queue references")
 Cc: stable@vger.kernel.org
-References: <20260720114918.15973-1-osama.abdelkader@gmail.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260720114918.15973-1-osama.abdelkader@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260713023708.9245-1-ebiggers%40kernel.org
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Link: https://patch.msgid.link/20260719055602.78828-1-ebiggers@kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+---
+ fs/crypto/inline_crypt.c | 57 ++++++++++++++--------------------------
+ fs/f2fs/super.c          | 25 ++++++++++--------
+ include/linux/fscrypt.h  | 18 +++++++------
+ 3 files changed, 44 insertions(+), 56 deletions(-)
 
-On 20/07/2026 12:49, Osama Abdelkader wrote:
-> iface_fw_to_cpu_addr() only checks that the firmware-provided MCU virtual
-> address points inside the shared section. The returned pointer is later
-> used as a full firmware interface structure, so accepting an address near
-> the end of the shared section can still lead to out-of-bounds accesses.
-> 
-> Pass the expected object size to iface_fw_to_cpu_addr() and reject ranges
-> that do not fit entirely in the shared section.
-> 
-> Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
+index 645cc49360729..500397ca8a26f 100644
+--- a/fs/crypto/inline_crypt.c
++++ b/fs/crypto/inline_crypt.c
+@@ -22,22 +22,14 @@
+ 
+ #include "fscrypt_private.h"
+ 
+-static struct block_device **fscrypt_get_devices(struct super_block *sb,
+-						 unsigned int *num_devs)
++static unsigned int
++fscrypt_get_devices(struct super_block *sb,
++		    struct block_device *devs[FSCRYPT_MAX_DEVICES])
+ {
+-	struct block_device **devs;
+-
+-	if (sb->s_cop->get_devices) {
+-		devs = sb->s_cop->get_devices(sb, num_devs);
+-		if (devs)
+-			return devs;
+-	}
+-	devs = kmalloc(sizeof(*devs), GFP_KERNEL);
+-	if (!devs)
+-		return ERR_PTR(-ENOMEM);
++	if (sb->s_cop->get_devices)
++		return sb->s_cop->get_devices(sb, devs);
+ 	devs[0] = sb->s_bdev;
+-	*num_devs = 1;
+-	return devs;
++	return 1;
+ }
+ 
+ static unsigned int fscrypt_get_dun_bytes(const struct fscrypt_inode_info *ci)
+@@ -96,7 +88,7 @@ int fscrypt_select_encryption_impl(struct fscrypt_inode_info *ci,
+ 	const struct inode *inode = ci->ci_inode;
+ 	struct super_block *sb = inode->i_sb;
+ 	struct blk_crypto_config crypto_cfg;
+-	struct block_device **devs;
++	struct block_device *devs[FSCRYPT_MAX_DEVICES];
+ 	unsigned int num_devs;
+ 	unsigned int i;
+ 
+@@ -135,20 +127,15 @@ int fscrypt_select_encryption_impl(struct fscrypt_inode_info *ci,
+ 	crypto_cfg.key_type = is_hw_wrapped_key ?
+ 		BLK_CRYPTO_KEY_TYPE_HW_WRAPPED : BLK_CRYPTO_KEY_TYPE_RAW;
+ 
+-	devs = fscrypt_get_devices(sb, &num_devs);
+-	if (IS_ERR(devs))
+-		return PTR_ERR(devs);
+-
++	num_devs = fscrypt_get_devices(sb, devs);
+ 	for (i = 0; i < num_devs; i++) {
+ 		if (!blk_crypto_config_supported(devs[i], &crypto_cfg))
+-			goto out_free_devs;
++			return 0;
+ 	}
+ 
+ 	fscrypt_log_blk_crypto_impl(ci->ci_mode, devs, num_devs, &crypto_cfg);
+ 
+ 	ci->ci_inlinecrypt = true;
+-out_free_devs:
+-	kfree(devs);
+ 
+ 	return 0;
+ }
+@@ -164,7 +151,7 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+ 	enum blk_crypto_key_type key_type = is_hw_wrapped ?
+ 		BLK_CRYPTO_KEY_TYPE_HW_WRAPPED : BLK_CRYPTO_KEY_TYPE_RAW;
+ 	struct blk_crypto_key *blk_key;
+-	struct block_device **devs;
++	struct block_device *devs[FSCRYPT_MAX_DEVICES];
+ 	unsigned int num_devs;
+ 	unsigned int i;
+ 	int err;
+@@ -182,17 +169,12 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+ 	}
+ 
+ 	/* Start using blk-crypto on all the filesystem's block devices. */
+-	devs = fscrypt_get_devices(sb, &num_devs);
+-	if (IS_ERR(devs)) {
+-		err = PTR_ERR(devs);
+-		goto fail;
+-	}
++	num_devs = fscrypt_get_devices(sb, devs);
+ 	for (i = 0; i < num_devs; i++) {
+ 		err = blk_crypto_start_using_key(devs[i], blk_key);
+ 		if (err)
+ 			break;
+ 	}
+-	kfree(devs);
+ 	if (err) {
+ 		fscrypt_err(inode, "error %d starting to use blk-crypto", err);
+ 		goto fail;
+@@ -210,20 +192,21 @@ void fscrypt_destroy_inline_crypt_key(struct super_block *sb,
+ 				      struct fscrypt_prepared_key *prep_key)
+ {
+ 	struct blk_crypto_key *blk_key = prep_key->blk_key;
+-	struct block_device **devs;
++	struct block_device *devs[FSCRYPT_MAX_DEVICES];
+ 	unsigned int num_devs;
+ 	unsigned int i;
+ 
+ 	if (!blk_key)
+ 		return;
+ 
+-	/* Evict the key from all the filesystem's block devices. */
+-	devs = fscrypt_get_devices(sb, &num_devs);
+-	if (!IS_ERR(devs)) {
+-		for (i = 0; i < num_devs; i++)
+-			blk_crypto_evict_key(devs[i], blk_key);
+-		kfree(devs);
+-	}
++	/*
++	 * Evict the key from all the filesystem's block devices.
++	 * This *must* be done before the key is freed.
++	 */
++	num_devs = fscrypt_get_devices(sb, devs);
++	for (i = 0; i < num_devs; i++)
++		blk_crypto_evict_key(devs[i], blk_key);
++
+ 	kfree_sensitive(blk_key);
+ }
+ 
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index f6b75ce11d1c1..6f787cbeefd09 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -3659,24 +3659,27 @@ static bool f2fs_has_stable_inodes(struct super_block *sb)
+ 	return true;
+ }
+ 
+-static struct block_device **f2fs_get_devices(struct super_block *sb,
+-					      unsigned int *num_devs)
++static unsigned int
++f2fs_get_devices(struct super_block *sb,
++		 struct block_device *devs[FSCRYPT_MAX_DEVICES])
+ {
+ 	struct f2fs_sb_info *sbi = F2FS_SB(sb);
+-	struct block_device **devs;
++	int ndevs;
+ 	int i;
+ 
+-	if (!f2fs_is_multi_device(sbi))
+-		return NULL;
++	static_assert(MAX_DEVICES <= FSCRYPT_MAX_DEVICES);
+ 
+-	devs = kmalloc_array(sbi->s_ndevs, sizeof(*devs), GFP_KERNEL);
+-	if (!devs)
+-		return ERR_PTR(-ENOMEM);
++	if (!f2fs_is_multi_device(sbi)) {
++		devs[0] = sb->s_bdev;
++		return 1;
++	}
++	ndevs = sbi->s_ndevs;
++	if (WARN_ON_ONCE(ndevs > FSCRYPT_MAX_DEVICES))
++		ndevs = FSCRYPT_MAX_DEVICES;
+ 
+-	for (i = 0; i < sbi->s_ndevs; i++)
++	for (i = 0; i < ndevs; i++)
+ 		devs[i] = FDEV(i).bdev;
+-	*num_devs = sbi->s_ndevs;
+-	return devs;
++	return ndevs;
+ }
+ 
+ static const struct fscrypt_operations f2fs_cryptops = {
+diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
+index 516aba5b858b5..c009d4afe9185 100644
+--- a/include/linux/fscrypt.h
++++ b/include/linux/fscrypt.h
+@@ -57,6 +57,9 @@ struct fscrypt_name {
+ /* Maximum value for the third parameter of fscrypt_operations.set_context(). */
+ #define FSCRYPT_SET_CONTEXT_MAX_SIZE	40
+ 
++/* Maximum supported number of block devices per filesystem */
++#define FSCRYPT_MAX_DEVICES	8
++
+ #ifdef CONFIG_FS_ENCRYPTION
+ 
+ /* Crypto operations for filesystems */
+@@ -181,21 +184,20 @@ struct fscrypt_operations {
+ 	bool (*has_stable_inodes)(struct super_block *sb);
+ 
+ 	/*
+-	 * Return an array of pointers to the block devices to which the
+-	 * filesystem may write encrypted file contents, NULL if the filesystem
+-	 * only has a single such block device, or an ERR_PTR() on error.
++	 * Retrieve the list of block devices to which the filesystem may write
++	 * encrypted file contents.
+ 	 *
+-	 * On successful non-NULL return, *num_devs is set to the number of
+-	 * devices in the returned array.  The caller must free the returned
+-	 * array using kfree().
++	 * This writes the block_device pointers to @devs and returns the count
++	 * (between 1 and FSCRYPT_MAX_DEVICES inclusively).
+ 	 *
+ 	 * If the filesystem can use multiple block devices (other than block
+ 	 * devices that aren't used for encrypted file contents, such as
+ 	 * external journal devices), and wants to support inline encryption,
+ 	 * then it must implement this function.  Otherwise it's not needed.
+ 	 */
+-	struct block_device **(*get_devices)(struct super_block *sb,
+-					     unsigned int *num_devs);
++	unsigned int (*get_devices)(
++		struct super_block *sb,
++		struct block_device *devs[FSCRYPT_MAX_DEVICES]);
+ };
+ 
+ int fscrypt_d_revalidate(struct inode *dir, const struct qstr *name,
 
-Reviewed-by: Steven Price <steven.price@arm.com>
-
-I'll push this to drm-misc-fixes.
-
-Thanks,
-Steve
-
-> ---
->  drivers/gpu/drm/panthor/panthor_fw.c | 30 ++++++++++++++++++---------
->  1 file changed, 20 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index 9d0e1fafdce2..eee2bc7e8541 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -870,18 +870,24 @@ static int panthor_fw_load(struct panthor_device *ptdev)
->   * iface_fw_to_cpu_addr() - Turn an MCU address into a CPU address
->   * @ptdev: Device.
->   * @mcu_va: MCU address.
-> + * @size: Size of the object pointed to by @mcu_va.
->   *
-> - * Return: NULL if the address is not part of the shared section, non-NULL otherwise.
-> + * Return: NULL if the object is not part of the shared section, non-NULL otherwise.
->   */
-> -static void *iface_fw_to_cpu_addr(struct panthor_device *ptdev, u32 mcu_va)
-> +static void *iface_fw_to_cpu_addr(struct panthor_device *ptdev, u32 mcu_va, size_t size)
->  {
->  	u64 shared_mem_start = panthor_kernel_bo_gpuva(ptdev->fw->shared_section->mem);
-> -	u64 shared_mem_end = shared_mem_start +
-> -			     panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-> -	if (mcu_va < shared_mem_start || mcu_va >= shared_mem_end)
-> +	size_t shared_mem_size = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-> +	u64 offset;
-> +
-> +	if (mcu_va < shared_mem_start)
-> +		return NULL;
-> +
-> +	offset = mcu_va - shared_mem_start;
-> +	if (offset > shared_mem_size || size > shared_mem_size - offset)
->  		return NULL;
->  
-> -	return ptdev->fw->shared_section->mem->kmap + (mcu_va - shared_mem_start);
-> +	return ptdev->fw->shared_section->mem->kmap + offset;
->  }
->  
->  static int panthor_init_cs_iface(struct panthor_device *ptdev,
-> @@ -906,8 +912,10 @@ static int panthor_init_cs_iface(struct panthor_device *ptdev,
->  
->  	spin_lock_init(&cs_iface->lock);
->  	cs_iface->control = ptdev->fw->shared_section->mem->kmap + iface_offset;
-> -	cs_iface->input = iface_fw_to_cpu_addr(ptdev, cs_iface->control->input_va);
-> -	cs_iface->output = iface_fw_to_cpu_addr(ptdev, cs_iface->control->output_va);
-> +	cs_iface->input = iface_fw_to_cpu_addr(ptdev, cs_iface->control->input_va,
-> +					       sizeof(*cs_iface->input));
-> +	cs_iface->output = iface_fw_to_cpu_addr(ptdev, cs_iface->control->output_va,
-> +						sizeof(*cs_iface->output));
->  
->  	if (!cs_iface->input || !cs_iface->output) {
->  		drm_err(&ptdev->base, "Invalid stream control interface input/output VA");
-> @@ -957,8 +965,10 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
->  
->  	spin_lock_init(&csg_iface->lock);
->  	csg_iface->control = ptdev->fw->shared_section->mem->kmap + iface_offset;
-> -	csg_iface->input = iface_fw_to_cpu_addr(ptdev, csg_iface->control->input_va);
-> -	csg_iface->output = iface_fw_to_cpu_addr(ptdev, csg_iface->control->output_va);
-> +	csg_iface->input = iface_fw_to_cpu_addr(ptdev, csg_iface->control->input_va,
-> +						sizeof(*csg_iface->input));
-> +	csg_iface->output = iface_fw_to_cpu_addr(ptdev, csg_iface->control->output_va,
-> +						 sizeof(*csg_iface->output));
->  
->  	if (csg_iface->control->stream_num < MIN_CS_PER_CSG ||
->  	    csg_iface->control->stream_num > MAX_CS_PER_CSG)
-> @@ -1015,8 +1025,10 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
->  		return -EINVAL;
->  	}
->  
-> -	glb_iface->input = iface_fw_to_cpu_addr(ptdev, glb_iface->control->input_va);
-> -	glb_iface->output = iface_fw_to_cpu_addr(ptdev, glb_iface->control->output_va);
-> +	glb_iface->input = iface_fw_to_cpu_addr(ptdev, glb_iface->control->input_va,
-> +						sizeof(*glb_iface->input));
-> +	glb_iface->output = iface_fw_to_cpu_addr(ptdev, glb_iface->control->output_va,
-> +						 sizeof(*glb_iface->output));
->  	if (!glb_iface->input || !glb_iface->output) {
->  		drm_err(&ptdev->base, "Invalid global control interface input/output VA");
->  		return -EINVAL;
+base-commit: 221fc2f4d0eda59d02af2e751a9282fa013a8e97
+-- 
+2.55.0
 
