@@ -1,61 +1,60 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B02543F0BC
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 09:08:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7526D43F4A6
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 09:09:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785316111; cv=none; b=FrRfzZh2NXGoyBA9eYLFG71+gpOarz+412F8CbOuS7YPR5QRJ7GURI2jJkCR8qH9BumIcL+hn5RyunaPWgV5DoX72WiJGl6gjTWfhCVCz5KK6erR3vV1BDL0CpLZ3gwTKOIGHEx3JUJujYce4ehTPMlopKBiLmLQ828n9FA3Q+I=
+	t=1785316144; cv=none; b=eAIiNWUv32a3xucCLNFmcnXEciZrdw+VyjiQckcGKmJdEk/lX5INnOhyeHtxsam9h5lSe7B25bX1+9QQbITrPwVO+G3Gx+19Hgr+uVTOp5Tisco6ynQAVVg4ImMb1PZwPAwuFkpbbtTGN1fjZ4bEG6nvEAENquAKMcmRtmOBVsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785316111; c=relaxed/simple;
-	bh=bIItaHqYW24nK/xRimTkPYGOZEAW0zpj0X9RyzqKtUg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eHnlyPyDAekyJnp0C88DRwxbTq2Unm5iecdwAPwjibusIBwzvr+/VRE9rDm0fddBxxiDEifelYMWMeR72HMim7OlcSNC7qXNRkkdzNxAHBKrHYsmRsRd9NPa1hUYFWeMHtLTxqDBK3pSMu/BbHzVdqaWr9mqIJxLIipGIXMfFl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BFu39sCG; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1785316144; c=relaxed/simple;
+	bh=1YLiDFtSZF1xPfbk4LclfDsaFH5y15PBohDTcoKaMes=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HerjqCbcXcPgEFfOwVjEgzL6hE4bZvtrCjlODyfiCecvv9IVMrnvEjXpLDq16oJoA2Iu4qlOMFkncy+JUY+1Xd2lgez67GImYFU6M7fv4HHl9UA11Xqt4moI1GXKR90m83BWV2qRtPMzWTBz4/ZhqCghz7HF38Oc8phakas0oPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GCYghacT; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BFu39sCG"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4953de5be0aso4912635e9.0
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:08:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GCYghacT"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f7854678bso315887f8f.3
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:09:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785316108; x=1785920908; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785316141; x=1785920941; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GHDM64FW0s/e76WnDR5ucgvsJnpJjxSSemWTfxAmKNM=;
-        b=BFu39sCGzn4SF9hMejhnmgdSH6Yn0OQX1tJ0cfGShyW6TQ2n4yd9Ql8fyPRZnj444G
-         yAEBc/XL4os7cMCILdVZE4oOLNBJ/8Vnv1r9NCSVCiWLj4ji5MQ53cgcA6hnitQq2GCN
-         PPNgZEVQXVQN/g95K/DXe83CXEGcHLjQGZOOq4mP6AAToiPm3CZALMpohVNvzwLd/S4D
-         QrOW9SYnlLK7F39YF5uCGkMuvB42aGlRMhySX/wa/zYCiJmM5WY8ntbpe2I2tLPdmaBs
-         gbTmbPbGToIbdqV/Qw70EQTuSpm+DdXHJpLnhYSf5kZNi6ruCbQ//8toNne1QR9Q5Dp8
-         /Dhg==
+        bh=ZJH3L/LkkKN9qxK/5ZZMLYwTlfYIlG18ul0LnWqIOCw=;
+        b=GCYghacT8TPory1IcOlkFxw72hpwvGdrxGO9Auu8JRspOR9SE0KM/UVc4jEZ0UxcGp
+         9zgqidopsIEYs2tpw+dP6NtJ4zqqarBuzim2JQspv/0dkCPUkDFV/Car5dMGG2FbPEwF
+         VFv4HrkqwDUHsDBWU13o4adP4FeuXuM8Uq7ORvh74yAuhmnzK3UZVNA6/3ZrHkcRfSpw
+         EL7TP2BjulGTC7W5fvLJQ6yyX0WaigVwqREGeC9qHMdlUbgmSokf38qHqJfr+7VQd9Om
+         ZwwVEMq0yQXKdL7f3O/xgoLKcr7kfY3oShvAzSZrVIqfBcAFLntrGNfJZOmHF8h14gyW
+         c5AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785316108; x=1785920908;
+        d=1e100.net; s=20251104; t=1785316141; x=1785920941;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GHDM64FW0s/e76WnDR5ucgvsJnpJjxSSemWTfxAmKNM=;
-        b=h8J4TA5l2H59KRYmAe2p16TYlK/osUZ2IlQWB6//KGHUHgmPCxD8at9ZS3WmaY8RA+
-         a4qPlz30Ac1yaVAAd7GZgQF0enMbkiPve2x1pmoviU165slNef5ZCP1qZBy8zgtNK0ST
-         FGe9DP70vgBKTfDQ8qW4pli2hLeSJJQwnHqfpCcbHnvqKj1R0G1BcpCIvDyOdf4VudIy
-         l/Cal40lwwL/+YKJUrxjSgQRxA5F+TpkmYx4frp0OLwPstQ/y36w8DHj565Iz00HI427
-         tyAtKwhewHeAFrb8bDF6bWVelIgg26SoUz6ucV1V2vYs58p4Gt18xhyT8zLhqjAoJOD0
-         x4Jg==
-X-Gm-Message-State: AOJu0YxZlLlWHFsrtg+TmaAeXJz9O5lizvFKKq/aDoWy7fmJKP+paG1p
-	3GEHGRjd4oqRTtGm61vuGyP1MIGfbqYRVJGGvE+TVvhmCjTyd9wXm8SpeYL6mR9e
-X-Gm-Gg: AR+sD108XRYEXBhlyAQrqw0iv1WKZpgwFhGD8Zh5wV9u6wGLYr7q7Se74eWgEGe/7Kw
-	LljF4IdkllXBR5wV4A2FyCEms2VWkKYMFwquKiU4FqpjphBX/kPpIu+YUyUHeObKsivJOqafDtY
-	Jbx9GkJz25Ds9CSF0O+OjyAbdKKf8+mczB/2hH6HAFMLutqAOy7GYG2haVkT/XL0bJlmHSFeqDW
-	0wR2eDizqByWykMqRE5Kds/WDq7/a411HiIvAJuNZP5Tiqk+rk5u4vbyIA3PpjWfEQUZYdaS1a0
-	k+XQlPHMOxot+A5bG1mK/tQQSsRsRQ/S1jYfvJN3S91fuiVPKHBIRfFDg7DMjBivFkvgD+oMHLI
-	4vPFMRY9CwmnUc7Mk5kvrQs9hKblrc5/74Jag7pCIbeMmk7AxtKVpv78C0ESBGKa0eEmoMNJ651
-	MO50Wx1hhWy0rhzp1qbd2AxXjVL9Vo2D4rC98hNJYF1v3AVNxbZx2gUsfaq6lOZRm5RdfbcXeiT
-	KCrRA==
-X-Received: by 2002:a05:600c:4452:b0:493:e79e:da98 with SMTP id 5b1f17b1804b1-496c65c6d3amr57371055e9.39.1785316108100;
-        Wed, 29 Jul 2026 02:08:28 -0700 (PDT)
+        bh=ZJH3L/LkkKN9qxK/5ZZMLYwTlfYIlG18ul0LnWqIOCw=;
+        b=T0+OZwKwvaPwFALvd6ZJjgRBLnKOahCHzq5Huz33CbTo4XPaPc7p8T0pglF0wdsPM5
+         5ti72p09YYGDxdOrR3uV1HzFsc21Ut5A0J2BEA7ezspcyqxdNdkScXPgyM9hhe8DknUe
+         p4P9n/jQmy52rFTpXgP3cMfPyn1IKqFSCt1cSBvVB9q5D7uWllHw1rfYJnSi0+C/mGZp
+         EfRFZ+7M6iHwaT+jLwxV/cm9S+IlTDNECoNGurlFYfN6I0ypsvjP3avU39I0poI1ouEv
+         ekwWUr5TJcNkXdE91FEWv1s2haticiwXCi6XSmHSmTtLrOQIefZweVCLzntR6aAR8xho
+         4sgA==
+X-Gm-Message-State: AOJu0YyVQ2+CTq2mm70UCv9wzUtxwp561Qo/HmYIVCPCiDkP3Uv9cBuN
+	j3gyL3+U92FjTAn/MMJjOxT2UZhskpFjgRoLOflr4iXUh/gAWgVhRjY0rh4WjyFO
+X-Gm-Gg: AR+sD104KYJS8QO8bXq1cd5jfCWELWSwA42cZEQ7w0iiNUX3OY1jpeT3VnOzc0Tz1hV
+	V+EYknvVrvXqBWdRIVWq23UntthywXpm/NKOUIh4052chWcu6LZiqsVnkvOhrc5aRSYee0F4jFH
+	L1cRchWx0QPLh+leIcTQ0ZQNQbNXujnAtd0p+hrcBz54LelHG/zezEWgQ30gQoOxOr4BC6L0CY2
+	WWWpHFXMYB3ZA8YLSh8tPT1eRstrsro+5smptzdx03hYyCH7wN3tGXN/OQS71xYifaX6+iLp/dF
+	/RWNJSH6qLZZrsQ244eAkAolIM8+ZS67b6mu6I6PXXhMQAHP2EvEUjKsktr75fgcXEYDfinOdYr
+	qeko/B9Azbg82JPR14Co6MNg60J1a05tTwdFNEh4TYLr+erd1nUdk7vvhA3WnT8Jg1sM0KGbn/U
+	BRemr4po1UkjLEnQiJ9RX1C4KR6Q4lNMlMUGbUp2rzjrPT7wdyuw0GK2l0/xK9z5Vp3/4=
+X-Received: by 2002:a05:600c:630d:b0:495:6134:6d61 with SMTP id 5b1f17b1804b1-496c6568d4bmr72588225e9.19.1785316140544;
+        Wed, 29 Jul 2026 02:09:00 -0700 (PDT)
 Received: from grower.astralinux.ru ([81.9.21.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c44af22dsm130105565e9.1.2026.07.29.02.08.26
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496e8e15a52sm29802675e9.0.2026.07.29.02.08.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 02:08:27 -0700 (PDT)
+        Wed, 29 Jul 2026 02:09:00 -0700 (PDT)
 From: Alexander Martyniuk <alexevgmart@gmail.com>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -72,9 +71,9 @@ Cc: Alexander Martyniuk <alexevgmart@gmail.com>,
 	Xiang Mei <xmei5@asu.edu>,
 	Weiming Shi <bestswngs@gmail.com>,
 	Jiayuan Chen <jiayuan.chen@linux.dev>
-Subject: [PATCH 6.1] ipv6: ndisc: fix NULL deref in accept_untracked_na()
-Date: Wed, 29 Jul 2026 12:08:08 +0300
-Message-ID: <20260729090809.76178-1-alexevgmart@gmail.com>
+Subject: [PATCH 6.6] ipv6: ndisc: fix NULL deref in accept_untracked_na()
+Date: Wed, 29 Jul 2026 12:08:56 +0300
+Message-ID: <20260729090857.76269-1-alexevgmart@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -131,11 +130,11 @@ Backport fix for CVE-2026-64542
  1 file changed, 3 insertions(+), 5 deletions(-)
 
 diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
-index f1c4c4dbefb0..85f7798d3e55 100644
+index ee34831f5621..342e7066f765 100644
 --- a/net/ipv6/ndisc.c
 +++ b/net/ipv6/ndisc.c
-@@ -972,10 +972,8 @@ static void ndisc_recv_ns(struct sk_buff *skb)
- 		in6_dev_put(idev);
+@@ -973,10 +973,8 @@ static enum skb_drop_reason ndisc_recv_ns(struct sk_buff *skb)
+ 	return reason;
  }
  
 -static int accept_untracked_na(struct net_device *dev, struct in6_addr *saddr)
@@ -143,10 +142,10 @@ index f1c4c4dbefb0..85f7798d3e55 100644
  {
 -	struct inet6_dev *idev = __in6_dev_get(dev);
 -
- 	switch (idev->cnf.accept_untracked_na) {
+ 	switch (READ_ONCE(idev->cnf.accept_untracked_na)) {
  	case 0: /* Don't accept untracked na (absent in neighbor cache) */
  		return 0;
-@@ -985,7 +983,7 @@ static int accept_untracked_na(struct net_device *dev, struct in6_addr *saddr)
+@@ -986,7 +984,7 @@ static int accept_untracked_na(struct net_device *dev, struct in6_addr *saddr)
  		 * same subnet as an address configured on the interface that
  		 * received the na
  		 */
@@ -155,7 +154,7 @@ index f1c4c4dbefb0..85f7798d3e55 100644
  	default:
  		return 0;
  	}
-@@ -1086,7 +1084,7 @@ static void ndisc_recv_na(struct sk_buff *skb)
+@@ -1085,7 +1083,7 @@ static enum skb_drop_reason ndisc_recv_na(struct sk_buff *skb)
  	 */
  	new_state = msg->icmph.icmp6_solicited ? NUD_REACHABLE : NUD_STALE;
  	if (!neigh && lladdr && idev && idev->cnf.forwarding) {
