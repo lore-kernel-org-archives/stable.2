@@ -1,50 +1,51 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011563A16B8
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 18:09:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94B53AFCEC
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 18:10:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785348607; cv=none; b=VjfkReEK3dx/W9XhP278KFLs+Lq3pz9KfZYp0MUpahWn5nGQ/7HE/MGsceCE3RjrNQJpfSu07dZlog/0Kg/Meo/j5alowf7/SG2dIWqow8ZWgr5w9KUZSgZxuuyaY0MosAidvIsgUSYxKNuDeFp4k9b9dZzInrUy9eoH6C+2CA0=
+	t=1785348616; cv=none; b=gOQ+LTV6vzUMsXUPIAlrKvcZXWqjJmwS6wVZHsqb2/NRCsuqNF4ogEVS+ts6FmNZw708rSIGLPq3oMw3N7FYleMZZFs9PE/7cdNuXB5W5Q6n5wuPymxQ0/q5rBsOVYarsMkabF9Q2Pw32mu/fDIvsUcsotTO+/Uz0l2+UYbFqgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785348607; c=relaxed/simple;
-	bh=vfxKFUfm3ozLAj5dw00zeB/Ee0MVjNwLKJuinmZCeSE=;
+	s=arc-20240116; t=1785348616; c=relaxed/simple;
+	bh=FuhMChURjhJmIapD7fiarsigxON+OKdVf81UpGjqr4w=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=P95tI5Ds+u8iX1/5O0Tk4le5opykCzjW/Y4OfeHqfk53Qe21c5RUq7CPNqA+TQ0YpNch137DS2x4A9IlNhrK8NrjWEHfpMXKOw+w5GvNHOHxq7vIppaKkHexMcH7chCa0i2efbqEv/KGSW6reEgVHBq/W3xJd8XMFN5AyCbDSy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=U4sdLAiH; arc=none smtp.client-ip=54.254.200.128
+	 MIME-Version; b=TZQPe+jm7Sel4vKH3x7d2uMJJ0WYTYnH6pBxSxgwOGmqE3nWhly06Qiii9/If70/H8GgfWw+iQxPtSpn9YmYf23W9qnDVUcF0uwRZkY11XQ8kmHPHn1n7m0KGbME7CZUsmMBEghJsjHaAIBLBqnlGD1D0O4TcJ9IyM5hZti0Cnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=mSfqjVnT; arc=none smtp.client-ip=54.206.16.166
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="U4sdLAiH"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="mSfqjVnT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1785348571;
-	bh=EZy71iGeHobJNPpITmgOiBr3EUURPO4aIAiFtAy348o=;
+	s=onoh2408; t=1785348581;
+	bh=rP0N+Ue7SS95afFkjKCtSOEhydB4E8Iz5D3HOBG73bY=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=U4sdLAiHW2lA/BfZsdqXMWmpKSd/+nY1UfbN0K9SdWdU1ERPBpjs2uKmM6e1I7/H+
-	 +YtPYKL2N29XiqHkWGp4QiRggdVuTjwPdh5zjnKj6D0uIwZ5JDBbuHsyp2r5L6MZt3
-	 zrL1QZYMxZaSHOKXNypDR5WSG6cjIP7BggABjpCg=
-X-QQ-mid: esmtpgz16t1785348566t8e6eccbd
-X-QQ-Originating-IP: FJvWdJWwsuY+lL1q0dwaf0Q6tlQv4U6VWHnZyr0hQVY=
+	b=mSfqjVnTliKGNat/vBOeAtzlKzwkb9w97GqmYZOg0cBKuKlXO7JACcaAkT1Anqwjy
+	 gYUrHKHpml2wHmqGJLE7U3K0HFOe9OHbH+cHtV/zVZasqfVQF9l0A0E33vwy7KvR+k
+	 HtCxBS1RSL1jVWuwQiTkSld002HPK9DdCJcWsD/8=
+X-QQ-mid: esmtpgz16t1785348562t1f3811aa
+X-QQ-Originating-IP: tyVwSKaNkHmqyQKERKD7Ycz3azXEOvFlOnwXW4bGwlk=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 30 Jul 2026 02:09:25 +0800 (CST)
+	id ; Thu, 30 Jul 2026 02:09:20 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 5283120931942838104
-EX-QQ-RecipientCnt: 5
+X-BIZMAIL-ID: 8607606712488970247
+EX-QQ-RecipientCnt: 7
 From: Wentao Guan <guanwentao@uniontech.com>
 To: gregkh@linuxfoundation.org
 Cc: guanwentao@uniontech.com,
 	linkinjeon@kernel.org,
 	stable@vger.kernel.org,
-	stfrench@microsoft.com
-Subject: [PATCH 6.18.y 2/2] ksmbd: restore DACL size on check_add_overflow() to avoid malformed ACL
-Date: Thu, 30 Jul 2026 02:09:17 +0800
-Message-Id: <20260729180917.17776-2-guanwentao@uniontech.com>
+	stfrench@microsoft.com,
+	Haofeng Li <lihaofeng@kylinos.cn>,
+	ChenXiaoSong <chenxiaosong@kylinos.cn>
+Subject: [PATCH 6.18.y 1/2] ksmbd: validate num_subauth when copying ACE in set_ntacl_dacl
+Date: Thu, 30 Jul 2026 02:09:16 +0800
+Message-Id: <20260729180917.17776-1-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260729180917.17776-1-guanwentao@uniontech.com>
+In-Reply-To: <2026072936-equipment-calculate-e753@gregkh>
 References: <2026072936-equipment-calculate-e753@gregkh>
- <20260729180917.17776-1-guanwentao@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,104 +55,91 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OE1Jsd0nzp8lpRsLu8aVYsE5v0X9WRn26EOCc2kT42Ah196k6pmw/YDJ
-	tZCOsRWr4sdacvbwDmbx6tu92n7NDgD53pT/I6CKmV2bXTyc3XK4AsjKf5CiH3XkOQFUQzA
-	4dKVYmds+cJhaQ8XX6AplcSaSUsFU4vQK43WA2TM0FKzjiz5hCk/hF3qr+q5Ex1OVS3UwWy
-	JLGM/T4kamavh4DlB03/a64+pJbr+0DEsTUkhfVpnweaDl5uQiey2pDZYuLdRZ/cXT26LrM
-	N9RGit3XfgkSIl72rHkFxSaTzh+j2G6qVCOZVu7946SNH33tCG1KYOlLSypAuNT18OF/ZPt
-	o9NPObXcFcFYhJH5ywi/YUOD/EYSXUvoN0pap0p4bNFLL0Sa1/1J6dbILSWxc30OWoD2a1i
-	cME5OKb7QM8O2WHOXcDmPJXOnPbDx06qGgu9stb1pCseFHd1XTPZcGBz7xJ5lyzCND6xu2K
-	DrtCSz3Vym15rXI8UlswXMDRvrLj5fh3/KEaPdaMH9DupxAapHVW5A8DJZ3CdQBpTFzHvDt
-	VVaqDsp5inFT65moDM70S4KI/Kin8L6BT+Pgj2DnL4iV/vbdVtmhlaonfHcVM/8cncQSvla
-	Io4EsVlUiSx9KY+g0JpZ6PUrCrQFDiwIcciar612RTYOCLgNr2xE96ikGgqDwZm4n5gcKxs
-	LUAW24F3Ws/FLvUaifNpXFvvVsMZI+QFPCHJXcAfCHwrWAI5l0+MlXDuofiIud/R4m0LGgl
-	jnKCX3PViRNhkKo580cpO3qPh5p4wiVpczR92RHlk/Ezzx7FMtbqMlf5hD9OJ3cFwiebezx
-	HV5bUeJF2esJzk2Tr+ILHoE7JR+SChi6mJFeNAmcx4aD1HqxoRTLUOAyO7CXWlIEIRrFG1I
-	dFMLuZayIy5/vWjoAOsy3ISLkH2YxKvTnXr4YuJKRlDEXdlawOHxm1T8lNNM6JnBmE08QoH
-	Rvl4dyz3RpPf6n3Euop2urnu1Dp6sDhE3SFlC/ZPl+aPCvUvFaLWU7EdlgenWRSzZYzpM/D
-	zui2ogxW/cqmMfaN/nMRTnsYo6DSMU+q4ndnZ7vvJ3kxY/YeZ3khuE2ZtKAe12hfl1U0gFP
-	IZmnahfUGPHWoSVXPBG3RdA08RrZ6wG99KapVdl4qM9jAzozq2N2qistkhoUdFsnvgI5aNn
-	rRBW
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-XMAILINFO: MDn50qcE9aI1Jg9Tfp6wFYrQNEbyt1p3aY6tGxaqZ/8sAhaViIjPGrKp
+	PJeQSiJ1JC98NKByWdu5PCsc3ZkUWdgd41qJSU/7/NHrwdh5w8RZaoZR/9rXd9CqFyDbnk8
+	9asuiET/MKIbEOZTXEjRIuwvD9ZxUjTKzN8hM06B3JA1BCd7fFhUneljCQhllw8gHrxDI2D
+	5Fbuer49UOESN9xbhVyDom43dqPh4Ibii/WsyKj+rz+CkbvUII9JrgtFAGuHJf1VCvEwmJL
+	OujRw0ZassMaeENPb8LleNGoyxgcw5wO2Plql8MP9Ak1vdi10WbDe4kY+jfBX8szs2yciqw
+	LgR5YUmNklxLrcT48o2VuDKHOFePrWlVFj82AV4tQqUoWd1hYPCJFlJ2y4rZXP47yQrxdbQ
+	oRarU96R5aI3QbWUwtV9Fs1lOTeidtB3JlR7/hCiW/x4nlu5FBc3WkOm92k+0GEPf9PDtx1
+	Hye1hgGUvOHRL0BUe5IzDdnF2JZhAyiTDGVhNpM0DkgqdnoPK4KMIoiUv00BhkJLhukIWau
+	4W3o4ZMy/KQZisUfYZf4IBY48I4HxR2kdbVfO3aoWXZLAyPFEaUgn49lCvS912jm8KyycD4
+	/mjRuc48VXSoJg9DklUE9xWUmXWxKGvhhU/qhA3aGj6183Y1IBjOftVUgASIEB4MYdVHDxg
+	eF5AWPxRdImRu5qnFQ45RkZRQid0+3jSVwh8z/IYjIahB6yMMUYsiKJUFihf3eUvtHUiE0l
+	9mdC09UbyjK+LSBlGB0meLzzwzbYAjQVgIE4ylxdxtRxv69cDDDlfE0rcHxeiL22+ej3vQw
+	9K7sBaavkZOz7rL8njDV2yzt2N9GKCTM8g2dbg43Onf5qFLeLPB7ky8aH61JZjJhsCgcBHb
+	ppWANslZ3aENhev3QvJQj8Asy4ISNIccNHH/Y7BdpJwPv5R3POjC3JggLOg3uKWwWKMTP9B
+	VQjThn+JdcNZk0dSGIRrcSxviNIUhdRBU/W2SZayl4/4Lu3oRdjjGNtQLLJIB8PqRk8OoT7
+	0LQPSNnFW38wE3596qCrwGrMh7PG/cuhF/SBTJ9mfgXAKZdjVrgk4nUP3o92a2q/YOkMhxM
+	qAUy4mFhaQrcI3Lj15LvumFPP6K5gJ1KaPgjEYShMld+K4x5kFqdhk2N53hw1huhQ==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
 X-QQ-RECHKSPAM: 0
 
-check_add_overflow() unconditionally writes the truncated sum into *d
-even on overflow, per its contract in include/linux/overflow.h.
-The four check_add_overflow() guards in set_posix_acl_entries_dacl()
-and set_ntacl_dacl() break out of the ACE-building loops on overflow,
-but the truncated *size is then consumed downstream at the end of
-set_ntacl_dacl():
+From: Haofeng Li <lihaofeng@kylinos.cn>
 
-    pndacl->size = cpu_to_le16(le16_to_cpu(pndacl->size) + size);
+set_ntacl_dacl() copies each ACE from the attacker-controlled stored
+security descriptor verbatim into the response DACL without checking
+sid.num_subauth. The ACE bytes (including an unchecked num_subauth)
+originate from an authenticated SMB2_SET_INFO(SecInfo=DACL) that is
+stored raw via ksmbd_vfs_set_sd_xattr(); parse_dacl() rejects a bad ACE
+with `break` rather than an error, so parse_sec_desc() still returns
+success and the malformed SD reaches the xattr intact.
 
-This produces an on-wire NT ACL whose pndacl->size under-reports the
-bytes actually written by the preceding fill_ace_for_sid()/memcpy()
-calls, yielding a malformed ACL that can trigger out-of-bounds reads
-when re-parsed by clients or ksmbd itself.
+On a subsequent SMB2_QUERY_INFO(SecInfo=DACL) for an inode carrying a
+POSIX access ACL, build_sec_desc() -> set_ntacl_dacl() ->
+set_posix_acl_entries_dacl() walks the copied ACEs and reads
 
-Restore *size to its pre-addition value on each overflow branch (via
-`*size -= ace_sz` / `size -= nt_ace_size`) so that after the break,
-*size once again holds the cumulative size of the successfully-written
-ACEs. The committed ACL is then truncated-but-self-consistent rather
-than malformed.
+    ntace->sid.sub_auth[ntace->sid.num_subauth - 1]
 
-The ksmbd DACL builders are the only check_add_overflow() sites found
-where an overflow path breaks out of a loop and the destination value
-is consumed afterward. The other nearby break-style cases either
-return -EINVAL on overflow (transport_ipc.c) or break without
-consuming the overflowed destination value afterward (buildid.c).
+with num_subauth taken straight from the stored SD. Since sub_auth[]
+is fixed at SID_MAX_SUB_AUTHORITIES (15), a crafted num_subauth (e.g.
+255) drives an out-of-bounds heap read of ~1 KB with an offset fully
+controlled by an authenticated client.
 
-Fixes: 299f962c0b02 ("ksmbd: use check_add_overflow() to prevent u16 DACL size overflow")
-Assisted-by: atomcode:glm-5.2
-Assisted-by: Codex:gpt-5.5
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+The sibling functions already gate this field:
+  parse_dacl()    -- num_subauth == 0 || > SID_MAX_SUB_AUTHORITIES
+  parse_sid()     -- num_subauth > SID_MAX_SUB_AUTHORITIES
+  smb_copy_sid()  -- min_t(u8, num_subauth, SID_MAX_SUB_AUTHORITIES)
+set_ntacl_dacl() is the lone inconsistent path that omits the check.
+
+Add the same num_subauth validation in set_ntacl_dacl() before copying
+the ACE, matching the gate already enforced by parse_dacl().
+
+Signed-off-by: Haofeng Li <lihaofeng@kylinos.cn>
+Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Suggested-by: Namjae Jeon <linkinjeon@kernel.org>
 Acked-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Steve French <stfrench@microsoft.com>
+(cherry picked from commit 47f0b34f6bc98ed85bfdc293e8f3e432ec24958d)
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- fs/smb/server/smbacl.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ fs/smb/server/smbacl.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 173469d112f10..ca0e4aab6dd87 100644
+index b09bc8d9389a2..173469d112f10 100644
 --- a/fs/smb/server/smbacl.c
 +++ b/fs/smb/server/smbacl.c
-@@ -649,6 +649,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
- 		ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED, flags,
- 				pace->e_perm, 0777);
- 		if (check_add_overflow(*size, ace_sz, size)) {
-+			*size -= ace_sz;
- 			kfree(sid);
- 			break;
- 		}
-@@ -663,6 +664,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
- 			ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED,
- 					0x03, pace->e_perm, 0777);
- 			if (check_add_overflow(*size, ace_sz, size)) {
-+				*size -= ace_sz;
- 				kfree(sid);
+@@ -745,12 +745,18 @@ static void set_ntacl_dacl(struct mnt_idmap *idmap,
+ 			if (nt_ace_size > aces_size)
  				break;
- 			}
-@@ -708,6 +710,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
- 		ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED, 0x0b,
- 				pace->e_perm, 0777);
- 		if (check_add_overflow(*size, ace_sz, size)) {
-+			*size -= ace_sz;
- 			kfree(sid);
- 			break;
- 		}
-@@ -750,8 +753,10 @@ static void set_ntacl_dacl(struct mnt_idmap *idmap,
- 				goto next_ace;
  
++			if (ntace->sid.num_subauth == 0 ||
++			    ntace->sid.num_subauth > SID_MAX_SUB_AUTHORITIES)
++				goto next_ace;
++
  			memcpy((char *)pndace + size, ntace, nt_ace_size);
--			if (check_add_overflow(size, nt_ace_size, &size))
-+			if (check_add_overflow(size, nt_ace_size, &size)) {
-+				size -= nt_ace_size;
+ 			if (check_add_overflow(size, nt_ace_size, &size))
  				break;
-+			}
- 			num_aces++;
++			num_aces++;
++
++next_ace:
+ 			aces_size -= nt_ace_size;
+ 			ntace = (struct smb_ace *)((char *)ntace + nt_ace_size);
+-			num_aces++;
+ 		}
+ 	}
  
- next_ace:
 -- 
 2.30.2
 
