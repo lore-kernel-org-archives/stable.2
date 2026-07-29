@@ -1,109 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D00236F914
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:30:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49AE437EFFB
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:30:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785292206; cv=none; b=PphDexsAqBTElIYQmqQiaaoNqBT8+YAW3lBSyWB1wi952bkrVVhDdr1yACU+S3ryeSd37zuaUJVavv3bwHUgsFkxw7X6oa6TpukLwfYEFDnHGlY/PKaiOELEMZYmwQseS6zw3JAX8vAVJxRzLvdEmP16Vlnwp2/oz6S2S/NmX+U=
+	t=1785292214; cv=none; b=h+TAiQUc/WLeQTXDOvav2k85IXsfAjUPGFh0nhT1bPKtMClGtFWn+mdXwv4op0hb+kMDk3o5ylGAQrqw+ao2DLg1YVUyRkjwvUjjPuynw1R8I6j2taj63we/PIDlTpHrPPnAoGNxPR/XGdEMngpqIc/tGlwdVDmWku9TXI7vlpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785292206; c=relaxed/simple;
-	bh=gNl5Z/CQYpz1tYYsLd+Tt72cVMR69RwFJD/uA0IsEG0=;
+	s=arc-20240116; t=1785292214; c=relaxed/simple;
+	bh=RIh1bRGPVnpheIztXqEmNU0dJPpaYsGX329j5X0Q4HM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GNhEd0DD1y9iMQ0Eu/3i5x9pLaPieHiCjtY/zQRR3hDxAobJO5CUj/Z2wI/DrBxSQ/T6sVDF1qU5uWOJ0JTpeDHYA8Not1pUPGT91kLnnrGFMwi6xGgCC10GhM688lRi99rcjb3nvWQE0llMrUB9TB243HpeCNhVBNarFvvR/uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nimk9wD3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kN6P8Kbtu4pYyrBJfHSe6AYdq54an/a0icKYNoFVKbA6IFARt7yvkG121FZMSxVC0EcaYIkakirmfyB2Qztia952WaubD/lURNyo28BdQ5W4DP5pkaLF8n5qysfhHdq0AN51o30Jre0rUbxPlDPd5hmE9wuP4dx091MlmC02JQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=magvJZlY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nimk9wD3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E72C1F00A3D;
-	Wed, 29 Jul 2026 02:30:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="magvJZlY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47BE11F00A3A;
+	Wed, 29 Jul 2026 02:30:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785292204;
-	bh=z4yT0KrkIt8Tiiw84eKfiDcmd5QY2QlAnPToIZIDOkg=;
+	s=k20260515; t=1785292212;
+	bh=lbXziBzLEdFqRG3WZ1aop9MvPfVchff39dMRiIWuWGU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nimk9wD37fsta/ub3gEPvfuBLRZmfpCEu2v2+tU/kJqsUcw3qirq1EpWEog+CHkRz
-	 pfnXZpnjG5LGO6Z6FB4S8SgIDH5wzjHgjo8X8kPAeb9uWvhoG+/83P6KWE3gfpPz5S
-	 d/x8lhC0dl4OQr9043yqGBesJQAe87cp0Lb5zNmbsxgg4cI5/Lx1g6UXwk3Br32/me
-	 T1KOF4GuIKZDNNopyrm2ZMpDwabkCSaS6/PqHDV9sYps7qJDj4S4G5XKWueqLN0mc4
-	 KySFNU/CUv1edHokQM2w7eoPaV9EMB3PWGfXnGXenSvii9HCtfz+Aqy1cIrtfRPF8K
-	 FSLoPpnqw3erw==
+	b=magvJZlYHUt2trwXJ7G/uz04nagWPKl8XZdy1kRs+AZK3NMKHW/bbcMJlKoJ4Lk3k
+	 Krk8PmfQ+QKJsEfcciJyWMMblc58XgW7sPt/ravy8mlYMPu435GDfZdeFrf3hQpOJw
+	 38GMpqEt72buGPAhpYpLP3SfNrb7AToGAoOfs+JDLg7AuUa07nPPTsRjod0+Z83cUv
+	 9SN7fK3FmljAXk9mIivubni0jzSucL2Gbp4/7bnMnxm0vz8JfHqhuVtnrB/tb+5CGF
+	 fHA3+8ZFdoo1LOidrb5I3Y62Y/n/2C1GUdQ/B83cLNOxNdBdaiHZJHuY0K31pTOeAa
+	 8LLk/4QBXhDJA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Sabrina Dubroca <sd@queasysnail.net>,
+	Aaron Esau <aaron1esau@gmail.com>,
+	Yiming Qian <yimingqian591@gmail.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] net: macb: drop in-flight Tx SKBs on close
-Date: Tue, 28 Jul 2026 22:30:02 -0400
-Message-ID: <20260729023002.1113287-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] espintcp: use sk_msg_free_partial to fix partial send
+Date: Tue, 28 Jul 2026 22:30:10 -0400
+Message-ID: <20260729023010.1113752-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072140-catacomb-activator-d955@gregkh>
-References: <2026072140-catacomb-activator-d955@gregkh>
+In-Reply-To: <2026072138-zap-unified-4af3@gregkh>
+References: <2026072138-zap-unified-4af3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Théo Lebrun <theo.lebrun@bootlin.com>
+From: Sabrina Dubroca <sd@queasysnail.net>
 
-[ Upstream commit 27f575836cfebbf872dec020428742b10650a955 ]
+[ Upstream commit 007800408002d871f5699bdb944f985896730b8f ]
 
-The MACB driver has since forever leaked the outgoing SKBs that
-have not yet been marked as completed. They live in queue->tx_skb
-which gets freed without remorse nor checking.
+sk_msg_free_partial() ensures consistency of the skmsg at every
+iteration, without having to manually handle uncharges and offsets.
+This simplifies the code, and fixes some bugs in skmsg accounting when
+we don't send the full contents.
 
-macb_free_consistent() gets called in a few codepaths, but only close will
-trigger the added expressions. In macb_open() and macb_alloc_consistent()
-failure cases, queues' tx_skb just got allocated and are empty.
-
-Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
 Cc: stable@vger.kernel.org
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
-Link: https://patch.msgid.link/20260702-macb-drop-tx-v4-1-1c833eebdbc8@bootlin.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ adjusted context to free each queue's Tx/Rx rings individually since 6.12 lacks the single-dma_alloc_coherent refactor ]
+Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
+Reported-by: Aaron Esau <aaron1esau@gmail.com>
+Reported-by: Yiming Qian <yimingqian591@gmail.com>
+Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
+Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+ net/xfrm/espintcp.c | 32 ++++++--------------------------
+ 1 file changed, 6 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index fbf8d0ba9c4732..67b16aca565ce9 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -2582,8 +2582,26 @@ static void macb_free_consistent(struct macb *bp)
- 	bp->macbgem_ops.mog_free_rx_buffers(bp);
+diff --git a/net/xfrm/espintcp.c b/net/xfrm/espintcp.c
+index 2ee078156ded7f..6fb89a83d36348 100644
+--- a/net/xfrm/espintcp.c
++++ b/net/xfrm/espintcp.c
+@@ -208,41 +208,21 @@ static int espintcp_sendskmsg_locked(struct sock *sk,
+ {
+ 	struct sk_msg *skmsg = &emsg->skmsg;
+ 	struct scatterlist *sg;
+-	int done = 0;
+ 	int ret;
  
- 	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
--		kfree(queue->tx_skb);
--		queue->tx_skb = NULL;
-+		if (queue->tx_skb) {
-+			unsigned int dropped = 0, tail;
-+
-+			for (tail = queue->tx_tail; tail != queue->tx_head;
-+			     tail++) {
-+				if (macb_tx_skb(queue, tail)->skb)
-+					dropped++;
-+				macb_tx_unmap(bp, macb_tx_skb(queue, tail), 0);
-+			}
-+
-+			queue->stats.tx_dropped += dropped;
-+			bp->dev->stats.tx_dropped += dropped;
-+
-+			kfree(queue->tx_skb);
-+			queue->tx_skb = NULL;
-+		}
-+
-+		queue->tx_head = 0;
-+		queue->tx_tail = 0;
-+
- 		if (queue->tx_ring) {
- 			size = TX_RING_BYTES(bp) + bp->tx_bd_rd_prefetch;
- 			dma_free_coherent(&bp->pdev->dev, size,
+ 	flags |= MSG_SENDPAGE_NOTLAST;
+-	sg = &skmsg->sg.data[skmsg->sg.start];
+ 	do {
+-		size_t size = sg->length - emsg->offset;
+-		int offset = sg->offset + emsg->offset;
+-		struct page *p;
+-
+-		emsg->offset = 0;
+-
++		sg = &skmsg->sg.data[skmsg->sg.start];
+ 		if (sg_is_last(sg))
+ 			flags &= ~MSG_SENDPAGE_NOTLAST;
+ 
+-		p = sg_page(sg);
+-retry:
+-		ret = do_tcp_sendpages(sk, p, offset, size, flags);
+-		if (ret < 0) {
+-			emsg->offset = offset - sg->offset;
+-			skmsg->sg.start += done;
++		ret = do_tcp_sendpages(sk, sg_page(sg), sg->offset,
++				       sg->length, flags);
++		if (ret < 0)
+ 			return ret;
+-		}
+-
+-		if (ret != size) {
+-			offset += ret;
+-			size -= ret;
+-			goto retry;
+-		}
+ 
+-		done++;
+-		put_page(p);
+-		sk_mem_uncharge(sk, sg->length);
+-		sg = sg_next(sg);
+-	} while (sg);
++		sk_msg_free_partial(sk, skmsg, ret);
++	} while (skmsg->sg.size);
+ 
+ 	memset(emsg, 0, sizeof(*emsg));
+ 
 -- 
 2.53.0
 
