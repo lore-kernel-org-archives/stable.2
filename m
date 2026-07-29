@@ -1,36 +1,36 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9149246C823
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 19:01:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8D546C826
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 19:02:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785351718; cv=none; b=Uu3+0ClHp3pgbAkxgJwfwjiXhkjndc+5gPWyw/uXQ1UHTurfzt1dSE16jRAPOV3slx3V3VOiPR60gVQkTNLyuoBvbC4GM6jm6R49A+2005T8pkWeqH5WF28sch/vBicGDlYd1QLUHnt8fTruqDEzesXzZQmf0+WZtVrxwt4StWg=
+	t=1785351730; cv=none; b=DOVgC6YWSFJk0gFrJ9nXc0uYzpjJsBNpDQyxZMa+k6B2ZNNUh594gpjArsPuUyKIUPI409EsiC8tKYQVIE9jxRuhDWqUAiLPk+w66EqfHB9KkE85Puk7OsJEI2NFe1OsrNOkyegdX4ltkFHDIHkwpNeZ0rU4l5CoZ3XWD/d03Jk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785351718; c=relaxed/simple;
-	bh=m/ZVzvZYYb+Yp6JDinQx5z3BKBmTrgHECC9+2anINSg=;
+	s=arc-20240116; t=1785351730; c=relaxed/simple;
+	bh=qOU/U4H1k8GACRfJ+18zmEkimFkhC/BmaDhJqVtWMfs=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cNW2xNglDTjLfKrpQnU4UelZ5ZzAK8EZ+8Zj+gMNjhft/EYgO2Esq8PRVKuTm9sXnDA33OYA8mlAawNUMzWah8H65Uhaj+nvQoJ6yjPSMk4dMU/Zyaw+08c8j9H4paWO5tcFkoEdojqXPTUWMN6NJ/8O8tPojrQJpxNSZ1o/KJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=dmKS2KUp; arc=none smtp.client-ip=54.92.39.34
+	 MIME-Version; b=Y4l7NTb53GD9JRvJwwjbCwTbVUzfROtELRNUPA2/sWic/7QDKzJYYeBvZmYqiXnH+r4zHA5d8B11Aj0kFgIqzvlJudzHBmLQfEsrnum8QN2dsK17cqOktq5nbCHxTO2YtPHFcnfO51eJDCAu7RykXMzo79AHDNpEY1bxZ6FiB3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=FbGfo/1S; arc=none smtp.client-ip=18.194.254.142
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="dmKS2KUp"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="FbGfo/1S"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1785351693;
-	bh=9xru2j4oR9eg1iERmMhUlvPGV+wRdurZPQ+tZawaUs8=;
+	s=onoh2408; t=1785351706;
+	bh=7aZ1SevZiO9fxgtrLRpXjLTefTTvwnXp/HHk6vpyVlQ=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=dmKS2KUp68OR1aWqnqzxfL8clW7H+TrR/18Gpda2jLjnfTk1teYltXgVSXKg5TTzA
-	 1JsNGrPybMp4MzUJ0ZwoRj3Km+dP3nqN1hvClo5fIiO3OyPYnDJ8hj5FaBphNNOGfm
-	 6RLlEs8WP7nlzNN3SYDByUEEAHqXo7G2Oj9DbbmA=
-X-QQ-mid: zesmtpgz8t1785351688t651c2c58
-X-QQ-Originating-IP: bnhaALlaIJuccbgdNw0MtNmTgbZe7sN+rMMp8xCTm1c=
+	b=FbGfo/1S8hzNjZ18UuXQwYkoj5qB10PyDebAZjtQ35xNGAUjW7eoiHloPQdQUV4e7
+	 2gR8H+h9einV4T68Uwx7nsiTUduxwBJla24P+Qr2+7D6a+gJvCdACehk8zsGe75oYi
+	 H7DjGt3SO6xs2bOTfEthzkkyGwuPGq1YgIdEpzGw=
+X-QQ-mid: zesmtpgz8t1785351700tcd7f6407
+X-QQ-Originating-IP: bfZi0byFqAJB4wYzQHgU1Doy73rBu5im4uwJg9CWdj4=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 30 Jul 2026 03:01:14 +0800 (CST)
+	id ; Thu, 30 Jul 2026 03:01:30 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 9863531088391076654
+X-BIZMAIL-ID: 4593893312934473759
 EX-QQ-RecipientCnt: 5
 From: Wentao Guan <guanwentao@uniontech.com>
 To: gregkh@linuxfoundation.org
@@ -38,9 +38,9 @@ Cc: guanwentao@uniontech.com,
 	linkinjeon@kernel.org,
 	stable@vger.kernel.org,
 	stfrench@microsoft.com
-Subject: [PATCH 6.6.y && 6.12.y && 6.18.y && 7.1.y v3 2/4] ksmbd: restore DACL size on check_add_overflow() to avoid malformed ACL
-Date: Thu, 30 Jul 2026 03:00:24 +0800
-Message-Id: <20260729190023.46584-3-guanwentao@uniontech.com>
+Subject: [PATCH 6.6.y && 6.12.y && 6.18.y && 7.1.y v3 3/4] ksmbd: bound DACL dedup walk to copied ACEs
+Date: Thu, 30 Jul 2026 03:00:26 +0800
+Message-Id: <20260729190023.46584-4-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <2026072936-equipment-calculate-e753@gregkh>
 References: <2026072936-equipment-calculate-e753@gregkh>
@@ -53,104 +53,124 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OSfhd6THPdBeW2d/TBXN1e9ulKEculLCgEdf85eSHR4YpbkWarxz4abN
-	Rv+tTNyq6/ix0CAj/OzUJRcFPE3h6IV71D0WAs7B+CrXIO1BTi58IrzO39lJGUyJQSB6h2I
-	iPnChWwFSnQs/VjiTzLju+bU5Ez3OmP3epYSDDKEdca3wnEbIwKCgDL1YVfcm3ZVFM2pkmS
-	nJ3Er5Z1YF6STfWOg10igpT5Uab6iAPrzUDmFK7NtS3afhha6M6PTk98AqWdBpyjZsfUICN
-	+jE4OpkEoBw1xmNU3oH8hPB+JuicNdu0K+SUqutQlF28YGn+17kvy9XAwFpktBQhdhk4Kky
-	U3+DeLJCbccnZep+dnxzMHqUVh4HGEXdrTuLdjmKd/L0PiEQEyiUWZ7YWf1fioUTPRT6pNa
-	XNLGPts6eANyxZ3odn2NAFuTVDGi4VTrZjAZGoIGv6uGPjxjLZROrNcPFQWoG/dTGH8BkJ2
-	T0ytDw8HEVLhpO6HU3B1qEKhkulCCMmh0J33LibAWNyU2hDZDGLXbt3UDu11WsrldwPnMP4
-	wZJPi7oQc/KC4zwcXMjgoT9zAtXyIZcFxNNNMSCP3ko55rWNsqnwwkDPgOt/ueqMx6lwJCz
-	Q82ejHlQrFrqnWDciDG0YgwlzVWgSXUkWmo0BlRhd598VI4o/E+PQmSG5TlV8c0SGovQVsC
-	qguRfba2JzG44z/TA+Nglhe3gkDjThSan3ZcWkFHeO+lJpVXlqO70LM6PVVU9DrmXjKcQft
-	GvjgAtW5q09W+70uflLEn8Ld/TZp6RChA4KslXa7k4wFO5RVvdug+aPMxx98/WWMk20YDaj
-	h9ia4UNeMo2zTf0zzSSvJkmxLF1mACTo25cIWu3DwOrQDiPh/cBz+uFZNnHG0H1gQXBnvNK
-	WFszUv2tcCp9pDqAJX0UE1oMpV+cn1bdcTwzRANy1FeWQx6Qw7UZ+bHYtDhnxAs7ZAtN/eV
-	SOhSmnmt8ulZtHqQ9SXKOTswfRxJ8M8mQedxImVYP1P/19z1idOr6Mhxqz4vAMuJOL6TyLM
-	NWEbpAu9b0SwKUHSyNHusIRRejb7LgPvXXqay/CG4Zye8LMn2ZvFvLlme9GPhHDh+2CTGJH
-	Egge2rLwNRgqQ/Xtz7q1lcMw/aK6C6TTeCNmIBBGIVIcwwQuIHNKxaeLJuH9yhZQItKGA5l
-	SgyVu3ba6OTLKhECfP1XTKrBTKBFTU4XeEo+vxMc9g6wju4=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-XMAILINFO: ORSIo7O5VipNlUnCuVfIyrctC8LU4o2BKQMBwS1G621YmtlNLZU10lxo
+	9+rnmC85rwm5w7ROo/HrPtrk7y4IHaNROj2eMo3Dyv7vQaBfxAGb6yJynbmDmVAiLtHe9hH
+	28k8YpauvLxNMFAY/6fxKzeLb697bN8RB7Gj0S1xMB4YaTSOLlS6HEEAhhnyl4b69f66kMb
+	jd/HEyR7wrqUSn+Kn5mwAo9qWxwlZJWSiDvdE3Wf/su2Vmio/64f8JcX2bz1kXLnbo/1HRo
+	mEs/TgCx62PbETKPOcseRC92KYqi16kkiRfKPXxL2kHVWYjGhTBgw4/8Q/A3VbsOANjd/Rk
+	0ul5JneS8sk0GcT0LvbJi8VkO0hsnHyeyjF5856ol1pNX315FZ9ZbOMeSbE1h+sB+/YpxD+
+	SDoAm2XJHQHHNnjFEv12tfJQp2ufFwWeecWGltLkI6OYB39QfhRwTAnGkB/HxXCdCuNzO1Z
+	twl5nKq9ztIvE4rBPX+WrkXVQnVPoN7t9IuFuGyDsfOVbN4fjJCT/LfKi0vAvWh8/sRMwEX
+	FC1K1vteEPxHq1MnsFtb/6Nl240dqyaTMhCjqMq1izAnbsmoZRwSrHfeMqXbcbRWJn+DU0f
+	f9Fxil3ygc2aZ7s4k6+u/CfPEmWIG1uG3iN7xC66AHkdXTqqGtXNzDbV0xQkcFOYhp7p2Rt
+	VViUbkUTp6rqq2tK97UJrSB4iT+zBjJIfM7nL6sEYVnkuQaqVsMNq+dYHHl/kpoJjG+ejzp
+	zjYz2zOdRTniJ31qGQvuCGGl/YxqoWgUGEb80l52GCnNIIh79v1PnctytVcx/1XJTVvFEyi
+	yfepXMorPeikzVQj1Uh3JomlsBTDHc19tshpVsFmsJokfOg9FfJ3zH2i0SnjlgcNEL3JNns
+	99LUV3cJ8VycRSSMMjUqSu5KYOEdE7+eXkpes8rQRnQoW98/TIbNQrgpkScS+nULa1qca+h
+	f8KML7RcXj/ieih1yp8rG41yFBNaDIK/5QKUa2nvqORgOBA/InVlEsz6he9X+npCdcHlyRH
+	Ga42W5RywBpxnkiaWShSrV1aChTKDutkS9sBiUCFJ5w9KuKohw6oCwTOJJYlpTHfdr1R4+W
+	4mqjDaXJzSn
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
 X-QQ-RECHKSPAM: 0
 
-check_add_overflow() unconditionally writes the truncated sum into *d
-even on overflow, per its contract in include/linux/overflow.h.
-The four check_add_overflow() guards in set_posix_acl_entries_dacl()
-and set_ntacl_dacl() break out of the ACE-building loops on overflow,
-but the truncated *size is then consumed downstream at the end of
-set_ntacl_dacl():
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-    pndacl->size = cpu_to_le16(le16_to_cpu(pndacl->size) + size);
+set_ntacl_dacl() can stop copying ACEs before consuming the full input
+DACL when size accounting overflows.
 
-This produces an on-wire NT ACL whose pndacl->size under-reports the
-bytes actually written by the preceding fill_ace_for_sid()/memcpy()
-calls, yielding a malformed ACL that can trigger out-of-bounds reads
-when re-parsed by clients or ksmbd itself.
+When that happens, num_aces reflects only the ACEs that were actually
+copied into the output DACL, but set_posix_acl_entries_dacl() still
+receives nt_num_aces and uses it to walk the existing ACE array during
+dedup.
 
-Restore *size to its pre-addition value on each overflow branch (via
-`*size -= ace_sz` / `size -= nt_ace_size`) so that after the break,
-*size once again holds the cumulative size of the successfully-written
-ACEs. The committed ACL is then truncated-but-self-consistent rather
-than malformed.
+That makes the dedup walk scan past the copied ACE array and inspect
+buffer tail that does not contain valid ACEs.
 
-The ksmbd DACL builders are the only check_add_overflow() sites found
-where an overflow path breaks out of a loop and the destination value
-is consumed afterward. The other nearby break-style cases either
-return -EINVAL on overflow (transport_ipc.c) or break without
-consuming the overflowed destination value afterward (buildid.c).
+Split the two meanings currently carried by the NT ACE count. Pass the
+number of copied NT ACEs to bound the dedup walk, and preserve the
+original "input DACL had NT ACEs" state separately for the
+Everyone/default ACL fallback.
 
-Fixes: 299f962c0b02 ("ksmbd: use check_add_overflow() to prevent u16 DACL size overflow")
-Assisted-by: atomcode:glm-5.2
-Assisted-by: Codex:gpt-5.5
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
-Acked-by: Namjae Jeon <linkinjeon@kernel.org>
+This keeps the dedup walk aligned with the ACEs that are actually
+present in the rebuilt DACL.
+
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Steve French <stfrench@microsoft.com>
+(cherry picked from commit 58d97fcd0bf1aee694e244cc28635b9df95b543b)
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- fs/smb/server/smbacl.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ fs/smb/server/smbacl.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
 diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 9c59c8f73b667..5621c50a80571 100644
+index 5621c50a80571..f869639913088 100644
 --- a/fs/smb/server/smbacl.c
 +++ b/fs/smb/server/smbacl.c
-@@ -649,6 +649,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
- 		ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED, flags,
- 				pace->e_perm, 0777);
- 		if (check_add_overflow(*size, ace_sz, size)) {
-+			*size -= ace_sz;
- 			kfree(sid);
- 			break;
- 		}
-@@ -663,6 +664,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
- 			ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED,
- 					0x03, pace->e_perm, 0777);
- 			if (check_add_overflow(*size, ace_sz, size)) {
-+				*size -= ace_sz;
- 				kfree(sid);
- 				break;
- 			}
-@@ -708,6 +710,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
- 		ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED, 0x0b,
- 				pace->e_perm, 0777);
- 		if (check_add_overflow(*size, ace_sz, size)) {
-+			*size -= ace_sz;
- 			kfree(sid);
- 			break;
- 		}
-@@ -750,8 +753,10 @@ static void set_ntacl_dacl(struct mnt_idmap *idmap,
- 				goto next_ace;
+@@ -595,7 +595,8 @@ static void parse_dacl(struct mnt_idmap *idmap,
+ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
+ 				       struct smb_ace *pndace,
+ 				       struct smb_fattr *fattr, u16 *num_aces,
+-				       u16 *size, u32 nt_aces_num)
++				       u16 *size, u16 existing_nt_aces,
++				       bool had_nt_aces)
+ {
+ 	struct posix_acl_entry *pace;
+ 	struct smb_sid *sid;
+@@ -627,14 +628,14 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
  
- 			memcpy((char *)pndace + size, ntace, nt_ace_size);
--			if (check_add_overflow(size, nt_ace_size, &size))
-+			if (check_add_overflow(size, nt_ace_size, &size)) {
-+				size -= nt_ace_size;
- 				break;
-+			}
- 			num_aces++;
+ 			gid = posix_acl_gid_translate(idmap, pace);
+ 			id_to_sid(gid, SIDUNIX_GROUP, sid);
+-		} else if (pace->e_tag == ACL_OTHER && !nt_aces_num) {
++		} else if (pace->e_tag == ACL_OTHER && !had_nt_aces) {
+ 			smb_copy_sid(sid, &sid_everyone);
+ 		} else {
+ 			kfree(sid);
+ 			continue;
+ 		}
+ 		ntace = pndace;
+-		for (j = 0; j < nt_aces_num; j++) {
++		for (j = 0; j < existing_nt_aces; j++) {
+ 			if (ntace->sid.sub_auth[ntace->sid.num_subauth - 1] ==
+ 					sid->sub_auth[sid->num_subauth - 1])
+ 				goto pass_same_sid;
+@@ -678,7 +679,7 @@ static void set_posix_acl_entries_dacl(struct mnt_idmap *idmap,
+ 		kfree(sid);
+ 	}
  
- next_ace:
+-	if (nt_aces_num)
++	if (had_nt_aces)
+ 		return;
+ 
+ posix_default_acl:
+@@ -732,6 +733,7 @@ static void set_ntacl_dacl(struct mnt_idmap *idmap,
+ {
+ 	struct smb_ace *ntace, *pndace;
+ 	u16 nt_num_aces = le16_to_cpu(nt_dacl->num_aces), num_aces = 0;
++	u16 copied_nt_aces;
+ 	unsigned short size = 0;
+ 	int i;
+ 
+@@ -765,8 +767,10 @@ static void set_ntacl_dacl(struct mnt_idmap *idmap,
+ 		}
+ 	}
+ 
++	copied_nt_aces = num_aces;
+ 	set_posix_acl_entries_dacl(idmap, pndace, fattr,
+-				   &num_aces, &size, nt_num_aces);
++				   &num_aces, &size, copied_nt_aces,
++				   nt_num_aces != 0);
+ 	pndacl->num_aces = cpu_to_le16(num_aces);
+ 	pndacl->size = cpu_to_le16(le16_to_cpu(pndacl->size) + size);
+ }
+@@ -784,7 +788,7 @@ static void set_mode_dacl(struct mnt_idmap *idmap,
+ 
+ 	if (fattr->cf_acls) {
+ 		set_posix_acl_entries_dacl(idmap, pndace, fattr,
+-					   &num_aces, &size, num_aces);
++					   &num_aces, &size, num_aces, false);
+ 		goto out;
+ 	}
+ 
 -- 
 2.30.2
 
