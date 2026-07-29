@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C73E83B1EE2
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 11:17:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C57F47140E
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 11:17:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785323854; cv=none; b=GM673PY9ndXe8LruDOMKBnov5dInTU7lus8eAf/JbI16HA5wIbCM3Gmw83Gd37YB024OVhlRSP4x5nvQY96jWHXvJYHVG2UYdv0u5Cs7wnNyazUBAqzfr+0gMuvyn9JPtxjTuBx0Kvf455qwV7Y8B2ch8GcDZKN+AC8NauyMFB4=
+	t=1785323859; cv=none; b=r7AIWkNHvG78QCkDtX7GK0eFkYAXbQKp+9Ni8rKqjUbGicfJWZHb98iAC7KYtrXKP7iVX2a0iZ5LuTmZK4FGU+4nbPBDolS0kSJrrjFQlQKPlTKRsFgtlE30JZK2MxlpC44uwAiuY/LkZiPVvpzaXsWLxl3UNhS7RNj0JU/Vgf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785323854; c=relaxed/simple;
-	bh=RbwVtiSihxCYea7LdHUlIbapXziuXKzPqkhZD/SGsqc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XsGfnlNFTnu/zmJXKRmMOI6/6cJzjre0NRg1sQ6izPFXIjcPWyXdiCDugnoM4XMzt2qoLZRZT5vJf17XMD1fu5ynvg7UHFolWz5rlRob/G2l5lh9OLThfypSsSyS/jIAt2wjE3sRQNIhM16cvFQX4sPbS2CSXA65IXxfzjSxsVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=W6AJrphb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785323859; c=relaxed/simple;
+	bh=30u3GrQBE3XG78G19HCrm+jpVwcg3qmmx/dzkOu+ZfQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oEygCx49Y7+yFKIQlluKsDL6guPmdbupn33CJvjgx7tYCi2Uc1c+8mr0sVC2DJrrOKjQY0JudOqTndbO/Rtgw3Ue1b9TbfamCJ72ETnnk4gd9hsGtedwM3o9Aeosbs8bBc4s7vQ9jrkUdN4koN/yXxnpGdXzUaf0H10+zCdG5q4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=o83g6GKy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="W6AJrphb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE6951F000E9;
-	Wed, 29 Jul 2026 11:17:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="o83g6GKy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C71B1F000E9;
+	Wed, 29 Jul 2026 11:17:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785323853;
-	bh=mlXJoTICx9p9+P9sMv+d/0IVC6yIsqVjkU3siNsME0s=;
+	s=korg; t=1785323858;
+	bh=VPJhDM/ZT9dvV/YMfJ6eu8fMfcigZXzuf5/ucztGB+Y=;
 	h=Subject:To:Cc:From:Date;
-	b=W6AJrphbDXVig0zwb0fyCCoBYhgSQLvfLduuxWX3axWucvrjxJ31bbkd/U3VJwQt1
-	 Mw67d8zTFU8hTZVDpGp2mM8t/rQ9dTaMsRx3iulF6/32fMd2VS6H0a39B3H4g8dfMS
-	 soKmIBtqHvT4yVG2CZEiaoj949kr3EcXl76KeR8Q=
-Subject: FAILED: patch "[PATCH] drm/i915/hdcp: require monotonically increasing seq_num_v" failed to apply to 5.10-stable tree
-To: jani.nikula@intel.com,joonas.lahtinen@linux.intel.com,martin.hodo@intel.com,suraj.kandpal@intel.com
+	b=o83g6GKyCx6Atloqsod65WyT6fIobPRM+4RzUryzAAtqvKUFmn9ezQbMFaGBSU5fQ
+	 ye4hHj2TD7rnangkTAauaoumrTIBwMtrsSOMf+7T3plDnRo/xruAQ26pGw1qabcauZ
+	 VUL2fRTvTvnXaZxe6pHqJ/cQMBIvgAkyNHUYnQt8=
+Subject: FAILED: patch "[PATCH] drm/i915/hdcp: check streams[] bounds before overflow" failed to apply to 6.12-stable tree
+To: jani.nikula@intel.com,anshuman.gupta@intel.com,joonas.lahtinen@linux.intel.com,martin.hodo@intel.com,suraj.kandpal@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 13:17:06 +0200
-Message-ID: <2026072906-uncross-joyride-b043@gregkh>
+Date: Wed, 29 Jul 2026 13:17:16 +0200
+Message-ID: <2026072916-pelican-detract-661d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x db9e64c983dcb07ff256bd455f258c44aa530ff8
+git cherry-pick -x bbb15a6b042d02e5508a02b4847e02d2579ee7bc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072906-uncross-joyride-b043@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072916-pelican-detract-661d@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,48 +62,53 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From db9e64c983dcb07ff256bd455f258c44aa530ff8 Mon Sep 17 00:00:00 2001
+From bbb15a6b042d02e5508a02b4847e02d2579ee7bc Mon Sep 17 00:00:00 2001
 From: Jani Nikula <jani.nikula@intel.com>
-Date: Thu, 25 Jun 2026 13:44:07 +0300
-Subject: [PATCH] drm/i915/hdcp: require monotonically increasing seq_num_v
+Date: Thu, 25 Jun 2026 20:03:04 +0300
+Subject: [PATCH] drm/i915/hdcp: check streams[] bounds before overflow
 
-The HDCP 2.2 specification requires the seq_num_v to be monotonically
-increasing, and repeated seq_num_v needs to be treated as an integrity
-failure. Make it so.
+The data->streams[] overflow check is done after the buffer overflow has
+already happened. Move the overflow check before the write.
 
-For the first message, seq_num_v must be zero, and is already
-checked. We can only check for less-than-or-equal for the subsequent
-messages, where hdcp2_encrypted is true.
+Side note, emitting a warning splat with a backtrace might be overkill
+here, but prefer not changing the behaviour other than not doing the
+overrun.
 
 Discovered using AI-assisted static analysis confirmed by Intel Product
 Security.
 
 Reported-by: Martin Hodo <martin.hodo@intel.com>
-Fixes: d849178e2c9e ("drm/i915: Implement HDCP2.2 repeater authentication")
-Cc: stable@vger.kernel.org # v5.2+
+Fixes: e03187e12cae ("drm/i915/hdcp: MST streams support in hdcp port_data")
+Cc: stable@vger.kernel.org # v5.12+
+Cc: Anshuman Gupta <anshuman.gupta@intel.com>
 Cc: Suraj Kandpal <suraj.kandpal@intel.com>
 Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Link: https://patch.msgid.link/20260625104407.1025614-1-jani.nikula@intel.com
+Link: https://patch.msgid.link/20260625170304.1104723-1-jani.nikula@intel.com
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-(cherry picked from commit 58a224375c81179b52558c53d8857b93196d2687)
+(cherry picked from commit 9284ab3b6e776c315883ac2611283d263c9460fd)
 Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 
 diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 521786a75c42..0a076d2ed70a 100644
+index e88fec24af49..521786a75c42 100644
 --- a/drivers/gpu/drm/i915/display/intel_hdcp.c
 +++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -1801,9 +1801,10 @@ int hdcp2_authenticate_repeater_topology(struct intel_connector *connector)
- 		return -EINVAL;
- 	}
+@@ -145,6 +145,9 @@ intel_hdcp_required_content_stream(struct intel_atomic_state *state,
+ 		if (!new_conn_state || !new_conn_state->crtc)
+ 			continue;
  
--	if (seq_num_v < hdcp->seq_num_v) {
--		/* Roll over of the seq_num_v from repeater. Reauthenticate. */
--		drm_dbg_kms(display->drm, "Seq_num_v roll over.\n");
-+	if (hdcp->hdcp2_encrypted && seq_num_v <= hdcp->seq_num_v) {
-+		/* Reauthenticate on Seq_num_v repeat or rollover */
-+		drm_dbg_kms(display->drm, "Seq_num_v %s\n",
-+			    seq_num_v == hdcp->seq_num_v ? "repeat" : "rollover");
- 		return -EINVAL;
++		if (drm_WARN_ON(display->drm, data->k >= INTEL_NUM_PIPES(display)))
++			return -EINVAL;
++
+ 		data->streams[data->k].stream_id =
+ 			intel_conn_to_vcpi(state, connector);
+ 		data->k++;
+@@ -155,7 +158,7 @@ intel_hdcp_required_content_stream(struct intel_atomic_state *state,
  	}
+ 	drm_connector_list_iter_end(&conn_iter);
  
+-	if (drm_WARN_ON(display->drm, data->k > INTEL_NUM_PIPES(display) || data->k == 0))
++	if (drm_WARN_ON(display->drm, !data->k))
+ 		return -EINVAL;
+ 
+ 	/*
 
