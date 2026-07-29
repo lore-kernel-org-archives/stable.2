@@ -1,105 +1,136 @@
-Received: from mail-oi2-f1.google.com (mail-oi2-f1.google.com [74.125.231.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8404142C4F0
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 16:44:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE518469820
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 16:52:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785343486; cv=none; b=cgaFbCWIOpCSAyGHOrdBjLvqOiI7PjE5RMxqHYXSlnAm5u2NoFNBm7IG91NUxopKB4kE7JtgNb/eCotMXP2CZHci3tW5PEdwXXCB/KWTh/5hUDobq7BX8ZbXPTLiVX8a1vK0KLIfHHObDT5YC71j4QJEPdekA1TiclbyMdBCveE=
+	t=1785343964; cv=none; b=ovUtSMQNt7lsr7rvbXFeCSuu9I+yx924ck7ZxCiKTKCC8mZ4dHwzgR/9fG1aP4e/1iM6UVWfB64cszy5KhiiWfXFTneUXZLGr0Txu76vdqr4iJUvEjR5o7k5hpvfmcZCWm1jBMoRGaTpjtACBWYXZnqnr8hxQ/PMKKBmU0cwUQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785343486; c=relaxed/simple;
-	bh=oJK0PD+a5StLPpTanOicMcFQEHdIsjy/U+zZywQmNds=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Cn8krhZTf9rxnykuweYDWVOiFdCombfV0HEx8JSWeAdHJFHotp9Tx0pamFkTfZ33tn3P+N+t/QcRrDBp3slkUZhKGQoIfErhBOdGyBlqI6OLSSAzhGieLEdQ08lW0JeJloHxPJvG/169pBNyPTIFThbyYT8iEHD8hdOssPtn+7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=kbZl5JzB; arc=none smtp.client-ip=74.125.231.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1785343964; c=relaxed/simple;
+	bh=yZ6keUU//SyAf3odXLA3e6PUQbHpD9sJojWOqafguUU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VFT7IWvFy9gO68Ryt3fTn/Q+6Bn2CxjdAXv5jfIEPRangMNiSVZ4enayBNG2qfT5yvibqqRHO9Mf6SNlPtUrjH//tkFHcHgjDSUVJDarsuM8K/zG5He3Z9pMeTYEO5SEqJic9+2BiePSO2IjnKzJD8VB4kfEFxQogprgf+jjUuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JGXtcrNR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="kbZl5JzB"
-Received: by mail-oi2-f1.google.com with SMTP id 5614622812f47-4960b753d6fso130324b6e.0
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 09:44:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1785343483; x=1785948283; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ItGNlQ8VnmY1+S2rbSPlU0WG06O6TGHKeLl4xbUymvM=;
-        b=kbZl5JzBcrOialHJbWm3iMLaGW8E3FD6E2HV3yBOuRmWO+2vk9p4nN/Nz3lZ9wyr78
-         V0QuTVoMvMI16TRZlER1+zU+2DMCV8JLrb+x7+g+qP4FDJ+mIodzN+8+spsRPPOypRTq
-         vX1EepMMw2Gp6Nr3gVfUN7fbcaYEUrwiHvzCJjeHu3+XpApDmseCLBf3u3J1BP/PZWzw
-         prBPH91m7eTuWIXdzcVBWUIbCQ9nz3IUuGYZRg2RmXwg9EhSkmBs29I7iJ8FGx8xLwCt
-         ddcYkJq0DE6bCJld01gGLVQaQGrtjkWEsAbpbiE9z7gaKD4EDMDZ3ksKo/1IrDfCwwvh
-         5CrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785343483; x=1785948283;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ItGNlQ8VnmY1+S2rbSPlU0WG06O6TGHKeLl4xbUymvM=;
-        b=eWI3bCXyc1J/8c6igRqEgrmCy7a4pe6jc1LfixoM2ddM/RRSp7QzbwJrx9qieEmiJ5
-         AIzVc/wYknv6mVCLUSl/VpgjHwZJ5Whw/coY+BqyjSrVUV4ldqtQ0cq+nwXUsHMFmGM+
-         01dsVSW9FNiJAhJ/lebT/w77KC6zYGW0GH4AoerbkgKHBIbYM8vfhf7K5gZPd1yUYnfD
-         JiaWhJVCjGtY5cYpCgMW/bwhKL/RuMoMGq++UVu+yKrBJg4hQt4EzSxuTLfQnCdAd3CG
-         kWizIlzL599NREQ8RM/f13gBA3qBXCASmUIu1u1Wpj0P8O4rQJrQdh4PjpPI9LNYEota
-         IdjQ==
-X-Gm-Message-State: AOJu0Yx9F1lxY4JOF8+oRYoTUJcFBLSAMH+ece3rRCGC7T5+xLjZlDCw
-	ZpFAOhc8uURaYMZZ9QG8yyy99RyipJ0bjV7EqQNjWLmpvTjTAFe/H6BVCQkuJ1q2SeA=
-X-Gm-Gg: AR+sD113Bk6rI0HE3syD/Ocx5Jd9Yhm5mVryaklzVz8vPke9bg8QQH8IvFk2skk2PEc
-	c3R9+1EcN2O8WywuPHgBSmYHUQ2JcehjQ9qRdoAIzMAZea97/+HuEhn7PNUrUsQ2+gxD8CBnY9x
-	UW/QmLwAT8c1hbioO7KxE/Uj61d/QhAnDmAIQcq+4L2imEGZxq21qWZNsVOfR2sR8Q7XN4j8qWc
-	iXiPtM64jVVkOxPDK/bBvrMWlvo53sMAkTTmQ/KNsQnYuBha5/2fTlISQk2VsKleMHtMNLwix1N
-	V77m+/X8j8PpYwHcw/znaIED279wCiRXMY0mUgyvknZjIEX2eai3P/GolAuMsEdyebuTdZGliZj
-	I1vrKD9qbw2cp6baLhF4l48cl9r+01x3v5R2z1YrlHy50pNaorjINr98Qqv6ZzZimB5kbMm/H5g
-	8Bz3LMXeywLeqZMh4hhcGjqr1LtX2G4LSmmMzcOPWwzI/Z0m/aAT+VuXdlb1c+a8jlgzCNsxa8x
-	3rMjbbotKSnEmg=
-X-Received: by 2002:a05:6808:17a6:b0:48a:ddd4:d36f with SMTP id 5614622812f47-4ad5b7fe320mr3952214b6e.8.1785343482919;
-        Wed, 29 Jul 2026 09:44:42 -0700 (PDT)
-Received: from [172.19.0.220] ([99.196.129.79])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4ad6efc5c3fsm2059616b6e.13.2026.07.29.09.44.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 09:44:42 -0700 (PDT)
-Message-ID: <d7716c35-8b74-4d91-9830-3bd4b2509e14@kernel.dk>
-Date: Wed, 29 Jul 2026 10:44:33 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JGXtcrNR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 649841F000E9
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 16:52:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785343963;
+	bh=7ehxLdevH6pV5fmYhYDwtO8w9XgXnocWaWew6zHoG4Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JGXtcrNRfHCEG+iHrkOM+Ah2X6b4FOjFv+BAZO9LqnY9eW1REeMCQcmIr36nCq03h
+	 sayHxhpzt6sR3KkxJka1BAr4pvdPJxubgzJisLvkb8eur6sm/o3Bvh12NxOz5yaxiP
+	 L0TQ24p6KKb/kQnDB7qR8XRPKINltfpH6rJKZ44ngYsZ3pij46BPiYysYbPKCsDA5/
+	 Ioqwwgxj3+kYR/+W/VVwNs2V1AGx/+J/yezG8oTWaHt86v2rABdTl9Gwpa1sverWvW
+	 iMWM1zpk05m2nRY9QHVfMQd8S1NfjvuPLK616GZNC3XUqFpVl+fOBlVX9/RxthIZq3
+	 AghegzoAtE5AA==
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c15f020a223so189726966b.1
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 09:52:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqgLuulAtqTanyWJygTfFiLH9OinWJUEuqpOVvchV4diU1VtlNfJfYj+/VIb1q+N0BfQCg+/cw=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+TpwAPOipqrlAf7g0lIRXLkDM/gtDQkcgoVFFr8xfnR/eqML1
+	FqKB2LuCCdseinpPQ8az0bUBWJdD8HRho0tgomab6BB7gCvRQ4l1Kfv+NwfgTGyJ1UHv6h56597
+	2GjcOAktgXb0us86hNkYtDABOJLUxoA4=
+X-Received: by 2002:a17:907:3d05:b0:c1c:4db7:c9fd with SMTP id
+ a640c23a62f3a-c1f71d63e55mr435322766b.3.1785343962370; Wed, 29 Jul 2026
+ 09:52:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: FAILED: patch "[PATCH] io_uring/rw: fix missing ERESTARTSYS
- conversion in read paths" failed to apply to 6.12-stable tree
-From: Jens Axboe <axboe@kernel.dk>
-To: gregkh@linuxfoundation.org, yi1tang.yang@gmail.com
-Cc: stable@vger.kernel.org
-References: <2026072912-manpower-thrift-f2fd@gregkh>
- <34c09190-027c-4b00-92f4-17b5da059af5@kernel.dk>
-Content-Language: en-US
-In-Reply-To: <34c09190-027c-4b00-92f4-17b5da059af5@kernel.dk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260713180153.2728382-1-yosry@kernel.org> <20260713180153.2728382-2-yosry@kernel.org>
+ <CALMp9eRhWq+MXj8zax8hS48eZVE031kctfa=SC1ngT31iBtC5w@mail.gmail.com>
+In-Reply-To: <CALMp9eRhWq+MXj8zax8hS48eZVE031kctfa=SC1ngT31iBtC5w@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Wed, 29 Jul 2026 09:52:31 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zPe0ONLFaL+ZLM4qs=8EeUzd+Gn+vzsOxryga3SsK4e7w@mail.gmail.com>
+X-Gm-Features: AUfX_mzAl4e7KHz633mEpJH_gK_fq3uzIjGy1NU7D5kCJU9XvpMXKlTwbeNiy0k
+Message-ID: <CAO9r8zPe0ONLFaL+ZLM4qs=8EeUzd+Gn+vzsOxryga3SsK4e7w@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] KVM: x86: Check EFER validity on KVM_SET_SREGS*
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 7/29/26 10:35 AM, Jens Axboe wrote:
-> On 7/29/26 7:50 AM, gregkh@linuxfoundation.org wrote:
->>
->> The patch below does not apply to the 6.12-stable tree.
->> If someone wants it applied there, or to any other stable or longterm
->> tree, then please email the backport, including the original git commit
->> id to <stable@vger.kernel.org>.
->>
->> To reproduce the conflict and resubmit, you may use the following commands:
->>
->> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
->> git checkout FETCH_HEAD
->> git cherry-pick -x ab05caca123c6d0b41850b7c05b246e4dca4a770
->> # <resolve conflicts, build, test, etc.>
->> git commit -s
->> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072912-manpower-thrift-f2fd@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
-> 
-> Seems that's already in 6.12-stable?
+On Tue, Jul 28, 2026 at 9:53=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
+rote:
+>
+> On Mon, Jul 13, 2026 at 11:04=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> w=
+rote:
+> >
+> > When handling userspace SREGS writes, check the validity of EFER (i.e.
+> > allowed bits) before writing the new value of EFER through the
+> > per-vendor set_efer callbacks. This prevents userspace from writing
+> > bogus values (e.g. EFER.SVME=3D1 with nested=3D0).
+> >
+> > Note: on KVM_SET_MSRS, KVM only checks EFER validity in terms of KVM
+> > caps, not guest caps, so it is possible to set EFER bits that are
+> > supported by KVM but not by the guest CPUID. Potentially allowing
+> > userspace to set msrs before CPUID.
+> >
+> > However, for KVM_SET_SREGS*, check the validity of the set bits against
+> > both KVM and guest caps. This is consistent with other validity checks
+> > (e.g. for CR4) that check validity against guest caps, which already
+> > imposes the need to set CPUID before SREGS.
+>
+> Where is the requirement to set CPUID before SREGS documented, aside
+> from this commit message?
 
-No sorry, I'm blind. I'll take care of this and the 6.6 one.
--- 
-Jens Axboe
+I don't think so, and also coming back to this again I think the
+commit message is wrong. The whole basis for doing validity checks
+against guest CPUID (other than the convenience of using
+kvm_valid_efer()) is cr4_guest_rsvd_bits, which is initialized based
+on both KVM caps and guest CPUID.
 
+However, cr4_guest_rsvd_bits seems to be initialized *after* CPUID is
+set, so it only checks CR4 against CPUID if userspace already set
+CPUID. It doesn't impose a restriction to set CPUID before SREGS, but
+this patch is.
+
+So I think this may be too restrictive. We should probably only check
+against KVM caps, which was the whole motivation of this patch to
+begin with (disallowing EFER.SVME if nested=3D0). Maybe we should just
+drop the Cc:stable as it won't apply to any of the stable trees any
+way, and do this on top of the kvm_caps.supported_efer_bits changes?
+
+diff --git a/arch/x86/kvm/regs.c b/arch/x86/kvm/regs.c
+index 8f66438989e47..412a37ca86ecc 100644
+--- a/arch/x86/kvm/regs.c
++++ b/arch/x86/kvm/regs.c
+@@ -565,7 +565,7 @@ static bool kvm_is_valid_sregs(struct kvm_vcpu
+*vcpu, struct kvm_sregs *sregs)
+
+        return kvm_is_valid_cr4(vcpu, sregs->cr4) &&
+               kvm_is_valid_cr0(vcpu, sregs->cr0) &&
+-              kvm_valid_efer(vcpu, sregs->efer);
++              !(sregs->efer & ~kvm_caps.supported_efer_bits);
+ }
+
+ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sre=
+gs,
+
+---
+
+diff --git a/tools/testing/selftests/kvm/x86/set_sregs_test.c
+b/tools/testing/selftests/kvm/x86/set_sregs_test.c
+index 603226ffe4374..c07ccf0bbe85a 100644
+--- a/tools/testing/selftests/kvm/x86/set_sregs_test.c
++++ b/tools/testing/selftests/kvm/x86/set_sregs_test.c
+@@ -171,7 +171,6 @@ int main(int argc, char *argv[])
+         */
+        vm =3D vm_create_barebones();
+        vcpu =3D __vm_vcpu_add(vm, 0);
+-       test_efer_bits(vcpu, KVM_ALWAYS_ALLOWED_EFER);
+        test_cr_bits(vcpu, KVM_ALWAYS_ALLOWED_CR4);
+        kvm_vm_free(vm);
+
+---
+
+Sean, WDYT?
+
+If we will change this, would you rather do it in place, a followup
+fix, or a new version?
