@@ -1,225 +1,154 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D7B3EC803;
-	Wed, 29 Jul 2026 15:01:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB71E3EC80F
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:02:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785337277; cv=none; b=ozcs4yILyA/Km2G45c4LtQy0QNYP1Jni1mtr++Jgql7FbBWRanh2gfRHs5rt34m1gJZBfuc6VamlGYkj6x0RghWvkAkeAuKNzMAH71d+Pql2mu/I8BN1drB+Qx5APS2ebaw+1eDCdfzUtcv0zkTzlOoeJOaUTytieJbnNdMnqoQ=
+	t=1785337339; cv=none; b=PArDLiAhzAQxJ6Jm9qVretTJmE0SU2WgoeFxSWpJVh4+BRL6Csc5OFF/9IVc3AfRH5SwnvhmnW31fIPoYIXoroKXCnv1R7hSz/V/t5PkNx/jcbOtXUBArfB0YxQQ74DrT9QU9uuExNAvPhOMsPfSNA2hJpd9qbYKWjzMw8ocXQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785337277; c=relaxed/simple;
-	bh=8Ixaf8F1+jRNf6tX7xW9g080h2e8P+0xSOjt/Xv9tuE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aci+qdYmjgNSEc2r6S3UNCB9ODOWhZGnmP/IA5w8uSzLclePMqFoXB73IXtvCwqGco7Mqf2kn1VyjFPDlTsEU33+9SxglBvt07eYJdKxWq1zfGGI/6TuAYqxn0N9I23q+hsof1rW5rikUTSqzEoRfXNRTarzlDaSt2KWOYlEM5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=mvu+67H2; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1785337339; c=relaxed/simple;
+	bh=T5lK8wWfJN/iX10lOcW7hSkjB2+uA7nHVRM0h625VDQ=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aOzTtO3+xF5WWBxocjMPwk/25TCB8X9/YItiIkiS4QJu/vUGnwUL0NgWEJ251RStTl3GOcoJqp83vuxgNFreX7Mh9FXnVKgojohIYhz96h+JTEaG+9ysgZpENW9VlIKDeg8KDF2kwUQ+iCCf2mUo8LIi41vt07Zm6HPFCeKx3L8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=K9kULzu3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fL0b+W4D; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="mvu+67H2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1785336816; bh=8Ixaf8F1+jRNf6tX7xW9g080h2e8P+0xSOjt/Xv9tuE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mvu+67H2JurXfjP9o/uaHg/VUJ1zaWvuowyM9lT4ywlpem7Giur3tJwedjXUqZFAu
-	 FvjnZUlD1+/hTCUw4mSluhVp8XX+lwwmdGlvMwfT9++ytUz+R0RgFs1bdOTsMZehRl
-	 Hpz0yDc57/+7+tigxZHmWD3DzwBEEzYo6FZev1kgYlwoVnbPgJRCZX82laq0JXdAOI
-	 Az1m4/VQeMgnvcZnCdzUb/22/8rAlJ9vhqoi2aCdftM3wSEYDxER4D0+84uaBugqxN
-	 WJLU/e7gKa8yd1Fwrrgi3ETMZuzeNmMYz3r8KoojgqJn4lHWNGcse0u3xB2VXYvo+u
-	 Boq9u1f+c+exA==
-Received: by extorris.mess.org (Postfix, from userid 1001)
-	id 82FCB41567; Wed, 29 Jul 2026 15:53:36 +0100 (BST)
-Date: Wed, 29 Jul 2026 15:53:36 +0100
-From: Sean Young <sean@mess.org>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 15/15] media: rc: Fix race condition during
- rc_register_device()
-Message-ID: <amoT8EjAUId230Rz@extorris.mess.org>
-References: <cover.1785158244.git.sean@mess.org>
- <5479a9288629888ea5a9f25b5ac03a7384d1dce3.1785158244.git.sean@mess.org>
- <a4f5c93d-e323-4926-97fa-f65ddd40bd51@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="K9kULzu3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fL0b+W4D"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TF2GCG1698913
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:02:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=v4DlkGu5ob5
+	sQWOsQ6nrSkn1OZK4Q9I2xMXiKx09k60=; b=K9kULzu3rYe2tkzvFcSn4kDYbNy
+	AJZEio/UXCDxebEbMXYaK8vxG0mkdI0X3Bdz0NbbLi8pJ1wrneRGpI5AHQLNUxrz
+	ppB2ah/5mrfhuIkEFwy44aHn+TAU9n5n2EOichCmW45RvpQVqU5AAi7zM9DfdySy
+	jwUGjc/CKKhGxpGTwAGGKvGcxxuY1wbECvmAoauyZF9kC3Lx+t7jFKRB284a52wr
+	iv8LXathHEbSlTqvh/7WrxRYK9qohFJdD96Y2CV5SOvytHPdDJVCOJLvdwEqj9eU
+	bvBPU7xssUCbm6Amia8SdPg/ZaAf+hSwceXrCn8naIsfoeTyJ95BzPxs3uA==
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqgrj0xgw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 15:02:16 +0000 (GMT)
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6a37fe3aa04so1270369eaf.0
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 08:02:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785337334; x=1785942134; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=v4DlkGu5ob5sQWOsQ6nrSkn1OZK4Q9I2xMXiKx09k60=;
+        b=fL0b+W4DbpVX0+RmQFTC6SejBcqvJhE1xvY6/L830CARTfMNg4ivOjwqtl7Gnf2MMg
+         hTq9qZe1YYHyLbC+1YKstjgYzqySfLymzXlAV48AOTEiqB92mACvnxs7Nhe1F+X0gD/T
+         LdFDF6wR6kokzyy+VY2rqn8uht8fsRd+qaDgwf14xS5/9HqRQ0nJV2FqM+9DfHAjjmcQ
+         jeui6fkRWBah2vkSOnR5dPVJGtdBspr8062dXb7R4k4Cz8imX7MObk9FEEQTq51nla7o
+         szzXMqCShWM69XiOnuv3fXRc5W0LgOBuckyUW5yfQkf8tvMOeTs57X84hP+NosHG3jbr
+         AfsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785337334; x=1785942134;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=v4DlkGu5ob5sQWOsQ6nrSkn1OZK4Q9I2xMXiKx09k60=;
+        b=savtVTMPXPFr7xFUR2e8OCe3YRKpbvib+BTr5SQxr0Nqc5h+cBACMGCQESVES68VRO
+         insJBwuk0C08doYfI+Et6Ozyr4WRudseLNLmsOsgl/d5jMO7Dn0pgQ4Kk9j388atFe+F
+         +duKj2buIBo/RfK7ff3RIDGcBlVUggmgFT3pjLcnKAlfaL4bo9AjWwMxsvmpg8Qh41OO
+         BVpeoEnLEGLVm7ghMTWke9ziLkK9uvMDTWbguAi++Cama+Fw2L3fK/2QUN0F0o2P3KGV
+         AleTyElqb95lTij/pVh6s75gjtdPj1y5+enDRCvhrLL7zo6/NwKhClixKeLxeaeP2IFF
+         Q0Kw==
+X-Gm-Message-State: AOJu0YxAKFa7vxY2awJaUhXoTvJ8ZXlyjMdldQm4MvKj1DY2wUzWjsWo
+	azMaHy77SohXGGFB2knBFngd0OAK6MGVrK/UhZ+Wiae1QhA5aGq7v8IgFchb92s72P4Cb5qwCNM
+	jBqzVcZyG5SBodpsgfljjQ4XciY739W7TOMjI2+2Dtm5K76P5znUx7Z+ONVK0HKPibvLDYg==
+X-Gm-Gg: AR+sD125gQ8nK1RImgR5uXz8k1l74MCpfg/XE1PQ/lvQ9RArEYtmiCysq2nYNQEm81u
+	ghcmIsnQZX8V/2mcETfPQpd8aDhVVSYkYqpcsW/rqelveWO6qmtU1bo/nm95ZcwtGlKuJjeSwhp
+	7fVS7UgU2TcOc1daB6J9DI7kaCrzEGIQ6N+rtRWVJ4CYHqbhl/8H6T2y7rdgspCr2i2gcGKoG6c
+	hI2bfYSWFIAz00RUNfevTTEuggXG4b5kqMHFFGkni2orCi69qgH4qHtP9fEfyMP0fIdGJ0E6fyq
+	QmKh4XDE7g1gxEik3ACaYL0x4MnbZ++zjp0wWnzwLk0UhWURWX8l6Gd7bSPe9/qJuPWsyctSMr7
+	Eag7Zrqb62MFiwV+CG5irwKdMbVZckU7DoSTYA2JV
+X-Received: by 2002:a05:6820:308c:b0:6ab:ba6:f426 with SMTP id 006d021491bc7-6ac96de1640mr3497101eaf.68.1785337333995;
+        Wed, 29 Jul 2026 08:02:13 -0700 (PDT)
+X-Received: by 2002:a05:6820:308c:b0:6ab:ba6:f426 with SMTP id 006d021491bc7-6ac96de1640mr3497077eaf.68.1785337333412;
+        Wed, 29 Jul 2026 08:02:13 -0700 (PDT)
+Received: from hu-yabdulra-ams.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1f83cea5f8sm128386466b.24.2026.07.29.08.02.12
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 08:02:12 -0700 (PDT)
+From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.18.y] net: qrtr: ns: Raise node count limit to 512
+Date: Wed, 29 Jul 2026 17:02:11 +0200
+Message-ID: <20260729150211.3884880-1-youssef.abdulrahman@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026072918-spinal-repeated-d081@gregkh>
+References: <2026072918-spinal-repeated-d081@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a4f5c93d-e323-4926-97fa-f65ddd40bd51@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=RJOD2Yi+ c=1 sm=1 tr=0 ts=6a6a15f8 cx=c_pps
+ a=V4L7fE8DliODT/OoDI2WOg==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=xbQBGh1BD93CNvSBCI4A:9
+ a=WZGXeFmKUf7gPmL3hEjn:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: kPnZUADxsa7h8yvQ1FvEy-ry6OWcKBCS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDEyMSBTYWx0ZWRfX4y/L4Go93zfK
+ mFsNgqo/Ay9mCA+hpYivW2h7/AcJdbU+c4+hA7ZyNtVN0VJotisqbt2zSMehY68tpms+me+1edD
+ ZH95fAsAWfNVnDnZJMzTgR0HWqRH6wuveNJpZ25qe72T+lnKVFIx/KRMYoqDBYW9kn7J0NtnFRx
+ YAsn5Xa8gnJNLyz8+NNQMzJyU3ExaoDPc6/vdgvN7kx7xvRskl1GuJV+Cr8T1j6swJPiTqsxqwt
+ Qgu6zN/eZ5q5GQ6iqVXowW0gf1+/jvdXnpub8u+eAhaDGi0WO81Lh8ffviGjPFYqB/9JpZM/od1
+ AwRNOOonjEpr93RsIEom2sQncyobe4nTQjC+dXdSRlp1y7gpKsLBeh+MkAWsKR6EexohwukNIgP
+ 6V8M0QEevZJnPO7t5BKaqDi2c83pFqgjSDNyQzc9PwGvtt6uBkYj7ATm7f7rKq0etcgpxsYzP1l
+ uALf3NVsR4VtCaPk8Gw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDEyMSBTYWx0ZWRfX+zhvykxviTqD
+ 08Ga/0Jlk+3E9uwAywD6CDdn2qUaZvpiUCYX8V64U/nY7FStwdrTbirDFTv3DyS3n7LU2ZOpOXY
+ n3dERKXlR8wurgXam1Y0T/RwM1yeUY4=
+X-Proofpoint-GUID: kPnZUADxsa7h8yvQ1FvEy-ry6OWcKBCS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_06,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ impostorscore=0 suspectscore=0 clxscore=1015 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290121
 
-On Tue, Jul 28, 2026 at 11:35:36AM +0200, Hans Verkuil wrote:
-> On 27/07/2026 15:18, Sean Young wrote:
-> > The correct sequence for rc core is so:
-> > 
-> >      rc_allocation_device()
-> > 
-> >      /*
-> >       * setup hardware and now calls to ir_raw_event_store etc are
-> >       * permitted, as well as rc_keydown. There is no rc device in sysfs
-> >       * or lirc chardev.
-> >       */
-> >      rc_register_device()
-> > 
-> >      /*
-> >       * After rc_register_device(), the rc device can be used now from lirc
-> >       * chardev, sysfs and IR is now decoded and reported.
-> >       */
-> > 
-> >      rc_unregister_device()
-> >      /*
-> >       * User space can no longer access /dev/lirc or the rc sysfs
-> >       * attributes. They will get -ENODEV if they still have a file
-> >       * descriptor open.
-> >       * Calls to ir_raw_event_handle() etc or rc_keydown() are permitted
-> >       * but they must stop before the call to rc_free_device(), so
-> >       * this is the time to stop the hardware.
-> >       */
-> >      rc_free_device()
-> > 
-> > This means that during rc_register_device(), we can get calls to
-> > ir_raw_event_{store,handle,overflow,store_with_filter}. Ensure this
-> > is done race-free.
-> > 
-> > Fixes: a3572c34da8d ("V4L/DVB: ir-core: Add logic to decode IR protocols at the IR core")
-> > Signed-off-by: Sean Young <sean@mess.org>
-> > Cc: stable@vger.kernel.org
-> > ---
-> >  drivers/media/rc/rc-ir-raw.c | 20 +-------------------
-> >  drivers/media/rc/rc-main.c   | 19 +++++++++++--------
-> >  2 files changed, 12 insertions(+), 27 deletions(-)
-> > 
-> > diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
-> > index b32f3cff9401..bebb45ffa971 100644
-> > --- a/drivers/media/rc/rc-ir-raw.c
-> > +++ b/drivers/media/rc/rc-ir-raw.c
-> > @@ -71,9 +71,6 @@ static int ir_raw_event_thread(void *data)
-> >   */
-> >  int ir_raw_event_store(struct rc_dev *dev, struct ir_raw_event *ev)
-> >  {
-> > -	if (!dev->raw)
-> > -		return -EINVAL;
-> > -
-> >  	dev_dbg(&dev->dev, "sample: (%05dus %s)\n",
-> >  		ev->duration, TO_STR(ev->pulse));
-> >  
-> > @@ -102,9 +99,6 @@ int ir_raw_event_store_edge(struct rc_dev *dev, bool pulse)
-> >  	ktime_t			now;
-> >  	struct ir_raw_event	ev = {};
-> >  
-> > -	if (!dev->raw)
-> > -		return -EINVAL;
-> > -
-> >  	now = ktime_get();
-> >  	ev.duration = ktime_to_us(ktime_sub(now, dev->raw->last_event));
-> >  	ev.pulse = !pulse;
-> > @@ -129,9 +123,6 @@ int ir_raw_event_store_with_timeout(struct rc_dev *dev, struct ir_raw_event *ev)
-> >  	ktime_t		now;
-> >  	int		rc = 0;
-> >  
-> > -	if (!dev->raw)
-> > -		return -EINVAL;
-> > -
-> >  	now = ktime_get();
-> >  
-> >  	spin_lock(&dev->raw->edge_spinlock);
-> > @@ -166,9 +157,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_timeout);
-> >   */
-> >  int ir_raw_event_store_with_filter(struct rc_dev *dev, struct ir_raw_event *ev)
-> >  {
-> > -	if (!dev->raw)
-> > -		return -EINVAL;
-> > -
-> >  	/* Ignore spaces in idle mode */
-> >  	if (dev->idle && !ev->pulse)
-> >  		return 0;
-> > @@ -200,9 +188,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_filter);
-> >   */
-> >  void ir_raw_event_set_idle(struct rc_dev *dev, bool idle)
-> >  {
-> > -	if (!dev->raw)
-> > -		return;
-> > -
-> >  	dev_dbg(&dev->dev, "%s idle mode\n", idle ? "enter" : "leave");
-> >  
-> >  	if (idle) {
-> > @@ -226,7 +211,7 @@ EXPORT_SYMBOL_GPL(ir_raw_event_set_idle);
-> >   */
-> >  void ir_raw_event_handle(struct rc_dev *dev)
-> >  {
-> > -	if (!dev->raw || !dev->raw->thread)
-> > +	if (!dev->raw->thread)
-> >  		return;
-> >  
-> >  	wake_up_process(dev->raw->thread);
-> > @@ -612,9 +597,6 @@ EXPORT_SYMBOL(ir_raw_encode_carrier);
-> >   */
-> >  int ir_raw_event_prepare(struct rc_dev *dev)
-> >  {
-> > -	if (!dev)
-> > -		return -EINVAL;
-> > -
-> >  	dev->raw = kzalloc_obj(*dev->raw);
-> >  	if (!dev->raw)
-> >  		return -ENOMEM;
-> > diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-> > index dda3479ea3ad..d93e98189c1a 100644
-> > --- a/drivers/media/rc/rc-main.c
-> > +++ b/drivers/media/rc/rc-main.c
-> > @@ -1701,14 +1701,24 @@ static const struct device_type rc_dev_type = {
-> >  struct rc_dev *rc_allocate_device(enum rc_driver_type type)
-> >  {
-> >  	struct rc_dev *dev;
-> > +	int ret;
-> >  
-> >  	dev = kzalloc_obj(*dev);
-> >  	if (!dev)
-> >  		return NULL;
-> >  
-> > +	if (type == RC_DRIVER_IR_RAW) {
-> > +		ret = ir_raw_event_prepare(dev);
-> > +		if (ret < 0) {
-> > +			kfree(dev);
-> > +			return NULL;
-> > +		}
-> > +	}
-> > +
-> >  	if (type != RC_DRIVER_IR_RAW_TX) {
-> >  		dev->input_dev = input_allocate_device();
-> >  		if (!dev->input_dev) {
-> > +			ir_raw_event_free(dev);
-> >  			kfree(dev);
-> >  			return NULL;
-> >  		}
-> > @@ -1724,6 +1734,7 @@ struct rc_dev *rc_allocate_device(enum rc_driver_type type)
-> >  		spin_lock_init(&dev->rc_map.lock);
-> >  		spin_lock_init(&dev->keylock);
-> >  	}
-> > +
-> >  	mutex_init(&dev->lock);
-> >  
-> >  	dev->dev.type = &rc_dev_type;
-> > @@ -1917,12 +1928,6 @@ int rc_register_device(struct rc_dev *dev)
-> >  		dev->sysfs_groups[attr++] = &rc_dev_wakeup_filter_attr_grp;
-> >  	dev->sysfs_groups[attr++] = NULL;
-> >  
-> > -	if (dev->driver_type == RC_DRIVER_IR_RAW) {
-> > -		rc = ir_raw_event_prepare(dev);
-> > -		if (rc < 0)
-> > -			goto out_minor;
-> > -	}
-> > -
-> >  	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
-> >  		rc = rc_prepare_rx_device(dev);
-> >  		if (rc)
-> 
-> I don't see what the race condition is you are trying to solve. AFAICT the sysfs
-> files aren't created until the device_add() function that is right after this line.
-> 
-> I'm probably missing something, but that would mean that the commit log needs to
-> be improved.
+The current node limit of 64 breaks the functionality for a number of AI200
+deployments that have up to 384 nodes. Raise the limit to 512.
 
-You're right, the commit message is terrible. I've reworded it for v5.
+Fixes: 27d5e84e810b ("net: qrtr: ns: Limit the total number of nodes")
+Cc: stable@vger.kernel.org
+Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260713145901.212396-1-youssef.abdulrahman@oss.qualcomm.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+(cherry picked from commit ff194cffd586cbd4cc49eccb002c65f2a902a277)
+---
+ net/qrtr/ns.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/net/qrtr/ns.c b/net/qrtr/ns.c
+index a10e8de4f7e1..e8e3ba1b3b82 100644
+--- a/net/qrtr/ns.c
++++ b/net/qrtr/ns.c
+@@ -85,9 +85,9 @@ struct qrtr_node {
+ /* Max nodes limit is chosen based on the current platform requirements.
+  * If the requirement changes in the future, this value can be increased.
+  */
+-#define QRTR_NS_MAX_NODES   64
++#define QRTR_NS_MAX_NODES   512
+ 
+-static u8 node_count;
++static u16 node_count;
+ 
+ static struct qrtr_node *node_get(unsigned int node_id)
+ {
+-- 
+2.43.0
 
-Sean
