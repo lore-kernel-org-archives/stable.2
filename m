@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2A9494A05
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:53:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E02486E74
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:53:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333193; cv=none; b=uOPkXSm4v1KHLmM7MU5AbfRbtOAXELM1b4JXIwflPEpdtPEKw9H+Sxp0Z+eNkj/xxwCBdmFKvdwRD6R2UT4N25kEs1TFlBwvMHQa0kW2IZL6grp/pmkW4LckVJXxfbbzPfHqAEuvgMPl8q7NVbwUFBg2BaYWlT9bDWX6ExR+mJA=
+	t=1785333203; cv=none; b=nzTVxC3AIuqMYmcP3jvQaJzQqXQrHvucyBx590XWjq5/iubK2XIKk+5lJ76zZCSJkR7cHPYnyKHCucvZTGQiidrA70pdTExUUbMAcI8bGkNkqeN+rKl8KSRlO5XmNurKP5XmJl4va0Tuf+1gAKv/9uQQOFD3lEDUnmJvOpTQtZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333193; c=relaxed/simple;
-	bh=5qz1i32todA4vwIVhdsyd+R7tjppKmhbQPhEbAESTX0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=p+crPJtt6PUB3XZI4j+chK69cPKLPbZDSs2vyemxWBzoPUrjA4cWQ1HX3XcOlCUMkPL9QpAMHJC939Wc7YB7o99fO5m3BD9N404sRp6aqaCeTe5WgmnOoRMR9TYX+p/XhVWGjE4pL/FKl/AJyUF8SzSyt891cw2eHZEqjBzmCZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ylycrj11; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785333203; c=relaxed/simple;
+	bh=uDJ+08cuSCaS1YWSE3x8VcHQS1BlGZH1vuNimY7AjpM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qd7267/8corRZIbk3WVn035k+h4ZlthCket5eEX5mafA5wreQaxd49sL4DqAbciQKJg7QaqkaIeYsT2YkK/ySui2GyMXj4L2gCAHvR79tSn/6RiYjvoPXCmulbGrjGqNUveYuodq57s3ZrssjnL0NnCrs+wvvKJ/6Ttx4is73ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jTBBnoYo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ylycrj11"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E91991F00A3A;
-	Wed, 29 Jul 2026 13:53:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jTBBnoYo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8762E1F000E9;
+	Wed, 29 Jul 2026 13:53:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785333189;
-	bh=xuoR7x80XzEmf4xVFm4ECIqLzJLsxMWEgb139doOFQ8=;
+	s=korg; t=1785333198;
+	bh=YCjePWFLpbvwfJ+9KhwlsrttaB8k5Vm7KXwKgw7gp0k=;
 	h=Subject:To:Cc:From:Date;
-	b=Ylycrj11I4joVXSGZE0cvuXcD0yGZryDYZYtXRpalOfTdZH1M9+9r+JuK4uQycl8d
-	 kI91438IUZNUwdfyND2DuUMqk0hDK7ZYPtZWBgJ2UBkbHoZUUMRt+7GgQzr/PERzJ/
-	 /dbwbOJmTYvO4Cvkf0ekThVrzPduBHhmquWptiqA=
-Subject: FAILED: patch "[PATCH] net: gro: fix double aggregation of flush-marked skbs" failed to apply to 5.10-stable tree
-To: shiming.cheng@mediatek.com,kuba@kernel.org,willemb@google.com
+	b=jTBBnoYo2S3iJC7m9HG22gDiRq4qwKqZ80eHdCFLGZ5B/2w7a4fDiuPb52AhlqdkY
+	 ka/H4N05AAdF41DFOW9KmVoLKnzHLXS1IevZeXdqna94uKR+DbHNMsrfWQNrCdFN/0
+	 dzWqUDje2CS0tWxBdJBvYCQKNRr7ZsIvrNJDknBY=
+Subject: FAILED: patch "[PATCH] net: pcs: xpcs: fix SGMII state reading" failed to apply to 6.12-stable tree
+To: coiaprant@gmail.com,jiawenwu@trustnetic.com,kuba@kernel.org,maxime.chevallier@bootlin.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:52:48 +0200
-Message-ID: <2026072948-essence-that-baf6@gregkh>
+Date: Wed, 29 Jul 2026 15:53:04 +0200
+Message-ID: <2026072904-shallow-icing-2a9f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x e751256486d0ded20f5a9f9863467f1dce65142f
+git cherry-pick -x def9a4745e105145133e442dd8a1c126caf0f553
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072948-essence-that-baf6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072904-shallow-icing-2a9f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,81 +62,114 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e751256486d0ded20f5a9f9863467f1dce65142f Mon Sep 17 00:00:00 2001
-From: Shiming Cheng <shiming.cheng@mediatek.com>
-Date: Thu, 9 Jul 2026 09:46:39 +0800
-Subject: [PATCH] net: gro: fix double aggregation of flush-marked skbs
+From def9a4745e105145133e442dd8a1c126caf0f553 Mon Sep 17 00:00:00 2001
+From: Coia Prant <coiaprant@gmail.com>
+Date: Fri, 17 Jul 2026 15:43:25 +0800
+Subject: [PATCH] net: pcs: xpcs: fix SGMII state reading
 
-Commit 0ab03f353d36 ("net-gro: Fix GRO flush when receiving a GSO
-packet.") added a flush check to skb_gro_receive(), but
-skb_gro_receive_list() lacks the same validation.
+Commit 2a22b7ae2fa3 ("net: pcs: xpcs: adapt Wangxun NICs for SGMII mode")
+added a path in xpcs_get_state_c37_sgmii() that reads speed/duplex from
+BMCR after AN completes. However, BMCR does not reflect the negotiated
+result on the hardware where this has been tested:
 
-As a result, packets marked with NAPI_GRO_CB(skb)->flush may still be
-re-aggregated.
+- On RK3568 (MAC side SGMII), BMCR returns a fixed hardware reset value
+- Wangxun engineer Jiawen Wu confirmed that on their side, "BMCR looks
+  like it only wants to be return as 0" [0]
 
-This allows already-GRO'd packets with existing frag_list to be
-re-aggregated into a new GRO session, corrupting the frag_list chain
-structure. When skb_segment() attempts to unpack these malformed packets,
-it encounters invalid state and triggers a kernel panic.
+The correct information is available in CL37_ANSGM_STS, which contains
+the actual link status and negotiated speed/duplex.
 
-Scenario (Tethering/Device forwarding):
-  1. Driver: Generated aggregated packet P1 via LRO with frag_list
-  2. Dev A: Receives aggregated fraglist packet and flush flag set
-  3. Dev A: Re-enters GRO, skb_gro_receive_list() is called
-  4. Missing flush check allows re-aggregation despite flush flag
-  5. Frag_list chain becomes corrupted (loops or dangling refs)
-  6. Dev B: TX path calls skb_segment(), crashes on corrupted frag_list
+This bug was previously masked by phylink core, which overrides the PCS
+link state with the PHY state when a PHY is present:
 
-Root cause in skb_segment():
-  The check at line ~4891:
-    if (hsize <= 0 && i >= nfrags && skb_headlen(list_skb) &&
-        (skb_headlen(list_skb) == len || sg)) {
+        /* If we have a phy, the "up" state is the union of both the
+         * PHY and the MAC
+         */
+        if (phy)
+                link_state.link &= pl->phy_state.link;
 
-  When frag_list is corrupted by double aggregation, when list_skb is
-  a NULL pointer from skb->next, skb_headlen(list_skb) dereference
-  NULL/corrupted pointers occurs.
+Thus, when the link is down, the PHY's link_down state is applied on top
+of whatever the PCS reports, hiding the broken PCS state reading path.
 
-Call Trace:
- skb_headlen(NULL skb)
- skb_segment
- tcp_gso_segment
- tcp4_gso_segment
- inet_gso_segment
- skb_mac_gso_segment
- __skb_gso_segment
- skb_gso_segment
- validate_xmit_skb
- validate_xmit_skb_list
- sch_direct_xmit
- qdisc_restart
- __qdisc_run
- qdisc_run
- net_tx_action
+Modify xpcs_get_state_c37_sgmii() to:
+1. Read link state from CL37_ANSGM_STS
+2. If link is up, report speed/duplex from CL37_ANSGM_STS
+3. Remove the broken BMCR reading path entirely
 
-Fix: Add NAPI_GRO_CB(skb)->flush validation to the early-return check in
-skb_gro_receive_list(), matching the defensive programming pattern of
-skb_gro_receive().
+Also properly set state->an_complete to reflect the AN completion status,
+and clear CL37_ANCMPLT_INTR when link is down to avoid stale state.
 
-Fixes: 3a1296a38d0c ("net: Support GRO/GSO fraglist chaining.")
+[0] https://lore.kernel.org/all/000c01dd1593$2ac0b0f0$804212d0$@trustnetic.com/
+
+Fixes: 2a22b7ae2fa3 ("net: pcs: xpcs: adapt Wangxun NICs for SGMII mode")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shiming Cheng <shiming.cheng@mediatek.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20260709014704.3625-1-shiming.cheng@mediatek.com
+Tested-by: Jiawen Wu <jiawenwu@trustnetic.com>
+Signed-off-by: Coia Prant <coiaprant@gmail.com>
+Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Link: https://patch.msgid.link/20260717074324.3250043-2-coiaprant@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/core/gro.c b/net/core/gro.c
-index 35f2f708f010..29b4d02bf519 100644
---- a/net/core/gro.c
-+++ b/net/core/gro.c
-@@ -229,7 +229,9 @@ int skb_gro_receive(struct sk_buff *p, struct sk_buff *skb)
+diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
+index e69fa2f0a0e8..0337e2bcc012 100644
+--- a/drivers/net/pcs/pcs-xpcs.c
++++ b/drivers/net/pcs/pcs-xpcs.c
+@@ -1058,6 +1058,7 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs *xpcs,
  
- int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
- {
--	if (unlikely(p->len + skb->len >= 65536))
-+	/* make sure to check flush flag and to not merge */
-+	if (unlikely(p->len + skb->len >= 65536 ||
-+		     NAPI_GRO_CB(skb)->flush))
- 		return -E2BIG;
+ 	/* Reset link_state */
+ 	state->link = false;
++	state->an_complete = false;
+ 	state->speed = SPEED_UNKNOWN;
+ 	state->duplex = DUPLEX_UNKNOWN;
+ 	state->pause = 0;
+@@ -1069,6 +1070,8 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs *xpcs,
+ 	if (ret < 0)
+ 		return ret;
  
- 	if (!pskb_may_pull(skb, skb_gro_offset(skb))) {
++	state->an_complete = ret & DW_VR_MII_AN_STS_C37_ANCMPLT_INTR;
++
+ 	if (ret & DW_VR_MII_C37_ANSGM_SP_LNKSTS) {
+ 		int speed_value;
+ 
+@@ -1086,35 +1089,14 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs *xpcs,
+ 			state->duplex = DUPLEX_FULL;
+ 		else
+ 			state->duplex = DUPLEX_HALF;
+-	} else if (ret == DW_VR_MII_AN_STS_C37_ANCMPLT_INTR) {
+-		int speed, duplex;
+ 
+-		state->link = true;
+-
+-		speed = xpcs_read(xpcs, MDIO_MMD_VEND2, MII_BMCR);
+-		if (speed < 0)
+-			return speed;
+-
+-		speed &= BMCR_SPEED100 | BMCR_SPEED1000;
+-		if (speed == BMCR_SPEED1000)
+-			state->speed = SPEED_1000;
+-		else if (speed == BMCR_SPEED100)
+-			state->speed = SPEED_100;
+-		else if (speed == 0)
+-			state->speed = SPEED_10;
+-
+-		duplex = xpcs_read(xpcs, MDIO_MMD_VEND2, MII_ADVERTISE);
+-		if (duplex < 0)
+-			return duplex;
+-
+-		if (duplex & ADVERTISE_1000XFULL)
+-			state->duplex = DUPLEX_FULL;
+-		else if (duplex & ADVERTISE_1000XHALF)
+-			state->duplex = DUPLEX_HALF;
+-
+-		xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
++		return 0;
+ 	}
+ 
++	/* Clear AN complete status or interrupt */
++	if (state->an_complete)
++		xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
++
+ 	return 0;
+ }
+ 
 
