@@ -1,73 +1,79 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64EE330B07
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:18:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC4976026
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:18:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785291505; cv=none; b=teesnH5bQIwffW77GvcJj7xBJeClGvFVnj+Vj7Hf9KHSm2eQ2RhSWpG5QUmFpj4Ec/l+e4HErZQHseYCcWGZV4qeela0bY+rvlOeorrKCaqttUdgLYYhnI7ZUCBoMjzazuimavRJyrOVbuug9iSwLoL9AMAwpsNomRVNYe4aPK0=
+	t=1785291529; cv=none; b=n1NEK9Jbgc0iADq9i7gIpoGU1JqcprNoGt7EUlmkeZIlSj5pLmeKAFOgmo9mi4gqWHZXF6hhYQnj4S255rD2XD1zpxuQTVXU93YJDSJ6As8Y2r249hxsdojMiVl7ppShLv0d35V645SeAYHmK7dFnD4T0Vy+KQ3FgntQ4MrgTFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785291505; c=relaxed/simple;
-	bh=6nkqDqAXcPS/8X6gEANTW4rGF9CCvG8ceg1mzWZa0xA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LNr2iH9OpybPWGmwKkJcpIvzwUxI6vgEWcjcBSFeHHYi31vJLWn0VYtsxdiK4CKZmE/W1gPD8eypMszauuVNImR+x6N1PRc4JQfPxvOEPqBSM04wWlqaeJoJP3sE+Yy8iSc9T0xeWfLRRY2+zpUyrkZS9/zwbQcFK5txCeIY/fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cqkF2XJK; arc=none smtp.client-ip=209.85.214.180
+	s=arc-20240116; t=1785291529; c=relaxed/simple;
+	bh=dmriazfhWcf5wW8lxOVtQBUgCYLeSYhcaY4KgrG7ctA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Dn8n4fCtp81JMzpLZFM/Oj9HDOZUvgQUfATd0+OtMr8tLPYkbH3sGKHMLAEVLbd7Zmf8TE73ylmFA5gqSRGL89opAaABkzOoJnRpS6nOKRZN0bRbqTnekzxjvikx2TwTkh5FzvGMrGnU2CFOPlohaHNFhhfxH5VigSzRz5EEjBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxcpqN8r; arc=none smtp.client-ip=209.85.214.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cqkF2XJK"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ceae1ed204so6187595ad.0
-        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 19:18:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxcpqN8r"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ceaf8a1265so5678235ad.2
+        for <stable@vger.kernel.org>; Tue, 28 Jul 2026 19:18:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785291501; x=1785896301; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785291527; x=1785896327; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vnsZtjbV5skVSpYiYGDzFiuCt8jnr0IDD5NnHQhZM2A=;
-        b=cqkF2XJKZTEbPCOMeXEv9MCr+3xfltSkgrZU+zLzzzumZJ5Eei3SFQXGKOxR+DeTnG
-         gmxoVDLfPqXxgyUb5+xfHqOpnWZoHEe8TL+YSb2smpqnBvhy/XH2vEL9x1pFISmh9MH3
-         5s3rREz5nzHd1WOSHdajzLRKuISJC/ugzWJmGR/6iYD38ak9Z28ZTqigTy8GpLSnBusH
-         rd8U2d1cDVtsGIJMSR9ItLfLc3cswW/tcbqWJw63c5oYoLf+mAtUC2188s49HkDfaY4S
-         Qg+BXOKQqTECouYljLm8r/7Sj2M3wwcI2lsHM/2FKegfKxeMiUNH3gpwoN09dEaFnHOJ
-         Pe/g==
+        bh=A3vGTZ+9cBJHUjmSn73Xe4evmb/1PkSIQ94tual6z3w=;
+        b=cxcpqN8rq7HglPHwR2IbvxtN3GRe4NGzynmTkyK5gm0qBOA+Aoz+G+e9xEZZjKgB6P
+         3Q/limCrCp0xbEw3GNbLkuj5QLRHJTRt6eORffvT3s+BMDQDUJeAGZbTg3wHS+m/UPij
+         ngZ3i1pVCHG/6wDjRDKQ5BU62/lfhPfTq3duGviYVBcd2Oe8KQM6Xcm2sqAI9+7O0pSI
+         lluM3cOhYR/sIi8ZXxX1DuHyxd5gO2E/FZEPjnRBZmIkOq7LGkhLaqqnZKKTvwOxDqt0
+         LB+a5BjnJZzHdtUivq1OnMYyrc5XvRRlg+EJRY7wnHHcDz5D6znhpAQtkKUXRb0gAfLw
+         Whrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785291501; x=1785896301;
+        d=1e100.net; s=20251104; t=1785291527; x=1785896327;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vnsZtjbV5skVSpYiYGDzFiuCt8jnr0IDD5NnHQhZM2A=;
-        b=mhA4It5bjtEMK1mF1OzNd+ZdyfUhG6k6m5ZiFmXCCUT8lBv0BhEZEQdflSGdVN7wJm
-         8CNlDlogZXSTdcHFEOSyNkKPfhcoAsqr1InZZlAG64Qz3s0mumvLInIrM11yxAdy3nEi
-         F0B0KUI1gKB8VWMqzbmz8jlIuRiEustwaQcvj0STEJuiAzlYRAkuVtB4HuvgeDxFTh3b
-         fSR3WW6gpMl9AlGKHqfA6Hb/8x6ZMHnT7ZzLFz7zmr/U822sa15v8jTn2MjjTdqLBmQr
-         Uw3Zp86Bd8Q/XzADuLLWT+rV+2SM3P+WJ6Hdaw/YDcKiSZ+x7gjjuWCMX3wf6oXsgVTK
-         48qQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoTLkdpb7i9crka7kbCmRw+/nuUb1fbXT49viVnK8kAj8Omb1tkz57UvCBBT3UHxKZ96Iask8E=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy9vHfZoGSBVhnGPEc84zyDkyXTI16yqJ3sloZT62msG9uKmZZv
-	pqBwLn2ZNMnnPMy4BGHkWx4n1tLzVnuxBlDL3F5vG+RDvAhdyvfaSQQ=
-X-Gm-Gg: AR+sD12p3Iwd+OMJAcjTyilku+XjNC0U4pOXVvWqWCXGmBFYa1iI5D/n8ENtVHbNszC
-	NJuBESn/gzfklxcgv2hzuFitb3njRku2oVJRayfmG5eABojob1eH7WeMmsld+VDS/vkgucPuHSw
-	IiuZNric1iBWZIcfIEEgqYdCosHHp6XUjugWujuoIRZLINOGLYlGhAVKbkb5gt9+QE3zd/NpT5I
-	UBtr8wHX3XOQvpYLN0ZbiJoY6XslKE1plZhBMeHNoNYc+Pv+K5FuOzfQMlSV9EXXRqJq0IBqVAb
-	pwtFd5o+oYJlayZxzUfYZ86TUYrH1nouceH+A8WBEJu2v7BKr2U0EBObyU27Uhz5/e/XW1nWhyw
-	RMaEcRtUnzdEyybJ8abU/CTUmSP/3xq61YwRBSD1XdGqPqUPse4dk0GKxYC7Ye8sDMcOGY0P3C/
-	/LbdaYP7u/4crTAE0JX473XkPKiq+KbWtRucxW6Cxo4Q1dca2mFD+bVzpr2KNOQ/dVGqKaHFwL5
-	n2C8o3T/7s0D9lVM3d0xqzG8nzLclYVwx/NjR7EV5aT4F3VxRgFPPkJcr3x+wHIFh8BQzuRNEMj
-	ZtwwY7AEGstAbw6AYiiRW5GAqY7Bc2Ksyw==
-X-Received: by 2002:a17:902:ef07:b0:2cb:2b84:f431 with SMTP id d9443c01a7336-2d015d607d0mr57360965ad.47.1785291501453;
-        Tue, 28 Jul 2026 19:18:21 -0700 (PDT)
+        bh=A3vGTZ+9cBJHUjmSn73Xe4evmb/1PkSIQ94tual6z3w=;
+        b=VJ4SNO9+wdLiA0lw+cEzDPqQWL2T1ma36pu5OFQb5zDOZJfAJNV/ppJtajX/zEEQ5b
+         /zeKW0qo/95Afuf4l6AUQ3WWfVSZR82hqFRe5i6hhM2JDaZuvLz5lfOPMCxRN86zL2Gw
+         dIUECNiBqbMTLJt+VoMvDh8+fimr0w6UdwsflqtiXl7YMQ/N1W/BhkA9pVE2tP4IMqrz
+         hcktP+2MdUN6BzCQrTs6A1fOiL1kz2J81x+dAorAThsW9dw12tHhnFuT2FJ3PRgnzG1G
+         QiVUN1wjMVn/Jg9lhpRiroAzg4sXMaX/WlsxnATYDjmVw5+4ZmIDUhoJrDRS/MZEEkZb
+         haJw==
+X-Forwarded-Encrypted: i=1; AHgh+RqrGGs6OFDMlTPcytARAC+GHVTo+DBZ2TtbEj/mIEHpAXSegoSfaPEIlZ7EIVFWnfa+q6kU82Y=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzRvEKE0HjtqUPbcoDKgsGiet+R4lej9fjlv/kZq1whYNvdal5i
+	SZ+T6N7V4c4Na1LnlpU5sYk2MaNsKc4Jlcurb7Vs73io9VznKuGXG2g=
+X-Gm-Gg: AR+sD110KM9ppxnGP5EQEYYCSbYSuD4lr2BDf9VCMdaPTm7i4GaJPLDDdDy80qlaT0F
+	EihVSpA2zzpbhB/rHvEiGDkNVXszaiTtLqjuCo21BylsrJyhCzzrqGnlY1afiUyaaouHjpZczG7
+	pCT+MNxcm4SN0lX/uVS8DemqVN0JgjcU1QMRiiEOFoKhBX6QYI0mFitDR+k5pctpI3MoG47AG5y
+	AFDzBR7n/KdwE0WlLIf2ZNa204YJlw0QbnfK//YLwxXM2LAUmGM6rrwzY/iFnFKAgWvYmqGXe7N
+	93gDXLXDlt8SJ7ZtYwV6RDB3Zd4w76dHWBLyBFhep+d06I1RXpwjCPq/3Bj67WXPLSGYHjHWVT5
+	4L12AR+xqa2k++Tglz0T8lvzwMMumtTyE4bzfnHCD79ZeKGFqYuxCYY2UERdJfD7DS1KnwiZB5h
+	z3BfqbB8Eg3SoCLw3U14AICs95x2CFdyzcTHvcuS4HWlXRS3S2clQ6pilnhdW6LseXimKzL7vc0
+	4+dF+AYD1FokZl3rgK0TqOrwGWYjGmER7QnrYDoUl9voIm0IxEyR6oRfsAdI0Bk2RDa+uMf73dO
+	7MyfTsYJoNzbMcit+41vjFPz3ruH9jCkDA==
+X-Received: by 2002:a17:903:1905:b0:2ca:ca48:c36a with SMTP id d9443c01a7336-2d015c0fcacmr52704555ad.18.1785291527425;
+        Tue, 28 Jul 2026 19:18:47 -0700 (PDT)
 Received: from localhost.localdomain ([1.226.165.54])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022c5096asm3778355ad.81.2026.07.28.19.18.18
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022a46774sm3848685ad.27.2026.07.28.19.18.43
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 28 Jul 2026 19:18:20 -0700 (PDT)
+        Tue, 28 Jul 2026 19:18:45 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-rtc@vger.kernel.org,
+To: Alain Volmat <alain.volmat@foss.st.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	linux-media@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
+	Biren Pandya <birenpandya@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>,
 	stable@vger.kernel.org,
-	Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] rtc: m41t80: clean up watchdog on registration failure
-Date: Wed, 29 Jul 2026 11:18:12 +0900
-Message-ID: <20260729021812.49868-1-mhun512@gmail.com>
+	Myeonghun Pak <mhun512@gmail.com>
+Subject: [PATCH] media: stm32: csi: unregister async notifier on cleanup
+Date: Wed, 29 Jul 2026 11:18:34 +0900
+Message-ID: <20260729021834.50550-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -77,43 +83,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The watchdog miscdevice and reboot notifier are registered before the RTC
-device. If RTC device registration fails, probe returns without undoing
-either registration. The remove callback is not called after probe
-failure, leaving callbacks tied to a device whose driver failed to bind.
-Those callbacks continue to dereference the file-global save_client.
+stm32_csi_parse_dt() registers the async notifier before probe finishes.
+If a later operation fails, the error path only cleans up the notifier's
+connections.  It does not unregister the notifier, leaving its entry on
+the global notifier list after the devm-allocated csidev is freed.
 
-Unregister the notifier and miscdevice before returning the RTC
-registration error.
+The remove path has the same problem.  A later async operation can then
+walk the stale notifier entry and access freed memory.
 
-Fixes: 10d0c768cc6d ("rtc: m41t80: fix race conditions")
+Unregister the notifier before cleaning up its resources on both paths.
+
+Fixes: dcb0f4c16be5 ("media: stm32: csi: addition of the STM32 CSI driver")
 Cc: stable@vger.kernel.org
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/rtc/rtc-m41t80.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/media/platform/st/stm32/stm32-csi.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/rtc/rtc-m41t80.c b/drivers/rtc/rtc-m41t80.c
---- a/drivers/rtc/rtc-m41t80.c
-+++ b/drivers/rtc/rtc-m41t80.c
-@@ -1008,8 +1008,15 @@ static int m41t80_probe(struct i2c_client *client)
- #endif
- 
- 	rc = devm_rtc_register_device(m41t80_data->rtc);
--	if (rc)
-+	if (rc) {
-+#ifdef CONFIG_RTC_DRV_M41T80_WDT
-+		if (m41t80_data->features & M41T80_FEATURE_HT) {
-+			unregister_reboot_notifier(&wdt_notifier);
-+			misc_deregister(&wdt_dev);
-+		}
-+#endif
- 		return rc;
-+	}
- 
+diff --git a/drivers/media/platform/st/stm32/stm32-csi.c b/drivers/media/platform/st/stm32/stm32-csi.c
+--- a/drivers/media/platform/st/stm32/stm32-csi.c
++++ b/drivers/media/platform/st/stm32/stm32-csi.c
+@@ -1059,6 +1059,7 @@ static int stm32_csi_probe(struct platform_device *pdev)
  	return 0;
+ 
+ err_cleanup:
++	v4l2_async_nf_unregister(&csidev->notifier);
+ 	v4l2_async_nf_cleanup(&csidev->notifier);
+ 	return ret;
+ }
+@@ -1068,6 +1069,8 @@ static void stm32_csi_remove(struct platform_device *pdev)
+ 	struct stm32_csi_dev *csidev = platform_get_drvdata(pdev);
+ 
++	v4l2_async_nf_unregister(&csidev->notifier);
++	v4l2_async_nf_cleanup(&csidev->notifier);
+ 	v4l2_async_unregister_subdev(&csidev->sd);
+ 
+ 	pm_runtime_disable(&pdev->dev);
  }
 -- 
 2.50.1
