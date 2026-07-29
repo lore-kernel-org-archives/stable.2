@@ -1,168 +1,142 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7526D43F4A6
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 09:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14B6342539
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 09:16:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785316144; cv=none; b=eAIiNWUv32a3xucCLNFmcnXEciZrdw+VyjiQckcGKmJdEk/lX5INnOhyeHtxsam9h5lSe7B25bX1+9QQbITrPwVO+G3Gx+19Hgr+uVTOp5Tisco6ynQAVVg4ImMb1PZwPAwuFkpbbtTGN1fjZ4bEG6nvEAENquAKMcmRtmOBVsQ=
+	t=1785316621; cv=none; b=cz+cJsfuCv7Grt9vGRwISaasw6Q742NfJsVS77Eep74VJe4I05pG4uL+NML4mkYeLDX42iUAGvA7NDaZ6+yf/Mn6NF5lEW056FHUmywDoyEcdTN0IEusVIXXpIkEajUvWyqwnnHDMXLQExF1albZ0M4uMwUVeImGxCS7cOpyFsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785316144; c=relaxed/simple;
-	bh=1YLiDFtSZF1xPfbk4LclfDsaFH5y15PBohDTcoKaMes=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HerjqCbcXcPgEFfOwVjEgzL6hE4bZvtrCjlODyfiCecvv9IVMrnvEjXpLDq16oJoA2Iu4qlOMFkncy+JUY+1Xd2lgez67GImYFU6M7fv4HHl9UA11Xqt4moI1GXKR90m83BWV2qRtPMzWTBz4/ZhqCghz7HF38Oc8phakas0oPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GCYghacT; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GCYghacT"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f7854678bso315887f8f.3
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 02:09:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785316141; x=1785920941; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZJH3L/LkkKN9qxK/5ZZMLYwTlfYIlG18ul0LnWqIOCw=;
-        b=GCYghacT8TPory1IcOlkFxw72hpwvGdrxGO9Auu8JRspOR9SE0KM/UVc4jEZ0UxcGp
-         9zgqidopsIEYs2tpw+dP6NtJ4zqqarBuzim2JQspv/0dkCPUkDFV/Car5dMGG2FbPEwF
-         VFv4HrkqwDUHsDBWU13o4adP4FeuXuM8Uq7ORvh74yAuhmnzK3UZVNA6/3ZrHkcRfSpw
-         EL7TP2BjulGTC7W5fvLJQ6yyX0WaigVwqREGeC9qHMdlUbgmSokf38qHqJfr+7VQd9Om
-         ZwwVEMq0yQXKdL7f3O/xgoLKcr7kfY3oShvAzSZrVIqfBcAFLntrGNfJZOmHF8h14gyW
-         c5AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785316141; x=1785920941;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZJH3L/LkkKN9qxK/5ZZMLYwTlfYIlG18ul0LnWqIOCw=;
-        b=T0+OZwKwvaPwFALvd6ZJjgRBLnKOahCHzq5Huz33CbTo4XPaPc7p8T0pglF0wdsPM5
-         5ti72p09YYGDxdOrR3uV1HzFsc21Ut5A0J2BEA7ezspcyqxdNdkScXPgyM9hhe8DknUe
-         p4P9n/jQmy52rFTpXgP3cMfPyn1IKqFSCt1cSBvVB9q5D7uWllHw1rfYJnSi0+C/mGZp
-         EfRFZ+7M6iHwaT+jLwxV/cm9S+IlTDNECoNGurlFYfN6I0ypsvjP3avU39I0poI1ouEv
-         ekwWUr5TJcNkXdE91FEWv1s2haticiwXCi6XSmHSmTtLrOQIefZweVCLzntR6aAR8xho
-         4sgA==
-X-Gm-Message-State: AOJu0YyVQ2+CTq2mm70UCv9wzUtxwp561Qo/HmYIVCPCiDkP3Uv9cBuN
-	j3gyL3+U92FjTAn/MMJjOxT2UZhskpFjgRoLOflr4iXUh/gAWgVhRjY0rh4WjyFO
-X-Gm-Gg: AR+sD104KYJS8QO8bXq1cd5jfCWELWSwA42cZEQ7w0iiNUX3OY1jpeT3VnOzc0Tz1hV
-	V+EYknvVrvXqBWdRIVWq23UntthywXpm/NKOUIh4052chWcu6LZiqsVnkvOhrc5aRSYee0F4jFH
-	L1cRchWx0QPLh+leIcTQ0ZQNQbNXujnAtd0p+hrcBz54LelHG/zezEWgQ30gQoOxOr4BC6L0CY2
-	WWWpHFXMYB3ZA8YLSh8tPT1eRstrsro+5smptzdx03hYyCH7wN3tGXN/OQS71xYifaX6+iLp/dF
-	/RWNJSH6qLZZrsQ244eAkAolIM8+ZS67b6mu6I6PXXhMQAHP2EvEUjKsktr75fgcXEYDfinOdYr
-	qeko/B9Azbg82JPR14Co6MNg60J1a05tTwdFNEh4TYLr+erd1nUdk7vvhA3WnT8Jg1sM0KGbn/U
-	BRemr4po1UkjLEnQiJ9RX1C4KR6Q4lNMlMUGbUp2rzjrPT7wdyuw0GK2l0/xK9z5Vp3/4=
-X-Received: by 2002:a05:600c:630d:b0:495:6134:6d61 with SMTP id 5b1f17b1804b1-496c6568d4bmr72588225e9.19.1785316140544;
-        Wed, 29 Jul 2026 02:09:00 -0700 (PDT)
-Received: from grower.astralinux.ru ([81.9.21.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496e8e15a52sm29802675e9.0.2026.07.29.02.08.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 02:09:00 -0700 (PDT)
-From: Alexander Martyniuk <alexevgmart@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alexander Martyniuk <alexevgmart@gmail.com>,
-	lvc-project@linuxtesting.org,
-	"David S. Miller" <davem@davemloft.net>,
-	David Ahern <dsahern@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jaehee Park <jhpark1013@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>
-Subject: [PATCH 6.6] ipv6: ndisc: fix NULL deref in accept_untracked_na()
-Date: Wed, 29 Jul 2026 12:08:56 +0300
-Message-ID: <20260729090857.76269-1-alexevgmart@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1785316621; c=relaxed/simple;
+	bh=sYdvhM4TiA9hquL5iwmC1+OokQSUH+N7/63f53X0ZeM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SQXzFGtCvy6n8O9CnzvHeZdK7yxzg4wud19uA6ANU7wFOuIMZbH3SilGumB7pm3M6AYS/5BWnYZ/WBZutwD1qWtAQULqYqyxV6vvJUBWQdDY/fAmp4pp3iLVgxo8Q0A5/Lb17C1xhSM33P1iSoL4gQClykfpCHeKL8hnEk5scVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=green-communications.fr; spf=pass smtp.mailfrom=green-communications.fr; arc=none smtp.client-ip=212.227.17.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=green-communications.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=green-communications.fr
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue107
+ [213.165.67.119]) with ESMTPSA (Nemesis) id 1MLQgv-1wXcEy190d-00Qu6f; Wed, 29
+ Jul 2026 11:16:35 +0200
+Message-ID: <87c8fb9a-30c4-4800-8aa3-d22f3081f6f9@green-communications.fr>
+Date: Wed, 29 Jul 2026 11:16:28 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: Patch "wifi: mt76: Disable napi when removing device" has been
+ added to the 6.18-stable tree
+To: stable@vger.kernel.org
+Cc: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Ryder Lee <ryder.lee@mediatek.com>, Shayne Chen <shayne.chen@mediatek.com>,
+ Sean Wang <sean.wang@mediatek.com>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+References: <20260728183145.331367-1-sashal@kernel.org>
+Content-Language: en-US
+From: Nicolas Cavallari <nicolas.cavallari@green-communications.fr>
+In-Reply-To: <20260728183145.331367-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:ENN5fD53VDntno4+vY3CYM/2hDaO3WkayP50qFnJffI0Ov3Kc9i
+ nS/INwJ8q9VS3+C5Cr/97ni7ligFU8wK/+h/nty/JPgOCBYE3vc+Ql9RiFZoZwNilm2BPD2
+ Vm65fOGyAui9agHyFDsdKE4Wad3c6FJZCp2+X4z9nZs3WDcBBwvaQLAFDOKEBgkcGONcz3v
+ l+8A5ySkjxrwKyhb49ueQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:+8KXqRCwQKg=;rIRlacpQ0QPB9bJayH3RRZyC7l0
+ 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
+ =
 
-From: Weiming Shi <bestswngs@gmail.com>
+This patch alone causes regressions on mt792x, please wait for this fix
+to reach mainline before applying both:
 
-commit d186e942365acece7c56d39da05dd63bf95b280a upstream.
+https://lore.kernel.org/linux-wireless/20260728002048.19351-1-mikhail.v.gavrilov@gmail.com/T/#u
 
-accept_untracked_na() re-fetches the inet6_dev with __in6_dev_get(dev)
-and dereferences idev->cnf.accept_untracked_na without a NULL check,
-even though its only caller ndisc_recv_na() already fetched and
-NULL-checked idev for the same device.
-
-Both reads of dev->ip6_ptr run in the same RCU read-side critical
-section, but a concurrent addrconf_ifdown() can clear dev->ip6_ptr
-between them: lowering the MTU below IPV6_MIN_MTU calls addrconf_ifdown()
-without the synchronize_net() that orders the unregister path, so the
-re-fetch returns NULL and oopses:
-
- BUG: KASAN: null-ptr-deref in ndisc_recv_na (net/ipv6/ndisc.c:974)
- Read of size 4 at addr 0000000000000364
- Call Trace:
-  <IRQ>
-  ndisc_recv_na (net/ipv6/ndisc.c:974)
-  icmpv6_rcv (net/ipv6/icmp.c:1193)
-  ip6_protocol_deliver_rcu (net/ipv6/ip6_input.c:479)
-  ip6_input_finish (net/ipv6/ip6_input.c:534)
-  ip6_input (net/ipv6/ip6_input.c:545)
-  ip6_mc_input (net/ipv6/ip6_input.c:635)
-  ipv6_rcv (net/ipv6/ip6_input.c:351)
-  </IRQ>
-
-It is reachable by an unprivileged user via a network namespace.
-
-Pass the caller's already validated idev instead of re-fetching it; the
-idev stays alive for the whole RCU critical section, so it is safe even
-after dev->ip6_ptr has been cleared.
-
-Fixes: aaa5f515b16b ("net: ipv6: new accept_untracked_na option to accept na only if in-network")
-Reported-by: Xiang Mei <xmei5@asu.edu>
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Link: https://patch.msgid.link/20260617065512.2529757-2-bestswngs@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
----
-Backport fix for CVE-2026-64542
- net/ipv6/ndisc.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
-
-diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
-index ee34831f5621..342e7066f765 100644
---- a/net/ipv6/ndisc.c
-+++ b/net/ipv6/ndisc.c
-@@ -973,10 +973,8 @@ static enum skb_drop_reason ndisc_recv_ns(struct sk_buff *skb)
- 	return reason;
- }
- 
--static int accept_untracked_na(struct net_device *dev, struct in6_addr *saddr)
-+static int accept_untracked_na(struct inet6_dev *idev, struct in6_addr *saddr)
- {
--	struct inet6_dev *idev = __in6_dev_get(dev);
--
- 	switch (READ_ONCE(idev->cnf.accept_untracked_na)) {
- 	case 0: /* Don't accept untracked na (absent in neighbor cache) */
- 		return 0;
-@@ -986,7 +984,7 @@ static int accept_untracked_na(struct net_device *dev, struct in6_addr *saddr)
- 		 * same subnet as an address configured on the interface that
- 		 * received the na
- 		 */
--		return !!ipv6_chk_prefix(saddr, dev);
-+		return !!ipv6_chk_prefix(saddr, idev->dev);
- 	default:
- 		return 0;
- 	}
-@@ -1085,7 +1083,7 @@ static enum skb_drop_reason ndisc_recv_na(struct sk_buff *skb)
- 	 */
- 	new_state = msg->icmph.icmp6_solicited ? NUD_REACHABLE : NUD_STALE;
- 	if (!neigh && lladdr && idev && idev->cnf.forwarding) {
--		if (accept_untracked_na(dev, saddr)) {
-+		if (accept_untracked_na(idev, saddr)) {
- 			neigh = neigh_create(&nd_tbl, &msg->target, dev);
- 			new_state = NUD_STALE;
- 		}
--- 
-2.43.0
-
+On 7/28/26 20:31, Sasha Levin wrote:
+> This is a note to let you know that I've just added the patch titled
+>
+>     wifi: mt76: Disable napi when removing device
+>
+> to the 6.18-stable tree which can be found at:
+>     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+>
+> The filename of the patch is:
+>      wifi-mt76-disable-napi-when-removing-device.patch
+> and it can be found in the queue-6.18 subdirectory.
+>
+> If you, or anyone else, feels it should not be added to the stable tree,
+> please let <stable@vger.kernel.org> know about it.
+>
+>
+>
+> commit ec85c41196070fef11374b2a774ece87083c8a84
+> Author: Nicolas Cavallari <nicolas.cavallari@green-communications.fr>
+> Date:   Wed Jul 8 16:43:47 2026 +0200
+>
+>     wifi: mt76: Disable napi when removing device
+>     
+>     [ Upstream commit 13b7e6a96a005c656d38f3da51581deaf9866375 ]
+>     
+>     Unloading the mt7915e module with a MT7916 triggers multiples WARN in
+>     __netif_napi_del_locked() and in page_pool_disable_direct_recycling()
+>     because the driver does not disable the napi before destroying it.
+>     
+>     This is troublesome since on MT7916 it is required to unload the module
+>     and reinsert it with a different enable_6ghz parameter to change the
+>     frequency.  The system generally becomes unstable after reinserting the
+>     module.
+>     
+>     Fix it by disabling napi before deleting it.  Also, do not delete napi
+>     on WED queues since napi is neither used nor initialized on them.
+>     
+>     Fixes: 17f1de56df05 ("mt76: add common code shared between multiple chipsets")
+>     Signed-off-by: Nicolas Cavallari <nicolas.cavallari@green-communications.fr>
+>     Link: https://patch.msgid.link/20260708144615.24092-1-nicolas.cavallari@green-communications.fr
+>     Signed-off-by: Felix Fietkau <nbd@nbd.name>
+>     Signed-off-by: Sasha Levin <sashal@kernel.org>
+>
+> diff --git a/drivers/net/wireless/mediatek/mt76/dma.c b/drivers/net/wireless/mediatek/mt76/dma.c
+> index 9ef073c27f3096..f5b2c8996affd1 100644
+> --- a/drivers/net/wireless/mediatek/mt76/dma.c
+> +++ b/drivers/net/wireless/mediatek/mt76/dma.c
+> @@ -1174,7 +1174,10 @@ void mt76_dma_cleanup(struct mt76_dev *dev)
+>  	mt76_for_each_q_rx(dev, i) {
+>  		struct mt76_queue *q = &dev->q_rx[i];
+>  
+> -		netif_napi_del(&dev->napi[i]);
+> +		if (!mt76_queue_is_wed_rro(q)) {
+> +			napi_disable(&dev->napi[i]);
+> +			netif_napi_del(&dev->napi[i]);
+> +		}
+>  		mt76_dma_rx_cleanup(dev, q);
+>  
+>  		page_pool_destroy(q->page_pool);
