@@ -1,166 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0653AAF7D
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 16:21:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785342094; cv=none; b=NGeyGOYHnN2Hm1eevSIrpxhkyusiLUsrcEf0vuBk9dV2TcdDKKhJCsQRtehrLIWfBdAujdp3ruI2T9ql5uqSH+PAjlz/WRGIid8YRW/IamfAJhxJPUrWJwFtqiQPLJCh0SefsRqPRW5+dJq8kwzx5oic1RU8Eie9oLJUxg3Tmi4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785342094; c=relaxed/simple;
-	bh=u2CjxLUVWR26MnKeHarClRpsIRkMOIMRIXrq0UbI0Mc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=em7ZwyA6/u80Cz2PNdbOHaBOFkW/6xzLFpXFUf8S/F5ZkIy3Pf/7o242ek7Ty+GteANMmmiXoS0qHJ0PZUXq1ZaK/hIcpA7TodVAPD9rRXFOH30MjQqoGeyqAE6upFWzfhdYgPv1obraNujmWr7qqCkv6h2sUGt/efVnOQHbzk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PP2nurlt; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08154052B2
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 16:21:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785342097; cv=pass; b=jqgZyUwcAYlluS1iBr347WNzTTF79Ll7JZxIx21QpYYtqzQciN3mrxtT1rqTe1FMU7k76fKqogi9D3OnsXqIzvP+AuL6ahY/gWnbzO7SFYc+4ucD9jmr2TbrR0kGFaAp6qVMf8FNW2NwJXZdo2FlwSd3fErNh+5Vo0tP09SZUpw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785342097; c=relaxed/simple;
+	bh=LyMy1F4QlR8PI9H1s9I6XJ2S/7VeTGQVnwWyO1tA/fg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Qsf+i5hPwginaY9GF3qsPrBEBJ/3GyTtvje9fIp1a+Yoss7ovL3v/lisUcYIMSYPsvAvFyu/9sUWUPd4akQZ8aEZcoCg6pqXipXL6l1NtYLJS3PGpmuRCZQrFwT8rAp6Vls8qTXDMJKy4qip/yLdJier31tkBFna6NesKBwXrCQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault-org.20251104.gappssmtp.com header.i=@brainfault-org.20251104.gappssmtp.com header.b=fAR/CNKI; arc=pass smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PP2nurlt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20E221F000E9;
-	Wed, 29 Jul 2026 16:21:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785342092;
-	bh=wqQAswVh1t7zeFPlYajPg21KbLIoSQlAxkHGWk2wHw4=;
-	h=Subject:To:Cc:From:Date;
-	b=PP2nurltZbUr57bxi3rBun89W0Wn6mHRxaJHmYohL4k7dLxW8hfEyp2QnojIwpqcg
-	 f4udUDIv8TIFRzKYR+cZCeFfBXK3X8eef9y5uDKKtbLfKhtN1Sye02DJcTME+4b+aK
-	 rJJIGQCeJG24C6N3Gkb1ltMY6PZv6qA6ZJkZ5PpM=
-Subject: FAILED: patch "[PATCH] drm/i915/bios: range check LFP Data Block panel_type2" failed to apply to 6.1-stable tree
-To: jani.nikula@intel.com,animesh.manna@intel.com,joonas.lahtinen@linux.intel.com,martin.hodo@intel.com,michal.grzelak@intel.com,ville.syrjala@intel.com,ville.syrjala@linux.intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 18:21:11 +0200
-Message-ID: <2026072911-stoneware-animosity-c41f@gregkh>
+	dkim=pass (2048-bit key) header.d=brainfault-org.20251104.gappssmtp.com header.i=@brainfault-org.20251104.gappssmtp.com header.b="fAR/CNKI"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f7872abb6so752286f8f.3
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 09:21:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785342094; cv=none;
+        d=google.com; s=arc-20260327;
+        b=d8+GBfFyPRRP/GGJYBbp55gQXqcIRwA7YB3DGvyyWuEgfjClkYr8I45G3Hndd9kZeF
+         68UpOFAdaJ9uSmje6PKwkGZol3IeG57u2aEk10u/MPU+1XvSW5YqggQ5rPs5caihC2aw
+         qAUZ9hFDjD0aCly4ksCvlMFPuxKdmnlTeFkGodHXTwxsFhx7sN3hXlwz65Rh73HMKrSK
+         NzQChYpC8gRAhMK1hMEU9YjKztWOAF95eKK7fhSIobmXt+amcaK8Av/lWhrvKm/CGoFF
+         YoC8x/0pubO3Tq1b0/HupKt+duYW1x9XXt/Z/eiek6yW+Dj2eQCjIaXjH2mbYffzIjne
+         DUtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xlNUGStHPcM9h7uZ5gMcfZsRgLFM6lwcIC3C63GbVXU=;
+        fh=rNek2Q7hmuaXX22wmAdggliBbjkyBqLJiPqsspGEdbc=;
+        b=cotMtA+JbX0pOrxzjaPw222/CCfEYjLsHftTKNOyVQ2PKPtdpl1kdiQR7oYB8oaG/y
+         FURowbxsRCFERjD4SPgYptS/eLH56LfHIk0qgQ+DEhMCm6r7VSvi6bx/OFvCLVjdXaOl
+         yGgYLuJGPHBmcjAQYLnPbuQG8BDC9rB1uC8TllLbzaFY499Brg8yEeArQCbO2CbHMPUm
+         jQ45lKHZ8HITkqPF2rZLwPyCSpwuzIryV+wqmDtRtJTfSbXXkcIkCq29STT49/CbuSVW
+         /akPZXF6nQPkCDFUYowxNBqDR98i+wMxipQg7hwMjm8n0gh4annt6YoMLebXS/ABIQtS
+         gaqQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=brainfault-org.20251104.gappssmtp.com; s=20251104; t=1785342094; x=1785946894; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xlNUGStHPcM9h7uZ5gMcfZsRgLFM6lwcIC3C63GbVXU=;
+        b=fAR/CNKINJPvZ6qY+0+fxjat+cwjLzJErBHWl/kH2/FG23D/EjRNBiYE7qFzKISP3M
+         5kOd4/NGw1H8Q/7gezl39QbEfbpGjhOaNncy8hGWL92p8V0Guyq6LbgEJKSi3q0BlcVB
+         JvAnNgivFMXE7kcy+WWg7uR6jWt1mUAtCTC6duKHGE2en4Gh4jkNbJfZ/qRxbSoN5axa
+         pazQgTfQ1HEumzBmwdhDasAbrIgzX/0U4QdCin0R2fYgWD0TmQvVyWM/WnHGeUbp12Eu
+         Vl8BT7pFyHl7dLcDrcu+W+i8930fp6wEBGtQ3EHvDc/lj1AYkygLiqu8d4jV3QP30kQq
+         t/DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785342094; x=1785946894;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xlNUGStHPcM9h7uZ5gMcfZsRgLFM6lwcIC3C63GbVXU=;
+        b=mGb8a4bHTQAPUyTxYP87cPY3bplcwrz3xkXWyJImXF4vrN0zFqWMCbVKNSlg3GsyEB
+         BtIKXQPdFbWdeCulrKdzXSzNF8S5dFvjrTZIRJiU2im8Gm3CAo2O15Qww4qE8mWTYnII
+         73KUYP4vQ/rVY1GUSo7TAQJlk/JurLNcaD8I9MVd7LxdLaD80gvnKIKS5+BuU/H7Lxhs
+         XPX5IMMjvn8xuEIqI+osbIjYyPMif6XqsOjp+oEo4ykPniBcHummCy1WRpVcNWKMryQD
+         ICmotxU2NroZolYIzAePSfqEmychkZ4QOIDe9C7vhCNtcz5OUYq0s1in4geqCe+ZKLro
+         jQkQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqc2NnecaMeKDC3A+Lk6g2Cz8fWTjo0D6+6HizFBCxm21zF24JgNzpDkhIb6PLtlKBEZVRrTN0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwoYoBcpqNsJakChgqM0/rY+CMZUgRhQIsfAIH9NLelfq75Avpj
+	5z5ns9jUmi+7s95OzmBG7UbYNnAqJXcn4MOOIOEVfF4FmoaF9kw8+GyiXdRefJYfBsKadvdiSYo
+	soci+g0dSDaCPZuPEOaxsjOIJ1LMuwVxK5osK9Qkpng==
+X-Gm-Gg: AR+sD12vRfhXmzXmmsaqWVVyb3WRzMl9I7z7NfsZyyaGZsSSsOmCW/y4AM2hhCj5UvT
+	y1U1RTxKp6ln9nXak3EeMGfr9yX3JHOzO01kYWDPvhKAC1/dHS9+BrtXH9mNVd6iu6LDLT5XX10
+	tZRTRy5/ned+/KGC5/4n/oiTQLr7TvpM0/siT/dCK8hWYqkopCkbc2tDL8sjvWxA/Mb7Frj0SBm
+	k+aUW+Tr07lDUkWMwMN3wlgZJl5BCuuXhFa05WWEyVLxCH+t3/MfCNL+NC5QGrW70LNs5/51WPz
+	FQTeP/rabonEwx5iAQh6WpE2//vCpS28iRIJT5kdY5jXEHZZGv3CvdBCnAcgJEGQoc7MAWEzgpt
+	NgqlnI8NZyWe/Er6389+SEZQQLM/BGuneAsMKqPQ0gdEN1baxsOVpnOiHmogYjyHP
+X-Received: by 2002:a5d:5f51:0:b0:47f:91eb:342 with SMTP id
+ ffacd0b85a97d-47fb1e89ab3mr9574371f8f.13.1785342093792; Wed, 29 Jul 2026
+ 09:21:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260729075230.743030-1-shanbeeyoo@gmail.com> <20260729120733.829457-1-shanbeeyoo@gmail.com>
+ <20260729120733.829457-4-shanbeeyoo@gmail.com>
+In-Reply-To: <20260729120733.829457-4-shanbeeyoo@gmail.com>
+From: Anup Patel <anup@brainfault.org>
+Date: Wed, 29 Jul 2026 21:51:19 +0530
+X-Gm-Features: AUfX_mw18Ate4H7RNWrC9_sDszX8h_ptllZ_3py1A1MYtGllTZvUWlrvnw0-9-Y
+Message-ID: <CAAhSdy0y-K3_-=_SCDwAqEiCb0PKmNHVcNDgyY+pGGF4N3gEGQ@mail.gmail.com>
+Subject: Re: [PATCH v3 3/3] RISC-V: KVM: Widen G-stage fault address to gpa_t
+To: "Bingyu.Xian" <shanbeeyoo@gmail.com>
+Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Quan Zhou <zhouquan@iscas.ac.cn>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Jul 29, 2026 at 5:37=E2=80=AFPM Bingyu.Xian <shanbeeyoo@gmail.com> =
+wrote:
+>
+> fault_addr in gstage_page_fault() and the fault_addr parameter of
+> kvm_riscv_vcpu_mmio_load/store() are unsigned long.  On RV32 with
+> Sv32x4, guest physical addresses are 34 bits, so a 32-bit unsigned
+> long truncates bits 32/33 at two points:
+>
+>   - reconstruction: fault_addr =3D (trap->htval << 2) | ... is evaluated
+>     in 32-bit arithmetic, dropping bits 32/33 before widening;
+>   - the MMIO handler call: even with the local widened, the handler's
+>     unsigned long parameter narrows it back to 32 bits, aliasing
+>     accesses above 4 GB into the low 4 GB.
+>
+> Widen fault_addr to gpa_t end to end: the local in gstage_page_fault(),
+> the (gpa_t) cast before the <<2 shift, and the fault_addr parameters of
+> kvm_riscv_vcpu_mmio_load/store().  The handlers' internal uses
+> (run->mmio.phys_addr is __u64, kvm_io_bus_read/write() take gpa_t) are
+> already 64-bit, so no further changes are needed.
+>
+> Also in preparation for sharing a common struct kvm_page_fault across
+> architectures, where fault_addr is gpa_t.  No functional change on RV64.
+>
+> Fixes: 9d05c1fee837 ("RISC-V: KVM: Implement stage2 page table programmin=
+g")
+> Assisted-by: YuanSheng: deepseek-v4-pro
+> Co-developed-by: Quan Zhou <zhouquan@iscas.ac.cn>
+> Signed-off-by: Quan Zhou <zhouquan@iscas.ac.cn>
+> Signed-off-by: Bingyu Xian <shanbeeyoo@gmail.com>
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+LGTM.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Reviewed-by: Anup Patel <anup@brainfault.org>
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 2084503f2d087bf956198e7f6eb25b03a7049cb2
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072911-stoneware-animosity-c41f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+Queued this patch for Linux-7.3
 
-Possible dependencies:
+Thanks,
+Anup
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 2084503f2d087bf956198e7f6eb25b03a7049cb2 Mon Sep 17 00:00:00 2001
-From: Jani Nikula <jani.nikula@intel.com>
-Date: Fri, 26 Jun 2026 17:01:55 +0300
-Subject: [PATCH] drm/i915/bios: range check LFP Data Block panel_type2
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-While the panel_type from LFP Data Block is range checked, panel_type2
-is not. Add a few helpers for range checking, and use them to not only
-check panel_type2, but also improve clarity and correctness in the panel
-type selection.
-
-Discovered using AI-assisted static analysis confirmed by Intel Product
-Security.
-
-v2:
-- Fix commit message typo (Michał)
-- Add is_panel_type_pnp() (Ville)
-
-Reported-by: Martin Hodo <martin.hodo@intel.com>
-Fixes: 6434cf630086 ("drm/i915/bios: calculate panel type as per child device index in VBT")
-Cc: stable@vger.kernel.org # v6.0+
-Cc: Animesh Manna <animesh.manna@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@intel.com>
-Reviewed-by: Michał Grzelak <michal.grzelak@intel.com> # v1
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Link: https://patch.msgid.link/20260626140155.1389655-1-jani.nikula@intel.com
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-(cherry picked from commit c9ebe5d2f25729d6cfbbb1235d640bf67f9275df)
-Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index b6fe87c29aa7..ded2ee497bbf 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -623,6 +623,21 @@ get_lfp_data_tail(const struct bdb_lfp_data *data,
- 		return NULL;
- }
- 
-+static bool is_panel_type_valid(int panel_type)
-+{
-+	return panel_type >= 0 && panel_type < 16;
-+}
-+
-+static bool is_panel_type_pnp(int panel_type)
-+{
-+	return panel_type == 0xff;
-+}
-+
-+static bool is_panel_type_valid_or_pnp(int panel_type)
-+{
-+	return is_panel_type_valid(panel_type) || is_panel_type_pnp(panel_type);
-+}
-+
- static int opregion_get_panel_type(struct intel_display *display,
- 				   const struct intel_bios_encoder_data *devdata,
- 				   const struct drm_edid *drm_edid, bool use_fallback)
-@@ -640,15 +655,21 @@ static int vbt_get_panel_type(struct intel_display *display,
- 	if (!lfp_options)
- 		return -1;
- 
--	if (lfp_options->panel_type > 0xf &&
--	    lfp_options->panel_type != 0xff) {
-+	if (!is_panel_type_valid_or_pnp(lfp_options->panel_type)) {
- 		drm_dbg_kms(display->drm, "Invalid VBT panel type 0x%x\n",
- 			    lfp_options->panel_type);
- 		return -1;
- 	}
- 
--	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2)
-+	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2) {
-+		if (!is_panel_type_valid_or_pnp(lfp_options->panel_type2)) {
-+			drm_dbg_kms(display->drm, "Invalid VBT panel type 2 0x%x\n",
-+				    lfp_options->panel_type2);
-+			return -1;
-+		}
-+
- 		return lfp_options->panel_type2;
-+	}
- 
- 	drm_WARN_ON(display->drm,
- 		    devdata && devdata->child.handle != DEVICE_HANDLE_LFP1);
-@@ -762,13 +783,12 @@ static int get_panel_type(struct intel_display *display,
- 				    panel_types[i].name, panel_types[i].panel_type);
- 	}
- 
--	if (panel_types[PANEL_TYPE_OPREGION].panel_type >= 0)
-+	if (is_panel_type_valid(panel_types[PANEL_TYPE_OPREGION].panel_type))
- 		i = PANEL_TYPE_OPREGION;
--	else if (panel_types[PANEL_TYPE_VBT].panel_type == 0xff &&
--		 panel_types[PANEL_TYPE_PNPID].panel_type >= 0)
-+	else if (is_panel_type_pnp(panel_types[PANEL_TYPE_VBT].panel_type) &&
-+		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID].panel_type))
- 		i = PANEL_TYPE_PNPID;
--	else if (panel_types[PANEL_TYPE_VBT].panel_type != 0xff &&
--		 panel_types[PANEL_TYPE_VBT].panel_type >= 0)
-+	else if (is_panel_type_valid(panel_types[PANEL_TYPE_VBT].panel_type))
- 		i = PANEL_TYPE_VBT;
- 	else
- 		i = PANEL_TYPE_FALLBACK;
-
+> ---
+>  arch/riscv/include/asm/kvm_vcpu_insn.h | 4 ++--
+>  arch/riscv/kvm/vcpu_exit.c             | 5 +++--
+>  arch/riscv/kvm/vcpu_insn.c             | 4 ++--
+>  3 files changed, 7 insertions(+), 6 deletions(-)
+>
+> diff --git a/arch/riscv/include/asm/kvm_vcpu_insn.h b/arch/riscv/include/=
+asm/kvm_vcpu_insn.h
+> index 350011c83581..a5c50dd4a884 100644
+> --- a/arch/riscv/include/asm/kvm_vcpu_insn.h
+> +++ b/arch/riscv/include/asm/kvm_vcpu_insn.h
+> @@ -38,10 +38,10 @@ int kvm_riscv_vcpu_virtual_insn(struct kvm_vcpu *vcpu=
+, struct kvm_run *run,
+>                                 struct kvm_cpu_trap *trap);
+>
+>  int kvm_riscv_vcpu_mmio_load(struct kvm_vcpu *vcpu, struct kvm_run *run,
+> -                            unsigned long fault_addr,
+> +                            gpa_t fault_addr,
+>                              unsigned long htinst);
+>  int kvm_riscv_vcpu_mmio_store(struct kvm_vcpu *vcpu, struct kvm_run *run=
+,
+> -                             unsigned long fault_addr,
+> +                             gpa_t fault_addr,
+>                               unsigned long htinst);
+>  int kvm_riscv_vcpu_mmio_return(struct kvm_vcpu *vcpu, struct kvm_run *ru=
+n);
+>
+> diff --git a/arch/riscv/kvm/vcpu_exit.c b/arch/riscv/kvm/vcpu_exit.c
+> index 6c8530b9f29e..28cf9b27bb07 100644
+> --- a/arch/riscv/kvm/vcpu_exit.c
+> +++ b/arch/riscv/kvm/vcpu_exit.c
+> @@ -17,12 +17,13 @@ static int gstage_page_fault(struct kvm_vcpu *vcpu, s=
+truct kvm_run *run,
+>  {
+>         struct kvm_gstage_mapping host_map;
+>         struct kvm_memory_slot *memslot;
+> -       unsigned long hva, fault_addr;
+> +       unsigned long hva;
+> +       gpa_t fault_addr;
+>         bool writable;
+>         gfn_t gfn;
+>         int ret;
+>
+> -       fault_addr =3D (trap->htval << 2) | (trap->stval & 0x3);
+> +       fault_addr =3D ((gpa_t)trap->htval << 2) | (trap->stval & 0x3);
+>         gfn =3D fault_addr >> PAGE_SHIFT;
+>         memslot =3D gfn_to_memslot(vcpu->kvm, gfn);
+>         hva =3D gfn_to_hva_memslot_prot(memslot, gfn, &writable);
+> diff --git a/arch/riscv/kvm/vcpu_insn.c b/arch/riscv/kvm/vcpu_insn.c
+> index f09f9251d1f0..6506411a3f78 100644
+> --- a/arch/riscv/kvm/vcpu_insn.c
+> +++ b/arch/riscv/kvm/vcpu_insn.c
+> @@ -371,7 +371,7 @@ int kvm_riscv_vcpu_virtual_insn(struct kvm_vcpu *vcpu=
+, struct kvm_run *run,
+>   * Returns < 0 to report failure and exit run-loop
+>   */
+>  int kvm_riscv_vcpu_mmio_load(struct kvm_vcpu *vcpu, struct kvm_run *run,
+> -                            unsigned long fault_addr,
+> +                            gpa_t fault_addr,
+>                              unsigned long htinst)
+>  {
+>         u8 data_buf[8];
+> @@ -494,7 +494,7 @@ int kvm_riscv_vcpu_mmio_load(struct kvm_vcpu *vcpu, s=
+truct kvm_run *run,
+>   * Returns < 0 to report failure and exit run-loop
+>   */
+>  int kvm_riscv_vcpu_mmio_store(struct kvm_vcpu *vcpu, struct kvm_run *run=
+,
+> -                             unsigned long fault_addr,
+> +                             gpa_t fault_addr,
+>                               unsigned long htinst)
+>  {
+>         u8 data8;
+> --
+> 2.54.0
+>
