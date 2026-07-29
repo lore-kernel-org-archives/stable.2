@@ -1,51 +1,43 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799064DBD87
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 18:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E43451988
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 18:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785349620; cv=none; b=Ev0j6qxph9ilf+cq+9S7izupox06nHnKhgTLTMxsmCBGMBys0XO3qTftXj8bNz6sgRrDvWHGBuOttyy4I97BiSItBCUI1IC/gYuFnO+9JbGRPLsBZFMrjHsLoC42+dE61kPkzO3Zuv9i8IibhRRhWczqNSGE9YFe/I5Z//oPyAA=
+	t=1785350116; cv=none; b=jsdwuLlEEyhoMbyFTQ5AWpPxUcS/1OWQP0HAVOd1Hf2fxC96IZsNnICezYFTJxiKG9zENJLDlsptrOmEzJBVBWhXkvlB90+mxI0j0h10B8G3SIAVTxFxWkw0nBSD/1EbGYyd+XCOkmXUdA0UHEpUAT2gknrXl+q2njSqfG3HjJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785349620; c=relaxed/simple;
-	bh=mSZz9tobKa5d+cHFPiAtDPNGS3+Jr6mqxksozKxJ2Nc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=AKOdvzS1TV7jR4pHgClxMF8MEHOeBLjCxBZWYSZaCyJ3rXOy7eNtmoN7l6Rd4OY8PTOEU6PYnwFp1D09ke/6qK4fcSFOeaw7bogiJ/NtxnsI1xVxQ0Y3ynJRCBtiyHVoU7ELOg5RhqSeTq7YGyK+CWR0nSWvTxt/zijQ4b7P8qQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=EbQpB1cH; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1785350116; c=relaxed/simple;
+	bh=P4JKwfJcRarxZgH5MOEjdqkCGpaY+iVUz/vHYj5AC9U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=flx+vSr2dHfq6xbUD9V7Op4oOyZdTowHZhkf6uA8dwey3Gs0zpDHv9qxn0SMU6OB5Ir7Kgk0cVadg+hXsXtd2I3K4vh8IDYHOSMqiDALSlnyT5gIUnrCfXk7bRYi4jWvWZn839qPl04FeZMxCGx5jogR0G/z0kgENxiEcXmMSe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BRxcgpYZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="EbQpB1cH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1785349562;
-	bh=Bnftk7he0VmOV5t/A/z3k/R0/9s29grGIw8LSNmMdI4=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=EbQpB1cHento/mrnAnifLzGV6HcFAOOfa8eDs7naAglpiHw1G3nMmJjHydQ6nmOnh
-	 G3/tCUhtPfXjPWuPl72/53Sd9Awn3QXWsBjs68Y7y7nKjPw4zj1VZe3VAg59qJTOSI
-	 2M8NoAN7lyFBRcK/39epBwHJnVB7g3eJY6Yi2Szo=
-X-QQ-mid: zesmtpsz8t1785349545taf6011f4
-X-QQ-Originating-IP: t+N6DTQAlhKvty6htfxoCk4nDUZEDpXB1JW6ZDqNHL8=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 30 Jul 2026 02:25:42 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 92975447654379525
-EX-QQ-RecipientCnt: 6
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: guanwentao@uniontech.com,
-	linkinjeon@kernel.org,
-	stable@vger.kernel.org,
-	stfrench@microsoft.com,
-	LocalHost <localhost.detect@gmail.com>
-Subject: [PATCH 6.18.y v2 3/3] ksmbd: validate ACE size against SID sub-authorities
-Date: Thu, 30 Jul 2026 02:25:30 +0800
-Message-Id: <20260729182530.31304-3-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260729182530.31304-1-guanwentao@uniontech.com>
-References: <2026072936-equipment-calculate-e753@gregkh>
- <20260729182530.31304-1-guanwentao@uniontech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BRxcgpYZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87DCD1F000E9;
+	Wed, 29 Jul 2026 18:35:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785350113;
+	bh=BgPkzG6u+zyYB7wVR3fFdH279aTgA6uSEnRNRlYq7hg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BRxcgpYZYBrF4JM4TxHnfSEVOOGi8Kgik0wSpOXfST05l9MvVuDYmwD+hJoyxJed1
+	 q8aAmYLbPOxV/f8YgX7KwX0GZUzWqIfw5hhtavwoFZZKQDKmgnipR9iZ49VaSeH7D+
+	 wCB5GRNllHLEYTb1T4gigj4gBpSOFK296MMI44bVnpMuYxv2mgS39hFBXfIEADVW48
+	 NoGKAh+aOWWN30k61fnltGvDDfFKdAPFpKwgK+mbifTpOdABddg2UqwQovqSvuuRHE
+	 umgXivKm/E0HBL+wDEhCLVx7SATQ2NCw6ssVhFDUeNnK9j+9IelHdWypfVdelHJZdA
+	 3crcInJmfP6bg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Reinette Chatre <reinette.chatre@intel.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	stable@kernel.org,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] fs/resctrl: Fix double-add of pseudo-locked region's RMID to free list
+Date: Wed, 29 Jul 2026 14:35:10 -0400
+Message-ID: <20260729183510.3962416-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072136-revisable-repeal-74a2@gregkh>
+References: <2026072136-revisable-repeal-74a2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,84 +45,60 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: M3vv73qU6a4uAaOp/QmqL/cmIvzbOyh1TZEOx+BLQkCOxT2h/vya1rBn
-	vEcQkC7oY0G18eoy/smEXOjb9802qvkvsJB2u6WGPyiNxmQvGFGxBMvi8PWJNlh5GIvHuPu
-	3k9+JU7Z3BNwSuJTiOq3lI2l9JjgTHpZXumi/FG0A7tB3IjmjzoJAT8m2cjYHh+3s5zTFik
-	+0xMp1Biem8bhi6ZfHzACgbT/iU115Y2H+A7Xuow44pdEfJTtmYCqtoA3+07IdMV7NFTO/J
-	q5V7zRCufSCJ3MtUSs7jRLxPmK5Ga9bJ7FwX/f+9mPKM9C8bryadXa4nCU6i972yfYWjqGq
-	YQFyonQaPc44JIhwSmnDfYu3iOSnHglrt+cIMp1eqoC+5eSAiQslAXZ1j6bRgCIZ9ouf95Z
-	o0E3iSGAYNNvNTW6VQMMj743iqYSkpiizfEjdRiLHwNrDK+HRBdLKAlpznG0xqZBA97SexK
-	sSK6GkOB6KL6sKDj6nDln6hXvIyZjGKBL4Y5l5tfNSPGPZ7shtjVAtMXWlxS2uvM2kRjZYr
-	hK9G2MXeKDX3Hr00XKli0Y0LkTYIjiKR7UK6vfnf1wQ20pivNUlBA329PPz4zT2ttTpqgTN
-	vh2egdzUEBuTaFHdmWprT1wQxsPdFoJDIb4GtUBflHDMFkyCExGX/JeTe0USIox6U66WeTC
-	qREiOQW7VAtFpTUV+rrxd/yF4gRiTSAbyxfKsAFWSMirXv3cJXwBqVlvO9yWTLLxl+L5S57
-	7MG9wYxyFVGmvPagY7l//2LNLbAFCng/6Hkm5siSsBHNNi6ePsXXz8e1SS4UR9tpAOmc9nQ
-	AfIx+j1jmBRZqZaKzNMd70jQ+q7HC01Hmbnd7MaawJYMLITpHUD7F4OMocDbg7LGpxIMdXb
-	APMLgJF/Ze5ca5Xf6dI+Ljcs7AeZcAFyxXkE4SajgPRiD1RS69f6Im8F0Ez3ZnBlfHbU/uL
-	6/X6BiGPvnR9u8KWw5UH6PuvE3VnAAw/lPhfqaYh3ZhyQhA69Tq49nkH/Ayp+aDhcOfcwAv
-	X4wRGA5rl3dXYi7xnCURTBH9FvPEPtuluQ2xIvhj8yvDh+Xfobwt8Kai2SewH5jAIFJoD0N
-	Q==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+From: Reinette Chatre <reinette.chatre@intel.com>
 
-set_ntacl_dacl() validates sid.num_subauth before copying an ACE, but
-does not verify that the declared ACE size contains all sub-authorities
-described by that field. An undersized ACE can therefore be copied
-and later make the POSIX ACL deduplication walk inspect data beyond
-the copied ACE boundary.
+[ Upstream commit b9f089723aee892efc77c349ae47a6b452b293c4 ]
 
-The existing initial bound check is also too small. It only ensures
-that the ACE size field is accessible before set_ntacl_dacl() reads
-sid.num_subauth farther into the input buffer.
+A pseudo-locked group's RMID is freed when it is created. On unmount
+rmdir_all_sub() unconditionally frees all RMID of all groups, resulting
+in a double-free of the pseudo-locked group's RMID. The consequence of this
+is that the original free results in the pseudo-locked group's RMID being
+added to the rmid_free_lru linked list and the second free then attempts
+to add the same RMID entry to the rmid_free_lru again.
 
-Require enough input for the fixed SID header before accessing
-num_subauth, reject ACEs smaller than that header, and skip ACEs
-whose declared size cannot contain the complete SID. This makes the
-validation consistent with the other ACE walk paths.
+Do not double-free a pseudo-locked group's RMID.
 
-Reported-by: LocalHost <localhost.detect@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-(cherry picked from commit 5152c6d49e3fd4e9f2e857c57527aead752f1f87)
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+Fixes: e0bdfe8e36f3 ("x86/intel_rdt: Support creation/removal of pseudo-locked region")
+Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Cc: <stable@kernel.org>
+Link: https://patch.msgid.link/551432dd7e624a862b8e58314c38aaba0afff3e9.1783377598.git.reinette.chatre@intel.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/smbacl.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ arch/x86/kernel/cpu/resctrl/rdtgroup.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index ca0e4aab6dd87..d4ae776c8c677 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -741,15 +741,22 @@ static void set_ntacl_dacl(struct mnt_idmap *idmap,
- 		for (i = 0; i < nt_num_aces; i++) {
- 			unsigned short nt_ace_size;
+diff --git a/arch/x86/kernel/cpu/resctrl/rdtgroup.c b/arch/x86/kernel/cpu/resctrl/rdtgroup.c
+index 1e73b6fae3b4c5..f0e879d3ac3037 100644
+--- a/arch/x86/kernel/cpu/resctrl/rdtgroup.c
++++ b/arch/x86/kernel/cpu/resctrl/rdtgroup.c
+@@ -2376,10 +2376,6 @@ static void rmdir_all_sub(void)
+ 		if (rdtgrp == &rdtgroup_default)
+ 			continue;
  
--			if (offsetof(struct smb_ace, access_req) > aces_size)
-+			if (aces_size < offsetof(struct smb_ace, sid) +
-+					CIFS_SID_BASE_SIZE)
- 				break;
+-		if (rdtgrp->mode == RDT_MODE_PSEUDO_LOCKSETUP ||
+-		    rdtgrp->mode == RDT_MODE_PSEUDO_LOCKED)
+-			rdtgroup_pseudo_lock_remove(rdtgrp);
+-
+ 		/*
+ 		 * Give any CPUs back to the default group. We cannot copy
+ 		 * cpu_online_mask because a CPU might have executed the
+@@ -2388,7 +2384,13 @@ static void rmdir_all_sub(void)
+ 		cpumask_or(&rdtgroup_default.cpu_mask,
+ 			   &rdtgroup_default.cpu_mask, &rdtgrp->cpu_mask);
  
- 			nt_ace_size = le16_to_cpu(ntace->size);
--			if (nt_ace_size > aces_size)
-+			if (nt_ace_size > aces_size ||
-+			    nt_ace_size < offsetof(struct smb_ace, sid) +
-+					  CIFS_SID_BASE_SIZE)
- 				break;
+-		free_rmid(rdtgrp->mon.rmid);
++		if (rdtgrp->mode == RDT_MODE_PSEUDO_LOCKSETUP ||
++		    rdtgrp->mode == RDT_MODE_PSEUDO_LOCKED) {
++			rdtgroup_pseudo_lock_remove(rdtgrp);
++		} else {
++			/* Pseudo-locked group's RMID is freed during setup. */
++			free_rmid(rdtgrp->mon.rmid);
++		}
  
- 			if (ntace->sid.num_subauth == 0 ||
--			    ntace->sid.num_subauth > SID_MAX_SUB_AUTHORITIES)
-+			    ntace->sid.num_subauth > SID_MAX_SUB_AUTHORITIES ||
-+			    nt_ace_size < offsetof(struct smb_ace, sid) +
-+					  CIFS_SID_BASE_SIZE +
-+					  sizeof(__le32) *
-+					  ntace->sid.num_subauth)
- 				goto next_ace;
- 
- 			memcpy((char *)pndace + size, ntace, nt_ace_size);
+ 		kernfs_remove(rdtgrp->kn);
+ 		list_del(&rdtgrp->rdtgroup_list);
 -- 
-2.30.2
+2.53.0
 
