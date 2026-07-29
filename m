@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E5447FB03
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:38:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5328A480952
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 12:38:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785328714; cv=none; b=ksVhHOrrS6fFzf656AowtIlwAVfh3ekfKqoBXVZZZG7f5yDwa2XlnmUaekKRv/OQC/bM9yhaWnU/uWXM6hGR8zUOF/h8D5Lm7bYVIYbFsQD0HJ7/7R30slqarW4Hnh4UXZYdUQssCMuE5VLGaZRBuP+QW4D3W1qOevy2wu9zd6A=
+	t=1785328716; cv=none; b=om4YuMH35TyvH3AjWPqUif2YRr09Wlh6EqumDm+aLOxW2eJ5y0Rzw9cXlnszXE2UJ0Ss1q617FRusJFBWk55mKI0R5qGRsfYHvs+76bTUY4eYZ9rkqk0NCRlTP8dHXvhZpXpQU92VD3JTzjO3nqZo7Im9ICspe8ntNzbzeX7nJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785328714; c=relaxed/simple;
-	bh=q5o5yT2MB/8KE6albdDDTOWIXjttd/2KyvUG/irP6qw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TqMlwnAjp98qGIH9llea3++61ApHWbJfEgR8/jogoq2mGNHUrntGoiiXTsJQiq6/rO5LSWvrGegLp97LmZAV/B/WKrLVkR6BXhNDfktELp3gCi6h7aIPXE/L8iO0OUzvj85MT+AgYqaMg8bxgDMfcVYSOU8pA0jsZjaWeqyi6vM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=q6vDSF09; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785328716; c=relaxed/simple;
+	bh=Oh3uIbpztHHrteqa2x9hiuLMoVEM600puZzjXDCvStw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=nkNMJ4rVPHmllnt10cV7eZOVPNyaMLzo8VdNwwa0owpj4xdTu4KvKn5vFLh5BXPXzJ7mDgI0rb/X4k0+a2n3tMkwad86FEDY5SmZ2jgtzW5mo65kuRqfrViqKqk9SFlthiej1rfP9A0aSQoLXkPTYG5w1xobua3vTANrlJPtNGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yrqCsOQ5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="q6vDSF09"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A0981F00A3A;
-	Wed, 29 Jul 2026 12:38:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yrqCsOQ5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 552F91F00A3D;
+	Wed, 29 Jul 2026 12:38:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785328705;
-	bh=258qDUJowBMDa9akSNvXrqKrQUhgfKyNwHrMNxn1AHM=;
+	s=korg; t=1785328707;
+	bh=MXuIjGArtVIexq0fk8m9H0zve5S3X7z0yyX66uAdWmU=;
 	h=Subject:To:Cc:From:Date;
-	b=q6vDSF09Kr8gjt6OgVPwxyrlfU0dy4HlzMYf9p4ZJ/0sxtmAOCS0pYzFb4/Fw7QdI
-	 eLlafYqSuqhwd+2EehgKNzs1D6UnLYZ3Dama8UB8KpH0Mk1teBrEkA/bA4/fbpsYs7
-	 cEXROp9OiB742AAmpNa8bzp05Jfctm2Zt0dMfKFs=
-Subject: FAILED: patch "[PATCH] drm/i915/mst: limit DP MST ESI service loop" failed to apply to 6.1-stable tree
+	b=yrqCsOQ5X4UEVP/O7CtV9B/49nCliYk7AoRziItIk+/zC8bGZRj7lUlB8frOklsmG
+	 tWdJWGYiRDwzdvCmiqS8Sa/h835plL7cECFMx0PN33SWRjp5HtLzbjEnxmMVBjUJbX
+	 RObecC7/LTIlWsYxTC8NB4D7w4B3WFajxgXQMDu8=
+Subject: FAILED: patch "[PATCH] drm/i915/mst: limit DP MST ESI service loop" failed to apply to 6.12-stable tree
 To: jani.nikula@intel.com,imre.deak@intel.com,martin.hodo@intel.com,rodrigo.vivi@intel.com,ville.syrjala@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 14:38:01 +0200
-Message-ID: <2026072901-duckling-sushi-854a@gregkh>
+Date: Wed, 29 Jul 2026 14:38:00 +0200
+Message-ID: <2026072900-wildcard-fracture-d9c4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 005771c18c5b2c98cb4e7517661aea460990fd3f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072901-duckling-sushi-854a@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072900-wildcard-fracture-d9c4@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
