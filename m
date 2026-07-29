@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6FB48EBFC
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:53:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F9830D406
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 13:54:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785333232; cv=none; b=Jw6oFt5O8DCAFGX/ie37ZWIvqAEChWU6jVsM/yaY/ghkEBJ8qbO5XHxkn2r/luSDHdSFGQVRbZpPpOn4lWE1VHc9J/NQ3mvrW7tDjrg7bJs5EHJvu02gqMaXz+pzwZQWoFvI6OyDoG7OYKia4t2khIzcoMTHRHjeuQAa92oU5QM=
+	t=1785333291; cv=none; b=fCP7T6JidDO7ClugB/ZDVtgr1l15FzrcjgehCGj/NhsnRjf51irn0HqdGCzL1LJKw8wNR6VMIkRfIMt+foGjRbz+Xextp8pObg/LZ0RPCCGqZciTjkEzGUfLQ2p2danEMutmwzFJJys+I+SLST1wH0A5b1AaxcFsW78BR3b2g1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785333232; c=relaxed/simple;
-	bh=ZTszzNu6lt6Ogd0MGzzTvV4EdxzY81MJO8InvHnPyaM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Dytnrszhz4W6b1focb8vC4fYIT+9Yg/B9h3ohikT2eGu3em1y17Gt1sJ2Cb0C2Q6Nj/ePjsy15Wqsy6cIfONFy7SvJgkpXbPNPfLIaKw+FMPqGwQ00Wg/opiDhwFNl4Yf43eR/YRnGGabKkc4EiMO9wbKX1EjlD3RSKz7OJCh3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bu8Q+6E5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785333291; c=relaxed/simple;
+	bh=vjdCorPRX6N93Vt0TiJwZln/WslLfp4dAPTafpF6TyY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WJ+Y127EO8LnZ4VsQlGo2uxX+V4X2/nFtz30boXymw/xd4UiM11DCkMP936dCwLThGct2NzZNQKcWjVSmpiq/fcE9I7+8wdSKhDcjOCLnjvZxGSmRQzISRrxwVFt0qrAXbxLipszQ7o9YQePRJu0VBNLadbyXv8utipP8l+ITOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZTos7k6U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bu8Q+6E5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 236331F00A3F;
-	Wed, 29 Jul 2026 13:53:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZTos7k6U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3B581F00A3A;
+	Wed, 29 Jul 2026 13:54:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785333226;
-	bh=zjKv7xdpSKY6Ay2jXiLuCqBXiaPTvAwnDFCl2FHTfyU=;
+	s=korg; t=1785333283;
+	bh=l9NVGeP07gnYFiRDgcDxPB7djnf+m1mCZ5ymfaRBPqc=;
 	h=Subject:To:Cc:From:Date;
-	b=bu8Q+6E5kNIyceUyjMUBHGW0e82iVs4ya6hoVVXarUKb1QaiCQOeGmwcnn/GxOAO3
-	 i3nXloI6s22aMFcEeRyyBU2eC+XQ/ahDLPApNumFQb+YSLdN/Ycldhdeq6TKUApu6B
-	 oeevrKo539XcfxuUVA23mFZmSofL2vcmZA+yVq9Y=
-Subject: FAILED: patch "[PATCH] net: qrtr: ns: Raise node count limit to 512" failed to apply to 5.15-stable tree
-To: youssef.abdulrahman@oss.qualcomm.com,kuba@kernel.org
+	b=ZTos7k6U4w+gF5TcBaFHAbCEMu2Q+xhSomZXIVshp2mGkq/2F1BtEAKzRfepnPRpM
+	 FC9rOUnJ6LYyQR8qCR+B3W2vpeHZUSQlpYJxMjjuThUTNN8mThNGhQL+yWJnx8muyk
+	 WrXrubilBzAstxnVfGOvelhu0twcELbqTwHlK4yQ=
+Subject: FAILED: patch "[PATCH] super: fix emergency thaw deadlock on frozen block devices" failed to apply to 6.1-stable tree
+To: brauner@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 15:53:19 +0200
-Message-ID: <2026072919-duly-quintuple-1304@gregkh>
+Date: Wed, 29 Jul 2026 15:54:28 +0200
+Message-ID: <2026072928-camcorder-hamlet-7841@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x ff194cffd586cbd4cc49eccb002c65f2a902a277
+git cherry-pick -x 749d7aa0377aae32af8c0a4ad43371e7bf830ab5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072919-duly-quintuple-1304@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072928-camcorder-hamlet-7841@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,36 +62,142 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ff194cffd586cbd4cc49eccb002c65f2a902a277 Mon Sep 17 00:00:00 2001
-From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
-Date: Mon, 13 Jul 2026 16:59:01 +0200
-Subject: [PATCH] net: qrtr: ns: Raise node count limit to 512
+From 749d7aa0377aae32af8c0a4ad43371e7bf830ab5 Mon Sep 17 00:00:00 2001
+From: Christian Brauner <brauner@kernel.org>
+Date: Thu, 23 Jul 2026 11:37:05 +0200
+Subject: [PATCH] super: fix emergency thaw deadlock on frozen block devices
 
-The current node limit of 64 breaks the functionality for a number of AI200
-deployments that have up to 384 nodes. Raise the limit to 512.
+do_thaw_all_callback() calls bdev_thaw() while holding sb->s_umount
+exclusively. If the block device was frozen via bdev_freeze() dropping
+the last block layer freeze reference calls fs_bdev_thaw() which
+reacquires s_umount:
 
-Fixes: 27d5e84e810b ("net: qrtr: ns: Limit the total number of nodes")
+  do_thaw_all_callback(sb)
+    super_lock_excl(sb)                     # holds sb->s_umount
+    bdev_thaw(sb->s_bdev)
+      mutex_lock(&bdev->bd_fsfreeze_mutex)
+      # bd_fsfreeze_count drops 1 -> 0
+      bd_holder_ops->thaw == fs_bdev_thaw
+        get_bdev_super(bdev)
+          bdev_super_lock(bdev, true)
+            super_lock(sb, true)
+              down_write(&sb->s_umount)     # same task: deadlock
+
+The emergency thaw worker deadlocks against itself holding both
+s_umount and bd_fsfreeze_mutex. That fscks any subsequent unmount,
+freeze, or thaw of that filesystem and block device.
+
+  [   81.878470] sysrq: Show Blocked State
+  [   81.880140] task:kworker/0:1     state:D stack:0     pid:11    tgid:11    ppid:2      task_flags:0x4208060 flags:0x00080000
+  [   81.884876] Workqueue: events do_thaw_all
+  [   81.886656] Call Trace:
+  [   81.887759]  <TASK>
+  [   81.888763]  __schedule+0x579/0x1420
+  [   81.890372]  schedule+0x3a/0x100
+  [   81.891794]  schedule_preempt_disabled+0x15/0x30
+  [   81.893848]  rwsem_down_write_slowpath+0x1ea/0x900
+  [   81.895191]  ? __pfx_do_thaw_all_callback+0x10/0x10
+  [   81.896528]  down_write+0xbd/0xc0
+  [   81.897505]  super_lock+0x91/0x180
+  [   81.898457]  ? __mutex_lock+0xa99/0x1140
+  [   81.900748]  ? __mutex_unlock_slowpath+0x1f/0x400
+  [   81.902069]  bdev_super_lock+0x5b/0x150
+  [   81.903132]  get_bdev_super+0x10/0x60
+  [   81.904042]  fs_bdev_thaw+0x23/0xf0
+  [   81.904755]  bdev_thaw+0x82/0x100
+  [   81.905484]  do_thaw_all_callback+0x2c/0x50
+  [   81.906298]  __iterate_supers+0x5d/0x130
+  [   81.907067]  do_thaw_all+0x20/0x40
+  [   81.907739]  process_one_work+0x206/0x5e0
+  [   81.908545]  worker_thread+0x1e2/0x3c0
+  [   81.909339]  ? __pfx_worker_thread+0x10/0x10
+  [   81.910171]  kthread+0xf4/0x130
+  [   81.910799]  ? __pfx_kthread+0x10/0x10
+  [   81.911528]  ret_from_fork+0x2e2/0x3b0
+  [   81.912259]  ? __pfx_kthread+0x10/0x10
+  [   81.913010]  ret_from_fork_asm+0x1a/0x30
+  [   81.913806]  </TASK>
+
+bdev_super_lock() even documents the violated requirement with
+lockdep_assert_not_held(&sb->s_umount).
+
+Acquiring bd_fsfreeze_mutex under s_umount also inverts the
+bd_fsfreeze_mutex vs. s_umount ordering established by
+bdev_{freeze,thaw}() and can thus ABBA against a concurrent block-layer
+freeze even when the recursive path isn't hit.
+
+Fix this by not holding s_umount around the bdev_thaw() loop at all. Pin
+the superblock with an active reference instead as
+filesystems_freeze_callback() does. The active reference keeps the
+superblock from being shut down and so ->s_bdev stays valid without
+holding s_umount. The block-layer-held freeze is dropped by
+fs_bdev_thaw() with FREEZE_MAY_NEST | FREEZE_HOLDER_USERSPACE exactly as
+a regular unfreeze would and thaw_super_locked() handles
+filesystem-level freezes as before.
+
+The emergency thaw path has deadlocked like this in one form or
+another for a long long time but the current exclusively-held
+shape dates back to commit [1] where thaw_bdev() already ended in
+thaw_super() with s_umount held by do_thaw_all_callback().
+
+Fixes: 08fdc8a0138a ("buffer.c: call thaw_super during emergency thaw") [1]
 Cc: stable@vger.kernel.org
-Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260713145901.212396-1-youssef.abdulrahman@oss.qualcomm.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://patch.msgid.link/20260723-work-super-emergency_thaw-v1-1-7c315c600245@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-diff --git a/net/qrtr/ns.c b/net/qrtr/ns.c
-index b3f9bbcf9ab9..e5b2adb161d9 100644
---- a/net/qrtr/ns.c
-+++ b/net/qrtr/ns.c
-@@ -76,11 +76,11 @@ struct qrtr_node {
-  * requirements. If the requirement changes in the future, these values can be
-  * increased.
-  */
--#define QRTR_NS_MAX_NODES   64
-+#define QRTR_NS_MAX_NODES   512
- #define QRTR_NS_MAX_SERVERS 256
- #define QRTR_NS_MAX_LOOKUPS 64
+diff --git a/fs/super.c b/fs/super.c
+index 70dcb07e7fa5..ffdcc6a2e0de 100644
+--- a/fs/super.c
++++ b/fs/super.c
+@@ -1082,16 +1082,30 @@ void emergency_remount(void)
+ 	}
+ }
  
--static u8 node_count;
-+static u16 node_count;
- 
- static struct qrtr_node *node_get(unsigned int node_id)
++static inline bool get_active_super(struct super_block *sb)
++{
++	bool active = false;
++
++	if (super_lock_excl(sb)) {
++		active = atomic_inc_not_zero(&sb->s_active);
++		super_unlock_excl(sb);
++	}
++	return active;
++}
++
+ static void do_thaw_all_callback(struct super_block *sb, void *unused)
  {
+-	if (!super_lock_excl(sb))
++	if (!get_active_super(sb))
+ 		return;
+ 
++	/* fs_bdev_thaw() acquires s_umount so it must not be held here */
+ 	if (IS_ENABLED(CONFIG_BLOCK))
+ 		while (sb->s_bdev && !bdev_thaw(sb->s_bdev))
+ 			pr_warn("Emergency Thaw on %pg\n", sb->s_bdev);
+ 
+-	thaw_super_locked(sb, FREEZE_HOLDER_USERSPACE, NULL);
++	if (super_lock_excl(sb))
++		thaw_super_locked(sb, FREEZE_HOLDER_USERSPACE, NULL);
++	deactivate_super(sb);
+ }
+ 
+ static void do_thaw_all(struct work_struct *work)
+@@ -1117,17 +1131,6 @@ void emergency_thaw_all(void)
+ 	}
+ }
+ 
+-static inline bool get_active_super(struct super_block *sb)
+-{
+-	bool active = false;
+-
+-	if (super_lock_excl(sb)) {
+-		active = atomic_inc_not_zero(&sb->s_active);
+-		super_unlock_excl(sb);
+-	}
+-	return active;
+-}
+-
+ static const char *filesystems_freeze_ptr = "filesystems_freeze";
+ 
+ static void filesystems_freeze_callback(struct super_block *sb, void *freeze_all_ptr)
 
