@@ -1,154 +1,149 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E25C31F942
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 06:31:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C40D3A545F
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 06:34:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785306702; cv=none; b=My2CbpGBtEYPREE7pkKHt7/4LWCJHoZa5Ya9YDzQVmrbJTBfyxM9gJXiGCbFiyYbI+/DRmmnI1N7OCVrG9X8rgV3oDJGbjCWJtWKnx5Ycc4sMC+0Pr83M8RbmuJcV1B4jo9pF/vO1CHmsQE3ih6bn4nq5hfASZJlbDG4K3FEWmU=
+	t=1785306892; cv=none; b=af7Lu6jvI+mpNxNRywRCAs3STbE9sbjP31kq5LnHaSgGIxtIV8c5PAP2rIXxgbTnV5DlsRfmtXfutCln/SUjFP1B8UhiIK5g8jhaiu/dNE9c9mB7iQhVRpE87fdQINCjqnuh9wSN3fdw8UzEm8hCA52XId2C8xS3wrgFBO+zPzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785306702; c=relaxed/simple;
-	bh=IHuJABJeN+wc3l4Gx6pZS3BTtFApWSuLjOmnd1tYXVM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nbW+q1/1VoEaWrFo+DHlfn2vcnRZ5aNm7Ui48gRqS9wdQJ8tOMDUcWHa0bDMkVu32IJvrhBwyUSkOZWcSwod9xAEiKiciCxcKUJLs11bLYtJEWmppreEaWZwX8IW2t64Yj6nbVq3SmjXJJA3rOJFITME31CSHNNFCSWN51h6AGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=X4DheBIn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MxBXvtwh; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qGPjnf2g; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=yGuFkIzP; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1785306892; c=relaxed/simple;
+	bh=PY5w/b54wziizuQOWpl4P8LjuL7PQcXgVXCYLjlt26c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=coKXot2XC2ofOMvSLuJ/Vi89dSxSZh2Zijbme4mLe0fHWP8Lz2w0TQnSvFTtK9Vd2NuYYTRR8A10RfkQ+DErYwAWUWfbuho5Qw7zyTZHQwW0QeWG07mjrMb7L1uOH+GExugKWvgiYlnvHzYcpkFpZS1LxlSJRvN7usYdv5fFEew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=r6+5siZr; arc=none smtp.client-ip=91.218.175.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="X4DheBIn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MxBXvtwh";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qGPjnf2g";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yGuFkIzP"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C19927BBD5;
-	Wed, 29 Jul 2026 06:31:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1785306694; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MbEVYF6WlYDlqekVl+oajNTWhlC+d3HhPHjD2gszl6Q=;
-	b=X4DheBInZe5lHmUC/NL0Svpds15uAiFTqvRhZas+cy3BIQkvOD0tfwy2FtC/yF2h15ouC8
-	G7R+ts3PpYIKKoLeLFGlvAJ3lgnVhdApZP10zXfQJuox9wlvHYW8cOsm0tKsfhFTBLw7EM
-	UcV9NaxbK6h1ssfl/dnFWFGZs6hWgQc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1785306694;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MbEVYF6WlYDlqekVl+oajNTWhlC+d3HhPHjD2gszl6Q=;
-	b=MxBXvtwhisYGq1etSnkECJfeFUUvIivV0+jjtLxn7TnBvHlOBG6xg1nGFf/LeUlOgofJsy
-	wnxEE6JRfjvOqFCg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=qGPjnf2g;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=yGuFkIzP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1785306690; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MbEVYF6WlYDlqekVl+oajNTWhlC+d3HhPHjD2gszl6Q=;
-	b=qGPjnf2gNAEwjI5YEPC44GYKB+z0VhONh0pfOROz3ogGpuLKaf6OEJ7NsardYvRnTL2zwX
-	WlbqS3zNXpKG9KUHkEVd8nRX9TRlhR3okO8UyfzbqWm0khGWU9RRJCmvdw9+TczldUa3Ni
-	LaaQbwO029Dp+XqdsVrriMUy4z+x8Xc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1785306690;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MbEVYF6WlYDlqekVl+oajNTWhlC+d3HhPHjD2gszl6Q=;
-	b=yGuFkIzPsepSYStwSBVsTXhFnAUKJhM8lYicaRR3krY74PTqMbH2l3/aKzBMLTojlQ5u4x
-	E8StD7BFbc+Hq7Aw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 76806779A1;
-	Wed, 29 Jul 2026 06:31:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id J3eeG0KeaWo7XAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 29 Jul 2026 06:31:30 +0000
-Date: Wed, 29 Jul 2026 08:31:30 +0200
-Message-ID: <87qzkm5mt9.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sonali Pradhan <sonalipradhan@google.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Eldad Zack <eldad@fogrefinery.com>,
-	Gordon Chen <chengordon326@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	Jussi Laako <jussi@sonarnerd.net>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: usb-audio: Clamp frame size in implicit-feedback mode
-In-Reply-To: <20260728202432.2354994-1-sonalipradhan@google.com>
-References: <20260728202432.2354994-1-sonalipradhan@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="r6+5siZr"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785306886;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=71o7pgYmf0sE5JSVHPewVuh8Wj9lSn+Qrfh4RCsQpnU=;
+	b=r6+5siZrco9mh5LYKP6lyHhjH1mEOZbW+B2Eom2MWU59Bz4HgSxwmf4SqZBSJPliZZZNvT
+	aRpAobb5XsvhsBvNvmRVQ3pJuTYinEJw5/s19ydnfgTOfr2tvwVc05sH5NQyydwhtAO/WN
+	c9WE+ivsr9LvpY4KQTWArxR1L4FqhH4=
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+To: stable@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org,
+	sunpeng.li@amd.com,
+	mario.limonciello@amd.com,
+	Harry Wentland <harry.wentland@amd.com>,
+	Fangzhi Zuo <Jerry.Zuo@amd.com>,
+	Dan Wheeler <daniel.wheeler@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Matthew Schwartz <matthew.schwartz@linux.dev>
+Subject: [PATCH 6.12.y/6.18.y/7.1.y] drm/amd/display: Fix DTB DTO updates breaking live pixel rate sources
+Date: Tue, 28 Jul 2026 23:33:40 -0700
+Message-ID: <20260729063340.9287-1-matthew.schwartz@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.51
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: C19927BBD5
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	ARC_NA(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,perex.cz,fogrefinery.com,gmail.com,kernel.org,sonarnerd.net,vger.kernel.org];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On Tue, 28 Jul 2026 22:24:32 +0200,
-Sonali Pradhan wrote:
-> 
-> snd_usb_handle_sync_urb() scales received sync packet sizes by the sender's
-> stride and stores the result directly in out_packet->packet_size[i]. If a
-> connected USB device sends an oversized sync packet, this frame count can
-> exceed ep->maxframesize.
-> 
-> The un-clamped frame count then propagates to the playback endpoint queue,
-> potentially driving packet transfers beyond the endpoint's hardware frame
-> limits.
-> 
-> Cap the calculated frame count against ep->maxframesize in
-> snd_usb_handle_sync_urb() to prevent oversized packets from entering the
-> playback queue.
-> 
-> Fixes: 28acb12014fb ("ALSA: usb-audio: use sender stride for implicit feedback")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Jetski:Gemini-3.6-Flash
-> Signed-off-by: Sonali Pradhan <sonalipradhan@google.com>
+From: Harry Wentland <harry.wentland@amd.com>
 
-Applied now.  Thanks.
+commit 76a2db58e95e328007043f54ac3c7336ccbee440 upstream.
 
+dcn32_update_clocks_update_dtb_dto() and its dcn35 counterpart reprogram
+the DTB DTO of every timing generator in the context whenever the DTBCLK
+reference changes, passing a zeroed pixel rate and never setting
+is_hdmi. Both dccg set_dtbclk_dto() implementations treat a zero pixel
+rate as a disable request. On dcn32 that branch drives PIPE_DTO_SRC_SEL
+to the DP DTO source, so a timing generator actively scanning out an
+HDMI stream has its pixel rate source re-muxed out from under the live
+raster and the OTG stops on the spot. On dcn35 it clears
+DTBCLK_DTO_ENABLE and restores DTBCLK_Pn clock gating, which does the
+same to a live 128b/132b stream.
 
-Takashi
+Two displays where only one runs a 128b/132b link hit this reliably.
+is_dtbclk_required() holds the DTBCLK reference high while both are
+active, and the moment the 128b/132b stream is torn down (compositor
+switch, display disable, hot-unplug) the next safe_to_lower pass drops
+the reference to the lowest DPM level and the DTO walk freezes the
+surviving screen. On Navi31 the DAL mailbox then goes deaf on the
+DISPCLK hard-min that follows the walk in dcn32_update_clocks(),
+stranding both SMU mailboxes until reboot.
+
+Set is_hdmi for HDMI and DVI signals so the disable path leaves the
+pixel rate source selection on the HDMI path, and pass the real pixel
+rate for 128b/132b streams so a reference change rescales their DTO
+instead of disabling it.
+
+Fixes: 128c1ca0303f ("drm/amd/display: Update DTBCLK for DCN32")
+Fixes: 8774029f76b9 ("drm/amd/display: Add DCN35 CLK_MGR")
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+[ mschwartz: dcn32 and dcn35 clk_mgr hunks only. The rest is HDMI FRL
+  enablement, absent before 7.2, so the FRL conditions and the
+  req_audio_dtbclk_khz assignment they guard are dropped and the
+  FRL-centric changelog is rewritten. Added the pipe_ctx->stream check
+  the new dereferences need. ]
+Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+---
+6.6.y needs the dcn32 hunk alone and is sent alongside this one. Tested
+on Navi31 with a DisplayPort UHBR monitor and an HDMI TV.
+
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+index 084994c650c4..285689d7ecc4 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+@@ -276,13 +276,20 @@ static void dcn32_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr,
+ 		struct dtbclk_dto_params dto_params = {0};
+ 
+ 		/* use mask to program DTO once per tg */
+-		if (pipe_ctx->stream_res.tg &&
++		if (pipe_ctx->stream && pipe_ctx->stream_res.tg &&
+ 				!(tg_mask & (1 << pipe_ctx->stream_res.tg->inst))) {
+ 			tg_mask |= (1 << pipe_ctx->stream_res.tg->inst);
+ 
+ 			dto_params.otg_inst = pipe_ctx->stream_res.tg->inst;
+ 			dto_params.ref_dtbclk_khz = ref_dtbclk_khz;
+ 
++			if (dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe_ctx))
++				dto_params.pixclk_khz = pipe_ctx->stream->timing.pix_clk_100hz / 10;
++
++			if (dc_is_hdmi_signal(pipe_ctx->stream->signal) ||
++					dc_is_dvi_signal(pipe_ctx->stream->signal))
++				dto_params.is_hdmi = true;
++
+ 			dccg->funcs->set_dtbclk_dto(clk_mgr->dccg, &dto_params);
+ 			//dccg->funcs->set_audio_dtbclk_dto(clk_mgr->dccg, &dto_params);
+ 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+index bb1ac12a2b09..d154383a3961 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+@@ -264,13 +264,20 @@ static void dcn35_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr,
+ 		struct dtbclk_dto_params dto_params = {0};
+ 
+ 		/* use mask to program DTO once per tg */
+-		if (pipe_ctx->stream_res.tg &&
++		if (pipe_ctx->stream && pipe_ctx->stream_res.tg &&
+ 				!(tg_mask & (1 << pipe_ctx->stream_res.tg->inst))) {
+ 			tg_mask |= (1 << pipe_ctx->stream_res.tg->inst);
+ 
+ 			dto_params.otg_inst = pipe_ctx->stream_res.tg->inst;
+ 			dto_params.ref_dtbclk_khz = ref_dtbclk_khz;
+ 
++			if (dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe_ctx))
++				dto_params.pixclk_khz = pipe_ctx->stream->timing.pix_clk_100hz / 10;
++
++			if (dc_is_hdmi_signal(pipe_ctx->stream->signal) ||
++					dc_is_dvi_signal(pipe_ctx->stream->signal))
++				dto_params.is_hdmi = true;
++
+ 			dccg->funcs->set_dtbclk_dto(clk_mgr->dccg, &dto_params);
+ 			//dccg->funcs->set_audio_dtbclk_dto(clk_mgr->dccg, &dto_params);
+ 		}
+-- 
+2.50.1
+
