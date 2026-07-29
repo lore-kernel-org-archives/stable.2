@@ -1,183 +1,223 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B623E3D7A18
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 21:19:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC343E173B
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 21:21:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785359986; cv=none; b=oscybda6Fgr2Tt/QhQclZZt/uGv9H7xIsYmrDUf/1qeJEjVSu9eRKR7xfC5jCRmY+jTaWp3uPHlZ8GL30nKZ1rxfuhO8FL1KKQqqzPHIlQ2pWNQZsCu1UFu08pe7SrI3XHsaB+98269PAtElLUKIUCOZabRZAhcorJG/euhjiY4=
+	t=1785360088; cv=none; b=RxKbXu3yhxXImUZY9caMFfwBfpV7vCH4dcrN2c0EcweaeHbcpsKPM5gJ0N8RzwE1Lv/Lwc5kEVqPbNsN6oXJLsiDVgfaIg7tCdmV2Lt00s5cHS1oiPonpcaRjU3GV7QBK2IkBRaIL5jDQeHPVnfRZJmX7yW+I9UEqgdyb+r8pRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785359986; c=relaxed/simple;
-	bh=/MAiXAbQNLukFOvamzXuv5lJjwdh98FXvF7dya3cf8I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CofY/RGjZSwTOyFyUX2h/O9bIEz1onpVi6AG4HSWU98credL3y0ly/qZHugsy2wMPnFuJ4BAUqQP5hA2locKsu5Iv1QXK1ilKARkIAiSNqsDkJSDMu1pXsrdLnyyrcqTnWrcjUNs/ji23zMNrytZUuFO0bAVFAzRYm8WOO+tOgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kJq8jUPO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bTmRPFpU; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785360088; c=relaxed/simple;
+	bh=qz1sAdam29lFnVFfK8gUMW8LZh/jQH+xpnF85IvhW0Q=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Tn+othtPoScQxPgzp1LLWezKYm2q4u30aHW7KfIU8r8Jr4n5Z7R/QVFUa8TJXEdexs+IaDVMRB2TRMEvUoGDzeC6gQqjvCg8qdfMp9wBNHuCwUd+UzPEBfKSGca6mVUDYCmkPcHu0+OMLqGyFRCc/l7R0kTlXZJjADKyGYX0CJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--eddiephillips.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bB9xhusj; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--eddiephillips.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kJq8jUPO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bTmRPFpU"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TL7JQF3224237
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 21:19:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Wkr/IHbH/vmkP6F8QZmjiDF071+OEQwubDm18Vb8qFo=; b=kJq8jUPOh41Wutg/
-	mB0hRRG0yHeTfgaI96Erp4IhZ1LWAuN8TST2hVvko/nMfHQqx5FAQymf2+j4AY+Q
-	1yVfSmdL8iyPrNTWxhx2qEpY1Wp4VsQ/YmA9HdjhxC5PVWm4pWlwXy7h4Rw9E5J5
-	dxJ4CCGG9Czj/nfkclzs4TbqsMT3Nhhs7I5upnkaODA24t5un3i/Nsn5P1JxutGq
-	IKa7jjVHg4Z53GcbTil9ot2xFBQQg4jShvc2XEu5vfl0gK82obsUVsYt4+wZ7ZgR
-	7CM4t4ljQLlIUzO6tl0KJ+6D4VAyLD+BJX6hwKJA/7mzV3/dUPRfT3Uv1Wg1COLJ
-	41J7EQ==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqs5a019b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 21:19:42 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84e04598adeso1149350b3a.2
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:19:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bB9xhusj"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ccd1958e8fso19925545ad.2
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 14:21:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785359981; x=1785964781; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1785360086; x=1785964886; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Wkr/IHbH/vmkP6F8QZmjiDF071+OEQwubDm18Vb8qFo=;
-        b=bTmRPFpUVt3hrwmWJ6i6hBDpx2Vemx0Njs8bIlJ+6ZRpYifTNoFBV/dsA7RFqtoQdU
-         4WdsDWT7z9dBVOHdEZup8AG5c7MNeBYy8bVXQPQeXf5Ni6YqAHLqz5jcfGDRbyWkcTZ/
-         gLMJiUvlMAdDSbYseKHqj4L8sAQaaE6JfEHwoXS9fwk5W5SV7k+0AX+ggwrSz8IpPBpw
-         yF0wizpGLVoXr6LrzRwedKnzFhUJXssgr0Ltlvsmz23pg5Yj9dOXEpiRtrbxmdU43rJ2
-         59kJWNknIKhiy/fSxBEjdO3x5a9M9rFsxVPTlp4T4U7ktEhE0ABaZ4mUD+WshvPmI7kt
-         8qWQ==
+        bh=W7BSAGy20fuvV5DOsfw1998xYbvpMl8+2m0BY0fUgAU=;
+        b=bB9xhusj3LpeYEyuTBdPmISbFxIajsxcB/FFqf7qYvW99IkBJyxNijF3IqjDCFRCy9
+         VHLIg1hMrhFcR7/GpPzuBUqJDdPLTADpIWyiXrFY2SsRvvQe2Ssr+p1AyAUrQLR++gTC
+         Pc/nvW45oana9a/KiZXwGk2RjZxh6Xiu5KrVFAg4o+InK0XTOFW3Gd4yp3FFnBothBH+
+         9mP+tbWJatn2CQtyLiqV6g23LW+1o2UfqHwCB7o5VSrj0GVomWSkMIDK9sr5jf4OQB9u
+         KMmIWIlTizUkI0xu/YE9XD8luxVRQzQ8Fq0j0h5ykABc6pEeVTDKb/wUZAzMxCcl+0qE
+         rL9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785359981; x=1785964781;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1785360086; x=1785964886;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Wkr/IHbH/vmkP6F8QZmjiDF071+OEQwubDm18Vb8qFo=;
-        b=U7DHnN5T3oIEkZXmsrWN5LNugqSP4TKIv+8shzA8CK1M9y5El+Q2++BzcQOPvZRamK
-         UCs9RQo7jYOnuSuPwsmL198Ww+hl7W+MF8RWl5Q3FoUQBbaQZoSZXOdaoCmwZBCrAyyt
-         WNL8G4u+UQkx1JUo9/wgjocy3zdtgsv+8D4POqpzPyyGNetZawWU5YaVHMOxtPAr8Oxr
-         G1bHqRWRea8rpP3u64g5DFge2aLRUwjZTr3bzs9bJWwmMMNKR6gRHDEZWScVKMf0TNCV
-         30f5sR1AVUdH3JyGu8TMc/gDpRuSoawxLQgcgzdpVZC6q795O50LunCYqbbxY5PYniVL
-         WNLA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp0KlPJXal1a/Q3AeXBeDg2ekAtgh0Hkxagetn1EjSpMunYaX95lVTDOzi1nMYhlAuTRoYUYKw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxC4DAEuU3N4EyaojYabGzyFguHol3KDWjI466Wf1dbbSOqivNI
-	bdr1SFDzZgqplhOv+zcqNTLxIxJ45G3jgsDbNynkDqUzzrDW2FXBsvBSp9z0GGyj8rp7AoZvyNo
-	w8byGppAlHKUchpCkGbed0vlJQTBH8hq7H0z7Mir49xujVA/NbgAYhgir6uI7nloqCpE=
-X-Gm-Gg: AR+sD13e5KDpflBqScHaemulkKlAxNHLf9Fl3lqlgMIoc9bchV2XBXAEzXjo+e+su1M
-	E7q6OOUOQBqbqBTkLXr79yX2ZCxpGHZk6tLyifVY5GclCzyR/F8YBjyQOc5FuTnbv9GdazrrVSV
-	hQr7AEHs3yQYuZMSzg91zL4zaOe5tcJ395ZeiknwQu4lPd/h8yxEVzqNKC5GivsvkwWERBkGwnE
-	o5A77Q0/GTc/rCh3YY9PStdHCHI7ndBTTwwbX3Ng1gJRudahDcthmCCvvjvcT68yiZQoiE5m34n
-	ijtJFNhadRdrkrELU6EfhayNz2VYhEl3yEcKteinRbn0643JISv9cPWTXpzxTDHLu34x/Vmpk5N
-	K6zOfJ99DOZNbp51kjHrdMqQvIigjmMmX6UUoS5C+N9PIviWWldW1MA==
-X-Received: by 2002:a05:6300:2288:b0:3c0:9c19:b275 with SMTP id adf61e73a8af0-3c8ba6550f3mr9253702637.67.1785359981416;
-        Wed, 29 Jul 2026 14:19:41 -0700 (PDT)
-X-Received: by 2002:a05:6300:2288:b0:3c0:9c19:b275 with SMTP id adf61e73a8af0-3c8ba6550f3mr9253685637.67.1785359980956;
-        Wed, 29 Jul 2026 14:19:40 -0700 (PDT)
-Received: from [10.226.59.182] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504927a7bsm14864812eec.0.2026.07.29.14.19.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 14:19:40 -0700 (PDT)
-Message-ID: <19305f3f-7567-48d3-a0b2-6597fdc3c314@oss.qualcomm.com>
-Date: Wed, 29 Jul 2026 15:19:38 -0600
+        bh=W7BSAGy20fuvV5DOsfw1998xYbvpMl8+2m0BY0fUgAU=;
+        b=VuOZ4huoCVGTm6qlmkFpkKel7ohT9Oy8hm5fMDFpAZX2lQ5+noMzMVi4zf+CpFmMaq
+         SSQ6vG2gpTLJkPObsI+eZaqoU0ev/qoeY+XGrQcSNvE7oH6FS1ZLaB3b/XJt8pIN8Amh
+         1f5eKIhOtbWLcSyQYah4u9yIU0G3s6H8Kb2N09CQN8IrldXSv0AudL4WNaVGPsU8y8ei
+         azLFyuLvcCTaYGeiTvm+LvA0iL2HMukRJ57hqXj32Gc7EUakaGs7nOICCxzn18qIgbyG
+         7AC4fDiiQiwV458pab+4Nlr4zt5kIoRZ9HmSn53yb0UXByrzCZr1e2baNqFDtG+R9zQJ
+         247w==
+X-Gm-Message-State: AOJu0YzcVLLSuA2AIv1LvqnXE+x6ZXk7xfP6fIwEFSUguqdNunqalSNj
+	sT6JupPcft2nGDC1Fut7vLKuektWohvdx5p+9bdbHWqlk4zDtzpzWaX7j0YU720Og2KacWHqWdO
+	Nm6hhNIRjUy3HsE3vqpMieiRt9PVh6uYIvBKIi730SStyqrt+FtUmsKnjM1iwyAbTArh2y6nlfY
+	MARdaXrOb1LDczV55eUlPZhCslNgIgpDV1eGDXIQsnkR5u7O9HmTQvD/ygCFTLSwKthvnUl8NfX
+	w==
+X-Received: from plww3.prod.google.com ([2002:a17:902:d103:b0:2ca:cf09:91ca])
+ (user=eddiephillips job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:902:ea04:b0:2cc:f4d4:29a7 with SMTP id d9443c01a7336-2d034131564mr4716235ad.24.1785360086011;
+ Wed, 29 Jul 2026 14:21:26 -0700 (PDT)
+Date: Wed, 29 Jul 2026 14:21:22 -0700
+In-Reply-To: <2026072933-juror-spoof-89d1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] accel/qaic: fix GEM object refcount leak in
- qaic_attach_slice_bo_ioctl
-To: WenTao Liang <vulab@iscas.ac.cn>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, carl.vanderlip@oss.qualcomm.com,
-        ogabbay@kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>
-References: <20260628115119.44215-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20260628115119.44215-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDE2MCBTYWx0ZWRfX3mnLD7TU8NBI
- hjGZ30aPPSrs8lRhmXVDFw9mcjLD/l/Guybk6V4qovn52ejykVfrUsIx3JhyJEqUWYYjDTve8wF
- FvunoO1upvf25t4MOJmIAd3UnxyNmLqS2mj3P/eoMeHr/I++GFxb0ccQCzm/hJ8mWCWkxU7lBwN
- 65HBf1hbwUNMqOMd9Af6r0+XqW1a7Oy5uOkd3XeEsS6glDDCvyW5n5Xcl+jTv8PaFfhOKWNATIB
- Pj2ioUTQ1wMvsR9g5VtnupExzKHUMFKNt6rTZJYpnAv3VcnQvrTrIu/L05J8qF/fBYOcpKQD6g2
- trvcYI3cJm9eb7ZJ3yNrErACAuns8/F74J6ha7165t2ebtSX5dUefEm/ZI0T+XMpcOwCFOum1fp
- bpy+zzSk0q6DF+JRMPE2+94o1BPcXRRVKyPUyVMAl6Tti2jJcBvLtbeVFYlQYhPtGVTGGK+8I+m
- cB0VbY3ACuPjBmFVBSw==
-X-Authority-Analysis: v=2.4 cv=T968ifKQ c=1 sm=1 tr=0 ts=6a6a6e6e cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=ag1SF4gXAAAA:8 a=VwQbUJbxAAAA:8 a=mPBHZ_2hYfeim0CFHOkA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22 a=Yupwre4RP9_Eg_Bd0iYG:22
-X-Proofpoint-ORIG-GUID: OpprOFNNper860T7zUru1R3KCB-l5L_6
-X-Proofpoint-GUID: OpprOFNNper860T7zUru1R3KCB-l5L_6
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDE2MCBTYWx0ZWRfX2YLhrwThOPft
- YVllTz+7yXXyE/rFvZs1mbE+wo9rIBKzMgJkJMFl3vAtWZ6C0Pk91M37Cn4rJi+MDPiZ3ZgBe/x
- cnW/fRbftU5VMpTAN94lpzGYi4df6Cs=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_08,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0 malwarescore=0
- suspectscore=0 impostorscore=0 clxscore=1011 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290160
+Mime-Version: 1.0
+References: <2026072933-juror-spoof-89d1@gregkh>
+X-Mailer: git-send-email 2.55.0.508.g3f0d502094-goog
+Message-ID: <20260729212123.1421456-1-eddiephillips@google.com>
+Subject: [PATCH 6.12.y] gve: fix Rx queue stall on alloc failure
+From: Eddie Phillips <eddiephillips@google.com>
+To: stable@vger.kernel.org
+Cc: Eddie Phillips <eddiephillips@google.com>, Jordan Rhee <jordanrhee@google.com>, 
+	Harshitha Ramamurthy <hramamurthy@google.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+	Jakub Kicinski <kuba@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 6/28/2026 5:51 AM, WenTao Liang wrote:
-> drm_gem_object_lookup() acquires a GEM object reference on success. All
-> error paths correctly release it via put_bo, but the success path returns
-> without calling drm_gem_object_put(obj). Since list_add_tail does not
-> transfer ownership, the GEM object reference is permanently leaked on
-> each successful call.
+When the system is under extreme memory pressure, page allocations can
+fail during the Rx buffer refill loop. If the number of buffers posted
+to hardware falls below a critical low threshold and the refill loop
+exits due to allocation failures, the queue can stall:
 
-NACK.
+1. The device drops incoming packets because there are no descriptors.
+2. Since no packets are processed, no Rx completions are generated.
+3. Because no completions occur, NAPI is never scheduled, preventing
+   the refill loop from running again even after memory is freed.
 
-put() is specifically not called in the success case as data structures 
-which depend on the BO are not released until detach_slice_bo(), which 
-happens to be where the corresponding put() is.  It is also not possible 
-to successfully call attach_slice() more than once without a 
-corresponding detach_slice_bo().
+This results in a permanent queue stall.
 
-The get() and put() operations for the concerned paths are currently 
-balanced, but this patch will actually introduce an unbalanced state 
-(extra put() operations).
+Resolve this by introducing a starvation recovery timer for each Rx queue.
+If the number of buffers posted to hardware falls below a critical low
+threshold, start a timer to periodically reschedule NAPI. Once NAPI runs
+and successfully refills the queue above the threshold, the timer is
+not rescheduled.
 
-As far as the impact of not having this patch per the commit text 
-(memory leak) I'm aware of many memory stress tests, yet I recall no 
-reports of memory leaks from attach_slice().  You will need to provide 
-proof, from actual testing, that this is an issue.
+The threshold is set to 32 because a single maximum-sized Receive Segment
+Coalescing (RSC) packet can consume up to 19 descriptors in the Rx path.
+Lower thresholds (such as 8 or 16) would be insufficient to process a
+complete maximum-sized RSC packet, risking packet drops or unexpected
+hardware behavior under memory pressure. Setting the threshold to 32
+guarantees a safe margin to handle at least one full RSC packet.
 
-> Suggested-by: Greg KH <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org
+Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
+Reviewed-by: Jordan Rhee <jordanrhee@google.com>
+Signed-off-by: Eddie Phillips <eddiephillips@google.com>
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Link: https://patch.msgid.link/20260709211906.3322883-1-hramamurthy@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+(cherry picked from commit b65352a1bac64442ad95e64f385b40ccb9f1b0db)
+---
+ drivers/net/ethernet/google/gve/gve.h        |  3 ++
+ drivers/net/ethernet/google/gve/gve_rx_dqo.c | 36 ++++++++++++++++++++
+ 2 files changed, 39 insertions(+)
 
-This tag seems wrong, as there was nothing I can find on V1 in Lore 
-which indicates this tag is appropriate.
-
-> Fixes: 75af0a585af9 ("accel/qaic: Grab ch_lock during QAIC_ATTACH_SLICE_BO")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-> ---
-> Changes in v2:
-> - Fix patch format based on reviewer feedback
-> ---
->   drivers/accel/qaic/qaic_data.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/accel/qaic/qaic_data.c b/drivers/accel/qaic/qaic_data.c
-> index 1e4c579d2725..b17df7bf565d 100644
-> --- a/drivers/accel/qaic/qaic_data.c
-> +++ b/drivers/accel/qaic/qaic_data.c
-> @@ -1084,6 +1084,7 @@ int qaic_attach_slice_bo_ioctl(struct drm_device *dev, void *data, struct drm_fi
->   
->   	bo->sliced = true;
->   	list_add_tail(&bo->bo_list, &bo->dbc->bo_lists);
-> +	drm_gem_object_put(obj);
->   	srcu_read_unlock(&dbc->ch_lock, rcu_id);
->   	mutex_unlock(&bo->lock);
->   	kfree(slice_ent);
+diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
+index 8ddd366d9fde..e19d722e8e9a 100644
+--- a/drivers/net/ethernet/google/gve/gve.h
++++ b/drivers/net/ethernet/google/gve/gve.h
+@@ -12,6 +12,7 @@
+ #include <linux/ethtool_netlink.h>
+ #include <linux/netdevice.h>
+ #include <linux/pci.h>
++#include <linux/timer.h>
+ #include <linux/u64_stats_sync.h>
+ #include <net/xdp.h>
+ 
+@@ -38,6 +39,7 @@
+ 
+ /* Interval to schedule a stats report update, 20000ms. */
+ #define GVE_STATS_REPORT_TIMER_PERIOD	20000
++#define GVE_RX_NAPI_RESCHED_MS 20 /* msecs */
+ 
+ /* Numbers of NIC tx/rx stats in stats report. */
+ #define NIC_TX_STATS_REPORT_NUM	0
+@@ -311,6 +313,7 @@ struct gve_rx_ring {
+ 	struct xdp_rxq_info xsk_rxq;
+ 	struct xsk_buff_pool *xsk_pool;
+ 	struct page_frag_cache page_cache; /* Page cache to allocate XDP frames */
++	struct timer_list starvation_timer; /* for queue starvation recovery */
+ };
+ 
+ /* A TX desc ring entry */
+diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+index 1154c1d8f66f..2f7f31e4797c 100644
+--- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
++++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+@@ -199,6 +199,16 @@ static int gve_alloc_page_dqo(struct gve_rx_ring *rx,
+ 	return 0;
+ }
+ 
++static void gve_rx_starvation_timer(struct timer_list *t)
++{
++	struct gve_rx_ring *rx = from_timer(rx, t, starvation_timer);
++	struct gve_priv *priv = rx->gve;
++	struct gve_notify_block *block;
++
++	block = &priv->ntfy_blocks[rx->ntfy_id];
++	napi_schedule(&block->napi);
++}
++
+ static void gve_rx_free_hdr_bufs(struct gve_priv *priv, struct gve_rx_ring *rx)
+ {
+ 	struct device *hdev = &priv->pdev->dev;
+@@ -290,10 +300,13 @@ static void gve_rx_reset_ring_dqo(struct gve_priv *priv, int idx)
+ void gve_rx_stop_ring_dqo(struct gve_priv *priv, int idx)
+ {
+ 	int ntfy_idx = gve_rx_idx_to_ntfy(priv, idx);
++	struct gve_rx_ring *rx = &priv->rx[idx];
+ 
+ 	if (!gve_rx_was_added_to_block(priv, idx))
+ 		return;
+ 
++	timer_shutdown_sync(&rx->starvation_timer);
++
+ 	gve_remove_napi(priv, ntfy_idx);
+ 	gve_rx_remove_from_block(priv, idx);
+ 	gve_rx_reset_ring_dqo(priv, idx);
+@@ -371,8 +384,10 @@ static int gve_rx_alloc_hdr_bufs(struct gve_priv *priv, struct gve_rx_ring *rx,
+ void gve_rx_start_ring_dqo(struct gve_priv *priv, int idx)
+ {
+ 	int ntfy_idx = gve_rx_idx_to_ntfy(priv, idx);
++	struct gve_rx_ring *rx = &priv->rx[idx];
+ 
+ 	gve_rx_add_to_block(priv, idx);
++	timer_setup(&rx->starvation_timer, gve_rx_starvation_timer, 0);
+ 	gve_add_napi(priv, ntfy_idx, gve_napi_poll_dqo);
+ }
+ 
+@@ -511,6 +526,7 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
+ 	struct gve_rx_compl_queue_dqo *complq = &rx->dqo.complq;
+ 	struct gve_rx_buf_queue_dqo *bufq = &rx->dqo.bufq;
+ 	struct gve_priv *priv = rx->gve;
++	u32 num_bufs_avail_to_hw;
+ 	u32 num_avail_slots;
+ 	u32 num_full_slots;
+ 	u32 num_posted = 0;
+@@ -555,6 +571,26 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
+ 	}
+ 
+ 	rx->fill_cnt += num_posted;
++
++	/* If the queue has fewer than GVE_RX_BUF_THRESH_DQO descriptors
++	 * visible to the hardware, the hardware is in danger of starving
++	 * and cannot trigger interrupts.
++	 *
++	 * We use a threshold of 32 because a single maximum-sized RSC
++	 * packet can consume up to 19 descriptors in the Rx path. Lower
++	 * thresholds (e.g., 8 or 16) would be unsafe as they could cause
++	 * the device to drop/stall on a maximum-sized RSC packet.
++	 *
++	 * Start the timer to periodically reschedule NAPI and recover.
++	 */
++	num_bufs_avail_to_hw =
++		((bufq->tail & ~(GVE_RX_BUF_THRESH_DQO - 1)) -
++		 bufq->head) & bufq->mask;
++
++	if (num_bufs_avail_to_hw < GVE_RX_BUF_THRESH_DQO) {
++		mod_timer(&rx->starvation_timer,
++			  jiffies + msecs_to_jiffies(GVE_RX_NAPI_RESCHED_MS));
++	}
+ }
+ 
+ static void gve_try_recycle_buf(struct gve_priv *priv, struct gve_rx_ring *rx,
+-- 
+2.55.0.508.g3f0d502094-goog
 
