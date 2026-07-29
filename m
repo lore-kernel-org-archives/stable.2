@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B35F471CF9
-	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 11:16:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CF94570C5
+	for <stable@vger.kernel.org>; Wed, 29 Jul 2026 11:16:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785323795; cv=none; b=txVbPuk0Aj0MxXvo9vRQ4bmxHXpFUqtyeryKDLFEq5w9s4md2T9wxgpxZzk4RpHUMUKMtGTrRnyRVaZmEeGL80a6MxV1hILoncfPDTOOcWO2gr/O6G6vpoyFJDyfLV4RfdyyL0+zOzcI1yCOC72BcCzQ5EB02rnjAmRhGkaHQZk=
+	t=1785323798; cv=none; b=dkndYwJT5Uz7Qzh1ttI1XIxQ/rmTtPWzsfaVuZsAIo3GZEPs4juHHt506M4Nji07dlHd/EHgxWGc335SDyyGKGsir4MCk8QBzBZOEI5wjPEYZIF1LYUTy192WsxQXY/v6mrT82OKOpsEMDto5yMOJOgCxeuTU3ibmQ/x7WzUL04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785323795; c=relaxed/simple;
-	bh=I29j42YDV35E1eN0Y5YxIM9VXk2wOGu+kZqknAra4GA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=X+11lJJMKmTEr+vbNsjSJbg1L+K0Q4YmD7Zu3kMkR5ImOReCM9hmH1F8N5e3s0wz5ndaQGuCXe/UKtdDFuVGGP6z2/o5pUHA8ks+/SZeX6LHrinkWwxQtW/WiaF4iFqSLGU8NSefEGkkKmiImMh19kvcReMX0Dn1f85WCbp/7Y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=D4s06WfF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785323798; c=relaxed/simple;
+	bh=ygbuPzlFqrsuVbqxWZyf7sIlgz0cX2F+NaMVRIThaFw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=csrSz6An38nnBzBTMxNsLZaGbnesXHe3UaO0TaBDc8iAxeWbTMjrmc7fEV8OFqFP7a16OhaMLoPlp20MjWKZRHAmLYaf0OI1Ijnh1qSxe11KLUnHlLhhIlLClcRT5BiPsOBM+9c3Bsi2a1TYEETtTy2sEyKbCWrNRUXgDeg1GDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NAaATKFK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="D4s06WfF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D38F61F00A3A;
-	Wed, 29 Jul 2026 11:16:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NAaATKFK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A15AE1F000E9;
+	Wed, 29 Jul 2026 11:16:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785323794;
-	bh=tWXRIW17L3vC9gx+e2i8vlJBSplIvH0agwJjpBXgqkI=;
+	s=korg; t=1785323797;
+	bh=Nj1yTfdP88OtLAzHbkzyD0GC/qm0NIM4HwOjfUpRL/k=;
 	h=Subject:To:Cc:From:Date;
-	b=D4s06WfFN4ZVafR9l65VrAfJlDWW6TTYrIhJqd0XRSUgs1Owa4SwhZWUG/Dj8Nl/u
-	 SpK1dJhHpn8YQV6mx6vSVepVnfJ3TGtN2cagbHwPjZ8eM6IeNm8YmcYIj56nXNFiVK
-	 MpvZgOAhMvy0Y8Zuhh7XguEB84vx82jJh8idVGlw=
-Subject: FAILED: patch "[PATCH] drm/amd/display: guard against overflow in HDCP message dump" failed to apply to 6.1-stable tree
+	b=NAaATKFKWxxbqAlpGrM7JG3N61ZGbmWM/DfrhouOQ5TWbRhlMJnRV/V+Ek1f0d2yK
+	 1VMBd3yWeR2+uFboiHKYV5inyhkT61V0Jyoqr2iwgeL28iZPN6J28xAvmdJIzr9S+P
+	 7ejAdlSdHbVGzLxKy9Nn6lZnSiaJoPb+NzMIpA7M=
+Subject: FAILED: patch "[PATCH] drm/amd/display: guard against overflow in HDCP message dump" failed to apply to 5.10-stable tree
 To: harry.wentland@amd.com,alex.hung@amd.com,alexander.deucher@amd.com,george.zhang@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 13:15:45 +0200
-Message-ID: <2026072945-mocha-maternity-88e3@gregkh>
+Date: Wed, 29 Jul 2026 13:15:46 +0200
+Message-ID: <2026072946-undrafted-imply-6e98@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 93c8fe6d56037f284be7116d0c8155847c6d7fbe
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072945-mocha-maternity-88e3@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026072946-undrafted-imply-6e98@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
