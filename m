@@ -1,145 +1,145 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDC53D75C4
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:53:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785408827; cv=pass; b=Qlyry/LiEBijXwhqpIAaTs5dIhmW+2CponvRc2n1kTY07q8cKGzC7RIWmU6qm0O/7yzZ4fAMkHUEQBA9dqlsJ6g4dQmgGUKSgCPII2yTQyiWB25CxWMwTa6n2RGgTkLb2ZMAnIZfd4ituRsXaE8hixMoX8YICjPNT9EG7GNWb+w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785408827; c=relaxed/simple;
-	bh=D5i59ny8Jjqz/d4TnC8e+9Pgsp/T/5exBPsqV2oj2ZY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dqu/WHOrikqyTUOrG1lywle602FshcTBSnrebZ7wYzLKUzdRPMljvPStWmK0rbi5S8gU8XVEDDX4s1bKMfr2hcVOUSvtoLGloUwku2ZD/QmOEmiuXBH2gjhTwnjWOcMixvD8LEV2dhIoO2aixKa2WzMI8IySD+/HYL7Umelgkdc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BzHSTr9T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Th76OclR; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E60E4052AD;
+	Thu, 30 Jul 2026 10:56:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785408975; cv=none; b=ra0zYU1ILQ2/feAzANkcCxOxTV3AERhyvOKI7LlJaHR4YXJ8rPS70ULjHk0w3lodWU+iZYxnXZpF+EuZMmsCCvCtInXZOinoM33/RtNzKRG2LuHnEiwjiMXrJtdDsN69pqnamyCFb5LTnlbWd5tuMP6LDrFQ9JylmvZ2un3bP5U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785408975; c=relaxed/simple;
+	bh=Tz1wBhT8fjQPH4rplQ3wnVB93b1/+MbegCle+YCQO1M=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=DfdzKMxLf9s+IeJHfIWaRTjenrY6/o1AvhR4ULpGROf1d/e4V9qPSc8MRjl8bJCE7CKHGx0uMg2ViIsbZpsVnoZdyL59JDEDOJ+ZBu5OdWJt0c9aZCzdLEc79xuGANue6IZP/o+dAFOJjqxzdc9Sjpn8bkrNolPKTEi6DI9pn6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CNgre85X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BzHSTr9T";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Th76OclR"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UA2KSl288140
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:53:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=D5i59ny8Jjqz/d4TnC8e+9Pg
-	sp/T/5exBPsqV2oj2ZY=; b=BzHSTr9TB9qAI5/3R6EoiTO8Qlg0B0vpYUn5SKTW
-	KjTmKQ50DPQgPO+njeJO5kK5JfVR6f8Ks4U8aqxGvoROWPH2biPRhhG7OJfln+R6
-	HBq3dX7keS6xPRt3y0fGOlmbTlo1Wdk8SQTVINe4DDUphYntItddf85AwekC91na
-	Mzuk5zZi0lWnT1rQAobomy3VpOtXvrby7WVST+8v77SMXauY3/mDB8BbsH+dscJT
-	krpJ5NejWp44MpDhhpDPT2Y49FUa/Sd7fNrQCWkinRYsGJPMj7Uy+cSmvhJZnaG0
-	aZdOzqc2unFFGyz1hLCU6YzvdLBgvTxVVcc1u7/6FqfiUw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr3v38d3q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:53:45 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e7ee64b25so298407985a.0
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 03:53:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785408825; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IrWn9hiCU1RwWozc/KeiGaLXkycIIYGinC8xB3h1zz78yBsZj7JZypBiDQgoYsJNKa
-         v8W7cxPfq11uGtfa1m88i50/fRZOnQ/x9IRqI/2/b1METzoqc0JzA9t3hGYKgvyR/fVH
-         kkKYu7aTtLPrZ79B/jGW0K9M58OVJIJmMqQF8L+6OKjjlriUxSv2yIbC/fo3TrJVh5HD
-         azjqiyI04gR9lrQeLYsbE15Cuc+3Vsso93XjSBEFkF85shn+TzGO8zreMjf5kFd0s5Qr
-         AvRyNOaIiiZ6FVAdWpnFftCbInz5LGYbvgGY2+m1Z1GSiccTYGOoyAOfiH1/nLZuOwxc
-         kjaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=D5i59ny8Jjqz/d4TnC8e+9Pgsp/T/5exBPsqV2oj2ZY=;
-        fh=wQDkrENK9b6ETWRJCBJSRYi6FpNCUGekKI5T2+K8DSw=;
-        b=WC3BNZnaTUveYZYfOh5ys45N43hAfbhIx1xs4oV2GdHJoDhR+DZS+AcuCIwjfsvTZs
-         7vOV1dONhOpxHF8A+racCYDZC5Cl5WVaB8YIDQSPcr/8Q+iUmXRX0p9meRhN7WNrgfGe
-         9XvDUQbdIVi8dlI1JCU5EFmfXhqoZ1MiZ+G0HWaeec25tpVMxhQ+EIbkLYvGZLqAfO7G
-         9+9+WNT8CX6MHF9QoV4vtDHGoIPWd7i5l4KzuElU9WtrVMDgnw8kUQZgcIFhN8jfzzLp
-         wRT5mXU8qYFi8aYJVZ99o3/OhyZZfTxEay7UNUtvnd3fXJaXvbSd4ikkMYL4yUD2vujO
-         QCTQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785408824; x=1786013624; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D5i59ny8Jjqz/d4TnC8e+9Pgsp/T/5exBPsqV2oj2ZY=;
-        b=Th76OclRQjk63bvdg4p23WPeMXbNAr7YAUYo0HN7AU6iZswUKEM0OhDSANtax9mtjW
-         sQhq+YsS4Ua+bXbb4zOrSI1opN6O9BnPS8L7Wg345eNwmit0k9cxcLky8ito4M3T/NUz
-         JrZnaAaqLjkSxl+F4N3V0pr5ksCMnUXsi+kO/VivQSBVtOR3sR+Gw48WNpSjr2uyNgpc
-         UvBAPIs6Rq8ViD/5NLAUbJl6T9NkWOS4R0/L9ndALWlKXGeUZ0l6TTGcF8d9AyaK76Yb
-         ABH8iv0o4w7eTWggF216P2wTh9PtnKW/ciNY90Lg3/0/M0+7KNqpTA/uH2aaoTWVykHD
-         89Vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785408824; x=1786013624;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=D5i59ny8Jjqz/d4TnC8e+9Pgsp/T/5exBPsqV2oj2ZY=;
-        b=OHuQRr6vMuvSr9ZyAlwwKYitHNxrQgHmlG8hhJzLOFKJxaw7oBMvrsOW/USreWRu1E
-         uTgGbUSOEOox+A64SQZZLpyO2VvzLrlqBJS1bZi6ixV4328RhKUa9IYyCpej7qgbN1Iu
-         YAVFaAkdIhSIVpNxQr2+QIQhe3iMrNEyFiE7U8sxWyRZmHGZ5V+GHHs1dQ7Kklv8GebH
-         LpaGjdpbGCGM2+/MQoTFEheX1fvHxgvMOl6gaxWYh9KqK/aBrpnLmTodKhtIkiem7xSF
-         OEpjqXYWn/GvVkpP+hYXasPVlAq1oKnBgIhokZ1Yr/WWrhQnylvVoc5O5jx2904MxSYN
-         x9dg==
-X-Gm-Message-State: AOJu0YyzDEkla0+O1ZL+wYklv5zZMfIwXHx0+MqDW6B7DfXxQ6GVW2/4
-	scaDEyo5ZysRI3Rh/hCt0ifHydmJ0nzMlGhNpgpRUjXJWwAp7ByuUkCbylDjS/9S7UgwPKmRrUF
-	Ld1MXgH8XChM4WZC82IwL/3nu6927nJQBehC9lIMc2r8P3kBZRaHes8JI/QSa8k//eVoufsw6qx
-	vXbrxMFAOGu7XauhGPWCcB+TjG+TbtCfiiw2OwhwbBsryn
-X-Gm-Gg: AR+sD11L2K7wREmAotU/gwWMvOJk6ce/yEML7mlAiETPyCiVXriNmEBEXkIy9/j2a24
-	j7/bF2Rq0i/k09Ma1VjgqP0djjiJHIuDyK7cBOH/6sHC/9YYMjFKvtB84QrX3tYwnrdI/Opl9QB
-	e77FisGECGIaHGHJOa5vD57WRBn8DKoVg8YqpW3vadTSppUCq411jtfPbnhQ==
-X-Received: by 2002:a05:620a:a18f:10b0:933:a21:5f07 with SMTP id af79cd13be357-9348614e80dmr130942085a.49.1785408824631;
-        Thu, 30 Jul 2026 03:53:44 -0700 (PDT)
-X-Received: by 2002:a05:620a:a18f:10b0:933:a21:5f07 with SMTP id
- af79cd13be357-9348614e80dmr130940485a.49.1785408824086; Thu, 30 Jul 2026
- 03:53:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CNgre85X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03B241F00A3A;
+	Thu, 30 Jul 2026 10:56:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785408972;
+	bh=wfNj/VIelatDoZfj8ovdI+CcS7FJ5Qn9mwg8mtP50AY=;
+	h=From:Subject:Date:To:Cc;
+	b=CNgre85XCyrLPGr3zMKNY+S1JueAGUuexUDQ/yvWoDU1hIkQUNo5C9dzfCCP7xgFs
+	 T+nYTF+w6QzGv82x6d48oVA0cgkF28FSc/8YZAH52ZBibFiC5S4hWIdqqe5QhwrAS5
+	 lP9bagxs6ADmCUagtNA98gLrnmvHTFoAnOFPtXe4godFeMI09RKyGAWKIIdicXViJr
+	 W36wFtZ29DB8KW5nxGYcGyC6t449S+m2nUBrQ8sEisW+4/5DnN26fucI/fOluvRgXm
+	 Ix7KS+78jAtXC+LgDph0YhHZTTevL1EznD65ocOI3UnqZPCPIO0OraC1WZPyc3ySi2
+	 hxe8Kx3om2lYQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH mm-hotfixes v2 0/2] mm/huge_memory: fix huge_zero_pfn race
+Date: Thu, 30 Jul 2026 11:55:46 +0100
+Message-Id: <20260730-fix-refcounted-huge-zero-v2-0-c5d8a41b317f@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260729150958.3889964-1-youssef.abdulrahman@oss.qualcomm.com> <20260729223316.stable-0014@kernel.org>
-In-Reply-To: <20260729223316.stable-0014@kernel.org>
-From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
-Date: Thu, 30 Jul 2026 11:53:32 +0100
-X-Gm-Features: AUfX_mzSGfAUDNdhpHfcTRjl8y_dIy1NDKpDZ5F5Qi2dbl0_PjQ-5aGojBq-yDw
-Message-ID: <CANyhwx0BOQ1CEj2BpCN9MtUM-kbg-c2zDNzkvY1gntBBMHdwhg@mail.gmail.com>
-Subject: Re: [PATCH 6.1.y] net: qrtr: ns: Raise node count limit to 512
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-Proofpoint-ORIG-GUID: K3ovrNVUZAK_1h_JpLQ1CWsBs-dO6_1_
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA4MSBTYWx0ZWRfX+Kd+PEKIxIgu
- F0ONMRuNmYFK+b4DFk2H9xCbLylnSYA/cqVDhF1wGFDAxm8fb2IXh0u8EmK14rw7pj5T2YbSNWv
- nwe/Kqx1ISmBZFIbQjlUF3b4RB6nn/I=
-X-Authority-Analysis: v=2.4 cv=bZlbluPB c=1 sm=1 tr=0 ts=6a6b2d39 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=RsryKrR201jtlDbRoOkA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA4MSBTYWx0ZWRfX8TMSuLKiqB/C
- hUOvPDS6pngGOhHWeYjC+wNkp2YzTWDrT79aUOqLS6HBnqngIt5wIPxFkDy/i8RXdPFF+15pAlP
- 9iha2kkMzqEISjcvb9WcAskJLfjsNyADZIaffNX70OmLmx5U5l3NxmzDH52Qp2vjUdE2jLSbAtZ
- nyGl/Y5bTSKfk7lMocqxZ+uwywBwgklsJWC1TI95/4YKDw7KXXjVU40P5g422JRbWGc/ZoYLMEj
- FhK6aQMHTbg/VHVwNKfPx+SOGYLCtdRThmJv73TtKr3l+AURMBebgu46z570FPj8TCGTeZpn700
- AhazsHnKtR19rYnU22MtY4G3agPp8NDpw0aVvAMUl2oZAY0oQQkZSgPbMBBKU8IplNXk2lbTqCt
- klMgYVpspPNBpPeI9TRzcmsT4Q3PNsVT71vPbpUJUfuw7x46U0ZWEsR4MqyJc7n4A+4i3IyaC6I
- MvHZC2V/MineRJKVWGA==
-X-Proofpoint-GUID: K3ovrNVUZAK_1h_JpLQ1CWsBs-dO6_1_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-30_03,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 phishscore=0 impostorscore=0 adultscore=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300081
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALMta2oC/4WOQQ6CMBBFr2Jm7Zi2IBhX3sOwgDKlVWlNWwhKu
+ LsFDuDyZd7/f2YI5A0FuB5m8DSaYJxNII4HkLq2HaFpE4NgomCluKAyE3pS0g02Uot6SMqXvEP
+ BZcPKJld1RpDi72SZaau+Q9+jdnHnaj+GoXmQjGv5qmsTovOf7ZGRb6H/myNHhpkSBVfnPE/jt
+ yd5S6+T8x1Uy7L8ADJNqbngAAAA
+X-Change-ID: 20260728-fix-refcounted-huge-zero-21cb07b4fa3e
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Pankaj Raghav <p.raghav@samsung.com>, 
+ Hannes Reinecke <hare@suse.de>, Hugh Dickins <hughd@google.com>, 
+ Yang Shi <shy828301@gmail.com>, Kiryl Shutsemau <kas@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Hengbin Zhang <uqbarz@gmail.com>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3044; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=Tz1wBhT8fjQPH4rplQ3wnVB93b1/+MbegCle+YCQO1M=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKydbdfWXSi5spEpktXTDvNpzbZ/xWYbGZovdvyAKNhd
+ QLPYkPXjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEzkchnDH56FB1fmhl/PMZ53
+ /7Zbd3Rrz6Wsqt8Cc39Y3dHIK91+up3hv++2t6vNlzSzRqc/70iftyo6d7fLKz6ZN5L2Xp+1vxX
+ IcAIA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Hi Sasha,
+There is a subtle race in the reference-counted huge_zero_folio
+implementation.
 
-> Could you send a single v2 for 6.1, 5.15 and 5.10 that matches upstream
-> exactly and adds the missing node_count-- in ctrl_cmd_bye()?
+The fast path atomic logic fails to account for the fact that the
+shrinker (which drops the final huge_zero_refcount pin) can overwrite
+huge_zero_pfn with the ~0UL sentinel value in shrink_huge_zero_folio_scan()
+after a racing get_huge_zero_folio() installed a valid value there.
 
-Will do. Thanks :)
+This results in huge_zero_folio being correctly set but huge_zero_pfn being
+set incorrectly and thus is_huge_zero_pfn() and consequently
+is_huge_zero_pmd() will misidentify the huge zero folio as being an
+ordinary THP folio.
 
-- Youssef
+This can result in the huge zero folio being split and otherwise treated
+incorrectly.
+
+The solution to this is very subtle as there is an atomic fast path, and
+thus ordering in weakly ordered architectures has to be treated very
+carefully.
+
+The first commit fixes the issue by introducing a spinlock around
+huge_zero_[pfn, folio, refcount] write, with careful consideration paid to
+load/store ordering in the fast path. It is placed first and kept as small
+as possible so that it can be backported on its own.
+
+The second commit is a pure cleanup which reworks the
+CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic to better separate the persistent
+logic from the dynamically allocated one.
+
+Andrew - I know you don't like a mix of fix/cleanup, but thought it'd be
+easier to keep the 2 together as there's a dependency.
+
+---
+v2:
+- Reordered the series so the fix now comes first with the
+  CONFIG_PERSISTENT_HUGE_ZERO_FOLIO separation following it as a pure
+  cleanup as per David.
+- Fixed up wording as per David.
+- Cleaned up Cc's since dependency of fix on cleanup no longer exists.
+
+v1:
+https://patch.msgid.link/20260728-fix-refcounted-huge-zero-v1-0-3f261f5447b4@kernel.org
+
+To: Andrew Morton <akpm@linux-foundation.org>
+To: David Hildenbrand <david@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: "Liam R. Howlett" <liam@infradead.org>
+To: Nico Pache <npache@redhat.com>
+To: Ryan Roberts <ryan.roberts@arm.com>
+To: Dev Jain <dev.jain@arm.com>
+To: Barry Song <baohua@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+To: Usama Arif <usama.arif@linux.dev>
+To: Pankaj Raghav <p.raghav@samsung.com>
+To: Hannes Reinecke <hare@suse.de>
+To: Hugh Dickins <hughd@google.com>
+To: Yang Shi <shy828301@gmail.com>
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Hengbin Zhang <uqbarz@gmail.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+---
+Lorenzo Stoakes (ARM) (2):
+      mm/huge_memory: fix huge_zero_pfn race
+      mm/huge_memory: separate out CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic
+
+ mm/huge_memory.c | 189 ++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 116 insertions(+), 73 deletions(-)
+---
+base-commit: 5db85e34ec49beee590676d55f13e8e2b14c742f
+change-id: 20260728-fix-refcounted-huge-zero-21cb07b4fa3e
+
+Cheers,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
