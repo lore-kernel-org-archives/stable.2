@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7D63630AE
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 06:23:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F613630AE
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 06:25:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785392617; cv=none; b=XsSzjNsMYx5JL2ufr+w6SyiZegT/8jlVQtD5ECDejOQnAGVyPz4OFMrycg0x8sVj/XAfd/VcC90L+tqvew4UwKOph16d42zng3xzhRBLlEZy2U04G0DLRYVdTSc5lBt+Z3w67RJKWpLMMFFczK3+6NMvtrPbmeXqq2eIE6x7aOc=
+	t=1785392703; cv=none; b=KrUmLhEf5WdCh76Qwrif2XehXTnGlWhdnlgQhFIdIuLWkKj867ilaeAQAxn0RNE6kmKlugtDScwQYBmOpZOcui/lTfTqFta5NH07R5ZeHzXX25zk/uyBY7xXx1BljmLHb8NLCrTgSA4EoVrSEpMxtu1/HP1VWn/CL12G4/CF3To=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785392617; c=relaxed/simple;
-	bh=tGDYJMdSnRMuTa1PVE8PCB4DBKgv1yzZx/FL3zc9czc=;
+	s=arc-20240116; t=1785392703; c=relaxed/simple;
+	bh=cxi+/3HVHtcRbICZrKR9YaQjkwE8Tf5p2ZuuvgkHc9Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KCLuuF2YxEpTLgiaRdVHMqJrIDmDLW0uKPgJFtMYTBxdggFQTroNC52kSe3k3H7Z5vCLKw50qinM22ajzyo0IRkcFQjX2aMV2j40tILkqDATth81sz8soEFgATxf9bibfcCJBWgPK/b56Lz9b1o/vvbjb8kk6surSsdzXLFmt44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GW8w/6hF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=r3q4/dnpLqTDnAYLeMmuuWpdJMzUfWrQ/QbpDlYvCHFuzPtYzDxZhKgSNGtZAb8v66HwzfD0sIWozHskCkZrsOA0v4xbNi1v2O+6T+11SlENB/qXZxfG9Vkr2DEB6OXXg9w+l028hUjCt33crXv2beRrI2lcL65emDxcJiyby6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V7m1sQH4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GW8w/6hF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCE221F000E9;
-	Thu, 30 Jul 2026 06:23:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V7m1sQH4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09971F00A3A;
+	Thu, 30 Jul 2026 06:24:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785392616;
-	bh=B2f8VlX4ekMGsbi2BbDW96Ed1JhEO9+1AX4d8910yYI=;
+	s=k20260515; t=1785392701;
+	bh=RIhSW9s2cj405axXbpioXessvk/tDk0Vl/C3BaoolnA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GW8w/6hFnxWG+aRC+nnaPPzKGN6e1m2srHfGUn1YFeNHBcRf4peMWk3VagPuqV2Tg
-	 3/AINdpqa5pJJEbCXFz0vNZ1rEfxZ4nR32RxTJG2GEBDNMnoBmAMDj69uunoIHvzuf
-	 zMDAE05wS7HiS1rf/uhGDciCfL62j1Il9OBlSxkBgnDYmW7n+msmglAMBtRD4MJWbC
-	 DB8/lRvulKrGtztNpBS4los7vuWtPASzuoOa5kkNN8cb8YtrKtXwze/4eANglD2eva
-	 EA8+xTLUNcush2MSMbc1b8iLQudfrLkjB5qRuudBF/Nu9NPxUx+SEJj6rO88txpt5x
-	 cCCEN6Yo96aKg==
+	b=V7m1sQH425SnOzPSWQRJQR3n7gqCvhAdfh1CQ8c509kMC9dl549J0FLPBihuBZsjM
+	 ySseq8v35edC8NhaoKfEzfwxn2nNuFJ24yMcsCi3PW9ENHwKWickUbw+zVx8yA0UrY
+	 2zT9QqMCcWIB6g9qMgd6UMs4f2WB44dD9VmdbXf5Q72T+yYS2j7ENFabQ4a4g9sK9V
+	 xRl6xPZi7drCiogCkvB4WwvKP2yd7l2hiZFQ7iqqR5t0bG/FZ6FSllgOnHNRVi+miI
+	 eSGQuo02UVej5RT7CADY6L0lA6UJeJjeU9W7RNpsCcDZQ2BOzFPzHWOdKah/ppPYEW
+	 WmQyY/XEdFdiw==
 From: Miguel Ojeda <ojeda@kernel.org>
 To: stable@vger.kernel.org
 Cc: Miguel Ojeda <ojeda@kernel.org>,
@@ -33,11 +33,11 @@ Cc: Miguel Ojeda <ojeda@kernel.org>,
 	Gary Guo <gary@garyguo.net>,
 	Alice Ryhl <aliceryhl@google.com>,
 	Tamir Duberstein <tamird@kernel.org>
-Subject: [PATCH 6.12.y] rust: allow `suspicious_runtime_symbol_definitions` lint for Rust >= 1.98
-Date: Thu, 30 Jul 2026 08:23:20 +0200
-Message-ID: <20260730062320.54448-1-ojeda@kernel.org>
-In-Reply-To: <2026072921-ecosphere-nearest-8804@gregkh>
-References: <2026072921-ecosphere-nearest-8804@gregkh>
+Subject: [PATCH 6.18.y] rust: allow `suspicious_runtime_symbol_definitions` lint for Rust >= 1.98
+Date: Thu, 30 Jul 2026 08:24:52 +0200
+Message-ID: <20260730062452.54973-1-ojeda@kernel.org>
+In-Reply-To: <2026072920-prorate-semifinal-1bca@gregkh>
+References: <2026072920-prorate-semifinal-1bca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -108,12 +108,12 @@ Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
  3 files changed, 11 insertions(+)
 
 diff --git a/init/Kconfig b/init/Kconfig
-index 53eba5cd88ff..f0e708b4226d 100644
+index 0c25e78e10f4..6ce315af48c1 100644
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -140,6 +140,9 @@ config LD_CAN_USE_KEEP_IN_OVERLAY
- config RUSTC_HAS_UNNECESSARY_TRANSMUTES
- 	def_bool RUSTC_VERSION >= 108800
+@@ -162,6 +162,9 @@ config RUSTC_HAS_FILE_WITH_NUL
+ config RUSTC_HAS_FILE_AS_C_STR
+ 	def_bool RUSTC_VERSION >= 109100
  
 +config RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS
 +	def_bool RUSTC_VERSION >= 109800
@@ -122,11 +122,11 @@ index 53eba5cd88ff..f0e708b4226d 100644
  	int
  	default $(shell,$(srctree)/scripts/pahole-version.sh $(PAHOLE))
 diff --git a/rust/bindings/lib.rs b/rust/bindings/lib.rs
-index a08eb5518cac..363f06b17240 100644
+index 0c57cf9b4004..5e208064d46c 100644
 --- a/rust/bindings/lib.rs
 +++ b/rust/bindings/lib.rs
-@@ -27,6 +27,10 @@
- #[allow(dead_code)]
+@@ -30,6 +30,10 @@
+ #[allow(clippy::ref_as_ptr)]
  #[allow(clippy::undocumented_unsafe_blocks)]
  #[cfg_attr(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES, allow(unnecessary_transmutes))]
 +#[cfg_attr(
@@ -134,13 +134,13 @@ index a08eb5518cac..363f06b17240 100644
 +    allow(suspicious_runtime_symbol_definitions)
 +)]
  mod bindings_raw {
-     // Manual definition for blocklisted types.
-     type __kernel_size_t = usize;
+     use pin_init::{MaybeZeroable, Zeroable};
+ 
 diff --git a/rust/uapi/lib.rs b/rust/uapi/lib.rs
-index c98d7a8cde77..f5c47f9cad10 100644
+index 1d5fd9efb93e..bec80b1dba23 100644
 --- a/rust/uapi/lib.rs
 +++ b/rust/uapi/lib.rs
-@@ -25,6 +25,10 @@
+@@ -28,6 +28,10 @@
      unsafe_op_in_unsafe_fn
  )]
  #![cfg_attr(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES, allow(unnecessary_transmutes))]
