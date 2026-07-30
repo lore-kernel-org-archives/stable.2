@@ -1,52 +1,53 @@
-Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com [203.205.221.209])
+Received: from out203-205-221-149.mail.qq.com (out203-205-221-149.mail.qq.com [203.205.221.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCE237F007;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E941C37C108;
 	Thu, 30 Jul 2026 06:12:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785391987; cv=none; b=PvAkThGwjxyWjCF40rWgjtXOqb12JzBYTZwVVOhXc//A0a+3GJCuATvuJ157XXKuGqXy7adgv8W1oNCee33PjXVQUKDIuqpW1iCIY3ij/+LI7iaTf9ZOQcAQ+3cAc4ZtDLeuLMFFcylp6zF4MfRx0CnNAbOhBorTi8l/118ZdK0=
+	t=1785391988; cv=none; b=cLFRzIUVzlvEph12H10Mzh/XPV2HsbVpBk5gckkooql8TQvujktI4w2wkdB1BV0q0AI8yIcD5R8ir+LfMUuoKvlpsL1ePEcIc1RtBwQwMIsk/zQ8glDlVOCJGaHCf3yKqgwPkP4BIBw8sZ2z9G7FeyxGbvuXPcfUFw5f7XA5jsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785391987; c=relaxed/simple;
-	bh=6wkTzN2wSFu8JQa+7fiFbDnxUgCjXoE2dbCXoDeR3wA=;
-	h=Message-ID:From:Subject:Date:MIME-Version:Content-Type:To:Cc; b=hkp6jPOd50oKeChz/hYAXmpwj6pjls+Rb65e7o3TR/RoLTVxQKPej3W2uZM23AKcHSV+MVH/AVhjBgijrvgnmE7XW3R5OMnYthq/lRg7xFmoQm30BMC6/vrBzXioefrZtbn0h9SJrMnCylO0+R/h+GLDsdlaUCtgEAAofgoGLfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=j+iVbIX+; arc=none smtp.client-ip=203.205.221.209
+	s=arc-20240116; t=1785391988; c=relaxed/simple;
+	bh=MZx6VkD93F9RnM2fvXsuQdmQ7kfmz09u4KGm9gQexNc=;
+	h=Message-ID:From:Date:Subject:MIME-Version:Content-Type:References:
+	 In-Reply-To:To:Cc; b=B5WqTgTlA74L3bslfR5fLmvHqudN0vvff/GasyAiXldmd1O9rvo3Us6nznygtNYkFwh8LysM50lrDG4OfzQ/o9Jtj34XPmqtrnpAYxI/6dxvldBRfSEMvBAKu6zkKbdnw/ArypAKYBBxXFB+xzPoYBz7G+v4KIXVsKYBx0eVxaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=HIuxalHP; arc=none smtp.client-ip=203.205.221.149
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="j+iVbIX+"
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="HIuxalHP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1785391968; bh=xodhZBnx6jfLH4JD+1UDx5RRMPDpkbVj69WOZYwA5Z0=;
-	h=From:Subject:Date:To:Cc;
-	b=j+iVbIX+Q1MKTEF8UxYUjUUm9oy/wPl4RMwF2k/ooZ3IDOtVscTPRdJs0cmAC714O
-	 ApkVCdr80h/L+g8W2FnfhYZ1GHBokvl51Nlh0p7qNaBCpWSdz/371DpGATv1l+WZ6c
-	 qCcFPgvqMLLtzGuXkeA7iQu8A4TMbeICe+Q9hh4k=
+	t=1785391967; bh=6u/mJ1eHhtcpBfaCK5wQm5H38V9X2M73NOfbAlKBO2s=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=HIuxalHPoS76MHVf/v7qcVKY9OV3Zicir28tOnwbe0V0AyrmPQQQBY+EzLhsc0sDp
+	 lk4RPO2Q2SEAxdhfk4nL4K3thH78FbnXTpnl/pDbho4je+DyuIuMb+H9d9/tVF/6Ya
+	 KMdqmhb1GRZN8AZmxD2KqVMDWtlT0sC6UQqf7U2c=
 Received: from ubuntu2204.localdomain ([2409:8d20:22b:54c:9e54:40ff:fe02:3f0f])
 	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
 	id 2DF15055; Thu, 30 Jul 2026 14:11:31 +0800
-X-QQ-mid: xmsmtpt1785391891t5q15582x
-Message-ID: <tencent_0E5C2332F801372DD0D4CB4C25B88C18040A@qq.com>
-X-QQ-XMAILINFO: MDbayGdXPuoegJq/HghpgMeM/vEcKqPce/AHIJU6n+h4wmheiLkpGNDuLapRTp
-	 hbZ5/z0BGn20avs+kCt0XScYUpVszTPZ1ZaP8Am33dxwSRnSuUtQ+RMHDAfolnof66caTPvzHy+r
-	 z7BDAhDFuasiFYuCxCStGC+NlZWGHDdKOLWohgOmzeYkcR+nqQFN+zv04AUnY3/ezQtxHlU+u7gZ
-	 ZRqEjiZxRR8Oa9UHhZuTdxDdjwDXNuGl8VrdvZqYtmEUsNcyax6sgDNy96L12YitmAoD/UdolvKN
-	 kDc2/Jke6qRflU7GqPtA9jK8xCu5+1POVqJj39J78zuj6vEtDbmewIjrqXDyb0lwF8xyzznWEuSr
-	 gO3FbQw0cjK7ZsyF3PE+5Q0egqVdRQcmzAlMeyD01cIl7ENz89E7u98qlhIp3W99Amwu9qmFNq//
-	 kqV9+Lmjq9nBHRXBfaW8U98eHUBnMbZvPJZdAAXGT52ZUdsFRvraXOO1e5GvVHgfom69x1HbdM7Y
-	 dVmUfUORA1N/bWeBOwjM4y0P7T1sp5xBl+zZ4jmqcIk+30TeDbTKYVNmo36QcKe26LSWUbRFb5ta
-	 iD/AeK5e10YcdsHfnggxYTBbOantVUcYWUHzhS8Bb0NFl0IfI93/75OLkDCelkYvM9Xasf+BOh41
-	 w9cqGvXAh3s/7GCeZchFVFEKrQTHb8b6QaHVkoVA+DSv6C9WePrh+SQFyjdtIi0dJdmmdkZZQ3fj
-	 1oP1/mVY2Io9mO3kTt70KOHm8HguBl+iZ5EDvVbwOjH/9SlsuB1x3VB3cMKQqFAG46XQOxQ1YFkE
-	 UX4y8I1ZTQYnKazpkfrHGtBT11d6NvreEU/cagX1R0TuMEGUTfiGDYb9X7Ddd5epl7QEBBrOmwow
-	 McJw/DnyRGRt4MW3IcWZGo6LNwVFeUX4JRbO6zbc/bTC82a4xvMhb16hYWVQf/WrhvjhdyGM/sz+
-	 +02QLHtVQCjIUjKKNoQHQABr4LV0AKKjnPZrRpVp5K/0Pe9eH9O2qnZgWhzof9bD7zD0mAQKdF9D
-	 ctQ2N6aiFunfzTXf5x5nNi7GTE153Dl1VPPLq8HOqeO7pmX/JTId5vQC0I7e79oYrifHyfTJiElH
-	 EXutGIJ+0BRfpbi9BCiWZJw/6cqgzzxPwVbmHQY3yj1Y4LIlePjIirFn0HdQ==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-mid: xmsmtpt1785391893tsx1kpqqe
+Message-ID: <tencent_D2D30ECD988C5C82D18863401362835F7606@qq.com>
+X-QQ-XMAILINFO: MRMtjO3A6C9XFoMCSl6ZInb3+GuQ8gajxOb7Om5LsBNl3hBTktMJbHRntZirGy
+	 WEbXlXZrp3uCNOWqNT9oDgKKu69NUPTwn1zHvTdfHFLNy9i3tRuYB5y6GckaW/hdsEr+XsDAFUuN
+	 xNLN6kEItGD8z58/qMEWgwXpBqo470jXo8K7NblLlHKp/MhOhRD07phKbNAJSgNzvtmrmqH/8EUu
+	 eTVeHeHWzVt3pnc3Ax/pJ1cs2F3aTD63yNe+eRig/XcKfoZB85RiDJtrb+Xdg8H8ySKvWF83MQy4
+	 dr4PABrhorsb4NW5lSF2wE5cxb4GRGIHk/fcNHLmlO+pVr6gMjlvn4HeW0+yGoLlMzR5PdO1DTYY
+	 9cn6jnn2MQOvxF5vO+fzb7qVcH1iDrEObmbdpmfJ5LUD3AsDLd3q5K4010ltjgn6oC+Nwtjc16xd
+	 2+kJAzIi1aTy2gWJkOcXySui0uATnGaSnwMtTRMpSjXN/igNwQkgCB6Cv1EBJkrUEQWf+ATgyldL
+	 8T1vKtZYJUYzZiKbjHc/+/JnG75lz54jokhV4VmdcgHBECiV420/DHmnwRZG9F8HnKBxZ80lHW1n
+	 5uJImI8U9tevQMnNF0dSq0VtguHUM64+RX+iJcKQrK0C7OFAGYzARDHkPxfIKW9xym8rmcHir9Ps
+	 zoHm0Ka1KnaZA1ENzu/0+25CdGl3D2ygNGtM+z+cVt+Krde1nJ9qgxmQrV7GjDGEndx+a3msRDQU
+	 26ZER9fJitGMRqcdJr11fCQBeNDMSEkYMD9v2I5CvUcVBzzS3pW51o3WQ3XfBy1GEaAvz2+Yyvn1
+	 sbGSScLejuqF27Rm+w6nWObX7cYRejdywBusiY/hqLr9uJFKQxeiv4PGepHOWCXJeLR92aMU9kfG
+	 3O4RNTIVu47GPZ1llU3eSgHzJ5WKWBQ/59ljn2iwxFU6NcOov2uQGpPtCaMRNgylYOfONDNMN9vA
+	 LD2z06wUdMfTVTEacet+hUPXX/cSw806QB+gRpp4ZkjWqC4wH3v0ab8JRKYlhu5FWlGunQzYfp4h
+	 83Ps1S0C9sqfW/bXIkrwYELJxNKRvkyygvvrSIRCly7+Bm0O0CHeXj/+/u2iwcIZv7exifR4k9ZW
+	 A7A0EeN+RWxg4rqgVPRxp4inWAK2O1+CzTszP2zvZ6yVgfHxY=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
 From: Cunhao Lu <1579567540@qq.com>
-Subject: [PATCH 0/3] can: rockchip_canfd: fix TX stalls and echo skb races
-Date: Thu, 30 Jul 2026 14:11:21 +0800
-X-OQ-MSGID: <20260730-master-v1-0-6945fdd4f0ff@qq.com>
+Date: Thu, 30 Jul 2026 14:11:22 +0800
+Subject: [PATCH 1/3] can: rockchip_canfd: prevent TX stall on echo skb
+ failure
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,10 +56,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAnramoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDc2MD3dzE4pLUIt1EwyRTkyTj5DTTRAMloOKCotS0zAqwQdGxEH5xaVJ
- WanIJSLdSbS0A/PjexmoAAAA=
-X-Change-ID: 20260730-master-a1b54b3cf5a0
+X-OQ-MSGID: <20260730-master-v1-1-6945fdd4f0ff@qq.com>
+References: <20260730-master-v1-0-6945fdd4f0ff@qq.com>
+In-Reply-To: <20260730-master-v1-0-6945fdd4f0ff@qq.com>
 To: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
  Vincent Mailhol <mailhol@kernel.org>, Heiko Stuebner <heiko@sntech.de>
 Cc: linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
@@ -66,53 +66,50 @@ Cc: linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  stable@vger.kernel.org, Cunhao Lu <1579567540@qq.com>
 X-Mailer: b4 0.15.2
 
-While running CAN traffic on an RK3588 system, the driver repeatedly
-reported an inconsistent TX echo state:
+rkcanfd_start_xmit() advances tx_head and requests transmission even when
+can_put_echo_skb() fails. This creates a pending TX entry without the echo
+skb that the RXSTX completion path needs to match the self-received frame.
+The entry cannot be completed, and the netdev TX queue can remain stopped
+after the two-entry software FIFO fills.
 
-  rockchip_canfd fea60000.can can0: rkcanfd_tx_tail_is_eff:
-  echo_skb[0]=NULL tx_head=0x00060f7d tx_tail=0x00060f7c
+Do not advance tx_head or request transmission if the echo skb cannot be
+installed. Account the frame as dropped and report the error. The
+-ENOMEM and -EBUSY paths have already consumed the skb; explicitly free
+it on -EINVAL, where ownership remains with the caller.
 
-The Rockchip CAN-FD driver completes transmissions by matching
-self-received frames with entries in the echo skb ring. The warning above
-is emitted when the driver sees a pending transmission but finds no skb in
-the corresponding echo slot.
-
-The immediate cause is a race between the transmit and completion paths.
-The completion path removes an echo skb before advancing tx_tail, while
-the transmit path reads tx_head, tx_tail and that echo slot without common
-synchronization. It can therefore observe a partially updated state,
-report the warning and stop the TX queue without a later completion to
-wake it.
-
-While investigating the warning, two additional ways for the TX state to
-become inconsistent were found. The transmit path submits a frame and
-advances tx_head even if installing its echo skb fails. In addition, the
-erratum 6 retry path selects tx_head, which denotes the next free buffer
-with a two-entry FIFO, instead of retrying the outstanding buffer at
-tx_tail.
-
-This series makes echo skb setup failure abort the transmission, retries
-the correct hardware buffer, and serializes the TX head, tail and echo
-ring updates with a spinlock.
-
-All three patches pass scripts/checkpatch.pl.
-
+Fixes: b6661d73290c ("can: rockchip_canfd: add TX PATH")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
 ---
-Cunhao Lu (3):
-      can: rockchip_canfd: prevent TX stall on echo skb failure
-      can: rockchip_canfd: retry the outstanding TX buffer
-      can: rockchip_canfd: fix TX echo skb race
+ drivers/net/can/rockchip/rockchip_canfd-tx.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
- drivers/net/can/rockchip/rockchip_canfd-core.c |  1 +
- drivers/net/can/rockchip/rockchip_canfd-rx.c   | 31 +++++++++++++-----
- drivers/net/can/rockchip/rockchip_canfd-tx.c   | 44 ++++++++++++++++++++++----
- drivers/net/can/rockchip/rockchip_canfd.h      |  4 ++-
- 4 files changed, 64 insertions(+), 16 deletions(-)
----
-base-commit: 11028ab62899e4191e074ee364c712b77823a9c4
-change-id: 20260730-master-a1b54b3cf5a0
+diff --git a/drivers/net/can/rockchip/rockchip_canfd-tx.c b/drivers/net/can/rockchip/rockchip_canfd-tx.c
+index 12200dcfd338..d2cbe25c46d6 100644
+--- a/drivers/net/can/rockchip/rockchip_canfd-tx.c
++++ b/drivers/net/can/rockchip/rockchip_canfd-tx.c
+@@ -125,8 +125,18 @@ netdev_tx_t rkcanfd_start_xmit(struct sk_buff *skb, struct net_device *ndev)
+ 
+ 	frame_len = can_skb_get_frame_len(skb);
+ 	err = can_put_echo_skb(skb, ndev, tx_head, frame_len);
+-	if (!err)
+-		netdev_sent_queue(priv->ndev, frame_len);
++	if (err) {
++		if (err == -EINVAL)
++			dev_kfree_skb_any(skb);
++
++		ndev->stats.tx_dropped++;
++		if (net_ratelimit())
++			netdev_err(ndev, "%s: failed to put echo skb: %pe\n",
++				   __func__, ERR_PTR(err));
++
++		return NETDEV_TX_OK;
++	}
++	netdev_sent_queue(priv->ndev, frame_len);
+ 
+ 	WRITE_ONCE(priv->tx_head, priv->tx_head + 1);
+ 
 
-Best regards,
---  
-Cunhao Lu <1579567540@qq.com>
+-- 
+2.34.1
 
