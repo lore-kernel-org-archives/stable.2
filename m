@@ -1,208 +1,285 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA8D36F8F5
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E23F3FFAA4
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:28:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785407068; cv=none; b=uq+SIVmRBWjsORAhdNY+Ib/9PdlSL5ME3ZYpueQ8FmNEMRoI+2KCD42cP1crOiZoK8RfNlTU+XO8DXKQf2tGO98VrVkYxRRwfl6Cn6CTLNhZJEgvLTFPu8Hm5H5Auk08UTIWrHsD10F+BWKcUSK9XhFZ4RUYzPImpH/sY2L1nkY=
+	t=1785407310; cv=none; b=THmS6WIFvxatykulPc3bMrRd7S2WGA3fhssS8GWQVdYXc1f9qU59EhlFduA9DJ4ubl8xq1HF/G2Drjq9e24+phemGpNE0S3w5U7vytQaUjJWH/jatWuQGyEqyMTJuT0zlQ627W14IsebVb3ULKP085A8MJrvU426GGZXCCyUfrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785407068; c=relaxed/simple;
-	bh=6MjKi65qbbsw3CNf3rM1GiQOeSxiUd3JyvZ70YjB+54=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eDoolsQXDgbC7DbqV8dgKW0raZVVcwGRYDfwBZu9AbAt7OwjMqZFWvYZRcDK/uXOb7GQsuQc/DeM27jaBVaQthFCe0H0T3+TImjT2H1DQUIDIiNyGjND8HYVwZ6QxicsrDdu1Fl4RU2945VbZ3sxPzD1CGZby6VssJuTKtOOwRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=wito95Uv; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=y0ZhYQLn; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=hSgTZFm5; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=r1Wl74VD; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1785407310; c=relaxed/simple;
+	bh=lCt8k9cCmP42z9gip6x+5sUeErFe77Lz70jYVzrKhEA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VzQTjNJlF1Y0rFExKHwsfHHOG1+gg1SRoTsPR31bWYpUIZ3tAdZbD+K51+jeJa6g97IixrT0oIQX9MhwuBilsGdiNlxeJ5qngOBsS5LIXxC1XjJwBg0Adhnssp8b3vmAQp05JbkZuZBcGpwHzpOgGOMqDf7/sNq2l48VjzMaEvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BV7FH/Zj; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="wito95Uv";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="y0ZhYQLn";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="hSgTZFm5";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="r1Wl74VD"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id ED1517D6BC;
-	Thu, 30 Jul 2026 10:24:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1785407061; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=opDwt57Ie+JYRyS1iHITtuftmOaehopxDSxLn4jODiE=;
-	b=wito95UvNBa11Pg9cTA3thpu/CxbljlRBP3qXYlydMkoyd/0djq04vcAO9gteCFh3vypOf
-	fvJS0W6N3muSTZ8qLplZiLzhf7d/W5v3MrKmVNmngw/v3FxWQHmCzXd9/y1xQM3aBTD1uf
-	kicnBbQ842QHeZcqtX/0v4c3Z2CgH0k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1785407061;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=opDwt57Ie+JYRyS1iHITtuftmOaehopxDSxLn4jODiE=;
-	b=y0ZhYQLncwugpPVN2y+tSjnZe4zU/9/+3GY92v8rRjiHWgbWc+FGVjmTdA10IE2FC2m6Bs
-	IZ0+/iTkQ9QI/+DA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=hSgTZFm5;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=r1Wl74VD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1785407056; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=opDwt57Ie+JYRyS1iHITtuftmOaehopxDSxLn4jODiE=;
-	b=hSgTZFm5YM9E0qLrwhwPrYC7FwTv8xtuizTgznD/qQGd5nElfEdWBVHNKhNJB67LPmCgk7
-	PabsV61WSu5kCzAR5pr+MYf9Lg/ECLCnViZ5Dw0c8JXD1fL1E+TjlRomDXePyF7RDsk9Va
-	Ddj9PEDxnaRHoDhXeawcZFEBJg5hPIA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1785407056;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=opDwt57Ie+JYRyS1iHITtuftmOaehopxDSxLn4jODiE=;
-	b=r1Wl74VDZWRqx0VbOeAys4+VlsHFmY0124+DLqTbDvul+j8wNWb1gNj7Prsq8QHSH5el80
-	f+iG/q3dWDIH/YDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E3E87779CC;
-	Thu, 30 Jul 2026 10:24:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id hlGbN1Ama2ojLAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 30 Jul 2026 10:24:16 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 8C489A0AAA; Thu, 30 Jul 2026 12:24:16 +0200 (CEST)
-Date: Thu, 30 Jul 2026 12:24:16 +0200
-From: Jan Kara <jack@suse.cz>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Amir Goldstein <amir73il@gmail.com>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] fanotify: fix use-after-free of file range info
-Message-ID: <lkaqsnjtsfqbnlm456mxpq4k3hchwpmd4rnwydj2xektrnem7f@gwz5xjiduxfg>
-References: <20260730085801.2068723-1-nicoyip.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BV7FH/Zj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785407309; x=1816943309;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=lCt8k9cCmP42z9gip6x+5sUeErFe77Lz70jYVzrKhEA=;
+  b=BV7FH/ZjE3DCj+5xo2fCXp6n3QfQw7g2/WCDQhm94M6JHr5AlW5SkDxs
+   tldUzq16KZcJ8cSHOTTpbuwbNC3DlDUPElAletyrpogiTgoPKuVLxQGJG
+   CVAku9KKZKS6ItpwA7RAMDxcyms04qgfD/zupki0kJeGUXQsXK14Yf7W4
+   /tMAAOUK35JH6EUU8qiB9iiO7cnmcelOgNx/Ws154yf50tQmaHIY1k3q+
+   JPV5E6UZwdxwHze0rItbknmBHUL5hW0xN8VGjqrgIJXhjYx2RN2AzdNC5
+   6075lGG4XkFOr5Mf5O5efq/2LLoJeBF5H7FK71dYpYhpwg+ghYkcQrs+6
+   Q==;
+X-CSE-ConnectionGUID: sl3bgEekQMaqj9DiD3Rysw==
+X-CSE-MsgGUID: 23aq4PTbTiK2DjvlK1KX+w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85878053"
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; 
+   d="scan'208";a="85878053"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 03:28:29 -0700
+X-CSE-ConnectionGUID: GDC9UcR2Rl+TdqPKMHw8FA==
+X-CSE-MsgGUID: qbWhKjBORzy/inxQb/qSfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; 
+   d="scan'208";a="298475397"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.245.197]) ([10.245.245.197])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 03:28:27 -0700
+Message-ID: <5b6e3ecb-046a-4cab-a0c8-a0fc4bdf436a@intel.com>
+Date: Thu, 30 Jul 2026 11:28:24 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260730085801.2068723-1-nicoyip.dev@gmail.com>
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,gmail.com,vger.kernel.org];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: ED1517D6BC
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] drm/xe/guc_ads: allocate UM queues in a separate
+ BO
+To: Jia Yao <jia.yao@intel.com>, intel-xe@lists.freedesktop.org
+Cc: gwan-gyeong.mun@intel.com, stable@vger.kernel.org
+References: <20260722053410.2767369-1-jia.yao@intel.com>
+ <20260730004735.344627-1-jia.yao@intel.com>
+ <20260730004735.344627-2-jia.yao@intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260730004735.344627-2-jia.yao@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu 30-07-26 16:58:01, Chengfeng Ye wrote:
-> fsnotify_pre_content() builds its file_range on the triggering task's
-> stack. fanotify_alloc_perm_event() saves a pointer to range.pos in the
-> heap-allocated permission event so copy_range_info_to_user() can report
-> the offset later.
+On 30/07/2026 01:47, Jia Yao wrote:
+> xe_guc_ads_populate() calls xe_map_memset() on the ADS BO on every GT
+> reset.  The UM queue ring buffers were embedded in that same BO, so the
+> memset discards fault descriptors already written by the GPU, causing
+> GuC to forward an all-zero descriptor (Faulted Address = 0, ASID = 0).
 > 
-> The event reader can set the event state to FAN_EVENT_REPORTED and then
-> sleep while preparing the file descriptor. If a signal interrupts the
-> triggering task at that point, fanotify_get_response() changes the state
-> to FAN_EVENT_CANCELED and returns. This unwinds the file_range stack
-> frame while the reader still owns the event. The reader then dereferences
-> pevent->ppos and copies the stale stack value to userspace.
+> Move the UM queue ring buffers into a dedicated BO so they are not
+> affected by the ADS memset.
 > 
-> KASAN reported:
-> 
->   BUG: KASAN: use-after-free in fanotify_read+0x293e/0x2970
->   Read of size 8 at addr ffff88811434fc50 by task fanotify_inotif/95
->   Call Trace:
->    fanotify_read+0x293e/0x2970
->    vfs_read+0x177/0xa20
->    ksys_read+0xf7/0x1c0
->    do_syscall_64+0xf9/0x540
->    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
-> Copy the range position into the permission event and make ppos refer to
-> that event-owned value. The event remains alive until the reader finishes,
-> so the reported offset no longer depends on the triggering task's stack.
-> 
-> Fixes: 870499bc1d4d ("fanotify: report file range info with pre-content events")
+> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+> Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+> Cc: Matthew Auld <matthew.auld@intel.com>
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-
-Thanks for report! That's indeed a nasty bug. FWIW I always disliked how we
-passed pointer to pos around instead of pos itself only to be able to
-indicate it is not defined. Since loff_t is actually signed, Amir, do you
-remember why we didn't just define (loff_t)-1 as "range not provided"
-message instead of passing around ppos?
-
-I think getting rid of passing ppos around and storing it to the permission
-event would be preferrable over the hybrid approach in this patch.
-
-								Honza
-
+> Signed-off-by: Jia Yao <jia.yao@intel.com>
 > ---
->  fs/notify/fanotify/fanotify.c | 3 ++-
->  fs/notify/fanotify/fanotify.h | 3 ++-
->  2 files changed, 4 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/xe/xe_guc.c           |  6 ++
+>   drivers/gpu/drm/xe/xe_guc_ads.c       | 98 ++++++++++++++++++++-------
+>   drivers/gpu/drm/xe/xe_guc_ads_types.h |  5 ++
+>   3 files changed, 84 insertions(+), 25 deletions(-)
 > 
-> diff --git a/fs/notify/fanotify/fanotify.c b/fs/notify/fanotify/fanotify.c
-> index a3555bebad63..c97d1be70310 100644
-> --- a/fs/notify/fanotify/fanotify.c
-> +++ b/fs/notify/fanotify/fanotify.c
-> @@ -601,7 +601,8 @@ static struct fanotify_event *fanotify_alloc_perm_event(const void *data,
->  	pevent->state = FAN_EVENT_INIT;
->  	pevent->path = *path;
->  	/* NULL ppos means no range info */
-> -	pevent->ppos = range ? &range->pos : NULL;
-> +	pevent->pos = range ? range->pos : 0;
-> +	pevent->ppos = range ? &pevent->pos : NULL;
->  	pevent->count = range ? range->count : 0;
->  	path_get(path);
->  
-> diff --git a/fs/notify/fanotify/fanotify.h b/fs/notify/fanotify/fanotify.h
-> index a0619e7694d5..c964df6c0514 100644
-> --- a/fs/notify/fanotify/fanotify.h
-> +++ b/fs/notify/fanotify/fanotify.h
-> @@ -438,7 +438,8 @@ FANOTIFY_ME(struct fanotify_event *event)
->  struct fanotify_perm_event {
->  	struct fanotify_event fae;
->  	struct path path;
-> -	const loff_t *ppos;		/* optional file range info */
-> +	loff_t pos;
-> +	const loff_t *ppos;		/* &pos if range info is available */
->  	size_t count;
->  	u32 response;			/* userspace answer to the event */
->  	unsigned short state;		/* state of the event */
-> -- 
-> 2.43.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
+> index 4023700ff2a9..21cf3edef922 100644
+> --- a/drivers/gpu/drm/xe/xe_guc.c
+> +++ b/drivers/gpu/drm/xe/xe_guc.c
+> @@ -714,6 +714,12 @@ static int xe_guc_realloc_post_hwconfig(struct xe_guc *guc)
+>   	if (ret)
+>   		return ret;
+>   
+> +	if (guc->ads.um_queue_bo) {
+> +		ret = xe_managed_bo_reinit_in_vram(xe, tile, &guc->ads.um_queue_bo);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>   	return 0;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
+> index c98454545a85..7f371f9c7268 100644
+> --- a/drivers/gpu/drm/xe/xe_guc_ads.c
+> +++ b/drivers/gpu/drm/xe/xe_guc_ads.c
+> @@ -16,6 +16,7 @@
+>   #include "regs/xe_gt_regs.h"
+>   #include "regs/xe_guc_regs.h"
+>   #include "xe_bo.h"
+> +#include "xe_res_cursor.h"
+>   #include "xe_gt.h"
+>   #include "xe_gt_ccs_mode.h"
+>   #include "xe_gt_mcr.h"
+> @@ -155,16 +156,6 @@ static size_t guc_ads_capture_size(struct xe_guc_ads *ads)
+>   	return PAGE_ALIGN(ads->capture_size);
+>   }
+>   
+> -static size_t guc_ads_um_queues_size(struct xe_guc_ads *ads)
+> -{
+> -	struct xe_device *xe = ads_to_xe(ads);
+> -
+> -	if (!xe->info.has_usm)
+> -		return 0;
+> -
+> -	return GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX;
+> -}
+> -
+>   static size_t guc_ads_private_data_size(struct xe_guc_ads *ads)
+>   {
+>   	return PAGE_ALIGN(ads_to_guc(ads)->fw.private_data_size);
+> @@ -205,22 +196,12 @@ static size_t guc_ads_capture_offset(struct xe_guc_ads *ads)
+>   	return PAGE_ALIGN(offset);
+>   }
+>   
+> -static size_t guc_ads_um_queues_offset(struct xe_guc_ads *ads)
+> -{
+> -	u32 offset;
+> -
+> -	offset = guc_ads_capture_offset(ads) +
+> -		 guc_ads_capture_size(ads);
+> -
+> -	return PAGE_ALIGN(offset);
+> -}
+> -
+>   static size_t guc_ads_private_data_offset(struct xe_guc_ads *ads)
+>   {
+>   	size_t offset;
+>   
+> -	offset = guc_ads_um_queues_offset(ads) +
+> -		guc_ads_um_queues_size(ads);
+> +	offset = guc_ads_capture_offset(ads) +
+> +		guc_ads_capture_size(ads);
+>   
+>   	return PAGE_ALIGN(offset);
+>   }
+> @@ -409,6 +390,67 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
+>   
+>   	ads->bo = bo;
+>   
+> +	if (xe->info.has_usm) {
+> +		/*
+> +		 * Allocate a separate BO for the HW fault ring (UM queues).
+> +		 *
+> +		 * xe_guc_ads_populate() clears the entire ADS BO via
+> +		 * xe_map_memset() on every GT reset.  Keeping the UM queues
+> +		 * in a dedicated BO prevents that memset from discarding fault
+> +		 * descriptors the GPU has already written into the ring,
+> +		 * which would cause GuC to forward an all-zero descriptor to
+> +		 * the driver (Faulted Address = 0, ASID = 0).
+> +		 *
+> +		 * Round the size up to the next power of two so that on iGPU
+> +		 * (system memory, no IOMMU) the TTM pool issues a single
+> +		 * alloc_pages(order=N) call, maximising the chance of getting
+> +		 * a physically contiguous block.  GuC requires contiguous DPA.
+> +		 */
+
+ From our offline discussion I think is this is correct, however there 
+is no mention of this fix/change in the commit message? It only mentions 
+memset issue.
+
+
+> +		size_t um_size = roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
+> +						    GUC_UM_HW_QUEUE_MAX);
+> +
+> +		bo = xe_managed_bo_create_pin_map(xe, tile, um_size,
+> +						  XE_BO_FLAG_SYSTEM |
+> +						  XE_BO_FLAG_GGTT |
+> +						  XE_BO_FLAG_GGTT_INVALIDATE |
+> +						  XE_BO_FLAG_PINNED_NORESTORE);
+> +		if (IS_ERR(bo))
+> +			return PTR_ERR(bo);
+> +
+> +		/*
+> +		 * On pre-Xe3p platforms, GAM (not GuC) accesses the UM queue
+> +		 * ring via base_dpa, which must be a contiguous device physical
+> +		 * address range.  Without IOMMU, DMA addresses equal physical
+> +		 * addresses and the allocator may return non-contiguous pages;
+> +		 * verify contiguity.  With IOMMU, the DMA mapping is a single
+> +		 * contiguous IOVA so no check is needed.
+> +		 */
+> +		if (unlikely(!device_iommu_mapped(xe->drm.dev)) &&
+
+I think maybe drop the iommu check?  Not sure if we can safely assume it 
+will always give single contig dma blob.
+
+> +		    !xe_bo_is_vram(bo) &&
+> +		    !xe_guc_using_main_gamctrl_queues(ads_to_guc(ads))) {
+> +			struct xe_res_cursor cur;
+> +			int i;
+> +
+> +		xe_res_first_sg(xe_bo_sg(bo), 0,
+> +				GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX, &cur);
+> +			for (i = 1; i < GUC_UM_HW_QUEUE_MAX; i++) {
+> +				dma_addr_t expected = xe_res_dma(&cur) +
+> +						      GUC_UM_QUEUE_SIZE;
+
+I think we can maybe simplify with:
+
+if (drm_prime_get_contiguous_size(xe_bo_sg(bo)) < queue size)
+	...
+
+> +
+> +				xe_res_next(&cur, GUC_UM_QUEUE_SIZE);
+> +				if (xe_res_dma(&cur) != expected) {
+> +					drm_err(&xe->drm,
+> +						"UM fault queue %d is physically non-contiguous (got %pad, expected %pad); GAM requires contiguous DPA. Enable IOMMU (intel_iommu=on) to fix.\n",
+> +						i, &(dma_addr_t){xe_res_dma(&cur)},
+> +						&expected);
+> +					return -ENOMEM;
+> +				}
+> +			}
+> +		}
+> +
+> +		ads->um_queue_bo = bo;
+> +	}
+> +
+>   	return 0;
+>   }
+>   ALLOW_ERROR_INJECTION(xe_guc_ads_init, ERRNO); /* See xe_pci_probe() */
+> @@ -820,7 +862,7 @@ static void guc_mmio_reg_state_init(struct xe_guc_ads *ads)
+>   
+>   static void guc_um_init_params(struct xe_guc_ads *ads)
+>   {
+> -	u32 um_queue_offset = guc_ads_um_queues_offset(ads);
+> +	struct xe_bo *um_bo = ads->um_queue_bo;
+>   	struct xe_guc *guc = ads_to_guc(ads);
+>   	struct xe_device *xe = ads_to_xe(ads);
+>   	u64 base_dpa;
+> @@ -830,8 +872,14 @@ static void guc_um_init_params(struct xe_guc_ads *ads)
+>   
+>   	with_dpa = !xe_guc_using_main_gamctrl_queues(guc);
+>   
+> -	base_ggtt = xe_bo_ggtt_addr(ads->bo) + um_queue_offset;
+> -	base_dpa = xe_bo_main_addr(ads->bo, PAGE_SIZE) + um_queue_offset;
+> +	if (um_bo) {
+> +		/* All USM platforms: UM queues in dedicated um_queue_bo */
+> +		base_ggtt = xe_bo_ggtt_addr(um_bo);
+> +		base_dpa = xe_bo_main_addr(um_bo, PAGE_SIZE);
+> +	} else {
+> +		/* Platform does not support USM: no UM queues, nothing to do */
+> +		return;
+> +	}
+>   
+>   	for (i = 0; i < GUC_UM_HW_QUEUE_MAX; ++i) {
+>   		/*
+> diff --git a/drivers/gpu/drm/xe/xe_guc_ads_types.h b/drivers/gpu/drm/xe/xe_guc_ads_types.h
+> index 48a8e092023f..845c1fbd93a4 100644
+> --- a/drivers/gpu/drm/xe/xe_guc_ads_types.h
+> +++ b/drivers/gpu/drm/xe/xe_guc_ads_types.h
+> @@ -16,6 +16,11 @@ struct xe_bo;
+>   struct xe_guc_ads {
+>   	/** @bo: Xe BO for GuC ads blob */
+>   	struct xe_bo *bo;
+> +	/**
+> +	 * @um_queue_bo: Dedicated BO for the HW fault ring (UM queues).
+> +	 * NULL if the platform does not support USM.
+> +	 */
+> +	struct xe_bo *um_queue_bo;
+>   	/** @golden_lrc_size: golden LRC size */
+>   	size_t golden_lrc_size;
+>   	/** @regset_size: size of register set passed to GuC for save/restore */
+
