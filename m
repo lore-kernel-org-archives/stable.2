@@ -1,194 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12166384CC3;
-	Thu, 30 Jul 2026 15:57:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0857D3B27E9;
+	Thu, 30 Jul 2026 15:57:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785427037; cv=none; b=LweBH+NENCK1/ElxC6WDC6lBCkFlEQXR0ai9rZI2uqTLBM9YXgMMiubZnyAteBVj1xxJK6VsQprcqUlh8zdEfjyqzq8GgIdXkusf3CkXukKdEa02kp5lUuhYvdjXmcGfC+pIiZEyeO8ry66Tuu76MhDfbPmYF+nYffM8m7yoISc=
+	t=1785427038; cv=none; b=kuRlPlijXXxdboiEwNUGXxC8eAt5xXdRGokrEt8nRVSoogpcYJLuvibUleYJcRpFudHPfmkdADetx6ALvCvYJxCQEn1Zt2hqUA8pqDGMYyBkuIOhEB3xFAmKj1OSbcuQAszkIOxaDDAkipiotAhovYkiSJ0xrPJIC5EBhDeqB6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785427037; c=relaxed/simple;
-	bh=ppdOnuhLfMLpZc0InaLe1IqinBoLmVHd5PC9srakufo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Z6SviNpgevALYxvRbPjWj/S5JUtAke6V2WgDFONBnKSmgIb7yjiEAEsb+HPWZBRDyfzS0CkYnRd6QsUMhdgJ9PW75meKa7QxJeHsigzw9HGKPoXhvdubbGaZlWWrp5szsnf40xEcK6ybcv0NZi2CESo8JYBmXEQ56YDIujlVJy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QusGnz9k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785427038; c=relaxed/simple;
+	bh=3y1DnBmrtgDO7iMocdK6w1mNgAXgZtGsBoQi6yTWRvQ=;
+	h=Message-ID:From:Date:Subject:MIME-Version:Content-Type:References:
+	 In-Reply-To:To:Cc; b=VdulTL1QO4m1dDEz/7CcxOwLJStxreNLfSys2KBA/izzms+Xr+HHMJ6TWcw8Tw86ojRJzL9R9omsPAdnBvdspkwtzXfHGwOIxUixIsGH+/waIiOuOto2DCFYUf7gBqwfbYtGEcKFLaxmVtcFWAKwMzwMxKONXe+Y4KW6ayHWD/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=cI4o5RjQ; arc=none smtp.client-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QusGnz9k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E40A1F00A3A;
-	Thu, 30 Jul 2026 15:57:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785427035;
-	bh=wPChOKH0AyD4/JLw3pHwRx0RjG3lVv18asASkdptxmA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QusGnz9kif5xTLQ6Bc01zXwm9eiWLK6HJwn3L4YPs32Zls26rrXkOKHbHqdpOcRWp
-	 udpPz8P2swHzlKBMWYl4j4+2uD4en6pgU1iZREBSvq/UKNX4t6WdJJ6iee2Zfm9USW
-	 csarC83FOprN/1vf9od6Q5JDEOj2/UbWsZDipBXI=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sumit Gupta <sumitg@nvidia.com>,
-	Thierry Reding <treding@nvidia.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 029/484] arm64: tegra: Fix CPU compatible string to cortex-a78ae on Tegra234
-Date: Thu, 30 Jul 2026 16:08:46 +0200
-Message-ID: <20260730141424.058749489@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730141423.392222816@linuxfoundation.org>
-References: <20260730141423.392222816@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="cI4o5RjQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1785427030; bh=hSzfCjcKQBbYGMl/77NJGr8X/fP7WAcQkZ2m2AgNZks=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=cI4o5RjQunuf46fS6ijtHZUWA4bhJZNLR1OGeUfL0Yy7EjCQ+/8AXbxx51cLdYatN
+	 fwJ3Kb+t2/PC/C29F07yDuKeevo7e1+WVtWuSlB2vDCS+NZfXdCPeOnVavXoa4nx3t
+	 OxabJFmCOCT0F4yLrzMezZaI06AJ1i6EkpOFNz50=
+Received: from ubuntu2204.localdomain ([2409:8d20:22b:54c:9e54:40ff:fe02:3f0f])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id E4428204; Thu, 30 Jul 2026 23:57:04 +0800
+X-QQ-mid: xmsmtpt1785427028t431mypjd
+Message-ID: <tencent_BD7611A1FCC89A34685A64621292464E0209@qq.com>
+X-QQ-XMAILINFO: MwVIzXK2McqoNPkGl4FuNWD2PSjZPdIPRrDECmTRpKe2Xy2ihWIc0Nmx7s+VKt
+	 dBWy6JyPBBPT46JOMdW3bY555/J/efHyAJrv/gPVXQYbKr4ifqpfptXsywGRZ6x8045PlJLCvzrN
+	 vaIHdHz+xchkBRGWr2Ex9vCNvW8WLFlXmJShFSvSEn/pAvF+HdZL38ep1TK2nA7hIG8GEGSlEUIZ
+	 Iv7+ZT4BIa1QZBybx4pZH/FqjWjI/ml1ncFsWguKvoHK5zl54QmVRu2EXaA9DYicanJ1genBnM1s
+	 6NDyM9FoyfWicopOuWBL+SXfkAQZ9AZEXcsTCkd2OXj3PgTgpj6wGZ9mAdp7mDqJNkPTO3I5LE4m
+	 hJViWDoHH5qF6vfWOO5U5D+Kt70tGKk1UfC+oIbq+YVd4yVCHOWjH9I4NEgpKYsVlNVGPT2Reeu+
+	 Dx+i59IudtmVGZenmdI3DzIRuYEEKyx7RkLleg5fFuOhpFH7UFb/Cioz9L6MAPnB1rhkudLuJ/Ia
+	 Vuc1Z2KyQobOcS8EH152KasZxoYnI3XU1AtaaOewI9vo9Q/rAmqdGnSkzm07DK6MprIpdukdE9/0
+	 rgjO66eRsrH6fSEGsLXF7ZGz8Ucs5rrZpo6qLy+DnWG5z2hXqBGMkdzHWMZC3eopfH1pwrsEj9+m
+	 wcWZ5fKEXYubMH/GpZgP5BLhJHD7hMMiLoDLUIEV1mhVP7xR0m+AeiCcyIjdpeq4FlVUDbh5d9uA
+	 KhdVebSMgTFcpXHvUyU3x9LkFGOOM2xo6+VEJ+TEvfC9qDh7ZrTdjlfohsoDfbWjefLcB0uAtEk0
+	 PegG/CWTMfCBMZfCoura18l+BUVcu74roOY4/x0Act0CscpSqHagcR24C5rJqVWJwclV32RmEqIT
+	 ihqnI2dyI1hQa7TiLPpsXX+xTLDluB0RCEzoBk/KzbBijF/MMIBItubkMpudOAr5hi9/menyWYZI
+	 4BjRO9KChr9QBpNVppEd65VbxZFIM3NaEyxhBLqos+/W1e6p4CLGYfPE+MBYmwqRzxAHn7Sgh51G
+	 LtTnF8DzrdgwvHrV2lT7A1oG4IGbldzVaorYqIPQ8oORqqa7Q/UD19ldNrdMZq8KPMiWuMTTmI8W
+	 zrNjq9titmRQCLq7GN4LuTea71vr1MJ9IShZPWklNkRAUUodOyLCUDun+whp6sGWFnOoLBSELf0m
+	 i/P9OsWbL+5P/vL7CTOlMlg5NYQpJQZQrnYWzxejUiLVU1wQ==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Cunhao Lu <1579567540@qq.com>
+Date: Thu, 30 Jul 2026 23:50:42 +0800
+Subject: [PATCH v4 2/3] can: rockchip_canfd: retry the outstanding TX
+ buffer
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-OQ-MSGID: <20260730-master-v4-2-07f7952f761d@qq.com>
+References: <20260730-master-v4-0-07f7952f761d@qq.com>
+In-Reply-To: <20260730-master-v4-0-07f7952f761d@qq.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, kernel@pengutronix.de, 
+ Heiko Stuebner <heiko@sntech.de>
+Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ stable@vger.kernel.org, Cunhao Lu <1579567540@qq.com>
+X-Mailer: b4 0.15.2
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+rkcanfd_xmit_retry() originally operated with a TX FIFO depth of one. At
+that depth, the masked head and tail indices both select buffer 0, so using
+tx_head happened to select the correct buffer.
 
-------------------
+After the FIFO depth was increased to two, tx_head instead identifies the
+next free buffer when one frame is outstanding. The erratum 6 workaround
+therefore requests transmission from the wrong buffer, leaving the
+outstanding echo entry incomplete and the netdev TX queue stopped.
 
-From: Sumit Gupta <sumitg@nvidia.com>
+Use tx_tail to select the outstanding buffer for retransmission.
 
-[ Upstream commit 0dfa1e960f86e032007882b032c5cc7d14ebe73e ]
-
-The Tegra234 SoC uses Cortex-A78AE cores, not Cortex-A78. Update the
-compatible string for all CPU nodes to match the actual hardware.
-
-Tegra234 hardware reports:
-  # head /proc/cpuinfo | egrep 'implementer|part'
-  CPU implementer : 0x41
-  CPU part        : 0xd42
-
-Which maps to (from arch/arm64/include/asm/cputype.h):
-  #define ARM_CPU_IMP_ARM              0x41
-  #define ARM_CPU_PART_CORTEX_A78AE    0xD42
-
-Fixes: a12cf5c339b08 ("arm64: tegra: Describe Tegra234 CPU hierarchy")
-Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
-Signed-off-by: Thierry Reding <treding@nvidia.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: a5605d61c7dd ("can: rockchip_canfd: enable full TX-FIFO depth of 2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
 ---
- arch/arm64/boot/dts/nvidia/tegra234.dtsi | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ drivers/net/can/rockchip/rockchip_canfd-tx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra234.dtsi b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-index d1d7f6a50e11f2..6decf99af5f089 100644
---- a/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-@@ -3109,7 +3109,7 @@ cpus {
- 		#size-cells = <0>;
+diff --git a/drivers/net/can/rockchip/rockchip_canfd-tx.c b/drivers/net/can/rockchip/rockchip_canfd-tx.c
+index b1954b72560c..2b5cd6aab31b 100644
+--- a/drivers/net/can/rockchip/rockchip_canfd-tx.c
++++ b/drivers/net/can/rockchip/rockchip_canfd-tx.c
+@@ -57,8 +57,8 @@ static void rkcanfd_start_xmit_write_cmd(const struct rkcanfd_priv *priv,
  
- 		cpu0_0: cpu@0 {
--			compatible = "arm,cortex-a78";
-+			compatible = "arm,cortex-a78ae";
- 			device_type = "cpu";
- 			reg = <0x00000>;
+ void rkcanfd_xmit_retry(struct rkcanfd_priv *priv)
+ {
+-	const unsigned int tx_head = rkcanfd_get_tx_head(priv);
+-	const u32 reg_cmd = RKCANFD_REG_CMD_TX_REQ(tx_head);
++	const unsigned int tx_tail = rkcanfd_get_tx_tail(priv);
++	const u32 reg_cmd = RKCANFD_REG_CMD_TX_REQ(tx_tail);
  
-@@ -3128,7 +3128,7 @@ cpu0_0: cpu@0 {
- 		};
- 
- 		cpu0_1: cpu@100 {
--			compatible = "arm,cortex-a78";
-+			compatible = "arm,cortex-a78ae";
- 			device_type = "cpu";
- 			reg = <0x00100>;
- 
-@@ -3147,7 +3147,7 @@ cpu0_1: cpu@100 {
- 		};
- 
- 		cpu0_2: cpu@200 {
--			compatible = "arm,cortex-a78";
-+			compatible = "arm,cortex-a78ae";
- 			device_type = "cpu";
- 			reg = <0x00200>;
- 
-@@ -3166,7 +3166,7 @@ cpu0_2: cpu@200 {
- 		};
- 
- 		cpu0_3: cpu@300 {
--			compatible = "arm,cortex-a78";
-+			compatible = "arm,cortex-a78ae";
- 			device_type = "cpu";
- 			reg = <0x00300>;
- 
-@@ -3185,7 +3185,7 @@ cpu0_3: cpu@300 {
- 		};
- 
- 		cpu1_0: cpu@10000 {
--			compatible = "arm,cortex-a78";
-+			compatible = "arm,cortex-a78ae";
- 			device_type = "cpu";
- 			reg = <0x10000>;
- 
-@@ -3204,7 +3204,7 @@ cpu1_0: cpu@10000 {
- 		};
- 
- 		cpu1_1: cpu@10100 {
--			compatible = "arm,cortex-a78";
-+			compatible = "arm,cortex-a78ae";
- 			device_type = "cpu";
- 			reg = <0x10100>;
- 
-@@ -3223,7 +3223,7 @@ cpu1_1: cpu@10100 {
- 		};
- 
- 		cpu1_2: cpu@10200 {
--			compatible = "arm,cortex-a78";
-+			compatible = "arm,cortex-a78ae";
- 			device_type = "cpu";
- 			reg = <0x10200>;
- 
-@@ -3242,7 +3242,7 @@ cpu1_2: cpu@10200 {
- 		};
- 
- 		cpu1_3: cpu@10300 {
--			compatible = "arm,cortex-a78";
-+			compatible = "arm,cortex-a78ae";
- 			device_type = "cpu";
- 			reg = <0x10300>;
- 
-@@ -3261,7 +3261,7 @@ cpu1_3: cpu@10300 {
- 		};
- 
- 		cpu2_0: cpu@20000 {
--			compatible = "arm,cortex-a78";
-+			compatible = "arm,cortex-a78ae";
- 			device_type = "cpu";
- 			reg = <0x20000>;
- 
-@@ -3280,7 +3280,7 @@ cpu2_0: cpu@20000 {
- 		};
- 
- 		cpu2_1: cpu@20100 {
--			compatible = "arm,cortex-a78";
-+			compatible = "arm,cortex-a78ae";
- 			device_type = "cpu";
- 			reg = <0x20100>;
- 
-@@ -3299,7 +3299,7 @@ cpu2_1: cpu@20100 {
- 		};
- 
- 		cpu2_2: cpu@20200 {
--			compatible = "arm,cortex-a78";
-+			compatible = "arm,cortex-a78ae";
- 			device_type = "cpu";
- 			reg = <0x20200>;
- 
-@@ -3318,7 +3318,7 @@ cpu2_2: cpu@20200 {
- 		};
- 
- 		cpu2_3: cpu@20300 {
--			compatible = "arm,cortex-a78";
-+			compatible = "arm,cortex-a78ae";
- 			device_type = "cpu";
- 			reg = <0x20300>;
- 
+ 	rkcanfd_start_xmit_write_cmd(priv, reg_cmd);
+ }
+
 -- 
-2.53.0
-
-
+2.34.1
 
