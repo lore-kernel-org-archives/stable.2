@@ -1,75 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD3923E334;
-	Thu, 30 Jul 2026 19:53:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1C2384233
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 20:14:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785441209; cv=none; b=CsfcM7vv2ysUUVO8kfr1nYMMsfJYslc07KSTl29Xc3eulmd4e8+Ud5Rtq5gXU9lUHMGXbEscK+IANZCKGFsORypVeLLTfjZKtFA9F+3zXB1fMnIjit37e930jRncKTFnOt0IQ0vsCwJztopFCud7XzaB2Fe0MQ0MXXQ3CnGvdi4=
+	t=1785442488; cv=none; b=hDUDFKB9GRQrfymmx+cXo1wqYZDLWNmZMCxx4U6dRZD1a2JonFQ7EGxOnXRC+6tHd4PASZQU0iF8602nODr2+Hi5rHBWtH8hCg1JHQ1xw7z8MHLcS8K9C7vPFCWjxZkbtBKcnm6nXX8rmWe/SUNezvb18IH2QjlE2E/iz9/rhsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785441209; c=relaxed/simple;
-	bh=WzgDIfqwT5lmM09RSEWVlfpFJI7yd4ZdPOWtWx1rFSQ=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=hC+qrJj97JglRcNNwoOxsg9PbCgsmiNJRITPCnR9BnHTF4seqaMr9loytQzAZIdhdxsh+7eZg/iJdjMOdWY2gQe1PrNuX+F7Dr1EKPINCRIkzn5+/rO8QJ9uq+qdUtf1Wo1+2NQN4oSEiXsNbbdYsEpmDM9Vu2/HwkOFPqsev9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=iJnEVe1v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785442488; c=relaxed/simple;
+	bh=WRhaPGbZ8uKf9RtnzlLml2+viY6SidF1GRHdMJeiG0k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZKUBc+ldWl90nVcW9h1WhQJm+7WnswSGpizmocihQddOTacAIhEF4tvak+rPsZOKp9yt4ygKbdybULQXMfoaEV3CQRWk/jHweuO+rq5uv0STbWH7dHA2f3KS3yP71EP1Co6JYoV2jKqn2xBhTaQBf84Jn5P57717VnUj6qudvuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=korvezE8; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="iJnEVe1v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EE6C1F000E9;
-	Thu, 30 Jul 2026 19:53:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="korvezE8"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-495635a85d2so1520955e9.0
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 13:14:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785441208;
-	bh=SYHnuwd5oBPShQry/A1IMV78wT87yQ12pmYbnlaWCNI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=iJnEVe1voUvv8oU3L/LXlxlWg/TMzmxWX/p+WsY0i3YPuE5mFSEJ4cF0TMcimIXHY
-	 ghjBzhczgWPekjA8dP0c5k00yvs2tMguPZfnVAQ1KarieF9XzeUMVueazl7OX9zaeG
-	 yRbcWd3iB0SupGRkN7oe2OwtgLEhQG1wvVdm67wE=
-Date: Thu, 30 Jul 2026 12:53:27 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: linux-mm@kvack.org, Chris Li <chrisl@kernel.org>, Kairui Song
- <kasong@tencent.com>, linux-ext4@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, linux-fscrypt@vger.kernel.org,
- linux-kernel@vger.kernel.org, Kemeng Shi <shikemeng@huaweicloud.com>, Nhat
- Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Barry Song
- <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] mm/swap: reject swapon() on filesystem-level encrypted
- files
-Message-Id: <20260730125327.11fc9227d04f659a59136cdd@linux-foundation.org>
-In-Reply-To: <20260730184853.48347-1-ebiggers@kernel.org>
-References: <20260730184853.48347-1-ebiggers@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=googlemail.com; s=20251104; t=1785442474; x=1786047274; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SdxFevHxl3sOyQXhH0oN7UW70ptjCIsSCK1K7cuk/88=;
+        b=korvezE86btyuIagoCqLovdrQmCXfk4zJXj3utcEv0glrka1haqCNjtbartfcJTZmj
+         0VIASZO18UE5Q4rHlrWYeagG0J7jT6PfjSV0c8PedYCbnbQxEKow4leDLSdmPDucSqbV
+         6EMvBExCFzf1a6KSm6Ko+49Vn79lg6BM9olwQPnQIPsFT3fdc1xf4eoJJnM1iHmRkjnI
+         fEa7yLH6rBS4YVGDC7y6lBl5o+z+0Ow5tTV1QgS7nfBc30+avr0E5U5e7NTgM+zXbZBo
+         4SnNFd8NUJjXV8u3vHRLXTCUxWAxq9verDw3DzRzJ7lnIl52D9ugt3s4ZXr3M8PIJsQX
+         ezGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785442474; x=1786047274;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SdxFevHxl3sOyQXhH0oN7UW70ptjCIsSCK1K7cuk/88=;
+        b=ODRzfKtQzutE4OhcwNAu5cbGVMVq0k6hrFg7L99cIhDNGDsvlmLknrb1uPyrZgTXH9
+         NwHFzX47faOBvrxTg9fYlNaNWfU+8RkzuUQoXhQXws6v3B1T99ym6VDGGFmH9TXzheoj
+         ZvB3+BKzoWs2f6FpOY1aDOe91XBZ8Oa9Gb2tyxsBG1eTht6scnxpkqvkUz/j2mFtk8iY
+         VDLI4wMGAwuiX/amY3PzUT7NNPHuAgmZ3QnXxbhOhl6ZmNM8ArU3mvW33kFFmGiUps2S
+         4qVhz3moU202PVcpJt2G4sbPIBIXLn5lLlmWqCTKi6ZLunxChQ8DQN+8l5bxsHWyBNdN
+         aLfA==
+X-Forwarded-Encrypted: i=1; AHgh+RrBh4BdXLTQ7t8yoOnAoiaWFAaotqp0M7UTYWlEBhr6CsmBJI5b5AOYiiinL6ZIlhvX5di3Fo4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YypF7Qnxl/94o9dg3jO68uoEC4c4wVALv35ANQbIZ7BLxMNVc/d
+	6ZXX2xfb1sFQ3webkAXvluwsOqVcpIf1OuiAVW1iZW3CGaUqE2Xxx+k=
+X-Gm-Gg: AR+sD10vulwselT1aSdSvwWgck8+4l6D9vvN1aA73ajUTmSgD4CR+M7JQ4FHYp/k9hO
+	JqQMMUqV1VYfOizr4dqzypidMfzO9UZNqL2lYnmdmMJ+dPf/pQuUx3WAjA/RVXvuvEChd2/OUs8
+	zX+2m3bUCl+WYFk+JT7MnH85xe3CB8bGFLFgt3gmUEuO37C6BD4UrJZxL3TO/P78SoFWr+mgFoa
+	zh9X4lJCnHaNA7gHPk3W66bkMjhgEvGWN+uDnb1s/nJzbF+3R16osPlhb9cwMP9GJP8yFLXEPvi
+	yrWqfKRIsixVDfg5/Yf13Kht3d5ZUpBnz2H8MTbPz/zeOczxuiTX9Cz+4uBZEfpeprEnOwfDEsx
+	vxBdSn8SJfNd8KQtBw89g/U8rMJrELXmezkqBRC277dgvPxxcQZ7oYa8MCeuOs3cMnlgzRKlUJp
+	DBzF4vaTKCGWVNl5HRmY6O7NMeBNZva2KJzMu8OAWJzpZLQLQWCncZ1Mnexio4xJl+5LrJKobn+
+	6TwTDiC0LEzFQBAdKGQ9ebavWLTE0MSEojgrzUsCUKrE7VVAs17
+X-Received: by 2002:a05:600c:55d8:b0:492:4a50:41fe with SMTP id 5b1f17b1804b1-49800ebf6c6mr40512225e9.22.1785442474199;
+        Thu, 30 Jul 2026 13:14:34 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2aca7f.dip0.t-ipconnect.de. [91.42.202.127])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49805d76bddsm5117405e9.2.2026.07.30.13.14.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Jul 2026 13:14:33 -0700 (PDT)
+Message-ID: <6b5cf099-63c1-4dfa-9095-cac2d11f3eea@googlemail.com>
+Date: Thu, 30 Jul 2026 22:14:33 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.18 000/675] 6.18.42-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260730141445.110192266@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260730141445.110192266@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, 30 Jul 2026 11:48:53 -0700 Eric Biggers <ebiggers@kernel.org> wrote:
+Am 30.07.2026 um 16:05 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.18.42 release.
+> There are 675 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-> ext4 and f2fs don't prevent filesystem-level encrypted files from being
-> set up directly as swap files.  In this case, encryption is bypassed.
-> 
-> No one should be doing this, vs. the methods of encrypted swap that
-> actually do work (such as swapping to a dm-crypt device, or swapping to
-> a loopback device on top of a filesystem-level encrypted file).
-> 
-> Nevertheless, to prevent user error, make swapon() explicitly reject
-> this case.  Document this behavior in fscrypt.rst as well.
-> 
-> Fixes: 9bd8212f981e ("ext4 crypto: add encryption policy and password salt support")
-> Fixes: f424f664f0e8 ("f2fs crypto: add encryption policy and password salt support")
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697 v2 server. No dmesg oddities or regressions found.
 
-Ouch.  We are going to break ten year old setups?  I don't think we can
-do this!
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-I think the best we can do is to emit loud warnings which point the
-operator to some Documentation/ which tells operator that this
-deprecated configuration will be disallowed in, umm, 2029.
 
-> +  Alternatively, encrypted swap can use a dm-crypt device instead.
+Beste Grüße,
+Peter Schneider
 
-That's tautological.  s/ intead// ;)
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
