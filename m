@@ -1,183 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F7C4189B9
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 11:49:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFF1404BE8;
+	Thu, 30 Jul 2026 11:56:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785412150; cv=none; b=OxkMXuC+xJRispZ5x4QIOQIpmYLD36A2hHJK0tP07AXL0cl7aTzkHgX6R5YGFZF9GpIQPlLynWl8nADlpzCRjnHg8ruEjeI5Qv/7VyM7VR1tQVsDmEvB7BVGXfUzP1xTYEh9JQkSR0monlhFJip7pvLe3xSuY5P9J+oCv5ecOtM=
+	t=1785412569; cv=none; b=J9yvAVSwjz5GI5HijrtSPQhpDlrNXkIgMKD+xwv5AGYjBMY/jqjfyipmPqIiYh20lWH2LJZCOQxxAZKIC3B+1WHx0EmevVEFjc+NWsoVINsoYWEYUM6xYTGbk4hHiZYEwTtSPDlTeni9seoNgNl2Q9Jk7rqOJwXPHLj//54qFF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785412150; c=relaxed/simple;
-	bh=cLtGoydpOUFs4P84k117ZJ2hnnXup3ViobVHY8ugcpY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CjN/Dd+GAsijwMu+Amxk3uyxgKEbSX28G4TmrFyNdCgSVajZlcBX8W+H8/Gf23og/XeP3phS24lEne3QiWUHF3aoiEuhboL/jFJau05JY8vDnFjM54Haa0D/10IqckG8r8PyQdkPKNPJaUEOjIbQ5Xuc5WJ+QkJLF+hVS2XrPqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jB0BEtUQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785412569; c=relaxed/simple;
+	bh=pWWaV4L2WQLV8lswXNeL6Djig5CWGG9Ths2HqYhhniU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nEvCflZCEm7FCUUrLOlt0FimDr96cYAUMn44wzMKQ9AQg5XUraEiYiWP3OqSE+ArGhAlcHFUSObiwEk/B8xQVOLL0g1V/cm4zdwTGk3G6fukZe6qaP1dYlt8NwACRP/nyMNPYRmdEaqGN/w9zsRmTTI+RE2X8NKFVF3ZUtFj6/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2p6XA/2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jB0BEtUQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A6F11F000E9;
-	Thu, 30 Jul 2026 11:49:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2p6XA/2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E2B1F00A3A;
+	Thu, 30 Jul 2026 11:56:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785412148;
-	bh=WMaUBNEqMZT/2DaQoj3AycR7sm7+z5yY1rMpSWTxQ8c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jB0BEtUQu7LYFzCppnH1kH/IOwv2/v8Hbxgv0gOsgJhpJODawdKAd9LGL3RrWgTz7
-	 acZb1LHBr6pq0PJhtLn6X/wlmUaK0Zzy0E8/DqHQze5T7Eh9AwdjQfUXUSn6XpQqd8
-	 4sCEfowBQK01NE2Gt54o1X/q523nX1v3ECbd3Mqe8zE+p7kyoSWMkBc2iSh6JBZasu
-	 zUg1XLVDdN3aumdVwlAO+npYn3pAWvzNowAKdnvfVjakWGnog3YwOdqwhiTfFxho1G
-	 9ES2XexKzQv038qO7ajyecyYGHGHnTVwIYt0efbWkOB/HOIvN5YmkK8aFPmqmTE4pY
-	 SbCMFLKJ22MqQ==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: stable@vger.kernel.org
-Cc: Alice Ryhl <aliceryhl@google.com>,
-	Gary Guo <gary@garyguo.net>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: [PATCH 6.18.y] rust: device: avoid trailing ; in printing macros
-Date: Thu, 30 Jul 2026 13:48:53 +0200
-Message-ID: <20260730114853.70398-1-ojeda@kernel.org>
-In-Reply-To: <2026072907-spearhead-karma-9b2b@gregkh>
-References: <2026072907-spearhead-karma-9b2b@gregkh>
+	s=k20260515; t=1785412568;
+	bh=DVZNDGpx2fF7ZIE+o5dbaYPa66WPrFHS8f0qW3kHd9g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l2p6XA/25synrlFjSzD316VNKsb7kaJO8SkX3Y5cHDAbrHDvXEm5UGtWEs9erhrXh
+	 OoCC7USjpo358Ejh65YBkmOjCsqB0bIinSYykaj9E1s1VtFl75uuMq77cCKuUzgDoi
+	 ABWqj5IGeSLd4Itm3/Qovrh/YJLLd609s7futEo2CdZXLbkuzO/Tt125uljqJFuuFC
+	 ajTRIa1Ep+h2KSG72pqOWALd1WAvqfCowrW5OKGbLYdhpjHQHEAhw/lwP4bvt7P9Nm
+	 UAzepT3aTY95lAkROXDbIRi56AJLVA/gAiKQdJ+S53bSltI0QBklQzKBz+16PFXFbf
+	 A/SPPIPlSkIMw==
+Date: Thu, 30 Jul 2026 12:56:03 +0100
+From: Mark Brown <broonie@kernel.org>
+To: me@dawidwrobel.com
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] ASoC: codecs: lpass-tx-macro: Fix enum kcontrol
+ accesses
+Message-ID: <e9b81e2d-a140-452c-950e-2cf299d7aef7@sirena.org.uk>
+References: <20260730-worktree-lpass-tx-macro-enum-fix-v2-0-6d091c736116@dawidwrobel.com>
+ <20260730-worktree-lpass-tx-macro-enum-fix-v2-1-6d091c736116@dawidwrobel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="8KUNt4IWGcLLWBMz"
+Content-Disposition: inline
+In-Reply-To: <20260730-worktree-lpass-tx-macro-enum-fix-v2-1-6d091c736116@dawidwrobel.com>
+X-Cookie: In specially marked packages only.
 
-From: Alice Ryhl <aliceryhl@google.com>
 
-These macros are used like expressions, so they should not emit a
-semicolon. This is being turned into a hard error in a future release of
-Rust.
+--8KUNt4IWGcLLWBMz
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-    error: trailing semicolon in macro used in expression position
-      --> drivers/gpu/nova-core/firmware/fsp.rs:79:34
-       |
-    79 |                 .inspect_err(|_| dev_err!(dev, "FMC firmware missing '{}' section\n", name))
-       |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-       |
-       = warning: this was previously accepted by the compiler but is being phased out; it will become a hard error in a future release!
-       = note: for more information, see issue #79813 <https://github.com/rust-lang/rust/issues/79813>
-       = note: this error originates in the macro `dev_err` (in Nightly builds, run with -Z macro-backtrace for more info)
+On Thu, Jul 30, 2026 at 12:58:12PM +0200, Dawid Wro=CC=81bel via B4 Relay w=
+rote:
+>   snd-sm8250 sound: control 2:0:0:DEC0 MODE:0: access overflow
+>=20
+> Fixes: c39667ddcfc5 ("ASoC: codecs: lpass-tx-macro: add support for lpass=
+ tx macro")
+> Assisted-by: Claude:claude-fable-5
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dawid Wro=CC=81bel <me@dawidwrobel.com>
+> ---
 
-[ I was doubly surprised since upstream made it a deny-by-default lint
-  a year ago for Rust 1.91.0, and yet we didn't see it; plus I hadn't
-  seen this in my CI even yesterday.
+You had tags for this and patch 2 on v1, what happened with them?
 
-  It turns out this just landed into today's nightly (nightly-2026-07-16,
-  using upstream commit d0babd8b6):
+--8KUNt4IWGcLLWBMz
+Content-Type: application/pgp-signature; name="signature.asc"
 
-    Link: https://github.com/rust-lang/rust/pull/159222
+-----BEGIN PGP SIGNATURE-----
 
-  which says:
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmprO9IACgkQJNaLcl1U
+h9CXlAf/SohBD6rv7Le3Eto/QfkfWNKUh8iS88MvStNPKfiNUy3+iUFUro9AAyGx
+jGQSJoGPwPAlpGBm0C7RUyZjTlYPJ2LggXnTUC+Vile1oYzfwTvOa3X/FsKsRIJh
+FdNp0z5ZQVFZxnA2GS+qVa6CmHdY8dVCYoPPvAPjlAyGqafPokg9uIb3RWQszG7j
+k3oTm2j7eY23Q9bmuD0RgEeHXfnDMTAnVW8LTBPK08sNhW6+woNsWWFaYA2m43X/
+e90G29wPEq8QnmbtqmampNUVoeMyo8hJ2mT8JuZHAJtstrIZ32Q2lKA+6ycetmsW
++ZAqRr1fa2wt1kmWke4sdjy8/jiTDQ==
+=BFhX
+-----END PGP SIGNATURE-----
 
-    "The `semicolon_in_expressions_from_macros` lint previously
-     suppressed warnings about non-local macros. This masks
-     a lint that will subsequently become a hard error."
-
-  So that explains it. And this is the PR that will make it a hard error
-  at some point in the future:
-
-    Link: https://github.com/rust-lang/rust/pull/159218
-
-  Thus starting with Rust 1.99.0 (expected 2026-10-01), we will be
-  seeing the deny-by-default lint above, so clean it up already.
-
-    - Miguel ]
-
-Cc: stable@vger.kernel.org # Needed in 6.18.y and later.
-Link: https://github.com/rust-lang/rust/issues/79813
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Acked-by: Danilo Krummrich <dakr@kernel.org>
-Link: https://github.com/rust-lang/rust/pull/159218
-Link: https://github.com/rust-lang/rust/pull/159222
-Link: https://patch.msgid.link/20260716-device-trail-semicolon-v1-1-f48e9dcfae15@google.com
-[ Fixed typo. ]
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-(cherry picked from commit a19bda861b3a79e25417462539df8b0d77c6b322)
-[ Resolved conflict on `dev_printk` by not performing a similar cleanup
-  since it is not strictly needed. - Miguel ]
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
----
- rust/kernel/device.rs | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/rust/kernel/device.rs b/rust/kernel/device.rs
-index 176531f54ed3..a82b1bde1fa8 100644
---- a/rust/kernel/device.rs
-+++ b/rust/kernel/device.rs
-@@ -625,7 +625,7 @@ macro_rules! dev_printk {
- /// ```
- #[macro_export]
- macro_rules! dev_emerg {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_emerg, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_emerg, $($f)*) }
- }
- 
- /// Prints an alert-level message (level 1) prefixed with device information.
-@@ -651,7 +651,7 @@ macro_rules! dev_emerg {
- /// ```
- #[macro_export]
- macro_rules! dev_alert {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_alert, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_alert, $($f)*) }
- }
- 
- /// Prints a critical-level message (level 2) prefixed with device information.
-@@ -677,7 +677,7 @@ macro_rules! dev_alert {
- /// ```
- #[macro_export]
- macro_rules! dev_crit {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_crit, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_crit, $($f)*) }
- }
- 
- /// Prints an error-level message (level 3) prefixed with device information.
-@@ -703,7 +703,7 @@ macro_rules! dev_crit {
- /// ```
- #[macro_export]
- macro_rules! dev_err {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_err, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_err, $($f)*) }
- }
- 
- /// Prints a warning-level message (level 4) prefixed with device information.
-@@ -729,7 +729,7 @@ macro_rules! dev_err {
- /// ```
- #[macro_export]
- macro_rules! dev_warn {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_warn, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_warn, $($f)*) }
- }
- 
- /// Prints a notice-level message (level 5) prefixed with device information.
-@@ -755,7 +755,7 @@ macro_rules! dev_warn {
- /// ```
- #[macro_export]
- macro_rules! dev_notice {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_notice, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_notice, $($f)*) }
- }
- 
- /// Prints an info-level message (level 6) prefixed with device information.
-@@ -781,7 +781,7 @@ macro_rules! dev_notice {
- /// ```
- #[macro_export]
- macro_rules! dev_info {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_info, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_info, $($f)*) }
- }
- 
- /// Prints a debug-level message (level 7) prefixed with device information.
-@@ -807,5 +807,5 @@ macro_rules! dev_info {
- /// ```
- #[macro_export]
- macro_rules! dev_dbg {
--    ($($f:tt)*) => { $crate::dev_printk!(pr_dbg, $($f)*); }
-+    ($($f:tt)*) => { $crate::dev_printk!(pr_dbg, $($f)*) }
- }
--- 
-2.55.0
-
+--8KUNt4IWGcLLWBMz--
