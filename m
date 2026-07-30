@@ -1,53 +1,53 @@
-Received: from out203-205-221-149.mail.qq.com (out203-205-221-149.mail.qq.com [203.205.221.149])
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCDA3E0C66;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F143FCB33;
 	Thu, 30 Jul 2026 10:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785406330; cv=none; b=l4bUgnruxkErBz7JTrX7N0xJDNsklLbYxGygbLnUcFYJ+4MHsJGtr9MuqcWkyK7cAruMJh3CQpQ8sHSeSCyZPQWdifxE35QMHuelM512lR4Op4ci4YsSvqiHBZSkuI4p5u9+UNLQmf77cT7Q9BBsbp02skGPEiGvGXFnhgs26x8=
+	t=1785406330; cv=none; b=ti0XT+SmNAGKczWZUz4tJ8VNjpkXdVX0O7OC+ophaeth3TTkPkwtKyH9ePewAdPdTCXJFb9C25fefSqMNIazXCi7ONbI6b23UPdKlRORk2Ry28wlFzsWB3JhSjW2Mj2dnR80Y7AveVpQwDbQ0KdFDCxnSIQrm3ZKGjtwPAwr84s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785406330; c=relaxed/simple;
-	bh=85y1xV5JSr3UQflIGP0jvZ6Cb8F6FCt60S0oBZKvaiA=;
-	h=Message-ID:From:Date:Subject:MIME-Version:Content-Type:References:
-	 In-Reply-To:To:Cc; b=FpyxIVXtRTmFNVqpfppVXa+aWDRcudoPoWNFtYxj6f+hHft57/PeOPMAl7eBrV7uPDcUym4KrchLXftrd9W/Q0ohE52m4GePynIG81PEz/V6pcMDCnGbhz49KFnKnLf7BcVShIVSy1V2jIv2kD1gFqUAX9Ix3XKGTae18JL5wFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=faa1Zszs; arc=none smtp.client-ip=203.205.221.149
+	bh=HGzGxXxH5k6FgXKKcmEUbzeEbnGhXc6+LoKHYMKOBj8=;
+	h=Message-ID:From:Subject:Date:MIME-Version:Content-Type:To:Cc; b=g4t2QoAmtJS8MfwLp+kRv906UxrmZXJt9w0npqqWCs09bDBb1Rt7bdUJABtOa1BeM7OaWMWi5j1o68KcgYbk5VvOIy0l6GuCvAnwxsM3pAC8eTkOC+gnUqkhLbR47rdCDVC0/cEfiZDdAzVBs5HOczsZZESq4AQphb2a0lQ5/3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=m1J3sPTq; arc=none smtp.client-ip=43.163.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="faa1Zszs"
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="m1J3sPTq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1785406325; bh=YQFwobiLuRMvBfD36L24cZKMYVG6y7QlFnNffZWM8GY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=faa1ZszsR0lt16DZ84aFd1bGkALQe6xDoCutdKhnoTwEW83Fme6GemQDCeRkVoOdv
-	 Spc0P4BR2+9tdYYwMtCjivzdFe6IDqN7FIK5+F1LvVAjEnTp6Ekyry0rtQPwoYo1sG
-	 OgYJekRzH34BfB/0DyaNchsMFZJVCER+hE2kIeos=
+	t=1785406319; bh=50Uuu8XRCWJ9Vy+dK1JJTg4ciK2N8RX5LL7SNEvVIBo=;
+	h=From:Subject:Date:To:Cc;
+	b=m1J3sPTqzrR/2SMAf0cB1VRH9c0pEUQ5RjwdVLWCNAczFxQJpNUuRGlJi1W0j45/8
+	 51JaMK2DXTFQ9iBjZCNyznMYkBfgeRxa2nTAHNaTFyaozy64kka3MaCY5ZL08EDfWu
+	 YLVArGMXOtFUORWVtSB0ZeRFRg45xEkFO1YA1tNo=
 Received: from ubuntu2204.localdomain ([2409:8d20:22b:54c:9e54:40ff:fe02:3f0f])
 	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
 	id 2F88CE83; Thu, 30 Jul 2026 18:11:56 +0800
-X-QQ-mid: xmsmtpt1785406322tvlj41r35
-Message-ID: <tencent_73A6685E6540120E468C02F21189FCE69A09@qq.com>
-X-QQ-XMAILINFO: NbgegmlEc3Jue+F2vLrGacWuRPAiusOrXz37hNLrpOWJ+hM1STmGXfYCO353Uf
-	 83u4477GRCYaER8kTK0gxMKAf8ZNE4fMCPQP9Z2kDG2z5i5+VzVBlzeZjtj1Q9ExmUzVSRMS4/ri
-	 knW6BXsL9fInKX0Ld69Oxry2Rj16szuxD9dSObDS2izDO4RC98AU1vvDxhq1J22W8lfwBdblp2S6
-	 e08hzpAqFW3YuLMdOM1YQoZ4UbYe5U7tl6+HoiW7TNviBE1nsrGclNOC+MAgdKq4+jARR2pTBno9
-	 lm/BrPpmyayNIW7fpf/zrkLCMd2lGx7SZ7iFuQ4n8/sqQy31lHq03yQp6ncG/ygoIxtKepe9uYZE
-	 Ghq1h+YAFhweHA/h2nGhMo2jKnElXkziH0D+wC3mqSP6/qoeHEEfLuVC3DijRVLs3MAKtuaFWyBN
-	 BsrgH60rb5typeoACqzTXVpzGZW8pfZbvA221TOcujXeX0edwKfdusk6sZrwTuIEYjCcvtNxWDGh
-	 uPPuaTQzLF6baYvPttREUdVBo0vVtYIOPNYBcTFjp2u64ZsYVMvswMUtsNRwSmX7dxzj+NyJ0abW
-	 ZAXnTwiSTp5Fhg4AeqABKEQQYpSnMaf8mrdzHrZDy1JH96JnQo+sqIhZV/pt2RxdLRxoszFdvJsY
-	 fn3RYGEdBrRsO7SvBspHY/bcZVzOepj3psuVXL9P3difvMUx7iwAcF2PUbuZP5erypfMmxD12kDr
-	 zpbQ/8H9caEryjVUeeBV54epjlvtyK+dzoA2Bmj1tYz9eBx1g/C+k7E7cJGmZux6DabAhuExoCdQ
-	 m8Z4MxKjxNfv8tLOXz0GeMXqx/u5eMItpMgGo+Y3Y31YPr+bWMAI2oT6YmbTiZlTXjOiUGzsC7QC
-	 NWrd355sTLWZM5sTA3fG0MKUsFpsct6nW7gnUTbJyLX2XLwj+p7gZbG6AcPeg53ax3Vy3G2j2Yr9
-	 Lg9kFoylzUP+EnZLWsSZK1WHXK4xJNyzFIr2i+zEjomcCdDZ8PX2luQrwYuo8MUEGnE98tcvKy6O
-	 gdGFGjjkX1IIDRXz/tM8Tw2xgPOJ9jgOZBOVtMm+yFrb2tKvn4WrxS1V7y+xWUj64PirllbH3Ku5
-	 BBWQoOi9HLEfVKDZqZACyLHHm6UszmAbOp08zBKodmLWPiSVpSXF/beJ+NpsWransgZTwH
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-mid: xmsmtpt1785406316t819daiix
+Message-ID: <tencent_D802EB485A801362BF9F54130C0D990C6206@qq.com>
+X-QQ-XMAILINFO: MzFuFcyvqEEC9szwZ9kMTGfyNdRPPkfxv5BDpdOB9GDen2MKLeIrqCPAXkATWp
+	 mGTueUIR4jsE1OKmhEFYyviZSsta8Ywo3r9foqbZnyDX7rQgBrg4LrKTl30iPptNOGfHuOU0lKo7
+	 KqEqJnuglqZf7leSe65Z44Rs+WRiUW4GJuz9pB7VKj+GHG6NJugnjKfRm37eGiLlXLsDtr5McVX3
+	 fZlUxV9zyzwRwAHAFqLkyiPWLQX5XcURMX1nnqTS9rFNMO/qaDMrBYJURn6J2Ao+He88PP0o9HGm
+	 ViYSY4GxBuy/wBNf4Rkh8cFC1JrKRi35u33CeGV2QbUuk43KIrwbAdiGh9bxyKiGapIC7Ij+cd4T
+	 xTP8TK4wxAvd1AGIssPYUpLyzPgM2G6xjrqnM+bE+WbVI+BTWlk9h9TxU/lNblMe/eddG6AXjyXc
+	 Bt16d/OCTuChyWmgwbvcumh97uRQjJldCYkK0iiUG8PcYSGO7mYEb9RNdEExEWUbk5S8uAxUkD4T
+	 BUxEWPUUkgBsGZZ/IKuOJ7xMlefNmRRn9nF1+x1obt/4CQwgyj1x3dwm3OQ8GpyTQoA3HvPY+34T
+	 W3cqaW7Nemvp9LtGmBWPHwPMi0aKHyeLjLeoxUyccoJfOT31mGtr86kiUXX/ESb7MWxTCiRj5WkM
+	 dRk4gdXAoREQ3ZbwvUtRDMrUMC+i6Fj8tyhXxtdLckC4aTq1hfVOM+CmOALFbUA+weYgVlHVlVPl
+	 peBZazK78V8YpWwxV2lFXz4oFDcPn2QX8+Y9CaJeeuhsADlXi+Pw96JnXKz8/rn51EK47GZ7g38i
+	 AsRphK8GgFypPiBA9c+fmSSY8L5hmUh7IVZ6NeTkDPs1+mI3lJ4WiH2wSqtwBVIUhj7NWPxBVlhB
+	 eGaxTpSeBx5mnpmac2T2HIit13ac01w9P1gkru1fBxv+KhSLKvWAndcFwg3Bzg+CzGCZMs323xQ6
+	 peayOdqeObeeuv1Gijfh8sw9UoQEfi4KDbf85aQGvx59teGGK41mDF5aIrRy097d+oiBwnhgCoRl
+	 CeWbgwFsWuZ2X5dzgZPnsDK62chrsL9r//si8f13zlni50FTplTSBxA/d02JlOBTlfC4qQJkLJwD
+	 pMpKvWK3PBBjCuwVWfGrkxy3w4+c2L8bAB3cWwzyWbDDHQXiZtnTUh2E1OlFQtTkpvD+hEuKZ0+5
+	 aJr9Vuzie1FG1eFg==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
 From: Cunhao Lu <1579567540@qq.com>
-Date: Thu, 30 Jul 2026 18:11:48 +0800
-Subject: [PATCH v2 3/3] can: rockchip_canfd: serialize TX state and command
- writes
+Subject: [PATCH v2 0/3] can: rockchip_canfd: fix TX stalls and races
+Date: Thu, 30 Jul 2026 18:11:45 +0800
+X-OQ-MSGID: <20260730-master-v2-0-572974052400@qq.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,9 +56,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-OQ-MSGID: <20260730-master-v2-3-572974052400@qq.com>
-References: <20260730-master-v2-0-572974052400@qq.com>
-In-Reply-To: <20260730-master-v2-0-572974052400@qq.com>
+X-B4-Tracking: v=1; b=H4sIAGEja2oC/2WNQQ6CMBBFr0JmbU0LFKMr72FYlHYqYwJIpxIN4
+ e62uHT5kvffX4ExEDJcihUCLsQ0jQnKQwG2N+MdBbnEUMqykadKisFwxCCM6nTdVdZrIyHJz4C
+ e3nvo1v6YX90DbczrbPTEcQqf/WlR2fuLLkpI0Zxr7Z2rvfT+Os9HOw3Qbtv2BWuNG1CrAAAA
+X-Change-ID: 20260730-master-a1b54b3cf5a0
 To: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
  Vincent Mailhol <mailhol@kernel.org>, Heiko Stuebner <heiko@sntech.de>
 Cc: linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
@@ -66,276 +67,72 @@ Cc: linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  stable@vger.kernel.org, Cunhao Lu <1579567540@qq.com>
 X-Mailer: b4 0.15.2
 
-The TX completion path removes an echo skb before advancing tx_tail. In
-parallel, the transmit path reads tx_head, tx_tail and the tail echo slot
-when applying the erratum 6 queue restriction. There is no synchronization
-between these operations.
-
-On SMP, the transmit path can consequently observe a pending frame with
-an empty echo slot:
+While running CAN traffic on an RK3588 system, the driver repeatedly
+reported an inconsistent TX echo state:
 
   rockchip_canfd fea60000.can can0: rkcanfd_tx_tail_is_eff:
   echo_skb[0]=NULL tx_head=0x00060f7d tx_tail=0x00060f7c
 
-It can also keep a pointer to an echo skb while the completion path removes
-and queues it for NAPI, where it can be freed on another CPU. The
-inconsistent snapshot can stop the netdev TX queue when there is no later
-completion to wake it.
+The Rockchip CAN-FD driver completes transmissions by matching
+self-received frames with entries in the echo skb ring. The warning above
+is emitted when the driver sees a pending transmission but finds no skb in
+the corresponding echo slot.
 
-There is a second race in the command submission sequence.
-rkcanfd_start_xmit() runs in softirq context while rkcanfd_xmit_retry() is
-called from the RX interrupt handler. On controllers affected by erratum
-12, both execute a MODE/CMD/MODE register sequence. The interrupt handler
-can restore the default MODE between the softirq writes, causing the
-resumed softirq to issue CMD without SPACE_RX_MODE and bypass the erratum
-12 workaround.
+The immediate cause is a race between the transmit and completion paths.
+The completion path removes an echo skb before advancing tx_tail, while
+the transmit path reads tx_head, tx_tail and that echo slot without common
+synchronization. It can therefore observe a partially updated state,
+dereference an skb which has been queued for NAPI, or stop the TX queue
+without a later completion to wake it.
 
-Add a TX state lock and use it to protect tx_head, tx_tail and the echo skb
-ring as one state. The same lock serializes the MODE/CMD/MODE sequence
-between the transmit and interrupt paths. Keep the queue completion and
-wake operation outside the lock to avoid nesting the TX state lock with
-the netdev TX queue lock.
+Two additional TX stall paths were found. The transmit path submits a
+frame and advances tx_head even if installing its echo skb fails. In
+addition, the erratum 6 retry path selects tx_head, which denotes the next
+free buffer with a two-entry FIFO, instead of retrying the outstanding
+buffer at tx_tail.
 
-Tested on an RK3588 rev2.2 at 1 Mbit/s with 100,000 extended CAN frames.
-The run triggered 138 erratum 6 retries and completed without drops, queue
-stalls or driver warnings. RK3588 does not enable erratum 12, so this test
-does not exercise that hardware workaround.
+Review also identified that the erratum 12 MODE/CMD/MODE sequence can be
+interleaved between the transmit softirq and the RX interrupt retry path.
+The interrupt can restore the default MODE before the softirq issues CMD,
+bypassing the SPACE_RX_MODE workaround.
 
-Fixes: ae002cc32ec4 ("can: rockchip_canfd: prepare to use full TX-FIFO depth")
-Fixes: 83f9bd6bf39d ("can: rockchip_canfd: implement workaround for erratum 12")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
+This series makes echo skb setup failure abort the transmission, retries
+the correct hardware buffer, and uses a spinlock to serialize the TX head,
+tail, echo ring and command register sequence.
+
+The final series was tested on an RK3588 rev2.2 at 1 Mbit/s with 100,000
+extended CAN frames. The run triggered 138 erratum 6 retries and completed
+without drops, queue stalls or driver warnings. RK3588 does not enable
+erratum 12, so this test does not exercise that hardware workaround.
+
+All three patches pass scripts/checkpatch.pl --strict. The Rockchip CAN-FD
+module also builds cleanly with W=1.
+
 ---
+Changes in v2:
+- Document that the TX lock also serializes the erratum 12 MODE/CMD/MODE
+  sequence.
+- Add the erratum 12 commit to the Fixes tags of patch 3.
+- Add RK3588 extended-frame stress-test results.
+- Link to v1:
+  https://lore.kernel.org/linux-can/tencent_0E5C2332F801372DD0D4CB4C25B88C18040A@qq.com
+
+---
+Cunhao Lu (3):
+      can: rockchip_canfd: prevent TX stall on echo skb failure
+      can: rockchip_canfd: retry the outstanding TX buffer
+      can: rockchip_canfd: serialize TX state and command writes
+
  drivers/net/can/rockchip/rockchip_canfd-core.c |  1 +
- drivers/net/can/rockchip/rockchip_canfd-rx.c   | 31 +++++++++++++++++++-------
- drivers/net/can/rockchip/rockchip_canfd-tx.c   | 26 ++++++++++++++++++---
- drivers/net/can/rockchip/rockchip_canfd.h      |  4 +++-
- 4 files changed, 50 insertions(+), 12 deletions(-)
+ drivers/net/can/rockchip/rockchip_canfd-rx.c   | 31 +++++++++++++-----
+ drivers/net/can/rockchip/rockchip_canfd-tx.c   | 44 ++++++++++++++++++++++----
+ drivers/net/can/rockchip/rockchip_canfd.h      |  4 ++-
+ 4 files changed, 64 insertions(+), 16 deletions(-)
+---
+base-commit: 11028ab62899e4191e074ee364c712b77823a9c4
+change-id: 20260730-master-a1b54b3cf5a0
 
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-core.c b/drivers/net/can/rockchip/rockchip_canfd-core.c
-index 29de0c01e4ed..c8257858b452 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-core.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-core.c
-@@ -904,6 +904,7 @@ static int rkcanfd_probe(struct platform_device *pdev)
- 	priv->can.do_set_mode = rkcanfd_set_mode;
- 	priv->can.do_get_berr_counter = rkcanfd_get_berr_counter;
- 	priv->ndev = ndev;
-+	spin_lock_init(&priv->tx_lock);
- 
- 	match = device_get_match_data(&pdev->dev);
- 	if (match) {
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-rx.c b/drivers/net/can/rockchip/rockchip_canfd-rx.c
-index 475c0409e215..9f57a35672ed 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-rx.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-rx.c
-@@ -99,15 +99,26 @@ static int rkcanfd_rxstx_filter(struct rkcanfd_priv *priv,
- 	struct rkcanfd_stats *rkcanfd_stats = &priv->stats;
- 	const struct canfd_frame *cfd_nominal;
- 	const struct sk_buff *skb;
-+	unsigned long flags;
- 	unsigned int tx_tail;
- 
-+	spin_lock_irqsave(&priv->tx_lock, flags);
-+
-+	if (!rkcanfd_get_tx_pending(priv))
-+		goto out_unlock;
-+
- 	tx_tail = rkcanfd_get_tx_tail(priv);
- 	skb = priv->can.echo_skb[tx_tail];
- 	if (!skb) {
-+		const unsigned int tx_head = priv->tx_head;
-+		const unsigned int tx_tail_full = priv->tx_tail;
-+
-+		spin_unlock_irqrestore(&priv->tx_lock, flags);
-+
- 		netdev_err(priv->ndev,
- 			   "%s: echo_skb[%u]=NULL tx_head=0x%08x tx_tail=0x%08x\n",
- 			   __func__, tx_tail,
--			   priv->tx_head, priv->tx_tail);
-+			   tx_head, tx_tail_full);
- 
- 		return -ENOMSG;
- 	}
-@@ -123,17 +134,18 @@ static int rkcanfd_rxstx_filter(struct rkcanfd_priv *priv,
- 		rkcanfd_handle_tx_done_one(priv, ts, &frame_len);
- 
- 		WRITE_ONCE(priv->tx_tail, priv->tx_tail + 1);
-+		*tx_done = true;
-+
-+		spin_unlock_irqrestore(&priv->tx_lock, flags);
- 		netif_subqueue_completed_wake(priv->ndev, 0, 1, frame_len,
- 					      rkcanfd_get_effective_tx_free(priv),
- 					      RKCANFD_TX_START_THRESHOLD);
- 
--		*tx_done = true;
--
- 		return 0;
- 	}
- 
- 	if (!(priv->devtype_data.quirks & RKCANFD_QUIRK_RK3568_ERRATUM_6))
--		return 0;
-+		goto out_unlock;
- 
- 	/* Erratum 6: Extended frames may be send as standard frames.
- 	 *
-@@ -143,7 +155,7 @@ static int rkcanfd_rxstx_filter(struct rkcanfd_priv *priv,
- 	 */
- 	if (!(cfd_nominal->can_id & CAN_EFF_FLAG) ||
- 	    (cfd_rx->can_id & CAN_EFF_FLAG))
--		return 0;
-+		goto out_unlock;
- 
- 	/* Not affected if:
- 	 * - standard part and RTR flag of the TX'ed frame
-@@ -151,20 +163,20 @@ static int rkcanfd_rxstx_filter(struct rkcanfd_priv *priv,
- 	 */
- 	if ((cfd_nominal->can_id & (CAN_RTR_FLAG | CAN_SFF_MASK)) !=
- 	    (cfd_rx->can_id & (CAN_RTR_FLAG | CAN_SFF_MASK)))
--		return 0;
-+		goto out_unlock;
- 
- 	/* Not affected if:
- 	 * - length is not the same
- 	 */
- 	if (cfd_nominal->len != cfd_rx->len)
--		return 0;
-+		goto out_unlock;
- 
- 	/* Not affected if:
- 	 * - the data of non RTR frames is different
- 	 */
- 	if (!(cfd_nominal->can_id & CAN_RTR_FLAG) &&
- 	    memcmp(cfd_nominal->data, cfd_rx->data, cfd_nominal->len))
--		return 0;
-+		goto out_unlock;
- 
- 	/* Affected by Erratum 6 */
- 	u64_stats_update_begin(&rkcanfd_stats->syncp);
-@@ -185,6 +197,9 @@ static int rkcanfd_rxstx_filter(struct rkcanfd_priv *priv,
- 
- 	rkcanfd_xmit_retry(priv);
- 
-+out_unlock:
-+	spin_unlock_irqrestore(&priv->tx_lock, flags);
-+
- 	return 0;
- }
- 
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-tx.c b/drivers/net/can/rockchip/rockchip_canfd-tx.c
-index c4ecdc9411cc..c3811d3179b6 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-tx.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-tx.c
-@@ -14,6 +14,8 @@ static bool rkcanfd_tx_tail_is_eff(const struct rkcanfd_priv *priv)
- 	const struct sk_buff *skb;
- 	unsigned int tx_tail;
- 
-+	lockdep_assert_held(&priv->tx_lock);
-+
- 	if (!rkcanfd_get_tx_pending(priv))
- 		return false;
- 
-@@ -33,13 +35,22 @@ static bool rkcanfd_tx_tail_is_eff(const struct rkcanfd_priv *priv)
- 	return cfd->can_id & CAN_EFF_FLAG;
- }
- 
--unsigned int rkcanfd_get_effective_tx_free(const struct rkcanfd_priv *priv)
-+unsigned int rkcanfd_get_effective_tx_free(struct rkcanfd_priv *priv)
- {
-+	unsigned long flags;
-+	unsigned int tx_free;
-+
-+	spin_lock_irqsave(&priv->tx_lock, flags);
-+
- 	if (priv->devtype_data.quirks & RKCANFD_QUIRK_RK3568_ERRATUM_6 &&
- 	    rkcanfd_tx_tail_is_eff(priv))
--		return 0;
-+		tx_free = 0;
-+	else
-+		tx_free = rkcanfd_get_tx_free(priv);
-+
-+	spin_unlock_irqrestore(&priv->tx_lock, flags);
- 
--	return rkcanfd_get_tx_free(priv);
-+	return tx_free;
- }
- 
- static void rkcanfd_start_xmit_write_cmd(const struct rkcanfd_priv *priv,
-@@ -60,6 +71,8 @@ void rkcanfd_xmit_retry(struct rkcanfd_priv *priv)
- 	const unsigned int tx_tail = rkcanfd_get_tx_tail(priv);
- 	const u32 reg_cmd = RKCANFD_REG_CMD_TX_REQ(tx_tail);
- 
-+	lockdep_assert_held(&priv->tx_lock);
-+
- 	rkcanfd_start_xmit_write_cmd(priv, reg_cmd);
- }
- 
-@@ -69,6 +82,7 @@ netdev_tx_t rkcanfd_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- 	u32 reg_frameinfo, reg_id, reg_cmd;
- 	unsigned int tx_head, frame_len;
- 	const struct canfd_frame *cfd;
-+	unsigned long flags;
- 	int err;
- 	u8 i;
- 
-@@ -124,8 +138,11 @@ netdev_tx_t rkcanfd_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- 			      *(u32 *)(cfd->data + i));
- 
- 	frame_len = can_skb_get_frame_len(skb);
-+	spin_lock_irqsave(&priv->tx_lock, flags);
- 	err = can_put_echo_skb(skb, ndev, tx_head, frame_len);
- 	if (err) {
-+		spin_unlock_irqrestore(&priv->tx_lock, flags);
-+
- 		if (err == -EINVAL)
- 			dev_kfree_skb_any(skb);
- 
-@@ -141,6 +158,7 @@ netdev_tx_t rkcanfd_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- 	WRITE_ONCE(priv->tx_head, priv->tx_head + 1);
- 
- 	rkcanfd_start_xmit_write_cmd(priv, reg_cmd);
-+	spin_unlock_irqrestore(&priv->tx_lock, flags);
- 
- 	netif_subqueue_maybe_stop(priv->ndev, 0,
- 				  rkcanfd_get_effective_tx_free(priv),
-@@ -157,6 +175,8 @@ void rkcanfd_handle_tx_done_one(struct rkcanfd_priv *priv, const u32 ts,
- 	unsigned int tx_tail;
- 	struct sk_buff *skb;
- 
-+	lockdep_assert_held(&priv->tx_lock);
-+
- 	tx_tail = rkcanfd_get_tx_tail(priv);
- 	skb = priv->can.echo_skb[tx_tail];
- 
-diff --git a/drivers/net/can/rockchip/rockchip_canfd.h b/drivers/net/can/rockchip/rockchip_canfd.h
-index 93131c7d7f54..3cf283a7b380 100644
---- a/drivers/net/can/rockchip/rockchip_canfd.h
-+++ b/drivers/net/can/rockchip/rockchip_canfd.h
-@@ -15,6 +15,7 @@
- #include <linux/netdevice.h>
- #include <linux/reset.h>
- #include <linux/skbuff.h>
-+#include <linux/spinlock.h>
- #include <linux/timecounter.h>
- #include <linux/types.h>
- #include <linux/u64_stats_sync.h>
-@@ -462,6 +463,7 @@ struct rkcanfd_priv {
- 	struct can_rx_offload offload;
- 	struct net_device *ndev;
- 
-+	spinlock_t tx_lock; /* protects tx_head, tx_tail and echo_skb */
- 	void __iomem *regs;
- 	unsigned int tx_head;
- 	unsigned int tx_tail;
-@@ -544,7 +546,7 @@ void rkcanfd_timestamp_start(struct rkcanfd_priv *priv);
- void rkcanfd_timestamp_stop(struct rkcanfd_priv *priv);
- void rkcanfd_timestamp_stop_sync(struct rkcanfd_priv *priv);
- 
--unsigned int rkcanfd_get_effective_tx_free(const struct rkcanfd_priv *priv);
-+unsigned int rkcanfd_get_effective_tx_free(struct rkcanfd_priv *priv);
- void rkcanfd_xmit_retry(struct rkcanfd_priv *priv);
- netdev_tx_t rkcanfd_start_xmit(struct sk_buff *skb, struct net_device *ndev);
- void rkcanfd_handle_tx_done_one(struct rkcanfd_priv *priv, const u32 ts,
-
--- 
-2.34.1
+Best regards,
+--  
+Cunhao Lu <1579567540@qq.com>
 
