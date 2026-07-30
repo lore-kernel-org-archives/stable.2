@@ -1,171 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93638409270
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:15:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C0D2423A79
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:19:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785413765; cv=none; b=i4T8WDFFgl357VwPS2AFcSGoZKDr2oefRv5XPLjYfbLF+6mxOZ7i91nqr7nrO/2MxbhnH1geZ5V3LDxcOBACN5O3Fgh3PaRYK5Rt3ysCtQ929BbPc5/A5c2DXnvmVoJM57R5a4FdDG5U+0AEXINuD21jJ5Vazkh9CUuh1Zgl7M8=
+	t=1785413958; cv=none; b=Ozj1J+SZPHoWnp0DkZ0a5JCF+QiUD+Dfpz/n48p6OjmZR81BOsNhTofmMJgsygbgdzOBJ2sHofeCZxzJxjE6lRXZBnwl5HbHoRHcL6OcueISE/s3jVBXQRTj50dtC1BCNSQhNpFEBOjoAnnQfoculMpfHZstU7FAkzYVh/6/juc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785413765; c=relaxed/simple;
-	bh=TnX97cw0XfC/amCyEhyvuf2titBpRNpMca8E2Jd4GJo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=guoOIZ2QSCpIEU3gLqUhCSgUePrOJicLc8+t3odzBvISG0rZQkLUO5QZVRKCPv7dJxQXU9GVA3jQBuDecy0PHQ0b/rUG6nROkSiZF6rtcgNiL9W7P+iZBuRyhJTu5J9vN/ZjONLnidudc6efu9wU0GpOij2r2U14m7+8KJr1LxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ie34HWWP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785413958; c=relaxed/simple;
+	bh=ChwpBgvydSRCyl30CYsOXGRWljoGGY9h81QLREQDLPo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kw2et1Bk2ksahCNLOiRmbEDLnJOyQg3PMmlOYB3iSYvM8/DVWdrgEpgqVj/VdvPj2k7Vh7mkzQYawXC8RasQFZfHDLLL6TqIAdaAOI2yDhpY0dvVgymc/R0N8b5O5eVfWERaFS5lqWUzuDEtsXgqlLX0jRYq8OHwC4oZolf2egI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=f6V3VpJq; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ie34HWWP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81C9B1F00A3D;
-	Thu, 30 Jul 2026 12:15:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785413753;
-	bh=NrBU+HS/XmCoCJOHlJQ1XRHYqrE6II10O3IsxEkYIz8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ie34HWWPNqMh9oxKYYS4UG23rmi+JcexijZq04SO56d2sg3wITqPY7ZmCM1LLsZF6
-	 UncoUzgte9zyM/v+Q2jlrx6SsT1BVKTf/ttOjpNtw1yREKf7TwnR2QRsFrTrklMqtn
-	 PzOLOy/7izgx8YUgp5EqvLopVFS3VPv1Bd8/8xwEMo8Npm/eiiDTr5QZf8L10Jomia
-	 JiT1zYuIwzs0o4xhox1JIRc2ZXHjFBU1xe3AtysNylac0h3jate+QfoYU8k+LB1RUM
-	 EbnkA4hRaFt/5qM8qxEF8YmYRrcSpwH1jqz/yf760Od5SsvZVM9UWa8Dj5zAOchJUJ
-	 zBq9NAcS8/1AA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	stable <stable@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] usb: gadget: udc: bdc: free IRQ and drain func_wake_notify before teardown
-Date: Thu, 30 Jul 2026 08:15:49 -0400
-Message-ID: <20260730121549.2211164-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730121549.2211164-1-sashal@kernel.org>
-References: <2026072718-obtuse-smuggling-fc35@gregkh>
- <20260730121549.2211164-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="f6V3VpJq"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4954df200ddso12443865e9.0
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 05:19:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1785413954; x=1786018754; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aGfVWtxrVG8Gs+fqhc2m5PVIKlSxiEIBozWBl1vrMD4=;
+        b=f6V3VpJq0HGmnMSl04/RHdEnlAxgcPgjXxluE/FnFhlJR+RX+juRF/IubAyb27buJH
+         sgmoGZyPhzCr285CYwPrnYs1eLutvIHxfBQEnkn0OdVLR+psUXBt7Ul62AaJCIa/SgfY
+         N9Ul7Q8BjOKVbFJMnYYo5/qcZ5xH1Hcb75oskLa23tvzvLFVhUT6WYlhlV+5o8BdbA7J
+         pUHKp/ZbL3MD1MpY3MAmyCnIdGB+bA7O3BWdaDo4+DMPOVybo0KPBOZg3CQ0zpRLLxUy
+         i5Raw3SVZZw0tKnITWTkNxIUiTiyWQlwJoVMwB0jFxRnGroI40xV/0JG/yUAfXQxvlxi
+         f8ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785413954; x=1786018754;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aGfVWtxrVG8Gs+fqhc2m5PVIKlSxiEIBozWBl1vrMD4=;
+        b=NngvQV0eM0xocaB6B4B77puSI0xuJnhx5Mqk/fH6iglqDYQNoAN+c/fuvyiT8i+8Qj
+         TYY/+K8TNdHhE4hT6Y9rXSpNw4s6V3nz4LdZ1f5EcFPfinCbJJNsxl10/h0FzOEsYzEK
+         7jlfMgoDnABZVdMjzuCXRUAVj/sh2EzG91Iu3ZSNFTUElF3TxTjppQY3l9fB3+tLc8WB
+         SUgbWRQPB6H4mu/oYun4ekbj2w2TFyZHQZv+A8GEKpx5pv2uewZJpZnuC6hsVjXQHLyg
+         2SeJZc4Qgy0589OUH4aDuDCC3ivmhCXuby5ov0kt+pFSnGNSdU7HQPFo35q/zNP4l7PG
+         jWTA==
+X-Forwarded-Encrypted: i=1; AHgh+Roc4tGlwzThLxL4PJFpLQTNeNdIYmIc3GNnceWDrw35zzJylT28Cuasw9Ai4mL5NsEOkLb5QRE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YypAOhNVH3QPwL4V8eh5UGkQrviHdK0fNINm45HY9TEA1uzFZmI
+	QcqcxK4KBZW2uyDHlBMhN2IGPDch9bHez4pnIaCASuA7ohq6jPyxnGnoaDmX0aKer3E=
+X-Gm-Gg: AR+sD12b7Xbz8N11jWF4fArvgq7LTnxWLZSTrJIacDWPPX6lNxZwdK3LOsZ42Zp7Fat
+	Vws5RKO0WIeDMDnj1Qfmu8x71dA6l9lmT38niwkyfEbN8GXvhf85xGlLUsubRr/lA4Pqsik2xv5
+	QH8E3VKxvwLzEuAQTNcHocLYpwa9tvEwvY/2XesZUF5DZkbSYf7Hmdn4traxnX1mb9+NjwLVWvm
+	uo4EdEPVtvpB5wIonLHgRCBwzf3hYkVd9AJCwzdYnxGZXtP2LIFT3K2VVFDjP5J3GckryD9Ghv8
+	x95H5YWAuO/6JliIC8JlmTxgUPZDqw+pRyaPJ+s7aJit5Yd1Mx4C3ww+/6YKUcz/DdvcaeAyEMh
+	h1kYgt36Yf2nJg9Z/wzBLfLdzla8LWWDPJ0StKF2TG8F3MSUEnixgWUFbMfO1yrbTEcocF7AEHm
+	H/dUf5UbnRIKULgY71YHSrLRqHJc4EnJ00hPPtghl1DXf0kBo=
+X-Received: by 2002:a05:600c:e548:20b0:495:6022:5a14 with SMTP id 5b1f17b1804b1-49800eb98b3mr22025465e9.34.1785413953494;
+        Thu, 30 Jul 2026 05:19:13 -0700 (PDT)
+Received: from localhost ([2a09:bac6:37a8:ebe::178:11c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-498010aae15sm58243785e9.13.2026.07.30.05.19.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 05:19:12 -0700 (PDT)
+Date: Thu, 30 Jul 2026 13:19:11 +0100
+From: Matt Fleming <matt@readmodwrite.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: Frederic Weisbecker <frederic@kernel.org>, 
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
+	Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>, 
+	Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
+	Zqiang <qiang.zhang@linux.dev>, Tejun Heo <tj@kernel.org>, Andrea Righi <arighi@nvidia.com>, 
+	rcu@vger.kernel.org, linux-kernel@vger.kernel.org, sched-ext@lists.linux.dev, 
+	stable@vger.kernel.org, kernel-team@cloudflare.com, 
+	Matt Fleming <mfleming@cloudflare.com>
+Subject: Re: [PATCH] rcu-tasks: Defer IRQ-disabled callback enqueue to
+ irq_work
+Message-ID: <amtBE9JlGBPwsIuU@matt-Precision-5490>
+References: <20260713101245.3207634-1-matt@readmodwrite.com>
+ <amiGJWJ-tzUMYizu@matt-Precision-5490>
+ <6f002779-3607-47d8-af61-a74eeb987e6a@paulmck-laptop>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6f002779-3607-47d8-af61-a74eeb987e6a@paulmck-laptop>
 
-From: Fan Wu <fanwu01@zju.edu.cn>
-
-[ Upstream commit 0583f2fbf8f86ae3a0ce054f96783dd83e65d9bb ]
-
-The Broadcom BDC UDC driver registers its IRQ handler with
-devm_request_irq() in bdc_udc_init(), so the IRQ is released by devm
-only after bdc_remove() returns.  devm releases resources in reverse
-LIFO order, but bdc_remove() runs bdc_udc_exit() and bdc_hw_exit() ->
-bdc_mem_free() manually before returning: bdc_udc_exit() tears down
-individual endpoint objects via bdc_free_ep(), while bdc_hw_exit() ->
-bdc_mem_free() frees and NULLs the DMA-coherent status-report ring
-(bdc->srr.sr_bds) and kfree()s bdc->bdc_ep_array.  Both happen while
-the IRQ handler (bdc_udc_interrupt, requested with IRQF_SHARED)
-remains deliverable in the window up to the post-remove devm
-free_irq().
-
-On receipt of a shared interrupt in that window, bdc_udc_interrupt()
-dereferences bdc->srr.sr_bds[bdc->srr.dqp_index] (NULL or freed DMA)
-and dispatches sr_handler callbacks that index into bdc_ep_array,
-causing a NULL-deref or use-after-free.
-
-The same window affects the delayed_work bdc->func_wake_notify, which is
-armed from the IRQ handler via bdc_sr_uspc() -> handle_link_state_change()
--> schedule_delayed_work() and may self-rearm from its own callback
-bdc_func_wake_timer().  No cancel exists anywhere in the driver, so a
-queued work item that fires after bdc_remove() returns and the bdc
-structure is devm-freed dereferences freed memory.
-
-Replace devm_request_irq() with request_irq() and add an explicit
-free_irq(bdc->irq, bdc) in bdc_remove().  Clear BDC_GIE before
-free_irq() to stop the device from asserting interrupts, then
-free_irq() drains any in-flight handler, then cancel_delayed_work_sync()
-drains the func_wake_notify delayed work.  This ordering ensures the
-IRQ handler and delayed work cannot interfere with the subsequent
-endpoint and DMA teardown in bdc_udc_exit() and bdc_hw_exit().  Wire the
-matching free_irq() into the bdc_udc_init() error path so the IRQ is
-released on probe failure, and route the bdc_init_ep() failure through
-err0 instead of returning directly.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: efed421a94e6 ("usb: gadget: Add UDC driver for Broadcom USB3.0 device controller IP BDC")
-Cc: stable <stable@kernel.org>
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260709020904.502611-1-fanwu01@zju.edu.cn
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/usb/gadget/udc/bdc/bdc_core.c | 20 ++++++++++++++++++++
- drivers/usb/gadget/udc/bdc/bdc_udc.c  |  7 ++++---
- 2 files changed, 24 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/usb/gadget/udc/bdc/bdc_core.c b/drivers/usb/gadget/udc/bdc/bdc_core.c
-index 69d11b703c8d00..d9383b0f4d15e3 100644
---- a/drivers/usb/gadget/udc/bdc/bdc_core.c
-+++ b/drivers/usb/gadget/udc/bdc/bdc_core.c
-@@ -586,9 +586,29 @@ static int bdc_probe(struct platform_device *pdev)
- static int bdc_remove(struct platform_device *pdev)
- {
- 	struct bdc *bdc;
-+	unsigned long flags;
-+	u32 temp;
+On Tue, Jul 28, 2026 at 11:44:04AM -0700, Paul E. McKenney wrote:
+> 
+> Apologies for the delay!!!
  
- 	bdc  = platform_get_drvdata(pdev);
- 	dev_dbg(bdc->dev, "%s ()\n", __func__);
-+	/*
-+	 * Disable the device interrupt source before freeing the IRQ:
-+	 * clear BDC_GIE so the controller stops asserting interrupts,
-+	 * then free_irq drains any in-flight handler.
-+	 */
-+	spin_lock_irqsave(&bdc->lock, flags);
-+	temp = bdc_readl(bdc->regs, BDC_BDCSC);
-+	temp &= ~BDC_GIE;
-+	bdc_writel(bdc->regs, BDC_BDCSC, temp);
-+	spin_unlock_irqrestore(&bdc->lock, flags);
-+	free_irq(bdc->irq, bdc);
-+	/*
-+	 * Drain func_wake_notify after free_irq: the IRQ handler arms this
-+	 * delayed_work via bdc_sr_uspc -> handle_link_state_change ->
-+	 * schedule_delayed_work (self-rearmed in bdc_func_wake_timer), so
-+	 * the IRQ must be released first to prevent re-arm after cancel.
-+	 */
-+	cancel_delayed_work_sync(&bdc->func_wake_notify);
- 	bdc_udc_exit(bdc);
- 	bdc_hw_exit(bdc);
- 	bdc_phy_exit(bdc);
-diff --git a/drivers/usb/gadget/udc/bdc/bdc_udc.c b/drivers/usb/gadget/udc/bdc/bdc_udc.c
-index 59ba6a8d69a1ff..5a0e011065c225 100644
---- a/drivers/usb/gadget/udc/bdc/bdc_udc.c
-+++ b/drivers/usb/gadget/udc/bdc/bdc_udc.c
-@@ -530,8 +530,8 @@ int bdc_udc_init(struct bdc *bdc)
- 
- 
- 	bdc->gadget.name = BRCM_BDC_NAME;
--	ret = devm_request_irq(bdc->dev, bdc->irq, bdc_udc_interrupt,
--				IRQF_SHARED, BRCM_BDC_NAME, bdc);
-+	ret = request_irq(bdc->irq, bdc_udc_interrupt, IRQF_SHARED,
-+			  BRCM_BDC_NAME, bdc);
- 	if (ret) {
- 		dev_err(bdc->dev,
- 			"failed to request irq #%d %d\n",
-@@ -542,7 +542,7 @@ int bdc_udc_init(struct bdc *bdc)
- 	ret = bdc_init_ep(bdc);
- 	if (ret) {
- 		dev_err(bdc->dev, "bdc init ep fail: %d\n", ret);
--		return ret;
-+		goto err0;
- 	}
- 
- 	ret = usb_add_gadget_udc(bdc->dev, &bdc->gadget);
-@@ -571,6 +571,7 @@ int bdc_udc_init(struct bdc *bdc)
- err1:
- 	usb_del_gadget_udc(&bdc->gadget);
- err0:
-+	free_irq(bdc->irq, bdc);
- 	bdc_free_ep(bdc);
- 
- 	return ret;
--- 
-2.53.0
+No worries :)
 
+> Alternatively, please do feel free to hold off until we get the public
+> posting of the call_rcu() and call_srcu() deferral patch series.
+> It will likely provide a helper function that you can use.  To your
+> credit, your initial definition of the irqsoff local variable within
+> call_rcu_tasks_generic() is what we seem to be settling on.  It should
+> also clarify what needs to happen when a CPU goes offline with deferred
+> callbacks.
+
+Sure, I saw the patch series and will piggyback on top of it.
+
+Thanks,
+Matt
