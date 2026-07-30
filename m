@@ -1,155 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEE3382373;
-	Thu, 30 Jul 2026 03:55:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48015379EF7
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 04:56:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785383752; cv=none; b=DHhT+aOpfGHodoxCqN/tiR6mrDeOwSpmDAWPvsCHM3UsZYuYRBdGeP1rQRbBYQKu3NxUFlT9GmUWENsu7FMBOPPIjKP5jz/zVzSbMyvhopv24hix9VSjmRo4QRpZn5xkLKZ7qmNyXVdelm5RLnRgzNGLkrS+y+/pG5QrSCyxH6A=
+	t=1785387398; cv=none; b=l6EcNQQLfsliApNo9L0+oFpnvEwKGaOgjVpAX0aM50ohVgeVrdTW797+FKx5HN8rffvRtsOrMuNObJP2EsykJhz3tLx+QuITtMdSxIYyUwR+OvevWalKetLyLLt5BD9AalWUxMLxWmpfQIUcywUmVITAVeqAsZUnYo+7cizOhuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785383752; c=relaxed/simple;
-	bh=1Wr5T+lyFZJTeHonA3ZzJ3K9dxEeMfksmls/++jN3V0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o/4zj9wZPYP60USXDNnJ+knTiJOU1+CjchVf91KOMLHy0azT/njTQnOk2KsjEvlVMdQFWnWsqvwHq34gHLvg59RyFqpF7qFP20DeSFjvq4fG1wB4K/2xJGcoLl4JJbfIlyGKOuOBWYHH4hSvzCsrTYutgppQe6FoYOs/ojfge2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bwYmmaMu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785387398; c=relaxed/simple;
+	bh=yX5PtH2UawY/1gFAeYes7DcwALsqUnRXEsWOxC2Pu4g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LEEc71uphV8dY4gYr9k7TzKF0cejqa5LZsXDupPTbOtswNnVzXaSNDhNS6DFFfNnEjVomnFmZH/zc6902QyTnRwU23K/kDD097INzookPWHgpgQmiuZu9jTlZinTZ7t3LXIMTTZ+/rv/7vo6kLhOxwbAD83xqf4NRGiCdLYh3JI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SBYx4gui; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bwYmmaMu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCD9B1F000E9;
-	Thu, 30 Jul 2026 03:55:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785383751;
-	bh=jL29vjJ77VLrRPv/DZmmHHNOBf84TNgv+nTdSJjkQvo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bwYmmaMutasiKGCW3lMAx/RWsUKidEdyk7bHcb+ezqybzVcbC1EZaV2wEqfA5w8E5
-	 K5OEmEZ/FALpeYixasyUzvcH87KSuiNV/gvrvOkfqpKVazo6pxmu2GaFPLVBVBNG4w
-	 gJpkY54hNabxZoY7LJaT96ImlO6le+E8q+gQcmhJLf07x8JQVA4J29Pg8/sDxCHF1Y
-	 gft58FE7Sagc1oyYNrkhLHI1lsuwzkmkL5u7Ijii22xkZSswUqqgyzGo3td2mF70aX
-	 2FJ6NU4b+Om+kA/oIJx/gEXyGiepkRKJ64qYzABV6LEWbeQBAr+t9LiKDRz1f3lmvU
-	 eEb7x2s07bgGw==
-Message-ID: <dd0b5122-896a-4513-9a93-e3fe04bc3f73@kernel.org>
-Date: Thu, 30 Jul 2026 12:55:41 +0900
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SBYx4gui"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cf41bab353so29257405ad.0
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 21:56:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785387397; x=1785992197; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z5+4H6ku/KH2GD/roI9o+eFEb2VQbXfpl2sQKxFQu6M=;
+        b=SBYx4guiAvLmyHqqwCs0UEdmz87+YkwuVXMTiuiE58oH8cZTuFjBf6tcxSbQesrpqS
+         1IBOjF0zP3M00hJfE2XPdq1hi/OZQdkMqQYv6jXC5SvE3LisDB63n0xaJZoPme3Tvn5d
+         SicmhH81oCBgerDNXGYvz37We658Vt60MACm19WO5vnfY2Fdvnf+C1ISAqrqNMYGVA5j
+         O8ue5U0uj+CRR8YBjOTAm1P3SIta1v7cr5asNA2znxEa09bLujItp/1J5ZobqDJQCJ6r
+         JTusLKa7Fj1uTlxDyHvHBMzQQRold8FBBx+asgdzT7d7a7V5DVeXhUHgNZeyOJMnENko
+         vlHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785387397; x=1785992197;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=z5+4H6ku/KH2GD/roI9o+eFEb2VQbXfpl2sQKxFQu6M=;
+        b=ov103G6lRUcjeUidLSn2Ouu9V5GN+B//s7prYqzoZb0CZXtWz8e8AcUQ9aBvZX+o2m
+         E+cYNtSeIEjmEfOezJSQ+pU3GZOnLX70BtuLNEsP+jcdEipayRr/KSGSnJU6P7m0Vrbh
+         n0wq7qI2IF1VuAXTuMSpbiXzVvHqWdovJNtv+0Z9slL5oOYxIVQLTgamVissz06+8boW
+         zcygL0jeL1KVD20zj2U2dJxuLvw6/i55RLBfgL9XVTLGCMGi+lP5CijQ6+HhF1fY1f/q
+         EXWItc+le6i8NVzCfLdH6JS//fPDPrgHx33BXjDFZjG6HB2JJcElU941yb/clzoKgg6d
+         S5Kw==
+X-Forwarded-Encrypted: i=1; AHgh+RqXyT0LfX/55zNeb28BRWsgMFCEqCMjKAaLplSP3GyMVehAUjmfvy1OH5ghpNoJ1jcwwbkJrKY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXbPpvuzGR3+YoKxXN43D3PlrDVKrWPmyqUqrG1/3grxSfCH/i
+	6wG3pYya9waO6AYxKetPDZzlDFduMZAnCQ9uTYtbVntPny7SZUTxmGz0
+X-Gm-Gg: AR+sD12Y8FfvGf+hFfzov1raCmZmDP06JfMyDaJXatGmhwzYMf6BArlh7rqxPQPD1rH
+	6GkO5dqR6fjjnWTK7q/LTxtqqbFncvEAJFOrMyfju0mWRL04MbX9uL8FEjK6MJDbUytHo4Mjq9b
+	rbPmqUwEsYPEy00swz8s8Z7B7QDUzDfw7we6SM+niJ3YYtABI/9m2CSW2a4nE6H2Jib+nhV0Vxj
+	m0vzCFFeGP8lrw7CxzdsUIPz17BCWHpQ9Wb9RqfAleiZdV0q/vIA93XZ3GgToUH64OAaCqipGTw
+	wCuWEjoQJbPTG3jaA45uF0aucnIwq5Z3E90S6B4LM+P64cia9bkO3rQ07Rzk+VF3NdUjY/sm/26
+	VuQ7u3UYWV1dAgPKiMB8DhV3JPmzOaQTRr8d4vEmZcFrVu8G/ibJ+dIE1CLPgltyFl5Spj4ZWvV
+	DlL8B1v03X/iwjwwmL2WZtu16e2TSO1HDDO7M8gSqNK6mEWRZrRKyTtLVR4nkrmw4qUOwLQYiYN
+	R2sy0CCeB9L
+X-Received: by 2002:a17:902:f54e:b0:2cf:9f0b:b560 with SMTP id d9443c01a7336-2d035ccca4bmr12477335ad.29.1785387396552;
+        Wed, 29 Jul 2026 21:56:36 -0700 (PDT)
+Received: from hyunchul-PC01.tail461a24.ts.net ([125.177.232.58])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022a46969sm19875325ad.25.2026.07.29.21.56.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 21:56:35 -0700 (PDT)
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>,
+	ntfs@lists.linux.dev,
+	Cen Zhang <zzzccc427@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 0/4] ntfs: serialize attribute-list access
+Date: Thu, 30 Jul 2026 13:56:11 +0900
+Message-ID: <20260730-topic-attr-list-lock-v6-v4-0-80d5fe0a6951@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm/slub: fix missing debugfs entries for caches
- created before sysfs init
-To: Li Xiasong <lixiasong1@huawei.com>, Vlastimil Babka <vbabka@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: stable@vger.kernel.org, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, yuehaibing@huawei.com,
- zhangchangzhong@huawei.com, weiyongjun1@huawei.com
-References: <20260729101849.3734287-1-lixiasong1@huawei.com>
-Content-Language: en-US
-From: Harry Yoo <harry@kernel.org>
-In-Reply-To: <20260729101849.3734287-1-lixiasong1@huawei.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------U4bzCzUcpYSrc5aXCF3vg0O0"
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785387323; l=3936; i=hyc.lee@gmail.com; s=20260727; h=from:subject:message-id; bh=yX5PtH2UawY/1gFAeYes7DcwALsqUnRXEsWOxC2Pu4g=; b=kfF0Sz3M6AieBmg0Fg9eoO0JGRneX3w0tk5A6KW25WUPpoZD8snQA/yjsP/5wWPOqLs074pcC 0Ey9tdINThGAP0qCrDOxk2Uz7iZe4kwtu6tygyNie3gXYEK3S/4DvqR
+X-Developer-Key: i=hyc.lee@gmail.com; a=ed25519; pk=XjFN8PRLk/ZCdNmwABbNomUbzLtXDFRX8iJkKn3fgGc=
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------U4bzCzUcpYSrc5aXCF3vg0O0
-Content-Type: multipart/mixed; boundary="------------9udFvOgVqgbui5kv0H8J1YIY";
- protected-headers="v1"
-From: Harry Yoo <harry@kernel.org>
-To: Li Xiasong <lixiasong1@huawei.com>, Vlastimil Babka <vbabka@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: stable@vger.kernel.org, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, yuehaibing@huawei.com,
- zhangchangzhong@huawei.com, weiyongjun1@huawei.com
-Message-ID: <dd0b5122-896a-4513-9a93-e3fe04bc3f73@kernel.org>
-Subject: Re: [PATCH v3] mm/slub: fix missing debugfs entries for caches
- created before sysfs init
-References: <20260729101849.3734287-1-lixiasong1@huawei.com>
-In-Reply-To: <20260729101849.3734287-1-lixiasong1@huawei.com>
+ntfs_external_attr_find() walks base_ni->attr_list using raw
+attr_list_entry pointers stored in ctx->al_entry.  Because other paths
+can replace base_ni->attr_list and free the old buffer while a lookup
+still holds one of those cursors, a concurrent attribute-list mutation
+can turn a saved cursor into a stale or freed pointer.
 
---------------9udFvOgVqgbui5kv0H8J1YIY
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Reported in:
+  https://lore.kernel.org/all/20260702161710.2606853-1-zzzccc427@gmail.com/
 
+This series fixes that hazard by replacing the raw ctx->al_entry
+pointer with restartable, generation-checked locators, and by adding
+locks that serialize attribute-list buffer replacement and on-disk
+persistence so concurrent mutations cannot corrupt state or double-free
+memory.
 
+The four patches are:
 
-On 7/29/26 7:18 PM, Li Xiasong wrote:
-> slab_debugfs_init() creates the slab debugfs root at device initcall
-> time, while slab_sysfs_init() moves slab_state to FULL at late initcall=
+  1. ntfs: replace raw ctx->al_entry with restartable attr-list locators
+  2. ntfs: protect attribute-list buffer replacement with
+     attr_list_persist_lock
+  3. ntfs: protect attribute-list creation/teardown with
+     attr_list_persist_lock
+  4. ntfs: protect mapping-pairs attr-list updates with
+     attr_list_persist_lock
 
-> time. SLAB_STORE_USER caches created in this window miss their debugfs
-> entries because do_kmem_cache_create() skips debugfs_slab_add() when
-> slab_state <=3D UP. This was observed with MPTCP's request_sock_subflow=
-_v6
-> cache, whose slab debugfs directory was missing.
+What changes
+------------
 
-Ouch, good catch!
+Instead of a raw struct attr_list_entry *, the search context now
+carries three value-only locators:
 
-> The affected window is:
->=20
->   slab_debugfs_init()
->     slab_debugfs_root =3D debugfs_create_dir(...)
->     list_for_each_entry(s, &slab_caches, list)
->       debugfs_slab_add(s)
->=20
->   kmem_cache_create(..., SLAB_STORE_USER, ...)
->     do_kmem_cache_create()
->       if (slab_state <=3D UP)
->         return without debugfs entries
->=20
->   slab_sysfs_init()
->     slab_state =3D FULL
->=20
-> Initialize the debugfs root and add debugfs entries while holding
-> slab_mutex, walking slab_caches exactly once and handling both sysfs
-> and debugfs entries in the same pass. This gives the sysfs and debugfs
-> initialization an explicit order and prevents caches from being
-> created between the debugfs scan and slab_state reaching FULL.
->=20
-> Gate the new slab_late_init() on either sysfs or debugfs being enabled,=
+  - al_cursor  -- where ntfs_external_attr_find() resumes enumeration;
+                  invalidated on generation mismatch.
+  - al_insert  -- insertion point captured on -ENOENT lookups.
+  - al_exact   -- immutable identity snapshot (type, lowest_vcn,
+                  mft_reference, instance, name length) used by writers
+                  to re-locate the same ALE after a buffer replacement.
 
-> with the slab_kset creation and alias_list processing factored into
-> helpers that have empty no-sysfs variants, as suggested by Vlastimil
-> Babka. On slab_kset_init() failure, slab_state stays below FULL so
-> kmem_cache_create() keeps taking the early-boot path, matching prior
-> behavior.
->=20
-> Guard debugfs_slab_release() against an uninitialized debugfs root,
-> since the root is now created later and a cache may be released before
-> it exists.
->=20
-> Fixes: 1a5ad30b89b4 ("mm: slub: make slab_sysfs_init() a late_initcall"=
-)
-> Cc: stable@vger.kernel.org
-> Suggested-by: Vlastimil Babka <vbabka@kernel.org>
-> Signed-off-by: Li Xiasong <lixiasong1@huawei.com>
-> ---
+The inode gains an rw_semaphore, attr_list_lock, and a 64-bit
+attr_list_gen counter.  The lock protects attr_list, attr_list_size,
+and attr_list_gen; the counter is bumped on every buffer replacement
+so a stale locator is detected before it is dereferenced.
 
-Looks good to me,
-Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
+Because ntfs_attrlist_update() can sleep and recurse back into
+attribute lookups, attr_list_lock cannot be held across persistence.
+A separate mutex, attr_list_persist_lock, serializes the whole
+publish-buffer -> persist-to-disk -> rollback-on-failure transaction
+for each mutator.
 
---=20
-Cheers,
-Harry / Hyeonggon
+Lock ordering is:
 
---------------9udFvOgVqgbui5kv0H8J1YIY--
+    mrec_lock -> attr_list_persist_lock -> attr_list_lock
 
---------------U4bzCzUcpYSrc5aXCF3vg0O0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+attr_list_lock is never held across anything that can take runlist.lock
+or extent_lock.
 
------BEGIN PGP SIGNATURE-----
+---
+* Changes in v4:
+  * Patch 1: fix attr-list lock/unlock and uninitialized locator on
+    the AT_END path
+  * Patch 2: hold attr_list_persist_lock around all
+    ntfs_attrlist_update() callers and recheck the attribute-list
+    state after locking
+  * Patch 4: avoid self-deadlock rebuilding $ATTRIBUTE_LIST's own
+    mapping pairs
+* Changes in v3:
+  * Patch 1: fix $ATTRIBUTE_LIST extent double-delivery during
+    mapping-pairs rebuild (xfstests generic/040)
+  * Patch 3: fix self-deadlock on attr_list_persist_lock during
+    attr-list rebuild (xfstests generic/040)
+* Changes in v2:
+  * add Fixes tags
+  * add Reported-by and Tested-by tags
 
-iHUEARYKAB0WIQQQ1ub6gR5ogjaKRmOGXBN6rc5S1gUCamrLPQAKCRCGXBN6rc5S
-1v+LAQCGTC8YVdB3hRg3AfCDHJVmxbhhis44MtfJ8l9+dz/lGgEAp/UqMuKJOrY9
-bw+qmoUwrTnDKzuWN9moPkZ9nVc1aA0=
-=DIZv
------END PGP SIGNATURE-----
+---
+Hyunchul Lee (4):
+      ntfs: replace raw ctx->al_entry with restartable attr-list locators
+      ntfs: protect attribute-list buffer replacement with attr_list_persist_lock
+      ntfs: protect attribute-list creation/teardown with attr_list_persist_lock
+      ntfs: protect mapping-pairs attr-list updates with attr_list_persist_lock
 
---------------U4bzCzUcpYSrc5aXCF3vg0O0--
+ fs/ntfs/attrib.c   | 472 ++++++++++++++++++++++++++++++++++++++++++++---------
+ fs/ntfs/attrib.h   |  48 +++++-
+ fs/ntfs/attrlist.c | 181 ++++++++++++++++----
+ fs/ntfs/attrlist.h |   1 +
+ fs/ntfs/index.c    |   3 +-
+ fs/ntfs/inode.c    |  73 +++++++--
+ fs/ntfs/inode.h    |   9 +
+ fs/ntfs/namei.c    |   2 +-
+ fs/ntfs/super.c    |   2 +-
+ 9 files changed, 659 insertions(+), 132 deletions(-)
+---
+base-commit: 985e0ded13bc51da8d5eba3a3bad1cb3ffb4870f
+change-id: 20260727-topic-attr-list-lock-v6-f1a909e3c859
+
+Best regards,
+-- 
+Hyunchul Lee <hyc.lee@gmail.com>
+
