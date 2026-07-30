@@ -1,189 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7213B0581;
-	Thu, 30 Jul 2026 17:57:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B0F448B99;
+	Thu, 30 Jul 2026 17:59:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785434226; cv=none; b=J9CpBUQM8gzJGyP3AHvE5RAEOPNit5nS+e/vyg6q+9MRQbBps6FGeCHXjo6RPrX1gJ+Uetoo4HjCcrEXTnWpXdbhwwMb9pFIsnAoUHBPljkb2VgocuWnp3A/RB8H5VzxQC0UC7V+nsx5Xd2rn3dMj/RFcHdgL0pfD4aq9GrFNxU=
+	t=1785434395; cv=none; b=joAJH7b5wgBos8PhPIKpdEyXt1Pc5oDd2vvsVbWJtRurv+nOnIkldpcS39bYzoaVQoBvJgw9C0I8KWcsFiVW5IGk2hzw/MZWR+7Jl6qdJovo2VloJJ/Auj/E6CrmBLbimjUDOOrW9YY6sAjHi+WPYkJOTsMSz1ft8ocQMxtW4lw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785434226; c=relaxed/simple;
-	bh=r7O8QD+ivm+bvq9bs6znr99IcSljYbBNKpR59/rpEPU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QZKwdntr4ev9VLpLd2kEyeGUNr1zhkdW94ld19XOZKS7uRcD1LFK82T/W52U2gIPqRw1OFCVK7qxwuLYMz7tJvbRL6HQkGtfHhIlrRkH8oL/nKJjXTQpgNCgfLNvw4KOggenHt5R/+8ZgVXtF0vbbleAZDgR9y6sAYSYZ6nE+jQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cy1H54IO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785434395; c=relaxed/simple;
+	bh=OOgJ48JRxMdktncZONk8v+GiWtu/r5iK09h3e4g98SM=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=ZGh+8lUinsPa1G86C01dhcxsHERX1SIeV5uAk1EJIKDZzaejWorLMfA60f8tyiJK/rpTuI4QyYserljveU8kKfjIxB20ecnT8PwAGYtw75EhDaDmj9aJASD61G/QEhkOu6s9A3Pvsze7u/HwvTq+w64bbwdGbeagkEMLIlACyb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=UshECIue; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cy1H54IO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A4F1F00A3A;
-	Thu, 30 Jul 2026 17:57:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785434224;
-	bh=abhw088q6gYCQxNch23PgT1atsdpk0ME6d8Iyr32PiE=;
-	h=From:To:Cc:Subject:Date;
-	b=Cy1H54IOysiPRS76pS1Dp4whlY0kfSARu3n70I6mCwuid4tXNO/J2QUzQGw10enMm
-	 SbDBdkavAnVq00Jny93DwveIi5K9cRILVmqxAvPr7wYzFrtUjK/PV953TBeQtuoXAb
-	 LYFNmQKXQqrlbNGpf+xN/OyTPKp9xR3vBBxREo55Iej3GI6cmRSn9PEsMP87kc0Dqv
-	 tfG0tTEIFGBNTA77VhJ+CAHnyn0YCTV8eafhgSbBekvFM7QQK6cdNfeKcJ2ojvapVI
-	 bXd5pbFGLsZzZrgKkt0V2Vb0j3fBopS6evdnD9yI59mgu2237lcVLH3ksaLOS7ZNfI
-	 bVh7WIfmxo0vg==
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-ext4@vger.kernel.org,
-	Theodore Ts'o <tytso@mit.edu>
-Cc: Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	Ira Weiny <iweiny@kernel.org>,
-	linux-fscrypt@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	Disha Goel <disgoel@linux.ibm.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ext4: don't enable DAX on new encrypted files
-Date: Thu, 30 Jul 2026 10:52:12 -0700
-Message-ID: <20260730175212.36923-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="UshECIue"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ACE51F000E9;
+	Thu, 30 Jul 2026 17:59:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1785434393;
+	bh=YZrCgdyXy0gel21g6+l3wAl91/gQK/6PxbGO/1UYQNI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UshECIueGJWRMP+SZQFVcW0KEfohxvJ8oK09e7hIWV+2DIe4dmG2UVxZALb6bPcT5
+	 0U1hW+6R6guYUtI0aiN5wXC8mVznh7PRZkBVADUy807+Y/d5CepvjAv+YyE6B+dn2q
+	 66ns3oQYRRGuNTh6RCVt577rqxUpB9uVhkPVSXhs=
+Date: Thu, 30 Jul 2026 10:59:52 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Hao Jia <jiahao.kernel@gmail.com>, tj@kernel.org, hannes@cmpxchg.org,
+ shakeel.butt@linux.dev, mhocko@kernel.org, mkoutny@suse.com,
+ nphamcs@gmail.com, chengming.zhou@linux.dev, muchun.song@linux.dev,
+ roman.gushchin@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Hao Jia <jiahao1@lixiang.com>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] mm/zswap: Fix global shrinker when memory cgroup
+ is disabled
+Message-Id: <20260730105952.7878a648c43c32b5e649d96d@linux-foundation.org>
+In-Reply-To: <CAO9r8zMPxdn=MOFD9mbrzed+C9HhOB5DpHG4QS0OJzqV_gLvsQ@mail.gmail.com>
+References: <20260729084206.77793-1-jiahao.kernel@gmail.com>
+	<20260729084206.77793-2-jiahao.kernel@gmail.com>
+	<20260729155858.c7aabff48166a9bca4d68ac3@linux-foundation.org>
+	<CAO9r8zNhBCghP8T_98z2p==Cfs_=kamcRN_3ROxaj3R8PN2Qvw@mail.gmail.com>
+	<20260729181756.a37e0cc7ea3f6013959d1d25@linux-foundation.org>
+	<CAO9r8zMPxdn=MOFD9mbrzed+C9HhOB5DpHG4QS0OJzqV_gLvsQ@mail.gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Currently, when a new encrypted regular file is created, the call to
-ext4_set_inode_flags(inode, init=true) in __ext4_new_inode() is made
-before EXT4_INODE_ENCRYPT is set.  As a result, it can set S_DAX if the
-filesystem is mounted with "-o dax=always".
+On Thu, 30 Jul 2026 09:52:38 -0700 Yosry Ahmed <yosry@kernel.org> wrote:
 
-EXT4_INODE_ENCRYPT then actually gets set a bit later in
-__ext4_new_inode(), when it calls fscrypt_set_context() which calls
-ext4_set_context().  ext4_set_context() sets EXT4_INODE_ENCRYPT and
-calls ext4_set_inode_flags(inode, init=false) to set S_ENCRYPTED too.
+> > > >
+> > > > How does this affect users?  What behavior do they observe when it
+> > > > occurs?
+> > >
+> > > I think the first paragraph sums it up pretty well, especially the
+> > > last sentence "hotter pages with higher fault latency".
+> >
+> > How do users observe that?
+> >
+> > See, what I'm looking for here is an explanation for why we're
+> > proposing a backport.  How are our users harmed by the current code and
+> > how does this change benefit them?
+> 
+> It's a potential performance regression when using zswap with memcg
+> disabled. Sorry I just realized you were looking for a high level
+> description not detailed symptoms :)
 
-This was intended to clear S_DAX as well.  However, this was broken by
-commit 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load").  This
-causes data written to the file to bypass encryption, also causing
-xfstests failures such as generic/548 (when "-o dax=always" is used).
+Are we able to guess how significant this is?  It should have
+significant impact to justify a backport.
 
-Fix this by simplifying the flow by making __ext4_new_inode() set
-EXT4_INODE_ENCRYPT earlier.  This makes it take effect in
-ext4_set_inode_flags(inode, init=true), making S_DAX never be set.
+Sorry to push - I'm forever trying to train people to describe the
+userspace-visible effects so we can make these backporting decisions!
 
-Similarly, make EXT4_STATE_MAY_INLINE_DATA never be set in the first
-place on new encrypted inodes.  Then it doesn't need to be cleared.
+And to justify those decisions to -stable maintainers
 
-As a result of these simplifications, ext4_set_context() no longer needs
-to change inode flags or state when 'handle != NULL'.  Remove that too.
-
-Reported-by: Disha Goel <disgoel@linux.ibm.com>
-Reported-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-Closes: https://lore.kernel.org/r/20260723085648.1500357-1-ojaswin@linux.ibm.com
-Fixes: 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load")
-Cc: stable@vger.kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
----
- fs/ext4/crypto.c | 40 ++++++++++++++++++++--------------------
- fs/ext4/ialloc.c |  4 ++++
- 2 files changed, 24 insertions(+), 20 deletions(-)
-
-diff --git a/fs/ext4/crypto.c b/fs/ext4/crypto.c
-index f41f320f4437..3971986de028 100644
---- a/fs/ext4/crypto.c
-+++ b/fs/ext4/crypto.c
-@@ -144,7 +144,13 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 	if (inode->i_ino == EXT4_ROOT_INO)
- 		return -EPERM;
- 
--	if (WARN_ON_ONCE(IS_DAX(inode) && i_size_read(inode)))
-+	/*
-+	 * For new encrypted inodes, S_DAX is never set in the first place.
-+	 *
-+	 * For existing inodes, this is called only on empty directories.  ext4
-+	 * never sets S_DAX on directories.
-+	 */
-+	if (WARN_ON_ONCE(IS_DAX(inode)))
- 		return -EINVAL;
- 
- 	if (ext4_test_inode_flag(inode, EXT4_INODE_DAX))
-@@ -163,6 +169,14 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 	 */
- 
- 	if (handle) {
-+		/*
-+		 * __ext4_new_inode() should have already set the encrypt flag
-+		 * on the inode and avoided enabling inline data.
-+		 */
-+		if (WARN_ON_ONCE(!IS_ENCRYPTED(inode)))
-+			return -EINVAL;
-+		if (WARN_ON_ONCE(ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)))
-+			return -EINVAL;
- 		/*
- 		 * Since the inode is new it is ok to pass the
- 		 * XATTR_CREATE flag. This is necessary to match the
-@@ -170,21 +184,10 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 		 * function with the credits allocated for the new
- 		 * inode.
- 		 */
--		res = ext4_xattr_set_handle(handle, inode,
--					    EXT4_XATTR_INDEX_ENCRYPTION,
--					    EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
--					    ctx, len, XATTR_CREATE);
--		if (!res) {
--			ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
--			ext4_clear_inode_state(inode,
--					EXT4_STATE_MAY_INLINE_DATA);
--			/*
--			 * Update inode->i_flags - S_ENCRYPTED will be enabled,
--			 * S_DAX may be disabled
--			 */
--			ext4_set_inode_flags(inode, false);
--		}
--		return res;
-+		return ext4_xattr_set_handle(handle, inode,
-+					     EXT4_XATTR_INDEX_ENCRYPTION,
-+					     EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
-+					     ctx, len, XATTR_CREATE);
- 	}
- 
- 	res = dquot_initialize(inode);
-@@ -205,10 +208,7 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
- 				    ctx, len, 0);
- 	if (!res) {
- 		ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
--		/*
--		 * Update inode->i_flags - S_ENCRYPTED will be enabled,
--		 * S_DAX may be disabled
--		 */
-+		/* Update inode->i_flags to set S_ENCRYPTED. */
- 		ext4_set_inode_flags(inode, false);
- 		res = ext4_mark_inode_dirty(handle, inode);
- 		if (res)
-diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
-index a40cb27f8116..a5831fc536db 100644
---- a/fs/ext4/ialloc.c
-+++ b/fs/ext4/ialloc.c
-@@ -997,6 +997,8 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
- 		err = fscrypt_prepare_new_inode(dir, inode, &encrypt);
- 		if (err)
- 			goto out;
-+		if (encrypt)
-+			i_flags |= EXT4_ENCRYPT_FL;
- 	}
- 
- 	err = dquot_initialize(inode);
-@@ -1306,6 +1308,8 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
- 	ei->i_extra_isize = sbi->s_want_extra_isize;
- 	ei->i_inline_off = 0;
- 	if (ext4_has_feature_inline_data(sb) &&
-+	    /* Encrypted inodes cannot have inline data */
-+	    !(ei->i_flags & EXT4_ENCRYPT_FL) &&
- 	    (!(ei->i_flags & (EXT4_DAX_FL|EXT4_EA_INODE_FL)) || S_ISDIR(mode)))
- 		ext4_set_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA);
- 	ret = inode;
-
-base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
--- 
-2.55.0
+And so that someone who is experiencing a slowdown in some private
+kernel branch can look at the changelog and decide whether this might
+fix it for them.
 
