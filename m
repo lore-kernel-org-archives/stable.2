@@ -1,48 +1,44 @@
-Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21AD44211F
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 15:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68420442139;
+	Thu, 30 Jul 2026 15:04:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785423897; cv=none; b=fVr7yIaKgV3vAzXTc7pyNS3CY+L2deTDENf3vBz4CpQhvZ0aukw1Av9Gc7ey7NgjeVjU6gpfwFgXoBgNqqxruvFq+uz6FcfbH8huHS1lPxPFfyVak57mbXSUV8cyHFEZ6UKYRtiWMeXxkJlPBVusEXETd9E8lYvkpQxdORtCDQU=
+	t=1785423897; cv=none; b=QBouZY0AdnnV3RgPyy36nDzkHFELL/A6ZNFZ1urLA0UertVVdVpadypW8PVlut7XWm4BlI3Gbtxohk75jNtRnCjsAYaKSOWVSzv6CqTmeNc6ea7ED9lBWuhMmOTcasg2UhKonBrNUjXjBOVHcxujzgy9x5oGPNgsNJYiEyXlb2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785423897; c=relaxed/simple;
-	bh=l9GKUxKdOGLl997Z4ceudW7mPtJe4JfdjMvSi3Qz3pg=;
+	bh=c8hWg6ftDot95p6Cj4erjMn4VzIKv49JDi9wovLiFLU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Nw4rHJ6pAB8LxMZlZZUex5H4h+5D9cqhQmZv0yA0B6Tqj4KQHGUaJsD7w3piwhXzsuthQJXZ25VPhEL7KzMDU6K2AdStNqmOGpaXe7OzfOnM/j+43sOpDv9V0yU1sWeSjhZCSQoIA0xhG/oWPwQD6eQjsp6jBoT7dlWt6cczQrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cx2pFC/X; arc=none smtp.client-ip=91.218.175.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 MIME-Version; b=QPqEL2MkIyxmGgWBVGfya+5Tfd3lA9wlqBd+JBDRnrt5RIMSICj53ch4T1h4tUelepsWXfxMz59A6GH7Jjd9X4u2zK4Z3vkq7KUVjSKxcNeLN5i0mikDGxjQDfyWi0ZX6IUOG5Sy2iucOqNzP63C8KswxCqbMKs1vybR2ZNn7zQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GRLb74Pn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cx2pFC/X"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785423892;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tXP3sLnFW2SJsbuz9cs4gqLjv3d7L92yQ0oDBHkkR9s=;
-	b=cx2pFC/XKbg6FG7I014UOGNrlasGWHzlDcEXyW4lmFnIed6W2aaZcE1eWSB/t82ss4H4fu
-	NkX3VqjzPBktWOMmdanWkV+/pfbLchf34NI0O2m6PxV3G2smG6cxGdssDIKjkTg02N4AhV
-	jmCjHydEqgZfHFw/vOC4V/LOGfF6PSc=
-From: Leon Hwang <leon.hwang@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Leon Hwang <leon.hwang@linux.dev>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/4] ftrace: Protect direct_functions in ftrace_find_rec_direct
-Date: Thu, 30 Jul 2026 23:04:08 +0800
-Message-ID: <20260730150411.88667-2-leon.hwang@linux.dev>
-In-Reply-To: <20260730150411.88667-1-leon.hwang@linux.dev>
-References: <20260730150411.88667-1-leon.hwang@linux.dev>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GRLb74Pn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FB2B1F000E9;
+	Thu, 30 Jul 2026 15:04:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785423896;
+	bh=TRchT6CTKeylPGNHcvDtHVcUaR3Ce4aMsePx+OBqkek=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GRLb74PnkODilBYZX0I/YcneHZyVxf+jq65NP4CLscpS9k62wKxPFn1Tih5qOhn7Q
+	 nvkegBU6NIgqSOqlgSi9Oxg9nogLQcszNtkXrtXDn+M6ag2YVqjynv8gXYg3Pjarnn
+	 bd9WXnS671C/TYHs0uP92DLPiBmzft/pAzG8O4us=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Eugene Shalygin <eugene.shalygin@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 203/675] hwmon: (asus-ec-sensors) add missed handle for ENOMEM
+Date: Thu, 30 Jul 2026 16:08:53 +0200
+Message-ID: <20260730141449.457394548@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260730141445.110192266@linuxfoundation.org>
+References: <20260730141445.110192266@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,32 +46,47 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
-Fix accessing the __rcu pointer direct_functions with RCU protection.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Cc: stable@vger.kernel.org
-Fixes: d05cb470663a ("ftrace: Fix modification of direct_function hash while in use")
-Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+------------------
+
+From: Eugene Shalygin <eugene.shalygin@gmail.com>
+
+[ Upstream commit 9813c1f49efeadbcb17e4a41972350ac783f9cac ]
+
+Add missing return value check in the setup function.
+
+Fixes: d0ddfd241e57 ("hwmon: (asus-ec-sensors) add driver for ASUS EC")
+Signed-off-by: Eugene Shalygin <eugene.shalygin@gmail.com>
+Link: https://lore.kernel.org/r/20260712130602.1256700-2-eugene.shalygin@gmail.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/ftrace.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/hwmon/asus-ec-sensors.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index 6c47a94f5924..c5d1d0d42ccc 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -2645,7 +2645,8 @@ unsigned long ftrace_find_rec_direct(unsigned long ip)
- {
- 	struct ftrace_func_entry *entry;
+diff --git a/drivers/hwmon/asus-ec-sensors.c b/drivers/hwmon/asus-ec-sensors.c
+index 52986b64881eab..13fd212ad40407 100644
+--- a/drivers/hwmon/asus-ec-sensors.c
++++ b/drivers/hwmon/asus-ec-sensors.c
+@@ -1353,9 +1353,11 @@ static int asus_ec_probe(struct platform_device *pdev)
+ 		if (!nr_count[type])
+ 			continue;
  
--	entry = __ftrace_lookup_ip(direct_functions, ip);
-+	guard(preempt_notrace)();
-+	entry = __ftrace_lookup_ip(rcu_dereference_sched(direct_functions), ip);
- 	if (!entry)
- 		return 0;
+-		asus_ec_hwmon_add_chan_info(asus_ec_hwmon_chan, dev,
+-					     nr_count[type], type,
+-					     hwmon_attributes[type]);
++		status = asus_ec_hwmon_add_chan_info(asus_ec_hwmon_chan, dev,
++						     nr_count[type], type,
++						     hwmon_attributes[type]);
++		if (status)
++			return status;
+ 		*ptr_asus_ec_ci++ = asus_ec_hwmon_chan++;
+ 	}
  
 -- 
-2.55.0
+2.53.0
+
+
 
