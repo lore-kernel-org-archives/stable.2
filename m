@@ -1,75 +1,50 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036313CA481
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 08:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE693C3C15;
+	Thu, 30 Jul 2026 08:34:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785400349; cv=none; b=KHi2DAuAl/4KXGBigd87Seo13o4oGnvEpcDzwq+RX3WHDovKtWPPG4wU+kYyPIL8v1FjTugg/SqNKNI0EeoAVADw2wuC1ce4vZT/m3Vd5CklDeoRtjpwK0Smv8tZIeFeI9kVKuIe4RcFxp9wdmdes+CVGaqKrsLj3YRfJOfJ+9A=
+	t=1785400458; cv=none; b=QeK73t8ksCXDI5ycuZ9PAhW+8kGAhAfsjW5lxZIwUNue4aRn9Kbm2AqhdWXvdEwjCkCCEo4vyUlay2SMN0CBnXxZ1t19q3bnkUFLUM6r/i0sXvabVeiMub7MVJcI5fo8CTvMn5tKHsQ8jmymtvuXPurWMRL3eSt8EAoXu8AnzSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785400349; c=relaxed/simple;
-	bh=IcOFbQECrGsg+BWMAa4idv9EVssko8UWfTMGlMoCtaY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y3J68bmqV7mK0yGmGH3TjMWToB/UQmQ0MmfezFvuRFHLwtVpMITtshNn/vxe0ZgsRriGil/gTTx2mdYqob0kYbn/MeRhWminQWusZdZQ5DleZT1WHmRcw+zcGVE6RVo8dHCS7tbG/lHR22G6cSJEY048ZKs027L1dZuFRs39nIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nslRQb40; arc=none smtp.client-ip=74.125.224.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nslRQb40"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-664b1bab782so243009d50.1
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 01:32:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785400347; x=1786005147; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vgievnc30p13gh89t//6TkQGWNlUGXGtKcqogQzVYjU=;
-        b=nslRQb40UlimLZ9ohhz7Qsj8lutt4mAyvPSEFUlFDuGGJJ1CKKkwABKRy02WsTX6Wg
-         SXIxaT+iqSvTSJ2glCOyxqzgtPB1atXk8W36xeIzIeP7ZWMfdhc0LECLrmwDO1JBdqQH
-         xVuoy0So6HczWzJQHnsfhpIWe4geG7sX3tvInBJpvt2rDiuGWahY8xE6NG+9v3PriWdm
-         9lukEgr+og3ULBz53XD4pUT8MTuF6aiEEdZe+cPCzeiH7vDUgGe79rW7ZvGke5/+NwKG
-         wSvJntC7wIOLf6/XgwYNz8gtPTtkRexhepa2EHs+O/jdyRFokQn6wt5cov+vvigMANzL
-         Uebw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785400347; x=1786005147;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vgievnc30p13gh89t//6TkQGWNlUGXGtKcqogQzVYjU=;
-        b=l8J+XMxEbmH+M9qYxjRgR3rLSoVbh2En5GGw/wcK3bZPOEd10XfzRd5yVzhbqYEGsI
-         d2w0bU92GmVSk7/lqnAAkbCt1d77jZmC0NZTy/OLEpdMa1okYwwbCjUiT6rBMCxkejL/
-         kG9oEirG4HxSgGS4ESbbXZDADnoF3MqFOw/ibVEVgAEF3SS1VRpaEBBttL37jrzRWSf8
-         Wov0vwaFcyRY6cL+MWpQ4GQp42j0h7Zl/TiPuYZHdqsrdAB+ewNRKNm3GbnKrxnxd/1B
-         85PQb1zp+9KacVXl47yNJZB3zDXteNCvcHANx/pBMtTYJkIb4r2sg0LeQSZJTTSx5Z6+
-         TZ8A==
-X-Forwarded-Encrypted: i=1; AHgh+RoMtL2c6vq7DaaJS2298wfhl3VOO9V2H/0sA1gqGveVOFUrIXc2we45KNZjYWN9HHO4TtDISYI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxAXq9PZLlBX3gxIzt/trhujNoHP+WB5z0tms7PkQqI4V7PKPsB
-	+2U8qCOhCE9iI3ZmR22++DN0Tx2wXk+z6vvjqj3yGXpdkxK/2HSF65is
-X-Gm-Gg: AR+sD11xeWerr1xm2Hu3QCIGnHk4SoVWkgysyQG1LfDlyevmvpO/7DXnIeThPeKwXLd
-	WEBR3fifz9MjHOQTzcVaOtz7m04f3onK+DbsQZPihzyKzuG43UAU9UKxPePAXrtTjdXWxZgVaaJ
-	esbOcPZnVpcdIh9psq8btiCdJPmMrfLvwU0g7gB2g6TlIXR7yn94tJlammslyjMn50c2a3CNFRX
-	5gxVpq4gJUmHpP3o1mb2rmO3e1sNLVo7CsbvzxiEPODXkBk1ZXW6nj6JRO1vzZgjozanVTNv3yw
-	xLnXvVZQnP8WyRevjM7x3UIM3HO3VnxTvQ0v7xEuBnTz+KEhhwa1eqBT1w6IjXBuGX8PcfAf+yf
-	XBx17VkA3rPhLIzZiBg+IzT6T8doZIvdo3SBfBghtLl5rkYwYwyTXDmXi2qLz7PLKtHhzQH5X33
-	QmRZhUEd32Ktr2MykrwdHXzTYziBZaX0ykOvUtVo1p9Q5/Tspj0pA5ANWw23nqeY7kRoDqPtd1f
-	8RbEK5ZI9X/mOA/3QMrI8i1F8CLVoV4UIk3oj/l3y60X6RkVg0D8eE=
-X-Received: by 2002:a05:690c:d8e:b0:81e:ba5b:97d2 with SMTP id 00721157ae682-81fb8a85be8mr18762137b3.2.1785400346780;
-        Thu, 30 Jul 2026 01:32:26 -0700 (PDT)
-Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fb8b2975csm6206277b3.48.2026.07.30.01.32.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 01:32:26 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Johan Hedberg <johan.hedberg@intel.com>,
-	Ankit Navik <ankit.p.navik@intel.com>
-Cc: linux-bluetooth@vger.kernel.org,
+	s=arc-20240116; t=1785400458; c=relaxed/simple;
+	bh=YSs4BlEquPcSPpnK2UsyKKe20Sr7YtURrM/X3GzVqkM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=u8Jp9BuuJp7EBADLAaj9Gl1AX8y8+TgKi2HYOfeKjV+lIBV7k2aNX+Tf4kibA/tjVt2iyHyfVDhrQLZE6ndBYyv0kH6Hlogl6C+MbiBhYfIJYYYE1cmqi1be4BBN7vXIECv3ZN49eZUYKxSC5ITYxOuYR7nKzRz0q+w9BPGbiw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 6ed33c668bf111f1aa26b74ffac11d73-20260730
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:2120fc2d-6822-4645-aaee-17b2bc0885ab,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:d5c7be6754db9e223efc16618ac57051,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
+	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
+	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 6ed33c668bf111f1aa26b74ffac11d73-20260730
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 418250093; Thu, 30 Jul 2026 16:34:08 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: cem@kernel.org,
+	djwong@kernel.org,
+	chandanrlinux@gmail.com
+Cc: linux-xfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: hci_event: fix LE list UAF on reset
-Date: Thu, 30 Jul 2026 16:32:02 +0800
-Message-ID: <20260730083202.2065336-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH] xfs: fix heap buffer overflow in xfs_bmbt_to_bmdr
+Date: Thu, 30 Jul 2026 16:34:04 +0800
+Message-Id: <20260730083404.169353-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,77 +53,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hci_cc_reset() clears the LE accept and resolving lists without taking
-hdev->lock. Other command-complete handlers serialize updates to these
-lists with that lock, and the debugfs readers hold it while walking them.
+The xfs_bmbt_to_bmdr() function converts an in-memory btree root to
+on-disk form during log recovery. It uses bb_numrecs from the source
+to determine memcpy size without validating against the destination
+fork capacity.
 
-This permits the reset completion and a debugfs read to interleave as
-follows:
+Current code:
+  dmxr = xfs_bmdr_maxrecs(dblocklen, 0);           // destination capacity
+  ...
+  dmxr = be16_to_cpu(dblock->bb_numrecs);          // overwrite with source value!
+  memcpy(..., * dmxr);                              // may overflow destination!
 
-  hci_rx_work                 debugfs reader
-  -----------                 --------------
-                              lock hdev->lock
-                              fetch current entry
-  list_del(entry)
-  kfree(entry)
-                              read entry fields
+If bb_numrecs is larger than the destination fork capacity,
+memcpy writes beyond the fork buffer, causing heap overflow.
 
-The reader then dereferences a freed list entry and may follow its stale
-next pointer.
+Fix by validating bb_numrecs against the destination capacity
+before using it for memcpy operations.
 
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in white_list_show+0x15f/0x180
-  Read of size 1 at addr ffff8881015dab16 by task poc/95
-
-  Call Trace:
-   white_list_show+0x15f/0x180
-   seq_read_iter+0x3ff/0x1190
-   seq_read+0x267/0x3d0
-   vfs_read+0x177/0xa20
-   ksys_read+0xf7/0x1c0
-
-  Allocated by task 91:
-   hci_bdaddr_list_add+0x1a6/0x3a0
-   hci_cc_le_add_to_accept_list+0xab/0x140
-   hci_cmd_complete_evt+0x26c/0x9a0
-   hci_event_packet+0x454/0xb20
-   hci_rx_work+0x293/0x730
-
-  Freed by task 90:
-   kfree+0x131/0x3c0
-   hci_bdaddr_list_clear+0xd8/0x160
-   hci_cc_reset+0x28a/0x370
-   hci_cmd_complete_evt+0x26c/0x9a0
-   hci_event_packet+0x454/0xb20
-   hci_rx_work+0x293/0x730
-
-Take hdev->lock around both list clears. This matches the existing
-mutation and traversal locking convention.
-
-Fixes: a4d5504d5c39 ("Bluetooth: Clear LE white list when resetting controller")
-Fixes: cfdb0c2d095a ("Bluetooth: Store Resolv list size")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Fixes: 8ea5682d0711 ("xfs: refactor log recovery item dispatch for pass2 readhead functions")
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
- net/bluetooth/hci_event.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/xfs/libxfs/xfs_bmap_btree.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index 741d658e9630..00e2683f99ed 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -294,8 +294,10 @@ static u8 hci_cc_reset(struct hci_dev *hdev, void *data, struct sk_buff *skb)
+diff --git a/fs/xfs/libxfs/xfs_bmap_btree.c b/fs/xfs/libxfs/xfs_bmap_btree.c
+index 758a4b1ccf5b..3b606bd8aec9 100644
+--- a/fs/xfs/libxfs/xfs_bmap_btree.c
++++ b/fs/xfs/libxfs/xfs_bmap_btree.c
+@@ -151,6 +151,7 @@ xfs_bmbt_to_bmdr(
+ 	int			dmxr;
+ 	xfs_bmbt_key_t		*fkp;
+ 	__be64			*fpp;
++	int                     nrecs;
+ 	xfs_bmbt_key_t		*tkp;
+ 	__be64			*tpp;
  
- 	hdev->ssp_debug_mode = 0;
- 
-+	hci_dev_lock(hdev);
- 	hci_bdaddr_list_clear(&hdev->le_accept_list);
- 	hci_bdaddr_list_clear(&hdev->le_resolv_list);
-+	hci_dev_unlock(hdev);
- 
- 	return rp->status;
+@@ -167,12 +168,17 @@ xfs_bmbt_to_bmdr(
+ 	ASSERT(rblock->bb_level != 0);
+ 	dblock->bb_level = rblock->bb_level;
+ 	dblock->bb_numrecs = rblock->bb_numrecs;
++
++	/* Validate record count against destination fork capacity */
++	nrecs = be16_to_cpu(rblock->bb_numrecs);
+ 	dmxr = xfs_bmdr_maxrecs(dblocklen, 0);
++	if (nrecs > dmxr)
++		return;
++
+ 	fkp = xfs_bmbt_key_addr(mp, rblock, 1);
+ 	tkp = xfs_bmdr_key_addr(dblock, 1);
+ 	fpp = xfs_bmap_broot_ptr_addr(mp, rblock, 1, rblocklen);
+-	tpp = xfs_bmdr_ptr_addr(dblock, 1, dmxr);
+-	dmxr = be16_to_cpu(dblock->bb_numrecs);
++	tpp = xfs_bmdr_ptr_addr(dblock, 1, nrecs);
+ 	memcpy(tkp, fkp, sizeof(*fkp) * dmxr);
+ 	memcpy(tpp, fpp, sizeof(*fpp) * dmxr);
  }
 -- 
-2.43.0
+2.25.1
 
