@@ -1,124 +1,164 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E55F3B2FD9;
-	Thu, 30 Jul 2026 05:42:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4CC32B113;
+	Thu, 30 Jul 2026 05:47:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785390148; cv=none; b=rq10tnZI9E3RjHUiZTU3tzbR2GiHHoJ/GpYrSaeBCZ/pWvV+xIpLZG6d9q8KTRGaw3WX2Y7qfjTzUD85XZKeTegEcxiFs3Io6jGxDzUImFRL1QFYCDq9alB0yU0lAaeCHevsEr4cr3b0K2juzMb19qjN+mJRzy/n7kl+WVP6/g8=
+	t=1785390469; cv=none; b=fO9ywhzxkMbRCaLSM9942Hxs/2zRvuoRkoIYZgjp2FKlev4mMWfU3m8SGIDRzJDOdxBBTNrWYiFtet0uyrn2zryCXdq2tQQWVRkZulrQ94wmAJy+NZ28U8ewtNxyteiT9VROZIQtovW5kZUrKCpP+WNbdQpq9YSNh6D59dVXW6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785390148; c=relaxed/simple;
-	bh=LX3lTysDj0GCPt9ShJvLPDtCi2kVt17N/tE9rh80NWY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZM4kYJFt7Qm267xzEYr7a7E20Ktq7xuaOT9pGwNHQmrSVEwUP9uPeswPJhCQSXDuivDiDDW0pP8Wz89j7MEWXgrOIeFueqGLMfw74W+2nyPjp4M+TVNFtdLtHj9DOWUrlS4pbgMagg0FCSpQA366ImhwjfpipwnRSrqgNRh0kNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=AtqUUV+V; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1785390469; c=relaxed/simple;
+	bh=PUW1uWxLBbmvm6gjyjj2ziH/bz6UoJOK/g7JXPmMW/o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rQUMRflWl9NvFNV8K8PwsV/FwcVTQV+py63sI1Jo0BZKuwzfbNITV/tf2YS4s0nSZaTWJnYFy/bSWTus832EBspwLR4FfeDbZWNueHKv7NwjAAD3b8rtXKQWnx8flfZoJmd9Wfqjq+rGq4J7DQJaVhE+iVbe/+6jBIHyq1c13P0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fM8QZX2W; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="AtqUUV+V"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66U3mOnO1934610;
-	Thu, 30 Jul 2026 05:41:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=sTtMqA
-	rJG4JpnUjhsN41gYysOstkNID3B74E2DDZ7/A=; b=AtqUUV+VZsMu/hMUivQu/t
-	nCP1xixrFUGH0GBhU9vRDYBdbftSG8DvAge5AH0oG9oNMW2Q4bu8gMXOU50MVnrA
-	hG6VD0U7ztd0UovFAbaoMHECC6DUj32ATcWmALy6Nxw+46PknBKhSK73SFm7d7Ae
-	fYRnihnt3jbGt5kQeq3Px0Z2B/cQZjLCNtCRXflVB4JU5PL7VmBuvPvnMAl7bK0n
-	4L22HgTNliA7E+QN17+L8mJ9qf8fLaY0djDQo+gIa8J+jXeF6lcaAEK+ZmM3Qvnf
-	R9nXOq/v84vtq/xBPmwo6BDmTk/ClQEaKlJQR07ysW+qvLB5d95vIj+sVrrwUAWA
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmv0xx7c4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 30 Jul 2026 05:41:44 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66U5fNps002059;
-	Thu, 30 Jul 2026 05:41:43 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fn9pghrs8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 30 Jul 2026 05:41:43 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66U5ffqo28901746
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 30 Jul 2026 05:41:42 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E1D1320049;
-	Thu, 30 Jul 2026 05:41:41 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DDCCF20040;
-	Thu, 30 Jul 2026 05:41:37 +0000 (GMT)
-Received: from Linuxdev.ibmuc.com (unknown [9.43.85.187])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 30 Jul 2026 05:41:37 +0000 (GMT)
-From: Madhavan Srinivasan <maddy@linux.ibm.com>
-To: Geoff Levand <geoff@infradead.org>, Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        Geert Uytterhoeven <Geert.Uytterhoeven@sonycom.com>,
-        Paul Mackerras <paulus@ozlabs.org>,
-        MOKUNO Masakazu <mokuno@sm.sony.co.jp>,
-        Thorsten Blum <thorsten.blum@linux.dev>
-Cc: stable@vger.kernel.org, Geoff Levand <geoffrey.levand@am.sony.com>,
-        linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] powerpc/ps3: Fix map failure path in dma_ioc0_map_pages()
-Date: Thu, 30 Jul 2026 11:11:36 +0530
-Message-ID: <178538948395.1278583.8213797923163532794.b4-ty@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fM8QZX2W"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785390469; x=1816926469;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=PUW1uWxLBbmvm6gjyjj2ziH/bz6UoJOK/g7JXPmMW/o=;
+  b=fM8QZX2WNy5yUlv5q/4T+7tJVr8Z/wh/8DsgbDKSTOhkERvVAeNyZK4v
+   XJnM7hM0whN//Eq0cFny3hdLj1veCsXJFZGxHPbVjDWr65mDiZ5uu+Py0
+   /pW9TX9dOyVpiiwTPjT7EA6KWPRQsNXlMUvDl3JN9OhMGT040v+ur+4Ml
+   gX7iSlGOaYKODlysuDMeRlHTyP8AzttEbE3Mg2fdOz7ttIR38iyHWshZu
+   +UDHYcgrkOeHUAnVCcjl1ABrBqTVOD1fe67CsTPeZMzh5HVS2OhFEl1iW
+   UXzPEpvIKArzHNOkm8jzuT6LyObCt9NX0NkCgzoyO/fzszOO3qHVcV6vv
+   g==;
+X-CSE-ConnectionGUID: lEwDEgGeQfW2gF3Cei/NEQ==
+X-CSE-MsgGUID: jOQchTBhTNe7Za456AVusQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="103406732"
+X-IronPort-AV: E=Sophos;i="6.25,193,1779174000"; 
+   d="scan'208";a="103406732"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jul 2026 22:47:48 -0700
+X-CSE-ConnectionGUID: lqPsYQVJRaOqrAEekO6E/w==
+X-CSE-MsgGUID: JEsvEc67RKKtHfGOidwcJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,193,1779174000"; 
+   d="scan'208";a="255897998"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.246.79])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jul 2026 22:47:45 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Cc: linux-sound@vger.kernel.org,
+	kai.vehmanen@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	pierre-louis.bossart@linux.dev,
+	liam.r.girdwood@intel.com,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: SOF: ipc4-topology: Refresh copier IPC payload before widget setup
+Date: Thu, 30 Jul 2026 08:48:22 +0300
+Message-ID: <20260730054822.5913-1-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260711130931.740719-3-thorsten.blum@linux.dev>
-References: <20260711130931.740719-3-thorsten.blum@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: SZv8Z9hwvPsPhzrn_mTgndZOnQM9W773
-X-Proofpoint-ORIG-GUID: 2dffHeDNnxgAaMRWEhZdI8H9_XSXN9ad
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDAzMyBTYWx0ZWRfX9XO+BktGQgFa
- iymJ6sfCiSTyZd6azB0lymWRN+5q//SKOy0Z5BaKNCtpv8SBVH8ydRDBEjf1o1uWWfET953lBoF
- AWTjuxPbWvJ/2LepTcaBX7oais/LGUw=
-X-Authority-Analysis: v=2.4 cv=dYuwG3Xe c=1 sm=1 tr=0 ts=6a6ae419 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=IW7kSglj8ZqiZljJpVIA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDAzMyBTYWx0ZWRfX7y9hP7rYLMDH
- ntBcXV8t9yVf2tbz8RJG5oSoLMtjORS0kqJTO23GAkjwq1EFyn4H2TXXWpqixyeV7oZGvTVMY/O
- oi39JAOPYUtxAfp69zJXvqQ9+VXJvw5zrVC1eNRmKV4yi/UtOambB+/8QiRdQ4VUvpVP7IRna2U
- Gkqzx41XR1JDMKCVPaxOdCPjinEvjaOmjBAP5kZFIZeLk6HvRY5HOkmTrceWkbnfBDhiTeMwnRe
- tLu2igwRZjTujAxncP+gKeW9iLyJFKfFuYDpjFGYvNZbP09/SeYpP9/FawRJ1JS3Ak4xfM5VOLB
- gjR+dTGSCifZULdSrIYVKBgaSBSLvN6MQPIvIdg79OZu58LdWvtVUy3wVjzqqeaM9GBgzDMYHGC
- aIZGWbzEfeMFOM5gKGfeucQtkOMgm36Vuo0W3t6k/VP1ZYc5bJFJUhSF5uCWe8Si8EPF2Y29h3n
- 8FZQDNykKPgwKAfzdDQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-30_01,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 clxscore=1011 phishscore=0 malwarescore=0
- spamscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300033
 
-On Sat, 11 Jul 2026 15:09:32 +0200, Thorsten Blum wrote:
-> If lv1_put_iopte() fails in dma_ioc0_map_pages(), the error path
-> decrements iopage but keeps using the failed mapping's offset. As a
-> result, it repeatedly tries to invalidate the failed IOPTE slot and
-> leaves the already installed IOPTEs valid.
-> 
-> Recompute offset and invalidate the installed IOPTEs instead.
-> 
-> [...]
+The ipc_config_data buffer for copier widgets is built once during
+ipc_prepare (called from sof_pcm_setup_connected_widgets) and cached
+for reuse. For host copiers this buffer contains the copier_data with
+gtw_cfg.node_id (host DMA ID). For DAI copiers it additionally includes
+a dma_config_tlv trailer with stream_id and dma_channel_id for HDA link
+DMA.
 
-Applied to powerpc/fixes.
+On suspend/resume, both host and link DMA streams are released and
+re-allocated with potentially different stream tags. The underlying
+copier_data and dma_config_tlv structures are correctly updated by
+host_config and sdw_hda_dai_hw_params respectively. However, since the
+widget list (spcm->stream[].list) persists across suspend,
+sof_pcm_hw_params skips sof_pcm_setup_connected_widgets and ipc_prepare
+never runs again to rebuild ipc_config_data. The stale cached payload
+is then sent to firmware with boot-time DMA channel assignments, causing
+DMA channel conflicts that lead to firmware errors and crashes.
 
-[1/1] powerpc/ps3: Fix map failure path in dma_ioc0_map_pages()
-      https://git.kernel.org/powerpc/c/0bb024f11d120abff3e8db9144a585b9d7fb8459
+Fix this by refreshing copier_data and dma_config_tlv portions of
+ipc_config_data in sof_ipc4_widget_setup right before the IPC message
+is sent. This ensures the payload always reflects the current DMA state
+regardless of whether ipc_prepare ran.
 
-cheers
+For DAI copiers, the gtw_cfg.config_length in copier_data is temporarily
+inflated to include the TLV size (matching the ipc_config_data layout)
+before copying, then restored, mirroring what
+sof_ipc4_prepare_copier_module does when first building the buffer.
+
+Fixes: e9c6b118de1a ("ASoC: SOF: make dma_config_tlv be an array")
+Cc: stable@vger.kernel.org
+Link: https://github.com/thesofproject/sof/issues/10700
+Link: https://github.com/thesofproject/sof/issues/10955
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
+---
+ sound/soc/sof/ipc4-topology.c | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index 1aba13a90973..fabd364d3316 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -2654,6 +2654,15 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
+ 		ipc_size = ipc4_copier->ipc_config_size;
+ 		ipc_data = ipc4_copier->ipc_config_data;
+ 
++		/*
++		 * Refresh copier_data in ipc_config_data for host copiers.
++		 * The node_id may have been updated by host_config after
++		 * ipc_prepare, e.g. when host stream tags change after a
++		 * suspend/resume cycle.
++		 */
++		if (swidget->id != snd_soc_dapm_buffer)
++			memcpy(ipc_data, &ipc4_copier->data, sizeof(ipc4_copier->data));
++
+ 		msg = &ipc4_copier->msg;
+ 		break;
+ 	}
+@@ -2662,6 +2671,9 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
+ 	{
+ 		struct snd_sof_dai *dai = swidget->private;
+ 		struct sof_ipc4_copier *ipc4_copier = dai->private;
++		struct sof_ipc4_copier_data *copier_data;
++		u32 gtw_cfg_config_length;
++		u32 tlv_size;
+ 
+ 		pipeline = pipe_widget->private;
+ 		if (pipeline->use_chain_dma)
+@@ -2670,6 +2682,27 @@ static int sof_ipc4_widget_setup(struct snd_sof_dev *sdev, struct snd_sof_widget
+ 		ipc_size = ipc4_copier->ipc_config_size;
+ 		ipc_data = ipc4_copier->ipc_config_data;
+ 
++		/*
++		 * Refresh copier_data and dma_config_tlv in ipc_config_data.
++		 * These may have been updated after ipc_prepare, e.g. when
++		 * link DMA stream tags change after a suspend/resume cycle.
++		 *
++		 * copier_data->gtw_cfg.config_length does not include the
++		 * TLV size (it was restored after sof_ipc4_prepare_copier_module),
++		 * so temporarily inflate it to match the ipc_config_data layout.
++		 */
++		copier_data = &ipc4_copier->data;
++		gtw_cfg_config_length = copier_data->gtw_cfg.config_length * 4;
++		tlv_size = ipc_size - sizeof(*copier_data) - gtw_cfg_config_length;
++
++		copier_data->gtw_cfg.config_length += tlv_size / 4;
++		memcpy(ipc_data, copier_data, sizeof(*copier_data));
++		copier_data->gtw_cfg.config_length = gtw_cfg_config_length / 4;
++
++		if (tlv_size)
++			memcpy(ipc_data + sizeof(*copier_data) + gtw_cfg_config_length,
++			       &ipc4_copier->dma_config_tlv, tlv_size);
++
+ 		msg = &ipc4_copier->msg;
+ 		break;
+ 	}
+-- 
+2.55.0
+
