@@ -1,471 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF9B35F5E3
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 02:31:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708633750DB
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 02:33:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785378666; cv=none; b=IbcN9OORqvQhWRnwdUOe0qb09shFL9+1EQn5tt1DaC6e/2kZnMK14eS0aGhHtXRGAKZwLfiEsOwZplBGsTAakgAW8xAsYT2mRKoeUwd5KivdSsHfIlZQDuoGO00VPHkw7KUHa4v+2OFCYymVOrkxyKcbIh75oGK7+mWl7NPc/xg=
+	t=1785378802; cv=none; b=nxSPW9ob2y6GIVMD5qH0cEC73fNWUi0+u1h3Em6x9Q9Gpsl7Zq2yK5+n00qWFDqvPQaD+TDlb0cr4LLD48+CWWRsvBuuSR8IfVHaonijcyEgIf6Na19ibg5YTcqv/DvaD0TR51VMew3vrxB+IatUwOPiggPdDioe5ntuD312g3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785378666; c=relaxed/simple;
-	bh=bgITbFwai25CBLlLyL9VwbHA0kMXEQSBcwAy7InB69M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=X4W+RbZY74U+ZsyaptTEJJRckQcHadlttiVXC1aYx4iYcSyJAQCHN4MjEsoUj9zp7earYPOtfVwubpNR99HvA6TeCT0IrJKf7TbLRNirS5H2GA+SZjJmvNS/swcoPzCui7ZCMOaZLoqyVxZ6KTpahBKwOCxMlxOoTmUiv1S+sps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DJmu7nfu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785378802; c=relaxed/simple;
+	bh=Iwuc5U7WKBARUra/t58c0cg7GS28SQYw+Sv3GNlpazA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PbfoP7y8XNkWWhurQ71facJ7jtWM4LjnTtgLHCtka+9gFndKP+M2iIQfDX2JYrZ4rbUhoEB9w5E6iEqo8emzQiE5b82YQrGMZFBckFJv/QZmFcSDsxpHMBG5pKjA+1D7HpkilfKfIxYvUaD/YcGpZ4RuP9zcnIXdtHEW1dGGkAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f72tui43; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DJmu7nfu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56B3F1F00A3D;
-	Thu, 30 Jul 2026 02:31:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785378664;
-	bh=SOWLyX7n5e93Zr7WZHa066p3hv6kP3e2ttHsCT96MNg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DJmu7nfumxjBC+sfRtW076B1LR+dta6RFCwjBRFrZy3lwxjRKaTpX1V3ue1TuyXJS
-	 d7nG/RyuWxbvy3irrXV8h6mvbhVUncDDFdu0Apxa2TDlsY0jRE19DvWQMr7PYclAl+
-	 S5Xj3IKsmbHk+otNIfQQgC9zOnv7yWwlELPEW78DvuhJy7yUZjRJMQJypozHu+s54s
-	 OaivKsGYS83ihj9eY0II1hmJ0yoPaPtq2x35eOguyN+rx/plKsWUwNBkF6BcwFpQnw
-	 GdOQz0x7UEz1wNc3BCYzCW0ycHwJ9PKt0U1FACksVoroFf73R6aXFPPlZg1GdMRbKd
-	 OYX5DbEbHpAkw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	stable <stable@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] USB: gadget: fsl-udc: fix dev_printk() device
-Date: Wed, 29 Jul 2026 22:31:00 -0400
-Message-ID: <20260730023101.1859045-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730023101.1859045-1-sashal@kernel.org>
-References: <2026072735-defiling-verbose-785b@gregkh>
- <20260730023101.1859045-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f72tui43"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-84e04df8c46so1876994b3a.2
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 19:33:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785378801; x=1785983601; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GFQEZHCieGUxsn8s5z6wQ2LAPE8dpKhgSk8OBI83lDY=;
+        b=f72tui43FmpwdjvBsOGZUJzIa2/++in76kjn486BW8vMrizSYgvaVnggRbNq+Jhkg+
+         heAPVKXYalqWjzYgfDOJ09GMrWqPLbebkScjfVjLLPtqfDMQB6FjbxLTmQadAKeJBcL3
+         cZGiDdCF87XQsLVCJTZ5Wb6oMHmtgLYWCU0h31vhiV6DWd1iutTNLShv3snCWQyzX+rU
+         Eoelh/cDFPTnMIGsywfXU9nwG5a+erLYAgkk2lT6862g08rGzM4rT4cCEMFLJWIcdJIe
+         KTP7MtQjQqjhsLLuQBai79Fm1Xd7J4Lq5Ei1N3CCoKo4sFNprGjpaklizIKzLnIw2AJK
+         GBpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785378801; x=1785983601;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GFQEZHCieGUxsn8s5z6wQ2LAPE8dpKhgSk8OBI83lDY=;
+        b=Gc1/W6DP2dbpnN7Ad8BQr8xPbqqnS0hngVh4KIC/EbWRWWvoL27N961Q5qtJi88dk7
+         8a6C6xDUwTA81zv4aP+T2rQ4aOmxN/Fq8rBe6GGMUgNszFjXO57pV5qaWzd2yOlSkb8X
+         kIYp+NSvbp7haXxQLIUIftJgyp+3+rled68hCkVybbcmkUAGqV5sSihA7KkVKqR5sDkU
+         Oqq+pehG4bb/dIpLZdHgZbirmXg1Zwivg7iYVjGGY/zWIW9kIbHSuL8oI7IkWjFDxqqw
+         PBplf9BxFy6/Oujb9q3ShZo0p1A/UTgdC3VBCbnH/S304mHhF3+1CLX+WJ8zkIogPws8
+         YTyA==
+X-Forwarded-Encrypted: i=1; AHgh+Ror9DJS9K70lqZ31J+WL9SwoQu2B0FHk1GbouWSvl9aYP3K/M00YkGmls1oPBaQlorFyodkop0=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyz0Lx+fF8qwld05XygQq/FXDJEmdWWZ34ZL8VcEdrl+5pxaecr
+	6VMLZEvnCcdSHqbstJ5yKT/g2A/0qmb4Bpn1KBmczG5uf4PJFrrXX9BS
+X-Gm-Gg: AR+sD10FZXgJbZwME9E5XirbxSH3IWEZWKoJ4Ry1bTPrB0cPHRI8EiCIFM6WXFN6dAy
+	khmu/mkyCA9QSnWak0jn0dZQNK1FyzLMyelUvIZvC07QPGXZCqkSg65HETXeu5PQUECMI5DBj4l
+	Ces+YqJnXAUK6nJRZxjHg4NrLmYGcHL7+cp8MlFYx8gZrNtabtstBNhhH6L5VxucOWYAVMEAgX0
+	8xVWkI6wQbxOqOjcRTdHWAxPctEAw6dc0k6D32hS16kOIhlNL87UaaCm4T76oxxI5EhfZA5ck0Z
+	eYmODWBUlN5JX3w97o2prwlFqVn03ow8JxMRr68hjk11CTPL4vJQEO1VK1/nCUGmKmlqmAFt7ow
+	dgdqNI9VA4Pi6wb8etlqUqT1GNuCI+8pGW28FQ/5tZd+llUQ5p+L+CQTJnyp2wOZ6go/ud+VuV6
+	sQS2/MHAgAFux5TtDsrLxXrZjp4fsYJg6luzITfFLaoz/oKBMwSUDQRgUGAba4k+Aapvvh9uv3U
+	BuB6IBF1QBy
+X-Received: by 2002:a05:6a00:414a:b0:848:5540:2377 with SMTP id d2e1a72fcca58-84ebc24e899mr865101b3a.17.1785378800736;
+        Wed, 29 Jul 2026 19:33:20 -0700 (PDT)
+Received: from localhost.localdomain ([47.246.98.83])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e9fe2153csm2179348b3a.3.2026.07.29.19.33.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 29 Jul 2026 19:33:19 -0700 (PDT)
+From: MingXuan <omeux327@gmail.com>
+To: marcelo.leitner@gmail.com
+Cc: lucien.xin@gmail.com,
+	linux-sctp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	MingXuan <omeux327@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] sctp: diag: fix uninitialized stack leak via INET_DIAG_LOCALS/PEERS
+Date: Thu, 30 Jul 2026 10:33:09 +0800
+Message-ID: <20260730023309.21654-1-omeux327@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+inet_diag_msg_sctpladdrs_fill() copies sizeof(union sctp_addr) (28 bytes,
+the size of sockaddr_in6) from each sctp_sockaddr_entry.a into the netlink
+INET_DIAG_LOCALS attribute and then only zeroes the bytes from offset 28 to
+sizeof(sockaddr_storage).  The same pattern is used by
+inet_diag_msg_sctpaddrs_fill() for INET_DIAG_PEERS.
 
-[ Upstream commit c4dd150fceab281496acb3a643ae712aacb74864 ]
+The IPv4 address-filling helpers sctp_v4_from_addr_param() and
+sctp_v4_from_skb() only initialize the sockaddr_in portion (16 bytes) of the
+union sctp_addr; the trailing 12 bytes (offset 16..27, the sockaddr_in6-only
+region) are left uninitialized.  Those bytes are propagated verbatim through
+sctp_add_bind_addr() (which copies sizeof(union sctp_addr)=28 bytes) and then
+copied straight to userspace by the diag fill functions, leaking 12 bytes of
+kernel stack residue per local/peer address to any process that can issue a
+SOCK_DIAG_BY_FAMILY dump for IPPROTO_SCTP.
 
-A change replacing custom printk() macros with dev_printk() incorrectly
-used the gadget struct device instead of the controller struct device
-(including for messages printed before the gadget device name has been
-initialised).
+Fix it by computing the actually-initialized length of the address from its
+sa_family (struct sockaddr_in for AF_INET, the whole union otherwise) and
+copying only that many bytes into an already-zeroed sockaddr_storage slot, so
+the uninitialized tail is never read and never reaches userspace.
 
-Switch to using the controller platform device with dev_printk() so that
-the controller device and driver names are included in log messages as
-expected.
-
-Fixes: 6025f20f16c2 ("usb: gadget: fsl-udc: Replace custom log wrappers by dev_{err,warn,dbg,vdbg}")
-Cc: stable <stable@kernel.org>
-Cc: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Acked-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
-Link: https://patch.msgid.link/20260702141536.90887-4-johan@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 8f840e47f190 ("sctp: add the sctp_diag.c file")
+Cc: stable@vger.kernel.org
+Signed-off-by: MingXuan <omeux327@gmail.com>
+Acked-by: Xin Long <lucien.xin@gmail.com>
 ---
- drivers/usb/gadget/udc/fsl_udc_core.c | 92 ++++++++++++---------------
- drivers/usb/gadget/udc/fsl_usb2_udc.h |  1 +
- 2 files changed, 43 insertions(+), 50 deletions(-)
+Changes in v2 (per review feedback on v1):
+  - trim the Fixes: commit hash to the recommended abbreviated form (12 chars)
+  - rename the introduced local from addr_len to copy_len so it does not
+    collide with the existing addrlen (slot stride) in the same scope
 
-diff --git a/drivers/usb/gadget/udc/fsl_udc_core.c b/drivers/usb/gadget/udc/fsl_udc_core.c
-index 6cdd6371074d5e..ab4086b2e49233 100644
---- a/drivers/usb/gadget/udc/fsl_udc_core.c
-+++ b/drivers/usb/gadget/udc/fsl_udc_core.c
-@@ -184,7 +184,7 @@ __acquires(ep->udc->lock)
- 	usb_gadget_unmap_request(&ep->udc->gadget, &req->req, ep_is_in(ep));
+No semantic change relative to v1; Xin Long's Acked-by is carried forward.
+
+ net/sctp/diag.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/net/sctp/diag.c b/net/sctp/diag.c
+index d758f5c3e06e..12557e924cc2 100644
+--- a/net/sctp/diag.c
++++ b/net/sctp/diag.c
+@@ -85,8 +85,12 @@ static int inet_diag_msg_sctpladdrs_fill(struct sk_buff *skb,
+ 	info = nla_data(attr);
+ 	rcu_read_lock();
+ 	list_for_each_entry_rcu(laddr, address_list, list) {
+-		memcpy(info, &laddr->a, sizeof(laddr->a));
+-		memset(info + sizeof(laddr->a), 0, addrlen - sizeof(laddr->a));
++		size_t copy_len = laddr->a.sa.sa_family == AF_INET ?
++				  sizeof(struct sockaddr_in) :
++				  sizeof(struct sockaddr_in6);
++
++		memset(info, 0, addrlen);
++		memcpy(info, &laddr->a, copy_len);
+ 		info += addrlen;
  
- 	if (status && (status != -ESHUTDOWN))
--		dev_vdbg(&udc->gadget.dev, "complete %s req %p stat %d len %u/%u\n",
-+		dev_vdbg(udc->dev, "complete %s req %p stat %d len %u/%u\n",
- 			 ep->ep.name, &req->req, status,
- 			 req->req.actual, req->req.length);
- 
-@@ -286,7 +286,7 @@ static int dr_controller_setup(struct fsl_udc *udc)
- 	timeout = jiffies + FSL_UDC_RESET_TIMEOUT;
- 	while (fsl_readl(&dr_regs->usbcmd) & USB_CMD_CTRL_RESET) {
- 		if (time_after(jiffies, timeout)) {
--			dev_err(&udc->gadget.dev, "udc reset timeout!\n");
-+			dev_err(udc->dev, "udc reset timeout!\n");
- 			return -ETIMEDOUT;
- 		}
- 		cpu_relax();
-@@ -309,7 +309,7 @@ static int dr_controller_setup(struct fsl_udc *udc)
- 	tmp &= USB_EP_LIST_ADDRESS_MASK;
- 	fsl_writel(tmp, &dr_regs->endpointlistaddr);
- 
--	dev_vdbg(&udc->gadget.dev,
-+	dev_vdbg(udc->dev,
- 		 "vir[qh_base] is %p phy[qh_base] is 0x%8x reg is 0x%8x\n",
- 		 udc->ep_qh, (int)tmp,
- 		 fsl_readl(&dr_regs->endpointlistaddr));
-@@ -500,7 +500,7 @@ static void struct_ep_qh_setup(struct fsl_udc *udc, unsigned char ep_num,
- 		tmp = max_pkt_len << EP_QUEUE_HEAD_MAX_PKT_LEN_POS;
- 		break;
- 	default:
--		dev_vdbg(&udc->gadget.dev, "error ep type is %d\n", ep_type);
-+		dev_vdbg(udc->dev, "error ep type is %d\n", ep_type);
- 		return;
- 	}
- 	if (zlt)
-@@ -613,7 +613,7 @@ static int fsl_ep_enable(struct usb_ep *_ep,
- 	spin_unlock_irqrestore(&udc->lock, flags);
- 	retval = 0;
- 
--	dev_vdbg(&udc->gadget.dev, "enabled %s (ep%d%s) maxpacket %d\n",
-+	dev_vdbg(udc->dev, "enabled %s (ep%d%s) maxpacket %d\n",
- 		 ep->ep.name, ep->ep.desc->bEndpointAddress & 0x0f,
- 		 (desc->bEndpointAddress & USB_DIR_IN) ? "in" : "out",
- 		 max);
-@@ -634,13 +634,8 @@ static int fsl_ep_disable(struct usb_ep *_ep)
- 	int ep_num;
- 
- 	ep = container_of(_ep, struct fsl_ep, ep);
--	if (!_ep || !ep->ep.desc) {
--		/*
--		 * dev_vdbg(&udc->gadget.dev, "%s not enabled\n",
--		 *	 _ep ? ep->ep.name : NULL);
--		 */
-+	if (!_ep || !ep->ep.desc)
- 		return -EINVAL;
--	}
- 
- 	/* disable ep on controller */
- 	ep_num = ep_index(ep);
-@@ -664,7 +659,7 @@ static int fsl_ep_disable(struct usb_ep *_ep)
- 	ep->stopped = 1;
- 	spin_unlock_irqrestore(&udc->lock, flags);
- 
--	dev_vdbg(&udc->gadget.dev, "disabled %s OK\n", _ep->name);
-+	dev_vdbg(udc->dev, "disabled %s OK\n", _ep->name);
- 	return 0;
- }
- 
-@@ -724,9 +719,6 @@ static void fsl_queue_td(struct fsl_ep *ep, struct fsl_req *req)
- {
- 	u32 temp, bitmask, tmp_stat;
- 
--	/* dev_vdbg(&udc->gadget.dev, "QH addr Register 0x%8x\n", dr_regs->endpointlistaddr);
--	dev_vdbg(&udc->gadget.dev, "ep_qh[%d] addr is 0x%8x\n", i, (u32)&(ep->udc->ep_qh[i])); */
--
- 	bitmask = ep_is_in(ep)
- 		? (1 << (ep_index(ep) + 16))
- 		: (1 << (ep_index(ep)));
-@@ -813,7 +805,7 @@ static struct ep_td_struct *fsl_build_dtd(struct fsl_req *req, unsigned *length,
- 		*is_last = 0;
- 
- 	if ((*is_last) == 0)
--		dev_vdbg(&udc_controller->gadget.dev, "multi-dtd request!\n");
-+		dev_vdbg(udc_controller->dev, "multi-dtd request!\n");
- 	/* Fill in the transfer size; set active bit */
- 	swap_temp = ((*length << DTD_LENGTH_BIT_POS) | DTD_STATUS_ACTIVE);
- 
-@@ -825,7 +817,7 @@ static struct ep_td_struct *fsl_build_dtd(struct fsl_req *req, unsigned *length,
- 
- 	mb();
- 
--	dev_vdbg(&udc_controller->gadget.dev, "length = %d address= 0x%x\n", *length, (int)*dma);
-+	dev_vdbg(udc_controller->dev, "length = %d address= 0x%x\n", *length, (int)*dma);
- 
- 	return dtd;
- }
-@@ -876,11 +868,11 @@ fsl_ep_queue(struct usb_ep *_ep, struct usb_request *_req, gfp_t gfp_flags)
- 	/* catch various bogus parameters */
- 	if (!_req || !req->req.complete || !req->req.buf
- 			|| !list_empty(&req->queue)) {
--		dev_vdbg(&udc->gadget.dev, "%s, bad params\n", __func__);
-+		dev_vdbg(udc->dev, "%s, bad params\n", __func__);
- 		return -EINVAL;
- 	}
- 	if (unlikely(!ep->ep.desc)) {
--		dev_vdbg(&udc->gadget.dev, "%s, bad ep\n", __func__);
-+		dev_vdbg(udc->dev, "%s, bad ep\n", __func__);
- 		return -EINVAL;
- 	}
- 	if (usb_endpoint_xfer_isoc(ep->ep.desc)) {
-@@ -1040,7 +1032,7 @@ static int fsl_ep_set_halt(struct usb_ep *_ep, int value)
- 		udc->ep0_dir = 0;
- 	}
- out:
--	dev_vdbg(&udc->gadget.dev, "%s %s halt stat %d\n", ep->ep.name,
-+	dev_vdbg(udc->dev, "%s %s halt stat %d\n", ep->ep.name,
- 		 value ?  "set" : "clear", status);
- 
- 	return status;
-@@ -1109,7 +1101,7 @@ static void fsl_ep_fifo_flush(struct usb_ep *_ep)
- 		/* Wait until flush complete */
- 		while (fsl_readl(&dr_regs->endptflush)) {
- 			if (time_after(jiffies, timeout)) {
--				dev_err(&udc_controller->gadget.dev,
-+				dev_err(udc_controller->dev,
- 					"ep flush timeout\n");
- 				return;
- 			}
-@@ -1182,7 +1174,7 @@ static int fsl_vbus_session(struct usb_gadget *gadget, int is_active)
- 
- 	udc = container_of(gadget, struct fsl_udc, gadget);
- 	spin_lock_irqsave(&udc->lock, flags);
--	dev_vdbg(&gadget->dev, "VBUS %s\n", str_on_off(is_active));
-+	dev_vdbg(udc->dev, "VBUS %s\n", str_on_off(is_active));
- 	udc->vbus_active = (is_active != 0);
- 	if (can_pullup(udc))
- 		fsl_writel((fsl_readl(&dr_regs->usbcmd) | USB_CMD_RUN_STOP),
-@@ -1548,7 +1540,7 @@ static void ep0_req_complete(struct fsl_udc *udc, struct fsl_ep *ep0,
- 		udc->ep0_state = WAIT_FOR_SETUP;
- 		break;
- 	case WAIT_FOR_SETUP:
--		dev_err(&udc->gadget.dev, "Unexpected ep0 packets\n");
-+		dev_err(udc->dev, "Unexpected ep0 packets\n");
- 		break;
- 	default:
- 		ep0stall(udc);
-@@ -1617,7 +1609,7 @@ static int process_ep_req(struct fsl_udc *udc, int pipe,
- 		errors = hc32_to_cpu(curr_td->size_ioc_sts);
- 		if (errors & DTD_ERROR_MASK) {
- 			if (errors & DTD_STATUS_HALTED) {
--				dev_err(&udc->gadget.dev, "dTD error %08x QH=%d\n", errors, pipe);
-+				dev_err(udc->dev, "dTD error %08x QH=%d\n", errors, pipe);
- 				/* Clear the errors and Halt condition */
- 				tmp = hc32_to_cpu(curr_qh->size_ioc_int_sts);
- 				tmp &= ~errors;
-@@ -1628,26 +1620,26 @@ static int process_ep_req(struct fsl_udc *udc, int pipe,
- 				break;
- 			}
- 			if (errors & DTD_STATUS_DATA_BUFF_ERR) {
--				dev_vdbg(&udc->gadget.dev, "Transfer overflow\n");
-+				dev_vdbg(udc->dev, "Transfer overflow\n");
- 				status = -EPROTO;
- 				break;
- 			} else if (errors & DTD_STATUS_TRANSACTION_ERR) {
--				dev_vdbg(&udc->gadget.dev, "ISO error\n");
-+				dev_vdbg(udc->dev, "ISO error\n");
- 				status = -EILSEQ;
- 				break;
- 			} else
--				dev_err(&udc->gadget.dev,
-+				dev_err(udc->dev,
- 					"Unknown error has occurred (0x%x)!\n",
- 					errors);
- 
- 		} else if (hc32_to_cpu(curr_td->size_ioc_sts)
- 				& DTD_STATUS_ACTIVE) {
--			dev_vdbg(&udc->gadget.dev, "Request not complete\n");
-+			dev_vdbg(udc->dev, "Request not complete\n");
- 			status = REQ_UNCOMPLETE;
- 			return status;
- 		} else if (remaining_length) {
- 			if (direction) {
--				dev_vdbg(&udc->gadget.dev,
-+				dev_vdbg(udc->dev,
- 					 "Transmit dTD remaining length not zero\n");
- 				status = -EPROTO;
- 				break;
-@@ -1655,8 +1647,7 @@ static int process_ep_req(struct fsl_udc *udc, int pipe,
- 				break;
- 			}
- 		} else {
--			dev_vdbg(&udc->gadget.dev,
--				 "dTD transmitted successful\n");
-+			dev_vdbg(udc->dev, "dTD transmitted successful\n");
- 		}
- 
- 		if (j != curr_req->dtd_count - 1)
-@@ -1699,7 +1690,7 @@ static void dtd_complete_irq(struct fsl_udc *udc)
- 
- 		/* If the ep is configured */
- 		if (!curr_ep->ep.name) {
--			dev_warn(&udc->gadget.dev, "Invalid EP?\n");
-+			dev_warn(udc->dev, "Invalid EP?\n");
- 			continue;
- 		}
- 
-@@ -1708,7 +1699,7 @@ static void dtd_complete_irq(struct fsl_udc *udc)
- 				queue) {
- 			status = process_ep_req(udc, i, curr_req);
- 
--			dev_vdbg(&udc->gadget.dev,
-+			dev_vdbg(udc->dev,
- 				 "status of process_ep_req= %d, ep = %d\n",
- 				 status, ep_num);
- 			if (status == REQ_UNCOMPLETE)
-@@ -1829,7 +1820,7 @@ static void reset_irq(struct fsl_udc *udc)
- 	while (fsl_readl(&dr_regs->endpointprime)) {
- 		/* Wait until all endptprime bits cleared */
- 		if (time_after(jiffies, timeout)) {
--			dev_err(&udc->gadget.dev, "Timeout for reset\n");
-+			dev_err(udc->dev, "Timeout for reset\n");
- 			break;
- 		}
- 		cpu_relax();
-@@ -1839,7 +1830,7 @@ static void reset_irq(struct fsl_udc *udc)
- 	fsl_writel(0xffffffff, &dr_regs->endptflush);
- 
- 	if (fsl_readl(&dr_regs->portsc1) & PORTSCX_PORT_RESET) {
--		dev_vdbg(&udc->gadget.dev, "Bus reset\n");
-+		dev_vdbg(udc->dev, "Bus reset\n");
- 		/* Bus is reseting */
- 		udc->bus_reset = 1;
- 		/* Reset all the queues, include XD, dTD, EP queue
-@@ -1847,7 +1838,7 @@ static void reset_irq(struct fsl_udc *udc)
- 		reset_queues(udc, true);
- 		udc->usb_state = USB_STATE_DEFAULT;
- 	} else {
--		dev_vdbg(&udc->gadget.dev, "Controller reset\n");
-+		dev_vdbg(udc->dev, "Controller reset\n");
- 		/* initialize usb hw reg except for regs for EP, not
- 		 * touch usbintr reg */
- 		dr_controller_setup(udc);
-@@ -1881,7 +1872,7 @@ static irqreturn_t fsl_udc_irq(int irq, void *_udc)
- 	/* Clear notification bits */
- 	fsl_writel(irq_src, &dr_regs->usbsts);
- 
--	/* dev_vdbg(&udc->gadget.dev, "irq_src [0x%8x]", irq_src); */
-+	/* dev_vdbg(udc->dev, "irq_src [0x%8x]", irq_src); */
- 
- 	/* Need to resume? */
- 	if (udc->usb_state == USB_STATE_SUSPENDED)
-@@ -1890,7 +1881,7 @@ static irqreturn_t fsl_udc_irq(int irq, void *_udc)
- 
- 	/* USB Interrupt */
- 	if (irq_src & USB_STS_INT) {
--		dev_vdbg(&udc->gadget.dev, "Packet int\n");
-+		dev_vdbg(udc->dev, "Packet int\n");
- 		/* Setup package, we only support ep0 as control ep */
- 		if (fsl_readl(&dr_regs->endptsetupstat) & EP_SETUP_STATUS_EP0) {
- 			tripwire_handler(udc, 0,
-@@ -1919,7 +1910,7 @@ static irqreturn_t fsl_udc_irq(int irq, void *_udc)
- 
- 	/* Reset Received */
- 	if (irq_src & USB_STS_RESET) {
--		dev_vdbg(&udc->gadget.dev, "reset int\n");
-+		dev_vdbg(udc->dev, "reset int\n");
- 		reset_irq(udc);
- 		status = IRQ_HANDLED;
- 	}
-@@ -1931,7 +1922,7 @@ static irqreturn_t fsl_udc_irq(int irq, void *_udc)
+ 		if (!--addrcnt)
+@@ -113,9 +117,12 @@ static int inet_diag_msg_sctpaddrs_fill(struct sk_buff *skb,
+ 	info = nla_data(attr);
+ 	list_for_each_entry(from, &asoc->peer.transport_addr_list,
+ 			    transports) {
+-		memcpy(info, &from->ipaddr, sizeof(from->ipaddr));
+-		memset(info + sizeof(from->ipaddr), 0,
+-		       addrlen - sizeof(from->ipaddr));
++		size_t copy_len = from->ipaddr.sa.sa_family == AF_INET ?
++				  sizeof(struct sockaddr_in) :
++				  sizeof(struct sockaddr_in6);
++
++		memset(info, 0, addrlen);
++		memcpy(info, &from->ipaddr, copy_len);
+ 		info += addrlen;
  	}
  
- 	if (irq_src & (USB_STS_ERR | USB_STS_SYS_ERR)) {
--		dev_vdbg(&udc->gadget.dev, "Error IRQ %x\n", irq_src);
-+		dev_vdbg(udc->dev, "Error IRQ %x\n", irq_src);
- 	}
- 
- 	spin_unlock_irqrestore(&udc->lock, flags);
-@@ -1967,7 +1958,7 @@ static int fsl_udc_start(struct usb_gadget *g,
- 					udc_controller->transceiver->otg,
- 						    &udc_controller->gadget);
- 			if (retval < 0) {
--				dev_err(&udc_controller->gadget.dev, "can't bind to transceiver\n");
-+				dev_err(udc_controller->dev, "can't bind to transceiver\n");
- 				udc_controller->driver = NULL;
- 				return retval;
- 			}
-@@ -2252,7 +2243,7 @@ static int struct_udc_setup(struct fsl_udc *udc,
- 
- 	udc->eps = kcalloc(udc->max_ep, sizeof(struct fsl_ep), GFP_KERNEL);
- 	if (!udc->eps) {
--		dev_err(&udc->gadget.dev, "kmalloc udc endpoint status failed\n");
-+		dev_err(udc->dev, "kmalloc udc endpoint status failed\n");
- 		goto eps_alloc_failed;
- 	}
- 
-@@ -2267,7 +2258,7 @@ static int struct_udc_setup(struct fsl_udc *udc,
- 	udc->ep_qh = dma_alloc_coherent(&pdev->dev, size,
- 					&udc->ep_qh_dma, GFP_KERNEL);
- 	if (!udc->ep_qh) {
--		dev_err(&udc->gadget.dev, "malloc QHs for udc failed\n");
-+		dev_err(udc->dev, "malloc QHs for udc failed\n");
- 		goto ep_queue_alloc_failed;
- 	}
- 
-@@ -2278,14 +2269,14 @@ static int struct_udc_setup(struct fsl_udc *udc,
- 	udc->status_req = container_of(fsl_alloc_request(NULL, GFP_KERNEL),
- 			struct fsl_req, req);
- 	if (!udc->status_req) {
--		dev_err(&udc->gadget.dev, "kzalloc for udc status request failed\n");
-+		dev_err(udc->dev, "kzalloc for udc status request failed\n");
- 		goto udc_status_alloc_failed;
- 	}
- 
- 	/* allocate a small amount of memory to get valid address */
- 	udc->status_req->req.buf = kmalloc(8, GFP_KERNEL);
- 	if (!udc->status_req->req.buf) {
--		dev_err(&udc->gadget.dev, "kzalloc for udc request buffer failed\n");
-+		dev_err(udc->dev, "kzalloc for udc request buffer failed\n");
- 		goto udc_req_buf_alloc_failed;
- 	}
- 
-@@ -2373,6 +2364,7 @@ static int fsl_udc_probe(struct platform_device *pdev)
- 	if (udc_controller == NULL)
- 		return -ENOMEM;
- 
-+	udc_controller->dev = &pdev->dev;
- 	pdata = dev_get_platdata(&pdev->dev);
- 	udc_controller->pdata = pdata;
- 	spin_lock_init(&udc_controller->lock);
-@@ -2382,7 +2374,7 @@ static int fsl_udc_probe(struct platform_device *pdev)
- 	if (pdata->operating_mode == FSL_USB2_DR_OTG) {
- 		udc_controller->transceiver = usb_get_phy(USB_PHY_TYPE_USB2);
- 		if (IS_ERR_OR_NULL(udc_controller->transceiver)) {
--			dev_err(&udc_controller->gadget.dev, "Can't find OTG driver!\n");
-+			dev_err(&pdev->dev, "Can't find OTG driver!\n");
- 			ret = -ENODEV;
- 			goto err_kfree;
- 		}
-@@ -2398,7 +2390,7 @@ static int fsl_udc_probe(struct platform_device *pdev)
- 	if (pdata->operating_mode == FSL_USB2_DR_DEVICE) {
- 		if (!request_mem_region(res->start, resource_size(res),
- 					driver_name)) {
--			dev_err(&udc_controller->gadget.dev, "request mem region for %s failed\n", pdev->name);
-+			dev_err(&pdev->dev, "failed to request mem region\n");
- 			ret = -EBUSY;
- 			goto err_kfree;
- 		}
-@@ -2429,7 +2421,7 @@ static int fsl_udc_probe(struct platform_device *pdev)
- 	/* Read Device Controller Capability Parameters register */
- 	dccparams = fsl_readl(&dr_regs->dccparams);
- 	if (!(dccparams & DCCPARAMS_DC)) {
--		dev_err(&udc_controller->gadget.dev, "This SOC doesn't support device role\n");
-+		dev_err(&pdev->dev, "This SOC doesn't support device role\n");
- 		ret = -ENODEV;
- 		goto err_exit;
- 	}
-@@ -2447,14 +2439,14 @@ static int fsl_udc_probe(struct platform_device *pdev)
- 	ret = request_irq(udc_controller->irq, fsl_udc_irq, IRQF_SHARED,
- 			driver_name, udc_controller);
- 	if (ret != 0) {
--		dev_err(&udc_controller->gadget.dev, "cannot request irq %d err %d\n",
-+		dev_err(&pdev->dev, "cannot request irq %d err %d\n",
- 				udc_controller->irq, ret);
- 		goto err_exit;
- 	}
- 
- 	/* Initialize the udc structure including QH member and other member */
- 	if (struct_udc_setup(udc_controller, pdev)) {
--		dev_err(&udc_controller->gadget.dev, "Can't initialize udc data structure\n");
-+		dev_err(&pdev->dev, "Can't initialize udc data structure\n");
- 		ret = -ENOMEM;
- 		goto err_free_irq;
- 	}
-diff --git a/drivers/usb/gadget/udc/fsl_usb2_udc.h b/drivers/usb/gadget/udc/fsl_usb2_udc.h
-index cc1756f3e89d13..53922bc58ca014 100644
---- a/drivers/usb/gadget/udc/fsl_usb2_udc.h
-+++ b/drivers/usb/gadget/udc/fsl_usb2_udc.h
-@@ -470,6 +470,7 @@ struct fsl_ep {
- #define EP_DIR_OUT	0
- 
- struct fsl_udc {
-+	struct device *dev;
- 	struct usb_gadget gadget;
- 	struct usb_gadget_driver *driver;
- 	struct fsl_usb2_platform_data *pdata;
 -- 
-2.53.0
+2.50.1 (Apple Git-155)
 
