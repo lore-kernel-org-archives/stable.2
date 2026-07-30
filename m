@@ -1,64 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA970314D05;
-	Thu, 30 Jul 2026 07:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 609E0314B96;
+	Thu, 30 Jul 2026 07:16:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785395371; cv=none; b=ret4P8ucCrOFpS8ZZTJ2swGJyzTOSqkv6k1Ol9O7Aq6W4aiMzmKsecFJsFQwZqTCkeb7TDAGl/+P4zQ8I7XAsO0GZyeF8qTrZ23v8QhUmnnAcc99XTeQru3ikf7EA//jvqiCvLv3goPLCrC+W1aPdBPcygzaRrwWfuuAwKufHKk=
+	t=1785395816; cv=none; b=mMnK9kSRiivCeittg82gv68QL1+PkvvbGJwT7cih9rsFvVp5ytMyal/o0aHYRYd7ISA82pKj+nOsCX/pSQhgwZ9J0LpOMKMP7qrBLFtx/nNmpBsIfDpG0w14Q+8DDhiL4WTkawThBZt2qo+PS4e6sZSx2SSzH0WKRQvpf1b2B6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785395371; c=relaxed/simple;
-	bh=HZklfwxrgZk8+7rCpfBUN0ZhsdYAKDE05bNNO/mGoFI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TsZdNp3dcpxjExXtSf0MdVcm5rhfnedTwZFyBTWZX+Y5Uk4qUCAGWoSnPB9+LZ3pHTS6BXArb4FaH/t8x91CEgrKM8osNRUmhFvWvcJqAYBsPqAV+gfTDCQ+VUnKpjfgcdZX6JlVfi6ISdQ6OhDJJ7z5A5jf6v38zPtIP/JH+34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uIijY1aF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785395816; c=relaxed/simple;
+	bh=ODvNPDXPbqRGOwKsCxS/eQyhK7MR13UIl50VhTrjNVE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=svJWuLkPiicCLAkaQSr+xmypYjlschekXSJ479E6SX41veaiPHC34rrRcXfmxV2pilJwQjz/3alzOxhd3ghZsOf5o35lCcNLYkhofkysP59OUungLaAIsGhdY8OvQutOPJWjNJislHt1p/WtG9ZQgQQ5QGdOSf5nCE0WzHknqtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=klw9tZhC; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uIijY1aF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC4EF1F000E9;
-	Thu, 30 Jul 2026 07:09:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785395369;
-	bh=WDoiElx8LglTt524YUit6tAlFtyEb5QtniW6Y8tnt8g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=uIijY1aF63dBCOx7vAvLNDb5J9XQvQxWNSZjWCErIZEOBhLJHMxLT3b86gWGje9Ls
-	 eBOgPWqz2Vvbhte0erAziNzve2GOr0fXL+LFVGNMpfKa86d09lwvByxyrwQxe82gCR
-	 LJFIB4KW9tzSFP0krg6BvoY8mDdtkpIiVzhBL1NI=
-Date: Thu, 30 Jul 2026 09:08:02 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jeffin Philip <jeffinphilip14@gmail.com>
-Cc: xu.yang_2@nxp.com, Frank.Li@nxp.com, panjunzhong@linux.spacemit.com,
-	kees@kernel.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+8dcac923582c28505fd7@syzkaller.appspotmail.com,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="klw9tZhC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785395814; x=1816931814;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ODvNPDXPbqRGOwKsCxS/eQyhK7MR13UIl50VhTrjNVE=;
+  b=klw9tZhCpd6Zegc4ONugtnXi3B/uqHwOIgEr6nsbNZyebrrmC71giwSu
+   OoPsYgQheRtuZtiw9P9k/1vUaxae+qg+rMG4+B3kc9fyU9vtBV2aI4HJz
+   6Su16Cr33ILbEtSPEcanoBOiOzekljwMNHmg3KzPBe8PmDUc+B+Ws4TgU
+   orivWnAkLGqWyIXR5AjytZWkFg5oOaI0Vj4fFqrz87Jrg9dmtoSRVr/Y8
+   jgPLk6IPNIZYvQnrnOXDBt9/i0Q6Xdt1kgSXNinKYPBK91dxDUF+Ad80P
+   7DwPOC1HKovwPqi39ZLYKNpq7gJWsJfi7+oC8ot1k8OTs7xqe/Gn4njji
+   A==;
+X-CSE-ConnectionGUID: eolsHneETrGxOiRXHG3gAA==
+X-CSE-MsgGUID: 69iI6DxnQUqnEQtreA0WwA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="88546918"
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; 
+   d="scan'208";a="88546918"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 00:16:49 -0700
+X-CSE-ConnectionGUID: Y2ONOE0NRvW8ihzQKpqeBg==
+X-CSE-MsgGUID: wzf+6X9TSCW2ql+imd9lfg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; 
+   d="scan'208";a="259643993"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.246.79])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 00:16:48 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Cc: linux-sound@vger.kernel.org,
+	kai.vehmanen@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	pierre-louis.bossart@linux.dev,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2] usb: gadget: uvc: Fix Null Pointer Dereference in
- uvcg_video_init()
-Message-ID: <2026073054-shaky-radar-da75@gregkh>
-References: <20260730070207.16065-1-jeffinphilip14@gmail.com>
+Subject: [PATCH] ASoC: SOF: topology: Use acpi mach from the machine driver
+Date: Thu, 30 Jul 2026 10:17:24 +0300
+Message-ID: <20260730071724.22296-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260730070207.16065-1-jeffinphilip14@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 30, 2026 at 12:32:07PM +0530, Jeffin Philip wrote:
-> In uvcg_video_init(), if kthread_run_worker() fails,
-> the error logged uses uvcg_err(), however, the pointer it uses:
-> video->uvc is not assigned at this point, triggering a null
-> pointer dereference. Fix this by directly using uvc->func which
-> is assigned already.
-> 
-> Reported-by: syzbot+8dcac923582c28505fd7@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=8dcac923582c28505fd7
-> Fixes: 7ea95b110811fa8e41f5960c278bcfc80b8b21c1 (usb: gadget: uvc: rename functions to avoid conflicts with host uvc)
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-Can you please shorten the sha1, like the documentation should have
-mentioned?  And did checkpatch.pl catch this?
+The parameters may be changed by the sof_sdw machine driver is the
+SOC_SDW_PCH_DMIC quirk is set. Use the mach_params from the machine
+driver to ensure the sof_sdw_get_tplg_files() function select the right
+function topologies.
 
-thanks,
+Fixes: 2fbeff33381c ("ASoC: Intel: add sof_sdw_get_tplg_files ops")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+ sound/soc/intel/common/sof-function-topology-lib.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-greg k-h
+diff --git a/sound/soc/intel/common/sof-function-topology-lib.c b/sound/soc/intel/common/sof-function-topology-lib.c
+index 2f2c902ef90c..b6e5a40b78cc 100644
+--- a/sound/soc/intel/common/sof-function-topology-lib.c
++++ b/sound/soc/intel/common/sof-function-topology-lib.c
+@@ -31,7 +31,12 @@ enum tplg_device_id {
+ int sof_sdw_get_tplg_files(struct snd_soc_card *card, const struct snd_soc_acpi_mach *mach,
+ 			   const char *prefix, const char ***tplg_files, bool best_effort)
+ {
+-	struct snd_soc_acpi_mach_params mach_params = mach->mach_params;
++	struct snd_soc_acpi_mach *card_mach = dev_get_platdata(card->dev);
++	/*
++	 * Use the acpi mach from the machine driver because the machine driver
++	 * may change the dmic_num based on the machine driver quirk.
++	 */
++	struct snd_soc_acpi_mach_params mach_params = card_mach->mach_params;
+ 	struct snd_soc_dai_link *dai_link;
+ 	const struct firmware *fw;
+ 	char platform[SOF_INTEL_PLATFORM_NAME_MAX];
+-- 
+2.55.0
+
