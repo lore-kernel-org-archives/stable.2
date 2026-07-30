@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C178B445AF2;
-	Thu, 30 Jul 2026 16:15:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEAC44838E;
+	Thu, 30 Jul 2026 16:15:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785428163; cv=none; b=Jc/Z9kZBgVjgpGC+Dj5LtYz93yaGoC91+Opw5Gmb47nGCmRfmWlailglpn6E82Gb+ZK0XtKqPW4WyNG19XReO1aATJtGHzAllrhzr26xdzsLA2xxz3aFJKnBPLnIv2/iYrfMPQghXNbJt75gtWx2RjGIHafI/EkpScAYghTMIag=
+	t=1785428164; cv=none; b=k8gxSpcvXrg1ONFE3R/qoTJElj/OJ+x+3S9MwS0axlHgUPu/DP/DqSIKkY6MHwS5gTTaiA/FozZ7EwKgskvfKYwCZYiOIzd86A68vAhHUCAMvzXo2MnBrchcuLfoFB5/j1PZT3mLyCkmbGyKEDrjZJGsnfB3wfZCRHd62STYuog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785428163; c=relaxed/simple;
-	bh=h71Is4JbGak+T7TySMFtSmD4mmqkvkyg8vPfF33Nbxk=;
+	s=arc-20240116; t=1785428164; c=relaxed/simple;
+	bh=a7ZPG8F/X2WhahymDz35+5mPPkPCoxvKaQXAKdjoID4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TsgJztgQ7G5LEmsIYpHzkp/3bKtKvype9B43Ac8DYfDdPgaOpATyfMx+UDCsG2bq9W29HMbZVRO/bunhwLTBRQ/LfHUwMkAdMZ+7DnLyOLI9hVNakvsXplyGwvLa88SA+Ai0XDyqsOE4bTM/fljFW0j6h/S2DS6GDrleKUHBgK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OU/5QMlK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fak/w6uvoCpawt90Bdo7ErrIhGbnTt4SC1eEdN1F5go4lzTkzxn0bhPvmOCG2Q74YGIromAk/28F/+rCGBgTbqDRDlMSuXjiHXixSNeT0YEHTKNN/SQnuH9rH5FYbx4bR4AuI+U1H2V+26nd/cN0JBt6/vzfZcxD0YUv88LhZh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=COjiFZ02; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OU/5QMlK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A33591F00A3D;
-	Thu, 30 Jul 2026 16:15:41 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="COjiFZ02"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49CAE1F00AC4;
+	Thu, 30 Jul 2026 16:15:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785428142;
-	bh=pYlMpfBdsIvkFDUf1MWY8mqm77GdQeYOwbP3OXqO248=;
+	s=korg; t=1785428147;
+	bh=0c9R5BsuKjg2+aj6rUqtOgpseM7cnc0XVeWgYxDYgAc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OU/5QMlK3zpsGv1M7GQ7xcXHwY5wT27uwhmgLgaLHCdxbUcxoNcHNROlh95YaQI5A
-	 THhwbxSo3JwRmYAyIScfOOSz+i5wlh0ITPAzXYbiGQl8YiQbyepQtMqlLVOpQ6D6hI
-	 /0qw6fCkZZ8SPUSbh+O+6SmMcXWiyPgSqQavFK7s=
+	b=COjiFZ02UxuhqEqMdUNpLuU3zG9VWfGheXhx6eqKNloAXw/UPbrXvFhvPebJQw4OI
+	 M2k20yRDf92Outb16iTG5EvQ723QS0ByoeKtgNJYlsMSlP3r0nwv04yVWQ+N2thjGe
+	 xGq6ltAYVlKTkd2TgPs0Gq0DUYoP5RBZa/pPepzU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Zhang Heng <zhangheng@kylinos.cn>,
-	Takashi Iwai <tiwai@suse.de>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 374/484] ALSA: hda: conexant: Remove mic bias threshold override
-Date: Thu, 30 Jul 2026 16:14:31 +0200
-Message-ID: <20260730141431.599188835@linuxfoundation.org>
+Subject: [PATCH 6.6 376/484] serial: max310x: replace bare use of unsigned with unsigned int (checkpatch)
+Date: Thu, 30 Jul 2026 16:14:33 +0200
+Message-ID: <20260730141431.642411829@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260730141423.392222816@linuxfoundation.org>
 References: <20260730141423.392222816@linuxfoundation.org>
@@ -51,44 +51,65 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Zhang Heng <zhangheng@kylinos.cn>
+From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 
-[ Upstream commit f52524da7084c1a54683ae9fbc73e93fff19dd64 ]
+[ Upstream commit 79b69eb09cf5b6a77e621b2838b7e0d38113debb ]
 
-Remove the mic bias current comparator threshold override (NID 0x1c,
-verb 0x320, value 0x010) from Conexant codec driver.
+Fixes the following checkpatch warnings:
 
-This override was originally intended to support volume up/down controls on
-headsets with inline remote controls, but it causes microphone detection
-failures on some headsets with impedance less than 1k ohm.
+    WARNING: Prefer 'unsigned int' to bare use of 'unsigned'
 
-After consulting with the vendor's engineers, it was confirmed that this
-setting is board-specific and should be handled by BIOS/firmware rather
-than the generic codec driver, especially since inline remote support
-is not currently implemented.
+With this change, the affected functions now match the prototypes in
+struct gpio_chip.
 
-Fixes: 7aeb25908648 ("ALSA: hda/conexant: Fix headset auto detect fail in cx8070 and SN6140")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
-Link: https://patch.msgid.link/20260713100329.306892-1-zhangheng@kylinos.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Link: https://lore.kernel.org/r/20240118152213.2644269-16-hugo@hugovil.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: a483b1a91b33 ("serial: max310x: implement gpio_chip::get_direction()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- sound/pci/hda/patch_conexant.c |    3 ---
- 1 file changed, 3 deletions(-)
+ drivers/tty/serial/max310x.c |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
---- a/sound/pci/hda/patch_conexant.c
-+++ b/sound/pci/hda/patch_conexant.c
-@@ -168,9 +168,6 @@ static void cx_fixup_headset_recog(struc
- {
- 	unsigned int mic_present;
+--- a/drivers/tty/serial/max310x.c
++++ b/drivers/tty/serial/max310x.c
+@@ -1209,7 +1209,7 @@ static int __maybe_unused max310x_resume
+ static SIMPLE_DEV_PM_OPS(max310x_pm_ops, max310x_suspend, max310x_resume);
  
--	/* fix some headset type recognize fail issue, such as EDIFIER headset */
--	/* set micbias output current comparator threshold from 66% to 55%. */
--	snd_hda_codec_write(codec, 0x1c, 0, 0x320, 0x010);
- 	/* set OFF voltage for DFET from -1.2V to -0.8V, set headset micbias register
- 	 * value adjustment trim from 2.2K ohms to 2.0K ohms.
- 	 */
+ #ifdef CONFIG_GPIOLIB
+-static int max310x_gpio_get(struct gpio_chip *chip, unsigned offset)
++static int max310x_gpio_get(struct gpio_chip *chip, unsigned int offset)
+ {
+ 	unsigned int val;
+ 	struct max310x_port *s = gpiochip_get_data(chip);
+@@ -1220,7 +1220,7 @@ static int max310x_gpio_get(struct gpio_
+ 	return !!((val >> 4) & (1 << (offset % 4)));
+ }
+ 
+-static void max310x_gpio_set(struct gpio_chip *chip, unsigned offset, int value)
++static void max310x_gpio_set(struct gpio_chip *chip, unsigned int offset, int value)
+ {
+ 	struct max310x_port *s = gpiochip_get_data(chip);
+ 	struct uart_port *port = &s->p[offset / 4].port;
+@@ -1229,7 +1229,7 @@ static void max310x_gpio_set(struct gpio
+ 			    value ? 1 << (offset % 4) : 0);
+ }
+ 
+-static int max310x_gpio_direction_input(struct gpio_chip *chip, unsigned offset)
++static int max310x_gpio_direction_input(struct gpio_chip *chip, unsigned int offset)
+ {
+ 	struct max310x_port *s = gpiochip_get_data(chip);
+ 	struct uart_port *port = &s->p[offset / 4].port;
+@@ -1240,7 +1240,7 @@ static int max310x_gpio_direction_input(
+ }
+ 
+ static int max310x_gpio_direction_output(struct gpio_chip *chip,
+-					 unsigned offset, int value)
++					 unsigned int offset, int value)
+ {
+ 	struct max310x_port *s = gpiochip_get_data(chip);
+ 	struct uart_port *port = &s->p[offset / 4].port;
 
 
