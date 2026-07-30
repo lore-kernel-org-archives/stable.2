@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15EE443311
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 19:29:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5734145C71C
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 19:29:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785439799; cv=none; b=JuHDGWLf+Z0PcyiAckkGWgTRSP/0pfPZyF9AOYKXmgUnFk5k4cAyAOVuqhNNO4UOcK7o0vIcBqQ0+HbXge/sOWPDtaDq4Hh0y6u6ecXmSFHznXNhnXGlgCww6AFSneGPtF7AVUQAVpKoajdcZ2sdNjf55r1ekri6/cHQGhE3WS4=
+	t=1785439803; cv=none; b=jFm8IGH2DQRSNBCCGpWEvrTYRYbjFsoRikH7pAhAUdXGtWknB3963otT/Y38LIEeyblZDvx9am+BbKWY9SVoa4mMosX8a6iXqVhHFxRr6bxf1pzYCdJUtLwMvIJyCFIMWFZLqcngm+dYKK6eKvgcKk8eVAHHvGr35L0G0hj8eVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785439799; c=relaxed/simple;
-	bh=saV+vb2G2L4eMc2B+TpWREslJlW1gxyJ7UFTsSOvorE=;
+	s=arc-20240116; t=1785439803; c=relaxed/simple;
+	bh=XZtPDnBIDjS9XxeP/OtG9ILdLTOTXu1UaH06sWIqAuo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Re5D4++B7Sm9Vm01/admL+v6TqVZRAqB3VCpR7Ftg7USB32zAY2GmQd4m/01oPkfwb8sYXWqhTXJjwoA9HUaDEKwSY6ul3Bkh5q7mABl/XWlEiPrbMvtL1L3aDX3yDreSjFxXrHXan3I8E5VoMFFGadCS5juMZ10aYpxjP44iLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VBX2+vdD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qz+1VHM6AEBTCn/ACAw45if2tOUhbfYGA43ZWE1M21EDVkrHA0bVzkMQ7lrgFXFd9WVadLD07Id6vSiiV2j02JLFI3z8S51D5KZzTURVBDPHhO3RMHMXtehXM9XJGqQoQHQB1LZgu9GncqRJh5N6+RFo9fIqggeXbcKDM1iRsS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RhN2eWN2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VBX2+vdD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C68BF1F000E9;
-	Thu, 30 Jul 2026 19:29:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RhN2eWN2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C77081F00ACA;
+	Thu, 30 Jul 2026 19:29:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785439794;
-	bh=9bmPB3BUpZqDb9j+5DBJyDeetBb5gmxEbNj/RCMa+jY=;
+	s=k20260515; t=1785439798;
+	bh=reTWRGUzfHj2yEr6mq7UC6aJLczWqmQ4AknK/XmpgnQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VBX2+vdD+a0Qj0Dyvbqxk7YGoJk7v7SURSNTjzxq/lki7YOq5/t7DVShqridk4XN/
-	 KTEFasPlyqUFNx6JLjVZ9cc3fGs6AUd5kvEuD88eCAD1fAjMwaOfdxNZaUN0jpE7FP
-	 YrYYnDV/mUXGJaDx8wjkiNKAQVTWHgVF3cGoCX/OuPpf5Y8nFbipbRWzBCufM1OO3I
-	 ohDTebGMof+xneVkVOqUyhzaIoli+xfXVY6X6JTM+r2i396zlyLUP/lmNY7gNqNGRn
-	 HQdjSQJ4J4eEa4FAhOAIHbd6lEDGe2PMXgk/tV8KoO+cB3kpsS3gJAmVJu7zqO1Dsx
-	 LFbmhSrJNisaA==
+	b=RhN2eWN26JX7q5MLrtJpGA3ddXxHW+4GNA5G1CFrWZwocAQe/OzmMn07CH7knBv3R
+	 x/gSYUO1Czwa2z2FhNTGhs4i9JHnLizKdx3r5ZyWL+7WftjKoDsDRb81HgAiBvPRP1
+	 QtaA996im7ldIqwK/D8yYfUXk0dlDI7Bfx4LjqTOOFriI5LMNBagtpY7XoUSp8fku/
+	 AlPnDjXpDL3AS3zYnFfDL/7teNbd1krzP2C1FsKYSuQ7Vi7rR+LTwxBPxExy3VnP+M
+	 /tMJzRKG88p4/qMF6y2JAIwBEaMU/z8HMEMax/KJLKjjF3VVr4AoJhe/1l0OA238yq
+	 tEk6k98fnv5Dg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] usb: typec: ucsi: split connector lock classes
-Date: Thu, 30 Jul 2026 15:29:51 -0400
-Message-ID: <20260730192952.3124595-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] drm: renesas: Move RZ/G2L MIPI DSI driver to rz-du
+Date: Thu, 30 Jul 2026 15:29:54 -0400
+Message-ID: <20260730192955.3124753-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072726-shrink-battery-1f13@gregkh>
-References: <2026072726-shrink-battery-1f13@gregkh>
+In-Reply-To: <2026072951-ended-spoiler-e626@gregkh>
+References: <2026072951-ended-spoiler-e626@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,125 +47,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-[ Upstream commit 8c22256bbafad3dc5fdbe9f684d045b67ff06a68 ]
+[ Upstream commit 1b5dfd1881dbe303536d4167500b94549ff2f6a7 ]
 
-Lockdep detects a possible recursive locking scenario during
-ucsi init:
+All the RZ/G2L DU specific components are located under the rz-du folder,
+so it makes sense to move the RZ/G2L MIPI DSI driver there instead of
+keeping it in the rcar-du folder. This change improves the organization
+and modularity of the driver configuration by grouping related settings together.
 
-[    5.418616] ============================================
-[    5.418634] WARNING: possible recursive locking detected
-[    5.418706] --------------------------------------------
-[    5.418725] kworker/4:1/82 is trying to acquire lock:
-[    5.418759] ffff888119a34648 (&con->lock){+.+.}-{3:3}, at: ucsi_init_work+0x1a78/0x2eb0 [typec_ucsi]
-[    5.418801]
-               but task is already holding lock:
-[    5.418835] ffff888119a34080 (&con->lock){+.+.}-{3:3}, at: ucsi_init_work+0x1a78/0x2eb0 [typec_ucsi]
-[    5.418884]
-               other info that might help us debug this:
-[    5.418904]  Possible unsafe locking scenario:
-
-[    5.418937]        CPU0
-[    5.418956]        ----
-[    5.418991]   lock(&con->lock);
-[    5.419013]   lock(&con->lock);
-[    5.419033]
-                *** DEADLOCK ***
-
-[    5.419387] Call Trace:
-[    5.419406]  <TASK>
-[    5.419425]  dump_stack_lvl+0x61/0xa0
-[    5.419448]  print_deadlock_bug+0x4a6/0x650
-[    5.419483]  __lock_acquire+0x62b6/0x7f50
-[    5.419507]  lock_acquire+0x11b/0x390
-[    5.419654]  __mutex_lock+0xbc/0xcd0
-[    5.419741]  ucsi_init_work+0x1a78/0x2eb0
-[    5.419785]  ? worker_thread+0xf53/0x2bc0
-[    5.419819]  worker_thread+0xff4/0x2bc0
-[    5.419842]  kthread+0x2a7/0x330
-[    5.419863]  ? __pfx_worker_thread+0x10/0x10
-[    5.419896]  ? __pfx_kthread+0x10/0x10
-[    5.419916]  ret_from_fork+0x38/0x70
-[    5.419936]  ? __pfx_kthread+0x10/0x10
-[    5.419969]  ret_from_fork_asm+0x1b/0x30
-[    5.419991]  </TASK>
-[    5.420009] ---[ end trace 0000000000000000 ]---
-
-The problem is that all connector locks belong to the same
-lockdep lock class, so the following loop:
-
-	for (i = 0; i < ucsi->cap.num_connectors; i++)
-		ucsi_register_port(connector[i])
-			mutex_lock(&connector[i]->lock)
-
-looks like a recursive acquire of the same mutex.  Put each connector
-lock into a dedicated lock class so that lockdep doesn't see it as a
-possible recursion.
-
-Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Link: https://patch.msgid.link/20260515060042.136083-1-senozhatsky@chromium.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 7aa7d4bf9d3f ("usb: typec: ucsi: Fix race condition and ordering in port unregistration")
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Acked-by: Biju Das <biju.das.jz@bp.renesas.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20240625123244.200533-1-prabhakar.mahadev-lad.rj@bp.renesas.com
+Stable-dep-of: 7cbba8a8ba02 ("drm: renesas: rzg2l_mipi_dsi: Increase reset deassertion delay")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/typec/ucsi/ucsi.c | 8 ++++++++
- drivers/usb/typec/ucsi/ucsi.h | 1 +
- 2 files changed, 9 insertions(+)
+ drivers/gpu/drm/renesas/Kconfig                           | 1 +
+ drivers/gpu/drm/renesas/Makefile                          | 1 +
+ drivers/gpu/drm/renesas/rcar-du/Kconfig                   | 8 --------
+ drivers/gpu/drm/renesas/rcar-du/Makefile                  | 2 --
+ drivers/gpu/drm/renesas/rz-du/Kconfig                     | 8 ++++++++
+ drivers/gpu/drm/renesas/rz-du/Makefile                    | 3 +++
+ .../gpu/drm/renesas/{rcar-du => rz-du}/rzg2l_mipi_dsi.c   | 0
+ .../drm/renesas/{rcar-du => rz-du}/rzg2l_mipi_dsi_regs.h  | 0
+ 8 files changed, 13 insertions(+), 10 deletions(-)
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/Kconfig
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/Makefile
+ rename drivers/gpu/drm/renesas/{rcar-du => rz-du}/rzg2l_mipi_dsi.c (100%)
+ rename drivers/gpu/drm/renesas/{rcar-du => rz-du}/rzg2l_mipi_dsi_regs.h (100%)
 
-diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index b4b0c46d2fa4..79048af50a01 100644
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -1603,6 +1603,7 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
- 	INIT_WORK(&con->work, ucsi_handle_connector_change);
- 	init_completion(&con->complete);
- 	mutex_init(&con->lock);
-+	lockdep_set_class(&con->lock, &con->lock_key);
- 	INIT_LIST_HEAD(&con->partner_tasks);
- 	con->ucsi = ucsi;
+diff --git a/drivers/gpu/drm/renesas/Kconfig b/drivers/gpu/drm/renesas/Kconfig
+index 3777dad17f81..21862a8ef710 100644
+--- a/drivers/gpu/drm/renesas/Kconfig
++++ b/drivers/gpu/drm/renesas/Kconfig
+@@ -1,4 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0-only
  
-@@ -1843,6 +1844,9 @@ static int ucsi_init(struct ucsi *ucsi)
- 		goto err_reset;
- 	}
+ source "drivers/gpu/drm/renesas/rcar-du/Kconfig"
++source "drivers/gpu/drm/renesas/rz-du/Kconfig"
+ source "drivers/gpu/drm/renesas/shmobile/Kconfig"
+diff --git a/drivers/gpu/drm/renesas/Makefile b/drivers/gpu/drm/renesas/Makefile
+index ec0e89e7a592..b8d8bc53967f 100644
+--- a/drivers/gpu/drm/renesas/Makefile
++++ b/drivers/gpu/drm/renesas/Makefile
+@@ -1,4 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0
  
-+	for (i = 0; i < ucsi->cap.num_connectors; i++)
-+		lockdep_register_key(&connector[i].lock_key);
+ obj-y += rcar-du/
++obj-y += rz-du/
+ obj-$(CONFIG_DRM_SHMOBILE) += shmobile/
+diff --git a/drivers/gpu/drm/renesas/rcar-du/Kconfig b/drivers/gpu/drm/renesas/rcar-du/Kconfig
+index 53c356aed5d5..39af73cf2092 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/Kconfig
++++ b/drivers/gpu/drm/renesas/rcar-du/Kconfig
+@@ -60,14 +60,6 @@ config DRM_RCAR_MIPI_DSI
+ 	select DRM_MIPI_DSI
+ 	select RESET_CONTROLLER
+ 
+-config DRM_RZG2L_MIPI_DSI
+-	tristate "RZ/G2L MIPI DSI Encoder Support"
+-	depends on DRM && DRM_BRIDGE && OF
+-	depends on ARCH_RENESAS || COMPILE_TEST
+-	select DRM_MIPI_DSI
+-	help
+-	  Enable support for the RZ/G2L Display Unit embedded MIPI DSI encoders.
+-
+ config DRM_RCAR_VSP
+ 	bool "R-Car DU VSP Compositor Support" if ARM
+ 	default y if ARM64
+diff --git a/drivers/gpu/drm/renesas/rcar-du/Makefile b/drivers/gpu/drm/renesas/rcar-du/Makefile
+index b8f2c82651d9..6f132325c8b7 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/Makefile
++++ b/drivers/gpu/drm/renesas/rcar-du/Makefile
+@@ -14,5 +14,3 @@ obj-$(CONFIG_DRM_RCAR_DU)		+= rcar-du-drm.o
+ obj-$(CONFIG_DRM_RCAR_DW_HDMI)		+= rcar_dw_hdmi.o
+ obj-$(CONFIG_DRM_RCAR_LVDS)		+= rcar_lvds.o
+ obj-$(CONFIG_DRM_RCAR_MIPI_DSI)		+= rcar_mipi_dsi.o
+-
+-obj-$(CONFIG_DRM_RZG2L_MIPI_DSI)	+= rzg2l_mipi_dsi.o
+diff --git a/drivers/gpu/drm/renesas/rz-du/Kconfig b/drivers/gpu/drm/renesas/rz-du/Kconfig
+new file mode 100644
+index 000000000000..8d97d6fd7ebe
+--- /dev/null
++++ b/drivers/gpu/drm/renesas/rz-du/Kconfig
+@@ -0,0 +1,8 @@
++# SPDX-License-Identifier: GPL-2.0
++config DRM_RZG2L_MIPI_DSI
++	tristate "RZ/G2L MIPI DSI Encoder Support"
++	depends on DRM && DRM_BRIDGE && OF
++	depends on ARCH_RENESAS || COMPILE_TEST
++	select DRM_MIPI_DSI
++	help
++	  Enable support for the RZ/G2L Display Unit embedded MIPI DSI encoders.
+diff --git a/drivers/gpu/drm/renesas/rz-du/Makefile b/drivers/gpu/drm/renesas/rz-du/Makefile
+new file mode 100644
+index 000000000000..5b2b2ddf097c
+--- /dev/null
++++ b/drivers/gpu/drm/renesas/rz-du/Makefile
+@@ -0,0 +1,3 @@
++# SPDX-License-Identifier: GPL-2.0
 +
- 	/* Register all connectors */
- 	for (i = 0; i < ucsi->cap.num_connectors; i++) {
- 		connector[i].num = i + 1;
-@@ -1872,6 +1876,9 @@ static int ucsi_init(struct ucsi *ucsi)
- 	return 0;
- 
- err_unregister:
-+	for (i = 0; i < ucsi->cap.num_connectors; i++)
-+		lockdep_unregister_key(&connector[i].lock_key);
-+
- 	for (con = connector; con->port; con++) {
- 		if (con->wq)
- 			destroy_workqueue(con->wq);
-@@ -2142,6 +2149,7 @@ void ucsi_unregister(struct ucsi *ucsi)
- 		usb_power_delivery_unregister(ucsi->connector[i].pd);
- 		ucsi->connector[i].pd = NULL;
- 		typec_unregister_port(ucsi->connector[i].port);
-+		lockdep_unregister_key(&ucsi->connector[i].lock_key);
- 	}
- 
- 	kfree(ucsi->connector);
-diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
-index a9144c299739..520a1a4f9114 100644
---- a/drivers/usb/typec/ucsi/ucsi.h
-+++ b/drivers/usb/typec/ucsi/ucsi.h
-@@ -502,6 +502,7 @@ struct ucsi_connector {
- 
- 	struct ucsi *ucsi;
- 	struct mutex lock; /* port lock */
-+	struct lock_class_key lock_key;
- 	struct work_struct work;
- 	struct completion complete;
- 	struct workqueue_struct *wq;
++obj-$(CONFIG_DRM_RZG2L_MIPI_DSI)	+= rzg2l_mipi_dsi.o
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+similarity index 100%
+rename from drivers/gpu/drm/renesas/rcar-du/rzg2l_mipi_dsi.c
+rename to drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rzg2l_mipi_dsi_regs.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h
+similarity index 100%
+rename from drivers/gpu/drm/renesas/rcar-du/rzg2l_mipi_dsi_regs.h
+rename to drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h
 -- 
 2.53.0
 
