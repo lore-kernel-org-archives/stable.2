@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCB4426438
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:15:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E6439B4BF
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:15:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785413743; cv=none; b=KKqdHiNKMeZGBIrw7vTybXO7vQ7lpFSz3cvH6faJkj1PyUMf7hjBqBeyZcsxWUN5BlF8vm/tQkFekPoYc+AfAbkZ+3N3LvrHo7lB2fTDsoG2TQuLeota3Bbs612dZabP3RHFtqtBiQmntLi0Z9vYVUnhaXtqU2Fr3NvWOkE5aeA=
+	t=1785413750; cv=none; b=pGT3ZPOk1uJLICk9x8xCcnssrfFjZ/8vCPgPVf4dkY1v6cWrckdHm7ggZVw1G9JeiOJJEb5WdJr8tWdMXa4DlNUxvfDFj9Vjoydmhy1Q9HuU+UaU4OA3wSssnpxFtNdayGaO3XcZ3/ewtkGVgr0LNKpx+gx6IsZfyzrg5LXT+IU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785413743; c=relaxed/simple;
-	bh=ZKRHgXeHqO903t/movusfQdY0Ec7CoJTsvys+qucWLc=;
+	s=arc-20240116; t=1785413750; c=relaxed/simple;
+	bh=BFkLSm03FQ2qNdFxCm4nOnMoCtq7E2rydc8iLSH5VfU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jn7BSCLneJdY1H+g9VYW827srGkFS51kF9RXYS3TjaT+Nprb0FjKbab5q/d8/oOFddiTr7nywH1V2osDw2jHBz79sQm8S2JaYCOwFpXduob0vH4oHBQwfAKy9vZ0WTIudHx/QaN09tyJUwcVkYGYyby51Kx0N+2KmtoAOlPGKSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iSdl0yr7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=t3/5WNv4mdhfEWeHIyeqq3OBdCSoobiO6kbcKUDyXInvjCjvYiiPQueI+JDq1RmYiVRB1iUOT6dNTAlyWu6swRtabohg/IU5bP/IRlU1g4Eeo588zTMYNfZ+mw53jzg9E+R75qg093Wp4Ws6BsYe88+jTS027WM+NYKyGQQP+Tg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D9wbjoSw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iSdl0yr7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F05D1F00A3E;
-	Thu, 30 Jul 2026 12:15:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D9wbjoSw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A83E1F000E9;
+	Thu, 30 Jul 2026 12:15:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785413738;
-	bh=GnR50GSm7ZKbD9PQhK1G3twQvPKOXtlwsjve9JSc5Vc=;
+	s=k20260515; t=1785413732;
+	bh=UcnqNWeg6pyQkrbHPbwMmf38mF88+Wnw8TMUXeDOj08=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iSdl0yr7bipQk9nLL4xj1IOA6Hxn0zS+BLmRXoBgriL+a1AHHAlrnK+HUpmdImhV1
-	 QL5TWmX+f6iwwy9C7oLyqzW+hfqcWZPGes3eS+s7JQvIoOER3SyU7ob+WxSABBF9T7
-	 ERpTZ17YK/Dqc+LKOLIITiDnFmJwq2RDq5AaDI6N+BJamhVD4NuTuRTAMux8BcLbHc
-	 aXnPcGJ8+wnrcKHBzrSHWmcHRFDd2PLrfYRh6ESPuYdc3pNav+iYC14Kv/oAOPr7OU
-	 41gb76RcHvtz303dxtMWbSqPERtOhP8jng3rt0UmU7WJwg0uGwUIIYroet0nTsclb4
-	 EuEAyON2isWjg==
+	b=D9wbjoSwgmJWfEfwzoDHA3tb1vV49IwR7/l+1JdSGRyF62DihbAHNQkOV03NkMNaS
+	 j351Zmv8Jrd6s8pjMh0ljUfDV1a72uAfu8IRR44v1FvEJpFs025P6pD4lAnB7Ep4YR
+	 y/ZSs3ERmFe4cEHmfmt1AA2w7M0BPO00m6Q8QOU/pmku9XbT8us5Zy7zgyFyHlHvCg
+	 5Dkr8dgM1Ds5xwNsTkQVYz0cetKY4GsJYOKRmFTpHvdWtl3QI8VAvd8eQDhOpuxJnx
+	 8JJB4sHu9dL7f8o+RGs8ocbE0QsMIFZjAdyWAj+JmMMaiXvRT6ty8evrg2KsTX7kbt
+	 zWIPSBj51Ateg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Hyunwoo Kim <imv4bel@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
+Cc: Alex Williamson <alex.williamson@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Alex Williamson <alex@shazbot.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] KVM: x86: Check for invalid/obsolete root *after* making MMU pages available
-Date: Thu, 30 Jul 2026 08:15:35 -0400
-Message-ID: <20260730121535.2208491-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] vfio/pci: Fix racy bitfields and tighten struct layout
+Date: Thu, 30 Jul 2026 08:15:30 -0400
+Message-ID: <20260730121530.2207687-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730121535.2208491-1-sashal@kernel.org>
-References: <2026072556-gem-immunize-5c2f@gregkh>
- <20260730121535.2208491-1-sashal@kernel.org>
+In-Reply-To: <2026072123-daredevil-oxygen-b864@gregkh>
+References: <2026072123-daredevil-oxygen-b864@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,91 +46,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+From: Alex Williamson <alex.williamson@nvidia.com>
 
-[ Upstream commit 2abd5287f08319fa35764566b15c6e22cb1068db ]
+[ Upstream commit e73638e55f861758d49f14d7bb5dba3035981cd7 ]
 
-Check for a "stale" page fault, i.e. for an invalid and/or obsolete root,
-after making MMU pages available for the shadow MMU.  If reclaiming shadow
-pages zaps an in-use root, i.e. marks it invalid, then KVM will attempt to
-map memory into an invalid root.  On its own, populating an invalid root is
-"fine", but because child shadow pages inherit their parent's role, any
-children created during the map/fetch will be created as invalid pages,
-thus violating KVM's invariant that invalid pages are never on the list of
-active MMU pages.
+Bitfield operations are not atomic, they use a read-modify-write
+pattern, therefore we should be careful not to pack bitfields that
+can be concurrently updated into the same storage unit.
 
-Note, the underlying flaw has existed since KVM first started tracking
-invalid roots in 2008 (commit 2e53d63acba7, "KVM: MMU: ignore zapped root
-pagetables"), but the true badness only came along in 2020 (Linux 5.9)
-with the invariant that invalid shadow pages can't be on the list of
-active pages.
+This split takes a binary approach: flags that are only modified
+pre/post open/close remain bitfields, flags modified from user
+action, including actions that reach across to another device (ex.
+reset) use dedicated storage units.
 
-Note #2, inheriting role.invalid when creating child shadow pages is also
-far from ideal; that flaw will be addressed separately.
+Note that the virq_disabled and bardirty flags are relocated to fill
+an existing hole in the structure.
 
-Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-Fixes: f95eec9bed76 ("KVM: x86/mmu: Don't put invalid SPs back on the list of active pages")
+Bitfield justifications:
+
+  has_dyn_msix: written only in vfio_pci_core_enable()
+  pci_2_3: written only in vfio_pci_core_enable()
+  reset_works: written only in vfio_pci_core_enable()
+  extended_caps: written only in vfio_cap_len() under vfio_config_init()
+  has_vga: written only in vfio_pci_core_enable()
+  nointx: written only in vfio_pci_core_enable()
+  needs_pm_restore: written only in vfio_pci_probe_power_state()
+  disable_idle_d3: written only at .init in vfio_pci_core_init_dev()
+
+Dedicated storage units:
+
+  virq_disabled: written by guest INTx command writes in
+                 vfio_basic_config_write() while the device is open
+  bardirty: written by guest BAR writes in vfio_basic_config_write()
+            while the device is open
+  pm_intx_masked: written in the runtime-PM suspend path.
+  pm_runtime_engaged: written by low-power feature entry/exit paths
+  needs_reset: set in vfio_pci_core_disable() and cleared for devices in
+               the set by vfio_pci_dev_set_try_reset()
+  sriov_active: written by vfio_pci_core_sriov_configure() via sysfs
+                sriov_numvfs while bound.
+
+Fixes: 9cd0f6d5cbb6 ("vfio/pci: Use bitfield for struct vfio_pci_core_device flags")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Alex Williamson <alex.williamson@nvidia.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Link: https://lore.kernel.org/r/20260615191241.688297-4-alex.williamson@nvidia.com
+Signed-off-by: Alex Williamson <alex@shazbot.org>
+[ dropped the `has_dyn_msix:1` bitfield line (absent in this tree) while keeping the rest of the struct layout change ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/mmu/mmu.c         |  9 +++++----
- arch/x86/kvm/mmu/paging_tmpl.h | 10 ++++++----
- 2 files changed, 11 insertions(+), 8 deletions(-)
+ include/linux/vfio_pci_core.h | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 945cf6a7562b72..9b7edec880e3cc 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -4281,16 +4281,17 @@ static int direct_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
- 		return r;
- 	}
- 
--	r = RET_PF_RETRY;
- 	write_lock(&vcpu->kvm->mmu_lock);
- 
--	if (is_page_fault_stale(vcpu, fault))
--		goto out_unlock;
--
- 	r = make_mmu_pages_available(vcpu);
- 	if (r)
- 		goto out_unlock;
- 
-+	if (is_page_fault_stale(vcpu, fault)) {
-+		r = RET_PF_RETRY;
-+		goto out_unlock;
-+	}
-+
- 	r = direct_map(vcpu, fault);
- 
- out_unlock:
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index 8d1ab32ee5f9e0..2ea7bd1a6bb5f4 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -865,15 +865,17 @@ static int FNAME(page_fault)(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
- 
- 	orig_pfn = fault->pfn;
- 
--	r = RET_PF_RETRY;
- 	write_lock(&vcpu->kvm->mmu_lock);
- 
--	if (is_page_fault_stale(vcpu, fault))
--		goto out_unlock;
--
- 	r = make_mmu_pages_available(vcpu);
- 	if (r)
- 		goto out_unlock;
-+
-+	if (is_page_fault_stale(vcpu, fault)) {
-+		r = RET_PF_RETRY;
-+		goto out_unlock;
-+	}
-+
- 	r = FNAME(fetch)(vcpu, fault, &walker);
- 
- out_unlock:
+diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
+index 9197cac4faadb2..b08422f03b24c4 100644
+--- a/include/linux/vfio_pci_core.h
++++ b/include/linux/vfio_pci_core.h
+@@ -54,6 +54,9 @@ struct vfio_pci_core_device {
+ 	struct pci_dev		*pdev;
+ 	void __iomem		*barmap[PCI_STD_NUM_BARS];
+ 	bool			bar_mmap_supported[PCI_STD_NUM_BARS];
++	/* Flags modified at runtime - dedicated storage unit */
++	bool			virq_disabled;
++	bool			bardirty;
+ 	u8			*pci_config_map;
+ 	u8			*vconfig;
+ 	struct perm_bits	*msi_perm;
+@@ -69,18 +72,18 @@ struct vfio_pci_core_device {
+ 	u16			msix_size;
+ 	u32			msix_offset;
+ 	u32			rbar[7];
++	/* Flags only modified on setup/release - bitfield ok */
+ 	bool			pci_2_3:1;
+-	bool			virq_disabled:1;
+ 	bool			reset_works:1;
+ 	bool			extended_caps:1;
+-	bool			bardirty:1;
+ 	bool			has_vga:1;
+-	bool			needs_reset:1;
+ 	bool			nointx:1;
+ 	bool			needs_pm_restore:1;
+-	bool			pm_intx_masked:1;
+-	bool			pm_runtime_engaged:1;
+ 	bool			disable_idle_d3:1;
++	/* Flags modified at runtime - dedicated storage unit */
++	bool			needs_reset;
++	bool			pm_intx_masked;
++	bool			pm_runtime_engaged;
+ 	bool			sriov_active;
+ 	struct pci_saved_state	*pci_saved_state;
+ 	struct pci_saved_state	*pm_save;
 -- 
 2.53.0
 
