@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9FC446845;
-	Thu, 30 Jul 2026 16:16:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DD23859EE;
+	Thu, 30 Jul 2026 16:16:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785428195; cv=none; b=F1fDr7OCF3brqvVzbzpcKiTsptqlAd5IHG43Ff9BCrV4xW4k/UESkCBT6ImgW0WeC9VMVvYanagPK6LLH1GBEkY6j3U93P5wStAddDUQKoRb94t/b1e2myLQ5JWnYUeZazm0MTPiVKMKZGm2mLuOOdYUGce38t2HSGz2mQW6szk=
+	t=1785428196; cv=none; b=XFCuX8Gn2kHlJ70Iwp022ZwDKUemsA11Reo4Nb0nBgJ4kloSzx06gnGef53fR5gOWwfycI1wchoKs6ft24vNjAepYO1Pe6+7R5T58iwXrX7nxFAp82m/50No+eWPuhSO/A0KBUo35B2nnx2O8mT8YHpF6BwrllE3wcpxwv2QBlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785428195; c=relaxed/simple;
-	bh=c+aXiVt8wQWUFNPYwZJtOmbgjoK9HXaZP/xELiLGVPU=;
+	s=arc-20240116; t=1785428196; c=relaxed/simple;
+	bh=99rs1HLEDJwjIsH2w1acB0uWoAIPrz9RxJ36MgTjYTI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dY+cQdq3tJsvDzr3i7JKDpBPYDk3GP9Kyb3n1htzsC/kQlsvPmsrOfa0K0P4ZeP5KiMoTEIjD5VAGnSld9ztBR94ud9k2xQcVTH/3SQN7nmwaLiHhDgEM6XPJejPbLlsiZZyJtvkUN2aGiT6thQOKZUR8j6Pd+85AEs9lDfnIkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ygsxFDhC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=EpSxVGC0zDZdixkUnuGxpzfhGlFYT8xFUuwbHeBLwtusXf18cC4rLmOv99qRg6Tm75HlKk30xJH5qhD51pOQQ42Nb3KOqa/4iYP9YGUZtYzgsBSRZA6ORahCjRFUFONpUT9o+ddap2An4nHXOWbhm+Sgq8RxAfQvzPynuNju9G0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bs0L7e3K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ygsxFDhC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 701051F00AC4;
-	Thu, 30 Jul 2026 16:16:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bs0L7e3K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139961F00A3A;
+	Thu, 30 Jul 2026 16:16:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785428185;
-	bh=TYhgD/2uRJ9Dy5pLTx3muyztNEUCxaFmAOJCdEipEtM=;
+	s=korg; t=1785428190;
+	bh=VxIC2O5PI+ZaL14WiiKPVgZ/tvBb7Qse89JeZMa6MnY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ygsxFDhCQ2vpVAPscVmTURI3gvjmG+xq3+G7nLYeWagUENFAF5raPAhFDRavVEyu/
-	 ahQPCQSOca6WKzrIjyoeRq/foPYpAxDa+h6phAg0+fKBfElOadgGizP50A3G/nC7uI
-	 XdUFBkMymYoZhi0jmcMB8fPAkGsG+ZQUfFapZCjw=
+	b=bs0L7e3KwSuSoFpJC5WrYDHQo2g9B/YUtb+Pd8s+FWXKASKzFy6ZJ75BqW44AkuSG
+	 sqBrrug9CnDekfDAH86tyYR95kPsyaKlzO4KiJEEo/DpBXoeXlQ/lbdd7Za0+xa74E
+	 LVOHjmJo9899Euao0j6Qs4kZ6s/S04p2YIgbrViU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Gil Fine <gil.fine@linux.intel.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 434/484] thunderbolt: Handle lane bonding of Gen 4 XDomain links properly
-Date: Thu, 30 Jul 2026 16:15:31 +0200
-Message-ID: <20260730141432.908938777@linuxfoundation.org>
+Subject: [PATCH 6.6 435/484] thunderbolt: Remove usage of the deprecated ida_simple_xx() API
+Date: Thu, 30 Jul 2026 16:15:32 +0200
+Message-ID: <20260730141432.930648351@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260730141423.392222816@linuxfoundation.org>
 References: <20260730141423.392222816@linuxfoundation.org>
@@ -51,107 +51,156 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Gil Fine <gil.fine@linux.intel.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-[ Upstream commit 36b6ad6ad0350554e611a8cb754ccd40857416a8 ]
+[ Upstream commit dec6a613574cd3dea799170b7aaa8fd76e22f176 ]
 
-Gen 4 links come up as bonded already so we are not supposed to initiate
-lane bonding on them. However, we should still update the port
-structures accordingly. Split these into their own functions to make it
-easier to follow.
+ida_alloc() and ida_free() should be preferred to the deprecated
+ida_simple_get() and ida_simple_remove().
 
-Signed-off-by: Gil Fine <gil.fine@linux.intel.com>
+Note that the upper limit of ida_simple_get() is exclusive, but the one of
+ida_alloc_range()/ida_alloc_max() is inclusive. So a -1 has been added
+when needed.
+
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
 Stable-dep-of: 2c5d2d3c3f70 ("thunderbolt: Prevent XDomain delayed work use-after-free on disconnect")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/thunderbolt/tb.c      |    2 -
- drivers/thunderbolt/xdomain.c |   49 +++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 48 insertions(+), 3 deletions(-)
+ drivers/thunderbolt/domain.c  |    6 +++---
+ drivers/thunderbolt/nhi.c     |    6 +++---
+ drivers/thunderbolt/nvm.c     |    4 ++--
+ drivers/thunderbolt/switch.c  |    6 +++---
+ drivers/thunderbolt/xdomain.c |    4 ++--
+ 5 files changed, 13 insertions(+), 13 deletions(-)
 
---- a/drivers/thunderbolt/tb.c
-+++ b/drivers/thunderbolt/tb.c
-@@ -539,8 +539,6 @@ static void tb_port_unconfigure_xdomain(
- 		usb4_port_unconfigure_xdomain(port);
- 	else
- 		tb_lc_unconfigure_xdomain(port);
--
--	tb_port_enable(port->dual_link_port);
+--- a/drivers/thunderbolt/domain.c
++++ b/drivers/thunderbolt/domain.c
+@@ -321,7 +321,7 @@ static void tb_domain_release(struct dev
+ 
+ 	tb_ctl_free(tb->ctl);
+ 	destroy_workqueue(tb->wq);
+-	ida_simple_remove(&tb_domain_ida, tb->index);
++	ida_free(&tb_domain_ida, tb->index);
+ 	mutex_destroy(&tb->lock);
+ 	kfree(tb);
+ }
+@@ -389,7 +389,7 @@ struct tb *tb_domain_alloc(struct tb_nhi
+ 	tb->nhi = nhi;
+ 	mutex_init(&tb->lock);
+ 
+-	tb->index = ida_simple_get(&tb_domain_ida, 0, 0, GFP_KERNEL);
++	tb->index = ida_alloc(&tb_domain_ida, GFP_KERNEL);
+ 	if (tb->index < 0)
+ 		goto err_free;
+ 
+@@ -413,7 +413,7 @@ struct tb *tb_domain_alloc(struct tb_nhi
+ err_destroy_wq:
+ 	destroy_workqueue(tb->wq);
+ err_remove_ida:
+-	ida_simple_remove(&tb_domain_ida, tb->index);
++	ida_free(&tb_domain_ida, tb->index);
+ err_free:
+ 	kfree(tb);
+ 
+--- a/drivers/thunderbolt/nhi.c
++++ b/drivers/thunderbolt/nhi.c
+@@ -465,7 +465,7 @@ static int ring_request_msix(struct tb_r
+ 	if (!nhi->pdev->msix_enabled)
+ 		return 0;
+ 
+-	ret = ida_simple_get(&nhi->msix_ida, 0, MSIX_MAX_VECS, GFP_KERNEL);
++	ret = ida_alloc_max(&nhi->msix_ida, MSIX_MAX_VECS - 1, GFP_KERNEL);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -485,7 +485,7 @@ static int ring_request_msix(struct tb_r
+ 	return 0;
+ 
+ err_ida_remove:
+-	ida_simple_remove(&nhi->msix_ida, ring->vector);
++	ida_free(&nhi->msix_ida, ring->vector);
+ 
+ 	return ret;
+ }
+@@ -496,7 +496,7 @@ static void ring_release_msix(struct tb_
+ 		return;
+ 
+ 	free_irq(ring->irq, ring);
+-	ida_simple_remove(&ring->nhi->msix_ida, ring->vector);
++	ida_free(&ring->nhi->msix_ida, ring->vector);
+ 	ring->vector = 0;
+ 	ring->irq = 0;
+ }
+--- a/drivers/thunderbolt/nvm.c
++++ b/drivers/thunderbolt/nvm.c
+@@ -330,7 +330,7 @@ struct tb_nvm *tb_nvm_alloc(struct devic
+ 	if (!nvm)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	ret = ida_simple_get(&nvm_ida, 0, 0, GFP_KERNEL);
++	ret = ida_alloc(&nvm_ida, GFP_KERNEL);
+ 	if (ret < 0) {
+ 		kfree(nvm);
+ 		return ERR_PTR(ret);
+@@ -528,7 +528,7 @@ void tb_nvm_free(struct tb_nvm *nvm)
+ 		nvmem_unregister(nvm->non_active);
+ 		nvmem_unregister(nvm->active);
+ 		vfree(nvm->buf);
+-		ida_simple_remove(&nvm_ida, nvm->id);
++		ida_free(&nvm_ida, nvm->id);
+ 	}
+ 	kfree(nvm);
+ }
+--- a/drivers/thunderbolt/switch.c
++++ b/drivers/thunderbolt/switch.c
+@@ -777,7 +777,7 @@ static int tb_port_alloc_hopid(struct tb
+ 	if (max_hopid < 0 || max_hopid > port_max_hopid)
+ 		max_hopid = port_max_hopid;
+ 
+-	return ida_simple_get(ida, min_hopid, max_hopid + 1, GFP_KERNEL);
++	return ida_alloc_range(ida, min_hopid, max_hopid, GFP_KERNEL);
  }
  
- static void tb_scan_xdomain(struct tb_port *port)
+ /**
+@@ -815,7 +815,7 @@ int tb_port_alloc_out_hopid(struct tb_po
+  */
+ void tb_port_release_in_hopid(struct tb_port *port, int hopid)
+ {
+-	ida_simple_remove(&port->in_hopids, hopid);
++	ida_free(&port->in_hopids, hopid);
+ }
+ 
+ /**
+@@ -825,7 +825,7 @@ void tb_port_release_in_hopid(struct tb_
+  */
+ void tb_port_release_out_hopid(struct tb_port *port, int hopid)
+ {
+-	ida_simple_remove(&port->out_hopids, hopid);
++	ida_free(&port->out_hopids, hopid);
+ }
+ 
+ static inline bool tb_switch_is_reachable(const struct tb_switch *parent,
 --- a/drivers/thunderbolt/xdomain.c
 +++ b/drivers/thunderbolt/xdomain.c
-@@ -1903,6 +1903,50 @@ struct device_type tb_xdomain_type = {
- };
- EXPORT_SYMBOL_GPL(tb_xdomain_type);
+@@ -1005,7 +1005,7 @@ static void tb_service_release(struct de
+ 	struct tb_xdomain *xd = tb_service_parent(svc);
  
-+static void tb_xdomain_link_init(struct tb_xdomain *xd, struct tb_port *down)
-+{
-+	if (!down->dual_link_port)
-+		return;
-+
-+	/*
-+	 * Gen 4 links come up already as bonded so only update the port
-+	 * structures here.
-+	 */
-+	if (tb_port_get_link_generation(down) >= 4) {
-+		down->bonded = true;
-+		down->dual_link_port->bonded = true;
-+	} else {
-+		xd->bonding_possible = true;
-+	}
-+}
-+
-+static void tb_xdomain_link_exit(struct tb_xdomain *xd)
-+{
-+	struct tb_port *down = tb_xdomain_downstream_port(xd);
-+
-+	if (!down->dual_link_port)
-+		return;
-+
-+	if (tb_port_get_link_generation(down) >= 4) {
-+		down->bonded = false;
-+		down->dual_link_port->bonded = false;
-+	} else if (xd->link_width > TB_LINK_WIDTH_SINGLE) {
-+		/*
-+		 * Just return port structures back to way they were and
-+		 * update credits. No need to update userspace because
-+		 * the XDomain is removed soon anyway.
-+		 */
-+		tb_port_lane_bonding_disable(down);
-+		tb_port_update_credits(down);
-+	} else if (down->dual_link_port) {
-+		/*
-+		 * Re-enable the lane 1 adapter we disabled at the end
-+		 * of tb_xdomain_get_properties().
-+		 */
-+		tb_port_enable(down->dual_link_port);
-+	}
-+}
-+
- /**
-  * tb_xdomain_alloc() - Allocate new XDomain object
-  * @tb: Domain where the XDomain belongs
-@@ -1953,7 +1997,8 @@ struct tb_xdomain *tb_xdomain_alloc(stru
- 			goto err_free_local_uuid;
- 	} else {
- 		xd->needs_uuid = true;
--		xd->bonding_possible = !!down->dual_link_port;
-+
-+		tb_xdomain_link_init(xd, down);
- 	}
+ 	tb_service_debugfs_remove(svc);
+-	ida_simple_remove(&xd->service_ids, svc->id);
++	ida_free(&xd->service_ids, svc->id);
+ 	kfree(svc->key);
+ 	kfree(svc);
+ }
+@@ -1107,7 +1107,7 @@ static void enumerate_services(struct tb
+ 			break;
+ 		}
  
- 	device_initialize(&xd->dev);
-@@ -2022,6 +2067,8 @@ void tb_xdomain_remove(struct tb_xdomain
- 
- 	device_for_each_child_reverse(&xd->dev, xd, unregister_service);
- 
-+	tb_xdomain_link_exit(xd);
-+
- 	/*
- 	 * Undo runtime PM here explicitly because it is possible that
- 	 * the XDomain was never added to the bus and thus device_del()
+-		id = ida_simple_get(&xd->service_ids, 0, 0, GFP_KERNEL);
++		id = ida_alloc(&xd->service_ids, GFP_KERNEL);
+ 		if (id < 0) {
+ 			kfree(svc->key);
+ 			kfree(svc);
 
 
