@@ -1,149 +1,183 @@
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E9540BCC4;
-	Thu, 30 Jul 2026 11:40:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F7C4189B9
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 11:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785411651; cv=none; b=FeePLCXyPAhT3+sATRQj5Iivh54Y7iNs28R0Dln4tsTQCsh41ydmhTkVPZdAHjL2fbmHTXwLbB0wwig7gR/CjLYwO0UaLTH2raGCyBehd0eSGSJ8yG0W/0gO1dYHJiS6xsupG5cDExS6z01+nDA88ZL3c54fNOL8IDjjh8R+37E=
+	t=1785412150; cv=none; b=OxkMXuC+xJRispZ5x4QIOQIpmYLD36A2hHJK0tP07AXL0cl7aTzkHgX6R5YGFZF9GpIQPlLynWl8nADlpzCRjnHg8ruEjeI5Qv/7VyM7VR1tQVsDmEvB7BVGXfUzP1xTYEh9JQkSR0monlhFJip7pvLe3xSuY5P9J+oCv5ecOtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785411651; c=relaxed/simple;
-	bh=++m2A5f/g1GhI7LD4S7U4F2Oc1KNNWqDYFaeuDOvHZM=;
+	s=arc-20240116; t=1785412150; c=relaxed/simple;
+	bh=cLtGoydpOUFs4P84k117ZJ2hnnXup3ViobVHY8ugcpY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qVjqvprVvklTY+9mmKMgo6mM4OZj8ZnIxeCYTR/HrX/dMJ92GiqX8/d0E/PoBu4T9hoHGo/BHpIpMfU+bhtG8Grp/1K9wyhbm7pP3zS+j3etiYz/qfqWOgi4dKvFOt3dA9vlpRq9oGf0BM3PM9PHZd5KVKAeqAdbeq3J/pb7W94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fourdim.xyz; spf=pass smtp.mailfrom=fourdim.xyz; dkim=pass (2048-bit key) header.d=fourdim.xyz header.i=@fourdim.xyz header.b=GpKyrMKW; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=U+ZpxL2Z; arc=none smtp.client-ip=103.168.172.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fourdim.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fourdim.xyz
+	 MIME-Version; b=CjN/Dd+GAsijwMu+Amxk3uyxgKEbSX28G4TmrFyNdCgSVajZlcBX8W+H8/Gf23og/XeP3phS24lEne3QiWUHF3aoiEuhboL/jFJau05JY8vDnFjM54Haa0D/10IqckG8r8PyQdkPKNPJaUEOjIbQ5Xuc5WJ+QkJLF+hVS2XrPqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jB0BEtUQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fourdim.xyz header.i=@fourdim.xyz header.b="GpKyrMKW";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="U+ZpxL2Z"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id A8DF61400102;
-	Thu, 30 Jul 2026 07:40:48 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Thu, 30 Jul 2026 07:40:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fourdim.xyz; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1785411648;
-	 x=1785498048; bh=2PRH+TiaRNTVck/c7fpAib4XXYBnbYQMJn2aUAaKQuY=; b=
-	GpKyrMKW4lpwiITVCOwUU/8kKq1DfPupVwdznsIHyk8H8yWfdgmV9qHLmY7RysbA
-	iGETRvBYIHW0TE4ay2vUw32p1XaEkrzeS2iXOUaF9v3LHkOIOVOGROWgEUkMJu8o
-	acBkQOwH3pITPJBvD+rVcK0CGsIUTICTvR14q7ic8IW7Guo4ZeyZSp5Q3Fzfn4SL
-	olsNwf7WUrJWD9gT8pI3sLpTpnpaHWAciVB5wLcpEEnPOrD61fWbMtbCRswHlBG2
-	TKzu+toC7U3enSFPjJJRTLKjagYJ78lAcW+UOZipEdWsTWdjAsoVXdTNSqpTf4gQ
-	/DX2Ot/Vry5kA1ySskoJKQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785411648; x=
-	1785498048; bh=2PRH+TiaRNTVck/c7fpAib4XXYBnbYQMJn2aUAaKQuY=; b=U
-	+ZpxL2ZXoYHky/pEshDpBhiRc3UN82IhaxM+bRz/vRmDUZkII9iMd0leP1EQpXgN
-	8fiTKEFrGtBJzXmjGQphEHVIWDg7CDxIZzQrPvhC/Y0FBr0qh26sNSwprboDVYih
-	Bf3nMTEACQ6e7Hq+D+8wMf74pZQrjfZY6IPX6bZBYhrhfeUrHdHDvvM1LW0SLtpS
-	OuH1hkDj6KGZ8nLyITdX2zIjbn5WZPcKCLY4frKL/SMmHCHfHsxZ57AFi5v7ZXzJ
-	+9H6NOkhFggJCgYlydmHdYkcofKvvgljqkCPaYkz7btwqnbc7UlyIvf5lBAC+0Fe
-	tJr5osRtZEHpQDe7H58QA==
-X-ME-Sender: <xms:QDhraknH1QYx-mvslUVCUcehsSjkmL9RPsZGCmTHxaUwCYMemN_UIw>
-    <xme:QDhrasCAz8FfszlCx27aBuHKQGFFR3BPRFjI5KeYkjVKNuwcbgAm24ioukFO5MEFf
-    5umWs7_v6rz2bsblEesDDSMAOG01KQIN8SLiTatmeZv5nfFjNGB8pM>
-X-ME-Received: <xmr:QDhrauMTga3PCBeQHaDmdp1rg81jiiF5Scy6N7q_42WmF6O5ud6Iet3k7xMdPHyY7nkg_AAWTA>
-X-ME-Proxy-Cause: dmFkZTGV6Xa745a9rX5TyYW4BcJ0aXa9Un0vyb2mpcHCGd5FrqrV04PxC8YY5y+e8HpGg7
-    eirwmOCqGe9QgzKm4/lnJz0De9GY4CL6jgx3mrMYA4timNJLBPhy+3aJ3jrVIvhskwTWSa
-    iTl6ICzCDm5voKRGqhAs0fR5+iewTOg70GhxRJG+/HrhrRz1tjOd8KS83o3Ev51xISuyr2
-    u8hMynPZDVMP+hZRaadh+Aw3e0pAMRprtWmBos02IKRGptYcMq+DsI95D6d3mIWevV/nxR
-    h3EhCIbPLuLK/2NObwa/xo4YCImqT4OhZTJ4Rsm7UdpQsp3H9mVomnywQn+00ZSq6KHmFJ
-    7IC6fBTK7QV0IQ98z+Yte6tLIhWjnYv1iN2k7ByQGNiTJ8zmIkq1Z+sVMys1SCSsWG4U7U
-    Xk4RsrKnw28XBu8PsWYNTRXvTBs6RqPJeI9VUpedW60emdWCMQjhTNLrXc9/6AzRTC5rE0
-    //MhY1HsOy3ltrpob03wVBDRD+SNxbHSajBr8+EvdPcvcKfobVdXXGAiTunHeLTHJwBfxQ
-    NdDQEgVeWBk+wt6FLON4k81NiVh5JaIL2xt1GdZQij3aA/JNHe0Z/2umgaId7/Dj5C+J8Q
-    bS+eshGEnlDwqx3YIK5C0aXDF9BkkCN71zw9lDx46cYJQ8lzEY6iPmwKfx5g
-X-ME-Proxy: <xmx:QDhrarPvj2kqoRr6tD_DwwSXgGXk_MUW5gTc9F-a3bMR_C9s8kFG9A>
-    <xmx:QDhraukk9m2ee8avhMyEGvO7068y7jkAwjEzBDvLHo2ksb83hsfZ9w>
-    <xmx:QDhrahvgpwL-F1oWT8zZkYwM7lcKjeuYw3qawg9o2NA6KeN1_RSE7w>
-    <xmx:QDhraprIgce6isqY929WL3mKwRsrllpiYrErQ8Sqke6dOhOAw4Komg>
-    <xmx:QDhrapekmF7YeWY_vQfI87Nf8g3I4O_eWmoRrLy29tm1UAd8lW_9HRU2>
-Feedback-ID: if72e4b10:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 30 Jul 2026 07:40:45 -0400 (EDT)
-From: Siwei Zhang <oss@fourdim.xyz>
-To: netdev@vger.kernel.org
-Cc: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Siwei Zhang <fourdizhang@tencent.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2 1/1] xfrm: use hlist_del_init_rcu for state_cache and state_cache_input
-Date: Thu, 30 Jul 2026 19:40:08 +0800
-Message-ID: <20260730114028.1077499-2-oss@fourdim.xyz>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260730114028.1077499-1-oss@fourdim.xyz>
-References: <20260730114028.1077499-1-oss@fourdim.xyz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jB0BEtUQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A6F11F000E9;
+	Thu, 30 Jul 2026 11:49:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785412148;
+	bh=WMaUBNEqMZT/2DaQoj3AycR7sm7+z5yY1rMpSWTxQ8c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jB0BEtUQu7LYFzCppnH1kH/IOwv2/v8Hbxgv0gOsgJhpJODawdKAd9LGL3RrWgTz7
+	 acZb1LHBr6pq0PJhtLn6X/wlmUaK0Zzy0E8/DqHQze5T7Eh9AwdjQfUXUSn6XpQqd8
+	 4sCEfowBQK01NE2Gt54o1X/q523nX1v3ECbd3Mqe8zE+p7kyoSWMkBc2iSh6JBZasu
+	 zUg1XLVDdN3aumdVwlAO+npYn3pAWvzNowAKdnvfVjakWGnog3YwOdqwhiTfFxho1G
+	 9ES2XexKzQv038qO7ajyecyYGHGHnTVwIYt0efbWkOB/HOIvN5YmkK8aFPmqmTE4pY
+	 SbCMFLKJ22MqQ==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: stable@vger.kernel.org
+Cc: Alice Ryhl <aliceryhl@google.com>,
+	Gary Guo <gary@garyguo.net>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: [PATCH 6.18.y] rust: device: avoid trailing ; in printing macros
+Date: Thu, 30 Jul 2026 13:48:53 +0200
+Message-ID: <20260730114853.70398-1-ojeda@kernel.org>
+In-Reply-To: <2026072907-spearhead-karma-9b2b@gregkh>
+References: <2026072907-spearhead-karma-9b2b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Siwei Zhang <fourdizhang@tencent.com>
+From: Alice Ryhl <aliceryhl@google.com>
 
-Commit 14acf9652e56 ("xfrm: defensively unhash xfrm_state lists in
-__xfrm_state_delete") converted bydst/bysrc/byseq/byspi from
-hlist_del_rcu() to hlist_del_init_rcu() so that a second
-__xfrm_state_delete() on the same object becomes a no-op rather than a
-write through LIST_POISON pprev. It missed state_cache and
-state_cache_input, which kept hlist_del_rcu():
+These macros are used like expressions, so they should not emit a
+semicolon. This is being turned into a hard error in a future release of
+Rust.
 
-- hlist_del_rcu() leaves pprev = LIST_POISON2 (non-NULL), so
-  hlist_unhashed() returns false.
-- hlist_del_init_rcu() leaves pprev = NULL, so hlist_unhashed()
-  returns true.
+    error: trailing semicolon in macro used in expression position
+      --> drivers/gpu/nova-core/firmware/fsp.rs:79:34
+       |
+    79 |                 .inspect_err(|_| dev_err!(dev, "FMC firmware missing '{}' section\n", name))
+       |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       |
+       = warning: this was previously accepted by the compiler but is being phased out; it will become a hard error in a future release!
+       = note: for more information, see issue #79813 <https://github.com/rust-lang/rust/issues/79813>
+       = note: this error originates in the macro `dev_err` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-A second __xfrm_state_delete() therefore enters __hlist_del() on the
-already-deleted state_cache/state_cache_input nodes and does
-WRITE_ONCE(*pprev, next) through LIST_POISON2 — a write use-after-free
-once the slab is reused. The corruption can in turn cause a subsequent
-hlist_for_each_entry_rcu traversal to follow a dangling next pointer,
-producing the read use-after-free reported in xfrm_input_state_lookup().
+[ I was doubly surprised since upstream made it a deny-by-default lint
+  a year ago for Rust 1.91.0, and yet we didn't see it; plus I hadn't
+  seen this in my CI even yesterday.
 
-Switch state_cache and state_cache_input to hlist_del_init_rcu() to
-match the other four lists, closing the write use-after-free and, with
-it, the read use-after-free it spawns.
+  It turns out this just landed into today's nightly (nightly-2026-07-16,
+  using upstream commit d0babd8b6):
 
-Assisted-by: CodeBuddy:GLM-5.2
-Fixes: 0045e3d80613 ("xfrm: Cache used outbound xfrm states at the policy.")
-Fixes: 81a331a0e72d ("xfrm: Add an inbound percpu state cache.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Siwei Zhang <fourdizhang@tencent.com>
+    Link: https://github.com/rust-lang/rust/pull/159222
+
+  which says:
+
+    "The `semicolon_in_expressions_from_macros` lint previously
+     suppressed warnings about non-local macros. This masks
+     a lint that will subsequently become a hard error."
+
+  So that explains it. And this is the PR that will make it a hard error
+  at some point in the future:
+
+    Link: https://github.com/rust-lang/rust/pull/159218
+
+  Thus starting with Rust 1.99.0 (expected 2026-10-01), we will be
+  seeing the deny-by-default lint above, so clean it up already.
+
+    - Miguel ]
+
+Cc: stable@vger.kernel.org # Needed in 6.18.y and later.
+Link: https://github.com/rust-lang/rust/issues/79813
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Acked-by: Danilo Krummrich <dakr@kernel.org>
+Link: https://github.com/rust-lang/rust/pull/159218
+Link: https://github.com/rust-lang/rust/pull/159222
+Link: https://patch.msgid.link/20260716-device-trail-semicolon-v1-1-f48e9dcfae15@google.com
+[ Fixed typo. ]
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+(cherry picked from commit a19bda861b3a79e25417462539df8b0d77c6b322)
+[ Resolved conflict on `dev_printk` by not performing a similar cleanup
+  since it is not strictly needed. - Miguel ]
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- net/xfrm/xfrm_state.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ rust/kernel/device.rs | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
-index 36a4f6793ede..f494c1ac57a4 100644
---- a/net/xfrm/xfrm_state.c
-+++ b/net/xfrm/xfrm_state.c
-@@ -823,9 +823,9 @@ int __xfrm_state_delete(struct xfrm_state *x)
- 		if (!hlist_unhashed(&x->byseq))
- 			hlist_del_init_rcu(&x->byseq);
- 		if (!hlist_unhashed(&x->state_cache))
--			hlist_del_rcu(&x->state_cache);
-+			hlist_del_init_rcu(&x->state_cache);
- 		if (!hlist_unhashed(&x->state_cache_input))
--			hlist_del_rcu(&x->state_cache_input);
-+			hlist_del_init_rcu(&x->state_cache_input);
+diff --git a/rust/kernel/device.rs b/rust/kernel/device.rs
+index 176531f54ed3..a82b1bde1fa8 100644
+--- a/rust/kernel/device.rs
++++ b/rust/kernel/device.rs
+@@ -625,7 +625,7 @@ macro_rules! dev_printk {
+ /// ```
+ #[macro_export]
+ macro_rules! dev_emerg {
+-    ($($f:tt)*) => { $crate::dev_printk!(pr_emerg, $($f)*); }
++    ($($f:tt)*) => { $crate::dev_printk!(pr_emerg, $($f)*) }
+ }
  
- 		if (!hlist_unhashed(&x->byspi))
- 			hlist_del_init_rcu(&x->byspi);
+ /// Prints an alert-level message (level 1) prefixed with device information.
+@@ -651,7 +651,7 @@ macro_rules! dev_emerg {
+ /// ```
+ #[macro_export]
+ macro_rules! dev_alert {
+-    ($($f:tt)*) => { $crate::dev_printk!(pr_alert, $($f)*); }
++    ($($f:tt)*) => { $crate::dev_printk!(pr_alert, $($f)*) }
+ }
+ 
+ /// Prints a critical-level message (level 2) prefixed with device information.
+@@ -677,7 +677,7 @@ macro_rules! dev_alert {
+ /// ```
+ #[macro_export]
+ macro_rules! dev_crit {
+-    ($($f:tt)*) => { $crate::dev_printk!(pr_crit, $($f)*); }
++    ($($f:tt)*) => { $crate::dev_printk!(pr_crit, $($f)*) }
+ }
+ 
+ /// Prints an error-level message (level 3) prefixed with device information.
+@@ -703,7 +703,7 @@ macro_rules! dev_crit {
+ /// ```
+ #[macro_export]
+ macro_rules! dev_err {
+-    ($($f:tt)*) => { $crate::dev_printk!(pr_err, $($f)*); }
++    ($($f:tt)*) => { $crate::dev_printk!(pr_err, $($f)*) }
+ }
+ 
+ /// Prints a warning-level message (level 4) prefixed with device information.
+@@ -729,7 +729,7 @@ macro_rules! dev_err {
+ /// ```
+ #[macro_export]
+ macro_rules! dev_warn {
+-    ($($f:tt)*) => { $crate::dev_printk!(pr_warn, $($f)*); }
++    ($($f:tt)*) => { $crate::dev_printk!(pr_warn, $($f)*) }
+ }
+ 
+ /// Prints a notice-level message (level 5) prefixed with device information.
+@@ -755,7 +755,7 @@ macro_rules! dev_warn {
+ /// ```
+ #[macro_export]
+ macro_rules! dev_notice {
+-    ($($f:tt)*) => { $crate::dev_printk!(pr_notice, $($f)*); }
++    ($($f:tt)*) => { $crate::dev_printk!(pr_notice, $($f)*) }
+ }
+ 
+ /// Prints an info-level message (level 6) prefixed with device information.
+@@ -781,7 +781,7 @@ macro_rules! dev_notice {
+ /// ```
+ #[macro_export]
+ macro_rules! dev_info {
+-    ($($f:tt)*) => { $crate::dev_printk!(pr_info, $($f)*); }
++    ($($f:tt)*) => { $crate::dev_printk!(pr_info, $($f)*) }
+ }
+ 
+ /// Prints a debug-level message (level 7) prefixed with device information.
+@@ -807,5 +807,5 @@ macro_rules! dev_info {
+ /// ```
+ #[macro_export]
+ macro_rules! dev_dbg {
+-    ($($f:tt)*) => { $crate::dev_printk!(pr_dbg, $($f)*); }
++    ($($f:tt)*) => { $crate::dev_printk!(pr_dbg, $($f)*) }
+ }
 -- 
-2.43.7
+2.55.0
 
