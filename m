@@ -1,180 +1,177 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D381043B6F9
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 13:51:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146D62E4257
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 13:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785419494; cv=none; b=cScT39ZmuQXymwCNVVKBqzmMBZVHcJvBLel6FtAHaGOU32QaBkAPujtvebAww92lCroXEandV7T8OP2c7sVFqFQ6aN/wXH+lCPvb6NYbBXco8/n7Bh8+FIs4x005CcOAnq8v3CWdFueet5vhPp76DSVOm95N+2hcF+w0R3wqYzU=
+	t=1785419660; cv=none; b=LBaEA1O6RiCbZk1S2i5O3KxUxXBYtyHU4sgI5tPo0S/gNaCfZ7aaCluuB+ZwL9TU9gYW9zFTLkzaafNTedlthwaqjqN1WCX49gdBEfydon6lKLTBijJlv3PcMoxHDuc/W9xCB7qb1JMH0E+W59KIYE9EG8B5fb9ijBKdkokGuDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785419494; c=relaxed/simple;
-	bh=QB9e6QYTLT37A6LTuNS/sb4KauOL1X5ahdqXD9i1vTI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c1aTJB+mHq5qpdMaLhrW00ZNu+HcyFwQw3BdXTTxya/6e+dYjL4v/WV2x/pdI6AdFavjezz0E+irtQMq1dVrwdW4vMotZMDsVvTw/h8XMHvbXf5SV68KOZicyAIXWKgm6UcipqZOjzFiPKHsQFy+vRlfifguGdU1xcfs1aNUz7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=uo3T4GVU; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1785419660; c=relaxed/simple;
+	bh=2pvjTLH+tIML3s+M4lLTrHNHMzzpuJI2hmt1HTECO7Y=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VuM+bgnCtzVnr/1cgetJkV8HgyjiK5ArHipgV56Ksj4cnoQ4t4B82O2C43t3zfofn7bgNsDAJkJEOXyU1HHxlqpTunb5yhEwwqAd/BWoawCTEQU20ruzL0c710VIhiw1a/iy/TuMnimyZzjB5UsD492Zgsko1MFUuwnsxb0+izU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2Do6rdnG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="uo3T4GVU"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2caed617615so26288245ad.3
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 06:51:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1785419490; x=1786024290; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G5jWHAkfCEMcKnx0C640iI/dheyfGkHjWmoTceE6bKc=;
-        b=uo3T4GVU3p45165NdrOvHzCdF1ZY7+OQ1B8ajEsQEvHQg+pKxWgSndCRmvj1U6T9y9
-         6Ye3R9CnX56eIx82gGd19EgzZEPMn6FSxxPjGktfke6XYpP7yagONplx1MoY/71ydbFT
-         3UpW70J+nmvv5/T1rS87QNWgc/dKwqebH6tdRKzrE/aEZce1QG2jCdTmMiu/D8LC1DCp
-         gEabf5dGdZ2C0Riw2JBV5Saqi20qOm3yauW/dQ8kHa39Xq5j4WM4sJAPfLs45gKNTL4j
-         bSWH9/OYvLwYOvqzkTPpifysFW1ntAqvwrjw0lUikQfC0SU96t7FyTILYzjMIeo1k9YY
-         n1sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785419490; x=1786024290;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G5jWHAkfCEMcKnx0C640iI/dheyfGkHjWmoTceE6bKc=;
-        b=fCmeft9eIGmshMEU4xgdN+BByULzQftTDGarYtoHQldhc1wBMNmo/tEE4FVgctyAQL
-         TyY7eZ3WEIPYbcpsIezU5O6kq+NVpfcmISvGMJhbSY1nSb3q+52IBHM/ujCvkqo2yKX4
-         urrDaxju+jxQQ8pWfIHKzqsR1Q+pmXX4OHkVyKFm0tveC2S+c7C/ixFVsmQJQOZRHwQi
-         qSUeTmuz+289qQZymsBcooro3nSBAUyIblCf7HpytNbxlJffZQfr4u6n/DG0BHYkLTH1
-         SC0aEEAwn7SkuGwRUUflX1Gw4sOjGc15WgaGSbvVmmj7M9bEO74nI+sOQwq7khbCXN/P
-         xg1Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqKFdVA/rgXrcpgzf9kkiCA2b+81Kk9AanXq2ku1ZZz97nd0kHe/0kHxK0GpgZDPDWFC080EO0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx4YNBdpYSfW+pIMANziq9vvYNr6q8R92HxOiJ72mNc2FyUNoaf
-	xYxGWLrt10vTls0/iZRL3V+jg1c0dJugDmCgrA9YI/M3nWlVsAq8iu5QovjCEd8hF3V0575NkT1
-	oZBuRxDzxxQ==
-X-Gm-Gg: AR+sD138s3oZQNOhpC+TyAHeSV9MVf0YP4kNyLSgn+XI+OyzeHu4iJGJIqBcuGkv3+D
-	h3esojF4kj4pyaFFCxZUiVg2E6t8gBfejnRD59W4bFD/WOggdabd5GMmO/OCAiFy2TKcP4luFki
-	fYOuoTGR8B7cvD3sJgep+nZLL7Jzg/rUsAjGVBSC7NISgW6j1UeQ3SGyjWIJ/MFh05PtJmcUR3W
-	7HeMD+GC7ZZjIlI5EEYs0tkbPwl4B4v9PEPjGINbu6AXO4qx0h4a7VKXHx1msS2luzwtI+4A3V+
-	3G9vFm5o8m1QTmBz7WIR4h7eDYRe8r9EMAi9mw1cpPqMQvb/Z4IoLzp3l7XMRPSTGXySDSfJk1k
-	70NwWI9F0odR/YCwGbzhoOmRqWrais9VwLyLWkiVt0f7ul4i8b1Iycpz4fs3c9eFg43a1XT2rT7
-	dsm8pVtReBzdxTD0VaDQZjE0V2GM204Ixu66Lpfzu1SSG7JvFt3n5uNmhRg9Kz6AhCtM8ZjQFoN
-	Yudi1P9
-X-Received: by 2002:a17:903:1b6e:b0:2cf:b330:e0e8 with SMTP id d9443c01a7336-2d035c1c815mr26373215ad.10.1785419489805;
-        Thu, 30 Jul 2026 06:51:29 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022c3721esm27804345ad.77.2026.07.30.06.51.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 06:51:29 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: sagi@grimberg.me,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: michael.christie@oracle.com,
-	martin.petersen@oracle.com,
-	linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] IB/isert: reject full-feature PDUs that arrive before registration
-Date: Thu, 30 Jul 2026 22:51:10 +0900
-Message-ID: <20260730135110.1647384-2-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260730135110.1647384-1-yhlee@isslab.korea.ac.kr>
-References: <20260730135110.1647384-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2Do6rdnG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15A2F1F000E9;
+	Thu, 30 Jul 2026 13:54:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785419658;
+	bh=8kUFm3OpQ1qc8ayxTe/PWsN0Psr+Id1DgTvcZzLKxck=;
+	h=Subject:To:Cc:From:Date;
+	b=2Do6rdnGC4Ivvxl06bSgEqLrPCAYCiCuL9eZ5j3OUbwd5ZjSEdThooiikm8c64Bxi
+	 ruYB6MUekLOsFAzbXef2zhC30s6IE9/2Y8ybUvEUkL2szKFTkYRqykd7BIBT70AYru
+	 T6S2dXIe4DF2p1r7cmF6uF/cjKf74bAxaoDAUWHo=
+Subject: FAILED: patch "[PATCH] rxrpc: Fix irq-disabled in local_bh_enable()" failed to apply to 6.6-stable tree
+To: dhowells@redhat.com,horms@kernel.org,jaltman@auristor.com,kuba@kernel.org,kwqcheii@proton.me,marc.dionne@auristor.com,zhuque@tencent.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 30 Jul 2026 15:54:04 +0200
+Message-ID: <2026073004-doodle-trickery-d104@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-The full-feature receive buffers are posted from isert_put_login_tx(),
-which runs before __transport_register_session().  An initiator that does
-not wait for the final Login Response can therefore still have a SCSI
-command executed against an se_session whose se_tpg is NULL, with the same
-oops as the previous patch.
 
-Move the ISER_CONN_FULL_FEATURE transition into isert_get_rx_pdu(), where
-it happens after the session has been registered, and reinstate the
-connection on any PDU that arrives before it, the same call this function
-already makes when a work completion fails.  The state is read without
-isert_conn->mutex because isert_recv_done() runs on ib-comp-wq; the acquire
-load pairs with the release store so that the session registration
-preceding it is visible.
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Measured over rxe with an initiator that fires SCSI commands into that
-window without waiting for the Login Response, 400 login cycles per run:
-the oops appeared in 7 of 10 runs with only the previous patch applied and
-in 0 of 10 runs with this one on top.  The check fired 22 times across
-those 10 runs, 16 in ISER_CONN_BOUND and 6 in ISER_CONN_TERMINATING, where
-the reinstatement is a no-op because teardown has already latched.
-Well-formed traffic is unaffected: 20 runs of a spec-conforming initiator,
-400 login cycles each, pass with the check never firing.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Fixes: b8d26b3be8b3 ("iser-target: Add iSCSI Extensions for RDMA (iSER) target driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
-v3: unmap login_tx_desc in isert_connect_release() (1/2); make the
-    FULL_FEATURE store a release and the state check an acquire load, and
-    log the value actually tested (2/2).  Both from Sashiko's review of v2.
-    v2: https://lore.kernel.org/all/20260730063124.1554460-1-yhlee@isslab.korea.ac.kr/
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x e4d2878369d590bf8455e3678a644e503172eafa
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026073004-doodle-trickery-d104@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
-Depends on 1/2 and must not be backported without it.
+Possible dependencies:
 
- drivers/infiniband/ulp/isert/ib_isert.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/infiniband/ulp/isert/ib_isert.c b/drivers/infiniband/ulp/isert/ib_isert.c
-index e117cd2e62c9..40290ab4bdb5 100644
---- a/drivers/infiniband/ulp/isert/ib_isert.c
-+++ b/drivers/infiniband/ulp/isert/ib_isert.c
-@@ -956,11 +956,6 @@ isert_put_login_tx(struct iscsit_conn *conn, struct iscsi_login *login,
- 			if (ret)
- 				return ret;
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From e4d2878369d590bf8455e3678a644e503172eafa Mon Sep 17 00:00:00 2001
+From: David Howells <dhowells@redhat.com>
+Date: Thu, 17 Jul 2025 08:43:41 +0100
+Subject: [PATCH] rxrpc: Fix irq-disabled in local_bh_enable()
+
+The rxrpc_assess_MTU_size() function calls down into the IP layer to find
+out the MTU size for a route.  When accepting an incoming call, this is
+called from rxrpc_new_incoming_call() which holds interrupts disabled
+across the code that calls down to it.  Unfortunately, the IP layer uses
+local_bh_enable() which, config dependent, throws a warning if IRQs are
+enabled:
+
+WARNING: CPU: 1 PID: 5544 at kernel/softirq.c:387 __local_bh_enable_ip+0x43/0xd0
+...
+RIP: 0010:__local_bh_enable_ip+0x43/0xd0
+...
+Call Trace:
+ <TASK>
+ rt_cache_route+0x7e/0xa0
+ rt_set_nexthop.isra.0+0x3b3/0x3f0
+ __mkroute_output+0x43a/0x460
+ ip_route_output_key_hash+0xf7/0x140
+ ip_route_output_flow+0x1b/0x90
+ rxrpc_assess_MTU_size.isra.0+0x2a0/0x590
+ rxrpc_new_incoming_peer+0x46/0x120
+ rxrpc_alloc_incoming_call+0x1b1/0x400
+ rxrpc_new_incoming_call+0x1da/0x5e0
+ rxrpc_input_packet+0x827/0x900
+ rxrpc_io_thread+0x403/0xb60
+ kthread+0x2f7/0x310
+ ret_from_fork+0x2a/0x230
+ ret_from_fork_asm+0x1a/0x30
+...
+hardirqs last  enabled at (23): _raw_spin_unlock_irq+0x24/0x50
+hardirqs last disabled at (24): _raw_read_lock_irq+0x17/0x70
+softirqs last  enabled at (0): copy_process+0xc61/0x2730
+softirqs last disabled at (25): rt_add_uncached_list+0x3c/0x90
+
+Fix this by moving the call to rxrpc_assess_MTU_size() out of
+rxrpc_init_peer() and further up the stack where it can be done without
+interrupts disabled.
+
+It shouldn't be a problem for rxrpc_new_incoming_call() to do it after the
+locks are dropped as pmtud is going to be performed by the I/O thread - and
+we're in the I/O thread at this point.
+
+Fixes: a2ea9a907260 ("rxrpc: Use irq-disabling spinlocks between app and I/O thread")
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Jeffrey Altman <jaltman@auristor.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Junvyyang, Tencent Zhuque Lab <zhuque@tencent.com>
+cc: LePremierHomme <kwqcheii@proton.me>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+Link: https://patch.msgid.link/20250717074350.3767366-2-dhowells@redhat.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
+index 376e33dce8c1..df1a618dbf7d 100644
+--- a/net/rxrpc/ar-internal.h
++++ b/net/rxrpc/ar-internal.h
+@@ -1383,6 +1383,7 @@ struct rxrpc_peer *rxrpc_lookup_peer_rcu(struct rxrpc_local *,
+ 					 const struct sockaddr_rxrpc *);
+ struct rxrpc_peer *rxrpc_lookup_peer(struct rxrpc_local *local,
+ 				     struct sockaddr_rxrpc *srx, gfp_t gfp);
++void rxrpc_assess_MTU_size(struct rxrpc_local *local, struct rxrpc_peer *peer);
+ struct rxrpc_peer *rxrpc_alloc_peer(struct rxrpc_local *, gfp_t,
+ 				    enum rxrpc_peer_trace);
+ void rxrpc_new_incoming_peer(struct rxrpc_local *local, struct rxrpc_peer *peer);
+diff --git a/net/rxrpc/call_accept.c b/net/rxrpc/call_accept.c
+index 49fccee1a726..226b4bf82747 100644
+--- a/net/rxrpc/call_accept.c
++++ b/net/rxrpc/call_accept.c
+@@ -406,6 +406,7 @@ bool rxrpc_new_incoming_call(struct rxrpc_local *local,
  
--			/* Now we are in FULL_FEATURE phase */
--			mutex_lock(&isert_conn->mutex);
--			isert_conn->state = ISER_CONN_FULL_FEATURE;
--			mutex_unlock(&isert_conn->mutex);
+ 	spin_unlock(&rx->incoming_lock);
+ 	read_unlock_irq(&local->services_lock);
++	rxrpc_assess_MTU_size(local, call->peer);
+ 
+ 	if (hlist_unhashed(&call->error_link)) {
+ 		spin_lock_irq(&call->peer->lock);
+diff --git a/net/rxrpc/peer_object.c b/net/rxrpc/peer_object.c
+index e2f35e6c04d6..366431b0736c 100644
+--- a/net/rxrpc/peer_object.c
++++ b/net/rxrpc/peer_object.c
+@@ -149,8 +149,7 @@ struct rxrpc_peer *rxrpc_lookup_peer_rcu(struct rxrpc_local *local,
+  * assess the MTU size for the network interface through which this peer is
+  * reached
+  */
+-static void rxrpc_assess_MTU_size(struct rxrpc_local *local,
+-				  struct rxrpc_peer *peer)
++void rxrpc_assess_MTU_size(struct rxrpc_local *local, struct rxrpc_peer *peer)
+ {
+ 	struct net *net = local->net;
+ 	struct dst_entry *dst;
+@@ -277,8 +276,6 @@ static void rxrpc_init_peer(struct rxrpc_local *local, struct rxrpc_peer *peer,
+ 
+ 	peer->hdrsize += sizeof(struct rxrpc_wire_header);
+ 	peer->max_data = peer->if_mtu - peer->hdrsize;
 -
- 			/* Sent from isert_get_rx_pdu() after registration. */
- 			isert_conn->login_rsp_pending = true;
- 			return 0;
-@@ -1327,6 +1322,7 @@ isert_recv_done(struct ib_cq *cq, struct ib_wc *wc)
- 	struct iser_ctrl *iser_ctrl = isert_get_iser_hdr(rx_desc);
- 	uint64_t read_va = 0, write_va = 0;
- 	uint32_t read_stag = 0, write_stag = 0;
-+	enum iser_conn_state state;
+-	rxrpc_assess_MTU_size(local, peer);
+ }
  
- 	if (unlikely(wc->status != IB_WC_SUCCESS)) {
- 		isert_print_wc(wc, "recv");
-@@ -1335,6 +1331,15 @@ isert_recv_done(struct ib_cq *cq, struct ib_wc *wc)
- 		return;
+ /*
+@@ -297,6 +294,7 @@ static struct rxrpc_peer *rxrpc_create_peer(struct rxrpc_local *local,
+ 	if (peer) {
+ 		memcpy(&peer->srx, srx, sizeof(*srx));
+ 		rxrpc_init_peer(local, peer, hash_key);
++		rxrpc_assess_MTU_size(local, peer);
  	}
  
-+	/* A full-feature PDU before registration is a protocol violation. */
-+	state = smp_load_acquire(&isert_conn->state);
-+	if (unlikely(state != ISER_CONN_FULL_FEATURE)) {
-+		isert_err("PDU received in state %d, resetting connection\n",
-+			  state);
-+		iscsit_cause_connection_reinstatement(isert_conn->conn, 0);
-+		return;
-+	}
-+
- 	rx_desc->in_use = true;
- 
- 	ib_dma_sync_single_for_cpu(ib_dev, rx_desc->dma_addr,
-@@ -2598,6 +2603,12 @@ static void isert_get_rx_pdu(struct iscsit_conn *conn)
- 	/* The session is registered by now; see isert_put_login_tx(). */
- 	if (isert_conn->login_rsp_pending) {
- 		isert_conn->login_rsp_pending = false;
-+
-+		mutex_lock(&isert_conn->mutex);
-+		/* Pairs with the acquire in isert_recv_done(). */
-+		smp_store_release(&isert_conn->state, ISER_CONN_FULL_FEATURE);
-+		mutex_unlock(&isert_conn->mutex);
-+
- 		if (isert_login_post_send(isert_conn,
- 					  &isert_conn->login_tx_desc))
- 			return;
--- 
-2.43.0
+ 	_leave(" = %p", peer);
 
