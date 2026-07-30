@@ -1,113 +1,143 @@
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212253F076E
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 17:24:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CAE3921E6;
+	Thu, 30 Jul 2026 17:35:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785432265; cv=none; b=ZE3ynxuUBtKwIayjon5H4sORf1Ebo4ISMVSWO6809Vc4q+rIcgpqsXyn4zMub4LQw9vZc9DuyXUBbukOvPHPpIinOrLvq8VcGSqoBvqi3V0yHoOJsz7flDqY4bYSKnRFs5WMHhoSzuNz9331ATC7UfUtS8zguDt5VtXHmi4nOXo=
+	t=1785432927; cv=none; b=EWZt8BIVQcaTS7WnL+nFcJjBttHp+LNDJ6q5Bd+lT0uMdkC2W1pgQvJw/A/grlLWaVXv1h7oEHXBaiCBXSoNy409AsXvaU3a4a9smdofNJ72NM4X+2c+u1c08CCxkK6w9CREb+AOn5VuYjy59lVmT9U77hCiWUp7409y0MPbyuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785432265; c=relaxed/simple;
-	bh=Bt561/BYlsljphffl0GVHsslSbyVvsEBKuebmKyXk7Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hZ5vIeFhE43vg7NxYWflFP70v7su3T0SbZJhAwMYt4srbq7aSXMmIhrRGzQkPFr4xa4fisz/tLsliMbE/rAdcB1TfdD8WvsS/qFZFa0P7rwpxS582oynBDuW2SA1Rv/9m+yySiy3hd30GrtWhxbosErQqvfBwgUnne5VjAIwI0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gor4KYBz; arc=none smtp.client-ip=209.85.221.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785432927; c=relaxed/simple;
+	bh=HQOwbx8X2P8IdCLGqL545ONojzkVrJ1lwDNVfYBF2c0=;
+	h=Date:To:From:Subject:Message-Id; b=RaMFAfLfAaPAUUCfMvOxmwCvY2thRlDl6JsDX4obqdNvTaJOAuNhTquBm1owFlZBSkTWe4LFbmztXxIHohFX/FcqPnCpW0Ny5UVb+Y1F2KTd0+6T+qARNE2IVCtHYJT2VDSYHYJ5oARdwpi8G2xEm3CP+O8Rk0hBWbuo3+0swi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=1jou75/y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gor4KYBz"
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5c2c46a428eso66484e0c.2
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:24:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="1jou75/y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FC411F000E9;
+	Thu, 30 Jul 2026 17:35:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785432263; x=1786037063; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oDHSPdU7eZliEnYDKkNe6n4EnFUD+dLgVWZ4qb7cmmg=;
-        b=Gor4KYBzwcruO4UU42+8R+RFgVq10yuZYnb1R9zoaUodE3lypaeQGvWaSwdfXT27AA
-         npKlueSkAGIWVfmJNLgXCx0pzMW1Ps4ESsMYiZhebiimv/V1GlW5sI/JKn8dTAY1Qw/W
-         O9/Bi95QhH2IElBr3e48fNN8AmnLNZGwsc3wTjemUjOmYqalCQet2QVpwIDiB0Clxe/W
-         SwBchKDQFye722cwI3wWrHBQopNWtHxGQbOKVF+65kWC3oZqGx38sLjezxmGf7OaCD3b
-         m6iN6Gtb0tlXzxSAxSMHifp/n91tVxoUIkU6eBDDp9FAUiSkJoF34gbR/ZswIBh3H5JX
-         qgeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785432263; x=1786037063;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oDHSPdU7eZliEnYDKkNe6n4EnFUD+dLgVWZ4qb7cmmg=;
-        b=R0Ia4xwBVsXoTJ5JlVouE6EmAG2r/etjiSWOtJ4SjXkNGx7qkMg7B9zf3ED0lG5b2W
-         vGBoO9upnqlbFvTmDAqOVeMBCvJme6S/yb2sKxKUiVkiY5X742gl868Xf7hAzaeeiQHx
-         /TNWq1es5G6QBB+k0KTTxQqcmX7LRQR+iUbL+VLxWHQ2OGBgy9pLe1a7ijdJx2AFS6TW
-         HwGis3Y+Ji9dWLCXrVCGIzwgXMyrtQ79CTJS8XcJxv6haH8HvxuuAFdZWrmrjBhuvrPS
-         ccYu9ElYRHpegqzUt71K9In1h/cQ5/RG70tLswH35hZWMtOKC2khwO2Wrl9ZUUtn03bp
-         hq5g==
-X-Forwarded-Encrypted: i=1; AHgh+Rrd12fYJmYhviJSmRre+3YNOfnJfiCJUOp9f+PjZLuFSoMSCTaND+KVj3WROpgaW37gO0MEj/E=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yww8MNKyS26RQG473JtIw0Z+I0i9sgyp1/OQhhM2UhNnFukymyY
-	WkUYii0Q7xBeJqzctbJ152aYql6FW/A9N0pa7apsWFehlDOohlJype6S
-X-Gm-Gg: AR+sD10wBO9dSTxttJdtY9XnVoev//ze4Et/EHhLR9MH86lYj9dkSsageEdOsa0AypI
-	vE9MIvA9G0LSuupztKqo8DvLSm10bQ0E9LU5ko1/9q3x0JEX/OKJt7FuyUr1UOpYUg9TG1UkfAf
-	7qwkRJZuB2fjnHbkynV6wre7raLnSayiLthj/ftjZ0ITiA3sL7uoD4YKwsOKcsI4fO01IuVRCqS
-	Tx060Zo0fN3v4RJ1erDmVboPDX+CQnFWV3tJ0LKSmsSgN7qUn07XSE/Q7Y0G9OTajECk0P0kyfg
-	qUdaOclo+Z+4T0SCGFD7vvOAg5yya2Fa6k2jh2iN9/x+nNehh4RFHVWtdjwDFkPzK7E4h9AKx7l
-	EXT8mPYbqdkWH4KUbWSazUvy1Ky8YMM8caTpuQXARd8t5mLRyDnRWx27+yk0G5vENQoiALFCXJO
-	Stb5/z2RBhzuseHn3TfKohKiAnU5sqKM25QX/3slokqLlxc/QqNN3MzD/VHNut5pYNcpwOeRiPb
-	jSQ/QuyIN8WyL0=
-X-Received: by 2002:a05:6122:da1:b0:5bd:bcb1:453b with SMTP id 71dfb90a1353d-5c36614578cmr1208498e0c.10.1785432263066;
-        Thu, 30 Jul 2026 10:24:23 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c36655f076sm1972973e0c.5.2026.07.30.10.24.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Jul 2026 10:24:21 -0700 (PDT)
-Message-ID: <51d1d2fa-8064-436a-b0ca-7a65ccdeead9@gmail.com>
-Date: Thu, 30 Jul 2026 10:24:19 -0700
+	d=linux-foundation.org; s=korg; t=1785432925;
+	bh=soMirDxIR8kORKHWOWj9c6KgyI3daJQMD44e9QWhMyY=;
+	h=Date:To:From:Subject;
+	b=1jou75/yBNSlw76VrKTADdStNyQ72cIuerKLiTzxXkjpvqbyoo3Bl6s2xeSz3b9cn
+	 BZfoBlAL6pT8MWxkoGbP0c+G10utHdnJECdtc5fdQevNFkA/umMWcd02H6Ml/bYQ6M
+	 0RONOloEHEcGETsc6+qL+n8wVkgFUpGNUiTuMtmM=
+Date: Thu, 30 Jul 2026 10:35:24 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@kernel.org,hannes@cmpxchg.org,cuitao@kylinos.cn,zhangguopeng@kylinos.cn,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-memcg-stop-reclaim-when-a-limit-update-is-superseded.patch added to mm-unstable branch
+Message-Id: <20260730173525.4FC411F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 000/484] 6.6.148-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260730141423.392222816@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260730141423.392222816@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 7/30/26 07:08, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.148 release.
-> There are 484 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 01 Aug 2026 14:13:41 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.148-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+The patch titled
+     Subject: mm: memcg: stop reclaim when a limit update is superseded
+has been added to the -mm mm-unstable branch.  Its filename is
+     mm-memcg-stop-reclaim-when-a-limit-update-is-superseded.patch
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-memcg-stop-reclaim-when-a-limit-update-is-superseded.patch
+
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: mm: memcg: stop reclaim when a limit update is superseded
+Date: Fri, 24 Jul 2026 10:18:05 +0800
+
+kernfs serializes file operations only per open file, so separate open
+files can update the same memory.high or memory.max file concurrently. 
+Both handlers store the new limit before synchronous reclaim, but continue
+to use the writer's local target in the reclaim loop.  If another writer
+raises or removes the limit, the first writer can continue reclaiming
+toward a stale target.
+
+For memory.max, this can leave the writer looping indefinitely once
+reclaim retries are exhausted.  The OOM path sees sufficient margin under
+the current limit and returns true without killing, while the writer still
+compares usage against its stale target and records another OOM event.
+
+Check the current limit at the start of each reclaim iteration and stop if
+it no longer matches the writer's target.
+
+Reproducer:
+
+Populate a cgroup with anonymous memory and disable swapping.  Lower
+memory.max from one open file, then restore it to "max" through another
+open file after the new limit becomes visible.
+
+Without the patch, the first writer remains blocked and repeatedly
+increments the OOM event counter.  With the patch, it returns normally.
+
+This was not motivated by a reported production workload.  We found it
+through automated randomized testing for our cgroup observability work
+and reduced it to the reproducer above.
+
+Link: https://lore.kernel.org/20260724021805.1234583-1-guopeng.zhang@linux.dev
+Fixes: 8c8c383c04f6 ("mm: memcontrol: try harder to set a new memory.high")
+Fixes: b6e6edcfa405 ("mm: memcontrol: reclaim and OOM kill when shrinking memory.max below usage")
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Acked-by: Tao Cui <cuitao@kylinos.cn>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/memcontrol.c |    6 ++++++
+ 1 file changed, 6 insertions(+)
+
+--- a/mm/memcontrol.c~mm-memcg-stop-reclaim-when-a-limit-update-is-superseded
++++ a/mm/memcontrol.c
+@@ -4837,6 +4837,9 @@ static ssize_t memory_high_write(struct
+ 		unsigned long nr_pages = page_counter_read(&memcg->memory);
+ 		unsigned long reclaimed;
+ 
++		if (high != READ_ONCE(memcg->memory.high))
++			break;
++
+ 		if (nr_pages <= high)
+ 			break;
+ 
+@@ -4892,6 +4895,9 @@ static ssize_t memory_max_write(struct k
+ 	for (;;) {
+ 		unsigned long nr_pages = page_counter_read(&memcg->memory);
+ 
++		if (max != READ_ONCE(memcg->memory.max))
++			break;
++
+ 		if (nr_pages <= max)
+ 			break;
+ 
+_
+
+Patches currently in -mm which might be from zhangguopeng@kylinos.cn are
+
+mm-memcontrol-update-state_local-when-flushing-nmi-stats.patch
+mm-memcg-v1-account-vmpressure-event-allocations.patch
+mm-memcg-v1-fix-wrong-linux-mm-list-address-in-deprecation-warnings.patch
+mm-memcontrol-drop-unused-cpu-argument-from-flush_nmi_stats.patch
+mm-memcontrol-factor-out-memcg-kmem-uncharge-sequence.patch
+mm-memcg-v1-make-mem_cgroup_oom_notify_cb-return-void.patch
+mm-memcg-stop-reclaim-when-a-limit-update-is-superseded.patch
+
