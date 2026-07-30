@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C0B342CB0;
-	Thu, 30 Jul 2026 00:56:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E4454652
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 00:58:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785373009; cv=none; b=NYHTLqa3N1v/jVXyKb0AsgLvb2FAqcd+gQTWo+99/dgTRL/FSlM+Q5Ltuxhp8N2dVdWZ8hDPiJ3OAU/2Xirlfez9u/GthsDdWh+DtRmhdm4yj2VWMVwKkKO46hN+q2Jh55EIjryMdV7Yp/muyGI5yYI1FDONDJufmn+f/Bo+YnM=
+	t=1785373093; cv=none; b=GeiUO/kBZ+ofkEUaA4m+sKTnlHc3ew1dSP3hlgx7RqQMLCZDH4ag/jCuANQNfSMMOG5KH/aupBCshdfq+VZmNuTf/8G+FQlyXEQixaoeqbkI3d2kf7cIRW6DqdfqtbDG6BE6erfowJdShDA5EbGfMaGjn7QNUwF9T79keerkES8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785373009; c=relaxed/simple;
-	bh=DtkxkiD9A478HEY8qXBW9Yqy+UvCCvranmkM2sYBcAs=;
+	s=arc-20240116; t=1785373093; c=relaxed/simple;
+	bh=WbTInzwNHgU5dNMRWotWvNRiIP07OktVFNYiS/0yRXQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GoyPCiphUCtV1rv68xXIzeaTzsLLao2mS2Xxg94dy+4QEBPce4S3aQb4aw5U57DyumoBZRcfyAu4QTx9jes0CnYnwJ2A/IFiFyc00WCcdvo8GBBjvAbkfCL7EVpJGdipZbySkIC8V4XaW5Yv4nnXb4RyXnpb8F5x4apxq8LXPkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AohHDmMV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=W8WgNPOOjWQmQfe2vO+kxmu+OWazva7nduL3WVyrwnj0XX0eHf0GVKxnx9SkAxfC/8uPvhPckOQDZlWBoT2j2WwdkA5CV/CVRTn5HFujRsr6S4n733h3cqkw6L6cMbt2y0ioWHnMAPkY/72RDO3ysTf0W2KY5yLkeRulmy3lQK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bt8d7NEd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AohHDmMV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AADD1F000E9;
-	Thu, 30 Jul 2026 00:56:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bt8d7NEd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 913F31F000E9;
+	Thu, 30 Jul 2026 00:58:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785373007;
-	bh=zt4XsvfQmoUsuB3jF9FwECnRMx4GfwPVJ6if8Bh+4z0=;
+	s=k20260515; t=1785373092;
+	bh=Xzwb1V0py9vR7piiS7xNnpByp3q3smSV3he6w3MTjPI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AohHDmMVSo8qU5+ckSCrVwDDNg+tvVhiZXMRDvyWcVXTM80+54bbS9p931iQFK2+A
-	 68Kc/DC+QapwNlrQd0aJF849XvRiXg0ybsM4lafKn3w3bb+0PDybGOrzgN3Qape5Uk
-	 AOkl0HkC8SiqoC3caTnbRbxdyc3pPgu4S6gF7qDIIAdRs2VuyBkyeskVVbvg3bhpLM
-	 lN5eAgQ2U3YDCoKcIzMPJ0VCAg2VoOzpO30EoNODHtnkVfQwlwKH/zrifSsgBGyvJj
-	 /65C9E7dQjw0hTcCXONLr49PuV2W/8ed4X56BRY6u60x+TKzz4HL3ReZUpBmICRSYP
-	 t22JHVQNHNxMw==
-From: SJ Park <sj@kernel.org>
+	b=bt8d7NEdQm4d/JZ4d0x09cFjpFzaEkYxCyXSnU5MfPVnyyAPQ5wf1ONnDXEMvwT4O
+	 LsatXdKpisIx6f+KzHb9mV8GJlQznEW6HnXdZKUBMTmyaeUrQhQVvlLJrWdkV4Wepp
+	 ZM948QHqPqjMAfxHjSYqXABcRTk/rpODN6dgIzxtCKVTDVDmR+qkyU36Ys76aw6/W+
+	 hGe2r5JpSFcdwOowVzG9+QIVzWBZcV6KXEwEhtWyswoZWO5TR5zBcQTCGyDH/Aln2P
+	 GJ7waZlGoyTKEzK0zXCcS+dfKOknj2w3zNw9e5sQWZkyKJDoS3u8QgozkFI32Ce7Hf
+	 zAqTwI333No8A==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: damon@lists.linux.dev,
-	SJ Park <sj@kernel.org>,
-	Yang yingliang <yangyingliang@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.12.y] mm/damon/core: validate ranges in damon_set_regions()
-Date: Wed, 29 Jul 2026 17:56:39 -0700
-Message-ID: <20260730005639.108842-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026072900-emit-mortified-8331@gregkh>
-References: <2026072900-emit-mortified-8331@gregkh>
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] Bluetooth: Remove usage of the deprecated ida_simple_xx() API
+Date: Wed, 29 Jul 2026 20:58:08 -0400
+Message-ID: <20260730005809.1696206-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072135-skiing-jawline-cb0b@gregkh>
+References: <2026072135-skiing-jawline-cb0b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,60 +45,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DAMON core logic assumes zero length regions don't exist.  However, a few
-DAMON API callers including DAMON_SYSFS, DAMON_RECLAIM and DAMON_LRU_SORT
-allow users to set empty monitoring target regions.  This could result in
-WARN_ONCE() on CONFIG_DAMON_DEBUG_SANITY enabled kernel, and
-divide-by-zero from damon_merge_two_regions().
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-For example, the WANR_ONCE() can be triggered like below.
+[ Upstream commit 9c16d0c8d93e3d2a95c5ed927b061f244db75579 ]
 
-    # grep DAMON_DEBUG_SANITY /boot/config-$(uname -r)
-    # CONFIG_DAMON_DEBUG_SANITY=y
-    # damo start
-    # cd /sys/kernel/mm/damon/admin/kdamonds/0
-    # echo 0 > contexts/0/targets/0/regions/0/start
-    # echo 0 > contexts/0/targets/0/regions/0/end
-    # echo commit > state
-    # dmesg
-    [....]
-    [   73.705780] ------------[ cut here ]------------
-    [   73.707552] start 0 >= end 0
-    [   73.708452] WARNING: mm/damon/core.c:359 at damon_new_region+0x6e/0x80, CPU#1: kdamond.0/758
-    [...]
+ida_alloc() and ida_free() should be preferred to the deprecated
+ida_simple_get() and ida_simple_remove().
 
-All DAMON API callers eventually use damon_set_regions() to setup the
-regions.  Add the validation logic in the function.
+Note that the upper limit of ida_simple_get() is exclusive, but the one of
+ida_alloc_max() is inclusive. So a -1 has been added when needed.
 
-Link: https://lore.kernel.org/20260630035221.146458-1-sj@kernel.org
-Fixes: 43b0536cb471 ("mm/damon: introduce DAMON-based Reclamation (DAMON_RECLAIM)")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: Yang yingliang <yangyingliang@huawei.com>
-Cc: <stable@vger.kernel.org> # 5.16.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit 1292c0ecb1caefb8ca064a3639d5673991e8810c)
-Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Stable-dep-of: 84a4bb6548a2 ("Bluetooth: HCI: Remove HCI_AMP support")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/damon/core.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ net/bluetooth/hci_core.c | 9 +++++----
+ net/bluetooth/hci_sock.c | 4 ++--
+ 2 files changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 7911599c37f22..7217bb2ef51ec 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -214,6 +214,12 @@ int damon_set_regions(struct damon_target *t, struct damon_addr_range *ranges,
- 	unsigned int i;
- 	int err;
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 6a69b85c1c7fce..00f813cae68c99 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -2596,10 +2596,11 @@ int hci_register_dev(struct hci_dev *hdev)
+ 	 */
+ 	switch (hdev->dev_type) {
+ 	case HCI_PRIMARY:
+-		id = ida_simple_get(&hci_index_ida, 0, HCI_MAX_ID, GFP_KERNEL);
++		id = ida_alloc_max(&hci_index_ida, HCI_MAX_ID - 1, GFP_KERNEL);
+ 		break;
+ 	case HCI_AMP:
+-		id = ida_simple_get(&hci_index_ida, 1, HCI_MAX_ID, GFP_KERNEL);
++		id = ida_alloc_range(&hci_index_ida, 1, HCI_MAX_ID - 1,
++				     GFP_KERNEL);
+ 		break;
+ 	default:
+ 		return -EINVAL;
+@@ -2698,7 +2699,7 @@ int hci_register_dev(struct hci_dev *hdev)
+ 	destroy_workqueue(hdev->workqueue);
+ 	destroy_workqueue(hdev->req_workqueue);
+ err:
+-	ida_simple_remove(&hci_index_ida, hdev->id);
++	ida_free(&hci_index_ida, hdev->id);
  
-+	for (i = 0; i < nr_ranges; i++) {
-+		if (ALIGN_DOWN(ranges[i].start, DAMON_MIN_REGION) >=
-+				ALIGN(ranges[i].end, DAMON_MIN_REGION))
-+			return -EINVAL;
-+	}
-+
- 	/* Remove regions which are not in the new ranges */
- 	damon_for_each_region_safe(r, next, t) {
- 		for (i = 0; i < nr_ranges; i++) {
+ 	return error;
+ }
+@@ -2787,7 +2788,7 @@ void hci_release_dev(struct hci_dev *hdev)
+ 	hci_dev_unlock(hdev);
+ 
+ 	ida_destroy(&hdev->unset_handle_ida);
+-	ida_simple_remove(&hci_index_ida, hdev->id);
++	ida_free(&hci_index_ida, hdev->id);
+ 	kfree_skb(hdev->sent_cmd);
+ 	kfree_skb(hdev->recv_event);
+ 	kfree(hdev);
+diff --git a/net/bluetooth/hci_sock.c b/net/bluetooth/hci_sock.c
+index e7ec68fa3ad3c5..b818abbf871e79 100644
+--- a/net/bluetooth/hci_sock.c
++++ b/net/bluetooth/hci_sock.c
+@@ -101,7 +101,7 @@ static bool hci_sock_gen_cookie(struct sock *sk)
+ 	int id = hci_pi(sk)->cookie;
+ 
+ 	if (!id) {
+-		id = ida_simple_get(&sock_cookie_ida, 1, 0, GFP_KERNEL);
++		id = ida_alloc_min(&sock_cookie_ida, 1, GFP_KERNEL);
+ 		if (id < 0)
+ 			id = 0xffffffff;
+ 
+@@ -119,7 +119,7 @@ static void hci_sock_free_cookie(struct sock *sk)
+ 
+ 	if (id) {
+ 		hci_pi(sk)->cookie = 0xffffffff;
+-		ida_simple_remove(&sock_cookie_ida, id);
++		ida_free(&sock_cookie_ida, id);
+ 	}
+ }
+ 
 -- 
-2.47.3
+2.53.0
 
