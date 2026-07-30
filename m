@@ -1,58 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FECB38DC50;
-	Thu, 30 Jul 2026 14:47:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB3F411A09;
+	Thu, 30 Jul 2026 14:47:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785422830; cv=none; b=ZY84L2YD/F2MLdHtc3ZB9uZskShkMfngSNocgWBBis3ThPAMNj4QNw/vyVgpldtzU5S9Ffllt/EtU6dpz6+DzQATO6yhFlst/7VpE/OrROy9UOj5RfIpJyPzFy5+icw+qwcoyMp8mr2m3+gz6zCvR4J7A6J5P54VKIiqvcAxzVU=
+	t=1785422831; cv=none; b=giMdKSDXmBZdo/RZdgwRWyBKTazz5YGPw9AtBLAQ5r1+Eu2ftOnjWN0lxUnrAI6ozQctrSVw1KrJlyEgDWYlKDnkBPtbh9QqwTcMPCDsAM6zccDBV5qDMHsOmz9pHNW1nXdSpP+V4jziUFx6i3G/C0XP4Qnm9z2IKfyOUn6UE0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785422830; c=relaxed/simple;
-	bh=kUE5i8p9QVvzL+XnMimLV4JyGsBzaWMnWl8xmyuYB6Y=;
+	s=arc-20240116; t=1785422831; c=relaxed/simple;
+	bh=E1+nx/5I2izLFjMHQscE6/U3a/nEwlCYsNJFMrm02ds=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=id5ozh6/mI002keyYPpToWQvTplYVr0p1VmLgzHX6cYWGK45bSWBzy9HXM+wMDLAnsC6hTNEy0CI36r41aWHw0eRToV1iyDiyuwul57QTJijKDc067NnxsZKe3F0tAgSiaD1qjrpym6quLRSUpwkh6MDgOr7jeFdgGf0ExHksA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eWtQDiQp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TzGQUTWkCMK/Vw+zYUH7w1v8km677naE2OQjcD1APsx+XjFT39MYcWR9LBseN62xYTIzagSZDq5m3hAGWqs/XvZjzB/B5zTbzq6fUQ4usYAEgVFfnaEnXqMRr9cZoRuBPu8PRiNg1htidG6lj773yQ4/ElT0p2sqfohkVVd8t6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UFeDPHcx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eWtQDiQp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F66C1F00A3A;
-	Thu, 30 Jul 2026 14:47:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785422828;
-	bh=FYx9PFFHsxsK0B8I6N6sUGEP6tsXyBn7+dYN7OyFtFg=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UFeDPHcx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1312A1F000E9;
+	Thu, 30 Jul 2026 14:47:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785422830;
+	bh=SpUeO1B6dcjLHYx5eAtQNbZWSxbyNxMqBgGXgqQtpSA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eWtQDiQpWc/KiRV8lRfmdpMx9GkYxDg3FajW9zcGCjORaFy6CYcZMtzQRqc5ZG997
-	 kfu2uFc/MAXvZeSwYxAFxrynCsnYsgvXadTYodCOU3kiejfURLUz5IWZ1ZP9oqdZD6
-	 iGnDR71fjIqg55V/PLWIMBNaoYPyhuONESsahmi6wOflm7/fo5bP6Rs3U/LlbyaGCt
-	 D9/mB5Y/HgK0t7nmAalFwtdOw9iaaBprLSXbf6QulQWW/8t5vm0bFfMcc6hS0zMP5J
-	 5eyJ88Mnz/KpjNIXJGwylPnQP0UP/GYezFea5buBsQ+eHa3DweQyKSHnijSVP8F6MS
-	 lJm5qu2jjT+tA==
-From: Simon Horman <horms@kernel.org>
-To: xiexinet@gmail.com
-Cc: Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	andrew+netdev@lunn.ch,
-	shuah@kernel.org,
-	kees@kernel.org,
-	petr.wozniak@gmail.com,
-	qingfang.deng@linux.dev,
-	fmaurer@redhat.com,
-	luka.gejak@linux.dev,
-	bigeasy@linutronix.de,
-	xiaoliang.yang_1@nxp.com,
-	skhawaja@google.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2 1/4] net: hsr: fix packet drops caused by GRO superpackets
-Date: Thu, 30 Jul 2026 15:46:53 +0100
-Message-ID: <20260730144653.147367-1-horms@kernel.org>
+	b=UFeDPHcxSufAnauCsXv7xVK7x6dLrc62BjReS2N2XNFP2okZawfOMoJ9l3BBfV7Ji
+	 b/lH5AJHi3dxw9OfyJ4o1V3z3i2bKKcu4KgneobPSygBo5zfv09pbl9S5n5+Ud7oR6
+	 Ldzsx6BBe8NVtlnBgnFSqnqffWVRBVcl3wvKtOeQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Haoran Jiang <jianghaoran@kylinos.cn>,
+	Huacai Chen <chenhuacai@loongson.cn>
+Subject: [PATCH 7.1 571/744] LoongArch: Fix oops during single-step debugging
+Date: Thu, 30 Jul 2026 16:14:04 +0200
+Message-ID: <20260730141456.422203604@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260724161253.79-2-xiexinet@gmail.com>
-References: <20260724161253.79-2-xiexinet@gmail.com>
+In-Reply-To: <20260730141444.267951807@linuxfoundation.org>
+References: <20260730141444.267951807@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -61,59 +46,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://sashiko.dev/#/patchset/20260724161253.79-2-xiexinet@gmail.com?part=1
+7.1-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: Haoran Jiang <jianghaoran@kylinos.cn>
+
+commit 73555fdab5e1e4f24ca000c41a616b34edf4b55d upstream.
+
+When entering KDB via a breakpoint and then performing single-step
+debugging, an oops is triggered. Now during single-step debugging,
+kdb_local() expects the reason to be KDB_REASON_SSTEP, but it is
+actually KDB_REASON_OOPS. In kdb_stub(), when determining the reason,
+the ex_vector for single-step should be 0, as already implemented on
+other architectures such as arm64 and riscv.
+
+Before the patch:
+[112]kdb> ss
+
+Entering kdb (current=0x900020009f520000, pid 10661) on
+processor 112 Oops: (null)
+due to oops @ 0x90000000005b57a4
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Haoran Jiang <jianghaoran@kylinos.cn>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
---- Patch [1]: [PATCH net v2 1/4] net: hsr: fix packet drops caused by GRO superpackets ---
-commit b386202ef95164a9e68085058531ac441d9df79d
-Author: Xin Xie <xiexinet@gmail.com>
+ arch/loongarch/kernel/kgdb.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-net: hsr: fix packet drops caused by GRO superpackets
+--- a/arch/loongarch/kernel/kgdb.c
++++ b/arch/loongarch/kernel/kgdb.c
+@@ -252,7 +252,8 @@ static int kgdb_loongarch_notify(struct
+ 	if (atomic_read(&kgdb_active) != -1)
+ 		kgdb_nmicallback(smp_processor_id(), regs);
+ 
+-	if (kgdb_handle_exception(args->trapnr, args->signr, cmd, regs))
++	if (kgdb_handle_exception(regs->csr_era == stepped_address ? 0 : args->trapnr,
++				  args->signr, cmd, regs))
+ 		return NOTIFY_DONE;
+ 
+ 	if (atomic_read(&kgdb_setting_breakpoint))
 
-This commit fixes HSR/PRP packet drops by preventing lower devices from
-aggregating frames into GRO super-packets. It adds dev_disable_gro() and
-netif_disable_gro() functions and calls them during HSR port setup.
 
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index 5933c5dab09ee..a6cf2adc86256 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-
-[ ... ]
-
-> @@ -1840,6 +1840,24 @@ void netif_disable_lro(struct net_device *dev)
->  	}
->  }
->  
-> +void netif_disable_gro(struct net_device *dev)
-> +{
-> +	struct net_device *lower_dev;
-> +	struct list_head *iter;
-> +
-> +	dev->wanted_features &= ~(NETIF_F_GRO | NETIF_F_GRO_HW);
-
-[Severity: High]
-Does this one-time modification of wanted_features prevent userspace from
-subsequently re-enabling GRO?
-
-Since NETIF_F_GRO and NETIF_F_GRO_HW are not included in the
-NETIF_F_UPPER_DISABLES macro definition in include/linux/netdev_features.h,
-would netdev_sync_upper_features() and netdev_sync_lower_features() fail
-to enforce the disabled state on lower devices during features recalculation?
-
-Could an administrator run ethtool -K eth0 gro on (or add a new physical
-device to an intermediate upper device already enslaved to HSR) to bypass
-this restriction and cause the HSR packet drops to resurface?
-
-> +	netdev_update_features(dev);
-> +
-> +	if (unlikely(dev->features & (NETIF_F_GRO | NETIF_F_GRO_HW)))
-> +		netdev_WARN(dev, "failed to disable GRO!\n");
-> +
-> +	netdev_for_each_lower_dev(dev, lower_dev, iter) {
-> +		netdev_lock_ops(lower_dev);
-> +		netif_disable_gro(lower_dev);
-> +		netdev_unlock_ops(lower_dev);
-> +	}
-> +}
