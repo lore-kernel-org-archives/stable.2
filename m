@@ -1,58 +1,59 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A3E3161BF
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 00:47:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB0F2DB791
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 00:48:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785372467; cv=none; b=glsQLCab+5cvYRmtjngt8LaT0tDG0VT7whqFPM5QYLet6iG9pHXRtbk+lLw8w5RzAXn8isZYkcPd3x2MGVef9w099U1SK/Ucv3/Z8BOn2NYxB0ERoMdKNzIFdZpAArrdQtAg0wYjoXd01vLIpXu8NANc7ivBz6XaqoItbVPucbs=
+	t=1785372484; cv=none; b=U9m49wiSTa6Zjki2E3Katb2JEP26fOrBjt41jOhxXXrbj0SQCECXapdactOiNBmslqmqCFw7pGmcmhbCLOnWuGTayDDfbl1O6/hIqMEaFpGQKEF6wpT2JZMY6aV30SiMrPxnikNw8VUEpmdowa01tBezOzUmPy4aaUUe4mzkJgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785372467; c=relaxed/simple;
-	bh=0nstxKOPdS3ODtmDh5MBXpA3KCXgZuMU0AF34DzETs4=;
+	s=arc-20240116; t=1785372484; c=relaxed/simple;
+	bh=LiVRcBLcwM9vAPBGawgBNt9x7E5i1I1e/jKXZgphzOA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a7BbMOtCJwCo9vSyvSD9M4fW+AGLa4w0dY3+6skggbXTZmeLfd0Q2XyVcpN9BAA13qEJxQMoo0lOo/EptYJfB1JgpMW3DYiS8OoLdJ1pIhl+/0XNwVWOtQt2O3UzH940Hhgk1GoMTPV7GPDcT1vk8X5VTZ1jusyvxTeTe8TRh4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XtA632ma; arc=none smtp.client-ip=198.175.65.19
+	 MIME-Version; b=Zfhx2LznGWQ2H+DTgmXNfqy1kIZXh5AFmD8VNgd/e6eg6Xj3Mv7hPuPGGg64r3EE29kcthMI9XghnVcZqEkdRMrfT39skCtlUDTyMPAR2gf4ZvxME5f6P7ZhKQQ76PGT8NAqEx/VM+94qMnOXu9g6FivCrH1pS1ze8vb3unEmhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BD5NyOSn; arc=none smtp.client-ip=198.175.65.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XtA632ma"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BD5NyOSn"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785372465; x=1816908465;
+  t=1785372482; x=1816908482;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=0nstxKOPdS3ODtmDh5MBXpA3KCXgZuMU0AF34DzETs4=;
-  b=XtA632maG+e1ENU7Sv5qx2Z2zzWpdRJFH70cF1hqv7r6MocUGvroQMWU
-   NhBy0qT5+C4f0RM7EormK1YSs4pd+cXrMoYLXruGuuh2I4/1zD1Ut3OmE
-   F2MktDJOmtt7R//iJaqQhfW/ziJ6NOSCH2faAVwrHjJxxj4ITX0vkJ7GC
-   swypT5WUQl8PGp6D8pGkPwqXIWjOH3lN0VXk8I6zehGKES2vLoCmLWsYl
-   pWGq1dqdiRkq9AmKQDC12MOxSr2iHzcEQEK7oPV+iW/9B1tes8w6dbnqH
-   ywSLzIT0lkDw9USUshTWuYrGmAF8ZWjtXU/mKZ/meuo39nS5RFv1Xk6NY
-   g==;
-X-CSE-ConnectionGUID: hfXbnspmTXavNn5b+LX9iA==
-X-CSE-MsgGUID: goWMVFmoS5iIEWp/aq0f2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85935326"
+  bh=LiVRcBLcwM9vAPBGawgBNt9x7E5i1I1e/jKXZgphzOA=;
+  b=BD5NyOSnu+ZIBIIWYwcuRRVpgtvzsnR14DkH+6FJCustKnyMde5JbQj0
+   Bqua89NnZ1fbBfMqnPUXpLJg8wRivORqQcjIclDkXKmpbzdJ3gHhSqJCm
+   op30z1pbTf9Kn9R6UCvXh0QlcBCGO4YBmPTXs70rHNu/0VzGI7GLYSvZe
+   gMQ+eUx6TBy4gGIC17OCueiMEopoqEIaZnXDVWEL1WJOKJ/PhrGHmBqqI
+   1jJQHAYSypp9PIxVEmHkgx2d2XAbseUVw6y6Udh52G4CBfN9puuiQZSsy
+   Nr7RraPNIygO89arfwqIrmyAMv3GSQeFJa6uz+ZXs4dNbVKnNNpDrBsUl
+   Q==;
+X-CSE-ConnectionGUID: jdCAIaOAQJKhj9iRQvUx7Q==
+X-CSE-MsgGUID: R9kO2/kFRiW9imHkS63LcA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85935344"
 X-IronPort-AV: E=Sophos;i="6.25,193,1779174000"; 
-   d="scan'208";a="85935326"
+   d="scan'208";a="85935344"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jul 2026 17:47:44 -0700
-X-CSE-ConnectionGUID: UXHUikiVRGKaIRB5hXkUQg==
-X-CSE-MsgGUID: JvgPKOLMS6+Feq60BRUUXw==
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jul 2026 17:48:01 -0700
+X-CSE-ConnectionGUID: qoajePhaQU2H4kVdnP7wBA==
+X-CSE-MsgGUID: CRWefjceR5yxUqDRnIp3BQ==
 X-ExtLoop1: 1
 Received: from unknown (HELO DUT6094BMGFRD.fm.intel.com) ([10.80.55.54])
-  by fmviesa003.fm.intel.com with ESMTP; 29 Jul 2026 17:47:44 -0700
+  by fmviesa003.fm.intel.com with ESMTP; 29 Jul 2026 17:48:01 -0700
 From: Jia Yao <jia.yao@intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: matthew.auld@intel.com,
 	gwan-gyeong.mun@intel.com,
 	stable@vger.kernel.org,
 	Jia Yao <jia.yao@intel.com>
-Subject: [PATCH v4 0/1] drm/xe/guc_ads: allocate UM queues in a separate UC BO
-Date: Thu, 30 Jul 2026 00:47:32 +0000
-Message-ID: <20260730004735.344627-1-jia.yao@intel.com>
+Subject: [PATCH v4 1/3] drm/xe/guc_ads: allocate UM queues in a separate BO
+Date: Thu, 30 Jul 2026 00:47:33 +0000
+Message-ID: <20260730004735.344627-2-jia.yao@intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260722053410.2767369-1-jia.yao@intel.com>
+In-Reply-To: <20260730004735.344627-1-jia.yao@intel.com>
 References: <20260722053410.2767369-1-jia.yao@intel.com>
+ <20260730004735.344627-1-jia.yao@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -61,117 +62,206 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-== Problem ==
+xe_guc_ads_populate() calls xe_map_memset() on the ADS BO on every GT
+reset.  The UM queue ring buffers were embedded in that same BO, so the
+memset discards fault descriptors already written by the GPU, causing
+GuC to forward an all-zero descriptor (Faulted Address = 0, ASID = 0).
 
-On platforms with Unified Shared Memory (USM), the xe driver maintains
-three hardware page-fault queues (PAGE_FAULT, PAGE_FAULT_RESPONSE,
-ACCESS_COUNTER) inside the GuC Additional Data Structures (ADS) blob.
-The ADS blob is mapped WB on the CPU side.
+Move the UM queue ring buffers into a dedicated BO so they are not
+affected by the ADS memset.
 
-xe_guc_ads_populate() is called on every GT reset to reprogram the ADS
-blob; it begins with a full memset() of the blob to zero.  The zeroed
-cache lines for the UM queue region reside in the CPU cache (LLC, WB)
-but are not immediately written back to DRAM.
+Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Jia Yao <jia.yao@intel.com>
+---
+ drivers/gpu/drm/xe/xe_guc.c           |  6 ++
+ drivers/gpu/drm/xe/xe_guc_ads.c       | 98 ++++++++++++++++++++-------
+ drivers/gpu/drm/xe/xe_guc_ads_types.h |  5 ++
+ 3 files changed, 84 insertions(+), 25 deletions(-)
 
-GAM hardware writes fault descriptors to the queue via DPA - a
-non-coherent path that bypasses the CPU cache and writes directly to
-memory.  GuC reads the queue via GGTT (WB), which hits the CPU cache.
-As a result GuC sees the stale zeroed data from the CPU cache instead
-of the descriptor written to DRAM by GAM.  The driver then receives an
-all-zero fault descriptor and returns -EINVAL, causing an unnecessary
-engine reset.
-
-This is documented in HSD as:
-  "When Fault queue is updated by the SW (Buffer zeroed), it can reside
-   in the CPU cache (L4:WB). A non coherent write from GAM HW would not
-   consult the CPU cache and it will eventually get written into the
-   memory (depends upon eviction/flushes) and CPU cache has stale data.
-   When GUC HW reads the fault queue it gets it from the CPU cache,
-   which is stale data."
-
-The window is narrow but reliably reproducible: run xe_exec_reset
---run-subtest gt-reset followed immediately by
-xe_exec_system_allocator --run-subtest
-threads-many-execqueues-mmap-new-race.
-
-== Reproduction ==
-
-  # Requires a platform with has_usm (e.g. Xe3 iGFX)
-  sudo xe_exec_reset --run-subtest gt-reset
-  sudo xe_exec_system_allocator --run-subtest threads-many-execqueues-mmap-new-race
-
-  Symptom in dmesg:
-    [xe] ASID: 0, Faulted Address: 0x0000000000000000, FaultType: 0
-
-  The all-zero fault descriptor is the tell-tale sign of the stale
-  cache line race.
-
-== Fix ==
-
-Allocate the UM queues in a dedicated UC BO (ads->um_queue_bo).  UC
-mapping on the CPU side ensures the memset bypasses the cache and the
-zeroed data lands in DRAM immediately.  GuC's non-coherent read then
-goes to DRAM and sees the correct descriptor written by GAM.
-
-A separate BO also eliminates the secondary race where a descriptor
-written by the GPU between GDRST and GuC restart could be zeroed by the
-next call to xe_guc_ads_populate().
-
-On dGFX, VRAM placement is used so that xe_bo_main_addr() returns a
-real device-physical address (DPA).  The original ADS BO is explicitly
-migrated to VRAM by xe_guc_realloc_post_hwconfig(), so its
-xe_bo_main_addr() already returns a correct DPA.  A separate SYSTEM BO
-for the UM queues would not go through that migration path; on systems
-where physical pages are allocated above 4 GB the IOMMU assigns an IOVA
-that differs from the physical address, so base_dpa would be wrong and
-GuC/GAM would access the wrong memory.
-
-Why not just flush the cache after memset?
-
-An earlier approach called drm_clflush_virt_range() on the UM queue
-region immediately after the memset to evict the stale zero lines from
-LLC.  This reduces the failure rate significantly but does not fully
-eliminate the race for two reasons.
-
-First, the Linux kernel maintains a WB direct mapping (linear map) that
-covers all physical memory.  Even after flushing the vmap alias, the
-CPU can speculatively prefetch the same physical page through the WB
-direct-map alias, silently repopulating the cache with zeros.  LNL is
-known to be particularly susceptible to this speculative prefetch
-behaviour.  XE_BO_FLAG_NEEDS_UC calls set_memory_uc() which updates
-both the vmap PTE and the direct-map PTE to UC, closing this aliasing
-window entirely.
-
-Second, the flush approach leaves the memory mapped WB on the CPU side
-permanently.  Any future SW access - a debug read, a tracing hook, an
-inadvertent touch - can re-dirty the cache line and reintroduce the
-race.  UC mapping makes the correct behaviour unconditional and
-self-documenting.
-
-Changes in v4:
-- Split the single v3 patch into three logically independent patches:
-  1. Separate BO allocation (root fix for the memset-zeroing race)
-  2. VRAM placement on dGFX (fix incorrect DPA when pages are above 4 GB)
-  3. UC mapping (close the CPU cache aliasing window on iGFX)
-- Corrected the dGFX description: the original ADS BO works because
-  xe_guc_realloc_post_hwconfig() explicitly migrates it to VRAM; a
-  separate SYSTEM BO would not be migrated and its IOVA would differ
-  from the physical address for high-memory pages.  The previous
-  description incorrectly attributed this to IOVA aliasing a PCI MMIO
-  reserved window.
-- Added physical-contiguity verification for no-IOMMU iGFX systems.
-- xe_guc.c: removed the post-hwconfig reinit_in_vram call for
-  um_queue_bo now that dGFX allocates it directly in VRAM.
-
-Jia Yao (3):
-  drm/xe/guc_ads: allocate UM queues in a separate BO
-  drm/xe/guc_ads: allocate UM queues in VRAM on dGFX
-  drm/xe/guc_ads: use uncached mapping for UM queue BO
-
- drivers/gpu/drm/xe/xe_guc_ads.c       | 100 +++++++++++++++++++-------
- drivers/gpu/drm/xe/xe_guc_ads_types.h |   5 ++
- 2 files changed, 80 insertions(+), 25 deletions(-)
-
+diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
+index 4023700ff2a9..21cf3edef922 100644
+--- a/drivers/gpu/drm/xe/xe_guc.c
++++ b/drivers/gpu/drm/xe/xe_guc.c
+@@ -714,6 +714,12 @@ static int xe_guc_realloc_post_hwconfig(struct xe_guc *guc)
+ 	if (ret)
+ 		return ret;
+ 
++	if (guc->ads.um_queue_bo) {
++		ret = xe_managed_bo_reinit_in_vram(xe, tile, &guc->ads.um_queue_bo);
++		if (ret)
++			return ret;
++	}
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
+index c98454545a85..7f371f9c7268 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ads.c
++++ b/drivers/gpu/drm/xe/xe_guc_ads.c
+@@ -16,6 +16,7 @@
+ #include "regs/xe_gt_regs.h"
+ #include "regs/xe_guc_regs.h"
+ #include "xe_bo.h"
++#include "xe_res_cursor.h"
+ #include "xe_gt.h"
+ #include "xe_gt_ccs_mode.h"
+ #include "xe_gt_mcr.h"
+@@ -155,16 +156,6 @@ static size_t guc_ads_capture_size(struct xe_guc_ads *ads)
+ 	return PAGE_ALIGN(ads->capture_size);
+ }
+ 
+-static size_t guc_ads_um_queues_size(struct xe_guc_ads *ads)
+-{
+-	struct xe_device *xe = ads_to_xe(ads);
+-
+-	if (!xe->info.has_usm)
+-		return 0;
+-
+-	return GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX;
+-}
+-
+ static size_t guc_ads_private_data_size(struct xe_guc_ads *ads)
+ {
+ 	return PAGE_ALIGN(ads_to_guc(ads)->fw.private_data_size);
+@@ -205,22 +196,12 @@ static size_t guc_ads_capture_offset(struct xe_guc_ads *ads)
+ 	return PAGE_ALIGN(offset);
+ }
+ 
+-static size_t guc_ads_um_queues_offset(struct xe_guc_ads *ads)
+-{
+-	u32 offset;
+-
+-	offset = guc_ads_capture_offset(ads) +
+-		 guc_ads_capture_size(ads);
+-
+-	return PAGE_ALIGN(offset);
+-}
+-
+ static size_t guc_ads_private_data_offset(struct xe_guc_ads *ads)
+ {
+ 	size_t offset;
+ 
+-	offset = guc_ads_um_queues_offset(ads) +
+-		guc_ads_um_queues_size(ads);
++	offset = guc_ads_capture_offset(ads) +
++		guc_ads_capture_size(ads);
+ 
+ 	return PAGE_ALIGN(offset);
+ }
+@@ -409,6 +390,67 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
+ 
+ 	ads->bo = bo;
+ 
++	if (xe->info.has_usm) {
++		/*
++		 * Allocate a separate BO for the HW fault ring (UM queues).
++		 *
++		 * xe_guc_ads_populate() clears the entire ADS BO via
++		 * xe_map_memset() on every GT reset.  Keeping the UM queues
++		 * in a dedicated BO prevents that memset from discarding fault
++		 * descriptors the GPU has already written into the ring,
++		 * which would cause GuC to forward an all-zero descriptor to
++		 * the driver (Faulted Address = 0, ASID = 0).
++		 *
++		 * Round the size up to the next power of two so that on iGPU
++		 * (system memory, no IOMMU) the TTM pool issues a single
++		 * alloc_pages(order=N) call, maximising the chance of getting
++		 * a physically contiguous block.  GuC requires contiguous DPA.
++		 */
++		size_t um_size = roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
++						    GUC_UM_HW_QUEUE_MAX);
++
++		bo = xe_managed_bo_create_pin_map(xe, tile, um_size,
++						  XE_BO_FLAG_SYSTEM |
++						  XE_BO_FLAG_GGTT |
++						  XE_BO_FLAG_GGTT_INVALIDATE |
++						  XE_BO_FLAG_PINNED_NORESTORE);
++		if (IS_ERR(bo))
++			return PTR_ERR(bo);
++
++		/*
++		 * On pre-Xe3p platforms, GAM (not GuC) accesses the UM queue
++		 * ring via base_dpa, which must be a contiguous device physical
++		 * address range.  Without IOMMU, DMA addresses equal physical
++		 * addresses and the allocator may return non-contiguous pages;
++		 * verify contiguity.  With IOMMU, the DMA mapping is a single
++		 * contiguous IOVA so no check is needed.
++		 */
++		if (unlikely(!device_iommu_mapped(xe->drm.dev)) &&
++		    !xe_bo_is_vram(bo) &&
++		    !xe_guc_using_main_gamctrl_queues(ads_to_guc(ads))) {
++			struct xe_res_cursor cur;
++			int i;
++
++		xe_res_first_sg(xe_bo_sg(bo), 0,
++				GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX, &cur);
++			for (i = 1; i < GUC_UM_HW_QUEUE_MAX; i++) {
++				dma_addr_t expected = xe_res_dma(&cur) +
++						      GUC_UM_QUEUE_SIZE;
++
++				xe_res_next(&cur, GUC_UM_QUEUE_SIZE);
++				if (xe_res_dma(&cur) != expected) {
++					drm_err(&xe->drm,
++						"UM fault queue %d is physically non-contiguous (got %pad, expected %pad); GAM requires contiguous DPA. Enable IOMMU (intel_iommu=on) to fix.\n",
++						i, &(dma_addr_t){xe_res_dma(&cur)},
++						&expected);
++					return -ENOMEM;
++				}
++			}
++		}
++
++		ads->um_queue_bo = bo;
++	}
++
+ 	return 0;
+ }
+ ALLOW_ERROR_INJECTION(xe_guc_ads_init, ERRNO); /* See xe_pci_probe() */
+@@ -820,7 +862,7 @@ static void guc_mmio_reg_state_init(struct xe_guc_ads *ads)
+ 
+ static void guc_um_init_params(struct xe_guc_ads *ads)
+ {
+-	u32 um_queue_offset = guc_ads_um_queues_offset(ads);
++	struct xe_bo *um_bo = ads->um_queue_bo;
+ 	struct xe_guc *guc = ads_to_guc(ads);
+ 	struct xe_device *xe = ads_to_xe(ads);
+ 	u64 base_dpa;
+@@ -830,8 +872,14 @@ static void guc_um_init_params(struct xe_guc_ads *ads)
+ 
+ 	with_dpa = !xe_guc_using_main_gamctrl_queues(guc);
+ 
+-	base_ggtt = xe_bo_ggtt_addr(ads->bo) + um_queue_offset;
+-	base_dpa = xe_bo_main_addr(ads->bo, PAGE_SIZE) + um_queue_offset;
++	if (um_bo) {
++		/* All USM platforms: UM queues in dedicated um_queue_bo */
++		base_ggtt = xe_bo_ggtt_addr(um_bo);
++		base_dpa = xe_bo_main_addr(um_bo, PAGE_SIZE);
++	} else {
++		/* Platform does not support USM: no UM queues, nothing to do */
++		return;
++	}
+ 
+ 	for (i = 0; i < GUC_UM_HW_QUEUE_MAX; ++i) {
+ 		/*
+diff --git a/drivers/gpu/drm/xe/xe_guc_ads_types.h b/drivers/gpu/drm/xe/xe_guc_ads_types.h
+index 48a8e092023f..845c1fbd93a4 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ads_types.h
++++ b/drivers/gpu/drm/xe/xe_guc_ads_types.h
+@@ -16,6 +16,11 @@ struct xe_bo;
+ struct xe_guc_ads {
+ 	/** @bo: Xe BO for GuC ads blob */
+ 	struct xe_bo *bo;
++	/**
++	 * @um_queue_bo: Dedicated BO for the HW fault ring (UM queues).
++	 * NULL if the platform does not support USM.
++	 */
++	struct xe_bo *um_queue_bo;
+ 	/** @golden_lrc_size: golden LRC size */
+ 	size_t golden_lrc_size;
+ 	/** @regset_size: size of register set passed to GuC for save/restore */
 -- 
 2.43.0
 
