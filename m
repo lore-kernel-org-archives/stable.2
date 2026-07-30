@@ -1,59 +1,43 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2B9411671;
-	Thu, 30 Jul 2026 12:29:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A5130EF8F;
+	Thu, 30 Jul 2026 12:31:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785414594; cv=none; b=fjWWRvHkKM1MxN+/wawnnLZa5KM4ya8roIUg0HJW5wOixcOQrD+VBQA+UBBtTJjgAyfv/IDl0J96/xCgMJxb7Ghm6Bys5imS/vxIPh94SHofO/CvUdAcZzuHz5GqQiPqSD3nLI1hD+MeH5CmzaRZTLI/BI8Y9PLpRXu7KPWlYxs=
+	t=1785414722; cv=none; b=tVeHQ/ruKQm5n5fQpPddX92S8RRpuo5b9RR3Z/wZ4nS6EjQhCkZEhQVlEuPDsNa6OykIFlSDRdjt++BGfot4Gc1tnAVtBEC2MVyFf5GGEArZWZJ5UkZCloeihCBgnWthoVQ8GJeN+XYjLeiy4oErb7qDtW/ZJMQXdtLLCJ+zK9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785414594; c=relaxed/simple;
-	bh=OO/SE1PwhpajyMbmM2qT0kMyzsBUzzKtu8jgtvCBiE0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SsiDs0Yn/QM+PAeSE7HeLQgOr1HBBXQ8RBdynfxwxUQvlepK/a8WA0+OgMgxFlNvcK87PVzcLcc7scQHCUXhmjwgZI0JOK/uPR93QUtNCF2jG0cvACOQs7vl7ZCfKreVfMADVZ5JwFh1ummmLxJIInpx/jGeV3+cIgiISqqxbzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cFyUf4dR; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785414722; c=relaxed/simple;
+	bh=AT7LcTBqr+06X8iOSbtayNbvLdh9NEfPIl/wI93HtNI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=F/NNkY8nsyPHFJMd8my/wmXuMewgv390fnYFZLTXTKOzoW5tvatl90zw7PNQdJcVg6Uq94UlcWThneji5LkJ1x/Sz9qUk/hNyKhIvWEOKroB/rhzFoJEi+hqWSCYXlXHuiieQrqqL/SHuPJiOPhBIEShqBcVvFiw84xnCqkXyuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dawidwrobel.com; spf=pass smtp.mailfrom=dawidwrobel.com; dkim=pass (2048-bit key) header.d=dawidwrobel.com header.i=@dawidwrobel.com header.b=LivXIVG3; arc=none smtp.client-ip=85.9.210.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dawidwrobel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dawidwrobel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cFyUf4dR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785414592; x=1816950592;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=OO/SE1PwhpajyMbmM2qT0kMyzsBUzzKtu8jgtvCBiE0=;
-  b=cFyUf4dRe+eOsrgSvGyg/iftDLmfM0mYjY2fmWSwcEFhlKf45Syv9Lix
-   UwonmXt91L4QQT8XPM6TjH4BpYOtRVJ4sUKk9ifxMnFZQmc4im7B1hmTM
-   8vWlKii5wLVrbLqieCGN79cSs5/cu+dNAU2hI+QH4Rfvhci4ccqYmVCqq
-   EY4iScDb9FY1fe9IDmS5d8eQmRJ5yqTzgNK+BUU5mI3ekNOffvSr89yjW
-   pOcB0BCudCe34FoOtL7mmXHhuvKqyhZg19I+uub151qse7Q4AhSWcJbzY
-   p4I0kkIjUT02hqdyiSOzf6RTey/S8b+60+z1agw7pda0yj5njfCyHuoEc
-   w==;
-X-CSE-ConnectionGUID: 9P4gY5khSwGgnh+w9lt/Rw==
-X-CSE-MsgGUID: 6reNcY9WQCeUQ6IwEyB1tQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="89712425"
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; 
-   d="scan'208";a="89712425"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 05:29:51 -0700
-X-CSE-ConnectionGUID: jkRxFni7TQWU5acaCyekJw==
-X-CSE-MsgGUID: PwXQ/QiXQ8CZulru9stBfQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; 
-   d="scan'208";a="264561145"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO alaakso-desk) ([10.245.246.85])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 05:29:49 -0700
-Date: Thu, 30 Jul 2026 15:29:45 +0300
-From: Antti Laakso <antti.laakso@linux.intel.com>
-To: Jiangshan Yi <yijiangshan@kylinos.cn>
-Cc: israel.a.cepeda.lopez@intel.com, hansg@kernel.org,
-	gregkh@linuxfoundation.org, sakari.ailus@linux.intel.com,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	13667453960@163.com, stable@vger.kernel.org
-Subject: Re: [PATCH] usb: misc: usbio: check ibuf_len against rxbuf_len in
- bulk msg
-Message-ID: <amtDubB1yNk1JGXG@alaakso-desk>
-References: <20260722101810.458634-1-yijiangshan@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=dawidwrobel.com header.i=@dawidwrobel.com header.b="LivXIVG3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dawidwrobel.com;
+	s=protonmail2; t=1785414701; x=1785673901;
+	bh=AT7LcTBqr+06X8iOSbtayNbvLdh9NEfPIl/wI93HtNI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=LivXIVG3HuP1zvTiTLq9c6nCpllx4ou3Ryb9onDw6/a7sz5yzvYk7ZDPJikFw2D9y
+	 Hsp97VfP1zwZLBY2RN0Urijp9vA49wYvFrFpnghM5PH5prnaZ1aXaqABrl1J7jfmLj
+	 /dMUKteRv0lt0I2s7kZmjyI8YmlReR2bOAJaDVLI6abPXSFJNZpGNkth7f8IUrDVA+
+	 WCPdLdCxNH3FpIE64ss7zJ6mCArAhbs7fNZgoJraQwsrgvFzpGleQiSB105lsZ5Ylj
+	 YE4RLltCDeAfg+FINkpyMZgMjGFBbKVvsCkX8bRrMpAhbWSlybcRkpmK+USAUfmYUV
+	 1mZ1EsJq5go6g==
+Date: Thu, 30 Jul 2026 12:31:35 +0000
+To: Mark Brown <broonie@kernel.org>
+From: Dawid Wrobel <me@dawidwrobel.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] ASoC: codecs: lpass-tx-macro: Fix enum kcontrol accesses
+Message-ID: <63381a62-771d-4a00-863f-bf18af8bcfc5@dawidwrobel.com>
+In-Reply-To: <e9b81e2d-a140-452c-950e-2cf299d7aef7@sirena.org.uk>
+References: <20260730-worktree-lpass-tx-macro-enum-fix-v2-0-6d091c736116@dawidwrobel.com> <20260730-worktree-lpass-tx-macro-enum-fix-v2-1-6d091c736116@dawidwrobel.com> <e9b81e2d-a140-452c-950e-2cf299d7aef7@sirena.org.uk>
+Feedback-ID: 173987960:user:proton
+X-Pm-Message-ID: 2c71c97e0a2e5fc37ef552db1ed9b33fa0e6c158
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -61,38 +45,22 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260722101810.458634-1-yijiangshan@kylinos.cn>
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 22, 2026 at 06:18:10PM +0800, Jiangshan Yi wrote:
-> ibuf_len is the bulk IN (receive) buffer size, but the EMSGSIZE check
-> in usbio_bulk_msg() compares it against txbuf_len — the bulk OUT
-> endpoint size.  Both are taken independently from different endpoints
-> in usbio_probe(), so the check is wrong when they differ.
-> 
-> Use rxbuf_len for the IN direction.  This matches the buffer that
-> actually holds the response data.
-> 
-> Fixes: 121a0f839dbb ("usb: misc: Add Intel USBIO bridge driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
-> ---
->  drivers/usb/misc/usbio.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/misc/usbio.c b/drivers/usb/misc/usbio.c
-> index 3c2474dca810..fe093e7760d5 100644
-> --- a/drivers/usb/misc/usbio.c
-> +++ b/drivers/usb/misc/usbio.c
-> @@ -265,7 +265,7 @@ int usbio_bulk_msg(struct auxiliary_device *adev, u8 type, u8 cmd, bool last,
->  	lockdep_assert_held(&usbio->bulk_mutex);
->  
->  	if ((obuf_len > (usbio->txbuf_len - sizeof(*bpkt))) ||
-> -	    (ibuf_len > (usbio->txbuf_len - sizeof(*bpkt))))
-> +	    (ibuf_len > (usbio->rxbuf_len - sizeof(*bpkt))))
->  		return -EMSGSIZE;
->  
->  	if (ibuf_len)
+On 30.07.2026 13:56, Mark Brown wrote:
 
-Tested-by: Antti Laakso <antti.laakso@linux.intel.com>
+> You had tags for this and patch 2 on v1, what happened with them?
+
+Srinivas's Reviewed-by was on patch 1 of v1, I dropped it when I rewrote
+the commits for v2 and didn't follow with trailers -u. That's my bad,
+it's my first time with b4 and the workflow.
+
+Patch 2 had no tag; he asked for the rx_mux fix there instead, which v2
+adds, so it needs a fresh review.
+
+Happy to resend a v3 with the patch 1's tag collected if you'd prefer.
+
+--=20
+With Kind Regards,
+Dawid Wrobel
+
