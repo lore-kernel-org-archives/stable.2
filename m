@@ -1,85 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D063C6A56;
-	Thu, 30 Jul 2026 20:27:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03E53CB567;
+	Thu, 30 Jul 2026 20:30:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785443230; cv=none; b=jssDZ+93ya9RjeZLYjmTlNuyjoZ59nxWnuZ77Y9dq6VvZahXhJru6n36QpRUYbPIrKQFQJ3Ow+UZKcwgS8On4FxHBnw8oO8Ugo6BKCvduhyPcqsIoJs7SNRh+utJtmR3t6AoMp0UbaWifJ0ecLtpPPqE19oXdnYzla6MVGuNYIg=
+	t=1785443419; cv=none; b=qretVF1A940XMrvsI7tyzIAb5hSTtzxw6UUtGp3mLeNMoVrqFIaenEXNxB2BwFKDTNoBU2dT/hAr+BzkrPOYR6CFofJnqM0HmNjLsqmpeBSPDqHp7WUGO2dMYxV0b5YGJaiYcnwZYMtZyzZ1R+dKpX/a2lI9TePDUgzyWEwWLhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785443230; c=relaxed/simple;
-	bh=0M6OiyujQcSFWGAQZkpgjJ09w3VYQzS7bHqsglTXnKQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oP2ssxVATouWr7MYlmQqmt9txnfG9u8onf3HcrWmxqYBXL5amM1Kqb4iYDQ0TgAZhiviwfWI9PzzYjeMRUF7DPDM0ndwEdsMZpef6td1BSQM32aA/juLZdvWFqrnx34e7v6qCOphaegFNF7DmD7E9Q3nInrCdoAwR0we0X0Mn1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hgCYe1w6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785443419; c=relaxed/simple;
+	bh=SYgAnF5eLutqUtZ4b3NFfEPsVINHKabxfbeJoaOcIdE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F9yI5FQ5l06vNusaGIE2qnZMNdh7hdCYvxaZpIhaGumNPAIwgrTItEBa/T+s8j2ftGcrdZK4+u1GGZObgJ3J7i9FreHgfOeKtCJgraPHLfQkYG4/mLxZGmjFvEhHq9ppf/sn23Yp6FbCp+9ce922mpQzjGCbwUQdBOUtJKfbThE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hFcsGnLo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hgCYe1w6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D636C1F000E9;
-	Thu, 30 Jul 2026 20:27:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hFcsGnLo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B57C31F000E9;
+	Thu, 30 Jul 2026 20:30:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785443226;
-	bh=oaFgb7FcLIccJmyowpWmlw7aD0mw7q9LLhJkgC2z4gE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hgCYe1w6B1pD4kXOWvkfco2VdGK4jONQ7eG2f9OBgg+I5t6RjhyhkOOV3DmkaMOhg
-	 TYw3yzslJqVjwJx0M2G0ly4oGzgfayT2JXzxvVBcI3e5zkUIzdNxjxzyP8P+b8/Rzr
-	 e+3PfdX0dlBemQHAoxHE5ip3zbheXqlaIUZDiqGA3+4MEoBrKdIWa7n4TUH1YcToK9
-	 /mSQTytf+ip73TZRiRkJ5yrdNayYi0mWG936vxg6klDtuHKMQPIOXHbHfhMuruRhmX
-	 tU2Oc1J92sg1NSJhHRu/5Z4X8bIyro9D/114mqdbM6lOSkLE8/TQKEdyRlaCctN+vz
-	 SqeFXAAkrpK1g==
-Date: Thu, 30 Jul 2026 13:27:05 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Matthieu Baerts <matttbe@kernel.org>
-Cc: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, netdev@vger.kernel.org, mptcp@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Florian Westphal
- <fw@strlen.de>, Davide Caratti <dcaratti@redhat.com>, Christoph Paasch
- <cpaasch@openai.com>
-Subject: Re: [PATCH net 1/5] mptcp: avoid combining some incoming suboptions
-Message-ID: <20260730132705.58e65d98@kernel.org>
-In-Reply-To: <c77bd843-725f-4d65-8750-87da6105a8d3@kernel.org>
-References: <20260728-net-mptcp-misc-fixes-7-2-rc6-v1-0-f7e2d229159d@kernel.org>
-	<20260728-net-mptcp-misc-fixes-7-2-rc6-v1-1-f7e2d229159d@kernel.org>
-	<20260729172306.31deb67d@kernel.org>
-	<c77bd843-725f-4d65-8750-87da6105a8d3@kernel.org>
+	s=k20260515; t=1785443405;
+	bh=0u6gw/MrFBT1/QNrPa7nLjvLVHSDimbPCCINT1jLXiU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hFcsGnLovWPcFi+YkFwXfujpvSBlB3iFd7TIwz6cMigymfDKsbs8+aVqBQftTS/Qu
+	 1hZlGC2QGQAmc9tlfq8EeyI0yzWmfdfg/4SRB9JmulIAJRqlKp78KxAeBd6CpjMWjA
+	 ZzLb6YKmWZwiQ0PQdUG+NckRDmJwdf3ZYIyLPX5wEfHj7EwJohV7fQqRzAzfk6fcaW
+	 46rrLmUDHXq1kFeu4lRdAs5HrO2gkrT95BMqbHyLUhf9uMEqaMGfA4hg8gN/vKCD8I
+	 JVu6aVSWUfm/WQnFqobITKGHVuPzXNwIhKdA74nXROb9GzBc6/rvfSbhgsEEnUNA6N
+	 Rmn+CdkioS94w==
+Date: Thu, 30 Jul 2026 20:30:03 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>, linux-ext4@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-fscrypt@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/swap: reject swapon() on filesystem-level encrypted
+ files
+Message-ID: <20260730203003.GA2459987@google.com>
+References: <20260730184853.48347-1-ebiggers@kernel.org>
+ <20260730125327.11fc9227d04f659a59136cdd@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260730125327.11fc9227d04f659a59136cdd@linux-foundation.org>
 
-On Thu, 30 Jul 2026 10:14:53 +0200 Matthieu Baerts wrote:
-> On 30/07/2026 02:23, Jakub Kicinski wrote:
-> > On Tue, 28 Jul 2026 19:11:57 +0200 Matthieu Baerts (NGI0) wrote:  
-> >> Some MPTCP suboptions are mutually exclusive according to the RFC8684,
-> >> but also because in different places, the code doesn't expect some
-> >> combinations to be present. That's specially true for suboptions that
-> >> would be present twice, but with different attributes.  
+On Thu, Jul 30, 2026 at 12:53:27PM -0700, Andrew Morton wrote:
+> On Thu, 30 Jul 2026 11:48:53 -0700 Eric Biggers <ebiggers@kernel.org> wrote:
+> 
+> > ext4 and f2fs don't prevent filesystem-level encrypted files from being
+> > set up directly as swap files.  In this case, encryption is bypassed.
 > > 
-> > Looks like Clashiko has much to say about this patch.
-> > Could you check?  
+> > No one should be doing this, vs. the methods of encrypted swap that
+> > actually do work (such as swapping to a dm-crypt device, or swapping to
+> > a loopback device on top of a filesystem-level encrypted file).
+> > 
+> > Nevertheless, to prevent user error, make swapon() explicitly reject
+> > this case.  Document this behavior in fscrypt.rst as well.
+> > 
+> > Fixes: 9bd8212f981e ("ext4 crypto: add encryption policy and password salt support")
+> > Fixes: f424f664f0e8 ("f2fs crypto: add encryption policy and password salt support")
 > 
-> Sure, I will check that.
-> 
-> Do you think Clashiko could look at patches from the MPTCP ML as well?
-> Because the (deprecated?) AI review tool we use didn't find anything:
-> 
-> https://netdev-ai.bots.linux.dev/ai-review.html?id=d1d1ff69-0f15-4812-ad16-e4f6f2df9f6b
-> 
-> Or maybe that's because the model is different, and this can be easily
-> fixed? Or maybe the prompts are different too?
-> 
-> I'm asking, mainly because once patches have been accepted in our tree,
-> it can be hard to have the original author fixing them. Not to block
-> other patches too long, I often have to fix them, so I would prefer to
-> get the same review tools (if possible) to prevent that :)
+> Ouch.  We are going to break ten year old setups?  I don't think we can
+> do this!
 
-Sorry about that, I know it's annoying. Not the best time TBH.
-I'm modifying our instances very actively, I don't want to have
-to worry about the extra surface of integrations. Hopefully things
-converge soon and we can switch you over and kill that old service
-we had completely.
+That assumes anyone is actually depending on this bug, which they
+probably aren't.  Encrypted swap is done in other ways.
+
+> I think the best we can do is to emit loud warnings which point the
+> operator to some Documentation/ which tells operator that this
+> deprecated configuration will be disallowed in, umm, 2029.
+
+... and if they are, they'll want to fix it right away anyway, not in
+2029.
+
+Other fixes to explicitly disallow swapfile activation in various cases
+have been merged without a deprecation period, e.g. 36e4d95891ed,
+377eeaa8e11f, 51cc3a6620a6, d15cab975459.
+
+I think we should try just doing this instead of dragging it out over
+several years.
+
+- Eric
