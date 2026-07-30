@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848D043932B
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 14:06:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533F44399FF
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 14:06:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785420390; cv=none; b=OAIoHTfJHgj/WD1iCj+o+Eo5Y059eXvKS9dxbEzESsxRRj7aqXX9H+fPyf/YAmc5iFT3DbL+9NWZFIjVgS3ZPCOPbP/2XD3wEszN+KkbWriOAC3w/TCEIXgXWsmYlGP/5b609U+K98LZj6CM2GqSDKL2kja+y5Q4dEMXpDYZn/Q=
+	t=1785420391; cv=none; b=TKBqfKmHxhZnl6YDj2TqvDEgYShd1tt8q1/oUVwh7UN9109Yin+DsvCM7x1XXJU6pkk+GTFpecTd52Y+oibdBujdnSZoDAZ8X4MV77BN+M3JcYhb7/2jW5l7XhUMNov2ICYHcqOY0/R6twS0gfHr0FOT6dcGTrx+9SC27z+xJsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785420390; c=relaxed/simple;
-	bh=FQoz95FyvyfHOA5sXmOsYHcZOAQ4ARXBCDylHWGPzVc=;
+	s=arc-20240116; t=1785420391; c=relaxed/simple;
+	bh=C8IokJcWo4Ri8HviWEvWhNodx8PVs3js70d++F0Ryow=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o8FMDmPhp2GdZcJMWX8ns18V0rz+egq70oNFxDdf29/UMJd6T1PZ5W3ob+z+evXtVaHxR87wQ0dGL0lWgDaYN6eIFE8bAM3twqVOOwJxaFftVme0x2QBUFZdEzTChBlCLN0LnWgXK9wv4oglSbq7lW0z95VEkw9fgiFTC/tefDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cp1+O4xf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ClVJytmWAC9cqopN7gLqaEIPmAFIOI6ShMgASaAzNu9Za62JGMy381JSQOjLkW0Rbf1n4+rrcSnjKlcuke8/+Pg/f/ctTfQnxDzbnnm6QbmMXjFJLXt22BeLHMEv+lAkxarZIvB3WTA6U0vuSaRd/h2YAHncqGRT3O3DWmyod5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H1PdXNBk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cp1+O4xf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F6D71F000E9;
-	Thu, 30 Jul 2026 14:06:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H1PdXNBk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 711701F00A3A;
+	Thu, 30 Jul 2026 14:06:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785420389;
-	bh=fxxYyYuN+mvlC9W2ibmy1FURKQaA2DRBQEro4xP4/is=;
+	s=k20260515; t=1785420390;
+	bh=iz+OWgNbr+14zHkhU2mXMbnXsiybMVVGHUegwIj6d+g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cp1+O4xfziaO7/G5+Xn7pDyl1Q6hW1izqxM5GQnNcOnbibWaDcThCsTVV1XPuEfjX
-	 TWis+UIHiWD0XPRm0tGohAWUvPx3nFvlFdKcmVQQOn8PCTxp3w37KartWUOxp3Hr5u
-	 fxy1W8N/qYftx3F73y7EUxHvn18XhJH9oZMyMqtvCqf771vfpus/DwyUWbJkzTOERE
-	 s5dqrQNS10NUN4dx0jNNn6617n6lSSBAv4ynyNgsp36nSGZ3zVyFLfxiwpWe3BnC6E
-	 4T3UNppFuSfbBgSvCo+koSWOY0j5ZU+31ewsJeSX5/EHYZ7PVoQbosdwDWzufqZn5b
-	 RVAJNFmQ91GFg==
+	b=H1PdXNBkRDETbpkGzKZN8GfUBgPCNbd9xYKW24ku+Muh0g34zijQyMINvx6nabzqT
+	 MapAObsAx14uI3lFPPPaoGAGgmkSipwVr7R/sdFXW4nSD9knVIX1R8OlhxvsAaHIMC
+	 y/reNz/ywC/EjnlUrvMz+8Rw+KWytHVzS9GyKhYHC034ouvxSSWaMBFy+uG56QSgWf
+	 5P/QmTwr7jpele8eBaX5RmgDODQAG/0hwax1r50hN0LtLtpwtavrXEXjr1kTc/CZny
+	 2o74eyWpxf8Dn8fOVaHS/C2tZvvjh72Ooxs/pxaTw45QYOpK7/typrGaqcR746keT8
+	 32BI7DQyIkwHA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+Cc: Andrei Kuchynski <akuchynski@chromium.org>,
+	stable <stable@kernel.org>,
+	Benson Leung <bleung@chromium.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 1/2] usb: typec: ucsi: split connector lock classes
-Date: Thu, 30 Jul 2026 10:06:25 -0400
-Message-ID: <20260730140626.2464203-1-sashal@kernel.org>
+Subject: [PATCH 7.1.y 2/2] usb: typec: ucsi: Fix race condition and ordering in port unregistration
+Date: Thu, 30 Jul 2026 10:06:26 -0400
+Message-ID: <20260730140626.2464203-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072725-cheer-engorge-72e8@gregkh>
+In-Reply-To: <20260730140626.2464203-1-sashal@kernel.org>
 References: <2026072725-cheer-engorge-72e8@gregkh>
+ <20260730140626.2464203-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,125 +48,172 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
+From: Andrei Kuchynski <akuchynski@chromium.org>
 
-[ Upstream commit 8c22256bbafad3dc5fdbe9f684d045b67ff06a68 ]
+[ Upstream commit 7aa7d4bf9d3fa9a6a47b640ad103ab433b7ff261 ]
 
-Lockdep detects a possible recursive locking scenario during
-ucsi init:
+A synchronization issue exists during port unregistration where pending
+partner work items can race against workqueue destruction, leading to
+use-after-free conditions:
 
-[    5.418616] ============================================
-[    5.418634] WARNING: possible recursive locking detected
-[    5.418706] --------------------------------------------
-[    5.418725] kworker/4:1/82 is trying to acquire lock:
-[    5.418759] ffff888119a34648 (&con->lock){+.+.}-{3:3}, at: ucsi_init_work+0x1a78/0x2eb0 [typec_ucsi]
-[    5.418801]
-               but task is already holding lock:
-[    5.418835] ffff888119a34080 (&con->lock){+.+.}-{3:3}, at: ucsi_init_work+0x1a78/0x2eb0 [typec_ucsi]
-[    5.418884]
-               other info that might help us debug this:
-[    5.418904]  Possible unsafe locking scenario:
+  cros_ec_ucsi cros_ec_ucsi.3.auto: error -ETIMEDOUT: PPM init failed
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:__queue_work+0x83/0x4a0
+  Call Trace:
+    <IRQ>
+    __cfi_delayed_work_timer_fn+0x10/0x10
+    run_timer_softirq+0x3b6/0xbd0
+    sched_clock_cpu+0xc/0x110
+    irq_exit_rcu+0x18d/0x330
+    fred_sysvec_apic_timer_interrupt+0x5e/0x80
 
-[    5.418937]        CPU0
-[    5.418956]        ----
-[    5.418991]   lock(&con->lock);
-[    5.419013]   lock(&con->lock);
-[    5.419033]
-                *** DEADLOCK ***
+Fix this by ensuring strict ordering and proper serialization during
+teardown:
 
-[    5.419387] Call Trace:
-[    5.419406]  <TASK>
-[    5.419425]  dump_stack_lvl+0x61/0xa0
-[    5.419448]  print_deadlock_bug+0x4a6/0x650
-[    5.419483]  __lock_acquire+0x62b6/0x7f50
-[    5.419507]  lock_acquire+0x11b/0x390
-[    5.419654]  __mutex_lock+0xbc/0xcd0
-[    5.419741]  ucsi_init_work+0x1a78/0x2eb0
-[    5.419785]  ? worker_thread+0xf53/0x2bc0
-[    5.419819]  worker_thread+0xff4/0x2bc0
-[    5.419842]  kthread+0x2a7/0x330
-[    5.419863]  ? __pfx_worker_thread+0x10/0x10
-[    5.419896]  ? __pfx_kthread+0x10/0x10
-[    5.419916]  ret_from_fork+0x38/0x70
-[    5.419936]  ? __pfx_kthread+0x10/0x10
-[    5.419969]  ret_from_fork_asm+0x1b/0x30
-[    5.419991]  </TASK>
-[    5.420009] ---[ end trace 0000000000000000 ]---
+1. Move ucsi_unregister_partner() to the beginning of the teardown
+sequence and protect it under the connector mutex lock.
+2. Ensure all pending partner tasks are explicitly flushed and finished
+before the workqueue is destroyed.
+3. Switch from mod_delayed_work() to a cancel_delayed_work() and
+queue_delayed_work() sequence. This guarantees that items currently marked
+as pending won't be scheduled an additional time, preventing a double
+release of resources which leads to the following crash:
 
-The problem is that all connector locks belong to the same
-lockdep lock class, so the following loop:
+  Oops: general protection fault, probably for non-canonical address
+    0xdead000000000122: 0000 [#1] SMP NOPTI
+  Workqueue: cros_ec_ucsi.3.auto-con2 ucsi_poll_worker
+  RIP: 0010:ucsi_poll_worker+0x65/0x1e0
+  Call Trace:
+  <TASK>
+    process_scheduled_works+0x218/0x6d0
+    worker_thread+0x188/0x3f0
+    __cfi_worker_thread+0x10/0x10
+    kthread+0x226/0x2a0
 
-	for (i = 0; i < ucsi->cap.num_connectors; i++)
-		ucsi_register_port(connector[i])
-			mutex_lock(&connector[i]->lock)
+To ensure these rules are applied identically across both the normal
+teardown and the ucsi_init() error paths, consolidate the cleanup logic
+into a new helper, ucsi_unregister_port().
 
-looks like a recursive acquire of the same mutex.  Put each connector
-lock into a dedicated lock class so that lockdep doesn't see it as a
-possible recursion.
-
-Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Link: https://patch.msgid.link/20260515060042.136083-1-senozhatsky@chromium.org
+Cc: stable <stable@kernel.org>
+Fixes: b9aa02ca39a4 ("usb: typec: ucsi: Add polling mechanism for partner tasks like alt mode checking")
+Fixes: b13abcb7ddd8 ("usb: typec: ucsi: Fix NULL pointer access")
+Fixes: fac4b8633fd6 ("usb: ucsi: Ensure connector delayed work items are flushed")
+Signed-off-by: Andrei Kuchynski <akuchynski@chromium.org>
+Reviewed-by: Benson Leung <bleung@chromium.org>
+Link: https://patch.msgid.link/20260707141736.1635698-1-akuchynski@chromium.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 7aa7d4bf9d3f ("usb: typec: ucsi: Fix race condition and ordering in port unregistration")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/typec/ucsi/ucsi.c | 8 ++++++++
- drivers/usb/typec/ucsi/ucsi.h | 1 +
- 2 files changed, 9 insertions(+)
+ drivers/usb/typec/ucsi/ucsi.c | 82 +++++++++++++++++------------------
+ 1 file changed, 39 insertions(+), 43 deletions(-)
 
 diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index 66b879957165..7e2f06136ed5 100644
+index 7e2f06136ed5..ce3f2fe09ef1 100644
 --- a/drivers/usb/typec/ucsi/ucsi.c
 +++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -1658,6 +1658,7 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
- 	INIT_WORK(&con->work, ucsi_handle_connector_change);
- 	init_completion(&con->complete);
- 	mutex_init(&con->lock);
-+	lockdep_set_class(&con->lock, &con->lock_key);
- 	INIT_LIST_HEAD(&con->partner_tasks);
- 	con->ucsi = ucsi;
+@@ -1813,6 +1813,42 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
+ 	return ret;
+ }
  
-@@ -1903,6 +1904,9 @@ static int ucsi_init(struct ucsi *ucsi)
- 		goto err_reset;
- 	}
- 
-+	for (i = 0; i < ucsi->cap.num_connectors; i++)
-+		lockdep_register_key(&connector[i].lock_key);
++static void ucsi_unregister_port(struct ucsi_connector *con)
++{
++	struct ucsi_work *uwork;
 +
- 	/* Register all connectors */
++	if (con->wq) {
++		mutex_lock(&con->lock);
++		ucsi_unregister_partner(con);
++		/*
++		 * queue delayed items immediately so they can execute
++		 * and free themselves before the wq is destroyed
++		 */
++		list_for_each_entry(uwork, &con->partner_tasks, node) {
++			if (cancel_delayed_work(&uwork->work))
++				queue_delayed_work(con->wq, &uwork->work, 0);
++		}
++		mutex_unlock(&con->lock);
++
++		destroy_workqueue(con->wq);
++		con->wq = NULL;
++	} else {
++		ucsi_unregister_partner(con);
++	}
++
++	ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
++	ucsi_unregister_port_psy(con);
++
++	usb_power_delivery_unregister_capabilities(con->port_sink_caps);
++	con->port_sink_caps = NULL;
++	usb_power_delivery_unregister_capabilities(con->port_source_caps);
++	con->port_source_caps = NULL;
++	usb_power_delivery_unregister(con->pd);
++	con->pd = NULL;
++	typec_unregister_port(con->port);
++	con->port = NULL;
++}
++
+ static u64 ucsi_get_supported_notifications(struct ucsi *ucsi)
+ {
+ 	u16 features = ucsi->cap.features;
+@@ -1939,22 +1975,8 @@ static int ucsi_init(struct ucsi *ucsi)
+ 	for (i = 0; i < ucsi->cap.num_connectors; i++)
+ 		lockdep_unregister_key(&connector[i].lock_key);
+ 
+-	for (con = connector; con->port; con++) {
+-		if (con->wq)
+-			destroy_workqueue(con->wq);
+-		ucsi_unregister_partner(con);
+-		ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
+-		ucsi_unregister_port_psy(con);
+-
+-		usb_power_delivery_unregister_capabilities(con->port_sink_caps);
+-		con->port_sink_caps = NULL;
+-		usb_power_delivery_unregister_capabilities(con->port_source_caps);
+-		con->port_source_caps = NULL;
+-		usb_power_delivery_unregister(con->pd);
+-		con->pd = NULL;
+-		typec_unregister_port(con->port);
+-		con->port = NULL;
+-	}
++	for (con = connector; con->port; con++)
++		ucsi_unregister_port(con);
+ 	kfree(connector);
+ err_reset:
+ 	memset(&ucsi->cap, 0, sizeof(ucsi->cap));
+@@ -2182,33 +2204,7 @@ void ucsi_unregister(struct ucsi *ucsi)
+ 
  	for (i = 0; i < ucsi->cap.num_connectors; i++) {
- 		connector[i].num = i + 1;
-@@ -1932,6 +1936,9 @@ static int ucsi_init(struct ucsi *ucsi)
- 	return 0;
- 
- err_unregister:
-+	for (i = 0; i < ucsi->cap.num_connectors; i++)
-+		lockdep_unregister_key(&connector[i].lock_key);
-+
- 	for (con = connector; con->port; con++) {
- 		if (con->wq)
- 			destroy_workqueue(con->wq);
-@@ -2202,6 +2209,7 @@ void ucsi_unregister(struct ucsi *ucsi)
- 		usb_power_delivery_unregister(ucsi->connector[i].pd);
- 		ucsi->connector[i].pd = NULL;
- 		typec_unregister_port(ucsi->connector[i].port);
-+		lockdep_unregister_key(&ucsi->connector[i].lock_key);
+ 		cancel_work_sync(&ucsi->connector[i].work);
+-
+-		if (ucsi->connector[i].wq) {
+-			struct ucsi_work *uwork;
+-
+-			mutex_lock(&ucsi->connector[i].lock);
+-			/*
+-			 * queue delayed items immediately so they can execute
+-			 * and free themselves before the wq is destroyed
+-			 */
+-			list_for_each_entry(uwork, &ucsi->connector[i].partner_tasks, node)
+-				mod_delayed_work(ucsi->connector[i].wq, &uwork->work, 0);
+-			mutex_unlock(&ucsi->connector[i].lock);
+-			destroy_workqueue(ucsi->connector[i].wq);
+-		}
+-
+-		ucsi_unregister_partner(&ucsi->connector[i]);
+-		ucsi_unregister_altmodes(&ucsi->connector[i],
+-					 UCSI_RECIPIENT_CON);
+-		ucsi_unregister_port_psy(&ucsi->connector[i]);
+-
+-		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_sink_caps);
+-		ucsi->connector[i].port_sink_caps = NULL;
+-		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_source_caps);
+-		ucsi->connector[i].port_source_caps = NULL;
+-		usb_power_delivery_unregister(ucsi->connector[i].pd);
+-		ucsi->connector[i].pd = NULL;
+-		typec_unregister_port(ucsi->connector[i].port);
++		ucsi_unregister_port(&ucsi->connector[i]);
+ 		lockdep_unregister_key(&ucsi->connector[i].lock_key);
  	}
  
- 	kfree(ucsi->connector);
-diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
-index dd64ddc42118..a73c99ce6b00 100644
---- a/drivers/usb/typec/ucsi/ucsi.h
-+++ b/drivers/usb/typec/ucsi/ucsi.h
-@@ -517,6 +517,7 @@ struct ucsi_connector {
- 
- 	struct ucsi *ucsi;
- 	struct mutex lock; /* port lock */
-+	struct lock_class_key lock_key;
- 	struct work_struct work;
- 	struct completion complete;
- 	struct workqueue_struct *wq;
 -- 
 2.53.0
 
