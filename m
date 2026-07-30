@@ -1,145 +1,340 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0FF441041
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 15:27:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09E344682F;
+	Thu, 30 Jul 2026 15:27:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785425269; cv=none; b=mFKW/slCXvFW3ustf+Rt6aK7qLFORo2g42TgpnRa7NWwQxxpLkV/YoyLPANm1SRZBvv61D1wyJ/2WRsgTbN+Fq/0ZJc8IrVu7VilFA4SaDT5fzCyIFjUEgTtCAUjyBppvBstt+9xEC3nvYyDCknrgOe4RrDLnqweST2QSJFCOpw=
+	t=1785425269; cv=none; b=O1xinqR2u86BcE5ThJXdmGrQzROeltkXgKI8uaubycpmWpAqXoiLJiT+zSTh/NjlZtzZp7xrN4ZzVBNYSueyzz3cpmJL4JpQ/sylmOo0xpEMaTWBA9+KVxZMkkQzOWOEZt2XwYISgjBsLyZus0KwdkIN2yp+hcWa8GRsXDcwgVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785425269; c=relaxed/simple;
-	bh=d5RXFfVRX5p3oscQXB9FNGQJzjxxqOI0ZyUQ/yhbbX0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ufVGwsNf6E+0DhZzsv0WnDDusUUhLiJYl3AMLOEF/PaaXDOOtgyrrzpYoM6dwHa3BtVgcQ2qfmY7+GiVYEGD858EXUL0FcDha0tA0Nf6VtIdVBUrGhNDpVb+F6KQAkf1Zr+9YkSkpb6GZ3I37wPb8eLF4H4wgI1FvvpAyuS3qIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=MvUYPrTR; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
+	bh=xbqim+1wtOgnHdPjouUcadNwDywf9Kujv10WqmEuOsw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qKtJNirRWQX/teugR2/Q6rQ4oAYikuOA6zp6cwFsEAjmgH2wW4ceN5eGxVrQIuNnJF8dJyzeTpz3xqNit0kVb+jFmFCQoTNqA78k/OTLQMDYhidK/SYxawiL1rAJEdXH23x8fERKLtTETBoEMdNlHa1dNWArxJZdvu4bQ9N+9uI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iGPHGqRC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="MvUYPrTR"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49548e01d02so10578655e9.0
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 08:27:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blackwall.org; s=google; t=1785425264; x=1786030064; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nzJUatZRCgVEofo3LM1zenQhlJFklBY9WtRFTuod4dQ=;
-        b=MvUYPrTRlUzfqhGO2lvbt+DzpOn3ZZ9R4BWLe3W386eVczuQ5jyFZYWflnlgJjiOcR
-         SMbwCzv6Ap6noHsptRWREdy0iDN5UjtZ+Jv5Au2VasahB3UTot8Dwu1JAagLBlPjTR9m
-         DX4OZThyja3k403hIVqCCjLHcE2dkAh65yLbCFZsxLI4A139S6MnFzpsrOT5rY2yOhQl
-         K5bgvN03sIPLtSMygse2btmEwDDyZSY9LOkmXFUowJyHkI32+Ng5pvcyNcnTugCCPHo6
-         LgXVymOwrinsKiUoKw8QNSvafvSU7V9c/uAcpRCSQ/ArLuhNewhUjHQ/jOYn6fRWlOv0
-         reew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785425264; x=1786030064;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nzJUatZRCgVEofo3LM1zenQhlJFklBY9WtRFTuod4dQ=;
-        b=p6WirOCmED5T1PbyFrgteDKlidhHs6lEEm9ln0ykWAHby/54yELc/Jk8SJ+j61WnqW
-         /7wXAo12CTE9CTOkoYApd+wSL8Pzh31pHjobw3+8hS6bEh10S/lymUJvUmhZ9nfSpV5Z
-         CnERIzIMRg33DSXeMWuN0FjCjlh9uj2Jw8ZqgwFqrZMYWZ8m9Zn2u5bW9gBqnO/vcDMb
-         STyoZT8ao5+AKhWshrfFIw0ILKnQOmPG2skHecJl2rYK7hgrVQRfiFooXCrT9nHwmT5V
-         42fI3aNvQVMqfUF6mMT4UWnXY8EUxLHEooxNX/dF/aLfbZNaDSEpSuDswI9zJcovA40z
-         cxng==
-X-Forwarded-Encrypted: i=1; AHgh+RqNNX3N/pVgZ75Fl35jl/IuvV5CddS401PTOl7L7eAb+pP7TFGpHGlcqkVO4Ee1artTjHF3bOk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzVQfsb4jO2JpIJ5fIyFcvftRRtknUlc1oVcmJSwq7b91S0GxmW
-	fmaV+yjvNWIzcBxRynitmAOnNnfGJti2S7+OzkrHZJ6rF5dDhtwEmjQk0iltjVz3dVA=
-X-Gm-Gg: AR+sD129FwRkDIimTbHhGWYDvFPBe9KOTyBFj9W3032cGNiZpBKpvXtA+znBlfJ7YuK
-	mhq5RGhVWrWdKOp8oLui6MuMLFd6JwxVlmX2f4PnZK3vv5RjyEBqoeQu8TFgfLGJmTc02TTBDgS
-	mJbyZcg8l6Mbma0sUIdhRIAnpw24IzCIi6xU9aytO9jHSHpIAeosnXbGSwx2+nvlP+y0Y/N3mtb
-	AlfU8I42BJQqtGFoufL+XomjamhP/ZmtBFZRjSLULO94HmsFsw7qmzNbwkkDWJNxWjgPOcXs6aV
-	+7aWMRBq/XAi9do1//yfAaK8FD3+QptnVEQ53JAgh/s6H+MyK/D+31EmpcPLe9DNPy3kJbaqQLB
-	Ia71fQWZTbZamiz8PtHZ1xVM3Js6eD9Vc4fd7BLBkPY/N+efL35eawp88de/ZOCP5HeKoGSNdgL
-	ndlN9HON80EprVOTLSa6kdTRjLcnWFkYq7fpU9yUHITpUGpRj3ZSbGuwo=
-X-Received: by 2002:a7b:cc89:0:b0:495:6f6b:fb75 with SMTP id 5b1f17b1804b1-49800ebba08mr29432035e9.38.1785425264161;
-        Thu, 30 Jul 2026 08:27:44 -0700 (PDT)
-Received: from localhost ([109.160.74.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-498011fd5fesm62954505e9.7.2026.07.30.08.27.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 08:27:43 -0700 (PDT)
-Date: Thu, 30 Jul 2026 18:27:41 +0300
-From: Nikolay Aleksandrov <razor@blackwall.org>
-To: Baul Lee <baul.lee@xbow.com>
-Cc: netdev@vger.kernel.org, bridge@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Ido Schimmel <idosch@nvidia.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net: bridge: mrp: fix uninitialised bytes on the
- wire
-Message-ID: <amttbcdZkuWVSdLE@penguin>
-References: <20260726062518.43774-1-baul.lee@xbow.com>
- <20260729131941.10254-1-baul.lee@xbow.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iGPHGqRC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 465D31F00A3A;
+	Thu, 30 Jul 2026 15:27:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785425267;
+	bh=RyIaqpGpQsqnH3rQmVh+/ldwpsKiz7eMFrTgVsF4z9o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iGPHGqRCZ6IjswllEzOdrUZu9Pv9dUI97stX88FGu0PXG+MiZaFgyZYCB2s8AOSVu
+	 ecTU9jUOxz4s63c2pn3Xp5QFEMYRLoQsNfy77I1z36gZ/X9wNClEeDCkgH+febBnQl
+	 rBl1V7hH2WdSacqfhgoAc19Qe6i5QIJwGDCWVN10=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Tony Luck <tony.luck@intel.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 651/675] x86,fs/resctrl: Rename some L3 specific functions
+Date: Thu, 30 Jul 2026 16:16:21 +0200
+Message-ID: <20260730141458.976068366@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260730141445.110192266@linuxfoundation.org>
+References: <20260730141445.110192266@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260729131941.10254-1-baul.lee@xbow.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 29, 2026 at 10:19:41PM +0900, Baul Lee wrote:
-> br_mrp_alloc_test_skb() builds MRP test frames on an skb from
-> dev_alloc_skb(), which does not clear the linear data area.  On the MRA
-> ring-role branch the sub-option TLV header is appended with
-> 
-> 	sub_tlv = skb_put(skb, sizeof(*sub_tlv));
-> 	sub_tlv->type = BR_MRP_SUB_TLV_HEADER_TEST_AUTO_MGR;
-> 
-> so sub_tlv->length is never written, and the two trailing alignment bytes
-> are appended with a bare skb_put() that does not clear them either.  The
-> neighbouring oui and sub_opt regions are explicitly zeroed, so three
-> uninitialised bytes are left in every MRA MRP_Test frame that goes out.
-> 
-> Put the sub-option TLV header and the alignment padding in a single
-> skb_put_zero(), which clears both.  The AUTO_MGR sub-TLV carries no
-> payload, so the zeroed length field is already the value it should have.
-> 
-> Fixes: f7458934b079 ("net: bridge: mrp: Update the Test frames for MRA")
-> Suggested-by: Nikolay Aleksandrov <razor@blackwall.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Baul Lee <baul.lee@xbow.com>
-> ---
-> v2:
->  - fold the alignment padding into a single skb_put_zero() for the
->    sub-option TLV header, dropping the explicit length assignment and the
->    second skb_put() (Nikolay Aleksandrov)
->  - drop the paragraph about observing the leak, and the Reported-by tags
-> 
-> Link to v1: https://lore.kernel.org/netdev/20260726062518.43774-1-baul.lee@xbow.com/
-> 
->  net/bridge/br_mrp.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-> diff --git a/net/bridge/br_mrp.c b/net/bridge/br_mrp.c
-> index 179d2470b..ef16d0703 100644
-> --- a/net/bridge/br_mrp.c
-> +++ b/net/bridge/br_mrp.c
-> @@ -224,11 +224,9 @@ static struct sk_buff *br_mrp_alloc_test_skb(struct br_mrp *mrp,
->  		sub_opt = skb_put(skb, sizeof(*sub_opt));
->  		memset(sub_opt, 0x0, sizeof(*sub_opt));
->  
-> -		sub_tlv = skb_put(skb, sizeof(*sub_tlv));
-> -		sub_tlv->type = BR_MRP_SUB_TLV_HEADER_TEST_AUTO_MGR;
-> -
->  		/* 32 bit alligment shall be ensured therefore add 2 bytes */
-> -		skb_put(skb, MRP_OPT_PADDING);
-> +		sub_tlv = skb_put_zero(skb, sizeof(*sub_tlv) + MRP_OPT_PADDING);
-> +		sub_tlv->type = BR_MRP_SUB_TLV_HEADER_TEST_AUTO_MGR;
->  	}
->  
->  	br_mrp_skb_tlv(skb, BR_MRP_TLV_HEADER_END, 0x0);
-> -- 
-> 2.53.0
-> 
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-You should not send patches as replies, they should be sent on
-their own. Aside from that the patch looks good to me:
+------------------
 
-Acked-by: Nikolay Aleksandrov <razor@blackwall.org>
+From: Tony Luck <tony.luck@intel.com>
+
+[ Upstream commit 9c214d10c50990c7a61b95887493df9ae713eec5 ]
+
+With the arrival of monitor events tied to new domains associated with a
+different resource it would be clearer if the L3 resource specific functions
+are more accurately named.
+
+Rename three groups of functions:
+
+Functions that allocate/free architecture per-RMID MBM state information:
+arch_domain_mbm_alloc()		-> l3_mon_domain_mbm_alloc()
+mon_domain_free()		-> l3_mon_domain_free()
+
+Functions that allocate/free filesystem per-RMID MBM state information:
+domain_setup_mon_state()	-> domain_setup_l3_mon_state()
+domain_destroy_mon_state()	-> domain_destroy_l3_mon_state()
+
+Initialization/exit:
+rdt_get_mon_l3_config()		-> rdt_get_l3_mon_config()
+resctrl_mon_resource_init()	-> resctrl_l3_mon_resource_init()
+resctrl_mon_resource_exit()	-> resctrl_l3_mon_resource_exit()
+
+Ensure kernel-doc descriptions of these functions' return values are present
+and correctly formatted.
+
+Signed-off-by: Tony Luck <tony.luck@intel.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
+Link: https://lore.kernel.org/20251217172121.12030-1-tony.luck@intel.com
+Stable-dep-of: 52fce648607e ("fs/resctrl: Fix use-after-free during unmount")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ arch/x86/kernel/cpu/resctrl/core.c     |   20 +++++++++++---------
+ arch/x86/kernel/cpu/resctrl/internal.h |    2 +-
+ arch/x86/kernel/cpu/resctrl/monitor.c  |    2 +-
+ fs/resctrl/internal.h                  |    6 +++---
+ fs/resctrl/monitor.c                   |    8 ++++----
+ fs/resctrl/rdtgroup.c                  |   24 ++++++++++++------------
+ 6 files changed, 32 insertions(+), 30 deletions(-)
+
+--- a/arch/x86/kernel/cpu/resctrl/core.c
++++ b/arch/x86/kernel/cpu/resctrl/core.c
+@@ -363,7 +363,7 @@ static void ctrl_domain_free(struct rdt_
+ 	kfree(hw_dom);
+ }
+ 
+-static void mon_domain_free(struct rdt_hw_l3_mon_domain *hw_dom)
++static void l3_mon_domain_free(struct rdt_hw_l3_mon_domain *hw_dom)
+ {
+ 	int idx;
+ 
+@@ -396,11 +396,13 @@ static int domain_setup_ctrlval(struct r
+ }
+ 
+ /**
+- * arch_domain_mbm_alloc() - Allocate arch private storage for the MBM counters
++ * l3_mon_domain_mbm_alloc() - Allocate arch private storage for the MBM counters
+  * @num_rmid:	The size of the MBM counter array
+  * @hw_dom:	The domain that owns the allocated arrays
++ *
++ * Return:	0 for success, or -ENOMEM.
+  */
+-static int arch_domain_mbm_alloc(u32 num_rmid, struct rdt_hw_l3_mon_domain *hw_dom)
++static int l3_mon_domain_mbm_alloc(u32 num_rmid, struct rdt_hw_l3_mon_domain *hw_dom)
+ {
+ 	size_t tsize = sizeof(*hw_dom->arch_mbm_states[0]);
+ 	enum resctrl_event_id eventid;
+@@ -536,7 +538,7 @@ static void domain_add_cpu_mon(int cpu,
+ 	ci = get_cpu_cacheinfo_level(cpu, RESCTRL_L3_CACHE);
+ 	if (!ci) {
+ 		pr_warn_once("Can't find L3 cache for CPU:%d resource %s\n", cpu, r->name);
+-		mon_domain_free(hw_dom);
++		l3_mon_domain_free(hw_dom);
+ 		return;
+ 	}
+ 	d->ci_id = ci->id;
+@@ -548,8 +550,8 @@ static void domain_add_cpu_mon(int cpu,
+ 
+ 	arch_mon_domain_online(r, d);
+ 
+-	if (arch_domain_mbm_alloc(r->mon.num_rmid, hw_dom)) {
+-		mon_domain_free(hw_dom);
++	if (l3_mon_domain_mbm_alloc(r->mon.num_rmid, hw_dom)) {
++		l3_mon_domain_free(hw_dom);
+ 		return;
+ 	}
+ 
+@@ -559,7 +561,7 @@ static void domain_add_cpu_mon(int cpu,
+ 	if (err) {
+ 		list_del_rcu(&d->hdr.list);
+ 		synchronize_rcu();
+-		mon_domain_free(hw_dom);
++		l3_mon_domain_free(hw_dom);
+ 	}
+ }
+ 
+@@ -650,7 +652,7 @@ static void domain_remove_cpu_mon(int cp
+ 		resctrl_offline_mon_domain(r, d);
+ 		list_del_rcu(&d->hdr.list);
+ 		synchronize_rcu();
+-		mon_domain_free(hw_dom);
++		l3_mon_domain_free(hw_dom);
+ 
+ 		return;
+ 	}
+@@ -897,7 +899,7 @@ static __init bool get_rdt_mon_resources
+ 	if (!ret)
+ 		return false;
+ 
+-	return !rdt_get_mon_l3_config(r);
++	return !rdt_get_l3_mon_config(r);
+ }
+ 
+ static __init void __check_quirks_intel(void)
+--- a/arch/x86/kernel/cpu/resctrl/internal.h
++++ b/arch/x86/kernel/cpu/resctrl/internal.h
+@@ -211,7 +211,7 @@ union l3_qos_abmc_cfg {
+ 
+ void rdt_ctrl_update(void *arg);
+ 
+-int rdt_get_mon_l3_config(struct rdt_resource *r);
++int rdt_get_l3_mon_config(struct rdt_resource *r);
+ 
+ bool rdt_cpu_has(int flag);
+ 
+--- a/arch/x86/kernel/cpu/resctrl/monitor.c
++++ b/arch/x86/kernel/cpu/resctrl/monitor.c
+@@ -423,7 +423,7 @@ static __init int snc_get_config(void)
+ 	return ret;
+ }
+ 
+-int __init rdt_get_mon_l3_config(struct rdt_resource *r)
++int __init rdt_get_l3_mon_config(struct rdt_resource *r)
+ {
+ 	unsigned int mbm_offset = boot_cpu_data.x86_cache_mbm_width_offset;
+ 	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(r);
+--- a/fs/resctrl/internal.h
++++ b/fs/resctrl/internal.h
+@@ -355,7 +355,9 @@ int alloc_rmid(u32 closid);
+ 
+ void free_rmid(u32 closid, u32 rmid);
+ 
+-void resctrl_mon_resource_exit(void);
++int resctrl_l3_mon_resource_init(void);
++
++void resctrl_l3_mon_resource_exit(void);
+ 
+ void mon_event_count(void *info);
+ 
+@@ -365,8 +367,6 @@ void mon_event_read(struct rmid_read *rr
+ 		    struct rdt_l3_mon_domain *d, struct rdtgroup *rdtgrp,
+ 		    cpumask_t *cpumask, int evtid, int first);
+ 
+-int resctrl_mon_resource_init(void);
+-
+ void mbm_setup_overflow_handler(struct rdt_l3_mon_domain *dom,
+ 				unsigned long delay_ms,
+ 				int exclude_cpu);
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -1758,7 +1758,7 @@ ssize_t mbm_L3_assignments_write(struct
+ }
+ 
+ /**
+- * resctrl_mon_resource_init() - Initialise global monitoring structures.
++ * resctrl_l3_mon_resource_init() - Initialise global monitoring structures.
+  *
+  * Allocate and initialise global monitor resources that do not belong to a
+  * specific domain. i.e. the rmid_ptrs[] used for the limbo and free lists.
+@@ -1767,9 +1767,9 @@ ssize_t mbm_L3_assignments_write(struct
+  * Resctrl's cpuhp callbacks may be called before this point to bring a domain
+  * online.
+  *
+- * Returns 0 for success, or -ENOMEM.
++ * Return: 0 for success, or -ENOMEM.
+  */
+-int resctrl_mon_resource_init(void)
++int resctrl_l3_mon_resource_init(void)
+ {
+ 	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+ 	int ret;
+@@ -1819,7 +1819,7 @@ int resctrl_mon_resource_init(void)
+ 	return 0;
+ }
+ 
+-void resctrl_mon_resource_exit(void)
++void resctrl_l3_mon_resource_exit(void)
+ {
+ 	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+ 
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -4170,7 +4170,7 @@ static void rdtgroup_setup_default(void)
+ 	mutex_unlock(&rdtgroup_mutex);
+ }
+ 
+-static void domain_destroy_mon_state(struct rdt_l3_mon_domain *d)
++static void domain_destroy_l3_mon_state(struct rdt_l3_mon_domain *d)
+ {
+ 	int idx;
+ 
+@@ -4218,13 +4218,13 @@ void resctrl_offline_mon_domain(struct r
+ 		cancel_delayed_work(&d->cqm_limbo);
+ 	}
+ 
+-	domain_destroy_mon_state(d);
++	domain_destroy_l3_mon_state(d);
+ 
+ 	mutex_unlock(&rdtgroup_mutex);
+ }
+ 
+ /**
+- * domain_setup_mon_state() -  Initialise domain monitoring structures.
++ * domain_setup_l3_mon_state() -  Initialise domain monitoring structures.
+  * @r:	The resource for the newly online domain.
+  * @d:	The newly online domain.
+  *
+@@ -4232,11 +4232,11 @@ void resctrl_offline_mon_domain(struct r
+  * Called when the first CPU of a domain comes online, regardless of whether
+  * the filesystem is mounted.
+  * During boot this may be called before global allocations have been made by
+- * resctrl_mon_resource_init().
++ * resctrl_l3_mon_resource_init().
+  *
+- * Returns 0 for success, or -ENOMEM.
++ * Return: 0 for success, or -ENOMEM.
+  */
+-static int domain_setup_mon_state(struct rdt_resource *r, struct rdt_l3_mon_domain *d)
++static int domain_setup_l3_mon_state(struct rdt_resource *r, struct rdt_l3_mon_domain *d)
+ {
+ 	u32 idx_limit = resctrl_arch_system_num_rmid_idx();
+ 	size_t tsize = sizeof(*d->mbm_states[0]);
+@@ -4298,7 +4298,7 @@ int resctrl_online_mon_domain(struct rdt
+ 
+ 	mutex_lock(&rdtgroup_mutex);
+ 
+-	err = domain_setup_mon_state(r, d);
++	err = domain_setup_l3_mon_state(r, d);
+ 	if (err)
+ 		goto out_unlock;
+ 
+@@ -4413,13 +4413,13 @@ int resctrl_init(void)
+ 
+ 	thread_throttle_mode_init();
+ 
+-	ret = resctrl_mon_resource_init();
++	ret = resctrl_l3_mon_resource_init();
+ 	if (ret)
+ 		return ret;
+ 
+ 	ret = sysfs_create_mount_point(fs_kobj, "resctrl");
+ 	if (ret) {
+-		resctrl_mon_resource_exit();
++		resctrl_l3_mon_resource_exit();
+ 		return ret;
+ 	}
+ 
+@@ -4454,7 +4454,7 @@ int resctrl_init(void)
+ 
+ cleanup_mountpoint:
+ 	sysfs_remove_mount_point(fs_kobj, "resctrl");
+-	resctrl_mon_resource_exit();
++	resctrl_l3_mon_resource_exit();
+ 
+ 	return ret;
+ }
+@@ -4490,7 +4490,7 @@ static bool resctrl_online_domains_exist
+  * When called by the architecture code, all CPUs and resctrl domains must be
+  * offline. This ensures the limbo and overflow handlers are not scheduled to
+  * run, meaning the data structures they access can be freed by
+- * resctrl_mon_resource_exit().
++ * resctrl_l3_mon_resource_exit().
+  *
+  * After resctrl_exit() returns, the architecture code should return an
+  * error from all resctrl_arch_ functions that can do this.
+@@ -4517,5 +4517,5 @@ void resctrl_exit(void)
+ 	 * it can be used to umount resctrl.
+ 	 */
+ 
+-	resctrl_mon_resource_exit();
++	resctrl_l3_mon_resource_exit();
+ }
+
+
