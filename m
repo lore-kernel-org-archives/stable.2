@@ -1,41 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8F11DA60D;
-	Thu, 30 Jul 2026 01:02:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3C529E116;
+	Thu, 30 Jul 2026 01:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785373333; cv=none; b=F30IKfc8zVoCYayc0P6qs0qYps0cSO09akSgvmH6WcQS3komG9pZF+lefDpb24C3J4Dn+e6eDrdUJT1XKJ/3BnLqvowgF2D3rzRCJ57ekVtyE9gKSJbORTdVdRudhjIGgIRI4JgwWOETyC4SeSxIybnMio4amwgrb/nC9EOnliw=
+	t=1785373335; cv=none; b=DK9bwzvN2RP2CIjv0kj0QIMq7aLd1NOsFe4OsLtxffmKdP4sQdVYMqQF1D56bgoyiuuxK/aVRAXdj7icCRD+otk8rb/I7Kmwu3KIoZqtLlAyU+qjDkv5M9QOFcIC7lHcrO/DhVs2wUXN89LpaPJbU1s5zznAzJejdWDwrFRaTGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785373333; c=relaxed/simple;
-	bh=HOSVWoeQrnXnKVS69BaphDZBMfSy5Pggt0jVPvsjpgc=;
+	s=arc-20240116; t=1785373335; c=relaxed/simple;
+	bh=mBP7yYMDhsPD+Rh+hBdyO8motdkYoaHnlVjMWRqzU28=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kj0N0y/+ngC4UpKhe8fZX3GlJ03lNQyP93Ub0xyqtzSQZiiFoyd+KoiMyQJZTFtqgL1lTrgTi/gt5pTHLzmanV6f7hSuui/i/K5WvPQ0oKBtEPFzUsCndI9bOXurVtMcL7QYm58CdtpykmGArQzAec8iJYm+5YZfcCBtXNdYvEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kFrA+hV3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BzXlUdtsPiNkvYTckU6pm+eEqnoHjIy+fR2D21zT6Ultj7hU/sKVYeD7dU8l4tWbHngFd5wETge5XhwWZJWoDFvRcSUpRsKY1sU/2dEv954Ra5F33voqsHtUibv5/mBcaiAdn9wWUf4rSzGaUqPMs5l6ynEqMVV81eDYrdc7SuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fqbfGJ6h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kFrA+hV3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AD5D1F00A3E;
-	Thu, 30 Jul 2026 01:02:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fqbfGJ6h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833FE1F00A3A;
+	Thu, 30 Jul 2026 01:02:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785373332;
-	bh=KMkchE5JHwDsdEaus3Jd1l02OUSx8MxHMYshhTVP7j0=;
+	s=k20260515; t=1785373333;
+	bh=yTDJ9u+m573RK7iOGs8iVRf3TciYkkHXM29BEI2B8EQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kFrA+hV3aLSAglQO+W44prNPkTuYw1OKclpGRo7NI7nxRgHMmAumJzpxW1844Q9AE
-	 LtVTmHK2oVpfFBKQkQvjp+fYsaLSDVeFrpaseLRlccrtdBtlfX+qGGJeI/u8DCUu7Z
-	 uHjzm6S6E7gD+VqvJoOxXVvULCJSzJyMttyfPvzNKfd49SF2gq1VV5ZiBoriTHWC2Y
-	 BvXfJL5RPYrBm9s0yjBqnj9R8gp9tIoslRcSImfJukVRD+tJiYbOlI9RBy86p0WHml
-	 H9vSMVoDo7pANX7VKj0BZO0PVDUd0YFYUjG2khziNMNpLbzfHBpiidXHSI0EMV5pXi
-	 bcaYS7G9tTgtg==
+	b=fqbfGJ6hE9xSH9FqUbUeahmRIvzZmbnZ9G1Fw+4sD8wC/B/wqic3/of+QGMzeM6Us
+	 Id4Tt+vx5s9ZLkgMPdhOeFSd6TaCTmB/YSpl8djeqVL76OgGY4cxCqs0yxF/cMZ6Re
+	 mamofhMxswVqfBxq1hf9n8WiyCINVo/w2RrDcASgyZNGtmRETbIJSw4gm95EhG8aZI
+	 XnZYG4UynxzYgApXwV5c7iJN6VhCxNanxZAcwM+7wlxpBrNEEowkbybLrS7V/IDj3m
+	 FMVd6uPEVHNUVl0aJsBjLMW6i+v2lNMGrY+/9xYYR1JchGNEzibT00503bi17NZYqH
+	 qj2H2klZMj8mQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: David Howells <dhowells@redhat.com>,
 	Marc Dionne <marc.dionne@auristor.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
 	linux-afs@lists.infradead.org,
 	linux-fsdevel@vger.kernel.org,
+	netdev@vger.kernel.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/8] afs: Drop the net parameter from afs_unuse_cell()
-Date: Wed, 29 Jul 2026 21:02:03 -0400
-Message-ID: <20260730010208.1700694-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y 4/8] rxrpc: Allow the app to store private data on peer structs
+Date: Wed, 29 Jul 2026 21:02:04 -0400
+Message-ID: <20260730010208.1700694-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260730010208.1700694-1-sashal@kernel.org>
 References: <2026072116-feeble-cusp-7fff@gregkh>
@@ -50,221 +56,95 @@ Content-Transfer-Encoding: 8bit
 
 From: David Howells <dhowells@redhat.com>
 
-[ Upstream commit 469c82b558628482002e4819d35b7670f0a989fd ]
+[ Upstream commit f3a123b25429dc03508e3bf598373005220b7203 ]
 
-Remove the redundant net parameter to afs_unuse_cell() as cell->net can be
-used instead.
+Provide a way for the application (e.g. the afs filesystem) to store
+private data on the rxrpc_peer structs for later retrieval via the call
+object.
+
+This will allow afs to store a pointer to the afs_server object on the
+rxrpc_peer struct, thereby obviating the need for afs to keep lookup tables
+by which it can associate an incoming call with server that transmitted it.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Eric Dumazet <edumazet@google.com>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
 cc: linux-afs@lists.infradead.org
 cc: linux-fsdevel@vger.kernel.org
-Link: https://lore.kernel.org/r/20250224234154.2014840-12-dhowells@redhat.com/ # v1
-Link: https://lore.kernel.org/r/20250310094206.801057-8-dhowells@redhat.com/ # v4
+cc: netdev@vger.kernel.org
+Link: https://lore.kernel.org/r/20250224234154.2014840-13-dhowells@redhat.com/ # v1
+Link: https://lore.kernel.org/r/20250310094206.801057-9-dhowells@redhat.com/ # v4
 Stable-dep-of: 55e841836c6f ("afs: Fix lack of locking around modifications of net->cells_dyn_ino")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/afs/cell.c              | 12 ++++++------
- fs/afs/dynroot.c           |  4 ++--
- fs/afs/internal.h          |  2 +-
- fs/afs/mntpt.c             |  2 +-
- fs/afs/proc.c              |  2 +-
- fs/afs/super.c             |  9 ++++-----
- fs/afs/vl_alias.c          |  4 ++--
- include/trace/events/afs.h |  1 +
- 8 files changed, 18 insertions(+), 18 deletions(-)
+ include/net/af_rxrpc.h  |  2 ++
+ net/rxrpc/ar-internal.h |  1 +
+ net/rxrpc/peer_object.c | 26 ++++++++++++++++++++++++++
+ 3 files changed, 29 insertions(+)
 
-diff --git a/fs/afs/cell.c b/fs/afs/cell.c
-index 918013d9050ea1..e3b7cf439064ba 100644
---- a/fs/afs/cell.c
-+++ b/fs/afs/cell.c
-@@ -339,7 +339,7 @@ struct afs_cell *afs_lookup_cell(struct afs_net *net,
- 		goto wait_for_cell;
- 	goto error_noput;
- error:
--	afs_unuse_cell(net, cell, afs_cell_trace_unuse_lookup);
-+	afs_unuse_cell(cell, afs_cell_trace_unuse_lookup_error);
- error_noput:
- 	_leave(" = %d [error]", ret);
- 	return ERR_PTR(ret);
-@@ -402,7 +402,7 @@ int afs_cell_init(struct afs_net *net, const char *rootcell)
- 				       lockdep_is_held(&net->cells_lock));
- 	up_write(&net->cells_lock);
- 
--	afs_unuse_cell(net, old_root, afs_cell_trace_unuse_ws);
-+	afs_unuse_cell(old_root, afs_cell_trace_unuse_ws);
- 	_leave(" = 0");
- 	return 0;
+diff --git a/include/net/af_rxrpc.h b/include/net/af_rxrpc.h
+index 0754c463224a43..cf793d18e5df51 100644
+--- a/include/net/af_rxrpc.h
++++ b/include/net/af_rxrpc.h
+@@ -69,6 +69,8 @@ struct rxrpc_peer *rxrpc_kernel_get_peer(struct rxrpc_peer *peer);
+ struct rxrpc_peer *rxrpc_kernel_get_call_peer(struct socket *sock, struct rxrpc_call *call);
+ const struct sockaddr_rxrpc *rxrpc_kernel_remote_srx(const struct rxrpc_peer *peer);
+ const struct sockaddr *rxrpc_kernel_remote_addr(const struct rxrpc_peer *peer);
++unsigned long rxrpc_kernel_set_peer_data(struct rxrpc_peer *peer, unsigned long app_data);
++unsigned long rxrpc_kernel_get_peer_data(const struct rxrpc_peer *peer);
+ unsigned int rxrpc_kernel_get_srtt(const struct rxrpc_peer *);
+ int rxrpc_kernel_charge_accept(struct socket *, rxrpc_notify_rx_t,
+ 			       rxrpc_user_attach_call_t, unsigned long, gfp_t,
+diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
+index 61dd1298124f62..346fb8fa2cafcd 100644
+--- a/net/rxrpc/ar-internal.h
++++ b/net/rxrpc/ar-internal.h
+@@ -334,6 +334,7 @@ struct rxrpc_peer {
+ 	struct hlist_head	error_targets;	/* targets for net error distribution */
+ 	struct rb_root		service_conns;	/* Service connections */
+ 	struct list_head	keepalive_link;	/* Link in net->peer_keepalive[] */
++	unsigned long		app_data;	/* Application data (e.g. afs_server) */
+ 	unsigned int		last_tx_at;	/* Last time packet sent here (time64_t LSW) */
+ 	seqlock_t		service_conn_lock;
+ 	spinlock_t		lock;		/* access lock */
+diff --git a/net/rxrpc/peer_object.c b/net/rxrpc/peer_object.c
+index 956fc7ea4b7346..5664469fdd0c77 100644
+--- a/net/rxrpc/peer_object.c
++++ b/net/rxrpc/peer_object.c
+@@ -509,3 +509,29 @@ const struct sockaddr *rxrpc_kernel_remote_addr(const struct rxrpc_peer *peer)
+ 		(peer ? &peer->srx.transport : &rxrpc_null_addr.transport);
  }
-@@ -522,7 +522,7 @@ static void afs_cell_destroy(struct rcu_head *rcu)
- 	trace_afs_cell(cell->debug_id, r, atomic_read(&cell->active), afs_cell_trace_free);
- 
- 	afs_put_vlserverlist(net, rcu_access_pointer(cell->vl_servers));
--	afs_unuse_cell(net, cell->alias_of, afs_cell_trace_unuse_alias);
-+	afs_unuse_cell(cell->alias_of, afs_cell_trace_unuse_alias);
- 	key_put(cell->anonymous_key);
- 	idr_remove(&net->cells_dyn_ino, cell->dynroot_ino);
- 	kfree(cell->name - 1);
-@@ -610,7 +610,7 @@ struct afs_cell *afs_use_cell(struct afs_cell *cell, enum afs_cell_trace reason)
-  * Record a cell becoming less active.  When the active counter reaches 1, it
-  * is scheduled for destruction, but may get reactivated.
-  */
--void afs_unuse_cell(struct afs_net *net, struct afs_cell *cell, enum afs_cell_trace reason)
-+void afs_unuse_cell(struct afs_cell *cell, enum afs_cell_trace reason)
- {
- 	unsigned int debug_id;
- 	time64_t now, expire_delay;
-@@ -634,7 +634,7 @@ void afs_unuse_cell(struct afs_net *net, struct afs_cell *cell, enum afs_cell_tr
- 	WARN_ON(a == 0);
- 	if (a == 1)
- 		/* 'cell' may now be garbage collected. */
--		afs_set_cell_timer(net, expire_delay);
-+		afs_set_cell_timer(cell->net, expire_delay);
- }
- 
- /*
-@@ -959,7 +959,7 @@ void afs_cell_purge(struct afs_net *net)
- 	ws = rcu_replace_pointer(net->ws_cell, NULL,
- 				 lockdep_is_held(&net->cells_lock));
- 	up_write(&net->cells_lock);
--	afs_unuse_cell(net, ws, afs_cell_trace_unuse_ws);
-+	afs_unuse_cell(ws, afs_cell_trace_unuse_ws);
- 
- 	_debug("del timer");
- 	if (del_timer_sync(&net->cells_timer))
-diff --git a/fs/afs/dynroot.c b/fs/afs/dynroot.c
-index 3d0b4efb5b0405..e593f9618e0669 100644
---- a/fs/afs/dynroot.c
-+++ b/fs/afs/dynroot.c
-@@ -125,7 +125,7 @@ static struct dentry *afs_dynroot_lookup_cell(struct inode *dir, struct dentry *
- 	return d_splice_alias(inode, dentry);
- 
- out:
--	afs_unuse_cell(cell->net, cell, afs_cell_trace_unuse_lookup_dynroot);
-+	afs_unuse_cell(cell, afs_cell_trace_unuse_lookup_dynroot);
- out_no_cell:
- 	if (!inode)
- 		return d_splice_alias(inode, dentry);
-@@ -167,7 +167,7 @@ static void afs_dynroot_d_release(struct dentry *dentry)
- {
- 	struct afs_cell *cell = dentry->d_fsdata;
- 
--	afs_unuse_cell(cell->net, cell, afs_cell_trace_unuse_dynroot_mntpt);
-+	afs_unuse_cell(cell, afs_cell_trace_unuse_dynroot_mntpt);
- }
- 
- /*
-diff --git a/fs/afs/internal.h b/fs/afs/internal.h
-index 96804c11d129a0..217dcd4d908d6c 100644
---- a/fs/afs/internal.h
-+++ b/fs/afs/internal.h
-@@ -1045,7 +1045,7 @@ struct afs_cell *afs_lookup_cell(struct afs_net *net,
- 				 const char *vllist, bool excl,
- 				 enum afs_cell_trace trace);
- extern struct afs_cell *afs_use_cell(struct afs_cell *, enum afs_cell_trace);
--extern void afs_unuse_cell(struct afs_net *, struct afs_cell *, enum afs_cell_trace);
-+void afs_unuse_cell(struct afs_cell *cell, enum afs_cell_trace reason);
- extern struct afs_cell *afs_get_cell(struct afs_cell *, enum afs_cell_trace);
- extern void afs_see_cell(struct afs_cell *, enum afs_cell_trace);
- extern void afs_put_cell(struct afs_cell *, enum afs_cell_trace);
-diff --git a/fs/afs/mntpt.c b/fs/afs/mntpt.c
-index cec86aaa6adc10..8ebac8c030952e 100644
---- a/fs/afs/mntpt.c
-+++ b/fs/afs/mntpt.c
-@@ -87,7 +87,7 @@ static int afs_mntpt_set_params(struct fs_context *fc, struct dentry *mntpt)
- 		ctx->force = true;
- 	}
- 	if (ctx->cell) {
--		afs_unuse_cell(ctx->net, ctx->cell, afs_cell_trace_unuse_mntpt);
-+		afs_unuse_cell(ctx->cell, afs_cell_trace_unuse_mntpt);
- 		ctx->cell = NULL;
- 	}
- 	if (test_bit(AFS_VNODE_PSEUDODIR, &vnode->flags)) {
-diff --git a/fs/afs/proc.c b/fs/afs/proc.c
-index fc7027fc3084a3..9a3d8eb5da43c2 100644
---- a/fs/afs/proc.c
-+++ b/fs/afs/proc.c
-@@ -130,7 +130,7 @@ static int afs_proc_cells_write(struct file *file, char *buf, size_t size)
- 		}
- 
- 		if (test_and_set_bit(AFS_CELL_FL_NO_GC, &cell->flags))
--			afs_unuse_cell(net, cell, afs_cell_trace_unuse_no_pin);
-+			afs_unuse_cell(cell, afs_cell_trace_unuse_no_pin);
- 	} else {
- 		goto inval;
- 	}
-diff --git a/fs/afs/super.c b/fs/afs/super.c
-index 287fe6ebdfda19..feb81729bd3dbe 100644
---- a/fs/afs/super.c
-+++ b/fs/afs/super.c
-@@ -297,7 +297,7 @@ static int afs_parse_source(struct fs_context *fc, struct fs_parameter *param)
- 			       cellnamesz, cellnamesz, cellname ?: "");
- 			return PTR_ERR(cell);
- 		}
--		afs_unuse_cell(ctx->net, ctx->cell, afs_cell_trace_unuse_parse);
-+		afs_unuse_cell(ctx->cell, afs_cell_trace_unuse_parse);
- 		afs_see_cell(cell, afs_cell_trace_see_source);
- 		ctx->cell = cell;
- 	}
-@@ -394,7 +394,7 @@ static int afs_validate_fc(struct fs_context *fc)
- 				ctx->key = NULL;
- 				cell = afs_use_cell(ctx->cell->alias_of,
- 						    afs_cell_trace_use_fc_alias);
--				afs_unuse_cell(ctx->net, ctx->cell, afs_cell_trace_unuse_fc);
-+				afs_unuse_cell(ctx->cell, afs_cell_trace_unuse_fc);
- 				ctx->cell = cell;
- 				goto reget_key;
- 			}
-@@ -520,9 +520,8 @@ static struct afs_super_info *afs_alloc_sbi(struct fs_context *fc)
- static void afs_destroy_sbi(struct afs_super_info *as)
- {
- 	if (as) {
--		struct afs_net *net = afs_net(as->net_ns);
- 		afs_put_volume(as->volume, afs_volume_trace_put_destroy_sbi);
--		afs_unuse_cell(net, as->cell, afs_cell_trace_unuse_sbi);
-+		afs_unuse_cell(as->cell, afs_cell_trace_unuse_sbi);
- 		put_net(as->net_ns);
- 		kfree(as);
- 	}
-@@ -606,7 +605,7 @@ static void afs_free_fc(struct fs_context *fc)
- 
- 	afs_destroy_sbi(fc->s_fs_info);
- 	afs_put_volume(ctx->volume, afs_volume_trace_put_free_fc);
--	afs_unuse_cell(ctx->net, ctx->cell, afs_cell_trace_unuse_fc);
-+	afs_unuse_cell(ctx->cell, afs_cell_trace_unuse_fc);
- 	key_put(ctx->key);
- 	kfree(ctx);
- }
-diff --git a/fs/afs/vl_alias.c b/fs/afs/vl_alias.c
-index ffcfba1725e6da..709b4cdb723eea 100644
---- a/fs/afs/vl_alias.c
-+++ b/fs/afs/vl_alias.c
-@@ -205,11 +205,11 @@ static int afs_query_for_alias(struct afs_cell *cell, struct key *key)
- 			goto is_alias;
- 
- 		if (mutex_lock_interruptible(&cell->net->proc_cells_lock) < 0) {
--			afs_unuse_cell(cell->net, p, afs_cell_trace_unuse_check_alias);
-+			afs_unuse_cell(p, afs_cell_trace_unuse_check_alias);
- 			return -ERESTARTSYS;
- 		}
- 
--		afs_unuse_cell(cell->net, p, afs_cell_trace_unuse_check_alias);
-+		afs_unuse_cell(p, afs_cell_trace_unuse_check_alias);
- 	}
- 
- 	mutex_unlock(&cell->net->proc_cells_lock);
-diff --git a/include/trace/events/afs.h b/include/trace/events/afs.h
-index 0fc479d63ca7df..b42f2e1e07f1da 100644
---- a/include/trace/events/afs.h
-+++ b/include/trace/events/afs.h
-@@ -197,6 +197,7 @@ enum yfs_cm_operation {
- 	EM(afs_cell_trace_unuse_fc,		"UNU fc    ") \
- 	EM(afs_cell_trace_unuse_lookup,		"UNU lookup") \
- 	EM(afs_cell_trace_unuse_lookup_dynroot,	"UNU lu-dyn") \
-+	EM(afs_cell_trace_unuse_lookup_error,	"UNU lu-err") \
- 	EM(afs_cell_trace_unuse_mntpt,		"UNU mntpt ") \
- 	EM(afs_cell_trace_unuse_no_pin,		"UNU no-pin") \
- 	EM(afs_cell_trace_unuse_parse,		"UNU parse ") \
+ EXPORT_SYMBOL(rxrpc_kernel_remote_addr);
++
++/**
++ * rxrpc_kernel_set_peer_data - Set app-specific data on a peer.
++ * @peer: The peer to alter
++ * @app_data: The data to set
++ *
++ * Set the app-specific data on a peer.  AF_RXRPC makes no effort to retain
++ * anything the data might refer to.  The previous app_data is returned.
++ */
++unsigned long rxrpc_kernel_set_peer_data(struct rxrpc_peer *peer, unsigned long app_data)
++{
++	return xchg(&peer->app_data, app_data);
++}
++EXPORT_SYMBOL(rxrpc_kernel_set_peer_data);
++
++/**
++ * rxrpc_kernel_get_peer_data - Get app-specific data from a peer.
++ * @peer: The peer to query
++ *
++ * Retrieve the app-specific data from a peer.
++ */
++unsigned long rxrpc_kernel_get_peer_data(const struct rxrpc_peer *peer)
++{
++	return peer->app_data;
++}
++EXPORT_SYMBOL(rxrpc_kernel_get_peer_data);
 -- 
 2.53.0
 
