@@ -1,140 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7877843D502;
-	Thu, 30 Jul 2026 14:48:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785422940; cv=none; b=Z7OMRhfmQPOnahf5dVHdb867es91e0AMhbQVUtcHWMiNxjZV9G59V1JMZ2kNzpDeTv13fFP3SPoF11vsPP7jPK5ALPawQ8p4azdVlIGewAifU0YUynx3xhbkOZ4dMT0Dby2FZdLz+KBfqmzgN1VBDC8DJodgvvxQS/VB7uujQS8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF03421EF8
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 14:48:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785422940; cv=pass; b=mJ3l0cnuOlv4eiE1QbCxnadNGwb2hKH9vAhyjDdK2CqeoGrSo/NDx7khaeyY53EvoeM11zyKJo2jbxFbNGqZuovVndrx8nHjsJBeVeoTwU3c9nu7+KKevo30qAw1bfoaWmNeWIDcidmNBT5SOygK4/1BOSpntxNM4XTeKwEThh0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785422940; c=relaxed/simple;
-	bh=L5alZF2NsDmoeLZsSbRE79m67xwYSBThey3T/2yrNCc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uHnBFvcHwGDLin83lbYpPP9Wk7QcBTfYZBbMB84PWbxqXiwEW2y/Gro82r4Yuty1khFsr42jrfGVgl8D2NX4utSxzyO+LTBZKzwonq/nEToPvt8LPWdiGZyFHQRgW+urEiGUvmi6mb/2+WCkAnn/qKkTS4NROkoil1o1oxeTBjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2ICmhyFV; arc=none smtp.client-ip=100.103.45.18
+	bh=px6w1UbFxmXtT5EikDouH2woPAjJM9tv/Dll3Izn9mU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AYx7xHqMQE/7jNugL/mur0BSgX9/tkEVr/FRXmMPVkvE6KcGsOrssXVUOVR5EVRGhQOKHgNsa8SGBGp0NGatrgIgqwbhACt4JQdRYkzVocpxBl9u8NlbX1fBj/AP2YNonzyRby2EqujpId/pxQK5bQ8a01Y9OJ9YTsa+SlAAJj8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kCTUrqX+; arc=pass smtp.client-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2ICmhyFV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D37B41F000E9;
-	Thu, 30 Jul 2026 14:48:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785422938;
-	bh=J2ir4RyccVBRuGnXXI4TKFeT6y7j0AhOH0emBYxxh6Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=2ICmhyFV2KpMnbUadXx7EdkGlWWbYMW2hQ3dO9cdWcCEoV02m2hHIVmXEJcf19+eN
-	 976RWWf9eiwqmpjC9/E+UJ9ORzr3DKiAEKi/WypLKta9dg+ILcmZZw48HnX9cEd354
-	 2nqg4JjC5O4vYyLyDetO5HR7kyJ9agyj9nbF4H3o=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Geliang Tang <tanggeliang@kylinos.cn>,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 7.1 610/744] mptcp: pm: userspace: fix use-after-free in get_local_id
-Date: Thu, 30 Jul 2026 16:14:43 +0200
-Message-ID: <20260730141457.240279076@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730141444.267951807@linuxfoundation.org>
-References: <20260730141444.267951807@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kCTUrqX+"
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7ee125ec926so1357943a34.2
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 07:48:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785422937; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ljubAFYoBSSJZxsUIqN2MRSGjm1XCfXgVA1KawXNeGemfpd2SUVKqawgXzebcpelnR
+         +ocdW6RFApO2oZhniXazhTDH07QVlV+OCokU251TSnL9WTka6TyQYPfdCMZEWALxXpvc
+         Q1Iphjba2bhhqRnqUq370o2sjYVqjdFSO+jC3wH9tLy0SGl0SdKVStlMwz/DrsVaPYAi
+         PU74CAmqbn4xEisN8k9O1D0PtQUQkL1yfxEyHHfbg5+N6Z6TYbkwGbcBFhqJQ97hTkFZ
+         KwgZrpm/qcowE0nuS0bNsB24OoLofTuvAIzWHn8bnztmWd16XCCA1Hil5E/69UgnfVuZ
+         YJeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=px6w1UbFxmXtT5EikDouH2woPAjJM9tv/Dll3Izn9mU=;
+        fh=43LSyM3IdD1Odo4INA2pXS1zQlU+QTFWMqSgBYF3K0M=;
+        b=HxjylNNmpRKCORQzyN7McvNutMVqcFsYIvJ6CJFOj4JpU6jDtF81/w5A7KcZSxWSSA
+         jmYwiJWP7zuMZNvopjk5rUVvLuQO7A1Ca/aumYllgDxHB0w66ObVHQFvtlD1cJ6KIACG
+         HVVX3vY0hM0eS9QTjrhgkLdCmg5wv+PSf3maiwdQ4NZvIgU7K2bMzAi9cJ/t8zcyfO/K
+         KQXMuN3KOlp9OUq01vUTJxoKoK7puXWvxpGP3HJFw+nryXqjZH5Gc7C4h5L+edNASTvI
+         Jblrz30jTYJHJn0kGOJTMPaUEZXZmtkYLMm6TKHp0z36nfO0nfS5V9kg+5YgxN80yfRT
+         WVSg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785422937; x=1786027737; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=px6w1UbFxmXtT5EikDouH2woPAjJM9tv/Dll3Izn9mU=;
+        b=kCTUrqX+ZchT/3MVrYoJ9R9kfcSxEk1lezzSK/0e/92l4Gshw4uiyNv3ApJW9raHVf
+         G8XwAABD67gTNWZCQMgjogQngQlG6pOSw1N5rOVQ422vA5i9DGEjOpJrmTo2BY9Ugbpy
+         w08mDC2uQSJBlAlaFjMJhHK9fDeJD1cdscSRcJQTck+YI2mdMFSrX9c9JW7xbA3KgCCp
+         NTFTEI2fx9kET6Nt0itUtWsufNTD3BB7mw2eYR9trjWpWLUvJCBU34Wb3F7KBJayTp7d
+         WlJ6+uXQbG9Hq/FoiC/CL91eQcySZqyPmtfO2PfXUv2lHN4iWVi4AjU/5nWW4XOpuQKv
+         sGaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785422937; x=1786027737;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=px6w1UbFxmXtT5EikDouH2woPAjJM9tv/Dll3Izn9mU=;
+        b=I+csHAPE8KThWAWkccxigmRIEIgg5qiwZaCjWITGgfRGiM6Snm6kcmqy+Gc2aaOW09
+         nbUVYNXXy+QRUqqNUAdsrTd47CGm5wty1/nUBlk+Tk9aYUOa/2/A7Mq3ioWm+bUegzJ+
+         iM32kTA4AlDLrzCnHPstjO7sXaj6HMj9RZnkR50IT26AMqUXiUM/QFmegm06OHOndYGX
+         VEMTETokIHz/L5+4bsz5Sd/7/MjCEwA6JglmGxmdaMypYRkNysPg6g7xI/xCZOSqx7ZL
+         HBbTfPPcHCVqBQ77BzCVdbtFDkPhlrsIzdUt8Zcz49SXi/5TTf7eeXm19CH9Mvo4UlyJ
+         O4EQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoW37qVt4zZGimvTVjm13dV3SOLVp1RxfFp9d8kKSmvzg4otKx1+OhZslvH7CQqvDTSauEsWQs=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw2lwlgI/crG+DIWNBkOVzL3lc98kLM5+CdqTcb1bytRGj9H9Ly
+	M4wFPnIzYd2C9t3pH9q92tTyxYN2dMJU4JOknh38w9zQXUgXzWHsqmDEDXIMi27P6HGhemiBFIE
+	OI7Ady+QRrJS2DGaGVnVpAPsfo80Qvps=
+X-Gm-Gg: AR+sD133BaRJndnz5LL2QyyDRwHJgflTpw3CLLTzHWj7CrAixVqsS8hiF/9GRrtXUI2
+	Y9TCjqAWPU/aeclP3SbE4aoSXcKrTZ0XCUjX8mVwv/6Qb8aUIOLT2Eesr7Nv2gmgd85v7Naip9B
+	VQoYacfVXqPTNw938mgVr7IBnU1Sp4XrhDVP1F7G5h09OEY08xYKCGvtmP/akEnvyJ/UYx8ftpf
+	C/hMB1E5Pz3iJGhvn6GEr9LtsuEAFf687CRNgeiGH9tFnSHdfxFWDfV7R84Pdpayyd0xO/qxKfK
+	Tg2rd6Pl6LSSRsCj8mdDIqziU4Umn0eFJ4TObgGdqxE+qw==
+X-Received: by 2002:a05:6830:4983:b0:7e6:f4a3:1df5 with SMTP id
+ 46e09a7af769-7f03925069cmr647058a34.1.1785422937495; Thu, 30 Jul 2026
+ 07:48:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260723221910.85822-1-vitaly.prosyak@amd.com>
+ <20260723221910.85822-3-vitaly.prosyak@amd.com> <69043022-b215-43f4-87ff-71c52d999021@amd.com>
+In-Reply-To: <69043022-b215-43f4-87ff-71c52d999021@amd.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Thu, 30 Jul 2026 19:48:46 +0500
+X-Gm-Features: AUfX_mwtO2881UT71vQP47iS7hve9V6LOCsE0Uggw8r4-1ND3LkHP3IzqD8kFhU
+Message-ID: <CABXGCsPXb9zZA3U8XmPsx_Es8E_6M4w8SBNUC1_oQ_Qig1hYpg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] drm/amdgpu: Fix lockdep false positive in amdgpu_lockdep_init
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+Cc: vitaly.prosyak@amd.com, amd-gfx@lists.freedesktop.org, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+On Thu, Jul 30, 2026 at 5:35=E2=80=AFPM Arunpravin Paneer Selvam
+<arunpravin.paneerselvam@amd.com> wrote:
+>
+> The fs_reclaim class is already registered by the core kernel on the
+> first GFP_KERNEL allocation,
+> well before amdgpu_lockdep_init() runs. Is it kept on purpose, or can it
+> be dropped?.
+>
+> Otherwise:
+> Acked-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-------------------
+You are right, and it goes a bit further: the class is registered before an=
+y
+module init runs. Every GFP_KERNEL allocation goes through might_alloc(), w=
+hich
+does exactly this fs_reclaim_acquire()/fs_reclaim_release() pair, so the cl=
+ass
+is registered on the first such allocation in early boot. Registration is
+idempotent and its order carries no meaning for lockdep (only edges do), so=
+ the
+pair here adds nothing.
 
-From: Geliang Tang <tanggeliang@kylinos.cn>
+So it is a no-op and dropping it is functionally identical. Data point: my
+original patch did exactly that, and with the pair removed the reproducer n=
+o
+longer triggers the splat and lockdep stays active for the whole boot.
 
-commit 9bc6d5e4ca9f3cbb41d43400b3a31cb0403796c9 upstream.
+Keeping it does look deliberate rather than accidental, though: in the v1
+thread Christian asked for the annotation to be moved outside the notifier =
+lock
+rather than removed, and mentioned pending work on the VM eviction lock whi=
+ch
+has a similar fs_reclaim ordering problem. So whether to drop it is a call =
+for
+Christian and Vitaly rather than a technical question.
 
-In mptcp_pm_userspace_get_local_id(), the address entry is looked up under
-spinlock, but its id is read after dropping the lock. A concurrent deletion
-can free the entry between the unlock and the read, leading to UAF.
-
-The race window is narrow. It was reproduced only with a locally
-constructed stress test that repeatedly overlaps an MP_JOIN SYN with a
-MPTCP_PM_CMD_SUBFLOW_DESTROY request.
-
-However, the KASAN report below confirms that the race is reachable:
-
-  [  666.319376] BUG: KASAN: slab-use-after-free in mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
-  [  666.319386] Read of size 1 at addr ffff888124845610 by task swapper/0/0
-  ...
-  [  666.319401] Call Trace:
-  [  666.319405]  <IRQ>
-  [  666.319408]  dump_stack_lvl+0x53/0x70
-  [  666.319412]  print_address_description.constprop.0+0x2c/0x3b0
-  [  666.319418]  print_report+0xbe/0x2b0
-  [  666.319421]  ? mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
-  [  666.319423]  kasan_report+0xce/0x100
-  [  666.319426]  ? mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
-  [  666.319429]  mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
-  [  666.319433]  mptcp_pm_get_local_id+0x371/0x440
-  ...
-  [  666.319821] Allocated by task 45539:
-  [  666.319844]  kasan_save_stack+0x33/0x60
-  [  666.319855]  kasan_save_track+0x14/0x30
-  [  666.319858]  __kasan_kmalloc+0x8f/0xa0
-  [  666.319863]  __kmalloc_noprof+0x1e7/0x520
-  [  666.319867]  sock_kmalloc+0xdf/0x130
-  [  666.319885]  sock_kmemdup+0x1b/0x40
-  [  666.319888]  mptcp_userspace_pm_append_new_local_addr+0x261/0x500
-  [  666.319910]  mptcp_pm_nl_announce_doit+0x16a/0x610
-  ...
-  [  666.319967] Freed by task 45560:
-  [  666.319988]  kasan_save_stack+0x33/0x60
-  [  666.319991]  kasan_save_track+0x14/0x30
-  [  666.319994]  kasan_save_free_info+0x3b/0x60
-  [  666.319998]  __kasan_slab_free+0x43/0x70
-  [  666.320000]  kfree+0x166/0x440
-  [  666.320003]  sock_kfree_s+0x1d/0x50
-  [  666.320007]  mptcp_userspace_pm_delete_local_addr.isra.0+0x157/0x200
-  [  666.320011]  mptcp_pm_nl_subflow_destroy_doit+0x51d/0xea0
-
-Fix by copying the id into a local variable while still holding the lock,
-and use -1 as a "not found" sentinel.
-
-Fixes: f012d796a6de ("mptcp: check addrs list in userspace_pm_get_local_id")
-Cc: stable@vger.kernel.org
-Signed-off-by: Geliang Tang <tanggeliang@kylinos.cn>
-Tested-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260722-net-mptcp-misc-fixes-7-2-rc5-v1-2-6fb595bc86ef@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- net/mptcp/pm_userspace.c |    7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
---- a/net/mptcp/pm_userspace.c
-+++ b/net/mptcp/pm_userspace.c
-@@ -132,12 +132,15 @@ int mptcp_userspace_pm_get_local_id(stru
- 	__be16 msk_sport =  ((struct inet_sock *)
- 			     inet_sk((struct sock *)msk))->inet_sport;
- 	struct mptcp_pm_addr_entry *entry;
-+	int id;
- 
- 	spin_lock_bh(&msk->pm.lock);
- 	entry = mptcp_userspace_pm_lookup_addr(msk, &skc->addr);
-+	id = entry ? entry->addr.id : -1;
- 	spin_unlock_bh(&msk->pm.lock);
--	if (entry)
--		return entry->addr.id;
-+
-+	if (id != -1)
-+		return id;
- 
- 	if (skc->addr.port == msk_sport)
- 		skc->addr.port = 0;
-
-
+--=20
+Best Regards,
+Mike Gavrilov.
