@@ -1,103 +1,110 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4553B4EB5;
-	Thu, 30 Jul 2026 18:14:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2433164B7;
+	Thu, 30 Jul 2026 18:17:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785435286; cv=none; b=P8qaoONBfrWuKkfdOD4GtWjJdZMNH6helLBivMDWwBz0jHZJraSeI8uIB4etwQpmoJFbnu1OoqeRTU+VKVxdG741yeybJ5N6Gftj4X5MR/nIkuEFt+4O2SCbaLGQc35ubSUju8e5wGzePaecXr2loP59G67Fd0F9i3N1uSfTY/A=
+	t=1785435466; cv=none; b=XdFY1uxpXeUcttAOckAItSjWekoOFy0stSKdRq//6p42w8Fq0sCp7fC3DqeLCAll5AU8FabELgflP93nSLjgVrquKOxzk1neWvv3NwBr6Jy2ZcXUspyWW6zLfBEnj6pZcaog+77wgj86fbr5R/IWegPPE1PYkyIQS/Lmr6H1/Vk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785435286; c=relaxed/simple;
-	bh=F6+Om4p+4oo6ZFQCdI73ewqN7GtwaTrmcvQiBnOu/Y0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tlAZi8zm3+3R8/UP2tSB+oH51gtrOmNISS4hhRoIy1MmxMj34Qe2uewZG7fi6pK2cgluoyMXU+L2GIxdwrf3K4JiekgiApKMHfEeXST9UQG8bueSLLBi+Js3upk6WTezG9Xsh20tjHsFrnM91oBf9lXcOq4hwBHxQagN8nWmlEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=LFQS8PGv; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1785435466; c=relaxed/simple;
+	bh=Snwv4ZX9n7rsHVFGJZZarZQi0g4FUtW3ValMoH96bV0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YEHdXpaZRRZckcmpXjhX/281iIyz9ATzMiNaxFt3Go5/o3Bi6jhCXCAwx6LA9nxBBDQAR4PDembkkLB8vWv+CPlJycVomvEs1CpS0cSELJXRP2QMFUpRvdEHZKXvnQGKxoqdhjfd9C0iOtefpLsqXFrPvbg+G2dmC0dXMK7cH3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fuXCm1mL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="LFQS8PGv"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B18411E4;
-	Thu, 30 Jul 2026 20:13:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1785435215;
-	bh=F6+Om4p+4oo6ZFQCdI73ewqN7GtwaTrmcvQiBnOu/Y0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LFQS8PGvLUXcVO9hXUO7yjUvuMrfoYeFfqgPRhlZA1/M5CacOvTHFAttRNwEJMr4V
-	 uTm2W/bVzaPnN3S+Xa71H+xLOjeNJ+D/iLefMGf2TnlItELijO0xfBy41cjbQH6izR
-	 Ug7vW3uOvgFEElhDlwMuG8XkERfjmD2vZ+RMtrCM=
-Date: Thu, 30 Jul 2026 21:14:40 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Christian Hemp <c.hemp@phytec.de>,
-	Stefan Riedmueller <s.riedmueller@phytec.de>,
-	Jacopo Mondi <jacopo@jmondi.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Dong Aisheng <aisheng.dong@nxp.com>,
-	Guoniu Zhou <guoniu.zhou@nxp.com>, linux-media@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v5 1/4] media: nxp: imx8-isi: Use BIT_ULL() for 64-bit
- stream masks
-Message-ID: <20260730181440.GA1600813@killaraus.ideasonboard.com>
-References: <20260728-isi-v5-0-1d22ab91602a@oss.nxp.com>
- <20260728-isi-v5-1-1d22ab91602a@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fuXCm1mL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86F6F1F000E9;
+	Thu, 30 Jul 2026 18:17:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785435464;
+	bh=6R6dAzebd0lU5AFh1vm8XcRfXETiBlUdRxOXlhLQ9dU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fuXCm1mLoqc5U3HXHSVUiHIjwDassHB8iSnSwNq4WhbmdXls3Z/2rBcJQQryry0MQ
+	 d0/5PoQ4wY1kXlywpxQCvpsKPiMhJPYwXdKaTtnn4ZkrDnUy/qUhdtciMN4bkCWUB2
+	 UxyJhIaQl4tedm4dCpOaRXe2lNKkO7HwUeOlA7P4jjJE59v1utLBeKnNEzjeVX6J9J
+	 rddw/X8gRdnv87M//z/5Vi15Mrs9YHzBlWvHxQG70tqI5fSchBSokpp/u0pHWO2vM2
+	 VzXYjm0e9qd9kJ3V7eR3+yo5W1sbmCjfCPjDRm1umjoiaj1J5PuVngngXMpH3w1+dj
+	 Pg9O90dBhysgg==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 6.18 000/675] 6.18.42-rc1 review
+Date: Thu, 30 Jul 2026 20:17:17 +0200
+Message-ID: <20260730181717.95457-1-ojeda@kernel.org>
+In-Reply-To: <20260730141445.110192266@linuxfoundation.org>
+References: <20260730141445.110192266@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260728-isi-v5-1-1d22ab91602a@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Guoniu,
+On Thu, 30 Jul 2026 16:05:30 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 6.18.42 release.
+> There are 675 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sat, 01 Aug 2026 14:13:45 +0000.
+> Anything received after that time might be too late.
 
-Thank you for the patch.
+Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
+for loongarch64 and arm32:
 
-On Tue, Jul 28, 2026 at 02:58:56PM +0800, Guoniu Zhou wrote:
-> Use BIT_ULL() instead of BIT() for u64 stream masks to avoid incorrect
-> results on 32-bit architectures when stream IDs are 32 or greater.
-> 
-> Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
-> Cc: stable@vger.kernel.org
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
-I'm not sure this deserves being backported, as streams IDs won't be
-larger than 31 in normal use cases, but it doesn't hurt.
+I detected in the middle of the build lines like:
 
-> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+    find: 'lib': No such file or directory
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+It looks like we need:
 
-> ---
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
-> index 9f0231ca47a3..9db9c6e55c2c 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
-> @@ -157,10 +157,10 @@ mxc_isi_crossbar_xlate_streams(struct mxc_isi_crossbar *xbar,
->  	 */
->  	for_each_active_route(&state->routing, route) {
->  		if (route->source_pad != source_pad ||
-> -		    !(source_streams & BIT(route->source_stream)))
-> +		    !(source_streams & BIT_ULL(route->source_stream)))
->  			continue;
->  
-> -		sink_streams |= BIT(route->sink_stream);
-> +		sink_streams |= BIT_ULL(route->sink_stream);
->  		sink_pad = route->sink_pad;
->  	}
->  
+    ee8bfb15d02d ("drm: drop lib from header search path.")
 
--- 
-Regards,
+to go together with the one that was backported:
 
-Laurent Pinchart
+    5e7b3c10420e ("gpu: Move DRM buddy allocator one level up (part two)")
+
+Having said that, there is something going on a bit confusing: commits
+"part one" (4a9671a03f2b) and "part two" (ba110db8e1bc) in mainline seem
+to have been merged into just the "part two" above in this -rc. Is that
+intentional? I am asking because the original removal of the `lib`
+folder happened in "part one" in mainline, so I was expecting to have to
+point to that one above, but it doesn't exist on its own.
+
+Cc: Joel Fernandes <joelagnelf@nvidia.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+
+I hope that helps & thanks!
+
+Cheers,
+Miguel
