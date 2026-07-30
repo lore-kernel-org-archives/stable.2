@@ -1,400 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ABBE8472;
-	Thu, 30 Jul 2026 19:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87791374A1D
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 19:01:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785438099; cv=none; b=Ka2ppI6CW68gxoem02AAt1REPEKtI82XFSZ6issxzkxII0oBFABuOOMEwd8Bk2sPqajyezz+J2nsglApO+8Ko4FEsaeK2ucBExXBdviMz+vNZXUzM84iC/qpgKDm3KUyz5kGioqCeKEga6rPtjBJXJFEhr2o6OKp/nvenYjd8mk=
+	t=1785438104; cv=none; b=A6b113xTgl6UEslPcmGNeQWt039OvTEzyL8tzMpG2nVOWk7LUOIStxl5Hwm0Z8QltPTCPkpyewrc0TLRadNsurLYydTSQIQHU8fQrEy9CTOD4neO0H0eFT3bO7FZCNzQbATHmYsIQT3NK63WTrXsDGBsCaxoVohkpCRRecMtn0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785438099; c=relaxed/simple;
-	bh=sBDDyjtz4DAs/DkcRuYsqTLXGPYGx2l+UVYRpkH2KBA=;
-	h=Date:To:From:Subject:Message-Id; b=XTe0856tTvT8TOLyEZOfdGjZaoFiw0T7udON1pxh7U3Qh+l8hfHSIwpoJoMS6Aj3fgXIcyLZcmU0BaNbPeYlq6HYrW6/4SVAnAaPBiV54nPpK4vKeFbIk1aEPFSkHU3l9x7xcpZt5KKtFE61UMgHtPhMV1z9Srvwhxi7CZR4XAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Cw0T4xan; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785438104; c=relaxed/simple;
+	bh=013H1I9/4OHiS5zhZMxrwaHnsOF1mfy4INGhmCqtxrE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uHbVLKcBwWITaJi7g47rI5BrnWCwn51mTVIxTYPE7LWHFuQEBcoBePddVBLEFETvhbAvtghkkC97eLFYOhqO8YC5emPmpZEh1qnumlIwUwfp2yaA02N3t7InCwMf6n5e2qtqacVCSKuMKH3qkfZpAx10xYnyo/Q25z3JTJtLup4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=t0j1bdJ5; arc=none smtp.client-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Cw0T4xan"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23FED1F00A3A;
-	Thu, 30 Jul 2026 19:01:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="t0j1bdJ5"
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-92e6c4a867cso16355985a.0
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:01:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785438096;
-	bh=i6NlhrbQF9lPyglju9HpaeF/m37bGtb+/Y8yOVqf3Os=;
-	h=Date:To:From:Subject;
-	b=Cw0T4xanQ1WwisYWncLBbPO8FlkBpFzN6j5xwyyyD3m/TyXPwkPoCc2GKayNEdEnI
-	 nHYJyUvWpvp3VY2bwYB6cwCmwH3kt0lL56H1i+Xxs5mugOdmdUYx7GK1pA1RRUSJnC
-	 lhtQmv+UeQRc5bnGqt3rIXNkrJg2I/4UZIecCuvs=
-Date: Thu, 30 Jul 2026 12:01:35 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,uqbarz@gmail.com,stable@vger.kernel.org,shy828301@gmail.com,ryan.roberts@arm.com,p.raghav@samsung.com,npache@redhat.com,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,hughd@google.com,hare@suse.de,dev.jain@arm.com,david@kernel.org,baolin.wang@linux.alibaba.com,baohua@kernel.org,ljs@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-huge_memory-separate-out-config_persistent_huge_zero_folio-logic.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260730190136.23FED1F00A3A@smtp.kernel.org>
+        d=cmpxchg.org; s=google; t=1785438101; x=1786042901; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n1yOof5RfumCoH1r75oUvzt/UONr8poJqHsdkRardoM=;
+        b=t0j1bdJ5o743l5w0dDi/Bj47EM77W33CFx9kI0xt4NttxMcDjHSgqpTg9AerF3Wzw1
+         +7fV4tRiyA7+feArNJv7nAz5gHXaaoEJeo9UfSepa6bPPFYvuig7EvlqeoY7H1SaHqti
+         TYEHtC/9lXBamtMScPE/EOGH1pMEaHs6pAKYfI39t2/DOLdW4seqBGdn54wCpOsUME2D
+         L0NY6DPk+QG0M6kFh8GrsQUKa9//0r05U20w2Faua3xZjWbKbTOXODMAQOw2tM2Rx7uk
+         98tyq+vibK9SZz9MFjNMFqRc64MAbsEW97U6fCGy3L9bv5igbBWW6gCAJOnfUQkl4orF
+         U5kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785438101; x=1786042901;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=n1yOof5RfumCoH1r75oUvzt/UONr8poJqHsdkRardoM=;
+        b=rEQ+lUGVOIApb+E5SfuOJPrK3wwlMXthFLxOY7Ud3Sp7reL7NDiw1hx3b4ckPNZJcz
+         FomH2FP61qOkhw1yEMJelQiwHBex1lgQxXZIwE4i0xmSs7wmM4Rfr9tGsf45g1qii1ok
+         QBGGbNbAwufOV+s/J0qK0GgMkOyp6eAZBGGEWow7AnO3JUb5YMqf/LwQ5Sq6BlJJUi7t
+         pxuPFf3I0B7L8PPwPTj/f90smz+gak89A7h17JbSdxX372oiDNnZ8qhNkmPqLmAXtYUp
+         hMWqhkHXWw5kliJ0/fvANiyaPGzgqhw92ryLT105gBddgFli1Rnj/X8T+FIwsSGdMAzb
+         gkgg==
+X-Forwarded-Encrypted: i=1; AHgh+RqC64c1oB/5sxANsCelk7atQ81tfs1r/LfxOgA0wtB3yuC/EEPp4KumiMMBsySp1KsUaUOHjVc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzkFRPdzH7gXjrzE7j4FKL73C5iRHpLHALZosEmo9ejsUwIZqY5
+	obxASPFE6H/UPmMx6BfsJebIKKgewJ6iKGgrxUv9T9BRpYbRHk0ohYljZciBiHnp/GU=
+X-Gm-Gg: AR+sD11asGNk0TxX0id5RVCapRNFvyEzF2hKsIk3PGs7B07xM4FaJK4J/vyxXizDEOu
+	Z2JBcq6UG82R+vbV+ZVKcm9a+4lQoWfOv+HWN0Mds0g+/NJ0SLeEMmpijerbQ41tmm79Tg1lnQk
+	mGlylKRfFjZfdclxeILely+UdarNms0fawaL5PVtoJ6xz89uwPAyH+myIOSx6CWonhGUOkRFD5O
+	SlNwGQokSZjMdR9h4rd2fxKozbhYPxv1WKAlIvwmuuERq1ItLDWb0QKm4sPKZYPiobHroTBKRY5
+	vb1hWKzVEzw7sic2n2C5aZUifdsxiNKCrizqvBPRGFisHSM/03WVwL/qe6cvpLVlXXKyr/0XWYQ
+	UrDa0GCC6DKT486oCMOEj4YzZCF84DBwiSIxrdoSclrrsDaCias6SRpwdpkN/YaElaln6hFbJJl
+	8TCTx199V7uH0/sskYVH9MHIqyIKN3V4KL2GPojgYM8Y82ooS+xQtnFZSShtE=
+X-Received: by 2002:a05:620a:460a:b0:932:dd83:c54 with SMTP id af79cd13be357-93485ff2ecemr442630085a.42.1785438095030;
+        Thu, 30 Jul 2026 12:01:35 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-933e712fc05sm475477685a.29.2026.07.30.12.01.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 12:01:33 -0700 (PDT)
+Date: Thu, 30 Jul 2026 15:01:30 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Hao Jia <jiahao.kernel@gmail.com>, Nhat Pham <nphamcs@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>, tj@kernel.org,
+	shakeel.butt@linux.dev, mhocko@kernel.org, mkoutny@suse.com,
+	chengming.zhou@linux.dev, muchun.song@linux.dev,
+	roman.gushchin@linux.dev, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	Hao Jia <jiahao1@lixiang.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] mm/zswap: Fix global shrinker when memory cgroup
+ is disabled
+Message-ID: <amufiuAaZbuDdKkQ@cmpxchg.org>
+References: <20260729084206.77793-1-jiahao.kernel@gmail.com>
+ <20260729084206.77793-2-jiahao.kernel@gmail.com>
+ <20260729155858.c7aabff48166a9bca4d68ac3@linux-foundation.org>
+ <CAO9r8zNhBCghP8T_98z2p==Cfs_=kamcRN_3ROxaj3R8PN2Qvw@mail.gmail.com>
+ <c4c95102-72e2-a44f-f16e-4134ba6bb060@gmail.com>
+ <CAO9r8zOSTYC3D_2CxapgvXGaZRUdnGetPGz2XgdUO8OygfuEiw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAO9r8zOSTYC3D_2CxapgvXGaZRUdnGetPGz2XgdUO8OygfuEiw@mail.gmail.com>
 
+On Thu, Jul 30, 2026 at 10:48:38AM -0700, Yosry Ahmed wrote:
+> > > Yeah, it isn't. Probably we should drop "Closes". I assume Hao added
+> > > it because checkpatch annoyingly complains if you add "Reported-by"
+> > > without "Closes", so Hao just linked to the thread where I pointed out
+> > > the bug.
+> >
+> > Yeah, checkpatch will complain if it's missing.
+> 
+> We often ignore checkpatch if it's unreasonable.
+> 
+> > >> AI review asked a couple of questions:
+> > >>          https://sashiko.dev/#/patchset/20260729084206.77793-1-jiahao.kernel@gmail.com
+> > >
+> > > The review on patch #1 is something theoretical, we discussed it at
+> > > length in previous versions.
+> > >
+> > > For patch #2:
+> > >
+> > >> Does this batching logic break NUMA fairness?
+> > >>
+> > >> Because for_each_node_state() always starts from the lowest node
+> > >> ID and breaks when the scan budget is exhausted, subsequent
+> > >> calls to shrink_memcg() will restart at the lowest node ID again.
+> > >>
+> > >> If the lowest node (typically Node 0) consistently has enough
+> > >> items to exhaust the scan budget, wouldn't we exclusively evict
+> > >> pages from it while ignoring older pages on other nodes? Could
+> > >> this cause LRU inversion across nodes, keeping older pages in
+> > >> memory on Node 1 while hot pages on Node 0 are evicted?
+> > >
+> > > Yes, unfairness is possible.
+> > >
+> > > For global shrinking, it's probably not an issue. We reclaim until we
+> > > hit the acceptance threshold and it's very unlikely this will happen
+> > > before iterating all nodes (given that the batch size is 32 pages).
+> > > However, with the shrink_memcg() path, we only reclaim one batch, so
+> > > there's a chance we'll always reclaim it from node 0.
+> > >
+> > > Maybe we should just drop the early bailout and accept potentially
+> > > doing more writeback than needed. Hao, WDYT?
+> > >
+> > If we scan and attempt to write back SWAP_CLUSTER_MAX zswap entries per
+> > node, it might lead to excessive writeback on machines with many NUMA
+> > nodes. Furthermore, I'm concerned about introducing higher latency in
+> > synchronous shrink paths like zswap_store()—especially on systems with a
+> > large number of NUMA nodes, where it could end up writing back hundreds
+> > of pages in a single call.
+> >
+> > Maybe we could do something like this instead? That way, in the
+> > worst-case scenario, it falls back to the baseline behavior without
+> > introducing any extra latency risks.
+> 
+> This basically errs on the side of honouring the batch size
+> (under-reclaim) instead of doing more writeback, right?
+> 
+> I think I prefer erring on the side of doing more writeback, as it
+> would ultimately result in less LRU inversion, and we are already
+> doing writeback proactively during reclaim through the shrinker.
 
-The patch titled
-     Subject: mm/huge_memory: separate out CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-huge_memory-separate-out-config_persistent_huge_zero_folio-logic.patch
+Yes, LRU inversions are worse than reclaiming a few extra pages from
+the cold tail of the LRU. It's not cumulative after all, it just means
+we take a bigger bite and can take more stores before the next shrink.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-huge_memory-separate-out-config_persistent_huge_zero_folio-logic.patch
+> The other option we can explore is keeping the existing logic with the
+> bailout, but start iterating the nodes at the folio's node in the
+> zswap_store() path. Basically pass an nid to shrink_memcg() and always
+> start there. This will avoid always reclaiming from node 0, and the
+> node of the folio being stored is more likely to be under pressure and
+> need the writeback. I am not sure how complex this would be and
+> whether it's worth doing.
+>
+> Johannes, Nhats, any thoughts on this?
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+What happens if simply we do a hard SWAP_CLUSTER_MAX on each node?
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+With cgroups, we put the zswap entry on the list_lru head of the node
+and memcg where the incoming page was.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+So if you're going after one specific cgroup, it's not like you
+*actually* reclaim 32 entries on each node of the system. You just
+write back from nodes where that cgroup has entries.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+The global shrinker also does one cgroup at a time (zswap_next_shrink)
+before checking the limit again, so that's fairly fine-grained too.
 
-------------------------------------------------------
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: mm/huge_memory: separate out CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic
-Date: Thu, 30 Jul 2026 11:55:48 +0100
+Without cgroups, you could have zswap entries on all nodes. But if you
+have so many nodes that this would constitute hundreds of pages,
+presumably that's still a drop in the bucket compared to overall
+memory capacity. SWAP_CLUSTER_MAX isn't that big a number.
 
-Rather than mixing the refcounted and non-refcounted
-CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic, separate the two out cleanly so
-it is clear what happens when this configuration option is set and what
-happens when it is not.
-
-Introduce HUGE_ZERO_UNSET_PFN to abstract the ~0UL assignment, only
-introduce the refcount, lock and shrinker if
-!CONFIG_PERSISTENT_HUGE_ZERO_FOLIO, abstract initialisation and teardown,
-abstract the huge zero folio allocation from refcounting.
-
-Also change a BUG_ON() to WARN_ON_ONCE() while we're at it.
-
-No functional change intended.
-
-Link: https://lore.kernel.org/20260730-fix-refcounted-huge-zero-v2-2-c5d8a41b317f@kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Fixes: 3b77e8c8cde5 ("mm/thp: make is_huge_zero_pmd() safe and quicker")
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Hannes Reinecke <hare@suse.de>
-Cc: Hengbin Zhang <uqbarz@gmail.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nico Pache <npache@redhat.com>
-Cc: Pankaj Raghav <p.raghav@samsung.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Yang Shi <shy828301@gmail.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/huge_memory.c |  160 ++++++++++++++++++++++++++-------------------
- 1 file changed, 94 insertions(+), 66 deletions(-)
-
---- a/mm/huge_memory.c~mm-huge_memory-separate-out-config_persistent_huge_zero_folio-logic
-+++ a/mm/huge_memory.c
-@@ -78,10 +78,15 @@ static unsigned long deferred_split_scan
- 					 struct shrink_control *sc);
- static bool split_underused_thp = true;
- 
-+#define HUGE_ZERO_UNSET_PFN (~0UL)
-+struct folio *huge_zero_folio __read_mostly;
-+unsigned long huge_zero_pfn __read_mostly = HUGE_ZERO_UNSET_PFN;
-+#ifndef CONFIG_PERSISTENT_HUGE_ZERO_FOLIO
- static atomic_t huge_zero_refcount;
- static DEFINE_SPINLOCK(huge_zero_lock);
--struct folio *huge_zero_folio __read_mostly;
--unsigned long huge_zero_pfn __read_mostly = ~0UL;
-+static struct shrinker *huge_zero_folio_shrinker;
-+#endif
-+
- unsigned long huge_anon_orders_always __read_mostly;
- unsigned long huge_anon_orders_madvise __read_mostly;
- unsigned long huge_anon_orders_inherit __read_mostly;
-@@ -223,23 +228,58 @@ unsigned long __thp_vma_allowable_orders
- 	return orders;
- }
- 
--static bool get_huge_zero_folio(void)
-+static struct folio *alloc_huge_zero_folio(void)
- {
- 	struct folio *zero_folio;
- 
--	/* Paired with atomic_set_release(). */
--	if (likely(atomic_inc_not_zero(&huge_zero_refcount)))
--		return true;
--
- 	zero_folio = folio_alloc((GFP_TRANSHUGE | __GFP_ZERO | __GFP_ZEROTAGS) &
- 				 ~__GFP_MOVABLE,
- 			HPAGE_PMD_ORDER);
- 	if (!zero_folio) {
- 		count_vm_event(THP_ZERO_PAGE_ALLOC_FAILED);
--		return false;
-+		return NULL;
-+	}
-+	folio_clear_large_rmappable(zero_folio); /* Explicitly not rmappable. */
-+	return zero_folio;
-+}
-+
-+#ifdef CONFIG_PERSISTENT_HUGE_ZERO_FOLIO
-+static int __init huge_zero_init(void)
-+{
-+	huge_zero_folio = alloc_huge_zero_folio();
-+	if (!huge_zero_folio) {
-+		pr_warn("Allocating persistent huge zero folio failed\n");
-+	} else {
-+		huge_zero_pfn = folio_pfn(huge_zero_folio);
-+		count_vm_event(THP_ZERO_PAGE_ALLOC);
- 	}
--	/* Ensure zero folio won't have large_rmappable flag set. */
--	folio_clear_large_rmappable(zero_folio);
-+	return 0;
-+}
-+
-+static void __init huge_zero_shrinker_exit(void)
-+{
-+}
-+
-+struct folio *mm_get_huge_zero_folio(struct mm_struct *mm)
-+{
-+	return huge_zero_folio;
-+}
-+
-+void mm_put_huge_zero_folio(struct mm_struct *mm)
-+{
-+}
-+#else
-+static bool get_huge_zero_folio(void)
-+{
-+	struct folio *zero_folio;
-+
-+	/* Paired with atomic_set_release(). */
-+	if (likely(atomic_inc_not_zero(&huge_zero_refcount)))
-+		return true;
-+
-+	zero_folio = alloc_huge_zero_folio();
-+	if (unlikely(!zero_folio))
-+		return false;
- 
- 	/* Paired with critical section in shrink_huge_zero_folio_scan(). */
- 	spin_lock(&huge_zero_lock);
-@@ -266,33 +306,7 @@ static void put_huge_zero_folio(void)
- 	 * Counter should never go to zero here. Only shrinker can put
- 	 * last reference.
- 	 */
--	BUG_ON(atomic_dec_and_test(&huge_zero_refcount));
--}
--
--struct folio *mm_get_huge_zero_folio(struct mm_struct *mm)
--{
--	if (IS_ENABLED(CONFIG_PERSISTENT_HUGE_ZERO_FOLIO))
--		return huge_zero_folio;
--
--	if (mm_flags_test(MMF_HUGE_ZERO_FOLIO, mm))
--		return READ_ONCE(huge_zero_folio);
--
--	if (!get_huge_zero_folio())
--		return NULL;
--
--	if (mm_flags_test_and_set(MMF_HUGE_ZERO_FOLIO, mm))
--		put_huge_zero_folio();
--
--	return READ_ONCE(huge_zero_folio);
--}
--
--void mm_put_huge_zero_folio(struct mm_struct *mm)
--{
--	if (IS_ENABLED(CONFIG_PERSISTENT_HUGE_ZERO_FOLIO))
--		return;
--
--	if (mm_flags_test(MMF_HUGE_ZERO_FOLIO, mm))
--		put_huge_zero_folio();
-+	WARN_ON_ONCE(atomic_dec_and_test(&huge_zero_refcount));
- }
- 
- static unsigned long shrink_huge_zero_folio_count(struct shrinker *shrink,
-@@ -316,14 +330,53 @@ static unsigned long shrink_huge_zero_fo
- 		zero_folio = huge_zero_folio;
- 		VM_WARN_ON_ONCE(!zero_folio);
- 		WRITE_ONCE(huge_zero_folio, NULL);
--		WRITE_ONCE(huge_zero_pfn, ~0UL);
-+		WRITE_ONCE(huge_zero_pfn, HUGE_ZERO_UNSET_PFN);
- 	}
- 
- 	folio_put(zero_folio);
- 	return HPAGE_PMD_NR;
- }
- 
--static struct shrinker *huge_zero_folio_shrinker;
-+static int __init huge_zero_init(void)
-+{
-+	huge_zero_folio_shrinker = shrinker_alloc(0, "thp-zero");
-+	if (!huge_zero_folio_shrinker) {
-+		shrinker_free(deferred_split_shrinker);
-+		list_lru_destroy(&deferred_split_lru);
-+		return -ENOMEM;
-+	}
-+
-+	huge_zero_folio_shrinker->count_objects = shrink_huge_zero_folio_count;
-+	huge_zero_folio_shrinker->scan_objects = shrink_huge_zero_folio_scan;
-+	shrinker_register(huge_zero_folio_shrinker);
-+	return 0;
-+}
-+
-+static void __init huge_zero_shrinker_exit(void)
-+{
-+	shrinker_free(huge_zero_folio_shrinker);
-+}
-+
-+struct folio *mm_get_huge_zero_folio(struct mm_struct *mm)
-+{
-+	if (mm_flags_test(MMF_HUGE_ZERO_FOLIO, mm))
-+		return READ_ONCE(huge_zero_folio);
-+
-+	if (!get_huge_zero_folio())
-+		return NULL;
-+
-+	if (mm_flags_test_and_set(MMF_HUGE_ZERO_FOLIO, mm))
-+		put_huge_zero_folio();
-+
-+	return READ_ONCE(huge_zero_folio);
-+}
-+
-+void mm_put_huge_zero_folio(struct mm_struct *mm)
-+{
-+	if (mm_flags_test(MMF_HUGE_ZERO_FOLIO, mm))
-+		put_huge_zero_folio();
-+}
-+#endif /* CONFIG_PERSISTENT_HUGE_ZERO_FOLIO */
- 
- #ifdef CONFIG_SYSFS
- static ssize_t enabled_show(struct kobject *kobj,
-@@ -987,39 +1040,14 @@ static int __init thp_shrinker_init(void
- 	deferred_split_shrinker->scan_objects = deferred_split_scan;
- 	shrinker_register(deferred_split_shrinker);
- 
--	if (IS_ENABLED(CONFIG_PERSISTENT_HUGE_ZERO_FOLIO)) {
--		/*
--		 * Bump the reference of the huge_zero_folio and do not
--		 * initialize the shrinker.
--		 *
--		 * huge_zero_folio will always be NULL on failure. We assume
--		 * that get_huge_zero_folio() will most likely not fail as
--		 * thp_shrinker_init() is invoked early on during boot.
--		 */
--		if (!get_huge_zero_folio())
--			pr_warn("Allocating persistent huge zero folio failed\n");
--		return 0;
--	}
--
--	huge_zero_folio_shrinker = shrinker_alloc(0, "thp-zero");
--	if (!huge_zero_folio_shrinker) {
--		shrinker_free(deferred_split_shrinker);
--		list_lru_destroy(&deferred_split_lru);
--		return -ENOMEM;
--	}
--
--	huge_zero_folio_shrinker->count_objects = shrink_huge_zero_folio_count;
--	huge_zero_folio_shrinker->scan_objects = shrink_huge_zero_folio_scan;
--	shrinker_register(huge_zero_folio_shrinker);
--
--	return 0;
-+	return huge_zero_init();
- }
- 
- static void __init thp_shrinker_exit(void)
- {
--	shrinker_free(huge_zero_folio_shrinker);
- 	shrinker_free(deferred_split_shrinker);
- 	list_lru_destroy(&deferred_split_lru);
-+	huge_zero_shrinker_exit();
- }
- 
- static int __init hugepage_init(void)
-_
-
-Patches currently in -mm which might be from ljs@kernel.org are
-
-mm-vmalloc-acquire-init_mm-lock-on-huge-vmap-to-avoid-ptdump-uaf.patch
-mm-ptdump-always-stabilise-against-page-table-freeing-using-init_mm.patch
-arm64-remove-redundant-concurrent-ptdump-uaf-mitigation.patch
-mm-huge_memory-fix-huge_zero_pfn-race.patch
-mm-huge_memory-separate-out-config_persistent_huge_zero_folio-logic.patch
-x86-mm-pat-acquire-init_mm-write-lock-on-collapse-to-avoid-uaf.patch
-x86-mm-pat-acquire-init_mm-read-lock-on-attribute-change-to-avoid-uaf.patch
-x86-mm-pat-allocate-split-page-tables-as-kernel-page-tables.patch
-mm-move-vma_start_pgoff-into-mmh-and-clean-up.patch
-mm-add-kdoc-comments-for-vma_start-last_pgoff.patch
-tools-testing-vma-use-vma_start_pgoff-in-merge-tests.patch
-mm-introduce-and-use-vma_end_pgoff.patch
-mm-rmap-update-mm-interval_treec-comments.patch
-mm-rmap-parameterise-vma_interval_tree_-by-address_space.patch
-mm-rmap-elide-unnecessary-static-inlines-in-interval_treec.patch
-mm-rmap-rename-vma_interval_tree_-to-mapping_rmap_tree_.patch
-mm-rmap-parameterise-anon_vma_interval_tree_-by-anon_vma.patch
-mm-rmap-rename-anon_vma_interval_tree_-params-and-use-pgoff_t.patch
-mm-rmap-rename-anon_vma_interval_tree_-to-anon_rmap_tree_.patch
-maintainers-move-mm-interval_treec-to-rmap-section.patch
-mm-vma-introduce-and-use-vmg_pages-vmg__pgoff.patch
-mm-vma-clean-up-anon_vma_compatible.patch
-mm-vma-refactor-vmg_adjust_set_range-for-clarity.patch
-mm-vma-minor-cleanup-of-expand_.patch
-mm-introduce-and-use-linear_page_delta.patch
-mm-vma-use-vma_start_pgoff-linear_page_index-in-mm-code.patch
-mm-prefer-vma__pgoff-to-vma-vm_pgoff-in-kernel.patch
-mm-vma-remove-duplicative-vma_pgoff_offset-helper.patch
-mm-use-linear_page_-consistently.patch
-mm-vma-introduce-vma_assert_can_modify.patch
-mm-vma-add-and-use-vma__pgoff.patch
-mm-vma-move-__install_special_mapping-to-vmac.patch
-mm-vma-make-vma_set_range-static-drop-insert_vm_struct-decl.patch
-mm-vma-update-vma_shrink-to-not-pass-start-pgoff-parameters.patch
-mm-vma-update-vmg_adjust_set_range-to-offset-pgoff-instead.patch
-mm-vma-slightly-rework-the-anonymous-check-in-__mmap_new_vma.patch
-mm-vma-introduce-and-use-vma_set_pgoff.patch
-mm-vma-correct-incorrect-vmah-inclusion.patch
-mm-vma-use-guard-clauses-in-can_vma_merge_.patch
-tools-testing-vma-default-vma-mm-flag-bits-to-64-bit.patch
-tools-testing-vma-output-compared-expression-on-assert_.patch
-mm-introduce-vma_flags_can_grow-and-vma_can_grow.patch
-mm-vma-update-do_mmap-to-use-vma_flags_t.patch
-mm-convert-__get_unmapped_area-to-use-vma_flags_t.patch
-mm-update-generic_get_unmapped_area-to-use-vma_flags_t.patch
-mm-prefer-mm-def_vma_flags-in-mm-logic.patch
-mm-vma-convert-vm_pgprot_modify-to-use-vma_flags_t-and-rename.patch
-mm-vma-rename-vma_get_page_prot-to-vma_flags_to_page_prot.patch
-mm-introduce-vma_get_page_prot-and-use-it.patch
-mm-vma-update-create_init_stack_vma-to-use-vma_flags_t.patch
-mm-vma-convert-miscellaneous-uses-of-vma-flags-in-core-mm.patch
-mm-mlock-convert-mlock-code-to-use-vma_flags_t.patch
-mm-mprotect-convert-mprotect-code-to-use-vma_flags_t.patch
-mm-mremap-convert-mremap-code-to-use-vma_flags_t.patch
-mm-mseal-remove-superfluous-comments-fix-confusion-around-mm.patch
-mm-mseal-limit-scope-of-mseal-address-zero-to-address-zero.patch
-mm-mseal-remove-further-superfluous-comments-do_mseal.patch
-mm-vma-introduce-vma-virtual-page-offset-field-and-add-helpers.patch
-mm-introduce-linear_virt_page_index.patch
-mm-abstract-vma_address-and-introduce-vma_anon_address.patch
-mm-update-print_bad_page_map-to-show-virtual-page-index.patch
-mm-introduce-and-use-vma_filebacked_address.patch
-mm-propagate-vma-virtual-page-offset-on-map-remap-split-merge.patch
-mm-rmap-track-whether-the-page-vma-mapped-walk-is-anonymous.patch
-mm-introduce-and-use-linear_folio_page_index.patch
-mm-rmap-use-virt-pgoff-for-map_private-file-backed-anon-folios.patch
-tools-testing-vma-expand-vma-merge-tests-to-assert-virt-pgoff.patch
-tools-testing-selftests-mm-test-virtual-page-offset-merge-behaviour.patch
-mm-vma-only-permit-map_private-dev-zero-to-be-mapped-anonymous.patch
-mm-vma-make-map_private-mapped-dev-zero-mappings-truly-anonymous.patch
-tools-testing-vma-add-test-to-assert-map_private-dev-zero-is-anon.patch
-tools-testing-selftests-mm-add-map_private-dev-zero-merge-tests.patch
-
+So I don't think we need to get fancy. Just do SWAP_CLUSTER_MAX on
+each node. Delete that nr_to_walk carry-over between them.
