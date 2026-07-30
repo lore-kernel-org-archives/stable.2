@@ -1,121 +1,128 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6DE3EC833;
-	Thu, 30 Jul 2026 09:06:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9DE13D3337;
+	Thu, 30 Jul 2026 09:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785402376; cv=none; b=enwIOzHOSU+pBodBT0ID5gFXjP9t2hMyr2F10WP0kN7kvcB6NoH3Duvv/PMa7/ihNQ2LxzX2amRVxz0n9pdgKzFMiwfzNLxGs+L4MPvJD8Pmhr8T1WQ/cAQuWmksS+Nc31Q7KUpXYwXZj1xlQdumyg7Y/hL2kahA/2hL6IB/XV8=
+	t=1785402966; cv=none; b=FirJK7xmOepIlWynUkNRBW4o2Q4csyrXfCGHRO6JrOv0Z9OBQO0/fuXbo2YSRLd1envqC7i1A6OqnweDdyv0Ev3O1g7oMiD66+69aP5Hc66Pm7PzamPsX9p7CJOxoeE+7FgjCliSohjyroGFrAvSJG8Kgr22q4H+/69ZTbj3mcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785402376; c=relaxed/simple;
-	bh=XlsSHKdIrf6iMesfsYve0V7r4C2Bn1qO8ieYyc+vGaw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ps53nfZSZ/MbLlDuuO5NJvLY9Bu3Dotf2oFV4VQVkGlutD91lw4lOrmpYfIE2VOwXfXEu18vZklwdkDv1GT/04phgJlVKcAwF6BCD+StDSPUopBbd8NL4ZWybCJA0lJcomskeBq+K2o+boxeEpo4Y//Xiq3QphuTvKgLYzi/Ig0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: e592f6448bf511f1aa26b74ffac11d73-20260730
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:b9205243-daae-4e74-8821-094bbc7f14ab,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:f53d4f239354e00ab07ca0bbdae3278f,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
-	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
-	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e592f6448bf511f1aa26b74ffac11d73-20260730
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 661930609; Thu, 30 Jul 2026 17:06:06 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: cem@kernel.org,
-	djwong@kernel.org,
-	chandanrlinux@gmail.com
-Cc: linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] xfs: fix heap buffer overflow in xfs_bmbt_to_bmdr
-Date: Thu, 30 Jul 2026 17:06:02 +0800
-Message-Id: <20260730090602.183293-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1785402966; c=relaxed/simple;
+	bh=Bz6gqBZys13PKDunxTULuH7UZpx3kjE3gYICcLet1Uw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nrRHiRq6pAk9ItfBWxT2sx2hucu1Hg70+DrCbu3vIuk17GQoB0Usbfqod8nrxSjpWJki1ZCyC0MsamCLGyQHHhd0vhB8tnaF4oUelEFOWOWfgfbJOgBd53NE0Vdo0hxLHiXl6bPddePmvEjjkBWMyt8lZP4Oa4zGwtq5bn8MIi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fVdEWTfJ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fVdEWTfJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 185B91F000E9;
+	Thu, 30 Jul 2026 09:16:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785402965;
+	bh=Bz6gqBZys13PKDunxTULuH7UZpx3kjE3gYICcLet1Uw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fVdEWTfJVD/GakEcmYxJaNiudilKkG3cDUlakYPmzcgqsAxWrLwiEozNQsmDoJzC0
+	 U9iGOSsDt7rDQP5RkxFsjX81Zwt1cjzc2iG4vE2tbSwxWZFrc3SPcV84EfbyybaFCM
+	 MADr+ITHP7LeZlMYcwR8HBVjkIs5oq4fGbk7XucAEZ8LcwZRJgxSWPw3hmYmrxkIjs
+	 c1yoTWiwtK3MGes9EOHp2rBRdMwq3qRJhhSk7h39QegKqYmomqqJ8GRr9v06kmy9Kd
+	 /hQZ32/lW0Jn2A6Y/uLqKeWNsr5MRvw/LaVeHTdrIlo0XeZQiAMToh3jqfxQ6td8hr
+	 PHqvvNi758Tig==
+Date: Thu, 30 Jul 2026 10:15:45 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Pankaj Raghav <p.raghav@samsung.com>, 
+	Hannes Reinecke <hare@suse.de>, Hugh Dickins <hughd@google.com>, Yang Shi <shy828301@gmail.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Hengbin Zhang <uqbarz@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH mm-hotfixes 0/2] mm/huge_memory: fix huge_zero_pfn race
+Message-ID: <amsUw6_DjKRg3gJq@lucifer>
+References: <20260728-fix-refcounted-huge-zero-v1-0-3f261f5447b4@kernel.org>
+ <f0e39f91-8dd1-4d9d-8d4e-da5d608a7148@kernel.org>
+ <amm2GOFablLbBC4H@lucifer>
+ <773a043f-e135-4050-9ca1-0b5190f03ec4@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <773a043f-e135-4050-9ca1-0b5190f03ec4@kernel.org>
 
-The xfs_bmbt_to_bmdr() function converts an in-memory btree root to
-on-disk form during log recovery. It uses bb_numrecs from the source
-to determine memcpy size without validating against the destination
-fork capacity.
+On Thu, Jul 30, 2026 at 11:05:49AM +0200, David Hildenbrand (Arm) wrote:
+> On 7/29/26 10:15, Lorenzo Stoakes (ARM) wrote:
+> > On Tue, Jul 28, 2026 at 09:02:57PM +0200, David Hildenbrand (Arm) wrote:
+> >> On 7/28/26 14:05, Lorenzo Stoakes (ARM) wrote:
+> >>> There is a subtle race in the reference-counted huge_zero_folio
+> >>> implementation.
+> >>>
+> >>> The fast path atomic logic fails to account for the fact that the
+> >>> shrinker (which drops the final huge_zero_refcount pin) can overwrite
+> >>> huge_zero_pfn with the ~0UL sentinel value in shrink_huge_zero_folio_scan()
+> >>> after a racing get_huge_zero_folio() installed a valid value there.
+> >>>
+> >>> This results in huge_zero_folio being correctly set but huge_zero_pfn being
+> >>> set incorrectly and thus is_huge_zero_pfn() and consequently
+> >>> is_huge_zero_pmd() will misidentify the huge zero folio as being an
+> >>> ordinary THP folio.
+> >>>
+> >>> This can result in the huge zero folio being split and otherwise treated
+> >>> incorrectly.
+> >>>
+> >>> The solution to this is very subtle as there is an atomic fast path, and
+> >>> thus ordering in weakly ordered architectures has to be treated very
+> >>> carefully.
+> >>>
+> >>> As a result, this series first reworks the
+> >>> CONFIG_PERSISTENT_HUGE_ZERO_FOLIO logic so it is separated from the
+> >>> refcounted code in order to make the subsequent fix reasonably
+> >>> understandable.
+> >>
+> >> For at least somewhat easier backports, can we reverse the order?
+> >
+> > Since I'm going to be doing the backports can we keep it the same? :)
+>
+> I enjoy reviewing small targeted fixes (also for backports), so I want to
+> understand why patch #1 is required at this point.
+...
+> >
+> > I can figure things out for < persistent huge stable kernels. It'll be manual
+> > work either way.
+> >
+> > (It'd be good to get some review on the actual changes also :)
+> Sure, will get to it, but I have limited capacity.
+>
+> And I have more capacity for small targeted fixes :P
 
-Current code:
-  dmxr = xfs_bmdr_maxrecs(dblocklen, 0);           // destination capacity
-  ...
-  dmxr = be16_to_cpu(dblock->bb_numrecs);          // overwrite with source value!
-  memcpy(..., * dmxr);                              // may overflow destination!
+The fix is small and targeted, it's 2/2.
 
-If bb_numrecs is larger than the destination fork capacity,
-memcpy writes beyond the fork buffer, causing heap overflow.
+>
+> >> The spinlock+proper ordering should be possible without #1, or am I missing
+> >> something important?
+> >
+> > It's possible but this way it's a lot easier to deal with and I'd rather keep
+> > things consistent for stable kernels.
+>
+> "A lot easier to deal with", can you elaborate?
+>
+> The shrinker code never runs with the persistent huge zero folio. So that is not
+> a concern.
+>
+> So it's about get_huge_zero_folio().
+>
+> But there, it's simply that concurrent races are impossible.
+>
+> Please enlighten me.
+>
 
-Fix by validating bb_numrecs against the destination capacity
-before using it for memcpy operations.
+Rather than debating I'll just drop that and respin.
 
-Cc: stable@vger.kernel.org
-Fixes: 8ea5682d0711 ("xfs: refactor log recovery item dispatch for pass2 readhead functions")
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
-Change in v2:
-- Ensure memcpy operations consistently use nrecs instead of dmxr.
----
- fs/xfs/libxfs/xfs_bmap_btree.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/fs/xfs/libxfs/xfs_bmap_btree.c b/fs/xfs/libxfs/xfs_bmap_btree.c
-index 758a4b1ccf5b..e32cdcbdeed0 100644
---- a/fs/xfs/libxfs/xfs_bmap_btree.c
-+++ b/fs/xfs/libxfs/xfs_bmap_btree.c
-@@ -151,6 +151,7 @@ xfs_bmbt_to_bmdr(
- 	int			dmxr;
- 	xfs_bmbt_key_t		*fkp;
- 	__be64			*fpp;
-+	int                     nrecs;
- 	xfs_bmbt_key_t		*tkp;
- 	__be64			*tpp;
- 
-@@ -167,14 +168,19 @@ xfs_bmbt_to_bmdr(
- 	ASSERT(rblock->bb_level != 0);
- 	dblock->bb_level = rblock->bb_level;
- 	dblock->bb_numrecs = rblock->bb_numrecs;
-+
-+	/* Validate record count against destination fork capacity */
-+	nrecs = be16_to_cpu(rblock->bb_numrecs);
- 	dmxr = xfs_bmdr_maxrecs(dblocklen, 0);
-+	if (nrecs > dmxr)
-+		return;
-+
- 	fkp = xfs_bmbt_key_addr(mp, rblock, 1);
- 	tkp = xfs_bmdr_key_addr(dblock, 1);
- 	fpp = xfs_bmap_broot_ptr_addr(mp, rblock, 1, rblocklen);
--	tpp = xfs_bmdr_ptr_addr(dblock, 1, dmxr);
--	dmxr = be16_to_cpu(dblock->bb_numrecs);
--	memcpy(tkp, fkp, sizeof(*fkp) * dmxr);
--	memcpy(tpp, fpp, sizeof(*fpp) * dmxr);
-+	tpp = xfs_bmdr_ptr_addr(dblock, 1, nrecs);
-+	memcpy(tkp, fkp, sizeof(*fkp) * nrecs);
-+	memcpy(tpp, fpp, sizeof(*fpp) * nrecs);
- }
- 
- STATIC struct xfs_btree_cur *
--- 
-2.25.1
-
+>
+> --
+> Cheers,
+>
+> David
