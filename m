@@ -1,44 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACF83B6366;
-	Thu, 30 Jul 2026 14:47:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FECB38DC50;
+	Thu, 30 Jul 2026 14:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785422829; cv=none; b=jCIjH4wfNMIDibrfYxNH6dfhqoZ2eOY1niWNVOCNqx+/EAH2v2UEadVBgqXNyXP6Db7Iv8eVZk9buZxWs2MlgNOZk281npDJuK2AycXw2GlFVTvIJahTMnkuenyEgmLXDf+hC9W2B5h9XulSK6Gk14rXM9yZlRF7s0MjkIoDIT8=
+	t=1785422830; cv=none; b=ZY84L2YD/F2MLdHtc3ZB9uZskShkMfngSNocgWBBis3ThPAMNj4QNw/vyVgpldtzU5S9Ffllt/EtU6dpz6+DzQATO6yhFlst/7VpE/OrROy9UOj5RfIpJyPzFy5+icw+qwcoyMp8mr2m3+gz6zCvR4J7A6J5P54VKIiqvcAxzVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785422829; c=relaxed/simple;
-	bh=cqxd0ucqFkwNl3bNN+mzLM+ncOCi05Gumx4x+NY1IjQ=;
+	s=arc-20240116; t=1785422830; c=relaxed/simple;
+	bh=kUE5i8p9QVvzL+XnMimLV4JyGsBzaWMnWl8xmyuYB6Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tr2sIjZeW2AWNgquxlTq98mNhWr0mH1PHUmDdGKF2XGUHgdL9q2hH7t5BNUyCWDQ6smITyrVPSu7jZ/n5/ddF02NNOYkk9ulFcZTG5LbWe9FBJ+OHpiUVsHYjqfr4/zN51MS5qTrhdzuurPgr7PukHLcH2iYRIG6TIelA49rP1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z4WAP9B0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=id5ozh6/mI002keyYPpToWQvTplYVr0p1VmLgzHX6cYWGK45bSWBzy9HXM+wMDLAnsC6hTNEy0CI36r41aWHw0eRToV1iyDiyuwul57QTJijKDc067NnxsZKe3F0tAgSiaD1qjrpym6quLRSUpwkh6MDgOr7jeFdgGf0ExHksA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eWtQDiQp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z4WAP9B0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E9061F000E9;
-	Thu, 30 Jul 2026 14:47:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785422827;
-	bh=fpyKU5V/PS/NQ744vj67WZHDuxySGya073fyfj0yQAc=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eWtQDiQp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F66C1F00A3A;
+	Thu, 30 Jul 2026 14:47:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785422828;
+	bh=FYx9PFFHsxsK0B8I6N6sUGEP6tsXyBn7+dYN7OyFtFg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z4WAP9B0J6X+6skzOL/ZkSvqYssOteOrN1D38w0S5pX/kLf5cU7ylwI8yPppLsVzn
-	 5tI6kGHgnPqpQfJ10bgzL79VP2ciAxJ+aRtJPPuhDZUHFF1LHaFCkLI4A/2fULGEhl
-	 AqSCUv75HSo+n9K3E8bHyIom35ViR7lYY4JhkpZ8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	LiangCheng Wang <zaq14760@gmail.com>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Johannes Berg <johannes.berg@intel.com>
-Subject: [PATCH 7.1 553/744] wifi: brcmfmac: set F2 blocksize to 256 for BCM43752
-Date: Thu, 30 Jul 2026 16:13:46 +0200
-Message-ID: <20260730141456.031563344@linuxfoundation.org>
+	b=eWtQDiQpWc/KiRV8lRfmdpMx9GkYxDg3FajW9zcGCjORaFy6CYcZMtzQRqc5ZG997
+	 kfu2uFc/MAXvZeSwYxAFxrynCsnYsgvXadTYodCOU3kiejfURLUz5IWZ1ZP9oqdZD6
+	 iGnDR71fjIqg55V/PLWIMBNaoYPyhuONESsahmi6wOflm7/fo5bP6Rs3U/LlbyaGCt
+	 D9/mB5Y/HgK0t7nmAalFwtdOw9iaaBprLSXbf6QulQWW/8t5vm0bFfMcc6hS0zMP5J
+	 5eyJ88Mnz/KpjNIXJGwylPnQP0UP/GYezFea5buBsQ+eHa3DweQyKSHnijSVP8F6MS
+	 lJm5qu2jjT+tA==
+From: Simon Horman <horms@kernel.org>
+To: xiexinet@gmail.com
+Cc: Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	shuah@kernel.org,
+	kees@kernel.org,
+	petr.wozniak@gmail.com,
+	qingfang.deng@linux.dev,
+	fmaurer@redhat.com,
+	luka.gejak@linux.dev,
+	bigeasy@linutronix.de,
+	xiaoliang.yang_1@nxp.com,
+	skhawaja@google.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2 1/4] net: hsr: fix packet drops caused by GRO superpackets
+Date: Thu, 30 Jul 2026 15:46:53 +0100
+Message-ID: <20260730144653.147367-1-horms@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730141444.267951807@linuxfoundation.org>
-References: <20260730141444.267951807@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+In-Reply-To: <20260724161253.79-2-xiexinet@gmail.com>
+References: <20260724161253.79-2-xiexinet@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,59 +61,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
-
-------------------
-
-From: LiangCheng Wang <zaq14760@gmail.com>
-
-commit 29ab31f3f27157648f2f7e6d5e1fd9792fdf0614 upstream.
-
-The BCM43752 is not reliable with the default 512-byte SDIO function 2
-block size: on an i.MX8MP board with an AMPAK AP6275S module at
-SDR104 / 200 MHz, an iperf TX stress test kills WLAN within seconds:
-
-  mmc_submit_one: CMD53 sg block write failed -84
-  brcmf_sdio_dpc: failed backplane access over SDIO, halting operation
-
-Commit d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
-set up the 43752 like the 4373 for the F2 watermark but missed the F2
-block size, which the 4373 limits to 256 bytes. The vendor driver
-(bcmdhd) also programs a 256-byte F2 block size for this chip and runs
-the same hardware without errors.
-
-Group the 43752 with the 4373, matching the F2 watermark handling.
-With this change a 10-minute bidirectional iperf3 soak completes with
-zero SDIO errors at ~270 Mbit/s in each direction.
-
-Backporting note: kernels before v6.18 name this id
-SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752, so on those trees the case
-label added by this patch must be adjusted to that name. Cherry-picking
-the rename commit 74e2ef72bd4b ("wifi: brcmfmac: fix 43752 SDIO FWVID
-incorrectly labelled as Cypress (CYW)") first is not a clean
-alternative: on trees before v6.17 its context collides with the 43751
-additions, and trees before v6.2 lack the FWVID framework it touches.
-
-Fixes: d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
-Cc: stable@vger.kernel.org # see patch description, needs adjustments for <= 6.17
-Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
-Link: https://patch.msgid.link/20260715-b43752-f2-blksz-v2-1-f9be49856050@gmail.com
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://sashiko.dev/#/patchset/20260724161253.79-2-xiexinet@gmail.com?part=1
 ---
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c |    1 +
- 1 file changed, 1 insertion(+)
+--- Patch [1]: [PATCH net v2 1/4] net: hsr: fix packet drops caused by GRO superpackets ---
+commit b386202ef95164a9e68085058531ac441d9df79d
+Author: Xin Xie <xiexinet@gmail.com>
 
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-@@ -911,6 +911,7 @@ int brcmf_sdiod_probe(struct brcmf_sdio_
- 		return ret;
- 	}
- 	switch (sdiodev->func2->device) {
-+	case SDIO_DEVICE_ID_BROADCOM_43752:
- 	case SDIO_DEVICE_ID_BROADCOM_CYPRESS_4373:
- 		f2_blksz = SDIO_4373_FUNC2_BLOCKSIZE;
- 		break;
+net: hsr: fix packet drops caused by GRO superpackets
 
+This commit fixes HSR/PRP packet drops by preventing lower devices from
+aggregating frames into GRO super-packets. It adds dev_disable_gro() and
+netif_disable_gro() functions and calls them during HSR port setup.
 
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index 5933c5dab09ee..a6cf2adc86256 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+
+[ ... ]
+
+> @@ -1840,6 +1840,24 @@ void netif_disable_lro(struct net_device *dev)
+>  	}
+>  }
+>  
+> +void netif_disable_gro(struct net_device *dev)
+> +{
+> +	struct net_device *lower_dev;
+> +	struct list_head *iter;
+> +
+> +	dev->wanted_features &= ~(NETIF_F_GRO | NETIF_F_GRO_HW);
+
+[Severity: High]
+Does this one-time modification of wanted_features prevent userspace from
+subsequently re-enabling GRO?
+
+Since NETIF_F_GRO and NETIF_F_GRO_HW are not included in the
+NETIF_F_UPPER_DISABLES macro definition in include/linux/netdev_features.h,
+would netdev_sync_upper_features() and netdev_sync_lower_features() fail
+to enforce the disabled state on lower devices during features recalculation?
+
+Could an administrator run ethtool -K eth0 gro on (or add a new physical
+device to an intermediate upper device already enslaved to HSR) to bypass
+this restriction and cause the HSR packet drops to resurface?
+
+> +	netdev_update_features(dev);
+> +
+> +	if (unlikely(dev->features & (NETIF_F_GRO | NETIF_F_GRO_HW)))
+> +		netdev_WARN(dev, "failed to disable GRO!\n");
+> +
+> +	netdev_for_each_lower_dev(dev, lower_dev, iter) {
+> +		netdev_lock_ops(lower_dev);
+> +		netif_disable_gro(lower_dev);
+> +		netdev_unlock_ops(lower_dev);
+> +	}
+> +}
