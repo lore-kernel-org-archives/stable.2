@@ -1,95 +1,207 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3CB43F09F
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 16:14:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C505C4503EB;
+	Thu, 30 Jul 2026 16:14:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785428053; cv=none; b=sM1De3u0e+hK/nLT5Xh9Qk1V6wrtgppunaD/mfmnwgDh5mrIS6dT8nhGusJY6/ioBXIWrK59rEInoyb0JsaUso9jWgJAxsauAjRI5YbeMHmqUQ16uKJdT1+MGj34AkTrCv/CyNJ2n33Y0oM7s1Rza5dMgDR/5QXf9HZfTzBwtRU=
+	t=1785428055; cv=none; b=qG75njz4i2bcfpXACNQBeYUBv6iJWWFnrmcPbEty0LRjl4p8kIxghc+asbv2r9GPlM9f0iLHJy2U4KeKI7aBi59wKwiTMukcREBhdGQVup5BTWEJaGAH7inKdJQl6yJclZh0lCff9nqRB+ST+Hvt0jeGa03UyqEAS9H31hIM0ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785428053; c=relaxed/simple;
-	bh=lq0ZQop5uWHeKrka0zWnetjzeh0ojChl6t0oFIEuZw0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=m/QLDGGF9GBTwSOtrXv5Ru4nhAqlotVyWJil/Bb0eUKXoWJhLIcQ5A97EGIS+6WBo5hBc/wlEA2c44aLSInV8j07z076pA9jkC28Hq3cIw9LwhPxoEqSF2+peemtVyGIW/X/SaoD8j2QcHsQETjBmoZhJqHvkCylsQgZTq1MfVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GKiILvcP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785428055; c=relaxed/simple;
+	bh=tQWBSf5fVnPiIlRnmU9D2BaQ1Vtzrs+xkGcNKUsnH0A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=flC6cChKiOeERHO2IusbLcWDeWJkQycMXUDdfIadNNS+c0YPTeiPG5yvw8gb66C7f+GZ9v8Rx2OG1+Vs9//ZNjR8WpBe981SKA05q1yvWsIRt0vgAu2X43u5FloIjdZOPD9h7rx9A2saeN6kvQTMmadlIzcuUbmjI52EUQ8pMww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PLqwyZn7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GKiILvcP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E85A1F00A3F
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 16:14:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785428052;
-	bh=UiD/QWdym9NjT5dGSlgoWYwu8vBcbIdq6wH+JV80kWw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GKiILvcPJ8KEFglfwJpAHdZQbQa3I3y2b63uGAgz9Vsa0UOEPRwhqdZv9NlJkaBuw
-	 qr4TAmJBYyJHK9wpHYKiBiaMzdPyhfl1R+F4AEpX+Bgil0FyWLICUAd7En7dpPNzIf
-	 8lzd0ZMAZ75CETnMSw1hq3nYtJbf3uJCIrdNtPTJf1pkPP8sS/fYWzWVvqNSfgQqSP
-	 kM4U5vw2aH9hMWmbYgsULTFnVyHe+AYl17rFDhYA2ZFS4EKqNvEdWDHz8VtpgfY47J
-	 2rEYuAdjqXye5dFebeSrIpwtuIu4abBqw52Ds8qP2Vtu4kMR26VwTD164hDMeSl8ou
-	 hXcepKkcGeY1Q==
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c15e03c2763so195929166b.0
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 09:14:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqafZy1TtV31kt3EZUbpk+AsIYfJafGK2HdKJ5u4Kf0dscJ75qdN6+hQU7KpUtOzek3FQIySOI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwNowTxhZrkbFcRrRhScQ/D707q2OZtrQSZREhBSfQ3Uw42v4Mq
-	ufdnf0qg/q8UBsLHcZy0bs/Zqun56eDXJyyztT4MacF9bkbX3/fnpj3KFXqyYJKHJiRaHROPw+N
-	sk7ffIYLtKCT88Lt5gThYTb4k0t+dS80=
-X-Received: by 2002:a17:906:af4d:b0:c1c:2c32:1159 with SMTP id
- a640c23a62f3a-c1fbd95431bmr37684966b.26.1785428051242; Thu, 30 Jul 2026
- 09:14:11 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PLqwyZn7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAF121F00A3A;
+	Thu, 30 Jul 2026 16:14:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785428053;
+	bh=kts3eytkz8Ev3EZfLZq7rp0XBIo/rSrZIdSdJUiI15Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PLqwyZn75KR73ZFpPNlBT8PD+NTKaeidMMN/9DLZUeGYBBcUdB874Gyl/FutXmmXm
+	 nxNS0sylJ0AtGCc3c/UCcgLuAd90pZW/p6ybU6pKs5haN9KENvu4H+zcJLvn/xtfPC
+	 9TSZ+QyOMdo8aXuGTPK8C89YTS1n9ygEzy8w9vSU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jeff Layton <jlayton@kernel.org>,
+	Paul Moore <paul@paul-moore.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 370/484] audit: widen ino fields to u64
+Date: Thu, 30 Jul 2026 16:14:27 +0200
+Message-ID: <20260730141431.512601176@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260730141423.392222816@linuxfoundation.org>
+References: <20260730141423.392222816@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <tencent_944DADCC4B42C8484EC01DA2B15F42132906@qq.com>
-In-Reply-To: <tencent_944DADCC4B42C8484EC01DA2B15F42132906@qq.com>
-From: Vincent Mailhol <mailhol@kernel.org>
-Date: Thu, 30 Jul 2026 18:13:58 +0200
-X-Gmail-Original-Message-ID: <CAMZ6RqK4CAtqAxHFS2a4e+kwJvRYyeo9EOM+_fV=n1Yjrcj3ug@mail.gmail.com>
-X-Gm-Features: AUfX_mzL6HsQQwCG3cXWhI4j1UtKfXOw3JIBuG1alrBD8PgmPX2kBP54BAGXlpM
-Message-ID: <CAMZ6RqK4CAtqAxHFS2a4e+kwJvRYyeo9EOM+_fV=n1Yjrcj3ug@mail.gmail.com>
-Subject: Re: [PATCH] can: dev: can_put_echo_skb(): free skb on invalid echo index
-To: Cunhao Lu <1579567540@qq.com>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, linux-can@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu. 30 juil. 2026 at 17:03, Cunhao Lu <1579567540@qq.com> wrote:
->
-> can_put_echo_skb() consumes the skb on all paths except when the echo index
-> is out of bounds. This leaves ownership with the caller on -EINVAL, unlike
-> the other error paths, and can leak the skb if the caller expects
-> consistent semantics.
->
-> Free the skb before returning -EINVAL so that all return paths consume it.
->
-> Fixes: 6411959c10fe ("can: dev: can_put_echo_skb(): don't crash kernel if can_priv::echo_skb is accessed out of bounds")
-> Cc: stable@vger.kernel.org
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-This branch is just a safety net meant to never be reached. While the
-fix logically makes sense, this doesn't strictly require a backport.
-That said, I am not against this being backported if the stable team
-is fine with it.
+------------------
 
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
+From: Jeff Layton <jlayton@kernel.org>
 
-Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
+[ Upstream commit 125dfa218134df7cc112667e92984de9d8cd0bf6 ]
 
-> ---
->  drivers/net/can/dev/skb.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
-> index 95fcdc1026f8..44ebeba99837 100644
-> --- a/drivers/net/can/dev/skb.c
-> +++ b/drivers/net/can/dev/skb.c
-> @@ -54,6 +54,7 @@ int can_put_echo_skb(struct sk_buff *skb, struct net_device *dev,
->         if (idx >= priv->echo_skb_max) {
->                 netdev_err(dev, "%s: BUG! Trying to access can_priv::echo_skb out of bounds (%u/max %u)\n",
->                            __func__, idx, priv->echo_skb_max);
-> +               kfree_skb(skb);
->                 return -EINVAL;
->         }
+inode->i_ino is being widened from unsigned long to u64. The audit
+subsystem uses unsigned long ino in struct fields, function parameters,
+and local variables that store inode numbers from arbitrary filesystems.
+On 32-bit platforms this truncates inode numbers that exceed 32 bits,
+which will cause incorrect audit log entries and broken watch/mark
+comparisons.
 
-Yours sincerely,
-Vincent Mailhol
+Widen all audit ino fields, parameters, and locals to u64, and update
+the inode format string from %lu to %llu to match.
+
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260304-iino-u64-v3-2-2257ad83d372@kernel.org
+Acked-by: Paul Moore <paul@paul-moore.com>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Stable-dep-of: 81905b5acbe7 ("audit: fix recursive locking deadlock in audit_dupe_exe()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ include/linux/audit.h   |    2 +-
+ kernel/audit.h          |    9 ++++-----
+ kernel/audit_fsnotify.c |    2 +-
+ kernel/audit_watch.c    |   10 +++++-----
+ kernel/auditsc.c        |    4 ++--
+ 5 files changed, 13 insertions(+), 14 deletions(-)
+
+--- a/include/linux/audit.h
++++ b/include/linux/audit.h
+@@ -16,7 +16,7 @@
+ #include <uapi/linux/netfilter/nf_tables.h>
+ #include <uapi/linux/fanotify.h>
+ 
+-#define AUDIT_INO_UNSET ((unsigned long)-1)
++#define AUDIT_INO_UNSET ((u64)-1)
+ #define AUDIT_DEV_UNSET ((dev_t)-1)
+ 
+ struct audit_sig_info {
+--- a/kernel/audit.h
++++ b/kernel/audit.h
+@@ -75,7 +75,7 @@ struct audit_names {
+ 	int			name_len;	/* number of chars to log */
+ 	bool			hidden;		/* don't log this record */
+ 
+-	unsigned long		ino;
++	u64			ino;
+ 	dev_t			dev;
+ 	umode_t			mode;
+ 	kuid_t			uid;
+@@ -219,9 +219,9 @@ extern int auditd_test_task(struct task_
+ #define AUDIT_INODE_BUCKETS	32
+ extern struct list_head audit_inode_hash[AUDIT_INODE_BUCKETS];
+ 
+-static inline int audit_hash_ino(u32 ino)
++static inline int audit_hash_ino(u64 ino)
+ {
+-	return (ino & (AUDIT_INODE_BUCKETS-1));
++	return ((u32)ino & (AUDIT_INODE_BUCKETS-1));
+ }
+ 
+ /* Indicates that audit should log the full pathname. */
+@@ -271,8 +271,7 @@ extern int audit_to_watch(struct audit_k
+ extern int audit_add_watch(struct audit_krule *krule, struct list_head **list);
+ extern void audit_remove_watch_rule(struct audit_krule *krule);
+ extern char *audit_watch_path(struct audit_watch *watch);
+-extern int audit_watch_compare(struct audit_watch *watch, unsigned long ino,
+-			       dev_t dev);
++extern int audit_watch_compare(struct audit_watch *watch, u64 ino, dev_t dev);
+ 
+ extern struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule,
+ 						    char *pathname, int len);
+--- a/kernel/audit_fsnotify.c
++++ b/kernel/audit_fsnotify.c
+@@ -25,7 +25,7 @@
+  */
+ struct audit_fsnotify_mark {
+ 	dev_t dev;		/* associated superblock device */
+-	unsigned long ino;	/* associated inode number */
++	u64 ino;		/* associated inode number */
+ 	char *path;		/* insertion path */
+ 	struct fsnotify_mark mark; /* fsnotify mark on the inode */
+ 	struct audit_krule *rule;
+--- a/kernel/audit_watch.c
++++ b/kernel/audit_watch.c
+@@ -37,7 +37,7 @@ struct audit_watch {
+ 	refcount_t		count;	/* reference count */
+ 	dev_t			dev;	/* associated superblock device */
+ 	char			*path;	/* insertion path */
+-	unsigned long		ino;	/* associated inode number */
++	u64			ino;	/* associated inode number */
+ 	struct audit_parent	*parent; /* associated parent */
+ 	struct list_head	wlist;	/* entry in parent->watches list */
+ 	struct list_head	rules;	/* anchor for krule->rlist */
+@@ -125,7 +125,7 @@ char *audit_watch_path(struct audit_watc
+ 	return watch->path;
+ }
+ 
+-int audit_watch_compare(struct audit_watch *watch, unsigned long ino, dev_t dev)
++int audit_watch_compare(struct audit_watch *watch, u64 ino, dev_t dev)
+ {
+ 	return (watch->ino != AUDIT_INO_UNSET) &&
+ 		(watch->ino == ino) &&
+@@ -285,7 +285,7 @@ static void audit_update_watch(struct au
+ 				list_del(&oentry->rule.list);
+ 				audit_panic("error updating watch, removing");
+ 			} else {
+-				int h = audit_hash_ino((u32)ino);
++				int h = audit_hash_ino(ino);
+ 
+ 				/*
+ 				 * nentry->rule.watch == oentry->rule.watch so
+@@ -439,7 +439,7 @@ int audit_add_watch(struct audit_krule *
+ 
+ 	audit_add_to_parent(krule, parent);
+ 
+-	h = audit_hash_ino((u32)watch->ino);
++	h = audit_hash_ino(watch->ino);
+ 	*list = &audit_inode_hash[h];
+ error:
+ 	path_put(&parent_path);
+@@ -527,7 +527,7 @@ int audit_dupe_exe(struct audit_krule *n
+ int audit_exe_compare(struct task_struct *tsk, struct audit_fsnotify_mark *mark)
+ {
+ 	struct file *exe_file;
+-	unsigned long ino;
++	u64 ino;
+ 	dev_t dev;
+ 
+ 	/* only do exe filtering if we are recording @current events/records */
+--- a/kernel/auditsc.c
++++ b/kernel/auditsc.c
+@@ -884,7 +884,7 @@ static int audit_filter_inode_name(struc
+ 				   struct audit_names *n,
+ 				   struct audit_context *ctx)
+ {
+-	int h = audit_hash_ino((u32)n->ino);
++	int h = audit_hash_ino(n->ino);
+ 	struct list_head *list = &audit_inode_hash[h];
+ 
+ 	return __audit_filter_op(tsk, ctx, list, n, ctx->major);
+@@ -1549,7 +1549,7 @@ static void audit_log_name(struct audit_
+ 		audit_log_format(ab, " name=(null)");
+ 
+ 	if (n->ino != AUDIT_INO_UNSET)
+-		audit_log_format(ab, " inode=%lu dev=%02x:%02x mode=%#ho ouid=%u ogid=%u rdev=%02x:%02x",
++		audit_log_format(ab, " inode=%llu dev=%02x:%02x mode=%#ho ouid=%u ogid=%u rdev=%02x:%02x",
+ 				 n->ino,
+ 				 MAJOR(n->dev),
+ 				 MINOR(n->dev),
+
+
