@@ -1,156 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F613630AE
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 06:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448F63AE6FA
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 06:26:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785392703; cv=none; b=KrUmLhEf5WdCh76Qwrif2XehXTnGlWhdnlgQhFIdIuLWkKj867ilaeAQAxn0RNE6kmKlugtDScwQYBmOpZOcui/lTfTqFta5NH07R5ZeHzXX25zk/uyBY7xXx1BljmLHb8NLCrTgSA4EoVrSEpMxtu1/HP1VWn/CL12G4/CF3To=
+	t=1785392763; cv=none; b=JA7pWWbE30FAL6NlpWzKa2+Givuz8s6P9pNNDPcq0sDcJFc0kovTua562vDL5mzRr0h9ygQa8JxDSeQmI/du2DgpV4dlYap1nNrpfUoJBXC7Tz4dZDZXSYLUXPLegM659dIag1vQ5RVjxQZc9IipUwM4SX9EbRrON5npRW4XQcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785392703; c=relaxed/simple;
-	bh=cxi+/3HVHtcRbICZrKR9YaQjkwE8Tf5p2ZuuvgkHc9Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r3q4/dnpLqTDnAYLeMmuuWpdJMzUfWrQ/QbpDlYvCHFuzPtYzDxZhKgSNGtZAb8v66HwzfD0sIWozHskCkZrsOA0v4xbNi1v2O+6T+11SlENB/qXZxfG9Vkr2DEB6OXXg9w+l028hUjCt33crXv2beRrI2lcL65emDxcJiyby6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V7m1sQH4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785392763; c=relaxed/simple;
+	bh=F9WeV/nxAP6fHlwe0aqZ4cby4GCtvCwnHIr/wOKq+vA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FvrVE7Hyf/Nj6vIz9GWb9lCGjyugEhrZ6a5BoebxaWdNYkk23sJlgvScbiFVkGLHl0tJNRQH0RGnNjzPjWl2KOWXFUQ4S8dJPUCOdqGrPpgID/LvNO9ZFb9Qx/xNRZ5+MHVLs4hwyHw0GxaxqRxwFTWa0YgArAQKRY39LsRi694=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M4OaBjJW; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V7m1sQH4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09971F00A3A;
-	Thu, 30 Jul 2026 06:24:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785392701;
-	bh=RIhSW9s2cj405axXbpioXessvk/tDk0Vl/C3BaoolnA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V7m1sQH425SnOzPSWQRJQR3n7gqCvhAdfh1CQ8c509kMC9dl549J0FLPBihuBZsjM
-	 ySseq8v35edC8NhaoKfEzfwxn2nNuFJ24yMcsCi3PW9ENHwKWickUbw+zVx8yA0UrY
-	 2zT9QqMCcWIB6g9qMgd6UMs4f2WB44dD9VmdbXf5Q72T+yYS2j7ENFabQ4a4g9sK9V
-	 xRl6xPZi7drCiogCkvB4WwvKP2yd7l2hiZFQ7iqqR5t0bG/FZ6FSllgOnHNRVi+miI
-	 eSGQuo02UVej5RT7CADY6L0lA6UJeJjeU9W7RNpsCcDZQ2BOzFPzHWOdKah/ppPYEW
-	 WmQyY/XEdFdiw==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: stable@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>,
-	Urgau <urgau@numericable.fr>,
-	Gary Guo <gary@garyguo.net>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Tamir Duberstein <tamird@kernel.org>
-Subject: [PATCH 6.18.y] rust: allow `suspicious_runtime_symbol_definitions` lint for Rust >= 1.98
-Date: Thu, 30 Jul 2026 08:24:52 +0200
-Message-ID: <20260730062452.54973-1-ojeda@kernel.org>
-In-Reply-To: <2026072920-prorate-semifinal-1bca@gregkh>
-References: <2026072920-prorate-semifinal-1bca@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M4OaBjJW"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2caed617615so21608665ad.3
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 23:26:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785392761; x=1785997561; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lC5eDEn/dzL9Eec299VWkBRGUg0dXbB9NQvY7s3O+kI=;
+        b=M4OaBjJWIl1OOG+wWy+7/Y2SLcH3zBCcmsPxLjXmGIoemzYHjxChQMhlfNcxkn5TFX
+         fP4pkZO8uwdHhhON2vTeBKojN/RohJTNq75ZhiVZMSS3N5ojtA2KzT3dZ/EcCeP0/cPd
+         m/aU9TiZJNStGIyEnB8BLslVDADVU0m9MgrnnGWK1OcBVSu7DnkH5xDQbIEU1eYDXum2
+         FHZaXUaFaN0M8cD5Ry8gknXO+TB+5vnZqL/12ULLO7Pz02WJToFp7pOPoM8D/z9l9/DP
+         zvDqN+LyS7KXgi/LwVLn+E824gpMuQxLvemEncLJT2PNEg5XdkpkalQO3BLUwGV0IjLA
+         VRBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785392761; x=1785997561;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lC5eDEn/dzL9Eec299VWkBRGUg0dXbB9NQvY7s3O+kI=;
+        b=OIEW0UL1KtocSKaYpL0U+tzeKfgdqdERupMjWqCGDSRKJfQvjouq+CBiGAUNRbzuQ+
+         7X429Sc5MqP/J8xvAWAzEQAjJim8+DwtDZAS486X53YhGV9ytOlCuByNVM2HAsoRFZmk
+         r3jToSWdUSZzG5NMLKmshRXzKk7rEOqhuvur8g0V9mMLjnwBXsvUppcRMpUcdwiSNHfI
+         vLi0tqK7wmUfQGH0OviEZmXGbmmsqav6uEcI4RZGkW5q25XYsOpOiZA9lDnQ4/UcZrPG
+         mrQaQzd6H/T6rsulzJM3Bsbl/iikdpO5CgPz0m5tPGTl6gsS/O2zvG1n5mE2Oc2Vzhmb
+         beAg==
+X-Gm-Message-State: AOJu0YzO3XnRydTeKKPDvxBrO0CGVySbdyEcPH3KeuatHIDU/cf/nBTF
+	diicHpf0etnHmVRAe0bpvIvXzFeIcKuL1FJF2VZd+VqqHXYXuvpexQIm
+X-Gm-Gg: AR+sD11UxhwR2Kn0Cfp/OWubeIbR6wsiuv9cCiQYktlBzK+paxGHPocxdd7qMr6wb0c
+	X7WOoOu3VA/ddl6qKif/0MGi/4Zui1YGOSggcDjiFbMQYPBAeXtXAyJtmgtvFQyyFosi3/qYhut
+	xKPzpWZCQcD9W1AsGdgR04/ECZvSXPprrTiLuMD9CwvDObWV0sLQTGurvuDLIvPYyCxvKck3qQ4
+	nnSa4p8hT2R3M/8WGbsT8gs4D8XMP365O8CDTQsLmjux4F9IOuGAhqdxPu2qh1GmGSSVqPi6N0c
+	E+9HBppTs+jXPQko2Ydx0vb1Cq0Ncr4yzzcUczbTfgRBFSyqvn1inuCYUwwrFwKfiOaa0OolRoH
+	CSwWE+dzxJFovrK+PxPlGK3v00PkK6HGEOiO9tz1k9sixfY94pzGxhk7cvX4Y06kpVKOQkfOTqa
+	mVYQFQn1k/5MCEHrjwukDN3Jx6JC8w0A7PDeHNLpz6cdK0YrlIRbtQF76FhTaqTLLu2gCvG+vBT
+	is=
+X-Received: by 2002:a17:903:238e:b0:2ca:e62c:9e96 with SMTP id d9443c01a7336-2d035c1c8abmr13935955ad.5.1785392761489;
+        Wed, 29 Jul 2026 23:26:01 -0700 (PDT)
+Received: from baineng-pc.. ([117.133.183.252])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bc9bd4sm21059695ad.48.2026.07.29.23.25.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 23:26:01 -0700 (PDT)
+From: Baineng Shou <shoubaineng@gmail.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	"T . J . Mercier" <tjmercier@google.com>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	Sandeep Patil <sspatil@android.com>,
+	"Andrew F . Davis" <afd@ti.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: stable@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	Baineng Shou <shoubaineng@gmail.com>
+Subject: [PATCH v5 0/4] dma-buf: fix fd leak when copy_to_user() fails after fd_install()
+Date: Thu, 30 Jul 2026 14:25:44 +0800
+Message-Id: <20260730062548.231239-1-shoubaineng@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <CAO_48GGxJj6AU6vsu-Y18WKtL_9RT=zsXWp3L+ifZdLM7CgGtw@mail.gmail.com>
+References: <CAO_48GGxJj6AU6vsu-Y18WKtL_9RT=zsXWp3L+ifZdLM7CgGtw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Starting with Rust 1.98.0 (expected 2026-08-20), Rust is introducing a
-couple new lints, `invalid_runtime_symbol_definitions` (deny-by-default)
-and `suspicious_runtime_symbol_definitions` (warn-by-default), which check
-the signature of items whose symbol name is a runtime symbol expected by
-`core`.
+Several drivers call dma_buf_fd() — which internally calls fd_install()
+— before copy_to_user() returns the fd number to userspace.  If
+copy_to_user() fails, the fd is already published in the caller's fd
+table but the ioctl returns an error, so userspace never learns the fd
+number.  Worse, the window between fd_install() and copy_to_user()
+allows other threads to observe and manipulate the fd (dup, close,
+SCM_RIGHTS), making any "close it on the failure path" fix unsafe.
 
-Our build hits the second one, i.e. the warning:
+The fix is to split the allocation into three steps: reserve an fd with
+get_unused_fd_flags() (not yet visible to other threads), do
+copy_to_user(), and only then publish the fd with fd_install() via the
+new dma_buf_fd_install() helper.  On copy_to_user() failure,
+put_unused_fd() + dma_buf_put() cleanly unwind with no user-visible
+side effects.
 
-    error: suspicious definition of the runtime `strlen` symbol used by the standard library
-         --> rust/bindings/bindings_generated.rs:20018:5
-          |
-    20018 |     pub fn strlen(s: *const ffi::c_char) -> usize;
-          |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-          |
-          = note: expected `unsafe extern "C" fn(*const i8) -> usize`
-                  found    `unsafe extern "C" fn(*const u8) -> usize`
-          = help: either fix the signature or remove any attributes like `#[unsafe(no_mangle)]`, `#[unsafe(export_name = "strlen")]`, or `#[link_name = "strlen"]`
-          = help: allow this lint if the signature is compatible
-          = note: `-D suspicious-runtime-symbol-definitions` implied by `-D warnings`
-          = help: to override `-D warnings` add `#[allow(suspicious_runtime_symbol_definitions)]`
+Patch 1 introduces dma_buf_fd_install() in dma-buf.c (wrapping
+fd_install() together with the DMA_BUF_TRACE call to preserve export
+tracing) and applies the fix to dma-heap.
 
-    error: suspicious definition of the runtime `strlen` symbol used by the standard library
-         --> rust/uapi/uapi_generated.rs:14236:5
-          |
-    14236 |     pub fn strlen(s: *const ffi::c_char) -> usize;
-          |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-          |
-          = note: expected `unsafe extern "C" fn(*const i8) -> usize`
-                  found    `unsafe extern "C" fn(*const u8) -> usize`
-          = help: either fix the signature or remove any attributes like `#[unsafe(no_mangle)]`, `#[unsafe(export_name = "strlen")]`, or `#[link_name = "strlen"]`
-          = help: allow this lint if the signature is compatible
-          = note: `-D suspicious-runtime-symbol-definitions` implied by `-D warnings`
-          = help: to override `-D warnings` add `#[allow(suspicious_runtime_symbol_definitions)]`
+Patch 2 applies the same fix to fastrpc, which even had a comment
+acknowledging the problem could not be fixed before.
 
-Thus `allow` the lint in `bindings` and `uapi`.
+Patch 3 replaces the bare fd_install() in drm_gem_prime_handle_to_fd()
+with dma_buf_fd_install() to restore tracepoint coverage for DRM PRIME
+exports (suggested by Christian König).
 
-A more targeted alternative to avoid `allow`ing it would be to pass
-`--blocklist-function strlen` to `bindgen`, but we would perhaps need
-to adjust if other C headers end up adding more (or Rust checking more).
-Since it is just the less critical one that we hit, and since eventually
-this should be properly fixed by getting upstream Rust to provide a flag
-like GCC/Clang's `-funsigned-char` [2][3], just `allow` it for now.
+Patch 4 adds a selftest to tools/testing/selftests/dmabuf-heaps/ that
+reproduces the fd-leak scenario (mprotect flip between copy_from_user
+and copy_to_user) and verifies the fd count is unchanged after a failed
+ioctl (suggested by Sumit Semwal).
 
-Cc: Urgau <urgau@numericable.fr>
-Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned in older LTSs).
-Link: https://github.com/rust-lang/rust/pull/155521 [1]
-Link: https://github.com/rust-lang/rust/issues/138446 [2]
-Link: https://github.com/Rust-for-Linux/linux/issues/355 [3]
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Reviewed-by: Tamir Duberstein <tamird@kernel.org>
-Link: https://patch.msgid.link/20260615143225.471756-1-ojeda@kernel.org
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-(cherry picked from commit 608045a91d9176d66b2114d0006bc8b57dff2ca9)
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
----
- init/Kconfig         | 3 +++
- rust/bindings/lib.rs | 4 ++++
- rust/uapi/lib.rs     | 4 ++++
- 3 files changed, 11 insertions(+)
+v1: https://lore.kernel.org/dri-devel/20260703080922.1838362-1-shoubaineng@gmail.com/
+v2: https://lore.kernel.org/dri-devel/20260710105430.3059661-1-shoubaineng@gmail.com/
+v3: https://lore.kernel.org/dri-devel/20260714114654.3885457-1-shoubaineng@gmail.com/
+v4: https://lore.kernel.org/dri-devel/20260714114654.3885457-1-shoubaineng@gmail.com/
 
-diff --git a/init/Kconfig b/init/Kconfig
-index 0c25e78e10f4..6ce315af48c1 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -162,6 +162,9 @@ config RUSTC_HAS_FILE_WITH_NUL
- config RUSTC_HAS_FILE_AS_C_STR
- 	def_bool RUSTC_VERSION >= 109100
- 
-+config RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS
-+	def_bool RUSTC_VERSION >= 109800
-+
- config PAHOLE_VERSION
- 	int
- 	default $(shell,$(srctree)/scripts/pahole-version.sh $(PAHOLE))
-diff --git a/rust/bindings/lib.rs b/rust/bindings/lib.rs
-index 0c57cf9b4004..5e208064d46c 100644
---- a/rust/bindings/lib.rs
-+++ b/rust/bindings/lib.rs
-@@ -30,6 +30,10 @@
- #[allow(clippy::ref_as_ptr)]
- #[allow(clippy::undocumented_unsafe_blocks)]
- #[cfg_attr(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES, allow(unnecessary_transmutes))]
-+#[cfg_attr(
-+    CONFIG_RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS,
-+    allow(suspicious_runtime_symbol_definitions)
-+)]
- mod bindings_raw {
-     use pin_init::{MaybeZeroable, Zeroable};
- 
-diff --git a/rust/uapi/lib.rs b/rust/uapi/lib.rs
-index 1d5fd9efb93e..bec80b1dba23 100644
---- a/rust/uapi/lib.rs
-+++ b/rust/uapi/lib.rs
-@@ -28,6 +28,10 @@
-     unsafe_op_in_unsafe_fn
- )]
- #![cfg_attr(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES, allow(unnecessary_transmutes))]
-+#![cfg_attr(
-+    CONFIG_RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS,
-+    allow(suspicious_runtime_symbol_definitions)
-+)]
- 
- // Manual definition of blocklisted types.
- type __kernel_size_t = usize;
+Changes in v5:
+ - Add selftest (patch 4) reproducing the fd-leak scenario (Sumit Semwal)
+
+Changes in v4:
+ - Add patch 3: drm/prime: use dma_buf_fd_install() (Christian König)
+ - Add Acked-by: Christian König to patches 1 and 2
+
+Changes in v3:
+ - Split into two patches (dma-heap + fastrpc separately)
+ - Add dma_buf_fd_install() to preserve trace_dma_buf_fd tracepoint
+ - Add fastrpc fix using the new helper (T.J. Mercier)
+
+Baineng Shou (4):
+  dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
+  misc: fastrpc: don't publish fd before copy_to_user() succeeds
+  drm/prime: use dma_buf_fd_install() to preserve export tracing
+  selftests: dmabuf-heaps: add fd-leak-on-EFAULT regression test
+
+ drivers/dma-buf/dma-buf.c                     |  20 +++
+ drivers/dma-buf/dma-heap.c                    |  80 ++++++------
+ drivers/gpu/drm/drm_prime.c                   |   2 +-
+ drivers/misc/fastrpc.c                        |  16 +--
+ include/linux/dma-buf.h                       |   1 +
+ .../selftests/dmabuf-heaps/dmabuf-heap.c      | 115 +++++++++++++++++-
+ 6 files changed, 182 insertions(+), 52 deletions(-)
+
 -- 
-2.55.0
+2.34.1
 
