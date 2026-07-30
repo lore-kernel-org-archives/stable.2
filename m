@@ -1,105 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA51430CE8;
-	Thu, 30 Jul 2026 13:09:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BEC430CC8
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 13:12:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785416979; cv=none; b=YLK4F4foh1GkaJbl6u4bIJehGSgIpMECqmhNQmM5iqd2UNrtIV3NRLnn4O71yWb9VKAaIxtCXUxGXeRv0W+/snVC+8AtKUT8ZR+D2EC6nlLI+AWdlzsR6RXweewgtJklJktXhimTnVyXfu7koQ2bF27iYgg/c9muO4tn+K6N9Ng=
+	t=1785417171; cv=none; b=OVL+m9OeiILal7lvSUDqVKxE66fBSWZoXFgkf5/MTTLFl4LdYcO/1MilQ0/Ku3C69TKyugaRcxijar2ytlVfzvmzSOmguRnlI2XdI/fEszer8ChXgjg2uyp06L33KsTQoxZ+wpHR6uPlRCIwX1FFeZZp7GNEpSB8V49vGIE+NJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785416979; c=relaxed/simple;
-	bh=bLueI+iND4rfNLFgH0wSpSzNKoBL0fiaG63acjSkI04=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XmvIpfuEu99IPXtUI5sq3DPPnGrBhCauaD1CMCC5qnPOrsdazgNemvMkGNa/VpmEJt66nQhzJF9gFNjUk17M3e/XSRw82KXdY292I6GOQV0NLHpAkpr8X+R7c51q49+ZJhUFRCgkkxTreoPGsXv0hEn2gIUZlOH4n1Cf2GkrVbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oh0phniM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785417171; c=relaxed/simple;
+	bh=zyTFT5PUTIzO6aWPAmeFZLa5yPKvMYo7+eyon/uh6fk=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Zs1Xo2w7h/+zW3mj715WAjKZp6MH6LGDobqHHAVsnuu25bzxXA6IUfdb0mDMsvMVFl+Q4ECCJC9cBaiXarNinI7Bugyalabr70JdT0pO3TJ8y2QpgM1sgWbCWZR7Zr9YjyRxCRGZCvLjBRU3k3yUCs5odjBPsGBGYbZTAdT8diM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZZRKvp4F; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oh0phniM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7CE51F000E9;
-	Thu, 30 Jul 2026 13:09:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785416977;
-	bh=nF8RaaPGsgkbmp6APmxdP1QSXAEwh87b+GWYpDNFqnM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Oh0phniM4GRIkO92rMLKIQV1xWYsmqUahZgchMwwcb/ldPd6MZS/1k97f2ASMmxTb
-	 /LwUKYLiyUUHVvKVnG1/64XLKGupTWEjFSwTISVuwbCUcb2GNCBpiZVne+EbCuXxmB
-	 j3+yYBlN8pOiWhJxQugomvrW8vgVsOLvr4PwaNgxF5u1zqBTY6Dgk1yKl7SuJGugwH
-	 lrKbBhuVkDzm42D1TltwGG4qIZD1SARTylrZ4jHdBbusRKZ44Ks5Q59M1KZAjwOBrn
-	 47I5x7vmRA9mgfoCheIeQqAt/habxABQ5CV/zp7VILBnP4ZTRIR6ySLQ4pX41Fx6AL
-	 3IklTXP/oKsxg==
-Date: Thu, 30 Jul 2026 14:09:17 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Pankaj Raghav <p.raghav@samsung.com>, 
-	Hannes Reinecke <hare@suse.de>, Hugh Dickins <hughd@google.com>, Yang Shi <shy828301@gmail.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Hengbin Zhang <uqbarz@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH mm-hotfixes 2/2] mm/huge_memory: fix huge_zero_pfn race
-Message-ID: <amtHMG4owrzXeLx0@lucifer>
-References: <20260728-fix-refcounted-huge-zero-v1-0-3f261f5447b4@kernel.org>
- <20260728-fix-refcounted-huge-zero-v1-2-3f261f5447b4@kernel.org>
- <25d560df-6d7e-462a-a987-60a8695793ba@kernel.org>
- <amsch6HvEH5IJjfM@lucifer>
- <39b527d7-9c6e-4798-be9d-b834c8a3d2a0@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZZRKvp4F"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785417167; x=1816953167;
+  h=message-id:date:mime-version:subject:from:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=zyTFT5PUTIzO6aWPAmeFZLa5yPKvMYo7+eyon/uh6fk=;
+  b=ZZRKvp4FVg17W8yT0LMb+yY+0Ho/JozyqbQExXuFIHxmB5sYHxymQmXO
+   EJyc/6Oww13QGSyIsWW0bhC97BjxxRNWnd4IvtG50UmkBGb+Oxo/1X5PR
+   BAZuzrDgeJrc5sJiDK5N3ar9c3uJTQNKPY8ewN30AdUkVQAsbw6w8vL7F
+   6dx8kqf9PBvbs5y9uCWwD2W+dMRqtOuloWJIfxBFns795VOQPOvr8QIQq
+   sIkttJ47dTWnB2PYostRZ/Pif8vPyCxDJPY71lBy/OCofDgYspQj2OPfD
+   Q2EkLMvYWfqMwumMF12hSx/cLYjOaBtcRjGhbFH88yx5sMHzCkO/CWb6R
+   Q==;
+X-CSE-ConnectionGUID: wrIHdRFVRDOTFRoH6SL4gw==
+X-CSE-MsgGUID: 00FqrIazQRaqwnej/tzvOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85798815"
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; 
+   d="scan'208";a="85798815"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 06:12:46 -0700
+X-CSE-ConnectionGUID: ARd7VzA8TwSGDtDQjzmTxQ==
+X-CSE-MsgGUID: n7vPDf9UTGee4IANC7Oy1g==
+X-ExtLoop1: 1
+Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.245.197]) ([10.245.245.197])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 06:12:44 -0700
+Message-ID: <789a05bc-f33f-41ed-869d-0fbe45ebef09@intel.com>
+Date: Thu, 30 Jul 2026 14:12:42 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <39b527d7-9c6e-4798-be9d-b834c8a3d2a0@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] drm/xe/guc_ads: allocate UM queues in VRAM on dGFX
+From: Matthew Auld <matthew.auld@intel.com>
+To: Jia Yao <jia.yao@intel.com>, intel-xe@lists.freedesktop.org
+Cc: gwan-gyeong.mun@intel.com, stable@vger.kernel.org
+References: <20260722053410.2767369-1-jia.yao@intel.com>
+ <20260730004735.344627-1-jia.yao@intel.com>
+ <20260730004735.344627-3-jia.yao@intel.com>
+ <148b38ae-eae7-40d5-837c-fddda1299d9f@intel.com>
+Content-Language: en-GB
+In-Reply-To: <148b38ae-eae7-40d5-837c-fddda1299d9f@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 30, 2026 at 02:10:23PM +0200, David Hildenbrand (Arm) wrote:
-> On 7/30/26 11:55, Lorenzo Stoakes (ARM) wrote:
-> > On Thu, Jul 30, 2026 at 11:22:09AM +0200, David Hildenbrand (Arm) wrote:
-> >> [...]
-> >>
-> >>> So invariants are required - huge_zero_refcount MUST:
-> >>>
-> >>> * Only be set in the huge_zero_lock critical section to ensure
-> >>>   serialisation of huge_zero_pfn, huge_zero_folio and huge_zero_refcount
-> >>>   writes.
-> >>>
-> >>> * Be set non-zero only AFTER huge_zero_[pfn, folio] are set to valid values
-> >>>   so installation of the huge zero folio on read page fault ensures
-> >>>   concurrent is_huge_zero_*() calls correctly identify the huge zero folio.
-> >>>
-> >>> * Be set zero only BEFORE huge_zero_[pfn, folio] are set to NULL and ~0UL
-> >>>   respectively, and atomically.
-> >>>
-> >>> Establish these by:
-> >>>
-> >>> * Only updating huge_zero_refcount in the huge_zero_lock critical section
-> >>>   in get_huge_zero_folio() and shrink_huge_zero_folio_scan().
-> >>
-> >> That is imprecise. huge_zero_refcount is updated (incremented) outside of
-> >> huge_zero_lock in get_huge_zero_folio().
-> >
-> > You're right.
-> >
-> > ->
-> >
-> > * Only setting huge_zero_refcount to zero or an absolute value in the
-> >   huge_zero_lock critical section in get_huge_zero_folio() and
-> >   shrink_huge_zero_folio_scan() and updating atomically elsewhere.
-> >
-> > Seems better?
->
-> Yes, I guess the transition from/to 0 are the problematic bits. Everything else
-> can just be lockless.
+On 30/07/2026 11:51, Matthew Auld wrote:
+> On 30/07/2026 01:47, Jia Yao wrote:
+>> On dGFX the original ADS BO is explicitly migrated to VRAM by
+>> xe_guc_realloc_post_hwconfig() so that xe_bo_main_addr() returns a
+>> real device-physical address (DPA) rather than an IOMMU IOVA.  A
+>> separate SYSTEM BO for the UM queues would not go through that migration
+>> path, so its IOVA would differ from the physical address on systems
+>> where pages are allocated above 4 GB.  GuC/GAM accesses the UM queue
+>> ring via base_dpa (with_dpa=true on pre-Xe3p), so an incorrect DPA
+>> causes all-zero fault descriptors to be forwarded to the driver.
+> 
+> I feel like I don't fully understand the explanation here. Is the issue 
+> not just the contig requirement for base_dpa? We now use attempt a best 
+> effort approach for system memory, however for dgpu we can go further 
+> and use VRAM to guarantee that requirement. If that is all this is doing 
+> then commit message can be simplified with something like:
+> 
+> "To fully guarantee the contig requirement for base_dpa, we can instead 
+> just use VRAM for the um queue, on dgpu..."
 
-Yeah exactly. Also setting an absolute value in general is potentially
-problematic.
+Or is the issue that this has to always be in VRAM, since there is no 
+bit to say whether the DPA is system vs VRAM, like we do for the GGTT 
+pte? On dgpu, assumption is that this is then always VRAM, if using DPA? 
+If so, please make that clearer in the commit message.
 
->
-> --
-> Cheers,
->
-> David
+> 
+>>
+>> Use XE_BO_FLAG_VRAM_IF_DGFX() for the UM queue BO so that on dGFX the
+>> BO is allocated directly in VRAM and xe_bo_main_addr() returns the
+>> correct DPA without needing a post-hwconfig migration step.
+>>
+>> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+>> Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+>> Cc: Matthew Auld <matthew.auld@intel.com>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Jia Yao <jia.yao@intel.com>
+>> ---
+>>   drivers/gpu/drm/xe/xe_guc.c     |  6 ------
+>>   drivers/gpu/drm/xe/xe_guc_ads.c | 11 ++++++-----
+>>   2 files changed, 6 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
+>> index 21cf3edef922..4023700ff2a9 100644
+>> --- a/drivers/gpu/drm/xe/xe_guc.c
+>> +++ b/drivers/gpu/drm/xe/xe_guc.c
+>> @@ -714,12 +714,6 @@ static int xe_guc_realloc_post_hwconfig(struct 
+>> xe_guc *guc)
+>>       if (ret)
+>>           return ret;
+>> -    if (guc->ads.um_queue_bo) {
+>> -        ret = xe_managed_bo_reinit_in_vram(xe, tile, &guc- 
+>> >ads.um_queue_bo);
+>> -        if (ret)
+>> -            return ret;
+>> -    }
+>> -
+>>       return 0;
+>>   }
+>> diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/ 
+>> xe_guc_ads.c
+>> index 7f371f9c7268..53636333fb45 100644
+>> --- a/drivers/gpu/drm/xe/xe_guc_ads.c
+>> +++ b/drivers/gpu/drm/xe/xe_guc_ads.c
+>> @@ -409,11 +409,12 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
+>>           size_t um_size = roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
+>>                               GUC_UM_HW_QUEUE_MAX);
+>> -        bo = xe_managed_bo_create_pin_map(xe, tile, um_size,
+>> -                          XE_BO_FLAG_SYSTEM |
+>> -                          XE_BO_FLAG_GGTT |
+>> -                          XE_BO_FLAG_GGTT_INVALIDATE |
+>> -                          XE_BO_FLAG_PINNED_NORESTORE);
+>> +        u32 um_flags = XE_BO_FLAG_VRAM_IF_DGFX(tile) |
+>> +                   XE_BO_FLAG_GGTT |
+>> +                   XE_BO_FLAG_GGTT_INVALIDATE |
+>> +                   XE_BO_FLAG_PINNED_NORESTORE;
+>> +
+>> +        bo = xe_managed_bo_create_pin_map(xe, tile, um_size, um_flags);
+>>           if (IS_ERR(bo))
+>>               return PTR_ERR(bo);
+> 
 
-Cheers, Lorenzo
