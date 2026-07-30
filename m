@@ -1,150 +1,181 @@
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013043.outbound.protection.outlook.com [40.93.201.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9453590A9
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 03:06:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABEF737F739
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 03:16:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785380816; cv=pass; b=ud9SmtFBLveluq4W5jKlCnVzQkzdsds50NpynOy90bEfiPAw97pVhZ3xGWeiFeROgNfK41uPeEajziXDsoAorVwCJqh9F+a9eHtlmiPFOgIOqv1uUob390ExKjAcoNUenYDxAtE7VD0/8BAGHwuI894zvaSnDcWoc71O3mPIPCg=
+	t=1785381407; cv=fail; b=q2PYFk4j30EC0IuXBP72wrhV+91n4DSDDShBYD0zFmznCnF7bzgMsKDKsUHg5ZMzEZKi2AtxmxotmET0lCT8fJ9QdDVvuTp9m1V2DivprId6kjyQ+LUQaemSrFVa1qq1+yjmPPE30VnWwQDZiZxRSyvvECCKV6GKfFqcWuNDNe4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785380816; c=relaxed/simple;
-	bh=8j0nxrm1wXhCpLhXah6oFcNu4BvWHurBVnmFCHvzVYo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HGNVpRKn/DkH13atSrJwb7gRyn6hvg3QEUSenOzsgnN3DfGtrhK8M3eQPhaOBiog+2FqWDCYg22Woypam/h1TG+j/JDYoTurWibC5Qs1TRxyNwtAZf49nOUGNPgVv0quGpszxpAzFW8x1HO3R0v8i0x69awn7JXxBUtZzNWmkaQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j3KpGUTY; arc=pass smtp.client-ip=209.85.208.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785381407; c=relaxed/simple;
+	bh=HxlDxDQUT24rqOl6UrBJvd+xp1+eTib11MtvbtZfLds=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VU6rCPdyFQgMiFxBw2jp6DFH/CUqKx5lT0kzzy6FgC3zzm87mTm57RslcLPd6J8MIuV9o2TDDt7iuhCQ2sTNHCcT1cATEsuh2oPJjVuW8LR2z4p6iVg9w4Cx9Qw6IfTtOgtdF72WiMUWrjGOndVqmGGJEfOtJcF/jUXPLzeFiaE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=t+ShauHZ; arc=fail smtp.client-ip=40.93.201.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j3KpGUTY"
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39c9107baa7so12719981fa.3
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 20:06:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785380813; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Sp39uTOTB/k7/+cggbz7i2G9sxFzGALqmFV0il7Px62tEgQk3UipivHWq8CxLTYhtH
-         DdrniQNIq4RtBxg1zjTnp8eG8/aWA6OtkR1WniPUf8AhHIufUVl8wIAFAlHHdFY9/BOh
-         qlZL0sWHJYLrq1CfLyD9DUyYHGEHVvmFuw9VG/+zg45HgD7j17umxYvROFZ0Ivy4017a
-         Sgv2vC9Kp+KEhkoYvCNeerAQpU0BnfT2pKjOCUFmRlBhLXkRexEpOEpdTg0O/VoVCgLX
-         3WjBZZ0WiHqJitDwS0C8MWx6LpuHd7zizwu2bZF3EO5YVM+kaIP1LivrP/CA3bWEPGx2
-         pQTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=2y2fjND+qKE5aS0sv8qbFsMkpL4CRd054tvNPonoy6g=;
-        fh=DvKUDNqevBTKeC/3MJj11SRBxW9db85071OG7nhbVMA=;
-        b=IT6IUUj4cm4nPGY+7x9wTi70iJNHjdYpOS2+7UHVoqgi7IhkiPrVjQTJkLFwKsyoF0
-         Pq7u/MR/+ptCA3jqIV6vkGdetuMCIJ0C9Y+8DEltrReZzXAaO9LLcUmJtPpQXXiWadJL
-         GIqMLqU1cJXe+AoYtTBTSxKNu+6iHI50zC1DmBeNcDqyzUVWYLoUrGGAHTmwSCCa9bmN
-         UYbR2gWOkt2VM+g4SF8d3jRxolvfDXWm5hxox9RCJUb3RiXmM8ON4SHn3YqnnJ6ARRN/
-         betmCrAGjBsHGsj70sLqcSm6FIRgMjV2kDzLDHlhXSTxu+FdhUaVZGdNnE2rzWfTjcq6
-         nI9A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785380813; x=1785985613; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2y2fjND+qKE5aS0sv8qbFsMkpL4CRd054tvNPonoy6g=;
-        b=j3KpGUTYL82Rc0ZS1P893qBdK0W5a3pI9iTImJFegdQYDHDNrf2VKtuyaHKgcs0wzG
-         I/A6PZeLTLOFYsbbn0vzjxRckEYSsVKf/PZo8I8UyvAfQARxKjAo8eaWoMzILiHU/Y73
-         g6bhXldKUInlNUoG7eDU6P/1bTdW9h9wDHyRQPC4ap5/L04XGTlaJCky6OayAqdq8bYI
-         oyKa7E0mqvRaQyb38VROXTEaZ6AYU+/K0XJQB2u7waiZepPX8dLEkcGe7u+LcDAOTIYB
-         AyRefQ/cixyOOZaDwsFmBSzlX4s5hBtUCQbbSEHof5WVJ95xkiv1/Pj8u+0KGqwE9RyX
-         ILWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785380813; x=1785985613;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2y2fjND+qKE5aS0sv8qbFsMkpL4CRd054tvNPonoy6g=;
-        b=EivvYOd6z99fN+fUbZzYwdS2kqOiKtfpQMsbQuPC1x1D+YPI45Z0IMLyqVlBEL3vvh
-         HIrkk6bmub08mef9rNPiLqKpQHaKzqa3DwYktLydocQtu0IsI+ULfkarA08zKGAFN+ji
-         I4Td1c5AiKpgqby6DewujdQHrfldfC8qJ/iOl3hlOm5AuPuDA0qFwC6EwzuVx22qyMJ7
-         bxle1PkYHD75CL7NZ7pS0y2WWeHu17nYxE8IEFezvC9aESyVvRhcLK9P77PPnNtEQdHk
-         mpLF/enRkIKHlY29VnE1OGHS/bsQHiSHPGd9KI6VXtQFvxsJG9Mhcxli4rQMyGgPaWsV
-         pHqg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq6T5WSxH0YgetYpgx9vD12siTvouP7R1fLEkVd1EOEdR9MwO6WA7gFmA6TR0Og8WTCERwU2Wg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzjtkk+INiTffVl3i+lvOGhx/3ELEf69YlLoLU7BvD1eubTEeJt
-	+08lemnDCF887yqrxs2vK9lfBCzpLLTBPqF4mPUam0HGKCF9aPnbsuo6Es4DyAFj2x/8kuco0dE
-	qQvUkHNIZXDQeLCh3hx5BClKSXDbMzVI=
-X-Gm-Gg: AR+sD10OSJjwPbW3an5B8wDyNK7se6XfbzrPnXRhVtSaGKh3ttF0Xr+A8lgW9aWNCoZ
-	vZUPyZS7AyFAe3t+vDqJVtWSYj2oroCRyYe13TyxHkmUAt7GkpE0kv+HMtk+vVaIB6IXKx/63Ty
-	joU64++TcBuQVQdmk3HQODZiu7/WIJsewwdgFzYTmIwDoteojkSUhn+3mxTOjQnRErnQi93Zcu3
-	B38/i56pp85IiJC4Sa0URBuvppOxEe7fCU9DkLndknF9ZJ842/xaA+mhS3iOS1s0qcFX4a/7ikS
-	4tZ9Yhmp7ATPs92bFwIt/xQB/5gtvdRBSwdTCA0ksFJdlRZdEqaTgIj415/3v/FUaJv7VD//ern
-	/rh+quxgDqgvpSI9P7OsyAqFBtQ==
-X-Received: by 2002:a05:6512:33d1:b0:5b2:a1fa:2525 with SMTP id
- 2adb3069b0e04-5b2db387f17mr118957e87.31.1785380812454; Wed, 29 Jul 2026
- 20:06:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="t+ShauHZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Olfc1GgGgHZA3zmGevYvlP6mDvQbTZDiE9Ls1BCoSbCoDx4OunTp5W6DsNhyIwaHYSvxC6vN5qTIoI7OQFH/Biz/kdoV9V27axlvG7qW9kQOPZ48cp6wjgaxwnOBkWKaxT4XD6A7+DdoKIRH9+FI3spzpHdlb//Bd+0PdnRQw5ry12KtW1ib+ALVTJ7yDUiMOLxI40ROdbUaDzv8V9PqmZvmLA11DRj8OifjZNeMkn8SRLY3FvMVYzbxCJyTfoeWNcI5m7R4OIrtJjmuqcZpegSUwFosgoXjB3e8qEx/RHWrtJ7HKLvamOkAQoZ44HFzhSdIGsqfHCVmqfXXUQq5Zg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YOBVx55dsqpvvCj/prt9qlYI+RhTAFDEk04fPWkoZfM=;
+ b=V/kDreoUIiWazIw3xA4wUgOmYVhgwl7hYNxMx/V+dpaP9pZXxhwsrgXtlR9Fl1RD40kug+wEwx+mIk1ftKZe1pgZ1fPHsVev/kgCFwQ4q79flZboqhA8/q2cO33FKtwuA0O+Azz5fJdudkOBFXx0Fqjdb7I3jlygmZP5NwOWjwoyRHdt8k3jiytgxcJNl9KAWum6PRgCTdvhIBuFw14MiF/Vxtm5FYdC3miRAPz2JAE5wMJNc0/vmZuCBPomE67E3t2QVTf9ByWAbuaMWL1d00CoxXwiamlh0kW6BIzmj3DRX5mPS6fq8sq9S0zh/IxXeimbg3+wC20f7Kh4y3F03Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YOBVx55dsqpvvCj/prt9qlYI+RhTAFDEk04fPWkoZfM=;
+ b=t+ShauHZdswUzqw56yf3f4oJLU+6q+vsJ4JqCjIAf5F0qQYtXrcbI1lUXtt6lLetXwmIS0sNboKqjIqjGnyGdj5yhuSvz8q+1+nv1F3I58/OWKjvv8TYJ7s1JyRPGeYeeDsa9Pl9eQpBagZ9zhVhxrsfqQ7zZ9U8D1+mSjAx12WpMosfE0SWB7dSJTAJ0+4LedOGAF4zP6k38uRCgiGHWJe5OD4wXh1/vHLihwS1aQqsElybjZQ5EyUM4LYaERXbBsZDiR2AHYnOaXsNF346EHCY3yxIA9HFbVB+HqRg66Utf8mYgISmDUIf41MUI/Lt8ZtEakg+ryStaSZkn5irvg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
+ by PH0PR03MB5703.namprd03.prod.outlook.com (2603:10b6:510:30::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Thu, 30 Jul
+ 2026 03:16:42 +0000
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01%5]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
+ 03:16:42 +0000
+From: tze.yee.ng@altera.com
+To: stable@vger.kernel.org
+Subject: [PATCH 5.10.y] firmware: stratix10-svc: fix memory leaks and list corruption bugs
+Date: Wed, 29 Jul 2026 20:16:39 -0700
+Message-ID: <20260730031639.11452-1-tze.yee.ng@altera.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <2026072955-cranial-friend-2d3c@gregkh>
+References: <2026072955-cranial-friend-2d3c@gregkh>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BY5PR04CA0014.namprd04.prod.outlook.com
+ (2603:10b6:a03:1d0::24) To SJ0PR03MB5950.namprd03.prod.outlook.com
+ (2603:10b6:a03:2d3::20)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260728103536.25012-1-gvalkov@gmail.com> <amq0EnoZrBA+8W+J@nxpwireless-Inspiron-14-Plus-7440>
-In-Reply-To: <amq0EnoZrBA+8W+J@nxpwireless-Inspiron-14-Plus-7440>
-From: George Valkov <gvalkov@gmail.com>
-Date: Thu, 30 Jul 2026 06:06:40 +0300
-X-Gm-Features: AUfX_mxZC37-kHj-CFlIRf0oRg-uqaKRO8uXYARafF1KZoQhqyfIQJ0T5g7ho60
-Message-ID: <CADOrJmZKdM0y6jeS7oOK0aKm7BaqcDB=BmXTSBrFTiTqXHhUhA@mail.gmail.com>
-Subject: Re: [PATCH] wifi: mwifiex: ignore ROM regulatory hint on WRT3200ACM/WRT32x
-To: Jeff Chen <chunfan.chen@gmail.com>
-Cc: briannorris@chromium.org, francesco@dolcini.it, johannes.berg@intel.com, 
-	kees@kernel.org, miriam.rachel.korenblit@intel.com, wenst@chromium.org, 
-	rafael.beims@toradex.com, avraham.stern@intel.com, 
-	peddolla.reddy@oss.qualcomm.com, error27@gmail.com, s.kerkmann@pengutronix.de, 
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|PH0PR03MB5703:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd9b65c1-c1cc-4b93-b3b8-08deede8fa73
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|10067099003|56012099006|11063799006|22082099003|55112099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	+6HeN3GyohSqWTMCUditCVmjd+YB6Jn0qYJckmNpIGA2QlmIlfQov1IAJ90r+pxpM3FA6kMjZ28znPzG8r6gkFKn1ks9X+0/KiIHjvPh7LL3IrCjhMCpZ3MgYtdH4WQAw+aX325N1ByARBVlGSYUA5sPuOaZ61YsF0wfIEn1TzPgn9xSJOhcXQTSU6vph7Z0PpR1oeTPxh/qFzNTorpi1au084XTStTZ+7C4kpUATgkibAYN/tUeOj0drzfHKTOhRldlZ5d0SwScMAwVByEwUIo/TxkmbPhhB/esmEzdoSuMIbTH32EKPp2xIvLYISBkEB4MwHGeF0GkxNjGA1vaOLvWpmda4L6T3oWclt9fkQFHrjKTIrxKG2gbYdHnLqJygP0hb8e18p85/xS7JiOK4zMtmfgkL6XHgrBz6mxcIjAM+LlwBjGk86E4PcE7u80bRoYCCWJG0roeROItDdrSRmHJIvai9p57Y2HphCzdTIg7IOM9B8yYnDMVv+7fQz1Str/A3YsO/VxoyHsz51lKtZtMPLnPfJQcbyCVyaTzfZI6sy0Ukudi9PcDTjkczSlE7ZcIfItEv82ZWcYiMuZ4YFyVYL9Mx6hKmh01dHwp/M0j3zhx2PJ8BDrssHY4Pd8rpdLDUXuSpdkRQtst8Jf85Iv7ERhrzRTzR9FgM6+k/Ls=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(22082099003)(55112099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ROMRwwcGMtlQ2SecbWOvZ9JalWIyPKi72DrKbXu0JmL0Mi06sTrBgmmJ3X9P?=
+ =?us-ascii?Q?Fr6U9Oks7TSBc9r0WtU42z7hmEILW6Ibz9mjM7xgqlk1IsyLg2yKxknyfbs0?=
+ =?us-ascii?Q?8cIBPZ72OYYL8AE6AFidGjO0uwAgnf2MC54MXWMuKyc1pmgDC+7UOcGFqom8?=
+ =?us-ascii?Q?KcsWMsyOtvAaKvEbCVnDPcPQtWW1/1V8iOIZM2KuwZBzzLmnZwKjHU1EIvTm?=
+ =?us-ascii?Q?vvfNqsniOM1kjrRjJDdFsrbZSBKXHPt+WTLc2m2cS2m1zrzHV7/vc2xsDA1k?=
+ =?us-ascii?Q?dVeCMTov7rr1CLt6slNB9JM3vQdBMMh8qv0DHu2wXuSnM6LO4fxt4Rd/ZzLF?=
+ =?us-ascii?Q?ESlIabyTN3vMMcn5LNzr8iJBTy3QRq9rTdrXcYhLWzl0qinEPlLwjpHfQ1q1?=
+ =?us-ascii?Q?xreRwnH+wABeENaIW9VpVVpdbDt8ceCahEst5FBm0flXFqqCgVvGmf5IWIfK?=
+ =?us-ascii?Q?19QlxKc6eGR3w9/auAh6HpER7DQtVDXYkIWnAR8nhg/J0ihVjF6BVF1F3hJn?=
+ =?us-ascii?Q?biABXMmgcz4uMns8KAJ+/FA9O/7QGWqut14iOaRAifIuZFLn5g6Yk8021j5k?=
+ =?us-ascii?Q?sUG+Wk+DGS08BLzrHdcmDJJZQEGvUXumsjggH+Pd4hV11YKh1cBhrq74Wvb6?=
+ =?us-ascii?Q?+FDq3Kih0zisNlJurqIzaqTkzWq+xl7cT9GFI9YAPCaHCfOd3kf5BqDt0tCi?=
+ =?us-ascii?Q?azX6ZUX1ZpiUx/KtznNr0+2ekanSw6juNWVPiRB3+c0gkUDePjKC6ws+NwsM?=
+ =?us-ascii?Q?5OwR7xUv7YTet7AnoeLjhsXHEFnhkUyTIa+nnbsu7I46jGvM//Q8QRqbjsDG?=
+ =?us-ascii?Q?7BXTFlSZV3msHVFsNr+XSxlX4bqZ0mlG0jlLyL7FVbZqq+uO/BRNOjX+LGUC?=
+ =?us-ascii?Q?jeMOkkSL9JhLCyVrCZS0eUA0RwHg7FvEuEXn9+QShicUs/8/muxeiE5okYJ+?=
+ =?us-ascii?Q?4gngm5a52EGbK55+8/Dw9JrlfSrip18LPdQ7ASQpKmn4zv2idUOQ1cZtoU9s?=
+ =?us-ascii?Q?AgaXLaIqkjqwwFtKcS9hKAVINkimoqpzaYz4ywmW5nHefyhP+7U9gsa6eeki?=
+ =?us-ascii?Q?Ah3N6BgQmqj0N8mprRz2ydlEJnhVCsYqjRwGhKgfn05qX5Nr7C/RkE5+K5mQ?=
+ =?us-ascii?Q?ly+Zmd9T56iFO5v5MG9/3Qy3aBxFC+M7Q7slz8Bmxxz5iQMl3dWKFyfv8RDp?=
+ =?us-ascii?Q?yn5kk0dnfXRsy9hOtl2M4U9zTCW70BxAzzocwR9znenFBPH3Fu/d1Izo+JKp?=
+ =?us-ascii?Q?BBM/v9IiLI6cSX/XG/tHWbXM3aUiZxHPgI5SBpeARTcbh2/Jv44+2hUny/9s?=
+ =?us-ascii?Q?U46+JTYrk0ptHnF3yRHxsHV3KMJN6AsU17GlQQTygjnYEyzGj+VxwvyqOABk?=
+ =?us-ascii?Q?m6dWbbIKlAXDBk5zEoY3KmIBf+6Dg0JQtuPhqZdYXYuiCUyGSIEiDqTiWf68?=
+ =?us-ascii?Q?D9XqP3VUQnjXYgquLXB7ji/V8qrHQ14N6AsFwg6EbmicdXMh9IQPXWBeRv5W?=
+ =?us-ascii?Q?u4k1fzz14/BRkoM/Ac9mx8N429ub6I5Rmp+Fr5AjKSNhzWQC6GsYUhgYKXLD?=
+ =?us-ascii?Q?Tl8kKF+BxrGsFg6rc0vXxswfIIVfOM9ZKkKo0O22fG89bMbSJAv6jRe9qoVV?=
+ =?us-ascii?Q?p6gPG9lZ6H0lzDcHyklddzPZBJOxd2mAcIuvLJ32qR9Og//nlojWApn0KFEh?=
+ =?us-ascii?Q?qPe6/8GuXA0u516Q2DSdhBtxTzjAB04lOIeHQvoe165ZipTPP/dsGZrd/VN/?=
+ =?us-ascii?Q?ViE/wFtkAg=3D=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd9b65c1-c1cc-4b93-b3b8-08deede8fa73
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 03:16:42.6773
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: edg5VQWfyZchmLepQAS/iOT2cVcl7S7DBHoM4Htj/ZhBfLc4Y4F2rpIQkH8m/cA4IjsTCktQqg4xHwyKQDFrtA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB5703
 
-Hi Jeff,
-Initially I wanted to keep changes easy to read and as simple as possible,
-hence my current patch is based on device names.
+From: Tze Yee Ng <tze.yee.ng@altera.com>
 
-Indeed out openwrt-ai also caught this:
-https://github.com/openwrt/openwrt/pull/24458#pullrequestreview-4803923901
+Fix a memory leak when gen_pool_alloc() fails by freeing pmem on the error
+path. Switch pmem allocation from devm_kzalloc() to kzalloc() with
+explicit kfree() in the free path to match its list-managed lifetime.
+Remove the erroneous list_del(&svc_data_mem) which corrupted the list head
+on failed lookups.
 
-I've been thinking about possible options:
-1. Use board names "linksys,rango" and "linksys,venom", where
-   rango is WRT3200ACM, and venom is WRT32x. But a venom dts
-   is also not available in Linux. We do have it in OpenWrt:
-   https://github.com/openwrt/openwrt/blob/main/target/linux/mvebu/files
-   /arch/arm/boot/dts/marvell/armada-385-linksys-venom.dts
-2. We could either ignore this or
-3. Have another PR with venom board support files, but that will require
-   much more research and work. I don't have WRT32x hardware, and I'm
-   uncomfortable doing this without supervision.
-4. We can also implement a dts flag, e.g. ignore_reg_hint, which can be
-   set in the board dts. This might be the best and most flexible option.
-   My experience with dts is almost zero and I will need help to implement
-   it.
+Fixes: 7ca5ce896524 ("firmware: add Intel Stratix10 service layer driver")
+Cc: stable@vger.kernel.org # 5.0+
+Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
+Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
+(cherry picked from commit 9119ceb76e987c2ec2b549ea100e3268ce3a1c7c)
+---
+ drivers/firmware/stratix10-svc.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-Georgi
+diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix10-svc.c
+index 6b6a819fcddf..271cff7b9f03 100644
+--- a/drivers/firmware/stratix10-svc.c
++++ b/drivers/firmware/stratix10-svc.c
+@@ -911,13 +911,15 @@ void *stratix10_svc_allocate_memory(struct stratix10_svc_chan *chan,
+ 	struct gen_pool *genpool = chan->ctrl->genpool;
+ 	size_t s = roundup(size, 1 << genpool->min_alloc_order);
+ 
+-	pmem = devm_kzalloc(chan->ctrl->dev, sizeof(*pmem), GFP_KERNEL);
++	pmem = kzalloc_obj(*pmem);
+ 	if (!pmem)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	va = gen_pool_alloc(genpool, s);
+-	if (!va)
++	if (!va) {
++		kfree(pmem);
+ 		return ERR_PTR(-ENOMEM);
++	}
+ 
+ 	memset((void *)va, 0, s);
+ 	pa = gen_pool_virt_to_phys(genpool, va);
+@@ -944,16 +946,17 @@ void stratix10_svc_free_memory(struct stratix10_svc_chan *chan, void *kaddr)
+ {
+ 	struct stratix10_svc_data_mem *pmem;
+ 
++	guard(mutex)(&svc_mem_lock);
++
+ 	list_for_each_entry(pmem, &svc_data_mem, node)
+ 		if (pmem->vaddr == kaddr) {
+ 			gen_pool_free(chan->ctrl->genpool,
+ 				       (unsigned long)kaddr, pmem->size);
+ 			pmem->vaddr = NULL;
+ 			list_del(&pmem->node);
++			kfree(pmem);
+ 			return;
+ 		}
+-
+-	list_del(&svc_data_mem);
+ }
+ EXPORT_SYMBOL_GPL(stratix10_svc_free_memory);
+ 
+-- 
+2.43.7
 
-On Thu, 30 Jul 2026 at 05:17, Jeff Chen <chunfan.chen@gmail.com> wrote:
->
-> On Tue, Jul 28, 2026 at 01:35:36 PM +0300, Georgi Valkov wrote:
-> > WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
-> > from the mwifiex ROM, which conflicts with the platform regulatory
-> > configuration on units sold outside the US market. For example:
-> > - phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
-> > - phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
-> > - phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
->
-> Hi Georgi,
->
-> Thanks for the patch. I have a question about these compatible strings:
->
-> >                               if (country_code &&
-> > +                                 !of_machine_is_compatible("linksys,wrt3200acm") &&
-> > +                                 !of_machine_is_compatible("linksys,wrt32x") &&
->
-> I checked the mainline kernel source, but these names are not found
-> in the DTS files under arch/arm/boot/dts/marvell/. Instead, mainline uses
-> "linksys,rango" and "linksys,venom".
->
-> As a result, this machine check will always fail on a pure mainline kernel,
-> making the quirk ineffective.
->
-> Jeff
