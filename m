@@ -1,38 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B533B0598;
-	Thu, 30 Jul 2026 15:10:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE96D407597;
+	Thu, 30 Jul 2026 15:11:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785424260; cv=none; b=FTrHFtPoqWBhaBvAjQr43ob5ghijXRD5FP1m/8Z6r00fXBcFJleRE9omFybJ7jJ8W3j39twxuddRBY9Nc5OPe2rHlMHzyKQOOGZvdtTwE4Pi1I322SagKkKCqdc6tQjP6PfWXuXtaoF/6UZ+DlJn2J6eyG7xaecBz39CFp3QhIQ=
+	t=1785424265; cv=none; b=sF6P4JJdCUVpf2jR4ABiQFG6OxXBAFCwpNZ1M2i0PxVlF78oeOs4iieVg3XoN8zaY/cMgMIFhKzc/UAcz3F2JtkqAN0YeuF10lh+CBz7DWGEr3o5/MHwlTXnUJJ+SEEPbWj1K4aP+o6iBVfcvYEWmUwTOvtLTjii7NVpNLOf3Zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785424260; c=relaxed/simple;
-	bh=I/0pgiYqAd7DpA2J0Ph0WNSpODsV2QsQBHjqYNWZGwY=;
+	s=arc-20240116; t=1785424265; c=relaxed/simple;
+	bh=T/qr3jKjdPVUzR2eJpWcZsRt+ZHTSzNhPYUUCB0j0dg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VOaixXzNPZzciOR7M5QxEVieUk7qwxKCbQE52xcZaWAKg3GLiQmAqRK0kYEndtldQKjRFGRdM1xY1j7840bS+5v739Kfq+mpwdylmx/RqlOtx6w8hJsNaCeRhdBBv4qaYx+QqyiixwNxb7730fUBHHKwZNxrvtinOge4p8GFik8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kYBQr8li; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Ay0WUVoO7GP+wT5l4484RFK7F4KdmvT5wYSFrLzZ3yZHF9Tfn7OOvMUuwMXVsCeE3CApYu/3FzoQ++CG8+5K7Zg/WT7mZ2IMvp8Q5mFS/DRr9aLmYUEd0GLcag+vQW6AV6EVnp5+lHLP8qZdJmrxZAM5JoujlAPPS/Ywgdpfzlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bA7T153x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kYBQr8li"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D48D71F00A3E;
-	Thu, 30 Jul 2026 15:10:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bA7T153x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B42A41F000E9;
+	Thu, 30 Jul 2026 15:10:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785424253;
-	bh=bkhqC1y4o7ickYW4snwvJcG0lcNaa1eKAhU/UiR3kVE=;
+	s=korg; t=1785424256;
+	bh=xzIMDTfepaTkR0AZpWtn7sH31lut6PPgao47OgPkpck=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kYBQr8li8SLETQ7MvVj7Gfi83GX+rRQFIjaaNKLK17pH8h7xKlqjE8gZMUCOO2KMc
-	 ZUL1RGlKydb+5kIi+3hGVjIyPh5LzKLwhs5RrxZ2smQOk7yR8xweybs8MCo6I7a3jP
-	 HHBoCWKoAGj9jgKjDxq7SjJKgrm5jAXUr2URmYZQ=
+	b=bA7T153xX5gLc71s4XSlNetN5kv05DY5brhtPuZJu7c9pigF4uDBO2RkEz3/PeNtr
+	 XDBBQ1QH9ugV0WPAVbxvax2ZuootVZrhjxTxlhuO62ykOeS5s+phDrKZmRDrBnWFC7
+	 0FzmBPnIOtnur9nOx6oBw1dO9TXwEZyIvnuG2dv0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
-	Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 6.18 330/675] drm/amdgpu/uvd: Fix forcing MSG, FB BOs into VCPU segment when it isnt at 0 (v2)
-Date: Thu, 30 Jul 2026 16:11:00 +0200
-Message-ID: <20260730141452.142971435@linuxfoundation.org>
+	AutonomousCodeSecurity@microsoft.com,
+	Allison Henderson <achender@kernel.org>,
+	"Cen Zhang (Microsoft)" <blbllhy@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 313/675] rds: tcp: unregister sysctl before tearing down listen socket
+Date: Thu, 30 Jul 2026 16:10:43 +0200
+Message-ID: <20260730141451.778446747@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260730141445.110192266@linuxfoundation.org>
 References: <20260730141445.110192266@linuxfoundation.org>
@@ -45,110 +47,70 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.18-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Timur Kristóf <timur.kristof@gmail.com>
+From: Cen Zhang (Microsoft) <blbllhy@gmail.com>
 
-commit 32bd35f068a3507a1b3922cd12ea2985fc58c85b upstream.
+[ Upstream commit 167e54c703ccd4fa028feb568b0d1002020cff86 ]
 
-UVD 4.x and older can only access MSG, FEEDBACK buffers from a
-specific 256M VRAM segment that the VCPU BO is also located in.
-We already modify all placements of the given BO to ensure
-the BO is placed within this segment.
+rds_tcp_exit_net() frees the per-netns RDS TCP listen socket via
+rds_tcp_kill_sock() before unregistering the per-netns sysctl table.  Since
+rds_tcp_skbuf_handler() derives the netns from
+rtn->rds_tcp_listen_sock->sk, a concurrent sysctl write can race with
+netns teardown and dereference the freed socket/sk.
 
-Previously, it always assumed that the VCPU segment is
-the first 256M of VRAM, even though under some conditions
-the VCPU BO could be allocated outside this segment,
-which made UVD non-functional as the BOs were
-not inside the same segment as the UVD VCPU BO.
+KASAN reports the race as:
 
-Solve that by using the segment where the VCPU BO actually is.
+  BUG: KASAN: slab-use-after-free in rds_tcp_skbuf_handler+0x2aa/0x2e0
+  rds_tcp_skbuf_handler              net/rds/tcp.c:721
+  proc_sys_call_handler              fs/proc/proc_sysctl.c
+  vfs_write                          fs/read_write.c
+  __x64_sys_pwrite64                 fs/read_write.c
 
-This fixes an issue with UVD failing to initialize on SI/CIK
-when resizable BAR is enabled and the VCPU BO is allocated
-in a different segment.
+Fix this by unregistering the RDS TCP sysctl table before calling
+rds_tcp_kill_sock().  unregister_net_sysctl_table() prevents new sysctl
+handlers from starting and waits for in-flight handlers to finish, so
+the listen socket can then be released safely. The fix was tested
+against the linked reproducer.
 
-v2:
-- For other BOs, keep using the same UVD segment as before.
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3851
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit cbfd4d3fc2061a1ec8e9d36e65973ac3e813358a)
-Cc: stable@vger.kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 7f5611cbc487 ("rds: sysctl: rds_tcp_{rcv,snd}buf: avoid using current->nsproxy")
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Link: https://lore.kernel.org/all/20260719203718.9680-1-blbllhy@gmail.com
+Reviewed-by: Allison Henderson <achender@kernel.org>
+Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
+Link: https://patch.msgid.link/20260719210357.10179-1-blbllhy@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c |   33 +++++++++++++++++++++++---------
- 1 file changed, 24 insertions(+), 9 deletions(-)
+ net/rds/tcp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-@@ -135,7 +135,7 @@ MODULE_FIRMWARE(FIRMWARE_VEGA12);
- MODULE_FIRMWARE(FIRMWARE_VEGA20);
+diff --git a/net/rds/tcp.c b/net/rds/tcp.c
+index b66dfcc3efaa0f..06a2d8d48bbacf 100644
+--- a/net/rds/tcp.c
++++ b/net/rds/tcp.c
+@@ -637,13 +637,13 @@ static void __net_exit rds_tcp_exit_net(struct net *net)
+ {
+ 	struct rds_tcp_net *rtn = net_generic(net, rds_tcp_netid);
  
- static void amdgpu_uvd_idle_work_handler(struct work_struct *work);
--static void amdgpu_uvd_force_into_uvd_segment(struct amdgpu_bo *abo);
-+static void amdgpu_uvd_force_into_vcpu_segment(struct amdgpu_bo *abo);
+-	rds_tcp_kill_sock(net);
+-
+ 	if (rtn->rds_tcp_sysctl)
+ 		unregister_net_sysctl_table(rtn->rds_tcp_sysctl);
  
- static int amdgpu_uvd_create_msg_bo_helper(struct amdgpu_device *adev,
- 					   uint32_t size,
-@@ -158,7 +158,7 @@ static int amdgpu_uvd_create_msg_bo_help
- 	amdgpu_bo_kunmap(bo);
- 	amdgpu_bo_unpin(bo);
- 	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_VRAM);
--	amdgpu_uvd_force_into_uvd_segment(bo);
-+	amdgpu_uvd_force_into_vcpu_segment(bo);
- 	r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
- 	if (r)
- 		goto err;
-@@ -544,6 +544,24 @@ void amdgpu_uvd_free_handles(struct amdg
- 	}
+ 	if (net != &init_net)
+ 		kfree(rtn->ctl_table);
++
++	rds_tcp_kill_sock(net);
  }
  
-+static void amdgpu_uvd_force_into_vcpu_segment(struct amdgpu_bo *bo)
-+{
-+	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
-+	struct amdgpu_bo *vcpu_bo = adev->uvd.inst[0].vcpu_bo;
-+	struct amdgpu_res_cursor vcpu_cur;
-+
-+	amdgpu_res_first(vcpu_bo->tbo.resource, 0,
-+			 amdgpu_bo_size(vcpu_bo), &vcpu_cur);
-+
-+	bo->placement.num_placement = 1;
-+	bo->placement.placement = &bo->placements[0];
-+	bo->placements[0].fpfn = ALIGN_DOWN(vcpu_cur.start, SZ_256M) >> PAGE_SHIFT;
-+	bo->placements[0].lpfn = bo->placements[0].fpfn + (SZ_256M >> PAGE_SHIFT);
-+	bo->placements[0].mem_type = vcpu_bo->tbo.resource->mem_type;
-+	if (bo->placements[0].mem_type == TTM_PL_VRAM)
-+		bo->placements[0].flags |= TTM_PL_FLAG_CONTIGUOUS;
-+}
-+
- static void amdgpu_uvd_force_into_uvd_segment(struct amdgpu_bo *abo)
- {
- 	int i;
-@@ -594,13 +612,10 @@ static int amdgpu_uvd_cs_pass1(struct am
- 	if (!ctx->parser->adev->uvd.address_64_bit) {
- 		/* check if it's a message or feedback command */
- 		cmd = amdgpu_ib_get_value(ctx->ib, ctx->idx) >> 1;
--		if (cmd == 0x0 || cmd == 0x3) {
--			/* yes, force it into VRAM */
--			uint32_t domain = AMDGPU_GEM_DOMAIN_VRAM;
--
--			amdgpu_bo_placement_from_domain(bo, domain);
--		}
--		amdgpu_uvd_force_into_uvd_segment(bo);
-+		if (cmd == 0x0 || cmd == 0x3)
-+			amdgpu_uvd_force_into_vcpu_segment(bo);
-+		else
-+			amdgpu_uvd_force_into_uvd_segment(bo);
- 
- 		r = ttm_bo_validate(&bo->tbo, &bo->placement, &tctx);
- 	}
+ static struct pernet_operations rds_tcp_net_ops = {
+-- 
+2.53.0
+
 
 
