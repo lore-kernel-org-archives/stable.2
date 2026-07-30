@@ -1,216 +1,152 @@
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E01400987
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:41:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638C83FBB5A
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:42:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785408083; cv=none; b=piJ6Csko6gK1tmk2O7iK0ijTopOSUpfYOXF26qIcKBFHwnXMenzCq54DCBWNi61XMbu8tu1V9ep54DcRAqGKg0hHjGyze2B5CPjScKx143ZeI4ylyvnH8KQzDGAoGE0v/cMFc+mrrf5BUZR5hEK7utrgZ3+dcIo8PW3KCxJ1o3A=
+	t=1785408168; cv=none; b=NrflvOZwXMyj53rfSOQzxCU2DWDrn8BP6asIoSl+9GVrmbrLnT2WAF/gv17ciQvNV3cRt3mnDaCL8H3o1paTtc4xIT1CmKEmecG98jthc6VFcPndC22IW+QtLqkYL4CF7L66EpK306OxkkNcyX+LBucYtcNwJiFQ9j/bErpunkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785408083; c=relaxed/simple;
-	bh=KNRAAbqu1Obt0UZbjeHAL9gbNhol/L5We/nxyOLLAyQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I3FQDtiqbBkVlALguv1xn33CgGWXCvGtVgI3luTwgnrezbk+epwLpwwmriY1tlyLUWS+yOW8+70/ImVz0oXOTFGyjydKTzBlCaG708fGziqI48mzgBtOHmpO6WaeXwzpLHzM3xFQIvBDtc7APdbpC6RVMeHUAhMvpclte6jy/Jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RbJEwkbN; arc=none smtp.client-ip=74.125.224.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785408168; c=relaxed/simple;
+	bh=BkrI1H7eJsex0SWvHczXR2CI4efZxQALrQb1owj11rw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cNVWzf4gxP+UHYeYtOY+mksp4PdZIKXTUHT2IERMsaa/WE95p3FdUBSGt8IMapq3FRMetzesAW78G5v5DALR2vg7njWafuh0h1YabZ+Bd6WUaHuRCpb8V/PEI3IqmCR9LCP8SdlF+M752+W/IboPyk9POUgnSvwx+qcc2uCWW0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=sFuBbPS1; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Gww0JpCl; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RbJEwkbN"
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-6651abddd5bso239090d50.1
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 03:41:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785408081; x=1786012881; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7ueDqaJswg5YZC13Y+Gtq4EWYGPBi+5EAXfQ3I53DMc=;
-        b=RbJEwkbNHoAYoScpr+KPIee7P6ydxzNrcPmg+x50BLwtwELfRp5wS53Q4dPAnXGO1h
-         bn3rHm2ngwQwzZStgjQwT4h0pSogtp2unynNOxJwSHRcigRLghb1DjYTiHNee16+ecuo
-         DhmYS3WOgn83DMR6dwNPyZY+EmP1hvurb5Ww9aFiMnZkWEUn2c93ymPw47/XsPGcbXCL
-         cqVuhd7XJ4tvOIhVwGDTju1vYWr9VyyiR+vziDcBxSgt455j5GPJZCRxj+bSCfKuUYWC
-         LhJk/hJIK0RiHU0eYIPKn2IXQqGYHuDwZfvo0KCijWchrBAfyf4pLs3l1eL6KZmgXXnC
-         JybA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785408081; x=1786012881;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7ueDqaJswg5YZC13Y+Gtq4EWYGPBi+5EAXfQ3I53DMc=;
-        b=YscUstGIA0J6Cv3RLlU9UtcOdpdchQjkyzESeZAEy6zt39g27nc7zAP62bm2TKqG5M
-         RbYn6o1/TboW1EyzGUw9dw+JKHYuAMTHXsYDw4TLmqB4Y1YZRVbPFf2de4RD+SiQIIFl
-         DU4ofGA8JvsLtWPMEFeTUSLg2oPJYQzdwzbDWAYA8kxhYPJ/o03A7pbWQnQNhTDeM1pA
-         piWpwnqsGHOq61G0FIomOsxm1zPbe1JF0f2Ib7PNBGQ1kKPJfC8x6ejDCy0J0yhSD6BE
-         puTofZj+bDMWqd+hZUBEghDyp/m8ayJh9eKPNArZJBOjSxVdr10XM3YIHQtnPwvFg5d6
-         rU2A==
-X-Forwarded-Encrypted: i=1; AHgh+Rqnyxc+j0Ahfs+fx24VdQL0EBhjkAEDE7HwUUc3y+VmcQ9GLvfX07FOoEuyauvKHXOOqxYqiGY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyrHDNEM02XygOWBnsN4AanxYBXlSeNGEXc3jz4uwsXid/vp1ro
-	e9phdn/qSs2z8B494lWWkfKk/22CzZgJMMl1+HPld+3uu0VQpHjgSc+B
-X-Gm-Gg: AR+sD12opUeOTvzUBz2frlIRUu51ri/CseALNjTkigLe2LRjoQBes3PyXGSsO1dfKqN
-	NglSJhfsi5Z2JXmddQG6AgQTYchPDOq958luMOCvvjJwOLsXn6MmvoHBL2t0m4byrUV6/OVgYkm
-	S5rAxzqwTjzzTZWdsh86RufRO0iCXa3TSQ9eevltfZOwX+Xaeamau9Z+/FvVlSnWpXtYxxFBrMK
-	FQdGcw0OSP/IcAUjN4IiKLYYFm8n0A8Vy614S9lYV7Mgq5OrTDHNeFuxWmRe4afQRWHEDvUU+20
-	zV0vFwPXcPv6O16E+XLaKUv2jyeZsHJWou/Sv0utiM2JEwsM/zN6i+68Nyrw97s2lvXLRjsmyar
-	EvLQA66ymucInrfkxqRXTZO8fOOgfph/rpL4skSL+kSEOlvXDLrZsUmypEUis7vLl4aqnB8UnTy
-	NjACEOSoSg4IJbmwSVOr9NYXbMSVTFZxxr81RBRd+Pztwxc4ZpzWL9HDQfdAPY03GR3Si3eEwxu
-	TTuoD2oze+/vNKba/hBCAXvvF9WO+jp9qP5uMWdoHR+q8TNDHnHCyc=
-X-Received: by 2002:a05:690c:87:b0:81f:45f0:21b7 with SMTP id 00721157ae682-81fb872a7bdmr25021357b3.0.1785408081018;
-        Thu, 30 Jul 2026 03:41:21 -0700 (PDT)
-Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fb892f53esm7676037b3.21.2026.07.30.03.41.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 03:41:20 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Johan Hedberg <johan.hedberg@intel.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="sFuBbPS1";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Gww0JpCl"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 92CE97D6FC;
+	Thu, 30 Jul 2026 10:42:40 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785408160; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Sw7TMskyOQ+jsdjzzV6sqE73o9M9GSvMLIU6J/KJzF4=;
+	b=sFuBbPS1Ng4mgNLmY/5h+8GcdnaThqpirEMrabSTK19Dg2Voa/mplswyemfgRM0XVJEPL5
+	5e+onzRNFgqzC1okO8S9mh/P9qXPTQgRezhs2GX4TV8uUg2geU3tDg1FGr2vMNZf1drAc4
+	gg89ArUrUAMcX4u0kMAUXb9XojU7ijE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785408160;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Sw7TMskyOQ+jsdjzzV6sqE73o9M9GSvMLIU6J/KJzF4=;
+	b=Gww0JpClgGyD227rVa0xa6YyVyPvVZXgMWA4bPN90TgKoiu6JQ/yKFC3pT2z+FJ7CHhr/q
+	xSugbQ/yFFVvsICg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 88F7D779D0;
+	Thu, 30 Jul 2026 10:42:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id c751IaAqa2qAPgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 30 Jul 2026 10:42:40 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 0C208A10B6; Thu, 30 Jul 2026 12:42:36 +0200 (CEST)
+From: Jan Kara <jack@suse.cz>
+To: <linux-fsdevel@vger.kernel.org>
+Cc: Jan Kara <jack@suse.cz>,
 	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: hci_conn: hold conn for LE timeout work
-Date: Thu, 30 Jul 2026 18:41:03 +0800
-Message-ID: <20260730104103.2080325-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH 2/2] udf: Fix data loss when converting inline inodes to out of line
+Date: Thu, 30 Jul 2026 12:42:29 +0200
+Message-ID: <20260730104232.4086759-4-jack@suse.cz>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260730104040.18150-1-jack@suse.cz>
+References: <20260730104040.18150-1-jack@suse.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2158; i=jack@suse.cz; h=from:subject; bh=BkrI1H7eJsex0SWvHczXR2CI4efZxQALrQb1owj11rw=; b=owEBbQGS/pANAwAIAZydqgc/ZEDZAcsmYgBqayqZZ+X8BEX6muXiHEPWHF+sECA4v9lqAatgM 1O7DQj3DGSJATMEAAEIAB0WIQSrWdEr1p4yirVVKBycnaoHP2RA2QUCamsqmQAKCRCcnaoHP2RA 2eB4CACYU9KcBArUkNHyIa3JPe8fiT5GfP6aiOyNK54LzqYkN9PvoFPeJg3pak2vqC/wTPwPk0a nerYH8tzqcb4sx8y0zfB89KwC0rJT3coxEybCX5r3bqzmYum81tihdkqyQN0Vr+5qfvcTDY46ZA 0cJ/OIJmjN6Ji+pgWvr+g0o5h7/7fQLyx8E/zPtxGhQle4+2p9qJE5Rvmnoh2HcDqeD6NzkXZ1t TMrv0dSxlUbtVNXo1m0HwwVAU/PBMr6W2YfUqWmeNLVTKI4xBT00IEs1eBgcepzpvV0/n1vZfjZ /dFxXuglA03oQ8oLIi4M7fty/dYGd3wPFNtQJFCDs105jLGf
+X-Developer-Key: i=jack@suse.cz; a=openpgp; fpr=93C6099A142276A28BBE35D815BC833443038D8C
 Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Queue-Id: 92CE97D6FC
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 
-le_conn_timeout is embedded in struct hci_conn, but queuing the work
-does not hold a reference to the connection. hci_conn_del() uses
-cancel_delayed_work() because synchronous cancellation would deadlock
-when le_conn_timeout() itself calls hci_conn_del() while holding
-hdev->lock.
+When udf_expand_file_adinicb() converts file from inline format to out
+of line, we use filemap_fdatawrite() to writeout the data to the new
+blocks. However since 36580ed08776 ("udf: Do not allocate blocks on page
+writeback") the writeback actually doesn't allocate the new block and
+the folio dirty bit is just silently cleared. Thus unless the file is
+written to after the conversion (as it can easily happen in case of
+truncate up), the data is just lost. Fix the problem by explicitely
+allocating the block underlying the data before starting writeback.
 
-This leaves the following interleaving possible:
-
-  CPU 0                               CPU 1
-  le_conn_timeout()
-                                      hci_conn_del()
-                                        cancel_delayed_work() = false
-                                        hci_conn_cleanup()
-                                          put_device()
-                                            kfree(conn)
-  hci_conn_failed(conn, ...)
-
-The callback then dereferences the released connection. KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in hci_conn_failed+0x232/0x250
-  Read of size 8 at addr ffff8881180e8e20 by task kworker/u33:1/111
-  Workqueue: hci0 le_conn_timeout
-  Call Trace:
-    hci_conn_failed+0x232/0x250
-    le_conn_timeout+0x23e/0x2c0
-    process_one_work+0x61b/0xf50
-    worker_thread+0x45b/0xd10
-
-  Allocated by task 115:
-    __hci_conn_add+0x1758/0x1b90
-    hci_connect_le+0x523/0x780
-    l2cap_chan_connect+0xfca/0x1bd0
-    l2cap_sock_connect+0x310/0x530
-
-  Freed by task 110:
-    kfree+0x149/0x330
-    device_release+0xc8/0x240
-    kobject_put+0x14d/0x280
-    hci_conn_del+0x561/0xe70
-    hci_abort_conn_sync+0x3e3/0x800
-
-Take a connection device reference before queuing le_conn_timeout. Drop
-it when the callback finishes, when queuing fails, or when cancellation
-removes a pending instance. If cancellation races an executing callback,
-the callback retains the reference until its final access, avoiding the
-use-after-free without waiting under hdev->lock.
-
-Fixes: 980ffc0a2cec ("Bluetooth: Fix LE connection timeout deadlock")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Fixes: 36580ed08776 ("udf: Do not allocate blocks on page writeback")
+CC: stable@vger.kernel.org
+Signed-off-by: Jan Kara <jack@suse.cz>
 ---
- net/bluetooth/hci_conn.c  |  8 ++++++--
- net/bluetooth/hci_event.c | 25 ++++++++++++++++---------
- 2 files changed, 22 insertions(+), 11 deletions(-)
+ fs/udf/inode.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-index 1966cd153d97..501a2dd2543b 100644
---- a/net/bluetooth/hci_conn.c
-+++ b/net/bluetooth/hci_conn.c
-@@ -723,10 +723,13 @@ static void le_conn_timeout(struct work_struct *work)
- 		hci_dev_lock(hdev);
- 		hci_conn_failed(conn, HCI_ERROR_ADVERTISING_TIMEOUT);
- 		hci_dev_unlock(hdev);
--		return;
-+		goto done;
- 	}
+diff --git a/fs/udf/inode.c b/fs/udf/inode.c
+index b8b9b7132115..b5e374f355b2 100644
+--- a/fs/udf/inode.c
++++ b/fs/udf/inode.c
+@@ -405,6 +405,10 @@ int udf_expand_file_adinicb(struct inode *inode)
+ {
+ 	struct folio *folio;
+ 	struct udf_inode_info *iinfo = UDF_I(inode);
++	struct udf_map_rq map = {
++		.lblk = 0,
++		.iflags = UDF_MAP_CREATE,
++	};
+ 	int err;
  
- 	hci_abort_conn(conn, HCI_ERROR_REMOTE_USER_TERM);
+ 	WARN_ON_ONCE(!inode_is_locked(inode));
+@@ -434,20 +438,27 @@ int udf_expand_file_adinicb(struct inode *inode)
+ 		iinfo->i_alloc_type = ICBTAG_FLAG_AD_SHORT;
+ 	else
+ 		iinfo->i_alloc_type = ICBTAG_FLAG_AD_LONG;
++	up_write(&iinfo->i_data_sem);
 +
-+done:
-+	hci_conn_put(conn);
- }
- 
- struct iso_list_data {
-@@ -1267,7 +1270,8 @@ void hci_conn_del(struct hci_conn *conn)
- 			hdev->acl_cnt += conn->sent;
- 		break;
- 	case LE_LINK:
--		cancel_delayed_work(&conn->le_conn_timeout);
-+		if (cancel_delayed_work(&conn->le_conn_timeout))
-+			hci_conn_put(conn);
- 
- 		if (hdev->le_pkts) {
- 			if (!hci_conn_num(hdev, LE_LINK) ||
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index 741d658e9630..e1e6b5092ce8 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -1566,10 +1566,13 @@ static u8 hci_cc_le_set_adv_enable(struct hci_dev *hdev, void *data,
- 		hci_dev_set_flag(hdev, HCI_LE_ADV);
- 
- 		conn = hci_lookup_le_connect(hdev);
--		if (conn)
--			queue_delayed_work(hdev->workqueue,
--					   &conn->le_conn_timeout,
--					   conn->conn_timeout);
-+		if (conn) {
-+			hci_conn_get(conn);
-+			if (!queue_delayed_work(hdev->workqueue,
-+						&conn->le_conn_timeout,
-+						conn->conn_timeout))
-+				hci_conn_put(conn);
-+		}
- 	} else {
- 		hci_dev_clear_flag(hdev, HCI_LE_ADV);
++	/* Allocate the block underlying the data */
++	err = udf_map_block(inode, &map);
++	if (err < 0)
++		goto restore;
++
+ 	folio_mark_dirty(folio);
+ 	folio_unlock(folio);
+-	up_write(&iinfo->i_data_sem);
+ 	err = filemap_fdatawrite(inode->i_mapping);
+ 	if (err) {
+ 		/* Restore everything back so that we don't lose data... */
+ 		folio_lock(folio);
++restore:
+ 		down_write(&iinfo->i_data_sem);
+ 		memcpy_from_folio(iinfo->i_data + iinfo->i_lenEAttr,
+ 				folio, 0, inode->i_size);
+-		folio_unlock(folio);
+ 		iinfo->i_alloc_type = ICBTAG_FLAG_AD_IN_ICB;
+ 		iinfo->i_lenAlloc = inode->i_size;
+ 		up_write(&iinfo->i_data_sem);
++		folio_unlock(folio);
  	}
-@@ -1614,10 +1617,13 @@ static u8 hci_cc_le_set_ext_adv_enable(struct hci_dev *hdev, void *data,
- 			hci_dev_set_flag(hdev, HCI_LE_ADV_0);
- 
- 		conn = hci_lookup_le_connect(hdev);
--		if (conn)
--			queue_delayed_work(hdev->workqueue,
--					   &conn->le_conn_timeout,
--					   conn->conn_timeout);
-+		if (conn) {
-+			hci_conn_get(conn);
-+			if (!queue_delayed_work(hdev->workqueue,
-+						&conn->le_conn_timeout,
-+						conn->conn_timeout))
-+				hci_conn_put(conn);
-+		}
- 	} else {
- 		if (cp->num_of_sets) {
- 			if (adv)
-@@ -5771,7 +5777,8 @@ static void le_conn_complete_evt(struct hci_dev *hdev, u8 status,
- 			}
- 		}
- 	} else {
--		cancel_delayed_work(&conn->le_conn_timeout);
-+		if (cancel_delayed_work(&conn->le_conn_timeout))
-+			hci_conn_put(conn);
- 	}
- 
- 	/* The HCI_LE_Connection_Complete event is only sent once per connection.
+ 	folio_put(folio);
+ 	mark_inode_dirty(inode);
 -- 
-2.43.0
+2.51.0
 
