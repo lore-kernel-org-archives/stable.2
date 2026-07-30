@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DDF9432E6A
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 14:06:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848D043932B
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 14:06:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785420383; cv=none; b=HPaMdA9WKZFjLZ00JZ0ajPdTs+LE0+WzyBgKZfQ/aIdiZlsy81c/azetNeJ8lN81ZpP1shfXAa8eeuh//f/1xblE9H+DKu38ZIVq7LbqJCWfzp2s5GdyQkItEn7+tVUV+cGqy9IlQIeqZfo7xWYCJ8P7zvUgeYB3gnxouDS6CzQ=
+	t=1785420390; cv=none; b=OAIoHTfJHgj/WD1iCj+o+Eo5Y059eXvKS9dxbEzESsxRRj7aqXX9H+fPyf/YAmc5iFT3DbL+9NWZFIjVgS3ZPCOPbP/2XD3wEszN+KkbWriOAC3w/TCEIXgXWsmYlGP/5b609U+K98LZj6CM2GqSDKL2kja+y5Q4dEMXpDYZn/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785420383; c=relaxed/simple;
-	bh=YTb8yR40iOYpKegNE+8mwKr3YMI4bcAY0+ruksBoN2k=;
+	s=arc-20240116; t=1785420390; c=relaxed/simple;
+	bh=FQoz95FyvyfHOA5sXmOsYHcZOAQ4ARXBCDylHWGPzVc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C6JScVMN42y3rZpWW5H4SD0GaqC2vae0HOZ8pCYQVcNOFs1HTDu/asuFmEAPwFRvucXWq2vCVo9rJixkxWMxwIIJaIFDFoDGf8E7O2iOzhE6T9aMkT9XFTBNSLwNn7XpuxUltFP+zqHFoUg4q5gISYPi77iOGoqu5zt4mMGfYMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jjwqMi0J; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=o8FMDmPhp2GdZcJMWX8ns18V0rz+egq70oNFxDdf29/UMJd6T1PZ5W3ob+z+evXtVaHxR87wQ0dGL0lWgDaYN6eIFE8bAM3twqVOOwJxaFftVme0x2QBUFZdEzTChBlCLN0LnWgXK9wv4oglSbq7lW0z95VEkw9fgiFTC/tefDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cp1+O4xf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jjwqMi0J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A7541F00A3D;
-	Thu, 30 Jul 2026 14:06:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cp1+O4xf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F6D71F000E9;
+	Thu, 30 Jul 2026 14:06:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785420382;
-	bh=gNJjnL797EpJRsR0rzNjGxf1yaUwuJFIpX0QfsOxBr0=;
+	s=k20260515; t=1785420389;
+	bh=fxxYyYuN+mvlC9W2ibmy1FURKQaA2DRBQEro4xP4/is=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jjwqMi0Jnpxfn7f1HTIXSmQ3b3AtDRamkJm9tP/QSVD/St8Y6GgXgFLKSplMSxIeL
-	 55N+P7l5+aFF3jTqDqeuTG+kugYKnEE8Fj6+2CPQql9Rcx2d5TMAk9oiaChfoUn0BH
-	 h72OVckWhRU/3y2zjJD9WLxcrdxMBzB8jLAdLHFHJHwZ0zwLVrtal0H9jdEeqBjKxM
-	 /PuQhzAWnpnC2Jp2lF1+2lUM0eRIfS81cO7q1zEZF5+lR2wOwxV8Qf7KZoV/OEUQm3
-	 +IqZ/eG5wHAYpx4Ceo1UZNHTgofbuc3bwwB1qgvPwBS/aDVpqgYYxuEs3PzXO5Tyos
-	 H3mWwive+t1Rg==
+	b=Cp1+O4xfziaO7/G5+Xn7pDyl1Q6hW1izqxM5GQnNcOnbibWaDcThCsTVV1XPuEfjX
+	 TWis+UIHiWD0XPRm0tGohAWUvPx3nFvlFdKcmVQQOn8PCTxp3w37KartWUOxp3Hr5u
+	 fxy1W8N/qYftx3F73y7EUxHvn18XhJH9oZMyMqtvCqf771vfpus/DwyUWbJkzTOERE
+	 s5dqrQNS10NUN4dx0jNNn6617n6lSSBAv4ynyNgsp36nSGZ3zVyFLfxiwpWe3BnC6E
+	 4T3UNppFuSfbBgSvCo+koSWOY0j5ZU+31ewsJeSX5/EHYZ7PVoQbosdwDWzufqZn5b
+	 RVAJNFmQ91GFg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable <stable@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] usb: musb: omap2430: Do not put borrowed of_node in probe
-Date: Thu, 30 Jul 2026 10:06:18 -0400
-Message-ID: <20260730140618.2464039-2-sashal@kernel.org>
+Subject: [PATCH 7.1.y 1/2] usb: typec: ucsi: split connector lock classes
+Date: Thu, 30 Jul 2026 10:06:25 -0400
+Message-ID: <20260730140626.2464203-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730140618.2464039-1-sashal@kernel.org>
-References: <2026072753-efficient-culpable-80d7@gregkh>
- <20260730140618.2464039-1-sashal@kernel.org>
+In-Reply-To: <2026072725-cheer-engorge-72e8@gregkh>
+References: <2026072725-cheer-engorge-72e8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,53 +46,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-[ Upstream commit c947360ae63eee1c9eacc030dd6f5a53f717addf ]
+[ Upstream commit 8c22256bbafad3dc5fdbe9f684d045b67ff06a68 ]
 
-omap2430_probe() stores pdev->dev.of_node in a local np variable. This is
-a borrowed pointer and the probe function does not take a reference to
-it.
+Lockdep detects a possible recursive locking scenario during
+ucsi init:
 
-The success and error paths nevertheless call of_node_put(np). This drops
-a reference that is owned by the platform device, and can leave
-pdev->dev.of_node with an unbalanced reference count.
+[    5.418616] ============================================
+[    5.418634] WARNING: possible recursive locking detected
+[    5.418706] --------------------------------------------
+[    5.418725] kworker/4:1/82 is trying to acquire lock:
+[    5.418759] ffff888119a34648 (&con->lock){+.+.}-{3:3}, at: ucsi_init_work+0x1a78/0x2eb0 [typec_ucsi]
+[    5.418801]
+               but task is already holding lock:
+[    5.418835] ffff888119a34080 (&con->lock){+.+.}-{3:3}, at: ucsi_init_work+0x1a78/0x2eb0 [typec_ucsi]
+[    5.418884]
+               other info that might help us debug this:
+[    5.418904]  Possible unsafe locking scenario:
 
-Do not put the borrowed platform device node from omap2430_probe().
-References taken for the child MUSB device are handled by the device core,
-and the ctrl-module phandle reference is still released separately.
+[    5.418937]        CPU0
+[    5.418956]        ----
+[    5.418991]   lock(&con->lock);
+[    5.419013]   lock(&con->lock);
+[    5.419033]
+                *** DEADLOCK ***
 
-Fixes: ffbe2feac59b ("usb: musb: omap2430: Fix probe regression for missing resources")
-Cc: stable <stable@kernel.org>
-Reviewed-by: Johan Hovold <johan@kernel.org>
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Link: https://patch.msgid.link/20260713114711.955253-1-lgs201920130244@gmail.com
+[    5.419387] Call Trace:
+[    5.419406]  <TASK>
+[    5.419425]  dump_stack_lvl+0x61/0xa0
+[    5.419448]  print_deadlock_bug+0x4a6/0x650
+[    5.419483]  __lock_acquire+0x62b6/0x7f50
+[    5.419507]  lock_acquire+0x11b/0x390
+[    5.419654]  __mutex_lock+0xbc/0xcd0
+[    5.419741]  ucsi_init_work+0x1a78/0x2eb0
+[    5.419785]  ? worker_thread+0xf53/0x2bc0
+[    5.419819]  worker_thread+0xff4/0x2bc0
+[    5.419842]  kthread+0x2a7/0x330
+[    5.419863]  ? __pfx_worker_thread+0x10/0x10
+[    5.419896]  ? __pfx_kthread+0x10/0x10
+[    5.419916]  ret_from_fork+0x38/0x70
+[    5.419936]  ? __pfx_kthread+0x10/0x10
+[    5.419969]  ret_from_fork_asm+0x1b/0x30
+[    5.419991]  </TASK>
+[    5.420009] ---[ end trace 0000000000000000 ]---
+
+The problem is that all connector locks belong to the same
+lockdep lock class, so the following loop:
+
+	for (i = 0; i < ucsi->cap.num_connectors; i++)
+		ucsi_register_port(connector[i])
+			mutex_lock(&connector[i]->lock)
+
+looks like a recursive acquire of the same mutex.  Put each connector
+lock into a dedicated lock class so that lockdep doesn't see it as a
+possible recursion.
+
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20260515060042.136083-1-senozhatsky@chromium.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 7aa7d4bf9d3f ("usb: typec: ucsi: Fix race condition and ordering in port unregistration")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/musb/omap2430.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/usb/typec/ucsi/ucsi.c | 8 ++++++++
+ drivers/usb/typec/ucsi/ucsi.h | 1 +
+ 2 files changed, 9 insertions(+)
 
-diff --git a/drivers/usb/musb/omap2430.c b/drivers/usb/musb/omap2430.c
-index f1506aead4e0..4b7a2013db8f 100644
---- a/drivers/usb/musb/omap2430.c
-+++ b/drivers/usb/musb/omap2430.c
-@@ -455,7 +455,6 @@ static int omap2430_probe(struct platform_device *pdev)
- 		dev_err(&pdev->dev, "failed to register musb device\n");
- 		goto err_disable_rpm;
- 	}
--	of_node_put(np);
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index 66b879957165..7e2f06136ed5 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -1658,6 +1658,7 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
+ 	INIT_WORK(&con->work, ucsi_handle_connector_change);
+ 	init_completion(&con->complete);
+ 	mutex_init(&con->lock);
++	lockdep_set_class(&con->lock, &con->lock_key);
+ 	INIT_LIST_HEAD(&con->partner_tasks);
+ 	con->ucsi = ucsi;
  
+@@ -1903,6 +1904,9 @@ static int ucsi_init(struct ucsi *ucsi)
+ 		goto err_reset;
+ 	}
+ 
++	for (i = 0; i < ucsi->cap.num_connectors; i++)
++		lockdep_register_key(&connector[i].lock_key);
++
+ 	/* Register all connectors */
+ 	for (i = 0; i < ucsi->cap.num_connectors; i++) {
+ 		connector[i].num = i + 1;
+@@ -1932,6 +1936,9 @@ static int ucsi_init(struct ucsi *ucsi)
  	return 0;
  
-@@ -465,7 +464,6 @@ static int omap2430_probe(struct platform_device *pdev)
- 	if (!IS_ERR(glue->control_otghs))
- 		put_device(glue->control_otghs);
- err_put_musb:
--	of_node_put(np);
- 	platform_device_put(musb);
+ err_unregister:
++	for (i = 0; i < ucsi->cap.num_connectors; i++)
++		lockdep_unregister_key(&connector[i].lock_key);
++
+ 	for (con = connector; con->port; con++) {
+ 		if (con->wq)
+ 			destroy_workqueue(con->wq);
+@@ -2202,6 +2209,7 @@ void ucsi_unregister(struct ucsi *ucsi)
+ 		usb_power_delivery_unregister(ucsi->connector[i].pd);
+ 		ucsi->connector[i].pd = NULL;
+ 		typec_unregister_port(ucsi->connector[i].port);
++		lockdep_unregister_key(&ucsi->connector[i].lock_key);
+ 	}
  
- 	return ret;
+ 	kfree(ucsi->connector);
+diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
+index dd64ddc42118..a73c99ce6b00 100644
+--- a/drivers/usb/typec/ucsi/ucsi.h
++++ b/drivers/usb/typec/ucsi/ucsi.h
+@@ -517,6 +517,7 @@ struct ucsi_connector {
+ 
+ 	struct ucsi *ucsi;
+ 	struct mutex lock; /* port lock */
++	struct lock_class_key lock_key;
+ 	struct work_struct work;
+ 	struct completion complete;
+ 	struct workqueue_struct *wq;
 -- 
 2.53.0
 
