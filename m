@@ -1,168 +1,153 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1421B3BB100
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 07:31:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7622B3AFD0F
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 07:47:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785396666; cv=none; b=gpv1orHIdz838ol9wKbInlN0ArEfoEOzW3Fx32k3J1aHM48152yiJTKrOt2FCZ3uwKP+WbtTXFZHKVIcFck51/AO11QDvbjVt213JboNWGJsS9B/sApN3Ya68LMfrTrgVKNpNEBAQ18Gwsxwb6+6lGPOPifZO3nCxgTtXCwQ0yM=
+	t=1785397635; cv=none; b=u0/AKeYH1ZumV5wtWN5aQRzX9QueXBzvU/KjkJx01l+xg/gJYl164fAh2gxr17ceDCV2eoMNwSvKNW9B9ozDS+HT6rHj1cpp/jeqhThCxsMOYwRrEisGHnhqNSXuyA7tFmto9XVo/d2RrgSzQ9LGhMVWoQuwlPdeuZn9bWDLklU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785396666; c=relaxed/simple;
-	bh=TcC89QdhdtitgIgGaLddzszwIFIh0mGzl+Nx6JuAAIg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D5wW52xWL7EjzrqkczzIi6LduEketMZ95ZHfd3bQMk8k6y7vXn5UY6I9tQvhrmOqHyZkFiYyj7Gga5LQTobqeMQjFrW+LVWGMyl7rGSc35WgHYASuCCxv2JouAPeiRy3v1shjNwjDSCnNRLnv9efczSP64tqC8I+MxI7pGJ96Rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EIQ06yAV; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=qzzPdD0s; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785397635; c=relaxed/simple;
+	bh=D0KaS0Yk9tXGLsfg0t5EIZQa50X+fKdqYZwmCb5nkuk=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=urqJf+ApTC7gOKBRAkbyRmaOozuwfrK+CleyE+hPrOxbHdKezisJqSK3Oc+ntZ31I+IPswo89U9eZhEeZLjM8z/yA47BnIycza88molpNY7Vgd3yYXfQkoy1l/0t12GeH3zLKTlySlYk539unoDQMn018lKRkH8RRTAOct7z0n0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PFNDasSw; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EIQ06yAV";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="qzzPdD0s"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785396663;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Iax8WC+6ctgl/TpjfswFa+BIlwe3/7Xtr8Bw7WqK9Fg=;
-	b=EIQ06yAVuREuOPPj1zrM2S9aNMXabMFSGIVLy5MJf6jRKod3Jw3oYpOqC7OGjCaINV+R5d
-	x9TjjRIwgXEZ64hW2Y5z+qRRGEa1wkOSiiM5hXGxDG0apvJ7p0pPuIbtq3RE0ZKiauSmzj
-	oDxGnz2+cSuc7iNwNGj9lYKJyVOqYwA=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-122-tlvVfcPYNnSJAxVDGxh54Q-1; Thu, 30 Jul 2026 03:31:02 -0400
-X-MC-Unique: tlvVfcPYNnSJAxVDGxh54Q-1
-X-Mimecast-MFC-AGG-ID: tlvVfcPYNnSJAxVDGxh54Q_1785396660
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49571407d1dso12374115e9.0
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 00:31:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PFNDasSw"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84eb992a881so370398b3a.2
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 00:47:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785396660; x=1786001460; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Iax8WC+6ctgl/TpjfswFa+BIlwe3/7Xtr8Bw7WqK9Fg=;
-        b=qzzPdD0sawIAcZnfCmez8bUS90H1qHICDMBcqNBkeo95pSTlHKgz4yrGnkUda9ZLxb
-         Somot/EJj1FldmzfF8gqeqZsUo9ubO0kxy5hsODSJIf8BtReTRfQkt+L33qipuXc5dcB
-         HYnfCJwTaM/RqA45bvKBCGZUcRTkMHKaRTi7SZ3pop7QHHbjkB8tS4jTIeJ9/C12B13L
-         7dtCs1cRkxeMXoS+Q1FKVTJMKt5eJP6W5U1PmSavHb2qN2d0JxbZtGDwkfwLR5TR2x5I
-         IelIyBkAjNQTrEhtU11+PQIaG6J+LYN3gKQHoQl9TEpLFAqV1rfbjgfmjzLCY/z01lot
-         2TfQ==
+        d=gmail.com; s=20251104; t=1785397634; x=1786002434; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qT2/Gj6C3LLD04ewfQjlm82kTvMsQwWc7jtbFYONwk4=;
+        b=PFNDasSwqMRjIbYsZc4UBEBV9DUeTVrVZDPfQLnbA/ExpEutGwbq2+14VDvL8XulxS
+         k9clJuW9b71qOpPEBOONjzW1WuR7ggZXHes9e/2MYiTk679lgYvpZtgchpckeFuyLhEN
+         ISweJT2MytHSLrdWkcjeKuMSdZruITHgOgVwkPeMDKmgg9PZKVe5tVcz8s6PyCoWDVTe
+         P7qB9Ndnz61/PMU3ZAiaVI+OcggOsHiuL5T3quLodkOjNa8kyNrSwC5BCiTD3SuerdDm
+         nKJyadBmFTpcHDclncZ13b2fiJOPYxVSV4/kSQL9i3m+sF03bvl4Ua865SlOX2Hto+CX
+         +4lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785396660; x=1786001460;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Iax8WC+6ctgl/TpjfswFa+BIlwe3/7Xtr8Bw7WqK9Fg=;
-        b=CUDU0lG96WDnn0JBDVv81DieBZtbxQp7rDm5hR+f/xpHrlv2qgkb2C/BueOmpeBH/z
-         Ko1fssjszhJvj/cqFV6Q8wYLkvEOsxfVx1BdbGEEpVlGqI9OyVsKmIYAWg+XFJvcYEs7
-         BNh4uGm+m0TRvYGwHX5/4Eb8y431jW7c+AReRH0uKtrgqwEt5cnVlqcuwqz/LPIh7OQG
-         IcnORDtlclZMAXU99VTQCu+bYEEfI5ktOe1MU0EWBPNXXZTslRDoZD66jDPdgT8NpXvE
-         JcFCFCpTAxDch1XM4UURq8NCU1eYAw0E0pUdpaVNsPfXhLvaCoPxuha6e7pe6961yVgp
-         VSFg==
-X-Forwarded-Encrypted: i=1; AHgh+RrhT28M7orHBSSPvlPhHloyktIxVfYOKHYJQKEPaMJo/PY7VVBiol6VAy+Dif7eyCldEDGoU5k=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx1UQ/MESvQfZNHNMV2/HsZqDiKJ0Egzdlu7FpCJDBkNUS/kb7H
-	0YD56/R3jjY7mrQxhM/K0oIpp7ex1qcggWtus9Yplh4jXkrPCF/lddbhdzjBKcJPznAvvfOmKhO
-	FY8+6lAclCwU3tOu0oQWAmZ9/QJAZda9XxjB4i08mXF9tHAX6uFnj/9yilQ==
-X-Gm-Gg: AR+sD13fUDpd0Kr0QUvWNrCppx3Z8nUVSJ4j2VcHjJWmjN/pUjl3A5kBna6YFwIK7fa
-	3g/Znab3H2F2ttWi2kgBiw0WZ5oBVA6NFYMIbsy09LVGICMJWAupRnQPLM+s734YmRi/Gh5Hyb5
-	LdG7h12PMTC/cRWykdlSsc4vyo94f0pAw38D9LTPDcSUna97OgCniapuIjnT1Xn/OhYeXIQqRB6
-	7qXdk089n/BkP5Sug0K0Ot1G+i/xEfhATIQcc+qfjc7aEDzUMgIgLR76wuW7ii0we9KJjUwyr9E
-	bIETL8PIBKY+UdFjysyiHEJ/n+1dfjgOX0muMYkB8iAXjrcQsw58SBUbfK3nILhtQ7pac60ZaER
-	d/f7WsuF6NRTb6oODg2L99tGfmr4rks0YXvB2/XM=
-X-Received: by 2002:a05:600c:a3a2:b0:495:6396:8b67 with SMTP id 5b1f17b1804b1-49800e89181mr11669935e9.4.1785396660229;
-        Thu, 30 Jul 2026 00:31:00 -0700 (PDT)
-X-Received: by 2002:a05:600c:a3a2:b0:495:6396:8b67 with SMTP id 5b1f17b1804b1-49800e89181mr11669435e9.4.1785396659746;
-        Thu, 30 Jul 2026 00:30:59 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:e10:ef90:343a:68f:2e91:95c? ([2a01:e0a:e10:ef90:343a:68f:2e91:95c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fc88d6e68sm3712374f8f.7.2026.07.30.00.30.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Jul 2026 00:30:58 -0700 (PDT)
-Message-ID: <d81babcf-a4aa-423b-90d7-9b4037872c5e@redhat.com>
-Date: Thu, 30 Jul 2026 09:30:57 +0200
+        d=1e100.net; s=20251104; t=1785397634; x=1786002434;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qT2/Gj6C3LLD04ewfQjlm82kTvMsQwWc7jtbFYONwk4=;
+        b=G9mTmypWK4/b5iHAUrXljtv+dm4946HgYJFXFzIiO+s9frem/YcQS5uGAbt++icuzx
+         +jaqWMaGCwukYypJE3Ge07xMMSjMTcZIdwOoUjC40N2OPvWbGLr48vQm0NKmQvlNMZjM
+         Ql6QpMGh9uLRgLNzTZ0GKQ+A07tdWUOIbesdsDreZ2bj69ZJdEFxIoTSchROj7UVnOep
+         naRxIDMyncQQ52dLmgW0T0hqi30CtwuE3S2xBn9JKnsmR0H8SontqyDy9GjR/lCa9lwA
+         iw/D9pqtTg9ELJKb8tncCFIqSq+nTg5sx2nISwqYYT/ad/RoFd1f7NUNmFUXyCwG8R2Q
+         XXng==
+X-Forwarded-Encrypted: i=1; AHgh+Ro7z8V/83bEcH1/jJoRSvru+EQMk1fiz8XOX191/QvoLU/yz7cCM3gZgzu2smrHznkqWojBAB0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyWi/kLdRDY5BCb4SmZQEgoAeLfNNWQMGp+MAYtcY/7GX3U6UXB
+	jQyHcmOXc7x/yWX6v/2gudLy/ZkdXnumt/VPdyF3C8dzY+SpqFw1i5CX
+X-Gm-Gg: AR+sD13Ipf438oOe5xFHQkVsFkUQtr/RpkjS5vnwiQjc0gp2A3DmhMp1qTvBCIdojpi
+	sBSaOPjor3e0KpPvRI0HignoEs99LoFjxDKMs/Y2J6VBb1Knw3o2WQWBUPNL18QYmZp8scC37jF
+	lNFkadAqOuxsKFrtmX9PgzNlHg/CXJLAazuP8myaD7XKzvp/gjTOIsvP4zkO+C7ScIRryP5V0+B
+	lophWBuQp8g0kOpj35aGqKwsgMCB+8GXSe9nfTRiiDi6hrLGUjalZitJ4/T6ORP5cS6JDPDDEGY
+	APfCzZ6bZrbN88s19RfWHczND1thIJdlxmCK8xxZ15rWk20gTimNb+Tet36HPjgdlouO7Hhj3wA
+	aGG8fLS6ixnWGxXTTJK0JTd4AhrMB88yYoYYIktvuQVAdDVQWEYro4Q4z4zT+E3u7Z8VvMRr//B
+	89c6Nd9IRXcYuQSbRFOKJ/ljsPogv2SzPHZhi8wSPzlMPMpSCcNAPmRLuMqc4ax+4qy8X/VmlP0
+	RAeWrO79ZLXuhfgSqQaHvvgfyAetNmemt2RWdx1dSvBKleHqP0Wy24=
+X-Received: by 2002:a05:6a00:1d27:b0:847:9c3a:b77f with SMTP id d2e1a72fcca58-84ebc3eb0b9mr1599711b3a.35.1785397633653;
+        Thu, 30 Jul 2026 00:47:13 -0700 (PDT)
+Received: from nxpwireless-Inspiron-14-Plus-7440 (61-228-203-195.dynamic-ip.hinet.net. [61.228.203.195])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea02ff637sm2607204b3a.39.2026.07.30.00.47.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 00:47:12 -0700 (PDT)
+From: Jeff Chen <chunfan.chen@gmail.com>
+X-Google-Original-From: Jeff Chen <jeff.chen_1@nxp.com>
+Date: Thu, 30 Jul 2026 15:47:06 +0800
+To: George Valkov <gvalkov@gmail.com>
+Cc: Jeff Chen <chunfan.chen@gmail.com>, briannorris@chromium.org,
+	francesco@dolcini.it, johannes.berg@intel.com, kees@kernel.org,
+	miriam.rachel.korenblit@intel.com, wenst@chromium.org,
+	rafael.beims@toradex.com, avraham.stern@intel.com,
+	peddolla.reddy@oss.qualcomm.com, error27@gmail.com,
+	s.kerkmann@pengutronix.de, linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: mwifiex: ignore ROM regulatory hint on
+ WRT3200ACM/WRT32x
+Message-ID: <amsBes9fCF9ZdkCS@nxpwireless-Inspiron-14-Plus-7440>
+References: <20260728103536.25012-1-gvalkov@gmail.com>
+ <amq0EnoZrBA+8W+J@nxpwireless-Inspiron-14-Plus-7440>
+ <CADOrJmZKdM0y6jeS7oOK0aKm7BaqcDB=BmXTSBrFTiTqXHhUhA@mail.gmail.com>
+ <CADOrJmb=_uNHnnqswMAN+LTNPHnRARqF=MicFTP6C5QoMxH4Uw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] usbnet: cap max_mtu for drivers without bind
- callback
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Stefano Brivio <sbrivio@redhat.com>,
- netdev@vger.kernel.org, Oliver Neukum <oneukum@suse.com>,
- linux-usb@vger.kernel.org, jarod@redhat.com, stable@vger.kernel.org
-References: <20260727072304.154608-1-lvivier@redhat.com>
- <20260729175218.15b5d081@kernel.org>
-Content-Language: en-US
-From: Laurent Vivier <lvivier@redhat.com>
-Autocrypt: addr=lvivier@redhat.com; keydata=
- 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
-In-Reply-To: <20260729175218.15b5d081@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CADOrJmb=_uNHnnqswMAN+LTNPHnRARqF=MicFTP6C5QoMxH4Uw@mail.gmail.com>
 
-On 7/30/26 02:52, Jakub Kicinski wrote:
-> On Mon, 27 Jul 2026 09:23:04 +0200 Laurent Vivier wrote:
->> -		if ((dev->driver_info->flags & FLAG_NOMAXMTU) == 0 &&
->> -		    net->max_mtu > (dev->hard_mtu - net->hard_header_len))
->> +		if (dev->driver_info->flags & FLAG_NOMAXMTU)
->> +			net->max_mtu = ETH_MAX_MTU;
->> +		else
->>   			net->max_mtu = dev->hard_mtu - net->hard_header_len;
+On Thu, Jul 30, 2026 at 06:24:15 AM +0300, George Valkov wrote:
+> Hi Jeff, I forgot to mention:
+> The compatibile strings are added by this OpenWrt patch:
+> https://github.com/openwrt/openwrt/blob/main/target/linux/mvebu/patches-6.18/
+> 311-adjust-compatible-for-linksys.patch
 > 
-> Sashikos point out that this will causes issues for existing drivers in
-> both directions. Some drivers explicitly set max_mtu. So we need to move
-> the
+> So unless we also upstream this patch, using device names will work
+> only on OpenWrt, which would make the current patch ineffective.
 > 
-> 	net->max_mtu = ETH_MAX_MTU;
+> Georgi
 > 
-> line before the call to ->bind ?
+> On Thu, 30 Jul 2026 at 06:06, George Valkov <gvalkov@gmail.com> wrote:
+> >
+> > Hi Jeff,
+> > Initially I wanted to keep changes easy to read and as simple as possible,
+> > hence my current patch is based on device names.
+> >
+> > Indeed out openwrt-ai also caught this:
+> > https://github.com/openwrt/openwrt/pull/24458#pullrequestreview-4803923901
+> >
+> > I've been thinking about possible options:
+> > 1. Use board names "linksys,rango" and "linksys,venom", where
+> >    rango is WRT3200ACM, and venom is WRT32x. But a venom dts
+> >    is also not available in Linux. We do have it in OpenWrt:
+> >    https://github.com/openwrt/openwrt/blob/main/target/linux/mvebu/files
+> >    /arch/arm/boot/dts/marvell/armada-385-linksys-venom.dts
+> > 2. We could either ignore this or
+> > 3. Have another PR with venom board support files, but that will require
+> >    much more research and work. I don't have WRT32x hardware, and I'm
+> >    uncomfortable doing this without supervision.
+> > 4. We can also implement a dts flag, e.g. ignore_reg_hint, which can be
+> >    set in the board dts. This might be the best and most flexible option.
+> >    My experience with dts is almost zero and I will need help to implement
+> >    it.
+> >
+> > Georgi
+> >
 
-So you mean like my v1?
+Hi Georgi,
 
-Thanks,
-Laurent
+Thanks for the update. My recommendation aligns with openwrt-ai's suggestion.
 
+In general, checking board-specific DT strings inside a generic driver is 
+not a good idea. However, since implementing a new DT flag or module parameter
+requires deeper driver architectural changes, expanding the list of compatible
+strings is a more pragmatic way considering these are legacy devices.
+
+You can update the check to include all four strings for V2:
+
+	if (country_code &&
+	    !of_machine_is_compatible("linksys,rango") &&
+	    !of_machine_is_compatible("linksys,wrt3200acm") &&
+	    !of_machine_is_compatible("linksys,venom") &&
+	    !of_machine_is_compatible("linksys,wrt32x") &&
+	    regulatory_hint(wiphy, country_code))
+
+Combining these four strings ensures the patch works in both pure mainline and
+OpenWrt environments. 
+
+We should still wait for feedback from the maintainers or other reviewers 
+to see if they prefer this hardcoded approach or a proper module/DT property.
+
+Jeff
