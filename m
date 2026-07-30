@@ -1,190 +1,113 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC6B355057
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 17:10:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212253F076E
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 17:24:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785431454; cv=none; b=Y3Ah9oCL+674lW3pAeSLzJfMbKZnO3msjWcfuTkPMgf4pLA5/iIKNDecLjAkmH2YlHZTmv+8wKFpeh9e6g8O9rZta37nQMUum7leSn6aV2Ea9bjvIw9OyVdqo4CWqML1l3ZBkIVO4sekzG5hdQt5LVal69ENgxM+Aevfke4ydwE=
+	t=1785432265; cv=none; b=ZE3ynxuUBtKwIayjon5H4sORf1Ebo4ISMVSWO6809Vc4q+rIcgpqsXyn4zMub4LQw9vZc9DuyXUBbukOvPHPpIinOrLvq8VcGSqoBvqi3V0yHoOJsz7flDqY4bYSKnRFs5WMHhoSzuNz9331ATC7UfUtS8zguDt5VtXHmi4nOXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785431454; c=relaxed/simple;
-	bh=hXSYEF2t5MtMtkedXgSvQdfqXZRvQ3qRyWT5lJCVgFg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=keorEuZN0ryd0xfq2QD8c4AoFQvVX6E7izLhS8ZIR39yrctawkccbUy6MKbbU/wavvQFpBxS9VdwXFEl6PB/jDg/NMk970elaZHHIE1KLVJJLMpV1sz26cIYhz30AuBQEftogQWhaX/pbzhNVGvHI0hpF0TGd6SoeVZve3b1WkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HUVn/Ca8; arc=none smtp.client-ip=209.85.215.174
+	s=arc-20240116; t=1785432265; c=relaxed/simple;
+	bh=Bt561/BYlsljphffl0GVHsslSbyVvsEBKuebmKyXk7Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hZ5vIeFhE43vg7NxYWflFP70v7su3T0SbZJhAwMYt4srbq7aSXMmIhrRGzQkPFr4xa4fisz/tLsliMbE/rAdcB1TfdD8WvsS/qFZFa0P7rwpxS582oynBDuW2SA1Rv/9m+yySiy3hd30GrtWhxbosErQqvfBwgUnne5VjAIwI0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gor4KYBz; arc=none smtp.client-ip=209.85.221.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HUVn/Ca8"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cb5a6aa8760so13390a12.1
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:10:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gor4KYBz"
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5c2c46a428eso66484e0c.2
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:24:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785431452; x=1786036252; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4c57/zO/kf970g7Oiqj/M78V+zOd+Wx8jivjWLKneoo=;
-        b=HUVn/Ca8NpRU3P2/4IDKLt/+idYNeLjoZcp73ilSsoBGUwiK19voXlARbxde4iHYRB
-         OQV9/ZMpJiiiWibNS+eKMKUC74JmoMA+aVNoVc50ev8H9rbfCrAYW9b6FuVgUA3ORoJ6
-         0SEWs9FDmWWQ7BFMOKFpaWh0M1xsDCowM50HsVKcLNZdvpHX1Ke07V512fGMSX90zWpV
-         3MsyEAuI2hpS0N7CqF3EDnKv046Kq+3m0BGD2/0M3ofsbILTHcuzRXxuZRt4V1qokvSo
-         kVhlwR+43v8SfQ6C6RHT9wRBjHmshyJaHiXEs3K/t8wGFmbuPH6dR2fIfwEUyacHhiVp
-         sKNg==
+        d=gmail.com; s=20251104; t=1785432263; x=1786037063; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oDHSPdU7eZliEnYDKkNe6n4EnFUD+dLgVWZ4qb7cmmg=;
+        b=Gor4KYBzwcruO4UU42+8R+RFgVq10yuZYnb1R9zoaUodE3lypaeQGvWaSwdfXT27AA
+         npKlueSkAGIWVfmJNLgXCx0pzMW1Ps4ESsMYiZhebiimv/V1GlW5sI/JKn8dTAY1Qw/W
+         O9/Bi95QhH2IElBr3e48fNN8AmnLNZGwsc3wTjemUjOmYqalCQet2QVpwIDiB0Clxe/W
+         SwBchKDQFye722cwI3wWrHBQopNWtHxGQbOKVF+65kWC3oZqGx38sLjezxmGf7OaCD3b
+         m6iN6Gtb0tlXzxSAxSMHifp/n91tVxoUIkU6eBDDp9FAUiSkJoF34gbR/ZswIBh3H5JX
+         qgeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785431452; x=1786036252;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1785432263; x=1786037063;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4c57/zO/kf970g7Oiqj/M78V+zOd+Wx8jivjWLKneoo=;
-        b=p1MuGQtZul2CzC/8Cq96YtJm8t4e9qA1Wc3w8nfx4qVgiku2DfRjJW2FJh2/1M8/KA
-         Vrvm6S+uxdbUyDS2AvlRItnZGJoyB4SqwkTDsMv3onn8OmpKTxdfLmbk0oeJAxyzSlri
-         GBlAYgqHtVzBVo/EZ08dxtt+KxfHYxAe+EeFSvhah8NxjzxCeJnIj2C1tmz9hq7Zz3Hz
-         6S5dEodXTEx2N3FduBbS6Zj54eWI9iba40EQE3vmJjt4S+gv4kuKBrahOKKkYvKsWO30
-         XVOlfPm0sJi0ItWvKAGLmIs83UX7aoR7KK8VE38nPOrt4on3Q/CZFdbdsQ5gyfVJID0v
-         f5eQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqkJkA0/OV20s11tLIggVenhk15YEcUT4ed9LiCiiQKdzJFgtNgzB3C868HbNhza/gTmjR5zSM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw+XqU2isjbQRtJx4x2BgzcTpDAKPMcoBzTPtCoQkca8TmLJDjc
-	fOPZ5LXyLmGyJeTTzUYp6+eE+7yp1gbPI/TinG7ds+plP9VcPRB7rAKm
-X-Gm-Gg: AR+sD10MjNeneeJmvaJZ5AfDowtHaEi3/E4sw99f5rFLq/4s2KJVB+bJZ/UuJSEYVu2
-	sb34Kp++FwYzaPYdz1HZgz83n09ZJMtoaRgjmZlvV67tzYotXl7JPSJoRxVvW1J7YvoKqeTIkMS
-	FFyQzDjKz8Fh/8KbI1zcCT2/pTATba3w76S7WJN79ssd/5B1Lm4Fm9ISneWHD57Ep8PWaveGxwZ
-	cj17zsuf/d5fraa5xr++Jj6Q5lD3nXUJvUAn5HEEedurft8PnDG35Sdp25bw/XAtkh8zDyqIdWW
-	TfZfhbAvmNTCyICffFdpEYAYyqTYg91KDpe/fy8hkLN5SpaeIF8wHerZYbiL4RwrsdLOCLFJYu9
-	2KLy6hTTQuwW0pMEMBaWZMLLhzEgOp6eGph6AGqMBTial1uwat/6VLE7gpoF2uSndcdGZZue83f
-	1uO8zzoRnIAqdgxA71AOperJBG+UUS2VkFarIoPoTVhVYk9pY2IzSMfwDOrPxVF2sVzabrRR4hc
-	iXOEaVZy7tPN5GxJfKLJIia7ohkeVfNgk2oaFjfUfLN5D14VWKkKt6SiTuIfyRTC9QHd2Ypg4wT
-	dddvRNIS
-X-Received: by 2002:a05:6a21:3947:b0:3b7:807b:3cd3 with SMTP id adf61e73a8af0-3c9004d2542mr3497813637.23.1785431452407;
-        Thu, 30 Jul 2026 10:10:52 -0700 (PDT)
-Received: from localhost.localdomain ([101.251.7.10])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13e7262b8bbsm19354758c88.3.2026.07.30.10.10.49
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 30 Jul 2026 10:10:51 -0700 (PDT)
-From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-To: Kees Cook <kees@kernel.org>
-Cc: Tony Luck <tony.luck@intel.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] pstore/ram: bound ramoops kmsg header parsing
-Date: Thu, 30 Jul 2026 22:55:46 +0545
-Message-ID: <20260730171046.21412-1-acharyalaxman8848@gmail.com>
-X-Mailer: git-send-email 2.51.2
+        bh=oDHSPdU7eZliEnYDKkNe6n4EnFUD+dLgVWZ4qb7cmmg=;
+        b=R0Ia4xwBVsXoTJ5JlVouE6EmAG2r/etjiSWOtJ4SjXkNGx7qkMg7B9zf3ED0lG5b2W
+         vGBoO9upnqlbFvTmDAqOVeMBCvJme6S/yb2sKxKUiVkiY5X742gl868Xf7hAzaeeiQHx
+         /TNWq1es5G6QBB+k0KTTxQqcmX7LRQR+iUbL+VLxWHQ2OGBgy9pLe1a7ijdJx2AFS6TW
+         HwGis3Y+Ji9dWLCXrVCGIzwgXMyrtQ79CTJS8XcJxv6haH8HvxuuAFdZWrmrjBhuvrPS
+         ccYu9ElYRHpegqzUt71K9In1h/cQ5/RG70tLswH35hZWMtOKC2khwO2Wrl9ZUUtn03bp
+         hq5g==
+X-Forwarded-Encrypted: i=1; AHgh+Rrd12fYJmYhviJSmRre+3YNOfnJfiCJUOp9f+PjZLuFSoMSCTaND+KVj3WROpgaW37gO0MEj/E=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yww8MNKyS26RQG473JtIw0Z+I0i9sgyp1/OQhhM2UhNnFukymyY
+	WkUYii0Q7xBeJqzctbJ152aYql6FW/A9N0pa7apsWFehlDOohlJype6S
+X-Gm-Gg: AR+sD10wBO9dSTxttJdtY9XnVoev//ze4Et/EHhLR9MH86lYj9dkSsageEdOsa0AypI
+	vE9MIvA9G0LSuupztKqo8DvLSm10bQ0E9LU5ko1/9q3x0JEX/OKJt7FuyUr1UOpYUg9TG1UkfAf
+	7qwkRJZuB2fjnHbkynV6wre7raLnSayiLthj/ftjZ0ITiA3sL7uoD4YKwsOKcsI4fO01IuVRCqS
+	Tx060Zo0fN3v4RJ1erDmVboPDX+CQnFWV3tJ0LKSmsSgN7qUn07XSE/Q7Y0G9OTajECk0P0kyfg
+	qUdaOclo+Z+4T0SCGFD7vvOAg5yya2Fa6k2jh2iN9/x+nNehh4RFHVWtdjwDFkPzK7E4h9AKx7l
+	EXT8mPYbqdkWH4KUbWSazUvy1Ky8YMM8caTpuQXARd8t5mLRyDnRWx27+yk0G5vENQoiALFCXJO
+	Stb5/z2RBhzuseHn3TfKohKiAnU5sqKM25QX/3slokqLlxc/QqNN3MzD/VHNut5pYNcpwOeRiPb
+	jSQ/QuyIN8WyL0=
+X-Received: by 2002:a05:6122:da1:b0:5bd:bcb1:453b with SMTP id 71dfb90a1353d-5c36614578cmr1208498e0c.10.1785432263066;
+        Thu, 30 Jul 2026 10:24:23 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c36655f076sm1972973e0c.5.2026.07.30.10.24.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Jul 2026 10:24:21 -0700 (PDT)
+Message-ID: <51d1d2fa-8064-436a-b0ca-7a65ccdeead9@gmail.com>
+Date: Thu, 30 Jul 2026 10:24:19 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 000/484] 6.6.148-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260730141423.392222816@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260730141423.392222816@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-ramoops_read_kmsg_hdr() passes recovered persistent RAM contents to
-sscanf(), but the buffer is length-delimited and is not NUL-terminated.
+On 7/30/26 07:08, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.148 release.
+> There are 484 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sat, 01 Aug 2026 14:13:41 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.148-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-For a record truncated after "====1.2-C", the trailing whitespace
-directive in the format string reads beyond the end of the buffer.
-Malformed contents ending in whitespace can make the scan continue
-farther.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-Search for the header newline within the maximum valid header size, copy
-the header into a NUL-terminated stack buffer, and parse that copy.
-Records without a complete bounded header continue through the existing
-invalid-header path and are cleared.
-
-Fixes: 3f8f80f0cfeb ("pstore/ram: Read and write to the 'compressed' flag of pstore")
-Cc: stable@vger.kernel.org
-Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
----
- fs/pstore/ram.c | 39 +++++++++++++++++++++++++++++----------
- 1 file changed, 29 insertions(+), 10 deletions(-)
-
-diff --git a/fs/pstore/ram.c b/fs/pstore/ram.c
-index 2eb0d4fa2..ece5b90ae 100644
---- a/fs/pstore/ram.c
-+++ b/fs/pstore/ram.c
-@@ -26,6 +26,8 @@
- #include "ram_internal.h"
- 
- #define RAMOOPS_KERNMSG_HDR "===="
-+#define RAMOOPS_KERNMSG_HDR_MAX_SIZE \
-+	sizeof(RAMOOPS_KERNMSG_HDR "-9223372036854775808.999999-D\n")
- #define MIN_MEM_SIZE 4096UL
- 
- static ulong record_size = MIN_MEM_SIZE;
-@@ -146,13 +148,25 @@ ramoops_get_next_prz(struct persistent_ram_zone *przs[], int id,
- 	return prz;
- }
- 
--static int ramoops_read_kmsg_hdr(char *buffer, struct timespec64 *time,
--				  bool *compressed)
-+static int ramoops_read_kmsg_hdr(const char *buffer, size_t size,
-+				 struct timespec64 *time, bool *compressed)
- {
- 	char data_type;
-+	const char *newline;
-+	char header[RAMOOPS_KERNMSG_HDR_MAX_SIZE];
-+	size_t header_size;
- 	int header_length = 0;
- 
--	if (sscanf(buffer, RAMOOPS_KERNMSG_HDR "%lld.%lu-%c\n%n",
-+	newline = memchr(buffer, '\n',
-+			 min(size, sizeof(header) - 1));
-+	if (!newline)
-+		goto invalid;
-+
-+	header_size = newline - buffer + 1;
-+	memcpy(header, buffer, header_size);
-+	header[header_size] = '\0';
-+
-+	if (sscanf(header, RAMOOPS_KERNMSG_HDR "%lld.%lu-%c\n%n",
- 		   (time64_t *)&time->tv_sec, &time->tv_nsec, &data_type,
- 		   &header_length) == 3) {
- 		time->tv_nsec *= 1000;
-@@ -160,17 +174,21 @@ static int ramoops_read_kmsg_hdr(char *buffer, struct timespec64 *time,
- 			*compressed = true;
- 		else
- 			*compressed = false;
--	} else if (sscanf(buffer, RAMOOPS_KERNMSG_HDR "%lld.%lu\n%n",
-+	} else if (sscanf(header, RAMOOPS_KERNMSG_HDR "%lld.%lu\n%n",
- 			  (time64_t *)&time->tv_sec, &time->tv_nsec,
- 			  &header_length) == 2) {
- 		time->tv_nsec *= 1000;
- 		*compressed = false;
- 	} else {
--		time->tv_sec = 0;
--		time->tv_nsec = 0;
--		*compressed = false;
-+		goto invalid;
- 	}
- 	return header_length;
-+
-+invalid:
-+	time->tv_sec = 0;
-+	time->tv_nsec = 0;
-+	*compressed = false;
-+	return 0;
- }
- 
- static bool prz_ok(struct persistent_ram_zone *prz)
-@@ -203,8 +221,9 @@ static ssize_t ramoops_pstore_read(struct pstore_record *record)
- 		if (!prz_ok(prz))
- 			continue;
- 		header_length = ramoops_read_kmsg_hdr(persistent_ram_old(prz),
--						      &record->time,
--						      &record->compressed);
-+					persistent_ram_old_size(prz),
-+					&record->time,
-+					&record->compressed);
- 		/* Clear and skip this DMESG record if it has no valid header */
- 		if (!header_length) {
- 			persistent_ram_free_old(prz);
-@@ -296,7 +315,7 @@ static ssize_t ramoops_pstore_read(struct pstore_record *record)
- static size_t ramoops_write_kmsg_hdr(struct persistent_ram_zone *prz,
- 				     struct pstore_record *record)
- {
--	char hdr[36]; /* "===="(4), %lld(20), "."(1), %06lu(6), "-%c\n"(3) */
-+	char hdr[RAMOOPS_KERNMSG_HDR_MAX_SIZE];
- 	size_t len;
- 
- 	len = scnprintf(hdr, sizeof(hdr),
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-2.51.2
-
+Florian
