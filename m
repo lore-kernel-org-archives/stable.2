@@ -1,29 +1,29 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6D443CECB;
-	Thu, 30 Jul 2026 16:19:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D5645DF47;
+	Thu, 30 Jul 2026 16:19:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785428382; cv=none; b=qk3YL/A/Eb4NWd3OyglmJtw5WZQZjxlDjBPxy3gzVQ50tfTom7rR1W/ERQFSc2aq5vriBE9Q9sSCgmCbGejr2Ob00M9vUOrV7ocsU6G9cSP6z73uFGQqWRLeAKt3Pr82FjlGoUzqXo49YvYCSdx5PbiFN7a26wBImcoEkzbsdug=
+	t=1785428385; cv=none; b=BqYgaB6qnbUtQ4qRX/ZurA+9wiHIySaLrIhkq/CEI9tkmk6UdTPVsQ472nZMXKSVt6G3U7OJ2HFEZnOvnOR9CgaNULVL2fjK1mxVvTRZdbf1EQV/oaTDK5vCLqYUpqHDsrQ9EGjTIHQ0FEs42B9irlM+VryPfH+h0pBZXmZ5XTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785428382; c=relaxed/simple;
-	bh=En3zMfThbeqoJiPQP6KzgdBRHRFUrX037sc2sVTwGlg=;
+	s=arc-20240116; t=1785428385; c=relaxed/simple;
+	bh=J4NlnHaz/omGmCYU9AmD6hjmMraa2bZuu8sXJ5/ZlKU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q8uDfHSoMK6ztdAB/JvAIUeov8AiIP85nstmNl+RvBBIBMIrV98PtCDRhz6YoPdWnwBxWlwe50616YIvLN9bx6kJcbiDaXsjsAI5e/EM0YFGJagloP0g7NkhRearFH1P8JZ/TG/pz8/gg0FfrTPwExbHNIi1RZDVLWNmQ2EdemQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AUAt6GJS; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=YRYO595mB5ci8HUnUPfz7eP9kbcaQ1kzjb94KmCiFucVk/ZgjSKmYL8fFBcFMc8wCn4+wNLGNFdvcRknaSgCApEvVGl+Ga6i4rbJMnJps/7nDfRj2+WJVbHo78rpW2QP3pY5ueF6Bse3A0Vla0vGviUYb0Rp+2r6gr+gSnMZSFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gJ+Iudwl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AUAt6GJS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE4F1F000E9;
-	Thu, 30 Jul 2026 16:19:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gJ+Iudwl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 140F91F000E9;
+	Thu, 30 Jul 2026 16:19:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785428380;
-	bh=bNusTGEivWR3x+MG5vJyHtA//50WOXuUIYD++tVBKKY=;
+	s=korg; t=1785428383;
+	bh=d5YhQuSxaN9ggk4Ig2TZr7TSQfywffl+0lvqM03iM58=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AUAt6GJSIwqaGmgjhbQLPaUps+8M5S5vHJDm7Cfc7uHfdzJTK1eq6bLMg4FZMPFj1
-	 88PdWNbBxExS8RX/2UJuktKjPEgMlko7r/59UYY9jxZeUFdpA1S4Tl/KTd+4u+lKOO
-	 3efrRFKs5vwWFzfqcvX36q6L2lrF4gMash45/nhM=
-Date: Thu, 30 Jul 2026 16:36:31 +0200
+	b=gJ+IudwlIkKe5VmpBoTHHp809IFYS63skqSCyag2t2fpEIsvwXUwUbIVoqAPs12ye
+	 k+65FcnTaRXwxwCRjZWG9/GU8aCMtIjCtHt8j2LBYWquhRRSxOPeJXeArxthDn3wqG
+	 3fPVFUFX3e8qAALSFbUmtR8RZPdK+6m2U+VRYT7I=
+Date: Thu, 30 Jul 2026 16:37:19 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Fan Wu <fanwu01@zju.edu.cn>
 Cc: linux@armlinux.org.uk, jirislaby@kernel.org,
@@ -31,7 +31,7 @@ Cc: linux@armlinux.org.uk, jirislaby@kernel.org,
 	stable@vger.kernel.org
 Subject: Re: [PATCH] tty: serial: amba-pl011: cancel RS485 trigger hrtimers
  before removal
-Message-ID: <2026073041-variably-jujitsu-411f@gregkh>
+Message-ID: <2026073047-unsorted-stick-b16f@gregkh>
 References: <20260721042858.3187311-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -77,10 +77,37 @@ On Tue, Jul 21, 2026 at 04:28:58AM +0000, Fan Wu wrote:
 > which cancels both hrtimers before the embedding object is freed.
 > 
 > This issue was found by an in-house static analysis tool.
+> 
+> Fixes: 2c1fd53af21b ("serial: amba-pl011: Fix RTS handling in RS485 mode")
+> Cc: stable@vger.kernel.org   # v6.14+
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
+>  drivers/tty/serial/amba-pl011.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+> index 8ed91e1da22b..021b542b3d99 100644
+> --- a/drivers/tty/serial/amba-pl011.c
+> +++ b/drivers/tty/serial/amba-pl011.c
+> @@ -2083,6 +2083,16 @@ static void pl011_shutdown(struct uart_port *port)
+>  	if ((port->rs485.flags & SER_RS485_ENABLED && uap->rs485_tx_state != OFF))
+>  		pl011_rs485_tx_stop(uap);
+>  
+> +	/*
+> +	 * pl011_rs485_tx_stop() above may have (re-)armed the RS485 trigger
+> +	 * hrtimers.  A callback may also re-enable the TX interrupt, so
+> +	 * cancel them and mask interrupts again before freeing the IRQ.
+> +	 * pl011_remove() cancels them again before freeing the owner.
+> +	 */
+> +	hrtimer_cancel(&uap->trigger_start_tx);
+> +	hrtimer_cancel(&uap->trigger_stop_tx);
+> +	pl011_disable_interrupts(uap);
 
-Yes, but a LLM obviously wrote the text here.  Please shorten it up a
-LOT and make it more concise, as-is, it's impossible to read this
-wall-of-text...
+Please read the review:
+	https://sashiko.dev/#/patchset/20260721042858.3187311-1-fanwu01@zju.edu.cn
+and determine if what it reports about this change is correct or not
+when you submit your second version.
 
 thanks,
 
