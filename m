@@ -1,250 +1,101 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8993B42ED;
-	Thu, 30 Jul 2026 20:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A652777FC
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 20:40:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785443970; cv=none; b=h9NXbKo0LbbR8Aj9Evk7QQ7iIbEOAFXj/hyPFEkLDUiGFsVLO19pcBlgOZ/xLF75Yc/yktaDEONGm6sr7QJxdMlfUM7RE4HAL2J5JFD14naEK5pmJWEYlMoxixQz0Fy54k2WxzJO5HlpbBUH2eGf0CeHZTgJlMRkI+eue/DJQSw=
+	t=1785444050; cv=none; b=DAGB2m8QGdWfttR2u5JfGmgmFd2R0lv0r+4GKGpH4RZwqmLDeQdHRZg2bbCrKlnJcaeLHW/w8Br7Av22fhHUAs/a3OCCByBjjm69PnFS2370IOdz6A/EojJ6ujbqT4uw6emfNc8uJ/xLBwlIRwIOZVsPckGbn20FNUCrNeO9FUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785443970; c=relaxed/simple;
-	bh=pva9tDVpgZbR6JBHkJQvGTkA5gkLy/n7r0kAnOvsQU8=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=tbG+J2JJ7MXVcvtkNPeDUZ3kVj8rpdzRueulkh3MOnXkkNCLmXV+xMDIR2wOLMn9tPdzQn+AU6jmKc0zx8H4upDV0arboCJ63Ie5YEABoWTyc5EbhkY4uCNSc7aIkXdLVS5mX21cAglw6BfTlm9bQ4mMwmc+fF7Bpzc2A+zaGjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=a/qF5ki+; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Uss1iDD/; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1785444050; c=relaxed/simple;
+	bh=aXLp3Xrbw0QFVyd/AfIAfjIOAOfO54b/lnpVPsBegwk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Te9+cgxTFfivKThfi+MPS0LE3oP05nsfB7C0O6Fze/MTWlkDU+MvqJv7i6OePTTj6klNNHBB8rUMXIM4+gUzxNcYxxoST57hXSfC4SRSPseMm/VVGBLuVfjlaFDu2oJnmKaDcWcA3fzVwE8CfI7xAR1EGinCtzDGYvRQmHTvSww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=q2YqROCf; arc=none smtp.client-ip=209.85.161.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="a/qF5ki+";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Uss1iDD/"
-Date: Thu, 30 Jul 2026 20:39:21 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1785443963;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JGXdMwT31cuGxSfTzQisuzV9IV5/K27CUgotLjxRT0s=;
-	b=a/qF5ki+b2KwVEVo/rbFLKYX7bunLT3JjXSzlSw5czLOECej1jP11uP1oxaYXJpQkgkUyl
-	Ac1raIavorml4pozvPwrAmybgME+BVpwmo8O4II1oivRv8YjtK6/+5gxUkPGNak0rmw9/K
-	jOErXLZ9Ex++g7Z9inI50Rm9Iq0FSmJiVqqNsWR3pud6eeutLW6EBx7zzZmCbvlDjdBoku
-	J3LH2ABLhys9oSfAwxhGKjcXqcgQSkhxrT9MVuroYqXjbQLcXy1bwDNcpG6kr1Du/aRpWd
-	zQwYfHJRCetV4ercHVZJ2fYeJXxaj5JqpduZ1QRK4HLBwo6CuwRRWeNGYMRjTw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1785443963;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JGXdMwT31cuGxSfTzQisuzV9IV5/K27CUgotLjxRT0s=;
-	b=Uss1iDD/vvSDoziSIYmsGIAFcmc95sQLnzyuTCgBETu2lfn7xlmfxd4Xcop7O0oh/Lu9mF
-	QXfuaiqgkIiFghBQ==
-From: "tip-bot2 for Keno Fischer" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: locking/futex] futex: Prevent robust futex exit race more
-Cc: Keno Fischer <keno@juliahub.com>, Thomas Gleixner <tglx@kernel.org>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260730194705.38981-1-keno@juliacomputing.com>
-References: <20260730194705.38981-1-keno@juliacomputing.com>
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="q2YqROCf"
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6acabd2c8bdso83353eaf.2
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 13:40:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1785444047; x=1786048847; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jfLEApi7Y2h1IshU0PF3d8BF/sEF9vNF3m0PUhFH3Gk=;
+        b=q2YqROCfgyM/AgmToi72JnFsJCR5CmSk8KWgE0z801a4UOb5VWi2k7AryKvSi1EoZG
+         TRw7fT/46ElyXTmyb5S5y4dKXclsMIrNOwmZNcZhy+mHu8DbqaP8NCb8NOcSC4mEfmMb
+         4CTWkV4F+GBYu1anV9jiv+bBrrdemUgBLY2reFAoGn1BESGjLj7mTUXUA4/4TaNt7TZ5
+         w07YbLWWLRRog0Tbud9u453rp0i/ekiyhbR5QihyOUnK4Er7cDiYm3T1IRA3TbhTBXmA
+         B2hPqh4Q5sz5WJFO5UWLlKH7Q65yaFqgBTlA6VZ4Q3XxCjmkTW5kr8X00+iq7Qi/ZIkn
+         qZ1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785444047; x=1786048847;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jfLEApi7Y2h1IshU0PF3d8BF/sEF9vNF3m0PUhFH3Gk=;
+        b=ndCpTm9tiTywntJNGNyWxBkyXEtV79ekLixeoGnCVoulUxfZhW3FB1iQ/eT/TA2KTy
+         U7btjz89s60/+UQiMcaJwCUbYZUUisXuTDAy4wBeVuNO4wEChhXvIl99EuRwT96C0Ly+
+         rPEAeuOcV6a1taFjaoESz4z1AdjzVjVc0D6Tmin8Uy1jifS41krVaIqGTvQNWf7MxvGD
+         wgQ6t5r7vdFohvQLXfq7/5NzhwfCKQ+SSlk2wceU+PMNuYepLIntnUzldU7vO++7Hh8u
+         fyHVIfdC/ZMrOo31zrSjWsHrXukMek9nybXl6P9mTCdiJyAedhZjLK6YblEL1uEvl19A
+         1lTg==
+X-Gm-Message-State: AOJu0YykPmW5U3E2UZOZ6uHifnTicfLTEBxOElTe4msUhpjUouGMkt0h
+	gh4iW94+dVfw6NEu2YX0BvFOdArTBHVCUEU5dDIc//Faqqkf3luCiyF2fDX5gIIncSY=
+X-Gm-Gg: AR+sD13TJiTd/7g5OHccTHPPIRR921+7GZMnxb85937qTUd9etGwo0GQxUm1LEuX3lu
+	WMn0rW3+8ZwP5rxC7OP8pyvKF1UAvVEXwfQvVJSrmYPhUrxCWVdLwmD52VGQ7Sqo2Z0Hi8RFAG+
+	bTycl7Q5JerhZgcBb3YGY27A8g4zY5xJj3vPlrgff2Ro2stbATigMuAcS2NdYH6iE/V5MD1d5Jk
+	eOiCr2c4ExzN/lAyfeBNBF8CDrZJpxK0kEaKC/1UhTFDzy3Y9dHR/3L60y8C5PBQDJtlId587ZC
+	W1PS1Pi8sAGC7oh5G81laZzuYdaLRh/gaw5w6nbMRgtq3cFELm8FSz2uPP4Jq++xdjmwjDrqDhi
+	DJcPXjyoQ/4Ophcj7X5vaN6JzbbbMPYNv9s7KAboW84ViCsi2Z7mzZw9u6eS+STiNqLCnhlpD4p
+	SuiPT1ar4aVyOjHzyEFrQGGlJUp6FkN5wXTIarU/QCw82lNilok/P3RJIkPVBV2q/sCQGAJIbVf
+	UKV6DJHViYhJZk34o0qYyoflMjZox/oq3U+WGvVbQ==
+X-Received: by 2002:a4a:ee08:0:b0:6aa:f37e:8d33 with SMTP id 006d021491bc7-6acbc11ee34mr2712052eaf.64.1785444047145;
+        Thu, 30 Jul 2026 13:40:47 -0700 (PDT)
+Received: from [127.0.0.1] ([198.8.77.157])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-458c257c411sm3075594fac.4.2026.07.30.13.40.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 13:40:46 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: io-uring@vger.kernel.org, Kyumin Lee <fyonglkm@gmail.com>
+Cc: stable@vger.kernel.org
+In-Reply-To: <20260730192734.459247-1-fyonglkm@gmail.com>
+References: <20260730192734.459247-1-fyonglkm@gmail.com>
+Subject: Re: [PATCH v2] io_uring: preserve task restrictions across exec
+Message-Id: <178544404619.3239387.3359715670063842245.b4-ty@b4>
+Date: Thu, 30 Jul 2026 14:40:46 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178544396171.112641.13366269531762040143.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-The following commit has been merged into the locking/futex branch of tip:
 
-Commit-ID:     474a57058e84c05665c3ffbe7953fab56c032f0d
-Gitweb:        https://git.kernel.org/tip/474a57058e84c05665c3ffbe7953fab56c0=
-32f0d
-Author:        Keno Fischer <keno@juliacomputing.com>
-AuthorDate:    Tue, 21 Jul 2026 00:31:48=20
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Thu, 30 Jul 2026 22:34:18 +02:00
+On Fri, 31 Jul 2026 04:27:34 +0900, Kyumin Lee wrote:
+> Per-task restrictions apply to all rings created by a task. Once installed,
+> they should not be dropped across exec.
+> 
+> For a task that has used io_uring, the exec cancellation path calls
+> __io_uring_free(). This frees both the task context and the per-task
+> restriction, so a ring created after exec is unrestricted.
+> 
+> [...]
 
-futex: Prevent robust futex exit race more
+Applied, thanks!
 
-A robust futex unlock stores 0 over the whole futex value - wiping
-FUTEX_WAITERS - and wakes a single waiter. That wakeup is a one-shot
-notification: the protocol relies on its recipient to either acquire the
-futex (and eventually unlock while aware of the remaining contention) or
-re-arm FUTEX_WAITERS before sleeping again.  If the woken waiter is killed
-before it can do either, the kernel must jump in and wake the next task
-down the line.
+[1/1] io_uring: preserve task restrictions across exec
+      commit: bc0e8faf90e776a2f1f3967a04e8091e6bdb4977
 
-This is a known complication of the futex protocol with a previous
-partial fix in commit ca16d5bee598 ("futex: Prevent robust futex exit
-race"). Unfortunately, that fix is insufficient.
+Best regards,
+-- 
+Jens Axboe
 
-If a third task re-acquired the futex through the uncontended fast
-path in the meantime, the notification is lost: Robust exit processing
-sees that it is owned by another task and does nothing, while the new
-owner sees no FUTEX_WAITERS when it unlocks and wakes nobody.
-The remaining waiters sleep forever behind a free futex:
 
-  A owns the futex, B and C sleep in FUTEX_WAIT
-                                        uval =3D=3D A | FUTEX_WAITERS
-  A robust unlock: store 0, FUTEX_WAKE(1) wakes B
-                                        uval =3D=3D 0
-  D fast path acquire: cmpxchg(0 -> D)
-                                        uval =3D=3D D, no FUTEX_WAITERS
-  B killed before acting on the wakeup
-  B exit walk, pending op: owner D !=3D B -> no action
-  D unlock: no FUTEX_WAITERS -> no wake
-                                        C sleeps forever
 
-This is clearly a short coming in the implementation, which fails to keep
-the FUTEX_WAITERS bit consistent.
-
-Work around this by augmenting the robust list exit processing to also
-perform the extra wakeup if the futex word is owned by another thread but
-FUTEX_WAITERS is not set.
-
-This does not fix the problem of a non-contended take over/release and free
-sequence, which has been discussed for years and has been addressed by
-commit 3ca9595d9fb6 ("futex: Add support for unlocking robust futexes") and
-subsequent changes, but failed to take the problem described above into
-account.
-
-A more complete solution which is based on the in kernel unlock of
-contended robust futexes has been discussed in the context of this change
-and should show up in mainline sooner than later.
-
-[ tglx: Amend change log slightly and fixup coding style ]
-
-Fixes: ca16d5bee598 ("futex: Prevent robust futex exit race")
-Signed-off-by: Keno Fischer <keno@juliahub.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Assisted-by: ClaudeCode:claude-fable-5 tla+
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260730194705.38981-1-keno@juliacomputing.com
----
- kernel/futex/core.c | 85 ++++++++++++++++++++++++++++++--------------
- 1 file changed, 58 insertions(+), 27 deletions(-)
-
-diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-index 233b926..2e5000a 100644
---- a/kernel/futex/core.c
-+++ b/kernel/futex/core.c
-@@ -982,8 +982,11 @@ retry:
- 		return -1;
-=20
- 	/*
--	 * Special case for regular (non PI) futexes. The unlock path in
--	 * user space has two race scenarios:
-+	 * Special case for regular (non PI) futexes. Ordinarily, we do
-+	 * not perform any processing here unless the current thread was
-+	 * the owner of the futex (by the TID check below).
-+	 *
-+	 * However, the unlock path has three race scenarios:
- 	 *
- 	 * 1. The unlock path releases the user space futex value and
- 	 *    before it can execute the futex() syscall to wake up
-@@ -992,42 +995,70 @@ retry:
- 	 * 2. A woken up waiter is killed before it can acquire the
- 	 *    futex in user space.
- 	 *
--	 * In the second case, the wake up notification could be generated
--	 * by the unlock path in user space after setting the futex value
--	 * to zero or by the kernel after setting the OWNER_DIED bit below.
-+	 * 3. A woken up waiter is killed in user space after another
-+	 *    thread has acquired the futex, but before it can set
-+	 *    FUTEX_WAITERS.
-+	 *
-+	 * Note that, if userspace uses the FUTEX_ROBUST_UNLOCK flag, we
-+	 * will not see case 1 here.
-+	 *
-+	 * In the second and third case, the wake up notification could
-+	 * be generated from any of:
-+	 *
-+	 *    i.   An ordinary futex wakeup after unlock (with or
-+	 *         without FUTEX_ROBUST_UNLOCK)
-+	 *    ii.  A robust wakeup from another thread's death
-+	 *    iii. A previous round through this special case
-+	 *
-+	 * As a result, the futex world will be in one of four states:
-+	 *
-+	 *    A. The futex word is 0 (unlocked)
-+	 *    B. The futex word is owned by another thread
-+	 *       (FUTEX_WAITERS is not set)
-+	 *    C. The futex word is owned by another thread
-+	 *       (FUTEX_WAITERS set)
-+	 *    D. The futex's owner died and OWNER_DIED is set
-+	 *       (the owner part of the word is 0)
- 	 *
--	 * In both cases the TID validation below prevents a wakeup of
--	 * potential waiters which can cause these waiters to block
--	 * forever.
-+	 * The key issue is that the kernel usually (at least from
-+	 * sources ii. and iii. or when so requested by userspace from
-+	 * source i.) only ever wakes *one* waiter at a time. If this
-+	 * waiter dies before acquiring the futex (or setting the
-+	 * FUTEX_WAITERS bit), the kernel *must* still wake the next
-+	 * waiter down the line to uphold the futex invariants and
-+	 * avoid lost wakeups. Note we do not need to handle state C,
-+	 * as it does not matter to us whether *we* successfully set
-+	 * the bit or a third thread did so in the meantime.
- 	 *
--	 * In both cases the following conditions are met:
-+	 * Therefore, in these cases we must issue an additional
-+	 * futex_wake(). Note however that we *must not* set OWNER_DIED
-+	 * here. Our thread is *not* the owner of the futex.
- 	 *
--	 *	1) task->futex.robust_list->list_op_pending !=3D NULL
--	 *	   @pending_op =3D=3D true
--	 *	2) The owner part of user space futex value =3D=3D 0
-+	 * Thus to summarize, the conditions for needing the additional
-+	 * futex_wake() are:
-+	 *
-+	 *	1) @pending_op =3D=3D true (the thread has not finished the
-+	 *	   mutex operation)
-+	 *	2) The futex word is in one of the states A, B or D
- 	 *	3) Regular futex: @pi =3D=3D false
- 	 *
--	 * If these conditions are met, it is safe to attempt waking up a
--	 * potential waiter without touching the user space futex value and
--	 * trying to set the OWNER_DIED bit. If the futex value is zero,
--	 * the rest of the user space mutex state is consistent, so a woken
--	 * waiter will just take over the uncontended futex. Setting the
--	 * OWNER_DIED bit would create inconsistent state and malfunction
--	 * of the user space owner died handling. Otherwise, the OWNER_DIED
--	 * bit is already set, and the woken waiter is expected to deal with
--	 * this.
-+	 * Note in particular that in all of the states A-D the owner
-+	 * portion of the futex word differs from our thread's TID
-+	 * (unless the actual owner has the same TID in another PID
-+	 * namespace, but we cannot currently distinguish that
-+	 * scenario), so this can be a special-case wakeup in the bail
-+	 * path of the ordinary TID check.
- 	 */
- 	owner =3D uval & FUTEX_TID_MASK;
-=20
--	if (pending_op && !pi && !owner) {
--		futex_wake(uaddr, FLAGS_SIZE_32 | FLAGS_SHARED, NULL, 1,
--			   FUTEX_BITSET_MATCH_ANY);
-+	if (owner !=3D task_pid_vnr(curr)) {
-+		if (pending_op && !pi && (!owner || !(uval & FUTEX_WAITERS))) {
-+			futex_wake(uaddr, FLAGS_SIZE_32 | FLAGS_SHARED, NULL, 1,
-+				   FUTEX_BITSET_MATCH_ANY);
-+		}
- 		return 0;
- 	}
-=20
--	if (owner !=3D task_pid_vnr(curr))
--		return 0;
--
- 	/*
- 	 * Ok, this dying thread is truly holding a futex
- 	 * of interest. Set the OWNER_DIED bit atomically
