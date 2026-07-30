@@ -1,69 +1,45 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0195436BF8;
-	Thu, 30 Jul 2026 14:22:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EA543E06E;
+	Thu, 30 Jul 2026 14:22:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785421351; cv=none; b=rGmKGc7GFBZ/mrsn6JNsThhlu6QDiDEPqBKCmYnn3Ljm3BHco7TdmdizrHH34Ze5zEhis+bOHAUDbG8p6Gu7AkCDeZoJXgix9d4ZA13liFoEbRJzl6UWAiM2KGo9YWgUqKZAfQP74FtCJozwRs3aHmYYCVCPn/M9tPsekiGsz0w=
+	t=1785421351; cv=none; b=owKEJqe84Ieo1ZcKt1yYygVIa8xKfNVzQFP41m89z4kpMw9lPQ0GZvFUT0svJDFogCzTcY2smWdUcPixGlsO9C+25yXyZP6PvPLDWF6Yscb4dgr0pTl4X38o2FBN7kFMTZnFqllGumK2+Bc+KRG0Zi0v4Q5kS/BAqCvu4D8/NFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785421351; c=relaxed/simple;
-	bh=KJSnyvdiAco750mGTVtanDSDO6A6n3AwLNo0d4+t5W4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tpLBHaREmUKgvIu/AVXFtpklFAKjxRFPL46fg53Q+ifvWP7Kzod9tH1t1eyS2rhqOtaipKYJhXol7O4vVLAhHDFB9gv6CDKygC4Jb6k0vG3ogQtyeMCQn/N1/TH2/M0THuMAQZyoxjhAOgJjMLEfP3bGcnWTmtaPedF0KaaRNmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=fsofAuZW; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	bh=dCTUofpmc/ViuyuM7+sv5Nkwti5aNPjgo0pk4+ffnDc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CC93BV/HzN/Dwt6z0nIGUiF5rainE6giEQPWftM0D+2NZZ8/LQVqGw3oBLXnaegxczQ90L6amlOXO8Dw9p0qAFx0ecgaMKurXYTXQ8RHXff6ZGxH1EuAPvBMUvsiSDTRn0il5IcxP26nGYNmlX5i+ijo2TFn9GnA0Mq6xxh9mRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cAp2t3uX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="fsofAuZW"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UDI2hR3021096;
-	Thu, 30 Jul 2026 14:22:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=UghDOZsVKAzSNf7EyXits0JuTMIlxcrKuhkq6t1eK
-	Ow=; b=fsofAuZWHtvKmWeNfPASM8i7nCoTtMLeKqYbQDv78uPST4hrhLE36L5EE
-	YVsBkiePK1FzKPp871tdif7xbP8B38gXK8C+25AUCazSbsPakdsgVJuPyih1eSfn
-	Z6kTmcZF8ffQmNByk9E+oSpE0vmJFF5v54QK4Jyt8RNVftziXE+SqxiO1Un+Qabz
-	q8WVFYgqIQYHmZDIYI33/uLuSacjVKLsBydlkNtwQLF6He2d9++4wWjQhJC/gO2h
-	+LwmB1Ja+DNAmoCNzMbDKIRxEqGTLwV1IdvtDel/5JkDb4YsyzxCVEbZ+PWL2cho
-	WewWdnQOli78VijklFQU5HLf7ceyw==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuyjfagr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 30 Jul 2026 14:22:21 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66UEBJoD013233;
-	Thu, 30 Jul 2026 14:22:21 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fn8yhkm7u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 30 Jul 2026 14:22:20 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66UEMGHU28836396
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 30 Jul 2026 14:22:17 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D45EC2004B;
-	Thu, 30 Jul 2026 14:22:16 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 898BF20040;
-	Thu, 30 Jul 2026 14:22:16 +0000 (GMT)
-Received: from t83lp68.lnxne.boe (unknown [9.87.84.240])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 30 Jul 2026 14:22:16 +0000 (GMT)
-From: Hidayath Khan <hidayath@linux.ibm.com>
-To: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-        pabeni@redhat.com, andrew+netdev@lunn.ch, wintera@linux.ibm.com,
-        aswin@linux.ibm.com
-Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
-        borntraeger@linux.ibm.com, svens@linux.ibm.com, horms@kernel.org,
-        netdev@vger.kernel.org, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, hidayath@linux.ibm.com,
-        stable@vger.kernel.org
-Subject: [PATCH net] s390/qeth: validate user buffer length in SNMP and ARP query ioctls
-Date: Thu, 30 Jul 2026 16:22:16 +0200
-Message-ID: <20260730142216.218309-1-hidayath@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cAp2t3uX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B114F1F00A3E;
+	Thu, 30 Jul 2026 14:22:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785421350;
+	bh=Be7GVxtKrKBxq7ZUMBO/IFJWnai6L/J5hqgX8VcaZwg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cAp2t3uXsE9inEFFnfPU8Kmdo0whPNTNFT+OXjas3Y1Sgjt+bu/D/ED2gbczqsDHj
+	 PHNCPZRAgFjATHhbHUoa2u+onGqZJI9llqgh2rBynkRohKTFCqpySEJShV/0ZSPvEO
+	 ZJSML/ou6oug7WHKmR9Q4x5uXKHBTUT84mrJZgy4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1 072/744] wifi: brcmfmac: initialize SDIO data work before cleanup
+Date: Thu, 30 Jul 2026 16:05:45 +0200
+Message-ID: <20260730141445.804009574@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260730141444.267951807@linuxfoundation.org>
+References: <20260730141444.267951807@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,92 +47,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDEwOSBTYWx0ZWRfX5lmiucqFddfX
- VEB8K42UlOFXZp5XWFee7p/ZRoA4KEsYkhtnZIsDbwESJe/ef+0KK8Hhf5sGZiq0JU8xYlJ0++j
- PhDg0fTMMH64a5IrOldNTahZOVKxm/w=
-X-Proofpoint-GUID: iF-om9MhUhz1E0-T4S7USqIjuj_iAjhr
-X-Proofpoint-ORIG-GUID: SgpBaxh1ByQordkDx0Iz8mqFkfQ75pbM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDEwOSBTYWx0ZWRfXw+ZTc9qAqrov
- iLx4Nk7ZNcMKZzOkskHH+k2g4Tl0jEMa95+Q+nzOf35CXhAifpPYfkGnX0vH/LOBCekZAZrjczp
- G8//UBMh0ij3XN9DfbiPH+ukYglJ4mrxmU80fT6kDb7A4Bn1VAIRRaFkWP+Qp/aNopvD2s5jdnZ
- 4HUGuiyRsxfDDF0lg7DeI+5ZdBzSPi0CHF8Ne3pTYjW9Od9lLytFgIYr4BfMuQos2JfsGKof7DD
- uIj82h0S+QG66uHadCF1IhAvgEHh+oC8ap3GAxTRw/qNsogH2V3zjWKmZqnx3HIFXxl6w0iQZq/
- GvClnJE5HAmXkEJngBJUBejgPQMpivm9eJgw4BuE7IslQ3WiPdRZ8L1fbjmeoyYqWrBHA42JUBR
- vDBDhm9oXv3VJ4rqyZzpi6flrxJMhfrTbPHwycF/L/XhAfqjptuEPkfedy/92lf1q0lJrDBncrF
- PR5I6l9dV7LCN7RM+kQ==
-X-Authority-Analysis: v=2.4 cv=X5Vi7mTe c=1 sm=1 tr=0 ts=6a6b5e1e cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=8BjajkXoXOh5Z-NPRBsA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-30_04,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607300109
 
-qeth_snmp_command() and qeth_l3_arp_query() allocate a buffer sized by
-a user-supplied length (udata_len) without checking a lower bound, then
-set udata_offset to a fixed non-zero value and pass both to a reply
-callback. The callback bounds-checks the copy with
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-        if ((udata_len - udata_offset) < len)
+------------------
 
-Both fields are u32, so a udata_len smaller than udata_offset makes the
-subtraction wrap and the check pass, and the following memcpy() writes
-past the allocation. A udata_len of 0 also yields ZERO_SIZE_PTR from
-kzalloc(), which the existing NULL check does not catch.
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Reject buffers smaller than udata_offset before allocating, so the
-callback subtraction can no longer underflow.
+[ Upstream commit 2a665946e0407a05a3f81bd56a08553c446498e0 ]
 
-Fixes: 4a71df50047f ("qeth: new qeth device driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Alexandra Winter <wintera@linux.ibm.com>
-Signed-off-by: Hidayath Khan <hidayath@linux.ibm.com>
+brcmf_sdio_probe() stores the newly allocated bus in sdiodev->bus before
+allocating the ordered workqueue. If that allocation fails, the function
+jumps to fail and calls brcmf_sdio_remove().
+
+brcmf_sdio_remove() unconditionally cancels bus->datawork. Initialize the
+work item before the first failure path that can reach brcmf_sdio_remove(),
+so the cleanup path always observes a valid work object.
+
+This issue was found by our static analysis tool and then confirmed by
+manual review of the probe error path and the remove-time work drain. The
+problem pattern is an early setup failure that reaches a cleanup helper
+which cancels an embedded work item before its initializer has run.
+
+A QEMU PoC forced alloc_ordered_workqueue() to fail at the same point in
+brcmf_sdio_probe(), before INIT_WORK(&bus->datawork) is reached. The
+resulting fail path calls brcmf_sdio_remove(), and DEBUG_OBJECTS reports
+the invalid work drain with brcmf_sdio_probe() and brcmf_sdio_remove() in
+the stack.
+
+Fixes: 9982464379e8 ("brcmfmac: make sdio suspend wait for threads to freeze")
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+Link: https://patch.msgid.link/20260619064401.1048976-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/s390/net/qeth_core_main.c | 3 +++
- drivers/s390/net/qeth_l3_main.c   | 5 +++++
- 2 files changed, 8 insertions(+)
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/s390/net/qeth_core_main.c b/drivers/s390/net/qeth_core_main.c
-index f18eed9df3c7..c3257b213360 100644
---- a/drivers/s390/net/qeth_core_main.c
-+++ b/drivers/s390/net/qeth_core_main.c
-@@ -4710,6 +4710,9 @@ static int qeth_snmp_command(struct qeth_card *card, char __user *udata)
- 	if (req_len > QETH_BUFSIZE)
- 		return -EINVAL;
- 
-+	if (qinfo.udata_len < sizeof(struct qeth_snmp_ureq_hdr))
-+		return -EINVAL;
-+
- 	iob = qeth_get_adapter_cmd(card, IPA_SETADP_SET_SNMP_CONTROL, req_len);
- 	if (!iob)
- 		return -ENOMEM;
-diff --git a/drivers/s390/net/qeth_l3_main.c b/drivers/s390/net/qeth_l3_main.c
-index 1542bfc9f561..f1ac9950dcb4 100644
---- a/drivers/s390/net/qeth_l3_main.c
-+++ b/drivers/s390/net/qeth_l3_main.c
-@@ -1415,6 +1415,11 @@ static int qeth_l3_arp_query(struct qeth_card *card, char __user *udata)
- 		rc = -EFAULT;
- 		goto out;
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+index 8fb595733b9c36..b725c64e5b5c63 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+@@ -4465,6 +4465,7 @@ int brcmf_sdio_probe(struct brcmf_sdio_dev *sdiodev)
+ 	bus->sdiodev = sdiodev;
+ 	sdiodev->bus = bus;
+ 	skb_queue_head_init(&bus->glom);
++	INIT_WORK(&bus->datawork, brcmf_sdio_dataworker);
+ 	bus->txbound = BRCMF_TXBOUND;
+ 	bus->rxbound = BRCMF_RXBOUND;
+ 	bus->txminmax = BRCMF_TXMINMAX;
+@@ -4479,7 +4480,6 @@ int brcmf_sdio_probe(struct brcmf_sdio_dev *sdiodev)
+ 		goto fail;
  	}
-+
-+	if (qinfo.udata_len < QETH_QARP_ENTRIES_OFFSET) {
-+		rc = -EINVAL;
-+		goto out;
-+	}
- 	qinfo.udata = kzalloc(qinfo.udata_len, GFP_KERNEL);
- 	if (!qinfo.udata) {
- 		rc = -ENOMEM;
-
-base-commit: 58c1c294d685baf94801839334df20501711eb8e
+ 	brcmf_sdiod_freezer_count(sdiodev);
+-	INIT_WORK(&bus->datawork, brcmf_sdio_dataworker);
+ 	bus->brcmf_wq = wq;
+ 
+ 	/* attempt to attach to the dongle */
 -- 
-2.52.0
+2.53.0
+
+
 
