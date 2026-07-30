@@ -1,106 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-179.mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E9D19CD1D;
-	Thu, 30 Jul 2026 14:28:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88E43A6B7F
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 14:28:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785421701; cv=none; b=BNkMinjsVotFnlioOvigxU/qmiA4IE+RfbPiL4Ierw2TDe5Ia6j4J8dFrSmrzZNdGJdswp/jO40VVv2/723/Xf/g1HaMREVEsmK9+GpvvpfkLKXxI47pRwKtnVnvrvKIimPss3Ts5FG9EMliFkk0oFPh2kboDnf75ZxdXYPW10k=
+	t=1785421702; cv=none; b=JI5aZbvokI72FBuVU7i2VwU2gFruFXfCKUpkBoV6WJh3DqQHlFY48DTOTzXnFC8DNsozl9Opy5GI/+cfRSvTUVYQFRQN41ecHR/9RGUUmC+iCDIlXWTvk8kuF//xC2VUVXgN5EqLekoz5uxxtoU4mv7JdwIblDBt9wL7O8iakfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785421701; c=relaxed/simple;
-	bh=4aNTE9/2PS+jLxUWPeWpW20iHtgd+vggwq41mC0TjP0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UyhBNJHzcGkxx02A5ffGcC1UWhQJG60zr34ExJ/yydB71nCu+qSWprTI0hMYXm5HRVDHfJNx2L/uVYpvah8tLkLfCFIxI8ygypN+PfsW5YUJjKZlm8XIDYZo07Cjy1yvLA24B3dqdanlJt0xk43zRwiamRwCWNKb++gKyhWnCOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=j0uyom0B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785421702; c=relaxed/simple;
+	bh=/2iryfKyAXW9UhQVAX4SWwtkAZXQw4EBE5mtGF1ig1k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ck+7fVPdTNaNRxN/Llo8ef1WnaXs8iNy7XBwBFajy1jZc2nP4qo7G+AuoV3LknRhMOjnMfsFoFm/2zaxUY9PsLa9qls5ra0hV6DtUX1mznFFx3BiQIIAqZEG0XiOwYtxByCxw/77b0IDfYy5UhColaWq5ocUxpNakFqRLQ3msnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aBc6kdGc; arc=none smtp.client-ip=95.215.58.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="j0uyom0B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9265E1F000E9;
-	Thu, 30 Jul 2026 14:28:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785421700;
-	bh=EGW9Rrqcj3Qd26UqfaiNCrAtXsSz6GLjOEHY9NY1f7I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j0uyom0BcuwvDAcMbia6z5IzWyMSIXEj1woXbTQNBuQ4ANrEY4pmd7827iPy+RK4E
-	 2oC+sZtkersQNW+w46OaMVIslxDd7PhgF9mVSSXLVbiYIOrp0TqclmSXXOOpMmSzTq
-	 LQYmtsnLgvGlByWbEnegoLAvoKIF5oTQT88k+VvQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Qu Wenruo <wqu@suse.com>,
-	You-Kai Zheng <ykzheng@synology.com>,
-	David Sterba <dsterba@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1 192/744] btrfs: declare btrfs_ioctl_search_args_v2::buf as __u8
-Date: Thu, 30 Jul 2026 16:07:45 +0200
-Message-ID: <20260730141448.363890009@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730141444.267951807@linuxfoundation.org>
-References: <20260730141444.267951807@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aBc6kdGc"
+Date: Thu, 30 Jul 2026 16:28:08 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785421697;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T3ac2CFXlJ8wxc4DqXVNNL1F/4/fTPWOM+4N0hlAhII=;
+	b=aBc6kdGcrvmf1QuzIJqjJzWr6cBQtAVoQZwfblt82hs7QBtFv9g1ht5WiphIz5IiiJs+Ng
+	fxcG8bNO70eRzMDjTk5DFFwB6yJmRF+dO32tFajrUulkJNltWqtigsYRI0NLcMJC1bBVF8
+	x0ttg5NeKVL444ftwoAark8BL1FwFuw=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Thorsten Blum <thorsten.blum@linux.dev>
+To: Geoff Levand <geoff@infradead.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Justin Stitt <justinstitt@google.com>, Kees Cook <kees@kernel.org>
+Cc: stable@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] powerpc/ps3: Fix repository.c build failure
+Message-ID: <amtfeLGWTUNN8vc1@linux.dev>
+References: <20260703165834.137242-2-thorsten.blum@linux.dev>
+ <amowzufwQrIqHVZX@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <amowzufwQrIqHVZX@linux.dev>
+X-Migadu-Flow: FLOW_OUT
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+On Wed, Jul 29, 2026 at 06:56:59PM +0200, Thorsten Blum wrote:
+> On Fri, Jul 03, 2026 at 06:58:35PM +0200, Thorsten Blum wrote:
+> > GCC fails to build ps3_defconfig with the following errors:
+> > 
+> >   arch/powerpc/platforms/ps3/repository.c: In function ‘make_first_field.constprop’:
+> >   arch/powerpc/platforms/ps3/repository.c:78:9: error: ‘strnlen’ specified bound 8 exceeds source size 3 [-Werror=stringop-overread]
+> >      78 |         memcpy((char *)&n, text, strnlen(text, sizeof(n)));
+> >         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >   arch/powerpc/platforms/ps3/repository.c: In function ‘make_first_field.constprop’:
+> >   arch/powerpc/platforms/ps3/repository.c:78:9: error: ‘strnlen’ specified bound 8 exceeds source size 4 [-Werror=stringop-overread]
+> >      78 |         memcpy((char *)&n, text, strnlen(text, sizeof(n)));
+> >         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> > 
+> > The current use of strnlen(text, sizeof(n)) triggers -Wstringop-overread
+> > when text is a short string literal that is smaller than sizeof(n), such
+> > as "bi" or "bus". Use strlen(text) instead and clamp the copy length to
+> > sizeof(n) before memcpy().
+> > 
+> > Drop the redundant char * cast while at it.
+> > 
+> > Fixes: f94a84a09148 ("powerpc/ps3: refactor strncpy usage")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> > ---
+> >  arch/powerpc/platforms/ps3/repository.c | 5 ++++-
+> >  1 file changed, 4 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/arch/powerpc/platforms/ps3/repository.c b/arch/powerpc/platforms/ps3/repository.c
+> > index b8c030eab138..0cc755ac3e7f 100644
+> > --- a/arch/powerpc/platforms/ps3/repository.c
+> > +++ b/arch/powerpc/platforms/ps3/repository.c
+> > @@ -6,6 +6,8 @@
+> >   *  Copyright 2006 Sony Corp.
+> >   */
+> >  
+> > +#include <linux/minmax.h>
+> > +
+> >  #include <asm/lv1call.h>
+> >  
+> >  #include "platform.h"
+> > @@ -74,8 +76,9 @@ static void _dump_node(unsigned int lpar_id, u64 n1, u64 n2, u64 n3, u64 n4,
+> >  static u64 make_first_field(const char *text, u64 index)
+> >  {
+> >  	u64 n = 0;
+> > +	size_t len = min(strlen(text), sizeof(n));
+> >  
+> > -	memcpy((char *)&n, text, strnlen(text, sizeof(n)));
+> > +	memcpy(&n, text, len);
+> >  	return PS3_VENDOR_ID_NONE + (n >> 32) + index;
+> >  }
+> >  
+> 
+> Gentle ping.
+> 
+> Thanks,
+> Thorsten
 
-------------------
-
-From: You-Kai Zheng <ykzheng@synology.com>
-
-[ Upstream commit b95181f3929ff98949fa9460ca93eccebbf2d7fc ]
-
-The variable-sized buffer buf in struct btrfs_ioctl_search_args_v2 is
-declared as __u64[], but it holds a packed byte stream of search results,
-where all offsets into the buffer are in bytes.
-
-Declaring buf as __u64[] makes it easy for user space to write incorrect
-pointer arithmetic: adding a byte offset directly to a __u64 pointer
-scales the offset by 8, landing at byte position offset*8 instead of
-offset.
-
-This recently caused an infinite loop in btrfs-progs: the accessor read
-all-zero data from misaddressed items, which fed zeroed search keys back
-into the ioctl loop and spun forever. The issue was worked around at the
-time by disabling TREE_SEARCH_V2 entirely in btrfs-progs (d73e69824854:
-"btrfs-progs: temporarily disable usage of v2 of search tree ioctl").
-
-The kernel side already treats buf as a byte buffer, so change the
-declaration to __u8[] to match the actual semantics and prevent similar
-misuse in user space. The change is ABI compatible: both the structure size
-and alignment are unchanged.
-
-Fixes: cc68a8a5a433 ("btrfs: new ioctl TREE_SEARCH_V2")
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: You-Kai Zheng <ykzheng@synology.com>
-Reviewed-by: David Sterba <dsterba@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/uapi/linux/btrfs.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/include/uapi/linux/btrfs.h b/include/uapi/linux/btrfs.h
-index 9165154a274d94..16ff7beab9ca59 100644
---- a/include/uapi/linux/btrfs.h
-+++ b/include/uapi/linux/btrfs.h
-@@ -598,7 +598,7 @@ struct btrfs_ioctl_search_args_v2 {
- 	__u64 buf_size;		   /* in - size of buffer
- 					    * out - on EOVERFLOW: needed size
- 					    *       to store item */
--	__u64 buf[];                       /* out - found items */
-+	__u8 buf[];                        /* out - found items */
- };
- 
- /* With a @src_length of zero, the range from @src_offset->EOF is cloned! */
--- 
-2.53.0
-
-
-
+Interestingly, GCC 14.2.0 and Clang 22.1.8 don't report an error,
+whereas GCC 16.1.1 does.
