@@ -1,112 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E015369D57
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 09:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BAAE3E49C6
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 09:34:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785404003; cv=none; b=rCxJDrP6szXrEGQY84flmsUb944BKYUwhHk/PEDkeSpaW6N5kLAySvuxYcPVyVXpbRjjG45WSxCQoG3PgEdT/YJi0hNQQ44ZhRjNk1WNOU/awoGkLKDVZan9Mm+zVcSmXpv5xOSD8QkS05/T8uEqUfzcsNrQKjpCxzXNOrhi09Y=
+	t=1785404081; cv=none; b=YFoWDKR3AKYcZNLdiJPIDCdImy3qheq81PfEtJoDozmvL+SzW5QzN5YM2yUyuOn5dKSAfhqGlb+StG9AUD4ODrwJJV1Dnm2qtEj+YXUJK4qtOw9W3pZJvKB3Jf8Qgc/vG+MVOZekc8E80R4rmmljRDojCyId24XhhyfZxo3dpic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785404003; c=relaxed/simple;
-	bh=iYMHnvH0OKGCDdTGrzlI3yhg9p5eCKTm9i6oNiNLpdk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZVVcQ//bxidnR/ucx+jT8rSKTXyStus4pbpqA5RkuLSGQ3dkfOTdnokE+KDqwZtpnvfHKcCWwri6iJn2VTDErcutIaRYqu372nncZ4eoVUl+fs8o9yt5Uwr79AosENp1pcnBGUyYIWLSNzZT1C7DskBDNZj48rmBEjiN9PAAGbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YV2SQfnk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785404081; c=relaxed/simple;
+	bh=7eaxt08mtN6zo0xFSjRxwPoRb3odH0Rzb02ZpzqbEIs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mj4RBNCzAlnAeCQsvFySdZrT1khoJ+GQVsoWpWy64WX3LqlMj8u+Bs6rq+4kcpOOOvH7Es7jc7bPxdqVWnoc9zcGbno5QqKdciRn777Xi1ZsIF0yRV9Rz7XJfl/GJHcLQVidHJgYkzaKbvrZMrgGi4uQEkGSodHL/uc9li7kyZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IdJ+R0pX; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YV2SQfnk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11ABF1F00A3A
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 09:33:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785404002;
-	bh=Gwcd753fWtAnlelFtxkponYfNiVbGFQihpYN8RGz7/w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YV2SQfnkPi6irvwjs+pOtcroloDKSb143fkoSCOg6z9dPw3qOhgjnY/dGvVQHhGiF
-	 KFoSHm8qMrIisiHc0ce+faONel1+7Kjuxqj9XroP3UQ/GVel/lZteKWZs8Nx1eZ9RJ
-	 UW5XzVj6R8awhVdr2QTvCazgQ2e2NZWw/x03w0qv8clpJoarFBtuUUlBzaclv/XkdO
-	 WZSNiqaWqisoPfPrL6jL/IHz1pWBsgEyA772pN/US4owzZbwSPQ5LQDB8HmVT5Apze
-	 Q01wtJuWOZrfHHcq16kR2AtewkCLdNRb/AIaavT4iSPbYk01L0/3ousdgsSRPJNl56
-	 SQ4ruZ3eXggeA==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5aeb8c19017so2405142e87.0
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 02:33:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqJrzSlvOSamvu+KSGgODn+fkD2cWnSTUNUtZt7DUdh1ByJ1AbPPvqcTic/JwPBpNhM99mulCo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwiqoKEbZJcmB65nzfXXx/18/gJE9Kr1W1JSdCPsBwCaJtrwd+E
-	7yBiOBhna6OD9cpDCEc7Haj2nUuWnpS1m6EOjodLQF1jOhJSR4GT/82UayeM1QE3/l2sTgCFVLJ
-	FIX2Ak+hWND1XFFB3KWTX78jhkl0taFg=
-X-Received: by 2002:a05:6512:1384:b0:5ae:b24c:7723 with SMTP id
- 2adb3069b0e04-5b2db34f426mr409984e87.17.1785404000537; Thu, 30 Jul 2026
- 02:33:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IdJ+R0pX"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47f97d310caso1820052f8f.2
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 02:34:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785404078; x=1786008878; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tu9mUrT2j9QVQ/0jr7AGyW7PZp640JOYo5v2vN8k1Cc=;
+        b=IdJ+R0pXxYY0Lt6BoY3EQqiGTBwGJLniFtRsUI9SZC8zNu9ougUk3y502bIhh42l4q
+         5RPQg2nmjkAxlcbZGQeIvBAHgEbys5U+Twa9F0Q7twSIC2STAT6ztwkGGMzIPvHov4c7
+         RejSNUCQtjt5icdrsLS68R+0WJ4ZKUfCwg+ROHn+bXQMELgfVBW6iUniam64tlYsn+W0
+         YFimoc+znqwMum3si53Wuqbp0UvzKK4DRKIaEqlDBVwlHz6gJ5uJQXuHn0CVJ/w3jXfK
+         NmP5iCRa7ocAMKc0OVvHqlKV8YFX/O9P5oNWJXe+Rf39KnE3aPu6/2B8yWNv7J3QUf3W
+         TenA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785404078; x=1786008878;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tu9mUrT2j9QVQ/0jr7AGyW7PZp640JOYo5v2vN8k1Cc=;
+        b=sO1+BkNL1AIhtbD+DNtXrx0WSCT7rYKDVYjYJwQlVBWnSzY76LWkw4NBIgtsqa2mSE
+         JZGAJSn2WtpXIgTSs+76hXYM21klC9gW/8iTSSlZ25rlHPPRoaMHgUIwRj8O7+MMM8ML
+         DQNGJ2E8lrz26ytCAhJ1JoGOZiaLPotZ4nr3rlJhOvFK1G0Bp7fmpv8sKXQFUrRt/gwA
+         PUC24bheLkncn440ASs8IaFYYuOUA8hgavzKn0wjlW2ohTZ29qF9ZnyoFtLTTQwhF4yU
+         TZwnJbR2ecTQF8y2/WAZ7cjZuwbhB5uiIQ6y6Ifk8c812/x5h1lij217O6THFsUzljsB
+         Kd2w==
+X-Forwarded-Encrypted: i=1; AHgh+RrphlH8UGmonfExO+jm57/NLzycqmcohtGr5ZBNxf7LujqgSesHY6nSNeVZ6aOut5K/jJRfLCM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YySI6cTEhHY0VN4S+xQIGW5gtjFFQSMKfkoFmLFtMr7PZcW6ZMk
+	budbTE+zqsZrSmXb1f3hDUYxV6kgiZVLjxQgjWCXC9FsakkNA3Qk5GhK
+X-Gm-Gg: AR+sD120gKkwDHyCRdPVldPhn4s/EIgKpKU9ty5C1/8xJRLkry9i/mY2C7CGRAW4lEl
+	hyzKRM2fIP7N3CP/flPp99so+wAM2LY5mBdSjVMIqpJYE6JNHwb/J0CcL7I9CdK7LNFU7y6EAVD
+	Wr/BYzMd5TUtnMqFXEDXuncO7AE+8fVDyafkNPh3UMYbPQ953Ouoef+/ofjGrIH6u3VF4YmzY39
+	eLDIvet219/pXWpgw3ACyZGP3e+QUrJXtEdSEAtjg9b5KRj5A6/a0xaM2zw/7mW/UTDDm/rtOlk
+	qXlMQdehX+RC0yuRox97Gm4UWZG5M4KTZ7bQKV/yaq7xyPt8dalC8g2+rHh8zo+R/KUrM5SeIv6
+	OW7EFIFcS82P54a03gmscsemPHYBLt73IvPxAc3G1DvEbOymw/vv2dC4RDsp8L8RBNjaNkV2Izn
+	7E8G6TQePMsrXr0AyDrnxAAL8EGh/tetYGLZ1RXlsKlks8tQ2kSaVD7OD2g6+zff8l1o44i/IrT
+	viEKwchvXQULgL4+ltLFai7XIt6asSNayUpBjaOHSQlEo9pvTUdfIQRTvew6h692sXmvg==
+X-Received: by 2002:a05:6000:400e:b0:47f:6f92:84aa with SMTP id ffacd0b85a97d-47fc82149c1mr2185466f8f.53.1785404078438;
+        Thu, 30 Jul 2026 02:34:38 -0700 (PDT)
+Received: from valmpani.fritz.box (cgn-195-14-216-95.nc.de. [195.14.216.95])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fc88d985csm4897793f8f.1.2026.07.30.02.34.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 02:34:37 -0700 (PDT)
+From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Breno Leitao <leitao@debian.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com
+Subject: [PATCH 0/2] configfs: fix use-after-free of symlink target racing with rmdir
+Date: Thu, 30 Jul 2026 11:30:23 +0200
+Message-ID: <20260730093435.195441-1-vasilisalmpanis@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cafd8af9-c6e9-4bf2-b496-23e796fbc9a6@linux.dev>
-In-Reply-To: <cafd8af9-c6e9-4bf2-b496-23e796fbc9a6@linux.dev>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 30 Jul 2026 11:33:07 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hWDKHXO5d-rgp_TMiS48fHY-cTxf5r5rGg2eBNpNtVig@mail.gmail.com>
-X-Gm-Features: AUfX_mxpk7wOb3Rn1IIPdkmSayC3zS-sp0NaL-oKcv7EWugBomcUesiy2CrmkiA
-Message-ID: <CAJZ5v0hWDKHXO5d-rgp_TMiS48fHY-cTxf5r5rGg2eBNpNtVig@mail.gmail.com>
-Subject: Re: [REGRESSION] thermal: per-zone hwmon names break Steam Deck fan control
-To: Matthew Schwartz <matthew.schwartz@linux.dev>
-Cc: regressions@lists.linux.dev, 
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, Linux PM <linux-pm@vger.kernel.org>, 
-	linux-hwmon@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+syzkaller reported a slab-use-after-free in config_item_get() when
+symlink(2) races with rmdir(2) of the symlink target:
 
-On Wed, Jul 29, 2026 at 10:50=E2=80=AFPM Matthew Schwartz
-<matthew.schwartz@linux.dev> wrote:
->
-> Hello,
->
-> After upgrading my Steam Deck OLED to a 7.2-rc kernel, the userspace fan =
-control daemon that I use stopped working. I bisected the regression to d63=
-23469bcfb ("thermal: hwmon: Register a hwmon device for each thermal zone")=
-.
->
-> Before this commit, the ACPI thermal-zone hwmon name was acpitz, while af=
-ter the change it is now acpitz_0.
->
-> The device profiles for fan control rely on the exact `acpitz` hwmon nami=
-ng like the below code snippet:
->
-> devices:
->   - hwmon_name: acpitz
->     nice_name: CPU
->     max_temp: 90
->     temp_hysteresis: 0
->     sensor_name: temp1
->
-> So now, the profile fails to load with:
->
-> fancontrol.py[40528]: Warning: hwmons not fully loaded, retrying...
-> fancontrol.py[40528]: Warning: hwmons not fully loaded, retrying...
-> fancontrol.py[40528]: Warning: hwmons not fully loaded, retrying...
-> fancontrol.py[40528]: Traceback (most recent call last):
-> fancontrol.py[40528]:   File "/usr/share/jupiter-fan-control/fancontrol.p=
-y", line 606, in <module>
-> fancontrol.py[40528]:     raise FileNotFoundError("Failed to load hwmons =
-after 10 attempts.")
-> fancontrol.py[40528]: FileNotFoundError: Failed to load hwmons after 10 a=
-ttempts.
->
-> Because initialization fails, the daemon never enters its fan-control loo=
-p or writes the requested fan target.
->
-> This change was also backported to Linux 7.1.5 as commit 996957016bc1, so=
- the regression is present there as well and has led to a userspace ABI reg=
-ression. I can look at accommodating the change on the userspace side, but =
-it still seemed worth reporting as a kernel regression.
->
-> Thanks,
-> Matt
->
-> #regzbot introduced: d6323469bcfbda91f0aa89b7b39ad45fe822ca5d
+  BUG: KASAN: slab-use-after-free in config_item_get+0x26/0x90
+   configfs_get_config_item fs/configfs/configfs_internal.h:127 [inline]
+   get_target fs/configfs/symlink.c:128 [inline]
+   configfs_symlink+0x4ab/0x1030 fs/configfs/symlink.c:185
 
-Thanks for the report!
+configfs_symlink() resolves the target with no locks, with the idea
+that a hashed dentry means a live config_item. configfs_rmdir() drops
+the last reference to the item before the dentry gets unhashed by
+d_delete() in vfs_rmdir(), so get_target() could take a reference on
+an already freed item.
 
-I think that commit d6323469bcfb will need to be reverted.
+Patch 2 fixes this by unhashing the dentry in configfs_remove_dir(),
+before the item can be freed.  Patch 1 fixes a second lifetime bug in
+the same path that the earlier unhashing makes easy to hit: an item
+reference does not pin the item's dentry, so create_link() must not
+reach the target's configfs_dirent through ->ci_dentry.  The patches
+must be applied in this order.
+
+Tested with the syzkaller reproducer, which no longer triggers either
+the KASAN report or the s_count warning.
+
+Vasileios Almpanis (2):
+  configfs: pin the symlink target's dirent instead of chasing
+    ->ci_dentry
+  configfs: unhash the dentry before dropping the item in rmdir
+
+ fs/configfs/dir.c     |  9 +++++++++
+ fs/configfs/symlink.c | 24 ++++++++++++++++++++----
+ 2 files changed, 29 insertions(+), 4 deletions(-)
+
+-- 
+2.47.3
+
