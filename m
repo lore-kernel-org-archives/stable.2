@@ -1,102 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92C623B0585;
-	Thu, 30 Jul 2026 05:27:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E06E31F942;
+	Thu, 30 Jul 2026 05:39:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785389257; cv=none; b=KSQmRW64AwEnZPXGjqaplQxVmG85TxTiFPSDXa9pw8iMCNwgSHsSmSPPkbkjz7Lbat4efNTvTD5sLt0DI/M0KBH9jhAai94//ZCKGqiAHlw5HLjpR4kCih5s89EhDubUEUXpscyJRSTgzfCGEgwqMospX/dsOuBkf0gbqGQMuXQ=
+	t=1785389978; cv=none; b=Fmsw1kXHUKQw7h4csna9N08VtQvY0bJqjIXT2GvKIiYzEMNsktBUC+rWxYCeBXAtv4xqeNB0pDzpB2R7qCnyA8w1/1x0BHciIwzx25O7OGk/7yy+iJEKiDQZPScTvdTaVxZHvb5Xd1vZPGmAFm4TKbnGQgV8o2BcYrpkptUqSfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785389257; c=relaxed/simple;
-	bh=wF6quXi3RPiJx9hQCANHZIG6+TXsCXZrirZl6rWYh54=;
-	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kOTscuUuqvhltqw3hH4xBh0rQhyNTP/i3RnsZQcgP/a0C4Wb3jgcqCVlJzv0BhCMAJLAOEt8czQUmZr2cWHJsO0Mj7L7v1qMRAeFGaL+lcwjDzKoPykV3UrCqsv0IAcYbZSykzX+W3rie8uDXPB9U9MY7oTE6wEubcRMxEqzKFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BlsuI0Mz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785389978; c=relaxed/simple;
+	bh=iejjyPrmNhE06apCLSgYfu9JilFFitAJr5pfimkOBTY=;
+	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type; b=s+NthQW3/+XW43lVc2ummelUCeoZULB3kY0onD2W+6Dmp3hUXJbdf8B02+07zytzpI/AYXxz1JjDMGpj4lCVF1n5vCLcJmkMCRUuiG2IyLD14ymMT5qcMMaB9waJK+zf7aBSrrF3J7o19K7ksI/iDF8+OV5hNZ8DEPHCHrct2Yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=RxkW9ESn; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BlsuI0Mz"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3A3961F00A3A;
-	Thu, 30 Jul 2026 05:27:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785389256;
-	bh=ysAWRofeXPZcJkultPkpVeKmZke1ylrpEMkqBGZFC1c=;
-	h=Date:Subject:From:To:Cc:In-Reply-To:References;
-	b=BlsuI0Mz8UilfQbxbvRbqymxXvmMjCpZdRhoFIEnZJw4FdVfrlfwaQX1BDY0144FE
-	 tL/3N2QhhtZlHsOH0hA20L+SNhXtk1DEAa/VujVw40jXaYckLwad3toKQl27ll+IOx
-	 uvMOhv8XmOpp5EmNC2AeD9s8ybeGdJI+UxSCcpUbE2+qPIHGNHoMaH11K1jGgxRQUA
-	 L8KP4Q2OHOymnReapwN9VAyV+ur3iAebmbjZfzjcPyjL4hpn/PZqudkGBQSshirwC7
-	 DoO/r9UuIzV+eowj5maSMaZbz6dchfE7siGnh4n442xKyXAYOb1MOz27p4g8vt0Dfw
-	 e/F5/YRt90z4A==
-Date: Wed, 29 Jul 2026 22:27:35 -0700
-Subject: [PATCH 6/6] xfs: fix the rtrmap and rtrefcount _maxlevels_ondisk
- functions
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: djwong@kernel.org, hch@lst.de, cem@kernel.org
-Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Message-ID: <178538913008.4070956.1052714188976376785.stgit@frogsfrogsfrogs>
-In-Reply-To: <178538912844.4070956.17029198681620903700.stgit@frogsfrogsfrogs>
-References: <178538912844.4070956.17029198681620903700.stgit@frogsfrogsfrogs>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="RxkW9ESn"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 66U5dW311970765, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1785389972; bh=oAuAXm/tIjqUC+juPvjyJJBAbcHsMFfVRTRXVtrFo58=;
+	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type;
+	b=RxkW9ESnnBS7YSLM6ingnToYfpgg66XQjgQeCKYALlbkdz77jLbbnCkcCftGI0Fpy
+	 k30eq6frH4i+ovmGTMdp7UPnutNFk1B19j3mtKZ/IYVt40H3BUMSREzTDiuf8Ubizr
+	 YpE9ez9AKAw536OjlPFxMI9/0B8eGealXpCwwXbMZk5sYs5vRdfYocvC36LdiEKIQ3
+	 t0+XzUFcqgLyYfA/JdPmn5RDfrwmOBN6t1bbkqjRNXXl3jO+Q0aJDdqEkpGfungyMo
+	 vVfLokGS8mVuJmu7l0sjbp48FSVWU6jbEEm4Vb+zzbc31ku/Mgrh8NXVYOAieBxVOL
+	 I4/OfIXi+i+5Q==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 66U5dW311970765
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 30 Jul 2026 13:39:32 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Thu, 30 Jul 2026 13:39:32 +0800
+Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Thu, 30 Jul 2026 13:39:32 +0800
+Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS03.realtek.com.tw
+ (10.21.1.53) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17 via Frontend
+ Transport; Thu, 30 Jul 2026 13:39:27 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Abdun Nihaal <nihaal@cse.iitm.ac.in>, <pkshih@realtek.com>
+CC: Abdun Nihaal <nihaal@cse.iitm.ac.in>, <linux-wireless@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH] wifi: rtw88: Fix potential memory leak in rtw_txq_push_skb()
+In-Reply-To: <20260727064223.61836-1-nihaal@cse.iitm.ac.in>
+References: <20260727064223.61836-1-nihaal@cse.iitm.ac.in>
+Message-ID: <e7f7b2c1-3469-487e-8968-0d7b3e29b2ab@RTKEXHMBS03.realtek.com.tw>
+Date: Thu, 30 Jul 2026 13:39:27 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-From: Darrick J. Wong <djwong@kernel.org>
+Abdun Nihaal <nihaal@cse.iitm.ac.in> wrote:
 
-The _maxlevels_ondisk functions are used to compute the size of
-in-memory btree cursors for each btree type.  Unfortunately, LOLLM
-noticed that the rtrmap and rtrefcount versions of these functions
-forget to account for the inode root, which means that we could access
-beyond the end of the cursor given a sufficiently large btree.  Fix
-this.
+> The skb passed to the rtw_hci_tx_write() is expected to be freed when
+> the function fails, but the error path in rtw_txq_push_skb() does not
+> free the skb before returning. This can lead to a memory leak in
+> rtw_txq_push() where a dequeued skb is passed to rtw_txq_push_skb().
+> 
+> Fixes: aaab5d0e6737 ("rtw88: kick off TX packets once for higher efficiency")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-Cc: <stable@vger.kernel.org> # v6.14
-Fixes: 9abe03a0e4f978 ("xfs: introduce realtime refcount btree ondisk definitions")
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
+1 patch(es) applied to rtw-next branch of rtw.git, thanks.
+
+9f2948010764 wifi: rtw88: Fix potential memory leak in rtw_txq_push_skb()
+
 ---
- fs/xfs/libxfs/xfs_rtrefcount_btree.c |    7 +++++--
- fs/xfs/libxfs/xfs_rtrmap_btree.c     |    4 +++-
- 2 files changed, 8 insertions(+), 3 deletions(-)
-
-
-diff --git a/fs/xfs/libxfs/xfs_rtrefcount_btree.c b/fs/xfs/libxfs/xfs_rtrefcount_btree.c
-index f27b80a199ba2e..971cb27400b042 100644
---- a/fs/xfs/libxfs/xfs_rtrefcount_btree.c
-+++ b/fs/xfs/libxfs/xfs_rtrefcount_btree.c
-@@ -489,8 +489,11 @@ xfs_rtrefcountbt_maxlevels_ondisk(void)
- 	minrecs[0] = xfs_rtrefcountbt_block_maxrecs(blocklen, true) / 2;
- 	minrecs[1] = xfs_rtrefcountbt_block_maxrecs(blocklen, false) / 2;
- 
--	/* We need at most one record for every block in an rt group. */
--	return xfs_btree_compute_maxlevels(minrecs, XFS_MAX_RGBLOCKS);
-+	/*
-+	 * We need at most one record for every block in an rt group, and
-+	 * one extra level for the inode root.
-+	 */
-+	return xfs_btree_compute_maxlevels(minrecs, XFS_MAX_RGBLOCKS) + 1;
- }
- 
- int __init
-diff --git a/fs/xfs/libxfs/xfs_rtrmap_btree.c b/fs/xfs/libxfs/xfs_rtrmap_btree.c
-index c264bc5651c0a6..0cb2113d5b4045 100644
---- a/fs/xfs/libxfs/xfs_rtrmap_btree.c
-+++ b/fs/xfs/libxfs/xfs_rtrmap_btree.c
-@@ -716,10 +716,12 @@ xfs_rtrmapbt_maxlevels_ondisk(void)
- 	 * happens, which means that we must compute the max height based on
- 	 * what the btree will look like if it consumes almost all the blocks
- 	 * in the data device due to maximal sharing factor.
-+	 *
-+	 * Add one extra level for the inode root.
- 	 */
- 	max_dblocks = -1U; /* max ag count */
- 	max_dblocks *= XFS_MAX_CRC_AG_BLOCKS;
--	return xfs_btree_space_to_height(minrecs, max_dblocks);
-+	return xfs_btree_space_to_height(minrecs, max_dblocks) + 1;
- }
- 
- int __init
+https://github.com/pkshih/rtw.git
 
