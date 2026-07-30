@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF15426408
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:15:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16879426689
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:15:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785413756; cv=none; b=FSAdh8C2+WxMT1R4QUFUsEgJNHDuBY8MBeLcti5Prkab7ZsGxnTam1VyoNuBX5YW0PHEtLLhmUl9lMiLSgxNRCpACUUsYG8FFYz/YrjXazdzdgR5aGJw6+lmDMDdLbec6PGci6XYtJIXnmRIqS3ndC4T6QrWQSqHOinj8QF6JSk=
+	t=1785413756; cv=none; b=lsQhA2UeLHD8+UsopgyrM84fbpZAa8fg3jXhXFF+HblSyDM975Ke2Vdf2iz70icyMpKRUc48gdj+iRZe+fNKTVC1Pp7uY8AManTGWmIi0KNa1hJeW+X4WbQn1uw1q6Z8ThyH898nv+pVl0NXYF1nDa+eKMkB8+DivAH40TNaYys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785413756; c=relaxed/simple;
-	bh=vr7we9Ao01CySF2kU7HR6+8Kq5/BXQCVd9Xh/ON62Jo=;
+	bh=tPukZg+77zRrSQajjVAesPNPCzsg05Mah5zclWga4g8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bscYi3ejQaay8NS0+d0eauERZwYBXXVEkfVqBujPHbuechrxFcuqOUF1gsE8ejgoFxppa54YfXvfULZjFqPh3DPTWEw4gWPgnsI2s1vjV3KDqsBet8xoKnc8lP3lXwcrDfuxBjIwahLBCD63Qt8SLCOBG1rhH28jE1iNGFs6UEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d6i0YajJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=s4ZzZrrCUhjfY+LMb9C+GNOrE0Q5m/IOL0sNfYX9NSyimNLqRyqKWsE1WkdktzodXpR6cZWfxC2LEHqJaRqf0k5twP5A9Q0CbZGDvojt9RTqukWLfieNV5MJD+KOl1G6lgjO5zSdA0vSkqfjJV2qgj6EqoMb7om11kQoGsbd6Ac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z4WBQuck; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d6i0YajJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F213E1F00A3E;
-	Thu, 30 Jul 2026 12:15:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z4WBQuck"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A60D1F00A3A;
+	Thu, 30 Jul 2026 12:15:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785413747;
-	bh=69fhbFiwCaRrmTRzDhQQchJ53kjYsL0OG+BtxcpDVS4=;
+	s=k20260515; t=1785413737;
+	bh=/oWWySjx2BcHeoiWW0WdaivF4hrAov1HJhddvWk5lzI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d6i0YajJsVnEPwenHMe4TrANCIIw6jviWFYXMoNvy57n5emHfilNkBIXRA7HZRy+5
-	 xZNt2z/byDw76ng0M5MxQbFxCsjW/Tlp5rDcHdQi5Z42LUdXZ95hEu1yhfK4+0vebH
-	 4soCnGb8lWyg7MVbMR4e2gl9umvwtWJ9aoY9JUnTNGZr5nlxtljXzZrJUwu/8iJXQ5
-	 nqUM+qI3aWD+4xfiXUAe2LMWZr4F/l+y+fPwQrdHBlTWaVJRS0AEIWjo62P75czzC3
-	 3SFmT2LsuqZpQmjIO2yUG2ecAzB48vKyEc/N4UWeOb36RwDPd/w7YUA9Bbvt800BoK
-	 cY6CB7cq54TvA==
+	b=Z4WBQuckA1mBkHdmaFdZ3ybrMNFWukcp/igQhMukHotuz+ElBKsukH3a7yMlj9e3A
+	 PAfH5mHpQdYT0EOKm2DBNuT+xkxJ7niwDvS1AoYQLFCqiRHkU2+f8pHx/Zxj++Ld+D
+	 ACtqJCdByHEqWgKqfl7Ts7IAY9Me1jLfa+uwhQTlpA+KTBQqGg54QFgCMF8xHsYSau
+	 kKNSh4vS1fKmpbUsqUwnvUvCTwVHpVpDeCLjfwX7H8aYbkbe5Gj/3SsZXtQpaN8Xph
+	 N73EJi71whchuqbejqCJU4Sb+kHcNn2SZqJNYTUwiRZo33JD3ahjf3+poLQGrNTBRq
+	 Nrb11j1IR6+7w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Cen Zhang <zzzccc427@gmail.com>,
-	stable <stable@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: David Matlack <dmatlack@google.com>,
+	Isaku Yamahata <isaku.yamahata@intel.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] usb: gadget: f_tcm: synchronize delayed set_alt with teardown
-Date: Thu, 30 Jul 2026 08:15:45 -0400
-Message-ID: <20260730121545.2210116-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] KVM: x86/mmu: Rename __direct_map() to direct_map()
+Date: Thu, 30 Jul 2026 08:15:34 -0400
+Message-ID: <20260730121535.2208491-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072701-nastily-levitator-a210@gregkh>
-References: <2026072701-nastily-levitator-a210@gregkh>
+In-Reply-To: <2026072556-gem-immunize-5c2f@gregkh>
+References: <2026072556-gem-immunize-5c2f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,388 +46,216 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Cen Zhang <zzzccc427@gmail.com>
+From: David Matlack <dmatlack@google.com>
 
-[ Upstream commit 79e2d75725c85607f8a9d87ae9cace62a19f767d ]
+[ Upstream commit 6c882ef4fc7bd99b67ad152e75428b669281c521 ]
 
-The f_tcm set_alt() path defers endpoint setup to a work item and
-completes the delayed status response from process context. The delayed
-work uses f_tcm private state and may complete the setup request after
-disconnect or function teardown has already moved on.
+Rename __direct_map() to direct_map() since the leading underscores are
+unnecessary. This also makes the page fault handler names more
+consistent: kvm_tdp_mmu_page_fault() calls kvm_tdp_mmu_map() and
+direct_page_fault() calls direct_map().
 
-Cancel and drain the delayed set_alt work when the function is unbound or
-freed. For disable paths, which are reached under the composite device
-lock, use a small state machine and a non-sleeping cancellation path
-instead of cancel_work_sync(). If the work is already running, mark it
-cancelled and let the worker own the cleanup; otherwise tcm_disable() can
-cancel the queued work and clean up immediately.
+Opportunistically make some trivial cleanups to comments that had to be
+modified anyway since they mentioned __direct_map(). Specifically, use
+"()" when referring to functions, and include kvm_tdp_mmu_map() among
+the various callers of disallowed_hugepage_adjust().
 
-Also serialize the final delayed-status completion with the cancellation
-check while holding the composite device lock. This prevents a disconnect
-from clearing delayed_status while the worker is about to complete the
-control request.
+No functional change intended.
 
-Validation reproduced this kernel report:
-BUG: KASAN: slab-use-after-free in tcm_delayed_set_alt+0x6c/0xef0
-
-Call Trace:
- <TASK>
- dump_stack_lvl+0x66/0xa0
- print_report+0xce/0x630
- ? tcm_delayed_set_alt+0x6c/0xef0
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __virt_addr_valid+0x188/0x320
- ? tcm_delayed_set_alt+0x6c/0xef0
- kasan_report+0xe0/0x110
- ? tcm_delayed_set_alt+0x6c/0xef0
- tcm_delayed_set_alt+0x6c/0xef0
- ? __pfx_tcm_delayed_set_alt+0x10/0x10
- ? process_one_work+0x4cb/0xb90
- ? rcu_is_watching+0x20/0x50
- ? tcm_delayed_set_alt+0x9/0xef0
- process_one_work+0x4d7/0xb90
- ? __pfx_process_one_work+0x10/0x10
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __list_add_valid_or_report+0x37/0xf0
- ? __pfx_tcm_delayed_set_alt+0x10/0x10
- ? srso_alias_return_thunk+0x5/0xfbef5
- worker_thread+0x2d8/0x570
- ? __pfx_worker_thread+0x10/0x10
- kthread+0x1ad/0x1f0
- ? __pfx_kthread+0x10/0x10
- ret_from_fork+0x3c9/0x540
- ? __pfx_ret_from_fork+0x10/0x10
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __switch_to+0x2e9/0x730
- ? __pfx_kthread+0x10/0x10
- ret_from_fork_asm+0x1a/0x30
- </TASK>
-
-Allocated by task 544:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- __kasan_kmalloc+0x8f/0xa0
- tcm_alloc+0x68/0x180
- usb_get_function+0x36/0x60
- config_usb_cfg_link+0x125/0x1b0
- configfs_symlink+0x322/0x890
- vfs_symlink+0xc2/0x270
- filename_symlinkat+0x295/0x2f0
- __x64_sys_symlinkat+0x62/0x90
- do_syscall_64+0x115/0x6a0
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 661:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- kasan_save_free_info+0x3b/0x60
- __kasan_slab_free+0x43/0x70
- kfree+0x2f9/0x530
- config_usb_cfg_unlink+0x173/0x1e0
- configfs_unlink+0x1fa/0x340
- vfs_unlink+0x15c/0x510
- filename_unlinkat+0x2ba/0x450
- __x64_sys_unlinkat+0x63/0x90
- do_syscall_64+0x115/0x6a0
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Fixes: c52661d60f63 ("usb-gadget: Initial merge of target module for UASP + BOT")
-Cc: stable <stable@kernel.org>
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Link: https://patch.msgid.link/20260627104153.3822495-1-zzzccc427@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: David Matlack <dmatlack@google.com>
+Reviewed-by: Isaku Yamahata <isaku.yamahata@intel.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Message-Id: <20220921173546.2674386-11-dmatlack@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Stable-dep-of: 2abd5287f083 ("KVM: x86: Check for invalid/obsolete root *after* making MMU pages available")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/gadget/function/f_tcm.c | 192 ++++++++++++++++++++++++----
- drivers/usb/gadget/function/tcm.h   |  13 ++
- 2 files changed, 177 insertions(+), 28 deletions(-)
+ arch/x86/kvm/mmu/mmu.c          | 61 ++++++++++++++++-----------------
+ arch/x86/kvm/mmu/mmu_internal.h |  3 +-
+ arch/x86/kvm/mmu/paging_tmpl.h  |  6 +---
+ 3 files changed, 33 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/usb/gadget/function/f_tcm.c b/drivers/usb/gadget/function/f_tcm.c
-index 7b27f8082ace66..5753c83f557846 100644
---- a/drivers/usb/gadget/function/f_tcm.c
-+++ b/drivers/usb/gadget/function/f_tcm.c
-@@ -2361,31 +2361,158 @@ static int tcm_bind(struct usb_configuration *c, struct usb_function *f)
- 	return -ENOTSUPP;
- }
- 
--struct guas_setup_wq {
--	struct work_struct work;
--	struct f_uas *fu;
--	unsigned int alt;
--};
-+static void tcm_cleanup_old_alt(struct f_uas *fu)
-+{
-+	if (fu->flags & USBG_IS_UAS)
-+		uasp_cleanup_old_alt(fu);
-+	else if (fu->flags & USBG_IS_BOT)
-+		bot_cleanup_old_alt(fu);
-+	fu->flags = 0;
-+}
-+
-+static void tcm_delayed_set_alt_done(struct f_uas *fu)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
-+	fu->delayed_set_alt_cancel = false;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+}
-+
-+static bool tcm_delayed_set_alt_cancelled(struct f_uas *fu)
-+{
-+	bool cancelled;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	cancelled = fu->delayed_set_alt_cancel;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+
-+	return cancelled;
-+}
-+
-+static bool tcm_complete_delayed_status(struct f_uas *fu)
-+{
-+	struct usb_composite_dev *cdev = fu->function.config->cdev;
-+	struct usb_request *req = cdev->req;
-+	unsigned long cdev_flags;
-+	bool cancelled;
-+	int ret;
-+
-+	spin_lock_irqsave(&cdev->lock, cdev_flags);
-+	spin_lock(&fu->delayed_set_alt_lock);
-+	cancelled = fu->delayed_set_alt_cancel;
-+	if (!cancelled) {
-+		fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
-+		fu->delayed_set_alt_cancel = false;
-+	}
-+	spin_unlock(&fu->delayed_set_alt_lock);
-+
-+	if (cancelled) {
-+		spin_unlock_irqrestore(&cdev->lock, cdev_flags);
-+		return false;
-+	}
-+
-+	if (cdev->delayed_status == 0) {
-+		WARN(cdev, "%s: Unexpected call\n", __func__);
-+	} else if (--cdev->delayed_status == 0) {
-+		req->length = 0;
-+		req->context = cdev;
-+		ret = usb_ep_queue(cdev->gadget->ep0, req, GFP_ATOMIC);
-+		if (ret == 0) {
-+			cdev->setup_pending = true;
-+		} else {
-+			req->status = 0;
-+			req->complete(cdev->gadget->ep0, req);
-+		}
-+	}
-+
-+	spin_unlock_irqrestore(&cdev->lock, cdev_flags);
-+
-+	return true;
-+}
-+
-+static bool tcm_cancel_delayed_set_alt(struct f_uas *fu)
-+{
-+	bool cleanup = false;
-+	bool cancel = false;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	switch (fu->delayed_set_alt_state) {
-+	case USBG_DELAYED_SET_ALT_IDLE:
-+		cleanup = true;
-+		break;
-+	case USBG_DELAYED_SET_ALT_QUEUED:
-+	case USBG_DELAYED_SET_ALT_RUNNING:
-+		fu->delayed_set_alt_cancel = true;
-+		cancel = true;
-+		break;
-+	}
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+
-+	if (cancel && cancel_work(&fu->delayed_set_alt)) {
-+		spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+		if (fu->delayed_set_alt_state == USBG_DELAYED_SET_ALT_QUEUED) {
-+			fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
-+			fu->delayed_set_alt_cancel = false;
-+			cleanup = true;
-+		}
-+		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+	}
-+
-+	return cleanup;
-+}
-+
-+static void tcm_cancel_delayed_set_alt_sync(struct f_uas *fu)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_IDLE)
-+		fu->delayed_set_alt_cancel = true;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+
-+	cancel_work_sync(&fu->delayed_set_alt);
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
-+	fu->delayed_set_alt_cancel = false;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+}
- 
- static void tcm_delayed_set_alt(struct work_struct *wq)
- {
--	struct guas_setup_wq *work = container_of(wq, struct guas_setup_wq,
--			work);
--	struct f_uas *fu = work->fu;
--	int alt = work->alt;
-+	struct f_uas *fu = container_of(wq, struct f_uas, delayed_set_alt);
-+	unsigned long flags;
-+	unsigned int alt;
- 
--	kfree(work);
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_QUEUED) {
-+		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+		return;
-+	}
-+	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_RUNNING;
-+	alt = fu->delayed_alt;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
- 
--	if (fu->flags & USBG_IS_BOT)
--		bot_cleanup_old_alt(fu);
--	if (fu->flags & USBG_IS_UAS)
--		uasp_cleanup_old_alt(fu);
-+	tcm_cleanup_old_alt(fu);
-+
-+	if (tcm_delayed_set_alt_cancelled(fu))
-+		goto out_done;
- 
- 	if (alt == USB_G_ALT_INT_BBB)
- 		bot_set_alt(fu);
- 	else if (alt == USB_G_ALT_INT_UAS)
- 		uasp_set_alt(fu);
--	usb_composite_setup_continue(fu->function.config->cdev);
-+
-+	if (tcm_complete_delayed_status(fu))
-+		return;
-+
-+	tcm_cleanup_old_alt(fu);
-+out_done:
-+	tcm_delayed_set_alt_done(fu);
- }
- 
- static int tcm_get_alt(struct usb_function *f, unsigned intf)
-@@ -2411,15 +2538,20 @@ static int tcm_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
- 		return -EOPNOTSUPP;
- 
- 	if ((alt == USB_G_ALT_INT_BBB) || (alt == USB_G_ALT_INT_UAS)) {
--		struct guas_setup_wq *work;
-+		unsigned long flags;
- 
--		work = kmalloc(sizeof(*work), GFP_ATOMIC);
--		if (!work)
--			return -ENOMEM;
--		INIT_WORK(&work->work, tcm_delayed_set_alt);
--		work->fu = fu;
--		work->alt = alt;
--		schedule_work(&work->work);
-+		spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+		if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_IDLE) {
-+			spin_unlock_irqrestore(&fu->delayed_set_alt_lock,
-+					       flags);
-+			return -EBUSY;
-+		}
-+		fu->delayed_alt = alt;
-+		fu->delayed_set_alt_cancel = false;
-+		fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_QUEUED;
-+		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+
-+		schedule_work(&fu->delayed_set_alt);
- 		return USB_GADGET_DELAYED_STATUS;
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 7785da8f0ad339..945cf6a7562b72 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -3102,11 +3102,11 @@ void disallowed_hugepage_adjust(struct kvm_page_fault *fault, u64 spte, int cur_
+ 	    is_shadow_present_pte(spte) &&
+ 	    !is_large_pte(spte)) {
+ 		/*
+-		 * A small SPTE exists for this pfn, but FNAME(fetch)
+-		 * and __direct_map would like to create a large PTE
+-		 * instead: just force them to go down another level,
+-		 * patching back for them into pfn the next 9 bits of
+-		 * the address.
++		 * A small SPTE exists for this pfn, but FNAME(fetch),
++		 * direct_map(), or kvm_tdp_mmu_map() would like to create a
++		 * large PTE instead: just force them to go down another level,
++		 * patching back for them into pfn the next 9 bits of the
++		 * address.
+ 		 */
+ 		u64 page_mask = KVM_PAGES_PER_HPAGE(cur_level) -
+ 				KVM_PAGES_PER_HPAGE(cur_level - 1);
+@@ -3115,7 +3115,7 @@ void disallowed_hugepage_adjust(struct kvm_page_fault *fault, u64 spte, int cur_
  	}
- 	return -EOPNOTSUPP;
-@@ -2429,11 +2561,8 @@ static void tcm_disable(struct usb_function *f)
- {
- 	struct f_uas *fu = to_f_uas(f);
- 
--	if (fu->flags & USBG_IS_UAS)
--		uasp_cleanup_old_alt(fu);
--	else if (fu->flags & USBG_IS_BOT)
--		bot_cleanup_old_alt(fu);
--	fu->flags = 0;
-+	if (tcm_cancel_delayed_set_alt(fu))
-+		tcm_cleanup_old_alt(fu);
  }
  
- static int tcm_setup(struct usb_function *f,
-@@ -2581,11 +2710,16 @@ static void tcm_free(struct usb_function *f)
+-static int __direct_map(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault)
++static int direct_map(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault)
  {
- 	struct f_uas *tcm = to_f_uas(f);
+ 	struct kvm_shadow_walk_iterator it;
+ 	struct kvm_mmu_page *sp;
+@@ -4157,6 +4157,9 @@ static int kvm_faultin_pfn(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault)
+ 	struct kvm_memory_slot *slot = fault->slot;
+ 	bool async;
  
-+	tcm_cancel_delayed_set_alt_sync(tcm);
- 	kfree(tcm);
++	fault->mmu_seq = vcpu->kvm->mmu_invalidate_seq;
++	smp_rmb();
++
+ 	/*
+ 	 * Retry the page fault if the gfn hit a memslot that is being deleted
+ 	 * or moved.  This ensures any existing SPTEs for the old memslot will
+@@ -4213,8 +4216,7 @@ static int kvm_faultin_pfn(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault)
+  * root was invalidated by a memslot update or a relevant mmu_notifier fired.
+  */
+ static bool is_page_fault_stale(struct kvm_vcpu *vcpu,
+-				struct kvm_page_fault *fault,
+-				unsigned long mmu_seq)
++				struct kvm_page_fault *fault)
+ {
+ 	struct kvm_mmu_page *sp = to_shadow_page(vcpu->arch.mmu->root.hpa);
+ 
+@@ -4234,14 +4236,13 @@ static bool is_page_fault_stale(struct kvm_vcpu *vcpu,
+ 		return true;
+ 
+ 	return fault->slot &&
+-	       mmu_invalidate_retry_hva(vcpu->kvm, mmu_seq, fault->hva);
++	       mmu_invalidate_retry_hva(vcpu->kvm, fault->mmu_seq, fault->hva);
  }
  
- static void tcm_unbind(struct usb_configuration *c, struct usb_function *f)
+ static int direct_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault)
  {
-+	struct f_uas *fu = to_f_uas(f);
+ 	bool is_tdp_mmu_fault = is_tdp_mmu(vcpu->arch.mmu);
+ 
+-	unsigned long mmu_seq;
+ 	kvm_pfn_t orig_pfn;
+ 	int r;
+ 
+@@ -4259,43 +4260,41 @@ static int direct_page_fault(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
+ 	if (r)
+ 		return r;
+ 
+-	mmu_seq = vcpu->kvm->mmu_invalidate_seq;
+-	smp_rmb();
+-
+ 	r = kvm_faultin_pfn(vcpu, fault);
+ 	if (r != RET_PF_CONTINUE)
+ 		return r;
+-
+ 	r = handle_abnormal_pfn(vcpu, fault, ACC_ALL);
+ 	if (r != RET_PF_CONTINUE)
+ 		return r;
+ 
+ 	orig_pfn = fault->pfn;
+ 
++	if (is_tdp_mmu_fault) {
++		r = RET_PF_RETRY;
++		read_lock(&vcpu->kvm->mmu_lock);
 +
-+	tcm_cancel_delayed_set_alt_sync(fu);
-+	tcm_cleanup_old_alt(fu);
- 	usb_free_all_descriptors(f);
++		if (!is_page_fault_stale(vcpu, fault))
++			r = kvm_tdp_mmu_map(vcpu, fault);
++
++		read_unlock(&vcpu->kvm->mmu_lock);
++		kvm_release_pfn_clean(orig_pfn);
++		return r;
++	}
++
+ 	r = RET_PF_RETRY;
++	write_lock(&vcpu->kvm->mmu_lock);
+ 
+-	if (is_tdp_mmu_fault)
+-		read_lock(&vcpu->kvm->mmu_lock);
+-	else
+-		write_lock(&vcpu->kvm->mmu_lock);
++	if (is_page_fault_stale(vcpu, fault))
++		goto out_unlock;
+ 
+-	if (is_page_fault_stale(vcpu, fault, mmu_seq))
++	r = make_mmu_pages_available(vcpu);
++	if (r)
+ 		goto out_unlock;
+ 
+-	if (is_tdp_mmu_fault) {
+-		r = kvm_tdp_mmu_map(vcpu, fault);
+-	} else {
+-		r = make_mmu_pages_available(vcpu);
+-		if (r)
+-			goto out_unlock;
+-		r = __direct_map(vcpu, fault);
+-	}
++	r = direct_map(vcpu, fault);
+ 
+ out_unlock:
+-	if (is_tdp_mmu_fault)
+-		read_unlock(&vcpu->kvm->mmu_lock);
+-	else
+-		write_unlock(&vcpu->kvm->mmu_lock);
++	write_unlock(&vcpu->kvm->mmu_lock);
+ 	kvm_release_pfn_clean(orig_pfn);
+ 	return r;
  }
+diff --git a/arch/x86/kvm/mmu/mmu_internal.h b/arch/x86/kvm/mmu/mmu_internal.h
+index 5e4be3bb3624ce..009024d421831a 100644
+--- a/arch/x86/kvm/mmu/mmu_internal.h
++++ b/arch/x86/kvm/mmu/mmu_internal.h
+@@ -197,7 +197,7 @@ struct kvm_page_fault {
  
-@@ -2618,6 +2752,8 @@ static struct usb_function *tcm_alloc(struct usb_function_instance *fi)
- 	fu->function.disable = tcm_disable;
- 	fu->function.free_func = tcm_free;
- 	fu->tpg = tpg_instances[i].tpg;
-+	INIT_WORK(&fu->delayed_set_alt, tcm_delayed_set_alt);
-+	spin_lock_init(&fu->delayed_set_alt_lock);
+ 	/*
+ 	 * Maximum page size that can be created for this fault; input to
+-	 * FNAME(fetch), __direct_map and kvm_tdp_mmu_map.
++	 * FNAME(fetch), direct_map() and kvm_tdp_mmu_map().
+ 	 */
+ 	u8 max_level;
  
- 	hash_init(fu->stream_hash);
- 	mutex_unlock(&tpg_instances_lock);
-diff --git a/drivers/usb/gadget/function/tcm.h b/drivers/usb/gadget/function/tcm.h
-index 009974d81d66bb..e1d5a939161273 100644
---- a/drivers/usb/gadget/function/tcm.h
-+++ b/drivers/usb/gadget/function/tcm.h
-@@ -3,6 +3,7 @@
- #define __TARGET_USB_GADGET_H__
+@@ -220,6 +220,7 @@ struct kvm_page_fault {
+ 	struct kvm_memory_slot *slot;
  
- #include <linux/kref.h>
-+#include <linux/spinlock.h>
- /* #include <linux/usb/uas.h> */
- #include <linux/hashtable.h>
- #include <linux/usb/composite.h>
-@@ -29,6 +30,12 @@ enum {
+ 	/* Outputs of kvm_faultin_pfn.  */
++	unsigned long mmu_seq;
+ 	kvm_pfn_t pfn;
+ 	hva_t hva;
+ 	bool map_writable;
+diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
+index 1c7d73b8081c60..8d1ab32ee5f9e0 100644
+--- a/arch/x86/kvm/mmu/paging_tmpl.h
++++ b/arch/x86/kvm/mmu/paging_tmpl.h
+@@ -792,7 +792,6 @@ static int FNAME(page_fault)(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
+ 	struct guest_walker walker;
+ 	kvm_pfn_t orig_pfn;
+ 	int r;
+-	unsigned long mmu_seq;
+ 	bool is_self_change_mapping;
  
- #define USB_G_DEFAULT_SESSION_TAGS	USBG_NUM_CMDS
+ 	pgprintk("%s: addr %lx err %x\n", __func__, fault->addr, fault->error_code);
+@@ -837,9 +836,6 @@ static int FNAME(page_fault)(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
+ 	else
+ 		fault->max_level = walker.level;
  
-+enum {
-+	USBG_DELAYED_SET_ALT_IDLE = 0,
-+	USBG_DELAYED_SET_ALT_QUEUED,
-+	USBG_DELAYED_SET_ALT_RUNNING,
-+};
-+
- struct tcm_usbg_nexus {
- 	struct se_session *tvn_se_sess;
- };
-@@ -132,6 +139,12 @@ struct f_uas {
- #define USBG_BOT_CMD_PEND	(1 << 4)
- #define USBG_BOT_WEDGED		(1 << 5)
+-	mmu_seq = vcpu->kvm->mmu_invalidate_seq;
+-	smp_rmb();
+-
+ 	r = kvm_faultin_pfn(vcpu, fault);
+ 	if (r != RET_PF_CONTINUE)
+ 		return r;
+@@ -872,7 +868,7 @@ static int FNAME(page_fault)(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
+ 	r = RET_PF_RETRY;
+ 	write_lock(&vcpu->kvm->mmu_lock);
  
-+	struct work_struct	delayed_set_alt;
-+	spinlock_t		delayed_set_alt_lock; /* protects delayed_set_alt_* */
-+	unsigned int		delayed_alt;
-+	unsigned int		delayed_set_alt_state;
-+	bool			delayed_set_alt_cancel;
-+
- 	struct usbg_cdb		cmd[USBG_NUM_CMDS];
- 	struct usb_ep		*ep_in;
- 	struct usb_ep		*ep_out;
+-	if (is_page_fault_stale(vcpu, fault, mmu_seq))
++	if (is_page_fault_stale(vcpu, fault))
+ 		goto out_unlock;
+ 
+ 	r = make_mmu_pages_available(vcpu);
 -- 
 2.53.0
 
