@@ -1,78 +1,82 @@
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C8944CF44
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 19:39:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0025448987E
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 19:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785440385; cv=none; b=D+VKXwEZd/qPHA3JbRb4iysADejarIIen5BBFGzTFZ3gaIWEMspODmVzrdddU7N+lUvr0Bgzu5wEmmhejjyxPGRFzxF4OYAVw6FUJV8I3L53lC5YzD6mGY6yqEfQtCWJjYU0fCOCAr5JyVd18IN6rSSHIlZeethVRzzuut0ocdc=
+	t=1785440836; cv=none; b=c4k0uxbgBQUOpXYHAx+S4VuVrDJYvTzfGquc6AkEe8MXlmK/c+m7uMYw/EL7VKcOUX7vg8cv5wvHfHr0qXtWNqxeC6cu0vG6wpx5RxPIsmtFRc7sURPjwGwvL2LlkE5RDqtnuL7+zcUSgFuAMKXEV8urdB0F1a5yQLKQEEU0b2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785440385; c=relaxed/simple;
-	bh=Xek6nAcAxHFWtjTAXAbgJUByFpoNIJp1L8Sni4LGBl4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JueP7O2wKqIFFM+PTAUCrTbF16Ljm8fhIJ+xjVphXaHf8c1t0fhE+qT34K8XXaFF9x8K2PzuYwiMtgrL5aLInxLd8USUI2BsQB/ts0yapb/RThCntj0eI2cMRgiWlxrBkhbUQzLD9nLvTE9Ju2MjXDYLpLHHYp9uilmu38jpD7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CtdAdN4/; arc=none smtp.client-ip=209.85.219.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785440836; c=relaxed/simple;
+	bh=nXixH6nt2XfYK/dQ76AFpkMMR6fiDWnJarV9i2ZM8gg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dzWSEsEOjvCGDeXgZ7A/UY8irrD/pR6L8XNTeFUz2IOCz5fe+oBVxUYg/qzM1qj4piKqPuTOgrgkbBlcb+ETyrfCNhIIvm3luS4GMfUrlGOV+nI0WYzBx5RsdvfJv5qDREUtu6bfQ4w1JGFZWES5Q+TRhW3EBUdk6ajvRdfF1c4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=juliacomputing.com; spf=pass smtp.mailfrom=juliahub.com; dkim=pass (2048-bit key) header.d=juliacomputing.com header.i=@juliacomputing.com header.b=iJ5qtCcn; arc=none smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=juliacomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=juliahub.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CtdAdN4/"
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-8efcfdb2b43so2152206d6.3
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:39:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=juliacomputing.com header.i=@juliacomputing.com header.b="iJ5qtCcn"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-92e55b62640so13992485a.0
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:47:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785440382; x=1786045182; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q6CySGkLA59m8l/gGJ5sKhCAFzbLaQDYRMPErxTdJ2I=;
-        b=CtdAdN4/GfEdLyg43GhFfgy0K1fzVoIHwwWAB5aqigR1jq3GVpYqd8my8kiv7ktNB+
-         gt6TlZY4T2ms0cDE+hf+La8Dwjy24P95xh9i/Q70TK9lxaUxETs35EWeTbC1yVGew40b
-         aPEd8hJv+tbqZKSKK9flzGPuuMK0z6jYvkDXvwTqCa6d6smGPhkrAn49I1WCqrOT+P6z
-         /M34DufKAoM0HE7/476ni7XXSm8JLQ9t25Eo7NufVsDuOEAN+PbeEIwaxZV1X+YrYVWU
-         /D9dBqgsFfZ5US0NR7JwtV0uyc4555fZSu+/SDdmg7LsuMH0SRQVscrgcaXroJG9QM4e
-         kmnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785440382; x=1786045182;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=juliacomputing.com; s=google; t=1785440828; x=1786045628; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=q6CySGkLA59m8l/gGJ5sKhCAFzbLaQDYRMPErxTdJ2I=;
-        b=hPD0NNJe8pWRHqFBlLl7iBBQD8V3Z8rB1ttFnlOhyonn9tLh6vjZVlDFXfhpUCZSPc
-         pxCtUMI+yk2lbskKr3yo4W+Si/c3vTjlVw+nPAj+tUcXNxWeDWIV/AVud7v6Jn9FCKkv
-         thQDg3pMmlNQrMj+R3wpMe5H25/jAvGx9HFLvkDls7Uglou+6tE2FoNWoO5NKk1fdKdW
-         2QJP6+jl/xbfW8UrzhoPE6wVaceoiKKLm0/Q9iidc8oKGu1D4JcPIXPxL4qFm81LVeTe
-         F/DJYK0RJkxB3AfKtJxodXUE7/xQ3TO6LruJh2War8t4IuiAjBRqFfG9QAPEZCSeXU/1
-         V/AA==
-X-Forwarded-Encrypted: i=1; AHgh+RojO9fFUvH8AetDsukbs5gWtehLe1UHQbEjvLS3dWEiq5w14JhulpYkX21e4Lqt9C89sXo13u0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwcdHNrfagzPQOqZt0il7DUZRUGIuqw+pQ7mjavAFTj22yS8fSB
-	OxJtqKIIZ5fzwEYa2AtCNrGCXsJTbeHyeE6wXp9F+cXtGTZHwgIjfqg=
-X-Gm-Gg: AR+sD10VFOaVKBKjihWJv2d6Lh/VbJBSOKWCuMBdrq6bwszlyVvhdixWTO0HDFtNGcW
-	VStvK+JDECQKg6SQfs7W9G2X/CLkxb5aBX/itdrfZ27c3p3oX1aCI3K/b2kLgP8TZaYI3dx3CTM
-	n+oZg9ADO5QyGTCwzTTgCKr/XI0+Ivs3B5c7POeTaviJ/aqPWb1mxkwyJuDiv0XDnq7MFq+cSQ1
-	aR9SCtPJOmax3hj6+ejUbBbZ8Tgd7dWt3L17BEj9tZtwnwk7aOBUoZm/ZMdvwvnCDlBOHyyoCsa
-	JtnrTg376F7De8kns5xvZozHE7vGtllaQbGeHo7C2BZh1zHPi8p39jWqGrLvBPNrffMkhVhoYbX
-	sG7kdXcwtL8m9NKIFmz9mVIs61h+/5QfHKrnn6GrriTmTpoRnqcXUdZA36tVQlDNqljKKa/K1Lo
-	rF7ECkREy6Hofk9yM5fi7cPjIlRvXixhiqBQ7nAQTCpTGRQWBEjtianQYc5fN2QtZbH9K7ZEMzv
-	aiGTKfVH9vqpzA18jAg9ZpNDcYza5wMzFPXeYf12WQ9IGO06HYJ
-X-Received: by 2002:a05:6214:54ca:b0:8ce:e651:5d63 with SMTP id 6a1803df08f44-90834753f59mr46487746d6.31.1785440381934;
-        Thu, 30 Jul 2026 12:39:41 -0700 (PDT)
-Received: from NAUTEL-9N0B043.nautel.com (host-76-11-42-59.public.eastlink.ca. [76.11.42.59])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9083231957asm24537616d6.16.2026.07.30.12.39.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 12:39:41 -0700 (PDT)
-From: Ryan Wilbur <rwilbur633@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Manuel Lauss <manuel.lauss@gmail.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ryan Wilbur <rwilbur633@gmail.com>,
+        bh=FvFwAwMbzOY7OPPRp93D8W68jJdI4OeP8HTppECTiVE=;
+        b=iJ5qtCcnq14NdTLwFvJQs3+2QqS71fvBotdo1dSgfktL/wkCdnCdxkR1FuoMLk1qZQ
+         QEDNiRDwoy+hzMPTLY5xNjp/W+mjiahMVqc/kuoOQ0YaPl3x8AVe3lGTGDQ4x7Xuxqfs
+         L77dGHV4Ih+5pdu+tC7J2kzqBTfDAXmo9ZvZ08M6RKwnxADeF2GwENq2N3xZJxTnR5Rg
+         WfY71gdu87MUrcHtwHgGKFES4ug2kkVaf9VyR0TxezdZNTtesb7rtN+DHIUo5M2FL2OY
+         8XKbYeJLiBJFVbxqS5oI23wx7HNzI4l1lbTaO5JE5Kr35WOoRD+2JT6qSQjWQI9CKB23
+         eKbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785440828; x=1786045628;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FvFwAwMbzOY7OPPRp93D8W68jJdI4OeP8HTppECTiVE=;
+        b=L2SzXoed95+MlGzbJWcXJTrVqLBJeVapE3ZdxmvRxkgMYv3yiqlkwJYdj1TVVD/aa0
+         kPSMFpEt4X0eT//NBgqVF3dRRIhN3d2V62RSO0z+nPGYPRIxfAKo4se8tpm698HLmqr8
+         7AW9iLDG/8wtB/y97eqabwMDRo6pucdHPjMfPzoRW9djKnBRgi6u33EDDryVeCnX/+4A
+         SXgDflMR7nURDvnI9c1FZL4ETJ3alRDMUzed0VlXTkfaW2UHI329eHzgV+DktnFQkaRa
+         dwL/SO0V+rdMbw0Y6KKFxtKHY6IGmRax43yTM64Oba4ARfGyj+KHQTfSWnxJa2EhZrRo
+         jKdQ==
+X-Forwarded-Encrypted: i=1; AHgh+RorMP4tEFFW36ruJoateMLtYytCoGge62wG1aEnoMR08C4rRtB3nXMNJ0p5KtBRXo6goGF+RYY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZ4TMowchz81AZ6/cpxozAhnr/h8lbaNSjIZHs55CALlEuSulj
+	RXs5kHOE/kPwNWFQNGbKv6S8oyxETSkKgO20Ztu99X9JLKTJIJV6FwAfN8v3WnyhLkk=
+X-Gm-Gg: AR+sD12T1UtNUquQbzPgSP7FPczHGVvgxsBkzgHoBeapdwDEUheOV/0VoaoeQ2s/ry0
+	xWvhLncoYOXaK/wd/idGvZp+hHLqGcbxN+uD7gyNLnZjqd2JUCwSTByvcsULLLDyr4l/LVcztwi
+	t6B9QaCEz1WhJFg/CBC2lKBhJaGQju0NgxB5u3WBrNIpQbd3li4ua137kvRRYv1UuXyOhfN9zPB
+	6OW3XSAqPe1y374JZgsvZMWIQJtGkdQI7B7cQZBPQEYork8c77oirqH+qhz08M/yaftxeajjRfo
+	ACNVVKsNCzNnHDY/Ws/MTxQ6WmlJsU34oZ50sPCgGl6Nub9BC0H9THkilt8RktJrrhpPWH2PP5E
+	Cbx/DiW13nOjBKCFQKIVYmRn4ZHnnempLsbYlFcT1aBM/zSizDRyFZqhxKacEKRPQc7LWxxiMo4
+	Ry+3UfkcleRw6T36gIvm4DcTAm/hqev0115RopsL9pM16Mp0VAzPYPaB8dMBbOjPOohw6jQsNXo
+	XPds13E5oTMgKfDbAz1okZEthtcECoPy/gJsOfMrViQIjadLbuD
+X-Received: by 2002:a05:6214:319f:b0:8e9:f5de:d5be with SMTP id 6a1803df08f44-908347b861cmr42116836d6.53.1785440827807;
+        Thu, 30 Jul 2026 12:47:07 -0700 (PDT)
+Received: from localhost.localdomain ([66.31.114.203])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9083231e22asm25416506d6.15.2026.07.30.12.47.06
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 30 Jul 2026 12:47:06 -0700 (PDT)
+From: Keno Fischer <keno@juliacomputing.com>
+To: kenomfischer@gmail.com,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	=?utf-8?Q?Andr=C3=A9?= Almeida <andrealmeid@igalia.com>,
+	Yang Tao <yang.tao172@zte.com.cn>,
+	Yi Wang <wang.yi59@zte.com.cn>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v4] serial: 8250_of: clear stuck empty-FIFO RX-timeout on LPC32xx
-Date: Thu, 30 Jul 2026 16:39:20 -0300
-Message-Id: <20260730193920.28954-1-rwilbur633@gmail.com>
-X-Mailer: git-send-email 2.25.1
+Subject: Re: [PATCH] futex: Prevent robust futex exit race more
+Date: Thu, 30 Jul 2026 15:46:58 -0400
+Message-ID: <20260730194705.38981-1-keno@juliacomputing.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <87tsphezff.ffs@fw13>
+References: <CABV8kRwvex1VvQ0eGwUQmJL_vA7AP2h64VpHqtXvfOXMvvJQZA@mail.gmail.com> <87ik5yhisv.ffs@fw13> <CABV8kRwf=WA-O_+NtEx2N38wO4qLJA7YBfDh1Ds88Et9hxjqXA@mail.gmail.com> <871pclhpqy.ffs@fw13> <CABV8kRy2tQ50sBD-EGbKg-TANbVyE2m29eciCAomGGeZ2FeL3Q@mail.gmail.com> <87tsphezff.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,123 +85,177 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The NXP LPC32xx UART (PORT_LPC3220) can latch an RX character-timeout
-interrupt while the RX FIFO is empty: IIR reports UART_IIR_RX_TIMEOUT
-(0x0c) but LSR.DR is clear. A character timeout is only cleared by
-reading RHR, but serial8250_rx_chars() reads RHR only when LSR.DR is
-set, so nothing ever clears the condition. The interrupt is
-level-triggered and re-fires immediately, so on a single-core ARM926
-the resulting interrupt storm livelocks the CPU.
+On Thu, 30 Jul 2026 08:58:44 +0200, Thomas Gleixner <tglx@kernel.org> wrote:
+> It's slightly less mangled than the original one, which replaced tabs
+> with spaces in some places, but still fails to apply out of the box.
+[...]
+> Please send the patch to yourself, save the mail and try to apply
+> it with git am.
 
-It is reproducible when userspace repeatedly opens the front-panel port
-(ttyS1): serial8250_do_set_termios() re-enables interrupts on unlock and
-the handler then spins forever with iir=0xcc lsr=0x60 ier=0x05, tripping
-the soft-lockup detector in serial8250_handle_irq_locked().
+Welp, I learned yet more about all the different ways in which our email
+system likes to mangle things. I hope third time is the charm. I've
+sent it to my self and `git am --scissors` is clean on the downloaded email.
+If anything is still off, please let me know.
 
-LPC32xx has no dedicated 8250 glue driver, it's driven by the generic
-8250_of. Add a hardware specific handle_irq for PORT_LPC3220, wired up
-in of_platform_serial_setup() the same way fsl8250_handle_irq is
-installed. The handler follows dw8250_handle_irq(): on an RX timeout
-with an empty FIFO (LSR.DR and LSR.BI clear) it does one throwaway RHR
-read to clear the condition, then calls serial8250_handle_irq_locked().
-No real received data is ever discarded, and it is a no-op on healthy
-UARTs which never report a timeout with DR clear.
+-- >8 --
+Date: Tue, 21 Jul 2026 00:31:48 +0000
+Subject: [PATCH] futex: Prevent robust futex exit race more
 
-This is the same class of bug already worked around in other 8250 drivers;
-see commit 424d79183af0 ("serial: 8250_dw: Avoid "too much work" from bogus rx timeout interrupt")
-which reports the identical iir=0xcc/lsr=0x60. See also
-UART_RX_TIMEOUT_QUIRK in 8250_omap, and the note in 8250_bcm7271.
+A robust futex unlock stores 0 over the whole futex value - wiping
+FUTEX_WAITERS - and wakes a single waiter. That wakeup is a one-shot
+notification: the protocol relies on its recipient to either acquire
+the futex (and eventually unlock while aware of the remaining
+contention) or re-arm FUTEX_WAITERS before sleeping again.
+If the woken waiter is killed before it can do either, the kernel
+must jump in and wake the next task down the line.
 
+This is a known complication of the futex protocol with a previous
+partial fix in commit ca16d5bee598 ("futex: Prevent robust futex exit
+race"). Unfortunately, that fix is insufficient.
+
+If a third task re-acquired the futex through the uncontended fast
+path in the meantime, the notification is lost: Robust exit processing
+sees that it is owned by another task and does nothing, while the new
+owner sees no FUTEX_WAITERS when it unlocks and wakes nobody.
+The remaining waiters sleep forever behind a free futex:
+
+  A owns the futex, B and C sleep in FUTEX_WAIT
+                                        uval == A | FUTEX_WAITERS
+  A robust unlock: store 0, FUTEX_WAKE(1) wakes B
+                                        uval == 0
+  D fast path acquire: cmpxchg(0 -> D)
+                                        uval == D, no FUTEX_WAITERS
+  B killed before acting on the wakeup
+  B exit walk, pending op: owner D != B -> no action
+  D unlock: no FUTEX_WAITERS -> no wake
+                                        C sleeps forever
+
+Fix this by augmenting the robust list exit processing to also
+perform the extra wakeup if the futex word is owned by another
+thread but FUTEX_WAITERS is *NOT* set.
+
+Fixes: ca16d5bee598 ("futex: Prevent robust futex exit race")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:Opus4.8
-Signed-off-by: Ryan Wilbur <rwilbur633@gmail.com>
+Signed-off-by: Keno Fischer <keno@juliahub.com>
+Assisted-by: ClaudeCode:claude-fable-5 tla+
 ---
-Changes in v4:
-- Add MODULE_IMPORT_NS("SERIAL_8250") so 8250_of.c builds as a module.
-  Now calls the namespaced serial8250_handle_irq_locked(). Fixes the
-  modular build break reported by Greg KH. Reproduced the failure with
-  CONFIG_SERIAL_OF_PLATFORM=m and confirmed v4 builds cleanly
+ kernel/futex/core.c | 85 +++++++++++++++++++++++++++++++--------------
+ 1 file changed, 58 insertions(+), 27 deletions(-)
 
-Changes in v3:
-- Move the workaround out of serial8250_handle_irq_locked() into an
-  LPC32xx-specific ->handle_irq in 8250_of.c
-- Skip the dummy read when LSR.BI is set, matching dw8250_handle_irq
-
-Changes in v2:
-- Drop the PORT_LPC3220 gate and handle the spurious RX timeout generically
-
-v3: https://lore.kernel.org/linux-serial/20260722140353.115899-1-rwilbur633@gmail.com/
-v2: https://lore.kernel.org/linux-serial/20260720131123.29840-1-rwilbur633@gmail.com/
-v1: https://lore.kernel.org/linux-serial/20260717123530.481021-1-rwilbur633@gmail.com/
-
- drivers/tty/serial/8250/8250_of.c | 38 +++++++++++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
-
-diff --git a/drivers/tty/serial/8250/8250_of.c b/drivers/tty/serial/8250/8250_of.c
-index f0537fb6ef4f..b1561c499acd 100644
---- a/drivers/tty/serial/8250/8250_of.c
-+++ b/drivers/tty/serial/8250/8250_of.c
-@@ -82,6 +82,40 @@ static int of_platform_serial_clk_notifier_cb(struct notifier_block *nb, unsigne
- 	return NOTIFY_DONE;
- }
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index 179b26e9c934..74aa6aa87eb9 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -982,8 +982,11 @@ static int handle_futex_death(u32 __user *uaddr, struct task_struct *curr,
+ 		return -1;
  
-+static int lpc32xx_handle_irq(struct uart_port *port)
-+{
-+	struct uart_8250_port *up = up_to_u8250p(port);
-+	unsigned int iir;
-+	u16 status;
-+
-+	guard(serial8250_rpm)(up);
-+
-+	iir = serial_port_in(port, UART_IIR);
-+	if (iir & UART_IIR_NO_INT)
-+		return 0;
-+
-+	guard(uart_port_lock_check_sysrq_irqsave)(port);
-+
-+	/*
-+	 * The LPC32xx UART can assert an RX character-timeout interrupt while
-+	 * the RX FIFO is empty: IIR reports UART_IIR_RX_TIMEOUT but LSR.DR is
-+	 * clear. The timeout is only cleared by reading RHR, but the core RX
-+	 * path skips that read when the FIFO is empty, so the level-triggered
-+	 * IRQ re-fires forever and livelocks this single-core SoC. Do one
-+	 * throwaway RHR read to clear it; a healthy UART never reports a
-+	 * timeout with DR/BI clear, so no received data is ever discarded.
-+	 */
-+	if ((iir & 0x3f) == UART_IIR_RX_TIMEOUT) {
-+		status = serial_lsr_in(up);
-+		if (!(status & (UART_LSR_DR | UART_LSR_BI)))
-+			serial_port_in(port, UART_RX);
-+	}
-+
-+	serial8250_handle_irq_locked(port, iir);
-+
-+	return 1;
-+}
-+
- /*
-  * Fill a struct uart_port for a given device node
-  */
-@@ -185,6 +219,9 @@ static int of_platform_serial_setup(struct platform_device *ofdev,
- 	case PORT_NPCM:
- 		ret = npcm_setup(port);
- 		break;
-+	case PORT_LPC3220:
-+		port->handle_irq = lpc32xx_handle_irq;
-+		break;
- 	default:
- 		/* Nothing to do */
- 		ret = 0;
-@@ -381,6 +418,7 @@ static struct platform_driver of_platform_serial_driver = {
+ 	/*
+-	 * Special case for regular (non PI) futexes. The unlock path in
+-	 * user space has two race scenarios:
++	 * Special case for regular (non PI) futexes. Ordinarily, we do
++	 * not perform any processing here unless the current thread was
++	 * the owner of the futex (by the TID check below).
++	 *
++	 * However, the unlock path has three race scenarios:
+ 	 *
+ 	 * 1. The unlock path releases the user space futex value and
+ 	 *    before it can execute the futex() syscall to wake up
+@@ -992,42 +995,70 @@ static int handle_futex_death(u32 __user *uaddr, struct task_struct *curr,
+ 	 * 2. A woken up waiter is killed before it can acquire the
+ 	 *    futex in user space.
+ 	 *
+-	 * In the second case, the wake up notification could be generated
+-	 * by the unlock path in user space after setting the futex value
+-	 * to zero or by the kernel after setting the OWNER_DIED bit below.
++	 * 3. A woken up waiter is killed in user space after another
++	 *    thread has acquired the futex, but before it can set
++	 *    FUTEX_WAITERS.
++	 *
++	 * Note that, if userspace uses the FUTEX_ROBUST_UNLOCK flag, we
++	 * will not see case 1 here.
++	 *
++	 * In the second and third case, the wake up notification could
++	 * be generated from any of:
++	 *
++	 *    i.   An ordinary futex wakeup after unlock (with or
++	 *         without FUTEX_ROBUST_UNLOCK)
++	 *    ii.  A robust wakeup from another thread's death
++	 *    iii. A previous round through this special case
++	 *
++	 * As a result, the futex world will be in one of four states:
++	 *
++	 *    A. The futex word is 0 (unlocked)
++	 *    B. The futex word is owned by another thread
++	 *       (FUTEX_WAITERS is not set)
++	 *    C. The futex word is owned by another thread
++	 *       (FUTEX_WAITERS set)
++	 *    D. The futex's owner died and OWNER_DIED is set
++	 *       (the owner part of the word is 0)
+ 	 *
+-	 * In both cases the TID validation below prevents a wakeup of
+-	 * potential waiters which can cause these waiters to block
+-	 * forever.
++	 * The key issue is that the kernel usually (at least from
++	 * sources ii. and iii. or when so requested by userspace from
++	 * source i.) only ever wakes *one* waiter at a time. If this
++	 * waiter dies before acquiring the futex (or setting the
++	 * FUTEX_WAITERS bit), the kernel *must* still wake the next
++	 * waiter down the line to uphold the futex invariants and
++	 * avoid lost wakeups. Note we do not need to handle state C,
++	 * as it does not matter to us whether *we* successfully set
++	 * the bit or a third thread did so in the meantime.
+ 	 *
+-	 * In both cases the following conditions are met:
++	 * Therefore, in these cases we must issue an additional
++	 * futex_wake(). Note however that we *must not* set OWNER_DIED
++	 * here. Our thread is *not* the owner of the futex.
+ 	 *
+-	 *	1) task->futex.robust_list->list_op_pending != NULL
+-	 *	   @pending_op == true
+-	 *	2) The owner part of user space futex value == 0
++	 * Thus to summarize, the conditions for needing the additional
++	 * futex_wake() are:
++	 *
++	 *	1) @pending_op == true (the thread has not finished the
++	 *	   mutex operation)
++	 *	2) The futex word is in one of the states A, B or D
+ 	 *	3) Regular futex: @pi == false
+ 	 *
+-	 * If these conditions are met, it is safe to attempt waking up a
+-	 * potential waiter without touching the user space futex value and
+-	 * trying to set the OWNER_DIED bit. If the futex value is zero,
+-	 * the rest of the user space mutex state is consistent, so a woken
+-	 * waiter will just take over the uncontended futex. Setting the
+-	 * OWNER_DIED bit would create inconsistent state and malfunction
+-	 * of the user space owner died handling. Otherwise, the OWNER_DIED
+-	 * bit is already set, and the woken waiter is expected to deal with
+-	 * this.
++	 * Note in particular that in all of the states A-D the owner
++	 * portion of the futex word differs from our thread's TID
++	 * (unless the actual owner has the same TID in another PID
++	 * namespace, but we cannot currently distinguish that
++	 * scenario), so this can be a special-case wakeup in the bail
++	 * path of the ordinary TID check.
+ 	 */
+ 	owner = uval & FUTEX_TID_MASK;
  
- module_platform_driver(of_platform_serial_driver);
+-	if (pending_op && !pi && !owner) {
+-		futex_wake(uaddr, FLAGS_SIZE_32 | FLAGS_SHARED, NULL, 1,
+-			   FUTEX_BITSET_MATCH_ANY);
++	if (owner != task_pid_vnr(curr)) {
++		if (pending_op && !pi &&
++		    (!owner || !(uval & FUTEX_WAITERS)))
++			futex_wake(uaddr, FLAGS_SIZE_32 | FLAGS_SHARED, NULL, 1,
++				   FUTEX_BITSET_MATCH_ANY);
+ 		return 0;
+ 	}
  
-+MODULE_IMPORT_NS("SERIAL_8250");
- MODULE_AUTHOR("Arnd Bergmann <arnd@arndb.de>");
- MODULE_LICENSE("GPL");
- MODULE_DESCRIPTION("Serial Port driver for Open Firmware platform devices");
-
-base-commit: da7b5fd4e17f8e44c5590f2d603c01d499f056e6
+-	if (owner != task_pid_vnr(curr))
+-		return 0;
+-
+ 	/*
+ 	 * Ok, this dying thread is truly holding a futex
+ 	 * of interest. Set the OWNER_DIED bit atomically
 -- 
-2.25.1
+2.54.0
 
