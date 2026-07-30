@@ -1,117 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41BE23B5DEE;
-	Thu, 30 Jul 2026 15:04:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E13143F0B4;
+	Thu, 30 Jul 2026 15:04:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785423884; cv=none; b=SnRyI74joMAob73B8rzcqwPPLKPHbvl3V2d87ssarYEqVceGBS02Ddq3p2geEadjUZpBC93sTswyfA6QXWcIBYlkRBRC9+YM7BCNaW4TWGxVRwLghrhY4QQ3rNJ9P5wWvwrIZtJM7WHSAIcL+Um66o1Kna1VA3dukb1+znBrnCM=
+	t=1785423886; cv=none; b=Xk77/HGHMzrByyAdegFsBOSmf9y8+x30XNB3iJKBIPH/wC2OtcCsbK7/tP4UEUm5JBbmmdTh8aF2cVmFSYdnI8qvuMGlHURiCpxQ6QMvYYT8CljYZNOSDjtbTC4FFCmf+GsfTXpMTktri6M64aGZodLkscSqO1byT62C4cZ/l5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785423884; c=relaxed/simple;
-	bh=EpW0x2798AoiDoKb9rArQXNO5ZqU7NimtPjPdjk1Nhc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aaAElcj4FTcRoj5s3nK4feG2FN+j0Flma1Qys84VK1WzVTKbmFv14QKYDw7x7zU0yPthuE5Y5VY4lgs/DuaIZXtEcpS2SjDH53eO68kU921v+RqqEhrc46im9FmhqHgozDt3C53fBCRucowKgIypHN0jz061vbqJvsKX4ACd7CA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=orxrvFtz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785423886; c=relaxed/simple;
+	bh=H+UvGq4+GF9Xy09/l2KDXHARVtHLssde9gYObqV3NqI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dkGGolZ/P09IO9kzuGQvvkDWWwEKsRorHrLAjvLqV2OxRHQFz7yIkZWvHURn+mFqBXkSckMGK6CbWX7ntpLz/37YLc7rmo3pAkf9li5Fm4c93qwbbvNSZAQXz0APQbJnmvQicB9AP8n/6UTHf4LnEcZpxwWAKIs/pOrNjDebtVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Fv28HNBw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="orxrvFtz"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EB2E41F00A3A;
-	Thu, 30 Jul 2026 15:04:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785423883;
-	bh=fM/xKUOc6YWd1++R4Gf8HPdAr9fdBpqR9uClIyw/OVw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=orxrvFtzGIaoNQZh15Ai7XfGp1pb0Ti5Vy9zbxMHh/ZJzGA880eQ+cgkoKFaJTy7O
-	 th65ms1sz2XbL+91LyXH55Ig5u4eHrWX60Gj8UzWVpgisnRNqy24UeC7DuQBMwNGN5
-	 aNvB7YsnDfdkmoykeUh2akrUM7L87tSdIGhlIKA3fhQUBa/ss1dxolBowb8vg0AyrQ
-	 MtQDlD1D42tD1RMkmrwh6UDISUNFTrn9ECtMAbvjLs9NdnJ1c0SRUZqxFnT+LkVYFw
-	 DRO8yhJDxi3PhJEMzmRNiyIH6ck2Ko/ZNyoS7CB7Br804uKv6SHfyI2+qsppVha57L
-	 bD8l4UzG5A6MQ==
-Date: Thu, 30 Jul 2026 08:04:42 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 5/6] xfs: adjust datadev sector count to reflect internal
- rt volumes
-Message-ID: <20260730150442.GA3556460@frogsfrogsfrogs>
-References: <178538912844.4070956.17029198681620903700.stgit@frogsfrogsfrogs>
- <178538912986.4070956.14205556423461124701.stgit@frogsfrogsfrogs>
- <20260730082204.GE10558@lst.de>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Fv28HNBw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A6701F000E9;
+	Thu, 30 Jul 2026 15:04:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785423884;
+	bh=fjil5Z+Yajwhx0XQ/+KbPl9eDR6dTeOcin8KhVlVNzA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Fv28HNBwzDofyz3r4F5Tiddzq3FX9bbBgZ0ASp4lyUwzrKyNgXf32iqGu3hdlVudm
+	 ZJuEr4N2rMerDju/nACoQMERdf79Dd8JwXWHREPprIMY3WgnVw9Gp+rbH35Py97G2a
+	 xGzHe22lhMV44gM8E7qXaDoYlU4JyecSPruDYTVQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	syzbot+e62a973f8322b3bbe3ac@syzkaller.appspotmail.com,
+	Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>,
+	Stanislaw Gruszka <stf_xl@wp.pl>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 199/675] usb: atm: ueagle-atm: reject descriptors that confuse probe and disconnect
+Date: Thu, 30 Jul 2026 16:08:49 +0200
+Message-ID: <20260730141449.373052147@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260730141445.110192266@linuxfoundation.org>
+References: <20260730141445.110192266@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260730082204.GE10558@lst.de>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 30, 2026 at 10:22:04AM +0200, Christoph Hellwig wrote:
-> On Wed, Jul 29, 2026 at 10:27:20PM -0700, Darrick J. Wong wrote:
-> > From: Darrick J. Wong <djwong@kernel.org>
-> > 
-> > A media scan of a filesystem containing an internal rt volume produced
-> > an error in xfs_scrub phase 6 complaining about a truncated realtime
-> > device.  The rt device wasn't truncated, but the media scan code thought
-> > we were trying to start a scan past the end of m_rtdev_targp.  That in
-> > turn is an alias for m_ddev_targp, but in xfs_configure_buftarg we set
-> > nr_sectors to the size of the data section.  Oops.
-> > 
-> > On these filesystems, the internal rt section comes immediately after
-> > the data section.  We need to set the sector count for the data device
-> > buftarg to the size of both sections.  Without this, media scans don't
-> > work and media failure notifications from the kernel will be discarded
-> > silently.
-> > 
-> > We also need to fix the superblock buffer recovery code to do the same.
-> 
-> This feels wrong.  Nothing should acess the internal rtdev through
-> the data device buftarg.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-It's the only one available, because xfs_setup_devices aliases
-ddev_targp to rtdev_targp for internal rt volumes:
+------------------
 
-	if (mp->m_sb.sb_rtstart) {
-		if (mp->m_rtdev_targp) {
-			xfs_warn(mp,
-		"can't use internal and external rtdev at the same time");
-			return -EINVAL;
-		}
-		mp->m_rtdev_targp = mp->m_ddev_targp;
-	}
+From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
 
-So we're doing that anyway.  We could separate them by creating a second
-buftarg with a duplicate struct file, but that would involve a bunch of
-rototillingi because a fair amount of code changes behavior on
-rtdev==ddev now.
+[ Upstream commit 71132cedd1ecbc4032d76e9928c18a10f7e39b80 ]
 
-The only field that the media verification code uses is bt_nr_sectors,
-which it uses to trim verification requests to wherever the filesystem
-thinks is the end of the device.  I could change that to call
-bdev_nr_sectors() to fix the bug, but then we'd have to deal with media
-failures for LBAs outside of the filesystem, which didn't seem ideal.
+uea_probe() distinguishes a pre-firmware device from a post-firmware one
+using the USB id (UEA_IS_PREFIRM()), and stores a different object as the
+interface data in each case: a 'struct completion' for a pre-firmware
+device (to be waited on in .disconnect()), or a 'struct usbatm_data' for a
+post-firmware one.
 
-Also, if someone asynchronously reports a media error in the internal
-rtdev to us through fs_holder_ops, the report will mention a range that
-is beyond bt_nr_sectors but actually within the filesystem.
-xfs_dax_notify_failure currently does the right thing because it doesn't
-check bt_nr_sectors, but that also feels wrong. ;)
+uea_disconnect() instead tells the two apart by the number of interfaces
+of the active configuration (a pre-firmware device exposes a single
+interface, ADI930 has 2 and eagle has 3), and casts the interface data
+accordingly.
 
-So I went with making bt_nr_sectors bigger because that felt the least
-awkward.  IIRC it's supposed to represent the location of the end of the
-filesystem on a particular blockdev, not the highest LBA that the fs
-can xfs_buf_read(), right?
+Because the two handlers use different criteria, a crafted device that
+advertises a pre-firmware id together with a multi-interface descriptor
+(or a post-firmware id with a single interface) makes them disagree: the
+small 'struct completion' stored by uea_probe() is then passed to
+usbatm_usb_disconnect(), which casts it to 'struct usbatm_data' and takes
+instance->serialize, reading past the end of the allocation:
 
-> Is this an LLM report bug, or did you actually run it using scrub?  If
-> so can you help with the reproducer?
+  BUG: KASAN: slab-out-of-bounds in __mutex_lock+0x152a/0x1b80
+  Read of size 8 at addr ffff8880470e2c60 by task kworker/1:2/982
+  ...
+   __mutex_lock+0x152a/0x1b80
+   usbatm_usb_disconnect+0x70/0x820
+   uea_disconnect+0x133/0x2c0
+   usb_unbind_interface+0x1dd/0x9e0
+  ...
+  which belongs to the cache kmalloc-96 of size 96
+  The buggy address is located 0 bytes to the right of
+   allocated 96-byte region [ffff8880470e2c00, ffff8880470e2c60)
 
-I found it accidentally while triaging another bug that LOLLM found.
-I turned on the tracepoints (and btrace) for debugging and noticed that
-it wasn't issuing reads for the internal rt device:
+Reject such inconsistent descriptors in uea_probe() so that both handlers
+always make the same pre/post-firmware decision.
 
-# mkfs.xfs /dev/sda -r zoned=1
-# mount /dev/sda /mnt/scratch
-# trace-cmd <big ugly command line> &
-# xfs_io -x -c 'verifymedia -r' /mnt/scratch
+Reported-by: syzbot+e62a973f8322b3bbe3ac@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e62a973f8322b3bbe3ac
+Fixes: e2674dfbed8a ("usb: atm: ueagle-atm: wait for pre-firmware load in .disconnect()")
+Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+Acked-by: Stanislaw Gruszka <stf_xl@wp.pl>
+Link: https://patch.msgid.link/20260717080704.1264-1-diegomancera.dev@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/usb/atm/ueagle-atm.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
---D
+diff --git a/drivers/usb/atm/ueagle-atm.c b/drivers/usb/atm/ueagle-atm.c
+index a943a5257a59fb..f1f1fc16a4711f 100644
+--- a/drivers/usb/atm/ueagle-atm.c
++++ b/drivers/usb/atm/ueagle-atm.c
+@@ -2550,6 +2550,7 @@ static struct usbatm_driver uea_usbatm_driver = {
+ static int uea_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ {
+ 	struct usb_device *usb = interface_to_usbdev(intf);
++	bool single_iface = usb->config->desc.bNumInterfaces == 1;
+ 	int ret;
+ 
+ 	uea_dbg(usb, "ADSL device found with vid (%#X) pid (%#X) Rev (%#X): %s\n",
+@@ -2558,6 +2559,22 @@ static int uea_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ 		le16_to_cpu(usb->descriptor.bcdDevice),
+ 		chip_name[UEA_CHIP_VERSION(id)]);
+ 
++	/*
++	 * uea_probe() decides between the pre-firmware and post-firmware case
++	 * from the USB id and stores a different object as interface data in
++	 * each case: a struct completion for a pre-firmware device, a struct
++	 * usbatm_data for a post-firmware one. uea_disconnect() instead tells
++	 * the two apart by the number of interfaces (a pre-firmware device
++	 * exposes a single interface, ADI930 has 2 and eagle has 3). A crafted
++	 * device advertising a pre-firmware id together with a multi-interface
++	 * descriptor (or the other way around) makes the two disagree, so that
++	 * usbatm_usb_disconnect() treats the small completion object as a
++	 * struct usbatm_data and reads out of bounds. Reject such inconsistent
++	 * descriptors so both paths make the same decision.
++	 */
++	if (UEA_IS_PREFIRM(id) != single_iface)
++		return -ENODEV;
++
+ 	usb_reset_device(usb);
+ 
+ 	if (UEA_IS_PREFIRM(id)) {
+-- 
+2.53.0
+
+
+
