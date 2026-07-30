@@ -1,108 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7895F3B7777;
-	Thu, 30 Jul 2026 22:50:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785451847; cv=none; b=rGv3/jHsMGVn0VsGXwSAJz8dJ/0kmEhZBUraC2qz2BL3NuWRoR00uUiEw4GGc6Jp8g2VXN+IOAI7JYIdxPbFuGkdn5a5JZwR2oFUTUdv/Ovv6sG7lhGw7E6S/9Q626o6bXxnkgM0YxBajCRN44tLCO4aTy1JVP99RPUOriC81/M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785451847; c=relaxed/simple;
-	bh=JpalKRZX9njfQ3MQWD2YrqzINhvOq+OkFBODMOuwKNc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Fesfeu2ZUpOKar0Qaz7zC6J1MF13Paf+ZrUuu7McI7khLZpK0RL5vnuE4G0BoteiZcl2dGIxR91YnsmsQ5hJloJJS6z0xU3r7mZczucrBo/cXor+A9doNOGXaXrMIntGaBaYEajzCJKzPiWF5W/M+yoabe0bxJMifvm09p9WC34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HAOTyD4B; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689083E3D98
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 22:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785451952; cv=pass; b=RNhnnBF2ImnOJ4Vx9nC8FJjWNd7K7sDvqY0syoyDvKND04LPpL4N5UpH5qCavxk+Iaa14ATDgm0hpr3zofkcItb32CtHuoW0NgGX1lV3FxAtGFcO1py12AHzNZAhGEr0pRbpVa73cE673dCNaj7bl3Gxoep4uJ/WVKhDqm9oV4M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785451952; c=relaxed/simple;
+	bh=xakOe7onQvx4wiZDCNi7JSD0SnMEIMMivTi6oZqsI8E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aWTZ4CpglbDEjASTZNswxCKtzBN4TXseg0g9hLABF81N2j1IwmliIKL2rcmaJKHSeMONu7f8yPxevDti+Boa2H15he0v0Az2h97VsB9QvGq5nW1Twv4SXlTlG0lm7yfrSXt+YY41x2XhvApvjs36KhzWsGkR74x4yRXNiUjBLPA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FO5vg3+T; arc=pass smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HAOTyD4B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C711F000E9;
-	Thu, 30 Jul 2026 22:50:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785451846;
-	bh=XEd6hXttOvySEFhA8BB4g88telRNG8B5whgcgWs6ekE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HAOTyD4B8puIKieu5T5fmZPrOiCunXcFCu/RbkdR3cIIyYfh4FHH+tqt7J0ViTd+y
-	 0qWN67PzI+lA973vWHy7s3tHObtMYDcPXhjdxVGQuOEVqs27+Nwrg7pgzBlCMX4IJu
-	 n6Y5seAb3ieitQm7kd6BFSGeo2AR3TGN8hVVFbOogCcKKyPe3vwt8UBKIAJ9jBvqsV
-	 h2ROiem8ZHHHq1nGrzXdea2fNxe9O1PlVNdOmgLxDogE+mMG0+TqcIK1JYTfJZJU8b
-	 At07fPNAd13f7qq6Lw5j27VNmy8Y0zdLOoCJLlG753+wHr/1Hy0/Gzx1WtvZjT8ffa
-	 CmK8fyOyLi0gQ==
-Date: Thu, 30 Jul 2026 15:50:45 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Cc: Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
- UNGLinuxDriver@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, joe@dama.to,
- linux-arm-kernel@lists.infradead.org, horatiu.vultur@microchip.com,
- stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net: microchip: vcap api: Fix possible memory
- leak in vcap_decode_rule()
-Message-ID: <20260730155045.49d7252b@kernel.org>
-In-Reply-To: <20260728114253.196398-1-nihaal@cse.iitm.ac.in>
-References: <20260728114253.196398-1-nihaal@cse.iitm.ac.in>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FO5vg3+T"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-84847482584so140401b3a.0
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 15:52:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785451951; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m7TbajE6MhC4eZ59z5u1+NFuHRjztfyEfCNNO9Ns/WO4sgmtTggejB9GY4z1/W3oBJ
+         o3Z9fAU+Ow//5vWEjM/vbHhYh4eF4RnDLS1DrJwXv4res2vFg3vmR+D5KiUMNCiUvozZ
+         ezhDwkkw/yVGkpRm2SSji4xu1xcEN/R1e7s4YPon4cGX7+rD0wHBJpmpvgsq0QraFw5K
+         2zgG5EgLpvhfUcwlOV4WAGqE1T/l4BQwfQDbWpVaOq2vP/9ty2r8ydR9jWgPkq3Ol+vu
+         9X32iohptR1TxNnTI5iSCyzvGx3Q5IwnlVnZRmo5LDYqjh+7UgB6ZCKtIXOTOL7s4S1p
+         e7Og==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kK5U4QwGT9O9VQ+w4BY9Dom3H1xqRqoq0z8HNkQ4nwk=;
+        fh=qiAIO8Y4Ing7BHT2e7yF7h8nAMUGRrNXY/Lh4Q5PW3A=;
+        b=XylsHPGu2BsWO1DYSkS6UvKeOy4q5qHIAQTKx1B/ZigyfyZ+3WOaWklfUBoxvhjczp
+         TEe+sB3Fe3echmj0yWanw+JLZfIh1qN3Lq1YIpnKwHiIUi5ebNNsUtxrcbenLQy68i7L
+         fzrxungyokTunIZpuUvcHZIoVDeet96eIqAAG0E3t3mOw4n+bbuq+uO2pn5SMsqwhbDr
+         Ypsgm39lJkxBXMKScSwDi/ZRObLJawxLWk3vJacpOe5gH19nq77AKY6FsZmpIUlySRPQ
+         3vz+ajXbMXGTd092WVC6tgwd92n7xS6j66UGlUd0/dxhE73YOs7SR5wyCApWdyITjRoB
+         97IQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785451951; x=1786056751; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kK5U4QwGT9O9VQ+w4BY9Dom3H1xqRqoq0z8HNkQ4nwk=;
+        b=FO5vg3+TyGAVZMr43F51pzQdtfCSiJs/TIRpBFM6nJPe0jwHqNY0Mc9mt6t+GvPAXG
+         aV86+NRYvPrFtotONJS5wxcCiaVaOrNBLq6yQt7UoS2xLF8Irr8cF7C49+FdcZH6Xp5o
+         5CV/wCPENc5tr87+OD390TmxT2XeHdRynPhjKRVhT47L7DeOHBqYCaVYdu0+uZwDeNOh
+         s9NCIL1LZLskAN0kxhh+PCRu5wJgpsM6DdKoNPU0P/nZM1l7KjIMso1ZpcL8C2xuSK/r
+         jdeezhAi3ltYfzjLYdb1MEyKN91ZH9nHfxeZv5O8PXXEE9xWrDRODxMzZsq94Hi1oHMn
+         8K0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785451951; x=1786056751;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kK5U4QwGT9O9VQ+w4BY9Dom3H1xqRqoq0z8HNkQ4nwk=;
+        b=lBfLwexgv/pKq8jgVRyv3msryjBzH+HkZ8tHNJATs5wco5CS2n5nePqQ55lT8Fc9P1
+         C4v/D16mSCuUd7PcCrLbOla8YXYOt+cX/Ofvb1RWcA/8hhcXyUfiTRrjeegrBt22Tv70
+         EQJcDLv1K8Zup2pNtrU0gN4vDjf552yc83jzO29NlSNTHGaQOMFs+RvncLG4QpqhYQ8m
+         JgltiLMf/N9sMmtJn3XlAyQdpPPoYM55j1iW7c+Yr/5MRYmoyqfoy3HcDhIiMDCruEER
+         JK/My2ABfE+HweO39HTmzPrUFYWjmnDLHgp8qr6ModOtZKrKnS6QjIPxMiaMuocRBZTt
+         l6jA==
+X-Forwarded-Encrypted: i=1; AHgh+RraeLYL8jgidLz95yzRvst9h3VsilPCleMiC3Jiq6z6D5AQV3e3nYZxIoAc4JbphSTJGmsIDBY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEJflnyUyMm/l6/Hrp+XB4T+nBzn24ad/gEQYbmwohxmAddpsy
+	UIZ4o13Dk5BwZMoedWg/0PGNqOe3wSZYhO+T8UUkIK9DOCyBG8oqUH7r6TfrlbY/+pB6SzLQ/TS
+	22qsEqpo04mPTxVbvpqDofOiVCjzsmgI=
+X-Gm-Gg: AR+sD12gpSZ1K6vyAABhTyIG/wjqUx4NBeFEYW0Yc8hRxWxqKY5Ol78/B13gZbKMxG7
+	wq9unbkgmgGT70kuKy1CO6Wj0ClaoNUHu4hgTQ1+0+n6nN/Xjgg2eFm4jqmlh+ugbprvhZ1Pc3K
+	8n02oRUKzbwGRvLEaQZDIFzHIvkkF7fTiRgeuYUynRg4+yKIBDIRzUGxsGEQIq7samiBNMvraQ+
+	UZSTSAgXm+6+nGneYfo01F/0vqbqkEvae5OsmBvzsc3ia8/XbKFX1qjYGN3PHzh6OuU0h7nWWDG
+	VR5KoZwpZNVFiX3NV6iNMWDYkxIyBfkRGEieNxu90HpqnDnv77MVem3fHAa41lJn5PE844oC8YU
+	klRwvHe9nVoZjWotBRX2BexvWjYEudCKy/4O5vlgiMsGEGwEHyk4I
+X-Received: by 2002:a05:6a00:ad2:b0:847:8d0e:5d83 with SMTP id
+ d2e1a72fcca58-84eca755e6bmr1544377b3a.26.1785451950568; Thu, 30 Jul 2026
+ 15:52:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260729083807.1588544-1-jolsa@kernel.org> <20260729083807.1588544-6-jolsa@kernel.org>
+ <78c72a5b-0db5-47da-8b35-e6a2e6976d7c@linux.dev> <ams3yHvqyXrWAbBV@krava> <6a20bbdd-2557-4db8-8839-e2f53857ced9@linux.dev>
+In-Reply-To: <6a20bbdd-2557-4db8-8839-e2f53857ced9@linux.dev>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Thu, 30 Jul 2026 15:52:14 -0700
+X-Gm-Features: AUfX_myM53Q2L3UJ-nKNITC_joYJHuC0YcFLOr-SZmQSfciKfcDnBLGJiXibq7g
+Message-ID: <CAEf4Bzbe1tETVtVMxkaURSoW1PmVfWnR9Kd9iwaPskzCwij7rA@mail.gmail.com>
+Subject: Re: [PATCHv2 bpf-next 05/11] bpf: Disable preemption in bpf_get_stackid
+To: Leon Hwang <leon.hwang@linux.dev>
+Cc: Jiri Olsa <olsajiri@gmail.com>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, stable@vger.kernel.org, 
+	Tao Chen <chen.dylane@linux.dev>, bpf@vger.kernel.org, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, Quentin Monnet <qmo@kernel.org>, 
+	STAR Labs SG <info@starlabs.sg>, Arnaud Lecomte <contact@arnaud-lcm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 28 Jul 2026 17:12:51 +0530 Abdun Nihaal wrote:
-> The memory allocated for struct vcap_rule_internal, keyfields and
-> actionfields inside vcap_dup_rule() are not freed in some of the error
-> paths in vcap_decode_rule(). Fix that by calling vcap_free_rule().
-> 
-> Fixes: 610c32b2ce66 ("net: microchip: vcap: Add vcap_get_rule")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Joe Damato <joe@dama.to>
-> Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-> ---
-> Compile tested only. Issue found using static analysis.
+On Thu, Jul 30, 2026 at 6:43=E2=80=AFAM Leon Hwang <leon.hwang@linux.dev> w=
+rote:
+>
+> On 2026/7/30 19:38, Jiri Olsa wrote:
+> > On Wed, Jul 29, 2026 at 06:30:26PM +0800, Leon Hwang wrote:
+> >> On 29/7/26 16:38, Jiri Olsa wrote:
+> >>> The get_perf_callchain call needs disabled preemption plus we need
+> >>> it disabled as long as we access its returned trace entries buffer.
+> >>>
+> >>> Note the bpf_get_stackid_pe function is executed already with
+> >>> preemption disabled.
+> >>>
+> >>> Cc: stable@vger.kernel.org
+> >>> Fixes: d5a3b1f69186 ("bpf: introduce BPF_MAP_TYPE_STACK_TRACE")
+> >>> Reported-by: Tao Chen <chen.dylane@linux.dev>
+> >>> Closes: https://lore.kernel.org/bpf/20260206090653.1336687-2-chen.dyl=
+ane@linux.dev/
+> >>> Signed-off-by: Jiri Olsa <jolsa@kernel.org>
+> >>> ---
+> >>>  kernel/bpf/stackmap.c | 19 +++++++++++++------
+> >>>  1 file changed, 13 insertions(+), 6 deletions(-)
+> >>>
+> >>> diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
+> >>> index 43b1e5436047..e48ddb4edd47 100644
+> >>> --- a/kernel/bpf/stackmap.c
+> >>> +++ b/kernel/bpf/stackmap.c
+> >>> @@ -624,30 +624,37 @@ BPF_CALL_3(bpf_get_stackid, struct pt_regs *, r=
+egs, struct bpf_map *, map,
+> >>>     struct perf_callchain_entry *trace;
+> >>>     struct stackid stackid;
+> >>>     bool kernel =3D !user;
+> >>> +   int err =3D -EFAULT;
+> >>>     u32 max_depth;
+> >>> -   int err;
+> >>>
+> >>>     if (unlikely(flags & ~(BPF_F_SKIP_FIELD_MASK | BPF_F_USER_STACK |
+> >>>                            BPF_F_FAST_STACK_CMP | BPF_F_REUSE_STACKID=
+)))
+> >>>             return -EINVAL;
+> >>>
+> >>>     max_depth =3D stack_map_calculate_max_depth(map->value_size, elem=
+_size, flags);
+> >>> +
+> >>> +   preempt_disable();
+> >>
+> >> Better to use the guard-style guard(preempt)() in this series.
+> >
+> > we prefer to call stackid_install with preemption enabled
+>
+>
+> Understand.
+>
+> I wonder if we could avoid the "goto out".
+>
+> scoped_guard(preempt) { ... } might work here.
 
-This is important information please add it to the main commit message
-body.
++1, came here to say the same, I think it should be
 
-> v1->v2:
-> - Convert the error labels from "err" to "out_err" to avoid confusion
->   with the err variable, as suggested by Joe Damato.
-> 
-> Link to v1: https://patchwork.kernel.org/project/netdevbpf/patch/20260727125757.134611-1-nihaal@cse.iitm.ac.in/
-> 
->  drivers/net/ethernet/microchip/vcap/vcap_api.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/microchip/vcap/vcap_api.c b/drivers/net/ethernet/microchip/vcap/vcap_api.c
-> index ff86cde11a32..376be059d662 100644
-> --- a/drivers/net/ethernet/microchip/vcap/vcap_api.c
-> +++ b/drivers/net/ethernet/microchip/vcap/vcap_api.c
-> @@ -2427,18 +2427,21 @@ struct vcap_rule *vcap_decode_rule(struct vcap_rule_internal *elem)
->  
->  	err = vcap_read_rule(ri);
->  	if (err)
-> -		return ERR_PTR(err);
-> +		goto out_err;
->  
->  	err = vcap_decode_keyset(ri);
->  	if (err)
-> -		return ERR_PTR(err);
-> +		goto out_err;
->  
->  	err = vcap_decode_actionset(ri);
->  	if (err)
-> -		return ERR_PTR(err);
-> +		goto out_err;
->  
->  out:
->  	return &ri->data;
-> +out_err:
+scoped_guard(preempt) {
+   ... do all the things with direct return ...
+}
 
-Please name the label after the first action being undone
+/* we got new bucket here */
 
-err_free_rule:
+return stackid_install(...);
 
-> +	vcap_free_rule(&ri->data);
-> +	return ERR_PTR(err);
--- 
-pw-bot: cr
+>
+> But "goto out" is fine with me as well.
+>
+> Thanks,
+> Leon
+>
+> >
+> > jirka
+> >
+> >>
+> >> Thanks,
+> >> Leon
+> >>
+> >>>     trace =3D get_perf_callchain(regs, kernel, user, max_depth,
+> >>>                                false, false, 0);
+> >>>
+> >>>     if (unlikely(!trace))
+> >>>             /* couldn't fetch the stack trace */
+> >>> -           return -EFAULT;
+> >>> +           goto out;
+> >>>
+> >>>     err =3D stackid_fastpath(&stackid, map, trace, flags);
+> >>>     if (err !=3D -ENOENT)
+> >>> -           return err;
+> >>> +           goto out;
+> >>>
+> >>>     new_bucket =3D stackid_new_bucket(&stackid, map);
+> >>> -   if (!new_bucket)
+> >>> -           return -ENOMEM;
+> >>> +   if (new_bucket) {
+> >>> +           preempt_enable();
+> >>> +           return stackid_install(&stackid, map, new_bucket, flags);
+> >>> +   }
+> >>> +   err =3D -ENOMEM;
+> >>>
+> >>> -   return stackid_install(&stackid, map, new_bucket, flags);
+> >>> +out:
+> >>> +   preempt_enable();
+> >>> +   return err;
+> >>>  }
+> >>>
+> >>>  const struct bpf_func_proto bpf_get_stackid_proto =3D {
+> >>
+>
