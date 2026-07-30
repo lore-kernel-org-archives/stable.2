@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E3F401A16;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D9B3BB9FC;
 	Thu, 30 Jul 2026 10:58:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785409110; cv=none; b=l7aD2T+KDZwwYHWMIL1Z90WPd2A/GSOwIbyh3DdoGJgc2PGGtS4O8LyaeGaKSSrosxgDnNc/A/Mmvq7cPYtamDtShVY5ww7nNyK6AAlRvvZNipOSDaPeK/ZURh+WlKvkqxr6m6au8cZ/u+94I813H71Nk6YKMt3kQh3rOq6PZzM=
+	t=1785409110; cv=none; b=fvFVTvhGVFRun0Q56H+eb/chO+pzJA/NhhigzdWPfvmTZ6eLVeivshQ+q1B9CEE+4BeqBFwPFZW2BBh8sbd8FW7bSqhQQq8/xBSc/Xq9BuhV9lEt3cESrKXArmI2xdkR1j0mqKnUSHf5uB5/8gSZ/sFRmphXwDSbDBBFtf9dE7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785409110; c=relaxed/simple;
-	bh=iTGKh3qJTv05HwFp4yuRyl+k5oBstsAsKczJ8IdbacE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=REYcwUu3l+ybkI82xnHPMNUwM3XQiltb0zl+TkBW5fD1P7TE50M4KTcr7Op4mfNN57TEI1/DwsM1SVr0ZTaej2DKMCMZRtem2buXHlDFvW8XL5h6nAB4aAJiZLgp4bG4QJ4RF1lYPIZMoPxrUYmC8DDk4cgISkgXEX4LvaOaiPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k8Z/A6m3; arc=none smtp.client-ip=10.30.226.201
+	bh=IN4Ms0Tw3dH/UmsG7qdrz04onb6Mc5bbMOV5N5b8x6k=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JUoE52AjNmVT+Oy3/LEKWVk674PtMkhbZulrUj2WzEtknxfdgCe0qy3PnN7in84FHQETyBtclski1lNwoB564GmWIfPRtscORE79eHLnftBfGP7hIrH3JHOtroKFnN1n0owqlD9z0GECYZoS8JszimObk7lsYLQBeywA0KTj+R0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J30BbeU6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k8Z/A6m3"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6B416C2BCF4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J30BbeU6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 60497C19425;
 	Thu, 30 Jul 2026 10:58:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785409110;
-	bh=iTGKh3qJTv05HwFp4yuRyl+k5oBstsAsKczJ8IdbacE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=k8Z/A6m38tyYStMd2L8r1IG7LMtiy8m04CX8zXV9TPqrAUn/jnlky88mANhtgR7uT
-	 H/b0rqGbh0sEaBqhrz9iqJM3H2s/Tz+Iq4YaMAmhKLidRLnAOjudOePv9QowQCp9rs
-	 4P+aPHICAEmsl+TUrTujZ72btEei7shch9VAeIgdyxYF2m92XL/SAqSzzKq/7FR3aP
-	 1BRdeWze5pLVfs0iOIUmhCxny/8/xvQG4yVKdfgEG+S3ZdSGvUJUZgqYmw/t6I9sN4
-	 P/MFI2BXlIYWWwZdO/8BO3OPzIvzmKlYuIEStyVwnxRZwffV6yeZ6dM4V4G42uqNZy
-	 Y8XaibrwDB0CQ==
+	bh=IN4Ms0Tw3dH/UmsG7qdrz04onb6Mc5bbMOV5N5b8x6k=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=J30BbeU6yV2e+4pYHaaGMGKkbDwQvNWfnFu9uXDiEwBOLEesnPtCBtHA6d0PgBpZ6
+	 Kp36nzIEGYy0FLwo62O9iOMd4n/yo/2FhwzGbcrRgX5J2UOZzi/Zs9B/lzAZQryFgf
+	 6h4jKlgXOGK0JOUaD2oarO7WjyCv4SgohG+ikOUY4FckQgJYcX/cRIwo82wAWjNOto
+	 +5YeEVoPkVCD/Y+f1rU+J6XXueQDaFv3K8Dp1Kb2x2cQ/wzSp5SIKOJNzZQmtyeYYK
+	 iAWVv7rbfwJcCxiShYV2AAb8aFK93RGrvKPOCwryp5JCcxYyz0ZnoVvpHO+vAEgCB/
+	 ncwaIjdJr6ZQQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C494C55160;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DFBBC55162;
 	Thu, 30 Jul 2026 10:58:30 +0000 (UTC)
 From: =?utf-8?q?Dawid_Wro=CC=81bel_via_B4_Relay?= <devnull+me.dawidwrobel.com@kernel.org>
-Date: Thu, 30 Jul 2026 12:58:12 +0200
-Subject: [PATCH v2 1/2] ASoC: codecs: lpass-tx-macro: Fix enum kcontrol
- accesses
+Subject: [PATCH v2 0/2] ASoC: codecs: lpass-{tx,wsa}-macro: fix enum
+ kcontrol accesses
+Date: Thu, 30 Jul 2026 12:58:11 +0200
+Message-Id: <20260730-worktree-lpass-tx-macro-enum-fix-v2-0-6d091c736116@dawidwrobel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,9 +41,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260730-worktree-lpass-tx-macro-enum-fix-v2-1-6d091c736116@dawidwrobel.com>
-References: <20260730-worktree-lpass-tx-macro-enum-fix-v2-0-6d091c736116@dawidwrobel.com>
-In-Reply-To: <20260730-worktree-lpass-tx-macro-enum-fix-v2-0-6d091c736116@dawidwrobel.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WNQQ6CMBAAv0L27JpSAqgn/2E4lLKVjUDJFgFD+
+ LuVH3icOcxsEEiYAtySDYRmDuyHCPqUgG3N8CTkJjJopQtV6isuXl6TEGE3mhBwWrE3VjzS8O7
+ R8Yo2d7Vx5Mq8LiBmRqGoj8WjitxymLx8juOc/uwf8TlFhco6pW1xSbNM3xuzcLOIr6k7W99Dt
+ e/7F8ajQmDWAAAA
+X-Change-ID: 20260729-worktree-lpass-tx-macro-enum-fix-c5fbafef75b6
 To: Srinivas Kandagatla <srini@kernel.org>, 
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
@@ -52,13 +54,13 @@ Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  =?utf-8?q?Dawid_Wro=CC=81bel?= <me@dawidwrobel.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2105; i=me@dawidwrobel.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1401; i=me@dawidwrobel.com;
  h=from:subject:message-id;
- bh=n2x7Js4vs9WYUIakIr6jIXsI33SztntSYQRmpHUNyak=;
- b=owGbwMvMwCV2qrTGfeXVd28ZT6slMWRl64VWHfzT8rPTr+lNvK2v17+ak2d3x//hf/9JOdRmx
- +w3a/WjOkpZGMS4GGTFFFn00oL2WAW//P7uxe9wmDmsTCBDGLg4BWAi3+4y/A8v3941p05q9iae
- Lt16zja5yyF33Iv29OgsOLAoe6/grEuMDAvOXvbple8O91ZarKvp9aBNf/o/0SjOF3GZblq+3Oc
- Y+QE=
+ bh=IN4Ms0Tw3dH/UmsG7qdrz04onb6Mc5bbMOV5N5b8x6k=;
+ b=owGbwMvMwCV2qrTGfeXVd28ZT6slMWRl64VMNku2SipeMPdR9/KHEQ1x8QonTvtEft7puX+pR
+ 6RW+YcLHaUsDGJcDLJiiix6aUF7rIJffn/34nc4zBxWJpAhDFycAjARW09GhtbSMtNr3Md49A0X
+ Mkw8mDFhp72VpM2x5rcnG9pnWvWeV2VkWG/yVy8vNawy6fjvxx/EjG/cytyR87xi86Y50ctnOIa
+ fZAcA
 X-Developer-Key: i=me@dawidwrobel.com; a=openpgp;
  fpr=B64A778E0E64049A70C831C8B7B81FA12B282A92
 X-Endpoint-Received: by B4 Relay for me@dawidwrobel.com/default with
@@ -66,57 +68,41 @@ X-Endpoint-Received: by B4 Relay for me@dawidwrobel.com/default with
 X-Original-From: =?utf-8?q?Dawid_Wro=CC=81bel?= <me@dawidwrobel.com>
 Reply-To: me@dawidwrobel.com
 
-From: Dawid Wróbel <me@dawidwrobel.com>
+Both drivers access enumerated controls through value.integer.value[0]
+instead of value.enumerated.item[0]. The same bug was fixed in rx-macro
+and va-macro in 2022 (bcfe5f76cc40, 0ea5eff7c606); tx-macro and
+wsa-macro were missed.
 
-The "DEC0 MODE" to "DEC7 MODE" controls are enumerated, but
-tx_macro_dec_mode_get() and tx_macro_dec_mode_put() access their
-value through ucontrol->value.integer.value[0] (a long) instead of
-ucontrol->value.enumerated.item[0] (an unsigned int).
+On 64-bit kernels with CONFIG_SND_CTL_DEBUG this trips the elem value
+sanity check, and every read of the affected controls fails with
+-EINVAL.
 
-This same pattern was fixed in the sibling drivers by
-commit bcfe5f76cc40 ("ASoC: codecs: rx-macro: fix accessing array
-out of bounds for enum type") and
-commit 0ea5eff7c606 ("ASoC: codecs: va-macro: fix accessing array
-out of bounds for enum type"), but tx-macro was missed.
+Reproduced and fixed on a Xiaomi Mi Pad 5 Pro (SM8250) for tx-macro.
+wsa-macro is compile-tested only — that codec is not instantiated on
+this hardware.
 
-On 64-bit kernels built with CONFIG_SND_CTL_DEBUG, the elem value
-sanity check catches the 4 bytes written past the enumerated item
-and every read of these controls fails with -EINVAL:
-
-  snd-sm8250 sound: control 2:0:0:DEC0 MODE:0: access overflow
-
-Fixes: c39667ddcfc5 ("ASoC: codecs: lpass-tx-macro: add support for lpass tx macro")
-Assisted-by: Claude:claude-fable-5
-Cc: stable@vger.kernel.org
 Signed-off-by: Dawid Wróbel <me@dawidwrobel.com>
 ---
- sound/soc/codecs/lpass-tx-macro.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Changes in v2:
+- wsa-macro: also fix wsa_macro_rx_mux_get() and wsa_macro_rx_mux_put(),
+  which have the same bug (Srinivas Kandagatla)
+- Cc stable on both patches (Srinivas Kandagatla)
+- Link to v1: https://lore.kernel.org/r/20260729-worktree-lpass-tx-macro-enum-fix-v1-0-0cf02c681332@dawidwrobel.com
 
-diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index f7d168f557dd..0cbf50647ff5 100644
---- a/sound/soc/codecs/lpass-tx-macro.c
-+++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -1075,7 +1075,7 @@ static int tx_macro_dec_mode_get(struct snd_kcontrol *kcontrol,
- 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
- 	int path = e->shift_l;
- 
--	ucontrol->value.integer.value[0] = tx->dec_mode[path];
-+	ucontrol->value.enumerated.item[0] = tx->dec_mode[path];
- 
- 	return 0;
- }
-@@ -1084,7 +1084,7 @@ static int tx_macro_dec_mode_put(struct snd_kcontrol *kcontrol,
- 				 struct snd_ctl_elem_value *ucontrol)
- {
- 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
--	int value = ucontrol->value.integer.value[0];
-+	int value = ucontrol->value.enumerated.item[0];
- 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
- 	int path = e->shift_l;
- 	struct tx_macro *tx = snd_soc_component_get_drvdata(component);
+---
+Dawid Wróbel (2):
+      ASoC: codecs: lpass-tx-macro: Fix enum kcontrol accesses
+      ASoC: codecs: lpass-wsa-macro: Fix enum kcontrol accesses
 
+ sound/soc/codecs/lpass-tx-macro.c  | 4 ++--
+ sound/soc/codecs/lpass-wsa-macro.c | 8 ++++----
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+---
+base-commit: 57b8e2d666a31fa201432d58f5fe3469a0dd83ba
+change-id: 20260729-worktree-lpass-tx-macro-enum-fix-c5fbafef75b6
+
+Best regards,
 -- 
-2.55.0
+Dawid Wróbel <me@dawidwrobel.com>
 
 
