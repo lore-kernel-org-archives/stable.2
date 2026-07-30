@@ -1,86 +1,153 @@
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437E3449B26
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 19:11:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2B525228D
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 19:13:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785438689; cv=none; b=oiF9DIW84a5YnQTSkYdmi8MNYBbYBj9zcMWJemz3gev9OKJ6rDhsrKJn8OrbDUGQqCYhw1TIR3nG8fTjCYDNSMK7/qX4Sn7X+kzfpqlm2hZfIFSmu0H96rXw4nEPJW24iMsPf+mfXXwbb6wVa7RvnUz7URW7Y52yXD+9kLRYxsU=
+	t=1785438841; cv=none; b=nuBzCe0FPqsh+GVzPxKXj8DArKFUU82A6bNbz184rah+f+hs2Ao8OKb9mYQycrc7Oj4+pjC/7dJZfuY5C9vgjP5ra+a85uDswm1i1iAV4KO3RsLbbQEe0RXyQSUSI4w4UDxT1C2BTdHpMP7+x7oHJG7hYvgd7JrZalIbiWUNapQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785438689; c=relaxed/simple;
-	bh=cJ63BXZMNe1uR9WDgELx6Fj9oC9EAwfnNbOJJ077Vq0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Pb8BWCNRXSLO4teyOaXtObPKwEJAGu8zfurCYiAjxGl1WfQMZHYf7f27W44DAOda3Fd2l2eGxsNlZGyXxKmqwak59g+RrxpLHk+FTLYDQ9t9XCUIRqbqCdUGmDLZiCkhvi2XiLmGoOl4rYmgBskhpkncxW8i7+el+iObd2M1lAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=TXLjcIMX; arc=none smtp.client-ip=209.85.210.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1785438841; c=relaxed/simple;
+	bh=Topwf+V3jfuUiuzqOBdaGECWQDvVXswPedPSAJACfQo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rKTDdOeEbrKnRoqJhHvuSpm0pMWmQelrM+s9aN6iNTs0hwp4H3jKVBOQ8ajUKlekwbcvnMIRwjZTfQshD+iWLErHSE1YkwomjjcTN+8cWVzrNPUGFjsNfMNP/+qliCVVg36oo8GFRh5GAxS4dnnHgadw7sjKU0D2t/c98RTxhB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mr2ny54t; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="TXLjcIMX"
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7eb42a2f5feso113180a34.1
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:11:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mr2ny54t"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-493b966dd74so597515e9.3
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:13:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1785438683; x=1786043483; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=50+BRi1M80OADWMBtwF8+tIWW7M6cT13tg7MUfRqqQQ=;
-        b=TXLjcIMXo/Eh5AgN+poiFkHREYPmUBMuIhetTF1zjTzCUwPAY206t4/rH8HvKamkvO
-         069oKewsEUvLsIXuIWawcDLeNHYC/OsrAiRe9D0g1N23UtWpr5jgDIspCHUL0wQBXOWa
-         RgVA9BQPG6lJWb8ptaQF1/pRZGg2mvX3yrFr6ucRYfGOtTjSHXL2iasQIK+cajcySVMT
-         hIt/x5DGZt5s5qMIWIyNSH5+v3vdTO4NaC7gySXCidI7HAEnq3AnK1lzFG+kNKdQ8Tmg
-         rsv+4pPJ8p2aELeoRgV4XyZdTyOnXFnX2PdH/6dtQ+i4thd504aQse5J8Vn1HWw2WsUA
-         nc6g==
+        d=gmail.com; s=20251104; t=1785438837; x=1786043637; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RD3lmsuBeFnVrxhklpYzLfUZAUon1UxgAvihRoA5NDM=;
+        b=mr2ny54tuo212MTH/DQS6J6QiCZLVFtAdpF2X6zZ2VBd91l0ooyVJiFXoOY4ptYY8H
+         wvdGye81wyLx1Iuxa5q98YbSSo4I1tThXaER564wh9ZSNOZUijD57OqP+cRHVkxB0alq
+         Xts18V0K6C8B+3OtGYvNkQpEzyOnpRaiuofhAf19MllXKSyQkJi1Bt/b5auSULJ4xMzF
+         ACRqORVPhprh1HvL2Rc3Sk1OLI+RjfaY2XL/GiDXWrFte3xNKo/FKKvkw3Z0W0Du7Tei
+         iFyzYHjE4FtiOVeumdnxNxB16921UK8RlYselZZBnSnydBX3IVFD4ECNJ6Kfu+vm0rzh
+         Ukig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785438683; x=1786043483;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1785438837; x=1786043637;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=50+BRi1M80OADWMBtwF8+tIWW7M6cT13tg7MUfRqqQQ=;
-        b=YhPeAU4r5JexUmzENxHl+IEEnkkh7oeiLmZHrlEgdfV3kbpPwV4zMxlt3P1N2BhRYI
-         OSDouW/7BOa59uCsxtgFOCtuolc/H2nc+7ymzBMaRLW8mUqtQwtCMoLA0xG/Iau1JuTK
-         9xIr+5IQdahstmeLoYKa0egKnp7eeeuCdxDJ0hIhP3QSUHS7715u+5szRZMA60VvS82N
-         hUVBXpC8rkFn7752LPMTXkt4bbwNN0MUMXnFLKKqdJ9ZR/pyGJVGvm4rlVDijdlpZOvH
-         OdPm/+iN8R2kZmaTDjUtRBCXr/nIyLmKwplZHQ+NofdBbJ0YN2mdtq/emi/lBgJBNCY7
-         Gkfg==
-X-Gm-Message-State: AOJu0YwJ4PJW2FZK43Uof5FAIXpWTW+nkLjHtFwxhLs/Iwrrk8UvsHxB
-	d7O8LvOw6eiNHogvRW9H6MS1jaDotiOypRUEjJCCTg9+PYnOaJCsCc7y/dawe3aUbtY=
-X-Gm-Gg: AR+sD12+RTi0630mBLoak4U4bqZR1Y9eI0Dttaju3KKWlH6i2yz7KUMQf38EtRlSRKn
-	Ux7n4RIqhMGsGrFXrAOfQb+PAXHB8ThKA0TgdWhuwLFxcCWJQIwK2uxDWg+aQvHK5+OAqtKs4Ng
-	PeS8b4r+WLvG2emZd4rBpze55hfIue64wsKXTWRkmqqx+zgwuRvu0lDf9MflCTHp7fULcn4KfQo
-	DLTasgQTQynXDEH6GxJpMGJi+7Fx3VoPKGvOBxYX0+eSG7K7fmt8re6VrJ0o/U6AzuyF8YmUcoH
-	plczGRFhFNNC9oSjCl9Iv15teADA18wcH4DIGGg8b1dVRqPdjtgVFXFSpDqTGoHXwODtsETMtbf
-	6PzoECVK2Z99S/8z/mEA/WjE3TIvKE0Z30lLfoRQQaWxrkG18OKKiIC36LzkA8X44UlyTkV0Wdq
-	WziKZ+WGlJMnzdUtdnFSG1u3xhXFZsSQu4ZYZWr7WXjRLAIiCLvaTjIdebqHB8Akh2j++0KRiEG
-	0qVcExhA6PD9S/w6TYE8+gdKMVfOIIcEL3IWWqhOpD44rE=
-X-Received: by 2002:a05:6830:488b:b0:7ec:553b:4964 with SMTP id 46e09a7af769-7f02c15619dmr3071607a34.24.1785438682818;
-        Thu, 30 Jul 2026 12:11:22 -0700 (PDT)
-Received: from [192.168.1.150] ([198.8.77.157])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f00d595321sm5403413a34.6.2026.07.30.12.11.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Jul 2026 12:11:21 -0700 (PDT)
-Message-ID: <be4367b4-5846-4595-99cd-204b8ad48293@kernel.dk>
-Date: Thu, 30 Jul 2026 13:11:19 -0600
+        bh=RD3lmsuBeFnVrxhklpYzLfUZAUon1UxgAvihRoA5NDM=;
+        b=cWVFydK4C9xZJLmvdVsqFLuLtfw+GYRVs7W3pjet5LaUHoqQI0QrB92kp05HulZg2C
+         lmGXHpxHM/qoajnm2d2d85AQhe444FdxR2aVbNdW/pEnQ7lS/dS7eM9h12ekp6uHt6Cm
+         uMIbt3Fa9lsgSOVFyNpxmdnVmFGi/8PW+6TtFtjUFxBYhQJxcGvx93YOmQw2HwOvMdrZ
+         LqOZXUKlCWJYS/LQ98SK1NkW/ogYy9iyfyE83BV1oWsZ3sDcDC6gXQhacc68NnrSJdHh
+         mKAgT68xDG3k7HX+2zaWOEhWW/Xg+3KLLhQwb9fQoGp5APx/pM/eUX6CY8ZcDl3vd92B
+         0FZA==
+X-Forwarded-Encrypted: i=1; AHgh+RqAtj7Odhjh0iN7d8+lHtONf/bE0vTKrH8BrLrzAOdWSKe30yD+uWK4aT1bCy/4OAN3DvE/FHY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPai5Cr7QLznfVXXLxY1LE5U7WsAxSu/vIyEGyYSKMOLiGP/DB
+	JvuuFGrv7ZnLH4cImm3T3B+CfWy/EFQIG3ejQDtfDc5SpK72hktO4DU6bFhAJJIY
+X-Gm-Gg: AR+sD11pRO0X0hcGtV+CNoKQfbAwUVJGQsagaaZDrNKM8Kve1ptc1BS7P3rw/VmYr1g
+	CsAB8yfutgf51yhGD6snbKJ1f5/LIRxGhNeph4Wdzf7cU6YHcj3YskB9IoN2l8FUqKbQ996rBI0
+	E12tEF8Zfcxif2oFfYVk6SYu/cKruTgdE8a3zsTBkkZhCN6XcQVmmw9LUmwMGanXq5hpXpALdTN
+	29SGAFpJ+IqyeKsUqGgj0AUu9iMhRasGzUMPlNHdWCBDhlQdao2hCn2ForcMLPbmrAX/UiKlPdU
+	gfTZ/qX6w+8UxdoZSqLGcRKWmhpmf4RFkYWwXJDomOG3f0TCVD14cQgB1wtaxge1qSbL2A+9yOe
+	rCa6CxY4mZVtPYR3b4QD5p4cCGjtzXZTi5p3KM8ir3yfANNHJGJgMsLYGyJ5KnJ2a5mf+2dnhs5
+	1ECYxXN1X+yQ/xf7l+77PQJhD4PXKIoEauv+BCZ+s2rhAHFYppvKZjcbljUfvTNJLPD82AUCj7D
+	Z3CgCFJYu28xk/f+bRW+rI2E7K44FkLOsLAAhRdCVVNj4SWCoI=
+X-Received: by 2002:a05:600c:41c1:b0:495:5b02:23b0 with SMTP id 5b1f17b1804b1-49800eabb56mr33840125e9.26.1785438836682;
+        Thu, 30 Jul 2026 12:13:56 -0700 (PDT)
+Received: from VivoBook-ASUS-X712UA-M712UA.lan (public-gprs192625.centertel.pl. [46.134.91.178])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-498011e5febsm76121635e9.3.2026.07.30.12.13.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 12:13:56 -0700 (PDT)
+From: Stanislaw Pal <kuncy7@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>
+Cc: Luo Jie <jie.luo@oss.qualcomm.com>,
+	Brian Masney <bmasney@redhat.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Stanislaw Pal <kuncy7@gmail.com>
+Subject: [PATCH] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks enabled
+Date: Thu, 30 Jul 2026 21:13:53 +0200
+Message-ID: <20260730191353.557494-1-kuncy7@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring: preserve task restrictions across exec
-To: =?UTF-8?B?7J206rec66+8?= <fyonglkm@gmail.com>, io-uring@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+
+The probe function takes a runtime PM reference to enable the GCC AHB &
+SYS clocks of the CMN PLL block, registers the clocks, and then drops
+the reference. Once the autosuspend kicks in, pm_clk gates both clocks
+a few milliseconds after probe has returned.
+
+That is wrong on two counts:
+
+  - The clock ops access the CMN PLL registers without taking a runtime
+    PM reference of their own, so any later clk_set_rate() or rate
+    recalculation touches the register file with its bus clock gated.
+
+  - On IPQ5018 the consequences are not contained to this device:
+    gating the CMN block bus clocks makes the SoC hang on a subsequent
+    bus access. Measured on a TP-Link Archer AX55 v1 (IPQ5018), the
+    machine dies silently within a few milliseconds of the CMN PLL
+    probe returning - mid-character on the UART - and the victim is
+    whichever device happens to probe next. Whether a given boot
+    survives the window is a micro-timing lottery: different binary
+    layouts of the same kernel ranged from occasional failures to a
+    100% reproducible boot loop.
+
+Keep the runtime PM usage count elevated on the probe success path, so
+the bus clocks stay enabled. With this one change the same board went
+from boot-looping to surviving every boot attempt (verified across
+three previously-failing kernel binaries, plus repeated soft and hard
+resets on the final one).
+
+Fixes: f81715a4c87c ("clk: qcom: Add CMN PLL clock controller driver for IPQ SoC")
 Cc: stable@vger.kernel.org
-References: <CAPLyb-a7bWCq0GzyOcztLm3-7H0GOP64JynosfO9k+yHy7diPw@mail.gmail.com>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <CAPLyb-a7bWCq0GzyOcztLm3-7H0GOP64JynosfO9k+yHy7diPw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Signed-off-by: Stanislaw Pal <kuncy7@gmail.com>
+---
+One more observation from the same debugging session, for the people
+who know this silicon: on IPQ5018 the CMN_PLL_LOCKED bit (offset 0x64,
+bit 8) never asserts. Every clk_cmn_pll_set_rate() call runs its
+regmap_read_poll_timeout() to the full 100 ms timeout - including under
+the bootloader-programmed configuration the hardware demonstrably runs
+fine with - and nobody notices, because clk_change_rate() ignores the
+.set_rate return value, so the -ETIMEDOUT is swallowed silently. Is the
+lock status readable at a different offset on this SoC, or is the bit
+simply not functional there? Happy to send a follow-up (surfacing the
+error, or skipping the poll where it cannot work) once someone can say
+what the intended behavior is.
 
-This patch is completely mangled, email too fwiw. Can you please send a
-text/plain variant? Thanks!
+ drivers/clk/qcom/ipq-cmn-pll.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
--- 
-Jens Axboe
+--- a/drivers/clk/qcom/ipq-cmn-pll.c
++++ b/drivers/clk/qcom/ipq-cmn-pll.c
+@@ -454,11 +454,19 @@
+ 
+ 	/* Register CMN PLL clock and fixed rate output clocks. */
+ 	ret = ipq_cmn_pll_register_clks(pdev);
+-	pm_runtime_put(dev);
+-	if (ret)
++	if (ret) {
++		pm_runtime_put(dev);
+ 		return dev_err_probe(dev, ret,
+ 				     "Failed to register CMN PLL clocks\n");
++	}
+ 
++	/*
++	 * Keep the runtime PM usage count elevated on the success path, so
++	 * the CMN block AHB & SYS clocks stay enabled: the clock ops access
++	 * the CMN PLL registers without taking a runtime PM reference, and
++	 * on IPQ5018 gating these clocks after probe hangs the SoC on a
++	 * subsequent bus access.
++	 */
+ 	return 0;
+ }
+ 
+
