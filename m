@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62814248D5
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:15:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF15426408
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:15:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785413756; cv=none; b=YR1iHKPn6yb4kPgyU0tUaEZdHbVtN9a6zJvbV6F8Ov1uUak9fbqzO9oMIUd0ZEgxpoWG5I88FisdZiLUHVFMpwfY7IV5ps41iOZ8u+uYRSLc+mG60sHJJjB/gnfWAA/Bd9P5QStH8hk9QvB5iglh2xS2J+TsIeWPeRtoR+mD54c=
+	t=1785413756; cv=none; b=FSAdh8C2+WxMT1R4QUFUsEgJNHDuBY8MBeLcti5Prkab7ZsGxnTam1VyoNuBX5YW0PHEtLLhmUl9lMiLSgxNRCpACUUsYG8FFYz/YrjXazdzdgR5aGJw6+lmDMDdLbec6PGci6XYtJIXnmRIqS3ndC4T6QrWQSqHOinj8QF6JSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785413756; c=relaxed/simple;
-	bh=HkyxaXT1Ods29RklKt9SSTD/7YH7BENaoEiz6AJBwhw=;
+	bh=vr7we9Ao01CySF2kU7HR6+8Kq5/BXQCVd9Xh/ON62Jo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lBXV6+RcL8/best4mSsrzzsfeZCk3Vf0FLfKTWNo+1pdjoBMaQ8ieqG88dCIUATu1jJ8pwy9OX7W8V5XjKUZUQPcYOJLNicKyCgc/f76HcTALeen8eMorv8c96F7hE3dJEi0yRRB14x2QA6omwkt9SRAVDLK9vZoazpab79+IZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=exPRjSCc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bscYi3ejQaay8NS0+d0eauERZwYBXXVEkfVqBujPHbuechrxFcuqOUF1gsE8ejgoFxppa54YfXvfULZjFqPh3DPTWEw4gWPgnsI2s1vjV3KDqsBet8xoKnc8lP3lXwcrDfuxBjIwahLBCD63Qt8SLCOBG1rhH28jE1iNGFs6UEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d6i0YajJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="exPRjSCc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39C641F00AC4;
-	Thu, 30 Jul 2026 12:15:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d6i0YajJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F213E1F00A3E;
+	Thu, 30 Jul 2026 12:15:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785413743;
-	bh=iaD/b/ubu4xLtv/i8Cy8ghOjA3cjehH2I7W62/dAmh8=;
+	s=k20260515; t=1785413747;
+	bh=69fhbFiwCaRrmTRzDhQQchJ53kjYsL0OG+BtxcpDVS4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=exPRjSCcBcpZ0sanso4zH9qnkfO/W7N3IaPDQeMd5mjD2QVuWWCwI0NJIPdaGV3eq
-	 6+T4SaU+Pzsv4/jVCbsjSrfLUZ0LQMjDM+l2LdYFcuAVLc0HgIuWVcgvPV426COCa5
-	 Xh89no1Z8aTY4YBoTWL3W9zOIn23v5zhmhLaoMYOWhlSJjJw9cj0VpH1QE3Z+6V7ZQ
-	 +GlKKaKK1fl6WyD514yZ3f1lRTyR+ghigw19WKizBjJV7Zm3G751V2RHZikqeibIXt
-	 mKEKl9pGZE/SqQ4K8Pn0aPHVtEZee9QofsyrbC8X97Czcj4bEI7bKhJBsvCn0gPR6C
-	 OAZQJrViwDCBQ==
+	b=d6i0YajJsVnEPwenHMe4TrANCIIw6jviWFYXMoNvy57n5emHfilNkBIXRA7HZRy+5
+	 xZNt2z/byDw76ng0M5MxQbFxCsjW/Tlp5rDcHdQi5Z42LUdXZ95hEu1yhfK4+0vebH
+	 4soCnGb8lWyg7MVbMR4e2gl9umvwtWJ9aoY9JUnTNGZr5nlxtljXzZrJUwu/8iJXQ5
+	 nqUM+qI3aWD+4xfiXUAe2LMWZr4F/l+y+fPwQrdHBlTWaVJRS0AEIWjo62P75czzC3
+	 3SFmT2LsuqZpQmjIO2yUG2ecAzB48vKyEc/N4UWeOb36RwDPd/w7YUA9Bbvt800BoK
+	 cY6CB7cq54TvA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Matlack <dmatlack@google.com>,
-	Sean Christopherson <seanjc@google.com>,
+Cc: Cen Zhang <zzzccc427@gmail.com>,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] KVM: Introduce vcpu->wants_to_run
-Date: Thu, 30 Jul 2026 08:15:40 -0400
-Message-ID: <20260730121541.2209429-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] usb: gadget: f_tcm: synchronize delayed set_alt with teardown
+Date: Thu, 30 Jul 2026 08:15:45 -0400
+Message-ID: <20260730121545.2210116-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072610-waking-easiest-e330@gregkh>
-References: <2026072610-waking-easiest-e330@gregkh>
+In-Reply-To: <2026072701-nastily-levitator-a210@gregkh>
+References: <2026072701-nastily-levitator-a210@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,152 +46,388 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Matlack <dmatlack@google.com>
+From: Cen Zhang <zzzccc427@gmail.com>
 
-[ Upstream commit a6816314af5749cd88944bfdceb270c627cdf348 ]
+[ Upstream commit 79e2d75725c85607f8a9d87ae9cace62a19f767d ]
 
-Introduce vcpu->wants_to_run to indicate when a vCPU is in its core run
-loop, i.e. when the vCPU is running the KVM_RUN ioctl and immediate_exit
-was not set.
+The f_tcm set_alt() path defers endpoint setup to a work item and
+completes the delayed status response from process context. The delayed
+work uses f_tcm private state and may complete the setup request after
+disconnect or function teardown has already moved on.
 
-Replace all references to vcpu->run->immediate_exit with
-!vcpu->wants_to_run to avoid TOCTOU races with userspace. For example, a
-malicious userspace could invoked KVM_RUN with immediate_exit=true and
-then after KVM reads it to set wants_to_run=false, flip it to false.
-This would result in the vCPU running in KVM_RUN with
-wants_to_run=false. This wouldn't cause any real bugs today but is a
-dangerous landmine.
+Cancel and drain the delayed set_alt work when the function is unbound or
+freed. For disable paths, which are reached under the composite device
+lock, use a small state machine and a non-sleeping cancellation path
+instead of cancel_work_sync(). If the work is already running, mark it
+cancelled and let the worker own the cleanup; otherwise tcm_disable() can
+cancel the queued work and clean up immediately.
 
-Signed-off-by: David Matlack <dmatlack@google.com>
-Link: https://lore.kernel.org/r/20240503181734.1467938-2-dmatlack@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Stable-dep-of: e800decd9c0a ("KVM: x86: Only reset TSC Deadline Timer in apic_timer_expired on KVM_RUN")
+Also serialize the final delayed-status completion with the cancellation
+check while holding the composite device lock. This prevents a disconnect
+from clearing delayed_status while the worker is about to complete the
+control request.
+
+Validation reproduced this kernel report:
+BUG: KASAN: slab-use-after-free in tcm_delayed_set_alt+0x6c/0xef0
+
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x66/0xa0
+ print_report+0xce/0x630
+ ? tcm_delayed_set_alt+0x6c/0xef0
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __virt_addr_valid+0x188/0x320
+ ? tcm_delayed_set_alt+0x6c/0xef0
+ kasan_report+0xe0/0x110
+ ? tcm_delayed_set_alt+0x6c/0xef0
+ tcm_delayed_set_alt+0x6c/0xef0
+ ? __pfx_tcm_delayed_set_alt+0x10/0x10
+ ? process_one_work+0x4cb/0xb90
+ ? rcu_is_watching+0x20/0x50
+ ? tcm_delayed_set_alt+0x9/0xef0
+ process_one_work+0x4d7/0xb90
+ ? __pfx_process_one_work+0x10/0x10
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __list_add_valid_or_report+0x37/0xf0
+ ? __pfx_tcm_delayed_set_alt+0x10/0x10
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ worker_thread+0x2d8/0x570
+ ? __pfx_worker_thread+0x10/0x10
+ kthread+0x1ad/0x1f0
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork+0x3c9/0x540
+ ? __pfx_ret_from_fork+0x10/0x10
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __switch_to+0x2e9/0x730
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
+
+Allocated by task 544:
+ kasan_save_stack+0x33/0x60
+ kasan_save_track+0x14/0x30
+ __kasan_kmalloc+0x8f/0xa0
+ tcm_alloc+0x68/0x180
+ usb_get_function+0x36/0x60
+ config_usb_cfg_link+0x125/0x1b0
+ configfs_symlink+0x322/0x890
+ vfs_symlink+0xc2/0x270
+ filename_symlinkat+0x295/0x2f0
+ __x64_sys_symlinkat+0x62/0x90
+ do_syscall_64+0x115/0x6a0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 661:
+ kasan_save_stack+0x33/0x60
+ kasan_save_track+0x14/0x30
+ kasan_save_free_info+0x3b/0x60
+ __kasan_slab_free+0x43/0x70
+ kfree+0x2f9/0x530
+ config_usb_cfg_unlink+0x173/0x1e0
+ configfs_unlink+0x1fa/0x340
+ vfs_unlink+0x15c/0x510
+ filename_unlinkat+0x2ba/0x450
+ __x64_sys_unlinkat+0x63/0x90
+ do_syscall_64+0x115/0x6a0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Fixes: c52661d60f63 ("usb-gadget: Initial merge of target module for UASP + BOT")
+Cc: stable <stable@kernel.org>
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Link: https://patch.msgid.link/20260627104153.3822495-1-zzzccc427@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kvm/arm.c       | 2 +-
- arch/mips/kvm/mips.c       | 2 +-
- arch/powerpc/kvm/powerpc.c | 2 +-
- arch/riscv/kvm/vcpu.c      | 2 +-
- arch/s390/kvm/kvm-s390.c   | 2 +-
- arch/x86/kvm/x86.c         | 4 ++--
- include/linux/kvm_host.h   | 1 +
- virt/kvm/kvm_main.c        | 3 +++
- 8 files changed, 11 insertions(+), 7 deletions(-)
+ drivers/usb/gadget/function/f_tcm.c | 192 ++++++++++++++++++++++++----
+ drivers/usb/gadget/function/tcm.h   |  13 ++
+ 2 files changed, 177 insertions(+), 28 deletions(-)
 
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index e49ead6d005cc4..d581aedf00190b 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -915,7 +915,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+diff --git a/drivers/usb/gadget/function/f_tcm.c b/drivers/usb/gadget/function/f_tcm.c
+index 7b27f8082ace66..5753c83f557846 100644
+--- a/drivers/usb/gadget/function/f_tcm.c
++++ b/drivers/usb/gadget/function/f_tcm.c
+@@ -2361,31 +2361,158 @@ static int tcm_bind(struct usb_configuration *c, struct usb_function *f)
+ 	return -ENOTSUPP;
+ }
  
- 	vcpu_load(vcpu);
- 
--	if (run->immediate_exit) {
-+	if (!vcpu->wants_to_run) {
- 		ret = -EINTR;
- 		goto out;
- 	}
-diff --git a/arch/mips/kvm/mips.c b/arch/mips/kvm/mips.c
-index 231ac052b506b9..f1a99962027a4f 100644
---- a/arch/mips/kvm/mips.c
-+++ b/arch/mips/kvm/mips.c
-@@ -436,7 +436,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 		vcpu->mmio_needed = 0;
- 	}
- 
--	if (vcpu->run->immediate_exit)
-+	if (!vcpu->wants_to_run)
- 		goto out;
- 
- 	lose_fpu(1);
-diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
-index 6cef200c2404df..0e35668b28302f 100644
---- a/arch/powerpc/kvm/powerpc.c
-+++ b/arch/powerpc/kvm/powerpc.c
-@@ -1858,7 +1858,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 
- 	kvm_sigset_activate(vcpu);
- 
--	if (run->immediate_exit)
-+	if (!vcpu->wants_to_run)
- 		r = -EINTR;
- 	else
- 		r = kvmppc_vcpu_run(vcpu);
-diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
-index 9584d62c96ee74..27f5ffc762dd95 100644
---- a/arch/riscv/kvm/vcpu.c
-+++ b/arch/riscv/kvm/vcpu.c
-@@ -676,7 +676,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 		return ret;
- 	}
- 
--	if (run->immediate_exit) {
-+	if (!vcpu->wants_to_run) {
- 		kvm_vcpu_srcu_read_unlock(vcpu);
- 		return -EINTR;
- 	}
-diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
-index 890d850f51f076..bccbb84eb1be65 100644
---- a/arch/s390/kvm/kvm-s390.c
-+++ b/arch/s390/kvm/kvm-s390.c
-@@ -5048,7 +5048,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 	if (vcpu->kvm->arch.pv.dumping)
- 		return -EINVAL;
- 
--	if (kvm_run->immediate_exit)
-+	if (!vcpu->wants_to_run)
- 		return -EINTR;
- 
- 	if (kvm_run->kvm_valid_regs & ~KVM_SYNC_S390_VALID_FIELDS ||
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index c04277b35e2edf..313fce77e05896 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -11224,7 +11224,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 
- 	kvm_vcpu_srcu_read_lock(vcpu);
- 	if (unlikely(vcpu->arch.mp_state == KVM_MP_STATE_UNINITIALIZED)) {
--		if (kvm_run->immediate_exit) {
-+		if (!vcpu->wants_to_run) {
- 			r = -EINTR;
- 			goto out;
- 		}
-@@ -11302,7 +11302,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 		WARN_ON_ONCE(vcpu->mmio_needed);
- 	}
- 
--	if (kvm_run->immediate_exit) {
-+	if (!vcpu->wants_to_run) {
- 		r = -EINTR;
- 		goto out;
- 	}
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 57c7b4009f5758..17ff73f1b684b5 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -378,6 +378,7 @@ struct kvm_vcpu {
- 		bool dy_eligible;
- 	} spin_loop;
- #endif
-+	bool wants_to_run;
- 	bool preempted;
- 	bool ready;
- 	struct kvm_vcpu_arch arch;
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index b83f7612f2506c..81024cee82cba3 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -4160,7 +4160,10 @@ static long kvm_vcpu_ioctl(struct file *filp,
- 				synchronize_rcu();
- 			put_pid(oldpid);
- 		}
-+		vcpu->wants_to_run = !READ_ONCE(vcpu->run->immediate_exit);
- 		r = kvm_arch_vcpu_ioctl_run(vcpu);
-+		vcpu->wants_to_run = false;
+-struct guas_setup_wq {
+-	struct work_struct work;
+-	struct f_uas *fu;
+-	unsigned int alt;
+-};
++static void tcm_cleanup_old_alt(struct f_uas *fu)
++{
++	if (fu->flags & USBG_IS_UAS)
++		uasp_cleanup_old_alt(fu);
++	else if (fu->flags & USBG_IS_BOT)
++		bot_cleanup_old_alt(fu);
++	fu->flags = 0;
++}
 +
- 		trace_kvm_userspace_exit(vcpu->run->exit_reason, r);
- 		break;
++static void tcm_delayed_set_alt_done(struct f_uas *fu)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
++	fu->delayed_set_alt_cancel = false;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++}
++
++static bool tcm_delayed_set_alt_cancelled(struct f_uas *fu)
++{
++	bool cancelled;
++	unsigned long flags;
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	cancelled = fu->delayed_set_alt_cancel;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++
++	return cancelled;
++}
++
++static bool tcm_complete_delayed_status(struct f_uas *fu)
++{
++	struct usb_composite_dev *cdev = fu->function.config->cdev;
++	struct usb_request *req = cdev->req;
++	unsigned long cdev_flags;
++	bool cancelled;
++	int ret;
++
++	spin_lock_irqsave(&cdev->lock, cdev_flags);
++	spin_lock(&fu->delayed_set_alt_lock);
++	cancelled = fu->delayed_set_alt_cancel;
++	if (!cancelled) {
++		fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
++		fu->delayed_set_alt_cancel = false;
++	}
++	spin_unlock(&fu->delayed_set_alt_lock);
++
++	if (cancelled) {
++		spin_unlock_irqrestore(&cdev->lock, cdev_flags);
++		return false;
++	}
++
++	if (cdev->delayed_status == 0) {
++		WARN(cdev, "%s: Unexpected call\n", __func__);
++	} else if (--cdev->delayed_status == 0) {
++		req->length = 0;
++		req->context = cdev;
++		ret = usb_ep_queue(cdev->gadget->ep0, req, GFP_ATOMIC);
++		if (ret == 0) {
++			cdev->setup_pending = true;
++		} else {
++			req->status = 0;
++			req->complete(cdev->gadget->ep0, req);
++		}
++	}
++
++	spin_unlock_irqrestore(&cdev->lock, cdev_flags);
++
++	return true;
++}
++
++static bool tcm_cancel_delayed_set_alt(struct f_uas *fu)
++{
++	bool cleanup = false;
++	bool cancel = false;
++	unsigned long flags;
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	switch (fu->delayed_set_alt_state) {
++	case USBG_DELAYED_SET_ALT_IDLE:
++		cleanup = true;
++		break;
++	case USBG_DELAYED_SET_ALT_QUEUED:
++	case USBG_DELAYED_SET_ALT_RUNNING:
++		fu->delayed_set_alt_cancel = true;
++		cancel = true;
++		break;
++	}
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++
++	if (cancel && cancel_work(&fu->delayed_set_alt)) {
++		spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++		if (fu->delayed_set_alt_state == USBG_DELAYED_SET_ALT_QUEUED) {
++			fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
++			fu->delayed_set_alt_cancel = false;
++			cleanup = true;
++		}
++		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++	}
++
++	return cleanup;
++}
++
++static void tcm_cancel_delayed_set_alt_sync(struct f_uas *fu)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_IDLE)
++		fu->delayed_set_alt_cancel = true;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++
++	cancel_work_sync(&fu->delayed_set_alt);
++
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
++	fu->delayed_set_alt_cancel = false;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++}
+ 
+ static void tcm_delayed_set_alt(struct work_struct *wq)
+ {
+-	struct guas_setup_wq *work = container_of(wq, struct guas_setup_wq,
+-			work);
+-	struct f_uas *fu = work->fu;
+-	int alt = work->alt;
++	struct f_uas *fu = container_of(wq, struct f_uas, delayed_set_alt);
++	unsigned long flags;
++	unsigned int alt;
+ 
+-	kfree(work);
++	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++	if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_QUEUED) {
++		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++		return;
++	}
++	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_RUNNING;
++	alt = fu->delayed_alt;
++	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
+ 
+-	if (fu->flags & USBG_IS_BOT)
+-		bot_cleanup_old_alt(fu);
+-	if (fu->flags & USBG_IS_UAS)
+-		uasp_cleanup_old_alt(fu);
++	tcm_cleanup_old_alt(fu);
++
++	if (tcm_delayed_set_alt_cancelled(fu))
++		goto out_done;
+ 
+ 	if (alt == USB_G_ALT_INT_BBB)
+ 		bot_set_alt(fu);
+ 	else if (alt == USB_G_ALT_INT_UAS)
+ 		uasp_set_alt(fu);
+-	usb_composite_setup_continue(fu->function.config->cdev);
++
++	if (tcm_complete_delayed_status(fu))
++		return;
++
++	tcm_cleanup_old_alt(fu);
++out_done:
++	tcm_delayed_set_alt_done(fu);
+ }
+ 
+ static int tcm_get_alt(struct usb_function *f, unsigned intf)
+@@ -2411,15 +2538,20 @@ static int tcm_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
+ 		return -EOPNOTSUPP;
+ 
+ 	if ((alt == USB_G_ALT_INT_BBB) || (alt == USB_G_ALT_INT_UAS)) {
+-		struct guas_setup_wq *work;
++		unsigned long flags;
+ 
+-		work = kmalloc(sizeof(*work), GFP_ATOMIC);
+-		if (!work)
+-			return -ENOMEM;
+-		INIT_WORK(&work->work, tcm_delayed_set_alt);
+-		work->fu = fu;
+-		work->alt = alt;
+-		schedule_work(&work->work);
++		spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
++		if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_IDLE) {
++			spin_unlock_irqrestore(&fu->delayed_set_alt_lock,
++					       flags);
++			return -EBUSY;
++		}
++		fu->delayed_alt = alt;
++		fu->delayed_set_alt_cancel = false;
++		fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_QUEUED;
++		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
++
++		schedule_work(&fu->delayed_set_alt);
+ 		return USB_GADGET_DELAYED_STATUS;
  	}
+ 	return -EOPNOTSUPP;
+@@ -2429,11 +2561,8 @@ static void tcm_disable(struct usb_function *f)
+ {
+ 	struct f_uas *fu = to_f_uas(f);
+ 
+-	if (fu->flags & USBG_IS_UAS)
+-		uasp_cleanup_old_alt(fu);
+-	else if (fu->flags & USBG_IS_BOT)
+-		bot_cleanup_old_alt(fu);
+-	fu->flags = 0;
++	if (tcm_cancel_delayed_set_alt(fu))
++		tcm_cleanup_old_alt(fu);
+ }
+ 
+ static int tcm_setup(struct usb_function *f,
+@@ -2581,11 +2710,16 @@ static void tcm_free(struct usb_function *f)
+ {
+ 	struct f_uas *tcm = to_f_uas(f);
+ 
++	tcm_cancel_delayed_set_alt_sync(tcm);
+ 	kfree(tcm);
+ }
+ 
+ static void tcm_unbind(struct usb_configuration *c, struct usb_function *f)
+ {
++	struct f_uas *fu = to_f_uas(f);
++
++	tcm_cancel_delayed_set_alt_sync(fu);
++	tcm_cleanup_old_alt(fu);
+ 	usb_free_all_descriptors(f);
+ }
+ 
+@@ -2618,6 +2752,8 @@ static struct usb_function *tcm_alloc(struct usb_function_instance *fi)
+ 	fu->function.disable = tcm_disable;
+ 	fu->function.free_func = tcm_free;
+ 	fu->tpg = tpg_instances[i].tpg;
++	INIT_WORK(&fu->delayed_set_alt, tcm_delayed_set_alt);
++	spin_lock_init(&fu->delayed_set_alt_lock);
+ 
+ 	hash_init(fu->stream_hash);
+ 	mutex_unlock(&tpg_instances_lock);
+diff --git a/drivers/usb/gadget/function/tcm.h b/drivers/usb/gadget/function/tcm.h
+index 009974d81d66bb..e1d5a939161273 100644
+--- a/drivers/usb/gadget/function/tcm.h
++++ b/drivers/usb/gadget/function/tcm.h
+@@ -3,6 +3,7 @@
+ #define __TARGET_USB_GADGET_H__
+ 
+ #include <linux/kref.h>
++#include <linux/spinlock.h>
+ /* #include <linux/usb/uas.h> */
+ #include <linux/hashtable.h>
+ #include <linux/usb/composite.h>
+@@ -29,6 +30,12 @@ enum {
+ 
+ #define USB_G_DEFAULT_SESSION_TAGS	USBG_NUM_CMDS
+ 
++enum {
++	USBG_DELAYED_SET_ALT_IDLE = 0,
++	USBG_DELAYED_SET_ALT_QUEUED,
++	USBG_DELAYED_SET_ALT_RUNNING,
++};
++
+ struct tcm_usbg_nexus {
+ 	struct se_session *tvn_se_sess;
+ };
+@@ -132,6 +139,12 @@ struct f_uas {
+ #define USBG_BOT_CMD_PEND	(1 << 4)
+ #define USBG_BOT_WEDGED		(1 << 5)
+ 
++	struct work_struct	delayed_set_alt;
++	spinlock_t		delayed_set_alt_lock; /* protects delayed_set_alt_* */
++	unsigned int		delayed_alt;
++	unsigned int		delayed_set_alt_state;
++	bool			delayed_set_alt_cancel;
++
+ 	struct usbg_cdb		cmd[USBG_NUM_CMDS];
+ 	struct usb_ep		*ep_in;
+ 	struct usb_ep		*ep_out;
 -- 
 2.53.0
 
