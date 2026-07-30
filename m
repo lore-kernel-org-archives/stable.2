@@ -1,228 +1,240 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A4643B492
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 13:51:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE82E43B6E9
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 13:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785419481; cv=none; b=pniw+jVhGXKMyRQG0heiNL4ivsVlT6oPUvDTVfN+pxF6bJjxVF2MnUmoG98pm34A4OFq+8mQLlHbVYVUf2reaQ7iXK9rAf0vVdmByT2EhSv2+aNZ9RR8DrljFo5z68xUUiKGNIy3AkiHXyI91sOBcOqt0blRXWYv/TM55p+Fwes=
+	t=1785419490; cv=none; b=PVAvWaek/giE8gLWVU9ooQmyMNENU4C87Ny2nEl78dnDFhBLpE/oTQRSV0K3oZ2LBdXHbSnaOBZEI/obUTt3Uq6ac+xdCrufThUbTsCTkF+J1mhT7J1cgN1Vgne/8LMtDZNhkj3KvZtJK8TEYT0jZVda2cpH6mbWo+54B3kn6DM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785419481; c=relaxed/simple;
-	bh=9W42jAvWHV6v7Fp1dMOJOQisW88LB0E5UY+xyE3wM1A=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ISwie8N7TTWSfVJAuCgnWvsII93DenA3KMPEteotZqVozMLBj2mhuLrW6B6XGcFfiKzsTkMPCuinfiIozTDPxEJJvQgHa1AutB5LWlF4zfPS6+4W3RIAF1jpDCUhaIOazSIWYqj0Y4Kx7ycJ5E4mp+m2hDA5aIeihVnJC7mvVew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zfJaqiuK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785419490; c=relaxed/simple;
+	bh=CTFS/T964a5yaqIE/V4xHk92weLYYbNuQXv+yNK+RQc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nr9VztY/MxqPgbPvIlZ3yFV3TT+2Wh157IBeYsdszIgnRbEKAHK/Ofve6qKCX3ToGYiaU+MXH/focK90BYbJiFevXZbKUP9Kdc6NNmdrt/VyhmRJJEc6G+gj2JsQjEnziZiwXXDEIqbzImrvshdf4BYOof0n7NSXxqIorgg69Kc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=LL8Dbiyz; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zfJaqiuK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E41BE1F000E9;
-	Thu, 30 Jul 2026 13:51:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785419479;
-	bh=5GtBpAuCQDdrHXaAw/c9VWKm1oWBGov6DShZJ2UA5fg=;
-	h=Subject:To:Cc:From:Date;
-	b=zfJaqiuK7WP6jk22VoBFFxhu7mcNlQUOpv/1cR4lCo6tv58nSs5pVGaVgFlvqnpKx
-	 qplgehcQzHL/ap47NbH0YO8rp5ommSEeVhuiogkeu5DUtIUdAs5FKd2ibSau4P5aB2
-	 EjsrFQo6uTBLRFggAa47+KmTFJKahmNe+3boUyRU=
-Subject: FAILED: patch "[PATCH] netfilter: nf_tables: clone set on flush only" failed to apply to 6.6-stable tree
-To: pablo@netfilter.org,fw@strlen.de
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 30 Jul 2026 15:51:05 +0200
-Message-ID: <2026073005-coerce-divisibly-805e@gregkh>
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="LL8Dbiyz"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cf27856f9cso22437425ad.2
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 06:51:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1785419484; x=1786024284; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HunIRyPIi2bgD1KL+i/5a5v9pP+PvMSSEc+1/eqqAGE=;
+        b=LL8Dbiyz3AZC8RIBCNKiNBC+JgiVI1EIQLyX53T2pqTVHWCepNK36es0wB4+4HvfUK
+         sCAW8Ex8aLFkBGgr0KAsNutOF08ZCn7dFj10/dcYOZdcwR9Mh7l4B9XqSadsj4o9BitC
+         yu128tZ0MkMUXIlrs6alOV3GfqX3umecFxhNI4+yXY/Yha09hJGThdw1JhtzBkONOQBk
+         zhcYCLUp+vFXpUOKzdMirUmbgc6gn3Vs8nRrj5dIJhgBFZcWWZyl2g2o0556RLnqOoc3
+         87h5Cr9mB0smUQVG83pZFvbb9OXbVsuuUsczb6ZeMoGLAHHc6r1/KMIe7xvENMJ4utif
+         1V5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785419484; x=1786024284;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HunIRyPIi2bgD1KL+i/5a5v9pP+PvMSSEc+1/eqqAGE=;
+        b=M1uKR3gJA8TIwf8VUL9q7vZqxvl1eX8HEivOSPN7/tzjkHNZc5HGATys8FHyzDq7n2
+         OuZFNxPsh9DjHKZMVIterUyHZ337frScHSj/GibOsFpmqC1eVuMVEb50JAHdN9jbBywq
+         FoJPlaxqF59rCQ8KUAyawCl4TdICntB1yafb/DDVGKhSWf6rdcgA9vItr/zuvJ3AR3CV
+         fvE5oJIj8uJZm1fclHLaifw5YSvBIB0mkGWRrZUpTxLPTr9wKEevhT8bKI9IaW2Jnbxz
+         4JnTPJe7MGy1N1J92msPFUnOZlyqPFWXXNUblSFUcwhQacXOGQCvQeAQNcSqO716lLZu
+         DDjg==
+X-Forwarded-Encrypted: i=1; AHgh+RpzneKG9mdzSYXYGLNupip5LgiLRRiQg3Fy8i4Zl5gblmBr705dOrPaNifp1YmQVcrCztMQ2Oo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxapnpBEIjdzdzXnhMI/HSZLsiZip5b2tIhNLZPhf/klpEwQKcJ
+	s5xpJjY3CFHLi1Oq9iNvpNFbroLAZBZhCTAWrM8SZZHpBlAooyMDlkLKuFXiF+mcVdM=
+X-Gm-Gg: AR+sD10DsEog4TvOejAnVSx8A2n+bAn5TnmgfG3uDeNUCrdtHBs/DmOAQiUCy/mjZq6
+	7iFwIVTvXJQ9+WqylSZ0JbyvDYLKVLLbVy6S85vMxqnyBnA+At3OArmvrDJVOnPQliFdIbS7Yvp
+	N+hiLPSAVvQD/829YPZ34+nsceVl158LPckKE3a1ekrCby+Uw0VMp0GT76tS+Tng/A8k8xCt4XV
+	X7DFf2r2CksX937RV9WHuxxLroM39dph0N+L1lHowJWYi3488dx0YucbOpXNdbSHUAk+bQbtuEg
+	lfXophA3TA+FQRzOwTq/R3q8yaqPttyxJ7gQViouo5jpqvKxUfDwAAu+bg55nEnAZlDn9SR7/Us
+	ZJxvS5+uIuroezAOJpb/jq71z3/cvqxU2SvC9gWVBd12oZ1KZl4wPAC152yacBiaEC75uXOKxBG
+	on0ohtL23wuMoPJ1TxDvlMC9mo+Z6kOZIEoW38/pVP8fTGkmIChcLbhd9ZGrSnEV8sJtGy
+X-Received: by 2002:a17:903:b4b:b0:2c9:fbde:ab66 with SMTP id d9443c01a7336-2d035d009a9mr24192915ad.37.1785419483658;
+        Thu, 30 Jul 2026 06:51:23 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022c3721esm27804345ad.77.2026.07.30.06.51.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 06:51:23 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: sagi@grimberg.me,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: michael.christie@oracle.com,
+	martin.petersen@oracle.com,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] IB/isert: delay the final Login Response until the session is registered
+Date: Thu, 30 Jul 2026 22:51:09 +0900
+Message-ID: <20260730135110.1647384-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+isert_put_login_tx() puts the final Login Response on the wire before
+__transport_register_session(), which iscsi_post_login_handler() reaches
+only after iscsi_target_do_login() returns.  An initiator that issues a
+SCSI command as soon as it sees that response can have it executed against
+an se_session whose se_tpg is still NULL, and the ib-comp-wq worker oopses
+on the NULL dereference.
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+  [    6.469002] Oops: general protection fault, probably for non-canonical address 0xdffffc000000000f: 0000 [#1] SMP KASAN NOPTI
+  [    6.469652] KASAN: null-ptr-deref in range [0x0000000000000078-0x000000000000007f]
+  [    6.470053] CPU: 0 UID: 0 PID: 178 Comm: kworker/0:1H Not tainted 7.2.0-rc5-V2CTL-gf5098b6bae76 #10 PREEMPT(lazy)
+  [    6.470560] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+  [    6.471120] Workqueue: ib-comp-wq ib_cq_poll_work
+  [    6.471372] RIP: 0010:target_submit+0xbe/0x390
+  [    6.471599] Code: fa 48 c1 ea 03 80 3c 02 00 0f 85 89 02 00 00 48 b8 00 00 00 00 00 fc ff df 4d 8b 64 24 18 49 8d 7c 24 78 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 5a 02 00 00 48 8d 7b 78 4d 8b 6c 24 78 48 b8 00
+  [    6.472497] RSP: 0018:ffff8881058cfa78 EFLAGS: 00010206
+  [    6.472761] RAX: dffffc0000000000 RBX: ffff88810c78c6f0 RCX: ffffffff964bb363
+  [    6.473112] RDX: 000000000000000f RSI: 00000000fffffe00 RDI: 0000000000000078
+  [    6.473439] RBP: 1ffff11020b19f52 R08: 0000000000000001 R09: ffffed1020b19f52
+  [    6.473790] R10: 0000000000000003 R11: ffff88810596c000 R12: 0000000000000000
+  [    6.474153] R13: ffff88810c61b000 R14: ffff88810c6a3400 R15: ffff88810c61b044
+  [    6.474479] FS:  0000000000000000(0000) GS:ffff8881822b2000(0000) knlGS:0000000000000000
+  [    6.474884] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+  [    6.475156] CR2: 00007f1f1b83c000 CR3: 000000006fe72001 CR4: 0000000000770ef0
+  [    6.475483] PKRU: 55555554
+  [    6.475628] Call Trace:
+  [    6.475763]  <TASK>
+  [    6.475886]  ? __pfx__raw_spin_lock_bh+0x10/0x10
+  [    6.476146]  ? __pfx_target_submit+0x10/0x10
+  [    6.476348]  ? mutex_lock+0x81/0xe0
+  [    6.476517]  ? __pfx_mutex_lock+0x10/0x10
+  [    6.476722]  ? iscsit_execute_cmd+0x650/0x850
+  [    6.476958]  iscsit_sequence_cmd+0x186/0x3d0
+  [    6.477164]  iscsit_process_scsi_cmd+0x87/0x300
+  [    6.477362]  isert_recv_done+0x1002/0x2390
+  [    6.477546]  ? __pfx_isert_recv_done+0x10/0x10
+  [    6.477761]  ? rxe_poll_cq+0x253/0x3d0
+  [    6.477945]  ? finish_task_switch.isra.0+0x1dc/0xa70
+  [    6.478192]  __ib_process_cq+0xe1/0x390
+  [    6.478360]  ib_cq_poll_work+0x46/0x150
+  [    6.478531]  process_one_work+0x633/0x1030
+  [    6.478730]  ? assign_work+0x11d/0x370
+  [    6.478918]  worker_thread+0x45b/0xd10
+  [    6.479099]  ? __pfx_worker_thread+0x10/0x10
+  [    6.479295]  ? __pfx_worker_thread+0x10/0x10
+  [    6.479480]  kthread+0x2c6/0x3b0
+  [    6.479632]  ? recalc_sigpending+0x15c/0x1e0
+  [    6.479848]  ? __pfx_kthread+0x10/0x10
+  [    6.480029]  ret_from_fork+0x36e/0x5a0
+  [    6.480214]  ? __pfx_ret_from_fork+0x10/0x10
+  [    6.480399]  ? __switch_to+0x572/0xdd0
+  [    6.480566]  ? __pfx_kthread+0x10/0x10
+  [    6.480748]  ret_from_fork_asm+0x1a/0x30
+  [    6.480952]  </TASK>
+  [    6.481062] Modules linked in:
+  [    6.481235] ---[ end trace 0000000000000000 ]---
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Delay the final Login Response instead.  isert_get_rx_pdu() runs from
+iscsi_target_rx_thread() after conn->rx_login_comp, completed by
+iscsi_post_login_handler() after __transport_register_session(); iscsi-TCP
+and cxgbit already take PDUs from that thread, isert alone does not.  The
+buffers are still posted first, so the initiator's first command does not
+meet an empty receive queue and nothing depends on RNR flow control, and
+the header and payload live in isert_conn, not in the struct iscsi_login
+that iscsi_target_nego_release() frees first.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x fb7fb4016300ac622c964069e286dc83166a5d52
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026073005-coerce-divisibly-805e@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+Over rxe, 400 login cycles per run, the oops appeared in 10 of 20
+unpatched runs and in none of 20 runs with this patch.  An
+initiator that never waits is handled by the next patch.
 
-Possible dependencies:
+Not tested: iWARP, discovery sessions over iSER, and real HCAs.
 
+Fixes: b8d26b3be8b3 ("iser-target: Add iSCSI Extensions for RDMA (iSER) target driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+v3: unmap login_tx_desc in isert_connect_release() (1/2); make the
+    FULL_FEATURE store a release and the state check an acquire load, and
+    log the value actually tested (2/2).  Both from Sashiko's review of v2.
+    v2: https://lore.kernel.org/all/20260730063124.1554460-1-yhlee@isslab.korea.ac.kr/
 
+ drivers/infiniband/ulp/isert/ib_isert.c | 20 ++++++++++++++++++--
+ drivers/infiniband/ulp/isert/ib_isert.h |  1 +
+ 2 files changed, 19 insertions(+), 2 deletions(-)
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From fb7fb4016300ac622c964069e286dc83166a5d52 Mon Sep 17 00:00:00 2001
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-Date: Mon, 2 Mar 2026 23:28:15 +0100
-Subject: [PATCH] netfilter: nf_tables: clone set on flush only
-
-Syzbot with fault injection triggered a failing memory allocation with
-GFP_KERNEL which results in a WARN splat:
-
-iter.err
-WARNING: net/netfilter/nf_tables_api.c:845 at nft_map_deactivate+0x34e/0x3c0 net/netfilter/nf_tables_api.c:845, CPU#0: syz.0.17/5992
-Modules linked in:
-CPU: 0 UID: 0 PID: 5992 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full)
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 02/12/2026
-RIP: 0010:nft_map_deactivate+0x34e/0x3c0 net/netfilter/nf_tables_api.c:845
-Code: 8b 05 86 5a 4e 09 48 3b 84 24 a0 00 00 00 75 62 48 8d 65 d8 5b 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc cc e8 63 6d fa f7 90 <0f> 0b 90 43
-+80 7c 35 00 00 0f 85 23 fe ff ff e9 26 fe ff ff 89 d9
-RSP: 0018:ffffc900045af780 EFLAGS: 00010293
-RAX: ffffffff89ca45bd RBX: 00000000fffffff4 RCX: ffff888028111e40
-RDX: 0000000000000000 RSI: 00000000fffffff4 RDI: 0000000000000000
-RBP: ffffc900045af870 R08: 0000000000400dc0 R09: 00000000ffffffff
-R10: dffffc0000000000 R11: fffffbfff1d141db R12: ffffc900045af7e0
-R13: 1ffff920008b5f24 R14: dffffc0000000000 R15: ffffc900045af920
-FS:  000055557a6a5500(0000) GS:ffff888125496000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fb5ea271fc0 CR3: 000000003269e000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __nft_release_table+0xceb/0x11f0 net/netfilter/nf_tables_api.c:12115
- nft_rcv_nl_event+0xc25/0xdb0 net/netfilter/nf_tables_api.c:12187
- notifier_call_chain+0x19d/0x3a0 kernel/notifier.c:85
- blocking_notifier_call_chain+0x6a/0x90 kernel/notifier.c:380
- netlink_release+0x123b/0x1ad0 net/netlink/af_netlink.c:761
- __sock_release net/socket.c:662 [inline]
- sock_close+0xc3/0x240 net/socket.c:1455
-
-Restrict set clone to the flush set command in the preparation phase.
-Add NFT_ITER_UPDATE_CLONE and use it for this purpose, update the rbtree
-and pipapo backends to only clone the set when this iteration type is
-used.
-
-As for the existing NFT_ITER_UPDATE type, update the pipapo backend to
-use the existing set clone if available, otherwise use the existing set
-representation. After this update, there is no need to clone a set that
-is being deleted, this includes bound anonymous set.
-
-An alternative approach to NFT_ITER_UPDATE_CLONE is to add a .clone
-interface and call it from the flush set path.
-
-Reported-by: syzbot+4924a0edc148e8b4b342@syzkaller.appspotmail.com
-Fixes: 3f1d886cc7c3 ("netfilter: nft_set_pipapo: move cloning of match info to insert/removal path")
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Signed-off-by: Florian Westphal <fw@strlen.de>
-
-diff --git a/include/net/netfilter/nf_tables.h b/include/net/netfilter/nf_tables.h
-index 426534a711b0..ea6f29ad7888 100644
---- a/include/net/netfilter/nf_tables.h
-+++ b/include/net/netfilter/nf_tables.h
-@@ -320,11 +320,13 @@ static inline void *nft_elem_priv_cast(const struct nft_elem_priv *priv)
-  * @NFT_ITER_UNSPEC: unspecified, to catch errors
-  * @NFT_ITER_READ: read-only iteration over set elements
-  * @NFT_ITER_UPDATE: iteration under mutex to update set element state
-+ * @NFT_ITER_UPDATE_CLONE: clone set before iteration under mutex to update element
-  */
- enum nft_iter_type {
- 	NFT_ITER_UNSPEC,
- 	NFT_ITER_READ,
- 	NFT_ITER_UPDATE,
-+	NFT_ITER_UPDATE_CLONE,
- };
+diff --git a/drivers/infiniband/ulp/isert/ib_isert.c b/drivers/infiniband/ulp/isert/ib_isert.c
+index 1015a51f750a..e117cd2e62c9 100644
+--- a/drivers/infiniband/ulp/isert/ib_isert.c
++++ b/drivers/infiniband/ulp/isert/ib_isert.c
+@@ -59,6 +59,8 @@ static void isert_recv_done(struct ib_cq *cq, struct ib_wc *wc);
+ static void isert_send_done(struct ib_cq *cq, struct ib_wc *wc);
+ static void isert_login_recv_done(struct ib_cq *cq, struct ib_wc *wc);
+ static void isert_login_send_done(struct ib_cq *cq, struct ib_wc *wc);
++static void isert_unmap_tx_desc(struct iser_tx_desc *tx_desc,
++				struct ib_device *ib_dev);
  
- struct nft_set;
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index df67932d3e09..058f7004cb2b 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -833,6 +833,11 @@ static void nft_map_catchall_deactivate(const struct nft_ctx *ctx,
- 	}
- }
- 
-+/* Use NFT_ITER_UPDATE iterator even if this may be called from the preparation
-+ * phase, the set clone might already exist from a previous command, or it might
-+ * be a set that is going away and does not require a clone. The netns and
-+ * netlink release paths also need to work on the live set.
-+ */
- static void nft_map_deactivate(const struct nft_ctx *ctx, struct nft_set *set)
+ static int isert_sg_tablesize_set(const char *val, const struct kernel_param *kp)
  {
- 	struct nft_set_iter iter = {
-@@ -7903,9 +7908,12 @@ static int nft_set_catchall_flush(const struct nft_ctx *ctx,
+@@ -496,6 +498,8 @@ isert_connect_release(struct isert_conn *isert_conn)
+ 	if (isert_conn->qp)
+ 		isert_destroy_qp(isert_conn);
  
- static int nft_set_flush(struct nft_ctx *ctx, struct nft_set *set, u8 genmask)
- {
-+	/* The set backend might need to clone the set, do it now from the
-+	 * preparation phase, use NFT_ITER_UPDATE_CLONE iterator type.
-+	 */
- 	struct nft_set_iter iter = {
- 		.genmask	= genmask,
--		.type		= NFT_ITER_UPDATE,
-+		.type		= NFT_ITER_UPDATE_CLONE,
- 		.fn		= nft_setelem_flush,
- 	};
- 
-diff --git a/net/netfilter/nft_set_hash.c b/net/netfilter/nft_set_hash.c
-index 739b992bde59..b0e571c8e3f3 100644
---- a/net/netfilter/nft_set_hash.c
-+++ b/net/netfilter/nft_set_hash.c
-@@ -374,6 +374,7 @@ static void nft_rhash_walk(const struct nft_ctx *ctx, struct nft_set *set,
- {
- 	switch (iter->type) {
- 	case NFT_ITER_UPDATE:
-+	case NFT_ITER_UPDATE_CLONE:
- 		/* only relevant for netlink dumps which use READ type */
- 		WARN_ON_ONCE(iter->skip != 0);
- 
-diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
-index 7ef4b44471d3..c091898df710 100644
---- a/net/netfilter/nft_set_pipapo.c
-+++ b/net/netfilter/nft_set_pipapo.c
-@@ -2144,13 +2144,20 @@ static void nft_pipapo_walk(const struct nft_ctx *ctx, struct nft_set *set,
- 	const struct nft_pipapo_match *m;
- 
- 	switch (iter->type) {
--	case NFT_ITER_UPDATE:
-+	case NFT_ITER_UPDATE_CLONE:
- 		m = pipapo_maybe_clone(set);
- 		if (!m) {
- 			iter->err = -ENOMEM;
- 			return;
- 		}
--
-+		nft_pipapo_do_walk(ctx, set, m, iter);
-+		break;
-+	case NFT_ITER_UPDATE:
-+		if (priv->clone)
-+			m = priv->clone;
-+		else
-+			m = rcu_dereference_protected(priv->match,
-+						      nft_pipapo_transaction_mutex_held(set));
- 		nft_pipapo_do_walk(ctx, set, m, iter);
- 		break;
- 	case NFT_ITER_READ:
-diff --git a/net/netfilter/nft_set_rbtree.c b/net/netfilter/nft_set_rbtree.c
-index 3f02e4478216..ee3d4f5b9ff7 100644
---- a/net/netfilter/nft_set_rbtree.c
-+++ b/net/netfilter/nft_set_rbtree.c
-@@ -861,13 +861,15 @@ static void nft_rbtree_walk(const struct nft_ctx *ctx,
- 	struct nft_rbtree *priv = nft_set_priv(set);
- 
- 	switch (iter->type) {
--	case NFT_ITER_UPDATE:
--		lockdep_assert_held(&nft_pernet(ctx->net)->commit_mutex);
--
-+	case NFT_ITER_UPDATE_CLONE:
- 		if (nft_array_may_resize(set) < 0) {
- 			iter->err = -ENOMEM;
- 			break;
- 		}
-+		fallthrough;
-+	case NFT_ITER_UPDATE:
-+		lockdep_assert_held(&nft_pernet(ctx->net)->commit_mutex);
++	isert_unmap_tx_desc(&isert_conn->login_tx_desc, device->ib_device);
 +
- 		nft_rbtree_do_walk(ctx, set, iter);
- 		break;
- 	case NFT_ITER_READ:
+ 	if (isert_conn->login_desc)
+ 		isert_free_login_buf(isert_conn);
+ 
+@@ -956,14 +960,17 @@ isert_put_login_tx(struct iscsit_conn *conn, struct iscsi_login *login,
+ 			mutex_lock(&isert_conn->mutex);
+ 			isert_conn->state = ISER_CONN_FULL_FEATURE;
+ 			mutex_unlock(&isert_conn->mutex);
+-			goto post_send;
++
++			/* Sent from isert_get_rx_pdu() after registration. */
++			isert_conn->login_rsp_pending = true;
++			return 0;
+ 		}
+ 
+ 		ret = isert_login_post_recv(isert_conn);
+ 		if (ret)
+ 			return ret;
+ 	}
+-post_send:
++
+ 	ret = isert_login_post_send(isert_conn, tx_desc);
+ 	if (ret)
+ 		return ret;
+@@ -2585,8 +2592,17 @@ static void isert_free_conn(struct iscsit_conn *conn)
+ 
+ static void isert_get_rx_pdu(struct iscsit_conn *conn)
+ {
++	struct isert_conn *isert_conn = conn->context;
+ 	struct completion comp;
+ 
++	/* The session is registered by now; see isert_put_login_tx(). */
++	if (isert_conn->login_rsp_pending) {
++		isert_conn->login_rsp_pending = false;
++		if (isert_login_post_send(isert_conn,
++					  &isert_conn->login_tx_desc))
++			return;
++	}
++
+ 	init_completion(&comp);
+ 
+ 	wait_for_completion_interruptible(&comp);
+diff --git a/drivers/infiniband/ulp/isert/ib_isert.h b/drivers/infiniband/ulp/isert/ib_isert.h
+index 0b2dfd6e7e27..0bac5aa66c80 100644
+--- a/drivers/infiniband/ulp/isert/ib_isert.h
++++ b/drivers/infiniband/ulp/isert/ib_isert.h
+@@ -178,6 +178,7 @@ struct isert_conn {
+ 	struct completion	login_comp;
+ 	struct completion	login_req_comp;
+ 	struct iser_tx_desc	login_tx_desc;
++	bool			login_rsp_pending;
+ 	struct rdma_cm_id	*cm_id;
+ 	struct ib_qp		*qp;
+ 	struct ib_cq		*cq;
+-- 
+2.43.0
 
