@@ -1,44 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F953440A06;
-	Thu, 30 Jul 2026 15:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21AD44211F
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 15:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785423894; cv=none; b=O/MVmLX+YZWWOh+DDJRR3gJSxIDqJ3t5SE6n34v2j0LzCj5fmMCcPRbd+PNOQY0lO1CbnXddfx633X2p7QDTDGNSEHdZWDoumnSvlCBhnoatfcJNAjdWrJRkBNLSFL9i/P+N8GVbuoDeBUeWGQ9U5GQg2us5lQRHkHU9Tzv42FY=
+	t=1785423897; cv=none; b=fVr7yIaKgV3vAzXTc7pyNS3CY+L2deTDENf3vBz4CpQhvZ0aukw1Av9Gc7ey7NgjeVjU6gpfwFgXoBgNqqxruvFq+uz6FcfbH8huHS1lPxPFfyVak57mbXSUV8cyHFEZ6UKYRtiWMeXxkJlPBVusEXETd9E8lYvkpQxdORtCDQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785423894; c=relaxed/simple;
-	bh=XbgN20EiKRbuyNIRXNrrHa1kAd9uQzXBkTu08FAJs8U=;
+	s=arc-20240116; t=1785423897; c=relaxed/simple;
+	bh=l9GKUxKdOGLl997Z4ceudW7mPtJe4JfdjMvSi3Qz3pg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eDB8ZLVC43ELpOXbKPFp7DiLSu/X512AJ/ynkgggu3iJUys0f4u4D3+rPTIDivwCa1vhgzfmXxDJSaQZFO5ljwSkbEhH0EnCojj6YHWhcT0GrxTJbEaFGHVyBUaH8d0srsLQiNvtx4OiBQ08GmC/Jgj/DnnDmDh6BPW5hA/uEEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PcXjQa2I; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Nw4rHJ6pAB8LxMZlZZUex5H4h+5D9cqhQmZv0yA0B6Tqj4KQHGUaJsD7w3piwhXzsuthQJXZ25VPhEL7KzMDU6K2AdStNqmOGpaXe7OzfOnM/j+43sOpDv9V0yU1sWeSjhZCSQoIA0xhG/oWPwQD6eQjsp6jBoT7dlWt6cczQrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cx2pFC/X; arc=none smtp.client-ip=91.218.175.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PcXjQa2I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4F71F00A3A;
-	Thu, 30 Jul 2026 15:04:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785423893;
-	bh=ywMkIjVBabGfEKt05uJi51F5jI1uTVIDyOrJGGWlkuU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PcXjQa2I4pARlHfReJSvYO105cAFU4uhhgIT6nuOnmq5Zlw2ysjoKhVRSfkABqNcV
-	 D0KXDm+BlzDrOeB3YgTeKGCvKHKQAnJcx0tUIVd9q4T7uSYSUrKZKyOURMYEsfuFSK
-	 nM5dC8MvRbotABg3lSrRpp5RRmoAv70t+u5PIJNo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Eugene Shalygin <eugene.shalygin@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 202/675] hwmon: (asus-ec-sensors) fix EC read intervals
-Date: Thu, 30 Jul 2026 16:08:52 +0200
-Message-ID: <20260730141449.436522581@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730141445.110192266@linuxfoundation.org>
-References: <20260730141445.110192266@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cx2pFC/X"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785423892;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tXP3sLnFW2SJsbuz9cs4gqLjv3d7L92yQ0oDBHkkR9s=;
+	b=cx2pFC/XKbg6FG7I014UOGNrlasGWHzlDcEXyW4lmFnIed6W2aaZcE1eWSB/t82ss4H4fu
+	NkX3VqjzPBktWOMmdanWkV+/pfbLchf34NI0O2m6PxV3G2smG6cxGdssDIKjkTg02N4AhV
+	jmCjHydEqgZfHFw/vOC4V/LOGfF6PSc=
+From: Leon Hwang <leon.hwang@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Leon Hwang <leon.hwang@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] ftrace: Protect direct_functions in ftrace_find_rec_direct
+Date: Thu, 30 Jul 2026 23:04:08 +0800
+Message-ID: <20260730150411.88667-2-leon.hwang@linux.dev>
+In-Reply-To: <20260730150411.88667-1-leon.hwang@linux.dev>
+References: <20260730150411.88667-1-leon.hwang@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,65 +50,32 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+Fix accessing the __rcu pointer direct_functions with RCU protection.
 
-------------------
-
-From: Eugene Shalygin <eugene.shalygin@gmail.com>
-
-[ Upstream commit 60710b2af13b81da71b429d3f8b19dd70310729d ]
-
-Take INITIAL_JIFFIES into account when setting up next update time.
-
-Fixes: d0ddfd241e57 ("hwmon: (asus-ec-sensors) add driver for ASUS EC")
-Signed-off-by: Eugene Shalygin <eugene.shalygin@gmail.com>
-Link: https://lore.kernel.org/r/20260712110650.1240071-2-eugene.shalygin@gmail.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org
+Fixes: d05cb470663a ("ftrace: Fix modification of direct_function hash while in use")
+Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
 ---
- drivers/hwmon/asus-ec-sensors.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ kernel/trace/ftrace.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hwmon/asus-ec-sensors.c b/drivers/hwmon/asus-ec-sensors.c
-index aac4706cd437fe..52986b64881eab 100644
---- a/drivers/hwmon/asus-ec-sensors.c
-+++ b/drivers/hwmon/asus-ec-sensors.c
-@@ -870,7 +870,7 @@ struct ec_sensors_data {
- 	/* sorted list of unique register banks */
- 	u8 banks[ASUS_EC_MAX_BANK + 1];
- 	/* in jiffies */
--	unsigned long last_updated;
-+	u64 next_update;
- 	struct lock_data lock_data;
- 	/* number of board EC sensors */
- 	u8 nr_sensors;
-@@ -1139,13 +1139,12 @@ static int get_cached_value_or_update(const struct device *dev,
- 				      int sensor_index,
- 				      struct ec_sensors_data *state, s32 *value)
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index 6c47a94f5924..c5d1d0d42ccc 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -2645,7 +2645,8 @@ unsigned long ftrace_find_rec_direct(unsigned long ip)
  {
--	if (time_after(jiffies, state->last_updated + HZ)) {
-+	if (time_after64(get_jiffies_64(), state->next_update)) {
- 		if (update_ec_sensors(dev, state)) {
- 			dev_err(dev, "update_ec_sensors() failure\n");
- 			return -EIO;
- 		}
--
--		state->last_updated = jiffies;
-+		state->next_update = get_jiffies_64() + HZ;
- 	}
+ 	struct ftrace_func_entry *entry;
  
- 	*value = state->sensors[sensor_index].cached_value;
-@@ -1263,6 +1262,7 @@ static int asus_ec_probe(struct platform_device *pdev)
- 	if (!ec_data)
- 		return -ENOMEM;
- 
-+	ec_data->next_update = INITIAL_JIFFIES;
- 	dev_set_drvdata(dev, ec_data);
- 	ec_data->board_info = pboard_info;
+-	entry = __ftrace_lookup_ip(direct_functions, ip);
++	guard(preempt_notrace)();
++	entry = __ftrace_lookup_ip(rcu_dereference_sched(direct_functions), ip);
+ 	if (!entry)
+ 		return 0;
  
 -- 
-2.53.0
-
-
+2.55.0
 
