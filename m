@@ -1,178 +1,116 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com [203.205.221.209])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C2C939F16B
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1045B3E8C4C;
+	Thu, 30 Jul 2026 10:12:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.209
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785405757; cv=none; b=CD1a0YUwyDGHXpJZgoTIX27mqM1J8gAS1PbuwLwvxojGUQ4vE3o6g+gq2ndxI29DXscTYmnfvwTPW+mNelM9gXYq5OwP0f4AUq99w6oPXZvp9sYTli6qQpXlALgDMa5mILySLUvc/Z0mHo4x1Eay0nbSs/xMnpQ/zJWiQ8hFfOc=
+	t=1785406328; cv=none; b=KVucBU04iJxrKoOiyIpfu/7JMPdWb/+Dtvt5AQXIJaeh+OIi5RIA1btDbsENDZGtuZH0x/+spzznipLhDy6nfaUFMzhDe4yPHCouDuoMTN1QmcxbN6V+ydh/pjqXq4qlXjPbu0wGXEpKfXheWfUJVAXgJNtY3zZm9Rwo3MJYlVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785405757; c=relaxed/simple;
-	bh=NFkjmCLHwyG+B0Pl7rsoQW6FdVaAAGrryORwHIsxb0k=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=ZP6T+bKLMqEG786et7hUfg+s8t5dzsLPuckk3NkHTnq/nq/QFTrPzcfjKmKbV5/KxZPY+jzFyLUKxcIl608QpLOrdWX5cnQBMQZc5yeaFs8qsG6E1J7ZkEMnR2e2jQ4znGFWhddXn4xXNxHx3TNkIZP1O+iftsSlZt6TsAaw4QQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ilGCgENL; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=05Q6Xt9w; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=tujvrapK; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=tOqeV6yB; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1785406328; c=relaxed/simple;
+	bh=MZx6VkD93F9RnM2fvXsuQdmQ7kfmz09u4KGm9gQexNc=;
+	h=Message-ID:From:Date:Subject:MIME-Version:Content-Type:References:
+	 In-Reply-To:To:Cc; b=LKkgyhO2mabp0nEe/BlpNt9WcaBEHi0Nm3IW5NrTR2vufp5/L7JE00Y8ynco7xYporMrU6WGpqoFFbbmtGVhDkXiIYjbkz1hIGsquaxWxpTbL16wsaDSNdnIWWd7bjdfbKMx1wvlCNXXxgUhDQlSkU857z/CWUdJmuIknIoIkmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=wpifDs9f; arc=none smtp.client-ip=203.205.221.209
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ilGCgENL";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="05Q6Xt9w";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="tujvrapK";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="tOqeV6yB"
-Received: from pobox.suse.cz (unknown [10.128.32.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6FF827D6D0;
-	Thu, 30 Jul 2026 10:02:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1785405749; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gCKYcexeEqW/+AQcCaEVGAueHEUvyo6QxPKVayeZ8KI=;
-	b=ilGCgENLvX/guoqW+qE2WyvurHISjY2W/TaSK2EVyLVw8N5gpi2COq4VoFBiZ8YrmGHK5X
-	637Fmx3cBsZzTHoHgeumanxfNiDsdIaIZgkjH3852r20D3Q/3nY2aZGAl85dR69H+tvP46
-	s8JdsMpVYphReRlCX0yCnCqPMf3TLUQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1785405749;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gCKYcexeEqW/+AQcCaEVGAueHEUvyo6QxPKVayeZ8KI=;
-	b=05Q6Xt9wPWSvq1aBM8C8dJS1WTCu6PlM8VfBiAgdy2jKSeufccJtkIDBY2XPMGmgGo0Bnk
-	yA7K6SmZ2kp01JBQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1785405744; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gCKYcexeEqW/+AQcCaEVGAueHEUvyo6QxPKVayeZ8KI=;
-	b=tujvrapKWs5ip4A1ujcbNptVVI9pnUu0RTQge8/DEOjnSicAOmCrRpIZyNZFBXoZL1eqfw
-	yo+UhFgOyIH+6LlBgDKz5swZlxhEkKfC5GMmzBuKxpdI3ZWslKejzsLMURQpDlUc8sBtGA
-	fYsHneJfB9nVIqoibgwVR5iPaypYsOw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1785405744;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gCKYcexeEqW/+AQcCaEVGAueHEUvyo6QxPKVayeZ8KI=;
-	b=tOqeV6yBhIcaAqNjkCPA+hNAPzQzBu7n4/HMi6wO8PsafSZFF32Q59FVK3mps1aJhNGaVe
-	QSdZxzuaMlcDs2Bg==
-Date: Thu, 30 Jul 2026 12:02:24 +0200 (CEST)
-From: Miroslav Benes <mbenes@suse.cz>
-To: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
-cc: Steven Rostedt <rostedt@goodmis.org>, bpf@vger.kernel.org, 
-    linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-    ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, song@kernel.org, 
-    jolsa@kernel.org, naveen@kernel.org, davem@davemloft.net, 
-    mhiramat@kernel.org, stable@vger.kernel.org, 
-    linux-open-source@crowdstrike.com
-Subject: Re: [RFC PATCH bpf-next 0/3] ftrace, kprobes, bpf: mark trampoline/kprobe
- ftrace_ops permanent
-In-Reply-To: <CAOu3gNgc0XHScgEf+yWF5Kr8sAm8Fsa4RBuwL0YE2EscSiBPrA@mail.gmail.com>
-Message-ID: <alpine.LSU.2.21.2607301159420.14091@pobox.suse.cz>
-References: <20260729005959.3853865-1-andrey.grodzovsky@crowdstrike.com> <20260729104114.04298a48@gandalf.local.home> <CAOu3gNgc0XHScgEf+yWF5Kr8sAm8Fsa4RBuwL0YE2EscSiBPrA@mail.gmail.com>
-User-Agent: Alpine 2.21 (LSU 202 2017-01-01)
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="wpifDs9f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1785406321; bh=6u/mJ1eHhtcpBfaCK5wQm5H38V9X2M73NOfbAlKBO2s=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=wpifDs9fiALLmaZ3TOoltWT7FNrduusmZfFq/um49qsxm/8FiyUJwXBtjZUHY0YK1
+	 2TYLFAB1D9O2QW51uRyqfxRAfVrw0JQ+VAMJal2MXFQZhNHdzy6X1hUbA/DrGvxNH8
+	 6Jk/LaaUb4ahNFT5cOp09JgQWppdferNVwCdtq1Y=
+Received: from ubuntu2204.localdomain ([2409:8d20:22b:54c:9e54:40ff:fe02:3f0f])
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id 2F88CE83; Thu, 30 Jul 2026 18:11:56 +0800
+X-QQ-mid: xmsmtpt1785406318td0ibiusl
+Message-ID: <tencent_5E44473FC626379A34998A84DF11E6000807@qq.com>
+X-QQ-XMAILINFO: MUl6Z5IrFzo7cvYTPQmep32758Pqrx6xuzT5e+ZVJgC2qfDUG0/jobNOP6ufZ9
+	 Shs9z5TOddb7ODPyiq73Lj8ntxQDWfsT7Ebwc7YR6UQHZNJmh0MBsnGv1xvPpxvtTUxWXV/ch/py
+	 0pI1h9KFlXKekKZUT/d19DV2CNNh28uFpQGDwwMWfGMwHANt+6yxBZGH+QjZXi626vI5VVOSCdG/
+	 mE7EmMgWWFCkSUZRCJpCfEDWKK/Q20134/aeSeelF4oH1JCSLVc+UURZwhn7SSQ9bqe4P2MVs6pc
+	 kyexliKwTyhNGP7sejYxZUOEAAuGWY5xLIsmlRJlMXOj2RJLWepcZow+8SVeSSDdeJp48KCKgvs3
+	 ux8aBXEd3jPR0iKmzdt3bgbJSzz1Fnw3265XMlZiZPmVbT/cj2Cq2PNY+h/bcsR7HxdV9H6R+K8D
+	 zKcRimk7SYEOAgWIM6mfhRVCXTZYj4w0UxHGiT8NJ145qvDfn+ULlAieJ23OWaKtPUhgEi/1CCCo
+	 KQFCgfB28h75ZaUXbHDPV5A6JGmByw8LpQG3uUXeR0RcoDRzIHLYYwozS4HorvXcmx0zDC5mEos3
+	 oUsKe7x8LUuH3uMIJ98PN1AtsPir7PpucpmDrUL8jEGKAobO9tl3v4wppDyn/Dd3XBv9d+MmEG7H
+	 fORkjRgGq4ooZrkx81flxQ6b53IgYjTRV6aZ9RDCnMDNQyhN5sDij73DadCTrP+fBd0Bu7sk4e1x
+	 BAj+jfPbAujVCfgkiemMtG1pSOFqQngP70JS89hYyMjtHb7K1bvmPdEXUI7UrhEDUMdi/rBmgA8S
+	 KKYNWMeVakBwdMiTLwQgbniwdwx6oQeazwJvmYA7cQ14tXCiWLvA8AomYVtxEPS9nbbq1Yg1R5aw
+	 dvhcawDuotWrjyZVV+lTNFpgKlfXqalpN29RAd50BSgyXwxeVcWSQF9RZTMQDWJeqaUF2CQr4KFx
+	 t4UM3thDIW+mSw3Ah83nj79RCzp9WEvs8yy0tK1vJwGBF/HNM9cnuIPc4uyz5fQRYIQzHD2qf2Yg
+	 OBNxWWImr+BHsZyD6k2pTC2Xk/TwaFXcSrsrXsj0iLEWqiXPoQmwsVVzcvMPst38WyuvNcZ7a5vu
+	 SWtV1CGFc0+Fk0QYNNOXqEGgxmEPPhw/FPLSIalncZYqgMF66rNf7sPT/qOj3jSZdemX5ul0GiVl
+	 TtflIXiPyqgHmBtzqv/m4PiV6JEMxAvtyRBPG/f5NE5R3VPg==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Cunhao Lu <1579567540@qq.com>
+Date: Thu, 30 Jul 2026 18:11:46 +0800
+Subject: [PATCH v2 1/3] can: rockchip_canfd: prevent TX stall on echo skb
+ failure
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="-2146828000-882904578-1785405744=:14091"
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	CTYPE_MIXED_BOGUS(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+];
-	ARC_NA(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_ZERO(0.00)[0];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RSPAMD_EMAILBL_FAIL(0.00)[rostedt.goodmis.org:server fail]
-X-Spam-Flag: NO
-X-Spam-Score: -3.30
-X-Spam-Level: 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-OQ-MSGID: <20260730-master-v2-1-572974052400@qq.com>
+References: <20260730-master-v2-0-572974052400@qq.com>
+In-Reply-To: <20260730-master-v2-0-572974052400@qq.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
+ Vincent Mailhol <mailhol@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Cunhao Lu <1579567540@qq.com>
+X-Mailer: b4 0.15.2
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+rkcanfd_start_xmit() advances tx_head and requests transmission even when
+can_put_echo_skb() fails. This creates a pending TX entry without the echo
+skb that the RXSTX completion path needs to match the self-received frame.
+The entry cannot be completed, and the netdev TX queue can remain stopped
+after the two-entry software FIFO fills.
 
----2146828000-882904578-1785405744=:14091
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Do not advance tx_head or request transmission if the echo skb cannot be
+installed. Account the frame as dropped and report the error. The
+-ENOMEM and -EBUSY paths have already consumed the skb; explicitly free
+it on -EINVAL, where ownership remains with the caller.
 
-Hi,
+Fixes: b6661d73290c ("can: rockchip_canfd: add TX PATH")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+---
+ drivers/net/can/rockchip/rockchip_canfd-tx.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-On Wed, 29 Jul 2026, Andrey Grodzovsky wrote:
+diff --git a/drivers/net/can/rockchip/rockchip_canfd-tx.c b/drivers/net/can/rockchip/rockchip_canfd-tx.c
+index 12200dcfd338..d2cbe25c46d6 100644
+--- a/drivers/net/can/rockchip/rockchip_canfd-tx.c
++++ b/drivers/net/can/rockchip/rockchip_canfd-tx.c
+@@ -125,8 +125,18 @@ netdev_tx_t rkcanfd_start_xmit(struct sk_buff *skb, struct net_device *ndev)
+ 
+ 	frame_len = can_skb_get_frame_len(skb);
+ 	err = can_put_echo_skb(skb, ndev, tx_head, frame_len);
+-	if (!err)
+-		netdev_sent_queue(priv->ndev, frame_len);
++	if (err) {
++		if (err == -EINVAL)
++			dev_kfree_skb_any(skb);
++
++		ndev->stats.tx_dropped++;
++		if (net_ratelimit())
++			netdev_err(ndev, "%s: failed to put echo skb: %pe\n",
++				   __func__, ERR_PTR(err));
++
++		return NETDEV_TX_OK;
++	}
++	netdev_sent_queue(priv->ndev, frame_len);
+ 
+ 	WRITE_ONCE(priv->tx_head, priv->tx_head + 1);
+ 
 
-> ,
-> 
-> On Wed, Jul 29, 2026 at 10:40 AM Steven Rostedt <rostedt@goodmis.org> wrote:
-> >
-> > On Tue, 28 Jul 2026 20:59:56 -0400
-> > Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com> wrote:
-> >
-> > > This fixes a long-standing issue: kernel.ftrace_enabled=0 silently
-> > > disables BPF trampolines (fentry/fexit) and ftrace-based
-> > > kprobes/kretprobes. The write succeeds, the hook stops firing with no
-> > > error, and re-enabling silently restores it. Livepatch already solved
-> > > this for itself via FTRACE_OPS_FL_PERMANENT, which refuses to disable
-> > > ftrace while a permanent ops is registered and refuses to register
-> > > one while ftrace is disabled[1].
-> >
-> > The /proc/sys/kernel/ftrace_enabled was added as a "safety kill switch"
-> > back when ftrace was first added to the kernel. It's addition was namely
-> > there because live runtime modification of kernel code was new and we were
-> > worried about how stable it could be.
-> >
-> > Honestly, I would love to get rid of it as today ftrace has proven to be
-> > rather stable. But as it is a user space ABI, I'm not sure what will break
-> > if we do. I wonder if we just make it a nop, and print a message to dmesg
-> > saying:
-> >
-> >   "ftrace_enabled no longer does anything. Please report if you need it to."
-> >
-> > ?
-> 
-> Thanks Steven, if you and/or other community members would approve such
-> approach I would happily do this instead for a few reasons -
-> 
-> 1) Seems like the more correct course of action if idneed this switch
-> effectively became obsolete in usage instead of piling extra logic to work
-> around it.
-> 
-> 2) As I mentioned in the end of the cover letter, I believe for some cases
-> such as fsessions/ksessions and multi opts retprobes, this patchset is
-> not effective and the issue will persist, requiring a more complicated solution
-> for them anyway if we want watertight resilience.
-> 
-> If you approve this - I can try what you suggested, this would include
-> making the
-> knob a NOP with a message, dropping the FTRACE_OPS_FL_PERMANENT
-> flag and reverting/cleaning what's possible from the original livepatch patchset
-> that dealt with this issue [1]
-> 
-> One question is what the correct set of tests to run in such a case
-> would be to verify
-> we didn't break anything. For this patchset I ran BPF and livepatch
-> selftest suites, but
-> I wonder what else would need to be run.
-> 
-> CC Miroslav for Livepatch.
+-- 
+2.34.1
 
-Thanks. It would be nice to drop ftrace_enabled altogether because your 
-patch set just proves that it is completely uses nowadays. Ack to it. At 
-the same time I have doubts based on the experience with our SLES and how 
-difficult it is to drop a single feature because there is always someone 
-somewhere using even the obscure ones (and sometimes in a very weird way). 
-Fingers crossed.
-
-Miroslav
----2146828000-882904578-1785405744=:14091--
