@@ -1,158 +1,205 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD17418A38
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 11:32:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AC834A795
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 11:37:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785411157; cv=none; b=biBv1N7MogUswBMoJAica23n9Zi7TNXQ2ofgbiBvNU7tjrJujiP/AV06YoxZbnCRtexDglpnB8np9ax6hURU2VU3TC9hSaDZVa9jbMscX1kqMSC3ISD0wIbrCZXHnv+h2D/BYKL7MIM351w5+xCLNUQ0IlVRXL8Q5woVB2Cfj2M=
+	t=1785411423; cv=none; b=LDOYmVcEuT6a/aKpKe+9DHyJyEhitzB/Dg3rBe/9tX34Swys8WYH8BjN8ZaFfTzyulciE4XdU8zUwcOtAJaHoX21MfdamMx+uNjUtyXI3h3eU4ldG+QrM0Wv858JQL7gDsNKz3qR1Hzb8EdsOIszooQJsmzX/b6IkJQ9Mgxwu3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785411157; c=relaxed/simple;
-	bh=N9Ohv6rcdNYwhoH7sgF7IMFqPbPWZ8UU9+WoZm0Q1PM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qy9UFkUgLv5xXlqupt+KtpdLxOKTDvgA8nZaEyciGT0Or3EujpQ8WMVRHxMuwOd0lgxLmlJdqYR6IYVA0sAXY1PkUSXVAaEl5jxiCtpJT6gCmkjjktEnDoGJa0P4LrTScE18Hx8f1H0pLwcgR/C+srQNeTWfa8ma5QBtXRRN6EA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f+s+ANf/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AGUZPEme; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785411423; c=relaxed/simple;
+	bh=SlgTXtVtVi98/BMUZjfbFZsDZFdrxEjNl1RTcKKdLAQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D1L/H7jN6J1JVazPmBCbrb2N5mlnuChsljdaOvNJsvYhVVAq1fpuEaSfVwWpYQPZgKbuoViijuetNdaodRQZ2Ap7GrB/FFfNcGqWLnjRdYyt+KIGPyCW1gYcQKLhSRl7NFk8OPJqXKlGAxU5LieKY+xUO7m4R8G2OFGckC16AZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=HoqFjqmf; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f+s+ANf/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AGUZPEme"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UBHT1l917853
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 11:32:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	mU3S2KFyCM2FJ/zPY3ZKd6sbQzwi2C1DPhH/yC8ntBg=; b=f+s+ANf/k1s576D5
-	LIvfUa17zlcR+dIgzS72oMwvXrvZK/6kAyystl+icmj6yqXfoDgYJ4hhVBueI04C
-	q/IfrBUiivE6c4nFF3cr4iDoZSJre2Yv/K7EIb6joVU11XY/e2aHGrgvP1hVu5hJ
-	uxMIXlVyLlpBlxT4e8VtbEkekWNcNV/Mmcnzp/f2Jn7iSiKwdXiD3iZaNfu9kG/B
-	0WsaOZJVEfcMiR+wrg5BeyBZ99WUHD+miL5e5bj/qlpqCBXRQJ58F9d9ANjSDiGC
-	FvQBzIP8FXC/pZfjKz/vrTdEvQTkD81QxM5wl6aQZ0O/IwK335oRaY0X20cPx2jB
-	Xq3A8A==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr5m081rq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 11:32:34 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93163ac056aso27636285a.2
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 04:32:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="HoqFjqmf"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cf52d15d88so18794505ad.2
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 04:37:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785411154; x=1786015954; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mU3S2KFyCM2FJ/zPY3ZKd6sbQzwi2C1DPhH/yC8ntBg=;
-        b=AGUZPEmeqOidzVYwivVxxuJYks1pGvvAqWZtHi2CevuFbyRDRKAu7AX17qI+G+7Cg+
-         5D+JgWg36mKgcoVEd3fU+3nZ2Jg5napIysRDZc6qL0Cx/DbWyv1ebIc4HlnBYRXGJgJ9
-         kVW01KTqvB9CJ/GDctxAdHVDcGFMBKiin3x68fdxY8NvqHCbhyNe6Ti1TBHd8hphrOjA
-         fVwx/LWFE46O5aFaY9h5xUWigCErzNzNOmTzb1EiAO3I80hxvAK5RlBjlsyKGipo3Z1+
-         0rQWduBvHvLDd4ui5CoBtHihXw7fIXQo0NrzaYAEZGLRVQE/+GnxmZ1nHnsV9JcticMb
-         BhUA==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1785411420; x=1786016220; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=voVALDzUnmupBJEHA5KagX/vzlVJlXbPxhsRhxAvPsI=;
+        b=HoqFjqmfEbv7oO22nKo2J7B3pKVC0t9UFqFRpnUeXvZfZYZNRcsY1bJH+8Xi/nCDzK
+         y0bb87kIdrYpd0Fs+uoGkYLcIwCM0w0bePQgD1Elf6Hdwt8ouSOZO5shodQc628IkfCU
+         q+bC5m7vjZ6ZPS8WAQ8pgOPP2FpuNcwfK0/9AM+Tf5oqWPx93GrtCcIV59lVvrUYGlit
+         tC/rvVB369esu3raHuV15Tq9Q5T6D9utGY4iViWCxjPPQfjVD/CXcG2HJftjep8f+uYS
+         C2vRC0wSe7ghxeZjsIKWDg7nZH8bOeQ9eePytlzbA49JYwU2d41MQXbs+2f1OcqjB77R
+         jv7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785411154; x=1786015954;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1785411420; x=1786016220;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mU3S2KFyCM2FJ/zPY3ZKd6sbQzwi2C1DPhH/yC8ntBg=;
-        b=D8Me3WDWd4+IyRCYyxbo83bq4d0QLpMyAtsQgdqJH+BC9tn1DTwceaaCrbblEcF9qd
-         pQb3KY6O+SdE2DNdopIzDqR3/bmn0GpsxfFZyZK0nPuXHDXc2rRqHZb92eRHiGT5PVwU
-         BUs0dMi0PNeD5CcjmHM+TmtWzoYRgwcDHglXAQc8Y6vJxB/DeXPyA8HEOWFnWFMsvJGO
-         ndsdQRqfI1PQ8nQCdGnSh+TMYwwTm45kjAYSSCayIUJ70iHqKbVTZheW6B1bgld/+PT/
-         +7vEpzMTinDxn9Ok3noYgfunCxZoaPJ9DUbjZo46VE4JUpqtNBc3GoB9DtbmYmxcGXTN
-         wIyQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqLVJEcisc8z9Zdmv0y++KzL5IVnbUFoClBfflIyJFzs4lIN+zKG5IgaB/3BregVt5WiKdIhA8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwVwlrSYJI/GXoT93ZBqQ3ApckZrSiyJB8Cph3J5VeJ9IlJx2CD
-	NkZ+r/RNNZ9JL7PrztGG2l+LgMZjSJLursNDLxVZcW2RFMFLWKhYK/EFsHWbv2FxWe3jYuCcU/e
-	D6m16RAUQNm+bSUrGNvAjGD8xeRF1gyy8LJoZFumjJ+s9n3cvbXFQTSY5ed4=
-X-Gm-Gg: AR+sD11sUOFJ791UfDPcRCJk8QTiTSG9cq4JnMVGFBzToaqg5PpOiuC73aSlTh4r8on
-	/uHF+L3KLQfLYlAogHoksW7A9qRNHs+W0QdqhIPbmRxg6JuML+rEG4Q6h8Au4+WHBYQgtyvBKnW
-	v05b1y1O4uKrdeBa92OE2g6UEqneWG0gC5mycWLPYvVOCLJdMWYJvJ900/BtDajsezYfO+W7ztB
-	QJM8BlpetSUeyhvFolbC0tk4FBy5ufLCaysVwbzfdNpSEu8t2+gpL5B2F5KLt35EWbKtOhs3iYG
-	9h/E5Ml/XV14iJxBr4O+wKNSxPAJTTfJmS/9zJ1DBug3HVQnaiiLYcP7DepZmJPsDeg715Kz3uE
-	S8A1acqOHwfkQaro+AI0/y4RI
-X-Received: by 2002:a05:622a:6d01:10b0:51c:845b:ac4 with SMTP id d75a77b69052e-52b386944b1mr27789361cf.3.1785411154288;
-        Thu, 30 Jul 2026 04:32:34 -0700 (PDT)
-X-Received: by 2002:a05:622a:6d01:10b0:51c:845b:ac4 with SMTP id d75a77b69052e-52b386944b1mr27789051cf.3.1785411153808;
-        Thu, 30 Jul 2026 04:32:33 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fa857c8e1sm59328866b.19.2026.07.30.04.32.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Jul 2026 04:32:32 -0700 (PDT)
-Message-ID: <3da755bd-ab8c-4d2f-b7b0-6cd7eeb4808a@oss.qualcomm.com>
-Date: Thu, 30 Jul 2026 13:32:28 +0200
+        bh=voVALDzUnmupBJEHA5KagX/vzlVJlXbPxhsRhxAvPsI=;
+        b=N5g5lZlJ7SCT28dzz3mXCwZk7TW/j3K/SI9lVtuIreeyEPBIxT+Ym2+72XKf6Q/JCL
+         BZJZ5cwLr9RPYA6GG4gUYVl2Wr2t24XJoY4BiUonRsY9iQTcrQF6GFihEui/n63V0hhf
+         keFYYqMutazkpHNU/aBMpO+3xNjRX5qmWA0fqTpKoIQpBJKb6neFYD1xVqgNZnlf5OS3
+         Xr5tt6++M6LV++d+WzOOtrXKM7yBRsznm/bV0zcb9izcI9VaG2P8+B2dWtVLgLDMB2GI
+         rKWgQpC975qIb1scG7WYXiUmUriT2w31mF6UysCjiiUeI9Kfik9EsoYwvb6ibWWl1JV+
+         5GQA==
+X-Forwarded-Encrypted: i=1; AHgh+RpjWaC1rSxUJ5NIr6/293zSDCtV9QqcdaOy065MsLa1TeJb5Z3+cJCvdiWdHKhYlia+NryrtfQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzwPXVszqFPG8ThTYzSmkrVNYVr/ietLzrKGy0Xr0G5e50eaE1J
+	H1XBgrq6i1oyIQ2hWmUcgVMWIoYRbrRa3h9OzwGVr5RTbvIyTZWMAGczgWkBFypzA4E=
+X-Gm-Gg: AR+sD139Tpcln2trdqOcVbabT5XOIsxLwzmbp9KQSU5MYcMd/9IecTatqKDgvOWnDth
+	xYoMGoJjfLEPlom9uPTGjXLdu/bcHzlYhJ4DB6fcDlZxP5DV/hqSxa8HMpVmrz2xf8vZKxKdSOj
+	ow3FKWUVgeiUm3OZAuAaHbDCKF3tSsAyUHoguMbn4FGwufe9SdO2pFHn4p+aA3JXyTE5AjS/82N
+	AcTTURPd4aZzMm66HRGhtx+o9dRQYGnM4YZEAurMEJFGzYwd3yughkWXZlm/NyMIrpXUomErfFV
+	Hpv2aJEjCrn6+QvGQ57t4FIPi9boCMlThpFUrYQnpELLJ+viBroOBv8gOyQBYCzD4XmL4dkMcaF
+	lABAM4uigVw35Pu8m32YgEXRXlTO1z3Sn+Ey5YYOzIUE9ZazxKTdFKW2WAkowlb1VEPUtOtASyE
+	kmVetbM2BXX485AxtA82qti2VItC+NaJARUSFSfZ0Pox+NEAPUq/pFXo9Vppl3x4wrnH0X
+X-Received: by 2002:a17:903:1745:b0:2cc:df15:91f5 with SMTP id d9443c01a7336-2d035d14d1cmr20430405ad.44.1785411419868;
+        Thu, 30 Jul 2026 04:36:59 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022c1b529sm25328235ad.69.2026.07.30.04.36.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 04:36:59 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: kbusch@kernel.org,
+	axboe@kernel.dk,
+	hch@lst.de,
+	sagi@grimberg.me
+Cc: eduard@hasenleithner.at,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH] nvme: zero the discard fallback page
+Date: Thu, 30 Jul 2026 20:36:24 +0900
+Message-ID: <20260730113624.1605213-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] clk: qcom: Fix test_ctl_hi field for DEFAULT_EVO PLLs
-To: Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>, Shawn Guo <shawn.guo@linaro.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Iskren Chernev <me@iskren.info>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260729-pll-test-ctrl-fixup-v1-1-246d79589380@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260729-pll-test-ctrl-fixup-v1-1-246d79589380@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: ZNowFeAbVXjefBH0tJ0fIOSRGyKV9Ty7
-X-Proofpoint-ORIG-GUID: ZNowFeAbVXjefBH0tJ0fIOSRGyKV9Ty7
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA4NiBTYWx0ZWRfX0HOuTShUE1Qa
- qSKBUWubl7/Z+UCbtcnrY8pows7AR1I1AUY7c1UUpY123gEZOroxSBm5nMxOvEE71K3i/F4tCsH
- mT038CtXH0lTiUcEHassouSPs0Ay6KU=
-X-Authority-Analysis: v=2.4 cv=esPvCIpX c=1 sm=1 tr=0 ts=6a6b3652 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=HWpFVbl4Vm_CWwIzw78A:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA4NiBTYWx0ZWRfX1PQOZsXH6y4d
- 87sF5R20ny0ROOBH4cMI9hZzFtPMY9s4wmsiEpoRPbijFA9v5NSvoAIiFQI/iZwd82bdPiKlKtE
- zARoJ+jcac0JMrklR7vvPvBU7PZFT1GtJFlZiH92nqV3Ck6ihc6dhVXsnfJQDFgZkHcW2E/wbnF
- 6hFMcMcPlcLCLhGxPuLH/5ZWYJhl/6Hrb8c/L7Ev+O73TeWX7SB074pApd/Wb3JnVO3uPTem6Px
- i21wCx/eSYWMwRvz8NgZk/2vrLVgQBTeMjcWMV5PNnwd5BCI1jJpXgLY1YC+p3Qv6EmUJFpQ2dc
- 5JW3Q5BPWAZqBCFtB0tYy/1gd4eCdOBSNpJ2H2dOJyvmUqYp+XIpGA0Dzh05MoJTZf7aj2YwtiW
- qxHdKNi68xserPOe/foMaDVCxVvrfUqy0IUvdzdL37J7y6YXBZ8+29kFGhPneKj3uv5D5rWZeCo
- 9kgKn3Iwog/p7oLZXkQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-30_03,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 suspectscore=0 malwarescore=0 priorityscore=1501
- phishscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300086
+Content-Transfer-Encoding: 8bit
 
-On 7/29/26 5:23 PM, Imran Shaik wrote:
-> CLK_ALPHA_PLL_TYPE_DEFAULT_EVO type PLLs do not have the PLL_TEST_CTL_U1
-> register, so clk_alpha_pll_configure() does not program test_ctl_hi1_val
-> for this PLL type.
-> 
-> The GCC PLL configurations for QCM2290, Shikra and SM6115 wrongly use
-> test_ctl_hi1_val instead of test_ctl_hi_val, deviating from the hardware
-> recommended settings. Fix them to use test_ctl_hi_val.
-> 
-> Fixes: 496d1a13d405 ("clk: qcom: Add Global Clock Controller driver for QCM2290")
-> Fixes: 01cf3e27824d ("clk: qcom: Add Global clock controller support on Qualcomm Shikra SoC")
-> Fixes: e88c533d8a2a ("clk: qcom: gcc-sm6115: Add missing PLL config properties")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-> ---
+nvme_setup_discard() always maps sizeof(struct nvme_dsm_range) *
+NVME_DSM_MAX_RANGES = 4096 bytes as the DSM payload however many ranges
+the command declares, because some devices ignore the 'Number of Ranges'
+field - the Fixes: commit records two that read past the declared ranges.
+A single-range discard fills only the first 16 bytes.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Normally the buffer comes from kzalloc() and the other 4080 bytes are
+zero.  When that allocation fails the code falls back to the
+per-controller ctrl->discard_page, which nvme_init_ctrl() obtains with
+alloc_page(GFP_KERNEL) and nothing ever zeroes, so those 4080 bytes are
+whatever the page last held and are handed to the controller.  Reaching
+it requires the kzalloc(GFP_ATOMIC | __GFP_NOWARN) to fail, that is
+memory pressure; it is not remotely triggerable.  Failing the allocation
+under KMSAN reproduces it, with the leaked tail full of vmemmap struct
+page pointers.  The extent in the report is a partial transfer of the
+payload, not the whole 4096 bytes; the 16-byte boundary in it is the one
+declared range:
 
-Konrad
+[   11.991601] BUG: KMSAN: uninit-value in dma_map_phys+0x14c8/0x1900
+[   11.991969]  dma_map_phys+0x14c8/0x1900
+[   11.992220]  dma_map_page_attrs+0xcf/0x130
+[   11.992485]  e1000_xmit_frame+0x4099/0x6d10
+[   11.992768]  dev_hard_start_xmit+0x22f/0xa80
+[   11.993068]  sch_direct_xmit+0x35c/0xcb0
+[   11.993315]  __dev_queue_xmit+0x1ee5/0x5eb0
+[   11.993608]  ip_finish_output2+0x1903/0x1c30
+[   11.993881]  ip_finish_output+0x288/0x870
+[   11.994125]  ip_output+0x15e/0x400
+[   11.994365]  __ip_queue_xmit+0x1e85/0x1fb0
+[   11.994639]  ip_queue_xmit+0x60/0x80
+[   11.994899]  __tcp_transmit_skb+0x4e71/0x5fa0
+[   11.995210]  tcp_write_xmit+0x3a36/0x9160
+[   11.995533]  __tcp_push_pending_frames+0xc5/0x3c0
+[   11.995854]  tcp_push+0x7dc/0x840
+[   11.996076]  tcp_sendmsg_locked+0x766c/0x8400
+[   11.996371]  tcp_sendmsg+0x4b/0x90
+[   11.996572]  inet_sendmsg+0x134/0x2a0
+[   11.996823]  __sock_sendmsg+0x265/0x360
+[   11.997076]  sock_sendmsg+0x100/0x1e0
+[   11.997293]  nvme_tcp_try_send+0x196f/0x6370
+[   11.997605]  nvme_tcp_queue_rq+0x1d54/0x20b0
+[   11.997882]  blk_mq_dispatch_rq_list+0x5ee/0x2e50
+[   11.998175]  __blk_mq_sched_dispatch_requests+0x16dc/0x24a0
+[   11.998539]  blk_mq_sched_dispatch_requests+0x11b/0x2c0
+[   11.998865]  blk_mq_run_work_fn+0x13b/0x280
+[   11.999146]  process_scheduled_works+0x966/0x1ad0
+[   11.999465]  worker_thread+0xe44/0x1480
+[   11.999709]  kthread+0x53b/0x600
+[   11.999927]  ret_from_fork+0x29f/0x7c0
+[   12.000191]  ret_from_fork_asm+0x1a/0x30
+[   12.000460]
+[   12.000558] Uninit was created at:
+[   12.000788]  __alloc_frozen_pages_noprof+0x8bf/0xd30
+[   12.001096]  alloc_pages_mpol+0x1d0/0x5f0
+[   12.001326]  alloc_pages_noprof+0x102/0x290
+[   12.001627]  nvme_init_ctrl+0x5a3/0x9f0
+[   12.001891]  nvme_tcp_create_ctrl+0xd75/0x19b0
+[   12.002170]  nvmf_dev_write+0x4c68/0x4fd0
+[   12.002426]  vfs_write+0x587/0x1a10
+[   12.002636]  __x64_sys_write+0x207/0x4f0
+[   12.002874]  x64_sys_call+0x2ff0/0x3ea0
+[   12.003123]  do_syscall_64+0x147/0x3b0
+[   12.003400]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   12.003680]
+[   12.003777] Bytes 16-2843 of 2844 are uninitialized
+[   12.004068] Memory access of size 2844 starts at ffff888109f82000
+[   12.004412]
+[   12.004530] CPU: 0 UID: 0 PID: 101 Comm: kworker/0:1H Not tainted 7.2.0-rc5-NVMECTL-gf5098b6bae76 #1 PREEMPT(lazy)
+[   12.005127] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   12.005762] Workqueue: kblockd blk_mq_run_work_fn
+[   12.006073] =====================================================
+
+Allocate the page with __GFP_ZERO.  The single allocation site covers
+every use of it: bytes no discard has written stay zero, and bytes one
+did write hold that controller's own range list, which it has already
+been sent.
+
+Fixes: 530436c45ef2 ("nvme: Discard workaround for non-conformant devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+Measured over nvme-tcp under KMSAN, with the kzalloc failed by fault
+injection and a fresh controller per cycle so that every fallback is the
+first use of that controller's page:
+
+  unpatched, injection on    40 of 40 cycles reported, 10 runs
+  patched,   injection on     0 of 40 cycles reported, 10 runs
+  unpatched, injection off    0 of 10 runs
+
+The target-side dump of the 4096-byte payload showed a non-zero tail in
+33 of the 40 unpatched cycles - 3526 and 258 non-zero bytes of 4080 were
+the two recurring shapes - and in none of the patched ones.  The 7 zero
+tails are recycled pages that happened to be zero, which KMSAN still
+reports because it tracks whether a byte was initialised, not what it
+holds.
+
+Scope: a single VM over loopback.  This is not a test against a remote
+target.  What the source shows is that the DSM payload is transferred to
+the controller; what was measured is that the host kernel reads
+uninitialised bytes and puts them on the wire.
+
+Reproducing it: a KMSAN kernel with CONFIG_EXPERT=y and
+CONFIG_CRC_OPTIMIZATIONS=n, booted with slab_nomerge; nvme-tcp connected
+to a target; SLAB_FAILSLAB set on kmalloc-4k and failslab armed with
+probability=100 times=1 cache-filter=1 around a BLKDISCARD ioctl.
+
+ drivers/nvme/host/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 453c1f0b2dd0..ee993dfa1e41 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -5195,7 +5195,7 @@ int nvme_init_ctrl(struct nvme_ctrl *ctrl, struct device *dev,
+ 
+ 	BUILD_BUG_ON(NVME_DSM_MAX_RANGES * sizeof(struct nvme_dsm_range) >
+ 			PAGE_SIZE);
+-	ctrl->discard_page = alloc_page(GFP_KERNEL);
++	ctrl->discard_page = alloc_page(GFP_KERNEL | __GFP_ZERO);
+ 	if (!ctrl->discard_page) {
+ 		ret = -ENOMEM;
+ 		goto out;
+-- 
+2.43.0
+
