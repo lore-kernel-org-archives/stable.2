@@ -1,146 +1,196 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BEC430CC8
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 13:12:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E9F42C4EA
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 13:12:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785417171; cv=none; b=OVL+m9OeiILal7lvSUDqVKxE66fBSWZoXFgkf5/MTTLFl4LdYcO/1MilQ0/Ku3C69TKyugaRcxijar2ytlVfzvmzSOmguRnlI2XdI/fEszer8ChXgjg2uyp06L33KsTQoxZ+wpHR6uPlRCIwX1FFeZZp7GNEpSB8V49vGIE+NJs=
+	t=1785417173; cv=none; b=ZcV5J5KI9SdTVll0m9zlCeN+BfuU0QKV3hyRLS/XxdwiAhvg7IzjwLIuHEyE/6laLpO0UVVTdusJFuu262Moemydn7VbH1jSHuR+cM2X4GB9Ci7XRDOrmFxSHrtnbyfGqZTJILObUbMV+FkkXUiom4RUfFk5UzrAUe2hElLnGTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785417171; c=relaxed/simple;
-	bh=zyTFT5PUTIzO6aWPAmeFZLa5yPKvMYo7+eyon/uh6fk=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Zs1Xo2w7h/+zW3mj715WAjKZp6MH6LGDobqHHAVsnuu25bzxXA6IUfdb0mDMsvMVFl+Q4ECCJC9cBaiXarNinI7Bugyalabr70JdT0pO3TJ8y2QpgM1sgWbCWZR7Zr9YjyRxCRGZCvLjBRU3k3yUCs5odjBPsGBGYbZTAdT8diM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZZRKvp4F; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1785417173; c=relaxed/simple;
+	bh=kdDZQ/l0G4Q4DriW8gHyhltjPqLubx8ag8K5Apdegv4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J9lG95pntZrZc+OmGqH5E8POe36fXKiwEWzu7BlnZgYK9g9Cb6mQlADHtamdSHlD3tXdt13mF8LdggcnP6Onloc19z3hY6VICBdOk/cLzgxY5VadvHglwioOwAuh6fT1SmEN+Uwj4DHfVmeYVEFEnyTsrESjlpHic4RwALw1YEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZAkK+tQi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZZRKvp4F"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785417167; x=1816953167;
-  h=message-id:date:mime-version:subject:from:to:cc:
-   references:in-reply-to:content-transfer-encoding;
-  bh=zyTFT5PUTIzO6aWPAmeFZLa5yPKvMYo7+eyon/uh6fk=;
-  b=ZZRKvp4FVg17W8yT0LMb+yY+0Ho/JozyqbQExXuFIHxmB5sYHxymQmXO
-   EJyc/6Oww13QGSyIsWW0bhC97BjxxRNWnd4IvtG50UmkBGb+Oxo/1X5PR
-   BAZuzrDgeJrc5sJiDK5N3ar9c3uJTQNKPY8ewN30AdUkVQAsbw6w8vL7F
-   6dx8kqf9PBvbs5y9uCWwD2W+dMRqtOuloWJIfxBFns795VOQPOvr8QIQq
-   sIkttJ47dTWnB2PYostRZ/Pif8vPyCxDJPY71lBy/OCofDgYspQj2OPfD
-   Q2EkLMvYWfqMwumMF12hSx/cLYjOaBtcRjGhbFH88yx5sMHzCkO/CWb6R
-   Q==;
-X-CSE-ConnectionGUID: wrIHdRFVRDOTFRoH6SL4gw==
-X-CSE-MsgGUID: 00FqrIazQRaqwnej/tzvOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85798815"
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; 
-   d="scan'208";a="85798815"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 06:12:46 -0700
-X-CSE-ConnectionGUID: ARd7VzA8TwSGDtDQjzmTxQ==
-X-CSE-MsgGUID: n7vPDf9UTGee4IANC7Oy1g==
-X-ExtLoop1: 1
-Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.245.197]) ([10.245.245.197])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 06:12:44 -0700
-Message-ID: <789a05bc-f33f-41ed-869d-0fbe45ebef09@intel.com>
-Date: Thu, 30 Jul 2026 14:12:42 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZAkK+tQi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC2B11F000E9;
+	Thu, 30 Jul 2026 13:12:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785417170;
+	bh=BWZVIfj/tC47G4K011AvZAC+cg45dp8x0pZLgLowTYw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZAkK+tQi+VVjDFE8KE0Z2TOE5jtOqq7pYD7OfCQAGVmpqrdX1Wz3YZMuJ2/AHrMCt
+	 fQUu8/FvojohqhLNtBvKfHNQN2/yElXyCWmsU7eL4T9uZ2pPwamKCaSpXu+ICc0FdC
+	 /9dfNUIrFbXtFYoiTUQ0lIMOaEfvy3C4teCfrXZlnjXAmFcEKT7oc//aY77bvpNIqS
+	 14T3Zhto/caCjhhZQ0Uqaz4TNNaBnTHq1n0nohWOGE7q2niDwcDOlIceFeElL8LaPT
+	 I7jzIp+YEledCBIecPMNx2ASHxEGIkrtbOBuxBxhIefD61QvyqXIJKRRwirIaV04S+
+	 SBFxG0CGwjDTw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Matlack <dmatlack@google.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] KVM: Introduce vcpu->wants_to_run
+Date: Thu, 30 Jul 2026 09:12:46 -0400
+Message-ID: <20260730131247.2343824-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072610-estimator-reclusive-2a87@gregkh>
+References: <2026072610-estimator-reclusive-2a87@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] drm/xe/guc_ads: allocate UM queues in VRAM on dGFX
-From: Matthew Auld <matthew.auld@intel.com>
-To: Jia Yao <jia.yao@intel.com>, intel-xe@lists.freedesktop.org
-Cc: gwan-gyeong.mun@intel.com, stable@vger.kernel.org
-References: <20260722053410.2767369-1-jia.yao@intel.com>
- <20260730004735.344627-1-jia.yao@intel.com>
- <20260730004735.344627-3-jia.yao@intel.com>
- <148b38ae-eae7-40d5-837c-fddda1299d9f@intel.com>
-Content-Language: en-GB
-In-Reply-To: <148b38ae-eae7-40d5-837c-fddda1299d9f@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 30/07/2026 11:51, Matthew Auld wrote:
-> On 30/07/2026 01:47, Jia Yao wrote:
->> On dGFX the original ADS BO is explicitly migrated to VRAM by
->> xe_guc_realloc_post_hwconfig() so that xe_bo_main_addr() returns a
->> real device-physical address (DPA) rather than an IOMMU IOVA.  A
->> separate SYSTEM BO for the UM queues would not go through that migration
->> path, so its IOVA would differ from the physical address on systems
->> where pages are allocated above 4 GB.  GuC/GAM accesses the UM queue
->> ring via base_dpa (with_dpa=true on pre-Xe3p), so an incorrect DPA
->> causes all-zero fault descriptors to be forwarded to the driver.
-> 
-> I feel like I don't fully understand the explanation here. Is the issue 
-> not just the contig requirement for base_dpa? We now use attempt a best 
-> effort approach for system memory, however for dgpu we can go further 
-> and use VRAM to guarantee that requirement. If that is all this is doing 
-> then commit message can be simplified with something like:
-> 
-> "To fully guarantee the contig requirement for base_dpa, we can instead 
-> just use VRAM for the um queue, on dgpu..."
+From: David Matlack <dmatlack@google.com>
 
-Or is the issue that this has to always be in VRAM, since there is no 
-bit to say whether the DPA is system vs VRAM, like we do for the GGTT 
-pte? On dgpu, assumption is that this is then always VRAM, if using DPA? 
-If so, please make that clearer in the commit message.
+[ Upstream commit a6816314af5749cd88944bfdceb270c627cdf348 ]
 
-> 
->>
->> Use XE_BO_FLAG_VRAM_IF_DGFX() for the UM queue BO so that on dGFX the
->> BO is allocated directly in VRAM and xe_bo_main_addr() returns the
->> correct DPA without needing a post-hwconfig migration step.
->>
->> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
->> Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
->> Cc: Matthew Auld <matthew.auld@intel.com>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Jia Yao <jia.yao@intel.com>
->> ---
->>   drivers/gpu/drm/xe/xe_guc.c     |  6 ------
->>   drivers/gpu/drm/xe/xe_guc_ads.c | 11 ++++++-----
->>   2 files changed, 6 insertions(+), 11 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
->> index 21cf3edef922..4023700ff2a9 100644
->> --- a/drivers/gpu/drm/xe/xe_guc.c
->> +++ b/drivers/gpu/drm/xe/xe_guc.c
->> @@ -714,12 +714,6 @@ static int xe_guc_realloc_post_hwconfig(struct 
->> xe_guc *guc)
->>       if (ret)
->>           return ret;
->> -    if (guc->ads.um_queue_bo) {
->> -        ret = xe_managed_bo_reinit_in_vram(xe, tile, &guc- 
->> >ads.um_queue_bo);
->> -        if (ret)
->> -            return ret;
->> -    }
->> -
->>       return 0;
->>   }
->> diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/ 
->> xe_guc_ads.c
->> index 7f371f9c7268..53636333fb45 100644
->> --- a/drivers/gpu/drm/xe/xe_guc_ads.c
->> +++ b/drivers/gpu/drm/xe/xe_guc_ads.c
->> @@ -409,11 +409,12 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
->>           size_t um_size = roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
->>                               GUC_UM_HW_QUEUE_MAX);
->> -        bo = xe_managed_bo_create_pin_map(xe, tile, um_size,
->> -                          XE_BO_FLAG_SYSTEM |
->> -                          XE_BO_FLAG_GGTT |
->> -                          XE_BO_FLAG_GGTT_INVALIDATE |
->> -                          XE_BO_FLAG_PINNED_NORESTORE);
->> +        u32 um_flags = XE_BO_FLAG_VRAM_IF_DGFX(tile) |
->> +                   XE_BO_FLAG_GGTT |
->> +                   XE_BO_FLAG_GGTT_INVALIDATE |
->> +                   XE_BO_FLAG_PINNED_NORESTORE;
->> +
->> +        bo = xe_managed_bo_create_pin_map(xe, tile, um_size, um_flags);
->>           if (IS_ERR(bo))
->>               return PTR_ERR(bo);
-> 
+Introduce vcpu->wants_to_run to indicate when a vCPU is in its core run
+loop, i.e. when the vCPU is running the KVM_RUN ioctl and immediate_exit
+was not set.
+
+Replace all references to vcpu->run->immediate_exit with
+!vcpu->wants_to_run to avoid TOCTOU races with userspace. For example, a
+malicious userspace could invoked KVM_RUN with immediate_exit=true and
+then after KVM reads it to set wants_to_run=false, flip it to false.
+This would result in the vCPU running in KVM_RUN with
+wants_to_run=false. This wouldn't cause any real bugs today but is a
+dangerous landmine.
+
+Signed-off-by: David Matlack <dmatlack@google.com>
+Link: https://lore.kernel.org/r/20240503181734.1467938-2-dmatlack@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Stable-dep-of: e800decd9c0a ("KVM: x86: Only reset TSC Deadline Timer in apic_timer_expired on KVM_RUN")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/arm64/kvm/arm.c       | 2 +-
+ arch/mips/kvm/mips.c       | 2 +-
+ arch/powerpc/kvm/powerpc.c | 2 +-
+ arch/riscv/kvm/vcpu.c      | 2 +-
+ arch/s390/kvm/kvm-s390.c   | 2 +-
+ arch/x86/kvm/x86.c         | 4 ++--
+ include/linux/kvm_host.h   | 1 +
+ virt/kvm/kvm_main.c        | 3 +++
+ 8 files changed, 11 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index b0fe2bf7fa5ae1..672684d67e3994 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -891,7 +891,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 
+ 	vcpu_load(vcpu);
+ 
+-	if (run->immediate_exit) {
++	if (!vcpu->wants_to_run) {
+ 		ret = -EINTR;
+ 		goto out;
+ 	}
+diff --git a/arch/mips/kvm/mips.c b/arch/mips/kvm/mips.c
+index a4f4407b0a332e..dfe2333c098ceb 100644
+--- a/arch/mips/kvm/mips.c
++++ b/arch/mips/kvm/mips.c
+@@ -446,7 +446,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 		vcpu->mmio_needed = 0;
+ 	}
+ 
+-	if (vcpu->run->immediate_exit)
++	if (!vcpu->wants_to_run)
+ 		goto out;
+ 
+ 	lose_fpu(1);
+diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
+index 98ac5d39ad9cf9..f05071bddce6cc 100644
+--- a/arch/powerpc/kvm/powerpc.c
++++ b/arch/powerpc/kvm/powerpc.c
+@@ -1866,7 +1866,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 
+ 	kvm_sigset_activate(vcpu);
+ 
+-	if (run->immediate_exit)
++	if (!vcpu->wants_to_run)
+ 		r = -EINTR;
+ 	else
+ 		r = kvmppc_vcpu_run(vcpu);
+diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
+index 5174ef54ad1d9e..464eeabeaa2ee0 100644
+--- a/arch/riscv/kvm/vcpu.c
++++ b/arch/riscv/kvm/vcpu.c
+@@ -973,7 +973,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 		return ret;
+ 	}
+ 
+-	if (run->immediate_exit) {
++	if (!vcpu->wants_to_run) {
+ 		kvm_vcpu_srcu_read_unlock(vcpu);
+ 		return -EINTR;
+ 	}
+diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
+index e6606ff91921ad..2a1a3117a5b231 100644
+--- a/arch/s390/kvm/kvm-s390.c
++++ b/arch/s390/kvm/kvm-s390.c
+@@ -4881,7 +4881,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 	if (vcpu->kvm->arch.pv.dumping)
+ 		return -EINVAL;
+ 
+-	if (kvm_run->immediate_exit)
++	if (!vcpu->wants_to_run)
+ 		return -EINTR;
+ 
+ 	if (kvm_run->kvm_valid_regs & ~KVM_SYNC_S390_VALID_FIELDS ||
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 208a713d7ecd75..ffbf532baf7cd5 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -11264,7 +11264,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 
+ 	kvm_vcpu_srcu_read_lock(vcpu);
+ 	if (unlikely(vcpu->arch.mp_state == KVM_MP_STATE_UNINITIALIZED)) {
+-		if (kvm_run->immediate_exit) {
++		if (!vcpu->wants_to_run) {
+ 			r = -EINTR;
+ 			goto out;
+ 		}
+@@ -11337,7 +11337,7 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 		WARN_ON_ONCE(vcpu->mmio_needed);
+ 	}
+ 
+-	if (kvm_run->immediate_exit) {
++	if (!vcpu->wants_to_run) {
+ 		r = -EINTR;
+ 		goto out;
+ 	}
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index 624380c4fef809..e1bea71ca92818 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -365,6 +365,7 @@ struct kvm_vcpu {
+ 		bool dy_eligible;
+ 	} spin_loop;
+ #endif
++	bool wants_to_run;
+ 	bool preempted;
+ 	bool ready;
+ 	struct kvm_vcpu_arch arch;
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index f060c914d68107..c4d17ded361965 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -4119,7 +4119,10 @@ static long kvm_vcpu_ioctl(struct file *filp,
+ 				synchronize_rcu();
+ 			put_pid(oldpid);
+ 		}
++		vcpu->wants_to_run = !READ_ONCE(vcpu->run->immediate_exit);
+ 		r = kvm_arch_vcpu_ioctl_run(vcpu);
++		vcpu->wants_to_run = false;
++
+ 		trace_kvm_userspace_exit(vcpu->run->exit_reason, r);
+ 		break;
+ 	}
+-- 
+2.53.0
 
