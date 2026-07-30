@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8436F34F270
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 01:01:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39E4346AC5;
+	Thu, 30 Jul 2026 01:01:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785373309; cv=none; b=GZCs6Y2TPY9cxBqSMoYVu5quAUBdEmbAMYEWgjRxzYjpE/fdxl3RHudKFD+b17cNsACBMwReMQEAnVZ8Oa8KXwahcr9S8hQqVROubWWtwR/YVLgFYTYEnvl3yvv7RCfaDjinZd54zp4OMJHC7PgP5LuGV7w9ORo3UkhyAYRUvGM=
+	t=1785373309; cv=none; b=nMkCHTRFYUjUkySCxnY0gjxl8/p3qouueep739RziHquk3sZVIxpvquaLDpX6P9Vid0v0rYYpH33WdmwVR35I8uAwU3ElmDaQfW+jmaTPkbkWdInLkNw58JJiy22wLa3p9IlKLR31wyY4IFnPB5sBUsHTnfU4c02Ry4h6Ne4pRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785373309; c=relaxed/simple;
-	bh=lo+URCPgbSZCAE8oy1GdxlLuSVqjo9MZQFAxDEM6etQ=;
+	bh=Zd5BumUqMFR58oDWfS1GrKObsWLhRgvwLuvVEgHyo+I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ezXWE+HgWJP60w1S1o+3q8Y8oTKxwpwUcDhD2qoJxoMwUA/sWqrKte64v3I9AgqpzvcVpIuU9QrUUZnu7qCz6eKRqQAYVT1bK0VGSnXXIxyTQHjEEHOvvqoGu//fJ8WlTO0W05r5hFZp0rXG6Wx8xrGsQ6aajwP6HgKY/W357+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nUd4cdJa; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=s2LfafE7IVhuAu+chhv0R6IWEhwWPtK8oVkBZwoT7WXT/jmXtRXRxBEmhFUZMIYS+/+AGdceXIVMCxVAkxv0alRilWc3jforWiUoh/bzlj28I6ez7OQXg/t+C9859Jo4vVCWMGnxBXnvV0iUWdRYIJUcLzxVbWuSDU9ImeIwDQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MDlfO+rl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nUd4cdJa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC93E1F00A3E;
-	Thu, 30 Jul 2026 01:01:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MDlfO+rl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21F611F00ADE;
+	Thu, 30 Jul 2026 01:01:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1785373306;
-	bh=qWPzpgUP/GNxhsXhL/fehYOP/GmBsbHL2MoIbnT8l94=;
+	bh=4Lq+fL+w75QhtnqFTfi+99lSdDeKBtVdq5h1R3ui6Lg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nUd4cdJaTwO3NOufj5BMaY7hIcK/X0hAdCkFveWZ+p2grJTOI/sfRNRPFovJCwB32
-	 pf1DhNeARgRxr3C6tcOT2hFcDDDq5+/BoaCWS4JgQ7n7lzynfHBd4lP8XuQe+bOL0M
-	 1ma6+f4cSUcJ5VFby9/hABVDPUhaYMyfgIjSgtJRqi2zns+Cw9YID4zDmujWVSGLCo
-	 ZfJcYsgof6HRowstUcmPHyOy+YVFjHwTfHynouOSG/bW6hL+kuoUDJS/gYB3jN2juq
-	 /Ycgn5nmVQbLkSY/y6LA7sn0HeKsyepiCcgs9KucpqfR0YGKBcKIF6Q84pvnf2cR3l
-	 pGlxlP4LZz1rg==
+	b=MDlfO+rl3EKY4HQZdWqL+ozb5O3Y6u7txuAAZIlsnlUNUkFWeabs78cP805nZKR//
+	 D4u6iAVwkui/Lqv4iJyAilgHevHQMNyJy/iF2tEunEsjqgtjDpKykvDSH92kNE+9JW
+	 /xUeGjbZHaOybWsSWu+QGfM7LlRDTS6FnscHATcvaK/gtm/NPYpTBTVnvK+2ma6CN1
+	 iZN6aGusHi9Pqhwmvl76NVeVS5hkFGDEvPFErJ7d/XtOZZGuhNa+IMwNbLECAm3Xfs
+	 6kBTCillCPShRacSx8QHNmPlkAoJPieAhcGx9ohpxWDDPr2cA4fd5aQABl0q3h7A6P
+	 faDQo5v/4kQpQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: David Howells <dhowells@redhat.com>,
-	Markus Suvanto <markus.suvanto@gmail.com>,
 	Marc Dionne <marc.dionne@auristor.com>,
 	linux-afs@lists.infradead.org,
-	Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 8/8] afs: Fix dynamic lookup to fail on cell lookup failure
-Date: Wed, 29 Jul 2026 21:01:37 -0400
-Message-ID: <20260730010137.1700032-8-sashal@kernel.org>
+Subject: [PATCH 6.12.y 5/9] afs: Use the per-peer app data provided by rxrpc
+Date: Wed, 29 Jul 2026 21:01:36 -0400
+Message-ID: <20260730010140.1700208-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730010137.1700032-1-sashal@kernel.org>
-References: <2026072131-schilling-spectrum-ef97@gregkh>
- <20260730010137.1700032-1-sashal@kernel.org>
+In-Reply-To: <20260730010140.1700208-1-sashal@kernel.org>
+References: <2026072127-dress-overplay-421f@gregkh>
+ <20260730010140.1700208-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,356 +50,529 @@ Content-Transfer-Encoding: 8bit
 
 From: David Howells <dhowells@redhat.com>
 
-[ Upstream commit 330e2c514823008b22e6afd2055715bc46dd8d55 ]
+[ Upstream commit 40e8b52fe8c8ab6920ea5f59c5469b6918cce624 ]
 
-When a process tries to access an entry in /afs, normally what happens is
-that an automount dentry is created by ->lookup() and then triggered, which
-jumps through the ->d_automount() op.  Currently, afs_dynroot_lookup() does
-not do cell DNS lookup, leaving that to afs_d_automount() to perform -
-however, it is possible to use access() or stat() on the automount point,
-which will always return successfully, have briefly created an afs_cell
-record if one did not already exist.
+Make use of the per-peer application data that rxrpc now allows the
+application to store on the rxrpc_peer struct to hold a back pointer to the
+afs_server record that peer represents an endpoint for.
 
-This means that something like:
+Then, when a call comes in to the AFS cache manager, this can be used to
+map it to the correct server record rather than having to use a
+UUID-to-server mapping table and having to do an additional lookup.
 
-        test -d "/afs/.west" && echo Directory exists
-
-will print "Directory exists" even though no such cell is configured.  This
-breaks the "west" python module available on PIP as it expects this access
-to fail.
-
-Now, it could be possible to make afs_dynroot_lookup() perform the DNS[*]
-lookup, but that would make "ls --color /afs" do this for each cell in /afs
-that is listed but not yet probed.  kafs-client, probably wrongly, preloads
-the entire cell database and all the known cells are then listed in /afs -
-and doing ls /afs would be very, very slow, especially if any cell supplied
-addresses but was wholly inaccessible.
-
- [*] When I say "DNS", actually read getaddrinfo(), which could use any one
-     of a host of mechanisms.  Could also use static configuration.
-
-To fix this, make the following changes:
-
- (1) Create an enum to specify the origination point of a call to
-     afs_lookup_cell() and pass this value into that function in place of
-     the "excl" parameter (which can be derived from it).  There are six
-     points of origination:
-
-        - Cell preload through /proc/net/afs/cells
-        - Root cell config through /proc/net/afs/rootcell
-        - Lookup in dynamic root
-        - Automount trigger
-        - Direct mount with mount() syscall
-        - Alias check where YFS tells us the cell name is different
-
- (2) Add an extra state into the afs_cell state machine to indicate a cell
-     that's been initialised, but not yet looked up.  This is separate from
-     one that can be considered active and has been looked up at least
-     once.
-
- (3) Make afs_lookup_cell() vary its behaviour more, depending on where it
-     was called from:
-
-     If called from preload or root cell config, DNS lookup will not happen
-     until we definitely want to use the cell (dynroot mount, automount,
-     direct mount or alias check).  The cell will appear in /afs but stat()
-     won't trigger DNS lookup.
-
-     If the cell already exists, dynroot will not wait for the DNS lookup
-     to complete.  If the cell did not already exist, dynroot will wait.
-
-     If called from automount, direct mount or alias check, it will wait
-     for the DNS lookup to complete.
-
- (4) Make afs_lookup_cell() return an error if lookup failed in one way or
-     another.  We try to return -ENOENT if the DNS says the cell does not
-     exist and -EDESTADDRREQ if we couldn't access the DNS.
-
-Reported-by: Markus Suvanto <markus.suvanto@gmail.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=220685
 Signed-off-by: David Howells <dhowells@redhat.com>
-Link: https://patch.msgid.link/1784747.1761158912@warthog.procyon.org.uk
-Fixes: 1d0b929fc070 ("afs: Change dynroot to create contents on demand")
-Tested-by: Markus Suvanto <markus.suvanto@gmail.com>
 cc: Marc Dionne <marc.dionne@auristor.com>
 cc: linux-afs@lists.infradead.org
-Signed-off-by: Christian Brauner <brauner@kernel.org>
+cc: linux-fsdevel@vger.kernel.org
+Link: https://lore.kernel.org/r/20250224234154.2014840-14-dhowells@redhat.com/ # v1
+Link: https://lore.kernel.org/r/20250310094206.801057-10-dhowells@redhat.com/ # v4
+Stable-dep-of: 26f17ce6fa3f ("afs: Fix premature cell exposure through /afs")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/afs/cell.c     | 78 +++++++++++++++++++++++++++++++++++++++--------
- fs/afs/dynroot.c  |  3 +-
- fs/afs/internal.h | 12 +++++++-
- fs/afs/mntpt.c    |  3 +-
- fs/afs/proc.c     |  3 +-
- fs/afs/super.c    |  2 +-
- fs/afs/vl_alias.c |  3 +-
- 7 files changed, 86 insertions(+), 18 deletions(-)
+ fs/afs/addr_list.c         | 50 +++++++++++++++++++++++
+ fs/afs/cmservice.c         | 82 ++++++--------------------------------
+ fs/afs/fs_probe.c          | 32 ++++++++++-----
+ fs/afs/internal.h          |  9 +++--
+ fs/afs/proc.c              | 10 ++++-
+ fs/afs/rxrpc.c             |  6 +++
+ fs/afs/server.c            | 46 ++++++---------------
+ include/trace/events/afs.h |  4 +-
+ net/rxrpc/peer_object.c    |  4 +-
+ 9 files changed, 120 insertions(+), 123 deletions(-)
 
-diff --git a/fs/afs/cell.c b/fs/afs/cell.c
-index 41f7e11c139711..b0bea806af749b 100644
---- a/fs/afs/cell.c
-+++ b/fs/afs/cell.c
-@@ -228,7 +228,7 @@ static struct afs_cell *afs_alloc_cell(struct afs_net *net,
-  * @name:	The name of the cell.
-  * @namesz:	The strlen of the cell name.
-  * @vllist:	A colon/comma separated list of numeric IP addresses or NULL.
-- * @excl:	T if an error should be given if the cell name already exists.
-+ * @reason:	The reason we're doing the lookup
-  * @trace:	The reason to be logged if the lookup is successful.
-  *
-  * Look up a cell record by name and query the DNS for VL server addresses if
-@@ -238,7 +238,8 @@ static struct afs_cell *afs_alloc_cell(struct afs_net *net,
+diff --git a/fs/afs/addr_list.c b/fs/afs/addr_list.c
+index 6d42f85c6be54c..e941da5b6dd92d 100644
+--- a/fs/afs/addr_list.c
++++ b/fs/afs/addr_list.c
+@@ -362,3 +362,53 @@ int afs_merge_fs_addr6(struct afs_net *net, struct afs_addr_list *alist,
+ 	alist->nr_addrs++;
+ 	return 0;
+ }
++
++/*
++ * Set the app data on the rxrpc peers an address list points to
++ */
++void afs_set_peer_appdata(struct afs_server *server,
++			  struct afs_addr_list *old_alist,
++			  struct afs_addr_list *new_alist)
++{
++	unsigned long data = (unsigned long)server;
++	int n = 0, o = 0;
++
++	if (!old_alist) {
++		/* New server.  Just set all. */
++		for (; n < new_alist->nr_addrs; n++)
++			rxrpc_kernel_set_peer_data(new_alist->addrs[n].peer, data);
++		return;
++	}
++	if (!new_alist) {
++		/* Dead server.  Just remove all. */
++		for (; o < old_alist->nr_addrs; o++)
++			rxrpc_kernel_set_peer_data(old_alist->addrs[o].peer, 0);
++		return;
++	}
++
++	/* Walk through the two lists simultaneously, setting new peers and
++	 * clearing old ones.  The two lists are ordered by pointer to peer
++	 * record.
++	 */
++	while (n < new_alist->nr_addrs && o < old_alist->nr_addrs) {
++		struct rxrpc_peer *pn = new_alist->addrs[n].peer;
++		struct rxrpc_peer *po = old_alist->addrs[o].peer;
++
++		if (pn == po)
++			continue;
++		if (pn < po) {
++			rxrpc_kernel_set_peer_data(pn, data);
++			n++;
++		} else {
++			rxrpc_kernel_set_peer_data(po, 0);
++			o++;
++		}
++	}
++
++	if (n < new_alist->nr_addrs)
++		for (; n < new_alist->nr_addrs; n++)
++			rxrpc_kernel_set_peer_data(new_alist->addrs[n].peer, data);
++	if (o < old_alist->nr_addrs)
++		for (; o < old_alist->nr_addrs; o++)
++			rxrpc_kernel_set_peer_data(old_alist->addrs[o].peer, 0);
++}
+diff --git a/fs/afs/cmservice.c b/fs/afs/cmservice.c
+index 0638cab00c6182..c7fe9dc3fc89e1 100644
+--- a/fs/afs/cmservice.c
++++ b/fs/afs/cmservice.c
+@@ -138,49 +138,6 @@ bool afs_cm_incoming_call(struct afs_call *call)
+ 	}
+ }
+ 
+-/*
+- * Find the server record by peer address and record a probe to the cache
+- * manager from a server.
+- */
+-static int afs_find_cm_server_by_peer(struct afs_call *call)
+-{
+-	struct sockaddr_rxrpc srx;
+-	struct afs_server *server;
+-	struct rxrpc_peer *peer;
+-
+-	peer = rxrpc_kernel_get_call_peer(call->net->socket, call->rxcall);
+-
+-	server = afs_find_server(call->net, peer);
+-	if (!server) {
+-		trace_afs_cm_no_server(call, &srx);
+-		return 0;
+-	}
+-
+-	call->server = server;
+-	return 0;
+-}
+-
+-/*
+- * Find the server record by server UUID and record a probe to the cache
+- * manager from a server.
+- */
+-static int afs_find_cm_server_by_uuid(struct afs_call *call,
+-				      struct afs_uuid *uuid)
+-{
+-	struct afs_server *server;
+-
+-	rcu_read_lock();
+-	server = afs_find_server_by_uuid(call->net, call->request);
+-	rcu_read_unlock();
+-	if (!server) {
+-		trace_afs_cm_no_server_u(call, call->request);
+-		return 0;
+-	}
+-
+-	call->server = server;
+-	return 0;
+-}
+-
+ /*
+  * Clean up a cache manager call.
   */
- struct afs_cell *afs_lookup_cell(struct afs_net *net,
- 				 const char *name, unsigned int namesz,
--				 const char *vllist, bool excl,
-+				 const char *vllist,
-+				 enum afs_lookup_cell_for reason,
- 				 enum afs_cell_trace trace)
+@@ -322,10 +279,7 @@ static int afs_deliver_cb_callback(struct afs_call *call)
+ 
+ 	if (!afs_check_call_state(call, AFS_CALL_SV_REPLYING))
+ 		return afs_io_error(call, afs_io_error_cm_reply);
+-
+-	/* we'll need the file server record as that tells us which set of
+-	 * vnodes to operate upon */
+-	return afs_find_cm_server_by_peer(call);
++	return 0;
+ }
+ 
+ /*
+@@ -349,18 +303,10 @@ static void SRXAFSCB_InitCallBackState(struct work_struct *work)
+  */
+ static int afs_deliver_cb_init_call_back_state(struct afs_call *call)
  {
- 	struct afs_cell *cell, *candidate, *cursor;
-@@ -246,12 +247,18 @@ struct afs_cell *afs_lookup_cell(struct afs_net *net,
- 	enum afs_cell_state state;
- 	int ret, n;
+-	int ret;
+-
+ 	_enter("");
  
--	_enter("%s,%s", name, vllist);
-+	_enter("%s,%s,%u", name, vllist, reason);
+ 	afs_extract_discard(call, 0);
+-	ret = afs_extract_data(call, false);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* we'll need the file server record as that tells us which set of
+-	 * vnodes to operate upon */
+-	return afs_find_cm_server_by_peer(call);
++	return afs_extract_data(call, false);
+ }
  
--	if (!excl) {
-+	if (reason != AFS_LOOKUP_CELL_PRELOAD) {
- 		cell = afs_find_cell(net, name, namesz, trace);
--		if (!IS_ERR(cell))
-+		if (!IS_ERR(cell)) {
-+			if (reason == AFS_LOOKUP_CELL_DYNROOT)
-+				goto no_wait;
-+			if (cell->state == AFS_CELL_SETTING_UP ||
-+			    cell->state == AFS_CELL_UNLOOKED)
-+				goto lookup_cell;
- 			goto wait_for_cell;
-+		}
- 	}
+ /*
+@@ -373,8 +319,6 @@ static int afs_deliver_cb_init_call_back_state3(struct afs_call *call)
+ 	__be32 *b;
+ 	int ret;
  
- 	/* Assume we're probably going to create a cell and preallocate and
-@@ -297,26 +304,69 @@ struct afs_cell *afs_lookup_cell(struct afs_net *net,
- 	rb_insert_color(&cell->net_node, &net->cells);
- 	up_write(&net->cells_lock);
+-	_enter("");
+-
+ 	_enter("{%u}", call->unmarshall);
  
--	afs_queue_cell(cell, afs_cell_trace_queue_new);
-+lookup_cell:
-+	if (reason != AFS_LOOKUP_CELL_PRELOAD &&
-+	    reason != AFS_LOOKUP_CELL_ROOTCELL) {
-+		set_bit(AFS_CELL_FL_DO_LOOKUP, &cell->flags);
-+		afs_queue_cell(cell, afs_cell_trace_queue_new);
+ 	switch (call->unmarshall) {
+@@ -420,9 +364,13 @@ static int afs_deliver_cb_init_call_back_state3(struct afs_call *call)
+ 	if (!afs_check_call_state(call, AFS_CALL_SV_REPLYING))
+ 		return afs_io_error(call, afs_io_error_cm_reply);
+ 
+-	/* we'll need the file server record as that tells us which set of
+-	 * vnodes to operate upon */
+-	return afs_find_cm_server_by_uuid(call, call->request);
++	if (memcmp(call->request, &call->server->_uuid, sizeof(call->server->_uuid)) != 0) {
++		pr_notice("Callback UUID does not match fileserver UUID\n");
++		trace_afs_cm_no_server_u(call, call->request);
++		return 0;
 +	}
++
++	return 0;
+ }
  
- wait_for_cell:
--	_debug("wait_for_cell");
- 	state = smp_load_acquire(&cell->state); /* vs error */
--	if (state != AFS_CELL_ACTIVE &&
--	    state != AFS_CELL_DEAD) {
-+	switch (state) {
-+	case AFS_CELL_ACTIVE:
-+	case AFS_CELL_DEAD:
-+		break;
-+	case AFS_CELL_UNLOOKED:
-+	default:
-+		if (reason == AFS_LOOKUP_CELL_PRELOAD ||
-+		    reason == AFS_LOOKUP_CELL_ROOTCELL)
-+			break;
-+		_debug("wait_for_cell");
- 		afs_see_cell(cell, afs_cell_trace_wait);
- 		wait_var_event(&cell->state,
- 			       ({
- 				       state = smp_load_acquire(&cell->state); /* vs error */
- 				       state == AFS_CELL_ACTIVE || state == AFS_CELL_DEAD;
- 			       }));
-+		_debug("waited_for_cell %d %d", cell->state, cell->error);
- 	}
+ /*
+@@ -454,7 +402,7 @@ static int afs_deliver_cb_probe(struct afs_call *call)
  
-+no_wait:
- 	/* Check the state obtained from the wait check. */
-+	state = smp_load_acquire(&cell->state); /* vs error */
- 	if (state == AFS_CELL_DEAD) {
- 		ret = cell->error;
- 		goto error;
- 	}
-+	if (state == AFS_CELL_ACTIVE) {
-+		switch (cell->dns_status) {
-+		case DNS_LOOKUP_NOT_DONE:
-+			if (cell->dns_source == DNS_RECORD_FROM_CONFIG) {
-+				ret = 0;
-+				break;
-+			}
-+			fallthrough;
-+		default:
-+			ret = -EIO;
-+			goto error;
-+		case DNS_LOOKUP_GOOD:
-+		case DNS_LOOKUP_GOOD_WITH_BAD:
-+			ret = 0;
-+			break;
-+		case DNS_LOOKUP_GOT_NOT_FOUND:
-+			ret = -ENOENT;
-+			goto error;
-+		case DNS_LOOKUP_BAD:
-+			ret = -EREMOTEIO;
-+			goto error;
-+		case DNS_LOOKUP_GOT_LOCAL_FAILURE:
-+		case DNS_LOOKUP_GOT_TEMP_FAILURE:
-+		case DNS_LOOKUP_GOT_NS_FAILURE:
-+			ret = -EDESTADDRREQ;
-+			goto error;
-+		}
+ 	if (!afs_check_call_state(call, AFS_CALL_SV_REPLYING))
+ 		return afs_io_error(call, afs_io_error_cm_reply);
+-	return afs_find_cm_server_by_peer(call);
++	return 0;
+ }
+ 
+ /*
+@@ -531,7 +479,7 @@ static int afs_deliver_cb_probe_uuid(struct afs_call *call)
+ 
+ 	if (!afs_check_call_state(call, AFS_CALL_SV_REPLYING))
+ 		return afs_io_error(call, afs_io_error_cm_reply);
+-	return afs_find_cm_server_by_peer(call);
++	return 0;
+ }
+ 
+ /*
+@@ -591,7 +539,7 @@ static int afs_deliver_cb_tell_me_about_yourself(struct afs_call *call)
+ 
+ 	if (!afs_check_call_state(call, AFS_CALL_SV_REPLYING))
+ 		return afs_io_error(call, afs_io_error_cm_reply);
+-	return afs_find_cm_server_by_peer(call);
++	return 0;
+ }
+ 
+ /*
+@@ -665,9 +613,5 @@ static int afs_deliver_yfs_cb_callback(struct afs_call *call)
+ 
+ 	if (!afs_check_call_state(call, AFS_CALL_SV_REPLYING))
+ 		return afs_io_error(call, afs_io_error_cm_reply);
+-
+-	/* We'll need the file server record as that tells us which set of
+-	 * vnodes to operate upon.
+-	 */
+-	return afs_find_cm_server_by_peer(call);
++	return 0;
+ }
+diff --git a/fs/afs/fs_probe.c b/fs/afs/fs_probe.c
+index b516d05b0fefc5..07a8bfbdd9b9de 100644
+--- a/fs/afs/fs_probe.c
++++ b/fs/afs/fs_probe.c
+@@ -235,20 +235,20 @@ void afs_fileserver_probe_result(struct afs_call *call)
+  * Probe all of a fileserver's addresses to find out the best route and to
+  * query its capabilities.
+  */
+-void afs_fs_probe_fileserver(struct afs_net *net, struct afs_server *server,
+-			     struct afs_addr_list *new_alist, struct key *key)
++int afs_fs_probe_fileserver(struct afs_net *net, struct afs_server *server,
++			    struct afs_addr_list *new_alist, struct key *key)
+ {
+ 	struct afs_endpoint_state *estate, *old;
+-	struct afs_addr_list *alist;
++	struct afs_addr_list *old_alist = NULL, *alist;
+ 	unsigned long unprobed;
+ 
+ 	_enter("%pU", &server->uuid);
+ 
+ 	estate = kzalloc(sizeof(*estate), GFP_KERNEL);
+ 	if (!estate)
+-		return;
++		return -ENOMEM;
+ 
+-	refcount_set(&estate->ref, 1);
++	refcount_set(&estate->ref, 2);
+ 	estate->server_id = server->debug_id;
+ 	estate->rtt = UINT_MAX;
+ 
+@@ -256,21 +256,31 @@ void afs_fs_probe_fileserver(struct afs_net *net, struct afs_server *server,
+ 
+ 	old = rcu_dereference_protected(server->endpoint_state,
+ 					lockdep_is_held(&server->fs_lock));
+-	estate->responsive_set = old->responsive_set;
+-	estate->addresses = afs_get_addrlist(new_alist ?: old->addresses,
+-					     afs_alist_trace_get_estate);
++	if (old) {
++		estate->responsive_set = old->responsive_set;
++		if (!new_alist)
++			new_alist = old->addresses;
 +	}
++
++	if (old_alist != new_alist)
++		afs_set_peer_appdata(server, old_alist, new_alist);
++
++	estate->addresses = afs_get_addrlist(new_alist, afs_alist_trace_get_estate);
+ 	alist = estate->addresses;
+ 	estate->probe_seq = ++server->probe_counter;
+ 	atomic_set(&estate->nr_probing, alist->nr_addrs);
  
- 	_leave(" = %p [cell]", cell);
- 	return cell;
-@@ -324,7 +374,7 @@ struct afs_cell *afs_lookup_cell(struct afs_net *net,
- cell_already_exists:
- 	_debug("cell exists");
- 	cell = cursor;
--	if (excl) {
-+	if (reason == AFS_LOOKUP_CELL_PRELOAD) {
- 		ret = -EEXIST;
- 	} else {
- 		afs_use_cell(cursor, trace);
-@@ -383,7 +433,8 @@ int afs_cell_init(struct afs_net *net, const char *rootcell)
- 		return -EINVAL;
++	if (new_alist)
++		server->addr_version = new_alist->version;
+ 	rcu_assign_pointer(server->endpoint_state, estate);
+-	set_bit(AFS_ESTATE_SUPERSEDED, &old->flags);
+ 	write_unlock(&server->fs_lock);
++	if (old)
++		set_bit(AFS_ESTATE_SUPERSEDED, &old->flags);
  
- 	/* allocate a cell record for the root/workstation cell */
--	new_root = afs_lookup_cell(net, rootcell, len, vllist, false,
-+	new_root = afs_lookup_cell(net, rootcell, len, vllist,
-+				   AFS_LOOKUP_CELL_ROOTCELL,
- 				   afs_cell_trace_use_lookup_ws);
- 	if (IS_ERR(new_root)) {
- 		_leave(" = %ld", PTR_ERR(new_root));
-@@ -778,6 +829,7 @@ static bool afs_manage_cell(struct afs_cell *cell)
- 	switch (cell->state) {
- 	case AFS_CELL_SETTING_UP:
- 		goto set_up_cell;
-+	case AFS_CELL_UNLOOKED:
- 	case AFS_CELL_ACTIVE:
- 		goto cell_is_active;
- 	case AFS_CELL_REMOVING:
-@@ -798,7 +850,7 @@ static bool afs_manage_cell(struct afs_cell *cell)
- 		goto remove_cell;
+ 	trace_afs_estate(estate->server_id, estate->probe_seq, refcount_read(&estate->ref),
+ 			 afs_estate_trace_alloc_probe);
+ 
+-	afs_get_address_preferences(net, alist);
++	afs_get_address_preferences(net, new_alist);
+ 
+ 	server->probed_at = jiffies;
+ 	unprobed = (1UL << alist->nr_addrs) - 1;
+@@ -293,6 +303,8 @@ void afs_fs_probe_fileserver(struct afs_net *net, struct afs_server *server,
  	}
  
--	afs_set_cell_state(cell, AFS_CELL_ACTIVE);
-+	afs_set_cell_state(cell, AFS_CELL_UNLOOKED);
+ 	afs_put_endpoint_state(old, afs_estate_trace_put_probe);
++	afs_put_endpoint_state(estate, afs_estate_trace_put_probe);
++	return 0;
+ }
  
- cell_is_active:
- 	if (afs_has_cell_expired(cell, &next_manage))
-@@ -808,6 +860,8 @@ static bool afs_manage_cell(struct afs_cell *cell)
- 		ret = afs_update_cell(cell);
- 		if (ret < 0)
- 			cell->error = ret;
-+		if (cell->state == AFS_CELL_UNLOOKED)
-+			afs_set_cell_state(cell, AFS_CELL_ACTIVE);
- 	}
- 
- 	if (next_manage < TIME64_MAX && cell->net->live) {
-diff --git a/fs/afs/dynroot.c b/fs/afs/dynroot.c
-index 8c6130789fde3a..dc9d29e3739e71 100644
---- a/fs/afs/dynroot.c
-+++ b/fs/afs/dynroot.c
-@@ -108,7 +108,8 @@ static struct dentry *afs_dynroot_lookup_cell(struct inode *dir, struct dentry *
- 		dotted = true;
- 	}
- 
--	cell = afs_lookup_cell(net, name, len, NULL, false,
-+	cell = afs_lookup_cell(net, name, len, NULL,
-+			       AFS_LOOKUP_CELL_DYNROOT,
- 			       afs_cell_trace_use_lookup_dynroot);
- 	if (IS_ERR(cell)) {
- 		ret = PTR_ERR(cell);
+ /*
 diff --git a/fs/afs/internal.h b/fs/afs/internal.h
-index 6630a6144b719b..244f8c9080dac9 100644
+index 217dcd4d908d6c..d8a051833befd9 100644
 --- a/fs/afs/internal.h
 +++ b/fs/afs/internal.h
-@@ -353,6 +353,7 @@ extern const char afs_init_sysname[];
+@@ -1004,6 +1004,9 @@ extern int afs_merge_fs_addr4(struct afs_net *net, struct afs_addr_list *addr,
+ 			      __be32 xdr, u16 port);
+ extern int afs_merge_fs_addr6(struct afs_net *net, struct afs_addr_list *addr,
+ 			      __be32 *xdr, u16 port);
++void afs_set_peer_appdata(struct afs_server *server,
++			  struct afs_addr_list *old_alist,
++			  struct afs_addr_list *new_alist);
  
- enum afs_cell_state {
- 	AFS_CELL_SETTING_UP,
-+	AFS_CELL_UNLOOKED,
- 	AFS_CELL_ACTIVE,
- 	AFS_CELL_REMOVING,
- 	AFS_CELL_DEAD,
-@@ -1034,9 +1035,18 @@ static inline bool afs_cb_is_broken(unsigned int cb_break,
- extern int afs_cell_init(struct afs_net *, const char *);
- extern struct afs_cell *afs_find_cell(struct afs_net *, const char *, unsigned,
- 				      enum afs_cell_trace);
-+enum afs_lookup_cell_for {
-+	AFS_LOOKUP_CELL_DYNROOT,
-+	AFS_LOOKUP_CELL_MOUNTPOINT,
-+	AFS_LOOKUP_CELL_DIRECT_MOUNT,
-+	AFS_LOOKUP_CELL_PRELOAD,
-+	AFS_LOOKUP_CELL_ROOTCELL,
-+	AFS_LOOKUP_CELL_ALIAS_CHECK,
-+};
- struct afs_cell *afs_lookup_cell(struct afs_net *net,
- 				 const char *name, unsigned int namesz,
--				 const char *vllist, bool excl,
-+				 const char *vllist,
-+				 enum afs_lookup_cell_for reason,
- 				 enum afs_cell_trace trace);
- extern struct afs_cell *afs_use_cell(struct afs_cell *, enum afs_cell_trace);
- void afs_unuse_cell(struct afs_cell *cell, enum afs_cell_trace reason);
-diff --git a/fs/afs/mntpt.c b/fs/afs/mntpt.c
-index 8ebac8c030952e..37419d4aae43f3 100644
---- a/fs/afs/mntpt.c
-+++ b/fs/afs/mntpt.c
-@@ -107,7 +107,8 @@ static int afs_mntpt_set_params(struct fs_context *fc, struct dentry *mntpt)
- 		if (size > AFS_MAXCELLNAME)
- 			return -ENAMETOOLONG;
+ /*
+  * addr_prefs.c
+@@ -1190,8 +1193,8 @@ struct afs_endpoint_state *afs_get_endpoint_state(struct afs_endpoint_state *est
+ 						  enum afs_estate_trace where);
+ void afs_put_endpoint_state(struct afs_endpoint_state *estate, enum afs_estate_trace where);
+ extern void afs_fileserver_probe_result(struct afs_call *);
+-void afs_fs_probe_fileserver(struct afs_net *net, struct afs_server *server,
+-			     struct afs_addr_list *new_addrs, struct key *key);
++int afs_fs_probe_fileserver(struct afs_net *net, struct afs_server *server,
++			    struct afs_addr_list *new_alist, struct key *key);
+ int afs_wait_for_fs_probes(struct afs_operation *op, struct afs_server_state *states, bool intr);
+ extern void afs_probe_fileserver(struct afs_net *, struct afs_server *);
+ extern void afs_fs_probe_dispatcher(struct work_struct *);
+@@ -1474,7 +1477,7 @@ extern void __exit afs_clean_up_permit_cache(void);
+  */
+ extern spinlock_t afs_server_peer_lock;
  
--		cell = afs_lookup_cell(ctx->net, p, size, NULL, false,
-+		cell = afs_lookup_cell(ctx->net, p, size, NULL,
-+				       AFS_LOOKUP_CELL_MOUNTPOINT,
- 				       afs_cell_trace_use_lookup_mntpt);
- 		if (IS_ERR(cell)) {
- 			pr_err("kAFS: unable to lookup cell '%pd'\n", mntpt);
+-extern struct afs_server *afs_find_server(struct afs_net *, const struct rxrpc_peer *);
++struct afs_server *afs_find_server(const struct rxrpc_peer *peer);
+ extern struct afs_server *afs_find_server_by_uuid(struct afs_net *, const uuid_t *);
+ extern struct afs_server *afs_lookup_server(struct afs_cell *, struct key *, const uuid_t *, u32);
+ extern struct afs_server *afs_get_server(struct afs_server *, enum afs_server_trace);
 diff --git a/fs/afs/proc.c b/fs/afs/proc.c
-index 40e879c8ca773f..44520549b509a1 100644
+index 9a3d8eb5da43c2..40e879c8ca773f 100644
 --- a/fs/afs/proc.c
 +++ b/fs/afs/proc.c
-@@ -122,7 +122,8 @@ static int afs_proc_cells_write(struct file *file, char *buf, size_t size)
- 	if (strcmp(buf, "add") == 0) {
- 		struct afs_cell *cell;
+@@ -444,8 +444,6 @@ static int afs_proc_servers_show(struct seq_file *m, void *v)
+ 	}
  
--		cell = afs_lookup_cell(net, name, strlen(name), args, true,
-+		cell = afs_lookup_cell(net, name, strlen(name), args,
-+				       AFS_LOOKUP_CELL_PRELOAD,
- 				       afs_cell_trace_use_lookup_add);
- 		if (IS_ERR(cell)) {
- 			ret = PTR_ERR(cell);
-diff --git a/fs/afs/super.c b/fs/afs/super.c
-index feb81729bd3dbe..89787b0e3c136e 100644
---- a/fs/afs/super.c
-+++ b/fs/afs/super.c
-@@ -290,7 +290,7 @@ static int afs_parse_source(struct fs_context *fc, struct fs_parameter *param)
- 	/* lookup the cell record */
- 	if (cellname) {
- 		cell = afs_lookup_cell(ctx->net, cellname, cellnamesz,
--				       NULL, false,
-+				       NULL, AFS_LOOKUP_CELL_DIRECT_MOUNT,
- 				       afs_cell_trace_use_lookup_mount);
- 		if (IS_ERR(cell)) {
- 			pr_err("kAFS: unable to lookup cell '%*.*s'\n",
-diff --git a/fs/afs/vl_alias.c b/fs/afs/vl_alias.c
-index 709b4cdb723eea..fc9676abd2527a 100644
---- a/fs/afs/vl_alias.c
-+++ b/fs/afs/vl_alias.c
-@@ -269,7 +269,8 @@ static int yfs_check_canonical_cell_name(struct afs_cell *cell, struct key *key)
- 	if (!name_len || name_len > AFS_MAXCELLNAME)
- 		master = ERR_PTR(-EOPNOTSUPP);
- 	else
--		master = afs_lookup_cell(cell->net, cell_name, name_len, NULL, false,
-+		master = afs_lookup_cell(cell->net, cell_name, name_len, NULL,
-+					 AFS_LOOKUP_CELL_ALIAS_CHECK,
- 					 afs_cell_trace_use_lookup_canonical);
- 	kfree(cell_name);
- 	if (IS_ERR(master))
+ 	server = list_entry(v, struct afs_server, proc_link);
+-	estate = rcu_dereference(server->endpoint_state);
+-	alist = estate->addresses;
+ 	seq_printf(m, "%pU %3d %3d %s\n",
+ 		   &server->uuid,
+ 		   refcount_read(&server->ref),
+@@ -455,10 +453,16 @@ static int afs_proc_servers_show(struct seq_file *m, void *v)
+ 		   server->flags, server->rtt);
+ 	seq_printf(m, "  - probe: last=%d\n",
+ 		   (int)(jiffies - server->probed_at) / HZ);
++
++	estate = rcu_dereference(server->endpoint_state);
++	if (!estate)
++		goto out;
+ 	failed = estate->failed_set;
+ 	seq_printf(m, "  - ESTATE pq=%x np=%u rsp=%lx f=%lx\n",
+ 		   estate->probe_seq, atomic_read(&estate->nr_probing),
+ 		   estate->responsive_set, estate->failed_set);
++
++	alist = estate->addresses;
+ 	seq_printf(m, "  - ALIST v=%u ap=%u\n",
+ 		   alist->version, alist->addr_pref_version);
+ 	for (i = 0; i < alist->nr_addrs; i++) {
+@@ -471,6 +475,8 @@ static int afs_proc_servers_show(struct seq_file *m, void *v)
+ 			   rxrpc_kernel_get_srtt(addr->peer),
+ 			   addr->last_error, addr->prio);
+ 	}
++
++out:
+ 	return 0;
+ }
+ 
+diff --git a/fs/afs/rxrpc.c b/fs/afs/rxrpc.c
+index fbaa8668018f19..a0aa6ffecf5128 100644
+--- a/fs/afs/rxrpc.c
++++ b/fs/afs/rxrpc.c
+@@ -786,8 +786,14 @@ static void afs_rx_discard_new_call(struct rxrpc_call *rxcall,
+ static void afs_rx_new_call(struct sock *sk, struct rxrpc_call *rxcall,
+ 			    unsigned long user_call_ID)
+ {
++	struct afs_call *call = (struct afs_call *)user_call_ID;
+ 	struct afs_net *net = afs_sock2net(sk);
+ 
++	call->peer = rxrpc_kernel_get_call_peer(sk->sk_socket, call->rxcall);
++	call->server = afs_find_server(call->peer);
++	if (!call->server)
++		trace_afs_cm_no_server(call, rxrpc_kernel_remote_srx(call->peer));
++
+ 	if (net->live)
+ 		queue_work(afs_wq, &net->charge_preallocation_work);
+ }
+diff --git a/fs/afs/server.c b/fs/afs/server.c
+index cfade4a03484d0..ee9b12826c8bb8 100644
+--- a/fs/afs/server.c
++++ b/fs/afs/server.c
+@@ -21,42 +21,13 @@ static void __afs_put_server(struct afs_net *, struct afs_server *);
+ /*
+  * Find a server by one of its addresses.
+  */
+-struct afs_server *afs_find_server(struct afs_net *net, const struct rxrpc_peer *peer)
++struct afs_server *afs_find_server(const struct rxrpc_peer *peer)
+ {
+-	const struct afs_endpoint_state *estate;
+-	const struct afs_addr_list *alist;
+-	struct afs_server *server = NULL;
+-	unsigned int i;
+-	int seq = 1;
+-
+-	rcu_read_lock();
+-
+-	do {
+-		if (server)
+-			afs_unuse_server_notime(net, server, afs_server_trace_unuse_find_rsq);
+-		server = NULL;
+-		seq++; /* 2 on the 1st/lockless path, otherwise odd */
+-		read_seqbegin_or_lock(&net->fs_addr_lock, &seq);
+-
+-		hlist_for_each_entry_rcu(server, &net->fs_addresses, addr_link) {
+-			estate = rcu_dereference(server->endpoint_state);
+-			alist = estate->addresses;
+-			for (i = 0; i < alist->nr_addrs; i++)
+-				if (alist->addrs[i].peer == peer)
+-					goto found;
+-		}
++	struct afs_server *server = (struct afs_server *)rxrpc_kernel_get_peer_data(peer);
+ 
+-		server = NULL;
+-		continue;
+-	found:
+-		server = afs_maybe_use_server(server, afs_server_trace_use_by_addr);
+-
+-	} while (need_seqretry(&net->fs_addr_lock, seq));
+-
+-	done_seqretry(&net->fs_addr_lock, seq);
+-
+-	rcu_read_unlock();
+-	return server;
++	if (!server)
++		return NULL;
++	return afs_maybe_use_server(server, afs_server_trace_use_cm_call);
+ }
+ 
+ /*
+@@ -469,9 +440,16 @@ static void afs_give_up_callbacks(struct afs_net *net, struct afs_server *server
+  */
+ static void afs_destroy_server(struct afs_net *net, struct afs_server *server)
+ {
++	struct afs_endpoint_state *estate;
++
+ 	if (test_bit(AFS_SERVER_FL_MAY_HAVE_CB, &server->flags))
+ 		afs_give_up_callbacks(net, server);
+ 
++	/* Unbind the rxrpc_peer records from the server. */
++	estate = rcu_access_pointer(server->endpoint_state);
++	if (estate)
++		afs_set_peer_appdata(server, estate->addresses, NULL);
++
+ 	afs_put_server(net, server, afs_server_trace_destroy);
+ }
+ 
+diff --git a/include/trace/events/afs.h b/include/trace/events/afs.h
+index b42f2e1e07f1da..1a5bdc4172c20c 100644
+--- a/include/trace/events/afs.h
++++ b/include/trace/events/afs.h
+@@ -140,12 +140,10 @@ enum yfs_cm_operation {
+ 	EM(afs_server_trace_see_expired,	"SEE expd ") \
+ 	EM(afs_server_trace_unuse_call,		"UNU call ") \
+ 	EM(afs_server_trace_unuse_create_fail,	"UNU cfail") \
+-	EM(afs_server_trace_unuse_find_rsq,	"UNU f-rsq") \
+ 	EM(afs_server_trace_unuse_slist,	"UNU slist") \
+ 	EM(afs_server_trace_unuse_slist_isort,	"UNU isort") \
+ 	EM(afs_server_trace_unuse_uuid_rsq,	"PUT u-req") \
+ 	EM(afs_server_trace_update,		"UPDATE   ") \
+-	EM(afs_server_trace_use_by_addr,	"USE addr ") \
+ 	EM(afs_server_trace_use_by_uuid,	"USE uuid ") \
+ 	EM(afs_server_trace_use_cm_call,	"USE cm-cl") \
+ 	EM(afs_server_trace_use_get_caps,	"USE gcaps") \
+@@ -1119,7 +1117,7 @@ TRACE_EVENT(afs_bulkstat_error,
+ 	    );
+ 
+ TRACE_EVENT(afs_cm_no_server,
+-	    TP_PROTO(struct afs_call *call, struct sockaddr_rxrpc *srx),
++	    TP_PROTO(struct afs_call *call, const struct sockaddr_rxrpc *srx),
+ 
+ 	    TP_ARGS(call, srx),
+ 
+diff --git a/net/rxrpc/peer_object.c b/net/rxrpc/peer_object.c
+index 5664469fdd0c77..5aee695d1c1774 100644
+--- a/net/rxrpc/peer_object.c
++++ b/net/rxrpc/peer_object.c
+@@ -450,7 +450,7 @@ void rxrpc_destroy_all_peers(struct rxrpc_net *rxnet)
+ 			continue;
+ 
+ 		hlist_for_each_entry(peer, &rxnet->peer_hash[i], hash_link) {
+-			pr_err("Leaked peer %u {%u} %pISp\n",
++			pr_err("Leaked peer %x {%u} %pISp\n",
+ 			       peer->debug_id,
+ 			       refcount_read(&peer->ref),
+ 			       &peer->srx.transport);
+@@ -467,7 +467,7 @@ void rxrpc_destroy_all_peers(struct rxrpc_net *rxnet)
+  */
+ struct rxrpc_peer *rxrpc_kernel_get_call_peer(struct socket *sock, struct rxrpc_call *call)
+ {
+-	return call->peer;
++	return rxrpc_get_peer(call->peer, rxrpc_peer_get_application);
+ }
+ EXPORT_SYMBOL(rxrpc_kernel_get_call_peer);
+ 
 -- 
 2.53.0
 
