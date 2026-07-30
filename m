@@ -1,125 +1,88 @@
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967783BCD00;
-	Thu, 30 Jul 2026 08:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5725B3E49FD
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 08:53:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785401130; cv=none; b=Lor4sN6SZpbgADIsHk47FT9X2kH1OTUrgXBCdZxdvo55b0dd9upl2Y2VJxlhMhv4hFnUoOLujYYIKymxQi7CDUUWjbTEvlBhcZ3XAr4XvRNEFar/jw6sL85Xz3aMhRHjmbBazob434eNvToBXsCGiGgTPPetxRKz7ZP+wR7MDsY=
+	t=1785401586; cv=none; b=jrgfcw2BrQaxAaKVnqxBpCOkw0pDO8WSr4FRtzu8Whhg7XqX37QKRTW6gJjsxFeaGi0I6Jsi+uISyutJm5Fssmy4nLYwRriH80jrLyQ37U/uMKaF1vwWw7g43T0DvTRQsil34AMDyzEOTlvZ9ZFMTc4Fe/mvvuVo2u5Pq6P3+Bg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785401130; c=relaxed/simple;
-	bh=Rc4VmTTARjCaTT+08oozRPGFxnIXH1yvkz+hPUfLbgg=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=WLQPpiixiEjxI4FH/BMfMdzCdSlS+rOsFg8LoflHtGEV/m7jAV2dzbuPBITBJu58Yy4V3UaEckYbNz7xcT2RGoR0KcxTzNy2uMjhNpQtevGwFHbRgChZOKilXGLcJRyUAJe7tGUAH4M5n0j7FPM/aYuj/mqSq/XXpx0deY+wlAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=kOdY4uRR; arc=none smtp.client-ip=113.46.200.224
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1785401586; c=relaxed/simple;
+	bh=2BdmxP3UvGmpLWqgVPM5x4605csuNvFPacun9QrkpVA=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SOreJ+DMWdOIECXxxW8PMD0angYa0QywVW2Ov4qeMbSq/i8VWdXv30qpT2+sONhFOWfSlIp3rnozq0UdbzsRo3bAV95j2HxVw7K0xB2Ol982fGugB+Ud6IJqdr+JhvbW+2fkg8U7mzA/XD9NNQAKtt8YHDAR7N8mpGIsQAvgfr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IAjIacqk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="kOdY4uRR"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=nLcQXwTnnn0iFIM9gIERPFamyUUa2bsoWp0iHYmRCW8=;
-	b=kOdY4uRRvDlabYess5TZ7yu/oTjrBnvoK3+k+6v8BWULoPDPFfFmWBca9bcsM4nIGXmyAQxZU
-	dNswgt5evN91g7MTVatZJxbKAneeIT8Ezjy2y5JZkgGBlPbo8D6rSNVzSuEkwlaCOJJ5KHcoDb4
-	ZDD2gofeh59MBQRv30zS4II=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4h9jG24VXyz1cyV9;
-	Thu, 30 Jul 2026 16:35:54 +0800 (CST)
-Received: from dggemv706-chm.china.huawei.com (unknown [10.3.19.33])
-	by mail.maildlp.com (Postfix) with ESMTPS id CAFD240572;
-	Thu, 30 Jul 2026 16:45:20 +0800 (CST)
-Received: from kwepemq500010.china.huawei.com (7.202.194.235) by
- dggemv706-chm.china.huawei.com (10.3.19.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 30 Jul 2026 16:45:20 +0800
-Received: from [10.173.124.160] (10.173.124.160) by
- kwepemq500010.china.huawei.com (7.202.194.235) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 30 Jul 2026 16:45:19 +0800
-Subject: Re: [PATCH v7 01/13] memory-failure: Fix hardware poison check in
- unpoison_memory() again
-To: Matthew Wilcox <willy@infradead.org>
-CC: Andrew Morton <akpm@linux-foundation.org>, Jane Chu <jane.chu@oracle.com>,
-	<linux-mm@kvack.org>, Muchun Song <muchun.song@linux.dev>, Oscar Salvador
-	<osalvador@suse.de>, David Hildenbrand <david@kernel.org>, Naoya Horiguchi
-	<nao.horiguchi@gmail.com>, Jan Kara <jack@suse.cz>,
-	<linux-fsdevel@vger.kernel.org>, Christian Brauner <christian@brauner.io>,
-	Jiaqi Yan <jiaqiyan@google.com>, <stable@vger.kernel.org>, Gregory Price
-	<gourry@gourry.net>
-References: <20260728204409.3396238-1-willy@infradead.org>
- <20260728204409.3396238-2-willy@infradead.org>
- <amlKHkemYQBxFESG@gourry-fedora-PF4VCD3F>
- <amlav1zfVy-9fLw5@casper.infradead.org>
-From: Miaohe Lin <linmiaohe@huawei.com>
-Message-ID: <ccce5d73-b5d8-3e23-8e49-bb154af023d4@huawei.com>
-Date: Thu, 30 Jul 2026 16:45:19 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IAjIacqk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04C3C1F00A3F
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 08:53:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785401584;
+	bh=pfO9lbRcZyOaISByAFQj44DKb868UDJ/vCL76qkWXGk=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=IAjIacqkvbdxj5XvnTUfyjTL9zdBjRZUxcUKZPbnpx6GWJHYJW42R4fBb680clQJh
+	 oejgyHOU6iKP9piQqaQZryQl9fHgMd5HwHseFW63ExbLjjMnByJB9QhUqPlE/AK9s6
+	 4llM4mpIyaA+8zgpoifApdnK9d02VIeasNiMzXMWsNs6oEGNxgzgAlfD/E01OmtlId
+	 Est+E0ChZsE3HaKswJbjOew458MltmcKSjNH68GdcST2sA73pi8Y7qWjc99nF3N8jw
+	 a6pgmCNGIVYq0/nu5Q+ZvkxIMNMqo5aQcjDnEjRpvMGAizfuGQ/PsM1VK2xQsk5MaS
+	 LZh/0tD/cteGg==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5aeba09900bso1156286e87.2
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 01:53:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpurUWgpzqveKbKqO+5O/s/yB/A2PlY6HhqYBCVCZVtABUtLHB5Qw8s7USgvLE7XQOfn9xc2vw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVXsPjV/VA88LVeice2/kWrT93C+jwxdo/Ec6NGuhwrPojJ+Hd
+	i+Vy06cdRc4gSJasIakoA5LPSAA/5KnuxFGEG1YcyMlrZRwLShp0uBbag6UvOSbrbV7NDKQIwXM
+	DNK4e8kvN9Y9RMCaJ0s1RrEP9Gw89k3nss0JcXn4oxg==
+X-Received: by 2002:a05:6512:3d16:b0:5b2:a8dd:7d90 with SMTP id
+ 2adb3069b0e04-5b2db34c86emr398203e87.25.1785401582782; Thu, 30 Jul 2026
+ 01:53:02 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 30 Jul 2026 01:53:01 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 30 Jul 2026 01:53:01 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <amaTb58-PcC1ePoY@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <amlav1zfVy-9fLw5@casper.infradead.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemq500010.china.huawei.com (7.202.194.235)
+References: <20260717-qce-fix-self-tests-v6-0-455775fe5f6c@oss.qualcomm.com>
+ <20260717-qce-fix-self-tests-v6-1-455775fe5f6c@oss.qualcomm.com>
+ <20260723192514.GA110634@quark> <amaTb58-PcC1ePoY@gondor.apana.org.au>
+Date: Thu, 30 Jul 2026 01:53:01 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfeuA7YX8Z=fL4TMQ4kmm-ti6p+M9YOKoS+5ODUCyHZdQ@mail.gmail.com>
+X-Gm-Features: AUfX_mxy6VT4QjhqPuTIM395mHjIY26EbWMyTtFE4gfPKJlpiehTCM-sKrNMYEU
+Message-ID: <CAMRc=MfeuA7YX8Z=fL4TMQ4kmm-ti6p+M9YOKoS+5ODUCyHZdQ@mail.gmail.com>
+Subject: Re: [PATCH v6 1/8] crypto: qce - Fix HMAC self-test failures for
+ empty messages
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Thara Gopinath <thara.gopinath@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Stanimir Varbanov <svarbanov@mm-sol.com>, Eneas U de Queiroz <cotequeiroz@gmail.com>, 
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, linux-crypto@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, brgl@kernel.org, 
+	stable@vger.kernel.org, Eric Biggers <ebiggers@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026/7/29 9:43, Matthew Wilcox wrote:
-> On Tue, Jul 28, 2026 at 08:39:29PM -0400, Gregory Price wrote:
->> On Tue, Jul 28, 2026 at 09:43:53PM +0100, Matthew Wilcox (Oracle) wrote:
->>> The earlier patch (6c54312f9689) that attempted to fix unpoison_memory()
->>> was incorrect for hugetlb folios.  Before a6fddef49eef, we checked
->>> the head page for poison (which was correct for hugetlb and incorrect
->>> for THP).  We are currently incapable of unpoisoning pages (other than
->>> the first page) in a hugetlb folio.
->>>
->>> Use is_page_hwpoison() which handles hugetlb pages sufficiently well for
->>> this purpose.  This is racy as we don't have a reference on the folio at
->>> this point, but fixing that properly requires deeper surgery and this
->>> is a CAP_SYS_ADMIN path only so this will do for the moment and can be
->>> easily backported.  It's no worse than the situation before a6fddef49eef.
->>>
->>> The other bug in a6fddef49eef is that we currently clear the HWPoison
->>> flag on the precise page, which is wrong for hugetlb.  Fix that too.
->>>
->>> Fixes: a6fddef49eef ("mm/memory-failure: convert unpoison_memory() to folios")
->>> Cc: stable@vger.kernel.org
->>> Cc: Miaohe Lin <linmiaohe@huawei.com>
->>> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+On Mon, 27 Jul 2026 01:08:31 +0200, Herbert Xu
+<herbert@gondor.apana.org.au> said:
+> On Thu, Jul 23, 2026 at 12:25:14PM -0700, Eric Biggers wrote:
 >>
->> Just trying to wrap my head around the state before/after, assuming
->> the following is correct then LGTM:
->>
->> prior:
->>    pfn_to_online_page(pfn) -> p = precise page
->>    PageHWPoison(page)      -> checks precise page. Poison for hugetlb
->>                               is only set only on the head, so bug.
->> after:
->>    is_page_hwpoison(page)  -> checks precise page AND head (if hugetlb)
->>    p = folio->page         -> now TestClearPageHWPoison() explicitly
->>                               clears the head page poison if hugetlb
-> 
-> Exactly.  That was how it worked before a6fddef49eef; it used to do
-> p = compound_head(p) (which wasn't great _either_ but had different
-> problems ...)
-> 
-> The careful reader will observe that injecting two memory failures
-> into the same hugetlb causes ... problems.  That's true before and after
+>> I'm trying to understand how this is intended to work.  This uses
+>> crypto_tfm::fb.  But this driver doesn't set CRYPTO_ALG_NEED_FALLBACK,
+>> so crypto_tfm::fb is actually just a pointer to the same crypto_tfm.
+>> (See crypto_create_tfm_node() and crypto_ahash_init_tfm().)  Doesn't
+>> this just result in an infinite recursive loop and a crash?
+>
+> Every async driver gets a fallback by default, unless you set
+> the bit CRYPTO_ALG_NO_FALLBACK or you declare that you support
+> CRYPTO_ALG_REQ_VIRT (which no driver does).
+>
 
-Could you elaborate on what problems this might cause? IIUC, second memory
-failure on the same hugetlb folio will make try_memory_failure_hugetlb() return
--EHWPOISON without holding another refcnt. Raw error pages will be added to
-raw_hwp_page list. Then in unpoison_memory(), raw_hwp_page list will be cleaned
-and extra refcnt held by memory_failure will be released and PageHWPoison will be
-cleared. So it looks work to me. Or am I miss something?
+Herbert,
 
-Reviewed-by: Miaohe Lin <linmiaohe@huawei.com>
+Is there anything else I need to do for this series to get picked up?
 
-Thanks.
-.
-
+Thanks,
+Bartosz
