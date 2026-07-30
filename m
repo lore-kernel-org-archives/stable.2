@@ -1,72 +1,43 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A950845C712
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 19:28:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF40449B28
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 19:29:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785439742; cv=none; b=lb859lCzfUmRJvpg3piVgbNChJeDMset16EO5WmCUDHs627Ol38w/t5SkDflBCP6DEEavsNRSz25CAGcObuj3T243vU6ChGQ6ueVO8EfM0YJMTwPAq1C4nC2ABOzJK2S6z8g5A/qQFTyaGFCUwe1M2h9AZ5XrMcCDCkx53ccVZo=
+	t=1785439761; cv=none; b=SiJVss9hUV6J755ulnjaXTvHJToWgbo0DU6KmB0goPgiCDmjQHHiTPt9RhiGTSLAtD5/d6xWwviuUZAbm57VnG9uTGZ05PimUpkQBVZmSOLWvufTbGwAIRFCupsXhwFKtJ2bSpvYq8HMm4P1FLfZUYqNDOyVpTknMi+ZI1qKczQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785439742; c=relaxed/simple;
-	bh=K5WoNgXgQdg9g06mhIzR2r1Me96vNqQOOp5TO8oLp0o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jRSPUNkrAy1QjdZ1529vKqUNHqKPoe1mrg8Mlub9PBB3xStYEdhAhMCbzGumV2/HWJw72bR7RgbavGeVjn+YGfb9njmvwIwdFsS6y2eyWASTsAr4e4RL7FN6bpNmkqWHEV1Dq4Ce9lah2V+TZgWUWOyVrI99OTShFrTtsUcJtJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dWfyuUs5; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785439761; c=relaxed/simple;
+	bh=ST042sEA1UjRxgl+sz2KmmRsNw0r8j+wd5EZ/38sOUY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=c880mWtx6MWwkm9CzOBrMCpHS4In9Uc4B2QuMOMyJpfYZVX6nNf4rVCDnU0mxhpnqskne7NUHkkycXh/Pg04eI2O+a8LCnIra//Z5RPtx5vGvdj2lwS/dUXTUN/CF3DDm5n6kQwtlJOY0t56U7MM6DXkCRwtSAE9JDOMzQjUSZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xsu+PDUj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dWfyuUs5"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84e252fbb7bso37670b3a.2
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:28:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785439731; x=1786044531; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vg+HKJD//ylZ8IdlpokMPZEfihdlw8kCPM5W3QVcMmw=;
-        b=dWfyuUs5rz/on0hEgLMO3WO1t9H8f3aG3StJ3BjDy72Ssdz7wq+/ktrjwxIn+klCWy
-         jVvPvjVnjxJfk3JHtcpFXZD92eVXxkVSUUoWDqxUS1FX7QBfZQhMPIWliuSKhreilPkE
-         eoIzK/aE8aegRHhjTH5MFbkZtyrCPv+pnYv7xd7dML6gT5MuRvl9yTc6sDSYrfk1COg9
-         lyfT6+TXb8OrbK8vvuUuCjVRmcRXehKtQgo4yHCP/vfWDt+VXR7KOCHOEboqpSYgwOjU
-         WWQUfFxEMTDKljHoM4+bc//0jBRwWEWTk8UtDXruMvzW2rDWIsK4joYM3wU5tZqMZIq+
-         vMrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785439731; x=1786044531;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vg+HKJD//ylZ8IdlpokMPZEfihdlw8kCPM5W3QVcMmw=;
-        b=PDmKnyulhrD6aqxTkztmf03HlZv1EiSKX/lg3rGCM68+jY4pApBM23PrW5cTpkYb0I
-         VO32tINKX/MslPvrTh9bEf2yW/s/G4AUb6cZlKltY4ErUC//NxU22crW6PFoHKIxaCvf
-         +yZsiSlgf342bGkFGLEZWMinAPWCRxy+nCdlVlpgb5jNafMJjtbP/NnJCK0bIzz8+GAW
-         YkOjDp/J3DfSsQ5ZCDcsESuDMdoy1elrtv5p2nLcS522gocznhBBXUrQcKWfu0qRy5XG
-         4SDRGS4bsemMDQ0qb0+X8oDf/8ZD4De1NDNtlbcraILT9GTJhMw1eWNHIrLq6qio4nKB
-         m2Dw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr0Fp9wq7TVarcXprDis07Ru8aNc9978Rgh1RXGcBRHE5/ocUDNDZMEuwDjP9s74kHqhXs0r/A=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkuspW+IN3sru+w5glghMvEK3ACRJ5hzWuaan+4PnaxAuQ6OdZ
-	XdFynJ8ST5Pij5aZFGU3DlguRujRZS6k9g0EkMAntyv4s9H/30I7d9eM
-X-Gm-Gg: AR+sD139nDhMw52P9N9e/4z3HTq+q+8qpVmRxFbq0NKw1zUl/40MDoC2sbnq+EOex07
-	vnEI8ukflR1tJOL4yHkacBdZVXV9+sIiwoWYKoxDPOe/uuqb1kM9M4WMVQctva8cwG+VKiqY27s
-	wr6dQn4Omm6sjJbC3hTXMCQ7o/90uwWGfPA7vXHQ/iF/b2Xw95kqVPDmGE4OiJmkyX2SmCAAb1v
-	dpINIMqlNVgufgs+lLp1R9Cz5LA/mE1i4v1OkP6AYNe0I6ehHxp1na8I4PKok6cBzahD20/LhW/
-	sv5W+LLKr1FsnxvS/2vMVx5J6cOUxYI8HIIJM8bkvHMqetJ4jWv1JK1yE23bq3bzLm2Lbtrlg7Y
-	dIM6EU1hTP8qP/MuTx88yglWHXc7ZELnB1lFsX1yOaLVRjdlWIBWS0SfwUYZS64ENvr/HRPkEPH
-	D7fComGEmEP0OlReC2tvLTGhdnKvwtLGD/mvUicNVn/vE6D9u7kxtV21BvRZoo6UWlpVMy81vk6
-	yGZr1/q+KsHjjhVwws4qne8Jxi9OMjoHWDMnltdnv6Ny6Xw0VIoarT2mcYHN2IAegzQKpskR+yT
-	rasrC2C2KZC4
-X-Received: by 2002:a05:6a00:4093:b0:848:5bf9:6ebc with SMTP id d2e1a72fcca58-84ecb9a837dmr1421094b3a.1.1785439730694;
-        Thu, 30 Jul 2026 12:28:50 -0700 (PDT)
-Received: from localhost.localdomain ([182.220.200.92])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea0054afesm3589449b3a.17.2026.07.30.12.28.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 12:28:50 -0700 (PDT)
-From: Kyumin Lee <fyonglkm@gmail.com>
-To: io-uring@vger.kernel.org
-Cc: Jens Axboe <axboe@kernel.dk>,
-	stable@vger.kernel.org,
-	Kyumin Lee <fyonglkm@gmail.com>
-Subject: [PATCH v2] io_uring: preserve task restrictions across exec
-Date: Fri, 31 Jul 2026 04:27:34 +0900
-Message-ID: <20260730192734.459247-1-fyonglkm@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xsu+PDUj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E70C31F000E9;
+	Thu, 30 Jul 2026 19:29:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785439756;
+	bh=OfsDAwM5tpBn9EI/v/7IWf27Pfr2FXHMdW2yn6yNh0w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Xsu+PDUjUDB0CkVDtFXF2t1EXRzGU3LH3Ub07tdTCyOA/iCpAyvyDqtpkb3TUOigi
+	 nWnVQ1/e2/mIsws5CDwT8TK2pZLcPEGOG0ZPPoErWrl/TE0yMwdv0EhHxfEOwAa5+R
+	 9fjr59FPupUDC5bfUJ9pxSKOOywHvlZUiYgurfadAnYaWDmUd3CkixKLEuGdY+NvaZ
+	 FMZOA13rR1GP3Q5SLyiUjVHFFrQlsypi8SwisDk6IVJBejhz3TxDXTIfg1GHm+GfGX
+	 JYjfaEB2VQ1rPWC4kXBaDXdrPfYLbL48iANj9eFwYD/70UBVk7gyYTn+eo87QMTZ0y
+	 Q5ZVtw39LQA0A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Vitor Soares <vitor.soares@toradex.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] drm/bridge: cdns-dsi: Replace deprecated UNIVERSAL_DEV_PM_OPS()
+Date: Thu, 30 Jul 2026 15:29:13 -0400
+Message-ID: <20260730192913.3123445-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072909-childish-udder-2b58@gregkh>
+References: <2026072909-childish-udder-2b58@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,75 +46,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Per-task restrictions apply to all rings created by a task. Once installed,
-they should not be dropped across exec.
+From: Vitor Soares <vitor.soares@toradex.com>
 
-For a task that has used io_uring, the exec cancellation path calls
-__io_uring_free(). This frees both the task context and the per-task
-restriction, so a ring created after exec is unrestricted.
+[ Upstream commit 2d8b08844c0ecc6f2002fa68711e779aa18c8585 ]
 
-Split task context cleanup into io_uring_free_tctx(), and use it from the
-exec cancellation path. Keep __io_uring_free() for final task cleanup,
-where both the context and restriction are released.
+The deprecated UNIVERSAL_DEV_PM_OPS() macro uses the provided callbacks
+for both runtime PM and system sleep. This causes the DSI clocks to be
+disabled twice: once during runtime suspend and again during system
+suspend, resulting in a WARN message from the clock framework when
+attempting to disable already-disabled clocks.
 
-Fixes: ed82f35b926b ("io_uring: allow registration of per-task restrictions")
-Cc: stable@vger.kernel.org # 7.1+
-Signed-off-by: Kyumin Lee <fyonglkm@gmail.com>
+[   84.384540] clk:231:5 already disabled
+[   84.388314] WARNING: CPU: 2 PID: 531 at /drivers/clk/clk.c:1181 clk_core_disable+0xa4/0xac
+...
+[   84.579183] Call trace:
+[   84.581624]  clk_core_disable+0xa4/0xac
+[   84.585457]  clk_disable+0x30/0x4c
+[   84.588857]  cdns_dsi_suspend+0x20/0x58 [cdns_dsi]
+[   84.593651]  pm_generic_suspend+0x2c/0x44
+[   84.597661]  ti_sci_pd_suspend+0xbc/0x15c
+[   84.601670]  dpm_run_callback+0x8c/0x14c
+[   84.605588]  __device_suspend+0x1a0/0x56c
+[   84.609594]  dpm_suspend+0x17c/0x21c
+[   84.613165]  dpm_suspend_start+0xa0/0xa8
+[   84.617083]  suspend_devices_and_enter+0x12c/0x634
+[   84.621872]  pm_suspend+0x1fc/0x368
+
+To address this issue, replace UNIVERSAL_DEV_PM_OPS() with
+RUNTIME_PM_OPS(). Bridge and panel drivers should only deal with runtime
+PM, as the DRM framework manages system-wide power transitions through
+the bridge enable() and disable() hooks.
+
+Link: https://lore.kernel.org/all/fbde0659-78f3-46e4-98cf-d832f765a18b@ideasonboard.com/
+Cc: stable@vger.kernel.org # 6.1.x
+Fixes: e19233955d9e ("drm/bridge: Add Cadence DSI driver")
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Link: https://patch.msgid.link/20260505134705.188661-2-ivitro@gmail.com
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2:
-- Resent as text/plain with no code changes.
+ drivers/gpu/drm/bridge/cdns-dsi.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
- io_uring/cancel.c | 2 +-
- io_uring/tctx.c   | 7 ++++++-
- io_uring/tctx.h   | 1 +
- 3 files changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/io_uring/cancel.c b/io_uring/cancel.c
-index 8c6fa6f367e4f..7d7820eab878b 100644
---- a/io_uring/cancel.c
-+++ b/io_uring/cancel.c
-@@ -660,6 +660,6 @@ __cold void io_uring_cancel_generic(bool cancel_all, struct io_sq_data *sqd)
- 		 */
- 		atomic_dec(&tctx->in_cancel);
- 		/* for exec all current's requests should be gone, kill tctx */
--		__io_uring_free(current);
-+		io_uring_free_tctx(current);
- 	}
- }
-diff --git a/io_uring/tctx.c b/io_uring/tctx.c
-index cc3bf2b3bdbc9..466b7300e208e 100644
---- a/io_uring/tctx.c
-+++ b/io_uring/tctx.c
-@@ -43,7 +43,7 @@ static struct io_wq *io_init_wq_offload(struct io_ring_ctx *ctx,
- 	return io_wq_create(concurrency, &data);
- }
+diff --git a/drivers/gpu/drm/bridge/cdns-dsi.c b/drivers/gpu/drm/bridge/cdns-dsi.c
+index fd4e1853d414..a66e0698761c 100644
+--- a/drivers/gpu/drm/bridge/cdns-dsi.c
++++ b/drivers/gpu/drm/bridge/cdns-dsi.c
+@@ -1189,7 +1189,7 @@ static const struct mipi_dsi_host_ops cdns_dsi_ops = {
+ 	.transfer = cdns_dsi_transfer,
+ };
  
--void __io_uring_free(struct task_struct *tsk)
-+void io_uring_free_tctx(struct task_struct *tsk)
+-static int __maybe_unused cdns_dsi_resume(struct device *dev)
++static int cdns_dsi_resume(struct device *dev)
  {
- 	struct io_uring_task *tctx = tsk->io_uring;
- 	struct io_tctx_node *node;
-@@ -67,6 +67,11 @@ void __io_uring_free(struct task_struct *tsk)
- 		kfree(tctx);
- 		tsk->io_uring = NULL;
- 	}
-+}
-+
-+void __io_uring_free(struct task_struct *tsk)
-+{
-+	io_uring_free_tctx(tsk);
- 	if (tsk->io_uring_restrict) {
- 		io_put_bpf_filters(tsk->io_uring_restrict);
- 		kfree(tsk->io_uring_restrict);
-diff --git a/io_uring/tctx.h b/io_uring/tctx.h
-index 2310d2a0c46d9..76ad1ad4594ef 100644
---- a/io_uring/tctx.h
-+++ b/io_uring/tctx.h
-@@ -12,6 +12,7 @@ void io_uring_del_tctx_node(unsigned long index);
- int __io_uring_add_tctx_node(struct io_ring_ctx *ctx);
- int __io_uring_add_tctx_node_from_submit(struct io_ring_ctx *ctx);
- void io_uring_clean_tctx(struct io_uring_task *tctx);
-+void io_uring_free_tctx(struct task_struct *tsk);
+ 	struct cdns_dsi *dsi = dev_get_drvdata(dev);
  
- void io_uring_unreg_ringfd(void);
- int io_ringfd_register(struct io_ring_ctx *ctx, void __user *__arg,
+@@ -1200,7 +1200,7 @@ static int __maybe_unused cdns_dsi_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int __maybe_unused cdns_dsi_suspend(struct device *dev)
++static int cdns_dsi_suspend(struct device *dev)
+ {
+ 	struct cdns_dsi *dsi = dev_get_drvdata(dev);
+ 
+@@ -1210,8 +1210,9 @@ static int __maybe_unused cdns_dsi_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static UNIVERSAL_DEV_PM_OPS(cdns_dsi_pm_ops, cdns_dsi_suspend, cdns_dsi_resume,
+-			    NULL);
++static const struct dev_pm_ops cdns_dsi_pm_ops = {
++	RUNTIME_PM_OPS(cdns_dsi_suspend, cdns_dsi_resume, NULL)
++};
+ 
+ static int cdns_dsi_drm_probe(struct platform_device *pdev)
+ {
+@@ -1338,7 +1339,7 @@ static struct platform_driver cdns_dsi_platform_driver = {
+ 	.driver = {
+ 		.name   = "cdns-dsi",
+ 		.of_match_table = cdns_dsi_of_match,
+-		.pm = &cdns_dsi_pm_ops,
++		.pm = pm_ptr(&cdns_dsi_pm_ops),
+ 	},
+ };
+ module_platform_driver(cdns_dsi_platform_driver);
+-- 
+2.53.0
+
