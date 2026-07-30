@@ -1,73 +1,44 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E696399003
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 16:18:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A71C45198F;
+	Thu, 30 Jul 2026 16:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785428309; cv=none; b=IGKZ3JwWAwkKIOuGprFIWrPVHgJvvXgJvN0CkOwglAAaa0LyHCmem8tyLcya7uA/dR0MaPPvASqRmKKah1EQhi/NR7BHXKy4SdUdzIlIW9zPiyHX4jh/VJhTGw1xKYTP40paP8/aWCgCMnnAO82RJFCUAJTJlsXpj70KWXYaQRc=
+	t=1785428312; cv=none; b=jlRgwXO+RNhyKdRjjPJRG3QyeyDZ+N6fRgSfp14fRqbEKgD0kEBUR3ynNYnMxPmNh71MRq9EkNjAM6x3OHHBH9HKF3fNIpDyuynFOc7oQsGjig4nUdT+7UOVjTYgQ3pPziRc3iR0GvVKP+isi6aXnPV25c00X3q2Q12X058LI7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785428309; c=relaxed/simple;
-	bh=Hj5bQFLufHq00/MFPxI3PzESKTnahG8Mxs/8XVRXevY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kwc/IgeFNM52lKMnnfozHGne+RPCPQDRS0n+zqrhdkHtEz3ZD+24WF6vQmj3l+Rw1IF3SMkC7FCAEMp2upMczzp7BVTP4LS88TglNK+Ur4O3u+wCSyIpTIq02PnVCdndRnaUsxy4FUx5e/7CRRpqygWUy3Vy25QY7ORw3ZazRK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X1aMY/7I; arc=none smtp.client-ip=209.85.215.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785428312; c=relaxed/simple;
+	bh=ltwmn68UkViK4ZibAYNRQ8nQqM9d26emeVAgffHXBvI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=vCfe7TUndYpHZFmvXRheIb6fx/ELOhNwpqWy2FHkahpC13TMagauVnV0ELnWdbGNZYQDNHC9oJHNhX4F3j82h+TxTkYeV0SEhdJNZp/jujIWckl5RaLEA1P0pamDZi7LMZehJoiSpoPv4JDncKqGVWG9Wo3rPzMYqU2GObUhAP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fBklDTFE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X1aMY/7I"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-ca2fad0ae38so1825856a12.3
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 09:18:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785428307; x=1786033107; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/cr8O2fJ45DKO0g9LGdnpAZnqh9rioDZWF13F3loYRI=;
-        b=X1aMY/7IqFzqivCf4zSmr9zjPFrh/YO4QzKVWqETf6IgwK/icrytLbNSS5NErnaP8M
-         4pPyMUqzXR0qbETnnIESp5atcKnfvN7O9m3c6ez6Bg1gTZ8ed8SMAkB7C5zRiByruLc4
-         Bp//dXr6UXTtgr3CgH1Y7iaabicGNDDZHQQODMOjX55MJ7VG9XJeZq8gHY+Ai0h7lHoW
-         oX9Ueuf8nvkWz4ZzL1gv8qSFjP/wGW41Y2cqYuuIn0ru84StZLZonDRQm0Q48mZAJ5+M
-         WU/i2CacrvZY0BWAqaVqoU+Ilt2siapR6O4aFf0Ol8t/aDiKDJWj8Z4Ov8z/G4h7MjM7
-         +OXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785428307; x=1786033107;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/cr8O2fJ45DKO0g9LGdnpAZnqh9rioDZWF13F3loYRI=;
-        b=HJel46wbGcde+OyMVUKWHWQcWLlkgvy9XoNvPTIeVwgml89AhFZJKwKIsGYCtWrvHB
-         v9O0+CF2TBdJV0bS/AE+m7fcVktgRF/yeNR7bDdbXzAvSJTciBItsspYRlafjDPauobS
-         hqQD2BmG2W44E1D2drprVRJUr5+XxMARCanPzRhsuSxZSq0bAhxdOZW8Q95t56nKqB8I
-         8Vk5L0hJzZhcamOE0jEdEvosjgNYNoCO1AMk9jYiPDDAi9ahspY4/ISNkHFezzms5JeC
-         VQ4g+axltZz5bny884T7OKN0MQAETgJGa7qd2o/2I7Gq/Et5PyWTk/ndP0NVPwLyadKA
-         dVQg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr5BzXla2/St7cwiJY1DV3Bb57Vk/ACVoUgQ/MTRgW4Eq2ZkA0vQQdoDTZuvOd6p6EWRR+9MTY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2k+x7My+ft2OdQWlfVHSRo+08kyKOCe7u62Ndu3bgYlS7Q210
-	BV41e3uS+e/PbsW9F2GCvX+CXyaOtrQaG4dXr3CBKxVvgI9RQ+EENpry
-X-Gm-Gg: AR+sD12Ohs/cbq6LCZ8xc6tUV+jRlN/yijbOGGTPqkAoeCOmBWvvIPp6XdLwi2YF7/+
-	R02XuqX1D3revpfNeciLT9oFHdP9WYuqZghfF2v4+fsl1G1JSb62+J4F4mc3aP14ir1p3eFj3C6
-	BcmXjixP5DpEhzavN/dC+8AJz3toXfXDXjGxqMSQ6XdRiDyQoFPbb6EaEAMIZsQq4F7ot9XOZej
-	c4uOF2yyB4VGMeIkRrz/2np23t0YBmmDfslgKt4OAhBbA86d4+fYuZbe7AIaFaTl/G9BdXLAee4
-	aitiqjnJFyNRUZM5Dr4VMYgnzLIlH9j6TVOto6fQpF9yZBSpI+kvkRnRtOWO/zT0xfIf67+clHy
-	E7eq4NpvVIUqCgk7jxAdMIn9RmAu4RQP13DOF6/KHwhYGLzV2mrlCfdlvXXadJK4ZqFlT5aqMRr
-	u3ZjUVJfnpf4/uzZkCpxe3VHDVgnlh7keWOghoK5nNWdJS9lWuXVizEzpdycLkoCwCrkI+d6MJc
-	wrwrJsMu4WF/OWXyLdXPbhfy1Wds1bOCrt4bKTSKKZ+m15Acz42TvQrB6O+hOsXz9YnUtA4VAeo
-	RUqb3zY=
-X-Received: by 2002:a05:6a21:684:b0:3c3:33df:4d9a with SMTP id adf61e73a8af0-3c9004561admr3400912637.1.1785428306587;
-        Thu, 30 Jul 2026 09:18:26 -0700 (PDT)
-Received: from localhost.localdomain ([101.251.7.10])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504b124e4sm21359741eec.6.2026.07.30.09.18.23
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 30 Jul 2026 09:18:26 -0700 (PDT)
-From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: btusb: validate QCA rampatch size
-Date: Thu, 30 Jul 2026 22:03:20 +0545
-Message-ID: <20260730161820.11631-1-acharyalaxman8848@gmail.com>
-X-Mailer: git-send-email 2.51.2
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fBklDTFE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29D461F000E9;
+	Thu, 30 Jul 2026 16:18:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785428310;
+	bh=0hpLMY3FCv41ViCYE6WxFpQiSSLzmYD1qKIkC4PYmYQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fBklDTFEmHSK3eF8hqWwSqduiCSi4aLk51tfuXBhov022lDbWdOm5jRLHSCW+kqr8
+	 ZfMUOiQ7G37cscGPvglIJzYdcImQ5RM+HWEr90DCZI4oui026sv367nqSI3FX+RKrg
+	 LHL2jMmoCZprMetd5JKbwSJd1UBraOfK2qPOwsGQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	SJ Park <sj@kernel.org>,
+	Yang yingliang <yangyingliang@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 6.6 478/484] mm/damon/core: validate ranges in damon_set_regions()
+Date: Thu, 30 Jul 2026 16:16:15 +0200
+Message-ID: <20260730141433.878411071@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260730141423.392222816@linuxfoundation.org>
+References: <20260730141423.392222816@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,49 +47,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-btusb_setup_qca_load_rampatch() reads the rampatch version structure at
-fw->data + info->ver_offset. A truncated rampatch can therefore make the
-driver read beyond the firmware buffer while parsing the version fields.
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-The download path also expects the complete device-specific rampatch
-header. Reject files too short to contain both the header and version
-structure before accessing either.
+------------------
 
-Fixes: 3267c884cefa ("Bluetooth: btusb: Add support for QCA ROME chipset family")
-Cc: stable@vger.kernel.org
-Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+From: SJ Park <sj@kernel.org>
+
+commit 1292c0ecb1caefb8ca064a3639d5673991e8810c upstream.
+
+DAMON core logic assumes zero length regions don't exist.  However, a few
+DAMON API callers including DAMON_SYSFS, DAMON_RECLAIM and DAMON_LRU_SORT
+allow users to set empty monitoring target regions.  This could result in
+WARN_ONCE() on CONFIG_DAMON_DEBUG_SANITY enabled kernel, and
+divide-by-zero from damon_merge_two_regions().
+
+For example, the WANR_ONCE() can be triggered like below.
+
+    # grep DAMON_DEBUG_SANITY /boot/config-$(uname -r)
+    # CONFIG_DAMON_DEBUG_SANITY=y
+    # damo start
+    # cd /sys/kernel/mm/damon/admin/kdamonds/0
+    # echo 0 > contexts/0/targets/0/regions/0/start
+    # echo 0 > contexts/0/targets/0/regions/0/end
+    # echo commit > state
+    # dmesg
+    [....]
+    [   73.705780] ------------[ cut here ]------------
+    [   73.707552] start 0 >= end 0
+    [   73.708452] WARNING: mm/damon/core.c:359 at damon_new_region+0x6e/0x80, CPU#1: kdamond.0/758
+    [...]
+
+All DAMON API callers eventually use damon_set_regions() to setup the
+regions.  Add the validation logic in the function.
+
+Link: https://lore.kernel.org/20260630035221.146458-1-sj@kernel.org
+Fixes: 43b0536cb471 ("mm/damon: introduce DAMON-based Reclamation (DAMON_RECLAIM)")
+Signed-off-by: SJ Park <sj@kernel.org>
+Cc: Yang yingliang <yangyingliang@huawei.com>
+Cc: <stable@vger.kernel.org> # 5.16.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/bluetooth/btusb.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ mm/damon/core.c |    6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-index 8f7ed469cac..9801835d7c7 100644
---- a/drivers/bluetooth/btusb.c
-+++ b/drivers/bluetooth/btusb.c
-@@ -3526,6 +3526,7 @@ static int btusb_setup_qca_load_rampatch(struct hci_dev *hdev,
- 	struct qca_rampatch_version *rver;
- 	const struct firmware *fw;
- 	const char *fw_subdir;
-+	size_t min_size;
- 	u32 ver_rom, ver_patch, rver_rom;
- 	u16 rver_rom_low, rver_rom_high, rver_patch;
- 	char fwname[80];
-@@ -3551,6 +3552,15 @@ static int btusb_setup_qca_load_rampatch(struct hci_dev *hdev,
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -212,6 +212,12 @@ int damon_set_regions(struct damon_targe
+ 	unsigned int i;
+ 	int err;
  
- 	bt_dev_info(hdev, "using rampatch file: %s", fwname);
- 
-+	min_size = max_t(size_t, info->rampatch_hdr,
-+			 info->ver_offset + sizeof(*rver));
-+	if (fw->size < min_size) {
-+		bt_dev_err(hdev, "rampatch file is truncated (%zu < %zu)",
-+			   fw->size, min_size);
-+		err = -EINVAL;
-+		goto done;
++	for (i = 0; i < nr_ranges; i++) {
++		if (ALIGN_DOWN(ranges[i].start, DAMON_MIN_REGION) >=
++				ALIGN(ranges[i].end, DAMON_MIN_REGION))
++			return -EINVAL;
 +	}
 +
- 	rver = (struct qca_rampatch_version *)(fw->data + info->ver_offset);
- 	rver_rom_low = le16_to_cpu(rver->rom_version_low);
- 	rver_patch = le16_to_cpu(rver->patch_version);
--- 
-2.51.2
+ 	/* Remove regions which are not in the new ranges */
+ 	damon_for_each_region_safe(r, next, t) {
+ 		for (i = 0; i < nr_ranges; i++) {
+
 
