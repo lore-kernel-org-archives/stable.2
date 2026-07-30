@@ -1,148 +1,75 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E8C837F8DD;
-	Thu, 30 Jul 2026 19:50:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD3923E334;
+	Thu, 30 Jul 2026 19:53:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785441042; cv=none; b=QzcfH+HNGfnQHvh7uKNtgofv/+2atzmia7G+PVbP910PB/3s1637HvYQ/XROe0CBKV8yqBzWd1do6QKTkHvCB2I6vjG80xbNUeAVBwZTqmRO1cmjA6BKYuUYEHV0tIl6mZi37utOaKBigfOLqllCjpQbfgG1QxHnCFSXZ8yPaLw=
+	t=1785441209; cv=none; b=CsfcM7vv2ysUUVO8kfr1nYMMsfJYslc07KSTl29Xc3eulmd4e8+Ud5Rtq5gXU9lUHMGXbEscK+IANZCKGFsORypVeLLTfjZKtFA9F+3zXB1fMnIjit37e930jRncKTFnOt0IQ0vsCwJztopFCud7XzaB2Fe0MQ0MXXQ3CnGvdi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785441042; c=relaxed/simple;
-	bh=CDQzi7qK+MGW0I1FpfLD8J+mu4Mp6f9WgIwDKn4MXI4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nzQ6LH9mBhaD48sYvm8sit8boYnXHAZ3Ts+Ziz36haKZA0Y3rvKMnOTjtY7BnmMwexfg7gLQjvO3jwUCAUfkyV7qPvIJKN5d3Otqb0ZkY8kIjKwR45EBc3ZReS1RTliDoBIpn+7jtVhyMa0gTUQij3MQieqJs5y5BHalPTKW6qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=XQbaMcYg; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1785441209; c=relaxed/simple;
+	bh=WzgDIfqwT5lmM09RSEWVlfpFJI7yd4ZdPOWtWx1rFSQ=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=hC+qrJj97JglRcNNwoOxsg9PbCgsmiNJRITPCnR9BnHTF4seqaMr9loytQzAZIdhdxsh+7eZg/iJdjMOdWY2gQe1PrNuX+F7Dr1EKPINCRIkzn5+/rO8QJ9uq+qdUtf1Wo1+2NQN4oSEiXsNbbdYsEpmDM9Vu2/HwkOFPqsev9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=iJnEVe1v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="XQbaMcYg"
-Received: from ideasonboard.com (mob-109-113-25-35.net.vodafone.it [109.113.25.35])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 340718F;
-	Thu, 30 Jul 2026 21:49:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1785440972;
-	bh=CDQzi7qK+MGW0I1FpfLD8J+mu4Mp6f9WgIwDKn4MXI4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XQbaMcYgJfwU6YiaA0kY6vAJfqx6LfP2QtHQbz2wCnQcDuocIvKN2003ZTORXl7ZO
-	 NWJakq+2vEK4LJ0h/jSkFJ1Ngwp1nLOutsRVwFYFlaFJwpZwOwAaeNRh8GBftqdgwj
-	 uU//gBpJi/N2O0yzEMxlDu2UmnzhlaEJVKfzBciM=
-Date: Thu, 30 Jul 2026 21:50:35 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org, 
-	biju.das.jz@bp.renesas.com, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>, Nas Chung <nas.chung@chipsnmedia.com>, 
-	Mehdi Djait <mehdi.djait@linux.intel.com>, Isaac Scott <isaac.scott@ideasonboard.com>, 
-	Paul Cercueil <paul@crapouillou.net>, Daniel Scally <dan.scally+renesas@ideasonboard.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v5 1/5] media: rzg2l-cru: Align bytesperline to hardware
- DMA stride requirement
-Message-ID: <amun-AzHShKFnA7W@zed>
-References: <20260729105603.1160966-1-tommaso.merciai.xr@bp.renesas.com>
- <20260729105603.1160966-2-tommaso.merciai.xr@bp.renesas.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="iJnEVe1v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EE6C1F000E9;
+	Thu, 30 Jul 2026 19:53:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1785441208;
+	bh=SYHnuwd5oBPShQry/A1IMV78wT87yQ12pmYbnlaWCNI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=iJnEVe1voUvv8oU3L/LXlxlWg/TMzmxWX/p+WsY0i3YPuE5mFSEJ4cF0TMcimIXHY
+	 ghjBzhczgWPekjA8dP0c5k00yvs2tMguPZfnVAQ1KarieF9XzeUMVueazl7OX9zaeG
+	 yRbcWd3iB0SupGRkN7oe2OwtgLEhQG1wvVdm67wE=
+Date: Thu, 30 Jul 2026 12:53:27 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: linux-mm@kvack.org, Chris Li <chrisl@kernel.org>, Kairui Song
+ <kasong@tencent.com>, linux-ext4@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, linux-fscrypt@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Kemeng Shi <shikemeng@huaweicloud.com>, Nhat
+ Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Barry Song
+ <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] mm/swap: reject swapon() on filesystem-level encrypted
+ files
+Message-Id: <20260730125327.11fc9227d04f659a59136cdd@linux-foundation.org>
+In-Reply-To: <20260730184853.48347-1-ebiggers@kernel.org>
+References: <20260730184853.48347-1-ebiggers@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260729105603.1160966-2-tommaso.merciai.xr@bp.renesas.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Tommaso
+On Thu, 30 Jul 2026 11:48:53 -0700 Eric Biggers <ebiggers@kernel.org> wrote:
 
-On Wed, Jul 29, 2026 at 12:55:46PM +0200, Tommaso Merciai wrote:
-> The RZ/G3E CRU programs the line stride via the AMnIS register, whose
-> IS field encodes the value in units of 128 bytes. If bytesperline is
-> not a multiple of 128, the division truncates and the hardware uses a
-> wrong stride, causing horizontal banding.
->
-> Commit ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
-> replaced the open-coded aligned calculation with v4l2_fill_pixfmt(),
-> which sets no alignment, reintroducing the issue.
->
-> Round bytesperline up to RZG2L_CRU_STRIDE_ALIGN and recompute
-> sizeimage when info->has_stride is set. RZ/G2L has no AMnIS register
-> and keeps the values from v4l2_fill_pixfmt() unchanged.
->
-> Fixes: ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> ---
-> v4->v5:
->  - New patch.
->
->  drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> index 5185a547461d..91eda5034248 100644
-> --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> @@ -851,6 +851,11 @@ static void rzg2l_cru_format_align(struct rzg2l_cru_dev *cru,
->
->  	v4l2_fill_pixfmt(pix, pix->pixelformat, pix->width, pix->height);
->
-> +	if (info->has_stride) {
-> +		pix->bytesperline = ALIGN(pix->bytesperline, RZG2L_CRU_STRIDE_ALIGN);
-> +		pix->sizeimage = pix->bytesperline * pix->height;
-> +	}
-> +
+> ext4 and f2fs don't prevent filesystem-level encrypted files from being
+> set up directly as swap files.  In this case, encryption is bypassed.
+> 
+> No one should be doing this, vs. the methods of encrypted swap that
+> actually do work (such as swapping to a dm-crypt device, or swapping to
+> a loopback device on top of a filesystem-level encrypted file).
+> 
+> Nevertheless, to prevent user error, make swapon() explicitly reject
+> this case.  Document this behavior in fscrypt.rst as well.
+> 
+> Fixes: 9bd8212f981e ("ext4 crypto: add encryption policy and password salt support")
+> Fixes: f424f664f0e8 ("f2fs crypto: add encryption policy and password salt support")
 
-Ack! I think this does what is expected for the single planar formats
-the CRU supports!
+Ouch.  We are going to break ten year old setups?  I don't think we can
+do this!
 
-I think after this cycle you could send a patch to replace the above
-back-portable change with the usage of v4l2_fill_pixfmt_aligned().
+I think the best we can do is to emit loud warnings which point the
+operator to some Documentation/ which tells operator that this
+deprecated configuration will be disallowed in, umm, 2029.
 
-When you do so, could you consider, replacing "has_stride" with a per
-struct rzg2l_cru_info .stride field ?
+> +  Alternatively, encrypted swap can use a dm-crypt device instead.
 
-I think it would look nicer as you could here unconditionally align
-(assuming the new .stride will be set to 1 for G2L which currently has
-.has_stride = 0).
-
-Also, RZG2L_CRU_STRIDE_ALIGN is a bit of a mis-nomer, as only G3E and
-V2H has a AMnIS register and alignments constraints as far as I see.
-
-The only other user of 'has_stride' I see is:
-
- rzg2l_cru_initialize_axi()
-
-	if (info->has_stride) {
-		u32 stride = cru->format.bytesperline;
-		u32 amnis;
-
-		stride /= RZG2L_CRU_STRIDE_ALIGN;
-		amnis = rzg2l_cru_read(cru, AMnIS) & ~AMnIS_IS_MASK;
-		rzg2l_cru_write(cru, AMnIS, amnis | AMnIS_IS(stride));
-	}
-
-the G2L has no register AMnIS, so we can't write it unconditionally
-but rather replace the check with:
-
-        if (info->stride > 1)
-
-As a bonus, if any other variant will get a different stride, it will
-be automatically supported.
-
-What do you think ?
-
-In the meantime for this patch
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-
-Thanks
-  j
-
-
->  	dev_dbg(cru->dev, "Format %ux%u bpl: %u size: %u\n",
->  		pix->width, pix->height, pix->bytesperline, pix->sizeimage);
->  }
-> --
-> 2.54.0
->
->
+That's tautological.  s/ intead// ;)
