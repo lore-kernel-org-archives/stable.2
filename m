@@ -1,219 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533F44399FF
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 14:06:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8963B435518;
+	Thu, 30 Jul 2026 14:09:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785420391; cv=none; b=TKBqfKmHxhZnl6YDj2TqvDEgYShd1tt8q1/oUVwh7UN9109Yin+DsvCM7x1XXJU6pkk+GTFpecTd52Y+oibdBujdnSZoDAZ8X4MV77BN+M3JcYhb7/2jW5l7XhUMNov2ICYHcqOY0/R6twS0gfHr0FOT6dcGTrx+9SC27z+xJsU=
+	t=1785420563; cv=none; b=rOwLp1rHo7zn9KY96nlFM+K+i09OrjIjOGBdouCuwM1Tbgwf+PH+xYUXgkmLj4TuJHsoPYzZGvUFoYHXdu59SHRBHZf6o9trc5PNvAGohcpPQ0j2iyxh9JYFk7uc8u2d8Xq2TJ9lCz4s+fsaCFU56wmOm5Gk0B7aDStTqh1vf6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785420391; c=relaxed/simple;
-	bh=C8IokJcWo4Ri8HviWEvWhNodx8PVs3js70d++F0Ryow=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ClVJytmWAC9cqopN7gLqaEIPmAFIOI6ShMgASaAzNu9Za62JGMy381JSQOjLkW0Rbf1n4+rrcSnjKlcuke8/+Pg/f/ctTfQnxDzbnnm6QbmMXjFJLXt22BeLHMEv+lAkxarZIvB3WTA6U0vuSaRd/h2YAHncqGRT3O3DWmyod5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H1PdXNBk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785420563; c=relaxed/simple;
+	bh=cLLb8BQB8reOxL4gX8bY1a1SDpjSvWdnF4MX2pM8Di8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=npKvS565n9KWI4jkk9ac7WFOjrUtqQ44anAsrJ8T3dcPNAM9aVnsNH9vdc34PtWzQPJMDhPGT5OA+qGC/uHdgNVhQgNEyyWvk1elq76dJVMAAlkfcpi/s3pi04R7xlVx0UwdQP1adMPczwnzz1ZZLd6Uv6GyJNN0bzVtbVal9cI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=igutYt82; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=hByCu7Iu; arc=none smtp.client-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H1PdXNBk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 711701F00A3A;
-	Thu, 30 Jul 2026 14:06:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785420390;
-	bh=iz+OWgNbr+14zHkhU2mXMbnXsiybMVVGHUegwIj6d+g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H1PdXNBkRDETbpkGzKZN8GfUBgPCNbd9xYKW24ku+Muh0g34zijQyMINvx6nabzqT
-	 MapAObsAx14uI3lFPPPaoGAGgmkSipwVr7R/sdFXW4nSD9knVIX1R8OlhxvsAaHIMC
-	 y/reNz/ywC/EjnlUrvMz+8Rw+KWytHVzS9GyKhYHC034ouvxSSWaMBFy+uG56QSgWf
-	 5P/QmTwr7jpele8eBaX5RmgDODQAG/0hwax1r50hN0LtLtpwtavrXEXjr1kTc/CZny
-	 2o74eyWpxf8Dn8fOVaHS/C2tZvvjh72Ooxs/pxaTw45QYOpK7/typrGaqcR746keT8
-	 32BI7DQyIkwHA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Andrei Kuchynski <akuchynski@chromium.org>,
-	stable <stable@kernel.org>,
-	Benson Leung <bleung@chromium.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 2/2] usb: typec: ucsi: Fix race condition and ordering in port unregistration
-Date: Thu, 30 Jul 2026 10:06:26 -0400
-Message-ID: <20260730140626.2464203-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730140626.2464203-1-sashal@kernel.org>
-References: <2026072725-cheer-engorge-72e8@gregkh>
- <20260730140626.2464203-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="igutYt82";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="hByCu7Iu"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id 6835E1D0002E;
+	Thu, 30 Jul 2026 10:09:20 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Thu, 30 Jul 2026 10:09:20 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1785420560; x=1785506960; bh=8udFup9Noz
+	aduK7FJgWwdcD9QjYfOaTlmc3535sNv7o=; b=igutYt82RvwT+jgHLX+aNaI6N1
+	kSaHeQHY4TIOo217hvQWQwgqwIvsbX4rpe95c/MCWogbQm47AiAHUhiAMyouirkz
+	xfLikHzN8yD4pqlBpDcGoaZeFVKdkn6vRX0bwMi2inERan22z0EgoHOW+uJBO7z4
+	Pl0eRhFd5gOgAgreV2WlyTWiKkks8sCqoYB5AJTKUFW1DTzCBMoORAoAppUxJ4qF
+	qbLuPg5lv0fYi8YKcFEemY2+g+R2DaEW0mB1hwr5hPRS+z5B3nxGUENaNAQNFXUQ
+	ykQJzOukQzbqoNknPeChubac/3MD9/A/o9jDgDywLwqxYz57nRmH6bHmbQRw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1785420560; x=1785506960; bh=8udFup9NozaduK7FJgWwdcD9QjYfOaTlmc3
+	535sNv7o=; b=hByCu7IuYFNkeWazTiTbjZ/8CfKjFJC5fMUYErNhf5h12ZHALfM
+	LykY6jU2UyPVbMI3WZkOTtk7/NDrmBiQDOwj0necQAjthOPqixVZf/aHTW+4eIho
+	ZtHQVDU6IL1R2QcTHBblfG9SKRDSckucai64A95+VrJjf6BeC6znPi1QrgAQ+jSD
+	eoa8TPGEutLAkszOa9zb3QdKmZfEATB7/uF4H/+vl4s/CQW4iw9QijGs+BskWdgb
+	5jJJ37NAwd5sKeQAYIyxGFzSJ//fJSgxhv2A4VHnV9bfoNUwCPreyMDPSkANxR/v
+	yUFfpy0D/xYcZaJTVCWprzRz0gXn6GcheaQ==
+X-ME-Sender: <xms:EFtratnOxHGTD98v-ssXFwyFZx8SYxQnt73h0YfHxpqQm-7mZdXqzg>
+    <xme:EFtrarboYlOf8QFsTIE80ap90Kb7FtDdhS3jaaPapTHRCIP9DPtNxlu7ZCfv6SQ9v
+    VeZRaDmvew_KboWN1GiGI5OnjX8QrA_RlDwVEKITK2wzcsHwQ>
+X-ME-Received: <xmr:EFtranRuFkGH6mnp7v0vakJJoLqZawj0SNvNkmI4oVT8qCLKtKuGEZehkvG6RngD4tUEOy8qcKbey4YhuTqj13A1a8_jE1vZJOXIyjcvp9w>
+X-ME-Proxy-Cause: dmFkZTEgL6A9/pkDTpV7xv0CzIX9X6r4+w8Se7aiV4ziyuaXpMOvRVc6656AynEqeA8GLs
+    +Y36ti16t6J8SQzqUa8Eua8ZXlYXoSyF8Q7SYh2RrQq0N1hUPAscANf0BTlPsZeKFr53zk
+    eOSsDdpd6mDXJOMSwTGAOBkwZJSQP3hg8d7PHCtUA/b7olZ6ksx9B8qmxI68Xtlzq/H/Es
+    tOeumULX0lCebom5vyz1SBDPO1eG9n1ukYmkSJUNPFUxX2qJwCuk4D9VL+tEtaT2s0PUQA
+    kCGaPM3UVZ9RSHax8pxw8/EnYJQW1SgkrYFvZMF6tIpBv6DFVqc9mCHxGtBsUlEXZkvdf2
+    Ubv4kHs8Fd8iaRbWpLamBUoXBtNs87VbsMBMlQzajTkSI6gQXPSTKw4NhgfryJUW7KhMFZ
+    8GHVn8XrU2aMvXNiqEuRnvlnRuuJCw8j484SGyfRRuq4dH12ET6KJGq+A1MCyGVNgo6CxW
+    1vZ1b3A0mKkBnWWz2nznTFlCC3M5/EYLEV0r1yHp0oA4i2P9mZEoYsa3zQMNvDXrzwAl1j
+    0j7gZhFB3xsrEYEfeWWeA28xerUFq0p1sqs4XxEn9jGyd/8NGpHImoEIBxRRU30htLi7sn
+    dsvwSXOF6Xy5Ke7AKBGVD2I8jzt2x8+4no00foTUtDKpbZ8CepKkswnX91qA
+X-ME-Proxy: <xmx:EFtratv0RVblwDC95gswPIsq5mP_yVeeU4SECahkenQsQ0WnItjFUQ>
+    <xmx:EFtrahEzKrvFbUM3jqxsVAh_ssTbiouqV3gXPTPjY9eRw9qRXTBWoQ>
+    <xmx:EFtramy6Jn6KDC0oR4ew1PFRb4CURg0nctEd9KMqqhrbfZc1UVDLOg>
+    <xmx:EFtraj1kkc6epvhB_zNYpxvBNteec6T9oMPuYdT29KT_i9KU47eHIw>
+    <xmx:EFtrasjtRNasGz5CpqkfNYnldFDZ5m78ZJ6aAJOQkYj91Xa6RSPQnluL>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 30 Jul 2026 10:09:19 -0400 (EDT)
+Date: Thu, 30 Jul 2026 16:09:06 +0200
+From: Greg KH <greg@kroah.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>
+Cc: Ilya Maximets <i.maximets@ovn.org>, stable@vger.kernel.org,
+	netfilter-devel@vger.kernel.org
+Subject: Re: Backport request: "netfilter: nf_conntrack_expect: restore
+ helper propagation via expectation"
+Message-ID: <2026073054-certainty-reapply-a613@gregkh>
+References: <ee95f6ac-181e-4315-a2ae-e4d1388c5e69@ovn.org>
+ <amqHu5H6xu02Izo8@chamomile>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <amqHu5H6xu02Izo8@chamomile>
 
-From: Andrei Kuchynski <akuchynski@chromium.org>
+On Thu, Jul 30, 2026 at 01:07:39AM +0200, Pablo Neira Ayuso wrote:
+> On Wed, Jul 29, 2026 at 11:38:17PM +0200, Ilya Maximets wrote:
+> > Hi.  The mentioned commit dcb0f9aefdd604d36710fda53c25bd7cf4a3e37a
+> > was backported to 7.0, but not further, while two commits it is fixing
+> > were backported down to 6.1.
+> > 
+> > Admittedly, the patch is not very important as far as functionality
+> > goes (at least for FTP), but the issue does change the user visible
+> > behavior and that makes all the FTP system tests in openvswitch
+> > project (in userspace) to fail.  This makes it harder to validate OVS
+> > on kernels below 7.0 and makes it unnecessarily harder to validate
+> > changes for the openvswitch kernel module on stable kernels.
+> > 
+> > So, it would be really nice to have the fix backported to the same
+> > branches where the commits it fixes were (6.1).
+> > 
+> > AFAICT, cherry-pick works without conflicts down to 6.6.  For 6.1
+> > there is a minor conflict, 6.1.y has the extra debug message:
+> > 
+> > diff --cc net/netfilter/nf_conntrack_core.c
+> > index f5c466ea1e7d,8ba5b22a1eef..000000000000
+> > --- a/net/netfilter/nf_conntrack_core.c
+> > +++ b/net/netfilter/nf_conntrack_core.c
+> > @@@ -1800,8 -1811,8 +1800,10 @@@ init_conntrack(struct net *net, struct 
+> >   		spin_lock_bh(&nf_conntrack_expect_lock);
+> >   		exp = nf_ct_find_expectation(net, zone, tuple, !tmpl || nf_ct_is_confirmed(tmpl));
+> >   		if (exp) {
+> > + 			struct nf_conntrack_helper *assign_helper;
+> > + 
+> >  +			pr_debug("expectation arrives ct=%p exp=%p\n",
+> >  +				 ct, exp);
+> >   			/* Welcome, Mr. Bond.  We've been expecting you... */
+> >   			__set_bit(IPS_EXPECTED_BIT, &ct->status);
+> >   			/* exp->master safe, refcnt bumped in nf_ct_find_expectation */
+> > ---
+> > 
+> > WDYT?
+> 
+> I am fine with getting dcb0f9aefdd604d36710fda53c25bd7cf4a3e37a into
+> -stable release < 7.0 if that is what you mean.
+> 
 
-[ Upstream commit 7aa7d4bf9d3fa9a6a47b640ad103ab433b7ff261 ]
+Great, can someone send us properly backported/tested patches to apply?
 
-A synchronization issue exists during port unregistration where pending
-partner work items can race against workqueue destruction, leading to
-use-after-free conditions:
+thanks,
 
-  cros_ec_ucsi cros_ec_ucsi.3.auto: error -ETIMEDOUT: PPM init failed
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:__queue_work+0x83/0x4a0
-  Call Trace:
-    <IRQ>
-    __cfi_delayed_work_timer_fn+0x10/0x10
-    run_timer_softirq+0x3b6/0xbd0
-    sched_clock_cpu+0xc/0x110
-    irq_exit_rcu+0x18d/0x330
-    fred_sysvec_apic_timer_interrupt+0x5e/0x80
-
-Fix this by ensuring strict ordering and proper serialization during
-teardown:
-
-1. Move ucsi_unregister_partner() to the beginning of the teardown
-sequence and protect it under the connector mutex lock.
-2. Ensure all pending partner tasks are explicitly flushed and finished
-before the workqueue is destroyed.
-3. Switch from mod_delayed_work() to a cancel_delayed_work() and
-queue_delayed_work() sequence. This guarantees that items currently marked
-as pending won't be scheduled an additional time, preventing a double
-release of resources which leads to the following crash:
-
-  Oops: general protection fault, probably for non-canonical address
-    0xdead000000000122: 0000 [#1] SMP NOPTI
-  Workqueue: cros_ec_ucsi.3.auto-con2 ucsi_poll_worker
-  RIP: 0010:ucsi_poll_worker+0x65/0x1e0
-  Call Trace:
-  <TASK>
-    process_scheduled_works+0x218/0x6d0
-    worker_thread+0x188/0x3f0
-    __cfi_worker_thread+0x10/0x10
-    kthread+0x226/0x2a0
-
-To ensure these rules are applied identically across both the normal
-teardown and the ucsi_init() error paths, consolidate the cleanup logic
-into a new helper, ucsi_unregister_port().
-
-Cc: stable <stable@kernel.org>
-Fixes: b9aa02ca39a4 ("usb: typec: ucsi: Add polling mechanism for partner tasks like alt mode checking")
-Fixes: b13abcb7ddd8 ("usb: typec: ucsi: Fix NULL pointer access")
-Fixes: fac4b8633fd6 ("usb: ucsi: Ensure connector delayed work items are flushed")
-Signed-off-by: Andrei Kuchynski <akuchynski@chromium.org>
-Reviewed-by: Benson Leung <bleung@chromium.org>
-Link: https://patch.msgid.link/20260707141736.1635698-1-akuchynski@chromium.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/usb/typec/ucsi/ucsi.c | 82 +++++++++++++++++------------------
- 1 file changed, 39 insertions(+), 43 deletions(-)
-
-diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index 7e2f06136ed5..ce3f2fe09ef1 100644
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -1813,6 +1813,42 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
- 	return ret;
- }
- 
-+static void ucsi_unregister_port(struct ucsi_connector *con)
-+{
-+	struct ucsi_work *uwork;
-+
-+	if (con->wq) {
-+		mutex_lock(&con->lock);
-+		ucsi_unregister_partner(con);
-+		/*
-+		 * queue delayed items immediately so they can execute
-+		 * and free themselves before the wq is destroyed
-+		 */
-+		list_for_each_entry(uwork, &con->partner_tasks, node) {
-+			if (cancel_delayed_work(&uwork->work))
-+				queue_delayed_work(con->wq, &uwork->work, 0);
-+		}
-+		mutex_unlock(&con->lock);
-+
-+		destroy_workqueue(con->wq);
-+		con->wq = NULL;
-+	} else {
-+		ucsi_unregister_partner(con);
-+	}
-+
-+	ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
-+	ucsi_unregister_port_psy(con);
-+
-+	usb_power_delivery_unregister_capabilities(con->port_sink_caps);
-+	con->port_sink_caps = NULL;
-+	usb_power_delivery_unregister_capabilities(con->port_source_caps);
-+	con->port_source_caps = NULL;
-+	usb_power_delivery_unregister(con->pd);
-+	con->pd = NULL;
-+	typec_unregister_port(con->port);
-+	con->port = NULL;
-+}
-+
- static u64 ucsi_get_supported_notifications(struct ucsi *ucsi)
- {
- 	u16 features = ucsi->cap.features;
-@@ -1939,22 +1975,8 @@ static int ucsi_init(struct ucsi *ucsi)
- 	for (i = 0; i < ucsi->cap.num_connectors; i++)
- 		lockdep_unregister_key(&connector[i].lock_key);
- 
--	for (con = connector; con->port; con++) {
--		if (con->wq)
--			destroy_workqueue(con->wq);
--		ucsi_unregister_partner(con);
--		ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
--		ucsi_unregister_port_psy(con);
--
--		usb_power_delivery_unregister_capabilities(con->port_sink_caps);
--		con->port_sink_caps = NULL;
--		usb_power_delivery_unregister_capabilities(con->port_source_caps);
--		con->port_source_caps = NULL;
--		usb_power_delivery_unregister(con->pd);
--		con->pd = NULL;
--		typec_unregister_port(con->port);
--		con->port = NULL;
--	}
-+	for (con = connector; con->port; con++)
-+		ucsi_unregister_port(con);
- 	kfree(connector);
- err_reset:
- 	memset(&ucsi->cap, 0, sizeof(ucsi->cap));
-@@ -2182,33 +2204,7 @@ void ucsi_unregister(struct ucsi *ucsi)
- 
- 	for (i = 0; i < ucsi->cap.num_connectors; i++) {
- 		cancel_work_sync(&ucsi->connector[i].work);
--
--		if (ucsi->connector[i].wq) {
--			struct ucsi_work *uwork;
--
--			mutex_lock(&ucsi->connector[i].lock);
--			/*
--			 * queue delayed items immediately so they can execute
--			 * and free themselves before the wq is destroyed
--			 */
--			list_for_each_entry(uwork, &ucsi->connector[i].partner_tasks, node)
--				mod_delayed_work(ucsi->connector[i].wq, &uwork->work, 0);
--			mutex_unlock(&ucsi->connector[i].lock);
--			destroy_workqueue(ucsi->connector[i].wq);
--		}
--
--		ucsi_unregister_partner(&ucsi->connector[i]);
--		ucsi_unregister_altmodes(&ucsi->connector[i],
--					 UCSI_RECIPIENT_CON);
--		ucsi_unregister_port_psy(&ucsi->connector[i]);
--
--		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_sink_caps);
--		ucsi->connector[i].port_sink_caps = NULL;
--		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_source_caps);
--		ucsi->connector[i].port_source_caps = NULL;
--		usb_power_delivery_unregister(ucsi->connector[i].pd);
--		ucsi->connector[i].pd = NULL;
--		typec_unregister_port(ucsi->connector[i].port);
-+		ucsi_unregister_port(&ucsi->connector[i]);
- 		lockdep_unregister_key(&ucsi->connector[i].lock_key);
- 	}
- 
--- 
-2.53.0
-
+greg k-h
