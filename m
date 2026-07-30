@@ -1,45 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC83443E24;
-	Thu, 30 Jul 2026 15:05:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92ECF443E40
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 15:05:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785423903; cv=none; b=ldiLTzHdmvXU9xtZXtr2lDsxGYcPvPXevnGP8y9/qYDpvuv5WONqG1aMgWgFk5ijZErvpXdmjFONO6ERrgOpsFn6odgx+20eJUOLdI+USoLHLeelJ4T6tuY1zA7YTlLYeXe4vWZJX1AbaQc8yqWwiud/8Lw7kLaKPeohB4zbAhk=
+	t=1785423904; cv=none; b=ECfZzFQykqZC+QtCCNx3RA4BLh/nggvUo9EEkHwb6St6toR/OfGndytcOqM6zHr2neg6934+KOtLq+fRYMhbGi3d8zdh3SXpZwBCgMC6r6PyHhAm0h6iGuesb32NkBzhEmneThb1Kh3wqEqSkgWm6lj/YSVOAW7DepybtUmj8f0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785423903; c=relaxed/simple;
-	bh=43Iw8+LQNwBEdJ0nSwVtmCC8M295O6o4jOGgZliJF2M=;
+	s=arc-20240116; t=1785423904; c=relaxed/simple;
+	bh=E60ym5ihyuUjZe+DUyHDaCpBRd8cyAyERRa3qBMwUEc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lPj86+vG7mFSQXU9LYTX7Edn+fIJVmRvd3w11Y3hJeJPQe1Mk2s3EuFvJSOyXce6qLzioqicQpwwn0HUt5R77kym0qHsQbt3jTo2oYegiX3B5iHxbQGhSheM+7wzs/OubGXRSK0ny4by8QNUeglMbeO0M6Vu0R1p4DS+4jYUwqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iB2wXigX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=n7SNzJZy8xv6umVwHN/7hGCSxWG20aPsQpgy4h49JE6TOQNv8BjthZLwcYwZr/TL9oBR+Uje0y4bi5v9e0f033VbtAGQNykLIfzclbhNGd6IxCBkl8fZAIY67vnXGVH/Tu3KOIeuO2PC9LmoAzQzYNzKth9ZeTLUWAC9ZnIB5GE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HbQgLt4V; arc=none smtp.client-ip=91.218.175.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iB2wXigX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45DD81F000E9;
-	Thu, 30 Jul 2026 15:05:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785423901;
-	bh=MJNWkEMCFH9Kg92EWZUWGVUk7ubKsKp7+gHwZn36k30=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iB2wXigX2ZDWieqFoZX6CngAQXiHOUZnwpVsS5gQ8ZeEEUERf5oOt3ESvg4RHCidI
-	 yDcnZpWy2F4On6/Uqr4I3ZDeS3zan/yKtw4QBvWhcglBXOF06iu4QG1FlpK/srKFxC
-	 PpJvx5Y3nKRm2Wc08OKSHGBhaxogkx42/JP7RsRk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Qing Ming <a0yami@mailbox.org>,
-	Simon Horman <horms@kernel.org>,
-	Antonio Quartulli <antonio@openvpn.net>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 205/675] ovpn: avoid putting unrelated P2P peer on socket release
-Date: Thu, 30 Jul 2026 16:08:55 +0200
-Message-ID: <20260730141449.501810090@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730141445.110192266@linuxfoundation.org>
-References: <20260730141445.110192266@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HbQgLt4V"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785423899;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dsE2kELMPKSph4gWvp3ET+y59gkwCkJ/7ot3HF3rB5w=;
+	b=HbQgLt4VNe4Shlo35BVIkTz2JepfQbjoYw3E5j+Pijk5c0HsrqwYdLG2tHO+y/ApECuj8G
+	5HPwnlQ9ceb5XTqG9ZmXZ0NrJL81a4R7ehL59LgAkr6CG0CGepRIOGXtpIAqIkKsZoc6mF
+	7qomyJ9WyxgxfkQnJzoDC8owTM9NPqY=
+From: Leon Hwang <leon.hwang@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Leon Hwang <leon.hwang@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH 3/4] ftrace: Protect direct_functions in update_ftrace_direct_mod
+Date: Thu, 30 Jul 2026 23:04:10 +0800
+Message-ID: <20260730150411.88667-4-leon.hwang@linux.dev>
+In-Reply-To: <20260730150411.88667-1-leon.hwang@linux.dev>
+References: <20260730150411.88667-1-leon.hwang@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,63 +50,60 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+Fix accessing the __rcu pointer direct_functions with RCU protection.
 
-------------------
-
-From: Qing Ming <a0yami@mailbox.org>
-
-[ Upstream commit b52c5103f64ee825996ca1ab8df7283cde8c5f86 ]
-
-ovpn_peer_release_p2p() is called when an OVPN UDP socket is being
-destroyed. It checks the currently published P2P peer and releases it only
-if that peer still uses the socket being destroyed.
-
-A peer replacement can publish a new peer before the old UDP socket is
-destroyed. When the old socket destruction path runs afterwards,
-ovpn_peer_release_p2p() observes the new peer through ovpn->peer. Since the
-new peer uses a different socket, the function takes the socket mismatch
-branch.
-
-That branch still calls ovpn_peer_put(peer). At this point, however, peer
-is the currently published replacement peer, not the peer associated with
-the socket being destroyed. Dropping its reference can free it while
-ovpn->peer still points to it, leading to later use-after-free accesses
-from the peer and socket cleanup paths.
-
-KASAN reports this as a slab-use-after-free on the kmalloc-1k ovpn_peer
-object. In the reproducer, the object is allocated from ovpn_peer_new() via
-ovpn_nl_peer_new_doit(), and freed through ovpn_peer_release_rcu() from RCU
-callback processing. Observed access sites include ovpn_peer_remove(),
-ovpn_socket_release(), ovpn_nl_peer_del_notify(), and unlock_ovpn().
-
-Fix this by returning from the socket mismatch branch without putting the
-peer.
-
-Fixes: f6226ae7a0cd ("ovpn: introduce the ovpn_socket object")
-Signed-off-by: Qing Ming <a0yami@mailbox.org>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Signed-off-by: Antonio Quartulli <antonio@openvpn.net>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org
+Fixes: e93672f770d7 ("ftrace: Add update_ftrace_direct_mod function")
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
 ---
- drivers/net/ovpn/peer.c | 1 -
- 1 file changed, 1 deletion(-)
+ kernel/trace/ftrace.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/ovpn/peer.c b/drivers/net/ovpn/peer.c
-index 87a83321f1dd5f..795741645e5eb0 100644
---- a/drivers/net/ovpn/peer.c
-+++ b/drivers/net/ovpn/peer.c
-@@ -1162,7 +1162,6 @@ static void ovpn_peer_release_p2p(struct ovpn_priv *ovpn, struct sock *sk,
- 		ovpn_sock = rcu_access_pointer(peer->sock);
- 		if (!ovpn_sock || ovpn_sock->sk != sk) {
- 			spin_unlock_bh(&ovpn->lock);
--			ovpn_peer_put(peer);
- 			return;
- 		}
- 	}
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index 9ea39110927f..414e425c2d80 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -6617,6 +6617,7 @@ int update_ftrace_direct_mod(struct ftrace_ops *ops, struct ftrace_hash *hash, b
+ 		.func		= ftrace_stub,
+ 		.flags		= FTRACE_OPS_FL_STUB,
+ 	};
++	struct ftrace_hash *direct_hash;
+ 	struct ftrace_hash *orig_hash;
+ 	unsigned long size, i;
+ 	int err = -EINVAL;
+@@ -6627,8 +6628,6 @@ int update_ftrace_direct_mod(struct ftrace_ops *ops, struct ftrace_hash *hash, b
+ 		return -EINVAL;
+ 	if (!(ops->flags & FTRACE_OPS_FL_ENABLED))
+ 		return -EINVAL;
+-	if (direct_functions == EMPTY_HASH)
+-		return -EINVAL;
+ 
+ 	/*
+ 	 * We can be called from within ops_func callback with direct_mutex
+@@ -6636,6 +6635,12 @@ int update_ftrace_direct_mod(struct ftrace_ops *ops, struct ftrace_hash *hash, b
+ 	 */
+ 	if (do_direct_lock)
+ 		mutex_lock(&direct_mutex);
++	else
++		lockdep_assert_held_once(&direct_mutex);
++
++	direct_hash = rcu_dereference_protected(direct_functions, lockdep_is_held(&direct_mutex));
++	if (direct_hash == EMPTY_HASH)
++		goto unlock;
+ 
+ 	orig_hash = ops->func_hash ? ops->func_hash->filter_hash : NULL;
+ 	if (!orig_hash)
+@@ -6667,7 +6672,7 @@ int update_ftrace_direct_mod(struct ftrace_ops *ops, struct ftrace_hash *hash, b
+ 	size = 1 << hash->size_bits;
+ 	for (i = 0; i < size; i++) {
+ 		hlist_for_each_entry(entry, &hash->buckets[i], hlist) {
+-			tmp = __ftrace_lookup_ip(direct_functions, entry->ip);
++			tmp = __ftrace_lookup_ip(direct_hash, entry->ip);
+ 			if (!tmp)
+ 				continue;
+ 			tmp->direct = entry->direct;
 -- 
-2.53.0
-
-
+2.55.0
 
