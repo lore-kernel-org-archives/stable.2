@@ -1,45 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-170.mta0.migadu.com (out-170.mta0.migadu.com [91.218.175.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB56432E65;
-	Thu, 30 Jul 2026 15:04:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2CD4432EC;
+	Thu, 30 Jul 2026 15:04:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785423900; cv=none; b=ZH58E4XVk/vEGdxLRi+qgO5Co+411Po85WI/MQl/TdfmyK0IzvHuvuGbCatUGyGHS8Q/BzZEO6o95iVZInaHkKNmrBj7vOV8CUHttx2yVZFuYDMlVbF7Rnm5EhJyDFHiU8biKDsmvDw6EV+XW5C2rfG55IF7OIbdm3M+d26vdzg=
+	t=1785423900; cv=none; b=rjLL3jffp7HkzNxg1+f/0W7fMG/O/ZeL4SEp9+jX3XdlQmhE+5vQFOygZFjsZ26Y+xYlLKHdrYJe+WD2xZzlDWKTK/dn6kgFqyCmtQsQmU0mneKJjEPRY7MSlQvH5ExbTbDmlIvii1vbazuAp6OmKhNermNnEdm7y0PoVGPSXkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785423900; c=relaxed/simple;
-	bh=TY7ZMKNwCn+q+SqqSxq3bQHuSMVuUEeI1aP93b8Ax9w=;
+	bh=Ka3tWGe7/t12bG1gqNIwjEg/vnPD1h7rJek7NKjk9QE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RRd6+hre+3olVQEa2Y4kawuOQIYz6/W0jK45LxeuSl/UPQiKFawTRZ9BaZXW9ce+0a9nAuoF461pyuqgwPWAHdp7n5R1xpoJHV1CPwWgGe8Kl3YqA7O7F52ZNGRKtEAowCsff3ItTJewi+YxYXDIPY9sCjbDL4VCK8Ha23wpFzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wpMCr2eg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NGw92lJ6wH947OZUW3jaJcIFIdePc1IFmwzsGbtRaRB69/TV/Zk0EtlistazPy2J7ulnbE1OoFVn736Zz8FDgGfTIORUWQbHirRAEEhQttN0oQeJkbbttOqOyqaRj/nI+mcT1z+Pr1jrtsL1HEcP7yzYZbIZ2WAivAyLazDMRyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=M1e68+8k; arc=none smtp.client-ip=91.218.175.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wpMCr2eg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 653F91F00A3D;
-	Thu, 30 Jul 2026 15:04:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785423899;
-	bh=0Qlng6xZG0efga/BV7Q47V/T3oWLO96vDu2G03G56FQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=wpMCr2eg/SVfoHpZiDB4sVe54EB2KJfUR74Hao12ARGlYa+5GL7BdBefNxUg/rNvt
-	 IdvQgGTBYT5FGtgKWUj567qHZJlJr6clS5bbyPI348PysQGJT3AzhniT5pCNU0i8bt
-	 ja7m94Rp1Ek7tygbjYBXjHWhZYCyUq+H11yOyteg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	"Paulo Alcantara (Red Hat)" <pc@manguebit.org>,
-	Yichong Chen <chenyichong@uniontech.com>,
-	Steve French <stfrench@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 204/675] smb: client: validate DFS referral PathConsumed
-Date: Thu, 30 Jul 2026 16:08:54 +0200
-Message-ID: <20260730141449.479123331@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730141445.110192266@linuxfoundation.org>
-References: <20260730141445.110192266@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="M1e68+8k"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785423896;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ioH8697VNO9CDWA8v8GIsw5lesb+EpXFdUst6lhYL0o=;
+	b=M1e68+8k2tKwJD+1U/hYuh7YDdx8fCAd7rzEplFSJtjrkO6oyOQBLdq1BSZxhLwgVg0J2w
+	w/d7YCSvndoG+E0JjM26AVxVBKepwXKPQDNWwTMit9DjVP8Rn1DofiNF+R2VX+wGc0zWHS
+	VmcKDa7eITRrW9pqP4kj1S6cSVXsiyw=
+From: Leon Hwang <leon.hwang@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Leon Hwang <leon.hwang@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/4] ftrace: Protect direct_functions in update_ftrace_direct_del
+Date: Thu, 30 Jul 2026 23:04:09 +0800
+Message-ID: <20260730150411.88667-3-leon.hwang@linux.dev>
+In-Reply-To: <20260730150411.88667-1-leon.hwang@linux.dev>
+References: <20260730150411.88667-1-leon.hwang@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,102 +50,72 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+Fix accessing the __rcu pointer direct_functions with RCU protection.
 
-------------------
-
-From: Yichong Chen <chenyichong@uniontech.com>
-
-[ Upstream commit f6f5ee2aa33b350c671721b965251c42cebb962e ]
-
-parse_dfs_referrals() validates that the response contains the fixed
-referral entry array and, on for-next, the per-referral string offsets.
-However, the response also contains a PathConsumed value that is later
-used for DFS path parsing.
-
-If a malformed response provides a PathConsumed value larger than the
-search name, later DFS parsing can advance beyond the end of the path.
-
-Validate PathConsumed against the search name length before storing it in
-the parsed referral.
-
-Fixes: 4ecce920e13a ("CIFS: move DFS response parsing out of SMB1 code")
-Reviewed-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
-Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org
+Fixes: 8d2c1233f371 ("ftrace: Add update_ftrace_direct_del function")
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
 ---
- fs/smb/client/misc.c | 34 +++++++++++++++++++++++++---------
- 1 file changed, 25 insertions(+), 9 deletions(-)
+ kernel/trace/ftrace.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/fs/smb/client/misc.c b/fs/smb/client/misc.c
-index f378437113129a..d9771d224527d7 100644
---- a/fs/smb/client/misc.c
-+++ b/fs/smb/client/misc.c
-@@ -957,6 +957,8 @@ parse_dfs_referrals(struct get_dfs_referral_rsp *rsp, u32 rsp_size,
- 	int i, rc = 0;
- 	char *data_end;
- 	struct dfs_referral_level_3 *ref;
-+	unsigned int path_consumed;
-+	size_t search_name_len;
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index c5d1d0d42ccc..9ea39110927f 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -6512,6 +6512,7 @@ int update_ftrace_direct_del(struct ftrace_ops *ops, struct ftrace_hash *hash)
+ 	struct ftrace_hash *new_direct_functions;
+ 	struct ftrace_hash *new_filter_hash = NULL;
+ 	struct ftrace_hash *old_filter_hash;
++	struct ftrace_hash *direct_hash;
+ 	struct ftrace_func_entry *entry;
+ 	struct ftrace_func_entry *del;
+ 	unsigned long size;
+@@ -6523,11 +6524,13 @@ int update_ftrace_direct_del(struct ftrace_ops *ops, struct ftrace_hash *hash)
+ 		return -EINVAL;
+ 	if (!(ops->flags & FTRACE_OPS_FL_ENABLED))
+ 		return -EINVAL;
+-	if (direct_functions == EMPTY_HASH)
+-		return -EINVAL;
  
- 	if (rsp_size < sizeof(*rsp)) {
- 		cifs_dbg(VFS | ONCE,
-@@ -1004,6 +1006,7 @@ parse_dfs_referrals(struct get_dfs_referral_rsp *rsp, u32 rsp_size,
- 		rc = -ENOMEM;
- 		goto parse_DFS_referrals_exit;
+ 	mutex_lock(&direct_mutex);
+ 
++	direct_hash = rcu_dereference_protected(direct_functions, lockdep_is_held(&direct_mutex));
++	if (direct_hash == EMPTY_HASH)
++		goto out_unlock;
++
+ 	old_filter_hash = ops->func_hash ? ops->func_hash->filter_hash : NULL;
+ 
+ 	if (!hash_count(old_filter_hash))
+@@ -6537,7 +6540,7 @@ int update_ftrace_direct_del(struct ftrace_ops *ops, struct ftrace_hash *hash)
+ 	size = 1 << hash->size_bits;
+ 	for (int i = 0; i < size; i++) {
+ 		hlist_for_each_entry(entry, &hash->buckets[i], hlist) {
+-			del = __ftrace_lookup_ip(direct_functions, entry->ip);
++			del = __ftrace_lookup_ip(direct_hash, entry->ip);
+ 			if (!del || del->direct != entry->direct)
+ 				goto out_unlock;
+ 		}
+@@ -6548,7 +6551,7 @@ int update_ftrace_direct_del(struct ftrace_ops *ops, struct ftrace_hash *hash)
+ 	if (!new_filter_hash)
+ 		goto out_unlock;
+ 
+-	new_direct_functions = hash_sub(direct_functions, hash);
++	new_direct_functions = hash_sub(direct_hash, hash);
+ 	if (!new_direct_functions)
+ 		goto out_unlock;
+ 
+@@ -6575,7 +6578,7 @@ int update_ftrace_direct_del(struct ftrace_ops *ops, struct ftrace_hash *hash)
+ 		/* free the new_direct_functions */
+ 		old_direct_functions = new_direct_functions;
+ 	} else {
+-		old_direct_functions = direct_functions;
++		old_direct_functions = direct_hash;
+ 		rcu_assign_pointer(direct_functions, new_direct_functions);
  	}
-+	search_name_len = strlen(searchName);
  
- 	/* collect necessary data from referrals */
- 	for (i = 0; i < *num_of_nodes; i++) {
-@@ -1012,21 +1015,34 @@ parse_dfs_referrals(struct get_dfs_referral_rsp *rsp, u32 rsp_size,
- 		struct dfs_info3_param *node = (*target_nodes)+i;
- 
- 		node->flags = le32_to_cpu(rsp->DFSFlags);
-+		path_consumed = le16_to_cpu(rsp->PathConsumed);
- 		if (is_unicode) {
--			__le16 *tmp = kmalloc(strlen(searchName)*2 + 2,
--						GFP_KERNEL);
--			if (tmp == NULL) {
-+			size_t search_name_utf16_len = search_name_len * 2 + 2;
-+			__le16 *tmp;
-+
-+			if (path_consumed > search_name_utf16_len) {
-+				rc = -EINVAL;
-+				goto parse_DFS_referrals_exit;
-+			}
-+
-+			tmp = kmalloc(search_name_utf16_len, GFP_KERNEL);
-+			if (!tmp) {
- 				rc = -ENOMEM;
- 				goto parse_DFS_referrals_exit;
- 			}
--			cifsConvertToUTF16((__le16 *) tmp, searchName,
-+			cifsConvertToUTF16((__le16 *)tmp, searchName,
- 					   PATH_MAX, nls_codepage, remap);
--			node->path_consumed = cifs_utf16_bytes(tmp,
--					le16_to_cpu(rsp->PathConsumed),
--					nls_codepage);
-+			node->path_consumed = cifs_utf16_bytes(tmp, path_consumed,
-+							       nls_codepage);
- 			kfree(tmp);
--		} else
--			node->path_consumed = le16_to_cpu(rsp->PathConsumed);
-+		} else {
-+			if (path_consumed > search_name_len) {
-+				rc = -EINVAL;
-+				goto parse_DFS_referrals_exit;
-+			}
-+
-+			node->path_consumed = path_consumed;
-+		}
- 
- 		node->server_type = le16_to_cpu(ref->ServerType);
- 		node->ref_flag = le16_to_cpu(ref->ReferralEntryFlags);
 -- 
-2.53.0
-
-
+2.55.0
 
