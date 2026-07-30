@@ -1,114 +1,125 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE693C3C15;
-	Thu, 30 Jul 2026 08:34:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967783BCD00;
+	Thu, 30 Jul 2026 08:45:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785400458; cv=none; b=QeK73t8ksCXDI5ycuZ9PAhW+8kGAhAfsjW5lxZIwUNue4aRn9Kbm2AqhdWXvdEwjCkCCEo4vyUlay2SMN0CBnXxZ1t19q3bnkUFLUM6r/i0sXvabVeiMub7MVJcI5fo8CTvMn5tKHsQ8jmymtvuXPurWMRL3eSt8EAoXu8AnzSU=
+	t=1785401130; cv=none; b=Lor4sN6SZpbgADIsHk47FT9X2kH1OTUrgXBCdZxdvo55b0dd9upl2Y2VJxlhMhv4hFnUoOLujYYIKymxQi7CDUUWjbTEvlBhcZ3XAr4XvRNEFar/jw6sL85Xz3aMhRHjmbBazob434eNvToBXsCGiGgTPPetxRKz7ZP+wR7MDsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785400458; c=relaxed/simple;
-	bh=YSs4BlEquPcSPpnK2UsyKKe20Sr7YtURrM/X3GzVqkM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=u8Jp9BuuJp7EBADLAaj9Gl1AX8y8+TgKi2HYOfeKjV+lIBV7k2aNX+Tf4kibA/tjVt2iyHyfVDhrQLZE6ndBYyv0kH6Hlogl6C+MbiBhYfIJYYYE1cmqi1be4BBN7vXIECv3ZN49eZUYKxSC5ITYxOuYR7nKzRz0q+w9BPGbiw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 6ed33c668bf111f1aa26b74ffac11d73-20260730
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:2120fc2d-6822-4645-aaee-17b2bc0885ab,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:d5c7be6754db9e223efc16618ac57051,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
-	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
-	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 6ed33c668bf111f1aa26b74ffac11d73-20260730
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 418250093; Thu, 30 Jul 2026 16:34:08 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: cem@kernel.org,
-	djwong@kernel.org,
-	chandanrlinux@gmail.com
-Cc: linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] xfs: fix heap buffer overflow in xfs_bmbt_to_bmdr
-Date: Thu, 30 Jul 2026 16:34:04 +0800
-Message-Id: <20260730083404.169353-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1785401130; c=relaxed/simple;
+	bh=Rc4VmTTARjCaTT+08oozRPGFxnIXH1yvkz+hPUfLbgg=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=WLQPpiixiEjxI4FH/BMfMdzCdSlS+rOsFg8LoflHtGEV/m7jAV2dzbuPBITBJu58Yy4V3UaEckYbNz7xcT2RGoR0KcxTzNy2uMjhNpQtevGwFHbRgChZOKilXGLcJRyUAJe7tGUAH4M5n0j7FPM/aYuj/mqSq/XXpx0deY+wlAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=kOdY4uRR; arc=none smtp.client-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="kOdY4uRR"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=nLcQXwTnnn0iFIM9gIERPFamyUUa2bsoWp0iHYmRCW8=;
+	b=kOdY4uRRvDlabYess5TZ7yu/oTjrBnvoK3+k+6v8BWULoPDPFfFmWBca9bcsM4nIGXmyAQxZU
+	dNswgt5evN91g7MTVatZJxbKAneeIT8Ezjy2y5JZkgGBlPbo8D6rSNVzSuEkwlaCOJJ5KHcoDb4
+	ZDD2gofeh59MBQRv30zS4II=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4h9jG24VXyz1cyV9;
+	Thu, 30 Jul 2026 16:35:54 +0800 (CST)
+Received: from dggemv706-chm.china.huawei.com (unknown [10.3.19.33])
+	by mail.maildlp.com (Postfix) with ESMTPS id CAFD240572;
+	Thu, 30 Jul 2026 16:45:20 +0800 (CST)
+Received: from kwepemq500010.china.huawei.com (7.202.194.235) by
+ dggemv706-chm.china.huawei.com (10.3.19.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Thu, 30 Jul 2026 16:45:20 +0800
+Received: from [10.173.124.160] (10.173.124.160) by
+ kwepemq500010.china.huawei.com (7.202.194.235) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Thu, 30 Jul 2026 16:45:19 +0800
+Subject: Re: [PATCH v7 01/13] memory-failure: Fix hardware poison check in
+ unpoison_memory() again
+To: Matthew Wilcox <willy@infradead.org>
+CC: Andrew Morton <akpm@linux-foundation.org>, Jane Chu <jane.chu@oracle.com>,
+	<linux-mm@kvack.org>, Muchun Song <muchun.song@linux.dev>, Oscar Salvador
+	<osalvador@suse.de>, David Hildenbrand <david@kernel.org>, Naoya Horiguchi
+	<nao.horiguchi@gmail.com>, Jan Kara <jack@suse.cz>,
+	<linux-fsdevel@vger.kernel.org>, Christian Brauner <christian@brauner.io>,
+	Jiaqi Yan <jiaqiyan@google.com>, <stable@vger.kernel.org>, Gregory Price
+	<gourry@gourry.net>
+References: <20260728204409.3396238-1-willy@infradead.org>
+ <20260728204409.3396238-2-willy@infradead.org>
+ <amlKHkemYQBxFESG@gourry-fedora-PF4VCD3F>
+ <amlav1zfVy-9fLw5@casper.infradead.org>
+From: Miaohe Lin <linmiaohe@huawei.com>
+Message-ID: <ccce5d73-b5d8-3e23-8e49-bb154af023d4@huawei.com>
+Date: Thu, 30 Jul 2026 16:45:19 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <amlav1zfVy-9fLw5@casper.infradead.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemq500010.china.huawei.com (7.202.194.235)
 
-The xfs_bmbt_to_bmdr() function converts an in-memory btree root to
-on-disk form during log recovery. It uses bb_numrecs from the source
-to determine memcpy size without validating against the destination
-fork capacity.
+On 2026/7/29 9:43, Matthew Wilcox wrote:
+> On Tue, Jul 28, 2026 at 08:39:29PM -0400, Gregory Price wrote:
+>> On Tue, Jul 28, 2026 at 09:43:53PM +0100, Matthew Wilcox (Oracle) wrote:
+>>> The earlier patch (6c54312f9689) that attempted to fix unpoison_memory()
+>>> was incorrect for hugetlb folios.  Before a6fddef49eef, we checked
+>>> the head page for poison (which was correct for hugetlb and incorrect
+>>> for THP).  We are currently incapable of unpoisoning pages (other than
+>>> the first page) in a hugetlb folio.
+>>>
+>>> Use is_page_hwpoison() which handles hugetlb pages sufficiently well for
+>>> this purpose.  This is racy as we don't have a reference on the folio at
+>>> this point, but fixing that properly requires deeper surgery and this
+>>> is a CAP_SYS_ADMIN path only so this will do for the moment and can be
+>>> easily backported.  It's no worse than the situation before a6fddef49eef.
+>>>
+>>> The other bug in a6fddef49eef is that we currently clear the HWPoison
+>>> flag on the precise page, which is wrong for hugetlb.  Fix that too.
+>>>
+>>> Fixes: a6fddef49eef ("mm/memory-failure: convert unpoison_memory() to folios")
+>>> Cc: stable@vger.kernel.org
+>>> Cc: Miaohe Lin <linmiaohe@huawei.com>
+>>> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+>>
+>> Just trying to wrap my head around the state before/after, assuming
+>> the following is correct then LGTM:
+>>
+>> prior:
+>>    pfn_to_online_page(pfn) -> p = precise page
+>>    PageHWPoison(page)      -> checks precise page. Poison for hugetlb
+>>                               is only set only on the head, so bug.
+>> after:
+>>    is_page_hwpoison(page)  -> checks precise page AND head (if hugetlb)
+>>    p = folio->page         -> now TestClearPageHWPoison() explicitly
+>>                               clears the head page poison if hugetlb
+> 
+> Exactly.  That was how it worked before a6fddef49eef; it used to do
+> p = compound_head(p) (which wasn't great _either_ but had different
+> problems ...)
+> 
+> The careful reader will observe that injecting two memory failures
+> into the same hugetlb causes ... problems.  That's true before and after
 
-Current code:
-  dmxr = xfs_bmdr_maxrecs(dblocklen, 0);           // destination capacity
-  ...
-  dmxr = be16_to_cpu(dblock->bb_numrecs);          // overwrite with source value!
-  memcpy(..., * dmxr);                              // may overflow destination!
+Could you elaborate on what problems this might cause? IIUC, second memory
+failure on the same hugetlb folio will make try_memory_failure_hugetlb() return
+-EHWPOISON without holding another refcnt. Raw error pages will be added to
+raw_hwp_page list. Then in unpoison_memory(), raw_hwp_page list will be cleaned
+and extra refcnt held by memory_failure will be released and PageHWPoison will be
+cleared. So it looks work to me. Or am I miss something?
 
-If bb_numrecs is larger than the destination fork capacity,
-memcpy writes beyond the fork buffer, causing heap overflow.
+Reviewed-by: Miaohe Lin <linmiaohe@huawei.com>
 
-Fix by validating bb_numrecs against the destination capacity
-before using it for memcpy operations.
-
-Cc: stable@vger.kernel.org
-Fixes: 8ea5682d0711 ("xfs: refactor log recovery item dispatch for pass2 readhead functions")
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
- fs/xfs/libxfs/xfs_bmap_btree.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/fs/xfs/libxfs/xfs_bmap_btree.c b/fs/xfs/libxfs/xfs_bmap_btree.c
-index 758a4b1ccf5b..3b606bd8aec9 100644
---- a/fs/xfs/libxfs/xfs_bmap_btree.c
-+++ b/fs/xfs/libxfs/xfs_bmap_btree.c
-@@ -151,6 +151,7 @@ xfs_bmbt_to_bmdr(
- 	int			dmxr;
- 	xfs_bmbt_key_t		*fkp;
- 	__be64			*fpp;
-+	int                     nrecs;
- 	xfs_bmbt_key_t		*tkp;
- 	__be64			*tpp;
- 
-@@ -167,12 +168,17 @@ xfs_bmbt_to_bmdr(
- 	ASSERT(rblock->bb_level != 0);
- 	dblock->bb_level = rblock->bb_level;
- 	dblock->bb_numrecs = rblock->bb_numrecs;
-+
-+	/* Validate record count against destination fork capacity */
-+	nrecs = be16_to_cpu(rblock->bb_numrecs);
- 	dmxr = xfs_bmdr_maxrecs(dblocklen, 0);
-+	if (nrecs > dmxr)
-+		return;
-+
- 	fkp = xfs_bmbt_key_addr(mp, rblock, 1);
- 	tkp = xfs_bmdr_key_addr(dblock, 1);
- 	fpp = xfs_bmap_broot_ptr_addr(mp, rblock, 1, rblocklen);
--	tpp = xfs_bmdr_ptr_addr(dblock, 1, dmxr);
--	dmxr = be16_to_cpu(dblock->bb_numrecs);
-+	tpp = xfs_bmdr_ptr_addr(dblock, 1, nrecs);
- 	memcpy(tkp, fkp, sizeof(*fkp) * dmxr);
- 	memcpy(tpp, fpp, sizeof(*fpp) * dmxr);
- }
--- 
-2.25.1
+Thanks.
+.
 
