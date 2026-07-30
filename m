@@ -1,93 +1,129 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 365F545A288
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 18:51:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785437479; cv=none; b=QM64c2Jo07I6meGwlKxAsuIGpvzckA4PWhXZmrxE/JsVVmPNX353Ac7AsTVuvMJr1fYdC+cmwFVpQjDTnJE8Z2miht1CC4lf4zyIKq6SO1kXg0eyFwUWeI9F/N3FIOIGs5nqPmilS93c5PrR3RdbXI28nbuNOtHx1HoGnHhy7N4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785437479; c=relaxed/simple;
-	bh=QasLks235D3Eb0nbmLmVRu8yqlEceaufhX+B37Vh9zU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=IPt91tdGdCTSvP6AThivcq0zbcwXxOti660bVRav9hr6kAaNkZ4ZEEpBBGtvw05vW1PucPFIpOjEXGbDthw2BvmfDSJmJHWJ9LRAZGve3hPaXByCukhGUEgsih6Yq7qFAvWDnfMqZc+/uZVxrlnL6XEzHCUQse5UJT23dV3LvLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dbXSBPwl; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA2D4219E7
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 18:55:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785437710; cv=pass; b=bhqdpid3gmZuisSbHaixBuHZeule6OcbBhtPM2EGK94Z0Zvst9qpI5YZUu09rEecTj+vVOwVyqDeNnOz5q/1NGR535Y4ksNMJx+cURiqk4ogjiaamklv8ItUVPBgFJ0xN7Jlqyhth4q3DZ9Z4GCOVyLGhc5EgbZNPymMN4hC1Jg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785437710; c=relaxed/simple;
+	bh=5YXmCpAaOk6QqxLkbcXfgNTAO2qfKu1DivCGNjzW1Hk=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=dLNX1ZTVs4xLVn1MRD5QiqM/QtmuQuP93vFsbWNVnZrpug5JICAA0wY7PY7DVdFTr5iQhq7trpgYJCx9EsrXVncngnKHQaPTK/q85AH59S3Eyb2j+RAkXLa/t4P0l1UGo6cZop6DKPMoNW0npf7vm8Y319RH8y0BW/TnVLIalOw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DkxjuprI; arc=pass smtp.client-ip=209.85.208.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dbXSBPwl"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-92f03daaa97so9673685a.2
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 11:51:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DkxjuprI"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-698aece3d7eso29746a12.1
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 11:55:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785437701; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aSMwmcHjZBjLxk4tyzQrSM6O41S5wCpwn6ebywV2OnTNPkISLfPnGBm1smt6LsOyvF
+         M6mA7HedDinDJVJ3hVz7V8Yo0VCCkj3b+s3/TvOw3xy4sLYSHTQn8uYj9HFGn0f6sx1C
+         pPGUyNEsWtQDndu/S2EFXK9saDkw7cv69rzgRZg/iNUd3TA0qGSlQG3pV8Cvznu4irm8
+         9dWWc3xI/kACSoEh78YVYOOwoq7e0qWeqOHQbp7rhWdfoDwqY7OIr385pPco1QixmU+p
+         xnwD2B/LTDKaB5GiqwO1TJnLPKDUGf17rK4HW2Phs6JFfACkeOWGpZaPV2VnhFEmseCc
+         Iznw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=5YXmCpAaOk6QqxLkbcXfgNTAO2qfKu1DivCGNjzW1Hk=;
+        fh=DejekihbkBvOWkPuWmPkRN+24UYxbb471eFJ+v+c2NM=;
+        b=VxFBR1pwc17rzrBnKQwAMkq8RKgY7b+Eos751UGrDVRWI/019x2dYaSjZ5bhCM1ARh
+         gQnWyxpaBN4KcLm/nGl11QywVZQhSi3Mokbtz4emUTaV8yOWFuTOKxnoGctfeZmisBV5
+         A2PMukYjz7qMH4Bscn2+C1ZS/0xNX0aNNC4gC4VbCTZvtiZwqckMvcGeIqMEuvN1AsnX
+         FwDWgtOsfSRIfMCwHiPNAY2Awr0Gr/QQGYY/LV/YytoKOuM7xKVHRuJvmD17n6OcaOFE
+         JiZ8eS0TYDNBPe64Gmx01sRq0s8OLil7UxfbAzHLWU9wjdDdP9KsOlcajtewd4r4RTzc
+         egbA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785437474; x=1786042274; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QasLks235D3Eb0nbmLmVRu8yqlEceaufhX+B37Vh9zU=;
-        b=dbXSBPwl/axs7jdG/NBdo19m0EnLk6VSS/imBSQ6U4H1gTcP0BWXunHCd+fhG4AX6w
-         ncW3/R9auVY9V4P+fCFDoOxnL2RF99+ZuHn0upWPZF/kIV2+/uah8h5f/ca/xRNOT0Np
-         bEV7CNGcQqeNvNuvnwgWKHyVhzaD208sTapD1GjMx7gdkTpumWofIS5DSzT1e5ljAj+x
-         P8W2QUao4629ATFS4u07xX26ggH83i0oGmsPp3g3Q4nBWIe1AetNb/Qd5btvHJ+ZVjI6
-         MBVNWkV4P2DHEwJoz+ncMgr+zznAI+hyfG6yJKCtRGNa65TdKaLpZCdsjCRzY36Aer8I
-         8axA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785437474; x=1786042274;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=gmail.com; s=20251104; t=1785437701; x=1786042501; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QasLks235D3Eb0nbmLmVRu8yqlEceaufhX+B37Vh9zU=;
-        b=IinKo8zSI3T5XtbqszMh6B40lJG6ky1TZ7YwGe+KTT6CAQkoLx5Oc0Fy+D/FRV/oro
-         /ofNRQCfDR14r0Esp+eNcqngwKhMo7lWkp0a06p2W/Ofzj8d0q47ej3ZVfyZ/J8WPLDH
-         nn/918qA/MubKB1ayVCZhhvn8gPlRARNDS76Wfyl0oY8W6T0dygHuGezN2JpRieFCfNz
-         U5Qs+lPnPVfJ2/LliSMC5I2SU1K6Od6qXu6u5t/Rf9RqQhpmBdI53K27Qcx+DnRjgbfQ
-         wTcBcWatdknJO2ZrwnHK8HjJBR+4i3he5PpPTGKKiQQP3JfTdgOS0+iVG5b2gMl3ynum
-         0ZYw==
-X-Forwarded-Encrypted: i=1; AHgh+RoKTc89ntC1UFd+IMlk8DU6vsnIm2VAkLzWWKatlX4vEV8+EdlsBvPGHd1Tldbb89rCHCls0bk=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6BkDIyI3c1KY1dl+boqHh5Mx9m7kkEqd1WVPmkDQDO3IoUPIJ
-	N02iSK4hxtE9CF5/9LnQBj0IoKMHPnaZ85mcHp2y0PKy6ZOoRV+x1v8=
-X-Gm-Gg: AR+sD10rY7FZb7tfElH6z8tIEXw70Msn5fUPzIQd6ZQ7rZr8uEcg7UuQN5NPpIWSLQ3
-	CeY0EG3qpdO0m/KnwHox21THV4aCDLFeuUut+iNUBFOfeJjG7zH1/+9J/4oWYc3J356I2K4JSkl
-	DnB3aLSr1PGPQncDxjXfCMk3f/LDa3D6ELqsGBVKnRN29eJL6Yr1xPzDsGVqtPRaDU3fCadXA/T
-	FYZ0ax0ie9/auWd9t3BC+gxEGDK7RvjyhUaDEZm0Y+Qp8OgaQF7U1jLSEaG24qGkzCBC7FZTv0H
-	H169RVja4ZRECpsNjzkB9egm3qO6AcKQXAE2JM5cO25xg/ned3qv0P3kAHejW7R8Qw+1ZZrEIGg
-	I9LCE9V85nB3/DSY4PkB7WyxzGekVPL7gQESB8SvT4zhkOYW58taVzSrzgM18/664te/y/eR668
-	GgfWKeomHGW6j9EEEv321rPbKX+ErxoGPW90dd4ppqwiwSvETfiu81SSuprMUmg+tkvYkHxot2I
-	xRo3PPZ3P9hrDJPokRB1OP8AcGULvbQ+xRA8KVHoQ==
-X-Received: by 2002:a05:620a:a189:10b0:92e:4a4a:4478 with SMTP id af79cd13be357-93485fc90bamr300178385a.31.1785437474388;
-        Thu, 30 Jul 2026 11:51:14 -0700 (PDT)
-Received: from NAUTEL-9N0B043.nautel.com (host-76-11-42-59.public.eastlink.ca. [76.11.42.59])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-933d3220f1bsm470795385a.9.2026.07.30.11.51.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 11:51:14 -0700 (PDT)
-From: Ryan Wilbur <rwilbur633@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: andriy.shevchenko@linux.intel.com,
-	hvilleneuve@dimonoff.com,
-	ilpo.jarvinen@linux.intel.com,
-	jirislaby@kernel.org,
-	john.ogness@linutronix.de,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	manuel.lauss@gmail.com,
-	rwilbur633@gmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3] serial: 8250_of: clear stuck empty-FIFO RX-timeout on LPC32xx
-Date: Thu, 30 Jul 2026 15:50:42 -0300
-Message-Id: <20260730185042.28678-1-rwilbur633@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <2026073005-clubbed-spinner-9e9f@gregkh>
-References: <2026073005-clubbed-spinner-9e9f@gregkh>
+        bh=5YXmCpAaOk6QqxLkbcXfgNTAO2qfKu1DivCGNjzW1Hk=;
+        b=DkxjuprIVabGM0Pmd9TNb4byitvThIHjYVVvEeLbQ8xKafvCXMcvQ9KS8zpdgKsWSt
+         ejg2DdTv1u4LKROoCAFrM0+KcLyJ49585Vkbc1I7OYe3C5ufasNcyBzSgzBml9PYzKFc
+         UbHedi866vi46oBoc7ZBbxJrBowZoXAHxYPIMOoMosgW5qIQKuV3W2HlmmalzYjN+qsM
+         v120GNqWsoL8qOoImjNbqtMbgnL8ncq3hIXTdihZPz4QAU0F03+hVY0Tw9tYYJiKMqmc
+         5+OouL2K1CZYHEZM9kEGGsuXvABg+WpoVGSD2/Z2hz5MHtnutmR1yyCAMacM5KnHz6u/
+         EYIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785437701; x=1786042501;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5YXmCpAaOk6QqxLkbcXfgNTAO2qfKu1DivCGNjzW1Hk=;
+        b=au59jDT3XAkUct3q9Vjpxito3wplbuYBbGYsMOd9pmuvL3sNyaz4aEjWQRbuf2IwLG
+         GhN5KtX+utBrqaJoWfJdWF1UzGaog/BGomMTTaKd8K1GPq1tGJdZ5wlPemVBdXVSn4n0
+         g/79BMaGKrgK7ALx/cw9HHT1H8Jpwomu3guiMd6gg6fCckiZQmReP1jEWTWuYqHlPmmI
+         hVniUXDvEis8HzHjS2K4d0w60NekYxxD2iDv86brtWgVp73xcIlAAxH/S7IQcePocpqv
+         u9RZEC6OUh3CAg3RRPVrTQSAgozryUdAfpom3fmnhCSM1IIQyS3obBrYEC+QIQYUZx4s
+         1vvA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp6sWoS6z817db7bO8NxalwIHuBa86roQfRCkvEgeS7oUZt+5lRSWkpMqLhUYwSRbrdDJ71EiE=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+yagD6Fe4ESFDdOm43FdhBgJn9+ZGaom/GKT3l0CnoZBqZMDb
+	Nwb9bIbzpThVumDFBsQ+xbP17F11h7MGGE+Z7arfLZ5AUvUsJGOys6kjxqCaxcSQ23CHMSzoaHs
+	DJmmwAC4dHqgMKAV6Ry/tZI0ga84qVvU=
+X-Gm-Gg: AR+sD11vM+5PndUtT4z+zS5jDkbj1jdAEOqn0l0OEf51l4IACUo9ozDH61dnXnee0dR
+	6RuasuEgYXN1rHrHlOdjK1QKmygx6cWhg3CpHCUc2Q9Fxmx9BeZv+QUDzul6tEE7WsjPp4D6O2y
+	Vxs7eVsWMUM7TQiXXbk68EypgxFV8JWS0DMEu6qu7msEnIt9o4QLbJEWatcSxTVfT8lXluJpdr5
+	/oBuVBERPUk7fzLNgPZNgjPSr440Z/OjLKvGSBo9IWrODONKnryzF+T8jv+BU3HSNBrLBMU1y1x
+	td6qxmG/qpHteFvZqQ839wIi1J5cQuNzQTWEkWa9EY7h8innqjlvjl8Z+5i0zA5X0qMDDR3oxFU
+	cgv2oejr0zctHgbiVg1lljK3bIVUAeAMN4dlmrgZZQCiVmjd8rkOecSgopLU=
+X-Received: by 2002:a05:6402:2805:b0:69e:1246:a86a with SMTP id
+ 4fb4d7f45d1cf-6a090cbeb64mr779286a12.0.1785437700643; Thu, 30 Jul 2026
+ 11:55:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: =?UTF-8?B?7J206rec66+8?= <fyonglkm@gmail.com>
+Date: Fri, 31 Jul 2026 03:54:47 +0900
+X-Gm-Features: AUfX_mxRSKjjiZPlc1kaCHXfAg1QgCrse_BpBVLA3MojYAUdSflKJIFh2zzYrJk
+Message-ID: <CAPLyb-a7bWCq0GzyOcztLm3-7H0GOP64JynosfO9k+yHy7diPw@mail.gmail.com>
+Subject: [PATCH] io_uring: preserve task restrictions across exec
+To: io-uring@vger.kernel.org
+Cc: Jens Axboe <axboe@kernel.dk>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-> This breaks the build :(
-
-Thanks, and sorry. It slipped by because my build had
-CONFIG_SERIAL_OF_PLATFORM=y, so modpost never flagged the missing
-namespace import. v4 will add MODULE_IMPORT_NS("SERIAL_8250") (as 8250_dw.c
-does), I'll send it once I've confirmed the modular build.
+Per-task restrictions apply to all rings created by a task. Once
+installed, they should not be dropped across exec. For a task that has
+used io_uring, the exec cancellation path calls __io_uring_free().
+This frees both the task context and the per-task restriction, so a
+ring created after exec is unrestricted. Split task context cleanup
+into io_uring_free_tctx(), and use it from the exec cancellation path.
+Keep __io_uring_free() for final task cleanup, where both the context
+and restriction are released. Fixes: ed82f35b926b ("io_uring: allow
+registration of per-task restrictions") Cc: stable@vger.kernel.org #
+7.1+ Signed-off-by: Kyumin Lee <fyonglkm@gmail.com> ---
+io_uring/cancel.c | 2 +- io_uring/tctx.c | 7 ++++++- io_uring/tctx.h |
+1 + 3 files changed, 8 insertions(+), 2 deletions(-) diff --git
+a/io_uring/cancel.c b/io_uring/cancel.c index
+8c6fa6f367e4f..7d7820eab878b 100644 --- a/io_uring/cancel.c +++
+b/io_uring/cancel.c @@ -660,6 +660,6 @@ __cold void
+io_uring_cancel_generic(bool cancel_all, struct io_sq_data *sqd) */
+atomic_dec(&tctx->in_cancel); /* for exec all current's requests
+should be gone, kill tctx */ - __io_uring_free(current); +
+io_uring_free_tctx(current); } } diff --git a/io_uring/tctx.c
+b/io_uring/tctx.c index cc3bf2b3bdbc9..466b7300e208e 100644 ---
+a/io_uring/tctx.c +++ b/io_uring/tctx.c @@ -43,7 +43,7 @@ static
+struct io_wq *io_init_wq_offload(struct io_ring_ctx *ctx, return
+io_wq_create(concurrency, &data); } -void __io_uring_free(struct
+task_struct *tsk) +void io_uring_free_tctx(struct task_struct *tsk) {
+struct io_uring_task *tctx = tsk->io_uring; struct io_tctx_node *node;
+@@ -67,6 +67,11 @@ void __io_uring_free(struct task_struct *tsk)
+kfree(tctx); tsk->io_uring = NULL; } +} + +void __io_uring_free(struct
+task_struct *tsk) +{ + io_uring_free_tctx(tsk); if
+(tsk->io_uring_restrict) { io_put_bpf_filters(tsk->io_uring_restrict);
+kfree(tsk->io_uring_restrict); diff --git a/io_uring/tctx.h
+b/io_uring/tctx.h index 2310d2a0c46d9..76ad1ad4594ef 100644 ---
+a/io_uring/tctx.h +++ b/io_uring/tctx.h @@ -12,6 +12,7 @@ void
+io_uring_del_tctx_node(unsigned long index); int
+__io_uring_add_tctx_node(struct io_ring_ctx *ctx); int
+__io_uring_add_tctx_node_from_submit(struct io_ring_ctx *ctx); void
+io_uring_clean_tctx(struct io_uring_task *tctx); +void
+io_uring_free_tctx(struct task_struct *tsk); void
+io_uring_unreg_ringfd(void); int io_ringfd_register(struct io_ring_ctx
+*ctx, void __user *__arg,
