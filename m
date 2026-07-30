@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88AAF446BFA;
-	Thu, 30 Jul 2026 16:16:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BF2449B01;
+	Thu, 30 Jul 2026 16:16:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785428199; cv=none; b=H+zg/LhLRR/NPng5pPx0VRLlhe5tC0hsyYQ2CuDbQhofTXwx7DrmOVPNs8BlrqvUvAUIyoghxRboBAM53ZDL9LRodonBJ7Wn3LI20LY1K8uY2c6TX8g0y+T9173xCbfrP0RbjIXsLO22CEkTa300XlUnLPqMUuq2NsRKn6rATXk=
+	t=1785428205; cv=none; b=XY2zYP40ff/763yjGEEgp/PNSDpAsO7hsVlNW18l5uPwyYKHsoV3JNKgPQFgBQ5cvHnR2GoSNHmbz5P81gHcareT9I+D9o+w3aFQ71VKX4lpGm0SHhsJfp1siGlcUE/Gb/T7lDHXeKhT8FhigzTKlpCZ9gCYpHYf3ZvIvtDJV7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785428199; c=relaxed/simple;
-	bh=RX4sFzh1d7RINrobr85tyEa/u7ju7WxEHwYF+i6/I8w=;
+	s=arc-20240116; t=1785428205; c=relaxed/simple;
+	bh=TqnlX2vFYvsBemfFy1COj9OLKfm4Rrs0NEKOjEGfUJw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Fwi8QzMrfps2iEdBF+YckZYOZkIpZpek0f6G1KfhSAtXbLYKmE2a0WKcomFbEC8Wsc7WaRphVGO1H4tT4uDjErp9g00DtOqfEFgtuk3sad06Mw25LW11AMtShpdM7ilYX5wojKHPxU63S9Y82Uef1oYdjpT9SGCU/NJQSjjsnnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TeGak4/N; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AVvE1lJuB0X/Un0bqmd5QmKqh0j8H9ZrnusZwjjfLrM3GE1N2wxE+Y62GmQe29ihQPgXVGyi32nVaEqUpNM/RuniKkNnBLO/KeVappvqtniQ5kbVOD6qCTf76x3XtQzTMUJSXCvo5/58OS8rDtsyZDaBHIfFsmm8YabLLhtMkiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sWxisxSB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TeGak4/N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C960E1F00A3D;
-	Thu, 30 Jul 2026 16:16:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sWxisxSB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7C9E1F000E9;
+	Thu, 30 Jul 2026 16:16:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785428196;
-	bh=ENAQSgbcHqsLaEJJ1NB8niNNaJicBz1h2Ugfu4P0Yvc=;
+	s=korg; t=1785428199;
+	bh=ADzOESyl2J66jWLvfSQtcC9OdsaiBKOXYMBRvKbHTR8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TeGak4/NCuYX3pcXif+ZCmhn1cdYSWaUTzWwdK1aivw4Fs5yLJAGkqNkd484/iDRk
-	 j71HAxMVwyUluMkn7QsySJKFKgw56wS7bU77E6O2jH9H4t85UuG6VxdfIdWScUT934
-	 hrS06ekdh019/468g2o/wCWluVj/3LkZxsI7i00Q=
+	b=sWxisxSBLdHaiWtgoUfMImSOTleEMXE+UUdSi9478w8b05XFvZNBtrK8NCExVi8XV
+	 V8WU5Y1ZmSL+WwYF7sf0xPSppczJNhbUQr9GNHDV3Y2NbLukow7A3Xja/RRaITPcPa
+	 0VJXFhzaN+warOPGL/ggO/ZR/dm21sD96OXYZE58=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
 	Mika Westerberg <mika.westerberg@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 437/484] thunderbolt: Keep XDomain reference during the lifetime of a service
-Date: Thu, 30 Jul 2026 16:15:34 +0200
-Message-ID: <20260730141432.973956872@linuxfoundation.org>
+Subject: [PATCH 6.6 438/484] thunderbolt: Remove service debugfs entries during unregister
+Date: Thu, 30 Jul 2026 16:15:35 +0200
+Message-ID: <20260730141432.995668449@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260730141423.392222816@linuxfoundation.org>
 References: <20260730141423.392222816@linuxfoundation.org>
@@ -52,37 +52,71 @@ Content-Transfer-Encoding: 8bit
 
 From: Mika Westerberg <mika.westerberg@linux.intel.com>
 
-[ Upstream commit 8b4060998637f06975fceee9b73845d8672d411e ]
+[ Upstream commit 4d5fc3f4068568dfcb8cbe2852b4adc56394aa26 ]
 
-This is needed because we release the service ID in tb_service_release()
-and the ID array is owned by the parent XDomain.
+We add them as part of the register path so to keep it symmetric remove
+them as part of the unregister path. This also removes them even if the
+service itself is not yet released (but is unregistered), thus allowing
+new register with the same service name to happen.
 
 Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
 Stable-dep-of: 2c5d2d3c3f70 ("thunderbolt: Prevent XDomain delayed work use-after-free on disconnect")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/thunderbolt/xdomain.c |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/thunderbolt/xdomain.c |   14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
 --- a/drivers/thunderbolt/xdomain.c
 +++ b/drivers/thunderbolt/xdomain.c
-@@ -1008,6 +1008,7 @@ static void tb_service_release(struct de
+@@ -1004,7 +1004,6 @@ static void tb_service_release(struct de
+ 	struct tb_service *svc = container_of(dev, struct tb_service, dev);
+ 	struct tb_xdomain *xd = tb_service_parent(svc);
+ 
+-	tb_service_debugfs_remove(svc);
  	ida_free(&xd->service_ids, svc->id);
  	kfree(svc->key);
  	kfree(svc);
-+	tb_xdomain_put(xd);
+@@ -1019,6 +1018,14 @@ struct device_type tb_service_type = {
+ };
+ EXPORT_SYMBOL_GPL(tb_service_type);
+ 
++static void __unregister_service(struct device *dev)
++{
++	struct tb_service *svc = tb_to_service(dev);
++
++	tb_service_debugfs_remove(svc);
++	device_unregister(&svc->dev);
++}
++
+ static int remove_missing_service(struct device *dev, void *data)
+ {
+ 	struct tb_xdomain *xd = data;
+@@ -1030,7 +1037,7 @@ static int remove_missing_service(struct
+ 
+ 	if (!tb_property_find(xd->remote_properties, svc->key,
+ 			      TB_PROPERTY_TYPE_DIRECTORY))
+-		device_unregister(dev);
++		__unregister_service(dev);
+ 
+ 	return 0;
+ }
+@@ -1123,6 +1130,7 @@ static void enumerate_services(struct tb
+ 		tb_service_debugfs_init(svc);
+ 
+ 		if (device_register(&svc->dev)) {
++			tb_service_debugfs_remove(svc);
+ 			put_device(&svc->dev);
+ 			break;
+ 		}
+@@ -2048,7 +2056,7 @@ void tb_xdomain_add(struct tb_xdomain *x
+ 
+ static int unregister_service(struct device *dev, void *data)
+ {
+-	device_unregister(dev);
++	__unregister_service(dev);
+ 	return 0;
  }
  
- struct device_type tb_service_type = {
-@@ -1116,7 +1117,7 @@ static void enumerate_services(struct tb
- 		svc->id = id;
- 		svc->dev.bus = &tb_bus_type;
- 		svc->dev.type = &tb_service_type;
--		svc->dev.parent = &xd->dev;
-+		svc->dev.parent = get_device(&xd->dev);
- 		dev_set_name(&svc->dev, "%s.%d", dev_name(&xd->dev), svc->id);
- 
- 		tb_service_debugfs_init(svc);
 
 
