@@ -1,107 +1,133 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C0D2423A79
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6144248A1
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:20:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785413958; cv=none; b=Ozj1J+SZPHoWnp0DkZ0a5JCF+QiUD+Dfpz/n48p6OjmZR81BOsNhTofmMJgsygbgdzOBJ2sHofeCZxzJxjE6lRXZBnwl5HbHoRHcL6OcueISE/s3jVBXQRTj50dtC1BCNSQhNpFEBOjoAnnQfoculMpfHZstU7FAkzYVh/6/juc=
+	t=1785414037; cv=none; b=qAbxObmsqrPFwF4pImzu9f4eNkIoylDGHcOxSoU9FRXREiya1S1cmRQzYptSHIRzmRP4vT2M3VTUlhn2hgPmUDQWdy6AN0uQSAja/zt8tvoRzEcley1T9PqP9ibUBiRAAUoWtT23npkNq/gEw8CBydrD75JEEwQvzbwulQE4Cdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785413958; c=relaxed/simple;
-	bh=ChwpBgvydSRCyl30CYsOXGRWljoGGY9h81QLREQDLPo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kw2et1Bk2ksahCNLOiRmbEDLnJOyQg3PMmlOYB3iSYvM8/DVWdrgEpgqVj/VdvPj2k7Vh7mkzQYawXC8RasQFZfHDLLL6TqIAdaAOI2yDhpY0dvVgymc/R0N8b5O5eVfWERaFS5lqWUzuDEtsXgqlLX0jRYq8OHwC4oZolf2egI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com; spf=none smtp.mailfrom=readmodwrite.com; dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b=f6V3VpJq; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
+	s=arc-20240116; t=1785414037; c=relaxed/simple;
+	bh=gRGySUQgCN6HTBJuP6J5a+XBQJj7MDX6z+ieHVbFzTY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bmp8DlyR7AiYwLH6YGFaEkwQcc/X82kIXDj5t9/oxfZxPzOTNIwa/OML5Sjod3DsAM4/hcl/uFSdZHFm9qIi8MWr1PlMsBU5u9T5MtRjXnu5+FrTK7PX0YLXnkpmtfeGZhZmP/ZS4J8+4MFoiIJaYewHEJHsDx3Iu76p7MsGX/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O11NHvGj; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.b="f6V3VpJq"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4954df200ddso12443865e9.0
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 05:19:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O11NHvGj"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-c998fd549a8so1406383a12.2
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 05:20:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1785413954; x=1786018754; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aGfVWtxrVG8Gs+fqhc2m5PVIKlSxiEIBozWBl1vrMD4=;
-        b=f6V3VpJq0HGmnMSl04/RHdEnlAxgcPgjXxluE/FnFhlJR+RX+juRF/IubAyb27buJH
-         sgmoGZyPhzCr285CYwPrnYs1eLutvIHxfBQEnkn0OdVLR+psUXBt7Ul62AaJCIa/SgfY
-         N9Ul7Q8BjOKVbFJMnYYo5/qcZ5xH1Hcb75oskLa23tvzvLFVhUT6WYlhlV+5o8BdbA7J
-         pUHKp/ZbL3MD1MpY3MAmyCnIdGB+bA7O3BWdaDo4+DMPOVybo0KPBOZg3CQ0zpRLLxUy
-         i5Raw3SVZZw0tKnITWTkNxIUiTiyWQlwJoVMwB0jFxRnGroI40xV/0JG/yUAfXQxvlxi
-         f8ig==
+        d=gmail.com; s=20251104; t=1785414035; x=1786018835; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+mFQjefOe6oMqkkHRip9h5eiVqU+Xd9obx5gLjx4osg=;
+        b=O11NHvGjs4dKQBx7d2Y/YUHEQqG7mYFTMUPqz5h7HRKhxq61lGmHzzeBqwKipuJi5w
+         H52Jxr+EUOflNK4Ek1iUBul6df07ICeffTfYFSjNS/qCOXMkbTYH2rSodTd+jixRQlUU
+         iWIyUN3g4+Gsd2yBx0AtXNljga6Hc2jzuGCbdr1wcfI6heHCFqADdaPEUFu90G7jiPXc
+         WUcStnnenONCPyybcjen9GJclY/GYw/OSnxN6LuY8MVujWgaIGpZUCiX/6GJHoK1qW/l
+         zkI72REDvu7qvkz1ZS3yLP/FhIP+VQ5ZzqB7i+CE6oPE7YGDLajxyr1yNxkCQbm0/54l
+         Rsow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785413954; x=1786018754;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aGfVWtxrVG8Gs+fqhc2m5PVIKlSxiEIBozWBl1vrMD4=;
-        b=NngvQV0eM0xocaB6B4B77puSI0xuJnhx5Mqk/fH6iglqDYQNoAN+c/fuvyiT8i+8Qj
-         TYY/+K8TNdHhE4hT6Y9rXSpNw4s6V3nz4LdZ1f5EcFPfinCbJJNsxl10/h0FzOEsYzEK
-         7jlfMgoDnABZVdMjzuCXRUAVj/sh2EzG91Iu3ZSNFTUElF3TxTjppQY3l9fB3+tLc8WB
-         SUgbWRQPB6H4mu/oYun4ekbj2w2TFyZHQZv+A8GEKpx5pv2uewZJpZnuC6hsVjXQHLyg
-         2SeJZc4Qgy0589OUH4aDuDCC3ivmhCXuby5ov0kt+pFSnGNSdU7HQPFo35q/zNP4l7PG
-         jWTA==
-X-Forwarded-Encrypted: i=1; AHgh+Roc4tGlwzThLxL4PJFpLQTNeNdIYmIc3GNnceWDrw35zzJylT28Cuasw9Ai4mL5NsEOkLb5QRE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YypAOhNVH3QPwL4V8eh5UGkQrviHdK0fNINm45HY9TEA1uzFZmI
-	QcqcxK4KBZW2uyDHlBMhN2IGPDch9bHez4pnIaCASuA7ohq6jPyxnGnoaDmX0aKer3E=
-X-Gm-Gg: AR+sD12b7Xbz8N11jWF4fArvgq7LTnxWLZSTrJIacDWPPX6lNxZwdK3LOsZ42Zp7Fat
-	Vws5RKO0WIeDMDnj1Qfmu8x71dA6l9lmT38niwkyfEbN8GXvhf85xGlLUsubRr/lA4Pqsik2xv5
-	QH8E3VKxvwLzEuAQTNcHocLYpwa9tvEwvY/2XesZUF5DZkbSYf7Hmdn4traxnX1mb9+NjwLVWvm
-	uo4EdEPVtvpB5wIonLHgRCBwzf3hYkVd9AJCwzdYnxGZXtP2LIFT3K2VVFDjP5J3GckryD9Ghv8
-	x95H5YWAuO/6JliIC8JlmTxgUPZDqw+pRyaPJ+s7aJit5Yd1Mx4C3ww+/6YKUcz/DdvcaeAyEMh
-	h1kYgt36Yf2nJg9Z/wzBLfLdzla8LWWDPJ0StKF2TG8F3MSUEnixgWUFbMfO1yrbTEcocF7AEHm
-	H/dUf5UbnRIKULgY71YHSrLRqHJc4EnJ00hPPtghl1DXf0kBo=
-X-Received: by 2002:a05:600c:e548:20b0:495:6022:5a14 with SMTP id 5b1f17b1804b1-49800eb98b3mr22025465e9.34.1785413953494;
-        Thu, 30 Jul 2026 05:19:13 -0700 (PDT)
-Received: from localhost ([2a09:bac6:37a8:ebe::178:11c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-498010aae15sm58243785e9.13.2026.07.30.05.19.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 05:19:12 -0700 (PDT)
-Date: Thu, 30 Jul 2026 13:19:11 +0100
-From: Matt Fleming <matt@readmodwrite.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: Frederic Weisbecker <frederic@kernel.org>, 
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
-	Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
-	Zqiang <qiang.zhang@linux.dev>, Tejun Heo <tj@kernel.org>, Andrea Righi <arighi@nvidia.com>, 
-	rcu@vger.kernel.org, linux-kernel@vger.kernel.org, sched-ext@lists.linux.dev, 
-	stable@vger.kernel.org, kernel-team@cloudflare.com, 
-	Matt Fleming <mfleming@cloudflare.com>
-Subject: Re: [PATCH] rcu-tasks: Defer IRQ-disabled callback enqueue to
- irq_work
-Message-ID: <amtBE9JlGBPwsIuU@matt-Precision-5490>
-References: <20260713101245.3207634-1-matt@readmodwrite.com>
- <amiGJWJ-tzUMYizu@matt-Precision-5490>
- <6f002779-3607-47d8-af61-a74eeb987e6a@paulmck-laptop>
+        d=1e100.net; s=20251104; t=1785414035; x=1786018835;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+mFQjefOe6oMqkkHRip9h5eiVqU+Xd9obx5gLjx4osg=;
+        b=d47lRbK4lGgaMbPCPgUdODYKuMNvJ/GyFPDodE6LrIHYz9rwWXOhYW3t8+GWctUNJy
+         kISL8yoBlK67fyQCGV/rXwsclEwh7E7C+PXMDeW+7v5/vp3Q9i+TnTNXruYZtfL+LFxH
+         v3uMUlg0HRpg9rueCUSVa4TT3NQLQXZ6xQAubhgDK8l/EfA+2BY4pYjnirMJqKvpGROR
+         j4M9/N3565OdvQV/PlU4eqb47RHwc7GkitWGJWISTRl5aVlE+1Ah4i1k/Bd0JNRsRtXJ
+         BtOjpJEXV4NoX0o8P33PMh6ZjCGp3oSkardcbcUxIrjkAS2Ic50SnAmU9yV/GHQmoyqi
+         iRTg==
+X-Forwarded-Encrypted: i=1; AHgh+RrYsg+OJUqzIbpI3k4uDg+UFFVLP4gALYWLrZqR/e/z2HvkPAW5ZLu+tpHRKdzGoNRx/1WZAxs=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywu7K7B/kI94Q2l7MMWDNRYb/TyEbP1SHmqi9mOnG/TNqiYeUut
+	qexqhhMP2spuGc3zUJyil/PbHekuRYElCu2K1Nufguh+v1+LKoZHmm7A
+X-Gm-Gg: AR+sD10rGBQAj+hi7HgUFPmj8RnAcd8sfjHSqq40Pjs7eXWh2+2HJv+0ktSN65PqXyM
+	oSoMEu9KmbCsjfJB4gkbEFT4J5MW6Dz7+SER40o58ItvUVnyZtpSlj211lqIUw0V317Fphgu/b4
+	hkrpC0HetwwGbe//yj9rauWxbfQw+Bl5I5Z+KMfPWY5XrKEakTL7L4lnA4e1g0EtLA00VTEQzp3
+	sx3coYywXYPDdN0MMyrXgw1cJHkkitkpQiRi2t+MmvC+N1umMnFYlZGF4ct3BO/WMWvHgeI0qG7
+	5QDn7OCacAfD9Iuo/xwEQotr5le6JHiEXNVFYejJAcQj+jaK/9xUtg3jheH4EMf7FVGvY6iUOL/
+	ZU/s1fcQ+2JyM6WwMwn4MxIC0Sk+ItsbqOoqBKUZPJixgswAO3O4nfXSXHr1L3gGD/hpHbP7jE5
+	PpSw4z0JvYDaa14SR+2YWOcq+V7i8SBiIOGhU+TkR7TPkqdsEeQ/Y26AwZRoWxmTwoUZPPgYz5C
+	/xphE8MOG8K4bVX5zAEz1wVlufW1jzvw42pUCFnShLE+mIjn/mdMCocX3CfWackEQJk1P+AFPDm
+	MQ9WWjk=
+X-Received: by 2002:a05:6300:4045:b0:3bf:49c8:f7b with SMTP id adf61e73a8af0-3c900465733mr2543213637.13.1785414034864;
+        Thu, 30 Jul 2026 05:20:34 -0700 (PDT)
+Received: from localhost.localdomain ([101.251.7.10])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504dd42a9sm24944127eec.30.2026.07.30.05.20.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 30 Jul 2026 05:20:34 -0700 (PDT)
+From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+To: yang.li@amlogic.com,
+	marcel@holtmann.org,
+	luiz.dentz@gmail.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: hci_aml: validate firmware segment lengths
+Date: Thu, 30 Jul 2026 18:05:28 +0545
+Message-ID: <20260730122028.98159-1-acharyalaxman8848@gmail.com>
+X-Mailer: git-send-email 2.51.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6f002779-3607-47d8-af61-a74eeb987e6a@paulmck-laptop>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 28, 2026 at 11:44:04AM -0700, Paul E. McKenney wrote:
-> 
-> Apologies for the delay!!!
+aml_download_firmware() reads two lengths from the firmware header and
+uses them to build pointers before checking that the header and segment
+data are present. A truncated or inconsistent firmware image can make
+the driver read past firmware->data while constructing TCI commands.
+
+Reject images shorter than the header and ensure that the ICCM and DCCM
+ranges fit within the loaded firmware before downloading either segment.
+
+Fixes: 37bac77e4649 ("Bluetooth: hci_uart: Add support for Amlogic HCI UART")
+Cc: stable@vger.kernel.org
+Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+---
+ drivers/bluetooth/hci_aml.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/bluetooth/hci_aml.c b/drivers/bluetooth/hci_aml.c
+index 959d9e67b..067fbf278 100644
+--- a/drivers/bluetooth/hci_aml.c
++++ b/drivers/bluetooth/hci_aml.c
+@@ -247,7 +247,7 @@ static int aml_download_firmware(struct hci_dev *hdev, const char *fw_name)
+ 	struct hci_uart *hu = hci_get_drvdata(hdev);
+ 	struct aml_serdev *amldev = serdev_device_get_drvdata(hu->serdev);
+ 	const struct firmware *firmware = NULL;
+-	struct aml_fw_len *fw_len = NULL;
++	const struct aml_fw_len *fw_len = NULL;
+ 	u8 *iccm_start = NULL, *dccm_start = NULL;
+ 	u32 iccm_len, dccm_len;
+ 	u32 value = 0;
+@@ -281,7 +281,21 @@ static int aml_download_firmware(struct hci_dev *hdev, const char *fw_name)
+ 		goto exit;
+ 	}
  
-No worries :)
+-	fw_len = (struct aml_fw_len *)firmware->data;
++	if (firmware->size < sizeof(*fw_len)) {
++		bt_dev_err(hdev, "Firmware is too small for its header");
++		ret = -EINVAL;
++		goto exit;
++	}
++
++	fw_len = (const struct aml_fw_len *)firmware->data;
++	if (fw_len->iccm_len < amldev->aml_dev_data->iccm_offset ||
++	    fw_len->iccm_len > firmware->size - sizeof(*fw_len) ||
++	    fw_len->dccm_len > firmware->size - sizeof(*fw_len) -
++			fw_len->iccm_len) {
++		bt_dev_err(hdev, "Invalid firmware segment lengths");
++		ret = -EINVAL;
++		goto exit;
++	}
+ 
+ 	/* Download ICCM */
+ 	iccm_start = (u8 *)(firmware->data) + sizeof(struct aml_fw_len)
+-- 
+2.51.2
 
-> Alternatively, please do feel free to hold off until we get the public
-> posting of the call_rcu() and call_srcu() deferral patch series.
-> It will likely provide a helper function that you can use.  To your
-> credit, your initial definition of the irqsoff local variable within
-> call_rcu_tasks_generic() is what we seem to be settling on.  It should
-> also clarify what needs to happen when a CPU goes offline with deferred
-> callbacks.
-
-Sure, I saw the patch series and will piggyback on top of it.
-
-Thanks,
-Matt
