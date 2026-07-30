@@ -1,121 +1,103 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0521449B31
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 18:10:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4553B4EB5;
+	Thu, 30 Jul 2026 18:14:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785435018; cv=none; b=mlHfnrSM0DJKZrPA6QGdZPufIlB9mQjakQj5/TLQznUzZT0k6koL+3x142XyHmCvHnmc8Wn/CGcnua9hHoMw0QBzVgs9JPraY2lzkx35klyiHn3fWIDpMRcBi71qZb8+/SK25UIUXBOFolRtOH2WsahcO5nRbp7+pLYYHV6tfLM=
+	t=1785435286; cv=none; b=P8qaoONBfrWuKkfdOD4GtWjJdZMNH6helLBivMDWwBz0jHZJraSeI8uIB4etwQpmoJFbnu1OoqeRTU+VKVxdG741yeybJ5N6Gftj4X5MR/nIkuEFt+4O2SCbaLGQc35ubSUju8e5wGzePaecXr2loP59G67Fd0F9i3N1uSfTY/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785435018; c=relaxed/simple;
-	bh=j4uG85a/lUOWlekw+/37SW+8lcXDbeUugVTGhEIFrNI=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=QbOSj1JSQiP7tZTZyeoO9PDJ2oqiql3BqzneB5dswSih7S0nDL4ZfVaxQxwsKNppA5WoB4p4pEDCsQz5SREbc9XP1ZxNpQxltXLOJGMVR1nlD5rBQycBOnU0hpEiHkiPK+2fKtWX8sRl9vRxjJsc7hqvnim4nziC7ft22CzfF3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TSsF5K32; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
+	s=arc-20240116; t=1785435286; c=relaxed/simple;
+	bh=F6+Om4p+4oo6ZFQCdI73ewqN7GtwaTrmcvQiBnOu/Y0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tlAZi8zm3+3R8/UP2tSB+oH51gtrOmNISS4hhRoIy1MmxMj34Qe2uewZG7fi6pK2cgluoyMXU+L2GIxdwrf3K4JiekgiApKMHfEeXST9UQG8bueSLLBi+Js3upk6WTezG9Xsh20tjHsFrnM91oBf9lXcOq4hwBHxQagN8nWmlEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=LFQS8PGv; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TSsF5K32"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f5ac7354dso215113a91.1
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 11:10:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785435012; x=1786039812; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/J+SX8dpZwKLLQ+HLHdBpKmApVdFrMwrn1102lcbc08=;
-        b=TSsF5K32AejbDCJcn/YMBtVjqzkong6JGX2vhYbaLeOHfH9HkOtH4up5GFBy5+S6hj
-         j0Ncik84ofrqHEJDw0TXEvrYl2YvwzWAg4FOoyPh9gTwVf7B5Ffen91Skpwa4Y8KXI/E
-         Lxql/Rb73H6IUHxNYRFEbsJoKWKGZHtqhs8EQ0qfBQWe3NDYUOmd295fZDHNcsC8JVTT
-         2iTnq6LO3Eaz9WIuHtcbQA8JFJFiedfx0texYuMq+3HrUYUtOCiFGcgeWf0zvs7PUGfu
-         Ps5SzA5e+eIKNYLamcBucKAB3J3LNZcT7G7KOlQMy+npBuSSYOCCXvHejM8a2z3wsclW
-         qZQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785435012; x=1786039812;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/J+SX8dpZwKLLQ+HLHdBpKmApVdFrMwrn1102lcbc08=;
-        b=hwC5BkgQHwFCHsXJw852KCmHXJR80d7ziPPFiXhkwz9wyIMYFykqUXHr5A10Rgryzl
-         OvcqzDkvo0RBjN/pr8A1yvZMUFOd4iBOUwj7w+tD5DvM1FlgVOS6arHwcHJNtkRfc2nD
-         QEwy0UJSIV4NyrjypyHB/+cbw7PikSewyqo5pWYfKlJ1Ifm6p613kJy8LqiiqvhKywqi
-         lAT3rcflsJrYD+iSsgcSdW9gBVjYRd26P0vE2OGL0+S+tuwJJm2Wb2LUjrivKJXJ6p+T
-         JJUdxMGI7xyALfemmiI1A6Xio3JCvFTSAZdrW5AkZq431QO7Pxmo7AimGYF6ILl4jCHF
-         t3Nw==
-X-Forwarded-Encrypted: i=1; AHgh+RoQ54Gwy638r6eR2IcgKeTij+DilTcW/diAPw2zimmSMTkNzl3kICJ0LOTbnOHNL1+EIE/8s4E=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwE3BLaRhx4O0DK0rvnkDB0wiEQxDCLEFR7O5xuNTm1EYCqk1N6
-	PRs7LUaKh7Y5VjMiDkH8lMy6I27Lgir6zVubVOob0m93UCQ4lf2rr8NFbhaW5O1zdzjngRS4cLC
-	4xmXXXNLjoVJzaA==
-X-Received: from dybvk8.prod.google.com ([2002:a05:7301:53c8:b0:30f:45f6:de06])
- (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:4c4b:b0:38f:c71:2342 with SMTP id 98e67ed59e1d1-38f9c00dfb9mr2757140a91.31.1785435012102;
- Thu, 30 Jul 2026 11:10:12 -0700 (PDT)
-Date: Thu, 30 Jul 2026 18:10:07 +0000
-In-Reply-To: <01421d53-c379-4044-9da3-5990186303ef@iogearbox.net>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="LFQS8PGv"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B18411E4;
+	Thu, 30 Jul 2026 20:13:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1785435215;
+	bh=F6+Om4p+4oo6ZFQCdI73ewqN7GtwaTrmcvQiBnOu/Y0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LFQS8PGvLUXcVO9hXUO7yjUvuMrfoYeFfqgPRhlZA1/M5CacOvTHFAttRNwEJMr4V
+	 uTm2W/bVzaPnN3S+Xa71H+xLOjeNJ+D/iLefMGf2TnlItELijO0xfBy41cjbQH6izR
+	 Ug7vW3uOvgFEElhDlwMuG8XkERfjmD2vZ+RMtrCM=
+Date: Thu, 30 Jul 2026 21:14:40 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Christian Hemp <c.hemp@phytec.de>,
+	Stefan Riedmueller <s.riedmueller@phytec.de>,
+	Jacopo Mondi <jacopo@jmondi.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Dong Aisheng <aisheng.dong@nxp.com>,
+	Guoniu Zhou <guoniu.zhou@nxp.com>, linux-media@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v5 1/4] media: nxp: imx8-isi: Use BIT_ULL() for 64-bit
+ stream masks
+Message-ID: <20260730181440.GA1600813@killaraus.ideasonboard.com>
+References: <20260728-isi-v5-0-1d22ab91602a@oss.nxp.com>
+ <20260728-isi-v5-1-1d22ab91602a@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <01421d53-c379-4044-9da3-5990186303ef@iogearbox.net>
-X-Mailer: git-send-email 2.55.0.508.g3f0d502094-goog
-Message-ID: <20260730181008.3654413-1-cmllamas@google.com>
-Subject: [PATCH] selinux: bpf: check SBLABEL_MNT before isec init
-From: Carlos Llamas <cmllamas@google.com>
-To: Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
-	Ondrej Mosnacek <omosnace@redhat.com>, "Christian Brauner (Amutable)" <brauner@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>
-Cc: kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	Alexei Starovoitov <ast@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	Carlos Llamas <cmllamas@google.com>, stable@vger.kernel.org, 
-	"open list:SELINUX SECURITY MODULE" <selinux@vger.kernel.org>, 
-	"open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260728-isi-v5-1-1d22ab91602a@oss.nxp.com>
 
-selinux_inode_init_security() marks the isec as initialized before
-checking if mount labeling is supported (SBLABEL_MNT). This was fine
-until commit 9722955b5430 ("bpf: Add simple xattr support to bpffs"),
-where genfscon bpffs mounts fail the SBLABEL_MNT check as expected (no
-xattrs) and yet leave the isec->initialized. This breaks subsequent
-calls to inode_doinit_with_dentry().
+Hi Guoniu,
 
-Do the SBLABEL_MNT check before the inode security is initialized.
+Thank you for the patch.
 
-Cc: stable@vger.kernel.org
-Closes: https://lore.kernel.org/all/akWdcp6P0FkNDzBk@google.com/
-Fixes: 9722955b5430 ("bpf: Add simple xattr support to bpffs")
-Signed-off-by: Carlos Llamas <cmllamas@google.com>
----
- security/selinux/hooks.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+On Tue, Jul 28, 2026 at 02:58:56PM +0800, Guoniu Zhou wrote:
+> Use BIT_ULL() instead of BIT() for u64 stream masks to avoid incorrect
+> results on 32-bit architectures when stream IDs are 32 or greater.
+> 
+> Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
+> Cc: stable@vger.kernel.org
 
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 8d6945edae7a..09a12eb8652c 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -2980,6 +2980,10 @@ static int selinux_inode_init_security(struct inode *inode, struct inode *dir,
- 	if (rc)
- 		return rc;
- 
-+	if (!selinux_initialized() ||
-+	    !(sbsec->flags & SBLABEL_MNT))
-+		return -EOPNOTSUPP;
-+
- 	/* Possibly defer initialization to selinux_complete_init. */
- 	if (sbsec->flags & SE_SBINITIALIZED) {
- 		struct inode_security_struct *isec = selinux_inode(inode);
-@@ -2988,10 +2992,6 @@ static int selinux_inode_init_security(struct inode *inode, struct inode *dir,
- 		isec->initialized = LABEL_INITIALIZED;
- 	}
- 
--	if (!selinux_initialized() ||
--	    !(sbsec->flags & SBLABEL_MNT))
--		return -EOPNOTSUPP;
--
- 	xattr = lsm_get_xattr_slot(xattrs, xattr_count);
- 	if (xattr) {
- 		rc = security_sid_to_context_force(newsid,
+I'm not sure this deserves being backported, as streams IDs won't be
+larger than 31 in normal use cases, but it doesn't hurt.
+
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+> ---
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+> index 9f0231ca47a3..9db9c6e55c2c 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+> @@ -157,10 +157,10 @@ mxc_isi_crossbar_xlate_streams(struct mxc_isi_crossbar *xbar,
+>  	 */
+>  	for_each_active_route(&state->routing, route) {
+>  		if (route->source_pad != source_pad ||
+> -		    !(source_streams & BIT(route->source_stream)))
+> +		    !(source_streams & BIT_ULL(route->source_stream)))
+>  			continue;
+>  
+> -		sink_streams |= BIT(route->sink_stream);
+> +		sink_streams |= BIT_ULL(route->sink_stream);
+>  		sink_pad = route->sink_pad;
+>  	}
+>  
+
 -- 
-2.55.0.508.g3f0d502094-goog
+Regards,
 
+Laurent Pinchart
