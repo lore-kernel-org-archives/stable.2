@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9630445C6E2
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 16:01:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E0545C6E5;
+	Thu, 30 Jul 2026 16:01:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785427289; cv=none; b=a4lfJ/4Heu7um5bxNDAnMFSmKwtSSJeu9hox/TkPAb0JTaRo2faDvmOcCYWKnhmceY4VBFfsBdoEeT7nVYoV0/Yg+PCjHUg35+A9qpxu2ZiRGzMaxdD45bI/PkxhuLbExIHXoVhcind1AaiwokadVOSREh36od2gsPtp2fMHHoQ=
+	t=1785427290; cv=none; b=fQcbsUS34RVMl8vTjkozsabI4rLsKf1x7hAStvy5Q7Rv2jd2kDIn4p7qBGe9uP8CL1YWSyGhJBVG1f9ecmAxzJgsm2cQ1G8Jr9q5+HJVgNSurHmCJpRFGavxSG4BPZuE+9F9s82IqBIkZxXH5oc96wKnpApyRLWW8C9/IhhpB5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785427289; c=relaxed/simple;
-	bh=BNhRZxP3+jQcKoA1xOq13S2rqBxyUNOv0hhT2KIlOgU=;
+	s=arc-20240116; t=1785427290; c=relaxed/simple;
+	bh=paPT0haMsJYCHHMRgZ+7ezvdMLmo8JA4RtVIKe5HwLE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Nr9AFV/gRqiwD3A5bi/DdmyOYLx9xQR8WLiZ4wkTHTdry5G+A4B/L9r3HsEX5/dbdeGwHBnoaFpDpoaShzvPqtRpYmpM8ElwJy38wa9rmnUukoCELDMXjbiHUA6okdhfsycmgyB+/Hk82qtf+jKT5M0/M8IGDsjnxu6tmH1IBds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=noQVOKtD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hQT3JZmfKIxlOAZiS7pl5t9LUSY4AUvhNw9mJ/3W/LDa/VLbgFj12JOoXC4/HS25eYH4KMv4aWOxAgTBVuaROn71CQ4cMyZj+gXJyVo/OZF0jWxr9dK5g02C1jLP0sROMPRUQDFZtnE3tgqo4Qaqw69T6rcb57Mjxt3z8J5CV2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mr/xra8A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="noQVOKtD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1623A1F000E9;
-	Thu, 30 Jul 2026 16:01:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785427288;
-	bh=VuWfY58gfoysBxnVgRwAqaJMB6Q0GezM5tUD3f8eJho=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mr/xra8A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0431F00A3A;
+	Thu, 30 Jul 2026 16:01:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785427289;
+	bh=567nrb7FS1uzytOBC0RS1Z9j7Du9HgWswl42CU0uIQc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=noQVOKtDVTiSH/BSVo1CXSuHp8mLeo0X1DcG9qLHtapwHn1Wok2PzafnZOAphztoM
-	 qRxmwgkGgPEQ3B+H06Gj7WmsHWo6inNNfAhU0fUmeLj0nlOttIoKVoPWq8RqqUX/PJ
-	 v+JTLU/dA/KJRqROU6WOL1JoSDsTPR9hFJJA4OTYhoFpwxM4oTOepfEiJAoDaN7RpC
-	 EVZqRYDyxxWiSc5xhxna20pWkiZ6kybp46N5GyxuYKqR52j2iZGwjMThpF1aD4dTiP
-	 8+m0GDxpD2yKbYk5Ro0EfNojk4aX91LDlQVvx6IJLHBM5a2cbMpT8ewYMBxhtLY8Ub
-	 Rx6iGC3f6Ug2A==
-From: Sasha Levin <sashal@kernel.org>
+	b=mr/xra8A2NnkhCW7pGxzUmYdeaK0tM+FEpyFogkkalum1zPKwJZBOTumECYCssV10
+	 3ChgNDB0t6ksPvCeYTbayl+Uv+BjKAnmNTHQN1E9I2LriheJb1lp3rQ7XRbAcIuNOW
+	 6z3zwQTd1m4yumnZkadu8BASjZVURvfWAsPHtPLw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	syzbot+9eebf5f6544c5e873858@syzkaller.appspotmail.com,
+	Edward Adam Davis <eadavis@qq.com>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 5/5] USB: serial: keyspan_pda: fix data loss on receive throttling
-Date: Thu, 30 Jul 2026 12:01:22 -0400
-Message-ID: <20260730160123.2768188-5-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730160123.2768188-1-sashal@kernel.org>
-References: <2026072756-mountain-living-62e9@gregkh>
- <20260730160123.2768188-1-sashal@kernel.org>
+Subject: [PATCH 6.6 117/484] hwmon: (corsair-psu) Stop device IO before calling hid_hw_stop
+Date: Thu, 30 Jul 2026 16:10:14 +0200
+Message-ID: <20260730141426.003254787@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260730141423.392222816@linuxfoundation.org>
+References: <20260730141423.392222816@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,118 +48,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 42a97c0480f96a2977e6d51ce512adc780f1ef5d ]
+------------------
 
-Killing the interrupt-in urb when the line disciple requests throttling
-may lead to data loss if an ongoing transfer is cancelled.
+From: Edward Adam Davis <eadavis@qq.com>
 
-Instead set a flag to prevent the completion handler from resubmitting
-the urb until the port is unthrottled.
+[ Upstream commit 9ab8656548cd737b98d0b19c4253aff8d68e97f4 ]
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Johan Hovold <johan@kernel.org>
+hid_hw_stop() does not stop the device IO.
+
+This results in a race condition between hid_input_report() and the point
+immediately following the execution of hid_device_io_start() within
+corsairpsu_probe(). If the probe operation fails after "io start" has
+been initiated, this race condition will result in a uaf vulnerability
+[1].
+
+CPU0				CPU1
+====				====
+corsairpsu_probe()
+ hid_device_io_start()
+  ... unlock driver_input_lock
+ hid_hw_stop()
+  kfree(hidraw)			__hid_input_report()
+				 ... acquire driver_input_lock
+				 hid_report_raw_event()
+				  hidraw_report_event()
+				   ... access hidraw's list_lock // trigger uaf
+
+Consequently, when corsairpsu_probe() fails and hid_hw_stop() needs to
+be executed, the io_started flag is first cleared while holding the
+driver_input_lock to prevent potential race conditions involving input
+reports.
+
+[1]
+BUG: KASAN: slab-use-after-free in rt_spin_lock+0x83/0x400 kernel/locking/spinlock_rt.c:56
+Call Trace:
+ hidraw_report_event+0x5d/0x3a0 drivers/hid/hidraw.c:577
+ hid_report_raw_event+0x311/0x1730 drivers/hid/hid-core.c:2076
+ __hid_input_report drivers/hid/hid-core.c:2152 [inline]
+ hid_input_report+0x44e/0x580 drivers/hid/hid-core.c:2174
+ hid_irq_in+0x47e/0x6d0 drivers/hid/usbhid/hid-core.c:286
+ __usb_hcd_giveback_urb+0x3b3/0x5e0 drivers/usb/core/hcd.c:1657
+ dummy_timer+0x8a9/0x47d0 drivers/usb/gadget/udc/dummy_hcd.c:2005
+
+Allocated by task 10:
+ hidraw_connect+0x57/0x430 drivers/hid/hidraw.c:606
+ hid_connect+0x5bf/0x19d0 drivers/hid/hid-core.c:2277
+ hid_hw_start+0xa8/0x120 drivers/hid/hid-core.c:2387
+ corsairpsu_probe+0xd9/0x3c0 drivers/hwmon/corsair-psu.c:782
+
+Freed by task 10:
+ hidraw_disconnect+0x4f/0x60 drivers/hid/hidraw.c:662
+ hid_disconnect drivers/hid/hid-core.c:2362 [inline]
+ hid_hw_stop+0x101/0x1e0 drivers/hid/hid-core.c:2407
+ corsairpsu_probe+0x327/0x3c0 drivers/hwmon/corsair-psu.c:826
+
+Fix the problem by calling hid_device_io_stop() before calling
+hid_hw_stop().
+
+Fixes: d115b51e0e56 ("hwmon: add Corsair PSU HID controller driver")
+Reported-by: syzbot+9eebf5f6544c5e873858@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9eebf5f6544c5e873858
+Tested-by: syzbot+9eebf5f6544c5e873858@syzkaller.appspotmail.com
+Signed-off-by: Edward Adam Davis <eadavis@qq.com>
+Link: https://lore.kernel.org/r/tencent_BB7C33EB9EA41B7B4B5F1B8B25C0BA13BB08@qq.com
+[groeck: Updated subject and description;
+ call hid_device_io_stop() only if IO has been started]
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/serial/keyspan_pda.c | 44 +++++++++++++++++++++++++-------
- 1 file changed, 35 insertions(+), 9 deletions(-)
+ drivers/hwmon/corsair-psu.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/usb/serial/keyspan_pda.c b/drivers/usb/serial/keyspan_pda.c
-index bfc23694a6fe..7141660d5d59 100644
---- a/drivers/usb/serial/keyspan_pda.c
-+++ b/drivers/usb/serial/keyspan_pda.c
-@@ -47,6 +47,8 @@ struct keyspan_pda_private {
- 	struct work_struct	unthrottle_work;
- 	struct usb_serial	*serial;
- 	struct usb_serial_port	*port;
-+	bool			throttled;
-+	bool			throttle_req;
- };
+diff --git a/drivers/hwmon/corsair-psu.c b/drivers/hwmon/corsair-psu.c
+index 93937e1bce196b..4ab73bcef1d125 100644
+--- a/drivers/hwmon/corsair-psu.c
++++ b/drivers/hwmon/corsair-psu.c
+@@ -831,6 +831,7 @@ static int corsairpsu_probe(struct hid_device *hdev, const struct hid_device_id
  
- static int keyspan_pda_write_start(struct usb_serial_port *port);
-@@ -184,6 +186,7 @@ static void keyspan_pda_rx_interrupt(struct urb *urb)
- 	int retval;
- 	int status = urb->status;
- 	struct keyspan_pda_private *priv;
-+	bool throttled = false;
- 	unsigned long flags;
- 
- 	priv = usb_get_serial_port_data(port);
-@@ -245,16 +248,24 @@ static void keyspan_pda_rx_interrupt(struct urb *urb)
- 	}
- 
- exit:
--	retval = usb_submit_urb(urb, GFP_ATOMIC);
--	if (retval)
--		dev_err(&port->dev,
--			"%s - usb_submit_urb failed with result %d\n",
--			__func__, retval);
-+	spin_lock_irqsave(&port->lock, flags);
-+	if (priv->throttle_req) {
-+		priv->throttled = true;
-+		throttled = true;
-+	}
-+	spin_unlock_irqrestore(&port->lock, flags);
-+
-+	if (!throttled) {
-+		retval = usb_submit_urb(urb, GFP_ATOMIC);
-+		if (retval)
-+			dev_err(&port->dev, "failed to resubmit in urb: %d\n", retval);
-+	}
- }
- 
- static void keyspan_pda_rx_throttle(struct tty_struct *tty)
- {
- 	struct usb_serial_port *port = tty->driver_data;
-+	struct keyspan_pda_private *priv = usb_get_serial_port_data(port);
- 
- 	/*
- 	 * Stop receiving characters. We just turn off the URB request, and
-@@ -264,16 +275,29 @@ static void keyspan_pda_rx_throttle(struct tty_struct *tty)
- 	 * send an XOFF, although it might make sense to foist that off upon
- 	 * the device too.
- 	 */
--	usb_kill_urb(port->interrupt_in_urb);
-+	spin_lock_irq(&port->lock);
-+	priv->throttle_req = true;
-+	spin_unlock_irq(&port->lock);
- }
- 
- static void keyspan_pda_rx_unthrottle(struct tty_struct *tty)
- {
- 	struct usb_serial_port *port = tty->driver_data;
-+	struct keyspan_pda_private *priv = usb_get_serial_port_data(port);
-+	bool throttled;
-+	int ret;
- 
--	/* just restart the receive interrupt URB */
--	if (usb_submit_urb(port->interrupt_in_urb, GFP_KERNEL))
--		dev_dbg(&port->dev, "usb_submit_urb(read urb) failed\n");
-+	spin_lock_irq(&port->lock);
-+	throttled = priv->throttled;
-+	priv->throttled = false;
-+	priv->throttle_req = false;
-+	spin_unlock_irq(&port->lock);
-+
-+	if (throttled) {
-+		ret = usb_submit_urb(port->interrupt_in_urb, GFP_KERNEL);
-+		if (ret)
-+			dev_err(&port->dev, "failed to submit in urb: %d\n", ret);
-+	}
- }
- 
- static speed_t keyspan_pda_setbaud(struct usb_serial *serial, speed_t baud)
-@@ -609,6 +633,8 @@ static int keyspan_pda_open(struct tty_struct *tty,
- 
- 	spin_lock_irq(&port->lock);
- 	priv->tx_room = rc;
-+	priv->throttled = false;
-+	priv->throttle_req = false;
- 	spin_unlock_irq(&port->lock);
- 
- 	rc = usb_submit_urb(port->interrupt_in_urb, GFP_KERNEL);
+ fail_and_close:
+ 	hid_hw_close(hdev);
++	hid_device_io_stop(hdev);
+ fail_and_stop:
+ 	hid_hw_stop(hdev);
+ 	return ret;
 -- 
 2.53.0
+
+
 
