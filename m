@@ -1,138 +1,199 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011070.outbound.protection.outlook.com [52.101.70.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFFAE408017;
-	Thu, 30 Jul 2026 09:23:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785403397; cv=fail; b=gKr+9HEG6IyIFc2nwIQSy9cZsXV5rliQLRk8W073LdFg0rrwbhGCFn3QJge24JcmfHT9DU4qV4cPSPU+p8WadPieYsFsaFISwC7J74zRWdoUW2qjZ3mDZyadQRt6zfoCQERA3b1ouRPA5t7l0KU9SixzpMfQ9lf1ozxxnRL8GFo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785403397; c=relaxed/simple;
-	bh=obH2T2spzL5LFtShfIGtpUpifmes4xuNCvsC1iX01So=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=M0u0T2FbPjllY/GeIFDhFD/+XVypCOZdGU7FRy6chb/rBC3QLW8le1hsOQrRDJ2njuGzNvqfLS/H4ZCUmpmyBFZoWs8XuegTMowazoGMMoLE3Por+4BZtSghgHNrddBQEShWa/94ScOTN4GVjJQ86foq9VDkdxhw9PFKEDG/KUA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=fth9ojCD; arc=fail smtp.client-ip=52.101.70.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7B33998BE
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 09:23:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785403428; cv=none; b=SpTaWgiCzaW1vZU+Lp+ADFhI9c09dZ8/RbcrIgexJLs1xtpOdzQg7J+FWCGmRbMLizToUVPJ3/bTLZGtP3kUP1ed3WytxC1U2kj1+mLhCPo03AoJMXrXlK4RzXNql75+AqwHGdIHyXdvoSBDb19yi+uG1sfxWwUz3X/Z4MVgiTs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785403428; c=relaxed/simple;
+	bh=W1ASJZB2h8BOqg/o1UxaUzLYyzeikCXfC9DjPziMRAM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jFgWu/+gbBDeqyn2ZoAvlQ5CAENMKE/BhVgw1r3DarU8ZcCidCPDJGmDCNLFG1Zii8jjZP3y9d2EcmNO2TQ+cjU6zMsSxqhDK7mJSC2qs96msoAJ5Tr8UjtdTIQpKgT3bjWsC0vKGkngZJL3u9pBcEV3eEFtEAsiCQ6rLclQP/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l38cVFNI; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="fth9ojCD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E7EUlwzJYutezox4B2DgJ6Dq16kY7sKK2KnPebOzcRtGWWsVTFEnw5+q58t/CM5c7O1fTPVaXQwugxr6VOOHVSISOKpSEgXJDAf0IvAryGbqgGtpYPCdqHVP3fLxJx9PCYuO2cd9k7rDTnRcY/9rOkoAQQaYCs8oot4RmjKaEJRrllYZVWDcAh6FHjAxj5Yk4wjP6xcQSRZizs5koef9/ZA143p3T1u6tGLBMNQ9/vYWF2qw/M+t/Q/vBy90WW25FGfjd46rzzoVFs/cBwXJHssmlTnEawb0O/Lhub1zJgFtf3fEGtp+t3XGCuZvUhwGFmyITNwdBtPDN0DzP4OfOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I7DRnnNGSiO+5KKNm+SWtpXNFt80lLAdU2S8Jio7DkI=;
- b=hdgqIoUc+SEZDL+crPvjsXBNOtZ3peUfUOzSwvgJh8FrnTnn9nB+IkINLGpY+V1EWf48Qct9Qk002gSW2NqYDov7+VqV8bZ99HspfKCdNLp6W7Rgt05V/IlH75n/aSCoQGKmlhMKu/6wkdFexlz6UPghSY7+ymGsoIaxsU/+JFVCF2NX+orqVMpwjb701Myl+JaQjH1Pdr9UOgj/HmuRjCJ+H2Y8fjS0lAuH1B8j+AQr4k0c7RQVezt71wxoMyIBIYwbgmdIXnwTOq7icPyTCOAz1UdHrGQcmnMnj6Dq04eFvi5pjXwibe6izQ+QH8o6Js0Gr+ibQJlDOXnaGC9GbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I7DRnnNGSiO+5KKNm+SWtpXNFt80lLAdU2S8Jio7DkI=;
- b=fth9ojCDZgZq+FmKtKyhfcFX29erLyqwTqMbbEi2/z+4njFXt9SnPGk4P7SawRJs5WqMhFUMtp8xdsyv/P300hf2k+VGA5GbOwEn6EtNuuQnUksLhswBzasRocU2LXBLBcosOFG7MF8siunXVHW/RD10lDA8CvACbMx9jT3/4LIWK98eu+/QMXZPTy1sk30D5VSslT/yikybbOchrmS+5ohqZnSbM0x+t0AufE/L9uGbxexhEcMTUBYjAM00nP1WtGBzuSxm13tHJckzZNk23JGn9fze+0SpIkm/w0whfKV7b4Gdw9DJVH6EAkw+tLw2pUHM/iABLeqcBQDidvHSOQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
- by DUZPR04MB9784.eurprd04.prod.outlook.com (2603:10a6:10:4e0::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Thu, 30 Jul
- 2026 09:23:12 +0000
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d]) by PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d%4]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
- 09:23:12 +0000
-Date: Thu, 30 Jul 2026 17:21:41 +0800
-From: Xu Yang <xu.yang_2@oss.nxp.com>
-To: Jeffin Philip <jeffinphilip14@gmail.com>
-Cc: gregkh@linuxfoundation.org, xu.yang_2@nxp.com, Frank.Li@nxp.com, 
-	kees@kernel.org, panjunzhong@linux.spacemit.com, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzbot+8dcac923582c28505fd7@syzkaller.appspotmail.com, 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l38cVFNI"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-ca132e9c54aso196577a12.3
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 02:23:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785403426; x=1786008226; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qhFaBPoaOn5kAhTesE/acI58odci27xEUr/zuj4NpHc=;
+        b=l38cVFNIXBKjLIKi/LqIiPxa/nOYcfaDo92CmtF75cASKVUaI193L6PDVxQX8l1ze7
+         UZPey8tcSkwjpPvdN8WgYbOBNeQrkLCQUzAlmoWCAS78Hnqnm9zIKj6bhA2WH5224SSw
+         V9+fsRgvEXoyLLWdf36hKv1apiZUOyXx6tr5517gDHFfWfT+1fKqY2dqePwmdUgl1suE
+         k0ATfT5WvVeqeTdz+e63JqOYFpCPJPOp6A/1G53kUbdpS9bN8dJkc0c71w/GtPxhBMLx
+         kdlV8NoEZq59ygi4d7fz8UpzNvp5VhXUSBP2ve7mwJSnZCZ65uVF86qWv6uwy+eu47h1
+         hhcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785403426; x=1786008226;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qhFaBPoaOn5kAhTesE/acI58odci27xEUr/zuj4NpHc=;
+        b=WFexntMX6dfHAdtbzUoPEuvef+gpnKNuCO6ZC6Q59XOL7i9abW4F6dKYniEuMImj9S
+         bwFPpZHNpwHrRA96KU57/eTdmEckgWxSECOOdBUBZ+EDbQA+QKl11wo52T+j3JjM0G+q
+         C1DcCTaOSh2ZyEzBQJfQJGl3J66rX6YECUW/apQGVpxvXW3dIBXb+eaZCkSF6vrplbdf
+         zhfQKbgGn3DlWSuHnpkN9VcAPuLRWgxvpq4DBqMKtaxdt2dfKo9V5xJzw9ckJ0Z3ikLP
+         eWQJjY/xbPVVaGSJ9enYFe5ha2IapwliDqExf0/isgE1AfVAgapD2jp2SoDmaPjtAuwl
+         ssqw==
+X-Forwarded-Encrypted: i=1; AHgh+RrBOEToodDFGHYjd/HEkNxhv0NPTHn5koqMoRpjtv8WCu1v2kJsyLSqXvHRqjRlpScfj/6o2oA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxvxDrRubkgcl2lh/Ef0cJYZHDYm5CWfyRYKKBpMtzgp1al+i6j
+	cRlSxI5VQJDZNAUtcMe0hOr/WEwZMBZfnvp0GvsCZf4XdulH94qoS3fq
+X-Gm-Gg: AR+sD10zx8x+PGeLuuBl/jT2JxyhpnWp8ykruYcuV13JOFNQBQIyxkQ3kuZRXZ3mPEt
+	0wWO1ulU9UPbXXs8kSp+7BMkENp+7v8r6gMxPX3ExVd5WZdzSz+ZSc4UAQZLS8uNQR8uc1PQQyZ
+	Wazai6m6pFxENv+kjQwojDrjxBfCJZNAJPRrCz7nScaBrUs5koeE3D9PD0M2oDS44ZsJxsbq5H5
+	k1stuPFJ+PIrlG0MFfij2NQzzFLidaZdwWqH9A7/ZONuCS/ckz1yZZwn3ilJd5Uz9Vupw1qfuG4
+	9xeRi1SN1ggNaiOiEiWV/gW2bxUOFcOWcWk6UoGThF89Yc8e9rAb5TCdimnoV+1OWe9+QC9wmWZ
+	HeDR27leKf70as3An5wriEEtn6OdB1qVEmzf/0QlLF1Dl6aj8q9lPCdfA0yCWWf/2X+F0oNXoco
+	YK1TpN+Mc5pEokXswpY2D3Dz4f6iMFQzi8LZo9IVSbHQSjjq2yM0FUp3w0umbJ2MZYFxYwTXRnl
+	Oh91gL1mWo2FvN1sffvHsj/YNCB5U2YBuUBvaMf+MW3HNpVXcvIFAw=
+X-Received: by 2002:a17:90b:33ce:b0:38e:549:9e04 with SMTP id 98e67ed59e1d1-38f9bd12949mr2096975a91.1.1785403425959;
+        Thu, 30 Jul 2026 02:23:45 -0700 (PDT)
+Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13e7271e9d3sm17546063c88.10.2026.07.30.02.23.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 02:23:45 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v3] usb: gadget: uvc: Fix Null Pointer Dereference in
- uvcg_video_init()
-Message-ID: <h4azn6c6p4vxsctlj37gs3jzzjndq5rrphaodcmknbsrf3ayr3@etv5qa6l6xzu>
-References: <20260730082320.9597-1-jeffinphilip14@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260730082320.9597-1-jeffinphilip14@gmail.com>
-X-ClientProxiedBy: FR4P281CA0248.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f5::14) To PAXPR04MB9422.eurprd04.prod.outlook.com
- (2603:10a6:102:2b4::21)
+Subject: [PATCH] Bluetooth: hci_sync: Fix accept list UAF during suspend
+Date: Thu, 30 Jul 2026 17:23:31 +0800
+Message-ID: <20260730092331.2069741-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|DUZPR04MB9784:EE_
-X-MS-Office365-Filtering-Correlation-Id: da0fd347-905e-4032-4614-08deee1c2d4e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|19092799006|1800799024|366016|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	XC9D12Y2nt99VSbirjsFJ6EqApBbi2xH/rvaclkhcWJaWOKS+cG0Bv5raHXYmHv7hic7Rg+nEbtL9Py9LG4SpL8KUY/As3k7RPJhwi225G4D8i6T6kFOdtzgE5vtVeCNdvCYFKAWfPPu7U44B/q5Gy0EJDZUNu6221n++nJJp5YdwQcAKI5elw0qS1DM0P5jVYPUkgssQLQQtobOsD8RKTn7q0C4NWWAift3nC+/f/3klEoBP8yqTR4xGX2df6q6GXulOMXrWMXOnOO+y66LEr3sIbWFGI4DwWEKHX4AN3DhkGMCsVRlJPIzc2/obxd7EL6lB4rFzXXaD2+8u22ALv/tPKOJXX772FonLyLpIGx0UHAIJGr8VcpiBgxsXEr0cjnmQMv8ctRlpTY2/Wc4paJW6MeuODbhGKkvZlik/EjhSetaNzRj+dZcQkRTlmWdNy9/WVv0oLsHr84zf06cVjAt94nuEUqloF4C3zlUVLQPjThTiUaMKazc7iaZU9pFHGVGN9kSfkKoeiJKvlr+pVexHqmdm6BOjSPlugrWPLejlw+T37NAKH8mjQ2YliivU66EB8uCO41Duqe+47/TbNYaaVhVwHIYTBFfHNqJciImZnMrhtE9aU+rufVDiqn2
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(19092799006)(1800799024)(366016)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?+Is+/sT1AcD479PN4bNB5MNpNnAwem7VAzmKX/xpPWQH6G3XNcuuDpt8nsfx?=
- =?us-ascii?Q?LA0uKdyVA0HHs4AwGPqWBRB4VqXLwDwyv226BXSa26BRNAmmyuOob8V4j1Hl?=
- =?us-ascii?Q?vjss7S2waUA9u3H6vZ42wEUbcQl2eFDBdGWhKF+dui9aQLnGlnTGKOJmp70W?=
- =?us-ascii?Q?bWDU4EklPsjzi2gltpj5KQ1hcMQ9yy6zK7kha/8ZsSn/XpbaPZTQ8YlUQC0Z?=
- =?us-ascii?Q?6Y4togb+nLDpkWynKzjAljrUCo7KvofjzMIqYmwOjIpHwDp+P6xztj1O0meq?=
- =?us-ascii?Q?tBWdpx0zeNJLcih75z2McjR4Tf9REn50KUqpo4lhTSMYBYwjD+PPsrG/71w2?=
- =?us-ascii?Q?Hz6acwFIFg0fVbtts44qgUq61rE9vLehVACJFl3uYfh/AcW+UvdffuSKkLF7?=
- =?us-ascii?Q?K51oBQhHlppFIyXwqGU0UY4IJxpb8xcCVR/61I8ND9QU2w4mqcFwy7MquRoY?=
- =?us-ascii?Q?ChD+3tz/i2osgfdXZwiJoHE/L9ElUt7WoFaTqSmBaxLkQVG31bJOEeCOZLbi?=
- =?us-ascii?Q?CaImfCHKlPUL4LThoHs8y75BwZAV+4VZWCWgDBtyBnbWYWjZIQXkcbnasNVl?=
- =?us-ascii?Q?zD6nGCNQgKRxnY2gVspTthwHLkn+fXe/uo2hkX1M3AHU13bVup8k8QxZpLpz?=
- =?us-ascii?Q?CL4/4FDGifP31PwuB8oByzFZCrK5CJqvUkfELALnx5aDINJZ2pilFuZrYyhu?=
- =?us-ascii?Q?JAPjmAmz6Pi9D/KI6ty5UkDv3F02o+cukYCygqIGr6Ejgj8EuBpjfgU6BULV?=
- =?us-ascii?Q?kwFnm7+DyCmOfywZxsnAMtAD+1Wz00aPYcTuvzR0rSuOlQmB7VV0vFxXkzZc?=
- =?us-ascii?Q?/4nV3O4V290dkUDssEuugOWDf/vT8Gp3KD/2s1vULJcMWphOGyuaAJBxJh2I?=
- =?us-ascii?Q?oteVyokQfrkZsUQe58lA3x2W2bBaoQlaIrQIAlm2IHRQT1+1PmTGsc/sOffK?=
- =?us-ascii?Q?HylIqltzbfsyv+p8AohQ8t8f7dhXNfD0KpUhHNVuhwL0iHOM2Eqtn1HcaycW?=
- =?us-ascii?Q?cUcMNo9hyzLzUPThYnNtGEWsa/mZ4lKRYyMggDJqzI7dPvP9JsqbPi6jpnJp?=
- =?us-ascii?Q?PJQOjHNJvU0X0uY4s1GL0m+t7JaU/It50e03bz0t2vjpwMt+IlIM352iFROM?=
- =?us-ascii?Q?hBYBHafkdJbPvYo3yD+EGzQP6HIJv42/pQ21Dny/9DzvBY9PaayVs6CXnzUf?=
- =?us-ascii?Q?TBEfxMdyobPICBI3v8szPLQb5PemlR9VRjQIRJHc6I9hPkCI4dq9qtrunKND?=
- =?us-ascii?Q?hiQJN4HxuglWclFtxaSmbCChM6cYPIdY3iXOlIKgNkJo2DlzrfrF26scIOAn?=
- =?us-ascii?Q?wTCrmnPL6Z58KgwXzg1cE6XH8PcMCFm09kc4mB9NknPTHPFKEfUeiCF4ME0t?=
- =?us-ascii?Q?HnMlNEvLel4eBWeGLBskLYjQhELP3HY3DNwfDTUeNz4VlPMElbALijk+mKKm?=
- =?us-ascii?Q?fRGncwimA8gi/F8PisTxBrUXroLziMGUqX3qRNMbWiXxE5s0hqMB0GjUMGsv?=
- =?us-ascii?Q?27x4cMNZBc4+YOoaytaJ6SiB/aO7rDMRzOqMQffDi5NxxtAY9cGxutY6nwyr?=
- =?us-ascii?Q?YolQqkfLMCYasCBzCY3SLCMP7CSLzK1MWu6wyVoNE3CW8XgeWIPoPi1zx8zw?=
- =?us-ascii?Q?gIZ5dLbimm1oVIJdtd5mgU8QqwlvrJZ+u49mSsYyFGfEhMHx6LdQwED151D8?=
- =?us-ascii?Q?SuazHqctI5fUCWfs+csq9wSAaM58qvOjG9Wqds0dJcjx03RUvUY4Vz/TlQxX?=
- =?us-ascii?Q?ov5TBdKgya0YNsuKU4cOJDorokL4tfHjJleSNpR4rRvZ0onGRBrP?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da0fd347-905e-4032-4614-08deee1c2d4e
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9422.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 09:23:12.3975
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oYth3Bgfu8f3NDAiXW04LcATKUh2SOOXZxgnwY6mb2GApZD5n0q8YLfW0MfqmG4nB1ttPHi52ckmMI19YXTMj5wA+vaSOh+rw9D7sL7U66NBbeBIN0AlgNvnHFAYB5Rn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9784
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 30, 2026 at 01:53:20PM +0530, Jeffin Philip wrote:
-> In uvcg_video_init(), if kthread_run_worker() fails,
-> the error logged uses uvcg_err(), however, the pointer it uses:
-> video->uvc is not assigned at this point, triggering a null
-> pointer dereference. Fix this by directly using uvc->func which
-> is assigned already.
-> 
-> Reported-by: syzbot+8dcac923582c28505fd7@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=8dcac923582c28505fd7
-> Fixes: 7ea95b110811 (usb: gadget: uvc: rename functions to avoid conflicts with host uvc)
+hci_update_event_filter_sync() walks hdev->accept_list while sending a
+synchronous HCI command for each remote-wakeup device.  The suspend path
+holds hdev->req_lock, but accept-list updates are serialized by hdev->lock.
+Consequently, remove_device() can free the current list entry during the
+controller wait.
 
-The issue was introduced by below commit instead:
-  Fixes: f0bbfbd16b3b ("usb: gadget: uvc: rework to enqueue in pump worker from encoded queue")
+The following interleaving causes the use-after-free:
 
-Thanks,
-Xu Yang
+  hci_update_event_filter_sync()    remove_device()
+  fetch accept-list entry
+  hci_set_event_filter_sync()
+    wait for controller response    hci_dev_lock()
+                                    list_del()
+                                    kfree()
+                                    hci_dev_unlock()
+  read the freed list.next
+
+KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in hci_suspend_sync+0x835/0x910
+  Read of size 8 at addr ffff88810bec8440 by task kworker/0:1/10
+  Workqueue: events vhci_suspend_work
+  Call Trace:
+   hci_suspend_sync+0x835/0x910
+   hci_suspend_dev+0x182/0x450
+   process_one_work+0x661/0x1090
+   worker_thread+0x45b/0xd10
+
+  Allocated by task 86:
+   hci_bdaddr_list_add_with_flags+0x1a8/0x400
+   add_device+0x381/0x820
+   hci_sock_sendmsg+0x1033/0x1ea0
+
+  Freed by task 91:
+   kfree+0x131/0x3c0
+   remove_device+0x429/0xb70
+   hci_sock_sendmsg+0x1033/0x1ea0
+
+Snapshot the remote-wakeup addresses under hdev->lock.  Release the lock
+before sending HCI commands.  This preserves list order and avoids
+retaining an accept-list node across a controller wait.
+
+Fixes: 182ee45da083 ("Bluetooth: hci_sync: Rework hci_suspend_notifier")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+ net/bluetooth/hci_sync.c | 38 +++++++++++++++++++++++++++++++-------
+ 1 file changed, 31 insertions(+), 7 deletions(-)
+
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index c0b1fc293b49..540da19d1d64 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -6250,6 +6250,8 @@ static int hci_pause_discovery_sync(struct hci_dev *hdev)
+ static int hci_update_event_filter_sync(struct hci_dev *hdev)
+ {
+ 	struct bdaddr_list_with_flags *b;
++	bdaddr_t *accept_list = NULL;
++	size_t i, num_entries = 0;
+ 	u8 scan = SCAN_DISABLED;
+ 	bool scanning = test_bit(HCI_PSCAN, &hdev->flags);
+ 	int err;
+@@ -6263,26 +6265,48 @@ static int hci_update_event_filter_sync(struct hci_dev *hdev)
+ 	if (hci_test_quirk(hdev, HCI_QUIRK_BROKEN_FILTER_CLEAR_ALL))
+ 		return 0;
+ 
++	hci_dev_lock(hdev);
++
++	list_for_each_entry(b, &hdev->accept_list, list)
++		if (b->flags & HCI_CONN_FLAG_REMOTE_WAKEUP)
++			num_entries++;
++
++	if (num_entries) {
++		accept_list = kmalloc_array(num_entries, sizeof(*accept_list),
++					    GFP_KERNEL);
++		if (!accept_list) {
++			hci_dev_unlock(hdev);
++			return -ENOMEM;
++		}
++	}
++
++	i = 0;
++	list_for_each_entry(b, &hdev->accept_list, list)
++		if (b->flags & HCI_CONN_FLAG_REMOTE_WAKEUP)
++			bacpy(&accept_list[i++], &b->bdaddr);
++
++	hci_dev_unlock(hdev);
++
+ 	/* Always clear event filter when starting */
+ 	hci_clear_event_filter_sync(hdev);
+ 
+-	list_for_each_entry(b, &hdev->accept_list, list) {
+-		if (!(b->flags & HCI_CONN_FLAG_REMOTE_WAKEUP))
+-			continue;
+-
+-		bt_dev_dbg(hdev, "Adding event filters for %pMR", &b->bdaddr);
++	for (i = 0; i < num_entries; i++) {
++		bt_dev_dbg(hdev, "Adding event filters for %pMR",
++			   &accept_list[i]);
+ 
+ 		err =  hci_set_event_filter_sync(hdev, HCI_FLT_CONN_SETUP,
+ 						 HCI_CONN_SETUP_ALLOW_BDADDR,
+-						 &b->bdaddr,
++						 &accept_list[i],
+ 						 HCI_CONN_SETUP_AUTO_ON);
+ 		if (err)
+ 			bt_dev_err(hdev, "Failed to set event filter for %pMR",
+-				   &b->bdaddr);
++				   &accept_list[i]);
+ 		else
+ 			scan = SCAN_PAGE;
+ 	}
+ 
++	kfree(accept_list);
++
+ 	if (scan && !scanning)
+ 		hci_write_scan_enable_sync(hdev, scan);
+ 	else if (!scan && scanning)
+-- 
+2.43.0
+
