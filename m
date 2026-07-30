@@ -1,105 +1,156 @@
-Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD6538DC76;
-	Thu, 30 Jul 2026 06:13:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.245
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7D63630AE
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 06:23:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785391988; cv=none; b=UTPZ8XP8nCbp0nRXdexdDc0en8fF6I+U8PpXwJdl62+XFP5s3/6mgeAddWI6K56aWZqKqZOzUgjHyIujGKFb32Jh15gCy8WxI8MnYpW7wfbVPdod1ng8kpWhiG1UEy9q2c4CJmOUbaD5sFB5jOpmWGJsc/L3kzW4yttqtnDgmpw=
+	t=1785392617; cv=none; b=XsSzjNsMYx5JL2ufr+w6SyiZegT/8jlVQtD5ECDejOQnAGVyPz4OFMrycg0x8sVj/XAfd/VcC90L+tqvew4UwKOph16d42zng3xzhRBLlEZy2U04G0DLRYVdTSc5lBt+Z3w67RJKWpLMMFFczK3+6NMvtrPbmeXqq2eIE6x7aOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785391988; c=relaxed/simple;
-	bh=OmKGLVNvEcZHDkluQvI4KGqoZ4VlCJxQjkJk7XZMML8=;
-	h=Message-ID:From:Date:Subject:MIME-Version:Content-Type:References:
-	 In-Reply-To:To:Cc; b=BS7bipx29DqAgmUhiLjT78NNuckC1hpa1OK/2+4Zt+ZH3p8xLFJxmEyGZuzaaZLokz5xiOPnQ/Ff7WWVLXocZ8UJCN+0X1E2USOYgNnTwgrCxQx4+gaUYoJa5dj5H3aoSvCsTuqI1YaWdMPKw79k9JCFVCqiKF7X7Qi9j/r86ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=jksZmVoG; arc=none smtp.client-ip=203.205.221.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1785392617; c=relaxed/simple;
+	bh=tGDYJMdSnRMuTa1PVE8PCB4DBKgv1yzZx/FL3zc9czc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KCLuuF2YxEpTLgiaRdVHMqJrIDmDLW0uKPgJFtMYTBxdggFQTroNC52kSe3k3H7Z5vCLKw50qinM22ajzyo0IRkcFQjX2aMV2j40tILkqDATth81sz8soEFgATxf9bibfcCJBWgPK/b56Lz9b1o/vvbjb8kk6surSsdzXLFmt44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GW8w/6hF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="jksZmVoG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1785391967; bh=D2dZ+8WBmAZ8INSWYao28PUGk/5wdatznsr8FR9QCUA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=jksZmVoG3OJN5iUib0pX7eLOiKs9KiN3gViwDVzyfmIvj8ZEYdRHwlS1ceQUaOkbX
-	 IdevTWQYvJBOWqifPRcEjeLivj8f43smcTXN0elRKfRYpE4QsaooEH8amQmS9AWwqK
-	 yvUBOqlF+cBJ9/Sd3BaZqaWGWjtrqkzcXCG2k60U=
-Received: from ubuntu2204.localdomain ([2409:8d20:22b:54c:9e54:40ff:fe02:3f0f])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id 2DF15055; Thu, 30 Jul 2026 14:11:31 +0800
-X-QQ-mid: xmsmtpt1785391894txg4lng26
-Message-ID: <tencent_803FA8A6621A5D198504BC91BE003D442007@qq.com>
-X-QQ-XMAILINFO: MfvJ0+4D3P+7xxzKzQ3k6L2jiKfqNsu/rtn1/30H+OnK0sm6vWNyfEuix9tTXR
-	 vdvX5JQOTiSZsPBn0IL25auocfZKs+yeVyeRWfBGthdHk+aQEogSsCHGnfyX9Zze+14qEfsUYm5U
-	 of5zbvG9Jg3JdYKCDecqLUqq9h/IFi3UbTHwWSBwK9pAIYOhlrxQ+IFOMQqsAwi8Zj+yBzEKbyJg
-	 P1LgpNgdeKraeK60uM+GDM+Bj2utZxTxQCulN8teSZdU+srXK3pIcd5hAkEUe2+HcGrM+mXl6vVX
-	 ReicJnrs7Qw9VC8nafSr3DJAW2V5bxiAZubsvThIjvia/WEOqDquNHz+JkiMuzo9ZBXtjCFlN9Ph
-	 cneUd1eFR7wdjHiu9nB+kLYTkzzNMIUv1vNbqUIeUiTY5vFKn0GvzAAXeucE9VkwC2lqdzZ7rp7F
-	 YdQ9CGb+6bqOKkZGf8QOA04pljHragFK9F0ANFCUc0YB5MLcBjguYrR6Y9qPY/X1SpgLUqq9P9Xy
-	 46L2fF/4/V+aO5wkJfM3z7fMPT3Xv4G1jpAuOnrEb9FQ5KtGqEL25QoGzKHMbAMrxMzyvwXEoFea
-	 h8FwxUX8P0C3mBsv6LMs1C3JBTALowTNQ1eEMGQo1weT1oqQfa2z9jQ2uEMQfWQ23BGyKvhkeGZF
-	 UlPKwj6XcBA5pdgWnBg+08eMV0N2sakdFI/t4EKeIslxtD5417h2TqpbMGjJvLxImURrKxJFT74X
-	 uAeB6NSqnkc4E2IFnMwL7hd7vnraS333NfRv03PUrbmI/UqPwcvBNbrfQQX4sprWweBGTBOY3SSV
-	 crvgw61RrNRt8IIv+kuL/FjSBLc88KqDE/2AVVjzUFWHUKj6TUyxAUqL1btEKa1OqVcWPRVtmSwZ
-	 EkwBRrwI0fqpcSXkKiobIkP/PI2ojpFgq4pDHygcVmvmgEdSEBcsGmEX9Zj6BWv1L6x/OPFub75E
-	 f8ujPMF9CzOEObkaRoqS0sni/fkGtoR1K9q3JwksDgZ33GaEr2/u9PYGZbjZbUq8HRwmy+Ap8KA3
-	 ox/n8047qhiaw1eDZDV2XWK1kgSR+6+xZNQhY4WZ7kwLgy9M3DU2vpGJEElgoQqIZfHA5kWkpXEo
-	 nnpyr9UjA3e3VxCwQEQu4x6+9PQxGsLIlM0xURZBXohJipm7QyTI/Z/lrEWTsEhAlIAtEqjymXPs
-	 USv4E=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: Cunhao Lu <1579567540@qq.com>
-Date: Thu, 30 Jul 2026 14:11:23 +0800
-Subject: [PATCH 2/3] can: rockchip_canfd: retry the outstanding TX buffer
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GW8w/6hF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCE221F000E9;
+	Thu, 30 Jul 2026 06:23:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785392616;
+	bh=B2f8VlX4ekMGsbi2BbDW96Ed1JhEO9+1AX4d8910yYI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GW8w/6hFnxWG+aRC+nnaPPzKGN6e1m2srHfGUn1YFeNHBcRf4peMWk3VagPuqV2Tg
+	 3/AINdpqa5pJJEbCXFz0vNZ1rEfxZ4nR32RxTJG2GEBDNMnoBmAMDj69uunoIHvzuf
+	 zMDAE05wS7HiS1rf/uhGDciCfL62j1Il9OBlSxkBgnDYmW7n+msmglAMBtRD4MJWbC
+	 DB8/lRvulKrGtztNpBS4los7vuWtPASzuoOa5kkNN8cb8YtrKtXwze/4eANglD2eva
+	 EA8+xTLUNcush2MSMbc1b8iLQudfrLkjB5qRuudBF/Nu9NPxUx+SEJj6rO88txpt5x
+	 cCCEN6Yo96aKg==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: stable@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>,
+	Urgau <urgau@numericable.fr>,
+	Gary Guo <gary@garyguo.net>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Tamir Duberstein <tamird@kernel.org>
+Subject: [PATCH 6.12.y] rust: allow `suspicious_runtime_symbol_definitions` lint for Rust >= 1.98
+Date: Thu, 30 Jul 2026 08:23:20 +0200
+Message-ID: <20260730062320.54448-1-ojeda@kernel.org>
+In-Reply-To: <2026072921-ecosphere-nearest-8804@gregkh>
+References: <2026072921-ecosphere-nearest-8804@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-OQ-MSGID: <20260730-master-v1-2-6945fdd4f0ff@qq.com>
-References: <20260730-master-v1-0-6945fdd4f0ff@qq.com>
-In-Reply-To: <20260730-master-v1-0-6945fdd4f0ff@qq.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
- Vincent Mailhol <mailhol@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Cunhao Lu <1579567540@qq.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-rkcanfd_xmit_retry() originally operated with a TX FIFO depth of one. At
-that depth, the masked head and tail indices both select buffer 0, so using
-tx_head happened to select the correct buffer.
+Starting with Rust 1.98.0 (expected 2026-08-20), Rust is introducing a
+couple new lints, `invalid_runtime_symbol_definitions` (deny-by-default)
+and `suspicious_runtime_symbol_definitions` (warn-by-default), which check
+the signature of items whose symbol name is a runtime symbol expected by
+`core`.
 
-After the FIFO depth was increased to two, tx_head instead identifies the
-next free buffer when one frame is outstanding. The erratum 6 workaround
-therefore requests transmission from the wrong buffer, leaving the
-outstanding echo entry incomplete and the netdev TX queue stopped.
+Our build hits the second one, i.e. the warning:
 
-Use tx_tail to select the outstanding buffer for retransmission.
+    error: suspicious definition of the runtime `strlen` symbol used by the standard library
+         --> rust/bindings/bindings_generated.rs:20018:5
+          |
+    20018 |     pub fn strlen(s: *const ffi::c_char) -> usize;
+          |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          |
+          = note: expected `unsafe extern "C" fn(*const i8) -> usize`
+                  found    `unsafe extern "C" fn(*const u8) -> usize`
+          = help: either fix the signature or remove any attributes like `#[unsafe(no_mangle)]`, `#[unsafe(export_name = "strlen")]`, or `#[link_name = "strlen"]`
+          = help: allow this lint if the signature is compatible
+          = note: `-D suspicious-runtime-symbol-definitions` implied by `-D warnings`
+          = help: to override `-D warnings` add `#[allow(suspicious_runtime_symbol_definitions)]`
 
-Fixes: a5605d61c7dd ("can: rockchip_canfd: enable full TX-FIFO depth of 2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
+    error: suspicious definition of the runtime `strlen` symbol used by the standard library
+         --> rust/uapi/uapi_generated.rs:14236:5
+          |
+    14236 |     pub fn strlen(s: *const ffi::c_char) -> usize;
+          |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          |
+          = note: expected `unsafe extern "C" fn(*const i8) -> usize`
+                  found    `unsafe extern "C" fn(*const u8) -> usize`
+          = help: either fix the signature or remove any attributes like `#[unsafe(no_mangle)]`, `#[unsafe(export_name = "strlen")]`, or `#[link_name = "strlen"]`
+          = help: allow this lint if the signature is compatible
+          = note: `-D suspicious-runtime-symbol-definitions` implied by `-D warnings`
+          = help: to override `-D warnings` add `#[allow(suspicious_runtime_symbol_definitions)]`
+
+Thus `allow` the lint in `bindings` and `uapi`.
+
+A more targeted alternative to avoid `allow`ing it would be to pass
+`--blocklist-function strlen` to `bindgen`, but we would perhaps need
+to adjust if other C headers end up adding more (or Rust checking more).
+Since it is just the less critical one that we hit, and since eventually
+this should be properly fixed by getting upstream Rust to provide a flag
+like GCC/Clang's `-funsigned-char` [2][3], just `allow` it for now.
+
+Cc: Urgau <urgau@numericable.fr>
+Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned in older LTSs).
+Link: https://github.com/rust-lang/rust/pull/155521 [1]
+Link: https://github.com/rust-lang/rust/issues/138446 [2]
+Link: https://github.com/Rust-for-Linux/linux/issues/355 [3]
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Reviewed-by: Tamir Duberstein <tamird@kernel.org>
+Link: https://patch.msgid.link/20260615143225.471756-1-ojeda@kernel.org
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+(cherry picked from commit 608045a91d9176d66b2114d0006bc8b57dff2ca9)
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- drivers/net/can/rockchip/rockchip_canfd-tx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ init/Kconfig         | 3 +++
+ rust/bindings/lib.rs | 4 ++++
+ rust/uapi/lib.rs     | 4 ++++
+ 3 files changed, 11 insertions(+)
 
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-tx.c b/drivers/net/can/rockchip/rockchip_canfd-tx.c
-index d2cbe25c46d6..c4ecdc9411cc 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-tx.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-tx.c
-@@ -57,8 +57,8 @@ static void rkcanfd_start_xmit_write_cmd(const struct rkcanfd_priv *priv,
+diff --git a/init/Kconfig b/init/Kconfig
+index 53eba5cd88ff..f0e708b4226d 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -140,6 +140,9 @@ config LD_CAN_USE_KEEP_IN_OVERLAY
+ config RUSTC_HAS_UNNECESSARY_TRANSMUTES
+ 	def_bool RUSTC_VERSION >= 108800
  
- void rkcanfd_xmit_retry(struct rkcanfd_priv *priv)
- {
--	const unsigned int tx_head = rkcanfd_get_tx_head(priv);
--	const u32 reg_cmd = RKCANFD_REG_CMD_TX_REQ(tx_head);
-+	const unsigned int tx_tail = rkcanfd_get_tx_tail(priv);
-+	const u32 reg_cmd = RKCANFD_REG_CMD_TX_REQ(tx_tail);
++config RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS
++	def_bool RUSTC_VERSION >= 109800
++
+ config PAHOLE_VERSION
+ 	int
+ 	default $(shell,$(srctree)/scripts/pahole-version.sh $(PAHOLE))
+diff --git a/rust/bindings/lib.rs b/rust/bindings/lib.rs
+index a08eb5518cac..363f06b17240 100644
+--- a/rust/bindings/lib.rs
++++ b/rust/bindings/lib.rs
+@@ -27,6 +27,10 @@
+ #[allow(dead_code)]
+ #[allow(clippy::undocumented_unsafe_blocks)]
+ #[cfg_attr(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES, allow(unnecessary_transmutes))]
++#[cfg_attr(
++    CONFIG_RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS,
++    allow(suspicious_runtime_symbol_definitions)
++)]
+ mod bindings_raw {
+     // Manual definition for blocklisted types.
+     type __kernel_size_t = usize;
+diff --git a/rust/uapi/lib.rs b/rust/uapi/lib.rs
+index c98d7a8cde77..f5c47f9cad10 100644
+--- a/rust/uapi/lib.rs
++++ b/rust/uapi/lib.rs
+@@ -25,6 +25,10 @@
+     unsafe_op_in_unsafe_fn
+ )]
+ #![cfg_attr(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES, allow(unnecessary_transmutes))]
++#![cfg_attr(
++    CONFIG_RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS,
++    allow(suspicious_runtime_symbol_definitions)
++)]
  
- 	rkcanfd_start_xmit_write_cmd(priv, reg_cmd);
- }
-
+ // Manual definition of blocklisted types.
+ type __kernel_size_t = usize;
 -- 
-2.34.1
+2.55.0
 
