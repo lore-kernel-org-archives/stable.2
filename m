@@ -1,112 +1,129 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139AF43C048;
-	Thu, 30 Jul 2026 13:54:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120372CCB9
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 13:58:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785419703; cv=none; b=vF7taLcmWNvQDb6vGXoCgg16pxe4Nhk0ZqXYQtqdyV60i4b2dEp9qnJ6BDh0qFn/To6/kiDb/KyJFmSW1ty0Dh5GDriCD4DoeoDHPtobH25fGKJteFhzAa/4jinz3tVs6OXq6RL8Nzq7C95jDJdystAwnxWf1ZZvVs/SOPV+C6E=
+	t=1785419915; cv=none; b=aaWxARHZZMQz6xVKlGHpd2PorIG1L6qu0tzkr0Yx1Z3Vz2bzrw3R/+5MJZzlVv+tYGMDqsKghlMTEiFl7OVSGdHkas3keLujcsXBgIc0CxucM1zz77kLO8tT26SBQta1fmGQqVmCfAxtAQ6EGPJ270hONV2atwogB5W69rCbXME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785419703; c=relaxed/simple;
-	bh=AnP/HfA3Fa/FWFjtJT8GcrEhY4nzvmy/pEPxmVmzgL8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o4PvMxhYduandDzwyy0c6pB5CnGKGrn5udZ14GxaWTR+GAveQXrwRqxVsbYDLtUF92XNC2LUj/uFNQvfKeL9/7BXtRTZ5Rd1YR6BH3bXFWkzYyrIXrfslKr9FtAjrZa9T+8wt/VgrUEcoxSLjdTGhIg5t8bSSUWIMauhyfKuT+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C862F202AC8;
-	Thu, 30 Jul 2026 15:54:53 +0200 (CEST)
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1wpRDp-0023V8-2F;
-	Thu, 30 Jul 2026 15:54:53 +0200
-Received: from pengutronix.de (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 682D257702E;
-	Thu, 30 Jul 2026 13:54:53 +0000 (UTC)
-Date: Thu, 30 Jul 2026 15:54:53 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Cunhao Lu <1579567540@qq.com>
-Cc: Vincent Mailhol <mailhol@kernel.org>, kernel@pengutronix.de, 
-	Heiko Stuebner <heiko@sntech.de>, linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] can: rockchip_canfd: prevent TX stall on echo skb
- failure
-Message-ID: <20260730-pastel-visionary-markhor-d65094-mkl@pengutronix.de>
-References: <20260730-master-v3-0-91cf030c337d@qq.com>
- <tencent_1BD50002C4093F92A6181A5D99D004949107@qq.com>
+	s=arc-20240116; t=1785419915; c=relaxed/simple;
+	bh=AyDYZUkI4LxN1OwKn1gdfZzLnCy8TifSWUoCaFYc7dU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QohLmEkcXi66EUfwpBXx2j+jDQMvynEz8Q8rLG+UbgIiUol+Bf661HMRcRBHm5UrYvbg9kYi2gHJMdk8z6yEu5qIkC7EntdQekcLc8lEq///eAshJWTtz8TMev7z/CnToUuoJp5ngO7EGyjuT4UCQ/bKGX4VkkU0B6tuoW/T4Qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cx/l9uME; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cx/l9uME"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c1600d040e4so115514566b.1
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 06:58:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785419912; x=1786024712; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oeo+Ol5V0iJzFZJqhhNTD7gRBEjmwHyjPFI1Uq7A5sM=;
+        b=cx/l9uMEzmG5GDELul4c0xZm8bJBUwBC/oBFFrj0JT8BGo5HLx5RTNLtwEc1qW1mHt
+         FpB2bnY6QfuP+j8UzEzZI/avnbnr+5zXb/PUfhbc8fr4+B4n1XMCUng3RfSqlUBRHeiJ
+         TRHNpV1LIoWsrlzbvbATQjiCWMEUwxLVbaayD+0Zfq/PIv43sa6rZFgQMNIYWUe28t3G
+         6SO+Zo6d9KKRIv6praWI0xxgm9dN+EYYWHypBYQUDAjZzgTpF6513r/GbOIbuoqTZhtU
+         E989Uj9h3p8WYtHOc0+pH9cFgwneb0PLJishQMCFExU3tN0ZEyxpWllNtv+ipAOj7FqT
+         3Srg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785419912; x=1786024712;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oeo+Ol5V0iJzFZJqhhNTD7gRBEjmwHyjPFI1Uq7A5sM=;
+        b=cAOAoJSDwbwT+QgBV4KJ4/Doykc/+Gdgu6JuYaNgP+c0igabat1cMvC2tgrLYiYqfL
+         y/CIAV107iXs4Dd4J0+gCeo3T+wqFPaOO+PkEMg3UuKWBpN53dR/bHY1B7yFoDVXLGKS
+         yJuFDoJ9H6u+Zwb4OnAqgLr0nBTay4wxLsBcG9t2GpDX2RmbjrZqByeW/54gV5bhOG74
+         1dbgSbZ/l0cm7kPheW+q515OX5MY5yavYs7dExKJqSMOHPfUzwLCM+RPh+H70+znIq3t
+         2G9MSDIZUYEnl8j1RiLA0+KXElx5qbnuvqx78AXXICKRWbPrIEc8psxc4Se5cyFXK/5w
+         KffA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/iRbxNZj1jTKRUi/Eim2JQMAU5ceXCotkDD6LTRHvJkvyNtTGQixNMTb5Z1ByPgIGZWo/ows=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyfx3KeZS8qrfo++UzEe1Am3C3rK5RkT0B30wL1kOt2+uoT4gtA
+	zUZx6Ew/bOxlm6P+kw5xCRH3QY36k8ihEGzHVerH9A0lq08YmbkIllIB4ypsLg==
+X-Gm-Gg: AR+sD12gaJ3BaANcDRG6NRkNQbk46TWd1BdQUqhNMcpr6m+E/oOokaRtP5aA85Y7X9w
+	G79cyUfAwXIbmSJWPb+5IGvnYzJ3Z7hJL32FGkFVGWi0Q9H6MFVovfAkiRlWbGWGV0MSA7cK9yk
+	7w4Nrj1eVKjbXu+OBdNibKJexrBBxiLjI9nRpi/mJGaIExb/zRBxfjg3DiGzHMtETvKei+lrjSw
+	vKtahU2SSdyC4oVybGNVTrGUkhv9pLfQau2+PWiZuGh8zsJel1ZWDrOEoV4KE2mAMx9vATMPpmM
+	Yl6/Hz4j7FJFj5mZfo0jmAJsipTTa2IrwdMK+ArypxKskxEmnuEQd2YYQJVKmnCe0zmymmIAY1a
+	pZDjtam1LG4MpaCfvWfxE4Y9ags7V3Fd+OVxihEQFj2/jLWeu4U8DgYqbHAYkEuJqSFBPQJ1vSF
+	25cC1Iq93K6ZsRfT31f49w5FtoYLyDCGHxtJDGAqfwOQTP3LnaYBZsKlAoslMNpcN7HeyHBiFGb
+	pqyLcWRpATuJ1d2Yb6a38IHrT9K3ftZgvRT8RIpldDGx9bJ4Vmrb4NswePNOlRytpJ93WUbd93b
+	cK5zH4MeOWDnNBorwxf1f24KWeYbJC+BZElt8R9X/sBQX+w6+yEoU6mqfv7K6F6BBWS1bmBEKBK
+	hwRsfB4OmvVMGT8/eKwE4LxPTelMbmrMjpWSngSrHSTLXghevald4og4g+Q3pfpPuPjf6qUmGpp
+	5oYR3C3G46A+Fw9smD+yoR47GBozaieMX1o0PillAXcEUPSmWO4JqDZ4eU5yaTHm7xu7+jjWkru
+	y7BMA==
+X-Received: by 2002:a17:907:d0d:b0:c12:8a:7d7b with SMTP id a640c23a62f3a-c1fbd180da7mr28571566b.1.1785419911910;
+        Thu, 30 Jul 2026 06:58:31 -0700 (PDT)
+Received: from cs-280612103108-default.europe-west4-b.c.oa7bb030819b2a894-tp.internal (73.138.178.34.bc.googleusercontent.com. [34.178.138.73])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fa851d495sm69164666b.2.2026.07.30.06.58.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 06:58:31 -0700 (PDT)
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+eaa106d192c9daf37f95@syzkaller.appspotmail.com
+Subject: [PATCH] usb: gadget: midi2: remove default configfs groups on teardown
+Date: Thu, 30 Jul 2026 13:58:11 +0000
+Message-ID: <20260730135811.1498-1-joshua.crofts1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="isxl4fjmtnaokeil"
-Content-Disposition: inline
-In-Reply-To: <tencent_1BD50002C4093F92A6181A5D99D004949107@qq.com>
+Content-Transfer-Encoding: 8bit
 
+f_midi2_alloc_inst() creates default configfs child groups for the
+default endpoint and default block using configfs_add_default_group(),
+setting their internal refcount to 1.
 
---isxl4fjmtnaokeil
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 1/3] can: rockchip_canfd: prevent TX stall on echo skb
- failure
-MIME-Version: 1.0
+However, during function teardown in f_midi2_free_inst() or EP cleanup
+in f_midi2_ep_opts_release(), configfs_remove_default_groups() is
+never called, therefore never dropping the refcount and leaking struct
+f_midi2_ep_opts and f_midi2_block_opts.
 
-On 30.07.2026 21:48:38, Cunhao Lu wrote:
-> rkcanfd_start_xmit() advances tx_head and requests transmission even when
-> can_put_echo_skb() fails. This creates a pending TX entry without the echo
-> skb that the RXSTX completion path needs to match the self-received frame.
-> The entry cannot be completed, and the netdev TX queue can remain stopped
-> after the two-entry software FIFO fills.
->
-> Do not advance tx_head or request transmission if the echo skb cannot be
-> installed, and account the frame as dropped. Make can_put_echo_skb()
-> consume the skb on its remaining -EINVAL error path so that callers have
-> consistent skb ownership after an error.
->
-> Fixes: b6661d73290c ("can: rockchip_canfd: add TX PATH")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
->
-> ---
-> Changes in v3:
-> - Move the -EINVAL skb free into can_put_echo_skb().
-> - Drop the redundant error message from rkcanfd_start_xmit().
-> ---
->  drivers/net/can/dev/skb.c                    | 1 +
->  drivers/net/can/rockchip/rockchip_canfd-tx.c | 7 +++++--
+Add the missing configfs_remove_default_groups() in the afformentioned
+functions to free the structs properly.
 
-Please split this and send drivers/net/can/dev/skb.c as a stand alone
-patch outside of this series.
+Fixes: 8b645922b223 ("usb: gadget: Add support for USB MIDI 2.0 function driver")
+Cc: <stable@vger.kernel.org>
+Reported-by: syzbot+eaa106d192c9daf37f95@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=eaa106d192c9daf37f95
+Tested-by: syzbot+eaa106d192c9daf37f95@syzkaller.appspotmail.com
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+---
+Aside from testing the fix locally with QEMU and the reproducer,
+syzbot also reports no issues after running `syz test`.
+---
+ drivers/usb/gadget/function/f_midi2.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-regards,
-Marc
+diff --git a/drivers/usb/gadget/function/f_midi2.c b/drivers/usb/gadget/function/f_midi2.c
+index 19fdac024..a4b72a6fa 100644
+--- a/drivers/usb/gadget/function/f_midi2.c
++++ b/drivers/usb/gadget/function/f_midi2.c
+@@ -2473,6 +2473,7 @@ static void f_midi2_ep_opts_release(struct config_item *item)
+ {
+ 	struct f_midi2_ep_opts *opts = to_f_midi2_ep_opts(item);
+ 
++	configfs_remove_default_groups(&opts->group);
+ 	kfree(opts->info.ep_name);
+ 	kfree(opts->info.product_id);
+ 	kfree(opts);
+@@ -2639,6 +2640,7 @@ static void f_midi2_free_inst(struct usb_function_instance *f)
+ 
+ 	opts = container_of(f, struct f_midi2_opts, func_inst);
+ 
++	configfs_remove_default_groups(&opts->func_inst.group);
+ 	kfree(opts->info.iface_name);
+ 	kfree(opts);
+ }
+-- 
+2.47.3
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---isxl4fjmtnaokeil
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCamtXqgAKCRDMOmT6rpmt
-0rvpAP9S6YytcX2HrTpCKlp28NUpqpZ5Z5a4mN/fxFfQCQ1wwAEA6Gd1fREoYcPY
-bE9MZJ+d8RphG0xm33x6xCkxSc13ZQw=
-=yAyp
------END PGP SIGNATURE-----
-
---isxl4fjmtnaokeil--
