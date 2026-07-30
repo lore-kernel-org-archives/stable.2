@@ -1,137 +1,111 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF1535AC16
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 21:10:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4723B3CA483
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 21:19:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785445804; cv=none; b=DWntYvxR48PVCNLXm71oAOI2BpR37C8PXmlRVSAo/gHEgUshShKubX2XRVeRajvDjSJ5sTeZJR2ve0bTdZr9yY8sNgSLoOOsTapYbzoUowd1Q8GBjCduFqdaiCzFgZWa37Z0sn+5t2BHuoQgn9QVaaoceGCMidUsqLl+d1DGeH8=
+	t=1785446390; cv=none; b=ObhWL7dhhr1se8/SWllPvKZ9GIWNe48tCpsHmtvVEg6AdeXcYrjLHOpS266jBF/hTtCCGuy3/03W4OrvlBDQJQwxIwfGwX9mQwvyvlMUaPqFuTTB38sVEyXsDNR5u60rNPhnkZN3BRKZNFxmJDG0zIOfTOqpbMByq2zAiIDXfhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785445804; c=relaxed/simple;
-	bh=h4gAl5X4nGE0SU+Gh3X/MeeFPIcUPYTfpNfqjtezBaA=;
-	h=Date:Message-ID:MIME-Version:Content-Type:From:To:Cc:Subject:
-	 References:In-Reply-To; b=bddihRD0TF3E9TxUpAV+aBAB6aEnre70Gl/7z7a3r5VkDlwpdzwpJ55Srbek3aL9cx2vjjWhRvStYgo1GW180mowBRvLzRhb7HDqTdcQPiZoFAoU8iBVoHedV8cXh9sbhrFgzf6v6s3Mg+pcJBPNY2/bGe/U+OU/n+IXhbA2cew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=fczzRw2g; arc=none smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	s=arc-20240116; t=1785446390; c=relaxed/simple;
+	bh=G1XI+5GBTx+oIkqPxinIwBou1X2aVA3QOE+MAiC5iyM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V3UcVWI5ctRp1bHRK0ZPRPOjXOwpX745woahxuMQHUkx7C98/GeFJr1IXMgSAmoSITZQtlqYb6jWKFm76fz4ZVcq3qG0KipGE0/tJlxLk8MJh0b9EHb80GbfC6TuTFSKtkmNklnlursOL09gxQ5Lcs8+p9paZ9UUDyjJb4UgLDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=E9iM+Rbi; arc=none smtp.client-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="fczzRw2g"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-51c08df8513so1457611cf.3
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 14:10:03 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="E9iM+Rbi"
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6aaea785032so109216eaf.2
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 14:19:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1785445802; x=1786050602; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
-         :content-type:mime-version:message-id:date:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lMLsf+LQaJK9TyVbvhOADIYNpgfmalBwRgJCFWQKWPY=;
-        b=fczzRw2g8JaX6smDaTZ1xAWIookwAoR0D/4mwj9qfdsvrT7xHZK7cUCTG/iaRkHggR
-         P3+FocISR0RAqycHZjKdHWOKhym2LY4kDNpJitfSn1SLsP0xJldbL6dnOQiOH+Ui8UO0
-         0s0iikmvOL5UJp8pwQK+3zogN5R8tgZiWKl76qP7zUMCexyqTjscuP09H47el/A5LOPQ
-         bLAyklxxIuDg1PEhhjAUarpxLsz/dzQ2nx+5CRrhHNyoAb765r33FrSBLNFCzRh86N+G
-         hs6CfIpW2mf0Oi0YshQ5vbz8SdmW0ePcRjHnZpBqKUUGsXip8dYktnA8REVJHQrMq9lN
-         Y3bA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785445802; x=1786050602;
-        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
-         :content-type:mime-version:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linuxfoundation.org; s=google; t=1785446387; x=1786051187; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lMLsf+LQaJK9TyVbvhOADIYNpgfmalBwRgJCFWQKWPY=;
-        b=Q2EI2ksdm0h+HW3CBuCwr96FDO6U/7bfs+31NGC0HfVCkTIO25DehYjXBiVC81/Ugn
-         NKhHhldb/yo78V9SvXgWKhcsNTZ0AmVQbfTXHuxFUBi+KddzFpYMJ1TE0QJ3z6guWpa+
-         UjypyTq/Ehi4h9U7r5fvyT634g2gEFVYjyhd8x9yCdCDMCyA3ikK4xpCoINAMJIeDFUU
-         lRjeluuuPy/474K2DAzamxIsGeTtAf8dO9+2RMAs3rrO1Y2ptLsPxnoxIIvvy2YdFRJD
-         n3iDftvPvaGvjPs+sY3Tmn8x69ImRinhCPOKNIoMWyVGRLVtxYVq3jA97AD9j7nD8KA7
-         4Gug==
-X-Forwarded-Encrypted: i=1; AHgh+RpgSUX5EzdkOamS8abWnHdfmemeGcPiysGa8SeJVjQATbhKm/Vh2A4gqGq+4ytClz+ZjTeK9NQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwcG2x1uz3fsZop57JsmF0ESpI9o/82UjnL1Rl9k3yUc9xqPPzY
-	2sc0VKGNKq7uRXnj+Lj5cBhxGpvznQXXExy3fPkfRsf9rh+JjF4BS1wD3wUslf4yuw==
-X-Gm-Gg: AR+sD11FkW/HNve0ZNXJZoizppjDSJxzVMfSCV5YbBkQlgA4jXVA13mG06YM1b4j5dY
-	DSobXCnmgiB+5XLDmE2zrQyQLnG/pI2njFSqwfiKhmQGWgfA0RfIC0YtdUYKrjvQLw1MX8xp881
-	yDM1MrJ4mn1Yi/f61zTZKY5oIGuLSbklGuhyJrNbqzb7p1tjCM9XZZxcU/RHECW3P/7WTAcPVQ4
-	QRT5fVFymVC/IPfmSNnedsc840JsiM7sJCTjVxI8pBIYV5A8RFCKyDBUcBmHZbBG3XPErOHMNLc
-	ov/QIR0drgT73ab2JGV/jDjKvevwFTGRhq62pfBd4uOWCmgykL8irB0FH0k2o2pFIR6STAyQ5Vc
-	qwstAnH5+dh9iBHgj8Pdu6VNKEh0zoBDxxIgAzZcPrYt23EtOjLztEYO9PyNTg2Wz7Rdn2Q0N6v
-	Cpu/7MewvixVrbl9szVC5QJp9po8qmNSmgeJ13bJhdlhQwlE170x7UsovGjZ5xzNUeSZ8XJKSOP
-	7bvTbJZmB0r94cInR1zU8+AtbWzIYG3VkfHrHQOBriL
-X-Received: by 2002:ac8:7e81:0:b0:51c:1d18:2fe9 with SMTP id d75a77b69052e-52b3836970emr48411021cf.5.1785445802045;
-        Thu, 30 Jul 2026 14:10:02 -0700 (PDT)
-Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9083fdbc35fsm1954776d6.24.2026.07.30.14.10.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 14:10:00 -0700 (PDT)
-Date: Thu, 30 Jul 2026 17:10:00 -0400
-Message-ID: <db6fe5d2d4081f20f85abc6020b831fd@paul-moore.com>
+        bh=ssRbo33iKLdgp+nHO0enQlsAP107KZkbYC4ZS/Agj6U=;
+        b=E9iM+RbiLIs8Lu9U49k+3uXr0AdHwNyDacBjbPO4i5i0qMZJoTA8v/FpVKMehR6n0/
+         PXg3v/VBlwBxJGHHTwe287DEBSvkzpnzTvtiqkLnPKlZnfjFM0809eYeibHZzg3r+CZt
+         SB/Lg1G1KsbVCs0HoTAn34mcLJDrSlJ1+84dE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785446387; x=1786051187;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ssRbo33iKLdgp+nHO0enQlsAP107KZkbYC4ZS/Agj6U=;
+        b=BVklfFw4ngr1crfG/IZxJSUFVf1le5yg3YelaRDNJmax/MkkzxDrzJqyx/4WtfpOk5
+         hmhYFJGEHNHToKU13cZYGEhBt5qbvTgKqOoNzYuWytZhQYoDrj+F8X1qvgB4QMO+ZfOd
+         dGJMHTUK3oSDIL4IjSeFE0vbjKWGM2zH5fnj+rSLEuaxccaQFWvNP12prk+s9InVdd2C
+         +91g6ibVdtZCZG4CDipB+xtqWEPY3b8LadaV+Rlafl3o3mSC88bCEfbXY7dMqoZCo+pf
+         HZitJy1MD95foCfj1lY7KcLU0VWzWqmoH7XTGTmPB8uukd1SMuUN6iBqXRhtL3Rplh7q
+         Q3wg==
+X-Forwarded-Encrypted: i=1; AHgh+RpaC9xqoKLslnqfT4ykEezBhc8y1HDx7wdw6chjnrYRIt9VmKGVIAo1YE+BQ7ONNZ8jn3nsS1c=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzSdKBp7v6DboSDNFK6HB7Q0xBpb1KTunuGnJ7Oq5MsT2BOVDw7
+	KmB6khslshNDUtfthCOr+aS10hIieOQL+5/yvDyOJTm1QnDp+wF/j+XyroYVCjM6E8M=
+X-Gm-Gg: AR+sD10Aq5fBklTeSBlRpWb10v0Y3ew4xfZOlDSy7VNrkVe8SElxqqJPvikt54zECRy
+	K3UWGhIKGV744nts012afo2r6fLT1IBkcQssb4KcyYcMesQ2AK9wk3WcWcmVOHQCEuqoRvG3JI7
+	qRY+o5q73TqpFjjAS7ylQ33NoecaZ7khpon4FozjPaox95+/N73cyQP56Q6VqE1NT/Ci1uhCQyK
+	jhx+CecCs1XtfQTKtr1j9sDu2BNSjMz0FCCrAiGmJk40mx6H2eX6sVCij2XxwUwN/U2FYAzszz7
+	Zqlzg2h22ovaCqmoURW6Is0v+gbJqLOExGBQEZu7kAEx9YTxfNqaiK9idt2d1avTu/UpnmaJ9OA
+	CrE5FxqFRGH13h6xtKlhv/YG6XGR9k/ebrJviZ6be3bEglDHBfeJhFNemAsCc2vYJ55HAGpc13L
+	XJhZbrAqu6aWVJPHx7Ix7UDW/aD4Ty1OJNBIxxkLabhIVcSPIvJo1dVrJCSx/yrKrJIFWQDA==
+X-Received: by 2002:a05:6820:f013:b0:6aa:cce3:ab61 with SMTP id 006d021491bc7-6acf7faaf82mr1374038eaf.9.1785446387072;
+        Thu, 30 Jul 2026 14:19:47 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6acbc29ab04sm2278140eaf.4.2026.07.30.14.19.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Jul 2026 14:19:46 -0700 (PDT)
+Message-ID: <640ad2a0-8303-4478-a210-45fb3dc9b1c8@linuxfoundation.org>
+Date: Thu, 30 Jul 2026 15:19:43 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 
-Content-Type: text/plain; charset=UTF-8 
-Content-Transfer-Encoding: 8bit 
-X-Mailer: pstg-pwork:20260729_1758/pstg-lib:20260730_1437/pstg-pwork:20260729_1758
-From: Paul Moore <paul@paul-moore.com>
-To: Carlos Llamas <cmllamas@google.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, Ondrej Mosnacek <omosnace@redhat.com>, "Christian Brauner (Amutable)" <brauner@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>
-Cc: kernel-team@android.com, linux-kernel@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, linux-fsdevel@vger.kernel.org, Carlos Llamas <cmllamas@google.com>, stable@vger.kernel.org, "open list:SELINUX SECURITY MODULE" <selinux@vger.kernel.org>, "open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>
-Subject: Re: [PATCH] selinux: bpf: check SBLABEL_MNT before isec init
-References: <20260730181008.3654413-1-cmllamas@google.com>
-In-Reply-To: <20260730181008.3654413-1-cmllamas@google.com>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1 000/744] 7.1.6-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260730141444.267951807@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260730141444.267951807@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Jul 30, 2026 Carlos Llamas <cmllamas@google.com> wrote:
+On 7/30/26 08:04, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.6 release.
+> There are 744 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> selinux_inode_init_security() marks the isec as initialized before
-> checking if mount labeling is supported (SBLABEL_MNT). This was fine
-> until commit 9722955b5430 ("bpf: Add simple xattr support to bpffs"),
-> where genfscon bpffs mounts fail the SBLABEL_MNT check as expected (no
-> xattrs) and yet leave the isec->initialized. This breaks subsequent
-> calls to inode_doinit_with_dentry().
+> Responses should be made by Sat, 01 Aug 2026 14:13:38 +0000.
+> Anything received after that time might be too late.
 > 
-> Do the SBLABEL_MNT check before the inode security is initialized.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.6-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
 > 
-> Cc: stable@vger.kernel.org
-> Closes: https://lore.kernel.org/all/akWdcp6P0FkNDzBk@google.com/
-> Fixes: 9722955b5430 ("bpf: Add simple xattr support to bpffs")
-> Signed-off-by: Carlos Llamas <cmllamas@google.com>
-> Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-> ---
->  security/selinux/hooks.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+> thanks,
 > 
-> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> index 8d6945edae7a..09a12eb8652c 100644
-> --- a/security/selinux/hooks.c
-> +++ b/security/selinux/hooks.c
-> @@ -2980,6 +2980,10 @@ static int selinux_inode_init_security(struct inode *inode, struct inode *dir,
->  	if (rc)
->  		return rc;
->  
-> +	if (!selinux_initialized() ||
-> +	    !(sbsec->flags & SBLABEL_MNT))
-> +		return -EOPNOTSUPP;
+> greg k-h
+> 
 
-If we're moving this check, we should probably just move it to right
-after we assign 'sbsec' at the top of the function.  The calls to
-inode_mode_to_security() and selinux_determine_inode_label() aren't
-doing anything useful in either the !selinux_initialized() or !SBLABEL_MNT
-cases so let's avoid the unnecessary work.
+Compiled and booted on my test system. No dmesg regressions.
 
->  	/* Possibly defer initialization to selinux_complete_init. */
->  	if (sbsec->flags & SE_SBINITIALIZED) {
->  		struct inode_security_struct *isec = selinux_inode(inode);
-> @@ -2988,10 +2992,6 @@ static int selinux_inode_init_security(struct inode *inode, struct inode *dir,
->  		isec->initialized = LABEL_INITIALIZED;
->  	}
->  
-> -	if (!selinux_initialized() ||
-> -	    !(sbsec->flags & SBLABEL_MNT))
-> -		return -EOPNOTSUPP;
-> -
->  	xattr = lsm_get_xattr_slot(xattrs, xattr_count);
->  	if (xattr) {
->  		rc = security_sid_to_context_force(newsid,
-> -- 
-> 2.55.0.508.g3f0d502094-goog
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
---
-paul-moore.com
+thanks,
+-- Shuah
