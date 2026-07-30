@@ -1,81 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5FF3B19A5;
-	Thu, 30 Jul 2026 18:48:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785437336; cv=none; b=bCnSO/5SXdwFGmgVUf7jJ36G+s0W9kaN+QHT/bPBG5wyS3wSURlVEKjsgFTZXHUSjQXEkoGzdg1q0QhLjaZUzAkZwfNPN7WRIVqiXoXjHMRAOQyADqvFt/YLeZHVAR1kLKI4QYM2vLPVZ756V1O+cgMPgXfyDhgyCGMUJ+IEToA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785437336; c=relaxed/simple;
-	bh=Ya7PwboT8msR+fw7zdmeciHBo4hTvCJXwdxmnHrk8ls=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ws/G05q4Ljx6Lu8rH+IqT6auKNgeqfrvnakEBbVPJIUrEmgy2nn98bTLfkprabVa+mY2krtclpiZUbLQKd7oPMMENj8PQ8sQTxqjVPb0MmsbzAUFPcALV3HVYHL9GBV0Z6+wbCGrl4jpkFOnxMrerxfcjHkwvvkSDWQnPyqzifA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMe/IWLI; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012BA45A28B
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 18:50:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785437427; cv=pass; b=bVsfIDY8allrJFyQDcxIX/La1SdDtyp5i+vMWoP6W6043tfGTd8wrhk+Uum11BXkQe3ud+Lm52hC6v14ht6lCjQNn0PVbxjlCk+zVZzdhwDPhzSB9FtDfLX2y7Nu+UVfN6X5uL5+2w+CtDMC8Q1upC+EpqtWrPsyj3k4kVDg8vA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785437427; c=relaxed/simple;
+	bh=xNy/bcDVAaOXHFeFKod/slRT1Pma9CINKHcuSvnIRJU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JMKkjmn74GX1CcHPuTiFx74ayd9Ccw2mixkqT/Z/O0uXoU63au5BbdN5j/c2XVCT3OH5mxWnpoDT+P7alR1COHEEiSA/PEIH+4D/TYrVwYoWvh0+SPKwrJzyKZGDvRvFHkT7Loo1SZfPEZguMEvCUJN4UokhdeEQ4MGCzRHpLoc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f8Ej7zYc; arc=pass smtp.client-ip=209.85.160.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMe/IWLI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B31E1F000E9;
-	Thu, 30 Jul 2026 18:48:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785437331;
-	bh=+tWh7meLe/5uHTCl8XPi/ADCz3kftqsZ200DAT27GRY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EMe/IWLIqac8D3G6ADHQlK53kvj/+X9NT5XSUmpX7ZADkVOTDYVJ14bg6N6y0bHJT
-	 ZupT+2rHKBKBAfD3fYJCqCLibHBVxs+ZRpMKest/X4lOXfLf1MxOFZg8SxUvg6yYG5
-	 baSBI5ph2P+xaWkA1JXyatmywkkqMSxtwKS32ICccCzKxkI5/mE98cbcP9qL9kCuv+
-	 c8gLUrIWED4jGoWrMTpQSAJXiVwFKJBTql2U3VFYIFla37ve5ZwjFJYC+ECuXgYSIS
-	 lvDBAzgh8/RTFh/zFxXkJRZ4KUMNYGjM7XZB1vH0qdaUpeotm/EkvOmHUPe7SfJN7V
-	 1le46ITuPf0XA==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 6.6 000/484] 6.6.148-rc1 review
-Date: Thu, 30 Jul 2026 20:48:42 +0200
-Message-ID: <20260730184842.97941-1-ojeda@kernel.org>
-In-Reply-To: <20260730141423.392222816@linuxfoundation.org>
-References: <20260730141423.392222816@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f8Ej7zYc"
+Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-45171f2f608so146110fac.1
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 11:50:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785437425; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KX9fL8cEqtuQME5NvkHN9fnbu7zkmEM8Nh4/xisp0f1Ap25eRsuqi5VPvRUK9xQcM6
+         AK2aA9mnTZ8ZF5GhigqFbipvi36hX2QJ0TNL2ZY+pBNDaI6eBeIGDii9PuBBQh6GGaXj
+         MO38+N/OHtXPN4b31OTZ7HIOMllrc1DhWgFDhHKDtVC4h1kbBZnxYBzQ2p+v2o/1Q1Gh
+         MJkO05R96ct5psq3fD5/aB0c/ZhilZRl+QI+tMvJ0tk6J/e+SzejvcCZ5jNF901HA110
+         1+X4jZkS2qt32tZ2pDu5vlO4PRfk+rpLYz+OvQMvqaNe/O4pVAOdOxlcOcmiXnH7rZOH
+         7FhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xNy/bcDVAaOXHFeFKod/slRT1Pma9CINKHcuSvnIRJU=;
+        fh=lZDeCDUagU79yVax10wc/OCBlbBeteLwRU1SDl8nhz8=;
+        b=QnH2al0mL+mjUMJEKyvBJBkc6rmQXSlit8dqiX7vUBAtUpeSti+F/5K6+83tHHwtBg
+         p+y0zO10TWjJRJPULi+oCp7Vnaa/WVVN2DZ0T0on+TF8vsJjnNksaWJcpEyVorspoUIr
+         CYDBzG0hu4gWTQh5vgF+S0iH/8EfSLgD+j9KtXhXp4aigvVHzwGxOVCORIgNUHKD0rE5
+         vuhyqDOmvSW5fCdWal6ex9kPZGhD2SVb86pS8dtbaupGpGj9ag4KPGIDi2zNiS1l9uus
+         QLd6VPst78yyf1o3z6SN/4tvTIkYWW8wsbE9zz28U6JgE1xO68Fs5l1fNqHJLOFmJWyF
+         TYtg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785437425; x=1786042225; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xNy/bcDVAaOXHFeFKod/slRT1Pma9CINKHcuSvnIRJU=;
+        b=f8Ej7zYcREBo1Ix7zZLzyYMQJtQKmTw4vQxRTwvgZZ4l45bRzkXbQePryCxlA6Gpym
+         usN/hO1GLpIZSxskRSKwpaR8otVXoEkHEd3JjzWhJL3aLkcfslWeD48SDFTXsi0PqLKN
+         dhnwpfW4BT+GatS98gLfA+20Qdb3t0C5y0NDuNNK8ecekSSTGBi7r+BZol9czngbZhNW
+         1ASfRJ8CxI4ptIlM4fLxkEwKq3qaEaT3qx1+FkZrY4QBhxQr06m33FACAdtcWh2LVMcO
+         KAsDdfDivuX3+EnVudaXUvGbdN6y1GS41aw+5dGCImrGPpIx0wz3azmyE2bpaxUfXkie
+         M4Cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785437425; x=1786042225;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xNy/bcDVAaOXHFeFKod/slRT1Pma9CINKHcuSvnIRJU=;
+        b=pZRpraBEJMj8z6anZ/yLyvlLSnokjy+4GBRdoN8PgB2FP/ZyQblYhWCTOsu3bTQUPU
+         0fd4Bk8aiVBPfu5jHO8XpmebYhZ5Qcw0VV4+ax4AQEqbgYiekJ+U8vQxpr4+4rOozyVV
+         gqjwa4758n4ui2nZPaRm6e/J7/hxI4uV/wCn201GQs9nx4ypcSFJFVPZjD+ZamYdloJg
+         P5jUe0dAOHPEN096utKVB1yXxiK1WXREoKvTjWP/e0gy10KAdt+QxAA8exTqV1tDM6MP
+         zLhhX+oBounEnSFVEleRr2d9wjJ5poOEYRuN8AkVybN0CIy21kCrI+zj562sQtkX96fn
+         1xnQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpKNNaT38BheG302tzA9r+NLzooxIoRun8We7b6WOjQdUVcpnRUgt/+RKFINMPhTZYRvx3DdNg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwnOUdKmKQQPXB+TAWuBUH9QiudAl2wG22d/LvVMmZQlQJ5t40e
+	RtolGcGxrIZjPIT1vqX8L5yTfwY95AoCCiNbxVXGD7zLq3BkVUl22FomsvV/PAGq35A1XwsHrM3
+	M44Xd9vy+ZczlorpucAX9Hiw8bff6fFQ=
+X-Gm-Gg: AR+sD10qvoNGu1FDxE8pdJ/r544cgp9MZZNMJTPozP2eVt3icegOEqssu3LN0MdukiC
+	CNAIUHBD511J1xncQyDnzsw7OhKP9RRZUMoAsagUDBRU6nd57gl1gh+WjPX20/m0xika3WAUy7F
+	ac10PBsplw1Yhu2uUXFICQXUGQ8Le/HwsfW78OWhK7FYgbJbSQbcXjDGRpiCy5DMq/lsLDDLt7r
+	/o8TJUiFT2g+SdVJyPIzspdYx6UQ32+8TbwkPRMutjLdjSGgGVQ/F7jG/3rnrLgL4puX6D4UzIX
+	t4FyCK2ZMRoMfU8EehlmZPP4s9dMOIl9z/SVN/Q7l6u5
+X-Received: by 2002:a05:6870:8a29:b0:456:b249:700c with SMTP id
+ 586e51a60fabf-458c0e1c200mr2600508fac.19.1785437424719; Thu, 30 Jul 2026
+ 11:50:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <01421d53-c379-4044-9da3-5990186303ef@iogearbox.net> <20260730181008.3654413-1-cmllamas@google.com>
+In-Reply-To: <20260730181008.3654413-1-cmllamas@google.com>
+From: Stephen Smalley <stephen.smalley.work@gmail.com>
+Date: Thu, 30 Jul 2026 14:50:13 -0400
+X-Gm-Features: AUfX_mw-sWflnKZtGKmCqYRU0sb3jjE3qrtGy_CKaW2nfsOdhimFd1pr1NGG468
+Message-ID: <CAEjxPJ47CTKXxx_DvSbuO5F28T-eNPnQQ+Gm_-qaAeb6R3wPfQ@mail.gmail.com>
+Subject: Re: [PATCH] selinux: bpf: check SBLABEL_MNT before isec init
+To: Carlos Llamas <cmllamas@google.com>
+Cc: Paul Moore <paul@paul-moore.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
+	"Christian Brauner (Amutable)" <brauner@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, 
+	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, 
+	"open list:SELINUX SECURITY MODULE" <selinux@vger.kernel.org>, 
+	"open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 30 Jul 2026 16:08:17 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+On Thu, Jul 30, 2026 at 2:10=E2=80=AFPM Carlos Llamas <cmllamas@google.com>=
+ wrote:
 >
-> This is the start of the stable review cycle for the 6.6.148 release.
-> There are 484 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 01 Aug 2026 14:13:41 +0000.
-> Anything received after that time might be too late.
+> selinux_inode_init_security() marks the isec as initialized before
+> checking if mount labeling is supported (SBLABEL_MNT). This was fine
+> until commit 9722955b5430 ("bpf: Add simple xattr support to bpffs"),
+> where genfscon bpffs mounts fail the SBLABEL_MNT check as expected (no
+> xattrs) and yet leave the isec->initialized. This breaks subsequent
+> calls to inode_doinit_with_dentry().
+>
+> Do the SBLABEL_MNT check before the inode security is initialized.
+>
+> Cc: stable@vger.kernel.org
+> Closes: https://lore.kernel.org/all/akWdcp6P0FkNDzBk@google.com/
+> Fixes: 9722955b5430 ("bpf: Add simple xattr support to bpffs")
+> Signed-off-by: Carlos Llamas <cmllamas@google.com>
 
-Boot-tested under QEMU for Rust x86_64:
-
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
-
-Thanks!
-
-Cheers,
-Miguel
+Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
