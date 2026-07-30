@@ -1,163 +1,123 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+Received: from mail132.mailersend.net (mail132.mailersend.net [212.11.79.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC349382283
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 03:24:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785381871; cv=pass; b=uzkvJqqlCSaz/tt6lviN/tlBEBMeEZoNAx1y9lCdyjdag3tnRtcSmavFLwqQZGFbgzMu5wU2wOhQKtdCUmZujOlEbKrc8BTI4JgRRQmprMrxWExYq9o9Ds0YQYLaExdd9Wt/rawcB9D2uM4e9sYAMvbsRjn1a+BvbEi4ej272TY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785381871; c=relaxed/simple;
-	bh=XHg40f1gJ/YIvj9Si9YNU/RPMmZ5XfcIDvaNQCDpNwg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aO2wA7YJ87PwAPyEzQXqiqRx4Jm3B6WIFR8iyP2ZinesfeyZaNt0s9nh+4B8vO1Mj84DYwdeKn//f1SJTbdSSbMjonbxmI/FoWufRRlGmCYh15Vde6PIJUHIteuWD7M580BaTAYjHFDLStZFrIoqzvuhhQOc8rfkDcStvbiO47E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r+CyZTg9; arc=pass smtp.client-ip=209.85.167.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8408137F725
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 03:37:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.11.79.132
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785382660; cv=none; b=fURYnX6F2twTV1bZrOMUv8pB7G5t7cGbbwxRue7KodVO7GMU/4T7V1RlmuWMBjxpsRRaPwUiTDfdX/eI25oi6xdnaTpmTJ0oce93BKbt5PIs/vtJRBo/bROgAOTwIVADH+N6AGuLAGwEdp/+iFOu61wIQOBbeelMDTkn7bb2sQs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785382660; c=relaxed/simple;
+	bh=JbAwF0ZNHDDugKz48oD9F3ZEqPXPccw6WvlGqwKheWI=;
+	h=Subject:From:To:Cc:Date:Message-ID:MIME-Version:Content-Type; b=OyTQoT/nNK9IXFs0LSKeNHrzvEjHwXksKC0CEYYO/rg5V8QRKaaERvKmqMsBFDegwl3CXf7lkE6jfGLwHQaFjRu5iR+sl1z1b2shZoW3GIJj/sBg48tiD8iADile8z68IGDl1NnAknFGC3KrOoH32Q2f2rlcMSNUSUZR5FhqARg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com; spf=pass smtp.mailfrom=mta.iusegentoo.com; dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=@iusegentoo.com header.b=UOSvp66G; dkim=pass (1024-bit key) header.d=mailersend.net header.i=@mailersend.net header.b=KgU+e4zG; arc=none smtp.client-ip=212.11.79.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mta.iusegentoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r+CyZTg9"
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b015532f7bso1527063e87.0
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 20:24:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785381868; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Wr2cfEozR5FqUWrWgJ36KDLCaTZTRsuCvnyG1RdBpeiHDfydkSukHAZVS2pt9cctq5
-         k0+Rlqi2kPvy3YaC9gTypdra8y3cVIt6RAII8JfFfCzBveHoVeN0cYRyr64CqRyjcUZx
-         d12oqElzxtIU1FdNpHxXTMb1aRh/YfaAW/pgtNek+Zb7CnK7Jzhwzkh8LGxhcWlohmj0
-         by2FTY95IseI1c6MT4qczd7Jyr4+Mdq9pED20V00RMK1bJr6IHDgt/ZIX29mBouGuEtN
-         IG9pLdexJMZsUkwCL59EDJvCgpjwapK7aLbHE1lcNGom88m0nF/O5gNP5GdCdBSdnMa7
-         7PrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=czSucy7zlmDRprNUvvGm2utHsJougpvDn6kozLJOcKQ=;
-        fh=y2MnsId/UpW+2sGBYihYFbOnLO+6hZWerkFYYMfhoPA=;
-        b=gBV4KN78m6uNX98S506jIuQDVblrAi1sDfcWLy//2N17FefmDGUdUvCcGo1rhrhX4B
-         63nufYDoYSgnkOjnSiZJVV5woRwRzbnGJaHuWT80i+qoiqAw8ZD99qa2CKVtXdRJk1+x
-         BO2Zcxpoes/BnBswo/cvREV0/JjmzXW0IKFFk25UTwWiQOOei4jlyVklwGulM5XLA1/t
-         wMOQokGgRaMdpL41O2PqP1MVx2QFEyO5qTzbG5aqcCNQy00S6JfwRn1h8ct+ZiVvKzL2
-         HWjWdkOvvpu3gyYI9tZLYiuHmpRZDz4l6t0OVh2frd/QeAPTuU+57tN6+u0Im2/uEwT7
-         G40Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785381868; x=1785986668; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=czSucy7zlmDRprNUvvGm2utHsJougpvDn6kozLJOcKQ=;
-        b=r+CyZTg9WAngGfsteFMObpjdYuxuRw82C6kWsRZcr1xE8x1nFjXuPmjaE3J3XjLb5u
-         A0UG7EA7K0NMKuOsJhysgbA5BJF1TE7XiAOEb44Pfx6GGMucH1cMwlgBfUfJbIAQL42H
-         FU3c3Dp5NqL48LUT50PzT6MYqg2KdnfK21qJ0gJczQWCIUQQb/TYU9hKKS2LHHLN00Aw
-         P/0653GznNt1uYgPV6kYrQajw6prHGj6F3AVdRSX2BXcB7EDscFBbZZZO22f85lcN0qC
-         5wiKoMf15o3hPTp3HR/LjdeHx1hR5SBPHNVvljbOPEWKfk2c0KM+DyThIWA2Xs908Vmo
-         BsbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785381868; x=1785986668;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=czSucy7zlmDRprNUvvGm2utHsJougpvDn6kozLJOcKQ=;
-        b=BuvbNwdqBU3WoB28R9M8btIFuoe2BnfggY2URPa7PO8nicmkdtSFYuAIcOzIV0/coG
-         nQsWHObd+A5tFYkiGEADyVvo5W7oONRn2z3R4v2ZL+RBdA0Ebs0iL+GUpJwSV1rZ0WjU
-         f1+oFjdsjMg+8itxPPA2F/43T6dItf5zJ9yI1G/kNQk7G2amAfmDg1mgiYp/9AKC3NY9
-         LWEirB17RS4DkfMHnQoa2t2BWi6qN9T1Zi7E2vTTiPbdh9AZy/zLugCVhxMBFYdUQoXg
-         +Uoc5FCCKqc7LLYjNNocNxZEt9tRH8jyZbFnEe3Dsb67FdCOBC8aqODn96c84M/IXuLO
-         NCig==
-X-Forwarded-Encrypted: i=1; AHgh+RqMuPCa0A17V/jF8zjm5UJVdFveTTSn2O8Kz4vO4u5xLb57ptL3UbvjYB+z8Za0oBi4I+57dxI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxH9dWMxGpbDacoj1HvPVJXtZCHaBDSiSy/QrtGwC72JsvIAr4v
-	tVw+7YIys5xkPwkvt7tSSdaS8ZnfQov+Q/h5kSWXozSJ2dtSM6N6TK6iWrDW1/NmTbgxa1oYukg
-	Z7R7cj42W+gCrjbe25UBLxVbdg1JfLOM=
-X-Gm-Gg: AR+sD12imcTzA5oC52Bbhap2DPEyQk+zN5GtNY4ndWb25V+tYKOB2bYy7/Fycr7tR+z
-	MyuaiiS0c8Vn9HDEbfzE677v4gidokQWgfRYLKHmNw4ZGL/unMrxN0lEdSVrsEv1kkDwqqE6lj+
-	fUYli97tADzFEbxil++wSP1k9Bs3DBYWRvRmEgVWxCWV2WKrl8bnWd7GFxkgbwkLeuY/qt5vIPm
-	dslpI1EBFRVjKZ/3jAQ8BlT/X+ed79KLlm27lgGzHIEP4IKkWuN7BhfOdsPLiZGm4w0NtLtsoQl
-	lHFnGWoCu2RfyEXAEnFo1HENJszXMBk959i5CbHP2PoKwqH4QfLZYLUyaQ9vZKaQPHv/2qUoqIV
-	1cerQDV3xsvDbSueGCYDVfEjFxDI=
-X-Received: by 2002:ac2:4e0f:0:b0:5ae:be47:f006 with SMTP id
- 2adb3069b0e04-5b2db391e67mr122170e87.43.1785381867775; Wed, 29 Jul 2026
- 20:24:27 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=@iusegentoo.com header.b="UOSvp66G";
+	dkim=pass (1024-bit key) header.d=mailersend.net header.i=@mailersend.net header.b="KgU+e4zG"
+DKIM-Signature: a=rsa-sha256; bh=IxFbusL+Lxm7QZTSk2RAjdpD74OZtKPh+my5EFmKiYQ=;
+ c=relaxed/relaxed; d=iusegentoo.com;
+ h=DKIM-Signature:X-Mailer-Info:Subject:From:To:Cc:Date:Received:Message-ID:X-MailerSend-RecipientID:Feedback-ID:X-MailerSend-MessageID:Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding;
+ s=mlsend2; t=1785379620; v=1;
+ b=UOSvp66G65CPeHe/eWmJj4duzgpoF1PZbKLMEscY7ASKHD/xlLkQtcRp1ocT1Bso56Icwbwb
+ Pf1SSY7F0WxaZH4/jn43j9CSw75jRrm0QL2RBVqM6gxHjNGWB1kMLFzoPptAxNr6wXvPNDrmlml
+ Iqyjlsb/TF12yYFO4wJUrXrM=
+DKIM-Signature: a=rsa-sha256; bh=IxFbusL+Lxm7QZTSk2RAjdpD74OZtKPh+my5EFmKiYQ=;
+ c=relaxed/relaxed; d=mailersend.net;
+ h=X-Mailer-Info:Subject:From:To:Cc:Date:Received:Message-ID:X-MailerSend-RecipientID:Feedback-ID:X-MailerSend-MessageID:Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding;
+ s=mlsend; t=1785379620; v=1;
+ b=KgU+e4zGyOX/pRZ8D6Gm5E4V9UVbAAMTWnQKHzGEEaB1Nfvra2nDsKVmOFUIHhx2o1/O1JsM
+ iRMwCkWbJIsrZxQk+egr644h7hLb1V8DXEzzcRHJGjUcaU/uNQFrSrrC/42RM6LnCTtanBoPSmD
+ LisMK9QLkIpZZoqm6zQa4Uh8=
+X-Mailer-Info: 10.AZlZWY1xGd.AZlZWY1xGd1YDMxIDO.wc0FmYsVGQ2dWZy5yalJnblxmLvJ3
+ Z.gNhZTYiFmZxMTN3MzNyYjYxYmMxczY0YzK1YDMxIDO....
+Subject: [PATCH] cpupower: Avoid uninitialized reads in topology sorting
+From: Ali Ahmet Memis <ali@iusegentoo.com>
+To: unknownbbqr@proton.me
+Cc: stable@vger.kernel.org
+Date: 30 Jul 2026 02:47:00 -0000
+Received: from 10.32.23.21 by 10.132.0.99 with http; 30 Jul 2026 02:47:00 +0000
+Message-ID: <6a6abb242de06296e91308bd@mailersend.net>
+X-MailerSend-RecipientID: 6a6abb242de06296e91308bd;6a6abaf13573726b1f217c46;zxk54v8pqnpljy6v
+Feedback-ID: zxk54v8pqnpljy6v:MailerSend
+X-MailerSend-MessageID: 6a6abb2383d4221bd92cac89
+Reply-To: ali@iusegentoo.com
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260728103536.25012-1-gvalkov@gmail.com> <amq0EnoZrBA+8W+J@nxpwireless-Inspiron-14-Plus-7440>
- <CADOrJmZKdM0y6jeS7oOK0aKm7BaqcDB=BmXTSBrFTiTqXHhUhA@mail.gmail.com>
-In-Reply-To: <CADOrJmZKdM0y6jeS7oOK0aKm7BaqcDB=BmXTSBrFTiTqXHhUhA@mail.gmail.com>
-From: George Valkov <gvalkov@gmail.com>
-Date: Thu, 30 Jul 2026 06:24:15 +0300
-X-Gm-Features: AUfX_my7RmQB3ea64gFTkqlTnLieF4yzIpHcpIeqSKcu98ezcAV1Ujrhvwx5QWc
-Message-ID: <CADOrJmb=_uNHnnqswMAN+LTNPHnRARqF=MicFTP6C5QoMxH4Uw@mail.gmail.com>
-Subject: Re: [PATCH] wifi: mwifiex: ignore ROM regulatory hint on WRT3200ACM/WRT32x
-To: Jeff Chen <chunfan.chen@gmail.com>
-Cc: briannorris@chromium.org, francesco@dolcini.it, johannes.berg@intel.com, 
-	kees@kernel.org, miriam.rachel.korenblit@intel.com, wenst@chromium.org, 
-	rafael.beims@toradex.com, avraham.stern@intel.com, 
-	peddolla.reddy@oss.qualcomm.com, error27@gmail.com, s.kerkmann@pengutronix.de, 
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jeff, I forgot to mention:
-The compatibile strings are added by this OpenWrt patch:
-https://github.com/openwrt/openwrt/blob/main/target/linux/mvebu/patches-6.18/
-311-adjust-compatible-for-linksys.patch
+get_cpu_topology() allocates core_info with malloc(). If a topology
+attribute disappears while CPUs are being hotplugged, an error path can
+leave core_cpu_list uninitialized. __compare_core_cpu_list() then passes=
 
-So unless we also upstream this patch, using device names will work
-only on OpenWrt, which would make the current patch ineffective.
+the field to strcmp() while sorting the array.
 
-Georgi
+Use calloc() for the array and ignore entries without complete topology
+data when counting cores. Besides avoiding the invalid read, this keeps =
+an
+incomplete entry from being counted as a physical core.
 
-On Thu, 30 Jul 2026 at 06:06, George Valkov <gvalkov@gmail.com> wrote:
->
-> Hi Jeff,
-> Initially I wanted to keep changes easy to read and as simple as possible,
-> hence my current patch is based on device names.
->
-> Indeed out openwrt-ai also caught this:
-> https://github.com/openwrt/openwrt/pull/24458#pullrequestreview-4803923901
->
-> I've been thinking about possible options:
-> 1. Use board names "linksys,rango" and "linksys,venom", where
->    rango is WRT3200ACM, and venom is WRT32x. But a venom dts
->    is also not available in Linux. We do have it in OpenWrt:
->    https://github.com/openwrt/openwrt/blob/main/target/linux/mvebu/files
->    /arch/arm/boot/dts/marvell/armada-385-linksys-venom.dts
-> 2. We could either ignore this or
-> 3. Have another PR with venom board support files, but that will require
->    much more research and work. I don't have WRT32x hardware, and I'm
->    uncomfortable doing this without supervision.
-> 4. We can also implement a dts flag, e.g. ignore_reg_hint, which can be
->    set in the board dts. This might be the best and most flexible option.
->    My experience with dts is almost zero and I will need help to implement
->    it.
->
-> Georgi
->
-> On Thu, 30 Jul 2026 at 05:17, Jeff Chen <chunfan.chen@gmail.com> wrote:
-> >
-> > On Tue, Jul 28, 2026 at 01:35:36 PM +0300, Georgi Valkov wrote:
-> > > WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
-> > > from the mwifiex ROM, which conflicts with the platform regulatory
-> > > configuration on units sold outside the US market. For example:
-> > > - phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
-> > > - phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
-> > > - phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
-> >
-> > Hi Georgi,
-> >
-> > Thanks for the patch. I have a question about these compatible strings:
-> >
-> > >                               if (country_code &&
-> > > +                                 !of_machine_is_compatible("linksys,wrt3200acm") &&
-> > > +                                 !of_machine_is_compatible("linksys,wrt32x") &&
-> >
-> > I checked the mainline kernel source, but these names are not found
-> > in the DTS files under arch/arm/boot/dts/marvell/. Instead, mainline uses
-> > "linksys,rango" and "linksys,venom".
-> >
-> > As a result, this machine check will always fail on a pure mainline kernel,
-> > making the quirk ineffective.
-> >
-> > Jeff
+Fixes: f89cb9cba7a2 ("cpupower: Implement CPU physical core querying")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
+---
+Tested with a two-CPU topology mock that makes the second CPU's sysfs
+reads fail. Valgrind reports uninitialized reads before this patch and
+no errors after it.
+
+Build-tested with:
+  make -C tools/power/cpupower NLS=3Dfalse CPUFREQ_BENCH=3Dfalse
+
+ tools/power/cpupower/lib/cpupower.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
+
+diff --git a/tools/power/cpupower/lib/cpupower.c b/tools/power/cpupower/=
+lib/cpupower.c
+index d7f7ec6f1..a8ee304bd 100644
+--- a/tools/power/cpupower/lib/cpupower.c
++++ b/tools/power/cpupower/lib/cpupower.c
+@@ -171,7 +171,7 @@ int get_cpu_topology(struct cpupower_topology *cpu_t=
+op)
+ 	char path[SYSFS_PATH_MAX];
+ 	char *last_cpu_list;
+=20
+-	cpu_top->core_info =3D malloc(sizeof(struct cpuid_core_info) * cpus);
++	cpu_top->core_info =3D calloc(cpus, sizeof(struct cpuid_core_info));
+ 	if (cpu_top->core_info =3D=3D NULL)
+ 		return -ENOMEM;
+ 	cpu_top->pkgs =3D cpu_top->cores =3D 0;
+@@ -214,11 +214,17 @@ int get_cpu_topology(struct cpupower_topology *cpu=
+_top)
+ 	qsort(cpu_top->core_info, cpus, sizeof(struct cpuid_core_info),
+ 	      __compare_core_cpu_list);
+=20
+-	last_cpu_list =3D cpu_top->core_info[0].core_cpu_list;
+-	cpu_top->cores =3D 1;
+-	for (cpu =3D 1; cpu < cpus; cpu++) {
+-		if (strcmp(cpu_top->core_info[cpu].core_cpu_list, last_cpu_list) !=3D=
+ 0 &&
+-		    cpu_top->core_info[cpu].pkg !=3D -1) {
++	last_cpu_list =3D NULL;
++	cpu_top->cores =3D 0;
++	for (cpu =3D 0; cpu < cpus; cpu++) {
++		if (cpu_top->core_info[cpu].pkg =3D=3D -1 ||
++		    cpu_top->core_info[cpu].core =3D=3D -1 ||
++		    cpu_top->core_info[cpu].core_cpu_list[0] =3D=3D '\0')
++			continue;
++
++		if (!last_cpu_list ||
++		    strcmp(cpu_top->core_info[cpu].core_cpu_list,
++			   last_cpu_list) !=3D 0) {
+ 			last_cpu_list =3D cpu_top->core_info[cpu].core_cpu_list;
+ 			cpu_top->cores++;
+ 		}
+--=20
+2.54.0
+
+Delivered by MailerSend
