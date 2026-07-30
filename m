@@ -1,108 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06BBF3AAF4E
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 18:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0521449B31
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 18:10:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785434588; cv=none; b=VXNkOB0gwgO6JSwSXxp6xatQEcamApifVdDyQmFRoKLmzLPRvKcKbyOINtM35mK63Xx5ocJcV7Q0ZHqQWXbxvgbNDWbiCTFlV/+JOlohcTpl05ABgOEjKuALDy2+184mMiXa6tXUeSZdFLqEWa2d4E3cm9yQQAjAb3Vg3jf2GFo=
+	t=1785435018; cv=none; b=mlHfnrSM0DJKZrPA6QGdZPufIlB9mQjakQj5/TLQznUzZT0k6koL+3x142XyHmCvHnmc8Wn/CGcnua9hHoMw0QBzVgs9JPraY2lzkx35klyiHn3fWIDpMRcBi71qZb8+/SK25UIUXBOFolRtOH2WsahcO5nRbp7+pLYYHV6tfLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785434588; c=relaxed/simple;
-	bh=MfSrDP4F7xGzzDcw1jed0LK0YZ8vmCW2EbUeE4wDjiY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JiIuboRaWGvMHWJHm6letGE3x3ZpxtcL9hVSMlm5WOc9GqWZGgTW5Np6+7g9vhOGXALEtNj2CkXif3+1OnZMfhAO6sO7oddnxayb2OaYJbvPUMtHG6QxMaGQ7ppiVloH6RYglUvWITg+fNCtzz2Hmwq0osKFr1AfzB/qi2ne/zQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QWH/7gUt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785435018; c=relaxed/simple;
+	bh=j4uG85a/lUOWlekw+/37SW+8lcXDbeUugVTGhEIFrNI=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=QbOSj1JSQiP7tZTZyeoO9PDJ2oqiql3BqzneB5dswSih7S0nDL4ZfVaxQxwsKNppA5WoB4p4pEDCsQz5SREbc9XP1ZxNpQxltXLOJGMVR1nlD5rBQycBOnU0hpEiHkiPK+2fKtWX8sRl9vRxjJsc7hqvnim4nziC7ft22CzfF3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TSsF5K32; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QWH/7gUt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB1791F00ADF
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 18:03:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785434586;
-	bh=uaWtblCQv/4DCdhc7jyYsoeQO3+YXZnfBpK3Ly+PEEA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=QWH/7gUtPVc6Cpxv27UYhzK9tvJNy1J9q5VhrVickDBsl+DyXd1bwNIyqVtr4Alao
-	 LH5jI61q4yx9+UxisS4H/Ksrr6Gaw4EITazQb6OcIStxO9u+92dsP1etCGPtTtzkT4
-	 O4oROwpSP3x8GSvcdFDzS1X2TG/VOVjY1sYOe5NB0eQgm5uJUfWlP3p8IBl/s67InG
-	 38LR23VoLNXKuhcECoI8Qbw1Nbn1+bas76izYy4iTtN2HJqyjq73UoANipDda3SVfr
-	 /LI3L+oEpmm+y+aPHXDNgC8jpIC0FupaH4GgbDoGlkoYkMC1qsVNFcxB4cyblfTmDy
-	 AgniaTilN3Suw==
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-92ed19f4d60so74971385a.0
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 11:03:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rq1DCs1b1NaYYBw6vd27rZ2Zh4FePL8ZTwoHMWXZqzukHgTVCOBlIWCYauGvB4J+XcXvgTSNY0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4WwyG9OJbAO3cFAGJo/1fudbVXjW9XvH+rgrrsxJGq5RkFRcQ
-	svG99Iabz/0GU+OYJOX3jsgAez0OiEq/22SsZ5f8iiUZoYGK28rONZGEjpCOVPIEDaRrSfjz7mh
-	z2tH3sJSTpGcPfIxD7b1vY72ggdxLJl8=
-X-Received: by 2002:a05:620a:8081:b0:92e:65d0:1cc4 with SMTP id
- af79cd13be357-9348e91c56dmr170609485a.30.1785434586093; Thu, 30 Jul 2026
- 11:03:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TSsF5K32"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f5ac7354dso215113a91.1
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 11:10:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1785435012; x=1786039812; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/J+SX8dpZwKLLQ+HLHdBpKmApVdFrMwrn1102lcbc08=;
+        b=TSsF5K32AejbDCJcn/YMBtVjqzkong6JGX2vhYbaLeOHfH9HkOtH4up5GFBy5+S6hj
+         j0Ncik84ofrqHEJDw0TXEvrYl2YvwzWAg4FOoyPh9gTwVf7B5Ffen91Skpwa4Y8KXI/E
+         Lxql/Rb73H6IUHxNYRFEbsJoKWKGZHtqhs8EQ0qfBQWe3NDYUOmd295fZDHNcsC8JVTT
+         2iTnq6LO3Eaz9WIuHtcbQA8JFJFiedfx0texYuMq+3HrUYUtOCiFGcgeWf0zvs7PUGfu
+         Ps5SzA5e+eIKNYLamcBucKAB3J3LNZcT7G7KOlQMy+npBuSSYOCCXvHejM8a2z3wsclW
+         qZQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785435012; x=1786039812;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/J+SX8dpZwKLLQ+HLHdBpKmApVdFrMwrn1102lcbc08=;
+        b=hwC5BkgQHwFCHsXJw852KCmHXJR80d7ziPPFiXhkwz9wyIMYFykqUXHr5A10Rgryzl
+         OvcqzDkvo0RBjN/pr8A1yvZMUFOd4iBOUwj7w+tD5DvM1FlgVOS6arHwcHJNtkRfc2nD
+         QEwy0UJSIV4NyrjypyHB/+cbw7PikSewyqo5pWYfKlJ1Ifm6p613kJy8LqiiqvhKywqi
+         lAT3rcflsJrYD+iSsgcSdW9gBVjYRd26P0vE2OGL0+S+tuwJJm2Wb2LUjrivKJXJ6p+T
+         JJUdxMGI7xyALfemmiI1A6Xio3JCvFTSAZdrW5AkZq431QO7Pxmo7AimGYF6ILl4jCHF
+         t3Nw==
+X-Forwarded-Encrypted: i=1; AHgh+RoQ54Gwy638r6eR2IcgKeTij+DilTcW/diAPw2zimmSMTkNzl3kICJ0LOTbnOHNL1+EIE/8s4E=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwE3BLaRhx4O0DK0rvnkDB0wiEQxDCLEFR7O5xuNTm1EYCqk1N6
+	PRs7LUaKh7Y5VjMiDkH8lMy6I27Lgir6zVubVOob0m93UCQ4lf2rr8NFbhaW5O1zdzjngRS4cLC
+	4xmXXXNLjoVJzaA==
+X-Received: from dybvk8.prod.google.com ([2002:a05:7301:53c8:b0:30f:45f6:de06])
+ (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:4c4b:b0:38f:c71:2342 with SMTP id 98e67ed59e1d1-38f9c00dfb9mr2757140a91.31.1785435012102;
+ Thu, 30 Jul 2026 11:10:12 -0700 (PDT)
+Date: Thu, 30 Jul 2026 18:10:07 +0000
+In-Reply-To: <01421d53-c379-4044-9da3-5990186303ef@iogearbox.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260729084206.77793-1-jiahao.kernel@gmail.com>
- <20260729084206.77793-2-jiahao.kernel@gmail.com> <20260729155858.c7aabff48166a9bca4d68ac3@linux-foundation.org>
- <CAO9r8zNhBCghP8T_98z2p==Cfs_=kamcRN_3ROxaj3R8PN2Qvw@mail.gmail.com>
- <20260729181756.a37e0cc7ea3f6013959d1d25@linux-foundation.org>
- <CAO9r8zMPxdn=MOFD9mbrzed+C9HhOB5DpHG4QS0OJzqV_gLvsQ@mail.gmail.com> <20260730105952.7878a648c43c32b5e649d96d@linux-foundation.org>
-In-Reply-To: <20260730105952.7878a648c43c32b5e649d96d@linux-foundation.org>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 30 Jul 2026 11:02:53 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zNnswXgnk6_1fXwvjyzdA3J7JNH4txau5y4AF1J8ODYkA@mail.gmail.com>
-X-Gm-Features: AUfX_mzx67h0JEqZoctBWdcDXnKtJNhaTEhESBJ0YTmJdBBac9wda2yHtwtXuF4
-Message-ID: <CAO9r8zNnswXgnk6_1fXwvjyzdA3J7JNH4txau5y4AF1J8ODYkA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] mm/zswap: Fix global shrinker when memory cgroup
- is disabled
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Hao Jia <jiahao.kernel@gmail.com>, tj@kernel.org, hannes@cmpxchg.org, 
-	shakeel.butt@linux.dev, mhocko@kernel.org, mkoutny@suse.com, 
-	nphamcs@gmail.com, chengming.zhou@linux.dev, muchun.song@linux.dev, 
-	roman.gushchin@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, Hao Jia <jiahao1@lixiang.com>, stable@vger.kernel.org
+Mime-Version: 1.0
+References: <01421d53-c379-4044-9da3-5990186303ef@iogearbox.net>
+X-Mailer: git-send-email 2.55.0.508.g3f0d502094-goog
+Message-ID: <20260730181008.3654413-1-cmllamas@google.com>
+Subject: [PATCH] selinux: bpf: check SBLABEL_MNT before isec init
+From: Carlos Llamas <cmllamas@google.com>
+To: Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
+	Ondrej Mosnacek <omosnace@redhat.com>, "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>
+Cc: kernel-team@android.com, linux-kernel@vger.kernel.org, 
+	Alexei Starovoitov <ast@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	Carlos Llamas <cmllamas@google.com>, stable@vger.kernel.org, 
+	"open list:SELINUX SECURITY MODULE" <selinux@vger.kernel.org>, 
+	"open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 30, 2026 at 10:59=E2=80=AFAM Andrew Morton
-<akpm@linux-foundation.org> wrote:
->
-> On Thu, 30 Jul 2026 09:52:38 -0700 Yosry Ahmed <yosry@kernel.org> wrote:
->
-> > > > >
-> > > > > How does this affect users?  What behavior do they observe when i=
-t
-> > > > > occurs?
-> > > >
-> > > > I think the first paragraph sums it up pretty well, especially the
-> > > > last sentence "hotter pages with higher fault latency".
-> > >
-> > > How do users observe that?
-> > >
-> > > See, what I'm looking for here is an explanation for why we're
-> > > proposing a backport.  How are our users harmed by the current code a=
-nd
-> > > how does this change benefit them?
-> >
-> > It's a potential performance regression when using zswap with memcg
-> > disabled. Sorry I just realized you were looking for a high level
-> > description not detailed symptoms :)
->
-> Are we able to guess how significant this is?  It should have
-> significant impact to justify a backport.
+selinux_inode_init_security() marks the isec as initialized before
+checking if mount labeling is supported (SBLABEL_MNT). This was fine
+until commit 9722955b5430 ("bpf: Add simple xattr support to bpffs"),
+where genfscon bpffs mounts fail the SBLABEL_MNT check as expected (no
+xattrs) and yet leave the isec->initialized. This breaks subsequent
+calls to inode_doinit_with_dentry().
 
-It depends on the workload. I think a lot of workloads may not notice
-tbh, I don't think it's common to use zswap without cgroups.
+Do the SBLABEL_MNT check before the inode security is initialized.
 
-> Sorry to push - I'm forever trying to train people to describe the
-> userspace-visible effects so we can make these backporting decisions!
->
-> And to justify those decisions to -stable maintainers
->
-> And so that someone who is experiencing a slowdown in some private
-> kernel branch can look at the changelog and decide whether this might
-> fix it for them.
+Cc: stable@vger.kernel.org
+Closes: https://lore.kernel.org/all/akWdcp6P0FkNDzBk@google.com/
+Fixes: 9722955b5430 ("bpf: Add simple xattr support to bpffs")
+Signed-off-by: Carlos Llamas <cmllamas@google.com>
+---
+ security/selinux/hooks.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-I don't think it's super important to backport, but it is also
-something that we broke at some point and the fix is straightforward
-and simple, so imo the risk/reward function is leaning toward
-backporting it just in case. That being said, I don't feel strongly.
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index 8d6945edae7a..09a12eb8652c 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -2980,6 +2980,10 @@ static int selinux_inode_init_security(struct inode *inode, struct inode *dir,
+ 	if (rc)
+ 		return rc;
+ 
++	if (!selinux_initialized() ||
++	    !(sbsec->flags & SBLABEL_MNT))
++		return -EOPNOTSUPP;
++
+ 	/* Possibly defer initialization to selinux_complete_init. */
+ 	if (sbsec->flags & SE_SBINITIALIZED) {
+ 		struct inode_security_struct *isec = selinux_inode(inode);
+@@ -2988,10 +2992,6 @@ static int selinux_inode_init_security(struct inode *inode, struct inode *dir,
+ 		isec->initialized = LABEL_INITIALIZED;
+ 	}
+ 
+-	if (!selinux_initialized() ||
+-	    !(sbsec->flags & SBLABEL_MNT))
+-		return -EOPNOTSUPP;
+-
+ 	xattr = lsm_get_xattr_slot(xattrs, xattr_count);
+ 	if (xattr) {
+ 		rc = security_sid_to_context_force(newsid,
+-- 
+2.55.0.508.g3f0d502094-goog
+
