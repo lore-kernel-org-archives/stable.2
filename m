@@ -1,43 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E6439B4BF
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:15:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507E54252A0
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 12:15:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785413750; cv=none; b=pGT3ZPOk1uJLICk9x8xCcnssrfFjZ/8vCPgPVf4dkY1v6cWrckdHm7ggZVw1G9JeiOJJEb5WdJr8tWdMXa4DlNUxvfDFj9Vjoydmhy1Q9HuU+UaU4OA3wSssnpxFtNdayGaO3XcZ3/ewtkGVgr0LNKpx+gx6IsZfyzrg5LXT+IU=
+	t=1785413751; cv=none; b=G+rB3dgBPxczMCcjeOXk6/8GFcvCDFbeV2w+CK/wUxL9IUY7qIawc58LKDC1vRT7Ze3Iz6kaom3onwJILoeeqZFZviH6+88xhdoORUTlN4tUVmZum4cdZsILl7yHr+3BIs65OMETxG0nGRV74YP5N2ZXTtALv9JBHey/IG8Axxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785413750; c=relaxed/simple;
-	bh=BFkLSm03FQ2qNdFxCm4nOnMoCtq7E2rydc8iLSH5VfU=;
+	s=arc-20240116; t=1785413751; c=relaxed/simple;
+	bh=8lcMbRImNCoU1k8ljhydt4v4CSfZwgxtRp5RmSswbY8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t3/5WNv4mdhfEWeHIyeqq3OBdCSoobiO6kbcKUDyXInvjCjvYiiPQueI+JDq1RmYiVRB1iUOT6dNTAlyWu6swRtabohg/IU5bP/IRlU1g4Eeo588zTMYNfZ+mw53jzg9E+R75qg093Wp4Ws6BsYe88+jTS027WM+NYKyGQQP+Tg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D9wbjoSw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Hlg0JOPOXkSXUqKpZKWONLnqT2TFAT9z1WGxnK1xcZ2W+wH8Y0ece/k2HlDbpq/Yuphmtmz5xGUNlm6tZgXhAQqu7UFjZnFZxiYbE7mI6wMFZLl/Pomz7Fkd8cs6qtihB0Vy873CaSSKc9f7+xAUJ7ib+yarmVh76+iD5VNjxFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJxaP+v2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D9wbjoSw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A83E1F000E9;
-	Thu, 30 Jul 2026 12:15:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJxaP+v2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB7751F00ACA;
+	Thu, 30 Jul 2026 12:15:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785413732;
-	bh=UcnqNWeg6pyQkrbHPbwMmf38mF88+Wnw8TMUXeDOj08=;
+	s=k20260515; t=1785413744;
+	bh=RoVTOwP0AFJIy/xZEI1YaOkY2yX7Bf1RJQH1CoABaOk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D9wbjoSwgmJWfEfwzoDHA3tb1vV49IwR7/l+1JdSGRyF62DihbAHNQkOV03NkMNaS
-	 j351Zmv8Jrd6s8pjMh0ljUfDV1a72uAfu8IRR44v1FvEJpFs025P6pD4lAnB7Ep4YR
-	 y/ZSs3ERmFe4cEHmfmt1AA2w7M0BPO00m6Q8QOU/pmku9XbT8us5Zy7zgyFyHlHvCg
-	 5Dkr8dgM1Ds5xwNsTkQVYz0cetKY4GsJYOKRmFTpHvdWtl3QI8VAvd8eQDhOpuxJnx
-	 8JJB4sHu9dL7f8o+RGs8ocbE0QsMIFZjAdyWAj+JmMMaiXvRT6ty8evrg2KsTX7kbt
-	 zWIPSBj51Ateg==
+	b=EJxaP+v2LqMAqqwlGXh9r5mjoNyHzeePpUt1K8O4wRcW2MPvMTyesC2RNRLVX3hZi
+	 jvbMwsU3md306n/AiSlKX0c14+GSuIViSoLiChGF32qIdo/ExrAha+t5F/0qWhD1dq
+	 WZIeKRdFeW7asU/auKhTCzb87NYqSN6SfV+FNowtJgtoQQKMueVadq8sEeagkwvdY2
+	 9xZ/tdZlAR2+kUk2zY8PjKwX1NcvuNP4fS1SsVKOl61iN5PekXDFtb+dHe6giXVdQy
+	 WCPo0jUP+AuIl3/YpuxOBlC+p1BH/RphuCKasCrJ03QLDBx9ae6g6tAePbPaGDv+Mn
+	 GotwoFZteeqmQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Alex Williamson <alex@shazbot.org>,
+Cc: Venkatesh Srinivas <venkateshs@chromium.org>,
+	David Matlack <dmatlack@google.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Jim Mattson <jmattson@google.com>,
+	James Houghton <jthoughton@google.com>,
+	Chao Gao <chao.gao@intel.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] vfio/pci: Fix racy bitfields and tighten struct layout
-Date: Thu, 30 Jul 2026 08:15:30 -0400
-Message-ID: <20260730121530.2207687-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] KVM: x86: Only reset TSC Deadline Timer in apic_timer_expired on KVM_RUN
+Date: Thu, 30 Jul 2026 08:15:41 -0400
+Message-ID: <20260730121541.2209429-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072123-daredevil-oxygen-b864@gregkh>
-References: <2026072123-daredevil-oxygen-b864@gregkh>
+In-Reply-To: <20260730121541.2209429-1-sashal@kernel.org>
+References: <2026072610-waking-easiest-e330@gregkh>
+ <20260730121541.2209429-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,97 +51,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alex Williamson <alex.williamson@nvidia.com>
+From: Venkatesh Srinivas <venkateshs@chromium.org>
 
-[ Upstream commit e73638e55f861758d49f14d7bb5dba3035981cd7 ]
+[ Upstream commit e800decd9c0ac4349bcd8f8f9b29fd21fe93165e ]
 
-Bitfield operations are not atomic, they use a read-modify-write
-pattern, therefore we should be careful not to pack bitfields that
-can be concurrently updated into the same storage unit.
+On Intel platforms with a VMX preemption timer and APICv, if a VMM
+calls KVM_GET_LAPIC before KVM_GET_MSRS to save the vCPU state, it is
+possible to lose a pending timer interrupt.
 
-This split takes a binary approach: flags that are only modified
-pre/post open/close remain bitfields, flags modified from user
-action, including actions that reach across to another device (ex.
-reset) use dedicated storage units.
+If the thread running these ioctls is migrated to another core after
+calling KVM_GET_LAPIC but before KVM_GET_MSRS and the guest is using
+their LAPIC timer in TSC-deadline mode, not only does the save LAPIC
+state not carry the pending interrupt, the TSCDEADLINE MSR will be
+zeroed.
 
-Note that the virq_disabled and bardirty flags are relocated to fill
-an existing hole in the structure.
+After migration across CPUs, KVM_GET_MSRS calls vcpu_load, posting the
+interrupt and clearing the MSR:
+vcpu_load() ->
+  kvm_arch_vcpu_load() ->
+    kvm_lapic_restart_hv_timer() ->
+      start_hv_timer() ->
+        apic_timer_expired() ->
+          kvm_apic_inject_pending_timer_irqs()
+            . post interrupt into the LAPIC state
+            . clear IA32_TSCDEADLINE
 
-Bitfield justifications:
+The saved LAPIC state will be missing the pending interrupt and the saved
+MSR will be zero. Oops.
 
-  has_dyn_msix: written only in vfio_pci_core_enable()
-  pci_2_3: written only in vfio_pci_core_enable()
-  reset_works: written only in vfio_pci_core_enable()
-  extended_caps: written only in vfio_cap_len() under vfio_config_init()
-  has_vga: written only in vfio_pci_core_enable()
-  nointx: written only in vfio_pci_core_enable()
-  needs_pm_restore: written only in vfio_pci_probe_power_state()
-  disable_idle_d3: written only at .init in vfio_pci_core_init_dev()
+Fix by only posting an interrupt when we're attempting to enter the guest
+(vcpu->wants_to_run == true), not for vcpu_load from other paths.
 
-Dedicated storage units:
-
-  virq_disabled: written by guest INTx command writes in
-                 vfio_basic_config_write() while the device is open
-  bardirty: written by guest BAR writes in vfio_basic_config_write()
-            while the device is open
-  pm_intx_masked: written in the runtime-PM suspend path.
-  pm_runtime_engaged: written by low-power feature entry/exit paths
-  needs_reset: set in vfio_pci_core_disable() and cleared for devices in
-               the set by vfio_pci_dev_set_try_reset()
-  sriov_active: written by vfio_pci_core_sriov_configure() via sysfs
-                sriov_numvfs while bound.
-
-Fixes: 9cd0f6d5cbb6 ("vfio/pci: Use bitfield for struct vfio_pci_core_device flags")
+Assisted-by: gemini:gemini-3.1-pro-preview
+Debugged-by: David Matlack <dmatlack@google.com>
+Debugged-by: Sean Christopherson <seanjc@google.com>
+Debugged-by: Jim Mattson <jmattson@google.com>
+Debugged-by: James Houghton <jthoughton@google.com>
+Signed-off-by: Venkatesh Srinivas <venkateshs@chromium.org>
+Message-ID: <20260715234234.15382-2-venkateshs@chromium.org>
+Reviewed-by: James Houghton <jthoughton@google.com>
+Reviewed-by: Chao Gao <chao.gao@intel.com>
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Alex Williamson <alex.williamson@nvidia.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Link: https://lore.kernel.org/r/20260615191241.688297-4-alex.williamson@nvidia.com
-Signed-off-by: Alex Williamson <alex@shazbot.org>
-[ dropped the `has_dyn_msix:1` bitfield line (absent in this tree) while keeping the rest of the struct layout change ]
+Fixes: ae95f566b3d2 ("KVM: X86: TSCDEADLINE MSR emulation fastpath", 2020-05-15)
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/vfio_pci_core.h | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ arch/x86/kvm/lapic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
-index 9197cac4faadb2..b08422f03b24c4 100644
---- a/include/linux/vfio_pci_core.h
-+++ b/include/linux/vfio_pci_core.h
-@@ -54,6 +54,9 @@ struct vfio_pci_core_device {
- 	struct pci_dev		*pdev;
- 	void __iomem		*barmap[PCI_STD_NUM_BARS];
- 	bool			bar_mmap_supported[PCI_STD_NUM_BARS];
-+	/* Flags modified at runtime - dedicated storage unit */
-+	bool			virq_disabled;
-+	bool			bardirty;
- 	u8			*pci_config_map;
- 	u8			*vconfig;
- 	struct perm_bits	*msi_perm;
-@@ -69,18 +72,18 @@ struct vfio_pci_core_device {
- 	u16			msix_size;
- 	u32			msix_offset;
- 	u32			rbar[7];
-+	/* Flags only modified on setup/release - bitfield ok */
- 	bool			pci_2_3:1;
--	bool			virq_disabled:1;
- 	bool			reset_works:1;
- 	bool			extended_caps:1;
--	bool			bardirty:1;
- 	bool			has_vga:1;
--	bool			needs_reset:1;
- 	bool			nointx:1;
- 	bool			needs_pm_restore:1;
--	bool			pm_intx_masked:1;
--	bool			pm_runtime_engaged:1;
- 	bool			disable_idle_d3:1;
-+	/* Flags modified at runtime - dedicated storage unit */
-+	bool			needs_reset;
-+	bool			pm_intx_masked;
-+	bool			pm_runtime_engaged;
- 	bool			sriov_active;
- 	struct pci_saved_state	*pci_saved_state;
- 	struct pci_saved_state	*pm_save;
+diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
+index f5d0fd131b2754..a750ec8057cc9a 100644
+--- a/arch/x86/kvm/lapic.c
++++ b/arch/x86/kvm/lapic.c
+@@ -1912,7 +1912,7 @@ static void apic_timer_expired(struct kvm_lapic *apic, bool from_timer_fn)
+ 	if (apic_lvtt_tscdeadline(apic) || ktimer->hv_timer_in_use)
+ 		ktimer->expired_tscdeadline = ktimer->tscdeadline;
+ 
+-	if (!from_timer_fn && apic->apicv_active) {
++	if (!from_timer_fn && apic->apicv_active && vcpu->wants_to_run) {
+ 		WARN_ON(kvm_get_running_vcpu() != vcpu);
+ 		kvm_apic_inject_pending_timer_irqs(apic);
+ 		return;
 -- 
 2.53.0
 
