@@ -1,191 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD03A411691;
-	Thu, 30 Jul 2026 16:14:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3CB43F09F
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 16:14:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785428052; cv=none; b=q4/GH3tPHIKEGUlRb1k7v/uLeFBOuE1tjbedVg5k/B3aCuqVWCeXJ6H4T8Aa/Bvft1/EtX9lu/esrJbkMJpPNlIp/DvVZQD8ZFsjJKXZxtoDKXyp1hgqZ9u2GSRbYY+aak6IthvUt4+aJ35I/HxHm0Ja1J5fgVlJCDq/VEKHcHk=
+	t=1785428053; cv=none; b=sM1De3u0e+hK/nLT5Xh9Qk1V6wrtgppunaD/mfmnwgDh5mrIS6dT8nhGusJY6/ioBXIWrK59rEInoyb0JsaUso9jWgJAxsauAjRI5YbeMHmqUQ16uKJdT1+MGj34AkTrCv/CyNJ2n33Y0oM7s1Rza5dMgDR/5QXf9HZfTzBwtRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785428052; c=relaxed/simple;
-	bh=MsXzU/WFE7Jyv9ZmK9S4sgJuiITYclIojYIUe5o60E4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dHgUekqHkb4gJ82HfYXePKgjylRNGXh32t//Ygz9LWUieKDof3tnuoGneOW7Lib+fBJHM6OmqwgIWevglzsf58EfgKbLazc8+T+Gww0SFhFBh1kVHRURYUwZLKR6dGsGcuVBrxj7SdJpRB2oeVOIdfKJ67q+4g8D3r3XaLiVm88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Kd/eIdVa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785428053; c=relaxed/simple;
+	bh=lq0ZQop5uWHeKrka0zWnetjzeh0ojChl6t0oFIEuZw0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=m/QLDGGF9GBTwSOtrXv5Ru4nhAqlotVyWJil/Bb0eUKXoWJhLIcQ5A97EGIS+6WBo5hBc/wlEA2c44aLSInV8j07z076pA9jkC28Hq3cIw9LwhPxoEqSF2+peemtVyGIW/X/SaoD8j2QcHsQETjBmoZhJqHvkCylsQgZTq1MfVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GKiILvcP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Kd/eIdVa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B85B1F000E9;
-	Thu, 30 Jul 2026 16:14:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785428050;
-	bh=msIxa8rl9K1nZvZLUxJ19nyBKNmqNNpV7RIrmaAefao=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kd/eIdVaLnG8jmqFG9ghyj1yhNNnjHN9wxu921fpA5YEJQgn4i9EQNsRDrunrq9vk
-	 PrcU6m3VTbCVNBq9oI9wpyot8pOKpOI/HTrZRzIL+Olw2OAYZXIDGcj+h+PDguKvZV
-	 dMCu2oi4KcH0DVCe1Sk80Hr+ZE90/UmuUPzhNPwU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	David Howells <dhowells@redhat.com>,
-	Jeffrey Altman <jaltman@auristor.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	"Junvyyang, Tencent Zhuque Lab" <zhuque@tencent.com>,
-	LePremierHomme <kwqcheii@proton.me>,
-	Simon Horman <horms@kernel.org>,
-	linux-afs@lists.infradead.org,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 387/484] rxrpc: Fix notification vs call-release vs recvmsg
-Date: Thu, 30 Jul 2026 16:14:44 +0200
-Message-ID: <20260730141431.883152554@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730141423.392222816@linuxfoundation.org>
-References: <20260730141423.392222816@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GKiILvcP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E85A1F00A3F
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 16:14:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785428052;
+	bh=UiD/QWdym9NjT5dGSlgoWYwu8vBcbIdq6wH+JV80kWw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=GKiILvcPJ8KEFglfwJpAHdZQbQa3I3y2b63uGAgz9Vsa0UOEPRwhqdZv9NlJkaBuw
+	 qr4TAmJBYyJHK9wpHYKiBiaMzdPyhfl1R+F4AEpX+Bgil0FyWLICUAd7En7dpPNzIf
+	 8lzd0ZMAZ75CETnMSw1hq3nYtJbf3uJCIrdNtPTJf1pkPP8sS/fYWzWVvqNSfgQqSP
+	 kM4U5vw2aH9hMWmbYgsULTFnVyHe+AYl17rFDhYA2ZFS4EKqNvEdWDHz8VtpgfY47J
+	 2rEYuAdjqXye5dFebeSrIpwtuIu4abBqw52Ds8qP2Vtu4kMR26VwTD164hDMeSl8ou
+	 hXcepKkcGeY1Q==
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c15e03c2763so195929166b.0
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 09:14:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqafZy1TtV31kt3EZUbpk+AsIYfJafGK2HdKJ5u4Kf0dscJ75qdN6+hQU7KpUtOzek3FQIySOI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwNowTxhZrkbFcRrRhScQ/D707q2OZtrQSZREhBSfQ3Uw42v4Mq
+	ufdnf0qg/q8UBsLHcZy0bs/Zqun56eDXJyyztT4MacF9bkbX3/fnpj3KFXqyYJKHJiRaHROPw+N
+	sk7ffIYLtKCT88Lt5gThYTb4k0t+dS80=
+X-Received: by 2002:a17:906:af4d:b0:c1c:2c32:1159 with SMTP id
+ a640c23a62f3a-c1fbd95431bmr37684966b.26.1785428051242; Thu, 30 Jul 2026
+ 09:14:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <tencent_944DADCC4B42C8484EC01DA2B15F42132906@qq.com>
+In-Reply-To: <tencent_944DADCC4B42C8484EC01DA2B15F42132906@qq.com>
+From: Vincent Mailhol <mailhol@kernel.org>
+Date: Thu, 30 Jul 2026 18:13:58 +0200
+X-Gmail-Original-Message-ID: <CAMZ6RqK4CAtqAxHFS2a4e+kwJvRYyeo9EOM+_fV=n1Yjrcj3ug@mail.gmail.com>
+X-Gm-Features: AUfX_mzL6HsQQwCG3cXWhI4j1UtKfXOw3JIBuG1alrBD8PgmPX2kBP54BAGXlpM
+Message-ID: <CAMZ6RqK4CAtqAxHFS2a4e+kwJvRYyeo9EOM+_fV=n1Yjrcj3ug@mail.gmail.com>
+Subject: Re: [PATCH] can: dev: can_put_echo_skb(): free skb on invalid echo index
+To: Cunhao Lu <1579567540@qq.com>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>, linux-can@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+On Thu. 30 juil. 2026 at 17:03, Cunhao Lu <1579567540@qq.com> wrote:
+>
+> can_put_echo_skb() consumes the skb on all paths except when the echo index
+> is out of bounds. This leaves ownership with the caller on -EINVAL, unlike
+> the other error paths, and can leak the skb if the caller expects
+> consistent semantics.
+>
+> Free the skb before returning -EINVAL so that all return paths consume it.
+>
+> Fixes: 6411959c10fe ("can: dev: can_put_echo_skb(): don't crash kernel if can_priv::echo_skb is accessed out of bounds")
+> Cc: stable@vger.kernel.org
 
-------------------
+This branch is just a safety net meant to never be reached. While the
+fix logically makes sense, this doesn't strictly require a backport.
+That said, I am not against this being backported if the stable team
+is fine with it.
 
-From: David Howells <dhowells@redhat.com>
+> Signed-off-by: Cunhao Lu <1579567540@qq.com>
 
-[ Upstream commit 2fd895842d49c23137ae48252dd211e5d6d8a3ed ]
+Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
 
-When a call is released, rxrpc takes the spinlock and removes it from
-->recvmsg_q in an effort to prevent racing recvmsg() invocations from
-seeing the same call.  Now, rxrpc_recvmsg() only takes the spinlock when
-actually removing a call from the queue; it doesn't, however, take it in
-the lead up to that when it checks to see if the queue is empty.  It *does*
-hold the socket lock, which prevents a recvmsg/recvmsg race - but this
-doesn't prevent sendmsg from ending the call because sendmsg() drops the
-socket lock and relies on the call->user_mutex.
+> ---
+>  drivers/net/can/dev/skb.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
+> index 95fcdc1026f8..44ebeba99837 100644
+> --- a/drivers/net/can/dev/skb.c
+> +++ b/drivers/net/can/dev/skb.c
+> @@ -54,6 +54,7 @@ int can_put_echo_skb(struct sk_buff *skb, struct net_device *dev,
+>         if (idx >= priv->echo_skb_max) {
+>                 netdev_err(dev, "%s: BUG! Trying to access can_priv::echo_skb out of bounds (%u/max %u)\n",
+>                            __func__, idx, priv->echo_skb_max);
+> +               kfree_skb(skb);
+>                 return -EINVAL;
+>         }
 
-Fix this by firstly removing the bit in rxrpc_release_call() that dequeues
-the released call and, instead, rely on recvmsg() to simply discard
-released calls (done in a preceding fix).
-
-Secondly, rxrpc_notify_socket() is abandoned if the call is already marked
-as released rather than trying to be clever by setting both pointers in
-call->recvmsg_link to NULL to trick list_empty().  This isn't perfect and
-can still race, resulting in a released call on the queue, but recvmsg()
-will now clean that up.
-
-Fixes: 17926a79320a ("[AF_RXRPC]: Provide secure RxRPC sockets for use by userspace and kernel both")
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Jeffrey Altman <jaltman@auristor.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: Junvyyang, Tencent Zhuque Lab <zhuque@tencent.com>
-cc: LePremierHomme <kwqcheii@proton.me>
-cc: Simon Horman <horms@kernel.org>
-cc: linux-afs@lists.infradead.org
-Link: https://patch.msgid.link/20250717074350.3767366-4-dhowells@redhat.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: e66f8f32f501 ("rxrpc: Fix socket notification race")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- include/trace/events/rxrpc.h |    3 ++-
- net/rxrpc/call_object.c      |   28 ++++++++++++----------------
- net/rxrpc/recvmsg.c          |    4 ++++
- 3 files changed, 18 insertions(+), 17 deletions(-)
-
---- a/include/trace/events/rxrpc.h
-+++ b/include/trace/events/rxrpc.h
-@@ -271,10 +271,10 @@
- 	EM(rxrpc_call_put_poke,			"PUT poke    ") \
- 	EM(rxrpc_call_put_recvmsg,		"PUT recvmsg ") \
- 	EM(rxrpc_call_put_recvmsg_peek_nowait,	"PUT peek-nwt") \
-+	EM(rxrpc_call_put_release_recvmsg_q,	"PUT rls-rcmq") \
- 	EM(rxrpc_call_put_release_sock,		"PUT rls-sock") \
- 	EM(rxrpc_call_put_release_sock_tba,	"PUT rls-sk-a") \
- 	EM(rxrpc_call_put_sendmsg,		"PUT sendmsg ") \
--	EM(rxrpc_call_put_unnotify,		"PUT unnotify") \
- 	EM(rxrpc_call_put_userid_exists,	"PUT u-exists") \
- 	EM(rxrpc_call_put_userid,		"PUT user-id ") \
- 	EM(rxrpc_call_see_accept,		"SEE accept  ") \
-@@ -287,6 +287,7 @@
- 	EM(rxrpc_call_see_disconnected,		"SEE disconn ") \
- 	EM(rxrpc_call_see_distribute_error,	"SEE dist-err") \
- 	EM(rxrpc_call_see_input,		"SEE input   ") \
-+	EM(rxrpc_call_see_notify_released,	"SEE nfy-rlsd") \
- 	EM(rxrpc_call_see_recvmsg,		"SEE recvmsg ") \
- 	EM(rxrpc_call_see_recvmsg_requeue,	"SEE recv-rqu") \
- 	EM(rxrpc_call_see_recvmsg_requeue_first, "SEE recv-rqF") \
---- a/net/rxrpc/call_object.c
-+++ b/net/rxrpc/call_object.c
-@@ -550,7 +550,7 @@ static void rxrpc_cleanup_ring(struct rx
- void rxrpc_release_call(struct rxrpc_sock *rx, struct rxrpc_call *call)
- {
- 	struct rxrpc_connection *conn = call->conn;
--	bool put = false, putu = false;
-+	bool putu = false;
- 
- 	_enter("{%d,%d}", call->debug_id, refcount_read(&call->ref));
- 
-@@ -562,23 +562,13 @@ void rxrpc_release_call(struct rxrpc_soc
- 
- 	rxrpc_put_call_slot(call);
- 
--	/* Make sure we don't get any more notifications */
-+	/* Note that at this point, the call may still be on or may have been
-+	 * added back on to the socket receive queue.  recvmsg() must discard
-+	 * released calls.  The CALL_RELEASED flag should prevent further
-+	 * notifications.
-+	 */
- 	spin_lock_irq(&rx->recvmsg_lock);
--
--	if (!list_empty(&call->recvmsg_link)) {
--		_debug("unlinking once-pending call %p { e=%lx f=%lx }",
--		       call, call->events, call->flags);
--		list_del(&call->recvmsg_link);
--		put = true;
--	}
--
--	/* list_empty() must return false in rxrpc_notify_socket() */
--	call->recvmsg_link.next = NULL;
--	call->recvmsg_link.prev = NULL;
--
- 	spin_unlock_irq(&rx->recvmsg_lock);
--	if (put)
--		rxrpc_put_call(call, rxrpc_call_put_unnotify);
- 
- 	write_lock(&rx->call_lock);
- 
-@@ -627,6 +617,12 @@ void rxrpc_release_calls_on_socket(struc
- 		rxrpc_put_call(call, rxrpc_call_put_release_sock);
- 	}
- 
-+	while ((call = list_first_entry_or_null(&rx->recvmsg_q,
-+						struct rxrpc_call, recvmsg_link))) {
-+		list_del_init(&call->recvmsg_link);
-+		rxrpc_put_call(call, rxrpc_call_put_release_recvmsg_q);
-+	}
-+
- 	_leave("");
- }
- 
---- a/net/rxrpc/recvmsg.c
-+++ b/net/rxrpc/recvmsg.c
-@@ -29,6 +29,10 @@ void rxrpc_notify_socket(struct rxrpc_ca
- 
- 	if (!list_empty(&call->recvmsg_link))
- 		return;
-+	if (test_bit(RXRPC_CALL_RELEASED, &call->flags)) {
-+		rxrpc_see_call(call, rxrpc_call_see_notify_released);
-+		return;
-+	}
- 
- 	rcu_read_lock();
- 
-
-
+Yours sincerely,
+Vincent Mailhol
