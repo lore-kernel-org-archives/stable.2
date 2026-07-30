@@ -1,228 +1,229 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2E5346ADB
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 06:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CB73B05A0
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 06:31:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785393101; cv=none; b=UUYWreviny6wOmZzQ5jU40PJVQ3DFY7ZuXiTUd9MnOWejM5Wve3tWbxzDTnOFhweWtDaxxnyoA9bb0cNZQdSvJfnM1zXmgytXS7hxE1zE3oekzNTi6F8fO3QPhbi64W1Xwji87EvG+Rc2fAIAT0a0tfdG7oxSaKZispAfWZZXzQ=
+	t=1785393102; cv=none; b=gP2meOlmN7WT4zGNi7SA3zrKF0eXkzlAMhS45fnU5QBPvVJc5nDRQZLPrOr3Lktb6Hfld99UItlZlW9aVRRBH6aUmbxLJBosdphLPenzgXGRW+p33hrbwySZN+GSN80EhsIaa8r82sKO4AMP/cZvlByzgc3BainCICM13/Neoxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785393101; c=relaxed/simple;
-	bh=5t+GoX/aPLaTLKFvhZLJ22G0+ryWXHjxjIuHVP6Qtfo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=E34wNeNk5m3mbY5JN1j8c0OsGxbk6BRlM+mEdYu1I7l83H8wOwaFgBCL+1BdZGa4ejL1kpw6gxiymcKZTxbnuA026ouXpTx9rx0WuGKY0GyZDVpq0mBRxwiTjpARwrb0vNVhKli8Keht/yXVtkTYQgg2z23Ij7WJHiYOVDGObkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r1NAAIfu; arc=none smtp.client-ip=209.85.210.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785393102; c=relaxed/simple;
+	bh=9Y9BgO1WtAsiSL3Gdurc8SjRxNaQGCvscr7TqLMUqv0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cTZkxFJrNsIdEEjnh4wqo0zsmyT2j/7t6a390gpdFYKsMs6aIioWtvFdra0klqTtSf6fxZcmCJmVR5NLkOtTUdnUay5DjNTDC2fGPnNp4y5PYLIZyTBIyAujjkymcFD81J5mLl0AZnR602+TfaKLV0PobVqAGqFAafN0Hfrxy8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=ecG2kIVr; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r1NAAIfu"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84a2dcede83so2403569b3a.3
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 23:31:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="ecG2kIVr"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ce7d2adef4so26552285ad.3
+        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 23:31:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785393099; x=1785997899; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hOvMF22l5yq9rb3H7AnJyb7Yc8S/1iRInoiHq1DCJyQ=;
-        b=r1NAAIfuu6kF5KLbYliv4PFcQcFXqe0sMQEIDXnFjTG2X4Za09sGn+nnxyk6nadmKy
-         MMdBjNpCgNUXgD/iyzizOHtaswcTG3vO/uZ+42kQas6VAyWvlG+5nQglvX1+3oEdtnpy
-         R2TW5f51P1W9jHw5OOGincLhSWQ43jxDDOJRG58ag0Q+PrKI7FPQxPcuWMMYhWKnfAsx
-         EmSdFrhE8pzSPgnttzmL1TZAkoyAt0QJX9oSicfI4sFQwSVH1cjWZ/mLrfvLHkYJLzK3
-         BCzB+c9BGNpOYdBsOm3LlpW4iMxR8sPqUnnQol4JNVTuxHKCTxCGQbWJ1a/UJA6QPZOG
-         bf/w==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1785393098; x=1785997898; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Kg9S/o4nFgsyb+c2+vFdfJ2/3S3goiFvIeD4r4YcYuM=;
+        b=ecG2kIVryuJJl5/9Ek5h0cA6x/ou74vRdg3IZ99wm8KaHhBWP5toz07AupM6sf8Eih
+         6RxDjbfjZXmNdwJxM/Qtv9MSmnjcJzulWrCNZyZVosbPyKjK0wpqvBPezyATNGzsd1Fz
+         +kRc2U+fZsOURJ3zHTgjUv6rMtJtFlDqT6wRXXOsdKIRN8/9ocIKcYhjsiRedG54fP0O
+         LpiVW+pQLTPaxFNX80gls7o0TdpVRux0lv6u+RJ3GS7g8hzHPHGce29ZuOp8hEK/zT3k
+         ljau4BIOCyXrHOO7RYjSt3DigfdRUG1dQC3qeXD4E48cu+J2+NMI6FCXTeOD8b25cCfH
+         Xckw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785393099; x=1785997899;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hOvMF22l5yq9rb3H7AnJyb7Yc8S/1iRInoiHq1DCJyQ=;
-        b=WJMYBUo0M8DZzlOjYLuzmQylRkBDDwAJkVteZ/B+3JSI9wVBxQAJPOtNFKtvcmeixs
-         43kR5pWW5spmd1xbBEddEtp2+J+SxFIGdQKrTf2n7pw1zX909qi0gBuVwigu8dxixN8W
-         2ACYvpPI6Gch+v7wViGBumCFgHHHOOMRvweJuZLLRy59vpOtJRhdyEcg1WjKv9AFdn7w
-         KhsuNGk1E/Nw2CZXa0uPEHxIm/MGOLmMIONsmkxs630B9DyrjLjRGRmDUiclMjm5yoe4
-         3oj86CLw7aosRkcJ4xgNak5qIARDGysgmIB7V8bqjCrG7XL/YTNoBIG6bkCsXG1CfN9j
-         OLlQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrU7jbZVGIClVCcDUe1lDUHZ/vV7KQrD8OPZl0TMPZEuZiyIy6/KZ5Y4V+SYV47tc8PYCITb+Q=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyoBr9GlMpZvSTQs9dTenAWzwHLNzGDzKcHLR9z58S544oDnDWX
-	8m4kWrzptfP1s8X8eK9AsviLlgEF0qxfaZh1pVoJCWkTJ4cMI5m+PB15TRenXw==
-X-Gm-Gg: AR+sD12cGK+Y1Ae0IKzsgbNutcnbINMThL6lOdQyI4ZBKM4yZQA6VzmzGuW5S0JjdFK
-	iZwvEM4QiwMmpmBxBoVuxrc0oNUAWfpaCUm84L1zcBWcNQBKxpfrpePUAnH56iyw1F4kFV/hzJY
-	lzbIzI08YzPyN5Znq9KcminMD1WPTfU75lTUjkFO1GPnsfxbd5xx3zeAIK46HQpgs4naGutW2Qh
-	VfQUbe2J0Lhs3tfRZ4RnmSm3KBxgsZGsMm/09ePLlV7vzdKhTIu3b+uo2AwmxaA9cjmpAYwDHNz
-	Xj6dUR6WKhKWqgjoy2lFhwE3BxLcsFFFbi5sH755kACGTlBJbVdi7QUMkAlpxFIMAB3Ce8ly8Db
-	3jJBgsmH3QxaDVnmfN6R5NEw1B1KW8867AdmUOJct6id1fXAwMhdbq/jigAr5NM/Blr81N2MnQ3
-	iKIFwSwRICgbgyDvavNxGRJ2mt+WR8wreAsTSCtt/ZeuvdzN6LJRgkUYeqi87p0IksJ/3TRj/jG
-	c4X5CmX7cjtgkqdmh8U
-X-Received: by 2002:a05:6a00:2e95:b0:845:d284:9e14 with SMTP id d2e1a72fcca58-84ebc468c9cmr1404273b3a.59.1785393099312;
-        Wed, 29 Jul 2026 23:31:39 -0700 (PDT)
-Received: from [10.125.192.117] ([210.184.73.204])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea0052e04sm2418453b3a.22.2026.07.29.23.31.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        d=1e100.net; s=20251104; t=1785393098; x=1785997898;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kg9S/o4nFgsyb+c2+vFdfJ2/3S3goiFvIeD4r4YcYuM=;
+        b=lppw+rN5cZNqv3OJAJ/gu4iKG8XP+1LxF4CL1ueG+Ph12y0sbFYrO3btmAi0s1qiMx
+         K7CGTlH4p8EzzM3D0yqWfw48sfEB7ZLZAX8V7HnRih3UipYqWTeKSWuxDbz/sUt/BVJS
+         8Qi2lBEx01EtcjZaHBJXCOPhPsBGD5AmWcvMa+bP/SQ3gyTwdBXuRiBRsu6WYjnIuZcX
+         4pRgvzO3U7r5hN+jlE3kdC1BXNZow/A0XYUmFcpShgFVYxXzHumFO5GcMpPSPk07++J1
+         nEmKucGI3XhVEMOD62ZdRBz/SDKjuun7kiZqL/mypL3meN3oRKPLqPqgDNOigVu40crk
+         0NUg==
+X-Forwarded-Encrypted: i=1; AHgh+RonJA634UcF/BGMnODO5Pf7mrgTGVoEQVcLoqbPAPOGt6V/Rz3J0DdmsEVT2YZRzUrwYD/+k2E=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yww6qO9e5yeG7WkDw7rXnGt5/YKqs9ZGQGCXhwcR/ks4AlioSLu
+	Ia5GI0yauhIf8O+5XE5EKWeYpNp/ahq2atjL+I4wllMd9K98yWSn+pJkgUBea+P6mGk=
+X-Gm-Gg: AR+sD1161iMiOAIJh3+MHpwSihHzActhupml99077CqaZrJX3GRuRpdi1BQnjjsxTFa
+	tzvZHu0WKqh3e8/y8PPTkq2rHdi7pKuEaYMFKJ0g8vqpFeqFaaMJqtLNRRxHa+iASeqfOc5gzbV
+	/SGV42RyfmSWV+Rv/b7UOKLhNZJos5ObecJAVzmisChKtV2vRWmW2yV92iMekUkBXBRd4Y73pIM
+	BCypby1rUAIa28yFvqaCX1Zxq1HRxSbSOdLqGNgBB7al+8foB+jhmCpVw6jf7fdwH7Igqrla7ks
+	2/z4sSE2X9yLEVPJmr9+TSVVE+C2/fWEwQCtqtkdJuQYVp3LMqE9raIEBcV2KK4dxEqfj0w/Oih
+	BhJzTuOyCGQkGy9owzZcDBBX3dOxxTDkLtfkwupljOn2vDKUR1JQcIlAe/pQEWnCt4XZ+hwMqLA
+	pL70V6tHyjorNmj3FVlQFLDjXh96DmCh0a9tTV5ZnJkLf7WPq/lhcEEw7DQ8AbO9X7aUA8
+X-Received: by 2002:a17:902:da2d:b0:2c8:1c05:16bb with SMTP id d9443c01a7336-2d035cb864amr13717425ad.24.1785393098267;
         Wed, 29 Jul 2026 23:31:38 -0700 (PDT)
-Message-ID: <c4c95102-72e2-a44f-f16e-4134ba6bb060@gmail.com>
-Date: Thu, 30 Jul 2026 14:31:26 +0800
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022c50f43sm21144755ad.83.2026.07.29.23.31.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 23:31:37 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: sagi@grimberg.me,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: michael.christie@oracle.com,
+	martin.petersen@oracle.com,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Subject: [PATCH v2 1/2] IB/isert: delay the final Login Response until the session is registered
+Date: Thu, 30 Jul 2026 15:31:23 +0900
+Message-ID: <20260730063124.1554460-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.15.0
-Subject: Re: [PATCH v3 1/2] mm/zswap: Fix global shrinker when memory cgroup
- is disabled
-To: Yosry Ahmed <yosry@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
-Cc: tj@kernel.org, hannes@cmpxchg.org, shakeel.butt@linux.dev,
- mhocko@kernel.org, mkoutny@suse.com, nphamcs@gmail.com,
- chengming.zhou@linux.dev, muchun.song@linux.dev, roman.gushchin@linux.dev,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Hao Jia <jiahao1@lixiang.com>, stable@vger.kernel.org
-References: <20260729084206.77793-1-jiahao.kernel@gmail.com>
- <20260729084206.77793-2-jiahao.kernel@gmail.com>
- <20260729155858.c7aabff48166a9bca4d68ac3@linux-foundation.org>
- <CAO9r8zNhBCghP8T_98z2p==Cfs_=kamcRN_3ROxaj3R8PN2Qvw@mail.gmail.com>
-From: Hao Jia <jiahao.kernel@gmail.com>
-In-Reply-To: <CAO9r8zNhBCghP8T_98z2p==Cfs_=kamcRN_3ROxaj3R8PN2Qvw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+isert_put_login_tx() puts the final Login Response on the wire before
+__transport_register_session(), which iscsi_post_login_handler() reaches
+only after iscsi_target_do_login() returns.  An initiator that issues a
+SCSI command as soon as it sees that response can have it executed against
+an se_session whose se_tpg is still NULL, and the ib-comp-wq worker oopses
+on the NULL dereference.  The login must complete first, so unlike a
+login-phase parse this is reachable only by an initiator the target has
+already admitted.
 
+  [    6.469002] Oops: general protection fault, probably for non-canonical address 0xdffffc000000000f: 0000 [#1] SMP KASAN NOPTI
+  [    6.469652] KASAN: null-ptr-deref in range [0x0000000000000078-0x000000000000007f]
+  [    6.470053] CPU: 0 UID: 0 PID: 178 Comm: kworker/0:1H Not tainted 7.2.0-rc5-V2CTL-gf5098b6bae76 #10 PREEMPT(lazy)
+  [    6.470560] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+  [    6.471120] Workqueue: ib-comp-wq ib_cq_poll_work
+  [    6.471372] RIP: 0010:target_submit+0xbe/0x390
+  [    6.471599] Code: fa 48 c1 ea 03 80 3c 02 00 0f 85 89 02 00 00 48 b8 00 00 00 00 00 fc ff df 4d 8b 64 24 18 49 8d 7c 24 78 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 5a 02 00 00 48 8d 7b 78 4d 8b 6c 24 78 48 b8 00
+  [    6.472497] RSP: 0018:ffff8881058cfa78 EFLAGS: 00010206
+  [    6.472761] RAX: dffffc0000000000 RBX: ffff88810c78c6f0 RCX: ffffffff964bb363
+  [    6.473112] RDX: 000000000000000f RSI: 00000000fffffe00 RDI: 0000000000000078
+  [    6.473439] RBP: 1ffff11020b19f52 R08: 0000000000000001 R09: ffffed1020b19f52
+  [    6.473790] R10: 0000000000000003 R11: ffff88810596c000 R12: 0000000000000000
+  [    6.474153] R13: ffff88810c61b000 R14: ffff88810c6a3400 R15: ffff88810c61b044
+  [    6.474479] FS:  0000000000000000(0000) GS:ffff8881822b2000(0000) knlGS:0000000000000000
+  [    6.474884] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+  [    6.475156] CR2: 00007f1f1b83c000 CR3: 000000006fe72001 CR4: 0000000000770ef0
+  [    6.475483] PKRU: 55555554
+  [    6.475628] Call Trace:
+  [    6.475763]  <TASK>
+  [    6.475886]  ? __pfx__raw_spin_lock_bh+0x10/0x10
+  [    6.476146]  ? __pfx_target_submit+0x10/0x10
+  [    6.476348]  ? mutex_lock+0x81/0xe0
+  [    6.476517]  ? __pfx_mutex_lock+0x10/0x10
+  [    6.476722]  ? iscsit_execute_cmd+0x650/0x850
+  [    6.476958]  iscsit_sequence_cmd+0x186/0x3d0
+  [    6.477164]  iscsit_process_scsi_cmd+0x87/0x300
+  [    6.477362]  isert_recv_done+0x1002/0x2390
+  [    6.477546]  ? __pfx_isert_recv_done+0x10/0x10
+  [    6.477761]  ? rxe_poll_cq+0x253/0x3d0
+  [    6.477945]  ? finish_task_switch.isra.0+0x1dc/0xa70
+  [    6.478192]  __ib_process_cq+0xe1/0x390
+  [    6.478360]  ib_cq_poll_work+0x46/0x150
+  [    6.478531]  process_one_work+0x633/0x1030
+  [    6.478730]  ? assign_work+0x11d/0x370
+  [    6.478918]  worker_thread+0x45b/0xd10
+  [    6.479099]  ? __pfx_worker_thread+0x10/0x10
+  [    6.479295]  ? __pfx_worker_thread+0x10/0x10
+  [    6.479480]  kthread+0x2c6/0x3b0
+  [    6.479632]  ? recalc_sigpending+0x15c/0x1e0
+  [    6.479848]  ? __pfx_kthread+0x10/0x10
+  [    6.480029]  ret_from_fork+0x36e/0x5a0
+  [    6.480214]  ? __pfx_ret_from_fork+0x10/0x10
+  [    6.480399]  ? __switch_to+0x572/0xdd0
+  [    6.480566]  ? __pfx_kthread+0x10/0x10
+  [    6.480748]  ret_from_fork_asm+0x1a/0x30
+  [    6.480952]  </TASK>
+  [    6.481062] Modules linked in:
+  [    6.481235] ---[ end trace 0000000000000000 ]---
 
-On 2026/7/30 08:30, Yosry Ahmed wrote:
-> On Wed, Jul 29, 2026 at 3:58 PM Andrew Morton <akpm@linux-foundation.org> wrote:
->>
->> On Wed, 29 Jul 2026 16:42:05 +0800 Hao Jia <jiahao.kernel@gmail.com> wrote:
->>
->>> Zswap writeback when the global pool limit is hit fails when memory
->>> cgroup is disabled. The pool remains full until it is organically
->>> drained by swapins or memory freeing, leading to zswap store failures
->>> and pages bypassing getting written directly to the backing swap device,
->>> causing LRU inversion (hotter pages with higher fault latency).
->>>
->>> This happens because mem_cgroup_iter() always returns NULL when
->>> memory cgroups are disabled. As a result, the global shrinker
->>> shrink_worker() repeatedly takes empty walks. After MAX_RECLAIM_RETRIES
->>> failed attempts, the worker gives up without writing back any pages.
->>>
->>> Therefore, when memory cgroup is disabled, fall through with the !memcg
->>> branch and shrink the root memcg directly.
->>>
->>> With memcg disabled, shrink_memcg() only returns -ENOENT when the root
->>> LRU is empty, which means the total pages are already below thr. In the
->>> absence of heavy concurrent zswap stores, the loop then safely bails out
->>> via the zswap_total_pages() <= thr check; otherwise, it will resume
->>> shrinking the memcg after processing the reschedule check. For any other
->>> return value from shrink_memcg(), the loop is guaranteed to terminate,
->>> either after MAX_RECLAIM_RETRIES failures or once the threshold is met.
->>>
->>> Fixes: a65b0e7607cc ("zswap: make shrinking memcg-aware")
->>> Cc: stable@vger.kernel.org
->>
->> How does this affect users?  What behavior do they observe when it
->> occurs?
-> 
-> I think the first paragraph sums it up pretty well, especially the
-> last sentence "hotter pages with higher fault latency".
-> 
->>
->>> Closes: https://lore.kernel.org/all/CAO9r8zPVzMKFbCixxD-qgtRrkFxWVrHiZZeLc=eyTPKPVQgX4g@mail.gmail.com
->>
->> hm, that isn't really a bug report and doesn't answer the above
->> question.
-> 
-> Yeah, it isn't. Probably we should drop "Closes". I assume Hao added
-> it because checkpatch annoyingly complains if you add "Reported-by"
-> without "Closes", so Hao just linked to the thread where I pointed out
-> the bug.
+Keep posting the receive buffers where they were and delay the Login
+Response instead.  isert_get_rx_pdu() runs from iscsi_target_rx_thread()
+after conn->rx_login_comp, completed by iscsi_post_login_handler() after
+__transport_register_session(); iscsi-TCP and cxgbit already take PDUs
+from that thread, isert alone does not.  The buffers are still posted
+first, so the initiator's first command does not meet an empty receive
+queue and nothing depends on RNR flow control, and the header and payload
+live in isert_conn, not in the struct iscsi_login that
+iscsi_target_nego_release() frees first.
 
-Yeah, checkpatch will complain if it's missing.
+Over rxe, 400 login cycles per run, the oops appeared in 10 of 20
+unpatched runs and in none of 20 patched ones.  An initiator that never
+waits is handled by the next patch.
 
-> 
->>
->> AI review asked a couple of questions:
->>          https://sashiko.dev/#/patchset/20260729084206.77793-1-jiahao.kernel@gmail.com
-> 
-> The review on patch #1 is something theoretical, we discussed it at
-> length in previous versions.
-> 
-> For patch #2:
-> 
->> Does this batching logic break NUMA fairness?
->>
->> Because for_each_node_state() always starts from the lowest node
->> ID and breaks when the scan budget is exhausted, subsequent
->> calls to shrink_memcg() will restart at the lowest node ID again.
->>
->> If the lowest node (typically Node 0) consistently has enough
->> items to exhaust the scan budget, wouldn't we exclusively evict
->> pages from it while ignoring older pages on other nodes? Could
->> this cause LRU inversion across nodes, keeping older pages in
->> memory on Node 1 while hot pages on Node 0 are evicted?
-> 
-> Yes, unfairness is possible.
-> 
-> For global shrinking, it's probably not an issue. We reclaim until we
-> hit the acceptance threshold and it's very unlikely this will happen
-> before iterating all nodes (given that the batch size is 32 pages).
-> However, with the shrink_memcg() path, we only reclaim one batch, so
-> there's a chance we'll always reclaim it from node 0.
-> 
-> Maybe we should just drop the early bailout and accept potentially
-> doing more writeback than needed. Hao, WDYT?
-> 
-If we scan and attempt to write back SWAP_CLUSTER_MAX zswap entries per 
-node, it might lead to excessive writeback on machines with many NUMA 
-nodes. Furthermore, I'm concerned about introducing higher latency in 
-synchronous shrink paths like zswap_store()—especially on systems with a 
-large number of NUMA nodes, where it could end up writing back hundreds 
-of pages in a single call.
+Not covered: iWARP, discovery sessions over iSER, and real HCAs.
 
-Maybe we could do something like this instead? That way, in the 
-worst-case scenario, it falls back to the baseline behavior without 
-introducing any extra latency risks.
+Fixes: b8d26b3be8b3 ("iser-target: Add iSCSI Extensions for RDMA (iSER) target driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+v2: addresses the v1 review comments, including the Sashiko review.
+    Post the receive buffers where they were and delay the final Login
+    Response instead.  v1 delayed the post, which left the receive
+    queue empty between the response going out and isert_get_rx_pdu()
+    running.  That is absorbed by rnr_retry_count on IB and RoCE but
+    not on iWARP, where cma_accept_iw() ignores the field.  Full Oops
+    included, fewer comments.
+    v1: https://lore.kernel.org/all/20260726144213.933544-1-yhlee@isslab.korea.ac.kr/
 
-  static int shrink_memcg(struct mem_cgroup *memcg)
-  {
--       int nid, shrunk = 0, scanned = 0;
-+       unsigned long node_batch, scanned = 0;
-+       int nid, shrunk = 0;
+ drivers/infiniband/ulp/isert/ib_isert.c | 16 ++++++++++++++--
+ drivers/infiniband/ulp/isert/ib_isert.h |  1 +
+ 2 files changed, 15 insertions(+), 2 deletions(-)
 
-         if (!mem_cgroup_zswap_writeback_enabled(memcg))
-                 return -ENOENT;
-@@ -1289,14 +1313,26 @@ static int shrink_memcg(struct mem_cgroup *memcg)
-         if (memcg && !mem_cgroup_online(memcg))
-                 return -ENOENT;
-
-+       node_batch = max(1UL, SWAP_CLUSTER_MAX / 
-num_node_state(N_NORMAL_MEMORY));
-         for_each_node_state(nid, N_NORMAL_MEMORY) {
--               unsigned long nr_to_walk = 1;
-+               unsigned long nr_to_walk, budget;
+diff --git a/drivers/infiniband/ulp/isert/ib_isert.c b/drivers/infiniband/ulp/isert/ib_isert.c
+index 1015a51f750a..93f2fec942dd 100644
+--- a/drivers/infiniband/ulp/isert/ib_isert.c
++++ b/drivers/infiniband/ulp/isert/ib_isert.c
+@@ -956,14 +956,17 @@ isert_put_login_tx(struct iscsit_conn *conn, struct iscsi_login *login,
+ 			mutex_lock(&isert_conn->mutex);
+ 			isert_conn->state = ISER_CONN_FULL_FEATURE;
+ 			mutex_unlock(&isert_conn->mutex);
+-			goto post_send;
 +
-+               /*
-+                * Cap the scan at the per-node LRU length so each entry is
-+                * scanned at most once per call.
-+                */
-+               budget = min(node_batch,
-+                            list_lru_count_one(&zswap_list_lru, nid, 
-memcg));
-+               if (!budget)
-+                       continue;
++			/* Sent from isert_get_rx_pdu() after registration. */
++			isert_conn->login_rsp_pending = true;
++			return 0;
+ 		}
+ 
+ 		ret = isert_login_post_recv(isert_conn);
+ 		if (ret)
+ 			return ret;
+ 	}
+-post_send:
++
+ 	ret = isert_login_post_send(isert_conn, tx_desc);
+ 	if (ret)
+ 		return ret;
+@@ -2585,8 +2588,17 @@ static void isert_free_conn(struct iscsit_conn *conn)
+ 
+ static void isert_get_rx_pdu(struct iscsit_conn *conn)
+ {
++	struct isert_conn *isert_conn = conn->context;
+ 	struct completion comp;
+ 
++	/* The session is registered by now; see isert_put_login_tx(). */
++	if (isert_conn->login_rsp_pending) {
++		isert_conn->login_rsp_pending = false;
++		if (isert_login_post_send(isert_conn,
++					  &isert_conn->login_tx_desc))
++			return;
++	}
++
+ 	init_completion(&comp);
+ 
+ 	wait_for_completion_interruptible(&comp);
+diff --git a/drivers/infiniband/ulp/isert/ib_isert.h b/drivers/infiniband/ulp/isert/ib_isert.h
+index 0b2dfd6e7e27..0bac5aa66c80 100644
+--- a/drivers/infiniband/ulp/isert/ib_isert.h
++++ b/drivers/infiniband/ulp/isert/ib_isert.h
+@@ -178,6 +178,7 @@ struct isert_conn {
+ 	struct completion	login_comp;
+ 	struct completion	login_req_comp;
+ 	struct iser_tx_desc	login_tx_desc;
++	bool			login_rsp_pending;
+ 	struct rdma_cm_id	*cm_id;
+ 	struct ib_qp		*qp;
+ 	struct ib_cq		*cq;
+-- 
+2.43.0
 
-+               nr_to_walk = budget;
-                 shrunk += list_lru_walk_one(&zswap_list_lru, nid, memcg,
-                                             &shrink_memcg_cb, NULL, 
-&nr_to_walk);
--               scanned += 1 - nr_to_walk;
-+               scanned += budget - nr_to_walk;
-         }
-
-+       /* Nothing was scanned: every LRU under @memcg was empty. */
-         if (!scanned)
-                 return -ENOENT;
-
-Thanks,
-Hao
-> If you respin, please also drop the batch size argument to
-> shrink_memcg() as it's now always SWAP_CLUSTER_MAX.
