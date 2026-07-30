@@ -1,62 +1,64 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BAAE3E49C6
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 09:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD343F54CB
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 09:34:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785404081; cv=none; b=YFoWDKR3AKYcZNLdiJPIDCdImy3qheq81PfEtJoDozmvL+SzW5QzN5YM2yUyuOn5dKSAfhqGlb+StG9AUD4ODrwJJV1Dnm2qtEj+YXUJK4qtOw9W3pZJvKB3Jf8Qgc/vG+MVOZekc8E80R4rmmljRDojCyId24XhhyfZxo3dpic=
+	t=1785404084; cv=none; b=s60gohSTwbD7ncwVqlTmwhPwXiY8D87CbjGrN04S8MXLsrfmV7ZuWM+uQAf4Pmg1gbOmjAciHi/eOwRRLbyKviP85OkDlSSw+jI41DdazOPg5QNK64SGVUNdiBdMpH4KgMz8awXY9qMS/m6L8ZgBUnwwWw3imkHxOzRzqSS7qJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785404081; c=relaxed/simple;
-	bh=7eaxt08mtN6zo0xFSjRxwPoRb3odH0Rzb02ZpzqbEIs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mj4RBNCzAlnAeCQsvFySdZrT1khoJ+GQVsoWpWy64WX3LqlMj8u+Bs6rq+4kcpOOOvH7Es7jc7bPxdqVWnoc9zcGbno5QqKdciRn777Xi1ZsIF0yRV9Rz7XJfl/GJHcLQVidHJgYkzaKbvrZMrgGi4uQEkGSodHL/uc9li7kyZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IdJ+R0pX; arc=none smtp.client-ip=209.85.221.45
+	s=arc-20240116; t=1785404084; c=relaxed/simple;
+	bh=avRMGojD1+s3r5OUQc77VRYmI/vGRgV7TywQBS2w5PY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gVAc9LeNbx0V/K+u3BNsvF3YjvyZ2TgqnxqCI4HPqCt9ClXENcpMWbLxLkQmGKG06cdmMbXBItAZ8VJPZqYDqLvcjK4bncfhm1tz+6LFYhkNQ3vVL0u+vBjotXIpdRrDuuPKwwIk0+qPPeJoHeF/N/7Q7u/FBlyv0a/G+lZ1kAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a6NGAodp; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IdJ+R0pX"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47f97d310caso1820052f8f.2
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 02:34:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a6NGAodp"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47df43bfb07so747587f8f.1
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 02:34:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785404078; x=1786008878; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tu9mUrT2j9QVQ/0jr7AGyW7PZp640JOYo5v2vN8k1Cc=;
-        b=IdJ+R0pXxYY0Lt6BoY3EQqiGTBwGJLniFtRsUI9SZC8zNu9ougUk3y502bIhh42l4q
-         5RPQg2nmjkAxlcbZGQeIvBAHgEbys5U+Twa9F0Q7twSIC2STAT6ztwkGGMzIPvHov4c7
-         RejSNUCQtjt5icdrsLS68R+0WJ4ZKUfCwg+ROHn+bXQMELgfVBW6iUniam64tlYsn+W0
-         YFimoc+znqwMum3si53Wuqbp0UvzKK4DRKIaEqlDBVwlHz6gJ5uJQXuHn0CVJ/w3jXfK
-         NmP5iCRa7ocAMKc0OVvHqlKV8YFX/O9P5oNWJXe+Rf39KnE3aPu6/2B8yWNv7J3QUf3W
-         TenA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785404078; x=1786008878;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1785404081; x=1786008881; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tu9mUrT2j9QVQ/0jr7AGyW7PZp640JOYo5v2vN8k1Cc=;
-        b=sO1+BkNL1AIhtbD+DNtXrx0WSCT7rYKDVYjYJwQlVBWnSzY76LWkw4NBIgtsqa2mSE
-         JZGAJSn2WtpXIgTSs+76hXYM21klC9gW/8iTSSlZ25rlHPPRoaMHgUIwRj8O7+MMM8ML
-         DQNGJ2E8lrz26ytCAhJ1JoGOZiaLPotZ4nr3rlJhOvFK1G0Bp7fmpv8sKXQFUrRt/gwA
-         PUC24bheLkncn440ASs8IaFYYuOUA8hgavzKn0wjlW2ohTZ29qF9ZnyoFtLTTQwhF4yU
-         TZwnJbR2ecTQF8y2/WAZ7cjZuwbhB5uiIQ6y6Ifk8c812/x5h1lij217O6THFsUzljsB
-         Kd2w==
-X-Forwarded-Encrypted: i=1; AHgh+RrphlH8UGmonfExO+jm57/NLzycqmcohtGr5ZBNxf7LujqgSesHY6nSNeVZ6aOut5K/jJRfLCM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YySI6cTEhHY0VN4S+xQIGW5gtjFFQSMKfkoFmLFtMr7PZcW6ZMk
-	budbTE+zqsZrSmXb1f3hDUYxV6kgiZVLjxQgjWCXC9FsakkNA3Qk5GhK
-X-Gm-Gg: AR+sD120gKkwDHyCRdPVldPhn4s/EIgKpKU9ty5C1/8xJRLkry9i/mY2C7CGRAW4lEl
-	hyzKRM2fIP7N3CP/flPp99so+wAM2LY5mBdSjVMIqpJYE6JNHwb/J0CcL7I9CdK7LNFU7y6EAVD
-	Wr/BYzMd5TUtnMqFXEDXuncO7AE+8fVDyafkNPh3UMYbPQ953Ouoef+/ofjGrIH6u3VF4YmzY39
-	eLDIvet219/pXWpgw3ACyZGP3e+QUrJXtEdSEAtjg9b5KRj5A6/a0xaM2zw/7mW/UTDDm/rtOlk
-	qXlMQdehX+RC0yuRox97Gm4UWZG5M4KTZ7bQKV/yaq7xyPt8dalC8g2+rHh8zo+R/KUrM5SeIv6
-	OW7EFIFcS82P54a03gmscsemPHYBLt73IvPxAc3G1DvEbOymw/vv2dC4RDsp8L8RBNjaNkV2Izn
-	7E8G6TQePMsrXr0AyDrnxAAL8EGh/tetYGLZ1RXlsKlks8tQ2kSaVD7OD2g6+zff8l1o44i/IrT
-	viEKwchvXQULgL4+ltLFai7XIt6asSNayUpBjaOHSQlEo9pvTUdfIQRTvew6h692sXmvg==
-X-Received: by 2002:a05:6000:400e:b0:47f:6f92:84aa with SMTP id ffacd0b85a97d-47fc82149c1mr2185466f8f.53.1785404078438;
-        Thu, 30 Jul 2026 02:34:38 -0700 (PDT)
+        bh=sRL7igMRN2frdQ4TUoBRJ2S42DYWVqFHtsOwdDR/oWY=;
+        b=a6NGAodpbwCv1r1PVwJk/mS3fkBn5RX7ZTkFUXB/xsuZJwMtbNc1s5DdI9fioovgM2
+         w0XYceYSz4MBfn1iBnWoyyM2xA+CYPj6C919hLFh+Ht91BgE6Lk2HITyBIh5gJN7GXif
+         /0z1zFGsdlXDuV2n+F+JSmPxAdxqAHzd2DNf//eOTc8qP7vnfnIoFzQUtfJkFHboUMV1
+         luezJEx+qbidwOzsUoP0h8tJrr9w6al0CUwxvffaLtsPtTHF7uAxCWY2E1Txg/9Ydvkz
+         SPGsmAwgH+A4a+fBwBJuUyynhoWH0Um7e9PJyrtxTE9lPcaQN7wLnFgkQQkrWNcWbXWG
+         4kPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785404081; x=1786008881;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sRL7igMRN2frdQ4TUoBRJ2S42DYWVqFHtsOwdDR/oWY=;
+        b=mzGz5hk7DzxmlqlwPvxb/vMn+o999kpACrp/zTaAkQtUhhzqKqpSN6ZtV0H4ZgtY8q
+         DdeD8lhWP+fQc5dA/QugPAb2PFRynpAoMGILI4bCEqVN+Wsety6bP2/wf9E4EZyH38s0
+         MevG0XQndIj1Xl7L52WEFXTOMaV9u5hHiTzTJfkeY3s2i7uDqPK8dGtGYGQFCQe9Gs/i
+         abJoytGEvlpdKUFHw++NUESnqG2kj+pKPwmCa+bZVKBXaGk5PDQ2b3aJU4z05NjpMkbA
+         bYcIwXcaGuS8paztvIWCYrrjBrLBXWLxit3Kjk923G+3+/XUaYTwDhG8uD88Yz5rKzBx
+         Obrg==
+X-Forwarded-Encrypted: i=1; AHgh+RruN6cdMhzntMXuG97SQJ1tGcfMgV7VSIP4yv7/cebMRlL4n5dP+GasNLO/e+d+PW+xKKuUbNI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzWtBxGzlpy65CxDqocKlXpmGn2wg149CkgdAhsUq2sVVp+hS7N
+	T8vmou9W986t8C4TkwksG2BfP7TnnA4ipFp76l5VvHkNCpZ280NFAekr
+X-Gm-Gg: AR+sD13Wju2cpq/sY5aXJC0ObyHvFP4R4jJSJdouJ5ImmSeYN0vfbjHnvkJI7KHx4+W
+	1pDHdEt9kgF//cDvrHAOCDZsAF/eI8lLb3+zRga3WL5zNaVGfoU4Dy+nsZbSmKER+2iwU1N+T/3
+	ZVHQ6tXpJFS1jmdYOxYuTQy3xRVyB3AaHJAzmpA6RFTClt+0Xp4KtDyIZPooMLnov2hw+L/TckR
+	2OBYe6SRtaMkgoIuBnJMQdiUz9uZE9g/wkm9kkzQJokJIJRp0ibldpE0gbZGscdcwPI8GZbE/Wh
+	EKUxId7Jr7LpvmX03/MN0ksuYLb6hdBPw1gDxbS7FjsJjJnYLakHFea3L39hL52yGHzTF0U0bl2
+	DCeZiXRxg0kuyIzhYuk0y05YU4rZeEqupwsp/ZkZbdfbgZ0JmsKh2qgdjtD/Aky2HGmXR9tKq4t
+	z42MoXbwJnyJ2XYWY9EyzoHyW0glLRR45c1Iw9jaGtEhK3JyTeqcv5wUcSq7BjnuzwGASj3mRY5
+	ECO+7cBc+NJofkhBN8NNutFvaO++UI9lMf4OmEh8+NiegMJnU1q7t7wPm+VpKdJLABP
+X-Received: by 2002:a05:6000:40c8:b0:47f:959f:f6a6 with SMTP id ffacd0b85a97d-47fc82064c7mr2796716f8f.54.1785404080978;
+        Thu, 30 Jul 2026 02:34:40 -0700 (PDT)
 Received: from valmpani.fritz.box (cgn-195-14-216-95.nc.de. [195.14.216.95])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fc88d985csm4897793f8f.1.2026.07.30.02.34.37
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fc88d985csm4897793f8f.1.2026.07.30.02.34.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 02:34:37 -0700 (PDT)
+        Thu, 30 Jul 2026 02:34:40 -0700 (PDT)
 From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
 To: Andreas Hindborg <a.hindborg@kernel.org>
 Cc: Breno Leitao <leitao@debian.org>,
@@ -65,10 +67,12 @@ Cc: Breno Leitao <leitao@debian.org>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com
-Subject: [PATCH 0/2] configfs: fix use-after-free of symlink target racing with rmdir
-Date: Thu, 30 Jul 2026 11:30:23 +0200
-Message-ID: <20260730093435.195441-1-vasilisalmpanis@gmail.com>
+Subject: [PATCH 1/2] configfs: pin the symlink target's dirent instead of chasing ->ci_dentry
+Date: Thu, 30 Jul 2026 11:30:24 +0200
+Message-ID: <20260730093435.195441-2-vasilisalmpanis@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260730093435.195441-1-vasilisalmpanis@gmail.com>
+References: <20260730093435.195441-1-vasilisalmpanis@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,39 +81,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-syzkaller reported a slab-use-after-free in config_item_get() when
-symlink(2) races with rmdir(2) of the symlink target:
+create_link() reads the target's configfs_dirent from
+item->ci_dentry->d_fsdata, relying on the item reference taken by
+get_target().  That reference pins the item, not its dentry: the dentry is
+pinned by DCACHE_PERSISTENT, which configfs_remove_dir() releases via
+simple_rmdir() while the item is still alive.  A symlink racing with rmdir
+of its target can therefore find ->ci_dentry freed and its dirent
+released, triggering WARN_ON(!atomic_read(&sd->s_count)) in configfs_get().
 
-  BUG: KASAN: slab-use-after-free in config_item_get+0x26/0x90
-   configfs_get_config_item fs/configfs/configfs_internal.h:127 [inline]
-   get_target fs/configfs/symlink.c:128 [inline]
-   configfs_symlink+0x4ab/0x1030 fs/configfs/symlink.c:185
+Take the dirent in get_target() as well, under ->d_lock and atomically
+with the item reference, and pass it down to create_link().  A hashed
+dentry has not been killed yet, so its ->d_fsdata reference keeps the
+dirent alive there.
 
-configfs_symlink() resolves the target with no locks, with the idea
-that a hashed dentry means a live config_item. configfs_rmdir() drops
-the last reference to the item before the dentry gets unhashed by
-d_delete() in vfs_rmdir(), so get_target() could take a reference on
-an already freed item.
-
-Patch 2 fixes this by unhashing the dentry in configfs_remove_dir(),
-before the item can be freed.  Patch 1 fixes a second lifetime bug in
-the same path that the earlier unhashing makes easy to hit: an item
-reference does not pin the item's dentry, so create_link() must not
-reach the target's configfs_dirent through ->ci_dentry.  The patches
-must be applied in this order.
-
-Tested with the syzkaller reproducer, which no longer triggers either
-the KASAN report or the s_count warning.
-
-Vasileios Almpanis (2):
-  configfs: pin the symlink target's dirent instead of chasing
-    ->ci_dentry
-  configfs: unhash the dentry before dropping the item in rmdir
-
- fs/configfs/dir.c     |  9 +++++++++
+Cc: stable@vger.kernel.org
+Fixes: 7063fbf22611 ("[PATCH] configfs: User-driven configuration filesystem")
+Signed-off-by: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+---
  fs/configfs/symlink.c | 24 ++++++++++++++++++++----
- 2 files changed, 29 insertions(+), 4 deletions(-)
+ 1 file changed, 20 insertions(+), 4 deletions(-)
 
+diff --git a/fs/configfs/symlink.c b/fs/configfs/symlink.c
+index 31eb28b27309..3b31c714400f 100644
+--- a/fs/configfs/symlink.c
++++ b/fs/configfs/symlink.c
+@@ -76,9 +76,9 @@ static int configfs_get_target_path(struct config_item *item,
+ 
+ static int create_link(struct config_item *parent_item,
+ 		       struct config_item *item,
++		       struct configfs_dirent *target_sd,
+ 		       struct dentry *dentry)
+ {
+-	struct configfs_dirent *target_sd = item->ci_dentry->d_fsdata;
+ 	char *body;
+ 	int ret;
+ 
+@@ -115,6 +115,7 @@ static int create_link(struct config_item *parent_item,
+ 
+ 
+ static int get_target(const char *symname, struct config_item **target,
++		      struct configfs_dirent **target_sd,
+ 		      struct super_block *sb)
+ {
+ 	struct path path __free(path_put) = {};
+@@ -125,7 +126,20 @@ static int get_target(const char *symname, struct config_item **target,
+ 		return ret;
+ 	if (path.dentry->d_sb != sb)
+ 		return -EPERM;
+-	*target = configfs_get_config_item(path.dentry);
++	/*
++	 * A hashed dentry guarantees that neither the item nor the dirent
++	 * have been released yet, as removals unhash before dropping.
++	 * Grab both references here. An item reference alone would not keep
++	 * ->ci_dentry alive.
++	 */
++	spin_lock(&path.dentry->d_lock);
++	if (!d_unhashed(path.dentry)) {
++		struct configfs_dirent *sd = path.dentry->d_fsdata;
++
++		*target = config_item_get(sd->s_element);
++		*target_sd = configfs_get(sd);
++	}
++	spin_unlock(&path.dentry->d_lock);
+ 	if (!*target)
+ 		return -ENOENT;
+ 	return 0;
+@@ -139,6 +153,7 @@ int configfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+ 	struct configfs_dirent *sd;
+ 	struct config_item *parent_item;
+ 	struct config_item *target_item = NULL;
++	struct configfs_dirent *target_sd = NULL;
+ 	const struct config_item_type *type;
+ 
+ 	sd = dentry->d_parent->d_fsdata;
+@@ -182,7 +197,7 @@ int configfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+ 	 *  AV, a thoroughly annoyed bastard.
+ 	 */
+ 	inode_unlock(dir);
+-	ret = get_target(symname, &target_item, dentry->d_sb);
++	ret = get_target(symname, &target_item, &target_sd, dentry->d_sb);
+ 	inode_lock(dir);
+ 	if (ret)
+ 		goto out_put;
+@@ -196,13 +211,14 @@ int configfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+ 		ret = type->ct_item_ops->allow_link(parent_item, target_item);
+ 	if (!ret) {
+ 		mutex_lock(&configfs_symlink_mutex);
+-		ret = create_link(parent_item, target_item, dentry);
++		ret = create_link(parent_item, target_item, target_sd, dentry);
+ 		mutex_unlock(&configfs_symlink_mutex);
+ 		if (ret && type->ct_item_ops->drop_link)
+ 			type->ct_item_ops->drop_link(parent_item,
+ 						     target_item);
+ 	}
+ 
++	configfs_put(target_sd);
+ 	config_item_put(target_item);
+ 
+ out_put:
 -- 
 2.47.3
 
