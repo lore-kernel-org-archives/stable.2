@@ -1,140 +1,145 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7834052AF
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:51:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785408688; cv=none; b=r2LFPDXg1ZGvuQkQZnngfr/VuKgVCaTjrJ358oM8c2v5B7CVNXh5SKGVffbtW9WfGmSu+Cu2d5qZYR/vm1cqTjqJxdgWEB+ORPw4WgyeRPHrfGwE3UBUeVf6tjeg5EbPbaS3u3cP0EQbTS/3Tr+BZBS6Z+vPVc8Nn0ssod5pDi0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785408688; c=relaxed/simple;
-	bh=duBEpRbPoWtSq71eeoRnMnFzJjraE5Vu4U1c21a3VPU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QofQQqH2ZdlEeOgTvSQqKGpE9SXCt1KWmqMIzJ1u6LXcgy8lDTR+YoZRYvoaD3HPEKdET+A8EBjWjf8ggSau6bkUTMMgB0U8aarlRcE8OO8LpaXjg6kRYUQbnuxDClxt/E/Rs1syhgwJ/8t8sv88LR5JKCCI6mIprsfgLd8QPHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FXk4rZEe; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDC53D75C4
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:53:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785408827; cv=pass; b=Qlyry/LiEBijXwhqpIAaTs5dIhmW+2CponvRc2n1kTY07q8cKGzC7RIWmU6qm0O/7yzZ4fAMkHUEQBA9dqlsJ6g4dQmgGUKSgCPII2yTQyiWB25CxWMwTa6n2RGgTkLb2ZMAnIZfd4ituRsXaE8hixMoX8YICjPNT9EG7GNWb+w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785408827; c=relaxed/simple;
+	bh=D5i59ny8Jjqz/d4TnC8e+9Pgsp/T/5exBPsqV2oj2ZY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dqu/WHOrikqyTUOrG1lywle602FshcTBSnrebZ7wYzLKUzdRPMljvPStWmK0rbi5S8gU8XVEDDX4s1bKMfr2hcVOUSvtoLGloUwku2ZD/QmOEmiuXBH2gjhTwnjWOcMixvD8LEV2dhIoO2aixKa2WzMI8IySD+/HYL7Umelgkdc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BzHSTr9T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Th76OclR; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FXk4rZEe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785408687; x=1816944687;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=duBEpRbPoWtSq71eeoRnMnFzJjraE5Vu4U1c21a3VPU=;
-  b=FXk4rZEenPIsr42mtDDp+nOvaWMiDSoVgzEqxvQ5iqouXA+f/lmfCNLW
-   ygyTm+00kMBEDqRVgpUKq6dKGnekASFNpMOkBhC+6bxLskn0zQphLdSBR
-   73WZdg2BouXK5V4p+nbiUWZEnWHJbm1soeUKT3KLZ9q4duTmH8ai4eg57
-   K8jCEC7Pn1vIXZSvHqUOGJ9+mrSezPAjx6eoMF6OsoTMnnZ3Lz5ZjSapV
-   Okntidl3jxJNsz3j1IjLf+3/RHv4vda4QGKpf6uPn/H7i6VyMKiTbMTMC
-   EeQ8M8FnfFlMK1lhogAjdblwihkMqfoifg6NvNf1Sw1lzZLU4lhqlhr5i
-   g==;
-X-CSE-ConnectionGUID: iyfZUpVWQIa35foNWO1bhQ==
-X-CSE-MsgGUID: iTkttMekTN2p6r7pX3jWRw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="96384523"
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; 
-   d="scan'208";a="96384523"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 03:51:26 -0700
-X-CSE-ConnectionGUID: K4uw1dYtSAmG6pMvoLZHUg==
-X-CSE-MsgGUID: PjtqN71TR921XkTYo/6Bxg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; 
-   d="scan'208";a="253940882"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.245.197]) ([10.245.245.197])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 03:51:25 -0700
-Message-ID: <148b38ae-eae7-40d5-837c-fddda1299d9f@intel.com>
-Date: Thu, 30 Jul 2026 11:51:22 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BzHSTr9T";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Th76OclR"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UA2KSl288140
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:53:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=D5i59ny8Jjqz/d4TnC8e+9Pg
+	sp/T/5exBPsqV2oj2ZY=; b=BzHSTr9TB9qAI5/3R6EoiTO8Qlg0B0vpYUn5SKTW
+	KjTmKQ50DPQgPO+njeJO5kK5JfVR6f8Ks4U8aqxGvoROWPH2biPRhhG7OJfln+R6
+	HBq3dX7keS6xPRt3y0fGOlmbTlo1Wdk8SQTVINe4DDUphYntItddf85AwekC91na
+	Mzuk5zZi0lWnT1rQAobomy3VpOtXvrby7WVST+8v77SMXauY3/mDB8BbsH+dscJT
+	krpJ5NejWp44MpDhhpDPT2Y49FUa/Sd7fNrQCWkinRYsGJPMj7Uy+cSmvhJZnaG0
+	aZdOzqc2unFFGyz1hLCU6YzvdLBgvTxVVcc1u7/6FqfiUw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr3v38d3q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 10:53:45 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e7ee64b25so298407985a.0
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 03:53:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785408825; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IrWn9hiCU1RwWozc/KeiGaLXkycIIYGinC8xB3h1zz78yBsZj7JZypBiDQgoYsJNKa
+         v8W7cxPfq11uGtfa1m88i50/fRZOnQ/x9IRqI/2/b1METzoqc0JzA9t3hGYKgvyR/fVH
+         kkKYu7aTtLPrZ79B/jGW0K9M58OVJIJmMqQF8L+6OKjjlriUxSv2yIbC/fo3TrJVh5HD
+         azjqiyI04gR9lrQeLYsbE15Cuc+3Vsso93XjSBEFkF85shn+TzGO8zreMjf5kFd0s5Qr
+         AvRyNOaIiiZ6FVAdWpnFftCbInz5LGYbvgGY2+m1Z1GSiccTYGOoyAOfiH1/nLZuOwxc
+         kjaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=D5i59ny8Jjqz/d4TnC8e+9Pgsp/T/5exBPsqV2oj2ZY=;
+        fh=wQDkrENK9b6ETWRJCBJSRYi6FpNCUGekKI5T2+K8DSw=;
+        b=WC3BNZnaTUveYZYfOh5ys45N43hAfbhIx1xs4oV2GdHJoDhR+DZS+AcuCIwjfsvTZs
+         7vOV1dONhOpxHF8A+racCYDZC5Cl5WVaB8YIDQSPcr/8Q+iUmXRX0p9meRhN7WNrgfGe
+         9XvDUQbdIVi8dlI1JCU5EFmfXhqoZ1MiZ+G0HWaeec25tpVMxhQ+EIbkLYvGZLqAfO7G
+         9+9+WNT8CX6MHF9QoV4vtDHGoIPWd7i5l4KzuElU9WtrVMDgnw8kUQZgcIFhN8jfzzLp
+         wRT5mXU8qYFi8aYJVZ99o3/OhyZZfTxEay7UNUtvnd3fXJaXvbSd4ikkMYL4yUD2vujO
+         QCTQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785408824; x=1786013624; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D5i59ny8Jjqz/d4TnC8e+9Pgsp/T/5exBPsqV2oj2ZY=;
+        b=Th76OclRQjk63bvdg4p23WPeMXbNAr7YAUYo0HN7AU6iZswUKEM0OhDSANtax9mtjW
+         sQhq+YsS4Ua+bXbb4zOrSI1opN6O9BnPS8L7Wg345eNwmit0k9cxcLky8ito4M3T/NUz
+         JrZnaAaqLjkSxl+F4N3V0pr5ksCMnUXsi+kO/VivQSBVtOR3sR+Gw48WNpSjr2uyNgpc
+         UvBAPIs6Rq8ViD/5NLAUbJl6T9NkWOS4R0/L9ndALWlKXGeUZ0l6TTGcF8d9AyaK76Yb
+         ABH8iv0o4w7eTWggF216P2wTh9PtnKW/ciNY90Lg3/0/M0+7KNqpTA/uH2aaoTWVykHD
+         89Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785408824; x=1786013624;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=D5i59ny8Jjqz/d4TnC8e+9Pgsp/T/5exBPsqV2oj2ZY=;
+        b=OHuQRr6vMuvSr9ZyAlwwKYitHNxrQgHmlG8hhJzLOFKJxaw7oBMvrsOW/USreWRu1E
+         uTgGbUSOEOox+A64SQZZLpyO2VvzLrlqBJS1bZi6ixV4328RhKUa9IYyCpej7qgbN1Iu
+         YAVFaAkdIhSIVpNxQr2+QIQhe3iMrNEyFiE7U8sxWyRZmHGZ5V+GHHs1dQ7Kklv8GebH
+         LpaGjdpbGCGM2+/MQoTFEheX1fvHxgvMOl6gaxWYh9KqK/aBrpnLmTodKhtIkiem7xSF
+         OEpjqXYWn/GvVkpP+hYXasPVlAq1oKnBgIhokZ1Yr/WWrhQnylvVoc5O5jx2904MxSYN
+         x9dg==
+X-Gm-Message-State: AOJu0YyzDEkla0+O1ZL+wYklv5zZMfIwXHx0+MqDW6B7DfXxQ6GVW2/4
+	scaDEyo5ZysRI3Rh/hCt0ifHydmJ0nzMlGhNpgpRUjXJWwAp7ByuUkCbylDjS/9S7UgwPKmRrUF
+	Ld1MXgH8XChM4WZC82IwL/3nu6927nJQBehC9lIMc2r8P3kBZRaHes8JI/QSa8k//eVoufsw6qx
+	vXbrxMFAOGu7XauhGPWCcB+TjG+TbtCfiiw2OwhwbBsryn
+X-Gm-Gg: AR+sD11L2K7wREmAotU/gwWMvOJk6ce/yEML7mlAiETPyCiVXriNmEBEXkIy9/j2a24
+	j7/bF2Rq0i/k09Ma1VjgqP0djjiJHIuDyK7cBOH/6sHC/9YYMjFKvtB84QrX3tYwnrdI/Opl9QB
+	e77FisGECGIaHGHJOa5vD57WRBn8DKoVg8YqpW3vadTSppUCq411jtfPbnhQ==
+X-Received: by 2002:a05:620a:a18f:10b0:933:a21:5f07 with SMTP id af79cd13be357-9348614e80dmr130942085a.49.1785408824631;
+        Thu, 30 Jul 2026 03:53:44 -0700 (PDT)
+X-Received: by 2002:a05:620a:a18f:10b0:933:a21:5f07 with SMTP id
+ af79cd13be357-9348614e80dmr130940485a.49.1785408824086; Thu, 30 Jul 2026
+ 03:53:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] drm/xe/guc_ads: allocate UM queues in VRAM on dGFX
-To: Jia Yao <jia.yao@intel.com>, intel-xe@lists.freedesktop.org
-Cc: gwan-gyeong.mun@intel.com, stable@vger.kernel.org
-References: <20260722053410.2767369-1-jia.yao@intel.com>
- <20260730004735.344627-1-jia.yao@intel.com>
- <20260730004735.344627-3-jia.yao@intel.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260730004735.344627-3-jia.yao@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260729150958.3889964-1-youssef.abdulrahman@oss.qualcomm.com> <20260729223316.stable-0014@kernel.org>
+In-Reply-To: <20260729223316.stable-0014@kernel.org>
+From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+Date: Thu, 30 Jul 2026 11:53:32 +0100
+X-Gm-Features: AUfX_mzSGfAUDNdhpHfcTRjl8y_dIy1NDKpDZ5F5Qi2dbl0_PjQ-5aGojBq-yDw
+Message-ID: <CANyhwx0BOQ1CEj2BpCN9MtUM-kbg-c2zDNzkvY1gntBBMHdwhg@mail.gmail.com>
+Subject: Re: [PATCH 6.1.y] net: qrtr: ns: Raise node count limit to 512
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-Proofpoint-ORIG-GUID: K3ovrNVUZAK_1h_JpLQ1CWsBs-dO6_1_
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA4MSBTYWx0ZWRfX+Kd+PEKIxIgu
+ F0ONMRuNmYFK+b4DFk2H9xCbLylnSYA/cqVDhF1wGFDAxm8fb2IXh0u8EmK14rw7pj5T2YbSNWv
+ nwe/Kqx1ISmBZFIbQjlUF3b4RB6nn/I=
+X-Authority-Analysis: v=2.4 cv=bZlbluPB c=1 sm=1 tr=0 ts=6a6b2d39 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=RsryKrR201jtlDbRoOkA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA4MSBTYWx0ZWRfX8TMSuLKiqB/C
+ hUOvPDS6pngGOhHWeYjC+wNkp2YzTWDrT79aUOqLS6HBnqngIt5wIPxFkDy/i8RXdPFF+15pAlP
+ 9iha2kkMzqEISjcvb9WcAskJLfjsNyADZIaffNX70OmLmx5U5l3NxmzDH52Qp2vjUdE2jLSbAtZ
+ nyGl/Y5bTSKfk7lMocqxZ+uwywBwgklsJWC1TI95/4YKDw7KXXjVU40P5g422JRbWGc/ZoYLMEj
+ FhK6aQMHTbg/VHVwNKfPx+SOGYLCtdRThmJv73TtKr3l+AURMBebgu46z570FPj8TCGTeZpn700
+ AhazsHnKtR19rYnU22MtY4G3agPp8NDpw0aVvAMUl2oZAY0oQQkZSgPbMBBKU8IplNXk2lbTqCt
+ klMgYVpspPNBpPeI9TRzcmsT4Q3PNsVT71vPbpUJUfuw7x46U0ZWEsR4MqyJc7n4A+4i3IyaC6I
+ MvHZC2V/MineRJKVWGA==
+X-Proofpoint-GUID: K3ovrNVUZAK_1h_JpLQ1CWsBs-dO6_1_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_03,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 phishscore=0 impostorscore=0 adultscore=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300081
 
-On 30/07/2026 01:47, Jia Yao wrote:
-> On dGFX the original ADS BO is explicitly migrated to VRAM by
-> xe_guc_realloc_post_hwconfig() so that xe_bo_main_addr() returns a
-> real device-physical address (DPA) rather than an IOMMU IOVA.  A
-> separate SYSTEM BO for the UM queues would not go through that migration
-> path, so its IOVA would differ from the physical address on systems
-> where pages are allocated above 4 GB.  GuC/GAM accesses the UM queue
-> ring via base_dpa (with_dpa=true on pre-Xe3p), so an incorrect DPA
-> causes all-zero fault descriptors to be forwarded to the driver.
+Hi Sasha,
 
-I feel like I don't fully understand the explanation here. Is the issue 
-not just the contig requirement for base_dpa? We now use attempt a best 
-effort approach for system memory, however for dgpu we can go further 
-and use VRAM to guarantee that requirement. If that is all this is doing 
-then commit message can be simplified with something like:
+> Could you send a single v2 for 6.1, 5.15 and 5.10 that matches upstream
+> exactly and adds the missing node_count-- in ctrl_cmd_bye()?
 
-"To fully guarantee the contig requirement for base_dpa, we can instead 
-just use VRAM for the um queue, on dgpu..."
+Will do. Thanks :)
 
-> 
-> Use XE_BO_FLAG_VRAM_IF_DGFX() for the UM queue BO so that on dGFX the
-> BO is allocated directly in VRAM and xe_bo_main_addr() returns the
-> correct DPA without needing a post-hwconfig migration step.
-> 
-> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
-> Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jia Yao <jia.yao@intel.com>
-> ---
->   drivers/gpu/drm/xe/xe_guc.c     |  6 ------
->   drivers/gpu/drm/xe/xe_guc_ads.c | 11 ++++++-----
->   2 files changed, 6 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
-> index 21cf3edef922..4023700ff2a9 100644
-> --- a/drivers/gpu/drm/xe/xe_guc.c
-> +++ b/drivers/gpu/drm/xe/xe_guc.c
-> @@ -714,12 +714,6 @@ static int xe_guc_realloc_post_hwconfig(struct xe_guc *guc)
->   	if (ret)
->   		return ret;
->   
-> -	if (guc->ads.um_queue_bo) {
-> -		ret = xe_managed_bo_reinit_in_vram(xe, tile, &guc->ads.um_queue_bo);
-> -		if (ret)
-> -			return ret;
-> -	}
-> -
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
-> index 7f371f9c7268..53636333fb45 100644
-> --- a/drivers/gpu/drm/xe/xe_guc_ads.c
-> +++ b/drivers/gpu/drm/xe/xe_guc_ads.c
-> @@ -409,11 +409,12 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
->   		size_t um_size = roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
->   						    GUC_UM_HW_QUEUE_MAX);
->   
-> -		bo = xe_managed_bo_create_pin_map(xe, tile, um_size,
-> -						  XE_BO_FLAG_SYSTEM |
-> -						  XE_BO_FLAG_GGTT |
-> -						  XE_BO_FLAG_GGTT_INVALIDATE |
-> -						  XE_BO_FLAG_PINNED_NORESTORE);
-> +		u32 um_flags = XE_BO_FLAG_VRAM_IF_DGFX(tile) |
-> +			       XE_BO_FLAG_GGTT |
-> +			       XE_BO_FLAG_GGTT_INVALIDATE |
-> +			       XE_BO_FLAG_PINNED_NORESTORE;
-> +
-> +		bo = xe_managed_bo_create_pin_map(xe, tile, um_size, um_flags);
->   		if (IS_ERR(bo))
->   			return PTR_ERR(bo);
->   
-
+- Youssef
