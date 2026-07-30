@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDA9233923
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 00:58:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DB1275870;
+	Thu, 30 Jul 2026 00:59:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785373101; cv=none; b=fehlAui8+7LXKAPQwD518RM6J9SLk8C5RVp2hxkPpLT03sh/Y0ct4MEWpwZ1oSxMPSU1dY4wz9iPuqsAai/hPqSk2adRSXwwCc7Y9SjFPHSlIk/uwJpD/cSuMBTDDz2ZOboG0viAYorm45RKRU5ei4HhQLyaGY8ZCL2NF1BrR24=
+	t=1785373167; cv=none; b=gN37d/nS2xhFyLQUmzbGb/XAKyRBRWmC6No6xxVHHn4zw1BNB2BXXiQgjjuOpHxhQvj1x6Pe+UuKtB/PKsIBzKP5IoMeVXqrE4cQf4CbUVzxqUQhViuGvFKcUeyp0Nf5dfDWFoNTSMeCc82YfJRjMGoHuf1be6QptNs0bKRky3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785373101; c=relaxed/simple;
-	bh=/BYm0lerb+HqYMLYK1un+S+JJa6M/QzGMNjvsJlO9hE=;
+	s=arc-20240116; t=1785373167; c=relaxed/simple;
+	bh=5+cYsASVRh2uLBQTCYu+3wxiDdOSO1Zvl+UX68Gxqo0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KNvUe3GgsJtPc+Zl283DQ3Ub0y6EgR+o1iAauEtcgyczJegDZdOBvdgnrvPNt+OQkl3VWul674ePO8Hhjzwtqvi8BQCzgtDfEWAke53XMmfaSpsPyZ0wpAPl9l4g1WisLLSCke4klgfvHdNsdtbYrxeHJ4d2Vo8TK+QelEJji4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VFzFR9Sg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rN1oNBUS9/1zJELiWC1eyb2ZQcUdO3Qqarxi3k1ueVGYk4TWEdSr2LvJJHDwY8ruvdYpL2sQ+I7+2U2SjZrQVPmgKyZAdwz0k/7zRt0aK7BXvZmv/ivD35jVNifGO/1NJwG1eoCDnLZEcEwpebFYXBROa441od2EPWSTjgLGego=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AD/B4nfw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VFzFR9Sg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AC371F00A3A;
-	Thu, 30 Jul 2026 00:58:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AD/B4nfw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA5701F000E9;
+	Thu, 30 Jul 2026 00:59:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785373099;
-	bh=6S6n12kZ+MYcwZe+jX9wexhl8p+aVeK+NeOpYS3rBQA=;
+	s=k20260515; t=1785373165;
+	bh=He/ha+AKaBGNbMo5KBtIDX7c4iKcLwK62YpnNkglYUk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VFzFR9SgR7bGanGBMfcdMJ95vAfj3m4Hx02yFd42mhtMre2THXugjijAFfYfkF1Mw
-	 17BDIVqs2sU26WuWtEbNL1/wrTjy0+1kUOyYF1hr3280YV/GVnXr5lTGmLbyFvZ/Ca
-	 coPEVxUFBYjAi5D99vXbzycP0mo6dggDXi1Su0gEA26o2P9U6dt7+M+xmxdOVRGFSs
-	 qH9gaRBhYJ8PSX3RTTnAgCJQcsIDiYmWuoy60/AR8p685KmKFxpi8J8qwkmdtsm3td
-	 jVbKSdQ/9O3yYgvupCcKdrNBlq/PTlN6TvgZOkEcp7ZsvOPnn/edkcZCX2Q2eLDgua
-	 dut8Nv5ctB/UA==
-From: Sasha Levin <sashal@kernel.org>
+	b=AD/B4nfwcgL3Itt3WHZvtuOOvZUTpkORXKeX+R9qopwgJQgBjnk+mTfS0uQecVgR1
+	 y+PPtzvn0ZztKE6KjvxFNgEyIfeP5jFnehelWt1ubkNc7XMloC3IYunIcO6MHJp0kc
+	 I4C88RP/BM8xFXy1oNwYP4QLJaPs6c6r8j/nYFK10igD8nzF8KND+Pkf9uJzs8dTcv
+	 P6FM+c82rSlPRgBEpmd3GmOESkGYyCodxox6sxkyz9uztG7iR1zD9jKRafoF15Qa0r
+	 DD0i0UBnJ5nQ3D6usAKuA1/LfDf+Gh+h3LktN65TAa3plVfwk1n4mCufZhEccav8wI
+	 dJjNx7aC8ngHw==
+From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
-Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] Bluetooth: hci_core: Fix not accounting for BIS/CIS/PA links separately
-Date: Wed, 29 Jul 2026 20:58:17 -0400
-Message-ID: <20260730005817.1696365-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730005817.1696365-1-sashal@kernel.org>
-References: <2026072158-wired-pamperer-25c0@gregkh>
- <20260730005817.1696365-1-sashal@kernel.org>
+Cc: damon@lists.linux.dev,
+	SJ Park <sj@kernel.org>,
+	Yang yingliang <yangyingliang@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 6.6.y] mm/damon/core: validate ranges in damon_set_regions()
+Date: Wed, 29 Jul 2026 17:59:17 -0700
+Message-ID: <20260730005917.112632-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026072901-unmarked-salvage-c2a5@gregkh>
+References: <2026072901-unmarked-salvage-c2a5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,99 +46,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+DAMON core logic assumes zero length regions don't exist.  However, a few
+DAMON API callers including DAMON_SYSFS, DAMON_RECLAIM and DAMON_LRU_SORT
+allow users to set empty monitoring target regions.  This could result in
+WARN_ONCE() on CONFIG_DAMON_DEBUG_SANITY enabled kernel, and
+divide-by-zero from damon_merge_two_regions().
 
-[ Upstream commit 9d4b01a0bf8d2163ae129c9c537cb0753ad5a2aa ]
+For example, the WANR_ONCE() can be triggered like below.
 
-This fixes the likes of hci_conn_num(CIS_LINK) returning the total of
-ISO connection which includes BIS_LINK as well, so this splits the
-iso_num into each link type and introduces hci_iso_num that can be used
-in places where the total number of ISO connection still needs to be
-used.
+    # grep DAMON_DEBUG_SANITY /boot/config-$(uname -r)
+    # CONFIG_DAMON_DEBUG_SANITY=y
+    # damo start
+    # cd /sys/kernel/mm/damon/admin/kdamonds/0
+    # echo 0 > contexts/0/targets/0/regions/0/start
+    # echo 0 > contexts/0/targets/0/regions/0/end
+    # echo commit > state
+    # dmesg
+    [....]
+    [   73.705780] ------------[ cut here ]------------
+    [   73.707552] start 0 >= end 0
+    [   73.708452] WARNING: mm/damon/core.c:359 at damon_new_region+0x6e/0x80, CPU#1: kdamond.0/758
+    [...]
 
-Fixes: 23205562ffc8 ("Bluetooth: separate CIS_LINK and BIS_LINK link types")
-Fixes: a7bcffc673de ("Bluetooth: Add PA_LINK to distinguish BIG sync and PA sync connections")
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+All DAMON API callers eventually use damon_set_regions() to setup the
+regions.  Add the validation logic in the function.
+
+Link: https://lore.kernel.org/20260630035221.146458-1-sj@kernel.org
+Fixes: 43b0536cb471 ("mm/damon: introduce DAMON-based Reclamation (DAMON_RECLAIM)")
+Signed-off-by: SJ Park <sj@kernel.org>
+Cc: Yang yingliang <yangyingliang@huawei.com>
+Cc: <stable@vger.kernel.org> # 5.16.x
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit 1292c0ecb1caefb8ca064a3639d5673991e8810c)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- include/net/bluetooth/hci_core.h | 30 +++++++++++++++++++++++++-----
- 1 file changed, 25 insertions(+), 5 deletions(-)
+ mm/damon/core.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
-index f660cab086e65f..34c4db7bee8c92 100644
---- a/include/net/bluetooth/hci_core.h
-+++ b/include/net/bluetooth/hci_core.h
-@@ -128,7 +128,9 @@ struct hci_conn_hash {
- 	struct list_head list;
- 	unsigned int     acl_num;
- 	unsigned int     sco_num;
--	unsigned int     iso_num;
-+	unsigned int     cis_num;
-+	unsigned int     bis_num;
-+	unsigned int     pa_num;
- 	unsigned int     le_num;
- 	unsigned int     le_num_peripheral;
- };
-@@ -1000,9 +1002,13 @@ static inline void hci_conn_hash_add(struct hci_dev *hdev, struct hci_conn *c)
- 		h->sco_num++;
- 		break;
- 	case CIS_LINK:
-+		h->cis_num++;
-+		break;
- 	case BIS_LINK:
-+		h->bis_num++;
-+		break;
- 	case PA_LINK:
--		h->iso_num++;
-+		h->pa_num++;
- 		break;
- 	}
- }
-@@ -1028,9 +1034,13 @@ static inline void hci_conn_hash_del(struct hci_dev *hdev, struct hci_conn *c)
- 		h->sco_num--;
- 		break;
- 	case CIS_LINK:
-+		h->cis_num--;
-+		break;
- 	case BIS_LINK:
-+		h->bis_num--;
-+		break;
- 	case PA_LINK:
--		h->iso_num--;
-+		h->pa_num--;
- 		break;
- 	}
- }
-@@ -1047,9 +1057,11 @@ static inline unsigned int hci_conn_num(struct hci_dev *hdev, __u8 type)
- 	case ESCO_LINK:
- 		return h->sco_num;
- 	case CIS_LINK:
-+		return h->cis_num;
- 	case BIS_LINK:
-+		return h->bis_num;
- 	case PA_LINK:
--		return h->iso_num;
-+		return h->pa_num;
- 	default:
- 		return 0;
- 	}
-@@ -1059,7 +1071,15 @@ static inline unsigned int hci_conn_count(struct hci_dev *hdev)
- {
- 	struct hci_conn_hash *c = &hdev->conn_hash;
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 46600265d7ffc..437a52fd6e0ee 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -212,6 +212,12 @@ int damon_set_regions(struct damon_target *t, struct damon_addr_range *ranges,
+ 	unsigned int i;
+ 	int err;
  
--	return c->acl_num + c->sco_num + c->le_num + c->iso_num;
-+	return c->acl_num + c->sco_num + c->le_num + c->cis_num + c->bis_num +
-+		c->pa_num;
-+}
++	for (i = 0; i < nr_ranges; i++) {
++		if (ALIGN_DOWN(ranges[i].start, DAMON_MIN_REGION) >=
++				ALIGN(ranges[i].end, DAMON_MIN_REGION))
++			return -EINVAL;
++	}
 +
-+static inline unsigned int hci_iso_count(struct hci_dev *hdev)
-+{
-+	struct hci_conn_hash *c = &hdev->conn_hash;
-+
-+	return c->cis_num + c->bis_num;
- }
- 
- static inline bool hci_conn_valid(struct hci_dev *hdev, struct hci_conn *conn)
+ 	/* Remove regions which are not in the new ranges */
+ 	damon_for_each_region_safe(r, next, t) {
+ 		for (i = 0; i < nr_ranges; i++) {
 -- 
-2.53.0
+2.47.3
 
