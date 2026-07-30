@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 136F143932B
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 13:49:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A4643B492
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 13:51:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785419369; cv=none; b=E+fQQkL03oadIF+l6i8bxJ13b1l4S24cBIlPq+iZXMOz3gol/ANR2VKlw98jMw9WDNEvsXEIOO2F4rbwHeDVslRsIKZYZWbuz2vNd4/4roasWVc6rNdyc9bmYMNgnBvu4Rim58eCLT+356Uiw0kwSyfHLsAU1S1REBK9b8Jk4tE=
+	t=1785419481; cv=none; b=pniw+jVhGXKMyRQG0heiNL4ivsVlT6oPUvDTVfN+pxF6bJjxVF2MnUmoG98pm34A4OFq+8mQLlHbVYVUf2reaQ7iXK9rAf0vVdmByT2EhSv2+aNZ9RR8DrljFo5z68xUUiKGNIy3AkiHXyI91sOBcOqt0blRXWYv/TM55p+Fwes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785419369; c=relaxed/simple;
-	bh=i9Z6bi0wEwKI6QUR97peno6pZQIFipHqQXC2pd74fuY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Ru8Z2r7PV4U7aMGgcVte0kpRdU5ikFr8ZFXv9x37EUPErY+JEhS35UXdrL8Nf8XlIpRndRpqEGeS3b7MMyz92rlndPxI0QkACgqmrGGKWKp8XBFbOfecEt2TJJadJpx2K1QBaOFBoggrkBx4P3B/ahvM5BV4VH5JJctyAvN2FtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GeBX2Ehm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785419481; c=relaxed/simple;
+	bh=9W42jAvWHV6v7Fp1dMOJOQisW88LB0E5UY+xyE3wM1A=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ISwie8N7TTWSfVJAuCgnWvsII93DenA3KMPEteotZqVozMLBj2mhuLrW6B6XGcFfiKzsTkMPCuinfiIozTDPxEJJvQgHa1AutB5LWlF4zfPS6+4W3RIAF1jpDCUhaIOazSIWYqj0Y4Kx7ycJ5E4mp+m2hDA5aIeihVnJC7mvVew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zfJaqiuK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GeBX2Ehm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05B3B1F00A3D;
-	Thu, 30 Jul 2026 13:49:26 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zfJaqiuK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E41BE1F000E9;
+	Thu, 30 Jul 2026 13:51:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785419367;
-	bh=lsmu/Pvjzi+yxwgZsDGmvoFwqPPz1dSKIemtHZs32wc=;
+	s=korg; t=1785419479;
+	bh=5GtBpAuCQDdrHXaAw/c9VWKm1oWBGov6DShZJ2UA5fg=;
 	h=Subject:To:Cc:From:Date;
-	b=GeBX2EhmKkELq8COUUCv7HdJqWIt75mEVuoVE3c+Eiiv3JotCQ8NxN5xbdpocLNOn
-	 bnMbmoH0IeScm5y2REG5YG/nYRywuEyj+WxagGQtbXNwlr1phfAOZa5QXV15LGk8lG
-	 h98OG0fq6t2N/nlTbvm50Dq7O62h3pGw29pqJvtU=
-Subject: FAILED: patch "[PATCH] rxrpc: Fix irq-disabled in local_bh_enable()" failed to apply to 6.12-stable tree
-To: dhowells@redhat.com,horms@kernel.org,jaltman@auristor.com,kuba@kernel.org,kwqcheii@proton.me,marc.dionne@auristor.com,zhuque@tencent.com
+	b=zfJaqiuK7WP6jk22VoBFFxhu7mcNlQUOpv/1cR4lCo6tv58nSs5pVGaVgFlvqnpKx
+	 qplgehcQzHL/ap47NbH0YO8rp5ommSEeVhuiogkeu5DUtIUdAs5FKd2ibSau4P5aB2
+	 EjsrFQo6uTBLRFggAa47+KmTFJKahmNe+3boUyRU=
+Subject: FAILED: patch "[PATCH] netfilter: nf_tables: clone set on flush only" failed to apply to 6.6-stable tree
+To: pablo@netfilter.org,fw@strlen.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 30 Jul 2026 15:49:13 +0200
-Message-ID: <2026073013-sanding-unlined-9b91@gregkh>
+Date: Thu, 30 Jul 2026 15:51:05 +0200
+Message-ID: <2026073005-coerce-divisibly-805e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x e4d2878369d590bf8455e3678a644e503172eafa
+git cherry-pick -x fb7fb4016300ac622c964069e286dc83166a5d52
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026073013-sanding-unlined-9b91@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026073005-coerce-divisibly-805e@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,116 +62,167 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e4d2878369d590bf8455e3678a644e503172eafa Mon Sep 17 00:00:00 2001
-From: David Howells <dhowells@redhat.com>
-Date: Thu, 17 Jul 2025 08:43:41 +0100
-Subject: [PATCH] rxrpc: Fix irq-disabled in local_bh_enable()
+From fb7fb4016300ac622c964069e286dc83166a5d52 Mon Sep 17 00:00:00 2001
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+Date: Mon, 2 Mar 2026 23:28:15 +0100
+Subject: [PATCH] netfilter: nf_tables: clone set on flush only
 
-The rxrpc_assess_MTU_size() function calls down into the IP layer to find
-out the MTU size for a route.  When accepting an incoming call, this is
-called from rxrpc_new_incoming_call() which holds interrupts disabled
-across the code that calls down to it.  Unfortunately, the IP layer uses
-local_bh_enable() which, config dependent, throws a warning if IRQs are
-enabled:
+Syzbot with fault injection triggered a failing memory allocation with
+GFP_KERNEL which results in a WARN splat:
 
-WARNING: CPU: 1 PID: 5544 at kernel/softirq.c:387 __local_bh_enable_ip+0x43/0xd0
-...
-RIP: 0010:__local_bh_enable_ip+0x43/0xd0
-...
+iter.err
+WARNING: net/netfilter/nf_tables_api.c:845 at nft_map_deactivate+0x34e/0x3c0 net/netfilter/nf_tables_api.c:845, CPU#0: syz.0.17/5992
+Modules linked in:
+CPU: 0 UID: 0 PID: 5992 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full)
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 02/12/2026
+RIP: 0010:nft_map_deactivate+0x34e/0x3c0 net/netfilter/nf_tables_api.c:845
+Code: 8b 05 86 5a 4e 09 48 3b 84 24 a0 00 00 00 75 62 48 8d 65 d8 5b 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc cc e8 63 6d fa f7 90 <0f> 0b 90 43
++80 7c 35 00 00 0f 85 23 fe ff ff e9 26 fe ff ff 89 d9
+RSP: 0018:ffffc900045af780 EFLAGS: 00010293
+RAX: ffffffff89ca45bd RBX: 00000000fffffff4 RCX: ffff888028111e40
+RDX: 0000000000000000 RSI: 00000000fffffff4 RDI: 0000000000000000
+RBP: ffffc900045af870 R08: 0000000000400dc0 R09: 00000000ffffffff
+R10: dffffc0000000000 R11: fffffbfff1d141db R12: ffffc900045af7e0
+R13: 1ffff920008b5f24 R14: dffffc0000000000 R15: ffffc900045af920
+FS:  000055557a6a5500(0000) GS:ffff888125496000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fb5ea271fc0 CR3: 000000003269e000 CR4: 00000000003526f0
 Call Trace:
  <TASK>
- rt_cache_route+0x7e/0xa0
- rt_set_nexthop.isra.0+0x3b3/0x3f0
- __mkroute_output+0x43a/0x460
- ip_route_output_key_hash+0xf7/0x140
- ip_route_output_flow+0x1b/0x90
- rxrpc_assess_MTU_size.isra.0+0x2a0/0x590
- rxrpc_new_incoming_peer+0x46/0x120
- rxrpc_alloc_incoming_call+0x1b1/0x400
- rxrpc_new_incoming_call+0x1da/0x5e0
- rxrpc_input_packet+0x827/0x900
- rxrpc_io_thread+0x403/0xb60
- kthread+0x2f7/0x310
- ret_from_fork+0x2a/0x230
- ret_from_fork_asm+0x1a/0x30
-...
-hardirqs last  enabled at (23): _raw_spin_unlock_irq+0x24/0x50
-hardirqs last disabled at (24): _raw_read_lock_irq+0x17/0x70
-softirqs last  enabled at (0): copy_process+0xc61/0x2730
-softirqs last disabled at (25): rt_add_uncached_list+0x3c/0x90
+ __nft_release_table+0xceb/0x11f0 net/netfilter/nf_tables_api.c:12115
+ nft_rcv_nl_event+0xc25/0xdb0 net/netfilter/nf_tables_api.c:12187
+ notifier_call_chain+0x19d/0x3a0 kernel/notifier.c:85
+ blocking_notifier_call_chain+0x6a/0x90 kernel/notifier.c:380
+ netlink_release+0x123b/0x1ad0 net/netlink/af_netlink.c:761
+ __sock_release net/socket.c:662 [inline]
+ sock_close+0xc3/0x240 net/socket.c:1455
 
-Fix this by moving the call to rxrpc_assess_MTU_size() out of
-rxrpc_init_peer() and further up the stack where it can be done without
-interrupts disabled.
+Restrict set clone to the flush set command in the preparation phase.
+Add NFT_ITER_UPDATE_CLONE and use it for this purpose, update the rbtree
+and pipapo backends to only clone the set when this iteration type is
+used.
 
-It shouldn't be a problem for rxrpc_new_incoming_call() to do it after the
-locks are dropped as pmtud is going to be performed by the I/O thread - and
-we're in the I/O thread at this point.
+As for the existing NFT_ITER_UPDATE type, update the pipapo backend to
+use the existing set clone if available, otherwise use the existing set
+representation. After this update, there is no need to clone a set that
+is being deleted, this includes bound anonymous set.
 
-Fixes: a2ea9a907260 ("rxrpc: Use irq-disabling spinlocks between app and I/O thread")
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Jeffrey Altman <jaltman@auristor.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: Junvyyang, Tencent Zhuque Lab <zhuque@tencent.com>
-cc: LePremierHomme <kwqcheii@proton.me>
-cc: Simon Horman <horms@kernel.org>
-cc: linux-afs@lists.infradead.org
-Link: https://patch.msgid.link/20250717074350.3767366-2-dhowells@redhat.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+An alternative approach to NFT_ITER_UPDATE_CLONE is to add a .clone
+interface and call it from the flush set path.
 
-diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
-index 376e33dce8c1..df1a618dbf7d 100644
---- a/net/rxrpc/ar-internal.h
-+++ b/net/rxrpc/ar-internal.h
-@@ -1383,6 +1383,7 @@ struct rxrpc_peer *rxrpc_lookup_peer_rcu(struct rxrpc_local *,
- 					 const struct sockaddr_rxrpc *);
- struct rxrpc_peer *rxrpc_lookup_peer(struct rxrpc_local *local,
- 				     struct sockaddr_rxrpc *srx, gfp_t gfp);
-+void rxrpc_assess_MTU_size(struct rxrpc_local *local, struct rxrpc_peer *peer);
- struct rxrpc_peer *rxrpc_alloc_peer(struct rxrpc_local *, gfp_t,
- 				    enum rxrpc_peer_trace);
- void rxrpc_new_incoming_peer(struct rxrpc_local *local, struct rxrpc_peer *peer);
-diff --git a/net/rxrpc/call_accept.c b/net/rxrpc/call_accept.c
-index 49fccee1a726..226b4bf82747 100644
---- a/net/rxrpc/call_accept.c
-+++ b/net/rxrpc/call_accept.c
-@@ -406,6 +406,7 @@ bool rxrpc_new_incoming_call(struct rxrpc_local *local,
- 
- 	spin_unlock(&rx->incoming_lock);
- 	read_unlock_irq(&local->services_lock);
-+	rxrpc_assess_MTU_size(local, call->peer);
- 
- 	if (hlist_unhashed(&call->error_link)) {
- 		spin_lock_irq(&call->peer->lock);
-diff --git a/net/rxrpc/peer_object.c b/net/rxrpc/peer_object.c
-index e2f35e6c04d6..366431b0736c 100644
---- a/net/rxrpc/peer_object.c
-+++ b/net/rxrpc/peer_object.c
-@@ -149,8 +149,7 @@ struct rxrpc_peer *rxrpc_lookup_peer_rcu(struct rxrpc_local *local,
-  * assess the MTU size for the network interface through which this peer is
-  * reached
+Reported-by: syzbot+4924a0edc148e8b4b342@syzkaller.appspotmail.com
+Fixes: 3f1d886cc7c3 ("netfilter: nft_set_pipapo: move cloning of match info to insert/removal path")
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Signed-off-by: Florian Westphal <fw@strlen.de>
+
+diff --git a/include/net/netfilter/nf_tables.h b/include/net/netfilter/nf_tables.h
+index 426534a711b0..ea6f29ad7888 100644
+--- a/include/net/netfilter/nf_tables.h
++++ b/include/net/netfilter/nf_tables.h
+@@ -320,11 +320,13 @@ static inline void *nft_elem_priv_cast(const struct nft_elem_priv *priv)
+  * @NFT_ITER_UNSPEC: unspecified, to catch errors
+  * @NFT_ITER_READ: read-only iteration over set elements
+  * @NFT_ITER_UPDATE: iteration under mutex to update set element state
++ * @NFT_ITER_UPDATE_CLONE: clone set before iteration under mutex to update element
   */
--static void rxrpc_assess_MTU_size(struct rxrpc_local *local,
--				  struct rxrpc_peer *peer)
-+void rxrpc_assess_MTU_size(struct rxrpc_local *local, struct rxrpc_peer *peer)
- {
- 	struct net *net = local->net;
- 	struct dst_entry *dst;
-@@ -277,8 +276,6 @@ static void rxrpc_init_peer(struct rxrpc_local *local, struct rxrpc_peer *peer,
+ enum nft_iter_type {
+ 	NFT_ITER_UNSPEC,
+ 	NFT_ITER_READ,
+ 	NFT_ITER_UPDATE,
++	NFT_ITER_UPDATE_CLONE,
+ };
  
- 	peer->hdrsize += sizeof(struct rxrpc_wire_header);
- 	peer->max_data = peer->if_mtu - peer->hdrsize;
--
--	rxrpc_assess_MTU_size(local, peer);
+ struct nft_set;
+diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+index df67932d3e09..058f7004cb2b 100644
+--- a/net/netfilter/nf_tables_api.c
++++ b/net/netfilter/nf_tables_api.c
+@@ -833,6 +833,11 @@ static void nft_map_catchall_deactivate(const struct nft_ctx *ctx,
+ 	}
  }
  
- /*
-@@ -297,6 +294,7 @@ static struct rxrpc_peer *rxrpc_create_peer(struct rxrpc_local *local,
- 	if (peer) {
- 		memcpy(&peer->srx, srx, sizeof(*srx));
- 		rxrpc_init_peer(local, peer, hash_key);
-+		rxrpc_assess_MTU_size(local, peer);
- 	}
++/* Use NFT_ITER_UPDATE iterator even if this may be called from the preparation
++ * phase, the set clone might already exist from a previous command, or it might
++ * be a set that is going away and does not require a clone. The netns and
++ * netlink release paths also need to work on the live set.
++ */
+ static void nft_map_deactivate(const struct nft_ctx *ctx, struct nft_set *set)
+ {
+ 	struct nft_set_iter iter = {
+@@ -7903,9 +7908,12 @@ static int nft_set_catchall_flush(const struct nft_ctx *ctx,
  
- 	_leave(" = %p", peer);
+ static int nft_set_flush(struct nft_ctx *ctx, struct nft_set *set, u8 genmask)
+ {
++	/* The set backend might need to clone the set, do it now from the
++	 * preparation phase, use NFT_ITER_UPDATE_CLONE iterator type.
++	 */
+ 	struct nft_set_iter iter = {
+ 		.genmask	= genmask,
+-		.type		= NFT_ITER_UPDATE,
++		.type		= NFT_ITER_UPDATE_CLONE,
+ 		.fn		= nft_setelem_flush,
+ 	};
+ 
+diff --git a/net/netfilter/nft_set_hash.c b/net/netfilter/nft_set_hash.c
+index 739b992bde59..b0e571c8e3f3 100644
+--- a/net/netfilter/nft_set_hash.c
++++ b/net/netfilter/nft_set_hash.c
+@@ -374,6 +374,7 @@ static void nft_rhash_walk(const struct nft_ctx *ctx, struct nft_set *set,
+ {
+ 	switch (iter->type) {
+ 	case NFT_ITER_UPDATE:
++	case NFT_ITER_UPDATE_CLONE:
+ 		/* only relevant for netlink dumps which use READ type */
+ 		WARN_ON_ONCE(iter->skip != 0);
+ 
+diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
+index 7ef4b44471d3..c091898df710 100644
+--- a/net/netfilter/nft_set_pipapo.c
++++ b/net/netfilter/nft_set_pipapo.c
+@@ -2144,13 +2144,20 @@ static void nft_pipapo_walk(const struct nft_ctx *ctx, struct nft_set *set,
+ 	const struct nft_pipapo_match *m;
+ 
+ 	switch (iter->type) {
+-	case NFT_ITER_UPDATE:
++	case NFT_ITER_UPDATE_CLONE:
+ 		m = pipapo_maybe_clone(set);
+ 		if (!m) {
+ 			iter->err = -ENOMEM;
+ 			return;
+ 		}
+-
++		nft_pipapo_do_walk(ctx, set, m, iter);
++		break;
++	case NFT_ITER_UPDATE:
++		if (priv->clone)
++			m = priv->clone;
++		else
++			m = rcu_dereference_protected(priv->match,
++						      nft_pipapo_transaction_mutex_held(set));
+ 		nft_pipapo_do_walk(ctx, set, m, iter);
+ 		break;
+ 	case NFT_ITER_READ:
+diff --git a/net/netfilter/nft_set_rbtree.c b/net/netfilter/nft_set_rbtree.c
+index 3f02e4478216..ee3d4f5b9ff7 100644
+--- a/net/netfilter/nft_set_rbtree.c
++++ b/net/netfilter/nft_set_rbtree.c
+@@ -861,13 +861,15 @@ static void nft_rbtree_walk(const struct nft_ctx *ctx,
+ 	struct nft_rbtree *priv = nft_set_priv(set);
+ 
+ 	switch (iter->type) {
+-	case NFT_ITER_UPDATE:
+-		lockdep_assert_held(&nft_pernet(ctx->net)->commit_mutex);
+-
++	case NFT_ITER_UPDATE_CLONE:
+ 		if (nft_array_may_resize(set) < 0) {
+ 			iter->err = -ENOMEM;
+ 			break;
+ 		}
++		fallthrough;
++	case NFT_ITER_UPDATE:
++		lockdep_assert_held(&nft_pernet(ctx->net)->commit_mutex);
++
+ 		nft_rbtree_do_walk(ctx, set, iter);
+ 		break;
+ 	case NFT_ITER_READ:
 
