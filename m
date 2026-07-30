@@ -1,117 +1,178 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-of-o55.zoho.eu (sender-of-o55.zoho.eu [136.143.169.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5023783AF
-	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 02:52:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5ACC368D45
+	for <stable@vger.kernel.org>; Thu, 30 Jul 2026 03:01:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.55
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785379945; cv=pass; b=Utye0AWavOBf5oAFll/6tAhCaEN6EkCZdEQDyuwfn9yTjoCnd1O/8np9GAD6HKhKuYsUZ/yqGFponfH0oEfy9OJTEHGoaCR3Sh5Bfo/V1pzvsv/Y7orefdejS3zJM2KqSqn8pwvwECHBWiOKrN/kkP/o1zkOhUkM8gMn/NGm9yo=
+	t=1785380479; cv=pass; b=oftw2r5KsdTeY4LTI+/FVJ30z1yH7Hu2M+ca4LejEB2lp2Ifd3LiovRkZ5jkr09gu8W6pur3uH8Rj5B8lA7ltKaoR2QW8C7oD0ifc3hvt727s4CddLmMZEz9wpQIDVD7Ax4/3mbQ/TxEYjs+XhRCQo8n540+AZk2VDZINLgOKpY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785379945; c=relaxed/simple;
-	bh=KxmpVJvWjMZMyt/jgVtLy2EX2JvxTMqxDINieHaDSfc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fkHpgB+0SCUsIyOKv16TIefqTx0oRfr/kINUiUgOg5EzUyF+bBf8OdgDoFYoiC+Un/gheJFfXHgxSlZ+HLhtqXv2qqKJjWsAURlJf1TfMBn3vBZrJpWQLaX1Qf+J055NJCUUkk1SSExi912Daai+nYpo0aKXRcKbr8EhTOwoosE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LJgUkmTY; arc=pass smtp.client-ip=209.85.160.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1785380479; c=relaxed/simple;
+	bh=QeOqBCNxAOK+n4t/DmBTbWaTehojT2n5Ail+thTmoHw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oXsVQTumwJbXDPLP24BWEXYkpSpzJZQM6Bjo8ASHU1TLmmfbLz+UP4g5xzAS5nAFrgrgxy4qmAXnFE+bhKQ2q/FLMDPbkL6S+fn4jnUAWDQGPtQz8ankXifNSPSWrl5LDCTc6O2DDY6qysBOmA91RzzCOb4oLLMJiPK9067BTxs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com; spf=pass smtp.mailfrom=iusegentoo.com; dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b=ZLCGqVy1; arc=pass smtp.client-ip=136.143.169.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iusegentoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LJgUkmTY"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-51c10ed63c0so85671cf.1
-        for <stable@vger.kernel.org>; Wed, 29 Jul 2026 19:52:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785379943; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SiO/aHi9B9LO2jR/DoE0p5wtR8Wk1rplKgn3z4rsD3nJ67+l1ERatSmNIQfKznSAwu
-         FUjGyHiCpdJczHXGybmSlhThkEpNNRUcMNFymmYXcgKApMHRkWh3jfMiHc2fFYpR7ilh
-         s9ZMv26PPZRuWsiDb5QZxzWMolNqx4bm94+b8TYk1wuCfZoVgD5O+NlavgKDmjSIoLsB
-         9j8h5FmVwyED68E8n5PTmEb4NyNuG0rnJJKmLVqBpLeMiCagcdAJunGPh0kI1ji+FKDY
-         LiaOkKV3SkM7OkqkF/JNBX2oaQRu7G/uRiLV3j3bWzc9T2b2oS+SWvgEUnTBJt73hXRh
-         vxmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=KxmpVJvWjMZMyt/jgVtLy2EX2JvxTMqxDINieHaDSfc=;
-        fh=JSVV6Ps1PbqjFs1IYokeWb7R1CkYihyDiVIzVoOq5y8=;
-        b=QlXK4MM1dAILgVMdTsR0e2pgkygQ9vSEjVgZRqpez/Mt0+76K9jnDYsoliWmpR4g0r
-         ahzH0WkKhEtm/DGDfNf+BVkYOLBWAYHOgeq3tdtDSZfXcX3Y2bYpNS8R0avyThphaigh
-         7PWd7tYc8J3bUCM+JDbMi4O3+UzJtL68qIZcdV3wh/ggJk+lGj64xzKeXXGfgYn883dQ
-         aHYN0hZcc+sCbRKiXPiexJtbOHGW/6XHe6wh655pPruqXfgXUcn5fhVUMLr/3Q5RFJL3
-         dXAY6YeghG70xTQqosxmiwBATSaLw99wHkXAdLKnwZH0P5l3bwJ/c/wT64nwkS/firtN
-         iiAQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785379943; x=1785984743; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KxmpVJvWjMZMyt/jgVtLy2EX2JvxTMqxDINieHaDSfc=;
-        b=LJgUkmTYJLhxUuk/sxCRnVmztNbWBr9yIEME5zRlj/gKrMvIJA9mgSGZvYlcov4DQA
-         HXdDdMW0gBThXTAiy7mHEFunjFHrCxSCUQZAa0G3HTOOyNHaR+4Jjgz/cq0+fNfA0qVU
-         M7b5izyVpGj2dYZLhcoQo6kZeqr3C3rdmDe58gIKlz23YM+v7gxGH6g0hfv9TTAGH0rq
-         sF4AVjWWD5oxD7S6DMm6sY4f0wP/OHWd9ZMZTER35XgG7F0S9o073yJPxxt4yIwDFTFU
-         3Wr4DBfmIaawo8msJE9P5wXMaahX7SjnnVSMnDuo9ktQbxy6WpfZG2uFv4FmInX/PgoT
-         Jq/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785379943; x=1785984743;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KxmpVJvWjMZMyt/jgVtLy2EX2JvxTMqxDINieHaDSfc=;
-        b=AAvOYHpyzz9GlCdPgclNBGRbqK1k9RJzNVE5l1IPR5brstWEN0tDVZ0q/wTK3fQetr
-         mbbcOTgb9QwLaJxZXDrskMEsaPB7d7mU37B22UhDsBq5k4wFFAfvRWmkSmVwzUk2BSoA
-         2Bl/fy2DK2k9oZrEbrI8jhyPIW/rYDc1PfVWNESvg4+WEiD+KyS+vvakbmMDGsUPU1/1
-         fW+AyTStQfk8owEEiYSmbIn2zCVRuWs1oWTnPh4MBk0LPNglf5N5NOSLBu6ObvZjWkOK
-         Qzf/H/YhXnKNc+rxzyK4Iuq7x4rA++IfmGOOwv1oSR0Y3jHgNK6g54hENHgTYc6ggOzp
-         kv+Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrZGG4l2WKcpOoAJWeKsDcwGuy1GKCtqv4ML6M3N6rHLJJJm4yA2dMAccPBRm+DuHkEh+9rmT4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyocE6xTlir8d7/z1VhVjoYfAeidkUQTD48Cdbfkcts0P8QW+WA
-	RSpUwobnmOReWCRtoArc8Xp6PHvnDgU3AAd4B5iFpXq73yBZS4kDXZFQZpXI6MlvGsDKmT11a8q
-	P1lTgkDpED496eriDk3W74cl6D5LaDZq3pVr35SIK
-X-Gm-Gg: AR+sD10UTAv9yP9cPxLHAWJZLWcKEa953hb4Vov5E6+oSVoLZZx9xkX4qT0NpNIZ3N5
-	2WxS36p1LHm5cb4cd2V49AtTfev1VJRnf/VFAgD2JX2f2uX7xtf8ZqgyumxDpgEr8TAPODmbupo
-	m+0/brqj8eJQiUn/ZrBGkqagPl0825X7tdJr9ntTJH2oOoCPBNUCafEI5n6Q7larMEpbiofoYlH
-	w5ZOXG+l5goozTm8SjK0YQJTJxGyXntS0WX9d3zlxcD8JVEKvLak+dkGClpRFj2VgqII+jIWJet
-	C4zjCWn2Nr8hhLz2g9+qawDHcSASe0IXDzGNSSQBlpAtROIgT+43rw83uQFKDSMH7dDvtMi5a3s
-	=
-X-Received: by 2002:a05:622a:aa8c:10b0:51b:ff0a:2048 with SMTP id
- d75a77b69052e-52b393ed56dmr4235251cf.3.1785379942843; Wed, 29 Jul 2026
- 19:52:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b="ZLCGqVy1"
+ARC-Seal: i=1; a=rsa-sha256; t=1785380444; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=NqpRAVxG+FtCxSCZARrvBTg6ptK5l2y/FiP8O8K9I0GURhObuipGUdjwlPlI+URWIjhdzoGIpAOSO6D1kCUM5+88NaMgUBLqwNQL+GT4lJAgQSPfIWwJDFrRFCtqyh18AFXqtOzq7R2G3aJPJOGMPqwebFlvRA63pgiF/sBlVqw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1785380444; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=zlE4YGKAm0cmJs59qDCAcEJvFaom5KfZb9PiKkB8O58=; 
+	b=FvhV5gIia/RUtr5riV9HHgwQa9kEt567NUIHlP33F6ZwGArM45FrPpTkjXlnHY/+rgozpDWdl9KRT7ot+KQLM3QI4n3VDKth1BTHNSs9AYN5p1c5NvdQSbu+nn2pXrm0G4uCNhgFYWupxbPl/sOyJ8y4fTIcUBfS5eT6dpeJofU=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iusegentoo.com;
+	spf=pass  smtp.mailfrom=ali@iusegentoo.com;
+	dmarc=pass header.from=<ali@iusegentoo.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785380444;
+	s=zmail; d=iusegentoo.com; i=ali@iusegentoo.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=zlE4YGKAm0cmJs59qDCAcEJvFaom5KfZb9PiKkB8O58=;
+	b=ZLCGqVy1p7X8G4S8CjOVo6/Z5nIITd150uILrz7g0qpZnWSUA6d2P/r/nXixF0Tq
+	1YOe6ACuqLCtRoclVUPBg6gzvm29iJavjpVK2/AfTWVpBtQYrX9mRfmugIaKAHSzBha
+	nbupNdAoWSKFk2FriFld30iLloiH9NXTfW6wwyhA=
+Received: by mx.zoho.eu with SMTPS id 1785380442638594.3961943698703;
+	Thu, 30 Jul 2026 05:00:42 +0200 (CEST)
+From: Ali Ahmet Memis <ali@iusegentoo.com>
+To: Len Brown <lenb@kernel.org>
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] tools/power turbostat: Read complete CPU lists
+Date: Thu, 30 Jul 2026 06:00:31 +0300
+Message-ID: <20260730030031.28678-1-ali@iusegentoo.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260724014605.3377283-1-linkl@google.com>
-In-Reply-To: <20260724014605.3377283-1-linkl@google.com>
-From: Link Lin <linkl@google.com>
-Date: Wed, 29 Jul 2026 19:52:11 -0700
-X-Gm-Features: AUfX_mxpFzT0hpVdDxPUqKHkGPgYahhbPQV0xHfM6lq50s8el3BKANlDBJ9mwYI
-Message-ID: <CALUx4KQfyRgG3ewQZMuU4+AMCyrh8+rH=-MOZLBv29PbPcnhYA@mail.gmail.com>
-Subject: Re: [RFC PATCH] virtio_balloon: add VIRTIO_BALLOON_F_REPORTING_PM_SAFE
- feature bit
-To: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, virtualization@lists.linux.dev, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, prasin@google.com, rientjes@google.com, 
-	duenwen@google.com, jiaqiyan@google.com, ahwilkins@google.com, 
-	Greg Thelen <gthelen@google.com>, Alexander Duyck <alexander.duyck@gmail.com>, jthoughton@google.com, 
-	stable@vger.kernel.org, Cory Maccarrone <maccarro@google.com>, 
-	Taylor Scanlon <tayy@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-Hi all,
+CPU_SUBSET_MAXCPUS accepts CPU IDs through 8191, but the sysfs and
+cgroup CPU-list readers stop at 1024 bytes. A fragmented cpuset or
+hybrid PMU CPU list can exceed that size and be truncated.
+initialize_cpu_set_from_sysfs() can also pass a full, non-NUL-terminated
+buffer to parse_cpu_str(), causing an out-of-bounds read.
 
-Friendly ping on this RFC.
+Additionally, initialize_cpu_set_from_sysfs() returns with the file
+still open on success. It is now called once per CPU for
+thread_siblings_list, so large systems can leak thousands of descriptors
+during topology discovery.
 
-We'd love your feedback on whether using a new feature bit
-(VIRTIO_BALLOON_F_REPORTING_PM_SAFE) to negotiate PM suspend safety is
-acceptable, or if you have concerns about protocol-level handshakes for
-kernel PM fix states.
+Use getline() so both readers receive a complete, NUL-terminated line.
+Close and free the sysfs CPU-list resources on every path, and report
+malformed input from the correct buffer.
 
-If you prefer an alternative approach for safe fleet deployment, please let
-us know. Thank you!
+Fixes: eb187540d13a ("tools/power turbostat: Increase CPU_SUBSET_MAXCPUS to 8192")
+Fixes: 58839fdbd441 ("tools/power turbostat: Process HT siblings in CPU order")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
+---
+ tools/power/x86/turbostat/turbostat.c | 44 +++++++++++++++------------
+ 1 file changed, 25 insertions(+), 19 deletions(-)
 
-Sincerely,
-Link
+diff --git a/tools/power/x86/turbostat/turbostat.c b/tools/power/x86/turbostat/turbostat.c
+index 920694c3c..cec3f2fbb 100644
+--- a/tools/power/x86/turbostat/turbostat.c
++++ b/tools/power/x86/turbostat/turbostat.c
+@@ -6311,33 +6311,35 @@ int for_all_proc_cpus(int (func) (int))
+ 
+ #define PATH_EFFECTIVE_CPUS	"/sys/fs/cgroup/cpuset.cpus.effective"
+ 
+-static char cpu_effective_str[1024];
++static char *cpu_effective_str;
+ 
+ static int update_effective_str(bool startup)
+ {
+ 	FILE *fp;
+-	char *pos;
+-	char buf[1024];
++	char *buf = NULL;
++	size_t size = 0;
+ 	int ret;
+ 
+-	if (cpu_effective_str[0] == '\0' && !startup)
++	if (!cpu_effective_str && !startup)
+ 		return 0;
+ 
+ 	fp = fopen(PATH_EFFECTIVE_CPUS, "r");
+ 	if (!fp)
+ 		return 0;
+ 
+-	pos = fgets(buf, 1024, fp);
+-	if (!pos)
++	if (getline(&buf, &size, fp) < 0)
+ 		err(1, "%s: file read failed", PATH_EFFECTIVE_CPUS);
+ 
+ 	fclose(fp);
+ 
+-	ret = strncmp(cpu_effective_str, buf, 1024);
+-	if (!ret)
++	ret = cpu_effective_str ? strcmp(cpu_effective_str, buf) : 1;
++	if (!ret) {
++		free(buf);
+ 		return 0;
++	}
+ 
+-	strncpy(cpu_effective_str, buf, 1024);
++	free(cpu_effective_str);
++	cpu_effective_str = buf;
+ 	return 1;
+ }
+ 
+@@ -8529,13 +8531,16 @@ int add_rapl_perf_counter(int cpu, struct rapl_counter_info_t *rci, const struct
+ 	return ret;
+ }
+ 
+-char cpuset_buf[1024];
+-int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_set, char *sysfs_path, char *sysfs_file)
++int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_set, const char *sysfs_path,
++				  const char *sysfs_file)
+ {
+ 	FILE *fp;
++	char *cpuset_buf = NULL;
++	size_t size = 0;
+ 	char path[128];
++	int ret = -1;
+ 
+-	if (snprintf(path, 128, "%s/%s", sysfs_path, sysfs_file) > 128)
++	if (snprintf(path, sizeof(path), "%s/%s", sysfs_path, sysfs_file) >= (int)sizeof(path))
+ 		err(-1, "%s %s", sysfs_path, sysfs_file);
+ 
+ 	fp = fopen(path, "r");
+@@ -8543,19 +8548,20 @@ int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_set, char *sysfs_path, char *sy
+ 		warn("open %s", path);
+ 		return -1;
+ 	}
+-	if (fread(cpuset_buf, sizeof(char), 1024, fp) == 0) {
++	if (getline(&cpuset_buf, &size, fp) < 0) {
+ 		warn("read %s", sysfs_path);
+-		goto err;
++		goto out;
+ 	}
+ 	if (parse_cpu_str(cpuset_buf, cpu_set, cpu_possible_setsize)) {
+-		warnx("%s: cpu str malformat %s\n", sysfs_path, cpu_effective_str);
+-		goto err;
++		warnx("%s: cpu str malformat %s\n", sysfs_path, cpuset_buf);
++		goto out;
+ 	}
+-	return 0;
++	ret = 0;
+ 
+-err:
++out:
+ 	fclose(fp);
+-	return -1;
++	free(cpuset_buf);
++	return ret;
+ }
+ 
+ void print_cpu_set(char *s, cpu_set_t *set)
+-- 
+2.54.0
+
