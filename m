@@ -1,266 +1,118 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDD730CD95
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:57:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5865A3F1AC4
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 12:03:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785499067; cv=none; b=hHk2cotGH09SdO4LV28YO9q866WkwEkEFynDCzJIvIOdQiJZO4huydOKWyWL79VdDDx5cjZc5t4wCnqGjrKyBS+EL4AXqtXOkbi/1clOyvnXWAyrkz6Q+bsqcNLeB1j+9BTYdYIKVOdHa5U+e7UhIoD26NeKSE62dFXRrYWSmG0=
+	t=1785499436; cv=none; b=WIxzXZJ5Mzv/kVFQGZlxAj8c6uQ5osAJ36X4lHob+qeP28K6r8pZrFc+HoaDUBTZbN2xmjw12CLFpDTButHBhJTbKe+QknvP2hHsxQM8KSBrN1Pm4UcrJXjDZ/lorp9prN8+DcBitFCU5Y8XoA6jshJtTWv4ie4k0u0KRrDRnog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785499067; c=relaxed/simple;
-	bh=4ebNtaYM47g+iC2MCt63BN9zreli2zWZpF2+WlYW8I0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aOMxD87L67YEdi9t93ZVVcTnAFg/BG/gwJeDPY10qsSO9hW99qCJg38UkboKHir8hSW6ftzESoNfv7QGC2sqpL12PZI0wTWfX2vLbL6gR0+TBbCsQPFr984w26YPT1jyboz09LFDk7YbqzSRv4Iocc1KSABqLdFo3roYxDQ573c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=gCOk0P3G; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=+0wE5aTs; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=u8+nXhWi; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=h43eim/X; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1785499436; c=relaxed/simple;
+	bh=a3u47kRr3Do278tdnqPPYoZAssH2IdMcqqRKQFentd0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nsWsl4NYzu6pS18jju6LvKMm54rB1Bw9Z1ZblNny4i6LVlEo36soeIaIiQngZiF7g+uH4Ty5Eq+NETmuFr91pjnPehjrVu3Vs3MPH9R8UOFCZxN5n4mq55dZdi4YY1Joiv7yJQ2mca2sh0Tu6W6PAr8ASIY4P4ew+AP4qqzA5bc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=QZOauCFr; arc=none smtp.client-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="gCOk0P3G";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="+0wE5aTs";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="u8+nXhWi";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="h43eim/X"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A7A2F410C;
-	Fri, 31 Jul 2026 11:57:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1785499053; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cTgMwaWPzZIqwwhLFXF76DzOC7OTGrQ4O4jIUUHt9oQ=;
-	b=gCOk0P3GD5dKzTvHX7KVbUTO+wjDO5o+CRD0LHZHqlfvWA5G9X1+DImySUQsB0BTffUxCf
-	swMLe1ddV506Y+KTtd8u5sRkLXFRNN1avxVSQ61o9xEO3XP5ZgvKuPIR2YeEt+0kgV3J89
-	Ava/ERfm9lsLF0cXcrvt/N9WzOD3/es=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1785499053;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cTgMwaWPzZIqwwhLFXF76DzOC7OTGrQ4O4jIUUHt9oQ=;
-	b=+0wE5aTs2t+Temb2JJ7AoVE/qmIOek2/I/g3a7nFtWSuVx8uAWjcejv4geLaj5LEua8HWM
-	jNBBA8KfN81bWpBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1785499049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cTgMwaWPzZIqwwhLFXF76DzOC7OTGrQ4O4jIUUHt9oQ=;
-	b=u8+nXhWie/a1eXCl5tAmd9P5krNGYfWuSVTcTicn48zMiF74vkdqQyztJE/p2f21tH6LAx
-	c7NJGVx2/5FUnjnPQ5WUoe4WgHhaMdOmsPr8H1c26cn5g6RUZJngglBaMkgLDNRSU+5bxV
-	0hFA4mbY/4sjH3Mw/lafUGqHaO9jsgo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1785499049;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cTgMwaWPzZIqwwhLFXF76DzOC7OTGrQ4O4jIUUHt9oQ=;
-	b=h43eim/XTeHwYYQc5OzZYiWItp2+ynW/A5GFBpA6jyBhGA8jiANwBIFpgeKEoFjl9aPMCb
-	1mUytZ3vslI0neBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 87FD1779B0;
-	Fri, 31 Jul 2026 11:57:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id qjwtIamNbGr8ZwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 31 Jul 2026 11:57:29 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 2BEACA13A4; Fri, 31 Jul 2026 13:57:29 +0200 (CEST)
-Date: Fri, 31 Jul 2026 13:57:29 +0200
-From: Jan Kara <jack@suse.cz>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: linux-ext4@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>, 
-	Zhang Yi <yi.zhang@huawei.com>, Ira Weiny <iweiny@kernel.org>, linux-fscrypt@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Disha Goel <disgoel@linux.ibm.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: don't enable DAX on new encrypted files
-Message-ID: <4ramlo3giiu63es2enlu5ebbg5swq27pc45b2yso33pp3gtmgr@yd5hfhglyi6d>
-References: <20260730175212.36923-1-ebiggers@kernel.org>
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="QZOauCFr"
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-8efb708b1a0so5776076d6.3
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 05:03:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1785499434; x=1786104234; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BzP4sK4hBb/8A2cn+zbTFn82mSE4pQ11vgzpnhcOkCA=;
+        b=QZOauCFr3xyLEDBIb7cKExLNMMpFwSFMmaSe8Ol+FwpNMQV/RHYreY95FE1EvFzq3R
+         oEA0PI0dsNmdKEUoPgVJOe975hPQazJEqcVpy4kdOGQh9uwz/XPGmHrrulzRoNflemTo
+         Y90f/KjkYnUK55xPM1dbKrFEjAMoX/hpy88ufM8TWhioZW0/eqU8HJ/TfBcRaLU5RjRm
+         83YuHz/rYn6FWJoJbAiRp690I5ENcWjAz3D368qZtRwFKB+609r+/7ofDoOyQV2mZQ5R
+         jTvC5vpgWgCepdbYi93yyrxvOLRcEkqWa1PMwGY05b7RGLSAeSFOop5PFTfKE2HGrmJe
+         /BYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785499434; x=1786104234;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BzP4sK4hBb/8A2cn+zbTFn82mSE4pQ11vgzpnhcOkCA=;
+        b=ZFpK+DbApComoQHok2a7OfAO2BYMoF3AV8NG6B/TMwweVnht9HT+VSydCVyfNiLfQ2
+         rSNG8G1DU65vHab29zkKgH9d7+2Rn4QMUqE9wKMZOv2HQPCjRnmklo4nxpu6QekfMTqR
+         aBrEg8C7V2mja5In2vtcMKb8Zt1Ge0qWM7JNvGJ90CR12Dt6bIPN/mZCLpC/lQg3rC9T
+         nV4KaTkzVf4MTfn3kEivf+P8TYxvZ703peP4waynVNaOMhQKbcqjfw8/+z3MBJl6NBq1
+         Hc+iT8tYY6MKtFp/MKkIVjiXxdOcp/updE45XnywpTkZGKbqC0QhFBfy2ZsQnGpJlSkW
+         4KVA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp8379kU/1pHI41ytdyXW1AeRRL+iwtSXuA1FITQLRszXsoAQrpqKTluZe7f1TYdxlhQBnk190=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzIMsrnOmEJM3L7IuFwHi2ihiFuwRQQRbboS88WT6H4fQdIlMil
+	+0yAgudJNABeNcYgwDuOzJb6N0i2cE8HkItUh3GeYSo+MBN/+7P4iC1a9GhfpBTDhDM=
+X-Gm-Gg: AR+sD11JNL++lswV3CbnPWFzzwmjlEqSjXEIJp2mlOYcKXdYzsNISVxTKzyZnqWL5Oa
+	wWYcq1pqtDZsFOqnGP7NruKjbUSDck5ecJjVOwMzr2BDhnGOSuNkN+MNyeMBxfcJpUAO6wzkaSq
+	v7XxA6f4IPEJOZb732vdbjEta+LXc1yu7qhxPA4eGEEuxFCx6hXOTEIHiobJVCCB30SLmZm71ND
+	MoG68dlh/yzRblsydDQEZZfqmEBf8wk+FoSEE0Vtgb6V76rdVNFJ5qbL4v3sXEadxl6OgsCj1dn
+	uSjBuZV35nXlCJgfN/jUiYDrdq/q/FjfZ8UKj4d6q4oeTNVEWdbA5N4EvNoUFhENKoQfegojUFp
+	Vvwj5w1N9PUdqwI+XBPDvMPpWTQh3R5JTs1GxGmqtlJX/BgBvaXpb2NjaemzHBVx/vi9xLotlVX
+	2Kug9+NwTv5MY3I5OTmWSUnP5Z/WjBXovNjFAVkdSHuQzJJEo4hUEEmVnRcjJIqZseNw==
+X-Received: by 2002:a05:6214:2025:b0:8f1:440c:7f81 with SMTP id 6a1803df08f44-908421a38e2mr30020526d6.4.1785499434242;
+        Fri, 31 Jul 2026 05:03:54 -0700 (PDT)
+Received: from localhost ([146.190.222.192])
+        by smtp.gmail.com with UTF8SMTPSA id 6a1803df08f44-908435def8fsm8686026d6.38.2026.07.31.05.03.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 31 Jul 2026 05:03:54 -0700 (PDT)
+From: David Lee <david.lee@trailofbits.com>
+To: miklos@szeredi.hu
+Cc: David Lee <david.lee@trailofbits.com>,
+	Kyle Zeng <kylebot@openai.com>,
+	Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>,
+	fuse-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] fuse: wait for sync init request after abort
+Date: Fri, 31 Jul 2026 12:03:52 +0000
+Message-ID: <20260731120353.558833-1-david.lee@trailofbits.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260730175212.36923-1-ebiggers@kernel.org>
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	TAGGED_RCPT(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
+Content-Transfer-Encoding: 8bit
 
-On Thu 30-07-26 10:52:12, Eric Biggers wrote:
-> Currently, when a new encrypted regular file is created, the call to
-> ext4_set_inode_flags(inode, init=true) in __ext4_new_inode() is made
-> before EXT4_INODE_ENCRYPT is set.  As a result, it can set S_DAX if the
-> filesystem is mounted with "-o dax=always".
-> 
-> EXT4_INODE_ENCRYPT then actually gets set a bit later in
-> __ext4_new_inode(), when it calls fscrypt_set_context() which calls
-> ext4_set_context().  ext4_set_context() sets EXT4_INODE_ENCRYPT and
-> calls ext4_set_inode_flags(inode, init=false) to set S_ENCRYPTED too.
-> 
-> This was intended to clear S_DAX as well.  However, this was broken by
-> commit 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load").  This
-> causes data written to the file to bypass encryption, also causing
-> xfstests failures such as generic/548 (when "-o dax=always" is used).
-> 
-> Fix this by simplifying the flow by making __ext4_new_inode() set
-> EXT4_INODE_ENCRYPT earlier.  This makes it take effect in
-> ext4_set_inode_flags(inode, init=true), making S_DAX never be set.
-> 
-> Similarly, make EXT4_STATE_MAY_INLINE_DATA never be set in the first
-> place on new encrypted inodes.  Then it doesn't need to be cleared.
-> 
-> As a result of these simplifications, ext4_set_context() no longer needs
-> to change inode flags or state when 'handle != NULL'.  Remove that too.
-> 
-> Reported-by: Disha Goel <disgoel@linux.ibm.com>
-> Reported-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-> Closes: https://lore.kernel.org/r/20260723085648.1500357-1-ojaswin@linux.ibm.com
-> Fixes: 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+After a fatal signal interrupts synchronous FUSE_INIT,
+request_wait_answer() aborts the channel and returns immediately.  If the
+request is in an FR_LOCKED reply-copy interval, fuse_chan_abort() leaves
+it for the writer to finish.  The synchronous caller can then free the
+fuse_init_args that owns the reply destination while the writer is still
+copying into it.
 
-Looks good! Feel free to add:
+Wait for fuse_request_end() after aborting the channel.  This keeps the
+synchronous caller's reply storage alive until any locked copy has
+finished, while preserving the fatal-signal abort behavior.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Fixes: 204aa22a686b ("fuse: abort on fatal signal during sync init")
+Cc: stable@vger.kernel.org
+Bug found and triaged by OpenAI Security Research and 
+validated by Trail of Bits.
 
-								Honza
+Assisted-by: Codex:gpt-5.6-sol gpt-5.5-cyber
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+---
+Trail of Bits has a reproducer for this bug that triggers a
+KASAN use-after-free and can share if needed.
 
-> ---
->  fs/ext4/crypto.c | 40 ++++++++++++++++++++--------------------
->  fs/ext4/ialloc.c |  4 ++++
->  2 files changed, 24 insertions(+), 20 deletions(-)
-> 
-> diff --git a/fs/ext4/crypto.c b/fs/ext4/crypto.c
-> index f41f320f4437..3971986de028 100644
-> --- a/fs/ext4/crypto.c
-> +++ b/fs/ext4/crypto.c
-> @@ -144,7 +144,13 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
->  	if (inode->i_ino == EXT4_ROOT_INO)
->  		return -EPERM;
->  
-> -	if (WARN_ON_ONCE(IS_DAX(inode) && i_size_read(inode)))
-> +	/*
-> +	 * For new encrypted inodes, S_DAX is never set in the first place.
-> +	 *
-> +	 * For existing inodes, this is called only on empty directories.  ext4
-> +	 * never sets S_DAX on directories.
-> +	 */
-> +	if (WARN_ON_ONCE(IS_DAX(inode)))
->  		return -EINVAL;
->  
->  	if (ext4_test_inode_flag(inode, EXT4_INODE_DAX))
-> @@ -163,6 +169,14 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
->  	 */
->  
->  	if (handle) {
-> +		/*
-> +		 * __ext4_new_inode() should have already set the encrypt flag
-> +		 * on the inode and avoided enabling inline data.
-> +		 */
-> +		if (WARN_ON_ONCE(!IS_ENCRYPTED(inode)))
-> +			return -EINVAL;
-> +		if (WARN_ON_ONCE(ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)))
-> +			return -EINVAL;
->  		/*
->  		 * Since the inode is new it is ok to pass the
->  		 * XATTR_CREATE flag. This is necessary to match the
-> @@ -170,21 +184,10 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
->  		 * function with the credits allocated for the new
->  		 * inode.
->  		 */
-> -		res = ext4_xattr_set_handle(handle, inode,
-> -					    EXT4_XATTR_INDEX_ENCRYPTION,
-> -					    EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
-> -					    ctx, len, XATTR_CREATE);
-> -		if (!res) {
-> -			ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
-> -			ext4_clear_inode_state(inode,
-> -					EXT4_STATE_MAY_INLINE_DATA);
-> -			/*
-> -			 * Update inode->i_flags - S_ENCRYPTED will be enabled,
-> -			 * S_DAX may be disabled
-> -			 */
-> -			ext4_set_inode_flags(inode, false);
-> -		}
-> -		return res;
-> +		return ext4_xattr_set_handle(handle, inode,
-> +					     EXT4_XATTR_INDEX_ENCRYPTION,
-> +					     EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
-> +					     ctx, len, XATTR_CREATE);
->  	}
->  
->  	res = dquot_initialize(inode);
-> @@ -205,10 +208,7 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
->  				    ctx, len, 0);
->  	if (!res) {
->  		ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
-> -		/*
-> -		 * Update inode->i_flags - S_ENCRYPTED will be enabled,
-> -		 * S_DAX may be disabled
-> -		 */
-> +		/* Update inode->i_flags to set S_ENCRYPTED. */
->  		ext4_set_inode_flags(inode, false);
->  		res = ext4_mark_inode_dirty(handle, inode);
->  		if (res)
-> diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
-> index a40cb27f8116..a5831fc536db 100644
-> --- a/fs/ext4/ialloc.c
-> +++ b/fs/ext4/ialloc.c
-> @@ -997,6 +997,8 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
->  		err = fscrypt_prepare_new_inode(dir, inode, &encrypt);
->  		if (err)
->  			goto out;
-> +		if (encrypt)
-> +			i_flags |= EXT4_ENCRYPT_FL;
->  	}
->  
->  	err = dquot_initialize(inode);
-> @@ -1306,6 +1308,8 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
->  	ei->i_extra_isize = sbi->s_want_extra_isize;
->  	ei->i_inline_off = 0;
->  	if (ext4_has_feature_inline_data(sb) &&
-> +	    /* Encrypted inodes cannot have inline data */
-> +	    !(ei->i_flags & EXT4_ENCRYPT_FL) &&
->  	    (!(ei->i_flags & (EXT4_DAX_FL|EXT4_EA_INODE_FL)) || S_ISDIR(mode)))
->  		ext4_set_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA);
->  	ret = inode;
-> 
-> base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
-> -- 
-> 2.55.0
-> 
+ fs/fuse/dev.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index 5763a7cd3..deee1585d 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -725,6 +725,8 @@ static void request_wait_answer(struct fuse_req *req)
+ 
+ 		if (req->args->abort_on_kill) {
+ 			fuse_chan_abort(fch, false);
++			wait_event(req->waitq,
++				   test_bit(FR_FINISHED, &req->flags));
+ 			return;
+ 		}
+ 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.53.0
