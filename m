@@ -1,43 +1,47 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6960242DFEA;
-	Fri, 31 Jul 2026 10:35:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA5142125A;
+	Fri, 31 Jul 2026 10:37:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785494155; cv=none; b=rIGcirfI7af5i7e/twbfoftZnzmuPWuSUkrFYVgJr/JSGzBm2fJwUyjVRFobf4+7kcQRwImTspRVQcqlb+yNeoGAExbhAjL2WBumfMYCmXJ+3YKY9lxBzXh77vvgxzlYp25jCbF2mY0AsZj4HzfOVfWZnHnXvVUDkGX80t/BWM4=
+	t=1785494261; cv=none; b=bMORoB1h7sDsomLAet14MtSI73YLZXVHNV4NgkAMbOsYQFA1m1BENZfe7jnm8jcKGbQD4YfCsT26wFEeMzF6fWUGuWapn3kjreOeZdnJjwABavTlYlq/UnpyBicmGysE8CAUoDqP/9nFHrq7SiCfk54CNM5kt5I3tVnpT5Ri7vI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785494155; c=relaxed/simple;
+	s=arc-20240116; t=1785494261; c=relaxed/simple;
 	bh=1ENRNZqPXTi+Zd9+e8E9Q4ptr68mQpW6vTXswLen7pE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HHAmWBvYOWs1YAw1zqsDCSJ6G22OLTedJkXcooEb5prL7DCfnmlTtVz51TXK+2rtxVVHbV3LymvHLpIzGA7dzaqfoLmu5hzEkvceHWsPcJkSbgQgrQCi5deKqh/ym4hT/KXxoptFab7g8YNKA8HMjPlDNeLRE9ilomMqaqC8/4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bupt.cn; spf=pass smtp.mailfrom=bupt.cn; arc=none smtp.client-ip=54.254.200.128
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Yrly0iYCoxIlLqT12XpCxAkDwR4xUUE8iP+t2GrYTatM8w7ew/9SGYF+NmBcB0+4fkY70aXQg4/Xl2EbYJ51fcbjkbBSEcMmgHX6EfbwJpQzN1azbYJwryseVIWwBIcLveNc43SvYoeC5sikeGqNbxC/t1vWG+HUT0G2kRRqMv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bupt.cn; spf=pass smtp.mailfrom=bupt.cn; arc=none smtp.client-ip=54.243.244.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bupt.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bupt.cn
-X-QQ-mid: zesmtpsz3t1785494000t0d4a4c8c
-X-QQ-Originating-IP: eF7BR1GArchL5a7/+wetr5womz3GXQWhaUCOmdo5fLU=
+X-QQ-mid: zesmtpsz5t1785494171t497212cc
+X-QQ-Originating-IP: UNpmxZsAsOd0d37BzO6EmqRJvr6hTvD9x06sUwlu0HA=
 Received: from localhost.localdomain ( [59.110.124.154])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 31 Jul 2026 18:33:06 +0800 (CST)
+	id ; Fri, 31 Jul 2026 18:36:05 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 13876591824679904484
-EX-QQ-RecipientCnt: 11
+X-BIZMAIL-ID: 3242020096134969728
+EX-QQ-RecipientCnt: 10
 From: Weisson <hanxiaobupt@bupt.cn>
-To: cooldownlengque@163.com,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Ming Lei <ming.lei@redhat.com>
-Cc: Peiyang He <peiyang_he@smail.nju.edu.cn>,
-	Kevin Wolf <kwolf@redhat.com>,
+To: josef@toxicpanda.com,
+	axboe@kernel.dk,
+	ming.lei@redhat.com
+Cc: peiyang_he@smail.nju.edu.cn,
+	kwolf@redhat.com,
 	linux-block@vger.kernel.org,
 	nbd@other.debian.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Weisson <hanxiaobupt@bupt.cn>
 Subject: [PATCH] nbd: fix race between nbd_pending_cmd_work and socket teardown
-Date: Fri, 31 Jul 2026 18:30:51 +0800
-Message-ID: <0722F9F24C333B29+20260731103050.678344-2-hanxiaobupt@bupt.cn>
+Date: Fri, 31 Jul 2026 18:35:45 +0800
+Message-ID: <AB3B062B219F1F0D+20260731103544.678665-2-hanxiaobupt@bupt.cn>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <3B61C69B231FBBB5+d21e6eaa-7979-45e0-b378-d60adaff7295@s
+    mail.nju.edu.cn>
+References: <3B61C69B231FBBB5+d21e6eaa-7979-45e0-b378-d60adaff7295@s
+    mail.nju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,23 +51,24 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpsz:bupt.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: OZuCtzQljvyFKJEcw+pVA46l35c8ArMpulec0RHVpW72fGgrddu8XP6v
-	bXDccw6PyqRCXs13/fWaES71ZALcgE4lq/QQmdaNoy+n9XzPpeiFk5FvvE9//Wn0f6FGt29
-	s574etHaxcomJ/5in+dB6nVeHEcJS5YmoV1LbVkEOwdvAyoLTR0WsR3XG1GK4dNswl6injt
-	/KHJrAk9u3wLFbhS/jLRR126/xTkmkqzXtjlrAjKN9ohMudOL03Ghe1QfkQsO8ngzuBihqB
-	dWBqij3Be7ThyS+v1a6/GF1iLttXpiJIGPAl9FnxmuM9Z7vPSWMdCq4tNKQaaLu4e3ZAx0n
-	lqJJno29fBkBwhNl7tiyHY5Dmq+MsO7c4ri6GX3DjmOga+jwUaTc94oHopjsvo+d8dIc0H6
-	k26Pu3YePqn5wm/dhHCO6fEEmfo2PxcSUnPdEFMvKTFZhNAb7el28BAnW0t6CiCIz7dOk1F
-	QbOml3pJeUkiuhxYw0LBIaj8WCTJMlddpTZ1tFIC2sbq6j7XyapE5ouvFWW4pyuJ6mCq0iE
-	m7rpTlio/0JUNz00HCZPYa/3hn72kKbm0q/mScesZTGzgWZYdsZZMloR8fBtSMsm44QI3hb
-	1IuhUoNmRwL87uHUqxEgakHoOcuR+1Iq2vmnYYjkW8+FURa+1sKOrEoTsF/owiANNiFqNBS
-	7X1eOjYF95ANJb5SzjTfMaTcsMmKeKknevchB1pByr2l+/y8laHVEH9iF9vURHJler+ncfr
-	+3Zm6sep7VumuSF0vFGJWmbRnjngh8/PYhq0H4OxSsOGJYiFddmBTONna1opSy3k0n1fzqC
-	bnlmlXq0L8l4LciJ7uyGJW5pw+//LGAQ80lVzJPfzoCYLh+FcZNWNXjBjCn5cwHBnBhQtow
-	LPsuuki9s9RY3jyO/fOXiGsGCKjbZUwchVUXJmuCJDEVqA1tg/2esGhsO3EHHZj0xBdgt4H
-	qTCJbT7aX3Ijd8t9CQdc34V7WKII3BVGUTrOE1IsRd+onOOEaPb8nat03eCs9ptY1jQYIYJ
-	z079zOCujzUo8mFy1c3IcHlJrGzoa/X0LINGpZ+g==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-XMAILINFO: MOfz9TzWtqad1Pu236abip3ku4UqN1dT+uRr+Rj5IZM7FQ9MkKM2Bgvs
+	EnafgfMngZbf4QOgr/oEsOVKH4JuUmt954lUJ7/my3F1kKU9qHRVKTOvAxmurFlZB8rHD8A
+	maCfyV6EDm+bBMJq/CqTstUgJD2M5NyIZdJFkYA9jhweHqptT45muWf54ZyWricTSUHak+R
+	eJ1fAVB+brPPPeuS3yG04KYMBoocFtZOxtCdnnrrCFcxpMrWiBlfinKn8fZWDJ3qr45ut8b
+	9fGyGoNmTh6wDn5jivim0xbow/ZkHyJswOb2j7u7Kjy0JwhhTc4cwGan2Q19bdp449cE4aW
+	g4xmm6K8TAfOjVas2VuopMhGEbNPvGrJVIVSSYuEPPBLBswxExxKFfuqjIuAAEw0y1U0mEe
+	GK3l4JIJFdZI/WSNSIEZHV24w/13cZvhSg3oEhSMKzFx1k6TagRmVbJo9NNBJ3lTDM0Qmqv
+	bwRFOPJfmbeVb3IglV3kCA42q111qpD4ngQ02BWNXR5mRABO3uyuHYNrs9mDbnQSJNFzLx0
+	oYhnQyneBF5W98cjehOMo0S7aBxhVHQvNU87gHAHC34IjcEmVoOAakuQ4lU3rM3jvAQJYJw
+	+jNOPE0kvIsgOAuMOxKCVEUngoMx3xWHPyobN8OTQ01dnpO3Zp+hS5JI10sA8ojKcikGRCb
+	adpuyFuqAHVDaAsJg6M5TItPpbysZyZD+9fjeTCCOlbGACmtbQ/FZmWJ4Sc/GqjS8eSHjUK
+	rYZiBNEVz0DVV2pHO3PKvabc57w4ntIpx8VEkf49XdpeWpbvHwXaDxaVRo0zs+UeMu0E6iT
+	oa73AlaBbZLYNDD5eJ9/6SYXSxAPGV8mgIeQ12E3phVtWbg69mOIX6ktFfQJsw4zL+JbtrW
+	Gfxqzs21GnOD3I7lpmQxm9DCuv+BV4gEY71rAWHdj85pKliUFyjmss8E0Wz9kNxwSMHapPA
+	Vv5Od+CFwCWtAc1DjacU5MdRZjiKmIspqKBSyEDz1QDb0oaHMlvoBr52dxwUtikfC+U3Y9v
+	xSEdeaZfMS3x52/hpfyOEtvKIbrsUTEaRtfiB5kbHKaB94P3s0jKcRgwPcnfZb/U2iTDXUl
+	L9a0aCzy/0Q
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
 X-QQ-RECHKSPAM: 0
 
 Hi,
