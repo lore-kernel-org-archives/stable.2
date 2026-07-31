@@ -1,133 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E4633939D;
-	Fri, 31 Jul 2026 02:43:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0AF233939F;
+	Fri, 31 Jul 2026 02:44:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785465826; cv=none; b=n/m2LanZrZS/Dbvi1QTvdXx3v0e7IXYjCl1uLDxmCnkp/5vKqARVtXcnD0fKgi2rV9pJ8Tg4Pmi7EYEonNifbmQIL83dcl9Na9/TuR+ErhL6tREnj0PksTHzHH2ZV6J9826ifVB4solkOKvEUH4hqd1K0eA4M6gcnQKsCNflOaI=
+	t=1785465899; cv=none; b=G5KYiCmtSqdntni+GtMsSiekMKa/Wqn7cHNBXz09glpo05XPZFq0NuMv3c6mM+exJS6ryw7aHVDHxCcGfnb0j6uEb1DKaHnyvq109apPA0FciWbRP9QRlyKqiYrxzF9qjgA0ORB5xlV/2sZoShQgmcdFxG/4wRqVycncGnn3dx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785465826; c=relaxed/simple;
-	bh=WId8NBvxWpV5hHaTRraHy0VjUSbwyoh3U2i3fjGoSf4=;
-	h=Date:To:From:Subject:Message-Id; b=lvnLkHvxS1x1DvzkxbdLpnmqsNJz+ts74l3jZNsN1hik42qmbfOHmldhlMDEb/FWfJDZuvqki0ats4l7jHveU+Ql/f7LtFHEwEO8e994bIqZLslCVRKWTsdUwdJjaQZ9guLsKU2ix1qd384xqp8Orvt9IdyphrTtqyZJg5rQSxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=dpdPF+uB; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="dpdPF+uB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B08411F000E9;
-	Fri, 31 Jul 2026 02:43:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785465821;
-	bh=TGs6fJmtyc61wug9Cl4qAXmUaCf9bO7owyoAN6Kf2h8=;
-	h=Date:To:From:Subject;
-	b=dpdPF+uBx4q+ppvDdRMDSgS5WBQVHnsymeWJx5srLhWMNOcCrZlXlY6tXYfmAyYwb
-	 IpnGZOu5BEdyquKfxv9CmvcaCXSukUb3vTHU1mF1wPg5sA9h+nGLEKwEXss8aWZmte
-	 sPywhZUNyVNtcRP2bv5/95gGdOHic2cUEjkzEGHY=
-Date: Thu, 30 Jul 2026 19:43:41 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,will@kernel.org,vbabka@kernel.org,stable@vger.kernel.org,ryan.roberts@arm.com,riel@surriel.com,rcampbell@nvidia.com,rakie.kim@sk.com,pfalcato@suse.de,osalvador@suse.de,nao.horiguchi@gmail.com,muchun.song@linux.dev,mel@csn.ul.ie,matthew.brost@intel.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,jpoimboe@kernel.org,joshua.hahnjy@gmail.com,j-nomura@ce.jp.nec.com,jannh@google.com,harry@kernel.org,gourry@gourry.net,david@kernel.org,dave.hansen@intel.com,catalin.marinas@arm.com,byungchul@sk.com,apopple@nvidia.com,anshuman.khandual@arm.com,ak@linux.intel.com,dev.jain@arm.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-page_vma_mapped-use-huge_ptep_get-for-hugetlb.patch removed from -mm tree
-Message-Id: <20260731024341.B08411F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1785465899; c=relaxed/simple;
+	bh=/0QDrerinODq9/3piMZlE8oSa1HH99hESCKuwez+nq8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=hiByVwXz9S69bfh/unVBWy860xMs1f0TwEbQzua94t/jDWuxmWNcQ2+ghKdr9roYT3SQtQZac5QPwvkuU5VWbfStj6RkpYdbVO/nnw5DdI0H39C2YFvVoIec+tHH6VaJc8bUliUgA/HyIuvBiQ81EBS1aH4brfL8sj+s3JBnOPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDXZTUXDGxqWCNSAA--.20815S3;
+	Fri, 31 Jul 2026 10:44:39 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgCH9coXDGxq1EJjAw--.19349S4;
+	Fri, 31 Jul 2026 10:44:39 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: netdev@vger.kernel.org
+Cc: horms@kernel.org,
+	david@ixit.cz,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuniyu@google.com,
+	christophe.ricard@gmail.com,
+	sameo@linux.intel.com,
+	oe-linux-nfc@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 2/2] nfc: st-nci: drain SE timers before NCI teardown
+Date: Fri, 31 Jul 2026 02:43:44 +0000
+Message-Id: <20260731024344.317793-3-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260731024344.317793-1-fanwu01@zju.edu.cn>
+References: <20260731024344.317793-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgCH9coXDGxq1EJjAw--.19349S4
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?SR4TnAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI0HnIlrb2PNJ6YIDQJs+Wcx5XDDVYGTb/X7qfj0EuaAmx2c
+	Y63qR7Lz02zP9k4Smgap9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxWr1DCFyDZryxAFWxGw1UCFX_yoWrtF15pF
+	45Ww17Jr4rWr48WaykAw1DWFW5JayIkFWUK3srJaySvF45Kry0qF4UAFWS9FZxArZ5XF1x
+	tr4rXw1UWF1UtagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUPjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
+	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
+	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
+	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
+	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU7EoGDUUUU
 
+st_nci_se_deinit() drains the two se_info timers (bwi_timer and
+se_active_timer), but it has had no caller since the secure-element
+support was added.  st_nci_remove() tears the device down with
+ndlc_close() / nci_unregister_device() / nci_free_device() and never
+reaches the helper.  A timer armed during operation therefore survives
+st_nci_remove() and the devm release of struct st_nci_info: the bwi
+callback st_nci_se_wt_timeout() reaches into the NCI core, and both
+callbacks dereference info->se_info.
 
-The quilt patch titled
-     Subject: mm/page_vma_mapped: use huge_ptep_get() for hugetlb
-has been removed from the -mm tree.  Its filename was
-     mm-page_vma_mapped-use-huge_ptep_get-for-hugetlb.patch
+Register the helper as the NCI pre_unregister callback added by the
+previous patch, so the NCI core invokes it in nci_unregister_device()
+after the NFC admission barrier (new SE operations are already rejected)
+and before nci_close_device() / destroy_workqueue() (the NCI core and its
+workqueues still exist).
 
-This patch was dropped because it was merged into the mm-stable branch
-of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Shut down both timers with timer_shutdown_sync().  Complete req_completion
+after the se_active_timer is shut down so an in-flight SE enable/disable is
+woken rather than left waiting: nfc_enable_se()/nfc_disable_se() hold the
+NFC device lock across st_nci_control_se().  For an outstanding APDU,
+invoke its completion callback with -ENODEV; the existing netlink
+completion path then frees se_io_ctx.
+bwi_active is an xchg() ownership token shared by the response, the
+timeout and teardown paths, so the callback is delivered exactly once.
 
-------------------------------------------------------
-From: Dev Jain <dev.jain@arm.com>
-Subject: mm/page_vma_mapped: use huge_ptep_get() for hugetlb
-Date: Fri, 3 Jul 2026 11:41:58 +0000
+This issue was found by an in-house static analysis tool.
 
-check_pte() is the final validation step in page_vma_mapped_walk().  It
-reads pvmw->pte with ptep_get() to decide whether the entry maps the PFN
-range being walked.  For hugetlb VMAs, that pointer refers to a hugetlb
-entry.
-
-On arches which provide their own huge_ptep_get() to dereference a huge
-pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
-etc to misbehave.
-
-It is not clear whether this has a trivially visible effect to userspace.
-
-Use huge_ptep_get() to dereference a huge pte pointer.
-
-Link: https://lore.kernel.org/20260703114202.365553-6-dev.jain@arm.com
-Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
-Signed-off-by: Dev Jain <dev.jain@arm.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Andi Kleen <ak@linux.intel.com>
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Dave Hansen <dave.hansen@intel.com>
-Cc: Gregory Price <gourry@gourry.net>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Mel Gorman <mel@csn.ul.ie>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ralph Campbell <rcampbell@nvidia.com>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Will Deacon <will@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 8ae01f796771 ("NFC: st21nfcb: Add support for secure element")
+Cc: stable@vger.kernel.org # 6.6+
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
 
- mm/page_vma_mapped.c |    8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/nfc/st-nci/core.c |  1 +
+ drivers/nfc/st-nci/se.c   | 24 ++++++++++++------------
+ 2 files changed, 13 insertions(+), 12 deletions(-)
 
---- a/mm/page_vma_mapped.c~mm-page_vma_mapped-use-huge_ptep_get-for-hugetlb
-+++ a/mm/page_vma_mapped.c
-@@ -107,7 +107,13 @@ again:
- static bool check_pte(struct page_vma_mapped_walk *pvmw, unsigned long pte_nr)
- {
- 	unsigned long pfn;
--	pte_t ptent = ptep_get(pvmw->pte);
-+	pte_t ptent;
-+
-+	if (is_vm_hugetlb_page(pvmw->vma))
-+		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
-+				      pvmw->pte);
-+	else
-+		ptent = ptep_get(pvmw->pte);
+diff --git a/drivers/nfc/st-nci/core.c b/drivers/nfc/st-nci/core.c
+index a367136d4..6e8f799f5 100644
+--- a/drivers/nfc/st-nci/core.c
++++ b/drivers/nfc/st-nci/core.c
+@@ -105,6 +105,7 @@ static const struct nci_ops st_nci_ops = {
+ 	.hci_load_session = st_nci_hci_load_session,
+ 	.hci_event_received = st_nci_hci_event_received,
+ 	.hci_cmd_received = st_nci_hci_cmd_received,
++	.pre_unregister = st_nci_se_deinit,
+ 	.prop_ops = st_nci_prop_ops,
+ 	.n_prop_ops = ARRAY_SIZE(st_nci_prop_ops),
+ };
+diff --git a/drivers/nfc/st-nci/se.c b/drivers/nfc/st-nci/se.c
+index 607ec768e..232249d60 100644
+--- a/drivers/nfc/st-nci/se.c
++++ b/drivers/nfc/st-nci/se.c
+@@ -283,9 +283,9 @@ static int st_nci_hci_apdu_reader_event_received(struct nci_dev *ndev,
+ 	switch (event) {
+ 	case ST_NCI_EVT_TRANSMIT_DATA:
+ 		timer_delete_sync(&info->se_info.bwi_timer);
+-		info->se_info.bwi_active = false;
+-		info->se_info.cb(info->se_info.cb_context,
+-				 skb->data, skb->len, 0);
++		if (xchg(&info->se_info.bwi_active, false))
++			info->se_info.cb(info->se_info.cb_context,
++					 skb->data, skb->len, 0);
+ 	break;
+ 	case ST_NCI_EVT_WTX_REQUEST:
+ 		mod_timer(&info->se_info.bwi_timer, jiffies +
+@@ -665,9 +665,9 @@ int st_nci_se_io(struct nci_dev *ndev, u32 se_idx,
+ 	case ST_NCI_ESE_HOST_ID:
+ 		info->se_info.cb = cb;
+ 		info->se_info.cb_context = cb_context;
++		xchg(&info->se_info.bwi_active, true);
+ 		mod_timer(&info->se_info.bwi_timer, jiffies +
+ 			  msecs_to_jiffies(info->se_info.wt_timeout));
+-		info->se_info.bwi_active = true;
+ 		return nci_hci_send_event(ndev, ST_NCI_APDU_READER_GATE,
+ 					ST_NCI_EVT_TRANSMIT_DATA, apdu,
+ 					apdu_length);
+@@ -699,7 +699,8 @@ static void st_nci_se_wt_timeout(struct timer_list *t)
+ 	struct st_nci_info *info = timer_container_of(info, t,
+ 						      se_info.bwi_timer);
  
- 	if (pvmw->flags & PVMW_MIGRATION) {
- 		const softleaf_t entry = softleaf_from_pte(ptent);
-_
-
-Patches currently in -mm which might be from dev.jain@arm.com are
-
-mm-rmap-convert-page-folio-for-hwpoison-checks.patch
-mm-rmap-add-try_to_unmap_poisoned_hugetlb_one.patch
-mm-rmap-refactor-some-code-around-lazyfree-folio-unmapping.patch
-mm-rmap-refactor-anon-folio-unmap-in-try_to_unmap_one.patch
-mm-rmap-add-anon-folio-unmap-dispatcher.patch
-mm-memory-move-pte_install_uffd_wp_if_needed-into-memoryc.patch
-mm-memory-batch-set-uffd-wp-markers-during-zapping.patch
-mm-rmap-batch-unmap-file-folios-belonging-to-uffd-wp-vmas.patch
+-	info->se_info.bwi_active = false;
++	if (!xchg(&info->se_info.bwi_active, false))
++		return;
+ 
+ 	if (!info->se_info.xch_error) {
+ 		info->se_info.xch_error = true;
+@@ -751,13 +752,12 @@ void st_nci_se_deinit(struct nci_dev *ndev)
+ {
+ 	struct st_nci_info *info = nci_get_drvdata(ndev);
+ 
+-	if (info->se_info.bwi_active)
+-		timer_delete_sync(&info->se_info.bwi_timer);
+-	if (info->se_info.se_active)
+-		timer_delete_sync(&info->se_info.se_active_timer);
++	timer_shutdown_sync(&info->se_info.bwi_timer);
++	if (xchg(&info->se_info.bwi_active, false))
++		info->se_info.cb(info->se_info.cb_context, NULL, 0, -ENODEV);
+ 
+-	info->se_info.se_active = false;
+-	info->se_info.bwi_active = false;
++	timer_shutdown_sync(&info->se_info.se_active_timer);
++	xchg(&info->se_info.se_active, false);
++	complete(&info->se_info.req_completion);
+ }
+ EXPORT_SYMBOL(st_nci_se_deinit);
+-
 
