@@ -1,227 +1,110 @@
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D3E3F12F0
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 10:52:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283003B83FE;
+	Fri, 31 Jul 2026 10:54:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785495156; cv=none; b=RcfefBgOJIp9WaROmxkJCw4xaWUb+UDhGkNhH+HgL9rdSfmbyrQN6fjB2G5vMGidiDTiTTonZH89EAFwNuoVzYsMjLxJWh15uCFXyKGPC0gUhMrgJNDG7Y51K17kO+yifhwXmcxcIFTMQZkJ2mc0IXbMmxVDhWNgjo3wH5gPQks=
+	t=1785495283; cv=none; b=ZGSTw3atJ4iw8A7cmFsTSxbCDUFpgGRXrBNSG303hH2NcelA4x8qlw32Z0OX+rM9kIX4umiPt3aD8rdez8WSTBBGOphl9XHVMc0icCWrLMOggqYcMOrUTVe+NBZYuBEe7Jalskr5axDGzVnq3TtE8YvLm2okYMeq8SNkvqPySXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785495156; c=relaxed/simple;
-	bh=yNRmy5hGrB6+uizenxGx66HrsGd7ONTtkjHlttq6iW4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LBeHVkWR9Pqf91bC4S4P9dZazN/iyWe9eqf0l+UjK2uJOawAqeVzcydSz+L4Uvd/+OW60vL06DXrsAZyuKi/q6HFzwxB1cATCS00V93cSKH1dH1ZD1scxBn768Yj4w14iuJ+pdYFwMrA4LzTv98MlwUnyvDceheYtXXiNnqQEs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=melqu046; arc=none smtp.client-ip=209.85.208.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1785495283; c=relaxed/simple;
+	bh=opKORBieQve1PBtOwkTqy4ayYxkg0xZx5VbSMhf+Fo8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tvbvKrbzJhoZJjxL99EkXL0LioBwh5WBMmHE4CCIPwZkgkLv0Ll8WZyJpITGKMWpKGJA1MP3gfo4DNOZW1AKGu/KL/dFa4Q2728GncNIhPaAodGUl22/GgigCGNe7vwLuEX4PrVQ1i5+Hib3Zo0++K/zmfI7XMpCdMkxGny6q3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BBQowLeK; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="melqu046"
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39f1ac13687so5908011fa.0
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 03:52:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1785495148; x=1786099948; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O4Vp21sBi8Rgji7X+RqHZk451lrG+B3JpRHt9GMnXXY=;
-        b=melqu0466AmcqLEBC/7vJ9dUm2uJsG3K/Y1ED7VKp9PSIP6Qu0ub9IuYVeLNOl1gaQ
-         9IOsPuXWzsTjy0gmgPsYBvKpH70meGityl1kzNImyYh5xFq44YmiFgWiOvZgZcaaA9OJ
-         X+bRD65pfGQpTN/yulQ0waSf0JAMcfZfTn+hk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785495148; x=1786099948;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O4Vp21sBi8Rgji7X+RqHZk451lrG+B3JpRHt9GMnXXY=;
-        b=bDxJIJL3CgOsLjzZ/C8IEeWYoSh3CwpqUq9b9kO9C9LCUWee/5S5APAIU4m4RCEJwv
-         wGrO3mvgfW9uhYVKW85YVt36qrKODQqBk4WDUM3VPhOb+nOXVwJSUOHufj/ags1HLDZt
-         LuWYizW1Mh44noU4ZfsfrJcx1jwlCc8iqI0/E3O4tZ5oa56vKrmlN55JK8YlCVxkp4G8
-         RdUw7EzqFRGsq07KHyDX3Twklau6dwdxUlN1W5t55eXloSu8EhHtyy/BFIuw+FJZI5q8
-         uduhn5qgNU4XIfpTwD0MSITowRSO3Yh09gTFXK4ZlDazUnL9AHygjaj5rPkkxFL0vXhK
-         RStA==
-X-Gm-Message-State: AOJu0YxoZjLL4riaj698lmN1blHvInonAOIEuAtYlE/QIbW+O0YHnsx3
-	tgdN/6CNJAGp7gCsT+C+/ZbvnSoqO6UrLd7dwzpJeErUyHGtpy0DKZxxJqzOZxvCOhMEw6ZXk/c
-	eLul5KP1g
-X-Gm-Gg: AR+sD137Kki8Pf5oyU+f99CAi2b/Pg15IQV2/lj36n8mT2H9QIBIzwKHtX0gtXH/WUJ
-	sFy8+4HW3bQd0cYGLBKKAYHyj9MCUVzaWbedFkyT6zvKdORevnXPODvhvG9GPzto6krBjnX3ckY
-	iExQKLVaa9vHfy5c2LNIvH/hwa2t3ssf8ihyKn+mHQZFNihsShRX1n4dCFKODROoe26iQ7FPuUC
-	3mpiFKiCg80hVSjRL/Zj6QLwFu6r20UhcwX2panIzxLI/VcoF6F6/LFQ1kErEeQnQHupF9vs+Wv
-	KzpkCglBk4ZyexTy/LNjXrR3Nhf8cxUVdCK2z9D4YZu1hYUiJPkOXafcNgRFtp9qviEr98XLZpu
-	sThqSljdMl9QuUinDyuis/E1L3mJHU/Zom/YZu4lTKBcdg3Z/EM1Qb4eqaPd5TGRxKRvrbpW7lY
-	vgaXTykDqpA82c4zlGbo9jazSzjnJ4vk6+pF0EVkYxSnhJTfX89FVgiYx2TfiujQYb/kLq7ivtg
-	lugkzsRKMIrXzK4e7npy4MltcteibnuBN2ReNssq5IFNdlWwA==
-X-Received: by 2002:a2e:ad85:0:b0:39c:6d1f:2eff with SMTP id 38308e7fff4ca-39f7e3a98dbmr2964561fa.14.1785495148343;
-        Fri, 31 Jul 2026 03:52:28 -0700 (PDT)
-Received: from ribalda.c.googlers.com.com (52.163.228.35.bc.googleusercontent.com. [35.228.163.52])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39f812aed4asm661781fa.22.2026.07.31.03.52.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 03:52:27 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-To: stable@vger.kernel.org
-Cc: Ricardo Ribalda <ribalda@chromium.org>,
-	stable@kernel.org,
-	Hans de Goede <hansg@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCH 6.1.y 2/2] media: uvcvideo: Fix sequence number when no EOF
-Date: Fri, 31 Jul 2026 10:52:23 +0000
-Message-ID: <20260731105223.732829-2-ribalda@chromium.org>
-X-Mailer: git-send-email 2.55.0.571.g244d577d93-goog
-In-Reply-To: <20260731105223.732829-1-ribalda@chromium.org>
-References: <2026072041-maverick-blooper-4a13@gregkh>
- <20260731105223.732829-1-ribalda@chromium.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BBQowLeK"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id CF8974E41048;
+	Fri, 31 Jul 2026 10:54:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 876A06039A;
+	Fri, 31 Jul 2026 10:54:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2ADD811C166EE;
+	Fri, 31 Jul 2026 12:54:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1785495262; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=PVfTgw5RIOrG0Sy53AUsU/OG/wjlitk1KG+YHSlD8QQ=;
+	b=BBQowLeKYPdiotIGFnRSN9CjBzZyEk/eT+yLVf3CdtGiKu8+xCoZtMnw8R38cCT3FdnSac
+	iJuNIh2T9fEka7i9J/y5gLiVJO5sob2YtmhKIEWMn8kG371RnZk2pZi+STEhlP8rZkr+2c
+	VswE2O9p2+tCsQGVcAV/KodZAP9emxpZoMGwT+s1wqpyaVlNI7uEEUY7UKdXG0PZpa5LYw
+	pR28SDDJHWgk73RsLlbfL9TCQ21VGeOuXRUfh3Bm03RSvoZqe7DudIiH/Bc4aifFBRLD9a
+	LgnXvNwJGNT8tRNaExeWw9cWfkNnI+FsZsvx2cagWULaum37BU+Lw31gjL0NIg==
+From: "Diogo Ivo (Schneider Electric)" <diogo.ivo@bootlin.com>
+Subject: [PATCH 0/2] spi: cadence-quadspi: fix probe error path and remove
+Date: Fri, 31 Jul 2026 12:53:45 +0200
+Message-Id: <20260731-cqspi-pm_runtime-v1-0-ff0bfc9e8e56@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDc2MD3eTC4oJM3YLc+KLSvJLM3FTdRItEw2QzQyMjSxMTJaC2gqLUtMw
+ KsJHRsRB+cWlSVmpyCcgcpdpaAIH1BER0AAAA
+X-Change-ID: 20260730-cqspi-pm_runtime-a8a1c6122944
+To: Mark Brown <broonie@kernel.org>, 
+ Matthew Gerlach <matthew.gerlach@altera.com>, 
+ Khairul Anuar Romli <khairul.anuar.romli@altera.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dan Carpenter <dan.carpenter@linaro.org>
+Cc: miquel.raynal@bootlin.com, thomas.petazzoni@bootlin.com, 
+ Pascal EBERHARD <pascal.eberhard@se.com>, linux-spi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ "Diogo Ivo (Schneider Electric)" <diogo.ivo@bootlin.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1375; i=diogo.ivo@bootlin.com;
+ h=from:subject:message-id; bh=opKORBieQve1PBtOwkTqy4ayYxkg0xZx5VbSMhf+Fo8=;
+ b=owEBbQKS/ZANAwAKAQa+fFtWXslFAcsmYgBqbH7biOcDH24gqSmcosoTEL+bogfD+O6wVshWj
+ 0GNijhq/OqJAjMEAAEKAB0WIQTma35o1i1081e8B2UGvnxbVl7JRQUCamx+2wAKCRAGvnxbVl7J
+ RYQDD/469bGLM35Q+R4GOElEYpojPrXwKnXu6goXfESIkwZPDETF+NHqEoTSJ+QS6L2H+OsvhuC
+ wPAi2UTebnkw3i4KHmJWbGdszfOLhuXTjSRXfwMfA4IU5NU/9J4AF+qX9GxT+DzdaoAaWG0nUfj
+ wAFR3KOcnyixvaHbIyVDwwpLxRJbpOrEYpYE3fBfZlTZ+pcvZn+FhNuTjzAIzrTxFbd3vhV2lxJ
+ XzC76u3YU6rx2LCqyQ+P8sV0bt4ne42pL+otail8oHhjPk+UOmRQ8y/iyZHxHgqbLDRoOqfasvv
+ 4HNcV/P4njHcPw7OxKI9NBgA66T3rpkRlkiTJUo4srMr432PUAsMnvDAdWd5z05rYM7DlRS5jht
+ QAp07uVOND3XsQdM+W4yQWUqu4tp2h07bcDgrcuLi2SRLUg45QehyNC6eIhHjanHuDzOOmh5HhM
+ Xyut8h4g+5DLxFvM9M17BLgis5fKxQ15s/4uWt5ViZIQ3CyyWV+nj41rsLvH1ejehIq0QG42C85
+ BmpOo5B6kUQwy54OMLFdEplCKAbhlGoEH561nhMw0rpoktzs+PwEaiMLLkWaBrxjZaBPnuZcGwd
+ TfIuxqGN8ZFzhEp1ENcKPJmLp3JtkRdFpNG4CjEA2yon0o3koLtC4mFzAb6ruAJa4XwU3qNWCzA
+ xvLc+UcFrqjRx9A==
+X-Developer-Key: i=diogo.ivo@bootlin.com; a=openpgp;
+ fpr=E66B7E68D62D74F357BC076506BE7C5B565EC945
+X-Last-TLS-Session-Version: TLSv1.3
 
-If the driver could not detect the EOF, the sequence number is increased
-twice:
- 1) When we enter uvc_video_decode_start() with the old buffer and FID has
-   flipped => We return -EAGAIN and last_fid is not flipped
- 2) When we enter uvc_video_decode_start() with the new buffer.
+This series fixes two resource leaks in the cadence-quadspi driver's
+probe error path and remove callback.
 
-Fix this issue by moving the new frame detection logic earlier in
-uvc_video_decode_start().
+Patch 1 fixes an imbalanced pm_runtime_enable()/pm_runtime_disable()
+pair: when probe defers after cqspi_request_mmap_dma(),
+pm_runtime_disable() is called without a prior pm_runtime_enable().
+It also adds the missing pm_runtime_dont_use_autosuspend() in both
+the probe error path and the remove callback and a missing
+pm_runtime_put_noidle() in the probe error path. This consolidates
+fixes from upstream commits 5ff4d5d1af0c and 5e8bb0cc72f1.
 
-This also has some nice side affects:
+Patch 2 fixes a DMA channel leak: when spi_register_controller() fails,
+the channel acquired via cqspi_request_mmap_dma() is never released.
+A dedicated error label is added to release it before the runtime PM
+teardown. This fix is one part of upstream commit f18c8cfa4f1a.
 
-- The error status from the new packet will no longer get propagated
-  to the previous frame-buffer.
-- uvc_video_clock_decode() will no longer update the previous frame
-  buf->stf with info from the new packet.
-- uvc_video_clock_decode() and uvc_video_stats_decode() will no longer
-  get called twice for the same packet.
-
-Cc: stable@kernel.org
-Fixes: 650b95feee35 ("[media] uvcvideo: Generate discontinuous sequence numbers when frames are lost")
-Reported-by: Hans de Goede <hansg@kernel.org>
-Closes: https://lore.kernel.org/linux-media/CANiDSCuj4cPuB5_v2xyvAagA5FjoN8V5scXiFFOeD3aKDMqkCg@mail.gmail.com/T/#me39fb134e8c2c085567a31548c3403eb639625e4
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-(cherry picked from commit f078966ca1fb1b3865d8e6bbe2705cfd277fc637)
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Signed-off-by: Diogo Ivo (Schneider Electric) <diogo.ivo@bootlin.com>
 ---
- drivers/media/usb/uvc/uvc_video.c | 92 ++++++++++++++++---------------
- 1 file changed, 47 insertions(+), 45 deletions(-)
+Diogo Ivo (Schneider Electric) (2):
+      spi: cadence-quadspi: fix runtime pm cleanup on probe failure/unbind
+      spi: cadence-quadspi: release DMA channel on probe failure
 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index 408be24fceea..2cc00f4be793 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -1108,6 +1108,53 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
- 	header_len = data[0];
- 	fid = data[1] & UVC_STREAM_FID;
- 
-+	/*
-+	 * Mark the buffer as done if we're at the beginning of a new frame.
-+	 * End of frame detection is better implemented by checking the EOF
-+	 * bit (FID bit toggling is delayed by one frame compared to the EOF
-+	 * bit), but some devices don't set the bit at end of frame (and the
-+	 * last payload can be lost anyway). We thus must check if the FID has
-+	 * been toggled.
-+	 *
-+	 * stream->last_fid is initialized to -1, and buf->bytesused to 0,
-+	 * so the first isochronous frame will never trigger an end of frame
-+	 * detection.
-+	 *
-+	 * Empty buffers (bytesused == 0) don't trigger end of frame detection
-+	 * as it doesn't make sense to return an empty buffer. This also
-+	 * avoids detecting end of frame conditions at FID toggling if the
-+	 * previous payload had the EOF bit set.
-+	 */
-+	if (fid != stream->last_fid && buf && buf->bytesused != 0) {
-+		uvc_dbg(stream->dev, FRAME,
-+			"Frame complete (FID bit toggled)\n");
-+		buf->state = UVC_BUF_STATE_READY;
-+
-+		return -EAGAIN;
-+	}
-+
-+	/*
-+	 * Some cameras, when running two parallel streams (one MJPEG alongside
-+	 * another non-MJPEG stream), are known to lose the EOF packet for a frame.
-+	 * We can detect the end of a frame by checking for a new SOI marker, as
-+	 * the SOI always lies on the packet boundary between two frames for
-+	 * these devices.
-+	 */
-+	if (stream->dev->quirks & UVC_QUIRK_MJPEG_NO_EOF &&
-+	    (stream->cur_format->fcc == V4L2_PIX_FMT_MJPEG ||
-+	     stream->cur_format->fcc == V4L2_PIX_FMT_JPEG) &&
-+	    buf && buf->bytesused != 0) {
-+		const u8 *packet = data + header_len;
-+
-+		if (len >= header_len + 2 &&
-+		    packet[0] == 0xff && packet[1] == JPEG_MARKER_SOI) {
-+			buf->state = UVC_BUF_STATE_READY;
-+			buf->error = 1;
-+			stream->last_fid ^= UVC_STREAM_FID;
-+			return -EAGAIN;
-+		}
-+	}
-+
- 	/*
- 	 * Increase the sequence number regardless of any buffer states, so
- 	 * that discontinuous sequence numbers always indicate lost frames.
-@@ -1175,51 +1222,6 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
- 			meta_buf->state = UVC_BUF_STATE_ACTIVE;
- 	}
- 
--	/*
--	 * Mark the buffer as done if we're at the beginning of a new frame.
--	 * End of frame detection is better implemented by checking the EOF
--	 * bit (FID bit toggling is delayed by one frame compared to the EOF
--	 * bit), but some devices don't set the bit at end of frame (and the
--	 * last payload can be lost anyway). We thus must check if the FID has
--	 * been toggled.
--	 *
--	 * stream->last_fid is initialized to -1, so the first isochronous
--	 * frame will never trigger an end of frame detection.
--	 *
--	 * Empty buffers (bytesused == 0) don't trigger end of frame detection
--	 * as it doesn't make sense to return an empty buffer. This also
--	 * avoids detecting end of frame conditions at FID toggling if the
--	 * previous payload had the EOF bit set.
--	 */
--	if (fid != stream->last_fid && buf->bytesused != 0) {
--		uvc_dbg(stream->dev, FRAME,
--			"Frame complete (FID bit toggled)\n");
--		buf->state = UVC_BUF_STATE_READY;
--		return -EAGAIN;
--	}
--
--	/*
--	 * Some cameras, when running two parallel streams (one MJPEG alongside
--	 * another non-MJPEG stream), are known to lose the EOF packet for a frame.
--	 * We can detect the end of a frame by checking for a new SOI marker, as
--	 * the SOI always lies on the packet boundary between two frames for
--	 * these devices.
--	 */
--	if (stream->dev->quirks & UVC_QUIRK_MJPEG_NO_EOF &&
--	    (stream->cur_format->fcc == V4L2_PIX_FMT_MJPEG ||
--	    stream->cur_format->fcc == V4L2_PIX_FMT_JPEG)) {
--		const u8 *packet = data + header_len;
--
--		if (len >= header_len + 2 &&
--		    packet[0] == 0xff && packet[1] == JPEG_MARKER_SOI &&
--		    buf->bytesused != 0) {
--			buf->state = UVC_BUF_STATE_READY;
--			buf->error = 1;
--			stream->last_fid ^= UVC_STREAM_FID;
--			return -EAGAIN;
--		}
--	}
--
- 	stream->last_fid = fid;
- 
- 	return header_len;
--- 
-2.55.0.571.g244d577d93-goog
+ drivers/spi/spi-cadence-quadspi.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+---
+base-commit: 52a355b23cd2dd77b683ed1a1bbe2b7408bd9c74
+change-id: 20260730-cqspi-pm_runtime-a8a1c6122944
+
+Best regards,
+--  
+Diogo Ivo <diogo.ivo@bootlin.com>
 
