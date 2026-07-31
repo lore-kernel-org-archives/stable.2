@@ -1,110 +1,229 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD1C42AD2C;
-	Fri, 31 Jul 2026 05:07:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69B51D5CFE
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 05:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785474461; cv=none; b=ePVa3kq5uuaZe7ZQ0pXgnH+8HcDQOSJwkj36jpL6IK4S1wKYdhq15E/5Mwhq8kCB900MD5CknCQb100xKLF7N+ecdtgnnOEE/aounnhyjee2kfdhC6cYQStn5ocmLjseiOg6yrUQ+z0ltmNhr1Wmohi4D87wSd2JvHgrSZRfUr4=
+	t=1785475389; cv=none; b=bNFnyI7pCTsyPkncOPzV228F/lYjw0WfFUvcSCjo78k79PEWFSnoX3WDIW5uKX/XiUCdLSzXjP9ImgbPIiLs2O9e2OzofE2v7hbxJkdd+Sm+RKCApcAM135rQxg+TzYwFNmzww5vWLCJGoSe12p5uQ3fGfm0dC6FCHGJTRZOlvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785474461; c=relaxed/simple;
-	bh=AC1aCGGF7i7PNCvAs2VTA83SmIkCRDsYvUzW4JlAGQg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ds/Ni2ryID1Ja3PSL6KRIvZHxWO5kiQsuehlbRY+H24AamFZ5YneZHa65Po7tbZYgD4YflKJLSRzuSDxt+xUAvnsg6c6ikT0jLPrhSHVo8LaOyhE0dX/eHTkYrG1Fs8pxDE3WCgR6FwiIforOprFf7aDxS35RjE8fyi3Kk/Gmxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=RT3tPTya; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1785475389; c=relaxed/simple;
+	bh=KKZ5edLQNuhIM7GWjIFXW62KiSrWFJM95fO7XlC0Rdo=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=QH8yut00t1xUUHPu47roOL6Lx2a6y3563FQgzkXJmOC+O4adtRji4allFTHx7grq298nfs0kMI6fpNMMnzsC9kXmXoiJhoBU/n+QNWnwKBBezD8ejqvySlnhgIGJSxc34ZeX+5CLyoPXdbOyIWsT4qik17X5b3ecseLrF+Us5zo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--eddiephillips.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HrkyavxY; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--eddiephillips.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="RT3tPTya"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1785474372;
-	bh=AC1aCGGF7i7PNCvAs2VTA83SmIkCRDsYvUzW4JlAGQg=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=RT3tPTyaXI766cutWCEX8JICha1OI58Qq/jweAXDb90w9iPBr6TNJoqohUV0pdwZr
-	 p2WaDhZemvbOYbyG1dqCqfz6DUa35mxjlOqgBxPsHh6q2jOtCEdLEvy2EXBwkc4H2l
-	 xbdaYPg6QjiH2Dpx1pIhFkP7HtuFOnkjJFmold1c=
-X-QQ-mid: zesmtpsz4t1785474365t5463c04b
-X-QQ-Originating-IP: xA2G7VDyRJ76V1Tmq7ui1U87cPouK9vQ7D4XA8/qAGU=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 31 Jul 2026 13:06:02 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 2940425011589697088
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.6 000/484] 6.6.148-rc1 review
-Date: Fri, 31 Jul 2026 13:06:00 +0800
-Message-Id: <20260731050600.550567-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260730141423.392222816@linuxfoundation.org>
-References: <20260730141423.392222816@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HrkyavxY"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dc085b0a7so1130628a91.2
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 22:23:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1785475387; x=1786080187; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zqvJ/gSeUFCAlwhir5qqH4beYaVJjkEk9WrvogcOy/8=;
+        b=HrkyavxYv0LbT5n/NbwYagTLpEJb0mRExJ3qCEsEqz64RXGNLoGC3m5+Db/P5Tv3Wl
+         yKr3xIj2PAA2ClNUH2h7LUEGGVQYb5hz8hDSNJo2Nw9g/GR+yNbb7N2lOwNVunovYpOt
+         g/PGmd9hXwi0Bwc0Q7LmDz+gz9tjNpHe7uCtyiIBFTEO144xDKEFBQ7ZVURAlbcRQHT2
+         qMiveqe809g3x/ZPoRgtUx3s40CgPa+oPO6iy4Iia/Tv4X6EIH0Zw6zxzH8pfGXMljTO
+         9zq4Qm/dcNB6AM7Ux2F/HpcNbjT1Kl5QJZW7REPqb2gYH0O8/zO5szQEdEH2fDI+kMSS
+         QsYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785475387; x=1786080187;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zqvJ/gSeUFCAlwhir5qqH4beYaVJjkEk9WrvogcOy/8=;
+        b=ggkTddfUdFhECtrezjgGuE/lBxuM+cugVA/hC1rrvkMpdP7kXixrfTsjmcI9jmh0ep
+         kclsn0EOFPei7mXCHxLaonY8IA+8A4y1gUEt+Tc+ktCtxhBAONg5A7N+FKOU6qaqiYR5
+         3ET/I75uYT0IkrkT43gMm3QpHv45W8XDCA1rkxCK4qICAshjK/ycDeaLDgZCZ9ifp0Hi
+         +EEzErOagzpOJssOXkgpSEhEJrVwfcyOYtY+BuZcHTWSBclDyRHSv23KjirEdAj9a71u
+         bQEsR3B6imfMDu2s5RkJ49dZjUM/0jSS859X1DYt9RDvex4n4ze9w3Jc61Es3/MNMFaF
+         TtsA==
+X-Gm-Message-State: AOJu0Yz3q/gpg0RWIFY0hSRNfb0yCBRYJUepyaF3+zWsxN+C6dMNz+Si
+	gcDqX+JmeQFMBCR83BZoeWvGwmUb4igmJvGXgm8FY97reH7JHSH70hRm8Gf7WcrCC/XYwp8TIrR
+	BawWZIyg+bgtdDjvwpXakJcnFy6RKNF3bRvbuSzN8Md1OE3/sH3KhEc5mR9O0IeYGx7ssPzRNmo
+	msM6701S9U9tzEzHkbd7LdAKAVlHWN/VVSv8f2yUgGX4YwIq+zDEq++6yKatihVBhravav7ky6q
+	Q==
+X-Received: from pjb16.prod.google.com ([2002:a17:90b:2f10:b0:384:f6e1:ff87])
+ (user=eddiephillips job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:582c:b0:38e:fea2:df53 with SMTP id 98e67ed59e1d1-38fb11177a1mr739498a91.4.1785475386704;
+ Thu, 30 Jul 2026 22:23:06 -0700 (PDT)
+Date: Thu, 30 Jul 2026 22:21:36 -0700
+In-Reply-To: <2026072934-distort-skimpily-0491@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: ONalwM1aM/hiQmtOZV5Kwr4QRk//2jplMZ7VmSkGmE5g0bcHQwpEuLj1
-	+i5hH66OYRFRM0y7XZBACWIMFc9W+CWGhzF0jaIga8Sky/JyG4uhrVhZvubQzmNXk31wQnm
-	4b2PxO4Frya1J5bmpWpuOp01TaiZU9YEI7YG/XPQhF8LoyG25f4Go0a49XHujRDNQg3X7/s
-	YKfRZ9cGwJ2eRI5+jFVOWSjKe2uqOb1Sup2/qMLhRP/MA0gDFSpEWw8/naw7QzsrgGQmoHT
-	bJCRPSl25ezwm9GvcjMKw0IFfFIyVcWhqD9gdGtqMho2EqP0Wl6ok4hddFDTLA4NvUk9j0I
-	bVlPeK0u6r52mUqTdGGjeX335qOBkaDEmF4+jhogq9RrV/cGh0dWm4WNsZOcSIl1X+VloSP
-	kMd68fHZAxZwK1Bfy58s4d3sAqedjUd1J/+d/udF0tBS+lene+snWq9LmA4/jKs3irb3eYM
-	PLgTCNDI5L50rrPArBUxFaKok8BvdzzcJfDGSxLei5A2m3q0ZYHd+HYBbWyzQebRnUK5QMe
-	gPj1ZUY4EGuX5qpMKokynmroiNm/ZdqBp24E88ppB0fGapg87zuZCRbXsPMmVPemB2UZEct
-	vhtE5FvtMIYa1pMqeW7+omeWC9uBmwZxKbwyuV1n1jfUICGqXdTF4up7soYb2km3kd+NeCR
-	ZDV7AANcJTsX/85d2hqY5i0qGEM+tYhmmxDscHARuyujCTVzeb89uRtmqqNhUCRNJ0on9bA
-	AwbeQ1Dh4OorYe8KwBYnJKfq8eqjp3K/EwQGw7SWht1bi/LF1huveXboOYvkPZVlwjpZcoJ
-	uq1/jhhh3/y2zK2PnoBMB4LMSBHp6RERkCcOheMO5eg4u2z2GRl3G65hzosKdfRgwjvd2d/
-	iM+/80xhgR2A6VRBYVHrWVd5/gdpfEWPjm29buGoiCzPqOLaMbeqlO7F1mfpETMT3vRmem4
-	KwrsslCivHrTLzd49v22rdGC20iv7GJhJqf/W5R1ClY/87GKiczz3hYujLDEQ2MpAYAhiiK
-	wEZI56wDL165H3JK7BgoGgfVvs84qqFTU1DMTRJoqZBeYasWZyc0H39dwKeoO+FxTKTkGyp
-	e2ao/q2ritr
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Mime-Version: 1.0
+References: <2026072934-distort-skimpily-0491@gregkh>
+X-Mailer: git-send-email 2.55.0.571.g244d577d93-goog
+Message-ID: <20260731052136.2424945-1-eddiephillips@google.com>
+Subject: [PATCH] gve: fix Rx queue stall on alloc failure
+From: Eddie Phillips <eddiephillips@google.com>
+To: stable@vger.kernel.org
+Cc: Eddie Phillips <eddiephillips@google.com>, Jordan Rhee <jordanrhee@google.com>, 
+	Harshitha Ramamurthy <hramamurthy@google.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+	Jakub Kicinski <kuba@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+When the system is under extreme memory pressure, page allocations can
+fail during the Rx buffer refill loop. If the number of buffers posted
+to hardware falls below a critical low threshold and the refill loop
+exits due to allocation failures, the queue can stall:
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+1. The device drops incoming packets because there are no descriptors.
+2. Since no packets are processed, no Rx completions are generated.
+3. Because no completions occur, NAPI is never scheduled, preventing
+   the refill loop from running again even after memory is freed.
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+This results in a permanent queue stall.
 
-Best Regards
-Wentao Guan
+Resolve this by introducing a starvation recovery timer for each Rx queue.
+If the number of buffers posted to hardware falls below a critical low
+threshold, start a timer to periodically reschedule NAPI. Once NAPI runs
+and successfully refills the queue above the threshold, the timer is
+not rescheduled.
 
-Log:
-Linux version 6.6.148-rc1-arm64-desktop-hwe-g7f195ac3d444 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
-Linux version 6.6.148-rc1-arm64-desktop-hwe-g7f195ac3d444 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT Fri Jul 31 11:50:50 CST 2026
-Linux version 6.6.148-rc1-loong64-desktop-hwe-g7f195ac3d444 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
-Linux version 6.6.148-rc1-loong64-desktop-hwe-g7f195ac3d444 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT Fri Jul 31 12:08:17 CST 2026
-Linux version 6.6.148-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP
-Linux version 6.6.148-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP Fri Jul 31 12:24:40 CST 2026
-Linux version 6.6.148-rc1-amd64-desktop-hwe-g7f195ac3d444 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
-Linux version 6.6.148-rc1-amd64-desktop-hwe-g7f195ac3d444 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Fri Jul 31 11:32:42 CST 2026
+The threshold is set to 32 because a single maximum-sized Receive Segment
+Coalescing (RSC) packet can consume up to 19 descriptors in the Rx path.
+Lower thresholds (such as 8 or 16) would be insufficient to process a
+complete maximum-sized RSC packet, risking packet drops or unexpected
+hardware behavior under memory pressure. Setting the threshold to 32
+guarantees a safe margin to handle at least one full RSC packet.
+
+Cc: stable@vger.kernel.org
+Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
+Reviewed-by: Jordan Rhee <jordanrhee@google.com>
+Signed-off-by: Eddie Phillips <eddiephillips@google.com>
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Link: https://patch.msgid.link/20260709211906.3322883-1-hramamurthy@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+(cherry picked from commit b65352a1bac64442ad95e64f385b40ccb9f1b0db)
+---
+ drivers/net/ethernet/google/gve/gve.h        |  3 ++
+ drivers/net/ethernet/google/gve/gve_main.c   |  3 ++
+ drivers/net/ethernet/google/gve/gve_rx_dqo.c | 33 ++++++++++++++++++++
+ 3 files changed, 39 insertions(+)
+
+diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
+index 822bdaff66f6..75773524ba81 100644
+--- a/drivers/net/ethernet/google/gve/gve.h
++++ b/drivers/net/ethernet/google/gve/gve.h
+@@ -10,6 +10,7 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/netdevice.h>
+ #include <linux/pci.h>
++#include <linux/timer.h>
+ #include <linux/u64_stats_sync.h>
+ 
+ #include "gve_desc.h"
+@@ -35,6 +36,7 @@
+ 
+ /* Interval to schedule a stats report update, 20000ms. */
+ #define GVE_STATS_REPORT_TIMER_PERIOD	20000
++#define GVE_RX_NAPI_RESCHED_MS 20 /* msecs */
+ 
+ /* Numbers of NIC tx/rx stats in stats report. */
+ #define NIC_TX_STATS_REPORT_NUM	0
+@@ -218,6 +220,7 @@ struct gve_rx_ring {
+ 	struct u64_stats_sync statss; /* sync stats for 32bit archs */
+ 
+ 	struct gve_rx_ctx ctx; /* Info for packet currently being processed in this ring. */
++	struct timer_list starvation_timer; /* for queue starvation recovery */
+ };
+ 
+ /* A TX desc ring entry */
+diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+index a8fb51e77fea..38333731f5d0 100644
+--- a/drivers/net/ethernet/google/gve/gve_main.c
++++ b/drivers/net/ethernet/google/gve/gve_main.c
+@@ -508,6 +508,9 @@ static void gve_remove_napi(struct gve_priv *priv, int ntfy_idx)
+ {
+ 	struct gve_notify_block *block = &priv->ntfy_blocks[ntfy_idx];
+ 
++	if (block->rx && !gve_is_gqi(priv))
++		timer_shutdown_sync(&block->rx->starvation_timer);
++
+ 	netif_napi_del(&block->napi);
+ }
+ 
+diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+index 8756f9cbd631..c9bc85293c27 100644
+--- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
++++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+@@ -16,6 +16,16 @@
+ #include <net/ipv6.h>
+ #include <net/tcp.h>
+ 
++static void gve_rx_starvation_timer(struct timer_list *t)
++{
++	struct gve_rx_ring *rx = from_timer(rx, t, starvation_timer);
++	struct gve_priv *priv = rx->gve;
++	struct gve_notify_block *block;
++
++	block = &priv->ntfy_blocks[rx->ntfy_id];
++	napi_schedule(&block->napi);
++}
++
+ static int gve_buf_ref_cnt(struct gve_rx_buf_state_dqo *bs)
+ {
+ 	return page_count(bs->page_info.page) - bs->page_info.pagecnt_bias;
+@@ -185,6 +195,7 @@ static void gve_rx_free_ring_dqo(struct gve_priv *priv, int idx)
+ 	completion_queue_slots = rx->dqo.complq.mask + 1;
+ 	buffer_queue_slots = rx->dqo.bufq.mask + 1;
+ 
++	timer_shutdown_sync(&rx->starvation_timer);
+ 	gve_rx_remove_from_block(priv, idx);
+ 
+ 	if (rx->q_resources) {
+@@ -237,6 +248,7 @@ static int gve_rx_alloc_ring_dqo(struct gve_priv *priv, int idx)
+ 	memset(rx, 0, sizeof(*rx));
+ 	rx->gve = priv;
+ 	rx->q_num = idx;
++	timer_setup(&rx->starvation_timer, gve_rx_starvation_timer, 0);
+ 	rx->dqo.bufq.mask = buffer_queue_slots - 1;
+ 	rx->dqo.complq.num_free_slots = completion_queue_slots;
+ 	rx->dqo.complq.mask = completion_queue_slots - 1;
+@@ -334,6 +346,7 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
+ 	struct gve_rx_compl_queue_dqo *complq = &rx->dqo.complq;
+ 	struct gve_rx_buf_queue_dqo *bufq = &rx->dqo.bufq;
+ 	struct gve_priv *priv = rx->gve;
++	u32 num_bufs_avail_to_hw;
+ 	u32 num_avail_slots;
+ 	u32 num_full_slots;
+ 	u32 num_posted = 0;
+@@ -374,6 +387,26 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
+ 	}
+ 
+ 	rx->fill_cnt += num_posted;
++
++	/* If the queue has fewer than GVE_RX_BUF_THRESH_DQO descriptors
++	 * visible to the hardware, the hardware is in danger of starving
++	 * and cannot trigger interrupts.
++	 *
++	 * We use a threshold of 32 because a single maximum-sized RSC
++	 * packet can consume up to 19 descriptors in the Rx path. Lower
++	 * thresholds (e.g., 8 or 16) would be unsafe as they could cause
++	 * the device to drop/stall on a maximum-sized RSC packet.
++	 *
++	 * Start the timer to periodically reschedule NAPI and recover.
++	 */
++	num_bufs_avail_to_hw =
++		((bufq->tail & ~(GVE_RX_BUF_THRESH_DQO - 1)) -
++		 bufq->head) & bufq->mask;
++
++	if (num_bufs_avail_to_hw < GVE_RX_BUF_THRESH_DQO) {
++		mod_timer(&rx->starvation_timer,
++			  jiffies + msecs_to_jiffies(GVE_RX_NAPI_RESCHED_MS));
++	}
+ }
+ 
+ static void gve_try_recycle_buf(struct gve_priv *priv, struct gve_rx_ring *rx,
+-- 
+2.55.0.571.g244d577d93-goog
 
