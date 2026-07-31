@@ -1,412 +1,152 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010019.outbound.protection.outlook.com [52.101.46.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BBA43CE46;
-	Fri, 31 Jul 2026 18:15:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785521736; cv=none; b=jBsefwsf+MI6LkyhQgOSatKyTyXTbmbpjfRmRMT9pr86/yqLPC7JIsoZ1jiKj5Lbk/egJaAUNQdga621jK10JJbCPwmJfxY20Gmz8QSXG89odsJ20UQvEs5SuIhBL7G0viUkCvRS2bEYNkO4cYnnijHQLGvv/SpnP3UTPKX3FoY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785521736; c=relaxed/simple;
-	bh=4WvLEtigxrVa8d5dHkHjLxLLTLwzaS0OzaekrU07+oM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VOeOocfBT33y/Bdcde7yXUO33nFGb4f8gcouj8psnntE7cD4f39lq215xGSRcNW8rMoxbEroqPGK4cDlzdDJ/u9+0Wa25K+Gr2X/1/SMHYL72hzvEQ2t8hASvzT3OVHTtuUtwq/wucTTarEBGorMyLsT6sbACOuq0efhVo/VuVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=IIurIWtL; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A36B463B6D
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 18:15:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785521753; cv=fail; b=s0UbJRnJyx9ZfC4f2VgnvfesPscw1udhYrCPMvGk/Y+TkppiquxvX9iELhVtlL7BJuwIvFZcZMznPc3191o9J/OAVVv8YFV94sKjMocbnBkatKbboRR//Ko4h0T0En97QCeZPIm37X0fOszWriTVhG9CKiWSLEtzV4Bc6Hr/ihE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785521753; c=relaxed/simple;
+	bh=Z4T1dwuMAb5XH2D6UMJ5H5/gjCcV38fnNkjb3BIKoX8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dUQQ5DJA6Y2gYi0IZ0pfiKsCTN9QLUdqaBbZrCNoOwJr4kJRXeS0I5uPZ1aagCaRacSNyFqvxkx3FsNn1DmgJavpJXlKqD6ngPfhTTDuSj+h35/1KkF0y2yhOFBhtfUC4U9VDfNWu5KXcibegH1ebIAnyABb29CUUmKuKfbQBDs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=B0ND1YVA; arc=fail smtp.client-ip=52.101.46.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="IIurIWtL"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VFm6WE2312119;
-	Fri, 31 Jul 2026 18:15:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=vdECai
-	oijrSW5fhHomiGEyvuCeNrMFXXXSUQcsGxm8Q=; b=IIurIWtLruz1kG0LJJw67s
-	g3K+4UXnG7hZbstNTFzCnMq9YDMula/hUmObXZxRPDjpycM87k8SN4SMyAZyJ+Oa
-	2CtSLYP41ubOg0+15F6jLUtv7q4ryKCOgB/YkVA4vlgcSNmMmJZpNH/MNfLTYmfb
-	5fk9UJDg9K+XDA5vvoqCfKQU1Y4Kr1s5Elzu0qFhehFCvbSx0iPgYyRCj2fSft2d
-	gYBsej5mLopH3Kg0VQz4dnFMeczDe9cfErfsvpS75//Q5PMTVIN53pwzgDPlPCHR
-	eQBFMHxgGvP6+fND80ZtmJ3xFW7YATovJm4B9iK1xdVT7nfSgWnupqm+CNEvOxrA
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuwdddgy-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 31 Jul 2026 18:15:20 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66VIBNvE003758;
-	Fri, 31 Jul 2026 18:15:19 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fn8fkh3hp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 31 Jul 2026 18:15:19 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66VIFIA941484898
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 31 Jul 2026 18:15:18 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 443A25805C;
-	Fri, 31 Jul 2026 18:15:18 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4CC3358059;
-	Fri, 31 Jul 2026 18:15:17 +0000 (GMT)
-Received: from [9.61.254.127] (unknown [9.61.254.127])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 31 Jul 2026 18:15:17 +0000 (GMT)
-Message-ID: <08ce08f7-66fd-430a-8eea-6b1696f68de6@linux.ibm.com>
-Date: Fri, 31 Jul 2026 11:15:16 -0700
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="B0ND1YVA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=POAfRb0Jzfwd0b46W2v+xtrLtZCKrY/zNasN/faR3F5eOiZqZce4wsSYfFvVjWwRUSB+5ifYm1Z9L5LTlRBt8KPAVvurl/5Tmj1GxTnkkBLYe/bAEqSF4UomfjjaOlSphlTimuF/ayrRinZPLQF64uJFSCgCgdv2T4eZPNsWjL8Ofqys2D4hRQ2DCYtVbcC6QeecmFRlUW8MzLUpBPTRixz3ZGjvhW3TByX0WazEJE8NXphPL97W18uqrGrKCXB9yUVt+xHqnxhi4fDBXOvTamciQ3rpFZO791EHIZpmhYagyYn+Zy838wYcPE65M8Tof7a6HOAd2R5+sGD2Jk+WdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aVKZBpWtu7K995u7l92rW6zJrzgKjQz1droDq1AAx10=;
+ b=OopE9djTWlZgMQX8TTOYssa9yPj1BBC0KzB7mu0S1j5mexGGVYj+B6nPKqZYKWQ6k7ePvdEllQgM+/jQO99iwtd23ame74AOITwovxm4gr5S0A3kMj6DEr9PyqQAgFjpRF/Y2zWO/UTExgTYlOVrh0UHBD8E1vv/H/haGqzLCzcjKQrMf3cpyZPJp5orer/p/IYVEh0lBkcEF1lMFKVET97wIsJLdVIUrdzKZP2VoVCCPCI2jQ61C7FCd103jENUP22aTDLI5HfHfcOmWltBa1dBH+afT0kjOA++uZGsNl8uVDcvHNRC7x2aGb+2IgxkIQv4ONr7jn8XmbFV5dx6Og==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aVKZBpWtu7K995u7l92rW6zJrzgKjQz1droDq1AAx10=;
+ b=B0ND1YVAc+iWn/+vRnXlm+yHnB5ZVo04NITDMUmwJHR/IzckrLYHsXLjTCafeoITx3sFETS6OflxSC/LDGptQGniJhZKp3ZM2SCiyu8KCoMnB81yqBctkUCdVymAQnBTesZ92lm3x/D11woxRfO4rYeagyjCCUnRFhLym9/kIn4=
+Received: from MN2PR05CA0038.namprd05.prod.outlook.com (2603:10b6:208:236::7)
+ by DM6PR12MB4331.namprd12.prod.outlook.com (2603:10b6:5:21a::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
+ 2026 18:15:36 +0000
+Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
+ (2603:10b6:208:236:cafe::e) by MN2PR05CA0038.outlook.office365.com
+ (2603:10b6:208:236::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.10 via Frontend Transport; Fri,
+ 31 Jul 2026 18:15:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 18:15:35 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
+ 2026 13:15:34 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
+ 2026 13:15:33 -0500
+Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 31 Jul 2026 13:15:33 -0500
+From: Harry Wentland <harry.wentland@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, <stable@vger.kernel.org>, "Alex
+ Hung" <alex.hung@amd.com>, Robert Mader <robert.mader@collabora.com>
+Subject: [PATCH v5 10/10] drm/amd/display: Force GAMCOR for subsampled surfaces with PQ/Gamma22/HLG
+Date: Fri, 31 Jul 2026 14:15:21 -0400
+Message-ID: <20260731181521.681990-11-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260731181521.681990-1-harry.wentland@amd.com>
+References: <20260731181521.681990-1-harry.wentland@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v22 1/4] PCI: Allow per function PCI slots to fix slot
- reset on s390
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pci@vger.kernel.org, alex@shazbot.org, schnelle@linux.ibm.com,
-        mjrosato@linux.ibm.com, stable@vger.kernel.org,
-        Keith Busch <kbusch@kernel.org>
-References: <20260731002210.GA1521769@bhelgaas>
-Content-Language: en-US
-From: Farhan Ali <alifm@linux.ibm.com>
-In-Reply-To: <20260731002210.GA1521769@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: SbFnyJyiiEWBeQZ9o3X-H2TMZslrFWUr
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDEzNiBTYWx0ZWRfX8t021t0VWdvO
- wZOvhEe8iwBTeqbcKQMzGVoUvagzWSIocPCTKI0NmD1e+36t8X+AIfqQpuEFx+8TTeyKkQI8Hp6
- kk1r+u2gIToxTidSSe2XdGU7Rc6IAbI=
-X-Authority-Analysis: v=2.4 cv=E/z9Y6dl c=1 sm=1 tr=0 ts=6a6ce638 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=TxOPuv4DIxgBshNE3IgA:9 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDEzNiBTYWx0ZWRfXxIY5Jq+iWrah
- bBrim3MrGwgVYtyGC1TitsvycrB5R1Ea+lyfNfTxhOiGJXuN3kT8/53FSoL9Fks0+8doorYrug7
- zR/JnqN2r21XJ18WwVMZWpA6wvP0ay6/4pATGJOMCS2f9+/PV9sFAyTsYlZBnqSsybAw5u0/VKU
- mRwHgdPZdAB20WVPxchZinmDPjDpUrnXgWy6jJ9ReHGQl13vKqqNkT02B+VuI8/o9HLufoROZdb
- UIbMqWp1xqNxOXgVpmQ/TcyNoeFKjObN0+6vbY2gjG/QEjIgkEAjmeb/yhdEXUFinAwEtISFs6H
- 04CW5zy6i5k9divf5flPIQiS6hlUIZppKd+/Do7+SQgtgDAMMno6C5DlWLMJ3B+0LvAUmfAryNv
- OV26dlOLOuJLQKs82x0yvs3fykMC5HLlG0TUczU+ZUZHZbkjgjZz68SWxheb/ovkMTl19DhWNLK
- nIizbUyRUEQS4V6nYMg==
-X-Proofpoint-GUID: SbFnyJyiiEWBeQZ9o3X-H2TMZslrFWUr
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_05,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310136
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|DM6PR12MB4331:EE_
+X-MS-Office365-Filtering-Correlation-Id: 60fddbce-2196-4ee2-e290-08deef2fb793
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|1800799024|23010399003|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	2Dlo5M8wlIzYvEGOqpKEYsy/VcmSd6eXgBBjSWDiSZ0lvyR0XAZKkaHiMPu7GhVAmZtYXK3FmTU9MJC/KVtNwb3ArlY/gofxQCMh1CvFEG6wu2l9KJ4o8urQ7R+S44Dq95rXoidpt8J7Bdgmb/Rk1bPtrsuwW8HPhopJ6aD6K+eljtJZ0ES9VSRu6FX+6HbiX7Q4cH8kHOrWTP2XAfrZr+TEQwn5+4qAH+nYZTyJwgIgd39PtvfCgaiI3khM3Ru67kQCautbfk51Ztb47nmz0Pz3I2m4eFCNhs5EXWqOrPbCw5SXkse9hc+s8FmRdma6u6Nw4orlrj72OXMKKCvIfAiASIObpv3doQchkcMnQUej4uVo9Ko57QKQ7vnxlIY6bY1nYImnaqLLCHJ6PQUP/MTVgnCX3NnIMZCt/Z7WBvxZ5fmPBoA1z3V2pGmOvEpXxdQMoe8OxjSTS40PtP9KDpDC+INzUl9y9t6Ag9a60cv8l8nunRrnVSe48pqUk3j3w1GLGj5q8AZ49xhbO1ErZ9AN7vLFC06ZRcnKRQsmx6AtljDWjGf3lqJBq1VOb47l2LDbvgfpkkfGce/gdJHraH3yyZnkCLPxF+HE//MpHtT8Aq4gVAmGUL4iPJ+zgwRcPC+EMUlha2Y+nD+oG0/JkM5Pu0MaAi11gD+65Q2BKysd/LqWDKrHOsvVQ0EGKwkAZZvNR7CF7waDgqvcvK165Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(23010399003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	UoNFxWcTvyMzL3KNGsoCqr38pTK9qFNxw5Ap7/3RZZFbOWwtG0TRSBSMzO9gVmBqziyTGBuBxwoz5sq6FPEUsuKEEjmd9j5hfHsznRYydp4/1nNCQIZLssX798o5lpS3YCrQe8TjwSW/YRSgXZ4QfFgJsnAUlChkOAk/D+4pHlFgJY9RB2PiOqpaFYdDPc306gmITCpIt8BMZrowZGPmFZwXyteKaEnlCeglQCuOUUTM0RleddXfN8KItwLcBwX/vng23qNIUSRrkbUTXV9+LeOHw5eDyHUeKEphw0aqivvUUDd6vXep3ggIyo3UURI6zRJ99M62BO7013IzNE0dIkGpD1odSFusjzpBxROBk75EMmHhIZdjI1Ho2T0LzNTXiZOlyQ3f/iQba3c/3alg9KOIhpZTCdg0FU9TVnYLnO6uuK6HEhdHVAjifHZIUV5t
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 18:15:35.5182
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60fddbce-2196-4ee2-e290-08deef2fb793
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF00004FBB.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4331
 
+The ROM early-return checks for PQ, Gamma 2.2, and HLG in
+mod_color_calculate_degamma_params() do not consider the map_user_ramp
+parameter. When map_user_ramp is true (indicating a subsampled surface
+that requires post-scaler degamma via GAMCOR), the function still takes
+the ROM path, programming PRE_DEGAM instead.
 
-On 7/30/2026 5:22 PM, Bjorn Helgaas wrote:
-> [+cc Keith, just fyi since this is slightly related to 102c8b26b54e
-> ("PCI: Allow all bus devices to use the same slot")]
->
-> On Mon, Jul 20, 2026 at 12:25:02PM -0700, Farhan Ali wrote:
->> On s390 systems, which use a machine level hypervisor, PCI devices are
->> always accessed through a form of PCI pass-through which fundamentally
->> operates on a per PCI function granularity. This is also reflected in the
->> s390 PCI hotplug driver which creates hotplug slots for individual PCI
->> functions. Its reset_slot() function, which is a wrapper for
->> zpci_hot_reset_device(), thus also resets individual functions.
-> I guess we must be talking about rpaphp?
+For subsampled formats the chroma channels must be upsampled by the
+scaler before degamma is applied. PRE_DEGAM sits before the scaler in
+the pipeline (CNVC domain), while GAMCOR sits after it (CM domain).
+Using the ROM for subsampled surfaces means degamma is applied to
+subsampled chroma before upsampling, producing incorrect results.
 
-No, this is the s390_pci_hpc driver.
+Fix by gating the dcn_arch ROM capability checks on !map_user_ramp,
+forcing PQ/Gamma22/HLG through the GAMCOR LUT path when the surface
+is subsampled.
 
+Fixes: a8bf71649088 ("drm/amd/display: Internal refactoring to abstract color caps")
+Cc: stable@vger.kernel.org
+Assisted-by: Copilot:claude-opus-4.6
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Robert Mader <robert.mader@collabora.com>
+---
+ drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
->> Currently, the pci_create_slot() assigns the same pci_slot object to
->> multifunction devices.
-> Can we say something about exactly where and why this reuse happens?
-> Is this because most callers have stripped off the function number by
-> using PCI_SLOT() before they pass it to pci_create_slot() as @slot_nr?
->
-> If so, it seems like more a property of the *callers*, not of
-> pci_create_slot() itself.
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+index 03d88e78165d..5786ef5787ac 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+@@ -1696,7 +1696,8 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
+ 			return true;
+ 
+ 		if (dc_caps != NULL &&
+-			dc_caps->dpp.dcn_arch == 1) {
++			dc_caps->dpp.dcn_arch == 1 &&
++			!map_user_ramp) {
+ 
+ 			if (input_tf->tf == TRANSFER_FUNCTION_PQ &&
+ 					dc_caps->dpp.dgam_rom_caps.pq == 1)
+-- 
+2.55.0
 
-AFAIU in pci_create_slot() we will iterate through all the devices in 
-the bus, and assign the same pci_slot object to devices that falls in 
-the same slot as per PCI_SLOT(). So even if a caller provides different 
-slot_nr, devices that fall in the same slot will be assigned the same 
-object. In s390 hotplug driver case, it provides the devfn as the 
-slot_nr. So for example devices with bdf 00:00.0 and bdf 00:00.2 will 
-get assigned the same slot, when we create a slot for device 00:00.0. 
-When we attempt to create a slot for device 00:00.2, we do indeed create 
-a separate slot object, but don't update the device's pci_slot as 
-PCI_SLOT(00:00.2) != 2.
-
-I am open to suggestion on how we should re-word this. But i think it's 
-pci_create_slot() that strips the devfn to a slot number.
-
->
->> This approach worked fine on s390 systems that only
->> exposed virtual functions as individual PCI domains to the operating
->> system.  Since commit 44510d6fa0c0 ("s390/pci: Handling multifunctions")
->> s390 supports exposing the topology of multifunction PCI devices by
->> grouping them in a shared PCI domain. This creates a problem when resetting
->> a function through the hotplug driver's slot_reset() interface.
->>
->> When attempting to reset a function through the hotplug driver, the shared
->> slot assignment causes the wrong function to be reset instead of the
->> intended one. It also leaks memory as we do create a pci_slot object for
->> the function, but don't correctly free it in pci_slot_release().
->>
->> Add a flag for struct pci_slot to allow per function PCI slots for
->> functions managed through a hypervisor, which exposes individual PCI
->> functions while retaining the topology. Since we can use all 8 bits for
->> slot 'number' (for ARI devices), change slot 'number' u16 to account for
->> special values -1 and PCI_SLOT_ALL_DEVICES.
-> Sorry for the delay in reviewing this.  I always struggle to find
-> my way through the PCI slot code, which has grown into a bit of a
-> maze.  I keep hoping we can simplify it somehow.  I don't think that
-> time is now, but the complexity does make changes messy.
-
-Thank you for reviewing this! I appreciate you taking the time to help 
-with the review.
-
-
->
->> Fixes: 44510d6fa0c0 ("s390/pci: Handling multifunctions")
->> Cc: stable@vger.kernel.org
->> Suggested-by: Niklas Schnelle <schnelle@linux.ibm.com>
->> Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
->> Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
->> ---
->>   drivers/pci/hotplug/rpaphp_slot.c |  2 +-
->>   drivers/pci/pci.c                 |  5 +++--
->>   drivers/pci/slot.c                | 33 +++++++++++++++++++++++--------
->>   include/linux/pci.h               |  8 ++++++--
->>   4 files changed, 35 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/pci/hotplug/rpaphp_slot.c b/drivers/pci/hotplug/rpaphp_slot.c
->> index 67362e5b9971..92eabf5f61b9 100644
->> --- a/drivers/pci/hotplug/rpaphp_slot.c
->> +++ b/drivers/pci/hotplug/rpaphp_slot.c
->> @@ -84,7 +84,7 @@ int rpaphp_register_slot(struct slot *slot)
->>   	struct hotplug_slot *php_slot = &slot->hotplug_slot;
->>   	u32 my_index;
->>   	int retval;
->> -	int slotno = -1;
->> +	int slotno = PCI_SLOT_PLACEHOLDER;
->>   
->>   	dbg("%s registering slot:path[%pOF] index[%x], name[%s] pdomain[%x] type[%d]\n",
->>   		__func__, slot->dn, slot->index, slot->name,
->> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
->> index 77b17b13ee61..350bae907ebf 100644
->> --- a/drivers/pci/pci.c
->> +++ b/drivers/pci/pci.c
->> @@ -4897,8 +4897,9 @@ static int pci_reset_hotplug_slot(struct hotplug_slot *hotplug, bool probe)
->>   
->>   static int pci_dev_reset_slot_function(struct pci_dev *dev, bool probe)
->>   {
->> -	if (dev->multifunction || dev->subordinate || !dev->slot ||
->> -	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET)
->> +	if (dev->subordinate || !dev->slot ||
->> +	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET ||
->> +	    (dev->multifunction && !dev->slot->per_func_slot))
->>   		return -ENOTTY;
->>   
->>   	return pci_reset_hotplug_slot(dev->slot->hotplug, probe);
->> diff --git a/drivers/pci/slot.c b/drivers/pci/slot.c
->> index 6d5cd37bfb1e..894d6213ed30 100644
->> --- a/drivers/pci/slot.c
->> +++ b/drivers/pci/slot.c
->> @@ -37,7 +37,7 @@ static const struct sysfs_ops pci_slot_sysfs_ops = {
->>   
->>   static ssize_t address_read_file(struct pci_slot *slot, char *buf)
->>   {
->> -	if (slot->number == 0xff)
->> +	if (slot->number == (u16)PCI_SLOT_PLACEHOLDER)
-> I think it might be worth splitting the PCI_SLOT_PLACEHOLDER addition
-> and the relevant kernel-doc updates, which are mostly unrelated to
-> this patch, to a separate no-functional-changes patch to simplify this
-> patch.
-
-I will take a look at splitting the PCI_SLOT_PLACEHOLDER out of this patch.
-
-
->>   		return sysfs_emit(buf, "%04x:%02x\n",
->>   				  pci_domain_nr(slot->bus),
->>   				  slot->bus->number);
->> @@ -72,6 +72,23 @@ static ssize_t cur_speed_read_file(struct pci_slot *slot, char *buf)
->>   	return bus_speed_read(slot->bus->cur_bus_speed, buf);
->>   }
->>   
->> +static bool pci_dev_matches_slot(struct pci_dev *dev, struct pci_slot *slot)
->> +{
->> +	if (slot->per_func_slot)
->> +		return dev->devfn == slot->number;
->> +
->> +	return slot->number == PCI_SLOT_ALL_DEVICES ||
->> +		PCI_SLOT(dev->devfn) == slot->number;
->> +}
->> +
->> +static bool pci_slot_enabled_per_func(void)
->> +{
->> +	if (IS_ENABLED(CONFIG_S390))
->> +		return true;
->> +
->> +	return false;
->> +}
->> +
->>   static void pci_slot_release(struct kobject *kobj)
->>   {
->>   	struct pci_dev *dev;
->> @@ -82,8 +99,7 @@ static void pci_slot_release(struct kobject *kobj)
->>   
->>   	down_read(&pci_bus_sem);
->>   	list_for_each_entry(dev, &slot->bus->devices, bus_list)
->> -		if (slot->number == PCI_SLOT_ALL_DEVICES ||
->> -		    PCI_SLOT(dev->devfn) == slot->number)
->> +		if (pci_dev_matches_slot(dev, slot))
->>   			dev->slot = NULL;
->>   	up_read(&pci_bus_sem);
->>   
->> @@ -187,8 +203,7 @@ void pci_dev_assign_slot(struct pci_dev *dev)
->>   
->>   	mutex_lock(&pci_slot_mutex);
->>   	list_for_each_entry(slot, &dev->bus->slots, list)
->> -		if (slot->number == PCI_SLOT_ALL_DEVICES ||
->> -		    PCI_SLOT(dev->devfn) == slot->number)
->> +		if (pci_dev_matches_slot(dev, slot))
->>   			dev->slot = slot;
->>   	mutex_unlock(&pci_slot_mutex);
->>   }
-> Update pci_create_slot() kernel-doc to mention PCI_SLOT_PLACEHOLDER
-> instead of "-1" (several instances).
->
-> In addition to PCI_SLOT_PLACEHOLDER or PCI_SLOT_ALL_DEVICES, and a
-> 0-31 PCI_SLOT(devfn) value, I think @slot_nr can already be a 0-255
-> value (e.g., from cpci module parameters or s390
-> zpci_bus_add_device()).
->
-> It seems like this patch also needs pci_slot.number to end up with a
-> complete devfn in it so pci_dev_matches_slot() can use it, but I'm
-> confused about how that happens, since it looks like
-> rpaphp_register_slot() will pass either PCI_SLOT_PLACEHOLDER or a
-> PCI_SLOT(...) value to pci_hp_register().
-
-On s390 it happens via zpci_init_slot() in the 
-drivers/pci/hotplug/s390_pci_hpc.c, which assigns a devfn as a slot_nr.
-
-
->
->> @@ -267,7 +282,7 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
->>   
->>   	mutex_lock(&pci_slot_mutex);
->>   
->> -	if (slot_nr == -1)
->> +	if (slot_nr == PCI_SLOT_PLACEHOLDER)
-> No action for you here, but one thing that complicates this is the
-> overloading of slot_nr for different purposes:
->
->    - Sentinel flags:
->
->      * PCI_SLOT_ALL_DEVICES (0xfe or 0xfeff) used by pciehp init_slot()
->
->      * PCI_SLOT_PLACEHOLDER (-1), used by rpaphp_register_slot()
->
->      * -1 may also be used by pnv_php_alloc_slot(); I don't know
->        exactly what it means
->
->    - Traditional (mostly) PCI device numbers:
->
->      * 0-31 derived by PCI_SLOT() in hv_pci_assign_slots(),
->        octep_hp_register_slot(), pnv_php_alloc_slot(),
->        rpaphp_register_slot()
->
->      * 0-255 from cpci (module parameters)
->
->      * 0-15 from cpq ((u8 from readb(SLOT_MASK) >> 4))
->
->      * 0 from ibmphp_ebda
->
->      * 0-255 from s390 zpci_bus_add_device()
->        (zdev->rid & ZPCI_RID_MASK_DEVFN), where ZPCI_RID_MASK_DEVFN is
->        0xff
->
->      * 0-255 for s390 per-function slots (this series)
->
->    - Arbitrary values:
->
->      * Sparc pcie_bus_slot_names() path uses unvalidated
->        'physical-slot#' DT property as slot_nr
->
->      * acpiphp uses the value of _ADR as slot_nr (per spec it should be
->        device number in bits 16-31, but not validated)
->
->>   		goto placeholder;
->>   
->>   	/*
->> @@ -298,6 +313,9 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
->>   	slot->bus = pci_bus_get(parent);
->>   	slot->number = slot_nr;
->>   
->> +	if (pci_slot_enabled_per_func())
->> +		slot->per_func_slot = 1;
->> +
->>   	slot->kobj.kset = pci_slots_kset;
->>   
->>   	slot_name = make_slot_name(name);
->> @@ -318,8 +336,7 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
->>   
->>   	down_read(&pci_bus_sem);
->>   	list_for_each_entry(dev, &parent->devices, bus_list)
->> -		if (slot_nr == PCI_SLOT_ALL_DEVICES ||
->> -		    PCI_SLOT(dev->devfn) == slot_nr)
->> +		if (pci_dev_matches_slot(dev, slot))
->>   			dev->slot = slot;
->>   	up_read(&pci_bus_sem);
->>   
->> diff --git a/include/linux/pci.h b/include/linux/pci.h
->> index 64b308b6e61c..6141787f7417 100644
->> --- a/include/linux/pci.h
->> +++ b/include/linux/pci.h
->> @@ -79,14 +79,18 @@
->>    * and, if ARI Forwarding is enabled, functions may appear to be on multiple
->>    * devices.
->>    */
->> -#define PCI_SLOT_ALL_DEVICES	0xfe
->> +#define PCI_SLOT_ALL_DEVICES	0xfeff
->> +
->> +/* Used to identify a slot as a placeholder */
->> +#define PCI_SLOT_PLACEHOLDER	-1
-> Since this is eventually assigned to a u16, and you use "0xfeff" for
-> PCI_SLOT_ALL_DEVICES, it seems like "0xffff" would be appropriate.
->
-> I suppose you used -1 because the arguments to pci_hp_register() all
-> the way down to pci_create_slot() are "int" and it's only inside
-> pci_create_slot() where it gets chopped to u16 when it's stored in
-> pci_slot.number.  But the mix of int/u16 and 0xfeff (a valid u16) and
-> -1 (which needs to be int) seems like unnecessary complexity.
-
-I kept it as -1 because it's an int up until pci_create_slot(). I can 
-change it to 0xffff.
-
-Thanks
-
-Farhan
-
->
-> AFAICT the only values we need to *store* in pci_slot are 0-255 and
-> the "ALL_DEVICES" indication.
->
->>   /* pci_slot represents a physical slot */
->>   struct pci_slot {
->>   	struct pci_bus		*bus;		/* Bus this slot is on */
->>   	struct list_head	list;		/* Node in list of slots */
->>   	struct hotplug_slot	*hotplug;	/* Hotplug info (move here) */
->> -	unsigned char		number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
->> +	u16			number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
->> +	unsigned int		per_func_slot:1; /* Allow per function slot */
->>   	struct kobject		kobj;
->>   };
->>   
->> -- 
->> 2.43.0
->>
