@@ -1,78 +1,74 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95D438D3E6
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 16:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B892DEA7B
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 16:18:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785514680; cv=none; b=RZcBerpGYJLwwu0EcJ3mhflNA3eCv09fB52t1ndFPEZr2Dj/0bhuMIU1C6MLoDdcl1wqZ5WBflk1ENLYee6AND2bnk4QIu0za19bgq3J7hRQ4K5J7Mj/lJTcKJpyjgm5Yu3p8SgmLO6LF4jZXGXUE5SohPRAUiyMsy/bkTmaa5A=
+	t=1785514701; cv=none; b=qNSgSS2AVtoLy1mLlI1HjfI44gF/Ci/xdXzyo47+JHjDVVHuuB8fEu0Kh6Hw1+UQ2EA4lDTAzvNQEoSm4l4V5qoAhuKD+cB3ZL/nK10TfSfQc+5f9EElecUZKFUyAa4pijj/M+1WvobfPZaJOrIdQPmJ02E8D7rZ2j0eYl9AotA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785514680; c=relaxed/simple;
-	bh=XiHTps66n/ucoodnksehaJ774Zj8/m6/5WilQKWcYtA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=onJXAUT8NdHWxZvFV3d3O00fPt/0YDrpvj8XGP/V/1dW8xEdFjQXmo4PNOGz1AOSYjh3vxfbBxcOTdG+gWJsRf6YcL1iYKvRrRycQ1XXJViTGDiWqPKfU78t5cobNp3x22zBBoMAzsK8DJNx/qnWtJndkBZ2a5yQk8xJbFInR4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oo5UZn3+; arc=none smtp.client-ip=209.85.216.41
+	s=arc-20240116; t=1785514701; c=relaxed/simple;
+	bh=9Yzh38GRiodpjie4zcPRooc5jBJTJ/dzig1dvhms+IY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mxK9uT+B9IQwpPEQxy96R65Mh/nLwgKRRyrUVPEpdM2vZ/tqTjv7ml6Hz0Y5uPgOaYXvRkSEkvc2FCS06GqK4NvI4KOpviuNDHMxmLCZ/XDhwQGc/pA71S3t5mhkzZGoIR2SR8J+W37Ayj4Bo0JRYzrC0Rp6PSpsjj13i0PKupo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nA3kFAUf; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oo5UZn3+"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-384930ca5e2so1157412a91.3
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 09:17:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nA3kFAUf"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso985401b3a.1
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 09:18:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785514676; x=1786119476; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785514700; x=1786119500; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3fpbCGUKoDP5+AiSkirbnxfIufZXR99E39vUIbtAqi4=;
-        b=Oo5UZn3+s/Clcl35L0i27lCyCVRQs4rNgvsX4jWn9B63BU4Cfiev6E38xXtaotn24V
-         klPvlLCVASNsz/qWHRKdPaqj0WfSfn2xjfRsxY/FFpRdcLa+5ukWSVAazMZaw3DxyuB7
-         lKAkF65rucM2QX3nEbKQm4WcVZ/ZYmWxRwrYy7HWM6hhJv/VFMAEyvjz8EMU6jRYBtW0
-         W1gwnQMgu70yTMMXnAnKnIYBapLvWDM1hPcEA9Y7dbe2nVR9WD+M1qDIP7XH1bKz6YP+
-         fNPnEfSm4y/nV5ytL9oXlALzUHKnTLO58RnV/1iLFx+1quqwKbXCUZkrswXfELG/af9S
-         fhHg==
+        bh=TKjEK1gC87c9kIwXqKCw727kvsVZgAnx7reueDbTuj0=;
+        b=nA3kFAUfNnWsWvjABU3qAPTa2LJKAgkKSsu6xI0ZOYvcntzGZ81szLCwl51kWs7uxl
+         YwFO3cUVROsezXWdKL+9Fw30h+e6QgLl+lWb5R70DcWUD3X6QH5INo4AcOVXjkTUQBQT
+         Wwr5kgaa9kWCEunaNoM6DGtwemBeMgQDw6UFVQPGDs9d8N11UIxHkCCzIZnRFoPQGWnh
+         E5UpLt0RobFeAH/6QAxowKliQVUfd5wS7uevI9Aj124OpqDU7Nu0sn9xwYWOSonRbGDz
+         gWP3EsYLKJOCCXYMWKAhvuL4/KbpWZZ3KjYNFyLrKrD/YBJjeRQbPFyX72zP2QLwtfsT
+         6u5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785514676; x=1786119476;
+        d=1e100.net; s=20251104; t=1785514700; x=1786119500;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3fpbCGUKoDP5+AiSkirbnxfIufZXR99E39vUIbtAqi4=;
-        b=EGbUZ+gSqSTXCKGbqf1M95WuE3vTYDBWo3eLdwtXCc2We5QMEzsabn+W5rQ4y3Ah5A
-         pyWDreEj1WcOk1WIVV5wN7KDKuGy1WIyGUFb2vm6rTPvG8mmDOTG1I0Nm2kpe3zv2ocX
-         PESqzzGQ8QJ6n7NkWgt2sHWtIvm4iByrOaPDRWlB39qvEuNto2gskS3N7HaxCSe7uzBq
-         ljFS+aDXU1IPxsSbV3iA0wa6B6C5VbuXot9CY425rz6v3pTO9R4p076HY7bLZaOuym2Q
-         3UrIdq45rIT2fA0Eg2x+8GZiTNt66LDRMKPJOnQtttIyv7l27t+ycmGCc3swBBuiFIIY
-         WqGg==
-X-Forwarded-Encrypted: i=1; AHgh+RrQNGvFHGKYvMPAdhfoJTS4tB9DDZwwKZMJJJ8dwydc7VUnKp6p6OEoHdWzbC4pNhwocjkJYjc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmqyH3NNVPDw3BfuL8ti9UNcMCyurXQUyfkG1omJq62FNwgk1x
-	5ZorBTVXXFv9G0StnxMOhKr4TMZyMQd4G2+oTkY8CN70V43sa+ktZ5U=
-X-Gm-Gg: AR+sD12NqJfq5DUGB7idtk05ryO/nqwJjcLMCFW6JUKDokevurGfQ5PL3Fto55UnHy/
-	dJZRB2KBE83E/0PxM/ZN6JqjuwYjO+vdBIQV7pwWXPagHyFJ3kt03qqH5WIJXQVu7W5Smpj9WYD
-	x26b0OfemTb7axBH+w8AWjEtj37cHiJG7uXnm/sqEcEMLfY5xEpuRGWJ2i3hzqisjbmVlL/Myq/
-	NccewMUNuRpo2antEyreRYODMNPELFuQLUrSvV9KeOCj5CCjyey/IBe+muyO2YuGMKiPUxB3dlI
-	8bf50I2xfpCsP0y2lvjs4prMKmuz/spaZ2BaZX2Mpoj0+TQ/6WRgG4lh3ZWA0bv3HhZQn/KZiSW
-	Elnnxdjd7gr+34dcwml8ct8EuVhV65leDDymWOMPgNAd4m3vtE4fM8Iu4JBxoVaiMz6LPQQMkUJ
-	gLz3k7uCWWQ2YL+s6MBc7H0ZBupQwFT9jNARi4R1PwHKofgccR6QHcMYhtWOjBK3mwPd5te/VSZ
-	P0afOqf4j80l0IqPMtBGq0lqh0pwXcYQvwQupCHtlq1O548/P340zQFRIwp0KAsDI20DbwUB4Mg
-	rmhYDJmLaMjubtNbrWPH3CQ=
-X-Received: by 2002:a17:90b:5824:b0:381:9028:5945 with SMTP id 98e67ed59e1d1-38fbc43a847mr445709a91.14.1785514676249;
-        Fri, 31 Jul 2026 09:17:56 -0700 (PDT)
+        bh=TKjEK1gC87c9kIwXqKCw727kvsVZgAnx7reueDbTuj0=;
+        b=Jz5YO5WpUJSHZkdPRSfJLyxN1Na1X8lKErOZauytIFnROAGhTEg0eItBOrmoqOIv7F
+         jlJiPDjjQTcZDZh7tOEZZblOAjrH//ljXUeMBv9FowSQ3BsGXoR4BD8oNdTHb8T9FqBJ
+         I/vD0rxDu6EFK8GwpGnTv6Ov3tggsTaRlEWNt6Bo35MouM7vofGF2rUBrIis1CECOG2I
+         WXrDAfUfgiL6kFfmCDgnBAYKcAk0vbkzxou2k+/bqbSl0Fk/6/ifLX7Rr1AjdfAm9tyw
+         VUErLwWlISWe86oP3YY2ScCiVJcqSG1OvJJ6/avAMpB6djVwFudcRR1RU1d44aPIDQdX
+         jfWg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpf/qCmBNBqZYlg0ktgfb6v3+v6JFMcckKoBERiBBafCDRxdf+jvFsjkfnKJcpuTmMj/XAwx10=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOFAt7ROlSxjyqJRmtIoeynv5jePJ/SlVNL9P8vPK1/yS5/taj
+	/17YTpSmkF/xvgvS+IfREKMt452vw7rG/hByWXgqqPfPicXR6FrbsYo=
+X-Gm-Gg: AR+sD13J6g/BIF1pMYECJIElVDp2/0Xv2Kf6xKT29NT9iMKJRU0Qe60IZ4CX6mcsJVn
+	ugewe1gwL8LPMLCE8caFL8Ett3HNhURDQNMe2UOFgE46v40WhKSi0gJ2d36Ti9GIdOA+AhJqWqZ
+	UuaMRhlaYimWiDdSuw2M5tGiYoM7e45ixSFn80itV7soZxBo5FPFL7T2bHW4qt+q5j5CpsrIbRG
+	OGDIu9xe6gqzzd3rfwX3VCWV1E3zHlGfYdWmPT7s72clY+Gfh6pkxlUnSSAFRKFIAwFGOwxLf+S
+	WFi5m8d+d+nQeiSYw5kU4kIktG901vIFoKFdP218wMgBQ9YkURka+EkhGF0UlFEzlDP4uOFKPOU
+	a6X5XtrCleuqQ34JTBZUipk5zB3rxb1l2WuV7TFlx6pYI1BWXEiEEL7BFo55JOEhxjb4/CjlcO/
+	7A76GfuK0jK0hv5yeWM2TKxMvJEl3AqacGiih5XieNNJEH6QfVp295V5pzR0DES0GGTTr+tS1eX
+	uCuWKQy2nP77perHBDypI4rsIE22rgxtumnTbQL8zwB/StgTl9I9qdN0o21VXU3v/fyrVqEkN2v
+	LmVZh3BFybNjPV329oiUEyU=
+X-Received: by 2002:a05:6a00:4b02:b0:84e:cd14:aeba with SMTP id d2e1a72fcca58-84ee48123a3mr269712b3a.6.1785514699546;
+        Fri, 31 Jul 2026 09:18:19 -0700 (PDT)
 Received: from localhost.localdomain ([1.226.165.54])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38fb2ce1778sm923096a91.15.2026.07.31.09.17.53
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84edc29e6f0sm647072b3a.39.2026.07.31.09.18.17
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 31 Jul 2026 09:17:55 -0700 (PDT)
+        Fri, 31 Jul 2026 09:18:18 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Dominik Brodowski <linux@dominikbrodowski.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-serial@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Myeonghun Pak <mhun512@gmail.com>,
 	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] net: 8390: pcnet_cs: release PCMCIA window on setup_shmem_window() error
-Date: Sat,  1 Aug 2026 01:17:40 +0900
-Message-ID: <20260731161740.44955-1-mhun512@gmail.com>
+Subject: [PATCH 1/2] tty: moxa: unwind tty driver if PCI registration fails
+Date: Sat,  1 Aug 2026 01:18:08 +0900
+Message-ID: <20260731161809.45066-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -82,76 +78,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-setup_shmem_window() acquires a PCMCIA memory window with
-pcmcia_request_window() and only releases it on the buffer-verification
-failure path. If pcmcia_map_mem_page() or the subsequent ioremap()
-fails, the function jumps straight to the "failed" label, which returns
-without calling pcmcia_release_window(). The requested window is leaked.
+moxa_init() registers the tty driver before registering the PCI driver.
+If pci_register_driver() fails, module initialization returns without
+unregistering the tty driver or dropping its reference. moxa_exit() is
+not called after a failed module initialization.
 
-This is reachable in practice: pcnet_config() treats a
-setup_shmem_window() failure as non-fatal and falls back to
-setup_dma_config(), so probe can continue and even succeed while the
-requested shared-memory window is left allocated.
-
-Route the post-request error paths through a new "release" label that
-calls pcmcia_release_window() before returning, and fold the existing
-buffer-verification cleanup into it. iounmap() is still performed before
-the release where an ioremap() mapping exists, preserving the original
-teardown order. The pcmcia_request_window() failure path still returns
-directly, as no window is held there.
+Unregister the tty driver and drop its reference before returning the
+PCI registration error.
 
 This issue was identified during our ongoing static-analysis research while
 reviewing kernel code.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: a784bf7c195f ("[PATCH] Char: moxa, pci probing")
 Cc: stable@vger.kernel.org
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/net/ethernet/8390/pcnet_cs.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/tty/moxa.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/8390/pcnet_cs.c b/drivers/net/ethernet/8390/pcnet_cs.c
-index 19f9c5db3f3b..e2081d493749 100644
---- a/drivers/net/ethernet/8390/pcnet_cs.c
-+++ b/drivers/net/ethernet/8390/pcnet_cs.c
-@@ -1434,14 +1434,14 @@ static int setup_shmem_window(struct pcmcia_device *link, int start_pg,
-     offset -= offset % window_size;
-     ret = pcmcia_map_mem_page(link, link->resource[3], offset);
-     if (ret)
--	    goto failed;
-+	goto release;
+diff --git a/drivers/tty/moxa.c b/drivers/tty/moxa.c
+index 1bb2376af85c..680b2dd65462 100644
+--- a/drivers/tty/moxa.c
++++ b/drivers/tty/moxa.c
+@@ -1172,8 +1172,11 @@ static int __init moxa_init(void)
+ 	}
  
-     /* Try scribbling on the buffer */
-     info->base = ioremap(link->resource[3]->start,
- 			resource_size(link->resource[3]));
-     if (unlikely(!info->base)) {
- 	    ret = -ENOMEM;
--	    goto failed;
-+	goto release;
-     }
+ 	retval = pci_register_driver(&moxa_pci_driver);
+-	if (retval)
++	if (retval) {
+ 		printk(KERN_ERR "Can't register MOXA pci driver!\n");
++		tty_unregister_driver(moxaDriver);
++		tty_driver_kref_put(moxaDriver);
++	}
  
-     for (i = 0; i < (TX_PAGES<<8); i += 2)
-@@ -1452,9 +1452,8 @@ static int setup_shmem_window(struct pcmcia_device *link, int start_pg,
-     pcnet_reset_8390(dev);
-     if (i != (TX_PAGES<<8)) {
- 	iounmap(info->base);
--	pcmcia_release_window(link, link->resource[3]);
- 	info->base = NULL;
--	goto failed;
-+	goto release;
-     }
- 
-     ei_status.mem = info->base + offset;
-@@ -1475,6 +1474,8 @@ static int setup_shmem_window(struct pcmcia_device *link, int start_pg,
-     info->flags |= USE_SHMEM;
-     return 0;
- 
-+release:
-+	pcmcia_release_window(link, link->resource[3]);
- failed:
-     return 1;
+ 	return retval;
  }
 -- 
 2.47.1
