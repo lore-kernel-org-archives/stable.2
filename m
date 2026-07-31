@@ -1,177 +1,161 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1658A3B6BEE
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 18:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785521126; cv=none; b=pksudpTwBWpHaU68EjFhB9kOXRuF7EMTcmjpKERQA4JGf+7iNxXwjlkX+uypbu78EGeG+OnAzHFPHcimS5kbJeE3hwJ5LXd27vcb614oGqWmTgINSmyrzpclTlZEXQaN5kkcEOHRESXw4Vgjuf86857r8YQJ0ekfqe5J8giub+g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785521126; c=relaxed/simple;
-	bh=PsKOHHQKdkTPVr5CbgWuTRjCZmIzAuWQ/T5zBgCOXzw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fT1vb8+Y+WdsFJ79UCErt68y1Hz4pXI1qrZhvG4M76tKQ9itzuNDYr7hXJDkqYN4B/pcA870WEyClLwLaVALeaqRbE3FPm4fWAIibVg3/M0rEtP7mo5Fb01G8hcZjFpB3cGZxc6VznyUgj8KOrJtN+s9RfAEMDQsHb8HVWsvXOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dRUYLd+X; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D9F307492
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 18:06:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785521164; cv=pass; b=pqX7BDV4+ohr/CNWSoBwRcUnTuyMeZEpE1jFJA2GInHl00P0DiNgcTM6fkkbhs96dtp4JtmjqW6jT5hfsS0aD+x3U/5U4KGEYDn8a2+YRCbtttQrN/SzZvpzCga77wRdLqa0MgAqHkIA9uKn3WGgXMKojrfv6M7eAujxo9omL8w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785521164; c=relaxed/simple;
+	bh=Iz8ffwhw26CpaI+mvyVjJUmyX9kTePoajvDT+kROQLc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PGxlfkkzhDL4KVYDSS0Q7rIOnDsWS9HAMYTdFcgAusTOOdHSbGE0bZA1L/phkfMUxBk9XQd3ewVjZzMzLn8HY45AUgzOiAJiMKlPVld7qOlt/CGIfLgjAiNt9N9MwiWf+O399dMlha1EsSAUDBNYItiTiD2eP5vgdqUhi9+z2pQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hYlo65lF; arc=pass smtp.client-ip=74.125.224.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dRUYLd+X"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47db714766aso1463520f8f.0
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:05:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hYlo65lF"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6689402c7bfso1420314d50.1
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:06:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785521162; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZpMtqn62QpoywyfGtdXi6FaedyalUkIurV+4+Lsq28xEOcddBFxfjFKGYanUsus1os
+         cLitATHPcAIDTabJRjQDKUuMzH8KYiL6+QwFcI+bygbUtnxwq0vuLoToBD14Tgdg6JlY
+         4DHus/Jw2860XkOgc7vHrMvht7WwsahaQj3BHaU0V70qz3ra6/sphjVp5irhFNsuC8Xc
+         zfwFb3esC6a7WAagIkCN4EgXPCQyu25rbmLeDJcAFZBFasuoO91d/Ofe+YQ/gPR7H0/j
+         nD9dqQZ7caI4Bnk/R0dh9yKLDuBiMlmZVjzg5Nhp5iw5bxnpBWSUGb1ibOPAmS/5ywIY
+         MnFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Be92gGmY7KrSGIMznvcDGv4P9viWnD9BIV+7S2IaULc=;
+        fh=DjLqv0ZJbTJknyRH4prSWyucSwFGKrODgDTfrfQL084=;
+        b=jxPm99EfSDC8mKWAubgsfdVquzh96GGTZXub8Ucwf/v8/D3gEkQvi7nVyq4BGBLvrZ
+         994nR+rydK4jTutsbZahAEo1F55IeFxEcMDd8xXGWd6MQTfGlrZTG1CkW5wr/AdPgwK1
+         PKM/j/4GlJFbY5l6iC+Atmbck+hdr3YjCBsE4/qTls++GGwKTzMCtPG+EDhl3FutHZYw
+         dwweM4cbc/w14dQeeZVEJ3BUpd6sy55ywSHL4Mu97jMGdt5gdRgedPYXw0yf3viHYttA
+         y8vn+RSyHOP1iDzm9feqGyGc4JGRWZnzlA5Vghl/F6GpxpHu+Zu/Tb4GS86ex6etQSks
+         nc6g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785521123; x=1786125923; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6m+8w0QVgGm8urXe/cU07WfU5xAZ+QJVFPsiFH0egMo=;
-        b=dRUYLd+XZDObOfJu7MYRna9XibQmadJYmxFq3QwgpDohKY40cTu72fcHSnYtooKM4F
-         Cu5OBIrI6PcZvhnuHRZ9X4mTK67hgeLzdWDzor82yCM0g91xT4qYpiZqGxuRu0H0ONIC
-         q5dcaSUmIzQ7N2piCxiK3SluYjRe18qUvQJICwNFyIQGnfu6nFT7pQlQb02WD8BIQnwJ
-         up0e4aKM3TcYSRb5gcJlq6bpLSxGYEbbhKPXSepErqLyIKtBeIcPHowq19wX3sQ0q07Z
-         2/H0F41wezJbcJRnMNYPq2ddHQwp6mQdHYXzERsrRxeGrE3/7NfyWHxmRv70S9e19BX2
-         JsHQ==
+        d=gmail.com; s=20251104; t=1785521162; x=1786125962; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Be92gGmY7KrSGIMznvcDGv4P9viWnD9BIV+7S2IaULc=;
+        b=hYlo65lFjffXRZ8XlctB4GgPGWdwP6OtMAkVsFpizR8KgmeruiVasXlTRI0M6l7QwJ
+         VjrS/mesBm2TMdnPQOaXTey7AIHCCgF06pciwm/tp0AQIOzAJNycCrD1r3jWShDUeCXN
+         KplSGAuHpV5OYvzqo1ZtgN7h1ZrK31JS+ELVfL9QqJF+o2YEjfYuTbP9q+QHIw21m2hE
+         kwFDtI8yOSw8dFkRl+noHeLnDgkjrFLy9ViSCOVYFijbnyRvN/e1SkEa/9WGRaZtA46k
+         Hc2wgIxNVSa5gWFcEyb+uze/mk4bLVTpXQk53eW8HxcCI/GiUFq2Utefe/eIfGqHxXp7
+         Ty0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785521123; x=1786125923;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6m+8w0QVgGm8urXe/cU07WfU5xAZ+QJVFPsiFH0egMo=;
-        b=Ud9jNID113/q+CCxFabqGr04dMbQd/8BH0x2vdFtEQP0JLBAz8UQVL6aQI9In7kxD4
-         BGdmtO1FiiVEkK2K1IcDYrkd9FypFwX/cyyhsgUCaj4zorsKBkF4PJmKKE4UKQCw5yXD
-         iHYQrjC47xUqKNmPxm1xqeXN8/D9l3LTqTR6M3HWLgXUhpURq0hxpbCjbgx9+1Ytb5C2
-         3Dn8c+o9CKs+zBTPIBq5g4FoDyNquul6m4SBOvrHGvm7OqyyQTEuVNIuT0XD+sVyC9Ur
-         OBuqEF1WOMU3d7S62teLiALBh1sfC+Q9JteRQxNxeuLkWyAkA2R1qwzHXjOAzy3s2oce
-         xNUA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr4F/vZCt99GdxCPWitlrb3B4+HEcktNbra/LFJ1JJuz8uMsTQpTC17bLvVxxnTYhI3NESsyrQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnbHnYuBJYRFDLxs5oOKEDgQD3emb7J6t8r0tVKTpVlPFr1fYc
-	jnYy6a27pKOYSZx59PIYUPa/h5RfoTOZbj13qykupnsnsv0T0FZXf2+u
-X-Gm-Gg: AR+sD122Dz+sZc9+dDkkYe7t4Nx+U8W3S0GiFzSILIfJdpQTnRhGeW9ZV8HKs8BOrAU
-	CHk9OjEH/tipkY1tZdE/ZvMI49+CGj5MFwfEUvOixCAO3JoebjnHVsCywVwEtLz7z8ZP9MYkt0S
-	zwKAl3TvZVbXkhlUEjSGp2tMSVfDgeCEEjPl3fOVEEe5YrOkrcNMgnYx09iR/JFEQUuxzNyllx7
-	CIYw1zpalRoyv+qdCRrqHET4MxOgFYq+XVnVNZNe3JayEjYldWRGrnP5RwdxmJ4kkJAjZF/ZxZC
-	EpRvMJxkZcizCqD07J9VJvpXnuu4WPDsZKwlL2XhzlwdKdsSu+AV+x/VRCEYRHHi4RW+oA3NCuI
-	G3nYo8q+hKBt5rdTMliW+PzrLzf31Dx7K9mx3ozTKKcbTTM3oaWFx9Ihrrw/8r7/1YH6GlDcXOq
-	dYKeeyIGpS8CRzcs2Yf2czBZHJAEQpKnsHnO3Hrkw2OTuwhEY6NnJNfDX4t89ZK8tza77wOboTr
-	GQmYUR9c235qBBbE8fqmZ0CNUBiMEr/3xM8jCpYOsYbUMbLxNxcOt5BKQsdnUn7w8kXJeLfYkvb
-	uLjMujKIZHNcQX+nvxd/zbtSnC55rWAkrqJiR7puyekhcN0zJ68/3FpQl9+9Uy18nGox
-X-Received: by 2002:a05:6000:310f:b0:47f:775b:f5dc with SMTP id ffacd0b85a97d-47fd32e1c76mr5907524f8f.19.1785521123140;
-        Fri, 31 Jul 2026 11:05:23 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a8d0-bc01-6d31-3d12-3a11-d2d0.310.pool.telefonica.de. [2a02:3100:a8d0:bc01:6d31:3d12:3a11:d2d0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd456a6besm7094559f8f.22.2026.07.31.11.05.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 31 Jul 2026 11:05:22 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 5/5] serial: imx: serialize imx_uart_ports[] lifetime
-Date: Fri, 31 Jul 2026 20:05:19 +0200
-Message-Id: <20260731180519.10988-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20251104; t=1785521162; x=1786125962;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Be92gGmY7KrSGIMznvcDGv4P9viWnD9BIV+7S2IaULc=;
+        b=nfIcPlLUuZvnM/FI24eQDO/BXG93k2r3+B8Ru+XOdXWDKE6ePWust04/+8aqyllRQv
+         QX8u3pEAUDo6jy7DrUsbFOIBAi9PSucyVSWw09NsI4pnqcRddUi2FF0CN+TXP64NykHa
+         s0vzGHnOoWgsv+o5cK1HYMTd9mEccG8ekotS7RT88bs4AbMRcBmbriZ6OBpE9E9zygHR
+         KJTzYHTC5Z87B+Bqzp5UOq8WYKO850AfX6ZPUJfRQN7NKkg28d/kPYbztwLZgEa2Jzvt
+         NLALcTn97q2VS3/WYE4vAZcA1b/dSyUEI8M9yosWWC+WiLF6W84RgM9oYBvp3TbXhUcY
+         LbCg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp6Q6nEmFb0N76xoOV/D6JmPpTQw/eKSYjSPGT1XDE8dhWIxayh6+hPYEbtUbBzWPmWX+GAz/k=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwRRl/t690zP1lZhOlupHNQDheVpxdhxRgmDxhunlXO1zBZOwuX
+	tt1rk0wBEN0OZm9x/WOhs2W7/kHnb7ucnXFSN7q8SRkjo/+2v6viPu6Gc95PzZyLuRGbpc6IJDz
+	5ftXb2qZ5XugkGbuLpkzE1fLe+vh5NyvkGHh5
+X-Gm-Gg: AR+sD104hW41QVQ0gyBSgSHQ7Vv61FWsT6eIUTlbykVJkG1SXKSsspdBQNS1x7GfI4W
+	bGLgTFChcvFUOJZ417RDSxmqYEU8klSURu++4qwK1dYtcMM0gKizSGjJKQyWB+KHzLv1WxSFYLH
+	JKfPL4Zv0LDVRq4y+0IsP4kNksBoBFy/4qV/NbAaBrZywWKGj9Wi6UDk2n+DQ6j6na9zi9zBWxZ
+	r/K4m8yTIJmZxiogUZuzHSH5nlbtd7s5jL0pceM+WCSxYgi4VJl5FoQDI5k6h8qGkd0jKpuew05
+	bKtRzsPKrvaU9p9Jfgjs0r6nJakjT4sp1i0Oi639dZTV0iO5kFLhdZDdWtv4zImdSSGGtmJ0VTF
+	L0x3PMVk169+06kdgQIg5GgXX0YKTiYfz
+X-Received: by 2002:a05:690e:4851:b0:667:c7ba:99ee with SMTP id
+ 956f58d0204a3-6694efe2747mr922756d50.2.1785521161655; Fri, 31 Jul 2026
+ 11:06:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260730161820.11631-1-acharyalaxman8848@gmail.com>
+In-Reply-To: <20260730161820.11631-1-acharyalaxman8848@gmail.com>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Fri, 31 Jul 2026 14:05:50 -0400
+X-Gm-Features: AUfX_mzEFRNqbfRb9bkSDwPElPkYkV4Dq0BpSLwrwXx6XC8tKKsLy43fDAdEeHc
+Message-ID: <CABBYNZ+odi_ncMBjTTcrix9_sOMpa+d7_pNWuH6ePkQVmRwiuw@mail.gmail.com>
+Subject: Re: [PATCH] Bluetooth: btusb: validate QCA rampatch size
+To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-imx_uart_probe() publishes its devm-allocated port in imx_uart_ports[]
-before uart_add_one_port() because console setup uses the table. The entry
-is not cleared when adding the port fails or after removal, leaving a
-dangling pointer.
+Hi Laxman,
 
-A sibling probe can register the shared console through that stale entry.
-This was reproduced under KASAN on QEMU mcimx6ul-evk by unbinding a
-sibling UART, unbinding the console UART and rebinding the sibling.
+On Thu, Jul 30, 2026 at 12:18=E2=80=AFPM Laxman Acharya Padhya
+<acharyalaxman8848@gmail.com> wrote:
+>
+> btusb_setup_qca_load_rampatch() reads the rampatch version structure at
+> fw->data + info->ver_offset. A truncated rampatch can therefore make the
+> driver read beyond the firmware buffer while parsing the version fields.
+>
+> The download path also expects the complete device-specific rampatch
+> header. Reject files too short to contain both the header and version
+> structure before accessing either.
+>
+> Fixes: 3267c884cefa ("Bluetooth: btusb: Add support for QCA ROME chipset =
+family")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+> ---
+>  drivers/bluetooth/btusb.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>
+> diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+> index 8f7ed469cac..9801835d7c7 100644
+> --- a/drivers/bluetooth/btusb.c
+> +++ b/drivers/bluetooth/btusb.c
+> @@ -3526,6 +3526,7 @@ static int btusb_setup_qca_load_rampatch(struct hci=
+_dev *hdev,
+>         struct qca_rampatch_version *rver;
+>         const struct firmware *fw;
+>         const char *fw_subdir;
+> +       size_t min_size;
+>         u32 ver_rom, ver_patch, rver_rom;
+>         u16 rver_rom_low, rver_rom_high, rver_patch;
+>         char fwname[80];
+> @@ -3551,6 +3552,15 @@ static int btusb_setup_qca_load_rampatch(struct hc=
+i_dev *hdev,
+>
+>         bt_dev_info(hdev, "using rampatch file: %s", fwname);
+>
+> +       min_size =3D max_t(size_t, info->rampatch_hdr,
+> +                        info->ver_offset + sizeof(*rver));
+> +       if (fw->size < min_size) {
+> +               bt_dev_err(hdev, "rampatch file is truncated (%zu < %zu)"=
+,
+> +                          fw->size, min_size);
+> +               err =3D -EINVAL;
+> +               goto done;
+> +       }
 
-Keep the entry valid through uart_remove_one_port(), then clear it. Protect
-port addition and removal together with their table updates so sibling
-operations cannot interleave. Reject an occupied slot rather than
-clobbering an active port during a duplicate-line probe.
+Has Qualcomm engineers verified that this is the correct way to check
+the image size?
 
-Fixes: dbff4e9ea2e8 ("IMX UART: remove statically initialized tables")
-Fixes: 9f322ad064f9 ("imx: serial: handle initialisation failure correctly")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/20260719162850.043B41F000E9@smtp.kernel.org
-Link: https://lore.kernel.org/all/20260719222501.CB4CB1F000E9@smtp.kernel.org
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Backport note: the removal fix is self-contained. Complete probe-failure
-coverage also requires patch 1. With patch 1, all fallible allocations
-precede console registration, so rollback can safely clear the table.
-Without it, a late allocation failure (only reachable with fault
-injection) can leave the console registered after imx_uart_ports[] is
-cleared, turning the pre-existing use-after-free into a NULL
-dereference.
+>         rver =3D (struct qca_rampatch_version *)(fw->data + info->ver_off=
+set);
+>         rver_rom_low =3D le16_to_cpu(rver->rom_version_low);
+>         rver_patch =3D le16_to_cpu(rver->patch_version);
+> --
+> 2.51.2
+>
 
- drivers/tty/serial/imx.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/tty/serial/imx.c b/drivers/tty/serial/imx.c
-index 251a50c8aa38..b0f34a6e7d4f 100644
---- a/drivers/tty/serial/imx.c
-+++ b/drivers/tty/serial/imx.c
-@@ -22,6 +22,7 @@
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/ktime.h>
-+#include <linux/mutex.h>
- #include <linux/pinctrl/consumer.h>
- #include <linux/rational.h>
- #include <linux/slab.h>
-@@ -2080,6 +2081,9 @@ static const struct uart_ops imx_uart_pops = {
- 
- static struct imx_port *imx_uart_ports[UART_NR];
- 
-+/* Held across uart_add/remove_one_port(); console callbacks must not take it. */
-+static DEFINE_MUTEX(imx_uart_ports_lock);
-+
- #if IS_ENABLED(CONFIG_SERIAL_IMX_CONSOLE)
- static void imx_uart_console_putchar(struct uart_port *port, unsigned char ch)
- {
-@@ -2632,11 +2636,19 @@ static int imx_uart_probe(struct platform_device *pdev)
- 		}
- 	}
- 
--	imx_uart_ports[sport->port.line] = sport;
--
- 	platform_set_drvdata(pdev, sport);
- 
--	ret = uart_add_one_port(&imx_uart_uart_driver, &sport->port);
-+	scoped_guard(mutex, &imx_uart_ports_lock) {
-+		if (imx_uart_ports[sport->port.line]) {
-+			ret = -EBUSY;
-+		} else {
-+			imx_uart_ports[sport->port.line] = sport;
-+			ret = uart_add_one_port(&imx_uart_uart_driver,
-+						&sport->port);
-+			if (ret)
-+				imx_uart_ports[sport->port.line] = NULL;
-+		}
-+	}
- 
- err_clk:
- 	clk_disable_unprepare(sport->clk_ipg);
-@@ -2648,7 +2660,9 @@ static void imx_uart_remove(struct platform_device *pdev)
- {
- 	struct imx_port *sport = platform_get_drvdata(pdev);
- 
-+	guard(mutex)(&imx_uart_ports_lock);
- 	uart_remove_one_port(&imx_uart_uart_driver, &sport->port);
-+	imx_uart_ports[sport->port.line] = NULL;
- }
- 
- static void imx_uart_restore_context(struct imx_port *sport)
--- 
-2.53.0
+--=20
+Luiz Augusto von Dentz
