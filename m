@@ -1,103 +1,177 @@
-Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DD26840242B;
-	Fri, 31 Jul 2026 14:59:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC2A3033DE
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 15:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785509947; cv=none; b=hSRTWWiyXxsrg4BXHe8EqEJOFHickEoXRWVp/vd0VEDK5GcXIoajgzT3uQOGC9zaEr4TpN3X1AoQMpfdWLxFfvm9eRoU4iga4eKRgW2C7Tj1bXH+iuL5TF35xRuTpF5IgPJsB6X5vZj1otY0ERqGthklM2qccezWsLdgHs2tn98=
+	t=1785510262; cv=none; b=OLz+nzNzfwQdnKhgCJg/rZnw2q2IjMBC/tFJy/zzcjoH9JvaISXR2laRQ1J1PjIS7RpIqHyp+Jsnb/tGbruuVSrFg8VohD3+LpJ/6PuV4zAJqbZTdP6HgAEWq5YY99TXu0aIoIBaBGM/xLXDVFWkk2Zrm2QjIcrsbQYiQO88nPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785509947; c=relaxed/simple;
-	bh=wHUAmpND+DI3KmeIldKd2YsRDR99VNDRNYR7EzHamuY=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=QcfWl3VKrIPRtIH6L/NOgIPf7AhdGrCF7+YHDDzkF9pn/2KIZlrE5AUBH+RghlAy544ziJZd3I8N6WCMD9pwHBbe2Hj2Ugnqf9hJiuC0mAKhZ3qUlT3UIBoWIDxQG+DD8oqvY4+J76ufOIU+9KGRjJZngZSSGc6lGWKTmqVuz8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=XA/UA8Zh; arc=none smtp.client-ip=206.189.79.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	s=arc-20240116; t=1785510262; c=relaxed/simple;
+	bh=q1fh/keGRb0rUQ2V7wrR3sseekkTV0gu3GnoA5qUImI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OQkoNUYWlF5wKqRNLNK1DJ4HGMrjpB1aLuWszLAd4auSeXGun+6KwC6lqYuiogHGO7LIREew9tnqtfiabRTEHifarwx08ZI/IA2oWHrpCNuMAwlKaN0kRTSNnLBRQpD2unqW4S1uh/sBhrkxUOyCuDctKCHgYkaJPUYOqgVdJO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=OlLhUD2T; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=DS9GD9dF; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=CojPctaD; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=6CQnmH5/; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="XA/UA8Zh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:Content-Type:
-	Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	Content-Transfer-Encoding:Message-Id:References:To; bh=wHUAmpND+
-	DI3KmeIldKd2YsRDR99VNDRNYR7EzHamuY=; b=XA/UA8ZhTbrGoX46bRTCaQnJU
-	pK2TZHHenRKblAHBd0sZOPl/yDGvHbR/4uD0e7zPC7vd9X8iuUEI63jx4lo4/Gfl
-	dDGXyoXDh45UUE6jSjxoU4O0nB4u1UJYdcLPrYBiPLf3fI6miGG4tg1aUY7Sh5NM
-	g+XbwryPmGm84NvMb4=
-Received: from smtpclient.apple (unknown [106.111.19.240])
-	by web1 (Coremail) with SMTP id yAQGZQB3F8cquGxq8yHfAA--.53903S2;
-	Fri, 31 Jul 2026 22:58:51 +0800 (CST)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="OlLhUD2T";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="DS9GD9dF";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="CojPctaD";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="6CQnmH5/"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 397807E000;
+	Fri, 31 Jul 2026 15:04:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785510254;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OCZEVWcHK4q2iP3rbeswNSAVfSgOnkHk2+3mjsHlu54=;
+	b=OlLhUD2TTHPsleuAnxbDKfHuyiXRKMUWkYtlBB78ZNIWmVezqlbkIyMVpM7q498IoaDq5V
+	kErz7GNwey4z2Cp+Yeh5LlWNhg0pl3GU2Mg2alDN3ctAeU+3/X56t4ja4/+lO0g/vB3bmw
+	JoeiQLexYjBIp9/1SjZcW4p8Pgbfqwk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785510254;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OCZEVWcHK4q2iP3rbeswNSAVfSgOnkHk2+3mjsHlu54=;
+	b=DS9GD9dF4H72/MKNbMEE2IT+f+9augQjs8ycmTn4pdEvxN47Tr/MkeEt1NHEQ6L5lQiJ4v
+	5zsl7vpRlKExDVDA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=CojPctaD;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="6CQnmH5/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785510250;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OCZEVWcHK4q2iP3rbeswNSAVfSgOnkHk2+3mjsHlu54=;
+	b=CojPctaDLwdQFjg4t6JI8W5/NaLlBlEhv2wOO0gUrmk9r+4dkuw5iu1tt50QY4oMtfZElR
+	/jHNv/D5cIkgjXKk3WnhpPf+pNVZxUydxXXa3Kdz7+J2BDyHC3UHSJUu32rzN5pNHKeRQV
+	gcJbv6LOXgbWa0LchpS3XZ3d0p7Ps9U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785510250;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OCZEVWcHK4q2iP3rbeswNSAVfSgOnkHk2+3mjsHlu54=;
+	b=6CQnmH5/f7L0CURm3uzy/MBU0gY7tFXGF9yHEHV3dP0GY5dWsno0lyCiCXPFyd/tftN52J
+	NTRJpIkhoHu0gbDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 26434779B0;
+	Fri, 31 Jul 2026 15:04:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 5lskCWq5bGpWIgAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Fri, 31 Jul 2026 15:04:10 +0000
+Date: Fri, 31 Jul 2026 17:04:08 +0200
+From: David Sterba <dsterba@suse.cz>
+To: Filipe Manana <fdmanana@kernel.org>
+Cc: Breno Leitao <leitao@debian.org>, Chris Mason <clm@fb.com>,
+	David Sterba <dsterba@suse.com>, Omar Sandoval <osandov@fb.com>,
+	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	jlayton@kernel.org, boris@bur.io, kernel-team@meta.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] btrfs: fix extent changeset leak in encoded writes
+Message-ID: <20260731150408.GW10684@twin.jikos.cz>
+Reply-To: dsterba@suse.cz
+References: <20260731-btrfs_kmemleak-v1-1-9600453eef4e@debian.org>
+ <CAL3q7H5P6XngF7O8Pfp_WawazCeq26V+=G7OQnnNLsnD4EbZDA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH nf] netfilter: conntrack: sctp: verify vtag before state
- changes
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-In-Reply-To: <amx58O5Jb6B29XDJ@chamomile>
-Date: Fri, 31 Jul 2026 22:58:40 +0800
-Cc: netfilter-devel@vger.kernel.org,
- Florian Westphal <fw@strlen.de>,
- Phil Sutter <phil@nwl.cc>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>,
- coreteam@netfilter.org,
- netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
- Ao Wang <wangao@seu.edu.cn>,
- Xuewei Feng <fengxw06@126.com>,
- Qi Li <qli01@tsinghua.edu.cn>,
- Ke Xu <xuke@tsinghua.edu.cn>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <D67DAA07-B087-4BE9-8446-A746FC21EF01@mails.tsinghua.edu.cn>
-References: <20260728073507.30635-1-zhaoyz24@mails.tsinghua.edu.cn>
- <amkCbQ1UDRKcZBez@chamomile>
- <AD2FFF7F-7EC3-4205-BB44-508B31BC2620@mails.tsinghua.edu.cn>
- <amx58O5Jb6B29XDJ@chamomile>
-To: Pablo Neira Ayuso <pablo@netfilter.org>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
-X-CM-TRANSID:yAQGZQB3F8cquGxq8yHfAA--.53903S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYJ7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcV
-	AFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280
-	aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwV
-	AKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6x8ErcxFaVAv8VW8Ww4UJr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrw
-	ACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc2xSY4AK67AK
-	6ry5MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_GrWkJr1UJwCF54CYxVCY1x
-	0262kKe7AKxVW8ZVWrXwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j
-	6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64
-	vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_
-	Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0x
-	vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUIMKuUUUUU
-X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAQEFAWprzrTmFQABsN
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAL3q7H5P6XngF7O8Pfp_WawazCeq26V+=G7OQnnNLsnD4EbZDA@mail.gmail.com>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spamd-Result: default: False [-4.21 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,twin.jikos.cz:mid];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.21
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 397807E000
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 
-Hi Pablo,
+On Fri, Jul 31, 2026 at 12:56:20PM +0100, Filipe Manana wrote:
+> On Fri, Jul 31, 2026 at 12:52 PM Breno Leitao <leitao@debian.org> wrote:
+> >
+> > Investigating some machines with kmemleak, I am constantly seeing
+> > the following memory leak that seems real.
+> >
+> >   kmemleak: unreferenced object 0xffff88869f7d01c0 (size 64):
+> >   kmemleak:   comm "btrfs", pid 1613416, jiffies 4316358595
+> >   kmemleak:   backtrace (crc ab59040a):
+> >   kmemleak:     __kmalloc_cache_noprof
+> >   kmemleak:     qgroup_reserve_data
+> >   kmemleak:     btrfs_qgroup_reserve_data
+> >   kmemleak:     btrfs_do_encoded_write
+> >   kmemleak:     btrfs_do_write_iter
+> >   kmemleak:     btrfs_ioctl_encoded_write
+> >   kmemleak:     btrfs_ioctl
+> >   kmemleak:   ... and 2 more object(s) with the same backtrace
+> >
+> > and
+> >
+> >   kmemleak: unreferenced object 0xffff88830d94edc0 (size 64):
+> >   kmemleak:   comm "btrfs", pid 1613416, jiffies 4316358595
+> > <snip>
+> >   kmemleak:   ... and 2 more object(s) with the same backtrace
+> >
+> > Looking at the code, it seems we don't free data_reserved, but
+> > we should (!?). I was able to come up with a xfstest test that exposes
+> > the kmemleak above:
+> >
+> > https://github.com/leitao/xfstest/commit/81c83a3fbb20b4ad695055ede7fcb73d3ffa2e52
+> >
+> > Free the changeset on the way out, as every other caller of
+> > btrfs_qgroup_reserve_data() already does.
+> >
+> > Fixes: 7c0c7269f7b5 ("btrfs: add BTRFS_IOC_ENCODED_WRITE")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Breno Leitao <leitao@debian.org>
+> 
+> This is already fixed here:
+> 
+> https://lore.kernel.org/linux-btrfs/20260727115352.12622-1-dmantipov@yandex.ru/
 
-> On Jul 31, 2026, at 18:33, Pablo Neira Ayuso <pablo@netfilter.org> =
-wrote:
->=20
-> Yes, repurpose this patch to nf-next without Fixes tag and stable for =
-review.
->=20
-> Thanks.
-
-Thank you for your suggestion.
-
-We have posted an nf-next patch at =
-https://lore.kernel.org/netfilter-devel/20260731145342.56890-1-zhaoyz24@ma=
-ils.tsinghua.edu.cn/T/#u
-following your suggestion.
-
-Regards,
-Yizhou
-
-
+Will be sent next week.
