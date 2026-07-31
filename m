@@ -1,88 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA10A2EA754;
-	Fri, 31 Jul 2026 13:49:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB262F12AC
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 13:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785505788; cv=none; b=ru6BNnzoaA78n9gj7VvVbhdO5JYlqThrBfHD1jIOQd7PZMT9inSGwnByis3onW+KGxqqBW5WRTqv140uPWaHn36oKPoGoER76ySQH5M+6XDoJM+3goU3oIKavHaV3kU8kXDIuAOJ5H0e+LmH+lQ2ne6S8ydb15poTX6iGB49rxI=
+	t=1785506047; cv=none; b=lByk/XieVSUZRXW08Lohg45NbE0YEG0569Qjouow56Jd5RUHcTIY1+wuIDFOys7P+3kD/FTsjutUMfjXqYUDMauSwQUJUq6v2gJJN2NrMbfZ3n9VMdDMUln8GTu042cLU9P6XhuIYV8f3cRvJzvBiqy2/Uh6jg8cObFjVaryl/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785505788; c=relaxed/simple;
-	bh=gGYLf1iDG26xIDtAy2i2QMPBNDaw6xLy7oeZTxFn0vg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s1IntrFLCQDFl5c0QB2W9eMZul7Sr6cyE/2cFejNvFj5ZWBannygMI/Dce96lrrlW4ZAT9ssSnjafHdpjyBt1VeZYyeVelq04RR+lAn+KFA0hbjoTAJTiov4WUEpJuW0iEgFfJl+ZBTyYsT5o+3PJb0FxxMEHAuWaFSfm4Ofp0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k4JdnL7I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785506047; c=relaxed/simple;
+	bh=XnSPYg57DRaO+9NQhcdSDefLNSu6VNnPlnWcrN68V94=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X0PY2VcPgHMjvqkW+JE2n9h19Q7EedXh8DgbQ9HkONWKi/F8sHfp2u9QIBmaE5Krgze0mrBL7dArnFUxEeg6EKFhWdG7vFMtX5K6/OrNNdbtyU/6ZaVMcWF9FxsiCYO+mQQISCEIyCFIlhb3KwcDYtzImK/XZD6LNEUGUDR3qLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C/OMwmfL; arc=none smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k4JdnL7I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DF381F000E9;
-	Fri, 31 Jul 2026 13:49:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785505776;
-	bh=hPyNvOCc7kJ7groVIiDn9argQp3j5/TH/GGTGDaTVLQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=k4JdnL7IvPxfzFAeJargDvUzyGpnzvEaN4RYJHaCLGJOOnrApIu0R+YlMwIKLr8x6
-	 c4nt0i7FVo0JGZNIbjfd+vWo2XmqYrcHxOoVKv/MXcYOep0ktWchFb8/LLTu5x5JFm
-	 4dzIHQdDX11crS26Dg44lZmOApjDGlh4rYPacRsA6VJJE+2Nkfv5LXXuQDITb2QpzA
-	 IsiVe8X7CP4ZDfIdp4GMP4JGN/xMQu4vjyvf1rpveP9AJNmd7V4wx2YT6Fz1QXpNrs
-	 AWMrcOHCron4oJZWkhrtTJICbw12diuubEPhJ5OdOngXCQY5bsN7B74XF/RAunt5yA
-	 +sMXG5qqnG02g==
-Message-ID: <79e35eae-5977-4da4-a0d8-4491b823a49f@kernel.org>
-Date: Fri, 31 Jul 2026 08:49:35 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C/OMwmfL"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c15e2dab83eso147031566b.1
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 06:54:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785506044; x=1786110844; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q07s+fTeCEbc39agdRyb/qs2zGQJBvKVPPRteZKniHY=;
+        b=C/OMwmfLeTNvCjkzJjWg2+i+8Qre6Xfz4wCLaYmw3GFF6o3BGnZYi6dNok3LjGNZ8h
+         HrsENKtARG3q/i8mMh+WvaJoYXnvZob28BmVIggaILbj+Ow6ySZShXXyQMuDknOYBxM9
+         EK46V1KHO9DWacVjeVXPbUIOaGdDpnBLsWV+2OFBexYCkU8pDcG6YwrX8PNFnJ2FjC3N
+         +S17i6GJ5DJFei9M5OwJHj2n+WPfOV0t4BdiwPyy0NBOLlosnCVaj8w8DHhk5qGCb5MA
+         0fNuBmQeEYuyHYd0AEV33GRxvpx3VEhZGt/WZaKjLYvoWP/sY5KEDmQxXpXPUNFcKsoN
+         GG/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785506044; x=1786110844;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q07s+fTeCEbc39agdRyb/qs2zGQJBvKVPPRteZKniHY=;
+        b=Dt2a45am8iSDl8Z7cN4vvA87zj9oBrN8iHSWmxP9Qhq9meWDjMXE+jKnqpUoIGd6QV
+         q+rWAEXC0WkYserSOjT1Om6vYEkgxUxlU9Pb1J60lAfi51cBdT1cCllX1g9K1KmBna1T
+         5xcj34vOHruabAs4voOhsrv7Iz0Iv1Vf50d3p8k8QBJsi8T+dRkqdfe6TFRvEG9Jj/mP
+         aA+GrMNS2rqBu0O10TPMgx+eCjx7K+kkl0w2ltWpfRGmyX/igB8c1S8g77C1hr0tQTrf
+         2pnvCqAN1HrJ6uPoFxsxUuM7QTKB1RGenPsT/TzLJryQifM4R16LoielWxHOGcueBWZV
+         T5jQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoBioWp1WOH0IQdbuNwyKylBoln7SJttmMuI9chn9LsSI5yLv8kuPfrZWt+ZkOzPVLuV8mJTvg=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyr0VVo2YSDelO+jL0B0C71fXEN9N42MFi4qqfdDqxbheNopNKk
+	drcH/VGpkplnRqvINdiVO6is7Q+hgH2BtSL/SYy/2gGnk1bxOuOB/hq7
+X-Gm-Gg: AR+sD130HuGVgpqvVrdap+BGZbBN26NdjGAEhITW1gAAtMNEsBbw73FuAoEHf7pny2f
+	3BjydVjfLWeaaZS1Zwb9IHn4mrpsWYG3yjM3XjmNtwrIslpMD5FJwzAhHDET4FY4BPokPs+NKrT
+	DK4kgJubcaDBCvgB4ljeabq4hSgZEysf/ix6LVMq2XI8wyWldYXTQ+1EQi7RrYr+f6Oig3fnGfk
+	hn5abck2I89c8Jlq/TzSWVVIOn+PAn+C8wBm6/2oBMmozlH1g37ggRMSueonOLxnavIqUNWSRmV
+	gJUBQO9zFQ29E8tJ6JooipWB3VYBhU9Bwm/666Rf2iPN3DIG6SbcKzlTUhzQo95kFJ6N5lB0Gcw
+	gO+9IVyogdm6EnmuLWlmstsxDYmK/LQi/DnY9li8HDDJiAWr7DXQVJbZio2oYR1l+E3ghKpaul8
+	ftnT6UGw28JmgWs/Pnbw6COAEq+ykQ2V9XQJlL9ElsCT7kkU2dtKqOyY+hPOa6JTd4eel+u2grB
+	z0ehyIrOHpCi40EPJhkxlJ7uV+agKS0xLLC6Bw3Tq3GDTe/YSvVFSvqbevVosbbhG0/UXYMs3VG
+	EsteOgNRRGsC5a2OlOmA9hXBszRPN/bcjrZNc0ar+T2vIH/e5OJ9a7g8ikgPr1BduURQIgw=
+X-Received: by 2002:a17:906:7945:b0:c19:fb6e:5fec with SMTP id a640c23a62f3a-c1fd23ccb41mr126779466b.18.1785506044262;
+        Fri, 31 Jul 2026 06:54:04 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a8d0-bc01-6d31-3d12-3a11-d2d0.310.pool.telefonica.de. [2a02:3100:a8d0:bc01:6d31:3d12:3a11:d2d0])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fd3ca3b53sm165306966b.24.2026.07.31.06.54.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 06:54:03 -0700 (PDT)
+Date: Fri, 31 Jul 2026 15:54:02 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] serial: imx: serialize imx_uart_ports[] lifetime
+Message-ID: <amynpoQscIXD0fu8@gmail.com>
+References: <20260719221014.44354-1-kmehltretter@gmail.com>
+ <20260719221014.44354-5-kmehltretter@gmail.com>
+ <2026073011-crock-utmost-6392@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/10] EDAC/altera: Fix NULL of_node dereference
- altr_edac_device_probe()
-Content-Language: en-US
-To: Borislav Petkov <bp@alien8.de>
-Cc: tony.luck@intel.com, rounakdas2025@gmail.com,
- niravkumar.l.rabara@altera.com, linux-edac@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260727132416.807230-1-dinguyen@kernel.org>
- <20260727132416.807230-2-dinguyen@kernel.org>
- <20260728185638.GAamj7ZjiuriHIBjTw@fat_crate.local>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <20260728185638.GAamj7ZjiuriHIBjTw@fat_crate.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026073011-crock-utmost-6392@gregkh>
 
-
-
-On 7/28/26 13:56, Borislav Petkov wrote:
-> On Mon, Jul 27, 2026 at 08:24:07AM -0500, Dinh Nguyen wrote:
->> In altr_edac_device_probe() dereferenced pdev->dev.of_node and
->> of_match_node() before validating it,
+On Thu, Jul 30, 2026 at 04:31:51PM +0100, Greg Kroah-Hartman wrote:
+> >  
+> > +	mutex_lock(&imx_uart_ports_lock);
 > 
-> How did that AI let you fumble that sentence? :-P
-
-sorry about that...
-
+> guard()?
 > 
->> which could cause a NULL pointer
->> dereference when the device tree node is missing. Check the result for
->> a NULL and bail out with -ENODEV before using it.
->>
->> Assisted-by: Cursor:claude-4.8-opus
->> Fixes: c3eea1942a16 ("EDAC, altera: Add Altera L2 cache and OCRAM support")
->> Closes: https://sashiko.dev/#/patchset/20260719211238.589402-1-rosenp%40gmail.com
-> 
-> So the AI review for this one here is this one, I think:
-> 
-> "This isn't a bug introduced by this patch, but can np be NULL here if the
-> driver is bound via sysfs?
-> If a privileged user unbinds and rebinds the driver via sysfs to a platform
-> device that lacks an of_node, pdev->dev.of_node will be NULL, which would
-> cause an unconditional dereference when accessing np->name."
-> 
-> Can that happen?
 
-I don't think this can ever happen. The SoCFPGA platform is strictly OF 
-enabled, so not having an of_node would be impossible.
+I'll use guards for v3.
 
-Let me rework this down some more. Sorry for the noise!
+> > +	unsigned int line = sport->port.line;
+> 
+> Why are you reading this outside of the lock?
+> 
 
-Dinh
+Good question. The local variable is unnecessary. I'll remove it.
+
+Thanks,
+Karl
