@@ -1,70 +1,86 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9235F3EB10F;
-	Fri, 31 Jul 2026 12:16:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0333F1AC4
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 12:27:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785500167; cv=none; b=Co/PpmIwLduwXIr+h2BcFV4h62QzfYRMv1joVpvI9X1ED7POncPvxCcf01BtKUmTK3XlrrrnQRXNbnetySvAlpBpQEBFOrYUhOWUOP1Cy927qED5j8L+l5wpBToBYeJbmwH8JBfPhktGOVWNhAVdMN7FbNfRzvVFfM4vjWLQkJI=
+	t=1785500860; cv=none; b=u0Un70XbdT5Ggjd6PcDMOdujeyte4zRac2w/0czjgde/p3iPD1n7/26X3VfVdaRaFKeoS3QWRr3QAgavncPPmnZbCmo1a4TInXtDJaZKrf3NvEQSMQ/f2bkvfnzeIFmRcW7rdjp+ZV2b4D0fM7UY2yijBbxKGcAVvjSpG3CSNso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785500167; c=relaxed/simple;
-	bh=UZ/Sln7YYeVyoGMNPMtP4Lomz1r5uacMZnllJTsyPsI=;
+	s=arc-20240116; t=1785500860; c=relaxed/simple;
+	bh=pOXK61Xg0LJX4PGsNaRRZoqjM+ptyrjJuzlThvXZoTI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lb7ctk/rSOTjo2bh+Sv1gycTmjctgu6e3Hw4+ezcaSsBMoFRofXjQwrIUE/IIBLsT1Gn3ejSdp10CD0R7LZ2WMadmxmZ3qBsJ7p5wTPCykJEBXfeBRRsAXYWE5IAeeNz0QL8mIT+/LrYPdXPunKHUQ7IP0Y7rugpo89onJMk9Oo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Gn/bsPY0; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=V8Yr9ywZfPjXwv4Rm3AdMLOiW5zjK1fEz96eGwnkibiokMbozAbrB/cUfy9tNcWp0Z1tEbf1+smM7USoy1l57xXYjkdjvibeiMDycJmKZE519ydFhMdY/Fovjz/yXf2mfcsrjpJTlCzicACVFHsYLJ//IjRLup1EVxiwcxsx22k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=2vyzOOTB; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=PlXJ69cV; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=FS22OlYI; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=vKGikB6t; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Gn/bsPY0"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VBm3PW1766156;
-	Fri, 31 Jul 2026 12:15:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=/87/IHsO3lCniDuKp/DLkggwQfj3jV
-	AVmfXdYpPtzFc=; b=Gn/bsPY0ovYFMUw3VVaoZqRCa0EQTjyuEIVSwcj4L58/tg
-	XesYGSK6SiqNLEnEcCIo4e/mF2FeqbWgqYtpqZWfAApNXRImFosOU1myM5y+jwV4
-	JRk3A67OPPUy9AFrzyIKR2h4zLSGHGIGKHl3lfKV+TgQymV6AUiyBtLUydIqYU1m
-	Wx1KpXW3TI1s65+H3NK5h1KlpKb7BbZ97gozhp7lUF0YYaToZAtTflaTyW7Gw+m+
-	fD0NppEdH1HAFaTUI+JpJCFsrpogQYV6W373D7Hz5Q0OKeYGBzuwB3JqgGjJoz0z
-	mKKLkxDs5WYcE5SlBrQ61+c5SXtBYQdrNei9h+6g==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmv0y4xyn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 31 Jul 2026 12:15:44 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66VCBIGM004182;
-	Fri, 31 Jul 2026 12:15:43 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fna5yfhqc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 31 Jul 2026 12:15:43 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66VCFfDZ50659690
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 31 Jul 2026 12:15:42 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D422520040;
-	Fri, 31 Jul 2026 12:15:41 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AD0B220043;
-	Fri, 31 Jul 2026 12:15:38 +0000 (GMT)
-Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.124.209.143])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri, 31 Jul 2026 12:15:38 +0000 (GMT)
-Date: Fri, 31 Jul 2026 17:45:36 +0530
-From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: linux-ext4@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>,
-        Andreas Dilger <adilger.kernel@dilger.ca>,
-        Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
-        Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
-        Ira Weiny <iweiny@kernel.org>, linux-fscrypt@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Disha Goel <disgoel@linux.ibm.com>,
-        stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: don't enable DAX on new encrypted files
-Message-ID: <amyR6P_-WWTTEaup@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
-References: <20260730175212.36923-1-ebiggers@kernel.org>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="2vyzOOTB";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="PlXJ69cV";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="FS22OlYI";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="vKGikB6t"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 3DAEB4096;
+	Fri, 31 Jul 2026 12:27:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785500852; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TeSSD6iVeW9hQPqJ+MYjmsMx/vPG1MgRBQKXQQVnpdk=;
+	b=2vyzOOTBpXf8cKZhLNvqbcFmlqdL2ZNESxu1t1eC6Qx6mdbM7TJW4VOSV9seV5lNQrvezz
+	OllHZM47irBK+4ImNB9Ab63uiKDUYS0zsMksYviSrjhaJZOQmYea4+cEsbdvc/+xOYxvHQ
+	Yfmv1vnI61bEhh//yX/Caq1QbsJeD84=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785500852;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TeSSD6iVeW9hQPqJ+MYjmsMx/vPG1MgRBQKXQQVnpdk=;
+	b=PlXJ69cVQ/wX8TJ/Q2uiEUmiQ4C3oZCeU19vrmRX3T2kvfxUt5q93P3/ZLowJaFWc+dEcr
+	/B73g8pjiE6WyCCw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785500848; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TeSSD6iVeW9hQPqJ+MYjmsMx/vPG1MgRBQKXQQVnpdk=;
+	b=FS22OlYIIxIL3yKvGGUPdgd8Q4VJcyWLxOO7fW/+CywX9BPEKqPoyv+d9pxU0QZ7726cF2
+	cfAuR+HYl+P5MR0A0RsXLabx8S7BMbKcvsa6j59TOxevMGFtBJG+8F5ZespdXe27f3j42F
+	pMQAaClv2yQCJmD7eC2XrPtxeeCkHXw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785500848;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TeSSD6iVeW9hQPqJ+MYjmsMx/vPG1MgRBQKXQQVnpdk=;
+	b=vKGikB6tCGx+NqcdOIaeMC17WRduzXx+pnl+kiC/JtktGqXiBIIA34gYB22vHcZECu3ErV
+	ylZrJ84XF68SlyCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 352B3779B0;
+	Fri, 31 Jul 2026 12:27:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id XZ/6DLCUbGqfBgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 31 Jul 2026 12:27:28 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id D6498A13A4; Fri, 31 Jul 2026 14:27:27 +0200 (CEST)
+Date: Fri, 31 Jul 2026 14:27:27 +0200
+From: Jan Kara <jack@suse.cz>
+To: Youngjae Kwon <yjkwon0026@snu.ac.kr>
+Cc: Jan Kara <jack@suse.cz>, Amir Goldstein <amir73il@gmail.com>, 
+	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] fsnotify: Fix stale object mask after concurrent mark
+ updates
+Message-ID: <yxm3q5glchsjgr3pudmcy2vtn3umneardtcnvbuxyfn4oaiuqq@77aualjjutwn>
+References: <CACwKKmCZdiZDoFuYm6LZhQ=XvHPk0fNKH=X3LmoXMqakYqJaNw@mail.gmail.com>
+ <20260730152241.444632-1-yjkwon0026@snu.ac.kr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,180 +89,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260730175212.36923-1-ebiggers@kernel.org>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: bccxDvmbbCb-mKgYT23BOSSyFOxDXzJB
-X-Proofpoint-ORIG-GUID: Ot_mZbCNqSbCXoOm5AaZzsZw9FrqX67p
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDA5MCBTYWx0ZWRfX3N6ybJvhltjk
- ZI2wdTtDI5uQHN2auZKUC8d9M+/uvrLn735JTo+7KXdPfZYF5mArslIHKI+4Rw6XNAXFcaa4F1F
- 7aLdajaIhgJbpO/5OmWzBRXsEge1eDQ=
-X-Authority-Analysis: v=2.4 cv=dYuwG3Xe c=1 sm=1 tr=0 ts=6a6c91f1 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=YVDjClEEQ8ZDZGE1TyEA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDA5MCBTYWx0ZWRfXyUqgvVFRdKYA
- d343G5j8wQ83dtQ14sShNsDtdVayxmWF9lRwBFG83OPG2mLEmyOLChdy0GECMATBClmm5lPEy2A
- SXACKUkXdYcI3ODhMKefFB1jPO6okYqEvgGBz9YtKTFeXhsNbV5mInWv9tA3w+59B5ggeGOJrMX
- 3b5U7BG3dl6sMtIB/re9tLJvE10DPVqo+QQW/rfXT1XyrCyiweIfKb8M76S15k6Th48Dxa/rPKN
- bxShmq7U2Me1pHbH1A552Mxsk54lW5S17biCtZquj52BDyje8R536eiucl2xK6e2Cv3JIXy6y4y
- b7eOEECwjbviMklGOfyRdlGa/q9ibGstQ7DJjNG2xtnYeFdOokdCkBnN3KMtbxBc9X+AM227YXW
- IOqpzpEHDqi4/qFFc+ScMv5S1IXdmBy6SXnd7q3qoWPX/t/JlID90GVPjezQvZQICYl+yhJgFNq
- z2Tc/1ROnJFWNdSvaRg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_04,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 clxscore=1011 phishscore=0 malwarescore=0
- spamscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310090
+In-Reply-To: <20260730152241.444632-1-yjkwon0026@snu.ac.kr>
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.cz,gmail.com,vger.kernel.org];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Flag: NO
+X-Spam-Score: -3.80
+X-Spam-Level: 
 
-On Thu, Jul 30, 2026 at 10:52:12AM -0700, Eric Biggers wrote:
-> Currently, when a new encrypted regular file is created, the call to
-> ext4_set_inode_flags(inode, init=true) in __ext4_new_inode() is made
-> before EXT4_INODE_ENCRYPT is set.  As a result, it can set S_DAX if the
-> filesystem is mounted with "-o dax=always".
+On Fri 31-07-26 00:22:41, Youngjae Kwon wrote:
+> When a mark gets a new event bit, fanotify and inotify avoid recalculating
+> the object mask if the cached aggregate already contains that bit. This is
+> racy with a recalculation triggered by a concurrent update to another mark
+> on the same connector.
 > 
-> EXT4_INODE_ENCRYPT then actually gets set a bit later in
-> __ext4_new_inode(), when it calls fscrypt_set_context() which calls
-> ext4_set_context().  ext4_set_context() sets EXT4_INODE_ENCRYPT and
-> calls ext4_set_inode_flags(inode, init=false) to set S_ENCRYPTED too.
+> The concurrent scan can read the mark before the new bit is added, while
+> the updater reads the old aggregate before that scan publishes its result.
+> The updater then skips recalculation and the scan publishes a mask without
+> the bit, leaving the object mask stale after both updates complete.
 > 
-> This was intended to clear S_DAX as well.  However, this was broken by
-> commit 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load").  This
-> causes data written to the file to bypass encryption, also causing
-> xfstests failures such as generic/548 (when "-o dax=always" is used).
+> This can be reproduced with two fanotify groups watching the same inode:
+> one thread removes FAN_MODIFY from one existing mark while another thread
+> adds FAN_MODIFY to the other mark. After both fanotify_mark() calls return,
+> writes can fail to produce FAN_MODIFY for the group whose mark now contains
+> the bit. This was reproduced on an unmodified v6.12.95 kernel. The
+> equivalent inotify interleaving loses IN_MODIFY events.
 > 
-> Fix this by simplifying the flow by making __ext4_new_inode() set
-> EXT4_INODE_ENCRYPT earlier.  This makes it take effect in
-> ext4_set_inode_flags(inode, init=true), making S_DAX never be set.
+> Always request recalculation when an existing mark's calculated mask
+> actually changes. For fanotify, compare fsnotify_calc_mask() before and
+> after normal-mask, ignore-mask, and flag updates. Keep the cached aggregate
+> check for unchanged updates, and keep the flag helper's inode-reference
+> handling.
 > 
-> Similarly, make EXT4_STATE_MAY_INLINE_DATA never be set in the first
-> place on new encrypted inodes.  Then it doesn't need to be cleared.
-> 
-> As a result of these simplifications, ext4_set_context() no longer needs
-> to change inode flags or state when 'handle != NULL'.  Remove that too.
-> 
-> Reported-by: Disha Goel <disgoel@linux.ibm.com>
-> Reported-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-> Closes: https://lore.kernel.org/r/20260723085648.1500357-1-ojaswin@linux.ibm.com
-> Fixes: 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> Link: https://lore.kernel.org/all/CACwKKmCZdiZDoFuYm6LZhQ=XvHPk0fNKH=X3LmoXMqakYqJaNw@mail.gmail.com/
+> Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
+> Fixes: 912ee3946c5e ("fanotify: do not call fanotify_update_object_mask in fanotify_add_mark")
+> Cc: stable@vger.kernel.org # needs adjustments for <= 7.0
+> Suggested-by: Jan Kara <jack@suse.cz>
+> Signed-off-by: Youngjae Kwon <yjkwon0026@snu.ac.kr>
 
-Hey Eric, looks good and it passes all the failing tests in my dax
-setup.
+Looks mostly good, just one question below:
 
-Feel free to add:
-
-Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-
-Regards,
-ojaswin
-
-> ---
->  fs/ext4/crypto.c | 40 ++++++++++++++++++++--------------------
->  fs/ext4/ialloc.c |  4 ++++
->  2 files changed, 24 insertions(+), 20 deletions(-)
-> 
-> diff --git a/fs/ext4/crypto.c b/fs/ext4/crypto.c
-> index f41f320f4437..3971986de028 100644
-> --- a/fs/ext4/crypto.c
-> +++ b/fs/ext4/crypto.c
-> @@ -144,7 +144,13 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
->  	if (inode->i_ino == EXT4_ROOT_INO)
->  		return -EPERM;
+>  	spin_lock(&fsn_mark->lock);
+> +	old_mask = fsnotify_calc_mask(fsn_mark);
+>  	if (!(fan_flags & FANOTIFY_MARK_IGNORE_BITS))
+>  		fsn_mark->mask |= mask;
+>  	else
+>  		fsn_mark->ignore_mask |= mask;
 >  
-> -	if (WARN_ON_ONCE(IS_DAX(inode) && i_size_read(inode)))
-> +	/*
-> +	 * For new encrypted inodes, S_DAX is never set in the first place.
-> +	 *
-> +	 * For existing inodes, this is called only on empty directories.  ext4
-> +	 * never sets S_DAX on directories.
-> +	 */
-> +	if (WARN_ON_ONCE(IS_DAX(inode)))
->  		return -EINVAL;
+> -	recalc = fsnotify_calc_mask(fsn_mark) &
+> -		~fsnotify_conn_mask(fsn_mark->connector);
+> -
+> -	recalc |= fanotify_mark_update_flags(fsn_mark, fan_flags);
+> +	recalc = fanotify_mark_update_flags(fsn_mark, fan_flags);
+> +	new_mask = fsnotify_calc_mask(fsn_mark);
+> +	recalc |= old_mask != new_mask;
+> +	recalc |= new_mask & ~fsnotify_conn_mask(fsn_mark->connector);
+
+How could this last line ever change anything? If old_mask == new_mask,
+then it would look like a bug that some bit from the new_mask (and thus
+old_mask) isn't already included in the aggregate connector mask?
+
+I can fix this up on commit but I want to understand why you've kept the
+line here just in case I'm missing something...
+
+								Honza
+
+>  	spin_unlock(&fsn_mark->lock);
 >  
->  	if (ext4_test_inode_flag(inode, EXT4_INODE_DAX))
-> @@ -163,6 +169,14 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
->  	 */
+>  	return recalc;
+> diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
+> index ed37491c1..c44f2daa1 100644
+> --- a/fs/notify/inotify/inotify_user.c
+> +++ b/fs/notify/inotify/inotify_user.c
+> @@ -565,17 +565,8 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
+>  	new_mask = fsn_mark->mask;
+>  	spin_unlock(&fsn_mark->lock);
 >  
->  	if (handle) {
-> +		/*
-> +		 * __ext4_new_inode() should have already set the encrypt flag
-> +		 * on the inode and avoided enabling inline data.
-> +		 */
-> +		if (WARN_ON_ONCE(!IS_ENCRYPTED(inode)))
-> +			return -EINVAL;
-> +		if (WARN_ON_ONCE(ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)))
-> +			return -EINVAL;
->  		/*
->  		 * Since the inode is new it is ok to pass the
->  		 * XATTR_CREATE flag. This is necessary to match the
-> @@ -170,21 +184,10 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
->  		 * function with the credits allocated for the new
->  		 * inode.
->  		 */
-> -		res = ext4_xattr_set_handle(handle, inode,
-> -					    EXT4_XATTR_INDEX_ENCRYPTION,
-> -					    EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
-> -					    ctx, len, XATTR_CREATE);
-> -		if (!res) {
-> -			ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
-> -			ext4_clear_inode_state(inode,
-> -					EXT4_STATE_MAY_INLINE_DATA);
-> -			/*
-> -			 * Update inode->i_flags - S_ENCRYPTED will be enabled,
-> -			 * S_DAX may be disabled
-> -			 */
-> -			ext4_set_inode_flags(inode, false);
-> -		}
-> -		return res;
-> +		return ext4_xattr_set_handle(handle, inode,
-> +					     EXT4_XATTR_INDEX_ENCRYPTION,
-> +					     EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
-> +					     ctx, len, XATTR_CREATE);
->  	}
+> -	if (old_mask != new_mask) {
+> -		/* more bits in old than in new? */
+> -		int dropped = (old_mask & ~new_mask);
+> -		/* more bits in this fsn_mark than the inode's mask? */
+> -		int do_inode = (new_mask & ~READ_ONCE(inode->i_fsnotify_mask));
+> -
+> -		/* update the inode with this new fsn_mark */
+> -		if (dropped || do_inode)
+> -			fsnotify_recalc_mask(fsn_mark->connector);
+> -
+> -	}
+> +	if (old_mask != new_mask)
+> +		fsnotify_recalc_mask(fsn_mark->connector);
 >  
->  	res = dquot_initialize(inode);
-> @@ -205,10 +208,7 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
->  				    ctx, len, 0);
->  	if (!res) {
->  		ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
-> -		/*
-> -		 * Update inode->i_flags - S_ENCRYPTED will be enabled,
-> -		 * S_DAX may be disabled
-> -		 */
-> +		/* Update inode->i_flags to set S_ENCRYPTED. */
->  		ext4_set_inode_flags(inode, false);
->  		res = ext4_mark_inode_dirty(handle, inode);
->  		if (res)
-> diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
-> index a40cb27f8116..a5831fc536db 100644
-> --- a/fs/ext4/ialloc.c
-> +++ b/fs/ext4/ialloc.c
-> @@ -997,6 +997,8 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
->  		err = fscrypt_prepare_new_inode(dir, inode, &encrypt);
->  		if (err)
->  			goto out;
-> +		if (encrypt)
-> +			i_flags |= EXT4_ENCRYPT_FL;
->  	}
->  
->  	err = dquot_initialize(inode);
-> @@ -1306,6 +1308,8 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
->  	ei->i_extra_isize = sbi->s_want_extra_isize;
->  	ei->i_inline_off = 0;
->  	if (ext4_has_feature_inline_data(sb) &&
-> +	    /* Encrypted inodes cannot have inline data */
-> +	    !(ei->i_flags & EXT4_ENCRYPT_FL) &&
->  	    (!(ei->i_flags & (EXT4_DAX_FL|EXT4_EA_INODE_FL)) || S_ISDIR(mode)))
->  		ext4_set_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA);
->  	ret = inode;
-> 
-> base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
+>  	/* return the wd */
+>  	ret = i_mark->wd;
 > -- 
-> 2.55.0
-> 
+> 2.50.1
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
