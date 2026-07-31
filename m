@@ -1,48 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E85442FD8
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 15:50:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C9E445ACF;
+	Fri, 31 Jul 2026 15:50:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785513022; cv=none; b=c4s5js8PUJ0vw690raFFDhdoOCqxVxYvojYT2MEBL6h6eOL4Wqm5YMpuIBIxyOXvVH3bY4S6+aZl8vZIPhmJhCt/eOU5LWkltzDzOSXgvD28LyksGkEiJfZL4cjc8VCgCYr/vFSo8qezvzYwFbC8Tosu/2MmFBvxNCmsDv1wA54=
+	t=1785513025; cv=none; b=DM6siXg+UeEXOdkaBoGdxLeF040OCXGuq/8q4O5BUcg7d5SXL7XeOHxstiqlTWqd4sjYqjE57AXm/U3in252oxdl5vx2hdQ7B5/6vinTfAyjh+x/GkGt8uWjIHH1LK+y0+zSC9ElW17j6orZ6TiHc/GYa7khvrxjjNzoZKq2gCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785513022; c=relaxed/simple;
-	bh=Icz/V/RNdQe/nN3jiAy4MNO4uzOONy6Vm+qhQZS5bng=;
+	s=arc-20240116; t=1785513025; c=relaxed/simple;
+	bh=cGe7uAzZ2izPy4VkXsy9WhDtx96gxPjrNMWHdHZQK1E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bCHOFzKRcOi/PHM4QhrMMgMt/eMmDOjm5/XqCyi+Oca3bsa5X+7JNOT813M3DxxHT5Mr2e+TGj+XiFLzPGTMcL4xXCzUBK7y+ab/xFU1ertl5MgLFekla4KILXoGK0BhzQLF9dywi8vpVgW4Wyf1v3DulnkMJSCnLG1yzIg7wpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UpeUb9MY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DA2bVQujoGb0UIlTCjbSBPjoNySHTL9oy60FiRTOvgfrgG+d6VwYqHZ17xvaYNR4t/7XuRsuHi2/8EU+74oc3aZM2m8BlpmoxRa2a8D1HnAkMecR+xPbb22mNfubjmD9WZApgxPtvk/eAPtxOkwkO6wwkiyTeWn7JGbP/l7rmpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RfyAEl6x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UpeUb9MY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B6D1F00A3E;
-	Fri, 31 Jul 2026 15:50:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RfyAEl6x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C97F21F00A3E;
+	Fri, 31 Jul 2026 15:50:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785513019;
-	bh=Q8+1fqF9Xyp+i4+lJl2qXO1cj7PlsHBda3jimi+XPlk=;
+	s=k20260515; t=1785513023;
+	bh=ytqivL4jFHX4nTrfGKiLg4ZD46ph+c7BxWubgoutGSs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UpeUb9MYN9Nno5WkEvPT0Ji7Nqex6w4MlV/gWAG8cbpUUPgYKrsA/miN+TISJI+qg
-	 nCp7ADJzUIzI9bSY2QgQBEdN2A2Pmx/hKxsoQk3/0Dz01Op1/fCPsNxXG4ML1bgPJF
-	 vdcn1R5EH2eNf+wgfX0GbLbo8WVKYkGf+SZlN4yAwW/6iERM+A7PS0uRvjNNUfbdiK
-	 abRD/moaslGI8Ta34F8y3m3F6EE13AegzA8es4uCtG+/DNRtHWdcwq0BEHtv0CwC8V
-	 vUov5g74xrmqRgtKOMQcp6O7NW1bqHioKDYxAbz7KUFUti+spLoaC/19b4bUo4gLxr
-	 rnBlnzX+6508w==
+	b=RfyAEl6xBMue87EWNoqA42HvD/KBw9IAjWt24bO6iBonzpJWJt3S6ANWjio5Cfg1t
+	 +2z0Cn5OMtUbrLkwZh0g281ogq/St0nmeSsX07o+NNOjXw+k/Jr9ZDGegXz0vU2/d3
+	 nGUOOtZYRq8Sxo4M0a2xNJVfcSadnqGuSyKnnAtxk2l0hdqvy0wtuobRAn613N8pHD
+	 cdvTRM8K7Xbz7scHWolh2dyLis86U1ef7svIh+PISKFogMxHCFs7EpFcFi+HrjAQux
+	 8apPX7ZcUN6onEAK5JgjAn4tx3CMiaomXUEBAG51uTh2hPfOo2alm5oPzipEKbyZy3
+	 3A+TlXGt2XOMg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jia Yao <jia.yao@intel.com>,
-	Shuicheng Lin <shuicheng.lin@intel.com>,
-	Mathew Alwin <alwin.mathew@intel.com>,
-	Michal Mrozek <michal.mrozek@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	Thierry Reding <treding@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] drm/xe/uapi: Reject coh_none PAT index for CPU_ADDR_MIRROR
-Date: Fri, 31 Jul 2026 11:50:15 -0400
-Message-ID: <20260731155015.604147-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] drm/tegra: fbdev: Remove offset into framebuffer memory
+Date: Fri, 31 Jul 2026 11:50:20 -0400
+Message-ID: <20260731155020.604703-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260731155015.604147-1-sashal@kernel.org>
-References: <2026051515-treble-unwieldy-f489@gregkh>
- <20260731155015.604147-1-sashal@kernel.org>
+In-Reply-To: <20260731155020.604703-1-sashal@kernel.org>
+References: <2026072952-backward-riveting-1863@gregkh>
+ <20260731155020.604703-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,75 +48,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jia Yao <jia.yao@intel.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-[ Upstream commit 662f9ddc8077792129440d05cbef2f944a07777a ]
+[ Upstream commit a18b6e30ecd69096beda4a0c96d2570900c3879a ]
 
-Add validation in xe_vm_bind_ioctl() to reject PAT indices
-with XE_COH_NONE coherency mode when used with
-DRM_XE_VM_BIND_FLAG_CPU_ADDR_MIRROR.
+The screen_buffer field in struct fb_info contains the kernel address
+of the first byte of framebuffer memory. Do not add the display offset.
+This offset only describes scrolling during scanout.
 
-CPU address mirror mappings use system memory that is CPU
-cached, which makes them incompatible with COH_NONE PAT
-indices. Allowing COH_NONE with CPU cached buffers is a
-security risk, as the GPU may bypass CPU caches and read
-stale sensitive data from DRAM.
-
-Although CPU_ADDR_MIRROR does not create an immediate
-mapping, the backing system memory is still CPU cached.
-Apply the same PAT coherency restrictions as
-DRM_XE_VM_BIND_OP_MAP_USERPTR.
-
-v2:
-- Correct fix tag
-
-v6:
-- No change
-
-v7:
-- Correct fix tag
-
-v8:
-- Rebase
-
-v9:
-- Limit the restrictions to iGPU
-
-v10:
-- Just add the iGPU logic but keep dGPU logic
-
-Fixes: b43e864af0d4 ("drm/xe/uapi: Add DRM_XE_VM_BIND_FLAG_CPU_ADDR_MIRROR")
-Cc: <stable@vger.kernel.org> # v6.15+
-Cc: Shuicheng Lin <shuicheng.lin@intel.com>
-Cc: Mathew Alwin <alwin.mathew@intel.com>
-Cc: Michal Mrozek <michal.mrozek@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Jia Yao <jia.yao@intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Acked-by: Michal Mrozek <michal.mrozek@intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20260417055917.2027459-3-jia.yao@intel.com
-(cherry picked from commit 4d58d7535e826a3175527b6174502f0db319d7f6)
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-tegra@vger.kernel.org
+Cc: <stable@vger.kernel.org> # v3.10+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_vm.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/tegra/fbdev.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index b31859fec555..b09cfd5a4d20 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -3393,6 +3393,8 @@ static int vm_bind_ioctl_check_args(struct xe_device *xe, struct xe_vm *vm,
- 				 op == DRM_XE_VM_BIND_OP_MAP_USERPTR) ||
- 		    XE_IOCTL_DBG(xe, coh_mode == XE_COH_NONE &&
- 				 op == DRM_XE_VM_BIND_OP_MAP_USERPTR) ||
-+		    XE_IOCTL_DBG(xe, !IS_DGFX(xe) && coh_mode == XE_COH_NONE &&
-+				 is_cpu_addr_mirror) ||
- 		    XE_IOCTL_DBG(xe, op == DRM_XE_VM_BIND_OP_MAP_USERPTR &&
- 				 !IS_ENABLED(CONFIG_DRM_GPUSVM)) ||
- 		    XE_IOCTL_DBG(xe, obj &&
+diff --git a/drivers/gpu/drm/tegra/fbdev.c b/drivers/gpu/drm/tegra/fbdev.c
+index 43a504ad4f38..b7de5819029d 100644
+--- a/drivers/gpu/drm/tegra/fbdev.c
++++ b/drivers/gpu/drm/tegra/fbdev.c
+@@ -75,7 +75,6 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
+ 	struct fb_info *info = helper->info;
+ 	unsigned int bytes_per_pixel;
+ 	struct drm_framebuffer *fb;
+-	unsigned long offset;
+ 	struct tegra_bo *bo;
+ 	size_t size;
+ 	int err;
+@@ -112,9 +111,6 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
+ 
+ 	drm_fb_helper_fill_info(info, helper, sizes);
+ 
+-	offset = info->var.xoffset * bytes_per_pixel +
+-		 info->var.yoffset * fb->pitches[0];
+-
+ 	if (bo->pages) {
+ 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
+ 				 pgprot_writecombine(PAGE_KERNEL));
+@@ -126,9 +122,9 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
+ 	}
+ 
+ 	info->flags |= FBINFO_VIRTFB;
+-	info->screen_buffer = bo->vaddr + offset;
++	info->screen_buffer = bo->vaddr;
+ 	info->screen_size = size;
+-	info->fix.smem_start = (unsigned long)(bo->iova + offset);
++	info->fix.smem_start = (unsigned long)(bo->iova);
+ 	info->fix.smem_len = size;
+ 
+ 	return 0;
 -- 
 2.53.0
 
