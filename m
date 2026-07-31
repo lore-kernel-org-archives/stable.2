@@ -1,155 +1,133 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10EB443A91
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 15:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911EA442B1E
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 15:45:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785512714; cv=none; b=QpJPPWQdFgd4j5H0mQVJz+kOHbE7yKu2EIMPPwybkiyIEKltgg0QV5/Lon7yDGzOK4OhZv71gRDzGL+jaUvb1f0YFalScBeM82uzBLTx4OBRAaVJz+0okblSttkkSLulcGnnIa9LIULCwYqzFvTv59tLE0I6A6I0rAT0TieoqDE=
+	t=1785512722; cv=none; b=D5iNw+8Qxnyv8P2O08AVjivmlM2W74Blthmd7QWr9H172D96j0I+NTwMZSmFZsAFmLZJn8BuEOrrXNq36tvCmdpqsG4dZuvBgDgur1eZRRIE6UUVDvri3VP5JnHt9Eo6BOYrVcBfnm/08zFaf9wupDVm6J4vpIB/kqcY56rbHrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785512714; c=relaxed/simple;
-	bh=QljyVPFlAv4h/ZzcE8C+5GE8/id8T+aE6aMhZzBAF/Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lt765kq3fsF+q1eDyPnvAKvp3HDih87TntEgvS25JLLb3vx5wcqzTM4noE7ULxBG1gIK5TjV3v5kIKhYg10ir7yza/3zDYbhKJG2IvcP1yVIAVM2I1guGJGznfBrJEvsxKhdXMhAzgHzqttl0r1utc2RllKI5FLllXLK2GX08pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n3QvJhLH; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785512722; c=relaxed/simple;
+	bh=/CbrWqg6ytS0QnftlxvoANq4DTGTHY7nSDt+TOFNSjo=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=sDS5r4Qha/J0bPOiPfgPzv3LypyfcTUcGSLkByp9uBI1LN0K19sEdO9sV6dcUHZpy0jwHghmivS9/rJHH47IeJll3SOcLCIAa8gHVr/dULAjPN4Avb6PM9YhPBM8Sm+uOrwGs4OxP1rY0ED/R6CmEyqJwEMQZ/TVpnAqbi10deQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--eddiephillips.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cZvOvAcF; arc=none smtp.client-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--eddiephillips.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n3QvJhLH"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-84862b0d5f8so1069246b3a.3
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 08:45:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cZvOvAcF"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84859a64079so2199537b3a.3
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 08:45:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785512712; x=1786117512; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1785512719; x=1786117519; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tTr+FVEJek8HJ3HeYCgl63RHoNH7nCzt1TWIIYAYrB0=;
-        b=n3QvJhLHSax0EIgAg31zVsyiaA3GFTOThr/sKnIwk1AlNJYzy703rz1ByL5pGsEAAb
-         KnZNUfLuX28RGcJq3klfQbDv+JPv7DUVp0L83hTf/3o992ceY4u/wQo3H5vOr0f2IH18
-         G0h1/U7AIBhqotS6F2zMBzIhCCFUugoMc5L0S4uSBe6PPL6XReLHlCwndBE+21iXW4YZ
-         SHaU3OnRa70Qfkcg/aadOPBOhtqOh6IBWEpKKM844v0RUR8DY81ig7B7mZqk4yeB0d5X
-         hXGSY41kXXDS0RyvRvgEIV3pWLYXfsB4AAr79YNlqOTBYhAOxTzep2yj9yWU6Y9UFn8v
-         w/3w==
+        bh=g2OdXeVdEKrvdHNlNkPiajCNX4IwJ1YUzZxO/OL+ra4=;
+        b=cZvOvAcFoGZlUgBBgIgaukYVtxL1JUWh9gywqmtW9538EQIFEFTdbik+ueB0e+X7EC
+         Txu+AjpGjLZ/KDe9nO7LpzAti5T135pjcafVwhU1GRuWibDOPBZ7etlz1Y6/2ENodJJC
+         FNxQ+0zLp3koU7MxJtyV0OK+LMYnLj/2bxC3HMYd5rY+hauhEb4G0siz1Bb8ez1FAds2
+         8mYH6ELNVZk4VTXlxnBOQERONTIlupGbjIeUwAzxZadLtrQNQU5UpkKk990WifViXlQR
+         OCwnArsNgxc//9owixJh1ls7BSEUzRdWid8gv8FAySqNPCUhPvQiA18yCgj9vD2+BUCR
+         xghg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785512712; x=1786117512;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1785512719; x=1786117519;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tTr+FVEJek8HJ3HeYCgl63RHoNH7nCzt1TWIIYAYrB0=;
-        b=QogHjVr6lBnImAs6hamTZHO1jMrCHEEFuhdvAqcWrkS6SlnNR3b6CfDE3zoJN16Znk
-         5J8V70GW77PMNBI1UiNKddLlcQZ+0CcifZlOfW6Vlcuq9E70dq1756kpqYKds3Y3R4p6
-         c1Av4ryBYP/cjKthX2Fer6YvMUgTBLCiH8gUPhoBNKsrUFw6R7bFYRX3Uge4mI+9323g
-         LAxIZ1a7qs9PWzpNHj3PZ9V3WRMivIvFfalZt+GX43+sRgUOkw7rJq3KSRwwWBifE1V2
-         ZQ1FAlfgSQjMtr6UoAQyDmaom9tLp2u9+W+ZK4ye2JRjRQ394sQw8vAbSgtnCvcYPwxS
-         gAOQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoF2gs3Yg+mIc7wGksW2Hi3GPNec4UDBO6zIYTZeI7trWeQ67IwSPCdmAwo/CycEFLWDFcYiIo=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw4sQhxDpIIHe4+vteMq+fMBLWyueoYex7HV7cOQS6UsfW+hl2m
-	lf8BbLkSMOO3b/r5ud0Oc0BP6JVk68txvQNIHsJ8LrcamGjJYc2LgDdw
-X-Gm-Gg: AR+sD13AnViKr6qkLaMq2Plcguu9U9ARnCHF7k7EQc0FrWZHh7KmxlMv5bfxqOlV4yS
-	mJeCTwmq7OkYP6BC7Yn9iMUahaHhKngarO+cN6AS7C3fpAY/IQWYVwiQ6C2nJ3RnaY5tDiz2qFa
-	GiQpwfmrVxaykufBmLivtwoL6LKi+SCF2slrNjAiBZOVuAW2m0ZchP3sc49C0Hlf7+GAg9WTv7u
-	WU+mH8dD4zJF0eVxC4jIuIi//Z7dBZdgO30V1+kG4++9Kdr9Lzf6cfRsN1E8V20Ff5KrNhzUL/T
-	kPTQolfnQ1EzlyI7f6AK+KYaSb/6jJMfZQAZE6YRvZiO4l4Ji7tk3LIe9v64ofBgOi5v3N38XwV
-	w3zfZ4DUQr1GhD+GpBI7RIqzRkLLCbZrcnki6m9rganqMlOrrWbqXhb//0rzFZROkAm0B6qj21J
-	uVTkqTFUaxBBiHqzssy9rl62/Gr1biBAthDcM+EEymEoNJGCQG3MtGTLs/lnmuSx5o3OVLVYlFH
-	9uXySflvl51wa+4XNe7za44wHFoQ3Ktawjm1hHPvLOWY0RglfpmfZltf38=
-X-Received: by 2002:a05:6a20:6a21:b0:3b4:5ff3:45cb with SMTP id adf61e73a8af0-3c92a75b25cmr258440637.8.1785512711706;
-        Fri, 31 Jul 2026 08:45:11 -0700 (PDT)
-Received: from ?IPV6:2601:646:8f02:5350:ce4:701d:f6e3:3a6b? ([2601:646:8f02:5350:ce4:701d:f6e3:3a6b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e29a126sm7821146eec.31.2026.07.31.08.45.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 31 Jul 2026 08:45:11 -0700 (PDT)
-Message-ID: <6fe86a50-34ec-45aa-b2b4-52429a72369c@gmail.com>
-Date: Fri, 31 Jul 2026 08:45:09 -0700
+        bh=g2OdXeVdEKrvdHNlNkPiajCNX4IwJ1YUzZxO/OL+ra4=;
+        b=jXlmKulVlZYc3JBsBL7X/3Ga33zK2pf+7ItDLo8M+juKAa8QYRkiI1ZxqneLU/58F/
+         vdIr0Q4RyGb/8i/uQcuNJRnSWmjbn97GbNuoKEdHHrLDogmEeEPqmJTnMK3JfHQPwYPp
+         2AtKTP3/XN903yVLlhaCnvHgA+7zz7EWUOa52ksZTBlHa4VVsKMIPy0aBnxh5n59GL+t
+         d3r6M9+sW71pneIq4bRUsyjoD8XRPK9m6nxCxQ4zXZGdQHp3uGcvz0eJBsmataZUrALR
+         udy7lvS3gznKxfDAKlFmEq6TA+wKm8MDLfSHVJyQg84t8i6MI2XbE/Fx0ojfz3sy1x2P
+         kFFQ==
+X-Gm-Message-State: AOJu0YzVUPP7k9GSF58S+HyIfM+PyzzS4zxxhdNElVPrFhe8A6x+3Hfo
+	Yh1vaBqR301t+zObrdGi4rVS0DETwkqeQjirMRJJ2MBfLvI57JL2NFp1FX4tLTJg1oEEsmQ5D+d
+	uV9He2kFlthQhQMZaQ3bkSbh+mgXcJvEDtzg+6TxAftzbRgtlbIR7HUJzifHXD/Cci95z4EtZ5C
+	BKyvQVAeGuo3Ud2yHiSV4dIey/5P2ZUXQypv3P20oHNESaDHvCLIy5vRmhi1/jHGZznnwgF97Qf
+	A==
+X-Received: from pgl1.prod.google.com ([2002:a63:b01:0:b0:c99:7baf:125f])
+ (user=eddiephillips job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:1911:b0:84a:2fff:ceed with SMTP id d2e1a72fcca58-84ee47be6a4mr146967b3a.3.1785512719002;
+ Fri, 31 Jul 2026 08:45:19 -0700 (PDT)
+Date: Fri, 31 Jul 2026 08:44:49 -0700
+In-Reply-To: <2026072934-rule-library-9954@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 1/2] net: fix skb length accounting after generic
- XDP frag adjustment
-To: Sun Jian <sun.jian.kdev@gmail.com>, netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Kuniyuki Iwashima <kuniyu@google.com>,
- Hangbin Liu <liuhangbin@gmail.com>, Krishna Kumar <krikku@gmail.com>,
- Samiullah Khawaja <skhawaja@google.com>,
- Martin Karsten <mkarsten@uwaterloo.ca>, Lorenzo Bianconi
- <lorenzo@kernel.org>, =?UTF-8?Q?Toke_H=C3=B8iland-J=C3=B8rgensen?=
- <toke@redhat.com>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- maciej.fijalkowski@intel.com, stable@vger.kernel.org
-References: <20260731032357.6114-1-sun.jian.kdev@gmail.com>
- <20260731032357.6114-2-sun.jian.kdev@gmail.com>
-Content-Language: en-US
-From: Mohsin Bashir <mohsin.bashr@gmail.com>
-In-Reply-To: <20260731032357.6114-2-sun.jian.kdev@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <2026072934-rule-library-9954@gregkh>
+X-Mailer: git-send-email 2.55.0.571.g244d577d93-goog
+Message-ID: <20260731154449.2755799-1-eddiephillips@google.com>
+Subject: [PATCH 6.1.y] gve: fix Rx queue stall on alloc failure
+From: Eddie Phillips <eddiephillips@google.com>
+To: stable@vger.kernel.org
+Cc: Eddie Phillips <eddiephillips@google.com>, Jordan Rhee <jordanrhee@google.com>, 
+	Harshitha Ramamurthy <hramamurthy@google.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+	Jakub Kicinski <kuba@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
+When the system is under extreme memory pressure, page allocations can
+fail during the Rx buffer refill loop. If the number of buffers posted
+to hardware falls below a critical low threshold and the refill loop
+exits due to allocation failures, the queue can stall:
 
+1. The device drops incoming packets because there are no descriptors.
+2. Since no packets are processed, no Rx completions are generated.
+3. Because no completions occur, NAPI is never scheduled, preventing
+   the refill loop from running again even after memory is freed.
 
-On 7/30/26 8:23 PM, Sun Jian wrote:
-> Generic XDP exposes non-linear skb fragments through an xdp_buff. If an
-> XDP program adjusts the fragment area, bpf_prog_run_generic_xdp() copies
-> xdp_frags_size back to skb->data_len but leaves skb->len containing the
-> old fragment contribution.
-> 
-> After a fragment shrink, this makes skb_headlen() larger than the actual
-> linear area. In the reproduced UDP receive path, __skb_datagram_iter()
-> copied 1024 bytes past the actual linear tail to userspace, starting at
-> struct skb_shared_info. The copied bytes included the affected skb's
-> nr_frags, xdp_frags_size and a kernel pointer from
-> skb_shinfo(skb)->frags[0]. Real packet data was displaced by the same
-> amount and truncated at the end.
-> 
-> Subtract the old data_len before replacing it and add the new data_len
-> afterwards, keeping skb->len and skb->data_len synchronized.
-> 
-> A 60000-byte UDP datagram on a veth pair with MTU 64000 was shortened by
-> 1024 bytes from its fragment area. Before the fix, all 10 runs produced
-> corrupted payloads. After the fix, all 10 runs matched the expected
-> payload exactly.
-> 
-> Fixes: e6d5dbdd20aa ("xdp: add multi-buff support for xdp running in generic mode")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/bpf/al9T9Eto%2FhRIzP5W@boxer/
-> Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
-> ---
->   net/core/dev.c | 10 +++++++---
->   1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index 5933c5dab09e..5c37cf6c4aa1 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -5517,12 +5517,16 @@ u32 bpf_prog_run_generic_xdp(struct sk_buff *skb, struct xdp_buff *xdp,
->   	}
->   
->   	/* XDP frag metadata (e.g. nr_frags) are updated in eBPF helpers
-> -	 * (e.g. bpf_xdp_adjust_tail), we need to update data_len here.
-> +	 * (e.g. bpf_xdp_adjust_tail). Remove the old fragment contribution
-> +	 * from skb->len before updating data_len, then add the new one back.
->   	 */
-> -	if (xdp_buff_has_frags(xdp))
-> +	skb->len -= skb->data_len;
-> +	if (xdp_buff_has_frags(xdp)) {
->   		skb->data_len = skb_shinfo(skb)->xdp_frags_size;
-> -	else
-> +		skb->len += skb->data_len;
-> +	} else {
->   		skb->data_len = 0;
-> +	}
->   
->   	/* check if XDP changed eth hdr such SKB needs update */
->   	eth = (struct ethhdr *)xdp->data;
+This results in a permanent queue stall.
 
-Reviewed-by: Mohsin Bashir <hmohsin@meta.com>
+Resolve this by introducing a starvation recovery timer for each Rx queue.
+If the number of buffers posted to hardware falls below a critical low
+threshold, start a timer to periodically reschedule NAPI. Once NAPI runs
+and successfully refills the queue above the threshold, the timer is
+not rescheduled.
+
+The threshold is set to 32 because a single maximum-sized Receive Segment
+Coalescing (RSC) packet can consume up to 19 descriptors in the Rx path.
+Lower thresholds (such as 8 or 16) would be insufficient to process a
+complete maximum-sized RSC packet, risking packet drops or unexpected
+hardware behavior under memory pressure. Setting the threshold to 32
+guarantees a safe margin to handle at least one full RSC packet.
+
+Cc: stable@vger.kernel.org
+Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
+Reviewed-by: Jordan Rhee <jordanrhee@google.com>
+Signed-off-by: Eddie Phillips <eddiephillips@google.com>
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Link: https://patch.msgid.link/20260709211906.3322883-1-hramamurthy@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+(cherry picked from commit b65352a1bac64442ad95e64f385b40ccb9f1b0db)
+---
+ drivers/net/ethernet/google/gve/gve.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
+index c5e1312b9283..056f57166362 100644
+--- a/drivers/net/ethernet/google/gve/gve.h
++++ b/drivers/net/ethernet/google/gve/gve.h
+@@ -10,6 +10,7 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/netdevice.h>
+ #include <linux/pci.h>
++#include <linux/timer.h>
+ #include <linux/u64_stats_sync.h>
+ 
+ #include "gve_desc.h"
+@@ -226,6 +227,7 @@ struct gve_rx_ring {
+ 	struct u64_stats_sync statss; /* sync stats for 32bit archs */
+ 
+ 	struct gve_rx_ctx ctx; /* Info for packet currently being processed in this ring. */
++  struct timer_list starvation_timer; /* for queue starvation recovery */
+ };
+ 
+ /* A TX desc ring entry */
+-- 
+2.55.0.571.g244d577d93-goog
+
