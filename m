@@ -1,236 +1,155 @@
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011023.outbound.protection.outlook.com [52.101.65.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 191543AEF56
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 15:17:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785511051; cv=none; b=RDM8eBaXR+MtM4ClEaKQnbRfRn8iRkCbgrUIYytTK8NuI5Jxb1iI1Qe2TP8ba9kjZqsZ1EMAVlvntxxmX28Or8c5F1x4qJU5YvsAR6mdey1tNeDOv58+nmeh7vVONbC5nxoVVKeUMcu9vzVRgxIV5xCIacLbiNoC1UPGY1KS+4M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785511051; c=relaxed/simple;
-	bh=+rFvkEUVHhGnakXT2C6RjvEvZP/YK7EI2KDjrY+pLTA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TBNkKxIQtNtuAj89giqVryKuYSpSdzqI1xowZqvp1X/GGC5qhBZmTzhLW9N7AP8fn7p0966gGX9TQJ9QucSrCsxfeGlATwrwlVRzILsJYS+fvIND6j+yLfyhpTZpyw3LfP4rYSQidwemhAGblJsAWfu17mUQorhg3yKhAhMtfQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=l+qni/mP; arc=none smtp.client-ip=209.85.222.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF71405C3F;
+	Fri, 31 Jul 2026 15:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785511718; cv=fail; b=Kz2Crl44bz97X6hSG/vdoxIeIjf+XIMwdsZL69DGmrw9bHBl5PENIywCaiiDZ+yMZYUvI7hIpxw9HfvxEr53FuFSBo39oWHdBXpcrkaG8dV8F0ir7eymDrpbqhCRhHxSl4Zt9RxBCtV6MyFpi3T1bo9BAk6AzBZWB+oIS8Je8I4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785511718; c=relaxed/simple;
+	bh=0fF1n9QCDPqhI5Lvj6xE+AJcoPUWz7nN4jU8NSb1IL0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=NOu2M75XrN9Nnqo12uIXsDi55t2YZK+8tVODNIumlQnC19RjULXONUYSxmIjHwdos1OhY7uAhUByg/XAq22DGKv+DL2XcUcLZ6oZE4UdmrmT2Gt4tleVD6aiQtP50/x4BhehZSByKwWciISHLvg7bqlhlRUQYZbkop8A1G3V8Nk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=TU/ELSd4; arc=fail smtp.client-ip=52.101.65.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="l+qni/mP"
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-92e53581361so58947885a.1
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 08:17:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1785511046; x=1786115846; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QOdikcJRo1h3a9sD/t/2mX2tsaLsS7uHoOpBXELRAPI=;
-        b=l+qni/mPZhyD2qhOfY9jSD+O3c67kN0v4qlSbk3nYOiP093IK+6iRwvcqTk7tUFDSr
-         Cht7FNDsK7dq4uKkI0U2csJvCfYDmLYOJy3qBlikFEZLUsuvvjcyfACGADoP3Csrw+NB
-         Gz77NU1BUGF9sYKZzjHgWTQM2DSpYNTUbmI8cKtZ9MEhkzGl05vBWBtqbi7cYOI0RhLQ
-         EYOeIridFN81expdfRnP/9krXW5RPGwsYVTs83EHYdH2ZQpNq1m9WwOsoHNtXSTrHLi2
-         VMdroKmiCmYgT+SpTpejMQjQOjK3Nq9bEeI1oe1X5DPAnyhFRr+LWsagN41mkTZYKrVV
-         +8cA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785511046; x=1786115846;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QOdikcJRo1h3a9sD/t/2mX2tsaLsS7uHoOpBXELRAPI=;
-        b=mPnnXR7p2dMvqd+jU47IVXu2NvzQWEL7meU9w2XHgVDJlm+XUZPNbdg6WUTohQje/D
-         CEPGuGJVImlvd0aDdZYLd0Fqo3yrBiAlPGMfDVoFCmTmyKS5izUt7y8cVPeOle3lcfg5
-         76etrfzYnNGWpsb0sBEVqCcuM3Z1EarNBlC+Oev/H2aGWZfNlAfBIwTdyO8hGREuGiQe
-         kiWRVb0rt51MjiOZvd1Pjs2aPOMSUXt2MHpR7Brvu4gk3bmjkNFnuc/eLOIaoSrltUcq
-         8l95I8dXmODCchsb7N00GD8SSiabRqI7Kn9FAhoxpcNIRNMex7W3gROKUAd+rhztk2jm
-         o1yQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr+WPQfZ7zsreMXSiTZdLHaXkV9UI/Q9QdkU4Nsx94+pAUzoWyhEaKqZ5M/H3WMCzWEFwJqjn0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzpzKviS3TRU1NsNLmlQt7qZMGjxUwNV2JBvroBX4BBu5LnxcRP
-	/iWamrqO/kIuPjG7P6LY6r1s/w48fX6r1JlQuvp7qTiYWzgHimiGVy3qvwJnygE9Rj0=
-X-Gm-Gg: AR+sD13OIfXKYpTjvpFhWdCNtZfarZYK5E695wIZYRhUwb1PDS9WyOcTsupd2WO4nwt
-	BDBW77+NgXlB/6rThSw2GXOA75TapCfPju+oq9PovSPR0HjY5XSdbvO/PoWXRPMkMv9kNFTYjCB
-	3tWa7Y4vFahHESjDRCGq/TK4S9Nx9OIUerrFEK93KeKvawme/oJKpYhjPJbsNjxU5KTo7pscpSY
-	3iHZNudKpHNzh0sHjOwiZjMQbMWiYzKJoHerzi2XcXruVxngHTSHRA1MswlKfSYanYee4vt7fPI
-	YrGJcoAiETtOJva+LHBsTVmugXogk0t1Ue2qsjY/1lfAlg3WbdsG8Hpq4ppK/U+hv4dvYDDIWzn
-	hd8k1ZlpEA9zcNV1/alunP2HNxZQ2XGkSX1pn+pYyBsarmhlvbbEkVFZmHEAkThNQCrPjJ4/IbS
-	3GSYKNeTIFoKAg6Ro72doOOofEqZDm85vJEUYm02iI13/GkOZ+tGjVifR1duU=
-X-Received: by 2002:a05:620a:1003:b0:92e:9cc7:fa46 with SMTP id af79cd13be357-934a08b94e9mr67580585a.21.1785511045509;
-        Fri, 31 Jul 2026 08:17:25 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9349c199e03sm73739985a.30.2026.07.31.08.17.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 08:17:23 -0700 (PDT)
-Date: Fri, 31 Jul 2026 11:17:20 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Hao Jia <jiahao.kernel@gmail.com>
-Cc: akpm@linux-foundation.org, chengming.zhou@linux.dev,
-	jiahao1@lixiang.com, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, mhocko@kernel.org,
-	mkoutny@suse.com, muchun.song@linux.dev, nphamcs@gmail.com,
-	roman.gushchin@linux.dev, shakeel.butt@linux.dev,
-	stable@vger.kernel.org, tj@kernel.org, yosry@kernel.org
-Subject: Re: [PATCH v3 2/2] mm/zswap: Support batch writeback in
- shrink_memcg()
-Message-ID: <amy8gAN33W4QsM5R@cmpxchg.org>
-References: <amufiuAaZbuDdKkQ@cmpxchg.org>
- <20260731071900.38942-1-jiahao.kernel@gmail.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="TU/ELSd4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FyqUl6lNxRgxcpcWuEdNOVoW1xZNCi2VK4Zs9Gl2oTi5X9tegIkZHv42l/KWlZtom+FtKOfisbT5ctPvqhZH5ZLhCeSxv34fjHbTLQRkx5ia4HNT9wuvBK1r3ENsGrRrcmewfNQNRWtUFejLZ9cuUIRGjIdYJW/CYXx3xXA3crdpiVUwRo3N6ZyAYXpK4KK3N6dxoowbZr2H08BjTG7lyddnh3IUgzS3uLsYxKwUV9lJfMYpXRJ/+T58+C5KphR6mxLjIcFxioa6iZ8TCtPzunk6MLihj/KpdWQGQ2miqj68+rSR51xdG1pDtdt0SQ3/gsdfiV/BfT2w0uNPQU4C3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cVQwd2qEgKjHAgU7Zi16NvRD9FWP06z/1zGikoEGa2k=;
+ b=i2ufJncx3XQhgozJspXsCZGQPWBlFbUq/4BFaHCilcljmUeGa/ED4hwtspVgSBpUZh4GhjzAbcYs4uisrSpeqB5i5Gq3TrZzeYdSQBhE7Ss11erxLSwh+APLRhgXU9350LXo1FQRQWf9vw2kVbqe/eDRFnZH0oq+TKnmVXKB/ErHna0fTi5kXxek4wg+g58x0bzj+mHESNeYmGuqurZLncuI6+6pjVk+UOnkjfwWEJvM391f5Kets/p0uTvYNAVAq30lKz3db3NVrW1TqaURBKiPYIIeJIMSDhzC7jLIEU05a92fmPHBuDcIE8G7+h05YwHS5Ah+2DTf+NoIaDoQKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cVQwd2qEgKjHAgU7Zi16NvRD9FWP06z/1zGikoEGa2k=;
+ b=TU/ELSd4CFZ1UnkDv2JwIXAQ8f3IgwfFcdgurVqqTrdnj8RFuCs8dseYuUXPr02SVAuojQnCrK4vIXGZpWNuj9H9bP+kHnmCfXNL8CGRcCdca4Xf2R4yKKYCZ6ID9e7qTkgxHexsbmT9Ngy2eLI/wPmIgmf5cmbxGLqKu2cW2ztIQDAo6Jpry1WdNtPo7vVbZzem/CAPQswKV28WJNLeZago7jiSo+J3Nn9dlBoH+FvwqH5kMzeFqVOYWdIi/4zfNyhoZTJ4K5VI9y7k6kPfdOBytGJps5VZ3prpB+SHGuPM9CmKeU+py15JBnfv17iLC9OpTIRrDXKlDDUtXihfog==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV1PR04MB10487.eurprd04.prod.outlook.com (2603:10a6:150:1cc::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
+ 2026 15:28:31 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0270.012; Fri, 31 Jul 2026
+ 15:28:31 +0000
+Date: Fri, 31 Jul 2026 10:28:21 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] serial: imx: serialize imx_uart_ports[] lifetime
+Message-ID: <amy_Fe7hYtidlua5@SMW015318>
+References: <20260719221014.44354-1-kmehltretter@gmail.com>
+ <20260719221014.44354-5-kmehltretter@gmail.com>
+ <amufrR-1hop2pZOz@SMW015318>
+ <amyxxce6haNJBJ3G@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <amyxxce6haNJBJ3G@gmail.com>
+X-ClientProxiedBy: PH2PEPF0000384B.namprd17.prod.outlook.com
+ (2603:10b6:518:1::68) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260731071900.38942-1-jiahao.kernel@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB10487:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6c18ca36-0b77-4ad8-09ed-08deef186098
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|19092799006|376014|7416014|22082099003|18002099003|10067099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	geIP2OKogcNG7XaITlrnzDo3mHQPCpMv/35wKkwvK8n5yTK9HTe1ULj8qS6JJK4VMqout9j5igNwXJBhJPW8AWPNUwOUDjqBfA00HntNEkQPEXodB8Qz8A7Eozmb5pP8AaQN3nFnWHyR3brLcSEI10PuIpCD/r8YXa5UJulf9fMA/PdxfhJRYXRTXaUrn2y0lJN4VPDw3zyFCk8jkAoPz1VAhsH+cqnR2bNbm+zD6ep7P18/iITasYNLbw2LLyFNtJgQ+7oA7fzWwmj9skLUVThVwqZPwyYiT3BtXAmTJAGBOjPglBKEhf2PFGZQLpUh0rWe8cPjN5qJJ75on04U78GTZkAZCnWZdT2OcAxBpIYH8Hn3rGyZTzIxKSfuCsNzA/EW8c1+qtwomN83Q2EMBvXsrCpdRfPPOEsp6iM0t9ac5t/l7+hoY3XySfKY9PJj5CbI6IMoj8SRL1Wz0t6VVuOoGYHYbwaO4x+VgnjyJGhC4UjaEmU4wqMxr5iMIFO5jlnepdEAmjfbPodkaZYnMA61ajGCesuLudtz5qidb5ZtvKPFFRMmsPZlGNn1MKG3Fj1B1DZApkdfk8Rct8DY1oFNOCz1rmyTPo+5RwpZrk5nmFwEVUOI4oIs2N7lVcVCG9Yn4nbcZf+znnzPQRB5xuG3Cws6+rkJkXClRzdRWZU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(19092799006)(376014)(7416014)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?6vitXt37InHseua3UgYlDYVbRuGr7xD+fWCUAqZc3Gg9uWKnJ93qjgz8Qibn?=
+ =?us-ascii?Q?Qa/40ZoxoyV0c8ZSYBlEMkm+6h121O0bNHYl+1X/rOPRIGqDRltzOIXxBnQD?=
+ =?us-ascii?Q?lMdVEO1C0HiCfP4gPsCQUvjLgBqf8FCcGdeo43VXzTQaoiqC+GpgSr+PTTjE?=
+ =?us-ascii?Q?ErUIEv0KzOk2CVOgS10Ex+nMOhxSp+y4+UFVbnZM4VpRze40OczfpXLrIocd?=
+ =?us-ascii?Q?BetgkYXe3qcP0O2lpxGUYXsHNHBLtefkXJjARQpl3MjTKXpYxLSuXvTNvOVk?=
+ =?us-ascii?Q?iva/ymHQEpSGZbqzgRHXQpFfcdL0CTe1IAIiCt1894t+thaTPDhxnvfKTuyR?=
+ =?us-ascii?Q?4AU0V55hI9JXe9rwnRQYZoTZ7ajQWCQ/P1aBH+2n3Evtf4rT9TWJtMFLfV6G?=
+ =?us-ascii?Q?CGbKohOIwELxhyCSUP6mGwPrrB+WYPIiUlovQeuG8QIywXWnlN9AOVJgRkPS?=
+ =?us-ascii?Q?HcAPUO3ZHsQiIO6QJ8AS5pee0+YoYAS08getlLKrdPtE8EQY1qqlxbnjAOk+?=
+ =?us-ascii?Q?b5UzPU9A4fQUhnDWxTIirK1HSN5LqdNcHrOHosh0EKm6Z3mBon5H2DDDFiLE?=
+ =?us-ascii?Q?RWPojwmbLzHI2Bhql0XTYHlTQIpTJJjoEACAfq6RC0Jd3IZzkiZIqwSSxNIE?=
+ =?us-ascii?Q?veL2zjnGNR+NlqxTt6K5eMasXvAuZlHtwH2b3dSmS+/g0LRrBJ6LS6r9JgX3?=
+ =?us-ascii?Q?XmsHv/blcJfpnQ/JD05VpXZAeqG80O3UBdB1zk6gdjdzfwagBOR8aS/84J5i?=
+ =?us-ascii?Q?XOENQqNjTtIVU611lUnpdNvFFq+vHVC1HF/VSLms5J3r395y0kJbGg75aCT1?=
+ =?us-ascii?Q?6MLsZmmHygVBvvt090BKDC2dtGsMljfQLRPxrpe4Hi+SWyrcQ3OtMLIhuYvV?=
+ =?us-ascii?Q?57tB9jxonrZvf+tanzpGn899xNu5OsdhlmDhfVPsnZi3O7N7QYuR7PCftIY2?=
+ =?us-ascii?Q?k5PD9+fev+dtnkEhDWbSjYODD/JbckgG4L9n8cHpNXhYbYv6wdA8NgriJtED?=
+ =?us-ascii?Q?SP3QZAugfTanbcK38gPEHqBkor94fMDvVTzo5dNsxVFLSOJSJSdCx1xxQIxr?=
+ =?us-ascii?Q?Xyy03GuwyWjPdeFHgK07aRyTtUDZb/n7WJCQqjR12CksAWol/Mw0RoDrDIyG?=
+ =?us-ascii?Q?Wb67S/DZNoBunWeLFSzhQJQXFMJ9nNaKBM1cV3uo7Y5/PBf3B2yvq0lLmlCk?=
+ =?us-ascii?Q?rc/ZzWqZMF5flI2feBTyQ+GWJR914B2PAgAn32+xxFGbHcx1t0pFGiftHuPj?=
+ =?us-ascii?Q?ijIvq6+sMXyNIoW3vIncwEAMWwVDRe2ox07E5sbBEswEIUgJOc011oHBbTpn?=
+ =?us-ascii?Q?yjORy8jDEaBw1OfV/ZGBz6hMVxvBhuhN1s44zKLjW5bOTpEZrfbRM49IhaF5?=
+ =?us-ascii?Q?BM5May2KNjG2BVUqQ660ObanvumVfhaZv3BHBZaHPRAyNz5xHGd80SbJJc0G?=
+ =?us-ascii?Q?oNyl3Bt7Hi02oZJCFO1ALxYk7i0h+/0+9T8yKq7Vf9er56wxShcTx0J736ht?=
+ =?us-ascii?Q?Osnv+ccpPCPeLKddE4X/rEVw+8qOaoJQ/1oGCt/InkiV7/MWwPHVN2WGBSo3?=
+ =?us-ascii?Q?Txa7IuF0x37o4y/SKBhmpphwPkUfe8M+hWh9rfddgPtiCUoKM9zYnSWHEBdu?=
+ =?us-ascii?Q?MPBPnfQ5dsXl/IvuvGPjOlfC8FW4sCeVklA/bjgAXj7WTTe2BaKJVWXrns56?=
+ =?us-ascii?Q?aiL6UtkXJztM8wb4Z1fRZFz2vjxAFR7GjNyQS8ZuptWWxJL1kBrpL5pgNah6?=
+ =?us-ascii?Q?LW7CQ8iKuaHPemFUK5LE0wRgEg0CmCowd6Mi/0AB0wiFlZz+S/x4?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c18ca36-0b77-4ad8-09ed-08deef186098
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 15:28:31.3782
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UgM0UVfvE3HcdydOflJabLxqf4UJnNXkdI4n3V9TH+jwQEZoXUqJL4JT7lPjyvHEKaQaBy3onUD2wu7/akhiesnLeqBYnXAuK6zuu6wtL90GjmQdfKG7OBnv8jbI9Tuc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10487
 
-On Fri, Jul 31, 2026 at 03:19:00PM +0800, Hao Jia wrote:
-> From: Hao Jia <jiahao1@lixiang.com>
-> 
-> Currently, shrink_memcg() writes back at most one entry per-node during
-> its traversal. This makes shrink_worker() inefficient, as it must
-> repeatedly re-enter shrink_memcg() to make any substantial progress.
-> Under high memory pressure, this can cause the writeback speed to be
-> too slow to keep up with refaults, leading to zswap store failures and
-> forcing pages to skip zswap and go directly to disk, which results in
-> an LRU inversion.
-> 
-> To address this, extend shrink_memcg() and rewrite its LRU iteration logic,
-> enabling batch writeback for both the shrink_worker() and zswap_store() paths.
-> To prevent shrink unfairness across NUMA nodes caused by a shared global scan
-> quota, limit scanning to up to SWAP_CLUSTER_MAX pages per node and write back
-> any reclaimable entries found.
-> 
-> Test Setup:
-> - Total memory: 32 GB, 1 NUMA node.
-> - zswap settings: accept_threshold_percent=50, shrinker_enabled=N.
-> 
-> Test Case 1:
-> Set max_pool_percent=1, allocate 512MB of anonymous pages, and fill them
-> with random data (to avoid compression). Then, use cgroup memory.reclaim
-> to force a large amount of anonymous pages into zswap. At an interval of
-> 2ms, allocate a 4K anonymous page where the first 4 bytes are random numbers
-> and the rest are zeros, and then trigger reclamation of this 4K page through
-> cgroup memory.reclaim. When the pool threshold is reached, shrink_memcg()
-> will be triggered.
-> The test data after running for 120s is as follows:
->                                 Baseline      Patched
-> shrink_worker wakeups              5,363          169
-> shrink_memcg calls            11,373,201      350,703
-> written_back pages                40,212       40,241
-> zswap_store calls                161,190      163,753
->    store succeeded (ret=1)       102,743      117,183
->    store rejected (ret=0)         58,447       46,570
->    store reject rate                ~36%        ~28%
-> pool_limit_hit delta              55,826       33,760
-> pswpout                           98,659       86,811
-> pswpin                                 2            0
-> 
-> Test Case 2:
-> We evaluated the following two sub-configurations using stress-ng inside
-> a cgroup capped at memory.max=1G for 120 seconds:
->   Test Case 2a (max_pool_percent=1): Continuously triggers the global
->   zswap pool limit, thereby waking up shrink_worker() to perform asynchronous
->   shrinking.
->   Test Case 2b (zswap.max=320M, max_pool_percent=50): Continuously triggers
->   the cgroup's zswap.max limit, thereby invoking synchronous shrinking.
-> Command executed for both setups:
->    bash -c 'echo $$ > /sys/fs/cgroup/zswaptest/cgroup.procs ; \
->    exec stress-ng --vm 4 --vm-bytes 4G --vm-keep --vm-method rand-set -t \
-> 120s -q'
-> 
-> Test Case 2a (max_pool_percent=1):
->                                 Baseline       Patched
-> shrink_worker wakeups              5,640         1,308
-> shrink_memcg calls             8,481,500     3,140,972
-> written_back pages                   260       468,216
-> zswap_store calls              2,742,756     2,011,269
->    store succeeded (ret=1)       934,640       947,988
->    store rejected (ret=0)      1,808,116     1,063,281
->    store reject rate                ~66%          ~52%
-> pool_limit_hit delta           1,181,310       196,882
-> pswpout                        1,808,376     1,531,497
-> pswpin                         4,288,497     3,635,365
-> Test Case 2b (zswap.max=320M, max_pool_percent=50):
->                                 Baseline       Patched
-> shrink_worker wakeups                 0              0
-> shrink_memcg calls              687,608         54,002
-> written_back pages              639,176        846,663
-> zswap_store calls             1,224,222      1,228,548
->    store succeeded (ret=1)      992,816      1,208,123
->    store rejected (ret=0)       231,431         20,425
->    store reject rate               ~19%            ~2%
-> pool_limit_hit delta                  0              0
-> pswpout                         870,745        867,360
-> pswpin                        1,707,823      1,216,814
-> 
-> Under identical workloads and runtimes, batched zswap shrinking
-> exhibits a significant reduction in both shrink_worker() wakeups
-> and shrink_memcg() calls. Furthermore, the sharp drop in both pswpin
-> and zswap_store() rejections demonstrates that batching zswap shrink
-> operations effectively mitigates zswap_store() failures caused by
-> hitting the pool limit. This significantly prevents pages from bypassing
-> zswap and falling back directly to disk, thereby reducing LRU inversion.
-> 
-> Suggested-by: Yosry Ahmed <yosry@kernel.org>
-> Acked-by: Yosry Ahmed <yosry@kernel.org>
-> Acked-by: Nhat Pham <nphamcs@gmail.com>
-> Signed-off-by: Hao Jia <jiahao1@lixiang.com>
-> ---
->  mm/zswap.c | 30 ++++++++++++++++++++++++++++--
->  1 file changed, 28 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/zswap.c b/mm/zswap.c
-> index 48fc7b575e24..d406c14925d8 100644
-> --- a/mm/zswap.c
-> +++ b/mm/zswap.c
-> @@ -1275,6 +1275,21 @@ static struct shrinker *zswap_alloc_shrinker(void)
->  	return shrinker;
->  }
->  
-> +/*
-> + * Scan up to SWAP_CLUSTER_MAX pages on each per-node zswap LRU of @memcg
-> + * and write back the reclaimable ones.
-> + *
-> + * Since the second-chance algorithm rotates referenced entries to the
-> + * LRU tail, the per-node scan is capped at the current LRU length so
-> + * each entry is scanned at most once per call. It is up to the caller
-> + * to handle retries, deciding whether to scan another memcg to complete
-> + * the full iteration, or to rescan the current memcg to drain its zswap
-> + * entries.
-> + *
-> + * Return: 0 if at least one entry was written back, -EAGAIN if entries
-> + * were scanned but none could be written back, or -ENOENT if @memcg has
-> + * writeback disabled, is a zombie cgroup, or has empty zswap LRUs.
-> + */
->  static int shrink_memcg(struct mem_cgroup *memcg)
->  {
->  	int nid, shrunk = 0, scanned = 0;
-> @@ -1290,13 +1305,24 @@ static int shrink_memcg(struct mem_cgroup *memcg)
->  		return -ENOENT;
->  
->  	for_each_node_state(nid, N_NORMAL_MEMORY) {
-> -		unsigned long nr_to_walk = 1;
-> +		unsigned long nr_to_walk, node_budget;
-> +
-> +		/*
-> +		 * Cap the scan at the per-node LRU length so each entry is
-> +		 * scanned at most once per call.
-> +		 */
-> +		node_budget = min(SWAP_CLUSTER_MAX,
-> +			     list_lru_count_one(&zswap_list_lru, nid, memcg));
+On Fri, Jul 31, 2026 at 04:40:21PM +0200, Karl Mehltretter wrote:
+> On Thu, Jul 30, 2026 at 02:02:05PM +0100, Frank Li wrote:
+> > imx_uart_remove()
+> > {
+> > 	imx_uart_ports[line] = NULL;
+> > 	uart_remove_one_port(&imx_uart_uart_driver, &sport->port);
+> > }
+> >
+> > Is above sequence to avoid use mutex?
+> >
+>
+> I now tried this, but it doesn't work as-is:
+>
+> uart_add_one_port() may call imx_uart_console_setup(), so the entry
+> must be present before the call.
+>
+> uart_remove_one_port() unregisters the console. Clearing the entry first
+> causes its callbacks to dereference NULL.
+>
+> The mutex protects those sequences against sibling probes.
 
-AFAICS you can just do unsigned long nr_to_walk = SWAP_CLUSTER_MAX.
+Okay
 
-__list_lru_walk_one() does a list_for_each_safe() that will exit the
-same way whether you hit !nr_to_walk or run out of items.
-
-> +		if (!node_budget)
-> +			continue;
->  
-> +		nr_to_walk = node_budget;
->  		shrunk += list_lru_walk_one(&zswap_list_lru, nid, memcg,
->  					    &shrink_memcg_cb, NULL, &nr_to_walk);
-> -		scanned += 1 - nr_to_walk;
-> +		scanned += node_budget - nr_to_walk;
-
-scanned += SWAP_CLUSTER_MAX - nr_to_walk;
+Frank
+>
+> Thanks,
+> Karl
