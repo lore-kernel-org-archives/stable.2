@@ -1,131 +1,266 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286953DB303
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:56:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDD730CD95
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:57:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785499020; cv=none; b=Os+PMoVQObRYXnk+YB+5dUtXrX3CIfu0k+zs/SmUU7pF1mBWjmOwXOE9fNMnB0JTYGiV3UrwV4qFVYdtG3pMoEDaExU9NNDI6ZK+AYAm21UcZZpJFa4PGf4DGg8jB39KyRvicunvdM/gTaYHP/PcBBColl9AsAoewjCDTBUVw7g=
+	t=1785499067; cv=none; b=hHk2cotGH09SdO4LV28YO9q866WkwEkEFynDCzJIvIOdQiJZO4huydOKWyWL79VdDDx5cjZc5t4wCnqGjrKyBS+EL4AXqtXOkbi/1clOyvnXWAyrkz6Q+bsqcNLeB1j+9BTYdYIKVOdHa5U+e7UhIoD26NeKSE62dFXRrYWSmG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785499020; c=relaxed/simple;
-	bh=ApRNz3FzWVQMCuZ6XgLo6gydV9mGNaSyz1BAaUo1H4c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lq02/R2TqSGvnq14RPgKDsjFxI/TSo10x27OHA4IdvmtqaWJyUKb8iJUsorcUUgAgF7olgnLBF2O2rMA2geyuVpif0mdNgb572rYhRmYBDr30ovcnnniJCz9UrpSGP0uY7YJdiXS2Zqq8cT3kHTvepEzUoma5K5LVMZGboWsFTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U1GKHGCd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785499067; c=relaxed/simple;
+	bh=4ebNtaYM47g+iC2MCt63BN9zreli2zWZpF2+WlYW8I0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aOMxD87L67YEdi9t93ZVVcTnAFg/BG/gwJeDPY10qsSO9hW99qCJg38UkboKHir8hSW6ftzESoNfv7QGC2sqpL12PZI0wTWfX2vLbL6gR0+TBbCsQPFr984w26YPT1jyboz09LFDk7YbqzSRv4Iocc1KSABqLdFo3roYxDQ573c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=gCOk0P3G; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=+0wE5aTs; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=u8+nXhWi; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=h43eim/X; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U1GKHGCd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C48821F00A3A
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:56:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785499018;
-	bh=+HnlsQJ3tnor6cbdGME0wtt4wsQOJDX+Bt0sMn99N6o=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=U1GKHGCdIAm5jhVBmju3GAymUq5bgF6/9ol2RtG5Dpu0mE4LD5G1zBkOdl6vcag9T
-	 UDLQjMte0RQ7BYTPIqhoDZGC2a4Mav0uvwEjMkCRGeifRVWIDZjyROlzVXhbd34Ly4
-	 534erzZZmYJOxnFD3gXB2Jd2eD5wC034Dopmg+T45rxIwwDU7b7NJHfOxF7bd0+FRe
-	 +Qlug9UEd3sN4x8aEYR0wp28t2NOhBgGzDXXGIe+Kd8c1lQvaGgs/tUeN8/girPPff
-	 WXpdhvUqlEvDMVZAVXGqngiYYSaUn0rYOexTj/tsSBneSQj3VSJ2gnb/zex/PM9xYt
-	 z5b/MH7F3XOpA==
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5bf9466412fso764565e0c.1
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 04:56:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rr83u4uard0YNBj/PMrlyKSf0OiXvil0NTk9ogBWhoRce9F4sGuSdeGAv2mTdOgboP44A4tgdo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YypPeeySPJzh+fhCec90l/kQNXkL8/k4LU8EUpkYVZZaB/Dpe8D
-	uQxxMsVuj9WSY5iKPQf+XKGj2WbnsIjRFR/cx37NOPOHK1YmNgfdXDmSlmvS3Vz6O40M9Y6NoC4
-	UUkIcALKGHWrH1PhiTTV4TBSRVZ2qqVY=
-X-Received: by 2002:a05:6122:2210:b0:55b:d85:5073 with SMTP id
- 71dfb90a1353d-5c37e36f12dmr582502e0c.4.1785499018011; Fri, 31 Jul 2026
- 04:56:58 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="gCOk0P3G";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="+0wE5aTs";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="u8+nXhWi";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="h43eim/X"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A7A2F410C;
+	Fri, 31 Jul 2026 11:57:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785499053; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cTgMwaWPzZIqwwhLFXF76DzOC7OTGrQ4O4jIUUHt9oQ=;
+	b=gCOk0P3GD5dKzTvHX7KVbUTO+wjDO5o+CRD0LHZHqlfvWA5G9X1+DImySUQsB0BTffUxCf
+	swMLe1ddV506Y+KTtd8u5sRkLXFRNN1avxVSQ61o9xEO3XP5ZgvKuPIR2YeEt+0kgV3J89
+	Ava/ERfm9lsLF0cXcrvt/N9WzOD3/es=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785499053;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cTgMwaWPzZIqwwhLFXF76DzOC7OTGrQ4O4jIUUHt9oQ=;
+	b=+0wE5aTs2t+Temb2JJ7AoVE/qmIOek2/I/g3a7nFtWSuVx8uAWjcejv4geLaj5LEua8HWM
+	jNBBA8KfN81bWpBg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785499049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cTgMwaWPzZIqwwhLFXF76DzOC7OTGrQ4O4jIUUHt9oQ=;
+	b=u8+nXhWie/a1eXCl5tAmd9P5krNGYfWuSVTcTicn48zMiF74vkdqQyztJE/p2f21tH6LAx
+	c7NJGVx2/5FUnjnPQ5WUoe4WgHhaMdOmsPr8H1c26cn5g6RUZJngglBaMkgLDNRSU+5bxV
+	0hFA4mbY/4sjH3Mw/lafUGqHaO9jsgo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785499049;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cTgMwaWPzZIqwwhLFXF76DzOC7OTGrQ4O4jIUUHt9oQ=;
+	b=h43eim/XTeHwYYQc5OzZYiWItp2+ynW/A5GFBpA6jyBhGA8jiANwBIFpgeKEoFjl9aPMCb
+	1mUytZ3vslI0neBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 87FD1779B0;
+	Fri, 31 Jul 2026 11:57:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id qjwtIamNbGr8ZwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 31 Jul 2026 11:57:29 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 2BEACA13A4; Fri, 31 Jul 2026 13:57:29 +0200 (CEST)
+Date: Fri, 31 Jul 2026 13:57:29 +0200
+From: Jan Kara <jack@suse.cz>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: linux-ext4@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>, 
+	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>, 
+	Zhang Yi <yi.zhang@huawei.com>, Ira Weiny <iweiny@kernel.org>, linux-fscrypt@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Disha Goel <disgoel@linux.ibm.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: don't enable DAX on new encrypted files
+Message-ID: <4ramlo3giiu63es2enlu5ebbg5swq27pc45b2yso33pp3gtmgr@yd5hfhglyi6d>
+References: <20260730175212.36923-1-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260731-btrfs_kmemleak-v1-1-9600453eef4e@debian.org>
-In-Reply-To: <20260731-btrfs_kmemleak-v1-1-9600453eef4e@debian.org>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Fri, 31 Jul 2026 12:56:20 +0100
-X-Gmail-Original-Message-ID: <CAL3q7H5P6XngF7O8Pfp_WawazCeq26V+=G7OQnnNLsnD4EbZDA@mail.gmail.com>
-X-Gm-Features: AUfX_mzSfc25Hh6uCprxdI-uahMwrD1XOiroRhpR17tsLAfZ_sI0kS20vo37teg
-Message-ID: <CAL3q7H5P6XngF7O8Pfp_WawazCeq26V+=G7OQnnNLsnD4EbZDA@mail.gmail.com>
-Subject: Re: [PATCH] btrfs: fix extent changeset leak in encoded writes
-To: Breno Leitao <leitao@debian.org>
-Cc: Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>, Omar Sandoval <osandov@fb.com>, 
-	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, jlayton@kernel.org, 
-	boris@bur.io, kernel-team@meta.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260730175212.36923-1-ebiggers@kernel.org>
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	TAGGED_RCPT(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
 
-On Fri, Jul 31, 2026 at 12:52=E2=80=AFPM Breno Leitao <leitao@debian.org> w=
-rote:
->
-> Investigating some machines with kmemleak, I am constantly seeing
-> the following memory leak that seems real.
->
->   kmemleak: unreferenced object 0xffff88869f7d01c0 (size 64):
->   kmemleak:   comm "btrfs", pid 1613416, jiffies 4316358595
->   kmemleak:   backtrace (crc ab59040a):
->   kmemleak:     __kmalloc_cache_noprof
->   kmemleak:     qgroup_reserve_data
->   kmemleak:     btrfs_qgroup_reserve_data
->   kmemleak:     btrfs_do_encoded_write
->   kmemleak:     btrfs_do_write_iter
->   kmemleak:     btrfs_ioctl_encoded_write
->   kmemleak:     btrfs_ioctl
->   kmemleak:   ... and 2 more object(s) with the same backtrace
->
-> and
->
->   kmemleak: unreferenced object 0xffff88830d94edc0 (size 64):
->   kmemleak:   comm "btrfs", pid 1613416, jiffies 4316358595
-> <snip>
->   kmemleak:   ... and 2 more object(s) with the same backtrace
->
-> Looking at the code, it seems we don't free data_reserved, but
-> we should (!?). I was able to come up with a xfstest test that exposes
-> the kmemleak above:
->
-> https://github.com/leitao/xfstest/commit/81c83a3fbb20b4ad695055ede7fcb73d=
-3ffa2e52
->
-> Free the changeset on the way out, as every other caller of
-> btrfs_qgroup_reserve_data() already does.
->
-> Fixes: 7c0c7269f7b5 ("btrfs: add BTRFS_IOC_ENCODED_WRITE")
+On Thu 30-07-26 10:52:12, Eric Biggers wrote:
+> Currently, when a new encrypted regular file is created, the call to
+> ext4_set_inode_flags(inode, init=true) in __ext4_new_inode() is made
+> before EXT4_INODE_ENCRYPT is set.  As a result, it can set S_DAX if the
+> filesystem is mounted with "-o dax=always".
+> 
+> EXT4_INODE_ENCRYPT then actually gets set a bit later in
+> __ext4_new_inode(), when it calls fscrypt_set_context() which calls
+> ext4_set_context().  ext4_set_context() sets EXT4_INODE_ENCRYPT and
+> calls ext4_set_inode_flags(inode, init=false) to set S_ENCRYPTED too.
+> 
+> This was intended to clear S_DAX as well.  However, this was broken by
+> commit 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load").  This
+> causes data written to the file to bypass encryption, also causing
+> xfstests failures such as generic/548 (when "-o dax=always" is used).
+> 
+> Fix this by simplifying the flow by making __ext4_new_inode() set
+> EXT4_INODE_ENCRYPT earlier.  This makes it take effect in
+> ext4_set_inode_flags(inode, init=true), making S_DAX never be set.
+> 
+> Similarly, make EXT4_STATE_MAY_INLINE_DATA never be set in the first
+> place on new encrypted inodes.  Then it doesn't need to be cleared.
+> 
+> As a result of these simplifications, ext4_set_context() no longer needs
+> to change inode flags or state when 'handle != NULL'.  Remove that too.
+> 
+> Reported-by: Disha Goel <disgoel@linux.ibm.com>
+> Reported-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+> Closes: https://lore.kernel.org/r/20260723085648.1500357-1-ojaswin@linux.ibm.com
+> Fixes: 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Breno Leitao <leitao@debian.org>
+> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 
-This is already fixed here:
+Looks good! Feel free to add:
 
-https://lore.kernel.org/linux-btrfs/20260727115352.12622-1-dmantipov@yandex=
-.ru/
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Thanks.
+								Honza
 
 > ---
->  fs/btrfs/inode.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-> index 0fcbfc3939462..f8ad96256ff67 100644
-> --- a/fs/btrfs/inode.c
-> +++ b/fs/btrfs/inode.c
-> @@ -9965,6 +9965,7 @@ ssize_t btrfs_do_encoded_write(struct kiocb *iocb, =
-struct iov_iter *from,
->         if (cb)
->                 cleanup_compressed_bio(cb);
->  out:
-> +       extent_changeset_free(data_reserved);
->         if (ret >=3D 0)
->                 iocb->ki_pos +=3D encoded->len;
->         return ret;
->
-> ---
-> base-commit: 95d6a9ccef99117115e41e9adb271243bd5e985b
-> change-id: 20260731-btrfs_kmemleak-d44637bd2518
->
-> Best regards,
-> --
-> Breno Leitao <leitao@debian.org>
->
->
+>  fs/ext4/crypto.c | 40 ++++++++++++++++++++--------------------
+>  fs/ext4/ialloc.c |  4 ++++
+>  2 files changed, 24 insertions(+), 20 deletions(-)
+> 
+> diff --git a/fs/ext4/crypto.c b/fs/ext4/crypto.c
+> index f41f320f4437..3971986de028 100644
+> --- a/fs/ext4/crypto.c
+> +++ b/fs/ext4/crypto.c
+> @@ -144,7 +144,13 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
+>  	if (inode->i_ino == EXT4_ROOT_INO)
+>  		return -EPERM;
+>  
+> -	if (WARN_ON_ONCE(IS_DAX(inode) && i_size_read(inode)))
+> +	/*
+> +	 * For new encrypted inodes, S_DAX is never set in the first place.
+> +	 *
+> +	 * For existing inodes, this is called only on empty directories.  ext4
+> +	 * never sets S_DAX on directories.
+> +	 */
+> +	if (WARN_ON_ONCE(IS_DAX(inode)))
+>  		return -EINVAL;
+>  
+>  	if (ext4_test_inode_flag(inode, EXT4_INODE_DAX))
+> @@ -163,6 +169,14 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
+>  	 */
+>  
+>  	if (handle) {
+> +		/*
+> +		 * __ext4_new_inode() should have already set the encrypt flag
+> +		 * on the inode and avoided enabling inline data.
+> +		 */
+> +		if (WARN_ON_ONCE(!IS_ENCRYPTED(inode)))
+> +			return -EINVAL;
+> +		if (WARN_ON_ONCE(ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)))
+> +			return -EINVAL;
+>  		/*
+>  		 * Since the inode is new it is ok to pass the
+>  		 * XATTR_CREATE flag. This is necessary to match the
+> @@ -170,21 +184,10 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
+>  		 * function with the credits allocated for the new
+>  		 * inode.
+>  		 */
+> -		res = ext4_xattr_set_handle(handle, inode,
+> -					    EXT4_XATTR_INDEX_ENCRYPTION,
+> -					    EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
+> -					    ctx, len, XATTR_CREATE);
+> -		if (!res) {
+> -			ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
+> -			ext4_clear_inode_state(inode,
+> -					EXT4_STATE_MAY_INLINE_DATA);
+> -			/*
+> -			 * Update inode->i_flags - S_ENCRYPTED will be enabled,
+> -			 * S_DAX may be disabled
+> -			 */
+> -			ext4_set_inode_flags(inode, false);
+> -		}
+> -		return res;
+> +		return ext4_xattr_set_handle(handle, inode,
+> +					     EXT4_XATTR_INDEX_ENCRYPTION,
+> +					     EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
+> +					     ctx, len, XATTR_CREATE);
+>  	}
+>  
+>  	res = dquot_initialize(inode);
+> @@ -205,10 +208,7 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
+>  				    ctx, len, 0);
+>  	if (!res) {
+>  		ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
+> -		/*
+> -		 * Update inode->i_flags - S_ENCRYPTED will be enabled,
+> -		 * S_DAX may be disabled
+> -		 */
+> +		/* Update inode->i_flags to set S_ENCRYPTED. */
+>  		ext4_set_inode_flags(inode, false);
+>  		res = ext4_mark_inode_dirty(handle, inode);
+>  		if (res)
+> diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
+> index a40cb27f8116..a5831fc536db 100644
+> --- a/fs/ext4/ialloc.c
+> +++ b/fs/ext4/ialloc.c
+> @@ -997,6 +997,8 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
+>  		err = fscrypt_prepare_new_inode(dir, inode, &encrypt);
+>  		if (err)
+>  			goto out;
+> +		if (encrypt)
+> +			i_flags |= EXT4_ENCRYPT_FL;
+>  	}
+>  
+>  	err = dquot_initialize(inode);
+> @@ -1306,6 +1308,8 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
+>  	ei->i_extra_isize = sbi->s_want_extra_isize;
+>  	ei->i_inline_off = 0;
+>  	if (ext4_has_feature_inline_data(sb) &&
+> +	    /* Encrypted inodes cannot have inline data */
+> +	    !(ei->i_flags & EXT4_ENCRYPT_FL) &&
+>  	    (!(ei->i_flags & (EXT4_DAX_FL|EXT4_EA_INODE_FL)) || S_ISDIR(mode)))
+>  		ext4_set_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA);
+>  	ret = inode;
+> 
+> base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
+> -- 
+> 2.55.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
