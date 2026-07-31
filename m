@@ -1,52 +1,56 @@
-Received: from cvsmtppost31.nm.naver.com (cvsmtppost31.nm.naver.com [114.111.35.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1084D42A179
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 14:24:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.166
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3B76F42DA30;
+	Fri, 31 Jul 2026 14:28:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785507902; cv=none; b=hsALNHzqrNYPb8IxYS+b9v8GyAQk0BK9/ls/o402h1Bx5UrtT98UqinqAVuEP1VzZ11z969kIW+lARKAHEWDogoZNCzh3FUBdBtLn8h2jbbJfavmrJKMYTCCGclYwlDUydsqrWg4Wy6CYvaFtXKhn2WybMeSK58j960Yoii/lrQ=
+	t=1785508124; cv=none; b=An3/caZMav7ZsdpzG6hu9ZVaygTdQW+xbSPirojJMksLuVFqzitNoeNyd1sf8fJmn7Vy9VUXmiuoYwsc1EWcxlEabgfgoQkC/IkyE904Gzjl6aftqhd1HRUhQf1AAU4XKAD2gla6dxV/79/KLwrfs1QNHTJhtELYX3k1PzrK55c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785507902; c=relaxed/simple;
-	bh=a7eSvM2JHbOvQCUTR4TaiBdpKKZS4wqzFVkZje62WEI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oQ6jnY8y/ZEoRJwFeqsQ39IIwbRIth+M3Yv7wCIAPnEDjrcV5wo7SXrgvRvyG6dL9VWx94a+oyeR5FvLEC/hObqcv07ZuQdGJLumPdkwPkphvVadesrSnTmLq1U7epX0BU5p+VqOFGI1hx4p8+0h8hou21SfqIF5VhE38cIHaxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=Gmf7jD2P; arc=none smtp.client-ip=114.111.35.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+	s=arc-20240116; t=1785508124; c=relaxed/simple;
+	bh=xxGXXaHnsoofIC2ydDID8htJYXWEjAi8DfUzCD7vX5A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Iru/7aUAEErpdK8g4AuLU0FZBilDrYHFuo9x1miT15v9+xmythy9vQs8rN94LKhS248BpExk0Jg0c3Be8Oq+gIDZdCEy3ID9H0bUhC3ru4AN9VepuDEBUswivG/YJE8GTRGqxoXDUXbI/aniw5YGpa+pYSfzYtMFkorLwfnfEps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=lvNbCRhO; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="Gmf7jD2P"
-Received: from cvsendbo022.nm ([10.112.20.47])
-  by cvsmtppost31.nm.naver.com with ESMTP id uhzw5vpuRjC6-AdxJnfigQ
-  for <stable@vger.kernel.org>;
-  Fri, 31 Jul 2026 14:14:50 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1785507290; bh=a7eSvM2JHbOvQCUTR4TaiBdpKKZS4wqzFVkZje62WEI=;
-	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=Gmf7jD2PqWEjVgNdBEcvv1dmtsgvckmdU5jfDMCnxZ5q9ddo6IYhX8cQZyrYCRPd2
-	 X+OfzbYofqD1saQFDXZdLvLaz91b9WE/r4RW0UmIhqCbXMg6W+mh+xbCt9CuwOSB4F
-	 RSTWjZxSZ3MASNCBiweiK7w2xd9OEFGha4RhROZZnhwlmNzuZZNM+bNRePmSjXJY34
-	 1bBFt8C9xE/QQxa3wT6Gzfk1O4ayTW6NMYfMnQ/37Iewna8pbTq546+H3kEwcAknSM
-	 XbKnuK7zsVWmbckn8tCvUCLj7Y521JtOACd0Qy2ju09i8V+GeTY4H5AscOLe5KlHj/
-	 D96JGLuAdZRtQ==
-X-Session-ID: W5waVQ3hRKmKzzf0kMVAqw
-X-Works-Send-Opt: rle8W4eXjHwYKBm9FAF9FHmwKo2mKqErKqb/jJIFjAJYKg==
-X-Works-Smtp-Source: gdbXFAE/FqJZ+Hmmax2d+6E=
-Received: from localhost.localdomain ([211.41.193.194])
-  by cvnsmtp002.nm.naver.com with ESMTP id W5waVQ3hRKmKzzf0kMVAqw
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Fri, 31 Jul 2026 14:14:50 -0000
-From: Hyeontae Lee <wonju345@naver.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	ntfs3@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="lvNbCRhO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
+	Date:Message-ID:MIME-Version:Content-Transfer-Encoding; bh=mLGso
+	flB7nEpHez+1E+91ZwAVc1VU9UYhCn9iDvCylQ=; b=lvNbCRhORkXYjDG5YJk5v
+	WeFv1Q2Asdzh09ibfQABp6O5eB85xe4lI6IHy/fDzWc8fwsb8sjaroBGOeKs/MIi
+	Q5/9R64w8c2ex75SmYZxH/h6o9WmoNg9r2uCX0VhuLDeazXsASQK1BiqdjNAhoi8
+	9R31VXy32rrcs0IorSGKVs=
+Received: from localhost.localdomain (unknown [106.111.19.240])
+	by web1 (Coremail) with SMTP id yAQGZQAXuMfosGxqWfTeAA--.54054S2;
+	Fri, 31 Jul 2026 22:27:54 +0800 (CST)
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+To: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Simon Horman <horms@verge.net.au>,
+	Julian Anastasov <ja@ssi.bg>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>
+Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+	netdev@vger.kernel.org,
+	lvs-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
 	stable@vger.kernel.org,
-	Hyeontae Lee <wonju345@naver.com>
-Subject: [PATCH] fs/ntfs3: bound CreateAttribute asize against record_size in do_action
-Date: Fri, 31 Jul 2026 23:14:40 +0900
-Message-ID: <20260731141440.52168-1-wonju345@naver.com>
-X-Mailer: git-send-email 2.43.0
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>,
+	Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>,
+	Ke Xu <xuke@tsinghua.edu.cn>
+Subject: [PATCH nf v4 0/3] ipvs: fix destination overload state updates
+Date: Fri, 31 Jul 2026 22:27:40 +0800
+Message-ID: <20260731142748.56545-1-zhaoyz24@mails.tsinghua.edu.cn>
+X-Mailer: git-send-email 2.46.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,109 +58,69 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yAQGZQAXuMfosGxqWfTeAA--.54054S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WF48CF4rJw4Dur4UuF4Uurg_yoW8ZFW5pF
+	ZIka4fX34UJr9xKrsxGayxCrW5Ka1rCrW7ur9xKryfA34UZF45tw4Sy3yjya4rZrn3Kry5
+	tF90g3yUCwn8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9q1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
+	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4
+	x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28E
+	F7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzx
+	vE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VCjz48v1sIEY20_GrWk
+	Jr1UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5c
+	I20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r4a6rW5MxkIecxE
+	wVAFwVW5XwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4rKr1UJr1l4I8I3I
+	0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWU
+	GVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI
+	0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0
+	rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJbIYCTnIWIevJa73UjIFyTuYvjfUw9a9DUUUU
+X-CM-SenderInfo: 52kd05r2suqzpdlo2hxwvl0wxkxdhvlgxou0/1tbiAgQFAWprz6HfCgAAs4
 
-In do_action()'s CreateAttribute case (fslog.c:3286), attr2 points into
-the on-disk log record and asize = le32_to_cpu(attr2->size) is therefore
-attacker-controlled on mount.  The guard bounds asize only against the
-log record itself,
+IPVS schedulers read destination overload state while connection accounting
+and destination configuration can update it concurrently.
 
-	Add2Ptr(attr2, asize) > Add2Ptr(lrh, rec_len)
+The first patch adds a single total connection counter. The second patch
+uses it to identify threshold crossings precisely, and updates OVERLOAD at
+the crossings and on a threshold edit under dst_lock. The third patch moves
+configuration-controlled AVAILABLE to a separate cflags word, so it cannot
+clobber OVERLOAD through an unrelated read-modify-write update.
 
-where rec_len is the client data length, and separately bounds dlen
-against the MFT record.  Nothing bounds asize against record_size, but
-all three writes that follow are into rec, a kmalloc(sbi->record_size)
-buffer allocated by mi_init() (record.c:105):
+Readers can still observe stale destination state. This series does not
+provide a cross-field consistent snapshot.
 
-	memmove(Add2Ptr(attr, asize), attr, used - roff);
-	memcpy(attr, attr2, asize);
-	rec->used = cpu_to_le32(used + asize);
+Changes in v4:
+- Add the total connection counter and threshold-crossing overload updates.
+- Update OVERLOAD under dst_lock at threshold crossings and destination edits.
+- Keep OVERLOAD in dest->flags; drop the flags2/bitops approach.
+- Move AVAILABLE to the separate cflags word, avoiding RMW interference
+  between availability and overload updates.
+- Link to v3: https://lore.kernel.org/netfilter-devel/cover.1783931964.git.zhaoyz24@mails.tsinghua.edu.cn/
 
-With record_size 0x400, roff 0x38, used 0x160 and asize 0x800 the memcpy
-writes 2048 bytes at rec + 0x38, 0x438 bytes past the allocation, and
-rec->used is left at 0x960.  dlen is 0x18 here, so the existing
-dlen check passes: dlen bounds nothing about the size of the copy.
+Julian Anastasov (2):
+  ipvs: add totalconns for dest
+  ipvs: properly update the overload flag on dest edit
 
-The equivalent non-replay path already refuses this.  mi_insert_attr()
-performs the same insert and starts with (record.c:488):
+Yizhou Zhao (1):
+  ipvs: separate destination availability state
 
-	if (used + asize > sbi->record_size)
-		return NULL;
+ include/net/ip_vs.h                   | 27 +++++++--
+ include/uapi/linux/ip_vs.h            |  6 --
+ net/netfilter/ipvs/ip_vs_conn.c       | 45 +++++----------
+ net/netfilter/ipvs/ip_vs_core.c       |  6 +-
+ net/netfilter/ipvs/ip_vs_ctl.c        | 81 ++++++++++++++++++++++-----
+ net/netfilter/ipvs/ip_vs_dh.c         |  4 +-
+ net/netfilter/ipvs/ip_vs_lblc.c       |  2 +-
+ net/netfilter/ipvs/ip_vs_lblcr.c      |  8 +--
+ net/netfilter/ipvs/ip_vs_lc.c         |  4 +-
+ net/netfilter/ipvs/ip_vs_proto_sctp.c |  2 -
+ net/netfilter/ipvs/ip_vs_proto_tcp.c  |  2 -
+ net/netfilter/ipvs/ip_vs_sync.c       |  7 +--
+ net/netfilter/ipvs/ip_vs_xmit.c       |  4 +-
+ 13 files changed, 118 insertions(+), 80 deletions(-)
 
-Apply the same bound, spelled as a subtraction to match the neighbouring
-clause.  used <= record_size holds here because check_file_record()
-validates it (fslog.c:2826) and is called on this record at fslog.c:3172;
-roff <= used - 4 follows from check_if_attr() together with the ATTR_END
-check at fslog.c:2844, so bounding used + asize bounds both copies.
 
-The sibling WriteEndOfFileRecordSegment case does the equivalent check
-against record_size at fslog.c:3277.
-
-Reproduced by mounting a crafted image on v7.2-rc5 under KASAN:
-
-  BUG: KASAN: slab-out-of-bounds in do_action.isra.0+0x41f6/0x83a0
-  Write of size 2048 at addr ffff888005c74838 by task mount/69
-
-  CPU: 0 UID: 0 PID: 69 Comm: mount Not tainted 7.2.0-rc5-00300-g8ba098e6b6ff #2
-  Call Trace:
-   kasan_report+0xce/0x100
-   kasan_check_range+0x105/0x1b0
-   __asan_memcpy+0x3c/0x60
-   do_action.isra.0+0x41f6/0x83a0
-   log_replay+0x920a/0xd300
-   ntfs_loadlog_and_replay+0x3ef/0x510
-   ntfs_fill_super+0x1d23/0x4550
-   get_tree_bdev_flags+0x2ef/0x550
-   vfs_get_tree+0x82/0x2f0
-   fc_mount+0x10/0x1b0
-   path_mount+0x517/0x1df0
-   __x64_sys_mount+0x20b/0x270
-   do_syscall_64+0xf9/0x540
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-  Allocated by task 69:
-   __kasan_kmalloc+0x8f/0xa0
-   __kmalloc_noprof+0x1b4/0x460
-   mi_init+0x81/0x110
-   mi_get+0x6a/0x220
-   do_action.isra.0+0x1db4/0x83a0
-   log_replay+0x920a/0xd300
-   ntfs_loadlog_and_replay+0x3ef/0x510
-   ntfs_fill_super+0x1d23/0x4550
-
-  The buggy address belongs to the object at ffff888005c74800
-   which belongs to the cache kmalloc-1k of size 1024
-  The buggy address is located 56 bytes inside of
-   allocated 1024-byte region [ffff888005c74800, ffff888005c74c00)
-
-Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Hyeontae Lee <wonju345@naver.com>
----
- fs/ntfs3/fslog.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-index f038c799e7ac..2230a4a77872 100644
---- a/fs/ntfs3/fslog.c
-+++ b/fs/ntfs3/fslog.c
-@@ -3288,10 +3288,15 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 		asize = le32_to_cpu(attr2->size);
- 		used = le32_to_cpu(rec->used);
- 
-+		/*
-+		 * attr2->size is taken from the log record and is bounded only
-+		 * by the log record length, not by the MFT record.  Refuse an
-+		 * attribute that does not fit, as mi_insert_attr() does.
-+		 */
- 		if (!check_if_attr(rec, lrh) || dlen < SIZEOF_RESIDENT ||
- 		    !IS_ALIGNED(asize, 8) ||
- 		    Add2Ptr(attr2, asize) > Add2Ptr(lrh, rec_len) ||
--		    dlen > record_size - used) {
-+		    dlen > record_size - used || asize > record_size - used) {
- 			goto dirty_vol;
- 		}
- 
+base-commit: 2195424c3da2ef1829a63b807e3a900a90e57d85
 -- 
-2.43.0
+2.34.1
 
