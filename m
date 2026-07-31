@@ -1,135 +1,234 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C499F442106;
-	Fri, 31 Jul 2026 17:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28BD43E49DF
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 17:53:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785520397; cv=none; b=JqZs1iCDypuYPcndWlD/NzSKIza41VJY/fegwUqwx+U/AvJ0JEPAlzQJE/MYxdulN1WwHlftGIlM+cRhXTAJNXk0koWNnPUCz6dxYaSEGOuyDPMjDmp11TClU7od+ls0COn1+gLX4QgAKdduPRXYi/5i2I3M2wLRM+F0voD+TlU=
+	t=1785520401; cv=none; b=ePUt1qg43WD6YTeu1MsnySxgOKAaMpTh+GMSgRBkNtUprqMBMY0oGhdOaM1x1IXQGa5h51CPvQfJWL6KeHibwjidh0HEbPvnVWw2qQ2RPRYzKMI5pGx92d9GcMjlosBJxjkRyv1K5rbQ0CCV0kx4MRB6A9H9m2QqXR4NrccAwXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785520397; c=relaxed/simple;
-	bh=FkA5oFEShK23UmRSU9gc0ugvAETJkWARmPyTi18l0lY=;
-	h=Date:To:From:Subject:Message-Id; b=gmtEp6Wvsizc/hc3ek7mdVB+bqRFlWx1hHlkUAx8dyqTCz0CX3eVUvyoAYhPaHzzn7++KmQCfnpd6JSgi/jTn9vMtFqQoMqc7S+J4+6lk2fSofyQteseY4Hu9zNCqKxInYPR4jEecBDPHRiWT37TaH4Zj0Scde43PN4XO+ZiKRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=GfNhDTbo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785520401; c=relaxed/simple;
+	bh=OylEw/4IArY2a2cXRsuFlX95bJNhHqo8HYkud3pDEP4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=aPaRjsuLDr0rZw/Xhzc4Y47TJ5Ac09+lEJOlE2Y5maMp58fZicr8bkWkU5AoJjxRGofkKRSd9tmzHzIXOkFtZNvzYT32DyDJYK6pqRxyWXAxBvaafxYr55YXt38PE8+MwqxOp54ogkdD65kPY+vZbWpOvVcv9s/AhpQqZdc3iHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--eddiephillips.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Vbko+wtd; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--eddiephillips.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="GfNhDTbo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB4FC1F00ACA;
-	Fri, 31 Jul 2026 17:53:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Vbko+wtd"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38f57e31b6eso1251373a91.1
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 10:53:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785520395;
-	bh=6c9iDN37jDA8XOCofqdqgwTjdoRk9RxVZQOwtoN4qpE=;
-	h=Date:To:From:Subject;
-	b=GfNhDTbose38OCkSGqhvYqtwkxEy2zTCdd37vOOFYvw/pwirovrqLfKPYJ/ov9cMx
-	 L9aqWtz1dy4REAf0dq5bnCdUkKgs2Y/OhpDCDLPFCDxRw98XTHob9mc432bE8EWiMT
-	 IbmkhlKG8cI0RyNnzarq+7nolQ4r4dSuudGOTyz4=
-Date: Fri, 31 Jul 2026 10:53:14 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,riel@surriel.com,osalvador@suse.de,muchun.song@linux.dev,leitao@debian.org,david@kernel.org,guillaume@morinfr.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + hugetlb-only-adjust-reservation-during-unmapping-if-mapcount-is-0.patch added to mm-new branch
-Message-Id: <20260731175314.DB4FC1F00ACA@smtp.kernel.org>
+        d=google.com; s=20251104; t=1785520399; x=1786125199; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8a+WyDaPrF35faJf4BoZQTKcw4eEVS7LTRZe0rtD/hA=;
+        b=Vbko+wtdzQuoDsYtNViB2h9ngE04mTtBsdjJ+At1iVEIH6RD0KJLRGLxx39OPR9a4R
+         TNcNVFwPccQ94lv+auyKlCD0iDHOFE4okDUyw+yczanvOvUVUBhjOyKmiXKyEbzHUB1/
+         YlPRNIS39nxfwKSEZKdtZ11Oz+s73hyfpG+h9NY+9pzH2uNi/FZftdtk438U2Ov3Re3q
+         r0A7bxXMmBx1cYnLPW/aJlXz+hJsNLNs/ScyEcdqto4ffvlAlnRm0qTKavhSKp51Nvl6
+         GfL0zbu/HHrXCdzU99r7Vg1ZkwTU5HQMZsLOh1dw3NYY3rJWUEggO5PXRedDFDA7hdiv
+         bySQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785520399; x=1786125199;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8a+WyDaPrF35faJf4BoZQTKcw4eEVS7LTRZe0rtD/hA=;
+        b=L2r6gkxL2wcMzgvyP7eH0OTIs5XVYPP+yoBJSBJrWZ11wp5gUMi9t3NFMXt1wojgMx
+         vZUpE2UlgaoJJy9vfQCgYXkggOtQQeBDtayTZ2dLoe2581eWdNvFqWMgpbuJ9cC8mGOb
+         xxY6ECeUvmEH72dYAtPUXaM3KoAo3HwZ4DdKau47ZkjGtnDKL9e9xGSKqacQQX3tySE5
+         xZZRLCrp5NGZd8ew22YodoU1k8+vVpwHogYJ7mt/hOsRGHMsh47SD4wrLgMQN+M099qW
+         AvALROUf2LQR8gG/H4DjEiG57qdVr579ZN2oxHYGsAs7rBJ3FGtwZZjrXDHNcL7CxcAX
+         zWzQ==
+X-Gm-Message-State: AOJu0YyGVebSqW/NjUDtHS+OPtbp0Wf+lPeuiF311xtibQj14/qQMzhN
+	WiVLgyaXY/tYHFyYLjUD2+i7Cqorup+KkQrG+gqsuz3TnWx7c4Qr2sdKRAGg5oKuuFbhGQFGkLR
+	1rrmhdC3WHLtlkov+Ba3Bil0fQLIzZdVoxTBkMv+xSs7B4bstneegmY2o9dd+A6p6t6DAUyHOyY
+	jQeiZMQP9li8cn1Y3IkDp7uQgy5jyIpmJoGajDjsMziQ6yf7VMQQ3XUfVcCcEVa37wRoh+4r9tf
+	g==
+X-Received: from pjbsx15.prod.google.com ([2002:a17:90b:2ccf:b0:38e:befb:90c6])
+ (user=eddiephillips job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:55c8:b0:38e:11ba:992c with SMTP id 98e67ed59e1d1-38fbc44261fmr603801a91.12.1785520399146;
+ Fri, 31 Jul 2026 10:53:19 -0700 (PDT)
+Date: Fri, 31 Jul 2026 10:52:09 -0700
+In-Reply-To: <2026072934-rule-library-9954@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+References: <2026072934-rule-library-9954@gregkh>
+X-Mailer: git-send-email 2.55.0.571.g244d577d93-goog
+Message-ID: <20260731175209.2862108-1-eddiephillips@google.com>
+Subject: [PATCH v2 6.1.y] gve: fix Rx queue stall on alloc failure
+From: Eddie Phillips <eddiephillips@google.com>
+To: stable@vger.kernel.org
+Cc: Eddie Phillips <eddiephillips@google.com>, Jordan Rhee <jordanrhee@google.com>, 
+	Harshitha Ramamurthy <hramamurthy@google.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+	Jakub Kicinski <kuba@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
+When the system is under extreme memory pressure, page allocations can
+fail during the Rx buffer refill loop. If the number of buffers posted
+to hardware falls below a critical low threshold and the refill loop
+exits due to allocation failures, the queue can stall:
 
-The patch titled
-     Subject: hugetlb: only adjust reservation during unmapping if mapcount is 0
-has been added to the -mm mm-new branch.  Its filename is
-     hugetlb-only-adjust-reservation-during-unmapping-if-mapcount-is-0.patch
+1. The device drops incoming packets because there are no descriptors.
+2. Since no packets are processed, no Rx completions are generated.
+3. Because no completions occur, NAPI is never scheduled, preventing
+   the refill loop from running again even after memory is freed.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/hugetlb-only-adjust-reservation-during-unmapping-if-mapcount-is-0.patch
+This results in a permanent queue stall.
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Resolve this by introducing a starvation recovery timer for each Rx queue.
+If the number of buffers posted to hardware falls below a critical low
+threshold, start a timer to periodically reschedule NAPI. Once NAPI runs
+and successfully refills the queue above the threshold, the timer is
+not rescheduled.
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+The threshold is set to 32 because a single maximum-sized Receive Segment
+Coalescing (RSC) packet can consume up to 19 descriptors in the Rx path.
+Lower thresholds (such as 8 or 16) would be insufficient to process a
+complete maximum-sized RSC packet, risking packet drops or unexpected
+hardware behavior under memory pressure. Setting the threshold to 32
+guarantees a safe margin to handle at least one full RSC packet.
 
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Guillaume Morin <guillaume@morinfr.org>
-Subject: hugetlb: only adjust reservation during unmapping if mapcount is 0
-Date: Tue, 28 Jul 2026 21:29:03 +0200
-
-Since df7a6d1f6405, __unmap_hugepage_range can adjust reservations.  In
-the case of folio mapped in both a parent and a child, if the parent
-unmaps the range first, the reservation adjustment will result in an
-underflow of the reserved count.  Once the child unmaps the range, the
-count is restored.  Change __unmap_hugepage_range() to check the mapcount
-before adjusting the reservation.
-
-Link: https://lore.kernel.org/all/alEJkwn5VlTTH_ZX@bender.morinfr.org/
-Link: https://lore.kernel.org/amkC_1Ya6OiUoiLZ@bender.morinfr.org
-Fixes: df7a6d1f6405 ("mm/hugetlb: restore the reservation if needed")
-Signed-off-by: Guillaume Morin <guillaume@morinfr.org>
-Reviewed-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: stable@vger.kernel.org
+Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
+Reviewed-by: Jordan Rhee <jordanrhee@google.com>
+Signed-off-by: Eddie Phillips <eddiephillips@google.com>
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Link: https://patch.msgid.link/20260709211906.3322883-1-hramamurthy@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+(cherry picked from commit b65352a1bac64442ad95e64f385b40ccb9f1b0db)
 ---
+Changes in v2:
+- v1 Link: https://lore.kernel.org/stable/20260731154449.2755799-1-eddiephillips@google.com/
+- Included backports in gve_main.c and gve_rx_dqo.c. v1 only included
+gve.h by mistake. Sorry for the noise.
+---
+ drivers/net/ethernet/google/gve/gve.h        |  3 ++
+ drivers/net/ethernet/google/gve/gve_main.c   |  3 ++
+ drivers/net/ethernet/google/gve/gve_rx_dqo.c | 33 ++++++++++++++++++++
+ 3 files changed, 39 insertions(+)
 
- mm/hugetlb.c |    8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
---- a/mm/hugetlb.c~hugetlb-only-adjust-reservation-during-unmapping-if-mapcount-is-0
-+++ a/mm/hugetlb.c
-@@ -5218,6 +5218,7 @@ void __unmap_hugepage_range(struct mmu_g
- 	bool adjust_reservation;
- 	unsigned long last_addr_mask;
+diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
+index c5e1312b9283..7de492b0d361 100644
+--- a/drivers/net/ethernet/google/gve/gve.h
++++ b/drivers/net/ethernet/google/gve/gve.h
+@@ -10,6 +10,7 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/netdevice.h>
+ #include <linux/pci.h>
++#include <linux/timer.h>
+ #include <linux/u64_stats_sync.h>
  
-+	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
- 	WARN_ON(!is_vm_hugetlb_page(vma));
- 	BUG_ON(start & ~huge_page_mask(h));
- 	BUG_ON(end & ~huge_page_mask(h));
-@@ -5309,7 +5310,10 @@ void __unmap_hugepage_range(struct mmu_g
+ #include "gve_desc.h"
+@@ -35,6 +36,7 @@
  
- 		/*
- 		 * Restore the reservation for anonymous page, otherwise the
--		 * backing page could be stolen by someone.
-+		 * backing page could be stolen by someone. Restore only on the
-+		 * last unmap, otherwise the owner could empty its resv map
-+		 * while the folio is still mapped by a child. Note that holding
-+		 * i_mmap_lock_write is needed to check the number of mappings.
- 		 * If there we are freeing a surplus, do not set the restore
- 		 * reservation bit.
- 		 */
-@@ -5317,7 +5321,7 @@ void __unmap_hugepage_range(struct mmu_g
+ /* Interval to schedule a stats report update, 20000ms. */
+ #define GVE_STATS_REPORT_TIMER_PERIOD	20000
++#define GVE_RX_NAPI_RESCHED_MS 20 /* msecs */
  
- 		spin_lock_irq(&hugetlb_lock);
- 		if (!h->surplus_huge_pages && __vma_private_lock(vma) &&
--		    folio_test_anon(folio)) {
-+		    !folio_mapped(folio) && folio_test_anon(folio)) {
- 			folio_set_hugetlb_restore_reserve(folio);
- 			/* Reservation to be adjusted after the spin lock */
- 			adjust_reservation = true;
-_
-
-Patches currently in -mm which might be from guillaume@morinfr.org are
-
-hugetlb-only-adjust-reservation-during-unmapping-if-mapcount-is-0.patch
+ /* Numbers of NIC tx/rx stats in stats report. */
+ #define NIC_TX_STATS_REPORT_NUM	0
+@@ -226,6 +228,7 @@ struct gve_rx_ring {
+ 	struct u64_stats_sync statss; /* sync stats for 32bit archs */
+ 
+ 	struct gve_rx_ctx ctx; /* Info for packet currently being processed in this ring. */
++	struct timer_list starvation_timer; /* for queue starvation recovery */
+ };
+ 
+ /* A TX desc ring entry */
+diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+index 209e9526a6fd..fc2a516a3bee 100644
+--- a/drivers/net/ethernet/google/gve/gve_main.c
++++ b/drivers/net/ethernet/google/gve/gve_main.c
+@@ -529,6 +529,9 @@ static void gve_remove_napi(struct gve_priv *priv, int ntfy_idx)
+ {
+ 	struct gve_notify_block *block = &priv->ntfy_blocks[ntfy_idx];
+ 
++	if (block->rx && !gve_is_gqi(priv))
++		timer_shutdown_sync(&block->rx->starvation_timer);
++
+ 	netif_napi_del(&block->napi);
+ 	disable_irq(block->irq);
+ }
+diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+index 0a36b284de10..adae0f5181ea 100644
+--- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
++++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+@@ -16,6 +16,16 @@
+ #include <net/ipv6.h>
+ #include <net/tcp.h>
+ 
++static void gve_rx_starvation_timer(struct timer_list *t)
++{
++	struct gve_rx_ring *rx = from_timer(rx, t, starvation_timer);
++	struct gve_priv *priv = rx->gve;
++	struct gve_notify_block *block;
++
++	block = &priv->ntfy_blocks[rx->ntfy_id];
++	napi_schedule(&block->napi);
++}
++
+ static int gve_buf_ref_cnt(struct gve_rx_buf_state_dqo *bs)
+ {
+ 	return page_count(bs->page_info.page) - bs->page_info.pagecnt_bias;
+@@ -185,6 +195,7 @@ static void gve_rx_free_ring_dqo(struct gve_priv *priv, int idx)
+ 	completion_queue_slots = rx->dqo.complq.mask + 1;
+ 	buffer_queue_slots = rx->dqo.bufq.mask + 1;
+ 
++	timer_shutdown_sync(&rx->starvation_timer);
+ 	gve_rx_remove_from_block(priv, idx);
+ 
+ 	if (rx->q_resources) {
+@@ -237,6 +248,7 @@ static int gve_rx_alloc_ring_dqo(struct gve_priv *priv, int idx)
+ 	memset(rx, 0, sizeof(*rx));
+ 	rx->gve = priv;
+ 	rx->q_num = idx;
++	timer_setup(&rx->starvation_timer, gve_rx_starvation_timer, 0);
+ 	rx->dqo.bufq.mask = buffer_queue_slots - 1;
+ 	rx->dqo.complq.num_free_slots = completion_queue_slots;
+ 	rx->dqo.complq.mask = completion_queue_slots - 1;
+@@ -337,6 +349,7 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
+ 	u32 num_avail_slots;
+ 	u32 num_full_slots;
+ 	u32 num_posted = 0;
++	u32 num_bufs_avail_to_hw;
+ 
+ 	num_full_slots = (bufq->tail - bufq->head) & bufq->mask;
+ 	num_avail_slots = bufq->mask - num_full_slots;
+@@ -374,6 +387,26 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
+ 	}
+ 
+ 	rx->fill_cnt += num_posted;
++
++	/* If the queue has fewer than GVE_RX_BUF_THRESH_DQO descriptors
++	 * visible to the hardware, the hardware is in danger of starving
++	 * and cannot trigger interrupts.
++	 *
++	 * We use a threshold of 32 because a single maximum-sized RSC
++	 * packet can consume up to 19 descriptors in the Rx path. Lower
++	 * thresholds (e.g., 8 or 16) would be unsafe as they could cause
++	 * the device to drop/stall on a maximum-sized RSC packet.
++	 *
++	 * Start the timer to periodically reschedule NAPI and recover.
++	 */
++	num_bufs_avail_to_hw =
++		((bufq->tail & ~(GVE_RX_BUF_THRESH_DQO - 1)) -
++		 bufq->head) & bufq->mask;
++
++	if (num_bufs_avail_to_hw < GVE_RX_BUF_THRESH_DQO) {
++		mod_timer(&rx->starvation_timer,
++			  jiffies + msecs_to_jiffies(GVE_RX_NAPI_RESCHED_MS));
++	}
+ }
+ 
+ static void gve_try_recycle_buf(struct gve_priv *priv, struct gve_rx_ring *rx,
+-- 
+2.55.0.571.g244d577d93-goog
 
