@@ -1,39 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6282A4457DC
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 15:50:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E85442FD8
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 15:50:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785513021; cv=none; b=PWPNBBO2hdk/nv0PhJTG70u4rPneKEVptR6BXdlwM4LXeiv2ArGVpGcGfZ1a49kArh75bCDzTVUS77j72jI89Rs12DK8shwxHaECDDLMj+VEw8yKUEonR0jTFcGpydhNEt5n08Hdi3e7dyZOjshICfT0TXEu/wOAku936cBVH9I=
+	t=1785513022; cv=none; b=c4s5js8PUJ0vw690raFFDhdoOCqxVxYvojYT2MEBL6h6eOL4Wqm5YMpuIBIxyOXvVH3bY4S6+aZl8vZIPhmJhCt/eOU5LWkltzDzOSXgvD28LyksGkEiJfZL4cjc8VCgCYr/vFSo8qezvzYwFbC8Tosu/2MmFBvxNCmsDv1wA54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785513021; c=relaxed/simple;
-	bh=eGHCTgqqtqSQmrpln1OdadLVxdj/jXgO8sxk7gawmPY=;
+	s=arc-20240116; t=1785513022; c=relaxed/simple;
+	bh=Icz/V/RNdQe/nN3jiAy4MNO4uzOONy6Vm+qhQZS5bng=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ScS9QiFkF2JuvUv8C+mzYL6dMVWZaCckWn23d/vFOp5CRrrD641L7bK8qTcNGKqlmK9mfpky1uk36Ve+E572B4QbuByfLoTikEZ7LRF35vDWKGi0qDg+Hta+6dM7rVbQRKfCDDjmS8RpjhZkQdHM7VunY1M7gh0jO3E+bpJ9hs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oUc3LtZY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bCHOFzKRcOi/PHM4QhrMMgMt/eMmDOjm5/XqCyi+Oca3bsa5X+7JNOT813M3DxxHT5Mr2e+TGj+XiFLzPGTMcL4xXCzUBK7y+ab/xFU1ertl5MgLFekla4KILXoGK0BhzQLF9dywi8vpVgW4Wyf1v3DulnkMJSCnLG1yzIg7wpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UpeUb9MY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oUc3LtZY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCF841F00A3D;
-	Fri, 31 Jul 2026 15:50:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UpeUb9MY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B6D1F00A3E;
+	Fri, 31 Jul 2026 15:50:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785513018;
-	bh=9Xs6i/NF94IKEEuMUmBKUif1XE2bTRPHKDe7LRG7J0c=;
+	s=k20260515; t=1785513019;
+	bh=Q8+1fqF9Xyp+i4+lJl2qXO1cj7PlsHBda3jimi+XPlk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oUc3LtZY1wjORqLFW3b6q6lc1bSp874O6c77dp1sIVR/U/CkB/I3iai45HqibZ+j5
-	 YOGr3xnFuk4EP1aKqWEqt7Lts/EvYdx6UfO2U/+QPE3tItLq3hNirMaCri8cAFe4zU
-	 1fCYhGJl+xojWwZY7gvAd4fp+U7Q8mCDp9cHQsS9AL29ASn3J94tP0o/IC1BnPtclB
-	 UCW9VA/C5LOzRy9+UWd2HgLOTZ3NFmzlXeycW9fSsnq/SM2xYSk2PrP5oa7nEweN5F
-	 iVFZrHll8/7F4JsJSJIYi7vX3qMmqty1tkPHzJccwnDuZ+X9YVFqh4RMapS27Je74C
-	 VKU1WZtD+wi+Q==
+	b=UpeUb9MYN9Nno5WkEvPT0Ji7Nqex6w4MlV/gWAG8cbpUUPgYKrsA/miN+TISJI+qg
+	 nCp7ADJzUIzI9bSY2QgQBEdN2A2Pmx/hKxsoQk3/0Dz01Op1/fCPsNxXG4ML1bgPJF
+	 vdcn1R5EH2eNf+wgfX0GbLbo8WVKYkGf+SZlN4yAwW/6iERM+A7PS0uRvjNNUfbdiK
+	 abRD/moaslGI8Ta34F8y3m3F6EE13AegzA8es4uCtG+/DNRtHWdcwq0BEHtv0CwC8V
+	 vUov5g74xrmqRgtKOMQcp6O7NW1bqHioKDYxAbz7KUFUti+spLoaC/19b4bUo4gLxr
+	 rnBlnzX+6508w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>,
+Cc: Jia Yao <jia.yao@intel.com>,
+	Shuicheng Lin <shuicheng.lin@intel.com>,
+	Mathew Alwin <alwin.mathew@intel.com>,
+	Michal Mrozek <michal.mrozek@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
 	Matthew Auld <matthew.auld@intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/3] drm/xe/pat: define coh_mode 2way
-Date: Fri, 31 Jul 2026 11:50:14 -0400
-Message-ID: <20260731155015.604147-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/3] drm/xe/uapi: Reject coh_none PAT index for CPU_ADDR_MIRROR
+Date: Fri, 31 Jul 2026 11:50:15 -0400
+Message-ID: <20260731155015.604147-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260731155015.604147-1-sashal@kernel.org>
 References: <2026051515-treble-unwieldy-f489@gregkh>
@@ -46,120 +51,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tejas Upadhyay <tejas.upadhyay@intel.com>
+From: Jia Yao <jia.yao@intel.com>
 
-[ Upstream commit 411389d29eab5325e2b250b1cd2ddb567abb7bbb ]
+[ Upstream commit 662f9ddc8077792129440d05cbef2f944a07777a ]
 
-Defining 2way (two-way coherency) is critical for
-Xe3p_LPG (Nova Lake P) platforms to support L2 flush
-optimization safely.
+Add validation in xe_vm_bind_ioctl() to reject PAT indices
+with XE_COH_NONE coherency mode when used with
+DRM_XE_VM_BIND_FLAG_CPU_ADDR_MIRROR.
 
-This mode allows the driver to skip certain manual cache
-flushes (L2 flush optimization) without risking memory
-corruption because the hardware ensures the most recent
-data is visible to both entities.
+CPU address mirror mappings use system memory that is CPU
+cached, which makes them incompatible with COH_NONE PAT
+indices. Allowing COH_NONE with CPU cached buffers is a
+security risk, as the GPU may bypass CPU caches and read
+stale sensitive data from DRAM.
 
+Although CPU_ADDR_MIRROR does not create an immediate
+mapping, the backing system memory is still CPU cached.
+Apply the same PAT coherency restrictions as
+DRM_XE_VM_BIND_OP_MAP_USERPTR.
+
+v2:
+- Correct fix tag
+
+v6:
+- No change
+
+v7:
+- Correct fix tag
+
+v8:
+- Rebase
+
+v9:
+- Limit the restrictions to iGPU
+
+v10:
+- Just add the iGPU logic but keep dGPU logic
+
+Fixes: b43e864af0d4 ("drm/xe/uapi: Add DRM_XE_VM_BIND_FLAG_CPU_ADDR_MIRROR")
+Cc: <stable@vger.kernel.org> # v6.15+
+Cc: Shuicheng Lin <shuicheng.lin@intel.com>
+Cc: Mathew Alwin <alwin.mathew@intel.com>
+Cc: Michal Mrozek <michal.mrozek@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Jia Yao <jia.yao@intel.com>
 Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20260305121902.1892593-8-tejas.upadhyay@intel.com
-Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
-Stable-dep-of: 662f9ddc8077 ("drm/xe/uapi: Reject coh_none PAT index for CPU_ADDR_MIRROR")
+Acked-by: Michal Mrozek <michal.mrozek@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Link: https://patch.msgid.link/20260417055917.2027459-3-jia.yao@intel.com
+(cherry picked from commit 4d58d7535e826a3175527b6174502f0db319d7f6)
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_pat.c        | 14 +++++++-------
- drivers/gpu/drm/xe/xe_pat.h        |  5 +++--
- drivers/gpu/drm/xe/xe_vm.c         |  2 +-
- drivers/gpu/drm/xe/xe_vm_madvise.c |  2 +-
- 4 files changed, 12 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/xe/xe_vm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_pat.c b/drivers/gpu/drm/xe/xe_pat.c
-index 2e7cb99ae87a..5001233d83f7 100644
---- a/drivers/gpu/drm/xe/xe_pat.c
-+++ b/drivers/gpu/drm/xe/xe_pat.c
-@@ -61,7 +61,7 @@ struct xe_pat_ops {
- };
- 
- static const struct xe_pat_table_entry xelp_pat_table[] = {
--	[0] = { XELP_PAT_WB, XE_COH_AT_LEAST_1WAY },
-+	[0] = { XELP_PAT_WB, XE_COH_1WAY },
- 	[1] = { XELP_PAT_WC, XE_COH_NONE },
- 	[2] = { XELP_PAT_WT, XE_COH_NONE },
- 	[3] = { XELP_PAT_UC, XE_COH_NONE },
-@@ -71,19 +71,19 @@ static const struct xe_pat_table_entry xehpc_pat_table[] = {
- 	[0] = { XELP_PAT_UC, XE_COH_NONE },
- 	[1] = { XELP_PAT_WC, XE_COH_NONE },
- 	[2] = { XELP_PAT_WT, XE_COH_NONE },
--	[3] = { XELP_PAT_WB, XE_COH_AT_LEAST_1WAY },
-+	[3] = { XELP_PAT_WB, XE_COH_1WAY },
- 	[4] = { XEHPC_PAT_CLOS(1) | XELP_PAT_WT, XE_COH_NONE },
--	[5] = { XEHPC_PAT_CLOS(1) | XELP_PAT_WB, XE_COH_AT_LEAST_1WAY },
-+	[5] = { XEHPC_PAT_CLOS(1) | XELP_PAT_WB, XE_COH_1WAY },
- 	[6] = { XEHPC_PAT_CLOS(2) | XELP_PAT_WT, XE_COH_NONE },
--	[7] = { XEHPC_PAT_CLOS(2) | XELP_PAT_WB, XE_COH_AT_LEAST_1WAY },
-+	[7] = { XEHPC_PAT_CLOS(2) | XELP_PAT_WB, XE_COH_1WAY },
- };
- 
- static const struct xe_pat_table_entry xelpg_pat_table[] = {
- 	[0] = { XELPG_PAT_0_WB, XE_COH_NONE },
- 	[1] = { XELPG_PAT_1_WT, XE_COH_NONE },
- 	[2] = { XELPG_PAT_3_UC, XE_COH_NONE },
--	[3] = { XELPG_PAT_0_WB | XELPG_2_COH_1W, XE_COH_AT_LEAST_1WAY },
--	[4] = { XELPG_PAT_0_WB | XELPG_3_COH_2W, XE_COH_AT_LEAST_1WAY },
-+	[3] = { XELPG_PAT_0_WB | XELPG_2_COH_1W, XE_COH_1WAY },
-+	[4] = { XELPG_PAT_0_WB | XELPG_3_COH_2W, XE_COH_2WAY },
- };
- 
- /*
-@@ -115,7 +115,7 @@ static const struct xe_pat_table_entry xelpg_pat_table[] = {
- 			REG_FIELD_PREP(XE2_L4_POLICY, l4_policy) | \
- 			REG_FIELD_PREP(XE2_COH_MODE, __coh_mode), \
- 		.coh_mode = (BUILD_BUG_ON_ZERO(__coh_mode && comp_en) || __coh_mode) ? \
--			XE_COH_AT_LEAST_1WAY : XE_COH_NONE \
-+			__coh_mode : XE_COH_NONE \
- 	}
- 
- static const struct xe_pat_table_entry xe2_pat_table[] = {
-diff --git a/drivers/gpu/drm/xe/xe_pat.h b/drivers/gpu/drm/xe/xe_pat.h
-index fa0dfbe525cd..290c4b810573 100644
---- a/drivers/gpu/drm/xe/xe_pat.h
-+++ b/drivers/gpu/drm/xe/xe_pat.h
-@@ -26,8 +26,9 @@ struct xe_pat_table_entry {
- 	/**
- 	 * @coh_mode: The GPU coherency mode that @value maps to.
- 	 */
--#define XE_COH_NONE          1
--#define XE_COH_AT_LEAST_1WAY 2
-+#define XE_COH_NONE		1
-+#define XE_COH_1WAY		2
-+#define XE_COH_2WAY		3
- 	u16 coh_mode;
- };
- 
 diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index 8f7b8f2da06b..b31859fec555 100644
+index b31859fec555..b09cfd5a4d20 100644
 --- a/drivers/gpu/drm/xe/xe_vm.c
 +++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -3368,7 +3368,7 @@ static int vm_bind_ioctl_check_args(struct xe_device *xe, struct xe_vm *vm,
- 			goto free_bind_ops;
- 		}
- 
--		if (XE_WARN_ON(coh_mode > XE_COH_AT_LEAST_1WAY)) {
-+		if (XE_WARN_ON(coh_mode > XE_COH_2WAY)) {
- 			err = -EINVAL;
- 			goto free_bind_ops;
- 		}
-diff --git a/drivers/gpu/drm/xe/xe_vm_madvise.c b/drivers/gpu/drm/xe/xe_vm_madvise.c
-index da306013a013..e4bcfeed2232 100644
---- a/drivers/gpu/drm/xe/xe_vm_madvise.c
-+++ b/drivers/gpu/drm/xe/xe_vm_madvise.c
-@@ -278,7 +278,7 @@ static bool madvise_args_are_sane(struct xe_device *xe, const struct drm_xe_madv
- 		if (XE_IOCTL_DBG(xe, !coh_mode))
- 			return false;
- 
--		if (XE_WARN_ON(coh_mode > XE_COH_AT_LEAST_1WAY))
-+		if (XE_WARN_ON(coh_mode > XE_COH_2WAY))
- 			return false;
- 
- 		if (XE_IOCTL_DBG(xe, args->pat_index.pad))
+@@ -3393,6 +3393,8 @@ static int vm_bind_ioctl_check_args(struct xe_device *xe, struct xe_vm *vm,
+ 				 op == DRM_XE_VM_BIND_OP_MAP_USERPTR) ||
+ 		    XE_IOCTL_DBG(xe, coh_mode == XE_COH_NONE &&
+ 				 op == DRM_XE_VM_BIND_OP_MAP_USERPTR) ||
++		    XE_IOCTL_DBG(xe, !IS_DGFX(xe) && coh_mode == XE_COH_NONE &&
++				 is_cpu_addr_mirror) ||
+ 		    XE_IOCTL_DBG(xe, op == DRM_XE_VM_BIND_OP_MAP_USERPTR &&
+ 				 !IS_ENABLED(CONFIG_DRM_GPUSVM)) ||
+ 		    XE_IOCTL_DBG(xe, obj &&
 -- 
 2.53.0
 
