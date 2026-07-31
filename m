@@ -1,33 +1,33 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DC0533ADB89;
-	Fri, 31 Jul 2026 07:32:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B3873A1D05;
+	Fri, 31 Jul 2026 07:34:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785483137; cv=none; b=VsnA/xvxIImQ4W3gmtHInA4R6Mc5HciGFswhbz5nqs3U7Rq3JGtr2ySMnQ6LZ7SGqYAVlgn/ghWRq9/MBXwf/iIb6XKjvlvpVkltFuazcnXRSy8sYKWIx3aQybIhlO+H2u0CMlZPkS0iNY8Gjt/ag1jofXlKCxTJ44+0QEZg6UY=
+	t=1785483277; cv=none; b=Uq1B0wVVenx9OzrdRKZ7jt3EFWsXcCkTckPzj4USfOekegxCgzzJQAi5L/Nait9BoH7FTxQALEdIrAiwjDbiMrp1rjyBIFOR3juZzmUt4JxGci+L2dUZuZefp1TZ4+Vp34ImOmdOTJEEh8SIEFw/R3OYS3nOL7su/hw31uxvMlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785483137; c=relaxed/simple;
-	bh=8nwexrU4GojqLqHdgsDjR3BOBw10uMNk9zy3a9FhJsY=;
+	s=arc-20240116; t=1785483277; c=relaxed/simple;
+	bh=bawBBQ8+MtR07NIQB/FE0piEWTNOQdSZFRtArUsM5q4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DNQXm12Sset8K4qDBrSV54bF/9BtYyOcOlGFE/Nb8iN6+85tMgMFRDjQjP80+hZBy3saf7UomDb/I6wN4oGHMTCtXQe5/01/Um+JrPP0OxSth+6dAIvO53oRFcd3GAqOHxtbh/jpNgRJ06Wwo6PDn4ncpt2M6sNU8kGjvRiCMDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qsC/IMAQ; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=GixbaomeCV0unYACYrjbz12tzIn1JBcJFV8CdqqTKVg1lt3bBEdBGaFSwWEQXLy9eW9wvHTrzSij/43H9d/om2Z21S8qUnC3WG+NZmFigie3oy1XuXj4ccDEcsmxC2TKHu5t6AE4XUt2bFUHvwbHP1gCOfQJeVE0di1bffiwQ+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+DQMeRU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qsC/IMAQ"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 31A5520E3;
-	Fri, 31 Jul 2026 00:32:11 -0700 (PDT)
-Received: from [10.57.87.104] (unknown [10.57.87.104])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E002A3F7B4;
-	Fri, 31 Jul 2026 00:32:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1785483135; bh=8nwexrU4GojqLqHdgsDjR3BOBw10uMNk9zy3a9FhJsY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qsC/IMAQx7/QuBSaJS9n/MUCxlDhQZgCzjZ1yJXCH6FQnCsrX4uWgEdxYSyyqyvKZ
-	 9ZlVx9dKEeKQ7oZyNPNkmHwMrs2foBDqi3Kyr7/IUCHnylUUykbsPfgF6EwlQ24jDl
-	 MJ1cCyZf1Q6YxDm94CKbdy7xtYF8G5JY1tYms+YU=
-Message-ID: <0d6db1e7-3892-423d-b01d-b126dccadd90@arm.com>
-Date: Fri, 31 Jul 2026 08:32:09 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+DQMeRU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F2AB1F000E9;
+	Fri, 31 Jul 2026 07:34:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785483273;
+	bh=MyKJJuUwMNNDK+7BAt01g+E4SJ/puql/PuU35u2uXCY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=B+DQMeRUqP9H9atv572awP1Rm0bkPUF3mUi/0apsBW9ZHU7bx+A0GClo6oq0fGSkF
+	 A9pHXDN5YEK1X4njOl6KXzoudgDFph+x+ilOh0svRbyOi+ASDFOafmaxlpzYZMLy7t
+	 wDMyXBeGvA/8BqS+togmCrNbkbS8okuMaWVfsOvOPOO0NB9v/9Ycx9XI3F4/CAIYli
+	 hUmwdcQ2YaH0fZP3EH4qVSNzwN9sSSLgjN+lHt7NOqoUuWb6RF67i2Lh8CDfRfFQVT
+	 pxF7RVMYEwosXVsLs4VEeM3ybLzewcYYziOI2YbwYDZy1LxoLDp7ME7/6EqEVZ/JL0
+	 dVjkh9NzvbDZA==
+Message-ID: <6be33030-781f-4480-8ccd-81c5b1df220a@kernel.org>
+Date: Fri, 31 Jul 2026 09:34:28 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,107 +35,76 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/panthor: fix firmware control interface bounds checks
-To: Osama Abdelkader <osama.abdelkader@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+Subject: Re: [PATCH] powerpc/ps3: Fix repository.c build failure
+To: Thorsten Blum <thorsten.blum@linux.dev>,
+ Geoff Levand <geoff@infradead.org>, Madhavan Srinivasan
+ <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Nicholas Piggin <npiggin@gmail.com>, Justin Stitt <justinstitt@google.com>,
+ Kees Cook <kees@kernel.org>
+Cc: stable@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20260720134435.13377-1-osama.abdelkader@gmail.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260720134435.13377-1-osama.abdelkader@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260703165834.137242-2-thorsten.blum@linux.dev>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260703165834.137242-2-thorsten.blum@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 20/07/2026 14:44, Osama Abdelkader wrote:
-> panthor_init_cs_iface() and panthor_init_csg_iface() validate firmware
-> control interface offsets with 32-bit arithmetic and the size of the host
-> wrapper structures. The offsets are derived from firmware-provided strides,
-> so the arithmetic can wrap before the bounds check, and the host wrapper
-> size is not the size of the firmware control interface being mapped.
+
+
+Le 03/07/2026 à 18:58, Thorsten Blum a écrit :
+> GCC fails to build ps3_defconfig with the following errors:
 > 
-> Use 64-bit arithmetic for the computed offsets and validate against the
-> actual firmware control interface structure sizes with subtraction-based
-> bounds checks. Also validate that the shared section is large enough for
-> the global control interface before using it.
+>    arch/powerpc/platforms/ps3/repository.c: In function ‘make_first_field.constprop’:
+>    arch/powerpc/platforms/ps3/repository.c:78:9: error: ‘strnlen’ specified bound 8 exceeds source size 3 [-Werror=stringop-overread]
+>       78 |         memcpy((char *)&n, text, strnlen(text, sizeof(n)));
+>          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    arch/powerpc/platforms/ps3/repository.c: In function ‘make_first_field.constprop’:
+>    arch/powerpc/platforms/ps3/repository.c:78:9: error: ‘strnlen’ specified bound 8 exceeds source size 4 [-Werror=stringop-overread]
+>       78 |         memcpy((char *)&n, text, strnlen(text, sizeof(n)));
+>          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 
-> Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
+> The current use of strnlen(text, sizeof(n)) triggers -Wstringop-overread
+> when text is a short string literal that is smaller than sizeof(n), such
+> as "bi" or "bus". Use strlen(text) instead and clamp the copy length to
+> sizeof(n) before memcpy().
+> 
+> Drop the redundant char * cast while at it.
+> 
+> Fixes: f94a84a09148 ("powerpc/ps3: refactor strncpy usage")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
-
-As Liviu pointed out some of this seems a bit unlikely, but I don't
-disagree with any of the changes, so:
-
-Reviewed-by: Steven Price <steven.price@arm.com>
-
-Thanks,
-Steve
-
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 > ---
->  drivers/gpu/drm/panthor/panthor_fw.c | 18 +++++++++++++-----
->  1 file changed, 13 insertions(+), 5 deletions(-)
+>   arch/powerpc/platforms/ps3/repository.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index eee2bc7e8541..e2fcbd639c3c 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -897,15 +897,16 @@ static int panthor_init_cs_iface(struct panthor_device *ptdev,
->  	struct panthor_fw_csg_iface *csg_iface = panthor_fw_get_csg_iface(ptdev, csg_idx);
->  	struct panthor_fw_cs_iface *cs_iface = &ptdev->fw->iface.streams[csg_idx][cs_idx];
->  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-> -	u32 iface_offset = CSF_GROUP_CONTROL_OFFSET +
-> -			   (csg_idx * glb_iface->control->group_stride) +
-> +	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
-> +			   ((u64)csg_idx * glb_iface->control->group_stride) +
->  			   CSF_STREAM_CONTROL_OFFSET +
-> -			   (cs_idx * csg_iface->control->stream_stride);
-> +			   ((u64)cs_idx * csg_iface->control->stream_stride);
->  	struct panthor_fw_cs_iface *first_cs_iface =
->  		panthor_fw_get_cs_iface(ptdev, 0, 0);
->  
-> -	if (iface_offset + sizeof(*cs_iface) >= shared_section_sz)
-> +	if (iface_offset > shared_section_sz ||
-> +	    sizeof(*cs_iface->control) > shared_section_sz - iface_offset)
->  		return -EINVAL;
->  
->  	spin_lock_init(&cs_iface->lock);
->  	cs_iface->control = ptdev->fw->shared_section->mem->kmap + iface_offset;
-> @@ -955,11 +956,13 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
->  	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
->  	struct panthor_fw_csg_iface *csg_iface = &ptdev->fw->iface.groups[csg_idx];
->  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-> -	u32 iface_offset = CSF_GROUP_CONTROL_OFFSET + (csg_idx * glb_iface->control->group_stride);
-> +	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
-> +			   ((u64)csg_idx * glb_iface->control->group_stride);
->  	unsigned int i;
->  
-> -	if (iface_offset + sizeof(*csg_iface) >= shared_section_sz)
-> +	if (iface_offset > shared_section_sz ||
-> +	    sizeof(*csg_iface->control) > shared_section_sz - iface_offset)
->  		return -EINVAL;
->  
->  	spin_lock_init(&csg_iface->lock);
->  	csg_iface->control = ptdev->fw->shared_section->mem->kmap + iface_offset;
-> @@ -1011,12 +1014,16 @@ static u32 panthor_get_instr_features(struct panthor_device *ptdev)
->  static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
->  {
->  	struct panthor_fw_global_iface *glb_iface = &ptdev->fw->iface.global;
-> +	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
->  	unsigned int i;
->  
->  	if (!ptdev->fw->shared_section->mem->kmap)
->  		return -EINVAL;
->  
-> +	if (sizeof(*glb_iface->control) > shared_section_sz)
-> +		return -EINVAL;
+> diff --git a/arch/powerpc/platforms/ps3/repository.c b/arch/powerpc/platforms/ps3/repository.c
+> index b8c030eab138..0cc755ac3e7f 100644
+> --- a/arch/powerpc/platforms/ps3/repository.c
+> +++ b/arch/powerpc/platforms/ps3/repository.c
+> @@ -6,6 +6,8 @@
+>    *  Copyright 2006 Sony Corp.
+>    */
+>   
+> +#include <linux/minmax.h>
 > +
->  	spin_lock_init(&glb_iface->lock);
->  	glb_iface->control = ptdev->fw->shared_section->mem->kmap;
->  
->  	if (!glb_iface->control->version) {
+>   #include <asm/lv1call.h>
+>   
+>   #include "platform.h"
+> @@ -74,8 +76,9 @@ static void _dump_node(unsigned int lpar_id, u64 n1, u64 n2, u64 n3, u64 n4,
+>   static u64 make_first_field(const char *text, u64 index)
+>   {
+>   	u64 n = 0;
+> +	size_t len = min(strlen(text), sizeof(n));
+>   
+> -	memcpy((char *)&n, text, strnlen(text, sizeof(n)));
+> +	memcpy(&n, text, len);
+>   	return PS3_VENDOR_ID_NONE + (n >> 32) + index;
+>   }
+>   
 
+Maybe change to u32 and remove the n >> 32.
+
+Shouldn't the same fix be done in make_field() ?
+
+Christophe
