@@ -1,131 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B4F1D5CFE;
-	Fri, 31 Jul 2026 06:21:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91892331ECF
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 06:32:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785478890; cv=none; b=mYAqhb8JfmKk0YQMw+B/dyVAr8TY9kyDqlY3S4AGfiLqZr1rc/cw+KtI6J78YxaRLshIwNqF2NHDDSKHuaS2gg5s0EG+QhMeUOYSaJtwQXhOM3D21Jcq+31ifQmuntQGfIreunmTSWaWVaJc26nz/4437DjOixRsNmoDOHpBtOE=
+	t=1785479564; cv=none; b=PuI/0mvnXfxK8ei+mLyH9V195CGZ3ESRVYPpt13YLi2s96uk6IjvReceZPL0m0qist1HiAKb6m6Rseq+9ysr/P0VGeosIs2Icg25NtY3ihG8KS9Bk3lCyNVPuCFJGdtJo2XeNIwvW3VE1I0kIevX1S3RCcwc9zT5Ap8ipwuaH8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785478890; c=relaxed/simple;
-	bh=yjCnhuPS8D+3ItM9BnGw2G1vlWBt7nfs7tfqu9r5IG8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RwPNNg6qMVL0ISRJIseQJ4VCdDkZrqS6AWuuyxxWqGfo1VEwi7lyYtbzY5TI2Ib8xphznucuOyA/r5rHAB7CPfx000nUG4M9kPfRxj6fLAG/DkPcBEeU+ZR6pQCuJAEoGNfgOOHaL3oq1rDAmhWmKeZuMpIPx3ym56ANNV7hvVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PaSF4IHy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785479564; c=relaxed/simple;
+	bh=ofZ15thW10V3Oo1i/JC03bWEaUctqtD54+OnPeFR1l0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Hn9KcwfudRj1qgWas+S5rwvP/YXbm4zvhAklyiDI8bdMNqb3q5JjduvbMGk8NiEZt/4j1M5D+SQDPEXUOVunJB+4ZPkhInt9BW8ukxgbwMFU6CkMV66x5DNZgJ0lDNzSeJKDDbnwpY1e1LyjwB8q3Gf2CkxbOGhisLMypCmLC8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qER5XtHx; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PaSF4IHy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 901E01F000E9;
-	Fri, 31 Jul 2026 06:21:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785478889;
-	bh=Ai5DdgnMBAlwlIqY4Tfv37GQM1l9efw1p8pTzSPaYCI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PaSF4IHyYtix5wVuBP5jdvcSbzEoHkgOQdyAgitBB58PExXvGAg39pTkSqmRpgPMu
-	 5uU2xklcdCeFx4tTrcWCOLonDSHRtoASWiwmhGyMgcwEiwBM5SqIa7zyZt7u2I7bVh
-	 vn/9k0rXT2JtdhVlf5m0N7Wuz2eH5GMiwz5I4Cdr+uEQdfLYCIf7tdHSx4tBNBJlhV
-	 HvrtZ0UsnFTlHoIaxG5esPour5xJloVF9mD9+P61jmaOT7Cv4qBw97BWALq3Uv98VW
-	 62cW3KtS/WNmyj+nmJXyyodE9hEfFf83PKfI4RanUksqxEbHBXbscL7mytJYyaSGTg
-	 eQEpliyKZ4f9A==
-Message-ID: <669b8e16-19a6-49bf-a1ef-a7bce5075a9a@kernel.org>
-Date: Fri, 31 Jul 2026 08:21:26 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qER5XtHx"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47c6e9a694bso326423f8f.1
+        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 23:32:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785479560; x=1786084360; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Dxm2yKlW5AqKAUFOXXuaAiGhenk3HP3ULcfm5FsuF8M=;
+        b=qER5XtHxak+wX5xAc+0wZIc9vSqLu72bk89pmoV80yKuP1/vAlqNpIfa31eAQk8xpH
+         aQfVqceY9N3XndCOgIB2TTyIPQIJzqi3r73hDw2/btklkrsfdD/Y0x/0nUb550Yrs7FC
+         +2g/GePj4dsonuugx17BDJ+CJXt/cxqIR8FtGLXBQgJF7av/NmOb/o6cTG4ZCtrMGUay
+         Mmjxjn/4omCPgWLQaPwWhY64iiyu2hHP0PSI2QkPiIid2MEAnDD/R5JlBGbbWLlBFGdK
+         7wvTd9slxav0BqueKknlkmVPGfpGklSg1S9z1FrIRFJGl7oC51DT3vX2DNafaUldh7ix
+         X3GA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785479560; x=1786084360;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Dxm2yKlW5AqKAUFOXXuaAiGhenk3HP3ULcfm5FsuF8M=;
+        b=UHFQhbqJl8S4mqPCBy08k5NoZFEa6TQ0d4DaXBikUGehmP0vl9+HqMyyrGVQYSDI8N
+         n/Z+2M391HOytfGWisYgSxgETPxugA49w3viiwPLNhFLlvzwY79M15rwTts1bwxTlv+R
+         f4oMMEFtg+d/u+/HTtcJIIo2aZiJujiLsH+LCxY4id5dLrK/LV5ycbTBxgrmEGJVyjsL
+         Kl4tCeKI8OKLSAZ2mWwCNn69Ywp+PXYfR6FDFB7FBcPcSmyswP7rTe28vu4wfBtU0IZi
+         KagtMINMsuBrqQhKn444zIw2UKuMVeTmiiE/aPp5IJts1ob23ibZzmqh0LvKi6q2e6CX
+         YRyg==
+X-Forwarded-Encrypted: i=1; AHgh+RrP3vbw/vL+oVMQNkOHabJV6Kw7W1XtKgp8yFf7ypydG7Ex5qOT5BYdBEvG9cOw3xP+D0+zD9I=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBdetxEltg52PawLXU3qZ8GgQb1nSSoBH4ZgO55HnHOvSqpXxD
+	pCdPKabN+166n5FeNlAcioGDG64pWvce/3SRQ7pLEh85Qz9LPAzCXD/T
+X-Gm-Gg: AR+sD10EttufTHXInktMnOqQMSYWMl8TTjdvI1ftUtdELbe1XfZMpFSpZPIAAaDYPgZ
+	sNcoTGEls7rxPjSp3xoAHJsiy0IeF61px1PpER7lRj7MfmJjlJ7CuEsON2CGvICIqJFVq7L3og6
+	ErOSkldhwemRIIzy+yyrLdgGoiajogh5hlQD4BJFqTo6vj5W28gclOURn6iGriZNqHC/uJIhuBI
+	UA5OB89Q3MKKcI6iF5je7BVWeQTrHNUKdkitQXTbDadY3ZM9bxf5QyQQ07QgTzsegqZDQAZWVm2
+	oIyGf135OT/8tnjuwqz6kcP+CEOwEd7argntVyugqc15AzseWIq1JYscjd7of3lnh5dKPJ6KtWg
+	dReL7Q2cvwylyvkjIqpuaz0D6luEi7lKD4spGSjnOZ9kO0uEQL6Et8Gw1hEsFAE33oPGQuVf+2K
+	Ve+gHGvVpct+Btzyl8oMN7gm0y7f81y8dp0OBchsyxRyuapX6vCdKhPwC0mtflzdTPbVmy1mR1z
+	vkHKgWwGiDPaDuzr5soEjhU+FsdyrQXBzXdqStalf7GMWn9DNQakdQK9zwaXEXVuwkayI0G9LFi
+	93YBGUvbhLZ0YyiuJw==
+X-Received: by 2002:a05:6000:717:b0:46e:230f:d095 with SMTP id ffacd0b85a97d-47fd2ab9d52mr1895019f8f.7.1785479559600;
+        Thu, 30 Jul 2026 23:32:39 -0700 (PDT)
+Received: from localhost.localdomain (85-118-77-64.mtel.net. [85.118.77.64])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd458adc9sm1188418f8f.27.2026.07.30.23.32.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 23:32:39 -0700 (PDT)
+From: Georgi Valkov <gvalkov@gmail.com>
+To: briannorris@chromium.org,
+	chunfan.chen@gmail.com
+Cc: francesco@dolcini.it,
+	johannes.berg@intel.com,
+	kees@kernel.org,
+	miriam.rachel.korenblit@intel.com,
+	wenst@chromium.org,
+	rafael.beims@toradex.com,
+	avraham.stern@intel.com,
+	peddolla.reddy@oss.qualcomm.com,
+	error27@gmail.com,
+	s.kerkmann@pengutronix.de,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	gvalkov@gmail.com
+Subject: [PATCH v2] wifi: mwifiex: ignore ROM regulatory hint on WRT3200ACM/WRT32x
+Date: Fri, 31 Jul 2026 09:31:18 +0300
+Message-ID: <20260731063118.26171-1-gvalkov@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <amsBes9fCF9ZdkCS@nxpwireless-Inspiron-14-Plus-7440>
+References: <amsBes9fCF9ZdkCS@nxpwireless-Inspiron-14-Plus-7440>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.1 667/744] ptp: ptp_s390: Add missing facility check
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Sven Schnelle <svens@linux.ibm.com>,
- stable@kernel.org, Heiko Carstens <hca@linux.ibm.com>,
- Jakub Kicinski <kuba@kernel.org>
-References: <20260730141444.267951807@linuxfoundation.org>
- <20260730141458.442328931@linuxfoundation.org>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <20260730141458.442328931@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30. 07. 26, 16:15, Greg Kroah-Hartman wrote:
-> 7.1-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Sven Schnelle <svens@linux.ibm.com>
-> 
-> commit e78f1ac37afcb16cb6fef8a2c92591eab6558956 upstream.
-> 
-> Only register the physical clock when facility 28 is installed
-> and PTFF QAF returns that PTFF QPT is available.
-> 
-> Fixes: 2d7de7a3010d ("s390/time: Add PtP driver")
-> Signed-off-by: Sven Schnelle <svens@linux.ibm.com>
-> Cc: stable@kernel.org
-> Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
-> Link: https://patch.msgid.link/20260714130342.1971700-3-svens@linux.ibm.com
-> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->   drivers/ptp/ptp_s390.c |    6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> --- a/drivers/ptp/ptp_s390.c
-> +++ b/drivers/ptp/ptp_s390.c
-> @@ -107,6 +107,9 @@ static __init int ptp_s390_init(void)
->   	if (IS_ERR(ptp_stcke_clock))
->   		return PTR_ERR(ptp_stcke_clock);
->   
-> +	if (!test_facility(28) || !ptff_query(PTFF_QPT))
+WRT3200ACM and WRT32x routers always report a fixed US regulatory domain
+from the mwifiex ROM, which conflicts with the platform regulatory
+configuration on units sold outside the US market. For example:
+- phy0 mwlwifi 5 GHz, hard-coded region 98 EU mapped to FR
+- phy1 mwlwifi 2.4 GHz, hard-coded region 98 EU mapped to FR
+- phy2 mwifiex 2.4 and 5 GHz, hard-coded region US
 
-ptff_query() here needs:
-9de445d8296a ("s390/ptff: Export ptff_function_mask[]")
+When the system boots, it detects a conflict between the user selected
+region and the radios, e.g. BG FR US, and applies extreme restrictions,
+preventing use of 5 GHz and DFS channels. This also affects phy0.
 
-thanks,
+Ignore the incorrect regulatory hint in the ROM of these devices, so
+userspace can set the correct platform regulatory domain. These radios
+are locked to the hard-coded configuration for which they are certified,
+so the only impact is that the region conflict is avoided and the 5 GHz
+radios can be used.
+
+The change affects only WRT3200ACM and WRT32x routers, and helps
+overcome the incorrect behaviour of proprietary radio firmware.
+
+[1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+[2] https://github.com/openwrt/openwrt/issues/9956
+
+Tested-on: WRT3200ACM, OpenWrt
+Cc: stable@vger.kernel.org
+Signed-off-by: Georgi Valkov <gvalkov@gmail.com>
+---
+The dts files on Linux use only board names. A patch in OpenWrt adds
+device names which are easier to understand. If we want to be compatible
+with both, we can either use board names or accept this patch in Linux:
+https://github.com/openwrt/openwrt/blob/main/target/linux/mvebu/patches-6.18/
+311-adjust-compatible-for-linksys.patch
+
+I implemented and tested a better approach with no board specific code:
+- check for a device-tree flag in mwifiex_register_cfg80211in()
+  !of_property_read_bool(of_root, "marvell,ignore-regulatory-hint")
+- add this flag to the root device tree of each affected board
+Currently this affects only armada-385-linksys-rango.dts,
+because Linux has no dts for venom. OpenWrt will take care of that.
+This approach is more flexible and scalable, because the flag can
+also be used in other drivers, e.g. mwlwifi (not part of Linux).
+Any help is welcome!
+
+v2:
+Replace the compatible device names, which are currently only available on
+OpenWrt with board names which are available on both Linux and OpenWrt.
+
+ drivers/net/wireless/marvell/mwifiex/cfg80211.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/net/wireless/marvell/mwifiex/cfg80211.c b/drivers/net/wireless/marvell/mwifiex/cfg80211.c
+index abc703441c5d..ff6a22237a0f 100644
+--- a/drivers/net/wireless/marvell/mwifiex/cfg80211.c
++++ b/drivers/net/wireless/marvell/mwifiex/cfg80211.c
+@@ -4899,7 +4899,15 @@ int mwifiex_register_cfg80211(struct mwifiex_adapter *adapter)
+ 				country_code =
+ 					mwifiex_11d_code_2_region(
+ 						adapter->region_code);
++
++				/* WRT3200ACM/WRT32x ROM always reports US, which
++				 * conflicts with routers sold outside the US.
++				 * Ignore this hint so userspace can
++				 * set the correct regulatory domain.
++				 */
+ 				if (country_code &&
++				    !of_machine_is_compatible("linksys,rango") &&
++				    !of_machine_is_compatible("linksys,venom") &&
+ 				    regulatory_hint(wiphy, country_code))
+ 					mwifiex_dbg(priv->adapter, ERROR,
+ 						    "regulatory_hint() failed\n");
 -- 
-js
-suse labs
+2.55.0
 
