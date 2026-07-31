@@ -1,166 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1F235C68A;
-	Fri, 31 Jul 2026 21:24:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785533057; cv=none; b=oAI8AjBG5cnwyg/tk/MPaAe6wobSqY5wBEe9CozJ0wRdu9okFDT3sKzOnQjJPK3K535PSs287pNTpMjNpkoeFpYyy3TTpybKaqTxx6TY+b/uVppLLJLAbL5JOUWZeiGAnqkGG/8Y8qOaiBF3fPhCnDG6M+o0tim9dQiu9iNNtq4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785533057; c=relaxed/simple;
-	bh=LAVa+Jqi8e3kc30wzZjsT8ITerc7MFm/myygBSSE2r4=;
-	h=Date:To:From:Subject:Message-Id; b=mOSUPaNsxZyWRmOs5fwvB4XYR7pYiBrM8oX3UO9RJvBiC3SJv+aM6Xzs1WQAlt6KjsakjO6obxQ+QRoYNzQQt1hPRH4zwCEuUrIjeuscrrYxRRhPSk7Y8bJSWjYceRmld4Hbryg1QmGdB7hfWgeUbyuW4ktWefvJYYx/sfncjaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=YHfuv9Ew; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80149345ED3;
+	Fri, 31 Jul 2026 21:30:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785533415; cv=pass; b=eG+985PRYrUrzLuyurD6Bk8uWDpJLckktMKxWp/o7mIh+hS53MPsZxXvMtwwdCKSLOl1k+wvZ2Hac/pgnte55YfWnI8FshLAECqGZVwuPaNahwbmNQsZ23zrqpVsLSGnMu7yxUtu5xwQ1leeFI8YsgF+eoWnDQjQXvGIJFyOLL4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785533415; c=relaxed/simple;
+	bh=FoRKKwIXFm7vL+HuTHo6DfVSvRV6CQlL5i9RWIu6LrQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=brD74pWjL+QlpU8kpoqScrXobd+X+YJc7jUWri848/uD6DOiOH8AKVKBkqq1U71I0zebcGjXDwk17x512FGB+MGshZY5QqPH261uQ8BwvjY6qxQeL7O7e5aOOCUzMbuZfzLvX2x2TPE28IImqqNSBDB6dERI97QSUhrldjeIKBU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=Bfc6vPBE; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="YHfuv9Ew"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C879F1F00AC4;
-	Fri, 31 Jul 2026 21:24:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785533054;
-	bh=yhTzcwMmo5+L4EEu+yeTY12a3tqiovbn/exVl/NGpII=;
-	h=Date:To:From:Subject;
-	b=YHfuv9Ewv/h/0FDtvym9ulmE0JXTb6nKkVm4lJoGi4hcjzlsZN7BQ44HH3OGD77dl
-	 +L31hfP2hSTZL3SlDTDKLHN3awvJrXwTdkzPzuzTJWSUrQcCLPz00ynPo/daLNjPaz
-	 tSqz22MYrwKHwp1A/21xQjDpQ2JGxQABESsUda10=
-Date: Fri, 31 Jul 2026 14:24:14 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,peterx@redhat.com,kas@kernel.org,jhubbard@nvidia.com,jgg@ziepe.ca,hughd@google.com,ackerleytng@google.com,david@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-gup-fix-always-draining-lru-caches-in-collect_longterm_unpinnable_folios.patch added to mm-new branch
-Message-Id: <20260731212414.C879F1F00AC4@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="Bfc6vPBE"
+ARC-Seal: i=1; a=rsa-sha256; t=1785533401; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=CzRxDK1mjwfPwHHpsKnM9vcjFy/JlbkUNnnkBdZ0nPbBZ7AlvhYBEhsQrdO9C75wD6GO7aLu1tdePqaikIr2eJ2ZeMJzYO7BhvUgV4SBODa5qlj/lWFqZQuA9oPoz/P0BS8iai4iLJadDKZ5cNGuPPq+YQ9Fj9SxQ4kAgxW6nGo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1785533401; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=HDQFriGFDmR+oMWFFaGJL3URfqf634GVEENYJlsoSyc=; 
+	b=RHMg57EjBBRIFiy+uTg/mqiFGG9qLROECI6ZIIbeKU2ZRVJv4DjH6OYdRiRr5UaiTII5nfJAyg69KYHATr+GZIFHlfO866JXkSuZwecZsupD2Rlqws0MYeSJPl8yNBn3Qa7h4rSODjeoTdIMMiHFRF0ZZSobU694QWpyRmtfF2w=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785533401;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=HDQFriGFDmR+oMWFFaGJL3URfqf634GVEENYJlsoSyc=;
+	b=Bfc6vPBE8qEB+7MyXYIpScVHKU1fMnmIV4hYkOZy2bwU7vIxlF2KxHpZSfobDSmv
+	jeVZJS8Pb+W1mLHpRif13DvaqRH9SuQxpcdcZr1aGjyIveee+2h11FDETU3jVl2y31R
+	R6AL4n+O3KYIbxOAt8nB77qgbjxjmLW42EPhw6KQ=
+Received: by mx.zohomail.com with SMTPS id 1785533398963541.1363057424423;
+	Fri, 31 Jul 2026 14:29:58 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 1919318029A; Fri, 31 Jul 2026 23:29:56 +0200 (CEST)
+Date: Fri, 31 Jul 2026 23:29:56 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: linux-pm@vger.kernel.org, laurentiu.palcu@intel.com, krzk@kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] power: supply: bq24257: fix use-after-free on remove
+Message-ID: <am0ShrO_o3lJ_V8L@venus>
+References: <20260731143554.334179-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6ohbx7ih6omxgklt"
+Content-Disposition: inline
+In-Reply-To: <20260731143554.334179-1-fanwu01@zju.edu.cn>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/285.527.77
+X-ZohoMailClient: External
 
 
-The patch titled
-     Subject: mm/gup: fix always draining LRU caches in collect_longterm_unpinnable_folios()
-has been added to the -mm mm-new branch.  Its filename is
-     mm-gup-fix-always-draining-lru-caches-in-collect_longterm_unpinnable_folios.patch
+--6ohbx7ih6omxgklt
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] power: supply: bq24257: fix use-after-free on remove
+MIME-Version: 1.0
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-gup-fix-always-draining-lru-caches-in-collect_longterm_unpinnable_folios.patch
+Hi,
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+On Fri, Jul 31, 2026 at 02:35:54PM +0000, Fan Wu wrote:
+> The STAT-pin interrupt is devm-managed, so it stays armed until the devm
+> cleanup that runs after remove() returns. remove() cancels
+> bq->iilimit_setup_work while the handler can still fire; the threaded
+> handler reschedules that work and dereferences bq, so the work runs
+> against freed memory once devm frees bq.
+>=20
+> Call devm_free_irq() before canceling the work so the handler is quiesced
+> and cannot reschedule it after the cancel.
+>=20
+> Found by static analysis.
+>=20
+> Fixes: 2219a935963e ("power_supply: Add TI BQ24257 charger driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+Instead of this, which renders the device managed part of the IRQ
+request pointless, just make the delayed work also device
+managed and thus ordered correctly:
 
-The mm-new branch of mm.git is not included in linux-next
+1. Move the INIT_DELAYED_WORK() block directly before the IRQ registration
+2. Replace INIT_DELAYED_WORK() with devm_delayed_work_autocancel()
+3. Drop the now pointless cancel_delayed_work_sync() from remove function
 
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
+Greetings,
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+-- Sebastian
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+>  drivers/power/supply/bq24257_charger.c | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/power/supply/bq24257_charger.c b/drivers/power/suppl=
+y/bq24257_charger.c
+> index 72f1bfea8d..b9110d5fe2 100644
+> --- a/drivers/power/supply/bq24257_charger.c
+> +++ b/drivers/power/supply/bq24257_charger.c
+> @@ -1064,6 +1064,7 @@ static void bq24257_remove(struct i2c_client *clien=
+t)
+>  {
+>  	struct bq24257_device *bq =3D i2c_get_clientdata(client);
+> =20
+> +	devm_free_irq(&client->dev, client->irq, bq);
+>  	if (bq->iilimit_autoset_enable)
+>  		cancel_delayed_work_sync(&bq->iilimit_setup_work);
+> =20
+> --=20
+> 2.34.1
+>=20
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+--6ohbx7ih6omxgklt
+Content-Type: application/pgp-signature; name="signature.asc"
 
-------------------------------------------------------
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: mm/gup: fix always draining LRU caches in collect_longterm_unpinnable_folios()
-Date: Fri, 31 Jul 2026 22:27:53 +0200
+-----BEGIN PGP SIGNATURE-----
 
-folio_may_be_lru_cached() is currently only true for small folios, and
-for small folios FOLL_PIN adds GUP_PIN_COUNTING_BIAS references instead
-of 1 in try_grab_folio()/try_grab_folio_fast().
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmptE8oACgkQ2O7X88g7
++prahQ//dIC78ynMsXKstM6WhszwzzvQfMvNG05wWON+xJUuQQoRp79HvPmeZFrk
+9HbOn+qL9dx9vq6amfE6zaKFfV8+U0zvC/AAnbkjU8bcsodcWPqHuaNnhT+MW138
++iGlvge7xhlLC8GLE/xWM6M30Vk5+9yDIlm0DxaQ876ub+TenJgploiF9zhIYaiL
+t0DHaDZ1qiVIj1aCa+Ue+hX0QkyZac0/nKF7s75iy5dHwL1+iGFd+eAm8smoiJA8
+D0jJBwaPrK/uGPKpWAFfeCsLR/jYjwVUZolf+Rpi9dVCZNBTBtFt/InT0hX5N8vS
+lB7SROz9sIv3ICcbwvGNjsS30xrYi+kQFt5I7PGTHCMfMFKcglfBIq/xHRPZQugd
+8v+d3lVVQdHV+TyhPJIMDHC65+eNnBgUup2OANGeWq/wq8DHwgCBrD3uco0HS+58
+/MFvcL7gy5u2DUWZRQ4NhlH4wBMR3WCIQ4uWMQKtfu6kM7iZYtAMRAmg+dBaIfa6
+YorgGQvvhZ7HnNdxZ1MX2yuRFNMnX6OyztKZ6h02ZaCcGoMfHfWO8HiPFidSPqkk
+GwN9/c0SzNgGoIc9H9ZcYPDy1mE5W/Dsi2iXF7fmSvtW0nBL9n7os6Fs6SYWX7tP
+8ZXHO3o0B6ZgrAN+oWZo5wJc3RfBkQnOjnnLOXISLZIrf5av4NY=
+=/mKT
+-----END PGP SIGNATURE-----
 
-Consequently, our
-
-	folio_ref_count(folio) != folio_expected_ref_count(folio) + 1
-
-check in collect_longterm_unpinnable_folios() will currently always
-identify "reference mismatch" and first drain the local LRU cache to then
-drain the LRU cache on all CPUs, as collect_longterm_unpinnable_folios()
-is really called after pinning the folios with FOLL_PIN.
-
-Add a comment because the current code is not quite intuitive: we used to
-drain only to make sure the folio_isolate_lru() would succeed. But then we
-also started draining to make later migration more reliable.
-
-We'll refactor that code soon a bit, to also make it usable in other
-context where we really want to remove any references from LRU caches.
-
-Let's add CC stable, because having an easy way for excessive LRU cache
-draining on all CPUs does not sound right. In common scenarios we
-don't expect to every have to drain.
-
-Link: https://lore.kernel.org/20260731-check_and_migrate_movable_folios-v1-1-e0002d7b791e@kernel.org
-Fixes: 98c6d259319e ("mm/gup: check ref_count instead of lru before migration")
-Fixes: a09a8a1fbb37 ("mm/gup: local lru_add_drain() to avoid lru_add_drain_all()")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Ackerley Tng <ackerleytng@google.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/gup.c |   10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
---- a/mm/gup.c~mm-gup-fix-always-draining-lru-caches-in-collect_longterm_unpinnable_folios
-+++ a/mm/gup.c
-@@ -2273,6 +2273,7 @@ static unsigned long collect_longterm_un
- 
- 	for (folio = pofs_get_folio(pofs, i); folio;
- 	     folio = pofs_next_folio(folio, pofs, &i)) {
-+		const int pin_refs = folio_has_pincount(folio) ? 1 : GUP_PIN_COUNTING_BIAS;
- 
- 		if (folio_is_longterm_pinnable(folio))
- 			continue;
-@@ -2287,15 +2288,20 @@ static unsigned long collect_longterm_un
- 			continue;
- 		}
- 
-+		/*
-+		 * We drain not only to make the folio_isolate_lru() succeed,
-+		 * but also to remove any other folio references from LRU
-+		 * caches.
-+		 */
- 		if (drained == 0 && folio_may_be_lru_cached(folio) &&
- 				folio_ref_count(folio) !=
--				folio_expected_ref_count(folio) + 1) {
-+				folio_expected_ref_count(folio) + pin_refs) {
- 			lru_add_drain();
- 			drained = 1;
- 		}
- 		if (drained == 1 && folio_may_be_lru_cached(folio) &&
- 				folio_ref_count(folio) !=
--				folio_expected_ref_count(folio) + 1) {
-+				folio_expected_ref_count(folio) + pin_refs) {
- 			lru_add_drain_all();
- 			drained = 2;
- 		}
-_
-
-Patches currently in -mm which might be from david@kernel.org are
-
-x86-mm-drop-order-parameter-from-free_pagetable.patch
-mm-provide-free_reserved_pages-removing-x86-variant.patch
-s390-mm-use-free_reserved_pages-in-vmem_free_pages.patch
-mm-bootmem_info-allow-calling-free_bootmem_page-on-pages-without-a-bootmem_type.patch
-x86-mm-stop-marking-vmemmap-as-section_info.patch
-x86-mm-stop-marking-page-tables-as-mix_section_info.patch
-x86-mm-remove-config_have_bootmem_info_node.patch
-mm-hugetlb_vmemmap-remove-bootmem_info-leftovers.patch
-mm-sparse-remove-bootmem_infoh-include.patch
-mm-bootmem_info-remove-config_have_bootmem_info_node.patch
-mm-standardize-printing-for-pgtable-entries.patch
-mm-gup-fix-always-draining-lru-caches-in-collect_longterm_unpinnable_folios.patch
-
+--6ohbx7ih6omxgklt--
