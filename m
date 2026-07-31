@@ -1,120 +1,116 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 53F2E3BBFD3;
-	Fri, 31 Jul 2026 09:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86DAB3B7742;
+	Fri, 31 Jul 2026 09:45:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785490984; cv=none; b=aLvxrCzDFhU1wpfFfg6F3rhMzUuck2jioFRwAQ6hw9WzvD6XhoXA/mCjLy/M0d/+WyJJzOa+b8m6963ZtXMqJRCUTq3iG/fJsUbaovkMaHltMnZp6w59Yr05x02MDULMKzu4Xa5TYE3i95Sk2fbBbm1Ay+3DH6xQ8IpRezFTSyQ=
+	t=1785491124; cv=none; b=YaDueEhxfjkRgbI/49h5Oz/ALUwCdgWYNl9YIzathXjgb3Lk+/J+74OyitoAQEODq3etAYGK6eCBs5YMwd6FBkM1nZ4ZYL39wv/4C4P2FeRmhO0Q5PwSv0PyWe9LWoqwGfkX6CcpT+O+scBSg53nKKObeS3wrYWXejnbdGNJYZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785490984; c=relaxed/simple;
-	bh=9E8GdqP31dgwfZYT4f13k2PUrM5L41eD1gFxUICd/xw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ejVm8MmOqe694CLyYIetl5JxpRhj7VGDy5gBeOh6rJclFCu0SWl8ZDHpIQyY0p/UzMDVUkq9KNxsaVFBCPJrsu604w6BAyuV4B+C+2VgzfwaKQZ8c3xVXj/6DWtkjoZ2BfcWGrItHVWOU/M+b05wgwRJtvl3ydFCNKE8mrW1Nvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.68.205])
-	by gateway (Coremail) with SMTP id _____8BxGOsfbmxqjywJAA--.30900S3;
-	Fri, 31 Jul 2026 17:42:55 +0800 (CST)
-Received: from kernelserver (unknown [223.64.68.205])
-	by front1 (Coremail) with SMTP id qMiowJDxu8QPbmxqHvYeAA--.48910S3;
-	Fri, 31 Jul 2026 17:42:46 +0800 (CST)
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yinbo Zhu <zhuyinbo@loongson.cn>,
-	zhanghongchen <zhanghongchen@loongson.cn>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Lee Jones <lee@kernel.org>
-Cc: Huacai Chen <chenhuacai@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	mfd@lists.linux.dev,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v3 1/5] thermal/drivers/loongson2: Correct thermal sensor registration loop
-Date: Fri, 31 Jul 2026 17:42:17 +0800
-Message-ID: <367a07d2190203b2412d13f407eea81334122e31.1785480242.git.zhoubinbin@loongson.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1785480242.git.zhoubinbin@loongson.cn>
-References: <cover.1785480242.git.zhoubinbin@loongson.cn>
+	s=arc-20240116; t=1785491124; c=relaxed/simple;
+	bh=JI3hwQZG9O+wVX41sbs8+Np1ov5ehOcvZtKBDgg+Tow=;
+	h=Message-ID:From:Date:Subject:MIME-Version:Content-Type:References:
+	 In-Reply-To:To:Cc; b=ZDt/BTjQvmeYk4KHQqPV0vJiY4VPNVpa+MBWTTTijDwMCur6++OIOqCQZ4bYGyuR+8YxGVWq/9MNWMlXjw3YcIIpsTRITMDKx+bm3FvW5vlTOGoFTKPTQvn/7OcvEXy3mFgKDq/JXNoSwaX5y62XknImlfSBKPICCHA/bme/oBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=fb+mWE2n; arc=none smtp.client-ip=43.163.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="fb+mWE2n"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1785491111; bh=ISmSHUnxFfQoUpZFO1QyXg4OFEW5rbqFD96jqZMmjj0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=fb+mWE2nw+Z9jYLI0z3doQ3+l03FiNFInuPVfIGokwyL+HN9FeEuAy08X5YHQ24ac
+	 mooQJJ8Vh4YZv9B3Lo46A1bfo4YpL7RwpEgNyWuBcrypQ5ij6q0jC09X6alMn+QAbe
+	 cI82BDxLqRnHtloP31jaMPznh0w2bSpGnuEs1P6M=
+Received: from ubuntu2204.localdomain ([2409:8d20:22b:54c:9e54:40ff:fe02:3f0f])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id B4623E87; Fri, 31 Jul 2026 17:45:06 +0800
+X-QQ-mid: xmsmtpt1785491108tdqxs9959
+Message-ID: <tencent_C825C17D442F801351CE2FBC4984064B4605@qq.com>
+X-QQ-XMAILINFO: NX3IH4pixvQAx2COF1gCU6EIJLauzWo3Kt7+E3SrVC7av0c18336ZgsQ8B9RIJ
+	 Rboj+DKm5ui5eqI9NC1iBawuWNKlI87ky/4DOjmNeq/P3NAWBTxOlXyfiy7ua0MQ6JAjbNo4/bJV
+	 TP93Y4IwWOg/fO9VUSLFgFaautwsCcawst1iduEXUXyXnkY8Vj0yvD9Un7jeye8L/3qVvdI7aneL
+	 BJgDipkTp/4qmB1ykxK/faNuYYzfdzGXdsb9UJxL4xaAKMGtmAHLsbIa5Fbv3WhTAJgXgeSMUCgc
+	 HDf6Qoe/SO5xB9KoUNGJ8s0+C8cV4B4lRYLikS1AbYrn+cs5LLNu12MiRtVy2PVuyD7w5uYWduTP
+	 p+DEqEbwORY70LF0BBqi5PP85VivI6e9WUQM6A6jto6+c63JiyOqgPkCwiv/k8v70Tr/pmMddpSf
+	 RXPNAhc1osYaNvDkw/uq33f3GZTY5o7QFfuAjK0RwnKYYdT/2kCHtIrt4t9qW8UVG8YoJ3F3TEli
+	 ktXmYaMavtEkHdM4kCV/j+eJWBj3FQSIwf4QkL3ZIOB3mh0nMaTvkwBmqKwyhRjnAo8fELuSeVgf
+	 NzUXNyTU3AtTn/OYuO8JckJ6hHwQxUKrlXqip2GE3mFNenHU22+TZEbfSfCVDEMcysZVDv3knpwr
+	 TIYIjMiob+YZxAJpAxLoakqtcPNl0CetHiaQrEaCOF07jm2PTFUrgDOrlVv3LIJLNIdOwPbfqLmE
+	 p5Cbii0gQz/HnvoE2GxlN1zsHYTuYzk/Tq7aCoX1yQPFUt4rn5luL5uPiJY4+W6yv9FrrBwQTf3l
+	 5K2tI9erjUobmZQ3isLqcnlyCnSJ4PgCYE+derN+1mMebZI06gdmVvwTce+bXYVEDhv+tbWb8lIJ
+	 yt7cR+opgMAB8nCoDd89x9gKGRNkeaUQ0X3d3Su5Pbt03pi6sia9LrG2qv10TI+kU9ZWaCNaGbCN
+	 0cZzFtkimoJkLWWoqN9c88j7Xv5x8kzdMEymnIswF0fdNq1NXmaGBjiW4B7E7rFm6vnh1UlQCKaI
+	 bweNBP2S3Isa/GC2CZ/LR414xQV4mWA/cZJl5Cs9Kgnu88MbdHUIlTvMeCHrEMyxNAlRhLM61t6P
+	 qNqNFu
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+From: Cunhao Lu <1579567540@qq.com>
+Date: Fri, 31 Jul 2026 17:45:01 +0800
+Subject: [PATCH v3 2/3] can: skb: make CAN skb allocation failure paths
+ IRQ-safe
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxu8QPbmxqHvYeAA--.48910S3
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEFCGpsIlAFfQAAsB
-X-Coremail-Antispam: 1Uk129KBj93XoW7tr1UCFW8ZFy5Jw13Wr43CFX_yoW8Cr1rpF
-	sxC3WYkr98GFs7Z34DArWUXan0ya4ftFW7WF4xWw1rWrn3J34agryrJFW2qa40yFy8ZF1Y
-	qr98tFWDCayDZrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1a6r1DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
-	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
-	6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
-	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xII
-	jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
-	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
-	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IUbRVbDUUUUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-OQ-MSGID: <20260731-master-v3-2-b56cd1e8d675@qq.com>
+References: <20260731-master-v3-0-b56cd1e8d675@qq.com>
+In-Reply-To: <20260731-master-v3-0-b56cd1e8d675@qq.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>
+Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Cunhao Lu <1579567540@qq.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-The registration loop in loongson2_thermal_probe() incorrectly uses
-dev_err_probe() when the sensor is not present (-ENODEV). In that case,
-the driver should continue to the next sensor index rather than treating
-it as a fatal error.
+The CAN skb allocation helpers are used from hardware interrupt receive
+handlers. If can_skb_ext_add() fails, they release the newly allocated skb
+with kfree_skb(), which is not safe in hardware interrupt context.
 
-Fix this by correctly handling -ENODEV and only returning on other
-errors. Also add a final check to ensure at least one thermal zone was
-registered.
+Use dev_kfree_skb_any() for the allocation failure paths in
+alloc_can_skb(), alloc_canfd_skb(), and alloc_canxl_skb().
 
+Fixes: 96ea3a1e2d31 ("can: add CAN skb extension infrastructure")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/cover.1783670011.git.zhoubinbin@loongson.cn?part=2
-Fixes: e7e3a7c35791 ("thermal/drivers/loongson-2: Add thermal management support")
-Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
 ---
- drivers/thermal/loongson2_thermal.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/net/can/dev/skb.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
-index ea4dd2fb1f47..5f47fa51fb90 100644
---- a/drivers/thermal/loongson2_thermal.c
-+++ b/drivers/thermal/loongson2_thermal.c
-@@ -161,16 +161,18 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
+diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
+index d7b5a5d17ff2..d34d3e7d4c9f 100644
+--- a/drivers/net/can/dev/skb.c
++++ b/drivers/net/can/dev/skb.c
+@@ -223,7 +223,7 @@ struct sk_buff *alloc_can_skb(struct net_device *dev, struct can_frame **cf)
  
- 	for (i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
- 		tzd = devm_thermal_of_zone_register(dev, i, data, thermal_ops);
--
- 		if (!IS_ERR(tzd))
- 			break;
- 
--		if (PTR_ERR(tzd) != -ENODEV)
-+		if (PTR_ERR(tzd) == -ENODEV)
- 			continue;
- 
--		return dev_err_probe(dev, PTR_ERR(tzd), "failed to register");
-+		return dev_err_probe(dev, PTR_ERR(tzd), "failed to register sensor %d\n", i);
+ 	csx = can_skb_ext_add(skb);
+ 	if (!csx) {
+-		kfree_skb(skb);
++		dev_kfree_skb_any(skb);
+ 		goto out_error_cc;
  	}
  
-+	if (IS_ERR(tzd))
-+		return dev_err_probe(dev, -ENODEV, "No thermal sensor registered\n");
-+
- 	ret = devm_request_threaded_irq(dev, irq, NULL, loongson2_thermal_irq_thread,
- 					IRQF_ONESHOT, "loongson2_thermal", tzd);
- 	if (ret < 0)
+@@ -254,7 +254,7 @@ struct sk_buff *alloc_canfd_skb(struct net_device *dev,
+ 
+ 	csx = can_skb_ext_add(skb);
+ 	if (!csx) {
+-		kfree_skb(skb);
++		dev_kfree_skb_any(skb);
+ 		goto out_error_fd;
+ 	}
+ 
+@@ -292,7 +292,7 @@ struct sk_buff *alloc_canxl_skb(struct net_device *dev,
+ 
+ 	csx = can_skb_ext_add(skb);
+ 	if (!csx) {
+-		kfree_skb(skb);
++		dev_kfree_skb_any(skb);
+ 		goto out_error_xl;
+ 	}
+ 
+
 -- 
-2.52.0
+2.34.1
 
