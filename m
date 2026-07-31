@@ -1,304 +1,213 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04AF63E8340;
-	Fri, 31 Jul 2026 14:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E382142A78B
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 14:22:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785507723; cv=none; b=KeLz+vm+TubHVHl5erbcK9fK4YN7xCXIQRkVNXcFeOqtrsd/sG/WKRlzTNjWerPYtthEJuqzFsczlp96+OUkr7QEIClMFGog82c2wbSuv232t4jp3n9udvIjot6mm+oTlCXgqwvc8G1AtC+QHG75ZrFpscv/6Z2rVXnJBZu+vaw=
+	t=1785507754; cv=none; b=Q+b9bWWT7upUvPr2ci/mw0rcVTFYsollBfdX3OP+RXH6644+jMpwqYgi3OGHZ2sJ3wyYrwikhxUhj573f0Nh1LHC8nyE2ICBst92zHsDV695I4XCLioCSyirRzEbSk2fpKJd0ZCgzZrus5jV2+gzM7F+opHn1oFJsG7E3Rgc1D4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785507723; c=relaxed/simple;
-	bh=IE41Avm6A0BwSPXB9pDOV4zrpbgE82b+rIXiXD3VPug=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jy2ce92Op9hg0hlo2jt9hX18BbZWbdVT7ObAxuEWpuCDD460FjO8VD9LgsRbdZ4nA/doRL7Y1zV7nC8CpbMW8WTqSDpuFqa0Ac+wCrsIfASGUzWegkhM0Oot+IQCWl7yAmOudWKnNQ58m/6i48Ih4fB442ZLieYPFlsGueQ7xsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowABXWzl+r2xqkzNKAg--.21969S2;
-	Fri, 31 Jul 2026 22:21:50 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Christophe Leroy <chleroy@kernel.org>
-Cc: Nicholas Piggin <npiggin@gmail.com>,
-	Kajol Jain <kjain@linux.ibm.com>,
-	Athira Rajeev <atrajeev@linux.vnet.ibm.com>,
-	Kees Cook <kees@kernel.org>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>
-Subject: [PATCH v3] powerpc/perf/hv-gpci: bound sysfs output with helpers
-Date: Fri, 31 Jul 2026 22:21:50 +0800
-Message-ID: <20260731141800.4-hv-gpci-v3-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1785507754; c=relaxed/simple;
+	bh=ll6FLQerJq3jLfjs/fN90YGo45O8imjtMDX2eTiTmhE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eLKrybovm+r6+HvpiN3ezCin3GYbn57fJULV9Wj6Fqu9VslNP43rnBQjiNMlsdJlEFd7PaCMQWQh3wMLtiE1I0jXo9J847eKkz/Io9GDaUuunVdKhloDdIJ/hopdYsqeSEzDiFXDmjNTkYRtHFNcISudtEIYZJ1ZE1z7o87vIh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FvF9E4Mp; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FvF9E4Mp"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cc8311c6ddso732055ad.0
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 07:22:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785507752; x=1786112552; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cPoeW3jLES6wCr33SzwG3txLGpwaWgERLK4MD+MFZtU=;
+        b=FvF9E4MpEzP1X8Np3czmCCjgB+eNVlhvCUrY4Ggp0hrLL3/alXRjLiBi9gpgsY3gBD
+         yeNMoB1YRuyY4/14iOS2MItWjSbbP288nSutIu8amjb7cyECQ/tLIWM0ArdgkUWDg/B0
+         O8xt5S2e1wvYZvT8lgAzAkDPttaiMFQtd6bFK1sPmmDe47zIavl/UodwU/CVHujx75E4
+         g01Y8GIaD8LUskASPme/4VFKeaWwri2415FSv5v/VDk4GdaAud+GZo3OKmJmtPYSYwxb
+         NzM8GHhGCz9n63/LpshZ/Lpp3mcJL+ir8xCyAU1c9YHYTJHXbVvB3tpA4Vr28yee1wil
+         XZ9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785507752; x=1786112552;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cPoeW3jLES6wCr33SzwG3txLGpwaWgERLK4MD+MFZtU=;
+        b=Gnf1b8MmxBxPeMs45S5pUuzm+TG0O2yjM0CdwMCZINNDG9fz68UCYzWLOb0Y6cAKR6
+         zHMkTg7HYVCHTAT/YEvjR+VJ7nV6KuBTXO5Xrs6qipboNPsBiaM3BAfSpJrWuqlFwVir
+         7DZvJK2wBiQjU2JOTzy8KXPB/vrcfT2WA+z2fe3xM5LMBjihVEb0q+VUmRnTPWhXbiHc
+         U6jOH5qQw/qlwr9J1pU37uvsrvfHvKKc6b82mKPwhHvWp4c06RoxhtGO/D7T8dzu9sZV
+         SyOJnh1/jl2Z/PGQ/AJPmnnCFZ7aWN6hO54ArUIjjPKTgdIHR6xcrZwjkRjsl4OTohXR
+         O6cA==
+X-Forwarded-Encrypted: i=1; AHgh+RpUGFVTiyhrxIH8/ADGfqyRKZFMXEmbjjUJ0oxJj0Rz/8lIU0bRynlC8kW+5RInQONxd2W0iZk=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx591MijOvyqK+Z0hlcf4G9+ODjT1EGRzSApkRnDMTMx4dbA1Zr
+	MqQkQ/CKUZmH50h1ztUxo0PWA2K+vQRQd6opqWaW8BiG93SKQ19/QVSe
+X-Gm-Gg: AR+sD10Nbm+ytH98GWvK1Wbj9VKHkEtp9BLa0aJFA7xyZ88CbNx+UKV6EQ5sIt5PlXk
+	iZ0x/PBvNuxnzw71FCPv2IR70cfuUH8snFZpFO/wt+SSBK70sqsQdFQIZ2E5/5705hYAp4YIAwf
+	5xDM8SLCTS0+XWDCqmcVvso0f2CMCmSwcUOu39nE0UhgCLBSd9Df27hBJGQQFxa5ruH4ufsr7Gi
+	9EHOEHNZtVXlKxWlMx/Kp+LBpxlgubv5Mm/SKlUR19xu5IVEtShL2Sz1C1gmwqecI7bGDSRZVBD
+	DaktSTAFKhv6NNcVRfLvpiFXT7np1ZuCsGffCgcH7wbEvUfIVSPm/7tctO4jCCmYEEAbmvxQbG1
+	Ae+sCRnH8F5JojZmkAZEKwPHnlk2v33CKnMEZ4mCTNmx/gKe3Gv7bC+AJDOH4gYwlO61euY4MJf
+	IpKdGmTh3oHx8FutC/75nBe+uRE33YwsrmjzJiJr97sAiXYixR+Unfo2ld5u9r9BnfnQMvWOHKa
+	3DROtUaUmOog8R14WFD94RmzQ4jvcCpWnSIn8QMx1KHEMSJXlonVCs=
+X-Received: by 2002:a17:903:38c7:b0:2c9:8287:fd0d with SMTP id d9443c01a7336-2d052438c91mr2628485ad.3.1785507751833;
+        Fri, 31 Jul 2026 07:22:31 -0700 (PDT)
+Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153dd4f0f0sm6470095eec.2.2026.07.31.07.22.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 07:22:30 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Richard Watts <rrw@kynesim.co.uk>
+Cc: linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] tty: serialize device registration and removal
+Date: Fri, 31 Jul 2026 22:22:20 +0800
+Message-ID: <20260731142220.3000214-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABXWzl+r2xqkzNKAg--.21969S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GF18Jw4UZF1DJFy5JFWfAFb_yoW3CFWkpF
-	4rKrW3Kw45Ww18WrW0ka1kZr1S9392y347J3yfK3sayrnrAwsFkFyIyFyjkry7CrWxCF18
-	CrZ8tws8Ca17XaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
-	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
-	CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
-	nIWIevJa73UjIFyTuYvjfUoWlkDUUUU
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-systeminfo_gpci_request() and
-affinity_domain_via_partition_result_parse() hex-encode hypervisor data
-into the single-page sysfs read buffer with sprintf(buf + *n, ...).
-Both helpers only check PAGE_SIZE after the formatting loops have
-already advanced past the end of the buffer.
+tty_cdev_add() stores a newly allocated cdev in driver->cdevs[index]
+before initializing and registering it. tty_unregister_device() reads and
+deletes the same pointer without serialization.
 
-Add small helpers around sysfs_emit_at() for hex-byte and newline
-appends, and stop once the sysfs buffer is full. This keeps the repeated
-bounds handling local instead of open-coding it at each append site.
+The race can proceed as follows:
 
-Return errors from systeminfo_gpci_request() through an int and update
-all of its callers accordingly, so negative formatting errors are not
-converted through an unsigned return type.
+  registration                     removal
+  ------------                     -------
+  driver->cdevs[index] = cdev
+                                   cdev_del(driver->cdevs[index])
+                                   kobject_put() frees cdev
+  driver->cdevs[index]->ops = &tty_fops
 
-Fixes: 71f1c39647d8 ("powerpc/hv_gpci: Add sysfs file inside hv_gpci device to show processor bus topology information")
-Fixes: a15e0d6a6929 ("powerpc/hv_gpci: Add sysfs file inside hv_gpci device to show affinity domain via partition information")
+The final write accesses freed memory. Concurrent registration can also
+replace the slot while another caller is still using its cdev.
+
+KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in tty_cdev_add+0x5c7/0x670
+  Write of size 8 at addr ffff88810b298c48
+
+  Call Trace:
+   tty_cdev_add+0x5c7/0x670
+   tty_register_device_attr+0x458/0x810
+   gsm_activate_mux+0x105/0x2e0
+   gsmld_ioctl+0x92f/0x14d0
+
+  Allocated by task 111:
+   cdev_alloc+0x99/0x130
+   tty_cdev_add+0x93/0x670
+
+  Freed by task 110:
+   cdev_dynamic_release+0x38/0x50
+   kobject_put+0x14d/0x280
+   tty_unregister_device+0x1b7/0x3c0
+
+Add a per-driver mutex and hold it across complete device registration and
+removal. This prevents either transition from replacing or freeing a cdev
+until the other has finished.
+
+Fixes: a3a10ce3429e ("Avoid usb reset crashes by making tty_io cdevs truly dynamic")
 Cc: stable@vger.kernel.org
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
-Changes since v2: https://lore.kernel.org/all/20260424070103.1-hv-gpci-v2-pengpeng@iscas.ac.cn/
-- change systeminfo_gpci_request() to return int and update all callers,
-  as requested by Madhavan Srinivasan
-- keep the raw hypervisor return in a signed long before mapping it to the
-  helper's documented return values
-- rebase onto the current tree
+ drivers/tty/tty_io.c       | 13 ++++++++++---
+ include/linux/tty_driver.h |  3 +++
+ 2 files changed, 13 insertions(+), 3 deletions(-)
 
- arch/powerpc/perf/hv-gpci.c | 113 +++++++++++++++++++++++++++++++++-----------
- 1 file changed, 85 insertions(+), 28 deletions(-)
-
-diff --git a/arch/powerpc/perf/hv-gpci.c b/arch/powerpc/perf/hv-gpci.c
-index 7269273d3aa8..0bfd8061969a 100644
---- a/arch/powerpc/perf/hv-gpci.c
-+++ b/arch/powerpc/perf/hv-gpci.c
-@@ -130,11 +130,36 @@ static int sysinfo_counter_request[] = {
+diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+index 6b283fd03ff8..926a9b586c7d 100644
+--- a/drivers/tty/tty_io.c
++++ b/drivers/tty/tty_io.c
+@@ -3185,7 +3185,8 @@ static int tty_cdev_add(struct tty_driver *driver, dev_t dev,
+  * that bit is not set, this function should not be called by a tty
+  * driver.
+  *
+- * Locking: ??
++ * Locking: device registration and removal are serialized by
++ * @driver->device_mutex.
+  *
+  * Return: A pointer to the struct device for this tty device (or
+  * ERR_PTR(-EFOO) on error).
+@@ -3217,7 +3218,8 @@ static void tty_device_create_release(struct device *dev)
+  * tty driver's flags have the %TTY_DRIVER_DYNAMIC_DEV bit set. If that bit is
+  * not set, this function should not be called by a tty driver.
+  *
+- * Locking: ??
++ * Locking: device registration and removal are serialized by
++ * @driver->device_mutex.
+  *
+  * Return: A pointer to the struct device for this tty device (or
+  * ERR_PTR(-EFOO) on error).
+@@ -3257,6 +3259,7 @@ struct device *tty_register_device_attr(struct tty_driver *driver,
+ 	dev_set_drvdata(dev, drvdata);
  
- static DEFINE_PER_CPU(char, hv_gpci_reqb[HGPCI_REQ_BUFFER_SIZE]) __aligned(sizeof(uint64_t));
+ 	dev_set_uevent_suppress(dev, 1);
++	guard(mutex)(&driver->device_mutex);
  
--static unsigned long systeminfo_gpci_request(u32 req, u32 starting_index,
--			u16 secondary_index, char *buf,
--			size_t *n, struct hv_gpci_request_buffer *arg)
-+static int hv_gpci_emit_hex_byte(char *buf, size_t *n, u8 byte)
+ 	retval = device_register(dev);
+ 	if (retval)
+@@ -3300,10 +3303,13 @@ EXPORT_SYMBOL_GPL(tty_register_device_attr);
+  * If a tty device is registered with a call to tty_register_device() then
+  * this function must be called when the tty device is gone.
+  *
+- * Locking: ??
++ * Locking: device registration and removal are serialized by
++ * @driver->device_mutex.
+  */
+ void tty_unregister_device(struct tty_driver *driver, unsigned index)
  {
--	unsigned long ret;
-+	int len;
++	guard(mutex)(&driver->device_mutex);
 +
-+	len = sysfs_emit_at(buf, *n, "%02x", byte);
-+	if (len <= 0)
-+		return -EFBIG;
-+
-+	*n += len;
-+	return 0;
-+}
-+
-+static int hv_gpci_emit_newline(char *buf, size_t *n)
-+{
-+	int len;
-+
-+	len = sysfs_emit_at(buf, *n, "\n");
-+	if (len <= 0)
-+		return -EFBIG;
-+
-+	*n += len;
-+	return 0;
-+}
-+
-+static int systeminfo_gpci_request(u32 req, u32 starting_index,
-+				   u16 secondary_index, char *buf,
-+				   size_t *n, struct hv_gpci_request_buffer *arg)
-+{
-+	long ret;
-+	int rc;
- 	size_t i, j;
+ 	device_destroy(&tty_class, MKDEV(driver->major, driver->minor_start) + index);
+ 	if (!(driver->flags & TTY_DRIVER_DYNAMIC_ALLOC)) {
+ 		cdev_del(driver->cdevs[index]);
+@@ -3338,6 +3344,7 @@ struct tty_driver *__tty_alloc_driver(unsigned int lines, struct module *owner,
+ 		return ERR_PTR(-ENOMEM);
  
- 	arg->params.counter_request = cpu_to_be32(req);
-@@ -177,9 +202,14 @@ static unsigned long systeminfo_gpci_request(u32 req, u32 starting_index,
- 	for (i = 0; i < be16_to_cpu(arg->params.returned_values); i++) {
- 		j = i * be16_to_cpu(arg->params.cv_element_size);
- 
--		for (; j < (i + 1) * be16_to_cpu(arg->params.cv_element_size); j++)
--			*n += sprintf(buf + *n,  "%02x", (u8)arg->bytes[j]);
--		*n += sprintf(buf + *n,  "\n");
-+		for (; j < (i + 1) * be16_to_cpu(arg->params.cv_element_size); j++) {
-+			rc = hv_gpci_emit_hex_byte(buf, n, (u8)arg->bytes[j]);
-+			if (rc)
-+				return rc;
-+		}
-+		rc = hv_gpci_emit_newline(buf, n);
-+		if (rc)
-+			return rc;
- 	}
- 
- 	if (*n >= PAGE_SIZE) {
-@@ -194,7 +224,7 @@ static ssize_t processor_bus_topology_show(struct device *dev, struct device_att
- 				char *buf)
- {
- 	struct hv_gpci_request_buffer *arg;
--	unsigned long ret;
-+	int ret;
- 	size_t n = 0;
- 
- 	arg = (void *)get_cpu_var(hv_gpci_reqb);
-@@ -264,7 +294,7 @@ static ssize_t processor_config_show(struct device *dev, struct device_attribute
- 					char *buf)
- {
- 	struct hv_gpci_request_buffer *arg;
--	unsigned long ret;
-+	int ret;
- 	size_t n = 0;
- 
- 	arg = (void *)get_cpu_var(hv_gpci_reqb);
-@@ -334,7 +364,7 @@ static ssize_t affinity_domain_via_virtual_processor_show(struct device *dev,
- 			struct device_attribute *attr, char *buf)
- {
- 	struct hv_gpci_request_buffer *arg;
--	unsigned long ret;
-+	int ret;
- 	size_t n = 0;
- 
- 	arg = (void *)get_cpu_var(hv_gpci_reqb);
-@@ -406,7 +436,7 @@ static ssize_t affinity_domain_via_domain_show(struct device *dev, struct device
- 						char *buf)
- {
- 	struct hv_gpci_request_buffer *arg;
--	unsigned long ret;
-+	int ret;
- 	size_t n = 0;
- 
- 	arg = (void *)get_cpu_var(hv_gpci_reqb);
-@@ -470,10 +500,12 @@ static ssize_t affinity_domain_via_domain_show(struct device *dev, struct device
- 	return ret;
- }
- 
--static void affinity_domain_via_partition_result_parse(int returned_values,
--			int element_size, char *buf, size_t *last_element,
--			size_t *n, struct hv_gpci_request_buffer *arg)
-+static int affinity_domain_via_partition_result_parse(int returned_values,
-+						      int element_size, char *buf,
-+						      size_t *last_element, size_t *n,
-+						      struct hv_gpci_request_buffer *arg)
- {
-+	int rc;
- 	size_t i = 0, j = 0;
- 	size_t k, l, m;
- 	uint16_t total_affinity_domain_ele, size_of_each_affinity_domain_ele;
-@@ -492,27 +524,40 @@ static void affinity_domain_via_partition_result_parse(int returned_values,
- 	 */
- 	while (i < returned_values) {
- 		k = j;
--		for (; k < j + element_size; k++)
--			*n += sprintf(buf + *n,  "%02x", (u8)arg->bytes[k]);
--		*n += sprintf(buf + *n,  "\n");
-+		for (; k < j + element_size; k++) {
-+			rc = hv_gpci_emit_hex_byte(buf, n, (u8)arg->bytes[k]);
-+			if (rc)
-+				return rc;
-+		}
-+		rc = hv_gpci_emit_newline(buf, n);
-+		if (rc)
-+			return rc;
- 
- 		total_affinity_domain_ele = (u8)arg->bytes[k - 2] << 8 | (u8)arg->bytes[k - 3];
- 		size_of_each_affinity_domain_ele = (u8)arg->bytes[k] << 8 | (u8)arg->bytes[k - 1];
- 
- 		for (l = 0; l < total_affinity_domain_ele; l++) {
- 			for (m = 0; m < size_of_each_affinity_domain_ele; m++) {
--				*n += sprintf(buf + *n,  "%02x", (u8)arg->bytes[k]);
-+				rc = hv_gpci_emit_hex_byte(buf, n, (u8)arg->bytes[k]);
-+				if (rc)
-+					return rc;
- 				k++;
- 			}
--			*n += sprintf(buf + *n,  "\n");
-+			rc = hv_gpci_emit_newline(buf, n);
-+			if (rc)
-+				return rc;
- 		}
- 
--		*n += sprintf(buf + *n,  "\n");
-+		rc = hv_gpci_emit_newline(buf, n);
-+		if (rc)
-+			return rc;
- 		i++;
- 		j = k;
- 	}
- 
- 	*last_element = k;
-+
-+	return 0;
- }
- 
- static ssize_t affinity_domain_via_partition_show(struct device *dev, struct device_attribute *attr,
-@@ -523,6 +568,7 @@ static ssize_t affinity_domain_via_partition_show(struct device *dev, struct dev
- 	size_t n = 0;
- 	size_t last_element = 0;
- 	u32 starting_index;
-+	int element_size, rc, returned_values;
- 
- 	arg = (void *)get_cpu_var(hv_gpci_reqb);
- 	memset(arg, 0, HGPCI_REQ_BUFFER_SIZE);
-@@ -555,10 +601,16 @@ static ssize_t affinity_domain_via_partition_show(struct device *dev, struct dev
- 	 * to buffer util we get all the information.
- 	 */
- 	while (ret == H_PARAMETER) {
--		affinity_domain_via_partition_result_parse(
--			be16_to_cpu(arg->params.returned_values) - 1,
--			be16_to_cpu(arg->params.cv_element_size), buf,
--			&last_element, &n, arg);
-+		returned_values = be16_to_cpu(arg->params.returned_values);
-+		element_size = be16_to_cpu(arg->params.cv_element_size);
-+		rc = affinity_domain_via_partition_result_parse(returned_values - 1,
-+								element_size, buf,
-+								&last_element, &n,
-+								arg);
-+		if (rc) {
-+			put_cpu_var(hv_gpci_reqb);
-+			return rc;
-+		}
- 
- 		if (n >= PAGE_SIZE) {
- 			put_cpu_var(hv_gpci_reqb);
-@@ -587,10 +639,15 @@ static ssize_t affinity_domain_via_partition_show(struct device *dev, struct dev
- 	}
- 
- parse_result:
--	affinity_domain_via_partition_result_parse(
--		be16_to_cpu(arg->params.returned_values),
--		be16_to_cpu(arg->params.cv_element_size),
--		buf, &last_element, &n, arg);
-+	returned_values = be16_to_cpu(arg->params.returned_values);
-+	element_size = be16_to_cpu(arg->params.cv_element_size);
-+	rc = affinity_domain_via_partition_result_parse(returned_values,
-+							element_size, buf,
-+							&last_element, &n, arg);
-+	if (rc) {
-+		put_cpu_var(hv_gpci_reqb);
-+		return rc;
-+	}
- 
- 	put_cpu_var(hv_gpci_reqb);
- 	return n;
+ 	kref_init(&driver->kref);
++	mutex_init(&driver->device_mutex);
+ 	driver->num = lines;
+ 	driver->owner = owner;
+ 	driver->flags = flags;
+diff --git a/include/linux/tty_driver.h b/include/linux/tty_driver.h
+index 1f2896e56e77..bf8c9d8ec698 100644
+--- a/include/linux/tty_driver.h
++++ b/include/linux/tty_driver.h
+@@ -7,6 +7,7 @@
+ #include <linux/kref.h>
+ #include <linux/list.h>
+ #include <linux/cdev.h>
++#include <linux/mutex.h>
+ #include <linux/uaccess.h>
+ #include <linux/termios.h>
+ #include <linux/seq_file.h>
+@@ -497,6 +498,7 @@ struct tty_operations {
+  * @kref: reference counting. Reaching zero frees all the internals and the
+  *	  driver.
+  * @cdevs: allocated/registered character /dev devices
++ * @device_mutex: serializes device registration and removal
+  * @owner: modules owning this driver. Used drivers cannot be rmmod'ed.
+  *	   Automatically set by tty_alloc_driver().
+  * @driver_name: name of the driver used in /proc/tty
+@@ -532,6 +534,7 @@ struct tty_operations {
+ struct tty_driver {
+ 	struct kref kref;
+ 	struct cdev **cdevs;
++	struct mutex device_mutex;
+ 	struct module	*owner;
+ 	const char	*driver_name;
+ 	const char	*name;
 -- 
-2.50.1
+2.43.0
 
