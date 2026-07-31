@@ -1,136 +1,136 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A68037E5DF
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 20:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785531493; cv=pass; b=KWCig356Njx8rfBYd6l9XFBVDI+sTe9uuE0gmbKHYRSJMoBFUfUycy/6tphuFLQhAO2t5gaJ4qfkR31v2XRcZ/xozj/OrlTU0mN7MH18wfGmT5xaqikcLiObsDYDbeSz1P1/xTj9Pv65URtvUovF9wDunMfDbOJxFNvcrVl7is0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785531493; c=relaxed/simple;
-	bh=QpxQyRFlAMg3zdNKOHqLP2D+nnCqtp3/FyUT/or79Jk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M4Q63snSQgZelZbfPY8S+Msv8un7xIK6FVyA2cwJnpUiqsO4vN1oQNT6EbR2fLB0OhTDs4ICf0ZsVU4kQuFs3PU2gH6L5HHQiJBsGnOtgRuO1k4NN2N98NeLNkAtB/Z8m3BQTNOOcQpLKytBp7f2jfbOc9tv54UFRAK3O/kLU+o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pEpkc2kS; arc=pass smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D229B380FD0;
+	Fri, 31 Jul 2026 21:13:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785532398; cv=none; b=lvGGqaT0K+xRTbujP64mYkiwpU1iyMmlze/l0cwGzyQzPphYbTLRrBfyhNzDmU8jx755uzS4oVEa/oR7Skqfciuc9hALfuVgVZJFr9Rh/3HHCAv55mgyh1AkLvaXI3QWOa1JxWzKCIpu9mkwphQaFv/4LqgKaL5YEWHmA85cLwE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785532398; c=relaxed/simple;
+	bh=MKxEOdlMie+GdPaQckMTzNvqlSB1/E9htbm4SuY/lUk=;
+	h=Date:To:From:Subject:Message-Id; b=CyyNUmizmWpp9RlUlVGu/cqI3Hs8QoUGuntEfeHQz0uZYZylj3SNTWqGSiriVEhjJAEcM3oeDXzo8a9fNlu0tmvZHuT4YryhoF1zyvasMsSu6OmtE/oDmp1I+GiYarDeh99wVdeGBEIef9oo1hAGHRTCLljnbYbeVQtcnJ3o4qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=j3srxKP9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pEpkc2kS"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38ecc48b3deso175759a91.0
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 13:58:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785531490; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RuP2/y5gg3skaW93vhUK7l4qLa614B0wYNbIGp2Zy3wz/JCD0NwVO4+ueTxGtrBLBb
-         gTfrXB1uB242E+knY5mCQHby8WMcLLW8R4Bayd5zWimBpvuTBP+lA03GYngBEjiap4Qd
-         ZJfndId//isA4phfFO8Ef2B6FByokCHZX3MQINyFdxwzuYlOwHkjzqjsS2jZ1utgG/BB
-         76R3VjGgJjLfz9/Swmy5jqwgfNg4Nm10WONL/S5am7H9XUOupkNZqMkAl3og0B0tpBtr
-         ghmgutvx1AI2Do9yLHRghbXk8u4hkZDbRZDoh+5PS6Ha4JfwjIk5gqHB51ji3UM7RA9d
-         2VRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=t+Teresz2uzFXJRBmUNilJ0KmYvmwmTuIpPexTxP6II=;
-        fh=GZ68PoTgHfRQyHb4QFd+ilwECu2O6j7uNOp/4HWZF1A=;
-        b=mlYawr7j/nzzH/48eqD8JEwKSR+MioCxEumPajwV0L+OqLxvFfPcorQXPo79oL7rtH
-         C4pp2FpTkWmgOy8UGPmnH7YlZRT5LBamoHLwZYQDt3ioMH9l31LfSclmfmPqI0UatUr8
-         pXZKU6CXC9/lURRA/RxQkesD6V1P5Hfad/Ef3lgJKD1Yvz84EPC0wfxfQkHFA9dt0Svu
-         qKqEOEDBiMS/G1wDfzGwnFqGJhm5+AT+g344TWTqdxDyEVsAiJ012WTNlWw08MPTdvnA
-         aHllUz1dtFXwWXjYjm4YODZo4/I1QvUC0Z0nnMDruX2O4XF1o57pCS96sasrfIUHbFgX
-         Xx7g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="j3srxKP9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 822351F00AC4;
+	Fri, 31 Jul 2026 21:13:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785531490; x=1786136290; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t+Teresz2uzFXJRBmUNilJ0KmYvmwmTuIpPexTxP6II=;
-        b=pEpkc2kSKf38ETdsRTjzDUD2lwDILslIJA9FBg/GUrxJgj+RKJs9JrcpHbBKiBTTaD
-         lc2DCGmitAssbzbH+YpGEV/ZtVFogg+VQpSwdQz+I/WTBWxjAOKt4VjU+btfuOlFzwNo
-         6NeF4Apka8zzVS2C/WMrFL0WJeyGeDceNR74bdJz+ADzItFeTFRqhFccR9R3+HcSUvTX
-         6FBgtmg0xT/EkVnOonMLhiPbU0EesIDGc0W2YgaR+ZPsFHoi2ILwy8xZFZQV/jy7A3om
-         IpXrLr/9Kr1Of8qtw1Rq3WNNVERGjwt2KZCBOqbKYIPvVjvmyAayH+gpRKOTX3ELEudU
-         r8Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785531490; x=1786136290;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t+Teresz2uzFXJRBmUNilJ0KmYvmwmTuIpPexTxP6II=;
-        b=isgQaO3mp1aj75J/PlLGIne3XJKkPuzTQA7u2/NLovTHW7fxZDkzw5/aSZCQfnpmEx
-         gQDc2hc/VQ1I2COILstsIxdBrREA/uR5lU0F24gRPOOkqwuctq57UFeX4KcFT/ipL0Bk
-         o6VD1BUWuZNx39PjoPCeSefOnLnuB9xVw4PZc29Nx/gDQ1r76VCLKxdjFb3mRI26m54d
-         KeAuS+gxKNVKKn8Q9MFkbMZFGNSf+AOgkcuLgXWlp9o0O0YsmA7dJdIY+dxzRHMyO43g
-         U8zG/iex29+TpVXIRTlEYmBDOttqfM53I7iNAIP7S1XUdxSmO4Pf0oapEPYV8GEKPZ3l
-         sKxQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoHF6jNDBbtDLQOqZf6XRQNsdreU3bSw+z6o2hWV2yzuX5X/PWmGWjcP/IeycTycDGr6eGEdck=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzC04o9pDjnafdjofTvDgzC3HOpFj3cNcELWW5Oy7pIJUmQlMf3
-	Mf2jOfE6NWV862ZcMyQNeQFSF1JXV1CX6xE4D9NyteQnCOIddJT+SyI1CEImc2RL/n8P9YK833t
-	Iq8BUVCQjSRQhcYJrTDhW+ca7hWQRGng=
-X-Gm-Gg: AR+sD138Q25q7Kq8zteZq4/lJeRIW/dWSvHNtP6mcLdnOvidKV2UyI6Awi2kQMRv7c2
-	9tQX4JDWsJZ5cnVSW+uUGhOljYK40Q4HKd/1PvMddefUOGLfhTxQI6Hy1F20r6w0d3An6QAWmXF
-	0b4MHaw50PgphF8mbkwlEQXeUUx1uzzUzxzoAX8W9KHfU+Mk3VB+dgAw1BLTb7hbHESJxMlk+U+
-	gxdyRMctTrjMbaspW0Q69bXYQbyYzi4tdQ1OYHwCZ0J5xCjQpvHt5BTfFKGUfPo8Rb8Pcbjevw0
-	tpBZqaxKWdVpjENuiXa2tYxdsjISGZOiGrTbgCKZIX49Ply5ayA03EeBzW/uxdV0wzKKW8L4dU0
-	IJuU16aJv4uOsBMvXJhTMOwQehuw9D/0gUyLPzHAbBOsTt8DaS9CzeLQwaan4
-X-Received: by 2002:a17:903:38c7:b0:2c9:8287:fd0d with SMTP id
- d9443c01a7336-2d052438c91mr17898875ad.3.1785531489794; Fri, 31 Jul 2026
- 13:58:09 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1785532396;
+	bh=R24ovZS37G83Ws4ZaPBDcSRhkBDplZVDk0YgfimfEQw=;
+	h=Date:To:From:Subject;
+	b=j3srxKP9Tj0M80e4ywFUH85xQcAUAG4d3bWOzf+dCYuzyIkkaG30gtOuBp4VeDcQx
+	 CawwEm3hHJjw6h3V9CQ6YGVqYvUi9L6YVrmt51wquRLZc0hi926iiauWLhdF+kHc5U
+	 Lz3ZHYmSI0UmN5rSZZiWy2jGLuz44e2wmDbzwsvs=
+Date: Fri, 31 Jul 2026 14:13:16 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shikemeng@huaweicloud.com,nphamcs@gmail.com,kasong@tencent.com,djwong@kernel.org,chrisl@kernel.org,baoquan.he@linux.dev,baohua@kernel.org,ebiggers@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-swap-reject-swapon-on-filesystem-level-encrypted-files.patch added to mm-new branch
+Message-Id: <20260731211316.822351F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260708211435.402426-1-chang.seok.bae@intel.com>
- <CANiq72=-HjYOoJPd=B+0OYrHuyCO+NpcjRvmmhT_ecVZj8q97Q@mail.gmail.com>
- <b705ef27-e87e-432a-ad1a-f425fe66887f@intel.com> <CANiq72kn8F-pnd-YxBiPN9nr02jagRk4NL-3vyX1tERCQjqNHA@mail.gmail.com>
- <fbbe2b57-19de-4480-b0c6-f44a6007a38f@intel.com>
-In-Reply-To: <fbbe2b57-19de-4480-b0c6-f44a6007a38f@intel.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 31 Jul 2026 22:57:56 +0200
-X-Gm-Features: AUfX_mzIM4fLMtOWaIr9Pfdp7VGovFZERS0Jgk5EJXX3PQxspAj1Mv0yqU8Ra64
-Message-ID: <CANiq72n0K3ULP=7iZhB1hnu6NHEHea66drAN3DKJEG-usTn6QA@mail.gmail.com>
-Subject: Re: [PATCH] x86/build/64: Prevent native builds from generating APX instructions
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org, 
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
-	Omar Avelar <omar.avelar@intel.com>, stable@vger.kernel.org, 
-	Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	rust-for-linux <rust-for-linux@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 31, 2026 at 10:46=E2=80=AFPM Chang S. Bae <chang.seok.bae@intel=
-.com> wrote:
->
-> Given that one option would be relax the rustc version while tightening
-> the backend like:
->
->   Option 1: RUSTC_VERSION >=3D 108800 && RUSTC_LLVM_MAJOR_VERSION >=3D 23
->
-> Or, simply like the previous:
->
->   Option2: RUSTC_VERSION >=3D 109301
->
-> Since the rustc front does no longer emits the `apxf` attribute starting
-> from 1.93. Also, 1.93 requires at least LLVM 21 which already supports AP=
-X.
 
-Does it mean it could be the "OR" of those two?
+The patch titled
+     Subject: mm/swap: reject swapon() on filesystem-level encrypted files
+has been added to the -mm mm-new branch.  Its filename is
+     mm-swap-reject-swapon-on-filesystem-level-encrypted-files.patch
 
-i.e. it sounds like we could avoid having to pick one or the other.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-swap-reject-swapon-on-filesystem-level-encrypted-files.patch
 
-Thanks for double-checking that and doing the analysis, I appreciate
-it! Figuring out the precise version gates for this sort of thing is
-always informative on its own.
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Cheers,
-Miguel
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Eric Biggers <ebiggers@kernel.org>
+Subject: mm/swap: reject swapon() on filesystem-level encrypted files
+Date: Thu, 30 Jul 2026 11:48:53 -0700
+
+ext4 and f2fs don't prevent filesystem-level encrypted files from being
+set up directly as swap files.  In this case, encryption is bypassed.
+
+No one should be doing this, vs.  the methods of encrypted swap that
+actually do work (such as swapping to a dm-crypt device, or swapping to a
+loopback device on top of a filesystem-level encrypted file).
+
+Nevertheless, to prevent user error, make swapon() explicitly reject this
+case.  Document this behavior in fscrypt.rst as well.
+
+Link: https://lore.kernel.org/20260730184853.48347-1-ebiggers@kernel.org
+Fixes: 9bd8212f981e ("ext4 crypto: add encryption policy and password salt support")
+Fixes: f424f664f0e8 ("f2fs crypto: add encryption policy and password salt support")
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: "Darrick J. Wong" <djwong@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ Documentation/filesystems/fscrypt.rst |    4 ++++
+ mm/swapfile.c                         |    4 ++++
+ 2 files changed, 8 insertions(+)
+
+--- a/Documentation/filesystems/fscrypt.rst~mm-swap-reject-swapon-on-filesystem-level-encrypted-files
++++ a/Documentation/filesystems/fscrypt.rst
+@@ -1238,6 +1238,10 @@ astute users may notice some differences
+ 
+ - DAX (Direct Access) is not supported on encrypted files.
+ 
++- Encrypted files cannot be used directly as swap files.  To swap to
++  an encrypted file, set up a loopback device on top of it.
++  Alternatively, encrypted swap can use a dm-crypt device instead.
++
+ - The maximum length of an encrypted symlink is 2 bytes shorter than
+   the maximum length of an unencrypted symlink.  For example, on an
+   EXT4 filesystem with a 4K block size, unencrypted symlinks can be up
+--- a/mm/swapfile.c~mm-swap-reject-swapon-on-filesystem-level-encrypted-files
++++ a/mm/swapfile.c
+@@ -3662,6 +3662,10 @@ SYSCALL_DEFINE2(swapon, const char __use
+ 		error = -EBUSY;
+ 		goto bad_swap_unlock_inode;
+ 	}
++	if (IS_ENCRYPTED(inode)) {
++		error = -EINVAL;
++		goto bad_swap_unlock_inode;
++	}
+ 
+ 	/*
+ 	 * The swap subsystem needs a major overhaul to support this.
+_
+
+Patches currently in -mm which might be from ebiggers@kernel.org are
+
+mm-swap-reject-swapon-on-filesystem-level-encrypted-files.patch
+
