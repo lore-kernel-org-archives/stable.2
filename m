@@ -1,200 +1,163 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E068444709;
-	Fri, 31 Jul 2026 16:02:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0635A442120;
+	Fri, 31 Jul 2026 16:04:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785513736; cv=none; b=p1WaSkiS+ISk65NJ9bdT5du70b0SP+b+z+FlAOCXbDAS0S7rvewrhpwdM4usF5eGesCykALkgv2dTfSNxvQ5Xr9fltobwHH7JvL3OY1y5tg7Ka2y8ovOWArREqw3Mb5uHZ+3HPHaL8TznGSDwSRi7HgZRERXCgtSGlnPEKmGQcs=
+	t=1785513894; cv=none; b=VXPAq44gDboTqEgKxgZcf3xCaHj6Oq21pMSqZv+uJyhTMhy2vt/APpwKEvZ5HeDjxqm0yq5k4ZC7c37yY4eEXCUYijEdPYwe1qfVo2JGQuW4kgViyK8yXhXxeNKwbgIy5nlfytE6+SphoROI4J021yl8x02arg5iSlNbVCP/T1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785513736; c=relaxed/simple;
-	bh=aUrsj6hOs7zgVK4qJTB8J6079mkyoSTCyi7JwIAKk58=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Dt2Fus0moINS5fwDk9L9WaIaxBUkoEPvpm0h55iIszQ+/CFAphwZbPqniM29kADwneWJAUjEcqArYKWiq9MF0XxkXbKzypsya4FUPZzr2aehnZL4x1KAeWFAAC7Cg1TlJxXZNIsFdpk45egvT3aF+JWTJPou8XMGhADtZ8hpBxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3E541F00AC4;
-	Fri, 31 Jul 2026 16:02:10 +0000 (UTC)
-Message-ID: <d1a5c1c4-4a9f-4dc7-b709-4f89a25ad4c9@tuxon.dev>
-Date: Fri, 31 Jul 2026 19:02:08 +0300
+	s=arc-20240116; t=1785513894; c=relaxed/simple;
+	bh=L4JQzYKMKBoCUJ3kIplLUD8FkjEAgI5Kly6yJutvKIg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CnoLI26n6PfqzkFZwRjxaeLQIYz5+oyOO2an1+VzT7ZFmVkoHaOiRlTGFrcvHOujgvAjO+4RA4JG8MLW8NhUCG5KeGTIL8nIEE2pzbR7at9sJt6QOajXBjvbIzWPlfMXY7ZA8IvcofbhJ6duhH6wxGjBbldU38po8YV4PpauuRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b+Kcb9O3; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b+Kcb9O3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3465B1F00AC4;
+	Fri, 31 Jul 2026 16:04:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785513892;
+	bh=wKJYmWwkBGOOR7SWUgTeY92obg6ftw4RJS8DcEeSlZY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=b+Kcb9O3397gQXI1K8dAUdCp++0OOZxRHmp7UbRqDfYMYfTh3HbxvHJjkDQJ2X60r
+	 /wu7iNItlHxQ6vyi6Wd9OSMSXNC1YmrvOYYATaqy4JZX7+4zg9lrFLDZEXuoAUvQ0c
+	 KUzdGBgiNSAK3XFq7YTe64EZ3ZjlV64OEwSB1DMXl31tcP9lhE2oCsHd0ayhcgAmKi
+	 gLzis5R3JEfEZawmQbIBYGJBzhlgN+2kC2M9s4UWWWwzY1VuGvg8CjcLE8cfpaD+XL
+	 kU2DUCkLNVcm61hkOiVZx6Ej4ceMri/YpR0aloocaN9ykVgw2TOoH1IpEv2jhgViL6
+	 rfq449JOYQKFA==
+Date: Fri, 31 Jul 2026 18:04:50 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Sun Jian <sun.jian.kdev@gmail.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Hangbin Liu <liuhangbin@gmail.com>,
+	Krishna Kumar <krikku@gmail.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Martin Karsten <mkarsten@uwaterloo.ca>,
+	Toke =?iso-8859-1?Q?H=F8iland-J=F8rgensen?= <toke@redhat.com>,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	maciej.fijalkowski@intel.com, stable@vger.kernel.org
+Subject: Re: [PATCH net v2 2/2] veth: fix skb length accounting after XDP
+ frag adjustment
+Message-ID: <amzHog1RWMLhrYIE@lore-desk>
+References: <20260731032357.6114-1-sun.jian.kdev@gmail.com>
+ <20260731032357.6114-3-sun.jian.kdev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] PCI: rzg3s: Fix IRQ domain initialization error
- handling
-To: Prabhakar <prabhakar.csengg@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- linux-pci@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Prabhakar <prabhakar.csengg+renesas@gmail.com>,
- Biju Das <biju.das.jz@bp.renesas.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- stable@vger.kernel.org
-References: <20260727095843.116950-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260727095843.116950-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Language: en-US
-From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20260727095843.116950-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="SogFHkleczvgb+lE"
+Content-Disposition: inline
+In-Reply-To: <20260731032357.6114-3-sun.jian.kdev@gmail.com>
 
-Hi, Prabhakar,
+--SogFHkleczvgb+lE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 7/27/26 12:58, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> rzg3s_pcie_init_irqdomain() installs chained handlers for the INTx
-> parent interrupts before creating the INTx irqdomain and initializing
-> MSI support.
-> 
-> If any subsequent step fails, such as obtaining an INTx IRQ,
-> creating the irqdomain, or initializing MSI, the error path returns
-> without removing any chained handlers that were already installed.
-> This leaves stale handler and data pointers attached to the parent
-> interrupts.
-> 
-> Fix the error path by unwinding the chained handler registration before
-> returning. Also clear the chained handlers during
-> rzg3s_pcie_teardown_irqdomain() so that teardown fully mirrors the
-> initialization sequence.
-> 
-> Fixes: 7ef502fb35b28 ("PCI: Add Renesas RZ/G3S host controller driver")
+> veth exposes non-linear skb fragments through an xdp_buff. If an XDP
+> program adjusts the fragment area, veth_xdp_rcv_skb() copies
+> xdp_frags_size back to skb->data_len but leaves skb->len containing the
+> old fragment contribution.
+>=20
+> After a fragment shrink, this makes skb_headlen() larger than the actual
+> linear area. In the reproduced UDP receive path, __skb_datagram_iter()
+> copied 1024 bytes past the actual linear tail to userspace, starting at
+> struct skb_shared_info. The copied bytes included the affected skb's
+> nr_frags, xdp_frags_size and a kernel pointer from
+> skb_shinfo(skb)->frags[0]. Real packet data was displaced by the same
+> amount and truncated at the end.
+>=20
+> Subtract the old data_len before replacing it and add the new data_len
+> afterwards, keeping skb->len and skb->data_len synchronized.
+>=20
+> The fragment accounting must run before the linear tail adjustment:
+> when bpf_xdp_adjust_tail() shrinks the packet into the linear area it
+> releases all fragments, and __skb_put() requires skb->data_len =3D=3D 0
+> by that point.
+>=20
+> A 60000-byte UDP datagram on a veth pair with MTU 64000 was shortened by
+> 1024 bytes from its fragment area. Before the fix, all 10 runs produced
+> corrupted payloads. After the fix, all 10 runs matched the expected
+> payload exactly.
+>=20
+> Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept no=
+n-linear skb")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Link: https://lore.kernel.org/bpf/al9T9Eto%2FhRIzP5W@boxer/
+> Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
+
+Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
+
 > ---
-> v1->v2:
-> - Restricted the code to max 80 columns.
-> - Moved calling irq_domain_remove() under err_cleanup_intx label.
-> ---
->   drivers/pci/controller/pcie-rzg3s-host.c | 49 +++++++++++++++++-------
->   1 file changed, 36 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
-> index f51b5d7c1998..70f1faf7e422 100644
-> --- a/drivers/pci/controller/pcie-rzg3s-host.c
-> +++ b/drivers/pci/controller/pcie-rzg3s-host.c
-> @@ -1006,22 +1006,35 @@ static const struct irq_domain_ops rzg3s_pcie_intx_domain_ops = {
->   	.xlate = irq_domain_xlate_onetwocell,
->   };
->   
-> +static void rzg3s_pcie_clear_intx_handlers(struct rzg3s_pcie_host *host,
-> +					   int count)
-> +{
-> +	while (--count >= 0) {
-> +		irq_set_chained_handler_and_data(host->intx_irqs[count], NULL,
-> +						 NULL);
+>  drivers/net/veth.c | 23 +++++++++++++++--------
+>  1 file changed, 15 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+> index 00e34afd858e..348391e87e14 100644
+> --- a/drivers/net/veth.c
+> +++ b/drivers/net/veth.c
+> @@ -865,18 +865,25 @@ static struct sk_buff *veth_xdp_rcv_skb(struct veth=
+_rq *rq,
+> =20
+>  	skb_reset_mac_header(skb);
+> =20
+> -	/* check if bpf_xdp_adjust_tail was used */
+> -	off =3D xdp->data_end - orig_data_end;
+> -	if (off !=3D 0)
+> -		__skb_put(skb, off); /* positive on grow, negative on shrink */
+> -
+>  	/* XDP frag metadata (e.g. nr_frags) are updated in eBPF helpers
+> -	 * (e.g. bpf_xdp_adjust_tail), we need to update data_len here.
+> +	 * (e.g. bpf_xdp_adjust_tail). Remove the old fragment contribution
+> +	 * from skb->len before updating data_len, then add the new one back.
+> +	 * This must precede the linear tail adjustment below: a changed
+> +	 * data_end implies that no fragments remain, and __skb_put() requires
+> +	 * a linear skb.
+>  	 */
+> -	if (xdp_buff_has_frags(xdp))
+> +	skb->len -=3D skb->data_len;
+> +	if (xdp_buff_has_frags(xdp)) {
+>  		skb->data_len =3D skb_shinfo(skb)->xdp_frags_size;
+> -	else
+> +		skb->len +=3D skb->data_len;
+> +	} else {
+>  		skb->data_len =3D 0;
 > +	}
-> +}
 > +
->   static int rzg3s_pcie_init_irqdomain(struct rzg3s_pcie_host *host)
->   {
->   	struct device *dev = host->dev;
->   	struct platform_device *pdev = to_platform_device(dev);
-> +	int i, ret;
->   
-> -	for (int i = 0; i < PCI_NUM_INTX; i++) {
-> +	for (i = 0; i < PCI_NUM_INTX; i++) {
->   		char irq_name[5] = {0};
->   		int irq;
->   
->   		scnprintf(irq_name, ARRAY_SIZE(irq_name), "int%c", 'a' + i);
->   
->   		irq = platform_get_irq_byname(pdev, irq_name);
-> -		if (irq < 0)
-> -			return dev_err_probe(dev, irq,
-> -					     "Failed to parse and map INT%c IRQ\n",
-> -					     'A' + i);
-> +		if (irq < 0) {
-> +			ret = irq;
-> +			dev_err_probe(dev, ret,
-> +				      "Failed to parse and map INT%c IRQ\n",
-> +				      'A' + i);
-> +			goto err_cleanup_intx;
-> +		}
->   
->   		host->intx_irqs[i] = irq;
->   		irq_set_chained_handler_and_data(irq,
-> @@ -1033,21 +1046,29 @@ static int rzg3s_pcie_init_irqdomain(struct rzg3s_pcie_host *host)
->   						     PCI_NUM_INTX,
->   						     &rzg3s_pcie_intx_domain_ops,
->   						     host);
-> -	if (!host->intx_domain)
-> -		return dev_err_probe(dev, -EINVAL,
-> -				     "Failed to add irq domain for INTx IRQs\n");
-> +	if (!host->intx_domain) {
-> +		ret = -EINVAL;
-> +		dev_err_probe(dev, ret,
-> +			      "Failed to add irq domain for INTx IRQs\n");
-> +		goto err_cleanup_intx;
-> +	}
->   	irq_domain_update_bus_token(host->intx_domain, DOMAIN_BUS_WIRED);
->   
->   	if (IS_ENABLED(CONFIG_PCI_MSI)) {
-> -		int ret = rzg3s_pcie_init_msi(host);
-> +		ret = rzg3s_pcie_init_msi(host);
->   
-> -		if (ret) {
-> -			irq_domain_remove(host->intx_domain);
-> -			return ret;
-> -		}
-> +		if (ret)
-> +			goto err_cleanup_intx;
->   	}
->   
->   	return 0;
-> +
-> +err_cleanup_intx:
-> +	if (host->intx_domain)
-> +		irq_domain_remove(host->intx_domain);
-> +	rzg3s_pcie_clear_intx_handlers(host, i);
+> +	/* check if bpf_xdp_adjust_tail was used */
+> +	off =3D xdp->data_end - orig_data_end;
+> +	if (off !=3D 0)
+> +		__skb_put(skb, off); /* positive on grow, negative on shrink */
+> =20
+>  	skb->protocol =3D eth_type_trans(skb, rq->dev);
+> =20
+> --=20
+> 2.43.0
+>=20
 
-If you have it like this it worth squashing these lines in the same function, e.g.:
+--SogFHkleczvgb+lE
+Content-Type: application/pgp-signature; name=signature.asc
 
-	rzg3s_pcie_teardown_intx(host, i);
+-----BEGIN PGP SIGNATURE-----
 
-defined something like:
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCamzHogAKCRA6cBh0uS2t
+rN9eAP9Q7amLE2gf4LjSWT2V6llBm2sGvwk16jOIf+piW30tJwD/c0zr3AY6h4fn
+lC2s2NozHEaQsZ13m75QEKpyl0LUBQ8=
+=j00+
+-----END PGP SIGNATURE-----
 
-void rzg3s_pcie_teardown_intx(struct rzg3s_pcie_host *host, int count)
-{
-	if (host->intx_domain)
-		irq_domain_remove(host->intx_domain);	
-
-
-	while (--count >= 0) {
-		irq_set_chained_handler_and_data(host->intx_irqs[count], NULL,
-						 NULL);
-	}
-}
-
-> +
-> +	return ret;
->   }
->   
->   static void rzg3s_pcie_teardown_irqdomain(struct rzg3s_pcie_host *host)
-> @@ -1055,6 +1076,8 @@ static void rzg3s_pcie_teardown_irqdomain(struct rzg3s_pcie_host *host)
->   	if (IS_ENABLED(CONFIG_PCI_MSI))
->   		rzg3s_pcie_teardown_msi(host);
->   
-> +	rzg3s_pcie_clear_intx_handlers(host, PCI_NUM_INTX);
-> +
->   	irq_domain_remove(host->intx_domain);
-
-And use the same function here, replacing:
-
--	rzg3s_pcie_clear_intx_handlers(host, PCI_NUM_INTX);
--
--   	irq_domain_remove(host->intx_domain);
-+	rzg3s_pcie_teardown_intx(host, PCI_NUM_INTX);
-
-Btw, the order b/w rzg3s_pcie_clear_intx_heandlers() and irq_domain_remove() was 
-revered here compared with the order from rzg3s_pcie_init_irqdomain().
-Thank you,
-Claudiu
+--SogFHkleczvgb+lE--
