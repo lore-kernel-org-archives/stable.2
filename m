@@ -1,144 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF045443E4E;
-	Fri, 31 Jul 2026 15:51:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9BE2D7DD4
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 16:00:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785513088; cv=none; b=rSF6RNjVUbwPQ4s2IY9fqvqlM4PhCdsRNAdy734qyPPHdO14J1AXZz9GsWxUnozv6xJhngCB/fQ4eQ6EAzAqTSSW3+T+ZuC8/nA4eZpNlEoAPULXzMH9qjoypr4zD8aKHwWxsb0gQLPByaB8H2EoGcaFpL7Ty2bbVVNNisFI8/Q=
+	t=1785513634; cv=none; b=AtKVUCzkRoiRATVLL4jkCoWI+hhggZoNpDXzurIrjjFfb838XyY0/FqZW9FVQOc4yYPwOiTgp8k1p8G4xLv00VdeKC3Vfa8KA61ivrLP379ROaAIVpfOTfX83qRV5aAd8GvtigcXLzRLeCQ2ZVdeGCF+LqPz5svHxtm5p43vHkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785513088; c=relaxed/simple;
-	bh=szgs2jPpP6tr7AX87ml+XBCh8VQp1L2+yHgcR7Rfh2s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aSTeRcm02rPMH97cpVnqkBGWhNUNE9F4MW/p9MJbTjID98k45gT+toAcZAjh/raNiqYoLGbJK/0/1NgQdxSKgb3n3wuv4iekHZ4mCv1HdM3kc0wm7VFu61gdIkC+MVMNTveaugWxU/j9C9nFBmPKQM2/+WO23kargSdho5zoCV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mXccFGlZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785513634; c=relaxed/simple;
+	bh=i6J/gaAT22C++3amSS8ctPWqFGt6T472zbKWZYXrTsE=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=YD2raD2BKDkxvA7BC8eflfwFQCeYsZI8y+E5FEoECQzF0XJo7BeNWSImpOlyORJx9ld9WWyxxs+4b3C+I/LzZHzWnpZCawbahABwEtYB0YzWuDOUAchXEJEw92euIyPjNE3zSIcrd/PP5SenYha7AQJC2aG5JNVkoBTkg9SNDgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--eddiephillips.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=g2iNt8Ao; arc=none smtp.client-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--eddiephillips.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mXccFGlZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB6671F00AC4;
-	Fri, 31 Jul 2026 15:51:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785513085;
-	bh=s12AyduCIyBKzqbHeg9g0WAJ6BYr8XQzZgYUoa0mUH8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mXccFGlZVO6HL6MurSgPVeacjXZfwB89pu/+N2fC1UaMmQUdbAXVNslqGfWU2qJg1
-	 9o60zXGesEArABHIr1AKkQRhLOD/L8EJL2JtOKYV855MYYmWZ8D+PNh6mI8CI6Euk5
-	 w0jl0KVBkb1Lv5Cgsf4Brlr5tTsRTQWyXbdqj9kIq/9ZF9Bz7KKa7yuCbmCzedv3g3
-	 R2OOwcrYEFrqqL8PJDg1dcNe1Q+NUT7ifuJ/cVzBD0dwc2YfFeUFQjvlUh+EkU1A7S
-	 sQh2Q31W/pX1bdJVpx4ENk4CUBExSw2SL6wHPxPvx985B1BBStYwSI+ghR9bDA4h4d
-	 qOs8SeD60fq/w==
-Date: Fri, 31 Jul 2026 17:51:23 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Sun Jian <sun.jian.kdev@gmail.com>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Hangbin Liu <liuhangbin@gmail.com>,
-	Krishna Kumar <krikku@gmail.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Martin Karsten <mkarsten@uwaterloo.ca>,
-	Toke =?iso-8859-1?Q?H=F8iland-J=F8rgensen?= <toke@redhat.com>,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	maciej.fijalkowski@intel.com, stable@vger.kernel.org
-Subject: Re: [PATCH net v2 1/2] net: fix skb length accounting after generic
- XDP frag adjustment
-Message-ID: <amzEe12ZVF3kQYkP@lore-desk>
-References: <20260731032357.6114-1-sun.jian.kdev@gmail.com>
- <20260731032357.6114-2-sun.jian.kdev@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="g2iNt8Ao"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2caf4173b1cso20972265ad.3
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 09:00:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1785513632; x=1786118432; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b64o9xNSavX2NEEWwDYMR1lTZwYO9IhlN/LKPYmc0AE=;
+        b=g2iNt8Ao+sHUTHHoG/aRtJCT/yt99CyqrWAM8tEORPp/TU8ObmMCSroRtaJ/fMNHrp
+         NnKZhkwgAebLcwDHy8790g0QVOHR8BaIiZwKGIbBL63phQvDkZY/99Vo05wtIEPKiNUy
+         iTQt+zDF89BqMOxcSXlF8KTdtSJQj0abdFzhtI6UekPLrc9K4nQ9GJpap55AE03LK+t8
+         jHLMgVo6owFj6lC2G5CWbLpdbjTAonBSOQOQy/p1u+spz5MtGslE2+72L1DUYdI8NULd
+         KU8TOqDfZSrbjd9sVbnmHlDg5LyRyKONQMFymKpC0m7gVUsiQh5qponsoR4F3+VjOxJv
+         aHRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785513632; x=1786118432;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b64o9xNSavX2NEEWwDYMR1lTZwYO9IhlN/LKPYmc0AE=;
+        b=JfJngHgeUyvaiK5H0TE+g/EV1SP33JkRBzg4LkToEvgsGqzsDNB+sIUUsNeM2fG+j6
+         ni4JF4cPBTnV7ccToRH5AecAwDyJaVKC+brdjgvvo63PpaF8YlZQuyv/9xfNtNKa4Uz3
+         NehlwZviS8bqN0w6wlmyKahGV57p5BtIH7IYTjwdIa92AOsMw20WORaMGdzBNHKBS+zu
+         O5QupCZKEPnUKdLt2jO4KVBCHvwUWEjDj5dT9G4KbtyPVD62WFV4HkPopZ3u9MbnO9xa
+         zvT+Nsjxrfj1ffEyWSwwSrdWTKcFUufn6lEkKt2j1BCFQqAjpc/o/pWQobSu06Jq9djW
+         QGqQ==
+X-Gm-Message-State: AOJu0YweYJGhV9yku4kFraxY5tyWlnau1JP39BIwRP7exxTZG2+Huaxy
+	WbGN2UgiEdKQcucX8tT+HrU7XGVcX8x6GCVd1mJShof/VDLBMHJ5frinw1WxpZ/7yO3tblbIgGX
+	jAlUHOihem+x8ouR5pgRipDawOfFc7DQ70aPTlqXKPWDDBtV+gahCW68tl5uONsVYkLX0IyRiSl
+	X5gSD13onm9KkMSruR6F0Y/5rUCZRLWz6jTDFUB0UC+C0K5kukFCgQwxAly67KYoXhOmOPpyF7y
+	w==
+X-Received: from pglq18.prod.google.com ([2002:a63:5052:0:b0:c9b:5bf6:f971])
+ (user=eddiephillips job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a20:72a6:b0:3c3:875d:c53f with SMTP id adf61e73a8af0-3c92a9625ffmr293675637.69.1785513631589;
+ Fri, 31 Jul 2026 09:00:31 -0700 (PDT)
+Date: Fri, 31 Jul 2026 08:59:25 -0700
+In-Reply-To: <2026072933-deletion-tiger-e1e7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/TwNh9MoKEPtMbBg"
-Content-Disposition: inline
-In-Reply-To: <20260731032357.6114-2-sun.jian.kdev@gmail.com>
+Mime-Version: 1.0
+References: <2026072933-deletion-tiger-e1e7@gregkh>
+X-Mailer: git-send-email 2.55.0.571.g244d577d93-goog
+Message-ID: <20260731155925.2769961-1-eddiephillips@google.com>
+Subject: [PATCH 6.6.y] gve: fix Rx queue stall on alloc failure
+From: Eddie Phillips <eddiephillips@google.com>
+To: stable@vger.kernel.org
+Cc: Eddie Phillips <eddiephillips@google.com>, Jordan Rhee <jordanrhee@google.com>, 
+	Harshitha Ramamurthy <hramamurthy@google.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+	Jakub Kicinski <kuba@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
---/TwNh9MoKEPtMbBg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+When the system is under extreme memory pressure, page allocations can
+fail during the Rx buffer refill loop. If the number of buffers posted
+to hardware falls below a critical low threshold and the refill loop
+exits due to allocation failures, the queue can stall:
 
-> Generic XDP exposes non-linear skb fragments through an xdp_buff. If an
-> XDP program adjusts the fragment area, bpf_prog_run_generic_xdp() copies
-> xdp_frags_size back to skb->data_len but leaves skb->len containing the
-> old fragment contribution.
->=20
-> After a fragment shrink, this makes skb_headlen() larger than the actual
-> linear area. In the reproduced UDP receive path, __skb_datagram_iter()
-> copied 1024 bytes past the actual linear tail to userspace, starting at
-> struct skb_shared_info. The copied bytes included the affected skb's
-> nr_frags, xdp_frags_size and a kernel pointer from
-> skb_shinfo(skb)->frags[0]. Real packet data was displaced by the same
-> amount and truncated at the end.
->=20
-> Subtract the old data_len before replacing it and add the new data_len
-> afterwards, keeping skb->len and skb->data_len synchronized.
->=20
-> A 60000-byte UDP datagram on a veth pair with MTU 64000 was shortened by
-> 1024 bytes from its fragment area. Before the fix, all 10 runs produced
-> corrupted payloads. After the fix, all 10 runs matched the expected
-> payload exactly.
->=20
-> Fixes: e6d5dbdd20aa ("xdp: add multi-buff support for xdp running in gene=
-ric mode")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/bpf/al9T9Eto%2FhRIzP5W@boxer/
-> Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
+1. The device drops incoming packets because there are no descriptors.
+2. Since no packets are processed, no Rx completions are generated.
+3. Because no completions occur, NAPI is never scheduled, preventing
+   the refill loop from running again even after memory is freed.
 
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
+This results in a permanent queue stall.
 
-> ---
->  net/core/dev.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
->=20
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index 5933c5dab09e..5c37cf6c4aa1 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -5517,12 +5517,16 @@ u32 bpf_prog_run_generic_xdp(struct sk_buff *skb,=
- struct xdp_buff *xdp,
->  	}
-> =20
->  	/* XDP frag metadata (e.g. nr_frags) are updated in eBPF helpers
-> -	 * (e.g. bpf_xdp_adjust_tail), we need to update data_len here.
-> +	 * (e.g. bpf_xdp_adjust_tail). Remove the old fragment contribution
-> +	 * from skb->len before updating data_len, then add the new one back.
->  	 */
-> -	if (xdp_buff_has_frags(xdp))
-> +	skb->len -=3D skb->data_len;
-> +	if (xdp_buff_has_frags(xdp)) {
->  		skb->data_len =3D skb_shinfo(skb)->xdp_frags_size;
-> -	else
-> +		skb->len +=3D skb->data_len;
-> +	} else {
->  		skb->data_len =3D 0;
-> +	}
-> =20
->  	/* check if XDP changed eth hdr such SKB needs update */
->  	eth =3D (struct ethhdr *)xdp->data;
-> --=20
-> 2.43.0
->=20
+Resolve this by introducing a starvation recovery timer for each Rx queue.
+If the number of buffers posted to hardware falls below a critical low
+threshold, start a timer to periodically reschedule NAPI. Once NAPI runs
+and successfully refills the queue above the threshold, the timer is
+not rescheduled.
 
---/TwNh9MoKEPtMbBg
-Content-Type: application/pgp-signature; name=signature.asc
+The threshold is set to 32 because a single maximum-sized Receive Segment
+Coalescing (RSC) packet can consume up to 19 descriptors in the Rx path.
+Lower thresholds (such as 8 or 16) would be insufficient to process a
+complete maximum-sized RSC packet, risking packet drops or unexpected
+hardware behavior under memory pressure. Setting the threshold to 32
+guarantees a safe margin to handle at least one full RSC packet.
 
------BEGIN PGP SIGNATURE-----
+Cc: stable@vger.kernel.org
+Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
+Reviewed-by: Jordan Rhee <jordanrhee@google.com>
+Signed-off-by: Eddie Phillips <eddiephillips@google.com>
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Link: https://patch.msgid.link/20260709211906.3322883-1-hramamurthy@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+(cherry picked from commit b65352a1bac64442ad95e64f385b40ccb9f1b0db)
+---
+ drivers/net/ethernet/google/gve/gve.h        |  3 ++
+ drivers/net/ethernet/google/gve/gve_main.c   |  3 ++
+ drivers/net/ethernet/google/gve/gve_rx_dqo.c | 33 ++++++++++++++++++++
+ 3 files changed, 39 insertions(+)
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCamzEewAKCRA6cBh0uS2t
-rJKIAPwIOifZCbi4bNYaPci1bdVKfal+1DrlN1kJ8grHMI8Q2QEAtE8RyN2jX5nX
-/ZfFfChpNvx0x57wBuT/8TQBRG70gw4=
-=GYlU
------END PGP SIGNATURE-----
+diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
+index f6e43cf96a46..84fb3deca21f 100644
+--- a/drivers/net/ethernet/google/gve/gve.h
++++ b/drivers/net/ethernet/google/gve/gve.h
+@@ -10,6 +10,7 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/netdevice.h>
+ #include <linux/pci.h>
++#include <linux/timer.h>
+ #include <linux/u64_stats_sync.h>
+ #include <net/xdp.h>
+ 
+@@ -36,6 +37,7 @@
+ 
+ /* Interval to schedule a stats report update, 20000ms. */
+ #define GVE_STATS_REPORT_TIMER_PERIOD	20000
++#define GVE_RX_NAPI_RESCHED_MS 20 /* msecs */
+ 
+ /* Numbers of NIC tx/rx stats in stats report. */
+ #define NIC_TX_STATS_REPORT_NUM	0
+@@ -281,6 +283,7 @@ struct gve_rx_ring {
+ 	struct xdp_rxq_info xsk_rxq;
+ 	struct xsk_buff_pool *xsk_pool;
+ 	struct page_frag_cache page_cache; /* Page cache to allocate XDP frames */
++	struct timer_list starvation_timer; /* for queue starvation recovery */
+ };
+ 
+ /* A TX desc ring entry */
+diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+index 08f444ee10c7..9a287a376479 100644
+--- a/drivers/net/ethernet/google/gve/gve_main.c
++++ b/drivers/net/ethernet/google/gve/gve_main.c
+@@ -583,6 +583,9 @@ static void gve_remove_napi(struct gve_priv *priv, int ntfy_idx)
+ {
+ 	struct gve_notify_block *block = &priv->ntfy_blocks[ntfy_idx];
+ 
++	if (block->rx && !gve_is_gqi(priv))
++		timer_shutdown_sync(&block->rx->starvation_timer);
++
+ 	netif_napi_del(&block->napi);
+ 	disable_irq(block->irq);
+ }
+diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+index 3d60ea25711f..12520c9813ac 100644
+--- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
++++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+@@ -16,6 +16,16 @@
+ #include <net/ipv6.h>
+ #include <net/tcp.h>
+ 
++static void gve_rx_starvation_timer(struct timer_list *t)
++{
++	struct gve_rx_ring *rx = from_timer(rx, t, starvation_timer);
++	struct gve_priv *priv = rx->gve;
++	struct gve_notify_block *block;
++
++	block = &priv->ntfy_blocks[rx->ntfy_id];
++	napi_schedule(&block->napi);
++}
++
+ static int gve_buf_ref_cnt(struct gve_rx_buf_state_dqo *bs)
+ {
+ 	return page_count(bs->page_info.page) - bs->page_info.pagecnt_bias;
+@@ -211,6 +221,7 @@ static void gve_rx_free_ring_dqo(struct gve_priv *priv, int idx)
+ 	completion_queue_slots = rx->dqo.complq.mask + 1;
+ 	buffer_queue_slots = rx->dqo.bufq.mask + 1;
+ 
++	timer_shutdown_sync(&rx->starvation_timer);
+ 	gve_rx_remove_from_block(priv, idx);
+ 
+ 	if (rx->q_resources) {
+@@ -268,6 +279,7 @@ static int gve_rx_alloc_ring_dqo(struct gve_priv *priv, int idx)
+ 	memset(rx, 0, sizeof(*rx));
+ 	rx->gve = priv;
+ 	rx->q_num = idx;
++	timer_setup(&rx->starvation_timer, gve_rx_starvation_timer, 0);
+ 	rx->dqo.bufq.mask = buffer_queue_slots - 1;
+ 	rx->dqo.complq.num_free_slots = completion_queue_slots;
+ 	rx->dqo.complq.mask = completion_queue_slots - 1;
+@@ -374,6 +386,7 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
+ 	struct gve_rx_compl_queue_dqo *complq = &rx->dqo.complq;
+ 	struct gve_rx_buf_queue_dqo *bufq = &rx->dqo.bufq;
+ 	struct gve_priv *priv = rx->gve;
++	u32 num_bufs_avail_to_hw;
+ 	u32 num_avail_slots;
+ 	u32 num_full_slots;
+ 	u32 num_posted = 0;
+@@ -414,6 +427,26 @@ void gve_rx_post_buffers_dqo(struct gve_rx_ring *rx)
+ 	}
+ 
+ 	rx->fill_cnt += num_posted;
++
++	/* If the queue has fewer than GVE_RX_BUF_THRESH_DQO descriptors
++	 * visible to the hardware, the hardware is in danger of starving
++	 * and cannot trigger interrupts.
++	 *
++	 * We use a threshold of 32 because a single maximum-sized RSC
++	 * packet can consume up to 19 descriptors in the Rx path. Lower
++	 * thresholds (e.g., 8 or 16) would be unsafe as they could cause
++	 * the device to drop/stall on a maximum-sized RSC packet.
++	 *
++	 * Start the timer to periodically reschedule NAPI and recover.
++	 */
++	num_bufs_avail_to_hw =
++		((bufq->tail & ~(GVE_RX_BUF_THRESH_DQO - 1)) -
++		 bufq->head) & bufq->mask;
++
++	if (num_bufs_avail_to_hw < GVE_RX_BUF_THRESH_DQO) {
++		mod_timer(&rx->starvation_timer,
++			  jiffies + msecs_to_jiffies(GVE_RX_NAPI_RESCHED_MS));
++	}
+ }
+ 
+ static void gve_try_recycle_buf(struct gve_priv *priv, struct gve_rx_ring *rx,
+-- 
+2.55.0.571.g244d577d93-goog
 
---/TwNh9MoKEPtMbBg--
