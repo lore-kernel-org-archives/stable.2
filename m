@@ -1,141 +1,112 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 592662367D3;
-	Fri, 31 Jul 2026 08:53:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D98C489896;
+	Fri, 31 Jul 2026 09:00:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785487983; cv=none; b=PLhCJIVgRGbtvCREx5JspjJSpBJTcuABv1VgghqYIIT0D3OePpSdAnm79dZk3Ad3I90VTYjquwIyFz8W6Hw+qkP6UodYA2gzMQ6X0F0pa7FnuseoTZDAenpnpbyPlRckQ6tkbNuy5oAx59QR6A0xYdqoioQGrHmLKlpIRI3tOBI=
+	t=1785488423; cv=none; b=rRvc1JJWMPsTodguDwz98qkM5ubJ5rlpn+d3hzMWYhtGWgvXFzc4FsYdVl8fcR6rIWzaFUJuPA04svVIxF/cEAyFmFhQrQ6qlwpn7l97APVk7xiUBvT7T0hy49MgFRRRL8X1JhRF4K3IgiWyZj4VzXcdw1Ll9o0cc13TAuuP3Ok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785487983; c=relaxed/simple;
-	bh=hGvPvi9hpoNiYlPziA99tW1M2wQfXGimUjtaeyDJM3Y=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=irl+aLzloAaku3HBgJrFmKfe+u6TbYk6m1I7ONG4hGuv5uJgExyGaxqVVTqp9POdqc79i1nCSYS/JB446f0KjmFJgzX4HScQHs/W8e6DFDt38Ong00wBTulSpBzo8Hls/KXzK7k41/MVYTc3clmzDGkmBvypVIgZY+EXTMGDEZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=WjdCJ85h; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sOC3/r9k; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="WjdCJ85h";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sOC3/r9k"
-Date: Fri, 31 Jul 2026 08:52:58 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1785487979;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kqchIc4zwyvYsTm5ajlB9kHQ88ty62hLkZmYzP4/Fmg=;
-	b=WjdCJ85h6Sz8946rjHgvqltcInwZqWFNMZsEGXJfAUJs9M3Y9ujuT2AZBAQTYmB4woODKy
-	BMU/cpocsefeghkci2v6+MbA8qBVLzScRxbxx6ohoWjEhyeQRa1I18Q8JCiquNgrnfQarO
-	OAjevFYOTR5wy46olfAm7oYQOeeN7QSJOERkiVj+yeUNRgAg5wuE0PdybV3NpdnJONWEjj
-	iWFCytgGzXpD8yTYkpWdxQcVmYQ4lzp41AL6/bHBtu5vCgZIPA8rND1eBp0m23UTO1wXxV
-	UEgK1txBC9QI9hzGsrzh19y3N/KnAf5QV3KB6Uhlo+ACkGDiYlTFidw6yFj/cg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1785487979;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kqchIc4zwyvYsTm5ajlB9kHQ88ty62hLkZmYzP4/Fmg=;
-	b=sOC3/r9kIDQAEbhmX0BXTuoUa19MHCmajviA0sCNrzMdC82FYLWtqqaaLDxYa05dFHHUng
-	TBjjHgWPv/aXR/CQ==
-From: "tip-bot2 for Breno Leitao" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: perf/urgent] uprobes: Fix NULL pointer dereference in hprobe_expire()
-Cc: Breno Leitao <leitao@debian.org>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Oleg Nesterov <oleg@redhat.com>, Andrii Nakryiko <andrii@kernel.org>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260729-uprobe-v1-1-61896b87c867@debian.org>
-References: <20260729-uprobe-v1-1-61896b87c867@debian.org>
+	s=arc-20240116; t=1785488423; c=relaxed/simple;
+	bh=AxsT2z8wWjyFihVEBwh/2GOjbF6qQMnKxOAeKMwldYA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=LrN08n8qYgrizBu3r6Wi9l/f11BprQa7B7tdm3jBVr+s3UY8CJfqTi8TWXQ5yTxdumHGjrx+oFQi5WSV7wCXgkaPD0qnCNgevyi3hPA2V9H/hQwhQkxwp856btJUw2RYMzfQygvp8im+HSDfZG2Y72z07TLbi2dJ32+7AjNo7og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCnpCkdZGxqKWpTAA--.3261S3;
+	Fri, 31 Jul 2026 17:00:13 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app4 (Coremail) with SMTP id zi_KCgB3fDYaZGxqvp_CAg--.43373S5;
+	Fri, 31 Jul 2026 17:00:12 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux@armlinux.org.uk,
+	gregkh@linuxfoundation.org
+Cc: jirislaby@kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH v2 3/3] serial: amba-pl011: synchronize DMA teardown
+Date: Fri, 31 Jul 2026 08:59:15 +0000
+Message-Id: <20260731085915.326775-4-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260731085915.326775-1-fanwu01@zju.edu.cn>
+References: <2026073047-unsorted-stick-b16f@gregkh>
+ <20260731085915.326775-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178548797804.112641.4838093438132290110.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zi_KCgB3fDYaZGxqvp_CAg--.43373S5
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?hsjDNwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnXz+g1OQfMo27QHy5TwQyZxObGrMKbtNjHLQTE9kB5hqLJLLPouM96QrQijSMggK2pMV
+	yr2XpFSs59mqEOZRcuWp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7tF45WryUAFWfCrW5Xr45XFc_yoW8Cr13pr
+	Z3ArZFyFy0qFW7Aay3uF48WFy8A3yrtryfGaykA3W0g3W5Xry8WF45C3s0vFZrAws7Jr1j
+	yF4Dta1ruF9xKFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8SeHDUUUUU==
 
-The following commit has been merged into the perf/urgent branch of tip:
+dmaengine_terminate_all() does not wait for a running callback, so the TX
+callback can still touch the TX buffer after it is freed. The RX poll
+timer reads the RX buffers without the port lock.
 
-Commit-ID:     cc679d7a6303e84d769f2afcde1fc51c51f127cd
-Gitweb:        https://git.kernel.org/tip/cc679d7a6303e84d769f2afcde1fc51c51f=
-127cd
-Author:        Breno Leitao <leitao@debian.org>
-AuthorDate:    Wed, 29 Jul 2026 07:44:40 -07:00
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Fri, 31 Jul 2026 10:32:19 +02:00
+Switch to dmaengine_terminate_sync() and delete the RX timer before
+freeing the buffers.
 
-uprobes: Fix NULL pointer dereference in hprobe_expire()
-
-Forking a task that has a pending uretprobe can oops the kernel with a
-NULL pointer dereference in the clone() path:
-
-  BUG: kernel NULL pointer dereference, address: 0000000000000018
-  Oops: 0002 [#1] SMP NOPTI
-  RIP: 0010:hprobe_expire
-  CR2: 0000000000000018
-  Call Trace:
-   uprobe_copy_process
-   copy_process
-   kernel_clone
-   __x64_sys_clone
-   do_syscall_64
-   entry_SYSCALL_64_after_hwframe
-
-This was found on real hosts on Meta fleet.
-
-I've got the impression that this is what is happening:
-
-  CPU 1                          CPU 2 (traced task)
-  -----                          -------------------
-                                 hit uprobe, prepare_uretprobe():
-                                   hprobe LEASED, refcount >=3D 1
-  uprobe_unregister()
-    put_uprobe(): refcount -> 0
-                                 fork() -> dup_utask()
-                                   hprobe_expire(hprobe, true)
-                                     try_get_uprobe() -> NULL
-                                     get_uprobe(NULL)   <-- Oops
-
-Only take the extra reference when the uprobe is non-NULL; a NULL means
-it is gone and is the correct value to return.
-
-Fixes: dd1a7567784e ("uprobes: SRCU-protect uretprobe lifetime (with timeout)=
-")
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Acked-by: Oleg Nesterov <oleg@redhat.com>
-Acked-by: Andrii Nakryiko <andrii@kernel.org>
+Fixes: ead76f329f77 ("ARM: 6763/1: pl011: add optional RX DMA to PL011 v2")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260729-uprobe-v1-1-61896b87c867@debian.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- kernel/events/uprobes.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/tty/serial/amba-pl011.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
-index 4084e92..6300b21 100644
---- a/kernel/events/uprobes.c
-+++ b/kernel/events/uprobes.c
-@@ -830,7 +830,7 @@ static struct uprobe *hprobe_expire(struct hprobe *hprobe=
-, bool get)
- 		if (try_cmpxchg(&hprobe->state, &hstate, uprobe ? HPROBE_STABLE : HPROBE_G=
-ONE)) {
- 			/* We won the race, we are the ones to unlock SRCU */
- 			__srcu_read_unlock(&uretprobes_srcu, hprobe->srcu_idx);
--			return get ? get_uprobe(uprobe) : uprobe;
-+			return get && uprobe ? get_uprobe(uprobe) : uprobe;
- 		}
-=20
- 		/*
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index e686835d5150..9bfccb021383 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -1182,7 +1182,7 @@ static void pl011_dma_shutdown(struct uart_amba_port *uap)
+ 
+ 	if (uap->using_tx_dma) {
+ 		/* In theory, this should already be done by pl011_dma_flush_buffer */
+-		dmaengine_terminate_all(uap->dmatx.chan);
++		dmaengine_terminate_sync(uap->dmatx.chan);
+ 		if (uap->dmatx.queued) {
+ 			dma_unmap_single(uap->dmatx.chan->device->dev,
+ 					 uap->dmatx.dma, uap->dmatx.len,
+@@ -1195,12 +1195,12 @@ static void pl011_dma_shutdown(struct uart_amba_port *uap)
+ 	}
+ 
+ 	if (uap->using_rx_dma) {
+-		dmaengine_terminate_all(uap->dmarx.chan);
++		if (uap->dmarx.poll_rate)
++			timer_delete_sync(&uap->dmarx.timer);
++		dmaengine_terminate_sync(uap->dmarx.chan);
+ 		/* Clean up the RX DMA */
+ 		pl011_dmabuf_free(uap->dmarx.chan, &uap->dmarx.dbuf_a, DMA_FROM_DEVICE);
+ 		pl011_dmabuf_free(uap->dmarx.chan, &uap->dmarx.dbuf_b, DMA_FROM_DEVICE);
+-		if (uap->dmarx.poll_rate)
+-			timer_delete_sync(&uap->dmarx.timer);
+ 		uap->using_rx_dma = false;
+ 	}
+ }
+-- 
+2.34.1
+
