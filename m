@@ -1,106 +1,119 @@
-Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F099B3C1411;
-	Fri, 31 Jul 2026 08:24:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.245
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8C53C8700;
+	Fri, 31 Jul 2026 08:27:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785486253; cv=none; b=XOxOp4gLyJd5LOkcc88VnCcm81g5F82WTyw6QR+SEYroyRCd6hYSIzeUAUHB7+3nJT3lNVXe0SNL4ekR8veuM5B5Hh2clSjIdqDLNbOxR4SW4lATNYWoia7BYAmfi5r4mZbyY3dqbrOV97KUFG4gnwlduA+h2oUKfiSeipHz6cE=
+	t=1785486443; cv=none; b=cP6Gsni5JvPzkjA1CADlFAHSGfQYmYp0GLqiyjB//1ZmxBTC1Nvc7tth8d7pxsV1UzcqSgLSxTAU74c863Tmo3DJb3UE0g9UAig8qT+x18B44rvOPqmkHup1Z5dQD2jPo4/M+iPxabfF7I8XhbOVbaZKxBSZ3XaDUmmcaSxFATY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785486253; c=relaxed/simple;
-	bh=QjE/5Ri9rA7min8L3ABV/RhqltCO6MPulLnMsFygcSk=;
-	h=Message-ID:From:Subject:Date:MIME-Version:Content-Type:To:Cc; b=YmktS/JdPSBN4K1EN8xqdGHVwkTKyCqfrgKh2hmDWKWRVrWrv7TpGsTm4oA57AuJeKbwHHUDlk74+2muoWEu9AVhbOTVc8b3CT8rXEhzZgK9uTJ8G7aC7QCQsrNp7yh/BP+TopLn47T5nEGZPscszGEhzR8mxucUyL+KYSMDPoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=QGJwDG0m; arc=none smtp.client-ip=203.205.221.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1785486443; c=relaxed/simple;
+	bh=qWHAPgdkGIaxr+gcu4fel1wU6XHmyRvNdvCngC2Dm1c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uuGHg7/u+oMXe+gvRycdWQwK4GVBHt2yhWOkuJ2BpGMuoj3bIu3yu4cpLfp/UDt9sTeD5HqUNFK/ODbR9/nNvZEcoywwbvFWOYudYEV9msjCiI3lGlpLQcfGIUAYI5bswUsXj/Mnw0s1GJbF2ZO8sW7R+z8yxtxKJv7hFSBjwYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IF03ByHG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="QGJwDG0m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1785486239; bh=fp7mOKZAgaHng9InskXsuyaog+V0herwoNoxjkXgfHc=;
-	h=From:Subject:Date:To:Cc;
-	b=QGJwDG0mCDtxqNa4YIeybh7w7BgwDj7SmmiLp03bnW88xscIBb1zC5CWaYwrKc7L/
-	 mSqygqhsWI/HD//ZVzWEILi83I/ztmJkl3CSo9TiMg6GMUpcEbmPw7UoJRClqJR5id
-	 IJWRn8kd1vP+/+FHRnIxNw4fS7wGecOxBJBTwKdM=
-Received: from ubuntu2204.localdomain ([218.4.149.66])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id 5F91AC69; Fri, 31 Jul 2026 16:23:57 +0800
-X-QQ-mid: xmsmtpt1785486237tw4nhql8f
-Message-ID: <tencent_549A2499DA04F6919D002944523FCC267D07@qq.com>
-X-QQ-XMAILINFO: N7bhA2KEQ6kKeZlVG0gBwdF3r18HV4dVbFIvGrtYRRrzYeI7nKkhmV+uytTOyB
-	 85hqN7fvoXBa6rK1LobmdsSkLick84Vn5MWnM9Spui8hHHBP6zqhw8NN3vwtPaMjJF7UNBBMsUoR
-	 oW6qP9fTbJwluNE395M+GAW2dcmuoR9nob5yHmYWDbCWxzMPb45MmbnVx17t3XVoF0ckRXGj9r8K
-	 n/d4JHJUPK+iYc5e1a+4reJ/9izMDRnrJ/Wkjx5bNBnBa2Az/aO4Dk/x1Hf/d3zvcmQqNruwE09r
-	 DSe2bnKJwCeMQCKi9AAfL1uYhj0Y2C/NzXt/y+kd8QhlLwJHBeXPNnRu2d+vS8LD7Cxkb4WeanAc
-	 ipzRyTjQxM/zs1cL2J17hC4n9x7XR1iEow4apxezaPZFUMCbBlKyKxoLgnb39mSLxnbq9epPLyJ0
-	 voDagIOdHZsdvbrIRDFJk2dSSqbLu0EqsfoOkvCcCOWghzlPVsTaV5V6/d+rN1NtkEMqVwfsxYuJ
-	 5WmwSsN6Ro70WimPPr684kW1DFpYc3oo6EWKbRyjGZ0iekJ8Tm4RDyvnymE2XPmErt4V/b4FQQvP
-	 iojzEpE3+DiBDvlj+hHMtjAEaCqlTO+rNy050w7c4e7DwJ4Rh+mz3L4a5w6asc/jdCmpoP81KNlN
-	 buFL6rz8gMiOaze6/FtNMiFOm84QUUyH4kvNfvogalxj6SOD6yprxoOLZ7lEDksWwl5NEIkmSQCw
-	 0Ozx3qT+wX+m9tyWBCcbMuWYCUkvqOpeD5bwidZuKZvEf8zvHR3c+Y/MQLXUWoGnui0Swtg8cSQS
-	 +17M75rczHoGuRewZJnSiQ67DuGR0+bxNYMTJEOtN9C56dyO92IJHDervX+NgarGrZXcdQGxckxw
-	 VE046zLtqN0Kn8642+12prTAwDRstMIPJryINCQFiZDoQVrdABnVyWQckrXCad+phDXWyFYwxIB2
-	 K1qDYyntpVaXOnsRq7GRdtbkb5y4a48VY48spkxTjWEFEf73m9hQrAFa5q2hvgv8UIENwIrwzxYK
-	 8ResYpA29Q6nGfDwSALZ4F20Gm/lrHXj8uxxciwUwrx2gDaID1g3lrgThDp5wLWKrdT951YRG24X
-	 mSTNQvlLSrg6wU3mdp2/yFwGbDNNACKuSpBGcz+W9sIlxkG2Cbcng4+s17nXxSWk6+9iHl
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Cunhao Lu <1579567540@qq.com>
-Subject: [PATCH v2 0/2] can: dev: make can_put_echo_skb() skb drops safe in
- any IRQ context
-Date: Fri, 31 Jul 2026 16:23:52 +0800
-X-OQ-MSGID: <20260731-master-v2-0-204d772f2e36@qq.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IF03ByHG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BD811F000E9;
+	Fri, 31 Jul 2026 08:27:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785486441;
+	bh=buVpILtYmrOXEJRr2Wxk9xbiAar/fXC7wLDBBYjaFOA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IF03ByHG3HDSjt7SGIkz2sy2FMRk0Nw9JN2DXJ4+3jlJGPag1zvbmGChr0v/mpDqB
+	 bJEzyBrZ04jnQW4d19k3lGqFRkmXOqWP46r0Nfp0KJ23BZRTGHV1U8bcOHDPK/RjAS
+	 7jGGkhGz08nJ3a6437i+kRBZ8LoRJitps/gp2Z7U=
+Date: Fri, 31 Jul 2026 10:27:06 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Sven Schnelle <svens@linux.ibm.com>
+Cc: Jiri Slaby <jirislaby@kernel.org>, stable@vger.kernel.org,
+	patches@lists.linux.dev, stable@kernel.org,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH 7.1 667/744] ptp: ptp_s390: Add missing facility check
+Message-ID: <2026073141-tibia-clean-e870@gregkh>
+References: <20260730141444.267951807@linuxfoundation.org>
+ <20260730141458.442328931@linuxfoundation.org>
+ <669b8e16-19a6-49bf-a1ef-a7bce5075a9a@kernel.org>
+ <2026073120-elm-purging-e006@gregkh>
+ <yt9dzez7inbl.fsf@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJhbbGoC/2WNwQ6DIBAFf8XsuTSwGjA99T8aD6hrpYlSgZI2h
- n8v2GOPk8ybt4MnZ8jDpdrBUTTe2DUDnioYZr3eiZkxMyBHyVXN2aJ9IMd0P9XUcKmoUZDlp6P
- JvI/Qrfuxf/UPGkJZF2M2Plj3OZ6iKN5fNAomWEtCoh45amyv23Ye7AJdSukLi/DEwasAAAA=
-X-Change-ID: 20260730-master-abf3e4067e47
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Cunhao Lu <1579567540@qq.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yt9dzez7inbl.fsf@linux.ibm.com>
 
-can_put_echo_skb() is a public helper used by CAN drivers.  Its existing
-skb drop paths use kfree_skb(), which is not suitable when the caller's IRQ
-context is unknown.
+On Fri, Jul 31, 2026 at 10:18:54AM +0200, Sven Schnelle wrote:
+> Greg Kroah-Hartman <gregkh@linuxfoundation.org> writes:
+> 
+> > On Fri, Jul 31, 2026 at 08:21:26AM +0200, Jiri Slaby wrote:
+> >> On 30. 07. 26, 16:15, Greg Kroah-Hartman wrote:
+> >> > 7.1-stable review patch.  If anyone has any objections, please let me know.
+> >> > 
+> >> > ------------------
+> >> > 
+> >> > From: Sven Schnelle <svens@linux.ibm.com>
+> >> > 
+> >> > commit e78f1ac37afcb16cb6fef8a2c92591eab6558956 upstream.
+> >> > 
+> >> > Only register the physical clock when facility 28 is installed
+> >> > and PTFF QAF returns that PTFF QPT is available.
+> >> > 
+> >> > Fixes: 2d7de7a3010d ("s390/time: Add PtP driver")
+> >> > Signed-off-by: Sven Schnelle <svens@linux.ibm.com>
+> >> > Cc: stable@kernel.org
+> >> > Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
+> >> > Link: https://patch.msgid.link/20260714130342.1971700-3-svens@linux.ibm.com
+> >> > Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> >> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> >> > ---
+> >> >   drivers/ptp/ptp_s390.c |    6 +++++-
+> >> >   1 file changed, 5 insertions(+), 1 deletion(-)
+> >> > 
+> >> > --- a/drivers/ptp/ptp_s390.c
+> >> > +++ b/drivers/ptp/ptp_s390.c
+> >> > @@ -107,6 +107,9 @@ static __init int ptp_s390_init(void)
+> >> >   	if (IS_ERR(ptp_stcke_clock))
+> >> >   		return PTR_ERR(ptp_stcke_clock);
+> >> > +	if (!test_facility(28) || !ptff_query(PTFF_QPT))
+> >> 
+> >> ptff_query() here needs:
+> >> 9de445d8296a ("s390/ptff: Export ptff_function_mask[]")
+> >
+> > Ah, good catch, now queued up.  How did you find that thing?
+> 
+> Maybe we should change the documentation. I was wondering whether I have
+> to mark that as a dependency, looked up ./process/stable-kernel-rules.rst
+> which says:
+> 
+>   Note that for a patch series, you do not have to list as prerequisites the
+>   patches present in the series itself. For example, if you have the following
+>   patch series::
+> 
+>     patch1
+>     patch2
+> 
+>   where patch2 depends on patch1, you do not have to list patch1 as
+>   prerequisite of patch2 if you have already marked patch1 for stable
+>   inclusion.
+> 
+> Which lead me to believe that I don't have to add stable@ to the the
+> other patch, but looks like this was wrong?
 
-Convert the existing drop paths to dev_kfree_skb_any(), then make the
-invalid echo index path consume its skb with the same helper.  This makes
-the ownership semantics consistent across all error and drop paths.
+The issue is that was no link that I could find between 9de445d8296a
+("s390/ptff: Export ptff_function_mask[]") and e78f1ac37afc ("ptp:
+ptp_s390: Add missing facility check")
 
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
----
-Changes in v2:
-- Add a preparatory patch replacing the existing kfree_skb() calls in
-  can_put_echo_skb() with dev_kfree_skb_any().
-- Free the skb with dev_kfree_skb_any() on an invalid echo index.
-- Collect Vincent's Reviewed-by tag for the binding patch
-- Link to v1:
-  https://lore.kernel.org/linux-can/tencent_944DADCC4B42C8484EC01DA2B15F42132906@qq.com
+i.e. no "Fixes:" tag, or dependancy info, so if I took the "add
+missing..." patch, I didn't know that the export patch was required.
 
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Vincent Mailhol <mailhol@kernel.org>
-Cc: linux-can@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+Not a big deal, happens at times, just if you know a commit fixes an
+older patch, a "Fixes:" tag is helpful.
 
----
-Cunhao Lu (2):
-      can: dev: can_put_echo_skb(): use dev_kfree_skb_any()
-      can: dev: can_put_echo_skb(): free skb on invalid echo index
+thanks,
 
- drivers/net/can/dev/skb.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
----
-base-commit: 11028ab62899e4191e074ee364c712b77823a9c4
-change-id: 20260730-master-abf3e4067e47
-
-Best regards,
---  
-Cunhao Lu <1579567540@qq.com>
-
+greg k-h
