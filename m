@@ -1,62 +1,49 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3359F31AF1B;
-	Fri, 31 Jul 2026 03:29:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABFB3242BC
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 03:32:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785468601; cv=none; b=Bnym0V4XeqSH1q9/QMEQJ6p9Pi6J9j1ROgsdkh/QAn91zx+xZXBnXNmAC0CB9xSeaGBDwUkLMRSgI5TvwSuZKNIzuBH9btDqFj3jSvpjvuCgBECCI9DN9Rm/RgNO2pOONl24eE+6QNFKYs6oeXx9p0AUcgWYvMkjUZPXK2mkvOU=
+	t=1785468755; cv=none; b=FtCbseaTe+f5R+3WsBePaLE1duW1Q8y72lqalDVzhbyBIVkM/350ww4gdp6OB6SHeow1hRQDONZ6cyQlb1qBP7Mh23gGKCmLoJhSWEwBgd5awSIYXGO2GvLFAy9mWEPVC4DX6kR5Pk0hySkQTKwLykBDcCNj4LbFt9OzUyUIhDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785468601; c=relaxed/simple;
-	bh=SizCvG8mrb2naaSlE2obB5LCGkAQXOaMM17ZjJVmbZE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q8zh7x4g7MKnfgfDa570uuf6b+24edNEjKh1g+H46sTuTC5FuOmEYesCKx3YNISegI+2OIfIrNNeaF0kYMZoezkamqGsmJDWEcGQaRBpdbuyxhHsodBI8pYUKxDn0RunF8PbFdJ6RqzNiISEKp5TM9ZJpTzw9jUyNog1ldl5MK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XlFLqLHA; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1785468755; c=relaxed/simple;
+	bh=m3SF3EmkbyN7XFycwPvGNY3KFlF9kVAkQn6eh2TOc4o=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=WY85ojWkD/taTzT3+fL9BGJci3AB7RuHZtXbedmosqq8rojAAbwk4nSeyNZ6ylR3X4nGRLeGuv7ConH+YlymU6NL8AB2sy96tigXXH2OtUmnBuQfwS2Xdo98jkgC/GpjaJ+oTnblB26Rz687YMSQKj77TKHlUYA62rY+vQl1Y9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=eFSe6Jn0; arc=none smtp.client-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XlFLqLHA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785468599; x=1817004599;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=SizCvG8mrb2naaSlE2obB5LCGkAQXOaMM17ZjJVmbZE=;
-  b=XlFLqLHABmAvk9Wa96qmc9Au62Xnsvtb5lf1Yf1Q9Y84sQdWrm2LHHH+
-   ugW+yWPQrQhf+UC3ok5r96lN2w4HUJ5A9a3JzX8G393zc/sFV+j9WOnGD
-   tA/czGPt2x4y9IHLtQb57V3//deLDIZeJnxuyYgdI5ET+wS9eTnDhnDBB
-   67LVudfXRRmBdZZVkevKMAWNwkZJCOrhjCJ8Ig/vtsu1D35ZqwcmFU2uB
-   6eZrKiFgBdS0OkwUzxCtqjoFZPKqWt9FBzZ6MgyrmcHT1D8rYlyOshBUU
-   q6L08lh2WQcI78vokvLwgwUhMLACT8Scc4fvvPagviUFt8ESUZVkPZMt7
-   w==;
-X-CSE-ConnectionGUID: 5CVpVlKTSpm/tG078efLCA==
-X-CSE-MsgGUID: ORy5wiyFQnCoxC+ydMcuaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11860"; a="103631610"
-X-IronPort-AV: E=Sophos;i="6.25,195,1779174000"; 
-   d="scan'208";a="103631610"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 20:29:58 -0700
-X-CSE-ConnectionGUID: rCS5jVQSTOKmW1+KnT/hRg==
-X-CSE-MsgGUID: 6248gJzeTDeu3cFfmPm3PA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,195,1779174000"; 
-   d="scan'208";a="258680354"
-Received: from junjie-desk-dev.bj.intel.com (HELO junjie-desk-dev.tail2c02c1.ts.net) ([10.238.152.71])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 20:29:56 -0700
-From: Junjie Cao <junjie.cao@intel.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [PATCH] gpio: ml-ioh: use raw_spinlock_t for the register lock
-Date: Fri, 31 Jul 2026 11:27:47 +0800
-Message-ID: <20260731032747.2987292-1-junjie.cao@intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="eFSe6Jn0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1785468688;
+	bh=m3SF3EmkbyN7XFycwPvGNY3KFlF9kVAkQn6eh2TOc4o=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=eFSe6Jn0Uc0lZ1l9vFCAmfLTlPWVzosvkRRJuQAZTB8lXeiWn2QEihmTSjzpla5Mz
+	 GSQvYkyDGjXB6w2Zi9qQu+eWAByPAdei9VBT+GXXCJEFUVUdgIn1jLa7L+K9cZkqaG
+	 U/P+2IxiIWSfqk56DPjDv6DTqScORLbAkOjnivTc=
+X-QQ-mid: zesmtpgz9t1785468679t62b16907
+X-QQ-Originating-IP: wdzzQ4FBZk/ChllTNrQG1tk6QNHTK2fzgbi4uFIGNB8=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 31 Jul 2026 11:31:18 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 6352075475337103940
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: johan@kernel.org,
+	patches@lists.linux.dev,
+	stable@vger.kernel.org,
+	ulf.hansson@linaro.org,
+	zhoubinbin@loongson.cn
+Subject: Re: [PATCH 6.6 456/484] mmc: vub300: fix use-after-free on disconnect
+Date: Fri, 31 Jul 2026 11:31:17 +0800
+Message-Id: <20260731033117.506282-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260730141433.390818444@linuxfoundation.org>
+References: <20260730141433.390818444@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,184 +51,34 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: McJfg7Aee/FZFbDifl1xePySr8bDKWMEts/v/cexhsQwftDOG/+L5yLg
+	lAOb3hGF8NTg9nHb+fMXsqEDVH9SwBU57SbCDHWCC54jTJdhAQBy3kKJOxhFDnJhj+ClGF/
+	uEQzUYlGpDtVuTt3aXLYqBiYhhiw0EJ5fpsswoU3rq20tNYe7Q6bCV3AwlyUwjr40Fo+H3c
+	cbULRgCMrAVSqJc0B2wYrqix/+oMW/C3RaFSoGBZU15gP7kWL8smLQpLdaTM9ArkidQCx8R
+	kE8anSI/4p1z47oQq++3+VjXrUrLvKhqloC96ta48TRApiFL+ONOsHF2pGuT3FFozVSSY3y
+	TobeaHrjzhWuvsKmNa420AhX+t6yBf4drYb2PgPWWh2ZFoAPeqvtHi68ldDYHsGx87AVCWS
+	9Dz1Lm0AIeJYBO+R2rcOIrfhXIxspTa/t2mVIM/dm8m7BIKlxUdXl0/cMsKOBxadvU6FXzG
+	He3Wnn17twRAcE571TxsWa6nrpVimFxGXKqT0kl4q1KBhXy7KwYb0I8xjyHbZsysIYAK1AE
+	CSE/L7LkNA6myxldM6mOvihyOqxUAAgQJvPKt2RG8USqYhYcjaXQd80IxZHc9urhsTcXXiw
+	MUPvpN/2qASQMXdMTaZ1cM9Ol2oJ4bSd4vs6u55LfwJd4wyYGcjxdx922vdCarbD5W6c1op
+	jUAQCVEzScCdjjaYiTPX8/8Aw9INlSbEm6o4B1FiLSdptQQFrA9648DHzEYZX/ThfW+pi0W
+	unO1tIM2i1SRGc8z434km8PfOdnDZrak6ivsn0qkIIUbMGTjCjX2WCzo/WG/NCxPopudVYM
+	tCXOcIxlddeY11fn6sqYcnJZ9fwIAY7Akt3u9YzIMhqOrVMdCrq2arbmLTlbew1fXDgevZY
+	M3lQINetd92rKKXcgikeXhF8hfxA9gmKRhexUo8MZr31TXyLwuIck8/IRq87wE3/++FRYCT
+	AR7iXFOtx3FgLQFPEZXfjqm3BhhKkBneDP4WaSPFZFtnPI9wRipIroIc7yWkeEdN85ySvd2
+	Pw74CxBlIuoWrDc6m2FA03ar72WoA=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-ioh_irq_type() is registered as the irq_chip .irq_set_type callback and
-takes chip->spinlock with spin_lock_irqsave().  This callback is reached
-from __setup_irq() -> __irq_set_trigger() -> chip->irq_set_type() while
-the caller holds desc->lock, a raw_spinlock_t, with hardirqs disabled.
-That context is not sleepable, but on PREEMPT_RT a regular spinlock_t is
-an rtmutex-backed sleeping lock, so acquiring it there is invalid.
-ioh_irq_enable() and ioh_irq_disable() take the same lock from the
-.irq_enable/.irq_disable callbacks, which are likewise invoked with
-desc->lock held.
+Hello,
 
-Convert the register lock to raw_spinlock_t.  The same lock also
-serializes the GPIO direction/value callbacks and the suspend/resume
-register save/restore, and those critical sections only perform short
-sequences of MMIO register accesses (ioread32()/iowrite32()); the
-.irq_set_type callback additionally emits a dev_warn() on an unsupported
-type.  None of these are sleepable operations, so keeping this register
-lock non-sleeping is appropriate for the irqchip callbacks and does not
-change the GPIO-side locking contract.
+The backport is wrong and not as is discribe in the title.
+It just renames the goto and I don`t know what the backport fix not in the tree
+for 'git log v6.6.147 --grep="mmc: vub300: Use devm_mmc_alloc_host() helper"'
+not found it fixes for, so I see just drop the patch.
 
-This is the same fix as commit a02b8950d619 ("gpio: pch: use
-raw_spinlock_t for the register lock"); this driver shares the same
-structure as gpio-pch.
-
-Fixes: 54be566317b6 ("gpio-ml-ioh: Support interrupt function")
-Cc: stable@vger.kernel.org
-Signed-off-by: Junjie Cao <junjie.cao@intel.com>
----
- drivers/gpio/gpio-ml-ioh.c | 36 ++++++++++++++++++------------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/gpio/gpio-ml-ioh.c b/drivers/gpio/gpio-ml-ioh.c
-index 6576e5dcb0ee..0a9d34b7636e 100644
---- a/drivers/gpio/gpio-ml-ioh.c
-+++ b/drivers/gpio/gpio-ml-ioh.c
-@@ -84,7 +84,7 @@ struct ioh_gpio {
- 	u32 gpio_use_sel;
- 	int ch;
- 	int irq_base;
--	spinlock_t spinlock;
-+	raw_spinlock_t spinlock;
- };
- 
- static const int num_ports[] = {6, 12, 16, 16, 15, 16, 16, 12};
-@@ -95,7 +95,7 @@ static int ioh_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
- 	struct ioh_gpio *chip =	gpiochip_get_data(gpio);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	reg_val = ioread32(&chip->reg->regs[chip->ch].po);
- 	if (val)
- 		reg_val |= BIT(nr);
-@@ -103,7 +103,7 @@ static int ioh_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
- 		reg_val &= ~BIT(nr);
- 
- 	iowrite32(reg_val, &chip->reg->regs[chip->ch].po);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -123,7 +123,7 @@ static int ioh_gpio_direction_output(struct gpio_chip *gpio, unsigned nr,
- 	u32 reg_val;
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	pm = ioread32(&chip->reg->regs[chip->ch].pm);
- 	pm &= BIT(num_ports[chip->ch]) - 1;
- 	pm |= BIT(nr);
-@@ -136,7 +136,7 @@ static int ioh_gpio_direction_output(struct gpio_chip *gpio, unsigned nr,
- 		reg_val &= ~BIT(nr);
- 	iowrite32(reg_val, &chip->reg->regs[chip->ch].po);
- 
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -147,12 +147,12 @@ static int ioh_gpio_direction_input(struct gpio_chip *gpio, unsigned nr)
- 	u32 pm;
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	pm = ioread32(&chip->reg->regs[chip->ch].pm);
- 	pm &= BIT(num_ports[chip->ch]) - 1;
- 	pm &= ~BIT(nr);
- 	iowrite32(pm, &chip->reg->regs[chip->ch].pm);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -256,7 +256,7 @@ static int ioh_irq_type(struct irq_data *d, unsigned int type)
- 	dev_dbg(chip->dev, "%s:irq=%d type=%d ch=%d pos=%d type=%d\n",
- 		__func__, irq, type, ch, im_pos, type);
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 
- 	switch (type) {
- 	case IRQ_TYPE_EDGE_RISING:
-@@ -296,7 +296,7 @@ static int ioh_irq_type(struct irq_data *d, unsigned int type)
- 	ien = ioread32(&chip->reg->regs[chip->ch].ien);
- 	iowrite32(ien | BIT(ch), &chip->reg->regs[chip->ch].ien);
- end:
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -326,11 +326,11 @@ static void ioh_irq_disable(struct irq_data *d)
- 	unsigned long flags;
- 	u32 ien;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	ien = ioread32(&chip->reg->regs[chip->ch].ien);
- 	ien &= ~BIT(d->irq - chip->irq_base);
- 	iowrite32(ien, &chip->reg->regs[chip->ch].ien);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- }
- 
- static void ioh_irq_enable(struct irq_data *d)
-@@ -340,11 +340,11 @@ static void ioh_irq_enable(struct irq_data *d)
- 	unsigned long flags;
- 	u32 ien;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	ien = ioread32(&chip->reg->regs[chip->ch].ien);
- 	ien |= BIT(d->irq - chip->irq_base);
- 	iowrite32(ien, &chip->reg->regs[chip->ch].ien);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- }
- 
- static irqreturn_t ioh_gpio_handler(int irq, void *dev_id)
-@@ -440,7 +440,7 @@ static int ioh_gpio_probe(struct pci_dev *pdev,
- 		chip->base = base;
- 		chip->reg = chip->base;
- 		chip->ch = i;
--		spin_lock_init(&chip->spinlock);
-+		raw_spin_lock_init(&chip->spinlock);
- 		ioh_gpio_setup(chip, num_ports[i]);
- 		ret = devm_gpiochip_add_data(dev, &chip->gpio, chip);
- 		if (ret) {
-@@ -484,9 +484,9 @@ static int ioh_gpio_suspend(struct device *dev)
- 	struct ioh_gpio *chip = dev_get_drvdata(dev);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	ioh_gpio_save_reg_conf(chip);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -496,11 +496,11 @@ static int ioh_gpio_resume(struct device *dev)
- 	struct ioh_gpio *chip = dev_get_drvdata(dev);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	iowrite32(0x01, &chip->reg->srst);
- 	iowrite32(0x00, &chip->reg->srst);
- 	ioh_gpio_restore_reg_conf(chip);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-
-base-commit: a02b8950d619123da64f69b70fe1dadef217dfe4
--- 
-2.43.0
+BRs
+Wentao Guan
 
