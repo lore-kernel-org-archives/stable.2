@@ -1,95 +1,62 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B5B356754
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 03:24:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3359F31AF1B;
+	Fri, 31 Jul 2026 03:29:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785468266; cv=none; b=eoeTwJ2DwBI+Il1MJ5Y21IoVAe9GJzKDPP8djNa9eSDzy/sr7eVitPbFhnlxeAYL2hKdDzwCL4jYus8uLqMfX32uwABTjlCBFjyoj+IciiRiZOUzLrtFMHpUO6CHJsrfMoK/Cs8HT/NNNqDWDkITPVJn6TY9FZbBZfxoMLNPKag=
+	t=1785468601; cv=none; b=Bnym0V4XeqSH1q9/QMEQJ6p9Pi6J9j1ROgsdkh/QAn91zx+xZXBnXNmAC0CB9xSeaGBDwUkLMRSgI5TvwSuZKNIzuBH9btDqFj3jSvpjvuCgBECCI9DN9Rm/RgNO2pOONl24eE+6QNFKYs6oeXx9p0AUcgWYvMkjUZPXK2mkvOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785468266; c=relaxed/simple;
-	bh=QCmNAq7aCQLV03SF/CeI12nYPYT+cLzDIfhbN9XF/Bg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P/et9nww0fdq12c0WXI0kp3uLu12lMWTw5RUypMQC22OmR2/jmGyepQ46uR1jZDcNEHvf5eNgTZ/C/4ImYOeT6EkBuIM9SgavtYi0IzEembGaSrQByf/6oQbTniWdw6F4i+C3TbND+yCR1rLtgEoD2vws6xZb8xIML98f8m+cic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CM4rOyEK; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785468601; c=relaxed/simple;
+	bh=SizCvG8mrb2naaSlE2obB5LCGkAQXOaMM17ZjJVmbZE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q8zh7x4g7MKnfgfDa570uuf6b+24edNEjKh1g+H46sTuTC5FuOmEYesCKx3YNISegI+2OIfIrNNeaF0kYMZoezkamqGsmJDWEcGQaRBpdbuyxhHsodBI8pYUKxDn0RunF8PbFdJ6RqzNiISEKp5TM9ZJpTzw9jUyNog1ldl5MK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XlFLqLHA; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CM4rOyEK"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2caf228a910so3092735ad.2
-        for <stable@vger.kernel.org>; Thu, 30 Jul 2026 20:24:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785468264; x=1786073064; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mDiNHR6lmF8BBewyLoqotO1eTvzYBv3I+mg7fsH65Xw=;
-        b=CM4rOyEKWCE23uFCGnvBwbY/Qi/Afn+0rGiuEYXyoi15jSwJ75Fekng/1zCy1/QHil
-         yln0hR/iwQU8SMz9lJrePVF3j4jP37oGwRQMrf1Rd54n6eMj/6fsrh9IDq+W793sCpXy
-         1/NUoJya9LvJxNrHxboyQDrxRSrEPEoE+ol4V++M2zd0mtAxbKBcgVX4LU2delvq8VMJ
-         yA4fo4hz01Zjw/8REg41+nI2UXFOwNrwOsjwGvFHL5iP1v2VUmhuZWJ8JN2hGBSNnpqH
-         QRu65ip9A3iDfhoe/wRRDO/s77df/3Di9Bs5hSrD9Qh1SLgmLaTsEjCX7WSPgOavQlos
-         MQhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785468264; x=1786073064;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mDiNHR6lmF8BBewyLoqotO1eTvzYBv3I+mg7fsH65Xw=;
-        b=jatr3TN9kWd2LrAmTzn/NLPVSPBQ+ltXzeflY7TfhuacHG/6C1IFFKabloH1Hv8V5r
-         xu9DTQIZ8/KcCf+uJrjyR/PHLRmoAv+Hxo8E/uwZlR/VZvix1SXdw/4qxahNGpqJfynN
-         14DkDlgs0CLdg+OHnFKNVtJHHo/2QrueH/ntm0eGAxZ2HbE832jFVz/S2GZMBUlQO9tZ
-         UxfKrMm0cL89dUJJj1hOQxqhcSQnGYUlylGf/6cKuXdEHDGqJNVsYrUB6SQ4STAvAXVn
-         BTKXyTm+I7/5VEcl5516D9e8UidIbEWyr/62W/gAHfzed851Z5DCDnly4guWiEPIQ2k/
-         KwAQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq5DcfxZz78iK/JrQvulrciiZSA4BCjry36ueB400vCK3gtZ1RFeu7H+HvRjbAbnjh+7syhEs4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwqcBemAD2n529lmR15gNMg6GSK9WAEfi3cuCQGxdpc+TYYLLy3
-	07sA2HqSn5jL1XvOncFRg64hGRopCQItBvaUaH5HPuZuDziyoV38Zp3J
-X-Gm-Gg: AR+sD13Zd2uGqKSgpBZfNhCgcTb/Qh9fU31ZggfYo/2LFV3P6q+YoyU5z8ByXnz/+2R
-	iT9pk8B+pXjPbYmqYf+rVQJQ6TC6i69LvRXaUTEfH+PjGE5WmCsib0nykooVz3tRQC0UXK6puuF
-	6BjYANLX2sIswshaqVBR8RZv3pcOO+vCpx4yjQ3beRlj2HATm2J5cxg3Ak9lwb18UAFwWkwe5oE
-	0hnlAMOtoNROSuXR9cQiEN4qj2ELQQGYTWyMnH+WiJdCVQgPUAoLmks0wT9KbMZoAyMeDSuh0mY
-	WBhY9BE4gV5FBflj7NlmHPpm1K3Dp7rI5+4gRmVLUB0DZ6SlkDiiS9rU2MzlH8gR1UFGqYbPZ+w
-	rQc8whHe2Ua/R7Hubs5nDQVz94oIyZHXVn9sNv4qTRnQJuqBApcVGoc4u7+OApFl091dO4GfT6W
-	LhesjxU28fgHUHtlW7oVvszZ43N4ycv7LFriqqKRLRVz3BhZN9LaP8QdENQJlhqoCCeZOsVuAir
-	fDv7yiFs13U7l2xeT5ksUZFq77nepi3QTIZsnpMGbejchKZ
-X-Received: by 2002:a17:903:2f0f:b0:2c6:90ec:f601 with SMTP id d9443c01a7336-2d046d7b74bmr5195485ad.8.1785468264475;
-        Thu, 30 Jul 2026 20:24:24 -0700 (PDT)
-Received: from localhost.localdomain ([202.8.105.119])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d047c42b4bsm869275ad.78.2026.07.30.20.24.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 20:24:24 -0700 (PDT)
-From: Sun Jian <sun.jian.kdev@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Hangbin Liu <liuhangbin@gmail.com>,
-	Krishna Kumar <krikku@gmail.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Martin Karsten <mkarsten@uwaterloo.ca>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XlFLqLHA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785468599; x=1817004599;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=SizCvG8mrb2naaSlE2obB5LCGkAQXOaMM17ZjJVmbZE=;
+  b=XlFLqLHABmAvk9Wa96qmc9Au62Xnsvtb5lf1Yf1Q9Y84sQdWrm2LHHH+
+   ugW+yWPQrQhf+UC3ok5r96lN2w4HUJ5A9a3JzX8G393zc/sFV+j9WOnGD
+   tA/czGPt2x4y9IHLtQb57V3//deLDIZeJnxuyYgdI5ET+wS9eTnDhnDBB
+   67LVudfXRRmBdZZVkevKMAWNwkZJCOrhjCJ8Ig/vtsu1D35ZqwcmFU2uB
+   6eZrKiFgBdS0OkwUzxCtqjoFZPKqWt9FBzZ6MgyrmcHT1D8rYlyOshBUU
+   q6L08lh2WQcI78vokvLwgwUhMLACT8Scc4fvvPagviUFt8ESUZVkPZMt7
+   w==;
+X-CSE-ConnectionGUID: 5CVpVlKTSpm/tG078efLCA==
+X-CSE-MsgGUID: ORy5wiyFQnCoxC+ydMcuaQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11860"; a="103631610"
+X-IronPort-AV: E=Sophos;i="6.25,195,1779174000"; 
+   d="scan'208";a="103631610"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 20:29:58 -0700
+X-CSE-ConnectionGUID: rCS5jVQSTOKmW1+KnT/hRg==
+X-CSE-MsgGUID: 6248gJzeTDeu3cFfmPm3PA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,195,1779174000"; 
+   d="scan'208";a="258680354"
+Received: from junjie-desk-dev.bj.intel.com (HELO junjie-desk-dev.tail2c02c1.ts.net) ([10.238.152.71])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 20:29:56 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	Sun Jian <sun.jian.kdev@gmail.com>,
-	maciej.fijalkowski@intel.com,
+	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH net v2 2/2] veth: fix skb length accounting after XDP frag adjustment
-Date: Thu, 30 Jul 2026 20:23:57 -0700
-Message-ID: <20260731032357.6114-3-sun.jian.kdev@gmail.com>
+Subject: [PATCH] gpio: ml-ioh: use raw_spinlock_t for the register lock
+Date: Fri, 31 Jul 2026 11:27:47 +0800
+Message-ID: <20260731032747.2987292-1-junjie.cao@intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260731032357.6114-1-sun.jian.kdev@gmail.com>
-References: <20260731032357.6114-1-sun.jian.kdev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -98,78 +65,183 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-veth exposes non-linear skb fragments through an xdp_buff. If an XDP
-program adjusts the fragment area, veth_xdp_rcv_skb() copies
-xdp_frags_size back to skb->data_len but leaves skb->len containing the
-old fragment contribution.
+ioh_irq_type() is registered as the irq_chip .irq_set_type callback and
+takes chip->spinlock with spin_lock_irqsave().  This callback is reached
+from __setup_irq() -> __irq_set_trigger() -> chip->irq_set_type() while
+the caller holds desc->lock, a raw_spinlock_t, with hardirqs disabled.
+That context is not sleepable, but on PREEMPT_RT a regular spinlock_t is
+an rtmutex-backed sleeping lock, so acquiring it there is invalid.
+ioh_irq_enable() and ioh_irq_disable() take the same lock from the
+.irq_enable/.irq_disable callbacks, which are likewise invoked with
+desc->lock held.
 
-After a fragment shrink, this makes skb_headlen() larger than the actual
-linear area. In the reproduced UDP receive path, __skb_datagram_iter()
-copied 1024 bytes past the actual linear tail to userspace, starting at
-struct skb_shared_info. The copied bytes included the affected skb's
-nr_frags, xdp_frags_size and a kernel pointer from
-skb_shinfo(skb)->frags[0]. Real packet data was displaced by the same
-amount and truncated at the end.
+Convert the register lock to raw_spinlock_t.  The same lock also
+serializes the GPIO direction/value callbacks and the suspend/resume
+register save/restore, and those critical sections only perform short
+sequences of MMIO register accesses (ioread32()/iowrite32()); the
+.irq_set_type callback additionally emits a dev_warn() on an unsupported
+type.  None of these are sleepable operations, so keeping this register
+lock non-sleeping is appropriate for the irqchip callbacks and does not
+change the GPIO-side locking contract.
 
-Subtract the old data_len before replacing it and add the new data_len
-afterwards, keeping skb->len and skb->data_len synchronized.
+This is the same fix as commit a02b8950d619 ("gpio: pch: use
+raw_spinlock_t for the register lock"); this driver shares the same
+structure as gpio-pch.
 
-The fragment accounting must run before the linear tail adjustment:
-when bpf_xdp_adjust_tail() shrinks the packet into the linear area it
-releases all fragments, and __skb_put() requires skb->data_len == 0
-by that point.
-
-A 60000-byte UDP datagram on a veth pair with MTU 64000 was shortened by
-1024 bytes from its fragment area. Before the fix, all 10 runs produced
-corrupted payloads. After the fix, all 10 runs matched the expected
-payload exactly.
-
-Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept non-linear skb")
+Fixes: 54be566317b6 ("gpio-ml-ioh: Support interrupt function")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/bpf/al9T9Eto%2FhRIzP5W@boxer/
-Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
+Signed-off-by: Junjie Cao <junjie.cao@intel.com>
 ---
- drivers/net/veth.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+ drivers/gpio/gpio-ml-ioh.c | 36 ++++++++++++++++++------------------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 00e34afd858e..348391e87e14 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -865,18 +865,25 @@ static struct sk_buff *veth_xdp_rcv_skb(struct veth_rq *rq,
+diff --git a/drivers/gpio/gpio-ml-ioh.c b/drivers/gpio/gpio-ml-ioh.c
+index 6576e5dcb0ee..0a9d34b7636e 100644
+--- a/drivers/gpio/gpio-ml-ioh.c
++++ b/drivers/gpio/gpio-ml-ioh.c
+@@ -84,7 +84,7 @@ struct ioh_gpio {
+ 	u32 gpio_use_sel;
+ 	int ch;
+ 	int irq_base;
+-	spinlock_t spinlock;
++	raw_spinlock_t spinlock;
+ };
  
- 	skb_reset_mac_header(skb);
+ static const int num_ports[] = {6, 12, 16, 16, 15, 16, 16, 12};
+@@ -95,7 +95,7 @@ static int ioh_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
+ 	struct ioh_gpio *chip =	gpiochip_get_data(gpio);
+ 	unsigned long flags;
  
--	/* check if bpf_xdp_adjust_tail was used */
--	off = xdp->data_end - orig_data_end;
--	if (off != 0)
--		__skb_put(skb, off); /* positive on grow, negative on shrink */
--
- 	/* XDP frag metadata (e.g. nr_frags) are updated in eBPF helpers
--	 * (e.g. bpf_xdp_adjust_tail), we need to update data_len here.
-+	 * (e.g. bpf_xdp_adjust_tail). Remove the old fragment contribution
-+	 * from skb->len before updating data_len, then add the new one back.
-+	 * This must precede the linear tail adjustment below: a changed
-+	 * data_end implies that no fragments remain, and __skb_put() requires
-+	 * a linear skb.
- 	 */
--	if (xdp_buff_has_frags(xdp))
-+	skb->len -= skb->data_len;
-+	if (xdp_buff_has_frags(xdp)) {
- 		skb->data_len = skb_shinfo(skb)->xdp_frags_size;
--	else
-+		skb->len += skb->data_len;
-+	} else {
- 		skb->data_len = 0;
-+	}
-+
-+	/* check if bpf_xdp_adjust_tail was used */
-+	off = xdp->data_end - orig_data_end;
-+	if (off != 0)
-+		__skb_put(skb, off); /* positive on grow, negative on shrink */
+-	spin_lock_irqsave(&chip->spinlock, flags);
++	raw_spin_lock_irqsave(&chip->spinlock, flags);
+ 	reg_val = ioread32(&chip->reg->regs[chip->ch].po);
+ 	if (val)
+ 		reg_val |= BIT(nr);
+@@ -103,7 +103,7 @@ static int ioh_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
+ 		reg_val &= ~BIT(nr);
  
- 	skb->protocol = eth_type_trans(skb, rq->dev);
+ 	iowrite32(reg_val, &chip->reg->regs[chip->ch].po);
+-	spin_unlock_irqrestore(&chip->spinlock, flags);
++	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
  
+ 	return 0;
+ }
+@@ -123,7 +123,7 @@ static int ioh_gpio_direction_output(struct gpio_chip *gpio, unsigned nr,
+ 	u32 reg_val;
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&chip->spinlock, flags);
++	raw_spin_lock_irqsave(&chip->spinlock, flags);
+ 	pm = ioread32(&chip->reg->regs[chip->ch].pm);
+ 	pm &= BIT(num_ports[chip->ch]) - 1;
+ 	pm |= BIT(nr);
+@@ -136,7 +136,7 @@ static int ioh_gpio_direction_output(struct gpio_chip *gpio, unsigned nr,
+ 		reg_val &= ~BIT(nr);
+ 	iowrite32(reg_val, &chip->reg->regs[chip->ch].po);
+ 
+-	spin_unlock_irqrestore(&chip->spinlock, flags);
++	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+ 
+ 	return 0;
+ }
+@@ -147,12 +147,12 @@ static int ioh_gpio_direction_input(struct gpio_chip *gpio, unsigned nr)
+ 	u32 pm;
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&chip->spinlock, flags);
++	raw_spin_lock_irqsave(&chip->spinlock, flags);
+ 	pm = ioread32(&chip->reg->regs[chip->ch].pm);
+ 	pm &= BIT(num_ports[chip->ch]) - 1;
+ 	pm &= ~BIT(nr);
+ 	iowrite32(pm, &chip->reg->regs[chip->ch].pm);
+-	spin_unlock_irqrestore(&chip->spinlock, flags);
++	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+ 
+ 	return 0;
+ }
+@@ -256,7 +256,7 @@ static int ioh_irq_type(struct irq_data *d, unsigned int type)
+ 	dev_dbg(chip->dev, "%s:irq=%d type=%d ch=%d pos=%d type=%d\n",
+ 		__func__, irq, type, ch, im_pos, type);
+ 
+-	spin_lock_irqsave(&chip->spinlock, flags);
++	raw_spin_lock_irqsave(&chip->spinlock, flags);
+ 
+ 	switch (type) {
+ 	case IRQ_TYPE_EDGE_RISING:
+@@ -296,7 +296,7 @@ static int ioh_irq_type(struct irq_data *d, unsigned int type)
+ 	ien = ioread32(&chip->reg->regs[chip->ch].ien);
+ 	iowrite32(ien | BIT(ch), &chip->reg->regs[chip->ch].ien);
+ end:
+-	spin_unlock_irqrestore(&chip->spinlock, flags);
++	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+ 
+ 	return 0;
+ }
+@@ -326,11 +326,11 @@ static void ioh_irq_disable(struct irq_data *d)
+ 	unsigned long flags;
+ 	u32 ien;
+ 
+-	spin_lock_irqsave(&chip->spinlock, flags);
++	raw_spin_lock_irqsave(&chip->spinlock, flags);
+ 	ien = ioread32(&chip->reg->regs[chip->ch].ien);
+ 	ien &= ~BIT(d->irq - chip->irq_base);
+ 	iowrite32(ien, &chip->reg->regs[chip->ch].ien);
+-	spin_unlock_irqrestore(&chip->spinlock, flags);
++	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+ }
+ 
+ static void ioh_irq_enable(struct irq_data *d)
+@@ -340,11 +340,11 @@ static void ioh_irq_enable(struct irq_data *d)
+ 	unsigned long flags;
+ 	u32 ien;
+ 
+-	spin_lock_irqsave(&chip->spinlock, flags);
++	raw_spin_lock_irqsave(&chip->spinlock, flags);
+ 	ien = ioread32(&chip->reg->regs[chip->ch].ien);
+ 	ien |= BIT(d->irq - chip->irq_base);
+ 	iowrite32(ien, &chip->reg->regs[chip->ch].ien);
+-	spin_unlock_irqrestore(&chip->spinlock, flags);
++	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+ }
+ 
+ static irqreturn_t ioh_gpio_handler(int irq, void *dev_id)
+@@ -440,7 +440,7 @@ static int ioh_gpio_probe(struct pci_dev *pdev,
+ 		chip->base = base;
+ 		chip->reg = chip->base;
+ 		chip->ch = i;
+-		spin_lock_init(&chip->spinlock);
++		raw_spin_lock_init(&chip->spinlock);
+ 		ioh_gpio_setup(chip, num_ports[i]);
+ 		ret = devm_gpiochip_add_data(dev, &chip->gpio, chip);
+ 		if (ret) {
+@@ -484,9 +484,9 @@ static int ioh_gpio_suspend(struct device *dev)
+ 	struct ioh_gpio *chip = dev_get_drvdata(dev);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&chip->spinlock, flags);
++	raw_spin_lock_irqsave(&chip->spinlock, flags);
+ 	ioh_gpio_save_reg_conf(chip);
+-	spin_unlock_irqrestore(&chip->spinlock, flags);
++	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+ 
+ 	return 0;
+ }
+@@ -496,11 +496,11 @@ static int ioh_gpio_resume(struct device *dev)
+ 	struct ioh_gpio *chip = dev_get_drvdata(dev);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&chip->spinlock, flags);
++	raw_spin_lock_irqsave(&chip->spinlock, flags);
+ 	iowrite32(0x01, &chip->reg->srst);
+ 	iowrite32(0x00, &chip->reg->srst);
+ 	ioh_gpio_restore_reg_conf(chip);
+-	spin_unlock_irqrestore(&chip->spinlock, flags);
++	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+ 
+ 	return 0;
+ }
+
+base-commit: a02b8950d619123da64f69b70fe1dadef217dfe4
 -- 
 2.43.0
 
