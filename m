@@ -1,144 +1,108 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A913EC835
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785497020; cv=pass; b=Jf3rCnZtEy3zizcXTFVja83BXHWHVXdjWc4rSuraYb57zB1IOzXWHV+Uy7QvL7TqXAbGPAK+aNw7uBMs2HIKmjiKtUyXJ48L7lSBi48Mg2cGaWque4JpJz2Ny4osQk6TOhhmBIaFM//+HTxUlVxhm4enNK6OkbFhm2ttRJ3oFqU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785497020; c=relaxed/simple;
-	bh=Tjxrngnbb1L6fKIjskcna7MeeUTYCRbwtPNR2IeZhks=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UOqJ8L905DPyWBsDnyqAq+Nkcd7Dlu69YkJXwz9nIsoqkjuCfCjinvVWmGLgZA61mywn4zjG3eoX9S2GD5HTEFyPOIOXG3j631T5E4aWkyBVe7AZRtB12kJR/QkYgzUGIvNfkwp3Waq3hr/ja5noDRa57HD+e+NSpz1MUL38E0g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=DKhJRnyV; arc=pass smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522FB3B71DC
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:33:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785497608; cv=none; b=daIwAHKhZqmOIsNQp30QxG6RlH1j5R0ntQcqfimQaEtUwJEP+4AQBnlSe0Y5CdkGuWBsAqxtkwi9Jl0RUtAy/FlsNHX7ZL/CXKdxn3yl1eTjhRPeYAd6LDMfQEnef5kapvVh4AoXLKhqSr7R+RBeABAHcUb8l1vJBtmy/C1Dr4c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785497608; c=relaxed/simple;
+	bh=acMVSnnBfP4/A8niwByr5PVqgzFtdNWXtvbU4R00lw0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=i7EBUI142nuValzPnVv4r3E+rX/OGCBPh+nCtZHqRbLb3m6QnuryzEOCERG8ZdxvsMbh26gy0VRCe5A5M9a1X3lGP7hnGLFEGJa+W7B3fdb7w+34lJCaho6pUc9xuEQQ2BxpyRbAy6u9m14A91DNK7KBsWjJxmk0OqLTE0QE2n0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iSSz4Wrv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="DKhJRnyV"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a082b3671fso1391471a12.3
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 04:23:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785497016; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Qrlkkzaui26c1qSvk8i7SiKZumHvkXaqn6aKa1KJHCyP1DjwrcFBvZ9O6unbGSK7UZ
-         spWNzR4cjCgJUdQo3BvewW9g+UftCOcRKovfXA0C6C52eoJf+ovbF4JlJKw906KOFMv2
-         ALxP/eVVb8s2DXC4OJ422leag8jx4xOiGVcmJl0c9Uc+jOLyH+wogRgXpzXArHJgtD8v
-         WhG8wMRbLoKoPIiiQEp+BghY+GJL2D+Cr/nzl0uzXeKaM80CctJqYMw9ka8mzHzZeR6E
-         +Ox5hUvh9gSs9+NOkGo6KgMxT+xT0E5xrtK9/lpW9VHZh1R0XFa26td12kuUQVCro1py
-         rWsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DCSOnPh7d3OM5NtLNdoViyd21RmfOfuFsm28QcChymw=;
-        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
-        b=bBSePA2KjQPpm9RCvt0JU8e52lZbf9vGdzLmvfxI03lnHoS3SOq8js+/FKyoT/6fBL
-         6xQtuJvgMmHgALldnx0s13Fb1fqCYDm7uvqE1hN7bnXznqKPoiaFyS9XhlIkBJ99rwqo
-         ZXo6ud0mg6e6VOGNn+2qepJG0F2AqJqMvPgUyHFKu2oLCHWjldSTLbl9DrVcXG6vyZ8d
-         wJDqamimzDVfsyZAHCdz7Ukd8qX6S9JX2j/DQ+xjXjiH8HA69Nvsdln7/qlhDOzyVUEH
-         Tmy8LdH0Wj71/gUm0UXDVHoxob3lUlgzMcgROD/+xV0wKUZPJ03wcknarG4vH//mntwN
-         1ROg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=futuring-girl.com; s=google; t=1785497016; x=1786101816; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DCSOnPh7d3OM5NtLNdoViyd21RmfOfuFsm28QcChymw=;
-        b=DKhJRnyVO53idGr+6V7Gd9ylr1S4MHm4qjz+6Brm5iQd3fQO3FPdfUtNcJLWHtllFJ
-         +z9gfgmoHlvJEUykmADbL9B4vQed7J/iOJ6Xp1RvelM6LI8p5cLdxKpW/x06D+4DoujK
-         Fb922MJamZhnfkU9PFnk6btKZ2xKyE4WnR3/yYmr108OjW4CMjYAwgh3SZ/mCvn3lMSm
-         pyAel4SYPPKMwCl16n+oWkfbdv5ieAKm+hM/r7yNHjPlQ95yiysCETjhGlYTlzIRVdpK
-         uyhM+cWt8QykKOZwNDLJc/eK+cr7GCjj02wVco0ffvJ/D91gqdC+t2z8crTRR+p8wqXI
-         EL/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785497016; x=1786101816;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DCSOnPh7d3OM5NtLNdoViyd21RmfOfuFsm28QcChymw=;
-        b=UasfJFj+OQ3pV85/j8lFoZEzoFcmfE4Fskn0bLsK6aIvFAlkz8IK2APvEb/BBiYOky
-         t+ApwFLbOTakqFMWsBX44L6JeoNuRZXzO0saDseCdX0tBfva9MD9Yp4yNW+WRpJq8lku
-         StQ3VKAw2JUxPtVC4e78nn1Y5r9gGEwT7YqD2XK4YWErBvIE1GZe1VV1v7rZ7rV2c43C
-         dm6jyMX/uIUVVUV0VQ8ZvBVloQ2ZGWYV9OGxsM08OTx3swIfZIh4JoDp+Ldb3WsS/Ivv
-         RuqpkOJZYjjIplm81b7kXZnFB+C7hnWLqd6+flY5zdv2tN+P45jzCOvsU7RcvhNvSEsF
-         ePyg==
-X-Gm-Message-State: AOJu0Yy8odwK3tC3PJgN29y7V68tYKdZm8yHaA58CetUPTpUC9UyYyEU
-	4ckdwU+PCP+8hQmlwg/Vqi/690NJv6v8MsdR7/KvUNzUqWjJSSD5xKFHW40iO2Jhm3NveaFxncK
-	nseKxbHPqdrm7HMj+fLBYbcHVEiBb5ewMbBFm122wyA==
-X-Gm-Gg: AR+sD116AZAMk9uvAGHJfGlhWH6YVRvss8GY8IWl0WLvsmdcVyx4arK6misuIgL7d+w
-	AeMF2evg7gy1zp05l9bXGiYMV+LMGOhuEhvIRElAMWm9EhCdP66tHttwuHn3RCxedmiudV027F2
-	3WRNwl3lmUP6RwP9w0iGeWU5FU1OmWdHDldx3SvA1b+YCkZYGU32yPMP5+s8cN2ZtUAfxJcuWNL
-	0IRnQAdZCulsqr917qXTQ72SBTWXonFikWBiDK3wZJDo69EJJqQRL/38YNzM8pFkJFc996BkLMr
-	65JJiHn1sbDnDy1zvkzePqxQusbSeYKFPtqo70ERUnrLqw==
-X-Received: by 2002:a17:907:ea8c:b0:c08:417e:3696 with SMTP id
- a640c23a62f3a-c1fd1ecd84dmr109074566b.20.1785497015732; Fri, 31 Jul 2026
- 04:23:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iSSz4Wrv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 800881F000E9;
+	Fri, 31 Jul 2026 11:33:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785497607;
+	bh=K5wpzDPnaqtoZnB3ZcDmtbZDR3cL5ySfN0sVFkmEiyg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iSSz4WrvijNo6W+t0nEjeA7Yu/geBzmRpqC/9TEPz9WurjuLC6IGGrEb97+f7/aMu
+	 iIW3OBKOIfkbGB3vRr9emYU3q1OGAA2V/3BdEiA5ohdg1USQ9Z7gVWwI3+w41wZJEi
+	 n9LZrV/hLv1bz1TiRj38CuKVxA3d0Ng87AzeHcOuXqNdRx57LAUMeXyDW4MgUJpdeU
+	 2NfqPkV5LYWOtElctKNU7hCP7mW/GxC0QWtyf0cY8yQXiiC/6OcbHdOjlhPYTPe9cd
+	 krwi3Urn8r3tqxb+EcaOP26V6gyeDejjfyyvoBlQG61HelrPlF9hMXWtCZBofMUQ1h
+	 BgVK0WB7VRmpw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ashutosh Desai <ashutoshdesai993@gmail.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] drm/dp/mst: fix OOB reads in remote DPCD/I2C sideband reply parsers
+Date: Fri, 31 Jul 2026 07:33:24 -0400
+Message-ID: <20260731113324.3700825-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072940-harmonica-stage-8c21@gregkh>
+References: <2026072940-harmonica-stage-8c21@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260730141444.267951807@linuxfoundation.org>
-In-Reply-To: <20260730141444.267951807@linuxfoundation.org>
-From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
-Date: Fri, 31 Jul 2026 20:23:18 +0900
-X-Gm-Features: AUfX_mw3hd-7UMBmhngr8a7ueuiKz8UX9MJTHvwheDI8VI-Iv31bFbQRyyRd-nI
-Message-ID: <CAKL4bV5XWoE+AmOmgm-yCSLoDX8M+KzvbNgnDyNt5JKzH9mHbA@mail.gmail.com>
-Subject: Re: [PATCH 7.1 000/744] 7.1.6-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Greg
+From: Ashutosh Desai <ashutoshdesai993@gmail.com>
 
-On Thu, Jul 30, 2026 at 11:43=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.1.6 release.
-> There are 744 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sat, 01 Aug 2026 14:13:38 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
->         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
-7.1.6-rc1.gz
-> or in the git tree and branch at:
->         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
--rc.git linux-7.1.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
->
+[ Upstream commit 1a8f537f5a1eeac941f262fe73078d6b08ba83c0 ]
 
-Linux version 7.1.6-rc1 tested.
+drm_dp_sideband_parse_remote_dpcd_read() reads num_bytes from the raw
+message and then unconditionally does:
 
-Build successfully completed.
-Boot successfully completed.
-No dmesg regressions.
-Video output normal.
-Sound output normal.
+  memcpy(bytes, &raw->msg[idx], num_bytes);
 
-Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
+without checking that idx + num_bytes <= raw->curlen. raw->msg[] is
+256 bytes; if a malicious or misbehaving MST hub sets num_bytes larger
+than the remaining payload, the memcpy reads past the received data
+into whatever follows in raw->msg[].
 
-[    0.000000] Linux version 7.1.6-rc1rv-gecc0c68d2044
-(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.1.1 20260728, GNU ld (GNU
-Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Fri Jul 31 19:44:25 JST 2026
+drm_dp_sideband_parse_remote_i2c_read_ack() has the same flaw (noted
+with a /* TODO check */ comment since the code was introduced).
 
-Thanks
+Fix both functions by using a single combined check
+(idx + num_bytes > curlen) before each memcpy. Since num_bytes is u8,
+it is always >= 0, so this strictly subsumes the simpler idx > curlen
+form and no separate step is needed.
 
-Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Fixes: ad7f8a1f9ced ("drm/helper: add Displayport multi-stream helper (v0.6)")
+Cc: <stable@vger.kernel.org> # v3.17+
+Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+[added missing fixes tag]
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Link: https://patch.msgid.link/20260510201733.2882224-1-ashutoshdesai993@gmail.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/drm_dp_mst_topology.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index 70be5719e403..35604c8aeb27 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -861,7 +861,7 @@ static bool drm_dp_sideband_parse_remote_dpcd_read(struct drm_dp_sideband_msg_rx
+ 		goto fail_len;
+ 	repmsg->u.remote_dpcd_read_ack.num_bytes = raw->msg[idx];
+ 	idx++;
+-	if (idx > raw->curlen)
++	if (idx + repmsg->u.remote_dpcd_read_ack.num_bytes > raw->curlen)
+ 		goto fail_len;
+ 
+ 	memcpy(repmsg->u.remote_dpcd_read_ack.bytes, &raw->msg[idx], repmsg->u.remote_dpcd_read_ack.num_bytes);
+@@ -897,7 +897,9 @@ static bool drm_dp_sideband_parse_remote_i2c_read_ack(struct drm_dp_sideband_msg
+ 		goto fail_len;
+ 	repmsg->u.remote_i2c_read_ack.num_bytes = raw->msg[idx];
+ 	idx++;
+-	/* TODO check */
++	if (idx + repmsg->u.remote_i2c_read_ack.num_bytes > raw->curlen)
++		goto fail_len;
++
+ 	memcpy(repmsg->u.remote_i2c_read_ack.bytes, &raw->msg[idx], repmsg->u.remote_i2c_read_ack.num_bytes);
+ 	return true;
+ fail_len:
+-- 
+2.53.0
+
