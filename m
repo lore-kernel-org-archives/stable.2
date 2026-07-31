@@ -1,87 +1,33 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC013AB498
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 07:30:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 24FCF2DB791;
+	Fri, 31 Jul 2026 07:32:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785483042; cv=none; b=KImW7xHhZoKgUTVDwAf3X08O2hwmXAsW7IRuz4qPdN2dmWZd2PSXCK6+ctQeiiQBwdioxher1srA056KWoyWaDybKuGESUUh/DqFx0dgIXX8bkrnVSuKc6BtIrnGtdh1Cvw4VKZ6htEyPaEWFRCyTl7TN1783Rdlvwi9PbMisp4=
+	t=1785483134; cv=none; b=cjwyueiiZi3TB2dQcYrkwLzN2UjIf3KHxzkuxOHl4aW+sp/BpXrR/yrKpnMIarkli7cvT7a3t7whHdfigj3PugvPq1mNummQqXd2s9yEyChbi6r8Evtm1gnm07EXN6HtyqNaM30G9O0VhiV3zYJI8xijlD4mdiMQ23yAOnxJs90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785483042; c=relaxed/simple;
-	bh=ws230jDp6Le67PM370HntSHPb6BWySaE7hpPdaRTbpw=;
+	s=arc-20240116; t=1785483134; c=relaxed/simple;
+	bh=ZF0s57b7k6e5dP90r8jkPEAojTmMsS7ee7l7SCFAQVw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lx+cpJNnq2tUQI2ZrV3kexKhGgxI1+tFrpILWbOUjO9P6RSSv+Ki6y4uChpHJbgIi+iangFK0ozG2gNV0lGI+7ztINJZWem64vrc+G9E8yZQRICew0mF3VQEehMi+NRtb8HkrJQRquyUpeHuRWCufGqDPNGr9h/zp67ZvtSRwAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i0qsr+6N; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Mxv/B3Ph; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=ASHQXt+QoHN6HweStrdZahplAHljtk4fU7d6aNk1XKOVMyoxUEfLcsptenKy5ODcPlfIvnPmSdysa2tpdDY2c5rTWkQMRfHbAexFVbR/X9pGhZabrFHbCbp2p8aOkQi4ZhhoAGJDB50isIpQscaY0YinjAh2yi7G0KDGqbd+v3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QmdmE8Lm; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i0qsr+6N";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Mxv/B3Ph"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66V7ScEt3241099
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 07:30:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jukmAepEItxoJN8i97/lVV56EabbQ+hdagvD7H46HpA=; b=i0qsr+6NL1EB7Hsy
-	/zCmShLgoc3aq6iwEs8yk0f05xuqDds3rsYebsILRNXDIqZLKe004GSvhfnHo4PD
-	zKElQ0MoQnWSkA7YTW6lXeXzsPekQJbLEanFL64L/Kz3FwBgP0gpIAifs7xJF7/Q
-	H7tKFKQbROGft1mZ+YKKIPXfUbCbigb1O1W595B2lgnmA37w+V6b6e9EKQGl/Wf5
-	sx8JEyDYMtttqSc/UMdY2I2Z4D8p6hpIdfLGcZ3IvYYAvT/Sj3GLQ8OpUfUXOekQ
-	fvsaB0lTY6EzTFtcB0M8jFvunGg5gJpCA/LM/VUM2zYpATpxeUwU+jOHxmmYRR3D
-	T/BphA==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frqbfg068-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 07:30:40 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ccb687f82eso9878305ad.3
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 00:30:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785483039; x=1786087839; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jukmAepEItxoJN8i97/lVV56EabbQ+hdagvD7H46HpA=;
-        b=Mxv/B3PhWiVvQVDzH7lHlwEVPqS8DZHQ/Ii4XoSBXvnOomqIBbNRi545XT5RXedtVS
-         BwjXEVDvjuScn8Bhzx3GhyZbJZluvsUnVqDVdP0CwRvDCKXzh2xjP3OM1W3056D8y3bE
-         G1K3EW+stdbD0KOW5WDFNaS4gHJ5vrHpGNFndt7FzjHwnW1ZE0wdswOhTCQvQBQ5dWHG
-         9VYapPKziBy43vnpLoQjlKDa2MzBHdE2qWQOumgqMg93HuOX2/1VjR4tuLwkR7WJz4mq
-         qQPuogAMP9CrXA/+TufQJs3OrMLew5CUmiLjRVZBDeLziOUnEcpSC/lZCX2Xa6YPO5DR
-         Ohvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785483039; x=1786087839;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jukmAepEItxoJN8i97/lVV56EabbQ+hdagvD7H46HpA=;
-        b=OSyXcoLigXa0bjVMXRkY/fAKQPY1KFi5/NhP6Tj57dCyjOkpu4m/T4bd1UgPTHRsHr
-         KTKAvBxYpdprYKt8WMG60kyOx4fRUcK6etHLhnwgMkDLglpkCqJoZiP4q9ga+tvFDgza
-         t4zDBrSm0dDPzmegP6sXtHf7m3q0wCx40nJfkfMtfuQ3r2/suX2yo37dyYkwLwBPdf6U
-         1opJtrG9iNkoEbApWA7+eFx3KlUugZ0m3r1yJHiSJvojn2+xuHFCkErj+YHx5xCwtN9J
-         i9OXlRkjqCrmkzgVHLrgDj0VGvMGmu1RBu8Q0DgPObCzPpPkTcgprcqY9wlhoBy/FhlC
-         EkdQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoulUuYq5aS+A6uB5bxef9fPMSnd/djWLggY5z5Sr+VQ5jx8VeAAKX5sJ4vXCgbugsZOJrQQvA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywm94ikSUucgw7/2sS/WRIKKk5adnRbXLryj307qEM7gZ0ccAJl
-	wgst3qGary9Am1YJitllrBaRXQH7w/lRJgwV1zMMPHrTSNbes/kTXQkH0hlvk8M0jn+QG89sVmc
-	/d0QZYy6YxwPj5/s7sCMGfVUUf8FiyNrMUl9iUyL++TIiUNbGe323OpfAxA1r/2hQZQU=
-X-Gm-Gg: AR+sD13jSnLDvOoF9l36FC5T1nBkSmvmNYd1ltlxiQZb4Xtdl87ALrpz6w+nopoRSHC
-	5UlyJWH0oom9BGtZgAnP3E+bOpTG259ijJZyq1Q9Q10S7pIJ2pOZyXEZWHDnOfdEcjxGsRdDMq1
-	Z4P0w64/FCEIsYqZ4hlmklva2mC4iM7D/uBcdQCeKcdxceEcKLzY7i9gWFSF1xcsY1b2x9g2+ck
-	9Z6GLD56CTHJGllQw61oYJ5dO/LtBYyDtDky6P7FX4Du4rb7UZgJL5qr6eheHmKM74Yyhx8xuKT
-	Dp4Id5XUpJwEusgA/FcnCFZSQA4xgXAtdOu9clfDxOLluBiV8vohZlcpaV3k0J+Okxo5VY3wiXx
-	GuivxyPzRql92SZtfjqsYwv5Au6NPxWuDe+z3iDBpye0afNKTBs6HO5EOYHxW4UgZKcb0ODIImA
-	==
-X-Received: by 2002:a17:902:f78c:b0:2cc:d807:369c with SMTP id d9443c01a7336-2d046ef5899mr10209495ad.45.1785483039583;
-        Fri, 31 Jul 2026 00:30:39 -0700 (PDT)
-X-Received: by 2002:a17:902:f78c:b0:2cc:d807:369c with SMTP id d9443c01a7336-2d046ef5899mr10209155ad.45.1785483039005;
-        Fri, 31 Jul 2026 00:30:39 -0700 (PDT)
-Received: from [10.133.33.123] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d04ae60139sm1872645ad.29.2026.07.31.00.30.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 31 Jul 2026 00:30:38 -0700 (PDT)
-Message-ID: <e7aa133a-0d06-48f6-90e0-1255972bd462@oss.qualcomm.com>
-Date: Fri, 31 Jul 2026 15:30:33 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QmdmE8Lm"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6AD29204C;
+	Fri, 31 Jul 2026 00:32:08 -0700 (PDT)
+Received: from [10.57.87.104] (unknown [10.57.87.104])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 04B143F7B4;
+	Fri, 31 Jul 2026 00:32:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1785483132; bh=ZF0s57b7k6e5dP90r8jkPEAojTmMsS7ee7l7SCFAQVw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=QmdmE8LmZOy1p44SMZM6kf1/Ccor+OsXQQ1WWsqax9C1Os2gHtE1PgT6/Lrg/jJii
+	 nIlZT+HbHDflulV5FqL2zo+lSgK1ARWWn0Lkr8nFEybeVVqa7vP2rp4+UeQiknqvhm
+	 /7MU+S1uAeJx/VkE7Pw1k346t1xpTrjDjQPcD8ho=
+Message-ID: <2125ea5a-d878-4032-9338-d0cd0970ccfa@arm.com>
+Date: Fri, 31 Jul 2026 08:32:07 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,75 +35,157 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] wifi: ath11k: Fix possible memory leak in
- ath11k_dp_srng_setup()
-To: Abdun Nihaal <nihaal@cse.iitm.ac.in>, jjohnson@kernel.org
-Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260727105532.118164-1-nihaal@cse.iitm.ac.in>
-From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260727105532.118164-1-nihaal@cse.iitm.ac.in>
+Subject: Re: [PATCH] drm/panthor: snapshot firmware interface counts before
+ loops
+To: Osama Abdelkader <osama.abdelkader@gmail.com>,
+ Liviu Dudau <liviu.dudau@arm.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260720135518.17927-1-osama.abdelkader@gmail.com>
+ <amjH-v6-2POzmj1q@e142607> <amnrQq-IJzIB_kgF@osama>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <amnrQq-IJzIB_kgF@osama>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=MIFQXsZl c=1 sm=1 tr=0 ts=6a6c4f20 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=45AEqwlmaGsIJYzuV-UA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDA1MiBTYWx0ZWRfX/sfnEC1c8dvs
- kEYSw8zC60wjQyRVSTIeetbSbVA9jxCJKsVxePlCMq1vUc0xxxkt+xSOzvBJYN3o5HdAMeh3FO+
- 1VyqRfI5y8aFobdQ0CavE6KfgJN86cgITBF2q6gbcbGJBuvQbjpR+PoNGLB8yKg1YZAlN40qOYu
- vd8ONLjtCIWMl3DhZ3v7/fTn4wfqs8pETvD3coUb1u+AM1dGXuFEcS712d9rMExZOjBOVKraPBx
- tB5JM5wWmQSjjrhPb3LXn+rvCg7IdVIcCoRUJtTt8MSRAYsxEEL/nfSbElWn/pIppF2oR+w0DFs
- Fy4PbYqDhNmHGbIZn5Im7Gx8vx8JXKBjZoXwHHB30DmQoHKW49b+7x9Wq3KExOIPyTx75OBgG/z
- e6GErjtCTUHPweVdNTLRq960KQccHaHF/sS4YwkHdgrmZdEaoYSIzyL/eLOJSeD50uWRHNk9Hvd
- R6tSEn62sM9V/WAAuYw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDA1MiBTYWx0ZWRfXy5Bgftc9dFBD
- X5NplOkBqBlBRJO5OfQhqgMI/cqp7nfautws2a3ahotDtOTI7jcmPkAn22Qd78Aw5rbMn1xUCJS
- NUO5+56hUlYnuOPcWq+XVf9Tumo0qmI=
-X-Proofpoint-GUID: g7L9V3DeR9Zxgr_Y_kvOXqDZwvGwgS9S
-X-Proofpoint-ORIG-GUID: g7L9V3DeR9Zxgr_Y_kvOXqDZwvGwgS9S
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_02,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 suspectscore=0 spamscore=0 priorityscore=1501
- phishscore=0 adultscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310052
+Content-Transfer-Encoding: 8bit
 
-
-
-On 7/27/2026 6:55 PM, Abdun Nihaal wrote:
-> In ath11k_dp_srng_setup(), the memory allocated for
-> ring->vaddr_unaligned is not freed when ath11k_hal_srng_setup() fails.
-> Fix that by calling ath11k_dp_srng_cleanup() in that error path.
+On 29/07/2026 13:00, Osama Abdelkader wrote:
+> On Tue, Jul 28, 2026 at 04:17:14PM +0100, Liviu Dudau wrote:
+>> On Mon, Jul 20, 2026 at 03:55:18PM +0200, Osama Abdelkader wrote:
+>>> The firmware exposes the global group count and per-group stream count in
+>>> the shared control interface. These values are validated before being used
+>>> as loop bounds, but the memory is shared with the MCU firmware and can be
+>>> changed after validation.
+>>
+>> Again, you're making statements that need to be proven here. How is MCU
+>> firmware going to change the content of the memory shared with the driver?
+>>
 > 
-> Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-> ---
-> Compile tested only. Issue found using static analysis.
-
-this info is useful hence can be put in commit mesage
-
+> Thanks for the review. yes, this was flagged by Sashiko while reviewing the 
+> previous patch, but I agree the commit message shouldn't present it as a proven
+> firmware mutation bug.
 > 
->  drivers/net/wireless/ath/ath11k/dp.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/net/wireless/ath/ath11k/dp.c b/drivers/net/wireless/ath/ath11k/dp.c
-> index f389b97acbdd..c3a16da1cba7 100644
-> --- a/drivers/net/wireless/ath/ath11k/dp.c
-> +++ b/drivers/net/wireless/ath/ath11k/dp.c
-> @@ -324,6 +324,7 @@ int ath11k_dp_srng_setup(struct ath11k_base *ab, struct dp_srng *ring,
->  
->  	ret = ath11k_hal_srng_setup(ab, type, ring_num, mac_id, &params);
->  	if (ret < 0) {
-> +		ath11k_dp_srng_cleanup(ab, ring);
->  		ath11k_warn(ab, "failed to setup srng: %d ring_id %d\n",
->  			    ret, ring_num);
->  		return ret;
+> The useful part here is just making the validated count the same value used
+> as the loop bound. since It's an optimisation, should I send v2 without Fixes
+> and Cc stable tags?
 
-Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+I think the issue here is that Sashiko is thinking the firmware isn't
+trusted. And there's some truth to that - we do perform validation of
+the firmware binary and sanity check some of the values it writes. But
+this is more as a robustness check rather than a real trust boundary.
+The firmware changing values under the kernel's feet is more than just a
+robustness bug, it's only really likely to happen with an actually
+malicious firmware.
+
+But the actual change is reasonable, as Liviu says it could even be a
+(very minor) optimisation. So if you could send a v2 with a reworded
+commit message then feel free to add:
+
+Reviewed-by: Steven Price <steven.price@arm.com>
+
+Thanks,
+Steve
+
+>>>
+>>> Read each count once with READ_ONCE() and use the validated snapshot as the
+>>> loop bound. This keeps the loop bounds consistent with the validation and
+>>> prevents the compiler from reloading a firmware-controlled count during
+>>> iteration.
+>>
+>> As an optimisation I'm fine with it, so:
+>>
+>> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+>>
+>> Best regards,
+>> Liviu
+>>
+> 
+> Best regards,
+> Osama
+>>>
+>>> Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+>>> ---
+>>>  drivers/gpu/drm/panthor/panthor_fw.c | 11 +++++++----
+>>>  1 file changed, 7 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+>>> index e2fcbd639c3c..6e6da98d795e 100644
+>>> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+>>> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+>>> @@ -959,6 +959,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+>>>  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
+>>>  	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
+>>>  			   ((u64)csg_idx * glb_iface->control->group_stride);
+>>> +	u32 stream_num;
+>>>  	unsigned int i;
+>>>  
+>>>  	if (iface_offset > shared_section_sz ||
+>>> @@ -972,8 +973,8 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+>>>  	csg_iface->output = iface_fw_to_cpu_addr(ptdev, csg_iface->control->output_va,
+>>>  						 sizeof(*csg_iface->output));
+>>>  
+>>> -	if (csg_iface->control->stream_num < MIN_CS_PER_CSG ||
+>>> -	    csg_iface->control->stream_num > MAX_CS_PER_CSG)
+>>> +	stream_num = READ_ONCE(csg_iface->control->stream_num);
+>>> +	if (stream_num < MIN_CS_PER_CSG || stream_num > MAX_CS_PER_CSG)
+>>>  		return -EINVAL;
+>>>  
+>>>  	if (!csg_iface->input || !csg_iface->output) {
+>>> @@ -990,7 +991,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+>>>  		}
+>>>  	}
+>>>  
+>>> -	for (i = 0; i < csg_iface->control->stream_num; i++) {
+>>> +	for (i = 0; i < stream_num; i++) {
+>>>  		int ret = panthor_init_cs_iface(ptdev, csg_idx, i);
+>>>  
+>>>  		if (ret)
+>>> @@ -1015,6 +1016,7 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
+>>>  {
+>>>  	struct panthor_fw_global_iface *glb_iface = &ptdev->fw->iface.global;
+>>>  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
+>>> +	u32 group_num;
+>>>  	unsigned int i;
+>>>  
+>>>  	if (!ptdev->fw->shared_section->mem->kmap)
+>>> @@ -1034,17 +1036,17 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
+>>>  		return -EINVAL;
+>>>  	}
+>>>  
+>>> -	if (glb_iface->control->group_num > MAX_CSGS ||
+>>> -	    glb_iface->control->group_num < MIN_CSGS) {
+>>> +	group_num = READ_ONCE(glb_iface->control->group_num);
+>>> +	if (group_num > MAX_CSGS || group_num < MIN_CSGS) {
+>>>  		drm_err(&ptdev->base, "Invalid number of control groups");
+>>>  		return -EINVAL;
+>>>  	}
+>>>  
+>>> -	for (i = 0; i < glb_iface->control->group_num; i++) {
+>>> +	for (i = 0; i < group_num; i++) {
+>>>  		int ret = panthor_init_csg_iface(ptdev, i);
+>>>  
+>>>  		if (ret)
+>>>  			return ret;
+>>>  	}
+>>>  
+>>>  	drm_info(&ptdev->base, "CSF FW using interface v%d.%d.%d, Features %#x Instrumentation features %#x",
+>>> -- 
+>>> 2.43.0
+>>>
+>>
+>> -- 
+>> ====================
+>> | I would like to |
+>> | fix the world,  |
+>> | but they're not |
+>> | giving me the   |
+>>  \ source code!  /
+>>   ---------------
+>>     ¯\_(ツ)_/¯
+
