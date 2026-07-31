@@ -1,161 +1,125 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F909428472
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 13:33:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE783B7769;
+	Fri, 31 Jul 2026 13:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785504807; cv=none; b=Wb5mAgjEwSAp0KzmoSIhNdeG889yWIcev2OUy3RQhEMyx6g4+mxZkECWSkkFbDHpAUIF+KF+lXehmJUniKO1GC98j65T93S5bTGLsU2W1QBETMfcLlmv9ADrOlERXnl/izsXrymQVFTQHAr9aozQTOIfxDXqzc2JDCYjMt2kSq0=
+	t=1785505163; cv=none; b=nKFpFIx6g5BsM6iCpyXO14SEKITyuRVyILMr+i4vQynlYF+ctX0KvlEH5RglYnLn86sEPyenR2/hfrhC2PoE+4JVFXphzFa39zZPmV0oHhzq7cxC1sCx6XHZvZPZZ9RPKBO6kbLgvo8rtOaQKjeyswTytQ6i90Bhd0JyGzz8Pkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785504807; c=relaxed/simple;
-	bh=0ZXFcIjG4oWdc8p3JZX7VCpAbX3Lg3JdKcHl6N16W/A=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IfYH6dSd/JwikDvncLDdeqvxRND6MqMkQahWgRJ2wwkImCXGtsltsoY9SQN2ttVS/5DJMboqIBrDeQAQo/QIqfpR0qSxtSxTN3+eEiTlc+07owQzy1AVnTUpuMaYhC+2JYSIlq+/eeqr5ib1Ot04riKk4xOGSmosbSfmnQ1maQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WVvCOzrY; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785505163; c=relaxed/simple;
+	bh=i6heaGQLXXeIq1FowZO+BivzaQ73eG5yAk3pGfDncKU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ndzQg9suaM8WvMVAZlmjYFVNn5E+V+5dbr3upK3thH0IX+srECBBRG1MMz36xGZgJx6bd73MHR+zkOKH0Hv1zFQVuMRdpNiZGMfZepw6JcLDsP5srdOZdr/9zZKOILZDJWTdmHiljEjavxJB9Zyi5q7H9s8QWqZQyTPaOAZLXpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=igU8xHOZ; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WVvCOzrY"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-69c5fda04a8so1854773a12.1
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 06:33:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785504804; x=1786109604; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I3TcsUSrg3jSqVgcyvCRrweMraU7LG5frrobAi0eaGc=;
-        b=WVvCOzrYeNWp4E9GpHfx2Mf1NeMIcO16iQdyq/LGA2hb2jH0rCvkb5hgPZljMWqL2o
-         Im5E4IVW+IecPbIiti0Yr2BP9Nrg5Lw0BOnVQdZl1RHZTroKhyVawLduiluWxTfjGz1v
-         w81i9q8qIBtdLnDzh1xWDQCA1ammUjmXE2LDVXl/te+y0g4RlAlSDNOOAN5f/wl32LYm
-         kuxgKbAymLz9aPQtlLxvUsppaMHUu3JO8sBKpjVMpvXfM1pXHJ1VBtW03VD7HDharP9G
-         tQDoJkAFgXbg/1WQZ8Daqf6d2Kr4eKOlbPNXLs3rYY4o4DyQKxuqOuvhhWUbrtrN4Rjj
-         6tMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785504804; x=1786109604;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=I3TcsUSrg3jSqVgcyvCRrweMraU7LG5frrobAi0eaGc=;
-        b=qW8SXPfQiEtLzIid2sZ1uyefl+p5ZcRaw199V/6in78TAdnekK9paExVxPrtmiGNGG
-         7zWv/IMwOC1mv5Eyws1DzLX0WZPpjAoP5QpS+hNNPm3DCFVfUWfNXObCouGzno0f94RQ
-         7mnTG/oRkc2+UNTCOa+TLkbVJzWZ9rNH/6xEjZ+lZRIkYSqtVa0VcE4atdqJq2PVQ3C6
-         csQGYz6xWEpgu6xJh6o6tdCZjGQQGSIMIUhVXeBahgcPyTVCK21Gml/XZPDTVgp9DWJl
-         u/1besN0EgSRNXwwsYLPbSz2fnWvkMEeNiMfmsf4IU8qid1xzR7eGGmLb52F3QCdWp03
-         ViBg==
-X-Forwarded-Encrypted: i=1; AHgh+RqBy2seoVVK2zcX44km8SA54VDaBwm6Ygdmh0sUyRWP4oc4zj0SAahA6HL67+Jk+tyHr6vnc2s=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyByEoaBXdWm5To5HzzsddTLf2o1P8QLsd9QJNVY+bI6x7GlBUB
-	+9u0N+dgvkjNjJ+74V6PvWXzOal0kWWyJ0LHbxAGSnzUcqs37rPzqn5T
-X-Gm-Gg: AR+sD12EV4485sj7JnpRv+hb6bS/iMnH9HjG7gTQiz9UQRevqvE9hEOPS4QC1cEiznu
-	2mwtEPiuU0mbTyfWDm5S2pAf0wA57mgI+PFxWOjHwIOMI0sZjcGWk4CeoMIMbDcuozNZ5y98lQP
-	WkARYIcWiUJxduxzzFsXqAGjPxnExmZSiuenEEv3MN2mwpUGs72spx3Azd7wlK1gz+Z3LW3V8ml
-	LpTogLwjUHVCBCQm53aOZnmt+ySqwFMBpHMZW7o117yBqr52pjWVSIwT/aaw5bSKxkVYkEyubto
-	L3slCUVCqASv5Bkzy/BaSZm48i412vy/3sw7WSj8fxNVBW7V9k+epGKaZ56umctPho0X48p4/OA
-	lHfYgbpcn5lm1Jyc2RxC/F1cyP3eWDBa/Bjf4U9+WbO0yUfYPi9tZx1WmHO2BQgc+llo/S7ANYA
-	pzlLtQh/QdOEbUm8UEa6khq6oMxf4hdgIPbIN96KNZm2AngFM=
-X-Received: by 2002:a05:6402:a6ca:20b0:6a0:9b5a:af7d with SMTP id 4fb4d7f45d1cf-6a09b5ab525mr766276a12.11.1785504803482;
-        Fri, 31 Jul 2026 06:33:23 -0700 (PDT)
-Received: from krava ([173.38.220.53])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a09c5b1bebsm1969846a12.12.2026.07.31.06.33.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 06:33:22 -0700 (PDT)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Fri, 31 Jul 2026 15:33:20 +0200
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: Leon Hwang <leon.hwang@linux.dev>, Jiri Olsa <olsajiri@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>, stable@vger.kernel.org,
-	Tao Chen <chen.dylane@linux.dev>, bpf@vger.kernel.org,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
-	Quentin Monnet <qmo@kernel.org>, STAR Labs SG <info@starlabs.sg>,
-	Arnaud Lecomte <contact@arnaud-lcm.com>
-Subject: Re: [PATCHv2 bpf-next 05/11] bpf: Disable preemption in
- bpf_get_stackid
-Message-ID: <amykIPWvF882t_gF@krava>
-References: <20260729083807.1588544-1-jolsa@kernel.org>
- <20260729083807.1588544-6-jolsa@kernel.org>
- <78c72a5b-0db5-47da-8b35-e6a2e6976d7c@linux.dev>
- <ams3yHvqyXrWAbBV@krava>
- <6a20bbdd-2557-4db8-8839-e2f53857ced9@linux.dev>
- <CAEf4Bzbe1tETVtVMxkaURSoW1PmVfWnR9Kd9iwaPskzCwij7rA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="igU8xHOZ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=PMsSa8DpHjoOi6gmcOGcxYP4gI70dVR+DdX0H08nrsA=; b=igU8xHOZNj8+WBM8T2IIVwmwCe
+	gtJ75h//s9qV2OGqD9o4sG187F6HHQeHnWSNY7M3PO1AVW3dZnWPL1FKD2cihapIWAdEFRCCEg8eb
+	OVqiw/9BCu/zYeEhQLGl3VqkTF+yhYHdiW1WieoRhngC6Jao6ypH7+6XZHaf4T7EbP8gn1+FfhSGI
+	x/kiUQ4Vl6KI4m3dK8iL1f7KQPVWo81uaXr+qfxLtnZu4mWT7aZWURHvBIpc7HW8nGWFqCq3eZm/l
+	cJiguOAdO9Lal5tdBWQwRyoo7xfSphC199vM9u0kenu/ARmzPGF4Rptfdpyr5Z5pPmJjtxs0Sz30e
+	iMmbv/jA==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wpnS2-00000005zwQ-0oaM;
+	Fri, 31 Jul 2026 13:39:02 +0000
+Date: Fri, 31 Jul 2026 14:39:01 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: jane.chu@oracle.com
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	Christian Brauner <christian@brauner.io>,
+	Jiaqi Yan <jiaqiyan@google.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v7 01/13] memory-failure: Fix hardware poison check in
+ unpoison_memory() again
+Message-ID: <amyldelTLZNeGaNQ@casper.infradead.org>
+References: <20260728204409.3396238-1-willy@infradead.org>
+ <20260728204409.3396238-2-willy@infradead.org>
+ <c5b01c38-9c35-468b-9fce-ff7e1e11b03f@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEf4Bzbe1tETVtVMxkaURSoW1PmVfWnR9Kd9iwaPskzCwij7rA@mail.gmail.com>
+In-Reply-To: <c5b01c38-9c35-468b-9fce-ff7e1e11b03f@oracle.com>
 
-On Thu, Jul 30, 2026 at 03:52:14PM -0700, Andrii Nakryiko wrote:
-> On Thu, Jul 30, 2026 at 6:43 AM Leon Hwang <leon.hwang@linux.dev> wrote:
-> >
-> > On 2026/7/30 19:38, Jiri Olsa wrote:
-> > > On Wed, Jul 29, 2026 at 06:30:26PM +0800, Leon Hwang wrote:
-> > >> On 29/7/26 16:38, Jiri Olsa wrote:
-> > >>> The get_perf_callchain call needs disabled preemption plus we need
-> > >>> it disabled as long as we access its returned trace entries buffer.
-> > >>>
-> > >>> Note the bpf_get_stackid_pe function is executed already with
-> > >>> preemption disabled.
-> > >>>
-> > >>> Cc: stable@vger.kernel.org
-> > >>> Fixes: d5a3b1f69186 ("bpf: introduce BPF_MAP_TYPE_STACK_TRACE")
-> > >>> Reported-by: Tao Chen <chen.dylane@linux.dev>
-> > >>> Closes: https://lore.kernel.org/bpf/20260206090653.1336687-2-chen.dylane@linux.dev/
-> > >>> Signed-off-by: Jiri Olsa <jolsa@kernel.org>
-> > >>> ---
-> > >>>  kernel/bpf/stackmap.c | 19 +++++++++++++------
-> > >>>  1 file changed, 13 insertions(+), 6 deletions(-)
-> > >>>
-> > >>> diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
-> > >>> index 43b1e5436047..e48ddb4edd47 100644
-> > >>> --- a/kernel/bpf/stackmap.c
-> > >>> +++ b/kernel/bpf/stackmap.c
-> > >>> @@ -624,30 +624,37 @@ BPF_CALL_3(bpf_get_stackid, struct pt_regs *, regs, struct bpf_map *, map,
-> > >>>     struct perf_callchain_entry *trace;
-> > >>>     struct stackid stackid;
-> > >>>     bool kernel = !user;
-> > >>> +   int err = -EFAULT;
-> > >>>     u32 max_depth;
-> > >>> -   int err;
-> > >>>
-> > >>>     if (unlikely(flags & ~(BPF_F_SKIP_FIELD_MASK | BPF_F_USER_STACK |
-> > >>>                            BPF_F_FAST_STACK_CMP | BPF_F_REUSE_STACKID)))
-> > >>>             return -EINVAL;
-> > >>>
-> > >>>     max_depth = stack_map_calculate_max_depth(map->value_size, elem_size, flags);
-> > >>> +
-> > >>> +   preempt_disable();
-> > >>
-> > >> Better to use the guard-style guard(preempt)() in this series.
-> > >
-> > > we prefer to call stackid_install with preemption enabled
-> >
-> >
-> > Understand.
-> >
-> > I wonder if we could avoid the "goto out".
-> >
-> > scoped_guard(preempt) { ... } might work here.
+On Thu, Jul 30, 2026 at 10:39:57PM -0700, jane.chu@oracle.com wrote:
+> I think I spot another pre-existing issue in unpoison_memory():
+> the XXX line doesn't work for non-hugetlb free large folio because it'll
+> just try to clear PG_hwpoison in the folio->page, not the precise 'pfn'
+> page.  Something like below could do.
 > 
-> +1, came here to say the same, I think it should be
 > 
-> scoped_guard(preempt) {
->    ... do all the things with direct return ...
-> }
-> 
-> /* we got new bucket here */
-> 
-> return stackid_install(...);
+> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+> index 51508a55c405..14915718ace5 100644
+> --- a/mm/memory-failure.c
+> +++ b/mm/memory-failure.c
+> @@ -2730,8 +2730,10 @@ int unpoison_memory(unsigned long pfn)
+>                         count = folio_free_raw_hwp(folio, false);
+>                         if (count == 0)
+>                                 goto unlock_mutex;
+> +                       else
+> +                               ret = folio_test_clear_hwpoison(folio) ? 0 :
+> -EBUSY;
+>                 }
+> -               ret = folio_test_clear_hwpoison(folio) ? 0 : -EBUSY; <---
+> XXX
+> +               ret = TestClearPageHWPoison(p) ? 0 : -EBUSY;
+>         } else if (ghp < 0) {
+>                 if (ghp == -EHWPOISON) {
+>                         ret = put_page_back_buddy(p) ? 0 : -EBUSY;
 
-looks good, will check on that
+I think you're right, but this isn't a bug.  That is, we're calling the
+wrong function, but in this particular branch, we're guaranteed that
+'folio' and 'p' have the same value so the same bit is cleared.
 
-thanks,
-jirka
+This is the case where !ghp is true.  Here's the code we're looking at:
+
+        ghp = get_hwpoison_page(p, MF_UNPOISON);
+        if (!ghp) {
+                if (folio_test_hugetlb(folio)) {
+                        huge = true;
+                        count = folio_free_raw_hwp(folio, false);
+                        if (count == 0)
+                                goto unlock_mutex;
+                }
+                ret = folio_test_clear_hwpoison(folio) ? 0 : -EBUSY;
+
+It is my understanding that we take this path for hugetlb memory and
+pages which are in the buddy allocator.  Buddy pages aren't compound
+pages, so calling page_folio() on them returns the same pointer, just
+cast to a folio.
+
+Now, I do fix this in "hugetlb: Use the has_hwpoisoned flag" (because
+nobody gets to use folio_test_clear_hwpoison() any more):
+
+@@ -2733,8 +2756,10 @@ int unpoison_memory(unsigned long pfn)
+                                hugetlb_unlock_irq();
+                                goto unlock_mutex;
+                        }
++                       ret = hugetlb_clear_poison(folio);
++               } else {
++                       ret = TestClearPageHWPoison(p) ? 0 : -EBUSY;
+                }
+-               ret = folio_test_clear_hwpoison(folio) ? 0 : -EBUSY;
+                hugetlb_unlock_irq();
+        } else if (ghp < 0) {
+                if (ghp == -EHWPOISON) {
+
+so I agree with you this should be fixed.  But I don't think it fixes
+an actual bug.  If it did, then we should do that first for easier
+backporting.  So if I've got anything wrong here, it's worth saying.
