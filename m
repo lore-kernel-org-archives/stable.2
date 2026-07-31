@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272D3348C4C
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 16:56:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1010B348C4C
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 16:57:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785517018; cv=none; b=TpU5fo5yAAcdvnxIr0HRAjnETytjpUccqSHdCwqJ8px4EqJh15Lm4FV3C5rnbx2BK9NtCqcxt7Gq1aIke8Ozf7ppmB/PqD2eOukYd5ne45eVJrdLNhAzVt2r+cmSwJnGAm2+gPC2t2TBGe0oOC/Zw0uVy53igMVZN3eshzGUvDc=
+	t=1785517022; cv=none; b=NUJ7oMo1pQTc/1BgewFSfi8K/dmzpsN9Ejie63HEcoEULfAwcZDsqp+JBSVaGAb7p/Jsp5Iu3FCC0FLAFRq9zf9PY2jHiiaxu869KyfMzHxgMiNU2muQtfb8Nk6CZA19oXebk3PDaiXE1f7vgvSfAsMRr809+qXa+QG4xoJhwQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785517018; c=relaxed/simple;
-	bh=+pciLixGpDCNmAL/k/9JxEsA4GLkf3s3McUjCFW6Zzs=;
+	s=arc-20240116; t=1785517022; c=relaxed/simple;
+	bh=LpsHwPAUrp2Kx7DvMyIs6CPwBtqxShsik4suZWMIGLI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nUssP+u/xTjXDvsDfG1R4ZfV1GQ88sp8CCkEGDLHvjb+9fHo2xhVyRyAMj1T0aYzFwb+qv0DBvW8zBcUdIidFR8ljoNoWnqmyqNHjiwaBK2HyBSAroY1u4omeN96U4lV9FX4OKzwSRnhCZbhZFfKcpHelvBJ8kuF7FMem8sYRFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FYjCxP4/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Lp4zwirE3U/BEeanVMX5EP7mzMbsHiT/sKl709UxB/1bHQPY7d5mih6M5ztxzcOn7C3wHjplQUrNzeUpCnyO3Z4zaG/t1Rf0jZfPEkqBMYyKIobwawuD52JW64RPKqa2kIf7eCHIIsHheTwfackXLAnuiCC11zxnw3e5sQy033E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mj1p4u5I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FYjCxP4/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AE261F00AC4;
-	Fri, 31 Jul 2026 16:56:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mj1p4u5I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 237021F00AC4;
+	Fri, 31 Jul 2026 16:57:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785517016;
-	bh=o3tiR1bObvvCuHPtGJztqSywiu7cDuPe1nMBOTlVDFo=;
+	s=k20260515; t=1785517020;
+	bh=R+/GkXjqWDtNCueSdE3YOHkvQyqVYNj+rbPxOxUk2hU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FYjCxP4/s0QpSOhuT3G+/mzcafBrtZ8CFoJlW1DtU+xlqOHsbs7fngjz9y3h5vsXC
-	 q1N9r7kjM5NVgnmUgcbo7eK8il90Bs4FjJLDnjtZzUY8bMj/2vupSwjR+qgt56BgT3
-	 Z6QbqUp2VL5L68kdJX2iTkJRydQuYSvBO0H3UtvjSF8F9omF9f1hwMSS3bRxrMGnMs
-	 vO3eguZiu6o84O3KjixOiCE5t4TxzJS6ILh2LuvPyGKOGNNIYw+BGkrQs4EDFtTple
-	 ql+NpbOx7fSHCCLcKZHuEgRiRQdKFuLnDBSknr84tan3VMX+20qGmk4vUVmKxjbL8Z
-	 ADTAVQPAHqfNg==
+	b=Mj1p4u5I3lbp1mVg6lsI111lafMkZDXQQZWGd0y7km364RtKSueDqSo3OMTDSyn4C
+	 WaR9c3EGdkUe5O7JoYovEoBLemYfEDgdwOQJnnO/Vr5r+hRS3Q6tPWuPh2GacVF6aQ
+	 CytryhcwN50JRpKQmL7VUanh7q1wDlYqT/w4QLC6QEwsFizq2CRXBZM6D3YVvcr56J
+	 x+blSTtZwsUz+AH1XWX/39tAC39HXSeW6Z6oEIoTHkt5fzZ1umoqsDaG1YrZn/Lc6Q
+	 nxBrFYnURbO8HnhxLxOd3vTRF7XOEoCcJtMgOXIJinDonW/IudMZbgo7fKMEGraUPy
+	 HKEISYYC2s/QQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jani Nikula <jani.nikula@intel.com>,
-	Dave Airlie <airlied@redhat.com>,
+Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>,
+	Raag Jadav <raag.jadav@intel.com>,
+	Gustavo Sousa <gustavo.sousa@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] drm/displayid: fix Tiled Display Topology ID size
+Subject: [PATCH 7.1.y 1/5] drm/xe: Drop unused param from xe_device_create()
 Date: Fri, 31 Jul 2026 12:56:54 -0400
-Message-ID: <20260731165654.883034-1-sashal@kernel.org>
+Message-ID: <20260731165658.883265-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072927-hydrated-strenuous-a07b@gregkh>
-References: <2026072927-hydrated-strenuous-a07b@gregkh>
+In-Reply-To: <2026072950-giggling-gooey-3782@gregkh>
+References: <2026072950-giggling-gooey-3782@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,136 +46,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jani Nikula <jani.nikula@intel.com>
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 
-[ Upstream commit 90c0486a82e27393f9eaf3bb350f51a0bd38cb6b ]
+[ Upstream commit 8a09097b11ca4d436691f64c3cc0958006f36e33 ]
 
-The Tiled Display Topology ID of a DisplayID Tiled Display Topology Data
-Block consists of three fields:
+We never used or need anything from the struct pci_device_id there.
+And while around, add simple kernel-doc for this function.
 
-- Tiled Display Manufacturer/Vendor ID Field (3 bytes)
-- Tiled Display Product ID Code Field (2 bytes)
-- Tiled Display Serial Number Field (4 bytes)
-
-i.e. a total of 9 bytes, not 8.
-
-The DisplayID Tiled Display Topology ID is used as the tile group
-identifier.
-
-Update both struct displayid_tiled_block topology_id member and struct
-drm_tile_group group_data member to full 9 bytes.
-
-The group data was missing the last byte of the serial number. I don't
-know whether there are known bug reports that might be linked to this,
-but it's plausible the last byte could be the differentiating part for
-the tile groups, and fewer tile groups might have been created than
-intended.
-
-Fixes: b49b55bd4fba ("drm/displayid: add displayid defines and edid extension (v2)")
-Fixes: 138f9ebb9755 ("drm: add tile_group support. (v3)")
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: stable@vger.kernel.org # v3.19+
-Reviewed-by: Dave Airlie <airlied@redhat.com>
-Link: https://patch.msgid.link/20260610141549.555605-1-jani.nikula@intel.com
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+Reviewed-by: Gustavo Sousa <gustavo.sousa@intel.com>
+Link: https://patch.msgid.link/20260526195452.20545-3-michal.wajdeczko@intel.com
+Stable-dep-of: ba7fd1634228 ("drm/xe: Set TTM device beneficial_order to 9 (2M)")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/drm_connector.c | 12 ++++++------
- include/drm/drm_connector.h     |  6 +++---
- include/drm/drm_displayid.h     |  2 +-
- 3 files changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/xe/xe_device.c | 11 +++++++++--
+ drivers/gpu/drm/xe/xe_device.h |  3 +--
+ drivers/gpu/drm/xe/xe_pci.c    |  2 +-
+ 3 files changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index db8ede9d56d1..37f51bdf4795 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2586,7 +2586,7 @@ EXPORT_SYMBOL(drm_mode_put_tile_group);
- /**
-  * drm_mode_get_tile_group - get a reference to an existing tile group
-  * @dev: DRM device
-- * @topology: 8-bytes unique per monitor.
-+ * @topology_id: 9-byte unique ID per monitor.
-  *
-  * Use the unique bytes to get a reference to an existing tile group.
-  *
-@@ -2594,14 +2594,14 @@ EXPORT_SYMBOL(drm_mode_put_tile_group);
-  * tile group or NULL if not found.
-  */
- struct drm_tile_group *drm_mode_get_tile_group(struct drm_device *dev,
--					       const char topology[8])
-+					       const char topology_id[9])
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index ffea4a453c01..688516d0b651 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -435,8 +435,15 @@ static void xe_device_destroy(struct drm_device *dev, void *dummy)
+ 	ttm_device_fini(&xe->ttm);
+ }
+ 
+-struct xe_device *xe_device_create(struct pci_dev *pdev,
+-				   const struct pci_device_id *ent)
++/**
++ * xe_device_create() - Create a new &xe_device instance
++ * @pdev: the parent &pci_dev
++ *
++ * Allocate and initialize a device managed Xe device structure.
++ *
++ * Return: pointer to new &xe_device on success, or ERR_PTR on failure.
++ */
++struct xe_device *xe_device_create(struct pci_dev *pdev)
  {
- 	struct drm_tile_group *tg;
- 	int id;
+ 	struct xe_device *xe;
+ 	int err;
+diff --git a/drivers/gpu/drm/xe/xe_device.h b/drivers/gpu/drm/xe/xe_device.h
+index e4b9de8d8e95..e363b4a8ff13 100644
+--- a/drivers/gpu/drm/xe/xe_device.h
++++ b/drivers/gpu/drm/xe/xe_device.h
+@@ -43,8 +43,7 @@ static inline struct xe_device *ttm_to_xe_device(struct ttm_device *ttm)
+ 	return container_of(ttm, struct xe_device, ttm);
+ }
  
- 	mutex_lock(&dev->mode_config.idr_mutex);
- 	idr_for_each_entry(&dev->mode_config.tile_idr, tg, id) {
--		if (!memcmp(tg->group_data, topology, 8)) {
-+		if (!memcmp(tg->group_data, topology_id, sizeof(tg->group_data))) {
- 			if (!kref_get_unless_zero(&tg->refcount))
- 				tg = NULL;
- 			mutex_unlock(&dev->mode_config.idr_mutex);
-@@ -2616,7 +2616,7 @@ EXPORT_SYMBOL(drm_mode_get_tile_group);
- /**
-  * drm_mode_create_tile_group - create a tile group from a displayid description
-  * @dev: DRM device
-- * @topology: 8-bytes unique per monitor.
-+ * @topology_id: 9-byte unique ID per monitor.
-  *
-  * Create a tile group for the unique monitor, and get a unique
-  * identifier for the tile group.
-@@ -2625,7 +2625,7 @@ EXPORT_SYMBOL(drm_mode_get_tile_group);
-  * new tile group or NULL.
-  */
- struct drm_tile_group *drm_mode_create_tile_group(struct drm_device *dev,
--						  const char topology[8])
-+						  const char topology_id[9])
- {
- 	struct drm_tile_group *tg;
- 	int ret;
-@@ -2635,7 +2635,7 @@ struct drm_tile_group *drm_mode_create_tile_group(struct drm_device *dev,
- 		return NULL;
+-struct xe_device *xe_device_create(struct pci_dev *pdev,
+-				   const struct pci_device_id *ent);
++struct xe_device *xe_device_create(struct pci_dev *pdev);
+ int xe_device_probe_early(struct xe_device *xe);
+ int xe_device_probe(struct xe_device *xe);
+ void xe_device_remove(struct xe_device *xe);
+diff --git a/drivers/gpu/drm/xe/xe_pci.c b/drivers/gpu/drm/xe/xe_pci.c
+index c2ecd27ec770..b1ca4e711db0 100644
+--- a/drivers/gpu/drm/xe/xe_pci.c
++++ b/drivers/gpu/drm/xe/xe_pci.c
+@@ -1085,7 +1085,7 @@ static int xe_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	if (err)
+ 		return err;
  
- 	kref_init(&tg->refcount);
--	memcpy(tg->group_data, topology, 8);
-+	memcpy(tg->group_data, topology_id, sizeof(tg->group_data));
- 	tg->dev = dev;
+-	xe = xe_device_create(pdev, ent);
++	xe = xe_device_create(pdev);
+ 	if (IS_ERR(xe))
+ 		return PTR_ERR(xe);
  
- 	mutex_lock(&dev->mode_config.idr_mutex);
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 03d39532c708..425a579e89a4 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1689,13 +1689,13 @@ struct drm_tile_group {
- 	struct kref refcount;
- 	struct drm_device *dev;
- 	int id;
--	u8 group_data[8];
-+	u8 group_data[9];
- };
- 
- struct drm_tile_group *drm_mode_create_tile_group(struct drm_device *dev,
--						  const char topology[8]);
-+						  const char topology_id[9]);
- struct drm_tile_group *drm_mode_get_tile_group(struct drm_device *dev,
--					       const char topology[8]);
-+					       const char topology_id[9]);
- void drm_mode_put_tile_group(struct drm_device *dev,
- 			     struct drm_tile_group *tg);
- 
-diff --git a/include/drm/drm_displayid.h b/include/drm/drm_displayid.h
-index 77941efb5426..8cfb1a0adce2 100644
---- a/include/drm/drm_displayid.h
-+++ b/include/drm/drm_displayid.h
-@@ -71,7 +71,7 @@ struct displayid_tiled_block {
- 	u8 topo[3];
- 	u8 tile_size[4];
- 	u8 tile_pixel_bezel[5];
--	u8 topology_id[8];
-+	u8 topology_id[9];
- } __packed;
- 
- struct displayid_detailed_timings_1 {
 -- 
 2.53.0
 
