@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E978282F16
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 02:41:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0813B30B502;
+	Fri, 31 Jul 2026 02:41:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785465662; cv=none; b=tc4SXFtY9INURYZJXf1tImQ/f2XRmAa1PSU4lfrlZ2jD81bKKsCZP7K297tFY72/HKpRLG9ywNWUE3AsFS8NoRWPN6gJ+ruGci9L+7OuJh4S8Gp0Oj7siyg2kV03jRDk4galKtwSLxgLFgm6QBEe3tQpO2HzWVJtsKfnBaFY3rY=
+	t=1785465666; cv=none; b=XbUeXRf3D6S4dAQOi6k8vBMXbHOm5GeLNl/txJiJhAzy516tNtrr9zD9d4bXiue3vmeYukD2/sMGXtaAU+IwtbCwNwygQ2MCcthsXAY+LeU8NijQTC8fADJW81a3NwelH0BSNrfLIKVSh2cDFNz/0oiZr87gCE1fvnng1Z+jdAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785465662; c=relaxed/simple;
-	bh=jvtA70nBP+sDtSPdsy46OTW+7XLTY9K4tJ1VknGlEdw=;
+	s=arc-20240116; t=1785465666; c=relaxed/simple;
+	bh=4q5DOiZATlLzvrPR60tHia90+pQ1RdRgj/4XMXp3k8U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qys0HQt8NJuyMo1cgQZn84EuS4I5uB4Gfxk7mZpFNdeHs/JBvJBep2lDrma+13ZlNaaXxk9mAjoGgPK5mLRRHIogQl0LKIhYyLQhVrWJ3mGmX63xJ/07D/WNP/xKm+4sPsR2U5/1+vtGlhvs5W1/ZlSdd1YJMyjSEanvWA5/kJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g4f/ZEj0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MByYgsvSqFN+t4oCSNz7HoFXJVazIm83fohIISg1ghhrgmlhKjY2/w3xKHQyXU/uSdjFMiBgoDXfTN1QX77IS0ozOXSK2Qmu9j2KPCwpOanNb7cryZDZo9n9khAmEZuBRPE18TxOmWzsvkq5QIy+79Gr+ZQxXW3ypcYrxfPGiQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CO5fgI7M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g4f/ZEj0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A8A01F00A3A;
-	Fri, 31 Jul 2026 02:41:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CO5fgI7M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48DE31F00A3D;
+	Fri, 31 Jul 2026 02:41:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785465661;
-	bh=S+yjdwg4XHY7qriGaHnSTHIKXZovuLwEHpz4sq1eajE=;
+	s=k20260515; t=1785465664;
+	bh=wpGbo/T2vqfHpg6x90ZTuSPiFWtovciDxmqa911luyY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g4f/ZEj0HrT0am4ozF6a1Z4/LGX0HyXpCf6LoEry2k2Fr47jA+EVdn7eUNJ7hJM8X
-	 1ovbX45KuoE2Oj1lp3db4dyJt3mzm+NZSAXHEroVqsqgd5uFmCHJGPJu+zkpFGCIFx
-	 eLP1cUTfxl8M+j9PhXPzBZEqQyXrrGbw2N8Y6VF50JzBwbxJk9WKzSHLmYfjW63R/9
-	 2Q9Ltq85RPz5SGaxdxFaoiA1bNVbmmZKF33qIfsJ/02X+51/YP3LR52JrUkQ1Yn40S
-	 zIBjmdh16sH2y8f4/OtAbxKwRFngQtybMqqb6+MUj11afrj5EQzThx/yv/0fj5HqLT
-	 rRDTOE/HbhV1g==
+	b=CO5fgI7MK8ErDZadE1tEjj/9J4h4tFauFIJGyRUDkla6ZmZWjTFqj6LKqA/M488qr
+	 1Q2XDKzzTs9UcLGh1BpANMo3uzo3fhjWPs8AlE/ibCcGY/ALilyAo0LRIB7MOxEQqb
+	 RVlODnk5PHpksjEP4h+QzLTa19ZRR6OVutiF59wiwgo+R1Q2j+XjbJ3SA4n7VG8d2h
+	 PQgM7Da4X8BKex3fBTlPBcfz76BrHBdmD6yP4MyPr4255CwgzjX2wmgxXYm3swNKZz
+	 TPTOR0bzMydiWf+8Zj7KoJoT3g5L54xEozIe3Is0RyKHqyvJF7EqAp2dx6kvRmOYum
+	 7LKsv97HJHXcw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andrei Kuchynski <akuchynski@chromium.org>,
-	stable <stable@kernel.org>,
-	Benson Leung <bleung@chromium.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	Thierry Reding <treding@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] usb: typec: ucsi: Fix race condition and ordering in port unregistration
-Date: Thu, 30 Jul 2026 22:40:57 -0400
-Message-ID: <20260731024057.3338855-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] drm/tegra: fbdev: Remove offset into framebuffer memory
+Date: Thu, 30 Jul 2026 22:41:01 -0400
+Message-ID: <20260731024101.3339564-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260731024057.3338855-1-sashal@kernel.org>
-References: <2026072727-giveaway-lumpiness-947f@gregkh>
- <20260731024057.3338855-1-sashal@kernel.org>
+In-Reply-To: <20260731024101.3339564-1-sashal@kernel.org>
+References: <2026072951-strategy-rage-af59@gregkh>
+ <20260731024101.3339564-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,172 +48,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Andrei Kuchynski <akuchynski@chromium.org>
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-[ Upstream commit 7aa7d4bf9d3fa9a6a47b640ad103ab433b7ff261 ]
+[ Upstream commit a18b6e30ecd69096beda4a0c96d2570900c3879a ]
 
-A synchronization issue exists during port unregistration where pending
-partner work items can race against workqueue destruction, leading to
-use-after-free conditions:
+The screen_buffer field in struct fb_info contains the kernel address
+of the first byte of framebuffer memory. Do not add the display offset.
+This offset only describes scrolling during scanout.
 
-  cros_ec_ucsi cros_ec_ucsi.3.auto: error -ETIMEDOUT: PPM init failed
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:__queue_work+0x83/0x4a0
-  Call Trace:
-    <IRQ>
-    __cfi_delayed_work_timer_fn+0x10/0x10
-    run_timer_softirq+0x3b6/0xbd0
-    sched_clock_cpu+0xc/0x110
-    irq_exit_rcu+0x18d/0x330
-    fred_sysvec_apic_timer_interrupt+0x5e/0x80
-
-Fix this by ensuring strict ordering and proper serialization during
-teardown:
-
-1. Move ucsi_unregister_partner() to the beginning of the teardown
-sequence and protect it under the connector mutex lock.
-2. Ensure all pending partner tasks are explicitly flushed and finished
-before the workqueue is destroyed.
-3. Switch from mod_delayed_work() to a cancel_delayed_work() and
-queue_delayed_work() sequence. This guarantees that items currently marked
-as pending won't be scheduled an additional time, preventing a double
-release of resources which leads to the following crash:
-
-  Oops: general protection fault, probably for non-canonical address
-    0xdead000000000122: 0000 [#1] SMP NOPTI
-  Workqueue: cros_ec_ucsi.3.auto-con2 ucsi_poll_worker
-  RIP: 0010:ucsi_poll_worker+0x65/0x1e0
-  Call Trace:
-  <TASK>
-    process_scheduled_works+0x218/0x6d0
-    worker_thread+0x188/0x3f0
-    __cfi_worker_thread+0x10/0x10
-    kthread+0x226/0x2a0
-
-To ensure these rules are applied identically across both the normal
-teardown and the ucsi_init() error paths, consolidate the cleanup logic
-into a new helper, ucsi_unregister_port().
-
-Cc: stable <stable@kernel.org>
-Fixes: b9aa02ca39a4 ("usb: typec: ucsi: Add polling mechanism for partner tasks like alt mode checking")
-Fixes: b13abcb7ddd8 ("usb: typec: ucsi: Fix NULL pointer access")
-Fixes: fac4b8633fd6 ("usb: ucsi: Ensure connector delayed work items are flushed")
-Signed-off-by: Andrei Kuchynski <akuchynski@chromium.org>
-Reviewed-by: Benson Leung <bleung@chromium.org>
-Link: https://patch.msgid.link/20260707141736.1635698-1-akuchynski@chromium.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-tegra@vger.kernel.org
+Cc: <stable@vger.kernel.org> # v3.10+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/typec/ucsi/ucsi.c | 82 +++++++++++++++++------------------
- 1 file changed, 39 insertions(+), 43 deletions(-)
+ drivers/gpu/drm/tegra/fbdev.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index de9fc082bc7c..9af597385e29 100644
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -1407,6 +1407,42 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/tegra/fbdev.c b/drivers/gpu/drm/tegra/fbdev.c
+index ba0971ec34b5..d4ef5d5e4264 100644
+--- a/drivers/gpu/drm/tegra/fbdev.c
++++ b/drivers/gpu/drm/tegra/fbdev.c
+@@ -78,7 +78,6 @@ int tegra_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 	struct fb_info *info = helper->info;
+ 	unsigned int bytes_per_pixel;
+ 	struct drm_framebuffer *fb;
+-	unsigned long offset;
+ 	struct tegra_bo *bo;
+ 	size_t size;
+ 	int err;
+@@ -118,9 +117,6 @@ int tegra_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
  
-+static void ucsi_unregister_port(struct ucsi_connector *con)
-+{
-+	struct ucsi_work *uwork;
-+
-+	if (con->wq) {
-+		mutex_lock(&con->lock);
-+		ucsi_unregister_partner(con);
-+		/*
-+		 * queue delayed items immediately so they can execute
-+		 * and free themselves before the wq is destroyed
-+		 */
-+		list_for_each_entry(uwork, &con->partner_tasks, node) {
-+			if (cancel_delayed_work(&uwork->work))
-+				queue_delayed_work(con->wq, &uwork->work, 0);
-+		}
-+		mutex_unlock(&con->lock);
-+
-+		destroy_workqueue(con->wq);
-+		con->wq = NULL;
-+	} else {
-+		ucsi_unregister_partner(con);
-+	}
-+
-+	ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
-+	ucsi_unregister_port_psy(con);
-+
-+	usb_power_delivery_unregister_capabilities(con->port_sink_caps);
-+	con->port_sink_caps = NULL;
-+	usb_power_delivery_unregister_capabilities(con->port_source_caps);
-+	con->port_source_caps = NULL;
-+	usb_power_delivery_unregister(con->pd);
-+	con->pd = NULL;
-+	typec_unregister_port(con->port);
-+	con->port = NULL;
-+}
-+
- static u64 ucsi_get_supported_notifications(struct ucsi *ucsi)
- {
- 	u8 features = ucsi->cap.features;
-@@ -1515,22 +1551,8 @@ static int ucsi_init(struct ucsi *ucsi)
- 	for (i = 0; i < ucsi->cap.num_connectors; i++)
- 		lockdep_unregister_key(&connector[i].lock_key);
+ 	drm_fb_helper_fill_info(info, helper, sizes);
  
--	for (con = connector; con->port; con++) {
--		if (con->wq)
--			destroy_workqueue(con->wq);
--		ucsi_unregister_partner(con);
--		ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
--		ucsi_unregister_port_psy(con);
+-	offset = info->var.xoffset * bytes_per_pixel +
+-		 info->var.yoffset * fb->pitches[0];
 -
--		usb_power_delivery_unregister_capabilities(con->port_sink_caps);
--		con->port_sink_caps = NULL;
--		usb_power_delivery_unregister_capabilities(con->port_source_caps);
--		con->port_source_caps = NULL;
--		usb_power_delivery_unregister(con->pd);
--		con->pd = NULL;
--		typec_unregister_port(con->port);
--		con->port = NULL;
--	}
-+	for (con = connector; con->port; con++)
-+		ucsi_unregister_port(con);
- 	kfree(connector);
- err_reset:
- 	memset(&ucsi->cap, 0, sizeof(ucsi->cap));
-@@ -1756,33 +1778,7 @@ void ucsi_unregister(struct ucsi *ucsi)
- 
- 	for (i = 0; i < ucsi->cap.num_connectors; i++) {
- 		cancel_work_sync(&ucsi->connector[i].work);
--
--		if (ucsi->connector[i].wq) {
--			struct ucsi_work *uwork;
--
--			mutex_lock(&ucsi->connector[i].lock);
--			/*
--			 * queue delayed items immediately so they can execute
--			 * and free themselves before the wq is destroyed
--			 */
--			list_for_each_entry(uwork, &ucsi->connector[i].partner_tasks, node)
--				mod_delayed_work(ucsi->connector[i].wq, &uwork->work, 0);
--			mutex_unlock(&ucsi->connector[i].lock);
--			destroy_workqueue(ucsi->connector[i].wq);
--		}
--
--		ucsi_unregister_partner(&ucsi->connector[i]);
--		ucsi_unregister_altmodes(&ucsi->connector[i],
--					 UCSI_RECIPIENT_CON);
--		ucsi_unregister_port_psy(&ucsi->connector[i]);
--
--		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_sink_caps);
--		ucsi->connector[i].port_sink_caps = NULL;
--		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_source_caps);
--		ucsi->connector[i].port_source_caps = NULL;
--		usb_power_delivery_unregister(ucsi->connector[i].pd);
--		ucsi->connector[i].pd = NULL;
--		typec_unregister_port(ucsi->connector[i].port);
-+		ucsi_unregister_port(&ucsi->connector[i]);
- 		lockdep_unregister_key(&ucsi->connector[i].lock_key);
+ 	if (bo->pages) {
+ 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
+ 				 pgprot_writecombine(PAGE_KERNEL));
+@@ -132,9 +128,9 @@ int tegra_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
  	}
  
+ 	info->flags |= FBINFO_VIRTFB;
+-	info->screen_buffer = bo->vaddr + offset;
++	info->screen_buffer = bo->vaddr;
+ 	info->screen_size = size;
+-	info->fix.smem_start = (unsigned long)(bo->iova + offset);
++	info->fix.smem_start = (unsigned long)(bo->iova);
+ 	info->fix.smem_len = size;
+ 
+ 	return 0;
 -- 
 2.53.0
 
