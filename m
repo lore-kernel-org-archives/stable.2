@@ -1,69 +1,49 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9B63A1A21
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 09:32:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 53F2E3BBFD3;
+	Fri, 31 Jul 2026 09:43:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785490350; cv=none; b=EPGNXkDARjqBQ2PbUsDH/T0D92PCoCNV4Rf27lwGkH7CY2UJW4fEbFs3Ptx0pC2zX/tHggZF03hqjLZ3Gf1+0MM1LEBlocGj/d9MVlvOutI6u+aTlMS8nsBMoSJ2GHxku2KQUuwvNNEdexeu8bsL7NKvTDRqhjgod0K79gxwMGA=
+	t=1785490984; cv=none; b=aLvxrCzDFhU1wpfFfg6F3rhMzUuck2jioFRwAQ6hw9WzvD6XhoXA/mCjLy/M0d/+WyJJzOa+b8m6963ZtXMqJRCUTq3iG/fJsUbaovkMaHltMnZp6w59Yr05x02MDULMKzu4Xa5TYE3i95Sk2fbBbm1Ay+3DH6xQ8IpRezFTSyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785490350; c=relaxed/simple;
-	bh=ht62jhWOhWn7AavnfDM2FcUnwIzP6+bRh2zDwIcDfb8=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=eFEHkUfZs/YMaK2H1y7ccuzqwstLPEPAF4LuYd4FPWsx0mLfPQuhk64l8uLCq6ZprQ3icOOPg94S3O8F5i/VIAuZw3K+Mpux4I4Uegd1m6c851dOzo9d4LDncxnVLAQHxPSSXi+R3Dq2GnqTUFCVev5Ogv4Jf9y9kTnq2BKspn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=CURFSSkJ; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="CURFSSkJ"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84861fc51f5so525361b3a.1
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 02:32:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1785490343; x=1786095143; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ht62jhWOhWn7AavnfDM2FcUnwIzP6+bRh2zDwIcDfb8=;
-        b=CURFSSkJCWzDSY3VYX/Y/cQbqftuk3LScUOJg4+vwVn8FXMgzcXgb1oGdE39LuKZ+e
-         ABAysh1FG25Pv+iNx7iM4zeuNuftYapboOOEub5wXPw4Nj47oWjgYs2axCVpOceQNM75
-         r5s7vo0U30oHj8jevO9ImiKL43I1JiCGJFEN387UjgwLX1rnkkinbr/1zwZqXVBN12dJ
-         qgoczHmJzzIEZT1mwteCM55p3YmzQYrCSrhJHlSYCdBbYZmRLwtwNPbJU03pLojSJnhc
-         4Huq41rtk1mJkggI1UDjOwYEabu5cEPPqxvzEssjnCGkSNShGiOOR0BKkVpJ4JQsa+J3
-         qhmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785490343; x=1786095143;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ht62jhWOhWn7AavnfDM2FcUnwIzP6+bRh2zDwIcDfb8=;
-        b=QnAat/YJam12iBBWaiuzvxli7CgNwUpvlmhb5cdtyDrVVx6klM3yGi9fykOCouFT6+
-         HuMz01ebddUHjCp6RP83rF8wQY5NfB41cm8NS2932WTj9r4EndWzojQx/gnDHaBk0gMr
-         GgipkKlOcWxjansnVmbMT7/+ZbgPjdjdZpb0QhlUiiRzX7ZfFxOHXgZvjAeirqcvSIK8
-         vZWbVQrPjtMvKQPEGYPohgmbhdIJct2u6Sx0+hp1ByRfR7ZmRqXwbOhsARAubtDQbP/o
-         jqV1BtbI7g/YJHA9ifwx208d162V9XJIDt0uu0dLGSK1fmQCPo02bxPrQq8A9jVLZ9Y2
-         sqyw==
-X-Gm-Message-State: AOJu0YwoJfckotS0QqTswySmqcqJvKTZeufRUkjOMuhfz3T1cTLFimEu
-	y3qkQAMv8tJnJ2lrqTIc0VPjbu/2c/k2VpOoe5drkaPHfQ1nDgKrzecfkkjspasiIBt91s4gZk0
-	2pLDhnHsEYg==
-X-Gm-Gg: AR+sD13g1HLAESh50eisxU35Nzkw82kP0w/Uq0wcBZt47jJHK5sAp8fqbgdY5O3zE0M
-	f8GNtXgh9UnEPEogKGTHqXiK1VDagmkuL1f1VjwuFAZ+errQkfHTSUR52cEz8o/Rb3onqr0meJF
-	xCEEbiJLEwAiIZ0xzVeyHMlS2sw9grk/dfxSV76B+MxoD1avlBhrf+8w62I1EqT9tZfruY/RS/z
-	M0eqyaW/XL12yeKXWQoMzkOGaVGx6iFmaHFCGfoHAphrIwRMteFvbtO3SkCpaYqzOgNteTuWpxa
-	cO/qjAWjanEopTO6RyAlAwf1x+/1GSdjsT0PXeeHfRmPkvJ0e0bqHY2hNHjk10DwxMyFoKTN0OS
-	Vcnaed5CTQnf6bXlYtglVfqQb5QGSm6+TWJt5hDwK8bxjGwB2by6RkWPycM60NaT9FO/7XwUOJl
-	zI8ikEUCGeipV1GqCCahqDI0nkuSqmPSVmn5MO7/eH/IUVxALtw64ZIe7d5cVqsMvZ7O8l0w+6j
-	XAsB1w=
-X-Received: by 2002:a05:6a00:3026:b0:848:57f3:8f99 with SMTP id d2e1a72fcca58-84ed7185a75mr1079180b3a.56.1785490343048;
-        Fri, 31 Jul 2026 02:32:23 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbe396ea571sm344799a12.17.2026.07.31.02.32.21
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 02:32:22 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: stable@vger.kernel.org
-Subject: [stable request] net: mpls: initialize rtm_tos
-Date: Fri, 31 Jul 2026 18:32:10 +0900
-Message-ID: <20260731093210.1820903-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1785490984; c=relaxed/simple;
+	bh=9E8GdqP31dgwfZYT4f13k2PUrM5L41eD1gFxUICd/xw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ejVm8MmOqe694CLyYIetl5JxpRhj7VGDy5gBeOh6rJclFCu0SWl8ZDHpIQyY0p/UzMDVUkq9KNxsaVFBCPJrsu604w6BAyuV4B+C+2VgzfwaKQZ8c3xVXj/6DWtkjoZ2BfcWGrItHVWOU/M+b05wgwRJtvl3ydFCNKE8mrW1Nvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.68.205])
+	by gateway (Coremail) with SMTP id _____8BxGOsfbmxqjywJAA--.30900S3;
+	Fri, 31 Jul 2026 17:42:55 +0800 (CST)
+Received: from kernelserver (unknown [223.64.68.205])
+	by front1 (Coremail) with SMTP id qMiowJDxu8QPbmxqHvYeAA--.48910S3;
+	Fri, 31 Jul 2026 17:42:46 +0800 (CST)
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+To: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yinbo Zhu <zhuyinbo@loongson.cn>,
+	zhanghongchen <zhanghongchen@loongson.cn>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Lee Jones <lee@kernel.org>
+Cc: Huacai Chen <chenhuacai@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	mfd@lists.linux.dev,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v3 1/5] thermal/drivers/loongson2: Correct thermal sensor registration loop
+Date: Fri, 31 Jul 2026 17:42:17 +0800
+Message-ID: <367a07d2190203b2412d13f407eea81334122e31.1785480242.git.zhoubinbin@loongson.cn>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <cover.1785480242.git.zhoubinbin@loongson.cn>
+References: <cover.1785480242.git.zhoubinbin@loongson.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,28 +51,70 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxu8QPbmxqHvYeAA--.48910S3
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEFCGpsIlAFfQAAsB
+X-Coremail-Antispam: 1Uk129KBj93XoW7tr1UCFW8ZFy5Jw13Wr43CFX_yoW8Cr1rpF
+	sxC3WYkr98GFs7Z34DArWUXan0ya4ftFW7WF4xWw1rWrn3J34agryrJFW2qa40yFy8ZF1Y
+	qr98tFWDCayDZrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1a6r1DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
+	6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
+	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xII
+	jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
+	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
+	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IUbRVbDUUUUU==
 
-Hi,
+The registration loop in loongson2_thermal_probe() incorrectly uses
+dev_err_probe() when the sensor is not present (-ENODEV). In that case,
+the driver should continue to the next sensor index rather than treating
+it as a fatal error.
 
-Could you please consider 295dd295e213 ("net: mpls: initialize
-rtm_tos in mpls_getroute()") for 5.10.y, 5.15.y, 6.1.y, 6.6.y,
-6.12.y, 6.18.y and 7.1.y?
+Fix this by correctly handling -ENODEV and only returning on other
+errors. Also add a final check to ensure at least one thermal zone was
+registered.
 
-mpls_getroute() fills a struct rtmsg in an skb whose data area is
-not zeroed, and sets every field except rtm_tos. struct rtmsg has
-no padding, so one byte of uninitialised heap memory is copied to
-user space on every non-RTM_F_FIB_MATCH RTM_GETROUTE for an MPLS
-route. KMSAN reports it as a kernel-infoleak in _copy_to_iter().
-The fix is a one-line initialisation matching mpls_dump_route(),
-which already sets rtm_tos = 0.
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/cover.1783670011.git.zhoubinbin@loongson.cn?part=2
+Fixes: e7e3a7c35791 ("thermal/drivers/loongson-2: Add thermal management support")
+Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+---
+ drivers/thermal/loongson2_thermal.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-The affected code is unchanged back to v5.10, and the commit
-carries Fixes: 397fc9e5cefe ("mpls: route get support").
+diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
+index ea4dd2fb1f47..5f47fa51fb90 100644
+--- a/drivers/thermal/loongson2_thermal.c
++++ b/drivers/thermal/loongson2_thermal.c
+@@ -161,16 +161,18 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
+ 
+ 	for (i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
+ 		tzd = devm_thermal_of_zone_register(dev, i, data, thermal_ops);
+-
+ 		if (!IS_ERR(tzd))
+ 			break;
+ 
+-		if (PTR_ERR(tzd) != -ENODEV)
++		if (PTR_ERR(tzd) == -ENODEV)
+ 			continue;
+ 
+-		return dev_err_probe(dev, PTR_ERR(tzd), "failed to register");
++		return dev_err_probe(dev, PTR_ERR(tzd), "failed to register sensor %d\n", i);
+ 	}
+ 
++	if (IS_ERR(tzd))
++		return dev_err_probe(dev, -ENODEV, "No thermal sensor registered\n");
++
+ 	ret = devm_request_threaded_irq(dev, irq, NULL, loongson2_thermal_irq_thread,
+ 					IRQF_ONESHOT, "loongson2_thermal", tzd);
+ 	if (ret < 0)
+-- 
+2.52.0
 
-I omitted Cc: stable when I posted the patch - sorry for the
-extra round trip.
-
-Thank you for your time.
-
-Best regards,
-Yehyeong Lee
