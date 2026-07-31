@@ -1,220 +1,136 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013068.outbound.protection.outlook.com [40.93.196.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550B432E6BC;
-	Fri, 31 Jul 2026 20:53:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A68037E5DF
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 20:58:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.50
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785531191; cv=fail; b=YuewKK3iGhgVRCNVGN+87LAQg4u2Ouy2YSGx/jpr3fUHhiG6/XAAAjFjThLoB9sjFey5OPdiYmRgPaUnj1BNG/LHIlKqvfWIKow6X3MgA6aNggfMAdxsVYpyLIYbEz5XeF0uWEIgJWwMijGBWE3593RuNw7bUwyRK9Wtz5c6wX4=
+	t=1785531493; cv=pass; b=KWCig356Njx8rfBYd6l9XFBVDI+sTe9uuE0gmbKHYRSJMoBFUfUycy/6tphuFLQhAO2t5gaJ4qfkR31v2XRcZ/xozj/OrlTU0mN7MH18wfGmT5xaqikcLiObsDYDbeSz1P1/xTj9Pv65URtvUovF9wDunMfDbOJxFNvcrVl7is0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785531191; c=relaxed/simple;
-	bh=NbEDRhKpOCUOswQIcW1WQYJmh7EdI4tk6biC5RMm4qQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Zj3O5SUMeESAGRUz1NXCjOBkQ1G+YRwbEAl7gaXncWvPySTYi9S259qs7gjmNA9hJcmNvBzlDlIeW4U0fL36n/gEhfUi5V0lRIL2I3aNywuIQ/D62NCfuCojk354On6865Gxz9k70YArUvGrOhG2PLwDPBEoVsqELJly9Fo7kt0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=izWpMb98; arc=fail smtp.client-ip=40.93.196.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1785531493; c=relaxed/simple;
+	bh=QpxQyRFlAMg3zdNKOHqLP2D+nnCqtp3/FyUT/or79Jk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=M4Q63snSQgZelZbfPY8S+Msv8un7xIK6FVyA2cwJnpUiqsO4vN1oQNT6EbR2fLB0OhTDs4ICf0ZsVU4kQuFs3PU2gH6L5HHQiJBsGnOtgRuO1k4NN2N98NeLNkAtB/Z8m3BQTNOOcQpLKytBp7f2jfbOc9tv54UFRAK3O/kLU+o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pEpkc2kS; arc=pass smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="izWpMb98"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MxLf384A9+g/3mSyzJNYSeUxH6x2+u177rnAZnm7UFcMMahpatmXF+rqoKhWWGPW5zvFKbx4JFYfSENRLpQgMQx8+hIw2Vc9bhzVPsTdJRC9fTixB8OTjPXCJuhEinfoG4I0sXtIi7WPVKIj5JwUGoNEQBCCzB4RnLkFrrI+HYrPpCXT61mia1b+GLEHbxGmbD6rGFG+Bya6yJi1a0FUje6sVnV+c6CMlCMfLYVbE33FypPBrC61zLcniW+bQGLZ97vzet47gXnbZYVZk6ftgqaRRgFzeuZR0gA9PvswTnqgwbIYW0m+cnqd1mg3aJbjT6kZcfA45VfwHAgUpzhRxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZF9OprNpKwTv+ex95HhGx5+nAMtY1E4uWWJv03rWfSc=;
- b=SUPy9lVBSO1lYWp6E6EVhPRIWGS93K5pN3fekhmT1Ur5iXk/fi1DIDUKA9huKgHCrpBL8mVZVAEQk8JS/XtQcWdWWQJdzHFh625ZBAwLXm3MwqyN+GyABJYUeW0JZwKpjLJblac0WLOqv98j6caSs+lAyArKaw+AIWCnbdZnVY+5Js/0c4MsKqZ6sZosiWTo6jRU7X68bBRRGjHfekw0pCn37CWvZubCIJDvqjBjqVfkMDkhUVtkC9hHYhCraKs36fP9C+JFjWEupZxHGKidsnl0tvjoqxeiZ4YdPTHoptqm6gLc/6960e80A+CXAeQAAbxHs5EtTfyFHW6AdnBY6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZF9OprNpKwTv+ex95HhGx5+nAMtY1E4uWWJv03rWfSc=;
- b=izWpMb98WvnFFhVH5h6JTZ7wk3LIgDNFHk6fikwLgcQwQfh1W1YjM5+W9N4qh7jBgTvC+SsOfDfx4bk85zVFj/5QD1a++1Uj4Hcpyk3BhvdQNoTZMyXehy4xWZAzC4dIBPW4V/1El4EsZFsYqiLcWOu9dOdap/+JNhoGWTGIx9silcC3deoHSaGYsNfEp7Y8SZbzYkTp8a7I1Xv7mPquegXN3QS8nDUJ55jLvIW0p8j+qwgb9w829w2oF/GBIWvaMUCZPyoSot/VYqny/bWOXIqAmaMuO7k6ShKfvR3b4UJ0S4D06/By1bD26I1ghlBnMEwys4qieK4mgaQbLEK77A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BN9PR12MB5179.namprd12.prod.outlook.com (2603:10b6:408:11c::18)
- by MW4PR12MB7287.namprd12.prod.outlook.com (2603:10b6:303:22c::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
- 2026 20:53:04 +0000
-Received: from BN9PR12MB5179.namprd12.prod.outlook.com
- ([fe80::cf08:f59b:d016:c95f]) by BN9PR12MB5179.namprd12.prod.outlook.com
- ([fe80::cf08:f59b:d016:c95f%4]) with mapi id 15.21.0270.015; Fri, 31 Jul 2026
- 20:53:04 +0000
-Message-ID: <3945845a-af6a-4d24-9821-a3925a030301@nvidia.com>
-Date: Sat, 1 Aug 2026 02:22:55 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2 1/3] ACPI: CPPC: Reject desired_perf reads on ACPI 6.6+
-To: Christian Loehle <christian.loehle@arm.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org, Len Brown <lenb@kernel.org>,
- Jie Zhan <zhanjie9@hisilicon.com>, Lifeng Zheng <zhenglifeng1@huawei.com>,
- Pierre Gondois <pierre.gondois@arm.com>, Sudeep Holla
- <sudeep.holla@arm.com>, Ionela Voinescu <ionela.voinescu@arm.com>,
- zhongqiu.han@oss.qualcomm.com, stable@vger.kernel.org
-References: <20260729100245.2628302-1-christian.loehle@arm.com>
- <20260729100245.2628302-2-christian.loehle@arm.com>
-Content-Language: en-US
-From: Sumit Gupta <sumitg@nvidia.com>
-In-Reply-To: <20260729100245.2628302-2-christian.loehle@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0174.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:de::15) To BN9PR12MB5179.namprd12.prod.outlook.com
- (2603:10b6:408:11c::18)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pEpkc2kS"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38ecc48b3deso175759a91.0
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 13:58:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785531490; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RuP2/y5gg3skaW93vhUK7l4qLa614B0wYNbIGp2Zy3wz/JCD0NwVO4+ueTxGtrBLBb
+         gTfrXB1uB242E+knY5mCQHby8WMcLLW8R4Bayd5zWimBpvuTBP+lA03GYngBEjiap4Qd
+         ZJfndId//isA4phfFO8Ef2B6FByokCHZX3MQINyFdxwzuYlOwHkjzqjsS2jZ1utgG/BB
+         76R3VjGgJjLfz9/Swmy5jqwgfNg4Nm10WONL/S5am7H9XUOupkNZqMkAl3og0B0tpBtr
+         ghmgutvx1AI2Do9yLHRghbXk8u4hkZDbRZDoh+5PS6Ha4JfwjIk5gqHB51ji3UM7RA9d
+         2VRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=t+Teresz2uzFXJRBmUNilJ0KmYvmwmTuIpPexTxP6II=;
+        fh=GZ68PoTgHfRQyHb4QFd+ilwECu2O6j7uNOp/4HWZF1A=;
+        b=mlYawr7j/nzzH/48eqD8JEwKSR+MioCxEumPajwV0L+OqLxvFfPcorQXPo79oL7rtH
+         C4pp2FpTkWmgOy8UGPmnH7YlZRT5LBamoHLwZYQDt3ioMH9l31LfSclmfmPqI0UatUr8
+         pXZKU6CXC9/lURRA/RxQkesD6V1P5Hfad/Ef3lgJKD1Yvz84EPC0wfxfQkHFA9dt0Svu
+         qKqEOEDBiMS/G1wDfzGwnFqGJhm5+AT+g344TWTqdxDyEVsAiJ012WTNlWw08MPTdvnA
+         aHllUz1dtFXwWXjYjm4YODZo4/I1QvUC0Z0nnMDruX2O4XF1o57pCS96sasrfIUHbFgX
+         Xx7g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785531490; x=1786136290; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t+Teresz2uzFXJRBmUNilJ0KmYvmwmTuIpPexTxP6II=;
+        b=pEpkc2kSKf38ETdsRTjzDUD2lwDILslIJA9FBg/GUrxJgj+RKJs9JrcpHbBKiBTTaD
+         lc2DCGmitAssbzbH+YpGEV/ZtVFogg+VQpSwdQz+I/WTBWxjAOKt4VjU+btfuOlFzwNo
+         6NeF4Apka8zzVS2C/WMrFL0WJeyGeDceNR74bdJz+ADzItFeTFRqhFccR9R3+HcSUvTX
+         6FBgtmg0xT/EkVnOonMLhiPbU0EesIDGc0W2YgaR+ZPsFHoi2ILwy8xZFZQV/jy7A3om
+         IpXrLr/9Kr1Of8qtw1Rq3WNNVERGjwt2KZCBOqbKYIPvVjvmyAayH+gpRKOTX3ELEudU
+         r8Zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785531490; x=1786136290;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t+Teresz2uzFXJRBmUNilJ0KmYvmwmTuIpPexTxP6II=;
+        b=isgQaO3mp1aj75J/PlLGIne3XJKkPuzTQA7u2/NLovTHW7fxZDkzw5/aSZCQfnpmEx
+         gQDc2hc/VQ1I2COILstsIxdBrREA/uR5lU0F24gRPOOkqwuctq57UFeX4KcFT/ipL0Bk
+         o6VD1BUWuZNx39PjoPCeSefOnLnuB9xVw4PZc29Nx/gDQ1r76VCLKxdjFb3mRI26m54d
+         KeAuS+gxKNVKKn8Q9MFkbMZFGNSf+AOgkcuLgXWlp9o0O0YsmA7dJdIY+dxzRHMyO43g
+         U8zG/iex29+TpVXIRTlEYmBDOttqfM53I7iNAIP7S1XUdxSmO4Pf0oapEPYV8GEKPZ3l
+         sKxQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoHF6jNDBbtDLQOqZf6XRQNsdreU3bSw+z6o2hWV2yzuX5X/PWmGWjcP/IeycTycDGr6eGEdck=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzC04o9pDjnafdjofTvDgzC3HOpFj3cNcELWW5Oy7pIJUmQlMf3
+	Mf2jOfE6NWV862ZcMyQNeQFSF1JXV1CX6xE4D9NyteQnCOIddJT+SyI1CEImc2RL/n8P9YK833t
+	Iq8BUVCQjSRQhcYJrTDhW+ca7hWQRGng=
+X-Gm-Gg: AR+sD138Q25q7Kq8zteZq4/lJeRIW/dWSvHNtP6mcLdnOvidKV2UyI6Awi2kQMRv7c2
+	9tQX4JDWsJZ5cnVSW+uUGhOljYK40Q4HKd/1PvMddefUOGLfhTxQI6Hy1F20r6w0d3An6QAWmXF
+	0b4MHaw50PgphF8mbkwlEQXeUUx1uzzUzxzoAX8W9KHfU+Mk3VB+dgAw1BLTb7hbHESJxMlk+U+
+	gxdyRMctTrjMbaspW0Q69bXYQbyYzi4tdQ1OYHwCZ0J5xCjQpvHt5BTfFKGUfPo8Rb8Pcbjevw0
+	tpBZqaxKWdVpjENuiXa2tYxdsjISGZOiGrTbgCKZIX49Ply5ayA03EeBzW/uxdV0wzKKW8L4dU0
+	IJuU16aJv4uOsBMvXJhTMOwQehuw9D/0gUyLPzHAbBOsTt8DaS9CzeLQwaan4
+X-Received: by 2002:a17:903:38c7:b0:2c9:8287:fd0d with SMTP id
+ d9443c01a7336-2d052438c91mr17898875ad.3.1785531489794; Fri, 31 Jul 2026
+ 13:58:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5179:EE_|MW4PR12MB7287:EE_
-X-MS-Office365-Filtering-Correlation-Id: e2518542-973c-425f-1ec6-08deef45b712
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	TvzT/qH5fAKozs9FLs7WZOoUPMP4C0IyglAKaCYXrbBxM7pX8cSlTMY3ukwTy9/qh245vmfozp4JA0yxBYwP1gjUfUpAkjYdE/d7eaWAznrrume8nSR73KCJw8Ibko8iz1DsgpsA57LU372ZD1UlaA6eYali7L3RNPanZ8Tfuk71Iiw1H+m7Fqb/i3P7DpU1nFcHye4pmGMKn2z3UHpr6xAnbJWeNH67OWnBUBcYfRXqkXZ76NivUqAdSbWAU/p/ex1If4RQfywSPPGTYin/yJKl5n8UGzXncvnBGk9B1CRe+XuOv1JFGwnvFt577VFnE2MIu1GQrJsAGd2d9A1oTp18K14VAqMMfLrDkUOHsuJU27ucqP81mYgHZNtC/HbA/khCHdeFPEwAZEHUWeRI2A/dGpXS8Z1LwOS82R7U5Vkt01keKNZKhnewsW9aTOBDecca+fujbD4IwT6oP5bI8zZ3OWS1zQBhWCJqBEbUjqPAT5JigC6O/HVgDcoB8F52PtRZCp+yaGXyFq48Hmfrdgy2f/A/upFn2ou1sVKunAwFqP1h8cqUyZqTmi2GOTD16C4RpGtFegFeTVDTkxu82/O3yd8LnO86ek88zGJYgmoFJPukGkcVrnL0ra+C/NNUPaFu/m+L2DWV8L5xJSXM4AAnS3ZmSWi71n08Wreioas=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5179.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UkZxYnh4aVlkbUFCeng4Ti9TNXZLSWFNTEdrQnNVaHhaUHhkeFpCRGR6dEVl?=
- =?utf-8?B?aXQveE5INWN6dXJkZm9tMVpWcUFBMGlBRTYzeWExUWp6M3cyRU5QY2QzS2U2?=
- =?utf-8?B?bW9LN2czaGtKbHowaTVZbk5SNGpJOGdSbXZBVXhjeVlEcjJDN0xSS0lhZ2RL?=
- =?utf-8?B?clZySkdvM3NsS2ViY2VFbmt1WGwySDRoZUdHTjVjbzJaSGozdFF3cGgvZ3pa?=
- =?utf-8?B?cW5MVVo0dlY4R2lZWnk4eGNnVjZtNGNOSnNOZHU1Nm5FVmNaaUZtWllZS0lE?=
- =?utf-8?B?MzBIT25XZkFHZEt1bzZwSDgzZXZ2RUxWdjNSZ0w5ZFgvRjUxUmlYajRiU2Zq?=
- =?utf-8?B?TUtMNUZiYTNSbWRVV2kxajlEWkF5TTBhUGdnOXlpbTMvbkZpZm90Tlc1MEFX?=
- =?utf-8?B?ejBkZEFkMWpRamxzMC9qNTRBUTFqYmx1WVJaYzVRZ2pHZ21lQ0lQeE90NmVO?=
- =?utf-8?B?OWNvZGNEOGFiYXFnZ1pmSXllUXpCTENBQ1FGZ3lSWGdjMmc1UVdrbzQ2SFZX?=
- =?utf-8?B?OG9zM0hxM2hnMyswWlUxd2V0QTY2YW5YeWNPUHdRakdORFNOQjRVU3Y0eTFL?=
- =?utf-8?B?UWhGMTR3Y2Yvd3Q0UXN2RFFlT1NSdmlnU0tqRlFIVHFYcmNabVdzSExjZ2NF?=
- =?utf-8?B?TUxoWGlLcVp0anNkWDRkVlJ1Nld1S0F1T3NtL00xenFFRWtwMkRBVWN0S1dH?=
- =?utf-8?B?VHBpZ0k2Zm9rVnViUEhDUTFBUmdXZ2w3dHJSNkxlaHNNS0FvcElUUWx5R0Y1?=
- =?utf-8?B?aFEvcmxsSzY3c0tsTFpXRHBldG1TVnhsV0ZJbG5WQUZ1Uy9vNTlGS0YxVGlD?=
- =?utf-8?B?L0Y1WUVTVS8yMVpneWxZeDJkTnNINlhibDZFQysyQkVDL1h3dVlNSWV2bmx6?=
- =?utf-8?B?RERzeDdEOWs0Sm42L0VheUgxd1hWeVBvUkdnV3IxenlYYXoyTVZrKzJmWWQ2?=
- =?utf-8?B?TlRtZUV4NERnMEJLWFBMS3EvMk5FVGhXbHF4V2xNWkNtaFYrTlFFdFl2QzlJ?=
- =?utf-8?B?cklJVUlSb1hBM0xLanQ3REVBTi9JYnR2NzRDV2pGelhrdXBGNzFKWHJPV3NS?=
- =?utf-8?B?ckpwUUdFaFBINDNHYU1jZEF4NHpXUjNOZHBXZ2Y4T3lHQmNsZTJzZ1hoekRn?=
- =?utf-8?B?NXJDa2xQSGt2MmIraWdzMFVoVjlDS2Z0VzlqZTBnUUxqUW9Hek5SR0h4Y0F6?=
- =?utf-8?B?UW9jekQ1OTVqZ3c2dGsyMGVQN2QwR2ZQTDJUb2hxYlFaZ1NscXpzUytaZmNN?=
- =?utf-8?B?TDczSFNLd3l3QWdJaGl5UlIybGFPVjdDeC9QSnhScVVtcmc5RDNGTUM1QmZF?=
- =?utf-8?B?UnpCREZjeHJxT2MwYS8vUE5tbVFVV0wvc2p2RXNmZlZ4eVlOOTVGakhxemVY?=
- =?utf-8?B?clRvYlBWUE8wYWo4WW9UZE41R3dYRFRSK0wrSnNqOCt4c2JtUUhKdG5DZ3RW?=
- =?utf-8?B?K0hFQzlmTHk5cDJSSFczcm1xMzJRL2RQQzFYZzZmSGRGam95ek5pT3Y2SHgz?=
- =?utf-8?B?NzlnUG1OR0wzU3oyTkc0Yyt4SUlLc1pqSzJVRkhISUtaejJLMSs5K2FORXp0?=
- =?utf-8?B?dDFlRFNTaW1GcU16a3pwdXNvcEpzVU5TWFBiK1BGZks1aWl0cWdVeVFqVUVa?=
- =?utf-8?B?b1l5Kzh1WmN4eEQwYU5DQTZjb21vVGRTVWYvTDJ1STRld2RJV2tDNXNtNnNn?=
- =?utf-8?B?bVdzVmFRRk4xMUVBVnZGendHbytybWhJc2xuVzlXTnNlQy9pMFVwNFp6a0Y3?=
- =?utf-8?B?RFR5bDQ5RVNoc2NCWExvRWljTmc3eWZxamU2U3o1YzFjOUc4RUdvN1cvUlBD?=
- =?utf-8?B?ZU1oNEkyYTByS2NjMzRDVXdxS3JWbmtUL0swd1A4UEwvbk5YaGxERmVGTWl4?=
- =?utf-8?B?ejJCSWIxV1dJL1Z0anlxOC9teTRHYkVBVWsrSzd6LzBOb3lOcGdSUmpKaTNl?=
- =?utf-8?B?YTNjdWRpNmlEK1ZqQ2IybDJSODFjSEVkNDl2Qk9BY0pPUUt3bHp3bGZYc1ZX?=
- =?utf-8?B?U2d1b2dNbW85WUk4WERpcC9CU2hsZFZ4Zkt0OTZQZFRReHVIN2tUdUZVL0RT?=
- =?utf-8?B?NjQyTEhlY1plVkMvWU5mZkdUNlUyS0hFTmNoU01RSEJFaHhKb3BwU2gza1dH?=
- =?utf-8?B?MHprMnhGb3NLQnBQVW1QZWlHTzdJTC85Nzh1UzFocWxzVTBEVmJQWHhxUmlp?=
- =?utf-8?B?S0Z3QlpidWd2cmJwbkVFMmxOY3E4dkJQOW8yTVlXQS9YVi9Nb05BM0RIblA3?=
- =?utf-8?B?NHlCZi9ka1FpdXl3cnZhSlhqRjhCcHpwbVA5dlcrZVdZVHI1ZzJKeEh6dXlD?=
- =?utf-8?B?VldCVGZ4eXVHa1lWM3JWYVRrZW1KOUI5dGJsRU0vT3pCNFlxNXc4QT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2518542-973c-425f-1ec6-08deef45b712
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5179.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 20:53:03.9660
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LhiWvI4WX1/s5bv8oTlwCTLp2oAm0JMsdg0uSttgdHvwITyapZU4cmYLOPG2RYAUPCMJqMFXafBrB983I2kxXw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7287
+References: <20260708211435.402426-1-chang.seok.bae@intel.com>
+ <CANiq72=-HjYOoJPd=B+0OYrHuyCO+NpcjRvmmhT_ecVZj8q97Q@mail.gmail.com>
+ <b705ef27-e87e-432a-ad1a-f425fe66887f@intel.com> <CANiq72kn8F-pnd-YxBiPN9nr02jagRk4NL-3vyX1tERCQjqNHA@mail.gmail.com>
+ <fbbe2b57-19de-4480-b0c6-f44a6007a38f@intel.com>
+In-Reply-To: <fbbe2b57-19de-4480-b0c6-f44a6007a38f@intel.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 31 Jul 2026 22:57:56 +0200
+X-Gm-Features: AUfX_mzIM4fLMtOWaIr9Pfdp7VGovFZERS0Jgk5EJXX3PQxspAj1Mv0yqU8Ra64
+Message-ID: <CANiq72n0K3ULP=7iZhB1hnu6NHEHea66drAN3DKJEG-usTn6QA@mail.gmail.com>
+Subject: Re: [PATCH] x86/build/64: Prevent native builds from generating APX instructions
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org, 
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
+	Omar Avelar <omar.avelar@intel.com>, stable@vger.kernel.org, 
+	Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux <rust-for-linux@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Jul 31, 2026 at 10:46=E2=80=AFPM Chang S. Bae <chang.seok.bae@intel=
+.com> wrote:
+>
+> Given that one option would be relax the rustc version while tightening
+> the backend like:
+>
+>   Option 1: RUSTC_VERSION >=3D 108800 && RUSTC_LLVM_MAJOR_VERSION >=3D 23
+>
+> Or, simply like the previous:
+>
+>   Option2: RUSTC_VERSION >=3D 109301
+>
+> Since the rustc front does no longer emits the `apxf` attribute starting
+> from 1.93. Also, 1.93 requires at least LLVM 21 which already supports AP=
+X.
 
-On 29/07/26 15:32, Christian Loehle wrote:
-> External email: Use caution opening links or attachments
->
->
-> When CPPC feedback counters cannot provide a usable sample, cppc-cpufreq
-> calls cppc_get_desired_perf() because some platforms repurpose Desired
-> Performance to report actual delivered performance.
->
-> The fallback was added for platforms on which Desired Performance reflects
-> delivered performance. ACPI 6.6 defines the register as write-only, so
-> invoking that workaround on an ACPI 6.6 or later platform would require an
-> invalid register read.
->
-> Make cppc_get_desired_perf() return -EOPNOTSUPP in that case. Its caller
-> already handles an error by using the cached desired-performance value.
-> When checking the FADT minor revision, mask off its upper errata-generation
-> bits and compare only the specification minor version.
->
-> Fixes: c47195631960 ("cppc_cpufreq: Use desired perf if feedback ctrs are 0 or unchanged")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-> ---
->   drivers/acpi/cppc_acpi.c | 15 ++++++++++++++-
->   1 file changed, 14 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-> index 53d09ca98f06..6e5381f8de38 100644
-> --- a/drivers/acpi/cppc_acpi.c
-> +++ b/drivers/acpi/cppc_acpi.c
-> @@ -1316,15 +1316,28 @@ static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
->          return cpc_write(cpu, reg, val);
->   }
->
-> +static bool cppc_desired_perf_readable(void)
-> +{
-> +       u8 minor_revision = acpi_gbl_FADT.minor_revision & 0x0f;
-> +
-> +       return acpi_gbl_FADT.header.revision < 6 ||
-> +              (acpi_gbl_FADT.header.revision == 6 && minor_revision < 6);
-> +}
-> +
+Does it mean it could be the "OR" of those two?
 
-A platform whose _CPC follows ACPI 6.6 semantics but whose FADT still
-reports 6.5 would pass this check as readable. If the register read
-returns zero, cppc_cpufreq_get_rate() reports 0 kHz and policy online
-fails with:
-   cpufreq: cpufreq_policy_online: ->get() failed
+i.e. it sounds like we could avoid having to pick one or the other.
 
-Since the FADT version cannot be fully relied upon, would it make sense
-to also harden the consumer? Although zero is valid Desired Performance
-value, it is not usable as a frequency estimate.
-So, cppc_cpufreq_get_rate() could fall back to the cached OSPM request:
+Thanks for double-checking that and doing the analysis, I appreciate
+it! Figuring out the precise version gates for this sort of thing is
+always informative on its own.
 
-   -    if (cppc_get_desired_perf(cpu, &delivered_perf))
-   +    if (cppc_get_desired_perf(cpu, &delivered_perf) || !delivered_perf)
-             delivered_perf = cpu_data->perf_ctrls.desired_perf;
-
-Thanks,
-Sumit
-
-
->   /**
->    * cppc_get_desired_perf - Get the desired performance register value.
->    * @cpunum: CPU from which to get desired performance.
->    * @desired_perf: Return address.
->    *
-> - * Return: 0 for success, -EIO otherwise.
-> + * Return: 0 for success, -EOPNOTSUPP for ACPI 6.6 or later, and a negative
-> + * errno otherwise.
->    */
->   int cppc_get_desired_perf(int cpunum, u64 *desired_perf)
->   {
-> +       /* ACPI 6.6 no longer specifies Desired Performance as readable. */
-> +       if (!cppc_desired_perf_readable())
-> +               return -EOPNOTSUPP;
-> +
->          return cppc_get_reg_val(cpunum, DESIRED_PERF, desired_perf);
->   }
->   EXPORT_SYMBOL_GPL(cppc_get_desired_perf);
-> --
-> 2.34.1
->
+Cheers,
+Miguel
