@@ -1,196 +1,180 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 346154562B5;
-	Fri, 31 Jul 2026 16:24:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3F6456292
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 16:25:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785515067; cv=none; b=RtxOTEI2HyChANAa9FrxFBzapIqsJU7zkSdPo80v+ZuxcvD/Ef54tS+Ti4JvgZbjv9Zz2xt8MMkFFws1VReYzE3LvVKJoadiyYevYmaHAqA8RPI2pfQX0EMFtOPOrZ3IuwjOokzu0Z60AZRhN9BWRg69PxMrYlhJ4Yyd64bVzl8=
+	t=1785515120; cv=none; b=LdpM+2KVD9DI6YbtQTPsXYG89r31RWWz6fsKeD2eFMLQr1owNSGFHGu/vKXG/K4qNtLijXePPrVVT8CjXLJaHJDR9Ww+NgibmtVFbYM0AwfR/cNlvQsTqoZZ6q635jDz7nXj2R1rw45X3FdsbI1pzP33wIfGCO411cHNW5kbnlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785515067; c=relaxed/simple;
-	bh=jLy2oxYoq2BDoxhea619lXJyJFuuD2tinsJHp1GzKnE=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=AgkOB3Ge2PXZu4hwsn7ETCobUoNmbGUdlZfaHgoFeRneZGoRBxgUqBRtDnnFEdsdwgGsTdwhvak8wHOckQFJEzHo8pHilJ0eqGLT0+sw9jNLmGxJbrt07ztBAsiSMhBH60oH7HQn0+nut1bsUC9tWg+LBElWAUs3Yn+Ffb75dcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dptk9Q8/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785515120; c=relaxed/simple;
+	bh=1nNh1pofFgo0X/U42cccchgE9VhKKv4iquC/fSsDqIs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=On7F5KB5drEpWdGkm0ICW4WNijs+ruTpTyudPsbZfdQQlFa9rjo2MDlfTBADB8Z+/CotiWeb9WKIJ8sTzlQ6IfKmBwxgyQHn8tANBvpUKB/ZbWnXqiy0rM6ORltpz3t24cNkDha2/SAl/6R4KyoZyvCmdECKFBkFPLmrEITCO8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iv+tlRcD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dptk9Q8/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84FFE1F00ACF;
-	Fri, 31 Jul 2026 16:24:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iv+tlRcD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D73F31F00ACA;
+	Fri, 31 Jul 2026 16:25:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785515065;
-	bh=y1YM1FtXEXTem+Rp2vWEYmY6TR2drUxiW8KEqcpWJqQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=dptk9Q8/V7jZUR2QsFwSRGzaaqmmDzkq7swlrDVs/bbqmKW5Vimm5mmi5wzoPN9AV
-	 /eeDWNAqUj9FAPZYxhehbk5XcNKpZbk5LW9A6ieKtUaxslcg0FEKUWE1eq5yvsXSeV
-	 MxHsPs8Qvempbe5kZaqpQSQA9I0wHQz6Hgz8cT/Wo63wqk97eDW89spNIFlkcsKbPt
-	 wX+A6sDl6JvyzUjg/7dUWZPOxduyP+B6Zzu7GECggJeDiq+CPD99Yx3oKaAItD9X4e
-	 aKnDfUU3+Pmkk5ho9GJa8wv/Sw88jFCo/5DLeGWHf0AG8Lezp2qOpMmtMgrphjhZo3
-	 oJK1DmDqH3qVQ==
-Date: Fri, 31 Jul 2026 11:24:24 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: lizf@honeycomb.io,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
-	amd-gfx@lists.freedesktop.org, Jon Nettleton <jon@solid-run.com>,
-	Jon Nettleton <jon.nettleton@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] PCI: Fix BAR resize for devices on a root bus
-Message-ID: <20260731162424.GA1571989@bhelgaas>
+	s=k20260515; t=1785515119;
+	bh=4Dua2oRzEd3qWqS0s7QuhIiYxaLatK0jo7+/oIbwofk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Iv+tlRcDZpR36WiKWuiWXQEgbEU0VqZTOFlZ4seBITPm4DdcIudjBH/5Oj/1tqTIH
+	 l132VTCghVbCkBzOmpkOw84IeNf0vlcnN5M41IXUjXB97HhTO3krmVuORJY35RYEG7
+	 0yP6fKgpQurZAJdmtD+yYVv38h3EWe1vURAcXlptZOfLzMWY4inJb6PjMb7MuadolR
+	 iHx4BCNOAe9PofMnhyMNupMYPMKu0bC0DSfwcEAtV5+HXdv+xQuMUCiyT+4y2xKC5r
+	 E9yri91djZreDk8PVK48Qpd712+Pn2aVY1y8g5oufoWPhTY2F4MmJ9nZAWL/uOvoSK
+	 wEbXeg+j/XR5A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jani Nikula <jani.nikula@intel.com>,
+	Dave Airlie <airlied@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] drm/displayid: fix Tiled Display Topology ID size
+Date: Fri, 31 Jul 2026 12:25:17 -0400
+Message-ID: <20260731162517.788544-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072926-sandbox-plexiglas-bd5e@gregkh>
+References: <2026072926-sandbox-plexiglas-bd5e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260712-pci-rebar-root-bus-v2-1-a1b9107a82dc@honeycomb.io>
 
-[cc->to: Ilpo, I think we need your review/ack for this]
+From: Jani Nikula <jani.nikula@intel.com>
 
-On Sun, Jul 12, 2026 at 02:49:43PM -0700, Liz Fong-Jones via B4 Relay wrote:
-> From: Liz Fong-Jones <lizf@honeycomb.io>
-> 
-> pci_do_resource_release_and_resize() releases the device BARs that
-> share a bridge window with the BAR being resized, but when the device
-> sits directly on a root bus (pdev->bus->self == NULL) it then skips
-> resource assignment entirely and returns success, leaving the BARs it
-> just released unassigned (IORESOURCE_UNSET).
-> 
-> Skipping pbus_reassign_bridge_resources() is correct in that case --
-> there is no bridge window to adjust -- but the device BARs still have
-> to be reassigned. Before the BAR release was consolidated into the PCI
-> core, this case worked for amdgpu because the driver released the BARs
-> itself and then called pci_assign_unassigned_bus_resources()
-> unconditionally after the resize, which assigns unassigned device BARs
-> also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
-> side BAR release before resize") removed that call, so nothing assigns
-> the released BARs anymore.
-> 
-> This breaks amdgpu completely on the SolidRun HoneyComb LX2 (NXP
-> LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
-> on the root bus of its segment (there is no root port device, so
-> pdev->bus->self is NULL):
+[ Upstream commit 90c0486a82e27393f9eaf3bb350f51a0bd38cb6b ]
 
-Maybe this is a tangent, but I'm curious about this topology.  Is this
-running as a virtualized guest?  At the hardware level, a PCIe
-endpoint must have a Root Port somewhere, even if it isn't visible to
-the OS (as is often the case in virtualized guests).
+The Tiled Display Topology ID of a DisplayID Tiled Display Topology Data
+Block consists of three fields:
 
->   amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
->   amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
->   amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
->   amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
->   amdgpu 0004:01:00.0: Fatal error during GPU init
-> 
-> No error is logged because the resize path reports success; amdgpu
-> then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
-> 
-> Assign the released BARs directly from the root bus windows when there
-> is no upstream bridge. On failure, roll back through the existing
-> restore path exactly as in the bridged case.
-> 
-> The root bus path also had a locking bug that any fix here necessarily
-> touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
-> matching down_read() (as does the "goto restore" taken when
-> pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
-> before the BAR release loop so every path through the function holds
-> it exactly once.
-> 
-> Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
-> Cc: stable@vger.kernel.org
-> Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
-> Assisted-by: Claude:claude-fable-5 checkpatch
-> Assisted-by: Claude:claude-sonnet-5
-> Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
-> ---
-> #regzbot introduced: 337b1b566db0
-> 
-> Observed at runtime on Ubuntu's linux-hwe-7.0 (7.0.0-14, broken) vs
-> linux-hwe-6.17 (working), but nothing here is distro-specific: Ubuntu
-> carries this code unmodified, and the affected function is identical
-> to current mainline. By source inspection the regression window is
-> v6.18 (old code paths) to v6.19 (consolidation). Workaround for
-> affected users: amdgpu.rebar=0.
-> ---
-> Changes in v2:
-> - Add Assisted-by tags (missing from v1; required per
->   Documentation/process/coding-assistants.rst)
-> - Add Link: to the corresponding Ubuntu bug report
-> - Drop the "# v6.19+" annotation on Cc: stable; unnecessary noise
->   given the Fixes: tag already lets the stable team derive applicable
->   versions (per stable-kernel-rules.rst)
-> - Link to v1: https://patch.msgid.link/20260705-pci-rebar-root-bus-v1-1-55df70cbdd88@honeycomb.io
-> 
-> To: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: regressions@lists.linux.dev
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: Jon Nettleton <jon@solid-run.com>
-> Cc: Jon Nettleton <jon.nettleton@gmail.com>
-> ---
->  drivers/pci/setup-bus.c | 25 +++++++++++++++++++------
->  1 file changed, 19 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-> index c0a949f2c995..9db1951f6e5c 100644
-> --- a/drivers/pci/setup-bus.c
-> +++ b/drivers/pci/setup-bus.c
-> @@ -2397,6 +2397,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
->  	if (ret)
->  		return ret;
->  
-> +	down_read(&pci_bus_sem);
-> +
->  	pci_dev_for_each_resource(pdev, r, i) {
->  		if (i >= PCI_BRIDGE_RESOURCES)
->  			break;
-> @@ -2415,13 +2417,24 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
->  
->  	pci_resize_resource_set_size(pdev, resno, size);
->  
-> -	if (!bus->self)
-> -		goto out;
-> +	if (bus->self) {
+- Tiled Display Manufacturer/Vendor ID Field (3 bytes)
+- Tiled Display Product ID Code Field (2 bytes)
+- Tiled Display Serial Number Field (4 bytes)
 
-I think pci_upstream_bridge() would be better here.  Not that this
-device will be a VF (where pci_upstream_bridge() makes a difference),
-but just to be a little more generic.
+i.e. a total of 9 bytes, not 8.
 
-> +		ret = pbus_reassign_bridge_resources(bus, res, &saved);
-> +		if (ret)
-> +			goto restore;
-> +	} else {
-> +		/*
-> +		 * A device on a root bus has no bridge windows to adjust.
-> +		 * Assign the BARs released above directly from the root bus
-> +		 * windows.
-> +		 */
-> +		list_for_each_entry(dev_res, &saved, list) {
-> +			i = pci_resource_num(pdev, dev_res->res);
->  
-> -	down_read(&pci_bus_sem);
-> -	ret = pbus_reassign_bridge_resources(bus, res, &saved);
-> -	if (ret)
-> -		goto restore;
-> +			ret = pci_assign_resource(pdev, i);
-> +			if (ret)
-> +				goto restore;
-> +		}
-> +	}
->  
->  out:
->  	up_read(&pci_bus_sem);
-> 
-> ---
-> base-commit: 7404ce51637231382873d0b55edabc2f3b841a9d
-> change-id: 20260704-pci-rebar-root-bus-f3123fe10fc7
-> 
-> Best regards,
-> --  
-> Liz Fong-Jones <lizf@honeycomb.io>
-> 
-> 
+The DisplayID Tiled Display Topology ID is used as the tile group
+identifier.
+
+Update both struct displayid_tiled_block topology_id member and struct
+drm_tile_group group_data member to full 9 bytes.
+
+The group data was missing the last byte of the serial number. I don't
+know whether there are known bug reports that might be linked to this,
+but it's plausible the last byte could be the differentiating part for
+the tile groups, and fewer tile groups might have been created than
+intended.
+
+Fixes: b49b55bd4fba ("drm/displayid: add displayid defines and edid extension (v2)")
+Fixes: 138f9ebb9755 ("drm: add tile_group support. (v3)")
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: stable@vger.kernel.org # v3.19+
+Reviewed-by: Dave Airlie <airlied@redhat.com>
+Link: https://patch.msgid.link/20260610141549.555605-1-jani.nikula@intel.com
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/drm_connector.c | 12 ++++++------
+ include/drm/drm_connector.h     |  6 +++---
+ include/drm/drm_displayid.h     |  2 +-
+ 3 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index e5c1572f720b..e49e2b0da659 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2902,7 +2902,7 @@ EXPORT_SYMBOL(drm_mode_put_tile_group);
+ /**
+  * drm_mode_get_tile_group - get a reference to an existing tile group
+  * @dev: DRM device
+- * @topology: 8-bytes unique per monitor.
++ * @topology_id: 9-byte unique ID per monitor.
+  *
+  * Use the unique bytes to get a reference to an existing tile group.
+  *
+@@ -2910,14 +2910,14 @@ EXPORT_SYMBOL(drm_mode_put_tile_group);
+  * tile group or NULL if not found.
+  */
+ struct drm_tile_group *drm_mode_get_tile_group(struct drm_device *dev,
+-					       const char topology[8])
++					       const char topology_id[9])
+ {
+ 	struct drm_tile_group *tg;
+ 	int id;
+ 
+ 	mutex_lock(&dev->mode_config.idr_mutex);
+ 	idr_for_each_entry(&dev->mode_config.tile_idr, tg, id) {
+-		if (!memcmp(tg->group_data, topology, 8)) {
++		if (!memcmp(tg->group_data, topology_id, sizeof(tg->group_data))) {
+ 			if (!kref_get_unless_zero(&tg->refcount))
+ 				tg = NULL;
+ 			mutex_unlock(&dev->mode_config.idr_mutex);
+@@ -2932,7 +2932,7 @@ EXPORT_SYMBOL(drm_mode_get_tile_group);
+ /**
+  * drm_mode_create_tile_group - create a tile group from a displayid description
+  * @dev: DRM device
+- * @topology: 8-bytes unique per monitor.
++ * @topology_id: 9-byte unique ID per monitor.
+  *
+  * Create a tile group for the unique monitor, and get a unique
+  * identifier for the tile group.
+@@ -2941,7 +2941,7 @@ EXPORT_SYMBOL(drm_mode_get_tile_group);
+  * new tile group or NULL.
+  */
+ struct drm_tile_group *drm_mode_create_tile_group(struct drm_device *dev,
+-						  const char topology[8])
++						  const char topology_id[9])
+ {
+ 	struct drm_tile_group *tg;
+ 	int ret;
+@@ -2951,7 +2951,7 @@ struct drm_tile_group *drm_mode_create_tile_group(struct drm_device *dev,
+ 		return NULL;
+ 
+ 	kref_init(&tg->refcount);
+-	memcpy(tg->group_data, topology, 8);
++	memcpy(tg->group_data, topology_id, sizeof(tg->group_data));
+ 	tg->dev = dev;
+ 
+ 	mutex_lock(&dev->mode_config.idr_mutex);
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 4d830fc55a3d..b8ef80e6ce39 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -1864,13 +1864,13 @@ struct drm_tile_group {
+ 	struct kref refcount;
+ 	struct drm_device *dev;
+ 	int id;
+-	u8 group_data[8];
++	u8 group_data[9];
+ };
+ 
+ struct drm_tile_group *drm_mode_create_tile_group(struct drm_device *dev,
+-						  const char topology[8]);
++						  const char topology_id[9]);
+ struct drm_tile_group *drm_mode_get_tile_group(struct drm_device *dev,
+-					       const char topology[8]);
++					       const char topology_id[9]);
+ void drm_mode_put_tile_group(struct drm_device *dev,
+ 			     struct drm_tile_group *tg);
+ 
+diff --git a/include/drm/drm_displayid.h b/include/drm/drm_displayid.h
+index 49649eb8447e..8f4d4da3b246 100644
+--- a/include/drm/drm_displayid.h
++++ b/include/drm/drm_displayid.h
+@@ -108,7 +108,7 @@ struct displayid_tiled_block {
+ 	u8 topo[3];
+ 	u8 tile_size[4];
+ 	u8 tile_pixel_bezel[5];
+-	u8 topology_id[8];
++	u8 topology_id[9];
+ } __packed;
+ 
+ struct displayid_detailed_timings_1 {
+-- 
+2.53.0
+
