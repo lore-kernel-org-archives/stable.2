@@ -1,73 +1,51 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cvsmtppost31.nm.naver.com (cvsmtppost31.nm.naver.com [114.111.35.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E382142A78B
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 14:22:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1084D42A179
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 14:24:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785507754; cv=none; b=Q+b9bWWT7upUvPr2ci/mw0rcVTFYsollBfdX3OP+RXH6644+jMpwqYgi3OGHZ2sJ3wyYrwikhxUhj573f0Nh1LHC8nyE2ICBst92zHsDV695I4XCLioCSyirRzEbSk2fpKJd0ZCgzZrus5jV2+gzM7F+opHn1oFJsG7E3Rgc1D4=
+	t=1785507902; cv=none; b=hsALNHzqrNYPb8IxYS+b9v8GyAQk0BK9/ls/o402h1Bx5UrtT98UqinqAVuEP1VzZ11z969kIW+lARKAHEWDogoZNCzh3FUBdBtLn8h2jbbJfavmrJKMYTCCGclYwlDUydsqrWg4Wy6CYvaFtXKhn2WybMeSK58j960Yoii/lrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785507754; c=relaxed/simple;
-	bh=ll6FLQerJq3jLfjs/fN90YGo45O8imjtMDX2eTiTmhE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eLKrybovm+r6+HvpiN3ezCin3GYbn57fJULV9Wj6Fqu9VslNP43rnBQjiNMlsdJlEFd7PaCMQWQh3wMLtiE1I0jXo9J847eKkz/Io9GDaUuunVdKhloDdIJ/hopdYsqeSEzDiFXDmjNTkYRtHFNcISudtEIYZJ1ZE1z7o87vIh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FvF9E4Mp; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785507902; c=relaxed/simple;
+	bh=a7eSvM2JHbOvQCUTR4TaiBdpKKZS4wqzFVkZje62WEI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oQ6jnY8y/ZEoRJwFeqsQ39IIwbRIth+M3Yv7wCIAPnEDjrcV5wo7SXrgvRvyG6dL9VWx94a+oyeR5FvLEC/hObqcv07ZuQdGJLumPdkwPkphvVadesrSnTmLq1U7epX0BU5p+VqOFGI1hx4p8+0h8hou21SfqIF5VhE38cIHaxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=Gmf7jD2P; arc=none smtp.client-ip=114.111.35.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FvF9E4Mp"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cc8311c6ddso732055ad.0
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 07:22:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785507752; x=1786112552; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cPoeW3jLES6wCr33SzwG3txLGpwaWgERLK4MD+MFZtU=;
-        b=FvF9E4MpEzP1X8Np3czmCCjgB+eNVlhvCUrY4Ggp0hrLL3/alXRjLiBi9gpgsY3gBD
-         yeNMoB1YRuyY4/14iOS2MItWjSbbP288nSutIu8amjb7cyECQ/tLIWM0ArdgkUWDg/B0
-         O8xt5S2e1wvYZvT8lgAzAkDPttaiMFQtd6bFK1sPmmDe47zIavl/UodwU/CVHujx75E4
-         g01Y8GIaD8LUskASPme/4VFKeaWwri2415FSv5v/VDk4GdaAud+GZo3OKmJmtPYSYwxb
-         NzM8GHhGCz9n63/LpshZ/Lpp3mcJL+ir8xCyAU1c9YHYTJHXbVvB3tpA4Vr28yee1wil
-         XZ9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785507752; x=1786112552;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cPoeW3jLES6wCr33SzwG3txLGpwaWgERLK4MD+MFZtU=;
-        b=Gnf1b8MmxBxPeMs45S5pUuzm+TG0O2yjM0CdwMCZINNDG9fz68UCYzWLOb0Y6cAKR6
-         zHMkTg7HYVCHTAT/YEvjR+VJ7nV6KuBTXO5Xrs6qipboNPsBiaM3BAfSpJrWuqlFwVir
-         7DZvJK2wBiQjU2JOTzy8KXPB/vrcfT2WA+z2fe3xM5LMBjihVEb0q+VUmRnTPWhXbiHc
-         U6jOH5qQw/qlwr9J1pU37uvsrvfHvKKc6b82mKPwhHvWp4c06RoxhtGO/D7T8dzu9sZV
-         SyOJnh1/jl2Z/PGQ/AJPmnnCFZ7aWN6hO54ArUIjjPKTgdIHR6xcrZwjkRjsl4OTohXR
-         O6cA==
-X-Forwarded-Encrypted: i=1; AHgh+RpUGFVTiyhrxIH8/ADGfqyRKZFMXEmbjjUJ0oxJj0Rz/8lIU0bRynlC8kW+5RInQONxd2W0iZk=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx591MijOvyqK+Z0hlcf4G9+ODjT1EGRzSApkRnDMTMx4dbA1Zr
-	MqQkQ/CKUZmH50h1ztUxo0PWA2K+vQRQd6opqWaW8BiG93SKQ19/QVSe
-X-Gm-Gg: AR+sD10Nbm+ytH98GWvK1Wbj9VKHkEtp9BLa0aJFA7xyZ88CbNx+UKV6EQ5sIt5PlXk
-	iZ0x/PBvNuxnzw71FCPv2IR70cfuUH8snFZpFO/wt+SSBK70sqsQdFQIZ2E5/5705hYAp4YIAwf
-	5xDM8SLCTS0+XWDCqmcVvso0f2CMCmSwcUOu39nE0UhgCLBSd9Df27hBJGQQFxa5ruH4ufsr7Gi
-	9EHOEHNZtVXlKxWlMx/Kp+LBpxlgubv5Mm/SKlUR19xu5IVEtShL2Sz1C1gmwqecI7bGDSRZVBD
-	DaktSTAFKhv6NNcVRfLvpiFXT7np1ZuCsGffCgcH7wbEvUfIVSPm/7tctO4jCCmYEEAbmvxQbG1
-	Ae+sCRnH8F5JojZmkAZEKwPHnlk2v33CKnMEZ4mCTNmx/gKe3Gv7bC+AJDOH4gYwlO61euY4MJf
-	IpKdGmTh3oHx8FutC/75nBe+uRE33YwsrmjzJiJr97sAiXYixR+Unfo2ld5u9r9BnfnQMvWOHKa
-	3DROtUaUmOog8R14WFD94RmzQ4jvcCpWnSIn8QMx1KHEMSJXlonVCs=
-X-Received: by 2002:a17:903:38c7:b0:2c9:8287:fd0d with SMTP id d9443c01a7336-2d052438c91mr2628485ad.3.1785507751833;
-        Fri, 31 Jul 2026 07:22:31 -0700 (PDT)
-Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153dd4f0f0sm6470095eec.2.2026.07.31.07.22.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 07:22:30 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Richard Watts <rrw@kynesim.co.uk>
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="Gmf7jD2P"
+Received: from cvsendbo022.nm ([10.112.20.47])
+  by cvsmtppost31.nm.naver.com with ESMTP id uhzw5vpuRjC6-AdxJnfigQ
+  for <stable@vger.kernel.org>;
+  Fri, 31 Jul 2026 14:14:50 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1785507290; bh=a7eSvM2JHbOvQCUTR4TaiBdpKKZS4wqzFVkZje62WEI=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=Gmf7jD2PqWEjVgNdBEcvv1dmtsgvckmdU5jfDMCnxZ5q9ddo6IYhX8cQZyrYCRPd2
+	 X+OfzbYofqD1saQFDXZdLvLaz91b9WE/r4RW0UmIhqCbXMg6W+mh+xbCt9CuwOSB4F
+	 RSTWjZxSZ3MASNCBiweiK7w2xd9OEFGha4RhROZZnhwlmNzuZZNM+bNRePmSjXJY34
+	 1bBFt8C9xE/QQxa3wT6Gzfk1O4ayTW6NMYfMnQ/37Iewna8pbTq546+H3kEwcAknSM
+	 XbKnuK7zsVWmbckn8tCvUCLj7Y521JtOACd0Qy2ju09i8V+GeTY4H5AscOLe5KlHj/
+	 D96JGLuAdZRtQ==
+X-Session-ID: W5waVQ3hRKmKzzf0kMVAqw
+X-Works-Send-Opt: rle8W4eXjHwYKBm9FAF9FHmwKo2mKqErKqb/jJIFjAJYKg==
+X-Works-Smtp-Source: gdbXFAE/FqJZ+Hmmax2d+6E=
+Received: from localhost.localdomain ([211.41.193.194])
+  by cvnsmtp002.nm.naver.com with ESMTP id W5waVQ3hRKmKzzf0kMVAqw
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Fri, 31 Jul 2026 14:14:50 -0000
+From: Hyeontae Lee <wonju345@naver.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	ntfs3@lists.linux.dev
 Cc: linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] tty: serialize device registration and removal
-Date: Fri, 31 Jul 2026 22:22:20 +0800
-Message-ID: <20260731142220.3000214-1-nicoyip.dev@gmail.com>
+	stable@vger.kernel.org,
+	Hyeontae Lee <wonju345@naver.com>
+Subject: [PATCH] fs/ntfs3: bound CreateAttribute asize against record_size in do_action
+Date: Fri, 31 Jul 2026 23:14:40 +0900
+Message-ID: <20260731141440.52168-1-wonju345@naver.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -77,137 +55,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tty_cdev_add() stores a newly allocated cdev in driver->cdevs[index]
-before initializing and registering it. tty_unregister_device() reads and
-deletes the same pointer without serialization.
+In do_action()'s CreateAttribute case (fslog.c:3286), attr2 points into
+the on-disk log record and asize = le32_to_cpu(attr2->size) is therefore
+attacker-controlled on mount.  The guard bounds asize only against the
+log record itself,
 
-The race can proceed as follows:
+	Add2Ptr(attr2, asize) > Add2Ptr(lrh, rec_len)
 
-  registration                     removal
-  ------------                     -------
-  driver->cdevs[index] = cdev
-                                   cdev_del(driver->cdevs[index])
-                                   kobject_put() frees cdev
-  driver->cdevs[index]->ops = &tty_fops
+where rec_len is the client data length, and separately bounds dlen
+against the MFT record.  Nothing bounds asize against record_size, but
+all three writes that follow are into rec, a kmalloc(sbi->record_size)
+buffer allocated by mi_init() (record.c:105):
 
-The final write accesses freed memory. Concurrent registration can also
-replace the slot while another caller is still using its cdev.
+	memmove(Add2Ptr(attr, asize), attr, used - roff);
+	memcpy(attr, attr2, asize);
+	rec->used = cpu_to_le32(used + asize);
 
-KASAN reported:
+With record_size 0x400, roff 0x38, used 0x160 and asize 0x800 the memcpy
+writes 2048 bytes at rec + 0x38, 0x438 bytes past the allocation, and
+rec->used is left at 0x960.  dlen is 0x18 here, so the existing
+dlen check passes: dlen bounds nothing about the size of the copy.
 
-  BUG: KASAN: slab-use-after-free in tty_cdev_add+0x5c7/0x670
-  Write of size 8 at addr ffff88810b298c48
+The equivalent non-replay path already refuses this.  mi_insert_attr()
+performs the same insert and starts with (record.c:488):
 
+	if (used + asize > sbi->record_size)
+		return NULL;
+
+Apply the same bound, spelled as a subtraction to match the neighbouring
+clause.  used <= record_size holds here because check_file_record()
+validates it (fslog.c:2826) and is called on this record at fslog.c:3172;
+roff <= used - 4 follows from check_if_attr() together with the ATTR_END
+check at fslog.c:2844, so bounding used + asize bounds both copies.
+
+The sibling WriteEndOfFileRecordSegment case does the equivalent check
+against record_size at fslog.c:3277.
+
+Reproduced by mounting a crafted image on v7.2-rc5 under KASAN:
+
+  BUG: KASAN: slab-out-of-bounds in do_action.isra.0+0x41f6/0x83a0
+  Write of size 2048 at addr ffff888005c74838 by task mount/69
+
+  CPU: 0 UID: 0 PID: 69 Comm: mount Not tainted 7.2.0-rc5-00300-g8ba098e6b6ff #2
   Call Trace:
-   tty_cdev_add+0x5c7/0x670
-   tty_register_device_attr+0x458/0x810
-   gsm_activate_mux+0x105/0x2e0
-   gsmld_ioctl+0x92f/0x14d0
+   kasan_report+0xce/0x100
+   kasan_check_range+0x105/0x1b0
+   __asan_memcpy+0x3c/0x60
+   do_action.isra.0+0x41f6/0x83a0
+   log_replay+0x920a/0xd300
+   ntfs_loadlog_and_replay+0x3ef/0x510
+   ntfs_fill_super+0x1d23/0x4550
+   get_tree_bdev_flags+0x2ef/0x550
+   vfs_get_tree+0x82/0x2f0
+   fc_mount+0x10/0x1b0
+   path_mount+0x517/0x1df0
+   __x64_sys_mount+0x20b/0x270
+   do_syscall_64+0xf9/0x540
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-  Allocated by task 111:
-   cdev_alloc+0x99/0x130
-   tty_cdev_add+0x93/0x670
+  Allocated by task 69:
+   __kasan_kmalloc+0x8f/0xa0
+   __kmalloc_noprof+0x1b4/0x460
+   mi_init+0x81/0x110
+   mi_get+0x6a/0x220
+   do_action.isra.0+0x1db4/0x83a0
+   log_replay+0x920a/0xd300
+   ntfs_loadlog_and_replay+0x3ef/0x510
+   ntfs_fill_super+0x1d23/0x4550
 
-  Freed by task 110:
-   cdev_dynamic_release+0x38/0x50
-   kobject_put+0x14d/0x280
-   tty_unregister_device+0x1b7/0x3c0
+  The buggy address belongs to the object at ffff888005c74800
+   which belongs to the cache kmalloc-1k of size 1024
+  The buggy address is located 56 bytes inside of
+   allocated 1024-byte region [ffff888005c74800, ffff888005c74c00)
 
-Add a per-driver mutex and hold it across complete device registration and
-removal. This prevents either transition from replacing or freeing a cdev
-until the other has finished.
-
-Fixes: a3a10ce3429e ("Avoid usb reset crashes by making tty_io cdevs truly dynamic")
+Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Hyeontae Lee <wonju345@naver.com>
 ---
- drivers/tty/tty_io.c       | 13 ++++++++++---
- include/linux/tty_driver.h |  3 +++
- 2 files changed, 13 insertions(+), 3 deletions(-)
+ fs/ntfs3/fslog.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
-index 6b283fd03ff8..926a9b586c7d 100644
---- a/drivers/tty/tty_io.c
-+++ b/drivers/tty/tty_io.c
-@@ -3185,7 +3185,8 @@ static int tty_cdev_add(struct tty_driver *driver, dev_t dev,
-  * that bit is not set, this function should not be called by a tty
-  * driver.
-  *
-- * Locking: ??
-+ * Locking: device registration and removal are serialized by
-+ * @driver->device_mutex.
-  *
-  * Return: A pointer to the struct device for this tty device (or
-  * ERR_PTR(-EFOO) on error).
-@@ -3217,7 +3218,8 @@ static void tty_device_create_release(struct device *dev)
-  * tty driver's flags have the %TTY_DRIVER_DYNAMIC_DEV bit set. If that bit is
-  * not set, this function should not be called by a tty driver.
-  *
-- * Locking: ??
-+ * Locking: device registration and removal are serialized by
-+ * @driver->device_mutex.
-  *
-  * Return: A pointer to the struct device for this tty device (or
-  * ERR_PTR(-EFOO) on error).
-@@ -3257,6 +3259,7 @@ struct device *tty_register_device_attr(struct tty_driver *driver,
- 	dev_set_drvdata(dev, drvdata);
+diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
+index f038c799e7ac..2230a4a77872 100644
+--- a/fs/ntfs3/fslog.c
++++ b/fs/ntfs3/fslog.c
+@@ -3288,10 +3288,15 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
+ 		asize = le32_to_cpu(attr2->size);
+ 		used = le32_to_cpu(rec->used);
  
- 	dev_set_uevent_suppress(dev, 1);
-+	guard(mutex)(&driver->device_mutex);
++		/*
++		 * attr2->size is taken from the log record and is bounded only
++		 * by the log record length, not by the MFT record.  Refuse an
++		 * attribute that does not fit, as mi_insert_attr() does.
++		 */
+ 		if (!check_if_attr(rec, lrh) || dlen < SIZEOF_RESIDENT ||
+ 		    !IS_ALIGNED(asize, 8) ||
+ 		    Add2Ptr(attr2, asize) > Add2Ptr(lrh, rec_len) ||
+-		    dlen > record_size - used) {
++		    dlen > record_size - used || asize > record_size - used) {
+ 			goto dirty_vol;
+ 		}
  
- 	retval = device_register(dev);
- 	if (retval)
-@@ -3300,10 +3303,13 @@ EXPORT_SYMBOL_GPL(tty_register_device_attr);
-  * If a tty device is registered with a call to tty_register_device() then
-  * this function must be called when the tty device is gone.
-  *
-- * Locking: ??
-+ * Locking: device registration and removal are serialized by
-+ * @driver->device_mutex.
-  */
- void tty_unregister_device(struct tty_driver *driver, unsigned index)
- {
-+	guard(mutex)(&driver->device_mutex);
-+
- 	device_destroy(&tty_class, MKDEV(driver->major, driver->minor_start) + index);
- 	if (!(driver->flags & TTY_DRIVER_DYNAMIC_ALLOC)) {
- 		cdev_del(driver->cdevs[index]);
-@@ -3338,6 +3344,7 @@ struct tty_driver *__tty_alloc_driver(unsigned int lines, struct module *owner,
- 		return ERR_PTR(-ENOMEM);
- 
- 	kref_init(&driver->kref);
-+	mutex_init(&driver->device_mutex);
- 	driver->num = lines;
- 	driver->owner = owner;
- 	driver->flags = flags;
-diff --git a/include/linux/tty_driver.h b/include/linux/tty_driver.h
-index 1f2896e56e77..bf8c9d8ec698 100644
---- a/include/linux/tty_driver.h
-+++ b/include/linux/tty_driver.h
-@@ -7,6 +7,7 @@
- #include <linux/kref.h>
- #include <linux/list.h>
- #include <linux/cdev.h>
-+#include <linux/mutex.h>
- #include <linux/uaccess.h>
- #include <linux/termios.h>
- #include <linux/seq_file.h>
-@@ -497,6 +498,7 @@ struct tty_operations {
-  * @kref: reference counting. Reaching zero frees all the internals and the
-  *	  driver.
-  * @cdevs: allocated/registered character /dev devices
-+ * @device_mutex: serializes device registration and removal
-  * @owner: modules owning this driver. Used drivers cannot be rmmod'ed.
-  *	   Automatically set by tty_alloc_driver().
-  * @driver_name: name of the driver used in /proc/tty
-@@ -532,6 +534,7 @@ struct tty_operations {
- struct tty_driver {
- 	struct kref kref;
- 	struct cdev **cdevs;
-+	struct mutex device_mutex;
- 	struct module	*owner;
- 	const char	*driver_name;
- 	const char	*name;
 -- 
 2.43.0
 
