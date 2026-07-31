@@ -1,95 +1,109 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 081A841D102;
-	Fri, 31 Jul 2026 14:37:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B27400E1A
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 14:40:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785508629; cv=none; b=IU8rAeut517YAZPjDT9CuNDYmss9tP1C4+rXW4qFCSzONIpYLIXWPjXt8UDU0J3SsS1qJI5D9Jvr1l00OOoyNnUsVfBaXBPe0WfeIMnGrhVElO0R/qsiivmYPL6XycUfc4zrHFnjA/7rDmJKVEpZQNlsJ8Ar4to78MtetK4RyKE=
+	t=1785508826; cv=none; b=hP/BoH37qJ2ZxnXXSJOBTmUQ6YKuGF31A9ylBjzuW58GqZ3JMZjbJCb8hs2buuIs67hVxeDhOu4YMkMg1LTuIBxPJMiDcwjhqWefHX1tDY3jEMIZLc/1aqzmNVpPu9OLeqISujO2ivZwQcMBvHDojoo66N1aoB3pY8Abq8+NjZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785508629; c=relaxed/simple;
-	bh=vjnXK6e/+zs+rtt3t+EiPCrC7Uppk9/6Fja90aK7H3k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ppHzZ1ZfwO6N6yfm/Rj7yvjue/hRhjFgYRhB7V8Ehx/UIXB2mbH6TvP0NkM+ZHG2Bw6Ad8wW5JlX/4cWUizNAGQcqEcutkQCE29t5abqJZzSYd+IuP+LYwGPA8L1DubA0rVxcMyuwtgSq3GvRiFtCOD6B3G45YJrJpozwSiMS7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDHoX4Ls2xqQj1UAA--.8037S3;
-	Fri, 31 Jul 2026 22:37:00 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgCHiaMKs2xqlOZcAw--.50299S2;
-	Fri, 31 Jul 2026 22:36:58 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-pm@vger.kernel.org
-Cc: sre@kernel.org,
-	laurentiu.palcu@intel.com,
-	krzk@kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] power: supply: bq24257: fix use-after-free on remove
-Date: Fri, 31 Jul 2026 14:35:54 +0000
-Message-Id: <20260731143554.334179-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1785508826; c=relaxed/simple;
+	bh=SWjs5dj3TCu3z/6b9bho/ZTJi29DUTPyt83vnmEXV+o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZH4k3xdeHziawOOAX0RePJnUP+s0h02aBD4HO60256QoDaZarPeHTxh1ACSsqkOeetfAlKfP8GQJA1UMq3UVM8/oP1b/lD08oBe6uy5o9TGfV6ChDhltzaWYUvWCgJvR4HR0mW+fVb2DTenCIwhDCwd/CXaXz4QILohU/BnKSH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y8TfB4lZ; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y8TfB4lZ"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c1670dad7a8so142800266b.3
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 07:40:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785508823; x=1786113623; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wGVPADeki+0/bIy545BYdtbcA87ECTF8VmVOWBf1hwc=;
+        b=Y8TfB4lZ8beKQ9FQSX8NYBrFFlVJYmiPcdzMh7hy3QcuqOi+ug1woW6b/YvGtxrIMB
+         btVAJecaEwJhoRF2u/xUlXRN92RkBnI+q0h0E8mUy4YrbYSbpwPaun9IZJIeOkJVN2BV
+         VjW3XjoY8MpukRf8zbl22kjlTkH9YAXD/WudI1zZlP7C36a5QB3GQiGK/TKKQo4KP3iE
+         95UJFQUEDc3zm82jKjb570iKmrByQqJlWghn9Qee96T+vPDttRWRu/DPnEkwcjZp+QvR
+         DRWtrxOrPU2ak44QMzc8I/pSvC19DeL3X54DGo/lfRgciUuTre0/Tf8z4uGh5m8mp8xM
+         lh/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785508823; x=1786113623;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wGVPADeki+0/bIy545BYdtbcA87ECTF8VmVOWBf1hwc=;
+        b=bFnnIZkEgdMC9iW5qJG6sDvj42G1uaYXvQSM3papyd2qBoye8TW/jzMY++A4ZI6bay
+         EqoYD64t3Kv+o676WuuDW8Z8oT8J4RKjDl+IHFziOG3EicA4xNRT3n48+HwnvUH+Pcut
+         SLxyLH07M+dX1SNhKbLPeQpk7Hz22XmdIGoEmZ4kIpIfiy0ZJqzclek4cbIpc7g0Wmv9
+         NrMMT8NfcwtXtTgGMhcR2C3zWi3oUCmM7/RkqVwo6mqkxNDaw8DG6S2hUxPJHOcVvZwz
+         fPUdrwW54OVj7ab1NLYpm+0EeI5mcE1qBtknDEzQNmM16RVdrpAsZ+/Zh53tZkm7E9n6
+         3xow==
+X-Forwarded-Encrypted: i=1; AHgh+RrNlcMY0AIMaNxSHJIn06Ah3cX9SDH8wc76fZHH/fvRUvFq8Nr1xPcjEu7dAzISyYmePk0iMNo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzU7wTRc3qTav8+Gx3Ru861yco8T8OuISOrW6KyOsRoAGAPZCPq
+	0/hpf1duT/aj8m6uR+msDO7ceCGPxQOZ/WZC0iBiBS4mCGXq3g0P73p4
+X-Gm-Gg: AR+sD13Q/qD1imdskp+ZsVwAnBx83eS8WqNgz5OWAbpHyXLCpmHubQj05ueXmdCs/ZV
+	+aDgZQy/b5PJSu79nq3ucVK9LuB0ME+Y6xv0TJjOgpxj/qIIUwR77jQ/QlIC2eOHwNaH7neTrQX
+	wB+y89o+XF4dcIKemBWiwxpBriiT2EG6S9/hkVeqVdUxQfuPhDVbb8oLZ8iHfEEGlNGtX/4mEgl
+	cjkvqbXl3OULnnp6MRLLanCyvGhp5mtJo3Lx0eksufySK1ozlQ5MuzXOrJN/gH9TBzGRDgq9/DQ
+	FSpBjmBDJ6INijd/7Cn+ZsVq0VosOrMUTOmrHfUoi8IEnDtQGE6AtSbqJERQjzBAcV4hNbhsrxz
+	wt6yB9x9gCvoD8NOgMu8EnZNdFkTe5+iCmgfmi6+N8iqNA1RQKlvY6z6TRs8XfKRc8skfST9sl9
+	nrizy3H4Txg9wiP1L35Krn5wntwXOE6MQ+W8KCr2z7aE3bzTT7dPbz6/KoJWdYpXRLQnqijuCvE
+	oTAUJmboCvrspW5pYbVRDUHdsIXP8Yq7clqdgSUTDUcdA045GlMrSFv/5PG9qaJyezcYLvoN/M8
+	qQnXOdimebEL0JDJ2Ra8ox8p6L+eoMqgPPUP5Zgd/0CGFdSuYqWJINv22sWwWspn3UIG5qw=
+X-Received: by 2002:a17:907:d08e:b0:c16:6e45:5ba7 with SMTP id a640c23a62f3a-c1fd271cb9fmr136450466b.59.1785508823290;
+        Fri, 31 Jul 2026 07:40:23 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a8d0-bc01-6d31-3d12-3a11-d2d0.310.pool.telefonica.de. [2a02:3100:a8d0:bc01:6d31:3d12:3a11:d2d0])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fd4453823sm185693866b.40.2026.07.31.07.40.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 07:40:22 -0700 (PDT)
+Date: Fri, 31 Jul 2026 16:40:21 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] serial: imx: serialize imx_uart_ports[] lifetime
+Message-ID: <amyxxce6haNJBJ3G@gmail.com>
+References: <20260719221014.44354-1-kmehltretter@gmail.com>
+ <20260719221014.44354-5-kmehltretter@gmail.com>
+ <amufrR-1hop2pZOz@SMW015318>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgCHiaMKs2xqlOZcAw--.50299S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?wPs6qAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBEXEjcR45dYs2uGwFfNb8p3BvjsVFH5IA1/nmqcZr4X+QVd
-	1O1BJuJDoz2Owor9xTip9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7tr47tryxXw17Gw1kGr4rWFX_yoW8JFW5pr
-	Z5CF90krWUJFW2ya1vvanrCFyrCFy5A347CFWxKw15A3ZxJr4Utryj9FsxWry3ArW8ZF4S
-	9FnIqFW0vry5CrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU86c_DUUUUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <amufrR-1hop2pZOz@SMW015318>
 
-The STAT-pin interrupt is devm-managed, so it stays armed until the devm
-cleanup that runs after remove() returns. remove() cancels
-bq->iilimit_setup_work while the handler can still fire; the threaded
-handler reschedules that work and dereferences bq, so the work runs
-against freed memory once devm frees bq.
+On Thu, Jul 30, 2026 at 02:02:05PM +0100, Frank Li wrote:
+> imx_uart_remove()
+> {
+> 	imx_uart_ports[line] = NULL;
+> 	uart_remove_one_port(&imx_uart_uart_driver, &sport->port);
+> }
+> 
+> Is above sequence to avoid use mutex?
+> 
 
-Call devm_free_irq() before canceling the work so the handler is quiesced
-and cannot reschedule it after the cancel.
+I now tried this, but it doesn't work as-is:
 
-Found by static analysis.
+uart_add_one_port() may call imx_uart_console_setup(), so the entry
+must be present before the call.
 
-Fixes: 2219a935963e ("power_supply: Add TI BQ24257 charger driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/power/supply/bq24257_charger.c | 1 +
- 1 file changed, 1 insertion(+)
+uart_remove_one_port() unregisters the console. Clearing the entry first
+causes its callbacks to dereference NULL.
 
-diff --git a/drivers/power/supply/bq24257_charger.c b/drivers/power/supply/bq24257_charger.c
-index 72f1bfea8d..b9110d5fe2 100644
---- a/drivers/power/supply/bq24257_charger.c
-+++ b/drivers/power/supply/bq24257_charger.c
-@@ -1064,6 +1064,7 @@ static void bq24257_remove(struct i2c_client *client)
- {
- 	struct bq24257_device *bq = i2c_get_clientdata(client);
- 
-+	devm_free_irq(&client->dev, client->irq, bq);
- 	if (bq->iilimit_autoset_enable)
- 		cancel_delayed_work_sync(&bq->iilimit_setup_work);
- 
--- 
-2.34.1
+The mutex protects those sequences against sibling probes.
 
+Thanks,
+Karl
