@@ -1,122 +1,112 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1D534575A;
-	Fri, 31 Jul 2026 06:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D51735E929;
+	Fri, 31 Jul 2026 06:19:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785478352; cv=none; b=ohsFc1L+SvsDWw5pc165eEt8kfk8FVQBp8Z3VqfrS0F/kZEuu6N07FAsnfUt7BVG4RCY69YHhBwLoqpnm4w86DTVq5tG85jK/iA8iIRqmPp1x6AqRUPmYhpbijcVc59zVnQxIJ3vrpwNaZDjDGcq/HVSzg7poEGnQV8wdrkKio4=
+	t=1785478786; cv=none; b=UaujF6VODQCXh/rDO0F8qpEGZGy/GDHNrTvImYCybBslv2uuPvrHLbXzDt86f9jSUVPBgkVi8NKk7ffQOHMgi2IamldhYf4YDRaEXXInk1L7cLLVzmAJD403mBuiVeK/dKvL5lGo64QiJ0b0/1X1uB1Yur466WYajYvKB3Lf4z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785478352; c=relaxed/simple;
-	bh=Y1JcFfsMxAYuwnrefStKU1BC5LEV95g+1EolWcU6v7E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BF2EDs3XKx46UG2SZRs3J/SP5EKTplfhF98ySTzr+uPH1pKAzcQGQ+tG9cfOVAqy+BfPJLUmzSwcm57jKnAkFPyZUSeQsAcKhIgX6o6UxEwp3bkFtJJnukCygQxOGVIDdH+fUZdKyWiTmaJGeX4hOM+vxiplCasrF/xiNNbA14M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=h3AMcw8H; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1785478786; c=relaxed/simple;
+	bh=m7F3y13oXrBbQYsXjuZ8reSIh3ZK7L7Cep88zLsijwQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RRZPMsFOoCHcPDReNcxbO8v7DrT/RJjQPjzZIpdiR3rQl3ggokLSp4C1SronJSlwjrCtPV9/HDQJeBusgLDPBGUgiK4/kl08mh9c5UOSKhDoJuKvvhlZGops5aGOpK3cbolowNdRKF/g0plh6VmtyoSr5CD9IwLjKmvj5GaTN1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cxoViVsA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="h3AMcw8H"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1785478320;
-	bh=HPZGktnGKJq0YPe354T/UoJt6OFSxF0ZOdTB9mSN2bI=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=h3AMcw8H4ECTYuf7DzuRkUN+zKVOHH2AJkidNxD5I/lpA81X19mYnHFaZNZnrK836
-	 QqogL0mamMYltQdgLY9Q7ke8rGmyidY8SP9MM11AB61UFi+ygd8AVZsSTbrLfmHfTc
-	 CvfzyzgSOfoYSheWhnDBwZsr2jHIOYSIUWZA84iE=
-X-QQ-mid: zesmtpgz4t1785478302t530aa3c8
-X-QQ-Originating-IP: Gaat/f7YMJd9JCUXk1SswtxXLqm8VHOGGirS3P+YNKg=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 31 Jul 2026 14:11:40 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 15113661807862631467
-EX-QQ-RecipientCnt: 7
-From: raoxu <raoxu@uniontech.com>
-To: dlemoal@kernel.org
-Cc: axboe@kernel.dk,
-	hch@lst.de,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH] zloop: restore finished zones with reduced capacity
-Date: Fri, 31 Jul 2026 14:11:39 +0800
-Message-ID: <2D18C0B4D202858C+20260731061139.1190909-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cxoViVsA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBAEF1F000E9;
+	Fri, 31 Jul 2026 06:19:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785478785;
+	bh=6QXi0TII7/bK1tQ1d3dFhzqKhjQUEb0v2ZIzAPOVW7I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cxoViVsA4KZazBH3XxBiBb3ipkIr3CsNim6fJoqSej2DfT2czk9RJPFdv2wZcukX1
+	 AxLowSFcx6i2ng1qNWNo56tgRCzn+BOm6vtAyciSNk5XsqTq8Kh46RDGJRFJfFewke
+	 dtftHab14hlxXhxJKY1DZa40U7YXAqGF82xkubMhN59+YB/w9pAnywkb5Kl/J56W06
+	 VmjG0N8UpITWNcL3R3T+x+hfrwFAPKmkWCHcPS00hG2rolPnKIE1uFBXCvU0lJFRrY
+	 +v4VQ2LUaEB/HIOr96enLdkJVzb91H4vh7sXoKdRUxCw5VDcr8LYatu1a8Sbmgy8yn
+	 figTM4JPnjvAw==
+Message-ID: <3f871221-c64e-4a68-95a5-56a9c5ff83d0@kernel.org>
+Date: Fri, 31 Jul 2026 08:19:41 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: M5aCtjAndv5OwcANG6NBvvryKQk1nRVaV99UhrIFmOxpmSIINYNaNBbu
-	0WUr7znt3ed+hF2W22i97ztirySIvDP1DyXqaFURScVmJBuOMr9T4XFb3Ar2oEYTpJcrgG5
-	ZhkCYBfq8AzCEqFD+78VtZhoTBx7v8yl3VBoOjROX6BMftnB8fN+rpvRWJ+DLlwUc2fuTWE
-	9u8O13XsBTNM7EwmeZOX6hiHVV0SaSNGdemW5MrqYhXkvWHYFAXdiTcTDRpFqkPmBQmammq
-	stIUcnWeOhX9t2doRnFnEm6p50DTHWUq1f9g4JRv85GLH/tkLsbgXmsdtIlL59m9HJofT1B
-	oHGI2gEoRCshZjFqZMfu2QSIzYKV4MJJil/0MbsCSHvN8Fp5Tcp2I0/LFuOWZHE9TBy8dag
-	yl0PywF6HiKLFz4cSmMvUzCK86FXDjCZrIH20nFqh/f/pHvL/Zx+k7uTKdWAATw5uRCsSlC
-	/jCjBzQsCjDMfZymxo95gnhLjK45kvl7eHhxdi+owues5CSMDuX5exw2j184sWxbaE9PDb+
-	RHlD2FxQrFqpavXiuJhvP+p3oiNZOlfSLnavIGPnaAqfqH8+lB3N3VSvdmGhxa/npNRopco
-	4poidQ7y2h3bZIcTcQc4PKTGxBNzWRWDZjFB6aycettEnG1ouTWuZZ9qd1y6SedvVM4DQ0y
-	k483WUu0BGxYB2T3Wujh0dU+uIhxEA62sIHX5JEfbcMXoOdEJ0d2ORcU7kwvZPnrhbI0JJw
-	P0Cz01oP19oiwaGIxM0l6G0jJF7pfqTGO3ddXJsv4nW6JOAhsdLwBeuoP+dBVRjsQSPoK5S
-	YXDTIXHcBVu5g5ihGw25FHf2i3c2g7aFpTgMUZ2tuZAJCE1ZugcyEh8qucXOcWnDAqWZc8+
-	k1M1tUHSOjxoAah5PTgmA8lVZGD/eeXWfo6KBRg98DXsRZMbi4Mav97kyrUvssRl7BvnqJV
-	Eu8kucrgT86vL/kEi4jaupAxf1jy1sXd4rIZMHhrRCmi+N8C9w6eMqmF4gtfvKymB/whVJ+
-	a2Vx9toqCW6mY1+7X9F+3KScwbSwyw3VbaNj1kghvVaWqQ43ec5gIyVE92zjg=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1 286/744] cifs: prevent readdir from changing file size
+ due to stale directory metadata
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Frank Sorenson <sorenson@redhat.com>,
+ Steve French <stfrench@microsoft.com>, Sasha Levin <sashal@kernel.org>
+References: <20260730141444.267951807@linuxfoundation.org>
+ <20260730141450.369284870@linuxfoundation.org>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <20260730141450.369284870@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Xu Rao <raoxu@uniontech.com>
+On 30. 07. 26, 16:09, Greg Kroah-Hartman wrote:
+> 7.1-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Frank Sorenson <sorenson@redhat.com>
+> 
+> [ Upstream commit e8a8d54c2d508891c142a928fc7d298c4c8bd0dd ]
 
-zloop_finish_zone() truncates a finished sequential zone backing file to
-zone_size. When zone_capacity is smaller than zone_size,
-zloop_update_seq_zone() rejects that file when the device is re-added
-because it treats every file larger than zone_capacity as invalid.
+These two allegedly fix the above:
+ecababf08905 ("cifs: fix time_last_write stamp placement in 
+setattr/truncate paths")
+0e3ea5445c22 ("cifs: consolidate time_last_write stamp into 
+_cifsFileInfo_put()")
 
-Documentation/admin-guide/blockdev/zoned_loop.rst, section "Overview",
-states that a zone finish operation truncates the backing file to the zone
-size. A file whose size equals zone_size is therefore a valid
-representation of a finished zone.
-
-Accept both zone_capacity and zone_size as full-zone representations. Keep
-rejecting all other files larger than zone_capacity.
-
-Fixes: eb0570c7df23 ("block: new zoned loop block device driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/block/zloop.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/block/zloop.c b/drivers/block/zloop.c
-index 55eeb6aac0ea..b69d798f203c 100644
---- a/drivers/block/zloop.c
-+++ b/drivers/block/zloop.c
-@@ -324,7 +324,8 @@ static int zloop_update_seq_zone(struct zloop_device *zlo, unsigned int zone_no)
- 	}
- 
- 	file_sectors = stat.size >> SECTOR_SHIFT;
--	if (file_sectors > zlo->zone_capacity) {
-+	if (file_sectors > zlo->zone_capacity &&
-+	    file_sectors != zlo->zone_size) {
- 		pr_err("Zone %u file too large (%llu sectors > %llu)\n",
- 		       zone_no, file_sectors, zlo->zone_capacity);
- 		return -EINVAL;
-@@ -339,7 +340,8 @@ static int zloop_update_seq_zone(struct zloop_device *zlo, unsigned int zone_no)
- 	spin_lock(&zone->wp_lock);
- 	if (!file_sectors) {
- 		zloop_mark_empty(zlo, zone);
--	} else if (file_sectors == zlo->zone_capacity) {
-+	} else if (file_sectors == zlo->zone_capacity ||
-+		   file_sectors == zlo->zone_size) {
- 		zloop_mark_full(zlo, zone);
- 	} else {
- 		if (zone->cond != BLK_ZONE_COND_IMP_OPEN &&
+thanks,
 -- 
-2.50.1
+js
+suse labs
 
