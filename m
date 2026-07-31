@@ -1,152 +1,252 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33AB8449EB8
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 17:14:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785518075; cv=pass; b=o2NtPFVLCHBHYwoPvV3+q3JxvctT45GyqLOU8n+UqdYoho9L9HVVp5gaVwvAQFzrFG69CsTCcDshc91NvA/8jF2FYgW+osI4NJ3MFWNK6P03QsEYVzhaXQyTpFHTu0BVYiCGvtXVLOdJVfO0c3b9ZQDHyP7PW9vmznAbRC5s/d4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785518075; c=relaxed/simple;
-	bh=ffngbTb7VcDss8OyQZ0TIbyICe29Rhb7o543BGHLugA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Mv9xd8xuFF0UHUMyrrl/p/KcfI+LJS3OFhPv5UzKPSqTU+o7Dwt4Qlv2Na3UQrP3lUP7KRKFNO63XkWJBqLAGbqtZK+1pn/IhRtxiomoo0Ezi3gTUSMRYjvuoBShl21rsl1RyUmk4gTJFTabREMcIhe4nYZFGHHy9+/GkNNeVPg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Fni8KbKl; arc=pass smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2463AFB11;
+	Fri, 31 Jul 2026 17:35:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785519300; cv=none; b=iUNhv6FAlSo7bhyQ2gsf3vaoIjgtJePKX1vXmh6lMPHmuaFdgOpdK4FZZ47SI2FuhvqFIL+HBnXj2wHlS003l8OpHfh546TvIH0hcnvrOLCf53wIsMl0S9ow5h5VY+PKSlHv06+o2cgQK67Xjq8MzTZfuC/mstmixCyRGm6+mNE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785519300; c=relaxed/simple;
+	bh=BKS53CPa4ZWJrD1kCC8MyHrwZ7pCF0u4ee7NVEiRwo8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Cq9cOqO+798f1JRgfJkNv67Y9OrcRyGjKW9LOW2EO/zkXfvBSfhGgRYcHwvA44WmSBP0Qjcj+E/MOjItdknWZLXKgWgzWumjal6aChDlq918cgSR3g7rJWq39+gFzwldsaSdRbYjXKDmXZXEZK6ewn9yUnpkSH8ilZdnm07ZpHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vAlVSGaG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Fni8KbKl"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-69a19eb2e6dso572a12.1
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 10:14:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785518071; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aJ4L7FAX61KsmjKH2QKJljQDVWKMi6q+91MEwZGjE2HV1+fhrmdU96TIK9P46EuXVd
-         quFDf8A2QANwljPPFtiEA8Vaj5EjdZx9OKHUPfMWCHMP/2wlUIF2MatDkX4dhTyUl0/4
-         uvgYQvei0uJVw1KX6oqwofUMWYGzF80EwzOXiAgPzlScbP+1gH+Cc2cIToSmsSTauTKL
-         Y4vX05zFtT69sMeR2iE0qGA1+f05sapquJ0JVG0YEoAl3nI4mq3u+2C+1w5VXIjIqDQW
-         61roEGJaRwP16qIUAKWshTadXrsb/uH4iS4a6PrtDH50CV7r2KG4PJCBxHX+ASK1mGub
-         uW2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1IEjvxIxcf25OzZ9XlYmxW3nZw+p1akOleAKSM54hBk=;
-        fh=vVB512S496QAP548D20gKQWsqqk02gntpO/G5lg99Qc=;
-        b=Oasi8ooQMca8bBda6UdWM6zFLu+84aVvrAJCbz1P/mi8xhnwEbTsiBxe5POecaTJKy
-         bUjxHV4+x+6z1RklUqSAkVvMF/tp5Y53UeiWWX7EaiYrd14xByzpdkYi606qcRgdlj05
-         F6LQ8UcQvO89Xwyuz5+UDPgoyua9JKY4Ya4mdItdFpa3uQXI98YfA1hARodJL1rZul84
-         eKiYWidrRZ17bqu9EZcqXoe+qODvBgNZcmgpKRITCUFw0nehh0w2sMiHeHiyISwx5l9P
-         /BMFd7vl8vraEUSQZ7tinBovU990rjnlzVawP31LIMCLaNZqHwSCuvejq1ePa9360MK2
-         dvmg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785518071; x=1786122871; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1IEjvxIxcf25OzZ9XlYmxW3nZw+p1akOleAKSM54hBk=;
-        b=Fni8KbKlLBw2IOxA0RONt692zF0OCdq2s477p4WMfaM20/wr7HKkohBG8CnJWOlmlF
-         GHpxGge9dQIMobk6QOjz6VoiH+lzbBBDz1HGkzFAqaVV8rDW68bUPjR3z8o1QaJpbYNh
-         g5vxh7NXHn3dx1/drxTwfzPY6KtNFoFRBA55b1oAfImkqjIJlEeeYZy3IhR/1HUJxpPw
-         CSkFyixPaOO01U3Q9Os0MYfbNdzqU2nzg8hRKVCMyPlEqGI0h4LxH8UGaHtejPXpn4so
-         Jcihh0paUm4iLm9w83aDyo3csHFs11CCy++2SG8a1eHVXsqY9QobX5qCw2sgNJMyZ42V
-         RoBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785518071; x=1786122871;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1IEjvxIxcf25OzZ9XlYmxW3nZw+p1akOleAKSM54hBk=;
-        b=c0iKO8gEQf6p4pTs3Ez1/uDI/6cS0wrU5XogLB3xxC14Pb/UwQOQ+NiDM5JHGkLWB4
-         saLx8vjFmDYStG+BaLNvCKMUWQrQazDv43NHnlRATuys5zqUa+F4XFvP7KPJGcSzMf4p
-         W2n03JrXm3WjmJl/FNW7tPN3wSZckffRckYSfbWEybOM7a+0Njkp01BJcmBIYUxLnmzH
-         JpepaUiltoM4+9FGp6gfySn0rOP+sDmNv+zWRPMmDddGbY0SuWbfh5GTEHEZbwF7W0XJ
-         HpQLXtc31XPUS+/7lyDvwQQ7bxVCCxi9xUDnNQsf02ntPp7Os220MmTD8Qmh176lXw44
-         cEVQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro7RxgF9PlL+K73U1h7bIIHqN7Ac6YdHnN4hS7UwO27tx+2ALZrGsqLNz3ytXLXxShNV/MyrBo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzHd3k28SP9GDLeLCNtRsxu8A8lVpe0OmgRCOB2z5HtomeazUJT
-	xauU25vUWk2WYVdATaLf4V7ydrcLXNUgRx+vQP7fV8ojqiDkwrv9vhvTBSW77AOnxRtqNyLCO4J
-	rfTr/0ojb1AT9tYWL5iddunWPoF+qpWvEk1OKJLBH
-X-Gm-Gg: AR+sD12NnuK74XSftQw+5rBuBsOQzs5MfyFS3y3TXVdIoFmBo93ivzlOQ394krVGXv/
-	5YANlOTcF1Rp+giINbzooHro/m2KFlSSrD5QGBxC1a9r4m24KdsLoFZUGjtTnmJYQFSasIMF8oc
-	xjhpNWn2AEUX+INyBltw02pgp+oZJ78cEUHR2weJrEfj4laUDFx6ssQByWfUZvFrbfw1nbRs6FC
-	e8YDE47vNpvH+oOHLV2dkQYZ1g23+Do4SO+mvZhzhspQlj5Ra3pB9UFnvsiFxFoAv5+/lJe38zT
-	9Dtz+L+0HfEmeBRgjN4gxO2c+lWq6Ys1ixz3waTjUhb3kr4u6O6OXJFzGgyrdehLal2Xs8UZlVE
-	=
-X-Received: by 2002:a05:6402:29a:b0:69f:d9cd:ec41 with SMTP id
- 4fb4d7f45d1cf-6a0a84fb211mr2629a12.6.1785518070065; Fri, 31 Jul 2026 10:14:30
- -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vAlVSGaG"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D60EEC2BCB9;
+	Fri, 31 Jul 2026 17:34:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785519299;
+	bh=BKS53CPa4ZWJrD1kCC8MyHrwZ7pCF0u4ee7NVEiRwo8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=vAlVSGaGh3oyeIogGnyNKlhkiDCvf28sXs0lKe3KhOnnN4kaabv1iv7WRVf4uVU3t
+	 QJqIbTG1S8DPG9FHAfP2ngkUdbCcjIzE8OqC6hbabSaDtO7FV5UU63bmjgGrCz7iRP
+	 T+cTkb9aiJmTloVvDNmBSdd8ICkFSciyFlAvLWAGlUyGajrUAINc+WiQ2nQ/SIoaUu
+	 3fzJDWxUr+MH7RBeb4rcPTcs6YPq/UGgM5ozoqaKItHTIc3x8KTCoUXDBSrfavwlKQ
+	 EctMoG51LnDLX4WJbl+VGlQBfh3WQ19eRH/iNvJp2LUO39y7ONJ3TrejR/YpEEuck/
+	 2DupO+P5Xobcg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3043C5516D;
+	Fri, 31 Jul 2026 17:34:59 +0000 (UTC)
+From: Liz Fong-Jones via B4 Relay <devnull+lizf.honeycomb.io@kernel.org>
+Date: Fri, 31 Jul 2026 10:34:59 -0700
+Subject: [PATCH v3] PCI: Fix BAR resize for devices on a root bus
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAO_48GGxJj6AU6vsu-Y18WKtL_9RT=zsXWp3L+ifZdLM7CgGtw@mail.gmail.com>
- <20260730062645.233148-1-shoubaineng@gmail.com> <20260730062645.233148-4-shoubaineng@gmail.com>
-In-Reply-To: <20260730062645.233148-4-shoubaineng@gmail.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Fri, 31 Jul 2026 10:14:17 -0700
-X-Gm-Features: AUfX_mzp9OFlht_i5txZ0xvAxi8mLSvD5KWIdtBZewXay8clz2l69cTX7T1s68U
-Message-ID: <CABdmKX1-0bXdU_pWKrY3LR4JmOpxC48ka9akS8PHYDBnngFqWQ@mail.gmail.com>
-Subject: Re: [PATCH v5 3/4] drm/prime: use dma_buf_fd_install() to preserve
- export tracing
-To: Baineng Shou <shoubaineng@gmail.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
-	John Stultz <jstultz@google.com>, Sandeep Patil <sspatil@android.com>, 
-	"Andrew F . Davis" <afd@ti.com>, Srinivas Kandagatla <srini@kernel.org>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, stable@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260731-pci-rebar-root-bus-v3-1-6732e233fc99@honeycomb.io>
+X-B4-Tracking: v=1; b=H4sIAMLcbGoC/22NywrCMBQFf6VkbSRJra2u/A9xkceNvYJNSdpgK
+ f13k4og0uXAOTMzCeARAjkXM/EQMaDrEpS7guhWdnegaBITwcSR1exAe43Ug5KeeucGqsZAbcl
+ FaYEzq2uSjr0Hi69Ver19OIzqAXrIprxoMQzOT2s18rz7BqqtQOSU06oytmZaGdM0l9Z1MGn3V
+ Ht0JDei+LFwsWkRySK5OnFWy0YY/WdZluUNzJa3zQ8BAAA=
+X-Change-ID: 20260704-pci-rebar-root-bus-f3123fe10fc7
+To: Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, 
+ Jon Nettleton <jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, 
+ Jacob Martin <jacob.martin@canonical.com>, stable@vger.kernel.org, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Liz Fong-Jones <lizf@honeycomb.io>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7820; i=lizf@honeycomb.io;
+ s=gpg; h=from:subject:message-id;
+ bh=tiZwX1JmLLUsHZJG3LbO1qum0siFMUGL+nup0ZLj+Xw=;
+ b=owEBbQGS/pANAwAKAaXO1OOXra/CAcsmYgBqbNzDr8ep/jGlcuUqZtPyGYoV8lNXGhJJ6o6p5
+ bJDuK58YKCJATMEAAEKAB0WIQSfW1LPQ0gyJmoTHwelztTjl62vwgUCamzcwwAKCRClztTjl62v
+ wm2fCACzplb0URlP9O9SZoCrIJkNf+9dSN1UVWBNLkWHJhJiPfy+RhKryzBpkUnrnk+eGGVy/6v
+ SJpSGdPtUUaZkf8OlGv6Upb5GItiyRwctbn6mPjyd/kmB+YaxXMAxBGttiELGn7g2BkJM7cTSYv
+ QXvKemb1VVqrkV+wm8ZAshy8lM8URpPLTw77PlJKmU7H0woyQsW8TpzJOcl4Fu0kiZAnHrs8JDW
+ evEFcyFrPbyMF7UhgcueWYhecqwm1c6WKxHtPorw5MfJDo2xM98cdF5RmdcoCuzk/i7DOo6Xw4R
+ oVKeg0a7T+kxTBFRa8b3vTEk6b+xBa0W/D4pI2C9E2/Kn/9m
+X-Developer-Key: i=lizf@honeycomb.io; a=openpgp;
+ fpr=1F7714D7EC3441D2CECC24606A3F8B00FBDDD2A4
+X-Endpoint-Received: by B4 Relay for lizf@honeycomb.io/gpg with auth_id=854
+X-Original-From: Liz Fong-Jones <lizf@honeycomb.io>
+Reply-To: lizf@honeycomb.io
 
-On Wed, Jul 29, 2026 at 11:27=E2=80=AFPM Baineng Shou <shoubaineng@gmail.co=
-m> wrote:
->
-> drm_gem_prime_handle_to_fd() open-codes fd reservation and install
-> using get_unused_fd_flags() + fd_install() directly.  This bypasses
-> the DMA_BUF_TRACE() call that dma_buf_fd() emits, so observability
-> tools relying on the trace_dma_buf_fd tracepoint silently miss all
-> DRM PRIME exports.
->
-> Replace the bare fd_install() with dma_buf_fd_install(), which wraps
-> fd_install() together with DMA_BUF_TRACE(), restoring full tracepoint
-> coverage.  No functional change; the fd lifecycle (get_unused_fd_flags
-> =E2=86=92 work =E2=86=92 install) is already correct.
->
-> Note: this patch depends on dma_buf_fd_install() introduced in
-> "dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds"
-> [1].
->
-> [1] https://lore.kernel.org/dri-devel/20260714114654.3885457-2-shoubainen=
-g@gmail.com/
->
-> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+From: Liz Fong-Jones <lizf@honeycomb.io>
 
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
+pci_do_resource_release_and_resize() releases the device BARs that
+share a bridge window with the BAR being resized, but when the device
+sits directly on a root bus (pdev->bus->self == NULL) it then skips
+resource assignment entirely and returns success, leaving the BARs it
+just released unassigned (IORESOURCE_UNSET).
 
-> ---
->  drivers/gpu/drm/drm_prime.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> index 9b44c78cd77f..fe3436d1235d 100644
-> --- a/drivers/gpu/drm/drm_prime.c
-> +++ b/drivers/gpu/drm/drm_prime.c
-> @@ -524,7 +524,7 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev=
-,
->                 return PTR_ERR(dmabuf);
->         }
->
-> -       fd_install(fd, dmabuf->file);
-> +       dma_buf_fd_install(dmabuf, fd);
->         *prime_fd =3D fd;
->         return 0;
->  }
-> --
-> 2.34.1
->
+Skipping pbus_reassign_bridge_resources() is correct in that case --
+there is no bridge window to adjust -- but the device BARs still have
+to be reassigned. Before the BAR release was consolidated into the PCI
+core, this case worked for amdgpu because the driver released the BARs
+itself and then called pci_assign_unassigned_bus_resources()
+unconditionally after the resize, which assigns unassigned device BARs
+also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
+side BAR release before resize") removed that call, so nothing assigns
+the released BARs anymore.
+
+This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
+LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
+on the root bus of its segment (there is no root port device, so
+pdev->bus->self is NULL):
+
+  amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
+  amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
+  amdgpu 0004:01:00.0: Fatal error during GPU init
+
+No error is logged because the resize path reports success; amdgpu
+then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
+
+Assign the released BARs directly from the root bus windows when there
+is no upstream bridge. On failure, roll back through the existing
+restore path exactly as in the bridged case.
+
+The root bus path also had a locking bug that any fix here necessarily
+touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
+matching down_read() (as does the "goto restore" taken when
+pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
+before the BAR release loop so every path through the function holds
+it exactly once.
+
+Use pci_upstream_bridge() rather than testing pdev->bus->self
+directly to decide whether the device has an upstream bridge. The two
+are usually equivalent, but pci_is_root_bus() -- which
+pci_upstream_bridge() uses internally -- documents that "virtual"
+buses added for SR-IOV via virtfn_add_bus() also have bus->self ==
+NULL without being root buses. pci_do_resource_release_and_resize()
+is reachable for VF BAR resizes (see the pci_resource_is_iov() checks
+elsewhere in this file and in rebar.c), so testing bus->self directly
+could misroute a VF resize into the root-bus assignment path added
+above. Nothing about the bug being fixed here involves a VF; this is
+purely for correctness on that path.
+
+Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
+Cc: stable@vger.kernel.org
+Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
+Assisted-by: Claude:claude-fable-5 checkpatch
+Assisted-by: Claude:claude-sonnet-5
+Reviewed-by: Krzysztof Wilczyński <kwilczynski@kernel.org>
+Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
+---
+#regzbot introduced: 337b1b566db0
+
+Observed at runtime on Ubuntu's linux-hwe-7.0 (7.0.0-14, broken) vs
+linux-hwe-6.17 (working), but nothing here is distro-specific: Ubuntu
+carries this code unmodified, and the affected function is identical
+to current mainline. By source inspection the regression window is
+v6.18 (old code paths) to v6.19 (consolidation). Workaround for
+affected users: amdgpu.rebar=0.
+
+On the topology question raised in review: this is physical hardware,
+not a virtualized guest, running the UEFI/ACPI firmware variant of
+this board (SolidRun also ships a U-Boot/devicetree variant of the
+same hardware). Deferring to Jon Nettleton (CC'd, SolidRun) on the
+exact root complex wiring; see the hardware manual's block diagram:
+https://dev.solid-run.com/nxp/lx2160a/com-som/lx2160a-com-hardware-user-manual#block-diagram
+---
+Changes in v3:
+- Add Reviewed-by from Krzysztof Wilczyński, received on v2.
+- Use pci_upstream_bridge() instead of testing pdev->bus->self
+  directly, per Bjorn Helgaas's review: bus->self == NULL doesn't
+  necessarily mean a root bus (SR-IOV virtfn_add_bus() buses are the
+  same), and this function is reachable for VF BAR resizes elsewhere
+  in this file. Doesn't affect the bug being fixed here (not a VF)
+  but is more correct in general. Reviewed-by kept from v2 -- this is
+  a narrow, mechanical change to a path this device doesn't exercise,
+  not a substantive rework of what was reviewed.
+- Rebase onto current mainline.
+- Add Jacob Martin to Cc: he independently triaged and accepted the
+  corresponding Ubuntu report (LP: #2159596) on the Canonical kernel
+  team, so he has direct interest in this landing.
+- Move Ilpo Järvinen to To: for final review, per Bjorn.
+- Link to v2: https://patch.msgid.link/20260712-pci-rebar-root-bus-v2-1-a1b9107a82dc@honeycomb.io
+
+Changes in v2:
+- Add Assisted-by tags (missing from v1; required per
+  Documentation/process/coding-assistants.rst)
+- Add Link: to the corresponding Ubuntu bug report
+- Drop the "# v6.19+" annotation on Cc: stable; unnecessary noise
+  given the Fixes: tag already lets the stable team derive applicable
+  versions (per stable-kernel-rules.rst)
+- Link to v1: https://patch.msgid.link/20260705-pci-rebar-root-bus-v1-1-55df70cbdd88@honeycomb.io
+
+To: Bjorn Helgaas <bhelgaas@google.com>
+To: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Cc: linux-pci@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: regressions@lists.linux.dev
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Jon Nettleton <jon@solid-run.com>
+Cc: Jon Nettleton <jon.nettleton@gmail.com>
+Cc: Jacob Martin <jacob.martin@canonical.com>
+---
+ drivers/pci/setup-bus.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index c0a949f2c9956..d50f3d57a7791 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	struct resource *res = pci_resource_n(pdev, resno);
+ 	struct pci_dev_resource *dev_res;
+ 	struct pci_bus *bus = pdev->bus;
++	struct pci_dev *bridge = pci_upstream_bridge(pdev);
+ 	struct resource *b_win, *r;
+ 	LIST_HEAD(saved);
+ 	unsigned int i;
+@@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	if (ret)
+ 		return ret;
+ 
++	down_read(&pci_bus_sem);
++
+ 	pci_dev_for_each_resource(pdev, r, i) {
+ 		if (i >= PCI_BRIDGE_RESOURCES)
+ 			break;
+@@ -2415,13 +2418,24 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 
+ 	pci_resize_resource_set_size(pdev, resno, size);
+ 
+-	if (!bus->self)
+-		goto out;
++	if (bridge) {
++		ret = pbus_reassign_bridge_resources(bus, res, &saved);
++		if (ret)
++			goto restore;
++	} else {
++		/*
++		 * A device on a root bus has no bridge windows to adjust.
++		 * Assign the BARs released above directly from the root bus
++		 * windows.
++		 */
++		list_for_each_entry(dev_res, &saved, list) {
++			i = pci_resource_num(pdev, dev_res->res);
+ 
+-	down_read(&pci_bus_sem);
+-	ret = pbus_reassign_bridge_resources(bus, res, &saved);
+-	if (ret)
+-		goto restore;
++			ret = pci_assign_resource(pdev, i);
++			if (ret)
++				goto restore;
++		}
++	}
+ 
+ out:
+ 	up_read(&pci_bus_sem);
+
+---
+base-commit: 8ba098e6b6ff0db8edf28528d1552be261af30d4
+change-id: 20260704-pci-rebar-root-bus-f3123fe10fc7
+
+Best regards,
+--  
+Liz Fong-Jones <lizf@honeycomb.io>
+
+
