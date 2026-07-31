@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522FB3B71DC
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:33:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701703C10A8
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:33:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785497608; cv=none; b=daIwAHKhZqmOIsNQp30QxG6RlH1j5R0ntQcqfimQaEtUwJEP+4AQBnlSe0Y5CdkGuWBsAqxtkwi9Jl0RUtAy/FlsNHX7ZL/CXKdxn3yl1eTjhRPeYAd6LDMfQEnef5kapvVh4AoXLKhqSr7R+RBeABAHcUb8l1vJBtmy/C1Dr4c=
+	t=1785497612; cv=none; b=mjoN79mngvQcydumueSTurzRQsX3XvErNHnBUYN2+jUU3OgIXYbk9DPxn6VE3IjBMAygMzQe8tbBWRd2d4B0x6owIzHM8mh1G0fjYn4Ds6oDcnMwar/730hDW+w7qrOtmBcIoW77TnlHAU6NRR/QoCyJdwn+vBR/UtCjXXB6nec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785497608; c=relaxed/simple;
-	bh=acMVSnnBfP4/A8niwByr5PVqgzFtdNWXtvbU4R00lw0=;
+	s=arc-20240116; t=1785497612; c=relaxed/simple;
+	bh=FdPJfOwyme8zwBABiCrstAATwh+CpjfdIvbnsvEB950=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i7EBUI142nuValzPnVv4r3E+rX/OGCBPh+nCtZHqRbLb3m6QnuryzEOCERG8ZdxvsMbh26gy0VRCe5A5M9a1X3lGP7hnGLFEGJa+W7B3fdb7w+34lJCaho6pUc9xuEQQ2BxpyRbAy6u9m14A91DNK7KBsWjJxmk0OqLTE0QE2n0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iSSz4Wrv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uBboCdvVhyxWo01jH67sq0OGi9lvg6zEvuecR7aKSzdclt1gxRfbmRYY8jhEJc38bkY4n1DKnd2KFPQ7jjr1s0qore6g3UqokerT2yIatBoeHir/JSfW6M3cLx43NTWBiqUAeumprOeWs9T2bYIz9viuHqFk7uYISDf49OhKUH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E04YyQFJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iSSz4Wrv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 800881F000E9;
-	Fri, 31 Jul 2026 11:33:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E04YyQFJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A00A91F00A3A;
+	Fri, 31 Jul 2026 11:33:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785497607;
-	bh=K5wpzDPnaqtoZnB3ZcDmtbZDR3cL5ySfN0sVFkmEiyg=;
+	s=k20260515; t=1785497611;
+	bh=Bx10++uDb6PxmI4Fw3kZGmu6LxVNOlzsUbRuVO4RhA0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iSSz4WrvijNo6W+t0nEjeA7Yu/geBzmRpqC/9TEPz9WurjuLC6IGGrEb97+f7/aMu
-	 iIW3OBKOIfkbGB3vRr9emYU3q1OGAA2V/3BdEiA5ohdg1USQ9Z7gVWwI3+w41wZJEi
-	 n9LZrV/hLv1bz1TiRj38CuKVxA3d0Ng87AzeHcOuXqNdRx57LAUMeXyDW4MgUJpdeU
-	 2NfqPkV5LYWOtElctKNU7hCP7mW/GxC0QWtyf0cY8yQXiiC/6OcbHdOjlhPYTPe9cd
-	 krwi3Urn8r3tqxb+EcaOP26V6gyeDejjfyyvoBlQG61HelrPlF9hMXWtCZBofMUQ1h
-	 BgVK0WB7VRmpw==
+	b=E04YyQFJX+fpaAmCd9KRC9fUkCaRRammKw4+Tu4notDx7USho5YyyLI9iSfj0FQAq
+	 0QvkE5XS9R3soIRmL1YVi4N+rRioYjIRtHLpW1/zy2pAf2FN1wDJbApIGqZJaM0Rej
+	 RI3MpaYk+8YSgPQLgKq24ZRFUd5sBSwdPMr2ziUovK1Z1JRggFiZW2OcPNyK61UN3p
+	 6R6bmZr+QbqgTm5JqhGmnYQifS2q+hfem+0kKmGZnk0tTIJQ6v/jOw/o9NfCevnhqi
+	 OoJZa9lxse67iUA3P8UL5AOuK0x30Z0v8y5TfYKU5xwFdawZIN9AQDPyNVegdYYRvj
+	 DLP8HEwtF8txA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Ashutosh Desai <ashutoshdesai993@gmail.com>,
 	Lyude Paul <lyude@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] drm/dp/mst: fix OOB reads in remote DPCD/I2C sideband reply parsers
-Date: Fri, 31 Jul 2026 07:33:24 -0400
-Message-ID: <20260731113324.3700825-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] drm/dp/mst: fix OOB reads on 2-byte fields in sideband reply parsers
+Date: Fri, 31 Jul 2026 07:33:29 -0400
+Message-ID: <20260731113329.3701390-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072940-harmonica-stage-8c21@gregkh>
-References: <2026072940-harmonica-stage-8c21@gregkh>
+In-Reply-To: <2026072956-send-spouse-819c@gregkh>
+References: <2026072956-send-spouse-819c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,62 +47,91 @@ Content-Transfer-Encoding: 8bit
 
 From: Ashutosh Desai <ashutoshdesai993@gmail.com>
 
-[ Upstream commit 1a8f537f5a1eeac941f262fe73078d6b08ba83c0 ]
+[ Upstream commit 6b89ba3dba2f583626fb693e47e951ffb8bf591f ]
 
-drm_dp_sideband_parse_remote_dpcd_read() reads num_bytes from the raw
-message and then unconditionally does:
+Three sideband reply parsers read 16-bit fields as:
 
-  memcpy(bytes, &raw->msg[idx], num_bytes);
+  val = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
 
-without checking that idx + num_bytes <= raw->curlen. raw->msg[] is
-256 bytes; if a malicious or misbehaving MST hub sets num_bytes larger
-than the remaining payload, the memcpy reads past the received data
-into whatever follows in raw->msg[].
+and check bounds only after the fact. When idx == raw->curlen,
+raw->msg[idx+1] reads one byte past the received message data into
+the following struct fields (curchunk_len, curchunk_idx, curlen).
 
-drm_dp_sideband_parse_remote_i2c_read_ack() has the same flaw (noted
-with a /* TODO check */ comment since the code was introduced).
+Affected functions:
+ - drm_dp_sideband_parse_enum_path_resources_ack()
+   full_payload_bw_number and avail_payload_bw_number fields
+ - drm_dp_sideband_parse_allocate_payload_ack()
+   allocated_pbn field
+ - drm_dp_sideband_parse_query_payload_ack()
+   allocated_pbn field
 
-Fix both functions by using a single combined check
-(idx + num_bytes > curlen) before each memcpy. Since num_bytes is u8,
-it is always >= 0, so this strictly subsumes the simpler idx > curlen
-form and no separate step is needed.
+Fix by using a single combined check (idx + 2 > curlen) before each
+2-byte read. Since the check is strictly tighter than idx > curlen,
+no separate step is needed.
 
 Fixes: ad7f8a1f9ced ("drm/helper: add Displayport multi-stream helper (v0.6)")
 Cc: <stable@vger.kernel.org> # v3.17+
 Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
 Reviewed-by: Lyude Paul <lyude@redhat.com>
-[added missing fixes tag]
+[added fixes tag]
 Signed-off-by: Lyude Paul <lyude@redhat.com>
-Link: https://patch.msgid.link/20260510201733.2882224-1-ashutoshdesai993@gmail.com
+Link: https://patch.msgid.link/20260510203128.2884846-1-ashutoshdesai993@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/drm_dp_mst_topology.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_dp_mst_topology.c | 17 ++++-------------
+ 1 file changed, 4 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-index 70be5719e403..35604c8aeb27 100644
+index 70be5719e403..641a66ac2405 100644
 --- a/drivers/gpu/drm/drm_dp_mst_topology.c
 +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -861,7 +861,7 @@ static bool drm_dp_sideband_parse_remote_dpcd_read(struct drm_dp_sideband_msg_rx
- 		goto fail_len;
- 	repmsg->u.remote_dpcd_read_ack.num_bytes = raw->msg[idx];
+@@ -913,16 +913,13 @@ static bool drm_dp_sideband_parse_enum_path_resources_ack(struct drm_dp_sideband
+ 	repmsg->u.path_resources.port_number = (raw->msg[idx] >> 4) & 0xf;
+ 	repmsg->u.path_resources.fec_capable = raw->msg[idx] & 0x1;
  	idx++;
 -	if (idx > raw->curlen)
-+	if (idx + repmsg->u.remote_dpcd_read_ack.num_bytes > raw->curlen)
++	if (idx + 2 > raw->curlen)
  		goto fail_len;
- 
- 	memcpy(repmsg->u.remote_dpcd_read_ack.bytes, &raw->msg[idx], repmsg->u.remote_dpcd_read_ack.num_bytes);
-@@ -897,7 +897,9 @@ static bool drm_dp_sideband_parse_remote_i2c_read_ack(struct drm_dp_sideband_msg
+ 	repmsg->u.path_resources.full_payload_bw_number = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+ 	idx += 2;
+-	if (idx > raw->curlen)
++	if (idx + 2 > raw->curlen)
  		goto fail_len;
- 	repmsg->u.remote_i2c_read_ack.num_bytes = raw->msg[idx];
- 	idx++;
--	/* TODO check */
-+	if (idx + repmsg->u.remote_i2c_read_ack.num_bytes > raw->curlen)
-+		goto fail_len;
-+
- 	memcpy(repmsg->u.remote_i2c_read_ack.bytes, &raw->msg[idx], repmsg->u.remote_i2c_read_ack.num_bytes);
+ 	repmsg->u.path_resources.avail_payload_bw_number = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+-	idx += 2;
+-	if (idx > raw->curlen)
+-		goto fail_len;
  	return true;
  fail_len:
+ 	DRM_DEBUG_KMS("enum resource parse length fail %d %d\n", idx, raw->curlen);
+@@ -940,12 +937,9 @@ static bool drm_dp_sideband_parse_allocate_payload_ack(struct drm_dp_sideband_ms
+ 		goto fail_len;
+ 	repmsg->u.allocate_payload.vcpi = raw->msg[idx];
+ 	idx++;
+-	if (idx > raw->curlen)
++	if (idx + 2 > raw->curlen)
+ 		goto fail_len;
+ 	repmsg->u.allocate_payload.allocated_pbn = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+-	idx += 2;
+-	if (idx > raw->curlen)
+-		goto fail_len;
+ 	return true;
+ fail_len:
+ 	DRM_DEBUG_KMS("allocate payload parse length fail %d %d\n", idx, raw->curlen);
+@@ -959,12 +953,9 @@ static bool drm_dp_sideband_parse_query_payload_ack(struct drm_dp_sideband_msg_r
+ 
+ 	repmsg->u.query_payload.port_number = (raw->msg[idx] >> 4) & 0xf;
+ 	idx++;
+-	if (idx > raw->curlen)
++	if (idx + 2 > raw->curlen)
+ 		goto fail_len;
+ 	repmsg->u.query_payload.allocated_pbn = (raw->msg[idx] << 8) | (raw->msg[idx + 1]);
+-	idx += 2;
+-	if (idx > raw->curlen)
+-		goto fail_len;
+ 	return true;
+ fail_len:
+ 	DRM_DEBUG_KMS("query payload parse length fail %d %d\n", idx, raw->curlen);
 -- 
 2.53.0
 
