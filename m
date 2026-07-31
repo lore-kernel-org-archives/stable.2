@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA117262E
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 02:40:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E978282F16
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 02:41:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785465661; cv=none; b=F6QgjigccLDzM3wteYSvBj+2hC8Ied1tMguD9laTg19IJpUjmdtIOcYyszTUjj72phzRZoloKoRiy3QRcdLf2ls+lbMiJqkEzTQsRrqohQzUKnRmt+LwSV36Ij42nZ3P8mtZADoJU+AGuFm57Hri9C3YLeNVRFLk/q96Y00CFF4=
+	t=1785465662; cv=none; b=tc4SXFtY9INURYZJXf1tImQ/f2XRmAa1PSU4lfrlZ2jD81bKKsCZP7K297tFY72/HKpRLG9ywNWUE3AsFS8NoRWPN6gJ+ruGci9L+7OuJh4S8Gp0Oj7siyg2kV03jRDk4galKtwSLxgLFgm6QBEe3tQpO2HzWVJtsKfnBaFY3rY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785465661; c=relaxed/simple;
-	bh=WCrag+7PNwTcqft4ZzR7ktUlY1eG29j3fA9CPrAqTn0=;
+	s=arc-20240116; t=1785465662; c=relaxed/simple;
+	bh=jvtA70nBP+sDtSPdsy46OTW+7XLTY9K4tJ1VknGlEdw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MryaxQU05vYECLp7+GE4ufQY9fxeDE5sHNRzAXXsnC32Yki+hehrrEJl8mw2usJZXlbLrfeSJZIhyX7FWvppnoxtr20K3IjGbfUYuvhEeui3W8KQqO3gotywoWgQJD5GG3Yo5z58gVoctMGXDMoUPe/mz4HGt+KETFXmlgRCuL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UsaSE0wY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qys0HQt8NJuyMo1cgQZn84EuS4I5uB4Gfxk7mZpFNdeHs/JBvJBep2lDrma+13ZlNaaXxk9mAjoGgPK5mLRRHIogQl0LKIhYyLQhVrWJ3mGmX63xJ/07D/WNP/xKm+4sPsR2U5/1+vtGlhvs5W1/ZlSdd1YJMyjSEanvWA5/kJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g4f/ZEj0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UsaSE0wY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5C511F000E9;
-	Fri, 31 Jul 2026 02:40:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g4f/ZEj0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A8A01F00A3A;
+	Fri, 31 Jul 2026 02:41:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785465659;
-	bh=bSj5Lxm1DovQR6XDSfQCgV839iNSB+gos/1Tq8maXjA=;
+	s=k20260515; t=1785465661;
+	bh=S+yjdwg4XHY7qriGaHnSTHIKXZovuLwEHpz4sq1eajE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UsaSE0wYYYVmoQxstnsE+JG8/TLwtTWvI0msTntZmc3nBXIJc0pK8Dq+XFOeF4gD1
-	 CgmRZGrEMFN/VIzDqnCZ9jxfx+CpssjrWtFcvgnPArQCziijD2vgKruGMXQt5KjLei
-	 9df57xOFvXOm6g/AsNM6Is9QjjNPGxv9e5rEpJ7BUwH1d015uj7F+9B/lClK5aEAsi
-	 9t+N+oLL2hDsUjSeXBVAJcOOBO8eY577Ly3X4NxLYpxnWPQv1jir6RPGRjRjTFn0Eb
-	 lHYsQoJYnaQzwHrb5COXczapw2v+lI9nuC+c+0rSgPjjbbcWQMRew18QDTPwbmrVld
-	 3POmvVhJQLqmQ==
+	b=g4f/ZEj0HrT0am4ozF6a1Z4/LGX0HyXpCf6LoEry2k2Fr47jA+EVdn7eUNJ7hJM8X
+	 1ovbX45KuoE2Oj1lp3db4dyJt3mzm+NZSAXHEroVqsqgd5uFmCHJGPJu+zkpFGCIFx
+	 eLP1cUTfxl8M+j9PhXPzBZEqQyXrrGbw2N8Y6VF50JzBwbxJk9WKzSHLmYfjW63R/9
+	 2Q9Ltq85RPz5SGaxdxFaoiA1bNVbmmZKF33qIfsJ/02X+51/YP3LR52JrUkQ1Yn40S
+	 zIBjmdh16sH2y8f4/OtAbxKwRFngQtybMqqb6+MUj11afrj5EQzThx/yv/0fj5HqLT
+	 rRDTOE/HbhV1g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+Cc: Andrei Kuchynski <akuchynski@chromium.org>,
+	stable <stable@kernel.org>,
+	Benson Leung <bleung@chromium.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/3] usb: typec: ucsi: Only enable supported notifications
-Date: Thu, 30 Jul 2026 22:40:55 -0400
-Message-ID: <20260731024057.3338855-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] usb: typec: ucsi: Fix race condition and ordering in port unregistration
+Date: Thu, 30 Jul 2026 22:40:57 -0400
+Message-ID: <20260731024057.3338855-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072727-giveaway-lumpiness-947f@gregkh>
+In-Reply-To: <20260731024057.3338855-1-sashal@kernel.org>
 References: <2026072727-giveaway-lumpiness-947f@gregkh>
+ <20260731024057.3338855-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,67 +48,172 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
+From: Andrei Kuchynski <akuchynski@chromium.org>
 
-[ Upstream commit 27ffe4ff0b33b3dcc97fd448fd1e38d31ade575b ]
+[ Upstream commit 7aa7d4bf9d3fa9a6a47b640ad103ab433b7ff261 ]
 
-The UCSI specification defines some notifications to be optional for the
-PPM to support. From these only enable the ones the PPM informs us are
-actually supported.
+A synchronization issue exists during port unregistration where pending
+partner work items can race against workqueue destruction, leading to
+use-after-free conditions:
 
-Signed-off-by: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Link: https://lore.kernel.org/r/yhz7nq622mbg3rqsyvqz632pc756niagpfbnzayfswhzo7esho@vrdtx5c3hjgx
+  cros_ec_ucsi cros_ec_ucsi.3.auto: error -ETIMEDOUT: PPM init failed
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:__queue_work+0x83/0x4a0
+  Call Trace:
+    <IRQ>
+    __cfi_delayed_work_timer_fn+0x10/0x10
+    run_timer_softirq+0x3b6/0xbd0
+    sched_clock_cpu+0xc/0x110
+    irq_exit_rcu+0x18d/0x330
+    fred_sysvec_apic_timer_interrupt+0x5e/0x80
+
+Fix this by ensuring strict ordering and proper serialization during
+teardown:
+
+1. Move ucsi_unregister_partner() to the beginning of the teardown
+sequence and protect it under the connector mutex lock.
+2. Ensure all pending partner tasks are explicitly flushed and finished
+before the workqueue is destroyed.
+3. Switch from mod_delayed_work() to a cancel_delayed_work() and
+queue_delayed_work() sequence. This guarantees that items currently marked
+as pending won't be scheduled an additional time, preventing a double
+release of resources which leads to the following crash:
+
+  Oops: general protection fault, probably for non-canonical address
+    0xdead000000000122: 0000 [#1] SMP NOPTI
+  Workqueue: cros_ec_ucsi.3.auto-con2 ucsi_poll_worker
+  RIP: 0010:ucsi_poll_worker+0x65/0x1e0
+  Call Trace:
+  <TASK>
+    process_scheduled_works+0x218/0x6d0
+    worker_thread+0x188/0x3f0
+    __cfi_worker_thread+0x10/0x10
+    kthread+0x226/0x2a0
+
+To ensure these rules are applied identically across both the normal
+teardown and the ucsi_init() error paths, consolidate the cleanup logic
+into a new helper, ucsi_unregister_port().
+
+Cc: stable <stable@kernel.org>
+Fixes: b9aa02ca39a4 ("usb: typec: ucsi: Add polling mechanism for partner tasks like alt mode checking")
+Fixes: b13abcb7ddd8 ("usb: typec: ucsi: Fix NULL pointer access")
+Fixes: fac4b8633fd6 ("usb: ucsi: Ensure connector delayed work items are flushed")
+Signed-off-by: Andrei Kuchynski <akuchynski@chromium.org>
+Reviewed-by: Benson Leung <bleung@chromium.org>
+Link: https://patch.msgid.link/20260707141736.1635698-1-akuchynski@chromium.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 7aa7d4bf9d3f ("usb: typec: ucsi: Fix race condition and ordering in port unregistration")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/typec/ucsi/ucsi.c | 25 +++++++++++++++++++++++--
- 1 file changed, 23 insertions(+), 2 deletions(-)
+ drivers/usb/typec/ucsi/ucsi.c | 82 +++++++++++++++++------------------
+ 1 file changed, 39 insertions(+), 43 deletions(-)
 
 diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index a70e0118680c..ad1a199d92ea 100644
+index de9fc082bc7c..9af597385e29 100644
 --- a/drivers/usb/typec/ucsi/ucsi.c
 +++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -1406,6 +1406,27 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
+@@ -1407,6 +1407,42 @@ static int ucsi_register_port(struct ucsi *ucsi, struct ucsi_connector *con)
  	return ret;
  }
  
-+static u64 ucsi_get_supported_notifications(struct ucsi *ucsi)
++static void ucsi_unregister_port(struct ucsi_connector *con)
 +{
-+	u8 features = ucsi->cap.features;
-+	u64 ntfy = UCSI_ENABLE_NTFY_ALL;
++	struct ucsi_work *uwork;
 +
-+	if (!(features & UCSI_CAP_ALT_MODE_DETAILS))
-+		ntfy &= ~UCSI_ENABLE_NTFY_CAM_CHANGE;
++	if (con->wq) {
++		mutex_lock(&con->lock);
++		ucsi_unregister_partner(con);
++		/*
++		 * queue delayed items immediately so they can execute
++		 * and free themselves before the wq is destroyed
++		 */
++		list_for_each_entry(uwork, &con->partner_tasks, node) {
++			if (cancel_delayed_work(&uwork->work))
++				queue_delayed_work(con->wq, &uwork->work, 0);
++		}
++		mutex_unlock(&con->lock);
 +
-+	if (!(features & UCSI_CAP_PDO_DETAILS))
-+		ntfy &= ~(UCSI_ENABLE_NTFY_PWR_LEVEL_CHANGE |
-+			  UCSI_ENABLE_NTFY_CAP_CHANGE);
++		destroy_workqueue(con->wq);
++		con->wq = NULL;
++	} else {
++		ucsi_unregister_partner(con);
++	}
 +
-+	if (!(features & UCSI_CAP_EXT_SUPPLY_NOTIFICATIONS))
-+		ntfy &= ~UCSI_ENABLE_NTFY_EXT_PWR_SRC_CHANGE;
++	ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
++	ucsi_unregister_port_psy(con);
 +
-+	if (!(features & UCSI_CAP_PD_RESET))
-+		ntfy &= ~UCSI_ENABLE_NTFY_PD_RESET_COMPLETE;
-+
-+	return ntfy;
++	usb_power_delivery_unregister_capabilities(con->port_sink_caps);
++	con->port_sink_caps = NULL;
++	usb_power_delivery_unregister_capabilities(con->port_source_caps);
++	con->port_source_caps = NULL;
++	usb_power_delivery_unregister(con->pd);
++	con->pd = NULL;
++	typec_unregister_port(con->port);
++	con->port = NULL;
 +}
 +
- /**
-  * ucsi_init - Initialize UCSI interface
-  * @ucsi: UCSI to be initialized
-@@ -1466,8 +1487,8 @@ static int ucsi_init(struct ucsi *ucsi)
- 			goto err_unregister;
+ static u64 ucsi_get_supported_notifications(struct ucsi *ucsi)
+ {
+ 	u8 features = ucsi->cap.features;
+@@ -1515,22 +1551,8 @@ static int ucsi_init(struct ucsi *ucsi)
+ 	for (i = 0; i < ucsi->cap.num_connectors; i++)
+ 		lockdep_unregister_key(&connector[i].lock_key);
+ 
+-	for (con = connector; con->port; con++) {
+-		if (con->wq)
+-			destroy_workqueue(con->wq);
+-		ucsi_unregister_partner(con);
+-		ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
+-		ucsi_unregister_port_psy(con);
+-
+-		usb_power_delivery_unregister_capabilities(con->port_sink_caps);
+-		con->port_sink_caps = NULL;
+-		usb_power_delivery_unregister_capabilities(con->port_source_caps);
+-		con->port_source_caps = NULL;
+-		usb_power_delivery_unregister(con->pd);
+-		con->pd = NULL;
+-		typec_unregister_port(con->port);
+-		con->port = NULL;
+-	}
++	for (con = connector; con->port; con++)
++		ucsi_unregister_port(con);
+ 	kfree(connector);
+ err_reset:
+ 	memset(&ucsi->cap, 0, sizeof(ucsi->cap));
+@@ -1756,33 +1778,7 @@ void ucsi_unregister(struct ucsi *ucsi)
+ 
+ 	for (i = 0; i < ucsi->cap.num_connectors; i++) {
+ 		cancel_work_sync(&ucsi->connector[i].work);
+-
+-		if (ucsi->connector[i].wq) {
+-			struct ucsi_work *uwork;
+-
+-			mutex_lock(&ucsi->connector[i].lock);
+-			/*
+-			 * queue delayed items immediately so they can execute
+-			 * and free themselves before the wq is destroyed
+-			 */
+-			list_for_each_entry(uwork, &ucsi->connector[i].partner_tasks, node)
+-				mod_delayed_work(ucsi->connector[i].wq, &uwork->work, 0);
+-			mutex_unlock(&ucsi->connector[i].lock);
+-			destroy_workqueue(ucsi->connector[i].wq);
+-		}
+-
+-		ucsi_unregister_partner(&ucsi->connector[i]);
+-		ucsi_unregister_altmodes(&ucsi->connector[i],
+-					 UCSI_RECIPIENT_CON);
+-		ucsi_unregister_port_psy(&ucsi->connector[i]);
+-
+-		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_sink_caps);
+-		ucsi->connector[i].port_sink_caps = NULL;
+-		usb_power_delivery_unregister_capabilities(ucsi->connector[i].port_source_caps);
+-		ucsi->connector[i].port_source_caps = NULL;
+-		usb_power_delivery_unregister(ucsi->connector[i].pd);
+-		ucsi->connector[i].pd = NULL;
+-		typec_unregister_port(ucsi->connector[i].port);
++		ucsi_unregister_port(&ucsi->connector[i]);
+ 		lockdep_unregister_key(&ucsi->connector[i].lock_key);
  	}
  
--	/* Enable all notifications */
--	ntfy = UCSI_ENABLE_NTFY_ALL;
-+	/* Enable all supported notifications */
-+	ntfy = ucsi_get_supported_notifications(ucsi);
- 	command = UCSI_SET_NOTIFICATION_ENABLE | ntfy;
- 	ret = ucsi_send_command(ucsi, command, NULL, 0);
- 	if (ret < 0)
 -- 
 2.53.0
 
