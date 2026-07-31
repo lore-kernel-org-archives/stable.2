@@ -1,136 +1,146 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373073E120E
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 12:40:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785501642; cv=pass; b=uv6wgLNXGl/HIQn26N/Mj1F8u1zp/smm5FZxUJgaMyZpRZ/1n0SisnpqfO02jodbwmSNQykzCFzEmzqd4/c0AamOgnECIF1mlsfr/l1AVv+t5nbTKRgKwNRQNF27+gS3n7ikT/1NhwJBi+faDsFZPYoCZ0u2biTcU5K5FgwxLvM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785501642; c=relaxed/simple;
-	bh=0lxygLEXSve4NnrQ3v/EgBOxPu2ErB6he8S58LynGMo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nuZJZbfz5njqrpmOpASQXl2b8jC/C19iq6urrUZlR52SA5w91L7cMP8mv2jwxi1W6Cj8TVnH64JieMemAPyv+dDR24+GqmFQTvRIeKNubyiXLtToXfcw0P6cwmWqBK1PmbOV6c2d8btR2GZc7NRR3QpLcgrCtJMxT59guLJlP4E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=X2F0p5dW; arc=pass smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B4D40099D;
+	Fri, 31 Jul 2026 13:10:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785503413; cv=none; b=W9X5l+wCHhGtpWEd/eqa/TL60ubxfK37GaIMgZe/k/tIZ5vqAj51DpALnuqsP7YAU25GpTD8ys/PzmP+12TqWPJZCIYz2D2YHMeAcPXkE0TRWfLSF60AZzf1LtMi8YHipgupQBBFksqpGZ1nz+Fo9f/yrkUKGPvB/K8jR44bK+o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785503413; c=relaxed/simple;
+	bh=9WVkLD2lLcg0SFcbtY3rhbmFcO0wynNwKdmGgeYUQz0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=j/jCzTap24AzDTKFKs0PwkNQPW4jtPjLG+Yeood/WY4Z+B0Wt6w2fJ+1lafD+wl2+mRA6k+zwrxXPCrXVtFaIsJvkzoRYvSdd1sSOe/VifDswBfcZTfVF3SiPbHxjTWfQmkn940WU+pPEr0X+sVFHZnNlc5IucJKArbfrh3qWRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de; spf=pass smtp.mailfrom=jaseg.de; dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b=YkLoNMaH; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fWVsSrV/; arc=none smtp.client-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="X2F0p5dW"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-47f6609c657so473630f8f.2
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 05:40:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785501637; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DjjkrQiP+vBnBWvj7HmqTmGGnH0DEGPz8thzkAxps6HriAiz9UDpakyHQSV3PNr81j
-         /bZkuCv6jauH1PXOFvhEId2letAktfGvbwpelFD93XzCNQPHTQ7YYb6OqaGdsxbCFbho
-         f1htNiXgWII0Sf6xwJ3yJPh9JcEExtTSCvlRl2S2fMVB2IZ/ThjXFHuwPV2E/KAWmYta
-         0ZwquaTbaBjDBbPj2Txjc5sccpxSFBsrT4rFvydQ26y6/X5uAtsT6JwamlibToGfxMyv
-         76rzUliOIDVDN3rvzj93ze8sBwQTRUZ68Gwkmcvv3TffdsWpVTBNV37Y8Q95XTQiUec3
-         9Z1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6sjvX84rg2rWMCCdE2PP1jfCG+hdaHrWhj4tNdGUpeQ=;
-        fh=J1NKMLHHNAEARiQfLa69jVBsjAK/EPJYaRaecFRk7zg=;
-        b=LDCOTPNFmOWzqTubZHGXlgY7PXsnNn2rnk4oL0oNFA3jFX7eXR764lo9mSvyoChJwX
-         wntU+C05evfL539KRVBwHq/BNxXChYN8pG0BXSBe0Rsvp2nLuvDgyG8/fzh9ZeXOMv3D
-         PyRHp+QNK0hrmmc8eKnmAQMU5xCdOXrp7kibwgrdxTXbwhp0oY+3A88hgMra5z23DTID
-         IrouDyYasM6LqGEccCqUSxeY+edG6LD4MKhK3+G3SDGIAtxffd114sVg5sAbs3C+WP2f
-         1P5SvM9nzC52rjUR5VVtq7YNKvwOwaMCrMmGVqMDU/sxfmOlgwdhZqrh2tI6TcWZVXQy
-         4OEw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785501637; x=1786106437; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6sjvX84rg2rWMCCdE2PP1jfCG+hdaHrWhj4tNdGUpeQ=;
-        b=X2F0p5dWVUhUOvZSkg4tar0hcbzIiAF01tHKnKN4mmRgD35F2RizJ/k0q+Z0RUmy7Y
-         5xe8UGqKvafxfto6JzGCTVo36XTLmS++VshjUeSfjC7a3+yhbx82IRjxHGtwDpXKYMiz
-         holWNcuWSebk4TRvngB04s7hEF4uOvtbP254yc6lfUFPmaE8sdSyDcvzdE/la0647BPk
-         cRsVAzo8//ucnJ+OXNHhIDh0ytAEpAbcsmqjG9RpQGlVoZxbYXIAV9L90tTGZ0zK/XkA
-         +DnXn/s1Qkrj86W5a2FtMwbVjoMdvAjgmWGIzJQA3r4EwbSaw9yuvdH3SqjEd/NZ0cyr
-         Q6FA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785501637; x=1786106437;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6sjvX84rg2rWMCCdE2PP1jfCG+hdaHrWhj4tNdGUpeQ=;
-        b=I4rl2Qir+9ZH4dJnN8iEr89rYvf+ntGWO4x7f5Ln1o/73vivfbu26D7/DpKFIaAk85
-         zDa/e3IaMsQvgqAbWCeeyNfD915gtg5dVSeg/kFsEJAVjMmffxjje4TJN+7eT0owjqvI
-         ilJFFOKxMIXZf3LX4oazwIRi/iP9vSSmps3fJLIgu+3djhelm2AQQV1kCEjxRtKLMgxS
-         9zijD0joxNzE7R5QIeZc2bA8xRyipLnmehmKNRIFwxopSEF6gth7ScwnofpOF3CGwKgl
-         QZo6wIlPF+/AY3laODlGBIchyJKX6Zd13cfDO6O4MsNqlOc/0SNgN6YC4L9gyo0ZOQFZ
-         DXQg==
-X-Forwarded-Encrypted: i=1; AHgh+RqLYAXvvJp9CLn7laPpWepjIHJUXptWRGokaIaEGRaxGomyYz6sduAsJ9bFIXj/M2ED1VlHrMA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy69QRjNTtAiDZPqxOi7OxPPOtga3RvQwoqKydsV/rB9vKw197p
-	QZki7U26RsAWCEZOjf4KbYLQJdKt+YmqhDUif3CmhpZJul7xTT6J/PtwkJuyx9aZpkJEXq2XBS5
-	q3Hly2qXsnz0Is5Vqk2SuACKsaK+uC4ixYbc0ZBN1
-X-Gm-Gg: AR+sD11oDbTFfN4n9Zgyj7OghMQNfSjT9fyOzRGXJbZ/L4i1Qi3JLONcsPZuILBrei6
-	CCTjRA8Hr99fcYmFF8Oem3aC0wW6P64HVvYYE9tR6m94V5lZ7cGwqOQdSEdfWXdICouOx3NxKfh
-	8ppspac0To6eq9P02FyTL9ntN0najykr0cPUXMFxyGTat+BDRh03NbjUO2WtnvKieTZCM2Jr6ry
-	qTNqTaprnE4HWj8SWpW42TWLGOwjw8EnqEPIGhVmM7uyWuG2m28rCXDlThEe417EZKHtWZ+16mf
-	Of+uM2BGgoDrZVdUimrYaFh7sFSVKm3okgAiHCVjuqSiyiZZb7oyJZTUGTCwX4QoCTVTa+wL4gf
-	L5eqBda62AlxY02toXTLiIuZad7sey8HCb/0HmrBGXw==
-X-Received: by 2002:a05:6000:2c02:b0:47f:9dab:f676 with SMTP id
- ffacd0b85a97d-47fd2b5525dmr4943349f8f.31.1785501636773; Fri, 31 Jul 2026
- 05:40:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b="YkLoNMaH";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fWVsSrV/"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id 8569F1D00101;
+	Fri, 31 Jul 2026 09:10:10 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Fri, 31 Jul 2026 09:10:10 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1785503410;
+	 x=1785589810; bh=0MZZibYW67xADGTAt/lSyot78KbHgOWc+Oa0nMmO+Js=; b=
+	YkLoNMaHpk47MLjfAChDj3IJN8DAEoueUAmLjjfU4Gwy1lCUbW/UmLbx91AzhsIK
+	diHVLAcZ/+32O73cem7qQuvkS0fZnJ65mTksqyDqtODLz40PoGNoeFtqX8tXp+Ds
+	m/oePy+ch00dBSh/tKKh8uZmVr/0pX/3WogZybKufLyjmonR/lPYyG1vr+J+bKXA
+	ydGyv6on30CeRcXm4Yn887FrxI03C6elYdq7IwREMN4mwju1Z9E9cMvVZfCb5pu0
+	DWQiGHXq/dofGym4l8vQsWyfEL6zQjWuAEd4WfjPdwJZKFl7CjaCvR2B1c2J7/ci
+	J5+/FEQ14YSwDvBPw34YKw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785503410; x=
+	1785589810; bh=0MZZibYW67xADGTAt/lSyot78KbHgOWc+Oa0nMmO+Js=; b=f
+	WVsSrV/nO7PK9we9ol1qxpz9iK4beucyqdrDdGSQenjX6RbdbY3F1nVLyOyiViRp
+	iAcgwzl7y81n6r5TkAgV7v5bTDZ53Qs2S+rfIJAIJrISpMLpSdySTMPhKAgR9YAq
+	Y+Ox88xaGLFJ1C3Xfqyr7f/f0osqddPSUtuAZ9PksI1Q3ZUsonDpIRwR0/M+jQB/
+	Gw2FooIBLYXcz7LdnMhSuPxXHrMxMV6YX1W08LD5RYJ4mCShUM5NZIbXXg2Tjbrq
+	+29NUACAQLuLlaRsbMUlvBOb/H4q71xRlKunN7yXmPOkxqpk5ChHwHZsDMjGWrzW
+	A6C/QbQMNZAJDwYKTaJSw==
+X-ME-Sender: <xms:sp5saraxsOlhaqGR3AjHBeO8wkzfByac6ri5piNr539PYfi-ru7y7Q>
+    <xme:sp5savXjOfWk5PpfIxcD5PQ03b9Ws-ivfhqLijnJw_h8z0QNX29OJTBQJY_HTaCoK
+    DqbDLLSktjc1PG7QAolVCleB7zA_zdyZRl2ID1X6-jclP_SXthtkQ>
+X-ME-Received: <xmr:sp5saiNd0Imt598bUzkSYMDWcBXDz9kaP4buVEhLCHOwOvjigh5IwENajEo1WziM5cnustjpjIVolBSp2Q>
+X-ME-Proxy-Cause: dmFkZTGMegkBMIH5qpuWckrHEVUojchyzO6NIccURlPweuDN5JEQfNBPKB2dx8aRw3it3i
+    NomNL1wqkeY81e/5vakyroDkM6w/fDio/T0pdAjdpFYi+Jg+yVmD6AsSDBfcEAbtqnSP2t
+    ha449OU03nVQnhvYCjWFMbLNB8Tdz/A2v0UOo7ku1DmRssgZvhtavxt18+GuAj/fFieLyY
+    wZm+pBemDfKPZ6kYaDyYI6tViNLSSHpw/6sSNQcSte+67NNpFWbI4S370yB0qyh04gxlxu
+    h+Ucl6Rv4poGjf/HB0TkxiEREK1mv2QDn5eWXCEd/mvPFuglFk2AebFTAqeX8tKYkHTEf5
+    qzmP+70NDUVeqG0u4/dPeSos8mRrEQloINL+gSeP+q57Mn+pxM7PN1Ket2GSMtoJHpxpUN
+    Bs7ko/Gks/SOa8H34E29O5lpdLhUUSSPT4V2K32ZQURt5+6E/yGNebdBSDvtpQR8Gemq49
+    SRCmcuax7RIVzD6OAF9dj/rUfOdlNLpZMOH6/uJPd7MB03HQl/SE7p0hpRNgg9Z10GFYyD
+    0T2+OXkfhhNABWud9FBAsk35h6VUx2CWOknSebIDBBrUAZsEes0i8nP1VS36hSAZJ0d1Ov
+    zcYaRv8LTZviVuJLKdVkfvKSe3ceLVO2oiH8A3RfuxFReoJHBbez4MvHgMhg
+X-ME-Proxy: <xmx:sp5sahbQSilzXWhmLhGkXI5l-pOPOPZSRL72yyGk3r_pvRsbmULSGA>
+    <xmx:sp5sap9ZHX1dnl-TFH5SZalZncJCBtC40n4U_Vc0_zt-_nqwRaPivQ>
+    <xmx:sp5saqTpY5w2zIyPqlCIhTSqz6ZBN3I36kFA6QwntOJWGUiO2SSwiA>
+    <xmx:sp5sarcLSml_57ulZxDpWZK15AEgSX3GVfPDZ6NDTVmdjf9JfGk7gQ>
+    <xmx:sp5samC0uKAiAl1Ui_ss23l64AqaG7naU3LTsIIqKpCvN9MwXOToC7IJ>
+Feedback-ID: i60a14417:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 31 Jul 2026 09:10:08 -0400 (EDT)
+From: =?UTF-8?q?Jan=20Sebastian=20G=C3=B6tte?= <linux@jaseg.de>
+To: Ulf Hansson <ulfh@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	=?UTF-8?q?Jan=20Sebastian=20G=C3=B6tte?= <linux@jaseg.de>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] pmdomain: core: Wait for device link removals before dropping genpd->dev
+Date: Fri, 31 Jul 2026 15:10:02 +0200
+Message-ID: <20260731131002.142671-1-linux@jaseg.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <ivkwuomer5vsajf2lq6otpgxwqljkwooh3p7e5ne23j37pv22t@iluamo6gxmq3>
+References: <ivkwuomer5vsajf2lq6otpgxwqljkwooh3p7e5ne23j37pv22t@iluamo6gxmq3>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260728191448.349241-1-ojeda@kernel.org>
-In-Reply-To: <20260728191448.349241-1-ojeda@kernel.org>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Fri, 31 Jul 2026 14:40:24 +0200
-X-Gm-Features: AUfX_mw9Zwg9VoLHTT8R79ujD8MOCPF53n-K-Uslo92UfB2J7RxiU37UxP5RVrA
-Message-ID: <CAH5fLghop_n+vnBaiN+BuhDZ6Y_FYG840AT=DavmhpXAXxxONw@mail.gmail.com>
-Subject: Re: [PATCH] objtool/rust: add one more `noreturn` Rust function for
- Rust 1.99.0
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	rust-for-linux@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 28, 2026 at 9:15=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wro=
-te:
->
-> Starting with Rust 1.99.0 (expected 2026-10-01), `objtool` may report:
->
->     rust/kernel.o: warning: objtool: _R..._6kernel3str9parse_intaNtNtB2_7=
-private12FromStrRadix14from_str_radix()
->     falls through to next function _R..._6kernel3str9parse_intaNtNtB2_7pr=
-ivate12FromStrRadix16from_u64_negated()
->
-> due to calls to the `noreturn` symbol:
->
->     core::num::from_ascii_bytes_radix_panic
->
-> The function was renamed from `from_ascii_radix_panic` [1], which is
-> already in the list.
->
-> Thus add the new one to the list so that `objtool` knows it is actually
-> `noreturn`.
->
-> See commit 56d680dd23c3 ("objtool/rust: list `noreturn` Rust functions")
-> for more details.
->
-> Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned i=
-n older LTSs).
-> Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Link: https://github.com/rust-lang/rust/pull/159554 [1]
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+genpd->dev is embedded in struct generic_pm_domain and its release
+function is empty, so providers free the containing genpd with a plain
+kfree() once of_genpd_remove_last() returns, ignoring its refcount.
 
-Tested-by: Alice Ryhl <aliceryhl@google.com>
+Since genpd->dev is registered on the genpd provider bus, fw_devlink
+creates device links to it, and those are torn down asynchronously.
+Nothing made genpd_remove() wait for those teardowns, so the provider
+could free the memory backing genpd->dev while the queued workers still
+used it.
+
+This is reachable at boot on qrb2210, where the firmware rejects PC mode
+and psci_cpuidle_domain_probe() removes all the CPU PM domains before
+returning -EPROBE_DEFER. The bug is asymptomatic on defconfig, but shows
+up when enabling KASAN or INIT_ON_FREE_DEFAULT_ON. In some builds, it
+causes the kernel to crash a few hundred ms into the boot.
+
+Call device_link_wait_removal() before dropping the final reference. All
+link removal work is queued from device_del(), via
+device_links_driver_cleanup() and device_links_purge(), which precedes
+genpd_free_data(), and flush_workqueue() waits for it to complete.
+
+Assisted-by: Claude:claude-5-opus
+Fixes: 18a3a510ecfd ("pmdomain: core: Add the genpd->dev to the genpd provider bus")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
+---
+v2: remove this note from the commit text.
+
+Note: This patch was LLM-assisted. I reproduced the issue and tested
+this patch on hardware, and I did my best to verify it by hand. However,
+I'm far from an expert in pmdomain, so YMMV.
+
+ drivers/pmdomain/core.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+index 842c4169e290..4eeb980e5a40 100644
+--- a/drivers/pmdomain/core.c
++++ b/drivers/pmdomain/core.c
+@@ -2348,6 +2348,9 @@ static int genpd_alloc_data(struct generic_pm_domain *genpd)
+ 
+ static void genpd_free_data(struct generic_pm_domain *genpd)
+ {
++	/* Pending device link removals still reference genpd->dev. */
++	device_link_wait_removal();
++
+ 	put_device(&genpd->dev);
+ 	if (genpd->device_id != -ENXIO)
+ 		ida_free(&genpd_ida, genpd->device_id);
+-- 
+2.53.0
+
