@@ -1,228 +1,267 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F6D26B2DA
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 15:35:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785512114; cv=none; b=OxPLAviRkieZ0Giyydj0vZFMgNV0jPM+ko5VhPxLuCRQOGDNyd49ioWXDWMV24fvj1v9snFgZHiL+Mo0/UG+u2ERdRy8f9JSSidu4/SM5r95H5m7vNDFQG8NLM3ertlj2syACv+aXBxhMUEK61kIEa2vUdiZ6BKA7DtBT7sB5JQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785512114; c=relaxed/simple;
-	bh=5eLSGiUCN8iGOwEeRJziuepXnQX61i/bQlj83BnxNlY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YJpDhUey7zqqy56stOnjKtjOqF7xOLiuX4UMfgVCRCs8yu+DpRGXEPPhvyqVC5+jbfZzmVj/IzxXGxx7HAnbmsXQowHjlxaKxFXp/petlx3Yd//sJgx3ntz6vMXTI7kubXKN1CT0VirohTtX5nUWX+3jISKW1wOOGg1z+pL2Zc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=h5cQSJ0q; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=CvislQLe; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0DF4398EB;
+	Fri, 31 Jul 2026 15:36:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.165.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785512187; cv=fail; b=ELhi1Yep7q2kilk7bICEFengRKE3Z2cOyd4fHAdIOy34HPz5QngS5AD0bOMrLLObi49kEUJiGfysvnlLZGtS6zYf3Mqjv8rmAWPSbCCgU22VootzIYEQckNhAyveyAlNa9hOPpkuWrSRnEmmypMbcN+YCK4IXMDtU3Rwbu7JAfY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785512187; c=relaxed/simple;
+	bh=hh5MZmBIG4RODIuKgg5I8XSzGD66rFmMuoNA7Y/J6rk=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Ou9eJItBnwiDBGl8cg/ORLFe44NiMiZlRS7k8hq349IedsA8lU1H17cbpW9OhG9Ez4MZiqJhpP6tHrSnbmgUcO0ZUpsVoSa6Kks975Psc0TvhNGp7Hg5JiqoK6iRICrCetk5mnS/Z6WTjJaquJQqLtNGl/AaY9HvaawSwpAVUnQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=KiN1m4sy; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=K5OsgmXA; arc=fail smtp.client-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="h5cQSJ0q";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="CvislQLe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785512111;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zIQYiyBBm+UbJo+ijOe9n+wW+fdaMxBwNGjWkYVE3JU=;
-	b=h5cQSJ0qlkKbPfXaQiQkDBnzDeYDkT5CaOqAdUWXfFT0M6hAgEF9DHfsYNeWLKaO+zkSRe
-	vVP1iHaQF5cbO4v+NLCpQ1wUJlT2Ad2hek0M1JYGAiWZ2PVT+JFy70Ls1RnFrXyaqsE0jD
-	Y8UNZQma5yPbbc9Q5GpIYBAEsCPNFwE=
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
- [209.85.160.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-187-xVS-3mC_OHGrEdex1yz8ZA-1; Fri, 31 Jul 2026 11:35:10 -0400
-X-MC-Unique: xVS-3mC_OHGrEdex1yz8ZA-1
-X-Mimecast-MFC-AGG-ID: xVS-3mC_OHGrEdex1yz8ZA_1785512109
-Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-456bbfa4cb3so1243118fac.1
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 08:35:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="KiN1m4sy";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="K5OsgmXA"
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VDDaA03814492;
+	Fri, 31 Jul 2026 15:36:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=p36H43aS165oJ69AUFdBUhBYJqeDKW9kIdhQprs3HU8=; b=
+	KiN1m4syGVJAMtktggIqA7QxOF5Fz8X2QLFlqCJPdAKQEYpsCADfS0rI0Nq7g3mZ
+	8B7kmchYU7G/wv0jCiJou3OPyjzYJEgcgM1le5Jnyf7jflcCOjByl8T3d2QosyvJ
+	DXzs0Eb8mEixJhwLzCSEz0nDj5PuYCe6LuSlK7i8w1u9CjAVuUTfVTyO1IGm5ipU
+	J3GfpK0E5dkEjXdCplQilPROdaWyZKhfbrd/yIrQ2q24/wPu8ew829+u2ee6cZC3
+	K0FQ7g2+GcWxUFArWI5bXcWaVVIugRj9sGgiNgSyqoQIwJQrIBBV4m1GhMn0MaY4
+	A+s6KBMv4ioNCyqi9yVjyA==
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4fmr5y2sdb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 31 Jul 2026 15:36:21 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 66VFZbHA038319;
+	Fri, 31 Jul 2026 15:36:20 GMT
+Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010069.outbound.protection.outlook.com [52.101.46.69])
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4fnh6tp5wp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 31 Jul 2026 15:36:19 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SHm7IsuK2d7AppevGdPJaZaCDO5CNpadL+2cAEQSjDzVEjPjlDmjkX40SlP6DDySM3d/MZjpjK3LRn5jB0JfMT0Mro0syct/p/wQL2um7gUXPuuMMyZrCxPAxhlNE74Ag+z8e8RrXUpqyCa+CVe88GgmXGRXa0icZXDKVvGlGZuvzZeZ62+4PjryGUdB8ayRtl5AJpU42bcmxiQeWihGCTzBUXFiwaxuov79BBFCOPAOuOsbuX1BT25+b6FnGx7jDmZSNSI//aB+FKK2yV5GbGxtZMGX7s9PHCOI7bhKZSAKlkJFaWBKy+4+WPw3nSQVo0tomjdrvtYf8FpRZtuEcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p36H43aS165oJ69AUFdBUhBYJqeDKW9kIdhQprs3HU8=;
+ b=AFYnEr/tCJmlIgEiYPwa4jNxL6VaFKHAa7jdZMQlvSV3VljYOqeeV0CQA32QxWzy85tigjoGpdUHFEPQwNm2Vu48s3oUeSsRu8siYF0WL3+Ht0dKNwEvmgqSUmGqYmWoamw+1XkCVJzg3QH8n3BTZyezMkaJFBK5oyxqPMI3yQ1pGeUc4Se/lD3iBtWfvflLj4VYvP7lhlzSIhhjYwIDfdxXJOzrjoGNm6X/AXjgVHJoA6wLLh/BLVEQ2lw/j8CScBZFdAN8cvhvMQqeJnxauF+DoQQstZU5ssAWtkBiCT+mtblkVxakZQk9Oq/Ng5NqFArquddzTKSPpZIyFl2S8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785512109; x=1786116909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zIQYiyBBm+UbJo+ijOe9n+wW+fdaMxBwNGjWkYVE3JU=;
-        b=CvislQLelCYyv23Oz6eM+o7jFmRUtSdWIh+QKR4walh+V6mmoHk5SZ44AiToE9wHBJ
-         IXjFbaTqafVdYB20f7TTlAh5h6axbygsRQMTP1S1cznD8Q0QgmFJ3I2NlVT1qYxTSTTT
-         Q3ffcOcIguQvaxa0+Rf/JDv5NKtccgk2Z2EfgEVUEVmE/vqVaunSWe1/E2DeoRekGvev
-         rnv3wqPX18dVw1hlr9m7T4DEmutZ06qpCxWIb3Mta8PCm3SxubGHdmujODHmHIFkQrCN
-         tjgguC62wrXqhEpJN29j38u4nrYdjQTglyFLXOscwEGNOsg+njyt7pKmZR4rKkGkqaPO
-         ZdDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785512109; x=1786116909;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zIQYiyBBm+UbJo+ijOe9n+wW+fdaMxBwNGjWkYVE3JU=;
-        b=brTUHp7Gr2N+kbLXHgrcAGZoVs9cqgwHL8BPXfB6tqE4YYmKXrEivOtnzr85PAQ2bs
-         GyusJnrkrCAMeaayfx5AeivR2Ax3H0fh5iyRf3jt5eNrx0YlgNg5diUnPBcrQNXvw1YR
-         l9TZ+/2FpkMwFva8NZ/VAyOWgPMlSj7auI8IOrnyeMZVF1Qxel0FXA0+VI0Ev/9o0hpn
-         bKVCMXtcs4DaG4dktoH6WFQksbRsbY2vd7KF3hISaa8XbgXE+DhmrTj+5JiC/vzbDRV7
-         Qpt/mETqat6NWSCKYEzQ2xklr+bjCaRMtXZZPHnE4FBgi84gpqQsqt92hV3JIEFayvnE
-         hCAQ==
-X-Gm-Message-State: AOJu0YzTuADEKZTC0MPFr58hKt6EqcIWNbhSMlahiGnqn/q0d7upGfwP
-	SoDZaY0q6Bd3DrKmBQNhj65D60luPIhrs57g1dS3g5G0YaiLsnWC9hvDxQKcOCT93zIMb6x70V4
-	hf1TQGbFRQvNpe6ab3lN3PyK3Qm1Dt15yVo2bPF5rr2zYUSfI4YBXa0nOZw==
-X-Gm-Gg: AR+sD13oY9LGWSq0YYKzs58moKJu/Wpm+50DHjpocDHApK4URWUj6J90RvQgr6mApZ7
-	d9fCR+TvhqGX/9vt853evE3VSvLb09ZoW4YShju1zuUF14yZUmOYkhyfWFQaYoJ5hF0/AK68OKD
-	4BSTlbmZ+Ezn0Ht/vXTPmZtT6GMbBw7ad1e/vqzng76Cfctq9xgMwdAH/fGysdui8YmSWVqpb6v
-	WWfig6r0kpHz3AO0xPivQqF0GWDS6OpcrE+PJCqaR/hLPrn3GpXt3MU99qrgoZXoqQ3TjVziCUh
-	vJ3r2VE0/OarCMKa3kDxZWYYfrtQBqG+JWxIe1RAUoiOk/+ieAgtnO6Q8+M+OYo8X3/I4S5ClXF
-	rdnvI/uzJqk1RvAgfJHCOU+rjcc0pYE9ZCbWMxW079h7dewNojkeMluY6MfU6
-X-Received: by 2002:a05:6808:2225:b0:4ab:230c:5faa with SMTP id 5614622812f47-4af5e3e5522mr502520b6e.18.1785512109395;
-        Fri, 31 Jul 2026 08:35:09 -0700 (PDT)
-X-Received: by 2002:a05:6808:2225:b0:4ab:230c:5faa with SMTP id 5614622812f47-4af5e3e5522mr502472b6e.18.1785512108934;
-        Fri, 31 Jul 2026 08:35:08 -0700 (PDT)
-Received: from bearskin.sorenson.redhat.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4af58ce144esm855813b6e.1.2026.07.31.08.35.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 08:35:06 -0700 (PDT)
-From: Frank Sorenson <sorenson@redhat.com>
-To: linux-cifs@vger.kernel.org,
-	pc@manguebit.org,
-	stfrench@microsoft.com,
-	hehuiwen@kylinos.cn
-Cc: stable@vger.kernel.org,
-	David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.com>
-Subject: [PATCH v2 2/4] cifs: add cifs_resize_file_locked() to guard fscache_resize_cookie() under i_rwsem
-Date: Fri, 31 Jul 2026 10:34:58 -0500
-Message-ID: <20260731153500.660569-3-sorenson@redhat.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260731153500.660569-1-sorenson@redhat.com>
-References: <20260731153500.660569-1-sorenson@redhat.com>
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p36H43aS165oJ69AUFdBUhBYJqeDKW9kIdhQprs3HU8=;
+ b=K5OsgmXAq1mXub14ODNe53FDrY809xXIg763vPIEcO2kbfJPSnhfv5/RP25A1tC/vvA3ggMH4hrAntEJTN26MsO/zPMchhWu0nOltj3KE4KTOdfNM94hi8V/kbpFku8BOun8cxJnGgOPdQpJvindw3YPDRcFfbojpe96dF5RMkA=
+Received: from DS3PR10MB997700.namprd10.prod.outlook.com (2603:10b6:8:347::19)
+ by DS6PR10MB997849.namprd10.prod.outlook.com (2603:10b6:8:464::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
+ 2026 15:36:17 +0000
+Received: from DS3PR10MB997700.namprd10.prod.outlook.com
+ ([fe80::4c1c:3bb:c4c9:8e7a]) by DS3PR10MB997700.namprd10.prod.outlook.com
+ ([fe80::4c1c:3bb:c4c9:8e7a%7]) with mapi id 15.21.0270.012; Fri, 31 Jul 2026
+ 15:36:17 +0000
+Message-ID: <82f9ac55-cbe8-48b3-8014-c590ce84e45b@oracle.com>
+Date: Fri, 31 Jul 2026 21:06:11 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 419/602] selftests/ftrace: Reset triggers at top
+ level before instance loop
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev,
+        "Masami Hiramatsu (Google)"
+ <mhiramat@kernel.org>,
+        Steven Rostedt <rostedt@goodmis.org>, vegard.nossum@oracle.com
+References: <20260730141435.976815864@linuxfoundation.org>
+ <20260730141444.770360697@linuxfoundation.org>
+Content-Language: en-US
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+In-Reply-To: <20260730141444.770360697@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MM0P280CA0018.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:190:a::32) To DS3PR10MB997700.namprd10.prod.outlook.com
+ (2603:10b6:8:347::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PR10MB997700:EE_|DS6PR10MB997849:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8443a7ea-e2de-4030-cc0e-08deef197637
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|18002099003|22082099003|4143699003|5023799004|56012099006|10067099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	fqpv3rQqlXPVpcc7oncaDMmHLM7qcfNTJKxKqpvHprxf2+Ejb3IxYxFkvOG1/aG3FkIuSZaH3xZJIXOheb5f9d9nW+cMhER+3noJBO5Xie0K9HTekTMCWrCDds4gWgNW742acXCRew2lG7tdd6JDs7t0fnp/Uw7EDXxZjUQ9zzy3M7joucfNEvv7uUsDWdHtP6uZbJFplx2qoyP6n5iRS5aAdr9qxkr0Dwdtt4Xnqvfq3lF6lJpzw/TMFz8zYrJBLHr+0ipZUinlSuBybrz11OIoW7vw/ZXqDGZKxFpo48VuSEcOmU0RjCxAe87P8sNzDiriMnhD2bdtSgYj40rMS40LRPlpPki4dV45diB2sfP7NI6GBlga2PHrSk1cJGGjcvqpVmGGasGuB5dMKeL7fshNb1mY7+VsaVmrU24413C7cveQ0fqSc7XUcDGmLX/Hvu+1Rz23b2NYnYja0Ct+envPqIA0X35B/GchkagwXzmUdVmX8JDDtb4jAsCcArAOFbZEdvoxkpG5LOZoHUEfl+aUlJZlf7hO4wq2LnkwFAuzATOcGmZWGBY0xQW6yCKdghgdiXR+PvaM9dsCYdZKjmXLOQSAwu/02+T8dCu4JphnPGFmdOIZ+24Uu3UCHX1k
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS3PR10MB997700.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(18002099003)(22082099003)(4143699003)(5023799004)(56012099006)(10067099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RFUycnBZTTN4blRlOFpwM1htdjV6MHUwZGxFa0R4U1pCMzBEeDV5N1hPQXFa?=
+ =?utf-8?B?YTdDQTl4OEdvLzJCb3Vaampnelc3TUt6MDlQYmMvVFhoOXp6dE41ZXF4K1p3?=
+ =?utf-8?B?c0xwV1FDR3VNMk9lUVJ0dGl1OWl5L3ZoU1pCR3laMWVuc09yV3BhZTlTd1hk?=
+ =?utf-8?B?K3FkZ1JrbkxaelRRVEZHdGxndmpvZGxFVnpHT2psS1hqbXphMS9JdmIyRWxx?=
+ =?utf-8?B?cVp4UUJSYU50cWFub0NWeWZKY29mSkFoVENzbTdCVmhGNHZrNUNLSGVNajJZ?=
+ =?utf-8?B?T2N3MFlRME5uQUhBK01taTBpVElGZDJZemx3MG9lc3ZMNzdHM0tSVndTcWFy?=
+ =?utf-8?B?Mm1PTzArY1EySUd5UGliVkJNOThGZk1wV1p4SjltaEFvSWFJTC8vV2dPNVVX?=
+ =?utf-8?B?NFpheVd3VjlubjBYc2xXUHpIT0s2dnFpT0pVcjQ5dW9Pa0t1eHQvdWF3RzBS?=
+ =?utf-8?B?d3pDbGFRV0Z3RWRXNDVmblJBbHJjY04yUEplay96LzU2akx6L240V2prWHpI?=
+ =?utf-8?B?ZnVWTWw5LzAxaXB1bkg4Y21YcStFemxLL29SSVVwMnFJeDBXTVU1eHJORE1F?=
+ =?utf-8?B?amlmNlpHZDRkektNUmhRU0Q3U2xhOTFxaWVzc3R5ejBYV2llaitva05uaG1m?=
+ =?utf-8?B?OGsvNlRvc01zanNsZitMbzRia3VDY05BVUN2QWlrbzFOZkpZVEQ1d1ZLRklF?=
+ =?utf-8?B?SVZNaDBEelpFQUtiUXhLUHNVTFRmaHFUdGw2b1M5QVRFWXVBYTBnN2xRMits?=
+ =?utf-8?B?T1p6NlFQZ2pYRWFDblJPMmtVc0RSUkZoRGlmRlVxc1owOGpCQUlzcXN1dGJn?=
+ =?utf-8?B?enZsOWFPRFZiSW9VUnpzY3ZTM0dreTVxQ1FwdDFhczRrUHFTM01iQTF4S1B2?=
+ =?utf-8?B?Z0Q2OXE0Nk1CeUNwb1hNS3RhUmJsdzdCV3BzSnNiSHdzT1RwSnpMYW9kdStV?=
+ =?utf-8?B?eUt1VWNlNElEdG1RTFBqOEZURFlYS25SV0lVK2VvamtTTGgvMGp4SDZMTjNK?=
+ =?utf-8?B?eVJHQndyelhTcHRSQUZpTEJwT09YQUNaZEZhRXJXMWExbytTNWZKSEhmY1Uw?=
+ =?utf-8?B?cGVQSVZLNi9hcnViSWlqZGRjTEF2U2F1ZHdRcEN6UW9hRE9hTCsrNmUzc2Vp?=
+ =?utf-8?B?UFRRUlJIQ1U5RmRmaEhIaHNhQ0dQeUtPMW9hYVlIbWJKcThyVmcxTHhFa2Zz?=
+ =?utf-8?B?QnNnSy9LblJZNExCbUQ3dGpyaVV3T29UUTZXQlpBS3UwRW5US3E0WWkrZW9m?=
+ =?utf-8?B?R2JOQVZjc1NvMlFHNzFRUUpHd2lQajFaVDBpSkp6VGs5NzRtOThLUXBVV1Rp?=
+ =?utf-8?B?R0k3M25UUGc2MkpWbElQdDNBVTN6Nnk1MVZPclk2K04rbzFBSGN2VlZuMmV3?=
+ =?utf-8?B?d251aU5MN3ZkTFljODljazM0Vlp1elhybC9sVHdUQ0JyRVFkM0RQSGt6OEUz?=
+ =?utf-8?B?aENDVlVIVkwrczBFZjVxVTRTYnFueGpYN3I4QVpkOUpSMlJVZXVLTTBMblY5?=
+ =?utf-8?B?aGdFeHdOYTlYeHI0aG9GSVFlNFBvZ243ZmxRbkVJUzIvVU8yRkwzdUNqOWtq?=
+ =?utf-8?B?Tjl4UGpoUkNQaTgwVm5JWXcwajQ2d096c2tkYUw0b1EyQ1BMdlBkbkFsUGto?=
+ =?utf-8?B?MkxzbnMvR2k3VzV1N1RidTlLcjl1bWZRNE5DNE40K0s4RlBuRExRajY0Tm0r?=
+ =?utf-8?B?WEtlZWg4eklFYWhpUFNTUkhtQ3BuZFlPb0JnS1VwRWwyUVVramJPYURHSG5K?=
+ =?utf-8?B?bTVDcERoak5SSTQ5d0RXY2FyaXZMaFpPOUFRUUhEYzJnK29ESlVNU3F3Vjll?=
+ =?utf-8?B?T0xVN0szT0tGYlU0WEFiSWx0SDFsZ3YyZXFDNUg2YzFJc2NqQklYUHdzVnJT?=
+ =?utf-8?B?L0t2dWs2ZUZmbGxCeHQvbFR5aERjTGxXUWhYcmF2dWdkNWdTOHRHYTV0Nkd1?=
+ =?utf-8?B?Z2pzMEt5c0cxWG9IQ2VjVXZPcmw5OENBV1M0bDZTeDJROFBFZW94Rjg0bnZt?=
+ =?utf-8?B?WHJVeDZSS2UrWk1KdnBiV0xwUXdpb2czRktyNXp6eit6WlF5Y0tqeU9mWWNs?=
+ =?utf-8?B?Z2hQVWgxUm1RVXNJUERlekpucTI4cjM1RlVqTGhFbHhvTnRwOTVGeWlmU2FB?=
+ =?utf-8?B?NjFya0Zrc0pyQUVISFZEMWJBVklNTlJ1Z05lV2xIeVZwT1Vjd3MvYVR3UFFQ?=
+ =?utf-8?B?dlVWeEdPTHFXdFRKZHFTTk9tbjBVRHk2SHhlb01qTFJjVW42Yk5lOFdCUERU?=
+ =?utf-8?B?cUdGS1pQaHlhOW9NeitaR3QvQjhSNlUzOGJHdHRFUHY0bjZMdXVBbXh0L01R?=
+ =?utf-8?B?c05YQ2RCd042M1NxTmltaWJ2UXhMMXFCdTcwMHhrSEdKSVlaWEE4UXZzd1dI?=
+ =?utf-8?Q?JD7hGo9hijRxHR9SGS7h6dYQEaxocf01ClfOJ?=
+X-Exchange-RoutingPolicyChecked:
+	j/4vubbJv7Qiz1WJXYR2DTEXIBBpISlE/idBgL4moQ0BVaxqg9f2C/B0zIkBvGiWdFNIh0frjbpHOHR6xuZrTa2zwqTU0z5Et7M2CNX40ytNqi1ntenf6MPL6+WocP21Qbd6zRV1wg/KPqdb7FAZxxTusxJJTNNzsiK70Xt2IQdOkkiGKoxvxwX6aIFls9kI8Ym1VYMf6QLQtUCZs6tSJlZ4SPUES6G4etLn4jNqmhSQfx9hzGYTloRTwqVEfqP6G7ou7ENZwGL3YNBgv5a3qcbz8CEQ2hAkRp/AUpjCzFhbyiFTNHPKmvN8dUE88/1meRr73IFQYWeUxMDJW7GR/Q==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	Aol9ZlhIBgKbZQyyLAZg8PZE6SCO42HpRohwrgfccR8YnQZvMbkljW6nr3IuS0USMAeifmFIr2jIVVEHP0Oame0D8MRwW3zgoTJw/ANrCzyoysFTefgQ+L1Q47tPaY/oMsSJBFXsRC1c/Wfm7iMH26b5oBVqYAPRTM3ltDlzii49uFozi2GhU/qfT+NnvjARI0oNIKa5WILAXz9UgXjLZrrMBicm0xOsqI4GixL+hM08KFQwzxuQJa6JI7ypZyQAX2SnDr6fN4HXVbm2yumwzG+v0aJSa+NwYXBPOHsBSBVy2oCz57O/BratuMG8oQ8Vb4NuKif80fCh//jea68zLDUvJV904YfyFnrvuOpawEWUKG3/epX0kID6Ciru7gleRBZKTZ0tG/W7UHW1/7bwpcKeLcezPi+6VZ6DDAf57WCMHTwOJIAk32AknF8mOdYEd+PHOHxickNvzLj7kFyWGWbSUZ0ok+uNX1FIlLGAZ0kaD2g3kB5WjkZUSBGzqSDCUOOvpjRadxXMQ4MQR5BL6/iwZ7PZcEttSHTpzQ0LpgxUHQD1/W8w5mdzkzN9cmp94RpMtiyMECzCv2qWZxHoeAflq4BCGODoIXvxPsoqp6g=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8443a7ea-e2de-4030-cc0e-08deef197637
+X-MS-Exchange-CrossTenant-AuthSource: DS3PR10MB997700.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 15:36:17.0872
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SpZFOyjUTsoPFlo7Q190zkiaTsunKLKem9NMwZB7vXbmRtrlJizgdo8I5FVHKrMBvvPrinEUZKX6YlQrP86qJkDX+3nJ6egkrChFT4ea4F0BLpz1HuwFziazutfxUdot
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR10MB997849
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-31_05,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ mlxlogscore=999 mlxscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
+ bulkscore=0 suspectscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2606160000 definitions=main-2607310119
+X-Proofpoint-ORIG-GUID: DpHxa5FZevlLcULygyGEjR8TkCiIYArs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDExOCBTYWx0ZWRfX+A94eqWYMGl9
+ TQ3q2EfkFtVNaufOWptoLpMbM3nVjEFSgVlJhqPGbk0H+9Jcs6hzZEaS4p01IKu6vnl1p4VJcan
+ HSLaL1C5EXrR4cjomjlyu43t3b0nK475fGS4imHmGHDRFPraIS8NVKJYfaqrA5pTsucUmKxSAuV
+ 9BNSH6CcrFQh5F7knDweUE+s9kLuHDUMBfNoXZYvEPKjzzU3pOu0XZuwwTUhJ3fN52m4WYvsWw2
+ Tz/nVYscnNM8hdxcb3441W6qgouJyuDGQ7e4mSp/WJD1wyfee6GlMmI/YZ9CbvRkxfElz7ZZTJF
+ Rszc/7vB2kqLnGAIhJMXTZEwXymTJkrcjZOzaNHVRpKg248HqKr1UbD6hzmfLR+otFmCnJkc/rg
+ HvDS4D1FuFPfdFc6cf+Nw7Iwin+k+hbC0mLT1ujtKI8rs+pUJhIvnNsAhcOv9LxVWiUmRx7AkLd
+ nZgexMFJzYI+CjdqHnTiKf2vTZkevQCLsoBSKI0I=
+X-Proofpoint-GUID: DpHxa5FZevlLcULygyGEjR8TkCiIYArs
+X-Authority-Analysis: v=2.4 cv=A6Jc+aWG c=1 sm=1 tr=0 ts=6a6cc0f5 b=1 cx=c_pps
+ a=zPCbziy225d3KhSqZt3L1A==:117 a=zPCbziy225d3KhSqZt3L1A==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=RD47p0oAkeU5bO7t-o6f:22 a=bC-a23v3AAAA:8
+ a=VwQbUJbxAAAA:8 a=meVymXHHAAAA:8 a=ag1SF4gXAAAA:8 a=K3buwBLi9FAIJHGaz28A:9
+ a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22 a=2JgSa4NbpEOStq-L5dxp:22
+ a=Yupwre4RP9_Eg_Bd0iYG:22 a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22
+ cc=ntf awl=host:12106
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDExOCBTYWx0ZWRfX5Yn0cNkV2/u0
+ OM0omPKR1F1O9QU+aA3kP3XcXv/RWUsemZNKBIMeked0XBoveCYOsf8eUgs1ZSMJI7PqAZuqRlp
+ twvfPVCvhjypkCrEf3RNUUciYolFiKhdsaGvESxjHXle3MxI3Xnt
 
-cifs_setsize() calls fscache_resize_cookie() without holding i_rwsem.
-When the fscache cookie is active (FSCACHE_COOKIE_IS_CACHING is set),
-fscache_resize_cookie() performs a real resize that requires i_rwsem
-held exclusively.  If another file descriptor has the same inode open,
-fscache_use_cookie() was already called from that cifs_open(), making
-the cookie active.  In that case, calling cifs_setsize() from
-cifs_do_truncate() (invoked from cifs_open() without i_rwsem) races
-against concurrent fscache I/O.
+On 30/07/26 7:43 pm, Greg Kroah-Hartman wrote:
+> 6.12-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> 
+> commit 1a087033a6bad73b4140020b40e819b0933aafc3 upstream.
+> 
+> When running instance tests, 'ftracetest' creates a new ftrace instance
+> and runs the tests inside it. Before starting each test, it executes
+> 'initialize_system()' to reset the ftrace state to initial-state.
+> 
+> However, since 'initialize_system()' is executed in the context of the
+> instance directory, it only cleans up triggers and filters of that
+> instance.
+> Any triggers or dynamic events left behind in the top-level instance by
+> previous failed top-level tests, are left completely untouched. These
+> top-level leftovers can cause subsequent instance-based tests to fail
+> or even crash the kernel.
+> 
+> Fix this by executing 'initialize_system()' in the top-level tracing
+> directory once before entering the instance loop.
+> 
+> Cc: stable@vger.kernel.org
+> Link: https://patch.msgid.link/178425671889.84440.9477850701738666404.stgit@devnote2
+> Fixes: b5b77be812de ("selftests: ftrace: Allow some tests to be run in a tracing instance")
+> Assisted-by: Antigravity:gemini-3.5-flash
+> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>   tools/testing/selftests/ftrace/ftracetest |    1 +
+>   1 file changed, 1 insertion(+)
+> 
+> --- a/tools/testing/selftests/ftrace/ftracetest
+> +++ b/tools/testing/selftests/ftrace/ftracetest
+> @@ -483,6 +483,7 @@ for t in $TEST_CASES; do
+>   done
+>   
+>   # Test on instance loop
+> +(cd $TRACING_DIR; initialize_system)
+>   INSTANCE=" (instance) "
 
-Strip fscache_resize_cookie() from cifs_setsize(), making it a pure
-size/page-cache helper.  Add cifs_resize_file_locked() for callers
-that already hold i_rwsem: it calls netfs_resize_file() and
-cifs_setsize(), then temporarily activates the cookie with
-fscache_use_cookie() to perform the resize under the lock, then
-deactivates it with cifs_fscache_unuse_inode_cookie().  Using
-fscache_use_cookie() before the resize ensures correctness whether or
-not another fd already holds the cookie active.
+Hi Greg/Sasha,
 
-Switch cifs_file_set_size(), smb2_duplicate_extents(), and both size-
-extension branches of smb3_simple_falloc() to the new wrapper; those
-paths already hold i_rwsem via VFS setattr, lock_two_nondirectories(),
-or cifs_fallocate() respectively.  cifs_do_truncate() continues to
-call cifs_setsize() followed by cifs_invalidate_cache(), since it runs
-without i_rwsem.
+I ran an AI-assisted backport review and checked this manually. The
+backport calls a helper that does not exist on 6.12.y.
 
-Fixes: fa724e235cfd ("cifs: add fscache_resize_cookie() to cifs_setsize()")
-Cc: stable@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>
-Cc: Paulo Alcantara <pc@manguebit.com>
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-Reviewed-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
----
- fs/smb/client/cifsfs.h  |  1 +
- fs/smb/client/inode.c   | 24 +++++++++++++++++++++---
- fs/smb/client/smb2ops.c |  9 +++------
- 3 files changed, 23 insertions(+), 11 deletions(-)
+The backport adds:
 
-diff --git a/fs/smb/client/cifsfs.h b/fs/smb/client/cifsfs.h
-index 854e672a4e37..651670c19c2b 100644
---- a/fs/smb/client/cifsfs.h
-+++ b/fs/smb/client/cifsfs.h
-@@ -147,6 +147,7 @@ ssize_t cifs_file_copychunk_range(unsigned int xid, struct file *src_file,
- 
- long cifs_ioctl(struct file *filep, unsigned int command, unsigned long arg);
- void cifs_setsize(struct inode *inode, loff_t offset);
-+void cifs_resize_file_locked(struct inode *inode, loff_t offset);
- 
- struct fs_context;
- struct smb3_fs_context;
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index 0afff761aab9..eaf27a9cf4f5 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -3059,7 +3059,26 @@ void cifs_setsize(struct inode *inode, loff_t offset)
- 	inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
- 	truncate_pagecache(inode, offset);
- 	netfs_wait_for_outstanding_io(inode);
--	fscache_resize_cookie(cifs_inode_cookie(inode), offset);
-+}
-+
-+void cifs_resize_file_locked(struct inode *inode, loff_t offset)
-+{
-+	struct fscache_cookie *cookie = cifs_inode_cookie(inode);
-+
-+	lockdep_assert_held_write(&inode->i_rwsem);
-+
-+	netfs_resize_file(netfs_inode(inode), offset, true);
-+	cifs_setsize(inode, offset);
-+
-+	if (!cookie)
-+		return;
-+
-+	fscache_use_cookie(cookie, true);
-+	fscache_resize_cookie(cookie, offset);
-+	cifs_fscache_unuse_inode_cookie(inode, true);
- }
- 
- int cifs_file_set_size(const unsigned int xid, struct dentry *dentry,
-@@ -3125,10 +3144,8 @@ int cifs_file_set_size(const unsigned int xid, struct dentry *dentry,
- 	cifs_put_tlink(tlink);
- 
- set_size_out:
--	if (rc == 0) {
--		netfs_resize_file(&cifsInode->netfs, size, true);
--		cifs_setsize(inode, size);
--	}
-+	if (rc == 0)
-+		cifs_resize_file_locked(inode, size);
- 
- 	return rc;
- }
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 192649fec25d..0e872d58fae7 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -2222,8 +2222,7 @@ smb2_duplicate_extents(const unsigned int xid,
- 		rc = smb2_set_file_size(xid, tcon, trgtfile, dest_off + len, false);
- 		if (rc)
- 			goto duplicate_extents_out;
--		netfs_resize_file(netfs_inode(inode), dest_off + len, true);
--		cifs_setsize(inode, dest_off + len);
-+		cifs_resize_file_locked(inode, dest_off + len);
- 	}
- 	rc = SMB2_ioctl(xid, tcon, trgtfile->fid.persistent_fid,
- 			trgtfile->fid.volatile_fid,
-@@ -3776,8 +3775,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
- 			}
- 
- 			new_eof = off + len;
--			netfs_resize_file(&cifsi->netfs, new_eof, true);
--			cifs_setsize(inode, new_eof);
-+			cifs_resize_file_locked(inode, new_eof);
- 
- 			qrc = SMB2_query_info(xid, tcon,
- 					      cfile->fid.persistent_fid,
-@@ -3825,8 +3823,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
- 		if (rc)
- 			goto out;
- 
--		netfs_resize_file(&cifsi->netfs, new_eof, true);
--		cifs_setsize(inode, new_eof);
-+		cifs_resize_file_locked(inode, new_eof);
- 
- 		qrc = SMB2_query_info(xid, tcon,
- 				      cfile->fid.persistent_fid,
--- 
-2.55.0
+	(cd $TRACING_DIR; initialize_system)
+
+But 6.12.y defines:
+
+   	initialize_ftrace()
+
+The helper rename came from upstream commit a0aa283c53a7, which is not
+present on this branch. I think this is a wrong adaptation;
+
+
+Lets drop it, as we anyway don't backport selftests apart from bpf to 
+stable ?
+
+
+thanks,
+harshit
+
+>   for t in $TEST_CASES; do
+>     test_on_instance $t || continue
+> 
+> 
+> 
 
