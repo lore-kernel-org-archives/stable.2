@@ -1,141 +1,122 @@
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F15415F23;
-	Fri, 31 Jul 2026 10:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64FF3D8115;
+	Fri, 31 Jul 2026 10:33:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785493337; cv=none; b=rb12YfDDgdlNFGCFMHp/pGWmhLegeNSQRQ3Qq0+98Wl02JDZmOKKiZmRV+AXX9bE4Xr+DlGB1juNF8RYcFIE9rhP1k9LXkgOFYAdW3ZAvHF0jud52JJZvKghtkeqntyWW1SIx1RN/UDUbQk/pmCOykfsh54n4Sc6ThB3XGt8g4Y=
+	t=1785494013; cv=none; b=UW7uyd8G/WFmhuLIcHDJSbnLGFg4p7BFAyizBj+nN6ZMIe72+fUfK0+rCkFwspleKgTGsZnBeFMhwomuRaDVcq9YM9SE8l7uoigq4qig533/AeFSw7aj4oH98bhLEon/mjH2kCmGwVKFkD8+s2dcRyLYKsIUhTOUx08FKr3+D68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785493337; c=relaxed/simple;
-	bh=BomYNnZI/rtzGRCsEilqHXMjZtEJfVuDl9BNpljjiJk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cucOA1OJUSS9Ks6wyNvMIGXAjLDOWNHRe/NwB4WD/grVdimPUVPMV/CK+chRuJiCxRMrsToduOPFp5dh/tZczyz400vse6YwrmGyMby/cJvCBGqgeJoU2EQHmMuEF2jcmTRG4GyqJERt3+RXodoYp8cjKj+0ZA0OzpESgxGBgSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de; spf=pass smtp.mailfrom=jaseg.de; dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b=bWueKYiC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PN77blkb; arc=none smtp.client-ip=103.168.172.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
+	s=arc-20240116; t=1785494013; c=relaxed/simple;
+	bh=lg1W+14p/dbYu6+/0qsIx1se9B4QGspSqqLSW4ptzL4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EQxrztnEppENZ8ljqb3KTtRZAia10h9OZEI6DXVC2WxCiPNuJ6stJqcdYI9YlJSU9+0HorFpLbEQa6+kGtTfXS1smi5NlUzA17OfAJ/AUtPV8QO/UgBuvTmfC2zg30IseOT/r2WQp8PRtGHdIbC4HZYry6I+Wm/hfN8Bm/lv61U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=qEIChmlE; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b="bWueKYiC";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PN77blkb"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 1E4FCEC0176;
-	Fri, 31 Jul 2026 06:21:55 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Fri, 31 Jul 2026 06:21:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm2; t=1785493315; x=1785579715; bh=HZ
-	01E4R6gBHbtiX4E85aSm4oc2jq2hxYKxHXOcMrMYE=; b=bWueKYiC5bP0H0DOjd
-	tJoeDwBSTgLyom9KxsF3dsJL42fOEOjxWUUKr5Y+RJuADb0eMNPvoMY2cBHR2v4N
-	QkCP3n9JmiSQVVWlktN9+Wd+pjECcu87bovK5dD8dKRYlXd590cBEq8OhL/LWSZs
-	CFAcHgnxdkJG2bvBJcpMrmsNYmr6DjlAFxJS0BbbrvUbi+41sdCFnXahfNnrxZjj
-	wvXMAD4bx5UAuNbvVw1cFnSYLC80WT3hhly/VNUpwjqtMB5OTUgw93KVl8UpFs3k
-	BsDl6+Dmm2PSDotyTopM5Aqjc0+EY/fwvMNte1W4Ll1gLeJlOqv4VeC1MgLLu2b4
-	oSAQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1785493315; x=1785579715; bh=HZ01E4R6gBHbtiX4E85aSm4oc2jq
-	2hxYKxHXOcMrMYE=; b=PN77blkbNr6zngJlKY9KAUuMdkWUkXDHZ//R1iQnDviG
-	Dj8HQXIueTd8yhvstpugq5f+gtgRgF5ZCRJSQ8pyozV74J1AtDzE3JVu/kcg6iB4
-	mhyIiMnFd/WBc/p+J5FRcVDASIPtFSB8K+jqoiMvJOJDD7y8n2E14YFDbpzfiOUR
-	tVSmlPSbVX0mF+qHnOJwC14nEy3V+2dqNWBM8/+N3Ehz3yEtQfwPIlAXgSPG2W9G
-	2olJNNuC02w2tWbgxRoYgu2HU9VzREroX3SwGFhkbBV2C3nxnnmuzpECmr92viPP
-	DW7UAY4iDz2cUeFmht1/Gz8VegWed0/+4XWbJG/TTA==
-X-ME-Sender: <xms:QndsaiX8uDZsMXEuWs_2VF_HdEOkFZeL4g8-nZ18q2bIZ9nF3zUxjA>
-    <xme:QndsatqU0ZUT7pkTe-oszqU6AVD9St_n9_Y8Tr13wUozz3yYY9MwJjh0p1f3oO58O
-    0i9xWS_7LMsG0UdWuOts0KthnvGlx_fF6xN0mqxDJIQz6Oa-9JMJ8U>
-X-ME-Received: <xmr:Qndsasn6fO492Ke6DNWeTLWLcFerK_j2zjYe38fN_QDiPAKwGMfKFtHCjvEFBpCq1TDDJ3gz-SKOStB9eg>
-X-ME-Proxy-Cause: dmFkZTG0bmRKda5040SbHZuHWAq32lmYqE1ouBFlAXJZeE/gYfprID01cBUppm5eDQt1Cb
-    7GBD56isvBBbVFq2lxuYvd3QR6w/an+k5VzjegSfwQPsSZuWV+WHXBnDUJlpMsesH/T2ga
-    cM5wXzoyf6ta8cga787eouYcJIULN5VEPVXAsZahipiwaTM6NGHgBD29IJd6McL8YEB0d4
-    faENia1pvGbJiI4OUDqgJWWczWZxfFu8yAnNEK9U+yjk540osdWu6NN5MyqeJI92Daq/Xw
-    wuB5irePhFpCHuPDVXCSezQrUriAIx3EdQ2IBMk0hMIJ4LQ3XMA3CPLYvFtjNm+7gQl9Ax
-    VFq5ZszGTF7Va9xt9/Tx5kXdYQd/e7n3gUjsOC6jUVTsE6fjSgl8c+jrDnqAeRoiwFpYMm
-    oOMsR12hFf+kXkHsCgP7djNTkldbOBkrYBw/PcEt7Dum2FcRsjOm2uwtQ4zBhhtXlkuiBh
-    liPCJgDZdRgRbVHEi7bmBksvAkJA5n+QLZJN/xnC+9qr47N4FREFXCwR5J0jrqnxymW4j2
-    huGAsT0v6EUnTqCbN4Mfpp2gJFiTfjvg3bmicbbrWqe56bWizhmrKCZfbTaxbPLwhetdC3
-    VHqAAwLDJM2KjnSA34m6XuUP8hskzqt05TC/Xn4QspyivTLtyVLUq2ueIJxA
-X-ME-Proxy: <xmx:Qndsal17vMiaWME-dH7nkYEl6L26_xY0YosSgpLxJqf6w_penLCKuw>
-    <xmx:QndsahSjEFeOl--wn7ckX-gNhDTvsFoOtp80jDdK2JHKrNOy10It2Q>
-    <xmx:QndsamxlwZPAWpWmig5CyTkrtx5ismPCnMR4-iv-F_8zshqWgw8I9A>
-    <xmx:QndsapCHylTLeXzMH3rCChsoi-qcVA5yw3BhMtweY5ASz0FBrGP41Q>
-    <xmx:Q3dsamO-ZaeK3QnjaQFpqFZNTOQxX7Zf02oi-Bsv_xWl-UgGoQlcWYy8>
-Feedback-ID: i60a14417:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 31 Jul 2026 06:21:53 -0400 (EDT)
-From: jaseg <git@jaseg.de>
-To: Ulf Hansson <ulfh@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	=?UTF-8?q?Jan=20Sebastian=20G=C3=B6tte?= <linux@jaseg.de>,
-	stable@vger.kernel.org
-Subject: [PATCH] pmdomain: core: Wait for device link removals before dropping genpd->dev
-Date: Fri, 31 Jul 2026 12:21:47 +0200
-Message-ID: <20260731102147.127082-1-git@jaseg.de>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="qEIChmlE"
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 26D44601A5;
+	Fri, 31 Jul 2026 12:33:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1785494003;
+	bh=LqekADnHQRu9/VRdBdO1Czahfx/0OfCGP11ku6HDC5A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=qEIChmlENuIt/40gWHOS+K9RNHfeh4CKlRAb2Jd1X18MO9x9A6twGjg5dJOJPi0uQ
+	 KR4x5xM9Q2Fcxepa4/+z7Mtf8r9mzYm2QMc6jytGrtfbiDEV9zI3iNlUNsJT+pcw/P
+	 /wT8ex2JoS6zwuTGJfeCa9+t4mWE+kO8Jog5SXRDf7FRzefLnzHMslqukdOsfZ6m/P
+	 B31WuEeQKf7uDLCuD31zLv9HlZ02EyDJfcAi/j19gsCYhrJhbRo+SRkhWLZ5Q9c2+h
+	 73dqirup2dCB5RLE8EBQENAbBFlvwwnWZb/BurZGVWaYdug5+3f2hkjpwuzKVuw2oM
+	 AqDNWItwRQ/pg==
+Date: Fri, 31 Jul 2026 12:33:20 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Cc: netfilter-devel@vger.kernel.org, Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, coreteam@netfilter.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>
+Subject: Re: [PATCH nf] netfilter: conntrack: sctp: verify vtag before state
+ changes
+Message-ID: <amx58O5Jb6B29XDJ@chamomile>
+References: <20260728073507.30635-1-zhaoyz24@mails.tsinghua.edu.cn>
+ <amkCbQ1UDRKcZBez@chamomile>
+ <AD2FFF7F-7EC3-4205-BB44-508B31BC2620@mails.tsinghua.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <AD2FFF7F-7EC3-4205-BB44-508B31BC2620@mails.tsinghua.edu.cn>
 
-From: Jan Sebastian Götte <linux@jaseg.de>
+On Wed, Jul 29, 2026 at 12:56:39PM +0800, Yizhou Zhao wrote:
+> Hi Pablo,
+> 
+> Thank you for the review.
+> 
+> > On Jul 29, 2026, at 03:26, Pablo Neira Ayuso <pablo@netfilter.org> wrote:
+> > 
+> > Hi,
+> > 
+> > On Tue, Jul 28, 2026 at 03:35:06PM +0800, Yizhou Zhao wrote:
+> >> The packet-wide vtag check in nf_conntrack_sctp_packet() is skipped when
+> >> the bundle map contains any chunk type with special vtag handling.  The
+> >> per-chunk path re-checks INIT, ABORT, SHUTDOWN_COMPLETE, and
+> >> COOKIE_ECHO, but other state-changing chunks still fall through to
+> >> sctp_new_state() without validating sh->vtag.
+> >> 
+> >> This lets a wrong-vtag packet bundle HEARTBEAT with COOKIE_ACK, ERROR,
+> >> SHUTDOWN, or SHUTDOWN_ACK and still advance conntrack state.  That can
+> >> desynchronize conntrack from the real SCTP association and cause denial
+> >> of service for SCTP traffic behind a stateful firewall.
+> > 
+> > Are you assuming a specific policy in place? The connection tracking
+> > does not police packets, it just provides tracking.
+> 
+> You are right, I overstated the impact.  Conntrack only tracks packet
+> state, and whether a packet is dropped depends on a firewall rule that
+> uses that state.
+> 
+> > 
+> > Can you provide a more specific scenario?
+> 
+> The issue I reproduced is that a wrong-vtag [SHUTDOWN, HEARTBEAT] bundle
+> changes SCTP conntrack state from ESTABLISHED to SHUTDOWN_SENT, while the
+> SCTP endpoints discard the packet because of the invalid vtag.  This can
+> therefore desynchronize conntrack from the association.
+> 
+> For example, a stateful policy that drops INVALID, accepts
+> ESTABLISHED/RELATED, and accepts new SCTP only for INIT will see the
+> conntrack timeout change from 210 seconds to 3 seconds.  If the entry
+> expires while the real association remains established, a later DATA
+> packet is invalid and that policy drops it.  This requires an attacker
+> that can inject a matching SCTP 4-tuple into the firewall path, and it does
+> not require knowing the correct vtag.
+> 
+> > 
+> > We are seeing several reports related to the connection tracking from
+> > your university lately.
+> > 
+> >> Check sh->vtag before processing those chunks when conntrack already
+> >> knows the expected direction vtag.  This keeps the existing
+> >> HEARTBEAT/HEARTBEAT_ACK learning and connection-reuse behavior for the
+> >> `vtag == 0` cases.
+> > 
+> > Proposed patches to hardening the connection tracking state machine
+> > should be targeted at nf-next.
+> 
+> I agree this is better treated as SCTP conntrack state-machine hardening.
+> If you agree, I will respin the patch for nf-next without Fixes or stable Cc.
 
-genpd->dev is embedded in struct generic_pm_domain and its release
-function is empty, so providers free the containing genpd with a plain
-kfree() once of_genpd_remove_last() returns, ignoring its refcount.
+Yes, repurpose this patch to nf-next without Fixes tag and stable for review.
 
-Since genpd->dev is registered on the genpd provider bus, fw_devlink
-creates device links to it, and those are torn down asynchronously.
-Nothing made genpd_remove() wait for those teardowns, so the provider
-could free the memory backing genpd->dev while the queued workers still
-used it.
-
-This is reachable at boot on qrb2210, where the firmware rejects PC mode
-and psci_cpuidle_domain_probe() removes all the CPU PM domains before
-returning -EPROBE_DEFER. The bug is asymptomatic on defconfig, but shows
-up when enabling KASAN or INIT_ON_FREE_DEFAULT_ON. In some builds, it
-causes the kernel to crash a few hundred ms into the boot.
-
-Call device_link_wait_removal() before dropping the final reference. All
-link removal work is queued from device_del(), via
-device_links_driver_cleanup() and device_links_purge(), which precedes
-genpd_free_data(), and flush_workqueue() waits for it to complete.
-
-Note: This patch was LLM-assisted. I reproduced the issue and tested
-this patch on hardware, and I did my best to verify it by hand. However,
-I'm far from an expert in pmdomain, so YMMV.
-
-Assisted-by: Claude:claude-5-opus
-Fixes: 18a3a510ecfd ("pmdomain: core: Add the genpd->dev to the genpd provider bus")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
----
- drivers/pmdomain/core.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
-index 842c4169e290..4eeb980e5a40 100644
---- a/drivers/pmdomain/core.c
-+++ b/drivers/pmdomain/core.c
-@@ -2348,6 +2348,9 @@ static int genpd_alloc_data(struct generic_pm_domain *genpd)
- 
- static void genpd_free_data(struct generic_pm_domain *genpd)
- {
-+	/* Pending device link removals still reference genpd->dev. */
-+	device_link_wait_removal();
-+
- 	put_device(&genpd->dev);
- 	if (genpd->device_id != -ENXIO)
- 		ida_free(&genpd_ida, genpd->device_id);
--- 
-2.53.0
-
+Thanks.
