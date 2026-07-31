@@ -1,88 +1,131 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A72172236EB;
-	Fri, 31 Jul 2026 13:58:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D444119EA
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 14:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785506302; cv=none; b=FGad9kdL0dRO73J0U/JLgyerQaq3N1ruNUwsJmYq125TFTKRNq1Fc8uAOVGsre3rQ4aG82+T/lxPFQg+gDkywo4+Y26MyPrx7ofTnDUlmnrPzSL3XGyGngokoUZdUc3nvPDQ459x6lvX7aEr4rfwakzypt6/bsblnmufDh5995s=
+	t=1785506907; cv=none; b=dk2MGJ+VhyWZXD2wxaRBvRphiXUXSDz68dyHIBRm8sEDpaZFwvYQAigxOCAYKNV9jpImwdq9R1ZrKxKraqzx+TAHfG44wR9uOueP7r91Wb6y5T2nxAiUdXYjgmgfWevUoF3NJULcJz1QkCurMqq09VSEkkGUK7gGYWl+O8qXg/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785506302; c=relaxed/simple;
-	bh=oZjCRdueaPDs7hoizRyRHgRHSvs7DkIzz2QgncWH1RI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FUsggRmSC9KrimxA7E4TOwoPRFU/ar798cxwXrzPAI6yNjCsvNYwvwVtohyfxjtn7yVBCBtMIw7/b4XThD3x2Og26iNcCHu10o7Zbg9VyG4fhO/uv9tH8lyyWQxHTFbjctB2VqqBo8ZVWEUGqW4dnRGtey2kP921exPsYvIsekw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=w5CLDXaI reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1785506907; c=relaxed/simple;
+	bh=S8ZYhVxFV3d81I8luPNn70FLZtYvMhbuabZAfFkqwIg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dJO23TWAFKOziuAPisGVHtDN2b7qsmEIx4k3EE8VqCgf6pIm9weOr8cpUbK7t8gg9+MfY8wDf/6INYwS9ilQqYGk7pKbp869es5uIF+cS+V7zcwgy94o75PaNH1aXp5nlJQ63zuH8Ywbc5+56aUxBHfzamz9FeiLebQGpSx3K+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=D6lFA0k2; arc=none smtp.client-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="w5CLDXaI"
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="D6lFA0k2"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-51c15bf5000so3774831cf.3
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 07:08:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
-	MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=6GQ+vMLqZ
-	Ceol9jN9OnswiXkKCRd8fxCf4sKIaBGSW0=; b=w5CLDXaIUrwBdGkPb8+hhVajB
-	qDzeQTruzbfXX6eRV4+rxuU7/qCnlplAXoHDZ+L7nqYFSeq+aZjucI0SKTdhyz1O
-	l/TVZPLZEUI0NKJTahl4hprIMU/8nD4pkBIDTQ9sTo8Mbpeab6u//qZRFFpC5vAw
-	DOdDh7v5umHUlD6E+Q=
-Received: from [192.168.1.110] (unknown [115.53.186.238])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with SMTP id BLQMCkCW3DH1qWxqiQKxAQ--.42869S3;
-	Fri, 31 Jul 2026 21:58:14 +0800 (CST)
-Message-ID: <c6e161e2-3ba5-4384-ab43-ef9a802052fe@stu.xidian.edu.cn>
-Date: Fri, 31 Jul 2026 21:58:13 +0800
+        d=trailofbits.com; s=google; t=1785506904; x=1786111704; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4CYqaoDHFTXverpQiHzNbFE4tLgoDQ4zGj2U6cQ1kUE=;
+        b=D6lFA0k2d+qI7i6En2Q2Y3mDRPFJAr7PRpHhc8NoYXZWmwn7BT3qoc/xV+iQZcdmEO
+         N6kHiy+mV94Ie89UxbGSNX8WC4ztQN8LODekF49M0r7dBJysGlCQdyo+oW30hujfefLE
+         q+c6eu2mIbi4+GBp0xKPWKbaoOFdambS61TBDcvZmAGfXuMW+SQ0J9WBolO0AD1lbtlW
+         ewPHR1JD3egBiYl7XnfFPT0IDIvMnDSOq9X8XgAxqY3MYoOADzVA3FzMPEGdCMS7m2fJ
+         aE/vPM8R6SPYS4II1doR+tXAaM02bZvK5wRETTIZwG8soIZM9L7a6Sc2XeQGKXl8ACYw
+         RdwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785506904; x=1786111704;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4CYqaoDHFTXverpQiHzNbFE4tLgoDQ4zGj2U6cQ1kUE=;
+        b=AIwx1+SKWBJSziFmlmGDKfv5KZ0yk4VvTZtVPbBAPCKDZCzGeAQmGCBjbhYOZd3/mz
+         UeJS/OzUJrCBjBluBBbbG41rVyx1/n8dV+3YAJTJ0MmlMc8WldlMLz3Jxpw4HR6YEGxh
+         mytVmI3DyuWB4EPOPflAVpyBVriMPvF4uS6Ga73Yk3dcvgczSWTnplA2il41j0p2XqoC
+         V87sHz46YEaf+yE/2WdeT4c9SeZOrnxCTGrJPhPVai0XMjoGmWe2/d0YWIZZ2L80YHF/
+         TGjGGcRH3yD0/WBu0/B8cVBJeLBFb8rN0iBN3VOe0uMWSGLA+vIufV30oA6krrznnEpZ
+         evtQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqUlXxA0K4FN7VqxDAIE2pKjRB5adF8/EICdHVM9OJww1wRgiTQHfPFwwBb3FShUGUzgw4vBTs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwbeCi85vdMfEadzYwrduyNNohPZqp5HMCrjtcAQIJIuFK8A2iM
+	IKqoBG2boGqYmEUoJIikx3HlSdBlO7R2yoMgRp3ipvfoBRc5sOI7KKywg5l2SCIWd4s=
+X-Gm-Gg: AR+sD10wEbjXa82ByF3oDNFpU1PF3ocTIbZiWGUhoawOshZG543BEfc+1BNztk1JblY
+	kv2tkeFWav249pI3ORfdaIWj3yroT9PUHQ/1GMjHmr7fEtymbvXCI+lXsMDuf8AKpcoKT4pbI9W
+	FDz0/drs7F9hjsWQz0jTtTL26akQ06DHcCeLgj5OuuP/nSJ2/h9hPu8NKGjXvSQYtLW9nN0FblW
+	5nK1008CQYNbiGW9RlVSUL9aDIAlZ5Y3paRlETEvRM+bvKxdnnWrkEEVNIdk3xp1D55a8X4F9GG
+	afZWrz05U/7W2tJXU8fQQSPpbN3BLOtWgZCAjk+2VWujOuXqJuDuUuMKCz9ASvFIuVeFOINaKUz
+	5ekZRF1V/k7XgSkLyQ9WnznEOsdhP2fTpWxfRwTCczpxkOBcDbIPprPtsmURmC5ikXpyHLaJSA+
+	RHeJVESm1GVF3/VyJ80h9YeeFl7LIStUeIR1N5112YvZanaGZkvJGJ9domFD3CHMqD2g==
+X-Received: by 2002:a05:622a:8f:b0:51b:f563:f613 with SMTP id d75a77b69052e-52b567c6399mr3664281cf.35.1785506903762;
+        Fri, 31 Jul 2026 07:08:23 -0700 (PDT)
+Received: from localhost ([146.190.222.192])
+        by smtp.gmail.com with UTF8SMTPSA id d75a77b69052e-52b4ebeb909sm8257931cf.29.2026.07.31.07.08.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 31 Jul 2026 07:08:23 -0700 (PDT)
+From: David Lee <david.lee@trailofbits.com>
+To: horms@verge.net.au,
+	ja@ssi.bg,
+	pablo@netfilter.org,
+	fw@strlen.de,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: David Lee <david.lee@trailofbits.com>,
+	Kyle Zeng <kylebot@openai.com>,
+	Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>,
+	phil@nwl.cc,
+	netdev@vger.kernel.org,
+	lvs-devel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ipvs: clear IPv4 options after rebasing tunnel ICMP errors
+Date: Fri, 31 Jul 2026 14:08:22 +0000
+Message-ID: <20260731140822.567128-1-david.lee@trailofbits.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/2] misc: ibmasm: Fix dynamic out-of-bounds MMIO
- access via malicious MFA
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: arnd@arndb.de, kees@kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260718073253.96741-1-25181214217@stu.xidian.edu.cn>
- <20260718073253.96741-3-25181214217@stu.xidian.edu.cn>
- <2026073113-defy-shortage-2005@gregkh>
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-In-Reply-To: <2026073113-defy-shortage-2005@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkCW3DH1qWxqiQKxAQ--.42869S3
-X-Coremail-Antispam: 1UD129KBjvdXoWrZFykZr18Cw4UJF17ur4xCrg_yoWxKwb_Wa
-	4kZF9Fgr9rG3Z5uF9IgF17Z3yUA347Wry0yF9xJrZrt34fZFsrua1DurZFk34vkayYgr12
-	vw45u3ySkr13ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbsxYjsxI4VWDJwAYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I
-	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
-	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0
-	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8I
-	j28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr
-	4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY
-	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
-	ZFpf9x07jF1v3UUUUU=
-X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAQULEWprau2lZQAAsY
 
-Hi Greg,
+ip_vs_in_icmp() rebases an skb from the outer ICMP packet to the
+quoted original request before passing it to icmp_send(). However,
+IPCB(skb)->opt still describes the outer IPv4 header.
 
-> Ah, this is I2O hardware.  Wow, I don't think that's even around
-> anymore, is it?  Do you have access to it to test this?
+A timestamp option in the outer header can therefore leave an offset
+that points into the quoted transport header after the rebase.
+__ip_options_echo() treats a byte at that stale location as the option
+length and copies it into the fixed-size option storage on the
+__icmp_send() stack, causing a stack out-of-bounds write.
 
-You are spot on—the hardware is ancient, and I do not have access
-to a physical device.
+Clear the stale option metadata after resetting the network header.
+Keep the remaining control block fields, including the ingress
+interface used by the ICMP response path.
 
-We tested this exclusively in our virtual device fuzzing framework.
-By modeling basic PCI/I2O memory interactions in QEMU, the fuzzer
-injected a malformed MFA (Message Frame Address), triggering the
-OOB access. The patch was verified to block the malicious MFA
-within that emulated environment.
+Fixes: f2edb9f7706d ("ipvs: implement passive PMTUD for IPIP packets")
+Cc: stable@vger.kernel.org
+Bug found and triaged by OpenAI Security Research and 
+validated by Trail of Bits.
 
-Given how old this driver is, if the community decides it is better
-to remove the driver entirely rather than maintain patches for
-emulated edge cases, I completely understand.
+Assisted-by: Codex:gpt-5.6-sol gpt-5.5-cyber
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+---
+Trail of Bits has a reproducer for this bug that triggers a
+KASAN stack-out-of-bounds write in __ip_options_echo() and can share if needed.
 
-Best regards,
-Mingyu Wang
+ net/netfilter/ipvs/ip_vs_core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
+index bafab9345..fe06c380c 100644
+--- a/net/netfilter/ipvs/ip_vs_core.c
++++ b/net/netfilter/ipvs/ip_vs_core.c
+@@ -1951,6 +1951,7 @@ ip_vs_in_icmp(struct netns_ipvs *ipvs, struct sk_buff *skb, int *related,
+ 		if (pskb_pull(skb, offset2) == NULL)
+ 			goto ignore_tunnel;
+ 		skb_reset_network_header(skb);
++		memset(&(IPCB(skb)->opt), 0, sizeof(IPCB(skb)->opt));
+ 		/* Ensure the IP header is present in headroom */
+ 		if (!pskb_may_pull(skb, hlen_orig))
+ 			goto ignore_tunnel;
+-- 
+2.53.0
