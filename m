@@ -1,313 +1,155 @@
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E765343B3EF
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 15:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10EB443A91
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 15:45:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785512650; cv=none; b=iQY7VE39gXO5k/Yamalzv9Ub5hFIPaLrix/YMrbzqDWhZH3ACcomulhTMRQb0RwARGEQ/FAt3+PbTIifWup0D0wdZk6ApCOiPKNQNUkqLtX37DRLnCx86YL3cvwVhWaNv4yHOBTNT0+9qKWYJQe/F32pFnavf8bj8cjI4m13Gug=
+	t=1785512714; cv=none; b=QpJPPWQdFgd4j5H0mQVJz+kOHbE7yKu2EIMPPwybkiyIEKltgg0QV5/Lon7yDGzOK4OhZv71gRDzGL+jaUvb1f0YFalScBeM82uzBLTx4OBRAaVJz+0okblSttkkSLulcGnnIa9LIULCwYqzFvTv59tLE0I6A6I0rAT0TieoqDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785512650; c=relaxed/simple;
-	bh=LEWxUOWVmU3Vw6HcaHSqImiVNkdfMh5fMNn+ukIuvOU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=JToCmfxd+lIWbNnSGReulniQHvn4pdMJH1z4O0LUrVi2v9BXdvnOwMYDq+8M1rtyNj0Rb/F+cdUmePK5wFDL2OpiGq66pweicCP2V8na1NJJSx9jiqcmbTi7Qw2gnX+scBZ7Gs06Hb7u1NQwRP1oGkV5DLkd7p/3BUUoUezpIOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--gnoack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LbHGyfz2; arc=none smtp.client-ip=209.85.218.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--gnoack.bounces.google.com
+	s=arc-20240116; t=1785512714; c=relaxed/simple;
+	bh=QljyVPFlAv4h/ZzcE8C+5GE8/id8T+aE6aMhZzBAF/Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lt765kq3fsF+q1eDyPnvAKvp3HDih87TntEgvS25JLLb3vx5wcqzTM4noE7ULxBG1gIK5TjV3v5kIKhYg10ir7yza/3zDYbhKJG2IvcP1yVIAVM2I1guGJGznfBrJEvsxKhdXMhAzgHzqttl0r1utc2RllKI5FLllXLK2GX08pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n3QvJhLH; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LbHGyfz2"
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c15cec1ccb6so109598966b.1
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 08:44:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n3QvJhLH"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-84862b0d5f8so1069246b3a.3
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 08:45:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785512647; x=1786117447; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TGv9oaNlaBZk+/EC49Nn/fhRApP+RDWSQ21AKhDj5YQ=;
-        b=LbHGyfz2fJvWGryBs0jfvghnzvaFPq/hvkqIzfRL2Mi2Cei+ejj+jisVbwI1wNs6SW
-         VyZTRAD+2w9B4z+G+kIG2M/9DwKNsvbW7bBEAPf+5qcxQhZDNJ58cNKD8IQoMc62PJY5
-         OmwqDQOYt3KO3F54n10stuVTHmHIKJ1FOxKypQ6vDEprSv/RTn3kYthIb9EaQrbQPfuW
-         MP28fVKdzCgrmJQNEgrFzOHsvB9znYvMVUHS3L2bqyhyh3hLEC7Kzyl6JPbjYHS9FxHT
-         qOgmX0no0RAmN/znmiMySgUobjba7MFqid4DuNLg8ZpMwL6Vf404l1tQDxjjYriDL9zs
-         4sTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785512647; x=1786117447;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1785512712; x=1786117512; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TGv9oaNlaBZk+/EC49Nn/fhRApP+RDWSQ21AKhDj5YQ=;
-        b=c9fLEYNNSNd1B8bJPAXoDIihfcRnifv0FNQNLYteI6D4yUxixqFZ2S9SzGxkNKxyKx
-         2MRJVsFzHfDksV4uM+DrHJpLcIMTKr+WIe1ZsWGyqS3rVSg/Eea+aRi1Oo0r+gJZliWn
-         H97P2xPLYKpZCX/Hg0EJjIGC5ggQ7+PFzPRAGJdLUZeGyme4ROeJiYNCdE/DNX+3Q4Qn
-         Rh4gKqESGnqycxwpluPokZEg2YTyEE/2KkWhgjOHqJYjUBQIT9RERV71RFVd5uX/ybDz
-         dOriGFQVNI4F6ZACnJ4AEhmlnzMhlr/T+Z9aM4W32YB5ka2NSGb9nNMwkP/3Gb9IB86F
-         7tiA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3LDgFZN2poxmSibQpF+0M6nz/PQpsJb5jrlFnC8iU65H+KZGIt1mFVRGpyW8NLgYNK8kp4co=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzzo7rNa6eHqoXeM93aqQ/B0CwiRgY/MmTQw6AsqVqwDR7JHNOb
-	Cr0oFpduPSJOIHMgkGh1CPT1d7sXSvccwrB8kB8m9Nks9Rrb+UAiB1dUC7Rc4bNzMSq/QMcF9WR
-	P1P+Yvg==
-X-Received: from wrtr6.prod.google.com ([2002:a5d:4e46:0:b0:47f:44b6:2328])
- (user=gnoack job=prod-delivery.src-stubby-dispatcher) by 2002:a17:906:f598:b0:c1c:2173:d412
- with SMTP id a640c23a62f3a-c1fe8494f9amr3013166b.1.1785512646788; Fri, 31 Jul
- 2026 08:44:06 -0700 (PDT)
-Date: Fri, 31 Jul 2026 17:43:50 +0200
-In-Reply-To: <20260731154353.1790268-1-gnoack@google.com>
+        bh=tTr+FVEJek8HJ3HeYCgl63RHoNH7nCzt1TWIIYAYrB0=;
+        b=n3QvJhLHSax0EIgAg31zVsyiaA3GFTOThr/sKnIwk1AlNJYzy703rz1ByL5pGsEAAb
+         KnZNUfLuX28RGcJq3klfQbDv+JPv7DUVp0L83hTf/3o992ceY4u/wQo3H5vOr0f2IH18
+         G0h1/U7AIBhqotS6F2zMBzIhCCFUugoMc5L0S4uSBe6PPL6XReLHlCwndBE+21iXW4YZ
+         SHaU3OnRa70Qfkcg/aadOPBOhtqOh6IBWEpKKM844v0RUR8DY81ig7B7mZqk4yeB0d5X
+         hXGSY41kXXDS0RyvRvgEIV3pWLYXfsB4AAr79YNlqOTBYhAOxTzep2yj9yWU6Y9UFn8v
+         w/3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785512712; x=1786117512;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tTr+FVEJek8HJ3HeYCgl63RHoNH7nCzt1TWIIYAYrB0=;
+        b=QogHjVr6lBnImAs6hamTZHO1jMrCHEEFuhdvAqcWrkS6SlnNR3b6CfDE3zoJN16Znk
+         5J8V70GW77PMNBI1UiNKddLlcQZ+0CcifZlOfW6Vlcuq9E70dq1756kpqYKds3Y3R4p6
+         c1Av4ryBYP/cjKthX2Fer6YvMUgTBLCiH8gUPhoBNKsrUFw6R7bFYRX3Uge4mI+9323g
+         LAxIZ1a7qs9PWzpNHj3PZ9V3WRMivIvFfalZt+GX43+sRgUOkw7rJq3KSRwwWBifE1V2
+         ZQ1FAlfgSQjMtr6UoAQyDmaom9tLp2u9+W+ZK4ye2JRjRQ394sQw8vAbSgtnCvcYPwxS
+         gAOQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoF2gs3Yg+mIc7wGksW2Hi3GPNec4UDBO6zIYTZeI7trWeQ67IwSPCdmAwo/CycEFLWDFcYiIo=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw4sQhxDpIIHe4+vteMq+fMBLWyueoYex7HV7cOQS6UsfW+hl2m
+	lf8BbLkSMOO3b/r5ud0Oc0BP6JVk68txvQNIHsJ8LrcamGjJYc2LgDdw
+X-Gm-Gg: AR+sD13AnViKr6qkLaMq2Plcguu9U9ARnCHF7k7EQc0FrWZHh7KmxlMv5bfxqOlV4yS
+	mJeCTwmq7OkYP6BC7Yn9iMUahaHhKngarO+cN6AS7C3fpAY/IQWYVwiQ6C2nJ3RnaY5tDiz2qFa
+	GiQpwfmrVxaykufBmLivtwoL6LKi+SCF2slrNjAiBZOVuAW2m0ZchP3sc49C0Hlf7+GAg9WTv7u
+	WU+mH8dD4zJF0eVxC4jIuIi//Z7dBZdgO30V1+kG4++9Kdr9Lzf6cfRsN1E8V20Ff5KrNhzUL/T
+	kPTQolfnQ1EzlyI7f6AK+KYaSb/6jJMfZQAZE6YRvZiO4l4Ji7tk3LIe9v64ofBgOi5v3N38XwV
+	w3zfZ4DUQr1GhD+GpBI7RIqzRkLLCbZrcnki6m9rganqMlOrrWbqXhb//0rzFZROkAm0B6qj21J
+	uVTkqTFUaxBBiHqzssy9rl62/Gr1biBAthDcM+EEymEoNJGCQG3MtGTLs/lnmuSx5o3OVLVYlFH
+	9uXySflvl51wa+4XNe7za44wHFoQ3Ktawjm1hHPvLOWY0RglfpmfZltf38=
+X-Received: by 2002:a05:6a20:6a21:b0:3b4:5ff3:45cb with SMTP id adf61e73a8af0-3c92a75b25cmr258440637.8.1785512711706;
+        Fri, 31 Jul 2026 08:45:11 -0700 (PDT)
+Received: from ?IPV6:2601:646:8f02:5350:ce4:701d:f6e3:3a6b? ([2601:646:8f02:5350:ce4:701d:f6e3:3a6b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e29a126sm7821146eec.31.2026.07.31.08.45.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 31 Jul 2026 08:45:11 -0700 (PDT)
+Message-ID: <6fe86a50-34ec-45aa-b2b4-52429a72369c@gmail.com>
+Date: Fri, 31 Jul 2026 08:45:09 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260731154353.1790268-1-gnoack@google.com>
-X-Mailer: git-send-email 2.55.0.508.g3f0d502094-goog
-Message-ID: <20260731154353.1790268-3-gnoack@google.com>
-Subject: [PATCH v5 2/5] landlock: Require LANDLOCK_ACCESS_FS_MAKE_REG for
- whiteout creation
-From: "=?UTF-8?q?G=C3=BCnther=20Noack?=" <gnoack@google.com>
-To: "=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?=" <mic@digikod.net>, Christian Brauner <brauner@kernel.org>
-Cc: linux-security-module@vger.kernel.org, Paul Moore <paul@paul-moore.com>, 
-	Amir Goldstein <amir73il@gmail.com>, Miklos Szeredi <miklos@szeredi.hu>, Serge Hallyn <serge@hallyn.com>, 
-	Stephen Smalley <stephen.smalley.work@gmail.com>, 
-	"=?UTF-8?q?G=C3=BCnther=20Noack?=" <gnoack@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2 1/2] net: fix skb length accounting after generic
+ XDP frag adjustment
+To: Sun Jian <sun.jian.kdev@gmail.com>, netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Hangbin Liu <liuhangbin@gmail.com>, Krishna Kumar <krikku@gmail.com>,
+ Samiullah Khawaja <skhawaja@google.com>,
+ Martin Karsten <mkarsten@uwaterloo.ca>, Lorenzo Bianconi
+ <lorenzo@kernel.org>, =?UTF-8?Q?Toke_H=C3=B8iland-J=C3=B8rgensen?=
+ <toke@redhat.com>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ maciej.fijalkowski@intel.com, stable@vger.kernel.org
+References: <20260731032357.6114-1-sun.jian.kdev@gmail.com>
+ <20260731032357.6114-2-sun.jian.kdev@gmail.com>
+Content-Language: en-US
+From: Mohsin Bashir <mohsin.bashr@gmail.com>
+In-Reply-To: <20260731032357.6114-2-sun.jian.kdev@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Whiteout objects are used in the upper layer of an OverlayFS to
-indicate that the file with this name does not exist in the unified
-view, even if it is present in one of the lower layer file systems.
 
-For the userspace implementations of OverlayFS (fuse-overlayfs),
-whiteout objects can be created from userspace as well:
 
-* mknod(2) with S_IFCHR and makedev(0, 0)
-* renameat2(2) with RENAME_WHITEOUT,
-  creating the whiteout in the old place of the moved file.
+On 7/30/26 8:23 PM, Sun Jian wrote:
+> Generic XDP exposes non-linear skb fragments through an xdp_buff. If an
+> XDP program adjusts the fragment area, bpf_prog_run_generic_xdp() copies
+> xdp_frags_size back to skb->data_len but leaves skb->len containing the
+> old fragment contribution.
+> 
+> After a fragment shrink, this makes skb_headlen() larger than the actual
+> linear area. In the reproduced UDP receive path, __skb_datagram_iter()
+> copied 1024 bytes past the actual linear tail to userspace, starting at
+> struct skb_shared_info. The copied bytes included the affected skb's
+> nr_frags, xdp_frags_size and a kernel pointer from
+> skb_shinfo(skb)->frags[0]. Real packet data was displaced by the same
+> amount and truncated at the end.
+> 
+> Subtract the old data_len before replacing it and add the new data_len
+> afterwards, keeping skb->len and skb->data_len synchronized.
+> 
+> A 60000-byte UDP datagram on a veth pair with MTU 64000 was shortened by
+> 1024 bytes from its fragment area. Before the fix, all 10 runs produced
+> corrupted payloads. After the fix, all 10 runs matched the expected
+> payload exactly.
+> 
+> Fixes: e6d5dbdd20aa ("xdp: add multi-buff support for xdp running in generic mode")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/bpf/al9T9Eto%2FhRIzP5W@boxer/
+> Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
+> ---
+>   net/core/dev.c | 10 +++++++---
+>   1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index 5933c5dab09e..5c37cf6c4aa1 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -5517,12 +5517,16 @@ u32 bpf_prog_run_generic_xdp(struct sk_buff *skb, struct xdp_buff *xdp,
+>   	}
+>   
+>   	/* XDP frag metadata (e.g. nr_frags) are updated in eBPF helpers
+> -	 * (e.g. bpf_xdp_adjust_tail), we need to update data_len here.
+> +	 * (e.g. bpf_xdp_adjust_tail). Remove the old fragment contribution
+> +	 * from skb->len before updating data_len, then add the new one back.
+>   	 */
+> -	if (xdp_buff_has_frags(xdp))
+> +	skb->len -= skb->data_len;
+> +	if (xdp_buff_has_frags(xdp)) {
+>   		skb->data_len = skb_shinfo(skb)->xdp_frags_size;
+> -	else
+> +		skb->len += skb->data_len;
+> +	} else {
+>   		skb->data_len = 0;
+> +	}
+>   
+>   	/* check if XDP changed eth hdr such SKB needs update */
+>   	eth = (struct ethhdr *)xdp->data;
 
-This commit guards whiteout creation in both of these cases with
-LANDLOCK_ACCESS_FS_MAKE_REG.  Whiteout objects are *not* considered
-character devices and are not bound to a driver.
-
-For the mknod(2) case, introduce a Landlock erratum.  The creation of
-whiteout objects through mknod(2) was previously guarded using
-LANDLOCK_ACCESS_FS_MAKE_CHAR, and it is now guarded using
-LANDLOCK_ACCESS_MAKE_REG.
-
-For the renameat2(2) case, fix a bug: Before this commit, renameat2(2)
-with RENAME_WHITEOUT would create a directory entry even when all
-LANDLOCK_ACCESS_FS_MAKE_* rights were denied.
-
-This does not affect normal renames within layered OverlayFS mounts:
-When doing a regular rename() on a mounted fuse-overlayfs, it is the
-fuse-overlayfs daemon that exercises renameat2() with RENAME_WHITEOUT,
-and only the Landlock domain of that daemon is checked there.
-
-Suggested-by: Christian Brauner <brauner@kernel.org>
-Suggested-by: Micka=C3=ABl Sala=C3=BCn <mic@digikod.net>
-Cc: stable@vger.kernel.org
-Fixes: cb2c7d1a1776 ("landlock: Support filesystem access-control")
-Depends-on: 49c9e09d9610 ("landlock: Fix handling of disconnected directori=
-es")
-Depends-on: fe72ce6710cb ("landlock: Add errata documentation section")
-Signed-off-by: G=C3=BCnther Noack <gnoack@google.com>
----
- include/uapi/linux/landlock.h    |  1 +
- security/landlock/errata/abi-1.h | 23 ++++++++++++++++++
- security/landlock/fs.c           | 41 +++++++++++++++++++++++++-------
- 3 files changed, 56 insertions(+), 9 deletions(-)
-
-diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
-index 7ffe2ef127ee..9c1102ebf06e 100644
---- a/include/uapi/linux/landlock.h
-+++ b/include/uapi/linux/landlock.h
-@@ -351,6 +351,7 @@ struct landlock_net_port_attr {
-  *   device.
-  * - %LANDLOCK_ACCESS_FS_MAKE_DIR: Create (or rename) a directory.
-  * - %LANDLOCK_ACCESS_FS_MAKE_REG: Create (or rename or link) a regular fi=
-le.
-+ *   This also guards the creation of whiteout objects as used in OverlayF=
-S.
-  * - %LANDLOCK_ACCESS_FS_MAKE_SOCK: Create (or rename or link) a UNIX doma=
-in
-  *   socket.
-  * - %LANDLOCK_ACCESS_FS_MAKE_FIFO: Create (or rename or link) a named pip=
-e.
-diff --git a/security/landlock/errata/abi-1.h b/security/landlock/errata/ab=
-i-1.h
-index 3f099555f059..e0d543d9d508 100644
---- a/security/landlock/errata/abi-1.h
-+++ b/security/landlock/errata/abi-1.h
-@@ -22,3 +22,26 @@
-  * from their original mount points.
-  */
- LANDLOCK_ERRATUM(3)
-+
-+/**
-+ * DOC: erratum_4
-+ *
-+ * Erratum 4: Creation of whiteout objects
-+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+ *
-+ * This fix changes the access rights required for the creation of whiteou=
-t
-+ * objects through :manpage:`mknod(2)` or :manpage:`renameat2(2)`.  Creati=
-ng
-+ * whiteout objects is now guarded by ``LANDLOCK_ACCESS_FS_MAKE_REG`` inst=
-ead of
-+ * ``LANDLOCK_ACCESS_FS_MAKE_CHAR``.
-+ *
-+ * Whiteout objects are used in OverlayFS to mark the absence of a file in=
- an
-+ * upper file system.  Despite being created with ``S_IFCHR``, whiteout ob=
-jects
-+ * do not count as character devices.
-+ *
-+ * Impact:
-+ *
-+ * Sandboxed programs that create OverlayFS whiteouts (such as fuse-overla=
-yfs)
-+ * now require ``LANDLOCK_ACCESS_FS_MAKE_REG`` instead of
-+ * ``LANDLOCK_ACCESS_FS_MAKE_CHAR``.
-+ */
-+LANDLOCK_ERRATUM(4)
-diff --git a/security/landlock/fs.c b/security/landlock/fs.c
-index f7e5e4ef9eac..c12af17cac9e 100644
---- a/security/landlock/fs.c
-+++ b/security/landlock/fs.c
-@@ -20,6 +20,7 @@
- #include <linux/falloc.h>
- #include <linux/fs.h>
- #include <linux/init.h>
-+#include <linux/kdev_t.h>
- #include <linux/kernel.h>
- #include <linux/limits.h>
- #include <linux/list.h>
-@@ -983,7 +984,8 @@ static int current_check_access_path(const struct path =
-*const path,
- 	return -EACCES;
- }
-=20
--static __attribute_const__ access_mask_t get_mode_access(const umode_t mod=
-e)
-+static __attribute_const__ access_mask_t get_mode_access(const umode_t mod=
-e,
-+							 const dev_t dev)
- {
- 	switch (mode & S_IFMT) {
- 	case S_IFLNK:
-@@ -991,6 +993,9 @@ static __attribute_const__ access_mask_t get_mode_acces=
-s(const umode_t mode)
- 	case S_IFDIR:
- 		return LANDLOCK_ACCESS_FS_MAKE_DIR;
- 	case S_IFCHR:
-+		/* Whiteout objects are guarded with MAKE_REG. */
-+		if (dev =3D=3D WHITEOUT_DEV)
-+			return LANDLOCK_ACCESS_FS_MAKE_REG;
- 		return LANDLOCK_ACCESS_FS_MAKE_CHAR;
- 	case S_IFBLK:
- 		return LANDLOCK_ACCESS_FS_MAKE_BLOCK;
-@@ -1007,6 +1012,13 @@ static __attribute_const__ access_mask_t get_mode_ac=
-cess(const umode_t mode)
- 	}
- }
-=20
-+static __attribute_const__ access_mask_t
-+get_dentry_access(const struct dentry *const dentry)
-+{
-+	return get_mode_access(d_backing_inode(dentry)->i_mode,
-+			       d_backing_inode(dentry)->i_rdev);
-+}
-+
- static access_mask_t maybe_remove(const struct dentry *const dentry)
- {
- 	if (d_is_negative(dentry))
-@@ -1093,6 +1105,7 @@ static bool collect_domain_accesses(const struct land=
-lock_ruleset *const domain,
-  * @new_dentry: Destination file or directory.
-  * @removable: Sets to true if it is a rename operation.
-  * @exchange: Sets to true if it is a rename operation with RENAME_EXCHANG=
-E.
-+ * @whiteout: Sets to true if it is a rename operation with RENAME_WHITEOU=
-T.
-  *
-  * Because of its unprivileged constraints, Landlock relies on file hierar=
-chies
-  * (and not only inodes) to tie access rights to files.  Being able to lin=
-k or
-@@ -1140,7 +1153,8 @@ static bool collect_domain_accesses(const struct land=
-lock_ruleset *const domain,
- static int current_check_refer_path(struct dentry *const old_dentry,
- 				    const struct path *const new_dir,
- 				    struct dentry *const new_dentry,
--				    const bool removable, const bool exchange)
-+				    const bool removable, const bool exchange,
-+				    const bool whiteout)
- {
- 	const struct landlock_cred_security *const subject =3D
- 		landlock_get_applicable_subject(current_cred(), any_fs, NULL);
-@@ -1159,18 +1173,25 @@ static int current_check_refer_path(struct dentry *=
-const old_dentry,
- 	if (exchange) {
- 		if (unlikely(d_is_negative(new_dentry)))
- 			return -ENOENT;
--		access_request_parent1 =3D
--			get_mode_access(d_backing_inode(new_dentry)->i_mode);
-+		access_request_parent1 =3D get_dentry_access(new_dentry);
- 	} else {
- 		access_request_parent1 =3D 0;
- 	}
--	access_request_parent2 =3D
--		get_mode_access(d_backing_inode(old_dentry)->i_mode);
-+	access_request_parent2 =3D get_dentry_access(old_dentry);
- 	if (removable) {
- 		access_request_parent1 |=3D maybe_remove(old_dentry);
- 		access_request_parent2 |=3D maybe_remove(new_dentry);
- 	}
-=20
-+	/*
-+	 * In case of renameat2(2) with RENAME_WHITEOUT, a whiteout object is
-+	 * created in the source location, so we require an additional access
-+	 * right there.
-+	 */
-+	if (whiteout)
-+		access_request_parent1 |=3D
-+			get_mode_access(S_IFCHR | WHITEOUT_MODE, WHITEOUT_DEV);
-+
- 	/* The mount points are the same for old and new paths, cf. EXDEV. */
- 	if (old_dentry->d_parent =3D=3D new_dir->dentry) {
- 		/*
-@@ -1520,7 +1541,7 @@ static int hook_path_link(struct dentry *const old_de=
-ntry,
- 			  struct dentry *const new_dentry)
- {
- 	return current_check_refer_path(old_dentry, new_dir, new_dentry, false,
--					false);
-+					false, false);
- }
-=20
- static int hook_path_rename(const struct path *const old_dir,
-@@ -1531,7 +1552,8 @@ static int hook_path_rename(const struct path *const =
-old_dir,
- {
- 	/* old_dir refers to old_dentry->d_parent and new_dir->mnt */
- 	return current_check_refer_path(old_dentry, new_dir, new_dentry, true,
--					!!(flags & RENAME_EXCHANGE));
-+					!!(flags & RENAME_EXCHANGE),
-+					!!(flags & RENAME_WHITEOUT));
- }
-=20
- static int hook_path_mkdir(const struct path *const dir,
-@@ -1544,7 +1566,8 @@ static int hook_path_mknod(const struct path *const d=
-ir,
- 			   struct dentry *const dentry, const umode_t mode,
- 			   const unsigned int dev)
- {
--	return current_check_access_path(dir, get_mode_access(mode));
-+	return current_check_access_path(
-+		dir, get_mode_access(mode, new_decode_dev(dev)));
- }
-=20
- static int hook_path_symlink(const struct path *const dir,
---=20
-2.55.0.508.g3f0d502094-goog
-
+Reviewed-by: Mohsin Bashir <hmohsin@meta.com>
