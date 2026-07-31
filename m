@@ -1,162 +1,139 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011008.outbound.protection.outlook.com [52.101.57.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FAD3B71CB
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785496668; cv=fail; b=Qh0aVUdlJPZJCwEK6+5jGNZc+sBmaJRxEBb4vUlKtR8Q/JFqU8f/+7KE9OabbOCWSvyNovdncOTfI7W79ljs06tIA/UpQkE4+1hlyMXWy3M4nAqrWpFmDTgTbE5YG25UPK6nRdt9Js8axEZx6UFBusssYge61tiSDWHubXT+vC0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785496668; c=relaxed/simple;
-	bh=ONQMsmYbGP+BgOgKiDySVe/Uh0KIXOcau3SsycYVB0Q=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FPvFB74JEOwqCMLeeYzsA+zyo6Zev1IT7oVyXb+WO34FTPiiZOqH8UQvuFGniFns7wM9VtjrhHNh4y962BPWzzq6l1U8xfPuKxBeOJ7qmjHnEKxUhUh8OWFHfqhKhGqkR+vA/yvmTtVQPBR3oA2scmt6C7WyyI4lbg6Ned3ze9o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=msSOpPkQ; arc=fail smtp.client-ip=52.101.57.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B183DB303;
+	Fri, 31 Jul 2026 11:18:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785496701; cv=none; b=IFdLPxSNPFgzXuQwU0LOajJEMCZdFKuYOexU/BcbquCkluv8kfckmhrRnQ71LQ0PTNIPnsY9pzm3MQg940cfLx6aAI8Y/yu6JhgUA3Y96jX7wUcv/ge8dND+gMMewRUSjA/NCwlNhWYSieiCm4fPR1Uo/aQHU15R9PCyYCDgFEE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785496701; c=relaxed/simple;
+	bh=JfjV3YeIQUEC66jR9jd6dMigjTBBcfpgvo4in+OSdZw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o1s+5QPmTZCFJwwFEbUmuWUxHxIciEEIhScM9cC3OBzn6NfNRTe5bwyCClV5jZr/peJrABU6coQ+PmBOrUS+Vqe6IY/vlsk6ZYp+yY4aO8unxNwwcoJb5nvOClYdk9bouC1ckVokS//7gsgzioGQsjHe2AT881JELRCUQ9rtKVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gPapEZhq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="msSOpPkQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rNqe8KXI79qQ3xLYrtUJ0hkN1Xpy6xbaKyozyq7KocfWkfXVJBRj6x2WiaQnu+juFkhitL3sTQJXV93I3gf8q6VsliJ6hJIMfHDwwljLY57wkdgzzpWqqkJwjXAUnNkIAlorOo+PPscdOJOVvK3P7wG5ckHHq7tZk28Z39al+M/1giM0buh0JQQQ+BNFq+9wqQYbhHLgdTG5qCU5cA3ZHbsAyJST0C4iusaF4hn4dWw4wqELq4ufEqRRsHa76bCfmAteTqtJIislCWsiBjmNlxjaGnc5ILaH5fPuHACYnnL+LfwU4jQdKTixtjpHZLYxFci0+e2i1jLfwc/Xaegpbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aUEtzV/LMTQP3vuqUywN+fc+OccvCZM82GtHBlBTKgY=;
- b=KmW8RX92IHM2I5WmLDiAsB2gqhZ/dC4wVD8nyf3IgE+Xjwob9HnFsdvgOfs4URgPIKHdmNO/5tlJjizHuSr031F9IMGRj5BLrUcyBofjozHyrr/x8PSOVx3WTDFE9mRsGBYWeZicsPIFNmD0RUlLwk2A4Dxwtac0zpirrWqFiIpoKHfTxCm5meXzEEqXGUy9+0v5jU5mb4yDUq4+qVv1IjmVft6pNWBMYwUGBhw5K3xARXkqz+9K+HhomUPbdZXgbYlKpSHzrW1Bt/WGpy7MvYWLwrrSjRndktRV5WvHyN9T6CXPBs3c0sxJrm6SHVlm7d2z1c/KOh56OhdCStpF2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aUEtzV/LMTQP3vuqUywN+fc+OccvCZM82GtHBlBTKgY=;
- b=msSOpPkQ0nFHP2OByhcIHnrX11JL/zAoQBaGLquhflqa5AO69eOUdomBr2yBDplJm2ZWVduu8wKlNpvzImvcUFeThbFp2zdvmH0GFcqiHNzz4dsyhDgVrmM5v89HFVrWAEmlG80tfREktXBos7jn7LsWenBZMJkQGhKDAEoYs9M=
-Received: from PH5P220CA0002.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:34a::17)
- by PH8PR12MB6721.namprd12.prod.outlook.com (2603:10b6:510:1cc::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
- 2026 11:17:41 +0000
-Received: from CY4PEPF0000EE3F.namprd03.prod.outlook.com
- (2603:10b6:510:34a:cafe::7) by PH5P220CA0002.outlook.office365.com
- (2603:10b6:510:34a::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.16 via Frontend Transport; Fri,
- 31 Jul 2026 11:17:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE3F.mail.protection.outlook.com (10.167.242.17) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 11:17:40 +0000
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 06:17:39 -0500
-From: Honglei Huang <honghuan@amd.com>
-To: <stable@vger.kernel.org>
-Subject: [PATCH 6.18.y] drm/gpusvm: publish dpagemap early to avoid device mapping leak on error
-Date: Fri, 31 Jul 2026 19:17:28 +0800
-Message-ID: <20260731111728.3415703-1-honghuan@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <2026072912-heritage-womb-d38a@gregkh>
-References: <2026072912-heritage-womb-d38a@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gPapEZhq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 151591F000E9;
+	Fri, 31 Jul 2026 11:18:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785496699;
+	bh=1NIsTW53iNNz94GY/QD8vcLlos+T8rjNFNmy2iGpwRs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gPapEZhq1Z/ZSVKnDe1NLMQaidOV9J9CoKP7Xq3/vz4fAeu6sIOL1uIJVbMfYb5w6
+	 /GUHvKy45jFfLy9z8or2UB4zDfqCgUv+8SrFy/JpyPuKJJYI8e/0gW3xb7BQh4/tbq
+	 3/Y4JJNNp2sUtJ3N8RkpQANzJa9hjyY06m7Q9xRs=
+Date: Fri, 31 Jul 2026 13:18:05 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Cc: arnd@arndb.de, kees@kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v8 1/2] misc: ibmasm: Fix static out-of-bounds MMIO
+ access during probe
+Message-ID: <2026073120-deplete-bronzing-481c@gregkh>
+References: <20260718073253.96741-1-25181214217@stu.xidian.edu.cn>
+ <20260718073253.96741-2-25181214217@stu.xidian.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3F:EE_|PH8PR12MB6721:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb18f119-5a36-442d-ecdd-08deeef555f8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|82310400026|23010399003|1800799024|11063799006|10067099003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	VrD7aYR8DGhnD7jOtuBXfrBNHplzJNFl68j6zyTP21PT50e+Qro4nYM+E9F2TZDaQiDREbb1KDwfKh5Bjph94quC/6wXLGnR2TZK7H9KLCpZ7y0zEaoc0tvw6gjFncix41hvHN1a3095RTASfA/qDsYM35fQyRu2+H76EYf/5TQXdONHDJhEGHCTTdCwEqsV8LPnYHkEeOYu8L5KlRqOYj3K1QP8dU0lbsJ8Vms0+p4Panmu6PTj1TZlGEMqZ21Mfvk6ipQY87xe06GCPkmXEAfcH40J0vNrIFNRry+/w5Qf9N7GnCG416rNUOzK/XZPIoJV2Io8WHkUXmyIxedmNgfgXqEMUxsFG+UUM4Oox23YPhKTomDkv+0zhrLfbbtuUPuSDDUG2I5ZoQzKF4afs0Gfz5psPbBPNZ+d5ndquwwIr9d9SP7V4JcH0D8eloGONxJuAgD4O2dREskLesC5ZMstHTk05IPkZ43QfeFXIdnDynsNEBSFNwFWPlei9qqn+ElXL6Nh/Wyb/k6sznzrX0i3NuMIMmxJQkNI9G3Gs3V8YI/WtrJSrSlWooYyiqFSgSVUskiZhBQN49oS6E+QcD1/N5oVryccIw+J+0zhJZnKiGPyU5ysEILged8doah0xgB7ZzYADo42xxMk4lwATkwNXmASFccuzQEDmviBSC4=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(1800799024)(11063799006)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	znZznxJU8XsaEldyAH6+m7yZDFTjzePdTEVcpyPHP4Bhqoq6QmCXU5VGeyEXfrePp6ecpBuQ2eLLRUj7tcZQslvKM+i8QLfVi8SViNkW1GOaaasluTs6Yek41yY/ZSeFObZXmxOU3vrUu+BtQIIWfz4ubQIwVt1EJcrtrkkTJkvQOGPKy6aCEVyc70EPsejivIAO1bkQR9UYtCSLASHi5krIMpI7gqMX5fo9DOuOkablhauhAdVu9kMi/9N594V8XoRqcPvh9HM0iKVQQa3EOS7y1xzQra+QM7pBJj7O10lrUF4s+/xLA1UuV+cf1jWHOMpRextPvYrnMActQPrg0zMWow11/p49NLEpvSznFpYNQueJOOdZUWlFS4uXIKfhbdE+vHaP4yiqykRcAshaTpJsYQwkvbO5c/nYf676WEQIRMTuViRtRM0rLtPiYleo
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 11:17:40.9332
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb18f119-5a36-442d-ecdd-08deeef555f8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE3F.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6721
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260718073253.96741-2-25181214217@stu.xidian.edu.cn>
 
-drm_gpusvm_get_pages() only stored the local dpagemap into
-svm_pages->dpagemap on the success path. If a later page failed (e.g.
--EOPNOTSUPP when ctx->allow_mixed is false) and jumped to err_unmap,
-svm_pages->dpagemap was still NULL, so __drm_gpusvm_unmap_pages() skipped
-device_unmap() and leaked the device mappings already created.
+On Sat, Jul 18, 2026 at 03:32:52PM +0800, Mingyu Wang wrote:
+> The ibmasm driver maps PCI BAR 0 without verifying if the hardware-provided
+> resource length is sufficient to cover statically accessed registers.
+> 
+> When evaluating the driver against emulated hardware or during virtual
+> device fuzzing, a malformed device may expose a significantly undersized
+> BAR 0. This leads to an out-of-bounds (OOB) access when reading or writing
+> to registers such as INTR_CONTROL_REGISTER (offset 0x13A4) or mouse
+> interrupt controls (offset 0xAC000) during probe. A page fault here
+> while holding the idempotent_init_module() lock causes a cascading global
+> soft lockup.
 
-Assign svm_pages->dpagemap when the first device page is mapped so the
-err_unmap path can device_unmap() those mappings.
+In thinking about this some more, isn't that what the "authenticated
+PCI" spec is for?  We trust this hardware, right?  If it gives us an
+invalid BAR, bad things can and will happen.
 
-This issue was found by Sashiko AI review.
+So does this ever happen in a real device?  And where are these real
+devices?  What types of systems are they and are they even still being
+used?
 
-Fixes: f70da6f99d4f ("drm/gpusvm: pull out drm_gpusvm_pages substructure")
-Cc: stable@vger.kernel.org
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Honglei Huang <honghuan@amd.com>
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Link: https://patch.msgid.link/20260701062800.409248-4-honghuan@amd.com
-[ Adjusted for 6.18.y: drop drm_pagemap_get()/drm_pagemap_put() around the
-  svm_pages->dpagemap assignment; that reference counting is not present in
-  6.18 where the field is not refcounted (unmap path only clears it). ]
-(cherry picked from commit 7f708f51e3955bda0d77a0b67ab9bea6c97fea99)
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- drivers/gpu/drm/drm_gpusvm.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-index 4cde5bf4ae..a22beafa01 100644
---- a/drivers/gpu/drm/drm_gpusvm.c
-+++ b/drivers/gpu/drm/drm_gpusvm.c
-@@ -1390,6 +1390,14 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
- 					err = -EAGAIN;
- 					goto err_unmap;
- 				}
-+
-+				/*
-+				 * Set the dpagemap as soon as the first
-+				 * device page is mapped so the err_unmap path
-+				 * can device_unmap() the device mappings that
-+				 * have already been created.
-+				 */
-+				svm_pages->dpagemap = dpagemap;
- 			}
- 			svm_pages->dma_addr[j] =
- 				dpagemap->ops->device_map(dpagemap,
-@@ -1432,10 +1440,8 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
- 		flags.has_dma_mapping = true;
- 	}
- 
--	if (pagemap) {
-+	if (pagemap)
- 		flags.has_devmem_pages = true;
--		svm_pages->dpagemap = dpagemap;
--	}
- 
- 	/* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
- 	WRITE_ONCE(svm_pages->flags.__flags, flags.__flags);
--- 
-2.34.1
 
+> 
+> Fix this by storing the mapped size in 'struct service_processor' and
+> ensuring the BAR is at least large enough to cover the highest statically
+> accessed hardware register before calling pci_ioremap_bar(). This highest
+> static access (offset 0xAC1FC) occurs via the display_depth() macro
+> during ibmasmfs filesystem initialization.
+> 
+> Fixes: bdbeed75b288 ("pci: use pci_ioremap_bar() in drivers/misc")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+> ---
+>  drivers/misc/ibmasm/ibmasm.h   |  1 +
+>  drivers/misc/ibmasm/lowlevel.h |  3 +++
+>  drivers/misc/ibmasm/module.c   | 13 +++++++++++++
+>  3 files changed, 17 insertions(+)
+> 
+> diff --git a/drivers/misc/ibmasm/ibmasm.h b/drivers/misc/ibmasm/ibmasm.h
+> index a5ced88ca923..8d69198bf10f 100644
+> --- a/drivers/misc/ibmasm/ibmasm.h
+> +++ b/drivers/misc/ibmasm/ibmasm.h
+> @@ -140,6 +140,7 @@ struct service_processor {
+>  	struct list_head	node;
+>  	spinlock_t		lock;
+>  	void __iomem		*base_address;
+> +	resource_size_t		mapped_size;
+>  	unsigned int		irq;
+>  	struct command		*current_command;
+>  	struct command		*heartbeat;
+> diff --git a/drivers/misc/ibmasm/lowlevel.h b/drivers/misc/ibmasm/lowlevel.h
+> index 25f1ed07c3c5..970d30478c7b 100644
+> --- a/drivers/misc/ibmasm/lowlevel.h
+> +++ b/drivers/misc/ibmasm/lowlevel.h
+> @@ -33,6 +33,9 @@
+>  #define INTR_STATUS_REGISTER   0x13A0
+>  #define INTR_CONTROL_REGISTER  0x13A4
+>  
+> +/* Highest static MMIO offset accessed during probe (display_depth during fs init) */
+> +#define IBMASM_MAX_REG_OFFSET  0xAC1FC
+
+Where did this value come from?
+
+
+> +
+>  #define SCOUT_COM_A_BASE         0x0000
+>  #define SCOUT_COM_B_BASE         0x0100
+>  #define SCOUT_COM_C_BASE         0x0200
+> diff --git a/drivers/misc/ibmasm/module.c b/drivers/misc/ibmasm/module.c
+> index 4509c15a76a8..87d4d698a5ff 100644
+> --- a/drivers/misc/ibmasm/module.c
+> +++ b/drivers/misc/ibmasm/module.c
+> @@ -93,6 +93,19 @@ static int ibmasm_init_one(struct pci_dev *pdev, const struct pci_device_id *id)
+>  	}
+>  
+>  	sp->irq = pdev->irq;
+> +	sp->mapped_size = pci_resource_len(pdev, 0);
+> +
+> +	/*
+> +	 * Ensure BAR 0 is large enough to cover the highest statically
+> +	 * accessed hardware register (IBMASM_MAX_REG_OFFSET).
+> +	 */
+> +	if (sp->mapped_size < IBMASM_MAX_REG_OFFSET + 4) {
+> +		dev_err(sp->dev, "PCI BAR0 too small, need at least %zu bytes\n",
+> +			(size_t)(IBMASM_MAX_REG_OFFSET + 4));
+
+I feel like if we start taking this type of patch, you will need to do
+it for EVERY PCI driver in the kernel, right?
+
+Again, Linux trusts PCI devices, so is this even needed?
+
+thanks,
+
+greg k-h
