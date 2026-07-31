@@ -1,41 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D51318EC7
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 02:39:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA9A3115BC;
+	Fri, 31 Jul 2026 02:39:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785465591; cv=none; b=IMRhX6NqEuKhKrHKuZLlLuy+hpNAWTC42BUobi4EAbl2gNqJ3ZwCV0s/r7VoZDxFUN/Bnj46RojHqIDRB55J+2yEVezUo/VZs1qqvZkXD7RJfh08LyGAyr7r8nlXVoh0d6oUgF28EiKh7sayLxKBatgwR5xxMp1AEL59t6jIdLc=
+	t=1785465592; cv=none; b=OP0IHcHlo7OfQrZ3s0AbZOcRvFlTjgObSNdGJx4ssw2ioJJJQ+ZXBqTVtM4+mOi4DDmOSMraq4kvWq9zl2iM5dwqRQonW0D6lsoe6xUeLbVwEG4Z/Y0i07ZD8G9XcUtDdoOJKk/YTD+OyL3mvvB+f4W+fyTrW7GFZuMMH8xvIrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785465591; c=relaxed/simple;
-	bh=HsErp8F50KoXAb0sTGb+lsMg3PNdWCN3jhlSr1VxMsU=;
+	s=arc-20240116; t=1785465592; c=relaxed/simple;
+	bh=pyoHqUJEWcSmLzsg8i5K+4HRRtkJ86Nw59aowG7iOuk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FS1zDgQEVfQoM8D6gNZgEdR4rRnn0+qaXSAf2lSrkz3k+61UpK0v2Iq3+fU2IifOk1VLkoEo6RUZXcIf4LFIirMqDM95LfTZ0SKWUrZGyhFuDtop1/2loJ1vEA6JopE68TJHl6qAD1S/C9QGuivv2KVf9gG9Tn1JbnqYKnMJfQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HsJCJ0S7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=B5I27jKcyJ6KyMIJqSxlHO1l2mbkJvcsxa7KpdK1U6XohBQUGRNoCjFKqz8gQUlFFl9uy9TLe9jASYZOl8A2yKZhEd1xVldRVNNJfYKAN3rdwBktAvU0yqNvuRj5deuPb3nwVvLV+9mNYHVGfoh00ZQo7FptsgWZlxPB1JNdjHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IU0K1+4s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HsJCJ0S7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 376A01F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IU0K1+4s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB23C1F000E9;
 	Fri, 31 Jul 2026 02:39:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785465590;
-	bh=0ZpVakQJS+rW1VTrH+O9cRlh36yWbXNhBTCDbrkQh80=;
+	s=k20260515; t=1785465591;
+	bh=W748aPIKPoXcDI/vKy7AwxTs3P5v5fjfe9yp6Aj9dMA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HsJCJ0S7VBDNaRTNzVPx/uIkEM+Il7X7Pc1j6Nn1fxwWQ9+1jpmN8Ne2W6fKQQbRU
-	 XWk6L6i93eWLyI7k9f2pfdSsOeWqjH7ttRkNXJQVkyh4nlbpgjMYvoZPHP7tlxFldO
-	 oTpvzVqnzR8JVKFsqEulb+JJkllUzuRs86urbUVdlQAbJRNhuYPx8w/64pK6CNDGjG
-	 c3F5Azcglt9J0O8AspQU6mBSvgCjMR4S68EAu1Z560gJBF6sq0BJlQ9rE30tuCrvzs
-	 CRsdj9SfgdsPlS3mrIdI7df6DY08XP4iRAL34iY7Y3uoxcgSv4rJmKXc1LaFh93XyT
-	 dW0M7NuZsr0BQ==
+	b=IU0K1+4sW+Zpv1C/J/L/dGm1SO/jCcCevWj9HIYwmGLTUM+ff7VqVD1JPfFDKtsc3
+	 8mxhKK36bcFnpw11pvEAyM9kHW9nja8Hut4MU3uSfXtGfPfsmehbd13YTOvDY5TIi1
+	 iefnF7L5jp45fMqsrf/ab7tHdTue5fGWKSVVMgSoXddiIix3b0fUQa4mSR++jOcjSR
+	 LSC85BWIPuOaARJGmfuVoN7dPKninS6TaeP18gayPDt2LEi5QknmxEf1iShXsLMcTT
+	 WAMN2tOMrap96hzr1OJTTFZsn1wWXyy7JvINtddztgQQwJUHuqP4QKoJ5xVui72PH8
+	 OqjowzdO5rZjA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Pablo Neira Ayuso <pablo@netfilter.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	tze.yee.ng@altera.com
-Subject: Re: [PATCH 5.15.y] firmware: stratix10-svc: fix memory leaks and list corruption bugs
-Date: Thu, 30 Jul 2026 22:39:43 -0400
-Message-ID: <20260730203630.stable-0004@kernel.org>
+	Ilya Maximets <i.maximets@ovn.org>,
+	stable@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	Greg KH <greg@kroah.com>
+Subject: Re: Backport request: "netfilter: nf_conntrack_expect: restore helper propagation via expectation"
+Date: Thu, 30 Jul 2026 22:39:44 -0400
+Message-ID: <20260730203650.stable-0006@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730023604.14996-1-tze.yee.ng@altera.com>
-References: <2026072955-anatomist-verdict-df3a@gregkh> <20260730023604.14996-1-tze.yee.ng@altera.com>
+In-Reply-To: <2026073054-certainty-reapply-a613@gregkh>
+References: <ee95f6ac-181e-4315-a2ae-e4d1388c5e69@ovn.org> <amqHu5H6xu02Izo8@chamomile> <2026073054-certainty-reapply-a613@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,21 +47,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 29, 2026 at 07:36:04PM -0700, tze.yee.ng@altera.com wrote:
->-	pmem = devm_kzalloc(chan->ctrl->dev, sizeof(*pmem), GFP_KERNEL);
->+	pmem = kzalloc_obj(*pmem);
+On Thu, Jul 30, 2026 at 04:09:06PM +0200, Greg KH wrote:
+>Great, can someone send us properly backported/tested patches to apply?
 
-Did you even build test this?
-
->@@ -944,16 +946,17 @@ void stratix10_svc_free_memory(struct stratix10_svc_chan *chan, void *kaddr)
-> {
-> 	struct stratix10_svc_data_mem *pmem;
->
->+	guard(mutex)(&svc_mem_lock);
->+
-> 	list_for_each_entry(pmem, &svc_data_mem, node)
-
-This wouldn't work either, right?
+Queued for 6.18, 6.12, 6.6 and 6.1, thanks.
 
 -- 
 Thanks,
