@@ -1,108 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4093735DA76
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:22:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0191F35DA76
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:22:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785496973; cv=none; b=S43Zu5UKMCw3uG3eDdzdBajvUIWDC4uXocvDL9tf2f3JKlrRJ59qQEn+AK/Enu5fTcUWoV8sko8s80KpvscNIrdwZLZ3tYzUZ70L4praKfBlF0Yvyr8LfnNHknbUT36hCALgBaLxHgMFnlxcPIZscAS6tnQEmAxNu/h0lmxENlI=
+	t=1785496980; cv=none; b=QaNR2dLLSR7DAmd6RwKq3NWTnjYnbal+9y/smL8dJrDcLK0Ftl9kXxzigdaNI7G8c1Z6vmGuem6cTIntm9fnWwaXEYSVAzUl+YebwvAEHo+A6Kkns4e2DW7ueTzSEUKoD/k7GvDaBkq8RcvuSobhDbUSRy0IQfLjvcOnsXJg448=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785496973; c=relaxed/simple;
-	bh=4OEbP2gNYq82L8iRYmLz8/ZHk/S8FwuMtxCbAMkye6k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H0PAVPJWtkOP44MOtsQbJL6cBM8LeR5i3Zi1ZD4Sq0Z2mdmu/pYji3es5//QARaXPnUloKXDNKr1v59gFFp9WhZU5U7hj4Ua97rCnyE0fp0Sn0TsF2oK7nrjqxaNraACp2fJEixdCreNFKMqZmA1MNch2FZS1ypnrFn9JDNefGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=amEPVxTY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785496980; c=relaxed/simple;
+	bh=kMwGUDAu/de3tkt3jVhD/aGmQuGBHseVSfGHs90L+h4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SDX3/fx6ZB6U6CtUhOG1RcNXpBEzE/bmP8l0O4JlQiH3yj67XDmwehdGH30mXtu5/dG14qPWjocXAqmedca/vW3liRu8qd356zR+hndkFlVATvY3RyzgQYm+o6IOX98JSf+HaIEzgzt9DTytq08g5acgx+kIwcDTfxGwbhLj/m0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FOREZIZT; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="amEPVxTY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AFC21F000E9;
-	Fri, 31 Jul 2026 11:22:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785496971;
-	bh=+xLz5M9K31miPzvGF/wIhxX/RPJVzsegos4ipIRk/Vw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=amEPVxTYKk68bl+QcFAMfPv/cfD1iYw2NRnABhYgY93B/q5MMVBtJK02LC+/cnL58
-	 JfNzJOJ4ORy3UnS8MEGuW3eHcvphvtBFWlKM2cfI9dzpzqbqQi+t7oceQn6PvoysJf
-	 vluLgSokgXo6KKT5CCHLqYxrLVQNf9h+EC7wHmPcQZlHprVmlNf3RCVxcqJTlPzH04
-	 lKV4BY7h/jKGpPa6waYfuX7qtu7/fFu+Wan1q5KxxMOn/RLdUyYX7sIrllMsHaCt+n
-	 DtB3AvyBHYM1Ev/QnH2+Egzd5tiycJzguxDQwFq5sWrnqqfxPrhn4Yn8ZU3kvbHTdk
-	 yibDH6elHEYNw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ashutosh Desai <ashutoshdesai993@gmail.com>,
-	Lyude Paul <lyude@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/dp/mst: fix OOB reads in remote DPCD/I2C sideband reply parsers
-Date: Fri, 31 Jul 2026 07:22:49 -0400
-Message-ID: <20260731112249.3667261-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072940-comfort-punctual-b84a@gregkh>
-References: <2026072940-comfort-punctual-b84a@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FOREZIZT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785496979; x=1817032979;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=kMwGUDAu/de3tkt3jVhD/aGmQuGBHseVSfGHs90L+h4=;
+  b=FOREZIZTj7N0PGXOSf4ImGCBfAtyY08xs+K7ollyznhDz50FXksKQamc
+   2pcR7XPkp6BBhChmv3/X/1ssCEKXSZFcfnVWzmv4wBcwja5cqUAIscMnN
+   P3wsMo6YksvPe+0iG6OD9EjQWHcCD8wWCh3oAifrm2iMR/pbA7p7Bfgnj
+   OABGHUBxyVrroPTlGT6G3ZfX+HNCC2A5is746Of3j+YtgD1hVzcKmKq6r
+   yufgSlKxE6Ico7Dk3K3Y99lGzOCqDSzaqChUTVNDwO6WrOJ1O265vXFqv
+   J/XwgEMZzsHfqUoGsmoMIUGoVMAyzaq5XGCVmz9ZSNZ9Co6DDV6D+8hze
+   Q==;
+X-CSE-ConnectionGUID: AhdzksIDQVigxqeoOuZSUA==
+X-CSE-MsgGUID: C/pQLebeSJCNEs5cVVkk0A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11860"; a="89801006"
+X-IronPort-AV: E=Sophos;i="6.25,196,1779174000"; 
+   d="scan'208";a="89801006"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Jul 2026 04:22:58 -0700
+X-CSE-ConnectionGUID: 4LtVhJbuTuSUwtChfnsZtg==
+X-CSE-MsgGUID: 6x7TqhZFQUGl33kkRcc3jA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,196,1779174000"; 
+   d="scan'208";a="254250054"
+Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.244.78]) ([10.245.244.78])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Jul 2026 04:22:57 -0700
+Message-ID: <7477c473-6027-4941-8a0d-fa6b90dd477d@intel.com>
+Date: Fri, 31 Jul 2026 12:22:55 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/3] drm/xe/guc_ads: use uncached mapping for UM queue
+ BO
+To: Jia Yao <jia.yao@intel.com>, intel-xe@lists.freedesktop.org
+Cc: gwan-gyeong.mun@intel.com, stable@vger.kernel.org
+References: <20260722053410.2767369-1-jia.yao@intel.com>
+ <20260730232712.517989-1-jia.yao@intel.com>
+ <20260730232712.517989-4-jia.yao@intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260730232712.517989-4-jia.yao@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Ashutosh Desai <ashutoshdesai993@gmail.com>
+On 31/07/2026 00:27, Jia Yao wrote:
+> The HW unit that writes fault descriptors into the UM queue ring buffer
+> may not be coherent with the CPU cache.  If a descriptor write is still
+> sitting in a GPU L3 cache line when GuC reads the slot, GuC sees the
+> stale (all-zero) content from DRAM and forwards an invalid descriptor to
+> the driver (Faulted Address = 0, ASID = 0).
+> 
+> Mark the UM queue BO as uncached (XE_BO_FLAG_NEEDS_UC) so that writes
+> bypass the cache and are immediately visible to GuC.
+> 
 
-[ Upstream commit 1a8f537f5a1eeac941f262fe73078d6b08ba83c0 ]
+Did you mean to drop the fixes tag here?
 
-drm_dp_sideband_parse_remote_dpcd_read() reads num_bytes from the raw
-message and then unconditionally does:
+Fixes: 9c57bc08652a ("drm/xe/lnl: Drop force_probe requirement")
+Cc: <stable@vger.kernel.org> # v6.12+
 
-  memcpy(bytes, &raw->msg[idx], num_bytes);
+> Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Signed-off-by: Jia Yao <jia.yao@intel.com>
 
-without checking that idx + num_bytes <= raw->curlen. raw->msg[] is
-256 bytes; if a malicious or misbehaving MST hub sets num_bytes larger
-than the remaining payload, the memcpy reads past the received data
-into whatever follows in raw->msg[].
-
-drm_dp_sideband_parse_remote_i2c_read_ack() has the same flaw (noted
-with a /* TODO check */ comment since the code was introduced).
-
-Fix both functions by using a single combined check
-(idx + num_bytes > curlen) before each memcpy. Since num_bytes is u8,
-it is always >= 0, so this strictly subsumes the simpler idx > curlen
-form and no separate step is needed.
-
-Fixes: ad7f8a1f9ced ("drm/helper: add Displayport multi-stream helper (v0.6)")
-Cc: <stable@vger.kernel.org> # v3.17+
-Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-[added missing fixes tag]
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Link: https://patch.msgid.link/20260510201733.2882224-1-ashutoshdesai993@gmail.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 65722f4b30ae..fd62d5c7c444 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -861,7 +861,7 @@ static bool drm_dp_sideband_parse_remote_dpcd_read(struct drm_dp_sideband_msg_rx
- 		goto fail_len;
- 	repmsg->u.remote_dpcd_read_ack.num_bytes = raw->msg[idx];
- 	idx++;
--	if (idx > raw->curlen)
-+	if (idx + repmsg->u.remote_dpcd_read_ack.num_bytes > raw->curlen)
- 		goto fail_len;
- 
- 	memcpy(repmsg->u.remote_dpcd_read_ack.bytes, &raw->msg[idx], repmsg->u.remote_dpcd_read_ack.num_bytes);
-@@ -897,7 +897,9 @@ static bool drm_dp_sideband_parse_remote_i2c_read_ack(struct drm_dp_sideband_msg
- 		goto fail_len;
- 	repmsg->u.remote_i2c_read_ack.num_bytes = raw->msg[idx];
- 	idx++;
--	/* TODO check */
-+	if (idx + repmsg->u.remote_i2c_read_ack.num_bytes > raw->curlen)
-+		goto fail_len;
-+
- 	memcpy(repmsg->u.remote_i2c_read_ack.bytes, &raw->msg[idx], repmsg->u.remote_i2c_read_ack.num_bytes);
- 	return true;
- fail_len:
--- 
-2.53.0
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 
