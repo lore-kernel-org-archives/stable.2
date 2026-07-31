@@ -1,125 +1,157 @@
-Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com [95.215.58.186])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53243AF667
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 15:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F1A43901C
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 15:14:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785510688; cv=none; b=KxmO4rkxCiJoPy2SWiDZb64IekKXYz5nY93e7k/sOPNjulWJL5gePGf/9Bj5eeoJ0PR02Y8zkvfWRHi67NGj6qXTLBbc6nXUkyaiqeicpDMWP89rf2rXToLU0SuavQVyNIiiVrZd6l+35A6PKfXb290l14W4hOGk1jZwg5Szoc0=
+	t=1785510881; cv=none; b=duDLA64qps7HBtl5z/1sx9XQOlhi3Vy1/ls80ZsuBVmqUmspir1RG5jdP5pJPH4PBZkvfrEAGb+7tBrkRiOqGj4A6+Y1u7ZTyvHfteKN2ViJal5bfqRxCX89NsSe2+tBOlUKGOwhlU/jQ8PEKrCfgupqTbze7+B0Oep+GQRaFQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785510688; c=relaxed/simple;
-	bh=ifviHQm94ylXfpXEdFpn4qmwWPwyoSq7qx/7zBSGoiI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PuqR56hojzEhEq7D55wVvKmClH6Zn+3RVShOpHaU12UuZfVzZFlyNYcN7auhZZJCFixwop4KCOrxpUAJMC8uyXT2Bqx/G6OZsDLYTJI91qVCYe35paJcayQkBq7eoWCO2u2BnHK6VIA+AlHPpOs8PAF4YcCEH5Ael7dq7oQmPeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jD5wOdrf; arc=none smtp.client-ip=95.215.58.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785510881; c=relaxed/simple;
+	bh=PxfbufHKEdiZJDcysFDCB9tgJLN7rUY8Stt5mTjWs3w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X9wQx2MU3jTwv77zRlFzaFwRZXRr1aPmcZEVdNIcjDaP+gpjt/Ece6T1fPKOSUOu8F+gMvmFqAr8gO1OdACYrV87GyCA9Z47NqlgOgQKcJwrAllsAaIRSaSndFkFRlx3WIfYcqFfc+0r50bYZU1aCfXjGN+GwpraVDe+qs9SmJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oEHxt6oM; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jD5wOdrf"
-Date: Fri, 31 Jul 2026 23:11:02 +0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785510674;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qo1LR7qrIwKJFtiU17ykHkbB13kJdtxhqwfYwUfZhvA=;
-	b=jD5wOdrf8h5mlWbkWIIredTfjWIAiJ71znqBSjQ7zbpML8PWy6RmmcRGZa7BCDL9qZfsqO
-	uttlq0r3C6Ao7WiRTJedjWVOP1f4x8cSC63BJ6wDixAojIUP2Bczt0P/nV4vsRWngQ7EiD
-	bDcZFs4H/FkW1LFUeXED4/+7zqbkY44=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Baoquan He <baoquan.he@linux.dev>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
-	linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
-	linux-fscrypt@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/swap: reject swapon() on filesystem-level encrypted
- files
-Message-ID: <amy7Biucbf-et5O2@MiWiFi-R3L-srv>
-References: <20260730184853.48347-1-ebiggers@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oEHxt6oM"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-ca132e9c54aso87989a12.3
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 08:14:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785510874; x=1786115674; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zhZaO4ozJik4n9gTRf7CxEJqzo3QkPue6+aio//Q6Qg=;
+        b=oEHxt6oM9fGDbISgZj9YrQRVrTb+39qgGf1PMCfEr274jZHc4rhpaBmNSkPo2zgUtU
+         UMWsHZO7P4xsK19GO4Q0P+Na/HXP0kEwDhX/FMabY8kalbdHSN/YjoP6H6QEVID1impt
+         U10gO3LXaOsfluPFu+5I7/kJcZsbDamLRsAbVhTYXcWR1NJdB5czCJ8yX8I1/2FFZLPs
+         rrud30OhtJHVYDmHtSVElvDx2u2JppV0ud01ZdprUJ1uzUf6AZhwOG10TkHLcDXn8Qlz
+         AoQ9Map+tHtx6X8aJhqBsTCZftWWLT/rM7MlqkJT3TtjyhlJpsfAWAAF+kXBjkMkdlXn
+         r6Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785510874; x=1786115674;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zhZaO4ozJik4n9gTRf7CxEJqzo3QkPue6+aio//Q6Qg=;
+        b=M33QL1dtuI4AETvrg3gkOMjKdbCiJ+vq8JSRb2xmL02NRTJayRoDFmreqpeMAE4Tng
+         sqzDXISijNPi3ObcIsWlH51qMpRVSYX2jk4W8uVzLXwcm5Pdvomk9UCdmmsCT/PFA7+r
+         cEWWXYB7Rw0Qf/xwFJtC6bwVv9RFIHp2CBRJfVk2KfrUJkOCSW8dNcbTJmRY87Vv6m4r
+         p2dO9HfAtxR3ynJAC+j5DO03CfuWPBiE4DA0CMrBM5mhE8R3CCrCmyGgtjxFqNxNscgG
+         +yCvu+Dx7OZQgfzdUrTLXaahTtH3fk9V8pli1NkUVrp7r6Nl5Fuw9FSuWZhLpO5D4K5j
+         Px4w==
+X-Forwarded-Encrypted: i=1; AHgh+RqMaAfZQXlOM0Ucz4IJZ7ku6DT2v8gTUOBJaepXt+nqwcM3w4B3j6EMWU0s+/Vcnj7qyAlev9s=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw6tbxaVbtnamjTJZREhee8RAGRi3QVqu1vEYJpCfxj8zam7sHI
+	ZrxhpAk1zylkIvihR4rsGd3qbnVOHJZmmIefBovyKjmi6L1Y7lbKiv7M4Tjy/XDB
+X-Gm-Gg: AR+sD12DfXazT/32jisUYXwotytN0wdX0PWs90rvyouHuLdbmmt9b360vEoH+DrWkTn
+	SQgTGZOQXZZuvS8KRdEdsnLrZOLY56R68ztMScbE50+o2jgbxwRlq0JcmrCJK0h4wzxe951E7EN
+	sDPW/KmsxEUO8oiZ7A/7oJFVjZunknVBYxV2eJQ3CGBpflXB6y53UszE64lD6aEIMtmB60VUMfh
+	nRCBHtT3hxH8m9YsHwFS0iigC3pfLD91xeH308vkeo+s1xEIfg5P5igVzygKidsWD6aXpNbfc+W
+	Bcbt/Mw6QRbOpor5RY8i6+Av67Jzy3txUT3/Xl6G8UBRW2NzLxR9ralFJPIqOVt03XbEu6n0n4J
+	9d3TcY3slDBNDw5zXHPVv1T50MqQ88y8kULqlreKQvsF3qzj4BJOOwetihj3mrOxvCvRKwGLiot
+	9Ekh72AwOC7plXKL8MIrN2GjIgAfGph4HpkUYFqOvBiW1ed87b2yAGN+P+MilBfN8QVzrRXF3rf
+	i3LmoAy2h37KfNwVFPJJXuknd/tL69qYFkwmQas6TXaoZITx5OSuz0=
+X-Received: by 2002:a17:90b:562e:b0:36d:b30b:14ed with SMTP id 98e67ed59e1d1-38fbc4ad251mr377334a91.2.1785510873947;
+        Fri, 31 Jul 2026 08:14:33 -0700 (PDT)
+Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e18e107sm7985431eec.27.2026.07.31.08.14.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 08:14:33 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: linux-afs@lists.infradead.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] rxrpc: Prevent poking connections after final put
+Date: Fri, 31 Jul 2026 23:14:26 +0800
+Message-ID: <20260731151426.3194039-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260730184853.48347-1-ebiggers@kernel.org>
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
 
-On 07/30/26 at 11:48am, Eric Biggers wrote:
-> ext4 and f2fs don't prevent filesystem-level encrypted files from being
-> set up directly as swap files.  In this case, encryption is bypassed.
-> 
-> No one should be doing this, vs. the methods of encrypted swap that
-> actually do work (such as swapping to a dm-crypt device, or swapping to
-> a loopback device on top of a filesystem-level encrypted file).
-> 
-> Nevertheless, to prevent user error, make swapon() explicitly reject
-> this case.  Document this behavior in fscrypt.rst as well.
-> 
-> Fixes: 9bd8212f981e ("ext4 crypto: add encryption policy and password salt support")
-> Fixes: f424f664f0e8 ("f2fs crypto: add encryption policy and password salt support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> ---
->  Documentation/filesystems/fscrypt.rst | 4 ++++
->  mm/swapfile.c                         | 4 ++++
->  2 files changed, 8 insertions(+)
-> 
-> diff --git a/Documentation/filesystems/fscrypt.rst b/Documentation/filesystems/fscrypt.rst
-> index c0dd35f1af12..cba1989777da 100644
-> --- a/Documentation/filesystems/fscrypt.rst
-> +++ b/Documentation/filesystems/fscrypt.rst
-> @@ -1238,6 +1238,10 @@ astute users may notice some differences in behavior:
->  
->  - DAX (Direct Access) is not supported on encrypted files.
->  
-> +- Encrypted files cannot be used directly as swap files.  To swap to
-> +  an encrypted file, set up a loopback device on top of it.
-> +  Alternatively, encrypted swap can use a dm-crypt device instead.
-> +
->  - The maximum length of an encrypted symlink is 2 bytes shorter than
->    the maximum length of an unencrypted symlink.  For example, on an
->    EXT4 filesystem with a 4K block size, unencrypted symlinks can be up
-> diff --git a/mm/swapfile.c b/mm/swapfile.c
-> index 78b49b0658ad..e4991da81b5f 100644
-> --- a/mm/swapfile.c
-> +++ b/mm/swapfile.c
-> @@ -3650,6 +3650,10 @@ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
->  		error = -EBUSY;
->  		goto bad_swap_unlock_inode;
->  	}
-> +	if (IS_ENCRYPTED(inode)) {
-> +		error = -EINVAL;
-> +		goto bad_swap_unlock_inode;
-> +	}
+rxrpc_poke_conn() unconditionally gets a reference before adding a
+connection to conn_attend_q.  This is unsafe for the connection timer
+because timer deletion cannot stop a callback that has already started.
 
-Sounds reasonable to me.
+The following interleaving can occur:
 
-One minor suggestion: it might be helpful to emit a pr_warn_once()
-explaining *why* the swapon was rejected and pointing users to the
-dm-crypt / loopback alternatives, so the -EINVAL isn't opaque.
-Optional though -- the check itself is what matters.
+  I/O thread                         Timer softirq
+  rxrpc_put_connection()
+    refcount reaches zero
+                                     rxrpc_connection_timer()
+                                       rxrpc_poke_conn()
+                                         rxrpc_get_connection()
+                                           increment from zero
+                                         list_add_tail()
+    timer_delete()
+    rxrpc_clean_up_connection()
+      timer_delete_sync()
+      call_rcu()
 
-And this patch updates fscrypt.rst. Would it be good to also
-update the swapon(8) man page to document the new -EINVAL
-condition?
+The refcount increment saturates instead of resurrecting the connection,
+so cleanup continues after the timer callback exits.  The RCU callback can
+then free the connection while attend_link remains queued, and the I/O
+thread later accesses the stale queue entry.
 
-Other than these,
+The kernel reported:
 
-Reviewed-by: Baoquan He <baoquan.he@linux.dev>
+  refcount_t: addition on 0; use-after-free.
+  WARNING: lib/refcount.c:25 at refcount_warn_saturate+0xc0/0xe0
+  Call Trace:
+   <IRQ>
+   rxrpc_get_connection+0x185/0x1d0
+   rxrpc_poke_conn+0x12e/0x2b0
+   call_timer_fn+0x2b/0x220
+   __run_timers+0x561/0x8d0
+   run_timer_softirq+0x144/0x250
+   handle_softirqs+0x18d/0x5b0
+   </IRQ>
+   <TASK>
+   rxrpc_put_connection+0x2fe/0x3f0
+   rxrpc_discard_expired_client_conns+0x396/0x670
+   rxrpc_io_thread+0xbfc/0x1640
+   </TASK>
 
+Use rxrpc_get_connection_maybe() while holding the attend queue lock and
+only enqueue the connection if a live reference was acquired.  The normal
+path for a live connection is unchanged.
 
->  
->  	/*
->  	 * The swap subsystem needs a major overhaul to support this.
-> 
-> base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
-> -- 
-> 2.55.0
-> 
+Fixes: 4241a702e0d0 ("rxrpc: Fix the rxrpc_connection attend queue handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+ net/rxrpc/conn_object.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/net/rxrpc/conn_object.c b/net/rxrpc/conn_object.c
+index 0ece717db0f8..3f4516115d37 100644
+--- a/net/rxrpc/conn_object.c
++++ b/net/rxrpc/conn_object.c
+@@ -33,10 +33,8 @@ void rxrpc_poke_conn(struct rxrpc_connection *conn, enum rxrpc_conn_trace why)
+ 
+ 	spin_lock_irq(&local->lock);
+ 	busy = !list_empty(&conn->attend_link);
+-	if (!busy) {
+-		rxrpc_get_connection(conn, why);
++	if (!busy && rxrpc_get_connection_maybe(conn, why))
+ 		list_add_tail(&conn->attend_link, &local->conn_attend_q);
+-	}
+ 	spin_unlock_irq(&local->lock);
+ 	rxrpc_wake_up_io_thread(local);
+ }
+-- 
+2.43.0
+
