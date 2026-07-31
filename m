@@ -1,81 +1,44 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698A8459ADC
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 16:30:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC79D46D545
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 16:30:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785515403; cv=none; b=gf1+y9VgGb2iU5RSfBt9v3fMELPfgbm5gsUBT0LvgA+YN0IG2bw6BVtVBjegJCyX3WeMQbQJGQOZlpTtMg4Xp5k2Pw17fgzf234V7LrrFx+6nVSn2dQrJtGFSA6AmSfPKaP+3aFtyKPkn6L/G867cZS2qvIEsdIetSeVQStlwJ0=
+	t=1785515410; cv=none; b=S6UaHhbfcBH3fGVHzRKMSIi40AwermUrrnwRQh4O3d4mnKRp2HEw0L2Yh4Q5kPWLjaIxI7i7PHTCB71SgX4DkzMXg/V0iQQW3KP1k1DSEYrfQG9tua9vJlF6k06jT6pebIwaLvzxfzgGzkliMza2Oh2NhCSAGUhJ13oALVTOzfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785515403; c=relaxed/simple;
-	bh=jGDarGoCosi22LNoT8W76BEldiYKRotoaVhCB39/8xo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d2bnyXPtl5gMMENFK+8/12l7anM6KuHiu6LETXo/E5LzH3JArvBD1FZWYknO9tUXiVNbKnqlPUK4RyoO/4BYVTG6fJbCfb/sdCDiDFdrh5aYt88mv4gJJlGME9wwahT/++dH5yHJtmGkngLVolqzVproUuZS8T5sJYWdJZX6YsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q9ZfZfP5; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785515410; c=relaxed/simple;
+	bh=d4Elc0FJNwnEWar8LEmWvP86R1HhatWbN5H2kEJVhN8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RwPpWmPljpVr2wy5/fCM/LldmF9wwZWUAYtFBpZeuLAno6PoNso5RAvdSChHvoF0MwGFHnRJ5LZ+vGEhoGYHfq8ncYVBqWCBiM6DP5AGMgcCwyAXf4HEHo5WYuF6i+IFMseHCz/kUAv1udxf3LU92Wp1rHWt/uMCQwtHqQej2dQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kXqicaGZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q9ZfZfP5"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38f0f3c8da5so141581a91.3
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 09:30:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785515401; x=1786120201; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sZ9QZ52VgaJYmqEYMkc9RIQ8PoagjOPOXOHcuoYV6SE=;
-        b=q9ZfZfP53xqOnBRVO3sopnk6fiHMlFNNHbXnBHBPjxxc8BekzRzh7W9rzwlvl5cL+X
-         bm3z1SALV3dX5gRCWZZv6NCfi4qDFiT0IjJQlX6aNMUv8gUAEalxaXZHDZQR3fCq25Wn
-         S8M6a+l0cKi1GSrcHJylw/MYeSmPf+PJppPE6J7LKj9o5HqQ1i7lz1WqmvhTDi/Fbv8N
-         rl7gnLXR8NW7xv6RgKiYAi9bNUvXdef34HLcGaUNwPvuvWZH2LUBh5S+rVIHuoeSNTuw
-         EQuphtB9hJlFg7Uhv00TtR2TmfOkTLRMGB+wRRbX2yTkMxX2wC81R9OcGHg1ameLNHFG
-         7LrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785515401; x=1786120201;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sZ9QZ52VgaJYmqEYMkc9RIQ8PoagjOPOXOHcuoYV6SE=;
-        b=eSo34YIOisp0/4GhfeDZGPjQcBBnmjxpL/33pCkk3paa1QmEe5mwttjMbxDxGbQRBC
-         As+PrIszcrOm+xeI4mmLr51RYlYWs/RjHl+LFDv6bLJ90jpYLfsKpdPM0xQYdW37Giw9
-         5Zm3garau66W+NzwGg0jzgtp+/klK/sjHzd8h5yBEYLFxHwyA0qtLqOCdcMr0aIBYiGm
-         mejTFcmNzETgk3QT+mopwFCprB8v62mTW1WyzClEAU9F76S3za9aVHv7xglKOciQ/BZ9
-         K7CWCYtmxcl4uSydbkU1A3vQDmCMNuG2HpykfRFwWWeRACKdguKa2Ockoyei360zeeTC
-         2eTw==
-X-Forwarded-Encrypted: i=1; AHgh+RpTmtjnjdUDVJD7uv/0F5ufE1ALlgmFU8tPLsZGww1+EroNvmZWdpMBkEd+RkETCNcxoci2+7U=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy3J0sjd7VSx0GS81BpD7ZcHYWhHCJQ86OAybIJE8DgsL97aOSV
-	G6ZCndYCp9A0YCoMpdQRyXLMgFQ6TRorSER4j1VvWRg2MUrXclmiCxn7
-X-Gm-Gg: AR+sD10nO6OquyOkPg2UwVDGmMi4S8q3TsxEVmZFFMYEJfKUA/GVPlwD9ZjAdY6h9/q
-	OHJEMz7j9UM1mHg3YNn+1rfoOt0w9/MlDZvATxMrFedA8srPJgVzkxPNNf1/mTiI+uQ1IyqGzs8
-	VkGBUvIqbFiwQNuQ5upY51kq4t5NCNG2pwgYR9SCn8CH3P0fBzYAV+Iii3qBvTul7q87gNy/p+k
-	ZjGkYtR1gI2L/vBl/akklwV80XA1+1G8Dby+Z4inmsA9Nxa54NYZYZ4eB4zOTpAPNfK7NqqL9sx
-	S3QD55gblopmgvUvi5AhbogtQ4VwYjL48xqzy8t1qWIQ7be0ODZBE/Vc06ckXSGzjGOpyg+MX0q
-	O4Wm+NQPmzXOFnpsiyXdzhuGe4Qy+1ktmhyoIMy+KsJRHpviFtIEB2HbB3YjpdmzmikWYtQT9XF
-	G6be1OXmJ+XRBX0WX7OKMnLetMRQ/IrpexISecpBKPH4ZCbYd7QnBOgWW1e8Hc/JnUqczcWRj20
-	f0xtYkHwrK6VLxn+V1EDelJXpQu0THDaLxSlmcCxMGBwT8dvBqrRJYMQ9vOD3sFq4ygTPJrYJrC
-	1Q==
-X-Received: by 2002:a17:90b:58c3:b0:38e:ab3f:2c99 with SMTP id 98e67ed59e1d1-38fbc4c673dmr657748a91.2.1785515400659;
-        Fri, 31 Jul 2026 09:30:00 -0700 (PDT)
-Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fab4fdb80sm4279637c88.15.2026.07.31.09.29.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 09:29:59 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Stefano Brivio <sbrivio@redhat.com>,
-	Sabrina Dubroca <sd@queasysnail.net>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] ipv4: fix use-after-free in fib_nhc_update_mtu()
-Date: Sat,  1 Aug 2026 00:29:38 +0800
-Message-ID: <20260731162938.3388534-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kXqicaGZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D89F1F00ACF;
+	Fri, 31 Jul 2026 16:30:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785515408;
+	bh=FKZJHFkQeiGv1JT2KBCBp11m6OSYCVyDCfoPOjaszjY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kXqicaGZqoUX7J0H0lsWKuwCz4DV3TR/XPmB7dHubnSOnP6BkOARw9ba+Mmpa112z
+	 Kg7TyzkHtEzHKOeuLA9BXR2yeUvM0tqMB9NH5TmkGzdQFYGFZWJjKwo6gluxIQstvz
+	 JLzXYxF5dE18eCzYGNUKcD7gdFbEmQYehDSw8Kk86wdZTqpMWp7UGNsbW+xZNUKuEx
+	 Pwl/JscgPI8ph1u2391eE0vRnUfO0vCI/gd80DsQM+GRjAmZY+NhG7tB2Ik3c4Lpjf
+	 s44VxK2RZ6siNKhNVfpiNsKnAMMlyUZgOBmecFUoc7pe0b7EdQmddgHjFVZNjbkDmo
+	 a06re3omR82iw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Deepanshu Kartikey <kartikey406@gmail.com>,
+	syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] drm/virtio: use uninterruptible resv lock for plane updates
+Date: Fri, 31 Jul 2026 12:30:05 -0400
+Message-ID: <20260731163005.805250-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260731163005.805250-1-sashal@kernel.org>
+References: <2026072938-nearby-drab-19c2@gregkh>
+ <20260731163005.805250-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,89 +47,140 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fib_nhc_update_mtu() walks the nexthop exception table under RTNL, but
-RTNL does not serialize this walk with PMTU exception updates. The walk
-uses rcu_dereference_protected() with a constant true condition without
-holding either fnhe_lock or an RCU read-side critical section.
+From: Deepanshu Kartikey <kartikey406@gmail.com>
 
-The following interleaving can therefore occur:
+[ Upstream commit a48bbcc7ac739e93562d6148c6fa504c2e9f22f8 ]
 
-  CPU 0                              CPU 1
-  fib_nhc_update_mtu()               update_or_create_fnhe()
-    load fnhe                          spin_lock_bh(&fnhe_lock)
-                                       fnhe_remove_oldest()
-                                         unlink fnhe
-                                         kfree_rcu(fnhe, rcu)
-    <quiescent state>
-    access fnhe after grace period
+virtio_gpu_cursor_plane_update() and virtio_gpu_resource_flush() lock
+the framebuffer BO's dma_resv via virtio_gpu_array_lock_resv() and
+ignore its return value. The function can fail with -EINTR from
+dma_resv_lock_interruptible() (signal during lock wait) or with
+-ENOMEM from dma_resv_reserve_fences() (fence slot allocation),
+leaving the resv lock not held. The queue path then walks the object
+array and calls dma_resv_add_fence(), which requires the lock held;
+with lockdep enabled this trips dma_resv_assert_held():
 
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in fib_nhc_update_mtu+0x3df/0x410
-  Read of size 8 at addr ffff888107d49000 by task poc/90
+  WARNING: drivers/dma-buf/dma-resv.c:296 at dma_resv_add_fence+0x71e/0x840
   Call Trace:
-   fib_nhc_update_mtu+0x3df/0x410
-   fib_sync_mtu+0x7a/0xd0
-   fib_netdev_event+0x229/0x3f0
-   netif_set_mtu_ext+0x33a/0x570
-   dev_set_mtu+0x88/0x120
-  Allocated by task 89:
-   update_or_create_fnhe+0xa80/0x1110
-   __ip_rt_update_pmtu+0x8f2/0xcd0
-   ipv4_sk_update_pmtu+0x49e/0x690
-   udp_err+0xd92/0x1080
-  Freed by task 0:
-   __kasan_slab_free+0x43/0x70
-   kvfree_rcu_cb+0x12f/0x420
-   rcu_core+0x509/0x18e0
+   virtio_gpu_array_add_fence
+   virtio_gpu_queue_ctrl_sgs
+   virtio_gpu_queue_fenced_ctrl_buffer
+   virtio_gpu_cursor_plane_update
+   drm_atomic_helper_commit_planes
+   drm_atomic_helper_commit_tail
+   commit_tail
+   drm_atomic_helper_commit
+   drm_atomic_commit
+   drm_atomic_helper_update_plane
+   __setplane_atomic
+   drm_mode_cursor_universal
+   drm_mode_cursor_common
+   drm_mode_cursor_ioctl
+   drm_ioctl
+   __x64_sys_ioctl
 
-Protect the full walk with rcu_read_lock() and use rcu_dereference()
-for the RCU-published pointers. This prevents reclaim from completing
-until all references held by the walk have been dropped, without
-serializing PMTU updates against the entire hash-table traversal.
+Beyond the WARN, mutating the dma_resv fence list without the lock
+races with concurrent readers/writers and can corrupt the list.
 
-Fixes: af7d6cce5369 ("net: ipv4: update fnhe_pmtu when first hop's MTU changes")
+Both call sites run inside the .atomic_update plane callback, which
+DRM atomic helpers do not allow to fail (by the time it runs, the
+commit has been signed off to userspace and there is no clean
+rollback path). Moving the lock acquisition to .prepare_fb was
+rejected because the broader lock scope deadlocks against other BO
+locking paths in the same atomic commit.
+
+Introduce virtio_gpu_lock_one_resv_uninterruptible() that uses
+dma_resv_lock() instead of dma_resv_lock_interruptible(). This
+eliminates the -EINTR failure mode -- the realistic syzbot trigger
+-- without extending the lock hold across the commit. The helper
+locks a single BO and rejects nents > 1 with -EINVAL; both fix
+sites lock exactly one BO.
+
+Use it from virtio_gpu_cursor_plane_update() and
+virtio_gpu_resource_flush(); check the return value to handle the
+remaining -ENOMEM case from dma_resv_reserve_fences() by freeing
+the objs and skipping the plane update for that frame. The
+framebuffer BOs touched here are not shared with other contexts
+and lock contention is expected to be brief, so the loss of
+signal-interruptibility is acceptable.
+
+Other callers of virtio_gpu_array_lock_resv() (the ioctl paths)
+continue to use the interruptible variant.
+
+The bug was reported by syzbot, triggered via fault injection
+(fail_nth) on the DRM_IOCTL_MODE_CURSOR path, which forces the
+-ENOMEM branch in dma_resv_reserve_fences().
+
+Reported-by: syzbot+72bd3dd3a5d5f39a0271@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=72bd3dd3a5d5f39a0271
+Fixes: 5cfd31c5b3a3 ("drm/virtio: fix virtio_gpu_cursor_plane_update().")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Link: https://patch.msgid.link/20260519082247.34470-1-kartikey406@gmail.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/fib_semantics.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_drv.h   |  1 +
+ drivers/gpu/drm/virtio/virtgpu_gem.c   | 17 +++++++++++++++++
+ drivers/gpu/drm/virtio/virtgpu_plane.c |  5 ++++-
+ 3 files changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
-index 4f3c0740dde9..6ecc6654427c 100644
---- a/net/ipv4/fib_semantics.c
-+++ b/net/ipv4/fib_semantics.c
-@@ -1879,16 +1879,17 @@ void fib_nhc_update_mtu(struct fib_nh_common *nhc, u32 new, u32 orig)
- 	struct fnhe_hash_bucket *bucket;
- 	int i;
- 
--	bucket = rcu_dereference_protected(nhc->nhc_exceptions, 1);
-+	rcu_read_lock();
-+	bucket = rcu_dereference(nhc->nhc_exceptions);
- 	if (!bucket)
--		return;
-+		goto out;
- 
- 	for (i = 0; i < FNHE_HASH_SIZE; i++) {
- 		struct fib_nh_exception *fnhe;
- 
--		for (fnhe = rcu_dereference_protected(bucket[i].chain, 1);
-+		for (fnhe = rcu_dereference(bucket[i].chain);
- 		     fnhe;
--		     fnhe = rcu_dereference_protected(fnhe->fnhe_next, 1)) {
-+		     fnhe = rcu_dereference(fnhe->fnhe_next)) {
- 			if (fnhe->fnhe_mtu_locked) {
- 				if (new <= fnhe->fnhe_pmtu) {
- 					fnhe->fnhe_pmtu = new;
-@@ -1900,6 +1901,8 @@ void fib_nhc_update_mtu(struct fib_nh_common *nhc, u32 new, u32 orig)
- 			}
- 		}
- 	}
-+out:
-+	rcu_read_unlock();
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index 55c34b4fc3e9..7c4f721621f3 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -259,6 +259,7 @@ virtio_gpu_array_from_handles(struct drm_file *drm_file, u32 *handles, u32 nents
+ void virtio_gpu_array_add_obj(struct virtio_gpu_object_array *objs,
+ 			      struct drm_gem_object *obj);
+ int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs);
++int virtio_gpu_lock_one_resv_uninterruptible(struct virtio_gpu_object_array *objs);
+ void virtio_gpu_array_unlock_resv(struct virtio_gpu_object_array *objs);
+ void virtio_gpu_array_add_fence(struct virtio_gpu_object_array *objs,
+ 				struct dma_fence *fence);
+diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
+index 8502400b2f9c..2fb41be0f3c9 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_gem.c
++++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
+@@ -217,6 +217,23 @@ int virtio_gpu_array_lock_resv(struct virtio_gpu_object_array *objs)
+ 	return ret;
  }
  
- void fib_sync_mtu(struct net_device *dev, u32 orig_mtu)
++int virtio_gpu_lock_one_resv_uninterruptible(struct virtio_gpu_object_array *objs)
++{
++	int ret;
++
++	if (objs->nents != 1)
++		return -EINVAL;
++
++	dma_resv_lock(objs->objs[0]->resv, NULL);
++
++	ret = dma_resv_reserve_fences(objs->objs[0]->resv, 1);
++	if (ret) {
++		virtio_gpu_array_unlock_resv(objs);
++		return ret;
++	}
++	return 0;
++}
++
+ void virtio_gpu_array_unlock_resv(struct virtio_gpu_object_array *objs)
+ {
+ 	if (objs->nents == 1) {
+diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
+index e6de62734269..e782b804301c 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_plane.c
++++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
+@@ -260,7 +260,10 @@ static void virtio_gpu_cursor_plane_update(struct drm_plane *plane,
+ 		if (!objs)
+ 			return;
+ 		virtio_gpu_array_add_obj(objs, vgfb->base.obj[0]);
+-		virtio_gpu_array_lock_resv(objs);
++		if (virtio_gpu_lock_one_resv_uninterruptible(objs)) {
++			virtio_gpu_array_put_free(objs);
++			return;
++		}
+ 		virtio_gpu_cmd_transfer_to_host_2d
+ 			(vgdev, 0,
+ 			 plane->state->crtc_w,
 -- 
-2.43.0
+2.53.0
 
