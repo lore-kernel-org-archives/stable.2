@@ -1,208 +1,167 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0333F1AC4
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 12:27:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785500860; cv=none; b=u0Un70XbdT5Ggjd6PcDMOdujeyte4zRac2w/0czjgde/p3iPD1n7/26X3VfVdaRaFKeoS3QWRr3QAgavncPPmnZbCmo1a4TInXtDJaZKrf3NvEQSMQ/f2bkvfnzeIFmRcW7rdjp+ZV2b4D0fM7UY2yijBbxKGcAVvjSpG3CSNso=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785500860; c=relaxed/simple;
-	bh=pOXK61Xg0LJX4PGsNaRRZoqjM+ptyrjJuzlThvXZoTI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V8Yr9ywZfPjXwv4Rm3AdMLOiW5zjK1fEz96eGwnkibiokMbozAbrB/cUfy9tNcWp0Z1tEbf1+smM7USoy1l57xXYjkdjvibeiMDycJmKZE519ydFhMdY/Fovjz/yXf2mfcsrjpJTlCzicACVFHsYLJ//IjRLup1EVxiwcxsx22k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=2vyzOOTB; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=PlXJ69cV; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=FS22OlYI; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=vKGikB6t; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D819410D36
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 12:35:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785501325; cv=pass; b=Vuz0aZz5XFXMSu3ZWOoWr9YEsc5m8Vtc/E1XZG+F0SPsr6mtNzGjTwcmDInkkGQrbsUX9vRIcD52ShYN80nzWxxvSuKwEYApmFK0cSpcPbgAa+UQUzwQo1pAkxyplFducrRRwNiN4jTvGcjbehh8oKgy3MgO0FOjn9pRVCHEleA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785501325; c=relaxed/simple;
+	bh=UEXA2jz7/8V+cAKqn+ecsYKqLFIMPeiztSrq0J+wmAw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=H5ePKsxAPCnJvce7PR29tCH/Ldu0oFZ236YhbqKdVGzM/5G2yUnJg5ZwQDcw8eRna/SFrzeU0AX5b+U5zRC/asuLWHOw5YUaEQXsY6rzr6FlpYSy0Zq1tKupWh+QRioVrQRKXUZHQgfNcqq0i+aWrP4Inc7VOTKzXbEOnEXuvRk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=REXVkRy3; arc=pass smtp.client-ip=209.85.161.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="2vyzOOTB";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="PlXJ69cV";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="FS22OlYI";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="vKGikB6t"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3DAEB4096;
-	Fri, 31 Jul 2026 12:27:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1785500852; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TeSSD6iVeW9hQPqJ+MYjmsMx/vPG1MgRBQKXQQVnpdk=;
-	b=2vyzOOTBpXf8cKZhLNvqbcFmlqdL2ZNESxu1t1eC6Qx6mdbM7TJW4VOSV9seV5lNQrvezz
-	OllHZM47irBK+4ImNB9Ab63uiKDUYS0zsMksYviSrjhaJZOQmYea4+cEsbdvc/+xOYxvHQ
-	Yfmv1vnI61bEhh//yX/Caq1QbsJeD84=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1785500852;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TeSSD6iVeW9hQPqJ+MYjmsMx/vPG1MgRBQKXQQVnpdk=;
-	b=PlXJ69cVQ/wX8TJ/Q2uiEUmiQ4C3oZCeU19vrmRX3T2kvfxUt5q93P3/ZLowJaFWc+dEcr
-	/B73g8pjiE6WyCCw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1785500848; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TeSSD6iVeW9hQPqJ+MYjmsMx/vPG1MgRBQKXQQVnpdk=;
-	b=FS22OlYIIxIL3yKvGGUPdgd8Q4VJcyWLxOO7fW/+CywX9BPEKqPoyv+d9pxU0QZ7726cF2
-	cfAuR+HYl+P5MR0A0RsXLabx8S7BMbKcvsa6j59TOxevMGFtBJG+8F5ZespdXe27f3j42F
-	pMQAaClv2yQCJmD7eC2XrPtxeeCkHXw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1785500848;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TeSSD6iVeW9hQPqJ+MYjmsMx/vPG1MgRBQKXQQVnpdk=;
-	b=vKGikB6tCGx+NqcdOIaeMC17WRduzXx+pnl+kiC/JtktGqXiBIIA34gYB22vHcZECu3ErV
-	ylZrJ84XF68SlyCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 352B3779B0;
-	Fri, 31 Jul 2026 12:27:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id XZ/6DLCUbGqfBgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 31 Jul 2026 12:27:28 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id D6498A13A4; Fri, 31 Jul 2026 14:27:27 +0200 (CEST)
-Date: Fri, 31 Jul 2026 14:27:27 +0200
-From: Jan Kara <jack@suse.cz>
-To: Youngjae Kwon <yjkwon0026@snu.ac.kr>
-Cc: Jan Kara <jack@suse.cz>, Amir Goldstein <amir73il@gmail.com>, 
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] fsnotify: Fix stale object mask after concurrent mark
- updates
-Message-ID: <yxm3q5glchsjgr3pudmcy2vtn3umneardtcnvbuxyfn4oaiuqq@77aualjjutwn>
-References: <CACwKKmCZdiZDoFuYm6LZhQ=XvHPk0fNKH=X3LmoXMqakYqJaNw@mail.gmail.com>
- <20260730152241.444632-1-yjkwon0026@snu.ac.kr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="REXVkRy3"
+Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6ab04bbcc8fso540193eaf.1
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 05:35:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785501323; cv=none;
+        d=google.com; s=arc-20260327;
+        b=O8h6DxNNxuiaHPQbyP7ZEcgECRz/KQymxSX/SyFuYLA1+PZnI9EXCjaGy1QFDTJ4fn
+         AZSJENxl0pogAd4mqZIC5Ka5zxSZypnWi7tHcX21bzQ7qahaFqk5+AoCfm04BcUgNnCW
+         01cVl6m2oxg/E5Fgt2GuvhxSoyiYefs838Y9x6aK37LBf33IkNDLETZz0e8KYK3pg4R8
+         CLl6a8QZxjnSwgYCtrsjzb1yUKcu9SfEfbwn65BLPbxZF2s40Qh+KNeHqW6vm6e20bdg
+         m76tKArOJdUq005bdyxsmubxg42bbD1LK9XG5zHVzFBwzrI5yUaQegNOHbKf2lToJIDY
+         cH1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YFAI/9+RvNlaopRe0SqCEvXX6CBi05C4fAg0TyUNeEU=;
+        fh=5weem6xLFTZRAVaO4AejTHhSNYXHga/Dv/z0Wp5Qu9U=;
+        b=mt8E/IN6QdALr+P3sqKHYMUwNItl9a91eF/10feh82725iWmP58YB8Sh1QkOptDhv/
+         HVv7gL6MqaDS299g7LOcHRsxxgU/acNC9OlTYguhkFXykPQ2/4Vxuxhc9ral/CsBOX9P
+         JuFpRwY+2mTNxsHjk6cwHw3szG/xLjf1d/1OMf4IklLo/6LwgOCpZ+g0gv1Qu/LBYe+w
+         HRLH5Ja/yauqdLmlf8uMua02OLXA+3HTb962KYSJKUC8lRXpz4HR703qo0zlD9ZawWy/
+         IWiO9CWkX0+igHB9/1PbRO/ABWIVaz2eYx50FHUJBGVB/0ZnJ+B0nhEr+uNb/0QVqMPh
+         ZVVg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785501323; x=1786106123; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YFAI/9+RvNlaopRe0SqCEvXX6CBi05C4fAg0TyUNeEU=;
+        b=REXVkRy3KxPSPr+1PvDbz53nE/VdaLuOmJyFOcwmV9/GnhNCzeZ+LKuWgCI1kLGTzz
+         sA8noSXGop1VRy5mJv/qmiWYoURK89NTQQLd3e8h7t5tyCNKWx9c9b4aMDqIYPu7Ov6j
+         w0PXfFUz70YrS2zcA6g05R8Ck+Pllf97q9vn+wbtNLoq48MOhER6RrH62c9Go9fA2Hc9
+         IHdp/Kkxh2dsQYLJS7R5ebo3N8cABHgcasxljvAgQD3MMjQgxb19FSEkSnsoXoV4R+ql
+         MJu/vwTHzM7ho03qU1J1SCjmcXrtJQ3tXsejZdwt9Jm7K5gw5nQFvzxaykrZr2VZ5sy0
+         rnDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785501323; x=1786106123;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YFAI/9+RvNlaopRe0SqCEvXX6CBi05C4fAg0TyUNeEU=;
+        b=U15GddbD7QMht2H9xvxUJk8viRr3GhCPWdKkXZIIzv4kqAzTHwR/ULgSvJHh75GVVA
+         lC2edC7+QPfreNauS5MLU93xcj5kkE+ZA5Ms3t5on21ZiJHsQ8aG4Fmu8dMSsd+k/0KA
+         lC9vWz+QpENgLY3wxNWJe+EyNZIdUzaSWvdN/zfz4suhL5rqHZV6HRm/sjhXJjY3i8B+
+         fK0uvVxoizQmMJgaZgzYhqXMPNeLq26gwuGxi8XjJKxBgqWLTqn+4UWsJyEMMZPhXqzc
+         91tSmTKol3Z8Wo9e5KLefb7C6sy3zHW1oas8MrdAzq4Sck/lkYhI30zy+dJv+IEEQDSB
+         byWA==
+X-Forwarded-Encrypted: i=1; AHgh+Rrr2ZEqFBy8VcgiHuAV2M0ofEWlQdntJUZ6StXvhWfNtxtwYTV1/RDBdPJfVYiIYh8xldw42hU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrV2lD0z+F6A9Mpsjjsj899TMOpr3G+cAx8d+UZWKc+v80pPiX
+	x62I3EbnKNWOzyVNfpyrhaVum2ccdavyvSpA87K2TX6lD20YhrpTl8M6TyLLZnoPSajLlWgn1hu
+	rjFE+Xh4cvQ5AX2XbNDR3uu4D4xpQJDY=
+X-Gm-Gg: AR+sD106UtCMGZjcwnJN55tPbgge9R4+xd9RYP3cKp3CkQObOjw8RZmFacYC2hb80KE
+	NCRxQ9FPEXrU9fPoN/ZB2BlCDLVsmwKr4TkbbJ3QlG6jmG2FpBZdLUaia5UruYhVL31upwr+yUo
+	Aq7+JXikJhgv2FkiCLy++ep/PjPG14F9J25V8XxRf84XWljNeHMceSCNfX6ctf/VQsVT9v8GwSy
+	i1LsixpdH4EBDV461x/kpYfCn49039CyX+epWr66D5677Fgi/4m8V/QuXYRKxz9IIpIJEw2Hdvi
+	+PKZEeBNLEs3uINk1CVcnEyUH/EItEQDRyJ6rAENvQrE
+X-Received: by 2002:a05:6820:c0c9:20b0:6aa:e252:dc59 with SMTP id
+ 006d021491bc7-6ae37cf9c54mr1615552eaf.5.1785501323220; Fri, 31 Jul 2026
+ 05:35:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260730152241.444632-1-yjkwon0026@snu.ac.kr>
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,gmail.com,vger.kernel.org];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -3.80
-X-Spam-Level: 
+References: <db6fe5d2d4081f20f85abc6020b831fd@paul-moore.com> <20260730221508.3846409-1-cmllamas@google.com>
+In-Reply-To: <20260730221508.3846409-1-cmllamas@google.com>
+From: Stephen Smalley <stephen.smalley.work@gmail.com>
+Date: Fri, 31 Jul 2026 08:35:11 -0400
+X-Gm-Features: AUfX_mwlKgyb6AEn20yiXH-27f3TnQmpcyFREg2qUfV_pjvNieyaRo-vjnWDeh8
+Message-ID: <CAEjxPJ5PPyM+fkMnLj+FATHtoyYg4TK+tthGpudWnq52GSF6MA@mail.gmail.com>
+Subject: Re: [PATCH v2] selinux: bpf: check SBLABEL_MNT before isec init
+To: Carlos Llamas <cmllamas@google.com>
+Cc: Paul Moore <paul@paul-moore.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
+	"Christian Brauner (Amutable)" <brauner@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, 
+	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, 
+	"open list:SELINUX SECURITY MODULE" <selinux@vger.kernel.org>, 
+	"open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri 31-07-26 00:22:41, Youngjae Kwon wrote:
-> When a mark gets a new event bit, fanotify and inotify avoid recalculating
-> the object mask if the cached aggregate already contains that bit. This is
-> racy with a recalculation triggered by a concurrent update to another mark
-> on the same connector.
-> 
-> The concurrent scan can read the mark before the new bit is added, while
-> the updater reads the old aggregate before that scan publishes its result.
-> The updater then skips recalculation and the scan publishes a mask without
-> the bit, leaving the object mask stale after both updates complete.
-> 
-> This can be reproduced with two fanotify groups watching the same inode:
-> one thread removes FAN_MODIFY from one existing mark while another thread
-> adds FAN_MODIFY to the other mark. After both fanotify_mark() calls return,
-> writes can fail to produce FAN_MODIFY for the group whose mark now contains
-> the bit. This was reproduced on an unmodified v6.12.95 kernel. The
-> equivalent inotify interleaving loses IN_MODIFY events.
-> 
-> Always request recalculation when an existing mark's calculated mask
-> actually changes. For fanotify, compare fsnotify_calc_mask() before and
-> after normal-mask, ignore-mask, and flag updates. Keep the cached aggregate
-> check for unchanged updates, and keep the flag helper's inode-reference
-> handling.
-> 
-> Link: https://lore.kernel.org/all/CACwKKmCZdiZDoFuYm6LZhQ=XvHPk0fNKH=X3LmoXMqakYqJaNw@mail.gmail.com/
-> Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
-> Fixes: 912ee3946c5e ("fanotify: do not call fanotify_update_object_mask in fanotify_add_mark")
-> Cc: stable@vger.kernel.org # needs adjustments for <= 7.0
-> Suggested-by: Jan Kara <jack@suse.cz>
-> Signed-off-by: Youngjae Kwon <yjkwon0026@snu.ac.kr>
+On Thu, Jul 30, 2026 at 6:15=E2=80=AFPM Carlos Llamas <cmllamas@google.com>=
+ wrote:
+>
+> selinux_inode_init_security() marks the isec as initialized before
+> checking if mount labeling is supported (SBLABEL_MNT). This was fine
+> until commit 9722955b5430 ("bpf: Add simple xattr support to bpffs"),
+> where genfscon bpffs mounts fail the SBLABEL_MNT check as expected (no
+> xattrs) and yet leave the isec->initialized. This breaks subsequent
+> calls to inode_doinit_with_dentry().
+>
+> Do the SBLABEL_MNT check before the inode security is initialized.
+>
+> Cc: stable@vger.kernel.org
+> Closes: https://lore.kernel.org/all/akWdcp6P0FkNDzBk@google.com/
+> Fixes: 9722955b5430 ("bpf: Add simple xattr support to bpffs")
+> Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+> Signed-off-by: Carlos Llamas <cmllamas@google.com>
 
-Looks mostly good, just one question below:
+Just re-affirming my Ack since the patch did change slightly.
 
->  	spin_lock(&fsn_mark->lock);
-> +	old_mask = fsnotify_calc_mask(fsn_mark);
->  	if (!(fan_flags & FANOTIFY_MARK_IGNORE_BITS))
->  		fsn_mark->mask |= mask;
->  	else
->  		fsn_mark->ignore_mask |= mask;
->  
-> -	recalc = fsnotify_calc_mask(fsn_mark) &
-> -		~fsnotify_conn_mask(fsn_mark->connector);
+Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+
+> ---
+> v2:
+>   - Move the check further at the top per Paul's feedback.
+>   - Collect Stephen's Ack.
+>
+> v1:
+>   https://lore.kernel.org/all/20260730181008.3654413-1-cmllamas@google.co=
+m/
+>
+>  security/selinux/hooks.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+> index 8d6945edae7a..18dd28b2bb13 100644
+> --- a/security/selinux/hooks.c
+> +++ b/security/selinux/hooks.c
+> @@ -2974,6 +2974,10 @@ static int selinux_inode_init_security(struct inod=
+e *inode, struct inode *dir,
+>
+>         sbsec =3D selinux_superblock(dir->i_sb);
+>
+> +       if (!selinux_initialized() ||
+> +           !(sbsec->flags & SBLABEL_MNT))
+> +               return -EOPNOTSUPP;
+> +
+>         newsid =3D crsec->create_sid;
+>         newsclass =3D inode_mode_to_security_class(inode->i_mode);
+>         rc =3D selinux_determine_inode_label(crsec, dir, qstr, newsclass,=
+ &newsid);
+> @@ -2988,10 +2992,6 @@ static int selinux_inode_init_security(struct inod=
+e *inode, struct inode *dir,
+>                 isec->initialized =3D LABEL_INITIALIZED;
+>         }
+>
+> -       if (!selinux_initialized() ||
+> -           !(sbsec->flags & SBLABEL_MNT))
+> -               return -EOPNOTSUPP;
 > -
-> -	recalc |= fanotify_mark_update_flags(fsn_mark, fan_flags);
-> +	recalc = fanotify_mark_update_flags(fsn_mark, fan_flags);
-> +	new_mask = fsnotify_calc_mask(fsn_mark);
-> +	recalc |= old_mask != new_mask;
-> +	recalc |= new_mask & ~fsnotify_conn_mask(fsn_mark->connector);
-
-How could this last line ever change anything? If old_mask == new_mask,
-then it would look like a bug that some bit from the new_mask (and thus
-old_mask) isn't already included in the aggregate connector mask?
-
-I can fix this up on commit but I want to understand why you've kept the
-line here just in case I'm missing something...
-
-								Honza
-
->  	spin_unlock(&fsn_mark->lock);
->  
->  	return recalc;
-> diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
-> index ed37491c1..c44f2daa1 100644
-> --- a/fs/notify/inotify/inotify_user.c
-> +++ b/fs/notify/inotify/inotify_user.c
-> @@ -565,17 +565,8 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
->  	new_mask = fsn_mark->mask;
->  	spin_unlock(&fsn_mark->lock);
->  
-> -	if (old_mask != new_mask) {
-> -		/* more bits in old than in new? */
-> -		int dropped = (old_mask & ~new_mask);
-> -		/* more bits in this fsn_mark than the inode's mask? */
-> -		int do_inode = (new_mask & ~READ_ONCE(inode->i_fsnotify_mask));
-> -
-> -		/* update the inode with this new fsn_mark */
-> -		if (dropped || do_inode)
-> -			fsnotify_recalc_mask(fsn_mark->connector);
-> -
-> -	}
-> +	if (old_mask != new_mask)
-> +		fsnotify_recalc_mask(fsn_mark->connector);
->  
->  	/* return the wd */
->  	ret = i_mark->wd;
-> -- 
-> 2.50.1
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>         xattr =3D lsm_get_xattr_slot(xattrs, xattr_count);
+>         if (xattr) {
+>                 rc =3D security_sid_to_context_force(newsid,
+> --
+> 2.55.0.508.g3f0d502094-goog
+>
