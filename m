@@ -1,43 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011008.outbound.protection.outlook.com [52.101.57.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61F336A34F
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:16:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785496573; cv=none; b=gxoKWYCc9RKtIC8bg5bOMFEi42EO3uG9N1zGVfWQu+yIqJ2I/rAYlIutyVphkvLEmodouKMKgA25Dh3JFY6Xq/50SBv//J5mx2XL0dY7p3imEgiAu998LySTDwG21i9mQOVWsAmKqxS4yhk/XpM+/Gbp0YtylqJtqvUknlb++n0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785496573; c=relaxed/simple;
-	bh=kWaVr+06/6LEpuaHInxvactutznY/WybO11O5hgqjqM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nH/tNzOtgZwxinc1jAma1lQa4jjmBBx+IroOMaN6z15RSVasRLPbEhV8Oq7X3lZLyi1oo63n4ZUb2sL0g0alSnZ8TLfZtnZUVCE2YFV23HEkAfLjXMf4zC7sBGQM/XZ1kn5X8Dvs9qX+r5HfhECqiYOo/sZrZINOwZgGp7UiNps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MrQ08FV4; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FAD3B71CB
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:17:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785496668; cv=fail; b=Qh0aVUdlJPZJCwEK6+5jGNZc+sBmaJRxEBb4vUlKtR8Q/JFqU8f/+7KE9OabbOCWSvyNovdncOTfI7W79ljs06tIA/UpQkE4+1hlyMXWy3M4nAqrWpFmDTgTbE5YG25UPK6nRdt9Js8axEZx6UFBusssYge61tiSDWHubXT+vC0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785496668; c=relaxed/simple;
+	bh=ONQMsmYbGP+BgOgKiDySVe/Uh0KIXOcau3SsycYVB0Q=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FPvFB74JEOwqCMLeeYzsA+zyo6Zev1IT7oVyXb+WO34FTPiiZOqH8UQvuFGniFns7wM9VtjrhHNh4y962BPWzzq6l1U8xfPuKxBeOJ7qmjHnEKxUhUh8OWFHfqhKhGqkR+vA/yvmTtVQPBR3oA2scmt6C7WyyI4lbg6Ned3ze9o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=msSOpPkQ; arc=fail smtp.client-ip=52.101.57.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MrQ08FV4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E1031F000E9;
-	Fri, 31 Jul 2026 11:16:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785496570;
-	bh=Kddm9FHqta8gojXYO9wMBQJXj5vhJwNZhcbYO5L2wkc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MrQ08FV41jdB5x5j8i1JqhtWbGdNTvwgTwMNK5YqYkHV/iDKB+iCJs/XU0hRXMbou
-	 LJR+OF4y8XI4fKyaXnZHL+n4+qP7OZONgFQB42gY8xxVWpd1VIzeWS+k9TmfnbYH9e
-	 ihNYynfx2aF0hTCb4mdJPD21Fatdq//nAfMim/Vc81IMtyjV012qjUyMlNRowlSX7b
-	 +IB/0bK0U74SQAZ32c0PQ1HACwnNsklL1byvScqFjihVfZytl1ycCbd6v9EY2S744i
-	 yFQAWTK7XhygMUrXWFVazn07zMuiXYCBWCAmhwrR8UcjnEp7h8aLX6fSVYO3VcWaBO
-	 aySXLQsl9Qucw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Cen Zhang <zzzccc427@gmail.com>,
-	stable <stable@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] usb: gadget: f_tcm: synchronize delayed set_alt with teardown
-Date: Fri, 31 Jul 2026 07:16:08 -0400
-Message-ID: <20260731111608.3643504-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072704-reentry-pandemic-b4c7@gregkh>
-References: <2026072704-reentry-pandemic-b4c7@gregkh>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="msSOpPkQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rNqe8KXI79qQ3xLYrtUJ0hkN1Xpy6xbaKyozyq7KocfWkfXVJBRj6x2WiaQnu+juFkhitL3sTQJXV93I3gf8q6VsliJ6hJIMfHDwwljLY57wkdgzzpWqqkJwjXAUnNkIAlorOo+PPscdOJOVvK3P7wG5ckHHq7tZk28Z39al+M/1giM0buh0JQQQ+BNFq+9wqQYbhHLgdTG5qCU5cA3ZHbsAyJST0C4iusaF4hn4dWw4wqELq4ufEqRRsHa76bCfmAteTqtJIislCWsiBjmNlxjaGnc5ILaH5fPuHACYnnL+LfwU4jQdKTixtjpHZLYxFci0+e2i1jLfwc/Xaegpbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aUEtzV/LMTQP3vuqUywN+fc+OccvCZM82GtHBlBTKgY=;
+ b=KmW8RX92IHM2I5WmLDiAsB2gqhZ/dC4wVD8nyf3IgE+Xjwob9HnFsdvgOfs4URgPIKHdmNO/5tlJjizHuSr031F9IMGRj5BLrUcyBofjozHyrr/x8PSOVx3WTDFE9mRsGBYWeZicsPIFNmD0RUlLwk2A4Dxwtac0zpirrWqFiIpoKHfTxCm5meXzEEqXGUy9+0v5jU5mb4yDUq4+qVv1IjmVft6pNWBMYwUGBhw5K3xARXkqz+9K+HhomUPbdZXgbYlKpSHzrW1Bt/WGpy7MvYWLwrrSjRndktRV5WvHyN9T6CXPBs3c0sxJrm6SHVlm7d2z1c/KOh56OhdCStpF2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aUEtzV/LMTQP3vuqUywN+fc+OccvCZM82GtHBlBTKgY=;
+ b=msSOpPkQ0nFHP2OByhcIHnrX11JL/zAoQBaGLquhflqa5AO69eOUdomBr2yBDplJm2ZWVduu8wKlNpvzImvcUFeThbFp2zdvmH0GFcqiHNzz4dsyhDgVrmM5v89HFVrWAEmlG80tfREktXBos7jn7LsWenBZMJkQGhKDAEoYs9M=
+Received: from PH5P220CA0002.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:34a::17)
+ by PH8PR12MB6721.namprd12.prod.outlook.com (2603:10b6:510:1cc::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
+ 2026 11:17:41 +0000
+Received: from CY4PEPF0000EE3F.namprd03.prod.outlook.com
+ (2603:10b6:510:34a:cafe::7) by PH5P220CA0002.outlook.office365.com
+ (2603:10b6:510:34a::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.16 via Frontend Transport; Fri,
+ 31 Jul 2026 11:17:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3F.mail.protection.outlook.com (10.167.242.17) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 11:17:40 +0000
+Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
+ 2026 06:17:39 -0500
+From: Honglei Huang <honghuan@amd.com>
+To: <stable@vger.kernel.org>
+Subject: [PATCH 6.18.y] drm/gpusvm: publish dpagemap early to avoid device mapping leak on error
+Date: Fri, 31 Jul 2026 19:17:28 +0800
+Message-ID: <20260731111728.3415703-1-honghuan@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2026072912-heritage-womb-d38a@gregkh>
+References: <2026072912-heritage-womb-d38a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,390 +70,93 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3F:EE_|PH8PR12MB6721:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb18f119-5a36-442d-ecdd-08deeef555f8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|23010399003|1800799024|11063799006|10067099003|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	VrD7aYR8DGhnD7jOtuBXfrBNHplzJNFl68j6zyTP21PT50e+Qro4nYM+E9F2TZDaQiDREbb1KDwfKh5Bjph94quC/6wXLGnR2TZK7H9KLCpZ7y0zEaoc0tvw6gjFncix41hvHN1a3095RTASfA/qDsYM35fQyRu2+H76EYf/5TQXdONHDJhEGHCTTdCwEqsV8LPnYHkEeOYu8L5KlRqOYj3K1QP8dU0lbsJ8Vms0+p4Panmu6PTj1TZlGEMqZ21Mfvk6ipQY87xe06GCPkmXEAfcH40J0vNrIFNRry+/w5Qf9N7GnCG416rNUOzK/XZPIoJV2Io8WHkUXmyIxedmNgfgXqEMUxsFG+UUM4Oox23YPhKTomDkv+0zhrLfbbtuUPuSDDUG2I5ZoQzKF4afs0Gfz5psPbBPNZ+d5ndquwwIr9d9SP7V4JcH0D8eloGONxJuAgD4O2dREskLesC5ZMstHTk05IPkZ43QfeFXIdnDynsNEBSFNwFWPlei9qqn+ElXL6Nh/Wyb/k6sznzrX0i3NuMIMmxJQkNI9G3Gs3V8YI/WtrJSrSlWooYyiqFSgSVUskiZhBQN49oS6E+QcD1/N5oVryccIw+J+0zhJZnKiGPyU5ysEILged8doah0xgB7ZzYADo42xxMk4lwATkwNXmASFccuzQEDmviBSC4=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(1800799024)(11063799006)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	znZznxJU8XsaEldyAH6+m7yZDFTjzePdTEVcpyPHP4Bhqoq6QmCXU5VGeyEXfrePp6ecpBuQ2eLLRUj7tcZQslvKM+i8QLfVi8SViNkW1GOaaasluTs6Yek41yY/ZSeFObZXmxOU3vrUu+BtQIIWfz4ubQIwVt1EJcrtrkkTJkvQOGPKy6aCEVyc70EPsejivIAO1bkQR9UYtCSLASHi5krIMpI7gqMX5fo9DOuOkablhauhAdVu9kMi/9N594V8XoRqcPvh9HM0iKVQQa3EOS7y1xzQra+QM7pBJj7O10lrUF4s+/xLA1UuV+cf1jWHOMpRextPvYrnMActQPrg0zMWow11/p49NLEpvSznFpYNQueJOOdZUWlFS4uXIKfhbdE+vHaP4yiqykRcAshaTpJsYQwkvbO5c/nYf676WEQIRMTuViRtRM0rLtPiYleo
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 11:17:40.9332
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb18f119-5a36-442d-ecdd-08deeef555f8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EE3F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6721
 
-From: Cen Zhang <zzzccc427@gmail.com>
+drm_gpusvm_get_pages() only stored the local dpagemap into
+svm_pages->dpagemap on the success path. If a later page failed (e.g.
+-EOPNOTSUPP when ctx->allow_mixed is false) and jumped to err_unmap,
+svm_pages->dpagemap was still NULL, so __drm_gpusvm_unmap_pages() skipped
+device_unmap() and leaked the device mappings already created.
 
-[ Upstream commit 79e2d75725c85607f8a9d87ae9cace62a19f767d ]
+Assign svm_pages->dpagemap when the first device page is mapped so the
+err_unmap path can device_unmap() those mappings.
 
-The f_tcm set_alt() path defers endpoint setup to a work item and
-completes the delayed status response from process context. The delayed
-work uses f_tcm private state and may complete the setup request after
-disconnect or function teardown has already moved on.
+This issue was found by Sashiko AI review.
 
-Cancel and drain the delayed set_alt work when the function is unbound or
-freed. For disable paths, which are reached under the composite device
-lock, use a small state machine and a non-sleeping cancellation path
-instead of cancel_work_sync(). If the work is already running, mark it
-cancelled and let the worker own the cleanup; otherwise tcm_disable() can
-cancel the queued work and clean up immediately.
-
-Also serialize the final delayed-status completion with the cancellation
-check while holding the composite device lock. This prevents a disconnect
-from clearing delayed_status while the worker is about to complete the
-control request.
-
-Validation reproduced this kernel report:
-BUG: KASAN: slab-use-after-free in tcm_delayed_set_alt+0x6c/0xef0
-
-Call Trace:
- <TASK>
- dump_stack_lvl+0x66/0xa0
- print_report+0xce/0x630
- ? tcm_delayed_set_alt+0x6c/0xef0
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __virt_addr_valid+0x188/0x320
- ? tcm_delayed_set_alt+0x6c/0xef0
- kasan_report+0xe0/0x110
- ? tcm_delayed_set_alt+0x6c/0xef0
- tcm_delayed_set_alt+0x6c/0xef0
- ? __pfx_tcm_delayed_set_alt+0x10/0x10
- ? process_one_work+0x4cb/0xb90
- ? rcu_is_watching+0x20/0x50
- ? tcm_delayed_set_alt+0x9/0xef0
- process_one_work+0x4d7/0xb90
- ? __pfx_process_one_work+0x10/0x10
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __list_add_valid_or_report+0x37/0xf0
- ? __pfx_tcm_delayed_set_alt+0x10/0x10
- ? srso_alias_return_thunk+0x5/0xfbef5
- worker_thread+0x2d8/0x570
- ? __pfx_worker_thread+0x10/0x10
- kthread+0x1ad/0x1f0
- ? __pfx_kthread+0x10/0x10
- ret_from_fork+0x3c9/0x540
- ? __pfx_ret_from_fork+0x10/0x10
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __switch_to+0x2e9/0x730
- ? __pfx_kthread+0x10/0x10
- ret_from_fork_asm+0x1a/0x30
- </TASK>
-
-Allocated by task 544:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- __kasan_kmalloc+0x8f/0xa0
- tcm_alloc+0x68/0x180
- usb_get_function+0x36/0x60
- config_usb_cfg_link+0x125/0x1b0
- configfs_symlink+0x322/0x890
- vfs_symlink+0xc2/0x270
- filename_symlinkat+0x295/0x2f0
- __x64_sys_symlinkat+0x62/0x90
- do_syscall_64+0x115/0x6a0
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 661:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- kasan_save_free_info+0x3b/0x60
- __kasan_slab_free+0x43/0x70
- kfree+0x2f9/0x530
- config_usb_cfg_unlink+0x173/0x1e0
- configfs_unlink+0x1fa/0x340
- vfs_unlink+0x15c/0x510
- filename_unlinkat+0x2ba/0x450
- __x64_sys_unlinkat+0x63/0x90
- do_syscall_64+0x115/0x6a0
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Fixes: c52661d60f63 ("usb-gadget: Initial merge of target module for UASP + BOT")
-Cc: stable <stable@kernel.org>
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Link: https://patch.msgid.link/20260627104153.3822495-1-zzzccc427@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ adjusted context for 6.12's scalar `struct usbg_cdb cmd` and missing `stream_hash`, dropping the `hash_init()` context line ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: f70da6f99d4f ("drm/gpusvm: pull out drm_gpusvm_pages substructure")
+Cc: stable@vger.kernel.org
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Honglei Huang <honghuan@amd.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Link: https://patch.msgid.link/20260701062800.409248-4-honghuan@amd.com
+[ Adjusted for 6.18.y: drop drm_pagemap_get()/drm_pagemap_put() around the
+  svm_pages->dpagemap assignment; that reference counting is not present in
+  6.18 where the field is not refcounted (unmap path only clears it). ]
+(cherry picked from commit 7f708f51e3955bda0d77a0b67ab9bea6c97fea99)
+Signed-off-by: Honglei Huang <honghuan@amd.com>
 ---
- drivers/usb/gadget/function/f_tcm.c | 192 ++++++++++++++++++++++++----
- drivers/usb/gadget/function/tcm.h   |  13 ++
- 2 files changed, 177 insertions(+), 28 deletions(-)
+ drivers/gpu/drm/drm_gpusvm.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/gadget/function/f_tcm.c b/drivers/usb/gadget/function/f_tcm.c
-index cbab39a5e753..0db98fc40b15 100644
---- a/drivers/usb/gadget/function/f_tcm.c
-+++ b/drivers/usb/gadget/function/f_tcm.c
-@@ -2065,31 +2065,158 @@ static int tcm_bind(struct usb_configuration *c, struct usb_function *f)
- 	return -ENOTSUPP;
- }
- 
--struct guas_setup_wq {
--	struct work_struct work;
--	struct f_uas *fu;
--	unsigned int alt;
--};
-+static void tcm_cleanup_old_alt(struct f_uas *fu)
-+{
-+	if (fu->flags & USBG_IS_UAS)
-+		uasp_cleanup_old_alt(fu);
-+	else if (fu->flags & USBG_IS_BOT)
-+		bot_cleanup_old_alt(fu);
-+	fu->flags = 0;
-+}
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index 4cde5bf4ae..a22beafa01 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -1390,6 +1390,14 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+ 					err = -EAGAIN;
+ 					goto err_unmap;
+ 				}
 +
-+static void tcm_delayed_set_alt_done(struct f_uas *fu)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
-+	fu->delayed_set_alt_cancel = false;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+}
-+
-+static bool tcm_delayed_set_alt_cancelled(struct f_uas *fu)
-+{
-+	bool cancelled;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	cancelled = fu->delayed_set_alt_cancel;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+
-+	return cancelled;
-+}
-+
-+static bool tcm_complete_delayed_status(struct f_uas *fu)
-+{
-+	struct usb_composite_dev *cdev = fu->function.config->cdev;
-+	struct usb_request *req = cdev->req;
-+	unsigned long cdev_flags;
-+	bool cancelled;
-+	int ret;
-+
-+	spin_lock_irqsave(&cdev->lock, cdev_flags);
-+	spin_lock(&fu->delayed_set_alt_lock);
-+	cancelled = fu->delayed_set_alt_cancel;
-+	if (!cancelled) {
-+		fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
-+		fu->delayed_set_alt_cancel = false;
-+	}
-+	spin_unlock(&fu->delayed_set_alt_lock);
-+
-+	if (cancelled) {
-+		spin_unlock_irqrestore(&cdev->lock, cdev_flags);
-+		return false;
-+	}
-+
-+	if (cdev->delayed_status == 0) {
-+		WARN(cdev, "%s: Unexpected call\n", __func__);
-+	} else if (--cdev->delayed_status == 0) {
-+		req->length = 0;
-+		req->context = cdev;
-+		ret = usb_ep_queue(cdev->gadget->ep0, req, GFP_ATOMIC);
-+		if (ret == 0) {
-+			cdev->setup_pending = true;
-+		} else {
-+			req->status = 0;
-+			req->complete(cdev->gadget->ep0, req);
-+		}
-+	}
-+
-+	spin_unlock_irqrestore(&cdev->lock, cdev_flags);
-+
-+	return true;
-+}
-+
-+static bool tcm_cancel_delayed_set_alt(struct f_uas *fu)
-+{
-+	bool cleanup = false;
-+	bool cancel = false;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	switch (fu->delayed_set_alt_state) {
-+	case USBG_DELAYED_SET_ALT_IDLE:
-+		cleanup = true;
-+		break;
-+	case USBG_DELAYED_SET_ALT_QUEUED:
-+	case USBG_DELAYED_SET_ALT_RUNNING:
-+		fu->delayed_set_alt_cancel = true;
-+		cancel = true;
-+		break;
-+	}
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+
-+	if (cancel && cancel_work(&fu->delayed_set_alt)) {
-+		spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+		if (fu->delayed_set_alt_state == USBG_DELAYED_SET_ALT_QUEUED) {
-+			fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
-+			fu->delayed_set_alt_cancel = false;
-+			cleanup = true;
-+		}
-+		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+	}
-+
-+	return cleanup;
-+}
-+
-+static void tcm_cancel_delayed_set_alt_sync(struct f_uas *fu)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_IDLE)
-+		fu->delayed_set_alt_cancel = true;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+
-+	cancel_work_sync(&fu->delayed_set_alt);
-+
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_IDLE;
-+	fu->delayed_set_alt_cancel = false;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+}
- 
- static void tcm_delayed_set_alt(struct work_struct *wq)
- {
--	struct guas_setup_wq *work = container_of(wq, struct guas_setup_wq,
--			work);
--	struct f_uas *fu = work->fu;
--	int alt = work->alt;
-+	struct f_uas *fu = container_of(wq, struct f_uas, delayed_set_alt);
-+	unsigned long flags;
-+	unsigned int alt;
- 
--	kfree(work);
-+	spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+	if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_QUEUED) {
-+		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+		return;
-+	}
-+	fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_RUNNING;
-+	alt = fu->delayed_alt;
-+	spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
- 
--	if (fu->flags & USBG_IS_BOT)
--		bot_cleanup_old_alt(fu);
--	if (fu->flags & USBG_IS_UAS)
--		uasp_cleanup_old_alt(fu);
-+	tcm_cleanup_old_alt(fu);
-+
-+	if (tcm_delayed_set_alt_cancelled(fu))
-+		goto out_done;
- 
- 	if (alt == USB_G_ALT_INT_BBB)
- 		bot_set_alt(fu);
- 	else if (alt == USB_G_ALT_INT_UAS)
- 		uasp_set_alt(fu);
--	usb_composite_setup_continue(fu->function.config->cdev);
-+
-+	if (tcm_complete_delayed_status(fu))
-+		return;
-+
-+	tcm_cleanup_old_alt(fu);
-+out_done:
-+	tcm_delayed_set_alt_done(fu);
- }
- 
- static int tcm_get_alt(struct usb_function *f, unsigned intf)
-@@ -2115,15 +2242,20 @@ static int tcm_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
- 		return -EOPNOTSUPP;
- 
- 	if ((alt == USB_G_ALT_INT_BBB) || (alt == USB_G_ALT_INT_UAS)) {
--		struct guas_setup_wq *work;
-+		unsigned long flags;
- 
--		work = kmalloc(sizeof(*work), GFP_ATOMIC);
--		if (!work)
--			return -ENOMEM;
--		INIT_WORK(&work->work, tcm_delayed_set_alt);
--		work->fu = fu;
--		work->alt = alt;
--		schedule_work(&work->work);
-+		spin_lock_irqsave(&fu->delayed_set_alt_lock, flags);
-+		if (fu->delayed_set_alt_state != USBG_DELAYED_SET_ALT_IDLE) {
-+			spin_unlock_irqrestore(&fu->delayed_set_alt_lock,
-+					       flags);
-+			return -EBUSY;
-+		}
-+		fu->delayed_alt = alt;
-+		fu->delayed_set_alt_cancel = false;
-+		fu->delayed_set_alt_state = USBG_DELAYED_SET_ALT_QUEUED;
-+		spin_unlock_irqrestore(&fu->delayed_set_alt_lock, flags);
-+
-+		schedule_work(&fu->delayed_set_alt);
- 		return USB_GADGET_DELAYED_STATUS;
++				/*
++				 * Set the dpagemap as soon as the first
++				 * device page is mapped so the err_unmap path
++				 * can device_unmap() the device mappings that
++				 * have already been created.
++				 */
++				svm_pages->dpagemap = dpagemap;
+ 			}
+ 			svm_pages->dma_addr[j] =
+ 				dpagemap->ops->device_map(dpagemap,
+@@ -1432,10 +1440,8 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+ 		flags.has_dma_mapping = true;
  	}
- 	return -EOPNOTSUPP;
-@@ -2133,11 +2265,8 @@ static void tcm_disable(struct usb_function *f)
- {
- 	struct f_uas *fu = to_f_uas(f);
  
--	if (fu->flags & USBG_IS_UAS)
--		uasp_cleanup_old_alt(fu);
--	else if (fu->flags & USBG_IS_BOT)
--		bot_cleanup_old_alt(fu);
--	fu->flags = 0;
-+	if (tcm_cancel_delayed_set_alt(fu))
-+		tcm_cleanup_old_alt(fu);
- }
+-	if (pagemap) {
++	if (pagemap)
+ 		flags.has_devmem_pages = true;
+-		svm_pages->dpagemap = dpagemap;
+-	}
  
- static int tcm_setup(struct usb_function *f,
-@@ -2285,11 +2414,16 @@ static void tcm_free(struct usb_function *f)
- {
- 	struct f_uas *tcm = to_f_uas(f);
- 
-+	tcm_cancel_delayed_set_alt_sync(tcm);
- 	kfree(tcm);
- }
- 
- static void tcm_unbind(struct usb_configuration *c, struct usb_function *f)
- {
-+	struct f_uas *fu = to_f_uas(f);
-+
-+	tcm_cancel_delayed_set_alt_sync(fu);
-+	tcm_cleanup_old_alt(fu);
- 	usb_free_all_descriptors(f);
- }
- 
-@@ -2322,6 +2456,8 @@ static struct usb_function *tcm_alloc(struct usb_function_instance *fi)
- 	fu->function.disable = tcm_disable;
- 	fu->function.free_func = tcm_free;
- 	fu->tpg = tpg_instances[i].tpg;
-+	INIT_WORK(&fu->delayed_set_alt, tcm_delayed_set_alt);
-+	spin_lock_init(&fu->delayed_set_alt_lock);
- 	mutex_unlock(&tpg_instances_lock);
- 
- 	return &fu->function;
-diff --git a/drivers/usb/gadget/function/tcm.h b/drivers/usb/gadget/function/tcm.h
-index 3cd565794ad7..6c9bdbeed3c8 100644
---- a/drivers/usb/gadget/function/tcm.h
-+++ b/drivers/usb/gadget/function/tcm.h
-@@ -3,6 +3,7 @@
- #define __TARGET_USB_GADGET_H__
- 
- #include <linux/kref.h>
-+#include <linux/spinlock.h>
- /* #include <linux/usb/uas.h> */
- #include <linux/usb/composite.h>
- #include <linux/usb/uas.h>
-@@ -26,6 +27,12 @@ enum {
- 
- #define USB_G_DEFAULT_SESSION_TAGS	128
- 
-+enum {
-+	USBG_DELAYED_SET_ALT_IDLE = 0,
-+	USBG_DELAYED_SET_ALT_QUEUED,
-+	USBG_DELAYED_SET_ALT_RUNNING,
-+};
-+
- struct tcm_usbg_nexus {
- 	struct se_session *tvn_se_sess;
- };
-@@ -117,6 +124,12 @@ struct f_uas {
- #define USBG_IS_BOT		(1 << 3)
- #define USBG_BOT_CMD_PEND	(1 << 4)
- 
-+	struct work_struct	delayed_set_alt;
-+	spinlock_t		delayed_set_alt_lock; /* protects delayed_set_alt_* */
-+	unsigned int		delayed_alt;
-+	unsigned int		delayed_set_alt_state;
-+	bool			delayed_set_alt_cancel;
-+
- 	struct usbg_cdb		cmd;
- 	struct usb_ep		*ep_in;
- 	struct usb_ep		*ep_out;
+ 	/* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
+ 	WRITE_ONCE(svm_pages->flags.__flags, flags.__flags);
 -- 
-2.53.0
+2.34.1
 
