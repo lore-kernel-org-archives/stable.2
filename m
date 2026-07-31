@@ -1,110 +1,99 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8759235B636
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 08:43:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8653C8700;
+	Fri, 31 Jul 2026 08:44:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785487401; cv=none; b=IJ619NuRIOEQcBYPmv5X3MYFhAYAdD/RXYOMy2lYtO9lFruISvfVdW3ZPc8FoWIJOr3KOWFw4e4Z/snJjVHpnIey5K68Ujs+BZYKSGqQyxb8KN4k9dWVgyTgl82FEqmoe8Tk8NB19hwbgSy3t0fl/wHP/zlbeDA+aBRJjhFF6Vk=
+	t=1785487448; cv=none; b=g8+KCUYJY9H66jtoGJSPecT43kJd2x/MjguyOpCXfKKKfuwvAKmeqGJmDwg4K4LdfIGUHs26lDyyIlh0hUWwg3mtz3PFYJJYtRDAKFKBD9oEUBy0wyjOUe95UyiF7ZN4i5rULdgg2OBvrFUwo9dSynVNQFyAAsqklpAOdaiEsSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785487401; c=relaxed/simple;
-	bh=j2SjsKR12g2/eBbTkDmKpAIozQiKr2CRlxunr3mLRqg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FLSEEUAsTGWZ6SuTSJf0IfMWr0ang4DR6saFXOMSeH/YpvBl5EAOi2V7lB3rLCyIjIg00sNCIl8M6u23XjoxU3p5/sF2qdkJx2y4ox7OXLS403pkzE8BavtTHdqlKc+oOoVZreLu0Q97D5ZdZGQZoWw32bWVRLDQuvwQfan21RA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Mpin8YGH; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785487448; c=relaxed/simple;
+	bh=rR3bx8bTKOdbLvBlwiFTDxDkxVPMurUGXLng7YD3Xz0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UP4KO2MidJbT4I/OKx4/F3mwGiwSIWcLLnfFp6gD1g7bvJCKL5pkGOBJ7362qnkXdVKEwSmA0jGT2Gmxps6Ceu94gVXfr162s6c/pWXSWQZGy5uaK6O4MrkwHOHZulTgQq2/QfSVqCFtiBQontt4cVxznj5Szzz2lQh8B5ChdPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=IkodWosq; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Mpin8YGH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785487398;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UQglzxkkmdxU07t5W1fs1kSnAyCyTXHTL6VYsYOcl9s=;
-	b=Mpin8YGHg52okFntthsLb8URO7QRMX0BoNUwp3JVZmNsWENmGWu5BQNYzbgrbyWVoW61Ui
-	f1Eog7lKlbjn6Ke+g4hY5PBLIeJlitnz5XhhsAii0z+L81jBcl15/GpQp9dze1CWrWiy6G
-	ZOYGi3u7OakptuoSMYnjWOty5B2ATW4=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-192-XyIQaXvYO3eIdU7voCsnIw-1; Fri,
- 31 Jul 2026 04:43:14 -0400
-X-MC-Unique: XyIQaXvYO3eIdU7voCsnIw-1
-X-Mimecast-MFC-AGG-ID: XyIQaXvYO3eIdU7voCsnIw_1785487391
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6274E19560AA;
-	Fri, 31 Jul 2026 08:43:11 +0000 (UTC)
-Received: from fedora (unknown [10.44.33.21])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 1C1CD1956089;
-	Fri, 31 Jul 2026 08:43:04 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Fri, 31 Jul 2026 10:43:11 +0200 (CEST)
-Date: Fri, 31 Jul 2026 10:43:03 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Andrii Nakryiko <andrii.nakryiko@gmail.com>,
-	Breno Leitao <leitao@debian.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, kernel-team@meta.com,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="IkodWosq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ch
+	nRK+f+QN2xrkbOGk6dgBwvq7tejnNWZlvbVTRSm54=; b=IkodWosqUZFCPOpK71
+	HVQvuqlPx0iYUNR32jPRLzWieN1llnHqVwfCKgdxMwrPhPl5uA1gxSDxnGv4Cxka
+	Ou2sjHe135dOGsIL12KqJ9Em7HBNpTJties+ZT5Hyj57ZDNmcyFY0YmIEX7FAZrz
+	yAURd9yZzVOPD0KqR86GRkto4=
+Received: from QD202103290168A.neusoft.internal (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wCnJIkbYGxq6spFNA--.56958S2;
+	Fri, 31 Jul 2026 16:43:10 +0800 (CST)
+From: Jianing Li <m13940358460@163.com>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: Iskren Chernev <me@iskren.info>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Matheus Castello <matheus@castello.eng.br>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jianing Li <m13940358460@163.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] uprobes: Fix NULL pointer dereference in hprobe_expire()
-Message-ID: <amxgF3S7jfmjHvPv@redhat.com>
-References: <20260729-uprobe-v1-1-61896b87c867@debian.org>
- <amokG13tEnA7VVVf@redhat.com>
- <CAEf4BzYON57L_HD71qUOdRdni_=1S-Xomz27PeDBxbbXDy0Jug@mail.gmail.com>
- <20260730085421.d455361164695270bd764a4b@kernel.org>
- <20260730103824.GD751831@noisy.programming.kicks-ass.net>
- <20260731095652.fc5d64f8c122d7dc6ddd89be@kernel.org>
- <20260731083039.GD776954@noisy.programming.kicks-ass.net>
+Subject: [PATCH] power: supply: max17040: drop incorrect I2C functionality check
+Date: Fri, 31 Jul 2026 16:42:59 +0800
+Message-Id: <20260731084259.916-1-m13940358460@163.com>
+X-Mailer: git-send-email 2.23.0.windows.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260731083039.GD776954@noisy.programming.kicks-ass.net>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCnJIkbYGxq6spFNA--.56958S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Cr43Jr4xtr4xXrW7Kr4Uurg_yoW8ArWxpa
+	n8GrnxKrWjqr4q93yDtw4UAFy5GayrArW3KFyvy3sI9anrJrW0yF98trW2kFW7Jr93ZanF
+	vrZ7ta45CrsxC37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRFzuQUUUUU=
+X-CM-SenderInfo: jprtmkaqtvmkiwq6il2tof0z/xtbC+x7UD2psYB5M+gAA3w
 
-On 07/31, Peter Zijlstra wrote:
->
-> On Fri, Jul 31, 2026 at 09:56:52AM +0900, Masami Hiramatsu wrote:
-> > On Thu, 30 Jul 2026 12:38:24 +0200
-> >
-> > Either way works. Can we update MAINTAINERS file if you will maintain
-> > uprobe in tip tree?
->
-> Well it is in kernel/events/ which MAINTAINERS should already assign to
-> me, no?
+max17040_probe() rejects adapters that do not advertise
+I2C_FUNC_SMBUS_BYTE. The driver does not issue SMBus byte transactions,
+however. Its regmap has 8-bit registers and 16-bit big-endian values, for
+which regmap-i2c supports either raw I2C transfers or SMBus word-data
+transactions.
 
-Confused... you are already listed as a maintainer. From MAINTAINERS:
+Consequently, an adapter providing raw I2C transfers or SMBus word data
+but not SMBus byte transactions is rejected even though regmap can access
+the device. Conversely, the current check can pass an adapter that regmap
+cannot use.
 
-	UPROBES
-	M:	Masami Hiramatsu <mhiramat@kernel.org>
-	M:	Oleg Nesterov <oleg@redhat.com>
-	M:	Peter Zijlstra <peterz@infradead.org>
-	L:	linux-kernel@vger.kernel.org
-	L:	linux-trace-kernel@vger.kernel.org
-	S:	Maintained
-	F:	arch/*/include/asm/uprobes.h
-	F:	arch/*/kernel/probes/uprobes.c
-	F:	arch/*/kernel/uprobes.c
-	F:	include/linux/uprobes.h
-	F:	kernel/events/uprobes.c
+Drop the stale check and let devm_regmap_init_i2c() validate and select
+the supported transfer method.
 
-Oleg.
+Fixes: c6f4a42de60b ("Add MAX17040 Fuel Gauge driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jianing Li <m13940358460@163.com>
+---
+ drivers/power/supply/max17040_battery.c | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/drivers/power/supply/max17040_battery.c b/drivers/power/supply/max17040_battery.c
+index 98d34d5f3c80..b641d7387311 100644
+--- a/drivers/power/supply/max17040_battery.c
++++ b/drivers/power/supply/max17040_battery.c
+@@ -470,16 +470,12 @@ static const struct power_supply_desc max17040_battery_desc = {
+ static int max17040_probe(struct i2c_client *client)
+ {
+ 	const struct i2c_device_id *id = i2c_client_get_device_id(client);
+-	struct i2c_adapter *adapter = client->adapter;
+ 	struct power_supply_config psy_cfg = {};
+ 	struct max17040_chip *chip;
+ 	enum chip_id chip_id;
+ 	bool enable_irq = false;
+ 	int ret;
+ 
+-	if (!i2c_check_functionality(adapter, I2C_FUNC_SMBUS_BYTE))
+-		return -EIO;
+-
+ 	chip = devm_kzalloc(&client->dev, sizeof(*chip), GFP_KERNEL);
+ 	if (!chip)
+ 		return -ENOMEM;
+-- 
+2.50.1
 
