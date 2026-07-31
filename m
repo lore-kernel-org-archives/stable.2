@@ -1,247 +1,167 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB4346F483
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 18:23:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C3B369D54;
+	Fri, 31 Jul 2026 18:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785522233; cv=none; b=NCbXTdMWgeiFqVJ5esO507fYch50o1nJr9I70+p91A6wiGn0ftKGeoVn/COSWnnQZ/y45K67Oi5SV7XgUa0/fX8ychs3p/Q7e8dxYU77KB+lxKKfq+IhZG7sg4qZmZZdd0MfyqXBSYB/gQz8Gjx622YZhw2YxZd3jUYYOdTiap4=
+	t=1785522357; cv=none; b=nLUclYOwa7R65t4dJRdfNG9xS6ur0eMh2PFmnOK/xYLk+pms0VUNtNdKIZ6Ax6mzNs01R87rWEhnfXCN6IirG3g07aLlIfEm8ESVVnC3RYhQdS8Q2choPF9KH2PnmWPnwp1sgLG0lALvxaPKK2JCmThcEXllEn61tVtbcq4skEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785522233; c=relaxed/simple;
-	bh=Ylggv5ukM9cL+Qy7BuVA8yvNM4fwEAff5bDtks1Oxh4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=V+5egxfnw0K35ZnJhzanzel1eAstoA+hppNkIpQd41jKw9Ei5RNM8s8GsxZOaV30VXKEZ7Me1ityQwr68JUljTMTlzLWvtDXGau1/qxFCxL2HW8szBvxOCTdsAHbjeSp7EGXWdy4LvFFTHHUzsDKZDIiSqX6B/jOqzV8BxxyRh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KACdZtun; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q9QTO2sb; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785522357; c=relaxed/simple;
+	bh=5hrjQvx8iD4ZGilQxrqNhRE8ZL0ZwlJeVccvLXrcZpE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RGGBcxxEtxpMKaYiSi5+SZD1KpikqSopt3TBHSCtNd1vivZ5oMKTOp2ioJfXjDy9s/H/U1FWRqSRQ6UodcENo7r3VNbnng/mPhtXLDu2LGdQAuoT6ohnPWjo5Kmumyy6T4EUYzCRLvOk/IwEL140lMokhh37P971aaNiPWjbnr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=rPeux+L8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=DQIAn15P; arc=none smtp.client-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KACdZtun";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q9QTO2sb"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VFO0Ha106205
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 18:23:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	VzhVX5WD0XnAhIfnqoRt17YMyLSYbQFbZtW3hEYJn9o=; b=KACdZtunScbY3WjR
-	ly0OgQTN/c8pVWn0akOLzuHG1kXPhhpvYlxWXu4vT2q7cYuxNsypdFteYk1XS/Rj
-	KjHxPq9jIXHtEe+mFtBe4mr+wkPjXCbYEe8haKFZcB/z0V7ToOBBKCJjShGRw0US
-	YuL/VwXQP0zawVayFL9+hN+uDnSbQnSJgheJxzHYN5dFXqVcOb3J1Ev4QApiWtnu
-	bLBMC/GkONPlibOFmzg5JFUosVtzTQcX/Z4qwdARnBFr7C2N6D2ZHowrP6uvdzJZ
-	Q1fBOwPKu+IlFzPXMl/9LJnv9An/845Ic4WCK4yZRdTbCAN3lJ4w/+ouaBoQ9e3F
-	qJzqkg==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fru2u1ue4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 18:23:50 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cb6cf425e86so1472649a12.1
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:23:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785522230; x=1786127030; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VzhVX5WD0XnAhIfnqoRt17YMyLSYbQFbZtW3hEYJn9o=;
-        b=Q9QTO2sbMRmtqZSdbQyfG1ssoncIVsRpl88xjgocOLL4FjrgIxrd5ax//hRAqi8qh3
-         UbR9PnZBKPFJsvKT23jQh4YYhwarpvJ3KQQ8NaF9VmHhBPba8/qw0QnTgdwmJTJRPEa2
-         bYjTXVGrB32+V6xRWdFhvpaXoQ/wUCR82R0LAku0BgzuvcwKlZ2EVqtfQhBTdm/u7o9T
-         EUug2XDeIa04RWoN+CxNKHIngjlqZV/oRo5EC+kOiNLzy3nmFnwZYH9Kf0GjhY72qzUg
-         Da0pGRoHSmKW1olyk+QJKdmNQlvWGEaFtrGnZKwe+9z5xaoFyP4cHibPMSGmkkk0V1u6
-         DSgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785522230; x=1786127030;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VzhVX5WD0XnAhIfnqoRt17YMyLSYbQFbZtW3hEYJn9o=;
-        b=OL+qxDSPDhNBgZrDBPIoG+1UluQMxr1i6rV+2x5giGlkmQnYNUAiwU44IR6witAIF0
-         vF8D6wF5pP7n4qVJ9iaMgyIGukCi5S3B9MHiw+5yoq+NOodP2TVOtQWtrDHypTc4XaYl
-         g9dV2awdKom+LIXmAgq9CBk3ho3basjY9hzEGxR2JTk+o9eCK8LzKJOP3iGZo/OdiZi8
-         4vmToa7HCOaJepXJZztHbUYcTuiZ8QuLKPsxdXk1nyEaHLIcuBhnHBZpZx8BbC+SRib9
-         IJaxnT9TAo/7LhNZuTKwIOxR2zsh32psn+Vp2qdVlsnZEJ9QKByWp8Qd1aJkIARarN6g
-         ImbA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpj6FaZLW9PzWKC0LOffRi2WpSYu7valMLOyPwk85EDH1Z2+bU9gEJNXh3AO8MztC9ZSLx0UBE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw//Jz4rygS+IuDbxolvSsq0yq62fTcfcU4UUyl0BQnTWxZWB04
-	gbgTMfK12DS3AuwoXFMj2/Edx/r9vIBhCw1WC6t672fCH/AQETjGXM93tIxpvjEDWQkZCGIlJKG
-	17Pr0gCbMT83MSqAQsUs43R9mxgANMbf4jIS2QSNa6Lpd7MF/NzhjBeYQJVA=
-X-Gm-Gg: AR+sD12wgwGwPg4ylBW4a159exrLf5yCot2ZQrBZjF65hbZAcjUPZfIAEX9ig1AgQot
-	K/BGCVRC1yHUYunygj2hzGfImPhu6x3JaglDE41ae55sqAHSiBaYE3+iEZpD0Y5vU1Elm5JuVxY
-	zhF0EYK0dzKa/qQogrpcx9iObBRRxSd+tZUMyW1UcBAs8cAu6TzWOoZxTR2k2yqvEy62IncmRMi
-	FQDVc0RYf8jr5M6BkopQzs2NUaIhU8K4MEKch/QFJT0k/AC1bPtFSGuEh2ebzd7lQsxL5PDBs/v
-	9zq1V9CbRsaqDqDHwO2h/B37iIrIJUrWbeEQQ9w3k3RT7oHwaPSXnuYjbE57+do1xkA2njNntHH
-	ASlHIfpI0ba0dnMPTsPzEFM03AsV3k9/BZc4=
-X-Received: by 2002:a05:6a20:2591:b0:3bf:9c93:ac44 with SMTP id adf61e73a8af0-3c92a5d3558mr817746637.19.1785522229741;
-        Fri, 31 Jul 2026 11:23:49 -0700 (PDT)
-X-Received: by 2002:a05:6a20:2591:b0:3bf:9c93:ac44 with SMTP id adf61e73a8af0-3c92a5d3558mr817708637.19.1785522229301;
-        Fri, 31 Jul 2026 11:23:49 -0700 (PDT)
-Received: from hu-vgarodia-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e04456dsm7203089eec.14.2026.07.31.11.23.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 11:23:48 -0700 (PDT)
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Date: Fri, 31 Jul 2026 23:52:27 +0530
-Subject: [PATCH v2 12/12] arm64: dts: qcom: sm8650: Add Iris context bank
- subnodes
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="rPeux+L8";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="DQIAn15P"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.phl.internal (Postfix) with ESMTP id BE51EEC00CD;
+	Fri, 31 Jul 2026 14:25:54 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Fri, 31 Jul 2026 14:25:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1785522354;
+	 x=1785608754; bh=VpAACdbqgoMRRMEGfSGLAzDOa8c9oJaR04sPjU09qWs=; b=
+	rPeux+L8qKZi7SRMfiKPk7z8HZOxM/cjCtLPhoa7B8db4L42Uei1gW/lQa8HyN/7
+	L9QT4jpr7UexJYPKV6AUxKEK4FGxjGGTdim8Myy2xMUSnzkODjl1Sg6oxL7JMn5Y
+	3ttuqCEhMuu7PB5WL6rObkxvrYol7H3fG0R6fGQnSOcVc3hQkKxAtKVqS0nTHEHU
+	dkkVKhrg2aER6OAj+Bm2bUcmiiBdrK7eu6USVb7FpL7bLeAWNH4ljki9VPpUj3xK
+	SjhOF1WcRqQVXmC2TmU3ckUlA0s5BsG/kmiaNK3UsHgkoalP9lNl2fSVqpw3eOVE
+	wcwFuENFbI/0jlCYP4Ls/Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785522354; x=
+	1785608754; bh=VpAACdbqgoMRRMEGfSGLAzDOa8c9oJaR04sPjU09qWs=; b=D
+	QIAn15PfdM1aYWGY2YTogtOZuFC/Vu96IPflXHCP9me03YaJoPjqBp/MLxDpUlBV
+	AGZhWM3VfTwj/4P4SktOXpF2dH+ujVqYHtQduYeAo23QLRSRVmbsSOnjsrmcosrj
+	ybH12ohi3bzev6qgsVOEA7Ri+fg6C49qcKoBtlErp/EUPUFDt36PSO5HgQzTll6Q
+	BJvTnZCn1c+QfS+yXWx5u9I05hHw//K+pvTGLg8htWz5GR+YHIcGUnLFXx0TxSCD
+	KofPg9b1Ykssr8NLyIYoR6pUfho1Bik1CBbsRFsBtZxEd8m/pxFYKSajCL3AxBdq
+	svvPsfiep9DOj3y0gdiog==
+X-ME-Sender: <xms:sehsagE3TPbilb0_Dqvg-M7iHpiCBf4O3bPHxvfS7Xub_tUa0B-N8A>
+    <xme:sehsao6Q6Ig8gDx8EL6vwGlyBoWp_X_GjDHX7WLkWCcPQ-g-sZrcS2JjpQWwcAUtG
+    oyxBnFu5MYFUwH0IG5Qtx84xiH7wzN43mUhLoB4VS1V1o_qlzDN7MGU>
+X-ME-Received: <xmr:sehsauezSIY9iJzYWNSLUGasSNFy03TvVTvRMXRSVvgkhS2pWsGkBPOBYiXDgkvpBbz1PEdi6iIk-iiINeJxTOOmA8YdMLg>
+X-ME-Proxy-Cause: dmFkZTFQPpKbqkOATKwKJ3fqlldu1+bwpEwGWqF0uPl515rMbwU0CsJuHcYKpYfu9DdlgR
+    lOviYcTMc7rBrXZ0cXNaL/4RwcxTfWqik2GTJeaSLO7f8a4+DAazghdEBuMYNycdOpADM2
+    9yJrjGY9icJ2L3s4FUldGoFp75xtZNwkGtyC3oxyQx2PvTNoMehUzjvkhCgCq6m3IL+1Ii
+    9Apzm/ubd7nUQ7l4GkC0a2IvA1Ou4ipK+E0qoOiv4pCWZ9bK9Dgb0hQoF1zuNRfRod2Ztx
+    3d6j0IF2MdcLngNcaw+TFCLoN9dknSbszSeHV6xokAS4giVmnC1DcXOsvmJbVdrLB20qmz
+    5qTiA3mWQJn8Q8ROo/4hOheJ5pP7+5iat776+p1tRx5t7C2kyVif+gBSu8OB7JCGYKEHgD
+    IEtsu3d6e6vyRFG07aBJGhcLKdQpCupmK7dPdXAIqM2NPHlGj+RkN9jjvL0598p9fJnEIk
+    RHpDBcvwrc5LdSuDv5dzFVqCV9YtflDSwW9NDYtuV4rZlsGuGgJo/52U0rMT0R4pgZNwTx
+    sjSgD2EjRXfMxXNmp4E8VgcudevygXtN1qHaHC0IBOOFnnnrDU9A55BvXrUXWyJkf6FtQu
+    JU8tadvmBg+1v4VThNJtdTY/bpOQWLoKWg8+DH9GX2anRBtrRrFPAgTEdsIg
+X-ME-Proxy: <xmx:sehsakmjaupJUhUXsAJyYid3JiM9LhdZWAXaNVvZdn-TYM8TQr4Now>
+    <xmx:sehsaj-tIrZgSq1zAtn0EFn6cqUNZPvN6pEwWNs4TIufC3v5Gh7uCQ>
+    <xmx:sehsaqFys5MuPeK2nyiSuGb3lwX_UbIgm1FOyECP5doNVcV81pH4oA>
+    <xmx:sehsanIUlxNFVXEn_mc0Zlhk12azjqktH-TnhomPQnKtlPAWeSbudA>
+    <xmx:suhsakTJ7_PhVNS0xfk5CqUMNsTNgt7AfohotVdSkLgsiWMijlah-Tas>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 31 Jul 2026 14:25:52 -0400 (EDT)
+Date: Fri, 31 Jul 2026 20:25:50 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: xuanqiang.luo@linux.dev
+Cc: linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
+	paul@pbarker.dev, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	richardcochran@gmail.com, masaru.nagai.vx@renesas.com,
+	sergei.shtylyov@cogentembedded.com,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH net v1] net: ravb: fix use-after-free in ravb_get_ts_info
+Message-ID: <20260731182550.GA3091634@ragnatech.se>
+References: <20260731063254.71260-1-xuanqiang.luo@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-vpu_iommu_iova_handling-v2-12-da52b5228dbd@oss.qualcomm.com>
-References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
-In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
-To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        stable@vger.kernel.org, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Daniel J Blueman <daniel@quora.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785522138; l=3736;
- i=vikash.garodia@oss.qualcomm.com; s=20241104; h=from:subject:message-id;
- bh=Ylggv5ukM9cL+Qy7BuVA8yvNM4fwEAff5bDtks1Oxh4=;
- b=J/81NlQ0HTG3zYB4u+otyNn1pTWp4eMXgVHr2h5/hboHaAJFIDc4FrrsBS5BFTm9bCTQv1E5A
- 47MQ/1wRgikAMTj55617cAmwAxwm6EwsDa6ncplR1Rqu+jh6gFc0F+Z
-X-Developer-Key: i=vikash.garodia@oss.qualcomm.com; a=ed25519;
- pk=LY9Eqp4KiHWxzGNKGHbwRFEJOfRCSzG/rxQNmvZvaKE=
-X-Proofpoint-ORIG-GUID: FKVYe3EUEVI-Lap2dbvr6YlOrxVge3xG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDE0MSBTYWx0ZWRfXzgIaVXOcMDnU
- KUSvnidzOdoA+BNN2ASlw+qfLRehoMdYgWtagoymHu/0kCv4ylr/zz4aVO/mPtazzfoozmAOopY
- VfcELvHtqJ4qbHf0FEVDSzYb5P4J2AMKJQI9psaP/tEPQwXPeOCdgxaRongpuRtIYHlTgU3dcyQ
- DKqsCSNAE2vug3jty8N1w8nqjsPdn8Qxj+hOsnF2OIbWNSzV/pk+uLQT3/FcJgJRqgCzyQ75kfu
- tMoCjXJw3jFMn6YMRBIxirUaNioHnIeo+Dt9GpHz3KVJu5877fhPbk2MILEh+UtCXXUs9Tkangt
- DRYhDtK20NXH7aebz293eeso977VSyqAMh1wX7+Zs1TbDZxg38iBVSR3JJu1rEZju1ZY4RYFbpE
- BHbE5hz9iQFA1Wbph0OdYU4bcsTX2Dr822ZS2+88agAJBc+eiTnIh4nxa+PCSeBJkqqkxs+k3gL
- nokrItbCOhU4IDCETXA==
-X-Proofpoint-GUID: FKVYe3EUEVI-Lap2dbvr6YlOrxVge3xG
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDE0MSBTYWx0ZWRfX2cY+bQ1OerJm
- SLslu2tugPF8NBma7RfsYp8PRKXrBzpjBa/qXcwKoOHoz7HLhJ952DsOzhmPJC6RTej958Wzf37
- ng7tskyIx0bsJXABMR+IP9NBDKtHCE8=
-X-Authority-Analysis: v=2.4 cv=b+uCJNGx c=1 sm=1 tr=0 ts=6a6ce836 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=t9ty7G3lAAAA:8
- a=v0Z7u7uCyoCEKL_A5NIA:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
- a=Vxmtnl_E_bksehYqCbjh:22 a=CsAS6f0m0zARWR-uHzm3:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_05,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 adultscore=0 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 malwarescore=0 phishscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310141
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260731063254.71260-1-xuanqiang.luo@linux.dev>
 
-The VPU issues DMA through several SMMU streams, and the hardware does
-not give every stream the same addressable range. The non-pixel stream
-is restricted to use 0-600MB of IOVA space, while the pixel stream can
-address the full range:
-    +-----------------------------------------------------------+
-    | non-pixel stream addressable range (600 MB - 3.5 GB)      |
-    | 0x25800000 - 0xe0000000                                   |
-    +-----------------------------------------------------------+
-    | pixel stream addressable range (0 - 3.5 GB)               |
-    | 0x00000000 - 0xe0000000                                   |
-    +-----------------------------------------------------------+
-A single "iommus" property on the video-codec node puts every stream in
-one IOMMU domain sharing one IOVA allocator, so nothing keeps a
-non-pixel buffer above 600 MB. Once an allocation lands below that
-boundary the hardware faults, which shows up as unhandled SMMU page
-faults and spontaneous reboots:
-https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+Hello Xuanqiang,
 
-Describe the two streams as "non-pixel" and "pixel" subnodes so each gets
-its own IOMMU domain, with stream 0x1940 becoming non-pixel and 0x1947
-becoming pixel. Point the non-pixel subnode at a reserved-memory node
-whose "iommu-addresses" covers [0, 0x25800000), which excludes the low
-600 MB from that domain's IOVA allocator and keeps its allocations above
-the boundary the stream can address. The reservation node carries no
-"reg", so it is a pure IOVA carve-out rather than a memory mapping. The
-pixel stream is left free to use the whole range.
+Thanks for your work.
 
-The video-codec node also gains '#address-cells' and '#size-cells' of 2,
-which set the cell widths used to parse the "iommu-addresses" entry that
-refers to the non-pixel subnode, and an empty "dma-ranges" declaring the
-1:1 DMA translation into the parent. Both are described in the common
-schema change.
+On 2026-07-31 14:32:54 +0800, xuanqiang.luo@linux.dev wrote:
+> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> 
+> The PHC is registered by ravb_open() and unregistered by ravb_close().
+> However, ravb_ptp_stop() leaves priv->ptp.clock pointing at the freed
+> clock. Since the netdev remains registered after ndo_stop, get_ts_info
+> can still pass the dangling pointer to ptp_clock_index(), resulting in a
+> use-after-free.
+> 
+> Clear the pointer after unregistering the clock and only query the index
+> while a clock is registered.
+> 
+> Fixes: a0d2f20650e8 ("Renesas Ethernet AVB PTP clock driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> ---
+> I don't have access to RAVB hardware to reproduce the issue. To aid
+> review, see the similar PHC lifetime fix merged as commit 8da13e6d63c1
+> ("net: macb: fix use-after-free access to PTP clock").
+> 
+>  drivers/net/ethernet/renesas/ravb_main.c | 3 ++-
+>  drivers/net/ethernet/renesas/ravb_ptp.c  | 5 ++++-
+>  2 files changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
+> index 5f88733094d0f..3a9d9f8718216 100644
+> --- a/drivers/net/ethernet/renesas/ravb_main.c
+> +++ b/drivers/net/ethernet/renesas/ravb_main.c
+> @@ -1779,7 +1779,8 @@ static int ravb_get_ts_info(struct net_device *ndev,
+>  			(1 << HWTSTAMP_FILTER_NONE) |
+>  			(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
+>  			(1 << HWTSTAMP_FILTER_ALL);
+> -		info->phc_index = ptp_clock_index(priv->ptp.clock);
+> +		if (priv->ptp.clock)
+> +			info->phc_index = ptp_clock_index(priv->ptp.clock);
 
-Fixes: 56cf5ad39a55 ("arm64: dts: qcom: sm8650: add iris DT node")
-Cc: stable@vger.kernel.org
-Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Tested-by: Daniel J Blueman <daniel@quora.org>
-Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/sm8650.dtsi | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+While this avoids the lifetime issue, the fix is incomplete. The info 
+structure will still report HW clock support but there is no PTP clock 
+index.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-index 9ecbc0010694faf8005eabdeb033efe630f95037..6fccd8a886ec0aaa42e20b7a20333a7b77c31b48 100644
---- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-@@ -1905,6 +1905,10 @@ llcc_lpi_mem: llcc-lpi@ff800000 {
- 			reg = <0 0xff800000 0 0x600000>;
- 			no-map;
- 		};
-+
-+		iris_resv: reservation-iris {
-+			iommu-addresses = <&iris_non_pixel 0x0 0x0 0x0 0x25800000>;
-+		};
- 	};
- 
- 	smp2p-adsp {
-@@ -5275,11 +5279,12 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
- 				      "xo",
- 				      "core";
- 
--			iommus = <&apps_smmu 0x1940 0>,
--				 <&apps_smmu 0x1947 0>;
--
- 			dma-coherent;
- 
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			dma-ranges;
-+
- 			/*
- 			 * IRIS firmware is signed by vendors, only
- 			 * enable on boards where the proper signed firmware
-@@ -5287,6 +5292,15 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
- 			 */
- 			status = "disabled";
- 
-+			iris_non_pixel: non-pixel {
-+				iommus = <&apps_smmu 0x1940 0x0>;
-+				memory-region = <&iris_resv>;
-+			};
-+
-+			iris_pixel: pixel {
-+				iommus = <&apps_smmu 0x1947 0x0>;
-+			};
-+
- 			iris_opp_table: opp-table {
- 				compatible = "operating-points-v2";
- 
+I have a pending series which cleans up most, if not all, of this issue.  
+Could you check [1] and see if that covers your concern? I will post a 
+new version of that series as soon as vacation time is over and the Gen4 
+PTP driver itself is merged.
+
+1.  https://lore.kernel.org/all/20260610102432.3538432-1-niklas.soderlund+renesas@ragnatech.se/
+
+>  	}
+>  
+>  	return 0;
+> diff --git a/drivers/net/ethernet/renesas/ravb_ptp.c b/drivers/net/ethernet/renesas/ravb_ptp.c
+> index 226c6c0ab945b..fc8c601ed3a5e 100644
+> --- a/drivers/net/ethernet/renesas/ravb_ptp.c
+> +++ b/drivers/net/ethernet/renesas/ravb_ptp.c
+> @@ -337,5 +337,8 @@ void ravb_ptp_stop(struct net_device *ndev)
+>  	ravb_write(ndev, 0, GIC);
+>  	ravb_write(ndev, 0, GIS);
+>  
+> -	ptp_clock_unregister(priv->ptp.clock);
+> +	if (priv->ptp.clock) {
+> +		ptp_clock_unregister(priv->ptp.clock);
+> +		priv->ptp.clock = NULL;
+> +	}
+>  }
+> -- 
+> 2.43.0
 
 -- 
-2.34.1
-
+Kind Regards,
+Niklas Söderlund
