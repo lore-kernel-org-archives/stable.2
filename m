@@ -1,146 +1,270 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B4D40099D;
-	Fri, 31 Jul 2026 13:10:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CEB427A10;
+	Fri, 31 Jul 2026 13:11:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785503413; cv=none; b=W9X5l+wCHhGtpWEd/eqa/TL60ubxfK37GaIMgZe/k/tIZ5vqAj51DpALnuqsP7YAU25GpTD8ys/PzmP+12TqWPJZCIYz2D2YHMeAcPXkE0TRWfLSF60AZzf1LtMi8YHipgupQBBFksqpGZ1nz+Fo9f/yrkUKGPvB/K8jR44bK+o=
+	t=1785503507; cv=none; b=sWqgXP0XVY/54HGDMx3wgwM9rC5uPfEOV8K0yWKJdjUBMufNvz4stXZigVHnOAARAdZxRLjTV3z7g04ttx/r6rvA8mlGjhIIWexb5qcdHl1GdxpQ8OoC77sRdlVbQDSTSUOuVi5B+vK11hLDoEl4jWmnYQnAI6G4lIASiJtmm6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785503413; c=relaxed/simple;
-	bh=9WVkLD2lLcg0SFcbtY3rhbmFcO0wynNwKdmGgeYUQz0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=j/jCzTap24AzDTKFKs0PwkNQPW4jtPjLG+Yeood/WY4Z+B0Wt6w2fJ+1lafD+wl2+mRA6k+zwrxXPCrXVtFaIsJvkzoRYvSdd1sSOe/VifDswBfcZTfVF3SiPbHxjTWfQmkn940WU+pPEr0X+sVFHZnNlc5IucJKArbfrh3qWRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de; spf=pass smtp.mailfrom=jaseg.de; dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b=YkLoNMaH; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fWVsSrV/; arc=none smtp.client-ip=202.12.124.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
+	s=arc-20240116; t=1785503507; c=relaxed/simple;
+	bh=cdVFN5+AJoKFcNRze2Moihk7gMMfozZteDphDsr4YOE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pEyguVIfUB9xamfQ19ehV+5f3scNqVGdEK5d3RJKVvnIr4vlJf3LpfMfqFVrye516S7QxRQyYJKoxUR+GA7sAb96byF1eXz60l8JhMJ9xWlPzHoA/b9a15Cc/lfz/eIu+NWrZkXg/8+T+vs1NM3t1ScAV7BCag8ntiHazYiA4Xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l1rjptIk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b="YkLoNMaH";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fWVsSrV/"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.stl.internal (Postfix) with ESMTP id 8569F1D00101;
-	Fri, 31 Jul 2026 09:10:10 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Fri, 31 Jul 2026 09:10:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1785503410;
-	 x=1785589810; bh=0MZZibYW67xADGTAt/lSyot78KbHgOWc+Oa0nMmO+Js=; b=
-	YkLoNMaHpk47MLjfAChDj3IJN8DAEoueUAmLjjfU4Gwy1lCUbW/UmLbx91AzhsIK
-	diHVLAcZ/+32O73cem7qQuvkS0fZnJ65mTksqyDqtODLz40PoGNoeFtqX8tXp+Ds
-	m/oePy+ch00dBSh/tKKh8uZmVr/0pX/3WogZybKufLyjmonR/lPYyG1vr+J+bKXA
-	ydGyv6on30CeRcXm4Yn887FrxI03C6elYdq7IwREMN4mwju1Z9E9cMvVZfCb5pu0
-	DWQiGHXq/dofGym4l8vQsWyfEL6zQjWuAEd4WfjPdwJZKFl7CjaCvR2B1c2J7/ci
-	J5+/FEQ14YSwDvBPw34YKw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785503410; x=
-	1785589810; bh=0MZZibYW67xADGTAt/lSyot78KbHgOWc+Oa0nMmO+Js=; b=f
-	WVsSrV/nO7PK9we9ol1qxpz9iK4beucyqdrDdGSQenjX6RbdbY3F1nVLyOyiViRp
-	iAcgwzl7y81n6r5TkAgV7v5bTDZ53Qs2S+rfIJAIJrISpMLpSdySTMPhKAgR9YAq
-	Y+Ox88xaGLFJ1C3Xfqyr7f/f0osqddPSUtuAZ9PksI1Q3ZUsonDpIRwR0/M+jQB/
-	Gw2FooIBLYXcz7LdnMhSuPxXHrMxMV6YX1W08LD5RYJ4mCShUM5NZIbXXg2Tjbrq
-	+29NUACAQLuLlaRsbMUlvBOb/H4q71xRlKunN7yXmPOkxqpk5ChHwHZsDMjGWrzW
-	A6C/QbQMNZAJDwYKTaJSw==
-X-ME-Sender: <xms:sp5saraxsOlhaqGR3AjHBeO8wkzfByac6ri5piNr539PYfi-ru7y7Q>
-    <xme:sp5savXjOfWk5PpfIxcD5PQ03b9Ws-ivfhqLijnJw_h8z0QNX29OJTBQJY_HTaCoK
-    DqbDLLSktjc1PG7QAolVCleB7zA_zdyZRl2ID1X6-jclP_SXthtkQ>
-X-ME-Received: <xmr:sp5saiNd0Imt598bUzkSYMDWcBXDz9kaP4buVEhLCHOwOvjigh5IwENajEo1WziM5cnustjpjIVolBSp2Q>
-X-ME-Proxy-Cause: dmFkZTGMegkBMIH5qpuWckrHEVUojchyzO6NIccURlPweuDN5JEQfNBPKB2dx8aRw3it3i
-    NomNL1wqkeY81e/5vakyroDkM6w/fDio/T0pdAjdpFYi+Jg+yVmD6AsSDBfcEAbtqnSP2t
-    ha449OU03nVQnhvYCjWFMbLNB8Tdz/A2v0UOo7ku1DmRssgZvhtavxt18+GuAj/fFieLyY
-    wZm+pBemDfKPZ6kYaDyYI6tViNLSSHpw/6sSNQcSte+67NNpFWbI4S370yB0qyh04gxlxu
-    h+Ucl6Rv4poGjf/HB0TkxiEREK1mv2QDn5eWXCEd/mvPFuglFk2AebFTAqeX8tKYkHTEf5
-    qzmP+70NDUVeqG0u4/dPeSos8mRrEQloINL+gSeP+q57Mn+pxM7PN1Ket2GSMtoJHpxpUN
-    Bs7ko/Gks/SOa8H34E29O5lpdLhUUSSPT4V2K32ZQURt5+6E/yGNebdBSDvtpQR8Gemq49
-    SRCmcuax7RIVzD6OAF9dj/rUfOdlNLpZMOH6/uJPd7MB03HQl/SE7p0hpRNgg9Z10GFYyD
-    0T2+OXkfhhNABWud9FBAsk35h6VUx2CWOknSebIDBBrUAZsEes0i8nP1VS36hSAZJ0d1Ov
-    zcYaRv8LTZviVuJLKdVkfvKSe3ceLVO2oiH8A3RfuxFReoJHBbez4MvHgMhg
-X-ME-Proxy: <xmx:sp5sahbQSilzXWhmLhGkXI5l-pOPOPZSRL72yyGk3r_pvRsbmULSGA>
-    <xmx:sp5sap9ZHX1dnl-TFH5SZalZncJCBtC40n4U_Vc0_zt-_nqwRaPivQ>
-    <xmx:sp5saqTpY5w2zIyPqlCIhTSqz6ZBN3I36kFA6QwntOJWGUiO2SSwiA>
-    <xmx:sp5sarcLSml_57ulZxDpWZK15AEgSX3GVfPDZ6NDTVmdjf9JfGk7gQ>
-    <xmx:sp5samC0uKAiAl1Ui_ss23l64AqaG7naU3LTsIIqKpCvN9MwXOToC7IJ>
-Feedback-ID: i60a14417:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 31 Jul 2026 09:10:08 -0400 (EDT)
-From: =?UTF-8?q?Jan=20Sebastian=20G=C3=B6tte?= <linux@jaseg.de>
-To: Ulf Hansson <ulfh@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	=?UTF-8?q?Jan=20Sebastian=20G=C3=B6tte?= <linux@jaseg.de>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] pmdomain: core: Wait for device link removals before dropping genpd->dev
-Date: Fri, 31 Jul 2026 15:10:02 +0200
-Message-ID: <20260731131002.142671-1-linux@jaseg.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ivkwuomer5vsajf2lq6otpgxwqljkwooh3p7e5ne23j37pv22t@iluamo6gxmq3>
-References: <ivkwuomer5vsajf2lq6otpgxwqljkwooh3p7e5ne23j37pv22t@iluamo6gxmq3>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l1rjptIk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 913151F000E9;
+	Fri, 31 Jul 2026 13:11:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785503505;
+	bh=njAxdslaCwu+qgiLQg8pHyf0IOr9kMNfF7OhA7OHY3E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l1rjptIkxhdCbx0SBIgY4e11Qr3HBWAv0gGsQ7GR6k5tk5F56P2OgNoKJJfyV5lm6
+	 O+T7YAvwieoIhRX+K5sivTHg9VW5AZJmY/FU43xpSI0zfVBFoAj3u03qEDR6Xj2g4Y
+	 csLcnOhvmuOvpslR1oAPeSAKKKFwroeF6H8eRFA6zCDNYoj8zXmSzhraz0wbNMddIy
+	 XXo2declF8ropp8q6rObtJkIkLneOtNdcsD9GdqV9mkqsitM3Oybm+9H2KDGSe4jsD
+	 PJwDrsmv15rezD/7GBA8UIBNDCIv05MYwUz4GhrrjFTi/yHl6pT2S0ml9SxUFf7wAE
+	 awUVudkdTH6Kw==
+Date: Fri, 31 Jul 2026 14:11:41 +0100
+From: Simon Horman <horms@kernel.org>
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: netdev@vger.kernel.org, david@ixit.cz, mgreer@animalcreek.com,
+	oe-linux-nfc@lists.linux.dev, linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] nfc: trf7970a: drain timeout_work and keep
+ trf->lock valid across teardown
+Message-ID: <20260731131141.GH51943@horms.kernel.org>
+References: <20260728030716.230626-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260728030716.230626-1-fanwu01@zju.edu.cn>
 
-genpd->dev is embedded in struct generic_pm_domain and its release
-function is empty, so providers free the containing genpd with a plain
-kfree() once of_genpd_remove_last() returns, ignoring its refcount.
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260728030716.230626-1-fanwu01@zju.edu.cn?part=1
 
-Since genpd->dev is registered on the genpd provider bus, fw_devlink
-creates device links to it, and those are torn down asynchronously.
-Nothing made genpd_remove() wait for those teardowns, so the provider
-could free the memory backing genpd->dev while the queued workers still
-used it.
-
-This is reachable at boot on qrb2210, where the firmware rejects PC mode
-and psci_cpuidle_domain_probe() removes all the CPU PM domains before
-returning -EPROBE_DEFER. The bug is asymptomatic on defconfig, but shows
-up when enabling KASAN or INIT_ON_FREE_DEFAULT_ON. In some builds, it
-causes the kernel to crash a few hundred ms into the boot.
-
-Call device_link_wait_removal() before dropping the final reference. All
-link removal work is queued from device_del(), via
-device_links_driver_cleanup() and device_links_purge(), which precedes
-genpd_free_data(), and flush_workqueue() waits for it to complete.
-
-Assisted-by: Claude:claude-5-opus
-Fixes: 18a3a510ecfd ("pmdomain: core: Add the genpd->dev to the genpd provider bus")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
+Simon says; Thanks for the updates in v2. It seems that Sashiko
+            has some more feedback, I'd appreciate it if you could
+	    look over it.
 ---
-v2: remove this note from the commit text.
+--- Patch [1]: [PATCH net v2] nfc: trf7970a: drain timeout_work and keep trf->lock valid across teardown ---
+commit 759d465c2a36b8aecb984c2dddb7b2b408b93082
+Author: Fan Wu <fanwu01@zju.edu.cn>
 
-Note: This patch was LLM-assisted. I reproduced the issue and tested
-this patch on hardware, and I did my best to verify it by hand. However,
-I'm far from an expert in pmdomain, so YMMV.
+nfc: trf7970a: drain timeout_work and keep trf->lock valid across teardown
 
- drivers/pmdomain/core.c | 3 +++
- 1 file changed, 3 insertions(+)
+The patch adds cancel_delayed_work_sync(&trf->timeout_work) to
+trf7970a_remove() (between nfc_digital_unregister_device() and
+nfc_digital_free_device()) and to the probe error path, and it drops
+mutex_destroy(&trf->lock) from both paths so the mutex stays valid until
+devm releases the threaded IRQ.
 
-diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
-index 842c4169e290..4eeb980e5a40 100644
---- a/drivers/pmdomain/core.c
-+++ b/drivers/pmdomain/core.c
-@@ -2348,6 +2348,9 @@ static int genpd_alloc_data(struct generic_pm_domain *genpd)
- 
- static void genpd_free_data(struct generic_pm_domain *genpd)
- {
-+	/* Pending device link removals still reference genpd->dev. */
-+	device_link_wait_removal();
-+
- 	put_device(&genpd->dev);
- 	if (genpd->device_id != -ENXIO)
- 		ida_free(&genpd_ida, genpd->device_id);
--- 
-2.53.0
+A few questions below.
 
+> diff --git a/drivers/nfc/trf7970a.c b/drivers/nfc/trf7970a.c
+> index 60883001fa5d..37d543fd5913 100644
+> --- a/drivers/nfc/trf7970a.c
+> +++ b/drivers/nfc/trf7970a.c
+> @@ -2207,13 +2207,13 @@ static int trf7970a_probe(struct spi_device *spi)
+>  err_shutdown:
+>  	trf7970a_shutdown(trf);
+>  err_free_ddev:
+> +	cancel_delayed_work_sync(&trf->timeout_work);
+>  	nfc_digital_free_device(trf->ddev);
+>  err_disable_vddio_regulator:
+>  	regulator_disable(trf->vddio_regulator);
+>  err_disable_vin_regulator:
+>  	regulator_disable(trf->vin_regulator);
+>  err_destroy_lock:
+> -	mutex_destroy(&trf->lock);
+>  	return ret;
+>  }
+
+[Severity: Low]
+With mutex_destroy() gone, err_destroy_lock: is now an empty label sitting
+directly in front of return ret;, while its name still says a lock is
+destroyed there:
+
+	err_destroy_lock:
+		return ret;
+
+The two remaining users are the devm_regulator_get("vin") failure and the
+regulator_enable(vin) failure paths.  Would it be cleaner to turn those two
+gotos into plain return ret; statements, or to rename the label to something
+like err_out?
+
+>  
+> @@ -2228,12 +2228,11 @@ static void trf7970a_remove(struct spi_device *spi)
+>  	mutex_unlock(&trf->lock);
+>  
+>  	nfc_digital_unregister_device(trf->ddev);
+> +	cancel_delayed_work_sync(&trf->timeout_work);
+
+[Severity: High]
+Can the handler this drain waits for still complete upstream into the
+already-torn-down digital core?  This isn't a bug introduced by this patch
+(before it, the same handler could run even later, after remove() returned),
+but the commit message argues that this placement makes freeing the digital
+device safe, and that part looks incomplete.
+
+Consider a timeout handler that already started and is blocked in
+mutex_lock(&trf->lock) in trf7970a_timeout_work_handler() while remove()
+holds the lock.  trf7970a_shutdown() completes the command once through
+trf7970a_send_err_upstream(), which uses the non-blocking cancel:
+
+drivers/nfc/trf7970a.c:trf7970a_send_err_upstream() {
+	...
+	cancel_delayed_work(&trf->timeout_work);
+	...
+}
+
+For an already-executing handler that returns false, and the return value is
+discarded, so trf->ignore_timeout stays false.  Neither
+trf7970a_send_upstream() nor trf7970a_shutdown() clears trf->cb or
+trf->cb_arg.
+
+The handler is then released by the mutex_unlock() just above and, with
+state TRF7970A_ST_PWR_OFF and ignore_timeout false, takes the final else
+branch and does a second, stale completion:
+
+drivers/nfc/trf7970a.c:trf7970a_send_err_upstream() {
+	...
+	trf->cb(trf->ddev, trf->cb_arg, ERR_PTR(errno));
+}
+
+trf->cb is digital_send_cmd_complete() and trf->cb_arg is the digital_cmd
+that nfc_digital_unregister_device() just freed:
+
+net/nfc/digital_core.c:nfc_digital_unregister_device() {
+	...
+	cancel_work_sync(&ddev->cmd_complete_work);
+
+	list_for_each_entry_safe(cmd, n, &ddev->cmd_queue, queue) {
+		list_del(&cmd->queue);
+		...
+		kfree(cmd);
+	}
+}
+
+net/nfc/digital_core.c:digital_send_cmd_complete() {
+	struct digital_cmd *cmd = arg;
+
+	cmd->resp = resp;
+	...
+	schedule_work(&ddev->cmd_complete_work);
+}
+
+So the stale completion writes cmd->resp into freed memory and re-queues
+ddev->cmd_complete_work after the core already did its single
+cancel_work_sync(), and nfc_digital_free_device() frees ddev on the next
+line.  __cancel_work_sync() re-enables the work after flushing, so nothing
+blocks the re-queue.
+
+Would neutralising the upstream completion during teardown help here, for
+example clearing trf->cb/trf->cb_arg (or setting ignore_timeout / a
+"removing" flag) under trf->lock in the shutdown path, or draining both
+before and after nfc_digital_unregister_device()?
+
+[Severity: High]
+Is this drain the last event that can arm timeout_work?  This is also a
+pre-existing problem rather than something the patch introduces, but the
+TRF7970A_ST_LISTENING_MD state seems to escape the new drain.
+
+trf7970a_shutdown() does not handle that state:
+
+drivers/nfc/trf7970a.c:trf7970a_shutdown() {
+	switch (trf->state) {
+	...
+	case TRF7970A_ST_IDLE:
+	case TRF7970A_ST_IDLE_RX_BLOCKED:
+		trf7970a_switch_rf_off(trf);
+		break;
+	default:
+		break;
+	}
+	...
+}
+
+TRF7970A_ST_LISTENING_MD, set by _trf7970a_tg_listen(), falls into
+default:, so RF is never switched off and trf7970a_power_down() bails out
+(its return value is discarded):
+
+drivers/nfc/trf7970a.c:trf7970a_power_down() {
+	if (trf->state != TRF7970A_ST_RF_OFF) {
+		dev_dbg(trf->dev, "Can't power down - not RF_OFF state (%d)\n", trf->state);
+		return -EBUSY;
+	}
+	...
+}
+
+The chip stays enabled and its threaded IRQ stays registered until devm runs
+devm_free_irq() after .remove() returns.  trf7970a_irq() only short-circuits
+on TRF7970A_ST_RF_OFF, so an interrupt in that window reaches:
+
+drivers/nfc/trf7970a.c:trf7970a_irq() {
+	...
+	case TRF7970A_ST_LISTENING_MD:
+		if (status & TRF7970A_IRQ_STATUS_SRX) {
+			trf->ignore_timeout = !cancel_delayed_work(&trf->timeout_work);
+			ret = trf7970a_mode_detect(trf, &trf->md_rf_tech);
+			...
+				trf7970a_drain_fifo(trf, status);
+	...
+}
+
+and trf7970a_drain_fifo() re-arms the work:
+
+	schedule_delayed_work(&trf->timeout_work,
+			   msecs_to_jiffies(TRF7970A_WAIT_FOR_RX_DATA_TIMEOUT));
+
+Nothing drains it a second time, so the re-armed work can fire after devm
+frees the devm_kzalloc()'d trf, and the same IRQ path dereferences
+trf->ddev, which nfc_digital_free_device() freed on the next line.
+
+Separately, the same shutdown gap looks like it leaks a VIN enable
+reference: probe enables vin once and trf7970a_power_up() enables it again,
+against the single regulator_disable(trf->vin_regulator) in remove().
+
+Should TRF7970A_ST_LISTENING_MD be added to the shutdown switch (and the
+power_down() failure be handled) so the drain is really the last arming
+opportunity?
+
+>  	nfc_digital_free_device(trf->ddev);
+>  
+>  	regulator_disable(trf->vddio_regulator);
+>  	regulator_disable(trf->vin_regulator);
+> -
+> -	mutex_destroy(&trf->lock);
+>  }
+
+Simon says: I believe the issue below was discussed indirectly in the
+            review of v1. And the behaviour described below is expected.
+
+[Severity: Low]
+This isn't a bug, but the correctness of dropping mutex_destroy() now rests
+on an invariant that is not recorded anywhere in the file: devm reverse-order
+release must run devm_free_irq() (registered in trf7970a_probe() after the
+devm_kzalloc() of trf) before trf itself is freed.  The ordering as written
+today is fine, but a future change that moves devm_request_threaded_irq()
+ahead of the devm_kzalloc(), or converts trf to a non-devm allocation,
+silently brings back the use-after-free with no comment and no build-time
+check.  Removing mutex_destroy() also drops the CONFIG_DEBUG_MUTEXES
+use-after-destroy check for this lock.
+
+Would an explicit devm_free_irq()/disable_irq() at the top of
+trf7970a_remove() (which synchronises the handler and lets mutex_destroy()
+stay), or devm_mutex_init() so the mutex teardown is itself devm-ordered, be
+preferable to relying on the implicit order?  Either way, the threaded IRQ
+handler can still run during and after .remove(), taking trf->lock and
+driving a device that trf7970a_shutdown() already powered down and
+pm_runtime_disable()'d.
+
+>  
+>  #ifdef CONFIG_PM_SLEEP
