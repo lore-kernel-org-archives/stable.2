@@ -1,372 +1,154 @@
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA5142125A;
-	Fri, 31 Jul 2026 10:37:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA604409285;
+	Fri, 31 Jul 2026 10:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785494261; cv=none; b=bMORoB1h7sDsomLAet14MtSI73YLZXVHNV4NgkAMbOsYQFA1m1BENZfe7jnm8jcKGbQD4YfCsT26wFEeMzF6fWUGuWapn3kjreOeZdnJjwABavTlYlq/UnpyBicmGysE8CAUoDqP/9nFHrq7SiCfk54CNM5kt5I3tVnpT5Ri7vI=
+	t=1785494369; cv=none; b=KstPdSrLopsKh299ZVxJV9EUQLbZVyDMwE9JcYwhe3zpGCX6UpyyMQgEMKBpgY6TCaAYDVgbBBv/ihf+WmtZnR2QqsS8JyPZFUFhAI3XQud4uvcG3CGuw5WCbfKyiPFdM1JThueaEoaZI3s8zao11G9ZmosSqL2lo0QhjgIrR7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785494261; c=relaxed/simple;
-	bh=1ENRNZqPXTi+Zd9+e8E9Q4ptr68mQpW6vTXswLen7pE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yrly0iYCoxIlLqT12XpCxAkDwR4xUUE8iP+t2GrYTatM8w7ew/9SGYF+NmBcB0+4fkY70aXQg4/Xl2EbYJ51fcbjkbBSEcMmgHX6EfbwJpQzN1azbYJwryseVIWwBIcLveNc43SvYoeC5sikeGqNbxC/t1vWG+HUT0G2kRRqMv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bupt.cn; spf=pass smtp.mailfrom=bupt.cn; arc=none smtp.client-ip=54.243.244.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bupt.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bupt.cn
-X-QQ-mid: zesmtpsz5t1785494171t497212cc
-X-QQ-Originating-IP: UNpmxZsAsOd0d37BzO6EmqRJvr6hTvD9x06sUwlu0HA=
-Received: from localhost.localdomain ( [59.110.124.154])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 31 Jul 2026 18:36:05 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3242020096134969728
-EX-QQ-RecipientCnt: 10
-From: Weisson <hanxiaobupt@bupt.cn>
-To: josef@toxicpanda.com,
-	axboe@kernel.dk,
-	ming.lei@redhat.com
-Cc: peiyang_he@smail.nju.edu.cn,
-	kwolf@redhat.com,
-	linux-block@vger.kernel.org,
-	nbd@other.debian.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Weisson <hanxiaobupt@bupt.cn>
-Subject: [PATCH] nbd: fix race between nbd_pending_cmd_work and socket teardown
-Date: Fri, 31 Jul 2026 18:35:45 +0800
-Message-ID: <AB3B062B219F1F0D+20260731103544.678665-2-hanxiaobupt@bupt.cn>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <3B61C69B231FBBB5+d21e6eaa-7979-45e0-b378-d60adaff7295@s
-    mail.nju.edu.cn>
-References: <3B61C69B231FBBB5+d21e6eaa-7979-45e0-b378-d60adaff7295@s
-    mail.nju.edu.cn>
+	s=arc-20240116; t=1785494369; c=relaxed/simple;
+	bh=hBzGcNfy4yMUhjRYSg83TsCtTHIlzcY6hhXqNbsEgfI=;
+	h=Message-ID:From:Subject:Date:MIME-Version:Content-Type:To:Cc; b=Q4zkmmM/123wnSjUpQFtUqTmuj+gFDL3OzWwugEemNzo52b1GzLg9QGeqE74nRKITbv9AoOv6LHoAXX91r97qRTabfXvHH0UMOMsNXq+0IlObGDrRV2zu4Im45KHPYHIu/fPS8V5as9Zbx82mQVLtfv3JJ12yL3tBuqbXtKlMUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=QAUKIBga; arc=none smtp.client-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="QAUKIBga"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1785494352; bh=+7+m3dklN5BRrQFNvyT5Rxwt8KoxsY+mXnt8BW9089c=;
+	h=From:Subject:Date:To:Cc;
+	b=QAUKIBgaH5p3BV9wQ63I5oZX5qIkAAhsZvWpwcmbmu62ZLAb05m8qsPYHrPNZBC1J
+	 72VKchIav91oPuFm4xSBg4hMvCqaIbyxzoK/M5sGtcA//xUfVGtEJTdfwwUTZxdYRw
+	 GNPNUPP86fQ9tjHUoKUoJEIHowwm4zjrdDg7hNgE=
+Received: from ubuntu2204.localdomain ([2409:8d20:22b:54c:9e54:40ff:fe02:3f0f])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id 9C92DE69; Fri, 31 Jul 2026 18:39:09 +0800
+X-QQ-mid: xmsmtpt1785494349tbz9oo6kz
+Message-ID: <tencent_E25C9BE6689264E4138A464803B810FDFD09@qq.com>
+X-QQ-XMAILINFO: M2SvzgchpLqfXwvW1uM90Jo4KT6gQnEzkZrH3coZOCZPEuJOqVPZGVyCvGdGPx
+	 H3irH1LXBVGRI9xn+Mx/1Gwo+bccio4Pk6pQ8Ngu5+5+vRds6diz+1lGNmFuui9fcrzZB5XfQ4p3
+	 dBFW1LCzho6E70Yj0naK9+Gg+0IePXiZ8lHwcqggWGV5n6zYYlq8v5OcTorxGpiq8dXxjiaFDBTs
+	 74bNQb9UqjCh1hAW1knFfxwlePsBHBpEihPc8dvTQoWWTmSP8rCqov181gfzEr4ipSIMoA3QkYfd
+	 Ck9jVBh/PFEqkU/v9kRuWwfqSRVz7doekYOPYjuXUWr8VSil3j+5jUq4T6HDXFk1TTnbZRj5IIAk
+	 jueMWbhNgZbBAIp9Jmf3WfDoK5KKzw0pAACOkWn92jnJg4XjGfyWJSD7dPTKzl7a42z3/V1oL6V/
+	 +NzBbdNkGriYeskQI9YpW4uM99TrTVIxBOqU5GtVS3DxXN0UMbAEB/6/kYU50vriU3BlE3cAjAEQ
+	 q4UVgKYY1pPz73kIQQTvmXIxOk+ZpwsdTignUOqBNJGSM1kamNQkaDxX83ZX1N+gDtvlSUfnqPY7
+	 Iqyvw06gCof5xea06/bbEQveyYcw/gokd6d6R1uNEKFuDJ7SDmuRhQlKDeacM4xzd9aqUOmHA50b
+	 SMWel/ZQy8mNRblQ3UhouKIDmKUVGhVA0+wqh0JL2GrZElLheyCnTi0Eh3NTSb4sbbEdxV4RCZRw
+	 gIDFu+/zaRQJmZKig7IwiGN9YAt+pujMH/OeWM1lpsrVj/Sg8AnaEJRKF22aPMqqGihmmp1F2xVq
+	 5dmNHIMeoifs8W1i4d5f3dAkG3dTcqDXLU9h98Dy9ZQYPKe92TEFWSstvT4PkJNSKNWXN5wiQlng
+	 EXWI4gnOFU+80h8j+3ktrIchK7QCVAZhdQVikCz+XJDROiYGl5uxF6ti70rgDENOkNxdmGU/Gl2D
+	 IsfzD8WjnoAt2k4lmX+pJeTc/5Ze6h/Ke/N5Nuvy7tTKDQlZZ52+yp8z2qK0MAk8rkkMVjvh9uXU
+	 5jGUYyVcCLM+pFSnfeOzlQAOi7VffrqqrCxy4LdE9h8PEMmuJarVdtrkvZw21GqfsEnhpgou7ewm
+	 fPw/59LJ94KcMbLNc=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: Cunhao Lu <1579567540@qq.com>
+Subject: [PATCH v5 0/3] can: rockchip_canfd: fix TX stalls and races
+Date: Fri, 31 Jul 2026 18:39:02 +0800
+X-OQ-MSGID: <20260731-master-v5-0-5b27029dee20@qq.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:bupt.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: MOfz9TzWtqad1Pu236abip3ku4UqN1dT+uRr+Rj5IZM7FQ9MkKM2Bgvs
-	EnafgfMngZbf4QOgr/oEsOVKH4JuUmt954lUJ7/my3F1kKU9qHRVKTOvAxmurFlZB8rHD8A
-	maCfyV6EDm+bBMJq/CqTstUgJD2M5NyIZdJFkYA9jhweHqptT45muWf54ZyWricTSUHak+R
-	eJ1fAVB+brPPPeuS3yG04KYMBoocFtZOxtCdnnrrCFcxpMrWiBlfinKn8fZWDJ3qr45ut8b
-	9fGyGoNmTh6wDn5jivim0xbow/ZkHyJswOb2j7u7Kjy0JwhhTc4cwGan2Q19bdp449cE4aW
-	g4xmm6K8TAfOjVas2VuopMhGEbNPvGrJVIVSSYuEPPBLBswxExxKFfuqjIuAAEw0y1U0mEe
-	GK3l4JIJFdZI/WSNSIEZHV24w/13cZvhSg3oEhSMKzFx1k6TagRmVbJo9NNBJ3lTDM0Qmqv
-	bwRFOPJfmbeVb3IglV3kCA42q111qpD4ngQ02BWNXR5mRABO3uyuHYNrs9mDbnQSJNFzLx0
-	oYhnQyneBF5W98cjehOMo0S7aBxhVHQvNU87gHAHC34IjcEmVoOAakuQ4lU3rM3jvAQJYJw
-	+jNOPE0kvIsgOAuMOxKCVEUngoMx3xWHPyobN8OTQ01dnpO3Zp+hS5JI10sA8ojKcikGRCb
-	adpuyFuqAHVDaAsJg6M5TItPpbysZyZD+9fjeTCCOlbGACmtbQ/FZmWJ4Sc/GqjS8eSHjUK
-	rYZiBNEVz0DVV2pHO3PKvabc57w4ntIpx8VEkf49XdpeWpbvHwXaDxaVRo0zs+UeMu0E6iT
-	oa73AlaBbZLYNDD5eJ9/6SYXSxAPGV8mgIeQ12E3phVtWbg69mOIX6ktFfQJsw4zL+JbtrW
-	Gfxqzs21GnOD3I7lpmQxm9DCuv+BV4gEY71rAWHdj85pKliUFyjmss8E0Wz9kNxwSMHapPA
-	Vv5Od+CFwCWtAc1DjacU5MdRZjiKmIspqKBSyEDz1QDb0oaHMlvoBr52dxwUtikfC+U3Y9v
-	xSEdeaZfMS3x52/hpfyOEtvKIbrsUTEaRtfiB5kbHKaB94P3s0jKcRgwPcnfZb/U2iTDXUl
-	L9a0aCzy/0Q
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEZ7bGoC/23NTQ6CMBQE4KuQrq15/aPBlfcwLqD0SU0AaZFoC
+ He3xYUhspxkvpmZBOudDeSUzcTbyQXXdzGoQ0ZMU3Y3S10dM+HAc9ACaFuG0XpaskrJShhUJZB
+ YfniL7rUOXa7fHJ7V3Zox6dRoXBh7/16fJpZ6f6MTo0DzQiqsa4mAeB6Go+lbkhYnvm94NErzQ
+ ktQXAJsjNg3IpqCGQQBRghdb4zcNzIa0KgLxVHn7GeWZfkAe10LWUcBAAA=
+X-Change-ID: 20260730-master-a1b54b3cf5a0
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, kernel@pengutronix.de, 
+ Heiko Stuebner <heiko@sntech.de>
+Cc: Cunhao Lu <1579567540@qq.com>, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-Hi,
+While running CAN traffic on an RK3588 system, the driver repeatedly
+reported an inconsistent TX echo state:
 
-This patch fixes a NULL pointer dereference in nbd_pending_cmd_work()
-that occurs when socket teardown races with the partial-send worker.
+  rockchip_canfd fea60000.can can0: rkcanfd_tx_tail_is_eff:
+  echo_skb[0]=NULL tx_head=0x00060f7d tx_tail=0x00060f7c
 
-The bug was reported by Peiyang He via syzkaller fuzzing and exists
-since commit 8337b029f788 ("nbd: fix partial sending") introduced the
-partial-send worker mechanism.
+The Rockchip CAN-FD driver completes transmissions by matching
+self-received frames with entries in the echo skb ring. A race between its
+transmit and completion paths can expose a partially updated echo entry,
+dereference an skb queued for NAPI, or stop the TX queue without a later
+completion to wake it.
 
-The race sequence:
+The series aborts transmission when echo skb installation fails, retries the
+outstanding hardware buffer, and serializes the TX head, tail, echo ring,
+and command register sequence.
 
-  CPU 0 (submit path)              CPU 1 (disconnect path)
-  ─────────────────────            ─────────────────────────
-  nbd_send_cmd() interrupted
-    was_interrupted() && sent > 0
-    nbd_sched_pending_work():
-      nsock->pending = req
-      schedule_work(&nsock->work)
-    return BLK_STS_OK
-                                   nbd-client -d
-                                     sock_shutdown()
-    ┌──────────────────────┐         mutex_lock(&nsock->tx_lock)
-    │ async gap: work is   │         nbd_mark_nsock_dead():
-    │ queued but kworker   │           nsock->dead = true
-    │ hasn't run yet       │           nsock->pending = NULL  ← cleared
-    └──────────────────────┘         mutex_unlock(&nsock->tx_lock)
+The final series was tested on an RK3588 rev2.2 with can0 and can1 physically
+connected, using CAN-FD at 500 kbit/s nominal and 5 Mbit/s data rate. A
+15-second cangen run generated 445,859 frames, all received by cansequence
+on can1. Both interfaces remained ERROR-ACTIVE with zero bus errors, drops,
+or driver warnings.
 
-  kworker scheduled
-    nbd_pending_cmd_work():
-      req = nsock->pending         ← NULL
-      blk_mq_rq_to_pdu(NULL)      ← accesses 0 + 0xf8
-      *** NULL pointer dereference ***
-
-The root cause is that schedule_work() only enqueues the work item;
-actual execution depends on kworker scheduling.  Between enqueue and
-execution, disconnect can synchronously clear nsock->pending.
-
-The fix establishes single ownership: once nbd_sched_pending_work()
-schedules the worker, only the worker may clear nsock->pending and
-terminate the request.  Socket teardown (nbd_mark_nsock_dead) only
-sets nsock->dead without touching the pending request.  The worker
-checks nsock->dead after each send attempt and completes the request
-with BLK_STS_IOERR.
-
-Reproduction:
-
-The natural race window is microseconds wide, so a kprobe is used to
-inject a busy-wait at nbd_pending_cmd_work() entry to widen it.
-
-1. Build the kprobe delay module (must use mdelay, not msleep --
-   kprobe pre-handlers run with preemption disabled):
-
-  /* nbd-delay-repro.c */
-  #include <linux/module.h>
-  #include <linux/kprobes.h>
-  #include <linux/delay.h>
-
-  static int delay_ms = 30;
-  module_param(delay_ms, int, 0644);
-  static struct kprobe kp;
-
-  static int __kprobes handler_pre(struct kprobe *p, struct pt_regs *regs)
-  {
-      if (delay_ms > 0)
-          mdelay(delay_ms);
-      return 0;
-  }
-
-  static int __init init(void)
-  {
-      kp.symbol_name = "nbd_pending_cmd_work";
-      kp.pre_handler = handler_pre;
-      return register_kprobe(&kp);
-  }
-
-  static void __exit exit(void)
-  {
-      unregister_kprobe(&kp);
-  }
-
-  module_init(init);
-  module_exit(exit);
-  MODULE_LICENSE("GPL");
-
-  Build with:
-    make -C /lib/modules/$(uname -r)/build M=$PWD modules
-
-2. Setup environment (forces partial send by filling TCP buffer):
-
-  modprobe nbd
-  insmod nbd-delay-repro.ko delay_ms=30
-  sysctl -w kernel.panic_on_oops=0
-  sysctl -w net.ipv4.tcp_wmem='1024 2048 4096'
-  tc qdisc add dev lo root netem delay 20ms
-  dd if=/dev/zero of=/tmp/nbd.img bs=1M count=512 status=none
-  nbd-server 10823 /tmp/nbd.img &
-  sleep 2
-
-3. Trigger (repeat until crash, typically 1-5 iterations):
-
-  nbd-client 127.0.0.1 10823 /dev/nbd1
-  echo none > /sys/block/nbd1/queue/scheduler
-  # Writer: 1MB O_DIRECT writes with SIGALRM every 500us
-  /tmp/nbd-repro-writer 1048576 500 /dev/nbd1 &
-  WP=$!
-  sleep 0.05
-  dmesg -C
-  nbd-client -d /dev/nbd1
-  sleep 0.2
-  kill -9 $WP 2>/dev/null; wait $WP 2>/dev/null
-  dmesg | grep 'null pointer'
-
-  The writer source (compile with gcc -O2 -o /tmp/nbd-repro-writer):
-
-  #define _GNU_SOURCE
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
-  #include <unistd.h>
-  #include <signal.h>
-  #include <fcntl.h>
-  #include <errno.h>
-  void h(int s) {}
-  int main(int ac, char **av) {
-      int bs = ac>1 ? atoi(av[1]) : 1048576;
-      int us = ac>2 ? atoi(av[2]) : 500;
-      char *buf; posix_memalign((void**)&buf, 4096, bs);
-      memset(buf, 0xab, bs); signal(SIGALRM, h);
-      int fd = -1;
-      while (1) {
-          if (fd<0) { fd=open(av[3]?av[3]:"/dev/nbd1",
-                              O_WRONLY|O_DIRECT);
-                      if (fd<0) { usleep(100000); continue; } }
-          ualarm(us, 0);
-          ssize_t n = write(fd, buf, bs);
-          if (n<0 && errno!=EINTR && errno!=EAGAIN)
-              { close(fd); fd=-1; }
-      }
-  }
-
-  Key parameters explained:
-  - "none" scheduler: ensures nbd_queue_rq runs in process context
-    via __blk_mq_issue_directly, making SIGALRM visible to
-    sk_stream_wait_memory (kworker threads mask all signals)
-  - tcp_wmem='1024 2048 4096': tiny send buffer fills immediately
-  - netem delay 20ms: delays ACKs, keeps buffer full
-  - mdelay(30) kprobe: widens the async gap to 30ms so disconnect
-    reliably clears nsock->pending before the worker reads it
-
-4. Expected oops (without fix):
-
-  BUG: kernel NULL pointer dereference, address: 00000000000000f8
-  Oops: Oops: 0000 [#1] SMP NOPTI
-  Workqueue: events nbd_pending_cmd_work [nbd]
-  RIP: 0010:nbd_pending_cmd_work+0x22/0x110 [nbd]
-  CR2: 00000000000000f8
-
-5. With fix applied: 300 iterations, zero crashes, zero
-   lockdep/WARNING/scheduling-while-atomic reports.
-
-Please review.
-
-Thanks,
-Weisson
-
-
-From 6d985e412da840d5fdf6e64d9a544f2a5f271ec2 Mon Sep 17 00:00:00 2001
-From: Weisson <hanxiaobupt@bupt.cn>
-Date: Fri, 31 Jul 2026 16:30:00 +0800
-Subject: [PATCH] nbd: fix race between nbd_pending_cmd_work and socket
- teardown
-
-nbd_pending_cmd_work() dereferences nsock->pending without any
-synchronization.  If nbd_mark_nsock_dead() clears nsock->pending
-concurrently, the worker hits a NULL pointer dereference:
-
-  BUG: kernel NULL pointer dereference, address: 00000000000000f8
-  Workqueue: events nbd_pending_cmd_work [nbd]
-  RIP: 0010:nbd_pending_cmd_work+0x22/0x110 [nbd]
-
-The worker reads nsock->pending (NULL) and immediately passes it to
-blk_mq_rq_to_pdu(), which computes (req + 1).  With req == NULL this
-accesses address 0 + sizeof(struct request) = 0xf8, triggering the
-page fault.
-
-The race sequence is:
-
-  1. nbd_send_cmd() is interrupted with sent > 0, calls
-     nbd_sched_pending_work() which sets nsock->pending = req and
-     calls schedule_work().  The originating thread returns
-     BLK_STS_OK immediately -- it no longer owns the request.
-
-  2. Before the kworker picks up the work item, userspace issues a
-     disconnect (nbd-client -d).  sock_shutdown() takes tx_lock and
-     calls nbd_mark_nsock_dead() which sets nsock->pending = NULL.
-
-  3. The kworker finally runs nbd_pending_cmd_work(), reads the now-
-     NULL nsock->pending, and passes it to blk_mq_rq_to_pdu() which
-     dereferences NULL + 0xf8.
-
-Fix this by establishing single ownership: once nbd_sched_pending_work()
-schedules the worker, only the worker may clear nsock->pending, release
-the config_refs, and terminate the request.  Socket teardown
-(nbd_mark_nsock_dead) only marks the connection dead but does not touch
-the pending request owned by the worker.
-
-The worker checks nsock->dead after each send attempt, and if set,
-completes the request with BLK_STS_IOERR.  On deadline expiry, the
-worker also marks the socket dead since the TCP stream contains an
-incomplete NBD message and cannot be reused.
-
-Additionally, nbd_reconnect_socket() now skips nsock slots that still
-have a pending request, preventing a new TCP connection from inheriting
-stale partial-send state.
-
-Signed-off-by: Weisson <hanxiaobupt@bupt.cn>
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
 ---
- drivers/block/nbd.c | 34 +++++++++++++++++++++++++++++++---
- 1 file changed, 31 insertions(+), 3 deletions(-)
+Changes in v5:
+- Move can_put_echo_skb() before hardware TX FIFO writes.
+- Extend the TX lock to cover echo setup and hardware command submission.
+- Link to v4:
+  https://lore.kernel.org/linux-can/tencent_929320CDB8CC5402DD486A402122B7DF5606@qq.com
 
-diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index 8f10762e90ef..7a462a626306 100644
---- a/drivers/block/nbd.c
-+++ b/drivers/block/nbd.c
-@@ -327,8 +327,8 @@ static void nbd_mark_nsock_dead(struct nbd_device *nbd, struct nbd_sock *nsock,
- 		}
- 	}
- 	nsock->dead = true;
--	nsock->pending = NULL;
--	nsock->sent = 0;
-+	if (!nsock->pending)
-+		nsock->sent = 0;
- }
- 
- static int nbd_set_size(struct nbd_device *nbd, loff_t bytesize, loff_t blksize)
-@@ -793,8 +793,10 @@ static blk_status_t nbd_send_cmd(struct nbd_device *nbd, struct nbd_cmd *cmd,
- 	 *
- 	 * We must run from pending work function.
- 	 * */
--	if (test_bit(NBD_CMD_PARTIAL_SEND, &cmd->flags))
-+	if (test_bit(NBD_CMD_PARTIAL_SEND, &cmd->flags)) {
-+		nbd_mark_nsock_dead(nbd, nsock, 1);
- 		return BLK_STS_OK;
-+	}
- 
- 	/* retry on a different socket */
- 	dev_err_ratelimited(disk_to_dev(nbd->disk),
-@@ -826,8 +828,18 @@ static void nbd_pending_cmd_work(struct work_struct *work)
- 		if (!nsock->pending)
- 			break;
- 
-+		if (nsock->dead)
-+			goto dead;
-+
- 		/* don't bother timeout handler for partial sending */
- 		if (READ_ONCE(jiffies) + msecs_to_jiffies(wait_ms) >= deadline) {
-+			/*
-+			 * The socket contains a partially transmitted request
-+			 * and cannot be reused for another NBD request.
-+			 */
-+			nbd_mark_nsock_dead(nbd, nsock, 1);
-+			nsock->pending = NULL;
-+			nsock->sent = 0;
- 			cmd->status = BLK_STS_IOERR;
- 			blk_mq_complete_request(req);
- 			break;
-@@ -840,6 +852,18 @@ static void nbd_pending_cmd_work(struct work_struct *work)
- out:
- 	mutex_unlock(&cmd->lock);
- 	nbd_config_put(nbd);
-+	return;
-+
-+	/* Complete the request here; nbd_clear_req() will not handle it. */
-+dead:
-+	nsock->pending = NULL;
-+	nsock->sent = 0;
-+	mutex_unlock(&nsock->tx_lock);
-+	clear_bit(NBD_CMD_PARTIAL_SEND, &cmd->flags);
-+	cmd->status = BLK_STS_IOERR;
-+	mutex_unlock(&cmd->lock);
-+	blk_mq_complete_request(req);
-+	nbd_config_put(nbd);
- }
- 
- static int nbd_read_reply(struct nbd_device *nbd, struct socket *sock,
-@@ -1376,6 +1400,10 @@ static int nbd_reconnect_socket(struct nbd_device *nbd, unsigned long arg)
- 			mutex_unlock(&nsock->tx_lock);
- 			continue;
- 		}
-+		if (nsock->pending) {
-+			mutex_unlock(&nsock->tx_lock);
-+			continue;
-+		}
- 		sk_set_memalloc(sock->sk);
- 		if (nbd->tag_set.timeout)
- 			sock->sk->sk_sndtimeo = nbd->tag_set.timeout;
--- 
-2.47.3
+Changes in v4:
+- Split the can_put_echo_skb() ownership fix into a standalone patch outside
+  this series.
+- Use reverse Christmas tree order for the new local variables.
+- Use the same _unmasked suffix for the tx_head and tx_tail snapshots.
+- Link to v3:
+  https://lore.kernel.org/linux-can/tencent_011F48D3310D8C4C4942DC88698030A28B06@qq.com
+
+The standalone CAN core patch required by patch 1 was posted at:
+https://lore.kernel.org/linux-can/tencent_944DADCC4B42C8484EC01DA2B15F42132906@qq.com
+
+Changes in v3:
+- Make can_put_echo_skb() consume the skb on every error path and remove the
+  Rockchip-specific -EINVAL free.
+- Drop the redundant error message from rkcanfd_start_xmit().
+- Link to v2:
+  https://lore.kernel.org/linux-can/tencent_D802EB485A801362BF9F54130C0D990C6206@qq.com
+
+Changes in v2:
+- Document that the TX lock also serializes the erratum 12 MODE/CMD/MODE
+  sequence.
+- Add the erratum 12 commit to the Fixes tags of patch 3.
+- Add RK3588 extended-frame stress-test results.
+- Link to v1:
+  https://lore.kernel.org/linux-can/tencent_0E5C2332F801372DD0D4CB4C25B88C18040@qq.com
+
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>
+To: kernel@pengutronix.de
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: linux-can@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
+
+---
+Cunhao Lu (3):
+      can: rockchip_canfd: prevent TX stall on echo skb failure
+      can: rockchip_canfd: retry the outstanding TX buffer
+      can: rockchip_canfd: serialize TX state and command writes
+
+ drivers/net/can/rockchip/rockchip_canfd-core.c |  1 +
+ drivers/net/can/rockchip/rockchip_canfd-rx.c   | 31 ++++++++++++-----
+ drivers/net/can/rockchip/rockchip_canfd-tx.c   | 47 ++++++++++++++++++++------
+ drivers/net/can/rockchip/rockchip_canfd.h      |  4 ++-
+ 4 files changed, 63 insertions(+), 20 deletions(-)
+---
+base-commit: 11028ab62899e4191e074ee364c712b77823a9c4
+change-id: 20260730-master-a1b54b3cf5a0
+
+Best regards,
+--  
+Cunhao Lu <1579567540@qq.com>
 
