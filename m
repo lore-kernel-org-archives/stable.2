@@ -1,167 +1,221 @@
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013056.outbound.protection.outlook.com [52.101.72.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C3B369D54;
-	Fri, 31 Jul 2026 18:25:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785522357; cv=none; b=nLUclYOwa7R65t4dJRdfNG9xS6ur0eMh2PFmnOK/xYLk+pms0VUNtNdKIZ6Ax6mzNs01R87rWEhnfXCN6IirG3g07aLlIfEm8ESVVnC3RYhQdS8Q2choPF9KH2PnmWPnwp1sgLG0lALvxaPKK2JCmThcEXllEn61tVtbcq4skEo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785522357; c=relaxed/simple;
-	bh=5hrjQvx8iD4ZGilQxrqNhRE8ZL0ZwlJeVccvLXrcZpE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RGGBcxxEtxpMKaYiSi5+SZD1KpikqSopt3TBHSCtNd1vivZ5oMKTOp2ioJfXjDy9s/H/U1FWRqSRQ6UodcENo7r3VNbnng/mPhtXLDu2LGdQAuoT6ohnPWjo5Kmumyy6T4EUYzCRLvOk/IwEL140lMokhh37P971aaNiPWjbnr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=rPeux+L8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=DQIAn15P; arc=none smtp.client-ip=103.168.172.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC76C1EEE6;
+	Fri, 31 Jul 2026 18:39:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785523145; cv=fail; b=YTuHCqCLioTtWhYIPoxuqXk+T9HnWjiPGVZ16iO2hoAYC3Kil+Xa5YV7D0LrB5PC6R1ZKdPwiUFfsIip9gF0bRlSxGHug+/HlByV7qj1C4fY89F/VzYwhrgXcC9Q/epayisKz8UHdASoWYwJ6QgWi0CCNYwjdS08aMiXUCamT/E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785523145; c=relaxed/simple;
+	bh=uiTJklZfT/Peth/YXGgMJ8xSzkbMB74RhHwcGdCtc68=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=A3tME6QLn+BzM4VlflzLZsGCq8Vd7eQ/I/qWim/yJ4iNJArh722yj+7T54ElWm9OnX7nDGuYLtYoiFjqWmru7S1BbFDC+B/QVYSrWmnjLUuc1COfS9ZrAoJU/Z3InNhZN6xy2pPce3rgWaU5Ql/B+NdI/wjkS6/l7gMCry31rxE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=HuA+nFFt; arc=fail smtp.client-ip=52.101.72.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="rPeux+L8";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="DQIAn15P"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id BE51EEC00CD;
-	Fri, 31 Jul 2026 14:25:54 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Fri, 31 Jul 2026 14:25:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1785522354;
-	 x=1785608754; bh=VpAACdbqgoMRRMEGfSGLAzDOa8c9oJaR04sPjU09qWs=; b=
-	rPeux+L8qKZi7SRMfiKPk7z8HZOxM/cjCtLPhoa7B8db4L42Uei1gW/lQa8HyN/7
-	L9QT4jpr7UexJYPKV6AUxKEK4FGxjGGTdim8Myy2xMUSnzkODjl1Sg6oxL7JMn5Y
-	3ttuqCEhMuu7PB5WL6rObkxvrYol7H3fG0R6fGQnSOcVc3hQkKxAtKVqS0nTHEHU
-	dkkVKhrg2aER6OAj+Bm2bUcmiiBdrK7eu6USVb7FpL7bLeAWNH4ljki9VPpUj3xK
-	SjhOF1WcRqQVXmC2TmU3ckUlA0s5BsG/kmiaNK3UsHgkoalP9lNl2fSVqpw3eOVE
-	wcwFuENFbI/0jlCYP4Ls/Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785522354; x=
-	1785608754; bh=VpAACdbqgoMRRMEGfSGLAzDOa8c9oJaR04sPjU09qWs=; b=D
-	QIAn15PfdM1aYWGY2YTogtOZuFC/Vu96IPflXHCP9me03YaJoPjqBp/MLxDpUlBV
-	AGZhWM3VfTwj/4P4SktOXpF2dH+ujVqYHtQduYeAo23QLRSRVmbsSOnjsrmcosrj
-	ybH12ohi3bzev6qgsVOEA7Ri+fg6C49qcKoBtlErp/EUPUFDt36PSO5HgQzTll6Q
-	BJvTnZCn1c+QfS+yXWx5u9I05hHw//K+pvTGLg8htWz5GR+YHIcGUnLFXx0TxSCD
-	KofPg9b1Ykssr8NLyIYoR6pUfho1Bik1CBbsRFsBtZxEd8m/pxFYKSajCL3AxBdq
-	svvPsfiep9DOj3y0gdiog==
-X-ME-Sender: <xms:sehsagE3TPbilb0_Dqvg-M7iHpiCBf4O3bPHxvfS7Xub_tUa0B-N8A>
-    <xme:sehsao6Q6Ig8gDx8EL6vwGlyBoWp_X_GjDHX7WLkWCcPQ-g-sZrcS2JjpQWwcAUtG
-    oyxBnFu5MYFUwH0IG5Qtx84xiH7wzN43mUhLoB4VS1V1o_qlzDN7MGU>
-X-ME-Received: <xmr:sehsauezSIY9iJzYWNSLUGasSNFy03TvVTvRMXRSVvgkhS2pWsGkBPOBYiXDgkvpBbz1PEdi6iIk-iiINeJxTOOmA8YdMLg>
-X-ME-Proxy-Cause: dmFkZTFQPpKbqkOATKwKJ3fqlldu1+bwpEwGWqF0uPl515rMbwU0CsJuHcYKpYfu9DdlgR
-    lOviYcTMc7rBrXZ0cXNaL/4RwcxTfWqik2GTJeaSLO7f8a4+DAazghdEBuMYNycdOpADM2
-    9yJrjGY9icJ2L3s4FUldGoFp75xtZNwkGtyC3oxyQx2PvTNoMehUzjvkhCgCq6m3IL+1Ii
-    9Apzm/ubd7nUQ7l4GkC0a2IvA1Ou4ipK+E0qoOiv4pCWZ9bK9Dgb0hQoF1zuNRfRod2Ztx
-    3d6j0IF2MdcLngNcaw+TFCLoN9dknSbszSeHV6xokAS4giVmnC1DcXOsvmJbVdrLB20qmz
-    5qTiA3mWQJn8Q8ROo/4hOheJ5pP7+5iat776+p1tRx5t7C2kyVif+gBSu8OB7JCGYKEHgD
-    IEtsu3d6e6vyRFG07aBJGhcLKdQpCupmK7dPdXAIqM2NPHlGj+RkN9jjvL0598p9fJnEIk
-    RHpDBcvwrc5LdSuDv5dzFVqCV9YtflDSwW9NDYtuV4rZlsGuGgJo/52U0rMT0R4pgZNwTx
-    sjSgD2EjRXfMxXNmp4E8VgcudevygXtN1qHaHC0IBOOFnnnrDU9A55BvXrUXWyJkf6FtQu
-    JU8tadvmBg+1v4VThNJtdTY/bpOQWLoKWg8+DH9GX2anRBtrRrFPAgTEdsIg
-X-ME-Proxy: <xmx:sehsakmjaupJUhUXsAJyYid3JiM9LhdZWAXaNVvZdn-TYM8TQr4Now>
-    <xmx:sehsaj-tIrZgSq1zAtn0EFn6cqUNZPvN6pEwWNs4TIufC3v5Gh7uCQ>
-    <xmx:sehsaqFys5MuPeK2nyiSuGb3lwX_UbIgm1FOyECP5doNVcV81pH4oA>
-    <xmx:sehsanIUlxNFVXEn_mc0Zlhk12azjqktH-TnhomPQnKtlPAWeSbudA>
-    <xmx:suhsakTJ7_PhVNS0xfk5CqUMNsTNgt7AfohotVdSkLgsiWMijlah-Tas>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 31 Jul 2026 14:25:52 -0400 (EDT)
-Date: Fri, 31 Jul 2026 20:25:50 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: xuanqiang.luo@linux.dev
-Cc: linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
-	paul@pbarker.dev, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	richardcochran@gmail.com, masaru.nagai.vx@renesas.com,
-	sergei.shtylyov@cogentembedded.com,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH net v1] net: ravb: fix use-after-free in ravb_get_ts_info
-Message-ID: <20260731182550.GA3091634@ragnatech.se>
-References: <20260731063254.71260-1-xuanqiang.luo@linux.dev>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="HuA+nFFt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XjbWflQLKiNOLcVf4jcZoaN0LmoAFMNpmGF0ljSqb/crwJm89OHJyDFJ9BNtsuGcrmrbYJq/ZV3ieOIn3zL0RbupctyO9g7K6PggrTPBt3WsK+m06o81Vm6JvQMQ2iTisXp+ZvoIj7Ufj/5Ft9rvDYVCG99d77mhJRQi+g3GE6/u56I4Ni2V/ao1ZbmmvjYO+Z4S/NDVF189InvEyebnHLIgxqK2eMl3snNEqOYOiv2uXRxcZgFyUl3mG8MApQ882ybjgDpsnPu7hUfP/jPwa/b0/PTizxNAfEF4FM+qCV5ryTcZk4fEtskR3gkiGeaAW+UG9vUpjR2C/2mHOoai0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ia0DqGUa2XXoAmzsV6VqWsE8QytI+B6npF/KMkchDEQ=;
+ b=fC5xZTQ0C9u+CcSOrIZo3AAydEgDRA0yLQAgaSCDFF1zIQokzAimUN7ezqN7UKlcvFs3X5IFydQrgJ1esSDzWksS/J+CQIF3z8gk/7xLvIrr1WolKvyxcmNJYqC73cNRHkJosNxXZD0fUqNYoTj8JRhvtFHku9xgfZWu21HlkMPA644WBFMpzNvyMQT/1t4PN4cbKQbUfC8webWETPoVY+kb5PzdWwKCueVZhMmpdg44CMmsqgEvIQ107K/6o4B9T0zcjSbhRvWp+jamou8sOh0SLl/wJscBnH28l/WvfFbfl0Upn+6RYCsHxKZnj8ESzPL93WhIw1ncNpwy7daW2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ia0DqGUa2XXoAmzsV6VqWsE8QytI+B6npF/KMkchDEQ=;
+ b=HuA+nFFt5S5LlNXvtJil0e6sW41zXCWYsNQMHRNFWy15+SK+Pz2t9XjZIJObnmqKRKZHelQegwebRadwrH20n8wRl5u8wXmtxzfEutafJB9WShtKjfMrq3Pr0A0oPlVPNKQR1Z8yVrs/vtWIySIXBGWTLCeg1NSr0vs+bLGDB8IXkDHftUcSJNPgtSsSozEH3NgP2Zb+pC36UW9EG9cYpkEnUVLSHauJlz3ZlNyzq2Tqn9CNsKct2wZg53KfbZlmftSC/ADnGTvKjjy/HUrDN+G1BiIBqUDYlqBJgnLcRgyc8TDHKHGfeiQ1RV023KEKBNif9edUoNc5V0cgPmeGgg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM9PR04MB8587.eurprd04.prod.outlook.com (2603:10a6:20b:43a::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
+ 2026 18:38:59 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0270.015; Fri, 31 Jul 2026
+ 18:38:59 +0000
+Date: Fri, 31 Jul 2026 13:38:49 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 5/5] serial: imx: serialize imx_uart_ports[] lifetime
+Message-ID: <amzrudchE7v1Uj27@SMW015318>
+References: <20260731180519.10988-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260731180519.10988-1-kmehltretter@gmail.com>
+X-ClientProxiedBy: SA1P222CA0003.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:22c::31) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260731063254.71260-1-xuanqiang.luo@linux.dev>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8587:EE_
+X-MS-Office365-Filtering-Correlation-Id: 458c5db9-f72d-4fba-9404-08deef32fc0d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|19092799006|23010399003|1800799024|18002099003|22082099003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	40FBiz9X2TOuL28B5sGqfYF4PFqmHqoFVWjAai6xsq/CnY1aDgxraXIgTbC0YNeCtYGdZ215QYFcVbHCov5zXSkSJI00raTrQktTdoRPPkutxOmsCRAlnoeqJB4lDFTMz4hfVSQwS8QPMYPmOCwc4SOFYIhpvM+jiPBxl5FZcLuPOiF46Jhd+SgpxscmZl+Fn/IEp4Kd7ecpC+AjPLJdEH4OpBLwfeu8M3mvYiJygrUb+ETWWfjr+/eykqcF5nz7QUautDt4JApumalh9JfXCikfga6BFKwmjCre0ahPKlSJsXxmiwMgM8RvPYKege484BMXzoRid3jqKUyy9FCvcGRbCjRQFS0WZhu+bGIP1nc4YS+tlC5fmPqirD05WsCMSStf/63txT2pNIuOjB+yPFSRW+c8ABuDKDAbEYoyBo1NvZVc/54Itd5LZWc79mvUbCie+mmgyG6O2npayFGZPu50hv4/gyP50wkej0O45TV0Ue1l+p06u3l/if3c4lupVQ4cCHjB+OL1QSsbSqz29Jot4XxhW7J9Rkxk0HmXZoDYlDw4tplSj99xoaa8SjaRTRmV8jjcqkWBtzd9SFzLZBnLSMiPmZ6NtF8J81qzxOSmPptNGf60cJ4ATJKcnDqK
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(19092799006)(23010399003)(1800799024)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?OhOuzCHq5GWvQbC5/Pp35A2HtIkvbeRIlecCiCpRGqxt2xt1l0YNZvg1CTrY?=
+ =?us-ascii?Q?qgqj7YOo1R5x272LvURia0wIup2UPwrZesG52gtVsJxhJ5QA9YNNIlq/ZPrL?=
+ =?us-ascii?Q?wR1IUc/aP3OWk1gfGniPM8ROkIaHpsT5ldIM8sAgwJtBKrCAsipYzoGANUI3?=
+ =?us-ascii?Q?mHDH56a/u/EwAAG1rVJqL6lsp82eWbSzGmqyiBSPh4qEo9MKxDkbKfzJYMEg?=
+ =?us-ascii?Q?txE5jqNM5fA9h4dbND6GMZWS0K5pNdPWc98h61o80WvrJCBcPQvK1loeanEj?=
+ =?us-ascii?Q?ro3HWs0UnryLuKScRKnnRbi9TxmHMdbPNhkUI3+hARM1uwDA0MtW7yDbNhod?=
+ =?us-ascii?Q?es5b6HJYJN0PtEzMn2RQTY5xdPlnOULH9f7zRz3ffaj9+Z+T8KTubW6695H8?=
+ =?us-ascii?Q?WRMlU9vJIGBXJnXCKg8QA6K175oanqy5rizuU8qjh+KsEAR25tVi3+eOgdXh?=
+ =?us-ascii?Q?4+Wb1qwtDLEIVltRfeOe0onIvIW9eMelt5FmXf275ciG3vu0ZIRW+hsd9+rH?=
+ =?us-ascii?Q?nzjn44OoPT0VCDav9fV6m/hjFU7UGevF0WKKScJZjbTOvMW2hqN2bvSnVZm9?=
+ =?us-ascii?Q?NaANTb0uzRCu0VTeWUIV+pERULQjCYFXYqI8+jVO1ubo/u1F3hyMJDs1uw7n?=
+ =?us-ascii?Q?uNsINRd+aCy5N5+l4VKH1yVKbfy6rVrs1kLKdhRV5Ns5mGWYTbyH19QfVFVV?=
+ =?us-ascii?Q?jheLp9VcWDdkXyR8mcvMwRbUt+rq3GPXSaikJYymuJopb5KXs29Nf63hSc3V?=
+ =?us-ascii?Q?vRzbLRwpy0ZOGmd1MWlSRfwT1HjB7oQa0JLY8XkY9D2jGXCapfA7R/ffsUUC?=
+ =?us-ascii?Q?VtpcT2jtOAbkq5xakQpglKo7l4WJw4gzhw3wPc8Rnead004ZcMXFM9Yr4zsl?=
+ =?us-ascii?Q?H5pDiE3124MZKnNx60B/MGhVBTBJgXQwEQ+WQCMPT5WGgrqWXNnNgozD54Z/?=
+ =?us-ascii?Q?Fi5HpaO2OwoEeK2sFFcpIlILm1/HH4VQIA9dRnBitLCTT3v4H2S8bsl/p8Hj?=
+ =?us-ascii?Q?pWYXN7vBxGkNYWaeTkLlpwhoNdWVWdqOLmibSASLDmVo8UkvYgLq7j8VaS1B?=
+ =?us-ascii?Q?ov8zuikzz0qgNTL5M62NAy8LDK5B/TyEATZJdOSHkapg4P8ixrdkFA2t9O74?=
+ =?us-ascii?Q?31SHsISkVn7lylBNHr+wDwylHQX1MOkA1fcNmVAYUANmMUsuDNnIKYZv2e67?=
+ =?us-ascii?Q?0/tmK6xPr3FmY6w0LXbMpFL+YmuYW2NDWDv+Y5OcvkwzWSQXoNpWbPSWkHbw?=
+ =?us-ascii?Q?cNVQa/uSDkYQavWofEoIfzpGWuYX3LkxWCj9H4zgYQjdhrelYP9dB579dPV5?=
+ =?us-ascii?Q?D49DneQ7oDBHVhhO1CEImNUgpxCyg67FgcL33ht0uOpM4oYcvCViJfX1sRvO?=
+ =?us-ascii?Q?6DMD5hDHbibatZZVLaebPN9UQ3LU39nlynw9jSQ+UMA08Ix8fbp9P63D/FT7?=
+ =?us-ascii?Q?/f7JeCFDVqniusk8YNFTzUjzebfOQtZN8fX3K4MIIyQxnurg9NC5cYQHbQjP?=
+ =?us-ascii?Q?mvth1XNcgFD4FOQSnjbLSVtvE0PVWLLrns8JYb56C9pjfTYq6P0BQ4aogIx3?=
+ =?us-ascii?Q?keSktsL41gLlLLqW6S29+lcVkt3HW8w4KvG9/v4G3pImYeN5E08++HZ7jnLT?=
+ =?us-ascii?Q?PE5vg6fHS6uTLrrjS32dMB3UirrTihtHtk/eIDBNoKFA7D/nnNuX32P2zBbP?=
+ =?us-ascii?Q?dn2FAFvQBzRHpXXlVcxW+XbImuZ7X8/6/JevhICIXUcG0OBwsn5OCajXIFf7?=
+ =?us-ascii?Q?opf6kgtlZUDOhb2sbbAx4Rq+qarHEkdbby+MqmqBodYBb1mm0LD2?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 458c5db9-f72d-4fba-9404-08deef32fc0d
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 18:38:59.3031
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Re4T4qPdEeGf6flp0TAkPdULxeGhABSByW0qln10P2Ab3uVKENXSeUTi6aBmK4cgy5o+GEFddqKFGKUT7q3wr9V+qbyVldVfvWdbtNkLGYJjQwkbkRGGXxbYsxgoXZRO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8587
 
-Hello Xuanqiang,
-
-Thanks for your work.
-
-On 2026-07-31 14:32:54 +0800, xuanqiang.luo@linux.dev wrote:
-> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-> 
-> The PHC is registered by ravb_open() and unregistered by ravb_close().
-> However, ravb_ptp_stop() leaves priv->ptp.clock pointing at the freed
-> clock. Since the netdev remains registered after ndo_stop, get_ts_info
-> can still pass the dangling pointer to ptp_clock_index(), resulting in a
-> use-after-free.
-> 
-> Clear the pointer after unregistering the clock and only query the index
-> while a clock is registered.
-> 
-> Fixes: a0d2f20650e8 ("Renesas Ethernet AVB PTP clock driver")
+On Fri, Jul 31, 2026 at 08:05:19PM +0200, Karl Mehltretter wrote:
+> imx_uart_probe() publishes its devm-allocated port in imx_uart_ports[]
+> before uart_add_one_port() because console setup uses the table. The entry
+> is not cleared when adding the port fails or after removal, leaving a
+> dangling pointer.
+>
+> A sibling probe can register the shared console through that stale entry.
+> This was reproduced under KASAN on QEMU mcimx6ul-evk by unbinding a
+> sibling UART, unbinding the console UART and rebinding the sibling.
+>
+> Keep the entry valid through uart_remove_one_port(), then clear it. Protect
+> port addition and removal together with their table updates so sibling
+> operations cannot interleave. Reject an occupied slot rather than
+> clobbering an active port during a duplicate-line probe.
+>
+> Fixes: dbff4e9ea2e8 ("IMX UART: remove statically initialized tables")
+> Fixes: 9f322ad064f9 ("imx: serial: handle initialisation failure correctly")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/all/20260719162850.043B41F000E9@smtp.kernel.org
+> Link: https://lore.kernel.org/all/20260719222501.CB4CB1F000E9@smtp.kernel.org
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 > ---
-> I don't have access to RAVB hardware to reproduce the issue. To aid
-> review, see the similar PHC lifetime fix merged as commit 8da13e6d63c1
-> ("net: macb: fix use-after-free access to PTP clock").
-> 
->  drivers/net/ethernet/renesas/ravb_main.c | 3 ++-
->  drivers/net/ethernet/renesas/ravb_ptp.c  | 5 ++++-
->  2 files changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-> index 5f88733094d0f..3a9d9f8718216 100644
-> --- a/drivers/net/ethernet/renesas/ravb_main.c
-> +++ b/drivers/net/ethernet/renesas/ravb_main.c
-> @@ -1779,7 +1779,8 @@ static int ravb_get_ts_info(struct net_device *ndev,
->  			(1 << HWTSTAMP_FILTER_NONE) |
->  			(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
->  			(1 << HWTSTAMP_FILTER_ALL);
-> -		info->phc_index = ptp_clock_index(priv->ptp.clock);
-> +		if (priv->ptp.clock)
-> +			info->phc_index = ptp_clock_index(priv->ptp.clock);
 
-While this avoids the lifetime issue, the fix is incomplete. The info 
-structure will still report HW clock support but there is no PTP clock 
-index.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-I have a pending series which cleans up most, if not all, of this issue.  
-Could you check [1] and see if that covers your concern? I will post a 
-new version of that series as soon as vacation time is over and the Gen4 
-PTP driver itself is merged.
-
-1.  https://lore.kernel.org/all/20260610102432.3538432-1-niklas.soderlund+renesas@ragnatech.se/
-
+> Backport note: the removal fix is self-contained. Complete probe-failure
+> coverage also requires patch 1. With patch 1, all fallible allocations
+> precede console registration, so rollback can safely clear the table.
+> Without it, a late allocation failure (only reachable with fault
+> injection) can leave the console registered after imx_uart_ports[] is
+> cleared, turning the pre-existing use-after-free into a NULL
+> dereference.
+>
+>  drivers/tty/serial/imx.c | 20 +++++++++++++++++---
+>  1 file changed, 17 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/tty/serial/imx.c b/drivers/tty/serial/imx.c
+> index 251a50c8aa38..b0f34a6e7d4f 100644
+> --- a/drivers/tty/serial/imx.c
+> +++ b/drivers/tty/serial/imx.c
+> @@ -22,6 +22,7 @@
+>  #include <linux/clk.h>
+>  #include <linux/delay.h>
+>  #include <linux/ktime.h>
+> +#include <linux/mutex.h>
+>  #include <linux/pinctrl/consumer.h>
+>  #include <linux/rational.h>
+>  #include <linux/slab.h>
+> @@ -2080,6 +2081,9 @@ static const struct uart_ops imx_uart_pops = {
+>
+>  static struct imx_port *imx_uart_ports[UART_NR];
+>
+> +/* Held across uart_add/remove_one_port(); console callbacks must not take it. */
+> +static DEFINE_MUTEX(imx_uart_ports_lock);
+> +
+>  #if IS_ENABLED(CONFIG_SERIAL_IMX_CONSOLE)
+>  static void imx_uart_console_putchar(struct uart_port *port, unsigned char ch)
+>  {
+> @@ -2632,11 +2636,19 @@ static int imx_uart_probe(struct platform_device *pdev)
+>  		}
 >  	}
->  
->  	return 0;
-> diff --git a/drivers/net/ethernet/renesas/ravb_ptp.c b/drivers/net/ethernet/renesas/ravb_ptp.c
-> index 226c6c0ab945b..fc8c601ed3a5e 100644
-> --- a/drivers/net/ethernet/renesas/ravb_ptp.c
-> +++ b/drivers/net/ethernet/renesas/ravb_ptp.c
-> @@ -337,5 +337,8 @@ void ravb_ptp_stop(struct net_device *ndev)
->  	ravb_write(ndev, 0, GIC);
->  	ravb_write(ndev, 0, GIS);
->  
-> -	ptp_clock_unregister(priv->ptp.clock);
-> +	if (priv->ptp.clock) {
-> +		ptp_clock_unregister(priv->ptp.clock);
-> +		priv->ptp.clock = NULL;
+>
+> -	imx_uart_ports[sport->port.line] = sport;
+> -
+>  	platform_set_drvdata(pdev, sport);
+>
+> -	ret = uart_add_one_port(&imx_uart_uart_driver, &sport->port);
+> +	scoped_guard(mutex, &imx_uart_ports_lock) {
+> +		if (imx_uart_ports[sport->port.line]) {
+> +			ret = -EBUSY;
+> +		} else {
+> +			imx_uart_ports[sport->port.line] = sport;
+> +			ret = uart_add_one_port(&imx_uart_uart_driver,
+> +						&sport->port);
+> +			if (ret)
+> +				imx_uart_ports[sport->port.line] = NULL;
+> +		}
 > +	}
+>
+>  err_clk:
+>  	clk_disable_unprepare(sport->clk_ipg);
+> @@ -2648,7 +2660,9 @@ static void imx_uart_remove(struct platform_device *pdev)
+>  {
+>  	struct imx_port *sport = platform_get_drvdata(pdev);
+>
+> +	guard(mutex)(&imx_uart_ports_lock);
+>  	uart_remove_one_port(&imx_uart_uart_driver, &sport->port);
+> +	imx_uart_ports[sport->port.line] = NULL;
 >  }
-> -- 
-> 2.43.0
-
--- 
-Kind Regards,
-Niklas Söderlund
+>
+>  static void imx_uart_restore_context(struct imx_port *sport)
+> --
+> 2.53.0
+>
