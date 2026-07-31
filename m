@@ -1,136 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE24A3783C5;
-	Fri, 31 Jul 2026 20:27:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249173750BC;
+	Fri, 31 Jul 2026 20:36:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785529679; cv=none; b=bni79MMbwHmXaYLkJm7f58D3FIi79Tceq4nlevgQoX1vMDhNDwE7qxiB/XxPdcSjzqTsAEIRFReKvaFdTAfsCRC0UbEAZanlIsd87ZxpzFoYn1pt8Qe/LjmSL5vEtrMXbx4mMgiS2xbFXD+KrVZH5Xg7zNxU0sXBNoCeGUbAfM0=
+	t=1785530213; cv=none; b=qPVuhs+1NbAEDP9JPqWZK5f98IBawE9qGm5vKfXrq78TXPyr/pLKgnC9S59om6pEaWy6ml/e/ajeSDONgQUOPH++UsMgR1CWbcglBoQmmv2PM4+Fsf9zvMlevZ+rc6/qpLQkFuKNXK0wpAGZaaTZyw+7EelGf5L4F8YUGdF5oSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785529679; c=relaxed/simple;
-	bh=48Z5mFiX7lolv5LIYTw8xaRjvIjy1WKS/COUjFxDGLQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EY/YFcyA0eWAxuWBpLk5G7JthjQgdN3k9yoESvba6keL/LIsoBTulPPTdV8TV/ymjtBqZ7ggOqm8F7ZYcAL6zKmpqc6EUju+331jZKBY29GDIu3zaHW6950UAMS5NEo3ZnstQpwOKVtjrxjwggX1ZlVaCcss3p0aLAvZvS3eQiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CFIjkNX0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785530213; c=relaxed/simple;
+	bh=UqKWb+idgz8CdHbksmqSbsNQm+yn31XekBmBRUKS3FM=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=W2TMEar8SEwzSgC0WQ3M+aA94iFyGOYOUAAhIwSayhYUshXkbamhOAxEIf2bqLsuphh7pCHrrsLCkA+iiemGOb559fEvSI2b/zqXW4Ty+0zZ1R53/uw2NqqQeY+HT4fswyRtodTdvNSS3jk9E6LUJg3dtkhrVILMT+6w6Vbf9w8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kkRuSP/Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CFIjkNX0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B26181F00AC4;
-	Fri, 31 Jul 2026 20:27:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kkRuSP/Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0A8B1F00AC4;
+	Fri, 31 Jul 2026 20:36:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785529678;
-	bh=9qfPqO6NrOfLYn7J/1lyzBCINOrMbaXhOXxJLpXlDBk=;
-	h=From:Date:Subject:To:Cc;
-	b=CFIjkNX0/mn+iwlSjgM5yeRja1CmlZeC4sfDNOh4l+ry6LAVWl6faT4OZPMJoyYLM
-	 iN7lVe/Z1eSsz+AWv50TNXaF3Qh7HkD9Bv6+3RyTPATzXQYuREwbltG/T4cO+jj8O/
-	 uTbsUvi1DpbMujI788V6TYeCdIzifxMGxZr+Bb+RTj5qBMhNJD+7UFbT1E+hqscYOu
-	 wjhance+0jzDI5wbD2vcDIAXyRbqj/3j6z3G8GM7RBzZJ0MONcGeWFDwu42dKS/2/w
-	 p1RJ0bm7O5YLxCcYpJX1AQGHD+GYbx9uwzEaQnCaFNE09S7BktO8Pvoxgdf0sgiCMa
-	 lLaTHtQ9MHK4A==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Fri, 31 Jul 2026 22:27:53 +0200
-Subject: [PATCH] mm/gup: fix always draining LRU caches in
- collect_longterm_unpinnable_folios()
+	s=k20260515; t=1785530212;
+	bh=DNG9QK/E1bVjVyZQG6BbnWYDur9kDPWeCKs1nMVxImc=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=kkRuSP/QIxNNsb6GJtIAIkUxBkUbXJLcPRg/uNAUvw9Ztk7cTIUiY7zBZqrQK+WkT
+	 q0589ywOpgECE+CVZ//4Cu7bsx2q9iFHB8DYoVMNi5Ypj/5T7ccVO3ITKWNBmeZS0w
+	 +33zUb+mUf6QFAVk3uF2dMpHLVlTVpubGjy2P1IZPgkC9X9Izoj/UFNVc5lX4gSRkD
+	 U5sz5IzoGtSbpa1nP28lRMy6CXbX+6kPwlnwd5tuU0+3hEywg1S32tAE52bpzJY29B
+	 +mLh64wQh3oMhzbvLhL0x2pYRoD5N9DUpXg4gdjjx9d57m5zcIUBFhcI6fAqwVg5/T
+	 EJGO2oal3hXMA==
+Date: Fri, 31 Jul 2026 15:36:51 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-check_and_migrate_movable_folios-v1-1-e0002d7b791e@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAEgFbWoC/yXNQQqDMBBA0avIrBuIxljaq5QSYjLqtJpIxoog3
- t20Xb7N/zswJkKGe7FDwpWYYsgoLwW4wYYeBflsqGTVyKsqhRvQvY0N3kzUJ7ugmeJq2xFNF0e
- KLGqlpdS6udXKQ87MCTvafovH82/+tC90y7cLx3EC44Xgq4QAAAA=
-X-Change-ID: 20260731-check_and_migrate_movable_folios-43500556943d
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
- Hugh Dickins <hughd@google.com>, Ackerley Tng <ackerleytng@google.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.15.2
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>, 
+ Daniel J Blueman <daniel@quora.org>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+ Stephan Gerhold <stephan.gerhold@linaro.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org, 
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Bryan O'Donoghue <bod@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com>
+References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
+ <20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com>
+Message-Id: <178553021128.1745605.17032924779293673178.robh@kernel.org>
+Subject: Re: [PATCH v2 02/12] dt-bindings: media: qcom,sm8550-iris: Add
+ context bank subnodes
 
-folio_may_be_lru_cached() is currently only true for small folios, and
-for small folios FOLL_PIN adds GUP_PIN_COUNTING_BIAS references instead
-of 1 in try_grab_folio()/try_grab_folio_fast().
 
-Consequently, our
+On Fri, 31 Jul 2026 23:52:17 +0530, Vikash Garodia wrote:
+> The VPU issues DMA through several SMMU streams, and the hardware does
+> not give every stream the same addressable range. The non-pixel stream
+> is restricted to use 0-600MB of IOVA space, while the pixel stream can
+> address the full range:
+>     +-----------------------------------------------------------+
+>     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
+>     | 0x25800000 - 0xe0000000                                   |
+>     +-----------------------------------------------------------+
+>     | pixel stream addressable range (0 - 3.5 GB)               |
+>     | 0x00000000 - 0xe0000000                                   |
+>     +-----------------------------------------------------------+
+> A single "iommus" property on the video-codec node puts every stream in
+> one IOMMU domain sharing one IOVA allocator, so nothing keeps a
+> non-pixel buffer above 600 MB. Once an allocation lands below that
+> boundary the hardware faults, which shows up as unhandled SMMU page
+> faults and spontaneous reboots:
+> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+> 
+> Reference qcom,venus-common.yaml, which describes the per-stream context
+> bank subnodes, and drop "iommus" from the required list. The common
+> schema accepts either the flat "iommus" or the "non-pixel" and "pixel"
+> subnode pair, so device trees that have not been converted still
+> validate.
+> 
+> Update the example to the subnode form, which also picks up the two
+> supporting properties the subnodes need on the parent video-codec node,
+> '#address-cells' and '#size-cells' of 2 and an empty "dma-ranges". Both
+> are described in the common schema change.
+> 
+> Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Tested-by: Daniel J Blueman <daniel@quora.org>
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/media/qcom,sm8550-iris.yaml    | 18 +++++++++++++++---
+>  1 file changed, 15 insertions(+), 3 deletions(-)
+> 
 
-	folio_ref_count(folio) != folio_expected_ref_count(folio) + 1
+My bot found errors running 'make dt_binding_check' on your patch:
 
-check in collect_longterm_unpinnable_folios() will currently always
-identify "reference mismatch" and first drain the local LRU cache to then
-drain the LRU cache on all CPUs, as collect_longterm_unpinnable_folios()
-is really called after pinning the folios with FOLL_PIN.
+yamllint warnings/errors:
 
-Add a comment because the current code is not quite intuitive: we used to
-drain only to make sure the folio_isolate_lru() would succeed. But then we
-also started draining to make later migration more reliable.
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/media/qcom,sm8550-iris.example.dts:67.13-24: Warning (dma_ranges_format): /example-0/video-codec@aa00000:dma-ranges: empty "dma-ranges" property but its #address-cells (2) differs from /example-0 (1)
+Documentation/devicetree/bindings/media/qcom,sm8550-iris.example.dts:67.13-24: Warning (dma_ranges_format): /example-0/video-codec@aa00000:dma-ranges: empty "dma-ranges" property but its #size-cells (2) differs from /example-0 (1)
 
-We'll refactor that code soon a bit, to also make it usable in other
-context where we really want to remove any references from LRU caches.
+doc reference errors (make refcheckdocs):
 
-Let's add CC stable, because having an easy way for excessive LRU cache
-draining on all CPUs does not sound right. In common scenarios we
-don't expect to every have to drain.
+See https://patchwork.kernel.org/project/devicetree/patch/20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com
 
-Fixes: 98c6d259319e ("mm/gup: check ref_count instead of lru before migration")
-Fixes: a09a8a1fbb37 ("mm/gup: local lru_add_drain() to avoid lru_add_drain_all()")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
-Found by code inspection. If someone has a testcase that can easily
-trigger this and result in migration problems, please test! But this
-change seems to be "obvious the right thing to do".
----
- mm/gup.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-diff --git a/mm/gup.c b/mm/gup.c
-index 99902c15703b0..41c3317e0f0f4 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -2273,6 +2273,7 @@ static unsigned long collect_longterm_unpinnable_folios(
- 
- 	for (folio = pofs_get_folio(pofs, i); folio;
- 	     folio = pofs_next_folio(folio, pofs, &i)) {
-+		const int pin_refs = folio_has_pincount(folio) ? 1 : GUP_PIN_COUNTING_BIAS;
- 
- 		if (folio_is_longterm_pinnable(folio))
- 			continue;
-@@ -2287,15 +2288,20 @@ static unsigned long collect_longterm_unpinnable_folios(
- 			continue;
- 		}
- 
-+		/*
-+		 * We drain not only to make the folio_isolate_lru() succeed,
-+		 * but also to remove any other folio references from LRU
-+		 * caches.
-+		 */
- 		if (drained == 0 && folio_may_be_lru_cached(folio) &&
- 				folio_ref_count(folio) !=
--				folio_expected_ref_count(folio) + 1) {
-+				folio_expected_ref_count(folio) + pin_refs) {
- 			lru_add_drain();
- 			drained = 1;
- 		}
- 		if (drained == 1 && folio_may_be_lru_cached(folio) &&
- 				folio_ref_count(folio) !=
--				folio_expected_ref_count(folio) + 1) {
-+				folio_expected_ref_count(folio) + pin_refs) {
- 			lru_add_drain_all();
- 			drained = 2;
- 		}
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
----
+pip3 install dtschema --upgrade
 
-base-commit: e5492213654050379e78ec6f9acfd6c9fe00f334
-
-change-id: 20260731-check_and_migrate_movable_folios-43500556943d
-
---
-
-Cheers,
-
-David
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
