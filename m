@@ -1,43 +1,39 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BBC2C33C18E;
-	Fri, 31 Jul 2026 02:45:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E701133B6D9;
+	Fri, 31 Jul 2026 02:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785465910; cv=none; b=p6vaIp9+A8HCb6LNeCnj9VW77Hxg+ZLjRdYhnx/8gInvNqJrc51t7V/JAsFLaoX9GIb7SbNx9a7NT1vCz/lwtzX4sRuy482+lXqVVaTmdvwD6m1E+Oyb5MoZ5OIemFdKnI8BV0OfWd7L3CreoR/Apx4J+/6w/cgi7B+Zj1igG2Y=
+	t=1785465974; cv=none; b=QsX+dUWLydhBazpMG2JpWG01BGpwiJnyySxYTw3WFsNdMxAX5eC1f29YAoS0UQHU/rMZmd51QAoR8obfNxJJ/74oUdYA+vtRaycj5iXeEuvCR9dmCZQ49OpUHIJ0+MDAWpF8jy0ayPy58GD7ZbIwRW5bTtPMzSLbKwq+xo668pI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785465910; c=relaxed/simple;
-	bh=szVPcQXMTP3fnNVA681RQaf1BfEUwcjxnUUvZq9fxSY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Nxf9UYVkKBhJwpXDaePj++y3M8I5esM+Db3SQ2Q4hTTFb/0fB9M84hNeAW27uvOqT+7uiO9F05bfIDpix+k+oiFO36WkvNKUozIDj0hXcFt/HD7pdhZahUC1c7yl+LGv8rv+AJQIqLWjq4DqQ9tguyW7asmhDfJhKlFfLQzI/uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.237.72.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wA3UT0XDGxqVyNSAA--.614S3;
-	Fri, 31 Jul 2026 10:44:39 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgCH9coXDGxq1EJjAw--.19349S3;
-	Fri, 31 Jul 2026 10:44:39 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: netdev@vger.kernel.org
-Cc: horms@kernel.org,
-	david@ixit.cz,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuniyu@google.com,
-	christophe.ricard@gmail.com,
-	sameo@linux.intel.com,
-	oe-linux-nfc@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2 1/2] nfc: reject SE I/O while a device is shutting down
-Date: Fri, 31 Jul 2026 02:43:43 +0000
-Message-Id: <20260731024344.317793-2-fanwu01@zju.edu.cn>
+	s=arc-20240116; t=1785465974; c=relaxed/simple;
+	bh=mUS4G2ULN5kZHTwipcf1t+xtKRof5AF6yhDhrxYudhg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lBD/uzYoEH/GIhgijYVE2xq+JIucGzuaXFWNEWphdiOSPGxzJMT6ZFvSpda2W/ejqM0Nd+UzS4NL7NIXZN13M0IegQNOdkpA4Lu/MJ56OJ31Phu/JxricYZ7NZICgnrxtKUXFdGzWA0OjnbB1GZUrt8OY2py7LAt+S83ogQy8Xs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=4q1gnOsj reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="4q1gnOsj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=aW+SWeZI97
+	LW4jbwATlCbid8ooslJnXbTxJlFk4icD4=; b=4q1gnOsjudJd36kI688xB8Aj7K
+	0iCMsYXQhCbYk87D7p3K9nl1EKMFxrxBFB2nlw717M9OiXy5IGXuIRiR1+8veJmN
+	oHYzP+zxQ73TMrrVWRyhLAoJykf+y7BYDrN33hj4BXkYVcJgLYZpur7JFe0FX8dO
+	1DL9+W0DQlQJtN0GM=
+Received: from wmy.localdomain (unknown [221.14.152.201])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with SMTP id BrQMCkC23RNiDGxq7fisAQ--.17105S2;
+	Fri, 31 Jul 2026 10:45:58 +0800 (CST)
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	stable@vger.kernel.org,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Subject: [PATCH v2] tty: vt: fix memory leak in vc_allocate()
+Date: Fri, 31 Jul 2026 10:45:50 +0800
+Message-Id: <20260731024550.158801-1-25181214217@stu.xidian.edu.cn>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260731024344.317793-1-fanwu01@zju.edu.cn>
-References: <20260731024344.317793-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,99 +41,71 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgCH9coXDGxq1EJjAw--.19349S3
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?9d/8mAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI1EDM1PB+C2j8nywt/ZgZNq5XDDVYGTb/X7qfj0EuaAm9ix
-	ro3au4WYx7I81bRccaGp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxWFW8XF1DWF1fCr47ZF4xuFX_yoW5Wry5pa
-	sxG3WxKr92gryUWw4vyF1IqFyY9a4DuayrCFWF934IkF9xZFyFqw4kKryUZFykCrZ5AF47
-	tr1YqrWUuay5JFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
-	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
-	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
-	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
-	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcUDGUUUUU
+X-CM-TRANSID:BrQMCkC23RNiDGxq7fisAQ--.17105S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tr1kWF4fAF1UXFy5Zw17GFg_yoW8Zw1Upr
+	s8KrW2yF90g3WIyFnrAw48XFyrWa13KFy5CFWjg340vwsxXFyvkF1Fya45WryUZr4kC3W3
+	trWqk3s0gF1qvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
+	6r4UM28EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8JV
+	W8Jr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
+	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
+	648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
+	v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
+	1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
+	AIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
+	42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxh
+	VjvjDU0xZFpf9x0JUfnY7UUUUU=
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgULEWpranxD4AAAsp
 
-nfc_se_io() is the only secure-element entry point that does not check
-dev->shutting_down: nfc_enable_se(), nfc_disable_se(), nfc_dev_up(),
-nfc_dev_down() and nfc_start_poll() all reject new operations once
-nfc_unregister_rfkill() has set the flag under the device lock.
+If the screen buffer allocation fails in vc_allocate(), the error handling
+path jumps to `err_free`. However, this path fails to release the unicode
+screen map attached to `vc->uni_pagedict_loc`.
 
-An NFC_CMD_SE_IO request racing device removal can therefore still reach a
-driver's se_io op after teardown has begun, arming driver state (for
-example a timer) that the driver's later drain cannot account for.  Add
-the same shutting_down check the other SE operations already perform; the
-existing error path frees the freshly allocated se_io_ctx.
+During the early stages of vc_allocate(), the unicode screen map is either
+newly allocated via con_set_default_unimap() or shares the default unicode
+map from a previously initialized console (which increments its refcount).
+If the subsequent kzalloc() for the screen buffer fails, the err_free path
+frees the vc structure but leaves the attached uni_pagedict with an
+elevated refcount. This results in an unreferenced object memory leak, as
+the reference to the dictionary is lost and its refcount can never reach
+zero.
 
-This also adds an optional nci_ops::pre_unregister hook, called in
-nci_unregister_device() right after nfc_unregister_rfkill() (the admission
-barrier is up, so new operations are rejected) and before
-nci_close_device()/destroy_workqueue() (the NCI core and its workqueues
-still exist).  An NCI driver whose teardown helper touches the NCI core can
-use it to drain driver-owned state at the correct point.  The hook is
-optional; nci_ops initialisers that leave it NULL are unaffected.
+This issue was discovered by DevGen (an automated virtual device modeling
+fuzzer based on Syzkaller). During fuzzing with kernel fault injection
+(failslab) enabled, the fuzzer forcefully failed the kzalloc() for the
+screen buffer, exposing this error-handling path leak.
 
-This follows the barrier-first teardown ordering from d2492688bb9f.
+Fix this by calling con_free_unimap(vc) in the err_free path before
+kfree(vc). This safely decrements the refcount and releases the dictionary
+memory if this was the last reference.
 
-Cc: stable@vger.kernel.org # 6.6+
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Fixes: 34902b7f2754 ("tty: vt, get rid of weird source code flow")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 ---
+Changes in v2:
+- Added documentation in the commit message detailing the fuzzing
+  environment (DevGen/Syzkaller) and the fault injection (failslab)
+  mechanism used to discover the bug, as requested by Greg KH.
 
- include/net/nfc/nci_core.h | 1 +
- net/nfc/nci/core.c         | 3 +++
- net/nfc/netlink.c          | 5 +++++
- 3 files changed, 9 insertions(+)
+ drivers/tty/vt/vt.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/net/nfc/nci_core.h b/include/net/nfc/nci_core.h
-index 664d5058e..754a67185 100644
---- a/include/net/nfc/nci_core.h
-+++ b/include/net/nfc/nci_core.h
-@@ -82,6 +82,7 @@ struct nci_ops {
- 				    struct sk_buff *skb);
- 	void  (*hci_cmd_received)(struct nci_dev *ndev, u8 pipe, u8 cmd,
- 				  struct sk_buff *skb);
-+	void  (*pre_unregister)(struct nci_dev *ndev);
- 
- 	const struct nci_driver_ops *prop_ops;
- 	size_t n_prop_ops;
-diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
-index 5f46c4b57..86286c076 100644
---- a/net/nfc/nci/core.c
-+++ b/net/nfc/nci/core.c
-@@ -1321,6 +1321,9 @@ void nci_unregister_device(struct nci_dev *ndev)
- 
- 	nfc_unregister_rfkill(ndev->nfc_dev);
- 
-+	if (ndev->ops->pre_unregister)
-+		ndev->ops->pre_unregister(ndev);
-+
- 	/* This set_bit is not protected with specialized barrier,
- 	 * However, it is fine because the mutex_lock(&ndev->req_lock);
- 	 * in nci_close_device() will help to emit one.
-diff --git a/net/nfc/netlink.c b/net/nfc/netlink.c
-index 0c58824cb..3132f7a90 100644
---- a/net/nfc/netlink.c
-+++ b/net/nfc/netlink.c
-@@ -1426,6 +1426,11 @@ static int nfc_se_io(struct nfc_dev *dev, u32 se_idx,
- 
- 	device_lock(&dev->dev);
- 
-+	if (dev->shutting_down) {
-+		rc = -ENODEV;
-+		goto error;
-+	}
-+
- 	if (!device_is_registered(&dev->dev)) {
- 		rc = -ENODEV;
- 		goto error;
+diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
+index 8f467b22b799..4bac89ea968a 100644
+--- a/drivers/tty/vt/vt.c
++++ b/drivers/tty/vt/vt.c
+@@ -1134,6 +1134,7 @@ int vc_allocate(unsigned int currcons)	/* return 0 on success */
+ 	return 0;
+ err_free:
+ 	visual_deinit(vc);
++	con_free_unimap(vc);
+ 	kfree(vc);
+ 	vc_cons[currcons].d = NULL;
+ 	return err;
+-- 
+2.34.1
 
