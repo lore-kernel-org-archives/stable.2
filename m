@@ -1,168 +1,111 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D2444160C
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 15:30:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A874398EB
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 15:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785511850; cv=none; b=CLkiyuicgyEPO8dZ/oRs9t+tto1OSsDATLUptrGanDYxMlfA/8vNloNDzgciSxSreJu62G1ij7KVvmsGI6GLm/WBzOdYJ6/0blXELoSMjpj1W1FYHPQTdwg3KFYIwTKurXcVB6q47UE5OY47vVuEYmmWXfmU5759fzpvlzCm3vI=
+	t=1785512036; cv=none; b=pa73hRB5w5hxNLmsmw03FuBPTufEFO7jO7GZplwtch6TtvT3tsh56+hPr3yGBJyt0DBIme734tnFmbhtvaCSGt5X+16cFpeEswwXY2yVqycAJ351iXjxc+YK3T3olYien4qAnb8UVDEfddNQve6W02qWBYoC3jHhbKS8fFfPZv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785511850; c=relaxed/simple;
-	bh=KQaPfDFPUnQM6P7cSv/JwJhXqHxEuSND+QAM9yLYYAo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lcUL8LjtQeFUATSUUhpOJqDeIMYQDC+dKXa/wi952eX8Tv68YXqQ58V4qqj/QqX7yKu8MsI6hfBw0dDjp8dSmURlJR+y0U1xBGU+PWg7u+aiHTqBkgIcKPqS0y9wMWt6Z24cBQEJZAIUPYmKo67do/JiUrT9e6nZ14VI5lV8Fns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y2Tn+0X2; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785512036; c=relaxed/simple;
+	bh=woNq/l+3U0zz2akwXlegxA86rTMivcRmcH7/T5sMXMo=;
+	h=Date:Message-ID:MIME-Version:Content-Type:From:To:Cc:Subject:
+	 References:In-Reply-To; b=FMSWtSiOyUHwkvc1qxEFoOoT025TEAx7Kz+xnU+ENMyF27AIoKOdjVUShRgxEwwVg1uPhhstddPdc56g3KlzekXWNEjhYdJKUK0R7IWkT7rG7QRHZzUaqOKRea/PIWnKRq3BJcyZbUdhDLrp6eMLidIkJUbCawSy2wVYNTtlHSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=Y3u1vViB; arc=none smtp.client-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y2Tn+0X2"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-384c94c9423so165641a91.2
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 08:30:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="Y3u1vViB"
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5276d598b96so5292481cf.3
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 08:33:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785511841; x=1786116641; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6OyGbAT6GrMWswBzUxCW6VevBbGRS26+rZq5jcU/ga0=;
-        b=Y2Tn+0X2D6QZl5J6EvtKJjFZ11uW8gFFVVA5A9ZzpK/aXKtW7/LBtp4Q1Jz3IACgOA
-         BpQbDs0N2RyWU3s3Ihv+R5eJl8RPhcgnXxYg8qqeXR6+gUAlingPOKa13BUoCsiuDscr
-         rlRENONBEyiiWtP3haQSqCdA8sa53kCINeTP923zgA4udSj/ZpMHtmidXdBsEV5TgWIq
-         2sQ3nMHGhuGnR8VNOLOmSIYWzUZxVvtw0ZAe1X0tN5rA3XFhJDEywyh3oxtpXxXT5r0b
-         5wJ9WwtcwWp21sdy9noa2n03Vqod3G4ti0sWDe5wbuqQS5+ezDzkxawDlbBGRgx/Zocd
-         Sp6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785511841; x=1786116641;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=paul-moore.com; s=google; t=1785512033; x=1786116833; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6OyGbAT6GrMWswBzUxCW6VevBbGRS26+rZq5jcU/ga0=;
-        b=c/Y2RehIBCAgjLbHmZlzmfyNMOLYI1R2+y+Q3wgsjyfDA1XnY7s/QsVE41+oftn92O
-         nnCBi1zq+ZbGG9aAKyjjJzR3Ia6hxwlx8FmCydwWvy8IDxAuKdpTkXigI/yTzobXvyKX
-         ltGdoewdN97QOSSrdDaBzCnisCA4GyuhR3zkEwcmdfaFLj2QTjfqKS4jUmpkCwn/yqPL
-         A/CyzNaXbk0YxEnzuOB6C16tvfro1kats5wc7yGFAwczFaFl2MAs1dtgVikD0ntR9f8U
-         gym+LA8Qos9QjsFghnRTSnrBo6JbHoFlTuy6KOiFfPp209z+L+9tZwp8gkYUDzOwT3SW
-         YdaQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrv0zR/Qca2dzaXaghJNOsg7pB8whZVD5LJ+XIjto2nzTajIisdpgvUn+dkvPfYQ9MJrfTes1A=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz6sth7DCxOhMzwsBXxA2pYZGLGfd/97agvR1pHqXIZuTOuKgZP
-	j/4VU4vcIbz565dXSgsB84GCBFlePcTv+5rQYtdCzBRiq4qPvCsW1RRl
-X-Gm-Gg: AR+sD11m27i/m6i0mjKI6Kh0NmjFSrSPx0o9wCht1A3j+lw0MaG5zkL2I24Y95r+K4E
-	HDKZhjq294Lq0ps4+dVaaZEOBaLX5Yy3rHMUsTc9t5o8cjJq4On0hDNBfVbumboA/yJRevK2FqQ
-	OE6uhqR322bQbk9jRqZcs+WLQNwYJf91vHLw7Sccj9bkFKcfcDrHj3FpAkdr8NQpnwXmS88Ajgs
-	mmA97WpAOCrlSQvcjjOSBj/ddi+Rkv9hLmDb+elnLQ7sxE3ralajCM96uBl5t0mnf16mb69lZ8L
-	4XRwAOOTP49NudP99UvKwekjj9OoI2kPwtPpFruMLP0R2WPt0DQ+uAeGZBt+KruOjwNYasImNr1
-	fducErLhibF6O06XrzECb7/ef82Ows1IvRigXIDbxr/HOQs80Bz3fom7ZtsWsdwxbPnQ+avPtRa
-	WpNArkOKwgeNmcAXodAhaTsb9EARcEHlsfgjr7X7fDVwPnJAi7M3mDRfRBIVDCWutd1et45SIZC
-	XgMr3NaA/6V7RvUk80zWuoaOyF4CQEoVAmujznzpgVbdS/iEHA380Y=
-X-Received: by 2002:a17:90b:4b90:b0:381:28e0:6248 with SMTP id 98e67ed59e1d1-38fbc3f0737mr481201a91.1.1785511841320;
-        Fri, 31 Jul 2026 08:30:41 -0700 (PDT)
-Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fab4f83c3sm3296821c88.14.2026.07.31.08.30.38
+        bh=FIaFXgBtOm81nfXrtruizv0xq/Lkj36YYTwsO8jgCiI=;
+        b=Y3u1vViBio+nqrIXHc3PLM8T7DOvrochPqB15/haNdLZ3fXpwy0nU0obhbmwqe/iX2
+         l2MK3TXATohJun+/SSNLSvnA77hZG2imJvfgezTMLOv4lpazgEOov++Msg3p8ZEl9mMD
+         BhJE5AT9BBTnQkKoBvXfUsHKW281dkv8wLQytxLkMrLdO4HsokQ20EySQRQ5YT7F3M3w
+         eC46HBMOhcGZJr0V3ApkDpMTFNMTGajV4sLrP/UHDJwxs+vPWsC28IIqHCCb2TsH7VeQ
+         sE8uvaZkAP2MBwHpT/pgq1LPxt17ovYV+1WGtCO5XWfK57b1mdqAS6uDlbwEhNS2wXp3
+         Y/Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785512033; x=1786116833;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FIaFXgBtOm81nfXrtruizv0xq/Lkj36YYTwsO8jgCiI=;
+        b=dF5Q4HGTANJMP5MOZIQj1bsP7JXiGM2NAU1oTu3SgixX7nlv5J/peprr3l6wMYxibT
+         ofgwYgszSrKPYHoZMhFmC3IO7clYxgX0Kw3vdLKwqdsViBbirzLRSKFt7SERsHgF3vSA
+         EXnvDCqNgoSslPNnHJpVJyjt+0UpjzGiNd3UhoNSlAmupFMZUpEwTfOuSkAue6JlYj5g
+         oWJmeVLlbJftF0ABIHVi9NduA4DNEbRroPjZPzpyvm8esFQmSu56ixvDc1ilESpH/APk
+         NJ3b4Jptlv2AX7XtqFPlP4ZO8JnnKvADIXWh+0VWzKonz3bZ1uVJtuE88Jwf2Kf+Ozdi
+         j7kQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro7onAPnb7zeVb710dilXqJlNVy4uRSCXWzx0CpkuTwjdl6skFLsKL2znYI55XSaBiheIaM3T4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6gllcG1xhvr+pv0Vn9IvMKTuKRLk2921Aiea9qRnFh+2ZYtQA
+	gaNxfp280MLSYkP3meIvTbTpeNIS4TvW9vZFhuqQzwtBiwropOJ7ax/l6Aaulw2eqA==
+X-Gm-Gg: AR+sD12m6St4LSb9JFzOkHq2OEYE3G3l9wJvbJWJGwBUsV2PQIlQ+c/XdMUWJNA6ZHV
+	qkOjuJFHWi7VlIpG7XWrMXV/xQZQnBcYFBI18W78ZKF6P0em8dHPtCbGweHU0KkxHD5FWdgR/vM
+	QtISBu8ip+iXBogI6WxSEltdMxheLcT28rEGgHgka4AlVe5WCNVh/DM0e8AeyW7JZFjRSZeOHkO
+	DUVoW/wFHVpxJklhREy7DXOdJjclhB4geZdliZcnM7qF79gr+ROwJ9YYLGlRBit77Lps9Rs5SKt
+	wQeE3vMHtJtab0DaNsAPkaGI3s1B9Mnaubcc/qF8Tf4nWZfnbrMcJvBu1VtRSk0NL9JO4Z/ig8U
+	OoLMpCTG9xUe2uJWO73tJxa2Ru4MJUOqdhr9H00Aj1xFhwW78pSDksufQkCwUoUTAOuosHHFvDq
+	vg2vP8y91ZbnRH8kdR8uvsl3feMT2BD4TnI06lZ1aOaP19f1QoIu5sW6Ep0baBVgo97/wC67T+8
+	k9mZVqA5yW8sT11rOTUheJYdPN3CwZ3cg==
+X-Received: by 2002:a05:622a:181c:b0:51b:ecca:f2e0 with SMTP id d75a77b69052e-52b566f6f4emr11298121cf.5.1785512033469;
+        Fri, 31 Jul 2026 08:33:53 -0700 (PDT)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52b4ebeb909sm9993881cf.29.2026.07.31.08.33.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 08:30:40 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Vlad Buslov <vladbu@mellanox.com>,
-	Stefano Brivio <sbrivio@redhat.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] net/sched: keep tcf block alive during offload unbind
-Date: Fri, 31 Jul 2026 23:30:31 +0800
-Message-ID: <20260731153031.3201165-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 31 Jul 2026 08:33:52 -0700 (PDT)
+Date: Fri, 31 Jul 2026 11:33:52 -0400
+Message-ID: <f3768f73f951ef02b4fc3f89d53527eb@paul-moore.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 
+Content-Type: text/plain; charset=UTF-8 
+Content-Transfer-Encoding: 8bit 
+X-Mailer: pstg-pwork:20260731_1130/pstg-lib:20260730_1437/pstg-pwork:20260731_1130
+From: Paul Moore <paul@paul-moore.com>
+To: Carlos Llamas <cmllamas@google.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, Ondrej Mosnacek <omosnace@redhat.com>, "Christian Brauner (Amutable)" <brauner@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>
+Cc: kernel-team@android.com, linux-kernel@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, linux-fsdevel@vger.kernel.org, Carlos Llamas <cmllamas@google.com>, stable@vger.kernel.org, "open list:SELINUX SECURITY MODULE" <selinux@vger.kernel.org>, "open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>
+Subject: Re: [PATCH v2] selinux: bpf: check SBLABEL_MNT before isec init
+References: <20260730221508.3846409-1-cmllamas@google.com>
+In-Reply-To: <20260730221508.3846409-1-cmllamas@google.com>
 
-An RTNL-unlocked filter request can race with qdisc teardown on a shared
-tcf block.  The filter request takes a temporary block reference before
-teardown drops the qdisc owner's reference.  Teardown then enters
-tcf_block_offload_unbind() without retaining a reference of its own.
+On Jul 30, 2026 Carlos Llamas <cmllamas@google.com> wrote:
+> 
+> selinux_inode_init_security() marks the isec as initialized before
+> checking if mount labeling is supported (SBLABEL_MNT). This was fine
+> until commit 9722955b5430 ("bpf: Add simple xattr support to bpffs"),
+> where genfscon bpffs mounts fail the SBLABEL_MNT check as expected (no
+> xattrs) and yet leave the isec->initialized. This breaks subsequent
+> calls to inode_doinit_with_dentry().
+> 
+> Do the SBLABEL_MNT check before the inode security is initialized.
+> 
+> Cc: stable@vger.kernel.org
+> Closes: https://lore.kernel.org/all/akWdcp6P0FkNDzBk@google.com/
+> Fixes: 9722955b5430 ("bpf: Add simple xattr support to bpffs")
+> Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+> Signed-off-by: Carlos Llamas <cmllamas@google.com>
+> ---
+> v2:
+>   - Move the check further at the top per Paul's feedback.
+>   - Collect Stephen's Ack.
+> 
+> v1:
+>   https://lore.kernel.org/all/20260730181008.3654413-1-cmllamas@google.com/
+> 
+>  security/selinux/hooks.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 
-The following interleaving can occur:
+Merged into selinux/stable-7.2, thanks!
 
-  filter request                   qdisc teardown
-  tcf_block_refcnt_get(): 1 -> 2
-                                   __tcf_block_put(): 2 -> 1
-                                   tcf_block_offload_unbind()
-  tcf_block_refcnt_put(): 1 -> 0
-  tcf_block_destroy()
-                                   access block->nooffloaddevcnt
-
-The unbind path may sleep in flow_indr_dev_setup_offload(), allowing the
-RCU grace period to expire and the block to be reclaimed.  It then
-continues using block->cb_lock and block->nooffloaddevcnt.
-
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in tcf_block_offload_unbind
-  Read of size 4 at addr ffff88811ae590a4
-  Call Trace:
-   tcf_block_offload_unbind+0x158/0x190
-   clsact_destroy+0xd6/0x690
-   __qdisc_destroy+0xdf/0x290
-   qdisc_graft+0x5d7/0x1560
-   tc_get_qdisc+0x415/0xd50
-   rtnetlink_rcv_msg+0x367/0xa40
-  Allocated by task 85:
-   tcf_block_get_ext+0x803/0x1570
-   clsact_init+0x1ff/0xb50
-   qdisc_create+0x392/0xde0
-  Freed by task 88:
-   __kasan_slab_free+0x43/0x70
-   __rcu_free_sheaf_prepare+0x5c/0x220
-   rcu_free_sheaf+0x1a/0x100
-
-Keep the qdisc owner's reference until offload unbind completes by moving
-the unbind before the refcount decrement.  A concurrent temporary
-reference release can no longer destroy the block while unbind uses it.
-
-Fixes: 92149190067d ("net: sched: flower: set unlocked flag for flower proto ops")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
- net/sched/cls_api.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
-
-diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
-index fee4524adc98..d3b2506d87cf 100644
---- a/net/sched/cls_api.c
-+++ b/net/sched/cls_api.c
-@@ -1312,6 +1312,9 @@ static struct tcf_block *__tcf_block_find(struct net *net, struct Qdisc *q,
- static void __tcf_block_put(struct tcf_block *block, struct Qdisc *q,
- 			    struct tcf_block_ext_info *ei, bool rtnl_held)
- {
-+	if (q)
-+		tcf_block_offload_unbind(block, q, ei);
-+
- 	if (refcount_dec_and_mutex_lock(&block->refcnt, &block->lock)) {
- 		/* Flushing/putting all chains will cause the block to be
- 		 * deallocated when last chain is freed. However, if chain_list
-@@ -1325,15 +1328,10 @@ static void __tcf_block_put(struct tcf_block *block, struct Qdisc *q,
- 		if (tcf_block_shared(block))
- 			tcf_block_remove(block, block->net);
- 
--		if (q)
--			tcf_block_offload_unbind(block, q, ei);
--
- 		if (free_block)
- 			tcf_block_destroy(block);
- 		else
- 			tcf_block_flush_all_chains(block, rtnl_held);
--	} else if (q) {
--		tcf_block_offload_unbind(block, q, ei);
- 	}
- }
- 
--- 
-2.43.0
-
+--
+paul-moore.com
