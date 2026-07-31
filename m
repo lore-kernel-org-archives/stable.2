@@ -1,120 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F85F44AB78
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 16:39:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D42448CF9;
+	Fri, 31 Jul 2026 16:39:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785515944; cv=none; b=fYMrex5ae8Djp/5mJ9D5/sDBPx04+R+pSyTvXrEbSrBNrm4hK7/zcx7mUxr7aliWzky6j/WB/EC1rW00nf21Bg1l2X5zcXdAOHM9gEtePI7chYl54JXYsZpmqoPSJJvuRFoYUMZeioVStgFkoe22RzPS4P0+HDjvtpQ9GXW4wRc=
+	t=1785515954; cv=none; b=Sw6N45P2y6chDIzG3SB0thZDD9rrfc5reu1YBuwhJDEKtwlwwbuaSaGhGWssPcdhut3bPCO4xo51sjxj4nHqTPHMJOk6FPqPBGXXDz4sWrt/VZB5IQCqdmyl/7WhzEYu+A15bBzD3UdzwmflptTKpN2zg3n7pKN9dbVHEyUVrRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785515944; c=relaxed/simple;
-	bh=wUjnU9Ms42XsVj41ogbcHuxYmqTRvUNCulYZZLkX2BU=;
+	s=arc-20240116; t=1785515954; c=relaxed/simple;
+	bh=r9GHmiVtwWcs7DPrjdQhWPhhlTDRxEu/vuj19wAJEe8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=P0Xgud2fVQC97WzvjF5J82KaQCtu1E/GSlwZdKjM/G5Y9xMxQzMFJz4rFNWgMvtRBL+nINBbJwAdab9weeOwazAS9MAu3ElhCF/KKlpnkpWcdL36INFVa2sbnDMWK5n2fhqXGl9Nvh1qjpw739poGq2XJs9LysxDFc5qvFGNJ8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Si6GxXUc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WmfiWn1+KzKXatXwo8qYsXrFhhBnhyPvEhyMHnW0s/u0ebtIwkw6FyYT1K+1XTVkCvz4QjD4Rj4mI1sLFN1wZE2uNAV85OdqkvloYZK+eBIvUkxMcrIAM/aeOR4ftb5y5nGdhf46YdrwjcVHaXq2ugyF4w0P7UAg/YZ3e53T4h4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cs99QDGB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Si6GxXUc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5A0B1F00ACF;
-	Fri, 31 Jul 2026 16:39:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cs99QDGB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07C181F00AC4;
+	Fri, 31 Jul 2026 16:39:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785515943;
-	bh=I961fat8osVSjIrggGGpvU3ZaLZAs3FhF6CdQk3/Rh4=;
+	s=k20260515; t=1785515952;
+	bh=wfrSPvqP76I9CYztqD7DQbSqJBShjoJiC2ouvz5kFsc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Si6GxXUcsmx+MGzdBHNn63FBtHZRj69QirGFWN8zjTJHyfVd//OAe50PReydNWwXU
-	 /DUScww4/dbahPx13R3KnquigwJlL+8rYO81A3KcCKuqZAiPDhDKWGX2tHo9xVsZrm
-	 j3HwQLnw1yg3NIQFFpQsCDgi6uMCkXMUXdKKeG9M1LW6cCIWsh07hh+7TQYRUcd8l1
-	 VJQnBVRUmijvkK83OC1jtl1lg7Y3mHgU6QqXI+WmjPtciUjc5wQTrrqZKHypsx4lUW
-	 E17D2TaKYne2h8/Lp8gsHfntGfprlu5hCcyliJ1SQzMhOTT+6XN+E48YvJKZuAd2Yt
-	 WP8NeoK4WhLUA==
+	b=cs99QDGBXtlWsMtHdzkKVn43QeRqpUosuT3UCouksk/8Qt6aiTvd2yNsqxBfpw8X6
+	 WozQ3p9Mee8rzvwd78eXL+SU3pibpY/kQVPXKiYja3ypFVX7QbOaBDcWBEHTFByosC
+	 0UMe8XLgJntX7CEqd2iyFZvePUODPjtJnEEfaHJhUp5FAF8MDimPvfgmc/DQcEpad2
+	 SPwtaO8orm3VKkkpFnm/6a1gsSG7Rl7PXeFKcdMDZNoe4YmqQoUDOhmqvEAzgrVk3L
+	 EPgFAjW4zZuX5LzbOLGKFaXh44l2kv1O62q6pP+25dvsHFdPIHyVViiY/ldHVHuKk6
+	 xWVt6a3KkrClA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	Thierry Reding <treding@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] drm/amdgpu: Respect placement requirements in amdgpu_gtt_mgr functions
-Date: Fri, 31 Jul 2026 12:39:01 -0400
-Message-ID: <20260731163901.838294-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] drm/tegra: fbdev: Remove offset into framebuffer memory
+Date: Fri, 31 Jul 2026 12:39:10 -0400
+Message-ID: <20260731163910.838898-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072909-haven-garbage-f0e7@gregkh>
-References: <2026072909-haven-garbage-f0e7@gregkh>
+In-Reply-To: <2026072952-flight-outer-804b@gregkh>
+References: <2026072952-flight-outer-804b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Timur Kristóf <timur.kristof@gmail.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-[ Upstream commit 8882f8897e554053af9e72f4c2da8b1e2cce56c7 ]
+[ Upstream commit a18b6e30ecd69096beda4a0c96d2570900c3879a ]
 
-When testing intersection and compatibility, respect
-the actual placement requirements. This is a pre-requisite
-for ensuring that UVD CS BOs do not cross 256M segments.
+The screen_buffer field in struct fb_info contains the kernel address
+of the first byte of framebuffer memory. Do not add the display offset.
+This offset only describes scrolling during scanout.
 
-Fixes: ded910f368a5 ("drm/amdgpu: Implement intersect/compatible functions")
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit bc06579ca29dee9c245a41b12e39c7bb6938af5d)
-Cc: stable@vger.kernel.org
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-tegra@vger.kernel.org
+Cc: <stable@vger.kernel.org> # v3.10+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c | 30 +++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/tegra/fb.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-index 0760e70402ec..52ed0fa000d7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-@@ -217,7 +217,20 @@ static bool amdgpu_gtt_mgr_intersects(struct ttm_resource_manager *man,
- 				      const struct ttm_place *place,
- 				      size_t size)
- {
--	return !place->lpfn || amdgpu_gtt_mgr_has_gart_addr(res);
-+	const struct drm_mm_node *const node = &to_ttm_range_mgr_node(res)->mm_nodes[0];
-+	const u32 num_pages = PFN_UP(size);
-+
-+	if (!place->lpfn)
-+		return true;
-+
-+	if (!amdgpu_gtt_mgr_has_gart_addr(res))
-+		return false;
-+
-+	if (place->fpfn >= (node->start + num_pages) ||
-+	    (place->lpfn && place->lpfn <= node->start))
-+		return false;
-+
-+	return true;
- }
+diff --git a/drivers/gpu/drm/tegra/fb.c b/drivers/gpu/drm/tegra/fb.c
+index 6e35c7951dfb..daafaea41196 100644
+--- a/drivers/gpu/drm/tegra/fb.c
++++ b/drivers/gpu/drm/tegra/fb.c
+@@ -221,7 +221,6 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
+ 	struct drm_mode_fb_cmd2 cmd = { 0 };
+ 	unsigned int bytes_per_pixel;
+ 	struct drm_framebuffer *fb;
+-	unsigned long offset;
+ 	struct fb_info *info;
+ 	struct tegra_bo *bo;
+ 	size_t size;
+@@ -267,9 +266,6 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
  
- /**
-@@ -235,7 +248,20 @@ static bool amdgpu_gtt_mgr_compatible(struct ttm_resource_manager *man,
- 				      const struct ttm_place *place,
- 				      size_t size)
- {
--	return !place->lpfn || amdgpu_gtt_mgr_has_gart_addr(res);
-+	const struct drm_mm_node *const node = &to_ttm_range_mgr_node(res)->mm_nodes[0];
-+	const u32 num_pages = PFN_UP(size);
-+
-+	if (!place->lpfn)
-+		return true;
-+
-+	if (!amdgpu_gtt_mgr_has_gart_addr(res))
-+		return false;
-+
-+	if (node->start < place->fpfn ||
-+	    (place->lpfn && (node->start + num_pages) > place->lpfn))
-+		return false;
-+
-+	return true;
- }
+ 	drm_fb_helper_fill_info(info, helper, sizes);
  
- /**
+-	offset = info->var.xoffset * bytes_per_pixel +
+-		 info->var.yoffset * fb->pitches[0];
+-
+ 	if (bo->pages) {
+ 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
+ 				 pgprot_writecombine(PAGE_KERNEL));
+@@ -281,9 +277,9 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
+ 	}
+ 
+ 	drm->mode_config.fb_base = (resource_size_t)bo->iova;
+-	info->screen_base = (void __iomem *)bo->vaddr + offset;
++	info->screen_base = (void __iomem *)bo->vaddr;
+ 	info->screen_size = size;
+-	info->fix.smem_start = (unsigned long)(bo->iova + offset);
++	info->fix.smem_start = (unsigned long)(bo->iova);
+ 	info->fix.smem_len = size;
+ 
+ 	return 0;
 -- 
 2.53.0
 
