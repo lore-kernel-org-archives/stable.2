@@ -1,40 +1,42 @@
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283003B83FE;
-	Fri, 31 Jul 2026 10:54:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9AFE413D62;
+	Fri, 31 Jul 2026 10:54:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785495283; cv=none; b=ZGSTw3atJ4iw8A7cmFsTSxbCDUFpgGRXrBNSG303hH2NcelA4x8qlw32Z0OX+rM9kIX4umiPt3aD8rdez8WSTBBGOphl9XHVMc0icCWrLMOggqYcMOrUTVe+NBZYuBEe7Jalskr5axDGzVnq3TtE8YvLm2okYMeq8SNkvqPySXU=
+	t=1785495285; cv=none; b=gqC4VIM63A4PwC6nycBumlugssyH3Muem4YFqaQkqfUVRVckowit1ixnpYSniU3RLU608Fqbo24ZQGCw7+eKjS/CAkzFYR2LaSNotvSP8P54ZWV35pftRypxUkKoMs6VtBaRp+Os1FPNVdprazOBkl9a3KZb9Rhn5togemqBJn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785495283; c=relaxed/simple;
-	bh=opKORBieQve1PBtOwkTqy4ayYxkg0xZx5VbSMhf+Fo8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tvbvKrbzJhoZJjxL99EkXL0LioBwh5WBMmHE4CCIPwZkgkLv0Ll8WZyJpITGKMWpKGJA1MP3gfo4DNOZW1AKGu/KL/dFa4Q2728GncNIhPaAodGUl22/GgigCGNe7vwLuEX4PrVQ1i5+Hib3Zo0++K/zmfI7XMpCdMkxGny6q3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BBQowLeK; arc=none smtp.client-ip=185.246.85.4
+	s=arc-20240116; t=1785495285; c=relaxed/simple;
+	bh=A+RYlvea3muHJkR3NxXPPCl5DxXF4LYmaoormXO+aiI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nmRayhS4DqTgobeHfXj/5XW+QH3hUSW8yDeGf1krw6S9tb6gsBlwwoDv6YDBZHAVPCWsUgMLi4NVX6RhkLeouSXR6J9a+BuWcjT6Y/MclhS6t29PAgdn1mUJsTYkNeP3VVdUK0lQj9zwwgRMFyAh+7BbgLbYw2qPyrfxWWLXH3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=yq+wPqUm; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BBQowLeK"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="yq+wPqUm"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id CF8974E41048;
-	Fri, 31 Jul 2026 10:54:27 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id D685B4E4104B;
+	Fri, 31 Jul 2026 10:54:32 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 876A06039A;
-	Fri, 31 Jul 2026 10:54:27 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2ADD811C166EE;
-	Fri, 31 Jul 2026 12:54:20 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id AC3AF6039A;
+	Fri, 31 Jul 2026 10:54:32 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C70EA11C166F4;
+	Fri, 31 Jul 2026 12:54:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1785495262; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=PVfTgw5RIOrG0Sy53AUsU/OG/wjlitk1KG+YHSlD8QQ=;
-	b=BBQowLeKYPdiotIGFnRSN9CjBzZyEk/eT+yLVf3CdtGiKu8+xCoZtMnw8R38cCT3FdnSac
-	iJuNIh2T9fEka7i9J/y5gLiVJO5sob2YtmhKIEWMn8kG371RnZk2pZi+STEhlP8rZkr+2c
-	VswE2O9p2+tCsQGVcAV/KodZAP9emxpZoMGwT+s1wqpyaVlNI7uEEUY7UKdXG0PZpa5LYw
-	pR28SDDJHWgk73RsLlbfL9TCQ21VGeOuXRUfh3Bm03RSvoZqe7DudIiH/Bc4aifFBRLD9a
-	LgnXvNwJGNT8tRNaExeWw9cWfkNnI+FsZsvx2cagWULaum37BU+Lw31gjL0NIg==
+	t=1785495268; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=45YoHV0abmLlyEJ5V4MZxscl5HAFA4m1pFJTxKtyNYI=;
+	b=yq+wPqUm7JqJ7Oyp04a4li73hxVfdzyPkrRn54X4nirKrNtcA2DFmIHbaorH5OcPqoA7NI
+	Dgo3I4K9++MIVzcKhO7gtGtCQjBGIMlt08j1YiREXNJcfOBBOizhGWCgzCjW7zKPVStIj2
+	zalXP6rF1vtiInMWpsbxXW3P7uyIY4BCMXjqndfNMCd1tXiICwcWydxXOvZtiCvDhOrh7P
+	bsX8OdRynOSWMk906JluEvjBnhOm/lT6GwDpkFcWT6LODZ12oXU2OPUCBrSlfYrGyArKae
+	KI7gkJ7ftjAQAPXDDAUZOzGWbaUAlbI2Tb0ejZYQ2SlINGvaqkTMb+DNLcOnjw==
 From: "Diogo Ivo (Schneider Electric)" <diogo.ivo@bootlin.com>
-Subject: [PATCH 0/2] spi: cadence-quadspi: fix probe error path and remove
-Date: Fri, 31 Jul 2026 12:53:45 +0200
-Message-Id: <20260731-cqspi-pm_runtime-v1-0-ff0bfc9e8e56@bootlin.com>
+Date: Fri, 31 Jul 2026 12:53:46 +0200
+Subject: [PATCH 1/2] spi: cadence-quadspi: fix runtime pm cleanup on probe
+ failure/unbind
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,10 +45,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDc2MD3eTC4oJM3YLc+KLSvJLM3FTdRItEw2QzQyMjSxMTJaC2gqLUtMw
- KsJHRsRB+cWlSVmpyCcgcpdpaAIH1BER0AAAA
-X-Change-ID: 20260730-cqspi-pm_runtime-a8a1c6122944
+Message-Id: <20260731-cqspi-pm_runtime-v1-1-ff0bfc9e8e56@bootlin.com>
+References: <20260731-cqspi-pm_runtime-v1-0-ff0bfc9e8e56@bootlin.com>
+In-Reply-To: <20260731-cqspi-pm_runtime-v1-0-ff0bfc9e8e56@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, 
  Matthew Gerlach <matthew.gerlach@altera.com>, 
  Khairul Anuar Romli <khairul.anuar.romli@altera.com>, 
@@ -58,53 +59,91 @@ Cc: miquel.raynal@bootlin.com, thomas.petazzoni@bootlin.com,
  "Diogo Ivo (Schneider Electric)" <diogo.ivo@bootlin.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1375; i=diogo.ivo@bootlin.com;
- h=from:subject:message-id; bh=opKORBieQve1PBtOwkTqy4ayYxkg0xZx5VbSMhf+Fo8=;
- b=owEBbQKS/ZANAwAKAQa+fFtWXslFAcsmYgBqbH7biOcDH24gqSmcosoTEL+bogfD+O6wVshWj
- 0GNijhq/OqJAjMEAAEKAB0WIQTma35o1i1081e8B2UGvnxbVl7JRQUCamx+2wAKCRAGvnxbVl7J
- RYQDD/469bGLM35Q+R4GOElEYpojPrXwKnXu6goXfESIkwZPDETF+NHqEoTSJ+QS6L2H+OsvhuC
- wPAi2UTebnkw3i4KHmJWbGdszfOLhuXTjSRXfwMfA4IU5NU/9J4AF+qX9GxT+DzdaoAaWG0nUfj
- wAFR3KOcnyixvaHbIyVDwwpLxRJbpOrEYpYE3fBfZlTZ+pcvZn+FhNuTjzAIzrTxFbd3vhV2lxJ
- XzC76u3YU6rx2LCqyQ+P8sV0bt4ne42pL+otail8oHhjPk+UOmRQ8y/iyZHxHgqbLDRoOqfasvv
- 4HNcV/P4njHcPw7OxKI9NBgA66T3rpkRlkiTJUo4srMr432PUAsMnvDAdWd5z05rYM7DlRS5jht
- QAp07uVOND3XsQdM+W4yQWUqu4tp2h07bcDgrcuLi2SRLUg45QehyNC6eIhHjanHuDzOOmh5HhM
- Xyut8h4g+5DLxFvM9M17BLgis5fKxQ15s/4uWt5ViZIQ3CyyWV+nj41rsLvH1ejehIq0QG42C85
- BmpOo5B6kUQwy54OMLFdEplCKAbhlGoEH561nhMw0rpoktzs+PwEaiMLLkWaBrxjZaBPnuZcGwd
- TfIuxqGN8ZFzhEp1ENcKPJmLp3JtkRdFpNG4CjEA2yon0o3koLtC4mFzAb6ruAJa4XwU3qNWCzA
- xvLc+UcFrqjRx9A==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2452; i=diogo.ivo@bootlin.com;
+ h=from:subject:message-id; bh=A+RYlvea3muHJkR3NxXPPCl5DxXF4LYmaoormXO+aiI=;
+ b=owEBbQKS/ZANAwAKAQa+fFtWXslFAcsmYgBqbH7bAOEBCctkWgWD1JTAVWQ/bfNfEb8sCMLOT
+ 3Iz3QZNUmuJAjMEAAEKAB0WIQTma35o1i1081e8B2UGvnxbVl7JRQUCamx+2wAKCRAGvnxbVl7J
+ Re+hD/9wmKNLbQL7lUIoyWv5sJel7kR6Qu2vRmfSWsL3jk3Q17HBAShLevsuZJczTA+hWI6TST8
+ 4KkiB7uZSwPF3X7ZI889a76HC14KJ6o+MFc3Gx4OKZyMtmVeaoHB5jKZW5BNIY87wVVp56X/RIF
+ BT90I0PoSn2s2P/Rnr/w1nhbQ9JhkjCRGHaHiVazPOFiUxvGtulSmhX/fP9bxkzUA1+TO/6zqor
+ bmsm/euIO4ki50X0uCmm0f97/YJSUkutlSuytzG5x8Mp8vCKil75qQtF1hKSSWjVUYnV3+Boe8z
+ 7HN/jx8Ed1Das0BD1Cuy0uZoMOVDCXkxzqEzuo6pNQ0gIDznhcENknI7+Dx1CUQxsiKumDL1aNK
+ cJuug9VFx7e+G0vpCJzOVh7tRIh2MOmTxcDW/wY6LNY6kG9Jm9d5kq1PIQnmFc6qI6o08NJTAl0
+ 4jUJeJa3q2DERPZL5bCiuNlBwMaUhMyNYvPIDuLWxa46znIWJO2lLuSR4dsYC3jQvlASv9AT08V
+ nYzy+/cd2SHYBHG1ChEkpxClLU/GhPkg6dB7W8+JLtz8qIoVUSkT9xQn7xPnfv20J7DSPxMFRJR
+ Y6sG2wZvJNgbb+kH5xxSyt9d8aiN3qeVJmgbSbow/ttHLeRSWcdlYBmErpUuCCv/U0OoOAMPgQa
+ Kbkt27Wv4Pdle3w==
 X-Developer-Key: i=diogo.ivo@bootlin.com; a=openpgp;
  fpr=E66B7E68D62D74F357BC076506BE7C5B565EC945
 X-Last-TLS-Session-Version: TLSv1.3
 
-This series fixes two resource leaks in the cadence-quadspi driver's
-probe error path and remove callback.
+Currently the probe cleanup path is imbalanced regarding
+pm_runtime_enable() and pm_runtime_disable(). For example, if the probe
+defers after calling cqspi_request_mmap_dma() pm_runtime_disable() will
+be called without a prior call to pm_runtime_enable(), causing an
+imbalance. Furthermore, the cleanup path does not undo all the runtime
+calls made while probing.
 
-Patch 1 fixes an imbalanced pm_runtime_enable()/pm_runtime_disable()
-pair: when probe defers after cqspi_request_mmap_dma(),
-pm_runtime_disable() is called without a prior pm_runtime_enable().
-It also adds the missing pm_runtime_dont_use_autosuspend() in both
-the probe error path and the remove callback and a missing
-pm_runtime_put_noidle() in the probe error path. This consolidates
-fixes from upstream commits 5ff4d5d1af0c and 5e8bb0cc72f1.
+Fix this by enforcing the correct correspondence between
+pm_runtime_enable() and pm_runtime_resume() and add the missing PM
+cleanup calls.
 
-Patch 2 fixes a DMA channel leak: when spi_register_controller() fails,
-the channel acquired via cqspi_request_mmap_dma() is never released.
-A dedicated error label is added to release it before the runtime PM
-teardown. This fix is one part of upstream commit f18c8cfa4f1a.
+As the history of this driver in mainline is convoluted with several
+rounds of fixes it includes the fixes from two commits, namely
+commit 5ff4d5d1af0c ("spi: cadence-quadspi: fix runtime pm disable
+imbalance on probe failure") and commit 5e8bb0cc72f1 ("spi:
+cadence-quadspi: fix runtime pm and clock imbalance on unbind").
 
+Fixes: 74b0b4cf13fc ("spi: spi-cadence-quadspi: Fix pm runtime unbalance")
+Cc: stable@vger.kernel.org
 Signed-off-by: Diogo Ivo (Schneider Electric) <diogo.ivo@bootlin.com>
 ---
-Diogo Ivo (Schneider Electric) (2):
-      spi: cadence-quadspi: fix runtime pm cleanup on probe failure/unbind
-      spi: cadence-quadspi: release DMA channel on probe failure
+ drivers/spi/spi-cadence-quadspi.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
- drivers/spi/spi-cadence-quadspi.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
----
-base-commit: 52a355b23cd2dd77b683ed1a1bbe2b7408bd9c74
-change-id: 20260730-cqspi-pm_runtime-a8a1c6122944
+diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-quadspi.c
+index da8401261bbc..d749dee54015 100644
+--- a/drivers/spi/spi-cadence-quadspi.c
++++ b/drivers/spi/spi-cadence-quadspi.c
+@@ -1862,7 +1862,6 @@ static int cqspi_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-
+ 	ret = clk_prepare_enable(cqspi->clk);
+ 	if (ret) {
+ 		dev_err(dev, "Cannot enable QSPI clock.\n");
+@@ -1983,16 +1982,19 @@ static int cqspi_probe(struct platform_device *pdev)
+ 	ret = spi_register_controller(host);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "failed to register SPI ctlr %d\n", ret);
+-		goto probe_setup_failed;
++		goto disable_rpm;
+ 	}
+ 
+ 	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
++disable_rpm:
++	pm_runtime_put_noidle(dev);
++	pm_runtime_dont_use_autosuspend(dev);
++	pm_runtime_disable(dev);
+ probe_setup_failed:
+ 	cqspi_controller_enable(cqspi, 0);
+-	pm_runtime_disable(dev);
+ probe_reset_failed:
+ 	if (cqspi->is_jh7110)
+ 		cqspi_jh7110_disable_clk(pdev, cqspi);
+@@ -2026,6 +2028,7 @@ static void cqspi_remove(struct platform_device *pdev)
+ 		cqspi_jh7110_disable_clk(pdev, cqspi);
+ 
+ 	pm_runtime_put_sync(&pdev->dev);
++	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ }
+ 
 
-Best regards,
---  
-Diogo Ivo <diogo.ivo@bootlin.com>
+-- 
+2.55.0
 
