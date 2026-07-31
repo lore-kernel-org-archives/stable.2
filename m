@@ -1,104 +1,136 @@
-Received: from sender-of-o57.zoho.eu (sender-of-o57.zoho.eu [136.143.169.57])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5826947ECE4
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 19:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785526000; cv=pass; b=Zyd0XRIHjbfqYRjaob/RounQsMrGe8zl2ELMCv+/kXPodT4DNBfUj5jaohQSwDBhZjWpX/Ag1uEC3pTTHB3Y88s8t1x26MhE6+shESCn9dBOWsyFBfSKTZ7TM8Wi17wRSBTw5D27PVFXR+gJfAJFnWN2tS5xzGoFUc3pux4dzTI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785526000; c=relaxed/simple;
-	bh=73pWa1BlX5RpNJhwInFUJ18btopb328zkDMMQ6IUiC4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gs03LfAmae32c8bjsIfFFPYh4KirVGSL+KpCv+qdA4pNK6fiDWeiNXvNKx9LgYf7aI9jLCXNg2JOSrFkTpaoYn44Z8XZq6z+rJH0QnmJ/5v9Pn4zYgplIOce1Y26DR/tCVt1OU8XumhOA2v+coC+jzcpGQgKw0WmeXcvG3c3u7w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com; spf=pass smtp.mailfrom=iusegentoo.com; dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b=nuXDQ15W; arc=pass smtp.client-ip=136.143.169.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iusegentoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFFE318ED6;
+	Fri, 31 Jul 2026 19:42:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785526974; cv=none; b=dijRmr99JSnloXnEakirQ0CAKq931c5CVXVwDnD7WgvdYzf36SCy8fRNCUCyOX0WCkwzVLxXozkIT3kokDMCqVjCiYlyj13KN9Vn2WTmk3ek31zxqAH01vGB883asNumunB+17nijYe3V+boZtNb2HsjLhP8JPxHPRtiD6ikZks=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785526974; c=relaxed/simple;
+	bh=/8kZL39XLzvBCBAgThArjwf3yb01P+zPsosfXLTiKpA=;
+	h=Date:To:From:Subject:Message-Id; b=Ks3aVS1WbaxCfpLSrbSfVKYHFBTK1NyzgJtCMMQu/fuUIbFsFQlsLy+FQPzgGmrmHMarFrQHG7pRtgMCkt5AYhpo9Fvf/yhCPinEQrb4aJsWi7N5GI5iMDNhXgTLDaMVZQYJGfr+9/Vgmtx1TzmgD9Acn7/fcEn+uL9xaZc41Dk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=zVC75a9C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b="nuXDQ15W"
-ARC-Seal: i=1; a=rsa-sha256; t=1785525958; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=in8HxxLgJjCXoDRIa4cCLwjY1UoxO1RFGyw+SFVstFDAqUD642wRFCLHMNHK6B69VvnU6q5WbKrploVngXapJA24EPqAQ201KlYbqdPlsCuIdMeyg4L0//C7l9KSuft4UbBaLRjtfTyLw6Oqk0DNez0p7QSZcb2Dos9kG9Pdt+k=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1785525958; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=+1MEG93QTr2RoYK3YV/UK/c3NShlE3HAOJF+xBCkrUk=; 
-	b=DJwdmEzkCvZv+dMDKq7h48bQp5Eo3nMvJuSg1evbWWF1osC67kNf+xzGyGAWNUZ/EtsBvPFxo82jcElgwoRcS1oBeZNixTeCinuqVJGDZKwTMYbuAajFT1JPr4vad/hRsXMVRUL8kEEd3kb1hrFFKkB9MwsxLfo3N3LWDWQC23U=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iusegentoo.com;
-	spf=pass  smtp.mailfrom=ali@iusegentoo.com;
-	dmarc=pass header.from=<ali@iusegentoo.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785525958;
-	s=zmail; d=iusegentoo.com; i=ali@iusegentoo.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=+1MEG93QTr2RoYK3YV/UK/c3NShlE3HAOJF+xBCkrUk=;
-	b=nuXDQ15WpC6YtNp7GRwpQCEpdrtwpwWBUP3SEcwReUrJ2FbuSVzd5/vHfrTnsLei
-	vRO3haKDllhoxhTBzv3RG1UklBRlz3EBdF3Liu+8/k+a7BZBGGXGjUSZrc1XZI1ueD+
-	j2OyqicmRjqhOE3JcGHK+QrYIGTNzfa63CYvcT/w=
-Received: by mx.zoho.eu with SMTPS id 1785525956388972.9501036438804;
-	Fri, 31 Jul 2026 21:25:56 +0200 (CEST)
-From: Ali Ahmet Memis <ali@iusegentoo.com>
-To: netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] net: hsr: wait for pending node-free RCU callbacks on module exit
-Date: Fri, 31 Jul 2026 22:25:43 +0300
-Message-ID: <20260731192545.176969-1-ali@iusegentoo.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="zVC75a9C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 679FC1F00AC4;
+	Fri, 31 Jul 2026 19:42:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1785526972;
+	bh=6RKUMX2w4+7ZsKagyVfAEGv1Wf1WhG4FOO1cWAQ0qWU=;
+	h=Date:To:From:Subject;
+	b=zVC75a9CsBSMdgZ/tDHaHBFjzRBmwiVKmXfuRR6i412dxdKAGFB5Ap24Aq1JR13vl
+	 LKEDkGYQAhQS3Jc5y029zf/zA8gW/6St/eoYZesndRF6Hj+kqNFBEwVE0W46MujDTM
+	 /faDRcw6taAwxSzvWEziNKE6KS2zU5K0uJb/jLyQ=
+Date: Fri, 31 Jul 2026 12:42:51 -0700
+To: mm-commits@vger.kernel.org,yosry@kernel.org,tj@kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,nphamcs@gmail.com,muchun.song@linux.dev,mkoutny@suse.com,mhocko@kernel.org,hannes@cmpxchg.org,chengming.zhou@linux.dev,jiahao1@lixiang.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [to-be-updated] mm-zswap-fix-global-shrinker-when-memory-cgroup-is-disabled.patch removed from -mm tree
+Message-Id: <20260731194252.679FC1F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-HSR/PRP node teardown and the prune paths queue node frees with
-call_rcu(&node->rcu_head, hsr_free_node_rcu). hsr_free_node_rcu() lives
-in the hsr module text.
 
-hsr_exit() tears down netlink, debugfs and the netdev notifier, but it
-never calls rcu_barrier(). If a node-free callback is still pending when
-the module is unloaded, RCU can invoke hsr_free_node_rcu() after the
-module text has been freed, branching into freed memory.
+The quilt patch titled
+     Subject: mm/zswap: fix global shrinker when memory cgroup is disabled
+has been removed from the -mm tree.  Its filename was
+     mm-zswap-fix-global-shrinker-when-memory-cgroup-is-disabled.patch
 
-Per Documentation/RCU/checklist.rst, a module that registers callbacks
-with call_rcu() must call rcu_barrier() in its exit path before it is
-unloaded; synchronize_rcu() is not sufficient because it only waits for
-a grace period, not for the queued callbacks to actually run.
+This patch was dropped because an updated version will be issued
 
-Add rcu_barrier() at the end of hsr_exit(), after netlink/link teardown
-has stopped any new callbacks from being queued.
+------------------------------------------------------
+From: Hao Jia <jiahao1@lixiang.com>
+Subject: mm/zswap: fix global shrinker when memory cgroup is disabled
+Date: Wed, 29 Jul 2026 16:42:05 +0800
 
-Fixes: 415e6367512b ("hsr: Implement more robust duplicate discard for PRP")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
+Patch series "mm/zswap: Fixes and improves the zswap shrink", v3.
+
+This series fixes and improves the zswap global shrinker
+(shrink_worker()).
+
+
+This patch (of 2):
+
+Zswap writeback when the global pool limit is hit fails when memory
+cgroup is disabled. The pool remains full until it is organically
+drained by swapins or memory freeing, leading to zswap store failures
+and pages bypassing getting written directly to the backing swap device,
+causing LRU inversion (hotter pages with higher fault latency).
+
+This happens because mem_cgroup_iter() always returns NULL when
+memory cgroups are disabled. As a result, the global shrinker
+shrink_worker() repeatedly takes empty walks. After MAX_RECLAIM_RETRIES
+failed attempts, the worker gives up without writing back any pages.
+
+Therefore, when memory cgroup is disabled, fall through with the !memcg
+branch and shrink the root memcg directly.
+
+With memcg disabled, shrink_memcg() only returns -ENOENT when the root
+LRU is empty, which means the total pages are already below thr. In the
+absence of heavy concurrent zswap stores, the loop then safely bails out
+via the zswap_total_pages() <= thr check; otherwise, it will resume
+shrinking the memcg after processing the reschedule check. For any other
+return value from shrink_memcg(), the loop is guaranteed to terminate,
+either after MAX_RECLAIM_RETRIES failures or once the threshold is met.
+
+Link: https://lore.kernel.org/20260729084206.77793-1-jiahao.kernel@gmail.com
+Link: https://lore.kernel.org/20260729084206.77793-2-jiahao.kernel@gmail.com
+Fixes: a65b0e7607cc ("zswap: make shrinking memcg-aware")
+Signed-off-by: Hao Jia <jiahao1@lixiang.com>
+Suggested-by: Nhat Pham <nphamcs@gmail.com>
+Acked-by: Nhat Pham <nphamcs@gmail.com>
+Acked-by: Yosry Ahmed <yosry@kernel.org>
+Reported-by: Yosry Ahmed <yosry@kernel.org>
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Michal Koutný <mkoutny@suse.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Tejun Heo <tj@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- net/hsr/hsr_main.c | 7 +++++++
- 1 file changed, 7 insertions(+)
 
-diff --git a/net/hsr/hsr_main.c b/net/hsr/hsr_main.c
-index 33951d9bd..05d2e5750 100644
---- a/net/hsr/hsr_main.c
-+++ b/net/hsr/hsr_main.c
-@@ -179,6 +179,13 @@ static void __exit hsr_exit(void)
- 	hsr_netlink_exit();
- 	hsr_debugfs_remove_root();
- 	unregister_netdevice_notifier(&hsr_nb);
-+
-+	/* Node teardown queues frees via call_rcu(hsr_free_node_rcu), whose
-+	 * callback lives in this module. Wait for any still-pending callback
-+	 * before the module text is freed. synchronize_rcu() is not enough:
-+	 * it waits for a grace period, not for the callbacks to run.
-+	 */
-+	rcu_barrier();
- }
+ mm/zswap.c |   13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+--- a/mm/zswap.c~mm-zswap-fix-global-shrinker-when-memory-cgroup-is-disabled
++++ a/mm/zswap.c
+@@ -1358,11 +1358,12 @@ static void shrink_worker(struct work_st
+ 		} while (memcg && !mem_cgroup_tryget_online(memcg));
+ 		spin_unlock(&zswap_shrink_lock);
  
- module_init(hsr_init);
--- 
-2.54.0
+-		if (!memcg) {
+-			/*
+-			 * Continue shrinking without incrementing failures if
+-			 * we found candidate memcgs in the last tree walk.
+-			 */
++		/*
++		 * A NULL memcg ends a full hierarchy pass (except when memcg is
++		 * disabled, where it is always NULL: fall through to the root LRU).
++		 * Count a failure only if the last pass found no candidates.
++		 */
++		if (!memcg && !mem_cgroup_disabled()) {
+ 			if (!attempts && ++failures == MAX_RECLAIM_RETRIES)
+ 				break;
+ 
+@@ -1381,7 +1382,7 @@ static void shrink_worker(struct work_st
+ 		 * and failures.
+ 		 */
+ 		if (ret == -ENOENT)
+-			continue;
++			goto resched;
+ 		++attempts;
+ 
+ 		if (ret && ++failures == MAX_RECLAIM_RETRIES)
+_
+
+Patches currently in -mm which might be from jiahao1@lixiang.com are
+
+mm-zswap-support-batch-writeback-in-shrink_memcg.patch
 
