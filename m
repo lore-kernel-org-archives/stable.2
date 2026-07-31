@@ -1,142 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B4C3F12C8;
-	Fri, 31 Jul 2026 10:00:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F15415F23;
+	Fri, 31 Jul 2026 10:22:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785492028; cv=none; b=XyU+F/ZbPtIRQ8TlQv/GV1JRbWowijGH302xPMBx/CdfzNhLEr06lRwZYRxC7WHioJwOOub3ex6qoMT6M7+XYzkYKYJdnv1eVITJF/gfXqDdsqN9Wp7z9zj0Bn+KF0OePXPCCY7bsydJUsdmNjguFtfDbuF9FL34UvFfsug5Zas=
+	t=1785493337; cv=none; b=rb12YfDDgdlNFGCFMHp/pGWmhLegeNSQRQ3Qq0+98Wl02JDZmOKKiZmRV+AXX9bE4Xr+DlGB1juNF8RYcFIE9rhP1k9LXkgOFYAdW3ZAvHF0jud52JJZvKghtkeqntyWW1SIx1RN/UDUbQk/pmCOykfsh54n4Sc6ThB3XGt8g4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785492028; c=relaxed/simple;
-	bh=OYpoB9suRxZzo54nJU2J/Mf5/QdnvpWf7FIayQ8+Qnw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q/lILVT3WxLa1dBy3X+LfqJ2DjCm9RnUw2T7sIpsr/chiotp594Oa7sRlsJ17eAJnL1ZgQMWUzMmOMwwUHH2m1XkXvOBIXZOPXstoBOvz0Ffb7noY0+GeeFXtNIzqhRK4/NDsXR2roukEy5GgOMZ2Bw7WcdeYeh12Hp+kzLjPLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CwGFT7oW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785493337; c=relaxed/simple;
+	bh=BomYNnZI/rtzGRCsEilqHXMjZtEJfVuDl9BNpljjiJk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cucOA1OJUSS9Ks6wyNvMIGXAjLDOWNHRe/NwB4WD/grVdimPUVPMV/CK+chRuJiCxRMrsToduOPFp5dh/tZczyz400vse6YwrmGyMby/cJvCBGqgeJoU2EQHmMuEF2jcmTRG4GyqJERt3+RXodoYp8cjKj+0ZA0OzpESgxGBgSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de; spf=pass smtp.mailfrom=jaseg.de; dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b=bWueKYiC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PN77blkb; arc=none smtp.client-ip=103.168.172.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CwGFT7oW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71CD41F000E9;
-	Fri, 31 Jul 2026 09:59:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785492000;
-	bh=666vf6gX8Y7a1iPos/kAXlh9FlK90Abg4Z9nTC+uJ20=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CwGFT7oWiyFZ2G90Pn3yvr/omXwUzbvsKeldr0lUhEKF/PrW269rnnjJgKImF0xam
-	 FVcyOB0eO7np6kURtZ8HaMRDIAOej/+YtxjnVxCbHl3VHh12RTtMo/7b2eJr6/Cvg1
-	 NtWTxBbDdIX1kXdVbbo+H8Qhaq2Qzy1JMfM37sdZm44BWSS66mghyipdRw94tbgoad
-	 bpE2hNl2ZXw5c57vtRWH8r9baWFt6vAQ6SX+EQRV1yed6OH34OvYyNh9Bi15q0iWqJ
-	 7XmL+MgS6jeXc5t3ZhbdnmAbhC2jsV9iWOM9joTIJFZMOQbm1atITlzIMUS9D7NOCs
-	 86wP5wmubKcCA==
-Message-ID: <5dc85312-9b6a-4dca-96a4-662eaa861192@kernel.org>
-Date: Fri, 31 Jul 2026 11:59:53 +0200
+	dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b="bWueKYiC";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PN77blkb"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.phl.internal (Postfix) with ESMTP id 1E4FCEC0176;
+	Fri, 31 Jul 2026 06:21:55 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Fri, 31 Jul 2026 06:21:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm2; t=1785493315; x=1785579715; bh=HZ
+	01E4R6gBHbtiX4E85aSm4oc2jq2hxYKxHXOcMrMYE=; b=bWueKYiC5bP0H0DOjd
+	tJoeDwBSTgLyom9KxsF3dsJL42fOEOjxWUUKr5Y+RJuADb0eMNPvoMY2cBHR2v4N
+	QkCP3n9JmiSQVVWlktN9+Wd+pjECcu87bovK5dD8dKRYlXd590cBEq8OhL/LWSZs
+	CFAcHgnxdkJG2bvBJcpMrmsNYmr6DjlAFxJS0BbbrvUbi+41sdCFnXahfNnrxZjj
+	wvXMAD4bx5UAuNbvVw1cFnSYLC80WT3hhly/VNUpwjqtMB5OTUgw93KVl8UpFs3k
+	BsDl6+Dmm2PSDotyTopM5Aqjc0+EY/fwvMNte1W4Ll1gLeJlOqv4VeC1MgLLu2b4
+	oSAQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1785493315; x=1785579715; bh=HZ01E4R6gBHbtiX4E85aSm4oc2jq
+	2hxYKxHXOcMrMYE=; b=PN77blkbNr6zngJlKY9KAUuMdkWUkXDHZ//R1iQnDviG
+	Dj8HQXIueTd8yhvstpugq5f+gtgRgF5ZCRJSQ8pyozV74J1AtDzE3JVu/kcg6iB4
+	mhyIiMnFd/WBc/p+J5FRcVDASIPtFSB8K+jqoiMvJOJDD7y8n2E14YFDbpzfiOUR
+	tVSmlPSbVX0mF+qHnOJwC14nEy3V+2dqNWBM8/+N3Ehz3yEtQfwPIlAXgSPG2W9G
+	2olJNNuC02w2tWbgxRoYgu2HU9VzREroX3SwGFhkbBV2C3nxnnmuzpECmr92viPP
+	DW7UAY4iDz2cUeFmht1/Gz8VegWed0/+4XWbJG/TTA==
+X-ME-Sender: <xms:QndsaiX8uDZsMXEuWs_2VF_HdEOkFZeL4g8-nZ18q2bIZ9nF3zUxjA>
+    <xme:QndsatqU0ZUT7pkTe-oszqU6AVD9St_n9_Y8Tr13wUozz3yYY9MwJjh0p1f3oO58O
+    0i9xWS_7LMsG0UdWuOts0KthnvGlx_fF6xN0mqxDJIQz6Oa-9JMJ8U>
+X-ME-Received: <xmr:Qndsasn6fO492Ke6DNWeTLWLcFerK_j2zjYe38fN_QDiPAKwGMfKFtHCjvEFBpCq1TDDJ3gz-SKOStB9eg>
+X-ME-Proxy-Cause: dmFkZTG0bmRKda5040SbHZuHWAq32lmYqE1ouBFlAXJZeE/gYfprID01cBUppm5eDQt1Cb
+    7GBD56isvBBbVFq2lxuYvd3QR6w/an+k5VzjegSfwQPsSZuWV+WHXBnDUJlpMsesH/T2ga
+    cM5wXzoyf6ta8cga787eouYcJIULN5VEPVXAsZahipiwaTM6NGHgBD29IJd6McL8YEB0d4
+    faENia1pvGbJiI4OUDqgJWWczWZxfFu8yAnNEK9U+yjk540osdWu6NN5MyqeJI92Daq/Xw
+    wuB5irePhFpCHuPDVXCSezQrUriAIx3EdQ2IBMk0hMIJ4LQ3XMA3CPLYvFtjNm+7gQl9Ax
+    VFq5ZszGTF7Va9xt9/Tx5kXdYQd/e7n3gUjsOC6jUVTsE6fjSgl8c+jrDnqAeRoiwFpYMm
+    oOMsR12hFf+kXkHsCgP7djNTkldbOBkrYBw/PcEt7Dum2FcRsjOm2uwtQ4zBhhtXlkuiBh
+    liPCJgDZdRgRbVHEi7bmBksvAkJA5n+QLZJN/xnC+9qr47N4FREFXCwR5J0jrqnxymW4j2
+    huGAsT0v6EUnTqCbN4Mfpp2gJFiTfjvg3bmicbbrWqe56bWizhmrKCZfbTaxbPLwhetdC3
+    VHqAAwLDJM2KjnSA34m6XuUP8hskzqt05TC/Xn4QspyivTLtyVLUq2ueIJxA
+X-ME-Proxy: <xmx:Qndsal17vMiaWME-dH7nkYEl6L26_xY0YosSgpLxJqf6w_penLCKuw>
+    <xmx:QndsahSjEFeOl--wn7ckX-gNhDTvsFoOtp80jDdK2JHKrNOy10It2Q>
+    <xmx:QndsamxlwZPAWpWmig5CyTkrtx5ismPCnMR4-iv-F_8zshqWgw8I9A>
+    <xmx:QndsapCHylTLeXzMH3rCChsoi-qcVA5yw3BhMtweY5ASz0FBrGP41Q>
+    <xmx:Q3dsamO-ZaeK3QnjaQFpqFZNTOQxX7Zf02oi-Bsv_xWl-UgGoQlcWYy8>
+Feedback-ID: i60a14417:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 31 Jul 2026 06:21:53 -0400 (EDT)
+From: jaseg <git@jaseg.de>
+To: Ulf Hansson <ulfh@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	=?UTF-8?q?Jan=20Sebastian=20G=C3=B6tte?= <linux@jaseg.de>,
+	stable@vger.kernel.org
+Subject: [PATCH] pmdomain: core: Wait for device link removals before dropping genpd->dev
+Date: Fri, 31 Jul 2026 12:21:47 +0200
+Message-ID: <20260731102147.127082-1-git@jaseg.de>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net 1/5] mptcp: avoid combining some incoming suboptions
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Florian Westphal <fw@strlen.de>,
- Davide Caratti <dcaratti@redhat.com>, Christoph Paasch <cpaasch@openai.com>
-References: <20260728-net-mptcp-misc-fixes-7-2-rc6-v1-0-f7e2d229159d@kernel.org>
- <20260728-net-mptcp-misc-fixes-7-2-rc6-v1-1-f7e2d229159d@kernel.org>
- <20260729172306.31deb67d@kernel.org>
- <c77bd843-725f-4d65-8750-87da6105a8d3@kernel.org>
- <20260730132705.58e65d98@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Content-Language: fr
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20260730132705.58e65d98@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Jakub,
+From: Jan Sebastian Götte <linux@jaseg.de>
 
-On 30/07/2026 22:27, Jakub Kicinski wrote:
-> On Thu, 30 Jul 2026 10:14:53 +0200 Matthieu Baerts wrote:
->> On 30/07/2026 02:23, Jakub Kicinski wrote:
->>> On Tue, 28 Jul 2026 19:11:57 +0200 Matthieu Baerts (NGI0) wrote:  
->>>> Some MPTCP suboptions are mutually exclusive according to the RFC8684,
->>>> but also because in different places, the code doesn't expect some
->>>> combinations to be present. That's specially true for suboptions that
->>>> would be present twice, but with different attributes.  
->>>
->>> Looks like Clashiko has much to say about this patch.
->>> Could you check?  
->>
->> Sure, I will check that.
->>
->> Do you think Clashiko could look at patches from the MPTCP ML as well?
->> Because the (deprecated?) AI review tool we use didn't find anything:
->>
->> https://netdev-ai.bots.linux.dev/ai-review.html?id=d1d1ff69-0f15-4812-ad16-e4f6f2df9f6b
->>
->> Or maybe that's because the model is different, and this can be easily
->> fixed? Or maybe the prompts are different too?
->>
->> I'm asking, mainly because once patches have been accepted in our tree,
->> it can be hard to have the original author fixing them. Not to block
->> other patches too long, I often have to fix them, so I would prefer to
->> get the same review tools (if possible) to prevent that :)
-> 
-> Sorry about that, I know it's annoying. Not the best time TBH.
-> I'm modifying our instances very actively, I don't want to have
-> to worry about the extra surface of integrations. Hopefully things
-> converge soon and we can switch you over and kill that old service
-> we had completely.
+genpd->dev is embedded in struct generic_pm_domain and its release
+function is empty, so providers free the containing genpd with a plain
+kfree() once of_genpd_remove_last() returns, ignoring its refcount.
 
-No problem, I understand and can wait.
+Since genpd->dev is registered on the genpd provider bus, fw_devlink
+creates device links to it, and those are torn down asynchronously.
+Nothing made genpd_remove() wait for those teardowns, so the provider
+could free the memory backing genpd->dev while the queued workers still
+used it.
 
-Cheers,
-Matt
+This is reachable at boot on qrb2210, where the firmware rejects PC mode
+and psci_cpuidle_domain_probe() removes all the CPU PM domains before
+returning -EPROBE_DEFER. The bug is asymptomatic on defconfig, but shows
+up when enabling KASAN or INIT_ON_FREE_DEFAULT_ON. In some builds, it
+causes the kernel to crash a few hundred ms into the boot.
+
+Call device_link_wait_removal() before dropping the final reference. All
+link removal work is queued from device_del(), via
+device_links_driver_cleanup() and device_links_purge(), which precedes
+genpd_free_data(), and flush_workqueue() waits for it to complete.
+
+Note: This patch was LLM-assisted. I reproduced the issue and tested
+this patch on hardware, and I did my best to verify it by hand. However,
+I'm far from an expert in pmdomain, so YMMV.
+
+Assisted-by: Claude:claude-5-opus
+Fixes: 18a3a510ecfd ("pmdomain: core: Add the genpd->dev to the genpd provider bus")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
+---
+ drivers/pmdomain/core.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
+index 842c4169e290..4eeb980e5a40 100644
+--- a/drivers/pmdomain/core.c
++++ b/drivers/pmdomain/core.c
+@@ -2348,6 +2348,9 @@ static int genpd_alloc_data(struct generic_pm_domain *genpd)
+ 
+ static void genpd_free_data(struct generic_pm_domain *genpd)
+ {
++	/* Pending device link removals still reference genpd->dev. */
++	device_link_wait_removal();
++
+ 	put_device(&genpd->dev);
+ 	if (genpd->device_id != -ENXIO)
+ 		ida_free(&genpd_ida, genpd->device_id);
 -- 
-Sponsored by the NGI0 Core fund.
+2.53.0
 
