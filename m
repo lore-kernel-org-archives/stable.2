@@ -1,134 +1,118 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F1934A796;
-	Fri, 31 Jul 2026 03:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12EE220F2A;
+	Fri, 31 Jul 2026 04:06:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785469920; cv=none; b=t3kjk7oKxobFn0z7kqvRSqCQvvxbt90OHd1S7qZ0WABxwNSIeHQ/cY005HresN57WWhI2joC+V8pBMkgWBoDDez/cjo8zTBhxwOh+AmPjP5ZO6eaS50A3co361Q0DElacpjxbeyq7gpby8BYhPo83ivbCuCtSTc4CLtgM2kkWs8=
+	t=1785470795; cv=none; b=QKuDYvq/UvjytViR9rE7IBgduDeOGJfYxwGdrXJgGkzK6vUKKR1QKzl1GdB3Vy1pYJWJHILqrxvVmnWzIBFBweXiOYXWLwNbOdBAMyKuVKcWZyYk4O1+429yXp3Jehh0vZfiYbRHDjY8sELjU1HU0Z7/2C4SAfQR8I4RcHFZjFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785469920; c=relaxed/simple;
-	bh=SOMjTG5aLGc2Ocou/k8Gs4US8R9zVKGd6sMIuOTRvoE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CWTHPxvQa/qwRmo2ebnlniw0Fk1T9r+OJp2qGWHW+OqLlAL6C+4OLPR2EZIiUXRrOWrRFldqUwj2y1fcfgb2vJLCQmk6DYHWi+LcxjCZGkFNRtfOrV+UfkUbZyu3r1jTYTfJ1YWWnDWWRlDwT41m0hQhwTQJBvxDccC8obKW9Co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 270a41b68c9311f1aa26b74ffac11d73-20260731
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:2a583355-6c76-4c4d-8bc3-96601639bebb,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:59a1792aedf43d9be303b4be9ed2709d,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|865|898,TC:nil,Content:0|1
-	5|50,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI
-	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 270a41b68c9311f1aa26b74ffac11d73-20260731
-X-User: yijiangshan@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <yijiangshan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1946430259; Fri, 31 Jul 2026 11:51:46 +0800
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	13667453960@163.com,
-	Jiangshan Yi <yijiangshan@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH net 2/2] net: guard refcount against tracker double-free
-Date: Fri, 31 Jul 2026 11:51:35 +0800
-Message-Id: <20260731035135.3917308-3-yijiangshan@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260731035135.3917308-1-yijiangshan@kylinos.cn>
-References: <20260731035135.3917308-1-yijiangshan@kylinos.cn>
+	s=arc-20240116; t=1785470795; c=relaxed/simple;
+	bh=4dy48tLDZGr7DRRYU9A7+5TMxbTgAf0steo+tUd7dNE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YOJ0XTCnEqXI9CJx/g4cwIpJNrsVQ+KoURwwBskBzw+iW7ETaBax0fgdbeWAOFBaHlclyIhMSKPTgsIZMi6kCXljJarcR7rKipdryXhuk83Ohe0V4rfQqVjuM/1WrQiWsqDOue4YtPQPzTqjm42umCxq5rOH3MQ3EhBo9Tgc96o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m7B+fjjE; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m7B+fjjE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03F261F000E9;
+	Fri, 31 Jul 2026 04:06:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785470794;
+	bh=fn6R3CY2DDXWCXfEF8whxcR7qeoOx35W3rFoVjeg1R4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m7B+fjjEiGq1rqMarKfoQJQ96mJkrzCxoRde8Udl7TiUxoCJtU/TypNioHp3L+iYu
+	 hLo2t58MraJappvVMHjnsGitHOqF5W0wjGzk7GOvzfTVFy7Qx/RL5WmtEs2dw0yVW5
+	 X/5s11pJLiivLCbT8OUo1SalZ9VlVQeIPfI+EK4ZG/7ZWy4FgEtr+iy+6XKA0dMVqS
+	 n7n+dvfMBWTzi0nHe3BEVxaoZyIjstNS7r4dxs264Ux4cZN5XlFcrk9dHzKSp+HAmI
+	 0bOQ9TqmESz1rpQ9X9kJm6iIiEPi2jphSt9RnUqN5IxyRQizFDyp6xumXI86Ge8p8+
+	 hkbJfsHCFokQw==
+Date: Thu, 30 Jul 2026 21:04:38 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+	linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+	linux-fscrypt@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/swap: reject swapon() on filesystem-level encrypted
+ files
+Message-ID: <20260731040438.GA57540@sol>
+References: <20260730184853.48347-1-ebiggers@kernel.org>
+ <20260730125327.11fc9227d04f659a59136cdd@linux-foundation.org>
+ <20260730203003.GA2459987@google.com>
+ <20260731034931.GA3560112@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260731034931.GA3560112@frogsfrogsfrogs>
 
-As a defensive measure, guard netdev_put() and netdev_ref_replace()
-against refcount corruption when ref_tracker_free() returns -EINVAL
-(tracker already freed).  Currently __dev_put() is called
-unconditionally, which over-decrements the device refcount on a
-double-free and can cause netdev_wait_allrefs_any() to return
-prematurely.
+On Thu, Jul 30, 2026 at 08:49:31PM -0700, Darrick J. Wong wrote:
+> On Thu, Jul 30, 2026 at 08:30:03PM +0000, Eric Biggers wrote:
+> > On Thu, Jul 30, 2026 at 12:53:27PM -0700, Andrew Morton wrote:
+> > > On Thu, 30 Jul 2026 11:48:53 -0700 Eric Biggers <ebiggers@kernel.org> wrote:
+> > > 
+> > > > ext4 and f2fs don't prevent filesystem-level encrypted files from being
+> > > > set up directly as swap files.  In this case, encryption is bypassed.
+> > > > 
+> > > > No one should be doing this, vs. the methods of encrypted swap that
+> > > > actually do work (such as swapping to a dm-crypt device, or swapping to
+> > > > a loopback device on top of a filesystem-level encrypted file).
+> > > > 
+> > > > Nevertheless, to prevent user error, make swapon() explicitly reject
+> > > > this case.  Document this behavior in fscrypt.rst as well.
+> > > > 
+> > > > Fixes: 9bd8212f981e ("ext4 crypto: add encryption policy and password salt support")
+> > > > Fixes: f424f664f0e8 ("f2fs crypto: add encryption policy and password salt support")
+> > > 
+> > > Ouch.  We are going to break ten year old setups?  I don't think we can
+> > > do this!
+> > 
+> > That assumes anyone is actually depending on this bug, which they
+> > probably aren't.  Encrypted swap is done in other ways.
+> 
+> Hmm.  swapon() seems to read the swapfile header via read_mapping_folio,
+> which means that fscrypt will read the encrypted block 0, decrypt it,
+> and hand the mm a valid swapfile header, right?
+> 
+> For blockdev filesystem, the setup_swap_extents code will set up a file
+> range -> LBA mapping, and the swap code issues bios directly to the
+> bdev.  Ondisk contents aren't encrypted, and read()ing the swapfile will
+> produce garbage because we're decrypting something that isn't encrypted.
+> 
+> So I guess the bug here is that the ondisk swapfile contents aren't
+> encrypted?  Can we fix the swap code to call fscrypt_set_bio_crypt_ctx?
+> 
+> Though, you probably don't want anyone to read the non-header swapfile
+> contents, so can one create an ephemeral encryption key for the swap
+> code?  Or do you not want crypto engines in the swap path?
+> 
+> (Apologies for my unfiltered idiot thoughts :P)
 
-Change netdev_tracker_free() to return int so callers can detect
-the -EINVAL case.  In netdev_put() and netdev_ref_replace(), skip
-__dev_put() when the tracker was already freed; ref_tracker_free()
-has already warned and the first successful free already decremented
-the refcount.  The -EEXIST case (NULL tracker, untracked reference)
-still calls __dev_put(), preserving existing behavior.
+Well, the direct swapfile implementation bypasses the filesystem after
+the header has been read and the on-disk blocks have been queried.  That
+seems to be very much what it's designed to do.  It seems out of scope
+for it to start trying to implement filesystem features like fscrypt
+file contents encryption.  (Note that there's more to it than calling
+fscrypt_set_bio_crypt_ctx(), especially in current mainline.)  After
+all, we also wouldn't expect it to understand and implement the
+compression, checksums, etc. features of various filesystems.
 
-Fixes: f12bf6f3f942 ("net: watchdog: add net device refcount tracker")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
----
- include/linux/netdevice.h | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+Yes, when people encrypt their swap, they of course use an ephemeral
+key.  However, they use either dm-crypt, or a loop device on top of an
+fscrypt file.  (Note that if they use zram with a backing file, they
+*have* to use a block device anyway.)
 
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 9981d63..5e8cf3f 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -4512,11 +4512,13 @@ static inline void netdev_tracker_alloc(struct net_device *dev,
- #endif
- }
- 
--static inline void netdev_tracker_free(struct net_device *dev,
-+static inline int netdev_tracker_free(struct net_device *dev,
- 				       netdevice_tracker *tracker)
- {
- #ifdef CONFIG_NET_DEV_REFCNT_TRACKER
--	ref_tracker_free(&dev->refcnt_tracker, tracker);
-+	return ref_tracker_free(&dev->refcnt_tracker, tracker);
-+#else
-+	return 0;
- #endif
- }
- 
-@@ -4533,8 +4535,12 @@ static inline void netdev_put(struct net_device *dev,
- 			      netdevice_tracker *tracker)
- {
- 	if (dev) {
--		netdev_tracker_free(dev, tracker);
--		__dev_put(dev);
-+		/* Skip __dev_put() on -EINVAL: ref_tracker_free() already
-+		 * warned and the refcount was decremented by the first
-+		 * successful free.
-+		 */
-+		if (netdev_tracker_free(dev, tracker) != -EINVAL)
-+			__dev_put(dev);
- 	}
- }
- 
-@@ -4569,11 +4575,10 @@ static inline void netdev_ref_replace(struct net_device *odev,
- 				      netdevice_tracker *tracker,
- 				      gfp_t gfp)
- {
--	if (odev)
--		netdev_tracker_free(odev, tracker);
-+	if (odev && netdev_tracker_free(odev, tracker) != -EINVAL)
-+		__dev_put(odev);
- 
- 	__dev_hold(ndev);
--	__dev_put(odev);
- 
- 	if (ndev)
- 		__netdev_tracker_alloc(ndev, tracker, gfp);
--- 
-2.25.1
+Fortunately, I've never heard of someone actually using the direct
+swapon() with an fscrypt file, which is what this patch pertains to.
+This case was just found by an LLM review.  I don't think we need to add
+a new feature here; we should just remove the footgun just in case.
 
+- Eric
