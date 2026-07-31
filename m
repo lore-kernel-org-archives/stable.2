@@ -1,25 +1,25 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DD32E736D;
-	Fri, 31 Jul 2026 03:51:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F1934A796;
+	Fri, 31 Jul 2026 03:51:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785469910; cv=none; b=Y+RJ0bBcPm5pK2/CGqRn8XxyoNNbTQ0XbIfP7nnn1sTvoz84b7/ze4y94r9qZyVs22d9vaYiPFpT7ib2d599azXjRAfGQJhM3Wpfcvv1L+UG867YU3MsI728t+tPtoYDjkVV0z1hovP31QKnjkk7qevFchNji3an99r92PDGm3w=
+	t=1785469920; cv=none; b=t3kjk7oKxobFn0z7kqvRSqCQvvxbt90OHd1S7qZ0WABxwNSIeHQ/cY005HresN57WWhI2joC+V8pBMkgWBoDDez/cjo8zTBhxwOh+AmPjP5ZO6eaS50A3co361Q0DElacpjxbeyq7gpby8BYhPo83ivbCuCtSTc4CLtgM2kkWs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785469910; c=relaxed/simple;
-	bh=zYkoFHik6BoEr1chN2vwR0Nm4d9OPYH0vgQoQCmg7cc=;
+	s=arc-20240116; t=1785469920; c=relaxed/simple;
+	bh=SOMjTG5aLGc2Ocou/k8Gs4US8R9zVKGd6sMIuOTRvoE=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=J7OKiL87PsMNbK3pTZTqcu4Zp3MMztG7GfaMooBrH03rtIpGettujK0N+UK0BYTS9+l4qzSztAJN+uE3N7pB/n3lA+qY+7ciQcrbOKn6f4REReYeWCVLFS5q2COmqScJXQg3sTwK+GZW7vUOpGrjfnCRK8gvmQtUnXeaddVYFEg=
+	 MIME-Version; b=CWTHPxvQa/qwRmo2ebnlniw0Fk1T9r+OJp2qGWHW+OqLlAL6C+4OLPR2EZIiUXRrOWrRFldqUwj2y1fcfgb2vJLCQmk6DYHWi+LcxjCZGkFNRtfOrV+UfkUbZyu3r1jTYTfJ1YWWnDWWRlDwT41m0hQhwTQJBvxDccC8obKW9Co=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 250361ae8c9311f1aa26b74ffac11d73-20260731
+X-UUID: 270a41b68c9311f1aa26b74ffac11d73-20260731
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:3098ecd3-15d1-49de-a9ac-72b0a60dae0a,IP:0,U
+X-CID-O-INFO: VERSION:1.3.12,REQID:2a583355-6c76-4c4d-8bc3-96601639bebb,IP:0,U
 	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
 	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:b3e397ab0e6f94f3d655e6ecd1a1ab74,BulkI
+X-CID-META: VersionHash:e7bac3a,CLOUDID:59a1792aedf43d9be303b4be9ed2709d,BulkI
 	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|865|898,TC:nil,Content:0|1
 	5|50,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI
 	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -27,12 +27,12 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 250361ae8c9311f1aa26b74ffac11d73-20260731
+X-UUID: 270a41b68c9311f1aa26b74ffac11d73-20260731
 X-User: yijiangshan@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <yijiangshan@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1556175904; Fri, 31 Jul 2026 11:51:43 +0800
+	with ESMTP id 1946430259; Fri, 31 Jul 2026 11:51:46 +0800
 From: Jiangshan Yi <yijiangshan@kylinos.cn>
 To: andrew+netdev@lunn.ch,
 	davem@davemloft.net,
@@ -45,9 +45,9 @@ Cc: horms@kernel.org,
 	13667453960@163.com,
 	Jiangshan Yi <yijiangshan@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH net 1/2] net: cancel pending netdev_work on device unregistration
-Date: Fri, 31 Jul 2026 11:51:34 +0800
-Message-Id: <20260731035135.3917308-2-yijiangshan@kylinos.cn>
+Subject: [PATCH net 2/2] net: guard refcount against tracker double-free
+Date: Fri, 31 Jul 2026 11:51:35 +0800
+Message-Id: <20260731035135.3917308-3-yijiangshan@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260731035135.3917308-1-yijiangshan@kylinos.cn>
 References: <20260731035135.3917308-1-yijiangshan@kylinos.cn>
@@ -59,88 +59,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a netdev is unregistered, pending netdev_work events are not
-explicitly canceled.  Only events cleared by ndo_stop() (e.g.
-VLAN_WORK_LINK_STATE) are handled; core events like
-NETDEV_WORK_RX_MODE and driver events like VLAN_WORK_MTU /
-VLAN_WORK_FEATURES remain pending, keeping a tracked reference
-(dev->work_tracker) on the device.
+As a defensive measure, guard netdev_put() and netdev_ref_replace()
+against refcount corruption when ref_tracker_free() returns -EINVAL
+(tracker already freed).  Currently __dev_put() is called
+unconditionally, which over-decrements the device refcount on a
+double-free and can cause netdev_wait_allrefs_any() to return
+prematurely.
 
-During netdev_wait_allrefs_any(), RTNL is released to let the system
-workqueue run.  netdev_work_proc() may then attempt to process the
-stale work_tracker, triggering ref_tracker warnings at boot:
+Change netdev_tracker_free() to return int so callers can detect
+the -EINVAL case.  In netdev_put() and netdev_ref_replace(), skip
+__dev_put() when the tracker was already freed; ref_tracker_free()
+has already warned and the first successful free already decremented
+the refcount.  The -EEXIST case (NULL tracker, untracked reference)
+still calls __dev_put(), preserving existing behavior.
 
-  WARNING: lib/ref_tracker.c:322 at ref_tracker_free
-  WARNING: lib/ref_tracker.c:246 at ref_tracker_dir_exit
-
-Add netdev_work_cancel_all() to cancel all pending core and driver
-work, releasing the work_tracker before the device enters
-netdev_run_todo().  Call it from unregister_netdevice_many_notify()
-after rx_mode cleanup.
-
-This is safe because netdev_work_cancel_all() runs under RTNL in
-unregister_netdevice_many_notify(), and netdev_work_proc() also
-requires RTNL, so the two cannot execute concurrently.  If
-netdev_work_proc() has already dequeued the device, the cancel is a
-no-op; otherwise it releases the tracker before the device enters
-netdev_run_todo().
-
-Fixes: 12c765be84d2 ("net: turn the rx_mode work into a generic netdev_work facility")
+Fixes: f12bf6f3f942 ("net: watchdog: add net device refcount tracker")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
 ---
- net/core/dev.c         |  2 +-
- net/core/dev.h         |  2 ++
- net/core/netdev_work.c | 10 ++++++++++
- 3 files changed, 13 insertions(+), 1 deletion(-)
+ include/linux/netdevice.h | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 5933c5d..b461b01 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -12456,7 +12456,7 @@ void unregister_netdevice_many_notify(struct list_head *head,
- 		dev_uc_flush(dev);
- 		dev_mc_flush(dev);
- 
--
-+		netdev_work_cancel_all(dev);
- 		netdev_rss_contexts_free(dev);
- 
- 		call_netdevice_notifiers(NETDEV_PRE_UNINIT, dev);
-diff --git a/net/core/dev.h b/net/core/dev.h
-index 5d0b030..d3ac3ba 100644
---- a/net/core/dev.h
-+++ b/net/core/dev.h
-@@ -180,6 +180,8 @@ void __netdev_work_core_sched(struct net_device *dev, unsigned long event);
- unsigned long
- __netdev_work_core_cancel(struct net_device *dev, unsigned long mask);
- 
-+void netdev_work_cancel_all(struct net_device *dev);
-+
- void __dev_notify_flags(struct net_device *dev, unsigned int old_flags,
- 			unsigned int gchanges, u32 portid,
- 			const struct nlmsghdr *nlh);
-diff --git a/net/core/netdev_work.c b/net/core/netdev_work.c
-index 3109fae..d69363d 100644
---- a/net/core/netdev_work.c
-+++ b/net/core/netdev_work.c
-@@ -99,6 +99,16 @@ __netdev_work_core_cancel(struct net_device *dev, unsigned long mask)
- 	return netdev_work_dequeue(dev, &dev->work_core_pending, mask);
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 9981d63..5e8cf3f 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -4512,11 +4512,13 @@ static inline void netdev_tracker_alloc(struct net_device *dev,
+ #endif
  }
  
-+/* Cancel all pending core and driver work and release the work_tracker
-+ * reference.  Must be called under RTNL, which mutually excludes
-+ * netdev_work_proc().
-+ */
-+void netdev_work_cancel_all(struct net_device *dev)
-+{
-+	__netdev_work_core_cancel(dev, ~0UL);
-+	netdev_work_cancel(dev, ~0UL);
-+}
-+
- static void netdev_work_run(struct net_device *dev, unsigned long events,
- 			    unsigned long core)
+-static inline void netdev_tracker_free(struct net_device *dev,
++static inline int netdev_tracker_free(struct net_device *dev,
+ 				       netdevice_tracker *tracker)
  {
+ #ifdef CONFIG_NET_DEV_REFCNT_TRACKER
+-	ref_tracker_free(&dev->refcnt_tracker, tracker);
++	return ref_tracker_free(&dev->refcnt_tracker, tracker);
++#else
++	return 0;
+ #endif
+ }
+ 
+@@ -4533,8 +4535,12 @@ static inline void netdev_put(struct net_device *dev,
+ 			      netdevice_tracker *tracker)
+ {
+ 	if (dev) {
+-		netdev_tracker_free(dev, tracker);
+-		__dev_put(dev);
++		/* Skip __dev_put() on -EINVAL: ref_tracker_free() already
++		 * warned and the refcount was decremented by the first
++		 * successful free.
++		 */
++		if (netdev_tracker_free(dev, tracker) != -EINVAL)
++			__dev_put(dev);
+ 	}
+ }
+ 
+@@ -4569,11 +4575,10 @@ static inline void netdev_ref_replace(struct net_device *odev,
+ 				      netdevice_tracker *tracker,
+ 				      gfp_t gfp)
+ {
+-	if (odev)
+-		netdev_tracker_free(odev, tracker);
++	if (odev && netdev_tracker_free(odev, tracker) != -EINVAL)
++		__dev_put(odev);
+ 
+ 	__dev_hold(ndev);
+-	__dev_put(odev);
+ 
+ 	if (ndev)
+ 		__netdev_tracker_alloc(ndev, tracker, gfp);
 -- 
 2.25.1
 
