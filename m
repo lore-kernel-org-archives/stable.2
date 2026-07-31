@@ -1,117 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC26356751;
-	Fri, 31 Jul 2026 06:07:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1D534575A;
+	Fri, 31 Jul 2026 06:12:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785478065; cv=none; b=m7la+YVelqkzPkN2t+aJwD6GgaWkmM6SSOSNmfLUm29HN9HkperULZ+eCMstU1VYSRrtlz3gf/0zw5WUBIW7CGN3zj6CzVuOqLeoyrqSZTKSvpZVnPYWpnJZ2QeRP/Gfs+FHg1XHTzN7qLLjOQVD4RlocbHgOrg6nK4qLAp2nrU=
+	t=1785478352; cv=none; b=ohsFc1L+SvsDWw5pc165eEt8kfk8FVQBp8Z3VqfrS0F/kZEuu6N07FAsnfUt7BVG4RCY69YHhBwLoqpnm4w86DTVq5tG85jK/iA8iIRqmPp1x6AqRUPmYhpbijcVc59zVnQxIJ3vrpwNaZDjDGcq/HVSzg7poEGnQV8wdrkKio4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785478065; c=relaxed/simple;
-	bh=WaNdN+YQuV0PIYy8AFzhGPMHE+BepQ0e2VLF6AjfEMg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rfbuidhk9t/d0Fmita/QFm09NA1FYPPiljAj2VWKGPGy7lsMjC6SVl5jJkzev/PR9ZNWGz+Jw/USI8bROUGZr+LsQYLcV+7Rf4gT1MzMjVrH1GEVRcpkI9uhmdXcPBXiNd/1O9mgj6Hpb6Hpms5f4TktNM+nSmAVXecaNjIyDrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Hr7H8Ara; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785478352; c=relaxed/simple;
+	bh=Y1JcFfsMxAYuwnrefStKU1BC5LEV95g+1EolWcU6v7E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BF2EDs3XKx46UG2SZRs3J/SP5EKTplfhF98ySTzr+uPH1pKAzcQGQ+tG9cfOVAqy+BfPJLUmzSwcm57jKnAkFPyZUSeQsAcKhIgX6o6UxEwp3bkFtJJnukCygQxOGVIDdH+fUZdKyWiTmaJGeX4hOM+vxiplCasrF/xiNNbA14M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=h3AMcw8H; arc=none smtp.client-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Hr7H8Ara"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9A6A1F000E9;
-	Fri, 31 Jul 2026 06:07:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785478063;
-	bh=tSaQcQO13V9eH1T+8uK2VpcXOjUx0fX6Ia1smb5+GIQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Hr7H8Araf/h1q8yhZed3sMeLAaH/DInMeSfq7/g6+yXWtxaF4uoAzd8ROUXu6wnFK
-	 pnGZU3f+mfDltD1+QWOPmxWvrv4zq1FnWm4a+u56Abr8YWwUwfhX9xO1K3MkarD8dX
-	 P0p228cz27khvYFIcS4lEH12shHvKmX2vHKVbr8w=
-Date: Fri, 31 Jul 2026 08:07:29 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Ilya Dryomov <idryomov@gmail.com>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	Max Kellermann <max.kellermann@ionos.com>,
-	Xiubo Li <xiubo.li@clyso.com>
-Subject: Re: [PATCH 7.1 625/744] ceph: add owner/capability checks for
- CEPH_IOC_SET_LAYOUT*
-Message-ID: <2026073115-tilt-lavender-4ca2@gregkh>
-References: <20260730141444.267951807@linuxfoundation.org>
- <20260730141457.560203325@linuxfoundation.org>
- <CAOi1vP8Ka3cbvY-wKg-WE+oTWmuJwgQpwJ1-mxSU6YrbtMRyKQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="h3AMcw8H"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1785478320;
+	bh=HPZGktnGKJq0YPe354T/UoJt6OFSxF0ZOdTB9mSN2bI=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=h3AMcw8H4ECTYuf7DzuRkUN+zKVOHH2AJkidNxD5I/lpA81X19mYnHFaZNZnrK836
+	 QqogL0mamMYltQdgLY9Q7ke8rGmyidY8SP9MM11AB61UFi+ygd8AVZsSTbrLfmHfTc
+	 CvfzyzgSOfoYSheWhnDBwZsr2jHIOYSIUWZA84iE=
+X-QQ-mid: zesmtpgz4t1785478302t530aa3c8
+X-QQ-Originating-IP: Gaat/f7YMJd9JCUXk1SswtxXLqm8VHOGGirS3P+YNKg=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 31 Jul 2026 14:11:40 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 15113661807862631467
+EX-QQ-RecipientCnt: 7
+From: raoxu <raoxu@uniontech.com>
+To: dlemoal@kernel.org
+Cc: axboe@kernel.dk,
+	hch@lst.de,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
+	stable@vger.kernel.org
+Subject: [PATCH] zloop: restore finished zones with reduced capacity
+Date: Fri, 31 Jul 2026 14:11:39 +0800
+Message-ID: <2D18C0B4D202858C+20260731061139.1190909-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAOi1vP8Ka3cbvY-wKg-WE+oTWmuJwgQpwJ1-mxSU6YrbtMRyKQ@mail.gmail.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: M5aCtjAndv5OwcANG6NBvvryKQk1nRVaV99UhrIFmOxpmSIINYNaNBbu
+	0WUr7znt3ed+hF2W22i97ztirySIvDP1DyXqaFURScVmJBuOMr9T4XFb3Ar2oEYTpJcrgG5
+	ZhkCYBfq8AzCEqFD+78VtZhoTBx7v8yl3VBoOjROX6BMftnB8fN+rpvRWJ+DLlwUc2fuTWE
+	9u8O13XsBTNM7EwmeZOX6hiHVV0SaSNGdemW5MrqYhXkvWHYFAXdiTcTDRpFqkPmBQmammq
+	stIUcnWeOhX9t2doRnFnEm6p50DTHWUq1f9g4JRv85GLH/tkLsbgXmsdtIlL59m9HJofT1B
+	oHGI2gEoRCshZjFqZMfu2QSIzYKV4MJJil/0MbsCSHvN8Fp5Tcp2I0/LFuOWZHE9TBy8dag
+	yl0PywF6HiKLFz4cSmMvUzCK86FXDjCZrIH20nFqh/f/pHvL/Zx+k7uTKdWAATw5uRCsSlC
+	/jCjBzQsCjDMfZymxo95gnhLjK45kvl7eHhxdi+owues5CSMDuX5exw2j184sWxbaE9PDb+
+	RHlD2FxQrFqpavXiuJhvP+p3oiNZOlfSLnavIGPnaAqfqH8+lB3N3VSvdmGhxa/npNRopco
+	4poidQ7y2h3bZIcTcQc4PKTGxBNzWRWDZjFB6aycettEnG1ouTWuZZ9qd1y6SedvVM4DQ0y
+	k483WUu0BGxYB2T3Wujh0dU+uIhxEA62sIHX5JEfbcMXoOdEJ0d2ORcU7kwvZPnrhbI0JJw
+	P0Cz01oP19oiwaGIxM0l6G0jJF7pfqTGO3ddXJsv4nW6JOAhsdLwBeuoP+dBVRjsQSPoK5S
+	YXDTIXHcBVu5g5ihGw25FHf2i3c2g7aFpTgMUZ2tuZAJCE1ZugcyEh8qucXOcWnDAqWZc8+
+	k1M1tUHSOjxoAah5PTgmA8lVZGD/eeXWfo6KBRg98DXsRZMbi4Mav97kyrUvssRl7BvnqJV
+	Eu8kucrgT86vL/kEi4jaupAxf1jy1sXd4rIZMHhrRCmi+N8C9w6eMqmF4gtfvKymB/whVJ+
+	a2Vx9toqCW6mY1+7X9F+3KScwbSwyw3VbaNj1kghvVaWqQ43ec5gIyVE92zjg=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-On Thu, Jul 30, 2026 at 07:39:26PM +0200, Ilya Dryomov wrote:
-> On Thu, Jul 30, 2026 at 4:49 PM Greg Kroah-Hartman
-> <gregkh@linuxfoundation.org> wrote:
-> >
-> > 7.1-stable review patch.  If anyone has any objections, please let me know.
-> >
-> > ------------------
-> >
-> > From: Max Kellermann <max.kellermann@ionos.com>
-> >
-> > commit cee38bbf5556a8e0a232ccae41649580827d7806 upstream.
-> >
-> > These permission checks were already missing in the initial
-> > impementation of these ioctls.  This Ceph allows any user who owns a
-> > file descriptor to manipulate the layout of any file, even if they
-> > don't have write permissions.
-> >
-> > It might be a good idea to guard other ioctls with permission checks
-> > as well or even disallow regular users (even if they own the file) to
-> > manipulate layout settings completely, as this may be abused to DoS
-> > the Ceph servers, but right now, I find it most urgent to have setter
-> > checks at all.
-> >
-> > Cc: stable@vger.kernel.org
-> > Fixes: 8f4e91dee2a2 ("ceph: ioctls")
-> > Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-> > Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
-> > Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > ---
-> >  fs/ceph/ioctl.c |    6 ++++++
-> >  1 file changed, 6 insertions(+)
-> >
-> > --- a/fs/ceph/ioctl.c
-> > +++ b/fs/ceph/ioctl.c
-> > @@ -72,6 +72,9 @@ static long ceph_ioctl_set_layout(struct
-> >         struct ceph_ioctl_layout nl;
-> >         int err;
-> >
-> > +       if (!inode_owner_or_capable(&nop_mnt_idmap, inode))
-> > +               return -EACCES;
-> > +
-> >         if (copy_from_user(&l, arg, sizeof(l)))
-> >                 return -EFAULT;
-> >
-> > @@ -142,6 +145,9 @@ static long ceph_ioctl_set_layout_policy
-> >         int err;
-> >         struct ceph_mds_client *mdsc = ceph_sb_to_fs_client(inode->i_sb)->mdsc;
-> >
-> > +       if (!inode_owner_or_capable(&nop_mnt_idmap, inode))
-> > +               return -EACCES;
-> > +
-> >         /* copy and validate */
-> >         if (copy_from_user(&l, arg, sizeof(l)))
-> >                 return -EFAULT;
-> >
-> >
-> 
-> Hi Greg,
-> 
-> There is a concern about the correctness of this patch, please drop it
-> for now.
+From: Xu Rao <raoxu@uniontech.com>
 
-Ok, dropped now from all branches.  If you want it back, please let us
-know in the future.
+zloop_finish_zone() truncates a finished sequential zone backing file to
+zone_size. When zone_capacity is smaller than zone_size,
+zloop_update_seq_zone() rejects that file when the device is re-added
+because it treats every file larger than zone_capacity as invalid.
 
-thanks,
+Documentation/admin-guide/blockdev/zoned_loop.rst, section "Overview",
+states that a zone finish operation truncates the backing file to the zone
+size. A file whose size equals zone_size is therefore a valid
+representation of a finished zone.
 
-greg k-h
+Accept both zone_capacity and zone_size as full-zone representations. Keep
+rejecting all other files larger than zone_capacity.
+
+Fixes: eb0570c7df23 ("block: new zoned loop block device driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+ drivers/block/zloop.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/block/zloop.c b/drivers/block/zloop.c
+index 55eeb6aac0ea..b69d798f203c 100644
+--- a/drivers/block/zloop.c
++++ b/drivers/block/zloop.c
+@@ -324,7 +324,8 @@ static int zloop_update_seq_zone(struct zloop_device *zlo, unsigned int zone_no)
+ 	}
+ 
+ 	file_sectors = stat.size >> SECTOR_SHIFT;
+-	if (file_sectors > zlo->zone_capacity) {
++	if (file_sectors > zlo->zone_capacity &&
++	    file_sectors != zlo->zone_size) {
+ 		pr_err("Zone %u file too large (%llu sectors > %llu)\n",
+ 		       zone_no, file_sectors, zlo->zone_capacity);
+ 		return -EINVAL;
+@@ -339,7 +340,8 @@ static int zloop_update_seq_zone(struct zloop_device *zlo, unsigned int zone_no)
+ 	spin_lock(&zone->wp_lock);
+ 	if (!file_sectors) {
+ 		zloop_mark_empty(zlo, zone);
+-	} else if (file_sectors == zlo->zone_capacity) {
++	} else if (file_sectors == zlo->zone_capacity ||
++		   file_sectors == zlo->zone_size) {
+ 		zloop_mark_full(zlo, zone);
+ 	} else {
+ 		if (zone->cond != BLK_ZONE_COND_IMP_OPEN &&
+-- 
+2.50.1
+
