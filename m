@@ -1,112 +1,93 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E74374735;
-	Fri, 31 Jul 2026 20:08:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B640377AAB
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 20:11:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785528514; cv=none; b=Vmf/Apwnb68ERvglRV4BzJGSGHn+lw6dq5lz+iUGcNoHhS/W6hU6E5g4g3BySz/6Er8FV8CWp1iQUu1K7arrIjEciVZjH7rC7T+doxlREnOa7XQojpQ7BLOlKIuSHQnVWZ/dtbnp6CfSDUu/m0WSHGxX6rpWvO84ghHGnukEpok=
+	t=1785528681; cv=none; b=foJIKnVmMdSfXNJa6COjnDD6PvaEa6HhgpRDe9RUT58iVF6mTisubDe7w6Kq2TKy9DkPTqUZH6KwdU8mj4prkZbN7kR62tmFx0HPTi/5Rw2FXPIlkap3PWl3lhAp05qqysnnxeox3Sjo/UX2sI7G0k0+qKV+qiNUdG/X6XvU9OA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785528514; c=relaxed/simple;
-	bh=W87PURLsCUKnUlEcXXgZCM+qmQhX1yTxSPIEDk5nBD4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EuaYO2sSs3dAEtl2+zbZnGT+62sWDuVeu5fq9w0mwJyrlqb6342SDw8oHBfvfKCquYc20Yl1m4VSuOm/PzMbJw/2S6IUdUJ3YwI5Z8RtzvSVhyVH1aJbAR5q2Z9rLDoX6YEX/3Jvfp+UfWgx00g51+FiWLu6dfRS6BTrJB2Tchk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=j/mFcgrg; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1785528681; c=relaxed/simple;
+	bh=ikujtm3HHHpDvNGxFy14i5cscXGSwML1OnPpO6fPqW4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=eQzyR/ElOKqVX1+tw26OUNkaTj/dgfaCdMhGIglMSKJq2Aj4hkqK+9+lDGGf5TExto3Wzh3cvMujbJtJ0HiHQsNTKzhObqTQQsZoL12yarGgRhManG3MOgFDqBcEhbeHTO0zgk0Tdn4pSxJkOtT7WrlwfItRlPqhxnWThp9GNRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lfXvpHw9; arc=none smtp.client-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="j/mFcgrg"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
-	Content-Type:Content-ID:Content-Description;
-	bh=57pqVUBnNmX4cL7er9o4/zfu8e545pjnuaBSHsFeFDE=; b=j/mFcgrgk96/N4pP6VvSdeZMQl
-	2NyqLTCYAvKds2nk+fOZ1sx5/jOUoZqeZ4oFVXHhL+THSwlCuWBONdUwzjwZ5j6Ilv+c/L4A7dFYD
-	8XE1T3t92jFrBs51qinTzRit/cPBv/S9L6dA5d/KHT9+yOj930ZOqV5lRRRoLiQCSnOU8QZ8ddlRW
-	xm8EkHu2njpTD8UDptnBaQLU8b5VJj1jBrWwX/oouNcbQ9Ov4mYYnXtrVvBuIzN1kM1pzxGDNC3Ec
-	ehsc02QYR9xiooaC+18izCsV+OzQLchs+7zfIQQBKFpIDkvK63kBXBmd0Wbu5zjhlXVoqMl9CWCaa
-	XZWREUCw==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wptWV-00000002Pey-41Nx;
-	Fri, 31 Jul 2026 20:08:04 +0000
-From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Jane Chu <jane.chu@oracle.com>,
-	linux-mm@kvack.org
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	Christian Brauner <christian@brauner.io>,
-	Jiaqi Yan <jiaqiyan@google.com>,
-	stable@vger.kernel.org,
-	"Gregory Price (Meta)" <gourry@gourry.net>
-Subject: [PATCH v8 01/15] memory-failure: Fix hardware poison check in unpoison_memory() again
-Date: Fri, 31 Jul 2026 21:07:46 +0100
-Message-ID: <20260731200802.574821-2-willy@infradead.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260731200802.574821-1-willy@infradead.org>
-References: <20260731200802.574821-1-willy@infradead.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lfXvpHw9"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84c4cd31b51so2710432b3a.0
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 13:11:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1785528680; x=1786133480; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1jQzFcpqBSYYCtWlVzLC7o6CID0+BkEtgiFKx+1cRaM=;
+        b=lfXvpHw9p4QyyRV9IVEs5MOhzf2qnpbrjQpIOAcb9w1lgc8IkRpQahCbL8d1qArC7L
+         5MuNvOF+A82Q5C6+xJh6htMsvsb0cDOfojSbsQyk+5Oz2bjyl3tiMEX2Nhsgdum4LfKi
+         2Cu113w3t1TRZ4PVQo/XT/Yq4sM/rCdKkCg/09J4E+6wdiDHiIXuCKOMSjm9nclGWMu6
+         C1QEFhcNOwKcphtZIF5T6p5XBKcr97UtUJULcupasmj1vDvBWvIfzeQtcLFkdm1xh7wd
+         0ulFyUlbezPuaVTwlL/tt80X7rJhTx5aVJAC6s2fg3k301x9kGmv08GMeo8D7uI0ase7
+         Ho+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785528680; x=1786133480;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1jQzFcpqBSYYCtWlVzLC7o6CID0+BkEtgiFKx+1cRaM=;
+        b=qJpeCUWfx1fy3yUJvUf7nzO18aja4Xhz1BICd1YuvraHrg4NVoJSBYYtfqTx3n+nUS
+         xtlJJJK3+2OZ+43L4NRLCoTBUJNgVBTIldOZafiNmradW0FWnPeyXKFvhypZJ0MGTQdG
+         GV155pypo6KxZtQMPNYlKBZad1kJBAGqPieveidIiIxySmBiSYHF60vUSMeRceCQVQjm
+         Oi4Xv9b1IQ+/6hfxDWyJ2sFHcHWtDgMFT6Y+yljsf9mWKdXVSmFlcjk0Cz/k8wMGvwNT
+         cWoGb6YMk5qj3xI1t/YOUhddCJjAcPUtBEQamFiwQJfD35W5lKJCVS4PNCc2o4BIHNyB
+         D8wA==
+X-Forwarded-Encrypted: i=1; AHgh+RoYJYgimNwez2IPfHYmqAaRw7yxshSS+Rel4yMJOnCZK/78JpB0ewtdOC9mTQF4a6HFUOaeKdY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwVkRPh74B50VpLdosD2FwHyRVNN8yUNm3SKEqrCbCAVcmqxlxA
+	/ftizZ9vxJqIjJRjBHvQmGVxBwLNCx6EjbrdZ+jg9cmjmAvrKF7PYoWSYMJhQJ/CZxUL5DJD+8b
+	8GRJyRA==
+X-Received: from pfbkr4.prod.google.com ([2002:a05:6a00:4b44:b0:847:80c0:ec04])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:3393:b0:84c:241e:9070
+ with SMTP id d2e1a72fcca58-84ee486ed75mr804821b3a.17.1785528679754; Fri, 31
+ Jul 2026 13:11:19 -0700 (PDT)
+Date: Fri, 31 Jul 2026 13:10:03 -0700
+In-Reply-To: <20260720-rmap-age-elided-submit-v2-1-668973030d47@phil.gs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260720-rmap-age-elided-submit-v2-1-668973030d47@phil.gs>
+X-Mailer: git-send-email 2.55.0.508.g3f0d502094-goog
+Message-ID: <178552831477.2708818.5845774682019110498.b4-ty@google.com>
+Subject: Re: [PATCH v2] KVM: x86/mmu: Consume the locked rmap value in the
+ lockless rmap walk
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Phil Rosenthal <phil@phil.gs>
+Cc: James Houghton <jthoughton@google.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
-The earlier patch (6c54312f9689) that attempted to fix unpoison_memory()
-was incorrect for hugetlb folios.  Before a6fddef49eef, we checked
-the head page for poison (which was correct for hugetlb and incorrect
-for THP).  We are currently incapable of unpoisoning pages (other than
-the first page) in a hugetlb folio.
+On Mon, 20 Jul 2026 13:45:49 -0400, Phil Rosenthal wrote:
+> __kvm_rmap_lock() deliberately elides the rmap lock when it observes an
+> empty rmap.  In that case kvm_rmap_lock_readonly() also re-enables
+> preemption and returns zero, so the caller holds neither the rmap lock
+> nor a preemption reference.  The elision documents the invariant it
+> relies on:
+> 
+> 	 * Elide the lock if the rmap is empty, as lockless walkers (read-only
+> 	 * mode) don't need to (and can't) walk an empty rmap, nor can they add
+> 	 * entries to the rmap.  I.e. the only paths that process empty rmaps
+> 	 * do so while holding mmu_lock for write, and are mutually exclusive.
+> 
+> [...]
 
-Use is_page_hwpoison() which handles hugetlb pages sufficiently well for
-this purpose.  This is racy as we don't have a reference on the folio at
-this point, but fixing that properly requires deeper surgery and this
-is a CAP_SYS_ADMIN path only so this will do for the moment and can be
-easily backported.  It's no worse than the situation before a6fddef49eef.
+Applied to kvm-x86 mmu, thanks!
 
-The other bug in a6fddef49eef is that we currently clear the HWPoison
-flag on the precise page, which is wrong for hugetlb.  Fix that too.
+[1/1] KVM: x86/mmu: Consume the locked rmap value in the lockless rmap walk
+      https://github.com/kvm-x86/linux/commit/e428f9779a43
 
-Fixes: a6fddef49eef ("mm/memory-failure: convert unpoison_memory() to folios")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Miaohe Lin <linmiaohe@huawei.com>
-Reviewed-by: Jane Chu <jane.chu@oracle.com>
----
- mm/memory-failure.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index 51508a55c405..944e6e1d4971 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -2695,8 +2695,8 @@ int unpoison_memory(unsigned long pfn)
- 		goto unlock_mutex;
- 	}
- 
--	if (!PageHWPoison(p)) {
--		unpoison_pr_info("%#lx: page was already unpoisoned\n",
-+	if (!is_page_hwpoison(p)) {
-+		unpoison_pr_info("%#lx: page is not poisoned\n",
- 				 pfn, &unpoison_rs);
- 		goto unlock_mutex;
- 	}
-@@ -2748,6 +2748,7 @@ int unpoison_memory(unsigned long pfn)
- 				folio_put(folio);
- 				goto unlock_mutex;
- 			}
-+			p = &folio->page;
- 		}
- 
- 		folio_put(folio);
--- 
-2.47.3
-
+--
+https://github.com/kvm-x86/linux/tree/next
