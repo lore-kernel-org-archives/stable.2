@@ -1,140 +1,81 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F0A1D9A70;
-	Fri, 31 Jul 2026 01:23:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307C74086A;
+	Fri, 31 Jul 2026 02:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785461013; cv=none; b=kov/0HJWFsx2HJvkUhEoajFPXhBFK5QM5okkmQ3fmZnhFhBkSDiz1H0UFY3obCAHBqopbT7V/z6zsdvDTIcuzl1RIGdvPkrY6HVOMIj8RDTLyglrHV74xqSid14N0WmkhGAD/yAaa4ghYOqmVcQjdwhGJltdRm0QPLg6c0OajvY=
+	t=1785463268; cv=none; b=QznWj5OXoL4faTuc6rQ+9zdAUgi24AkmhYihw1PEdbjPYZFe82rMsV/LGrQq7NMnFg5/XnrBw0PD0RJ7eUNOaCPXXw0cwaX6RiWJlm73c2TCzgMlEd8k1a9KJG5hY/+M5PBhbYKWb1W9J19vMIliKMpwut0CdvJFg+HbNw9VwkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785461013; c=relaxed/simple;
-	bh=SYHfTPOMHblSRbVYvhhnOL85Ggh+FrsIMbmdemvvuZs=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=Cg35eQybPepZiPOdRELVNk73ffEqjVqIOT2RqEF1H0RPwcYwDFOJE+dzvC9yKftmeHKebIsPIU6WiwWhu6sfnJT9JedkkF5GJQ5EsEj0nreKQ9DibyQi0+KhApq5eyGmmU4p14EE0fwAJ1LACKIC/Uv+SV3ogjug3LKBeiN1wKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=Dw9xQg1S; arc=none smtp.client-ip=220.197.31.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1785463268; c=relaxed/simple;
+	bh=fgY/9viFpFSc73wlVcyZIycsQYY6lt363EUfsWqXVPM=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=PHBrqE4mmJGHpE2AMDzNJrKKj2V0+3/2jh3yCwihTHSE+GKd0F+buSNk0ehDYwMHa5V3uOg0OJ9LWmxMZT+fiXtNv/Gn2YmPCpu5W1/e7uTYnL3IjEkYrXW987DGpApSS+Bi51I0O+udaYXbFJ897UfB9C1CNOb4TFq8m4UkfGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JItkOlPZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="Dw9xQg1S"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
-	Content-Type; bh=BF6Na6Ku0LPOsj8Vwwvh0x1v3lCEQ31aapXF3EdT6Z4=;
-	b=Dw9xQg1SsgmFrqgc8K8cGmZRDGXW1RYNeO+KxuCJPexzicWB0UNrC513QXfpcD
-	CKQraeAwzKSnpSm8sgiq5U0OGickCrPtfqy9fEAxTOg8Qpysh5PUF75o4XHv1dk8
-	+mFCfGk/v6AoypZEHQq5VU7Kk5pG4IjM4qiePZ8oRkvMc=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3L9T4+Gtq_m4UEw--.14862S2;
-	Fri, 31 Jul 2026 09:23:05 +0800 (CST)
-Message-ID: <6A6BF8E9.2070604@126.com>
-Date: Fri, 31 Jul 2026 09:22:49 +0800
-From: Hongling Zeng <zhongling0719@126.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JItkOlPZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A49E1F000E9;
+	Fri, 31 Jul 2026 02:01:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785463266;
+	bh=odbSB9AyyvyDG+8P6r7FXrrazemEezv/nq6e1pBXhBE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=JItkOlPZHPoefNEJqauHMtePlYVDY8fM1hEh0QW9zDRNoxgRpZHXT2os4qJyBG2S9
+	 46YY/MpIt7gv4NXllwtzjaa696aJYxOwPGsz3w5UOF2FTXaHw3pXbykjcnzZPLLa0L
+	 CEESX1o/qgydR6caBiURsRmL/uj3enVTqNW+hBJs8+jvHkFVn3oNc0Viv6Wp/eQiuR
+	 UIogo7ASkZ79qrSArxM6mib8B6LaQbR/c7NOkplNp1vMtIv9kSIhCmhpVlRFk8EzrW
+	 efuxm5vrYzL4k9ZXM4ascNX0qtHSQrG12mPILDAZO3jGD/cx9fLEjAJ5U8SdnSmOlq
+	 wgo6p7gg4nnqQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0B563924477;
+	Fri, 31 Jul 2026 02:00:30 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-To: "Darrick J. Wong" <djwong@kernel.org>, 
- Hongling Zeng <zenghongling@kylinos.cn>
-CC: cem@kernel.org, chandanrlinux@gmail.com, linux-xfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] xfs: fix heap buffer overflow in xfs_bmbt_to_bmdr
-References: <20260730094824.200669-1-zenghongling@kylinos.cn> <20260730154309.GB3556460@frogsfrogsfrogs>
-In-Reply-To: <20260730154309.GB3556460@frogsfrogsfrogs>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3L9T4+Gtq_m4UEw--.14862S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuF1xXFWUGF4ftr45ArWrKrg_yoW5Cry3pr
-	Z7t3Z0kFWvqw4xuFnF9w1rtw15u3ySy3yUCrZxAanxWwn8tr12qF9YkryY9w1jqa1SyrW0
-	gFn8AasrWwn8uFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j-3kAUUUUU=
-X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBoBnxwmpr+PknZQAA3I
+Subject: Re: [PATCH net v2] net/x25: fix use-after-free of the socket by its
+ timers
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178546322939.81545.6396322960380105483.git-patchwork-notify@kernel.org>
+Date: Fri, 31 Jul 2026 02:00:29 +0000
+References: <20260726220342.47245-1-baul.lee@xbow.com>
+In-Reply-To: <20260726220342.47245-1-baul.lee@xbow.com>
+To: Baul Lee <baul.lee@xbow.com>
+Cc: netdev@vger.kernel.org, ms@dev.tdt.de, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ andrew@lunn.ch, linux-x25@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 
+Hello:
 
-在 2026年07月30日 23:43, Darrick J. Wong 写道:
-> Please take a breath and refrain from sending the same patch three times
-> in ninety minutes.  Figure out what you want to change, run it through
-> some testing, and only send it once you've stopped finding things to
-> tweak.
->
-> --D
-   Thanks for the feedback. I apologize for the multiple versions - that 
-was my mistake in not reviewing thoroughly enough before submitting.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-   The v3 patch is in its final form. I would appreciate your review 
-when you get a chance.
+On Mon, 27 Jul 2026 07:03:42 +0900 you wrote:
+> The x25 timers are armed with mod_timer() and cancelled with
+> timer_delete(), so a pending timer holds no reference on the socket and a
+> cancel does not wait for a callback already running on another CPU.
+> 
+> x25_heartbeat_expiry() also rearms unconditionally, so it can reinstall
+> sk->sk_timer after __x25_destroy_socket() has passed its cancel point.
+> The following __sock_put() frees the socket while the timer is still
+> queued, and the next expiry uses freed memory.  KASAN reports a
+> slab-use-after-free on the kmalloc-2k object freed by close().
+> 
+> [...]
 
-   Hongling
+Here is the summary with links:
+  - [net,v2] net/x25: fix use-after-free of the socket by its timers
+    https://git.kernel.org/netdev/net/c/2195424c3da2
 
-> On Thu, Jul 30, 2026 at 05:48:24PM +0800, Hongling Zeng wrote:
->> The xfs_bmbt_to_bmdr() function converts an in-memory btree root to
->> on-disk form during log recovery. It uses bb_numrecs from the source
->> to determine memcpy size without validating against the destination
->> fork capacity.
->>
->> Current code:
->>    dmxr = xfs_bmdr_maxrecs(dblocklen, 0);           // destination capacity
->>    ...
->>    dmxr = be16_to_cpu(dblock->bb_numrecs);          // overwrite with source value!
->>    memcpy(..., * dmxr);                              // may overflow destination!
->>
->> If bb_numrecs is larger than the destination fork capacity,
->> memcpy writes beyond the fork buffer, causing heap overflow.
->>
->> Fix by validating bb_numrecs against the destination capacity
->> before using it for memcpy operations.
->>
->> Cc: stable@vger.kernel.org
->> Fixes: 8ea5682d0711 ("xfs: refactor log recovery item dispatch for pass2 readhead functions")
->> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
->> ---
->> Change in v3:
->> - Use dmxr for tpp calculation (on-disk format) and nrecs for memcpy (actual records)
->> ---
->> Change in v2:
->> - Ensure memcpy operations consistently use nrecs instead of dmxr.
->> ---
->>   fs/xfs/libxfs/xfs_bmap_btree.c | 12 +++++++++---
->>   1 file changed, 9 insertions(+), 3 deletions(-)
->>
->> diff --git a/fs/xfs/libxfs/xfs_bmap_btree.c b/fs/xfs/libxfs/xfs_bmap_btree.c
->> index 758a4b1ccf5b..a119053d67b5 100644
->> --- a/fs/xfs/libxfs/xfs_bmap_btree.c
->> +++ b/fs/xfs/libxfs/xfs_bmap_btree.c
->> @@ -151,6 +151,7 @@ xfs_bmbt_to_bmdr(
->>   	int			dmxr;
->>   	xfs_bmbt_key_t		*fkp;
->>   	__be64			*fpp;
->> +	int                     nrecs;
->>   	xfs_bmbt_key_t		*tkp;
->>   	__be64			*tpp;
->>   
->> @@ -167,14 +168,19 @@ xfs_bmbt_to_bmdr(
->>   	ASSERT(rblock->bb_level != 0);
->>   	dblock->bb_level = rblock->bb_level;
->>   	dblock->bb_numrecs = rblock->bb_numrecs;
->> +
->> +	/* Validate record count against destination fork capacity */
->> +	nrecs = be16_to_cpu(rblock->bb_numrecs);
->>   	dmxr = xfs_bmdr_maxrecs(dblocklen, 0);
->> +	if (nrecs > dmxr)
->> +		return;
->> +
->>   	fkp = xfs_bmbt_key_addr(mp, rblock, 1);
->>   	tkp = xfs_bmdr_key_addr(dblock, 1);
->>   	fpp = xfs_bmap_broot_ptr_addr(mp, rblock, 1, rblocklen);
->>   	tpp = xfs_bmdr_ptr_addr(dblock, 1, dmxr);
->> -	dmxr = be16_to_cpu(dblock->bb_numrecs);
->> -	memcpy(tkp, fkp, sizeof(*fkp) * dmxr);
->> -	memcpy(tpp, fpp, sizeof(*fpp) * dmxr);
->> +	memcpy(tkp, fkp, sizeof(*fkp) * nrecs);
->> +	memcpy(tpp, fpp, sizeof(*fpp) * nrecs);
->>   }
->>   
->>   STATIC struct xfs_btree_cur *
->> -- 
->> 2.25.1
->>
->>
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
