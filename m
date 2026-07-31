@@ -1,168 +1,252 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C203D9DD1
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 12:10:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9235F3EB10F;
+	Fri, 31 Jul 2026 12:16:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785499820; cv=none; b=lGCisQTMAaSV/rvNQg8FHbE0KR3TstMMC6yBpuqleCg85BKYE/vHBRJgcn5n/3UiSyrDh52HQeVjoVrqxa12LfMRDD531ET4rkLZpnw2oPeFdl7FhIscG3A9n2FM2hv46bWgZu+i6EKtge4GL5+wDgp0SiAbhS5XmXg9su55c94=
+	t=1785500167; cv=none; b=Co/PpmIwLduwXIr+h2BcFV4h62QzfYRMv1joVpvI9X1ED7POncPvxCcf01BtKUmTK3XlrrrnQRXNbnetySvAlpBpQEBFOrYUhOWUOP1Cy927qED5j8L+l5wpBToBYeJbmwH8JBfPhktGOVWNhAVdMN7FbNfRzvVFfM4vjWLQkJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785499820; c=relaxed/simple;
-	bh=7IWuEAa4jVDxyVRKrGSgG380LLSvUEDOpJ6jQFElz7A=;
+	s=arc-20240116; t=1785500167; c=relaxed/simple;
+	bh=UZ/Sln7YYeVyoGMNPMtP4Lomz1r5uacMZnllJTsyPsI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jlDRhJA2rfqgb+WAB9V1/fuNRtWo51YEOkN08akSn8iz+4eoun0BIUb61WgF/zZK0wLIVmvNUlPx0o2uAPmcWQa5GxCWz9wZ3hO/0ja92xcS01XlVfs+bIEKeZmaGdK0lk/7Leba85hwRJEURGk0D3CXXwpfdWSgdRJRqVCdBSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=g9uS/lmB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cezhneEC; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=lb7ctk/rSOTjo2bh+Sv1gycTmjctgu6e3Hw4+ezcaSsBMoFRofXjQwrIUE/IIBLsT1Gn3ejSdp10CD0R7LZ2WMadmxmZ3qBsJ7p5wTPCykJEBXfeBRRsAXYWE5IAeeNz0QL8mIT+/LrYPdXPunKHUQ7IP0Y7rugpo89onJMk9Oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Gn/bsPY0; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="g9uS/lmB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cezhneEC"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VBdIoZ3371163
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 12:10:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KUM9tyOn7WaoLPUkUexhSBTqWwN8KFe+SDzVjpGtgug=; b=g9uS/lmBIGK12A2Y
-	5ilVEZvFAAdBHqubtd3cq3HkGWzDaJi763PXQXrAMB62FCHBFUYepAQpHETTvbV0
-	aVJGRyMHvGYdHfT9+gRMNfuGvnAyDDjbfYZvSbr0DkESTzV9fQyN7ZW+6Xa5iXTe
-	vGQLP3L+cU1+zPmXg6xDGFkwimDgLbrHuA0ilOlUJJ5n0d/xBBu7XrM0q4ed/uC2
-	3SfTxY0m4oxK9EqN88jZuGVaJOM69QJ6tZndQRyPHCQp2Gs2JtHpBEUu/WjsXcpi
-	Yl0t5CjLSF/Xx2fNskvfN/NfJZRVEW+t4+FDNjzTtNWeTVDN1v5bwl5Kgj5qkllb
-	i96emg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fru0y03d2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 12:10:17 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c21c01cf3so15697761cf.2
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 05:10:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785499816; x=1786104616; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KUM9tyOn7WaoLPUkUexhSBTqWwN8KFe+SDzVjpGtgug=;
-        b=cezhneECbQx3kZV0jWivYzujplQs0KLADMAGhDvjjNc/Wd9QclGRCqtEew/S7Iw1hy
-         y/IDWzvSUyheGKHyEjnpD5biM3BHykgD29KRncVvvZlYaeEUM7JZxHyocKoC9qiZXMWf
-         5dR3QQy0qluQFeMSUXrwrmS+wbPvnwaEb9sejCD2I8pNyezfD5dJRAK7/XAYGVIxo6t+
-         +X+RNZx/ybtDuBTWTy74PzGLtqLhTKaNO6WSyZdTXc0HJatW5PUPlKQQhO5mduakNIxz
-         DUKw2BIOj+gG/wcEW930OHbxLoc5TkcXl0dPzz6ik4RWR31q51sl4DxCJqA2mG+dQTeU
-         dTkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785499816; x=1786104616;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=KUM9tyOn7WaoLPUkUexhSBTqWwN8KFe+SDzVjpGtgug=;
-        b=kcooUxTQXg3WZXowqVlezFtmkGNGQKfnNx0EFi+vCNJpHxEbzW9RwwF6ryI1QZkX0g
-         PdqTb8Csa6DSfrIT8m5gvC5XnOST1zaEQsJgI4lrI7GGnYBavqw4mdGM8PNvbsqcXlQe
-         kGGoDDuvpyKhXVEERN+t5fGpL1Zg8qPu9HAS5kUX0mViQ6J8HIf4FyCEUdyAwVPrdveF
-         hnrFjW9wkju8UsVpaz2H9QpiEANgWURR/iFP6CUOi+FnMw2yFPx2BhoaOXOM9HXfByNu
-         /J130thErJ9FHGGhoK/tgnoq1/STv/g5bH9/WrbJqo5fDUSU77dfUOpCEdyuJ8tup5s2
-         ESjQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqKTIv/SmP8TTtzKCMaJvtwmbuyH7o+21QkJj3eoLtlOdbUKfD0ycCPAkW0j75txOL7+8greYM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxGcUATxs6vIVVb3EFj998i8Seg5k4ToixXsUxfh0bzRX032YVs
-	l7ptRLG78b8R7MmXz1gdz9l3n9yLGjIq3iKG8u0Hyy6rAGkZu+qzhQkp1yaYwFDkmCC7UENX3L6
-	89j1VzAm40MfFYKKedArLUFIosTwO6FtE9FT6WJV2OTOgV24UrIjMfTbv2Js=
-X-Gm-Gg: AR+sD10uYJuNXMlJCnslOMduN825hO+y53ehkaRKZoE6Rf1ZRAnGmW43HbzKCfIhh4j
-	oENU5Fz+kl0k06XJLbb+Qx/lK4X6XtOjginD+N9GZ4BaTyTBq46b8A2t0OaHBj1+e+V3JccllJf
-	NinTPc2mkJyDfLQLFe0Da7GuvYKEhZEDYvOe+Ci87qZhSLYBWwctL7K5ASldHPEbuI3DqFMcyVl
-	E0o47Vb6RSrYT7/aiQ2GMjR3Cq5bD9y30OpS+TZ9gNmsX89LrPx4n76dJT5jWhLMCwnwlRwgEal
-	lpvKpDn5pcI5Qk2DOlfJ36Rrr1vqliI4m5md6BHM8MXWbosjqAziT8GcCZdD1Xsb48tbtVaiTCw
-	AlvsIrL1g6lE678c=
-X-Received: by 2002:ac8:5845:0:b0:51a:329:e802 with SMTP id d75a77b69052e-52b4b0fc268mr22998951cf.41.1785499815980;
-        Fri, 31 Jul 2026 05:10:15 -0700 (PDT)
-X-Received: by 2002:ac8:5845:0:b0:51a:329:e802 with SMTP id d75a77b69052e-52b4b0fc268mr22998181cf.41.1785499815368;
-        Fri, 31 Jul 2026 05:10:15 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.163.114])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd458b73asm3599966f8f.29.2026.07.31.05.10.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 05:10:13 -0700 (PDT)
-Date: Fri, 31 Jul 2026 15:10:11 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: jaseg <git@jaseg.de>
-Cc: Ulf Hansson <ulfh@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        Jan Sebastian =?utf-8?B?R8O2dHRl?= <linux@jaseg.de>,
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Gn/bsPY0"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VBm3PW1766156;
+	Fri, 31 Jul 2026 12:15:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=/87/IHsO3lCniDuKp/DLkggwQfj3jV
+	AVmfXdYpPtzFc=; b=Gn/bsPY0ovYFMUw3VVaoZqRCa0EQTjyuEIVSwcj4L58/tg
+	XesYGSK6SiqNLEnEcCIo4e/mF2FeqbWgqYtpqZWfAApNXRImFosOU1myM5y+jwV4
+	JRk3A67OPPUy9AFrzyIKR2h4zLSGHGIGKHl3lfKV+TgQymV6AUiyBtLUydIqYU1m
+	Wx1KpXW3TI1s65+H3NK5h1KlpKb7BbZ97gozhp7lUF0YYaToZAtTflaTyW7Gw+m+
+	fD0NppEdH1HAFaTUI+JpJCFsrpogQYV6W373D7Hz5Q0OKeYGBzuwB3JqgGjJoz0z
+	mKKLkxDs5WYcE5SlBrQ61+c5SXtBYQdrNei9h+6g==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmv0y4xyn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 31 Jul 2026 12:15:44 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66VCBIGM004182;
+	Fri, 31 Jul 2026 12:15:43 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fna5yfhqc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 31 Jul 2026 12:15:43 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 66VCFfDZ50659690
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 31 Jul 2026 12:15:42 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D422520040;
+	Fri, 31 Jul 2026 12:15:41 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AD0B220043;
+	Fri, 31 Jul 2026 12:15:38 +0000 (GMT)
+Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.124.209.143])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri, 31 Jul 2026 12:15:38 +0000 (GMT)
+Date: Fri, 31 Jul 2026 17:45:36 +0530
+From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: linux-ext4@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>,
+        Andreas Dilger <adilger.kernel@dilger.ca>,
+        Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
+        Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
+        Ira Weiny <iweiny@kernel.org>, linux-fscrypt@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Disha Goel <disgoel@linux.ibm.com>,
         stable@vger.kernel.org
-Subject: Re: [PATCH] pmdomain: core: Wait for device link removals before
- dropping genpd->dev
-Message-ID: <ivkwuomer5vsajf2lq6otpgxwqljkwooh3p7e5ne23j37pv22t@iluamo6gxmq3>
-References: <20260731102147.127082-1-git@jaseg.de>
+Subject: Re: [PATCH] ext4: don't enable DAX on new encrypted files
+Message-ID: <amyR6P_-WWTTEaup@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+References: <20260730175212.36923-1-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260731102147.127082-1-git@jaseg.de>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDA5MiBTYWx0ZWRfX8jxgjLeCS0yJ
- yKB5Z2DJmrPbJIeXp2l7DuGQQOKgwOTDaxFgGZj49/w2h6BgE2Ey5XmW4uyzPnxMCmQNxxubNkN
- Q2l722mvkEvCEyG7GrVVF9CQcCx2hVA=
-X-Authority-Analysis: v=2.4 cv=TcamcxQh c=1 sm=1 tr=0 ts=6a6c90a9 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=6dw9+iwJWV8PcCi9M4lOBg==:17
- a=8nJEP1OIZ-IA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=LNI6Y7vA10jdH1asw2gA:9 a=3ZKOabzyN94A:10
- a=wPNLvfGTeEIA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDA5MiBTYWx0ZWRfX6KMuZaife32K
- ZWIeQ65wDMcelrlRSk4K4Yqob2FKzbMIt+GNXPwNSessdmW3d3Sd5XdsJTTJDsG9CC2GC2zDlAl
- QII9uILbw1oiY7WbiJqDDnoymL0ZsZQqzlQ8KKehK9SE54vcNvzaeGNOff8U6Wx2JCHDadjKsoI
- Z/P2WvCvCBR0re+Lxw2M+SqsHx1C0ivybkjqa0+DrSr3SszAPW6+eaFvmCv5VToLWNnP7RRUs/C
- 7gcF50ryLR0r/8z2c/mezVC/6cOmUfoD7z+TWMQ/brz+EUJ5gfn38cnZy/z34dK4NixrETrtCvq
- KgOQtomTP4tk7fnxYVz0nm6dddAP5VMhtdbyb75tlXac0DUo7AfOYa56l4SXw4gIDM39+StCHcB
- 9XAyZFaInpLIXW5cA3oVxGvreKVRT89ruREdn5+5Q65SZ7X7g5IW6ZxtdY/HbPlNHIvecf4yUVc
- LLsOu91SIut4w3S6fDQ==
-X-Proofpoint-ORIG-GUID: FZwPdse1axP-Lh6HiSpnRmcShWJP_HHp
-X-Proofpoint-GUID: FZwPdse1axP-Lh6HiSpnRmcShWJP_HHp
+In-Reply-To: <20260730175212.36923-1-ebiggers@kernel.org>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: bccxDvmbbCb-mKgYT23BOSSyFOxDXzJB
+X-Proofpoint-ORIG-GUID: Ot_mZbCNqSbCXoOm5AaZzsZw9FrqX67p
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDA5MCBTYWx0ZWRfX3N6ybJvhltjk
+ ZI2wdTtDI5uQHN2auZKUC8d9M+/uvrLn735JTo+7KXdPfZYF5mArslIHKI+4Rw6XNAXFcaa4F1F
+ 7aLdajaIhgJbpO/5OmWzBRXsEge1eDQ=
+X-Authority-Analysis: v=2.4 cv=dYuwG3Xe c=1 sm=1 tr=0 ts=6a6c91f1 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=YVDjClEEQ8ZDZGE1TyEA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDA5MCBTYWx0ZWRfXyUqgvVFRdKYA
+ d343G5j8wQ83dtQ14sShNsDtdVayxmWF9lRwBFG83OPG2mLEmyOLChdy0GECMATBClmm5lPEy2A
+ SXACKUkXdYcI3ODhMKefFB1jPO6okYqEvgGBz9YtKTFeXhsNbV5mInWv9tA3w+59B5ggeGOJrMX
+ 3b5U7BG3dl6sMtIB/re9tLJvE10DPVqo+QQW/rfXT1XyrCyiweIfKb8M76S15k6Th48Dxa/rPKN
+ bxShmq7U2Me1pHbH1A552Mxsk54lW5S17biCtZquj52BDyje8R536eiucl2xK6e2Cv3JIXy6y4y
+ b7eOEECwjbviMklGOfyRdlGa/q9ibGstQ7DJjNG2xtnYeFdOokdCkBnN3KMtbxBc9X+AM227YXW
+ IOqpzpEHDqi4/qFFc+ScMv5S1IXdmBy6SXnd7q3qoWPX/t/JlID90GVPjezQvZQICYl+yhJgFNq
+ z2Tc/1ROnJFWNdSvaRg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-31_04,2026-07-30_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0 priorityscore=1501
- suspectscore=0 spamscore=0 adultscore=0 clxscore=1011 impostorscore=0
+ priorityscore=1501 impostorscore=0 clxscore=1011 phishscore=0 malwarescore=0
+ spamscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310092
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310090
 
-On 26-07-31 12:21:47, jaseg wrote:
-> From: Jan Sebastian Götte <linux@jaseg.de>
+On Thu, Jul 30, 2026 at 10:52:12AM -0700, Eric Biggers wrote:
+> Currently, when a new encrypted regular file is created, the call to
+> ext4_set_inode_flags(inode, init=true) in __ext4_new_inode() is made
+> before EXT4_INODE_ENCRYPT is set.  As a result, it can set S_DAX if the
+> filesystem is mounted with "-o dax=always".
 > 
-> genpd->dev is embedded in struct generic_pm_domain and its release
-> function is empty, so providers free the containing genpd with a plain
-> kfree() once of_genpd_remove_last() returns, ignoring its refcount.
+> EXT4_INODE_ENCRYPT then actually gets set a bit later in
+> __ext4_new_inode(), when it calls fscrypt_set_context() which calls
+> ext4_set_context().  ext4_set_context() sets EXT4_INODE_ENCRYPT and
+> calls ext4_set_inode_flags(inode, init=false) to set S_ENCRYPTED too.
 > 
-> Since genpd->dev is registered on the genpd provider bus, fw_devlink
-> creates device links to it, and those are torn down asynchronously.
-> Nothing made genpd_remove() wait for those teardowns, so the provider
-> could free the memory backing genpd->dev while the queued workers still
-> used it.
+> This was intended to clear S_DAX as well.  However, this was broken by
+> commit 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load").  This
+> causes data written to the file to bypass encryption, also causing
+> xfstests failures such as generic/548 (when "-o dax=always" is used).
 > 
-> This is reachable at boot on qrb2210, where the firmware rejects PC mode
-> and psci_cpuidle_domain_probe() removes all the CPU PM domains before
-> returning -EPROBE_DEFER. The bug is asymptomatic on defconfig, but shows
-> up when enabling KASAN or INIT_ON_FREE_DEFAULT_ON. In some builds, it
-> causes the kernel to crash a few hundred ms into the boot.
+> Fix this by simplifying the flow by making __ext4_new_inode() set
+> EXT4_INODE_ENCRYPT earlier.  This makes it take effect in
+> ext4_set_inode_flags(inode, init=true), making S_DAX never be set.
 > 
-> Call device_link_wait_removal() before dropping the final reference. All
-> link removal work is queued from device_del(), via
-> device_links_driver_cleanup() and device_links_purge(), which precedes
-> genpd_free_data(), and flush_workqueue() waits for it to complete.
+> Similarly, make EXT4_STATE_MAY_INLINE_DATA never be set in the first
+> place on new encrypted inodes.  Then it doesn't need to be cleared.
 > 
-> Note: This patch was LLM-assisted. I reproduced the issue and tested
-> this patch on hardware, and I did my best to verify it by hand. However,
-> I'm far from an expert in pmdomain, so YMMV.
+> As a result of these simplifications, ext4_set_context() no longer needs
+> to change inode flags or state when 'handle != NULL'.  Remove that too.
 > 
-> Assisted-by: Claude:claude-5-opus
-> Fixes: 18a3a510ecfd ("pmdomain: core: Add the genpd->dev to the genpd provider bus")
+> Reported-by: Disha Goel <disgoel@linux.ibm.com>
+> Reported-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+> Closes: https://lore.kernel.org/r/20260723085648.1500357-1-ojaswin@linux.ibm.com
+> Fixes: 043546e46dc7 ("fs/ext4: Only change S_DAX on inode load")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
+> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 
-Konrad beat me to it. But if you drop the last paragraph from commit
-message, I think the rest looks OK, so:
+Hey Eric, looks good and it passes all the failing tests in my dax
+setup.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Feel free to add:
+
+Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+
+Regards,
+ojaswin
+
+> ---
+>  fs/ext4/crypto.c | 40 ++++++++++++++++++++--------------------
+>  fs/ext4/ialloc.c |  4 ++++
+>  2 files changed, 24 insertions(+), 20 deletions(-)
+> 
+> diff --git a/fs/ext4/crypto.c b/fs/ext4/crypto.c
+> index f41f320f4437..3971986de028 100644
+> --- a/fs/ext4/crypto.c
+> +++ b/fs/ext4/crypto.c
+> @@ -144,7 +144,13 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
+>  	if (inode->i_ino == EXT4_ROOT_INO)
+>  		return -EPERM;
+>  
+> -	if (WARN_ON_ONCE(IS_DAX(inode) && i_size_read(inode)))
+> +	/*
+> +	 * For new encrypted inodes, S_DAX is never set in the first place.
+> +	 *
+> +	 * For existing inodes, this is called only on empty directories.  ext4
+> +	 * never sets S_DAX on directories.
+> +	 */
+> +	if (WARN_ON_ONCE(IS_DAX(inode)))
+>  		return -EINVAL;
+>  
+>  	if (ext4_test_inode_flag(inode, EXT4_INODE_DAX))
+> @@ -163,6 +169,14 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
+>  	 */
+>  
+>  	if (handle) {
+> +		/*
+> +		 * __ext4_new_inode() should have already set the encrypt flag
+> +		 * on the inode and avoided enabling inline data.
+> +		 */
+> +		if (WARN_ON_ONCE(!IS_ENCRYPTED(inode)))
+> +			return -EINVAL;
+> +		if (WARN_ON_ONCE(ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)))
+> +			return -EINVAL;
+>  		/*
+>  		 * Since the inode is new it is ok to pass the
+>  		 * XATTR_CREATE flag. This is necessary to match the
+> @@ -170,21 +184,10 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
+>  		 * function with the credits allocated for the new
+>  		 * inode.
+>  		 */
+> -		res = ext4_xattr_set_handle(handle, inode,
+> -					    EXT4_XATTR_INDEX_ENCRYPTION,
+> -					    EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
+> -					    ctx, len, XATTR_CREATE);
+> -		if (!res) {
+> -			ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
+> -			ext4_clear_inode_state(inode,
+> -					EXT4_STATE_MAY_INLINE_DATA);
+> -			/*
+> -			 * Update inode->i_flags - S_ENCRYPTED will be enabled,
+> -			 * S_DAX may be disabled
+> -			 */
+> -			ext4_set_inode_flags(inode, false);
+> -		}
+> -		return res;
+> +		return ext4_xattr_set_handle(handle, inode,
+> +					     EXT4_XATTR_INDEX_ENCRYPTION,
+> +					     EXT4_XATTR_NAME_ENCRYPTION_CONTEXT,
+> +					     ctx, len, XATTR_CREATE);
+>  	}
+>  
+>  	res = dquot_initialize(inode);
+> @@ -205,10 +208,7 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
+>  				    ctx, len, 0);
+>  	if (!res) {
+>  		ext4_set_inode_flag(inode, EXT4_INODE_ENCRYPT);
+> -		/*
+> -		 * Update inode->i_flags - S_ENCRYPTED will be enabled,
+> -		 * S_DAX may be disabled
+> -		 */
+> +		/* Update inode->i_flags to set S_ENCRYPTED. */
+>  		ext4_set_inode_flags(inode, false);
+>  		res = ext4_mark_inode_dirty(handle, inode);
+>  		if (res)
+> diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
+> index a40cb27f8116..a5831fc536db 100644
+> --- a/fs/ext4/ialloc.c
+> +++ b/fs/ext4/ialloc.c
+> @@ -997,6 +997,8 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
+>  		err = fscrypt_prepare_new_inode(dir, inode, &encrypt);
+>  		if (err)
+>  			goto out;
+> +		if (encrypt)
+> +			i_flags |= EXT4_ENCRYPT_FL;
+>  	}
+>  
+>  	err = dquot_initialize(inode);
+> @@ -1306,6 +1308,8 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
+>  	ei->i_extra_isize = sbi->s_want_extra_isize;
+>  	ei->i_inline_off = 0;
+>  	if (ext4_has_feature_inline_data(sb) &&
+> +	    /* Encrypted inodes cannot have inline data */
+> +	    !(ei->i_flags & EXT4_ENCRYPT_FL) &&
+>  	    (!(ei->i_flags & (EXT4_DAX_FL|EXT4_EA_INODE_FL)) || S_ISDIR(mode)))
+>  		ext4_set_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA);
+>  	ret = inode;
+> 
+> base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
+> -- 
+> 2.55.0
+> 
