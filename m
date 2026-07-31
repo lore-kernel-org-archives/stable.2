@@ -1,137 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4ED322B87
-	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:48:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286953DB303
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:56:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785498522; cv=none; b=V4ac5tZTxom1jfPRM0Jz7TGS4DXoZdRWyYNG9/BMp+ad1zLUrSrrFkMm6osiX+4z9lktHMYAulke35pLfdukGHc/6MSab9PRvKMr9WjWcuR01gMZyh1PbVwbO4R+MRYICu0zDMuUM24xvEB4Df79q46CjAoz8Z3iVMA+D5R80IE=
+	t=1785499020; cv=none; b=Os+PMoVQObRYXnk+YB+5dUtXrX3CIfu0k+zs/SmUU7pF1mBWjmOwXOE9fNMnB0JTYGiV3UrwV4qFVYdtG3pMoEDaExU9NNDI6ZK+AYAm21UcZZpJFa4PGf4DGg8jB39KyRvicunvdM/gTaYHP/PcBBColl9AsAoewjCDTBUVw7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785498522; c=relaxed/simple;
-	bh=JkdjbrL/Si+ZmiS7Z3ikRxJzO6GbEVllee/zaBwynAM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FuCZvQWqBOMLtn4g2+VBpAh0mBS5WklhyFGpIlxSEYHZOTeYoeWs8ywOcz0MsfYPoar3fpah/gAsjXCUTMVPiImo8Q0ceaqFls1z3N9eUVHlGz7jwuxfaXmonrfRG/hvJ9llpbXUoGn64MmWODYptrWd6cyAkIXks9HvxKqzkMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O7jGKSK8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785499020; c=relaxed/simple;
+	bh=ApRNz3FzWVQMCuZ6XgLo6gydV9mGNaSyz1BAaUo1H4c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lq02/R2TqSGvnq14RPgKDsjFxI/TSo10x27OHA4IdvmtqaWJyUKb8iJUsorcUUgAgF7olgnLBF2O2rMA2geyuVpif0mdNgb572rYhRmYBDr30ovcnnniJCz9UrpSGP0uY7YJdiXS2Zqq8cT3kHTvepEzUoma5K5LVMZGboWsFTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U1GKHGCd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O7jGKSK8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 192961F000E9;
-	Fri, 31 Jul 2026 11:48:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U1GKHGCd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C48821F00A3A
+	for <stable@vger.kernel.org>; Fri, 31 Jul 2026 11:56:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785498520;
-	bh=aQagpLuNwmTEnHfH9PNDrrbZ7A2iI8ScUmgoy2Bf1UQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O7jGKSK8oGTwnW8km4iN7m8Pt1Q5KeYDqXsmcUKHx9kcSJW9F9sOGdJZhMaixcsUz
-	 2xRsZ7Qjfg99PQPjUzfPT4OX8vEU2qqCXkA7RZyCFFVAl8BHNyVGhTD/HqrXz0A7zI
-	 aO1iw3rC9tctutP1+DU6Y6F+/C6bi8Rzvh5MUve4XaKQ7GqSYC2uO4vKpvebcdjUkj
-	 00ILdkxisJrbD71xG89QFi6wiNR8UqXM/S0c9vRePyiwqWGW8/SUojvPDBpdBD/Mb+
-	 BmVs9m372SV2QVJZjgsb/KklaXL6qRnTUnMbal/fWgxUZECXi/D1+6TUdvTSo1K13a
-	 BXmC99QXku4Pw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ashutosh Desai <ashutoshdesai993@gmail.com>,
-	Lyude Paul <lyude@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] drm/dp/mst: fix OOB reads on 2-byte fields in sideband reply parsers
-Date: Fri, 31 Jul 2026 07:48:38 -0400
-Message-ID: <20260731114838.3778255-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072957-headband-savanna-0a53@gregkh>
-References: <2026072957-headband-savanna-0a53@gregkh>
+	s=k20260515; t=1785499018;
+	bh=+HnlsQJ3tnor6cbdGME0wtt4wsQOJDX+Bt0sMn99N6o=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=U1GKHGCdIAm5jhVBmju3GAymUq5bgF6/9ol2RtG5Dpu0mE4LD5G1zBkOdl6vcag9T
+	 UDLQjMte0RQ7BYTPIqhoDZGC2a4Mav0uvwEjMkCRGeifRVWIDZjyROlzVXhbd34Ly4
+	 534erzZZmYJOxnFD3gXB2Jd2eD5wC034Dopmg+T45rxIwwDU7b7NJHfOxF7bd0+FRe
+	 +Qlug9UEd3sN4x8aEYR0wp28t2NOhBgGzDXXGIe+Kd8c1lQvaGgs/tUeN8/girPPff
+	 WXpdhvUqlEvDMVZAVXGqngiYYSaUn0rYOexTj/tsSBneSQj3VSJ2gnb/zex/PM9xYt
+	 z5b/MH7F3XOpA==
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5bf9466412fso764565e0c.1
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 04:56:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rr83u4uard0YNBj/PMrlyKSf0OiXvil0NTk9ogBWhoRce9F4sGuSdeGAv2mTdOgboP44A4tgdo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YypPeeySPJzh+fhCec90l/kQNXkL8/k4LU8EUpkYVZZaB/Dpe8D
+	uQxxMsVuj9WSY5iKPQf+XKGj2WbnsIjRFR/cx37NOPOHK1YmNgfdXDmSlmvS3Vz6O40M9Y6NoC4
+	UUkIcALKGHWrH1PhiTTV4TBSRVZ2qqVY=
+X-Received: by 2002:a05:6122:2210:b0:55b:d85:5073 with SMTP id
+ 71dfb90a1353d-5c37e36f12dmr582502e0c.4.1785499018011; Fri, 31 Jul 2026
+ 04:56:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260731-btrfs_kmemleak-v1-1-9600453eef4e@debian.org>
+In-Reply-To: <20260731-btrfs_kmemleak-v1-1-9600453eef4e@debian.org>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Fri, 31 Jul 2026 12:56:20 +0100
+X-Gmail-Original-Message-ID: <CAL3q7H5P6XngF7O8Pfp_WawazCeq26V+=G7OQnnNLsnD4EbZDA@mail.gmail.com>
+X-Gm-Features: AUfX_mzSfc25Hh6uCprxdI-uahMwrD1XOiroRhpR17tsLAfZ_sI0kS20vo37teg
+Message-ID: <CAL3q7H5P6XngF7O8Pfp_WawazCeq26V+=G7OQnnNLsnD4EbZDA@mail.gmail.com>
+Subject: Re: [PATCH] btrfs: fix extent changeset leak in encoded writes
+To: Breno Leitao <leitao@debian.org>
+Cc: Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>, Omar Sandoval <osandov@fb.com>, 
+	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, jlayton@kernel.org, 
+	boris@bur.io, kernel-team@meta.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ashutosh Desai <ashutoshdesai993@gmail.com>
+On Fri, Jul 31, 2026 at 12:52=E2=80=AFPM Breno Leitao <leitao@debian.org> w=
+rote:
+>
+> Investigating some machines with kmemleak, I am constantly seeing
+> the following memory leak that seems real.
+>
+>   kmemleak: unreferenced object 0xffff88869f7d01c0 (size 64):
+>   kmemleak:   comm "btrfs", pid 1613416, jiffies 4316358595
+>   kmemleak:   backtrace (crc ab59040a):
+>   kmemleak:     __kmalloc_cache_noprof
+>   kmemleak:     qgroup_reserve_data
+>   kmemleak:     btrfs_qgroup_reserve_data
+>   kmemleak:     btrfs_do_encoded_write
+>   kmemleak:     btrfs_do_write_iter
+>   kmemleak:     btrfs_ioctl_encoded_write
+>   kmemleak:     btrfs_ioctl
+>   kmemleak:   ... and 2 more object(s) with the same backtrace
+>
+> and
+>
+>   kmemleak: unreferenced object 0xffff88830d94edc0 (size 64):
+>   kmemleak:   comm "btrfs", pid 1613416, jiffies 4316358595
+> <snip>
+>   kmemleak:   ... and 2 more object(s) with the same backtrace
+>
+> Looking at the code, it seems we don't free data_reserved, but
+> we should (!?). I was able to come up with a xfstest test that exposes
+> the kmemleak above:
+>
+> https://github.com/leitao/xfstest/commit/81c83a3fbb20b4ad695055ede7fcb73d=
+3ffa2e52
+>
+> Free the changeset on the way out, as every other caller of
+> btrfs_qgroup_reserve_data() already does.
+>
+> Fixes: 7c0c7269f7b5 ("btrfs: add BTRFS_IOC_ENCODED_WRITE")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit 6b89ba3dba2f583626fb693e47e951ffb8bf591f ]
+This is already fixed here:
 
-Three sideband reply parsers read 16-bit fields as:
+https://lore.kernel.org/linux-btrfs/20260727115352.12622-1-dmantipov@yandex=
+.ru/
 
-  val = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+Thanks.
 
-and check bounds only after the fact. When idx == raw->curlen,
-raw->msg[idx+1] reads one byte past the received message data into
-the following struct fields (curchunk_len, curchunk_idx, curlen).
-
-Affected functions:
- - drm_dp_sideband_parse_enum_path_resources_ack()
-   full_payload_bw_number and avail_payload_bw_number fields
- - drm_dp_sideband_parse_allocate_payload_ack()
-   allocated_pbn field
- - drm_dp_sideband_parse_query_payload_ack()
-   allocated_pbn field
-
-Fix by using a single combined check (idx + 2 > curlen) before each
-2-byte read. Since the check is strictly tighter than idx > curlen,
-no separate step is needed.
-
-Fixes: ad7f8a1f9ced ("drm/helper: add Displayport multi-stream helper (v0.6)")
-Cc: <stable@vger.kernel.org> # v3.17+
-Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-[added fixes tag]
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Link: https://patch.msgid.link/20260510203128.2884846-1-ashutoshdesai993@gmail.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/drm_dp_mst_topology.c | 17 ++++-------------
- 1 file changed, 4 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-index 702ab6148425..b232284cfeb3 100644
---- a/drivers/gpu/drm/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -911,16 +911,13 @@ static bool drm_dp_sideband_parse_enum_path_resources_ack(struct drm_dp_sideband
- 	repmsg->u.path_resources.port_number = (raw->msg[idx] >> 4) & 0xf;
- 	repmsg->u.path_resources.fec_capable = raw->msg[idx] & 0x1;
- 	idx++;
--	if (idx > raw->curlen)
-+	if (idx + 2 > raw->curlen)
- 		goto fail_len;
- 	repmsg->u.path_resources.full_payload_bw_number = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
- 	idx += 2;
--	if (idx > raw->curlen)
-+	if (idx + 2 > raw->curlen)
- 		goto fail_len;
- 	repmsg->u.path_resources.avail_payload_bw_number = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
--	idx += 2;
--	if (idx > raw->curlen)
--		goto fail_len;
- 	return true;
- fail_len:
- 	DRM_DEBUG_KMS("enum resource parse length fail %d %d\n", idx, raw->curlen);
-@@ -938,12 +935,9 @@ static bool drm_dp_sideband_parse_allocate_payload_ack(struct drm_dp_sideband_ms
- 		goto fail_len;
- 	repmsg->u.allocate_payload.vcpi = raw->msg[idx];
- 	idx++;
--	if (idx > raw->curlen)
-+	if (idx + 2 > raw->curlen)
- 		goto fail_len;
- 	repmsg->u.allocate_payload.allocated_pbn = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
--	idx += 2;
--	if (idx > raw->curlen)
--		goto fail_len;
- 	return true;
- fail_len:
- 	DRM_DEBUG_KMS("allocate payload parse length fail %d %d\n", idx, raw->curlen);
-@@ -957,12 +951,9 @@ static bool drm_dp_sideband_parse_query_payload_ack(struct drm_dp_sideband_msg_r
- 
- 	repmsg->u.query_payload.port_number = (raw->msg[idx] >> 4) & 0xf;
- 	idx++;
--	if (idx > raw->curlen)
-+	if (idx + 2 > raw->curlen)
- 		goto fail_len;
- 	repmsg->u.query_payload.allocated_pbn = (raw->msg[idx] << 8) | (raw->msg[idx + 1]);
--	idx += 2;
--	if (idx > raw->curlen)
--		goto fail_len;
- 	return true;
- fail_len:
- 	DRM_DEBUG_KMS("query payload parse length fail %d %d\n", idx, raw->curlen);
--- 
-2.53.0
-
+> ---
+>  fs/btrfs/inode.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+> index 0fcbfc3939462..f8ad96256ff67 100644
+> --- a/fs/btrfs/inode.c
+> +++ b/fs/btrfs/inode.c
+> @@ -9965,6 +9965,7 @@ ssize_t btrfs_do_encoded_write(struct kiocb *iocb, =
+struct iov_iter *from,
+>         if (cb)
+>                 cleanup_compressed_bio(cb);
+>  out:
+> +       extent_changeset_free(data_reserved);
+>         if (ret >=3D 0)
+>                 iocb->ki_pos +=3D encoded->len;
+>         return ret;
+>
+> ---
+> base-commit: 95d6a9ccef99117115e41e9adb271243bd5e985b
+> change-id: 20260731-btrfs_kmemleak-d44637bd2518
+>
+> Best regards,
+> --
+> Breno Leitao <leitao@debian.org>
+>
+>
