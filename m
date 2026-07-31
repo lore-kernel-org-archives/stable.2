@@ -1,106 +1,141 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E09321A42D;
-	Fri, 31 Jul 2026 08:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 592662367D3;
+	Fri, 31 Jul 2026 08:53:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785487900; cv=none; b=VDbicLGK3DSTD2E9SNWWzdmU2Qdp+kAWawYTtQFUhn4D25SU4ZjZzq0Th2jwIMLIIWijBhgj5HO8zY3CATXv5d5EH/YMjf4OchLbQsXio9qn9Xb7Ms0bZl1y8IcDJhJkpqOV0Lm/qs11nQ9WDtTM7x2XSxNt+kU3iHTTDVODwi4=
+	t=1785487983; cv=none; b=PLhCJIVgRGbtvCREx5JspjJSpBJTcuABv1VgghqYIIT0D3OePpSdAnm79dZk3Ad3I90VTYjquwIyFz8W6Hw+qkP6UodYA2gzMQ6X0F0pa7FnuseoTZDAenpnpbyPlRckQ6tkbNuy5oAx59QR6A0xYdqoioQGrHmLKlpIRI3tOBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785487900; c=relaxed/simple;
-	bh=oVA6GAykCnjUjoqEbg7/ziVq1267X6jca6NFSr+5asU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nXN7u21aLrZ54wGZH0+CM34nbVNS12Yfv/SsIhiQKXOcLrx2Oaz7MMqLZPko3criRkY4OHyrgoXn3qs0A61sZmviC9XdcTYxh0wgH5d2VaSo/xrXM7cyzVwK6F2wl8zShZRALOZJcchJyjconzywciEa7Cz5HkV/Jvojn/aJnRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=psaBciIq; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1785487983; c=relaxed/simple;
+	bh=hGvPvi9hpoNiYlPziA99tW1M2wQfXGimUjtaeyDJM3Y=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=irl+aLzloAaku3HBgJrFmKfe+u6TbYk6m1I7ONG4hGuv5uJgExyGaxqVVTqp9POdqc79i1nCSYS/JB446f0KjmFJgzX4HScQHs/W8e6DFDt38Ong00wBTulSpBzo8Hls/KXzK7k41/MVYTc3clmzDGkmBvypVIgZY+EXTMGDEZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=WjdCJ85h; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sOC3/r9k; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="psaBciIq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=LvkyHfWthEPTNyIP4d/nXbdvuACixTM6aKQkMxt8KlY=; b=psaBciIqJx2de1aSJKTu5AZK4F
-	geYbUDWhms1q2ZuPLhAlddAPt3lLfEx9foZieJ4IpSUFevldyXgcLdpwq/Crg+ileL96uBbaztD8E
-	F3lq3V96aQm5TT6LZxeEvvt+R7v4CiG7cv/vv6Se+cAAAGZZt76lOc4Bq6RareFv0YgOg+RM6MUPd
-	70TPbCpkhhXSuNJAu0x9ZCbnY8ycV6+yszRPSzSU7hXAJX86Bf8ckIwMuul7QGXMJtcu7vmfB1uWQ
-	7UT5KGSwEUOKla+MqEkQkLmI1RKKMdtZ2UVAV0Y5G3eZAyr5mzKyItCbIwNxgMbPvchIP/lVlW7CS
-	B68Y8aag==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wpixl-0000000FgFp-2Ztx;
-	Fri, 31 Jul 2026 08:51:29 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 0CF7F3004AB; Fri, 31 Jul 2026 10:51:29 +0200 (CEST)
-Date: Fri, 31 Jul 2026 10:51:29 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Andrii Nakryiko <andrii.nakryiko@gmail.com>,
-	Breno Leitao <leitao@debian.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, kernel-team@meta.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] uprobes: Fix NULL pointer dereference in hprobe_expire()
-Message-ID: <20260731085129.GG776954@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="WjdCJ85h";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sOC3/r9k"
+Date: Fri, 31 Jul 2026 08:52:58 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1785487979;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kqchIc4zwyvYsTm5ajlB9kHQ88ty62hLkZmYzP4/Fmg=;
+	b=WjdCJ85h6Sz8946rjHgvqltcInwZqWFNMZsEGXJfAUJs9M3Y9ujuT2AZBAQTYmB4woODKy
+	BMU/cpocsefeghkci2v6+MbA8qBVLzScRxbxx6ohoWjEhyeQRa1I18Q8JCiquNgrnfQarO
+	OAjevFYOTR5wy46olfAm7oYQOeeN7QSJOERkiVj+yeUNRgAg5wuE0PdybV3NpdnJONWEjj
+	iWFCytgGzXpD8yTYkpWdxQcVmYQ4lzp41AL6/bHBtu5vCgZIPA8rND1eBp0m23UTO1wXxV
+	UEgK1txBC9QI9hzGsrzh19y3N/KnAf5QV3KB6Uhlo+ACkGDiYlTFidw6yFj/cg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1785487979;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kqchIc4zwyvYsTm5ajlB9kHQ88ty62hLkZmYzP4/Fmg=;
+	b=sOC3/r9kIDQAEbhmX0BXTuoUa19MHCmajviA0sCNrzMdC82FYLWtqqaaLDxYa05dFHHUng
+	TBjjHgWPv/aXR/CQ==
+From: "tip-bot2 for Breno Leitao" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: perf/urgent] uprobes: Fix NULL pointer dereference in hprobe_expire()
+Cc: Breno Leitao <leitao@debian.org>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Oleg Nesterov <oleg@redhat.com>, Andrii Nakryiko <andrii@kernel.org>,
+ stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260729-uprobe-v1-1-61896b87c867@debian.org>
 References: <20260729-uprobe-v1-1-61896b87c867@debian.org>
- <amokG13tEnA7VVVf@redhat.com>
- <CAEf4BzYON57L_HD71qUOdRdni_=1S-Xomz27PeDBxbbXDy0Jug@mail.gmail.com>
- <20260730085421.d455361164695270bd764a4b@kernel.org>
- <20260730103824.GD751831@noisy.programming.kicks-ass.net>
- <20260731095652.fc5d64f8c122d7dc6ddd89be@kernel.org>
- <20260731083039.GD776954@noisy.programming.kicks-ass.net>
- <amxgF3S7jfmjHvPv@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <amxgF3S7jfmjHvPv@redhat.com>
+Message-ID: <178548797804.112641.4838093438132290110.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 31, 2026 at 10:43:03AM +0200, Oleg Nesterov wrote:
-> On 07/31, Peter Zijlstra wrote:
-> >
-> > On Fri, Jul 31, 2026 at 09:56:52AM +0900, Masami Hiramatsu wrote:
-> > > On Thu, 30 Jul 2026 12:38:24 +0200
-> > >
-> > > Either way works. Can we update MAINTAINERS file if you will maintain
-> > > uprobe in tip tree?
-> >
-> > Well it is in kernel/events/ which MAINTAINERS should already assign to
-> > me, no?
-> 
-> Confused... you are already listed as a maintainer. From MAINTAINERS:
-> 
-> 	UPROBES
-> 	M:	Masami Hiramatsu <mhiramat@kernel.org>
-> 	M:	Oleg Nesterov <oleg@redhat.com>
-> 	M:	Peter Zijlstra <peterz@infradead.org>
-> 	L:	linux-kernel@vger.kernel.org
-> 	L:	linux-trace-kernel@vger.kernel.org
-> 	S:	Maintained
-> 	F:	arch/*/include/asm/uprobes.h
-> 	F:	arch/*/kernel/probes/uprobes.c
-> 	F:	arch/*/kernel/uprobes.c
-> 	F:	include/linux/uprobes.h
-> 	F:	kernel/events/uprobes.c
+The following commit has been merged into the perf/urgent branch of tip:
 
-Yes, but the 'PERFORMANCE EVENTS SUBSYSTEM' entry will also cover this.
-So I have it twice ;-)
+Commit-ID:     cc679d7a6303e84d769f2afcde1fc51c51f127cd
+Gitweb:        https://git.kernel.org/tip/cc679d7a6303e84d769f2afcde1fc51c51f=
+127cd
+Author:        Breno Leitao <leitao@debian.org>
+AuthorDate:    Wed, 29 Jul 2026 07:44:40 -07:00
+Committer:     Peter Zijlstra <peterz@infradead.org>
+CommitterDate: Fri, 31 Jul 2026 10:32:19 +02:00
 
-PERFORMANCE EVENTS SUBSYSTEM
-...
-F:      kernel/events/*
+uprobes: Fix NULL pointer dereference in hprobe_expire()
 
-Anyway, patch should be in tip/perf/urgent now.
+Forking a task that has a pending uretprobe can oops the kernel with a
+NULL pointer dereference in the clone() path:
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000018
+  Oops: 0002 [#1] SMP NOPTI
+  RIP: 0010:hprobe_expire
+  CR2: 0000000000000018
+  Call Trace:
+   uprobe_copy_process
+   copy_process
+   kernel_clone
+   __x64_sys_clone
+   do_syscall_64
+   entry_SYSCALL_64_after_hwframe
+
+This was found on real hosts on Meta fleet.
+
+I've got the impression that this is what is happening:
+
+  CPU 1                          CPU 2 (traced task)
+  -----                          -------------------
+                                 hit uprobe, prepare_uretprobe():
+                                   hprobe LEASED, refcount >=3D 1
+  uprobe_unregister()
+    put_uprobe(): refcount -> 0
+                                 fork() -> dup_utask()
+                                   hprobe_expire(hprobe, true)
+                                     try_get_uprobe() -> NULL
+                                     get_uprobe(NULL)   <-- Oops
+
+Only take the extra reference when the uprobe is non-NULL; a NULL means
+it is gone and is the correct value to return.
+
+Fixes: dd1a7567784e ("uprobes: SRCU-protect uretprobe lifetime (with timeout)=
+")
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Acked-by: Oleg Nesterov <oleg@redhat.com>
+Acked-by: Andrii Nakryiko <andrii@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260729-uprobe-v1-1-61896b87c867@debian.org
+---
+ kernel/events/uprobes.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
+index 4084e92..6300b21 100644
+--- a/kernel/events/uprobes.c
++++ b/kernel/events/uprobes.c
+@@ -830,7 +830,7 @@ static struct uprobe *hprobe_expire(struct hprobe *hprobe=
+, bool get)
+ 		if (try_cmpxchg(&hprobe->state, &hstate, uprobe ? HPROBE_STABLE : HPROBE_G=
+ONE)) {
+ 			/* We won the race, we are the ones to unlock SRCU */
+ 			__srcu_read_unlock(&uretprobes_srcu, hprobe->srcu_idx);
+-			return get ? get_uprobe(uprobe) : uprobe;
++			return get && uprobe ? get_uprobe(uprobe) : uprobe;
+ 		}
+=20
+ 		/*
