@@ -1,213 +1,121 @@
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30594218B1
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 10:17:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785579439; cv=pass; b=shgYTT4dYi8pKtxOxBcpVe6m2RA/D4xqIlWtLLeDStYog3JWNobMlM+U7lPKLZ9JA3iNCA2SI48ltQSTBF7BoZNK9yqrASo6N+yWs4m3joDrOimyo/T9++ikPrZud3qsbvvKmb08a9ExXCDMTHXLZFPFwgAunzKBvnBhLIu0Fmc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785579439; c=relaxed/simple;
-	bh=fYuc91yYvMFDE6497qhGMtUAgZbd6nA0KxrauEEgHMg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=U9JJYu4uH9Vd6crrC6gVcGC1OI5wGGnSux5mqd2jIQ4BY9lhpbS+OzH6H10mc1JXTQOZv1x7Vn5bQFP5ib95aZ1h6KRSUNGmeWPKSmAIgzzrnpuzfzFOGomY2Q9+33DWqBlB+LLFoJbbyV99KkLvfKhHEzZcii3sedsFa9161UM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N/3WkENd; arc=pass smtp.client-ip=209.85.210.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193D836492C
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 11:09:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785582566; cv=none; b=N/v8qh2IrVbNDvTIHUnvqml/xcseuiHBOD21LieLF1MXk9X2a8YTDZKQEvDQdDJfPgsdf0Fz2zn+Wvc8+uMrz4Mn6Q5poRx/PjMx2HD0xb1ft6FMlkNyfbfCTDSazNYnlRjGVTPe33c1eYfCc9TkBRW0lBwjMzTFa65k931xyxA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785582566; c=relaxed/simple;
+	bh=lBYA02p+/O+qzH7dLpNk/39s6qEiCY5YCs0GlVPIZP4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F4QLczFod7ya8VLNSElLbNSu8t4bXD7dhEST5Ka9MQ0QcMbVrsSU12xbLKKC8QGvz/wejTpcR+yEKYm3ZOGyc/H0AEUZ2XkvAYM5jd9P9ob7t+fkOEze0uD65GkcSUBNYj5akV3yYuJs+h+aznvUio4u7eB47ow2PdPk2PVF/dM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in; spf=pass smtp.mailfrom=cse.iitm.ac.in; dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b=tAb/xid0; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cse.iitm.ac.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N/3WkENd"
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7e6b5737bb2so1615357a34.1
-        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 03:17:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785579437; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ze/mF/h3qUhUBeFKwPqHZZv1GZRbg95z1ZIc6hYr0BhofRCNeFCC4Rt3bbag+B6yUf
-         19cidc+nmgNwZClN9hYPiJk+IYj3qbjC96fRowQpe2ITz4C666ODKNBTZIiznhtp9Sm1
-         OI2T4u4COOw2Kd6i3HRjMmAI7FiPco0/CbucG6ca1/FClG4JxJzlQzADn5jIW1lMYH10
-         Q+MDxEuZUpNP5kOUm5xh5PVz5W5ttq/45uTitQPBn3/w/YARWqplVYGoRlYYWKaCLNUs
-         rn2mZ5JrH/v5jyeMmZHJ77pmHYNhp6pUYYBsz2b57gQpNQGNUFlFaZYrR8bKKMoh3LKx
-         o7EQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6SVVCVf5N1O+YrNArJsl/K5UcjWXbA/FoyoLNaVP5k8=;
-        fh=zHytMwPtYCia0fmXub+I2LkvVqDcYE994vndjJC60ig=;
-        b=gaOztQkFQpyD/XhsDvKov4uiKkJypCzpVW3dGnD4CkVoRiTC33Y5EEvhyxrD79uzza
-         beEDchKeFT8MwCopDXBrf1kkR/GryDxsEsCBdlzwmYARQqF8tKMho2nL6GE3e1s8UOCP
-         Zkift8H0TW3HYxPc/xQyjyTa8cfue+8rTceJ6BQVlEDoXeQXwqKq6sxDJFcIzcaZuI32
-         cf4fJ+0kF3/nNiv/urP7XGceTgHZx+J3cipqzEOy475TOyj2TY6PClojAfiEsRiL1+T5
-         ccHiQiQyEs/aFv/NDGwTJPUd7ETRuiNUXGielcgh9kUnuwhpmweGdqYAjwEB+dX0SQXg
-         zy7Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="tAb/xid0"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-383cb94f742so1856168a91.3
+        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 04:09:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785579437; x=1786184237; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6SVVCVf5N1O+YrNArJsl/K5UcjWXbA/FoyoLNaVP5k8=;
-        b=N/3WkENd3AbGKSO5/TTgbLmZr4Z/KYTNfR6Ng94/L2l+W138hPbF2RLrkUJuRERrid
-         1P4U2O4zd4UHjf5nn7ZayhLcKAfmF6KPd9MZBxwyw832Y5uHmLJncW9Yk/3y2TUF4Rvs
-         1aQ28plPDQwCv2fdLnDtIyl7cVEnpeSRZpZK+iKUm18kH4jeGXql7surTmxxUBoEs44U
-         JwyqQ6O92TLVOhL2CO7qZaxkil1ZNf1jYjq6Snf9691cGpe0suDv9ZP3KtnzwjluZeNm
-         bU8DnrDWf8KVgByK/QII9KECNGtFUsi6w9Kz9w9JZtelNqPgSqiXiCako1vQ+NfTLlnx
-         uLoA==
+        d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1785582562; x=1786187362; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ut+TYnUp65Th9//uFyyT2zkSxvallqu1/pfyahDUJyM=;
+        b=tAb/xid0aLlB4Y/8TI1M9b1DuQDBsu2sb5WAVNhruwlthwtRA1nxDQC29pyiTP5kzC
+         9rnzRN1y/Pxp7nVsqV9yUbuS1Czbo3kJuIi0C2bMkCJWYBGdezp3h8xonRF594uWu7i2
+         qOTJahWmyFZfHUkrVS1UH4ceHcqcSX4U4kd8sj+pGWf0z44YwuMK0oDOV0MjrveUXBlq
+         zjxnIYLUp0qkvPI5aBMKAqcPtFQ8O3HBCA97mB16H/p6udCKQBecvx/CjruYCCIvA9pq
+         3H/DTt0HknFB75LEVMjJWbynesnzFJt3UO62gDhA0KJtbRiWQvF8bbLJCCBIu87L5mZL
+         aYhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785579437; x=1786184237;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6SVVCVf5N1O+YrNArJsl/K5UcjWXbA/FoyoLNaVP5k8=;
-        b=n67dZczZtEgw1jnxtoo/Z5+APPorS9SwY19+GG91dsO+UA+ydI4y6c0e0D30rhApwD
-         gX2mre9Vutz5zznWrt/uQSq9/Ft9nfHpAbu+XPlDDisz8rihT+qmzrhmTq4WsWf4S0eY
-         jzWvXxaMt6l9NCiSdBhOsBB2IAZsiBCrFsBs3F+FzkqnE/irfDgB2UJ5ZIsUsuTfg1u5
-         P8GuHgtF6DRvnzqxOzA+iMtFJTQunMReaQy0LrYMJvzzrxF+/w+rQi/jBEPNJt5LiDSR
-         Mcg8iKkgR6zWaNfRbjPcalfXSoO9w217moAb7FiW/OmQ7N93gwbunJEUMhmzJV10zDZy
-         FsKQ==
-X-Forwarded-Encrypted: i=1; AHgh+RohFv/SdCivyTTUkp9bGJZ+eQscgwTl9/Qeawy0V8rzwcD+WUT82h+GEP7J9qqckaj/4YH0Uc4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzlDSa9vr+uWlKCit4BZTmn4fRzbbU01/P47eb39HLejplO79HJ
-	mqTBaCJmDLpdkA4sb3+qClk4Ld77w+L8ssiWUQy4BykBAKXbcYdP1nzy+FHhsuBmyNOLNjgCQ2J
-	NSVjie0wCfHtjEI9cXGRR9v3J1ISdw1U=
-X-Gm-Gg: AR+sD11Mqz44hyBSD1cw6sheScb7pz6+V9jZo4vGiOCkusQUnTStnzeKPU437uqY5x2
-	SNHsfuW2boY02FntxE9Lbeof+tCq/m4i5awj1sv95RD3LtSUH5sJjYmBZkzq/G/iis2Ixdz3/kW
-	3WAOWXiIyW3tBwGjZlJn/bg3aLhh+4HImf7YZLLaoLOFZTusx9BofajwFavUXtNDmdF/s1Ux5XT
-	zkhJHW2sv8wcVJnpcl+94jxpYqXuRAFR9l/w4Jr0zsD4936HT7qTyfHNxzLF7b29tkCjUEwMOKM
-	xmfRs2h99kT2u+LSpI8CNomLEyPgaz1taMWZokQFH4kfHg==
-X-Received: by 2002:a05:6830:64c8:b0:7d9:7201:1acf with SMTP id
- 46e09a7af769-7f196d407e0mr6475364a34.5.1785579436652; Sat, 01 Aug 2026
- 03:17:16 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785582562; x=1786187362;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ut+TYnUp65Th9//uFyyT2zkSxvallqu1/pfyahDUJyM=;
+        b=UFQ+GXa+GW56nDnxbpwi5GkwecDqIZzAXXlcW399m7CGiNsyTbJF6YwiVQarubuhLU
+         WZ6acdGuH+XwpZ2ICzLE302skD2/dXtoaSbFhN/fklDc1SYjUderv8qomsMLLibf2HvM
+         CsWqb+V31y8mkU1yxlV0dWSdnFQ7ZhD9aOoz7vognGljZ1xtEDN8Z9PfrmN7U0Rkfcvs
+         Gfw0fii/eAox9x4pN/ZjzQXqmYLFuu4+apk0n+gFT9AcDfrA9PihASKp7Kj6HcSUo1zu
+         cECPZBGNxlgVtZH7e8RS6rtpJ8Fo7Dv1/pZ2WpKpiSaALlEr8GZHwL7tZR+qAq9pWRRy
+         rKhQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr9AOaSTqQuDAyLdZ3++2acLfochGEJslN0pQVAImKQrAoYZCsaBnZKW0Yk9mLopuy8F3w9hrY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz2kIVsOTiCkNUxqkTpvxE8Y9DnPvLoEhoXentgliCOU6lofQkW
+	XaP+tt07aBXH90cLB/5OuQtYgefzlWzRRT91a32Kqf5hT3OiIZgrQlbpy9jm20lYZQY=
+X-Gm-Gg: AR+sD13n7bV+hdV/WekLHIUwz6RTRSwiddS7R+secsCXcJpHcLZ0/L5GjDAltzEHsKN
+	y3vpbQK7JCtgdRK6rQloxfXwbTT0MPKKkE0q1U84FVvMPb/syqPzbTxYZvkQUd8RyWlRpXbGgGz
+	nCq8V8e/58MxxkMPdxdUZua5QDZShDZSdWbolL4DOsqE2oSbPvOH0PWbOGeYexek//8LlXF3ri0
+	4jrNHKTv4SeLgb8zp7mon3k4SEuohk/QUMFRso3druK/JnB94MXf71FWpsTtRUOILV/kPGChDWc
+	WfydxvHrwGo4lNjrpkYEz50SmjNrPGdPDSxjB8CMKy1f8sWFEIdllHTzKeBATpv94eu9EnENebD
+	WO4KIjbeRA5PURsu29BPnGh+JGAPGaG57PldNpCouOEIeylsvi3wXR3NaTpIgNoqn6G1AOrzNoV
+	auqhAOIi5uIajBer0QIb8e7EjffnxDch3qrkD+JZym9mcIAOj2g3D8UCh8etWxJ6J5YnbPMyfUe
+	UuYlqV30cEQFNKxILU/djg05UKLx0hapyKp7L6jhekbhQVw/19n3XPamGOkj0JCtz1PjQI0Ag4F
+	0CrcuiVDrzqvE7bJintUPBjwLA==
+X-Received: by 2002:a17:90b:53c5:b0:38e:85fb:71b9 with SMTP id 98e67ed59e1d1-38fbc3f9aa9mr3098165a91.4.1785582562113;
+        Sat, 01 Aug 2026 04:09:22 -0700 (PDT)
+Received: from Metius.iitm.ac.in ([103.158.43.43])
+        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-13fab4cb50dsm20596758c88.10.2026.08.01.04.09.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 01 Aug 2026 04:09:21 -0700 (PDT)
+From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+To: o-takashi@sakamocchi.jp
+Cc: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
+	linux1394-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] firewire: core: fix possible memory leak in build_tree()
+Date: Sat,  1 Aug 2026 16:39:13 +0530
+Message-ID: <20260801110915.82561-1-nihaal@cse.iitm.ac.in>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <df5f0d9bb8f11d098f086bd2ace5aa0cef4c77d7.camel@web.de> <20260801071724.12998-1-spasswolf@web.de>
-In-Reply-To: <20260801071724.12998-1-spasswolf@web.de>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Sat, 1 Aug 2026 15:17:04 +0500
-X-Gm-Features: AUfX_mySPDS1tX6sBksLt_ubqUTn6yupd7v5vPVdQi51p4TGShRSsHENrQ2zzec
-Message-ID: <CABXGCsMFa25HyOdcSX8QR8_=58=uJT+HMVhyus=rOFHBML25=w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,END} with PREEMPT_RT
-To: Bert Karwatzki <spasswolf@web.de>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, 
-	linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org, 
-	"# = v7 . 1" <stable@vger.kernel.org>, Alex Deucher <alexander.deucher@amd.com>, 
-	Rafal Ostrowski <rafal.ostrowski@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Thomas Gleixner <tglx@linutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 1, 2026 at 12:17=E2=80=AFPM Bert Karwatzki <spasswolf@web.de> w=
-rote:
->
-> On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
-> converted to rt_mutex. dc_create_plane_state() can be called while
-> inside an FPU-guarded region, resuling in "scheduling while atomic"
-> errors on PREEMPT_RT kernels.
->  Fix this by calling kvzalloc_obj() with DC_RUN_WITH_PREEMPTION_ENABLED()=
-.
-> Also fix the error path in dc_create_stream_for_sink().
->
-> Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC - P=
-art 1")
-> Link: https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web.de=
-/
->
-> Signed-off-by: Bert Karwatzki <spasswolf@web.de>
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_stream.c  | 2 +-
->  drivers/gpu/drm/amd/display/dc/core/dc_surface.c | 4 ++--
->  2 files changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gp=
-u/drm/amd/display/dc/core/dc_stream.c
-> index cdcf140bc1bb..accad9e20e88 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> @@ -229,7 +229,7 @@ struct dc_stream_state *dc_create_stream_for_sink(
->
->  fail:
->         if (stream)
-> -               kfree(stream);
-> +               DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream));
->
->         return NULL;
->  }
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c b/drivers/g=
-pu/drm/amd/display/dc/core/dc_surface.c
-> index 88e825a6582c..d5c6427796b6 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-> @@ -85,8 +85,8 @@ uint8_t  dc_plane_get_pipe_mask(struct dc_state *dc_sta=
-te, const struct dc_plane
->   ***********************************************************************=
-*******/
->  struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
->  {
-> -       struct dc_plane_state *plane_state =3D kvzalloc_obj(*plane_state,
-> -                                                         GFP_ATOMIC);
-> +       struct dc_plane_state *plane_state;
-> +       DC_RUN_WITH_PREEMPTION_ENABLED(plane_state =3D kvzalloc_obj(*plan=
-e_state, GFP_ATOMIC));
+The memory allocated for node in fw_node_create() is not freed when a
+parent port inconsistency error occurs. Fix that by invalidating
+references to the node, and then calling fw_node_put() on it.
 
+Fixes: 3038e353cfaf ("firewire: Add core firewire stack.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+---
+Compile tested only. Issue found using static analysis
 
-This hunk breaks the build when CONFIG_DRM_AMD_DC_FP=3Dn.
+v1->v2:
+- Invalidate references to the node in the child nodes,
+  as suggested by Takashi Sakamoto.
+- Use fw_node_put() instead of kfree() for consistency
 
-dc_surface.c gets DC_RUN_WITH_PREEMPTION_ENABLED only indirectly, via
-dc.h -> dc_types.h -> os_types.h, and there the include is guarded:
+v1 link: https://lore.kernel.org/all/20260727095955.104972-1-nihaal@cse.iitm.ac.in/
 
-#if defined(CONFIG_DRM_AMD_DC_FP)
-#include "amdgpu_dm/dc_fpu.h"
-#endif
+ drivers/firewire/core-topology.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-With DC_FP=3Dn nothing defines the macro in that file.  dc_stream.c is not
-affected because it includes dc_fpu.h directly.
+diff --git a/drivers/firewire/core-topology.c b/drivers/firewire/core-topology.c
+index df2ac0dab106..3d0109c3ed90 100644
+--- a/drivers/firewire/core-topology.c
++++ b/drivers/firewire/core-topology.c
+@@ -227,6 +227,15 @@ static struct fw_node *build_tree(struct fw_card *card, const u32 *sid, int self
+ 		    (enumerator.quadlet_count > 0 && parent_count != 1)) {
+ 			fw_err(card, "parent port inconsistency for node %d: "
+ 			       "parent_count=%d\n", phy_id, parent_count);
++			while (h != &stack) {
++				child = fw_node(h);
++				for (i = 0; i < child->port_count; i++) {
++					if (child->ports[i] == node)
++						child->ports[i] = NULL;
++				}
++				h = h->next;
++			}
++			fw_node_put(node);
+ 			return NULL;
+ 		}
+ 
+-- 
+2.43.0
 
-This is not only exotic architectures: DRM_AMD_DC has
-
-select DRM_AMD_DC_FP if ARCH_HAS_KERNEL_FPU_SUPPORT && \
-!(CC_IS_CLANG && (ARM64 || LOONGARCH || RISCV))
-
-so an arm64 clang build is enough.  On amd-staging-drm-next with your
-patch applied:
-
-  $ make LLVM=3D1 ARCH=3Darm64 allmodconfig
-  $ make LLVM=3D1 ARCH=3Darm64 drivers/gpu/drm/amd/amdgpu/
-  dc_surface.c:89:2: error: call to undeclared function
-    'DC_RUN_WITH_PREEMPTION_ENABLED'; ISO C99 and later do not support
-    implicit function declarations [-Wimplicit-function-declaration]
-     89 |  DC_RUN_WITH_PREEMPTION_ENABLED(plane_state =3D
-kvzalloc_obj(*plane_state, GFP_ATOMIC));
-
-A plain x86_64 build (DC_FP=3Dy) is clean, which is presumably why it did
-not show up for you.
-
-Adding
-
-#include "dc_fpu.h"
-
-to dc_surface.c fixes it, and matches what dc_stream.c already does.
-Please do not copy the local fallback that sits below that include in
-dc_stream.c:
-
-#if !defined(DC_RUN_WITH_PREEMPTION_ENABLED)
-#define DC_RUN_WITH_PREEMPTION_ENABLED(code) code
-#endif
-
-It is dead code there - dc_fpu.h defines the macro in every branch - and
-in a new file it would compile cleanly while quietly doing nothing.
-
-One unrelated note: you kept Cc: stable # v7.1, but this version is
-rebased onto next-20260729, where the update_scratch allocation is gone
-from dc_create_stream_for_sink().  It does not apply to current mainline
-either, so older trees will need a separate backport - worth saying so
-in the commit message.
-
-With the include added I can give this a Tested-by on dcn32 (RX 7900
-XTX), which exercises the DML1 phantom-plane path rather than the dml21
-one you hit.
-
---=20
-Best Regards,
-Mikhail Gavrilov.
