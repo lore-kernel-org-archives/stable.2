@@ -1,106 +1,130 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-of-o57.zoho.eu (sender-of-o57.zoho.eu [136.143.169.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82B20345EAB
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 07:09:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F315036F426;
+	Sat,  1 Aug 2026 07:13:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.57
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785568181; cv=pass; b=R2yCv0Q7bDWreiRa0i1IGfq1aL6KeKItWWJglKYOrMZN1QCX75J4HfzEylzMU82SMv7ZIDCrE85chqye8q6aP/ookmcKlhosDmeQoC40yNbcUzGEkz2gTlTHq800iu2c5826wdeVdjRpUXd6iJenWPYJuVzMpFLKyQoe9hmhOEY=
+	t=1785568428; cv=pass; b=Ab0D277LuQ0IK9R845d5sYBZ1fbkmzvB9NfXc918gUZbDlH08vG/6pjuJolyLWOgOgYEF+EN1uXV8wI1FI9CovDPmgnU6D5LEjTKv06tWrru+btxcgE9puresUVz+jhPK/1OG1b934IkF2z/jWmFHAa8/td9ZHXntFXGUXJB+Ho=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785568181; c=relaxed/simple;
-	bh=86+C5my5h7svLUe+SYOW2syp44/3E44wPf3m+bJSTm4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dYMPxZKPk7WgPRTVTR6MqgV202TBp5Ogbdo5jDv6LBekz5fB0aLVIzD6KV62yZvIfq6wckj+o3hN8hKMCKvafv0NdenvvW4ypsBR3DR+Mao1rKazHpmeSI7buhUjpUqwumHqoHCISYCtjG6ii44gfEuDRLltmS8wbAkztrXNPHw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NbZ/nbBu; arc=pass smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785568428; c=relaxed/simple;
+	bh=oizwROL4CHKC60FysL967VYh8hqBgJnGvmTxG7Pv2ss=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Sn6+AkHrSBko5UvM/gUArqViL7P3BfFeK4iaTWV6dTQ86wOSNORdKRuqz84eKmnMVNuzCil61q8i74+oQHXz2xvAMhFWgBAlaWCywQTBmQbutB/zAXUNf/wiRRV3TKzAfMa4IuFY7C9SzaE5KL2KZCnasNOXjX8kvfeuPyDcfUA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com; spf=pass smtp.mailfrom=iusegentoo.com; dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b=hG2TByt3; arc=pass smtp.client-ip=136.143.169.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iusegentoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NbZ/nbBu"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-69848c9462aso288034a12.2
-        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 00:09:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785568179; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Vits5kL7ic3x0qKwr1POdXo7wDq6p/ZcMa1zx1bG8YgUVPBk41qkajrRWDjB/QBSVF
-         qKJdWQluf4ueBnXrohddF/g/SjFe4kPNAff7mXpvAkLS55N6aReZ2VhI+gYfn8E9OG8U
-         qox+gHkSa+MrR5MR41hM8A6ZiesqQZQ8fFpB1BUns3dMf7fZXLW9te8/LK/Ep4u4FxTt
-         zl84YFppgoa9Rndpip/mefZqF7cTVpCprbBh+XJ4OebBo94llelMX3+pRHESJ8RlWSoT
-         2uSVlMsgwTksDPhWSdnxMAWXkBNkgK7o4Ibo94XQhlkDkczO2zlrR1yikne3sVmruJ12
-         z/iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=86+C5my5h7svLUe+SYOW2syp44/3E44wPf3m+bJSTm4=;
-        fh=kGtlxGUcbb50IiQQpm8KhGRFT4uhN1sLOH82eDfP20U=;
-        b=bj0IrJM1raWOEPycZiyjBcLBx2ozvwXfnNcpBi+TS8d2kX2T2b37h1HadsWsOQv4Bf
-         AyuMrAUsuNNScX7pWCloXrC8qEgqfJRV+vVC8MDSNssWggXPVuPo1kfIJtXKi6dLkD69
-         EAjA7tjO/kFghnhWw+tlldGmS2niVd2ZDQgDdU9LOCaB6G8KHpqjh4FUir8hbP2Vj1QF
-         N4dHanyVGDI3Ly/rsYKNj4juY/Sx+Q0wqQBt5IB0nR9Jt6GyfKPx0+xwsZHyo65F5Tqd
-         GunbFrmsP2xaszjpAnEG20HVumnZNSX9ceMB0HgxcSO2Jbd4q9o5zK1iiKvjkmot0z4/
-         eJyg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785568179; x=1786172979; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=86+C5my5h7svLUe+SYOW2syp44/3E44wPf3m+bJSTm4=;
-        b=NbZ/nbBu1y50qgiqWf3daONzVPV/aQ2PfFZxQsHZUkPq7900zEI29RzYOrD5FUuBrp
-         Boi6gOkVBmdv24qW9EhRk8WJjQTRGGKiaFPteRtgxcEkqD9OTHpxO0e+5ru8F8eGXqdN
-         VHXWGpwPDHFmyTKVIvlEAufxy3dl+7I9URK9L8yNZk3cruz89xN+bC3KdwOUOIpo8Q9u
-         rlxnfebTRWfJynwMdzQYApF8VIXb3hu2mUxS+rhEy0dVfcp6qdCNSTpZMeWKwBB96L1h
-         wt7/8YV6MdzeU8nFw2WAdxBmOGMJC5yuaEhnNR6bs3/2zUujDF/P4gWij5cT49je+Uhx
-         LyyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785568179; x=1786172979;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=86+C5my5h7svLUe+SYOW2syp44/3E44wPf3m+bJSTm4=;
-        b=j7CMMz+wfEBLLj9M9dQOkUcw+IfYDO0bjNu0P1n3brj0WzrIOaSjH98QWv9IFvkn/b
-         J+EErxlKxTizK5hS8CrQYv/VxnxCyMn66/QVl2IKi2IIlnLnqC6TS1pzAQpvbGowtJOx
-         +SJDabkE0YfrjuxcKyanTUC5b1GUtz6Nd4YnuEfDyk767nNUMefn3xuyYmJFH/yLOQEZ
-         LmXs2Q36SWA9uNC5u9gpD+se5b9OMJf2MyBhEl29yUvey8ZwbJOAcaRdtqW1BeE1hmVR
-         ZMoOLmxTaCfSX2GC1Mhi3mjXy9Q5WO1f0x/+SWYxMqXzteU/sk33ZOtktUQSxgOqtzaP
-         +61Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrPNqaUzbf1zKQAnoROZqd9N++MRihl21/4KZTD0iFDlo++anbWmwVQNwxipV2KXwGSn4rD5TE=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz14lutELLMR8dIIXe8vZM+KU9AYMJtZR7e/OdBDk4+mY7fstLn
-	qSyfL2B4xvvHFCMFxRs3FnUxnA+O2RCanulTbbnFCH9tYRDjQkFoL0kRWXJXckAQ4hoi1JnCYuk
-	HX6bUcOmDm7xSHmVtwhSWpmGaHL0NiDI=
-X-Gm-Gg: AR+sD10crOl6eEhlJt0n89lDNYF41CnEPUTvGJ9cs3SC+x0obnyW+c2vVWdWX63YW97
-	Sb6pyhurZsVmF0sUivbJtL9LoFWByrtIi0zFpZ8MGgmV54RamchFYXSEsuq7+IuINFRAcw5Aruj
-	a4qkyS5yjSXPVpyNY3E4oar+IKBJjlxehyF3QgIW2N3JpTB7qVSgF4Fz0v9BYssH3u3hv5d1LUN
-	LGRoSuusWyUR5c+Fw0snZt2Diafyhp9hFtzyN91OmohdRdJJ9JU2wFxgrVKXWybrEs1rJ4sU6K+
-	qulz27hA2u6pqkFCVMZgE0gReKLcrgL1SGHJtWT6Mh+CnrOFY/qtP1FFtRKP1yNIBYCzp1Sokw=
-	=
-X-Received: by 2002:a05:6402:3225:b0:69c:794d:4866 with SMTP id
- 4fb4d7f45d1cf-6a0a7cfa5ecmr1146962a12.4.1785568178487; Sat, 01 Aug 2026
- 00:09:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b="hG2TByt3"
+ARC-Seal: i=1; a=rsa-sha256; t=1785568405; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=h7axT5jtfCKDHoYtVZtckK6vLTlacVrY3fqcs5pGGHzISRFyR+ohZcsCBlGYUbXm1svcoxqOxIA5pF9D/2wqH5olnNRne1HWo6KNVI1TzyENUOscmmWGtPo7ATRky6j2QbljR2OoOAZlBthP2PwVoV9PB4MlVORAZuuYdN6tbVk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1785568405; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=VFcBWjC5ahhLk/neaSsNkFwzuJ7YbdmtTkJ6fhx0ABw=; 
+	b=Vh2Uwd7HrABO/Yf2e0PE7E6Qxc7fXoKKHajsHyTcGyY6NW502Dm41MMpNqK7cAtLRRzwx5oIRWolbzoq0X17aCj8cfzX6OcGIdPY9x3nOwwz0jpAvlUDOiEnjozyNh84LJdxbWlyj6sQyiEEgfv3c6x4UGYOJM4ZDpAtspWCrME=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iusegentoo.com;
+	spf=pass  smtp.mailfrom=ali@iusegentoo.com;
+	dmarc=pass header.from=<ali@iusegentoo.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785568405;
+	s=zmail; d=iusegentoo.com; i=ali@iusegentoo.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=VFcBWjC5ahhLk/neaSsNkFwzuJ7YbdmtTkJ6fhx0ABw=;
+	b=hG2TByt302FLPD9hkvrc+reFFieid3MDtXVW3r62oKsz5Ev80mssq8oIf2iHxh9s
+	I6uSLfbBwapMY6Vd23DaUJs55MrsQV5+bzW6sYCFdUg1qR41HQQW9S9VKtRfX3dH5CC
+	cR4v7UPBNFllRYMIyVAB5NC4eBKf0ce4LRLZmcVc=
+Received: by mx.zoho.eu with SMTPS id 1785568403940788.5619489921191;
+	Sat, 1 Aug 2026 09:13:23 +0200 (CEST)
+From: Ali Ahmet Memis <ali@iusegentoo.com>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>,
+	Kees Cook <kees@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] ufs: create the root dentry after loading cylinder metadata
+Date: Sat,  1 Aug 2026 10:12:57 +0300
+Message-ID: <20260801071306.59484-2-ali@iusegentoo.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260801071306.59484-1-ali@iusegentoo.com>
+References: <20260801071306.59484-1-ali@iusegentoo.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260730092331.2069741-1-nicoyip.dev@gmail.com> <CABBYNZKgxz4JbKv8fgTeWGEGV0P_pPmcy_YG=rLDroc_1wu==g@mail.gmail.com>
-In-Reply-To: <CABBYNZKgxz4JbKv8fgTeWGEGV0P_pPmcy_YG=rLDroc_1wu==g@mail.gmail.com>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Sat, 1 Aug 2026 15:09:27 +0800
-X-Gm-Features: AUfX_mxuzcrXs9LVaK8RQ1P98mW6v5EMpHWj4MnqI6Wi_83WEfb4xA_oCB8RnfM
-Message-ID: <CAAo+4rVpfTkGL39Od6NM03bOCoeJZ5dt2R6bWR+M52-Z7FP4rw@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: hci_sync: Fix accept list UAF during suspend
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-Hi Luiz,
+ufs_fill_super() installed sb->s_root before it loaded the cylinder
+group structures for a writable mount:
 
-Thanks for your review. I have sent a v2 to ensure
-hci_clear_event_filter_sync() is called first. But I have not got a
-clear way to solve the issue without iterating the list twice, so I
-just add a bail out when num_entries == 0 to skip the second
-iteration. Let me know if the patch should be further refined.
+	sb->s_root = d_make_root(inode);
+	...
+	if (!sb_rdonly(sb))
+		if (!ufs_read_cylinder_structures(sb))
+			goto failed;
 
-Best,
-Chengfeng
+When ufs_read_cylinder_structures() failed, the error path freed the
+in-core superblock information and set sb->s_fs_info to NULL while
+sb->s_root stayed installed. get_tree_bdev() then reached
+deactivate_locked_super(), and because s_root was present,
+generic_shutdown_super() called sync_filesystem() and the put_super
+operation. Both dereference UFS_SB(sb), which is now NULL, so a mount
+that fails only while reading the cylinder groups oopses during
+teardown. A crafted image whose first cylinder group cannot be read
+reaches this path.
+
+Load the cylinder group metadata first and create the root dentry last,
+so the superblock is published to the VFS only once it is fully set up.
+ufs_setup_cstotal() and ufs_read_cylinder_structures() take only the
+super_block and do not use the root inode, so the reordering is safe.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
+---
+ fs/ufs/super.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/fs/ufs/super.c b/fs/ufs/super.c
+index c4831a8b9..7deecb395 100644
+--- a/fs/ufs/super.c
++++ b/fs/ufs/super.c
+@@ -1199,6 +1199,15 @@ static int ufs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	sb->s_maxbytes = ufs_max_bytes(sb);
+ 	sb->s_max_links = UFS_LINK_MAX;
+ 
++	ufs_setup_cstotal(sb);
++	/*
++	 * Read cylinder group structures
++	 */
++	if (!sb_rdonly(sb))
++		if (!ufs_read_cylinder_structures(sb))
++			goto failed;
++
++	/* create the root dentry last, once UFS_SB(sb) is fully set up */
+ 	inode = ufs_iget(sb, UFS_ROOTINO);
+ 	if (IS_ERR(inode)) {
+ 		ret = PTR_ERR(inode);
+@@ -1210,14 +1219,6 @@ static int ufs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 		goto failed;
+ 	}
+ 
+-	ufs_setup_cstotal(sb);
+-	/*
+-	 * Read cylinder group structures
+-	 */
+-	if (!sb_rdonly(sb))
+-		if (!ufs_read_cylinder_structures(sb))
+-			goto failed;
+-
+ 	UFSD("EXIT\n");
+ 	return 0;
+ 
+-- 
+2.54.0
+
