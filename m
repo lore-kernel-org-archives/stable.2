@@ -1,54 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBFC925392C;
-	Sat,  1 Aug 2026 12:48:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2310D2EB5B8
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 12:56:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785588524; cv=none; b=azhsnVGRUggO9O2S+/NxoY0/4qoDbE/tnGNZwA8Cms8HJtunYRUZI+Rd1SgrTt/1olqLtYhPHOrcaE/ZRxfC38jhNYsJUOmrD24gUSWcHzdK/cMrZl1/Mzq/0PyUf2WGCK/0g3gM8SHYsmzAzXmi4T7cD2AYvjk/8PHjCilgezE=
+	t=1785589012; cv=none; b=BISe+shI5Y6rCOUcgOhAgXSzcbExFrotTX4UbGnSIh8jhJsOLVwDpsT89qriyGn86jZ6VdM9R9PQ5EgxdFyGQyrHct9Ybx329z//wUMzXdcZapalgJPGgLgZnp2mhcmgS0z62KrFEZ3vwst0Y1xmrw1MMPnuyP3DoAxK0e1pW4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785588524; c=relaxed/simple;
-	bh=QZka/Lw55AuSH4qi28nNWBqjpZcj8kHwmOvQONCZRDA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=djm2RiUfZ8ceoLhP7z3cxBWegE5P9fiZvO3fUZyBSgDzRL6ZtYZrc2rL77njmfv83k1M5+UVy2vg/2qKEKRQIa1mUA+tWFFGoPJ+qlsD/xvAT+dLh6WQVjmqRR/TI6r0eHRd62gAc28yrmKHbVnMKnRhCw+MX3/rA9fnIYEJ9ZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DG6vBF6W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785589012; c=relaxed/simple;
+	bh=geERCo2KgAe7FLO+4WZjeP/f5zSsTZKZow1tvCYsFlE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LvQ1G2xzXQVjAKV96RzZfafUXqO7YmfqMXMEQKoz2qZbYHx31EMDCyVR+n8iRTYfLNCdJ/d4mN8QPYTl9Kh/hav2W7yM7Q4oCXZguYH1hAr64OaEiIB50My+4IrkAeHxPqEGOfcGxUDbb2uYmcuEdsh4BXrKOyCJMdEJaJjOnG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=mWynFkm6; arc=none smtp.client-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DG6vBF6W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 664771F00ACA;
-	Sat,  1 Aug 2026 12:48:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785588521;
-	bh=Cpv493sa16KH8YL2PWk4LIdC0PM0xoirWWDmOuxF0PQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DG6vBF6W9YFzCyxlz2Nmw8qHehNPtQrkWW6+pkZ9M2nS/RVXKlddApCTF1CYRxlYs
-	 1UqbtJEWDG9j8CgaVB2sGDcXVJHnoGImTSyh/t020GZOSbuOMXAHo5tVv7t1//6HbH
-	 gR+3+ZDUiEyur5+IsA4WpimjzbA4DBJ79R6fCtmoNMXCPkfRGzcaOReCLj75p+2exC
-	 DUwQCus1V+widV8O6iqiqCZmoMej2Q5TiGlW+ASkjBb1akK1maQ8xLe1k9zfc2epXq
-	 nt20XwSFybdDQcBKwA6Sbv++u8q0E+qQ9oJAtKlYPRz8fCGiVrEbZR8ZKofbbelYzu
-	 uEUe4VOGGaAiw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wq98p-0000000BGK2-1p9M;
-	Sat, 01 Aug 2026 12:48:39 +0000
-From: Marc Zyngier <maz@kernel.org>
-To: kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: Steffen Eiden <seiden@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Hyunwoo Kim <imv4bel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/6] KVM: arm64: Remove VM-wide VNCR mapping counter
-Date: Sat,  1 Aug 2026 13:48:13 +0100
-Message-ID: <20260801124818.366274-2-maz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260801124818.366274-1-maz@kernel.org>
-References: <20260801124818.366274-1-maz@kernel.org>
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="mWynFkm6"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-934944f2d22so94880085a.0
+        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 05:56:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1785589009; x=1786193809; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bZnZ6tTuvahRim61VJUbPOTWzgYIh9PQPJ7MO8TqOfM=;
+        b=mWynFkm6s8+YUNaQAqEn1Rx5VPL/7dpOahE66KQ2FZb1gbc3nVaV13DRr7zROvPOBD
+         ZJwU+1iZ8bVOMrF3QLC/i6d+u+7xw1WbwNwRGaPcN9KodaSnJm06sSFI6WYvJpfspatm
+         oLDlKeIKxie78DT9CJt+LjEUYzmH8k3zWqCnE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785589009; x=1786193809;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bZnZ6tTuvahRim61VJUbPOTWzgYIh9PQPJ7MO8TqOfM=;
+        b=YfZ9M3d38/HLk2uUFvvMWyMpDZwZb3Gsu5Yxt4nDMh//0j5GaXqQjMyrRt53J/s+E3
+         lnngVobFkmvrxTqdkLVHx5U9mYIHYILp0ZtVP4xE+In0XvERbyuZmOinayFGlGIY5T0L
+         M2xDaVGkHHsMzpAx5oXmpgpBTwdZXY8vh2kxfIAQgEiei9uNxgj3TkFkiIMV9R/E5ABs
+         X1cqmjHyiLLDOP6ZcsatmmgaBybJou84u0PKjbCU2EbfNAJaZDnwmtJn9PumrMmCvl8m
+         9n+Ca6x1pGCJqxD1eoX3ZUsbfeRHGINzeRuMx9vrbz5ujqtD2jHufHluyPmh5CXwQMgs
+         qFDw==
+X-Forwarded-Encrypted: i=1; AHgh+RorUQvcIiWRwjrUSQfoSKPO4h9U0XknLVJOCMMm6qbmlYUSVXA7PehKjEkUsSoT9hLMqdFMs6M=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzafznS4VJM8D7Achnw5EZB6BLZmVyecRiS8sERh4FsEFaiG6/m
+	gsK9q/6JXYBXssqDTIVXl6sJ/Zt9I5b9D5+emfA630GOwVhypQAca7wuxEoqxlPIAg==
+X-Gm-Gg: AR+sD11m0iY+BlKNa1uNetyZVDGQXK28N/JS0lUxycOAEBHcaI/aC4FbfGuD8WJH5W1
+	rXLyT86q78Kegkx3Fn+twjMsLzEP6XbVRBBABng2f/AxwcGPy7YcNJk2tQe7J5w/xMl9T3Uezke
+	6mm/I/UxeL2c0kiIb8tmSOMGe8C8cwCQ+9jxw0CrI2IWnVUDqv9DKF9HcNq6lqcJS8Lk2DsOluX
+	ZrkP+WtbST2Xp91rdn5xqov8tEvgiXTH3h2IQjC5xEJyYDFsSJaBv9sZxERwB6j3O4DON9Dhbm0
+	FC2Qmb39UtjS6aTbvh2LvrlM+C4nbzoyxKDhLMTQKyZ8p/xaJO4y/lQLb4G5XA8SVcseA6pjSqg
+	j6o3S17mlCXY+As7BcmCq0HXFYKbN5MU7eVXEErfdTgVe0r2kPkpZ3B+12Lg95QIvQNTAsh2kqq
+	v6kLXCRVjzaaWS6lWI9FnhDT+gZv8Suev9kF2efL0g1eRBnQbKuMwixw==
+X-Received: by 2002:a05:620a:5dc4:b0:92e:fc42:2c19 with SMTP id af79cd13be357-934a0789dd3mr545467885a.11.1785589008902;
+        Sat, 01 Aug 2026 05:56:48 -0700 (PDT)
+Received: from majuu.waya ([184.144.29.222])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9349c1c1d0esm273036685a.33.2026.08.01.05.56.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 01 Aug 2026 05:56:48 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: pabeni@redhat.com,
+	kuba@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	horms@kernel.org,
+	jiri@resnulli.us,
+	victor@mojatatu.com,
+	security@kernel.org,
+	stable@vger.kernel.org,
+	feng.xue@outlook.com,
+	vladb@nvidia.com,
+	Jamal Hadi Salim <jhs@mojatatu.com>
+Subject: [PATCH] net/sched: cls_api: Always acquire rtnl_lock when destroying locked classifiers
+Date: Sat,  1 Aug 2026 08:56:32 -0400
+Message-Id: <20260801125632.360365-1-jhs@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,96 +78,107 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, seiden@linux.ibm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, imv4bel@gmail.com, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-The global VNCR mapping counter is used to decide whether an L1
-provided VNCR page is mapped in L0 on any CPU at the point of
-dealing with a TLB invalidation. It is incremented when a mapping
-is made in the fixmap, and decremented when unmapped.
+Another challenge with unlocked filters.
+There is a short window in tc_new_tfilter where a tcf_proto can be found
+and briefly referenced by a totally unrelated, unlocked classifier's request
+and cause a race.
 
-As it turns out, this tracking has several flaws:
+Feng created a poc which created this race with two threads, one creating a
+u32 filter and other a flower filter in the same chain/prio:
 
-- we are trying to invalidate TLBs, and the mapping is only an
-  opportunistic consequence of the TLB. Checking this counter to
-  decide whether a TLB needs to be invalidated may result in missed
-  invalidations.
+1. Both threads enter tc_new_tfilter, both find the chain empty, both
+   drop filter_chain_lock
+2. u32 finishes tcf_proto_create("u32") first, calls
+   tcf_chain_tp_insert_unique() -> inserts u32_tp into the chain
+3. flower finishes tcf_proto_create("flower") later, calls
+   tcf_chain_tp_insert_unique() -> tcf_chain_tp_find() now sees u32_tp
+   already there, takes a reference on it, destroys flower's own tp_new
+   and returns u32_tp to the caller.
 
-- an L1 vcpu invalidating its own TLB (a very likely case) will not
-  succeed in invalidating the VNCR pseudo TLB because that page is
-  not mapped in L0 at this stage.
+Flower then hits the kind mismatch check (because it requested for kind
+"flower" but tp->ops->kind is "u32") and goes through the errout path
+which calls tcf_proto_put() on u32_tp. If the u32 thread has already
+gone through its own errout (its change() call failed on the PoC's empty
+options) and dropped its create and insert refs, flower's put is the
+last one and drops u32_tp's refcnt to zero.
 
-Given that this tracking fails at delivering the minimum guarantees
-that are required and is only a performance optimisation, remove it
-completely.
+At this point tp->ops->destroy() runs in a context that never took
+rtnl_lock. When that happens, it might cause a UAF like the following
+(illustrated by the PoC):
 
-Fixes: 4ffa72ad8f37e ("KVM: arm64: nv: Add S1 TLB invalidation primitive for VNCR_EL2")
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-Cc: stable@vger.kernel.org
+[  +0.000710] BUG: KASAN: slab-use-after-free in u32_init (net/sched/cls_u32.c:393)
+[  +0.000281] Read of size 8 at addr ffff888120022f00 by task poc_feng_xue/524
+
+  Call Trace:
+   u32_init (net/sched/cls_u32.c:393)
+   tc_new_tfilter (net/sched/cls_api.c:2378)
+
+  Allocated by task 526:
+   u32_init (net/sched/cls_u32.c:378)
+   tc_new_tfilter (net/sched/cls_api.c:2378)
+
+  Freed by task 522:
+   kfree
+   u32_destroy (net/sched/cls_u32.c:662)
+   tcf_proto_destroy (net/sched/cls_api.c:446)
+   tcf_proto_put (net/sched/cls_api.c:459)
+   tc_new_tfilter (net/sched/cls_api.c:2459)
+
+Fix this by having tcf_proto_destroy() take rtnl_lock around
+tp->ops->destroy() for locked classifiers whenever rtnl is not held.
+
+To explain why I used a temp variable "not_lockless" I'd like to point to a
+semi-related note on rtnl_held vs TCF_PROTO_OPS_DOIT_UNLOCKED (adding here
+for future cleanup if deemed necessary):
+The rtnl_held parameter and the TCF_PROTO_OPS_DOIT_UNLOCKED flag are
+redundant sources of truth for whether rtnl_lock is held. Among the nine
+classifier destroy(..rtnl_held..) callbacks, only flower consults the
+rtnl_held parameter which it propagates to tc_setup_cb_destroy()
+and tc_setup_cb_call(). The other eight (u32, flow, bpf, cgroup, route, basic,
+fw, mall) ignore it entirely;-> those that call tc_setup_cb_destroy()
+(u32, bpf, mall) hardcode true always instead of forwarding the parameter.
+
+A future cleanup should remove the rtnl_held parameter from the destroy callback
+signature entirely and have callers rely solely on their knowledge whether
+they are running in an unlocked context.
+
+Fixes: 12db03b65c2b ("net: sched: extend proto ops to support unlocked classifiers")
+Reported-by: Feng Xue <feng.xue@outlook.com>
+Tested-by: Victor Nogueira <victor@mojatatu.com>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
- arch/arm64/include/asm/kvm_host.h | 3 ---
- arch/arm64/kvm/hyp/vhe/switch.c   | 3 +--
- arch/arm64/kvm/nested.c           | 3 ---
- 3 files changed, 1 insertion(+), 8 deletions(-)
+ net/sched/cls_api.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index bae2c4f92ef5c..ac16f96c878d6 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -411,9 +411,6 @@ struct kvm_arch {
- 	/* Masks for VNCR-backed and general EL2 sysregs */
- 	struct kvm_sysreg_masks	*sysreg_masks;
- 
--	/* Count the number of VNCR_EL2 currently mapped */
--	atomic_t vncr_map_count;
--
- 	/*
- 	 * For an untrusted host VM, 'pkvm.handle' is used to lookup
- 	 * the associated pKVM instance in the hypervisor.
-diff --git a/arch/arm64/kvm/hyp/vhe/switch.c b/arch/arm64/kvm/hyp/vhe/switch.c
-index bbe9cebd3d9d5..c09b1d411c584 100644
---- a/arch/arm64/kvm/hyp/vhe/switch.c
-+++ b/arch/arm64/kvm/hyp/vhe/switch.c
-@@ -427,8 +427,7 @@ static bool kvm_hyp_handle_tlbi_el2(struct kvm_vcpu *vcpu, u64 *exit_code)
- 	 * If we have to check for any VNCR mapping being invalidated,
- 	 * go back to the slow path for further processing.
- 	 */
--	if (vcpu_el2_e2h_is_set(vcpu) && vcpu_el2_tge_is_set(vcpu) &&
--	    atomic_read(&vcpu->kvm->arch.vncr_map_count))
-+	if (vcpu_el2_e2h_is_set(vcpu) && vcpu_el2_tge_is_set(vcpu))
- 		return false;
- 
- 	__kvm_skip_instr(vcpu);
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index dfb96edbdc43c..f3c75954cf36c 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -48,7 +48,6 @@ void kvm_init_nested(struct kvm *kvm)
+diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
+index fee4524adc98..4e6a2812a4f3 100644
+--- a/net/sched/cls_api.c
++++ b/net/sched/cls_api.c
+@@ -443,7 +443,22 @@ static void tcf_chain_put(struct tcf_chain *chain);
+ static void tcf_proto_destroy(struct tcf_proto *tp, bool rtnl_held,
+ 			      bool sig_destroy, struct netlink_ext_ack *extack)
  {
- 	kvm->arch.nested_mmus = NULL;
- 	kvm->arch.nested_mmus_size = 0;
--	atomic_set(&kvm->arch.vncr_map_count, 0);
- }
- 
- static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
-@@ -890,7 +889,6 @@ static void this_cpu_reset_vncr_fixmap(struct kvm_vcpu *vcpu)
- 	clear_fixmap(vncr_fixmap(vcpu->arch.vncr_tlb->cpu));
- 	vcpu->arch.vncr_tlb->cpu = -1;
- 	host_data_clear_flag(L1_VNCR_MAPPED);
--	atomic_dec(&vcpu->kvm->arch.vncr_map_count);
- }
- 
- void kvm_vcpu_put_hw_mmu(struct kvm_vcpu *vcpu)
-@@ -1592,7 +1590,6 @@ static void kvm_map_l1_vncr(struct kvm_vcpu *vcpu)
- 	if (pgprot_val(prot) != pgprot_val(PAGE_NONE)) {
- 		__set_fixmap(vncr_fixmap(vt->cpu), vt->hpa, prot);
- 		host_data_set_flag(L1_VNCR_MAPPED);
--		atomic_inc(&vcpu->kvm->arch.vncr_map_count);
- 	}
- }
- 
+-	tp->ops->destroy(tp, rtnl_held, extack);
++	/* A locked classifier's destroy callback (e.g. u32_destroy) uses
++	 * rtnl_dereference() and mutates shared structures (e.g. the
++	 * tc_u_common hash list) that are only safe under rtnl_lock. When an
++	 * unlocked classifier's request (e.g. flower on ingress) loses the
++	 * tcf_chain_tp_insert_unique() race and ends up dropping the last
++	 * reference on a locked classifier's proto, destroy() would run
++	 * without rtnl held. Take it here in that case.
++	 */
++	bool not_lockless = !rtnl_held &&
++		!(tp->ops->flags & TCF_PROTO_OPS_DOIT_UNLOCKED);
++
++	if (not_lockless)
++		rtnl_lock();
++	tp->ops->destroy(tp, rtnl_held || not_lockless, extack);
++	if (not_lockless)
++		rtnl_unlock();
+ 	tcf_proto_count_usesw(tp, false);
+ 	if (sig_destroy)
+ 		tcf_proto_signal_destroyed(tp->chain, tp);
 -- 
-2.47.3
+2.34.1
 
