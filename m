@@ -1,65 +1,64 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31231314D05
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 08:18:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7AA364045
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 08:18:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785572322; cv=none; b=Xn3DwA7/VgYBxL6ozBEaw6pmRgwDGN+IFjkKFiNh8oyOqe2jLOfjemRpaQv9u8gCIArxCbo6/fFSmte8kHDwNPItSx8d96q3ETPo/EsBOCgD4wQBQpNnMInJ4bpuueb54ccpzVlPZgbYdW4QVSW4NnXxtPTOiVymgvhGbbTQ0/Y=
+	t=1785572326; cv=none; b=VTi87RhpMZgAl+j1CgflLpRd82VpT5LJIYL1WxMvW3CkQA+CVxUGGYaQ/4Dtb7J79iudg6chvxzEKnQpQUT4aB+xGas+QQJdQm48L2TswlqtZZOD2Vn+c6zpLNHHGyYPX6VWC8NYj2jBrE9g1AgiWUtCOHhG10IARUwPUerAGWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785572322; c=relaxed/simple;
-	bh=Jx5ngztfjkk1frVO0SfO5FKtgzZOYaWLyPYUFDjIz9k=;
+	s=arc-20240116; t=1785572326; c=relaxed/simple;
+	bh=b/eFGy+WGnEH6RkGlTWexGaLp97r9zOzyhM5fVs9sfk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PA71EcS6Xnj9A8/6Tq90I1RaPO2rnPyaoUDb+RTP3brsC4Tsm8myv1+zRHBcPIgmqo0k+pOlNZ+dDq7RyNL5ImIsglCkalnksX/7G09d8E91s/XMAM6CBNRV6eShQKvseh2DqvfUxe98kZWE959wLu251qIyYhxrPNBf1rsImPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=FQCLlntO; arc=none smtp.client-ip=209.85.210.176
+	 MIME-Version; b=MccQFllbvYe09Q4Y5t38xWUzmkPFPCF4To15Lrnh4Ih5uBfHcH1jMM6kzdi/cxaHits3zfbs4pJQR3maFOf7cqXtMG7L+OM/PwnyhTDuqG5Dh2K3veX0S/g9dhj6o08XxasqR3MKAAnrPgAjt6PZ6/52riGwkdqGNXTlzS7J/ZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=nykbev1f; arc=none smtp.client-ip=209.85.210.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="FQCLlntO"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-848761b5897so1307618b3a.3
-        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 01:18:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="nykbev1f"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-84830c774a0so1814547b3a.1
+        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 01:18:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1785572319; x=1786177119; darn=vger.kernel.org;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1785572324; x=1786177124; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=f1eprebx+Ei9fy9zASKq2n4ZSux+Wxq0L1cBEFaU7cY=;
-        b=FQCLlntOUi5JB7QtDvwZE6YgNuOvmR4BUj37IROxIB6rd1Zx+FHJNqO4N/scUUaCpH
-         xGT0l6Z/dyneppRQ8CtNH898ueH3W2wjQgol58mbWUXY6ibTw+i/P0n9ooN/sgLlLzX/
-         UUz2CMT2ag4UhpXXIdyBTlnnrn1vBJUxZlVW67VQNRyNx0HLTji1t3io2hpxVzbDPZ0p
-         GhelZGatBVc0zHaK1DEWt2PWErSfc95zN8irA4j1wfm/euF8MIOvv9BiTHZl6DIZ/dO5
-         OBVEL0iDmCduVtjfZEmwEedRoo4SjMf7/e6AovVEVKZbvogxZ0g1kqg60yCagfWFAH7b
-         +WVw==
+        bh=1lwZlW3FZpQI3GTqv3UD9QOcWZj0C5mMeHQ3vQ2kJj0=;
+        b=nykbev1fXB9HmQP87uaCOtdBOYObWHB/fn06JteiIAs2FMN5NclYYo7t1zRZx6nvv+
+         XRgkG2N5M+Rd7mhK+jNG5PrB05rmKEu+KU+0kt99ozpbtv8pbVf2g4nJtq3QZ2h60x7K
+         19xZdhRfOjLrznJSG0fgpYkIoD9o9ex6PzhSO0XK6ZxPWO7hiJgcGNbmXuWaIb6vz8VD
+         IyCOKSK8KOgpqEbntrCrchBDAnGmsxaZgBNCHVevOqz/UFsMkLQ5VnGmoWy6GeNKtD4T
+         5zri0e/0am04Z0LkWZR7UhaBURQGDBKNYzPntcL5SSSyIwoyHEL/OgT64kvic03bxESG
+         ipaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785572319; x=1786177119;
+        d=1e100.net; s=20251104; t=1785572324; x=1786177124;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f1eprebx+Ei9fy9zASKq2n4ZSux+Wxq0L1cBEFaU7cY=;
-        b=C74HQ+k4e3QWL1pDstXqB+7VvarE8FU4bOejShVZZhXKhhkA1S6T5vxMhd/aDVu7U/
-         13Amt+ebpEiNwyhc8fVEb6KSPr03I+E2zyA/XmqDRJAGG9yn4EM5NE1sIAaLP8vESu9c
-         zo2dcxE9K7rg80qJoU8RJo++T/s87hy/IpY3FYrjdNM8xnsglUCQBHIvoZODd5zKXT0H
-         cJRgkhho8Z7xfsKY1a7RseVHBCcnpub3bJMtZ6kst7uhZMCMVFLV+YjkCNPwTdlX/wxe
-         T6lZMEy04RmxZGTTR6wHlmTZQcSbtuKqecsPUyZWfw+S55iZRjf7X2QKkFcmFZX3NHLa
-         O5GQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqkCrmDFCMcfraB1QAloFcjgiE0wXVjZMvAj3u+VfDtv9AkgZpgt35X+SSW46zuX70CtpruHjU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyliIhm5HO6iHVPGTn1r90wrWGNv3JJpUssbKIwU/EBitwNfKoo
-	wCSx8bdEUlQ7ZZgSFfuoZCxLCRSeObKoGFN1e8FQBK75ieRUtcqPtnrAx858a5lWysdpyrCi+aa
-	8Y7b2
-X-Gm-Gg: AR+sD13gGk1pd4NBgJdBikWakLwjoNEVr/Hr9dltaSQaIlQTMqCSwWZRPhCOLb7jBgi
-	GwLLn01P9AOoBigAcgAGR0/tSOm0SCQ41LjTGsRq6VdoTi8902DutqMUh7QYm0aftEje64GdaqH
-	e/vC74cXNl/kWa2PVRB5dK9PlzyvB8fZLV5i1Ag6jMInQbvQtZcqs7ANy8U+JjUBtP2hMbq1H5W
-	Pl6b89jKMMwwHp3MpR8m+FlM7aV1MgfaZlMMX3u4h733O3xgfopJbBAhZSW0doX564YlV7opLBS
-	Z+mFgwKs59IVGnFBPy7qz1ZNnhgtyAMxsgFKgRbVKBaxm23OlvvnzJ6Zi1tpQknrBpS1Af7cFnd
-	ZXa0CyL5U54DZmqovtMEp8cgJb6Muhb5NDcbBC7/ULjQM7eIWFfjQ+nkXaZCQy5aSinyCiXq8bO
-	9bHC5rQwzsOJ5zuw1jPUO+IcuPgewHUD6VyX9+Rfa/325uphS+mpB4uWcWcJ1uIeGwm7iFHXxNX
-	pXl33UO+R4=
-X-Received: by 2002:a05:6a00:9296:b0:847:82dc:452d with SMTP id d2e1a72fcca58-84ee47d8cf6mr2245492b3a.29.1785572319549;
-        Sat, 01 Aug 2026 01:18:39 -0700 (PDT)
+        bh=1lwZlW3FZpQI3GTqv3UD9QOcWZj0C5mMeHQ3vQ2kJj0=;
+        b=V39mAsOqFqNxOHG6PuAdvURpffgpstXL8EpuUWXif65q0MfD45vz+8pIpHOCmZ0TCH
+         BD6hMcw0PjpW3rGMKUenpnA9KNswSNs3H5x7a7CovmapJ+bEjZ2JYe6JDigO1K2STc2n
+         WmWevjoCoZU/DaVkavJVp5o91s5l6lpjLge9+wvjCapEJZTM0fBiaBDW8mbREs0BGFzY
+         kt2FnzecXbCxMjp1O7yRtwJe7ql1f5ZAWaUDD7gj4lsiAjYLgZKcskOsBWtrZfoBG5oW
+         dVoB7ekqH1DoCtXvG8ZN6nf9Rc0s6IFX4P4Nk3TeoUmEn+748U+CpZf+SvV97CvmGl3P
+         Sw0Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpUC82qz9av7AT5aFvR97lZdHg0N/9KQ/VyJSB8scz77z8D/ddwtICDcDkIiv1Q4rE8y1ptq+g=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxV7ekpM0VVWc8hzziN2AS4rGmOrsmruWu03GZAzoN2kSWFj64N
+	uo0YqZSJ6x3Ye0Yp9ftW48vDhmneJsh8B0vB5Zs61njST4N8t9ytG0m5VJ4N5089I7c=
+X-Gm-Gg: AR+sD10VOtxtpzSywSWU4/9kOOqCwUmDk0CYtBZCzhQbdjmRWgVruTlZT628YDddRjk
+	7wS6yZ0DbkJqK9WoC1Pni5Pbiw6Yvb8sffnL1MQ4afN7VOHgUYqAVbS/oZMh6G8EOPG+AqyJw0i
+	GEDPuOlgFdf62YiFq3BYdT/x8XuEdvrIQf7mVGDkYZotZGwYwpx/YVhk5GLEFEniTC88C7jbefS
+	y1cV3hYXstea70E52MuebalJ6x6AdOiepuf+0RPdNwqOvXVXw80xfqRzz7j03IvXOS6/0PV3Jew
+	o8EPFcQ17RZwVV43OECevlA3Tm57EIPDAyqdaq70FgrPn+0MShvheUyR95h6jTL+YpDKleY3DrX
+	9NGkwCMPZMF7cxq/ENsLyKRUXyELEoYKDeTEqk83hhl8aKVvJmDN81NCJanYd+9HUrfWJYG3N6e
+	aCvv5YfVZ4sAQv6DakLNwTNT8zMbaN9aeQQF+OXPF5joimQ4Ps5sI5MW6re9LJ+ZbxV8+Puo2Bw
+	bX1HX+IGXs=
+X-Received: by 2002:a05:6300:14d:b0:3c6:3c5b:f301 with SMTP id adf61e73a8af0-3c92a9519f2mr2907018637.68.1785572323922;
+        Sat, 01 Aug 2026 01:18:43 -0700 (PDT)
 Received: from localhost.localdomain ([2406:5900:1044:110c:c329:7b28:fe02:5dc8])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbe39ea9a40sm1433003a12.25.2026.08.01.01.18.37
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbe39ea9a40sm1433003a12.25.2026.08.01.01.18.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 01:18:39 -0700 (PDT)
+        Sat, 01 Aug 2026 01:18:43 -0700 (PDT)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: linux-nvme@lists.infradead.org
 Cc: kbusch@kernel.org,
@@ -69,9 +68,9 @@ Cc: kbusch@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] nvme-tcp: reject a read that transferred too few bytes
-Date: Sat,  1 Aug 2026 17:18:17 +0900
-Message-ID: <20260801081818.1884199-2-yhlee@isslab.korea.ac.kr>
+Subject: [PATCH v3 2/2] nvme-tcp: do not accept C2HData based on blk_rq_payload_bytes() alone
+Date: Sat,  1 Aug 2026 17:18:18 +0900
+Message-ID: <20260801081818.1884199-3-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260801081818.1884199-1-yhlee@isslab.korea.ac.kr>
 References: <20260801081818.1884199-1-yhlee@isslab.korea.ac.kr>
@@ -83,125 +82,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nvme_tcp_recv_data() completes a request once the current C2HData PDU
-has been consumed. Nothing compares the total bytes received against
-the length the command asked for: struct nvme_tcp_request has no
-receive-side counter, queue->data_remaining is per queue, and
-blk_mq_end_request() completes for blk_rq_bytes(rq) unconditionally
-with no residual concept anywhere above.
+Commit 25e5cb780e62 ("nvme-tcp: fix possible crash in write_zeroes
+processing") established that blk_rq_payload_bytes() must not be read
+without first checking blk_rq_nr_phys_segments(), and recorded the
+result in nvme_tcp_setup_cmd_pdu() as req->data_len. The receive side
+was left as it was.
 
-A controller can therefore answer a 4096-byte read with 512 bytes and
-have it reported as a complete read; user space then gets 4096 bytes of
-which 3584 are whatever was already in the page. I reproduced that with
-a test target.
+The two differ for REQ_OP_WRITE_ZEROES, which has no physical segments
+but a non-zero blk_rq_bytes(), so setup leaves req->iter untouched
+while the receive gate lets a C2HData through and nvme_tcp_recv_data()
+copies into whatever the previous command on that tag left there. The
+driver-private area is zeroed only when the tag set is allocated.
 
-Count the bytes received and refuse to complete a successful read whose
-count does not match, at the two NVME_TCP_F_DATA_SUCCESS paths and in
-nvme_tcp_process_nvme_cqe(). The success test shifts req->status right
-by one, because the driver keeps the wire value there and shifts it on
-completion, so the check must see what the completion path will see.
-Only REQ_OP_READ is checked, because there the length comes from the
-sectors the request covers; a passthrough command is built by its
-submitter, which picks both command and buffer, so the kernel has
-nothing to compare against.
+Reproduced with a test target that leaves a residual iterator on a tag
+and then sends a C2HData for a WRITE_ZEROES command on the same tag:
 
-Fixes: 3f2304f8c6d6 ("nvme-tcp: add NVMe over TCP host driver")
+BUG: KASAN: wild-memory-access in _copy_to_iter+0x642/0x1330
+Write of size 512 at addr ffe728c2175dfa81 by task kworker/0:1H/103
+
+CPU: 0 UID: 0 PID: 103 Comm: kworker/0:1H Not tainted 7.2.0-rc5-NVMETCP-gf5098b6bae76 #1 PREEMPT(lazy)
+Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: nvme_tcp_wq nvme_tcp_io_work
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x53/0x70
+ kasan_report+0xce/0x100
+ ? _copy_to_iter+0x642/0x1330
+ kasan_check_range+0x105/0x1b0
+ __asan_memcpy+0x3c/0x60
+ _copy_to_iter+0x642/0x1330
+ ? __pfx_sock_has_perm+0x10/0x10
+ ? worker_thread+0x45b/0xd10
+ ? __pfx__copy_to_iter+0x10/0x10
+ ? _raw_spin_lock_bh+0x83/0xe0
+ ? __pfx__raw_spin_lock_bh+0x10/0x10
+ __skb_datagram_iter+0xf3/0x820
+ ? __pfx_simple_copy_to_iter+0x10/0x10
+ ? __asan_memcpy+0x3c/0x60
+ ? skb_copy_bits+0x58d/0x830
+ skb_copy_datagram_iter+0x37/0x120
+ nvme_tcp_recv_skb+0xa07/0x4320
+ ? __pfx_nvme_tcp_recv_skb+0x10/0x10
+ __tcp_read_sock+0x1ab/0x810
+ ? __pfx_nvme_tcp_recv_skb+0x10/0x10
+ ? __pfx_lock_sock_nested+0x10/0x10
+ ? __pfx___tcp_read_sock+0x10/0x10
+ nvme_tcp_try_recv+0x152/0x1e0
+ ? __pfx_nvme_tcp_try_recv+0x10/0x10
+ ? __pfx_mutex_unlock+0x10/0x10
+ nvme_tcp_io_work+0x1e4/0x6c0
+ ? __schedule+0x181a/0x49f0
+ ? __pfx_nvme_tcp_io_work+0x10/0x10
+ process_one_work+0x633/0x1030
+
+Keep the blk_rq_payload_bytes() test and add req->data_len to it. The
+old test is what rejects a C2HData naming a tag that is no longer in
+flight, because blk_update_request() zeroes rq->__data_len on
+completion; req->data_len and req->curr_bio are driver-private and
+survive completion, so they cannot stand in for it. Setup initialises
+the iterator only when both req->curr_bio and req->data_len are set, so
+the gate now tests the same two.
+
+Fixes: 25e5cb780e62 ("nvme-tcp: fix possible crash in write_zeroes processing")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
-v2 -> v3: the success test now uses req->status >> 1, the same expression
-nvme_try_complete_req() uses, so a CQE phase tag cannot evade it.
+v2 -> v3: keep the blk_rq_payload_bytes() test and add to it; v2 replaced it
+and lost the rejection of a C2HData naming a tag that is no longer in flight.
 
- drivers/nvme/host/tcp.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ drivers/nvme/host/tcp.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index ba5c7b3e2a7c..c4fe06d424d1 100644
+index c4fe06d424d1..85a87ed6df93 100644
 --- a/drivers/nvme/host/tcp.c
 +++ b/drivers/nvme/host/tcp.c
-@@ -80,6 +80,7 @@ struct nvme_tcp_request {
- 
- 	struct bio		*curr_bio;
- 	struct iov_iter		iter;
-+	u32			data_recvd;
- 
- 	/* send state */
- 	size_t			offset;
-@@ -612,6 +613,29 @@ static void nvme_tcp_error_recovery(struct nvme_ctrl *ctrl)
- 	queue_work(nvme_reset_wq, &to_tcp_ctrl(ctrl)->err_work);
- }
- 
-+/*
-+ * NVMe has no short read: a read that completes successfully must
-+ * have transferred everything it asked for.
-+ */
-+static bool nvme_tcp_data_in_short(struct nvme_tcp_queue *queue,
-+				   struct request *rq)
-+{
-+	struct nvme_tcp_request *req = blk_mq_rq_to_pdu(rq);
-+
-+	if (le16_to_cpu(req->status) >> 1)
-+		return false;
-+	if (req_op(rq) != REQ_OP_READ || !req->data_len)
-+		return false;
-+	if (likely(req->data_recvd == req->data_len))
-+		return false;
-+
-+	dev_err(queue->ctrl->ctrl.device,
-+		"queue %d tag %#x short data-in: got %u of %u\n",
-+		nvme_tcp_queue_id(queue), rq->tag,
-+		req->data_recvd, req->data_len);
-+	return true;
-+}
-+
- static int nvme_tcp_process_nvme_cqe(struct nvme_tcp_queue *queue,
- 		struct nvme_completion *cqe)
+@@ -668,6 +668,7 @@ static int nvme_tcp_process_nvme_cqe(struct nvme_tcp_queue *queue,
+ static int nvme_tcp_handle_c2h_data(struct nvme_tcp_queue *queue,
+ 		struct nvme_tcp_data_pdu *pdu)
  {
-@@ -631,6 +655,9 @@ static int nvme_tcp_process_nvme_cqe(struct nvme_tcp_queue *queue,
- 	if (req->status == cpu_to_le16(NVME_SC_SUCCESS))
- 		req->status = cqe->status;
++	struct nvme_tcp_request *req;
+ 	struct request *rq;
  
-+	if (unlikely(nvme_tcp_data_in_short(queue, rq)))
-+		return -EPROTO;
-+
- 	if (!nvme_try_complete_req(rq, req->status, cqe->result))
- 		nvme_complete_rq(rq);
- 	queue->nr_cqe++;
-@@ -953,6 +980,7 @@ static int nvme_tcp_recv_data(struct nvme_tcp_queue *queue, struct sk_buff *skb,
- 		*len -= recv_len;
- 		*offset += recv_len;
- 		queue->data_remaining -= recv_len;
-+		req->data_recvd += recv_len;
+ 	rq = nvme_find_rq(nvme_tcp_tagset(queue), pdu->command_id);
+@@ -678,7 +679,8 @@ static int nvme_tcp_handle_c2h_data(struct nvme_tcp_queue *queue,
+ 		return -ENOENT;
  	}
  
- 	if (!queue->data_remaining) {
-@@ -961,6 +989,8 @@ static int nvme_tcp_recv_data(struct nvme_tcp_queue *queue, struct sk_buff *skb,
- 			queue->ddgst_remaining = NVME_TCP_DIGEST_LENGTH;
- 		} else {
- 			if (pdu->hdr.flags & NVME_TCP_F_DATA_SUCCESS) {
-+				if (unlikely(nvme_tcp_data_in_short(queue, rq)))
-+					return -EPROTO;
- 				nvme_tcp_end_request(rq,
- 						le16_to_cpu(req->status));
- 				queue->nr_cqe++;
-@@ -1009,6 +1039,9 @@ static int nvme_tcp_recv_ddgst(struct nvme_tcp_queue *queue,
- 					pdu->command_id);
- 		struct nvme_tcp_request *req = blk_mq_rq_to_pdu(rq);
- 
-+		if (unlikely(nvme_tcp_data_in_short(queue, rq)))
-+			return -EPROTO;
-+
- 		nvme_tcp_end_request(rq, le16_to_cpu(req->status));
- 		queue->nr_cqe++;
- 	}
-@@ -2736,6 +2769,7 @@ static blk_status_t nvme_tcp_setup_cmd_pdu(struct nvme_ns *ns,
- 	req->status = cpu_to_le16(NVME_SC_SUCCESS);
- 	req->offset = 0;
- 	req->data_sent = 0;
-+	req->data_recvd = 0;
- 	req->pdu_len = 0;
- 	req->pdu_sent = 0;
- 	req->h2cdata_left = 0;
+-	if (!blk_rq_payload_bytes(rq)) {
++	req = blk_mq_rq_to_pdu(rq);
++	if (!blk_rq_payload_bytes(rq) || !req->curr_bio || !req->data_len) {
+ 		dev_err(queue->ctrl->ctrl.device,
+ 			"queue %d tag %#x unexpected data\n",
+ 			nvme_tcp_queue_id(queue), rq->tag);
 -- 
 2.43.0
 
