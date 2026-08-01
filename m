@@ -1,95 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-184.mta0.migadu.com (out-184.mta0.migadu.com [91.218.175.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB7332D0EE
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 00:45:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB3F38B7A6
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 00:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785545147; cv=none; b=UpcfBUjO8nfPIIbpI/hnjYc/9N+TI/CwMnaXp5ZoOETmILK2SnFVQXpXmqVqcta6wge5bE6xkkzOAaudchOmCQXLYdzXB4RYqOPHLjA3z/RXxXyqFL0+nYGRpc5sdwLYuQAloO/kGDuVOJQx0rCjvNYDTWAYRj4objJmth7JkEQ=
+	t=1785545239; cv=none; b=g+AlPiDFukGg3Zxqg4mqz0iJQnRc1hRVDRUWlQtpvo0fz5PWiiNI2xyKW9wWCLI3A66WxibNdbXVBg/Oh+ESTM2Q2MzS0UfyJuL960Eh6GgoQLleu+Z3s/fwcfl4hK7hYd97NGE+KGWWRPBWC9MOv+NMoiZG0wnkuU4WNotDQN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785545147; c=relaxed/simple;
-	bh=HMWEiHP8m9mGEQObUVSBWRU+t8STf9EgunnJuGTVWJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a4qrxCoY703BMcdzolpaCM9yqS2X7qN8EPKTYYhrUIV526BN+tmcQAQAxXFis6DoKrrm3Ab6hd2gsg+9GGXVYk1qluxroZ3jg2pf/LHvsbJAcK0Btyz2dgyOtAn42mROeVOw727HcOSqbvCBKMhtr8WdfTzQhinzsUrAQ+6wWUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K0qhcJf/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785545239; c=relaxed/simple;
+	bh=aJGluKLug7fUNd7JeyfrJc4LQxPaXirsOBspg/4La3c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nAFRRmfbl8WMgNWGiBZb++xcB9Vt4bpUq4DnO2nVl3H+tSSfJwz0EqxwGi0rnJ1ucDb8WudEXkTxxMsFqOnml4Igp4h4ZbZCT/D0f5Vd2XK38TJVRKynVU8XoSpfOTQEyyI417l/DbHYl7DIgwbbH9aJablB1ctsv1p6NxYAqgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Lp/5WC0u; arc=none smtp.client-ip=91.218.175.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K0qhcJf/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFE421F00ADB;
-	Sat,  1 Aug 2026 00:45:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785545137;
-	bh=AJKJJePPq2CUYz2zO53WnYyzJC/2SjDnyCQL0iyfeC4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K0qhcJf/R6/kxyDfdtPAAQWHklC4lnMjDHkx/eSpdgdX1EG80CO6O/g1MQuL6le/L
-	 J8AYV42TigZTe6r86qoE6LNSyzNFcXtop62MD4DGIXx2JXqkhr84w548M+uEhq4L7k
-	 igetM9qmU4T5usU+7sFdznFIvZB3GVZ0j35rAopguklrOCnWUwnYVxCX2zeVnv8Itg
-	 4CML/LLWLNvdPlsFaE8ZS9jZhT0tnftzomUX+gzJho5RYXeK1cQH7epMeaAm4I2XTG
-	 4ZAxkUqAXi31YSDB0FinoPhwB1+MpPp4O50OFat82N4IH/qOvHIMbvkq7fjzMpPsZo
-	 F8v1DeGeZmRbQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>,
-	Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] drm/xe/rtp: Add RING_FORCE_TO_NONPRIV_DENY to OA whitelists
-Date: Fri, 31 Jul 2026 20:45:33 -0400
-Message-ID: <20260801004533.3663723-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260801004533.3663723-1-sashal@kernel.org>
-References: <2026072902-gorgeous-negligee-5e08@gregkh>
- <20260801004533.3663723-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Lp/5WC0u"
+Date: Sat, 1 Aug 2026 08:46:52 +0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785545219;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gMek1aawQ8IyooAOw8hjJzP++g15hi+kUNuEx4O2XuA=;
+	b=Lp/5WC0ukjnAn5o7N1qqH1jN1lRSaj6RecCQ9ONDeU+uZ3dm1b6L3FalP3D7qZ6EHAhVdC
+	VlIh6gP28hAflRVDqF1Bq042TiBVII/vlLXde6jAxOk4MqdsHPCkYT7WPSTm3YwOPD+5px
+	ZYNtt22HoOYMfrGxy6XWPDx99Au6IY4=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Baoquan He <baoquan.he@linux.dev>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>,
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+	linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+	linux-fscrypt@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/swap: reject swapon() on filesystem-level encrypted
+ files
+Message-ID: <am1B_Mz21L54mrDS@MiWiFi-R3L-srv>
+References: <20260730184853.48347-1-ebiggers@kernel.org>
+ <amy7Biucbf-et5O2@MiWiFi-R3L-srv>
+ <20260731181408.GA12803@sol>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260731181408.GA12803@sol>
+X-Migadu-Flow: FLOW_OUT
 
-From: Ashutosh Dixit <ashutosh.dixit@intel.com>
+On 07/31/26 at 11:14am, Eric Biggers wrote:
+> On Fri, Jul 31, 2026 at 11:11:02PM +0800, Baoquan He wrote:
+> > On 07/30/26 at 11:48am, Eric Biggers wrote:
+> > > ext4 and f2fs don't prevent filesystem-level encrypted files from being
+> > > set up directly as swap files.  In this case, encryption is bypassed.
+> > > 
+> > > No one should be doing this, vs. the methods of encrypted swap that
+> > > actually do work (such as swapping to a dm-crypt device, or swapping to
+> > > a loopback device on top of a filesystem-level encrypted file).
+> > > 
+> > > Nevertheless, to prevent user error, make swapon() explicitly reject
+> > > this case.  Document this behavior in fscrypt.rst as well.
+> > > 
+> > > Fixes: 9bd8212f981e ("ext4 crypto: add encryption policy and password salt support")
+> > > Fixes: f424f664f0e8 ("f2fs crypto: add encryption policy and password salt support")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> > > ---
+> > >  Documentation/filesystems/fscrypt.rst | 4 ++++
+> > >  mm/swapfile.c                         | 4 ++++
+> > >  2 files changed, 8 insertions(+)
+> > > 
+> > > diff --git a/Documentation/filesystems/fscrypt.rst b/Documentation/filesystems/fscrypt.rst
+> > > index c0dd35f1af12..cba1989777da 100644
+> > > --- a/Documentation/filesystems/fscrypt.rst
+> > > +++ b/Documentation/filesystems/fscrypt.rst
+> > > @@ -1238,6 +1238,10 @@ astute users may notice some differences in behavior:
+> > >  
+> > >  - DAX (Direct Access) is not supported on encrypted files.
+> > >  
+> > > +- Encrypted files cannot be used directly as swap files.  To swap to
+> > > +  an encrypted file, set up a loopback device on top of it.
+> > > +  Alternatively, encrypted swap can use a dm-crypt device instead.
+> > > +
+> > >  - The maximum length of an encrypted symlink is 2 bytes shorter than
+> > >    the maximum length of an unencrypted symlink.  For example, on an
+> > >    EXT4 filesystem with a 4K block size, unencrypted symlinks can be up
+> > > diff --git a/mm/swapfile.c b/mm/swapfile.c
+> > > index 78b49b0658ad..e4991da81b5f 100644
+> > > --- a/mm/swapfile.c
+> > > +++ b/mm/swapfile.c
+> > > @@ -3650,6 +3650,10 @@ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
+> > >  		error = -EBUSY;
+> > >  		goto bad_swap_unlock_inode;
+> > >  	}
+> > > +	if (IS_ENCRYPTED(inode)) {
+> > > +		error = -EINVAL;
+> > > +		goto bad_swap_unlock_inode;
+> > > +	}
+> > 
+> > Sounds reasonable to me.
+> > 
+> > One minor suggestion: it might be helpful to emit a pr_warn_once()
+> > explaining *why* the swapon was rejected and pointing users to the
+> > dm-crypt / loopback alternatives, so the -EINVAL isn't opaque.
+> > Optional though -- the check itself is what matters.
+> 
+> How's this?
+> 
+>     pr_warn_once("Filesystem-level encrypted swapfile '%s' is unsupported. Create a loop device over it, or use dm-crypt\n", name->name);
 
-[ Upstream commit e70086a3a06d276b4a5d9a2c51c9330c6cf72780 ]
+Looks good to me, thx.
 
-Unconditionally whitelisting OA registers is a security violation. Set
-RING_FORCE_TO_NONPRIV_DENY bit in OA nonpriv slots, so that OA registers
-don't get whitelisted by default after probe, gt reset, resume and engine
-reset.
+> 
+> > And this patch updates fscrypt.rst. Would it be good to also
+> > update the swapon(8) man page to document the new -EINVAL
+> > condition?
+> > 
+> > Other than these,
+> > 
+> > Reviewed-by: Baoquan He <baoquan.he@linux.dev>
+> 
+> swapon(8) is for the util-linux program, not the syscall, so it doesn't
+> document error codes specifically.  It does have a NOTES section that
+> incompletely documents filesystem-specific constraints on swap files.
+> It's missing most of the current constraints.  But sure, I'll send a
+> patch that adds a note to there about this one.  That will be a
+> util-linux patch.
 
-Fixes: 828a8eaf37c3 ("drm/xe/oa: Add MMIO trigger support")
-Cc: stable@vger.kernel.org # v6.12+
-Suggested-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
-Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Link: https://patch.msgid.link/20260615224227.34880-2-ashutosh.dixit@intel.com
-(cherry picked from commit 90511bdcfda97211c01f1d945d4ea616578d8fca)
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/xe/xe_reg_whitelist.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-index b9ddbad12a58..235db9f33b3c 100644
---- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
-+++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-@@ -74,10 +74,12 @@ static const struct xe_rtp_entry_sr register_whitelist[] = {
- 				   RING_FORCE_TO_NONPRIV_ACCESS_RW))
- 	},
- 
-+#define WHITELIST_DENY(r, f) WHITELIST(r, (f) | RING_FORCE_TO_NONPRIV_DENY)
-+
- #define WHITELIST_OA_MMIO_TRG(trg, status, head) \
--	WHITELIST(trg, RING_FORCE_TO_NONPRIV_ACCESS_RW), \
--	WHITELIST(status, RING_FORCE_TO_NONPRIV_ACCESS_RD), \
--	WHITELIST(head, RING_FORCE_TO_NONPRIV_ACCESS_RD | RING_FORCE_TO_NONPRIV_RANGE_4)
-+	WHITELIST_DENY(trg, RING_FORCE_TO_NONPRIV_ACCESS_RW), \
-+	WHITELIST_DENY(status, RING_FORCE_TO_NONPRIV_ACCESS_RD), \
-+	WHITELIST_DENY(head, RING_FORCE_TO_NONPRIV_ACCESS_RD | RING_FORCE_TO_NONPRIV_RANGE_4)
- 
- #define WHITELIST_OAG_MMIO_TRG \
- 	WHITELIST_OA_MMIO_TRG(OAG_MMIOTRIGGER, OAG_OASTATUS, OAG_OAHEADPTR)
--- 
-2.53.0
+Sounds great, thanks.
 
