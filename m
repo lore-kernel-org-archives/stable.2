@@ -1,118 +1,112 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-172.mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3A03368A3
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 21:37:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806E92F25F3
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 22:07:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785620261; cv=none; b=Ut8CZrXT9r2gxXTHrhudH4BNm7zWQWDytfEi0fj7jjgFseH91LD4JPbmBG1+YLrhT0cQgmex2eyHKKMf/ebJX/+e5HR6DG5YOgD4DWqG2LFL6LkLqkEmYJSaheEfutzpXbd4oHqh0BEbYYRs07HGa+IJwNh/nDjun7jvHgrTfQc=
+	t=1785622032; cv=none; b=e9uAKTxUjP1puBtHvtBqBosp5kCJ8ZqkbFBPOZn6um60sVWliMWf3ZRVA47RDVHVkPOauZyYQAKg0dPhh2fMDqJSFqJ8J+zRsMVne+JJsYdJdLD18szwb3SEzzWHD5KYl4cOnQHlKvb4YQSVEUscAQT1SbLLIwEqzCZ3OZqPRf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785620261; c=relaxed/simple;
-	bh=PdcrG7GkMxlOZ4eaudUMpHVF5woUKkG1xAqvC1xgXnA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rXWWaHFo73VSoVCDa6sBaYheZQXFYWsJHBsJvxstjI+JRheiC90MZMKp6gxHZ0gqkDk8CHqNWNQoPcVAezc02+uY0vEDSg3NvEgmuuvzWTulxeLVeFbf8vGAEfxWkTIdByZ7dnb1iUiwmkJfhSi/q9QHilhzvZsNTJnlUbf5hiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BigswsHj; arc=none smtp.client-ip=209.85.222.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785622032; c=relaxed/simple;
+	bh=3KUeC7HRIA2DPBIG28P3L6gX+MHsV906e2Arjceluf4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EIGgtLcaG2KT6xP0PPTXKQlDFOCey66+f3qDzHLgSiEU9csZ7MkEZAVSZfBnblrv8B5rdUVD42ejkHNK3Z5NM7gR1z5yBVJhN9WuGn5h1n96sfSeTHSQHHpvx1exRChTYRAH3CYPG21oTgZCDt9QHvhswc45F7sIdqroSNSA6vE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aa/OjSsV; arc=none smtp.client-ip=91.218.175.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BigswsHj"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-930c0f9c1b1so125508985a.1
-        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 14:37:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785620258; x=1786225058; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G6Et0NhWmlhqF6H6Esm0lrRD3CSb6Cqp9D32iHCNdQ4=;
-        b=BigswsHjpvhURs2nEr5x3PDY7BtwS+iHViS80ZctZEbwla7nmXh7wK0yfcC60pJ8EP
-         Vw8/UQOsncG5We2H4lF0l1mEY2lDV5svCTCj7aJGHYmWdwQ/AFbE0MIBq7HkpWXijzYV
-         Kj5k1ttu4EoAwp1nuRsxYhis+ewC3uaXSwNVAw3b+/VKPSnxEI+4VYtQ+9nRQUIQa26u
-         dIKmV+BilrVMbnHpK+LKqMF1Babz0D8zz+XMdZyh5JJZh/hNcDE4RFZgwIF8IIF1nJN/
-         +LxbsuiDfPHI5JqwAshctdtkJkMOhCGPu/r9ex+7u8U1UdGWZY5UARFSAGsfWNxoba5c
-         O5IA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785620258; x=1786225058;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G6Et0NhWmlhqF6H6Esm0lrRD3CSb6Cqp9D32iHCNdQ4=;
-        b=NFDQssqbvFgBbtwUANrV8X6Uo0vo5TzYYNkRI1FHrR38DjikUlCywxHiDEb16RJKlK
-         xcgFJaLFPCmwjXWZRjvtcs7asKZBD4VoUvaNPGO+iasd1FDSZ+BOHvGS+8UXfYk1Ql9+
-         KDR1boDK+H5zWmwW8vq4FhJGPnWUx7QLGoyuM9M1wk9NTzt1c/eoG88XU+hFDXpAUe2c
-         vSvd8VUgK4Ru3X8X94rHTXO8aFkI1VUq5uEJd7Al5DiWPqIn70OHHw2E3A3DnB8PasrC
-         NBt/3om+8io4D2+8WBgtnVmOPAeLQZPHo6WKpIhWjk5KDaTVC7VS5yjFynZoh3AppnA6
-         QsHQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpkUFWoGppjvcyCXNbsV/VoOU669aakM0sn/Jhkckxsvr4ckAnDhDoCa0GOdM53OhJLvDd1aUc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YztMvQjDZQaHq0V5OU+jgF5bfAODnzCrpsVzskb657G6w82tFp0
-	QDoHP4TbasS3hC39oVywswyOQcXV8J9tyf2b+WEy9R/AFOr0L7/MBH8H
-X-Gm-Gg: AR+sD11IAWXPOlhy1zCix2at38S4eTZMZPpW7vFMqf9wOVl4nDXsbv8UwrA0Gh2R3Yy
-	j0VxaMt/CecumP4JJDUkWnLdPkPh0vOMSzAFOQz6UL3yv5nQDkjRd1Edj+FUAtbBR+6uldZOCSs
-	I6tpapru9v23dlbliss/2cchPVknve8z9AU5uTFdOqAAwDmAeqsk0TMWRoAi9Dr2GeyR6qGtS5B
-	Q+TgeGShkASs00rdZd7l6G9aa4J9gJSNVEpQh2svqFJpFzi5wsM1uOnb9QILXVlNZ+7egMBl72P
-	IcEDPO79kxe7xXdDMF/WshPNhPb51W+6hCxDToWgAGGmFJQd6ZovBppsJqYYHIpaB9ErkaYEd2/
-	CXzy2fo5CnS+n2/i96x297jobMEc11GDSbjp3kvt/+1K5crgApsBC4VCYMLqKLzpT9uncCVGL9P
-	YXPINBAljLxuHS2x7C15l9PtntbEjroz4vbSK366+v/l/pdoX/gGmUb9duit0inwPfDvnvI0Bc0
-	2ji6T2vT3iNHK//VQ==
-X-Received: by 2002:a05:622a:22a2:b0:519:e020:6087 with SMTP id d75a77b69052e-52b5679fb54mr98575971cf.11.1785620258384;
-        Sat, 01 Aug 2026 14:37:38 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-908435b6adesm40376256d6.24.2026.08.01.14.37.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 14:37:38 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: bernard.metzler@linux.dev,
-	jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] RDMA/siw: Fix use-after-free in siw_accept()
-Date: Sat,  1 Aug 2026 17:36:32 -0400
-Message-ID: <20260801213632.1086548-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aa/OjSsV"
+Date: Sun, 2 Aug 2026 00:06:50 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785622018;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=etwQp5nKC/6j0jIPO0+nawBmEUGNysMKUcMCQrhX0c8=;
+	b=aa/OjSsVzX8DYWXfUGDkipCHD3V3P/RYtBMfsiXqhvkRsb68+Stmu42Anm5bSVaxxOp698
+	yC3fwcYIMdlKmYY0zZgR/oZlerUUTlVM+C1Y4qzxnrY/QJguLZEjUPSuIYcrNLdykkheoW
+	uODOIIxcKkCURkvKsdzytGySabgu1Ps=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Thorsten Blum <thorsten.blum@linux.dev>
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: Geoff Levand <geoff@infradead.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Justin Stitt <justinstitt@google.com>, Kees Cook <kees@kernel.org>,
+	stable@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] powerpc/ps3: Fix repository.c build failure
+Message-ID: <am5t-ixyIp1IwdV5@linux.dev>
+References: <20260703165834.137242-2-thorsten.blum@linux.dev>
+ <6be33030-781f-4480-8ccd-81c5b1df220a@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <6be33030-781f-4480-8ccd-81c5b1df220a@kernel.org>
+X-Migadu-Flow: FLOW_OUT
 
-siw_accept() looks up the QP supplied by userspace. If that QP is
-already in RTS, the function jumps to error cleanup before associating
-the incoming CEP with it.
+On Fri, Jul 31, 2026 at 09:34:28AM +0200, Christophe Leroy (CS GROUP) wrote:
+> Le 03/07/2026 à 18:58, Thorsten Blum a écrit :
+> > GCC fails to build ps3_defconfig with the following errors:
+> > 
+> >    arch/powerpc/platforms/ps3/repository.c: In function ‘make_first_field.constprop’:
+> >    arch/powerpc/platforms/ps3/repository.c:78:9: error: ‘strnlen’ specified bound 8 exceeds source size 3 [-Werror=stringop-overread]
+> >       78 |         memcpy((char *)&n, text, strnlen(text, sizeof(n)));
+> >          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    arch/powerpc/platforms/ps3/repository.c: In function ‘make_first_field.constprop’:
+> >    arch/powerpc/platforms/ps3/repository.c:78:9: error: ‘strnlen’ specified bound 8 exceeds source size 4 [-Werror=stringop-overread]
+> >       78 |         memcpy((char *)&n, text, strnlen(text, sizeof(n)));
+> >          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> > 
+> > The current use of strnlen(text, sizeof(n)) triggers -Wstringop-overread
+> > when text is a short string literal that is smaller than sizeof(n), such
+> > as "bi" or "bus". Use strlen(text) instead and clamp the copy length to
+> > sizeof(n) before memcpy().
+> > 
+> > Drop the redundant char * cast while at it.
+> > 
+> > Fixes: f94a84a09148 ("powerpc/ps3: refactor strncpy usage")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> > ---
+> >   arch/powerpc/platforms/ps3/repository.c | 5 ++++-
+> >   1 file changed, 4 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/arch/powerpc/platforms/ps3/repository.c b/arch/powerpc/platforms/ps3/repository.c
+> > index b8c030eab138..0cc755ac3e7f 100644
+> > --- a/arch/powerpc/platforms/ps3/repository.c
+> > +++ b/arch/powerpc/platforms/ps3/repository.c
+> > @@ -6,6 +6,8 @@
+> >    *  Copyright 2006 Sony Corp.
+> >    */
+> > +#include <linux/minmax.h>
+> > +
+> >   #include <asm/lv1call.h>
+> >   #include "platform.h"
+> > @@ -74,8 +76,9 @@ static void _dump_node(unsigned int lpar_id, u64 n1, u64 n2, u64 n3, u64 n4,
+> >   static u64 make_first_field(const char *text, u64 index)
+> >   {
+> >   	u64 n = 0;
+> > +	size_t len = min(strlen(text), sizeof(n));
+> > -	memcpy((char *)&n, text, strnlen(text, sizeof(n)));
+> > +	memcpy(&n, text, len);
+> >   	return PS3_VENDOR_ID_NONE + (n >> 32) + index;
+> >   }
+> 
+> Maybe change to u32 and remove the n >> 32.
+> 
+> Shouldn't the same fix be done in make_field() ?
 
-The cleanup tests whether qp->cep is non-NULL and assumes the current
-call installed the association. However, qp->cep can point to the CEP
-of an existing connection. The cleanup then drops a reference from the
-incoming cep, not qp->cep. Once the incoming endpoint loses its
-remaining references, this can free it before the subsequent cep->qp
-store, causing a use-after-free. It also clears the existing QP
-association.
+make_field() has two callers where the compiler can't infer the size
+of the string at compile time, so it doesn't produce this error.
 
-Only release the association reference when qp->cep is the incoming
-CEP. This preserves an existing association and avoids accessing the
-freed endpoint.
-
-Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
- drivers/infiniband/sw/siw/siw_cm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/infiniband/sw/siw/siw_cm.c b/drivers/infiniband/sw/siw/siw_cm.c
-index 87c79527ac09..0245b25e7271 100644
---- a/drivers/infiniband/sw/siw/siw_cm.c
-+++ b/drivers/infiniband/sw/siw/siw_cm.c
-@@ -1751,7 +1751,7 @@ int siw_accept(struct iw_cm_id *id, struct iw_cm_conn_param *params)
- 	cep->state = SIW_EPSTATE_CLOSED;
- 
- 	siw_free_cm_id(cep);
--	if (qp->cep) {
-+	if (qp->cep == cep) {
- 		siw_cep_put(cep);
- 		qp->cep = NULL;
- 	}
--- 
-2.43.0
-
+make_first_field() is called only with constant strings, which lets the
+compiler infer that all string lengths are less than 8 bytes.
