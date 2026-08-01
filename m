@@ -1,54 +1,42 @@
-Received: from sender-of-o57.zoho.eu (sender-of-o57.zoho.eu [136.143.169.57])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C05E3D7D8D;
-	Sat,  1 Aug 2026 22:56:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785625002; cv=pass; b=q2hVqZazmrO2SKjZ7vhdMgMJ+ChzSvOZY5fSlZ/pW+bukiMidJJ1p9ytNqMS8z+5NRmXgOkdSqIxcuLPfiQI3MiLSrYsV1agIND2Cif0uQrY0kcp4CZmaEnIhpm1seUE4TSY1VXuYcUb/m0IqbYo8ki4ugqF3dkI6wrdKrOT8Ac=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785625002; c=relaxed/simple;
-	bh=XdkxGDfzSI7P6MMJk62hR0JJOfNVTLTtD0YeeEO23Cs=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BFEF23D7F4
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 23:22:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785626532; cv=none; b=EVKM5+ecoXGonVq+q5yLAaw6DVmvHkr13L6HMV83TOp4d5vZKbC8LF/qGpm18S8lDIOH+IpFyAAXLKIR5FKKx0xGIdNETs1B9ZJU7C7XAHJDnfyq58bdOMgbKWzw0aaqb1pN7kksyNIvbTcUiY+LlFUV4p+DagFh7oTtfZXxFys=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785626532; c=relaxed/simple;
+	bh=An5RoleomqWqsFfjW58fPSUvVDnSq5Kg50X6HCb7C6Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nfhp1IU099NLRzZCQMO3x/2CdgFbVR3bVZeJJrU9dFJAHL8uzkcQv8IiQpVY+2RCV2NdBJ9e3nWhKkVIoS5gVnyABDTFySCa9JvkcQjuxsN6CJDKpTLHZN10KIqgNevvCurSfxXvxxylWCFJ2aSTLVApgVMhm9cZDPoSep7Qe4Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com; spf=pass smtp.mailfrom=iusegentoo.com; dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b=pNv5cwU9; arc=pass smtp.client-ip=136.143.169.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iusegentoo.com
+	 MIME-Version; b=oEAR0Sdg9BFErYjWVahFF3osagayTWt5pcEUgr4FImBrvxE3yvzzxc+dWF6aonIq6UfiHv9CJOJHuV8/LLrCI9438gBNoTIbjVwsPKSUAzcFLthJ/y+ljPY82mEDCkpR7aVux5it7Yq4AAZvDN4CWAXD6vFyrCyRZlgla4JNXX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ePcxnzuy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b="pNv5cwU9"
-ARC-Seal: i=1; a=rsa-sha256; t=1785624971; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=jt7sRDIDN01YmpNDQD2JZw3uk2DdwbrICvORWzJXdc2nNeYeU+9fOv+oqkyBAynjTAD97R996oq1NgvjlvNmNPMekuHu9SETwCyc6RFPxtft6X2o/Loyas5KiCaCkeEtiaw2slwLlEg8/XIMRBXkbrADnEAIPLYVHFAGYrSsN9c=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1785624971; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=oPnFqlEANbkxNnysV+MSTA5NNFDMwBcEWEn1p+4Ko4s=; 
-	b=XWfwFvvZ/YNfeEAbIAcY5XvJhcnPag1k1jHe4BJWc6OyoaXePH+zkd3x0pPUolluPbtiiIwRFlYLWjqv/G4MdpXRexYFxgEw5Ux/ThSdyqnOmvvQBppngSbZArYdVQPjLxZfRU3hFxQUs0rftTEGKYhEQuSO1UMVAp+8aYRPvic=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iusegentoo.com;
-	spf=pass  smtp.mailfrom=ali@iusegentoo.com;
-	dmarc=pass header.from=<ali@iusegentoo.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785624971;
-	s=zmail; d=iusegentoo.com; i=ali@iusegentoo.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=oPnFqlEANbkxNnysV+MSTA5NNFDMwBcEWEn1p+4Ko4s=;
-	b=pNv5cwU9dUWyxx2DprP+0yhrDe+G2Q/p8T6ImYk6PP79vtlB6/wIA0NkPKbcFUBq
-	oLwzChfbE5L+NnZfIDIW7NCBnSDvfqna+KWdGSceyD4cetVFDuQHPtvWEX8DL1urCZi
-	84E+vLknDDKz5OK6GXuRN2gGM7ZSae/5oVGYii5U=
-Received: by mx.zoho.eu with SMTPS id 1785624969818237.25911884847096;
-	Sun, 2 Aug 2026 00:56:09 +0200 (CEST)
-From: Ali Ahmet Memis <ali@iusegentoo.com>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 06/10] ufs: fix fragment relocation offsets within a folio
-Date: Sat,  1 Aug 2026 22:55:26 +0000
-Message-ID: <20260801225530.148386-7-ali@iusegentoo.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260801225530.148386-1-ali@iusegentoo.com>
-References: <20260801225530.148386-1-ali@iusegentoo.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ePcxnzuy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7807D1F00AC4;
+	Sat,  1 Aug 2026 23:22:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785626531;
+	bh=fuLlBgs7RSvRmkTlQJXVyYfr5SlpT99vIlml65yQphg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ePcxnzuyDMCsItsM5InKrjPDP6AmJN4Oz0tQiQ0JBo39pziOijYFiEbC+izZeTvGJ
+	 2+8etxofHXa4mvthp90Z8vLgAYHDbaNcVyqJLM6WjFGYfCl53Q1K2RE8XScF1cOW+A
+	 02laqfyz6lCetfJYL+iutloCf3rB0oMoD3GsUvWhmn4hLsbaT0oAYK+aYrvV8uVFie
+	 ESFu0u+DUIEye7/opRdEMwqJofZneV6oajb6+sW+/99X6SVqyXzkPdTApSQc/0i1LK
+	 wbyq7TCqlijVE5eEvfw41KWReKWvwX/vlNWrDyVRawam6pD0W2OFUuPKHtbUrgAsYB
+	 YWEf4VnQ4TOJA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] drm/virtio: Return proper error codes instead of -1
+Date: Sat,  1 Aug 2026 19:22:07 -0400
+Message-ID: <20260801232208.1620056-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072943-browse-aviator-abf1@gregkh>
+References: <2026072943-browse-aviator-abf1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,93 +44,55 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-ufs_change_blocknr() walks the buffers covering the fragments being
-moved from oldb to newb. Inside a folio it starts at the buffer holding
-the first fragment:
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
-	pos = i & mask;
-	for (j = 0; j < pos; ++j)
-		bh = bh->b_this_page;
+[ Upstream commit 4c703f5d6f776eaa6a98611c9b5dfe800fbeb0c8 ]
 
-so j is a buffer index within the folio, not an offset into the range
-being relocated. The body then uses it as if it were one:
+Don't return -1 in error cases, return proper error code. The returned
+error codes propagate to error messages and to userspace and it's always
+good to have a meaningful error number for debugging purposes.
 
-	pos = (i - beg) + j;
-
-On the first folio i equals beg, so pos comes out as beg & mask where it
-should be zero. Every fragment is then shifted by that amount, both the
-source it is read from, oldb + pos, and the destination recorded in
-bh->b_blocknr, newb + pos. The tail of the relocation ends up past the
-end of the new allocation, which is only count fragments long, leaving
-dirty buffers pointing at fragments that can belong to another file or
-to metadata. Later folios start folio aligned and are unaffected.
-
-Reaching it needs a page larger than the filesystem block. beg is the
-start of the existing tail and so is always a multiple of fs_frag, while
-mask is blks_per_page - 1. When PAGE_SIZE is at most fs_bsize the two
-are powers of two with fs_frag the larger, beg & mask is zero and
-nothing goes wrong. ufs_fill_super() already refuses fs_bsize below
-4096, so every 4 KiB page system is in that case. A 16 KiB or 64 KiB
-page kernel, as used on arm64 and ppc64, mounting a filesystem with a
-smaller block is not.
-
-Keep the starting buffer index and subtract it, so pos counts from the
-start of the relocated range again.
-
-Reproduced on an arm64 64 KiB page kernel with a 4096/512 UFS1
-filesystem, where a block is 8 fragments and blks_per_page is 128. A
-file with a one fragment tail in its second block has beg 8, so
-beg & mask is 8. Filling the fragments that physically follow that tail
-and then extending the file forces the relocation:
-
-  ufs: RELOC: beg=8 count=1 oldb=1457 newb=1528 mask=127 beg&mask=8
-
-Before this patch the first byte of the relocated tail reads back as 0
-instead of the written data; after it the file compares equal. The same
-test on a 4 KiB page kernel never gets beg & mask nonzero, as expected.
-
-Fixes: 5431bf97ce69 ("[PATCH] ufs: prepare write + change blocks on the fly")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Link: http://patchwork.freedesktop.org/patch/msgid/20220630200726.1884320-10-dmitry.osipenko@collabora.com
+Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+Stable-dep-of: 4e1a53892ba7 ("drm/virtio: bound EDID block reads to the response buffer")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ufs/balloc.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_vq.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/ufs/balloc.c b/fs/ufs/balloc.c
-index 628edfde3a9f..f617df64c45b 100644
---- a/fs/ufs/balloc.c
-+++ b/fs/ufs/balloc.c
-@@ -241,7 +241,7 @@ static void ufs_change_blocknr(struct inode *inode, sector_t beg,
- 	const unsigned mask = blks_per_page - 1;
- 	struct address_space * const mapping = inode->i_mapping;
- 	pgoff_t index, cur_index, last_index;
--	unsigned pos, j, lblock;
-+	unsigned int pos, j, lblock, first;
- 	sector_t end, i;
- 	struct buffer_head *head, *bh;
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+index 19a196b48a38..65c31fc4e7d3 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vq.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+@@ -329,7 +329,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
+ 		if (fence && vbuf->objs)
+ 			virtio_gpu_array_unlock_resv(vbuf->objs);
+ 		free_vbuf(vgdev, vbuf);
+-		return -1;
++		return -ENODEV;
+ 	}
  
-@@ -272,8 +272,8 @@ static void ufs_change_blocknr(struct inode *inode, sector_t beg,
+ 	if (vgdev->has_indirect)
+@@ -393,7 +393,7 @@ static int virtio_gpu_queue_fenced_ctrl_buffer(struct virtio_gpu_device *vgdev,
+ 			if (!sgt) {
+ 				if (fence && vbuf->objs)
+ 					virtio_gpu_array_unlock_resv(vbuf->objs);
+-				return -1;
++				return -ENOMEM;
+ 			}
  
- 		head = folio_buffers(folio);
- 		bh = head;
--		pos = i & mask;
--		for (j = 0; j < pos; ++j)
-+		first = i & mask;
-+		for (j = 0; j < first; ++j)
- 			bh = bh->b_this_page;
+ 			elemcnt += sg_ents;
+@@ -728,7 +728,7 @@ static int virtio_get_edid_block(void *data, u8 *buf,
+ 	size_t start = block * EDID_LENGTH;
  
- 		if (unlikely(index == last_index))
-@@ -284,7 +284,7 @@ static void ufs_change_blocknr(struct inode *inode, sector_t beg,
- 		do {
- 			if (j >= lblock)
- 				break;
--			pos = (i - beg) + j;
-+			pos = (i - beg) + (j - first);
- 
- 			if (!buffer_mapped(bh))
- 					map_bh(bh, inode->i_sb, oldb + pos);
+ 	if (start + len > le32_to_cpu(resp->size))
+-		return -1;
++		return -EINVAL;
+ 	memcpy(buf, resp->edid + start, len);
+ 	return 0;
+ }
 -- 
-2.55.0
+2.53.0
 
