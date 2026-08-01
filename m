@@ -1,184 +1,326 @@
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2310D2EB5B8
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 12:56:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785589012; cv=none; b=BISe+shI5Y6rCOUcgOhAgXSzcbExFrotTX4UbGnSIh8jhJsOLVwDpsT89qriyGn86jZ6VdM9R9PQ5EgxdFyGQyrHct9Ybx329z//wUMzXdcZapalgJPGgLgZnp2mhcmgS0z62KrFEZ3vwst0Y1xmrw1MMPnuyP3DoAxK0e1pW4Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785589012; c=relaxed/simple;
-	bh=geERCo2KgAe7FLO+4WZjeP/f5zSsTZKZow1tvCYsFlE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LvQ1G2xzXQVjAKV96RzZfafUXqO7YmfqMXMEQKoz2qZbYHx31EMDCyVR+n8iRTYfLNCdJ/d4mN8QPYTl9Kh/hav2W7yM7Q4oCXZguYH1hAr64OaEiIB50My+4IrkAeHxPqEGOfcGxUDbb2uYmcuEdsh4BXrKOyCJMdEJaJjOnG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=mWynFkm6; arc=none smtp.client-ip=209.85.222.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8866B126C17
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 13:18:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785590334; cv=pass; b=hMwAFpY5TfqMPjRNiP2J6MBd2oEPX8YRVpe9QC4o1gmqdsnOkNTK/GM/p2gG6BKAB579oxEHuCKrcHbQHKVezP5+sNYf8MnpT+Gkqo4sv0tzNi41k9/PgEnP3u+Qraaw1W07gajEibIs4+lWCY82ZyV7hV/03PoohY15iNkMi2c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785590334; c=relaxed/simple;
+	bh=4NGEx+4P+2tdbtO3YxEaPAUql5Hb7dnmzv69FoH21HU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EnttiOg7Uc7f0MIDproBkZSUY/EJ8Y37hDytj/U9z6X3swn0qLXPUUuUCtXIh6JAA1E0sajNSfFuRIHfF6N7qFOkwzAe9DUyMJJnRwa20SkkJFOAdTgK9Vygg0Rqr3tuy7GQY/PW1kwUQM+uNFzr7EDD0IGGawf7nWGQvLobIfQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F8ojHaNq; arc=pass smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="mWynFkm6"
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-934944f2d22so94880085a.0
-        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 05:56:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F8ojHaNq"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c1670dad7a8so269751066b.3
+        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 06:18:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785590330; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kzEk7ojLL6WjUW/aHnW9vRLjwxbE+jyjkElQADuLOsdNDcjBVickh81k08EtKceoNN
+         hMLENKU08BmeWl3iVGQEiJC4vq6yMwhzy2g3/jYf+9+SJdBPQRWii3TY2YNDM61Vz5C+
+         YgxSJmoYHaqk6an/D+x/+gGWA9r54ts0aI0hOT5jtSxOJCSvO0oX++YRHmk6xBL4KwJm
+         YkOXpU9bQbH4va6oIf8y3kkcjsIWAB71Cjl6hxi6bnGcc9sGSK+qt3nnXiPZiqEHv8pr
+         cOVVRklJu3T8n2EMcakNBa+eHiz/vJeZKE80csaJ2KrXDsqxWDmnIkr9aQRI3S0ENXy4
+         ynLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iygNWQGmruOGvUaJK+fgKr93bZtocwXmBZLE9BZnrCc=;
+        fh=OAKEABm6IPI/T0BRLIKnrBpJagfbBUFGI0aF5zDfKdA=;
+        b=W3Xx64yaLd7+ykiR+7MdywCiYG7bV34AuG9lcwLmnVz7jNiG/046mBY0JUz9Kq6Fes
+         ClBfXIlwB0WE/WjJW3oyETtDA384yfPHoYLRbLWdZNxLv+Sqjeh0CkEMISpmWZQ7RtLH
+         WiJpS2LZF+F7Oyh5icgU1N14f2Fxzg0eSPfi1Ff2PhIR0tXaM9yjSFGgaRZZoJEDotYC
+         Uq1Ze+8i9Tv0jKQoB8v4Zp9xI8LS4EyAybqt3mBRFo6bD8/TcdcViRaxCwCbPbWoaDfk
+         OVmToMK7YVd3mRKx84tzPbO5Fjw+juZvoTg6mSv1PSN87bOmNergGxxbgWmGp+QzY0eb
+         lGfw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1785589009; x=1786193809; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bZnZ6tTuvahRim61VJUbPOTWzgYIh9PQPJ7MO8TqOfM=;
-        b=mWynFkm6s8+YUNaQAqEn1Rx5VPL/7dpOahE66KQ2FZb1gbc3nVaV13DRr7zROvPOBD
-         ZJwU+1iZ8bVOMrF3QLC/i6d+u+7xw1WbwNwRGaPcN9KodaSnJm06sSFI6WYvJpfspatm
-         oLDlKeIKxie78DT9CJt+LjEUYzmH8k3zWqCnE=
+        d=gmail.com; s=20251104; t=1785590330; x=1786195130; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iygNWQGmruOGvUaJK+fgKr93bZtocwXmBZLE9BZnrCc=;
+        b=F8ojHaNqWevvP1nvTg+/RH8zIi1NwYdd5goIk+hYzRWB8vxpzAILw+K2y0ZqX2NWfA
+         IRmuQuEXu1CH/B9fGuFeKJ9ip1/1S7MTdJ9DANXlQSm5/yShTLN/sGdoNzDl6sKXvoLa
+         BSU1HqD5KIumLiCIbB2h1IpNhyBnpzvQaULR00GtQh5Mc/IVGdvX1CPHWiiulGWfRg/+
+         meWkal63YtiZYy4SHOHFQqwDeXhyuHml1Y8pwhRS/x24slvmdhZvJRP774De0ZwGXeyB
+         SZrPMhJVPvm81OlfK96INZQ3EDmlFkvdCIIhhEtkRc3V2MLQs9c0d1lNIa1wVixJN0XB
+         DXiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785589009; x=1786193809;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bZnZ6tTuvahRim61VJUbPOTWzgYIh9PQPJ7MO8TqOfM=;
-        b=YfZ9M3d38/HLk2uUFvvMWyMpDZwZb3Gsu5Yxt4nDMh//0j5GaXqQjMyrRt53J/s+E3
-         lnngVobFkmvrxTqdkLVHx5U9mYIHYILp0ZtVP4xE+In0XvERbyuZmOinayFGlGIY5T0L
-         M2xDaVGkHHsMzpAx5oXmpgpBTwdZXY8vh2kxfIAQgEiei9uNxgj3TkFkiIMV9R/E5ABs
-         X1cqmjHyiLLDOP6ZcsatmmgaBybJou84u0PKjbCU2EbfNAJaZDnwmtJn9PumrMmCvl8m
-         9n+Ca6x1pGCJqxD1eoX3ZUsbfeRHGINzeRuMx9vrbz5ujqtD2jHufHluyPmh5CXwQMgs
-         qFDw==
-X-Forwarded-Encrypted: i=1; AHgh+RorUQvcIiWRwjrUSQfoSKPO4h9U0XknLVJOCMMm6qbmlYUSVXA7PehKjEkUsSoT9hLMqdFMs6M=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzafznS4VJM8D7Achnw5EZB6BLZmVyecRiS8sERh4FsEFaiG6/m
-	gsK9q/6JXYBXssqDTIVXl6sJ/Zt9I5b9D5+emfA630GOwVhypQAca7wuxEoqxlPIAg==
-X-Gm-Gg: AR+sD11m0iY+BlKNa1uNetyZVDGQXK28N/JS0lUxycOAEBHcaI/aC4FbfGuD8WJH5W1
-	rXLyT86q78Kegkx3Fn+twjMsLzEP6XbVRBBABng2f/AxwcGPy7YcNJk2tQe7J5w/xMl9T3Uezke
-	6mm/I/UxeL2c0kiIb8tmSOMGe8C8cwCQ+9jxw0CrI2IWnVUDqv9DKF9HcNq6lqcJS8Lk2DsOluX
-	ZrkP+WtbST2Xp91rdn5xqov8tEvgiXTH3h2IQjC5xEJyYDFsSJaBv9sZxERwB6j3O4DON9Dhbm0
-	FC2Qmb39UtjS6aTbvh2LvrlM+C4nbzoyxKDhLMTQKyZ8p/xaJO4y/lQLb4G5XA8SVcseA6pjSqg
-	j6o3S17mlCXY+As7BcmCq0HXFYKbN5MU7eVXEErfdTgVe0r2kPkpZ3B+12Lg95QIvQNTAsh2kqq
-	v6kLXCRVjzaaWS6lWI9FnhDT+gZv8Suev9kF2efL0g1eRBnQbKuMwixw==
-X-Received: by 2002:a05:620a:5dc4:b0:92e:fc42:2c19 with SMTP id af79cd13be357-934a0789dd3mr545467885a.11.1785589008902;
-        Sat, 01 Aug 2026 05:56:48 -0700 (PDT)
-Received: from majuu.waya ([184.144.29.222])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9349c1c1d0esm273036685a.33.2026.08.01.05.56.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 05:56:48 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: pabeni@redhat.com,
-	kuba@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	horms@kernel.org,
-	jiri@resnulli.us,
-	victor@mojatatu.com,
-	security@kernel.org,
-	stable@vger.kernel.org,
-	feng.xue@outlook.com,
-	vladb@nvidia.com,
-	Jamal Hadi Salim <jhs@mojatatu.com>
-Subject: [PATCH] net/sched: cls_api: Always acquire rtnl_lock when destroying locked classifiers
-Date: Sat,  1 Aug 2026 08:56:32 -0400
-Message-Id: <20260801125632.360365-1-jhs@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20251104; t=1785590330; x=1786195130;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iygNWQGmruOGvUaJK+fgKr93bZtocwXmBZLE9BZnrCc=;
+        b=RZDalV+NIzW/v6lLbhQwf8EqlEhM6Zycj/W9x8+0J/8a6PoaJn7pu/36iLvivVvaXD
+         5KyT2ls2pBZZMTf3/ijUHjTVTz9rDxAHp2GPZPAka9JvGKYUVg+4/fohvvh/RUar3bxz
+         zJNAeFfCRIRli4T8TRycn4A8YV22tzwncZZakEUPiYK9bs+FjV4VAd/mTvsOcrd2FiEL
+         gzFMyKXcgkZus43Pa4oQfF7ScWTPYbh8kWE9oof2rBwduAVB8oftlb3Akg1rC3z3Zmqa
+         D87Kee1xDfdfu7AX81aHvebBMtkwxloUf+GRyfPOTrEUGLWK1Mywil4SqPXah/TwFx+3
+         D/Rw==
+X-Forwarded-Encrypted: i=1; AHgh+RoVnhs7QS5UrB+QXCaz75k0J+NbR/m9RTDr/Ksz1anS2nfrny2BowVsuEG+rcgFFx4Z8iSEpYg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyTI6A2g4y2gh+sADU6vnU7zY6R3m6hLvO33nfzsHdZHk3JX5HC
+	h0K7vzVOQ1BS1RjxABykglQqwUeMtW3dxik2zDLvDE1oNTy015/1b3K1Wl1pSdkXUaD0SCLGS4A
+	qVNjqxcAS7VhUgvyZBNgH5RksANmyHXY=
+X-Gm-Gg: AR+sD11QqOORZTw/42G5Y6ta7TlbZr6/HW+dy4bkE0aO2nx3LQqc+QxhKgJC9n/z6+P
+	go8ImPIBNS5MrE1e1TzMLk2QgHe+LAsjsoSoiuQbqNtx0rgN/WEOXMya/LbI2qcQ6yyVRQI93QX
+	vCKFPaRxoNIgw0UFObKwsNJxp1UxmegyJptiCjIPASDPOKYr14bDVk/pHnVXDgwCFzIKBav5OCe
+	WsaXbtAF/95qsRfHyn5aXXmTo07qedzdKDCP+Q173d2IUItu+5l7P2NiwBg5pyKSwlkW+1l0fu+
+	IAeFsslfo/NlC8EZqWBiW2301kpu8XujLm+k64G5oBsSlDmkshg+CGjBJw==
+X-Received: by 2002:a17:907:3f86:b0:c17:40e5:3d75 with SMTP id
+ a640c23a62f3a-c1fe81b07a4mr211595266b.16.1785590329982; Sat, 01 Aug 2026
+ 06:18:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260730150407.328731-1-yjkwon0026@snu.ac.kr> <20260801055704.2663156-1-yjkwon0026@snu.ac.kr>
+In-Reply-To: <20260801055704.2663156-1-yjkwon0026@snu.ac.kr>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Sat, 1 Aug 2026 15:18:38 +0200
+X-Gm-Features: AUfX_myFcd7kIGfVu3WLvnW9nBz37p2pVP5x2QYjnErGq5HPIwzoE0nOAMbfnV4
+Message-ID: <CAOQ4uxh3Z-F6VKAZoF2cRnVL1r_XqxJxTFyW-P3q_yet98o+Ww@mail.gmail.com>
+Subject: Re: [PATCH v2] fsnotify: Fix stale object mask after concurrent mark updates
+To: Youngjae Kwon <yjkwon0026@snu.ac.kr>
+Cc: jack@suse.cz, linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Another challenge with unlocked filters.
-There is a short window in tc_new_tfilter where a tcf_proto can be found
-and briefly referenced by a totally unrelated, unlocked classifier's request
-and cause a race.
+On Sat, Aug 1, 2026 at 8:00=E2=80=AFAM Youngjae Kwon <yjkwon0026@snu.ac.kr>=
+ wrote:
+>
+> When a mark gets a new event bit, fanotify and inotify avoid recalculatin=
+g
+> the object mask if the cached aggregate already contains that bit. This i=
+s
+> racy with a recalculation triggered by a concurrent update to another mar=
+k
+> on the same connector.
+>
+> The concurrent scan can read the mark before the new bit is added, while
+> the updater reads the old aggregate before that scan publishes its result=
+.
+> The updater then skips recalculation and the scan publishes a mask withou=
+t
+> the bit, leaving the object mask stale after both updates complete.
+>
+> This can be reproduced with two fanotify groups watching the same inode:
+> one thread removes FAN_MODIFY from one existing mark while another thread
+> adds FAN_MODIFY to the other mark. After both fanotify_mark() calls retur=
+n,
+> writes can fail to produce FAN_MODIFY for the group whose mark now contai=
+ns
+> the bit. This was reproduced on an unmodified v6.12.95 kernel. The
+> equivalent inotify interleaving loses IN_MODIFY events.
+>
+> Always recalculate the connector mask after successfully updating an
+> existing fanotify mark
 
-Feng created a poc which created this race with two threads, one creating a
-u32 filter and other a flower filter in the same chain/prio:
+Please don't use this big hammer.
+See comments on v1.
 
-1. Both threads enter tc_new_tfilter, both find the chain empty, both
-   drop filter_chain_lock
-2. u32 finishes tcf_proto_create("u32") first, calls
-   tcf_chain_tp_insert_unique() -> inserts u32_tp into the chain
-3. flower finishes tcf_proto_create("flower") later, calls
-   tcf_chain_tp_insert_unique() -> tcf_chain_tp_find() now sees u32_tp
-   already there, takes a reference on it, destroys flower's own tp_new
-   and returns u32_tp to the caller.
+Thanks,
+Amir.
 
-Flower then hits the kind mismatch check (because it requested for kind
-"flower" but tp->ops->kind is "u32") and goes through the errout path
-which calls tcf_proto_put() on u32_tp. If the u32 thread has already
-gone through its own errout (its change() call failed on the PoC's empty
-options) and dropped its create and insert refs, flower's put is the
-last one and drops u32_tp's refcnt to zero.
-
-At this point tp->ops->destroy() runs in a context that never took
-rtnl_lock. When that happens, it might cause a UAF like the following
-(illustrated by the PoC):
-
-[  +0.000710] BUG: KASAN: slab-use-after-free in u32_init (net/sched/cls_u32.c:393)
-[  +0.000281] Read of size 8 at addr ffff888120022f00 by task poc_feng_xue/524
-
-  Call Trace:
-   u32_init (net/sched/cls_u32.c:393)
-   tc_new_tfilter (net/sched/cls_api.c:2378)
-
-  Allocated by task 526:
-   u32_init (net/sched/cls_u32.c:378)
-   tc_new_tfilter (net/sched/cls_api.c:2378)
-
-  Freed by task 522:
-   kfree
-   u32_destroy (net/sched/cls_u32.c:662)
-   tcf_proto_destroy (net/sched/cls_api.c:446)
-   tcf_proto_put (net/sched/cls_api.c:459)
-   tc_new_tfilter (net/sched/cls_api.c:2459)
-
-Fix this by having tcf_proto_destroy() take rtnl_lock around
-tp->ops->destroy() for locked classifiers whenever rtnl is not held.
-
-To explain why I used a temp variable "not_lockless" I'd like to point to a
-semi-related note on rtnl_held vs TCF_PROTO_OPS_DOIT_UNLOCKED (adding here
-for future cleanup if deemed necessary):
-The rtnl_held parameter and the TCF_PROTO_OPS_DOIT_UNLOCKED flag are
-redundant sources of truth for whether rtnl_lock is held. Among the nine
-classifier destroy(..rtnl_held..) callbacks, only flower consults the
-rtnl_held parameter which it propagates to tc_setup_cb_destroy()
-and tc_setup_cb_call(). The other eight (u32, flow, bpf, cgroup, route, basic,
-fw, mall) ignore it entirely;-> those that call tc_setup_cb_destroy()
-(u32, bpf, mall) hardcode true always instead of forwarding the parameter.
-
-A future cleanup should remove the rtnl_held parameter from the destroy callback
-signature entirely and have callers rely solely on their knowledge whether
-they are running in an unlocked context.
-
-Fixes: 12db03b65c2b ("net: sched: extend proto ops to support unlocked classifiers")
-Reported-by: Feng Xue <feng.xue@outlook.com>
-Tested-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
----
- net/sched/cls_api.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
-
-diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
-index fee4524adc98..4e6a2812a4f3 100644
---- a/net/sched/cls_api.c
-+++ b/net/sched/cls_api.c
-@@ -443,7 +443,22 @@ static void tcf_chain_put(struct tcf_chain *chain);
- static void tcf_proto_destroy(struct tcf_proto *tp, bool rtnl_held,
- 			      bool sig_destroy, struct netlink_ext_ack *extack)
- {
--	tp->ops->destroy(tp, rtnl_held, extack);
-+	/* A locked classifier's destroy callback (e.g. u32_destroy) uses
-+	 * rtnl_dereference() and mutates shared structures (e.g. the
-+	 * tc_u_common hash list) that are only safe under rtnl_lock. When an
-+	 * unlocked classifier's request (e.g. flower on ingress) loses the
-+	 * tcf_chain_tp_insert_unique() race and ends up dropping the last
-+	 * reference on a locked classifier's proto, destroy() would run
-+	 * without rtnl held. Take it here in that case.
-+	 */
-+	bool not_lockless = !rtnl_held &&
-+		!(tp->ops->flags & TCF_PROTO_OPS_DOIT_UNLOCKED);
-+
-+	if (not_lockless)
-+		rtnl_lock();
-+	tp->ops->destroy(tp, rtnl_held || not_lockless, extack);
-+	if (not_lockless)
-+		rtnl_unlock();
- 	tcf_proto_count_usesw(tp, false);
- 	if (sig_destroy)
- 		tcf_proto_signal_destroyed(tp->chain, tp);
--- 
-2.34.1
-
+> or inotify watch. In fanotify, FS_MODIFY handling
+> may clear ignore_mask concurrently without taking mark->lock, so
+> calculated mask snapshots are not reliable. In inotify, replacing a watch
+> temporarily sets mark->mask to zero, so a concurrent scan can observe zer=
+o
+> even when the old and final masks are equal. Mark updates are expected to
+> be infrequent, so avoid these racy optimizations.
+>
+> Link: https://lore.kernel.org/all/CACwKKmCZdiZDoFuYm6LZhQ=3DXvHPk0fNKH=3D=
+X3LmoXMqakYqJaNw@mail.gmail.com/
+> Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
+> Fixes: 912ee3946c5e ("fanotify: do not call fanotify_update_object_mask i=
+n fanotify_add_mark")
+> Cc: stable@vger.kernel.org # needs adjustments for <=3D 7.0
+> Suggested-by: Jan Kara <jack@suse.cz>
+> Signed-off-by: Youngjae Kwon <yjkwon0026@snu.ac.kr>
+> ---
+> Changes in v2:
+> - Always recalculate after a successful fanotify mark add/update or updat=
+e of
+>   an existing inotify watch.
+> - Drop the fanotify calculated-mask and cached-aggregate checks; neither =
+can
+>   close the race with concurrent ignore-mask clearing.
+> - Make fanotify_mark_update_flags() return void; its recalculation
+>   bookkeeping and the now-redundant first-time guard are no longer needed=
+.
+> - Drop the inotify old/new mask check because the replace path can expose=
+ a
+>   temporary zero mask even when the old and final masks are equal.
+>
+> I will send backports for stable kernels through 7.0.y after this lands.
+>
+>  fs/notify/fanotify/fanotify_user.c | 35 ++++++++----------------------
+>  fs/notify/inotify/inotify_user.c   | 15 +------------
+>  2 files changed, 10 insertions(+), 40 deletions(-)
+>
+> diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fano=
+tify_user.c
+> index 9ee373ff5..a3648cec5 100644
+> --- a/fs/notify/fanotify/fanotify_user.c
+> +++ b/fs/notify/fanotify/fanotify_user.c
+> @@ -1276,12 +1276,11 @@ static int fanotify_remove_mark(struct fsnotify_g=
+roup *group,
+>         return 0;
+>  }
+>
+> -static bool fanotify_mark_update_flags(struct fsnotify_mark *fsn_mark,
+> +static void fanotify_mark_update_flags(struct fsnotify_mark *fsn_mark,
+>                                        unsigned int fan_flags)
+>  {
+>         bool want_iref =3D !(fan_flags & FAN_MARK_EVICTABLE);
+>         unsigned int ignore =3D fan_flags & FANOTIFY_MARK_IGNORE_BITS;
+> -       bool recalc =3D false;
+>
+>         /*
+>          * When using FAN_MARK_IGNORE for the first time, mark starts usi=
+ng
+> @@ -1293,20 +1292,15 @@ static bool fanotify_mark_update_flags(struct fsn=
+otify_mark *fsn_mark,
+>                 fsn_mark->flags |=3D FSNOTIFY_MARK_FLAG_HAS_IGNORE_FLAGS;
+>
+>         /*
+> -        * Setting FAN_MARK_IGNORED_SURV_MODIFY for the first time may le=
+ad to
+> -        * the removal of the FS_MODIFY bit in calculated mask if it was =
+set
+> -        * because of an ignore mask that is now going to survive FS_MODI=
+FY.
+> +        * Setting FAN_MARK_IGNORED_SURV_MODIFY may remove FS_MODIFY from=
+ the
+> +        * calculated mask if it was included only to clear the ignore ma=
+sk.
+>          */
+> -       if (ignore && (fan_flags & FAN_MARK_IGNORED_SURV_MODIFY) &&
+> -           !(fsn_mark->flags & FSNOTIFY_MARK_FLAG_IGNORED_SURV_MODIFY)) =
+{
+> +       if (ignore && (fan_flags & FAN_MARK_IGNORED_SURV_MODIFY))
+>                 fsn_mark->flags |=3D FSNOTIFY_MARK_FLAG_IGNORED_SURV_MODI=
+FY;
+> -               if (!(fsn_mark->mask & FS_MODIFY))
+> -                       recalc =3D true;
+> -       }
+>
+>         if (fsn_mark->connector->type !=3D FSNOTIFY_OBJ_TYPE_INODE ||
+>             want_iref =3D=3D !(fsn_mark->flags & FSNOTIFY_MARK_FLAG_NO_IR=
+EF))
+> -               return recalc;
+> +               return;
+>
+>         /*
+>          * NO_IREF may be removed from a mark, but not added.
+> @@ -1314,28 +1308,19 @@ static bool fanotify_mark_update_flags(struct fsn=
+otify_mark *fsn_mark,
+>          */
+>         WARN_ON_ONCE(!want_iref);
+>         fsn_mark->flags &=3D ~FSNOTIFY_MARK_FLAG_NO_IREF;
+> -
+> -       return true;
+>  }
+>
+> -static bool fanotify_mark_add_to_mask(struct fsnotify_mark *fsn_mark,
+> +static void fanotify_mark_add_to_mask(struct fsnotify_mark *fsn_mark,
+>                                       __u32 mask, unsigned int fan_flags)
+>  {
+> -       bool recalc;
+> -
+>         spin_lock(&fsn_mark->lock);
+>         if (!(fan_flags & FANOTIFY_MARK_IGNORE_BITS))
+>                 fsn_mark->mask |=3D mask;
+>         else
+>                 fsn_mark->ignore_mask |=3D mask;
+>
+> -       recalc =3D fsnotify_calc_mask(fsn_mark) &
+> -               ~fsnotify_conn_mask(fsn_mark->connector);
+> -
+> -       recalc |=3D fanotify_mark_update_flags(fsn_mark, fan_flags);
+> +       fanotify_mark_update_flags(fsn_mark, fan_flags);
+>         spin_unlock(&fsn_mark->lock);
+> -
+> -       return recalc;
+>  }
+>
+>  struct fan_fsid {
+> @@ -1502,7 +1487,6 @@ static int fanotify_add_mark(struct fsnotify_group =
+*group,
+>                              struct fan_fsid *fsid)
+>  {
+>         struct fsnotify_mark *fsn_mark;
+> -       bool recalc;
+>         int ret =3D 0;
+>
+>         fsnotify_group_lock(group);
+> @@ -1534,9 +1518,8 @@ static int fanotify_add_mark(struct fsnotify_group =
+*group,
+>                         goto out;
+>         }
+>
+> -       recalc =3D fanotify_mark_add_to_mask(fsn_mark, mask, fan_flags);
+> -       if (recalc)
+> -               fsnotify_recalc_mask(fsn_mark->connector);
+> +       fanotify_mark_add_to_mask(fsn_mark, mask, fan_flags);
+> +       fsnotify_recalc_mask(fsn_mark->connector);
+>
+>  out:
+>         fsnotify_group_unlock(group);
+> diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify=
+_user.c
+> index ed37491c1..5f19c24ec 100644
+> --- a/fs/notify/inotify/inotify_user.c
+> +++ b/fs/notify/inotify/inotify_user.c
+> @@ -539,7 +539,6 @@ static int inotify_update_existing_watch(struct fsnot=
+ify_group *group,
+>  {
+>         struct fsnotify_mark *fsn_mark;
+>         struct inotify_inode_mark *i_mark;
+> -       __u32 old_mask, new_mask;
+>         int replace =3D !(arg & IN_MASK_ADD);
+>         int create =3D (arg & IN_MASK_CREATE);
+>         int ret;
+> @@ -555,27 +554,15 @@ static int inotify_update_existing_watch(struct fsn=
+otify_group *group,
+>         i_mark =3D container_of(fsn_mark, struct inotify_inode_mark, fsn_=
+mark);
+>
+>         spin_lock(&fsn_mark->lock);
+> -       old_mask =3D fsn_mark->mask;
+>         if (replace) {
+>                 fsn_mark->mask =3D 0;
+>                 fsn_mark->flags &=3D ~INOTIFY_MARK_FLAGS;
+>         }
+>         fsn_mark->mask |=3D inotify_arg_to_mask(inode, arg);
+>         fsn_mark->flags |=3D inotify_arg_to_flags(arg);
+> -       new_mask =3D fsn_mark->mask;
+>         spin_unlock(&fsn_mark->lock);
+>
+> -       if (old_mask !=3D new_mask) {
+> -               /* more bits in old than in new? */
+> -               int dropped =3D (old_mask & ~new_mask);
+> -               /* more bits in this fsn_mark than the inode's mask? */
+> -               int do_inode =3D (new_mask & ~READ_ONCE(inode->i_fsnotify=
+_mask));
+> -
+> -               /* update the inode with this new fsn_mark */
+> -               if (dropped || do_inode)
+> -                       fsnotify_recalc_mask(fsn_mark->connector);
+> -
+> -       }
+> +       fsnotify_recalc_mask(fsn_mark->connector);
+>
+>         /* return the wd */
+>         ret =3D i_mark->wd;
+> --
+> 2.50.1
