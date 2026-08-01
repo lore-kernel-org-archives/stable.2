@@ -1,264 +1,161 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012033.outbound.protection.outlook.com [40.93.195.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A5A212F89
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 06:00:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785564030; cv=none; b=tmo0+MxfOuBcpr7BqYcDV3m0zCG5yGZTXY4QJthWzvvgCQYZS43GGjnz0wrLFv+Wa+0gYRwxQbVonxIWz0WLd/+G+TNNt9lzoNCP1WQeRvIFSS1siObR5HauO6v0cX5gDWtI5s+Uu5exn45qyMJJYDoSnvHasRHHDFXFcpFpTVk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785564030; c=relaxed/simple;
-	bh=IyndYiFNrUnOpyjXZQ4HtCPSP8eKEsszOmjL+5Pda0U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U9jh56X/tBpgT79NgHCvTVQnFYSSIrTQYieE0rA6TdFfE7W2SAKBJ/EJTR2p+jjWemzzAJeWvOsnmUzLj1n+TEzpZburyi/r9a0hm95sfCE1tZiS1nhlrQr3z4t3kjzXBtj/RgQx7GoufOUsnJEb88JFnQctq5RgvFeURwrB9BA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=SURDHwFG; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25AD2139C9;
+	Sat,  1 Aug 2026 06:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.33
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785564120; cv=fail; b=CrDP4WBGS8wH6/ZbCRnz8qFeuEBGPEx7eWGJrkByTlGjoeIuSrUdLXP8QFC84DLAW0rcw7oCjovBcsELIOEkAmy8gmsIV/0vji2MABwPeLEVnXbm2Om9VQPlohdSFeUWWwy3hAjB3rk1ZGW4Bjwt7qN+0rUSmZjOlT2K51P+VNs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785564120; c=relaxed/simple;
+	bh=wSjOFtKw1O42OjSDXPqoGpTWz35aGY78z9KyTFgMw38=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=oC4wt3TO7wSuCFEtnRxzIGOJKwPhNwur1RMGLO+zuF7HA6JT7udD7pFzDPnyxnt2kGXQi0bcuB5jbyhSiNagBomiZ9cqgImyPLGjR61OMEAHNLz5vZMyCqbP7or3puewH1ylYUnU2vFU6f4MtSCbmeBsUaIupmx8oZ1I7sIOvt4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=t2MJ+oMJ; arc=fail smtp.client-ip=40.93.195.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="SURDHwFG"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso1510694b3a.1
-        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 23:00:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=snu.ac.kr; s=google; t=1785564025; x=1786168825; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Oh6eLSi8ec38jOBysNvV8YK8OPay/4QImPnp8jUP+UM=;
-        b=SURDHwFGnNt2EPxsUL0H3SXYsIaBTsNVpUO9/FpW6xXNuxdDW8NkXf8m+sxt1sCHjW
-         pGdfevofm0/WCyZUcz5zqZrrdxbCi/IcGWSNuXUcA1Mkz/j35RgfDPv8XICVKMpw4epQ
-         roaNFLSH61TEiEc/iw4hE+bz3yX8zV0vFTH40=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785564025; x=1786168825;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Oh6eLSi8ec38jOBysNvV8YK8OPay/4QImPnp8jUP+UM=;
-        b=QLiQs3aR3iwlxY0T4YCG90ign0ve9EfG/nszd69s6CV+fBTpN4L5YHgSDb21ICspIw
-         aEQYWG8ciTbWEgcFWaq5epkNJl8X1XDbvrZBTF5RQDrE1plfWgVyBt117Ua96Ox6j/BX
-         FpP3BScOCo9DRc0/RezDg7qPac61wfu+YLm+RspgVq4A8D7OxnAe4+UojJdWqdqB0UOS
-         +47KqKN97bUKDWgugoxutBezV/hDgbNNvvF7e8S3p09TbJezKKuXycTfQypUrTo65pP/
-         Mz7Fv15q3a6ZnATQIPcPoK0aLig8f0mqEGW78kpDY9woA1mkTUZvwtxH9+qj4GgK3ytV
-         4GOg==
-X-Forwarded-Encrypted: i=1; AHgh+RqhiVk+S2Zr4l9U1IIAkqHr8wdyvlUTA8Q56qm0KF76MoGi7F7GdcnDrXo4rqRcPmvB8ZUkZdM=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yza2DsOcNTM53K4uq0iz91WZgPAG6aRuMH7YrXSgF1AcdrzrDrj
-	exM+coxEKopAO3CuxfOVxT4jOh/MmsFYneM4Ko1E+qqTjZBFwvGBrMpNd4bwXiwtdmShlUFbkBU
-	Ma+/pSik=
-X-Gm-Gg: AR+sD12j2u/y8S3StDvQDDR9vbLiTIk4vuNJeXtw77qmkDGZdlvMzH+gCLth7h7a6sV
-	zRDGaHTLQ39fAHO3K7uka5up32hwyA/9HCkcrwKYbSmAOs0PHyEqvmxfarGF2bo7lSxGGUB2Nnu
-	msB5fZ2yczrEw1H5QYK21XfXlm+Vh/sBojb7eDTDu9QrEYHv8jzeMnoZym8g21Cie1vj76dWyW/
-	Ls4ZwzfsTv/lJTL0Ud5JzFAG69aKdi648roZIj+9kOTJhibqy20Tkqj+S7/rBZR4FS2eq0DRcho
-	8SrCdzfQ9S/Oi6oZ0CBApP+sWVbAT+1qwyRziBhA9BHkxLKhxhb0VxunuWhaAk9fN29hoOtxWoj
-	RRwpOTNMwKYKHW2Yo7SsvvMsO8Kbu6w48bjeVNp4aLN7sX46uVGeQWYQD1b7b0hXpLki8yNjXwM
-	v4vux0Waz6TjJlXCguAIiKJWBotMHEQUA4pSm8vJKjVWbu1D3K5D03QrDepohPM+wvX10jVV8P7
-	Qwc24v6jb2BQ+vfgHgYFw==
-X-Received: by 2002:a05:6a00:3986:b0:848:4809:51cc with SMTP id d2e1a72fcca58-84ed74c1c21mr3635850b3a.32.1785564024475;
-        Fri, 31 Jul 2026 23:00:24 -0700 (PDT)
-Received: from ziggs ([147.46.121.36])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84edc2d6652sm1253873b3a.44.2026.07.31.23.00.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 23:00:23 -0700 (PDT)
-From: Youngjae Kwon <yjkwon0026@snu.ac.kr>
-To: jack@suse.cz
-Cc: amir73il@gmail.com,
-	linux-fsdevel@vger.kernel.org,
-	Youngjae Kwon <yjkwon0026@snu.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] fsnotify: Fix stale object mask after concurrent mark updates
-Date: Sat,  1 Aug 2026 14:57:04 +0900
-Message-ID: <20260801055704.2663156-1-yjkwon0026@snu.ac.kr>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260730150407.328731-1-yjkwon0026@snu.ac.kr>
-References: <20260730150407.328731-1-yjkwon0026@snu.ac.kr>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="t2MJ+oMJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vvDmkM/IthVPCGymD049Nuy7U+G5ePN+GdLm534pOtA02Bcc6YRsD8rVorVfWOEo1KbLSDSBPBLglO3m9bWQRcOvpx+WqCyNuWdD6oUg5OurUHTh3Z4YgOgXtt+AQ/XSev7NIVgreFfV0evdbK4wd1sRiHF6kfga9BBzUyZDOm9ebD28eOR2GyDcyTpQJ9B02zEliAz75ddPNQq1iJjwKFwXX48Ms2PNKbWCe2G+6wp08JzPnlHaVyrxELgmgGYOpRZ+wOuMmVKVHx0XFO3BvUQCOustGeolbzD6Il5DTIek3wtESjkP+nngL68783+NQJRnSH60tMrQ25rphD/aAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wSjOFtKw1O42OjSDXPqoGpTWz35aGY78z9KyTFgMw38=;
+ b=egvP/AIWzvRpPe2V+M7Jj21obm9PkymFdrNTn9mSl/15ip1I12u0sQoxboSevUMCDG5TMatOtQnpsrxej9A/T9fHHDIandwW2Eh0N2Yzy4FTTDoXoaRponb4VKBDDtP3ZI9Y+Uze1OmSfJokKYXnUwvt5rI2TDkJbAyGGG+BHFTQ6mnTyspgjk4NUsftcxZDjaFHDLSu+BxE8mdFkSQzSJWKe+9YazwzxlMPIUCFogpW6z1XRNcjhggHoFb04H8ePpMHsx6WU8Oz2OhSwz7y3asJhNlqsaXxqIFHsH8S4xgCOoJ0NcNpqCTqgWZhkk/U7Tn4N5tigv4Vf3TWW6fFRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wSjOFtKw1O42OjSDXPqoGpTWz35aGY78z9KyTFgMw38=;
+ b=t2MJ+oMJoXP6sDfUiSarYufGWOIG/3JuTDFKxdJJr366LxWri4T4bxv7FwQZe3QRsrUqQEiwWTgPoe2zJL83Vk7sX1fcZBt6u27qdChWKmWTy3G+1NcUQLjgKt8+Givd6pyGbiBpfOq4NR2PIh5GTjochMvbL9i2c2jPxZceu7SuGJvNF1g1OxFzefrfH+o38M02ng6EzD8i7CiebDC45uIizhZZtN74ESc7I3I5/zLBNP/QMHvvSO0JBUv6mlRO3GvslLNHIZlSKPXn/c/K5pLOOcCE6e24dOXcDYtWheAB92yf4Nl5dhKPtFwQ4H1jzJlz1Wlf1lPFabo/Oej8XQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by DS7PR12MB6141.namprd12.prod.outlook.com (2603:10b6:8:9b::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Sat, 1 Aug
+ 2026 06:01:52 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0270.015; Sat, 1 Aug 2026
+ 06:01:52 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 01 Aug 2026 15:01:48 +0900
+Message-Id: <DKDDNF6TGYFH.2HGW4GZM9CY6Y@nvidia.com>
+Cc: <git@younes.io>, "Danilo Krummrich" <dakr@kernel.org>, "Abdiel Janulgue"
+ <abdiel.janulgue@gmail.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Robin Murphy" <robin.murphy@arm.com>,
+ "Andreas Hindborg" <a.hindborg@kernel.org>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Tamir
+ Duberstein" <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "Timur Tabi" <ttabi@nvidia.com>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH v2] rust: dma: return zero for Coherent reads past EOF
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Younes Akhouayri via B4 Relay" <devnull+git.younes.io@kernel.org>
+References: <20260730-fix-dma-coherent-eof-v2-1-8aff21054afa@younes.io>
+In-Reply-To: <20260730-fix-dma-coherent-eof-v2-1-8aff21054afa@younes.io>
+X-ClientProxiedBy: TY4P286CA0118.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:37c::14) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DS7PR12MB6141:EE_
+X-MS-Office365-Filtering-Correlation-Id: 54ea0768-7a5f-4ae0-e409-08deef926181
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|10070799003|6133799003|56012099006|10067099003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	vL0YqCYOP/IO/ovLL4QIqnJqYbCnXrCbsegr+gOG8lREicVOXRO8jHM8NGQ5j2P8JvLT1iY/5tUHRTCiqkHDFeUxZDCW8BV5vBOnj00lOaAGX7VXiJoLLYZ7D3c+qPo0EWoc0LbxI4jmEgSd6cwFFE8Wb7btJQeAtXIgYmFz+FPMmSZ0P4XSpDgZWEekK37tlv/iVSio8KgjOOHnGoXf+cSxeA773RfDcTlYXhlum/S6NMM4r2gmxc3RC/4rzV4ts1ddYkwec/ExTIl/iNPL2rrF7mMaag+8O1t+dBEfTDaAhvWdLWVAk/KAd6AJtjW564dbogscpOAIr18T7IjHau4A0adU0Swznm3HSVr++oAQ9RVd5Q9mmO7ReCeqHonveVrx+yywJWRtzUCpGPFTkMS6Fyom/8vg+lAA/XI4KPs27KxcbM2IWZb0g0ISkEv9UvXPabgNnCY9FA8yNmKnbMeQ++UWKHwnTty9HBYvC/Lq9Dl/uWdJAKO/rIl4ARaFbMWJqwmT2V9AiYjLIOjBYiC2J70i3Mrdd+1mBNCovkcSq8QLnxaSjmwFtaP/boli/qBKbZAc+Yx+1VTf3+83ePgTM/91JsJ2n+d0IIjb7B0kSwFyBpdL2d+z2ovzYNYvrl3pgig/t/Dqb84pMXdc/w8bR08nMVjiuZ6VEEmSzFk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB3990.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(10070799003)(6133799003)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NE1aSTNocVh3d0Jid2RwaG5uTVZmOS9kOWtaUUlTR21MZGdWcElJM05odHNk?=
+ =?utf-8?B?V2Myb2IreG5aQ2o4SFk4cm5PUnFVSkVCMmtoWW5yaFpHcFZoeHVYaFBnNjFJ?=
+ =?utf-8?B?aW5KWXpuMHEyQ0J2Z292YzhHendYN0J3K3VTbE8yQnFQY2h0M2NPVTBNNlVt?=
+ =?utf-8?B?YmdxNVZQUHdYYTZFclJhSDl0cWxsTXQ2QlpyVU5FWXVEdUJ1K2tFSGU4VFcz?=
+ =?utf-8?B?VjVUSkVtL2FQSkloLzBVRnIydXI1S3p5WS9yWDl6WDFZUFZuanBldWh3SUd2?=
+ =?utf-8?B?Q2tKMEN6Y3pQa3d1WXVZeWhwNkNxVzJTVEhHSjBUSmZaVDdab2h0NkFNN21t?=
+ =?utf-8?B?dzM5d0RtR0FUUlhFQitxZVpnVEwwMS8zb2tCcTVQMUlYSmtWajdVOWtlVHlW?=
+ =?utf-8?B?TVZjQ3RUTHl5WGpSVkdBb290L01rQkZXd05zaGZtUXFqdllJUHVRU3NRa1Zm?=
+ =?utf-8?B?V2hxVnp4LytkTENxV1cyVkhVK2tGY3plQVUzWW1mSHVGMUFZenJIL3NYeGM4?=
+ =?utf-8?B?RGtWS0pLOVJLRXBYK0RmY3lZS2NGTHpqOVZrcWtEY2dBdVVLVHpFRnB3ZlZR?=
+ =?utf-8?B?dGtRdUExd1VEWGUrTzZoV3Q1VEJmZmZZTi9tNEFCNStQREFyR1dIVnVyOUg1?=
+ =?utf-8?B?cVdRSWZ1dTRzVVFjYTZIZDB6bURlLzlmdzF0aUVObTRTMXZRTVI4WUZYbmZJ?=
+ =?utf-8?B?TGFXRDhkWmVYRW1ERjJkMzhETE1kclBLMEsxYW5Hc2tMU3JndlppdGVIcFNP?=
+ =?utf-8?B?T0dlMkR3ZmlETmpFTE1ueDJ3YWhFaHZ6NncxMHpUenBNV0xXWjF6Rmc1N1Zh?=
+ =?utf-8?B?ZTZaM0VoeFhCSTFZQmpKUm5hVlBEWnN0U3l4WS9ISURnblpLc3BQbi9DaEZ2?=
+ =?utf-8?B?aUc3bHNYZFlHK2k5Y3JpSWliSXJVdTE5OWhZZVQyb2pJY1RReU1pT3RnT1hH?=
+ =?utf-8?B?cjNvMlVMclZPWGpBaG5lK2lNUTNuTWZYbTh6WTVWdFJYbVVreVQ3YVdjM1Ar?=
+ =?utf-8?B?SW5RcUFTTUFDeTlUTWZiOEt2clJBU1NjcWl0Q2QrVEJDdjUwRGtaZ2MwdFpp?=
+ =?utf-8?B?aCtsUE5HZUw3OVVocDVveVM5MkQ4Z0ROeUh1UDJ5ZTNxQW1wT2c3MGJkTHgv?=
+ =?utf-8?B?azhjYXd4M0doS2JWQ2xGYmtZKytOYTcvT3hiNFFzellMckkrem1TVDh2YTE3?=
+ =?utf-8?B?eW4wV3JEOWl1bFFJdHRsMU94LzcvOGV1Z0xWb1VMaGtCaTNxd3JaL3BtZVU0?=
+ =?utf-8?B?MnI3UjdWUEVlQmJQZE1yNkJ5aEZSMWtXMTlTS1ZDVUN4cE9KZWNwWUNEanpr?=
+ =?utf-8?B?V1J6cXBjSVZveU55MzJkcnBoKzVxWklEeVFXOWIza0gyMDNoR3JLU3hJWTha?=
+ =?utf-8?B?OWlXNTlhRiszM2VYNXg3azg4YzI3OU1WdXZoNXdOQ0tpenBzankzVVlEbHdS?=
+ =?utf-8?B?VGQzY3JsSXN6UnIxSERNeisxejBuRlh0MDM0ek9meXhCRVcxaG5ENklyWHNQ?=
+ =?utf-8?B?dExkVnM2OTNWZkdJZDNOQVEwNHRzcEx3RTBNQkxpYk1iOUtYSnNtaDhjVjJT?=
+ =?utf-8?B?NDZROFNuRnlOYlVEWFBKT2xQOTRSNWJPVnQ5UENGZlFPaWlDZVBTbGJiR25o?=
+ =?utf-8?B?YlQ3S2FyL29DNFpZQVB4eENJWC9xdktOd1ZuTVF2WWJ1ck96aHNWWHNDTUsx?=
+ =?utf-8?B?aTIyWDJBSkdnemEyVWI5T2RkcWdqYlFrclJiSS9DYXNQakxpUDlaVUlkT0ZG?=
+ =?utf-8?B?c3UrUC9scXlESkxPeHFwRENqQWpkOTVFSTV4RW9nZlI0a1U3WHdFd3M2cnE0?=
+ =?utf-8?B?dkt3UG1tYnJqN2hVdXVNS1ovbzdOK0FRTFRTY1pXekw4UG5xd1oxeDErdEh6?=
+ =?utf-8?B?bE9QMDd6Q0libERUdWV4c2VYUFBaUmQzZTVmSnN5NDJKZ0ZBRUtKcUtDQndV?=
+ =?utf-8?B?aExadnBVaHBCYUxiM1VBeFhNa1FuaHltaTJQM0NzR2hDMGMzSm03RHJuRHJs?=
+ =?utf-8?B?bHJuTTZTeFdKZDkyaVR1RkVHbzdzRTMyTkI5MFBtaWNpelE1WW05RHlTaVlk?=
+ =?utf-8?B?MFhYT2NQYTlrMVpxWnRyNEV5blBqTUtPUlJmdGMxQUFKUUNpNi9rR3FodFAv?=
+ =?utf-8?B?SVhXN3A4cjJvZ2c1Z3RDY0E1c1V0WWYzcUVqS0dqaGMvZDJXSmMxT2xtSndF?=
+ =?utf-8?B?akJBMUFHcU9tQnhkMjMwdkZ6R1lXamh5cXpvV1RhUU5uRE1kNlhjVEhjMGt2?=
+ =?utf-8?B?NjhpVGh5c2NNYW42a0ZqMDl4UmdvSXZHc0RMZXVqSjRYcjVhaWxuQ0d3cjFm?=
+ =?utf-8?B?dUNZN2xROFJtQTB4WEFVNHZpWmZGSytDN08yUWp5bThvelBiN05ubnN6SDRo?=
+ =?utf-8?Q?AURTsx4ehzeRgmegxzmvMbO2/JOC3i03LHqrgXl6zPJDX?=
+X-MS-Exchange-AntiSpam-MessageData-1: iErC778wH8EqIg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54ea0768-7a5f-4ae0-e409-08deef926181
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2026 06:01:51.5872
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YU2SQgJuW0nQjKUqp80WGPS57gVwNbWxEWSfQMrJYXVrvycYwzI8Eddk4uK1XHBS5UTAHVHMV+OFpIQzFkD3HA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6141
 
-When a mark gets a new event bit, fanotify and inotify avoid recalculating
-the object mask if the cached aggregate already contains that bit. This is
-racy with a recalculation triggered by a concurrent update to another mark
-on the same connector.
+On Fri Jul 31, 2026 at 1:34 AM JST, Younes Akhouayri via B4 Relay wrote:
+> From: Younes Akhouayri <git@younes.io>
+>
+> Coherent<T>::write_to_slice() calculates a zero-byte copy when the file
+> offset is beyond the allocation, but still calls
+> UserSliceWriter::write_dma(). The latter rejects offsets beyond the
+> allocation even when the copy length is zero, so a debugfs read past EOF
+> returns -ERANGE.
+>
+> Return before calling write_dma() when the offset is at or beyond the
+> allocation, matching simple_read_from_buffer() EOF semantics.
+>
+> Fixes: 016818513936 ("rust: dma: implement BinaryWriter for Coherent<[u8]=
+>")
+> Cc: stable@vger.kernel.org
+> Link: https://rust-for-linux.zulipchat.com/#narrow/channel/291566-Library=
+/topic/.E2.9C.94.20Possible.20past-EOF.20bug.20in.20Coherent.3CT.3E.3A.3Awr=
+ite_to_slice/near/611677095
+> Signed-off-by: Younes Akhouayri <git@younes.io>
 
-The concurrent scan can read the mark before the new bit is added, while
-the updater reads the old aggregate before that scan publishes its result.
-The updater then skips recalculation and the scan publishes a mask without
-the bit, leaving the object mask stale after both updates complete.
-
-This can be reproduced with two fanotify groups watching the same inode:
-one thread removes FAN_MODIFY from one existing mark while another thread
-adds FAN_MODIFY to the other mark. After both fanotify_mark() calls return,
-writes can fail to produce FAN_MODIFY for the group whose mark now contains
-the bit. This was reproduced on an unmodified v6.12.95 kernel. The
-equivalent inotify interleaving loses IN_MODIFY events.
-
-Always recalculate the connector mask after successfully updating an
-existing fanotify mark or inotify watch. In fanotify, FS_MODIFY handling
-may clear ignore_mask concurrently without taking mark->lock, so
-calculated mask snapshots are not reliable. In inotify, replacing a watch
-temporarily sets mark->mask to zero, so a concurrent scan can observe zero
-even when the old and final masks are equal. Mark updates are expected to
-be infrequent, so avoid these racy optimizations.
-
-Link: https://lore.kernel.org/all/CACwKKmCZdiZDoFuYm6LZhQ=XvHPk0fNKH=X3LmoXMqakYqJaNw@mail.gmail.com/
-Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
-Fixes: 912ee3946c5e ("fanotify: do not call fanotify_update_object_mask in fanotify_add_mark")
-Cc: stable@vger.kernel.org # needs adjustments for <= 7.0
-Suggested-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Youngjae Kwon <yjkwon0026@snu.ac.kr>
----
-Changes in v2:
-- Always recalculate after a successful fanotify mark add/update or update of
-  an existing inotify watch.
-- Drop the fanotify calculated-mask and cached-aggregate checks; neither can
-  close the race with concurrent ignore-mask clearing.
-- Make fanotify_mark_update_flags() return void; its recalculation
-  bookkeeping and the now-redundant first-time guard are no longer needed.
-- Drop the inotify old/new mask check because the replace path can expose a
-  temporary zero mask even when the old and final masks are equal.
-
-I will send backports for stable kernels through 7.0.y after this lands.
-
- fs/notify/fanotify/fanotify_user.c | 35 ++++++++----------------------
- fs/notify/inotify/inotify_user.c   | 15 +------------
- 2 files changed, 10 insertions(+), 40 deletions(-)
-
-diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fanotify_user.c
-index 9ee373ff5..a3648cec5 100644
---- a/fs/notify/fanotify/fanotify_user.c
-+++ b/fs/notify/fanotify/fanotify_user.c
-@@ -1276,12 +1276,11 @@ static int fanotify_remove_mark(struct fsnotify_group *group,
- 	return 0;
- }
- 
--static bool fanotify_mark_update_flags(struct fsnotify_mark *fsn_mark,
-+static void fanotify_mark_update_flags(struct fsnotify_mark *fsn_mark,
- 				       unsigned int fan_flags)
- {
- 	bool want_iref = !(fan_flags & FAN_MARK_EVICTABLE);
- 	unsigned int ignore = fan_flags & FANOTIFY_MARK_IGNORE_BITS;
--	bool recalc = false;
- 
- 	/*
- 	 * When using FAN_MARK_IGNORE for the first time, mark starts using
-@@ -1293,20 +1292,15 @@ static bool fanotify_mark_update_flags(struct fsnotify_mark *fsn_mark,
- 		fsn_mark->flags |= FSNOTIFY_MARK_FLAG_HAS_IGNORE_FLAGS;
- 
- 	/*
--	 * Setting FAN_MARK_IGNORED_SURV_MODIFY for the first time may lead to
--	 * the removal of the FS_MODIFY bit in calculated mask if it was set
--	 * because of an ignore mask that is now going to survive FS_MODIFY.
-+	 * Setting FAN_MARK_IGNORED_SURV_MODIFY may remove FS_MODIFY from the
-+	 * calculated mask if it was included only to clear the ignore mask.
- 	 */
--	if (ignore && (fan_flags & FAN_MARK_IGNORED_SURV_MODIFY) &&
--	    !(fsn_mark->flags & FSNOTIFY_MARK_FLAG_IGNORED_SURV_MODIFY)) {
-+	if (ignore && (fan_flags & FAN_MARK_IGNORED_SURV_MODIFY))
- 		fsn_mark->flags |= FSNOTIFY_MARK_FLAG_IGNORED_SURV_MODIFY;
--		if (!(fsn_mark->mask & FS_MODIFY))
--			recalc = true;
--	}
- 
- 	if (fsn_mark->connector->type != FSNOTIFY_OBJ_TYPE_INODE ||
- 	    want_iref == !(fsn_mark->flags & FSNOTIFY_MARK_FLAG_NO_IREF))
--		return recalc;
-+		return;
- 
- 	/*
- 	 * NO_IREF may be removed from a mark, but not added.
-@@ -1314,28 +1308,19 @@ static bool fanotify_mark_update_flags(struct fsnotify_mark *fsn_mark,
- 	 */
- 	WARN_ON_ONCE(!want_iref);
- 	fsn_mark->flags &= ~FSNOTIFY_MARK_FLAG_NO_IREF;
--
--	return true;
- }
- 
--static bool fanotify_mark_add_to_mask(struct fsnotify_mark *fsn_mark,
-+static void fanotify_mark_add_to_mask(struct fsnotify_mark *fsn_mark,
- 				      __u32 mask, unsigned int fan_flags)
- {
--	bool recalc;
--
- 	spin_lock(&fsn_mark->lock);
- 	if (!(fan_flags & FANOTIFY_MARK_IGNORE_BITS))
- 		fsn_mark->mask |= mask;
- 	else
- 		fsn_mark->ignore_mask |= mask;
- 
--	recalc = fsnotify_calc_mask(fsn_mark) &
--		~fsnotify_conn_mask(fsn_mark->connector);
--
--	recalc |= fanotify_mark_update_flags(fsn_mark, fan_flags);
-+	fanotify_mark_update_flags(fsn_mark, fan_flags);
- 	spin_unlock(&fsn_mark->lock);
--
--	return recalc;
- }
- 
- struct fan_fsid {
-@@ -1502,7 +1487,6 @@ static int fanotify_add_mark(struct fsnotify_group *group,
- 			     struct fan_fsid *fsid)
- {
- 	struct fsnotify_mark *fsn_mark;
--	bool recalc;
- 	int ret = 0;
- 
- 	fsnotify_group_lock(group);
-@@ -1534,9 +1518,8 @@ static int fanotify_add_mark(struct fsnotify_group *group,
- 			goto out;
- 	}
- 
--	recalc = fanotify_mark_add_to_mask(fsn_mark, mask, fan_flags);
--	if (recalc)
--		fsnotify_recalc_mask(fsn_mark->connector);
-+	fanotify_mark_add_to_mask(fsn_mark, mask, fan_flags);
-+	fsnotify_recalc_mask(fsn_mark->connector);
- 
- out:
- 	fsnotify_group_unlock(group);
-diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
-index ed37491c1..5f19c24ec 100644
---- a/fs/notify/inotify/inotify_user.c
-+++ b/fs/notify/inotify/inotify_user.c
-@@ -539,7 +539,6 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
- {
- 	struct fsnotify_mark *fsn_mark;
- 	struct inotify_inode_mark *i_mark;
--	__u32 old_mask, new_mask;
- 	int replace = !(arg & IN_MASK_ADD);
- 	int create = (arg & IN_MASK_CREATE);
- 	int ret;
-@@ -555,27 +554,15 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
- 	i_mark = container_of(fsn_mark, struct inotify_inode_mark, fsn_mark);
- 
- 	spin_lock(&fsn_mark->lock);
--	old_mask = fsn_mark->mask;
- 	if (replace) {
- 		fsn_mark->mask = 0;
- 		fsn_mark->flags &= ~INOTIFY_MARK_FLAGS;
- 	}
- 	fsn_mark->mask |= inotify_arg_to_mask(inode, arg);
- 	fsn_mark->flags |= inotify_arg_to_flags(arg);
--	new_mask = fsn_mark->mask;
- 	spin_unlock(&fsn_mark->lock);
- 
--	if (old_mask != new_mask) {
--		/* more bits in old than in new? */
--		int dropped = (old_mask & ~new_mask);
--		/* more bits in this fsn_mark than the inode's mask? */
--		int do_inode = (new_mask & ~READ_ONCE(inode->i_fsnotify_mask));
--
--		/* update the inode with this new fsn_mark */
--		if (dropped || do_inode)
--			fsnotify_recalc_mask(fsn_mark->connector);
--
--	}
-+	fsnotify_recalc_mask(fsn_mark->connector);
- 
- 	/* return the wd */
- 	ret = i_mark->wd;
--- 
-2.50.1
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
