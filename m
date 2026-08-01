@@ -1,114 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F957384CCD
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 00:45:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F96D356773
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 00:45:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785545119; cv=none; b=X0PyXDhqpJXtFRjz3TBXtpye1mGieNMdkcfwjcYNbev/ahaYaaDTiPCZZgZhvCDG9Px1Yglpd/7urOcQ9nEmee5D8LMRjjprfmTUHsn0FC66OP4Z9Wu5MxuI5Vbx2mLdtoBP7jCp7xOcOwAg2T9SU1z2bWsblold1Kn/Meamt9c=
+	t=1785545128; cv=none; b=YRXE9KrPVVCiq1irkVa+jPDr2HEQDjI9oixLsC1SEXcrHoyezTYJ7biMExy0k7NQx/0S2Ao2fryKnrhcWReVmEXpLqiJrOfW5t7luVTo5QIKScaRgFIxEr8QfgZO6N0NHs3g8qLdyIxkUMLlpm6MrFbAQ7sCn6fLFZc2Wt4/v0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785545119; c=relaxed/simple;
-	bh=xgoalQaSz5ySvrbgYy7pcxT8y3i3UVEN2uaqcXY8ALw=;
+	s=arc-20240116; t=1785545128; c=relaxed/simple;
+	bh=Q4gWLJ/ASdmAmtrdR067Oby5LYqI87C7w46qGDn6uxc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uXJbg1Qa6ytxiRHh/wbrjPUHprZ0EK6Ak6ETr3olFFa1AjzUJlfoIFC6MqF7SO3HzyBndnnCRSp2RewqW/CBqsvthX6VxV39CY4O5IRGa1JMFBSFqHcM6C3Rbh17SmEAKgelGomKwV6zuEw6TbAA6Aa0IJfWif1odxQpmH5LJTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XRPNuqFE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=gqAppeMhXf9UwlQ2rgIPgIEH8/LgyJLmS26PZSLCR6epxhhdFGWKhRvl0LRR85tVJIK98Ku21/MuiXy10qU2F7ALXXyOkewayjOpXfpJ9TdCDK0cd8oJ3izSHlMxD3X395t/iGeHqSVIVHgpmGkjxbBAiwhK/MS4UHBcwSCQf8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tl1ut6af; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XRPNuqFE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7472D1F00AC4;
-	Sat,  1 Aug 2026 00:45:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tl1ut6af"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E4001F00AC4;
+	Sat,  1 Aug 2026 00:45:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785545110;
-	bh=2gcH7x8V53XAnmyCUDDW8eUk/qdsmWvIOci3lDBHM1o=;
+	s=k20260515; t=1785545120;
+	bh=PdQtHyrGKu4c0b5sABsZ9+g90/yo4YcTCI4juGZXAas=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XRPNuqFEB9vmpFX1TwOoA6C4kNyE+dU4SP2+Hd3Zo/bBHhW5Dq49gWu+iOKru6uqU
-	 oUQ8y+fdAjnxMGymUiWCXrSDNFk85M9b+nz3ZDaP8EZNUTgXTEnlQr1tsy36O8D8SD
-	 zq5ixWMVmKBqemR9ZwommwIy8aAUOvdPdvNF/IpJsRDCtVxpwg3+9YhknPn4E45+Ri
-	 ewAlNgk0RoH2xFWvFQf9AuAv1m71ITrQPUBHlFQyYMLQPn5wqU/jp6JGYiB4b99Jq3
-	 CB9mEU1zQOPJjuP2wcxBigsashualmY0EI+P4nlP7D2N4f+xITJ0+ikQp0ixPktk5O
-	 Z3hVP+jP6RH6Q==
+	b=Tl1ut6afdTsW2L9DKRgh6Q3K+u5Qx1sscj4sSmPh0kyvyysi08g+TluAaoNiSCltP
+	 cBrj2fq4+7RhtnJs12mJ18WX9kCJBvOzrHgbBIyFedxkRvKclOhQ3t1iMxHj56jJXU
+	 OjHBTFv+xq9QiDa4gTwhUJ2ZOMfSGktm9nRNiliNn+NAjBT+PyFIkdOhda+TYplFUI
+	 p057DcbxlTv/M88wvgm1pPVFhEliSUx7Tc9NIqaFgvhbvi9Rj1q59ziMjUgTCpRpCp
+	 iSERpqKKM/r64XbG3pQxwgCghXY4SApIkgrtuKWMFNLnfw6b/uqMgg3G9MGYTPKnC6
+	 pLA2Vr+ZI08MQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>,
-	Zhanjun Dong <zhanjun.dong@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] drm/xe/guc: Fix buffer overflow in steered register list allocation
-Date: Fri, 31 Jul 2026 20:45:07 -0400
-Message-ID: <20260801004507.3661318-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] drm/amdgpu: Fix amdgpu_bo_move() when old_mem and new_mem are both GTT
+Date: Fri, 31 Jul 2026 20:45:17 -0400
+Message-ID: <20260801004517.3661920-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072944-swivel-tidy-c727@gregkh>
-References: <2026072944-swivel-tidy-c727@gregkh>
+In-Reply-To: <2026072905-unbundle-serving-0266@gregkh>
+References: <2026072905-unbundle-serving-0266@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Tejas Upadhyay <tejas.upadhyay@intel.com>
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-[ Upstream commit 632ecc90e1ca5d3b6822bb4d08f84a175b6c42c0 ]
+[ Upstream commit ee94a65f192c05c543b4d3ad7137cd696b5c18fc ]
 
-The size calculation for the steered register extarray uses only the
-geometry DSS mask (g_dss_mask) to determine the number of entries to
-allocate:
+The UVD code relies on GTT to GTT moves in order to ensure
+that its BOs don't cross 256M segments.
 
-  total = bitmap_weight(gt->fuse_topo.g_dss_mask, ...) * steer_reg_num;
-
-However, the filling loop uses for_each_dss_steering(), which iterates
-over for_each_dss(), defined as the union of g_dss_mask and c_dss_mask
-(geometry + compute DSS). On platforms with compute-only DSS bits, the
-loop writes past the allocated buffer, corrupting adjacent slab objects.
-
-This manifests as list_del corruption and SLUB redzone overwrites during
-drm_managed_release on device unbind, since the overflow corrupts the
-drmres list_head of neighboring allocations.
-
-Fix by computing the allocation size using the union of both DSS masks,
-matching the iteration pattern of for_each_dss_steering().
-
---
-v2:
-- use bitmap_weighted_or() (Zhanjun)
-
-Fixes: b170d696c1e2 ("drm/xe/guc: Add XE_LP steered register lists")
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/8049
-Cc: Zhanjun Dong <zhanjun.dong@intel.com>
+Fixes: bfe5e585b44f ("drm/ttm: move last binding into the drivers.")
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 21fd45e5e2628d00b478590bcc3d14d3de5d45b6)
 Cc: stable@vger.kernel.org
-Assisted-by: GitHub-Copilot:claude-opus-4.6
-Reviewed-by: Zhanjun Dong <zhanjun.dong@intel.com>
-Link: https://patch.msgid.link/20260612070401.543305-2-tejas.upadhyay@intel.com
-Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
-(cherry picked from commit 0a78a44f4901aa6c9263e66be7fce02282f1109f)
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+[ dropped the third `new_mem` argument from `amdgpu_bo_move_notify()` and changed `return 0` to `goto out` to match 5.15's 2-arg prototype and shared epilogue ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_guc_capture.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_guc_capture.c b/drivers/gpu/drm/xe/xe_guc_capture.c
-index 243dad3e2418..3a1613886495 100644
---- a/drivers/gpu/drm/xe/xe_guc_capture.c
-+++ b/drivers/gpu/drm/xe/xe_guc_capture.c
-@@ -437,8 +437,15 @@ static void guc_capture_alloc_steered_lists(struct xe_guc *guc)
- 	if (!list || guc->capture->extlists)
- 		return;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 7b3293b37144..ef7b7586779a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -472,6 +472,15 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
  
--	total = bitmap_weight(gt->fuse_topo.g_dss_mask, sizeof(gt->fuse_topo.g_dss_mask) * 8) *
--		guc_capture_get_steer_reg_num(guc_to_xe(guc));
-+	{
-+		xe_dss_mask_t all_dss;
+ 	if (new_mem->mem_type == TTM_PL_TT ||
+ 	    new_mem->mem_type == AMDGPU_PL_PREEMPT) {
++		if (old_mem && (old_mem->mem_type == TTM_PL_TT ||
++				old_mem->mem_type == AMDGPU_PL_PREEMPT)) {
++			r = ttm_bo_wait_ctx(bo, ctx);
++			if (r)
++				return r;
 +
-+		bitmap_or(all_dss, gt->fuse_topo.g_dss_mask, gt->fuse_topo.c_dss_mask,
-+			  XE_MAX_DSS_FUSE_BITS);
++			amdgpu_ttm_backend_unbind(bo->bdev, bo->ttm);
++		}
 +
-+		total = bitmap_weight(all_dss, XE_MAX_DSS_FUSE_BITS) *
-+			guc_capture_get_steer_reg_num(guc_to_xe(guc));
+ 		r = amdgpu_ttm_backend_bind(bo->bdev, bo->ttm, new_mem);
+ 		if (r)
+ 			return r;
+@@ -506,6 +515,14 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
+ 		ttm_bo_assign_mem(bo, new_mem);
+ 		goto out;
+ 	}
++	if ((old_mem->mem_type == TTM_PL_TT ||
++	     old_mem->mem_type == AMDGPU_PL_PREEMPT) &&
++	    (new_mem->mem_type == TTM_PL_TT ||
++	     new_mem->mem_type == AMDGPU_PL_PREEMPT)) {
++		ttm_resource_free(bo, &bo->resource);
++		ttm_bo_assign_mem(bo, new_mem);
++		goto out;
 +	}
  
- 	if (!total)
- 		return;
+ 	if (old_mem->mem_type == AMDGPU_PL_GDS ||
+ 	    old_mem->mem_type == AMDGPU_PL_GWS ||
 -- 
 2.53.0
 
