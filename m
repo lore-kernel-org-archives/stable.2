@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88D0242D72;
-	Sat,  1 Aug 2026 17:36:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4CE3B71CC;
+	Sat,  1 Aug 2026 17:36:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785605765; cv=none; b=kAYmSIUVm2b9L/nBlEAIgFjfSm++NbVENfKUmCvt5k/TxrN2QILJLtjJlh15VzzpAjF204Czu+wmTt164VT/e8NqQCqtjXFKd8yTZ3lqQ/ghBZf/T6NBv1d5uiwJhH48fK25ATuXse8yPhTh1pr3sBAAD6jxfl+hLXEmPfN+NfY=
+	t=1785605766; cv=none; b=OLCXvxS38R5aGvAR7eqmThxd1AiEByHBkjXzf5MoW+8Pg6t59l1CxbP2fX+Hro9Hd4zLxKuJZe62jI7bDtNUBuW9V6n26hq3flQiG/D/VDlGrGyMYBFgDppROxLqGkZSZ1N0Gf/FUOZPj0rhF32UAvvLWbu9KpaK6S2LEjkSxZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785605765; c=relaxed/simple;
-	bh=c8YnLYM9gCkCamNMX4Ifu9ihjCO2crXUFIBol3Mz1aU=;
+	s=arc-20240116; t=1785605766; c=relaxed/simple;
+	bh=ZKIT6xnY2oY0e92eMERMwBiCQNJeROh6kYo/rMQan28=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ngI7vgUpFj7hT5ou1y5H94/C5GKextklz/TzufsUdTJUZfM+rxGBo5n+TVkZpBKN5xmp8IguRuztEMdiYK//aKdyXjYS1tO9eFkUZI97rISCs26gr4Es1gSfgTjFvKK9BoJrmXaVoPo4PmJY1ynFfKkKM1kplz44qD1o23jKafE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JqZJuyL+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Zcqh0xZglgxDFMS8em63xo8wirA40Actn+PkBJAd9E964vblH30HToi/iZcraKPAtkuM2Q3iLEmZ5fvl/GaGDS7Pg7V+heGznDxWGJ5+xFKScNoj3LI47e+vRf8KaZhHQpQH8tbaMFAhro8Ybi6cF7Jh1QHiE/Gb+AXGqEJBZKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LIlnGYbl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JqZJuyL+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D2D21F00ACA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LIlnGYbl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4E491F00ACF;
 	Sat,  1 Aug 2026 17:36:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785605764;
-	bh=ccJR9KUzvn7k6BzhoDEjN3sQrL1C2MxY/yOiNOzvC90=;
+	s=k20260515; t=1785605765;
+	bh=u3Yai1oWYsB5IJ1T8UFXb8F9ZG0QK/4CFjudJQO8wtI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JqZJuyL+6d1IhKbNi3w6gCesrHj9Klcy91QoQIT3Yfypuou1ns/P3r9cPTwoBnKIV
-	 UUBjUbqYoAyh2tbixCqhvMuXxpChVokzSU1CCrquXVF3A4jx5FYg6eN9e4cXC3Vry9
-	 qahhEhLizN95D1WMm9bve9Lt4DCQFkCKjdjzI4uJJoR6lHTrXiHAT/Px6f6pUGUcso
-	 7Wg9gv4kXybbp3KEgKqkIBcCzvCiCeD4WocPdrWGwWrjPhapXPzQcEEwrzoqKIXcKr
-	 YIsG53J1BNDLdEBw3Nqekbid0SncAlf0EQmhHeMmdz0dFM8QgahAYOkCKbxIb7r3uX
-	 AQd5+b4cgEABw==
+	b=LIlnGYblIdAJF2L9ANrF/LWWjqlMRNw0pyblGdwP+H0Y0oNSeuaXfWqnRatJ1P8jP
+	 3V7rmoYiqRnGONnpuCaK0KT2FVuVPlEnwCSTGHZtDwkDiP9i2efZAZorGcPskdfVvC
+	 vcTwwzppVg6859yhqMlgowY8ZzTeL6KEB8RctiOy3yxsvPExbA5AF/dEWIGObwl33v
+	 nA5qztxHlIASYkZGam7SLdh44jv8LmnGPDugdf22fRA6SSZq9fOcrGR5Gp4mWtYi+L
+	 cTDaolvHBd80EjG7lBftVS5gpN/l0YZk2v5Hnr/woUVfGnd/FWWZCVGkJvLyFvDeqf
+	 NhbnPy6Qa21lQ==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
@@ -34,9 +34,9 @@ Cc: SJ Park <sj@kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH 1/9] mm/damon/core: skip applying scheme if region split for quota fails
-Date: Sat,  1 Aug 2026 10:35:44 -0700
-Message-ID: <20260801173554.94710-2-sj@kernel.org>
+Subject: [RFC PATCH 2/9] mm/damon/core: initialize damos_quota_goal->last_psi_total
+Date: Sat,  1 Aug 2026 10:35:45 -0700
+Message-ID: <20260801173554.94710-3-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260801173554.94710-1-sj@kernel.org>
 References: <20260801173554.94710-1-sj@kernel.org>
@@ -48,43 +48,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-damos_apply_scheme() splits a region and apply the action to the
-subregion if it is needed for not violating the quota.  The split
-operation (damon_split_region_at()) could fail for allocation failure.
-In the case, the quota could be violated.  From the user's perspective,
-DAMOS becomes more aggressive than expected under the extreme situation.
-Handle the failure.
+When DAMOS_QUOTA_SOME_MEM_PSI_US metric damos quota goal is set, the PSI
+delta for the feedback loop is calculated using
+damos_quota_goal->last_psi_total.  It is not initialized at the
+beginning.  So the first iteration of the feedback loop uses the
+uninitialized value and makes an unexpected starting point quota.
+Initialize the value at the beginning of kdamond.
 
-The user impact is not critical.  The failure of damon_split_region_at()
-is unlikely since it is arguably too small to fail.  Also DAMOS being
-aggressive is limited to the single region.  Users can set
-min_nr_regions to set the maximum size of each region.  If it is
-reasonably set, the transient overhead shouldn't be critical.
+The user impact would be trivial because the issue impacts only the
+initial iteration of the feedback loop.  The feedback loop also has an
+internal cap of the quota adjustment.  The wrong adjustment will soon be
+corrected over a few iterations.
 
 The issue was discovered [1] by Sashiko.
 
-[1] https://lore.kernel.org/20260718171523.87547-1-sj@kernel.org
+[1] https://lore.kernel.org/20260718005316.89585-1-sj@kernel.org
 
-Fixes: 2b8a248d5873 ("mm/damon/schemes: implement size quota for schemes application speed control")
-Cc: <stable@vger.kernel.org> # 5.16.x
+Fixes: 2dbb60f789cb ("mm/damon/core: implement PSI metric DAMOS quota goal")
+Cc: <stable@vger.kernel.org> # 6.9.x
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ mm/damon/core.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 644daf5a16560..e2900d0c984c9 100644
+index e2900d0c984c9..3bdbf4fbf7147 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -2613,7 +2613,8 @@ static void damos_apply_scheme(struct damon_ctx *c, struct damon_target *t,
- 					c->min_region_sz);
- 			if (!sz)
- 				goto update_stat;
--			damon_split_region_at(t, r, sz);
-+			if (damon_split_region_at(t, r, sz))
-+				goto update_stat;
- 		}
- 		if (damos_core_filter_out(c, t, r, s))
- 			return;
+@@ -3728,6 +3728,17 @@ static int kdamond_wait_activation(struct damon_ctx *ctx)
+ 	return -EBUSY;
+ }
+ 
++static void damos_init_quota_goal_last_psi(struct damos *s)
++{
++	struct damos_quota_goal *goal;
++
++	damos_for_each_quota_goal(goal, &s->quota) {
++		if (goal->metric != DAMOS_QUOTA_SOME_MEM_PSI_US)
++			continue;
++		goal->last_psi_total = damos_get_some_mem_psi_total();
++	}
++}
++
+ static void kdamond_init_ctx(struct damon_ctx *ctx)
+ {
+ 	unsigned long sample_interval = ctx->attrs.sample_interval ?
+@@ -3744,6 +3755,7 @@ static void kdamond_init_ctx(struct damon_ctx *ctx)
+ 	damon_for_each_scheme(scheme, ctx) {
+ 		damos_set_next_apply_sis(scheme, ctx);
+ 		damos_set_filters_default_reject(scheme);
++		damos_init_quota_goal_last_psi(scheme);
+ 	}
+ }
+ 
 -- 
 2.47.3
