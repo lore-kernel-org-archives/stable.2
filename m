@@ -1,108 +1,103 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0CF5130BB8D;
-	Sat,  1 Aug 2026 02:59:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F413123C8AE
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 03:03:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785553158; cv=none; b=j3Q8rDirA/vi9CQe4A3jNWdPDXsMCWXUnNdxzLodqnT7fWD6CisElt9gGSj9nC6k6tO/mcIpYZa7/i9WqvntjX4Q59Qnuc9azZh52yccG9AKjUH9X20Cg6hRF4qtLOEy7yptSTn+/QaVM/JBziy1leL/XIuxr9aTKFghJROjZfY=
+	t=1785553417; cv=none; b=LYceZHhklGTEpW17lgPh2AAfCG4WBi+8zyXdH/gcPtCEP+qnqQHBB0BUkkh5lfXsYmbcH1W8xsL7W9fRfxcGGXDQp1hB7psMfBkNMSwLHVK4OKCxQJxoNm8YMFdKeToaeokHVEz5tZfNZqB9LpyxqEBn7aQROEPSW1ZYs+r7d5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785553158; c=relaxed/simple;
-	bh=VxkNUX/+n1uVqnGf7OU843YK2qDnuNQ3/ImdmTxlnVw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SyGBFJE7gz9c+JoVb2ZipbdXm9QEhxJ5D56eUTHGY4cJlI3lBeS+vIrG0L9enJMPZHRTV6bsWI2AVwACDt+IeX57PIG7v/4ZUlNDvBLU0LQBVlPDiNqzp21stgEO39GW8dbywgQpD6nw+AtDSFg7vhK20AZccHU7mZvUi87Lcko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=JPIk//WM reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1785553417; c=relaxed/simple;
+	bh=MGjQbmLabuuC6baKlryMEJxjxCVDIObAJAX27s1KS7s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=F1ypxrGZiGGL2GDNmqFShpbpivx9DbAkTVniBSgF8A6CLrqIs815Hf5S5QxB6NSHuT/Zt2iTecKmCaoGm8C7Z1UJbMvGHLNPDE8bWxn/xjU6bfSUH9LBzDQ/4364KdZIB86/I6CuQbu9wCzmlW8/vZNlmri76jxKw2eWDT7HSQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PYKfCFpi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="JPIk//WM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
-	MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=DBovGv1rB
-	oO2ZUpQ0Xqr48xsilwB3e0TVM9b1zjY3wk=; b=JPIk//WMMA80xJEDVnbMg7Kvm
-	lZbWvLuJoloAUSgb1PnoubsLExyA0/tlfHvvMwNWNTE/aksZ6H0NrjbO5BOpF45B
-	kjgrnbPuO2pyS9UdOoIdawhPCBPLFCNNH7QwTiH5IoXr/z90F4xky2yO3EHyc5VR
-	cL14UeLNHK9OzES4GQ=
-Received: from [192.168.1.110] (unknown [115.53.141.84])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with SMTP id BrQMCkB2mA7wYG1q3pO2AQ--.34228S3;
-	Sat, 01 Aug 2026 10:58:57 +0800 (CST)
-Message-ID: <4b8fc5e2-8965-47a0-8be8-b12337398fe6@stu.xidian.edu.cn>
-Date: Sat, 1 Aug 2026 10:58:56 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PYKfCFpi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FC331F00AC4;
+	Sat,  1 Aug 2026 03:03:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785553415;
+	bh=GBlned1Wvv3L8SbfBoz9QobMG8I6GcqpTvEqqjM6sz8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PYKfCFpix/zVckfhtlu07GCrqZYev2+GfdjcCppQBEkYW3HztESw0KbIYyhaXzV+X
+	 alRgiOH+UTadiJpGaDcuqAewvSuuz99KdpwpbbKcokhH6BuPoJ83HlTF9G14MqCtcp
+	 OfAHPfaFMUDa5Mi5yfKIipH3Tbt+vQyo0+czEqktPGNZ56Lyjv0SBL8fdUni8m7ReC
+	 657wVMwN950J/raJeFtEavCeTKR/RycsEJMB3VXUJbSgd60hDmp5hPVUXmt+t8kUPK
+	 ZcOAxvnE3H15g6NTKGOh/zRGZ5u6nh+hhfBoNfcX9bTLjqswQy4OgBynRtQo2wcFjG
+	 R78Zd65dHnkIw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
+	Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/6] drm/xe/lrc: Refactor out engine id to hwe conversion
+Date: Fri, 31 Jul 2026 23:03:25 -0400
+Message-ID: <20260801030332.859236-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072913-snap-snuff-32d6@gregkh>
+References: <2026072913-snap-snuff-32d6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] misc: ibmasm: Fix static out-of-bounds MMIO access
- during probe
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: arnd@arndb.de, kees@kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260718073253.96741-1-25181214217@stu.xidian.edu.cn>
- <20260718073253.96741-2-25181214217@stu.xidian.edu.cn>
- <2026073120-deplete-bronzing-481c@gregkh>
- <ce868846-52a6-47d7-96d5-1f14f1e9b5f9@stu.xidian.edu.cn>
- <2026073114-staff-turbine-9864@gregkh>
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-In-Reply-To: <2026073114-staff-turbine-9864@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkB2mA7wYG1q3pO2AQ--.34228S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZF45WFWrZw4ftr4xWw1UAwb_yoW8WFWxpF
-	WUCanrAwn8tFyFyF4v9w48ZF15u393KF15KF90gry5Zan8GryIkrs3Ka1Y9a4DWws3uryj
-	vwsFqw10k3Z8ZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Yb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
-	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7Cj
-	xVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4UMxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
-	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCT
-	nIWIevJa73UjIFyTuYvjxUyb_TDUUUU
-X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUMEWpsu-w+oQAAsE
 
-Hi Greg,
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 
+[ Upstream commit e3a9c46fc3a29b8d7f62a7bd73bf20975037dc82 ]
 
-> I do not know.  Do some research into when the hardware was made, what
-> it runs on, and try to determine if it really is even used anymore by
-> anyone.  If not, then yes, let's drop it!
+We need to define more helpers that read engine ID specific register, so
+move that logic outside of get_ctx_timestamp().
 
-Thanks for the guidance! I did the research on the IBM RSA hardware,
-and it indeed seems to belong in a museum.
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Reviewed-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+Link: https://patch.msgid.link/20260507162016.3888309-20-umesh.nerlige.ramappa@intel.com
+Stable-dep-of: 31e243756162 ("drm/xe/rtp: Maintain OA whitelists separately")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/xe/xe_lrc.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-Here is what I found regarding its lifecycle:
-1. The IBM Remote Supervisor Adapter (RSA) and RSA II were early 2000s
-    management PCI/ISA cards for ancient IBM eServer xSeries machines.
-2. IBM deprecated the RSA family and replaced it with IMM around 2008.
-3. IBM sold its x86 server business to Lenovo in 2014. Modern systems
-    use entirely different BMCs.
-
-I also reviewed the recent git history of the driver. Aside from
-mechanical treewide VFS API updates, the only recent activity I saw
-was another out-of-bounds fix in `command_file_write` a few months ago.
-
-However, just like my patches, that recent fix addresses a security
-vulnerability (a userspace-triggered OOB) rather than a functional
-bug reported by an active hardware user. Keeping this obsolete driver
-in the tree just leaves an unnecessary attack surface that forces core
-maintainers to endlessly review security patches for dead hardware.
-
-Given these findings, I believe the driver is essentially dead code.
-However, I want to entirely defer to your judgment. If you feel it
-is still worth keeping in the kernel, I can continue refining this
-OOB patch series. Alternatively, if you agree it is time to retire
-it, I would be happy to send a patch to completely remove the
-`drivers/misc/ibmasm/` directory.
-
-Please let me know which path you would prefer.
-
-Best regards,
-Mingyu Wang
+diff --git a/drivers/gpu/drm/xe/xe_lrc.c b/drivers/gpu/drm/xe/xe_lrc.c
+index 9f29dbe890f6..17f31b032216 100644
+--- a/drivers/gpu/drm/xe/xe_lrc.c
++++ b/drivers/gpu/drm/xe/xe_lrc.c
+@@ -2324,17 +2324,27 @@ void xe_lrc_snapshot_free(struct xe_lrc_snapshot *snapshot)
+ 	kfree(snapshot);
+ }
+ 
+-static int get_ctx_timestamp(struct xe_lrc *lrc, u32 engine_id, u64 *reg_ctx_ts)
++static struct xe_hw_engine *engine_id_to_hwe(struct xe_gt *gt, u32 engine_id)
+ {
+ 	u16 class = REG_FIELD_GET(ENGINE_CLASS_ID, engine_id);
+ 	u16 instance = REG_FIELD_GET(ENGINE_INSTANCE_ID, engine_id);
++	struct xe_hw_engine *hwe = xe_gt_hw_engine(gt, class, instance, false);
++
++	if (xe_gt_WARN_ONCE(gt, !hwe || xe_hw_engine_is_reserved(hwe),
++			    "Unexpected engine class:instance %d:%d for utilization\n",
++			    class, instance))
++		return NULL;
++
++	return hwe;
++}
++
++static int get_ctx_timestamp(struct xe_lrc *lrc, u32 engine_id, u64 *reg_ctx_ts)
++{
+ 	struct xe_hw_engine *hwe;
+ 	u64 val;
+ 
+-	hwe = xe_gt_hw_engine(lrc->gt, class, instance, false);
+-	if (xe_gt_WARN_ONCE(lrc->gt, !hwe || xe_hw_engine_is_reserved(hwe),
+-			    "Unexpected engine class:instance %d:%d for context utilization\n",
+-			    class, instance))
++	hwe = engine_id_to_hwe(lrc->gt, engine_id);
++	if (!hwe)
+ 		return -1;
+ 
+ 	if (lrc_to_xe(lrc)->info.has_64bit_timestamp)
+-- 
+2.53.0
 
