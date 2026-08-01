@@ -1,115 +1,374 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358FE3932FA
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 14:54:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785596071; cv=pass; b=NMqLqLMmey899J+gvo+SAbvjxAd9Vus+/f044yF+1YG0BI7V8DfTqAeOk8c1kWLcNLY9OC+6SpWE1z8L6B2S+l1SKIhMDw/BbjG1tywjcUSnbr+AAQqPsms96p+8Rjt0dQtQszw9Hrwmt8vNUypl9PQ7RBUcaaXjtWtT3m5KlvI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785596071; c=relaxed/simple;
-	bh=lALeePGZVy7EXUBDDuEbDUR+laeZz6c4FLEA8PHGpQA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lVeaQVCVyNtdB7Fyj6XPH9djl1ib00bcw0w1ZLhquv4XD+THsbyr/ejZ7b65CE3jtJ7qLU8/V2WPmT1E96rax3Nmbl/6jBzMgwPVe6ucCOr9Cz5lfbdD4epEEHaLpwMnA/ORr8fKCVwOS4ChDJxrklxTT2P67DkSqV3maAtEGjE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SO33PMB8; arc=pass smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDC93955C3
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 14:54:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785596082; cv=none; b=JOajOXFBePs8BxJeptD4qRESecYlN+mdkgzEvgleYRjgyrRym2FuEZ78ZDc5p1/nX9rI+rKFT54EzcNm9besvUUPQCyx0VViaUFn8JwrkmaBd6YEyKN7uSC8fHD9qe5K/D4mBt9S/KbI5hmioavuOq8bn52CXYkNIktMPed2wcY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785596082; c=relaxed/simple;
+	bh=11NBSjg42+2drECD1whaM/XOV84FQjRFPCasLSN7J3o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=krtuiUQyUn0g5eVavLF9+p1DMg1v/koa3oIn+8ZpvvJLBM+/cM6fcX6enikgtZyhm4cklaOC6KE+qzYbfko3dvoiDmb9hFQq/TM12/JtaFqRJHPf32RhyIUxwE3LKr6C0NKcP9xSmq2vPeCmkza3gsFCuagueHt16a6mAmf2lx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lwTIUWWN; arc=none smtp.client-ip=209.85.210.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SO33PMB8"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-69f4acf7047so340102a12.3
-        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 07:54:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785596068; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CpcZZUegY7SbVVEeMXMy6ZCH669oBIO8dkcoDMaEJPIRmV1fKs4oqXYCfYca9/pUDW
-         93X9Y7U/XcH66mgnCD5dwO2eDDkDLpZIOZaMh37D+UBaNmd3sOVlYJl93qJkNEvQHUdW
-         bLG721BiABVYYH1l3rLXvrZ+7mhwPmPnQbkwPWYksZ+wAbV4/XYSrIfOSQ6W2qk100ZT
-         UUhc7qHQ8TCEtYM/d4vymmGbwW9zVFl+FALNR2NjH6336ksYUXUhGE0b8OtjPg3af9HI
-         4B/6PBqf6J9PLOAwSPm1EyIgTS+3CxBEDj2H8EedunnZC91FiT0Su8YRqn5QWOM8EAeH
-         uJDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lALeePGZVy7EXUBDDuEbDUR+laeZz6c4FLEA8PHGpQA=;
-        fh=FAFxAeygSavrCYS0cPA4/us3bdxQgH/Pr32BZNdaHdw=;
-        b=Hh+tlKUNL5iEhzenJH6/SpzoqXaBAKz7G3V/TmSAvJ4RQlIDK5JVbcusms1t4wycsS
-         SC9L0pLZoORKjhbLbdDNRBIL0NJZB41zHHWPIvLythMV4L2IvSlZlN8NKg2S4HymF2f1
-         lzXoxyoCEVQFTVe0Lth6TmxYxzdOAcIrv/dOZfJZc91fl4aJeQbk9BxkgBu8cGk8AW70
-         VRL02RGbvfN/o4cenR2N43UZr2cA5/a11SytyhhnJO0sp+47hPgEkvcdEO5XcvQ9WQqe
-         o9plrxRGiDAkI4x4MgH9GoN9DOcKqtRmS/OdcfvYEn9bwK2Xx1AvjoBNhZyXp81tZxu+
-         eR6A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lwTIUWWN"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84eb53344afso265010b3a.3
+        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 07:54:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785596068; x=1786200868; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lALeePGZVy7EXUBDDuEbDUR+laeZz6c4FLEA8PHGpQA=;
-        b=SO33PMB86LWO56A81UQNiunI1hVkQKQiC+trgH0uAQti1jekX7WFUilbHx7EUO3Nj0
-         qn3OixXsCInZ9cDrOuvvug+EQByMZDvFO1lz14gwcUWKSQY7vp81gV7b7lpsxFsowXeK
-         qFs7ufyuEX0uubWLezN4TRlkAxHmaj3ejl6mhsafHxYeAyLRm04h/meVHMrMUQGNAmzF
-         Iu0mef0fccay/RQ/MsLYVnNCPhltwxW39b7O0BKSY/HNTA4NezR5/PVFmGUTYt6U5qqv
-         dSHtCXpj4tKq5Zi2szBalPnjEcdy2yv5I6dWo7XFvrxbJc9Ufuk7e/9ZR6ap7XoZydiu
-         wF9Q==
+        d=gmail.com; s=20251104; t=1785596080; x=1786200880; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JJWPlhmOjv/505wIwonl2BZfI0kiebiBlhqn470lSEw=;
+        b=lwTIUWWNv/NjhnFPLn120mTK7XZNPPvx+aiGlBemAP1HB6CknLTuWg4NMtWH1wy4YI
+         PwKviMrCKglTuZgpuit6wrdt8G9jXThAIrB0MoBUORvn7v4p7PxYkcDTfYAzEUX0JzaA
+         apv6hA4Agp58Xc9dX3NO0a5gdDXVpeWy2M3ZF2xfIsp6LFenC047y8/ItOJkwX45oI4M
+         js9howMFG79mXybGm/3aaXPg1K4YKkhvU6fHGORn+Tdjz5FUGTRcwzGPDdx0kpf9t9dW
+         Hkq/oFJMmcy1UvCI6RqDg+X3TWkvvk9kbTkbVzjs9xN6M8vxf9/9jdGU/oG1BmFE8Aik
+         nX5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785596068; x=1786200868;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lALeePGZVy7EXUBDDuEbDUR+laeZz6c4FLEA8PHGpQA=;
-        b=N0/q+siDf69Dhvd1dJOEWZWF7lbU7KLrDp/Oi4FPdBwh7IbXDlA+M8uqbkiAIdiFW0
-         b67+yX/X2V8K/rTFwBl47uw4/0FlGlm3M/P2XPODY8bHAqPEnLhwQdBM32beypcHYfZN
-         um2OBQ5yCqITQdionPQwPbx9D0O052NJvpHarZBLAP06IT7k6XNI2by74v/PvJmOjgwv
-         FTB7/D+CyyTm72Xb0GY3//rUL7IpbYBJWIX+eay5IUj4zBkniICejjtVS61zyWXWi24/
-         wfkxIKtXNpQs2EoyWO4Myiz4LL3WWN1v7afx94yexlovdT4y1NENn5T73ORe13yLJtgP
-         BRlQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrcmUdYMl8XBME/JIeBb1mP3lupoXdwFqDWFNSz6ofyu3YQsZ4n7qZNFVuF8e5wtP29OmU2weE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyxGit6WbF0sgIC75Pb78aROWM6Mrxqpc5wp3nM8gnx1TpDNxmw
-	N5Xoep1mQWIjDbkeI2DpiZDLuAfY+DYx15VlcpGg40uZ+eEVgGkqzJBx/N9pw47ytx75gh//jbA
-	LOmMk3aT+o0srj/SpTs09keKZ9ifFcSc=
-X-Gm-Gg: AR+sD10NiI9TaV+dw+7dPWN7pPajBMmG1OM5RIQdFozybn8+6XQnQFBuEMIIl8PD5Fg
-	HqB4InM8j2GrUpx1cXFQkXKLLII2Ee/v4qnksJAIXYCecau8qjDfMK2OTHIb/t6Ojtcf5B+gQrc
-	7+PonFKGFGfuJ5eJ/PIwPCimkWs7o5vLwEwdG7aIO5ahdQ2w99NwJjfhQUxAD4Moc9Rhtho/Bnp
-	LlOpJ4I/SugotiJi/oMVZUFIywoz2xsWPryiYF6cZjqziXRDMEG/LB7TLV++EbW3AWKGBZFZELA
-	xYfjI7i9Qqyo73x+juM/UaiIBMateLSsVBziFAwHxfsPZFdIh10yB1Z3/FrHm3sh3Zmci4ROkw=
-	=
-X-Received: by 2002:a05:6402:280d:b0:698:d8d2:df38 with SMTP id
- 4fb4d7f45d1cf-6a0a7d14af4mr1792429a12.2.1785596068086; Sat, 01 Aug 2026
- 07:54:28 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785596080; x=1786200880;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JJWPlhmOjv/505wIwonl2BZfI0kiebiBlhqn470lSEw=;
+        b=Xqcn+u525whsG6cDXgvPtfKEmc/qUL7/buVQbuwgbGtI1EB2xCB81eALBGrmW05DX0
+         Web+uTvSk1m20Rq84L/brnq6/yAVp+R8n3XEjaeQVgQsodPtjPPZHoPkchvyigKM3G5Q
+         q3BHdoHZaxEka0vkNG9KkxpFeks0/fbytqwNn7Us742JV0IkfZerZqkE5hnylUixKWxX
+         huZoqMXwSzwryCoFAn3Rf9/4WQ3DgM5AA/xIkRB1Uu/+LTPW6gtccIOHRsa0io1IfATZ
+         /L5ttqV8kk065ArcalSr6WhGsHSOFWSAOUyV98GHDf/4TCX2WHQzr8or6zMGP07AmKcJ
+         L5yA==
+X-Forwarded-Encrypted: i=1; AHgh+RqSBSi9uNz5ASsSNdxU/3k91y64JbKYvhOWzsissaK24fZjkp7S4HitGxelzlzsvfxzMvaUc2g=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy02iPlzpc0U1Ic8UY0c6t4gsYcyBGsm3R5Ue/1YYQHgoXPIehH
+	u365Om9g9uHPLz7TgUkO9s+iE0mWHxUojjI9tc5BxgEop3sKifETAAKF
+X-Gm-Gg: AR+sD12kvIXpV/ddav0Vvx5QT5NOnlRhfHEjLQDyHay6WbLRs4Kl2pPl8bxbzT+Hu8o
+	FxoC4Y5D3LaT5QkfvBOBQaLl+NArrCQ5CkEeqVGX1qoct0tDqHWyyOtcHSWoypiDg9XZXzCJeJm
+	3/TtaFgAbKdUv1DFQuh9BiR4hijigR7SqpThYLeomKUTeQpbkvbxzWgQojtuezS2rHJbBPkFr5r
+	yxboQYg7HEyQ3IPfq5sQvM8WGWHQJ7HknOD4uiCbKX2WqC96QXxrPv/TnJIsmwGB4ZrijjQjTXL
+	CKPOXeL7TsoXt2zpBNrTLUG3i2hybAAFz5ICQRneiwQAFDPPZqMkeKriSR/XcaE4+bohvzxCBWK
+	CoeNo4LjcNljSkcXZh5aU92ZzIti+iDxoYQcFPdF3ZEFpQGcE0My8XOA+lQCURK2SBWka+REPWu
+	jPHc6IZIEqgfPpCA0LAyqnbzks16PNh2u3CZRJJuPN6jvDaOwxTLxdhyrppsXe/E2iaJC0EUCGv
+	YdlTyt/2EJN8u7OHDZS81XTfIVOhB2SprIjqRui9gpSn0AYmw++jA8=
+X-Received: by 2002:a17:90b:58c3:b0:38e:ab3f:2c99 with SMTP id 98e67ed59e1d1-38fbc4c673dmr4745415a91.2.1785596079966;
+        Sat, 01 Aug 2026 07:54:39 -0700 (PDT)
+Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fab1334cfsm15403536c88.1.2026.08.01.07.54.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 01 Aug 2026 07:54:39 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>
+Subject: [PATCH v2] Bluetooth: hci_sync: wait for directed advertising completion
+Date: Sat,  1 Aug 2026 22:54:30 +0800
+Message-ID: <20260801145430.3560911-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260730104103.2080325-1-nicoyip.dev@gmail.com> <CABBYNZJx46usjp0_snfRQ7pvWrxPE8NZqSyqyM0rMEsoHgZnow@mail.gmail.com>
-In-Reply-To: <CABBYNZJx46usjp0_snfRQ7pvWrxPE8NZqSyqyM0rMEsoHgZnow@mail.gmail.com>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Sat, 1 Aug 2026 22:54:16 +0800
-X-Gm-Features: AUfX_mxege7Yh6aPEsZJXnOr0qQ1CCnaaBLHWtdaqnDVHVEc1876k_pZtjV9gkQ
-Message-ID: <CAAo+4rV0ncEcMGZVH+VHScJozqs5L4C3S-mW77s5GyRKeQ78Zg@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: hci_conn: hold conn for LE timeout work
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg <johan.hedberg@intel.com>, 
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Luiz,
+le_conn_timeout is embedded in struct hci_conn, but queuing the work does
+not hold a reference to the connection.  hci_conn_del() uses
+cancel_delayed_work() because synchronous cancellation would deadlock when
+le_conn_timeout() itself calls hci_conn_del() while holding hdev->lock.
 
-On Sat, Aug 1, 2026 at 3:25=E2=80=AFAM Luiz Augusto von Dentz
-<luiz.dentz@gmail.com> wrote:
-> We might be better off removing the le_conn_timeout completely and
-> just make hci_le_create_conn_sync -> hci_le_directed_advertising_sync
-> wait on the connection complete directly rather then using yet another
-> work that can then race against the likes of hci_conn_del.
+This leaves the following interleaving possible:
 
-Thanks for the review, I have just sent a v2 patch to remove the
-racing timer completely and let the hci_le_directed_advertising_sync
-synchronously wait for the connection. Let me know if anything should
-be further adjusted.
+  CPU 0                               CPU 1
+  le_conn_timeout()
+                                      hci_conn_del()
+                                        cancel_delayed_work() = false
+                                        hci_conn_cleanup()
+                                          put_device()
+                                            kfree(conn)
+  hci_conn_failed(conn, ...)
 
-Best regards,
-Chengfeng
+The callback then dereferences the released connection.  KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in hci_conn_failed+0x232/0x250
+  Read of size 8 at addr ffff8881180e8e20 by task kworker/u33:1/111
+  Workqueue: hci0 le_conn_timeout
+  Call Trace:
+   hci_conn_failed+0x232/0x250
+   le_conn_timeout+0x23e/0x2c0
+   process_one_work+0x61b/0xf50
+   worker_thread+0x45b/0xd10
+
+Remove le_conn_timeout instead of adding another connection reference.
+Have the legacy and extended directed-advertising enable commands wait for
+the appropriate LE Connection Complete event in hci_le_create_conn_sync().
+The command-sync entry already holds a connection reference until its
+completion callback returns.
+
+Mark directed advertising as an in-flight connection attempt so teardown
+can cancel the wait.  Disable advertising synchronously when that wait
+fails, and preserve HCI_ERROR_ADVERTISING_TIMEOUT for a software timeout.
+There is then no delayed callback that can race with connection deletion.
+
+Fixes: 980ffc0a2cec ("Bluetooth: Fix LE connection timeout deadlock")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/linux-bluetooth/20260730104103.2080325-1-nicoyip.dev@gmail.com/
+Suggested-by: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+Changes in v2:
+- Remove le_conn_timeout instead of adding references around delayed work.
+- Wait for LE Connection Complete from both directed-advertising enable paths.
+- Make the wait cancellable and disable advertising after a failed wait.
+
+Link: https://lore.kernel.org/linux-bluetooth/20260730104103.2080325-1-nicoyip.dev@gmail.com/ [v1]
+
+ include/net/bluetooth/hci_core.h |  1 -
+ net/bluetooth/hci_conn.c         | 45 --------------------------------
+ net/bluetooth/hci_event.c        | 25 ++----------------
+ net/bluetooth/hci_sync.c         | 42 ++++++++++++++++++++---------
+ 4 files changed, 32 insertions(+), 81 deletions(-)
+
+diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
+index 3df59849dcbe..937c9ba1e6b7 100644
+--- a/include/net/bluetooth/hci_core.h
++++ b/include/net/bluetooth/hci_core.h
+@@ -761,7 +761,6 @@ struct hci_conn {
+ 	struct delayed_work disc_work;
+ 	struct delayed_work auto_accept_work;
+ 	struct delayed_work idle_work;
+-	struct delayed_work le_conn_timeout;
+ 
+ 	struct device	dev;
+ 	struct dentry	*debugfs;
+diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
+index b1f911fd4ad6..74bf0686f428 100644
+--- a/net/bluetooth/hci_conn.c
++++ b/net/bluetooth/hci_conn.c
+@@ -687,48 +687,6 @@ static void hci_conn_auto_accept(struct work_struct *work)
+ 		     &conn->dst);
+ }
+ 
+-static void le_disable_advertising(struct hci_dev *hdev)
+-{
+-	if (ext_adv_capable(hdev)) {
+-		struct hci_cp_le_set_ext_adv_enable cp;
+-
+-		cp.enable = 0x00;
+-		cp.num_of_sets = 0x00;
+-
+-		hci_send_cmd(hdev, HCI_OP_LE_SET_EXT_ADV_ENABLE, sizeof(cp),
+-			     &cp);
+-	} else {
+-		u8 enable = 0x00;
+-		hci_send_cmd(hdev, HCI_OP_LE_SET_ADV_ENABLE, sizeof(enable),
+-			     &enable);
+-	}
+-}
+-
+-static void le_conn_timeout(struct work_struct *work)
+-{
+-	struct hci_conn *conn = container_of(work, struct hci_conn,
+-					     le_conn_timeout.work);
+-	struct hci_dev *hdev = conn->hdev;
+-
+-	BT_DBG("");
+-
+-	/* We could end up here due to having done directed advertising,
+-	 * so clean up the state if necessary. This should however only
+-	 * happen with broken hardware or if low duty cycle was used
+-	 * (which doesn't have a timeout of its own).
+-	 */
+-	if (conn->role == HCI_ROLE_SLAVE) {
+-		/* Disable LE Advertising */
+-		le_disable_advertising(hdev);
+-		hci_dev_lock(hdev);
+-		hci_conn_failed(conn, HCI_ERROR_ADVERTISING_TIMEOUT);
+-		hci_dev_unlock(hdev);
+-		return;
+-	}
+-
+-	hci_abort_conn(conn, HCI_ERROR_REMOTE_USER_TERM);
+-}
+-
+ struct iso_list_data {
+ 	union {
+ 		u8  cig;
+@@ -1121,7 +1079,6 @@ static struct hci_conn *__hci_conn_add(struct hci_dev *hdev, int type,
+ 	INIT_DELAYED_WORK(&conn->disc_work, hci_conn_timeout);
+ 	INIT_DELAYED_WORK(&conn->auto_accept_work, hci_conn_auto_accept);
+ 	INIT_DELAYED_WORK(&conn->idle_work, hci_conn_idle);
+-	INIT_DELAYED_WORK(&conn->le_conn_timeout, le_conn_timeout);
+ 
+ 	spin_lock_init(&conn->proto_lock);
+ 
+@@ -1269,8 +1226,6 @@ void hci_conn_del(struct hci_conn *conn)
+ 			hdev->acl_cnt += conn->sent;
+ 		break;
+ 	case LE_LINK:
+-		cancel_delayed_work(&conn->le_conn_timeout);
+-
+ 		if (hdev->le_pkts) {
+ 			if (!hci_conn_num(hdev, LE_LINK) ||
+ 			    hdev->le_cnt + conn->sent > hdev->le_pkts)
+diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
+index 741d658e9630..b6b279b5a103 100644
+--- a/net/bluetooth/hci_event.c
++++ b/net/bluetooth/hci_event.c
+@@ -1557,22 +1557,10 @@ static u8 hci_cc_le_set_adv_enable(struct hci_dev *hdev, void *data,
+ 
+ 	hci_dev_lock(hdev);
+ 
+-	/* If we're doing connection initiation as peripheral. Set a
+-	 * timeout in case something goes wrong.
+-	 */
+-	if (*sent) {
+-		struct hci_conn *conn;
+-
++	if (*sent)
+ 		hci_dev_set_flag(hdev, HCI_LE_ADV);
+-
+-		conn = hci_lookup_le_connect(hdev);
+-		if (conn)
+-			queue_delayed_work(hdev->workqueue,
+-					   &conn->le_conn_timeout,
+-					   conn->conn_timeout);
+-	} else {
++	else
+ 		hci_dev_clear_flag(hdev, HCI_LE_ADV);
+-	}
+ 
+ 	hci_dev_unlock(hdev);
+ 
+@@ -1604,8 +1592,6 @@ static u8 hci_cc_le_set_ext_adv_enable(struct hci_dev *hdev, void *data,
+ 		adv = hci_find_adv_instance(hdev, set->handle);
+ 
+ 	if (cp->enable) {
+-		struct hci_conn *conn;
+-
+ 		hci_dev_set_flag(hdev, HCI_LE_ADV);
+ 
+ 		if (adv)
+@@ -1613,11 +1599,6 @@ static u8 hci_cc_le_set_ext_adv_enable(struct hci_dev *hdev, void *data,
+ 		else if (!set->handle)
+ 			hci_dev_set_flag(hdev, HCI_LE_ADV_0);
+ 
+-		conn = hci_lookup_le_connect(hdev);
+-		if (conn)
+-			queue_delayed_work(hdev->workqueue,
+-					   &conn->le_conn_timeout,
+-					   conn->conn_timeout);
+ 	} else {
+ 		if (cp->num_of_sets) {
+ 			if (adv)
+@@ -5770,8 +5751,6 @@ static void le_conn_complete_evt(struct hci_dev *hdev, u8 status,
+ 							  &conn->init_addr_type);
+ 			}
+ 		}
+-	} else {
+-		cancel_delayed_work(&conn->le_conn_timeout);
+ 	}
+ 
+ 	/* The HCI_LE_Connection_Complete event is only sent once per connection.
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index c8d14128c363..714bb1d55926 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -1616,7 +1616,9 @@ int hci_update_scan_rsp_data_sync(struct hci_dev *hdev, u8 instance)
+ 	return __hci_set_scan_rsp_data_sync(hdev, instance);
+ }
+ 
+-int hci_enable_ext_advertising_sync(struct hci_dev *hdev, u8 instance)
++static int hci_enable_ext_advertising_sync_ev(struct hci_dev *hdev,
++					      u8 instance, u8 event,
++					      u32 timeout)
+ {
+ 	struct hci_cp_le_set_ext_adv_enable *cp;
+ 	struct hci_cp_ext_adv_set *set;
+@@ -1656,10 +1658,16 @@ int hci_enable_ext_advertising_sync(struct hci_dev *hdev, u8 instance)
+ 		set->duration = cpu_to_le16(duration / 10);
+ 	}
+ 
+-	return __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_EXT_ADV_ENABLE,
+-				     sizeof(*cp) +
+-				     sizeof(*set) * cp->num_of_sets,
+-				     data, HCI_CMD_TIMEOUT);
++	return __hci_cmd_sync_status_sk(hdev, HCI_OP_LE_SET_EXT_ADV_ENABLE,
++					sizeof(*cp) +
++					sizeof(*set) * cp->num_of_sets,
++					data, event, timeout, NULL);
++}
++
++int hci_enable_ext_advertising_sync(struct hci_dev *hdev, u8 instance)
++{
++	return hci_enable_ext_advertising_sync_ev(hdev, instance, 0,
++						  HCI_CMD_TIMEOUT);
+ }
+ 
+ int hci_start_ext_adv_sync(struct hci_dev *hdev, u8 instance)
+@@ -6605,7 +6613,11 @@ static int hci_le_ext_directed_advertising_sync(struct hci_dev *hdev,
+ 			return err;
+ 	}
+ 
+-	return hci_enable_ext_advertising_sync(hdev, 0x00);
++	return hci_enable_ext_advertising_sync_ev(hdev, 0x00,
++				use_enhanced_conn_complete(hdev) ?
++				HCI_EV_LE_ENHANCED_CONN_COMPLETE :
++				HCI_EV_LE_CONN_COMPLETE,
++				conn->conn_timeout);
+ }
+ 
+ static int hci_le_directed_advertising_sync(struct hci_dev *hdev,
+@@ -6656,8 +6668,12 @@ static int hci_le_directed_advertising_sync(struct hci_dev *hdev,
+ 
+ 	enable = 0x01;
+ 
+-	return __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_ADV_ENABLE,
+-				     sizeof(enable), &enable, HCI_CMD_TIMEOUT);
++	return __hci_cmd_sync_status_sk(hdev, HCI_OP_LE_SET_ADV_ENABLE,
++					sizeof(enable), &enable,
++					use_enhanced_conn_complete(hdev) ?
++					HCI_EV_LE_ENHANCED_CONN_COMPLETE :
++					HCI_EV_LE_CONN_COMPLETE,
++					conn->conn_timeout, NULL);
+ }
+ 
+ static void set_ext_conn_params(struct hci_conn *conn,
+@@ -6761,6 +6777,7 @@ static int hci_le_create_conn_sync(struct hci_dev *hdev, void *data)
+ 		/* Pause advertising while doing directed advertising. */
+ 		hci_pause_advertising_sync(hdev);
+ 
++		set_bit(HCI_CONN_CREATE, &conn->flags);
+ 		err = hci_le_directed_advertising_sync(hdev, conn);
+ 		goto done;
+ 	}
+@@ -6847,7 +6864,9 @@ static int hci_le_create_conn_sync(struct hci_dev *hdev, void *data)
+ done:
+ 	clear_bit(HCI_CONN_CREATE, &conn->flags);
+ 
+-	if (err == -ETIMEDOUT)
++	if (err && conn->role == HCI_ROLE_SLAVE)
++		hci_disable_advertising_sync(hdev);
++	else if (err == -ETIMEDOUT)
+ 		hci_le_connect_cancel_sync(hdev, conn, 0x00);
+ 
+ 	/* Re-enable advertising after the connection attempt is finished. */
+@@ -7184,9 +7203,8 @@ static void create_le_conn_complete(struct hci_dev *hdev, void *data, int err)
+ 	if (conn != hci_lookup_le_connect(hdev))
+ 		goto unlock;
+ 
+-	/* Flush to make sure we send create conn cancel command if needed */
+-	flush_delayed_work(&conn->le_conn_timeout);
+-	hci_conn_failed(conn, bt_status(err));
++	hci_conn_failed(conn, conn->role == HCI_ROLE_SLAVE && err == -ETIMEDOUT ?
++			 HCI_ERROR_ADVERTISING_TIMEOUT : bt_status(err));
+ 
+ unlock:
+ 	hci_dev_unlock(hdev);
+-- 
+2.43.0
+
