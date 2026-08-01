@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA6B38D;
-	Sat,  1 Aug 2026 12:25:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC9138D;
+	Sat,  1 Aug 2026 12:25:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785587139; cv=none; b=RvNmq8+bqLQHykbta3p7g/W4l8aGr3h6zolgGHY71IJUyuCzInpqEGh4tY9Y93wYX0CL1Dy2iqDGgxvGGm9k1FuWjy8Vl8MQGafrNG0QJljWWPNdYh6es42x910UVRXtyG7BN0PhLU13ztn/M0L79cZsO5E7dWZoaOgsVRiZfR0=
+	t=1785587143; cv=none; b=Ck4Ceom9z8DO7gk8BdO0KJr47kLa9m5XXWNG3lEEjaWEEe57INdUI9iWkwqbmOgnpezWT9e+uYpH4z5JmdUNad2HMZDzKQv7qBh6jOs1wiIOUsKfxEJNr2aQxWakPH9hieB1ILr+QeYEyqCTG1My4Klv+NYQb+deqOMcM7LSxNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785587139; c=relaxed/simple;
-	bh=Ga+ZWuTCZpnEl5RqwuNDpP/3yRfPfxMKs2jTzArs5Aw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pv5nwBENJKJnRHyWaE6vNVYarKegiJW3VDVJCy4ffd8Jel4MYGWHH9e5EQmR8bQZPq84WuOuUqu61yYfxnuTbu2Hw2CriIvrkxcZ/z8g/qNZH26wMI9Ndb9iFGO3/QBo4iEQZBMaMf1f5cT/k1TW07y6Hqd9TQp3mcj1tk9VrLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=grZG658/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785587143; c=relaxed/simple;
+	bh=4gG5xB2QZ5YE8hLuOHmyuKaQd3LO5mKZnrgRUZNxWJ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IGJabZwZxQEPTjUaLbYEybMknWpCgKC/kbyfzr87wIUs4znHZwyEk1jbrhyIGojzFjLEdkH7h2XI6as4zaQotGW3DpR8uDZOc10rFbGvWakpPCHa5W7NMloYdN/p0J9cPWy4qHy9JGPxKZlrtkkCfo++GdyM7YHJZcv5dsNKeUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XgBVE3Gb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="grZG658/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C1291F00AC4;
-	Sat,  1 Aug 2026 12:25:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XgBVE3Gb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C63901F00ACF;
+	Sat,  1 Aug 2026 12:25:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785587138;
-	bh=PD2Ei2+8ZcRVLYaWR53BggaFC4sYxGX7KYSUUWTxUwY=;
-	h=From:To:Cc:Subject:Date;
-	b=grZG658/Jsc0+VSH9kZVTG/rifLiIzTDCAM6GXUdikVf+U91KKt8zBWiG1SZaspJT
-	 rQ5e3K5kOj2T8PMJbEaW1Ym/LYsdrW2/TMtyuFPDKCjJawxwEnb5pISycvHb7m8KEY
-	 nAWff0bRo+H6a7W6/rNr3fTl5pqEwW2+Lur4osJWFPRz4uYtX4Wv7LmMc1qfeTlnf9
-	 /Mb2JO67/jtHUikhKxDcjjFDKwLM4Pod4S4rLXL069dCMXLCQzLY+tKLlXdcLcIGuc
-	 CoApczKR8kMa1XgVyQRC/ypbjpUJhnf6PA/YwOGeTJ3vpXr7ihyE0XY1k1GJ6Ydfzm
-	 2LnFsaq0rKDnQ==
+	s=k20260515; t=1785587142;
+	bh=fR5GQklAEmMIRAxF5ZINhcf10poKg1/4k56TIs+euS8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XgBVE3GbYz9QXwCf2ZRYlPhwPyUGUCO6C6tk9Pc2sQnSY35UCRgBrOJw4nNPSBjJe
+	 7mKzbtf9C50CiWxQ+T6Ch+6bbkQUy64hdggkkV1/GPNmT9VegCkXhWu1RnPPl9AOGh
+	 JwTWoJKtKGgQsh7iwJKb/A3T4FRUr1gvYiQOPe9eRlvISnD38j5w7BZiUyc/asvyxk
+	 jwMlqIeV556EQIBILYc4nBH6N7PoML3cOtJeTYYA7nkEEsj9pMA66ZY92+kc9ncQl0
+	 h8DQx1B9KOEObFLTFXfe/gYKYXAoodT2LqnpKvKNsVcWzClr7BOtVsn0dTipceSeuQ
+	 rGy2YU4jTfIDQ==
 From: Harry Yoo <harry@kernel.org>
 To: Danielle Costantino <dcostantino@meta.com>,
 	Shakeel Butt <shakeel.butt@linux.dev>,
@@ -43,10 +44,12 @@ To: Danielle Costantino <dcostantino@meta.com>,
 Cc: linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [7.1.y 0/3] mm/slab: fix unbounded recursion in free path with memalloc profiling 
-Date: Sat,  1 Aug 2026 12:25:30 +0000
-Message-ID: <20260801122533.319272-1-harry@kernel.org>
+Subject: [7.1.y 1/3] mm/slab: decouple SLAB_NO_SHEAVES from SLAB_NO_OBJ_EXT
+Date: Sat,  1 Aug 2026 12:25:31 +0000
+Message-ID: <20260801122533.319272-2-harry@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260801122533.319272-1-harry@kernel.org>
+References: <20260801122533.319272-1-harry@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,31 +58,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Harry Yoo" <harry@kernel.org>
+From: "Harry Yoo (Oracle)" <harry@kernel.org>
 
-This is backport of "mm/slab: fix unbounded recursion in free path with
-memalloc profiling" series [1] for 7.1.
+commit 982e31382d9a1a3c8c4e6a13702a53711f4efe9f upstream.
 
-The last patch has a slight functional difference compared to mainline
-due to lack of SLAB_ALLOC_* flags. I described those subtlties in the
-backporting notes in detail.
+Bootstrap caches are created with SLAB_NO_OBJ_EXT to disallow sheaves
+and obj_exts.
 
-[1] https://lore.kernel.org/all/20260713-kmalloc-no-objext-v3-0-47c7bd138de7@kernel.org
+To allow disabling obj_exts while allowing sheaves, decouple
+SLAB_NO_SHEAVES from SLAB_NO_OBJ_EXT. Bootstrap caches now have both
+SLAB_NO_SHEAVES and SLAB_NO_OBJ_EXT.
 
-Harry Yoo (Oracle) (3):
-  mm/slab: decouple SLAB_NO_SHEAVES from SLAB_NO_OBJ_EXT
-  lib/alloc_tag: introduce mem_alloc_profiling_permanently_disabled()
-  mm/slab: prevent unbounded recursion in free path with new kmalloc
-    type
+No functional change intended.
 
- include/linux/alloc_tag.h |  3 ++
- include/linux/slab.h      | 19 +++++++-
- lib/alloc_tag.c           |  9 ++++
- mm/slab.h                 | 28 ++++++++++-
- mm/slab_common.c          | 13 ++++++
- mm/slub.c                 | 97 +++++++++++++++------------------------
- 6 files changed, 104 insertions(+), 65 deletions(-)
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Signed-off-by: Harry Yoo (Oracle) <harry@kernel.org>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Link: https://patch.msgid.link/20260713-kmalloc-no-objext-v3-2-47c7bd138de7@kernel.org
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Signed-off-by: Harry Yoo <harry@kernel.org>
+---
+ include/linux/slab.h | 13 +++++++++++--
+ mm/slub.c            | 10 ++++++----
+ 2 files changed, 17 insertions(+), 6 deletions(-)
 
+diff --git a/include/linux/slab.h b/include/linux/slab.h
+index 1a69255bb87f..fda7e24a762b 100644
+--- a/include/linux/slab.h
++++ b/include/linux/slab.h
+@@ -58,10 +58,13 @@ enum _slab_flag_bits {
+ #endif
+ 	_SLAB_OBJECT_POISON,
+ 	_SLAB_CMPXCHG_DOUBLE,
++#ifdef CONFIG_SLAB_OBJ_EXT
+ 	_SLAB_NO_OBJ_EXT,
+-#if defined(CONFIG_SLAB_OBJ_EXT) && defined(CONFIG_64BIT)
++#ifdef CONFIG_64BIT
+ 	_SLAB_OBJ_EXT_IN_OBJ,
+ #endif
++#endif
++	_SLAB_NO_SHEAVES,
+ 	_SLAB_FLAGS_LAST_BIT
+ };
+ 
+@@ -239,8 +242,14 @@ enum _slab_flag_bits {
+ #endif
+ #define SLAB_TEMPORARY		SLAB_RECLAIM_ACCOUNT	/* Objects are short-lived */
+ 
+-/* Slab created using create_boot_cache */
++/* Slab caches without obj_exts array */
++#ifdef CONFIG_SLAB_OBJ_EXT
+ #define SLAB_NO_OBJ_EXT		__SLAB_FLAG_BIT(_SLAB_NO_OBJ_EXT)
++#else
++#define SLAB_NO_OBJ_EXT		__SLAB_FLAG_UNUSED
++#endif
++
++#define SLAB_NO_SHEAVES		__SLAB_FLAG_BIT(_SLAB_NO_SHEAVES)
+ 
+ #if defined(CONFIG_SLAB_OBJ_EXT) && defined(CONFIG_64BIT)
+ #define SLAB_OBJ_EXT_IN_OBJ	__SLAB_FLAG_BIT(_SLAB_OBJ_EXT_IN_OBJ)
+diff --git a/mm/slub.c b/mm/slub.c
+index fa24b985a783..33e64f21ecc1 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -7726,12 +7726,12 @@ static unsigned int calculate_sheaf_capacity(struct kmem_cache *s,
+ 		return 0;
+ 
+ 	/*
+-	 * Bootstrap caches can't have sheaves for now (SLAB_NO_OBJ_EXT).
++	 * Bootstrap caches can't have sheaves for now (SLAB_NO_SHEAVES).
+ 	 * SLAB_NOLEAKTRACE caches (e.g., kmemleak's object_cache) must not
+ 	 * have sheaves to avoid recursion when sheaf allocation triggers
+ 	 * kmemleak tracking.
+ 	 */
+-	if (s->flags & (SLAB_NO_OBJ_EXT | SLAB_NOLEAKTRACE))
++	if (s->flags & (SLAB_NO_SHEAVES | SLAB_NOLEAKTRACE))
+ 		return 0;
+ 
+ 	/*
+@@ -8513,7 +8513,8 @@ void __init kmem_cache_init(void)
+ 
+ 	create_boot_cache(kmem_cache_node, "kmem_cache_node",
+ 			sizeof(struct kmem_cache_node),
+-			SLAB_HWCACHE_ALIGN | SLAB_NO_OBJ_EXT, 0, 0);
++			SLAB_HWCACHE_ALIGN | SLAB_NO_SHEAVES | SLAB_NO_OBJ_EXT,
++			0, 0);
+ 
+ 	hotplug_node_notifier(slab_memory_callback, SLAB_CALLBACK_PRI);
+ 
+@@ -8523,7 +8524,8 @@ void __init kmem_cache_init(void)
+ 	create_boot_cache(kmem_cache, "kmem_cache",
+ 			offsetof(struct kmem_cache, per_node) +
+ 				nr_node_ids * sizeof(struct kmem_cache_per_node_ptrs),
+-			SLAB_HWCACHE_ALIGN | SLAB_NO_OBJ_EXT, 0, 0);
++			SLAB_HWCACHE_ALIGN | SLAB_NO_SHEAVES | SLAB_NO_OBJ_EXT,
++			0, 0);
+ 
+ 	kmem_cache = bootstrap(&boot_kmem_cache);
+ 	kmem_cache_node = bootstrap(&boot_kmem_cache_node);
 -- 
 2.53.0
 
