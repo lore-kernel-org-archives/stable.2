@@ -1,80 +1,42 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F53DDCD
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 11:49:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17A93563E1
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 12:07:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785584962; cv=none; b=Khrwk+ZjNxI3sB+95yffrpEH6h1mD8RQaVGAzU0UvHt8yu/x9Rk9AXClvGMhyeBREbjdwC3aGIzV2YhSRxYfm6p3yvGvdutU7gct5nu/J+e4ad5soBeveJVH1mcr23IIktgvbSi/g5TDjrDDcUDQlwHdyQ8mzrgnPQuXPLML76Q=
+	t=1785586042; cv=none; b=JINs4Z+rgKMP8WibpP9lfFTPvfuwGnbPJ8Kd7gUkhjORiQEGwcis0z9qMrQV1AIxGG65EDF8nUDULpTJagltTJ4F52HSBbkodC+IHWPRJZYkXjaCKLLWYQ+Ve5R7dHrba8vA0iTSbHd7kCAMJYg9wjpQV7FB5sNhUPxkCXJKN98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785584962; c=relaxed/simple;
-	bh=4yyAcVknUicAHnNFBh0eMnF/hJea/MMAc1JgVYj7fY8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=utqnjleCagDIAWOAAH1n/we6NbLOVDv4RuG+MCdzP2BEYa7n2zW7Rmk7oW+dTDTaUALRe+eGdPdeAOZGi3K8dibGGNqoIRf9cvxJup/n8Y5MFdn75t6MbtbgeMXY3qdVAeFVtZtMysg8lgecOr/bFZRQ529DfUDLbK8hPVsatdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in; spf=pass smtp.mailfrom=cse.iitm.ac.in; dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b=TRhifgad; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cse.iitm.ac.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cse.iitm.ac.in
+	s=arc-20240116; t=1785586042; c=relaxed/simple;
+	bh=feHAen9/S8kdng3r1Nxk86tp3STjV64iCb4RWAPegoU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JuknEfYJdkkDoRmTaEYAVedd5QxFIo9GLEBb03+f9QAqQkwcTKgCw3qb8Ywi1BD0Z5t2DuCGaqGIPPujbmb3hCqUqfMVfCxcwD/vLyETxRFfrIv2yok77AurDzvy6zHgWiNr1u+kj8EEMBtiXKYPR0AA3CGVizFdMfnfa9Kp50s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FNWYJUq0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cse-iitm-ac-in.20251104.gappssmtp.com header.i=@cse-iitm-ac-in.20251104.gappssmtp.com header.b="TRhifgad"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2caced6038eso18657955ad.0
-        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 04:49:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cse-iitm-ac-in.20251104.gappssmtp.com; s=20251104; t=1785584960; x=1786189760; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y/htim8H+8x9oNbHl26vDUAIesN+LBlNBvkdejEDGrc=;
-        b=TRhifgadxAPmJ8/U0T62YS0UNymQDKERmTM6pNtHE//EmZ1tJ14HN23Q66I1ZIRlZg
-         q+RD1DyKETOEEsNm9nQrRhCW36JXB9Egl65uJo1e0FzzXl5gAE3aLjgduWk/itkNe4py
-         xFa9ac3gz9JilSRxQ3vmk8+s689CWVwiL/dN2e2CZCuitH19daimUhsqItQIsMObjQvc
-         Sq8+4UteJ7R8Q261nRkBX8f/Kf2SWpH0ryxLrPrVMcUYxtvnlX76xAyqBUwAVwvBFqa6
-         BcUOR6zZmgGSwDE88gse0jPwfzD/ih/nzG/sYDIIn9MKN0oCZviiSCRR6EtU0MGCgXGh
-         8/jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785584960; x=1786189760;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y/htim8H+8x9oNbHl26vDUAIesN+LBlNBvkdejEDGrc=;
-        b=IUjon5tdRKYwSYEX3tk0o/UrHH8LUYiceXetJEevFcIbmBZcJMrhfuvkuz0tLng02H
-         tQksW2FgPDnvKZJbbsWxDby0FYx4deSD12ILOtOy4LBvpDrGTPCkUPCq+H+XyktByF1a
-         0eL1rpwfQ5L0mbWc046cMgymgqeakEE3iwuIliTcrXkIZFH6YQBswrC7aWWSWKKGjXXE
-         W8CdUTP2X3jHWnOg4VuPFdKfBPuiIThMEMypJEpbAy0DnSc8/weayuNHBmARHMGAzPxB
-         cKncRlIMRzEiRxyRlsNmWexDk0sDwdJHmorqtxqipS5tGXOX5BvqEXFcbdZlD0PZ+HR8
-         oYKg==
-X-Forwarded-Encrypted: i=1; AHgh+Roy5eb2DMpbxnjmGqaohwSgYqhZDvEFc9tZvDDPIv7MXTzISL4HxwkuTkv0ShFIAAPoP8FBJJ8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+Tuj94xN+EYIdlOvZH0jpYTWNNL0e/lfPyQyP8WXmM5UNMEn5
-	UVqI40xuW/q3DLNk9KU4PskB7VDap/PSqLGMQH4UJt1JS2dkTGIe6Pyvy4h57mtv9NI=
-X-Gm-Gg: AR+sD11rU35o9BofmHJ4y4O/0AQmFBLPg5Tls8HW+DxCdEo8Zy+2lrKcEWvdx2e7YfM
-	cgQ7iyLloeM4Jh/kP9jGVdOwkzufy6MuAyeGXJKauSVi7l+el1Wo2Yv5pKykhnoZzIgl+a7Teo5
-	hFF+NrWdBHAtGlJ1VMXrecnQM/+/IZ4OLAJ9bI+UpsGBko3dEpvEXUizcNmGnzEfh3WeVTPaFqr
-	oCnKi4Unx3MlNt2rPzy+CQ7th/h7PmTtqQAn66Di+ZqyvoPKz+5rLlpCP2tXZuQMJ8vO30o5EyG
-	gCmtJ/ixGQchlzTonTj/Da/HMdT8aYesSzX9YGkDQAu2X+cuxG80KR32TUnNTHjKy9FrfCoO2VK
-	NwuC7A+zlHz+Gem/kEpWoi6xmkw+ciA7qojdhYP0+9aBuYpX5rucb+0tO677Xs8kLoYAKTMkYAj
-	U3mI4e1eh/fXpnp0Pk9yzEI/C0rBcFedAevB47n8Oeq4KRTRAg3umLUb0qUHXOWouHARMOAorUk
-	E6JlgpGilDHpiRIkqfikhPNIaS3GpmiS0fxa6xZq7HSE3PTvA3ZR0CMl5Agx626Y4hJ+qaAyFf8
-	fwRsyETukvddmsw=
-X-Received: by 2002:a17:903:350f:b0:2cf:461a:3863 with SMTP id d9443c01a7336-2d047e6fe24mr51267725ad.22.1785584960370;
-        Sat, 01 Aug 2026 04:49:20 -0700 (PDT)
-Received: from Metius.iitm.ac.in ([103.158.43.43])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-3153e06f8dbsm16967624eec.22.2026.08.01.04.49.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 04:49:19 -0700 (PDT)
-From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-To: jjohnson@kernel.org
-Cc: Abdun Nihaal <nihaal@cse.iitm.ac.in>,
-	nathan@kernel.org,
-	ndesaulniers@google.com,
-	morbo@google.com,
-	justinstitt@google.com,
-	linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev,
-	baochen.qiang@oss.qualcomm.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] wifi: ath11k: Fix possible memory leak in ath11k_dp_srng_setup()
-Date: Sat,  1 Aug 2026 17:19:09 +0530
-Message-ID: <20260801114911.91483-1-nihaal@cse.iitm.ac.in>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FNWYJUq0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA0261F00AC4;
+	Sat,  1 Aug 2026 12:07:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785586041;
+	bh=UVg/1kNofGZsqGSSN5eBKSpNZP/beHG7QkMIVJqjKQ4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FNWYJUq0upP86x6QaAHY9FYUXhvXEfC0ykQ/4AexFJA3cUu5JQCkVLkxHhLXT+EM0
+	 2YfhoqtQV01Hm9LBx06KX43Umd3/Mxye6WUPtC2/sgjw14VNmU7+jDoZvxIVtl5dfQ
+	 5E4ZhnAG7hLdZtLwvYYWYY2Tr1mhPWZW8rEXad19jJXatzYs587KFpfhyD9mSciuZZ
+	 y1B3EWyCszUAs5SX15NCG4+oQg0ZeK7tVrKbM+oIZ1LbYp6qUD+L3RYT8/trAPOFLj
+	 D4/wpX8rlUNCP2prGDDlO90Lio1mT8HNqkV7IG4WUFC3pE5aSLeK3M20i5SD+F8Wpx
+	 dzuh1FsYldGcA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Gustavo Sousa <gustavo.sousa@intel.com>,
+	Matt Roper <matthew.d.roper@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/5] drm/xe/mcr: Extract reg_in_steering_type_ranges()
+Date: Sat,  1 Aug 2026 08:07:14 -0400
+Message-ID: <20260801120719.2790871-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072931-mammogram-purposely-1224@gregkh>
+References: <2026072931-mammogram-purposely-1224@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,51 +45,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In ath11k_dp_srng_setup(), the memory allocated for
-ring->vaddr_unaligned is not freed in the error paths that follow.
-Fix that by calling ath11k_dp_srng_cleanup() in those error paths.
+From: Gustavo Sousa <gustavo.sousa@intel.com>
 
-Compile tested only. Issue found using a prototype static analysis tool
-built on the LLVM compiler infrastructure.
+[ Upstream commit cdf8489533f4dd9639fd0c266dd2ec8f7a543e34 ]
 
-Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-sonnet-4-6
-Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+The logic to check if a register falls within one of the ranges for a
+steering type is already duplicated in
+xe_gt_mcr_get_nonterminated_steering().  We will also want to use that
+same logic in another upcoming function.  Let's factor out that logic
+and put it into a function named reg_in_steering_type_ranges().
+
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Link: https://patch.msgid.link/20260514-rtp-mcr-check-v3-6-30dd47855fee@intel.com
+Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+Stable-dep-of: 60d49ea28bb1 ("drm/xe/rtp: Keep track of non-OA nonpriv slots")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ drivers/gpu/drm/xe/xe_gt_mcr.c | 35 +++++++++++++++++++---------------
+ 1 file changed, 20 insertions(+), 15 deletions(-)
 
-v1->v2:
-- Moved the information about compile testing, and how the issue was
-  detected to the commit message, as suggested by Baochen Qiang.
-- Add the release function in the switch default case as well, as
-  pointed out by Jeff Johnson. Also add Assisted-by tag.
-
-v1 link: https://patchwork.kernel.org/project/linux-wireless/patch/20260727105532.118164-1-nihaal@cse.iitm.ac.in/
-
- drivers/net/wireless/ath/ath11k/dp.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/net/wireless/ath/ath11k/dp.c b/drivers/net/wireless/ath/ath11k/dp.c
-index f389b97acbdd..be65d73b904b 100644
---- a/drivers/net/wireless/ath/ath11k/dp.c
-+++ b/drivers/net/wireless/ath/ath11k/dp.c
-@@ -313,6 +313,7 @@ int ath11k_dp_srng_setup(struct ath11k_base *ab, struct dp_srng *ring,
- 	case HAL_RXDMA_DIR_BUF:
- 		break;
- 	default:
-+		ath11k_dp_srng_cleanup(ab, ring);
- 		ath11k_warn(ab, "Not a valid ring type in dp :%d\n", type);
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/xe/xe_gt_mcr.c b/drivers/gpu/drm/xe/xe_gt_mcr.c
+index c834f64b0178..6295cd639f5c 100644
+--- a/drivers/gpu/drm/xe/xe_gt_mcr.c
++++ b/drivers/gpu/drm/xe/xe_gt_mcr.c
+@@ -505,6 +505,20 @@ void xe_gt_mcr_set_implicit_defaults(struct xe_gt *gt)
  	}
-@@ -324,6 +325,7 @@ int ath11k_dp_srng_setup(struct ath11k_base *ab, struct dp_srng *ring,
+ }
  
- 	ret = ath11k_hal_srng_setup(ab, type, ring_num, mac_id, &params);
- 	if (ret < 0) {
-+		ath11k_dp_srng_cleanup(ab, ring);
- 		ath11k_warn(ab, "failed to setup srng: %d ring_id %d\n",
- 			    ret, ring_num);
- 		return ret;
++static bool reg_in_steering_type_ranges(struct xe_gt *gt,
++					struct xe_reg reg,
++					int type)
++{
++	if (!gt->steering[type].ranges)
++		return false;
++
++	for (int i = 0; gt->steering[type].ranges[i].end > 0; i++)
++		if (xe_mmio_in_range(gt, &gt->steering[type].ranges[i], reg))
++			return true;
++
++	return false;
++}
++
+ /*
+  * xe_gt_mcr_get_nonterminated_steering - find group/instance values that
+  *    will steer a register to a non-terminated instance
+@@ -526,26 +540,17 @@ static bool xe_gt_mcr_get_nonterminated_steering(struct xe_gt *gt,
+ 						 u8 *group, u8 *instance)
+ {
+ 	const struct xe_reg reg = to_xe_reg(reg_mcr);
+-	const struct xe_mmio_range *implicit_ranges;
+ 
+ 	for (int type = 0; type < IMPLICIT_STEERING; type++) {
+-		if (!gt->steering[type].ranges)
+-			continue;
+-
+-		for (int i = 0; gt->steering[type].ranges[i].end > 0; i++) {
+-			if (xe_mmio_in_range(gt, &gt->steering[type].ranges[i], reg)) {
+-				*group = gt->steering[type].group_target;
+-				*instance = gt->steering[type].instance_target;
+-				return true;
+-			}
++		if (reg_in_steering_type_ranges(gt, reg, type)) {
++			*group = gt->steering[type].group_target;
++			*instance = gt->steering[type].instance_target;
++			return true;
+ 		}
+ 	}
+ 
+-	implicit_ranges = gt->steering[IMPLICIT_STEERING].ranges;
+-	if (implicit_ranges)
+-		for (int i = 0; implicit_ranges[i].end > 0; i++)
+-			if (xe_mmio_in_range(gt, &implicit_ranges[i], reg))
+-				return false;
++	if (reg_in_steering_type_ranges(gt, reg, IMPLICIT_STEERING))
++		return false;
+ 
+ 	/*
+ 	 * Not found in a steering table and not a register with implicit
 -- 
-2.43.0
+2.53.0
 
