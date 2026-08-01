@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911EA34CFA1
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 16:01:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8648135F5E5
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 16:01:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785600096; cv=none; b=WdpWynlEbELVTdCFKT/7jdJs38sjkbCMv8yca1mPnbpQApXRO0YXlCiNaGBRcFwFPLEKThP2v5gCVWVOGXGjUsjo3NJ6EnBjV1ItsQw5zLVpvK7PUFMvyjki8j6tIYDs+WfobXSLIoO7FhnNLQ9Z7xM2VKenNrOrFGqNPHBWxc0=
+	t=1785600099; cv=none; b=Xeiwc7tKPVgBBYbs+wjlErrn5figc+S8iiuv/JAojgetMFl8t6neo1r5OV+LPR78lqChmHxRND5rtVfUIzr/kbdn0Z6yiJ3VrjFsBc5DBj2snEk54yaXJ0ndXTuHA7HrxbJJWi9ff6CLAMk9s6bOcnvz6tD80e4fLNVstu1XEU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785600096; c=relaxed/simple;
-	bh=3q2Opq7ZDzZGeFt+sW1JhmSemcoiXnDrnDJVtaO9bvA=;
+	s=arc-20240116; t=1785600099; c=relaxed/simple;
+	bh=0LJnpOpec7sqvwU7BbxzApU2pp64ZjqqBjCXPfmS/og=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e3fiedG47uc/snjpVFmLrMHNYYgu1SQaDnaHkUVNlWH3PksXJTuK3YU9RgqSA2Sh9c2/gSnpQb0wj1Ukse7vYQBhOEeEgLzfFmNn/6jDcTMWbJIlK+DpTEfv9WTd5qE4/vVw/HpLuavs4s9hQx3ekLGaTVkm7/EukdlUHe9S3t4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nag24A42; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kIAS+B3rlRmXPnNHUKKlk+rJ5iH113swHIflVAylhutWQpIO4LTTzs6GVCfsDlQzw9oUhzaxmLlDm+llKJTh4m6zfx0s1JlX8HvSuwRHg6lr9Jga5aEdaJt9k1CTpQrVHCkDtz8lsR/tk9CJStY8Ba30SPXuLzKZ9xPt1mMti2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EXlhyVIs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nag24A42"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45D9A1F00AC4;
-	Sat,  1 Aug 2026 16:01:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EXlhyVIs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71D461F00ACA;
+	Sat,  1 Aug 2026 16:01:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785600090;
-	bh=UmWDDvYfIT4Q9Yz/QeNdxK1f6/LNoaHG5JMCjPxSF3w=;
+	s=k20260515; t=1785600091;
+	bh=hcTZloyfahPVN5STy/7YmaqShffalyIy2Ojl1QAo6OM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nag24A42AQ3sgyjBgkYYhXe+R+evR5FwBj6wKN1jtILjmSt1wohUWBbXalGx4xFiU
-	 ntaCBMXqzBBv+rPBzizkT+BymyRkYMMyBWNNwDSJPOvPXnujkqa5SCy2JWCHdw7faS
-	 +gVnx7OAgB8jC5PZMv2E4KMnriwWqU6dpltgWUvpJpXyVKt3W0I9Yar4rY+2aFOKlW
-	 tDl/sP6o4Lj/5++r/DwtU/F3kWzl2q/mflKsfw/5sOG0sqipRAWFkM/DIfJSbz5oDO
-	 ivh3qR9dLW7H+0y9GY1cdkG4mVZZY3UYlGlVBTW1Y+Ve37XmRpfuUyi2vsDiWqQNhA
-	 0nkfnPQHu9V2g==
+	b=EXlhyVIsZtdX7PttX5PYRwkoAkhkYBuVZT5fQCUqkNUSe1M9cDFBBajdUkr6yIZr1
+	 mz5Dx25wea8XogCsPUyI/ZPgeBRDr03ZJi+6LyqFL79G9XlnQjdIJWzca4XOEJi6QB
+	 +v/AeiOaWyjnPIHoJTk+59Z5gdjdvhXur9WjKU7vS91r8Frj9W5wTnwcreUd59TMZk
+	 m5Gum0Rs5EUc7++uwPGvHGI9GCI+LEWxPnT1dMNKSYpSx56sxFUxYjGydDiHnemv1c
+	 Rxar1yOpD4n3FUqLiArFRpxvuO905Ve5bApnwcUA4/n4BLut//TQSEG1WFKTJGz2cD
+	 6nwq7/XosxGMA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
+Cc: Clay King <clayking@amd.com>,
 	Dillon Varone <dillon.varone@amd.com>,
 	James Lin <pinglei.lin@amd.com>,
+	Daniel Wheeler <daniel.wheeler@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 1/3] drm/amd/display: Fix type mismatches in DML and normalize loop bounds
-Date: Sat,  1 Aug 2026 12:01:21 -0400
-Message-ID: <20260801160127.1534503-1-sashal@kernel.org>
+Subject: [PATCH 7.1.y 2/3] drm/amd/display: Fix warnings
+Date: Sat,  1 Aug 2026 12:01:22 -0400
+Message-ID: <20260801160127.1534503-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072943-starboard-brisket-7559@gregkh>
+In-Reply-To: <20260801160127.1534503-1-sashal@kernel.org>
 References: <2026072943-starboard-brisket-7559@gregkh>
+ <20260801160127.1534503-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,2054 +49,3569 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
+From: Clay King <clayking@amd.com>
 
-[ Upstream commit faaeeecef94ad312b051dbe628d6e3f016ba5263 ]
+[ Upstream commit c3fb1fb9e65fa6a108b4d19c61bdcb47fd4fe180 ]
 
-[Why]
-Address signed/unsigned comparison warnings across DML paths
-to keep builds warning-clean and improve type safety at comparison
-boundaries. Most warnings came from signed loop/index temporaries compared
-against unsigned counters (for example pipe_count, num_states, and
-candidate/state counts), plus a small number of mixed signed/unsigned
-clock and geometry checks.
+[Why & How]
+Fix various warnings related to unsigned/signed mismatches
+-  Consistently use the same signedness for a given value
+-  Explcitly cast between types when needed
 
-[How]
-Aligned iterator and temporary variable types with the semantic type
-of the compared bounds. Used unsigned indices for loops bounded by unsigned
-counters, and retained signed types where values are semantically signed
-(for example plane_count math, timing/micro-schedule arithmetic, and
-reverse/sentinel-style iteration). Where mixed signed/unsigned comparisons
-are intentional, applied explicit boundary casts instead of broad type
-changes (for example dispclk minimum clamp and selected timing/height
-comparisons).
-
-As a side effect of converting count parameters such as
-NumberOfActivePlanes to unsigned, normalized equivalent loop forms from:
-
-for (i = 0; i <= NumberOfActivePlanes - 1; i++)
-
-into the normalized form:
-
-for (i = 0; i < NumberOfActivePlanes; i++)
-
-to keep bound style coherent and avoid avoidable mismatch patterns.
-
-No functional behavior changes are intended; this is a warning-resolution
-and type-alignment cleanup.
-
-Assisted-by: Copilot
 Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
+Signed-off-by: Clay King <clayking@amd.com>
 Signed-off-by: James Lin <pinglei.lin@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Stable-dep-of: 93c8fe6d5603 ("drm/amd/display: guard against overflow in HDCP message dump")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/display/dc/dml/calcs/dcn_calcs.c  |   9 +-
- .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  |  34 +++--
- .../dc/dml/dcn20/display_mode_vba_20.c        |  36 ++---
- .../dc/dml/dcn20/display_mode_vba_20v2.c      |  36 ++---
- .../dc/dml/dcn21/display_mode_vba_21.c        |  36 ++---
- .../drm/amd/display/dc/dml/dcn30/dcn30_fpu.c  |  14 +-
- .../dc/dml/dcn30/display_mode_vba_30.c        |  83 +++++------
- .../amd/display/dc/dml/dcn301/dcn301_fpu.c    |   5 +-
- .../amd/display/dc/dml/dcn302/dcn302_fpu.c    |   2 +-
- .../amd/display/dc/dml/dcn303/dcn303_fpu.c    |   2 +-
- .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.c  |  15 +-
- .../dc/dml/dcn31/display_mode_vba_31.c        | 121 ++++++++--------
- .../amd/display/dc/dml/dcn314/dcn314_fpu.c    |   5 +-
- .../dc/dml/dcn314/display_mode_vba_314.c      | 129 ++++++++++--------
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  75 +++++-----
- .../dc/dml/dcn32/display_mode_vba_32.c        |  21 +--
- .../dc/dml/dcn32/display_mode_vba_util_32.c   |   2 +-
- .../amd/display/dc/dml/dcn321/dcn321_fpu.c    |  46 +++----
- .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c  |   5 +-
- .../amd/display/dc/dml/dcn351/dcn351_fpu.c    |   5 +-
- .../drm/amd/display/dc/dml/display_mode_vba.c |   4 +-
- 21 files changed, 366 insertions(+), 319 deletions(-)
+ .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   |   6 +-
+ .../display/dc/clk_mgr/dce100/dce_clk_mgr.h   |   2 +-
+ .../display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c  |   8 +-
+ .../dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c  |   4 +-
+ .../dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h  |   2 +-
+ .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  |   2 +-
+ .../dc/clk_mgr/dcn401/dcn401_clk_mgr.c        |   2 +-
+ .../dc/clk_mgr/dcn401/dcn401_clk_mgr.h        |   4 +-
+ .../clk_mgr/dcn401/dcn401_clk_mgr_smu_msg.c   |   4 +-
+ .../clk_mgr/dcn401/dcn401_clk_mgr_smu_msg.h   |   2 +-
+ .../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c  |   2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |   4 +-
+ .../drm/amd/display/dc/core/dc_link_exports.c |   2 +-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  18 +-
+ .../drm/amd/display/dc/core/dc_vm_helper.c    |   4 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  68 +--
+ drivers/gpu/drm/amd/display/dc/dc_dsc.h       |   2 +-
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |   4 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |   2 +-
+ .../amd/display/dc/dcn21/dcn21_link_encoder.c |   2 +-
+ .../display/dc/dio/dcn10/dcn10_link_encoder.c |   2 +-
+ .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  |   4 +-
+ .../dc/dml/dcn21/display_mode_vba_21.c        |  28 +-
+ .../dc/dml/dcn30/display_mode_vba_30.c        | 342 +++++++--------
+ .../dc/dml/dcn31/display_mode_vba_31.c        | 408 +++++++++---------
+ .../dc/dml/dcn314/display_mode_vba_314.c      | 400 ++++++++---------
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |   2 +-
+ .../dc/dml/dcn32/display_mode_vba_util_32.c   |   8 +-
+ .../dc/dml/dcn32/display_mode_vba_util_32.h   |   8 +-
+ .../drm/amd/display/dc/dml/display_mode_vba.h |  12 +-
+ .../amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c   |   2 +-
+ .../drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c  |   2 +-
+ .../amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c   |   4 +-
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   |   2 +-
+ .../drm/amd/display/dc/dsc/dcn20/dcn20_dsc.c  |   8 +-
+ .../drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c  |   8 +-
+ .../amd/display/dc/dsc/dcn401/dcn401_dsc.c    |  10 +-
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  |   4 +-
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.h  |   2 +-
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |   6 +-
+ .../amd/display/dc/hwss/dcn314/dcn314_hwseq.c |   2 +-
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |   2 +-
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |   2 +-
+ drivers/gpu/drm/amd/display/dc/inc/bw_fixed.h |   2 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |   2 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/opp.h   |   4 +-
+ .../amd/display/dc/inc/hw/timing_generator.h  |   8 +-
+ .../gpu/drm/amd/display/dc/inc/link_service.h |   2 +-
+ .../gpu/drm/amd/display/dc/inc/reg_helper.h   |  72 ++--
+ .../drm/amd/display/dc/link/link_detection.c  |   2 +-
+ .../drm/amd/display/dc/link/link_detection.h  |   2 +-
+ .../link/protocols/link_edp_panel_control.c   |   8 +-
+ .../drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c  |   2 +-
+ .../drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c  |   6 +-
+ .../drm/amd/display/dc/opp/dcn20/dcn20_opp.c  |   2 +-
+ .../drm/amd/display/dc/opp/dcn20/dcn20_opp.h  |   2 +-
+ .../amd/display/dc/optc/dcn32/dcn32_optc.c    |   2 +-
+ .../gpu/drm/amd/display/include/fixed31_32.h  |   6 +-
+ .../drm/amd/display/modules/hdcp/hdcp_log.c   |   2 +-
+ 59 files changed, 769 insertions(+), 767 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-index 61553e24d53e..ad42b2e12fef 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
-@@ -759,7 +759,8 @@ bool dcn_validate_bandwidth(
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+index 6d41df52d7c9..808e24f0e88f 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+@@ -88,7 +88,7 @@ static const struct state_dependent_clocks dce80_max_clks_by_state[] = {
+ /* ClocksStatePerformance */
+ { .display_clk_khz = 625000, .pixel_clk_khz = 400000 } };
  
- 	const struct resource_pool *pool = dc->res_pool;
- 	struct dcn_bw_internal_vars *v = &context->dcn_bw_vars;
--	int i, input_idx, k;
-+	unsigned int i;
-+	int input_idx, k;
- 	int vesa_sync_start, asic_blank_end, asic_blank_start;
- 	bool bw_limit_pass;
- 	float bw_limit;
-@@ -1168,9 +1169,9 @@ bool dcn_validate_bandwidth(
- 			context->bw_ctx.bw.dcn.clk.dispclk_khz = (int)(dc->dcn_soc->max_dispclk_vmax0p9 * 1000);
+-int dentist_get_divider_from_did(int did)
++unsigned int dentist_get_divider_from_did(unsigned int did)
+ {
+ 	if (did < DENTIST_BASE_DID_1)
+ 		did = DENTIST_BASE_DID_1;
+@@ -155,8 +155,8 @@ static int dce60_get_dp_ref_freq_khz(struct clk_mgr *clk_mgr_base)
+ int dce_get_dp_ref_freq_khz(struct clk_mgr *clk_mgr_base)
+ {
+ 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+-	int dprefclk_wdivider;
+-	int dprefclk_src_sel;
++	uint32_t dprefclk_wdivider;
++	uint32_t dprefclk_src_sel;
+ 	int dp_ref_clk_khz;
+ 	int target_div;
  
- 		if (context->bw_ctx.bw.dcn.clk.dispclk_khz <
--				dc->debug.min_disp_clk_khz) {
-+				(int)dc->debug.min_disp_clk_khz) {
- 			context->bw_ctx.bw.dcn.clk.dispclk_khz =
--					dc->debug.min_disp_clk_khz;
-+					(int)dc->debug.min_disp_clk_khz;
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.h
+index f6622f58f62e..9ea1b0a9923d 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.h
+@@ -54,6 +54,6 @@ int dce_set_clock(
  
- 		context->bw_ctx.bw.dcn.clk.dppclk_khz = context->bw_ctx.bw.dcn.clk.dispclk_khz /
-@@ -1307,7 +1308,7 @@ bool dcn_validate_bandwidth(
- 	PERFORMANCE_TRACE_END();
- 	BW_VAL_TRACE_FINISH();
+ void dce_clk_mgr_destroy(struct clk_mgr **clk_mgr);
  
--	if (bw_limit_pass && v->voltage_level <= get_highest_allowed_voltage_level(dc->config.is_vmin_only_asic))
-+	if (bw_limit_pass && v->voltage_level <= (int)get_highest_allowed_voltage_level(dc->config.is_vmin_only_asic))
- 		return true;
- 	else
- 		return false;
+-int dentist_get_divider_from_did(int did);
++unsigned int dentist_get_divider_from_did(unsigned int did);
+ 
+ #endif /* _DCE_CLK_MGR_H_ */
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
+index bb4f3bd7532e..9384030e9d94 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
+@@ -427,8 +427,8 @@ void dcn2_read_clocks_from_hw_dentist(struct clk_mgr *clk_mgr_base)
+ 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+ 	uint32_t dispclk_wdivider;
+ 	uint32_t dppclk_wdivider;
+-	int disp_divider;
+-	int dpp_divider;
++	unsigned int disp_divider;
++	unsigned int dpp_divider;
+ 
+ 	REG_GET(DENTIST_DISPCLK_CNTL, DENTIST_DISPCLK_WDIVIDER, &dispclk_wdivider);
+ 	REG_GET(DENTIST_DISPCLK_CNTL, DENTIST_DPPCLK_WDIVIDER, &dppclk_wdivider);
+@@ -531,8 +531,8 @@ void dcn20_clk_mgr_construct(
+ 		struct pp_smu_funcs *pp_smu,
+ 		struct dccg *dccg)
+ {
+-	int dprefclk_did;
+-	int target_div;
++	unsigned int dprefclk_did;
++	unsigned int target_div;
+ 	uint32_t pll_req_reg;
+ 	struct fixed31_32 pll_req;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c
+index 827bc2431d5d..e36233127b15 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c
+@@ -123,12 +123,12 @@ bool dcn30_smu_test_message(struct clk_mgr_internal *clk_mgr, uint32_t input)
+ 	return false;
+ }
+ 
+-bool dcn30_smu_get_smu_version(struct clk_mgr_internal *clk_mgr, unsigned int *version)
++bool dcn30_smu_get_smu_version(struct clk_mgr_internal *clk_mgr, int *version)
+ {
+ 	smu_print("SMU Get SMU version\n");
+ 
+ 	if (dcn30_smu_send_msg_with_param(clk_mgr,
+-			DALSMC_MSG_GetSmuVersion, 0, version)) {
++			DALSMC_MSG_GetSmuVersion, 0, (uint32_t *)version)) {
+ 
+ 		smu_print("SMU version: %d\n", *version);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h
+index ca9f5296be94..67e93f9cac71 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h
+@@ -31,7 +31,7 @@
+ struct clk_mgr_internal;
+ 
+ bool         dcn30_smu_test_message(struct clk_mgr_internal *clk_mgr, uint32_t input);
+-bool         dcn30_smu_get_smu_version(struct clk_mgr_internal *clk_mgr, unsigned int *version);
++bool         dcn30_smu_get_smu_version(struct clk_mgr_internal *clk_mgr, int *version);
+ bool         dcn30_smu_check_driver_if_version(struct clk_mgr_internal *clk_mgr);
+ bool         dcn30_smu_check_msg_header_version(struct clk_mgr_internal *clk_mgr);
+ void         dcn30_smu_set_dram_addr_high(struct clk_mgr_internal *clk_mgr, uint32_t addr_high);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+index fda6cade30a8..ff834670b91e 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+@@ -475,7 +475,7 @@ static int dcn32_get_dispclk_from_dentist(struct clk_mgr *clk_mgr_base)
+ {
+ 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+ 	uint32_t dispclk_wdivider;
+-	int disp_divider;
++	unsigned int disp_divider;
+ 
+ 	REG_GET(DENTIST_DISPCLK_CNTL, DENTIST_DISPCLK_WDIVIDER, &dispclk_wdivider);
+ 	disp_divider = dentist_get_divider_from_did(dispclk_wdivider);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
+index 82c1a55a2271..504e3eb1d534 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
+@@ -1487,7 +1487,7 @@ static int dcn401_get_dispclk_from_dentist(struct clk_mgr *clk_mgr_base)
+ {
+ 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+ 	uint32_t dispclk_wdivider;
+-	int disp_divider;
++	unsigned int disp_divider;
+ 
+ 	REG_GET(DENTIST_DISPCLK_CNTL, DENTIST_DISPCLK_WDIVIDER, &dispclk_wdivider);
+ 	disp_divider = dentist_get_divider_from_did(dispclk_wdivider);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.h
+index 97a1ce1e8a9e..370d2ddd6064 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.h
+@@ -17,14 +17,14 @@ union dcn401_clk_mgr_block_sequence_params {
+ 		uint32_t ppclk;
+ 		uint16_t freq_mhz;
+ 		/* outputs */
+-		uint32_t *response;
++		int *response;
+ 	} update_hardmin_params;
+ 	struct {
+ 		/* inputs */
+ 		uint32_t ppclk;
+ 		int freq_khz;
+ 		/* outputs */
+-		uint32_t *response;
++		int *response;
+ 	} update_hardmin_optimized_params;
+ 	struct {
+ 		/* inputs */
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr_smu_msg.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr_smu_msg.c
+index 3a263840893e..82ccd9b407f4 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr_smu_msg.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr_smu_msg.c
+@@ -143,12 +143,12 @@ static bool dcn401_smu_send_msg_with_param_delay(struct clk_mgr_internal *clk_mg
+ 	return false;
+ }
+ 
+-bool dcn401_smu_get_smu_version(struct clk_mgr_internal *clk_mgr, unsigned int *version)
++bool dcn401_smu_get_smu_version(struct clk_mgr_internal *clk_mgr, int *version)
+ {
+ 	smu_print("SMU Get SMU version\n");
+ 
+ 	if (dcn401_smu_send_msg_with_param(clk_mgr,
+-			DALSMC_MSG_GetSmuVersion, 0, version)) {
++			DALSMC_MSG_GetSmuVersion, 0, (uint32_t *)version)) {
+ 
+ 		smu_print("SMU version: %d\n", *version);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr_smu_msg.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr_smu_msg.h
+index 4f5ac603e822..1addbed1cb99 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr_smu_msg.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr_smu_msg.h
+@@ -10,7 +10,7 @@
+ 
+ struct clk_mgr_internal;
+ 
+-bool dcn401_smu_get_smu_version(struct clk_mgr_internal *clk_mgr, unsigned int *version);
++bool dcn401_smu_get_smu_version(struct clk_mgr_internal *clk_mgr, int *version);
+ bool dcn401_smu_check_driver_if_version(struct clk_mgr_internal *clk_mgr);
+ bool dcn401_smu_check_msg_header_version(struct clk_mgr_internal *clk_mgr);
+ void dcn401_smu_send_fclk_pstate_message(struct clk_mgr_internal *clk_mgr, bool support);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c
+index 6a97ce69a562..3f6a17fbcc14 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c
+@@ -870,7 +870,7 @@ int dcn42_get_dispclk_from_dentist(struct clk_mgr *clk_mgr_base)
+ 	(void)clk_mgr_base;
+ 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+ 	uint32_t dispclk_wdivider;
+-	int disp_divider;
++	unsigned int disp_divider;
+ 
+ 	REG_GET(DENTIST_DISPCLK_CNTL, DENTIST_DISPCLK_WDIVIDER, &dispclk_wdivider);
+ 	disp_divider = dentist_get_divider_from_did(dispclk_wdivider);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 5f2c62fcba9b..276b731c0d6d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -6665,7 +6665,7 @@ bool dc_can_clear_cursor_limit(const struct dc *dc)
+ 	return false;
+ }
+ 
+-void dc_get_underflow_debug_data_for_otg(struct dc *dc, int primary_otg_inst,
++void dc_get_underflow_debug_data_for_otg(struct dc *dc, unsigned int primary_otg_inst,
+ 				struct dc_underflow_debug_data *out_data)
+ {
+ 	struct timing_generator *tg = NULL;
+@@ -6683,7 +6683,7 @@ void dc_get_underflow_debug_data_for_otg(struct dc *dc, int primary_otg_inst,
+ 		dc->hwss.get_underflow_debug_data(dc, tg, out_data);
+ }
+ 
+-void dc_get_power_feature_status(struct dc *dc, int primary_otg_inst,
++void dc_get_power_feature_status(struct dc *dc, unsigned int primary_otg_inst,
+ 				struct power_features *out_data)
+ {
+ 	(void)primary_otg_inst;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
+index f4e99ca7918f..5ac5ad86bd01 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
+@@ -282,7 +282,7 @@ unsigned int dc_dp_trace_get_link_loss_count(struct dc_link *link)
+ struct dc_sink *dc_link_add_remote_sink(
+ 		struct dc_link *link,
+ 		const uint8_t *edid,
+-		int len,
++		unsigned int len,
+ 		struct dc_sink_init_data *init_data)
+ {
+ 	return link->dc->link_srv->add_remote_sink(link, edid, len, init_data);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 05991a10f8bf..dcea5adcea3d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -982,7 +982,7 @@ static struct rect calculate_mpc_slice_in_timing_active(
+ }
+ 
+ static void calculate_adjust_recout_for_visual_confirm(struct pipe_ctx *pipe_ctx,
+-	int *base_offset, int *dpp_offset)
++	unsigned int *base_offset, unsigned int *dpp_offset)
+ {
+ 	struct dc *dc = pipe_ctx->stream->ctx->dc;
+ 	*base_offset = 0;
+@@ -1004,7 +1004,7 @@ static void calculate_adjust_recout_for_visual_confirm(struct pipe_ctx *pipe_ctx
+ static void reverse_adjust_recout_for_visual_confirm(struct rect *recout,
+ 		struct pipe_ctx *pipe_ctx)
+ {
+-	int dpp_offset, base_offset;
++	unsigned int dpp_offset, base_offset;
+ 
+ 	calculate_adjust_recout_for_visual_confirm(pipe_ctx, &base_offset,
+ 		&dpp_offset);
+@@ -1015,7 +1015,7 @@ static void reverse_adjust_recout_for_visual_confirm(struct rect *recout,
+ static void adjust_recout_for_visual_confirm(struct rect *recout,
+ 		struct pipe_ctx *pipe_ctx)
+ {
+-	int dpp_offset, base_offset;
++	unsigned int dpp_offset, base_offset;
+ 
+ 	calculate_adjust_recout_for_visual_confirm(pipe_ctx, &base_offset,
+ 		&dpp_offset);
+@@ -1692,7 +1692,7 @@ bool resource_can_pipe_disable_cursor(struct pipe_ctx *pipe_ctx)
+ 	struct pipe_ctx *test_pipe, *split_pipe;
+ 	struct rect r1 = pipe_ctx->plane_res.scl_data.recout;
+ 	int r1_right, r1_bottom;
+-	int cur_layer = pipe_ctx->plane_state->layer_index;
++	unsigned int cur_layer = pipe_ctx->plane_state->layer_index;
+ 
+ 	reverse_adjust_recout_for_visual_confirm(&r1, pipe_ctx);
+ 	r1_right = r1.x + r1.width;
+@@ -4102,9 +4102,9 @@ bool dc_resource_is_dsc_encoding_supported(const struct dc *dc)
+ static bool planes_changed_for_existing_stream(struct dc_state *context,
+ 					       struct dc_stream_state *stream,
+ 					       const struct dc_validation_set set[],
+-					       int set_count)
++					       unsigned int set_count)
+ {
+-	int i, j;
++	unsigned int i, j;
+ 	struct dc_stream_status *stream_status = NULL;
+ 
+ 	for (i = 0; i < context->stream_count; i++) {
+@@ -4140,10 +4140,10 @@ static bool add_all_planes_for_stream(
+ 		const struct dc *dc,
+ 		struct dc_stream_state *stream,
+ 		const struct dc_validation_set set[],
+-		int set_count,
++		unsigned int set_count,
+ 		struct dc_state *state)
+ {
+-	int i, j;
++	unsigned int i, j;
+ 
+ 	for (i = 0; i < set_count; i++)
+ 		if (set[i].stream == stream)
+@@ -4181,7 +4181,7 @@ static bool add_all_planes_for_stream(
+  */
+ enum dc_status dc_validate_with_context(struct dc *dc,
+ 					const struct dc_validation_set set[],
+-					int set_count,
++					unsigned int set_count,
+ 					struct dc_state *context,
+ 					enum dc_validate_mode validate_mode)
+ {
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_vm_helper.c b/drivers/gpu/drm/amd/display/dc/core/dc_vm_helper.c
+index d1e68dc57a2a..3743555133f6 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_vm_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_vm_helper.c
+@@ -34,9 +34,9 @@ void vm_helper_mark_vmid_used(struct vm_helper *vm_helper, unsigned int pos, uin
+ 	vmids.vmid_usage[1] = 1 << pos;
+ }
+ 
+-int dc_setup_system_context(struct dc *dc, struct dc_phy_addr_space_config *pa_config)
++unsigned int dc_setup_system_context(struct dc *dc, struct dc_phy_addr_space_config *pa_config)
+ {
+-	int num_vmids = 0;
++	unsigned int num_vmids = 0;
+ 
+ 	/* Call HWSS to setup HUBBUB for address config */
+ 	if (dc->hwss.init_sys_ctx) {
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 55152f12af48..41fc746963ae 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -540,7 +540,7 @@ struct dc_config {
+ 	bool use_default_clock_table;
+ 	bool force_bios_enable_lttpr;
+ 	uint8_t force_bios_fixed_vs;
+-	int sdpif_request_limit_words_per_umc;
++	unsigned int sdpif_request_limit_words_per_umc;
+ 	bool dc_mode_clk_limit_support;
+ 	bool EnableMinDispClkODM;
+ 	bool enable_auto_dpm_test_logs;
+@@ -944,20 +944,20 @@ struct dc_virtual_addr_space_config {
+ };
+ 
+ struct dc_bounding_box_overrides {
+-	int sr_exit_time_ns;
+-	int sr_enter_plus_exit_time_ns;
+-	int sr_exit_z8_time_ns;
+-	int sr_enter_plus_exit_z8_time_ns;
+-	int urgent_latency_ns;
+-	int percent_of_ideal_drambw;
+-	int dram_clock_change_latency_ns;
+-	int dummy_clock_change_latency_ns;
+-	int fclk_clock_change_latency_ns;
++	unsigned int sr_exit_time_ns;
++	unsigned int sr_enter_plus_exit_time_ns;
++	unsigned int sr_exit_z8_time_ns;
++	unsigned int sr_enter_plus_exit_z8_time_ns;
++	unsigned int urgent_latency_ns;
++	unsigned int percent_of_ideal_drambw;
++	unsigned int dram_clock_change_latency_ns;
++	unsigned int dummy_clock_change_latency_ns;
++	unsigned int fclk_clock_change_latency_ns;
+ 	/* This forces a hard min on the DCFCLK we use
+ 	 * for DML.  Unlike the debug option for forcing
+ 	 * DCFCLK, this override affects watermark calculations
+ 	 */
+-	int min_dcfclk_mhz;
++	unsigned int min_dcfclk_mhz;
+ };
+ 
+ struct dc_qos_info {
+@@ -989,7 +989,7 @@ struct link_service;
+ struct dc_debug_options {
+ 	bool disable_dsc;
+ 	enum visual_confirm visual_confirm;
+-	int visual_confirm_rect_height;
++	unsigned int visual_confirm_rect_height;
+ 
+ 	bool sanity_checks;
+ 	bool max_disp_clk;
+@@ -1025,23 +1025,23 @@ struct dc_debug_options {
+ 	bool disable_io_clk_power_gate;
+ 	bool disable_mem_power_gate;
+ 	bool disable_dio_power_gate;
+-	int dsc_min_slice_height_override;
+-	int dsc_bpp_increment_div;
++	unsigned int dsc_min_slice_height_override;
++	unsigned int dsc_bpp_increment_div;
+ 	bool disable_pplib_wm_range;
+ 	enum wm_report_mode pplib_wm_report_mode;
+ 	unsigned int min_disp_clk_khz;
+ 	unsigned int min_dpp_clk_khz;
+ 	unsigned int min_dram_clk_khz;
+-	int sr_exit_time_dpm0_ns;
+-	int sr_enter_plus_exit_time_dpm0_ns;
+-	int sr_exit_time_ns;
+-	int sr_enter_plus_exit_time_ns;
+-	int sr_exit_z8_time_ns;
+-	int sr_enter_plus_exit_z8_time_ns;
+-	int urgent_latency_ns;
++	unsigned int sr_exit_time_dpm0_ns;
++	unsigned int sr_enter_plus_exit_time_dpm0_ns;
++	unsigned int sr_exit_time_ns;
++	unsigned int sr_enter_plus_exit_time_ns;
++	unsigned int sr_exit_z8_time_ns;
++	unsigned int sr_enter_plus_exit_z8_time_ns;
++	unsigned int urgent_latency_ns;
+ 	uint32_t underflow_assert_delay_us;
+-	int percent_of_ideal_drambw;
+-	int dram_clock_change_latency_ns;
++	unsigned int percent_of_ideal_drambw;
++	unsigned int dram_clock_change_latency_ns;
+ 	bool optimized_watermark;
+ 	int always_scale;
+ 	bool disable_pplib_clock_request;
+@@ -1066,8 +1066,8 @@ struct dc_debug_options {
+ 	uint8_t seamless_boot_odm_combine;
+ 	uint8_t force_odm_combine_4to1; //bit vector based on otg inst
+ 
+-	int minimum_z8_residency_time;
+-	int minimum_z10_residency_time;
++	unsigned int minimum_z8_residency_time;
++	unsigned int minimum_z10_residency_time;
+ 	bool disable_z9_mpc;
+ 	unsigned int force_fclk_khz;
+ 	bool enable_tri_buf;
+@@ -1116,7 +1116,7 @@ struct dc_debug_options {
+ 	uint8_t fec_enable_delay_in100us;
+ 	bool enable_driver_sequence_debug;
+ 	enum det_size crb_alloc_policy;
+-	int crb_alloc_policy_min_disp_count;
++	unsigned int crb_alloc_policy_min_disp_count;
+ 	bool disable_z10;
+ 	bool enable_z9_disable_interface;
+ 	bool psr_skip_crtc_disable;
+@@ -1290,7 +1290,7 @@ void dc_hardware_init(struct dc *dc);
+ int dc_get_vmid_use_vector(struct dc *dc);
+ void dc_setup_vm_context(struct dc *dc, struct dc_virtual_addr_space_config *va_config, int vmid);
+ /* Returns the number of vmids supported */
+-int dc_setup_system_context(struct dc *dc, struct dc_phy_addr_space_config *pa_config);
++unsigned int dc_setup_system_context(struct dc *dc, struct dc_phy_addr_space_config *pa_config);
+ void dc_init_callbacks(struct dc *dc,
+ 		const struct dc_callback_init *init_params);
+ void dc_deinit_callbacks(struct dc *dc);
+@@ -1515,7 +1515,7 @@ struct dc_plane_state {
+ 	bool visible;
+ 	bool flip_immediate;
+ 	bool horizontal_mirror;
+-	int layer_index;
++	unsigned int layer_index;
+ 
+ 	union surface_update_flags update_flags;
+ 	bool flip_int_enabled;
+@@ -1545,7 +1545,7 @@ struct dc_plane_state {
+ 	struct dc_csc_transform cursor_csc_color_matrix;
+ 	bool adaptive_sharpness_en;
+ 	int adaptive_sharpness_policy;
+-	int sharpness_level;
++	unsigned int sharpness_level;
+ 	enum linear_light_scaling linear_light_scaling;
+ 	unsigned int sdr_white_level_nits;
+ 	struct cm_hist_control cm_hist_control;
+@@ -1568,7 +1568,7 @@ struct dc_plane_info {
+ 	bool global_alpha;
+ 	int  global_alpha_value;
+ 	bool input_csc_enabled;
+-	int layer_index;
++	unsigned int layer_index;
+ 	enum chroma_cositing cositing;
+ };
+ 
+@@ -1974,7 +1974,7 @@ enum dc_status dc_validate_plane(struct dc *dc, const struct dc_plane_state *pla
+ 
+ enum dc_status dc_validate_with_context(struct dc *dc,
+ 					const struct dc_validation_set set[],
+-					int set_count,
++					unsigned int set_count,
+ 					struct dc_state *context,
+ 					enum dc_validate_mode validate_mode);
+ 
+@@ -2086,7 +2086,7 @@ struct dc_sink_init_data;
+ struct dc_sink *dc_link_add_remote_sink(
+ 		struct dc_link *dc_link,
+ 		const uint8_t *edid,
+-		int len,
++		unsigned int len,
+ 		struct dc_sink_init_data *init_data);
+ 
+ /* Remove remote sink from a link with dc_connection_mst_branch connection type.
+@@ -2883,9 +2883,9 @@ bool dc_can_clear_cursor_limit(const struct dc *dc);
+  * including OTG underflow status, current read positions, frame count, and per-HUBP debug data.
+  * The results are stored in the provided out_data structure for further analysis or logging.
+  */
+-void dc_get_underflow_debug_data_for_otg(struct dc *dc, int primary_otg_inst, struct dc_underflow_debug_data *out_data);
++void dc_get_underflow_debug_data_for_otg(struct dc *dc, unsigned int primary_otg_inst, struct dc_underflow_debug_data *out_data);
+ 
+-void dc_get_power_feature_status(struct dc *dc, int primary_otg_inst, struct power_features *out_data);
++void dc_get_power_feature_status(struct dc *dc, unsigned int primary_otg_inst, struct power_features *out_data);
+ 
+ /*
+  * Software state variables used to program register fields across the display pipeline
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dsc.h b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
+index 101bce6b8de6..7cb34e2b44a1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dsc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
+@@ -92,7 +92,7 @@ uint32_t dc_dsc_stream_bandwidth_in_kbps(const struct dc_crtc_timing *timing,
+ 
+ uint32_t dc_dsc_stream_bandwidth_overhead_in_kbps(
+ 		const struct dc_crtc_timing *timing,
+-		const int num_slices_h,
++		const uint32_t num_slices_h,
+ 		const bool is_dp);
+ 
+ void dc_dsc_dump_decoder_caps(const struct display_stream_compressor *dsc,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index 7c38fa6f8cb1..a4cb06652d0d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -179,8 +179,8 @@ struct luminance_data {
+ 	int luminance_millinits[LUMINANCE_DATA_TABLE_SIZE];
+ 	int flicker_criteria_milli_nits_GAMING;
+ 	int flicker_criteria_milli_nits_STATIC;
+-	int nominal_refresh_rate;
+-	int dm_max_decrease_from_nominal;
++	unsigned int nominal_refresh_rate;
++	unsigned int dm_max_decrease_from_nominal;
+ };
+ 
+ enum dc_drr_trigger_mode {
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+index 62e35dcb585c..cd8ed7fff0b2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+@@ -887,7 +887,7 @@ struct dsc_dec_dpcd_caps {
+ 	union dsc_slice_caps2 slice_caps2;
+ 	int32_t lb_bit_depth;
+ 	bool is_block_pred_supported;
+-	int32_t edp_max_bits_per_pixel; /* Valid only in eDP */
++	uint32_t edp_max_bits_per_pixel; /* Valid only in eDP */
+ 	union dsc_color_formats color_formats;
+ 	union dsc_color_depth color_depth;
+ 	int32_t throughput_mode_0_mps; /* In MPs */
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_link_encoder.c
+index 36456c9971c8..fcaa3884d705 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_link_encoder.c
+@@ -205,7 +205,7 @@ static bool update_cfg_data(
+ static bool dcn21_link_encoder_acquire_phy(struct link_encoder *enc)
+ {
+ 	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
+-	int value;
++	uint32_t value;
+ 
+ 	if (enc->features.flags.bits.DP_IS_USB_C) {
+ 		REG_GET(RDPCSTX_PHY_CNTL6,
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c
+index 13e14aad3daa..c3d2854d0a48 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c
+@@ -450,7 +450,7 @@ static uint8_t get_frontend_source(
+ unsigned int dcn10_get_dig_frontend(struct link_encoder *enc)
+ {
+ 	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
+-	int32_t value;
++	uint32_t value;
+ 	enum engine_id result;
+ 
+ 	REG_GET(DIG_BE_CNTL, DIG_FE_SOURCE_SELECT, &value);
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-index e82f2d531211..a3e644b7a4fa 100644
+index a3e644b7a4fa..9a5104d8e5fd 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
-@@ -990,7 +990,8 @@ void dcn20_populate_dml_writeback_from_context(struct dc *dc,
- 					       struct resource_context *res_ctx,
- 					       display_e2e_pipe_params_st *pipes)
- {
--	int pipe_cnt, i;
-+	unsigned int i;
-+	int pipe_cnt;
- 
- 	dc_assert_fp_enabled();
- 
-@@ -1044,7 +1045,7 @@ void dcn20_fpu_set_wb_arb_params(struct mcif_arb_params *wb_arb_params,
- 
- static bool is_dtbclk_required(struct dc *dc, struct dc_state *context)
- {
--	int i;
-+	unsigned int i;
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
- 		if (!context->res_ctx.pipe_ctx[i].stream)
- 			continue;
-@@ -1134,7 +1135,7 @@ static void dcn20_adjust_freesync_v_startup(
- 	/* The newVStartUp is 1 line before vsync point */
- 	newVstartup = asic_blank_end + 1;
- 
--	*vstartup_start = ((newVstartup > *vstartup_start) ? newVstartup : *vstartup_start);
-+	*vstartup_start = (((int)newVstartup > *vstartup_start) ? (int)newVstartup : *vstartup_start);
+@@ -1105,7 +1105,7 @@ static enum dcn_zstate_support_state  decide_zstate_support(struct dc *dc, struc
  }
  
- void dcn20_calculate_dlg_params(struct dc *dc,
-@@ -1143,7 +1144,8 @@ void dcn20_calculate_dlg_params(struct dc *dc,
- 				int pipe_cnt,
- 				int vlevel)
+ static void dcn20_adjust_freesync_v_startup(
+-		const struct dc_crtc_timing *dc_crtc_timing, int *vstartup_start)
++		const struct dc_crtc_timing *dc_crtc_timing, unsigned int *vstartup_start)
  {
--	int i, pipe_idx, active_hubp_count = 0;
-+	int pipe_idx, active_hubp_count = 0;
-+	unsigned int i;
+ 	struct dc_crtc_timing patched_crtc_timing;
+ 	uint32_t asic_blank_end   = 0;
+@@ -1253,7 +1253,7 @@ void dcn20_calculate_dlg_params(struct dc *dc,
  
- 	dc_assert_fp_enabled();
- 
-@@ -1155,7 +1157,7 @@ void dcn20_calculate_dlg_params(struct dc *dc,
- 	context->bw_ctx.bw.dcn.clk.socclk_khz = context->bw_ctx.dml.vba.SOCCLK * 1000;
- 	context->bw_ctx.bw.dcn.clk.dramclk_khz = context->bw_ctx.dml.vba.DRAMSpeed * 1000 / 16;
- 
--	if (dc->debug.min_dram_clk_khz > context->bw_ctx.bw.dcn.clk.dramclk_khz)
-+	if ((int)dc->debug.min_dram_clk_khz > context->bw_ctx.bw.dcn.clk.dramclk_khz)
- 		context->bw_ctx.bw.dcn.clk.dramclk_khz = dc->debug.min_dram_clk_khz;
- 
- 	context->bw_ctx.bw.dcn.clk.dcfclk_deep_sleep_khz = context->bw_ctx.dml.vba.DCFCLKDeepSleep * 1000;
-@@ -1173,8 +1175,8 @@ void dcn20_calculate_dlg_params(struct dc *dc,
- 
- 	context->bw_ctx.bw.dcn.clk.dtbclk_en = is_dtbclk_required(dc, context);
- 
--	if (context->bw_ctx.bw.dcn.clk.dispclk_khz < dc->debug.min_disp_clk_khz)
--		context->bw_ctx.bw.dcn.clk.dispclk_khz = dc->debug.min_disp_clk_khz;
-+	if ((unsigned int)context->bw_ctx.bw.dcn.clk.dispclk_khz < dc->debug.min_disp_clk_khz)
-+		context->bw_ctx.bw.dcn.clk.dispclk_khz = (int)dc->debug.min_disp_clk_khz;
- 
- 	for (i = 0, pipe_idx = 0; i < dc->res_pool->pipe_count; i++) {
- 		if (!context->res_ctx.pipe_ctx[i].stream)
-@@ -1317,7 +1319,8 @@ int dcn20_populate_dml_pipes_from_context(struct dc *dc,
- 					  enum dc_validate_mode validate_mode)
+ static void swizzle_to_dml_params(
+ 		enum swizzle_mode_values swizzle,
+-		unsigned int *sw_mode)
++		int *sw_mode)
  {
- 	(void)validate_mode;
--	int pipe_cnt, i;
-+	int pipe_cnt;
-+	unsigned int i;
- 	bool synchronized_vblank = true;
- 	struct resource_context *res_ctx = &context->res_ctx;
- 
-@@ -1735,7 +1738,8 @@ void dcn20_calculate_wm(struct dc *dc, struct dc_state *context,
- 			int vlevel,
- 			enum dc_validate_mode validate_mode)
- {
--	int pipe_cnt, i, pipe_idx;
-+	int pipe_cnt, pipe_idx;
-+	unsigned int i;
- 
- 	dc_assert_fp_enabled();
- 
-@@ -1853,7 +1857,7 @@ void dcn20_update_bounding_box(struct dc *dc,
- {
- 	int num_calculated_states = 0;
- 	int min_dcfclk = 0;
--	int i;
-+	unsigned int i;
- 
- 	dc_assert_fp_enabled();
- 
-@@ -1914,7 +1918,7 @@ void dcn20_update_bounding_box(struct dc *dc,
- void dcn20_cap_soc_clocks(struct _vcs_dpi_soc_bounding_box_st *bb,
- 			  struct pp_smu_nv_clock_table max_clocks)
- {
--	int i;
-+	unsigned int i;
- 
- 	dc_assert_fp_enabled();
- 
-@@ -2158,7 +2162,7 @@ int dcn21_populate_dml_pipes_from_context(struct dc *dc,
- 					  enum dc_validate_mode validate_mode)
- {
- 	uint32_t pipe_cnt;
--	int i;
-+	unsigned int i;
- 
- 	dc_assert_fp_enabled();
- 
-@@ -2240,7 +2244,8 @@ static void dcn21_calculate_wm(struct dc *dc, struct dc_state *context,
- 			int vlevel_req,
- 			enum dc_validate_mode validate_mode)
- {
--	int pipe_cnt, i, pipe_idx;
-+	int pipe_cnt, pipe_idx;
-+	unsigned int i;
- 	int vlevel, vlevel_max;
- 	struct wm_range_table_entry *table_entry;
- 	struct clk_bw_params *bw_params = dc->clk_mgr->bw_params;
-@@ -2476,7 +2481,8 @@ void dcn201_populate_dml_writeback_from_context_fpu(struct dc *dc,
- 						    struct resource_context *res_ctx,
- 						    display_e2e_pipe_params_st *pipes)
- {
--	int pipe_cnt, i, j;
-+	int pipe_cnt;
-+	unsigned int i, j;
- 	double max_calc_writeback_dispclk;
- 	double writeback_dispclk;
- 	struct writeback_st dout_wb = {0};
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-index f5f636afe33c..dae762f51407 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-@@ -3288,8 +3288,8 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- {
- 	struct vba_vars_st *locals = &mode_lib->vba;
- 
--	int i;
--	unsigned int j, k, m;
-+	int idx;
-+	unsigned int i, j, k, m;
- 
- 	/*MODE SUPPORT, VOLTAGE STATE AND SOC CONFIGURATION*/
- 
-@@ -5018,7 +5018,7 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 	}
- 	/*Mode Support, Voltage State and SOC Configuration*/
- 
--	for (i = mode_lib->vba.soc.num_states; i >= 0; i--) {
-+	for (idx = mode_lib->vba.soc.num_states; idx >= 0; idx--) {
- 		for (j = 0; j < 2; j++) {
- 			enum dm_validation_status status = DML_VALIDATION_OK;
- 
-@@ -5026,21 +5026,21 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 				status = DML_FAIL_SCALE_RATIO_TAP;
- 			} else if (mode_lib->vba.SourceFormatPixelAndScanSupport != true) {
- 				status = DML_FAIL_SOURCE_PIXEL_FORMAT;
--			} else if (locals->ViewportSizeSupport[i][0] != true) {
-+			} else if (locals->ViewportSizeSupport[idx][0] != true) {
- 				status = DML_FAIL_VIEWPORT_SIZE;
--			} else if (locals->DIOSupport[i] != true) {
-+			} else if (locals->DIOSupport[idx] != true) {
- 				status = DML_FAIL_DIO_SUPPORT;
--			} else if (locals->NotEnoughDSCUnits[i] != false) {
-+			} else if (locals->NotEnoughDSCUnits[idx] != false) {
- 				status = DML_FAIL_NOT_ENOUGH_DSC;
--			} else if (locals->DSCCLKRequiredMoreThanSupported[i] != false) {
-+			} else if (locals->DSCCLKRequiredMoreThanSupported[idx] != false) {
- 				status = DML_FAIL_DSC_CLK_REQUIRED;
--			} else if (locals->UrgentLatencySupport[i][j] != true) {
-+			} else if (locals->UrgentLatencySupport[idx][j] != true) {
- 				status = DML_FAIL_URGENT_LATENCY;
--			} else if (locals->ROBSupport[i][0] != true) {
-+			} else if (locals->ROBSupport[idx][0] != true) {
- 				status = DML_FAIL_REORDERING_BUFFER;
--			} else if (locals->DISPCLK_DPPCLK_Support[i][j] != true) {
-+			} else if (locals->DISPCLK_DPPCLK_Support[idx][j] != true) {
- 				status = DML_FAIL_DISPCLK_DPPCLK;
--			} else if (locals->TotalAvailablePipesSupport[i][j] != true) {
-+			} else if (locals->TotalAvailablePipesSupport[idx][j] != true) {
- 				status = DML_FAIL_TOTAL_AVAILABLE_PIPES;
- 			} else if (mode_lib->vba.NumberOfOTGSupport != true) {
- 				status = DML_FAIL_NUM_OTG;
-@@ -5054,24 +5054,24 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 				status = DML_FAIL_CURSOR_SUPPORT;
- 			} else if (mode_lib->vba.PitchSupport != true) {
- 				status = DML_FAIL_PITCH_SUPPORT;
--			} else if (locals->PrefetchSupported[i][j] != true) {
-+			} else if (locals->PrefetchSupported[idx][j] != true) {
- 				status = DML_FAIL_PREFETCH_SUPPORT;
--			} else if (locals->TotalVerticalActiveBandwidthSupport[i][0] != true) {
-+			} else if (locals->TotalVerticalActiveBandwidthSupport[idx][0] != true) {
- 				status = DML_FAIL_TOTAL_V_ACTIVE_BW;
--			} else if (locals->VRatioInPrefetchSupported[i][j] != true) {
-+			} else if (locals->VRatioInPrefetchSupported[idx][j] != true) {
- 				status = DML_FAIL_V_RATIO_PREFETCH;
--			} else if (locals->PTEBufferSizeNotExceeded[i][j] != true) {
-+			} else if (locals->PTEBufferSizeNotExceeded[idx][j] != true) {
- 				status = DML_FAIL_PTE_BUFFER_SIZE;
- 			} else if (mode_lib->vba.NonsupportedDSCInputBPC != false) {
- 				status = DML_FAIL_DSC_INPUT_BPC;
- 			}
- 
- 			if (status == DML_VALIDATION_OK) {
--				locals->ModeSupport[i][j] = true;
-+				locals->ModeSupport[idx][j] = true;
- 			} else {
--				locals->ModeSupport[i][j] = false;
-+				locals->ModeSupport[idx][j] = false;
- 			}
--			locals->ValidationStatus[i] = status;
-+			locals->ValidationStatus[idx] = status;
- 		}
- 	}
- 	{
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
-index 95b0a3501880..f7dc33f056d7 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
-@@ -3396,8 +3396,8 @@ void dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode
- {
- 	struct vba_vars_st *locals = &mode_lib->vba;
- 
--	int i;
--	unsigned int j, k, m;
-+	int idx;
-+	unsigned int i, j, k, m;
- 
- 	/*MODE SUPPORT, VOLTAGE STATE AND SOC CONFIGURATION*/
- 
-@@ -5135,7 +5135,7 @@ void dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode
- 	}
- 	/*Mode Support, Voltage State and SOC Configuration*/
- 
--	for (i = mode_lib->vba.soc.num_states; i >= 0; i--) {
-+	for (idx = mode_lib->vba.soc.num_states; idx >= 0; idx--) {
- 		for (j = 0; j < 2; j++) {
- 			enum dm_validation_status status = DML_VALIDATION_OK;
- 
-@@ -5143,21 +5143,21 @@ void dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode
- 				status = DML_FAIL_SCALE_RATIO_TAP;
- 			} else if (mode_lib->vba.SourceFormatPixelAndScanSupport != true) {
- 				status = DML_FAIL_SOURCE_PIXEL_FORMAT;
--			} else if (locals->ViewportSizeSupport[i][0] != true) {
-+			} else if (locals->ViewportSizeSupport[idx][0] != true) {
- 				status = DML_FAIL_VIEWPORT_SIZE;
--			} else if (locals->DIOSupport[i] != true) {
-+			} else if (locals->DIOSupport[idx] != true) {
- 				status = DML_FAIL_DIO_SUPPORT;
--			} else if (locals->NotEnoughDSCUnits[i] != false) {
-+			} else if (locals->NotEnoughDSCUnits[idx] != false) {
- 				status = DML_FAIL_NOT_ENOUGH_DSC;
--			} else if (locals->DSCCLKRequiredMoreThanSupported[i] != false) {
-+			} else if (locals->DSCCLKRequiredMoreThanSupported[idx] != false) {
- 				status = DML_FAIL_DSC_CLK_REQUIRED;
--			} else if (locals->UrgentLatencySupport[i][j] != true) {
-+			} else if (locals->UrgentLatencySupport[idx][j] != true) {
- 				status = DML_FAIL_URGENT_LATENCY;
--			} else if (locals->ROBSupport[i][0] != true) {
-+			} else if (locals->ROBSupport[idx][0] != true) {
- 				status = DML_FAIL_REORDERING_BUFFER;
--			} else if (locals->DISPCLK_DPPCLK_Support[i][j] != true) {
-+			} else if (locals->DISPCLK_DPPCLK_Support[idx][j] != true) {
- 				status = DML_FAIL_DISPCLK_DPPCLK;
--			} else if (locals->TotalAvailablePipesSupport[i][j] != true) {
-+			} else if (locals->TotalAvailablePipesSupport[idx][j] != true) {
- 				status = DML_FAIL_TOTAL_AVAILABLE_PIPES;
- 			} else if (mode_lib->vba.NumberOfOTGSupport != true) {
- 				status = DML_FAIL_NUM_OTG;
-@@ -5171,24 +5171,24 @@ void dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode
- 				status = DML_FAIL_CURSOR_SUPPORT;
- 			} else if (mode_lib->vba.PitchSupport != true) {
- 				status = DML_FAIL_PITCH_SUPPORT;
--			} else if (locals->PrefetchSupported[i][j] != true) {
-+			} else if (locals->PrefetchSupported[idx][j] != true) {
- 				status = DML_FAIL_PREFETCH_SUPPORT;
--			} else if (locals->TotalVerticalActiveBandwidthSupport[i][0] != true) {
-+			} else if (locals->TotalVerticalActiveBandwidthSupport[idx][0] != true) {
- 				status = DML_FAIL_TOTAL_V_ACTIVE_BW;
--			} else if (locals->VRatioInPrefetchSupported[i][j] != true) {
-+			} else if (locals->VRatioInPrefetchSupported[idx][j] != true) {
- 				status = DML_FAIL_V_RATIO_PREFETCH;
--			} else if (locals->PTEBufferSizeNotExceeded[i][j] != true) {
-+			} else if (locals->PTEBufferSizeNotExceeded[idx][j] != true) {
- 				status = DML_FAIL_PTE_BUFFER_SIZE;
- 			} else if (mode_lib->vba.NonsupportedDSCInputBPC != false) {
- 				status = DML_FAIL_DSC_INPUT_BPC;
- 			}
- 
- 			if (status == DML_VALIDATION_OK) {
--				locals->ModeSupport[i][j] = true;
-+				locals->ModeSupport[idx][j] = true;
- 			} else {
--				locals->ModeSupport[i][j] = false;
-+				locals->ModeSupport[idx][j] = false;
- 			}
--			locals->ValidationStatus[i] = status;
-+			locals->ValidationStatus[idx] = status;
- 		}
- 	}
- 	{
+ 	switch (swizzle) {
+ 	case DC_SW_LINEAR:
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-index 11570a0c9427..31679c2332ad 100644
+index 31679c2332ad..bd40f70fdb61 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-@@ -3525,8 +3525,8 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- {
- 	struct vba_vars_st *locals = &mode_lib->vba;
- 
--	int i;
--	unsigned int j, k, m;
-+	int idx;
-+	unsigned int i, j, k, m;
- 
- 	/*MODE SUPPORT, VOLTAGE STATE AND SOC CONFIGURATION*/
- 
-@@ -5138,7 +5138,7 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 	}
- 	/*Mode Support, Voltage State and SOC Configuration*/
- 
--	for (i = mode_lib->vba.soc.num_states; i >= 0; i--) {
-+	for (idx = mode_lib->vba.soc.num_states; idx >= 0; idx--) {
- 		for (j = 0; j < 2; j++) {
- 			enum dm_validation_status status = DML_VALIDATION_OK;
- 
-@@ -5146,19 +5146,19 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 				status = DML_FAIL_SCALE_RATIO_TAP;
- 			} else if (!mode_lib->vba.SourceFormatPixelAndScanSupport) {
- 				status = DML_FAIL_SOURCE_PIXEL_FORMAT;
--			} else if (!locals->ViewportSizeSupport[i][0]) {
-+			} else if (!locals->ViewportSizeSupport[idx][0]) {
- 				status = DML_FAIL_VIEWPORT_SIZE;
--			} else if (!locals->DIOSupport[i]) {
-+			} else if (!locals->DIOSupport[idx]) {
- 				status = DML_FAIL_DIO_SUPPORT;
--			} else if (locals->NotEnoughDSCUnits[i]) {
-+			} else if (locals->NotEnoughDSCUnits[idx]) {
- 				status = DML_FAIL_NOT_ENOUGH_DSC;
--			} else if (locals->DSCCLKRequiredMoreThanSupported[i]) {
-+			} else if (locals->DSCCLKRequiredMoreThanSupported[idx]) {
- 				status = DML_FAIL_DSC_CLK_REQUIRED;
--			} else if (!locals->ROBSupport[i][0]) {
-+			} else if (!locals->ROBSupport[idx][0]) {
- 				status = DML_FAIL_REORDERING_BUFFER;
--			} else if (!locals->DISPCLK_DPPCLK_Support[i][j]) {
-+			} else if (!locals->DISPCLK_DPPCLK_Support[idx][j]) {
- 				status = DML_FAIL_DISPCLK_DPPCLK;
--			} else if (!locals->TotalAvailablePipesSupport[i][j]) {
-+			} else if (!locals->TotalAvailablePipesSupport[idx][j]) {
- 				status = DML_FAIL_TOTAL_AVAILABLE_PIPES;
- 			} else if (!mode_lib->vba.NumberOfOTGSupport) {
- 				status = DML_FAIL_NUM_OTG;
-@@ -5172,27 +5172,27 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 				status = DML_FAIL_CURSOR_SUPPORT;
- 			} else if (!mode_lib->vba.PitchSupport) {
- 				status = DML_FAIL_PITCH_SUPPORT;
--			} else if (!locals->TotalVerticalActiveBandwidthSupport[i][0]) {
-+			} else if (!locals->TotalVerticalActiveBandwidthSupport[idx][0]) {
- 				status = DML_FAIL_TOTAL_V_ACTIVE_BW;
--			} else if (!locals->PTEBufferSizeNotExceeded[i][j]) {
-+			} else if (!locals->PTEBufferSizeNotExceeded[idx][j]) {
- 				status = DML_FAIL_PTE_BUFFER_SIZE;
- 			} else if (mode_lib->vba.NonsupportedDSCInputBPC) {
- 				status = DML_FAIL_DSC_INPUT_BPC;
- 			} else if ((mode_lib->vba.HostVMEnable
--					&& !locals->ImmediateFlipSupportedForState[i][j])) {
-+					&& !locals->ImmediateFlipSupportedForState[idx][j])) {
- 				status = DML_FAIL_HOST_VM_IMMEDIATE_FLIP;
--			} else if (!locals->PrefetchSupported[i][j]) {
-+			} else if (!locals->PrefetchSupported[idx][j]) {
- 				status = DML_FAIL_PREFETCH_SUPPORT;
--			} else if (!locals->VRatioInPrefetchSupported[i][j]) {
-+			} else if (!locals->VRatioInPrefetchSupported[idx][j]) {
- 				status = DML_FAIL_V_RATIO_PREFETCH;
- 			}
- 
- 			if (status == DML_VALIDATION_OK) {
--				locals->ModeSupport[i][j] = true;
-+				locals->ModeSupport[idx][j] = true;
- 			} else {
--				locals->ModeSupport[i][j] = false;
-+				locals->ModeSupport[idx][j] = false;
- 			}
--			locals->ValidationStatus[i] = status;
-+			locals->ValidationStatus[idx] = status;
- 		}
- 	}
- 	{
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
-index 0cdd60869ce1..dcb71e7c90e8 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
-@@ -181,7 +181,8 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_0_soc = {
- void dcn30_fpu_populate_dml_writeback_from_context(
- 		struct dc *dc, struct resource_context *res_ctx, display_e2e_pipe_params_st *pipes)
- {
--	int pipe_cnt, i, j;
-+	int pipe_cnt;
-+	unsigned int i, j;
- 	double max_calc_writeback_dispclk;
- 	double writeback_dispclk;
- 	struct writeback_st dout_wb = {0};
-@@ -308,6 +309,7 @@ void dcn30_fpu_calculate_wm_and_dlg(
- {
- 	int maxMpcComb = context->bw_ctx.dml.vba.maxMpcComb;
- 	int i, pipe_idx;
-+	unsigned int pipe_i, state_i;
- 	double dcfclk = context->bw_ctx.dml.vba.DCFCLKState[vlevel][maxMpcComb];
- 	bool pstate_en = context->bw_ctx.dml.vba.DRAMClockChangeSupport[vlevel][maxMpcComb] != dm_dram_clock_change_unsupported;
- 	unsigned int dummy_latency_index = 0;
-@@ -475,8 +477,8 @@ void dcn30_fpu_calculate_wm_and_dlg(
- 	/* Make set D = set A until set D is enabled */
- 	context->bw_ctx.bw.dcn.watermarks.d = context->bw_ctx.bw.dcn.watermarks.a;
- 
--	for (i = 0, pipe_idx = 0; i < dc->res_pool->pipe_count; i++) {
--		if (!context->res_ctx.pipe_ctx[i].stream)
-+	for (pipe_i = 0, pipe_idx = 0; pipe_i < dc->res_pool->pipe_count; pipe_i++) {
-+		if (!context->res_ctx.pipe_ctx[pipe_i].stream)
- 			continue;
- 
- 		pipes[pipe_idx].clks_cfg.dispclk_mhz = get_dispclk_calculated(&context->bw_ctx.dml, pipes, pipe_cnt);
-@@ -500,9 +502,9 @@ void dcn30_fpu_calculate_wm_and_dlg(
- 			context->bw_ctx.dml.vba.DRAMSpeed <= 1700 &&
- 			context->bw_ctx.dml.vba.DRAMSpeed >= 1500) {
- 
--		for (i = 0; i < dc->dml.soc.num_states; i++) {
--			if (dc->dml.soc.clock_limits[i].dram_speed_mts > 1700) {
--				context->bw_ctx.dml.vba.DRAMSpeed = dc->dml.soc.clock_limits[i].dram_speed_mts;
-+		for (state_i = 0; state_i < dc->dml.soc.num_states; state_i++) {
-+			if (dc->dml.soc.clock_limits[state_i].dram_speed_mts > 1700) {
-+				context->bw_ctx.dml.vba.DRAMSpeed = dc->dml.soc.clock_limits[state_i].dram_speed_mts;
- 				break;
- 			}
- 		}
+@@ -296,7 +296,7 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
+ 		double UrgentOutOfOrderReturn,
+ 		double ReturnBW,
+ 		bool GPUVMEnable,
+-		int dpte_group_bytes[],
++		unsigned int dpte_group_bytes[],
+ 		unsigned int MetaChunkSize,
+ 		double UrgentLatency,
+ 		double ExtraLatency,
+@@ -307,7 +307,7 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
+ 		double SRExitTime,
+ 		double SREnterPlusExitTime,
+ 		double DCFCLKDeepSleep,
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		bool DCCEnable[],
+ 		double DPPCLK[],
+ 		double SwathWidthSingleDPPY[],
+@@ -346,7 +346,7 @@ static void CalculateDCFCLKDeepSleep(
+ 		double BytePerPixelDETC[],
+ 		double VRatio[],
+ 		double SwathWidthY[],
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		double HRatio[],
+ 		double PixelClock[],
+ 		double PSCL_THROUGHPUT[],
+@@ -390,7 +390,7 @@ static void CalculatePixelDeliveryTimes(
+ 		double                 VRatioPrefetchC[],
+ 		unsigned int           swath_width_luma_ub[],
+ 		unsigned int           swath_width_chroma_ub[],
+-		int                    DPPPerPlane[],
++		unsigned int           DPPPerPlane[],
+ 		double                 HRatio[],
+ 		double                 PixelClock[],
+ 		double                 PSCL_THROUGHPUT[],
+@@ -436,7 +436,7 @@ static void CalculateMetaAndPTETimes(
+ 		unsigned int           meta_row_height[],
+ 		unsigned int           meta_req_width[],
+ 		unsigned int           meta_req_height[],
+-		int                   dpte_group_bytes[],
++		unsigned int           dpte_group_bytes[],
+ 		unsigned int           PTERequestSizeY[],
+ 		unsigned int           PTERequestSizeC[],
+ 		unsigned int           PixelPTEReqWidthY[],
+@@ -477,8 +477,8 @@ static double CalculateExtraLatency(
+ 		bool GPUVMEnable,
+ 		bool HostVMEnable,
+ 		int NumberOfActivePlanes,
+-		int NumberOfDPP[],
+-		int dpte_group_bytes[],
++		unsigned int NumberOfDPP[],
++		unsigned int dpte_group_bytes[],
+ 		double PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyPixelMixedWithVMData,
+ 		double PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyVMDataOnly,
+ 		int HostVMMaxPageTableLevels,
+@@ -5257,7 +5257,7 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
+ 		double UrgentOutOfOrderReturn,
+ 		double ReturnBW,
+ 		bool GPUVMEnable,
+-		int dpte_group_bytes[],
++		unsigned int dpte_group_bytes[],
+ 		unsigned int MetaChunkSize,
+ 		double UrgentLatency,
+ 		double ExtraLatency,
+@@ -5268,7 +5268,7 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
+ 		double SRExitTime,
+ 		double SREnterPlusExitTime,
+ 		double DCFCLKDeepSleep,
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		bool DCCEnable[],
+ 		double DPPCLK[],
+ 		double SwathWidthSingleDPPY[],
+@@ -5543,7 +5543,7 @@ static void CalculateDCFCLKDeepSleep(
+ 		double BytePerPixelDETC[],
+ 		double VRatio[],
+ 		double SwathWidthY[],
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		double HRatio[],
+ 		double PixelClock[],
+ 		double PSCL_THROUGHPUT[],
+@@ -5749,7 +5749,7 @@ static void CalculatePixelDeliveryTimes(
+ 		double VRatioPrefetchC[],
+ 		unsigned int swath_width_luma_ub[],
+ 		unsigned int swath_width_chroma_ub[],
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		double HRatio[],
+ 		double PixelClock[],
+ 		double PSCL_THROUGHPUT[],
+@@ -5870,7 +5870,7 @@ static void CalculateMetaAndPTETimes(
+ 		unsigned int meta_row_height[],
+ 		unsigned int meta_req_width[],
+ 		unsigned int meta_req_height[],
+-		int dpte_group_bytes[],
++		unsigned int dpte_group_bytes[],
+ 		unsigned int PTERequestSizeY[],
+ 		unsigned int PTERequestSizeC[],
+ 		unsigned int PixelPTEReqWidthY[],
+@@ -6128,8 +6128,8 @@ static double CalculateExtraLatency(
+ 		bool GPUVMEnable,
+ 		bool HostVMEnable,
+ 		int NumberOfActivePlanes,
+-		int NumberOfDPP[],
+-		int dpte_group_bytes[],
++		unsigned int NumberOfDPP[],
++		unsigned int dpte_group_bytes[],
+ 		double PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyPixelMixedWithVMData,
+ 		double PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyVMDataOnly,
+ 		int HostVMMaxPageTableLevels,
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-index 634982173190..e201ff5dd7e3 100644
+index e201ff5dd7e3..b445ab23fd23 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-@@ -366,7 +366,7 @@ static void CalculatePixelDeliveryTimes(
- 		double CursorRequestDeliveryTimePrefetch[]);
+@@ -285,8 +285,8 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
+ static void CalculateDCFCLKDeepSleep(
+ 		struct display_mode_lib *mode_lib,
+ 		unsigned int NumberOfActivePlanes,
+-		int BytePerPixelY[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelY[],
++		unsigned int BytePerPixelC[],
+ 		double VRatio[],
+ 		double VRatioChroma[],
+ 		double SwathWidthY[],
+@@ -327,7 +327,7 @@ static void CalculateUrgentBurstFactor(
+ static void UseMinimumDCFCLK(
+ 		struct display_mode_lib *mode_lib,
+ 		struct vba_vars_st *v,
+-		int MaxPrefetchMode,
++		unsigned int MaxPrefetchMode,
+ 		int ReorderingBytes);
  
- static void CalculateMetaAndPTETimes(
--		int NumberOfActivePlanes,
-+		unsigned int NumberOfActivePlanes,
+ static void CalculatePixelDeliveryTimes(
+@@ -345,7 +345,7 @@ static void CalculatePixelDeliveryTimes(
+ 		double PSCL_THROUGHPUT[],
+ 		double PSCL_THROUGHPUT_CHROMA[],
+ 		double DPPCLK[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelC[],
+ 		enum scan_direction_class SourceScan[],
+ 		unsigned int NumberOfCursors[],
+ 		unsigned int CursorWidth[][2],
+@@ -370,35 +370,35 @@ static void CalculateMetaAndPTETimes(
  		bool GPUVMEnable,
  		int MetaChunkSize,
  		int MinMetaChunkSizeBytes,
-@@ -439,7 +439,7 @@ static void CalculateVMGroupAndRequestTimes(
- 		double TimePerVMRequestFlip[]);
- 
- static void CalculateStutterEfficiency(
--		int NumberOfActivePlanes,
-+		unsigned int NumberOfActivePlanes,
- 		long ROBBufferSizeInKByte,
- 		double TotalDataReadBandwidth,
- 		double DCFCLK,
-@@ -479,7 +479,7 @@ static void CalculateStutterEfficiency(
- 
- static void CalculateSwathAndDETConfiguration(
- 		bool ForceSingleDPP,
--		int NumberOfActivePlanes,
-+		unsigned int NumberOfActivePlanes,
- 		unsigned int DETBufferSizeInKByte,
- 		double MaximumSwathWidthLuma[],
- 		double MaximumSwathWidthChroma[],
-@@ -518,7 +518,7 @@ static void CalculateSwathAndDETConfiguration(
- 		bool *ViewportSizeSupport);
- static void CalculateSwathWidth(
- 		bool ForceSingleDPP,
--		int NumberOfActivePlanes,
-+		unsigned int NumberOfActivePlanes,
- 		enum source_format_class SourcePixelFormat[],
+-		int HTotal[],
++		unsigned int HTotal[],
+ 		double VRatio[],
+ 		double VRatioChroma[],
+ 		double DestinationLinesToRequestRowInVBlank[],
+ 		double DestinationLinesToRequestRowInImmediateFlip[],
+ 		bool DCCEnable[],
+ 		double PixelClock[],
+-		int BytePerPixelY[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelY[],
++		unsigned int BytePerPixelC[],
  		enum scan_direction_class SourceScan[],
- 		unsigned int ViewportWidth[],
-@@ -572,7 +572,7 @@ static double CalculateExtraLatencyBytes(
- 		int MetaChunkSize,
+-		int dpte_row_height[],
+-		int dpte_row_height_chroma[],
+-		int meta_row_width[],
+-		int meta_row_width_chroma[],
+-		int meta_row_height[],
+-		int meta_row_height_chroma[],
+-		int meta_req_width[],
+-		int meta_req_width_chroma[],
+-		int meta_req_height[],
+-		int meta_req_height_chroma[],
+-		int dpte_group_bytes[],
+-		int PTERequestSizeY[],
+-		int PTERequestSizeC[],
+-		int PixelPTEReqWidthY[],
+-		int PixelPTEReqHeightY[],
+-		int PixelPTEReqWidthC[],
+-		int PixelPTEReqHeightC[],
+-		int dpte_row_width_luma_ub[],
+-		int dpte_row_width_chroma_ub[],
++		unsigned int dpte_row_height[],
++		unsigned int dpte_row_height_chroma[],
++		unsigned int meta_row_width[],
++		unsigned int meta_row_width_chroma[],
++		unsigned int meta_row_height[],
++		unsigned int meta_row_height_chroma[],
++		unsigned int meta_req_width[],
++		unsigned int meta_req_width_chroma[],
++		unsigned int meta_req_height[],
++		unsigned int meta_req_height_chroma[],
++		unsigned int dpte_group_bytes[],
++		unsigned int PTERequestSizeY[],
++		unsigned int PTERequestSizeC[],
++		unsigned int PixelPTEReqWidthY[],
++		unsigned int PixelPTEReqHeightY[],
++		unsigned int PixelPTEReqWidthC[],
++		unsigned int PixelPTEReqHeightC[],
++		unsigned int dpte_row_width_luma_ub[],
++		unsigned int dpte_row_width_chroma_ub[],
+ 		double DST_Y_PER_PTE_ROW_NOM_L[],
+ 		double DST_Y_PER_PTE_ROW_NOM_C[],
+ 		double DST_Y_PER_META_ROW_NOM_L[],
+@@ -421,18 +421,18 @@ static void CalculateVMGroupAndRequestTimes(
+ 		bool GPUVMEnable,
+ 		unsigned int GPUVMMaxPageTableLevels,
+ 		unsigned int HTotal[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelC[],
+ 		double DestinationLinesToRequestVMInVBlank[],
+ 		double DestinationLinesToRequestVMInImmediateFlip[],
+ 		bool DCCEnable[],
+ 		double PixelClock[],
+-		int dpte_row_width_luma_ub[],
+-		int dpte_row_width_chroma_ub[],
+-		int vm_group_bytes[],
++		unsigned int dpte_row_width_luma_ub[],
++		unsigned int dpte_row_width_chroma_ub[],
++		unsigned int vm_group_bytes[],
+ 		unsigned int dpde0_bytes_per_frame_ub_l[],
+ 		unsigned int dpde0_bytes_per_frame_ub_c[],
+-		int meta_pte_bytes_per_frame_ub_l[],
+-		int meta_pte_bytes_per_frame_ub_c[],
++		unsigned int meta_pte_bytes_per_frame_ub_l[],
++		unsigned int meta_pte_bytes_per_frame_ub_c[],
+ 		double TimePerVMGroupVBlank[],
+ 		double TimePerVMGroupFlip[],
+ 		double TimePerVMRequestVBlank[],
+@@ -446,27 +446,27 @@ static void CalculateStutterEfficiency(
+ 		double ReturnBW,
+ 		double SRExitTime,
+ 		bool SynchronizedVBlank,
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		unsigned int DETBufferSizeY[],
+-		int BytePerPixelY[],
++		unsigned int BytePerPixelY[],
+ 		double BytePerPixelDETY[],
+ 		double SwathWidthY[],
+-		int SwathHeightY[],
+-		int SwathHeightC[],
++		unsigned int SwathHeightY[],
++		unsigned int SwathHeightC[],
+ 		double DCCRateLuma[],
+ 		double DCCRateChroma[],
+-		int HTotal[],
+-		int VTotal[],
++		unsigned int HTotal[],
++		unsigned int VTotal[],
+ 		double PixelClock[],
+ 		double VRatio[],
+ 		enum scan_direction_class SourceScan[],
+-		int BlockHeight256BytesY[],
+-		int BlockWidth256BytesY[],
+-		int BlockHeight256BytesC[],
+-		int BlockWidth256BytesC[],
+-		int DCCYMaxUncompressedBlock[],
+-		int DCCCMaxUncompressedBlock[],
+-		int VActive[],
++		unsigned int BlockHeight256BytesY[],
++		unsigned int BlockWidth256BytesY[],
++		unsigned int BlockHeight256BytesC[],
++		unsigned int BlockWidth256BytesC[],
++		unsigned int DCCYMaxUncompressedBlock[],
++		unsigned int DCCCMaxUncompressedBlock[],
++		unsigned int VActive[],
+ 		bool DCCEnable[],
+ 		bool WritebackEnable[],
+ 		double ReadBandwidthPlaneLuma[],
+@@ -486,32 +486,32 @@ static void CalculateSwathAndDETConfiguration(
+ 		enum scan_direction_class SourceScan[],
+ 		enum source_format_class SourcePixelFormat[],
+ 		enum dm_swizzle_mode SurfaceTiling[],
+-		int ViewportWidth[],
+-		int ViewportHeight[],
+-		int SurfaceWidthY[],
+-		int SurfaceWidthC[],
+-		int SurfaceHeightY[],
+-		int SurfaceHeightC[],
+-		int Read256BytesBlockHeightY[],
+-		int Read256BytesBlockHeightC[],
+-		int Read256BytesBlockWidthY[],
+-		int Read256BytesBlockWidthC[],
++		unsigned int ViewportWidth[],
++		unsigned int ViewportHeight[],
++		unsigned int SurfaceWidthY[],
++		unsigned int SurfaceWidthC[],
++		unsigned int SurfaceHeightY[],
++		unsigned int SurfaceHeightC[],
++		unsigned int Read256BytesBlockHeightY[],
++		unsigned int Read256BytesBlockHeightC[],
++		unsigned int Read256BytesBlockWidthY[],
++		unsigned int Read256BytesBlockWidthC[],
+ 		enum odm_combine_mode ODMCombineEnabled[],
+-		int BlendingAndTiming[],
+-		int BytePerPixY[],
+-		int BytePerPixC[],
++		unsigned int BlendingAndTiming[],
++		unsigned int BytePerPixY[],
++		unsigned int BytePerPixC[],
+ 		double BytePerPixDETY[],
+ 		double BytePerPixDETC[],
+-		int HActive[],
++		unsigned int HActive[],
+ 		double HRatio[],
+ 		double HRatioChroma[],
+-		int DPPPerPlane[],
+-		int swath_width_luma_ub[],
+-		int swath_width_chroma_ub[],
++		unsigned int DPPPerPlane[],
++		unsigned int swath_width_luma_ub[],
++		unsigned int swath_width_chroma_ub[],
+ 		double SwathWidth[],
+ 		double SwathWidthChroma[],
+-		int SwathHeightY[],
+-		int SwathHeightC[],
++		unsigned int SwathHeightY[],
++		unsigned int SwathHeightC[],
+ 		unsigned int DETBufferSizeY[],
+ 		unsigned int DETBufferSizeC[],
+ 		bool ViewportSizeSupportPerPlane[],
+@@ -528,22 +528,22 @@ static void CalculateSwathWidth(
+ 		unsigned int SurfaceHeightY[],
+ 		unsigned int SurfaceHeightC[],
+ 		enum odm_combine_mode ODMCombineEnabled[],
+-		int BytePerPixY[],
+-		int BytePerPixC[],
+-		int Read256BytesBlockHeightY[],
+-		int Read256BytesBlockHeightC[],
+-		int Read256BytesBlockWidthY[],
+-		int Read256BytesBlockWidthC[],
+-		int BlendingAndTiming[],
++		unsigned int BytePerPixY[],
++		unsigned int BytePerPixC[],
++		unsigned int Read256BytesBlockHeightY[],
++		unsigned int Read256BytesBlockHeightC[],
++		unsigned int Read256BytesBlockWidthY[],
++		unsigned int Read256BytesBlockWidthC[],
++		unsigned int BlendingAndTiming[],
+ 		unsigned int HActive[],
+ 		double HRatio[],
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		double SwathWidthSingleDPPY[],
+ 		double SwathWidthSingleDPPC[],
+ 		double SwathWidthY[],
+ 		double SwathWidthC[],
+-		int MaximumSwathHeightY[],
+-		int MaximumSwathHeightC[],
++		unsigned int MaximumSwathHeightY[],
++		unsigned int MaximumSwathHeightC[],
+ 		unsigned int swath_width_luma_ub[],
+ 		unsigned int swath_width_chroma_ub[]);
+ static double CalculateExtraLatency(
+@@ -558,8 +558,8 @@ static double CalculateExtraLatency(
  		bool GPUVMEnable,
  		bool HostVMEnable,
--		int NumberOfActivePlanes,
-+		unsigned int NumberOfActivePlanes,
- 		int NumberOfDPP[],
- 		int dpte_group_bytes[],
+ 		int NumberOfActivePlanes,
+-		int NumberOfDPP[],
+-		int dpte_group_bytes[],
++		unsigned int NumberOfDPP[],
++		unsigned int dpte_group_bytes[],
  		double PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyPixelMixedWithVMData,
-@@ -1335,11 +1335,12 @@ static void CalculateDCCConfiguration(
- 	max_vp_horz_width = dml_min((double) MAS_vp_horz_limit, detile_buf_vp_horz_limit);
- 	max_vp_vert_height = dml_min((double) MAS_vp_vert_limit, detile_buf_vp_vert_limit);
- 	eff_surf_width_l =
--			(SurfaceWidthLuma > max_vp_horz_width ? max_vp_horz_width : SurfaceWidthLuma);
-+			(SurfaceWidthLuma > (unsigned long)max_vp_horz_width ?
-+			(unsigned long)max_vp_horz_width : SurfaceWidthLuma);
- 	eff_surf_width_c = eff_surf_width_l / (1 + yuv420);
- 	eff_surf_height_l = (
--			SurfaceHeightLuma > max_vp_vert_height ?
--					max_vp_vert_height : SurfaceHeightLuma);
-+			SurfaceHeightLuma > (unsigned long)max_vp_vert_height ?
-+					(unsigned long)max_vp_vert_height : SurfaceHeightLuma);
- 	eff_surf_height_c = eff_surf_height_l / (1 + yuv420);
- 
- 	full_swath_bytes_horz_wc_l = eff_surf_width_l * RequestHeight256ByteLuma * BytePerPixelY;
-@@ -3381,8 +3382,8 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 		double PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyVMDataOnly,
+ 		double HostVMMinPageSize,
+@@ -573,8 +573,8 @@ static double CalculateExtraLatencyBytes(
+ 		bool GPUVMEnable,
+ 		bool HostVMEnable,
+ 		unsigned int NumberOfActivePlanes,
+-		int NumberOfDPP[],
+-		int dpte_group_bytes[],
++		unsigned int NumberOfDPP[],
++		unsigned int dpte_group_bytes[],
+ 		double PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyPixelMixedWithVMData,
+ 		double PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyVMDataOnly,
+ 		double HostVMMinPageSize,
+@@ -2888,18 +2888,18 @@ static void DisplayPipeConfiguration(struct display_mode_lib *mode_lib)
+ 	// Display Pipe Configuration
+ 	double BytePerPixDETY[DC__NUM_DPP__MAX] = { 0 };
+ 	double BytePerPixDETC[DC__NUM_DPP__MAX] = { 0 };
+-	int BytePerPixY[DC__NUM_DPP__MAX] = { 0 };
+-	int BytePerPixC[DC__NUM_DPP__MAX] = { 0 };
+-	int Read256BytesBlockHeightY[DC__NUM_DPP__MAX] = { 0 };
+-	int Read256BytesBlockHeightC[DC__NUM_DPP__MAX] = { 0 };
+-	int Read256BytesBlockWidthY[DC__NUM_DPP__MAX] = { 0 };
+-	int Read256BytesBlockWidthC[DC__NUM_DPP__MAX] = { 0 };
++	unsigned int BytePerPixY[DC__NUM_DPP__MAX] = { 0 };
++	unsigned int BytePerPixC[DC__NUM_DPP__MAX] = { 0 };
++	unsigned int Read256BytesBlockHeightY[DC__NUM_DPP__MAX] = { 0 };
++	unsigned int Read256BytesBlockHeightC[DC__NUM_DPP__MAX] = { 0 };
++	unsigned int Read256BytesBlockWidthY[DC__NUM_DPP__MAX] = { 0 };
++	unsigned int Read256BytesBlockWidthC[DC__NUM_DPP__MAX] = { 0 };
+ 	double dummy1[DC__NUM_DPP__MAX] = { 0 };
+ 	double dummy2[DC__NUM_DPP__MAX] = { 0 };
+ 	double dummy3[DC__NUM_DPP__MAX] = { 0 };
+ 	double dummy4[DC__NUM_DPP__MAX] = { 0 };
+-	int dummy5[DC__NUM_DPP__MAX] = { 0 };
+-	int dummy6[DC__NUM_DPP__MAX] = { 0 };
++	unsigned int dummy5[DC__NUM_DPP__MAX] = { 0 };
++	unsigned int dummy6[DC__NUM_DPP__MAX] = { 0 };
+ 	bool dummy7[DC__NUM_DPP__MAX] = { 0 };
+ 	bool dummysinglestring = 0;
+ 	unsigned int k;
+@@ -3381,7 +3381,7 @@ static double TruncToValidBPP(
+ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
  {
  	struct vba_vars_st *v = &mode_lib->vba;
- 	int MinPrefetchMode, MaxPrefetchMode;
--	int i, start_state;
--	unsigned int j, k, m;
-+	int idx, start_state;
-+	unsigned int i, j, k, m;
+-	int MinPrefetchMode, MaxPrefetchMode;
++	unsigned int MinPrefetchMode, MaxPrefetchMode;
+ 	int idx, start_state;
+ 	unsigned int i, j, k, m;
  	bool   EnoughWritebackUnits = true;
- 	bool   WritebackModeSupport = true;
- 	bool   ViewportExceedsSurface = false;
-@@ -4913,33 +4914,39 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 	}
- 	/*Mode Support, Voltage State and SOC Configuration*/
+@@ -4550,7 +4550,7 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
  
--	for (i = v->soc.num_states - 1; i >= start_state; i--) {
-+	for (idx = v->soc.num_states - 1; idx >= start_state; idx--) {
- 		for (j = 0; j < 2; j++) {
--			if (v->ScaleRatioAndTapsSupport == 1 && v->SourceFormatPixelAndScanSupport == 1 && v->ViewportSizeSupport[i][j] == 1
--					&& v->DIOSupport[i] == 1 && v->ODMCombine4To1SupportCheckOK[i] == 1
--					&& v->NotEnoughDSCUnits[i] == 0
--					&& v->DTBCLKRequiredMoreThanSupported[i] == 0
--					&& v->ROBSupport[i][j] == 1 && v->DISPCLK_DPPCLK_Support[i][j] == 1 && v->TotalAvailablePipesSupport[i][j] == 1
-+			if (v->ScaleRatioAndTapsSupport == 1 && v->SourceFormatPixelAndScanSupport == 1
-+					&& v->ViewportSizeSupport[idx][j] == 1
-+					&& v->DIOSupport[idx] == 1 && v->ODMCombine4To1SupportCheckOK[idx] == 1
-+					&& v->NotEnoughDSCUnits[idx] == 0
-+					&& v->DTBCLKRequiredMoreThanSupported[idx] == 0
-+					&& v->ROBSupport[idx][j] == 1 && v->DISPCLK_DPPCLK_Support[idx][j] == 1
-+					&& v->TotalAvailablePipesSupport[idx][j] == 1
- 					&& EnoughWritebackUnits == 1 && WritebackModeSupport == 1
--					&& v->WritebackLatencySupport == 1 && v->WritebackScaleRatioAndTapsSupport == 1 && v->CursorSupport == 1 && v->PitchSupport == 1
--					&& ViewportExceedsSurface == 0 && v->PrefetchSupported[i][j] == 1 && v->DynamicMetadataSupported[i][j] == 1
--					&& v->TotalVerticalActiveBandwidthSupport[i][j] == 1 && v->VRatioInPrefetchSupported[i][j] == 1
--					&& v->PTEBufferSizeNotExceeded[i][j] == 1 && v->NonsupportedDSCInputBPC == 0
-+					&& v->WritebackLatencySupport == 1 && v->WritebackScaleRatioAndTapsSupport == 1
-+					&& v->CursorSupport == 1 && v->PitchSupport == 1
-+					&& ViewportExceedsSurface == 0 && v->PrefetchSupported[idx][j] == 1
-+					&& v->DynamicMetadataSupported[idx][j] == 1
-+					&& v->TotalVerticalActiveBandwidthSupport[idx][j] == 1
-+					&& v->VRatioInPrefetchSupported[idx][j] == 1
-+					&& v->PTEBufferSizeNotExceeded[idx][j] == 1 && v->NonsupportedDSCInputBPC == 0
- 					&& ((v->HostVMEnable == 0 && v->ImmediateFlipRequirement[0] != dm_immediate_flip_required)
--							|| v->ImmediateFlipSupportedForState[i][j] == true)) {
--				v->ModeSupport[i][j] = true;
-+							|| v->ImmediateFlipSupportedForState[idx][j] == true)) {
-+				v->ModeSupport[idx][j] = true;
- 			} else {
--				v->ModeSupport[i][j] = false;
-+				v->ModeSupport[idx][j] = false;
- 			}
- 		}
- 	}
- 	{
- 		unsigned int MaximumMPCCombine = 0;
--		for (i = v->soc.num_states; i >= start_state; i--) {
--			if (i == v->soc.num_states || v->ModeSupport[i][0] == true || v->ModeSupport[i][1] == true) {
--				v->VoltageLevel = i;
--				v->ModeIsSupported = v->ModeSupport[i][0] == true || v->ModeSupport[i][1] == true;
--				if (v->ModeSupport[i][1] == true) {
-+		for (idx = v->soc.num_states; idx >= start_state; idx--) {
-+			if (idx == (int)v->soc.num_states || v->ModeSupport[idx][0] == true
-+					|| v->ModeSupport[idx][1] == true) {
-+				v->VoltageLevel = idx;
-+				v->ModeIsSupported = v->ModeSupport[idx][0] == true || v->ModeSupport[idx][1] == true;
-+				if (v->ModeSupport[idx][1] == true) {
- 					MaximumMPCCombine = 1;
- 				} else {
- 					MaximumMPCCombine = 0;
-@@ -5400,7 +5407,7 @@ static void CalculatePixelDeliveryTimes(
- }
+ 	for (i = start_state; i < mode_lib->soc.num_states; ++i) {
+ 		for (j = 0; j <= 1; ++j) {
+-			int NextPrefetchModeState = MinPrefetchMode;
++			unsigned int NextPrefetchModeState = MinPrefetchMode;
  
- static void CalculateMetaAndPTETimes(
--		int NumberOfActivePlanes,
-+		unsigned int NumberOfActivePlanes,
+ 			v->TimeCalc = 24 / v->ProjectedDCFCLKDeepSleep[i][j];
+ 
+@@ -5153,8 +5153,8 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
+ static void CalculateDCFCLKDeepSleep(
+ 		struct display_mode_lib *mode_lib,
+ 		unsigned int NumberOfActivePlanes,
+-		int BytePerPixelY[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelY[],
++		unsigned int BytePerPixelC[],
+ 		double VRatio[],
+ 		double VRatioChroma[],
+ 		double SwathWidthY[],
+@@ -5306,7 +5306,7 @@ static void CalculatePixelDeliveryTimes(
+ 		double PSCL_THROUGHPUT[],
+ 		double PSCL_THROUGHPUT_CHROMA[],
+ 		double DPPCLK[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelC[],
+ 		enum scan_direction_class SourceScan[],
+ 		unsigned int NumberOfCursors[],
+ 		unsigned int CursorWidth[][2],
+@@ -5411,35 +5411,35 @@ static void CalculateMetaAndPTETimes(
  		bool GPUVMEnable,
  		int MetaChunkSize,
  		int MinMetaChunkSizeBytes,
-@@ -5686,7 +5693,7 @@ static void CalculateVMGroupAndRequestTimes(
- }
- 
- static void CalculateStutterEfficiency(
--		int NumberOfActivePlanes,
-+		unsigned int NumberOfActivePlanes,
- 		long ROBBufferSizeInKByte,
- 		double TotalDataReadBandwidth,
- 		double DCFCLK,
-@@ -5840,7 +5847,7 @@ static void CalculateStutterEfficiency(
- 
- static void CalculateSwathAndDETConfiguration(
- 		bool ForceSingleDPP,
--		int NumberOfActivePlanes,
-+		unsigned int NumberOfActivePlanes,
- 		unsigned int DETBufferSizeInKByte,
- 		double MaximumSwathWidthLuma[],
- 		double MaximumSwathWidthChroma[],
-@@ -5891,7 +5898,7 @@ static void CalculateSwathAndDETConfiguration(
- 	long RoundedUpSwathSizeBytesC = 0;
- 	double SwathWidthSingleDPP[DC__NUM_DPP__MAX] = { 0 };
- 	double SwathWidthSingleDPPChroma[DC__NUM_DPP__MAX] = { 0 };
--	int k;
-+	unsigned int k;
- 
- 	CalculateSwathWidth(
- 			ForceSingleDPP,
-@@ -5980,21 +5987,21 @@ static void CalculateSwathAndDETConfiguration(
- 		}
- 
- 		if (RoundedUpMaxSwathSizeBytesY + RoundedUpMaxSwathSizeBytesC
--				<= DETBufferSizeInKByte * 1024 / 2) {
-+				<= (long)DETBufferSizeInKByte * 1024 / 2) {
- 			SwathHeightY[k] = MaximumSwathHeightY[k];
- 			SwathHeightC[k] = MaximumSwathHeightC[k];
- 			RoundedUpSwathSizeBytesY = RoundedUpMaxSwathSizeBytesY;
- 			RoundedUpSwathSizeBytesC = RoundedUpMaxSwathSizeBytesC;
- 		} else if (RoundedUpMaxSwathSizeBytesY >= 1.5 * RoundedUpMaxSwathSizeBytesC
- 				&& RoundedUpMinSwathSizeBytesY + RoundedUpMaxSwathSizeBytesC
--						<= DETBufferSizeInKByte * 1024 / 2) {
-+						<= (long)DETBufferSizeInKByte * 1024 / 2) {
- 			SwathHeightY[k] = MinimumSwathHeightY;
- 			SwathHeightC[k] = MaximumSwathHeightC[k];
- 			RoundedUpSwathSizeBytesY = RoundedUpMinSwathSizeBytesY;
- 			RoundedUpSwathSizeBytesC = RoundedUpMaxSwathSizeBytesC;
- 		} else if (RoundedUpMaxSwathSizeBytesY < 1.5 * RoundedUpMaxSwathSizeBytesC
- 				&& RoundedUpMaxSwathSizeBytesY + RoundedUpMinSwathSizeBytesC
--						<= DETBufferSizeInKByte * 1024 / 2) {
-+						<= (long)DETBufferSizeInKByte * 1024 / 2) {
- 			SwathHeightY[k] = MaximumSwathHeightY[k];
- 			SwathHeightC[k] = MinimumSwathHeightC;
- 			RoundedUpSwathSizeBytesY = RoundedUpMaxSwathSizeBytesY;
-@@ -6018,7 +6025,7 @@ static void CalculateSwathAndDETConfiguration(
- 		}
- 
- 		if (RoundedUpMinSwathSizeBytesY + RoundedUpMinSwathSizeBytesC
--				> DETBufferSizeInKByte * 1024 / 2
-+				> (long)DETBufferSizeInKByte * 1024 / 2
- 				|| SwathWidth[k] > MaximumSwathWidthLuma[k]
- 				|| (SwathHeightC[k] > 0
- 						&& SwathWidthChroma[k] > MaximumSwathWidthChroma[k])) {
-@@ -6032,7 +6039,7 @@ static void CalculateSwathAndDETConfiguration(
- 
- static void CalculateSwathWidth(
- 		bool ForceSingleDPP,
--		int NumberOfActivePlanes,
-+		unsigned int NumberOfActivePlanes,
- 		enum source_format_class SourcePixelFormat[],
+-		int HTotal[],
++		unsigned int HTotal[],
+ 		double VRatio[],
+ 		double VRatioChroma[],
+ 		double DestinationLinesToRequestRowInVBlank[],
+ 		double DestinationLinesToRequestRowInImmediateFlip[],
+ 		bool DCCEnable[],
+ 		double PixelClock[],
+-		int BytePerPixelY[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelY[],
++		unsigned int BytePerPixelC[],
  		enum scan_direction_class SourceScan[],
- 		unsigned int ViewportWidth[],
-@@ -6185,7 +6192,7 @@ static double CalculateExtraLatencyBytes(
- 		int MetaChunkSize,
+-		int dpte_row_height[],
+-		int dpte_row_height_chroma[],
+-		int meta_row_width[],
+-		int meta_row_width_chroma[],
+-		int meta_row_height[],
+-		int meta_row_height_chroma[],
+-		int meta_req_width[],
+-		int meta_req_width_chroma[],
+-		int meta_req_height[],
+-		int meta_req_height_chroma[],
+-		int dpte_group_bytes[],
+-		int PTERequestSizeY[],
+-		int PTERequestSizeC[],
+-		int PixelPTEReqWidthY[],
+-		int PixelPTEReqHeightY[],
+-		int PixelPTEReqWidthC[],
+-		int PixelPTEReqHeightC[],
+-		int dpte_row_width_luma_ub[],
+-		int dpte_row_width_chroma_ub[],
++		unsigned int dpte_row_height[],
++		unsigned int dpte_row_height_chroma[],
++		unsigned int meta_row_width[],
++		unsigned int meta_row_width_chroma[],
++		unsigned int meta_row_height[],
++		unsigned int meta_row_height_chroma[],
++		unsigned int meta_req_width[],
++		unsigned int meta_req_width_chroma[],
++		unsigned int meta_req_height[],
++		unsigned int meta_req_height_chroma[],
++		unsigned int dpte_group_bytes[],
++		unsigned int PTERequestSizeY[],
++		unsigned int PTERequestSizeC[],
++		unsigned int PixelPTEReqWidthY[],
++		unsigned int PixelPTEReqHeightY[],
++		unsigned int PixelPTEReqWidthC[],
++		unsigned int PixelPTEReqHeightC[],
++		unsigned int dpte_row_width_luma_ub[],
++		unsigned int dpte_row_width_chroma_ub[],
+ 		double DST_Y_PER_PTE_ROW_NOM_L[],
+ 		double DST_Y_PER_PTE_ROW_NOM_C[],
+ 		double DST_Y_PER_META_ROW_NOM_L[],
+@@ -5584,18 +5584,18 @@ static void CalculateVMGroupAndRequestTimes(
+ 		bool GPUVMEnable,
+ 		unsigned int GPUVMMaxPageTableLevels,
+ 		unsigned int HTotal[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelC[],
+ 		double DestinationLinesToRequestVMInVBlank[],
+ 		double DestinationLinesToRequestVMInImmediateFlip[],
+ 		bool DCCEnable[],
+ 		double PixelClock[],
+-		int dpte_row_width_luma_ub[],
+-		int dpte_row_width_chroma_ub[],
+-		int vm_group_bytes[],
++		unsigned int dpte_row_width_luma_ub[],
++		unsigned int dpte_row_width_chroma_ub[],
++		unsigned int vm_group_bytes[],
+ 		unsigned int dpde0_bytes_per_frame_ub_l[],
+ 		unsigned int dpde0_bytes_per_frame_ub_c[],
+-		int meta_pte_bytes_per_frame_ub_l[],
+-		int meta_pte_bytes_per_frame_ub_c[],
++		unsigned int meta_pte_bytes_per_frame_ub_l[],
++		unsigned int meta_pte_bytes_per_frame_ub_c[],
+ 		double TimePerVMGroupVBlank[],
+ 		double TimePerVMGroupFlip[],
+ 		double TimePerVMRequestVBlank[],
+@@ -5700,27 +5700,27 @@ static void CalculateStutterEfficiency(
+ 		double ReturnBW,
+ 		double SRExitTime,
+ 		bool SynchronizedVBlank,
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		unsigned int DETBufferSizeY[],
+-		int BytePerPixelY[],
++		unsigned int BytePerPixelY[],
+ 		double BytePerPixelDETY[],
+ 		double SwathWidthY[],
+-		int SwathHeightY[],
+-		int SwathHeightC[],
++		unsigned int SwathHeightY[],
++		unsigned int SwathHeightC[],
+ 		double DCCRateLuma[],
+ 		double DCCRateChroma[],
+-		int HTotal[],
+-		int VTotal[],
++		unsigned int HTotal[],
++		unsigned int VTotal[],
+ 		double PixelClock[],
+ 		double VRatio[],
+ 		enum scan_direction_class SourceScan[],
+-		int BlockHeight256BytesY[],
+-		int BlockWidth256BytesY[],
+-		int BlockHeight256BytesC[],
+-		int BlockWidth256BytesC[],
+-		int DCCYMaxUncompressedBlock[],
+-		int DCCCMaxUncompressedBlock[],
+-		int VActive[],
++		unsigned int BlockHeight256BytesY[],
++		unsigned int BlockWidth256BytesY[],
++		unsigned int BlockHeight256BytesC[],
++		unsigned int BlockWidth256BytesC[],
++		unsigned int DCCYMaxUncompressedBlock[],
++		unsigned int DCCCMaxUncompressedBlock[],
++		unsigned int VActive[],
+ 		bool DCCEnable[],
+ 		bool WritebackEnable[],
+ 		double ReadBandwidthPlaneLuma[],
+@@ -5854,42 +5854,42 @@ static void CalculateSwathAndDETConfiguration(
+ 		enum scan_direction_class SourceScan[],
+ 		enum source_format_class SourcePixelFormat[],
+ 		enum dm_swizzle_mode SurfaceTiling[],
+-		int ViewportWidth[],
+-		int ViewportHeight[],
+-		int SurfaceWidthY[],
+-		int SurfaceWidthC[],
+-		int SurfaceHeightY[],
+-		int SurfaceHeightC[],
+-		int Read256BytesBlockHeightY[],
+-		int Read256BytesBlockHeightC[],
+-		int Read256BytesBlockWidthY[],
+-		int Read256BytesBlockWidthC[],
++		unsigned int ViewportWidth[],
++		unsigned int ViewportHeight[],
++		unsigned int SurfaceWidthY[],
++		unsigned int SurfaceWidthC[],
++		unsigned int SurfaceHeightY[],
++		unsigned int SurfaceHeightC[],
++		unsigned int Read256BytesBlockHeightY[],
++		unsigned int Read256BytesBlockHeightC[],
++		unsigned int Read256BytesBlockWidthY[],
++		unsigned int Read256BytesBlockWidthC[],
+ 		enum odm_combine_mode ODMCombineEnabled[],
+-		int BlendingAndTiming[],
+-		int BytePerPixY[],
+-		int BytePerPixC[],
++		unsigned int BlendingAndTiming[],
++		unsigned int BytePerPixY[],
++		unsigned int BytePerPixC[],
+ 		double BytePerPixDETY[],
+ 		double BytePerPixDETC[],
+-		int HActive[],
++		unsigned int HActive[],
+ 		double HRatio[],
+ 		double HRatioChroma[],
+-		int DPPPerPlane[],
+-		int swath_width_luma_ub[],
+-		int swath_width_chroma_ub[],
++		unsigned int DPPPerPlane[],
++		unsigned int swath_width_luma_ub[],
++		unsigned int swath_width_chroma_ub[],
+ 		double SwathWidth[],
+ 		double SwathWidthChroma[],
+-		int SwathHeightY[],
+-		int SwathHeightC[],
++		unsigned int SwathHeightY[],
++		unsigned int SwathHeightC[],
+ 		unsigned int DETBufferSizeY[],
+ 		unsigned int DETBufferSizeC[],
+ 		bool ViewportSizeSupportPerPlane[],
+ 		bool *ViewportSizeSupport)
+ {
+ 	(void)HRatioChroma;
+-	int MaximumSwathHeightY[DC__NUM_DPP__MAX] = { 0 };
+-	int MaximumSwathHeightC[DC__NUM_DPP__MAX] = { 0 };
+-	int MinimumSwathHeightY = 0;
+-	int MinimumSwathHeightC = 0;
++	unsigned int MaximumSwathHeightY[DC__NUM_DPP__MAX] = { 0 };
++	unsigned int MaximumSwathHeightC[DC__NUM_DPP__MAX] = { 0 };
++	unsigned int MinimumSwathHeightY = 0;
++	unsigned int MinimumSwathHeightC = 0;
+ 	long RoundedUpMaxSwathSizeBytesY = 0;
+ 	long RoundedUpMaxSwathSizeBytesC = 0;
+ 	long RoundedUpMinSwathSizeBytesY = 0;
+@@ -6049,22 +6049,22 @@ static void CalculateSwathWidth(
+ 		unsigned int SurfaceHeightY[],
+ 		unsigned int SurfaceHeightC[],
+ 		enum odm_combine_mode ODMCombineEnabled[],
+-		int BytePerPixY[],
+-		int BytePerPixC[],
+-		int Read256BytesBlockHeightY[],
+-		int Read256BytesBlockHeightC[],
+-		int Read256BytesBlockWidthY[],
+-		int Read256BytesBlockWidthC[],
+-		int BlendingAndTiming[],
++		unsigned int BytePerPixY[],
++		unsigned int BytePerPixC[],
++		unsigned int Read256BytesBlockHeightY[],
++		unsigned int Read256BytesBlockHeightC[],
++		unsigned int Read256BytesBlockWidthY[],
++		unsigned int Read256BytesBlockWidthC[],
++		unsigned int BlendingAndTiming[],
+ 		unsigned int HActive[],
+ 		double HRatio[],
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		double SwathWidthSingleDPPY[],
+ 		double SwathWidthSingleDPPC[],
+ 		double SwathWidthY[],
+ 		double SwathWidthC[],
+-		int MaximumSwathHeightY[],
+-		int MaximumSwathHeightC[],
++		unsigned int MaximumSwathHeightY[],
++		unsigned int MaximumSwathHeightC[],
+ 		unsigned int swath_width_luma_ub[],
+ 		unsigned int swath_width_chroma_ub[])
+ {
+@@ -6157,8 +6157,8 @@ static double CalculateExtraLatency(
  		bool GPUVMEnable,
  		bool HostVMEnable,
--		int NumberOfActivePlanes,
-+		unsigned int NumberOfActivePlanes,
- 		int NumberOfDPP[],
- 		int dpte_group_bytes[],
+ 		int NumberOfActivePlanes,
+-		int NumberOfDPP[],
+-		int dpte_group_bytes[],
++		unsigned int NumberOfDPP[],
++		unsigned int dpte_group_bytes[],
  		double PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyPixelMixedWithVMData,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
-index 1aaa77265eed..57898dc17fa3 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn301/dcn301_fpu.c
-@@ -326,7 +326,8 @@ void dcn301_fpu_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_p
- 	struct dcn301_resource_pool *pool = TO_DCN301_RES_POOL(dc->res_pool);
- 	struct clk_limit_table *clk_table = &bw_params->clk_table;
- 	unsigned int i, closest_clk_lvl;
--	int j = 0, max_dispclk_mhz = 0, max_dppclk_mhz = 0;
-+	int j = 0;
-+	unsigned int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
- 
- 	dc_assert_fp_enabled();
- 
-@@ -429,7 +430,7 @@ void dcn301_fpu_calculate_wm_and_dlg(struct dc *dc,
- 		int pipe_cnt,
- 		int vlevel_req)
+ 		double PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyVMDataOnly,
+ 		double HostVMMinPageSize,
+@@ -6193,8 +6193,8 @@ static double CalculateExtraLatencyBytes(
+ 		bool GPUVMEnable,
+ 		bool HostVMEnable,
+ 		unsigned int NumberOfActivePlanes,
+-		int NumberOfDPP[],
+-		int dpte_group_bytes[],
++		unsigned int NumberOfDPP[],
++		unsigned int dpte_group_bytes[],
+ 		double PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyPixelMixedWithVMData,
+ 		double PercentOfIdealDRAMFabricAndSDPPortBWReceivedAfterUrgLatencyVMDataOnly,
+ 		double HostVMMinPageSize,
+@@ -6251,7 +6251,7 @@ static double CalculateUrgentLatency(
+ static noinline_for_stack void UseMinimumDCFCLK(
+ 		struct display_mode_lib *mode_lib,
+ 		struct vba_vars_st *v,
+-		int MaxPrefetchMode,
++		unsigned int MaxPrefetchMode,
+ 		int ReorderingBytes)
  {
--	int i, pipe_idx;
-+	unsigned int i, pipe_idx;
- 	int vlevel, vlevel_max;
- 	struct wm_range_table_entry *table_entry;
- 	struct clk_bw_params *bw_params = dc->clk_mgr->bw_params;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn302/dcn302_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn302/dcn302_fpu.c
-index 8d7c59ec701d..a00d1b466790 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn302/dcn302_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn302/dcn302_fpu.c
-@@ -218,7 +218,7 @@ void dcn302_fpu_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_p
- 	dc->dml.soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
+ 	double   NormalEfficiency = 0;
+@@ -6276,7 +6276,7 @@ static noinline_for_stack void UseMinimumDCFCLK(
+ 			double ExtraLatencyBytes = 0;
+ 			double ExtraLatencyCycles = 0;
+ 			double DCFCLKRequiredForPeakBandwidth = 0;
+-			int NoOfDPPState[DC__NUM_DPP__MAX] = { 0 };
++			unsigned int NoOfDPPState[DC__NUM_DPP__MAX] = { 0 };
+ 			double MinimumTvmPlus2Tr0 = 0;
  
- 	if (bw_params->clk_table.entries[0].memclk_mhz) {
--		int max_dcfclk_mhz = 0, max_dispclk_mhz = 0, max_dppclk_mhz = 0, max_phyclk_mhz = 0;
-+		unsigned int max_dcfclk_mhz = 0, max_dispclk_mhz = 0, max_dppclk_mhz = 0, max_phyclk_mhz = 0;
- 
- 		for (i = 0; i < MAX_NUM_DPM_LVL; i++) {
- 			if (bw_params->clk_table.entries[i].dcfclk_mhz > max_dcfclk_mhz)
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c
-index b5d3fd4c3694..6318b4e4a6f2 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn303/dcn303_fpu.c
-@@ -214,7 +214,7 @@ void dcn303_fpu_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_p
- 	dc->dml.soc.dispclk_dppclk_vco_speed_mhz = dc->clk_mgr->dentist_vco_freq_khz / 1000.0;
- 
- 	if (bw_params->clk_table.entries[0].memclk_mhz) {
--		int max_dcfclk_mhz = 0, max_dispclk_mhz = 0, max_dppclk_mhz = 0, max_phyclk_mhz = 0;
-+		unsigned int max_dcfclk_mhz = 0, max_dispclk_mhz = 0, max_dppclk_mhz = 0, max_phyclk_mhz = 0;
- 
- 		for (i = 0; i < MAX_NUM_DPM_LVL; i++) {
- 			if (bw_params->clk_table.entries[i].dcfclk_mhz > max_dcfclk_mhz)
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-index ad23215da9f8..f702ba90962d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
-@@ -485,9 +485,12 @@ void dcn31_calculate_wm_and_dlg_fp(
- 		int pipe_cnt,
- 		int vlevel)
- {
--	int i, pipe_idx, total_det = 0, active_hubp_count = 0;
-+	int total_det = 0, active_hubp_count = 0;
-+	unsigned int i, pipe_idx;
- 	double dcfclk = context->bw_ctx.dml.vba.DCFCLKState[vlevel][context->bw_ctx.dml.vba.maxMpcComb];
- 	uint32_t cstate_enter_plus_exit_z8_ns;
-+	uint32_t minimum_z8_residency_time_ns =
-+			(uint32_t)dc->debug.minimum_z8_residency_time * 1000U;
- 
- 	dc_assert_fp_enabled();
- 
-@@ -511,8 +514,8 @@ void dcn31_calculate_wm_and_dlg_fp(
- 		get_wm_z8_stutter_enter_exit(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
- 
- 	if (get_stutter_period(&context->bw_ctx.dml, pipes, pipe_cnt) < dc->debug.minimum_z8_residency_time &&
--			cstate_enter_plus_exit_z8_ns < dc->debug.minimum_z8_residency_time * 1000)
--		cstate_enter_plus_exit_z8_ns = dc->debug.minimum_z8_residency_time * 1000;
-+				cstate_enter_plus_exit_z8_ns < minimum_z8_residency_time_ns)
-+		cstate_enter_plus_exit_z8_ns = minimum_z8_residency_time_ns;
- 
- 	/* Set A:
- 	 * All clocks min required
-@@ -592,7 +595,7 @@ void dcn31_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_pa
- 	struct _vcs_dpi_voltage_scaling_st *s = dc->scratch.update_bw_bounding_box.clock_limits;
- 	struct clk_limit_table *clk_table = &bw_params->clk_table;
- 	unsigned int i, closest_clk_lvl;
--	int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
-+	unsigned int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
- 	int j;
- 
- 	dc_assert_fp_enabled();
-@@ -668,7 +671,7 @@ void dcn31_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_pa
- void dcn315_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_params)
- {
- 	struct clk_limit_table *clk_table = &bw_params->clk_table;
--	int i, max_dispclk_mhz = 0, max_dppclk_mhz = 0;
-+	unsigned int i, max_dispclk_mhz = 0, max_dppclk_mhz = 0;
- 
- 	dc_assert_fp_enabled();
- 
-@@ -731,7 +734,7 @@ void dcn316_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_p
- 	struct _vcs_dpi_voltage_scaling_st *s = dc->scratch.update_bw_bounding_box.clock_limits;
- 	struct clk_limit_table *clk_table = &bw_params->clk_table;
- 	unsigned int i, closest_clk_lvl;
--	int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
-+	unsigned int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
- 	int j;
- 
- 	dc_assert_fp_enabled();
+ 			TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = 0;
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-index 9833467722b9..fe0f89288336 100644
+index fe0f89288336..0af8059da019 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-@@ -1510,10 +1510,10 @@ static void CalculateDCCConfiguration(
- 	double detile_buf_vp_horz_limit;
- 	double detile_buf_vp_vert_limit;
+@@ -157,7 +157,7 @@ static bool CalculatePrefetchSchedule(
+ 		double *Tdmdl_vm,
+ 		double *Tdmdl,
+ 		double *TSetup,
+-		int *VUpdateOffsetPix,
++		unsigned int *VUpdateOffsetPix,
+ 		double *VUpdateWidthPix,
+ 		double *VReadyOffsetPix);
+ static double RoundToDFSGranularityUp(double Clock, double VCOSpeed);
+@@ -218,19 +218,19 @@ static unsigned int CalculateVMAndRowBytes(
+ 		unsigned int *MetaRowByte,
+ 		unsigned int *PixelPTEBytesPerRow,
+ 		bool *PTEBufferSizeNotExceeded,
+-		int *dpte_row_width_ub,
++		unsigned int *dpte_row_width_ub,
+ 		unsigned int *dpte_row_height,
+ 		unsigned int *MetaRequestWidth,
+ 		unsigned int *MetaRequestHeight,
+ 		unsigned int *meta_row_width,
+ 		unsigned int *meta_row_height,
+-		int *vm_group_bytes,
++		unsigned int *vm_group_bytes,
+ 		unsigned int *dpte_group_bytes,
+ 		unsigned int *PixelPTEReqWidth,
+ 		unsigned int *PixelPTEReqHeight,
+ 		unsigned int *PTERequestSize,
+-		int *DPDE0BytesFrame,
+-		int *MetaPTEBytesFrame);
++		unsigned int *DPDE0BytesFrame,
++		unsigned int *MetaPTEBytesFrame);
+ static double CalculateTWait(unsigned int PrefetchMode, double DRAMClockChangeLatency, double UrgentLatency, double SREnterPlusExitTime);
+ static void CalculateRowBandwidth(
+ 		bool GPUVMEnable,
+@@ -285,7 +285,7 @@ static void CalculateVupdateAndDynamicMetadataParameters(
+ 		double *Tdmbf,
+ 		double *Tdmec,
+ 		double *Tdmsks,
+-		int *VUpdateOffsetPix,
++		unsigned int *VUpdateOffsetPix,
+ 		double *VUpdateWidthPix,
+ 		double *VReadyOffsetPix);
  
--	int MAS_vp_horz_limit;
--	int MAS_vp_vert_limit;
--	int max_vp_horz_width;
--	int max_vp_vert_height;
-+	unsigned int MAS_vp_horz_limit;
-+	unsigned int MAS_vp_vert_limit;
-+	unsigned int max_vp_horz_width;
-+	unsigned int max_vp_vert_height;
- 	int eff_surf_width_l;
- 	int eff_surf_width_c;
- 	int eff_surf_height_l;
-@@ -3785,7 +3785,8 @@ static noinline void CalculatePrefetchSchedulePerPlane(
+@@ -318,8 +318,8 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
+ static void CalculateDCFCLKDeepSleep(
+ 		struct display_mode_lib *mode_lib,
+ 		unsigned int NumberOfActivePlanes,
+-		int BytePerPixelY[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelY[],
++		unsigned int BytePerPixelC[],
+ 		double VRatio[],
+ 		double VRatioChroma[],
+ 		double SwathWidthY[],
+@@ -377,7 +377,7 @@ static void CalculatePixelDeliveryTimes(
+ 		double PSCL_THROUGHPUT[],
+ 		double PSCL_THROUGHPUT_CHROMA[],
+ 		double DPPCLK[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelC[],
+ 		enum scan_direction_class SourceScan[],
+ 		unsigned int NumberOfCursors[],
+ 		unsigned int CursorWidth[][DC__NUM_CURSOR__MAX],
+@@ -402,35 +402,35 @@ static void CalculateMetaAndPTETimes(
+ 		bool GPUVMEnable,
+ 		int MetaChunkSize,
+ 		int MinMetaChunkSizeBytes,
+-		int HTotal[],
++		unsigned int HTotal[],
+ 		double VRatio[],
+ 		double VRatioChroma[],
+ 		double DestinationLinesToRequestRowInVBlank[],
+ 		double DestinationLinesToRequestRowInImmediateFlip[],
+ 		bool DCCEnable[],
+ 		double PixelClock[],
+-		int BytePerPixelY[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelY[],
++		unsigned int BytePerPixelC[],
+ 		enum scan_direction_class SourceScan[],
+-		int dpte_row_height[],
+-		int dpte_row_height_chroma[],
+-		int meta_row_width[],
+-		int meta_row_width_chroma[],
+-		int meta_row_height[],
+-		int meta_row_height_chroma[],
+-		int meta_req_width[],
+-		int meta_req_width_chroma[],
+-		int meta_req_height[],
+-		int meta_req_height_chroma[],
+-		int dpte_group_bytes[],
+-		int PTERequestSizeY[],
+-		int PTERequestSizeC[],
+-		int PixelPTEReqWidthY[],
+-		int PixelPTEReqHeightY[],
+-		int PixelPTEReqWidthC[],
+-		int PixelPTEReqHeightC[],
+-		int dpte_row_width_luma_ub[],
+-		int dpte_row_width_chroma_ub[],
++		unsigned int dpte_row_height[],
++		unsigned int dpte_row_height_chroma[],
++		unsigned int meta_row_width[],
++		unsigned int meta_row_width_chroma[],
++		unsigned int meta_row_height[],
++		unsigned int meta_row_height_chroma[],
++		unsigned int meta_req_width[],
++		unsigned int meta_req_width_chroma[],
++		unsigned int meta_req_height[],
++		unsigned int meta_req_height_chroma[],
++		unsigned int dpte_group_bytes[],
++		unsigned int PTERequestSizeY[],
++		unsigned int PTERequestSizeC[],
++		unsigned int PixelPTEReqWidthY[],
++		unsigned int PixelPTEReqHeightY[],
++		unsigned int PixelPTEReqWidthC[],
++		unsigned int PixelPTEReqHeightC[],
++		unsigned int dpte_row_width_luma_ub[],
++		unsigned int dpte_row_width_chroma_ub[],
+ 		double DST_Y_PER_PTE_ROW_NOM_L[],
+ 		double DST_Y_PER_PTE_ROW_NOM_C[],
+ 		double DST_Y_PER_META_ROW_NOM_L[],
+@@ -453,18 +453,18 @@ static void CalculateVMGroupAndRequestTimes(
+ 		bool GPUVMEnable,
+ 		unsigned int GPUVMMaxPageTableLevels,
+ 		unsigned int HTotal[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelC[],
+ 		double DestinationLinesToRequestVMInVBlank[],
+ 		double DestinationLinesToRequestVMInImmediateFlip[],
+ 		bool DCCEnable[],
+ 		double PixelClock[],
+-		int dpte_row_width_luma_ub[],
+-		int dpte_row_width_chroma_ub[],
+-		int vm_group_bytes[],
++		unsigned int dpte_row_width_luma_ub[],
++		unsigned int dpte_row_width_chroma_ub[],
++		unsigned int vm_group_bytes[],
+ 		unsigned int dpde0_bytes_per_frame_ub_l[],
+ 		unsigned int dpde0_bytes_per_frame_ub_c[],
+-		int meta_pte_bytes_per_frame_ub_l[],
+-		int meta_pte_bytes_per_frame_ub_c[],
++		unsigned int meta_pte_bytes_per_frame_ub_l[],
++		unsigned int meta_pte_bytes_per_frame_ub_c[],
+ 		double TimePerVMGroupVBlank[],
+ 		double TimePerVMGroupFlip[],
+ 		double TimePerVMRequestVBlank[],
+@@ -492,29 +492,29 @@ static void CalculateStutterEfficiency(
+ 		bool ProgressiveToInterlaceUnitInOPP,
+ 		bool Interlace[],
+ 		double MinTTUVBlank[],
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		unsigned int DETBufferSizeY[],
+-		int BytePerPixelY[],
++		unsigned int BytePerPixelY[],
+ 		double BytePerPixelDETY[],
+ 		double SwathWidthY[],
+-		int SwathHeightY[],
+-		int SwathHeightC[],
++		unsigned int SwathHeightY[],
++		unsigned int SwathHeightC[],
+ 		double NetDCCRateLuma[],
+ 		double NetDCCRateChroma[],
+ 		double DCCFractionOfZeroSizeRequestsLuma[],
+ 		double DCCFractionOfZeroSizeRequestsChroma[],
+-		int HTotal[],
+-		int VTotal[],
++		unsigned int HTotal[],
++		unsigned int VTotal[],
+ 		double PixelClock[],
+ 		double VRatio[],
+ 		enum scan_direction_class SourceScan[],
+-		int BlockHeight256BytesY[],
+-		int BlockWidth256BytesY[],
+-		int BlockHeight256BytesC[],
+-		int BlockWidth256BytesC[],
+-		int DCCYMaxUncompressedBlock[],
+-		int DCCCMaxUncompressedBlock[],
+-		int VActive[],
++		unsigned int BlockHeight256BytesY[],
++		unsigned int BlockWidth256BytesY[],
++		unsigned int BlockHeight256BytesC[],
++		unsigned int BlockWidth256BytesC[],
++		unsigned int DCCYMaxUncompressedBlock[],
++		unsigned int DCCCMaxUncompressedBlock[],
++		unsigned int VActive[],
+ 		bool DCCEnable[],
+ 		bool WritebackEnable[],
+ 		double ReadBandwidthPlaneLuma[],
+@@ -539,32 +539,32 @@ static void CalculateSwathAndDETConfiguration(
+ 		enum scan_direction_class SourceScan[],
+ 		enum source_format_class SourcePixelFormat[],
+ 		enum dm_swizzle_mode SurfaceTiling[],
+-		int ViewportWidth[],
+-		int ViewportHeight[],
+-		int SurfaceWidthY[],
+-		int SurfaceWidthC[],
+-		int SurfaceHeightY[],
+-		int SurfaceHeightC[],
+-		int Read256BytesBlockHeightY[],
+-		int Read256BytesBlockHeightC[],
+-		int Read256BytesBlockWidthY[],
+-		int Read256BytesBlockWidthC[],
++		unsigned int ViewportWidth[],
++		unsigned int ViewportHeight[],
++		unsigned int SurfaceWidthY[],
++		unsigned int SurfaceWidthC[],
++		unsigned int SurfaceHeightY[],
++		unsigned int SurfaceHeightC[],
++		unsigned int Read256BytesBlockHeightY[],
++		unsigned int Read256BytesBlockHeightC[],
++		unsigned int Read256BytesBlockWidthY[],
++		unsigned int Read256BytesBlockWidthC[],
+ 		enum odm_combine_mode ODMCombineEnabled[],
+-		int BlendingAndTiming[],
+-		int BytePerPixY[],
+-		int BytePerPixC[],
++		unsigned int BlendingAndTiming[],
++		unsigned int BytePerPixY[],
++		unsigned int BytePerPixC[],
+ 		double BytePerPixDETY[],
+ 		double BytePerPixDETC[],
+-		int HActive[],
++		unsigned int HActive[],
+ 		double HRatio[],
+ 		double HRatioChroma[],
+-		int DPPPerPlane[],
+-		int swath_width_luma_ub[],
+-		int swath_width_chroma_ub[],
++		unsigned int DPPPerPlane[],
++		unsigned int swath_width_luma_ub[],
++		unsigned int swath_width_chroma_ub[],
+ 		double SwathWidth[],
+ 		double SwathWidthChroma[],
+-		int SwathHeightY[],
+-		int SwathHeightC[],
++		unsigned int SwathHeightY[],
++		unsigned int SwathHeightC[],
+ 		unsigned int DETBufferSizeY[],
+ 		unsigned int DETBufferSizeC[],
+ 		bool ViewportSizeSupportPerPlane[],
+@@ -574,31 +574,31 @@ static void CalculateSwathWidth(
+ 		int NumberOfActivePlanes,
+ 		enum source_format_class SourcePixelFormat[],
+ 		enum scan_direction_class SourceScan[],
+-		int ViewportWidth[],
+-		int ViewportHeight[],
+-		int SurfaceWidthY[],
+-		int SurfaceWidthC[],
+-		int SurfaceHeightY[],
+-		int SurfaceHeightC[],
++		unsigned int ViewportWidth[],
++		unsigned int ViewportHeight[],
++		unsigned int SurfaceWidthY[],
++		unsigned int SurfaceWidthC[],
++		unsigned int SurfaceHeightY[],
++		unsigned int SurfaceHeightC[],
+ 		enum odm_combine_mode ODMCombineEnabled[],
+-		int BytePerPixY[],
+-		int BytePerPixC[],
+-		int Read256BytesBlockHeightY[],
+-		int Read256BytesBlockHeightC[],
+-		int Read256BytesBlockWidthY[],
+-		int Read256BytesBlockWidthC[],
+-		int BlendingAndTiming[],
+-		int HActive[],
++		unsigned int BytePerPixY[],
++		unsigned int BytePerPixC[],
++		unsigned int Read256BytesBlockHeightY[],
++		unsigned int Read256BytesBlockHeightC[],
++		unsigned int Read256BytesBlockWidthY[],
++		unsigned int Read256BytesBlockWidthC[],
++		unsigned int BlendingAndTiming[],
++		unsigned int HActive[],
+ 		double HRatio[],
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		double SwathWidthSingleDPPY[],
+ 		double SwathWidthSingleDPPC[],
+ 		double SwathWidthY[],
+ 		double SwathWidthC[],
+-		int MaximumSwathHeightY[],
+-		int MaximumSwathHeightC[],
+-		int swath_width_luma_ub[],
+-		int swath_width_chroma_ub[]);
++		unsigned int MaximumSwathHeightY[],
++		unsigned int MaximumSwathHeightC[],
++		unsigned int swath_width_luma_ub[],
++		unsigned int swath_width_chroma_ub[]);
  
- static void PatchDETBufferSizeInKByte(unsigned int NumberOfActivePlanes, int NoOfDPPThisState[], unsigned int config_return_buffer_size_in_kbytes, unsigned int DETBufferSizeInKByte[])
+ static double CalculateExtraLatency(
+ 		int RoundTripPingLatencyCycles,
+@@ -612,8 +612,8 @@ static double CalculateExtraLatency(
+ 		bool GPUVMEnable,
+ 		bool HostVMEnable,
+ 		int NumberOfActivePlanes,
+-		int NumberOfDPP[],
+-		int dpte_group_bytes[],
++		unsigned int NumberOfDPP[],
++		unsigned int dpte_group_bytes[],
+ 		double HostVMInefficiencyFactor,
+ 		double HostVMMinPageSize,
+ 		int HostVMMaxNonCachedPageTableLevels);
+@@ -627,8 +627,8 @@ static double CalculateExtraLatencyBytes(
+ 		bool GPUVMEnable,
+ 		bool HostVMEnable,
+ 		int NumberOfActivePlanes,
+-		int NumberOfDPP[],
+-		int dpte_group_bytes[],
++		unsigned int NumberOfDPP[],
++		unsigned int dpte_group_bytes[],
+ 		double HostVMInefficiencyFactor,
+ 		double HostVMMinPageSize,
+ 		int HostVMMaxNonCachedPageTableLevels);
+@@ -652,7 +652,7 @@ static void CalculateUnboundedRequestAndCompressedBufferSize(
+ 		int CompressedBufferSegmentSizeInkByteFinal,
+ 		enum output_encoder_class *Output,
+ 		bool *UnboundedRequestEnabled,
+-		int *CompressedBufferSizeInkByte);
++		unsigned int *CompressedBufferSizeInkByte);
+ 
+ static bool UnboundedRequest(enum unbounded_requesting_policy UseUnboundedRequestingFinal, int TotalNumberOfActiveDPP, bool NoChroma, enum output_encoder_class Output);
+ 
+@@ -869,7 +869,7 @@ static bool CalculatePrefetchSchedule(
+ 		double *Tdmdl_vm,
+ 		double *Tdmdl,
+ 		double *TSetup,
+-		int *VUpdateOffsetPix,
++		unsigned int *VUpdateOffsetPix,
+ 		double *VUpdateWidthPix,
+ 		double *VReadyOffsetPix)
  {
--	int i, total_pipes = 0;
-+	int total_pipes = 0;
-+	unsigned int i;
- 	for (i = 0; i < NumberOfActivePlanes; i++)
- 		total_pipes += NoOfDPPThisState[i];
- 	DETBufferSizeInKByte[0] = ((config_return_buffer_size_in_kbytes - DCN3_15_MIN_COMPBUF_SIZE_KB) / 64 / total_pipes) * 64;
-@@ -3800,8 +3801,8 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+@@ -1818,19 +1818,19 @@ static unsigned int CalculateVMAndRowBytes(
+ 		unsigned int *MetaRowByte,
+ 		unsigned int *PixelPTEBytesPerRow,
+ 		bool *PTEBufferSizeNotExceeded,
+-		int *dpte_row_width_ub,
++		unsigned int *dpte_row_width_ub,
+ 		unsigned int *dpte_row_height,
+ 		unsigned int *MetaRequestWidth,
+ 		unsigned int *MetaRequestHeight,
+ 		unsigned int *meta_row_width,
+ 		unsigned int *meta_row_height,
+-		int *vm_group_bytes,
++		unsigned int *vm_group_bytes,
+ 		unsigned int *dpte_group_bytes,
+ 		unsigned int *PixelPTEReqWidth,
+ 		unsigned int *PixelPTEReqHeight,
+ 		unsigned int *PTERequestSize,
+-		int *DPDE0BytesFrame,
+-		int *MetaPTEBytesFrame)
++		unsigned int *DPDE0BytesFrame,
++		unsigned int *MetaPTEBytesFrame)
  {
+ 	(void)SourcePixelFormat;
  	struct vba_vars_st *v = &mode_lib->vba;
+@@ -3278,18 +3278,18 @@ static void DisplayPipeConfiguration(struct display_mode_lib *mode_lib)
+ 	// Display Pipe Configuration
+ 	double BytePerPixDETY[DC__NUM_DPP__MAX];
+ 	double BytePerPixDETC[DC__NUM_DPP__MAX];
+-	int BytePerPixY[DC__NUM_DPP__MAX];
+-	int BytePerPixC[DC__NUM_DPP__MAX];
+-	int Read256BytesBlockHeightY[DC__NUM_DPP__MAX];
+-	int Read256BytesBlockHeightC[DC__NUM_DPP__MAX];
+-	int Read256BytesBlockWidthY[DC__NUM_DPP__MAX];
+-	int Read256BytesBlockWidthC[DC__NUM_DPP__MAX];
++	unsigned int BytePerPixY[DC__NUM_DPP__MAX];
++	unsigned int BytePerPixC[DC__NUM_DPP__MAX];
++	unsigned int Read256BytesBlockHeightY[DC__NUM_DPP__MAX];
++	unsigned int Read256BytesBlockHeightC[DC__NUM_DPP__MAX];
++	unsigned int Read256BytesBlockWidthY[DC__NUM_DPP__MAX];
++	unsigned int Read256BytesBlockWidthC[DC__NUM_DPP__MAX];
+ 	double dummy1[DC__NUM_DPP__MAX];
+ 	double dummy2[DC__NUM_DPP__MAX];
+ 	double dummy3[DC__NUM_DPP__MAX];
+ 	double dummy4[DC__NUM_DPP__MAX];
+-	int dummy5[DC__NUM_DPP__MAX];
+-	int dummy6[DC__NUM_DPP__MAX];
++	unsigned int dummy5[DC__NUM_DPP__MAX];
++	unsigned int dummy6[DC__NUM_DPP__MAX];
+ 	bool dummy7[DC__NUM_DPP__MAX];
+ 	bool dummysinglestring;
  
--	int i, j;
--	unsigned int k, m;
-+	int idx;
-+	unsigned int i, j, k, m;
- 	int ReorderingBytes;
- 	int MinPrefetchMode = 0, MaxPrefetchMode = 2;
- 	bool NoChroma = true;
-@@ -5451,46 +5452,53 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 	}
- 
- 	/*Mode Support, Voltage State and SOC Configuration*/
--	for (i = v->soc.num_states - 1; i >= 0; i--) {
-+	for (idx = (int)v->soc.num_states - 1; idx >= 0; idx--) {
- 		for (j = 0; j < 2; j++) {
--			if (v->ScaleRatioAndTapsSupport == true && v->SourceFormatPixelAndScanSupport == true && v->ViewportSizeSupport[i][j] == true
--					&& v->LinkCapacitySupport[i] == true && !P2IWith420 && !DSCOnlyIfNecessaryWithBPP
--					&& !DSC422NativeNotSupported && v->ODMCombine4To1SupportCheckOK[i] == true && v->NotEnoughDSCUnits[i] == false
--					&& v->DTBCLKRequiredMoreThanSupported[i] == false
--					&& v->ROBSupport[i][j] == true && v->DISPCLK_DPPCLK_Support[i][j] == true
--					&& v->TotalAvailablePipesSupport[i][j] == true && EnoughWritebackUnits == true
-+			if (v->ScaleRatioAndTapsSupport == true && v->SourceFormatPixelAndScanSupport == true
-+					&& v->ViewportSizeSupport[idx][j] == true
-+					&& v->LinkCapacitySupport[idx] == true && !P2IWith420
-+					&& !DSCOnlyIfNecessaryWithBPP
-+					&& !DSC422NativeNotSupported && v->ODMCombine4To1SupportCheckOK[idx] == true
-+					&& v->NotEnoughDSCUnits[idx] == false
-+					&& v->DTBCLKRequiredMoreThanSupported[idx] == false
-+					&& v->ROBSupport[idx][j] == true && v->DISPCLK_DPPCLK_Support[idx][j] == true
-+					&& v->TotalAvailablePipesSupport[idx][j] == true && EnoughWritebackUnits == true
- 					&& v->WritebackLatencySupport == true && v->WritebackScaleRatioAndTapsSupport == true
--					&& v->CursorSupport == true && v->PitchSupport == true && ViewportExceedsSurface == false
--					&& v->PrefetchSupported[i][j] == true && v->DynamicMetadataSupported[i][j] == true
--					&& v->TotalVerticalActiveBandwidthSupport[i][j] == true && v->VRatioInPrefetchSupported[i][j] == true
--					&& v->PTEBufferSizeNotExceeded[i][j] == true && v->NonsupportedDSCInputBPC == false
-+					&& v->CursorSupport == true && v->PitchSupport == true
-+					&& ViewportExceedsSurface == false
-+					&& v->PrefetchSupported[idx][j] == true
-+					&& v->DynamicMetadataSupported[idx][j] == true
-+					&& v->TotalVerticalActiveBandwidthSupport[idx][j] == true
-+					&& v->VRatioInPrefetchSupported[idx][j] == true
-+					&& v->PTEBufferSizeNotExceeded[idx][j] == true
-+					&& v->NonsupportedDSCInputBPC == false
- 					&& ((v->HostVMEnable == false
- 					&& v->ImmediateFlipRequirement[0] != dm_immediate_flip_required)
--							|| v->ImmediateFlipSupportedForState[i][j] == true)
-+							|| v->ImmediateFlipSupportedForState[idx][j] == true)
- 					&& FMTBufferExceeded == false) {
--				v->ModeSupport[i][j] = true;
-+				v->ModeSupport[idx][j] = true;
- 			} else {
--				v->ModeSupport[i][j] = false;
-+				v->ModeSupport[idx][j] = false;
- #ifdef __DML_VBA_DEBUG__
- 				if (v->ScaleRatioAndTapsSupport == false)
- 					dml_print("DML SUPPORT:     ScaleRatioAndTapsSupport failed");
- 				if (v->SourceFormatPixelAndScanSupport == false)
- 					dml_print("DML SUPPORT:     SourceFormatPixelAndScanSupport failed");
--				if (v->ViewportSizeSupport[i][j] == false)
-+				if (v->ViewportSizeSupport[idx][j] == false)
- 					dml_print("DML SUPPORT:     ViewportSizeSupport failed");
--				if (v->LinkCapacitySupport[i] == false)
-+				if (v->LinkCapacitySupport[idx] == false)
- 					dml_print("DML SUPPORT:     LinkCapacitySupport failed");
--				if (v->ODMCombine4To1SupportCheckOK[i] == false)
-+				if (v->ODMCombine4To1SupportCheckOK[idx] == false)
- 					dml_print("DML SUPPORT:     DSC422NativeNotSupported failed");
--				if (v->NotEnoughDSCUnits[i] == true)
-+				if (v->NotEnoughDSCUnits[idx] == true)
- 					dml_print("DML SUPPORT:     NotEnoughDSCUnits");
--				if (v->DTBCLKRequiredMoreThanSupported[i] == true)
-+				if (v->DTBCLKRequiredMoreThanSupported[idx] == true)
- 					dml_print("DML SUPPORT:     DTBCLKRequiredMoreThanSupported");
--				if (v->ROBSupport[i][j] == false)
-+				if (v->ROBSupport[idx][j] == false)
- 					dml_print("DML SUPPORT:     ROBSupport failed");
--				if (v->DISPCLK_DPPCLK_Support[i][j] == false)
-+				if (v->DISPCLK_DPPCLK_Support[idx][j] == false)
- 					dml_print("DML SUPPORT:     DISPCLK_DPPCLK_Support failed");
--				if (v->TotalAvailablePipesSupport[i][j] == false)
-+				if (v->TotalAvailablePipesSupport[idx][j] == false)
- 					dml_print("DML SUPPORT:     DSC422NativeNotSupported failed");
- 				if (EnoughWritebackUnits == false)
- 					dml_print("DML SUPPORT:     DSC422NativeNotSupported failed");
-@@ -5504,21 +5512,21 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 					dml_print("DML SUPPORT:     PitchSupport failed");
- 				if (ViewportExceedsSurface == true)
- 					dml_print("DML SUPPORT:     ViewportExceedsSurface failed");
--				if (v->PrefetchSupported[i][j] == false)
-+				if (v->PrefetchSupported[idx][j] == false)
- 					dml_print("DML SUPPORT:     PrefetchSupported failed");
--				if (v->DynamicMetadataSupported[i][j] == false)
-+				if (v->DynamicMetadataSupported[idx][j] == false)
- 					dml_print("DML SUPPORT:     DSC422NativeNotSupported failed");
--				if (v->TotalVerticalActiveBandwidthSupport[i][j] == false)
-+				if (v->TotalVerticalActiveBandwidthSupport[idx][j] == false)
- 					dml_print("DML SUPPORT:     TotalVerticalActiveBandwidthSupport failed");
--				if (v->VRatioInPrefetchSupported[i][j] == false)
-+				if (v->VRatioInPrefetchSupported[idx][j] == false)
- 					dml_print("DML SUPPORT:     VRatioInPrefetchSupported failed");
--				if (v->PTEBufferSizeNotExceeded[i][j] == false)
-+				if (v->PTEBufferSizeNotExceeded[idx][j] == false)
- 					dml_print("DML SUPPORT:     PTEBufferSizeNotExceeded failed");
- 				if (v->NonsupportedDSCInputBPC == true)
- 					dml_print("DML SUPPORT:     NonsupportedDSCInputBPC failed");
- 				if (!((v->HostVMEnable == false
- 					&& v->ImmediateFlipRequirement[0] != dm_immediate_flip_required)
--							|| v->ImmediateFlipSupportedForState[i][j] == true))
-+							|| v->ImmediateFlipSupportedForState[idx][j] == true))
- 					dml_print("DML SUPPORT:     ImmediateFlipRequirement failed");
- 				if (FMTBufferExceeded == true)
- 					dml_print("DML SUPPORT:     FMTBufferExceeded failed");
-@@ -5529,11 +5537,12 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 
- 	{
- 		unsigned int MaximumMPCCombine = 0;
--		for (i = v->soc.num_states; i >= 0; i--) {
--			if (i == v->soc.num_states || v->ModeSupport[i][0] == true || v->ModeSupport[i][1] == true) {
--				v->VoltageLevel = i;
--				v->ModeIsSupported = v->ModeSupport[i][0] == true || v->ModeSupport[i][1] == true;
--				if (v->ModeSupport[i][0] == true) {
-+		for (idx = (int)v->soc.num_states; idx >= 0; idx--) {
-+			if (idx == (int)v->soc.num_states || v->ModeSupport[idx][0] == true
-+					|| v->ModeSupport[idx][1] == true) {
-+				v->VoltageLevel = idx;
-+				v->ModeIsSupported = v->ModeSupport[idx][0] == true || v->ModeSupport[idx][1] == true;
-+				if (v->ModeSupport[idx][0] == true) {
- 					MaximumMPCCombine = 0;
- 				} else {
- 					MaximumMPCCombine = 1;
-@@ -5541,7 +5550,7 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 			}
- 		}
- 		v->ImmediateFlipSupport = v->ImmediateFlipSupportedForState[v->VoltageLevel][MaximumMPCCombine];
--		for (k = 0; k <= v->NumberOfActivePlanes - 1; k++) {
-+		for (k = 0; k < v->NumberOfActivePlanes; k++) {
- 			v->MPCCombineEnable[k] = v->MPCCombine[v->VoltageLevel][MaximumMPCCombine][k];
- 			v->DPPPerPlane[k] = v->NoOfDPP[v->VoltageLevel][MaximumMPCCombine][k];
- 		}
-@@ -5599,7 +5608,7 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
- 	double SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank;
- 	double WritebackDRAMClockChangeLatencyHiding;
- 	double TotalPixelBW = 0.0;
--	int k, j;
-+	unsigned int k, j;
- 
- 	v->UrgentWatermark = UrgentLatency + ExtraLatency;
- 
-@@ -5787,7 +5796,7 @@ static void CalculateDCFCLKDeepSleep(
- 	double DisplayPipeLineDeliveryTimeLuma;
- 	double DisplayPipeLineDeliveryTimeChroma;
- 	double ReadBandwidth = 0.0;
--	int k;
-+	unsigned int k;
- 
- 	for (k = 0; k < NumberOfActivePlanes; ++k) {
- 
-@@ -5938,7 +5947,7 @@ static void CalculatePixelDeliveryTimes(
- 		double CursorRequestDeliveryTimePrefetch[])
+@@ -3429,7 +3429,7 @@ static void CalculateVupdateAndDynamicMetadataParameters(
+ 		double *Tdmbf,
+ 		double *Tdmec,
+ 		double *Tdmsks,
+-		int *VUpdateOffsetPix,
++		unsigned int *VUpdateOffsetPix,
+ 		double *VUpdateWidthPix,
+ 		double *VReadyOffsetPix)
  {
- 	double req_per_swath_ub;
--	int k;
-+	unsigned int k;
+@@ -3783,7 +3783,7 @@ static noinline void CalculatePrefetchSchedulePerPlane(
+ 		&v->VReadyOffsetPix[k]);
+ }
  
- 	for (k = 0; k < NumberOfActivePlanes; ++k) {
- 		if (VRatio[k] <= 1) {
-@@ -6235,7 +6244,7 @@ static void CalculateVMGroupAndRequestTimes(
- 	(void)dpte_row_width_chroma_ub;
- 	int num_group_per_lower_vm_stage;
- 	int num_req_per_lower_vm_stage;
--	int k;
-+	unsigned int k;
+-static void PatchDETBufferSizeInKByte(unsigned int NumberOfActivePlanes, int NoOfDPPThisState[], unsigned int config_return_buffer_size_in_kbytes, unsigned int DETBufferSizeInKByte[])
++static void PatchDETBufferSizeInKByte(unsigned int NumberOfActivePlanes, unsigned int NoOfDPPThisState[], unsigned int config_return_buffer_size_in_kbytes, unsigned int DETBufferSizeInKByte[])
+ {
+ 	int total_pipes = 0;
+ 	unsigned int i;
+@@ -3804,7 +3804,7 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 	int idx;
+ 	unsigned int i, j, k, m;
+ 	int ReorderingBytes;
+-	int MinPrefetchMode = 0, MaxPrefetchMode = 2;
++	unsigned int MinPrefetchMode = 0, MaxPrefetchMode = 2;
+ 	bool NoChroma = true;
+ 	bool EnoughWritebackUnits = true;
+ 	bool P2IWith420 = false;
+@@ -5119,7 +5119,7 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 			double HostVMInefficiencyFactor = 1;
+ 			int NextPrefetchModeState = MinPrefetchMode;
+ 			bool UnboundedRequestEnabledThisState = false;
+-			int CompressedBufferSizeInkByteThisState = 0;
++			unsigned int CompressedBufferSizeInkByteThisState = 0;
+ 			double dummy;
  
- 	for (k = 0; k < NumberOfActivePlanes; ++k) {
- 		if (GPUVMEnable == true && (DCCEnable[k] == true || GPUVMMaxPageTableLevels > 1)) {
-@@ -6676,12 +6685,12 @@ static void CalculateSwathAndDETConfiguration(
- 	int MaximumSwathHeightC[DC__NUM_DPP__MAX];
- 	int MinimumSwathHeightY;
- 	int MinimumSwathHeightC;
--	int RoundedUpMaxSwathSizeBytesY;
--	int RoundedUpMaxSwathSizeBytesC;
--	int RoundedUpMinSwathSizeBytesY;
--	int RoundedUpMinSwathSizeBytesC;
--	int RoundedUpSwathSizeBytesY;
--	int RoundedUpSwathSizeBytesC;
-+	unsigned int RoundedUpMaxSwathSizeBytesY;
-+	unsigned int RoundedUpMaxSwathSizeBytesC;
-+	unsigned int RoundedUpMinSwathSizeBytesY;
-+	unsigned int RoundedUpMinSwathSizeBytesC;
-+	unsigned int RoundedUpSwathSizeBytesY;
-+	unsigned int RoundedUpSwathSizeBytesC;
- 	double SwathWidthSingleDPP[DC__NUM_DPP__MAX];
- 	double SwathWidthSingleDPPChroma[DC__NUM_DPP__MAX];
- 	int k;
-@@ -7052,7 +7061,9 @@ static noinline_for_stack void UseMinimumDCFCLK(
+ 			v->TimeCalc = 24 / v->ProjectedDCFCLKDeepSleep[i][j];
+@@ -5774,8 +5774,8 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
+ static void CalculateDCFCLKDeepSleep(
+ 		struct display_mode_lib *mode_lib,
+ 		unsigned int NumberOfActivePlanes,
+-		int BytePerPixelY[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelY[],
++		unsigned int BytePerPixelC[],
+ 		double VRatio[],
+ 		double VRatioChroma[],
+ 		double SwathWidthY[],
+@@ -5926,7 +5926,7 @@ static void CalculatePixelDeliveryTimes(
+ 		double PSCL_THROUGHPUT[],
+ 		double PSCL_THROUGHPUT_CHROMA[],
+ 		double DPPCLK[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelC[],
+ 		enum scan_direction_class SourceScan[],
+ 		unsigned int NumberOfCursors[],
+ 		unsigned int CursorWidth[][DC__NUM_CURSOR__MAX],
+@@ -6050,35 +6050,35 @@ static void CalculateMetaAndPTETimes(
+ 		bool GPUVMEnable,
+ 		int MetaChunkSize,
+ 		int MinMetaChunkSizeBytes,
+-		int HTotal[],
++		unsigned int HTotal[],
+ 		double VRatio[],
+ 		double VRatioChroma[],
+ 		double DestinationLinesToRequestRowInVBlank[],
+ 		double DestinationLinesToRequestRowInImmediateFlip[],
+ 		bool DCCEnable[],
+ 		double PixelClock[],
+-		int BytePerPixelY[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelY[],
++		unsigned int BytePerPixelC[],
+ 		enum scan_direction_class SourceScan[],
+-		int dpte_row_height[],
+-		int dpte_row_height_chroma[],
+-		int meta_row_width[],
+-		int meta_row_width_chroma[],
+-		int meta_row_height[],
+-		int meta_row_height_chroma[],
+-		int meta_req_width[],
+-		int meta_req_width_chroma[],
+-		int meta_req_height[],
+-		int meta_req_height_chroma[],
+-		int dpte_group_bytes[],
+-		int PTERequestSizeY[],
+-		int PTERequestSizeC[],
+-		int PixelPTEReqWidthY[],
+-		int PixelPTEReqHeightY[],
+-		int PixelPTEReqWidthC[],
+-		int PixelPTEReqHeightC[],
+-		int dpte_row_width_luma_ub[],
+-		int dpte_row_width_chroma_ub[],
++		unsigned int dpte_row_height[],
++		unsigned int dpte_row_height_chroma[],
++		unsigned int meta_row_width[],
++		unsigned int meta_row_width_chroma[],
++		unsigned int meta_row_height[],
++		unsigned int meta_row_height_chroma[],
++		unsigned int meta_req_width[],
++		unsigned int meta_req_width_chroma[],
++		unsigned int meta_req_height[],
++		unsigned int meta_req_height_chroma[],
++		unsigned int dpte_group_bytes[],
++		unsigned int PTERequestSizeY[],
++		unsigned int PTERequestSizeC[],
++		unsigned int PixelPTEReqWidthY[],
++		unsigned int PixelPTEReqHeightY[],
++		unsigned int PixelPTEReqWidthC[],
++		unsigned int PixelPTEReqHeightC[],
++		unsigned int dpte_row_width_luma_ub[],
++		unsigned int dpte_row_width_chroma_ub[],
+ 		double DST_Y_PER_PTE_ROW_NOM_L[],
+ 		double DST_Y_PER_PTE_ROW_NOM_C[],
+ 		double DST_Y_PER_META_ROW_NOM_L[],
+@@ -6223,18 +6223,18 @@ static void CalculateVMGroupAndRequestTimes(
+ 		bool GPUVMEnable,
+ 		unsigned int GPUVMMaxPageTableLevels,
+ 		unsigned int HTotal[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelC[],
+ 		double DestinationLinesToRequestVMInVBlank[],
+ 		double DestinationLinesToRequestVMInImmediateFlip[],
+ 		bool DCCEnable[],
+ 		double PixelClock[],
+-		int dpte_row_width_luma_ub[],
+-		int dpte_row_width_chroma_ub[],
+-		int vm_group_bytes[],
++		unsigned int dpte_row_width_luma_ub[],
++		unsigned int dpte_row_width_chroma_ub[],
++		unsigned int vm_group_bytes[],
+ 		unsigned int dpde0_bytes_per_frame_ub_l[],
+ 		unsigned int dpde0_bytes_per_frame_ub_c[],
+-		int meta_pte_bytes_per_frame_ub_l[],
+-		int meta_pte_bytes_per_frame_ub_c[],
++		unsigned int meta_pte_bytes_per_frame_ub_l[],
++		unsigned int meta_pte_bytes_per_frame_ub_c[],
+ 		double TimePerVMGroupVBlank[],
+ 		double TimePerVMGroupFlip[],
+ 		double TimePerVMRequestVBlank[],
+@@ -6342,29 +6342,29 @@ static void CalculateStutterEfficiency(
+ 		bool ProgressiveToInterlaceUnitInOPP,
+ 		bool Interlace[],
+ 		double MinTTUVBlank[],
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		unsigned int DETBufferSizeY[],
+-		int BytePerPixelY[],
++		unsigned int BytePerPixelY[],
+ 		double BytePerPixelDETY[],
+ 		double SwathWidthY[],
+-		int SwathHeightY[],
+-		int SwathHeightC[],
++		unsigned int SwathHeightY[],
++		unsigned int SwathHeightC[],
+ 		double NetDCCRateLuma[],
+ 		double NetDCCRateChroma[],
+ 		double DCCFractionOfZeroSizeRequestsLuma[],
+ 		double DCCFractionOfZeroSizeRequestsChroma[],
+-		int HTotal[],
+-		int VTotal[],
++		unsigned int HTotal[],
++		unsigned int VTotal[],
+ 		double PixelClock[],
+ 		double VRatio[],
+ 		enum scan_direction_class SourceScan[],
+-		int BlockHeight256BytesY[],
+-		int BlockWidth256BytesY[],
+-		int BlockHeight256BytesC[],
+-		int BlockWidth256BytesC[],
+-		int DCCYMaxUncompressedBlock[],
+-		int DCCCMaxUncompressedBlock[],
+-		int VActive[],
++		unsigned int BlockHeight256BytesY[],
++		unsigned int BlockWidth256BytesY[],
++		unsigned int BlockHeight256BytesC[],
++		unsigned int BlockWidth256BytesC[],
++		unsigned int DCCYMaxUncompressedBlock[],
++		unsigned int DCCCMaxUncompressedBlock[],
++		unsigned int VActive[],
+ 		bool DCCEnable[],
+ 		bool WritebackEnable[],
+ 		double ReadBandwidthPlaneLuma[],
+@@ -6649,42 +6649,42 @@ static void CalculateSwathAndDETConfiguration(
+ 		enum scan_direction_class SourceScan[],
+ 		enum source_format_class SourcePixelFormat[],
+ 		enum dm_swizzle_mode SurfaceTiling[],
+-		int ViewportWidth[],
+-		int ViewportHeight[],
+-		int SurfaceWidthY[],
+-		int SurfaceWidthC[],
+-		int SurfaceHeightY[],
+-		int SurfaceHeightC[],
+-		int Read256BytesBlockHeightY[],
+-		int Read256BytesBlockHeightC[],
+-		int Read256BytesBlockWidthY[],
+-		int Read256BytesBlockWidthC[],
++		unsigned int ViewportWidth[],
++		unsigned int ViewportHeight[],
++		unsigned int SurfaceWidthY[],
++		unsigned int SurfaceWidthC[],
++		unsigned int SurfaceHeightY[],
++		unsigned int SurfaceHeightC[],
++		unsigned int Read256BytesBlockHeightY[],
++		unsigned int Read256BytesBlockHeightC[],
++		unsigned int Read256BytesBlockWidthY[],
++		unsigned int Read256BytesBlockWidthC[],
+ 		enum odm_combine_mode ODMCombineEnabled[],
+-		int BlendingAndTiming[],
+-		int BytePerPixY[],
+-		int BytePerPixC[],
++		unsigned int BlendingAndTiming[],
++		unsigned int BytePerPixY[],
++		unsigned int BytePerPixC[],
+ 		double BytePerPixDETY[],
+ 		double BytePerPixDETC[],
+-		int HActive[],
++		unsigned int HActive[],
+ 		double HRatio[],
+ 		double HRatioChroma[],
+-		int DPPPerPlane[],
+-		int swath_width_luma_ub[],
+-		int swath_width_chroma_ub[],
++		unsigned int DPPPerPlane[],
++		unsigned int swath_width_luma_ub[],
++		unsigned int swath_width_chroma_ub[],
+ 		double SwathWidth[],
+ 		double SwathWidthChroma[],
+-		int SwathHeightY[],
+-		int SwathHeightC[],
++		unsigned int SwathHeightY[],
++		unsigned int SwathHeightC[],
+ 		unsigned int DETBufferSizeY[],
+ 		unsigned int DETBufferSizeC[],
+ 		bool ViewportSizeSupportPerPlane[],
+ 		bool *ViewportSizeSupport)
+ {
+ 	(void)HRatioChroma;
+-	int MaximumSwathHeightY[DC__NUM_DPP__MAX];
+-	int MaximumSwathHeightC[DC__NUM_DPP__MAX];
+-	int MinimumSwathHeightY;
+-	int MinimumSwathHeightC;
++	unsigned int MaximumSwathHeightY[DC__NUM_DPP__MAX];
++	unsigned int MaximumSwathHeightC[DC__NUM_DPP__MAX];
++	unsigned int MinimumSwathHeightY;
++	unsigned int MinimumSwathHeightC;
+ 	unsigned int RoundedUpMaxSwathSizeBytesY;
+ 	unsigned int RoundedUpMaxSwathSizeBytesC;
+ 	unsigned int RoundedUpMinSwathSizeBytesY;
+@@ -6829,31 +6829,31 @@ static void CalculateSwathWidth(
+ 		int NumberOfActivePlanes,
+ 		enum source_format_class SourcePixelFormat[],
+ 		enum scan_direction_class SourceScan[],
+-		int ViewportWidth[],
+-		int ViewportHeight[],
+-		int SurfaceWidthY[],
+-		int SurfaceWidthC[],
+-		int SurfaceHeightY[],
+-		int SurfaceHeightC[],
++		unsigned int ViewportWidth[],
++		unsigned int ViewportHeight[],
++		unsigned int SurfaceWidthY[],
++		unsigned int SurfaceWidthC[],
++		unsigned int SurfaceHeightY[],
++		unsigned int SurfaceHeightC[],
+ 		enum odm_combine_mode ODMCombineEnabled[],
+-		int BytePerPixY[],
+-		int BytePerPixC[],
+-		int Read256BytesBlockHeightY[],
+-		int Read256BytesBlockHeightC[],
+-		int Read256BytesBlockWidthY[],
+-		int Read256BytesBlockWidthC[],
+-		int BlendingAndTiming[],
+-		int HActive[],
++		unsigned int BytePerPixY[],
++		unsigned int BytePerPixC[],
++		unsigned int Read256BytesBlockHeightY[],
++		unsigned int Read256BytesBlockHeightC[],
++		unsigned int Read256BytesBlockWidthY[],
++		unsigned int Read256BytesBlockWidthC[],
++		unsigned int BlendingAndTiming[],
++		unsigned int HActive[],
+ 		double HRatio[],
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		double SwathWidthSingleDPPY[],
+ 		double SwathWidthSingleDPPC[],
+ 		double SwathWidthY[],
+ 		double SwathWidthC[],
+-		int MaximumSwathHeightY[],
+-		int MaximumSwathHeightC[],
+-		int swath_width_luma_ub[],
+-		int swath_width_chroma_ub[])
++		unsigned int MaximumSwathHeightY[],
++		unsigned int MaximumSwathHeightC[],
++		unsigned int swath_width_luma_ub[],
++		unsigned int swath_width_chroma_ub[])
+ {
+ 	(void)BytePerPixY;
+ 	enum odm_combine_mode MainPlaneODMCombine;
+@@ -6960,8 +6960,8 @@ static double CalculateExtraLatency(
+ 		bool GPUVMEnable,
+ 		bool HostVMEnable,
+ 		int NumberOfActivePlanes,
+-		int NumberOfDPP[],
+-		int dpte_group_bytes[],
++		unsigned int NumberOfDPP[],
++		unsigned int dpte_group_bytes[],
+ 		double HostVMInefficiencyFactor,
+ 		double HostVMMinPageSize,
+ 		int HostVMMaxNonCachedPageTableLevels)
+@@ -7006,8 +7006,8 @@ static double CalculateExtraLatencyBytes(
+ 		bool GPUVMEnable,
+ 		bool HostVMEnable,
+ 		int NumberOfActivePlanes,
+-		int NumberOfDPP[],
+-		int dpte_group_bytes[],
++		unsigned int NumberOfDPP[],
++		unsigned int dpte_group_bytes[],
+ 		double HostVMInefficiencyFactor,
+ 		double HostVMMinPageSize,
+ 		int HostVMMaxNonCachedPageTableLevels)
+@@ -7061,7 +7061,7 @@ static noinline_for_stack void UseMinimumDCFCLK(
  		int ReorderingBytes)
  {
  	struct vba_vars_st *v = &mode_lib->vba;
--	int dummy1, i, j, k;
-+	int dummy1;
-+	unsigned int j, k;
-+	unsigned int i;
+-	int dummy1;
++	unsigned int dummy1;
+ 	unsigned int j, k;
+ 	unsigned int i;
  	double NormalEfficiency,  dummy2, dummy3;
- 	double TotalMaxPrefetchFlipDPTERowBandwidth[DC__VOLTAGE_STATES][2];
+@@ -7081,7 +7081,7 @@ static noinline_for_stack void UseMinimumDCFCLK(
+ 			double ExtraLatencyBytes;
+ 			double ExtraLatencyCycles;
+ 			double DCFCLKRequiredForPeakBandwidth;
+-			int NoOfDPPState[DC__NUM_DPP__MAX];
++			unsigned int NoOfDPPState[DC__NUM_DPP__MAX];
+ 			double MinimumTvmPlus2Tr0;
  
-@@ -7079,9 +7090,8 @@ static noinline_for_stack void UseMinimumDCFCLK(
- 						+ v->NoOfDPP[i][j][k] * v->DPTEBytesPerRow[i][j][k] / (15.75 * v->HTotal[k] / v->PixelClock[k]);
- 			}
- 
--			for (k = 0; k <= v->NumberOfActivePlanes - 1; ++k) {
-+			for (k = 0; k < v->NumberOfActivePlanes; ++k)
- 				NoOfDPPState[k] = v->NoOfDPP[i][j][k];
--			}
- 
- 			MinimumTWait = CalculateTWait(MaxPrefetchMode, v->FinalDRAMClockChangeLatency, v->UrgLatency[i], v->SREnterPlusExitTime);
- 			NonDPTEBandwidth = v->TotalVActivePixelBandwidth[i][j] + v->TotalVActiveCursorBandwidth[i][j] + v->TotalMetaRowBandwidth[i][j];
-@@ -7182,9 +7192,8 @@ static noinline_for_stack void UseMinimumDCFCLK(
- 				}
- 			}
- 			DCFCLKRequiredForPeakBandwidth = 0;
--			for (k = 0; k <= v->NumberOfActivePlanes - 1; ++k) {
-+			for (k = 0; k < v->NumberOfActivePlanes; ++k)
- 				DCFCLKRequiredForPeakBandwidth = DCFCLKRequiredForPeakBandwidth + DCFCLKRequiredForPeakBandwidthPerPlane[k];
--			}
- 			MinimumTvmPlus2Tr0 = v->UrgLatency[i]
- 					* (v->GPUVMEnable == true ?
- 							(v->HostVMEnable == true ?
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
-index ab016c294ba7..ada055024229 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
-@@ -185,7 +185,7 @@ void dcn314_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_p
- 	struct _vcs_dpi_voltage_scaling_st *clock_limits =
- 		dcn3_14_soc.clock_limits;
- 	unsigned int i, closest_clk_lvl;
--	int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
-+	unsigned int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
- 	int j;
- 
- 	dc_assert_fp_enabled();
-@@ -308,7 +308,8 @@ int dcn314_populate_dml_pipes_from_context_fpu(struct dc *dc, struct dc_state *c
- 					       display_e2e_pipe_params_st *pipes,
- 					       enum dc_validate_mode validate_mode)
+ 			TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = 0;
+@@ -7226,7 +7226,7 @@ static void CalculateUnboundedRequestAndCompressedBufferSize(
+ 		int CompressedBufferSegmentSizeInkByteFinal,
+ 		enum output_encoder_class *Output,
+ 		bool *UnboundedRequestEnabled,
+-		int *CompressedBufferSizeInkByte)
++		unsigned int *CompressedBufferSizeInkByte)
  {
--	int i, pipe_cnt;
-+	int pipe_cnt;
-+	unsigned int i;
- 	struct resource_context *res_ctx = &context->res_ctx;
- 	struct pipe_ctx *pipe = 0;
- 	bool upscaled = false;
+ 	double actDETBufferSizeInKByte = dml_ceil(DETBufferSizeInKByte, 64);
+ 
+@@ -7244,7 +7244,7 @@ static void CalculateUnboundedRequestAndCompressedBufferSize(
+ 	dml_print("DML::%s: UseUnboundedRequestingFinal = %d\n", __func__, UseUnboundedRequestingFinal);
+ 	dml_print("DML::%s: actDETBufferSizeInKByte = %f\n", __func__, actDETBufferSizeInKByte);
+ 	dml_print("DML::%s: UnboundedRequestEnabled = %d\n", __func__, *UnboundedRequestEnabled);
+-	dml_print("DML::%s: CompressedBufferSizeInkByte = %d\n", __func__, *CompressedBufferSizeInkByte);
++	dml_print("DML::%s: CompressedBufferSizeInkByte = %u\n", __func__, *CompressedBufferSizeInkByte);
+ #endif
+ }
+ 
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-index 033fde774337..0fd149d000f5 100644
+index 0fd149d000f5..ea1566e09b7f 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-@@ -407,7 +407,7 @@ static void CalculatePixelDeliveryTimes(
- 		double CursorRequestDeliveryTimePrefetch[]);
+@@ -166,7 +166,7 @@ static bool CalculatePrefetchSchedule(
+ 		double *Tdmdl_vm,
+ 		double *Tdmdl,
+ 		double *TSetup,
+-		int *VUpdateOffsetPix,
++		unsigned int *VUpdateOffsetPix,
+ 		double *VUpdateWidthPix,
+ 		double *VReadyOffsetPix);
+ static double RoundToDFSGranularityUp(double Clock, double VCOSpeed);
+@@ -227,19 +227,19 @@ static unsigned int CalculateVMAndRowBytes(
+ 		unsigned int *MetaRowByte,
+ 		unsigned int *PixelPTEBytesPerRow,
+ 		bool *PTEBufferSizeNotExceeded,
+-		int *dpte_row_width_ub,
++		unsigned int *dpte_row_width_ub,
+ 		unsigned int *dpte_row_height,
+ 		unsigned int *MetaRequestWidth,
+ 		unsigned int *MetaRequestHeight,
+ 		unsigned int *meta_row_width,
+ 		unsigned int *meta_row_height,
+-		int *vm_group_bytes,
++		unsigned int *vm_group_bytes,
+ 		unsigned int *dpte_group_bytes,
+ 		unsigned int *PixelPTEReqWidth,
+ 		unsigned int *PixelPTEReqHeight,
+ 		unsigned int *PTERequestSize,
+-		int *DPDE0BytesFrame,
+-		int *MetaPTEBytesFrame);
++		unsigned int *DPDE0BytesFrame,
++		unsigned int *MetaPTEBytesFrame);
+ static double CalculateTWait(unsigned int PrefetchMode, double DRAMClockChangeLatency, double UrgentLatency, double SREnterPlusExitTime);
+ static void CalculateRowBandwidth(
+ 		bool GPUVMEnable,
+@@ -294,7 +294,7 @@ static void CalculateVupdateAndDynamicMetadataParameters(
+ 		double *Tdmbf,
+ 		double *Tdmec,
+ 		double *Tdmsks,
+-		int *VUpdateOffsetPix,
++		unsigned int *VUpdateOffsetPix,
+ 		double *VUpdateWidthPix,
+ 		double *VReadyOffsetPix);
  
- static void CalculateMetaAndPTETimes(
--		int NumberOfActivePlanes,
-+		unsigned int NumberOfActivePlanes,
+@@ -327,8 +327,8 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
+ static void CalculateDCFCLKDeepSleep(
+ 		struct display_mode_lib *mode_lib,
+ 		unsigned int NumberOfActivePlanes,
+-		int BytePerPixelY[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelY[],
++		unsigned int BytePerPixelC[],
+ 		double VRatio[],
+ 		double VRatioChroma[],
+ 		double SwathWidthY[],
+@@ -386,7 +386,7 @@ static void CalculatePixelDeliveryTimes(
+ 		double PSCL_THROUGHPUT[],
+ 		double PSCL_THROUGHPUT_CHROMA[],
+ 		double DPPCLK[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelC[],
+ 		enum scan_direction_class SourceScan[],
+ 		unsigned int NumberOfCursors[],
+ 		unsigned int CursorWidth[][DC__NUM_CURSOR__MAX],
+@@ -411,35 +411,35 @@ static void CalculateMetaAndPTETimes(
  		bool GPUVMEnable,
  		int MetaChunkSize,
  		int MinMetaChunkSizeBytes,
-@@ -1527,14 +1527,14 @@ static void CalculateDCCConfiguration(
- 	double detile_buf_vp_horz_limit;
- 	double detile_buf_vp_vert_limit;
+-		int HTotal[],
++		unsigned int HTotal[],
+ 		double VRatio[],
+ 		double VRatioChroma[],
+ 		double DestinationLinesToRequestRowInVBlank[],
+ 		double DestinationLinesToRequestRowInImmediateFlip[],
+ 		bool DCCEnable[],
+ 		double PixelClock[],
+-		int BytePerPixelY[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelY[],
++		unsigned int BytePerPixelC[],
+ 		enum scan_direction_class SourceScan[],
+-		int dpte_row_height[],
+-		int dpte_row_height_chroma[],
+-		int meta_row_width[],
+-		int meta_row_width_chroma[],
+-		int meta_row_height[],
+-		int meta_row_height_chroma[],
+-		int meta_req_width[],
+-		int meta_req_width_chroma[],
+-		int meta_req_height[],
+-		int meta_req_height_chroma[],
+-		int dpte_group_bytes[],
+-		int PTERequestSizeY[],
+-		int PTERequestSizeC[],
+-		int PixelPTEReqWidthY[],
+-		int PixelPTEReqHeightY[],
+-		int PixelPTEReqWidthC[],
+-		int PixelPTEReqHeightC[],
+-		int dpte_row_width_luma_ub[],
+-		int dpte_row_width_chroma_ub[],
++		unsigned int dpte_row_height[],
++		unsigned int dpte_row_height_chroma[],
++		unsigned int meta_row_width[],
++		unsigned int meta_row_width_chroma[],
++		unsigned int meta_row_height[],
++		unsigned int meta_row_height_chroma[],
++		unsigned int meta_req_width[],
++		unsigned int meta_req_width_chroma[],
++		unsigned int meta_req_height[],
++		unsigned int meta_req_height_chroma[],
++		unsigned int dpte_group_bytes[],
++		unsigned int PTERequestSizeY[],
++		unsigned int PTERequestSizeC[],
++		unsigned int PixelPTEReqWidthY[],
++		unsigned int PixelPTEReqHeightY[],
++		unsigned int PixelPTEReqWidthC[],
++		unsigned int PixelPTEReqHeightC[],
++		unsigned int dpte_row_width_luma_ub[],
++		unsigned int dpte_row_width_chroma_ub[],
+ 		double DST_Y_PER_PTE_ROW_NOM_L[],
+ 		double DST_Y_PER_PTE_ROW_NOM_C[],
+ 		double DST_Y_PER_META_ROW_NOM_L[],
+@@ -462,18 +462,18 @@ static void CalculateVMGroupAndRequestTimes(
+ 		bool GPUVMEnable,
+ 		unsigned int GPUVMMaxPageTableLevels,
+ 		unsigned int HTotal[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelC[],
+ 		double DestinationLinesToRequestVMInVBlank[],
+ 		double DestinationLinesToRequestVMInImmediateFlip[],
+ 		bool DCCEnable[],
+ 		double PixelClock[],
+-		int dpte_row_width_luma_ub[],
+-		int dpte_row_width_chroma_ub[],
+-		int vm_group_bytes[],
++		unsigned int dpte_row_width_luma_ub[],
++		unsigned int dpte_row_width_chroma_ub[],
++		unsigned int vm_group_bytes[],
+ 		unsigned int dpde0_bytes_per_frame_ub_l[],
+ 		unsigned int dpde0_bytes_per_frame_ub_c[],
+-		int meta_pte_bytes_per_frame_ub_l[],
+-		int meta_pte_bytes_per_frame_ub_c[],
++		unsigned int meta_pte_bytes_per_frame_ub_l[],
++		unsigned int meta_pte_bytes_per_frame_ub_c[],
+ 		double TimePerVMGroupVBlank[],
+ 		double TimePerVMGroupFlip[],
+ 		double TimePerVMRequestVBlank[],
+@@ -501,29 +501,29 @@ static void CalculateStutterEfficiency(
+ 		bool ProgressiveToInterlaceUnitInOPP,
+ 		bool Interlace[],
+ 		double MinTTUVBlank[],
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		unsigned int DETBufferSizeY[],
+-		int BytePerPixelY[],
++		unsigned int BytePerPixelY[],
+ 		double BytePerPixelDETY[],
+ 		double SwathWidthY[],
+-		int SwathHeightY[],
+-		int SwathHeightC[],
++		unsigned int SwathHeightY[],
++		unsigned int SwathHeightC[],
+ 		double NetDCCRateLuma[],
+ 		double NetDCCRateChroma[],
+ 		double DCCFractionOfZeroSizeRequestsLuma[],
+ 		double DCCFractionOfZeroSizeRequestsChroma[],
+-		int HTotal[],
+-		int VTotal[],
++		unsigned int HTotal[],
++		unsigned int VTotal[],
+ 		double PixelClock[],
+ 		double VRatio[],
+ 		enum scan_direction_class SourceScan[],
+-		int BlockHeight256BytesY[],
+-		int BlockWidth256BytesY[],
+-		int BlockHeight256BytesC[],
+-		int BlockWidth256BytesC[],
+-		int DCCYMaxUncompressedBlock[],
+-		int DCCCMaxUncompressedBlock[],
+-		int VActive[],
++		unsigned int BlockHeight256BytesY[],
++		unsigned int BlockWidth256BytesY[],
++		unsigned int BlockHeight256BytesC[],
++		unsigned int BlockWidth256BytesC[],
++		unsigned int DCCYMaxUncompressedBlock[],
++		unsigned int DCCCMaxUncompressedBlock[],
++		unsigned int VActive[],
+ 		bool DCCEnable[],
+ 		bool WritebackEnable[],
+ 		double ReadBandwidthPlaneLuma[],
+@@ -547,32 +547,32 @@ static void CalculateSwathAndDETConfiguration(
+ 		enum scan_direction_class SourceScan[],
+ 		enum source_format_class SourcePixelFormat[],
+ 		enum dm_swizzle_mode SurfaceTiling[],
+-		int ViewportWidth[],
+-		int ViewportHeight[],
+-		int SurfaceWidthY[],
+-		int SurfaceWidthC[],
+-		int SurfaceHeightY[],
+-		int SurfaceHeightC[],
+-		int Read256BytesBlockHeightY[],
+-		int Read256BytesBlockHeightC[],
+-		int Read256BytesBlockWidthY[],
+-		int Read256BytesBlockWidthC[],
++		unsigned int ViewportWidth[],
++		unsigned int ViewportHeight[],
++		unsigned int SurfaceWidthY[],
++		unsigned int SurfaceWidthC[],
++		unsigned int SurfaceHeightY[],
++		unsigned int SurfaceHeightC[],
++		unsigned int Read256BytesBlockHeightY[],
++		unsigned int Read256BytesBlockHeightC[],
++		unsigned int Read256BytesBlockWidthY[],
++		unsigned int Read256BytesBlockWidthC[],
+ 		enum odm_combine_mode ODMCombineEnabled[],
+-		int BlendingAndTiming[],
+-		int BytePerPixY[],
+-		int BytePerPixC[],
++		unsigned int BlendingAndTiming[],
++		unsigned int BytePerPixY[],
++		unsigned int BytePerPixC[],
+ 		double BytePerPixDETY[],
+ 		double BytePerPixDETC[],
+-		int HActive[],
++		unsigned int HActive[],
+ 		double HRatio[],
+ 		double HRatioChroma[],
+-		int DPPPerPlane[],
+-		int swath_width_luma_ub[],
+-		int swath_width_chroma_ub[],
++		unsigned int DPPPerPlane[],
++		unsigned int swath_width_luma_ub[],
++		unsigned int swath_width_chroma_ub[],
+ 		double SwathWidth[],
+ 		double SwathWidthChroma[],
+-		int SwathHeightY[],
+-		int SwathHeightC[],
++		unsigned int SwathHeightY[],
++		unsigned int SwathHeightC[],
+ 		unsigned int DETBufferSizeY[],
+ 		unsigned int DETBufferSizeC[],
+ 		bool ViewportSizeSupportPerPlane[],
+@@ -582,31 +582,31 @@ static void CalculateSwathWidth(
+ 		int NumberOfActivePlanes,
+ 		enum source_format_class SourcePixelFormat[],
+ 		enum scan_direction_class SourceScan[],
+-		int ViewportWidth[],
+-		int ViewportHeight[],
+-		int SurfaceWidthY[],
+-		int SurfaceWidthC[],
+-		int SurfaceHeightY[],
+-		int SurfaceHeightC[],
++		unsigned int ViewportWidth[],
++		unsigned int ViewportHeight[],
++		unsigned int SurfaceWidthY[],
++		unsigned int SurfaceWidthC[],
++		unsigned int SurfaceHeightY[],
++		unsigned int SurfaceHeightC[],
+ 		enum odm_combine_mode ODMCombineEnabled[],
+-		int BytePerPixY[],
+-		int BytePerPixC[],
+-		int Read256BytesBlockHeightY[],
+-		int Read256BytesBlockHeightC[],
+-		int Read256BytesBlockWidthY[],
+-		int Read256BytesBlockWidthC[],
+-		int BlendingAndTiming[],
+-		int HActive[],
++		unsigned int BytePerPixY[],
++		unsigned int BytePerPixC[],
++		unsigned int Read256BytesBlockHeightY[],
++		unsigned int Read256BytesBlockHeightC[],
++		unsigned int Read256BytesBlockWidthY[],
++		unsigned int Read256BytesBlockWidthC[],
++		unsigned int BlendingAndTiming[],
++		unsigned int HActive[],
+ 		double HRatio[],
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		double SwathWidthSingleDPPY[],
+ 		double SwathWidthSingleDPPC[],
+ 		double SwathWidthY[],
+ 		double SwathWidthC[],
+-		int MaximumSwathHeightY[],
+-		int MaximumSwathHeightC[],
+-		int swath_width_luma_ub[],
+-		int swath_width_chroma_ub[]);
++		unsigned int MaximumSwathHeightY[],
++		unsigned int MaximumSwathHeightC[],
++		unsigned int swath_width_luma_ub[],
++		unsigned int swath_width_chroma_ub[]);
  
--	int MAS_vp_horz_limit;
--	int MAS_vp_vert_limit;
--	int max_vp_horz_width;
--	int max_vp_vert_height;
--	int eff_surf_width_l;
--	int eff_surf_width_c;
--	int eff_surf_height_l;
--	int eff_surf_height_c;
-+	unsigned int MAS_vp_horz_limit;
-+	unsigned int MAS_vp_vert_limit;
-+	unsigned int max_vp_horz_width;
-+	unsigned int max_vp_vert_height;
-+	unsigned int eff_surf_width_l;
-+	unsigned int eff_surf_width_c;
-+	unsigned int eff_surf_height_l;
-+	unsigned int eff_surf_height_c;
+ static double CalculateExtraLatency(
+ 		int RoundTripPingLatencyCycles,
+@@ -620,8 +620,8 @@ static double CalculateExtraLatency(
+ 		bool GPUVMEnable,
+ 		bool HostVMEnable,
+ 		int NumberOfActivePlanes,
+-		int NumberOfDPP[],
+-		int dpte_group_bytes[],
++		unsigned int NumberOfDPP[],
++		unsigned int dpte_group_bytes[],
+ 		double HostVMInefficiencyFactor,
+ 		double HostVMMinPageSize,
+ 		int HostVMMaxNonCachedPageTableLevels);
+@@ -635,8 +635,8 @@ static double CalculateExtraLatencyBytes(
+ 		bool GPUVMEnable,
+ 		bool HostVMEnable,
+ 		int NumberOfActivePlanes,
+-		int NumberOfDPP[],
+-		int dpte_group_bytes[],
++		unsigned int NumberOfDPP[],
++		unsigned int dpte_group_bytes[],
+ 		double HostVMInefficiencyFactor,
+ 		double HostVMMinPageSize,
+ 		int HostVMMaxNonCachedPageTableLevels);
+@@ -660,7 +660,7 @@ static void CalculateUnboundedRequestAndCompressedBufferSize(
+ 		int CompressedBufferSegmentSizeInkByteFinal,
+ 		enum output_encoder_class *Output,
+ 		bool *UnboundedRequestEnabled,
+-		int *CompressedBufferSizeInkByte);
++		unsigned int *CompressedBufferSizeInkByte);
  
- 	int full_swath_bytes_horz_wc_l;
- 	int full_swath_bytes_horz_wc_c;
-@@ -3893,7 +3893,8 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
+ static bool UnboundedRequest(enum unbounded_requesting_policy UseUnboundedRequestingFinal, int TotalNumberOfActiveDPP, bool NoChroma, enum output_encoder_class Output);
+ static unsigned int CalculateMaxVStartup(
+@@ -887,7 +887,7 @@ static bool CalculatePrefetchSchedule(
+ 		double *Tdmdl_vm,
+ 		double *Tdmdl,
+ 		double *TSetup,
+-		int *VUpdateOffsetPix,
++		unsigned int *VUpdateOffsetPix,
+ 		double *VUpdateWidthPix,
+ 		double *VReadyOffsetPix)
  {
+@@ -1835,19 +1835,19 @@ static unsigned int CalculateVMAndRowBytes(
+ 		unsigned int *MetaRowByte,
+ 		unsigned int *PixelPTEBytesPerRow,
+ 		bool *PTEBufferSizeNotExceeded,
+-		int *dpte_row_width_ub,
++		unsigned int *dpte_row_width_ub,
+ 		unsigned int *dpte_row_height,
+ 		unsigned int *MetaRequestWidth,
+ 		unsigned int *MetaRequestHeight,
+ 		unsigned int *meta_row_width,
+ 		unsigned int *meta_row_height,
+-		int *vm_group_bytes,
++		unsigned int *vm_group_bytes,
+ 		unsigned int *dpte_group_bytes,
+ 		unsigned int *PixelPTEReqWidth,
+ 		unsigned int *PixelPTEReqHeight,
+ 		unsigned int *PTERequestSize,
+-		int *DPDE0BytesFrame,
+-		int *MetaPTEBytesFrame)
++		unsigned int *DPDE0BytesFrame,
++		unsigned int *MetaPTEBytesFrame)
+ {
+ 	(void)SourcePixelFormat;
  	struct vba_vars_st *v = &mode_lib->vba;
+@@ -3297,18 +3297,18 @@ static void DisplayPipeConfiguration(struct display_mode_lib *mode_lib)
+ 	// Display Pipe Configuration
+ 	double BytePerPixDETY[DC__NUM_DPP__MAX];
+ 	double BytePerPixDETC[DC__NUM_DPP__MAX];
+-	int BytePerPixY[DC__NUM_DPP__MAX];
+-	int BytePerPixC[DC__NUM_DPP__MAX];
+-	int Read256BytesBlockHeightY[DC__NUM_DPP__MAX];
+-	int Read256BytesBlockHeightC[DC__NUM_DPP__MAX];
+-	int Read256BytesBlockWidthY[DC__NUM_DPP__MAX];
+-	int Read256BytesBlockWidthC[DC__NUM_DPP__MAX];
++	unsigned int BytePerPixY[DC__NUM_DPP__MAX];
++	unsigned int BytePerPixC[DC__NUM_DPP__MAX];
++	unsigned int Read256BytesBlockHeightY[DC__NUM_DPP__MAX];
++	unsigned int Read256BytesBlockHeightC[DC__NUM_DPP__MAX];
++	unsigned int Read256BytesBlockWidthY[DC__NUM_DPP__MAX];
++	unsigned int Read256BytesBlockWidthC[DC__NUM_DPP__MAX];
+ 	double dummy1[DC__NUM_DPP__MAX];
+ 	double dummy2[DC__NUM_DPP__MAX];
+ 	double dummy3[DC__NUM_DPP__MAX];
+ 	double dummy4[DC__NUM_DPP__MAX];
+-	int dummy5[DC__NUM_DPP__MAX];
+-	int dummy6[DC__NUM_DPP__MAX];
++	unsigned int dummy5[DC__NUM_DPP__MAX];
++	unsigned int dummy6[DC__NUM_DPP__MAX];
+ 	bool dummy7[DC__NUM_DPP__MAX];
+ 	bool dummysinglestring;
  
--	int i, j;
-+	int j;
-+	unsigned int i;
+@@ -3535,7 +3535,7 @@ static void CalculateVupdateAndDynamicMetadataParameters(
+ 		double *Tdmbf,
+ 		double *Tdmec,
+ 		double *Tdmsks,
+-		int *VUpdateOffsetPix,
++		unsigned int *VUpdateOffsetPix,
+ 		double *VUpdateWidthPix,
+ 		double *VReadyOffsetPix)
+ {
+@@ -3897,7 +3897,7 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
+ 	unsigned int i;
  	unsigned int k, m;
  	int ReorderingBytes;
- 	int MinPrefetchMode = 0, MaxPrefetchMode = 2;
-@@ -5537,30 +5538,37 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
- 	}
+-	int MinPrefetchMode = 0, MaxPrefetchMode = 2;
++	unsigned int MinPrefetchMode = 0, MaxPrefetchMode = 2;
+ 	bool NoChroma = true;
+ 	bool EnoughWritebackUnits = true;
+ 	bool P2IWith420 = false;
+@@ -5205,7 +5205,7 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
+ 			double HostVMInefficiencyFactor = 1;
+ 			int NextPrefetchModeState = MinPrefetchMode;
+ 			bool UnboundedRequestEnabledThisState = false;
+-			int CompressedBufferSizeInkByteThisState = 0;
++			unsigned int CompressedBufferSizeInkByteThisState = 0;
+ 			double dummy;
  
- 	/*Mode Support, Voltage State and SOC Configuration*/
--	for (i = v->soc.num_states - 1; i >= 0; i--) {
-+	for (int idx = (int)v->soc.num_states - 1; idx >= 0; idx--) {
- 		for (j = 0; j < 2; j++) {
--			if (v->ScaleRatioAndTapsSupport == true && v->SourceFormatPixelAndScanSupport == true && v->ViewportSizeSupport[i][j] == true
--					&& v->LinkCapacitySupport[i] == true && !P2IWith420 && !DSCOnlyIfNecessaryWithBPP
--					&& !DSC422NativeNotSupported && v->ODMCombine4To1SupportCheckOK[i] == true && v->NotEnoughDSCUnits[i] == false
--					&& v->DTBCLKRequiredMoreThanSupported[i] == false
--					&& v->ROBSupport[i][j] == true && v->DISPCLK_DPPCLK_Support[i][j] == true
--					&& v->TotalAvailablePipesSupport[i][j] == true && EnoughWritebackUnits == true
-+			if (v->ScaleRatioAndTapsSupport == true && v->SourceFormatPixelAndScanSupport == true
-+					&& v->ViewportSizeSupport[idx][j] == true
-+					&& v->LinkCapacitySupport[idx] == true && !P2IWith420
-+					&& !DSCOnlyIfNecessaryWithBPP
-+					&& !DSC422NativeNotSupported && v->ODMCombine4To1SupportCheckOK[idx] == true
-+					&& v->NotEnoughDSCUnits[idx] == false
-+					&& v->DTBCLKRequiredMoreThanSupported[idx] == false
-+					&& v->ROBSupport[idx][j] == true && v->DISPCLK_DPPCLK_Support[idx][j] == true
-+					&& v->TotalAvailablePipesSupport[idx][j] == true && EnoughWritebackUnits == true
- 					&& v->WritebackLatencySupport == true && v->WritebackScaleRatioAndTapsSupport == true
--					&& v->CursorSupport == true && v->PitchSupport == true && ViewportExceedsSurface == false
--					&& v->PrefetchSupported[i][j] == true && v->DynamicMetadataSupported[i][j] == true
--					&& v->TotalVerticalActiveBandwidthSupport[i][j] == true && v->VRatioInPrefetchSupported[i][j] == true
--					&& v->PTEBufferSizeNotExceeded[i][j] == true && v->NonsupportedDSCInputBPC == false
-+					&& v->CursorSupport == true && v->PitchSupport == true
-+					&& ViewportExceedsSurface == false
-+					&& v->PrefetchSupported[idx][j] == true
-+					&& v->DynamicMetadataSupported[idx][j] == true
-+					&& v->TotalVerticalActiveBandwidthSupport[idx][j] == true
-+					&& v->VRatioInPrefetchSupported[idx][j] == true
-+					&& v->PTEBufferSizeNotExceeded[idx][j] == true
-+					&& v->NonsupportedDSCInputBPC == false
- 					&& ((v->HostVMEnable == false
- 					&& v->ImmediateFlipRequirement[0] != dm_immediate_flip_required)
--							|| v->ImmediateFlipSupportedForState[i][j] == true)
-+							|| v->ImmediateFlipSupportedForState[idx][j] == true)
- 					&& FMTBufferExceeded == false) {
--				v->ModeSupport[i][j] = true;
-+				v->ModeSupport[idx][j] = true;
- 			} else {
--				v->ModeSupport[i][j] = false;
-+				v->ModeSupport[idx][j] = false;
- 			}
- 		}
- 	}
--	for (i = v->soc.num_states; i >= 0; i--) {
-+	for (int idx = (int)v->soc.num_states; idx >= 0; idx--) {
- 		for (j = 0; j < 2; j++) {
- 			enum dm_validation_status status = DML_VALIDATION_OK;
- 
-@@ -5568,7 +5576,7 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
- 				status = DML_FAIL_SCALE_RATIO_TAP;
- 			} else if (!v->SourceFormatPixelAndScanSupport) {
- 				status = DML_FAIL_SOURCE_PIXEL_FORMAT;
--			} else if (!v->ViewportSizeSupport[i][j]) {
-+			} else if (!v->ViewportSizeSupport[idx][j]) {
- 				status = DML_FAIL_VIEWPORT_SIZE;
- 			} else if (P2IWith420) {
- 				status = DML_FAIL_P2I_WITH_420;
-@@ -5576,15 +5584,15 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
- 				status = DML_FAIL_DSC_ONLY_IF_NECESSARY_WITH_BPP;
- 			} else if (DSC422NativeNotSupported) {
- 				status = DML_FAIL_NOT_DSC422_NATIVE;
--			} else if (!v->ODMCombine4To1SupportCheckOK[i]) {
-+			} else if (!v->ODMCombine4To1SupportCheckOK[idx]) {
- 				status = DML_FAIL_ODM_COMBINE4TO1;
--			} else if (v->NotEnoughDSCUnits[i]) {
-+			} else if (v->NotEnoughDSCUnits[idx]) {
- 				status = DML_FAIL_NOT_ENOUGH_DSC;
--			} else if (!v->ROBSupport[i][j]) {
-+			} else if (!v->ROBSupport[idx][j]) {
- 				status = DML_FAIL_REORDERING_BUFFER;
--			} else if (!v->DISPCLK_DPPCLK_Support[i][j]) {
-+			} else if (!v->DISPCLK_DPPCLK_Support[idx][j]) {
- 				status = DML_FAIL_DISPCLK_DPPCLK;
--			} else if (!v->TotalAvailablePipesSupport[i][j]) {
-+			} else if (!v->TotalAvailablePipesSupport[idx][j]) {
- 				status = DML_FAIL_TOTAL_AVAILABLE_PIPES;
- 			} else if (!EnoughWritebackUnits) {
- 				status = DML_FAIL_ENOUGH_WRITEBACK_UNITS;
-@@ -5598,36 +5606,36 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
- 				status = DML_FAIL_PITCH_SUPPORT;
- 			} else if (ViewportExceedsSurface) {
- 				status = DML_FAIL_VIEWPORT_EXCEEDS_SURFACE;
--			} else if (!v->PrefetchSupported[i][j]) {
-+			} else if (!v->PrefetchSupported[idx][j]) {
- 				status = DML_FAIL_PREFETCH_SUPPORT;
--			} else if (!v->DynamicMetadataSupported[i][j]) {
-+			} else if (!v->DynamicMetadataSupported[idx][j]) {
- 				status = DML_FAIL_DYNAMIC_METADATA;
--			} else if (!v->TotalVerticalActiveBandwidthSupport[i][j]) {
-+			} else if (!v->TotalVerticalActiveBandwidthSupport[idx][j]) {
- 				status = DML_FAIL_TOTAL_V_ACTIVE_BW;
--			} else if (!v->VRatioInPrefetchSupported[i][j]) {
-+			} else if (!v->VRatioInPrefetchSupported[idx][j]) {
- 				status = DML_FAIL_V_RATIO_PREFETCH;
--			} else if (!v->PTEBufferSizeNotExceeded[i][j]) {
-+			} else if (!v->PTEBufferSizeNotExceeded[idx][j]) {
- 				status = DML_FAIL_PTE_BUFFER_SIZE;
- 			} else if (v->NonsupportedDSCInputBPC) {
- 				status = DML_FAIL_DSC_INPUT_BPC;
- 			} else if ((v->HostVMEnable
--					&& !v->ImmediateFlipSupportedForState[i][j])) {
-+					&& !v->ImmediateFlipSupportedForState[idx][j])) {
- 				status = DML_FAIL_HOST_VM_IMMEDIATE_FLIP;
- 			} else if (FMTBufferExceeded) {
- 				status = DML_FAIL_FMT_BUFFER_EXCEEDED;
- 			}
--			mode_lib->vba.ValidationStatus[i] = status;
-+			mode_lib->vba.ValidationStatus[idx] = status;
- 		}
- 	}
- 
- 	{
- 		unsigned int MaximumMPCCombine = 0;
--
--		for (i = v->soc.num_states; i >= 0; i--) {
--			if (i == v->soc.num_states || v->ModeSupport[i][0] == true || v->ModeSupport[i][1] == true) {
--				v->VoltageLevel = i;
--				v->ModeIsSupported = v->ModeSupport[i][0] == true || v->ModeSupport[i][1] == true;
--				if (v->ModeSupport[i][0] == true) {
-+		for (int idx = (int)v->soc.num_states; idx >= 0; idx--) {
-+			if (idx == (int)v->soc.num_states || v->ModeSupport[idx][0] == true
-+					|| v->ModeSupport[idx][1] == true) {
-+				v->VoltageLevel = idx;
-+				v->ModeIsSupported = v->ModeSupport[idx][0] == true || v->ModeSupport[idx][1] == true;
-+				if (v->ModeSupport[idx][0] == true) {
- 					MaximumMPCCombine = 0;
- 				} else {
- 					MaximumMPCCombine = 1;
-@@ -5635,7 +5643,7 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
- 			}
- 		}
- 		v->ImmediateFlipSupport = v->ImmediateFlipSupportedForState[v->VoltageLevel][MaximumMPCCombine];
--		for (k = 0; k <= v->NumberOfActivePlanes - 1; k++) {
-+		for (k = 0; k < v->NumberOfActivePlanes; k++) {
- 			v->MPCCombineEnable[k] = v->MPCCombine[v->VoltageLevel][MaximumMPCCombine][k];
- 			v->DPPPerPlane[k] = v->NoOfDPP[v->VoltageLevel][MaximumMPCCombine][k];
- 		}
-@@ -5693,7 +5701,7 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
- 	double SecondMinActiveDRAMClockChangeMarginOneDisplayInVBLank;
- 	double WritebackDRAMClockChangeLatencyHiding;
- 	double TotalPixelBW = 0.0;
--	int k, j;
-+	unsigned int k, j;
- 
- 	v->UrgentWatermark = UrgentLatency + ExtraLatency;
- 
-@@ -5881,7 +5889,7 @@ static void CalculateDCFCLKDeepSleep(
- 	double DisplayPipeLineDeliveryTimeLuma;
- 	double DisplayPipeLineDeliveryTimeChroma;
- 	double ReadBandwidth = 0.0;
--	int k;
-+	unsigned int k;
- 
- 	for (k = 0; k < NumberOfActivePlanes; ++k) {
- 
-@@ -6032,7 +6040,7 @@ static void CalculatePixelDeliveryTimes(
- 		double CursorRequestDeliveryTimePrefetch[])
- {
- 	double req_per_swath_ub;
--	int k;
-+	unsigned int k;
- 
- 	for (k = 0; k < NumberOfActivePlanes; ++k) {
- 		if (VRatio[k] <= 1) {
-@@ -6132,7 +6140,7 @@ static void CalculatePixelDeliveryTimes(
- }
- 
- static void CalculateMetaAndPTETimes(
--		int NumberOfActivePlanes,
-+		unsigned int NumberOfActivePlanes,
+ 			v->TimeCalc = 24 / v->ProjectedDCFCLKDeepSleep[i][j];
+@@ -5867,8 +5867,8 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
+ static void CalculateDCFCLKDeepSleep(
+ 		struct display_mode_lib *mode_lib,
+ 		unsigned int NumberOfActivePlanes,
+-		int BytePerPixelY[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelY[],
++		unsigned int BytePerPixelC[],
+ 		double VRatio[],
+ 		double VRatioChroma[],
+ 		double SwathWidthY[],
+@@ -6019,7 +6019,7 @@ static void CalculatePixelDeliveryTimes(
+ 		double PSCL_THROUGHPUT[],
+ 		double PSCL_THROUGHPUT_CHROMA[],
+ 		double DPPCLK[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelC[],
+ 		enum scan_direction_class SourceScan[],
+ 		unsigned int NumberOfCursors[],
+ 		unsigned int CursorWidth[][DC__NUM_CURSOR__MAX],
+@@ -6144,35 +6144,35 @@ static void CalculateMetaAndPTETimes(
  		bool GPUVMEnable,
  		int MetaChunkSize,
  		int MinMetaChunkSizeBytes,
-@@ -6198,7 +6206,7 @@ static void CalculateMetaAndPTETimes(
- 	unsigned int dpte_groups_per_row_luma_ub;
- 	unsigned int dpte_group_width_chroma;
- 	unsigned int dpte_groups_per_row_chroma_ub;
--	int k;
-+	unsigned int k;
- 
- 	for (k = 0; k < NumberOfActivePlanes; ++k) {
- 		DST_Y_PER_PTE_ROW_NOM_L[k] = dpte_row_height[k] / VRatio[k];
-@@ -6330,7 +6338,7 @@ static void CalculateVMGroupAndRequestTimes(
- 	(void)dpte_row_width_chroma_ub;
- 	int num_group_per_lower_vm_stage;
- 	int num_req_per_lower_vm_stage;
--	int k;
-+	unsigned int k;
- 
- 	for (k = 0; k < NumberOfActivePlanes; ++k) {
- 		if (GPUVMEnable == true && (DCCEnable[k] == true || GPUVMMaxPageTableLevels > 1)) {
-@@ -6770,12 +6778,12 @@ static void CalculateSwathAndDETConfiguration(
- 	int MaximumSwathHeightC[DC__NUM_DPP__MAX];
+-		int HTotal[],
++		unsigned int HTotal[],
+ 		double VRatio[],
+ 		double VRatioChroma[],
+ 		double DestinationLinesToRequestRowInVBlank[],
+ 		double DestinationLinesToRequestRowInImmediateFlip[],
+ 		bool DCCEnable[],
+ 		double PixelClock[],
+-		int BytePerPixelY[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelY[],
++		unsigned int BytePerPixelC[],
+ 		enum scan_direction_class SourceScan[],
+-		int dpte_row_height[],
+-		int dpte_row_height_chroma[],
+-		int meta_row_width[],
+-		int meta_row_width_chroma[],
+-		int meta_row_height[],
+-		int meta_row_height_chroma[],
+-		int meta_req_width[],
+-		int meta_req_width_chroma[],
+-		int meta_req_height[],
+-		int meta_req_height_chroma[],
+-		int dpte_group_bytes[],
+-		int PTERequestSizeY[],
+-		int PTERequestSizeC[],
+-		int PixelPTEReqWidthY[],
+-		int PixelPTEReqHeightY[],
+-		int PixelPTEReqWidthC[],
+-		int PixelPTEReqHeightC[],
+-		int dpte_row_width_luma_ub[],
+-		int dpte_row_width_chroma_ub[],
++		unsigned int dpte_row_height[],
++		unsigned int dpte_row_height_chroma[],
++		unsigned int meta_row_width[],
++		unsigned int meta_row_width_chroma[],
++		unsigned int meta_row_height[],
++		unsigned int meta_row_height_chroma[],
++		unsigned int meta_req_width[],
++		unsigned int meta_req_width_chroma[],
++		unsigned int meta_req_height[],
++		unsigned int meta_req_height_chroma[],
++		unsigned int dpte_group_bytes[],
++		unsigned int PTERequestSizeY[],
++		unsigned int PTERequestSizeC[],
++		unsigned int PixelPTEReqWidthY[],
++		unsigned int PixelPTEReqHeightY[],
++		unsigned int PixelPTEReqWidthC[],
++		unsigned int PixelPTEReqHeightC[],
++		unsigned int dpte_row_width_luma_ub[],
++		unsigned int dpte_row_width_chroma_ub[],
+ 		double DST_Y_PER_PTE_ROW_NOM_L[],
+ 		double DST_Y_PER_PTE_ROW_NOM_C[],
+ 		double DST_Y_PER_META_ROW_NOM_L[],
+@@ -6317,18 +6317,18 @@ static void CalculateVMGroupAndRequestTimes(
+ 		bool GPUVMEnable,
+ 		unsigned int GPUVMMaxPageTableLevels,
+ 		unsigned int HTotal[],
+-		int BytePerPixelC[],
++		unsigned int BytePerPixelC[],
+ 		double DestinationLinesToRequestVMInVBlank[],
+ 		double DestinationLinesToRequestVMInImmediateFlip[],
+ 		bool DCCEnable[],
+ 		double PixelClock[],
+-		int dpte_row_width_luma_ub[],
+-		int dpte_row_width_chroma_ub[],
+-		int vm_group_bytes[],
++		unsigned int dpte_row_width_luma_ub[],
++		unsigned int dpte_row_width_chroma_ub[],
++		unsigned int vm_group_bytes[],
+ 		unsigned int dpde0_bytes_per_frame_ub_l[],
+ 		unsigned int dpde0_bytes_per_frame_ub_c[],
+-		int meta_pte_bytes_per_frame_ub_l[],
+-		int meta_pte_bytes_per_frame_ub_c[],
++		unsigned int meta_pte_bytes_per_frame_ub_l[],
++		unsigned int meta_pte_bytes_per_frame_ub_c[],
+ 		double TimePerVMGroupVBlank[],
+ 		double TimePerVMGroupFlip[],
+ 		double TimePerVMRequestVBlank[],
+@@ -6436,29 +6436,29 @@ static void CalculateStutterEfficiency(
+ 		bool ProgressiveToInterlaceUnitInOPP,
+ 		bool Interlace[],
+ 		double MinTTUVBlank[],
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		unsigned int DETBufferSizeY[],
+-		int BytePerPixelY[],
++		unsigned int BytePerPixelY[],
+ 		double BytePerPixelDETY[],
+ 		double SwathWidthY[],
+-		int SwathHeightY[],
+-		int SwathHeightC[],
++		unsigned int SwathHeightY[],
++		unsigned int SwathHeightC[],
+ 		double NetDCCRateLuma[],
+ 		double NetDCCRateChroma[],
+ 		double DCCFractionOfZeroSizeRequestsLuma[],
+ 		double DCCFractionOfZeroSizeRequestsChroma[],
+-		int HTotal[],
+-		int VTotal[],
++		unsigned int HTotal[],
++		unsigned int VTotal[],
+ 		double PixelClock[],
+ 		double VRatio[],
+ 		enum scan_direction_class SourceScan[],
+-		int BlockHeight256BytesY[],
+-		int BlockWidth256BytesY[],
+-		int BlockHeight256BytesC[],
+-		int BlockWidth256BytesC[],
+-		int DCCYMaxUncompressedBlock[],
+-		int DCCCMaxUncompressedBlock[],
+-		int VActive[],
++		unsigned int BlockHeight256BytesY[],
++		unsigned int BlockWidth256BytesY[],
++		unsigned int BlockHeight256BytesC[],
++		unsigned int BlockWidth256BytesC[],
++		unsigned int DCCYMaxUncompressedBlock[],
++		unsigned int DCCCMaxUncompressedBlock[],
++		unsigned int VActive[],
+ 		bool DCCEnable[],
+ 		bool WritebackEnable[],
+ 		double ReadBandwidthPlaneLuma[],
+@@ -6742,40 +6742,40 @@ static void CalculateSwathAndDETConfiguration(
+ 		enum scan_direction_class SourceScan[],
+ 		enum source_format_class SourcePixelFormat[],
+ 		enum dm_swizzle_mode SurfaceTiling[],
+-		int ViewportWidth[],
+-		int ViewportHeight[],
+-		int SurfaceWidthY[],
+-		int SurfaceWidthC[],
+-		int SurfaceHeightY[],
+-		int SurfaceHeightC[],
+-		int Read256BytesBlockHeightY[],
+-		int Read256BytesBlockHeightC[],
+-		int Read256BytesBlockWidthY[],
+-		int Read256BytesBlockWidthC[],
++		unsigned int ViewportWidth[],
++		unsigned int ViewportHeight[],
++		unsigned int SurfaceWidthY[],
++		unsigned int SurfaceWidthC[],
++		unsigned int SurfaceHeightY[],
++		unsigned int SurfaceHeightC[],
++		unsigned int Read256BytesBlockHeightY[],
++		unsigned int Read256BytesBlockHeightC[],
++		unsigned int Read256BytesBlockWidthY[],
++		unsigned int Read256BytesBlockWidthC[],
+ 		enum odm_combine_mode ODMCombineEnabled[],
+-		int BlendingAndTiming[],
+-		int BytePerPixY[],
+-		int BytePerPixC[],
++		unsigned int BlendingAndTiming[],
++		unsigned int BytePerPixY[],
++		unsigned int BytePerPixC[],
+ 		double BytePerPixDETY[],
+ 		double BytePerPixDETC[],
+-		int HActive[],
++		unsigned int HActive[],
+ 		double HRatio[],
+ 		double HRatioChroma[],
+-		int DPPPerPlane[],
+-		int swath_width_luma_ub[],
+-		int swath_width_chroma_ub[],
++		unsigned int DPPPerPlane[],
++		unsigned int swath_width_luma_ub[],
++		unsigned int swath_width_chroma_ub[],
+ 		double SwathWidth[],
+ 		double SwathWidthChroma[],
+-		int SwathHeightY[],
+-		int SwathHeightC[],
++		unsigned int SwathHeightY[],
++		unsigned int SwathHeightC[],
+ 		unsigned int DETBufferSizeY[],
+ 		unsigned int DETBufferSizeC[],
+ 		bool ViewportSizeSupportPerPlane[],
+ 		bool *ViewportSizeSupport)
+ {
+ 	(void)HRatioChroma;
+-	int MaximumSwathHeightY[DC__NUM_DPP__MAX];
+-	int MaximumSwathHeightC[DC__NUM_DPP__MAX];
++	unsigned int MaximumSwathHeightY[DC__NUM_DPP__MAX];
++	unsigned int MaximumSwathHeightC[DC__NUM_DPP__MAX];
  	int MinimumSwathHeightY;
  	int MinimumSwathHeightC;
--	int RoundedUpMaxSwathSizeBytesY;
--	int RoundedUpMaxSwathSizeBytesC;
--	int RoundedUpMinSwathSizeBytesY;
--	int RoundedUpMinSwathSizeBytesC;
--	int RoundedUpSwathSizeBytesY;
--	int RoundedUpSwathSizeBytesC;
-+	unsigned int RoundedUpMaxSwathSizeBytesY;
-+	unsigned int RoundedUpMaxSwathSizeBytesC;
-+	unsigned int RoundedUpMinSwathSizeBytesY;
-+	unsigned int RoundedUpMinSwathSizeBytesC;
-+	unsigned int RoundedUpSwathSizeBytesY;
-+	unsigned int RoundedUpSwathSizeBytesC;
- 	double SwathWidthSingleDPP[DC__NUM_DPP__MAX];
- 	double SwathWidthSingleDPPChroma[DC__NUM_DPP__MAX];
- 	int k;
-@@ -7139,7 +7147,8 @@ static noinline_for_stack void UseMinimumDCFCLK(
+ 	unsigned int RoundedUpMaxSwathSizeBytesY;
+@@ -6919,31 +6919,31 @@ static void CalculateSwathWidth(
+ 		int NumberOfActivePlanes,
+ 		enum source_format_class SourcePixelFormat[],
+ 		enum scan_direction_class SourceScan[],
+-		int ViewportWidth[],
+-		int ViewportHeight[],
+-		int SurfaceWidthY[],
+-		int SurfaceWidthC[],
+-		int SurfaceHeightY[],
+-		int SurfaceHeightC[],
++		unsigned int ViewportWidth[],
++		unsigned int ViewportHeight[],
++		unsigned int SurfaceWidthY[],
++		unsigned int SurfaceWidthC[],
++		unsigned int SurfaceHeightY[],
++		unsigned int SurfaceHeightC[],
+ 		enum odm_combine_mode ODMCombineEnabled[],
+-		int BytePerPixY[],
+-		int BytePerPixC[],
+-		int Read256BytesBlockHeightY[],
+-		int Read256BytesBlockHeightC[],
+-		int Read256BytesBlockWidthY[],
+-		int Read256BytesBlockWidthC[],
+-		int BlendingAndTiming[],
+-		int HActive[],
++		unsigned int BytePerPixY[],
++		unsigned int BytePerPixC[],
++		unsigned int Read256BytesBlockHeightY[],
++		unsigned int Read256BytesBlockHeightC[],
++		unsigned int Read256BytesBlockWidthY[],
++		unsigned int Read256BytesBlockWidthC[],
++		unsigned int BlendingAndTiming[],
++		unsigned int HActive[],
+ 		double HRatio[],
+-		int DPPPerPlane[],
++		unsigned int DPPPerPlane[],
+ 		double SwathWidthSingleDPPY[],
+ 		double SwathWidthSingleDPPC[],
+ 		double SwathWidthY[],
+ 		double SwathWidthC[],
+-		int MaximumSwathHeightY[],
+-		int MaximumSwathHeightC[],
+-		int swath_width_luma_ub[],
+-		int swath_width_chroma_ub[])
++		unsigned int MaximumSwathHeightY[],
++		unsigned int MaximumSwathHeightC[],
++		unsigned int swath_width_luma_ub[],
++		unsigned int swath_width_chroma_ub[])
+ {
+ 	(void)BytePerPixY;
+ 	enum odm_combine_mode MainPlaneODMCombine;
+@@ -7049,8 +7049,8 @@ static double CalculateExtraLatency(
+ 		bool GPUVMEnable,
+ 		bool HostVMEnable,
+ 		int NumberOfActivePlanes,
+-		int NumberOfDPP[],
+-		int dpte_group_bytes[],
++		unsigned int NumberOfDPP[],
++		unsigned int dpte_group_bytes[],
+ 		double HostVMInefficiencyFactor,
+ 		double HostVMMinPageSize,
+ 		int HostVMMaxNonCachedPageTableLevels)
+@@ -7095,8 +7095,8 @@ static double CalculateExtraLatencyBytes(
+ 		bool GPUVMEnable,
+ 		bool HostVMEnable,
+ 		int NumberOfActivePlanes,
+-		int NumberOfDPP[],
+-		int dpte_group_bytes[],
++		unsigned int NumberOfDPP[],
++		unsigned int dpte_group_bytes[],
+ 		double HostVMInefficiencyFactor,
+ 		double HostVMMinPageSize,
+ 		int HostVMMaxNonCachedPageTableLevels)
+@@ -7147,7 +7147,7 @@ static noinline_for_stack void UseMinimumDCFCLK(
  		int ReorderingBytes)
  {
  	struct vba_vars_st *v = &mode_lib->vba;
--	int dummy1, i, j, k;
-+	int dummy1, j;
-+	unsigned int i, k;
+-	int dummy1, j;
++	unsigned int dummy1, j;
+ 	unsigned int i, k;
  	double NormalEfficiency,  dummy2, dummy3;
  	double TotalMaxPrefetchFlipDPTERowBandwidth[DC__VOLTAGE_STATES][2];
+@@ -7166,7 +7166,7 @@ static noinline_for_stack void UseMinimumDCFCLK(
+ 			double ExtraLatencyBytes;
+ 			double ExtraLatencyCycles;
+ 			double DCFCLKRequiredForPeakBandwidth;
+-			int NoOfDPPState[DC__NUM_DPP__MAX];
++			unsigned int NoOfDPPState[DC__NUM_DPP__MAX];
+ 			double MinimumTvmPlus2Tr0;
  
-@@ -7166,7 +7175,7 @@ static noinline_for_stack void UseMinimumDCFCLK(
- 						+ v->NoOfDPP[i][j][k] * v->DPTEBytesPerRow[i][j][k] / (15.75 * v->HTotal[k] / v->PixelClock[k]);
- 			}
+ 			TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = 0;
+@@ -7314,7 +7314,7 @@ static void CalculateUnboundedRequestAndCompressedBufferSize(
+ 		int CompressedBufferSegmentSizeInkByteFinal,
+ 		enum output_encoder_class *Output,
+ 		bool *UnboundedRequestEnabled,
+-		int *CompressedBufferSizeInkByte)
++		unsigned int *CompressedBufferSizeInkByte)
+ {
+ 	double actDETBufferSizeInKByte = dml_ceil(DETBufferSizeInKByte, 64);
  
--			for (k = 0; k <= v->NumberOfActivePlanes - 1; ++k)
-+			for (k = 0; k < v->NumberOfActivePlanes; ++k)
- 				NoOfDPPState[k] = v->NoOfDPP[i][j][k];
- 
- 			MinimumTWait = CalculateTWait(MaxPrefetchMode, v->FinalDRAMClockChangeLatency, v->UrgLatency[i], v->SREnterPlusExitTime);
-@@ -7269,7 +7278,7 @@ static noinline_for_stack void UseMinimumDCFCLK(
- 				}
- 			}
- 			DCFCLKRequiredForPeakBandwidth = 0;
--			for (k = 0; k <= v->NumberOfActivePlanes - 1; ++k)
-+			for (k = 0; k < v->NumberOfActivePlanes; ++k)
- 				DCFCLKRequiredForPeakBandwidth = DCFCLKRequiredForPeakBandwidth + DCFCLKRequiredForPeakBandwidthPerPlane[k];
- 
- 			MinimumTvmPlus2Tr0 = v->UrgLatency[i]
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-index eb199215d298..b3b59401e98d 100644
+index b3b59401e98d..bbca3a105748 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-@@ -297,7 +297,7 @@ int dcn32_find_dummy_latency_index_for_fw_based_mclk_switch(struct dc *dc,
- 				dcn32_subvp_in_use(dc, context))
- 			vba->DRAMClockChangeSupport[vlevel][context->bw_ctx.dml.vba.maxMpcComb] = temp_clock_change_support;
- 
--		if (vlevel < context->bw_ctx.dml.vba.soc.num_states &&
-+		if (vlevel < (int)context->bw_ctx.dml.vba.soc.num_states &&
- 				vba->DRAMClockChangeSupport[vlevel][vba->maxMpcComb] != dm_dram_clock_change_unsupported)
- 			break;
- 
-@@ -418,8 +418,8 @@ static void insert_entry_into_table_sorted(struct _vcs_dpi_voltage_scaling_st *t
- 				    unsigned int *num_entries,
- 				    struct _vcs_dpi_voltage_scaling_st *entry)
- {
--	int i = 0;
--	int index = 0;
-+	unsigned int i = 0;
-+	unsigned int index = 0;
- 
- 	dc_assert_fp_enabled();
- 
-@@ -773,8 +773,8 @@ static bool subvp_subvp_schedulable(struct dc *dc, struct dc_state *context)
- 			subvp_pipes[1]->stream->timing.h_total) /
- 			(double)(subvp_pipes[1]->stream->timing.pix_clk_100hz * 100)) * 1000000;
- 
--	if ((vactive1_us - vblank2_us) / 2 > max_microschedule_us &&
--	    (vactive2_us - vblank1_us) / 2 > max_microschedule_us)
-+	if ((vactive1_us - vblank2_us) / 2 > (int32_t)max_microschedule_us &&
-+	    (vactive2_us - vblank1_us) / 2 > (int32_t)max_microschedule_us)
- 		return true;
- 
- 	return false;
-@@ -1013,8 +1013,8 @@ static bool subvp_subvp_admissable(struct dc *dc,
- 	}
- 
- 	if (subvp_count == 2 && ((min_refresh < 120 && max_refresh < 120) ||
--		(min_refresh >= subvp_high_refresh_list.min_refresh &&
--				max_refresh <= subvp_high_refresh_list.max_refresh)))
-+		(min_refresh >= (uint32_t)subvp_high_refresh_list.min_refresh &&
-+				max_refresh <= (uint32_t)subvp_high_refresh_list.max_refresh)))
- 		result = true;
- 
- 	return result;
-@@ -1092,7 +1092,7 @@ static bool subvp_validate_static_schedulability(struct dc *dc,
- 
- static void assign_subvp_index(struct dc *dc, struct dc_state *context)
- {
--	int i;
-+	unsigned int i;
- 	int index = 0;
- 
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-@@ -1224,7 +1224,8 @@ static bool update_pipe_slice_table_with_split_flags(
- 	 */
- 	struct pipe_ctx *pipe;
- 	bool odm;
--	int dc_pipe_idx, dml_pipe_idx = 0;
-+	unsigned int dc_pipe_idx;
-+	int dml_pipe_idx = 0;
- 	bool updated = false;
- 
- 	for (dc_pipe_idx = 0;
-@@ -1466,7 +1467,7 @@ static bool dcn32_full_validate_bw_helper(struct dc *dc,
- 
- 	*vlevel = dml_get_voltage_level(&context->bw_ctx.dml, pipes, *pipe_cnt);
- 	/* This may adjust vlevel and maxMpcComb */
--	if (*vlevel < context->bw_ctx.dml.soc.num_states) {
-+	if (*vlevel < (int)context->bw_ctx.dml.soc.num_states) {
- 		*vlevel = dcn20_validate_apply_pipe_split_flags(dc, context, *vlevel, split, merge);
- 		vba->VoltageLevel = *vlevel;
- 	}
-@@ -1527,14 +1528,14 @@ static bool dcn32_full_validate_bw_helper(struct dc *dc,
- 			/* Check that vlevel requested supports pstate or not
- 			 * if not, select the lowest vlevel that supports it
- 			 */
--			for (i = *vlevel; i < context->bw_ctx.dml.soc.num_states; i++) {
-+			for (i = *vlevel; i < (int)context->bw_ctx.dml.soc.num_states; i++) {
- 				if (vba->DRAMClockChangeSupport[i][vba->maxMpcComb] != dm_dram_clock_change_unsupported) {
- 					*vlevel = i;
- 					break;
- 				}
- 			}
- 
--			if (*vlevel < context->bw_ctx.dml.soc.num_states
-+			if (*vlevel < (int)context->bw_ctx.dml.soc.num_states
- 			    && subvp_validate_static_schedulability(dc, context, *vlevel))
- 				found_supported_config = true;
- 			if (found_supported_config) {
-@@ -1566,7 +1567,7 @@ static bool dcn32_full_validate_bw_helper(struct dc *dc,
- 
- 			*vlevel = dml_get_voltage_level(&context->bw_ctx.dml, pipes, *pipe_cnt);
- 			/* This may adjust vlevel and maxMpcComb */
--			if (*vlevel < context->bw_ctx.dml.soc.num_states) {
-+			if (*vlevel < (int)context->bw_ctx.dml.soc.num_states) {
- 				*vlevel = dcn20_validate_apply_pipe_split_flags(dc, context, *vlevel, split, merge);
- 				vba->VoltageLevel = *vlevel;
- 			}
-@@ -1599,7 +1600,7 @@ static bool dcn32_full_validate_bw_helper(struct dc *dc,
- 
- static bool is_dtbclk_required(struct dc *dc, struct dc_state *context)
- {
--	int i;
-+	unsigned int i;
- 
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
- 		if (!context->res_ctx.pipe_ctx[i].stream)
-@@ -1614,7 +1615,8 @@ static void dcn32_calculate_dlg_params(struct dc *dc, struct dc_state *context,
- 				       display_e2e_pipe_params_st *pipes,
- 				       int pipe_cnt, int vlevel)
- {
--	int i, pipe_idx, active_hubp_count = 0;
-+	int pipe_idx, active_hubp_count = 0;
-+	unsigned int i;
- 	bool usr_retraining_support = false;
- 	bool unbounded_req_enabled = false;
- 	struct vba_vars_st *vba = &context->bw_ctx.dml.vba;
-@@ -1650,8 +1652,8 @@ static void dcn32_calculate_dlg_params(struct dc *dc, struct dc_state *context,
- 	usr_retraining_support = context->bw_ctx.dml.vba.USRRetrainingSupport[vlevel][context->bw_ctx.dml.vba.maxMpcComb];
- 	ASSERT(usr_retraining_support);
- 
--	if (context->bw_ctx.bw.dcn.clk.dispclk_khz < dc->debug.min_disp_clk_khz)
--		context->bw_ctx.bw.dcn.clk.dispclk_khz = dc->debug.min_disp_clk_khz;
-+	if ((unsigned int)context->bw_ctx.bw.dcn.clk.dispclk_khz < dc->debug.min_disp_clk_khz)
-+		context->bw_ctx.bw.dcn.clk.dispclk_khz = (int)dc->debug.min_disp_clk_khz;
- 
- 	unbounded_req_enabled = get_unbounded_request_enabled(&context->bw_ctx.dml, pipes, pipe_cnt);
- 
-@@ -1904,7 +1906,8 @@ static bool dcn32_apply_merge_split_flags_helper(
+@@ -1397,7 +1397,7 @@ static void try_odm_power_optimization_and_revalidate(
+ 		display_e2e_pipe_params_st *pipes,
  		int *split,
- 		bool *merge)
+ 		bool *merge,
+-		unsigned int *vlevel,
++		int *vlevel,
+ 		int pipe_cnt)
  {
--	int i, pipe_idx;
-+	int pipe_idx;
-+	unsigned int i;
- 	bool newly_split[MAX_PIPES] = { false };
- 	struct vba_vars_st *vba = &context->bw_ctx.dml.vba;
- 
-@@ -2165,7 +2168,7 @@ bool dcn32_internal_validate_bw(struct dc *dc,
- 
- 		context->bw_ctx.dml.validate_max_state = false;
- 
--		if (vlevel < context->bw_ctx.dml.soc.num_states) {
-+		if (vlevel < (int)context->bw_ctx.dml.soc.num_states) {
- 			memset(split, 0, sizeof(split));
- 			memset(merge, 0, sizeof(merge));
- 			vlevel = dcn20_validate_apply_pipe_split_flags(dc, context, vlevel, split, merge);
-@@ -2179,7 +2182,7 @@ bool dcn32_internal_validate_bw(struct dc *dc,
- 	if (vlevel == context->bw_ctx.dml.soc.num_states)
- 		goto validate_fail;
- 
--	for (i = 0, pipe_idx = 0; i < dc->res_pool->pipe_count; i++) {
-+	for (i = 0, pipe_idx = 0; i < (int)dc->res_pool->pipe_count; i++) {
- 		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
- 		struct pipe_ctx *mpo_pipe = pipe->bottom_pipe;
- 
-@@ -2233,7 +2236,7 @@ bool dcn32_internal_validate_bw(struct dc *dc,
- 				flag_max_mpc_comb != context->bw_ctx.dml.vba.maxMpcComb) {
- 			/* check the context constructed with pipe split flags is still valid*/
- 			bool flags_valid = false;
--			for (i = flag_vlevel; i < context->bw_ctx.dml.soc.num_states; i++) {
-+			for (i = flag_vlevel; i < (int)context->bw_ctx.dml.soc.num_states; i++) {
- 				if (vba->ModeSupport[i][flag_max_mpc_comb]) {
- 					vba->maxMpcComb = flag_max_mpc_comb;
- 					vba->VoltageLevel = i;
-@@ -2267,7 +2270,8 @@ void dcn32_calculate_wm_and_dlg_fpu(struct dc *dc, struct dc_state *context,
- 				int pipe_cnt,
- 				int vlevel)
- {
--	int i, pipe_idx, vlevel_temp = 0;
-+	int pipe_idx, vlevel_temp = 0;
-+	unsigned int i;
- 	double dcfclk = dcn3_2_soc.clock_limits[0].dcfclk_mhz;
- 	double dcfclk_from_validation = context->bw_ctx.dml.vba.DCFCLKState[vlevel][context->bw_ctx.dml.vba.maxMpcComb];
- 	double dram_speed_from_validation = context->bw_ctx.dml.vba.DRAMSpeed;
-@@ -2619,7 +2623,7 @@ static void dcn32_get_optimal_dcfclk_fclk_for_uclk(unsigned int uclk_mts,
- static void remove_entry_from_table_at_index(struct _vcs_dpi_voltage_scaling_st *table, unsigned int *num_entries,
- 		unsigned int index)
- {
--	int i;
-+	unsigned int i;
- 
- 	if (*num_entries == 0)
- 		return;
-@@ -2686,7 +2690,7 @@ static void sort_entries_with_same_bw(struct _vcs_dpi_voltage_scaling_st *table,
- 	unsigned int end_index = 0;
- 	unsigned int current_bw = 0;
- 
--	for (int i = 0; i < (*num_entries - 1); i++) {
-+	for (unsigned int i = 0; i < (*num_entries - 1); i++) {
- 		if (table[i].net_bw_in_kbytes_sec == table[i+1].net_bw_in_kbytes_sec) {
- 			current_bw = table[i].net_bw_in_kbytes_sec;
- 			start_index = i;
-@@ -2697,8 +2701,8 @@ static void sort_entries_with_same_bw(struct _vcs_dpi_voltage_scaling_st *table,
- 		}
- 
- 		if (start_index != end_index) {
--			for (int j = start_index; j < end_index; j++) {
--				for (int k = start_index; k < end_index; k++) {
-+			for (unsigned int j = start_index; j < end_index; j++) {
-+				for (unsigned int k = start_index; k < end_index; k++) {
- 					if (table[k].dcfclk_mhz > table[k+1].dcfclk_mhz)
- 						swap_table_entries(&table[k], &table[k+1]);
- 				}
-@@ -2717,7 +2721,7 @@ static void sort_entries_with_same_bw(struct _vcs_dpi_voltage_scaling_st *table,
-  */
- static void remove_inconsistent_entries(struct _vcs_dpi_voltage_scaling_st *table, unsigned int *num_entries)
- {
--	for (int i = 0; i < (*num_entries - 1); i++) {
-+	for (unsigned int i = 0; i < (*num_entries - 1); i++) {
- 		if (table[i].net_bw_in_kbytes_sec == table[i+1].net_bw_in_kbytes_sec) {
- 			if ((table[i].dram_speed_mts > table[i+1].dram_speed_mts) ||
- 				(table[i].fabricclk_mhz > table[i+1].fabricclk_mhz))
-@@ -2765,7 +2769,8 @@ static int override_max_clk_values(struct clk_limit_table_entry *max_clk_limit,
- static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk_bw_params *bw_params,
- 		struct _vcs_dpi_voltage_scaling_st *table, unsigned int *num_entries)
- {
--	int i, j;
-+	int i;
-+	unsigned int j;
- 	struct _vcs_dpi_voltage_scaling_st entry = {0};
- 	struct clk_limit_table_entry max_clk_data = {0};
- 
-@@ -2852,8 +2857,8 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
- 	entry.phyclk_d32_mhz = dcn3_2_soc.clock_limits[0].phyclk_d32_mhz;
- 
- 	// Insert all the DCFCLK STAs
--	for (i = 0; i < num_dcfclk_stas; i++) {
--		entry.dcfclk_mhz = dcfclk_sta_targets[i];
-+	for (j = 0; j < num_dcfclk_stas; j++) {
-+		entry.dcfclk_mhz = dcfclk_sta_targets[j];
- 		entry.fabricclk_mhz = 0;
- 		entry.dram_speed_mts = 0;
- 
-@@ -2872,10 +2877,10 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
- 	insert_entry_into_table_sorted(table, num_entries, &entry);
- 
- 	// Insert the UCLK DPMS
--	for (i = 0; i < num_uclk_dpms; i++) {
-+	for (j = 0; j < num_uclk_dpms; j++) {
- 		entry.dcfclk_mhz = 0;
- 		entry.fabricclk_mhz = 0;
--		entry.dram_speed_mts = bw_params->clk_table.entries[i].memclk_mhz * 16;
-+		entry.dram_speed_mts = bw_params->clk_table.entries[j].memclk_mhz * 16;
- 
- 		get_optimal_ntuple(&entry);
- 		entry.net_bw_in_kbytes_sec = calculate_net_bw_in_kbytes_sec(&entry);
-@@ -2884,9 +2889,9 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
- 
- 	// If FCLK is coarse grained, insert individual DPMs.
- 	if (num_fclk_dpms > 2) {
--		for (i = 0; i < num_fclk_dpms; i++) {
-+		for (j = 0; j < num_fclk_dpms; j++) {
- 			entry.dcfclk_mhz = 0;
--			entry.fabricclk_mhz = bw_params->clk_table.entries[i].fclk_mhz;
-+			entry.fabricclk_mhz = bw_params->clk_table.entries[j].fclk_mhz;
- 			entry.dram_speed_mts = 0;
- 
- 			get_optimal_ntuple(&entry);
-@@ -2976,7 +2981,7 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
- 
- 	// Remove duplicate states, note duplicate states are always neighbouring since table is sorted.
- 	i = 0;
--	while (i < *num_entries - 1) {
-+	while (i < ((int)*num_entries - 1)) {
- 		if (table[i].dcfclk_mhz == table[i + 1].dcfclk_mhz &&
- 				table[i].fabricclk_mhz == table[i + 1].fabricclk_mhz &&
- 				table[i].dram_speed_mts == table[i + 1].dram_speed_mts)
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-index 0782a34689a0..fd698335d713 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-@@ -1724,7 +1724,8 @@ static void mode_support_configuration(struct vba_vars_st *v,
- void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_lib)
- {
- 	struct vba_vars_st *v = &mode_lib->vba;
--	int i, j, start_state;
-+	int i, start_state;
-+	unsigned int j;
- 	unsigned int k, m;
- 	unsigned int MaximumMPCCombine;
- 	unsigned int NumberOfNonCombinedSurfaceOfMaximumBandwidth;
-@@ -2030,7 +2031,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 	mode_lib->vba.MPCCombineMethodIncompatible = v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MPCCombineMethodAsNeededForPStateChangeAndVoltage
- 			&& v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.MPCCombineMethodAsPossible;
- 
--	for (i = start_state; i < v->soc.num_states; i++) {
-+	for (i = start_state; i < (int)v->soc.num_states; i++) {
- 		for (j = 0; j < 2; j++) {
- 			mode_lib->vba.TotalNumberOfActiveDPP[i][j] = 0;
- 			mode_lib->vba.TotalAvailablePipesSupport[i][j] = true;
-@@ -2307,7 +2308,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 		}
- 	}
- 
--	for (i = start_state; i < v->soc.num_states; ++i) {
-+	for (i = start_state; i < (int)v->soc.num_states; ++i) {
- 		mode_lib->vba.ExceededMultistreamSlots[i] = false;
- 		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 			if (mode_lib->vba.OutputMultistreamEn[k] == true && mode_lib->vba.OutputMultistreamId[k] == k) {
-@@ -2410,7 +2411,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 		}
- 	}
- 
--	for (i = start_state; i < v->soc.num_states; ++i) {
-+	for (i = start_state; i < (int)v->soc.num_states; ++i) {
- 		mode_lib->vba.DTBCLKRequiredMoreThanSupported[i] = false;
- 		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 			if (mode_lib->vba.BlendingAndTiming[k] == k
-@@ -2427,7 +2428,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 		}
- 	}
- 
--	for (i = start_state; i < v->soc.num_states; ++i) {
-+	for (i = start_state; i < (int)v->soc.num_states; ++i) {
- 		mode_lib->vba.ODMCombine2To1SupportCheckOK[i] = true;
- 		mode_lib->vba.ODMCombine4To1SupportCheckOK[i] = true;
- 		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
-@@ -2445,7 +2446,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 		}
- 	}
- 
--	for (i = start_state; i < v->soc.num_states; i++) {
-+	for (i = start_state; i < (int)v->soc.num_states; i++) {
- 		mode_lib->vba.DSCCLKRequiredMoreThanSupported[i] = false;
- 		for (k = 0; k <= mode_lib->vba.NumberOfActiveSurfaces - 1; k++) {
- 			if (mode_lib->vba.BlendingAndTiming[k] == k) {
-@@ -2482,7 +2483,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 	/* Check DSC Unit and Slices Support */
- 	v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired = 0;
- 
--	for (i = start_state; i < v->soc.num_states; ++i) {
-+	for (i = start_state; i < (int)v->soc.num_states; ++i) {
- 		mode_lib->vba.NotEnoughDSCUnits[i] = false;
- 		mode_lib->vba.NotEnoughDSCSlices[i] = false;
- 		v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.TotalDSCUnitsRequired = 0;
-@@ -2517,7 +2518,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 	}
- 
- 	/*DSC Delay per state*/
--	for (i = start_state; i < v->soc.num_states; ++i) {
-+	for (i = start_state; i < (int)v->soc.num_states; ++i) {
- 		for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 			mode_lib->vba.DSCDelayPerState[i][k] = dml32_DSCDelayRequirement(
- 					mode_lib->vba.RequiresDSC[i][k], mode_lib->vba.ODMCombineEnablePerState[i][k],
-@@ -2531,7 +2532,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 
- 		for (k = 0; k <= mode_lib->vba.NumberOfActiveSurfaces - 1; k++) {
- 			for (m = 0; m <= mode_lib->vba.NumberOfActiveSurfaces - 1; m++) {
--				for (j = 0; j <= mode_lib->vba.NumberOfActiveSurfaces - 1; j++) {
-+				for (j = 0; j < mode_lib->vba.NumberOfActiveSurfaces; j++) {
- 					if (mode_lib->vba.BlendingAndTiming[k] == m &&
- 							mode_lib->vba.RequiresDSC[i][m] == true) {
- 						mode_lib->vba.DSCDelayPerState[i][k] =
-@@ -2682,7 +2683,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 			mode_lib->vba.SurfaceSizeInMALL,
- 			&mode_lib->vba.ExceededMALLSize);
- 
--	for (i = start_state; i < v->soc.num_states; i++) {
-+	for (i = start_state; i < (int)v->soc.num_states; i++) {
- 		for (j = 0; j < 2; j++) {
- 			for (k = 0; k <= mode_lib->vba.NumberOfActiveSurfaces - 1; k++) {
- 				mode_lib->vba.swath_width_luma_ub_this_state[k] =
+ 	int i;
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-index 5e72966a8daf..af49db78a68b 100644
+index af49db78a68b..e19177b33670 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-@@ -6318,7 +6318,7 @@ bool dml32_CalculateDETSwathFillLatencyHiding(unsigned int NumberOfActiveSurface
- 		enum dm_use_mall_for_pstate_change_mode UsesMALLForPStateChange[],
- 		enum unbounded_requesting_policy UseUnboundedRequesting)
+@@ -2954,7 +2954,7 @@ void dml32_UseMinimumDCFCLK(
+ 		unsigned int VTotal[],
+ 		unsigned int VActive[],
+ 		unsigned int DynamicMetadataTransmittedBytes[],
+-		unsigned int DynamicMetadataLinesBeforeActiveRequired[],
++		int DynamicMetadataLinesBeforeActiveRequired[],
+ 		bool Interlace[],
+ 		double RequiredDPPCLKPerSurface[][2][DC__NUM_DPP__MAX],
+ 		double RequiredDISPCLK[][2],
+@@ -5631,7 +5631,7 @@ void dml32_CalculateStutterEfficiency(
+ 		bool   Interlace[],
+ 		double    MinTTUVBlank[],
+ 		unsigned int   DPPPerSurface[],
+-		unsigned int      DETBufferSizeY[],
++		unsigned int   DETBufferSizeY[],
+ 		unsigned int   BytePerPixelY[],
+ 		double    BytePerPixelDETY[],
+ 		double      SwathWidthY[],
+@@ -5663,10 +5663,10 @@ void dml32_CalculateStutterEfficiency(
+ 		/* Output */
+ 		double   *StutterEfficiencyNotIncludingVBlank,
+ 		double   *StutterEfficiency,
+-		unsigned int     *NumberOfStutterBurstsPerFrame,
++		int      *NumberOfStutterBurstsPerFrame,
+ 		double   *Z8StutterEfficiencyNotIncludingVBlank,
+ 		double   *Z8StutterEfficiency,
+-		unsigned int     *Z8NumberOfStutterBurstsPerFrame,
++		int      *Z8NumberOfStutterBurstsPerFrame,
+ 		double   *StutterPeriod,
+ 		bool  *DCHUBBUB_ARB_CSTATE_MAX_CAP_MODE)
  {
--	int k;
-+	unsigned int k;
- 	double SwathSizeAllSurfaces = 0;
- 	double SwathSizeAllSurfacesInFetchTimeUs;
- 	double DETSwathLatencyHidingUs;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
-index e0a1dc89ce43..4f7188b1183c 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
-@@ -211,8 +211,8 @@ static void dcn321_insert_entry_into_table_sorted(struct _vcs_dpi_voltage_scalin
- 					   unsigned int *num_entries,
- 					   struct _vcs_dpi_voltage_scaling_st *entry)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
+index 5d34735df83d..9ea36f3ff27c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
+@@ -614,7 +614,7 @@ void dml32_UseMinimumDCFCLK(
+ 		unsigned int VTotal[],
+ 		unsigned int VActive[],
+ 		unsigned int DynamicMetadataTransmittedBytes[],
+-		unsigned int DynamicMetadataLinesBeforeActiveRequired[],
++		int DynamicMetadataLinesBeforeActiveRequired[],
+ 		bool Interlace[],
+ 		double RequiredDPPCLKPerSurface[][2][DC__NUM_DPP__MAX],
+ 		double RequiredDISPCLK[][2],
+@@ -1013,7 +1013,7 @@ void dml32_CalculateStutterEfficiency(
+ 		bool   ProgressiveToInterlaceUnitInOPP,
+ 		bool   Interlace[],
+ 		double    MinTTUVBlank[],
+-		unsigned int   DPPPerSurface[],
++		unsigned int    DPPPerSurface[],
+ 		unsigned int      DETBufferSizeY[],
+ 		unsigned int   BytePerPixelY[],
+ 		double    BytePerPixelDETY[],
+@@ -1046,10 +1046,10 @@ void dml32_CalculateStutterEfficiency(
+ 		/* Output */
+ 		double   *StutterEfficiencyNotIncludingVBlank,
+ 		double   *StutterEfficiency,
+-		unsigned int     *NumberOfStutterBurstsPerFrame,
++		int      *NumberOfStutterBurstsPerFrame,
+ 		double   *Z8StutterEfficiencyNotIncludingVBlank,
+ 		double   *Z8StutterEfficiency,
+-		unsigned int     *Z8NumberOfStutterBurstsPerFrame,
++		int      *Z8NumberOfStutterBurstsPerFrame,
+ 		double   *StutterPeriod,
+ 		bool  *DCHUBBUB_ARB_CSTATE_MAX_CAP_MODE);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
+index 07993741f5e6..cde84dfb0953 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
+@@ -472,7 +472,7 @@ struct vba_vars_st {
+ 	unsigned int VTotal[DC__NUM_DPP__MAX];
+ 	unsigned int VTotal_Max[DC__NUM_DPP__MAX];
+ 	unsigned int VTotal_Min[DC__NUM_DPP__MAX];
+-	int DPPPerPlane[DC__NUM_DPP__MAX];
++	unsigned int DPPPerPlane[DC__NUM_DPP__MAX];
+ 	double PixelClock[DC__NUM_DPP__MAX];
+ 	double PixelClockBackEnd[DC__NUM_DPP__MAX];
+ 	bool DCCEnable[DC__NUM_DPP__MAX];
+@@ -739,7 +739,7 @@ struct vba_vars_st {
+ 	/* ms locals */
+ 	double IdealSDPPortBandwidthPerState[DC__VOLTAGE_STATES][2];
+ 	unsigned int NoOfDPP[DC__VOLTAGE_STATES][2][DC__NUM_DPP__MAX];
+-	int NoOfDPPThisState[DC__NUM_DPP__MAX];
++	unsigned int NoOfDPPThisState[DC__NUM_DPP__MAX];
+ 	enum odm_combine_mode ODMCombineEnablePerState[DC__VOLTAGE_STATES][DC__NUM_DPP__MAX];
+ 	double SwathWidthYThisState[DC__NUM_DPP__MAX];
+ 	unsigned int SwathHeightCPerState[DC__VOLTAGE_STATES][2][DC__NUM_DPP__MAX];
+@@ -900,7 +900,7 @@ struct vba_vars_st {
+ 	int PTEBufferSizeInRequestsForChroma;
+ 
+ 	// Missing from VBA
+-	int dpte_group_bytes_chroma;
++	unsigned int dpte_group_bytes_chroma;
+ 	unsigned int vm_group_bytes_chroma;
+ 	double dst_x_after_scaler;
+ 	double dst_y_after_scaler;
+@@ -1100,8 +1100,8 @@ struct vba_vars_st {
+ 	unsigned int DETBufferSizeCThisState[DC__NUM_DPP__MAX];
+ 	bool NoUrgentLatencyHiding[DC__NUM_DPP__MAX];
+ 	bool NoUrgentLatencyHidingPre[DC__NUM_DPP__MAX];
+-	int swath_width_luma_ub_this_state[DC__NUM_DPP__MAX];
+-	int swath_width_chroma_ub_this_state[DC__NUM_DPP__MAX];
++	unsigned int swath_width_luma_ub_this_state[DC__NUM_DPP__MAX];
++	unsigned int swath_width_chroma_ub_this_state[DC__NUM_DPP__MAX];
+ 	double UrgLatency[DC__VOLTAGE_STATES];
+ 	double VActiveCursorBandwidth[DC__VOLTAGE_STATES][2][DC__NUM_DPP__MAX];
+ 	double VActivePixelBandwidth[DC__VOLTAGE_STATES][2][DC__NUM_DPP__MAX];
+@@ -1172,7 +1172,7 @@ struct vba_vars_st {
+ 	int ConfigReturnBufferSizeInKByte;
+ 	enum unbounded_requesting_policy UseUnboundedRequesting;
+ 	int CompressedBufferSegmentSizeInkByte;
+-	int CompressedBufferSizeInkByte;
++	unsigned int CompressedBufferSizeInkByte;
+ 	int MetaFIFOSizeInKEntries;
+ 	int ZeroSizeBufferEntries;
+ 	int COMPBUF_RESERVED_SPACE_64B;
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c
+index 2bdd063cc1e1..25ebf71b48d8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c
+@@ -307,7 +307,7 @@ void dpp1_cm_set_output_csc_default(
  {
--	int i = 0;
--	int index = 0;
-+	unsigned int i = 0;
-+	unsigned int index = 0;
+ 	struct dcn10_dpp *dpp = TO_DCN10_DPP(dpp_base);
+ 	const uint16_t *regval = NULL;
+-	int arr_size;
++	uint32_t arr_size;
  
- 	dc_assert_fp_enabled();
+ 	regval = find_color_matrix(colorspace, &arr_size);
+ 	if (regval == NULL) {
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
+index e7880fc61b4a..2556d0550aeb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
+@@ -543,7 +543,7 @@ bool dpp3_get_optimal_number_of_taps(
  
-@@ -237,7 +237,7 @@ static void dcn321_insert_entry_into_table_sorted(struct _vcs_dpi_voltage_scalin
- static void remove_entry_from_table_at_index(struct _vcs_dpi_voltage_scaling_st *table, unsigned int *num_entries,
- 		unsigned int index)
+ static void dpp3_deferred_update(struct dpp *dpp_base)
  {
--	int i;
-+	unsigned int i;
+-	int bypass_state;
++	uint32_t bypass_state;
+ 	struct dcn3_dpp *dpp = TO_DCN30_DPP(dpp_base);
  
- 	if (*num_entries == 0)
- 		return;
-@@ -265,19 +265,19 @@ static void sort_entries_with_same_bw(struct _vcs_dpi_voltage_scaling_st *table,
- 	unsigned int end_index = 0;
- 	unsigned int current_bw = 0;
- 
--	for (int i = 0; i < (*num_entries - 1); i++) {
-+	for (unsigned int i = 0; i + 1 < *num_entries; i++) {
- 		if (table[i].net_bw_in_kbytes_sec == table[i+1].net_bw_in_kbytes_sec) {
- 			current_bw = table[i].net_bw_in_kbytes_sec;
- 			start_index = i;
- 			end_index = ++i;
- 
--			while ((i < (*num_entries - 1)) && (table[i+1].net_bw_in_kbytes_sec == current_bw))
-+			while ((i + 1 < *num_entries) && (table[i+1].net_bw_in_kbytes_sec == current_bw))
- 				end_index = ++i;
- 		}
- 
- 		if (start_index != end_index) {
--			for (int j = start_index; j < end_index; j++) {
--				for (int k = start_index; k < end_index; k++) {
-+			for (unsigned int j = start_index; j < end_index; j++) {
-+				for (unsigned int k = start_index; k < end_index; k++) {
- 					if (table[k].dcfclk_mhz > table[k+1].dcfclk_mhz)
- 						swap_table_entries(&table[k], &table[k+1]);
- 				}
-@@ -296,7 +296,7 @@ static void sort_entries_with_same_bw(struct _vcs_dpi_voltage_scaling_st *table,
-  */
- static void remove_inconsistent_entries(struct _vcs_dpi_voltage_scaling_st *table, unsigned int *num_entries)
+ 	if (dpp_base->deferred_reg_writes.bits.disable_dscl) {
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c
+index 8170a86ad0ea..99581f35e54b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c
+@@ -317,7 +317,7 @@ void dpp3_set_hdr_multiplier(
+ static void program_gamut_remap(
+ 		struct dcn3_dpp *dpp,
+ 		const uint16_t *regval,
+-		int select)
++		unsigned int select)
  {
--	for (int i = 0; i < (*num_entries - 1); i++) {
-+	for (unsigned int i = 0; i + 1 < *num_entries; i++) {
- 		if (table[i].net_bw_in_kbytes_sec == table[i+1].net_bw_in_kbytes_sec) {
- 			if ((table[i].dram_speed_mts > table[i+1].dram_speed_mts) ||
- 				(table[i].fabricclk_mhz > table[i+1].fabricclk_mhz))
-@@ -344,7 +344,8 @@ static int override_max_clk_values(struct clk_limit_table_entry *max_clk_limit,
- static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk_bw_params *bw_params,
- 		struct _vcs_dpi_voltage_scaling_st *table, unsigned int *num_entries)
+ 	uint16_t selection = 0;
+ 	struct color_matrices_reg gam_regs;
+@@ -379,7 +379,7 @@ void dpp3_cm_set_gamut_remap(
  {
--	int i, j;
-+	int i;
-+	unsigned int j, k;
- 	struct _vcs_dpi_voltage_scaling_st entry = {0};
- 	struct clk_limit_table_entry max_clk_data = {0};
+ 	struct dcn3_dpp *dpp = TO_DCN30_DPP(dpp_base);
+ 	int i = 0;
+-	int gamut_mode;
++	uint32_t gamut_mode;
  
-@@ -431,8 +432,8 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
- 	entry.phyclk_d32_mhz = dcn3_21_soc.clock_limits[0].phyclk_d32_mhz;
+ 	if (adjust->gamut_adjust_type != GRAPHICS_GAMUT_ADJUST_TYPE_SW)
+ 		/* Bypass if type is bypass or hw */
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+index 8dfb6dd14eb2..854b106596e2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+@@ -1333,7 +1333,7 @@ uint32_t dc_dsc_stream_bandwidth_in_kbps(const struct dc_crtc_timing *timing,
  
- 	// Insert all the DCFCLK STAs
--	for (i = 0; i < num_dcfclk_stas; i++) {
--		entry.dcfclk_mhz = dcfclk_sta_targets[i];
-+	for (k = 0; k < num_dcfclk_stas; k++) {
-+		entry.dcfclk_mhz = dcfclk_sta_targets[k];
- 		entry.fabricclk_mhz = 0;
- 		entry.dram_speed_mts = 0;
+ uint32_t dc_dsc_stream_bandwidth_overhead_in_kbps(
+ 		const struct dc_crtc_timing *timing,
+-		const int num_slices_h,
++		const uint32_t num_slices_h,
+ 		const bool is_dp)
+ {
+ 	struct fixed31_32 max_dsc_overhead;
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dcn20/dcn20_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dcn20/dcn20_dsc.c
+index 6e1e759462bf..b6cd02d31fa8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dcn20/dcn20_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dcn20/dcn20_dsc.c
+@@ -227,9 +227,9 @@ bool dsc2_get_packed_pps(struct display_stream_compressor *dsc, const struct dsc
+ void dsc2_enable(struct display_stream_compressor *dsc, int opp_pipe)
+ {
+ 	struct dcn20_dsc *dsc20 = TO_DCN20_DSC(dsc);
+-	int dsc_clock_en;
+-	int dsc_fw_config;
+-	int enabled_opp_pipe;
++	uint32_t dsc_clock_en;
++	uint32_t dsc_fw_config;
++	uint32_t enabled_opp_pipe;
  
-@@ -451,10 +452,10 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
- 	dcn321_insert_entry_into_table_sorted(table, num_entries, &entry);
+ 	DC_LOG_DSC("enable DSC %d at opp pipe %d", dsc->inst, opp_pipe);
  
- 	// Insert the UCLK DPMS
--	for (i = 0; i < num_uclk_dpms; i++) {
-+	for (k = 0; k < num_uclk_dpms; k++) {
- 		entry.dcfclk_mhz = 0;
- 		entry.fabricclk_mhz = 0;
--		entry.dram_speed_mts = bw_params->clk_table.entries[i].memclk_mhz * 16;
-+		entry.dram_speed_mts = bw_params->clk_table.entries[k].memclk_mhz * 16;
+@@ -252,7 +252,7 @@ void dsc2_enable(struct display_stream_compressor *dsc, int opp_pipe)
+ void dsc2_disable(struct display_stream_compressor *dsc)
+ {
+ 	struct dcn20_dsc *dsc20 = TO_DCN20_DSC(dsc);
+-	int dsc_clock_en;
++	uint32_t dsc_clock_en;
  
- 		get_optimal_ntuple(&entry);
- 		entry.net_bw_in_kbytes_sec = calculate_net_bw_in_kbytes_sec(&entry);
-@@ -463,9 +464,9 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
+ 	DC_LOG_DSC("disable DSC %d", dsc->inst);
  
- 	// If FCLK is coarse grained, insert individual DPMs.
- 	if (num_fclk_dpms > 2) {
--		for (i = 0; i < num_fclk_dpms; i++) {
-+		for (k = 0; k < num_fclk_dpms; k++) {
- 			entry.dcfclk_mhz = 0;
--			entry.fabricclk_mhz = bw_params->clk_table.entries[i].fclk_mhz;
-+			entry.fabricclk_mhz = bw_params->clk_table.entries[k].fclk_mhz;
- 			entry.dram_speed_mts = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c
+index 17acb64a9d80..d84c3399d386 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c
+@@ -79,9 +79,9 @@ void dsc35_construct(struct dcn20_dsc *dsc,
+ static void dsc35_enable(struct display_stream_compressor *dsc, int opp_pipe)
+ {
+ 	struct dcn20_dsc *dsc20 = TO_DCN20_DSC(dsc);
+-	int dsc_clock_en;
+-	int dsc_fw_config;
+-	int enabled_opp_pipe;
++	uint32_t dsc_clock_en;
++	uint32_t dsc_fw_config;
++	uint32_t enabled_opp_pipe;
  
- 			get_optimal_ntuple(&entry);
-@@ -489,7 +490,7 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
- 	// ratios (by derate, are exact).
+ 	DC_LOG_DSC("enable DSC %d at opp pipe %d", dsc->inst, opp_pipe);
  
- 	// Remove states that require higher clocks than are supported
--	for (i = *num_entries - 1; i >= 0 ; i--) {
-+	for (i = (int)*num_entries - 1; i >= 0 ; i--) {
- 		if (table[i].dcfclk_mhz > max_clk_data.dcfclk_mhz ||
- 				table[i].fabricclk_mhz > max_clk_data.fclk_mhz ||
- 				table[i].dram_speed_mts > max_clk_data.memclk_mhz * 16)
-@@ -519,7 +520,7 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
- 	// coarse grained DPMs and remove duplicates.
- 
- 	// Round up UCLKs
--	for (i = *num_entries - 1; i >= 0 ; i--) {
-+	for (i = (int)*num_entries - 1; i >= 0 ; i--) {
- 		for (j = 0; j < num_uclk_dpms; j++) {
- 			if (bw_params->clk_table.entries[j].memclk_mhz * 16 >= table[i].dram_speed_mts) {
- 				table[i].dram_speed_mts = bw_params->clk_table.entries[j].memclk_mhz * 16;
-@@ -530,7 +531,7 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
- 
- 	// If FCLK is coarse grained, round up to next DPMs
- 	if (num_fclk_dpms > 2) {
--		for (i = *num_entries - 1; i >= 0 ; i--) {
-+		for (i = (int)*num_entries - 1; i >= 0 ; i--) {
- 			for (j = 0; j < num_fclk_dpms; j++) {
- 				if (bw_params->clk_table.entries[j].fclk_mhz >= table[i].fabricclk_mhz) {
- 					table[i].fabricclk_mhz = bw_params->clk_table.entries[j].fclk_mhz;
-@@ -541,7 +542,7 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
+@@ -96,7 +96,7 @@ static void dsc35_enable(struct display_stream_compressor *dsc, int opp_pipe)
+ 	REG_GET(DSC_TOP_CONTROL, DSC_CLOCK_EN, &dsc_clock_en);
+ 	REG_GET_2(DSCRM_DSC_FORWARD_CONFIG, DSCRM_DSC_FORWARD_EN, &dsc_fw_config, DSCRM_DSC_OPP_PIPE_SOURCE, &enabled_opp_pipe);
+ 	if ((dsc_clock_en || dsc_fw_config) && enabled_opp_pipe != opp_pipe) {
+-		DC_LOG_DSC("ERROR: DSC %d at opp pipe %d already enabled!", dsc->inst, enabled_opp_pipe);
++		DC_LOG_DSC("ERROR: DSC %d at opp pipe %u already enabled!", dsc->inst, enabled_opp_pipe);
+ 		ASSERT(0);
  	}
- 	// Otherwise, round up to minimum.
- 	else {
--		for (i = *num_entries - 1; i >= 0 ; i--) {
-+		for (i = (int)*num_entries - 1; i >= 0 ; i--) {
- 			if (table[i].fabricclk_mhz < min_fclk_mhz) {
- 				table[i].fabricclk_mhz = min_fclk_mhz;
- 			}
-@@ -549,7 +550,7 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c
+index 41c3b814b6bd..49e854e2926b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dcn401/dcn401_dsc.c
+@@ -144,16 +144,16 @@ void dsc401_set_config(struct display_stream_compressor *dsc, const struct dsc_c
+ void dsc401_enable(struct display_stream_compressor *dsc, int opp_pipe)
+ {
+ 	struct dcn401_dsc *dsc401 = TO_DCN401_DSC(dsc);
+-	int dsc_clock_en;
+-	int dsc_fw_config;
+-	int enabled_opp_pipe;
++	uint32_t dsc_clock_en;
++	uint32_t dsc_fw_config;
++	uint32_t enabled_opp_pipe;
+ 
+ 	DC_LOG_DSC("enable DSC %d at opp pipe %d", dsc->inst, opp_pipe);
+ 
+ 	REG_GET(DSC_TOP_CONTROL, DSC_CLOCK_EN, &dsc_clock_en);
+ 	REG_GET_2(DSCRM_DSC_FORWARD_CONFIG, DSCRM_DSC_FORWARD_EN, &dsc_fw_config, DSCRM_DSC_OPP_PIPE_SOURCE, &enabled_opp_pipe);
+ 	if ((dsc_clock_en || dsc_fw_config) && enabled_opp_pipe != opp_pipe) {
+-		DC_LOG_DSC("ERROR: DSC %d at opp pipe %d already enabled!", dsc->inst, enabled_opp_pipe);
++		DC_LOG_DSC("ERROR: DSC %d at opp pipe %u already enabled!", dsc->inst, enabled_opp_pipe);
+ 		ASSERT(0);
  	}
  
- 	// Round DCFCLKs up to minimum
--	for (i = *num_entries - 1; i >= 0 ; i--) {
-+	for (i = (int)*num_entries - 1; i >= 0 ; i--) {
- 		if (table[i].dcfclk_mhz < min_dcfclk_mhz) {
- 			table[i].dcfclk_mhz = min_dcfclk_mhz;
- 		}
-@@ -557,7 +558,7 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
+@@ -169,7 +169,7 @@ void dsc401_enable(struct display_stream_compressor *dsc, int opp_pipe)
+ void dsc401_disable(struct display_stream_compressor *dsc)
+ {
+ 	struct dcn401_dsc *dsc401 = TO_DCN401_DSC(dsc);
+-	int dsc_clock_en;
++	uint32_t dsc_clock_en;
  
- 	// Remove duplicate states, note duplicate states are always neighbouring since table is sorted.
- 	i = 0;
--	while (i < *num_entries - 1) {
-+	while (i < (int)*num_entries - 1) {
- 		if (table[i].dcfclk_mhz == table[i + 1].dcfclk_mhz &&
- 				table[i].fabricclk_mhz == table[i + 1].fabricclk_mhz &&
- 				table[i].dram_speed_mts == table[i + 1].dram_speed_mts)
-@@ -567,9 +568,8 @@ static int build_synthetic_soc_states(bool disable_dc_mode_overwrite, struct clk
- 	}
+ 	DC_LOG_DSC("disable DSC %d", dsc->inst);
  
- 	// Fix up the state indicies
--	for (i = *num_entries - 1; i >= 0 ; i--) {
-+	for (i = (int)*num_entries - 1; i >= 0 ; i--)
- 		table[i].state = i;
--	}
- 
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
+index 3c7a6569b692..302515128358 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
+@@ -63,10 +63,10 @@ void hubp401_enable_3dlut_fl(struct hubp *hubp, bool enable)
+ 	REG_UPDATE(HUBP_3DLUT_CONTROL, HUBP_3DLUT_ENABLE, enable ? 1 : 0);
  }
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-index 7f40048dd67d..558f8b96cbb8 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-@@ -233,7 +233,7 @@ void dcn35_update_bw_bounding_box_fpu(struct dc *dc,
- 	struct clk_limit_table *clk_table = &bw_params->clk_table;
- 	struct _vcs_dpi_voltage_scaling_st *clock_limits =
- 		dc->scratch.update_bw_bounding_box.clock_limits;
--	int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
-+	unsigned int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
  
- 	dc_assert_fp_enabled();
- 
-@@ -440,7 +440,8 @@ int dcn35_populate_dml_pipes_from_context_fpu(struct dc *dc,
- 					      display_e2e_pipe_params_st *pipes,
- 					      enum dc_validate_mode validate_mode)
+-int hubp401_get_3dlut_fl_done(struct hubp *hubp)
++uint32_t hubp401_get_3dlut_fl_done(struct hubp *hubp)
  {
--	int i, pipe_cnt;
-+	unsigned int i;
-+	int pipe_cnt;
- 	struct resource_context *res_ctx = &context->res_ctx;
- 	struct pipe_ctx *pipe = 0;
- 	bool upscaled = false;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
-index 73c2aee57f28..3ec2671af890 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn351/dcn351_fpu.c
-@@ -266,7 +266,7 @@ void dcn351_update_bw_bounding_box_fpu(struct dc *dc,
- 	struct clk_limit_table *clk_table = &bw_params->clk_table;
- 	struct _vcs_dpi_voltage_scaling_st *clock_limits =
- 		dc->scratch.update_bw_bounding_box.clock_limits;
--	int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
-+	unsigned int max_dispclk_mhz = 0, max_dppclk_mhz = 0;
+ 	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
+-	int ret;
++	uint32_t ret;
  
- 	dc_assert_fp_enabled();
+ 	REG_GET(HUBP_3DLUT_CONTROL, HUBP_3DLUT_DONE, &ret);
+ 	return ret;
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h
+index 4570b8016de5..4116834c552d 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h
+@@ -324,7 +324,7 @@ bool hubp401_construct(
  
-@@ -472,7 +472,8 @@ int dcn351_populate_dml_pipes_from_context_fpu(struct dc *dc,
- 					      display_e2e_pipe_params_st *pipes,
- 					      enum dc_validate_mode validate_mode)
+ void hubp401_init(struct hubp *hubp);
+ 
+-int hubp401_get_3dlut_fl_done(struct hubp *hubp);
++uint32_t hubp401_get_3dlut_fl_done(struct hubp *hubp);
+ 
+ void hubp401_set_unbounded_requesting(struct hubp *hubp, bool enable);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+index 756ce8379538..3e48dedeaf4f 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+@@ -2484,7 +2484,8 @@ void dcn10_enable_vblanks_synchronization(
+ 	(void)group_index;
+ 	struct output_pixel_processor *opp;
+ 	struct timing_generator *tg;
+-	int i, width = 0, height = 0, master;
++	int i, master;
++	uint32_t width = 0, height = 0;
+ 
+ 	DC_LOGGER_INIT(dc->ctx);
+ 
+@@ -2550,7 +2551,8 @@ void dcn10_enable_timing_synchronization(
+ 	(void)group_index;
+ 	struct output_pixel_processor *opp;
+ 	struct timing_generator *tg;
+-	int i, width = 0, height = 0;
++	int i;
++	uint32_t width = 0, height = 0;
+ 
+ 	DC_LOGGER_INIT(dc->ctx);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
+index 858a06b03b57..897a07904bfe 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_hwseq.c
+@@ -147,7 +147,7 @@ static void update_dsc_on_stream(struct pipe_ctx *pipe_ctx, bool enable)
+ 
+ // Given any pipe_ctx, return the total ODM combine factor, and optionally return
+ // the OPPids which are used
+-static unsigned int get_odm_config(struct pipe_ctx *pipe_ctx, unsigned int *opp_instances)
++static unsigned int get_odm_config(struct pipe_ctx *pipe_ctx, int *opp_instances)
  {
--	int i, pipe_cnt;
-+	int pipe_cnt;
-+	unsigned int i;
- 	struct resource_context *res_ctx = &context->res_ctx;
- 	struct pipe_ctx *pipe = 0;
- 	bool upscaled = false;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-index 85453bbb4f9b..146a32f94d6a 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.c
-@@ -304,7 +304,7 @@ bool get_is_phantom_pipe(struct display_mode_lib *mode_lib, const display_e2e_pi
- static void fetch_socbb_params(struct display_mode_lib *mode_lib)
+ 	unsigned int opp_count = 1;
+ 	struct pipe_ctx *odm_pipe;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+index b45ceb570a5c..da629f9e5999 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+@@ -1119,7 +1119,7 @@ void dcn32_update_dsc_on_stream(struct pipe_ctx *pipe_ctx, bool enable)
+ * Given any pipe_ctx, return the total ODM combine factor, and optionally return
+ * the OPPids which are used
+ * */
+-static unsigned int get_odm_config(struct pipe_ctx *pipe_ctx, unsigned int *opp_instances)
++static unsigned int get_odm_config(struct pipe_ctx *pipe_ctx, int *opp_instances)
  {
- 	soc_bounding_box_st *soc = &mode_lib->vba.soc;
--	int i;
-+	unsigned int i;
+ 	unsigned int opp_count = 1;
+ 	struct pipe_ctx *odm_pipe;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+index f133b52ea958..81733cf8614c 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+@@ -403,7 +403,7 @@ static void update_dsc_on_stream(struct pipe_ctx *pipe_ctx, bool enable)
  
- 	// SOC Bounding Box Parameters
- 	mode_lib->vba.ReturnBusWidth = soc->return_bus_width_bytes;
-@@ -946,7 +946,7 @@ static void fetch_pipe_params(struct display_mode_lib *mode_lib)
+ // Given any pipe_ctx, return the total ODM combine factor, and optionally return
+ // the OPPids which are used
+-static unsigned int get_odm_config(struct pipe_ctx *pipe_ctx, unsigned int *opp_instances)
++static unsigned int get_odm_config(struct pipe_ctx *pipe_ctx, int *opp_instances)
+ {
+ 	unsigned int opp_count = 1;
+ 	struct pipe_ctx *odm_pipe;
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/bw_fixed.h b/drivers/gpu/drm/amd/display/dc/inc/bw_fixed.h
+index d1656c9d50df..7a32665b6a0e 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/bw_fixed.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/bw_fixed.h
+@@ -126,7 +126,7 @@ static inline struct bw_fixed bw_div(const struct bw_fixed arg1, const struct bw
+ static inline struct bw_fixed bw_mod(const struct bw_fixed arg1, const struct bw_fixed arg2)
+ {
+ 	struct bw_fixed res;
+-	div64_u64_rem(arg1.value, arg2.value, (uint64_t *)&res.value);
++	div64_u64_rem((uint64_t)arg1.value, (uint64_t)arg2.value, (uint64_t *)&res.value);
+ 	return res;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
+index fc005aadfd55..450d0ee27eae 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
+@@ -305,7 +305,7 @@ struct hubp_funcs {
+ 			enum hubp_3dlut_fl_crossbar_bit_slice bit_slice_y_g,
+ 			enum hubp_3dlut_fl_crossbar_bit_slice bit_slice_cb_b,
+ 			enum hubp_3dlut_fl_crossbar_bit_slice bit_slice_cr_r);
+-	int (*hubp_get_3dlut_fl_done)(struct hubp *hubp);
++	uint32_t (*hubp_get_3dlut_fl_done)(struct hubp *hubp);
+ 	void (*hubp_program_3dlut_fl_config)(struct hubp *hubp, struct hubp_fl_3dlut_config *cfg);
+ 	void (*hubp_clear_tiling)(struct hubp *hubp);
+ 	uint32_t (*hubp_get_current_read_line)(struct hubp *hubp);
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/opp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/opp.h
+index e1428a83ecbc..73cc34ea7726 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/opp.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/opp.h
+@@ -356,8 +356,8 @@ struct opp_funcs {
+ 
+ 	void (*opp_program_dpg_dimensions)(
+ 				struct output_pixel_processor *opp,
+-				int width,
+-				int height);
++				uint32_t width,
++				uint32_t height);
+ 
+ 	bool (*dpg_is_blanked)(
+ 			struct output_pixel_processor *opp);
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
+index 2f70bb476c97..3a80369cde16 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
+@@ -32,9 +32,9 @@ struct dc_bios;
+ 
+ /* Contains CRTC vertical/horizontal pixel counters */
+ struct crtc_position {
+-	int32_t vertical_count;
+-	int32_t horizontal_count;
+-	int32_t nominal_vcount;
++	uint32_t vertical_count;
++	uint32_t horizontal_count;
++	uint32_t nominal_vcount;
+ };
+ 
+ struct dcp_gsl_params {
+@@ -321,7 +321,7 @@ struct timing_generator {
+ 	const struct timing_generator_funcs *funcs;
+ 	struct dc_bios *bp;
+ 	struct dc_context *ctx;
+-	int inst;
++	uint32_t inst;
+ };
+ 
+ struct dc_crtc_timing;
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/link_service.h b/drivers/gpu/drm/amd/display/dc/inc/link_service.h
+index 57bb82e94942..d0609443af49 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/link_service.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/link_service.h
+@@ -110,7 +110,7 @@ struct link_service {
+ 	struct dc_sink *(*add_remote_sink)(
+ 			struct dc_link *link,
+ 			const uint8_t *edid,
+-			int len,
++			unsigned int len,
+ 			struct dc_sink_init_data *init_data);
+ 	void (*remove_remote_sink)(struct dc_link *link, struct dc_sink *sink);
+ 	bool (*get_hpd_state)(struct dc_link *link);
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/reg_helper.h b/drivers/gpu/drm/amd/display/dc/inc/reg_helper.h
+index 26cb1459b743..7a1ecb8d986f 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/reg_helper.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/reg_helper.h
+@@ -155,63 +155,63 @@
+  * read given register and fill in field value in output parameter */
+ #define REG_GET(reg_name, field, val)	\
+ 		generic_reg_get(CTX, REG(reg_name), \
+-				FN(reg_name, field), val)
++				FN(reg_name, field), (uint32_t *)val)
+ 
+ #define REG_GET_2(reg_name, f1, v1, f2, v2)	\
+ 		generic_reg_get2(CTX, REG(reg_name), \
+-				FN(reg_name, f1), v1, \
+-				FN(reg_name, f2), v2)
++				FN(reg_name, f1), (uint32_t *)v1, \
++				FN(reg_name, f2), (uint32_t *)v2)
+ 
+ #define REG_GET_3(reg_name, f1, v1, f2, v2, f3, v3)	\
+ 		generic_reg_get3(CTX, REG(reg_name), \
+-				FN(reg_name, f1), v1, \
+-				FN(reg_name, f2), v2, \
+-				FN(reg_name, f3), v3)
++				FN(reg_name, f1), (uint32_t *)v1, \
++				FN(reg_name, f2), (uint32_t *)v2, \
++				FN(reg_name, f3), (uint32_t *)v3)
+ 
+ #define REG_GET_4(reg_name, f1, v1, f2, v2, f3, v3, f4, v4)	\
+ 		generic_reg_get4(CTX, REG(reg_name), \
+-				FN(reg_name, f1), v1, \
+-				FN(reg_name, f2), v2, \
+-				FN(reg_name, f3), v3, \
+-				FN(reg_name, f4), v4)
++				FN(reg_name, f1), (uint32_t *)v1, \
++				FN(reg_name, f2), (uint32_t *)v2, \
++				FN(reg_name, f3), (uint32_t *)v3, \
++				FN(reg_name, f4), (uint32_t *)v4)
+ 
+ #define REG_GET_5(reg_name, f1, v1, f2, v2, f3, v3, f4, v4, f5, v5)	\
+ 		generic_reg_get5(CTX, REG(reg_name), \
+-				FN(reg_name, f1), v1, \
+-				FN(reg_name, f2), v2, \
+-				FN(reg_name, f3), v3, \
+-				FN(reg_name, f4), v4, \
+-				FN(reg_name, f5), v5)
++				FN(reg_name, f1), (uint32_t *)v1, \
++				FN(reg_name, f2), (uint32_t *)v2, \
++				FN(reg_name, f3), (uint32_t *)v3, \
++				FN(reg_name, f4), (uint32_t *)v4, \
++				FN(reg_name, f5), (uint32_t *)v5)
+ 
+ #define REG_GET_6(reg_name, f1, v1, f2, v2, f3, v3, f4, v4, f5, v5, f6, v6)	\
+ 		generic_reg_get6(CTX, REG(reg_name), \
+-				FN(reg_name, f1), v1, \
+-				FN(reg_name, f2), v2, \
+-				FN(reg_name, f3), v3, \
+-				FN(reg_name, f4), v4, \
+-				FN(reg_name, f5), v5, \
+-				FN(reg_name, f6), v6)
++				FN(reg_name, f1), (uint32_t *)v1, \
++				FN(reg_name, f2), (uint32_t *)v2, \
++				FN(reg_name, f3), (uint32_t *)v3, \
++				FN(reg_name, f4), (uint32_t *)v4, \
++				FN(reg_name, f5), (uint32_t *)v5, \
++				FN(reg_name, f6), (uint32_t *)v6)
+ 
+ #define REG_GET_7(reg_name, f1, v1, f2, v2, f3, v3, f4, v4, f5, v5, f6, v6, f7, v7)	\
+ 		generic_reg_get7(CTX, REG(reg_name), \
+-				FN(reg_name, f1), v1, \
+-				FN(reg_name, f2), v2, \
+-				FN(reg_name, f3), v3, \
+-				FN(reg_name, f4), v4, \
+-				FN(reg_name, f5), v5, \
+-				FN(reg_name, f6), v6, \
+-				FN(reg_name, f7), v7)
++				FN(reg_name, f1), (uint32_t *)v1, \
++				FN(reg_name, f2), (uint32_t *)v2, \
++				FN(reg_name, f3), (uint32_t *)v3, \
++				FN(reg_name, f4), (uint32_t *)v4, \
++				FN(reg_name, f5), (uint32_t *)v5, \
++				FN(reg_name, f6), (uint32_t *)v6, \
++				FN(reg_name, f7), (uint32_t *)v7)
+ 
+ #define REG_GET_8(reg_name, f1, v1, f2, v2, f3, v3, f4, v4, f5, v5, f6, v6, f7, v7, f8, v8)	\
+ 		generic_reg_get8(CTX, REG(reg_name), \
+-				FN(reg_name, f1), v1, \
+-				FN(reg_name, f2), v2, \
+-				FN(reg_name, f3), v3, \
+-				FN(reg_name, f4), v4, \
+-				FN(reg_name, f5), v5, \
+-				FN(reg_name, f6), v6, \
+-				FN(reg_name, f7), v7, \
+-				FN(reg_name, f8), v8)
++				FN(reg_name, f1), (uint32_t *)v1, \
++				FN(reg_name, f2), (uint32_t *)v2, \
++				FN(reg_name, f3), (uint32_t *)v3, \
++				FN(reg_name, f4), (uint32_t *)v4, \
++				FN(reg_name, f5), (uint32_t *)v5, \
++				FN(reg_name, f6), (uint32_t *)v6, \
++				FN(reg_name, f7), (uint32_t *)v7, \
++				FN(reg_name, f8), (uint32_t *)v8)
+ 
+ /* macro to poll and wait for a register field to read back given value */
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+index 794dd6a95918..b1c6bae5faea 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+@@ -1562,7 +1562,7 @@ static bool link_add_remote_sink_helper(struct dc_link *dc_link, struct dc_sink
+ struct dc_sink *link_add_remote_sink(
+ 		struct dc_link *link,
+ 		const uint8_t *edid,
+-		int len,
++		unsigned int len,
+ 		struct dc_sink_init_data *init_data)
+ {
+ 	struct dc_sink *dc_sink;
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.h b/drivers/gpu/drm/amd/display/dc/link/link_detection.h
+index 1ab29476060b..e8d29fa1550d 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_detection.h
++++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.h
+@@ -32,7 +32,7 @@ bool link_detect_connection_type(struct dc_link *link,
+ struct dc_sink *link_add_remote_sink(
+ 		struct dc_link *link,
+ 		const uint8_t *edid,
+-		int len,
++		unsigned int len,
+ 		struct dc_sink_init_data *init_data);
+ void link_remove_remote_sink(struct dc_link *link, struct dc_sink *sink);
+ bool link_reset_cur_dp_mst_topology(struct dc_link *link);
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+index 4a2699a374b7..6f62b438c662 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+@@ -47,9 +47,9 @@
+ #define DP_SINK_PR_ENABLE_AND_CONFIGURATION		0x37B
+ 
+ /* Travis */
+-static const uint8_t DP_VGA_LVDS_CONVERTER_ID_2[] = "sivarT";
++static const char DP_VGA_LVDS_CONVERTER_ID_2[] = "sivarT";
+ /* Nutmeg */
+-static const uint8_t DP_VGA_LVDS_CONVERTER_ID_3[] = "dnomlA";
++static const char DP_VGA_LVDS_CONVERTER_ID_3[] = "dnomlA";
+ 
+ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode)
+ {
+@@ -1211,9 +1211,9 @@ int edp_get_backlight_level(const struct dc_link *link)
+ 		fw_set_brightness = dmcu->funcs->is_dmcu_initialized(dmcu);
+ 
+ 	if (!fw_set_brightness && panel_cntl->funcs->get_current_backlight)
+-		return panel_cntl->funcs->get_current_backlight(panel_cntl);
++		return (int)panel_cntl->funcs->get_current_backlight(panel_cntl);
+ 	else if (abm != NULL && abm->funcs->get_current_backlight != NULL)
+-		return (int) abm->funcs->get_current_backlight(abm);
++		return (int)abm->funcs->get_current_backlight(abm);
+ 	else
+ 		return DC_ERROR_UNEXPECTED;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c b/drivers/gpu/drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c
+index 27e653234850..576d9fcaafee 100644
+--- a/drivers/gpu/drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c
+@@ -375,7 +375,7 @@ void mpc1_mpc_init(struct mpc *mpc)
+ void mpc1_mpc_init_single_inst(struct mpc *mpc, unsigned int mpcc_id)
+ {
+ 	struct dcn10_mpc *mpc10 = TO_DCN10_MPC(mpc);
+-	int opp_id;
++	uint32_t opp_id;
+ 
+ 	REG_GET(MPCC_OPP_ID[mpcc_id], MPCC_OPP_ID, &opp_id);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c b/drivers/gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c
+index 4e91e9f6f11a..d7a07e29d23a 100644
+--- a/drivers/gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c
+@@ -1067,7 +1067,7 @@ static void program_gamut_remap(
+ 		struct dcn30_mpc *mpc30,
+ 		int mpcc_id,
+ 		const uint16_t *regval,
+-		int select)
++		uint32_t select)
+ {
+ 	uint16_t selection = 0;
+ 	struct color_matrices_reg gam_regs;
+@@ -1129,7 +1129,7 @@ void mpc3_set_gamut_remap(
+ {
+ 	struct dcn30_mpc *mpc30 = TO_DCN30_MPC(mpc);
+ 	int i = 0;
+-	int gamut_mode;
++	uint32_t gamut_mode;
+ 
+ 	if (adjust->gamut_adjust_type != GRAPHICS_GAMUT_ADJUST_TYPE_SW)
+ 		program_gamut_remap(mpc30, mpcc_id, NULL, GAMUT_REMAP_BYPASS);
+@@ -1201,7 +1201,7 @@ void mpc3_get_gamut_remap(struct mpc *mpc,
+ {
+ 	struct dcn30_mpc *mpc30 = TO_DCN30_MPC(mpc);
+ 	uint16_t arr_reg_val[12] = {0};
+-	int select;
++	uint32_t select;
+ 
+ 	read_gamut_remap(mpc30, mpcc_id, arr_reg_val, &select);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.c b/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.c
+index ce826a5be4c7..83730bbe26a8 100644
+--- a/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.c
++++ b/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.c
+@@ -293,7 +293,7 @@ void opp2_set_disp_pattern_generator(
+ 
+ void opp2_program_dpg_dimensions(
+ 		struct output_pixel_processor *opp,
+-		int width, int height)
++		uint32_t width, uint32_t height)
+ {
+ 	struct dcn20_opp *oppn20 = TO_DCN20_OPP(opp);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.h b/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.h
+index fb0c047c1788..8944fa6c8f79 100644
+--- a/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.h
++++ b/drivers/gpu/drm/amd/display/dc/opp/dcn20/dcn20_opp.h
+@@ -156,7 +156,7 @@ void opp2_set_disp_pattern_generator(
+ 
+ void opp2_program_dpg_dimensions(
+ 		struct output_pixel_processor *opp,
+-		int width, int height);
++		uint32_t width, uint32_t height);
+ 
+ bool opp2_dpg_is_blanked(struct output_pixel_processor *opp);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
+index 60e546b69a05..07895d5f4dfa 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.c
+@@ -101,7 +101,7 @@ static void optc32_set_odm_combine(struct timing_generator *optc, int *opp_id, i
+ void optc32_get_odm_combine_segments(struct timing_generator *tg, int *odm_combine_segments)
+ {
+ 	struct optc *optc1 = DCN10TG_FROM_TG(tg);
+-	int segments;
++	uint32_t segments;
+ 
+ 	REG_GET(OPTC_DATA_SOURCE_SELECT, OPTC_NUM_OF_INPUT_SEGMENT, &segments);
+ 
+diff --git a/drivers/gpu/drm/amd/display/include/fixed31_32.h b/drivers/gpu/drm/amd/display/include/fixed31_32.h
+index 990fa1f19c22..109093311984 100644
+--- a/drivers/gpu/drm/amd/display/include/fixed31_32.h
++++ b/drivers/gpu/drm/amd/display/include/fixed31_32.h
+@@ -445,7 +445,7 @@ static inline struct fixed31_32 dc_fixpt_pow(struct fixed31_32 arg1, struct fixe
   */
- static void cache_debug_params(struct display_mode_lib *mode_lib)
+ static inline int dc_fixpt_floor(struct fixed31_32 arg)
  {
--	int k = 0;
-+	unsigned int k = 0;
+-	unsigned long long arg_value = arg.value > 0 ? arg.value : -arg.value;
++	unsigned long long arg_value = (unsigned long long)(arg.value > 0 ? arg.value : -arg.value);
  
- 	for (k = 0; k < mode_lib->vba.NumberOfActivePlanes; k++)
- 		mode_lib->vba.CachedActiveDRAMClockChangeLatencyMargin[k] = mode_lib->vba.ActiveDRAMClockChangeLatencyMargin[k];
+ 	if (arg.value >= 0)
+ 		return (int)(arg_value >> FIXED31_32_BITS_PER_FRACTIONAL_PART);
+@@ -459,7 +459,7 @@ static inline int dc_fixpt_floor(struct fixed31_32 arg)
+  */
+ static inline int dc_fixpt_round(struct fixed31_32 arg)
+ {
+-	unsigned long long arg_value = arg.value > 0 ? arg.value : -arg.value;
++	unsigned long long arg_value = (unsigned long long)(arg.value > 0 ? arg.value : -arg.value);
+ 
+ 	const long long summand = dc_fixpt_half.value;
+ 
+@@ -479,7 +479,7 @@ static inline int dc_fixpt_round(struct fixed31_32 arg)
+  */
+ static inline int dc_fixpt_ceil(struct fixed31_32 arg)
+ {
+-	unsigned long long arg_value = arg.value > 0 ? arg.value : -arg.value;
++	unsigned long long arg_value = (unsigned long long)(arg.value > 0 ? arg.value : -arg.value);
+ 
+ 	const long long summand = dc_fixpt_one.value -
+ 		dc_fixpt_epsilon.value;
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
+index 5cb979c2cf8c..1164fd96b714 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_log.c
+@@ -44,7 +44,7 @@ void mod_hdcp_dump_binary_message(uint8_t *msg, uint32_t msg_size,
+ 		for (i = 0; i < msg_size; i++) {
+ 			if (i % bytes_per_line == 0)
+ 				buf[buf_pos++] = '\n';
+-			sprintf(&buf[buf_pos], "%02X ", msg[i]);
++			sprintf((char *)&buf[buf_pos], "%02X ", msg[i]);
+ 			buf_pos += byte_size;
+ 		}
+ 		buf[buf_pos++] = '\0';
 -- 
 2.53.0
 
