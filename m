@@ -1,143 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56AEA288BA;
-	Sat,  1 Aug 2026 00:00:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C5D23AB88
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 00:16:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785542445; cv=none; b=VzbFkcWGajdI3MTk9Tk3dEUgcGpJDF3SlTviT27VoZwJ3nuVE7PyXVYUrxua65KCEWl0F2brM9f0HKWrQcf0ylhnhEREJJOCjR9oQkNlpEMI2bkeLQDjjvVIaRzI9fz8VYgJoMGiZ/5P+Y05X8PaIpqMGAlt9SKB0qi4JueXFvs=
+	t=1785543424; cv=none; b=VdC6nnM1K3acp1IzqnOFH4H4dzOmhauqG3b+HDWDyU23koxTHK9HCO4NbGtibd/Cq6YfAqn21Sw+lLBMRBCTfjuSN6Hc3YBy/NONkn/xUWAvy6R+MtCSXiLw8ZA2hS9xQoN66wbmrpYG06EvLU4rgwuo04IA37u/jTv4Rc28WU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785542445; c=relaxed/simple;
-	bh=S0VWoZGcaimIZLdJ0bY+pvtJf+RUpknhPlieoL+sHnA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZV8XgQp8b+rLIORIzzxCV0EB3Mnb2LXTa6l2yqRHvdnlLrVsNMnASG2VybywLBqCRoQNLeuZVQquozNfQfcRCx1i+s0qvN3KPx6FzHmjyFW66DJfWYLLsGbVvEFMse1vSA86k/gnMt8eG4P2JG51xdWJEX5k+T+Yf4jnjdGPADY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UHujfMiF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785543424; c=relaxed/simple;
+	bh=AYV6oj9zpGuUjYDdThONODwSdRyt5PjMWy+DUh2trK4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aJ7CIMt9taWG3eXO3mu3Pd136qF61oAVioEBgk8PsE/i3L0xCufTAAJ2Fzw7DGNJ0VhyhsWNJM61W19sxGztEZyq4nOH9mNfE7IA8mOM7nTPY6E6sk/wCkWj+nxFv9+cCgZ9C1oMXBfRQhDhSIXaCc9CINCUpuoHhCbRh0qAGGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Zb2KlsDc; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=cFabma+v; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UHujfMiF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A456E1F00AC4;
-	Sat,  1 Aug 2026 00:00:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785542442;
-	bh=yMSl9nxxy6ecn8SS8SUYw2J4FDB9e4+TO2lJG/lK4+U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UHujfMiFMUE4RvXA65JvdK8rj7QoTSV9voUwwrMUgqfR6y/64yF08xTCvIWxncPhl
-	 p3xNOKuGv6xHt/Rzjf7EN1ki1mVyEINj5gci+D6pBzfCvT+xe1WRUKmp7iRqtGxg7B
-	 iesQmE9qezhlqn64Vai+BaYt4SOAHhP/tJgQH5P4NkS7PyqOaP/TpvqR9bTh3ULNGj
-	 fvtjs7BpdIa3PwbwBsezY81gV+itNyzGw9pIBEApaP9z8W1hNoQB2ADRD82jJTe1f4
-	 o5nXPCyAAWYR4IqDk+i/IzhqNaVIanW7JI/gBQfCaRFqV6tDSARU4zfrllLPxAYLM8
-	 IltbxLnw5is5w==
-From: Jakub Kicinski <kuba@kernel.org>
-To: mhun512@gmail.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	richardcochran@gmail.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	ae878000@gmail.com
-Subject: Re: [PATCH net] ptp: fc3: unregister PTP clock on probe failure
-Date: Fri, 31 Jul 2026 17:00:40 -0700
-Message-ID: <20260801000040.1274739-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260729021750.49181-1-mhun512@gmail.com>
-References: <20260729021750.49181-1-mhun512@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Zb2KlsDc";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="cFabma+v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785543417;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YTUbWgbCMoV9mNudsltxaFWvTkWg6x0Ijnt3ApilYfU=;
+	b=Zb2KlsDcu/i6sOY+h56bLgRn1EppUYuALnVGx+DJuJdC2Uc/hPRd9x4eSam5WA8aY6Cx/q
+	aWmBwh+3XkHcE7C5lppG0CZL/NwL0qQKenw7DpFdRltRRMm28wbfGbEdWFxNUlAnqn44Sx
+	6ss21DAbya3S+L0e918u4ABta4vBi4o=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-471-Wc_bxd2xMI2Kxld5Yl_sig-1; Fri, 31 Jul 2026 20:16:53 -0400
+X-MC-Unique: Wc_bxd2xMI2Kxld5Yl_sig-1
+X-Mimecast-MFC-AGG-ID: Wc_bxd2xMI2Kxld5Yl_sig_1785543412
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-47f83416551so1704114f8f.3
+        for <stable@vger.kernel.org>; Fri, 31 Jul 2026 17:16:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1785543412; x=1786148212; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YTUbWgbCMoV9mNudsltxaFWvTkWg6x0Ijnt3ApilYfU=;
+        b=cFabma+vdTjIu/KUBPP4CLysOx1ysjza3BotT8Kbf+5u68ATcobVssjjuU8glRfOo4
+         WXkgRn5LwsYZmRZmNQk0HhGntD/s79Qul09i9VID5xkKOGeHEIk5Yrsb2BciuMhsfgML
+         B4WNCMAGhGnTcit52dRRS2fMaBbzzi4EYQQzGiIxiXPqUGSu9nX70PwpQbQOvhc/WKYu
+         mFI9geoV1Q7Och9K/54BgE4dX2fyAtZsgl+6R8nsXmM9HTuqrW2v38i0GR3Gf+zSRMtb
+         XRFjUJv/fiXuwBzxg5NyWLJHmGCsjz40T0qlXoIffSdA2UdJDZwB6Ho5/ylIZEGv0JOK
+         WNsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785543412; x=1786148212;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YTUbWgbCMoV9mNudsltxaFWvTkWg6x0Ijnt3ApilYfU=;
+        b=o6JrboEbNqRcs2GT0J5n2rEMMoK3Snly2wl2IFZDuT7ug3sf5ZoPuhe418KT93P+Ad
+         9ubS0VoeaK9htBbwXyTvBGRHaoyjjhYulWokRW2UfPnOV0uejl8EiHezLKIbWFRX2Jp0
+         UZUkXFQiiR1Pm3xJtoNO6TwQykZKA8MH6L8/2eI0Bx5EDfWZsWR/F9iuRGXsaktILLBv
+         7McZYX+XSNuMyI/0oFZgt6TkOh6hY66TeWuqW+M6eUZJ4vJU7J/O3YDz0nEv02YiELJt
+         /czMW4u8iI2Xo3k/GSF2mbk1RdQHTAApR2wVC0pYbN0MPRaBMP9VvmVqi/NFTWetasnY
+         u+8Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqpWsRb89pjiWi0+MkTPU3Eu0cTzvMXnfhhIzAOlQsmklykWVzORdvNYXQ6XdnwirOATxY0Pq0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyTHgLqvFPJE/N5KSuRzkekfeEUk5EqpsFwpwFH8ESw3XnogEnu
+	B0QZyMM0psvr2FhCnrxhMHFC8vVkJgVisZ4lq0Id/BsXt73tpIaTJt4zMUaBkBwOEDpmjEK7seQ
+	bVyuQCaW9930KnWSKzPjQkkRwDEJpKg7Do+ttr1rBK3qdjV/MCNWO26P31A==
+X-Gm-Gg: AR+sD114BfsZFATcoKK4dJzmpb1lIhbRfJwWBL2dCt09Eh68ynDxOVKa1CBIxHshQh2
+	y0Bp8y5NnaIZIFdEuHs9gMIjmJ3TKNyhvpHLH/ieG2yDz2uwr8w0cMEsZjsB18kChLoklWVEJ91
+	Zr+CIYrjvT9MdJLSjZvI4ATILG9PaIPj8i+hjRggwzundWu92TsYz8RZPVqLuAnusOwMfxIL2hE
+	yRYDd/aBRDUeSCSvuznOMLHySILlRXu3AV/NCdi8EKJE3EtcYjVxZJUrBmbLA48G8SMA6xTntGz
+	47soWUgF1vC6VT5/qc3JKReFiUjdPNctRhA9afYXSOC65NyjDgdBJL8u+aEEgo24a8Bhq1jdNSo
+	T9Etl/d00VR35m6eC3GlE4hk=
+X-Received: by 2002:a05:6000:46d8:b0:47f:6a3a:9e6b with SMTP id ffacd0b85a97d-47fd72f1612mr1988333f8f.32.1785543412352;
+        Fri, 31 Jul 2026 17:16:52 -0700 (PDT)
+X-Received: by 2002:a05:6000:46d8:b0:47f:6a3a:9e6b with SMTP id ffacd0b85a97d-47fd72f1612mr1988296f8f.32.1785543411814;
+        Fri, 31 Jul 2026 17:16:51 -0700 (PDT)
+Received: from redhat.com (ppp-94-66-118-61.home.otenet.gr. [94.66.118.61])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd45a0c8bsm10836910f8f.34.2026.07.31.17.16.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 17:16:51 -0700 (PDT)
+Date: Fri, 31 Jul 2026 20:16:47 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Link Lin <linkl@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	virtualization@lists.linux.dev, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, prasin@google.com,
+	rientjes@google.com, duenwen@google.com, jasowang@redhat.com,
+	xuanzhuo@linux.alibaba.com, Ammar Faizi <ammarfaizi2@openresty.com>,
+	jiaqiyan@google.com, ahwilkins@google.com,
+	Greg Thelen <gthelen@google.com>,
+	Alexander Duyck <alexander.duyck@gmail.com>, jthoughton@google.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3] mm/page_reporting: use system_freezable_wq to fix UAF
+ during suspend
+Message-ID: <20260731201559-mutt-send-email-mst@kernel.org>
+References: <20260721005603.1710551-1-linkl@google.com>
+ <20260722173639.34d3f58413354218b24a5b0d@linux-foundation.org>
+ <CALUx4KSfUUud86k4SLwETJAciRc8kZ9QocvBj39KmzXDiQ7J1g@mail.gmail.com>
+ <20260723051327-mutt-send-email-mst@kernel.org>
+ <CALUx4KRoCco0HA=Y_qFzSD=CegbJPUkQkvjRb1Y3UcgRdwQToA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CALUx4KRoCco0HA=Y_qFzSD=CegbJPUkQkvjRb1Y3UcgRdwQToA@mail.gmail.com>
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
---- Patch [1]: [PATCH net] ptp: fc3: unregister PTP clock on probe failure ---
-commit b2adefd142cc562a99e7438a6d4b4f057c1bebfa
-Author: Myeonghun Pak <mhun512@gmail.com>
+On Fri, Jul 31, 2026 at 01:21:40PM -0700, Link Lin wrote:
+> On Thu, Jul 23, 2026 at 2:15 AM Michael S. Tsirkin <mst@redhat.com> wrote:
+> >
+> > I suspect rest of work items we have, e.g. update_balloon_stats_work/update_balloon_size_work
+> > all have issues around freeze/restore and error handling.
+> >
+> > --
+> > MST
+> >
+> 
+> Hi Michael,
+> 
+> We have indeed discovered a kernel crash in update_balloon_stats_work
+> after the balloon driver failed to resume and initialize in our
+> production fleet.
+> 
+> Alex Wilkins <ahwilkins@google.com> diagnosed, root caused, and
+> reported this vulnerability.
 
-ptp: fc3: unregister PTP clock on probe failure
+I wouldn't call this a "vulnerability" just a garden variety bug.
 
-This patch unregisters the PTP clock in idtfc3_enable_ptp() on failure
-paths. It ensures that the registered clock doesn't refer to freed memory
-if post-registration operations fail during probe.
+> I am currently drafting and testing a
+> 2-patch series to gracefully unregister callbacks and cancel work
+> items on resume failure so that the VM continues running without the
+> balloon driver instead of crashing with a kernel panic.
+> 
+> I wanted to follow up and let you know that we are actively working on
+> this. I will send out the patches to the list as soon as they are
+> sufficiently tested.
+> 
+> Best,
+> Link
 
-> diff --git a/drivers/ptp/ptp_fc3.c b/drivers/ptp/ptp_fc3.c
-> index f0e000428a3f4..32b61bb09b892 100644
-> --- a/drivers/ptp/ptp_fc3.c
-> +++ b/drivers/ptp/ptp_fc3.c
-> @@ -835,16 +835,20 @@ static int idtfc3_enable_ptp(struct idtfc3 *idtfc3)
->  
->  	err = idtfc3_set_overhead(idtfc3);
->  	if (err)
-> -		return err;
-> +		goto err_unregister_clock;
->  
->  	err = idtfc3_init_timecounter(idtfc3);
->  	if (err)
-> -		return err;
-> +		goto err_unregister_clock;
->  
->  	dev_info(idtfc3->dev, "TIME_SYNC_CHANNEL registered as ptp%d",
->  		 idtfc3->ptp_clock->index);
->  
->  	return 0;
-> +
-> +err_unregister_clock:
-> +	ptp_clock_unregister(idtfc3->ptp_clock);
-
-[Severity: High]
-Can calling ptp_clock_unregister() here introduce an AB-BA deadlock?
-
-Looking at idtfc3_probe(), it acquires idtfc3->lock and calls
-idtfc3_enable_ptp():
-
-drivers/ptp/ptp_fc3.c:idtfc3_probe() {
-    ...
-    mutex_lock(idtfc3->lock);
-    err = idtfc3_check_device_compatibility(idtfc3);
-    ...
-    err = idtfc3_enable_ptp(idtfc3);
-    ...
-}
-
-Once ptp_clock_register() completes earlier in idtfc3_enable_ptp(), the
-device is exposed to userspace. If a service like udev immediately tries
-to read the clock, the POSIX clock core acquires a read lock on the
-clock's rwsem and calls into the driver callback, which waits for
-idtfc3->lock:
-
-kernel/time/posix-clock.c:pc_clock_gettime() {
-    down_read(&clk->rwsem);
-    ...
-    err = clk->ops.clock_gettime(clk, ts);
-} ->
-drivers/ptp/ptp_fc3.c:idtfc3_gettime() {
-    ...
-    mutex_lock(idtfc3->lock);
-    ...
-}
-
-If the probe thread then fails in idtfc3_set_overhead() or
-idtfc3_init_timecounter(), it reaches this new error path and calls
-ptp_clock_unregister() while still holding idtfc3->lock.
-
-ptp_clock_unregister() attempts to acquire the write lock on the clock's
-rwsem:
-
-kernel/time/posix-clock.c:posix_clock_unregister() {
-    ...
-    down_write(&clk->rwsem);
-    ...
-}
-
-Would this result in an indefinite deadlock where the probe thread waits
-for the rwsem and the userspace thread waits for the driver mutex?
-
-> +	return err;
->  }
--- 
-pw-bot: cr
