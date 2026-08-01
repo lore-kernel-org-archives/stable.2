@@ -1,139 +1,152 @@
-Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4F7322DB7
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 20:48:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.138
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785617315; cv=pass; b=Yp4VPtzEFcX+FdwSMYf1njbphHHRy6TBgyyEquAko34WWn6Xh4N5HRFJQw4y1goB6+4JGMxvnWAc/X6i1pO4dTWEvd2O4Y875Rtn66IHXBQSGqi2dF4Minymt4vTG4i8UCH63uQuyq3xyfYlxSHyqZvwUXq9m6wmUYZHsIxA5Gg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785617315; c=relaxed/simple;
-	bh=mBnkT6ThApqljIooYhlHy2KrG4XpgC9Us1AFdPaobNE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fFRF4xjNJ3CgwEnMwh8SiyQLBPi9q/ryY4hhcYkTqFzIrHmzGUpceSl0JziES/JW5goD4ETFwKPbsE41G4Rcp7adRminZQPI4sVcXVD4UwCi1gV5PoEY/pXvv/2iDQVdiSoBghgAppaYu+8qXw7BzIJbuq9hrE1pxYw0FLiMZn0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B51Qao1Y; arc=pass smtp.client-ip=74.125.225.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15808310763
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 20:53:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785617597; cv=none; b=lNr2jYmKGnVybAL/z+eDN84fJYXIoDMMEmi4Xat9TvUPysuy+59ECdDub7sY6xuhNWIuTcQK7xkypIMZVlSGpalYfAcP52gP2SK4YxeuKYBSBqtYngkiOLZuOtZxR9+KG9eldwRr8OYH9c6ohBFtFk4i0UTh2U91gOpxrxwAwhQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785617597; c=relaxed/simple;
+	bh=dK6o0Q/obrwoWi9xABYcRVb/E/bhl6I7IPIxG8HEFfU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IsvcOVEyvqzjJzLQUcayHUGtP9ggdsWnl5TMbrOpIoEgyqI7F7I7NxS8YLS2OkreD7IyglVchD/zT3CGd/tvTCaZ0Nt9bUYQeHPYQSvm9GLqN5xYPeEr/y64jDLQSNfJGMf/lb67eR1R3QTrisMTKrXemL5WHiUerVwEak0aDEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iD44l97y; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B51Qao1Y"
-Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-495501e57beso2865715e9.1
-        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 13:48:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785617312; cv=none;
-        d=google.com; s=arc-20260327;
-        b=b4lFbgvF2Kxvl/B/fm2bEjWyaiXZA0gxsPJQ+ELkYjbuylubxMbhQ9hRfsQzWwsl+y
-         wHsPlNwvsuTNgPBLFi3nkk6T+6ALGwYR4Lp+/rMZFW5/jpLOkf0gkWj9u70Tx4c16dRx
-         +ev6MB9fOYkRwMgWD1yhx9IKHSQbQKokHU2BMoVJbq84+Y3zkV6/ZXj/XPJQaTygv1Ng
-         XgpPuMABmg3Lbdx86jXKRDuQfX1KKrz0Rfo6ewtOMrjPMao51W0JIFfN6m9KipbTSdGe
-         N3jKRLkn7RZlTMWRAyNUiTftx3OKNdgIS5RdVG1PV5Nn6wH1Iyc5I6MXXyXGgfA0SQE6
-         8VIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=8C6J3xKw6R8FPOPnn4w954ZGYhiuE4HGYU/iy6pgEu8=;
-        fh=vV4222IGNPjjDTwOivx+XJVnW9zmYnwuIgUwaRMj5+U=;
-        b=b+gfV1G/B8FSeZAhyWD/bfofqMWS8cQevJ1P55qr+xxYDVa22FOCqbz8JWOcOD+HdQ
-         Qgp2rAzNjpqhgHT+FDqryjkwjdLT8rHtHZHcwtRqqpQAr8TxzpwNkzeGMGEe254AsQSP
-         v2d4rEwTNgswIySoDZCUg34/m8fw5EYNhMayYlCowYGFnKpoWykPudphZj3eRZgufrnm
-         XPpmMn2vRZh6erI2l9bDJq1b0Ut8T15NOMafsVuGJZbMqTKgvmBa4Ae1EXVdxS40uzQk
-         uh1HGG1B7UaNSqV+OIgUEg4FwPiwNef+zk6w7OzgRfrA0XRwFWu7GSoxSfTPD3vSBBwf
-         r47Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iD44l97y"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47f84023916so2199048f8f.3
+        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 13:53:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785617312; x=1786222112; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8C6J3xKw6R8FPOPnn4w954ZGYhiuE4HGYU/iy6pgEu8=;
-        b=B51Qao1YgKHjoy6NE3z60EXlzaoafaoZE6zBSCUCqr+2uohOr2Ad41H/zDiCemt7gO
-         UJ9LmzMq4uUYePu6eJs3rbptnxkYZNB1xa1ONi2SkpgbFAqdGMphAUYEqZaV7+FHpQF5
-         nNO3Ppk0o71Pj1penEcsWyvLIg7MgG3RdPj899aDxPXE4MnJwfx9KigXZGif6CUOCq3m
-         bng85gZQPThfDRWSSDk5h6CyhaZTu5XJbhNU3rrem4045Siuint9V116qnrNd9Dz4VBs
-         7W7MgoD42g0nh73iOjV1dEJgdymBz9XSmBlnbvPXP6YZFyy0TLsBk8Poi1+S7z2ijiUy
-         8Ckw==
+        d=gmail.com; s=20251104; t=1785617594; x=1786222394; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OJKqmH8LLrrmklRKr4uQ8cBGv4eP4F7/njSPphfYAjU=;
+        b=iD44l97yncgV+SYwSILMnmb+Xufhi12wfIcalER9leHYSYIMU0V4G8N/mKQ++cv52f
+         WGtZWO/TEEJxyCF+wqw4ivf/WPATwUQgvBraJ+JucZ/wcc/GrqH9qmCSA9Wkwfvliyhi
+         6j5ba1q8w7OmtYHUFX/vRz1kU7bnClENBMcdKpFMgtuabCaQubpEyIq1tFxwHOIuJCpj
+         zSRhO6Bkm3+DuCBYew8uZS1H9aHCQGpqqGFmnq5cyN0aS48htY9ZoE4nDYfCm6fch+rR
+         2dSgHtIpwAZUYEtePjKSLocM+bQ4M0V0HQAB4T8VUuhpv6tY6V7FzKocD76Jd8Axmdyk
+         Lnvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785617312; x=1786222112;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8C6J3xKw6R8FPOPnn4w954ZGYhiuE4HGYU/iy6pgEu8=;
-        b=p7IPoacqmg2RSF90p04x0tyM2i4mgKA1Uwbx9GJHr8dJaxOOptHzpmswOeYX1QNYeQ
-         v8lrar/Lx91QZMXFOoCYyIpN82zj5u9jQeDotvkZKMDQG7WKS4RTYnq59ynGc1DFzuFj
-         oQ5VYjlllyk70WTbBFIAZOnV5ziLDkS2TgeC0VEeqju6KppQ2ner0kEQ/ap5xe93v4z2
-         OPlCpiyH4bOxMb90zAJRxAHbioXK0Sf9CH9mfdCi0EqxlE2lDp/7mk2CpFszjV4OROYO
-         Jh2RUcm/Td2PF2aO0MTYfVVxSfQFgHGrAHBG7mxvDXzwmobt1ZOLYvcQxZZ77SQKZi5R
-         Q/4A==
-X-Forwarded-Encrypted: i=1; AHgh+Rpv0sGg/KUA+9Vy9owIwYBaRRoB3M+EWVlD+Y+2zceHfFW+5otl8FW6FLUoIgikXmbVSLPZZpQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywo7Wb9sW3QTq3anqf2UAgvQq+R/IAHn4uj+1dQtWePH9Mr4WUh
-	EEuicgmMuTHEPY14zWWWOhkKAdze2LNbVAWiVC81aIu9dsw32tTWlEW8Q8RYLMhPACXmynA/pbt
-	8aBPMY7ltXXgb9AfhW+fhmssNphTEZeA=
-X-Gm-Gg: AR+sD11fg+M7PwCdcsjgW8odP/mk5l4pPolk0KAuHvxqTkca6Yev6HR7qBAdszKeVIp
-	TzOvBe0G20siSLg1RBydLRA82/L0bPIZajeTo1/aAJwKrMRFJfByqXfHNhDHSp61/e73GRryDj4
-	pRQiDU9EG2AjNYqoTwR+u32zs25zQNsbXLSFMsQmbAiHyPF5qkPcHu0TAipJJPGGgvcg8J+LGYe
-	3JYpJao2EJhVDRnF99m/H+d4Ei3DUiTKRYiWEEFVvWMPHZ3DaR23sb1at7XBpK7S68PL2tLMhsH
-	UTirisNHDvo2yFM5tVdvALZOUbmM3+yBvbGucAgI79LSfy/QFBEg+05DQdXgZKnNM9KVRe1eUeW
-	Er6h6lw773Y+V2tzPrdu1kd+eij+9Z78RJwIbSPCLS6RqexQRJGz0SFBSR17UnxdsnmvQGtZvZW
-	OiLzdu74VHKAz0j2tN+b5b
-X-Received: by 2002:a05:600c:4e8c:b0:492:3e69:a86f with SMTP id
- 5b1f17b1804b1-4980c66c82dmr61216715e9.1.1785617312375; Sat, 01 Aug 2026
- 13:48:32 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785617594; x=1786222394;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OJKqmH8LLrrmklRKr4uQ8cBGv4eP4F7/njSPphfYAjU=;
+        b=ND7//Z33lLUQCPuXUKFncS0F0ncxwZnROUdaDIwwaDnq0AQdV4bUXCeb1sEw2ssocE
+         YpsqSit6UZ0IwubYz41N25mZt3nkr4qSJLm3n/N+Lo0yaMxAJDDWz7IKykJ9DoG8vajz
+         1dU56DMMnDsr0tfT9zAdE1VB9qw1bjbyOlgyiRvBqJzt66zMHMFLYJwFCwUzggrKXAXT
+         uNdMY16bqEtlSdY7OP/ErvYY8UeU2izGBsM9fhlt1T3EysZgYK5kir7PIIvjOFHs1yzV
+         lF63WIPVLg/mLfrHgkt9py1jBSZFqn8QUnqCnMoq0kQQdIrSQ9zWsf+ewqt251OMIRvu
+         oVpw==
+X-Forwarded-Encrypted: i=1; AHgh+RpV+vGt9RH4mmjMUShsX55WWPHrHVwWHDll/tSZ8AVilHOV6L1pgUEGwDM2haBAYgLC++XOilk=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxnEcuAx/6E++m00Zmmi0ovjlqoHsLFxpqSBHtuGKPy3965BWFA
+	LZ9rmoKUhkt2o5OffC6voxjHzBjOi5itEyWpXCmxc/RNOlgFEbbZ2RFI
+X-Gm-Gg: AR+sD12YXrnzVH2aB2ny/8op7T2CC7V7mZtRAhC1sLAfhZpYKGWTpO8FrJafBkeqDCm
+	qrIqPT6b++1nwOMqhBX+Got2NvjgRdzgLgBVaHGhlXJWY9ZteuxQHRxcqK1jxyJLcO3TiC4ZHTr
+	yTU+BibN8cmhTfbSuKFMkqvlvjkXyc2BBGqBlmVKF/hM8gSXTTL4FddeKvuB2n+zKTVE58G1R+m
+	865l6BQiwnkbC6+SetJO/SMwMwMyutMyvFtFJF7UaaoXWFdeld2pDdotOgGqxl+5wOnU4e8/2bg
+	V+I7LEqwy67Mq3mOwfdb43+Iz2Orl0z/cImCRLJIWLHDYPD6uiLKX81DqqvlgD/t2/N0Fim1fKQ
+	NUPP5SIOnMMDonWW9RDocFdG4H582C0FF2GZBhfUivAocn/Q3KhSfuFrOB9g56s8dMRcHBAOLg7
+	2Y0VgH3FZ/oDY58ndm7dke3dHKa8rikiyIqVfuXLA2te2gRWysy1q+mqvtQZdWry/jTsznIIAAD
+	sdME3Y+QqmTZ8i9aOo+a3CxzZaxkoh/hjLoFdCXCzA/lkAP
+X-Received: by 2002:a5d:6246:0:b0:47e:81aa:3832 with SMTP id ffacd0b85a97d-47fd72c76d1mr8250736f8f.16.1785617594067;
+        Sat, 01 Aug 2026 13:53:14 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd41cfdc6sm17900061f8f.8.2026.08.01.13.53.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 01 Aug 2026 13:53:13 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: dan.scally@ideasonboard.com,
+	jacopo.mondi@ideasonboard.com,
+	mchehab@kernel.org,
+	nayden.kanchev@arm.com,
+	hverkuil+cisco@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: mali-c55: Fix frame sequence numbers on dual-pipe hardware
+Date: Sat,  1 Aug 2026 21:53:11 +0100
+Message-ID: <20260801205311.386692-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260731003925.2728977-1-ebiggers@kernel.org> <DKDRHTVNMQ2E.1FCTWQZO2EB7Z@gmail.com>
- <20260801171549.GB3567@quark> <DKDSE8AVM7Q3.3KZHCSNL4NT4L@gmail.com>
- <DKDSGKU7WKI2.3UV1GEZW2VZWY@gmail.com> <20260801201830.GA9537@quark>
-In-Reply-To: <20260801201830.GA9537@quark>
-From: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Date: Sat, 1 Aug 2026 22:47:55 +0200
-X-Gm-Features: AUfX_mzLIMowetDUO0vAuf8KJJkY3h7UzUQoep8RdQws3hVuyYMF4336u1MQHcg
-Message-ID: <CAP01T74A0umBf_2hCuAygvUFBocjrDogxnu1_U+RkKBw8ictfw@mail.gmail.com>
-Subject: Re: [PATCH] fsverity: Fix bpf_get_fsverity_digest() dynptr assumptions
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: fsverity@lists.linux.dev, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	Jiri Olsa <jolsa@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Sat, 1 Aug 2026 at 22:18, Eric Biggers <ebiggers@kernel.org> wrote:
->
-> On Sat, Aug 01, 2026 at 07:38:08PM +0200, Kumar Kartikeya Dwivedi wrote:
-> > On Sat Aug 1, 2026 at 7:35 PM CEST, Kumar Kartikeya Dwivedi wrote:
-> > > On Sat Aug 1, 2026 at 7:15 PM CEST, Eric Biggers wrote:
-> > >> On Sat, Aug 01, 2026 at 06:52:45PM +0200, Kumar Kartikeya Dwivedi wrote:
-> > >>> > Also correctly handle sizes over INT_MAX, which previously caused an
-> > >>> > integer overflow and crash.  __bpf_dynptr_size() returns a u64.
-> > >>> >
-> > >>>
-> > >>> I guess this occurs when using file dynptrs? Otherwise the size is capped to
-> > >>> DYNPTR_SIZE_MASK.
-> > >>
-> > >> Yes, though it looks like __bpf_dynptr_data_rw() excludes file dynptrs.
-> > >> So this particular issue might be unreachable.  Still seems like a good
-> > >> idea to match the u64 type that __bpf_dynptr_size() returns though.
-> > >>
-> > >
-> > > I don't see this in patchwork, so you might have to resend this with [PATCH
-> > > bpf-next] subject again to trigger CI if you want this to go through bpf tree.
-> > >
-> >
-> > Sorry, [PATCH bpf], rather.
->
-> Sure I can do that.
->
-> Would it be okay to also make this function return -EOVERFLOW if
-> out_digest_sz is too small, similar to FS_IOC_MEASURE_VERITY, instead of
-> silently truncating?  The silent truncation is a footgun.
+The single frame_sequence counter in struct mali_c55_isp is incremented
+in mali_c55_set_plane_done(), which runs once per completed buffer per
+capture device rather than once per frame. Hardware fitted with the
+downscale pipe always hits this: mali_c55_pipeline_ready() refuses to
+start the ISP unless both the full-resolution and the downscale queues
+are streaming, so the counter advances twice per frame.
 
-Yeah, I think it makes sense. I will also ping Song to ack this on
-Monday (or your new version).
-Thanks
+Each video node then reports sequence numbers 0, 2, 4, ..., which
+userspace reads as a dropped frame between every pair of frames, and the
+two pipes never number the same frame alike, contrary to
+Documentation/admin-guide/media/mali-c55.rst. The V4L2_EVENT_FRAME_SYNC
+event and the statistics and parameters buffers only read the counter,
+so their sequence numbers stop identifying a frame too.
 
->
-> - Eric
+Increment the counter once per frame, when the ISP start interrupt is
+handled, and let mali_c55_set_plane_done() only read it. Initialise it
+to UINT_MAX so the first increment yields sequence zero. Hardware
+without the downscale pipe keeps the numbering it had before.
+
+Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+ drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 2 +-
+ drivers/media/platform/arm/mali-c55/mali-c55-core.c    | 1 +
+ drivers/media/platform/arm/mali-c55/mali-c55-isp.c     | 3 ++-
+ 3 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+index ff01553026fb..7e1190d7fffc 100644
+--- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
++++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+@@ -476,7 +476,7 @@ void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
+ 
+ 	/* If the other plane is also done... */
+ 	buf->vb.vb2_buf.timestamp = ktime_get_boottime_ns();
+-	buf->vb.sequence = isp->frame_sequence++;
++	buf->vb.sequence = isp->frame_sequence;
+ 	vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
+ }
+ 
+diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+index fb81141d1653..be562156b295 100644
+--- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
++++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+@@ -573,6 +573,7 @@ static irqreturn_t mali_c55_isr(int irq, void *context)
+ 	for_each_set_bit(i, &interrupt_status, MALI_C55_NUM_IRQ_BITS) {
+ 		switch (i) {
+ 		case MALI_C55_IRQ_ISP_START:
++			mali_c55->isp.frame_sequence++;
+ 			mali_c55_isp_queue_event_sof(mali_c55);
+ 
+ 			mali_c55_set_next_buffer(&mali_c55->cap_devs[MALI_C55_CAP_DEV_FR]);
+diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
+index e128adf6ee37..39178f6a1bd6 100644
+--- a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
++++ b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
+@@ -342,7 +342,8 @@ static int mali_c55_isp_enable_streams(struct v4l2_subdev *sd,
+ 
+ 	src_sd = media_entity_to_v4l2_subdev(isp->remote_src->entity);
+ 
+-	isp->frame_sequence = 0;
++	/* first pre-increment at SOF yields sequence 0 */
++	isp->frame_sequence = UINT_MAX;
+ 	ret = mali_c55_isp_start(mali_c55, state);
+ 	if (ret) {
+ 		dev_err(mali_c55->dev, "Failed to start ISP\n");
+-- 
+2.53.0
+
