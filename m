@@ -1,138 +1,121 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [40.65.178.148])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 390613E3D95;
-	Sat,  1 Aug 2026 05:21:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=40.65.178.148
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD103B0AC3;
+	Sat,  1 Aug 2026 05:37:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785561670; cv=none; b=te9fGpLj7OE8ikzM5ufazXaUxBXxXxrPTulNgsmwAgsQoBzrI3V4/8Ns+paQXaTv+yHAub0gW1LjwmbPvhF/Ho/o6HytcCnl0OizKVgXfxWwidSkQ4u1nVNa9ysu51tTX1/iftH6YDiAXSg/hOVWbL6Kr0izqzCaPFUNYMuX9NU=
+	t=1785562647; cv=none; b=hxFrCnGQBOfJG7Tm4cREQ+Ftd40cOa7s+QunV2eWD8htvdEJkD+4IQpIJx/ld53f8ZCNcxRDsf1IJZlodLQbmp51GFcPo98bg3diP0iDgaHpyxLAPjxFxAK4qKQ+vsS9IGB4ejyHjmDfTTVqNhTUGlVQ+y/nOuV54izhHGAL3zc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785561670; c=relaxed/simple;
-	bh=WNUg3ubh+MAZvf392NsUDZOjVUOM4UhgnpZ4cXoEWPM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DwzIhPVZwYTDliAHRHBZi1eQAHgBaVdZIQ0ZB+hx1RiE05GTrp4JrxVYbthN87KdGCk0vgDBOOKPBDcAbZUM2gxRVozYy0I54J7NQm18Kf8FFDFkHm75DOQqZ2ujP0jKnKz1HIf/VEgAqEZlIYA7SuEbqvkj7Jb2mdzgzjnr1vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=40.65.178.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCnpCk_gm1qMy9WAA--.9108S3;
-	Sat, 01 Aug 2026 13:21:03 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgDnGDA_gm1qfCnIAg--.59189S2;
-	Sat, 01 Aug 2026 13:21:03 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-pm@vger.kernel.org
-Cc: sre@kernel.org,
-	laurentiu.palcu@intel.com,
-	krzk@kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH v2] power: supply: bq24257: fix use-after-free on remove
-Date: Sat,  1 Aug 2026 05:19:58 +0000
-Message-Id: <20260801051958.354528-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1785562647; c=relaxed/simple;
+	bh=XAa4TKe+I0zsmMl484oQTyfnWczrzimXXspnyUgEq/U=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=gwu0Klfdj5Z0s1j6d4jVJ9mmUc01RBr3ovM1wVqJUP7zByLUV401a85iFX9Lubefg2Ogd1bzuH2Niq/VMewJGqu2mWdl+O1InxOGtx1z/70RuszgEFZjk0mjJ6lLtO+5+lXVLNhX+bBcbFPn8uZvdHaRF/03M9rsJ+9paAGmvN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=AMcG3tZ3; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=BKKqCnhb; arc=none smtp.client-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="AMcG3tZ3";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BKKqCnhb"
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfout.stl.internal (Postfix) with ESMTP id E00511D000D2;
+	Sat,  1 Aug 2026 01:37:22 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-10.internal (MEProxy); Sat, 01 Aug 2026 01:37:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1785562642;
+	 x=1785649042; bh=KnvNmU4wA3iXdtMnFnEaM5zs5YSDjHYQVJJyAFQvCfc=; b=
+	AMcG3tZ3MyUv8hJDE/cn0e/wPXH/UDF/vQ3JiwhfjSVgIroN3DW3Mnoni4hO5qot
+	ZGe7JZ8sWKBcz04GFyItkZDOySYitWhZ+ESxaN5g8gZuJYtzQ/24wOhbrhrrxz4J
+	jrxYqrnVG4VWzKlKirvNm0lu4sO8A0Nq6OjwMukM+zFeO+whmlVQgK7PvDQo1H/1
+	Cx6/R5sJ5dGxv4PVeY0gw4XtpUCcQdkmuvxMyCvE6n2sFJ8u60Uwvn27jiG/2xHL
+	6ksNCpJUfaMVmn2rhzurdGONLjE5MgZbSkHZsR5ekpOlgHO6a0oRkqestJWRUyP5
+	7s8PbBOL5dB16lLNvuJaTA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785562642; x=
+	1785649042; bh=KnvNmU4wA3iXdtMnFnEaM5zs5YSDjHYQVJJyAFQvCfc=; b=B
+	KKqCnhbIW2j7tDlgVrMctAWohVrW0GBn9vm9RbV2Ccb9ZoLGfY13pZ4Sd7azxUTa
+	mT4S9KaSoEy5Uk1rCnldZjxH4seUoaVdoYLNklwLsgv9wWaBJM1PHOEZ2LbLgoZU
+	+SCS0oZxZIKJv3/Bs6tOXNlkN1VNRHhggqd2uLFjZC2SzYWMtQVLpfpU9cz9flxp
+	Rm+apTJ/jj4Ky8y1WgRMcJhaQMcLwOSTs0TXqFTkANGlwIa62U0rhc9rp/SeB64c
+	tlBTebi7Egn3iunQmbszpWNAMYfG06CNtCSZxeHmFOigk1jlclgfPbW2WrYTXD1q
+	y09+G/3qRWFukga7IpCww==
+X-ME-Sender: <xms:EYZtaqU2g3PPcfrVH4HcapKgfQdi3CfH52aL4vud_1LTk62uyz67CA>
+    <xme:EYZtaifRFWTnTxuVR8koHAyDPz894X9Ia8vJ7xrvW0yfdHqymOWxqShnM8sfo21BD
+    iMfRwdMjRehdOVq8doCa2KAw4LcaY_SNZaYQusz6W63-ZxVpEbF3Q>
+X-ME-Received: <xmr:EYZtap7-OuLUfGar4AhgaJfwHnv6_i1HekHggwTy5rBe6Uai9R_UYI9V3dpJvuyRkKqbGKjdmTfKuW9CKoeOSkMVY4WIZPda>
+X-ME-Proxy-Cause: dmFkZTG1qd71ZL7uta8iL80oRdtvk0BrPRhqU5C+7PshtdX14Xf00s3RlWEQlZRx3gCYzN
+    zDsp+kAsjJIPvy9/xnhmX8jZvEVX+clqFd3nsgGVGdBI+FkXo/eW9a+Y8KQnRNl6V/yKeA
+    6//CTQvupHCXWcQ6z1pfmmqv5iRzdNI2rb3KWU3Qk+JHsK0PpLKKW0fdx1H0GzQe1v8JW1
+    kvp0/zwORBniHouJ9FbxjXLNZmOCjpoa//IEpwKDNYeoLZIPOI2I5NYad9iM3A83O5Xn1j
+    G+bxthadoeTrovJrvtIO41/lrNN2iwFQpFiVw8U1fKY4UtFkdvqLnBwuL+ws/HunEpafOt
+    iOfppWh4wCuPbkYUcc2Sz4xcSZMQAkSfhS4Sr+l/YeSZt9ndK2cbnOQ59rIbFiIWER/KcM
+    ksJEuRXmNgzwp+3mPsr0yMjCuGLMr5HZH9RT/HMcMHBjnnYwoPdgJvtUeghtjComQnRTXy
+    Mv04KnZylngkRjHrjbec5UBwJw98QzI3EwNl+T+HlTNgsx6tRDUG2TGRnKgxcZBl6CCMuI
+    Na8C1q4SJ3Qfjx5j8RrVbJ/zSN0Oso49VUf5q8uUPcTgLiz5kdxjgc8onWOuBQj8UxyHit
+    5bB/KaA+I6dMjBx2BmXkNPV4oURne5TSfBbwUfcQrbJjkFrgZgrwCZ17tvIQ
+X-ME-Proxy: <xmx:EYZtalRH-2TpF3-JPUKwQjjHHiI95XrSao6Crkn04hNfLtKcRbiEkA>
+    <xmx:EYZtaseP7tVgJXJwjD2OCPnUwwncF4lQHh9OAS8JSl4KjJX5OKd9vA>
+    <xmx:EYZtalSYj0l_GKFD0ikxcyJvvl4DMsAvKeAYekJcIH-Xg-8ELm3BHQ>
+    <xmx:EYZtalN1OaSLSAI54lEhgOfFMY6Pramifjm52LhN8gURs5FkKijScQ>
+    <xmx:EoZtauo95eME0kKiWtwR7r24W2jxs48WGSfYMfhve_-WVfnaOM7fs450>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 1 Aug 2026 01:37:19 -0400 (EDT)
+Message-ID: <036def3e-d2b4-4f54-a654-f6b2d4774d66@pobox.com>
+Date: Fri, 31 Jul 2026 22:37:17 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgDnGDA_gm1qfCnIAg--.59189S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?KCK3CAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZyBhf7uZTBsfU+v6wr8RAna+0eYuL7vGw1tjkMo4J1nfCo7
-	WkQsjHmB0Ktf7tgs0gHN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoWxXw48JryUAr4kuw48tF4fZwc_yoW5WFyUpF
-	Z5CFW5C3y8JFWjyFZ2v3WIvF1rJrn8Ar17CrWIqw1kAr15Jrs8tFyIgF4a9r9rJrZ3Za1S
-	9rsIqF95ZrW5AFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUtVWrXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8OB_UUUUUU==
+User-Agent: Mozilla Thunderbird
+From: "Barry K. Nathan" <barryn@pobox.com>
+Subject: Re: [PATCH 7.1 000/744] 7.1.6-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260730141444.267951807@linuxfoundation.org>
+Content-Language: en-US
+In-Reply-To: <20260730141444.267951807@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The STAT-pin interrupt is devm-managed, so it stays armed until the devm
-cleanup that runs after remove() returns. remove() cancels
-bq->iilimit_setup_work while the threaded handler can still fire; that
-handler reschedules the work and dereferences bq, so the work runs
-against freed memory once devm frees bq.
+On 7/30/26 7:04 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.6 release.
+> There are 744 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sat, 01 Aug 2026 14:13:38 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.6-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Make the delayed work device-managed with devm_delayed_work_autocancel(),
-registered before the interrupt request. The devm cleanup then releases
-the interrupt first, so the handler can no longer reschedule the work,
-and cancels the work before bq is freed. The explicit
-cancel_delayed_work_sync() in remove() is no longer needed and is dropped.
+Tested on 2 amd64 systems and an arm64 virtual machine. Working well,
+no regressions observed.
 
-Found by static analysis.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-Fixes: 2219a935963e ("power_supply: Add TI BQ24257 charger driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260731143554.334179-1-fanwu01@zju.edu.cn
----
-Changes in v2: use devm_delayed_work_autocancel() before the IRQ request and
-drop the explicit cancel from remove(), per Sebastian Reichel (v1 used devm_free_irq).
-
- drivers/power/supply/bq24257_charger.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/power/supply/bq24257_charger.c b/drivers/power/supply/bq24257_charger.c
-index 72f1bfea8d..54dd9d4ec3 100644
---- a/drivers/power/supply/bq24257_charger.c
-+++ b/drivers/power/supply/bq24257_charger.c
-@@ -18,6 +18,7 @@
- #include <linux/gpio/consumer.h>
- #include <linux/interrupt.h>
- #include <linux/delay.h>
-+#include <linux/devm-helpers.h>
- 
- #include <linux/acpi.h>
- #include <linux/of.h>
-@@ -1003,10 +1004,6 @@ static int bq24257_probe(struct i2c_client *client)
- 	if (bq->info->chip == BQ24250)
- 		bq->iilimit_autoset_enable = false;
- 
--	if (bq->iilimit_autoset_enable)
--		INIT_DELAYED_WORK(&bq->iilimit_setup_work,
--				  bq24257_iilimit_setup_work);
--
- 	/*
- 	 * The BQ24250 doesn't have a dedicated Power Good (PG) pin so let's
- 	 * not probe for it and instead use a SW-based approach to determine
-@@ -1047,6 +1044,14 @@ static int bq24257_probe(struct i2c_client *client)
- 		return ret;
- 	}
- 
-+	if (bq->iilimit_autoset_enable) {
-+		ret = devm_delayed_work_autocancel(dev,
-+						   &bq->iilimit_setup_work,
-+						   bq24257_iilimit_setup_work);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ret = devm_request_threaded_irq(dev, client->irq, NULL,
- 					bq24257_irq_handler_thread,
- 					IRQF_TRIGGER_FALLING |
-@@ -1064,9 +1069,6 @@ static void bq24257_remove(struct i2c_client *client)
- {
- 	struct bq24257_device *bq = i2c_get_clientdata(client);
- 
--	if (bq->iilimit_autoset_enable)
--		cancel_delayed_work_sync(&bq->iilimit_setup_work);
--
- 	bq24257_field_write(bq, F_RESET, 1); /* reset to defaults */
- }
- 
 -- 
-2.34.1
-
+-Barry K. Nathan  <barryn@pobox.com>
