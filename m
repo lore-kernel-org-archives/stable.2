@@ -1,120 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AC738B7DD
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 00:45:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB473148B4
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 00:45:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785545144; cv=none; b=nxy/h2LjSP+THPP9cv7tI89oSKadhXh2ee27+1S+cem/PhwbuRbJWMJJasnRRR4ywahqvG0d1ikRjGkrSgTkWTEl0DTFGnei5YEphXCcnp4EwMXCXm0uRgEIqRr4YXn25kxXitodWHj6RhgATQU3QQ7a/VLl3kQ+XSfhvx0PtPI=
+	t=1785545146; cv=none; b=JugNPaCBmxBxO1S3MLhRV2tLNpXbYdbjqQSpvUOJtWcnSFN+wsK4sMBAfgDV4cQBWYIsHQQ/YFfkDMpfWN6IcCuF21pb1tjENfUHl/EE2ufG74bTzfZCoAHAKvCKr1szVXzC5Grs03sMA5pOo4oqOQQC4k04836Z4FJMj+4nECU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785545144; c=relaxed/simple;
-	bh=YmYwErkPspFEZNFaifH6TOPpQclMgWIRNa9nQcSR21w=;
+	s=arc-20240116; t=1785545146; c=relaxed/simple;
+	bh=sEf36E+MsFa4XJ/QPjZc2WIfErouWbFMxd8wAAnaAsQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EFrWAiH92XOh5VvUYH6wCxaGnxGXrqkxB0OoRBWj0b607hpY7R2bMkHh8+sYa7U0Pc/qP/fJT48hEYLAFu59kEe9eeqlTU/oRgS3tXZzVa7vaN/ygRqcZprux7ih+OlKVIumII8YfYFrO6hMht+lpiNeiUZtQ/1I3aJmTVHEKfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jz3T7RhK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=e4+K8UkQt0lvjaAdyFysXlGQzMGCwU/IdflWpnS7Fhj4WGUkH7cR692/4lKIVSwt2SmLEtWARGJ1cgJI3FOn2H3wyrMS6ryHchc0pVI5Rl1/RNqqfphzD7PAkWBau3dKcXKq30KLgTleGoWVdS9W6HrQFozNLM8yeR4OuQyuIz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c//argDB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jz3T7RhK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E554F1F00AC4;
-	Sat,  1 Aug 2026 00:45:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c//argDB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20CB81F00ADE;
+	Sat,  1 Aug 2026 00:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785545131;
-	bh=oAUq8/dVLn2hORm7OVv59goB6H4F7RlOETsg8S1Fc80=;
+	s=k20260515; t=1785545136;
+	bh=6wLANJQR5n+RcUBvqxwswU3lZH6OpwmQT0M25b+vaIk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jz3T7RhKr1kY/fdEn2rALrXU1tDJXAp5vgzqRBh8q5jinHp5DSs0YEBqcQXuwuUsf
-	 0lYJsepYS3OANSkKWsZW0Vcjd9XzKONoyWKpiLl4TVKaJ/m53Zhqp2i3ipUYJGZ+/8
-	 4IiCT/9RVynvjAQvZg4LDVSaJqUgXXSowUTPbZ87U+XAXwEBsQdeZYM2Xeq1EwYmBw
-	 hDHtbHNzjaxHXwc2B961LX7KR40XKC+Vt4mrA0GU0mLh7anhvzQAmRKl/Qyy3YlPK2
-	 C4syisE4u0c/9YHUaln0WX60+UXBF6nk5p6oTCcTHPsAPn+vuwMgdAtguqNRP4o474
-	 oASLDa+PgpJ+g==
+	b=c//argDBYpad17XgSpAMkBWAaURAOwQA9c3LiGQRlv5UZYI3U3+56aXTat0vliBY3
+	 S5BzoZWPsERrcOpcYOfGc1RDs9WVtQl+v/+06coRtDJ4/93gVcBUOCxf2/5FKvGCUS
+	 hPq/O8dHlXIDxv3eQK2/sCY2Q8W0+htrezd6emVVPyTXtcLHAg+uC5pFkoy0EuaXc5
+	 GDgr/VTcoOpA6/q/i7lbpLVhRYIv07+x/axStSDhSMs7RO/qyHegDCN/8Vj0xZTe+M
+	 ZGKQaGTk0KASVxCiCPFMyWlV6YYO/xTE8p1gEwM9P+UWFCBiKYlKruteASPp1OsXjm
+	 DhIXAzZRFRxbQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>,
+	Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/amdgpu: Respect placement requirements in amdgpu_gtt_mgr functions
-Date: Fri, 31 Jul 2026 20:45:28 -0400
-Message-ID: <20260801004528.3663101-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/3] drm/xe/rtp: Refactor OAG MMIO trigger register whitelisting
+Date: Fri, 31 Jul 2026 20:45:32 -0400
+Message-ID: <20260801004533.3663723-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072909-repurpose-enticing-16f2@gregkh>
-References: <2026072909-repurpose-enticing-16f2@gregkh>
+In-Reply-To: <20260801004533.3663723-1-sashal@kernel.org>
+References: <2026072902-gorgeous-negligee-5e08@gregkh>
+ <20260801004533.3663723-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Timur Kristóf <timur.kristof@gmail.com>
+From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 
-[ Upstream commit 8882f8897e554053af9e72f4c2da8b1e2cce56c7 ]
+[ Upstream commit ed455775c5a68b75e5f6ad6c8e0e3e9c98fd3f64 ]
 
-When testing intersection and compatibility, respect
-the actual placement requirements. This is a pre-requisite
-for ensuring that UVD CS BOs do not cross 256M segments.
+Minor refactor of OAG MMIO trigger register whitelisting for code reuse
+with OAM MMIO trigger register whitelisting.
 
-Fixes: ded910f368a5 ("drm/amdgpu: Implement intersect/compatible functions")
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit bc06579ca29dee9c245a41b12e39c7bb6938af5d)
-Cc: stable@vger.kernel.org
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Link: https://patch.msgid.link/20251202025115.373546-5-ashutosh.dixit@intel.com
+Stable-dep-of: e70086a3a06d ("drm/xe/rtp: Add RING_FORCE_TO_NONPRIV_DENY to OA whitelists")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c | 30 +++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/xe/xe_reg_whitelist.c | 41 +++++++++++++--------------
+ 1 file changed, 19 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-index 1f3302aebeff..6fa8ec8fcade 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-@@ -219,7 +219,20 @@ static bool amdgpu_gtt_mgr_intersects(struct ttm_resource_manager *man,
- 				      const struct ttm_place *place,
- 				      size_t size)
- {
--	return !place->lpfn || amdgpu_gtt_mgr_has_gart_addr(res);
-+	const struct drm_mm_node *const node = &to_ttm_range_mgr_node(res)->mm_nodes[0];
-+	const u32 num_pages = PFN_UP(size);
+diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/xe_reg_whitelist.c
+index 9f4b56808a27..b9ddbad12a58 100644
+--- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
++++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
+@@ -66,28 +66,6 @@ static const struct xe_rtp_entry_sr register_whitelist[] = {
+ 		       ENGINE_CLASS(RENDER)),
+ 	  XE_RTP_ACTIONS(WHITELIST(CSBE_DEBUG_STATUS(RENDER_RING_BASE), 0))
+ 	},
+-	{ XE_RTP_NAME("oa_reg_render"),
+-	  XE_RTP_RULES(GRAPHICS_VERSION_RANGE(1200, XE_RTP_END_VERSION_UNDEFINED),
+-		       ENGINE_CLASS(RENDER)),
+-	  XE_RTP_ACTIONS(WHITELIST(OAG_MMIOTRIGGER,
+-				   RING_FORCE_TO_NONPRIV_ACCESS_RW),
+-			 WHITELIST(OAG_OASTATUS,
+-				   RING_FORCE_TO_NONPRIV_ACCESS_RD),
+-			 WHITELIST(OAG_OAHEADPTR,
+-				   RING_FORCE_TO_NONPRIV_ACCESS_RD |
+-				   RING_FORCE_TO_NONPRIV_RANGE_4))
+-	},
+-	{ XE_RTP_NAME("oa_reg_compute"),
+-	  XE_RTP_RULES(GRAPHICS_VERSION_RANGE(1200, XE_RTP_END_VERSION_UNDEFINED),
+-		       ENGINE_CLASS(COMPUTE)),
+-	  XE_RTP_ACTIONS(WHITELIST(OAG_MMIOTRIGGER,
+-				   RING_FORCE_TO_NONPRIV_ACCESS_RW),
+-			 WHITELIST(OAG_OASTATUS,
+-				   RING_FORCE_TO_NONPRIV_ACCESS_RD),
+-			 WHITELIST(OAG_OAHEADPTR,
+-				   RING_FORCE_TO_NONPRIV_ACCESS_RD |
+-				   RING_FORCE_TO_NONPRIV_RANGE_4))
+-	},
+ 	{ XE_RTP_NAME("14024997852"),
+ 	  XE_RTP_RULES(GRAPHICS_VERSION_RANGE(3000, 3005), ENGINE_CLASS(RENDER)),
+ 	  XE_RTP_ACTIONS(WHITELIST(FF_MODE,
+@@ -95,6 +73,25 @@ static const struct xe_rtp_entry_sr register_whitelist[] = {
+ 			 WHITELIST(VFLSKPD,
+ 				   RING_FORCE_TO_NONPRIV_ACCESS_RW))
+ 	},
 +
-+	if (!place->lpfn)
-+		return true;
++#define WHITELIST_OA_MMIO_TRG(trg, status, head) \
++	WHITELIST(trg, RING_FORCE_TO_NONPRIV_ACCESS_RW), \
++	WHITELIST(status, RING_FORCE_TO_NONPRIV_ACCESS_RD), \
++	WHITELIST(head, RING_FORCE_TO_NONPRIV_ACCESS_RD | RING_FORCE_TO_NONPRIV_RANGE_4)
 +
-+	if (!amdgpu_gtt_mgr_has_gart_addr(res))
-+		return false;
++#define WHITELIST_OAG_MMIO_TRG \
++	WHITELIST_OA_MMIO_TRG(OAG_MMIOTRIGGER, OAG_OASTATUS, OAG_OAHEADPTR)
 +
-+	if (place->fpfn >= (node->start + num_pages) ||
-+	    (place->lpfn && place->lpfn <= node->start))
-+		return false;
-+
-+	return true;
- }
++	{ XE_RTP_NAME("oag_mmio_trg_rcs"),
++	  XE_RTP_RULES(GRAPHICS_VERSION_RANGE(1200, XE_RTP_END_VERSION_UNDEFINED),
++		       ENGINE_CLASS(RENDER)),
++	  XE_RTP_ACTIONS(WHITELIST_OAG_MMIO_TRG)
++	},
++	{ XE_RTP_NAME("oag_mmio_trg_ccs"),
++	  XE_RTP_RULES(GRAPHICS_VERSION_RANGE(1200, XE_RTP_END_VERSION_UNDEFINED),
++		       ENGINE_CLASS(COMPUTE)),
++	  XE_RTP_ACTIONS(WHITELIST_OAG_MMIO_TRG)
++	},
+ };
  
- /**
-@@ -237,7 +250,20 @@ static bool amdgpu_gtt_mgr_compatible(struct ttm_resource_manager *man,
- 				      const struct ttm_place *place,
- 				      size_t size)
- {
--	return !place->lpfn || amdgpu_gtt_mgr_has_gart_addr(res);
-+	const struct drm_mm_node *const node = &to_ttm_range_mgr_node(res)->mm_nodes[0];
-+	const u32 num_pages = PFN_UP(size);
-+
-+	if (!place->lpfn)
-+		return true;
-+
-+	if (!amdgpu_gtt_mgr_has_gart_addr(res))
-+		return false;
-+
-+	if (node->start < place->fpfn ||
-+	    (place->lpfn && (node->start + num_pages) > place->lpfn))
-+		return false;
-+
-+	return true;
- }
- 
- /**
+ static void whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
 -- 
 2.53.0
 
