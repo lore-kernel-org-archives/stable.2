@@ -1,83 +1,77 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from out28-99.mail.aliyun.com (out28-99.mail.aliyun.com [115.124.28.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54B5432302;
-	Sat,  1 Aug 2026 11:27:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7183431F8;
+	Sat,  1 Aug 2026 11:30:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785583649; cv=none; b=rWZsQo01zIIeNMnTzyjVWGg9ha4BBrFgXi2zkhmrh5cl6WYvm159yfDM/Fs+LY9k/M8R8mJlORuKtzACcHXVVZapK8QimQT2XcVJ1R8HZxmqxV4Y+b7BRo4oYaP2i9dLY8DFEK29AtHhVNMEdfVE76jBEfYDFdrkEuf5NMeo0As=
+	t=1785583862; cv=none; b=OiLUxRYEYWpMvCSTuNlLpLW4TITX6tryEieSko2hZSyqQVkkQPDnYDMB61MirhbwfPJq4H1Ukx4dvTnQv5EJapATXO0Jfpnhz8aSPWhuGKk8i0dUN8M04I2hOmej3qB+tRSkhKrNf1hpE47I/pX9YP1dkVLILAZLs0Kl0pkc4A8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785583649; c=relaxed/simple;
-	bh=YFJFNiG/dCjzfVJ+FS0HnxSkZpVKlnNaqoS0nAaybVY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZTKCvwMhpg4p4h2XMo5/dovAU1+k9zeNEAQT4PUcO/r4Buk7+fgyE+GaidkBw8HdgpqRHHwOKVJ3iMgfjT94GRQk9Bv1g3PKMFxNLkd+frm0LOMLLiQqKZaYWSzhpWEGcnslGMoyFFITN4ZIULcBwFphJ5CK276keFlShp4nG2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Pjum6oZA; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Pjum6oZA"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 63FFC1A1395;
-	Sat,  1 Aug 2026 11:27:19 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 345A9603C2;
-	Sat,  1 Aug 2026 11:27:19 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AEA9811C170EE;
-	Sat,  1 Aug 2026 13:27:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1785583634; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=QKObjQZ0eiPXWIcCdUDPDX8kQvNyavu8as7Hof/t/FE=;
-	b=Pjum6oZAfGJso6gXTr+YOmhulEcrUSG1YPaRDXCMUAJolWvEKuTQu6ovWiXEWLlH9qCeZm
-	mvmEZvpxPxsWsjk7xDJMFPx48dkSwiJiC0ZhDwnHR8G9Asi7+jU9oRDhveKZTdPH21gWXi
-	IzaXGLY87ytHRAG66izbASx6ueIdFJ0ECAsaRtveMXHGG67p9K2vKwdZAytjpPZFqszb/A
-	pIVopmqxuZu/8lQrBKTaXNOrUWuiAKT7u7Sx40HZsQS3+HGEl1+TPYdU4pUiRZvRrip9A+
-	CSgzOJjhXTNckpBh0/2W7QqnSquhj+BVAcVVp/rkpX3quaHIeGiLHI4R2oHqqQ==
-Message-ID: <72162aab-ac18-4089-9a38-ea1b162b2610@bootlin.com>
-Date: Sat, 1 Aug 2026 13:27:10 +0200
+	s=arc-20240116; t=1785583862; c=relaxed/simple;
+	bh=I9BSQ5yobtw432mT3LjiUw8ce0CbJt0O8LAqe1TnoGw=;
+	h=Content-Type:MIME-Version:From:To:Cc:Date:Subject:Message-ID; b=iA6xtGjl+vwnE7dVtDzJdzVMXlFVrMRWZxOSuzSddfpT3NIs+dcZUtUjy8DpN9NoCT3MNHj3uTjgA3cnBgk/MKshpcaLv4NxlUq1PDTCsDGnXbKtX3fCG/UUfmIWXbp6dRAsZ9mU9eFuKh4MDvN3WOcRHhPUcVl019HfilwLM6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sz-huijia.com; spf=pass smtp.mailfrom=sz-huijia.com; arc=none smtp.client-ip=115.124.28.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sz-huijia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sz-huijia.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.900714|0.6600377;CH=green;DM=|SPAM|false|;DS=CONTINUE|ham_alarm|0.579744-0.000312291-0.419944;FP=18446194795494400235|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037021217;MF=hj117@sz-huijia.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.ibC4JB2_1785583849;
+Received: from HJ117-PC.hjz.lan(mailfrom:hj117@sz-huijia.com fp:SMTPD_---.ibC4JB2_1785583849 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sat, 01 Aug 2026 19:30:50 +0800
+Content-Type: multipart/mixed; boundary="===============2822691185236032729=="
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] spi: cadence-quadspi: fix probe error path and remove
-To: Mark Brown <broonie@kernel.org>
-Cc: Matthew Gerlach <matthew.gerlach@altera.com>,
- Khairul Anuar Romli <khairul.anuar.romli@altera.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dan Carpenter <dan.carpenter@linaro.org>, miquel.raynal@bootlin.com,
- thomas.petazzoni@bootlin.com, Pascal EBERHARD <pascal.eberhard@se.com>,
- linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260731-cqspi-pm_runtime-v1-0-ff0bfc9e8e56@bootlin.com>
- <6bcaa81c-d52a-4a4f-9bba-8c61f6890fb3@sirena.org.uk>
-Content-Language: en-US
-From: Diogo Ivo <diogo.ivo@bootlin.com>
-In-Reply-To: <6bcaa81c-d52a-4a4f-9bba-8c61f6890fb3@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+From: Dongxu Su <hj117@sz-huijia.com>
+To: dmitry.torokhov@gmail.com, linux-input@vger.kernel.org
+Cc: stable@vger.kernel.org
+Date: Sat, 01 Aug 2026 19:30:49 +0800
+Subject: [PATCH] Input: xpad - add Voyetra Turtle Beach PC Rematch Gamepad
+Message-ID: <xpad-pc-rematch-gamepad@sz-huijia.com>
 
-Hi Mark,
+--===============2822691185236032729==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
 
-On 8/1/26 1:48 AM, Mark Brown wrote:
-> On Fri, Jul 31, 2026 at 12:53:45PM +0200, Diogo Ivo (Schneider Electric) wrote:
->> This series fixes two resource leaks in the cadence-quadspi driver's
->> probe error path and remove callback.
-> 
-> This doesn't apply against current code, please check and resend.
+RnJvbSA0YmU0M2M4Y2U4YmZhZTIwYmM2MTI2ZjhjNmE0YWE0Zjg0NDQ4MTJhIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpBZGQgc3VwcG9ydCBmb3IgdGhlIFZveWV0cmEgVHVydGxlIEJlYWNoIFBD
+IFJlbWF0Y2ggR2FtZXBhZCwKYSB0cmlwbGUtbW9kZSAod2lyZWQsIDIuNEcgd2lyZWxlc3MsIEJs
+dWV0b290aCkgUEMgZ2FtZSBjb250cm9sbGVyLgpUaGUgVklEIDB4MTBGNSBpcyBhbHJlYWR5IGlu
+IHRoZSBYUEFEX1hCT1hPTkVfVkVORE9SIHdoaXRlbGlzdAooY292ZXJpbmcgdGhlIEdJUCBtb2Rl
+IFBJRHMgMHg2MDE1IGFuZCAweDYwMTYpLCBidXQgWElucHV0IHN1cHBvcnQKd2FzIG1pc3Npbmcu
+CkFkZCBYUEFEX1hCT1gzNjBfVkVORE9SKDB4MTBGNSkgdG8geHBhZF90YWJsZSB0byBlbmFibGUg
+WElucHV0IG1vZGUKKGJvdGggd2lyZWQgYW5kIHdpcmVsZXNzKSwgYW5kIGFkZCB4cGFkX2Rldmlj
+ZSBlbnRyaWVzIGZvciBhbGwgZm91cgpQSURzIHRvIGdpdmUgdGhlbSBodW1hbi1yZWFkYWJsZSBu
+YW1lczoKICAtIDB4NjAxMzogWElucHV0IHdpcmVkIChYVFlQRV9YQk9YMzYwKQogIC0gMHg2MDE0
+OiBYSW5wdXQgd2lyZWxlc3MgMi40RyAoWFRZUEVfWEJPWDM2MFcpCiAgLSAweDYwMTU6IEdJUCB3
+aXJlZCAoWFRZUEVfWEJPWE9ORSkKICAtIDB4NjAxNjogR0lQIHdpcmVsZXNzIDIuNEcgKFhUWVBF
+X1hCT1hPTkUpClNpZ25lZC1vZmYtYnk6IERvbmd4dSBTdSA8aGoxMTdAc3otaHVpamlhLmNvbT4K
+LS0tCiB4cGFkLmMgfCA1ICsrKysrCiAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspCmRp
+ZmYgLS1naXQgYS94cGFkLmMgYi94cGFkLmMKaW5kZXggZjcyNmI0Mi4uMDNjYjgwMiAxMDA2NDQK
+LS0tIGEveHBhZC5jCisrKyBiL3hwYWQuYwpAQCAtMzE5LDYgKzMxOSwxMCBAQCBzdGF0aWMgY29u
+c3Qgc3RydWN0IHhwYWRfZGV2aWNlIHsKIAl7IDB4MTAyYywgMHhmZjBjLCAiSm95dGVjaCBXaXJl
+bGVzcyBBZHZhbmNlZCBDb250cm9sbGVyIiwgMCwgWFRZUEVfWEJPWCB9LAogCXsgMHgxMDM4LCAw
+eDE0MzAsICJTdGVlbFNlcmllcyBTdHJhdHVzIER1byIsIDAsIFhUWVBFX1hCT1gzNjAgfSwKIAl7
+IDB4MTAzOCwgMHgxNDMxLCAiU3RlZWxTZXJpZXMgU3RyYXR1cyBEdW8iLCAwLCBYVFlQRV9YQk9Y
+MzYwIH0sCisJeyAweDEwZjUsIDB4NjAxMywgIlBDIFJlbWF0Y2ggR2FtZXBhZCIsIDAsIFhUWVBF
+X1hCT1gzNjAgfSwKKwl7IDB4MTBmNSwgMHg2MDE0LCAiUEMgUmVtYXRjaCBHYW1lcGFkIChXaXJl
+bGVzcykiLCAwLCBYVFlQRV9YQk9YMzYwVyB9LAorCXsgMHgxMGY1LCAweDYwMTUsICJQQyBSZW1h
+dGNoIEdhbWVwYWQiLCAwLCBYVFlQRV9YQk9YT05FIH0sCisJeyAweDEwZjUsIDB4NjAxNiwgIlBD
+IFJlbWF0Y2ggR2FtZXBhZCAoV2lyZWxlc3MpIiwgMCwgWFRZUEVfWEJPWE9ORSB9LAogCXsgMHgx
+MGY1LCAweDcwMDUsICJUdXJ0bGUgQmVhY2ggUmVjb24gQ29udHJvbGxlciIsIDAsIFhUWVBFX1hC
+T1hPTkUgfSwKIAl7IDB4MTFjOSwgMHg1NWYwLCAiTmFjb24gR0MtMTAwWEYiLCAwLCBYVFlQRV9Y
+Qk9YMzYwIH0sCiAJeyAweDExZmYsIDB4MDUxMSwgIlBYTiBWOTAwIiwgMCwgWFRZUEVfWEJPWDM2
+MCB9LApAQCAtNTU4LDYgKzU2Miw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgdXNiX2RldmljZV9p
+ZCB4cGFkX3RhYmxlW10gPSB7CiAJWFBBRF9YQk9YT05FX1ZFTkRPUigweDBmMGQpLAkJLyogSG9y
+aSBjb250cm9sbGVycyAqLwogCVhQQURfWEJPWDM2MF9WRU5ET1IoMHgxMDM4KSwJCS8qIFN0ZWVs
+U2VyaWVzIGNvbnRyb2xsZXJzICovCiAJWFBBRF9YQk9YT05FX1ZFTkRPUigweDEwZjUpLAkJLyog
+VHVydGxlIEJlYWNoIENvbnRyb2xsZXJzICovCisJWFBBRF9YQk9YMzYwX1ZFTkRPUigweDEwZjUp
+LAkJLyogVHVydGxlIEJlYWNoIENvbnRyb2xsZXJzICovCiAJWFBBRF9YQk9YMzYwX1ZFTkRPUigw
+eDExYzkpLAkJLyogTmFjb24gR0MxMDBYRiAqLwogCVhQQURfWEJPWDM2MF9WRU5ET1IoMHgxMWZm
+KSwJCS8qIFBYTiBWOTAwICovCiAJWFBBRF9YQk9YMzYwX1ZFTkRPUigweDEyMDkpLAkJLyogQXJk
+d2lpbm8gQ29udHJvbGxlcnMgKi8KLS0gCjIuNTQuMC53aW5kb3dzLjEKCg==
 
-This series is meant to be applied only on the stable trees, as there
-was a backport there that broke probing in certain scenarios. I should
-have mentioned this more clearly in the cover letter, apologies for the
-noise. If I need to resend explicitly mentioning which stable trees this
-patch should be applied to let me know and I'll happily do it.
-
->> base-commit: 52a355b23cd2dd77b683ed1a1bbe2b7408bd9c74
-> 
-> That's v6.12, that's rather ancient...
-
-Best regards,
-Diogo
+--===============2822691185236032729==--
