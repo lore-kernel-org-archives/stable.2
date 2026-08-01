@@ -1,204 +1,117 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9BA3DB30B
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 09:42:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D5930675F;
+	Sat,  1 Aug 2026 10:07:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785577366; cv=none; b=UoHagOlXGj0x9qV5L2DqhQvHdmPtJrj46Y6BjTvbaitCQy/ptDHCkmfRASy7w+tJU0vX2xiYI3hI+0Q+N/PwnOofc5GaSVdXgreV6IyNAXzyZ3iTF2uCLJ0cSTDHxCURfp44W04No/K4UTj5egfGF6Nj7stFCBjerP/724B7/vw=
+	t=1785578824; cv=none; b=VKfVo+8NeV6fRAVmEyb0zsWF75QkUJix5kP5zSXfGDlptl92Phe8ZSP6ZD+axYbNMlqVuZQDFdrXJnPp2AknDe+JrftFL2toTfWWtXxvsrq5Jhv1Y6Dg+lATqkultxHOJNhVHrW0CHLJAX8q1jcUs1qM54UHiE3t12Q425hKKDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785577366; c=relaxed/simple;
-	bh=3IV/STm+W/PRrV+345FjQ5tyi8uXF2hJfUgM1So2Y+g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rh52fO3i6E5hEa1ymsBPwPGqGA84Nuib72/Gf5kGW3EhA8DKWEWVdMYM3MGVq+bjF5Pb2MoH0P9MELuzibo2yxgb65xRlQbZeJybM2upIgMZN6Lf+GbRg5kiVvL4XE0qwRrbMb9A4s8oCyzTWCxh8mNeqIMUaZ+FTwb4o2p/KQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=doWYjHgS; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1785578824; c=relaxed/simple;
+	bh=7A8+JOXSDtHw7Vfv0zZPsibOd+WytXlQ4BMxgjCALZk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DYIQTVbuFUa4JqKe2cdbFzi4NN9RQSMtnj9+XHJmmMzySSJXGP+NmvKrnFGi4l3kDHxV1kZc/UMLpU5+Ce1S1eFd9wrgsdEQSPJzYzSPKLKwvhqpjiJPU4MyXpOR+yyhS8G9BnyBnZpfpB7UwvR2YV3+LIRzt3osoL/OnCPQtaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=myMPUAHs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="doWYjHgS"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cf6d65d8a7so24522735ad.0
-        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 02:42:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1785577362; x=1786182162; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RODS9frLm1PCJomPW/GeW/0jLAoVijQ3t4Bi2Xu7P2k=;
-        b=doWYjHgSwG5BiUGxX1vtQcmDJc483Da56xRVDq48T/pjq6l7O2QPKwGOpi2NQ7LzGX
-         6UTnZmJH+lBOd22LuBgTUJO5NmuwHTDgnmxE7JiuvTaOcu/R3qO6Gi+n6xvxaLhcJTYU
-         azgH8uyHgM1R2/RhpGE7gOHFx1jqQoj5fgByALwT6nlSEqkoXbK8SiAC2rwNqD54cTNn
-         nI4PGiUnCAY8WzgdyxQqZAufrKz2lYafAnIYv+8ShthtgQ3BoreF+gu3Ed4FYp6cJTu/
-         AnoDP4GueCwQj3ghUixbnWQnDuJzUdwEuPDC4BEcCHifH6dhdTveOpZ0AlG07OxJbnan
-         cEjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785577362; x=1786182162;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RODS9frLm1PCJomPW/GeW/0jLAoVijQ3t4Bi2Xu7P2k=;
-        b=g+rQJmiU08MbqwBfadJUZxYbl1T8mDxbZGKqRz4OW6b5BmhxHG+uHQpRlbDWvaI8ch
-         xG9mfN7Tn6gzlt7o6SLeMLYMOjR1Zgkds8XrxGWljkidBBPDJhagK6MGEh7jE6649NXp
-         J/LCok1kOopOlarXpORVEJxTOzJRnbpCuVMnYQB3GP8wXgnr3tmBUXhh+F4yf+Wtceqd
-         JwqaxX85SxAqyqWUU2FAlTzy6EOQNZPU/zo0/zDTSc0HZNfcjDJ5qJgSnrjbWHbhzPMn
-         eRdv8DBEeNPQxrNbWE9QM0qqpaAo9EjfTVDoPzz/bMboen1qcHSZDEGlmqC5v2g0oDE/
-         6eeA==
-X-Forwarded-Encrypted: i=1; AHgh+RrwLsfK+jgtGsZ8yfvLmT8Gr8oUEUbSrcCKCsEEjKKgeMJqCTG4qDJZtQAB8+Tza9AQz7uAYd4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwtfJ3bNSa43uRAZOcaIgeTZ3Ia8BgY+vvNF3tM+gfzDcjpauce
-	PY5uS6R8TwpzwjrfPjdouwZXSBJfRQ2uPqK6LolUwY1czUWtRZz39wFl/OgDiXdSBxA=
-X-Gm-Gg: AR+sD10Mu8mZoxuxYv+i8XrIDJeOLXFyJAX5sEmh12C7XJ0J1Z76Kh6DFmTzC55GsYT
-	xqAvNpfT97EGfMga/FoHPBxSu8CVuMZH/ZN/zul5iPN06Jajg9AMJE8UcKdfd2+NTBHHuipc9Xo
-	/xGg7LYD2+YxYBflDFGZYk0eCVRUOvcAQ/u1bKVxV8R8wLK6p45+dxrR1hgwMGsEC9DE0V5sWcp
-	CWl57Ddyu7O+VIPUKBnxfckb1ccW8AK115CK1AIA+bY48neROFoTdwGy230GBL4ZeHrJ6tD4O+K
-	q1+OS0/leg/YqOuxCub2KBmXRScr5l7q5PwubBAbP/55ebDOxB0mME9J9UjKg2w2YYZh8VED3kF
-	IIlazPQTlGkFULVBpSp/Q2gNgHaeZTmLHC/c01JkwqGfysbL+Tbnq9AUkNwZ8PLuqchJJzffSWb
-	HYV9H4hpJhNISAz8qXzHDxGTlUkoYKXuUfpEHZV4dTVlMa3ILDSJzha5W3FXAgR2dVusfvMnhez
-	pjuTe6St1U=
-X-Received: by 2002:a17:902:ea0c:b0:2ce:9439:59a5 with SMTP id d9443c01a7336-2d0523f3cdemr30235795ad.36.1785577361938;
-        Sat, 01 Aug 2026 02:42:41 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:c329:7b28:fe02:5dc8])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d04b0eb486sm16006465ad.53.2026.08.01.02.42.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 02:42:41 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: alibuda@linux.alibaba.com,
-	dust.li@linux.alibaba.com,
-	sidraya@linux.ibm.com,
-	wenjia@linux.ibm.com,
-	kuba@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	mjambigi@linux.ibm.com,
-	tonylu@linux.alibaba.com,
-	guwen@linux.alibaba.com,
-	guangguan.wang@linux.alibaba.com,
-	kees@kernel.org,
-	gustavoars@kernel.org,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH net v5 2/3] net/smc: bound the peer rkey counts in SMC-Rv2 LLC messages
-Date: Sat,  1 Aug 2026 18:42:07 +0900
-Message-ID: <20260801094208.1937951-3-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260801094208.1937951-1-yhlee@isslab.korea.ac.kr>
-References: <20260801094208.1937951-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="myMPUAHs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05C411F00AC4;
+	Sat,  1 Aug 2026 10:06:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785578822;
+	bh=7A8+JOXSDtHw7Vfv0zZPsibOd+WytXlQ4BMxgjCALZk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=myMPUAHsTBwWfhjoE1uoC4G1XnRXrJGknfgt+TPIXS7zco6f4r1niN6MJ5q3hOLSp
+	 y4Ji2phGKRIJwwfLKwl1y12WeUZ6nNjdo9r/amGPPHjsXwwifq5i9oA2DnJhr7MhDs
+	 NSpAKXljXIpq4W+KFIkUyd6VtyYB3QVzDFgzE9r5fZj8BNDjRvnDOtPPXAF/V50CAE
+	 kC8ZwAYY2RVzu+tdyMX1ndP/izxNb7Zl8qKTU+QheHqwu0UXyatAUdBCAp84emPlgC
+	 60eyYPdtuO9mJwrr4sOVsuJSaufDqR87ga+KStQoBadBcjKChPCLFmkHYEIIsd2jKI
+	 MHgzX3bqWD+zQ==
+Message-ID: <689580d1-8169-41cf-a954-927e10135700@kernel.org>
+Date: Sat, 1 Aug 2026 11:06:57 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
+ subnodes to common schema
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
+ Daniel J Blueman <daniel@quora.org>
+References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
+ <futJwsC0VjGSkjrB5PP9T0jBOVgWADaDAYyRRp-OZifaKPNtjcnnA59QJaQTdqYTeayZk9jY6e1jOfun71Yp5Q==@protonmail.internalid>
+ <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On a link whose device has max_recv_sge == 1 there is no shared v2 receive
-buffer, and smc_llc_save_add_link_rkeys() takes the v2 extension from 44
-bytes past the start of the queue entry's inline message:
+On 31/07/2026 19:22, Vikash Garodia wrote:
+> Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
+> Cc:stable@vger.kernel.org
+> Tested-by: Daniel J Blueman<daniel@quora.org>
+> Signed-off-by: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
 
-  ext = (struct smc_llc_msg_add_link_v2_ext *)(llc_msg + SMC_WR_TX_SIZE);
+What about venus ?
 
-The entry is a 72-byte allocation and the extension starts at offset 68, so
-ext->num_rkeys at offset 94 is already past it.  This happens on every
-SMC-Rv2 link addition, whatever the peer sends:
-
-  BUG: KASAN: slab-out-of-bounds in smc_llc_save_add_link_rkeys+0x333/0x350
-  Read of size 2 at addr ffff8880056406de by task smctest/106
-  Call Trace:
-   smc_llc_save_add_link_rkeys+0x333/0x350
-   smc_llc_cli_add_link+0xca7/0x1e80
-   __smc_connect+0x3f5c/0x4980
-   smc_connect+0x42c/0x580
-   __sys_connect+0xfc/0x130
-  Allocated by task 44:
-   smc_llc_enqueue+0x72/0x560
-   smc_wr_rx_tasklet_fn+0x474/0xa80
-  The buggy address is located 22 bytes to the right of
-   allocated 72-byte region [ffff888005640680, ffff8880056406c8)
-
-Whatever that read finds then bounds the ext->rt[] loop, so a peer that
-declares 255 rkeys reads much further.  smc_llc_rmt_delete_rkey() has the
-same shape for llcv2->rkey[].
-
-Bound both loops by the buffer they read from, and skip the extension
-altogether when there is no shared v2 receive buffer.  The extension
-does arrive on the link, but smc_llc_enqueue() copies only
-sizeof(union smc_llc_msg) into the queue entry, so what that code read
-past the 44 inline bytes was heap and not peer data.
-
-Fixes: 27ef6a9981fe ("net/smc: support SMC-R V2 for rdma devices with max_recv_sge equals to 1")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
-v4 -> v5: corrected the reason given for skipping the extension.  It does
-arrive on the link; what is not there is the copy in the queue entry.  No
-functional change.
-
-Measured over rxe with KASAN and max_recv_sge forced to 1, five test cells
-(plain 1-rkey delete, delete declaring 255, plain ADD_LINK v2, ADD_LINK
-declaring 255, and an SMC-Rv1 link group).  Without this patch four of the
-five report; with it none do.  With kasan_multi_shot the unpatched kernel
-reports 491 times in a single ADD_LINK run, the patched one not at all.
-
- net/smc/smc_llc.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
-
-diff --git a/net/smc/smc_llc.c b/net/smc/smc_llc.c
-index 90746cd1e29a..02561f39d6d8 100644
---- a/net/smc/smc_llc.c
-+++ b/net/smc/smc_llc.c
-@@ -1000,13 +1000,21 @@ static void smc_llc_save_add_link_rkeys(struct smc_link *link,
- 					struct smc_link *link_new,
- 					u8 *llc_msg)
- {
-+	const u32 rt_off = offsetof(struct smc_llc_msg_add_link_v2_ext, rt);
- 	struct smc_llc_msg_add_link_v2_ext *ext;
- 	struct smc_link_group *lgr = link->lgr;
- 	int max, i;
- 
-+	/* Without a shared v2 receive buffer the extension is not copied
-+	 * into the queue entry, so not even ext->num_rkeys is there.
-+	 */
-+	if (!smc_link_shared_v2_rxbuf(link))
-+		return;
- 	ext = (struct smc_llc_msg_add_link_v2_ext *)(llc_msg +
- 						     SMC_WR_TX_SIZE);
- 	max = min_t(u8, ext->num_rkeys, SMC_LLC_RKEYS_PER_MSG_V2);
-+	max = min_t(u32, max, (SMC_WR_BUF_V2_SIZE - SMC_WR_TX_SIZE - rt_off) /
-+			      sizeof(ext->rt[0]));
- 	down_write(&lgr->rmbs_lock);
- 	for (i = 0; i < max; i++) {
- 		smc_rtoken_set(lgr, link->link_idx, link_new->link_idx,
-@@ -1813,17 +1821,25 @@ static void smc_llc_rmt_delete_rkey(struct smc_link_group *lgr)
- 	link = qentry->link;
- 
- 	if (lgr->smc_version == SMC_V2) {
-+		const u32 rkey_off =
-+			offsetof(struct smc_llc_msg_delete_rkey_v2, rkey);
- 		struct smc_llc_msg_delete_rkey_v2 *llcv2;
-+		u32 buf_len;
- 
- 		if (smc_link_shared_v2_rxbuf(link)) {
- 			memcpy(lgr->wr_rx_buf_v2, llc, sizeof(*llc));
- 			llcv2 = (struct smc_llc_msg_delete_rkey_v2 *)lgr->wr_rx_buf_v2;
-+			buf_len = SMC_WR_BUF_V2_SIZE;
- 		} else {
- 			llcv2 = (struct smc_llc_msg_delete_rkey_v2 *)llc;
-+			buf_len = sizeof(qentry->msg);
- 		}
- 		llcv2->num_inval_rkeys = 0;
- 
- 		max = min_t(u8, llcv2->num_rkeys, SMC_LLC_RKEYS_PER_MSG_V2);
-+		/* bound by the buffer llcv2 points at */
-+		max = min_t(u32, max, (buf_len - rkey_off) /
-+				      sizeof(llcv2->rkey[0]));
- 		for (i = 0; i < max; i++) {
- 			if (smc_rtoken_delete(link, llcv2->rkey[i]))
- 				llcv2->num_inval_rkeys++;
--- 
-2.43.0
-
+bod
