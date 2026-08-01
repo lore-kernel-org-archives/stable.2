@@ -1,140 +1,114 @@
-Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA4E377ECF
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 00:43:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F957384CCD
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 00:45:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785545029; cv=none; b=XFrCX+vETPhDijQZPzokRW47ecBDtN1PCyhrISPHj4VLsCyhLz+lBhaDLjkCaXQSPaEdG0wr/fqI0l214eLT2WXeb64e7J+3VcSQWkxGN7DRx3Bvk5IZx5J7rBOuqJS7hn6tre/aDkvdr0oEAA0hxdhk75Zumt7AFWBIO+rE9Z0=
+	t=1785545119; cv=none; b=X0PyXDhqpJXtFRjz3TBXtpye1mGieNMdkcfwjcYNbev/ahaYaaDTiPCZZgZhvCDG9Px1Yglpd/7urOcQ9nEmee5D8LMRjjprfmTUHsn0FC66OP4Z9Wu5MxuI5Vbx2mLdtoBP7jCp7xOcOwAg2T9SU1z2bWsblold1Kn/Meamt9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785545029; c=relaxed/simple;
-	bh=WLbDmhynmJRBzvC9VtSa8CA/TwQCDnMB1XDczh4z4q8=;
-	h=From:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 To:Cc:Content-Type; b=bCLwVbamRp9riqq/lpz59X827DMirGy3QeewFFP/j22qyxdwUTDAs4U2h+t67+TFFVMoFWQZI9FNkWtwbREK32RG4KKncUuj/xHAIJfJlj/YCeqBIeQOpV7Htq1m9ZpKfQXeuGDsaiqrtmx6pubsxXtjm1EFJQqQFC93Bm4axuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=PDVRuyYe; arc=none smtp.client-ip=149.72.141.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
+	s=arc-20240116; t=1785545119; c=relaxed/simple;
+	bh=xgoalQaSz5ySvrbgYy7pcxT8y3i3UVEN2uaqcXY8ALw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uXJbg1Qa6ytxiRHh/wbrjPUHprZ0EK6Ak6ETr3olFFa1AjzUJlfoIFC6MqF7SO3HzyBndnnCRSp2RewqW/CBqsvthX6VxV39CY4O5IRGa1JMFBSFqHcM6C3Rbh17SmEAKgelGomKwV6zuEw6TbAA6Aa0IJfWif1odxQpmH5LJTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XRPNuqFE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="PDVRuyYe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
-	h=from:subject:date:in-reply-to:references:mime-version:to:cc:
-	content-transfer-encoding:content-type:cc:content-type:date:from:subject:to;
-	s=s1; t=1785545025;
-	bh=4SwiOz+P6AlBXRHcbsCHn1Zsa4G7NoAJXzm3uhDPdUA=;
-	b=PDVRuyYent1tun5KWBF3vbAWgrwHjbnCcxSpnfdtJkTNrWuN0b3imKY0cA3aQ1JB28ku
-	4EoMxHhlnKg2vn6sOXJ7RnBit8j8GYrhuHbM85dW2OmH0rotouGWs3f+gPPYA36CdFbnQX
-	M5s6TEB0rWOdaHf/Xf2VodDUomlGqcPx/mI8roterZzJFZemeawBjkWFqmk7V1bIMe8dqk
-	xzcstw/KwQh4W7Fl8rukesRyIYngoo5DEVFytN40yyaeIJfnX0Zw5qutkKew7OKZP8ylqC
-	rcB+5htrvrZ1Td9oKUU81iwyXSnas8vGPRjhE1j+te8ewAeqSy7F7p+DQfxSapeA==
-Received: by recvd-d665d4899-9s8c2 with SMTP id recvd-d665d4899-9s8c2-1-6A6D4141-20
-	2026-08-01 00:43:45.526568514 +0000 UTC m=+280227.423264102
-Received: from daisy.dens.ffj.family (unknown)
-	by geopod-ismtpd-20 (SG)
-	with ESMTP
-	id pSmtPvnkSPWTzLuzNDcNbQ
-	Sat, 01 Aug 2026 00:43:45.325 +0000 (UTC)
-From: Liz Fong-Jones <lizf@honeycomb.io>
-Subject: Re: [PATCH v3] PCI: Fix BAR resize for devices on a root bus
-Date: Sat, 01 Aug 2026 00:43:45 +0000 (UTC)
-Message-ID: <20260801004343.9113-1-lizf@honeycomb.io>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CABhMZUX+8tjN1Hz=tf6bm+K7BV4r=1RxctiN6W_UPz9+yxG+Qg@mail.gmail.com>
-References: <CABhMZUX+8tjN1Hz=tf6bm+K7BV4r=1RxctiN6W_UPz9+yxG+Qg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XRPNuqFE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7472D1F00AC4;
+	Sat,  1 Aug 2026 00:45:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785545110;
+	bh=2gcH7x8V53XAnmyCUDDW8eUk/qdsmWvIOci3lDBHM1o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XRPNuqFEB9vmpFX1TwOoA6C4kNyE+dU4SP2+Hd3Zo/bBHhW5Dq49gWu+iOKru6uqU
+	 oUQ8y+fdAjnxMGymUiWCXrSDNFk85M9b+nz3ZDaP8EZNUTgXTEnlQr1tsy36O8D8SD
+	 zq5ixWMVmKBqemR9ZwommwIy8aAUOvdPdvNF/IpJsRDCtVxpwg3+9YhknPn4E45+Ri
+	 ewAlNgk0RoH2xFWvFQf9AuAv1m71ITrQPUBHlFQyYMLQPn5wqU/jp6JGYiB4b99Jq3
+	 CB9mEU1zQOPJjuP2wcxBigsashualmY0EI+P4nlP7D2N4f+xITJ0+ikQp0ixPktk5O
+	 Z3hVP+jP6RH6Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>,
+	Zhanjun Dong <zhanjun.dong@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] drm/xe/guc: Fix buffer overflow in steered register list allocation
+Date: Fri, 31 Jul 2026 20:45:07 -0400
+Message-ID: <20260801004507.3661318-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072944-swivel-tidy-c727@gregkh>
+References: <2026072944-swivel-tidy-c727@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SG-EID: 
- =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
- =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmea+EGMmQ+7m8?=
- =?us-ascii?Q?q1YMDv9WRF2I0+Tf2E1B7irUgU3SAaJXuuqFSwt?=
- =?us-ascii?Q?Y4hB2Sh=2FFbMouJJVRl=2FYE7eebbo9KYuy5q50CsG?=
- =?us-ascii?Q?7IeNvRl=2FDJs5E5nUXCCrA4t=2F1CR7EWaWRdYqLwl?=
- =?us-ascii?Q?hglGOjc3uzyGe58vIbzZxLK+S8ccu1Doa1c8oAH?= =?us-ascii?Q?gwlU?=
-To: bjorn.helgaas@gmail.com
-Cc: amd-gfx@lists.freedesktop.org, bhelgaas@google.com, bjorn@helgaas.com,
-	helgaas@kernel.org, ilpo.jarvinen@linux.intel.com, jacob.martin@canonical.com,
-	jon.nettleton@gmail.com, jon@solid-run.com, linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org, lizf@honeycomb.io, regressions@lists.linux.dev,
-	stable@vger.kernel.org
-X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 
-> I guess this must be the drivers/pci/controller/mobiveil/pcie-layerscape-gen4.c
-> driver.
+From: Tejas Upadhyay <tejas.upadhyay@intel.com>
 
-Close, but not in this configuration -- that driver binds on the
-U-Boot/devicetree variant of this platform. This machine runs the
-UEFI/ACPI firmware variant (EDK II), where each PCIe controller is
-exposed as a plain PNP0A08 host bridge with standard ECAM (MCFG OEM
-"NXP LX2160", 2 entries, one per segment), so it goes through the
-generic ACPI ECAM path with no controller-specific driver and no MCFG
-quirk.
+[ Upstream commit 632ecc90e1ca5d3b6822bb4d08f84a175b6c42c0 ]
 
-> so the GPU is on bus 01, which isn't a nice round bus number like
-> root buses usually are.  The typical thing would be a root port on
-> bus 00 with a secondary bus 01, and amdgpu being on that bus 01.
+The size calculation for the steered register extarray uses only the
+geometry DSS mask (g_dss_mask) to determine the number of entries to
+allocate:
 
-The firmware genuinely declares the root bus as 01: the host bridge
-_CRS bus range is [bus 01-ff], there is no bus 00 in the segment at
-all, and no root port device is visible anywhere -- the endpoint is
-enumerated directly on the root bus. Both segments follow the same
-pattern (NVMe on 0002:01:00.0, GPU on 0004:01:00.0). I'll defer to Jon
-(CC'd) on why the firmware hides the root port, but the OS-visible
-topology is unambiguous.
+  total = bitmap_weight(gt->fuse_topo.g_dss_mask, ...) * steer_reg_num;
 
-> Can you share a dmesg log?
+However, the filling loop uses for_each_dss_steering(), which iterates
+over for_each_dss(), defined as the union of g_dss_mask and c_dss_mask
+(geometry + compute DSS). On platforms with compute-only DSS bits, the
+loop writes past the allocated buffer, corrupting adjacent slab objects.
 
-Relevant excerpt below; happy to send the full log off-list or attach
-to the Launchpad bug. Note this boot is running with the
-amdgpu.rebar=0 workaround on a 7.0.0-28 distro kernel, so amdgpu
-initializes successfully (on the native 256MB BAR) -- the host bridge
-and topology enumeration is identical on the boots that fail.
+This manifests as list_del corruption and SLUB redzone overwrites during
+drm_managed_release on device unbind, since the overflow corrupts the
+drmres list_head of neighboring allocations.
 
-  ACPI: MCFG 0x00000000EBE28E98 00004C (v01 NXP    LX2160   000000FF INTL 20151124)
-  ...
-  ACPI: MCFG table detected, 2 entries
-  ...
-  ACPI: PCI Root Bridge [PCI0] (domain 0002 [bus 01-ff])
-  acpi PNP0A08:00: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI EDR HPX-Type3]
-  acpi PNP0A08:00: _OSC: OS now controls [PCIeHotplug SHPCHotplug PME AER PCIeCapability LTR DPC]
-  acpi PNP0A08:00: ECAM area [mem 0x9000100000-0x900fffffff] reserved by PNP0C02:00
-  acpi PNP0A08:00: ECAM at [mem 0x9000100000-0x900fffffff] for [bus 01-ff]
-  PCI host bridge to bus 0002:01
-  pci_bus 0002:01: root bus resource [mem 0x9040000000-0x90ffffffff window] (bus address [0x40000000-0xffffffff])
-  pci_bus 0002:01: root bus resource [mem 0x9400000000-0x97ffffffff window]
-  pci_bus 0002:01: root bus resource [io  0x0000-0xffff window]
-  pci_bus 0002:01: root bus resource [bus 01-ff]
-  pci 0002:01:00.0: [144d:a808] type 00 class 0x010802 PCIe Endpoint
-  pci 0002:01:00.0: BAR 0 [mem 0x9400000000-0x9400003fff 64bit]
-  pci 0002:01:00.0: BAR 0 [mem 0x9400000000-0x9400003fff 64bit]: assigned
-  ACPI: PCI Root Bridge [PCI1] (domain 0004 [bus 01-ff])
-  acpi PNP0A08:01: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI EDR HPX-Type3]
-  acpi PNP0A08:01: _OSC: OS now controls [PCIeHotplug SHPCHotplug PME AER PCIeCapability LTR DPC]
-  acpi PNP0A08:01: ECAM area [mem 0xa000100000-0xa00fffffff] reserved by PNP0C02:00
-  acpi PNP0A08:01: ECAM at [mem 0xa000100000-0xa00fffffff] for [bus 01-ff]
-  PCI host bridge to bus 0004:01
-  pci_bus 0004:01: root bus resource [mem 0xa040000000-0xa0ffffffff window] (bus address [0x40000000-0xffffffff])
-  pci_bus 0004:01: root bus resource [mem 0xa400000000-0xa7ffffffff window]
-  pci_bus 0004:01: root bus resource [io  0x10000-0x1ffff window] (bus address [0x0000-0xffff])
-  pci_bus 0004:01: root bus resource [bus 01-ff]
-  pci 0004:01:00.0: [1002:6981] type 00 class 0x030000 PCIe Legacy Endpoint
-  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]
-  pci 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]
-  pci 0004:01:00.0: BAR 4 [io  0x10000-0x100ff]
-  pci 0004:01:00.0: BAR 5 [mem 0xa046000000-0xa04603ffff]
-  pci 0004:01:00.0: ROM [mem 0xa0fffe0000-0xa0ffffffff pref]
-  pci 0004:01:00.1: [1002:aae0] type 00 class 0x040300 PCIe Legacy Endpoint
-  pci 0004:01:00.1: BAR 0 [mem 0xa410200000-0xa410203fff 64bit]
-  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: assigned
-  pci 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: assigned
-  pci 0004:01:00.0: BAR 5 [mem 0xa040000000-0xa04003ffff]: assigned
-  pci 0004:01:00.0: ROM [mem 0xa040040000-0xa04005ffff pref]: assigned
-  pci 0004:01:00.1: BAR 0 [mem 0xa410200000-0xa410203fff 64bit]: assigned
-  pci 0004:01:00.0: BAR 4 [io  0x10000-0x100ff]: assigned
-  pci_bus 0004:01: resource 4 [mem 0xa040000000-0xa0ffffffff window]
-  pci_bus 0004:01: resource 5 [mem 0xa400000000-0xa7ffffffff window]
-  pci_bus 0004:01: resource 6 [io  0x10000-0x1ffff window]
+Fix by computing the allocation size using the union of both DSS masks,
+matching the iteration pattern of for_each_dss_steering().
+
+--
+v2:
+- use bitmap_weighted_or() (Zhanjun)
+
+Fixes: b170d696c1e2 ("drm/xe/guc: Add XE_LP steered register lists")
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/8049
+Cc: Zhanjun Dong <zhanjun.dong@intel.com>
+Cc: stable@vger.kernel.org
+Assisted-by: GitHub-Copilot:claude-opus-4.6
+Reviewed-by: Zhanjun Dong <zhanjun.dong@intel.com>
+Link: https://patch.msgid.link/20260612070401.543305-2-tejas.upadhyay@intel.com
+Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
+(cherry picked from commit 0a78a44f4901aa6c9263e66be7fce02282f1109f)
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/xe/xe_guc_capture.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_guc_capture.c b/drivers/gpu/drm/xe/xe_guc_capture.c
+index 243dad3e2418..3a1613886495 100644
+--- a/drivers/gpu/drm/xe/xe_guc_capture.c
++++ b/drivers/gpu/drm/xe/xe_guc_capture.c
+@@ -437,8 +437,15 @@ static void guc_capture_alloc_steered_lists(struct xe_guc *guc)
+ 	if (!list || guc->capture->extlists)
+ 		return;
+ 
+-	total = bitmap_weight(gt->fuse_topo.g_dss_mask, sizeof(gt->fuse_topo.g_dss_mask) * 8) *
+-		guc_capture_get_steer_reg_num(guc_to_xe(guc));
++	{
++		xe_dss_mask_t all_dss;
++
++		bitmap_or(all_dss, gt->fuse_topo.g_dss_mask, gt->fuse_topo.c_dss_mask,
++			  XE_MAX_DSS_FUSE_BITS);
++
++		total = bitmap_weight(all_dss, XE_MAX_DSS_FUSE_BITS) *
++			guc_capture_get_steer_reg_num(guc_to_xe(guc));
++	}
+ 
+ 	if (!total)
+ 		return;
+-- 
+2.53.0
+
