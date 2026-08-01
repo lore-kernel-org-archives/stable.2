@@ -1,180 +1,188 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7AA364045
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 08:18:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78D6273D6D;
+	Sat,  1 Aug 2026 08:34:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785572326; cv=none; b=VTi87RhpMZgAl+j1CgflLpRd82VpT5LJIYL1WxMvW3CkQA+CVxUGGYaQ/4Dtb7J79iudg6chvxzEKnQpQUT4aB+xGas+QQJdQm48L2TswlqtZZOD2Vn+c6zpLNHHGyYPX6VWC8NYj2jBrE9g1AgiWUtCOHhG10IARUwPUerAGWs=
+	t=1785573297; cv=none; b=OZ+a3xmBFgRExLWBVG6hFwHpNE0EIjzbCxcdXzal+Fj95RAekJRni+uWZajbKA7HvJcpWTwIzBjJIGvm/HsYzuxIrdnJMn9pt5zrdI5T6rPrN8xJUP3kHY/yp1ZkJUqHJB2zug1Zam2+gVA8oONw/JXx7hqf93S7Cs/xTBlanXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785572326; c=relaxed/simple;
-	bh=b/eFGy+WGnEH6RkGlTWexGaLp97r9zOzyhM5fVs9sfk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MccQFllbvYe09Q4Y5t38xWUzmkPFPCF4To15Lrnh4Ih5uBfHcH1jMM6kzdi/cxaHits3zfbs4pJQR3maFOf7cqXtMG7L+OM/PwnyhTDuqG5Dh2K3veX0S/g9dhj6o08XxasqR3MKAAnrPgAjt6PZ6/52riGwkdqGNXTlzS7J/ZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=nykbev1f; arc=none smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1785573297; c=relaxed/simple;
+	bh=D2XhRQ9aDr3wx0Fde00d1IVLMP0QSC+BSHaDEOmBv/o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PK5xCU94q+S4yFl8gfbUwhY6e7hy+O5nS6Cg9rCzOM+FwxkGrAnnytJGz3jEodASnJT0MeWv8nh9dEsRkMZcoQ+xl22CEQ/B3wysPNzxQSOAhphBF2WkJBM99kYxGKc0rpv+vAw3vxxBdQDJYHRsRDbMrl043uHh4WYBL8ysoxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=r1Jx8jvk; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="nykbev1f"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-84830c774a0so1814547b3a.1
-        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 01:18:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1785572324; x=1786177124; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1lwZlW3FZpQI3GTqv3UD9QOcWZj0C5mMeHQ3vQ2kJj0=;
-        b=nykbev1fXB9HmQP87uaCOtdBOYObWHB/fn06JteiIAs2FMN5NclYYo7t1zRZx6nvv+
-         XRgkG2N5M+Rd7mhK+jNG5PrB05rmKEu+KU+0kt99ozpbtv8pbVf2g4nJtq3QZ2h60x7K
-         19xZdhRfOjLrznJSG0fgpYkIoD9o9ex6PzhSO0XK6ZxPWO7hiJgcGNbmXuWaIb6vz8VD
-         IyCOKSK8KOgpqEbntrCrchBDAnGmsxaZgBNCHVevOqz/UFsMkLQ5VnGmoWy6GeNKtD4T
-         5zri0e/0am04Z0LkWZR7UhaBURQGDBKNYzPntcL5SSSyIwoyHEL/OgT64kvic03bxESG
-         ipaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785572324; x=1786177124;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1lwZlW3FZpQI3GTqv3UD9QOcWZj0C5mMeHQ3vQ2kJj0=;
-        b=V39mAsOqFqNxOHG6PuAdvURpffgpstXL8EpuUWXif65q0MfD45vz+8pIpHOCmZ0TCH
-         BD6hMcw0PjpW3rGMKUenpnA9KNswSNs3H5x7a7CovmapJ+bEjZ2JYe6JDigO1K2STc2n
-         WmWevjoCoZU/DaVkavJVp5o91s5l6lpjLge9+wvjCapEJZTM0fBiaBDW8mbREs0BGFzY
-         kt2FnzecXbCxMjp1O7yRtwJe7ql1f5ZAWaUDD7gj4lsiAjYLgZKcskOsBWtrZfoBG5oW
-         dVoB7ekqH1DoCtXvG8ZN6nf9Rc0s6IFX4P4Nk3TeoUmEn+748U+CpZf+SvV97CvmGl3P
-         Sw0Q==
-X-Forwarded-Encrypted: i=1; AHgh+RpUC82qz9av7AT5aFvR97lZdHg0N/9KQ/VyJSB8scz77z8D/ddwtICDcDkIiv1Q4rE8y1ptq+g=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxV7ekpM0VVWc8hzziN2AS4rGmOrsmruWu03GZAzoN2kSWFj64N
-	uo0YqZSJ6x3Ye0Yp9ftW48vDhmneJsh8B0vB5Zs61njST4N8t9ytG0m5VJ4N5089I7c=
-X-Gm-Gg: AR+sD10VOtxtpzSywSWU4/9kOOqCwUmDk0CYtBZCzhQbdjmRWgVruTlZT628YDddRjk
-	7wS6yZ0DbkJqK9WoC1Pni5Pbiw6Yvb8sffnL1MQ4afN7VOHgUYqAVbS/oZMh6G8EOPG+AqyJw0i
-	GEDPuOlgFdf62YiFq3BYdT/x8XuEdvrIQf7mVGDkYZotZGwYwpx/YVhk5GLEFEniTC88C7jbefS
-	y1cV3hYXstea70E52MuebalJ6x6AdOiepuf+0RPdNwqOvXVXw80xfqRzz7j03IvXOS6/0PV3Jew
-	o8EPFcQ17RZwVV43OECevlA3Tm57EIPDAyqdaq70FgrPn+0MShvheUyR95h6jTL+YpDKleY3DrX
-	9NGkwCMPZMF7cxq/ENsLyKRUXyELEoYKDeTEqk83hhl8aKVvJmDN81NCJanYd+9HUrfWJYG3N6e
-	aCvv5YfVZ4sAQv6DakLNwTNT8zMbaN9aeQQF+OXPF5joimQ4Ps5sI5MW6re9LJ+ZbxV8+Puo2Bw
-	bX1HX+IGXs=
-X-Received: by 2002:a05:6300:14d:b0:3c6:3c5b:f301 with SMTP id adf61e73a8af0-3c92a9519f2mr2907018637.68.1785572323922;
-        Sat, 01 Aug 2026 01:18:43 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:c329:7b28:fe02:5dc8])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbe39ea9a40sm1433003a12.25.2026.08.01.01.18.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 01:18:43 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org,
-	axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="r1Jx8jvk"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=Ho/q32AcbYFvSnd9s+n2PIJxfB/MItoG1fAzyJ5oEHY=; b=r1Jx8jvki8JkOpQeblmg2V3ogn
+	7jMteEyL4NEQS0LxO88nzK3y6PpyHEiPKPzeM5khp1wTsdRj8K+B6rAF3kgOiHOrebN6CCIWBzPl3
+	KplZxMqZcs+u6n6MHkh6uKmdJjfsTC9IRTDWBYYFT0OH4ohv/bKGSMW6pk54ZxRTBlkFYCv8bLS31
+	9sUP2wNe/6AWFVVBl7S6JZCa8xSg2l6f1koOY5sgdkr4toc+tH2UdGEyC4xN854iJS0aJrr3WXlhM
+	Wh59WNv/KocYzQccNsrzi0HAEh1WNlA7gE+2A02QqS+LMS16d5d3JWx6kxUiKH5Pqmn7o4wsMI6SH
+	mv3Xhdaw==;
+Received: from [151.115.150.205] (port=47632 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1wq5BH-0000000AYsZ-04fq;
+	Sat, 01 Aug 2026 10:34:53 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: bpf@vger.kernel.org
+Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] nvme-tcp: do not accept C2HData based on blk_rq_payload_bytes() alone
-Date: Sat,  1 Aug 2026 17:18:18 +0900
-Message-ID: <20260801081818.1884199-3-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260801081818.1884199-1-yhlee@isslab.korea.ac.kr>
-References: <20260801081818.1884199-1-yhlee@isslab.korea.ac.kr>
+Subject: [PATCH v2 bpf] bpf: harden bloom filter sizing and indexing on 32-bit kernels
+Date: Sat,  1 Aug 2026 08:34:04 +0000
+Message-ID: <20260801083436.4014218-1-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-scw-domain: oss.cyber.gouv.fr
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Commit 25e5cb780e62 ("nvme-tcp: fix possible crash in write_zeroes
-processing") established that blk_rq_payload_bytes() must not be read
-without first checking blk_rq_nr_phys_segments(), and recorded the
-result in nvme_tcp_setup_cmd_pdu() as req->data_len. The receive side
-was left as it was.
+bloom_map_alloc() has two 32-bit-specific problems when the computed
+bitmap reaches the U32_MAX fallback case.
 
-The two differ for REQ_OP_WRITE_ZEROES, which has no physical segments
-but a non-zero blk_rq_bytes(), so setup leaves req->iter untouched
-while the receive gate lets a C2HData through and nvme_tcp_recv_data()
-copies into whatever the previous command on that tag left there. The
-driver-private area is zeroed only when the tag set is allocated.
+First, BITS_TO_BYTES(U32_MAX) is evaluated with 32-bit arithmetic. The
+addition performed by DIV_ROUND_UP wraps, so the map allocates only the
+fixed-size bloom filter object while keeping bitset_mask == U32_MAX.
+Subsequent updates can then write past the allocated object.
 
-Reproduced with a test target that leaves a residual iterator on a tag
-and then sends a C2HData for a WRITE_ZEROES command on the same tag:
+Second, fixing only the allocation size is not sufficient. The bloom hash
+is a u32, but set_bit() takes a signed long bit number and x86 test_bit()
+eventually feeds the index to variable_test_bit(long, ...). On 32-bit
+kernels, hashes in [0x80000000, U32_MAX] therefore become negative bit
+offsets. x86 bt/bts with a memory operand interpret those offsets relative
+to the supplied base, so a map with bitset_mask == U32_MAX can read or
+write before bloom->bitset even after allocating the full 512 MiB bitmap.
 
-BUG: KASAN: wild-memory-access in _copy_to_iter+0x642/0x1330
-Write of size 512 at addr ffe728c2175dfa81 by task kworker/0:1H/103
+Keep the U32_MAX fallback, but split each hash into a word pointer and an
+in-word bit number before calling test_bit() or set_bit(). The bitops
+argument is then always in [0, BITS_PER_LONG - 1], while BIT_WORD(h) still
+selects the intended word in the full bitmap.
 
-CPU: 0 UID: 0 PID: 103 Comm: kworker/0:1H Not tainted 7.2.0-rc5-NVMETCP-gf5098b6bae76 #1 PREEMPT(lazy)
-Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: nvme_tcp_wq nvme_tcp_io_work
-Call Trace:
- <TASK>
- dump_stack_lvl+0x53/0x70
- kasan_report+0xce/0x100
- ? _copy_to_iter+0x642/0x1330
- kasan_check_range+0x105/0x1b0
- __asan_memcpy+0x3c/0x60
- _copy_to_iter+0x642/0x1330
- ? __pfx_sock_has_perm+0x10/0x10
- ? worker_thread+0x45b/0xd10
- ? __pfx__copy_to_iter+0x10/0x10
- ? _raw_spin_lock_bh+0x83/0xe0
- ? __pfx__raw_spin_lock_bh+0x10/0x10
- __skb_datagram_iter+0xf3/0x820
- ? __pfx_simple_copy_to_iter+0x10/0x10
- ? __asan_memcpy+0x3c/0x60
- ? skb_copy_bits+0x58d/0x830
- skb_copy_datagram_iter+0x37/0x120
- nvme_tcp_recv_skb+0xa07/0x4320
- ? __pfx_nvme_tcp_recv_skb+0x10/0x10
- __tcp_read_sock+0x1ab/0x810
- ? __pfx_nvme_tcp_recv_skb+0x10/0x10
- ? __pfx_lock_sock_nested+0x10/0x10
- ? __pfx___tcp_read_sock+0x10/0x10
- nvme_tcp_try_recv+0x152/0x1e0
- ? __pfx_nvme_tcp_try_recv+0x10/0x10
- ? __pfx_mutex_unlock+0x10/0x10
- nvme_tcp_io_work+0x1e4/0x6c0
- ? __schedule+0x181a/0x49f0
- ? __pfx_nvme_tcp_io_work+0x10/0x10
- process_one_work+0x633/0x1030
+Compute the bitset size from (u64)bitset_mask + 1 before passing the final
+size to bpf_map_area_alloc(). This fixes the original under-allocation and
+keeps the allocated storage consistent with the addressable bitset.
 
-Keep the blk_rq_payload_bytes() test and add req->data_len to it. The
-old test is what rejects a C2HData naming a tag that is no longer in
-flight, because blk_update_request() zeroes rq->__data_len on
-completion; req->data_len and req->curr_bio are driver-private and
-survive completion, so they cannot stand in for it. Setup initialises
-the iterator only when both req->curr_bio and req->data_len are set, so
-the gate now tests the same two.
+Exploitation note: local privilege escalation is possible on a 32-bit x86
+kernel using the under-allocation bug from a binary with CAP_BPF.
 
-Fixes: 25e5cb780e62 ("nvme-tcp: fix possible crash in write_zeroes processing")
+Fixes: 9330986c0300 ("bpf: Add bloom filter map implementation")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
-v2 -> v3: keep the blk_rq_payload_bytes() test and add to it; v2 replaced it
-and lost the rejection of a C2HData naming a tag that is no longer in flight.
+Changes in v2:
+- Address AI reviews.
+- Split full-width hashes into a word pointer and an in-word bit number
+  before calling bitops, so upper-half u32 hashes cannot become negative
+  offsets on 32-bit kernels.
+- Drop the redundant final u64 add-overflow check; bitset_bytes is bounded
+  at 512 MiB once it is computed from bitset_mask.
 
- drivers/nvme/host/tcp.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ kernel/bpf/bloom_filter.c | 30 +++++++++++++++++++++---------
+ 1 file changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index c4fe06d424d1..85a87ed6df93 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -668,6 +668,7 @@ static int nvme_tcp_process_nvme_cqe(struct nvme_tcp_queue *queue,
- static int nvme_tcp_handle_c2h_data(struct nvme_tcp_queue *queue,
- 		struct nvme_tcp_data_pdu *pdu)
- {
-+	struct nvme_tcp_request *req;
- 	struct request *rq;
+diff --git a/kernel/bpf/bloom_filter.c b/kernel/bpf/bloom_filter.c
+index b73336c..f111d26 100644
+--- a/kernel/bpf/bloom_filter.c
++++ b/kernel/bpf/bloom_filter.c
+@@ -33,6 +33,22 @@ static u32 hash(struct bpf_bloom_filter *bloom, void *value,
+ 	return h & bloom->bitset_mask;
+ }
  
- 	rq = nvme_find_rq(nvme_tcp_tagset(queue), pdu->command_id);
-@@ -678,7 +679,8 @@ static int nvme_tcp_handle_c2h_data(struct nvme_tcp_queue *queue,
- 		return -ENOENT;
++/*
++ * Some 32-bit architectures take a signed long bit number in bitops. Split
++ * the full u32 hash into a word pointer and an in-word bit number so upper
++ * half hashes cannot become negative offsets.
++ */
++static bool bloom_test_bit(struct bpf_bloom_filter *bloom, u32 bit)
++{
++	return test_bit(bit % BITS_PER_LONG,
++			bloom->bitset + BIT_WORD(bit));
++}
++
++static void bloom_set_bit(struct bpf_bloom_filter *bloom, u32 bit)
++{
++	set_bit(bit % BITS_PER_LONG, bloom->bitset + BIT_WORD(bit));
++}
++
+ static long bloom_map_peek_elem(struct bpf_map *map, void *value)
+ {
+ 	struct bpf_bloom_filter *bloom =
+@@ -41,7 +57,7 @@ static long bloom_map_peek_elem(struct bpf_map *map, void *value)
+ 
+ 	for (i = 0; i < bloom->nr_hash_funcs; i++) {
+ 		h = hash(bloom, value, map->value_size, i);
+-		if (!test_bit(h, bloom->bitset))
++		if (!bloom_test_bit(bloom, h))
+ 			return -ENOENT;
  	}
  
--	if (!blk_rq_payload_bytes(rq)) {
-+	req = blk_mq_rq_to_pdu(rq);
-+	if (!blk_rq_payload_bytes(rq) || !req->curr_bio || !req->data_len) {
- 		dev_err(queue->ctrl->ctrl.device,
- 			"queue %d tag %#x unexpected data\n",
- 			nvme_tcp_queue_id(queue), rq->tag);
+@@ -59,7 +75,7 @@ static long bloom_map_push_elem(struct bpf_map *map, void *value, u64 flags)
+ 
+ 	for (i = 0; i < bloom->nr_hash_funcs; i++) {
+ 		h = hash(bloom, value, map->value_size, i);
+-		set_bit(h, bloom->bitset);
++		bloom_set_bit(bloom, h);
+ 	}
+ 
+ 	return 0;
+@@ -94,9 +110,10 @@ static int bloom_map_alloc_check(union bpf_attr *attr)
+ 
+ static struct bpf_map *bloom_map_alloc(union bpf_attr *attr)
+ {
+-	u32 bitset_bytes, bitset_mask, nr_hash_funcs, nr_bits;
++	u32 bitset_mask, nr_hash_funcs, nr_bits;
+ 	int numa_node = bpf_map_attr_numa_node(attr);
+ 	struct bpf_bloom_filter *bloom;
++	u64 bitset_bytes;
+ 
+ 	if (attr->key_size != 0 || attr->value_size == 0 ||
+ 	    attr->max_entries == 0 ||
+@@ -127,21 +144,16 @@ static struct bpf_map *bloom_map_alloc(union bpf_attr *attr)
+ 	if (check_mul_overflow(attr->max_entries, nr_hash_funcs, &nr_bits) ||
+ 	    check_mul_overflow(nr_bits / 5, (u32)7, &nr_bits) ||
+ 	    nr_bits > (1UL << 31)) {
+-		/* The bit array size is 2^32 bits but to avoid overflowing the
+-		 * u32, we use U32_MAX, which will round up to the equivalent
+-		 * number of bytes
+-		 */
+-		bitset_bytes = BITS_TO_BYTES(U32_MAX);
+ 		bitset_mask = U32_MAX;
+ 	} else {
+ 		if (nr_bits <= BITS_PER_LONG)
+ 			nr_bits = BITS_PER_LONG;
+ 		else
+ 			nr_bits = roundup_pow_of_two(nr_bits);
+-		bitset_bytes = BITS_TO_BYTES(nr_bits);
+ 		bitset_mask = nr_bits - 1;
+ 	}
+ 
++	bitset_bytes = BITS_TO_BYTES((u64)bitset_mask + 1);
+ 	bitset_bytes = roundup(bitset_bytes, sizeof(unsigned long));
+ 	bloom = bpf_map_area_alloc(sizeof(*bloom) + bitset_bytes, numa_node);
+ 
 -- 
-2.43.0
-
+2.47.3
