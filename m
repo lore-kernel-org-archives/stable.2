@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3DF3093A6
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 14:04:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D28F1D89EF
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 14:04:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785593048; cv=none; b=aPRA1dJqKcWdAcgCD3BSwvfVwBVrSroOiFMYOOdjzivWFIb2BTp1CtPkXfoD1QsJPgonsJArZFKwM3X6rK7sGU3Hhl8WGGO6hLHBphwkbfo9Jx9SOlFewgq3wV7FOXY7BlFP1lAzR68a8nsSbeNdPgmIniK9ZLxIouVTGEKqgCg=
+	t=1785593049; cv=none; b=qItGhcdHAo17L8cT4qIUL6/xhWtdNpmf+OOlOYrzNbvKjTcloZOnkgxj/iVEmmxJ1KbGq21nXrJ9Ur778/ZBulO/AJLhCYUcgabc+6JF5zW99BofiXKpL2IBVZK7mjJiUdIgs00CV+mRz8aO0BlWtjnfg0zMDGuUECIwqgQSHBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785593048; c=relaxed/simple;
-	bh=j611efynchdDns6Y1QRTvI+QkCmicmlX2tupXkNqUJI=;
+	s=arc-20240116; t=1785593049; c=relaxed/simple;
+	bh=TuyT8hANsk3TsB5lKscNCnk8Fs21GA6Vu+Q4d2a2HyQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hVaMxJbPtgX5zxYvZENIED/mgXl5SXd1cDlEGTLQg36Hpog5Rpct9RBKl4Jctqn3Ful9g8pBUk/6fHHHas7GXd79BHV4xQc/BFDQ5g30J9bGzOaGqe+wUfazwqcHfgPlmw4fzahCqTT6Wh6eFJEyv51l/aeWsSS56QH9gtmbg/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DE+aiHk5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=FfRtUhuZd2ZHHvYW2oYBDoY+R3O7PLfZ2X3jbplEDNCPevkFSF+ojvw2oYT4qpkMLk8PKpXq+e1230p9v3nxRb3/IRbo+z6CmTCljzsHAmWWtrrhepdoE3B3BPE+EUttZMLaVMuEMHbgDj3+ddSBU2caIqNbN4WTV4jgmJYpjso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VybzfqrN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DE+aiHk5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E8101F00ACA;
-	Sat,  1 Aug 2026 14:04:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VybzfqrN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7089B1F00AC4;
+	Sat,  1 Aug 2026 14:04:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785593047;
-	bh=pAT/cCdCN6TTD1+oC73XgclDX3b4ja4jX4XonkVQybI=;
+	s=k20260515; t=1785593048;
+	bh=YT9QfVzXzR+LbJGRkl3QE7i2tmBNtCuGue6arxR5BNA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DE+aiHk5YcEYvf8QAkFk7jk0UPw9Qxk9Rr1EqtakBG0J4cabR4Jk5wyJnMHDO9U0T
-	 ewSz904wbk1dRYA3sLaKlDZXropYyDqnUG06RtHk+f53YgdiASo20Xxj2J+pWZPCaM
-	 w5FvRoTqrb+fRIOlieAaYkb+w5dRKdkA8OL3WPOg1tV1ZegP6gGwF8aFg0HikYmesq
-	 JclsOAgPRu8KAxZ2bSJv9v5JYTZTK9v6X59RlZtKG3eyyjGr4aCEfXJe8Iq5lKmt2n
-	 Nr7fwnBXEXD4Exy+o8wVdZxpWUD0uGn8HiNYf/Q58CeAf7ESj6byQUb3DUiLoTtSog
-	 cVOPRqwrcLTTQ==
+	b=VybzfqrN7N+gJ6aWiVPVTiFgJrrL6mUDnsI4S+d02pAvvkrLcFpUyPOL2VpFsa2T7
+	 ws0/ixFsRCsozqQpi4QGgiiIAi5RQWQsXzJCZ11kS0SVRQwJlk1pg/tcr5+/RX3LHu
+	 3B64SsQys2wEaXBbChvuSMiCyza4PGQ6tMA+cIhrHpgDUZOfJgJ7dVv+y+65SMJxin
+	 y54HGRBBkeFGpMJrqNIfcGt4Ir6p3hWrbD0enjILOa/QB5RvLtmmnQAYrcOgCU4h4a
+	 0HuXLT2tTfaJFAD3L3SMndu9xFCdpTCXfoRu4UazqWQFnfcXFofT9qE1Tw8mMpgAVQ
+	 2BrVHmnLAdKaQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Arvind Yadav <arvind.yadav@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 	Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
 	Matthew Brost <matthew.brost@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/5] drm/xe/bo: Add purgeable bo state tracking and field madv to xe_bo
-Date: Sat,  1 Aug 2026 10:03:57 -0400
-Message-ID: <20260801140402.3645391-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y 4/5] drm/xe/vm: Prevent binding of purged buffer objects
+Date: Sat,  1 Aug 2026 10:03:58 -0400
+Message-ID: <20260801140402.3645391-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260801140402.3645391-1-sashal@kernel.org>
 References: <2026072936-hummus-emblem-55be@gregkh>
@@ -51,131 +51,171 @@ Content-Transfer-Encoding: 8bit
 
 From: Arvind Yadav <arvind.yadav@intel.com>
 
-[ Upstream commit b67427f939ccf038a658badb02dd948c7b516248 ]
+[ Upstream commit 4f44961eab8474a47de419113e1d46095f9b44e0 ]
 
-Add infrastructure for tracking purgeable state of buffer objects.
-This includes:
+Add purge checking to vma_lock_and_validate() to block new mapping
+operations on purged BOs while allowing cleanup operations to proceed.
 
-Introduce enum xe_madv_purgeable_state with three states:
-   - XE_MADV_PURGEABLE_WILLNEED (0): BO is needed and should not be
-     purged. This is the default state for all BOs.
+Purged BOs have their backing pages freed by the kernel. New
+mapping operations (MAP, PREFETCH, REMAP) must be rejected with
+-EINVAL to prevent GPU access to invalid memory. Cleanup
+operations (UNMAP) must be allowed so applications can release
+resources after detecting purge via the retained field.
 
-   - XE_MADV_PURGEABLE_DONTNEED (1): BO is not currently needed and
-     can be purged by the kernel under memory pressure to reclaim
-     resources. Only non-shared BOs can be marked as DONTNEED.
+REMAP operations require mixed handling - reject new prev/next
+VMAs if the BO is purged, but allow the unmap portion to proceed
+for cleanup.
 
-   - XE_MADV_PURGEABLE_PURGED (2): BO has been purged by the kernel.
-     Accessing a purged BO results in error. Follows i915 semantics
-     where once purged, the BO remains permanently invalid ("once
-     purged, always purged").
+The check_purged flag in struct xe_vma_lock_and_validate_flags
+distinguishes between these cases: true for new mappings (must reject),
+false for cleanup (allow).
 
-Add madv_purgeable field to struct xe_bo for state tracking
-  of purgeable state across concurrent access paths
-
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Link: https://patch.msgid.link/20260326130843.3545241-3-arvind.yadav@intel.com
+Link: https://patch.msgid.link/20260326130843.3545241-6-arvind.yadav@intel.com
 Stable-dep-of: 7bc597ce74ba ("drm/xe/vm: Fix BO prefetch with CONSULT_MEM_ADVISE_PREF_LOC")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_bo.h       | 56 ++++++++++++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_bo_types.h |  6 ++++
- 2 files changed, 62 insertions(+)
+ drivers/gpu/drm/xe/xe_vm.c | 79 ++++++++++++++++++++++++++++++++------
+ 1 file changed, 68 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
-index a77af42b5f9e..02506c337f00 100644
---- a/drivers/gpu/drm/xe/xe_bo.h
-+++ b/drivers/gpu/drm/xe/xe_bo.h
-@@ -84,6 +84,28 @@
- 
- #define XE_PCI_BARRIER_MMAP_OFFSET	(0x50 << XE_PTE_SHIFT)
- 
-+/**
-+ * enum xe_madv_purgeable_state - Buffer object purgeable state enumeration
-+ *
-+ * This enum defines the possible purgeable states for a buffer object,
-+ * allowing userspace to provide memory usage hints to the kernel for
-+ * better memory management under pressure.
-+ *
-+ * @XE_MADV_PURGEABLE_WILLNEED: The buffer object is needed and should not be purged.
-+ * This is the default state.
-+ * @XE_MADV_PURGEABLE_DONTNEED: The buffer object is not currently needed and can be
-+ * purged by the kernel under memory pressure.
-+ * @XE_MADV_PURGEABLE_PURGED: The buffer object has been purged by the kernel.
-+ *
-+ * Accessing a purged buffer will result in an error. Per i915 semantics,
-+ * once purged, a BO remains permanently invalid and must be destroyed and recreated.
-+ */
-+enum xe_madv_purgeable_state {
-+	XE_MADV_PURGEABLE_WILLNEED,
-+	XE_MADV_PURGEABLE_DONTNEED,
-+	XE_MADV_PURGEABLE_PURGED,
-+};
-+
- struct sg_table;
- 
- struct xe_bo *xe_bo_alloc(void);
-@@ -212,6 +234,40 @@ static inline bool xe_bo_is_protected(const struct xe_bo *bo)
- 	return bo->pxp_key_instance;
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index 8f7b8f2da06b..b49c1b3fa665 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -2834,8 +2834,22 @@ static void vm_bind_ioctl_ops_unwind(struct xe_vm *vm,
+ 	}
  }
  
 +/**
-+ * xe_bo_is_purged() - Check if buffer object has been purged
-+ * @bo: The buffer object to check
-+ *
-+ * Checks if the buffer object's backing store has been discarded by the
-+ * kernel due to memory pressure after being marked as purgeable (DONTNEED).
-+ * Once purged, the BO cannot be restored and any attempt to use it will fail.
-+ *
-+ * Context: Caller must hold the BO's dma-resv lock
-+ * Return: true if the BO has been purged, false otherwise
++ * struct xe_vma_lock_and_validate_flags - Flags for vma_lock_and_validate()
++ * @res_evict: Allow evicting resources during validation
++ * @validate: Perform BO validation
++ * @request_decompress: Request BO decompression
++ * @check_purged: Reject operation if BO is purged
 + */
-+static inline bool xe_bo_is_purged(struct xe_bo *bo)
-+{
-+	xe_bo_assert_held(bo);
-+	return bo->madv_purgeable == XE_MADV_PURGEABLE_PURGED;
-+}
++struct xe_vma_lock_and_validate_flags {
++	u32 res_evict : 1;
++	u32 validate : 1;
++	u32 request_decompress : 1;
++	u32 check_purged : 1;
++};
 +
-+/**
-+ * xe_bo_madv_is_dontneed() - Check if BO is marked as DONTNEED
-+ * @bo: The buffer object to check
-+ *
-+ * Checks if userspace has marked this BO as DONTNEED (i.e., its contents
-+ * are not currently needed and can be discarded under memory pressure).
-+ * This is used internally to decide whether a BO is eligible for purging.
-+ *
-+ * Context: Caller must hold the BO's dma-resv lock
-+ * Return: true if the BO is marked DONTNEED, false otherwise
-+ */
-+static inline bool xe_bo_madv_is_dontneed(struct xe_bo *bo)
-+{
-+	xe_bo_assert_held(bo);
-+	return bo->madv_purgeable == XE_MADV_PURGEABLE_DONTNEED;
-+}
-+
- static inline void xe_bo_unpin_map_no_vm(struct xe_bo *bo)
+ static int vma_lock_and_validate(struct drm_exec *exec, struct xe_vma *vma,
+-				 bool res_evict, bool validate)
++				 struct xe_vma_lock_and_validate_flags flags)
  {
- 	if (likely(bo)) {
-diff --git a/drivers/gpu/drm/xe/xe_bo_types.h b/drivers/gpu/drm/xe/xe_bo_types.h
-index d4fe3c8dca5b..ff8317bfc1ae 100644
---- a/drivers/gpu/drm/xe/xe_bo_types.h
-+++ b/drivers/gpu/drm/xe/xe_bo_types.h
-@@ -108,6 +108,12 @@ struct xe_bo {
- 	 * from default
- 	 */
- 	u64 min_align;
+ 	struct xe_bo *bo = xe_vma_bo(vma);
+ 	struct xe_vm *vm = xe_vma_vm(vma);
+@@ -2844,10 +2858,19 @@ static int vma_lock_and_validate(struct drm_exec *exec, struct xe_vma *vma,
+ 	if (bo) {
+ 		if (!bo->vm)
+ 			err = drm_exec_lock_obj(exec, &bo->ttm.base);
+-		if (!err && validate)
 +
-+	/**
-+	 * @madv_purgeable: user space advise on BO purgeability, protected
-+	 * by BO's dma-resv lock.
-+	 */
-+	u32 madv_purgeable;
- };
++		/* Reject new mappings to DONTNEED/purged BOs; allow cleanup operations */
++		if (!err && flags.check_purged) {
++			if (xe_bo_madv_is_dontneed(bo))
++				err = -EBUSY;  /* BO marked purgeable */
++			else if (xe_bo_is_purged(bo))
++				err = -EINVAL; /* BO already purged */
++		}
++
++		if (!err && flags.validate)
+ 			err = xe_bo_validate(bo, vm,
+ 					     !xe_vm_in_preempt_fence_mode(vm) &&
+-					     res_evict, exec);
++					     flags.res_evict, exec);
+ 	}
  
- #endif
+ 	return err;
+@@ -2933,9 +2956,13 @@ static int op_lock_and_prep(struct drm_exec *exec, struct xe_vm *vm,
+ 	case DRM_GPUVA_OP_MAP:
+ 		if (!op->map.invalidate_on_bind)
+ 			err = vma_lock_and_validate(exec, op->map.vma,
+-						    res_evict,
+-						    !xe_vm_in_fault_mode(vm) ||
+-						    op->map.immediate);
++						    (struct xe_vma_lock_and_validate_flags) {
++							.res_evict = res_evict,
++							.validate = !xe_vm_in_fault_mode(vm) ||
++								    op->map.immediate,
++							.request_decompress = false,
++							.check_purged = true,
++						    });
+ 		break;
+ 	case DRM_GPUVA_OP_REMAP:
+ 		err = check_ufence(gpuva_to_vma(op->base.remap.unmap->va));
+@@ -2944,13 +2971,28 @@ static int op_lock_and_prep(struct drm_exec *exec, struct xe_vm *vm,
+ 
+ 		err = vma_lock_and_validate(exec,
+ 					    gpuva_to_vma(op->base.remap.unmap->va),
+-					    res_evict, false);
++					    (struct xe_vma_lock_and_validate_flags) {
++						    .res_evict = res_evict,
++						    .validate = false,
++						    .request_decompress = false,
++						    .check_purged = false,
++					    });
+ 		if (!err && op->remap.prev)
+ 			err = vma_lock_and_validate(exec, op->remap.prev,
+-						    res_evict, true);
++						    (struct xe_vma_lock_and_validate_flags) {
++							    .res_evict = res_evict,
++							    .validate = true,
++							    .request_decompress = false,
++							    .check_purged = true,
++						    });
+ 		if (!err && op->remap.next)
+ 			err = vma_lock_and_validate(exec, op->remap.next,
+-						    res_evict, true);
++						    (struct xe_vma_lock_and_validate_flags) {
++							    .res_evict = res_evict,
++							    .validate = true,
++							    .request_decompress = false,
++							    .check_purged = true,
++						    });
+ 		break;
+ 	case DRM_GPUVA_OP_UNMAP:
+ 		err = check_ufence(gpuva_to_vma(op->base.unmap.va));
+@@ -2959,7 +3001,12 @@ static int op_lock_and_prep(struct drm_exec *exec, struct xe_vm *vm,
+ 
+ 		err = vma_lock_and_validate(exec,
+ 					    gpuva_to_vma(op->base.unmap.va),
+-					    res_evict, false);
++					    (struct xe_vma_lock_and_validate_flags) {
++						    .res_evict = res_evict,
++						    .validate = false,
++						    .request_decompress = false,
++						    .check_purged = false,
++					    });
+ 		break;
+ 	case DRM_GPUVA_OP_PREFETCH:
+ 	{
+@@ -2972,9 +3019,19 @@ static int op_lock_and_prep(struct drm_exec *exec, struct xe_vm *vm,
+ 				  region <= ARRAY_SIZE(region_to_mem_type));
+ 		}
+ 
++		/*
++		 * Prefetch attempts to migrate BO's backing store without
++		 * repopulating it first. Purged BOs have no backing store
++		 * to migrate, so reject the operation.
++		 */
+ 		err = vma_lock_and_validate(exec,
+ 					    gpuva_to_vma(op->base.prefetch.va),
+-					    res_evict, false);
++					    (struct xe_vma_lock_and_validate_flags) {
++						    .res_evict = res_evict,
++						    .validate = false,
++						    .request_decompress = false,
++						    .check_purged = true,
++					    });
+ 		if (!err && !xe_vma_has_no_bo(vma))
+ 			err = xe_bo_migrate(xe_vma_bo(vma),
+ 					    region_to_mem_type[region],
 -- 
 2.53.0
 
