@@ -1,125 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C1D33FE33
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 16:59:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E0925B09C;
+	Sat,  1 Aug 2026 17:15:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785603576; cv=none; b=e80+CnOoY1mJoVCAL517k11rr6jb7mLEcKZ/EaxfKjRaH4T2gs1tqTE2gfhucdlmdbJXMSezaf8gT9bpqZeaplQn07+Ju+ZognZiYlnIid+olXzrU4vS4Ymmz43XLI3Lj6CuGcfIWQU6eTh4SEMhj4AAoleMHVg/wUSnR+LV9iY=
+	t=1785604552; cv=none; b=gfAKg1849Dj/5rvTRF6fsKiTX9umO/W656yiAzCPqoPOaeoi5Nbz+WxFf+V1FDeENCQ0nna1WOKr7XM3ROB0Cw0wPAk98DJdw36+CayI8refceciLcv8aAwdy6eejtqKUdAo8zRa2GrS8FFyMj/sEvp9kZm5VSSTyg3sjcbnRXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785603576; c=relaxed/simple;
-	bh=YVcD5rNvBDlXv+QkCJEYUQukeM8OSt29JFWTbXTjyB0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HIwmfXScVrBnBVIhTF2kgK6r461qvXjj2U0jNTQniibyRx5c/D8fPmVewuonnAlo1ImC2jSBNl99TjLUn+KC+8PfFOYD7kGCcDitXdr0VCnvmjgEv7ny6FrZ9OmVVSr6Jgr5df29YUvQctPVliA0+DipVQNT75YOA0RV0MFKxlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MbvcVs7t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785604552; c=relaxed/simple;
+	bh=bUOAQR5q4kA41Cpj4Srt3WibasPOLQjv4wA/qW/rYCs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QFp1jSkdtbJj0SoM7/VWyYtSF11Cbhqah0rIVnanHMWez89NHBY5DV9G5zZ/oOGDWEm/Ny6M+qLSeTvd4Qby6ifcU9AgoTpVjvwIrqFQcAAtvLKN98jHwXipdrxJOPJMPNyTMsIVRAajl3UbgI6JPC+v9GeHIJzRYHCy4uriGIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GQrCGkY7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MbvcVs7t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1862F1F00AC4;
-	Sat,  1 Aug 2026 16:59:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GQrCGkY7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 752131F00AC4;
+	Sat,  1 Aug 2026 17:15:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785603574;
-	bh=S/DIZuiuHdbI3f4MbHoNqEszGMheLD2zVsuELb5wzpw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MbvcVs7t3DAMSNcze0f9pQ4kBoZnAph4Q0zlM3grrpKJUhAQJd81dulEkvrPlo73B
-	 P+qNqlKDhHxUu4RS1moFJDFph/2y4RJ8lTfWcrUg6Yafv6/SHeaCCy+w/uojqbvYRk
-	 xjh7J84OZQbt5bZ7Yu+uJQPHRBHx5keOsvs2j8qJHXYi83XsdWbY/fhzhf97MMmIYn
-	 2D4z7SfPyo5TSnxMcjOJd0dfJxEpC56yFKO5NE059lAQbQsdyrOEFl+QDBEbvt0KbS
-	 bM55W5gU27w0wXuQNEmd+q2aiFZ/QVX//A8dyvn0G6nEU20V3assU+BaUsSk8jJ9my
-	 cCL7uV66fwX1g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Matthew Brost <matthew.brost@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Subject: [PATCH 6.18.y 2/2] drm/xe: Wait on external BO kernel fences in exec IOCTL
-Date: Sat,  1 Aug 2026 12:59:13 -0400
-Message-ID: <20260801165915.2408629-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260801165915.2408629-1-sashal@kernel.org>
-References: <2026072911-lake-unrobed-1810@gregkh>
- <20260801165915.2408629-1-sashal@kernel.org>
+	s=k20260515; t=1785604550;
+	bh=KdDXDmp7FAJf5kIwU0xoHMb5HTMwunbkXtS6iAf1grM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GQrCGkY7yOKeCBmmET5+jvtjqoD3j2CN3YrY7FGfFq75WjGnfFjrtE7spy7v9Xa7y
+	 ltkQa16/yt7SM9pOwNEMYMokLI+rOWL9/KuHHtxpdey2/eaKVcX0ieQLWSuOHaflUM
+	 3w7q+ZkSvF8q+n1ulAh/5Bxm8NL3UxvDU0283/fkYSpKu+AR4VC4XYnSV9Kf9c1xeZ
+	 fhxB/N95eQTlfn4Lo6yZOVj0mnwE4dPAT5a23J/tkTodTrZfHgcW9OA9No9WRVYnlm
+	 drAJFO1+LmgVyJ5dVs2um5KpsoKX4CNm0JRQKEV1r84Q/bemZsM8ctJL19rCosMYO8
+	 sRWmHU5EQlAoQ==
+Date: Sat, 1 Aug 2026 10:15:49 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: fsverity@lists.linux.dev, bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Jiri Olsa <jolsa@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] fsverity: Fix bpf_get_fsverity_digest() dynptr
+ assumptions
+Message-ID: <20260801171549.GB3567@quark>
+References: <20260731003925.2728977-1-ebiggers@kernel.org>
+ <DKDRHTVNMQ2E.1FCTWQZO2EB7Z@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DKDRHTVNMQ2E.1FCTWQZO2EB7Z@gmail.com>
 
-From: Matthew Brost <matthew.brost@intel.com>
+On Sat, Aug 01, 2026 at 06:52:45PM +0200, Kumar Kartikeya Dwivedi wrote:
+> > Also correctly handle sizes over INT_MAX, which previously caused an
+> > integer overflow and crash.  __bpf_dynptr_size() returns a u64.
+> >
+> 
+> I guess this occurs when using file dynptrs? Otherwise the size is capped to
+> DYNPTR_SIZE_MASK.
 
-[ Upstream commit af80e2bfde9312c76b60cf9274248dce0410b30d ]
+Yes, though it looks like __bpf_dynptr_data_rw() excludes file dynptrs.
+So this particular issue might be unreachable.  Still seems like a good
+idea to match the u64 type that __bpf_dynptr_size() returns though.
 
-Before arming a user job, xe_exec_ioctl() only added the VM's
-dma-resv KERNEL slot as a dependency. That slot covers rebinds and
-the kernel operations of the VM's private BOs, but not external BOs
-(bo->vm == NULL), which carry their kernel operations (evictions,
-moves, ...) in their own dma-resv KERNEL slot.
-
-The DMA_RESV_USAGE_KERNEL slot is the cross-driver contract for
-memory management operations that must complete before the BO or its
-backing store may be used: any accessor is required to wait on the
-KERNEL fences before touching the resv. By skipping the external BOs'
-KERNEL slots, the exec path violated that contract and could schedule
-a user job while a kernel operation on an external BO mapped by the VM
-was still in flight, racing against it and potentially reading or
-writing memory that was being moved.
-
-Replace the VM-only dependency with an iteration over every object
-locked by the exec, adding each object's KERNEL slot as a job
-dependency. This covers the VM resv (rebinds and private BOs) as well
-as every external BO, mirroring the drm_gpuvm_resv_add_fence() call
-that later publishes the job fence to the same set of objects.
-Long-running mode continues to skip this, as before.
-
-Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
-Cc: stable@vger.kernel.org
-Assisted-by: GitHub_Copilot:claude-opus-4.8
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20260702215805.4011228-1-matthew.brost@intel.com
-(cherry picked from commit a6b842acf3ddd1efc53a56de9260cfa718fb35e7)
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Review <review@local>
----
- drivers/gpu/drm/xe/xe_exec.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/xe_exec.c b/drivers/gpu/drm/xe/xe_exec.c
-index 87a32b61bece..c156cf4661f2 100644
---- a/drivers/gpu/drm/xe/xe_exec.c
-+++ b/drivers/gpu/drm/xe/xe_exec.c
-@@ -286,13 +286,23 @@ int xe_exec_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
- 		goto err_exec;
- 	}
- 
--	/* Wait behind rebinds */
-+	/*
-+	 * Wait behind rebinds and any kernel operations (evictions, defrag
-+	 * moves, ...) on the VM and all external BOs. The VM's private BOs
-+	 * carry their kernel ops in the VM dma-resv KERNEL slot, while each
-+	 * external BO carries them in its own dma-resv KERNEL slot; both are
-+	 * covered by iterating every object locked by the exec, mirroring the
-+	 * drm_gpuvm_resv_add_fence() below.
-+	 */
- 	if (!xe_vm_in_lr_mode(vm)) {
--		err = xe_sched_job_add_deps(job,
--					    xe_vm_resv(vm),
--					    DMA_RESV_USAGE_KERNEL);
--		if (err)
--			goto err_put_job;
-+		struct drm_gem_object *obj;
-+
-+		drm_exec_for_each_locked_object(exec, obj) {
-+			err = xe_sched_job_add_deps(job, obj->resv,
-+						    DMA_RESV_USAGE_KERNEL);
-+			if (err)
-+				goto err_put_job;
-+		}
- 	}
- 
- 	for (i = 0; i < num_syncs && !err; i++)
--- 
-2.53.0
-
+- Eric
