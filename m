@@ -1,43 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA61E3290AF;
-	Sat,  1 Aug 2026 21:13:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3A03368A3
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 21:37:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785618804; cv=none; b=FAfP9n8OQl8Q9R8na6ssokhTHU7WKEAVFpnFAD2owbODISLiIjlcGPUaqDaS3d5+whtCSBQ1Ar0umw+MMFD0/5m3VrkQRyWgTk0F6iJDK6zqxSGK3I77U8i1mWHNy8GsVMuj2k24GEJBbtxCV/Y/V+CZyx6n+ptyDWhd6rF4uEw=
+	t=1785620261; cv=none; b=Ut8CZrXT9r2gxXTHrhudH4BNm7zWQWDytfEi0fj7jjgFseH91LD4JPbmBG1+YLrhT0cQgmex2eyHKKMf/ebJX/+e5HR6DG5YOgD4DWqG2LFL6LkLqkEmYJSaheEfutzpXbd4oHqh0BEbYYRs07HGa+IJwNh/nDjun7jvHgrTfQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785618804; c=relaxed/simple;
-	bh=DNOiz/DgEDdKA7ysxts/Yldz2JYVUrbH5dTvy9JOXOc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nxBde6G7F1o+aEiAGegF1aFnS0ljy4EIhwljVrzETtXb7ePYDIqHuLDxvft7CDVb9w8x/DgorfzmF05Eb9kmDd5Zd6J6LlGJiNcbvFXXOnT2Zpf2A/iZJtW3Gf7N6u8kjQhWVM+Gu1LIqxEJd0nrxOUCcfrwNw9SAG0TWHuOYxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N2qQ8ZkN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785620261; c=relaxed/simple;
+	bh=PdcrG7GkMxlOZ4eaudUMpHVF5woUKkG1xAqvC1xgXnA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rXWWaHFo73VSoVCDa6sBaYheZQXFYWsJHBsJvxstjI+JRheiC90MZMKp6gxHZ0gqkDk8CHqNWNQoPcVAezc02+uY0vEDSg3NvEgmuuvzWTulxeLVeFbf8vGAEfxWkTIdByZ7dnb1iUiwmkJfhSi/q9QHilhzvZsNTJnlUbf5hiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BigswsHj; arc=none smtp.client-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N2qQ8ZkN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DBE41F00AC4;
-	Sat,  1 Aug 2026 21:13:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785618803;
-	bh=Zgds1KWwyKC+2cnQi37FJX/dPPIH+eZIO9DX1EvW4BM=;
-	h=From:To:Cc:Subject:Date;
-	b=N2qQ8ZkNxXx6ISsQ8TaGZ+cCD8ZUA+9+/V6FRYXNsce37R+Ou2N1Hc4PGW6x92v3g
-	 f7/7wRdJGMfo2OCn1ybsZRz8kmVQFG06S/Kl5mg4lPjTqgRA5Pkd5/Z1tgy6Qiy37/
-	 2bieEOWzmlCkYJ0BqAeneOlpXHUmevhGsBIN5rb44Za0nXxaWFxS0M0LFuJGMQwcAD
-	 UW30BTR4MWsZTTtbLyU7IXRZNookNIeem5reab0R4yl9IScvMVjU/2l6SwHc8dVFY1
-	 lxqxOju361z63bWP5lTOGYZYQzuioxr505pI7a6L3YG0XVcggq2HL+EEdvQ3g9CUm+
-	 a36M0RbtXg+aw==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Yunjeong Mun <yunjeong.mun@sk.com>,
-	damon@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BigswsHj"
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-930c0f9c1b1so125508985a.1
+        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 14:37:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785620258; x=1786225058; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G6Et0NhWmlhqF6H6Esm0lrRD3CSb6Cqp9D32iHCNdQ4=;
+        b=BigswsHjpvhURs2nEr5x3PDY7BtwS+iHViS80ZctZEbwla7nmXh7wK0yfcC60pJ8EP
+         Vw8/UQOsncG5We2H4lF0l1mEY2lDV5svCTCj7aJGHYmWdwQ/AFbE0MIBq7HkpWXijzYV
+         Kj5k1ttu4EoAwp1nuRsxYhis+ewC3uaXSwNVAw3b+/VKPSnxEI+4VYtQ+9nRQUIQa26u
+         dIKmV+BilrVMbnHpK+LKqMF1Babz0D8zz+XMdZyh5JJZh/hNcDE4RFZgwIF8IIF1nJN/
+         +LxbsuiDfPHI5JqwAshctdtkJkMOhCGPu/r9ex+7u8U1UdGWZY5UARFSAGsfWNxoba5c
+         O5IA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785620258; x=1786225058;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G6Et0NhWmlhqF6H6Esm0lrRD3CSb6Cqp9D32iHCNdQ4=;
+        b=NFDQssqbvFgBbtwUANrV8X6Uo0vo5TzYYNkRI1FHrR38DjikUlCywxHiDEb16RJKlK
+         xcgFJaLFPCmwjXWZRjvtcs7asKZBD4VoUvaNPGO+iasd1FDSZ+BOHvGS+8UXfYk1Ql9+
+         KDR1boDK+H5zWmwW8vq4FhJGPnWUx7QLGoyuM9M1wk9NTzt1c/eoG88XU+hFDXpAUe2c
+         vSvd8VUgK4Ru3X8X94rHTXO8aFkI1VUq5uEJd7Al5DiWPqIn70OHHw2E3A3DnB8PasrC
+         NBt/3om+8io4D2+8WBgtnVmOPAeLQZPHo6WKpIhWjk5KDaTVC7VS5yjFynZoh3AppnA6
+         QsHQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpkUFWoGppjvcyCXNbsV/VoOU669aakM0sn/Jhkckxsvr4ckAnDhDoCa0GOdM53OhJLvDd1aUc=@vger.kernel.org
+X-Gm-Message-State: AOJu0YztMvQjDZQaHq0V5OU+jgF5bfAODnzCrpsVzskb657G6w82tFp0
+	QDoHP4TbasS3hC39oVywswyOQcXV8J9tyf2b+WEy9R/AFOr0L7/MBH8H
+X-Gm-Gg: AR+sD11IAWXPOlhy1zCix2at38S4eTZMZPpW7vFMqf9wOVl4nDXsbv8UwrA0Gh2R3Yy
+	j0VxaMt/CecumP4JJDUkWnLdPkPh0vOMSzAFOQz6UL3yv5nQDkjRd1Edj+FUAtbBR+6uldZOCSs
+	I6tpapru9v23dlbliss/2cchPVknve8z9AU5uTFdOqAAwDmAeqsk0TMWRoAi9Dr2GeyR6qGtS5B
+	Q+TgeGShkASs00rdZd7l6G9aa4J9gJSNVEpQh2svqFJpFzi5wsM1uOnb9QILXVlNZ+7egMBl72P
+	IcEDPO79kxe7xXdDMF/WshPNhPb51W+6hCxDToWgAGGmFJQd6ZovBppsJqYYHIpaB9ErkaYEd2/
+	CXzy2fo5CnS+n2/i96x297jobMEc11GDSbjp3kvt/+1K5crgApsBC4VCYMLqKLzpT9uncCVGL9P
+	YXPINBAljLxuHS2x7C15l9PtntbEjroz4vbSK366+v/l/pdoX/gGmUb9duit0inwPfDvnvI0Bc0
+	2ji6T2vT3iNHK//VQ==
+X-Received: by 2002:a05:622a:22a2:b0:519:e020:6087 with SMTP id d75a77b69052e-52b5679fb54mr98575971cf.11.1785620258384;
+        Sat, 01 Aug 2026 14:37:38 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-908435b6adesm40376256d6.24.2026.08.01.14.37.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 01 Aug 2026 14:37:38 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: bernard.metzler@linux.dev,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH] samples/damon/mtier: error out for zero quota goal target values
-Date: Sat,  1 Aug 2026 14:13:14 -0700
-Message-ID: <20260801211315.2456-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] RDMA/siw: Fix use-after-free in siw_accept()
+Date: Sat,  1 Aug 2026 17:36:32 -0400
+Message-ID: <20260801213632.1086548-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,60 +77,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-damos_quota_score() can trigger division by zero if the target_value is
-zero.  DAMON_SAMPLE_MTIER lets users set the target_value via
-node0_mem_{used,free}_bp parameters.  It doesn't guard zero value case,
-though.  As a result, users can trigger division by zero.  Fix the issue
-by returning an error when the user tries to start DAMON with zero
-node0_mem_{used,free}_bp parameter values.
+siw_accept() looks up the QP supplied by userspace. If that QP is
+already in RTS, the function jumps to error cleanup before associating
+the incoming CEP with it.
 
-DAMON_SAMPLE_MTIER is just a sample module, but the consequence is quite
-bad.  Also the zero node0_mem_free_bp parameter might look like a
-reasonable setup to some users.  Hence, the issue might really happen in
-the real world.
+The cleanup tests whether qp->cep is non-NULL and assumes the current
+call installed the association. However, qp->cep can point to the CEP
+of an existing connection. The cleanup then drops a reference from the
+incoming cep, not qp->cep. Once the incoming endpoint loses its
+remaining references, this can free it before the subsequent cep->qp
+store, causing a use-after-free. It also clears the existing QP
+association.
 
-One reliable way to reproduce the issue is like below:
+Only release the association reference when qp->cep is the incoming
+CEP. This preserves an existing association and avoids accessing the
+freed endpoint.
 
-    # cd /sys/module/damon_sample_mtier/parameters
-    # echo 4096 > node0_start_addr
-    # echo 8192 > node0_end_addr
-    # echo 8192 > node1_start_addr
-    # echo 81920 > node1_end_addr
-    # echo 0 > node0_mem_free_bp
-    # echo Y > enabled
-    # dmesg -w
-    [...]
-    [18792.235916] Oops: divide error: 0000 [#1] SMP NOPTI
-    [...]
-    [18792.242787] RIP: 0010:damos_quota_score+0x6f/0x480
-    [...]
-
-This issue was discovered [1] by Sashiko.
-
-[1] https://lore.kernel.org/20260801202657.117135-1-sj@kernel.org
-
-Fixes: c5e67d40a102 ("samples/damon/mtier: add parameters for node0 memory usage")
-Cc: <stable@vger.kernel.org> # 6.17.x
-Signed-off-by: SJ Park <sj@kernel.org>
+Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 ---
- samples/damon/mtier.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/infiniband/sw/siw/siw_cm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/samples/damon/mtier.c b/samples/damon/mtier.c
-index ac9c24b92ead8..d1123ebbfab90 100644
---- a/samples/damon/mtier.c
-+++ b/samples/damon/mtier.c
-@@ -156,6 +156,9 @@ static struct damon_ctx *damon_sample_mtier_build_ctx(bool promote)
- 	if (!scheme)
- 		goto free_out;
- 	damon_set_schemes(ctx, &scheme, 1);
-+	/* zero target value causes division by zero in damos_quota_store() */
-+	if (!node0_mem_used_bp || !node0_mem_free_bp)
-+		goto free_out;
- 	quota_goal = damos_new_quota_goal(
- 			promote ? DAMOS_QUOTA_NODE_MEM_USED_BP :
- 			DAMOS_QUOTA_NODE_MEM_FREE_BP,
-
-base-commit: 51b0df5cb9a4175af0e3c9e471cd70e91ff8eb4b
+diff --git a/drivers/infiniband/sw/siw/siw_cm.c b/drivers/infiniband/sw/siw/siw_cm.c
+index 87c79527ac09..0245b25e7271 100644
+--- a/drivers/infiniband/sw/siw/siw_cm.c
++++ b/drivers/infiniband/sw/siw/siw_cm.c
+@@ -1751,7 +1751,7 @@ int siw_accept(struct iw_cm_id *id, struct iw_cm_conn_param *params)
+ 	cep->state = SIW_EPSTATE_CLOSED;
+ 
+ 	siw_free_cm_id(cep);
+-	if (qp->cep) {
++	if (qp->cep == cep) {
+ 		siw_cep_put(cep);
+ 		qp->cep = NULL;
+ 	}
 -- 
-2.47.3
+2.43.0
+
