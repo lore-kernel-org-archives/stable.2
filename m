@@ -1,115 +1,73 @@
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F99304BB3
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 06:53:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD6F317145;
+	Sat,  1 Aug 2026 06:54:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785567194; cv=none; b=AhHz37PnBb5xq1zxVaOYjG8D0jPyS+rl1oCvwAt1LzYtoMR875TxbrI/es/gm3Ol0onrd+8T51wqqBUzI19LbAawKffDKruZyd3fP00BB1KDNSa78sOOhGy6zau1j+Vk7dJPXY6Yp8/jSS/9ym8j0iFc8YS5csxPy7BFDjsdMgw=
+	t=1785567250; cv=none; b=cgR7Z9DEDMrmMobO9Fq3D1qYOd0zLCuFJzCzBZwwQ4s82aI/CfEebYu3N4JWyvohYwp2HIIl8VoU/gkgvq+Y5S8oirsp9jA7q9B3M2WgimYJ2Rue9pMSPi9+ZSbrj9wBAW1xOZ3tlCZrYEP5CB1RO30H1oXgWdwx4xzyAj98hn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785567194; c=relaxed/simple;
-	bh=JJIbv8BDeyHyQDbWakbN2kS3TrgwI3g76Zl4cmWaGFA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=c9dcg4Up0qm2hpSubPfEx1V2MRDNODIvk9XwI8F49UvQqiSHJm9/h7ivEg6iFFjio87Wl/7B846qgV9n0t5Jlabp+h12e5JwOMWlu9ECZ8fjQg2VRCd91BHC3vybA878lwyBAMAJIgy4xIWOsrASOd4Crsmlyf9JgIUz48+wN4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=ezE666jy; arc=none smtp.client-ip=44.202.169.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1785567250; c=relaxed/simple;
+	bh=qeLrk5ZFcRVSYzKhnA6xD4LkDyqqzJ5qXSsxbjss8nA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RQr3+z+YxLplqtmcU1pmdQkJQygzYpAr9eR/AsfM4NmUd5UToaans2VsP506L+N0L+GfAVEbF2sSByinadGidF57mK2Vtw51czuN/Rt05fqZsPlD3bZ1EgL5ff0TCbHymbCxU96c1sqtYv2y34b2OZSGN6C0QeE//VUpbUVJGwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HkDHSDh7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="ezE666jy"
-Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
-	by cmsmtp with ESMTPS
-	id q0Kiw5Vu1JFmFq3aqwuoW5; Sat, 01 Aug 2026 06:53:12 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id q3apw6botlaKXq3apwWQdL; Sat, 01 Aug 2026 06:53:12 +0000
-X-Authority-Analysis: v=2.4 cv=GsRC+l1C c=1 sm=1 tr=0 ts=6a6d97d8
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=BcPpWBVZ1W6q4qeFJZEA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=7aO6yaoWgKwSVKND9Ym3ydlxmgXwBuh5ivRzD8VadOk=; b=ezE666jyfd5T2R48XodJnKbQZ5
-	RMuUaPrAfQlmpJ298UUDkl2tJVAZWpVZGXEfDvhbTOCcvz4dNWDp3KMqjbKLtheEGyXLjcuWCUu3C
-	5PJA6+aCHIC3yUHi98va3xmfDiiLdo8OfMzfsJlGeuOS4sMUJNxecILklvDWnAICUu57I7PlVluja
-	XyJYy9zuOpEcxHSROJE5yS3iyVuc9WKjQkNsZfN1shhSNQrWCRa+8fOWBplIXfeBXeBr9l9eTPFAR
-	RMZLAnYquXAq8sIu+S9hhZ8srTQOit94NQ3aAuuNkDVSSn9IBe8KyBDqEubfuboXytW5AXo6l7YYe
-	EfoqTjoA==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:55678 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.99.5)
-	(envelope-from <re@w6rz.net>)
-	id 1wq3ap-00000002lj6-0G2c;
-	Sat, 01 Aug 2026 00:53:11 -0600
-Message-ID: <5556d366-5428-4367-b082-3de0dac59a0a@w6rz.net>
-Date: Fri, 31 Jul 2026 23:53:09 -0700
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HkDHSDh7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EE571F00AC4;
+	Sat,  1 Aug 2026 06:54:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785567249;
+	bh=XIJMaYWFvOXT7JzPQ1LRGZGcrTLPkCslwdiNmkT0MWs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HkDHSDh7AKU7kcZUkJzhqZxP+8rBx+uTIzOgNaiaTaOf+BHo/HlgNEuFkoEWIr7/G
+	 vycANYeGA/THUYcjjmarNIUuKE3/c7c7BBHr81oWBNv2Z2YDSnjnp5tc0bM1WD7VZd
+	 3xGzgvEg81vhXTkSTWlKI+5acqE+YAOmaWRDMTXA=
+Date: Sat, 1 Aug 2026 08:52:40 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Cc: arnd@arndb.de, kees@kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v8 1/2] misc: ibmasm: Fix static out-of-bounds MMIO
+ access during probe
+Message-ID: <2026080153-unthread-quake-ce1f@gregkh>
+References: <20260718073253.96741-1-25181214217@stu.xidian.edu.cn>
+ <20260718073253.96741-2-25181214217@stu.xidian.edu.cn>
+ <2026073120-deplete-bronzing-481c@gregkh>
+ <ce868846-52a6-47d7-96d5-1f14f1e9b5f9@stu.xidian.edu.cn>
+ <2026073114-staff-turbine-9864@gregkh>
+ <4b8fc5e2-8965-47a0-8be8-b12337398fe6@stu.xidian.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 000/484] 6.6.148-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260730141423.392222816@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260730141423.392222816@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1wq3ap-00000002lj6-0G2c
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:55678
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 79
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfFW35Lonq4hTtm6JrJQp7WCxsLBw/UzHfAeM1PlZTsJ5pvBjiHtqvMUMSVacch84e0Sgkdeku5D45or3z/36JZ2z6atuCNkz1KlYPmGCW1nM/VxNO9+s
- Txe2I/maCVkHXDMJL/1A3iF4zwSxKx1cYOU6jODrHlqVDjKN4Vujc02kj+X7XMSRCuj2Wvu+FT/ngQ==
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4b8fc5e2-8965-47a0-8be8-b12337398fe6@stu.xidian.edu.cn>
 
-On 7/30/26 07:08, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.148 release.
-> There are 484 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sat, 01 Aug 2026 14:13:41 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.148-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+On Sat, Aug 01, 2026 at 10:58:56AM +0800, Mingyu Wang wrote:
+> Hi Greg,
+> 
+> 
+> > I do not know.  Do some research into when the hardware was made, what
+> > it runs on, and try to determine if it really is even used anymore by
+> > anyone.  If not, then yes, let's drop it!
+> 
+> Thanks for the guidance! I did the research on the IBM RSA hardware,
+> and it indeed seems to belong in a museum.
+> 
+> Here is what I found regarding its lifecycle:
+> 1. The IBM Remote Supervisor Adapter (RSA) and RSA II were early 2000s
+>    management PCI/ISA cards for ancient IBM eServer xSeries machines.
+> 2. IBM deprecated the RSA family and replaced it with IMM around 2008.
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+So if it was last shipped in 2008, I think we can properly remove it.
+Care to submit a patch to do so?  If someone shows up with the hardware,
+we can easily revert the removal.
 
-Tested-by: Ron Economos <re@w6rz.net>
+thanks,
 
+greg k-h
