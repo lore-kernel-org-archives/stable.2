@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881173054EF
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 03:10:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894DC34252B
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 03:10:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785553854; cv=none; b=M8bjSp4SDu/gvAtgQuweLACN9OnYfExmQ7syDw/VqBZ5PBS+MrawR5QQJQdovGCfFZTpHz6ltLAxQjGRRVLUF8XwB/yA5VZF0Ko0hJnMF+KEgMNF/cKd79jqm4Mcu7kU5V/jJVwG0iSXRX7SVuXGLaL6sXHQoAmClrPuI5h52+s=
+	t=1785553855; cv=none; b=AjzPbqs+bWcJ8NSkDhOkCNMV2LShlR5XfsZU01KaY0ZQ9Hz3N1FBOXRqtvfdCknlkFZrmb+DjEe62ewJzhQebg4nZNbDnydRIp5bgDboBiepJMwMtDWnQfe4uHcH8KWGlJtS16cHqlM00sT+KTc2oSLf0stPIvRCum5yTCJn/ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785553854; c=relaxed/simple;
-	bh=iSdZXF5zHmZP8CmU1w+zURfFrLDs/HEiBrTn13AlG9M=;
+	s=arc-20240116; t=1785553855; c=relaxed/simple;
+	bh=WfY/+kZTcFufYsHrSYnz3eMKm0vF8pwutjs/Tgawlis=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HSh80CLXq9/fwPb7ORA7b8enBomTW51mZCa8VXMEiRb++CD+Gx0iePWCxq9paIvDgN3BLgS2Jksf7p7z6XI9h+IU5jHYXDlmQWY+s6SHdgneCBfV/9Jf6fG/OHu5Ep2JaXpv6MqNaOEsgMr6PXT3PogirU/HEMRPF2fOwoMKUEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RwTTooNt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PMj2TPkTPzGYxuhCqALZOGa8k2HsWmB2nEAPhzBvBbGohzp8Q2LPRHgUtd6nvIjDAjmOImeQTXWoY8ykwGburraWkLYxp0QARlSMqON1gwsyc7BkHeyF049SUfXD8ZPR1KsuZpTiXSJjSIMIBzfg0deix4EP/bziJLbYUaKjFOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jiV8VCqQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RwTTooNt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2D0F1F00AC4;
-	Sat,  1 Aug 2026 03:10:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jiV8VCqQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A69BD1F00ACA;
+	Sat,  1 Aug 2026 03:10:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785553853;
-	bh=Ly7jxqiwIhdJNT4lLGAT6sPDEd5idT1afjUPSuOgQ10=;
+	s=k20260515; t=1785553854;
+	bh=qkS89uz0oAaGLo/rqb8n22Y3niMOSHrmToandapqOyU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RwTTooNtUH9nTI2AMYxTBrRs+XG/VlYHyIwJBThXgnrCD+5FNDcQSOumrkWSWU0CE
-	 ggrovYtjU+HY+/V9rS7BuaGTIcANGcz9gGsKqctRUMg/zDFZos5VUN160teKdl99Rs
-	 xAVJ2TXFsakrJEvFqpbVS6tG9SY/2zQXvvoI7cJXJbhie6GWRhTvVBqXsPrggoHNO3
-	 bElZOAZDVy2FXioE/HYrBV3cXOBejyasVlZmp9kQmjxyR4gcwpuKbbL6G3hnvFWoTb
-	 gKo1mkV+qrLh+LRLL6r6/f3fsMJlWoxiXKFzc0AHUVQbXtmnuVRE9opQHdkaughyIp
-	 zcCTS/GHlyzVg==
+	b=jiV8VCqQ6w3vjePSsPQPv+1qxfYvLa6toF6ntQ7RTHNjbfc+sjMnMoIcmyikfzhlz
+	 K4hc8glpUhdCSK37icLE8alp3aKi8r2nnjkXygI8bCJ0SjBgOByaRrHB3F9jeAFLkw
+	 f2FHEJdDa5g01jx6dTKYN4XKngyEEKF3thy/o6Un7JotDlIN2GJfCdR30qMf7hczYe
+	 BSMxU44nqoVWlok2yuWieoEIcBrKBhksYqwSwPAwFAUoVUrV3oEeruVlgGUUpL9fGY
+	 eMlE28T4iu4kPSNoq8jf7aPebyT4dTo/mXNSoOhMKkttQzC6yu5XQ46U2pSJt/hcwn
+	 q4CBt8fWHFa3A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
 	Matt Roper <matthew.d.roper@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/8] drm/xe/reg_sr: Stop setting all whitelist slots
-Date: Fri, 31 Jul 2026 23:10:43 -0400
-Message-ID: <20260801031050.987390-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/8] drm/xe: Apply whitelist to engine save-restore
+Date: Fri, 31 Jul 2026 23:10:44 -0400
+Message-ID: <20260801031050.987390-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072902-purity-frenzy-fc0b@gregkh>
+In-Reply-To: <20260801031050.987390-1-sashal@kernel.org>
 References: <2026072902-purity-frenzy-fc0b@gregkh>
+ <20260801031050.987390-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,44 +48,208 @@ Content-Transfer-Encoding: 8bit
 
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 
-[ Upstream commit c1151691b5e97b600a9ef3efd7c31a3abf568e41 ]
+[ Upstream commit 3fcf68d7393fd622b96cd45124ccb1eddf77684c ]
 
-Currently xe_reg_sr_apply_whitelist() sets the unused values to a known
-used value for no good reason: it could just leave it with the HW
-default. The behavior is slightly different if there are no whitelist
-registers for the engine as the function returns early. This is not
-needed, so just drop the addition writes for the unused slots.
+Instead of handling the whitelist directly in the GuC ADS
+initialization, make it follow the same logic as other engine registers
+that are save-restored. Main benefit is that then the SW tracking then
+shows it in debugfs and there's no risk of an engine workaround to write
+to the same nopriv register that is being passed directly to GuC.
 
-Later this will allow to reduce the amount of registers passed to GuC
-for save/restore.
+This means that xe_reg_whitelist_process_engine() only has to process
+the RTP and convert them to entries for the hwe.  With that all the
+registers should be covered by xe_reg_sr_apply_mmio() to write to the HW
+and there's no special handling in GuC ADS to also add these registers
+to the list of registers that is passed to GuC.
+
+Example for DG2:
+
+	# cat  /sys/kernel/debug/dri/0000\:03\:00.0/gt0/register-save-restore
+	...
+	Engine
+	rcs0
+		...
+		REG[0x24d0] clr=0xffffffff set=0x1000dafc masked=no mcr=no
+		REG[0x24d4] clr=0xffffffff set=0x1000db01 masked=no mcr=no
+		REG[0x24d8] clr=0xffffffff set=0x0000db1c masked=no mcr=no
+	...
+	Whitelist
+	rcs0
+		REG[0xdafc-0xdaff]: allow read access
+		REG[0xdb00-0xdb1f]: allow read access
+		REG[0xdb1c-0xdb1f]: allow rw access
+
+v2:
+  - Use ~0u for clr bits so it's just a write (Matt Roper)
+  - Simplify helpers now that unused slots are not written
 
 Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20241209232739.147417-5-lucas.demarchi@intel.com
+Link: https://patchwork.freedesktop.org/patch/msgid/20241209232739.147417-6-lucas.demarchi@intel.com
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Stable-dep-of: e70086a3a06d ("drm/xe/rtp: Add RING_FORCE_TO_NONPRIV_DENY to OA whitelists")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_reg_sr.c | 7 -------
- 1 file changed, 7 deletions(-)
+ drivers/gpu/drm/xe/xe_gt.c            |  4 +--
+ drivers/gpu/drm/xe/xe_hw_engine.c     |  1 -
+ drivers/gpu/drm/xe/xe_reg_sr.c        | 46 ---------------------------
+ drivers/gpu/drm/xe/xe_reg_whitelist.c | 37 +++++++++++++++++++++
+ 4 files changed, 38 insertions(+), 50 deletions(-)
 
+diff --git a/drivers/gpu/drm/xe/xe_gt.c b/drivers/gpu/drm/xe/xe_gt.c
+index 292947e44a8a..e2ac1589dfbf 100644
+--- a/drivers/gpu/drm/xe/xe_gt.c
++++ b/drivers/gpu/drm/xe/xe_gt.c
+@@ -722,10 +722,8 @@ static int do_gt_restart(struct xe_gt *gt)
+ 
+ 	xe_mocs_init(gt);
+ 
+-	for_each_hw_engine(hwe, gt, id) {
++	for_each_hw_engine(hwe, gt, id)
+ 		xe_reg_sr_apply_mmio(&hwe->reg_sr, gt);
+-		xe_reg_sr_apply_whitelist(hwe);
+-	}
+ 
+ 	/* Get CCS mode in sync between sw/hw */
+ 	xe_gt_apply_ccs_mode(gt);
+diff --git a/drivers/gpu/drm/xe/xe_hw_engine.c b/drivers/gpu/drm/xe/xe_hw_engine.c
+index 45d0ae074e65..ca4c2dee276b 100644
+--- a/drivers/gpu/drm/xe/xe_hw_engine.c
++++ b/drivers/gpu/drm/xe/xe_hw_engine.c
+@@ -546,7 +546,6 @@ static int hw_engine_init(struct xe_gt *gt, struct xe_hw_engine *hwe,
+ 	xe_gt_assert(gt, gt->info.engine_mask & BIT(id));
+ 
+ 	xe_reg_sr_apply_mmio(&hwe->reg_sr, gt);
+-	xe_reg_sr_apply_whitelist(hwe);
+ 
+ 	hwe->hwsp = xe_managed_bo_create_pin_map(xe, tile, SZ_4K,
+ 						 XE_BO_FLAG_VRAM_IF_DGFX(tile) |
 diff --git a/drivers/gpu/drm/xe/xe_reg_sr.c b/drivers/gpu/drm/xe/xe_reg_sr.c
-index ae9e6df2f4e1..e7da8e97b39c 100644
+index e7da8e97b39c..01ee54d53531 100644
 --- a/drivers/gpu/drm/xe/xe_reg_sr.c
 +++ b/drivers/gpu/drm/xe/xe_reg_sr.c
-@@ -230,13 +230,6 @@ void xe_reg_sr_apply_whitelist(struct xe_hw_engine *hwe)
- 		slot++;
- 	}
+@@ -24,7 +24,6 @@
+ #include "xe_hw_engine_types.h"
+ #include "xe_macros.h"
+ #include "xe_mmio.h"
+-#include "xe_reg_whitelist.h"
+ #include "xe_rtp_types.h"
  
--	/* And clear the rest just in case of garbage */
--	for (; slot < RING_MAX_NONPRIV_SLOTS; slot++) {
--		u32 addr = RING_NOPID(mmio_base).addr;
+ static void reg_sr_fini(struct drm_device *drm, void *arg)
+@@ -194,51 +193,6 @@ void xe_reg_sr_apply_mmio(struct xe_reg_sr *sr, struct xe_gt *gt)
+ 	xe_gt_err(gt, "Failed to apply, err=%d\n", err);
+ }
+ 
+-void xe_reg_sr_apply_whitelist(struct xe_hw_engine *hwe)
+-{
+-	struct xe_reg_sr *sr = &hwe->reg_whitelist;
+-	struct xe_gt *gt = hwe->gt;
+-	struct xe_device *xe = gt_to_xe(gt);
+-	struct xe_reg_sr_entry *entry;
+-	struct drm_printer p;
+-	u32 mmio_base = hwe->mmio_base;
+-	unsigned long reg;
+-	unsigned int slot = 0;
+-	int err;
 -
--		xe_mmio_write32(gt, RING_FORCE_TO_NONPRIV(mmio_base, slot), addr);
+-	if (xa_empty(&sr->xa))
+-		return;
+-
+-	drm_dbg(&xe->drm, "Whitelisting %s registers\n", sr->name);
+-
+-	err = xe_force_wake_get(gt_to_fw(gt), XE_FORCEWAKE_ALL);
+-	if (err)
+-		goto err_force_wake;
+-
+-	p = drm_dbg_printer(&xe->drm, DRM_UT_DRIVER, NULL);
+-	xa_for_each(&sr->xa, reg, entry) {
+-		if (slot == RING_MAX_NONPRIV_SLOTS) {
+-			xe_gt_err(gt,
+-				  "hwe %s: maximum register whitelist slots (%d) reached, refusing to add more\n",
+-				  hwe->name, RING_MAX_NONPRIV_SLOTS);
+-			break;
+-		}
+-
+-		xe_reg_whitelist_print_entry(&p, 0, reg, entry);
+-		xe_mmio_write32(gt, RING_FORCE_TO_NONPRIV(mmio_base, slot),
+-				reg | entry->set_bits);
+-		slot++;
 -	}
 -
- 	err = xe_force_wake_put(gt_to_fw(gt), XE_FORCEWAKE_ALL);
- 	XE_WARN_ON(err);
+-	err = xe_force_wake_put(gt_to_fw(gt), XE_FORCEWAKE_ALL);
+-	XE_WARN_ON(err);
+-
+-	return;
+-
+-err_force_wake:
+-	drm_err(&xe->drm, "Failed to apply, err=%d\n", err);
+-}
+-
+ /**
+  * xe_reg_sr_dump - print all save/restore entries
+  * @sr: Save/restore entries
+diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/xe_reg_whitelist.c
+index 3de0a867149d..30bef5c7c300 100644
+--- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
++++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
+@@ -10,7 +10,9 @@
+ #include "regs/xe_oa_regs.h"
+ #include "regs/xe_regs.h"
+ #include "xe_gt_types.h"
++#include "xe_gt_printk.h"
+ #include "xe_platform_types.h"
++#include "xe_reg_sr.h"
+ #include "xe_rtp.h"
+ #include "xe_step.h"
  
+@@ -89,6 +91,40 @@ static const struct xe_rtp_entry_sr register_whitelist[] = {
+ 	{}
+ };
+ 
++static void whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
++{
++	struct xe_reg_sr *sr = &hwe->reg_whitelist;
++	struct xe_reg_sr_entry *entry;
++	struct drm_printer p;
++	unsigned long reg;
++	unsigned int slot;
++
++	xe_gt_dbg(hwe->gt, "Add %s whitelist to engine\n", sr->name);
++	p = drm_dbg_printer(&gt_to_xe(hwe->gt)->drm, DRM_UT_DRIVER, NULL);
++
++	slot = 0;
++	xa_for_each(&sr->xa, reg, entry) {
++		struct xe_reg_sr_entry hwe_entry = {
++			.reg = RING_FORCE_TO_NONPRIV(hwe->mmio_base, slot),
++			.set_bits = entry->reg.addr | entry->set_bits,
++			.clr_bits = ~0u,
++			.read_mask = entry->read_mask,
++		};
++
++		if (slot == RING_MAX_NONPRIV_SLOTS) {
++			xe_gt_err(hwe->gt,
++				  "hwe %s: maximum register whitelist slots (%d) reached, refusing to add more\n",
++				  hwe->name, RING_MAX_NONPRIV_SLOTS);
++			break;
++		}
++
++		xe_reg_whitelist_print_entry(&p, 0, reg, entry);
++		xe_reg_sr_add(&hwe->reg_sr, &hwe_entry, hwe->gt);
++
++		slot++;
++	}
++}
++
+ /**
+  * xe_reg_whitelist_process_engine - process table of registers to whitelist
+  * @hwe: engine instance to process whitelist for
+@@ -102,6 +138,7 @@ void xe_reg_whitelist_process_engine(struct xe_hw_engine *hwe)
+ 	struct xe_rtp_process_ctx ctx = XE_RTP_PROCESS_CTX_INITIALIZER(hwe);
+ 
+ 	xe_rtp_process_to_sr(&ctx, register_whitelist, &hwe->reg_whitelist);
++	whitelist_apply_to_hwe(hwe);
+ }
+ 
+ /**
 -- 
 2.53.0
 
