@@ -1,84 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDD63264F7;
-	Fri, 31 Jul 2026 23:48:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56AEA288BA;
+	Sat,  1 Aug 2026 00:00:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785541702; cv=none; b=uJqWWkISwsYXKgJLEPoKa81txywFQo9VD8pv4NPmf+rAZEsIunS0g7w0EM5Kqj5pHh3SuvRotM4Zm1e2RqUYTQzuwYUXwACNDibRnZ8o6S/qyrN+H+ypgEoNIur239vh77L9ssr3flJlda74QczsSZTZZnqbijV2YowcgAmPytc=
+	t=1785542445; cv=none; b=VzbFkcWGajdI3MTk9Tk3dEUgcGpJDF3SlTviT27VoZwJ3nuVE7PyXVYUrxua65KCEWl0F2brM9f0HKWrQcf0ylhnhEREJJOCjR9oQkNlpEMI2bkeLQDjjvVIaRzI9fz8VYgJoMGiZ/5P+Y05X8PaIpqMGAlt9SKB0qi4JueXFvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785541702; c=relaxed/simple;
-	bh=X8ZQJfXgEmkbcqQIy/UagRo89HFMp3llglhOSfO8ObE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fjZn6eu5zH/kF87PkB9+fe1MwIcj1H9wgqWk0uvGriLiHRDkPZy3vHnm7y3kpMA5wPVoCIFbOKbcM4mOpZ1efs/i31qfpaYRyJXxYo4UMOjqqEpUx5wYKy1XvF1Cvh5wNwEKlSJuKEu82Dt+FtTubuFrf4lYz3NFkj5x/S8Waz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kX4vx5Bl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785542445; c=relaxed/simple;
+	bh=S0VWoZGcaimIZLdJ0bY+pvtJf+RUpknhPlieoL+sHnA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZV8XgQp8b+rLIORIzzxCV0EB3Mnb2LXTa6l2yqRHvdnlLrVsNMnASG2VybywLBqCRoQNLeuZVQquozNfQfcRCx1i+s0qvN3KPx6FzHmjyFW66DJfWYLLsGbVvEFMse1vSA86k/gnMt8eG4P2JG51xdWJEX5k+T+Yf4jnjdGPADY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UHujfMiF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kX4vx5Bl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 555121F00AC4;
-	Fri, 31 Jul 2026 23:48:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UHujfMiF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A456E1F00AC4;
+	Sat,  1 Aug 2026 00:00:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785541701;
-	bh=X8ZQJfXgEmkbcqQIy/UagRo89HFMp3llglhOSfO8ObE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kX4vx5Bl801J5l/itzTmAeyDigorc7gsOrQ6x30fFYGGgBGfE0m7nnaVxLGR6+iUn
-	 GfvvYtX/JQsHwPzSbBhAgT/30it+iYWGe05GPKbjxlDuWTELqjpc9yeSNpcw/t9eVk
-	 sas7MDgLuuUYwWXVz/CF7aJ5CXDqf7zf+uueiGwe4ohgkRpseN21JDZhNqrQxc6PRH
-	 GYPH1pAriOaeTc6zhxyDTy/3ZkXBpJfYwxj9fyTRAAcLX4pG2PfWoXubXddUVP09SF
-	 TxFhTOp+ipXQS2JuRsDXmPNHcdnbPzBftjEZvqtgZMefJKd/pw905v2vlNnOfjThic
-	 FoNRt6Z3MKRDg==
-Date: Sat, 1 Aug 2026 00:48:16 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Diogo Ivo (Schneider Electric)" <diogo.ivo@bootlin.com>
-Cc: Matthew Gerlach <matthew.gerlach@altera.com>,
-	Khairul Anuar Romli <khairul.anuar.romli@altera.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Dan Carpenter <dan.carpenter@linaro.org>, miquel.raynal@bootlin.com,
-	thomas.petazzoni@bootlin.com,
-	Pascal EBERHARD <pascal.eberhard@se.com>, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] spi: cadence-quadspi: fix probe error path and remove
-Message-ID: <6bcaa81c-d52a-4a4f-9bba-8c61f6890fb3@sirena.org.uk>
-References: <20260731-cqspi-pm_runtime-v1-0-ff0bfc9e8e56@bootlin.com>
+	s=k20260515; t=1785542442;
+	bh=yMSl9nxxy6ecn8SS8SUYw2J4FDB9e4+TO2lJG/lK4+U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UHujfMiFMUE4RvXA65JvdK8rj7QoTSV9voUwwrMUgqfR6y/64yF08xTCvIWxncPhl
+	 p3xNOKuGv6xHt/Rzjf7EN1ki1mVyEINj5gci+D6pBzfCvT+xe1WRUKmp7iRqtGxg7B
+	 iesQmE9qezhlqn64Vai+BaYt4SOAHhP/tJgQH5P4NkS7PyqOaP/TpvqR9bTh3ULNGj
+	 fvtjs7BpdIa3PwbwBsezY81gV+itNyzGw9pIBEApaP9z8W1hNoQB2ADRD82jJTe1f4
+	 o5nXPCyAAWYR4IqDk+i/IzhqNaVIanW7JI/gBQfCaRFqV6tDSARU4zfrllLPxAYLM8
+	 IltbxLnw5is5w==
+From: Jakub Kicinski <kuba@kernel.org>
+To: mhun512@gmail.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	richardcochran@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	ae878000@gmail.com
+Subject: Re: [PATCH net] ptp: fc3: unregister PTP clock on probe failure
+Date: Fri, 31 Jul 2026 17:00:40 -0700
+Message-ID: <20260801000040.1274739-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260729021750.49181-1-mhun512@gmail.com>
+References: <20260729021750.49181-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MhTmpbPvjrOKzsll"
-Content-Disposition: inline
-In-Reply-To: <20260731-cqspi-pm_runtime-v1-0-ff0bfc9e8e56@bootlin.com>
-X-Cookie: No shirt, no shoes, no service.
+Content-Transfer-Encoding: 8bit
 
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+--- Patch [1]: [PATCH net] ptp: fc3: unregister PTP clock on probe failure ---
+commit b2adefd142cc562a99e7438a6d4b4f057c1bebfa
+Author: Myeonghun Pak <mhun512@gmail.com>
 
---MhTmpbPvjrOKzsll
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+ptp: fc3: unregister PTP clock on probe failure
 
-On Fri, Jul 31, 2026 at 12:53:45PM +0200, Diogo Ivo (Schneider Electric) wrote:
-> This series fixes two resource leaks in the cadence-quadspi driver's
-> probe error path and remove callback.
+This patch unregisters the PTP clock in idtfc3_enable_ptp() on failure
+paths. It ensures that the registered clock doesn't refer to freed memory
+if post-registration operations fail during probe.
 
-This doesn't apply against current code, please check and resend.
+> diff --git a/drivers/ptp/ptp_fc3.c b/drivers/ptp/ptp_fc3.c
+> index f0e000428a3f4..32b61bb09b892 100644
+> --- a/drivers/ptp/ptp_fc3.c
+> +++ b/drivers/ptp/ptp_fc3.c
+> @@ -835,16 +835,20 @@ static int idtfc3_enable_ptp(struct idtfc3 *idtfc3)
+>  
+>  	err = idtfc3_set_overhead(idtfc3);
+>  	if (err)
+> -		return err;
+> +		goto err_unregister_clock;
+>  
+>  	err = idtfc3_init_timecounter(idtfc3);
+>  	if (err)
+> -		return err;
+> +		goto err_unregister_clock;
+>  
+>  	dev_info(idtfc3->dev, "TIME_SYNC_CHANNEL registered as ptp%d",
+>  		 idtfc3->ptp_clock->index);
+>  
+>  	return 0;
+> +
+> +err_unregister_clock:
+> +	ptp_clock_unregister(idtfc3->ptp_clock);
 
-> base-commit: 52a355b23cd2dd77b683ed1a1bbe2b7408bd9c74
+[Severity: High]
+Can calling ptp_clock_unregister() here introduce an AB-BA deadlock?
 
-That's v6.12, that's rather ancient...
+Looking at idtfc3_probe(), it acquires idtfc3->lock and calls
+idtfc3_enable_ptp():
 
---MhTmpbPvjrOKzsll
-Content-Type: application/pgp-signature; name="signature.asc"
+drivers/ptp/ptp_fc3.c:idtfc3_probe() {
+    ...
+    mutex_lock(idtfc3->lock);
+    err = idtfc3_check_device_compatibility(idtfc3);
+    ...
+    err = idtfc3_enable_ptp(idtfc3);
+    ...
+}
 
------BEGIN PGP SIGNATURE-----
+Once ptp_clock_register() completes earlier in idtfc3_enable_ptp(), the
+device is exposed to userspace. If a service like udev immediately tries
+to read the clock, the POSIX clock core acquires a read lock on the
+clock's rwsem and calls into the driver callback, which waits for
+idtfc3->lock:
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmptNEAACgkQJNaLcl1U
-h9AXZwf/RqngkSyCl/sv9UOXl7fTv7EoEJKvo3TxssSct7DKPc1n0yJ9T8Tppob9
-xH7vro+bI59nT2UoVHFK+2v7oeXMePPqP4DmIy+IW85XOft398gTVn+qKrBqUMep
-ruuSuFzeYO4N7w0JRiOuDLDID+iLVcjmexv5Ap3hMv9d10nnFrRtB6olLL5ZQGoV
-0vaUvxEn/bDM2q0dhiSyDQFEBC/4c12Q6Dn2yseeWJLMYiWPObKxuWi6tmYMH5A2
-sSyU/YUpYllBkC3PAYHtiBxZWEGfO8MF170jeen28GalJALfz0yt16/KsJr/SoBK
-TCWczEiCopwZKuFgzMxNfTLkU1pnXA==
-=9HmU
------END PGP SIGNATURE-----
+kernel/time/posix-clock.c:pc_clock_gettime() {
+    down_read(&clk->rwsem);
+    ...
+    err = clk->ops.clock_gettime(clk, ts);
+} ->
+drivers/ptp/ptp_fc3.c:idtfc3_gettime() {
+    ...
+    mutex_lock(idtfc3->lock);
+    ...
+}
 
---MhTmpbPvjrOKzsll--
+If the probe thread then fails in idtfc3_set_overhead() or
+idtfc3_init_timecounter(), it reaches this new error path and calls
+ptp_clock_unregister() while still holding idtfc3->lock.
+
+ptp_clock_unregister() attempts to acquire the write lock on the clock's
+rwsem:
+
+kernel/time/posix-clock.c:posix_clock_unregister() {
+    ...
+    down_write(&clk->rwsem);
+    ...
+}
+
+Would this result in an indefinite deadlock where the probe thread waits
+for the rwsem and the userspace thread waits for the driver mutex?
+
+> +	return err;
+>  }
+-- 
+pw-bot: cr
