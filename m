@@ -1,201 +1,207 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FAB533F8C6
-	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 07:38:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31231314D05
+	for <stable@vger.kernel.org>; Sat,  1 Aug 2026 08:18:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785569907; cv=none; b=TCElJAgUHIxwiXUAf2pnecgnn38E7+uEbat+Ektou7Sf67/PFtbTXi98BwKMjBokibJQl3kY7/6CJZ5kebGDCOQwx/yTk7pBhbJZktKI0JRbG0TIBXHBQRV1zls3xr4NB41TR58HPsBl8wiy1UBlllC28dWwGkAS8ZqI+fSqmcA=
+	t=1785572322; cv=none; b=Xn3DwA7/VgYBxL6ozBEaw6pmRgwDGN+IFjkKFiNh8oyOqe2jLOfjemRpaQv9u8gCIArxCbo6/fFSmte8kHDwNPItSx8d96q3ETPo/EsBOCgD4wQBQpNnMInJ4bpuueb54ccpzVlPZgbYdW4QVSW4NnXxtPTOiVymgvhGbbTQ0/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785569907; c=relaxed/simple;
-	bh=qBcqygLGzctnWl0Ad9kRqj0ar7uVk/8H2PNp87JucGI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=isQix4hkNwzsRBqeTHU7d97SdjvOYLXF+R5NJro397eJHDmE8btFNroIxyVhbgDIpJWRDDd3vtUJU8AGns54xVW/Y8OnlnqwcWw/IcfmiYxAnwmAqiH/mKCF4ohli0T3+IUgK9EPckYMsTxUiHmnrf+tre4c3bHhw3GGzIL3zK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q86wiqAh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=M/CapaV0; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785572322; c=relaxed/simple;
+	bh=Jx5ngztfjkk1frVO0SfO5FKtgzZOYaWLyPYUFDjIz9k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PA71EcS6Xnj9A8/6Tq90I1RaPO2rnPyaoUDb+RTP3brsC4Tsm8myv1+zRHBcPIgmqo0k+pOlNZ+dDq7RyNL5ImIsglCkalnksX/7G09d8E91s/XMAM6CBNRV6eShQKvseh2DqvfUxe98kZWE959wLu251qIyYhxrPNBf1rsImPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=FQCLlntO; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q86wiqAh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M/CapaV0"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6714BlXp1780547
-	for <stable@vger.kernel.org>; Sat, 1 Aug 2026 07:38:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6Mp+nfA3N+p1lXQzMxJCbO+jynV1YH3G+4IyAbOESn8=; b=Q86wiqAhA9bJ5lgC
-	OfOArRrU92p2EdlV32XF/6o4sL/Cm8scNPeDkz+TrWBt1xdMeH/BlcAqlewFfGEE
-	GUaf0iU3u9CMYNjJ49VdbncUSEko2pbwkWoA/ScsURPZoxRwpZ2qM+0D+/z9w8/j
-	Z+0IpchwAEgyeHgDe65xVt4XwaEJMf40WGX6mE9Vsd2Vnh9W6LW0FK1RNPOgauuU
-	1pOigAOtyE2vwc3YmDk+wgsdwjjz1iACDl+SZcJd6CVBcmtUnyikH4mfWK4UXo27
-	r4c8QRn6MwJMxlMA6zz1ZyOqee8Gq52zN0W+EUH+1/cBv/VQWjlVtzVVm5PmsmZY
-	GBnIfQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs9jfrb9m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Sat, 01 Aug 2026 07:38:25 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e4758ab46so2107222a91.0
-        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 00:38:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="FQCLlntO"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-848761b5897so1307618b3a.3
+        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 01:18:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785569905; x=1786174705; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1785572319; x=1786177119; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6Mp+nfA3N+p1lXQzMxJCbO+jynV1YH3G+4IyAbOESn8=;
-        b=M/CapaV0FGtDxQItITP7nONrdCaJLfwF3HHFLuNYxMMgPGl3Sp5M9F7KmKq8o/ci5B
-         SOM/9Op6DxtbfdvNkG2O7jcEp6ipzzfrX5hWHrDE9qny/2ASl8wJ8mqRoYjUBBFyTVeJ
-         MS48BmIuZT18BXxVCU2/9y47vEfTg3RQTZnp0iwYS91qIhPOTIvEzHW/cx59o83FI+mM
-         bSwRq4k/vXbECbnqDzxBui91mamdMOEx/5qf0FQyfiiziWT9jT+tIOD2xzUb/ppUnu6v
-         /79twFNxtLm/pGw4l5WgSM3QzvZj1mf8EyfEditEk0WI2lfbND1XU+vEtBKmI9z7IIeA
-         zkbg==
+        bh=f1eprebx+Ei9fy9zASKq2n4ZSux+Wxq0L1cBEFaU7cY=;
+        b=FQCLlntOUi5JB7QtDvwZE6YgNuOvmR4BUj37IROxIB6rd1Zx+FHJNqO4N/scUUaCpH
+         xGT0l6Z/dyneppRQ8CtNH898ueH3W2wjQgol58mbWUXY6ibTw+i/P0n9ooN/sgLlLzX/
+         UUz2CMT2ag4UhpXXIdyBTlnnrn1vBJUxZlVW67VQNRyNx0HLTji1t3io2hpxVzbDPZ0p
+         GhelZGatBVc0zHaK1DEWt2PWErSfc95zN8irA4j1wfm/euF8MIOvv9BiTHZl6DIZ/dO5
+         OBVEL0iDmCduVtjfZEmwEedRoo4SjMf7/e6AovVEVKZbvogxZ0g1kqg60yCagfWFAH7b
+         +WVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785569905; x=1786174705;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6Mp+nfA3N+p1lXQzMxJCbO+jynV1YH3G+4IyAbOESn8=;
-        b=Q7/Eg5XdSYnQ4ryqFBoLtz5eVyJC6mdWpR7Lb9Dg0dU1FyUk1vbUBX5nvtB4Ss5Bia
-         93CNsh0eQEGtHYqeC2i5alwfe/6yXQL3vulDYcjK6bXySIVV3qaHYMCA6irjm3jCo00/
-         BvyrUZHdNs7K14hIZbzn+jjpqVKu/qr0cugKO386jihmh0b3AkRSqMFR3IuoYOgBCzOt
-         l9kAinty7Jig/AFNuzlEVGErtteBGEvDT4Q9gUCDItquROds3mnO8gOqjDkgA0xgaMK4
-         BrqwmtuflGLiA2a3keMtvFCUuHlUlR/jWjxku6gjxqXmrMOLYy4F9/dgrpaQvZB+fMpT
-         nHew==
-X-Forwarded-Encrypted: i=1; AHgh+RpnEQtAFNrC8Gc2frsfHpw3J3zdSTu/Dy/bIHhxnxObGrx9mSQZIimg6opMIjphuBWtv8oCLy8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxaZ4kjEQeMcynt9b20AvtN6KN01ICjrKwSLtw6uaOtMOPaaOss
-	pq5XAzJeX5cohKS467E0N1XvfrlUHqqNK/OirZnBiETv7f/4CiLx509DI6W+Zy9ez3O213h2L+M
-	8Fyl2tric3XphpQ9aU7QK3AhUlY6CYlby1QZkckS0suNRMohuRJ2u4YmXYfwArZkgTMA=
-X-Gm-Gg: AR+sD10CR9JJFCtY/22hvIAlHWjLTwsM7W90+TNBoUffRcPO6w09rRFxtP0FCDbunZO
-	RNL7dNYfKX550J18Rb/B05+jEqR+6GlmX14YZVdIrVzSatfr8GzPEc2c0reAMUlXkybtEdIfY7j
-	L65Sx+kbHkDWccanPQDMcTRfGK7+NRwRGdCwK/wV69GSiuqs5Bmi1ILhMsmoCEB7kSyV3ch4hVR
-	v9AMvSrFdhgKPeVKeDL+YERMSo8Xm4SChqFbKXZdzEZag9bTWxQE+R/eERd+Vqo+rSmH9nMLEUo
-	Ivmoykx8VjdhPsdD11e3A94n2VXV92/KxJm8bsLd5ytplUzwbUw4BfLjDUw6aCYmv+xFepUj36z
-	3ryYBMT+kcQ1R8cqwcawjBDHwEP00JBdmMw==
-X-Received: by 2002:a17:90b:4b12:b0:38f:57f3:4dc7 with SMTP id 98e67ed59e1d1-38fbc4c66c4mr2472937a91.26.1785569904672;
-        Sat, 01 Aug 2026 00:38:24 -0700 (PDT)
-X-Received: by 2002:a17:90b:4b12:b0:38f:57f3:4dc7 with SMTP id 98e67ed59e1d1-38fbc4c66c4mr2472903a91.26.1785569904117;
-        Sat, 01 Aug 2026 00:38:24 -0700 (PDT)
-Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e045016sm20729985eec.19.2026.08.01.00.38.18
+        d=1e100.net; s=20251104; t=1785572319; x=1786177119;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f1eprebx+Ei9fy9zASKq2n4ZSux+Wxq0L1cBEFaU7cY=;
+        b=C74HQ+k4e3QWL1pDstXqB+7VvarE8FU4bOejShVZZhXKhhkA1S6T5vxMhd/aDVu7U/
+         13Amt+ebpEiNwyhc8fVEb6KSPr03I+E2zyA/XmqDRJAGG9yn4EM5NE1sIAaLP8vESu9c
+         zo2dcxE9K7rg80qJoU8RJo++T/s87hy/IpY3FYrjdNM8xnsglUCQBHIvoZODd5zKXT0H
+         cJRgkhho8Z7xfsKY1a7RseVHBCcnpub3bJMtZ6kst7uhZMCMVFLV+YjkCNPwTdlX/wxe
+         T6lZMEy04RmxZGTTR6wHlmTZQcSbtuKqecsPUyZWfw+S55iZRjf7X2QKkFcmFZX3NHLa
+         O5GQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqkCrmDFCMcfraB1QAloFcjgiE0wXVjZMvAj3u+VfDtv9AkgZpgt35X+SSW46zuX70CtpruHjU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyliIhm5HO6iHVPGTn1r90wrWGNv3JJpUssbKIwU/EBitwNfKoo
+	wCSx8bdEUlQ7ZZgSFfuoZCxLCRSeObKoGFN1e8FQBK75ieRUtcqPtnrAx858a5lWysdpyrCi+aa
+	8Y7b2
+X-Gm-Gg: AR+sD13gGk1pd4NBgJdBikWakLwjoNEVr/Hr9dltaSQaIlQTMqCSwWZRPhCOLb7jBgi
+	GwLLn01P9AOoBigAcgAGR0/tSOm0SCQ41LjTGsRq6VdoTi8902DutqMUh7QYm0aftEje64GdaqH
+	e/vC74cXNl/kWa2PVRB5dK9PlzyvB8fZLV5i1Ag6jMInQbvQtZcqs7ANy8U+JjUBtP2hMbq1H5W
+	Pl6b89jKMMwwHp3MpR8m+FlM7aV1MgfaZlMMX3u4h733O3xgfopJbBAhZSW0doX564YlV7opLBS
+	Z+mFgwKs59IVGnFBPy7qz1ZNnhgtyAMxsgFKgRbVKBaxm23OlvvnzJ6Zi1tpQknrBpS1Af7cFnd
+	ZXa0CyL5U54DZmqovtMEp8cgJb6Muhb5NDcbBC7/ULjQM7eIWFfjQ+nkXaZCQy5aSinyCiXq8bO
+	9bHC5rQwzsOJ5zuw1jPUO+IcuPgewHUD6VyX9+Rfa/325uphS+mpB4uWcWcJ1uIeGwm7iFHXxNX
+	pXl33UO+R4=
+X-Received: by 2002:a05:6a00:9296:b0:847:82dc:452d with SMTP id d2e1a72fcca58-84ee47d8cf6mr2245492b3a.29.1785572319549;
+        Sat, 01 Aug 2026 01:18:39 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:c329:7b28:fe02:5dc8])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbe39ea9a40sm1433003a12.25.2026.08.01.01.18.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 00:38:23 -0700 (PDT)
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Date: Sat, 01 Aug 2026 13:07:30 +0530
-Subject: [PATCH 4/4] media: iris: Fix frame interval enumeration for
- non-divisor framerates
+        Sat, 01 Aug 2026 01:18:39 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org,
+	axboe@kernel.dk,
+	hch@lst.de,
+	sagi@grimberg.me,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] nvme-tcp: reject a read that transferred too few bytes
+Date: Sat,  1 Aug 2026 17:18:17 +0900
+Message-ID: <20260801081818.1884199-2-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260801081818.1884199-1-yhlee@isslab.korea.ac.kr>
+References: <20260801081818.1884199-1-yhlee@isslab.korea.ac.kr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260801-iris-fixes-dma-pseq-fint-v1-4-aba0cb22f6ab@oss.qualcomm.com>
-References: <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
-In-Reply-To: <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Mansur Alisha Shaik <mansur@codeaurora.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785569872; l=2222;
- i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
- bh=qBcqygLGzctnWl0Ad9kRqj0ar7uVk/8H2PNp87JucGI=;
- b=Zb792k/Ttm9QCTPbV0RFTp6LNEeiguSLfulNYbjzUaoDXYPfSPyu/FE/rWHuOS0q2tZe/Ya6Z
- 4QbnxgnmjttDbmKXo+Ky6fdgKaEt/djIbmE/8LIlw/UkVeCP8Msgts0
-X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
- pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
-X-Proofpoint-GUID: Xd-AP9vq7vXjvQ5QQrLrbYHEtt3k2IEo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDA1MyBTYWx0ZWRfX0cTBSUncE2D+
- /zarEDaYtKXMjzBbDzJ6SFG8vy7Y1sOfQo/almz2z8WgjFMJegPOABgoYckxvEjX/y8KUudBW0g
- ruRgRbJDVSdPBOiORJOUN2ZomRWMmfHnP2g9g0FO8ll1v/OJxn7PZYu6HVqbpEgcXcUWVOIgjkf
- eUFAT2HDzI7eLKWIbLy7r5fqqHE16vDCRot1an9K0AtDf8mCOL3GcEenerV+EzuXpUGTWlYcMj3
- XIV8oGvJ1/6QJir31Z6TplvOah/KX3GAqywXMwkCY1NoMxqSNRpDpzWG1YHx1jV5pe0wMzpDog1
- MC2ewtSxEwg0OkBFcMNTWUrcnF1tCPoPdkQ1PpOGAw3Z3qpvhP2mip07OCU/LNCgENASQ73f8V4
- Td6nPV1D4bjRL+c3RiUYuANJT10ifBjemtlOwAV6XmfabUCwSS0aBawXqcmq1DB6i3zZGQB8ri7
- hgXOyodWCgQtCqEKTVw==
-X-Authority-Analysis: v=2.4 cv=TYSmcxQh c=1 sm=1 tr=0 ts=6a6da271 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=SOCO_u0IuGyKYXpwI1gA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: Xd-AP9vq7vXjvQ5QQrLrbYHEtt3k2IEo
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDA1MyBTYWx0ZWRfX33o2wM9ucmZn
- Ejd5W0tVx1ew7Cx2RA38phgc5DNM5U8VyDmfrkC0EP4xr0317f8bwkUOm87hASi1FfniVU7eDfV
- 1aLlCPzJFl0ZSQd0aNaxBtBC9w9qgCU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_07,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0
- suspectscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608010053
+Content-Transfer-Encoding: 8bit
 
-iris_enum_frameintervals() advertised frame intervals using
-V4L2_FRMIVAL_TYPE_STEPWISE with step=1/MAXIMUM_FPS where MAXIMUM_FPS
-is 480. This caused client to enumerate only framerates of the form
-MAXIMUM_FPS/n (where n is a positive integer), restricting support to
-exact divisors of MAXIMUM_FPS (e.g., 480, 240, 160, 120, 96, 80, 60,
-30, 24, 1).
+nvme_tcp_recv_data() completes a request once the current C2HData PDU
+has been consumed. Nothing compares the total bytes received against
+the length the command asked for: struct nvme_tcp_request has no
+receive-side counter, queue->data_remaining is per queue, and
+blk_mq_end_request() completes for blk_rq_bytes(rq) unconditionally
+with no residual concept anywhere above.
 
-Framerates that are not exact divisors of MAXIMUM_FPS, such as 29 fps,
-25 fps, were excluded from the enumerated list. There is no hardware
-restriction to framerates that are exact divisors of MAXIMUM_FPS. This
-caused GStreamer caps negotiation to fail with an "internal data
-stream error" when encoding content at such framerates.
+A controller can therefore answer a 4096-byte read with 512 bytes and
+have it reported as a complete read; user space then gets 4096 bytes of
+which 3584 are whatever was already in the page. I reproduced that with
+a test target.
 
-Fix this by using V4L2_FRMIVAL_TYPE_CONTINUOUS. With CONTINUOUS type,
-GStreamer creates a continuous framerate range [1, max_fps], allowing
-any integer framerate within the range to pass caps negotiation. The
-step field is set to 1/1 as required by the V4L2 specification for
-continuous frame intervals.
+Count the bytes received and refuse to complete a successful read whose
+count does not match, at the two NVME_TCP_F_DATA_SUCCESS paths and in
+nvme_tcp_process_nvme_cqe(). The success test shifts req->status right
+by one, because the driver keeps the wire value there and shifts it on
+completion, so the check must see what the completion path will see.
+Only REQ_OP_READ is checked, because there the length comes from the
+sectors the request covers; a passthrough command is built by its
+submitter, which picks both command and buffer, so the kernel has
+nothing to compare against.
 
-Fixes: a6882431a138 ("media: iris: Add support for ENUM_FRAMESIZES/FRAMEINTERVALS for encoder")
+Fixes: 3f2304f8c6d6 ("nvme-tcp: add NVMe over TCP host driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/media/platform/qcom/iris/iris_vidc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+v2 -> v3: the success test now uses req->status >> 1, the same expression
+nvme_try_complete_req() uses, so a CQE phase tag cannot evade it.
 
-diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
-index fcbc60016bee..8f20cb281a93 100644
---- a/drivers/media/platform/qcom/iris/iris_vidc.c
-+++ b/drivers/media/platform/qcom/iris/iris_vidc.c
-@@ -438,14 +438,14 @@ static int iris_enum_frameintervals(struct file *filp, void *fh,
- 	mbpf = NUM_MBS_PER_FRAME(fival->height, fival->width);
- 	fps = DIV_ROUND_UP(core->iris_platform_data->max_core_mbps, mbpf);
+ drivers/nvme/host/tcp.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index ba5c7b3e2a7c..c4fe06d424d1 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -80,6 +80,7 @@ struct nvme_tcp_request {
  
--	fival->type = V4L2_FRMIVAL_TYPE_STEPWISE;
-+	fival->type = V4L2_FRMIVAL_TYPE_CONTINUOUS;
- 	fival->stepwise.min.numerator = 1;
- 	fival->stepwise.min.denominator =
- 			min_t(u32, fps, MAXIMUM_FPS);
- 	fival->stepwise.max.numerator = 1;
- 	fival->stepwise.max.denominator = 1;
- 	fival->stepwise.step.numerator = 1;
--	fival->stepwise.step.denominator = MAXIMUM_FPS;
-+	fival->stepwise.step.denominator = 1;
+ 	struct bio		*curr_bio;
+ 	struct iov_iter		iter;
++	u32			data_recvd;
  
- 	return 0;
+ 	/* send state */
+ 	size_t			offset;
+@@ -612,6 +613,29 @@ static void nvme_tcp_error_recovery(struct nvme_ctrl *ctrl)
+ 	queue_work(nvme_reset_wq, &to_tcp_ctrl(ctrl)->err_work);
  }
-
+ 
++/*
++ * NVMe has no short read: a read that completes successfully must
++ * have transferred everything it asked for.
++ */
++static bool nvme_tcp_data_in_short(struct nvme_tcp_queue *queue,
++				   struct request *rq)
++{
++	struct nvme_tcp_request *req = blk_mq_rq_to_pdu(rq);
++
++	if (le16_to_cpu(req->status) >> 1)
++		return false;
++	if (req_op(rq) != REQ_OP_READ || !req->data_len)
++		return false;
++	if (likely(req->data_recvd == req->data_len))
++		return false;
++
++	dev_err(queue->ctrl->ctrl.device,
++		"queue %d tag %#x short data-in: got %u of %u\n",
++		nvme_tcp_queue_id(queue), rq->tag,
++		req->data_recvd, req->data_len);
++	return true;
++}
++
+ static int nvme_tcp_process_nvme_cqe(struct nvme_tcp_queue *queue,
+ 		struct nvme_completion *cqe)
+ {
+@@ -631,6 +655,9 @@ static int nvme_tcp_process_nvme_cqe(struct nvme_tcp_queue *queue,
+ 	if (req->status == cpu_to_le16(NVME_SC_SUCCESS))
+ 		req->status = cqe->status;
+ 
++	if (unlikely(nvme_tcp_data_in_short(queue, rq)))
++		return -EPROTO;
++
+ 	if (!nvme_try_complete_req(rq, req->status, cqe->result))
+ 		nvme_complete_rq(rq);
+ 	queue->nr_cqe++;
+@@ -953,6 +980,7 @@ static int nvme_tcp_recv_data(struct nvme_tcp_queue *queue, struct sk_buff *skb,
+ 		*len -= recv_len;
+ 		*offset += recv_len;
+ 		queue->data_remaining -= recv_len;
++		req->data_recvd += recv_len;
+ 	}
+ 
+ 	if (!queue->data_remaining) {
+@@ -961,6 +989,8 @@ static int nvme_tcp_recv_data(struct nvme_tcp_queue *queue, struct sk_buff *skb,
+ 			queue->ddgst_remaining = NVME_TCP_DIGEST_LENGTH;
+ 		} else {
+ 			if (pdu->hdr.flags & NVME_TCP_F_DATA_SUCCESS) {
++				if (unlikely(nvme_tcp_data_in_short(queue, rq)))
++					return -EPROTO;
+ 				nvme_tcp_end_request(rq,
+ 						le16_to_cpu(req->status));
+ 				queue->nr_cqe++;
+@@ -1009,6 +1039,9 @@ static int nvme_tcp_recv_ddgst(struct nvme_tcp_queue *queue,
+ 					pdu->command_id);
+ 		struct nvme_tcp_request *req = blk_mq_rq_to_pdu(rq);
+ 
++		if (unlikely(nvme_tcp_data_in_short(queue, rq)))
++			return -EPROTO;
++
+ 		nvme_tcp_end_request(rq, le16_to_cpu(req->status));
+ 		queue->nr_cqe++;
+ 	}
+@@ -2736,6 +2769,7 @@ static blk_status_t nvme_tcp_setup_cmd_pdu(struct nvme_ns *ns,
+ 	req->status = cpu_to_le16(NVME_SC_SUCCESS);
+ 	req->offset = 0;
+ 	req->data_sent = 0;
++	req->data_recvd = 0;
+ 	req->pdu_len = 0;
+ 	req->pdu_sent = 0;
+ 	req->h2cdata_left = 0;
 -- 
-2.34.1
+2.43.0
 
