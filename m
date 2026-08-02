@@ -1,160 +1,116 @@
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+Received: from sender-of-o59.zoho.eu (sender-of-o59.zoho.eu [136.143.169.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C027E3939D0;
-	Sun,  2 Aug 2026 11:30:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785670253; cv=none; b=e2OBUkddFRUJctkV9dMsQzQAjM1a5bF9ecTmhIIGBhbKahgtcGhhilZ4aSFu07nlADrTIOrA/rAbI328XG7xCAExEQQKbKe6d8Jt3kNnToZL+di/VcHkxjQXd/deaxKOGiJ1sSTdWSSLyVv1XFbSCpJD54HKH26d9CS9njwxE5E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785670253; c=relaxed/simple;
-	bh=SgBU/KkozBWGGjb89Fun/guW5kcjbZnKroGc3We92nY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=XRF1v7Pg1CzqEFkQAW4Z54aZ8BZwFA2M8cwSAn6hrc3L1Rw3PIVQC4V/R9Iz7zuw3UqpXKfstyH5oHPGoE/HQSs0uOBW7ChXEfApDt7p4EnQ92Q7UxeCFfZF0HoFg9CuqIWWB9w74KA+28tAnSkgOaaH41tnw3y/0IebhTCrHVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=IaemgW8p; arc=none smtp.client-ip=193.238.174.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04CB8392C3A;
+	Sun,  2 Aug 2026 11:42:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785670946; cv=pass; b=YqYsV8SuiES9CiDPLRQx0w6gvvzARyWUTA0KJvA4RW7qMtcnO56xu/xfDo2NJ3kWz83LnJ1OVacyzg6btVKszksWSQMSVC4IbZsCvAHcuryuFuEvhOXK5Fisf2iWwS2lXTCot0Rq1Ff+AvwaFoyS0WVueByeJRYCw/fDdgFVyOU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785670946; c=relaxed/simple;
+	bh=SbNN7+8V8oduizTPbH+2Zhp5comn2606siWArj09Nbo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X4BpS89/4zwPNMABK+TuG5iKH0WxdKcxuwix3HsfWaAksiCMJ6/PszJzQLaYTou9Pl8w34zvQv4IhlHLrPxuNY9XGu+IpjoElWM0kgzdqSxwFd3LwMYkE+a+eNEbnTJV3LC5tHoJlA/YN6kzaCMaBWdkcEpyEVacqM1MsZuyRrI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com; spf=pass smtp.mailfrom=iusegentoo.com; dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b=hetj2xXf; arc=pass smtp.client-ip=136.143.169.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iusegentoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="IaemgW8p"
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id DE41B21B56;
-	Sun, 02 Aug 2026 14:30:38 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=IQPYlM2qwGICHNbBZA72KJ8VQ4h3Va3c5RUfm2xlr8s=; b=IaemgW8pumvO
-	JZrsXTRRR5nd+4/Ii4XFW2JSH0rFht86bFhEsmRRKLu05q6xbyiesS0+OO8eMy4p
-	sP5hzcZtZa7fCwXzGa+2qyE9/iIUhcuAuN5SAqHTsx0P/DglFTFK2ZVqR4v1U/6B
-	P9Pk2uj+FUKjSDKQIhf3e5EMez8PPi0/1RAehhXdlLVJuQ2vpe5bj/8Rq8TVQdpx
-	d6ak/cy3ILIvNK+7LQv0DyXZ8Ivu4lm0sR8qqgT8YTD8EbhffUv6un+c1GYCOM0v
-	2oNb9Nw/2wKTgKzYU6nO0c0nN+HXsMu6cxaucHgzh7tjwzA3rlSKD0wUja4pACGR
-	44JRnYkW2VblLOx6OVpoxSKKkvAZo3dFBMbED5z1xvBYbh7GVg0ZTYlKs1JBQHp0
-	ZTHEcc0pNFXbW1BKhj33sFQp2MSOOxdvO2Z8uHdzBfLzsGq04pAGBmcwsCc86RmH
-	IRyRLxB5M8rIXglQ9T7Y6/Fer1mGNRHhOcwnDWAKKhMX1iLrq1KCaaEqqMXiAOBS
-	kznqjzWGDj+p/kphaH92sgP1Wca3zI6BL+MqE8ZCd/Vvt1G8LLwDL6cW0bVPjgOh
-	ixhWr7P1U6bd3MMW+fy+tN/53YtcrbL9ATXQgSJk0ATG9WFC6K4AGhSxzH6MCgrx
-	a/Q13SCNBNGKKN/IZI9K9gaoGs2Tnzg=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Sun, 02 Aug 2026 14:30:38 +0300 (EEST)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 175AA6087A;
-	Sun,  2 Aug 2026 14:30:39 +0300 (EEST)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 672BULK5020376;
-	Sun, 2 Aug 2026 14:30:23 +0300
-Date: Sun, 2 Aug 2026 14:30:21 +0300 (EEST)
-From: Julian Anastasov <ja@ssi.bg>
-To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-        Simon Horman <horms@verge.net.au>,
-        "David S . Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>,
-        Pablo Neira Ayuso <pablo@netfilter.org>,
-        Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-        netdev@vger.kernel.org, lvs-devel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
-        coreteam@netfilter.org, stable@vger.kernel.org,
-        Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-        Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
-        Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>
-Subject: Re: [PATCH nf v4 0/3] ipvs: fix destination overload state updates
-In-Reply-To: <20260731142748.56545-1-zhaoyz24@mails.tsinghua.edu.cn>
-Message-ID: <78bfa99d-a1fa-93d9-36b6-90c590a093f2@ssi.bg>
-References: <20260731142748.56545-1-zhaoyz24@mails.tsinghua.edu.cn>
+	dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b="hetj2xXf"
+ARC-Seal: i=1; a=rsa-sha256; t=1785670905; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=VrwzWeCCPB+mzQ+g+MzxjHoNUQXU1BlEPq1htTzg0Ar4o3Z1RkuiU+LiIc654nBSEEZgx+OBKp06APtEQBNDPeJZGEDsTFEW41ABabdGZRGvM0j9tlruQ7ar6IOQCrlf0mcjwS4mPqlgbGabYpho6p/aXJkyZacUBEqRHg1ZKjk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1785670905; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=YNHP4YfeV0dVTpVA69OWDDuQFOPaEnTRio6h0wDegAs=; 
+	b=iEK946/NBlOZgOqzj9Kumbx1RMmoAeeMqFFSNH87pm7cGn54E2nrM6l9EHVC7tAh5BQx5M8ZsDjt227VoBkqFbXVwrLhRv+BIksdHi3dR/1QjcwM6yzDNfmrn11laVprZMduJwxQwUv8uGgHJZC0uFGsIqGAQee9cKBsTf6foBY=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iusegentoo.com;
+	spf=pass  smtp.mailfrom=ali@iusegentoo.com;
+	dmarc=pass header.from=<ali@iusegentoo.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785670905;
+	s=zmail; d=iusegentoo.com; i=ali@iusegentoo.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=YNHP4YfeV0dVTpVA69OWDDuQFOPaEnTRio6h0wDegAs=;
+	b=hetj2xXfwhFzTHsZlRAI74Ow6ed7muYGLTfyGyRWT9bfMmxLAhcPQ6aLfQ3gpNmX
+	Y+dGUeAtzl57GT2F+BckAtiWr1bBeXf/gSyH4k3Yv0VNEv6OEbUfEF0kc2c/xQw48Ov
+	yXRCobrw4Fw4gYKgciX1cSg9PIrixIGFTnpcRP04=
+Received: by mx.zoho.eu with SMTPS id 1785670902061752.3213777965705;
+	Sun, 2 Aug 2026 13:41:42 +0200 (CEST)
+From: Ali Ahmet Memis <ali@iusegentoo.com>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Luis Henriques <lhenriques@suse.com>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ufs: free the buffer head container in ubh_bforget
+Date: Sun,  2 Aug 2026 11:41:30 +0000
+Message-ID: <20260802114130.6261-1-ali@iusegentoo.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <875x1syipu.fsf@orpheu.olymp>
+References: <875x1syipu.fsf@orpheu.olymp>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
+ubh_bforget() forgets the buffer heads referenced by a struct
+ufs_buffer_head but never frees the container itself, unlike its sibling
+ubh_brelse() which calls kfree() on the way out. The only caller,
+free_full_branch(), allocates the container through ubh_bread() while
+releasing an indirect block during truncate, so every fully removed
+indirect block leaks one ufs_buffer_head. Truncating or unlinking a
+large file then leaks one allocation per indirect block, which kmemleak
+reports with a free_full_branch, ufs_truncate_blocks, ufs_evict_inode
+backtrace.
 
-	Hello,
+Free the container after forgetting its buffers, mirroring ubh_brelse().
+Drop the NULL test in the loop as well, which Luis already noted is
+redundant because bforget() ignores a NULL buffer head; ubh_brelse() has
+no such test either, so the two now match.
 
-On Fri, 31 Jul 2026, Yizhou Zhao wrote:
+Luis Henriques posted this fix in 2018. It never got a single reply and
+was never applied, while fs/ufs had no active maintainer, and the leak is
+still present.
 
-> IPVS schedulers read destination overload state while connection accounting
-> and destination configuration can update it concurrently.
-> 
-> The first patch adds a single total connection counter. The second patch
-> uses it to identify threshold crossings precisely, and updates OVERLOAD at
-> the crossings and on a threshold edit under dst_lock. The third patch moves
-> configuration-controlled AVAILABLE to a separate cflags word, so it cannot
-> clobber OVERLOAD through an unrelated read-modify-write update.
-> 
-> Readers can still observe stale destination state. This series does not
-> provide a cross-field consistent snapshot.
-> 
-> Changes in v4:
-> - Add the total connection counter and threshold-crossing overload updates.
-> - Update OVERLOAD under dst_lock at threshold crossings and destination edits.
-> - Keep OVERLOAD in dest->flags; drop the flags2/bitops approach.
-> - Move AVAILABLE to the separate cflags word, avoiding RMW interference
->   between availability and overload updates.
-> - Link to v3: https://lore.kernel.org/netfilter-devel/cover.1783931964.git.zhaoyz24@mails.tsinghua.edu.cn/
-> 
-> Julian Anastasov (2):
->   ipvs: add totalconns for dest
->   ipvs: properly update the overload flag on dest edit
-> 
-> Yizhou Zhao (1):
->   ipvs: separate destination availability state
+Link: https://lore.kernel.org/all/20180705150415.25070-1-lhenriques@suse.com/
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
+---
+v2: drop the NULL test in the loop, as Luis pointed out. That makes this
+    the same change as his 2018 patch; if you would rather it went in
+    under his authorship I am happy to resend it that way, his call.
+    Whitespace on the touched lines modernised to keep checkpatch quiet.
 
-	The patchset looks good to me, thanks!
+v1: https://lore.kernel.org/all/20260801024119.12667-1-ali@iusegentoo.com/
 
-	My
+ fs/ufs/util.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Acked-by: Julian Anastasov <ja@ssi.bg>
+diff --git a/fs/ufs/util.c b/fs/ufs/util.c
+index dff6f74618de..603d80b93066 100644
+--- a/fs/ufs/util.c
++++ b/fs/ufs/util.c
+@@ -117,8 +117,9 @@ void ubh_bforget (struct ufs_buffer_head * ubh)
+ 	unsigned i;
+ 	if (!ubh) 
+ 		return;
+-	for ( i = 0; i < ubh->count; i++ ) if ( ubh->bh[i] ) 
+-		bforget (ubh->bh[i]);
++	for (i = 0; i < ubh->count; i++)
++		bforget(ubh->bh[i]);
++	kfree(ubh);
+ }
+  
+ int ubh_buffer_dirty (struct ufs_buffer_head * ubh)
 
-	is needed only for patch 3
-
-	As for the comments from Sashiko:
-
-https://sashiko.dev/#/patchset/20260731142748.56545-1-zhaoyz24%40mails.tsinghua.edu.cn
-
-Patch 1:
-
-- 8-bit shift and overflow: this is exsiting formula that can be
-changed separately
-
-- non-atomic update for dest->flags: we fix the write access in patch 3
-
-Patch 2:
-
-- the update of the OVERLOAD flag is serialized in patch 2
-and the non-atomic write access fixed in patch 3
-
-Patch 3:
-
-- placing cflags in different cacheline is not our goal,
-only separating the flags because while the flags are
-alone in their field we do not need bitops for now
-
->  include/net/ip_vs.h                   | 27 +++++++--
->  include/uapi/linux/ip_vs.h            |  6 --
->  net/netfilter/ipvs/ip_vs_conn.c       | 45 +++++----------
->  net/netfilter/ipvs/ip_vs_core.c       |  6 +-
->  net/netfilter/ipvs/ip_vs_ctl.c        | 81 ++++++++++++++++++++++-----
->  net/netfilter/ipvs/ip_vs_dh.c         |  4 +-
->  net/netfilter/ipvs/ip_vs_lblc.c       |  2 +-
->  net/netfilter/ipvs/ip_vs_lblcr.c      |  8 +--
->  net/netfilter/ipvs/ip_vs_lc.c         |  4 +-
->  net/netfilter/ipvs/ip_vs_proto_sctp.c |  2 -
->  net/netfilter/ipvs/ip_vs_proto_tcp.c  |  2 -
->  net/netfilter/ipvs/ip_vs_sync.c       |  7 +--
->  net/netfilter/ipvs/ip_vs_xmit.c       |  4 +-
->  13 files changed, 118 insertions(+), 80 deletions(-)
-> 
-> 
-> base-commit: 2195424c3da2ef1829a63b807e3a900a90e57d85
-> -- 
-> 2.34.1
-
-Regards
-
---
-Julian Anastasov <ja@ssi.bg>
+base-commit: 2d2338c93da79b3bfe4b6099a931d9468d539952
+-- 
+2.55.0
 
