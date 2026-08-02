@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDAFA175A93;
-	Sun,  2 Aug 2026 16:26:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFD23C4562;
+	Sun,  2 Aug 2026 16:26:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785688004; cv=none; b=VwOhAUEknjxJEZQwMAQncTAKy4cKrxjyIjcAzY00ralVG2yw4kjhQIlodxe9fA56oaTGgPVdP2X+gvQsWX3JN1rpm/2uVZz2m+uU/cpm07McS6yk41/iKnMyuexIJp4dgirupCgY8I3Npziw1dW5KdlNNPFuQXAlbLQEm+RmRPw=
+	t=1785688004; cv=none; b=DXvQ9kcpsu0Q5jOF1/Vwk8vt7A0dhk92XrjcOhwD4R/wgobhyi5RrCFfTPscoZJiepAeu5UvfPOdrXp8pEvCEqDory7uNcX8VRfSuAAlDmnpupPKLrDW63tqNBWaYkyzBMxuXmcQ9jyF/ygntJ2qtyH59JMql3B1mxAUGoZFuY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785688004; c=relaxed/simple;
-	bh=6Z73CbNxQYTOYNM3TzN9z5SgCwrzw1We6fTUP5ae8l4=;
+	bh=WmQs425Ef+xSSAMNq/UxNBdA3EHvev2EgnxOjd6G0UE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=toUcb8sk02dqgMS9Hmbs7uccKzZd7Q+wRuPYYGNdnY6Wht9IkwV5GoTaKI6rps+PwnTO6iRz9voSic0Qkhevce69oQamX3p0QWY3jf8bAIPr7kMlBu8IJdjcAImMA/BQXmpqFSprNMrmT7+q2UpOs6PhH+LaqV7D373D+eqJNcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UHv5cTEZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nHN6Qs+GaWoWiVIUmDqsgUf7+/HkucXpoelU9V5xHJSVPRcmWhEEjm6BSCRXXO+CR0NgmWEs24UjzqtcLcWyxVQfsNYcg3XrCn0go8ODdyie6Nq2XWA4Ychhp/wnxe2ZTCpJUUbiaSk8s0kc/dtRg5Yl93RNGT4Hp0b2IgCap9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i93KIxE6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UHv5cTEZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57BCE1F00A3E;
-	Sun,  2 Aug 2026 16:26:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i93KIxE6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 096EC1F00A3A;
+	Sun,  2 Aug 2026 16:26:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785688002;
-	bh=SLM/iGuOERBTFxu8mql/4ATf4p59p9Me6R2GTZoj17M=;
+	s=k20260515; t=1785688003;
+	bh=UlahV7MXYAlqB2Rb+2/EWA2ZT0Z/bDkXZ3DtwrXgJX8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UHv5cTEZKzhRB7KsY5VAqfOxGEnCzIj6KjzB0a08BwYuiVUZm5dUk3A9CQ6IYXwd7
-	 zKYys125rvcGQqMNhi9zD0aoOaZULn3BZAzEYWybMJEHkYC01ydwu7vj/IeEoLuRKG
-	 mTyRuK7EF0pbeTrTAcyX2qbHeMrRsnXkp9FpzACFFHklhZr/RrisibHGmEAd/0KyN9
-	 r4v6hmC4t+5ccvvw8aBeGaUR0mHF4A9TsCnPrlzyjSybliWNZa8oeC2V+00ipZ4oII
-	 C2MWXntanRysslwPs0u5qSFKfLPZBF6jJzOrg/ZdZvt2RBUUD1gADaAiqBEL6W7Kyu
-	 0P/vWXnFhoBsQ==
+	b=i93KIxE6IhKofsUKUjSvoeTgC+o3fRHexLU8S91bisem0Lp1CY8/A9/xz5YySiK0Q
+	 DbxNTTvq6m2hy8D8QfWt79E95h9+vbIKCtq0dp65YKgGjRYF056e6++4Qo1uxQCrTB
+	 d5R+gLEHMfovUlT5Zh17788JeytKKcbJADVpsmuVsXtpqrcyEAmLbAFUUfPP8wMG86
+	 VdV22kxE5i5yj+U2mmK1zZRiAQSM/YwnrWzamUK4AqKjapmqCXHb6gEhrQj2Yn114h
+	 YT3pGUA7OGqhLWE0GigIzBIlukKcgYSz8r+HAqrrXcwT3lNbzDmzopv7g175tufi4C
+	 6fNpVrcK2xMGg==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
@@ -34,9 +34,9 @@ Cc: SJ Park <sj@kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH v1.1 6/9] mm/damon/vaddr: respect folio end for DAMOS_MIGRATE_{HOT,COLD}
-Date: Sun,  2 Aug 2026 09:26:27 -0700
-Message-ID: <20260802162631.90304-7-sj@kernel.org>
+Subject: [RFC PATCH v1.1 8/9] mm/damon/core: handle extreme memory state in get_node_memcg_used_bp()
+Date: Sun,  2 Aug 2026 09:26:29 -0700
+Message-ID: <20260802162631.90304-9-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260802162631.90304-1-sj@kernel.org>
 References: <20260802162631.90304-1-sj@kernel.org>
@@ -48,57 +48,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For applying DAMOS_MIGRATE_{HOT,COLD} actions to a region, DAMON virtual
-address space operation set (vaddr) calls walk_page_range[_vma]() for
-the region.  The pmd walk entry function, namely
-damon_va_migrate_pmd_entry(), collects folios of addresses of the region
-in the pmd.  It starts from the walking address and advances the address
-by the size of the folio of the address until it goes out of the pmd or
-the region.
+In extreme unlikely situations, total memory might be zero.  In less
+extreme but still very unlikely situations, lruvec_page_state() calls
+might let the caller show used memory larger than total memory.  In the
+two cases, damos_get_node_memcg_used_bp() could cause division by zero,
+or return underflowed value, respectively.  Handle the cases by
+returning 100% and 0% for the two cases, respectively.
 
-Let's suppose it is for the first pmd of the region, and the region
-start address is in the middle of a large folio.  Also, the next folios
-are small.  Then, some of the next folios could be skipped.  Fix the
-issue by advancing the address to exactly the start address of the next
-folio.
+This issue was discovered [1] by Sashiko.
 
-The user impact is that DAMOS action is applied to less than expected
-amount of memory.  Given the best effort nature of DAMON, it is no big
-problem, but it is clearly a bug that is better to be fixed.
+[1] https://lore.kernel.org/20260329154813.47382-1-sj@kernel.org
 
-The issue was discovered [1] by Sashiko.
-
-[1] https://lore.kernel.org/20260514015053.149396-1-sj@kernel.org
-
-Fixes: 09efc56a3b1c ("mm/damon/vaddr: consistently use only pmd_entry for damos_migrate")
+Fixes: b74a120bcf50 ("mm/damon/core: implement DAMOS_QUOTA_NODE_MEMCG_USED_BP")
 Cc: <stable@vger.kernel.org> # 6.19.x
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/vaddr.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ mm/damon/core.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-index 4b0b5edf67952..c8c32b2ae0402 100644
---- a/mm/damon/vaddr.c
-+++ b/mm/damon/vaddr.c
-@@ -669,6 +669,8 @@ static int damos_va_migrate_pmd_entry(pmd_t *pmd, unsigned long addr,
- 		return 0;
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index e3f3ee75a3d33..67ad1f07c29a4 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2862,10 +2862,16 @@ static unsigned long damos_get_node_memcg_used_bp(
+ 	mem_cgroup_put(memcg);
  
- 	for (; addr < next; pte += nr, addr += nr * PAGE_SIZE) {
-+		unsigned long page_idx;
-+
- 		nr = 1;
- 		ptent = ptep_get(pte);
+ 	si_meminfo_node(&i, goal->nid);
+-	if (goal->metric == DAMOS_QUOTA_NODE_MEMCG_USED_BP)
++	if (!i.totalram)
++		return 10000;
++	if (goal->metric == DAMOS_QUOTA_NODE_MEMCG_USED_BP) {
+ 		numerator = used_pages;
+-	else	/* DAMOS_QUOTA_NODE_MEMCG_FREE_BP */
++	} else {
++		/* DAMOS_QUOTA_NODE_MEMCG_FREE_BP */
++		if (i.totalram < used_pages)
++			return 0;
+ 		numerator = i.totalram - used_pages;
++	}
+ 	return mult_frac(numerator, 10000, i.totalram);
+ }
  
-@@ -681,7 +683,8 @@ static int damos_va_migrate_pmd_entry(pmd_t *pmd, unsigned long addr,
- 			continue;
- 		damos_va_migrate_dests_add(folio, walk->vma, addr, dests,
- 				migration_lists);
--		nr = folio_nr_pages(folio);
-+		page_idx = folio_page_idx(folio, pte_page(ptent));
-+		nr = folio_nr_pages(folio) - page_idx;
- 	}
- 	pte_unmap_unlock(start_pte, ptl);
- 	return 0;
 -- 
 2.47.3
