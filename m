@@ -1,86 +1,148 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2703B14D4;
-	Sun,  2 Aug 2026 16:44:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896AA3C9EF6;
+	Sun,  2 Aug 2026 16:53:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785689083; cv=none; b=DqHCMTYPujezqH9D91WKYxZ5EZegOAPa1LCy/TQr4/OiwlukNh/d236cIlEJyFh2+v4tzRFTHpOdDOxLmxSDuTrMjbAWZiZyuXXmCDZ5A2NyMtygayJKX3ks1gFCOprAp3J5VqlSnH+RxmvSVNyiO+1kdwX+q4CFRa7jT5a6rdU=
+	t=1785689622; cv=none; b=TX4L95Yhx7V7WaK0q+lVu+NwPJtK3vW6ZhCf51wLEhO0dfvniKU8vxotsGYXDh7DJEJ/9/PRO9hupT3QH1PS1zrZpapa0XBf3sU+V02uBtnkRFA40jn1Bf/J9E3ByzZWBp/1mCTbHd0qyPC/vH65MxXEgW+AwCVVg4Sh0RwMfqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785689083; c=relaxed/simple;
-	bh=ud4vT+e2j9Ob/tFcw11ih0csrD+GjTQLdgbkBjEU3MA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bxGJgjVOTzYF/dbUHiUmUe6+ZgnZWQcV+feUdKGcrNEiOcIsVpzLnrN+PqNhTP6fAXGacZK+D6WMUn1XRcvDwnhAlvau/GkCxXvumT+Uft6OWjYMes7a8f78jrFSRlw80AkDsrsdt1pYdA1SSgFBTaH7RA90U0Mi3dO7AHf5PoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=w3U/XZyX; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1785689622; c=relaxed/simple;
+	bh=b/VNPkwPUumPkXZC0NVwXxj5iEweX9a5MwCOIgyy3CY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Aj8Jmm9H7kXB18J/x8XK+aGweEJxwLVMtvVqUo6qCOwKbZPFD6ojnR6XmQl2ucYGbpuTdPcbHw+tl3lWct5gEuJ5euWojVY4IjDmSG/QQnhbhLlpXbVDKJ8Oz+a0KkUzbzIqi3g/zGeu56shntutP3I5AxA439Mb0yFrp/7csd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ma03lMFj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="w3U/XZyX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=zC4AhMh7ol+PrePXq4QYAm34GA0EeXjZGTiE2KymlTo=;
-	t=1785689081; x=1786898681; b=w3U/XZyXI9w6duJLV1u0c7KwF5+3HmUsgQYemQ5nctglkTp
-	aaAW+1t75NZ7hzMRmhg8uwNwn0iSv31Xc617GKKyiot0ifCEjX5T6Pjp+jI8igxr97EKwKew7KHaz
-	Kc5WZhBsAshlBeVsnFPk7xLydWGo/2mkWHdS/u4MjcMpPKJf/+3XBwqqH/w/OTE33KTJilA+tuFQm
-	vxjZ3e7u9Xf3Yt5LpUQPN5g3+UT4r2xmtkYkcQ1kbpHapOaBRw97Z95ZnqUjZQGk5D7mOMmAkQ1tM
-	RaQqIx7rJ72qUfOYeKenIwj09CVpnEjgYMrPcBpNW5ZlLrMV+WmWzuiC8Q1HE/sw==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ma03lMFj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 512C21F00A3A;
+	Sun,  2 Aug 2026 16:53:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785689621;
+	bh=DebX7evhEtlgthyyjGu18FUeYtqUAeNC8V77aBBdbns=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ma03lMFjEIGpCCK44yCD73/RZdEU9x93nIEs2F3en0qOqsY0FmfYB3vaNfwB+Ltxl
+	 wL+bii+DHKGgsy2WfccmrkYxZeg4hW6q+hrl8W4DYjitINoxZSDus4nsmMPNJmCyYx
+	 naZzIQgzp+D4UwvnQGHeWHVhIMsSeZ5rfCjPATc+2SDLX0c0ulpHmhuHwsgSW2sNXz
+	 KzK64QI9AA3L1ciSS3yVze7La95ayIWUhVOQQtXgdJp8m7WLy3ynD7FJHyMKONfPmV
+	 BcmoPM44zc0wlYBry3D+sikoWFM9+EYRl0HGoSqXMJ73jfJZpYf9YT84PVWU9HgjUn
+	 lGMfvgdUzYCdA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1wqZIk-0000000DwEd-2ATY;
-	Sun, 02 Aug 2026 18:44:38 +0200
-Message-ID: <6648c1d61a44ad732550ff20c0b1aecaa43676f6.camel@sipsolutions.net>
-Subject: Re: [PATCH] wifi: brcmfmac: Fix memory leak in
- brcmf_sdio_read_control()
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>, Abdun Nihaal
-	 <nihaal@cse.iitm.ac.in>
-Cc: linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
-	brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org, 
+	(envelope-from <maz@kernel.org>)
+	id 1wqZRT-0000000BVIZ-10vj;
+	Sun, 02 Aug 2026 16:53:39 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ben Horgan <ben.horgan@arm.com>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>,
 	stable@vger.kernel.org
-Date: Sun, 02 Aug 2026 18:44:37 +0200
-In-Reply-To: <e059b52701d3cad4480dfb506e61474924b9f29e.camel@sipsolutions.net>
-References: <20260722110713.115988-1-nihaal@cse.iitm.ac.in>
-		 <20260802083905.3819981-2-arend.vanspriel@broadcom.com>
-	 <e059b52701d3cad4480dfb506e61474924b9f29e.camel@sipsolutions.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+Subject: [PATCH v3 1/8] clocksource/drivers/arm_arch_timer: Add read_sched_clock_is_arch_counter() predicate
+Date: Sun,  2 Aug 2026 17:53:20 +0100
+Message-ID: <20260802165327.385217-2-maz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260802165327.385217-1-maz@kernel.org>
+References: <20260802165327.385217-1-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, tglx@kernel.org, ben.horgan@arm.com, daniel.lezcano@linaro.org, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Sun, 2026-08-02 at 18:41 +0200, Johannes Berg wrote:
-> On Sun, 2026-08-02 at 10:38 +0200, Arend van Spriel wrote:
-> > On Wed, 22 Jul 2026 16:37:12 +0530, Abdun Nihaal <nihaal@cse.iitm.ac.in=
-> wrote:
-> > > The memory allocated for buf is not freed in some of the error paths =
-in
-> > > brcmf_sdio_read_control(). Fix that by adding vfree() calls.
-> > >=20
-> > > Fixes: dd43a01c5cdb ("brcmfmac: use dynamically allocated control fra=
-me buffer")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-> > > ---
-> > > Compile tested only. Issue found using static analysis.
-> > >=20
-> > >  drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c | 3 +++
-> > >  1 file changed, 3 insertions(+)
-> >=20
-> > To be applied to wireless tree.
->=20
-> I'm going to put this into wireless-next, at this point (-rc6) this just
-> doesn't cut it, the commit message makes it sound purely theoretical.
+The PMUv3 driver really wants to know whether sched_clock() is
+backed by the architected timer. However, updates to the timer driver
+have broken the check, as there is more than a single accessor
+for the counters, depending on the level of brokenness of the HW.
 
-Actually, I'm not even going to do that - sprinkling vfree()s over the
-code when moving the one that exists would be sufficient is, and I'm
-being generous here, not a good change.
+Add a predicate that checks for those accessors, and update the PMUv3
+driver to DTRT.
 
-johannes
+Fixes: 24ee7607b286b ("arm64/arch_timer: Provide noinstr sched_clock_read() functions")
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+Cc: stable@vger.kernel.org
+---
+ drivers/clocksource/arm_arch_timer.c | 10 ++++++++++
+ drivers/perf/arm_pmuv3.c             |  2 +-
+ include/clocksource/arm_arch_timer.h |  8 +++++++-
+ 3 files changed, 18 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/clocksource/arm_arch_timer.c b/drivers/clocksource/arm_arch_timer.c
+index 4adf756423de9..c02e97f9b7af5 100644
+--- a/drivers/clocksource/arm_arch_timer.c
++++ b/drivers/clocksource/arm_arch_timer.c
+@@ -951,6 +951,16 @@ static void __init arch_counter_register(void)
+ 	sched_clock_register(scr, width, arch_timer_rate);
+ }
+ 
++bool read_sched_clock_is_arch_counter(const struct clock_read_data *crd)
++{
++	u64 (*rd)(void) = crd->read_sched_clock;
++
++	return (rd == raw_counter_get_cntvct_stable	||
++		rd == raw_counter_get_cntpct_stable	||
++		rd == arch_counter_get_cntvct		||
++		rd == arch_counter_get_cntpct);
++}
++
+ static void arch_timer_stop(struct clock_event_device *clk)
+ {
+ 	pr_debug("disable IRQ%d cpu #%d\n", clk->irq, smp_processor_id());
+diff --git a/drivers/perf/arm_pmuv3.c b/drivers/perf/arm_pmuv3.c
+index 8014ff766cff5..ed880145d41b3 100644
+--- a/drivers/perf/arm_pmuv3.c
++++ b/drivers/perf/arm_pmuv3.c
+@@ -1624,7 +1624,7 @@ void arch_perf_update_userpage(struct perf_event *event,
+ 	do {
+ 		rd = sched_clock_read_begin(&seq);
+ 
+-		if (rd->read_sched_clock != arch_timer_read_counter)
++		if (!read_sched_clock_is_arch_counter(rd))
+ 			return;
+ 
+ 		userpg->time_mult = rd->mult;
+diff --git a/include/clocksource/arm_arch_timer.h b/include/clocksource/arm_arch_timer.h
+index 2eda895f19f54..84cdbaffcfb5e 100644
+--- a/include/clocksource/arm_arch_timer.h
++++ b/include/clocksource/arm_arch_timer.h
+@@ -84,13 +84,15 @@ struct arch_timer_mem {
+ 	struct arch_timer_mem_frame frame[ARCH_TIMER_MEM_MAX_FRAMES];
+ };
+ 
++struct clock_read_data;
++
+ #ifdef CONFIG_ARM_ARCH_TIMER
+ 
+ extern u32 arch_timer_get_rate(void);
+ extern u64 (*arch_timer_read_counter)(void);
+ extern struct arch_timer_kvm_info *arch_timer_get_kvm_info(void);
+ extern bool arch_timer_evtstrm_available(void);
+-
++extern bool read_sched_clock_is_arch_counter(const struct clock_read_data *);
+ #else
+ 
+ static inline u32 arch_timer_get_rate(void)
+@@ -108,6 +110,10 @@ static inline bool arch_timer_evtstrm_available(void)
+ 	return false;
+ }
+ 
++static bool read_sched_clock_is_arch_counter(const struct clock_read_data *crd)
++{
++	return false;
++}
+ #endif
+ 
+ #endif
+-- 
+2.47.3
+
