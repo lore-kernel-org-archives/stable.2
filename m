@@ -1,123 +1,123 @@
-Received: from mail-vk1-f226.google.com (mail-vk1-f226.google.com [209.85.221.226])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CEE3909A3
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 08:39:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.226
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785659963; cv=none; b=ctClQfE47+n3fSNl6wypVcwfr+Ya+NMwfHZHSJS/KunE60uWZFrM2EdJPKZQsHjPsPGat5LxSgQG5BuU/eGjqeN5tOxHYZnsJ1DsN8clxu50ugtWSkkjC5L2nyaZqLwaBf2mzBQBPCg2lx6cHvTtrS7mUj23eI3/fI/ty6QSrhk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785659963; c=relaxed/simple;
-	bh=a8ofd41JnpFBwTjDBoMfI57jlMXgC5Ho/1LsoAdjqgE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o56KSTpQZM/e1tuIkdkUt/AuTm6CshnmV7+FUmu2paNzNqHzRgSdYK5XxkUk1FnlK4x+sasl+kMJpD8uFJZUctw4K4z9jng61LWOfJa0y9u8Xp1GN43IfwhgQDG4GA9F77TBAWDbsTImUH3i5igZJC3jfhLtpYeiQU04rbf9HH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=ghZWMDsD; arc=none smtp.client-ip=209.85.221.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F97B38F945
+	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 08:43:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785660194; cv=pass; b=LWS4Ljlrh8HjQ7K5O70u+H4BojpImu0uakR0XBR6XcMK57HMXzqGN/GVBNyKiqjEBjh+RKI3UnSCWHDoozn/SfFwH3k369iPbvCoVhTI/V02oGFDaiPtg5z6Pu1ryS3T0EgbIYyIdstOumrW62tEIO88xC+17AFRxi/EOD2GIF0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785660194; c=relaxed/simple;
+	bh=Tm0k65FNbDrdx1vgSHrRVtMQQzAt2fySrdQkOW+gZyU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MkZp87JYB60qBrckOtepVLzjDAtaeZcskAarXrh6sCWZ43cK7iwHLXXXsq8XLjhmEWU60oJhZ5thncL/nHmO0QixHXQdPKxdKkAkS6dmsHbKRnLi4HKFNgAtHusJXl+E/A9nlCkmZ+O01UT8uW46tMnq5H1SiynBkOkplHxAKoc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qDA6yvDw; arc=pass smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="ghZWMDsD"
-Received: by mail-vk1-f226.google.com with SMTP id 71dfb90a1353d-5bf95ade656so917479e0c.1
-        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 01:39:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qDA6yvDw"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-ca53979f8e8so260705a12.2
+        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 01:43:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785660193; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZDpKICZmD7441YroSt+yGiQwLnLqCL+gnsGoKuhSAAiTkUt8aBx+ERdRYbgyC8X5Po
+         jL8krjyQhtQgXHdpaHvV0bSUjwXOIAi3hPdL922mdk2UxCg6nbZ8BSugAtlzArktpryS
+         Xrfs4Px4pB46Ps3f+JDLnCIjMCEOkTiy6jwQYNi2zasMo9bc+4BC9JU5pJuIBDylBlgV
+         iPBUTEDaABG2PDASL0TsDSKaKpSrRqAdRd7GuOE2okcFXUWR2IbAp2u54Xgc3miaSlQ5
+         51RPPwvjXzczKsyOzrx6qZfrj0xfeQkTNdUSJQgNd1R7fTONk1BV2OIcoPgTNW80rm16
+         JQDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Tm0k65FNbDrdx1vgSHrRVtMQQzAt2fySrdQkOW+gZyU=;
+        fh=2DvBjbUoKrRYagYIznCeRitUx9KTyFT5mFIrteXXyg8=;
+        b=BbmcbzsL8dZYCSoKioHDooNXTtLlROQwlk/eFUN1unXfBcDNdsMh0WT7xT8S/zvM4K
+         0MQZkqJGowV4YWhT31iMYNDbEtBngbDMpUN8mNbNjfmYVvAb3JYe0x7dgJwiXMAJGU1x
+         rBjrgjSwN8x/43REScBFfT8XUlebJJSGyWeXMOy4jDQ1Dq/8o6Ml+LbyjXizYXs6tGio
+         j/TkzSveUNWJIIMLGJzBwNs8mdUgOJ/QUQLdgR1TJOwIGN3MgvhVLQR96Ra9X+I8CQx5
+         KcJ8cnHiR+HLpfjvSxROTFtmPalUqBB9LgUXpXji5eC0DNUHjjWu0gWTuS3ixi2L43um
+         pMYg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785660193; x=1786264993; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Tm0k65FNbDrdx1vgSHrRVtMQQzAt2fySrdQkOW+gZyU=;
+        b=qDA6yvDwpCzsvqh3IiJRvHEnhU4Fv4QC/PHie5BWbxzVCOTIf5HiLo8JGJ26UuG/PG
+         q6Defjq5p5kf1Z1QSrAMtA8lp3tBtoLwlDBLqJQaAOrj8qvEQE6NLr0bhwLAREBXXG+g
+         qEHrgLj+oAys+Py79Y/0xdtSuu2umajSRyY1JqNghABV7EqTTbbJxZDlsbt8a1nzJisI
+         51ZTBhqHlme11ma7mYu+SYXHzLBG9bsgKUF2uk6fCmy9bljGq4kvrhakzzaQJtGtnfDQ
+         vnrmbNK6W/fN504Bif4WXUpUzgr8xQFQX7FZ8ucwnCLI9D6kqNT3IzaQY6pX/FDqOjQ+
+         zQ4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785659959; x=1786264759;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+        d=1e100.net; s=20251104; t=1785660193; x=1786264993;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lR3bhmlqcQbP7TXCmWl9MzUNxiTSwB/0YI3MWW/Lfsk=;
-        b=YxWwsRinlCouSfAF0PPitBbovGPchvivhEz18BlZa1c/Wo8UPfGE0kLoNWvRqD1zih
-         XMnetsZ14JySCw7usltVMFbtRDFduylPWAFwDswtUQdZ5Ix5VOj3wLBDQ8qZBB8j3hrA
-         xn4I333Dexae2CKq5sXiHxaPpQ4h2WOKNsXFNKw0/KcBXPDM7In5WtEzz+fyf306+09c
-         mXDQfK+FVtWosil0/xmmRxyOmHQQJneEvJj+8Yp2OxXN3mdru53GSIGeHbAIdmLOwcYn
-         iAvwkagWRJOXfX7jF6MS7DyE8sZbk0WlGnfOhrBPKDbDt8ksvmtH9R/rYkePyzdJy0Pb
-         oufA==
-X-Forwarded-Encrypted: i=1; AHgh+RqsGvgEZ+Y6e3WuS1C3L7mmA/vk+YwsUqi+QZqq49hu2mtPzOqTM7Tk8y91x/OY3MaXYYoh7Ig=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzl6p9ESFs6Ox+E69uaVDIdaJ7x/3IY1QHfqKNDPI9CtqOzgD64
-	4s7suFjwXw3Mfzqx5KtTq4WujhTRBcyUm2Xy2AGhQ+6p04TB8nLBH4+akEcVoJgzSTNly3N31G/
-	DCQNK9OI2sle+eIwdyDTMYGtpBLY9KGLz4+t9K70EKiDtD1X6MjQjnxNwoYCsAG7Y16p0MiZt3n
-	fskhcWVTAl4psD7YkucrmUtQKJYif5AyZmMb3DrhWUNUjFgkikHIgeoWSfpgMK4bGiCanejlrJq
-	XjOxNBNI1uPm9QBwA==
-X-Gm-Gg: AR+sD13RXOOCO9dL8+uu/kHmKYykVFiI042YbrO8tuoicSRpLzexTgcY8TPW+5t5/k9
-	Lg67SRRB3pv8TYq6WgHZeK3D3JW87In4TwCPI8qYh3U3b9ybzWFb89WaKzIxGKXAVwA7K673gm+
-	O6YoKeF2p5l/rf4sOGJSKG3gdXmMhQbBFwtMQm7e/Y3p94pWPP8tzJqPXVLV1IcHHMFWsiS62S1
-	q8B8fcNy9zPtiIEvHC/C3GnVYoRPmUBslcImhd94a5YMSOw+IfAyV2GKb7Z5MuvC9yNNLOw6nzG
-	kD6R3NIL+4GlXtb6W5EyKjNnRmhMbRT3Ze2y8lvCAMGK5M+bn0w16/1vjXU/3Z8FJgSg4O17MNG
-	YCxUXnfqZuK3JgwUnqfZUJlTycd7K+C2dJW6iWhZ6oMQNzB5hGHyWHQjooPIqwrBlOPybSlxorz
-	HiZ2ZJZmKG2XfuMtYAFFZXOaqKcIEgPtPdbQpxSN8=
-X-Received: by 2002:a05:6122:3a04:b0:5bf:7f98:9657 with SMTP id 71dfb90a1353d-5c3876a9c6amr1613932e0c.6.1785659958407;
-        Sun, 02 Aug 2026 01:39:18 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
-        by smtp-relay.gmail.com with ESMTPS id 71dfb90a1353d-5c37ed13c3asm863886e0c.8.2026.08.02.01.39.17
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 02 Aug 2026 01:39:18 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-8fdace20927so22892126d6.2
-        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 01:39:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1785659957; x=1786264757; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lR3bhmlqcQbP7TXCmWl9MzUNxiTSwB/0YI3MWW/Lfsk=;
-        b=ghZWMDsDeOjPOOgr5PHNqE9ETn5nQ/54xj6btUDhL2P3mdtBx9rLm32dUwy2Q68vuc
-         t6x4RYUQSyRFEay4RblOLbhG4NMnuHkMg30oG9m10dtW0DQ11E7vXfRMuBGGyjkV/xg0
-         v4y/7QXJhd5haISCTmH3PbAbPpbB3jdoVUFXM=
-X-Forwarded-Encrypted: i=1; AHgh+Rqk0pUA6YWCQvImH2E7oaPC7wFUROl9+szEGBwzcxY7L1jVTsQYKFFkoRbkBlmtT6mk9VhQbu8=@vger.kernel.org
-X-Received: by 2002:a05:6214:3286:b0:8ee:b05c:596d with SMTP id 6a1803df08f44-9084967def8mr138780436d6.22.1785659956945;
-        Sun, 02 Aug 2026 01:39:16 -0700 (PDT)
-X-Received: by 2002:a05:6214:3286:b0:8ee:b05c:596d with SMTP id 6a1803df08f44-9084967def8mr138780166d6.22.1785659956516;
-        Sun, 02 Aug 2026 01:39:16 -0700 (PDT)
-Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-908435def8fsm49457956d6.38.2026.08.02.01.39.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 02 Aug 2026 01:39:15 -0700 (PDT)
-From: Arend van Spriel <arend.vanspriel@broadcom.com>
-To: Can Peng <pengcan@kylinos.cn>
-Cc: linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Arend van Spriel <arend.vanspriel@broadcom.com>
-Subject: Re: [PATCH] wifi: brcmfmac: Set DMA direction for msgbuf packet IDs
-Date: Sun,  2 Aug 2026 10:39:01 +0200
-Message-ID: <20260802083905.3819981-4-arend.vanspriel@broadcom.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260724092530.674624-1-pengcan@kylinos.cn>
-References: <20260724092530.674624-1-pengcan@kylinos.cn>
+        bh=Tm0k65FNbDrdx1vgSHrRVtMQQzAt2fySrdQkOW+gZyU=;
+        b=KdJ9B/KuUVxuw1iFNxLKwyjlIDN8x1vTj54YnNLAvWihGmXPQJA3DLvQA8uBQyiult
+         EHcMvmaIMfaLG2AabnGLXrG1N92/SWLeHisfyytvwHgfLfgo2tzMdApC0yHNqEfBRrvd
+         bA+1+9jtJRWl9D7um04G4DjQphUbXPol8dWfIAv2SLTMXfo7MXEEHX4a+kbh+HV2K8dp
+         rmlafL+T+HmZw5W+cpjHONUOFVkzCoK4hd+a4JwyQljSFeST7LwFp3jxRwhPLHY0QteW
+         1y8qofogD+6EZAC8SwLd9q3C5ahT03Swx+TsK4hdCQ1qMHZu4uVlfMVWa24krHWDcLK3
+         ghJA==
+X-Forwarded-Encrypted: i=1; AHgh+RrfQJ+xyiK4do71jjuWCDp6tCe3/GGtEX1cQTeQtdzlbfmrXPVtb8z8XFgiNnM0D0zll2dwf84=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLFOW2Sie/O1SDWw+zSf32+0Bwlo0P2cL8g3GGDs+wxj8ApbNk
+	zRmGC1x6anHsIwlw+vlyMOXMVgdw4/sumrUm5bFXqogM/S8y0tJWrl5uQSLAF65hl+iDLEhw9ED
+	YNx5QfK6HGGQrOVFFfLDj1Hx81l0dLSc=
+X-Gm-Gg: AR+sD13cEv+qitKlToHdHIAVJ+5O7ma7hSOZbUqYqw/Kb9h4+HJU4zwWwvHNSXtjKYF
+	YjaXQ1kH1/AgH2haKFjQK7jyItoL1YcIXOMwwqKE42acksC6kHhr2GZ6noBkFLiiSFX4MrXPJCs
+	trGYYV/x1iducbrooVwC7qv8VfCipkVaTfVt0gWOEs/GX/hhUaz2VWD2nAyYUjN9YBSNcTvTA2s
+	6wpMKsgskehJtr9W16a6M2CqPV4cdEpOz4DR6tyQ2zx79SrjAakHRlkkfzxhYZP+8Wgg0jDzQDW
+	ZBvThg3dv8xzM88H5Lg7893cXpci9c2DsKFWH9ck0G8GXH0b0UJKthK9Fbx0jA2KanxLUO7rxz9
+	Dy9HpyT5jOTqfHOcYYrsMdMr+ZdhRlvF29uzXuGzRm8QxjyD1iR1hEDIylVcx
+X-Received: by 2002:a17:903:1450:b0:2c9:d298:6c0a with SMTP id
+ d9443c01a7336-2d05246fbb8mr88691875ad.2.1785660192824; Sun, 02 Aug 2026
+ 01:43:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+References: <20260730181717.95457-1-ojeda@kernel.org> <20260801154223.stable-0006@kernel.org>
+In-Reply-To: <20260801154223.stable-0006@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 2 Aug 2026 10:42:59 +0200
+X-Gm-Features: AUfX_mwSyBPjd02vvZ_CgqaO3HBOLCgHpt8D6b_pNGvF6OI_s99b49Kz6LgVuPc
+Message-ID: <CANiq72kS0Ym1r5oEYcbhUDXcZ910YERpV8m3o06ebtXay52iWQ@mail.gmail.com>
+Subject: Re: [PATCH 6.18 000/675] 6.18.42-rc1 review
+To: Sasha Levin <sashal@kernel.org>
+Cc: gregkh@linuxfoundation.org, achill@achill.org, akpm@linux-foundation.org, 
+	broonie@kernel.org, conor@kernel.org, f.fainelli@gmail.com, 
+	hargar@microsoft.com, jonathanh@nvidia.com, linux-kernel@vger.kernel.org, 
+	linux@roeck-us.net, lkft-triage@lists.linaro.org, patches@kernelci.org, 
+	patches@lists.linux.dev, pavel@nabladev.com, rwarsow@gmx.de, shuah@kernel.org, 
+	sr@sladewatkins.com, stable@vger.kernel.org, sudipm.mukherjee@gmail.com, 
+	torvalds@linux-foundation.org, Miguel Ojeda <ojeda@kernel.org>, 
+	Joel Fernandes <joelagnelf@nvidia.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 24 Jul 2026 17:25:30 +0800, Can Peng <pengcan@kylinos.cn> wrote:
-> brcmf_msgbuf_init_pktids() takes the DMA direction from its callers,
-> but never stores it in the packet ID state.  Since the state is zeroed,
-> pktids->direction remains DMA_BIDIRECTIONAL for both the TX and RX
-> packet ID pools.
+On Sun, Aug 2, 2026 at 12:13=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
+te:
 >
-> All msgbuf packet ID map and unmap paths use pktids->direction.  As a
-> result, TX buffers requested with DMA_TO_DEVICE and RX buffers requested
-> with DMA_FROM_DEVICE are mapped and unmapped as DMA_BIDIRECTIONAL
-> instead.
+> No, that was not intentional - part one got squashed into the part two
+> backport by mistake on my end, which is also why the `lib` removal has
+> no commit of its own to point at.
 >
-> Store the caller-provided direction when initializing the packet ID
-> state.
->
-> Fixes: 9a1bb60250d2 ("brcmfmac: Adding msgbuf protocol.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Can Peng <pengcan@kylinos.cn>
-> ---
->  drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c | 1 +
->  1 file changed, 1 insertion(+)
+> I can revert and re-do if there's interest in that?
 
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+I guess it depends if there is some advantage/clarity by doing so for
+the future for you, or maintainers, or people using the stable patches
+etc. -- for me it is fine either way :)
 
-Regards,
-Arend
+i.e. I mostly mentioned it because it seemed odd and other issues
+could be hiding, e.g. maybe a backporting script somewhere had a bug.
+
+Cheers,
+Miguel
