@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D2B63C07A
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 01:49:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E8CEEC3
+	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 01:49:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785635363; cv=none; b=BIOHf+usRQH103dnshNoAeG5JxkY2RvXYKQsta21P1tio0UVwd8xsnml5n5TlM3FpLtANNHgF5h1+ntGqYWqW0nSsFjn6/apv4OBeT4F8zVM5BRMnlz4kCiyXoUokyHE2BoKm93ZY7bXxSWyQ44hm5bPkWn1ooIX9Vvx+y1xXBM=
+	t=1785635365; cv=none; b=u2B99rIW+GFPCUBYRvZrcnKyj1lAY9Z4KIrLHFOw8+ZU2a6igiS4Ug3FTVcss9K+lh+uGOWGIqU4Av9bkqTkVrKEa4Tp5iSyeBD5W3ii9mtKuGxZEJ58YQ2lwwHNwRbu0wU1UQjOewWQAloxLRN9MQNAAWA3QQlaMeunKVugRGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785635363; c=relaxed/simple;
-	bh=0hS01KNtLV5wQOv2UuzuATKb6nhy7su07NbkykuNnKU=;
+	s=arc-20240116; t=1785635365; c=relaxed/simple;
+	bh=nt/UhjYstZUdIHimoNsODJDeahqT9hjacZhBFz94MPQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UcEXksmcxnCnKyiQ3P0Rkcc831G6AACC8px6AcJAxUYikxVzKebpiNZwkQpzGB0PumwWswDS76cBSkbIcxkmeTnupiHHjVecLykH+yVYN/xuRbNNgVHYJjbyHaPtfK32MGiCF6Neold4XoioQ97iGNknl6LSuYRzC49jol3EgU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YCA6nJeB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=qFrupuWBcKsgCqFRcdu4fshvmm175wbhHT3dGCNHJ1mHhEajDdDSxrHZ/zfEYoH/Rr4IRapHLpVGsDBfApZMlE9L0hZlbXu5HRBAbnSDlGMng181qyRcUpGw4ztLJlTEKTd8jY0KYvJsFc1IIVPUc+exmlz0IwhdXeCqp31RcrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mm0dqQNW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCA6nJeB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5420E1F00AC4;
-	Sun,  2 Aug 2026 01:49:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mm0dqQNW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFA461F00ACA;
+	Sun,  2 Aug 2026 01:49:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785635362;
-	bh=XaS3NbYzTiFcxwVdklwukz/89H0uzt1bb7oCKDug9rk=;
+	s=k20260515; t=1785635364;
+	bh=5MPQkv98bX9sMNf4FsMIC0Aj9k5SX+QULiqZBhmf8Og=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YCA6nJeBW7Ra544pKilDPE4WbTnaQeoWMFbTb8WKPECIzobSCUxmmI1SrE0qSaYJ4
-	 m3iXTkzf2JVBfozIK8z30TPUf88gdwR0+TXOAwqiooTu4FaTgHQ+Zzc709EhuwkxE8
-	 LBKxsxWOJH8msRuPZVeVhJNcNJw6qawgMAVtBsrvRG0QT7aYOABvvHS2vy+mQ/LmCt
-	 OF6Eaw61xymnl5/S9khumuphz/vVb6OUfkPuI6RYeW2VFj1XjaDQiU4ZOvmE7dQRfJ
-	 DIn6WN824ts3Ns4SUNRd0ON7WQfhvpTfHzb5JzwKw5EmpbYpcLOYgXD6tH/6+R/Wvs
-	 SMghoKC5bio3w==
+	b=Mm0dqQNWeO2cFs5d86Eq3A+CSHUY8Xp8gZ/POClreVTI0rL7CFldk+ojQROhgSefQ
+	 hVkEjo4XFyKix9KfNN5sMTmMKEcqqWEbV5PfWurV1qQYalmF/2VyGX2WsXDRgy7uYZ
+	 hI8mDvX0x31BgAgb2tjEDrqSnV56LYITCYMjibIX/Hz5rlqNvmjmMaXZDWWunAlLNX
+	 FEVTXTySF2g4HkgKvidjabXhvgKrbh7vmJKhLGqAMlcyatNV3EgTdrDbO7sxHyYxrY
+	 B7q0EcHPSCzs8PLMa/VhxUZvMaKtJsDZllF23rRW1O3ZpshUHzVovgFYedloznKfj5
+	 9yjozYsEgclng==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zongyao Bai <zongyao.bai@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/4] drm/xe/pt: Reset current_op in xe_pt_update_ops_init()
-Date: Sat,  1 Aug 2026 21:49:15 -0400
-Message-ID: <20260802014916.504747-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] drm/i915/vrr: Check HAS_VRR() first in intel_vrr_is_capable()
+Date: Sat,  1 Aug 2026 21:49:19 -0400
+Message-ID: <20260802014920.506109-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260802014916.504747-1-sashal@kernel.org>
-References: <2026072945-jaybird-vaguely-739f@gregkh>
- <20260802014916.504747-1-sashal@kernel.org>
+In-Reply-To: <2026072954-ditto-footprint-1e46@gregkh>
+References: <2026072954-ditto-footprint-1e46@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,65 +46,47 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Zongyao Bai <zongyao.bai@intel.com>
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-[ Upstream commit 6384271ac1ac0099198d15df79212a19ebdb929d ]
+[ Upstream commit 4b274b0b61ab2a529e5c22e9aa033f3028e639fc ]
 
-xe_pt_update_ops_init() fails to reset current_op to 0. On the
-vm_bind path, ops_execute() calls xe_pt_update_ops_prepare() inside
-the xe_validation_guard() / drm_exec_until_all_locked() loop. When
-that loop retries due to lock contention or OOM eviction
-(drm_exec_retry_on_contention() / xe_validation_retry_on_oom()),
-xe_pt_update_ops_prepare() runs again on the same vops, and each
-call to bind_op_prepare() increments current_op without resetting it.
+There's no point in doing all the other checks in
+intel_vrr_is_capable() if the platform doesn't support VRR at all
+Check HAS_VRR() before wasting time on the other checks.
 
-After N retries current_op exceeds the array size allocated by
-xe_vma_ops_alloc(), causing an out-of-bounds write into
-SLUB-poisoned memory and a subsequent UAF crash in
-xe_migrate_update_pgtables_cpu() when reading the corrupted pt_op->bind.
-
-Also reset needs_svm_lock and needs_invalidation which are derived in
-the same prepare pass and would otherwise cause wrong migrate ops
-selection and redundant TLB invalidation on retry.
-
-Fix this by resetting current_op, needs_svm_lock and needs_invalidation
-in xe_pt_update_ops_init().
-
-v2 (Matt):
-   - Add details in commit message.
-   - Add Fixes tag and Cc to stable@vger.kernel.org
-
-Fixes: e8babb280b5e ("drm/xe: Convert multiple bind ops into single job")
-Suggested-by: Matthew Auld <matthew.auld@intel.com>
-Cc: stable@vger.kernel.org
-Assisted-by: GitHub-Copilot:claude-sonnet-4.6
-Signed-off-by: Zongyao Bai <zongyao.bai@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Link: https://patch.msgid.link/20260714232433.2737533-1-zongyao.bai@intel.com
-(cherry picked from commit 046045543e530605c441063535e7dca0075369a6)
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20251020185038.4272-23-ville.syrjala@linux.intel.com
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Stable-dep-of: f8a9262c7a6f ("drm/i915/vrr: require valid min/max vfreq for VRR")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_pt.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
-index a32752c57ea4..c21f46a56be3 100644
---- a/drivers/gpu/drm/xe/xe_pt.c
-+++ b/drivers/gpu/drm/xe/xe_pt.c
-@@ -2143,8 +2143,11 @@ static void
- xe_pt_update_ops_init(struct xe_vm_pgtable_update_ops *pt_update_ops)
- {
- 	init_llist_head(&pt_update_ops->deferred);
-+	pt_update_ops->current_op = 0;
- 	pt_update_ops->start = ~0x0ull;
- 	pt_update_ops->last = 0x0ull;
-+	pt_update_ops->needs_svm_lock = false;
-+	pt_update_ops->needs_invalidation = false;
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 9a51f5bac307..d7f5a5b55bf0 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -21,6 +21,9 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
+ 	const struct drm_display_info *info = &connector->base.display_info;
+ 	struct intel_dp *intel_dp;
+ 
++	if (!HAS_VRR(display))
++		return false;
++
+ 	/*
+ 	 * DP Sink is capable of VRR video timings if
+ 	 * Ignore MSA bit is set in DPCD.
+@@ -43,8 +46,7 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
+ 		return false;
+ 	}
+ 
+-	return HAS_VRR(display) &&
+-		info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
++	return info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
  }
  
- /**
+ bool intel_vrr_is_in_range(struct intel_connector *connector, int vrefresh)
 -- 
 2.53.0
 
