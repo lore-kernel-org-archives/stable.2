@@ -1,103 +1,148 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3ED230C60F;
-	Sun,  2 Aug 2026 14:44:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9153BBA1D;
+	Sun,  2 Aug 2026 14:51:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785681891; cv=none; b=LNGAFLgFcrXJaaI4kNYLGxe9Ld7slkXKV90hgrdSau9OTUBe6WNBaZxPCS4hLBc/DKwXvpMcg7GePAweYDrYSdR3ymvgN7vbNApyHET1XT/BbaBdN6FZ7UFNR4Cd4Xi1ayyFZBT32XDPApoypzF8gcLm/BQpHmtfHDakQAHxaXE=
+	t=1785682291; cv=none; b=VmUOD3BUNoJpD03kEB8xSlVNf5OXCK2jXU2HqE1V93iMKQmbDt8UiKEYOgOd8u4LNUB/Wf3qKiKOzYzlhu9yHNZhQKn6QIr4dJPTVqL5ccQFFJmlZDnTAMi3ys6l2LWvW5YCoN/ysUZ88+wQ4/gLBWmJeZrMxyj2tmPDx2UU15k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785681891; c=relaxed/simple;
-	bh=Pcdr397DQuTSOmKtag+6stPaPaf49AANhGHQlr4atAY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jychL8QrXCv5BOpXrSxc9JfC3HAStpMLMvE9hWX4FutsqVj7Vj6TG2dprmNntBLdFGmRO9wQSilsj9w5mU8aB3BbQtWWcqvx7kVUkVOW4Wg8EuYDpbnNQF4qEvq3ejvgUGxqIKqZ4ZPjXl7KQKT1mARia/3IDKnfHZuHw115OBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: a6f445868e8011f1aa26b74ffac11d73-20260802
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:6bd9da42-8300-45d6-bb0d-be200a160b9f,IP:10,
-	URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:5
-X-CID-INFO: VERSION:1.3.12,REQID:6bd9da42-8300-45d6-bb0d-be200a160b9f,IP:10,UR
-	L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:5
-X-CID-META: VersionHash:e7bac3a,CLOUDID:272eee8ba53b84dd20b264b0329ecb76,BulkI
-	D:260801063744FUKH45WJ,BulkQuantity:2,Recheck:0,SF:10|64|66|78|80|81|82|83
-	|101|102|127|841|865|898,TC:nil,Content:0|15|52,EDM:-3,IP:-2,URL:0,File:ni
-	l,RT:nil,Bulk:40,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,
-	DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: a6f445868e8011f1aa26b74ffac11d73-20260802
-X-User: hehuiwen@kylinos.cn
-Received: from [192.168.0.11] [(220.202.211.78)] by mailgw.kylinos.cn
-	(envelope-from <hehuiwen@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 2048491215; Sun, 02 Aug 2026 22:44:23 +0800
-Message-ID: <ab250727-5a0b-431c-b1f1-96837155dda4@kylinos.cn>
-Date: Sun, 2 Aug 2026 22:44:19 +0800
+	s=arc-20240116; t=1785682291; c=relaxed/simple;
+	bh=duBOXC/XHVmcb3qVMrIECM0ImCToqBvbzc/TTZBVEkY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JBVQ9GQzawcjDZJl/uEntJquTofRXR680sn8K+cGhDoSQQVbUbGjU4fUhV4hzewb17ioSP6giXZ72j6Ny7L6kT1je4SVXCB3ophrrYGfRetC7ia8CaI+4U4XojK5VFAR/VB1CR074BIY1LQA+KJkebj3Zl43sy8J0TgBKcl/uQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=eQJY7dzO; arc=none smtp.client-ip=79.135.106.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="eQJY7dzO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+	s=protonmail; t=1785682283; x=1785941483;
+	bh=efomfhmpRhT0LBa1wq/DR2bDSkQvnvlrQVUGpeana9I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=eQJY7dzOKKsjFCCObSHPdBfB0G7RLxZnQ4SoR93cashMShqVnWVl256Ij/yPOs9Fh
+	 hE+m2L9Iv4tusZTd0Kd5+eqQ3oPAaB8F+Pa9104eU7Wp+QJR0BDs0PxcTxZg7ShDC4
+	 26ZhfliCGocvLAomkHM6A0GNlRBo5xwqW6q/xgH1quYC0HXoavwYlygYaQbLmiYNo1
+	 4SAEejypMTRn+3/h11At6YJOVFfi1M1eqo0U5Wzsx9M6HKrqXt3o7QsL/wZG+X++rh
+	 YInyUbQ4PhV2WHXXD7i86TZdDfMfbZR3e41n3brXFoaNiVAmCApjfg4oDPmp4evzFW
+	 B81Hb+BGNQdlg==
+X-Pm-Submission-Id: 4hCjRq4Xz4z1DF5G
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Cc: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Timur Tabi <ttabi@nvidia.com>,
+	driver-core@lists.linux.dev,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Younes Akhouayri <git@younes.io>
+Subject: Re: [PATCH v2] rust: dma: return zero for Coherent reads past EOF
+Date: Sun,  2 Aug 2026 17:51:17 +0300
+Message-ID: <20260802145118.236139-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <20260802135442.140218-1-work@onurozkan.dev>
+References: <20260730-fix-dma-coherent-eof-v2-1-8aff21054afa@younes.io> <20260802135442.140218-1-work@onurozkan.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] cifs: use cifs_invalidate_cache() in
- cifs_do_truncate() for O_TRUNC
-To: sorenson@redhat.com, David Howells <dhowells@redhat.com>
-Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, stfrench@microsoft.com,
- stable@vger.kernel.org, Paulo Alcantara <pc@manguebit.com>
-References: <20260731153500.660569-2-sorenson@redhat.com>
- <20260731153500.660569-1-sorenson@redhat.com>
- <2259642.1785537449@warthog.procyon.org.uk>
- <a7724609-20ab-49b0-aef8-4d7673f0d308@redhat.com>
-Content-Language: en-US
-From: Huiwen He <hehuiwen@kylinos.cn>
-In-Reply-To: <a7724609-20ab-49b0-aef8-4d7673f0d308@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-LGTM. This is safe with or without the inode lock. The pre-existing 
-O_TRUNC locking issue can be addressed separately.
-
-Huiwen
-在 2026/8/2 19:56, Frank Sorenson 写道:
-> 
-> On 7/31/26 5:37 PM, David Howells wrote:
->> Frank Sorenson <sorenson@redhat.com> wrote:
->>
->>> cifs_do_truncate() is invoked from cifs_open() without i_rwsem, so it
->>> cannot use cifs_resize_file_locked() to perform a proper fscache cookie
->>> resize.  Instead, add cifs_invalidate_cache() after cifs_setsize().
->>>
->>> cifs_invalidate_cache() calls fscache_invalidate(), which works without
->>> holding i_rwsem: it unconditionally increments inval_counter and sets
->>> FSCACHE_COOKIE_NO_DATA_TO_READ, ensuring that stale cached data is not
->>> served once the cookie is later activated by fscache_use_cookie().
->>> Truncation to zero leaves no valid cached data, making invalidation the
->>> correct semantic here.
->> What happens if there's a concurrent read or write in another thread?
->> truncate(), buffered read/write and direct read/write() will play 
->> reasonably
->> with each other through a combination of i_rwsem and the stuff in
->> fs/netfs/locking.c.
->>
->> But apart from that, I think that invalidating the cache should work.  
->> It may
->> be slower, but since you're getting rid of all the data anyway...
->>
->> David
-> 
-> The lockless call is pre-existing; this patch just adds the 
-> fscache_invalidate on top of it and doesn't worsen it, since it's safe 
-> to call without i_rwsem.  Fixing the concurrent I/O issue properly is 
-> out of scope for this series.
-> 
-> 
-> Frank
-> 
-
+On Sun, 02 Aug 2026 16:54:40 +0300=0D
+Onur =C3=96zkan <work@onurozkan.dev> wrote:=0D
+=0D
+> On Thu, 30 Jul 2026 18:34:38 +0200=0D
+> Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org> wrote:=0D
+> =0D
+> > From: Younes Akhouayri <git@younes.io>=0D
+> > =0D
+> > Coherent<T>::write_to_slice() calculates a zero-byte copy when the file=
+=0D
+> > offset is beyond the allocation, but still calls=0D
+> > UserSliceWriter::write_dma(). The latter rejects offsets beyond the=0D
+> > allocation even when the copy length is zero, so a debugfs read past EO=
+F=0D
+> > returns -ERANGE.=0D
+> > =0D
+> > Return before calling write_dma() when the offset is at or beyond the=0D
+> > allocation, matching simple_read_from_buffer() EOF semantics.=0D
+> > =0D
+> > Fixes: 016818513936 ("rust: dma: implement BinaryWriter for Coherent<[u=
+8]>")=0D
+> > Cc: stable@vger.kernel.org=0D
+> > Link: https://rust-for-linux.zulipchat.com/#narrow/channel/291566-Libra=
+ry/topic/.E2.9C.94.20Possible.20past-EOF.20bug.20in.20Coherent.3CT.3E.3A.3A=
+write_to_slice/near/611677095=0D
+> > Signed-off-by: Younes Akhouayri <git@younes.io>=0D
+> > ---=0D
+> > Changes in v2:=0D
+> > - Use ordinary subtraction after the explicit EOF check, which makes=0D
+> >   underflow impossible.=0D
+> > - Link to v1: https://patch.msgid.link/20260720-fix-dma-coherent-eof-v1=
+-1-d92685db8da6@younes.io=0D
+> > ---=0D
+> >  rust/kernel/dma.rs | 6 +++++-=0D
+> >  1 file changed, 5 insertions(+), 1 deletion(-)=0D
+> > =0D
+> > diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs=0D
+> > index 200def84fb69..556424b88fb9 100644=0D
+> > --- a/rust/kernel/dma.rs=0D
+> > +++ b/rust/kernel/dma.rs=0D
+> > @@ -1005,7 +1005,11 @@ fn write_to_slice(=0D
+> >              return Ok(0);=0D
+> >          };=0D
+> >  =0D
+> > -        let count =3D self.size().saturating_sub(offset_val).min(write=
+r.len());=0D
+> =0D
+> Nit: I would probably just check if `count` is zero next to this line.=0D
+=0D
+I just noticed there is already been quite a bit of discussion about this t=
+opic=0D
+so you can ignore my comment since it was just a "nit" anyway. I don't thin=
+k=0D
+there's much difference either way, so there's probably no need to reignite=
+ the=0D
+discussion.=0D
+=0D
+Thanks for the fix.=0D
+=0D
+Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
+=0D
+> =0D
+> > +        if offset_val >=3D self.size() {=0D
+> > +            return Ok(0);=0D
+> > +        }=0D
+> > +=0D
+> > +        let count =3D (self.size() - offset_val).min(writer.len());=0D
+> >  =0D
+> >          writer.write_dma(self, offset_val, count)?;=0D
+> >  =0D
+> > =0D
+> > ---=0D
+> > base-commit: 667d0fb32149f023b8b34a1f6f3d384556eafb5a=0D
+> > change-id: 20260720-fix-dma-coherent-eof-d0d08c91e013=0D
+> > =0D
+> > Best regards,=0D
+> > --  =0D
+> > Younes Akhouayri <git@younes.io>=0D
+> > =0D
+> > =0D
