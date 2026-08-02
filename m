@@ -1,100 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0314C1E7C23
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 03:25:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6742A2E8B67
+	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 03:42:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785641129; cv=none; b=nrBKMI59dNJq205yZEOkObRO7nP1CZeiUR7A1wCDW1iVVD5xdVYPXKr1Tx+1VjvdA4oIHaf6xVUf+Oe1LJ28GqoPj3l28xsv+cq7WeyGvwtz/agocnh0f1Qlitze6rNPPQd6/IEN94e7CFl481RUOqj9OoQ3UTtxePPH2/8faPA=
+	t=1785642169; cv=none; b=OyF6vsy+LQGEh/GLLkJqxC2IW8wjix6eC00hmzyHVqvZrhuOlN88TGKKtWFyD+lxRElT5QwlIYQ94X29E0Dva6F1T+QjU6Evi4w6UM270AryK9K6gGpR3WrBZ7ZTOH8mhXxQn1GaF+F+WvJfEe/R/x3/pY3ziYyXXVJI5Nsj2Bc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785641129; c=relaxed/simple;
-	bh=MZ4CRjXX4JQn+wMFDN/+giJnkORF+XiIE21U0kIKmOk=;
+	s=arc-20240116; t=1785642169; c=relaxed/simple;
+	bh=J7e4WePFlBZk8Q1+AJKPpf1BMHAgOm4AenHrcQwa58Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m72ZLEqSXATexs7mhFfhutGoQhUdFNGIyq4M0B222dT3WIrCD7mlRkxT9DrFeakCQ/4p8JSN5yMfzCEEWLJFeqGrVAaoXh3HPHHX94w+7pZqd9LAk4WCRFB/hSGXrdnxfNGnO/7Ur58Z3kwEx75cUmduguRVt5RqDr7G1jlDxCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NPDhtqrv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=DmM32V+xiYd2HUGlJvp2Dwa5sk5N2m6Wo5TEClLuBnAq3QSVPHxMSUIR99IlZppTdqqpyPqQVqF3MnfYx2vY2fQwTiJXwEEV8uirTZvFHWLLQoyHvbrc1WJqGJIh3+GKzbpaMnM+2eRF39XkK32LEKP7lq4IbbE+WGHWzwJ3q/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sfp/ShY0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NPDhtqrv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E43691F00AC4;
-	Sun,  2 Aug 2026 03:25:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sfp/ShY0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69A9B1F00AC4;
+	Sun,  2 Aug 2026 03:42:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785641127;
-	bh=DavFD1sEjUvf9eveP7P1IKaDncWXx4LWcQQKDq5W6sY=;
+	s=k20260515; t=1785642167;
+	bh=e0RkjIlMoYxAHsxTEUaJRZ6Bj/rXXl7EMWKL8kEBdZA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NPDhtqrvTsbDAeKmMY7+0r5qCjJWaNmxg2hZzpqoqTMZslJ+Dw/UCzhc/w0VgJgTk
-	 YHCXD9z0pDA14NesGx72CXwx3a2tvIq7PFzRglg2Ptvfb6xhQhbaybZduNZEaUUC/l
-	 wKTOsvsicsssAY9sNS8jKheK/Gh7wsT4Aa+zWA9cGKdEDf9GSt2drVjnysrHvtWF5j
-	 4wyGsOIOrXGzS+d8M0LDh6bugPMwm4ovIHCh5lRUI8h5XfSz+QY1UB8P8AQCuxwvKH
-	 LEHioIznALQdHR2tpOOqBrcQJArVSSLFPRfjWz/oyDEj7GiE7gUUll8TXSfv/Vrt8Y
-	 1gYp/IgK8TEPg==
+	b=Sfp/ShY04nRwJQsSoNKOmES48BV3mv1uNoZnz9qhUqz/LIUd0IQr/1kvNYuVBL/wy
+	 JDIz0TZ++RkoE2MLzQuHnX2XYL0YUKU7ebQUK+qq4l6mCSPxT+DXeT7Rq9kYEqCPdf
+	 Z/G4fIyyvZRuho1QBDF+1rOLq6V1WHav7LgijFyYLBT7ZJnVzOWPrtxMpR1gquS3cF
+	 x/4RT8YmXxq8qyKs/LkvRmAMUICDDbdp/9iyNcrmbBxP1Ki/aWb91ImXIQg6KxGnwA
+	 UDI2EQheg4rcuz6gI2UxY+ZdeDbOBjYbMG/wvIKMGqw+wKBrU3BFh2INkEOXTpYfn+
+	 ZXtH4juJczYmw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jani Nikula <jani.nikula@intel.com>,
-	Martin Hodo <martin.hodo@intel.com>,
-	Suraj Kandpal <suraj.kandpal@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/4] drm/i915/hdcp: require monotonically increasing seq_num_v
-Date: Sat,  1 Aug 2026 23:25:22 -0400
-Message-ID: <20260802032522.2607746-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] drm/i915/vrr: Check HAS_VRR() first in intel_vrr_is_capable()
+Date: Sat,  1 Aug 2026 23:42:44 -0400
+Message-ID: <20260802034245.2976489-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260802032522.2607746-1-sashal@kernel.org>
-References: <2026072904-impaired-parking-52fc@gregkh>
- <20260802032522.2607746-1-sashal@kernel.org>
+In-Reply-To: <2026072954-entail-overdrive-8a88@gregkh>
+References: <2026072954-entail-overdrive-8a88@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jani Nikula <jani.nikula@intel.com>
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-[ Upstream commit db9e64c983dcb07ff256bd455f258c44aa530ff8 ]
+[ Upstream commit 4b274b0b61ab2a529e5c22e9aa033f3028e639fc ]
 
-The HDCP 2.2 specification requires the seq_num_v to be monotonically
-increasing, and repeated seq_num_v needs to be treated as an integrity
-failure. Make it so.
+There's no point in doing all the other checks in
+intel_vrr_is_capable() if the platform doesn't support VRR at all
+Check HAS_VRR() before wasting time on the other checks.
 
-For the first message, seq_num_v must be zero, and is already
-checked. We can only check for less-than-or-equal for the subsequent
-messages, where hdcp2_encrypted is true.
-
-Discovered using AI-assisted static analysis confirmed by Intel Product
-Security.
-
-Reported-by: Martin Hodo <martin.hodo@intel.com>
-Fixes: d849178e2c9e ("drm/i915: Implement HDCP2.2 repeater authentication")
-Cc: stable@vger.kernel.org # v5.2+
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Link: https://patch.msgid.link/20260625104407.1025614-1-jani.nikula@intel.com
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-(cherry picked from commit 58a224375c81179b52558c53d8857b93196d2687)
-Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20251020185038.4272-23-ville.syrjala@linux.intel.com
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Stable-dep-of: f8a9262c7a6f ("drm/i915/vrr: require valid min/max vfreq for VRR")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_hdcp.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index aff8ebf3657a..acd0cd49480c 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -1654,9 +1654,10 @@ int hdcp2_authenticate_repeater_topology(struct intel_connector *connector)
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index b844bdd16de9..9c4c46cf3d3b 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -16,6 +16,9 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	struct intel_dp *intel_dp;
+ 
++	if (!HAS_VRR(i915))
++		return false;
++
+ 	/*
+ 	 * DP Sink is capable of VRR video timings if
+ 	 * Ignore MSA bit is set in DPCD.
+@@ -38,8 +41,7 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
+ 		return false;
  	}
  
--	if (seq_num_v < hdcp->seq_num_v) {
--		/* Roll over of the seq_num_v from repeater. Reauthenticate. */
--		drm_dbg_kms(display->drm, "Seq_num_v roll over.\n");
-+	if (hdcp->hdcp2_encrypted && seq_num_v <= hdcp->seq_num_v) {
-+		/* Reauthenticate on Seq_num_v repeat or rollover */
-+		drm_dbg_kms(display->drm, "Seq_num_v %s\n",
-+			    seq_num_v == hdcp->seq_num_v ? "repeat" : "rollover");
- 		return -EINVAL;
- 	}
+-	return HAS_VRR(i915) &&
+-		info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
++	return info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
+ }
  
+ void
 -- 
 2.53.0
 
