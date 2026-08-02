@@ -1,201 +1,134 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12733A3821
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 12:06:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2DF43B1EC8;
+	Sun,  2 Aug 2026 12:13:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785672369; cv=none; b=Dkh8fE2b0qExbW/eg+1V9zjGiBbp7hIvNN1WNv1Ky/l5s4g+yXJutEsPuU/5M+Oc1/WVlPEnMU48g53fPRo2bEPP0Y0wGYID9W2kCFjoEtErwfVKWvX7Ghxmabv2z2Z5u9l0yna5gAwrI064WX3XyKIGfYmuqA7CGGxBikXIUjk=
+	t=1785672789; cv=none; b=HUbye5q6dPsNwd6/BcKKMDiqUo8JdS3BWzlDygaSpC+LJycLUB8gkDd87una2Ju3brbFppa6uGeqMg3DJPXQ4/DF64Z6atRuFgHlDEse3CtPvEqV84nUWQto08/I8l8Yvqgb7pAWJd1BoRQ4YoT65wTqIjxs1j6jPsMPayerZnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785672369; c=relaxed/simple;
-	bh=ja9SEZY37py2LPC3UCzbojlbnwIXzxtJJQ0uGcIg/sk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BPKN7cGp1Qov6F8zzAyVophYKIG7FWd6sqtX5YFPh7oxkagsWewYH8qJ1p6q744dR8XC7Li8U/aMWL1qAKx1mry86Us4ylr0G5S7GDYcEOsdJQaHOEs6+X2+r9l4vVm9L5uX+fqoZpGFEpYPCb3h0rWIaHHxY+lXlxk15kLgC6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=dgpKf/1V; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	s=arc-20240116; t=1785672789; c=relaxed/simple;
+	bh=WGFFdsRUYtTtbwa6B95ZHBXoVvi4dQVulYeTYwNSlW4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=b1qb9dnJytazAdaF3PlarKzi5wDAueaWw07ZX/8E/07G0iWwKaduGCpgFt7iz+r0f+7ux7X0eDFuF1Ib04iRw3m0vp6uw3OK3g2xnoEV4s1jpixzFx4Pe/72WpSp5I65lnGR5PnuVfehAjmiKJ4p7QlzchGr85JWMYCQjJ49Tkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o7idJfot; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="dgpKf/1V"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso3930515e9.0
-        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 05:06:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1785672366; x=1786277166; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YmI7MBDeloKectxU/BNiRN1jB4jCnA25xpecmEwYe0k=;
-        b=dgpKf/1VX/V/XUhdm6FM3HK3/hMzv9nsCRIOy6R61ouRFAXv02jm+AyOcOJu87XgPd
-         RpEixcxwjNs1eXFeMGUrHULio5bx7oNjwj0Vv8ut8kRDoDusqtrl7DTE3sbMNEKGzl6s
-         T6d9CBEcGP2HoR/8Ov66/12Uu0hrIKHKDRmZEBPLng4QSi4Hr5CeXgK4kIzHOl9Vjm6P
-         odcqZsrzPB6DzUWg2y+GN44ChXwp8eU5gXndFY7tZ/AI1PiaM9c+u+L+b2KlSJHoU7Va
-         bXKpvLiovV5TWbh0E/YyvyzVXKDuOV/JquH/2ijGvuYDeMq8wRuWYjbCNmccWh5kyBla
-         Ev9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785672366; x=1786277166;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YmI7MBDeloKectxU/BNiRN1jB4jCnA25xpecmEwYe0k=;
-        b=Gsbmt67expIvb2nYEkMBrh5ZdmFCC+GnKyRjr9Ezql9A0KlUB9ADiiM4wWW8FFa/hN
-         JeKprXtClJUlof9suhAxNu0qStg/3oLgYjl6TTkO5Q/W9hS9KUizGuFXzN1MjWBsr67i
-         yKP2j2Jy1J/OJQP7AQaoM534pV5tgNw8tYuYyeWchOdiez7h0Yn+DVaJ2x39wLy+/9cJ
-         Ww9jgbsy8jEk+4JbfXWWBU1KOOFwanJqFf19XZqIEdr+30vCV5+QLE1SY2ITkjg++qOv
-         PCb/13AC8W+XchMHTUkZ9rXcSe78HZXA26/QwHrMmlylS4sgXo17KRwVOHp6vLIr3VSj
-         +fjQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpvK1HTENObIBHW98KFSy2zcTqlHX01/KKKnMYmbLtAYQgPNB8/KI80KqwUj5Yti561nnc65m4=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwM0VK8aFdXH2GTb71hMlWKthZCkhdiviF7ZLptrE0n4DZ8q3Dl
-	A7ch25RduwydS3SRLTmh7EkTf+f/cz8dvcUyqY7Wbzc6beBTZjIoGiUCaYZZ1wzkiIra
-X-Gm-Gg: AR+sD12pzZM7F23hvwa1YrG4zfqFShJ0Yr3vYKTz/QoB+FVWiRY8VNW2CsJ0MybEQMl
-	WYL+RPdNvnojaUfU7W4OAg3OObnLSKtDim7Pxl5fp6yawy5ufJF5GnIjyk0GUqJ2hpYICclQRMv
-	nwn778MmsfC+RFCDGnvBG9hcvJRaWSV8+ubRShd3k1t11ZbNPnEU3/5rOyX12a7qWD85VJ/CEtW
-	4J5ygJfM1HPJOyuYng+xX78p4czfPJJqJSifG+cQAlH/H2sI8g2U8jJIhuFle78GQ92bVg9C+ph
-	5vxqE9zDsIKVxITVAevpIRLCl3LvT1v7a+2iXuyZ9BwGbbmKtuOcZb+wWBilIZCnAMeL/BI65uP
-	QRPjw8OvJtm5B7q3mG6HJmdJ/pRKfdq8dct9QX4GwgyyKvEN7LNxMqyVKrEP5Un7L6lJqqu0aBO
-	HZ6ohzH8NWT+H9acwLLNtbMHFi099rHWBU7kRN0Ir5CrVqrFoUqbBMle5jEHFU9QvsWCI+qHGIc
-	yr0EdFzfu+TPv8u4jNrWbmHyNGSO6eKSa5jqNReox3GO0bDg8eXXBdQ6gE2VMsO9QLomr/bL75f
-	s/5wU/+HFNjCUIKJfQ==
-X-Received: by 2002:a05:600c:1f8f:b0:493:f478:4c71 with SMTP id 5b1f17b1804b1-4980eba0817mr106984535e9.7.1785672365325;
-        Sun, 02 Aug 2026 05:06:05 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.158])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49807b8d04fsm175226825e9.3.2026.08.02.05.06.03
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 02 Aug 2026 05:06:04 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	andrew+netdev@lunn.ch
-Cc: agk@godking.net,
-	linux-usb@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net: usb: ipheth: fix carrier_work UAF on disconnect
-Date: Sun,  2 Aug 2026 14:06:02 +0200
-Message-ID: <20260802120602.42595-1-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o7idJfot"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A1A85C2BCF7;
+	Sun,  2 Aug 2026 12:13:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785672788;
+	bh=WGFFdsRUYtTtbwa6B95ZHBXoVvi4dQVulYeTYwNSlW4=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=o7idJfotBYjHgV7BD/qzIbHPVLcD/XoMUy9s8ojgK0jmAoCn2FWDW+ymSuUcPfIfO
+	 OCdlDNhckDEQqpeiX0vKB9T0X3sNngjGCEu+6o12lMEGlGRvzcr4u0f5m7xG6po5gX
+	 Etry41WpIN3wrC+UshFlToIF3Qc5RCWLodIyZbcNLmuVQGYrxhDVN9pvPumOP1M8sw
+	 3XVaFmHzcQw/SzFoBwwIuXjQo9pqRCfpk5pISKa/cFPYOUSe+zUQc4uzs0HxFLddWy
+	 uR7nyQ8GqNjFMbAdKCsGtoecesGadlA/lUjm3f8OfmoKRfNcZvw4FbDL2xD6iMBY1g
+	 V45utSMzj6ogA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F55AC55177;
+	Sun,  2 Aug 2026 12:13:08 +0000 (UTC)
+From: lurenjia534 via B4 Relay <devnull+lurenjia534.outlook.com@kernel.org>
+Date: Sun, 02 Aug 2026 20:12:54 +0800
+Subject: [PATCH] wifi: mac80211_hwsim: drop frames with invalid channel
+ width
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260802-mac80211-hwsim-invalid-width-v1-1-94d9bba2ae60@outlook.com>
+X-B4-Tracking: v=1; b=H4sIAEU0b2oC/yWMQQ6CMBBFr0Jm7UTaBVSvYlxMy2jHQDUdBBPC3
+ W119fN+Xt4GyllY4dxskHkRlWcqYA4NhEjpzihDYbCt7VrXWpwolDEG46oyoaSFRhlwlWGOeOp
+ 7Z3zH1HcOSuKV+SafX/5y/bO+/YPDXJvV8KSMPlMKsV6rZB5Z9TiRJNj3Lz8k8gGgAAAA
+X-Change-ID: 20260802-mac80211-hwsim-invalid-width-97781b6ea768
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ syzbot+435fdb053cf98bfa5778@syzkaller.appspotmail.com, 
+ stable@vger.kernel.org, lurenjia534 <lurenjia534@outlook.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785672786; l=2911;
+ i=lurenjia534@outlook.com; s=20260801; h=from:subject:message-id;
+ bh=/iY0dNxP0zkE1SAHnpQcq1gmr+HYoaV6xhQaYs/s9EQ=;
+ b=DKMeWXh6UssVYnAqq0vsaXgnuNYEkVb3aQrBjTUK+Ujiq65tB29Nk01utpN5/qzZ5JsvqSm45
+ og9bgY1+E4VCnN2H0C0xW6P9NBK78klLBwkOIJc5FaZzH+DLmEfqRpk
+X-Developer-Key: i=lurenjia534@outlook.com; a=ed25519;
+ pk=nMa0OcUJYxnaGbhs5f95IwVQ7sPrWI7It3LMsh0BJX4=
+X-Endpoint-Received: by B4 Relay for lurenjia534@outlook.com/20260801 with
+ auth_id=906
+X-Original-From: lurenjia534 <lurenjia534@outlook.com>
+Reply-To: lurenjia534@outlook.com
 
-ipheth_sndbulk_callback() re-arms the carrier-check work on any
-non-zero URB status:
+From: lurenjia534 <lurenjia534@outlook.com>
 
-	else
-		schedule_delayed_work(&dev->carrier_work, 0);
+A frame injected through a monitor interface can request a VHT transmit
+rate wider than the channel configured on the simulated radio.  The rate
+comes from userspace-provided radiotap metadata, so it can be invalid.
 
-Nothing ties that to the interface being up, so the work can be armed
-again after ipheth_close() has already drained it, and stay armed
-until the netdev whose private area embeds it is freed.
+mac80211_hwsim_tx() currently warns and returns when the requested rate is
+wider than the channel.  A warning is inappropriate for invalid userspace
+input.  Moreover, hwsim owns the skb after its ->tx() callback is invoked,
+so returning without reporting status or freeing the skb leaks it.
 
-On unplug with a TX URB in flight, ipheth_disconnect() drains the work
-through unregister_netdev() -> ipheth_close() ->
-cancel_delayed_work_sync() and only then calls ipheth_kill_urbs().
-usb_kill_urb() completes the in-flight TX URB with -ENOENT, so
-ipheth_sndbulk_callback() runs after the drain and re-arms
-carrier_work.
+Drop frames with an invalid channel width and release their SKBs with
+ieee80211_free_txskb().  Frames with valid rates continue through the
+existing transmit path.
 
-The same completion also re-arms the work if the interface is only
-brought down while a TX URB is in flight, and
-ipheth_carrier_check_work() then keeps re-queueing itself once a
-second. unregister_netdev() does not call ipheth_close() for an
-already-down interface, so nothing drains it on the later unplug
-either.
+The reproducer triggered the warning in 20 of 20 unmodified-kernel boots.
+With this change, 100 iterations completed without a warning on both the
+report baseline and wireless/main.  An E2E control also confirmed that a
+valid 20 MHz frame was forwarded while a 160 MHz request on the same
+channel was dropped.
 
-In both cases free_netdev() frees the netdev while carrier_work is
-still pending, and ipheth_carrier_check_work() dereferences freed
-memory.
-
-Tie the work to the interface state instead of chasing the completion:
-disable it in ipheth_close() and enable it in ipheth_open(), so a
-schedule_delayed_work() from the URB completion is a no-op whenever
-the interface is not up. disable_delayed_work_sync() also waits for a
-running instance, so it fully replaces the cancel_delayed_work_sync()
-it takes the place of. The work starts out disabled in ipheth_probe()
-so the enable/disable counts balance from the first open.
-
-Reproduced under KASAN on linux-next (next-20260731) with dummy_hcd and
-raw-gadget standing in for the device, driving the second path above (the
-interface is already down, so unregister_netdev() does not call
-ipheth_close()): 15 of 15 unpatched boots report a slab-use-after-free in
-__run_timers(), freed by ipheth_disconnect() and re-armed from
-ipheth_sndbulk_callback() via queue_delayed_work_on(). The
-same trigger on a kernel differing only by this patch reports 0 of 15,
-and the carrier check still functions across open/close cycles.
-
-The reproducer needs an attached USB device that stops draining bulk OUT,
-plus a link down and unplug, driven as root. It is not a privilege
-boundary crossing and no exploit primitive was developed.
-
-Found by 0sec (https://0sec.ai).
-
-Fixes: bb1b40c7cb86 ("usbnet: ipheth: prevent TX queue timeouts when device not ready")
+Fixes: 585625c955b1 ("mac80211_hwsim: check TX and STA bandwidth")
+Reported-by: syzbot+435fdb053cf98bfa5778@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6a441a03.b42ede87.8e801.0009.GAE@google.com/
+Tested-by: syzbot+435fdb053cf98bfa5778@syzkaller.appspotmail.com
 Cc: stable@vger.kernel.org
-Assisted-by: 0sec:multi-model
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Assisted-by: Codex:GPT-5.6 MAX
+Signed-off-by: lurenjia534 <lurenjia534@outlook.com>
 ---
-v2:
- - Fix this at the scheduling site as Jakub suggested, instead of
-   adding a second cancel_delayed_work_sync() to ipheth_disconnect().
- - Took the disable/enable option rather than a netif_running() test.
-   The test would sit in ipheth_sndbulk_callback(), which can observe
-   __LINK_STATE_START still set and then queue the work after the
-   cancel_delayed_work_sync() in ipheth_close() has already returned.
-   Disabling the work closes that window.
- - Now runtime-reproduced: 15/15 unpatched boots splat under KASAN,
-   0/15 with this patch (x86_64, W=1, no new warnings). v1 and the
-   earlier v2 draft said compile-tested only; that is no longer true.
-   KASAN was confirmed live on both kernels via KUNIT before trusting
-   the negative, and the two kernels differ only by this patch.
- - v1: https://lore.kernel.org/netdev/20260724134250.34360-1-doruk@0sec.ai/
+Testing:
+- syzbot #syz test on wireless/main: pass
+- original syzbot C reproducer: 20/20 report-baseline boots warned;
+  unmodified wireless/main warned in 3/3 independent boots
+- patched original reproducer: 100/100 iterations clean on both the report
+  baseline and wireless/main
+- monitor-injection E2E: valid 20 MHz frame forwarded; invalid 160 MHz
+  frame dropped
+- CONFIG_MAC80211_HWSIM=y/m runtime tests: clean, taint 0
+- GCC x86-64 full y/m builds, GCC W=1, sparse, and Clang x86-64/arm64
+  target builds: pass
+---
+ drivers/net/wireless/virtual/mac80211_hwsim_main.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Note for stable: disable_delayed_work_sync() and enable_delayed_work()
-first appeared in v6.10 (86898fa6b8cd "workqueue: Implement disable/enable
-for (delayed) work items"), so 6.6 and older trees need a different
-backport.
-
- drivers/net/usb/ipheth.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/usb/ipheth.c b/drivers/net/usb/ipheth.c
-index bb1364f85bd1f..2b490114d2327 100644
---- a/drivers/net/usb/ipheth.c
-+++ b/drivers/net/usb/ipheth.c
-@@ -490,6 +490,7 @@ static int ipheth_open(struct net_device *net)
- 	if (retval)
- 		return retval;
+diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+index 75caa97bec..2d4bc3cd9a 100644
+--- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
++++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+@@ -2256,8 +2256,10 @@ static void mac80211_hwsim_tx(struct ieee80211_hw *hw,
+ 		else if (rflags & IEEE80211_TX_RC_160_MHZ_WIDTH)
+ 			bw = NL80211_CHAN_WIDTH_160;
  
-+	enable_delayed_work(&dev->carrier_work);
- 	schedule_delayed_work(&dev->carrier_work, IPHETH_CARRIER_CHECK_TIMEOUT);
- 	return retval;
- }
-@@ -499,7 +500,11 @@ static int ipheth_close(struct net_device *net)
- 	struct ipheth_device *dev = netdev_priv(net);
- 
- 	netif_stop_queue(net);
--	cancel_delayed_work_sync(&dev->carrier_work);
-+	/* A TX URB can still complete with an error after this point and
-+	 * try to re-arm the carrier work. Disable it instead of cancelling
-+	 * it, so that such a schedule_delayed_work() is a no-op.
-+	 */
-+	disable_delayed_work_sync(&dev->carrier_work);
- 	return 0;
- }
- 
-@@ -629,6 +634,10 @@ static int ipheth_probe(struct usb_interface *intf,
+-		if (WARN_ON(hwsim_get_chanwidth(bw) > hwsim_get_chanwidth(confbw)))
++		if (hwsim_get_chanwidth(bw) > hwsim_get_chanwidth(confbw)) {
++			ieee80211_free_txskb(hw, skb);
+ 			return;
++		}
  	}
  
- 	INIT_DELAYED_WORK(&dev->carrier_work, ipheth_carrier_check_work);
-+	/* Armed only between ipheth_open() and ipheth_close(). Start out
-+	 * disabled so the enable/disable counts balance from the first open.
-+	 */
-+	disable_delayed_work(&dev->carrier_work);
- 
- 	retval = ipheth_alloc_urbs(dev);
- 	if (retval) {
--- 
-2.43.0
+ 	/* wmediumd mode check */
+
+---
+base-commit: 2812e64e1575e05500a35c405aaa6e99b7d7930b
+change-id: 20260802-mac80211-hwsim-invalid-width-97781b6ea768
+
+Best regards,
+--  
+lurenjia534 <lurenjia534@outlook.com>
+
 
