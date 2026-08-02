@@ -1,103 +1,109 @@
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 363C9284B2F
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 04:18:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.46
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DB037175A9C;
+	Sun,  2 Aug 2026 05:13:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785644297; cv=none; b=Z7ZsfFxUMikIN38GEfRXXX5bu8TjjZ3PoepxoVhqt4CBvJHa0qABA6eOl1pZy+QzYFKUtMyW/oHzQ/grmNIpLXC+E4349XC1T8LWM1N0TTjkE0VmM2neozjiJr2s+vNg2Vng+CgHEGbZ8bBXi+QhIAk3G0dsnAXuuXdgR6NQqRk=
+	t=1785647634; cv=none; b=QUSKdIfW4kVOyp/8jGpt0Th9Zh8ADUZ6GKHqsEmfwC6zbOm81NIuVA9MAblfJ2YOq/m16FsamUSUwJbPuj4auOb5uRt2apOjkpM8onoDXvl92AjagxJ98MK8+tidEZStQwo9P8Vkgt3mzWnhuN0AEqoqZAAyYRwpA9NfeoPHSwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785644297; c=relaxed/simple;
-	bh=OPHht/QaC5LMLJuAaOtRtk4acf3QwYJqfe4smkjE5+Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZxaJmi/mg3t6Ba+O3+qukw09pDbkTvER/GbF0Vhxw0ARQ6Ud9VPUeqJhd3QIr9k1czg1uhaFu54/K4jOB/ctbsOrlz5e7wtK42KMor6GCAQleLbTRKHQ8TkdFeEK4WVwmxr0o6ZmxRPy4QoY6Ue+d/gPSXqK1khDydYZPJZiGhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=UP/Zlqms; arc=none smtp.client-ip=209.85.161.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="UP/Zlqms"
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6a168dc590cso1364592eaf.0
-        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 21:18:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1785644294; x=1786249094; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o2Bc+YLzfqIQRe95o8gbpPVNB1RPuOCR1FFv4kyvHGI=;
-        b=UP/ZlqmsODjKFUYGGabQPZXnXFLdlT/y1g/KV3svmdgU0pzE6s/8HnQyOCDsjZR6S8
-         WOFV68alDSVtPSnHoGTsiiNPDNwOJ6sqqoXX2PrGJnsRqg0EcEs9LacQn1XKjBEulokV
-         Lj93Xy6u1cgQVaDJvVDoL2tnCas7nxYLXWkaPejJDClZQHgrIAFjVq1WyfzsDXX87vfu
-         daXQUWmrG3JXwyXwau2DqjSyOLbOmJGJX+tQg77S3KuESX4eVE4F4ulzXFLVURspd9v4
-         QGYZhF6egksvlW8ReY1rSd+WvwrGkI52UFzxP7BkMqgbPR+OnA4sc2fIVefNI568/JIP
-         wMDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785644294; x=1786249094;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o2Bc+YLzfqIQRe95o8gbpPVNB1RPuOCR1FFv4kyvHGI=;
-        b=qom6aBiHjnPIYXfzJKaZDUs0Lnw+bPHIm+sdiiHfsvOb9k7Wd94XLTVsVinO92XW7t
-         fevn3vNNqSCiIpPc/ifBNyN6679L344vkwGPrprR0+6T7ISSvDR1KjzE7/e1IfYu/OXm
-         M/bDqkC2M7nt9g7yO0JVlPJgMbOR1MobUeCrM6eLCCeEV12nfhLKzMB+6XfOfR9ITp4G
-         +F7cPZfaJz9y4Uaeexxdx6QEfsuwxqbyDT71A6LPYyMbgTyV6IH5CpUau2JwlBMe9NhS
-         0PGJoGX/XfFd/z6u5lAM8pLzeSXZRgHPmrrkD5uWOLTisTBoCHKlH+MZ1ryhhpUQoMr2
-         uOqg==
-X-Gm-Message-State: AOJu0Ywt+C9ssAfJefOZqzCrfcF8CCC73DtGBjUfmOTZowjLIPwYIy7w
-	DGpsiueYrFM/bh9VaKzXUFwetcAoXzD1mLQktfvDosd8OLjm4Smqn2RfFS8UEGW3OMQ=
-X-Gm-Gg: AR+sD10b0BNEFEVzgwi5u1Rmh5nNKVI4PmIBg1wyscLlgJhqnDR9Cm2ZWVyryOS9v81
-	+yn4QBByz41rqmf0KB12fQe8lhEUv6nuXr2UAWWnRtBzxXnP4RyMnOhfSh6ba0DfYCqbnzzvReT
-	2MlEo0XQfNHukb0tSOlAuPeIoymJgyXyPovtDuEOcMP4JdLK2zd+wboqVFYObp8LVI9w+MRXf7G
-	p26bU11GqfVdwVjPvIz9AtbzIQmfMCXFkPI0L+qdz12YJl2SUm/4Eisb6+8JoYSO9W6Yv65pR1q
-	1Zate0J8QhZZU36J7Wgr1TH04GiB97EAde5ZQQdRwtrqImupppbC/5cdGamx/zm6Ix5Ger0i3Ao
-	XneTitoSYVB5cp1jt1Kteus0xavTk9tLn+WddGRHHlurwq/CdVklceMpaU+dHXS+DcZK1+yLkTv
-	CfODuFYzFGUE9vCMi3St1ddmKVLI7BAxH6EeCx1MRsJ0q+lbwhMvZCEUW7/cvYcpDgWophBZ00h
-	kTaTaH3xq1A9spHChIuuLo+IB3V+eCRk9TNMqxw3ICfxcw=
-X-Received: by 2002:a05:6820:4281:b0:6ac:b435:fb21 with SMTP id 006d021491bc7-6ae4334a4a6mr8028266eaf.24.1785644293751;
-        Sat, 01 Aug 2026 21:18:13 -0700 (PDT)
-Received: from [192.168.1.150] ([198.8.77.157])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ae39dcb23esm4070664eaf.6.2026.08.01.21.18.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 01 Aug 2026 21:18:12 -0700 (PDT)
-Message-ID: <8ebae381-f1cc-4cd2-8afd-8508cf9cb217@kernel.dk>
-Date: Sat, 1 Aug 2026 22:18:11 -0600
+	s=arc-20240116; t=1785647634; c=relaxed/simple;
+	bh=Bphe/gztkgkZste2rB6LVTAZedxnyYe8x0lQ+/AmSi8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qeH3OWptAaGDoF3nnwUi3KB6mODpVJMRfJKI7qC7HW5fRz71RN/3xGjOZVBth3w7G0s5cu8wdY3rNNciFozWnrGsSnajNeV3Eyy9B5E72XqLpsfSv809UOJ1HoN71ddvnKD4IdFF+A7H9WwbZ1dAZKmpzHt5o2f/VExFAMFv8To=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wB3Qn4I0m5qbYRZAA--.9887S3;
+	Sun, 02 Aug 2026 13:13:45 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgCH9coI0m5q5kt0Aw--.23465S2;
+	Sun, 02 Aug 2026 13:13:44 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-pm@vger.kernel.org
+Cc: sre@kernel.org,
+	l.stach@pengutronix.de,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] power: supply: ucs1002: fix use-after-free on remove
+Date: Sun,  2 Aug 2026 05:12:49 +0000
+Message-Id: <20260802051249.424015-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: FAILED: patch "[PATCH] io_uring/rw: fix missing ERESTARTSYS
- conversion in read paths" failed to apply to 6.12-stable tree
-To: Sasha Levin <sashal@kernel.org>, gregkh@linuxfoundation.org,
- yi1tang.yang@gmail.com
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgCH9coI0m5q5kt0Aw--.23465S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?o9l8tAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI3Hv0tYaE8dNZ+zZ0l0du39E4ElCCk1swWAAEcclu/XDk2J
+	IDBj+XVh7WKsFq09fjep9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7CF1DJryDuF17Cr4UCF17Arc_yoW8CrWxpF
+	Z0kFyYkrs8uryrXa42v3W2vFy3CayDGr47GrWxt34fZr1aqrs0qw1vgFWaqrZrArWF9a10
+	vrZ0qFy7urW3urcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
+	JbIYCTnIWIevJa73UjIFyTuYvjxU2LIDUUUUU
+
+ucs1002 has no remove callback, so unbind runs entirely through devm.
+The alert IRQ handler queues the health_poll delayed work, and the work
+reschedules itself while the chip reports a bad-health condition.  devm
+frees the alert IRQ, which only synchronizes the handler; it does not
+cancel the delayed work, which can then run after devm frees the driver
+data and dereference it.
+
+Register health_poll with devm_delayed_work_autocancel() before the
+alert IRQ is requested.  devm then frees the IRQ before cancelling the
+work, so the handler can no longer queue it and the work is cancelled
+before the driver data is freed.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 81196e2e57fc ("power: supply: ucs1002: fix some health status issues")
 Cc: stable@vger.kernel.org
-References: <2026072912-manpower-thrift-f2fd@gregkh>
- <34c09190-027c-4b00-92f4-17b5da059af5@kernel.dk>
- <20260802030154.ab05caca123c@kernel.org>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20260802030154.ab05caca123c@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/power/supply/ucs1002_power.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-On 8/1/26 9:15 PM, Sasha Levin wrote:
-> On Wed, Jul 29, 2026 at 10:35:51AM -0600, Jens Axboe wrote:
->> Seems that's already in 6.12-stable?
-> 
-> Not quite - stable/linux-6.12.y has no io_fixup_restart_res() at all.
-> 
-> What 6.12 does already have is the older inline ERESTART* -> -EINTR
-> switch inside io_rw_done(), which is the code ab05caca123c refactors
-> rather than the fix itself. The actual bug is still there: io_read()
-> ends with a bare "return ret;" after __io_read(), and io_read_mshot()'s
-> "ret <= 0" branch only does req_set_fail(), so an -ERESTARTSYS coming
-> out of __io_read() reaches userspace as -512 unconverted.
-
-Right, this original email was superseded by the later ones. As long
-as the sent out patches got queued up, we should be fine.
-
+diff --git a/drivers/power/supply/ucs1002_power.c b/drivers/power/supply/ucs1002_power.c
+index 3f44cc9..ca58c21 100644
+--- a/drivers/power/supply/ucs1002_power.c
++++ b/drivers/power/supply/ucs1002_power.c
+@@ -11,6 +11,7 @@
+ #include <linux/kernel.h>
+ #include <linux/kthread.h>
+ #include <linux/device.h>
++#include <linux/devm-helpers.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_irq.h>
+@@ -640,7 +641,10 @@ static int ucs1002_probe(struct i2c_client *client)
+ 	}
+ 
+ 	info->health = POWER_SUPPLY_HEALTH_GOOD;
+-	INIT_DELAYED_WORK(&info->health_poll, ucs1002_health_poll);
++	ret = devm_delayed_work_autocancel(dev, &info->health_poll,
++					   ucs1002_health_poll);
++	if (ret)
++		return ret;
+ 
+ 	if (irq_a_det > 0) {
+ 		ret = devm_request_threaded_irq(dev, irq_a_det, NULL,
 -- 
-Jens Axboe
+2.34.1
+
