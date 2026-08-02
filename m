@@ -1,148 +1,193 @@
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9153BBA1D;
-	Sun,  2 Aug 2026 14:51:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357572EACF2;
+	Sun,  2 Aug 2026 14:53:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785682291; cv=none; b=VmUOD3BUNoJpD03kEB8xSlVNf5OXCK2jXU2HqE1V93iMKQmbDt8UiKEYOgOd8u4LNUB/Wf3qKiKOzYzlhu9yHNZhQKn6QIr4dJPTVqL5ccQFFJmlZDnTAMi3ys6l2LWvW5YCoN/ysUZ88+wQ4/gLBWmJeZrMxyj2tmPDx2UU15k=
+	t=1785682432; cv=none; b=oniYftxxWUOqXhA7vdOP6WfS8CVg9/RnsICv5mOMTqxtpX0Ncaz4kpBduPGw/tz6IGWMl+5x6SxcnNFa1/YdyWoNRztk5h8pADi1loGmZHR1jAPlPIDSPMexQlHytY/M08V8UOV198Xxa4l84iQ2JAO9T28Bx+IQxNUauMKV+nU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785682291; c=relaxed/simple;
-	bh=duBOXC/XHVmcb3qVMrIECM0ImCToqBvbzc/TTZBVEkY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JBVQ9GQzawcjDZJl/uEntJquTofRXR680sn8K+cGhDoSQQVbUbGjU4fUhV4hzewb17ioSP6giXZ72j6Ny7L6kT1je4SVXCB3ophrrYGfRetC7ia8CaI+4U4XojK5VFAR/VB1CR074BIY1LQA+KJkebj3Zl43sy8J0TgBKcl/uQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=eQJY7dzO; arc=none smtp.client-ip=79.135.106.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="eQJY7dzO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
-	s=protonmail; t=1785682283; x=1785941483;
-	bh=efomfhmpRhT0LBa1wq/DR2bDSkQvnvlrQVUGpeana9I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=eQJY7dzOKKsjFCCObSHPdBfB0G7RLxZnQ4SoR93cashMShqVnWVl256Ij/yPOs9Fh
-	 hE+m2L9Iv4tusZTd0Kd5+eqQ3oPAaB8F+Pa9104eU7Wp+QJR0BDs0PxcTxZg7ShDC4
-	 26ZhfliCGocvLAomkHM6A0GNlRBo5xwqW6q/xgH1quYC0HXoavwYlygYaQbLmiYNo1
-	 4SAEejypMTRn+3/h11At6YJOVFfi1M1eqo0U5Wzsx9M6HKrqXt3o7QsL/wZG+X++rh
-	 YInyUbQ4PhV2WHXXD7i86TZdDfMfbZR3e41n3brXFoaNiVAmCApjfg4oDPmp4evzFW
-	 B81Hb+BGNQdlg==
-X-Pm-Submission-Id: 4hCjRq4Xz4z1DF5G
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Cc: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Timur Tabi <ttabi@nvidia.com>,
-	driver-core@lists.linux.dev,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Younes Akhouayri <git@younes.io>
-Subject: Re: [PATCH v2] rust: dma: return zero for Coherent reads past EOF
-Date: Sun,  2 Aug 2026 17:51:17 +0300
-Message-ID: <20260802145118.236139-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20260802135442.140218-1-work@onurozkan.dev>
-References: <20260730-fix-dma-coherent-eof-v2-1-8aff21054afa@younes.io> <20260802135442.140218-1-work@onurozkan.dev>
+	s=arc-20240116; t=1785682432; c=relaxed/simple;
+	bh=LLAzRn4a9t4oBmB3W2+OT9K/zMeSRYK1KSy7LRr1xDA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VTrMzSjRNJsHFnd45LAFVfaqpUyhFp+nyX5kidI+v+AdwLMIVMgUlQsjySgmBRzNe0vSeBfIGzcBfxvSFDeQfgAbSDLMBgYtG0CowcgjQUycLbHlG8SvqyxrxIKnXbftYFp6YyspkKWqm8mLGJFnN2ymYax3bar/Aq1CjhMz9fI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: f2d528b68e8111f1aa26b74ffac11d73-20260802
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:03155c6a-c569-4f71-809e-3feaae1f0382,IP:10,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:10
+X-CID-INFO: VERSION:1.3.12,REQID:03155c6a-c569-4f71-809e-3feaae1f0382,IP:10,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:10
+X-CID-META: VersionHash:e7bac3a,CLOUDID:713f0967646e648f13a2e527c7c80a01,BulkI
+	D:260802225342ZK4K35E5,BulkQuantity:0,Recheck:0,SF:10|38|64|66|78|80|81|82
+	|83|101|102|127|841|865|898,TC:nil,Content:0|15|52,EDM:-3,IP:-2,URL:0,File
+	:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DK
+	R:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: f2d528b68e8111f1aa26b74ffac11d73-20260802
+X-User: hehuiwen@kylinos.cn
+Received: from [192.168.0.11] [(220.202.211.78)] by mailgw.kylinos.cn
+	(envelope-from <hehuiwen@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 763641056; Sun, 02 Aug 2026 22:53:40 +0800
+Message-ID: <c28720bc-a39b-4d99-aa78-6138104bb0a2@kylinos.cn>
+Date: Sun, 2 Aug 2026 22:53:37 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] cifs: add cifs_resize_file_locked() to guard
+ fscache_resize_cookie() under i_rwsem
+To: Frank Sorenson <sorenson@redhat.com>, linux-cifs@vger.kernel.org,
+ pc@manguebit.org, stfrench@microsoft.com
+Cc: stable@vger.kernel.org, David Howells <dhowells@redhat.com>,
+ Paulo Alcantara <pc@manguebit.com>
+References: <20260731153500.660569-1-sorenson@redhat.com>
+ <20260731153500.660569-3-sorenson@redhat.com>
+Content-Language: en-US
+From: Huiwen He <hehuiwen@kylinos.cn>
+In-Reply-To: <20260731153500.660569-3-sorenson@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, 02 Aug 2026 16:54:40 +0300=0D
-Onur =C3=96zkan <work@onurozkan.dev> wrote:=0D
-=0D
-> On Thu, 30 Jul 2026 18:34:38 +0200=0D
-> Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org> wrote:=0D
-> =0D
-> > From: Younes Akhouayri <git@younes.io>=0D
-> > =0D
-> > Coherent<T>::write_to_slice() calculates a zero-byte copy when the file=
-=0D
-> > offset is beyond the allocation, but still calls=0D
-> > UserSliceWriter::write_dma(). The latter rejects offsets beyond the=0D
-> > allocation even when the copy length is zero, so a debugfs read past EO=
-F=0D
-> > returns -ERANGE.=0D
-> > =0D
-> > Return before calling write_dma() when the offset is at or beyond the=0D
-> > allocation, matching simple_read_from_buffer() EOF semantics.=0D
-> > =0D
-> > Fixes: 016818513936 ("rust: dma: implement BinaryWriter for Coherent<[u=
-8]>")=0D
-> > Cc: stable@vger.kernel.org=0D
-> > Link: https://rust-for-linux.zulipchat.com/#narrow/channel/291566-Libra=
-ry/topic/.E2.9C.94.20Possible.20past-EOF.20bug.20in.20Coherent.3CT.3E.3A.3A=
-write_to_slice/near/611677095=0D
-> > Signed-off-by: Younes Akhouayri <git@younes.io>=0D
-> > ---=0D
-> > Changes in v2:=0D
-> > - Use ordinary subtraction after the explicit EOF check, which makes=0D
-> >   underflow impossible.=0D
-> > - Link to v1: https://patch.msgid.link/20260720-fix-dma-coherent-eof-v1=
--1-d92685db8da6@younes.io=0D
-> > ---=0D
-> >  rust/kernel/dma.rs | 6 +++++-=0D
-> >  1 file changed, 5 insertions(+), 1 deletion(-)=0D
-> > =0D
-> > diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs=0D
-> > index 200def84fb69..556424b88fb9 100644=0D
-> > --- a/rust/kernel/dma.rs=0D
-> > +++ b/rust/kernel/dma.rs=0D
-> > @@ -1005,7 +1005,11 @@ fn write_to_slice(=0D
-> >              return Ok(0);=0D
-> >          };=0D
-> >  =0D
-> > -        let count =3D self.size().saturating_sub(offset_val).min(write=
-r.len());=0D
-> =0D
-> Nit: I would probably just check if `count` is zero next to this line.=0D
-=0D
-I just noticed there is already been quite a bit of discussion about this t=
-opic=0D
-so you can ignore my comment since it was just a "nit" anyway. I don't thin=
-k=0D
-there's much difference either way, so there's probably no need to reignite=
- the=0D
-discussion.=0D
-=0D
-Thanks for the fix.=0D
-=0D
-Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
-=0D
-> =0D
-> > +        if offset_val >=3D self.size() {=0D
-> > +            return Ok(0);=0D
-> > +        }=0D
-> > +=0D
-> > +        let count =3D (self.size() - offset_val).min(writer.len());=0D
-> >  =0D
-> >          writer.write_dma(self, offset_val, count)?;=0D
-> >  =0D
-> > =0D
-> > ---=0D
-> > base-commit: 667d0fb32149f023b8b34a1f6f3d384556eafb5a=0D
-> > change-id: 20260720-fix-dma-coherent-eof-d0d08c91e013=0D
-> > =0D
-> > Best regards,=0D
-> > --  =0D
-> > Younes Akhouayri <git@younes.io>=0D
-> > =0D
-> > =0D
+LGTM
+
+Huiwen
+
+在 2026/7/31 23:34, Frank Sorenson 写道:
+> cifs_setsize() calls fscache_resize_cookie() without holding i_rwsem.
+> When the fscache cookie is active (FSCACHE_COOKIE_IS_CACHING is set),
+> fscache_resize_cookie() performs a real resize that requires i_rwsem
+> held exclusively.  If another file descriptor has the same inode open,
+> fscache_use_cookie() was already called from that cifs_open(), making
+> the cookie active.  In that case, calling cifs_setsize() from
+> cifs_do_truncate() (invoked from cifs_open() without i_rwsem) races
+> against concurrent fscache I/O.
+> 
+> Strip fscache_resize_cookie() from cifs_setsize(), making it a pure
+> size/page-cache helper.  Add cifs_resize_file_locked() for callers
+> that already hold i_rwsem: it calls netfs_resize_file() and
+> cifs_setsize(), then temporarily activates the cookie with
+> fscache_use_cookie() to perform the resize under the lock, then
+> deactivates it with cifs_fscache_unuse_inode_cookie().  Using
+> fscache_use_cookie() before the resize ensures correctness whether or
+> not another fd already holds the cookie active.
+> 
+> Switch cifs_file_set_size(), smb2_duplicate_extents(), and both size-
+> extension branches of smb3_simple_falloc() to the new wrapper; those
+> paths already hold i_rwsem via VFS setattr, lock_two_nondirectories(),
+> or cifs_fallocate() respectively.  cifs_do_truncate() continues to
+> call cifs_setsize() followed by cifs_invalidate_cache(), since it runs
+> without i_rwsem.
+> 
+> Fixes: fa724e235cfd ("cifs: add fscache_resize_cookie() to cifs_setsize()")
+> Cc: stable@vger.kernel.org
+> Cc: David Howells <dhowells@redhat.com>
+> Cc: Paulo Alcantara <pc@manguebit.com>
+> Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+> Reviewed-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
+> ---
+>   fs/smb/client/cifsfs.h  |  1 +
+>   fs/smb/client/inode.c   | 24 +++++++++++++++++++++---
+>   fs/smb/client/smb2ops.c |  9 +++------
+>   3 files changed, 23 insertions(+), 11 deletions(-)
+> 
+> diff --git a/fs/smb/client/cifsfs.h b/fs/smb/client/cifsfs.h
+> index 854e672a4e37..651670c19c2b 100644
+> --- a/fs/smb/client/cifsfs.h
+> +++ b/fs/smb/client/cifsfs.h
+> @@ -147,6 +147,7 @@ ssize_t cifs_file_copychunk_range(unsigned int xid, struct file *src_file,
+>   
+>   long cifs_ioctl(struct file *filep, unsigned int command, unsigned long arg);
+>   void cifs_setsize(struct inode *inode, loff_t offset);
+> +void cifs_resize_file_locked(struct inode *inode, loff_t offset);
+>   
+>   struct fs_context;
+>   struct smb3_fs_context;
+> diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+> index 0afff761aab9..eaf27a9cf4f5 100644
+> --- a/fs/smb/client/inode.c
+> +++ b/fs/smb/client/inode.c
+> @@ -3059,7 +3059,26 @@ void cifs_setsize(struct inode *inode, loff_t offset)
+>   	inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
+>   	truncate_pagecache(inode, offset);
+>   	netfs_wait_for_outstanding_io(inode);
+> -	fscache_resize_cookie(cifs_inode_cookie(inode), offset);
+> +}
+> +
+> +void cifs_resize_file_locked(struct inode *inode, loff_t offset)
+> +{
+> +	struct fscache_cookie *cookie = cifs_inode_cookie(inode);
+> +
+> +	lockdep_assert_held_write(&inode->i_rwsem);
+> +
+> +	netfs_resize_file(netfs_inode(inode), offset, true);
+> +	cifs_setsize(inode, offset);
+> +
+> +	if (!cookie)
+> +		return;
+> +
+> +	fscache_use_cookie(cookie, true);
+> +	fscache_resize_cookie(cookie, offset);
+> +	cifs_fscache_unuse_inode_cookie(inode, true);
+>   }
+>   
+>   int cifs_file_set_size(const unsigned int xid, struct dentry *dentry,
+> @@ -3125,10 +3144,8 @@ int cifs_file_set_size(const unsigned int xid, struct dentry *dentry,
+>   	cifs_put_tlink(tlink);
+>   
+>   set_size_out:
+> -	if (rc == 0) {
+> -		netfs_resize_file(&cifsInode->netfs, size, true);
+> -		cifs_setsize(inode, size);
+> -	}
+> +	if (rc == 0)
+> +		cifs_resize_file_locked(inode, size);
+>   
+>   	return rc;
+>   }
+> diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+> index 192649fec25d..0e872d58fae7 100644
+> --- a/fs/smb/client/smb2ops.c
+> +++ b/fs/smb/client/smb2ops.c
+> @@ -2222,8 +2222,7 @@ smb2_duplicate_extents(const unsigned int xid,
+>   		rc = smb2_set_file_size(xid, tcon, trgtfile, dest_off + len, false);
+>   		if (rc)
+>   			goto duplicate_extents_out;
+> -		netfs_resize_file(netfs_inode(inode), dest_off + len, true);
+> -		cifs_setsize(inode, dest_off + len);
+> +		cifs_resize_file_locked(inode, dest_off + len);
+>   	}
+>   	rc = SMB2_ioctl(xid, tcon, trgtfile->fid.persistent_fid,
+>   			trgtfile->fid.volatile_fid,
+> @@ -3776,8 +3775,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+>   			}
+>   
+>   			new_eof = off + len;
+> -			netfs_resize_file(&cifsi->netfs, new_eof, true);
+> -			cifs_setsize(inode, new_eof);
+> +			cifs_resize_file_locked(inode, new_eof);
+>   
+>   			qrc = SMB2_query_info(xid, tcon,
+>   					      cfile->fid.persistent_fid,
+> @@ -3825,8 +3823,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+>   		if (rc)
+>   			goto out;
+>   
+> -		netfs_resize_file(&cifsi->netfs, new_eof, true);
+> -		cifs_setsize(inode, new_eof);
+> +		cifs_resize_file_locked(inode, new_eof);
+>   
+>   		qrc = SMB2_query_info(xid, tcon,
+>   				      cfile->fid.persistent_fid,
+
