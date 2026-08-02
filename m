@@ -1,152 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC7F2264C7;
-	Sun,  2 Aug 2026 18:21:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785694900; cv=none; b=Pd5V4GNa7KrdyHQ+9UL4viujztDZ5E1M2FYLsIKiZu/DvgUKvk6C+8YvUWln66YM+YVEZrlqDs600a+8n1Iwkvm0407psRj5V41pzAos0gncwULuLSCHoZ7SHh9CUPjleX099TwPEUTFTfX+OfnkbrlYnyPcOBTAga0Aob1as58=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785694900; c=relaxed/simple;
-	bh=hPkBZ27HYMyLAEw2FJZJtqjWp2w6rYlCI/CvQM3Vu04=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QFFkxRgBw0P83VQVnxuQJyg6c28Pu1aLrunNLSyXIs0hH9bfz7OyR6gOxsLsiGlHhbgZI8te5ey8Nu0ch3fVjAAPeSDUb4/eEWuUliNE8KO52Ir7CDefXgMU+b0ksq5euoFPAkhM8ljYtPBjhdFPiUNYvOhnsZM3RfQ8It49W1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MKWVNDUe; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C483093DD
+	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 18:24:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785695059; cv=pass; b=MZEHiVKPQYcg5TNokZ2eg2AL+L4MRpASeggHIBDsVmfCngExG38RUO9dCkCqQc+Jv8otDM5U0TD+ud1jiUbSioEI3JDPJArF+81tUJ7v5lJIndLycifasr6JzmcehD403pIdg2jqAwu7+CjjUSiwmN8L+Y8QYVY1eW6Mv9eyguk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785695059; c=relaxed/simple;
+	bh=4r4q3g5VqzfhWh8kEQRXnv5b90zr1rjNtxEoRsVqBNs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HY+df0j3+8LuF/0reKpTwDcEAbkt8pElUN1R74olib6GTBxVzdPozCqzy6e+kS5NeTSQbzghQ207WOkHBTq33jE1uJ7eNGFTScAp2sUs4bQ0kbZOdXEhcwf/pb2vEq7zFoBI99w5STFhWJYmXJ9dg0WSlcb9t5DdiGoc4KtiS4U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ayn6Ysc4; arc=pass smtp.client-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MKWVNDUe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591461F000E9;
-	Sun,  2 Aug 2026 18:21:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785694898;
-	bh=5CPWfFeyUhmK9l6Bga30vy6fwbQtui3iKRb3sQay5v0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=MKWVNDUeyRtW12tXN2MfEw5tz03VzWB8PqrI6WlLJr+EQfGn2p+i2UXpjEPr2GYk+
-	 DG0JAjGBv4m1ofhJgVHQmQXXIIehf8cg5Mqhp47/GfGkcz0kxV6QRR1MrZr8dYhM41
-	 qtAFABFzkQcTfiIjfYnAu4+3T/dL35pJbcxlYmKsGhWaNYHhlxqKXPYVsyQdqum/CP
-	 By1WfUk5eOdnyUvzT1j+k6yw5aYf7PR6XbLXa+LOHRkS0/PZGVKJC7zpD8weDL5SwB
-	 CMg9otpW/tYv2f3zzdrstFBgqw+cIfyXmuuqBL5j9hW0IKf+8kJ6QtLn2vl+mZ9Jl5
-	 1G5DjgjaAkhLg==
-Date: Sun, 2 Aug 2026 19:21:34 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, shuaijie wang
- <wangshuaijie@awinic.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: proximity: aw96103: validate firmware data length
-Message-ID: <20260802192134.32a0349d@jic23-huawei>
-In-Reply-To: <20260801193700.57457-1-acharyalaxman8848@gmail.com>
-References: <20260801193700.57457-1-acharyalaxman8848@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ayn6Ysc4"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-930f618435cso142310185a.3
+        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 11:24:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785695056; cv=none;
+        d=google.com; s=arc-20260327;
+        b=evCx9K1vc8vplIyvVZRlkTXnVBTOln1SG5kiiLx0/pKXbJwTYtp0syj3pvLTnyCyVQ
+         pYL1tjbomHBQ7l3qHeU/XklVMIQQqx58ZllXm12IjQ48eUX0XolOmSvSUM080VfzR/Tf
+         88oZjEVM7qSBrjBlLcmEPjS6nbTVPOi+sDyAosIhRhxviylms9AtDMaL5bZ/Dr578zk5
+         jDt5tGju3l5v6eouuX4iqqd109AVPynVBv78oKfskicPph8R/+M9O+P4RuzEDmTcmdAn
+         Y8AF+GBfWK/xmr2JGNVxSk40V9O8oHkMxY3YnV3jmK4yaactyAdK/v4zDhAz2ViHRBSi
+         nKuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WP3qLqUIjgO7jrMLKGvU8i1TpA1teHZXvnJrB83KgPY=;
+        fh=AM/Pw1A46gXJzwD2jwMeES98nFSiPvWU3fNIdpKmpGw=;
+        b=C/t971PBAfwy2QguHG6Glc5FbSNwmGL/JdWhJxueCfqTO8i0ZJjUAiXBAl4atAZUvB
+         cYLGmoSxhl7FMt1VV8wDokhowXCfuHDNQzo/8ujHovIKETiStEdvzINeVxLJqOUTxalR
+         +83GlPrkWF7EKgpS3xFqJK58vhE43JbV7TSLmKrB8B33dXYcSZ9JAyuUmIOOn9nOrt5k
+         ThZjAhfkMIGnpcjQlIY5FyQZVOw+CMw1XIZCNBXTCxSZm1aR4dI+qZKEsrnb3bT7bSgu
+         PZd59AMN0qrQpqVnrTQs+VcCTChDmq1ixeI0DSw2JCFru5CFqCi8hZUso34fgrDbC+12
+         lf/Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785695056; x=1786299856; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WP3qLqUIjgO7jrMLKGvU8i1TpA1teHZXvnJrB83KgPY=;
+        b=ayn6Ysc4pHH5ptRzn01JqD10Skg1Ir26FcvPjvS2VTJFbc4dZOePw7mOn9qrNgX+pr
+         AcT4oWI6LJOOy0OveQpDJQaGODhX+ljxAX2FxVXF24uAcW1Eu2njMx+9hv3QGYv9vhPF
+         bCDNBcCHrX/Hengq9XG0pKgAKuMCB0PK/0N/Uc9+DJLK7w932P9juD0nBuD4pg2Hmua3
+         K18jzZeG0TUlhb0I4W6LWZMn42HWygt2PMw8U0pFtklvzK3OAOsU994AaBOSsHmzXX5i
+         suXsuSZ3ynMJBoTeZGg7pgTu+vugtzMyMSfb0fwgsgMZcEG4r0fv1oTxgWv6HdoEANIi
+         ubZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785695056; x=1786299856;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WP3qLqUIjgO7jrMLKGvU8i1TpA1teHZXvnJrB83KgPY=;
+        b=Rf97CCa54Zqq3rFSfx8ouVS9Dh5o9YJTPeUNqHXGgVbhmiTZuofx9ocOWEum3rgAdL
+         9zlcOahLOhq8cYrhbeN4h42RBWhsDKlxVbgnkW2OIMWMTBtm77YYitcAc/GQ1ENLmo9p
+         BiN1pEcxRttG0T+ISXROYgc6Tz7p03j7jMA1EYdCzURu6reICPajq7VlDxv4aeAGyBmY
+         0c+Om3Piw57QYGeQs8yZveY749830oRIdQUIvV0DQ2/GQ4iwjhtDeBHplM/jHuNuprPv
+         glUsuRbMjQu7rm+uvWJD26c9lu2dNEU7KA2RbwyAi0LKWb5bz8DozeTPK1qnL0mZX4W8
+         hxJw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq7dCozfo6x/3v3jzFJIWgtJFHZQMpxl3ux9a5DQ06SIoW9qWjnGL1UNorYqPCC/HWIkWtR8aI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKRbA3sFaB9EA5tCPROi163qDj/EBO2QMpOZ0fTaT+cqIBhDIL
+	7EpQUOoMm8dX8js/AmVREo7yQ5bBEKpVQBaSNxkLWF81HQyHNWb8m0Uq9V48BMoEeciEc6Zy/1T
+	uqq1z8hT7btZFZ2Nw9KlPEaklIJxiVCw=
+X-Gm-Gg: AR+sD12o2lBLo3eb1itlvIB5Yv9lXY3G/nN4EWa9adqhSEwuYINuaV5DFUQRWvrwecw
+	5Q1vcPMRe0L4kQWc9WzHx/k9tSj1rk+v+MI48fCeY6Md9t9cZ18YTto/ecUdxjT/CtC7n2fFWFZ
+	lS5sYwMoVhY2cSkQRdrBZtrQ8Q2ZZgX+nmYguh6A04Knpt1JE2vVuD3WJmcyYeoAJm2RXHiKxw8
+	jR0DqWF72SHI3hr5lIUzYk/GJpDOy2kXfjxZ6cn2x68v+RRbnw50+IWlLokCmW79D/esahidl6q
+	JNDc2PvzA65oetXhcV2ikNI6x+R/mltMZMqrNnkrBxMzXUMjtuOlsoGAYWeoeHeUe7Pde0pBNAy
+	xISSRp7IkS1gVXiH7UjsJ91AsuDhd3X92WwNSkKGcYQ2qqbn7lHYNhZ0f3MgaVYKRFktZNiTmoB
+	YAii7e3l6TnEKIyjBT8C1ohCcLtVjKlSoCSrY2lK2qBcKC9deOjbtOOK53YX8=
+X-Received: by 2002:a05:622a:908:b0:51c:857f:9c12 with SMTP id
+ d75a77b69052e-52b5669de9cmr149737711cf.4.1785695055997; Sun, 02 Aug 2026
+ 11:24:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260802004809.1301715-1-shuangpeng.kernel@gmail.com>
+In-Reply-To: <20260802004809.1301715-1-shuangpeng.kernel@gmail.com>
+From: Steve French <smfrench@gmail.com>
+Date: Sun, 2 Aug 2026 13:24:03 -0500
+X-Gm-Features: AUfX_mz_5HOFDX4YQh7cjlt1h9LRNSHnEfYzC6TnVn8q_yfn1u7JQu3SFcr4XUA
+Message-ID: <CAH2r5muLehYvO1FxJb9WjOwrK62bSOh8Ke2EzxRA3b=WS5gH4A@mail.gmail.com>
+Subject: Re: [PATCH] smb: client: Fix use-after-free in cifs_try_adding_channels()
+To: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Cc: sfrench@samba.org, pc@manguebit.org, ronniesahlberg@gmail.com, 
+	sprasad@microsoft.com, tom@talpey.com, bharathsm@microsoft.com, 
+	linux-cifs@vger.kernel.org, samba-technical@lists.samba.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun,  2 Aug 2026 01:22:00 +0545
-Laxman Acharya Padhya <acharyalaxman8848@gmail.com> wrote:
+merged into cifs-2.6.git for-next
 
-> The firmware parser reads a length from the binary header and then uses
-> it to walk six-byte register/value entries. A truncated firmware image
-> can make the parser read beyond the copied firmware buffer. A value
-> smaller than the four-byte count field also underflows, producing a very
-> large length.
-> 
-> Read the little-endian field with get_unaligned_le32(), as previously
-> proposed by David Lechner. Validate the header size, reject an
-> underflowed length, ensure the resulting payload is contained in the
-> firmware image, and require it to contain whole register/value entries.
-> 
-> Fixes: 07b241262dca ("iio: proximity: aw96103: Add support for aw96103/aw96105 proximity sensor")
-> Link: https://lore.kernel.org/r/20260314-iio-proximity-aw96103-fix-firmware-read-v1-1-c74fe9ccd82b@baylibre.com
+On Sat, Aug 1, 2026 at 7:48=E2=80=AFPM Shuangpeng Bai
+<shuangpeng.kernel@gmail.com> wrote:
+>
+> cifs_try_adding_channels() takes a temporary reference to an interface
+> before dropping iface_lock. If cifs_ses_add_channel() fails, it drops
+> that reference and then increments iface->weight_fulfilled.
+>
+> A concurrent interface list refresh can remove the list reference while
+> channel creation is in progress. In that case, the failure-path
+> kref_put() releases the last reference and frees iface. Updating
+> weight_fulfilled afterward then accesses freed memory.
+>
+> Increment weight_fulfilled before dropping the temporary reference,
+> keeping iface alive for the final access.
+>
+> Fixes: 6aac002bcfd5 ("cifs: failure to add channel on iface should bump u=
+p weight")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Looks fine to me, but I'll leave it on list a little while so others
-have time to take a look, ideally including Shuaijie Wang
-
-Thanks
-
-Jonathan
-
+> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 > ---
->  drivers/iio/proximity/aw96103.c | 30 ++++++++++++++++++++++++------
->  1 file changed, 24 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/iio/proximity/aw96103.c b/drivers/iio/proximity/aw96103.c
-> index 8fbb755dc..8352d51e5 100644
-> --- a/drivers/iio/proximity/aw96103.c
-> +++ b/drivers/iio/proximity/aw96103.c
-> @@ -24,6 +24,7 @@
->  #define AW96103_BIN_VALID_DATA_OFFSET		64
->  #define AW96103_BIN_DATA_LEN_OFFSET		16
->  #define AW96103_BIN_DATA_REG_NUM_SIZE		4
-> +#define AW96103_BIN_REG_SIZE			6
->  #define AW96103_BIN_CHIP_TYPE_SIZE		8
->  #define AW96103_BIN_CHIP_TYPE_OFFSET		24
->  
-> @@ -229,14 +230,27 @@ static const struct aw_chip_info aw_chip_info_tbl[] = {
->  	},
->  };
->  
-> -static void aw96103_parsing_bin_file(struct aw_bin *bin)
-> +static int aw96103_parsing_bin_file(struct aw_bin *bin)
->  {
-> +	u32 data_len;
-> +
-> +	if (bin->len < AW96103_BIN_VALID_DATA_OFFSET)
-> +		return -EINVAL;
-> +
-> +	data_len = get_unaligned_le32(bin->data + AW96103_BIN_DATA_LEN_OFFSET);
-> +	if (data_len < AW96103_BIN_DATA_REG_NUM_SIZE)
-> +		return -EINVAL;
-> +
-> +	bin->valid_data_len = data_len - AW96103_BIN_DATA_REG_NUM_SIZE;
-> +	if (bin->valid_data_len > bin->len - AW96103_BIN_VALID_DATA_OFFSET ||
-> +	    bin->valid_data_len % AW96103_BIN_REG_SIZE)
-> +		return -EINVAL;
-> +
->  	bin->valid_data_addr = AW96103_BIN_VALID_DATA_OFFSET;
-> -	bin->valid_data_len =
-> -		*(unsigned int *)(bin->data + AW96103_BIN_DATA_LEN_OFFSET) -
-> -		AW96103_BIN_DATA_REG_NUM_SIZE;
->  	memcpy(bin->chip_type, bin->data + AW96103_BIN_CHIP_TYPE_OFFSET,
->  	       AW96103_BIN_CHIP_TYPE_SIZE);
-> +
-> +	return 0;
->  }
->  
->  static const struct regmap_config aw96103_regmap_confg = {
-> @@ -500,7 +514,7 @@ static int aw96103_bin_valid_loaded(struct aw96103 *aw96103,
->  	int ret;
->  
->  	for (i = 0; i < aw_bin_data_s->valid_data_len;
-> -	     i += 6, start_addr += 6) {
-> +	     i += AW96103_BIN_REG_SIZE, start_addr += AW96103_BIN_REG_SIZE) {
->  		reg_addr = get_unaligned_le16(aw_bin_data_s->data + start_addr);
->  		reg_data = get_unaligned_le32(aw_bin_data_s->data +
->  					      start_addr + 2);
-> @@ -550,6 +564,8 @@ static int aw96103_para_loaded(struct aw96103 *aw96103)
->  static int aw96103_cfg_all_loaded(const struct firmware *cont,
->  				  struct aw96103 *aw96103)
->  {
-> +	int ret;
-> +
->  	if (!cont)
->  		return -EINVAL;
->  
-> @@ -561,7 +577,9 @@ static int aw96103_cfg_all_loaded(const struct firmware *cont,
->  	aw_bin->len = cont->size;
->  	memcpy(aw_bin->data, cont->data, cont->size);
->  	release_firmware(cont);
-> -	aw96103_parsing_bin_file(aw_bin);
-> +	ret = aw96103_parsing_bin_file(aw_bin);
-> +	if (ret)
-> +		return ret;
->  
->  	return aw96103_bin_valid_loaded(aw96103, aw_bin);
->  }
+>  fs/smb/client/sess.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/fs/smb/client/sess.c b/fs/smb/client/sess.c
+> index de2012cc9cf3..7cf7dd104f7c 100644
+> --- a/fs/smb/client/sess.c
+> +++ b/fs/smb/client/sess.c
+> @@ -233,9 +233,9 @@ int cifs_try_adding_channels(struct cifs_ses *ses)
+>                                 cifs_dbg(VFS, "failed to open extra chann=
+el on iface:%pIS rc=3D%d\n",
+>                                          &iface->sockaddr,
+>                                          rc);
+> -                               kref_put(&iface->refcount, release_iface)=
+;
+>                                 /* failure to add chan should increase we=
+ight */
+>                                 iface->weight_fulfilled++;
+> +                               kref_put(&iface->refcount, release_iface)=
+;
+>                                 continue;
+>                         }
+>
+> --
+> 2.43.0
+>
+>
 
+
+--=20
+Thanks,
+
+Steve
