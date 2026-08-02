@@ -1,111 +1,161 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64427175A66;
-	Sun,  2 Aug 2026 01:28:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D32EEC3
+	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 01:49:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785634100; cv=none; b=Wd/v65upPbStM0r5ZgrqbULFFzRpLrgVA31Oh1YyMY2HZCz+A72mCpzUtD+oo4DmD9F3O9L9o7nimzYylcxuHKBXAkt0UlMjbN8Pv8S2hXri2jIVO9SYyGKU//ZB+Uvgs8u0ZsqU+z6HsulrKq0JEIhwHf9GjUZBbP6FGO1+c9E=
+	t=1785635360; cv=none; b=p7g/heXCg34CNmSSuqbYVYisMFN1SUQH+fryuyw2ebGLVD4q0lqlNTByngFt6muabeUo2+JfyL9yJ+niIcoOe7MMsNMfagD02IIBalPRB7bURojak6w5r9MHIZhX6DlDf5Bz9xWjseGy4QEpygqQvAWgXegbskp4hZpTiaHQevk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785634100; c=relaxed/simple;
-	bh=Yi+Oej9r/P7K4bv9FV9oR/2NoM/m1xuG+lJvVeUUpo8=;
-	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type; b=ce+jXzVdh7o5s8XA5b94RYIkylbUj+vbHP0xzrRP9ujZKahzhnjuRgyZFf/UPMq1aFukzM3UGAc+q+WbKsDKenx7ZsGkUpsCpH/ov4wUbRxcwsVV0nKb8z/MCRv9r6O4pQ8Nbjw6clkB7pwI1Wqr5cXc2lNWNorXSxB9prWhRaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=BEQeg2gO; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1785635360; c=relaxed/simple;
+	bh=PGvvp6oLlhaIcrpyOPBpP/A2zy2P9DIVrg5z8y/X+DY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ey9RjRVql4p9gYe6zG5OobBzHuPBhQXf681cUZEs3T73bACvdmwh+AGoypKfO3gA4r1Wd5cdL8D/BUV82MUhIy4ulAZX4G0/b3cl+Xet66fExHNF++doGtlrL2cCSZRLM2aaqGKdCbmshrVK2f5xqMEMpupwmG6tyhZN8/Aeux8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a+WaCkq6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="BEQeg2gO"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6721SDlwC3071857, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1785634093; bh=UF9nXiNm5CIOQPIgSeTG8Q2938fIs4gTdxleTHAdwOY=;
-	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	b=BEQeg2gOhfATmKVMqPKAFeeKFDyZgMXyRyZhSIsodN29jjlv8RFiRQW16cnbfxrgj
-	 Xqkb/1X+Wh3r2fTPWOGZCXdv8HYYHOj4V7iB5p4DPgZhe9FSBYApkrB3RrJGj4buD9
-	 EfxJLqAGpXRdP8uJMXzAfVFI1G7yDd6tZV9Gsl4Hj1MMQQB2/XyYL8CVFgNF/qOiPu
-	 JRvljbrSVOfJjYxiNNsM2TIT6trsRPiNfl5+PkKN7+qV49FTCP1RrAldTSMGOeIvhi
-	 ggyxMah0EzQdjPh5K8THVUeaUCqMqhaOjBpX8MDPbQHGEPU4B5kzRFsehEGJYsM9bA
-	 ePbDP8dqLLcsA==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6721SDlwC3071857
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 2 Aug 2026 09:28:13 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Sun, 2 Aug 2026 09:28:13 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Sun, 2 Aug 2026 09:28:13 +0800
-Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS06.realtek.com.tw
- (10.21.1.56) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17 via Frontend
- Transport; Sun, 2 Aug 2026 09:28:08 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: <yhchen312@gmail.com>, <pkshih@realtek.com>
-CC: <damon.chen@realtek.com>, <linux-wireless@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Yuhang.chen <yhchen312@gmail.com>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH v2] wifi: rtw89: pci: add .shutdown callback to stop rfkill polling on reboot
-In-Reply-To: <20260729014142.2746777-1-yhchen312@gmail.com>
-References: <142c91dfc7334136a5dabc4f91504ec6@realtek.com> <20260729014142.2746777-1-yhchen312@gmail.com>
-Message-ID: <2f9366ea-d5c1-48fe-9bb7-ad7ea5520c37@RTKEXHMBS06.realtek.com.tw>
-Date: Sun, 2 Aug 2026 09:28:08 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a+WaCkq6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3EF31F00AC4;
+	Sun,  2 Aug 2026 01:49:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785635359;
+	bh=hoUfPtFq04YZDnP/1g16BzpMKo+GtDmw1gtnKJ3ZSNk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=a+WaCkq6e4Qe616v1GBNkRXQwl+daWt2T/cStmbSXGWBhNn2FhaPaDsw8X0B5b93+
+	 7s+0iDM4iJ3RWxstVCGDfA6b5dnRLEC7zeMVLqfGmmCGPJenVvMMyC78bKNctlegP5
+	 MGuWlcflEozDZZgETAoa/QyZCl6IeB1c/hubII2ZjyjAqWjM4JOM9jErZ1QgKx6TEP
+	 kaw3w0+1m2EReJuTIWf6TdQJIEicZH8Vi4+37nHulKmwuaniQZg8RBxFcAVSL6f+tY
+	 R25+6ZrEsQLanwpPUKT1blKgzMl7hahOtAyAlK2Y4GUSqyM8mT8ECvXW+Oo2/o4T8+
+	 bGIpSIVpjDrJQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Matthew Brost <matthew.brost@intel.com>,
+	Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/4] drm/xe: Use SVM range helpers in PT layer
+Date: Sat,  1 Aug 2026 21:49:12 -0400
+Message-ID: <20260802014916.504747-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072945-jaybird-vaguely-739f@gregkh>
+References: <2026072945-jaybird-vaguely-739f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-yhchen312@gmail.com wrote:
+From: Matthew Brost <matthew.brost@intel.com>
 
-> From: "Yuhang.chen" <yhchen312@gmail.com>
-> 
-> Since the hardware rfkill polling was introduced, arm64 platforms can
-> panic with an asynchronous SError during warm reboot:
-> 
->   SError Interrupt on CPU8, code 0x00000000be000011 -- SError
->   Workqueue: events_power_efficient rfkill_poll [rfkill]
->     rtw89_pci_ops_read8+0x94/0x160 [rtw89_pci]
->     rtw89_core_rfkill_poll+0x50/0x1e0 [rtw89_core]
->     rtw89_ops_rfkill_poll+0x40/0x68 [rtw89_core]
->     ieee80211_rfkill_poll+0x3c/0x70 [mac80211]
->     cfg80211_rfkill_poll+0x40/0x2a0 [cfg80211]
->     rfkill_poll+0x30/0x88 [rfkill]
->   Kernel panic - not syncing: Asynchronous SError Interrupt
-> 
-> On the reboot path the kernel only runs device_shutdown(), which calls
-> each driver's .shutdown callback; .remove is not invoked.  The rtw89 PCI
-> driver had no .shutdown callback, so nothing stopped the rfkill polling
-> work while the platform was tearing the PCIe link down.  Once the link
-> is gone, the next MMIO read from the poll handler targets a
-> non-responding device and is reported as a fatal asynchronous SError on
-> arm64.
-> 
-> Add rtw89_pci_shutdown(), wired to all rtw89 PCI device drivers, which
-> sets a new RTW89_FLAG_SHUTDOWN flag (mirroring the USB
-> RTW89_FLAG_UNPLUGGED pattern).  When the flag is set,
-> rtw89_ops_rfkill_poll() returns early, so no MMIO read is issued to the
-> chip after shutdown begins and the SError no longer occurs.
-> 
-> This does not call the full .remove path from .shutdown, to keep the
-> shutdown handler minimal and avoid running the non-idempotent teardown
-> twice.
-> 
-> Fixes: 0b38e6277aed ("wifi: rtw89: add support for hardware rfkill")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Ping-Ke Shih <pkshih@realtek.com>
-> Signed-off-by: Yuhang.chen <yhchen312@gmail.com>
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+[ Upstream commit 9ea9b45701ab50049a722450abc28346d1121e6e ]
 
-1 patch(es) applied to rtw-next branch of rtw.git, thanks.
+We have helpers SVM range start, end, and size. Use them in the PT
+layer rather than directly looking at the struct.
 
-667c12782aaf wifi: rtw89: pci: add .shutdown callback to stop rfkill polling on reboot
-
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+Link: https://lore.kernel.org/r/20251022230122.922382-1-matthew.brost@intel.com
+Stable-dep-of: 6384271ac1ac ("drm/xe/pt: Reset current_op in xe_pt_update_ops_init()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-https://github.com/pkshih/rtw.git
+ drivers/gpu/drm/xe/xe_pt.c | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+index 1f0262adc3ae..a32752c57ea4 100644
+--- a/drivers/gpu/drm/xe/xe_pt.c
++++ b/drivers/gpu/drm/xe/xe_pt.c
+@@ -715,7 +715,7 @@ xe_pt_stage_bind(struct xe_tile *tile, struct xe_vma *vma,
+ 		.vm = vm,
+ 		.tile = tile,
+ 		.curs = &curs,
+-		.va_curs_start = range ? range->base.itree.start :
++		.va_curs_start = range ? xe_svm_range_start(range) :
+ 			xe_vma_start(vma),
+ 		.vma = vma,
+ 		.wupd.entries = entries,
+@@ -734,7 +734,7 @@ xe_pt_stage_bind(struct xe_tile *tile, struct xe_vma *vma,
+ 		}
+ 		if (xe_svm_range_has_dma_mapping(range)) {
+ 			xe_res_first_dma(range->base.pages.dma_addr, 0,
+-					 range->base.itree.last + 1 - range->base.itree.start,
++					 xe_svm_range_size(range),
+ 					 &curs);
+ 			xe_svm_range_debug(range, "BIND PREPARE - MIXED");
+ 		} else {
+@@ -778,8 +778,8 @@ xe_pt_stage_bind(struct xe_tile *tile, struct xe_vma *vma,
+ 
+ walk_pt:
+ 	ret = xe_pt_walk_range(&pt->base, pt->level,
+-			       range ? range->base.itree.start : xe_vma_start(vma),
+-			       range ? range->base.itree.last + 1 : xe_vma_end(vma),
++			       range ? xe_svm_range_start(range) : xe_vma_start(vma),
++			       range ? xe_svm_range_end(range) : xe_vma_end(vma),
+ 			       &xe_walk.base);
+ 
+ 	*num_entries = xe_walk.wupd.num_used_entries;
+@@ -983,8 +983,8 @@ bool xe_pt_zap_ptes_range(struct xe_tile *tile, struct xe_vm *vm,
+ 	if (!(pt_mask & BIT(tile->id)))
+ 		return false;
+ 
+-	(void)xe_pt_walk_shared(&pt->base, pt->level, range->base.itree.start,
+-				range->base.itree.last + 1, &xe_walk.base);
++	(void)xe_pt_walk_shared(&pt->base, pt->level, xe_svm_range_start(range),
++				xe_svm_range_end(range), &xe_walk.base);
+ 
+ 	return xe_walk.needs_invalidate;
+ }
+@@ -1701,8 +1701,8 @@ static unsigned int xe_pt_stage_unbind(struct xe_tile *tile,
+ 				       struct xe_svm_range *range,
+ 				       struct xe_vm_pgtable_update *entries)
+ {
+-	u64 start = range ? range->base.itree.start : xe_vma_start(vma);
+-	u64 end = range ? range->base.itree.last + 1 : xe_vma_end(vma);
++	u64 start = range ? xe_svm_range_start(range) : xe_vma_start(vma);
++	u64 end = range ? xe_svm_range_end(range) : xe_vma_end(vma);
+ 	struct xe_pt_stage_unbind_walk xe_walk = {
+ 		.base = {
+ 			.ops = &xe_pt_stage_unbind_ops,
+@@ -1912,7 +1912,7 @@ static int bind_range_prepare(struct xe_vm *vm, struct xe_tile *tile,
+ 
+ 	vm_dbg(&xe_vma_vm(vma)->xe->drm,
+ 	       "Preparing bind, with range [%lx...%lx)\n",
+-	       range->base.itree.start, range->base.itree.last);
++	       xe_svm_range_start(range), xe_svm_range_end(range) - 1);
+ 
+ 	pt_op->vma = NULL;
+ 	pt_op->bind = true;
+@@ -1927,8 +1927,8 @@ static int bind_range_prepare(struct xe_vm *vm, struct xe_tile *tile,
+ 					pt_op->num_entries, true);
+ 
+ 		xe_pt_update_ops_rfence_interval(pt_update_ops,
+-						 range->base.itree.start,
+-						 range->base.itree.last + 1);
++						 xe_svm_range_start(range),
++						 xe_svm_range_end(range));
+ 		++pt_update_ops->current_op;
+ 		pt_update_ops->needs_svm_lock = true;
+ 
+@@ -2023,7 +2023,7 @@ static int unbind_range_prepare(struct xe_vm *vm,
+ 
+ 	vm_dbg(&vm->xe->drm,
+ 	       "Preparing unbind, with range [%lx...%lx)\n",
+-	       range->base.itree.start, range->base.itree.last);
++	       xe_svm_range_start(range), xe_svm_range_end(range) - 1);
+ 
+ 	pt_op->vma = XE_INVALID_VMA;
+ 	pt_op->bind = false;
+@@ -2034,8 +2034,8 @@ static int unbind_range_prepare(struct xe_vm *vm,
+ 
+ 	xe_vm_dbg_print_entries(tile_to_xe(tile), pt_op->entries,
+ 				pt_op->num_entries, false);
+-	xe_pt_update_ops_rfence_interval(pt_update_ops, range->base.itree.start,
+-					 range->base.itree.last + 1);
++	xe_pt_update_ops_rfence_interval(pt_update_ops, xe_svm_range_start(range),
++					 xe_svm_range_end(range));
+ 	++pt_update_ops->current_op;
+ 	pt_update_ops->needs_svm_lock = true;
+ 	pt_update_ops->needs_invalidation |= xe_vm_has_scratch(vm) ||
+-- 
+2.53.0
 
