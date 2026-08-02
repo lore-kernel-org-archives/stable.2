@@ -1,100 +1,103 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [40.65.178.148])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C555C3D994;
-	Sun,  2 Aug 2026 03:55:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=40.65.178.148
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 363C9284B2F
+	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 04:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785642958; cv=none; b=GiBqf9aQCKoDliItow2FrJd0dYsZMSNc1KnlyQtDnZi/21ZeM6v7mx/qe6cGxRw8TKBrC/fWBaKrLkWpdm6OChW8ZbbEXRum1AF0lDxV2xqLYCo2n5kDgz5k4JsQ1sbGh1udAcfgYOE7AM7yuLuvhKO47qsAiAgmryofZwTW/Vg=
+	t=1785644297; cv=none; b=Z7ZsfFxUMikIN38GEfRXXX5bu8TjjZ3PoepxoVhqt4CBvJHa0qABA6eOl1pZy+QzYFKUtMyW/oHzQ/grmNIpLXC+E4349XC1T8LWM1N0TTjkE0VmM2neozjiJr2s+vNg2Vng+CgHEGbZ8bBXi+QhIAk3G0dsnAXuuXdgR6NQqRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785642958; c=relaxed/simple;
-	bh=uokThyasGj0zsfe+6j0fd1cIu+NTNJmJFKuV18x4aGY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bpO/XjPaIFU+2yJgSyBdLNDba0Hzi6uhOSb7lB9K65qQKfTBgHKOBMNV/DTlL490Mu6z6xWjNE8E+zNUEveUZ614nB/Ewa8VAWLqUNiIouuTvnAQc/tcMVKkSVcTJs7T3Kp/1BUvXCRvm0V6a69eEaTt77Xw9BvFba7snUGmz/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=40.65.178.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDXsT65v25qkFZZAA--.9630S3;
-	Sun, 02 Aug 2026 11:55:38 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgC3BZ65v25q6aJqAw--.56351S2;
-	Sun, 02 Aug 2026 11:55:37 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-pm@vger.kernel.org
-Cc: sre@kernel.org,
-	Milo.Kim@ti.com,
-	anton.vorontsov@linaro.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] power: supply: lp8788-charger: fix use-after-free on remove
-Date: Sun,  2 Aug 2026 03:54:42 +0000
-Message-Id: <20260802035442.421697-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1785644297; c=relaxed/simple;
+	bh=OPHht/QaC5LMLJuAaOtRtk4acf3QwYJqfe4smkjE5+Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZxaJmi/mg3t6Ba+O3+qukw09pDbkTvER/GbF0Vhxw0ARQ6Ud9VPUeqJhd3QIr9k1czg1uhaFu54/K4jOB/ctbsOrlz5e7wtK42KMor6GCAQleLbTRKHQ8TkdFeEK4WVwmxr0o6ZmxRPy4QoY6Ue+d/gPSXqK1khDydYZPJZiGhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=UP/Zlqms; arc=none smtp.client-ip=209.85.161.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="UP/Zlqms"
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6a168dc590cso1364592eaf.0
+        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 21:18:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1785644294; x=1786249094; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o2Bc+YLzfqIQRe95o8gbpPVNB1RPuOCR1FFv4kyvHGI=;
+        b=UP/ZlqmsODjKFUYGGabQPZXnXFLdlT/y1g/KV3svmdgU0pzE6s/8HnQyOCDsjZR6S8
+         WOFV68alDSVtPSnHoGTsiiNPDNwOJ6sqqoXX2PrGJnsRqg0EcEs9LacQn1XKjBEulokV
+         Lj93Xy6u1cgQVaDJvVDoL2tnCas7nxYLXWkaPejJDClZQHgrIAFjVq1WyfzsDXX87vfu
+         daXQUWmrG3JXwyXwau2DqjSyOLbOmJGJX+tQg77S3KuESX4eVE4F4ulzXFLVURspd9v4
+         QGYZhF6egksvlW8ReY1rSd+WvwrGkI52UFzxP7BkMqgbPR+OnA4sc2fIVefNI568/JIP
+         wMDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785644294; x=1786249094;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o2Bc+YLzfqIQRe95o8gbpPVNB1RPuOCR1FFv4kyvHGI=;
+        b=qom6aBiHjnPIYXfzJKaZDUs0Lnw+bPHIm+sdiiHfsvOb9k7Wd94XLTVsVinO92XW7t
+         fevn3vNNqSCiIpPc/ifBNyN6679L344vkwGPrprR0+6T7ISSvDR1KjzE7/e1IfYu/OXm
+         M/bDqkC2M7nt9g7yO0JVlPJgMbOR1MobUeCrM6eLCCeEV12nfhLKzMB+6XfOfR9ITp4G
+         +F7cPZfaJz9y4Uaeexxdx6QEfsuwxqbyDT71A6LPYyMbgTyV6IH5CpUau2JwlBMe9NhS
+         0PGJoGX/XfFd/z6u5lAM8pLzeSXZRgHPmrrkD5uWOLTisTBoCHKlH+MZ1ryhhpUQoMr2
+         uOqg==
+X-Gm-Message-State: AOJu0Ywt+C9ssAfJefOZqzCrfcF8CCC73DtGBjUfmOTZowjLIPwYIy7w
+	DGpsiueYrFM/bh9VaKzXUFwetcAoXzD1mLQktfvDosd8OLjm4Smqn2RfFS8UEGW3OMQ=
+X-Gm-Gg: AR+sD10b0BNEFEVzgwi5u1Rmh5nNKVI4PmIBg1wyscLlgJhqnDR9Cm2ZWVyryOS9v81
+	+yn4QBByz41rqmf0KB12fQe8lhEUv6nuXr2UAWWnRtBzxXnP4RyMnOhfSh6ba0DfYCqbnzzvReT
+	2MlEo0XQfNHukb0tSOlAuPeIoymJgyXyPovtDuEOcMP4JdLK2zd+wboqVFYObp8LVI9w+MRXf7G
+	p26bU11GqfVdwVjPvIz9AtbzIQmfMCXFkPI0L+qdz12YJl2SUm/4Eisb6+8JoYSO9W6Yv65pR1q
+	1Zate0J8QhZZU36J7Wgr1TH04GiB97EAde5ZQQdRwtrqImupppbC/5cdGamx/zm6Ix5Ger0i3Ao
+	XneTitoSYVB5cp1jt1Kteus0xavTk9tLn+WddGRHHlurwq/CdVklceMpaU+dHXS+DcZK1+yLkTv
+	CfODuFYzFGUE9vCMi3St1ddmKVLI7BAxH6EeCx1MRsJ0q+lbwhMvZCEUW7/cvYcpDgWophBZ00h
+	kTaTaH3xq1A9spHChIuuLo+IB3V+eCRk9TNMqxw3ICfxcw=
+X-Received: by 2002:a05:6820:4281:b0:6ac:b435:fb21 with SMTP id 006d021491bc7-6ae4334a4a6mr8028266eaf.24.1785644293751;
+        Sat, 01 Aug 2026 21:18:13 -0700 (PDT)
+Received: from [192.168.1.150] ([198.8.77.157])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ae39dcb23esm4070664eaf.6.2026.08.01.21.18.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 01 Aug 2026 21:18:12 -0700 (PDT)
+Message-ID: <8ebae381-f1cc-4cd2-8afd-8508cf9cb217@kernel.dk>
+Date: Sat, 1 Aug 2026 22:18:11 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgC3BZ65v25q6aJqAw--.56351S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?urpP1QXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBE4/q36jXTFU8JsSW1mrStnMrJAT2o5k4TOdxLHZODf9cXW
-	GRHR5vYaeKPzrDGLCxLN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoW7tryxWr4kGFWfCF1kJr1rXwc_yoW8GFW8pF
-	s5CrZxGrW8WF4UKayqq3W2kFyUKa4fAFW5CFWxJ345X34fJw12q3Z0gFWfWFy5AryxXrs3
-	t3Waqw4j9Fy3uFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
-	WUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
-	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
-	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
-	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
-
-lp8788_charger_remove() flushes charger_work before unregistering the
-IRQs. An IRQ thread can queue charger_work after flush_work() has
-returned. The work can then run after devres frees pchg and dereference
-it in lp8788_charger_event().
-
-Unregister the IRQs first. free_irq() waits for any running threaded
-handler, so no handler can queue more work afterwards. Then use
-cancel_work_sync() to cancel pending work or wait for running work to
-finish.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 98a276649358 ("power_supply: Add new lp8788 charger driver")
+User-Agent: Mozilla Thunderbird
+Subject: Re: FAILED: patch "[PATCH] io_uring/rw: fix missing ERESTARTSYS
+ conversion in read paths" failed to apply to 6.12-stable tree
+To: Sasha Levin <sashal@kernel.org>, gregkh@linuxfoundation.org,
+ yi1tang.yang@gmail.com
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+References: <2026072912-manpower-thrift-f2fd@gregkh>
+ <34c09190-027c-4b00-92f4-17b5da059af5@kernel.dk>
+ <20260802030154.ab05caca123c@kernel.org>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20260802030154.ab05caca123c@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
----
- drivers/power/supply/lp8788-charger.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 8/1/26 9:15 PM, Sasha Levin wrote:
+> On Wed, Jul 29, 2026 at 10:35:51AM -0600, Jens Axboe wrote:
+>> Seems that's already in 6.12-stable?
+> 
+> Not quite - stable/linux-6.12.y has no io_fixup_restart_res() at all.
+> 
+> What 6.12 does already have is the older inline ERESTART* -> -EINTR
+> switch inside io_rw_done(), which is the code ab05caca123c refactors
+> rather than the fix itself. The actual bug is still there: io_read()
+> ends with a bare "return ret;" after __io_read(), and io_read_mshot()'s
+> "ret <= 0" branch only does req_set_fail(), so an -ERESTARTSYS coming
+> out of __io_read() reaches userspace as -512 unconverted.
 
-diff --git a/drivers/power/supply/lp8788-charger.c b/drivers/power/supply/lp8788-charger.c
-index f0a680c155..1bc2c150fb 100644
---- a/drivers/power/supply/lp8788-charger.c
-+++ b/drivers/power/supply/lp8788-charger.c
-@@ -710,8 +710,8 @@ static void lp8788_charger_remove(struct platform_device *pdev)
- {
- 	struct lp8788_charger *pchg = platform_get_drvdata(pdev);
+Right, this original email was superseded by the later ones. As long
+as the sent out patches got queued up, we should be fine.
 
--	flush_work(&pchg->charger_work);
- 	lp8788_irq_unregister(pdev, pchg);
-+	cancel_work_sync(&pchg->charger_work);
- }
-
- static struct platform_driver lp8788_charger_driver = {
---
-2.43.0
-
-
+-- 
+Jens Axboe
