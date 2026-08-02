@@ -1,172 +1,132 @@
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8114E237180;
-	Sun,  2 Aug 2026 15:46:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0323BF694;
+	Sun,  2 Aug 2026 15:51:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785685612; cv=none; b=qUHq4Nlp+kqbCqbviax1tpNdNBlQHjvL5EASw098k+WDHor+vPGLqhlXD54WrUytGr+fxHEj5SbPdRjZRxoioSiIlrCVp2auMoPeeOIeFyr9rPB7LB94tNRCahrrVQWuqd5oL84c80T2e77G8eaNwIK/HlwzEtJLxLFyePEi2kA=
+	t=1785685914; cv=none; b=vAShoVsR9ViwhFsUdnyXx9cWuOUuK9eYzrN38rbiMB+BkrextTeanwZLj3NLjDdGzg/eG2AgilI8Cw9hrUmr92wkLwJW/ikVHfj0n3TTW0IPq6n8BD/6DgyxMZEmlfQwNb0h4vgCyMTg/arxuojc9N8+AvecCSOCSNx3LDMSou0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785685612; c=relaxed/simple;
-	bh=IfrwjOpzPnpV9Q+Tru6a26fgTY45Egp/KC1PG3FiSs0=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=J7orzNbVci+x5Y+dHFm9bYT10KJ4OKUewgEUqTn4XTLeoRkA5TuMmwbsYb4suRSHo2p2M3d53MXZIVxHJz/YJ3PmHl98fabuImTTXyttIC9k2K/Gbpcs/cP5VAWSDdz8/8DPWQ+H6GAsBZ8TqWX1gQAurNEyFaEYw2Ej4t+TXtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cyyself.name; spf=pass smtp.mailfrom=cyyself.name; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=tZ48CzR0; arc=none smtp.client-ip=162.62.57.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cyyself.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyyself.name
+	s=arc-20240116; t=1785685914; c=relaxed/simple;
+	bh=D3ZdLkxeKQ+GTih21pSwwkDXOkOvUZicqpK0qWxiBCY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mjE0vF+H1eCT0idb0qT1shOBROnkNwDWaff+nnI9ZLJeNXR9DPQZuSsRLBoBY4StpPSkX9pt3PTBKv3h+8zmUXtRVyvfpkHzXqwpMjyz1AkuPAWNPoMDZSx47BcXatlX9wdcnxs6x9d5fWq1SENdw7WUvyn88A0JnO7NoN//cqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l6hi3wN+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="tZ48CzR0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1785685604; bh=J4VqWLfvWNBX30FARDgxlRiuvqFbIs6GXH5ot/8285s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=tZ48CzR0S8U1Ex6XrH5R9lrA5dKl4bytBCDo4XMR2R04lPslSe41JZFs/cb+jZc/b
-	 DDMT8OsB77X+m3rL3ut12+jC71Cxa1PAxCusEgApvJJSesfKskDkRGJRmpkHNCy5ok
-	 +ggWZDt8rjj7a93OEmvqX27CI/KJJH/k86m0yYZs=
-Received: from halo.lan ([240e:379:2238:cc00:262b:8ebc:c000:80a0])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id BA820436; Sun, 02 Aug 2026 23:46:40 +0800
-X-QQ-mid: xmsmtpt1785685600t8z39glaz
-Message-ID: <tencent_607CBA8237DA438E36B844318B21538DE008@qq.com>
-X-QQ-XMAILINFO: MIB/1UGyXKa7T8S0WAGwz5545nqgzT3DySR5JVCmudQCDCEhls3oawacPvze7B
-	 1UD2Y0+5Gt/t3gUSK7PRsE2XkvL2JSIk7AuVmI0WjKYFhAZ4U7DVhhLa6OTSvS4bB+97kmOvzmGS
-	 oCItJTU5/m0/vuz4DRmuDvKD0YkNrRu9XGEs20w5eV64aZclAIQAGVln62rHk1G4wteZMW1aSlqL
-	 OoSsC84tO3SWltdhpfJsToUvKkLbxhgrAlf8K4jErE52MnRnMPWsYWt5MrH+okgvHOyLrKAHGCcf
-	 t22s8rtDxaGCaLcXK6s3mZ764U9REXO/9E/0mT/8H4jjDnilk8Oomm5D8pqJqMnPoPP2Z36dwknp
-	 ChVqiRO9hMxsX2Nt2v9SZ36iPr7yaU1unT9oX4EiRGN9+wkxmsSChd9xOH5s6Suj3zHaVwUuRful
-	 LwEk4haMuJTfz6kf4lqEAsAeG89gKlm/iDT0mfj2rz0E9i1PKGt5cPN2ENNGCKGrmODWpoBNL2Lx
-	 8fNys0wx3heCoOvWVToORWzcbwy/G/PZc3IAos/Z6qhYmC4ZRfZoz9lc4DF+l7Q/cHxbE3nLYDUJ
-	 QP3MI2GvkMOVvhvNjm8ziFIl35mJ/Ae5iQRMYRNjxGnKJp1wJLbqU/kXWz7T3d+wMaeh5VxxBMVk
-	 rw0Xm06nAWlnBL6snbxyjiUmNxDW3Xq7ConHyVLF1NsGTIXfL3tGcPE4niDDNv0irMiEDsTx2u/6
-	 WE92GxSG+9j07d81uDyloPF4X5E9K7EjQvCt0Gyh7S4FFYbN0VM5JdTKXA09xGhN8pHer0qFFxqH
-	 Mh1OkMtM1bC004Op3sELeyR0IEGiKY0FjIfRsY6kJ08zGyvCvqwgL2f65gIdg+M4C/IWeYJSeJnG
-	 b56GYpIrrY3iDMMfRWcQ1Zo3Cofg3mTPljucXyjzr2RQpqx+/NY40+pJwFk3SilxKusRaSTCCcJP
-	 K3elLgB+D274qcoKu4fwxy6ZQnkLV0thDWl/jU7IhDx0ozJP9JPNVGbrupnKVlddxbRsrARbs23Q
-	 skmfgiOcWe/be+Pg98K7Od4WydbJq34u+UJUdU1ccO0Gxq8/b1KzdH3NsmCdxj2c1unitAgnORou
-	 BSkR9xp1gV0N/HVJ9g3WKa5Oj997QQCGxlzT77vNtU1mrqZwGtNqzJ3sKPuQ==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Yangyu Chen <cyy@cyyself.name>
-To: Sukhdeep Singh <sukhdeeps@marvell.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Mina Almasry <almasrymina@google.com>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Lino Sanfilippo <LinoSanfilippo@gmx.de>,
-	Igor Russkikh <irusskikh@marvell.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yangyu Chen <cyy@cyyself.name>
-Subject: [PATCH net 2/2] net: atlantic: free RX pages of consumed but not refilled buffers
-Date: Sun,  2 Aug 2026 23:46:38 +0800
-X-OQ-MSGID: <20260802154638.40342-1-cyy@cyyself.name>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <tencent_29B860317921D68DE77C718242DA418EB608@qq.com>
-References: <tencent_29B860317921D68DE77C718242DA418EB608@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l6hi3wN+"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BB265C19425;
+	Sun,  2 Aug 2026 15:51:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785685913;
+	bh=D3ZdLkxeKQ+GTih21pSwwkDXOkOvUZicqpK0qWxiBCY=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=l6hi3wN+YBvMo85IRRDgokeengpqq9mDBexOg49poSywFuR+3bKEAZq4jQfoXwoGo
+	 k7vGBvUyIWXBoHPXFZE2HQ4qfKjFkcn2NRVmkwbmihHJ/e5OPaMEtpJ5eoF+IMZ10J
+	 s82WMSZMhJv5p8lkpX9f521T8t9h5awKNC/0aPwmAH2RVV2ky0tSNuMhQGJ8mVR9mn
+	 D8E4Ry7zEru4vyTjG9ArestSxK5soR/YFbKm3NFDz4cpeLxJfFww/9WD95EufKrSHl
+	 Ue0ABGVh+wk/Kg9GAnklJS/f9MsHoWqoE2waP1fAxD9kTLYxbAqAshfT/H0z3mQIzt
+	 6ZBAjsaW5RcFA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A62C4C55171;
+	Sun,  2 Aug 2026 15:51:53 +0000 (UTC)
+From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
+Subject: [PATCH 0/6] powerpc/spufs: assorted fixes
+Date: Sun, 02 Aug 2026 23:51:38 +0800
+Message-Id: <20260802-fixes-v1-0-7368423440f4@outlook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIpnb2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDCwMj3bTMitRi3TRjY2Mzw2TDJKPEVCWg2oKiVLAEUGl0bG0tABNQmaV
+ XAAAA
+X-Change-ID: 20260802-fixes-f33361c1b2ae
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Paul Mackerras <paulus@ozlabs.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Al Viro <viro@zeniv.linux.org.uk>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Junrui Luo <moonafterrain@outlook.com>, Yuhao Jiang <danisjiang@gmail.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2818;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=D3ZdLkxeKQ+GTih21pSwwkDXOkOvUZicqpK0qWxiBCY=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrPz0aWk8f0qquGarOzbMrX/o+01iK+91zkc2ndpez
+ HErJv65tLCjlIVBjItBVkyR5XjBpW8Wvlt0t/hsSYaZw8oEMoSBi1MAJiLEyfA/TGeRYOUegUNz
+ fpgLbjgR/WxWfG6LgGWTS62dxFRPBbsMhv+5q+ydUxz/LE8/Znav8sDslIxt274FHZo19YvO6qX
+ XhabyAADeT0oh
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
+ auth_id=909
+X-Original-From: Junrui Luo <moonafterrain@outlook.com>
+Reply-To: moonafterrain@outlook.com
 
-aq_ring_rx_deinit() only walks [sw_head, sw_tail), the region posted to
-hardware. Since the page reuse strategy was added, a cleaned RX buffer
-keeps its page (and its DMA mapping) in the ring for reuse, and refill
-is batched: aq_ring_rx_fill() returns early until AQ_CFG_RX_REFILL_THRES
-slots are free. Slots that were consumed but not yet reposted therefore
-sit in the complementary [sw_tail, sw_head) gap with a live page, and
-the deinit walk never visits them: up to a refill batch worth of pages
-and DMA mappings leak on every interface down.
+Six independent fixes for spufs. There is no dependency between them,
+so they can be applied or dropped individually.
 
-Walk the whole ring instead and release whatever is still there. Also
-bail out if the buffer ring is already gone: a partial
-aq_ptp_ring_alloc() failure frees the ring but leaves aq_nic set, so
-aq_ptp_ring_deinit() still gets here on the unwind path.
+  1/6  spufs_coredump_extra_notes_write() never drops the reference taken
+       by coredump_next_context(), so every SPE context written into a
+       core dump leaks a spu_context. The matching ..._size() path gets
+       this right.
 
-Fixes: 46f4c29d9de6 ("net: aquantia: optimize rx performance by page reuse strategy")
-Cc: stable@vger.kernel.org # v5.2+
-Reviewed-by: Sukhdeep Singh <sukhdeeps@marvell.com>
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Yangyu Chen <cyy@cyyself.name>
+  2/6  do_spu_run() copies out an uninitialized 'status' on the paths
+       where spufs_run_spu() returns before assigning it, leaking four
+       bytes of kernel stack to userspace.
+
+  3/6  spu_process_callback() only aligns the NPC value, never bounds it,
+       before using it as an offset into the local store. The register is
+       userspace-controlled, so the following in_be32() can be driven far
+       past the 256K mapping.
+
+  4/6  spufs_setattr() calls setattr_copy() without setattr_prepare().
+       notify_change() leaves that check to the filesystem, so mode and
+       ownership of a context's files can be changed without the usual
+       authorization.
+
+  5/6  spufs_create_gang() calls unuse_gang() with the parent directory's
+       i_rwsem held for write, and the resulting simple_recursive_removal()
+       takes it again as I_MUTEX_CHILD. The task deadlocks against itself
+       and leaves the spufs directory write-locked.
+
+  6/6  The mailbox read/write handlers hold ctx->state_mutex across
+       put_user()/get_user(), so a userfaultfd region or FUSE-backed user
+       buffer can stall the context lock for an arbitrary time.
+
+Patches 1-5 are tagged for stable. 6/6 is deliberately not: it changes the
+atomicity of multi-element mailbox transfers rather than just adding a
+check, so it seems better to let it soak in mainline first.
+
+Build-tested only. I have no Cell or PS3 hardware, so none of this has
+been exercised at runtime.
+
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
+Junrui Luo (6):
+      powerpc/spufs: fix spu_context leak in coredump
+      powerpc/spufs: don't leak kernel stack via spu_run
+      powerpc/spufs: bound NPC against local store size
+      powerpc/spufs: check permissions in spufs_setattr()
+      powerpc/spufs: fix deadlock on gang creation failure
+      powerpc/spufs: don't hold state_mutex during user access
 
-Notes:
-    Without this fix, the page_pool conversion posted for net-next turns the missed
-    pages into fragments that page_pool_destroy() waits for forever.
-    Reproduced on an AQC100 with the conversion applied and this fix
-    reverted -- ordinary small received frames (<= 256 byte header-only
-    packets, e.g. ping replies or pure TCP ACKs) are enough to populate
-    the [sw_tail, sw_head) gap:
-    
-      ping -c 200 -i 0.005 <peer>%enp99s0
-      ip link set enp99s0 down
-    
-    One short ping flow left three of the eight RX rings' pools with
-    stranded fragments, and page_pool_release_retry() warns for each of
-    them every 60 seconds, indefinitely:
-    
-      [278084.929092] page_pool_release_retry() stalled pool shutdown: id 123, 1 inflight 60 sec
-      [278084.961064] page_pool_release_retry() stalled pool shutdown: id 126, 1 inflight 60 sec
-      [278084.961087] page_pool_release_retry() stalled pool shutdown: id 125, 6 inflight 60 sec
-      [278145.346737] page_pool_release_retry() stalled pool shutdown: id 123, 1 inflight 120 sec
-      [278145.378745] page_pool_release_retry() stalled pool shutdown: id 125, 6 inflight 120 sec
-      [278145.378759] page_pool_release_retry() stalled pool shutdown: id 126, 1 inflight 120 sec
-    
-    With this patch the whole ring is walked at deinit, the pages are
-    released, and the pools drain immediately. On the current code the
-    same gap leaks the pages and their DMA mappings silently.
-    
-    Applies and was build- and runtime-tested independently of the
-    page_pool conversion, against the current page reuse scheme.
+ arch/powerpc/platforms/cell/spufs/coredump.c |  6 +++-
+ arch/powerpc/platforms/cell/spufs/file.c     | 52 ++++++++++++++++------------
+ arch/powerpc/platforms/cell/spufs/inode.c    | 21 +++++++----
+ arch/powerpc/platforms/cell/spufs/run.c      |  2 ++
+ arch/powerpc/platforms/cell/spufs/syscalls.c |  2 +-
+ 5 files changed, 52 insertions(+), 31 deletions(-)
+---
+base-commit: 02dc699f83d04069fdabc996fc22d47cda47a4a9
+change-id: 20260802-fixes-f33361c1b2ae
 
- .../net/ethernet/aquantia/atlantic/aq_ring.c  | 22 +++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_ring.c b/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
-index 81685a4dc5a6..e1193c6719d9 100644
---- a/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
-@@ -950,15 +950,29 @@ int aq_ring_rx_fill(struct aq_ring_s *self)
- 
- void aq_ring_rx_deinit(struct aq_ring_s *self)
- {
--	if (!self)
-+	unsigned int i;
-+
-+	if (!self || !self->buff_ring)
- 		return;
- 
--	for (; self->sw_head != self->sw_tail;
--		self->sw_head = aq_ring_next_dx(self, self->sw_head)) {
--		struct aq_ring_buff_s *buff = &self->buff_ring[self->sw_head];
-+	/* Release every page still owned by the ring.
-+	 *
-+	 * Walking [sw_head, sw_tail) is not enough: refill is batched
-+	 * (aq_ring_rx_fill() waits for AQ_CFG_RX_REFILL_THRES free slots),
-+	 * so slots that were cleaned but not yet reposted accumulate in the
-+	 * [sw_tail, sw_head) gap, and they keep their page for reuse. Walk
-+	 * the whole ring and release whatever is left.
-+	 */
-+	for (i = 0; i < self->size; i++) {
-+		struct aq_ring_buff_s *buff = &self->buff_ring[i];
-+
-+		if (!buff->rxdata.page)
-+			continue;
- 
- 		aq_free_rxpage(&buff->rxdata, aq_nic_get_dev(self->aq_nic));
- 	}
-+
-+	self->sw_head = self->sw_tail;
- }
- 
- void aq_ring_free(struct aq_ring_s *self)
+Best regards,
 -- 
-2.47.3
+Junrui Luo <moonafterrain@outlook.com>
+
 
