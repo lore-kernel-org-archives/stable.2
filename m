@@ -1,121 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61216C8EB;
-	Sun,  2 Aug 2026 18:01:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC7F2264C7;
+	Sun,  2 Aug 2026 18:21:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785693661; cv=none; b=Vr+rFGEIazx5lUJETGq7+XReoBZqzqn+wSP29SjNua5UZ0I+W8DHd+rYcDpMqgPrNjiHWKTC4KwaZvCFzqwX05FADhr4fFUM+9cFcLCCZl9BmcdA/wjTfyjmqhnMaPesOaJ5qNxZ6UNn9t0DlVGvJVamsLXVihpMOXwmOsqQmSg=
+	t=1785694900; cv=none; b=Pd5V4GNa7KrdyHQ+9UL4viujztDZ5E1M2FYLsIKiZu/DvgUKvk6C+8YvUWln66YM+YVEZrlqDs600a+8n1Iwkvm0407psRj5V41pzAos0gncwULuLSCHoZ7SHh9CUPjleX099TwPEUTFTfX+OfnkbrlYnyPcOBTAga0Aob1as58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785693661; c=relaxed/simple;
-	bh=oUEgEb1v4z/alxWWTvQ5NBBZo0HFrYjN+ySUTY9PsOc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SdUWXXHPxg8kI0mxfkDvtV0Ss4DG73ITqZsp3OCfXahjTdv3z/rhjqhzdxrKZB31UT28n0FHL4CokzUnDUdmFMlJesvGj9mXbe/Kh6GIBi+RylMxbzT6OTB9TEzwZ7lNlAC3Ucf8UGs/EpnEMa/b7KtmuKQ4mqvY3X5swSXc/7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KCxNHeld; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785694900; c=relaxed/simple;
+	bh=hPkBZ27HYMyLAEw2FJZJtqjWp2w6rYlCI/CvQM3Vu04=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QFFkxRgBw0P83VQVnxuQJyg6c28Pu1aLrunNLSyXIs0hH9bfz7OyR6gOxsLsiGlHhbgZI8te5ey8Nu0ch3fVjAAPeSDUb4/eEWuUliNE8KO52Ir7CDefXgMU+b0ksq5euoFPAkhM8ljYtPBjhdFPiUNYvOhnsZM3RfQ8It49W1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MKWVNDUe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KCxNHeld"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC4D31F000E9;
-	Sun,  2 Aug 2026 18:00:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MKWVNDUe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591461F000E9;
+	Sun,  2 Aug 2026 18:21:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785693660;
-	bh=j7xpeM8pp0DEe6UpBgAa7dvpst5pAAcHLBVezKeavwU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=KCxNHeldigD1lW+k0J4+fYSDsP5PV9V+qNTxpXefIV3PlRJnqSTHvjth8Rhn7dPnF
-	 zmrbcxKtFERtySp6iLCRHQAR5bxVnvWhC9jRFPALjlmDjf7N0oQjIeraRU2CEz8EJx
-	 F9bAm3xTC9CI9S5E7m1Z/HfyXjWtqT/PnRqHYi9H3VjlJrDrkFpIcyG7Q+w9qIoMj/
-	 iOU2iH/Yms8vbyolzzaY1ojq9JNXOIPy3wGq9edZhG3RwBfTro7xm992awkccbNYcH
-	 2vGJ+BmXq23AloX9ykUNU07HnWTmEgaLfv3xCS9gOKSAF6G4M8hJ930zIX1MA3IkhW
-	 UJ4ExxKPwzCQw==
-From: Christian Brauner <brauner@kernel.org>
-Date: Sun, 02 Aug 2026 20:00:44 +0200
-Subject: [PATCH 2/3] binfmt_misc: don't warn when the mount is completed
- from another user namespace
+	s=k20260515; t=1785694898;
+	bh=5CPWfFeyUhmK9l6Bga30vy6fwbQtui3iKRb3sQay5v0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=MKWVNDUeyRtW12tXN2MfEw5tz03VzWB8PqrI6WlLJr+EQfGn2p+i2UXpjEPr2GYk+
+	 DG0JAjGBv4m1ofhJgVHQmQXXIIehf8cg5Mqhp47/GfGkcz0kxV6QRR1MrZr8dYhM41
+	 qtAFABFzkQcTfiIjfYnAu4+3T/dL35pJbcxlYmKsGhWaNYHhlxqKXPYVsyQdqum/CP
+	 By1WfUk5eOdnyUvzT1j+k6yw5aYf7PR6XbLXa+LOHRkS0/PZGVKJC7zpD8weDL5SwB
+	 CMg9otpW/tYv2f3zzdrstFBgqw+cIfyXmuuqBL5j9hW0IKf+8kJ6QtLn2vl+mZ9Jl5
+	 1G5DjgjaAkhLg==
+Date: Sun, 2 Aug 2026 19:21:34 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, shuaijie wang
+ <wangshuaijie@awinic.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: proximity: aw96103: validate firmware data length
+Message-ID: <20260802192134.32a0349d@jic23-huawei>
+In-Reply-To: <20260801193700.57457-1-acharyalaxman8848@gmail.com>
+References: <20260801193700.57457-1-acharyalaxman8848@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260802-work-fill_super-warn-v1-2-4e987911a39a@kernel.org>
-References: <20260802-work-fill_super-warn-v1-0-4e987911a39a@kernel.org>
-In-Reply-To: <20260802-work-fill_super-warn-v1-0-4e987911a39a@kernel.org>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, linux-unionfs@vger.kernel.org, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Kees Cook <kees@kernel.org>, Laurent Vivier <laurent@vivier.eu>, 
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.16-dev-f2f85
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2548; i=brauner@kernel.org;
- h=from:subject:message-id; bh=oUEgEb1v4z/alxWWTvQ5NBBZo0HFrYjN+ySUTY9PsOc=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTlt17Wf2lV0JMRe85k8qrdh4LEvaZFlOkFLxHbKqfHs
- EIyJ+J+RykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwETu/Wb4HyVi0Xuq+udHza8c
- t7aH8Hz1OvbCd+MOsUw5N/tTl51t5jL8Dwle+i4xZPvpaxqVHk/+t/3ao/Kzt1TK+t33C9a3y23
- aOQA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-fsopen() records the caller's user namespace in fc->user_ns and hands
-back an ordinary file descriptor. Nothing ties the task that calls
-fsconfig(FSCONFIG_CMD_CREATE) to the task that created the context. The
-fd is inherited across fork() and exec() and it can be passed over a
-unix socket.
+On Sun,  2 Aug 2026 01:22:00 +0545
+Laxman Acharya Padhya <acharyalaxman8848@gmail.com> wrote:
 
-Completing a context from another user namespace is allowed on purpose.
-vfs_cmd_create() authorizes the create with mount_capable(), which for
-FS_USERNS_MOUNT checks ns_capable(fc->user_ns, CAP_SYS_ADMIN), and that
-succeeds for a task holding CAP_SYS_ADMIN in an ancestor of fc->user_ns.
-So an unprivileged task can reach the WARN_ON() in bm_fill_super():
-create a user and a mount namespace in a child, call
-fsopen("binfmt_misc") there, send the fscontext fd to the parent and let
-the parent issue FSCONFIG_CMD_CREATE. Both namespaces come from a plain
-unshare(1) and no capability is needed anywhere:
+> The firmware parser reads a length from the binary header and then uses
+> it to walk six-byte register/value entries. A truncated firmware image
+> can make the parser read beyond the copied firmware buffer. A value
+> smaller than the four-byte count field also underflows, producing a very
+> large length.
+> 
+> Read the little-endian field with get_unaligned_le32(), as previously
+> proposed by David Lechner. Validate the header size, reject an
+> underflowed length, ensure the resulting payload is contained in the
+> firmware image, and require it to contain whole register/value entries.
+> 
+> Fixes: 07b241262dca ("iio: proximity: aw96103: Add support for aw96103/aw96105 proximity sensor")
+> Link: https://lore.kernel.org/r/20260314-iio-proximity-aw96103-fix-firmware-read-v1-1-c74fe9ccd82b@baylibre.com
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Looks fine to me, but I'll leave it on list a little while so others
+have time to take a look, ideally including Shuaijie Wang
 
-  WARNING: fs/binfmt_misc.c:938 at bm_fill_super+0xa2/0xc0 [binfmt_misc]
-  CPU: 15 UID: 1000 PID: 3243382 Comm: fswarn
-  Call Trace:
-   get_tree_keyed+0x7d/0xb0
-   bm_get_tree+0x34/0x90 [binfmt_misc]
-   vfs_get_tree+0x2a/0x100
-   vfs_cmd_create+0x60/0xf0
-   __do_sys_fsconfig+0x4b2/0x500
+Thanks
 
-The child needs the mount namespace because fsopen() itself gates on
-may_mount(), which asks for CAP_SYS_ADMIN in the user namespace owning
-the caller's mount namespace. fsconfig() doesn't repeat that check.
+Jonathan
 
-It is a WARN_ON() and not a WARN_ON_ONCE(), so the condition can be
-raised in a loop to taint the kernel and flood the log, and it panics a
-kernel booted with panic_on_warn.
-
-Keep refusing the mount and stop warning about it. Nothing in
-bm_fill_super() depends on the two namespaces matching, it derives
-everything from sb->s_user_ns.
-
-Fixes: 21ca59b365c0 ("binfmt_misc: enable sandboxed mounts")
-Cc: stable@vger.kernel.org # v6.7+
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/binfmt_misc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/binfmt_misc.c b/fs/binfmt_misc.c
-index c97f10b48b5b..613dd28e3f1a 100644
---- a/fs/binfmt_misc.c
-+++ b/fs/binfmt_misc.c
-@@ -937,7 +937,8 @@ static int bm_fill_super(struct super_block *sb, struct fs_context *fc)
- 		/* last one */ {""}
- 	};
- 
--	if (WARN_ON(user_ns != current_user_ns()))
-+	/* The fscontext fd may have been passed to another user namespace. */
-+	if (user_ns != current_user_ns())
- 		return -EINVAL;
- 
- 	/* Never exec off this instance and never let anything stack on it. */
-
--- 
-2.53.0
+> ---
+>  drivers/iio/proximity/aw96103.c | 30 ++++++++++++++++++++++++------
+>  1 file changed, 24 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/iio/proximity/aw96103.c b/drivers/iio/proximity/aw96103.c
+> index 8fbb755dc..8352d51e5 100644
+> --- a/drivers/iio/proximity/aw96103.c
+> +++ b/drivers/iio/proximity/aw96103.c
+> @@ -24,6 +24,7 @@
+>  #define AW96103_BIN_VALID_DATA_OFFSET		64
+>  #define AW96103_BIN_DATA_LEN_OFFSET		16
+>  #define AW96103_BIN_DATA_REG_NUM_SIZE		4
+> +#define AW96103_BIN_REG_SIZE			6
+>  #define AW96103_BIN_CHIP_TYPE_SIZE		8
+>  #define AW96103_BIN_CHIP_TYPE_OFFSET		24
+>  
+> @@ -229,14 +230,27 @@ static const struct aw_chip_info aw_chip_info_tbl[] = {
+>  	},
+>  };
+>  
+> -static void aw96103_parsing_bin_file(struct aw_bin *bin)
+> +static int aw96103_parsing_bin_file(struct aw_bin *bin)
+>  {
+> +	u32 data_len;
+> +
+> +	if (bin->len < AW96103_BIN_VALID_DATA_OFFSET)
+> +		return -EINVAL;
+> +
+> +	data_len = get_unaligned_le32(bin->data + AW96103_BIN_DATA_LEN_OFFSET);
+> +	if (data_len < AW96103_BIN_DATA_REG_NUM_SIZE)
+> +		return -EINVAL;
+> +
+> +	bin->valid_data_len = data_len - AW96103_BIN_DATA_REG_NUM_SIZE;
+> +	if (bin->valid_data_len > bin->len - AW96103_BIN_VALID_DATA_OFFSET ||
+> +	    bin->valid_data_len % AW96103_BIN_REG_SIZE)
+> +		return -EINVAL;
+> +
+>  	bin->valid_data_addr = AW96103_BIN_VALID_DATA_OFFSET;
+> -	bin->valid_data_len =
+> -		*(unsigned int *)(bin->data + AW96103_BIN_DATA_LEN_OFFSET) -
+> -		AW96103_BIN_DATA_REG_NUM_SIZE;
+>  	memcpy(bin->chip_type, bin->data + AW96103_BIN_CHIP_TYPE_OFFSET,
+>  	       AW96103_BIN_CHIP_TYPE_SIZE);
+> +
+> +	return 0;
+>  }
+>  
+>  static const struct regmap_config aw96103_regmap_confg = {
+> @@ -500,7 +514,7 @@ static int aw96103_bin_valid_loaded(struct aw96103 *aw96103,
+>  	int ret;
+>  
+>  	for (i = 0; i < aw_bin_data_s->valid_data_len;
+> -	     i += 6, start_addr += 6) {
+> +	     i += AW96103_BIN_REG_SIZE, start_addr += AW96103_BIN_REG_SIZE) {
+>  		reg_addr = get_unaligned_le16(aw_bin_data_s->data + start_addr);
+>  		reg_data = get_unaligned_le32(aw_bin_data_s->data +
+>  					      start_addr + 2);
+> @@ -550,6 +564,8 @@ static int aw96103_para_loaded(struct aw96103 *aw96103)
+>  static int aw96103_cfg_all_loaded(const struct firmware *cont,
+>  				  struct aw96103 *aw96103)
+>  {
+> +	int ret;
+> +
+>  	if (!cont)
+>  		return -EINVAL;
+>  
+> @@ -561,7 +577,9 @@ static int aw96103_cfg_all_loaded(const struct firmware *cont,
+>  	aw_bin->len = cont->size;
+>  	memcpy(aw_bin->data, cont->data, cont->size);
+>  	release_firmware(cont);
+> -	aw96103_parsing_bin_file(aw_bin);
+> +	ret = aw96103_parsing_bin_file(aw_bin);
+> +	if (ret)
+> +		return ret;
+>  
+>  	return aw96103_bin_valid_loaded(aw96103, aw_bin);
+>  }
 
