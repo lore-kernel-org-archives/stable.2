@@ -1,92 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E8CEEC3
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 01:49:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96FF3C07A
+	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 01:49:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785635365; cv=none; b=u2B99rIW+GFPCUBYRvZrcnKyj1lAY9Z4KIrLHFOw8+ZU2a6igiS4Ug3FTVcss9K+lh+uGOWGIqU4Av9bkqTkVrKEa4Tp5iSyeBD5W3ii9mtKuGxZEJ58YQ2lwwHNwRbu0wU1UQjOewWQAloxLRN9MQNAAWA3QQlaMeunKVugRGI=
+	t=1785635366; cv=none; b=admpQWE1DLauqkA3c/513dozzBHx9Xmfza0usEx5uhtSfMmEN9lLcj2QA3TgHytKALUiMcGmasUjXKwOl+pJZ2t0QLWkFnhy39kQOzNYw2arZohCp9K7kUWLvJZgENuQvavCfuD1cqxdrgF1LUpJVGWkj99+1pEyFuTHvG24p3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785635365; c=relaxed/simple;
-	bh=nt/UhjYstZUdIHimoNsODJDeahqT9hjacZhBFz94MPQ=;
+	s=arc-20240116; t=1785635366; c=relaxed/simple;
+	bh=3NbLx4u2t4eVSB555K6l0eH7LrS+lp0z72iGxw9ucf4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qFrupuWBcKsgCqFRcdu4fshvmm175wbhHT3dGCNHJ1mHhEajDdDSxrHZ/zfEYoH/Rr4IRapHLpVGsDBfApZMlE9L0hZlbXu5HRBAbnSDlGMng181qyRcUpGw4ztLJlTEKTd8jY0KYvJsFc1IIVPUc+exmlz0IwhdXeCqp31RcrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mm0dqQNW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=as3Adz2gVgHFxZcE5Llzz/QUN+6gGpf7tQw+h3Y8WWd4EhIgWKOYdgSz+Vb5IqzQ2GnI4qRQ3yR+K/6VXfQHiP7Dd1pFCw3r8q/x6aD9qSlw8546yh9H84yVCo4UgPeJdc9Pf+NiBsRMbpHZb40Fo2xdPbeXKSPpzxDKWmIjpns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kHeKTaCd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mm0dqQNW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFA461F00ACA;
-	Sun,  2 Aug 2026 01:49:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kHeKTaCd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18EA1F00AC4;
+	Sun,  2 Aug 2026 01:49:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785635364;
-	bh=5MPQkv98bX9sMNf4FsMIC0Aj9k5SX+QULiqZBhmf8Og=;
+	s=k20260515; t=1785635365;
+	bh=ineTLq5Z4KBdmmDpY1LoReYXUXPYRuETkYmZUWQBQgw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Mm0dqQNWeO2cFs5d86Eq3A+CSHUY8Xp8gZ/POClreVTI0rL7CFldk+ojQROhgSefQ
-	 hVkEjo4XFyKix9KfNN5sMTmMKEcqqWEbV5PfWurV1qQYalmF/2VyGX2WsXDRgy7uYZ
-	 hI8mDvX0x31BgAgb2tjEDrqSnV56LYITCYMjibIX/Hz5rlqNvmjmMaXZDWWunAlLNX
-	 FEVTXTySF2g4HkgKvidjabXhvgKrbh7vmJKhLGqAMlcyatNV3EgTdrDbO7sxHyYxrY
-	 B7q0EcHPSCzs8PLMa/VhxUZvMaKtJsDZllF23rRW1O3ZpshUHzVovgFYedloznKfj5
-	 9yjozYsEgclng==
+	b=kHeKTaCdx2i6ozmOXeuVw1J2gDHVANpESOjXWvXT29bMRPFSCVhcvODpepWCVjWeX
+	 uqjRbwGKom5n5o26Ad8ZCbJmWtKc/GDncz6UMpkVm/FFq6hNiatnFZLfKUed0WcEdO
+	 Omx4M7Xc12jzbTMweZyOWqTUT56+I1BloPgygmv1eUUwVo8h9rU65hViUK/ILUPNLH
+	 6MsYbvoB0Vv390Mw0PFwarjEdkVAxatBjK6AHP0lyOritGa94XJ+wyesAdyJ2DX1Sr
+	 sGplfADXYFDC4X9eCviQcoi5bBMqFFu+amiWVpnFH02Xt5AOH84ens3FcmRMFBf9IG
+	 XyjC/jTY5S3mQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+Cc: Jani Nikula <jani.nikula@intel.com>,
+	Martin Hodo <martin.hodo@intel.com>,
 	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] drm/i915/vrr: Check HAS_VRR() first in intel_vrr_is_capable()
-Date: Sat,  1 Aug 2026 21:49:19 -0400
-Message-ID: <20260802014920.506109-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] drm/i915/vrr: require valid min/max vfreq for VRR
+Date: Sat,  1 Aug 2026 21:49:20 -0400
+Message-ID: <20260802014920.506109-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072954-ditto-footprint-1e46@gregkh>
+In-Reply-To: <20260802014920.506109-1-sashal@kernel.org>
 References: <2026072954-ditto-footprint-1e46@gregkh>
+ <20260802014920.506109-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+From: Jani Nikula <jani.nikula@intel.com>
 
-[ Upstream commit 4b274b0b61ab2a529e5c22e9aa033f3028e639fc ]
+[ Upstream commit f8a9262c7a6fc2de9802e14b0228114f0333869e ]
 
-There's no point in doing all the other checks in
-intel_vrr_is_capable() if the platform doesn't support VRR at all
-Check HAS_VRR() before wasting time on the other checks.
+Ensure the EDID provided min/max vfreq are valid. Most scenarios are
+already covered (by coincidence) through the checks in
+intel_vrr_is_capable() and intel_vrr_is_in_range(), but be more explicit
+about it. At worst, a zero min_vfreq could lead to a division by zero in
+intel_vrr_compute_vmax().
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20251020185038.4272-23-ville.syrjala@linux.intel.com
+Discovered using AI-assisted static analysis confirmed by Intel Product
+Security.
+
+Reported-by: Martin Hodo <martin.hodo@intel.com>
+Fixes: 117cd09ba528 ("drm/i915/display/dp: Compute VRR state in atomic_check")
+Cc: stable@vger.kernel.org # v5.12+
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Stable-dep-of: f8a9262c7a6f ("drm/i915/vrr: require valid min/max vfreq for VRR")
+Link: https://patch.msgid.link/20260625131040.1051272-1-jani.nikula@intel.com
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+(cherry picked from commit 1765cf59f517b02f3b0591fe5120930d08bddeb6)
+Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 9a51f5bac307..d7f5a5b55bf0 100644
+index d7f5a5b55bf0..96de5e82af38 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -21,6 +21,9 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
- 	const struct drm_display_info *info = &connector->base.display_info;
- 	struct intel_dp *intel_dp;
- 
-+	if (!HAS_VRR(display))
-+		return false;
-+
- 	/*
- 	 * DP Sink is capable of VRR video timings if
- 	 * Ignore MSA bit is set in DPCD.
-@@ -43,8 +46,7 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
+@@ -46,6 +46,10 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
  		return false;
  	}
  
--	return HAS_VRR(display) &&
--		info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
-+	return info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
++	if (!info->monitor_range.min_vfreq || !info->monitor_range.max_vfreq ||
++	    info->monitor_range.min_vfreq > info->monitor_range.max_vfreq)
++		return false;
++
+ 	return info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
  }
  
- bool intel_vrr_is_in_range(struct intel_connector *connector, int vrefresh)
 -- 
 2.53.0
 
