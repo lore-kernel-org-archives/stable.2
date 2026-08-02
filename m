@@ -1,45 +1,34 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1992EA498
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 03:42:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [40.65.178.148])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C555C3D994;
+	Sun,  2 Aug 2026 03:55:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=40.65.178.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785642170; cv=none; b=d8vhQjUuhD2Ei6Ki2fJPMWxHlhCvJ2XdpFiJSQOoNXWbq70Kmnc3GXsrPwovxf+qowEF4AEQl4CMXhfSb2sxXUHRNtpJnFYKm22kaCzqGywyWKjKl+9vRaqXxxcx4GA/9tu/EXHW8d226ntAKQvaDCq7S2NUtZXbwH/bzQNkkp0=
+	t=1785642958; cv=none; b=GiBqf9aQCKoDliItow2FrJd0dYsZMSNc1KnlyQtDnZi/21ZeM6v7mx/qe6cGxRw8TKBrC/fWBaKrLkWpdm6OChW8ZbbEXRum1AF0lDxV2xqLYCo2n5kDgz5k4JsQ1sbGh1udAcfgYOE7AM7yuLuvhKO47qsAiAgmryofZwTW/Vg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785642170; c=relaxed/simple;
-	bh=/XlE53LnOnMURXELT5dl7LZI0QvFTsaj4lx8FBXRJOM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iTYvLx+2i1wWXicEJv+/HcRX5udna8FWKFcDnQ2+tHxcYWErygBw0mfMD/a9i1GKhYn/w41kG4SC1NMFsYvu17O3a/p9XHzGfqyYCxQwkaUCbd+f/P4Ztont16R5D2rIUOzTYKEz+q6aJBxnb3fsNv+T8TVsV27X02amDX87Bro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j1Lh1A25; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j1Lh1A25"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 270881F00ACA;
-	Sun,  2 Aug 2026 03:42:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785642168;
-	bh=rAQdD54xXPSjsRIdK9VILSSMyEb2IHLZ4kO2SZcJjxg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j1Lh1A25juUQKTMI0ApsAQ6l5cGEXVfkpiXkNcUG7G6bG033jOm6vw8hBulNF5h06
-	 8AvoMsgYHl7rZBetGQNDtnh5ouEAkPTiy5BmyNz0lyFxyKvz/puvZH3PKoi8MfP8LP
-	 RZG4VeQ4EcIT4P2QVBjOUSPwhCjBLsJNAcf8dylsWOa6pdZ+2bO/TdvnVrDeqCKvCu
-	 4xCArb/rC/hgoQNpvXjjMYeE+sAjtuX7xOVoqkE7ZfGTIfJz0zh8wygf6yAvSzqUCp
-	 kxQGFGLR7IW26QdKLOZkuFQSM9TPcJQjR9TR6WeUUOmHMGcgUNcDH8H8fSFQJDGQdG
-	 LX6LdqK06Cz5Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jani Nikula <jani.nikula@intel.com>,
-	Martin Hodo <martin.hodo@intel.com>,
-	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] drm/i915/vrr: require valid min/max vfreq for VRR
-Date: Sat,  1 Aug 2026 23:42:45 -0400
-Message-ID: <20260802034245.2976489-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260802034245.2976489-1-sashal@kernel.org>
-References: <2026072954-entail-overdrive-8a88@gregkh>
- <20260802034245.2976489-1-sashal@kernel.org>
+	s=arc-20240116; t=1785642958; c=relaxed/simple;
+	bh=uokThyasGj0zsfe+6j0fd1cIu+NTNJmJFKuV18x4aGY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bpO/XjPaIFU+2yJgSyBdLNDba0Hzi6uhOSb7lB9K65qQKfTBgHKOBMNV/DTlL490Mu6z6xWjNE8E+zNUEveUZ614nB/Ewa8VAWLqUNiIouuTvnAQc/tcMVKkSVcTJs7T3Kp/1BUvXCRvm0V6a69eEaTt77Xw9BvFba7snUGmz/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=40.65.178.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDXsT65v25qkFZZAA--.9630S3;
+	Sun, 02 Aug 2026 11:55:38 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgC3BZ65v25q6aJqAw--.56351S2;
+	Sun, 02 Aug 2026 11:55:37 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-pm@vger.kernel.org
+Cc: sre@kernel.org,
+	Milo.Kim@ti.com,
+	anton.vorontsov@linaro.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] power: supply: lp8788-charger: fix use-after-free on remove
+Date: Sun,  2 Aug 2026 03:54:42 +0000
+Message-Id: <20260802035442.421697-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,49 +36,65 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgC3BZ65v25q6aJqAw--.56351S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?urpP1QXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBE4/q36jXTFU8JsSW1mrStnMrJAT2o5k4TOdxLHZODf9cXW
+	GRHR5vYaeKPzrDGLCxLN5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoW7tryxWr4kGFWfCF1kJr1rXwc_yoW8GFW8pF
+	s5CrZxGrW8WF4UKayqq3W2kFyUKa4fAFW5CFWxJ345X34fJw12q3Z0gFWfWFy5AryxXrs3
+	t3Waqw4j9Fy3uFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-From: Jani Nikula <jani.nikula@intel.com>
+lp8788_charger_remove() flushes charger_work before unregistering the
+IRQs. An IRQ thread can queue charger_work after flush_work() has
+returned. The work can then run after devres frees pchg and dereference
+it in lp8788_charger_event().
 
-[ Upstream commit f8a9262c7a6fc2de9802e14b0228114f0333869e ]
+Unregister the IRQs first. free_irq() waits for any running threaded
+handler, so no handler can queue more work afterwards. Then use
+cancel_work_sync() to cancel pending work or wait for running work to
+finish.
 
-Ensure the EDID provided min/max vfreq are valid. Most scenarios are
-already covered (by coincidence) through the checks in
-intel_vrr_is_capable() and intel_vrr_is_in_range(), but be more explicit
-about it. At worst, a zero min_vfreq could lead to a division by zero in
-intel_vrr_compute_vmax().
+This issue was found by an in-house static analysis tool.
 
-Discovered using AI-assisted static analysis confirmed by Intel Product
-Security.
+Fixes: 98a276649358 ("power_supply: Add new lp8788 charger driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
-Reported-by: Martin Hodo <martin.hodo@intel.com>
-Fixes: 117cd09ba528 ("drm/i915/display/dp: Compute VRR state in atomic_check")
-Cc: stable@vger.kernel.org # v5.12+
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Link: https://patch.msgid.link/20260625131040.1051272-1-jani.nikula@intel.com
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-(cherry picked from commit 1765cf59f517b02f3b0591fe5120930d08bddeb6)
-Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/power/supply/lp8788-charger.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 9c4c46cf3d3b..0082b822a30e 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -41,6 +41,10 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
- 		return false;
- 	}
- 
-+	if (!info->monitor_range.min_vfreq || !info->monitor_range.max_vfreq ||
-+	    info->monitor_range.min_vfreq > info->monitor_range.max_vfreq)
-+		return false;
-+
- 	return info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
+diff --git a/drivers/power/supply/lp8788-charger.c b/drivers/power/supply/lp8788-charger.c
+index f0a680c155..1bc2c150fb 100644
+--- a/drivers/power/supply/lp8788-charger.c
++++ b/drivers/power/supply/lp8788-charger.c
+@@ -710,8 +710,8 @@ static void lp8788_charger_remove(struct platform_device *pdev)
+ {
+ 	struct lp8788_charger *pchg = platform_get_drvdata(pdev);
+
+-	flush_work(&pchg->charger_work);
+ 	lp8788_irq_unregister(pdev, pchg);
++	cancel_work_sync(&pchg->charger_work);
  }
- 
--- 
-2.53.0
+
+ static struct platform_driver lp8788_charger_driver = {
+--
+2.43.0
+
 
