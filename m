@@ -1,150 +1,119 @@
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E7A259498
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 15:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F13B3C1D4B;
+	Sun,  2 Aug 2026 15:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785685209; cv=none; b=Xlcau2pOSz2ubUaRkC87iHC0SL9l9DLOg0vl8B8BghG0iGzqKoMOABx2n1i5pQHxRyZXxzhhV+BkakTeRH67USlBauf/77QpaoG2Lpz8fkdpy0UzaLZKKRG/qop4mq4exsPq7+HTf5H3qLFBYrfvpNLB/LDfQIepCX6YnVPotU8=
+	t=1785685541; cv=none; b=Drp6l+vNZqVKdcETzgGwQAtoYFq4DwLbr5BM9BajWMAZmmAzMKYa2/+pFgF9KuFGh6tgRDKsxZ3wiTQCIQ/YBKLPqqxC3IA2qT3Iw7r/l3TA739G2frUgPMILT24tSETG4Rdz/AgU7pwufXs8t/loQILknBJboQTEApnmiMaHIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785685209; c=relaxed/simple;
-	bh=S9GF3h7gmhd8ieK4IJPj1yC65IXD+OHH4Bv/vHTquF8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U+AMGCsE4ZZ1ErRAH0zf1pV+huuHFbUmgj57jHyjPTdVrPwhxV9hqZ6GxMKgF4q9M9C2lMylwDLuFnaxC88pBT614lsOEfYAaplehewuErFKq83/a8CsNOXJnflqZG5RE6Fltjh3DkzmcRKW10GpVQVebbKYaLhl6JjRt1ds2/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=hI2A/CTj; arc=none smtp.client-ip=209.85.210.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1785685541; c=relaxed/simple;
+	bh=QImCS+p0j340UNyEsPzkQBMHjKH8mVqEjJWG7cLcojA=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=ZEofudrY+1ypQECVi0XCRKPZwaQOswqD0EakbsBC4muidE9PXhrRQXxwzxdHFaYq54qnhRZeqEhj7UNAKvBZwFbpqFgf+Av17Eko2IxdsbUz0O/Ib94onl168gwi6CB+VuNrR5q5JTr7zR9TSKMfq67B8IFXpsT+O9JIUFzmFuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cyyself.name; spf=pass smtp.mailfrom=cyyself.name; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=QaUZsMfa; arc=none smtp.client-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cyyself.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyyself.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="hI2A/CTj"
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7e9ecd7216cso1359462a34.3
-        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 08:40:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785685206; x=1786290006; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TVSsAwcRy1uonwMzmFb3HAht5GF4K+y7gUHhjcWsEHU=;
-        b=hI2A/CTjEkMXgJuj5cAnHWxRFd4+XTwu1ZEfP1eLxxBHdeaKZYdLlR9hs07NMEdmGC
-         tfrZ05xtkCuK9TG29rctFXeeZCrqlO0J3NDLfArbu98xg4GvWiBfND5tYCLx3t8zzebt
-         WslO8vrqGQJVnJFZaV7s0AyevyyKNe+Dxvb/x43lwmk8El/xA9J8SZNb0J9WnfZdqHCc
-         Qjsy/wNhts3S0H2bRSPv82r1VMv9cA7R7TC4q/PDadgS+X160Us3OxwQex99sT0ihte1
-         auVxgG/xJBchRonruMQc+tHYV2meubjvllEysDXxX6+WT3h6GJbJer7BArHFVawTgBEN
-         wZiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785685206; x=1786290006;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TVSsAwcRy1uonwMzmFb3HAht5GF4K+y7gUHhjcWsEHU=;
-        b=qLUeLY7V+8tRlfBfd9YE2qfW4/X6jPcNQ99M9mDPGfEhOOGYZxyLf2gxxjZU1lI8nL
-         NPCvYVav9w2dWNtVobwJVd3pkPmx8dvqxEruxM4uOSfGEGib7p0TK2TnpFlnyG554Xc1
-         m++tHyz7LYWlahxLfNNW3aJ/0CYgHy62O6CIbw1D/eq7081dfNVfKr6rtjnsoI5tk+cw
-         GlwOzCDAs6ILQmRXtH0bBMNLDSUc+WtgPWEFondIfj6rEAwf37mJEqFKJA9peI3XIJRw
-         GgzzyGA74DE5/2pm+Q0y2d4GfK85HKJbWHW8QFkviCwdAr9y7Ay79pFddlysn3AgukHQ
-         /U1g==
-X-Forwarded-Encrypted: i=1; AHgh+RoKyAEWQWma4uoNYFcYTbP1LU42wuIbh98bI8wDmQxxJAisvzT6rMslQa+unIozw/EsIxCQLns=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwDnNhIp5mfvHKF1ubmLbX9GeQCYao0R0ewLDBqKbFpV0RLkVnE
-	8uwlKdK3NRsy/1JslnW0YaMeWFf5v0uCdmSEYbE03aIPyTzpa4iA3hqM1HHSJLkGI5o=
-X-Gm-Gg: AR+sD13CR1t4qc5wlCnuM+11umkng/LtE8TAoeJZVtGkERh+Ad0Hp0L1bXgunkOCvKc
-	8Dpuuz1qV5qKLkuMKy8sOu9OgAbVyYIByTMGcTQoloDAMjOiuIc0p3CCbFDBcqJH8zGAQDclPt+
-	B/aqjpTeWXmi90dqpeZgQgbNQvXgzTuB8XgljEBWSXPRMNADpcC0yFnSNnaYKDvJmJyU+U3oMiO
-	kDgFXE7YrzYDo9Ca/oEE6DUC2WEFdrZ4M6gP5iAPKey+GbiEUts21fbUH9fwtdzocXByWCYxey4
-	Yckird37cw0Mowlw+cTt6WqiGT8y5fJKrXnanPL1I5fXbYhT0jFxS0rGURQsNgATIYnjzcPT2JV
-	TwjeJ2J7vSCqIeteM7pd+GskR+U26paKNoEC4jNedURYypOzU0yp+3wtCAcQgAA+F3qyoJ2esDZ
-	X9wF/auF+wPGiT6HO/WgzuN354aslcqpAHkSqGbgZuUCkdAjr/82pT3VxJcCP1dXPZmIp9GkyaA
-	aUc5zaMA80oZdIiw1apB3rLcMbVb72HjZdQoqA=
-X-Received: by 2002:a05:6830:700c:b0:7df:5fc:3fd5 with SMTP id 46e09a7af769-7f196b97f19mr12557105a34.1.1785685200962;
-        Sun, 02 Aug 2026 08:40:00 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:5487:2b6e:1057:d3d3? ([2600:8803:e7e4:500:5487:2b6e:1057:d3d3])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f18ed3c81fsm5342440a34.5.2026.08.02.08.39.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 02 Aug 2026 08:39:59 -0700 (PDT)
-Message-ID: <750f615a-c00f-4e98-9bcf-8fa8704acfba@baylibre.com>
-Date: Sun, 2 Aug 2026 10:39:58 -0500
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="QaUZsMfa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1785685523; bh=Mj1YdxGS6daiJSi/4pE8tUp45dMG2WAhyhFG39wYrf4=;
+	h=From:To:Cc:Subject:Date;
+	b=QaUZsMfacPEp4dvfUAU1y8aR7M10nNs+gQpmBjHR6IsvvSWZebmVU67Q3rGVJKXNv
+	 a9RyyEgzOnw269J5Coc5d6bBUEq1Hs8OsL6iF12Hqk4/nApikzwAYPBtGsE5bRwRz5
+	 +d+io3dmN6aG+ftwuRNpsnhJC6mzbkKEddgT5XyI=
+Received: from halo.lan ([240e:379:2238:cc00:262b:8ebc:c000:80a0])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id B452A86A; Sun, 02 Aug 2026 23:45:05 +0800
+X-QQ-mid: xmsmtpt1785685505tjna8qgr7
+Message-ID: <tencent_29B860317921D68DE77C718242DA418EB608@qq.com>
+X-QQ-XMAILINFO: OeJ9zRfntlNPNGqNQMWX1AUvsvgJ4N51RA4xQw9NkYD4ApFO7eLP7XFQzwxV9x
+	 B3UQYBcflErhxRgivZ3oR8mN+4ykT8Rzdv5fHT12hU4eCPpFDV/j8JvFmcXsBUQiLiE6oFqRzdYm
+	 YeAjzqMPUtX8QeIvpzW5EpO5HLq5nNkcEaDD3WoxlJYhVxO61qaKdr0Ucv6MvRI7898x+OoaitiY
+	 VNVsuOp2zcvMSUNYJdU2hISJzNNrti/CHnbnD5rrt/bOuaKn9LmdrDy65bgwTyJaGDShxQhxSHTZ
+	 hTupcrO2kR8wRmCpkbVHJ9JxlnMPT+56Q+dw6tPUhySiUERiqwkTZ1gB1ANbAf1q0cCEYyRzGkrK
+	 xaHcP9mqmScrNGDfpjG9vfnyHjEntMDMRUW5XeyAiG53iiOngqxI08QnrVwmlcHFqDLNKkIa/sGN
+	 Jp8d3CJMWXrNMnpb7Mnre1m/pTV7CVHtNLr83Q55wXQEnsgVBgF2yyNAnKHWugZL98lRBueqaIZz
+	 YV1CxX9d2HaY7pyWKWFYilm8r/2Nl+wYSJrK6giABMhfuXXH1yW32GQvUMatgzCRmm8LVb2XM/9D
+	 W8EWLL5bkVDKeP5dI8ks+ZyBn2DfMLHxIFOYd6KRB6cORUsnCgm+UkmcJUlvUUQZRhzZlRrhXjPa
+	 DHmVmEAdU2IaD/uCDnnEHfa49Ye2ntEP/sMXL80y/PNhEE+LhoKROzESZqrXxMqY74dsV3N+/OTa
+	 dKvqEQq+ijbqT0D0CZ7KUNfqxwxSbj3TY/JO/Fs9yDrcUAi2qaSDuJ5EyDkJj0iSY82ThHrt6Rvk
+	 Xy8uJ6T6bj3cS2eGr8gFOlOx4Bk34PM9jBWC5NrmP/KNEpUq50MCE7NwCriIhuH9CsBzbU/nxvgm
+	 xJQqtUkIQ7vwdF7p4oZOnFPWIf/IyWah0c8T+4tX/+vBe6x1c8GYjgtO3E4f1g3okqOvOWbEd4Yl
+	 XW6xQnbojs6u+LhQkWBF2gb+iIIZEWDObAzBcQU2RMDIjB2B774deI4qrMt4WfxSM0iKsOgjXvmn
+	 SbMu8+J9WTsNo8vrQ2kvSq7TdMg6qmBHelAxMsgejisdw6+5EgQ57puBkawNsuLLQC7PO4MPqzlG
+	 Eccsa80wsq2U4sdWs=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Yangyu Chen <cyy@cyyself.name>
+To: Sukhdeep Singh <sukhdeeps@marvell.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Mina Almasry <almasrymina@google.com>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Lino Sanfilippo <LinoSanfilippo@gmx.de>,
+	Igor Russkikh <irusskikh@marvell.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yangyu Chen <cyy@cyyself.name>
+Subject: [PATCH net 0/2] net: atlantic: fix two ring teardown leaks
+Date: Sun,  2 Aug 2026 23:44:53 +0800
+X-OQ-MSGID: <20260802154453.38032-1-cyy@cyyself.name>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iio: adc: xilinx-xadc: free IRQ before cancelling the
- unmask worker on unbind
-To: Fan Wu <fanwu01@zju.edu.cn>, jic23@kernel.org
-Cc: nuno.sa@analog.com, michal.simek@amd.com, bgolaszewski@baylibre.com,
- DileepKumar.Nagavarapu@amd.com, linux-iio@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260802082851.433476-1-fanwu01@zju.edu.cn>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260802082851.433476-1-fanwu01@zju.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/2/26 3:28 AM, Fan Wu wrote:
-> The ZYNQ XADC interrupt handler xadc_zynq_interrupt_handler() arms the
-> zynq_unmask_work delayed work via schedule_delayed_work() every time an
-> alarm condition is observed, and that worker re-arms itself for as long
-> as the alarm stays asserted.
-> 
-> In xadc_probe() the IRQ is requested with devm_request_irq() before the
-> devm_add_action_or_reset() that registers xadc_cancel_delayed_work().
-> Because devres release runs in LIFO order, on unbind the delayed work is
-> cancelled before the IRQ is freed. The IRQ is still live at that point,
-> so a pending alarm can make the handler run once more and re-arm
-> zynq_unmask_work after it has been cancelled; that instance then runs
-> after the xadc structure that embeds zynq_unmask_work has been freed, a
-> use-after-free in xadc_zynq_unmask_worker().
-> 
-> Register the cancel-work devm action before requesting the IRQ so devres
-> LIFO teardown frees (and synchronizes) the IRQ first, then cancels the
-> delayed work. After free_irq() the handler can no longer re-arm the
-> work, and the subsequent cancel_delayed_work_sync() drains any instance
-> armed just before the IRQ was torn down.
-> 
-> This issue was found by an in-house static analysis tool.
-> 
-> Fixes: 2a9685d1a3b7 ("iio: adc: xilinx: use more devres helpers and remove remove()")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.6
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-> ---
-> 
->  drivers/iio/adc/xilinx-xadc-core.c | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/xilinx-xadc-core.c b/drivers/iio/adc/xilinx-xadc-core.c
-> --- a/drivers/iio/adc/xilinx-xadc-core.c
-> +++ b/drivers/iio/adc/xilinx-xadc-core.c
-> @@ -1395,13 +1395,16 @@ static int xadc_probe(struct platform_device *pdev)
->  	}
-> 
->  	if (irq > 0) {
-> -		ret = devm_request_irq(dev, irq, xadc->ops->interrupt_handler,
-> -				       0, dev_name(dev), indio_dev);
-> +		/* devm LIFO: register the cancel-work action before the IRQ,
-> +		 * so unbind frees the IRQ first, then drains the work.
-> +		 */
-> +		ret = devm_add_action_or_reset(dev, xadc_cancel_delayed_work,
-> +					       &xadc->zynq_unmask_work);
->  		if (ret)
->  			return ret;
-> 
-> -		ret = devm_add_action_or_reset(dev, xadc_cancel_delayed_work,
-> -					       &xadc->zynq_unmask_work);
-> +		ret = devm_request_irq(dev, irq, xadc->ops->interrupt_handler,
-> +				       0, dev_name(dev), indio_dev);
->  		if (ret)
->  			return ret;
->  	}
-> --
-> 2.43.0
-> 
+These are the two fixes from the page_pool conversion series [1],
+resent against net as requested in the review of that series. The
+page_pool conversion itself stays in net-next and is not part of this
+posting; it depends on these fixes, but they stand on their own.
 
-Makes sense.
+Both patches are unchanged from [1] apart from the collected
+Reviewed-by tags, and each carries a Fixes tag and a Cc: stable with
+the affected range (patch 1: v4.11+, patch 2: v5.2+). They apply and
+were build- and runtime-tested independently of each other and of the
+conversion.
 
-Reviewed-by: David Lechner <dlechner@baylibre.com>
+Patch 1: aq_vec_deinit() drains the TX rings with a single
+aq_ring_tx_clean() call, which is capped at AQ_CFG_TX_CLEAN_BUDGET
+descriptors and stops at hw_head, frozen once the hardware and NAPI
+have been stopped. Everything beyond that keeps its skb or xdp_frame
+when the interface goes down and is lost when the buffer ring is
+freed.
+
+Patch 2: aq_ring_rx_deinit() only walks [sw_head, sw_tail). Since the
+page reuse strategy was added, a cleaned RX buffer keeps its page for
+reuse and refill is batched, so consumed but not yet reposted slots
+accumulate in the [sw_tail, sw_head) gap and their pages and DMA
+mappings are never released.
+
+Reproduction logs for both leaks (as page_pool stalled shutdowns,
+which is how they become visible) are in the notes of the respective
+patches.
+
+[1] https://lore.kernel.org/lkml/tencent_1F173E0FC1606D2AC704DC9C98AF10984607@qq.com/
+
+Yangyu Chen (2):
+  net: atlantic: free stranded TX buffers on ring deinit
+  net: atlantic: free RX pages of consumed but not refilled buffers
+
+ .../net/ethernet/aquantia/atlantic/aq_ring.c  | 51 +++++++++++++++++--
+ .../net/ethernet/aquantia/atlantic/aq_ring.h  |  1 +
+ .../net/ethernet/aquantia/atlantic/aq_vec.c   |  2 +-
+ 3 files changed, 49 insertions(+), 5 deletions(-)
+
+
+base-commit: af39eb111ce6b5eba9c08513b62c4868eb7e7fd5
+-- 
+2.47.3
 
