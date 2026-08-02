@@ -1,238 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA80D83A14
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 01:49:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A205F3C07A
+	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 01:49:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785635373; cv=none; b=qyJ5BrMhpXAOFLgslhdkHrFb12VKvCHkMRfokFj5I+rZIFYJKPbWjEgGSrhGNj7bS2+8Syim4JcUEDtCaEOCMCyD9B+4oKDtU5j7vhX5itJTQkWErGiSHUty5ToG7XJiE0wGQJU0UQ1jr57MVV461tin8UJumewZa/ojh2ggzm4=
+	t=1785635379; cv=none; b=Ri4gzomXzPDrcCVbqUpPFahbuehiWSMSDwugT5rSkoWEVjD/dTlhpeEiTVVqUFS/4RrlXisYm2H3vjcKfJo5yGvTqDcyAn03iM7UkG1cGo6Xx2x1lZhu1C/yqy/Q7IzxlO0+SnEyyoH1O413TFvvGuqy4z2MxUR58JEaWKHEf34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785635373; c=relaxed/simple;
-	bh=jdhZOjQE5TFyZY0TLqsWRsIwKMnAUslP45RBM32g50w=;
+	s=arc-20240116; t=1785635379; c=relaxed/simple;
+	bh=4ZdYULuBeshttxU0rkJCmkyTLF4QZvMyG+Y5alNaA84=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=huXuGlrF36Nx5iVZgzxMzXu1WlZkww5kuBYHFQuRYpX9dHaGldEIzHTKLfjqTCA/tI3FO0doW8Ql0X2jf44bZZMm3axOs3cFukRI285j65nfzHgq7HtWNf/SkFbn+pGbC6qIIuHXIYjT7icQWDs74hRzaXAaoQV/eYi2Efc/YJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=adVOr0ll; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QebjI/f0uXwKnUD95sAoJ/XC2zcrPVM3sKQJM4WXeR5iMslBvvRMoGqNJRRt0DtCJlCMm7k/WHttjKh2vrwxYQLOt+9arOQonTRX9et2dAk6V6XpiyQYdYfxjpnnsU3zluzdmQ8rHOJiEze+D+arE0WnOrXaM7aqPX3YhQr7Unc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nvYOf9fD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="adVOr0ll"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CDE21F00ACF;
-	Sun,  2 Aug 2026 01:49:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nvYOf9fD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE8F21F00ACF;
+	Sun,  2 Aug 2026 01:49:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785635371;
-	bh=bZb6328COX03Uw4n7shZlLzPeflTV0TBRbRJA1tmYJQ=;
+	s=k20260515; t=1785635378;
+	bh=XFSR0o9sfJMiX9JeQBOeWEzbDJo6oX1TOZvrexsoiBQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=adVOr0lllptgJSk7RwuklNBFj3bEETtSj73aGGgYdC2u4eh9Sh7papcbq6uwjc44p
-	 YKc8bMk7JbtPkuR/gthlytwiDmgPSlYioXSKFI57snyjoPEETtzd7e7UH2a+fPuoEQ
-	 bQRHNhYdz4inV7cxLVYwWhpUCMk1SNX/BQul3jagERE9SU/4MsEOuvYcgttUvtfW5x
-	 AGDp3E+PGQ69GLhcoYXUCfAD1vvImd+YZ7Y1VIgfys7uuIelma/PlesAOqyxTTO3/4
-	 uGZmlIlbOZ3EmQvUL6hyD8KFLKbQp5fOff422chZIw6Hg6AdP71qCUjMgzy2A5bKLF
-	 2qgq3WFwH5rWw==
+	b=nvYOf9fDNbhZ7H2xnyjNpKWRC2DPM4Izxq81WpVy5oGFZsuQgBNpIZEMhOVgpXsjT
+	 l49rSYlaCY6VmSTr04mUxladO2N8PGTm/4GHIuz4F+FkP3eLNXVZkkbj3Nb+USslsB
+	 roVWgIoYgbO2h0VEY+CK59BJ7dH4PMzk4oYIoREJMk2+XJuuJvUTWOJTUvQyjNV7H8
+	 DE8yShmg5XHPWRcfm2ZLwL37PwrZHXPxxC5UQlyVzJgc5pZv9WfBTiiueZsIGrBwjz
+	 +Ibz7FgdKWMN1B/fMnv2281BLHvXUAK3QD0GxDd6l9xsOXBL9VnrAOMmxuOjbOW4xi
+	 zLyB8qDIUnzEA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nitin Gote <nitin.r.gote@intel.com>,
-	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
-	Christian Konig <christian.koenig@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>,
+Cc: Jani Nikula <jani.nikula@intel.com>,
+	Martin Hodo <martin.hodo@intel.com>,
+	Suraj Kandpal <suraj.kandpal@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] drm/xe: Hold a dma-buf reference for imported BOs
-Date: Sat,  1 Aug 2026 21:49:28 -0400
-Message-ID: <20260802014928.509277-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] drm/i915/hdcp: require monotonically increasing seq_num_v
+Date: Sat,  1 Aug 2026 21:49:34 -0400
+Message-ID: <20260802014934.510825-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260802014928.509277-1-sashal@kernel.org>
-References: <2026072925-decathlon-canopener-953d@gregkh>
- <20260802014928.509277-1-sashal@kernel.org>
+In-Reply-To: <20260802014934.510825-1-sashal@kernel.org>
+References: <2026072904-unwelcome-casualty-d8bf@gregkh>
+ <20260802014934.510825-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Nitin Gote <nitin.r.gote@intel.com>
+From: Jani Nikula <jani.nikula@intel.com>
 
-[ Upstream commit 62775525a27c3b0d56382e08ba81ee2d322058b6 ]
+[ Upstream commit db9e64c983dcb07ff256bd455f258c44aa530ff8 ]
 
-An imported dma-buf BO is created as a ttm_bo_type_sg BO whose
-reservation object is the exporter's dma_buf->resv. The importer,
-however, only takes a dma-buf reference after a successful
-dma_buf_dynamic_attach(). Until then nothing keeps the exporter alive,
-so if the exporter is freed while the BO still references its resv, a
-later access to that resv is a use-after-free:
+The HDCP 2.2 specification requires the seq_num_v to be monotonically
+increasing, and repeated seq_num_v needs to be treated as an integrity
+failure. Make it so.
 
-  Oops: general protection fault, probably for non-canonical address
-        0x6b6b6b6b6b6b6b9c
-  Workqueue: ttm ttm_bo_delayed_delete [ttm]
-  RIP: 0010:mutex_can_spin_on_owner+0x3f/0xc0
+For the first message, seq_num_v must be zero, and is already
+checked. We can only check for less-than-or-equal for the subsequent
+messages, where hdcp2_encrypted is true.
 
-This can be reached on two paths:
+Discovered using AI-assisted static analysis confirmed by Intel Product
+Security.
 
- - dma_buf_dynamic_attach() fails, or
- - ttm_bo_init_reserved() fails during BO creation.
-
-In both cases the BO already has bo->base.resv pointing at the exporter
-resv, and sg BOs are always torn down via ttm_bo_delayed_delete(), which
-locks bo->base.resv asynchronously - potentially after the exporter has
-been freed.
-
-Take the dma-buf reference in xe_bo_init_locked(), before
-ttm_bo_init_reserved(), so it also covers a creation failure there, and
-release it in xe_ttm_bo_destroy(). The reference is held for the whole
-BO lifetime, keeping the shared resv alive on every path.
-
-v2:
-  - Reworked the fix to avoid creating the imported sg BO before
-    dma_buf_dynamic_attach() succeeds.
-  - Attach with importer_priv == NULL and make invalidate_mappings ignore
-    incomplete imports.
-
-v3:
-  - Dropped the xe-side reordering approach since importer_priv must be
-    valid when dma_buf_dynamic_attach() publishes the attachment.
-  - Per Christian's suggestion on the v1 thread, keyed the check on
-    import_attach rather than removing the sg guard entirely.
-  - Fixes both xe and amdgpu in a single TTM patch.
-
-v4:
-  - Moved import_attach check to after dma_resv_copy_fences() so fences
-    are copied before returning for successful imports (Thomas).
-  - Removed exporter-alive claim from commit message (Thomas).
-
-v5:
-  - Add drm/xe patch to keep imported sg BOs off the LRU before attach
-    succeeds; the TTM fix alone is not sufficient for xe if the BO is
-    already LRU-visible. (Thomas)
-    v4 patch:
-    https://patchwork.freedesktop.org/patch/736663/?series=169129&rev=2
-  - Patch 1 (drm/ttm) carries Christian's Reviewed-by from v4.
-
-v6:
-  - Reworked the fix based on Thomas' suggestion. Instead of the TTM resv
-    individualization (v1-v5) plus the xe off-LRU/placement handling (v5),
-    just hold a dma-buf reference for the imported BO lifetime so the
-    shared resv can never be freed while the BO still references it.
-    Single xe patch, no TTM change. (Thomas)
-  - Take the reference in xe_bo_init_locked() before ttm_bo_init_reserved()
-    so a TTM creation failure is covered too (Thomas).
-  - Dropped the v5 series (drm/ttm + drm/xe off-LRU); the off-LRU approach
-    also regressed in CI BAT via ttm_bo_pipeline_gutting() creating a ghost
-    BO that outlived the exporter.
-    Link to v5: https://patchwork.freedesktop.org/series/169984/
-
-v7:
-  - Move changelog above --- so it stays in the commit message.
-  - Reorder changelog entries oldest-to-newest. (Thomas)
-
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8023
-Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
-Cc: stable@vger.kernel.org
-Cc: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
-Cc: Christian Konig <christian.koenig@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Suggested-by: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Nitin Gote <nitin.r.gote@intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20260710191027.260160-2-nitin.r.gote@intel.com
-(cherry picked from commit 3516f3fae6be35642f8f06f8a218da6425c0306a)
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reported-by: Martin Hodo <martin.hodo@intel.com>
+Fixes: d849178e2c9e ("drm/i915: Implement HDCP2.2 repeater authentication")
+Cc: stable@vger.kernel.org # v5.2+
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Link: https://patch.msgid.link/20260625104407.1025614-1-jani.nikula@intel.com
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+(cherry picked from commit 58a224375c81179b52558c53d8857b93196d2687)
+Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_bo.c       | 17 +++++++++++++++--
- drivers/gpu/drm/xe/xe_bo.h       |  2 +-
- drivers/gpu/drm/xe/xe_bo_types.h |  2 ++
- drivers/gpu/drm/xe/xe_dma_buf.c  |  2 +-
- 4 files changed, 19 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 37cf2053eeff..b5f5f85ac3c5 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -1131,6 +1131,8 @@ static void xe_ttm_bo_destroy(struct ttm_buffer_object *ttm_bo)
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index 565880d3a558..a72adce51dd4 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -1742,9 +1742,10 @@ int hdcp2_authenticate_repeater_topology(struct intel_connector *connector)
+ 		return -EINVAL;
+ 	}
  
- 	if (bo->ttm.base.import_attach)
- 		drm_prime_gem_destroy(&bo->ttm.base, NULL);
-+	if (bo->dma_buf)
-+		dma_buf_put(bo->dma_buf);
- 	drm_gem_object_release(&bo->ttm.base);
+-	if (seq_num_v < hdcp->seq_num_v) {
+-		/* Roll over of the seq_num_v from repeater. Reauthenticate. */
+-		drm_dbg_kms(display->drm, "Seq_num_v roll over.\n");
++	if (hdcp->hdcp2_encrypted && seq_num_v <= hdcp->seq_num_v) {
++		/* Reauthenticate on Seq_num_v repeat or rollover */
++		drm_dbg_kms(display->drm, "Seq_num_v %s\n",
++			    seq_num_v == hdcp->seq_num_v ? "repeat" : "rollover");
+ 		return -EINVAL;
+ 	}
  
- 	xe_assert(xe, list_empty(&ttm_bo->base.gpuva.list));
-@@ -1292,7 +1294,7 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
- 				struct xe_tile *tile, struct dma_resv *resv,
- 				struct ttm_lru_bulk_move *bulk, size_t size,
- 				u16 cpu_caching, enum ttm_bo_type type,
--				u32 flags)
-+				u32 flags, struct dma_buf *dma_buf)
- {
- 	struct ttm_operation_ctx ctx = {
- 		.interruptible = true,
-@@ -1377,6 +1379,17 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
- 	placement = (type == ttm_bo_type_sg ||
- 		     bo->flags & XE_BO_FLAG_DEFER_BACKING) ? &sys_placement :
- 		&bo->placement;
-+
-+	/*
-+	 * For imported BOs, keep the exporter dma-buf alive for the BO
-+	 * lifetime. Taken before ttm_bo_init_reserved() to also cover a
-+	 * creation failure there. Released in xe_ttm_bo_destroy().
-+	 */
-+	if (dma_buf) {
-+		get_dma_buf(dma_buf);
-+		bo->dma_buf = dma_buf;
-+	}
-+
- 	err = ttm_bo_init_reserved(&xe->ttm, &bo->ttm, type,
- 				   placement, alignment,
- 				   &ctx, NULL, resv, xe_ttm_bo_destroy);
-@@ -1491,7 +1504,7 @@ __xe_bo_create_locked(struct xe_device *xe,
- 			       vm && !xe_vm_in_fault_mode(vm) &&
- 			       flags & XE_BO_FLAG_USER ?
- 			       &vm->lru_bulk_move : NULL, size,
--			       cpu_caching, type, flags);
-+			       cpu_caching, type, flags, NULL);
- 	if (IS_ERR(bo))
- 		return bo;
- 
-diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
-index 5b3e03510b55..556ce5390009 100644
---- a/drivers/gpu/drm/xe/xe_bo.h
-+++ b/drivers/gpu/drm/xe/xe_bo.h
-@@ -84,7 +84,7 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
- 				struct xe_tile *tile, struct dma_resv *resv,
- 				struct ttm_lru_bulk_move *bulk, size_t size,
- 				u16 cpu_caching, enum ttm_bo_type type,
--				u32 flags);
-+				u32 flags, struct dma_buf *dma_buf);
- struct xe_bo *
- xe_bo_create_locked_range(struct xe_device *xe,
- 			  struct xe_tile *tile, struct xe_vm *vm,
-diff --git a/drivers/gpu/drm/xe/xe_bo_types.h b/drivers/gpu/drm/xe/xe_bo_types.h
-index aa298d33c250..cecb893ba128 100644
---- a/drivers/gpu/drm/xe/xe_bo_types.h
-+++ b/drivers/gpu/drm/xe/xe_bo_types.h
-@@ -30,6 +30,8 @@ struct xe_bo {
- 	struct ttm_buffer_object ttm;
- 	/** @size: Size of this buffer object */
- 	size_t size;
-+	/** @dma_buf: Imported dma-buf ref to keep its resv alive. */
-+	struct dma_buf *dma_buf;
- 	/** @flags: flags for this buffer object */
- 	u32 flags;
- 	/** @vm: VM this BO is attached to, for extobj this will be NULL */
-diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
-index 412861c095c3..23ffd1d89565 100644
---- a/drivers/gpu/drm/xe/xe_dma_buf.c
-+++ b/drivers/gpu/drm/xe/xe_dma_buf.c
-@@ -214,7 +214,7 @@ xe_dma_buf_init_obj(struct drm_device *dev, struct xe_bo *storage,
- 	dma_resv_lock(resv, NULL);
- 	bo = xe_bo_init_locked(xe, storage, NULL, resv, NULL, dma_buf->size,
- 			       0, /* Will require 1way or 2way for vm_bind */
--			       ttm_bo_type_sg, XE_BO_FLAG_SYSTEM);
-+			       ttm_bo_type_sg, XE_BO_FLAG_SYSTEM, dma_buf);
- 	if (IS_ERR(bo)) {
- 		ret = PTR_ERR(bo);
- 		goto error;
 -- 
 2.53.0
 
