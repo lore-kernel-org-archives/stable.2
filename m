@@ -1,113 +1,104 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F04513D503;
-	Sun,  2 Aug 2026 09:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812B826ED37
+	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 09:34:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785662942; cv=none; b=FyOBHB/QgcP1w8aNDnnxpkncEZgq278hqpznnCMoWmFLPubGIhqI1316sC8uzouqiXZ/ZIQlA4HHlnA/u445MVBIgHPr2KNqafU3OrnbtcxHoM77EIFhHqZD590xgQeaOszLCVOFrBYRM3pOkw28Uk551i6EEmk1nbOM/Z+1hgI=
+	t=1785663287; cv=none; b=m6Y0IUz+2BX9H7AaQHRXmBn1JVsGuzbVXAJcUZ3hTPqiV8zJDBROn/kDgKhoqWuFPL6if85A9aDhxg7DJ5QRuZOwiJY1uvAgnOcqNmoh9AgE7p0aabBQt4S9/kiqg0DOrZ4J56kmC/i9zaKAhBmSL7r3pESXXUDrTXHRZEq+Sc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785662942; c=relaxed/simple;
-	bh=FhHUQolbQ0t4rygaZM91yN57fJM/833vcxcMtKtMuq4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ctL5MST187pcTCYvKggprZbeTOFyy2BOqr3LVBuygF11oOr7v0SyhpZzXv+1ZW85ccasMvHakKEyupDJShxvlGY99ssIT/C5YXOiq2b1A3rOJllIt8MrE29zJRf37uNMryWqdBrv1Ch75WDfqW2TX3lL54t3mW4GsHGI33V2vqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=d0HgA9Ai; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1785663287; c=relaxed/simple;
+	bh=/2MfOdg8MUiGmtobUHmlnGMUiWJBsuElE69Hctdfu/g=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=h22AGhn3Zl6R7l0hxwdTa7mMt6jeBF0RThZf72LdEwImHrWxUIyonKmIjASak/d+PE5IWz6Yq1jbH0C+gggfTHekmqObyvL7XlKD/DhbpGItS6jam7mxCn330La827d+CV/kItjSpJlus3BWb7osceYFpDelUyPLAu2l6UnId9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=md9Xo8pZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="d0HgA9Ai"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:From:Reply-To;
-	bh=f0uGqlPESCOfU7sin8e1FZf3dAwPtBxZbATe/9/GMWA=; b=d0HgA9AiyCWc7eZHKH0IX7RuDK
-	XZ/M3ogVB0DBtwJ8U1UhRwZXKTNjvyO6IRWJKtw2VVSyv9cUkho/oR2+WkbYVZeedim5Wp7Ihiiwd
-	0x+UFdspbTo/Lg/K9U7853/0Wbl6gBz16LKnGh6PvP0bEvr/uJU4FO91NN8xDNKkXdLjabzdXcoly
-	SI7CFCvE4UDSzmg8lm5EOUHmIBD9Ij8W0hRTADUR9GB6zio+ha2NT/R1MgwE9RoKRMThWN53+Ndzm
-	zjxKBX2vwemO9nVqorDZ8LSHv92k5MvRaiCCqROxhB9EdiKSUNJrv6mZOfhCvTmYjTLtQTetxROJh
-	rcBM4leQ==;
-Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA512__AES_256_GCM:256) (Exim)
-	id 1wqSUh-00CXkL-5j; Sun, 02 Aug 2026 11:28:31 +0200
-From: Luis Henriques <luis@igalia.com>
-To: Ali Ahmet Memis <ali@iusegentoo.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,  Christian Brauner
- <brauner@kernel.org>,  Jan Kara <jack@suse.cz>,
-  linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  stable@vger.kernel.org
-Subject: Re: [PATCH] ufs: free the buffer head container in ubh_bforget
-In-Reply-To: <20260801024119.12667-1-ali@iusegentoo.com> (Ali Ahmet Memis's
-	message of "Sat, 1 Aug 2026 05:41:13 +0300")
-References: <20260801024119.12667-1-ali@iusegentoo.com>
-Date: Sun, 02 Aug 2026 10:28:29 +0100
-Message-ID: <875x1syipu.fsf@orpheu.olymp>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="md9Xo8pZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F06A01F000E9;
+	Sun,  2 Aug 2026 09:34:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785663286;
+	bh=fnEoT67RUxb47jnstOPEwgw5zUykBPwRd5QDKsPq52Q=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=md9Xo8pZYhYycX+Cp91uNSzNGl4073oePacXOvWWCjnaTu8ZpNu7db9nO2rMRPkCM
+	 QuvUfsbLIj6ol1jsMv67ocScT2N/jI7/bXzZ+T/IZy3NSuhO5TPlKBKfwZE0zsk322
+	 fTvNvJ0XPRtZHXTh1bdC+j4ImARwjYwpwAw7FCxQuKwHpUhO6S1AM9fIQfwz8pzHxJ
+	 Uz/So2SbCNg7YJfkosY1mRmOMjAejm15LmULb1QLfQFf2m5gb6TO+P89ME8lf/RrYv
+	 3C+HdQ0xouKGzj0bzK5jGeLq8IU+NFPkOkPURGQI0FFtZR6AMSPbYTPk5D6btQvnxi
+	 BHLWFgPPSVe5g==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.phl.internal (Postfix) with ESMTP id EA803F40089;
+	Sun,  2 Aug 2026 05:34:44 -0400 (EDT)
+Received: from phl-imap-05 ([10.202.2.95])
+  by phl-compute-01.internal (MEProxy); Sun, 02 Aug 2026 05:34:44 -0400
+X-ME-Sender: <xms:NA9vakiB-orzPGvVcY1LIV5-9s8WwjlMkpWoFBIZYIUz-abzWLi-aw>
+    <xme:NA9van2Pvrb11eemBJhWV-KZLzHkGWEXbvqfgUDHRL45sAj1VwUE8wv-OfW-K-yWV
+    P_96hHIbpOLdRBzQlhNk4j8vfgca4xgi-YPAPXyiA1LItb9bvKyX7k>
+X-ME-Proxy-Cause: dmFkZTEmFJYMTQb2t66UfpflVE3iVIqgATyCpkJzcRNlXvdnxFbBpWQT3WHLkGEMEC/oz5
+    7Ps9UCDzDI6IXFV+FLuZVRV9DRuajPoDErmkvgi29L1IV5IjeaJ2SRtOIKN+olWM57R+BW
+    oqaYB72qqEdmNKjkZFevSjkXR+vwrRQBizRGs8Rm0mcYRit9tFvOB2UJrfXyviRMbwR4eX
+    cUHS0ZQLQbqncxzWHOLc1hCQab9EZAxSEAJJKkTjoZ+mWV7ZktmBWOYREPsrd40/M5/wHC
+    beKcGgGjvqBC/U6WObF3m67NEL7+eqciSm04xU+7J+HddgAY2NXyZ0o4YeI5u0Sv53YhfU
+    UZtpaZ5zBW6ZX3yATkuvTBXoqy15u7xDcn1wBDd3o0QlWlTiZiQIthF94U0Fpm3OaQJ6aI
+    Nx3dNxV3M4jkg5QYiVpFVi4XCITcp4YGviohJBVJjIR0/0gQTgrFOB4FS9YFpKp+MfRNfq
+    Lqm9+3KjQ8Y6BxAEZTdxMnM9qkA+hhJacrFIajcb64Ar0svbX3Bq/DbBdhLQ/yUK8UaNTE
+    bNBOSirNPSWm8TCMtAxrTlFtfhr1GMaV7AxbIx0jOpEFk1IJ2cj0C3SB9iMrXiz8miaoL0
+    ALXyBVJzAfIWs42QC9C0MKyWmMiQl6ag+cI86AY6mj1TW/zIWXdQJTDcEcVQ
+X-ME-Proxy: <xmx:NA9vagPLoMNs0oEsd3JvlTXK2QbjVKejvBO45EanfVKWjYNxeQK50Q>
+    <xmx:NA9vagSSjGbKzPQSQxPSSDv3aXKLRi15dG-SbySm0FfU4Ec3zap8Fw>
+    <xmx:NA9vauiSL28ZBFRj1ZtHxPxqXbUstqngTUK_IHxa24Ytt_PZfxAHqg>
+    <xmx:NA9vap8bTkK7l9ZlfF4y6TZWh022-1E5iA7nuAfeT7Zx75cw4EqXhA>
+    <xmx:NA9valETr84WanEpcYqliemhjiQhDF6tc0DRsewdZKIQ9LZi8a4e6P1Q>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id BE986182007E; Sun,  2 Aug 2026 05:34:44 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Date: Sun, 02 Aug 2026 11:34:22 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Karl Mehltretter" <kmehltretter@gmail.com>,
+ "Russell King" <linux@armlinux.org.uk>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Message-Id: <516872af-e52b-489a-9dcf-d36a70d50c76@app.fastmail.com>
+In-Reply-To: <20260801163520.74751-1-kmehltretter@gmail.com>
+References: <20260801163520.74751-1-kmehltretter@gmail.com>
+Subject: Re: [PATCH v2] ARM: smp: set current pointer in assembly before jumping into C
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Sat, Aug 01 2026, Ali Ahmet Memis wrote:
 
-> ubh_bforget() forgets the buffer heads referenced by a struct
-> ufs_buffer_head but never frees the container itself, unlike its
-> sibling ubh_brelse() which calls kfree() on the way out. The only
-> caller, free_full_branch(), allocates the container through ubh_bread()
-> while releasing an indirect block during truncate, so every fully
-> removed indirect block leaks one ufs_buffer_head. Truncating or
-> unlinking a large file then leaks one allocation per indirect block,
-> which kmemleak reports with a free_full_branch, ufs_truncate_blocks,
-> ufs_evict_inode backtrace.
+
+On Sat, 1 Aug 2026, at 18:35, Karl Mehltretter wrote:
+> With CONFIG_KCOV_INSTRUMENT_ALL=y, secondary CPUs fail to come online
+> on ARMv6K/ARMv7 SMP:
 >
-> Free the container after forgetting its buffers, mirroring ubh_brelse().
+>   CPU1: failed to boot: -38
 >
-> Luis Henriques posted a fix for this leak in 2018, but it was never
-> applied while fs/ufs had no active maintainer, and the leak is still
-> present.
-
-It's been a while, and I don't even remember why I was running xfstests
-against this filesystem :-)
-
-But the fix still looks OK.  My original patch also dropped the 'if', but
-that's just a minor detail.  I don't know who's using this ufs driver
-these days -- each BSD has it's own thing, and it's likely to be risky to
-mount a filesystem in rw mode.
-
-Cheers,
---=20
-Lu=C3=ADs
-
-
-> Link: https://lore.kernel.org/all/20180705150415.25070-1-lhenriques@suse.=
-com/
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> The compiler inserts a call to __sanitizer_cov_trace_pc() at the entry
+> of secondary_start_kernel(), before set_current(task). The KCOV hook
+> dereferences current while TPIDRURO is still uninitialized, causing a
+> data abort before cpu_init() has installed the exception stacks. The
+> secondary CPU consequently never completes startup.
+>
+> Initialize current in the secondary assembly handoff, as
+> __mmap_switched already does for the boot CPU.
+>
+> With current set in assembly, the set_current() call in
+> secondary_start_kernel() is redundant. Drop it together with the
+> function and the task argument. The hotplug resuscitate path in
+> arch_cpu_idle_dead() needs no hand-off either, as smp_ops.cpu_die()
+> can only return if the CPU kept its register state, TPIDRURO included.
+>
+> Fixes: 50596b7559bf ("ARM: smp: Store current pointer in TPIDRURO 
+> register if available")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
-> ---
->  fs/ufs/util.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/ufs/util.c b/fs/ufs/util.c
-> index dff6f7461..3c65fbef6 100644
-> --- a/fs/ufs/util.c
-> +++ b/fs/ufs/util.c
-> @@ -117,8 +117,10 @@ void ubh_bforget (struct ufs_buffer_head * ubh)
->  	unsigned i;
->  	if (!ubh)=20
->  		return;
-> -	for ( i =3D 0; i < ubh->count; i++ ) if ( ubh->bh[i] )=20
-> -		bforget (ubh->bh[i]);
-> +	for (i =3D 0; i < ubh->count; i++)
-> +		if (ubh->bh[i])
-> +			bforget(ubh->bh[i]);
-> +	kfree(ubh);
->  }
->=20=20=20
->  int ubh_buffer_dirty (struct ufs_buffer_head * ubh)
-> --=20
-> 2.54.0
->
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
+Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
