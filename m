@@ -1,49 +1,78 @@
-Received: from out-184.mta0.migadu.com (out-184.mta0.migadu.com [91.218.175.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555343BB690
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 15:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A293B960F
+	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 15:23:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785683345; cv=none; b=qK6sFGRc46dlFF+XDnDuwwcBjUlwZyd+CmlUMrk+2XSL+WlqfgqO8KgDu3exGUHo2a3DIKRhGpF7CcAgJGHo9wt3imX4EMgKWqLUoasJzSbZWnNyXodiZP7e/Eb2ZiOosutzXfcwRafHHthofQCN5jDNPyqfyse8wHcuUw8L6Xw=
+	t=1785684181; cv=none; b=H6QQ2UzSMvxnyyaBBfE2T/wQY9goHPHDwjGz8Flnqy6GSEmbTf2xy89O/WZrxFMyqVmBF+yjtXYC8d5ERDaa6wgjH3rRAB7ALitIVG8psPPiHyxHDnVYRqiOUsrG7JLpwhZubUYk2piM7o6tYf9+TTCGNuXkmjYDHcM98ojbaVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785683345; c=relaxed/simple;
-	bh=FLLmXGagEOlYSTN9NzFDSiVZQufg9oxohGb0jewo8S8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kjBcL4qwiDochs6K36PXddJZFdmQAhXpD+2x4Bj8HyDCEOJtWLn0yTVnHqFfYP/NljS60gAeb2M0V5YgvH5kmX2LwcJOsXoX5Cm6lw9dgNa+y0LF7o21kH3W3+M/RZGlONHmhjKt3/rOxh9y5s4NJyXiA1ug6A3rRFZpOTF/E98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gMKSneXP; arc=none smtp.client-ip=91.218.175.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785684181; c=relaxed/simple;
+	bh=yEy2DCNdJA/I7Pl94OowDCOEAR1CJ0sdHmR8slgOib0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KGcJvIt/I8SkxkLaNGG0UFUvJPtYG8CMDYvDk4mscIgRDpZKYdZ0wIPBQ7pvTHAQiEdCtaaMzwtkp42o5BpCKzeiBkZVSZQU2U0Qz1gfJrS89bAa+YL6pJ+0vtP5gI2c/WZjm0aHBacpgx0QpdNs387DQkvUJyd3ekoExRw2L80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dsNajbIt; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gMKSneXP"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785683329;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=UHMm2Z1OTcyZHwDxnaYxeN3t4Vh1LnM+EKpoEcU3r9c=;
-	b=gMKSneXPJFyeWLDYzxirNzasdTlr+W9DcufRPbjyJf1BfLd/u1/KeSM/pbKdNb3SA9gXYe
-	W7NNh/2uQ4M0PsIYWE4gfoHErIm4C8IDArTrzSgAjN8YSdQEPOULsPYYpKeZjSlemCpj5N
-	/TwGZzBRaAYdkao9EDGLC+gG/Cb04aQ=
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev
-Cc: stable@vger.kernel.org,
-	Sascha Bischoff <Sascha.Bischoff@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] KVM: arm64: vgic: Reset in_kernel on private IRQ allocation failure
-Date: Sun,  2 Aug 2026 16:08:45 +0100
-Message-Id: <20260802150845.3485757-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dsNajbIt"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84a4d8fd6ecso2744564b3a.1
+        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 08:23:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785684180; x=1786288980; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hd5PlWgRxgIJLaDM2acSHPFR2qhyClwTJqROSBY7RIs=;
+        b=dsNajbItFT+eJSKTraYmSELD7V8k0zR3yLeYVkWclX4K1HlN9kEqIHBnyR3pzKwaqz
+         d1izWy2FuHE/+KItT8IVK3CnchbpNXsbBtg9pwekiNAePACMrvGEkGemioh7UElzmm8v
+         0dlMJDYIX8dWJbOF3untvIJ8n06wT5b/oHf3BNd3EYgckYZqFdClytkVPJTvWW8bcOGb
+         zsbF0fXwXqyk4cEAiniL4zO1cumH6sc/xv2FR29vy5L3jYrFU8400WO8UvLP+jgjRelJ
+         ZC8gCMBo41yk4kW+JNLIGQgPKTYTh9orMiV0bEpF0w8hpG64SVTU6CopTCqH9hLRZejs
+         BMRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785684180; x=1786288980;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hd5PlWgRxgIJLaDM2acSHPFR2qhyClwTJqROSBY7RIs=;
+        b=fmZKVTio11j6UYKKTGC3RnbjMHKRg7/WUAvbvXNqRzX1g+IDf7vR3AXkVPQGIyZ0fg
+         ab4ug5o4HfHBJf/Y41nZFqrlhc+X0w+O12qaPsqmtuC4mLm9lL1xJLNl6vvzWWkCG/NY
+         e26ye9SqNOe9whE3A3UM8cfiIjXMrzlcmAQv8rXhKUsrDxTOFRvHD/Yk39Av7U+/JBMX
+         RUTIyNAYs4P5N1kCpAPF+LJSgpZsG57kLGn3/Y9Ki6OxR2csRnafezllaHR2Wv9gmgvQ
+         H/UfOz0cC3Nvq2bAP75GMkXKBvzU7Tls3/Xa0RwcV2lUvschBdrWPhirJkPK5I/IlrKi
+         ulxw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5aB30J/nYWqQ1MiYLLf7BMlp3AKl5a2JcYzqyIjPYpR8QQpopsFpj7bGUw3p4Fcd+MFDPbJU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyOVnhI6cUvLQqR1Mqa1X0DMtMpjIj1nqHMFiDxDKWNvTyCphNN
+	TcHHCdYJcZihTE1oFNyrJ/RRKHMVZCC4F1ZSA/kweJTvF8AA0OEKXOWaGYLM9O9wqpg=
+X-Gm-Gg: AR+sD11sL9nsThk1WK89k+H2CbYslFuM5aKbCGxB16LGCkNFm2ZOW8dxvdWVdJIrRIj
+	rPFXLAtoFjAz7Nsf0bP3JaH/bDuZrMKIh12X47kL2Zm0qyUxeMNptWbfcX01j1PRXLqwQeijsc9
+	hl5HVbR6ohbALDeaDkTW7/B+Ydia7ESjhsivUvDJ/2JcXO+zi11DvCOcfZof79xv7ek6QqIwLgA
+	FAjshAahnY7nx+95QyqQ6OttV1Qt0JkMpIsfnZlsuZEKjS0YAhqr1CRtUasMIQgm2poTNy7Nj9t
+	Nkzhvm9La0NIccJFQyHOcQdYYUd53Mdoyo9goYnMP9qs/AXCgPju7vy3AavWtXuRZp+IozXSDJg
+	lhOfxwPEUgu87/C8GFzxs4/cF5lYo31/Zi5SISVMA/IkO/B/hRcVOQCbn2fNarXMQokf0cbY/re
+	mZudh9h3mWlv+9q3ApNMzQWRmXbkIKzxe628+SGppPkE1xH4RpMMlYmcFZT4T6sjWoSeRAjnPdh
+	u1UAAWe7/GnkLGn1rCVJCabamcGmBj/1pVgyWw6DeP8wg==
+X-Received: by 2002:a05:6a00:2d25:b0:848:469b:3d19 with SMTP id d2e1a72fcca58-84ee4881d3emr6073405b3a.29.1785684179816;
+        Sun, 02 Aug 2026 08:22:59 -0700 (PDT)
+Received: from chcpu15.cse.ust.hk (191host116.mobilenet.cse.ust.hk. [143.89.191.116])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84edbe7a243sm2573001b3a.24.2026.08.02.08.22.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 02 Aug 2026 08:22:58 -0700 (PDT)
+From: Qi Zhang <marsy12010123@gmail.com>
+To: Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Michael Grzeschik <mgr@kernel.org>
+Cc: v9fs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org,
+	Qi Zhang <marsy12010123@gmail.com>
+Subject: [PATCH] net/9p/usbg: clear stale request context after abort
+Date: Sun,  2 Aug 2026 23:21:48 +0800
+Message-Id: <20260802152148.810390-1-marsy12010123@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,38 +80,75 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
-kvm_vgic_create() sets vgic.in_kernel before allocating the per-vCPU
-private IRQs, but the allocation-failure path resets only vgic_model and
-leaves in_kernel set. As irqchip_in_kernel() is !!in_kernel, the VM is
-left with an in-kernel irqchip but no model, and the -EEXIST guard at the
-top of kvm_vgic_create() rejects every retry, so userspace cannot recover
-from a transient -ENOMEM.
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-Reset in_kernel alongside vgic_model on the failure path.
+usb9pfs_clear_tx() serializes access to the active TX request with
+usb9pfs->lock, but leaves in_req->context pointing at the request after
+p9_client_cb() drops the transport reference.  A later teardown path can
+therefore retrieve the same request after it has been freed:
 
-Fixes: 9435c1e1431003 ("KVM: arm64: gic: Set vgic_model before initing private IRQs")
+  CPU 0 (p9_usbg_close)        CPU 1 (usb9pfs_disable)
+  lock(usb9pfs->lock)
+  req = in_req->context
+  p9_client_cb(client, req)
+    p9_req_put(client, req)
+  unlock(usb9pfs->lock)
+  request reaches zero refs
+    kmem_cache_free(req)
+                                lock(usb9pfs->lock)
+                                req = in_req->context
+                                read req->t_err
+
+The lock orders the two callbacks, but cannot protect a pointer that
+remains published after its reference has been released.  KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in usb9pfs_clear_tx+0x166/0x1b0
+  Read of size 4 at addr ffff88810e7420f4 by task poc/94
+  Call Trace:
+   usb9pfs_clear_tx+0x166/0x1b0
+   usb9pfs_disable+0x1d/0x30
+   reset_config+0x9d/0x200
+   __composite_disconnect+0xa7/0x140
+  Allocated by task 93:
+   kmem_cache_alloc_noprof+0x141/0x370
+   p9_tag_alloc+0x8f/0x5b0
+   p9_client_prepare_req+0xff/0x350
+   p9_client_rpc+0x1a5/0xac0
+  Freed by task 0:
+   slab_free_after_rcu_debug+0xa6/0x1e0
+   rcu_core+0x50a/0x1850
+  Last potentially related work creation:
+   kmem_cache_free+0x1db/0x3d0
+   p9_req_put+0x164/0x1f0
+   usb9pfs_clear_tx+0x120/0x1b0
+   p9_usbg_close+0x7e/0x150
+
+Clear in_req->context after the callback while still holding the lock.
+This matches the consume-and-clear pattern in usb9pfs_tx_complete(), so
+subsequent teardown calls return without touching the released request.
+The existing callback and error ordering remain unchanged.
+
+Fixes: a3be076dc174 ("net/9p/usbg: Add new usb gadget function transport")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Qi Zhang <marsy12010123@gmail.com>
 ---
- arch/arm64/kvm/vgic/vgic-init.c | 1 +
+ net/9p/trans_usbg.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/kvm/vgic/vgic-init.c b/arch/arm64/kvm/vgic/vgic-init.c
-index 907057881b26a..fdac6e24762da 100644
---- a/arch/arm64/kvm/vgic/vgic-init.c
-+++ b/arch/arm64/kvm/vgic/vgic-init.c
-@@ -176,6 +176,7 @@ int kvm_vgic_create(struct kvm *kvm, u32 type)
- 		}
+diff --git a/net/9p/trans_usbg.c b/net/9p/trans_usbg.c
+index 419cda13a7b5..9a83dff6f3dd 100644
+--- a/net/9p/trans_usbg.c
++++ b/net/9p/trans_usbg.c
+@@ -439,6 +439,7 @@ static void usb9pfs_clear_tx(struct f_usb9pfs *usb9pfs)
+ 		req->t_err = -ECONNRESET;
  
- 		kvm->arch.vgic.vgic_model = 0;
-+		kvm->arch.vgic.in_kernel = false;
- 		goto out_unlock;
- 	}
+ 	p9_client_cb(usb9pfs->client, req, REQ_STATUS_ERROR);
++	usb9pfs->in_req->context = NULL;
+ }
  
-
-base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
+ static void p9_usbg_close(struct p9_client *client)
 -- 
-2.39.5
+2.43.0
 
