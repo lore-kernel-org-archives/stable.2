@@ -1,73 +1,35 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C525924336D
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 01:58:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9A6DD2D063E;
+	Sun,  2 Aug 2026 02:04:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785635909; cv=none; b=USF1IWKaBCnIRRxu2k8ZDhCPcpCOwcKE4+T+HyfsecpYxX4g5nIDrm8c7K8DJlxz67Jd1pUhBcgvemLl/8JnzQqT7HwKvhNgKSLtqPHlMGXKsYYWLFyV/6/xIYAt96gbKBM1vlFsj5LTBrZhspn6oZyJPa0IyZw+biB9uqYNW4s=
+	t=1785636262; cv=none; b=WZr2lA6kAjcx8m02IoKwr8I9qJcngCXQ/PC3dHBZxsnkav95aVh4uHcJBj3XCRPubY4mO3/IJROIFlHSu9TY/6ypA2e89TxsMIFKG1Z7SSJF317fIYpo1I3m7dJg6RD0AY0MkNgd1K2OW0QgFrBecBykw/BgGPUOjjPMRvqZeRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785635909; c=relaxed/simple;
-	bh=wzxiYwfhRVsXnx+8W3VlocOi0kLSzn35bJPGn2RwSig=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X2r1aBQctV5Vaib7qqHLRKRB2yBXXD855Pp68/hrcjzDj7krDfHpkHwCMzQrjy/mi9ZwoYFFJhEkyGvfDAX46q6WRKygF1fs9zGcQDkhYyR01yCmllELqYU5Y6qE5r/H7pYYSQRzbi/N5VO2+T1Pz+88lC7xScVOv9QUxU4zYtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=CVCxKkcX; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="CVCxKkcX"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-381c51fde6bso2412763a91.2
-        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 18:58:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=snu.ac.kr; s=google; t=1785635904; x=1786240704; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OWMj4cY9ERrlADJCWaDaHn0JuAGU3fGMGPKTyvlQjWk=;
-        b=CVCxKkcXs65Z2Q5yUj7QFa6g1/STqDvwXlqXaexWs+g6/PfzmTaAgEbiW5+NSCb8uN
-         mxrkhSZu8ZGGj7J6g+5pmXq+Y/tTsE2448k9unwe+AKWTi/QfxmqRtezwtx3KNtghh9T
-         oooV09dP0EYkLHDHHnd80+YevidHcNbe3jSrI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785635904; x=1786240704;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OWMj4cY9ERrlADJCWaDaHn0JuAGU3fGMGPKTyvlQjWk=;
-        b=DYiQHRuvkHJcQ/zzzjJ/J5l0YEWPDxPEcZiVTpihG97JINMX3wWT5/bCV/QYBVEJeP
-         +RmNU8stIccXC4Z0MpZUjxIk8npWQKZZxBegO8OHh3MBj0IIpuxE7HsQbeOaci2v6u40
-         zsx9YGTI+Dz9ibYQ3jGk+C2RcCz3M5ME/pra947enfU/rIFvy2T5xMJ1/tJr/si4xaaf
-         aIzwgBXecSrZ+TQ4LDWVy3AHpvn+Y0rLIgd7hIWs1zOdK7xea7Yzvm1hOZg+5lA3qGk4
-         nVbu93pdWThZkM3jY1U471NLsicQgk+jJ9pTYEfHknxfLQMWU2Z1oZPKUmwOAlPyWZMw
-         TS3w==
-X-Forwarded-Encrypted: i=1; AHgh+RqQNoeSE9RiMQENVn0epOn8VnD5NfFII+HUCgQbPqCyF9pIzqLj95d2Hnkm8ZlAHuiO33Iccj0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YySIX7tooIkMN3HPETo2jBywsAJMMIP4CA3addCdTymV2eRv7ka
-	SbhaaaM+kECl3TIW6SZfRUpqX7cxTz6ByXS25kUb01x/KxQM74PMU/RCYQcLelvddeM=
-X-Gm-Gg: AR+sD10iFwmjXQoL3D0FUZjth22HIICMmvyr8HyreWU4+Wrydzf8M4vj7W52hUPhXJA
-	LoEB6Fq8LTfyxQn9k//EYlHPjg6iJrsyf+HGRGNbL92wbPFKehk1foSSqfAzUMPJjrV1ewoNTIH
-	wZL2Nu8gZtmNsKPn+xFt1cmNiU57PIZvDbyF+FuC+UQGVy6gQ2ot4nEptnp5rbL5f61/OXIcDES
-	oaQ8awS2bGNKHrwR6+PzzxnjvtvYpB90lx14W8X1LWyXW6l7lha95z2bbFbuOWq31ZywvPz6m59
-	owXcxwp0YynDctHLVDpPqiFEl2oa1uGcczk/qf/46+b/d7+ETw0+7l2caiO2XffNKqiEEQZX/KZ
-	jHFB94j0XDoYH6vuZsnbKhD7z4SZejeolxw0Xx5pkfV6cYsty7d52K3IMpGVct2N6ymBMJbysB+
-	TqtXq5zGefpZO9e5cZ2/uxX1V4vLw+egak/juoPpeQYbrms43jGhqTfRgINlmLPX4m0AiAmMnc3
-	4ZidBW2lKE=
-X-Received: by 2002:a17:90b:4b87:b0:38e:3fdc:62e5 with SMTP id 98e67ed59e1d1-38fbc498642mr4250323a91.19.1785635904104;
-        Sat, 01 Aug 2026 18:58:24 -0700 (PDT)
-Received: from ziggs ([147.46.121.36])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38fb2f6539fsm2393663a91.5.2026.08.01.18.58.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 18:58:22 -0700 (PDT)
-From: Youngjae Kwon <yjkwon0026@snu.ac.kr>
-To: jack@suse.cz
-Cc: amir73il@gmail.com,
-	linux-fsdevel@vger.kernel.org,
-	Youngjae Kwon <yjkwon0026@snu.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] fsnotify: Fix stale object mask after concurrent mark updates
-Date: Sun,  2 Aug 2026 10:58:00 +0900
-Message-ID: <20260802015801.2426818-1-yjkwon0026@snu.ac.kr>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260801055704.2663156-1-yjkwon0026@snu.ac.kr>
-References: <20260801055704.2663156-1-yjkwon0026@snu.ac.kr>
+	s=arc-20240116; t=1785636262; c=relaxed/simple;
+	bh=xKbEZNSJ0MfUPk/Ogo4MrO+ZKJhEBz4eja60qCvYOlQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VYZeoD4f5Q4rhlZz0yFVlSOBUWkn7QSOW3T/gaS2s9Hl2OYHSegkA/gIoB0wMuN8tIQFJhYIve2tAdnSbcbUpuZRuBJFVGs+DYYugnFa+3QvtUcsRRkArzlAYSQ/mV9e9wCHoyuRh9XwlL+MhLtXIXdZ5MaE8AHtQ7L6057V7kQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wAn8n2bpW5q+QxZAA--.8833S3;
+	Sun, 02 Aug 2026 10:04:12 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgCH9cqbpW5qgk5zAw--.23194S2;
+	Sun, 02 Aug 2026 10:04:11 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-pm@vger.kernel.org
+Cc: sre@kernel.org,
+	linusw@kernel.org,
+	arun.murthy@stericsson.com,
+	anton.vorontsov@linaro.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] power: supply: ab8500_fg: fix use-after-free on remove
+Date: Sun,  2 Aug 2026 02:03:16 +0000
+Message-Id: <20260802020316.417757-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,125 +37,129 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgCH9cqbpW5qgk5zAw--.23194S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?WLVragXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI0TwYvJJsLt58VnWhmFj6/wTGpwf9BHTNqP+i4dXGDUEahK
+	PROcqqbFF12lOVoJfpep9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxAFyfArWkJFWkGr43WF1fKrX_yoW5uF1xpF
+	Z3WFyYk3y8XF4jvFZxJr17CF13Ca1xAr17Cw4fGa1Syw15X3yqyw1rKFy0gF95WFyrJ39r
+	Aa95J393ur1F9agCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Cb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAF
+	wI0_Cr1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57
+	IF6xkI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE
+	14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2
+	IYc2Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I
+	3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxV
+	WUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAF
+	wI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcI
+	k0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j
+	6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jUGYJUUUUU=
 
-When a mark gets a new event bit, fanotify and inotify may avoid
-recalculating the object mask if the cached aggregate already contains that
-bit. This is racy with a recalculation triggered by a concurrent update to
-another mark on the same connector.
+ab8500_fg_remove() destroys the driver workqueue while the threaded
+interrupt handlers are still armed; they are devm-managed and freed
+only after ->remove() returns, so a handler that fires in that
+window queues work on the freed workqueue.
 
-The concurrent scan can read the mark before the new bit is added, while
-the updater reads the old aggregate before that scan publishes its result.
-The updater then skips recalculation and the scan publishes a mask without
-the bit, leaving the object mask stale after both updates complete.
+Tear the workqueue down through devm instead, registering its cleanup
+after the power supply and before the interrupt requests.  devm then
+frees the interrupts first, so the handlers can no longer queue work,
+before disabling the delayed and plain work items and destroying the
+workqueue.  Disabling the items, rather than cancelling them, keeps
+them disabled so no producer (including the power-supply
+external_power_changed callback) can requeue them.
 
-This can be reproduced with two fanotify groups watching the same inode:
-one thread removes FAN_MODIFY from one existing mark while another thread
-adds FAN_MODIFY to the other mark. After both fanotify_mark() calls return,
-writes can fail to produce FAN_MODIFY for the group whose mark now contains
-the bit. This was reproduced on an unmodified v6.12.95 kernel. The
-equivalent inotify interleaving loses IN_MODIFY events.
+Found by an in-house static analysis tool.
 
-For normal fanotify additions, recalculate whenever the raw mark mask
-changes. The normal mask is not cleared asynchronously, so an unchanged
-addition cannot introduce missing interest. Always recalculate ignore-mask
-updates because FS_MODIFY handling may clear the ignore mask without taking
-mark->lock, making snapshot comparisons unreliable.
-
-Always recalculate after updating an existing inotify watch. Its replace
-path temporarily sets mark->mask to zero, so a concurrent scan can observe
-zero even when the old and final masks are equal. Assigning the replacement
-mask directly would avoid the transient zero, but existing-watch updates
-are infrequent, so unconditional recalculation is simpler.
-
-Link: https://lore.kernel.org/all/CACwKKmCZdiZDoFuYm6LZhQ=XvHPk0fNKH=X3LmoXMqakYqJaNw@mail.gmail.com/
-Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
-Fixes: 912ee3946c5e ("fanotify: do not call fanotify_update_object_mask in fanotify_add_mark")
-Cc: stable@vger.kernel.org # needs adjustments for <= 7.0
-Suggested-by: Jan Kara <jack@suse.cz>
-Suggested-by: Amir Goldstein <amir73il@gmail.com>
-Signed-off-by: Youngjae Kwon <yjkwon0026@snu.ac.kr>
+Fixes: 13151631b5bd ("ab8500-fg: A8500 fuel gauge driver")
+Cc: stable@vger.kernel.org # v6.10+
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
-Changes in v3:
-- Preserve the normal fanotify duplicate-add fast path by recalculating
-  only when the raw normal mask actually changes.
-- Recalculate fanotify ignore-mask updates unconditionally because the
-  ignore mask may be cleared concurrently without mark->lock.
-- Keep v2's unconditional recalculation for existing inotify watch updates.
+ drivers/power/supply/ab8500_fg.c | 24 +++++++++++++++++++-----
+ 1 file changed, 19 insertions(+), 5 deletions(-)
 
-I will send backports for stable kernels through 7.0.y after this lands.
-
- fs/notify/fanotify/fanotify_user.c | 12 +++++++-----
- fs/notify/inotify/inotify_user.c   | 15 +--------------
- 2 files changed, 8 insertions(+), 19 deletions(-)
-
-diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fanotify_user.c
-index 9ee373ff5..9c27db2b7 100644
---- a/fs/notify/fanotify/fanotify_user.c
-+++ b/fs/notify/fanotify/fanotify_user.c
-@@ -1321,16 +1321,18 @@ static bool fanotify_mark_update_flags(struct fsnotify_mark *fsn_mark,
- static bool fanotify_mark_add_to_mask(struct fsnotify_mark *fsn_mark,
- 				      __u32 mask, unsigned int fan_flags)
- {
-+	__u32 old_mask;
- 	bool recalc;
+diff --git a/drivers/power/supply/ab8500_fg.c b/drivers/power/supply/ab8500_fg.c
+index 0000000..1111111 100644
+--- a/drivers/power/supply/ab8500_fg.c
++++ b/drivers/power/supply/ab8500_fg.c
+@@ -3054,6 +3054,20 @@
+ 	flush_workqueue(di->fg_wq);
+ }
  
- 	spin_lock(&fsn_mark->lock);
--	if (!(fan_flags & FANOTIFY_MARK_IGNORE_BITS))
-+	if (!(fan_flags & FANOTIFY_MARK_IGNORE_BITS)) {
-+		old_mask = fsn_mark->mask;
- 		fsn_mark->mask |= mask;
--	else
-+		recalc = old_mask != fsn_mark->mask;
-+	} else {
- 		fsn_mark->ignore_mask |= mask;
--
--	recalc = fsnotify_calc_mask(fsn_mark) &
--		~fsnotify_conn_mask(fsn_mark->connector);
-+		recalc = true;
-+	}
- 
- 	recalc |= fanotify_mark_update_flags(fsn_mark, fan_flags);
- 	spin_unlock(&fsn_mark->lock);
-diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
-index ed37491c1..5f19c24ec 100644
---- a/fs/notify/inotify/inotify_user.c
-+++ b/fs/notify/inotify/inotify_user.c
-@@ -539,7 +539,6 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
- {
- 	struct fsnotify_mark *fsn_mark;
- 	struct inotify_inode_mark *i_mark;
--	__u32 old_mask, new_mask;
- 	int replace = !(arg & IN_MASK_ADD);
- 	int create = (arg & IN_MASK_CREATE);
- 	int ret;
-@@ -555,27 +554,15 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
- 	i_mark = container_of(fsn_mark, struct inotify_inode_mark, fsn_mark);
- 
- 	spin_lock(&fsn_mark->lock);
--	old_mask = fsn_mark->mask;
- 	if (replace) {
- 		fsn_mark->mask = 0;
- 		fsn_mark->flags &= ~INOTIFY_MARK_FLAGS;
++/* Disable, not cancel: works stay disabled so nothing can re-arm them. */
++static void ab8500_fg_destroy_workqueue(void *data)
++{
++	struct ab8500_fg *di = data;
++
++	disable_work_sync(&di->fg_acc_cur_work);
++	disable_work_sync(&di->fg_work);
++	disable_delayed_work_sync(&di->fg_reinit_work);
++	disable_delayed_work_sync(&di->fg_low_bat_work);
++	disable_delayed_work_sync(&di->fg_check_hw_failure_work);
++	disable_delayed_work_sync(&di->fg_periodic_work);
++	destroy_workqueue(di->fg_wq);
++}
++
+ static const struct component_ops ab8500_fg_component_ops = {
+ 	.bind = ab8500_fg_bind,
+ 	.unbind = ab8500_fg_unbind,
+@@ -3155,6 +3169,11 @@
+ 		return PTR_ERR(di->fg_psy);
  	}
- 	fsn_mark->mask |= inotify_arg_to_mask(inode, arg);
- 	fsn_mark->flags |= inotify_arg_to_flags(arg);
--	new_mask = fsn_mark->mask;
- 	spin_unlock(&fsn_mark->lock);
  
--	if (old_mask != new_mask) {
--		/* more bits in old than in new? */
--		int dropped = (old_mask & ~new_mask);
--		/* more bits in this fsn_mark than the inode's mask? */
--		int do_inode = (new_mask & ~READ_ONCE(inode->i_fsnotify_mask));
--
--		/* update the inode with this new fsn_mark */
--		if (dropped || do_inode)
--			fsnotify_recalc_mask(fsn_mark->connector);
--
--	}
-+	fsnotify_recalc_mask(fsn_mark->connector);
++	/* Registered after fg_psy, before the IRQs: devm frees IRQ -> workqueue -> fg_psy. */
++	ret = devm_add_action_or_reset(dev, ab8500_fg_destroy_workqueue, di);
++	if (ret)
++		return ret;
++
+ 	di->fg_samples = SEC_TO_SAMPLE(di->bm->fg_params->init_timer);
  
- 	/* return the wd */
- 	ret = i_mark->wd;
+ 	/*
+@@ -3168,7 +3187,6 @@
+ 	for (i = 0; i < ARRAY_SIZE(ab8500_fg_irq); i++) {
+ 		irq = platform_get_irq_byname(pdev, ab8500_fg_irq[i].name);
+ 		if (irq < 0) {
+-			destroy_workqueue(di->fg_wq);
+ 			return irq;
+ 		}
+ 
+@@ -3180,7 +3198,6 @@
+ 		if (ret != 0) {
+ 			dev_err(dev, "failed to request %s IRQ %d: %d\n",
+ 				ab8500_fg_irq[i].name, irq, ret);
+-			destroy_workqueue(di->fg_wq);
+ 			return ret;
+ 		}
+ 		dev_dbg(dev, "Requested %s IRQ %d: %d\n",
+@@ -3196,7 +3213,6 @@
+ 	ret = ab8500_fg_sysfs_init(di);
+ 	if (ret) {
+ 		dev_err(dev, "failed to create sysfs entry\n");
+-		destroy_workqueue(di->fg_wq);
+ 		return ret;
+ 	}
+ 
+@@ -3204,7 +3220,6 @@
+ 	if (ret) {
+ 		dev_err(dev, "failed to create FG psy\n");
+ 		ab8500_fg_sysfs_exit(di);
+-		destroy_workqueue(di->fg_wq);
+ 		return ret;
+ 	}
+ 
+@@ -3224,7 +3239,6 @@
+ {
+ 	struct ab8500_fg *di = platform_get_drvdata(pdev);
+ 
+-	destroy_workqueue(di->fg_wq);
+ 	component_del(&pdev->dev, &ab8500_fg_component_ops);
+ 	list_del(&di->node);
+ 	ab8500_fg_sysfs_exit(di);
 -- 
-2.50.1
+2.34.1
+
