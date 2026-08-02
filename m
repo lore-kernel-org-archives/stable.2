@@ -1,48 +1,48 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011013.outbound.protection.outlook.com [52.101.52.13])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011047.outbound.protection.outlook.com [40.93.194.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B7D3B3BF2;
-	Sun,  2 Aug 2026 14:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5ABF171B1;
+	Sun,  2 Aug 2026 14:28:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785679654; cv=fail; b=u17kFm1GtbJU+bPNjEp857qsYJtB8fYxt/AZm7Ch7WFJ/tP9H/eaPOWlfbpWdSfUlYkb4GYuDM0fyuU7zvymcJAKDdtFSV4A1bWNb9ZIcbLWF8kjXD/jcIkzJVdcz1Auc87YuQfa96G0wdWQO4Ti+A5OFoIm7Fvz8wbgUXeXEMw=
+	t=1785680903; cv=fail; b=N+6OCZmzQgyenaJWLU7bDceKQFn5CEGDbjkUjacuR59iL82dsqvwlGgSOOHpUL6dCxzTTDzNhT3rHy2MJI0AeSBjR7HIZggL8urvYVxW6lTi8MIrO8WWi/LUnqnrZy/dMrC1FsySHGv1elgCfetOLR9PtpzFvfQiKCDRDX32i+I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785679654; c=relaxed/simple;
-	bh=a23YIHrnYRvcaty93RzgVoIfaJ/zbo0is+/FSUXN93U=;
+	s=arc-20240116; t=1785680903; c=relaxed/simple;
+	bh=3W/qGpOKo76ENBMDLQbqYmJ+MOeYDWB2Gq4l3+C8Lec=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=SQGZ607VylLYMx3xSzh9kX9bxJx62rEIuY+EFbh/GRY74IjVkDY6zdvZ5/oWczJbr7RMcoSfDa0AvaHWcB4xZjGlSXhgZE3FK+DWSn+Qu/yuUJwhNsEqm92eN56rjFUcbNVQutJd4fpf/sj2BpHY1RrJVtUYWGMSIb9is3uWl4w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=sAqq0CZu; arc=fail smtp.client-ip=52.101.52.13
+	 Content-Disposition:In-Reply-To:MIME-Version; b=UOmojPK4+FO2Fqe+6ArHbFzlvGfz05jI1LbtIFvxCfVYc1ZKUM39T9uIPPuNtzfBmpFVlXxbw291w7b6ZO4vNPa4NnuJHu/Zy4pBlzjNP1SAzwU+dh83QIfmn/eJju4c0S5XlrAcZ/AXNVmpujhVd59OajYX0puZokaMUpg4aag=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Ia+IU61f; arc=fail smtp.client-ip=40.93.194.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="sAqq0CZu"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ia+IU61f"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Gwzgeqex15Z24bllSh39hL02ohb8878EI9RzXi7p3uOJW31T6l1DOqAOOAfgE4FgEapmV6ozfZjMV9Tl42GHGBHbzDbgWgBHiBZIq1kZHJjeSFOKLxRq+7TECotrMTyktcWreyXiCBKw1U7iyeRnYxkNYuWIp1641cLoXfVqtLBqa52QumnyQz4MedkwH5e+EdSyA1gP9QZh7lN7Czn6snJXZH+VgEwG5h9CRJ+seiXYV1rhbhzJ0qycHoz9E+LTaE38j8afjK4WPnLHmZEqUPOHP4Bg3vi7rTnDgqIe2hfZsdjVsfZHu9wYprzt3ZnSozejpfyOYQWnz7GedkkNrQ==
+ b=plZ9Eg2BnKggKURVA6Im483uyytcUCTao73D33egvBmi7tI7ekNhuGs7u+DgcOlTDREZQBnbk5iYScQ95elGcK7JVa3qfj1zipqVxlLUb1iAPE5l//k6P6mQVqJaF3kvIHf8Z+WWsDAr+PPCMjgd36Rv2jCuTlmC27/cseLvlRTDi0CujbXUN3cdY136FGuc2wvQDX+HvntmGgJvdvts3aptMJDa3cI3osyEiwqBN9/gTl7eeRcJ1WpM2ntB3IkV3GLZI8G1hW49LKLnl/mliHL+VmaWwFZ2/2rVdLXjKUHPqneNhR+Oz9WVFtEC+peOII3nFFTb84VkZhX1WvA7bg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j9H8VY39uLl6d8k3eAyJ+cn8AGYRgavzAlVvafpqKAk=;
- b=vdIibguXJT3VIfy4389jqso2p5fTIsxJ6gahOh92+O17DT99LFEDKjQMDh798bAibzqFRKkEMPJOomrJBgO4UIOKBy9QWRfd0oTYHlh/Ho1mbYsQ56RgI7TkJj2ZPwRhrXMyEFZDZhMyXfG4Xafulmgfh1VUBbfYM4vQEv4C+n1dDrqX8KDoehrztR87kKgXBAZutS5vmX51F6ChJQP21Zrrj628AX77Dxm46ZWxU11gVRcnxtA5zlS1xEkkw7rx8GYs9r3j2+80w6OPCYKcYFLcjMEMnzR/IahRQkFCR816m82IY4W7Soxq7EKYnE7EydmYlx6iZFNlKTL83b6UFg==
+ bh=5PprW4qhZnPsamDu+8s/2SFMwhB3fP5kEX7bs4Z4DVk=;
+ b=NjV2YuzuJfGjaG8Hni0JoNVqfNSdU0Vm3E3dqUREJ1L1PCcMDhDOjjuDrXnnKk+67NYntsdxVa8MzCB3sRW3wyyZeshBA3t2HZYpIb3qwgvJmpG4wV8tRtBQmInuU/2nT2r/wVPjueHVKEjADIJYLpXbC3lSpjkNW6gz4rrgJeryQ+IpsBzyg5x11cUes0CVtRigScjL3SjgqYJWvpfbmQT8wpFu3yFIkaVUbbN5hhEJKVfDVKHxGYxCTOiHn5LfKzGgHwoC7r9Gns08fxboctsv2yiqrORRDG7CKbC9Z8vwcgFMwJDWhZp678ycCItc5W3eNB+GpON1BS0Lw2pKCA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j9H8VY39uLl6d8k3eAyJ+cn8AGYRgavzAlVvafpqKAk=;
- b=sAqq0CZujzEcgbjJhULZ+vvWqJpg0SVZeEyKWpDVqPKJBBScZzsCU0Tw2xWExYEqD0bafB3UgzLxwPsftNE66i2/wrnbqlTnMqTRuvpasOp9RE5sfobr7L6kiu1FBkjd7+WWKFrI2hbDHeCwlX43HR6G+4wEhDgo/vkqScVsY4eqgxzGL8hfvzIb3lS8L0p1clw6e5ttjYUqQkcTNdL7UzBkeTd2vG74z7JaEd/BAZqnMg6GiJJpYY5kHkRmXoEk13lm2NgY9MhftlmkXhGaW+gWGbeSQkRfv8cc8mByWNJpbINXkYclH1jPHDw+9jL/IIsbWkChzsOxWfUhd7lZGg==
+ bh=5PprW4qhZnPsamDu+8s/2SFMwhB3fP5kEX7bs4Z4DVk=;
+ b=Ia+IU61fdiGcFGPNDoo+jVw8T1nHvm6N9Rko6u89lyDtppccDq91kqyYyS7TJv0Z+0Kp3utbrdncOWLDE+pPmb+zp/7ekuBfNUpsat7YBRVLJ3GYR/DoXXEWE7+Hj0n3U3HUiWv7LgWs3EkSZK8uvWGj8IY/feOqulDRHPPNrjhQSAN/mVrcit0zOZt/WPNuVU+K75eHtG4kyZmJ6Jiv7hs2Vo/ryT2ycOzML6Ph3hhFZca6qJj0QWSW9jHfsOEi24AVQ3Tef+Y0AC8qAYVDdF/OmGXYZyt5qLkhYiXKceUoNGAqf+heWmudGmqDeOrgNO8P4vcoj2eaj4nK1psqQA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from SA3PR12MB7901.namprd12.prod.outlook.com (2603:10b6:806:306::12)
- by CH1PPFDA34A4201.namprd12.prod.outlook.com (2603:10b6:61f:fc00::625) with
+ by MN0PR12MB6223.namprd12.prod.outlook.com (2603:10b6:208:3c1::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Sun, 2 Aug
- 2026 14:07:27 +0000
+ 2026 14:28:18 +0000
 Received: from SA3PR12MB7901.namprd12.prod.outlook.com
  ([fe80::6f7f:5844:f0f7:acc2]) by SA3PR12MB7901.namprd12.prod.outlook.com
  ([fe80::6f7f:5844:f0f7:acc2%5]) with mapi id 15.21.0270.016; Sun, 2 Aug 2026
- 14:07:27 +0000
-Date: Sun, 2 Aug 2026 17:07:18 +0300
+ 14:28:18 +0000
+Date: Sun, 2 Aug 2026 17:28:09 +0300
 From: Ido Schimmel <idosch@nvidia.com>
 To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
 Cc: Jakub Kicinski <kuba@kernel.org>, dsahern@kernel.org,
@@ -52,15 +52,15 @@ Cc: Jakub Kicinski <kuba@kernel.org>, dsahern@kernel.org,
 	wangao@seu.edu.cn, fengxw06@126.com, qli01@tsinghua.edu.cn,
 	xuke@tsinghua.edu.cn, stable@vger.kernel.org
 Subject: Re: [PATCH net] nexthop: account nexthop allocations to memcg
-Message-ID: <20260802140718.GA368318@shredder>
+Message-ID: <20260802142809.GA377770@shredder>
 References: <20260728060112.30367-1-zhaoyz24@mails.tsinghua.edu.cn>
- <20260730003845.4166255-1-kuba@kernel.org>
- <C62F834F-2E10-423F-9A2D-F5454184237B@mails.tsinghua.edu.cn>
+ <20260730003902.4166545-1-kuba@kernel.org>
+ <85095CE8-F0E1-450A-8D9D-A991D28333D6@mails.tsinghua.edu.cn>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <C62F834F-2E10-423F-9A2D-F5454184237B@mails.tsinghua.edu.cn>
-X-ClientProxiedBy: TL2P290CA0025.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:3::20) To SA3PR12MB7901.namprd12.prod.outlook.com
+In-Reply-To: <85095CE8-F0E1-450A-8D9D-A991D28333D6@mails.tsinghua.edu.cn>
+X-ClientProxiedBy: FR0P281CA0226.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b2::19) To SA3PR12MB7901.namprd12.prod.outlook.com
  (2603:10b6:806:306::12)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -69,110 +69,121 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB7901:EE_|CH1PPFDA34A4201:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69021aab-0c9f-4313-e0c7-08def09f6246
+X-MS-TrafficTypeDiagnostic: SA3PR12MB7901:EE_|MN0PR12MB6223:EE_
+X-MS-Office365-Filtering-Correlation-Id: a114002d-b1c2-41c7-fed8-08def0a24be1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|3023799007|11063799006|10067099003|5023799004|56012099006|4143699003|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|10067099003|5023799004|11063799006|4143699003|56012099006|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	AeWZ138frbR23zXpOUUjjpTC+aam8VrG09QrZhGyEPFW3Xv4tXPGgZ7LrLsIcv9byqBbcaIdQpDJIgDwq+XIepjwSGAeD+AK5eTh+nhBf9sBA0/1djNhxGdbT95e0jzF361LjzDVL83wWYBWLGZMtN6jnwMfdYjHOuelJeC4JtcPC+CNMxNDQJDbCmo8R9pOO77sEaQskVfmjbgV1hY3xSPu9/FE1HtTHA+waVtNTFowtZ1mUba5LSHRv4zuUuVdvZzEvUb2oYxKIgfmUDjg8rlj342kwhxMh5ejIKW94jGWSTTOAJQREAqPM1u4+qvaQYAdSWjxALiFUw+Gf0VGjZniSSqf7iaNIGQJFlUevFkmXjzZSuKEpZ/fIsOn9TIS2eDfFzBVNCgQoErP8XL7sSckoKgLY3leHxcnH5//dpTJAwx755VX9W3FDu0et2XpCZxrxlo1beUKTvTavvoUk6YMt/TKIV3b9LMipDFhlLjg3cSeoH8e+OQd33yW1C2HMK1vms9QodjNhAUQu4BMS5uf+UdW1e2mw6yBW4gsf64x1IwhT/wMLNEShq9OQzvA4bcRsKHQ1HJ1GONfB/APnzPDCc8BPKpIl0D3iD75OaBO8JIFUg5QPJP0ZoiMV7Zbsv8HhVDMHy2YdSzkzHp05hARUB8o6WXfuhBDznsDB4w=
+	CwfKt4XlkFuetXe7lMbcQ1FzI20vNXHVRa+JWiHk7zQOAT6lL/k0Ro0bBOH5kST/kITSR+nX75cvarcxldnlLpwy/WOwWnxciCYHSPOZURdGanpofecSYU+GRgZ5dvmgtqnH8c/bm6r0FRdBFsz5UaDlQ0Fg/RInJSVjRttYcSyie9I443aX24u0Wo70WWqFcJJM5g8fk8lDybvvb9bN/oo445YAdake1x6cWiEU7EeKR92q53AmV3Bk9/jcQCt8tZfvFRZOvmr1etRzvfX8wjYkFrXxB2q5fjFmITXrRouu9kXw9zRfwKaiaopZalUCsLn3iRTSta/rwjzXIE6+NXBvVSU9+Vdev5Iy9xWMqEfjK9YSSzfteNoHfrJxVSvJ4tOnqu7ZONJLLpMjMjVCEiyHiKY/RXvu1PFgRuQzr/gCuWMcEjzEnWwpMP5k/9CXmEgQYSeZPnzJ+VfO0zXy4cPnURzAZjmnP3iPByaQD5MA2w1k1zGjXL0OhQYaEbaevbXY9hd1DkGRlPP2ptmWQrrQi8UhNw/ZHeR7pbyvDgIk6TeDIJcHh7aNkCWvoJaWr7zPxAhp3z71IdAlzAYgRt3D2KqrkweN02QSj1QoJ/XHOfF6rvx6lXAOsZ98Ay3jF97oPIWdiimJfaA3yTCvZz1HDR3ZMfqpQDgC/tKkOo4=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR12MB7901.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(3023799007)(11063799006)(10067099003)(5023799004)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR12MB7901.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(10067099003)(5023799004)(11063799006)(4143699003)(56012099006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?N4oX+0BBo4sN52vJVlbF5enmEPFnM+cGIq3Atc2Yk9hVCropj53Z1U1ou/j3?=
- =?us-ascii?Q?x/4M1MUyC4S+KoI7mSIRBll3i9nH5EZMLslNWzfhwZkgfJYMv/OQTnMvZJ5E?=
- =?us-ascii?Q?+ZPspB6OUHeRri5uXJjLvUb1dnJog5hQVd0i7DC5nmon4Tjzz2yOEQ6fJLU8?=
- =?us-ascii?Q?to7PpYDuSj/+fklY8PVv0HTj7iglQtNfFf4Afh1SlKAQWD+Nyj9Sqj97/ZNq?=
- =?us-ascii?Q?oHFBtxSj/BzBa02R1Zp2IYIqysTpodAZ2V9FnBPEZvE0i2uqjEtyW8etUc0j?=
- =?us-ascii?Q?2X6CiabI7Qo78bLvWMvjBkkdVHuoDYzHkCTmYRaAllVDxHUgo9FvwZdtt77P?=
- =?us-ascii?Q?gH5PlEXyJRf7dgOVQExGchMo9H5mfWor0sT+Qx5CvXjCblJa+l3XeB3IsO2A?=
- =?us-ascii?Q?RK3lwNz7kyxiC45z8I3tf+Ow9GlHzVFukbbF7VG9HAKlL4//iLfSvqYdC0sb?=
- =?us-ascii?Q?U0KK1/v21u+7pZ7fAyFuxc4jr2+GUxmpQ/NKye+xwKVDaax35bmKEKY9y+Ew?=
- =?us-ascii?Q?nX+IJtrNYvOqJN0HHty7BqJRRE4ifvAyVoWH41Iv6U5ebhn/MdQq4frmU9Xa?=
- =?us-ascii?Q?oqzMbP5wbAV0N931T5xfV1v4PO55BDsxUGPf7DO04DBTgF03ayxhHVevwWvZ?=
- =?us-ascii?Q?46rM9UHE28EuncJ52nWchYNXRlhRb7JRuD4Z/7oBQhukXB0RbkisQHZkfqRy?=
- =?us-ascii?Q?lMZNdzVEhg3fk8aYSQNUTJAklD/EWmvu7pRnM9DY1ZIBEWOWIdXrKVAMzx+e?=
- =?us-ascii?Q?jWfhS4kqzCZ/RYXWiS4e7QUbF86O+kKUWAVMRUjuaicNF3hTcJPuR61q93GO?=
- =?us-ascii?Q?n8xq5K2BkPopi0J13tCI7BWslAkc6soD0hngngYnlWSOTjtArxoDFVKdjXZr?=
- =?us-ascii?Q?AjYsV3LkFv6BYK4dsYrUVCw7fQ+afhMW4EoGrDCN31s7GBxr+h7AG82iQAeW?=
- =?us-ascii?Q?Lg3Cix2xVEOgTyZriGOWFALAFwQMemPniewpDiB4pY7KplfGEoLsXp8l12Yh?=
- =?us-ascii?Q?muB2XqX7cHOAQVI8A3y9CPAHxMeJ35SRacAg2Wmgyy4CgI28o5ifQb9uiU5B?=
- =?us-ascii?Q?GRuyN7Qp+37E4hdU6saebfWfO8Wt2/BQ8xgrK21Bto3QMOI9K1L6AzBr4UhT?=
- =?us-ascii?Q?egZmW4jhsqhoC23SugmbkbScDWUCHoDQ5Onet5bf6y9VT1d0suq9+S/Mwy8g?=
- =?us-ascii?Q?TmVgZckV79VicedKHYpm4/eGm2FkTgrfJAdMST11VTHi5LC5ArjtcuBIkoZc?=
- =?us-ascii?Q?lUQ9NX2fYiFf8clYSX9ADtpW23bdQEdQ/YSysTGEqwhVzP1id8nWLW/MfGIm?=
- =?us-ascii?Q?xm+ivkrkxiqZxMksLF8Sor3cQnHrOEKnk1YG6dUiKR17xMraTjBrpw7c2vKl?=
- =?us-ascii?Q?qBlIa8q3l+o8PCDodwgIOiREn7aJtDJrN8hylTzBT0J0/gZJyY+7w/oFKUrX?=
- =?us-ascii?Q?n9bUIC6cLtW/7yjF82PZQklPdJSOIxjDWoJ/8d2BZ0x4wGIGicb3ivYgKPkG?=
- =?us-ascii?Q?nCP7wpr/iRJnTicUS2ARJ3pRSU5Me9Wwrz5mfNXc3lvVkADzgoVoEElsHP9m?=
- =?us-ascii?Q?f6eq+RaVwKijZu+cLHTtozmZWMYI1LvIBYC4TCSNdkYhJqbEBzldyMzXPvWC?=
- =?us-ascii?Q?/Br3MqywNhQ1Gzy+GPIXodjgAC8dL4MEfFQmgWht1xDqpeOkybtZ8HGeNzmt?=
- =?us-ascii?Q?5A7K0H33BJcITtxTWcZGLVyeNxfeFez2UzRsc6EjD1Xu6JSU?=
+	=?us-ascii?Q?VGu8cpt7e7nZdJ8cNJOT9Rs/DsDaF0hLgHq+zunC/YO6Fkqht+c0N0ekupNH?=
+ =?us-ascii?Q?MZtTG4QBD4WjDdWcPTK9y/aSoEgjXfotfRRaK9d4Bue+8wOlzKPkkDEmIl9k?=
+ =?us-ascii?Q?i1qIH3+AONVsdOKH50t3lmJSLK3tB3YxUqNLGKaUFRL1ZWqP2p4W7eLaobGC?=
+ =?us-ascii?Q?9o1wZ4sZpcg0zwLGVtXdXjb41JBR22nOMn4K6AuT1XVY8e1ULF+0fZuqwpKx?=
+ =?us-ascii?Q?c91M1PuuFUNHVdxrcLPbUqvpu/gkRcCeM60XnBysKoV1UjC4ibMcl2l3W0qL?=
+ =?us-ascii?Q?7C2UBM4cnRPv2VZFw/tbxXUG20OHE0td0cts29dlXF/gdtstz7/2Eh7VRM6i?=
+ =?us-ascii?Q?7FT+GAtBHnQUaY9Di+kzmueMzR/L91hkz5VV7K/ZRSt55Jrz/TcTtL2dgaTn?=
+ =?us-ascii?Q?mhETRKYfTWd5fFZvqnnzwR7kbfwM04KgIIClSrnCxD+FmlC0xZrQg1ekwWoJ?=
+ =?us-ascii?Q?NBlCJa+qFun6TgfNY5yBiQCSWa4IN4QNY9x0UIhV/n2Ef3eD+NCke6GWb23T?=
+ =?us-ascii?Q?mTTtRTEboIzFHV791SKv/NQ9soJCIdAjqsPJ6jwbVWL16TcR6yhKpgVV61rB?=
+ =?us-ascii?Q?4fgZixWgbIc5jxNZXbpLEW62+f1TpGq1tex0BJ49dipnQLZtTQOa2GlIIwsj?=
+ =?us-ascii?Q?aFUAvpXPxgbLpEb+T+C4jULMOBKtTy2OGQW+A63YByYA2lcPiGUh3LvzphkB?=
+ =?us-ascii?Q?UYafFEr+q+/0pZPgQJUm8acRWkX9pUBgAhoHLYNsNiJQO3q612Z7+RLoly2k?=
+ =?us-ascii?Q?qG2DmJq/GwjKK8moZ0zOiN7JS7/JXlj1jDbajqyDzDMt8HbHPaOaaRV4leCR?=
+ =?us-ascii?Q?TV6jibA8Yz3ZOUc8StLTm/9YaJSRe00vP/jq2HLC//Q0jasJQkD/1Wyrcea3?=
+ =?us-ascii?Q?Y64ubZdQIoSEnpVXYBIL4MJOf80b2bmFYLtuYocGbwAv0VcSk3oyoNvcT4o+?=
+ =?us-ascii?Q?Nopq3CxdO7s0z0z+p8R48JHoiFBb36X/7OZ8DHW/UkQTaksvyfV6faSy6U7B?=
+ =?us-ascii?Q?y2TVZrZskOQj931E6pxiW0qOnX4m8TgN6dROPnMbYkMJiDYyCAmQoCb4UH6p?=
+ =?us-ascii?Q?XimuWyJcBP4WJ5V5K/YU/GyT5FsuvEH8zseBouP8QycLeGkbxj++swIgRQqv?=
+ =?us-ascii?Q?Zw1CizzjQpCzea+0NEOprfM0t03pnxqPS4J9+hVXrHlRxUOsRaqu2H9z2HYs?=
+ =?us-ascii?Q?OPZsDKoUTi5TtdXlSFGZjtlgjBACGuxOzEDCPK5vp04K1A9hRn8UvQplNw/h?=
+ =?us-ascii?Q?rL/2PXE0/3OlI8qo+QhakvxzdhpH/jeiZPNGVpv0+W94nBHvyRq6IsbIRXls?=
+ =?us-ascii?Q?N2wcUpoVzFzTFW+WMb3mkS9mHoarhjIslnDIQ6pqT0+8/G11mf+Kym4WSHfE?=
+ =?us-ascii?Q?ySK5uRYJSm+Z+CMPff/pb/WiKrYXqXfJmvExiqv4VFfSEqhUttWA5VrDNDIg?=
+ =?us-ascii?Q?dhs7ETRlCuTPbuEw8w+aKEMucbmUYfAOcdADc4IpPBM36gz2rkkO906uXUN9?=
+ =?us-ascii?Q?3Fcnb+9Xle6E/3PB/cDSqHlX9dXFORhUHdRdwfMZAZnlitbJTllYxd+vkVMY?=
+ =?us-ascii?Q?w+F9VDXFYSI1DfplK5UozbsomemD2yxVVrHMwKxnvZDZcQG+9v4bJdcXAL1m?=
+ =?us-ascii?Q?m2F8p1inllj75D4+HSwZTTtazYbHswa3KB4eJEPKHwqxg2awmQrWch+F3oa6?=
+ =?us-ascii?Q?xQe3Q3DJoHYE1GEW7iT78Dr4ZG6wUT4sZ2PJdOTJxeAhG4Qa?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69021aab-0c9f-4313-e0c7-08def09f6246
+X-MS-Exchange-CrossTenant-Network-Message-Id: a114002d-b1c2-41c7-fed8-08def0a24be1
 X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB7901.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2026 14:07:27.5027
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2026 14:28:18.2595
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RNjeQUzunBaSJQZ5fFXR5sjE269lcTjUG067GtU9npSeHVq5eBipcZxCvlpAQ3oXrtEo58BRggaeSW5PomDwPg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFDA34A4201
+X-MS-Exchange-CrossTenant-UserPrincipalName: o9j4RzW1AJiKkI+yqNOTC8hLXUdKQyEnG0IqyvXNBSDL/F7pmDFsKzJgpxL8Xp+p1YfTFoyr3yfZZdlt7l+59Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6223
 
-On Sat, Aug 01, 2026 at 02:56:29PM +0800, Yizhou Zhao wrote:
+On Sat, Aug 01, 2026 at 03:13:46PM +0800, Yizhou Zhao wrote:
 > Hi Jakub,
 > 
-> Thank you for both reviews. This is the reply for the first one.
+> Thank you for both reviews. This is the reply for the second review.
 > 
-> > On Jul 30, 2026, at 08:38, Jakub Kicinski <kuba@kernel.org> wrote:
+> > On Jul 30, 2026, at 08:39, Jakub Kicinski <kuba@kernel.org> wrote:
 > > 
 > > This is an AI-generated review of your patch. The human sending this
 > > email has considered the AI review valid, or at least plausible.
 > > ---
 > > --- Patch [1]: [PATCH net] nexthop: account nexthop allocations to memcg ---
-> > commit 186a5b6499e65039b5037906ec518baac2833b1d
+> > commit 1014ad1eb712722973916d53a1c5348624a80550
 > > Author: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
 > > 
-> >    nexthop: account nexthop allocations to memcg
+> > nexthop: account nexthop allocations to memcg
 > > 
-> >    The nexthop creation path allocates struct nexthop, struct nh_info,
-> >    group storage, resilient bucket tables, transient notifier tables and
-> >    per-group stats without memcg accounting. As a result, a task with
-> >    CAP_NET_ADMIN can create nexthops and resilient groups whose kernel
-> >    memory is not charged to the task's memory cgroup, so memory.max does
-> >    not constrain this part of the workload.
+> > This adds GFP_KERNEL_ACCOUNT / __GFP_ACCOUNT to the nexthop creation path
+> > allocations (struct nexthop, struct nh_info, group storage, resilient
+> > bucket table, per-group stats) and to the transient resilient-table
+> > notifier buffer in nh_notifier_res_table_info_init().  The stated goal is
+> > to make memory.max constrain nexthop creation by a CAP_NET_ADMIN task in
+> > a container.
 > > 
-> >> diff --git a/net/ipv4/nexthop.c b/net/ipv4/nexthop.c
-> >> index 44fe75004cacb..c8685c5835794 100644
-> >> --- a/net/ipv4/nexthop.c
-> >> +++ b/net/ipv4/nexthop.c
-> > [ ... ]
-> >> @@ -2943,7 +2945,7 @@ static struct nexthop *nexthop_create(struct net *net, struct nh_config *cfg,
-> >> if (!nh)
-> >> return ERR_PTR(-ENOMEM);
+> > A couple of questions below about the notifier-table hunk and about the
+> > tags.
+> > 
+> >> nexthop: account nexthop allocations to memcg
 > >> 
-> >> - nhi = kzalloc_obj(*nhi);
-> >> + nhi = kzalloc_obj(*nhi, GFP_KERNEL_ACCOUNT);
+> >> Fixes: ab84be7e54fc ("net: Initial nexthop code")
+> >> Fixes: f4676ea74b85 ("net: nexthop: Add nexthop group entry stats")
+> >> Cc: stable@vger.kernel.org
 > > 
-> > [Severity: High]
-> > This is a pre-existing issue, but does this patch miss some per-CPU
-> > allocations in the nexthop creation path?
+> > [Severity: Low]
+> > Are the Fixes: tags and the stable Cc appropriate here?  Switching
+> > allocations to GFP_KERNEL_ACCOUNT does not fix an incorrect result, it
+> > changes the success/failure profile of an existing uAPI operation.
+> > 
+> > After a stable backport, RTM_NEWNEXTHOP can start returning -ENOMEM
+> > inside a memory.max-constrained cgroup on kernels where it previously
+> > succeeded, which looks like a functional change for routing daemons
+> > running in containers.
+> > 
+> > The operation still requires CAP_NET_ADMIN in the netns owner's user
+> > namespace, so no privilege boundary is being closed - only accounting
+> > accuracy changes.  Would net-next without the Fixes:/Cc: stable tags be a
+> > better target, with the transient notifier hunk split out?
 > 
-> Yes. I confirmed that the original patch misses these allocations.
+> I agree that the fix changes the point at which RTM_NEWNEXTHOP can fail
+> under memory.max. However, I view that failure as the intended enforcement
+> of memory.max: the current uncharged allocations let a cgroup retain kernel
+> memory outside its configured hard limit.
 > 
-> With only the persistent nexthop objects accounted, IPv4 and IPv6 nexthop
-> creation can still allocate nhc_pcpu_rth_output and rt6i_pcpu without memcg
-> accounting, so memory.max does not constrain that memory.
-> 
-> We will fix this in the next revision by passing GFP_KERNEL_ACCOUNT through
-> fib_nh_init() and fib6_nh_init() for persistent nexthop creation, while
-> leaving regular route creation with GFP_KERNEL.
-> 
-> Please let me know if you would prefer a different split.
+> For that reason, I had considered this a bug fix suitable for net, and
+> possibly stable once the patches are properly split and validated. Do you
+> prefer net-next because of the breadth and regression risk of the allocation
+> changes, rather than the -ENOMEM behavior itself? I will follow your
+> guidance on the target and tags.
 
-What is the reason for the split? Why only charge the nexthop when it's
-created via the nexthop API (e.g., ip nexthop add ...), but not when
-it's implicitly created via the route API (e.g., ip route add ...)?
+The patch does not fix a regression (accounting nexthop objects never
+worked) and does not fix a crash, so I vote for net-next. Also, similar
+patches were applied to net-next in the past and without a Fixes tag:
+
+425b9c7f51c9 ("memcg: accounting for objects allocated for new netdevice")
+5d26cff5bdbe ("net: account alternate interface name memory")
+6126891c6d4f ("memcg: enable accounting for IP address and routing-related objects")
