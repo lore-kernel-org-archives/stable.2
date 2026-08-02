@@ -1,81 +1,50 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-of-o58.zoho.eu (sender-of-o58.zoho.eu [136.143.169.58])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA014369985
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 13:01:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785675703; cv=none; b=X65a1hnpBe+IV9vEq5cAxAVu069PyDbRybNlEJVINuLS9NsoHr/5vtjWrfDyvUTjJeredxk/rDTJcXBQlDDsa5SczKK47yv5Mx+MGxRSYNpNAwjVTsXDf+JjOwXd7ES21YoI+RA00RDvX1NDik45ly2HFPJW1cQN7PSw7xvjZeg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785675703; c=relaxed/simple;
-	bh=D7SDYRd//qEp8Zuv8R8oqY3XIrvPozA6HvQnSnYh2Vc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yb1Z68ETp4ZwD7reUQa5InRzWDnp0kmv2+mwxJS8DjeYK9++ZnS7wihxOiDn7m6o7DWibiehhk/esIemzETt5lGWH1VU/zeoMQ/od9OnnnBQM9nVQmCyyeIRs/xSttDICKrvelIdjfrMnRk7DQxaPtxPD/2fqbyMNsLiGuqlOfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=qqVAXJxG; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E4C2C11E2;
+	Sun,  2 Aug 2026 13:07:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785676061; cv=pass; b=JLGFyThFycFHStTifDd6jqSuwY1WjsH7ipdS8LOu+LZCpYUl1va5R6m9KK5q1g2g1pPUwjUsQkwPO+KYSL8V3ratSjqWDP8al7DAa0ra4W7WKo5jmJWM1aEBBrS2y5qlBQjFNjxpISppaipZKQz1oBrnzEcJm9FvHpfhzFs7LsM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785676061; c=relaxed/simple;
+	bh=TX86fR2kjDQY5i3Dd06f3nI/vOSbCU2+EpKdMQgw8ug=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q9c3wv3ciHD7Ys4kBlNY0hzJd+ERZfxhzn8bT9hYhgirB1uYzNPCBZRJJ8moekAohDBvY4skEXT4Z57ECfwagcKOsCvFdHQPqz2FGYq+wd+ez46w5900CBo6o1rvKcQzZczyedScXqLMoPysvRySuzNEXu7tRDwuWgRx3XKcu+s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com; spf=pass smtp.mailfrom=iusegentoo.com; dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b=Ct7n1TUH; arc=pass smtp.client-ip=136.143.169.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iusegentoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="qqVAXJxG"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-472326ca506so1753686f8f.2
-        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 06:01:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1785675700; x=1786280500; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zTOztzpZ5vklCGPe6uHGZOcBDSWwpb+ZPeyegaSuA3E=;
-        b=qqVAXJxGlyHLhhbhKLOQK+rloA94A51QHYcQwXdvJtC6sPywWrGPC0haSdB7QDoJEW
-         84+/z3uBwDYkuJJRCmwvWuy0mz0wp8xMzBpR9eLv1sbKFuPZIpMapNjy0yHN60VQp6Xb
-         0dDHrDuioGJmFVl9d1j6OOHIdQdyxjuR4wCuC8GWs/NXELt01APovoHIcJkTVAJSHFqi
-         havtQLCM6SaiLArZnxt/xheyv6SDpRScTok8L7MCkDy2WfC1qtlBJhsZeAffRBafzHq4
-         TrD5IGTfMrxqxHjxsq1uFZqlmQpFil78RT+9SAk4Qg2sfgrCJTE5fxtEBKknmOzPvEPk
-         6Skg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785675700; x=1786280500;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zTOztzpZ5vklCGPe6uHGZOcBDSWwpb+ZPeyegaSuA3E=;
-        b=SujT+DKfSEX0ytaTvm4AqhPM3V69WGVwARcArDwDE85QeZGfGtPncoT3fyrkf8xev7
-         iqVfMzECAc+IVGs5G1GIcE7OnoaldWiV8/K+XUmSAPK41kbL6QUouLOKB8EcgkJMfOcC
-         HMde6yTAni8gImapvFoRQnofH6ushXnK9gTBZVEYfkmBZ95sJNmfZ85rMq7pagdiA98p
-         cPego0nkIzDaohi0ZOUEdU6HD7PQuRvNpRSLB9EpuYiJsd2J3vJGJ2i8iHYwgm/itL6U
-         sCYy5cyEXp9Zmw08QI1DH9kgCGxzVEtu/8ZDxhvuEm6gA76ZKjomOzbrMHZRE/VvuxgZ
-         3uxw==
-X-Forwarded-Encrypted: i=1; AHgh+RpPDznCgY+hyGqdLTNX8iejNoVNubuESATY9OQBlXxfSMyU9JE6hNnKpyPjBjJDzSzvhrvJz8s=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw4jtcDum3NCGqnMW7HFFq8Z9lI/oLjrocznszCfLyWUG+LzF9s
-	o4CEtVa3UkxtYTEogflPRjZMtJ0hjZH6XO7jz1KaBg/6hj3h1Qq0evwfFgo1IE6Fqbrk
-X-Gm-Gg: AR+sD12hqAJGdUvv+kbwZK3f95RyDmKmn84JzR2OmlWslBCPyJnLSmY/Zo5oYUTPEYJ
-	XW+rXCVEWPrhfLrfDLKy1tk0tHkzoEbR6N3GKhkmedlR1sPzwWYTfazZkA9qmq4QcTttRdchMcL
-	K2DBj4fFivsU1HzKxUCGhRjp4fz1jvuNbO1jpTLcEn1NEaPLahHmagDnoS8AiwSaxDoBksgjud5
-	vdz/VlNEKMSwS6h5zSjHnxOivZj/jXTa1gIWCvca/V2o9isUv9W/sNO/7Oz95jVooDfG5PF5JSn
-	dEFM1dsdVZRP4QC/J3bmy75ur/ivJvGiUBdr19wKh7XV6C1AnqMrGTz5EaT4gJdV0inenDszOU3
-	Ke3ynXFwGromT25lA57rVgnWQe0wqqO2xYGTiqcGtqvkiuO6aZQLOTIlDsdr2ywCtA7KwNPiGov
-	t9WQOixFzQg11vj2SeL/PuydsOa7QzHmqrVq+R8YQ+nyTWmRTZkPXUggKltOtTeLJ5mgtLl1jIJ
-	Sd6DKcBENRCXfsUNqnMMHvM51lc3wnv2SI4agcd8ep5wVaB4LDG+4tomIx3JBF6wF23pc5zzhnl
-	kLgKIw0=
-X-Received: by 2002:a05:6000:41ec:b0:474:3b3b:5e5f with SMTP id ffacd0b85a97d-47fd72c4d4dmr14468804f8f.16.1785675699784;
-        Sun, 02 Aug 2026 06:01:39 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.158])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd42d91b3sm25669896f8f.14.2026.08.02.06.01.38
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 02 Aug 2026 06:01:39 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: xmei5@asu.edu,
-	thomas.karlsson@paneda.se,
-	herbert@gondor.apana.org.au,
-	daniel@iogearbox.net,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b="Ct7n1TUH"
+ARC-Seal: i=1; a=rsa-sha256; t=1785676035; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=D7tzayY67s+d/Q1L4qjVR3mXYfFF4ugVDLW5pE99zsX0Y73b2uMVVn3WVzEdAXN5c33Vpadzh2RqxFUjUUtK3AhncPykWF0fcyPWKN9I0Zy4TswSE37sXnFjhmW0/EQiWwf0V268rMajcobuA48oDZRVqN84MXFuGeWmQyEubmE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1785676035; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=qXxi1bQRsm1+bpdGGhQN4aVMuJcOjF/XXMNCUshziLI=; 
+	b=HpSjWY/mKdIXiPV6EFR5oUiKOZSAVJKPlLihaQ1E5f9w/C6a+d90KqloEJZZ1mFcLTuNhovElNEEy94kw7WI8sEBzWvnb5xrUsVKBzl4/rjfFEvv6FcK1j2DcJnJO9fCJl9hKOVOhCiIAIx8Wbkn+301fDZiWyVK4njA+lnzo3o=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iusegentoo.com;
+	spf=pass  smtp.mailfrom=ali@iusegentoo.com;
+	dmarc=pass header.from=<ali@iusegentoo.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785676035;
+	s=zmail; d=iusegentoo.com; i=ali@iusegentoo.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=qXxi1bQRsm1+bpdGGhQN4aVMuJcOjF/XXMNCUshziLI=;
+	b=Ct7n1TUHNwjj5JOlfRHUn3tXFw3LDnBjkGIpTTcItFuJlw3PRHHFhY35yCXcvhgQ
+	MVk8vYv4VKrH6pK4iUee9ViehXaAHsu6JGctMjsvx3P5BnE6/f7LuFgpnughKhfw70r
+	i0rRyfypzOPcIemvXT7fcY36X4eMtNLXx3U3Kz4Q=
+Received: by mx.zoho.eu with SMTPS id 1785676033102608.5762035175266;
+	Sun, 2 Aug 2026 15:07:13 +0200 (CEST)
+From: Ali Ahmet Memis <ali@iusegentoo.com>
+To: Heiko Stuebner <heiko@sntech.de>,
+	Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH net v2] macvlan: require lower-netns admin for shared port settings
-Date: Sun,  2 Aug 2026 15:01:37 +0200
-Message-ID: <20260802130137.98105-1-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH] mfd: qnap-mcu: clear the reply state when a command times out
+Date: Sun,  2 Aug 2026 13:07:01 +0000
+Message-ID: <20260802130701.25702-1-ali@iusegentoo.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,139 +52,83 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-struct macvlan_port is per lower device and is shared by every macvlan
-upper on it, including uppers that live in other network namespaces.
-Two of its fields are settable over rtnetlink by any upper on the port:
-port->bc_cutoff, written by IFLA_MACVLAN_BC_CUTOFF, and
-port->bc_queue_len_used, recomputed from IFLA_MACVLAN_BC_QUEUE_LEN.
-(port->flags and port->perm_addr are also rtnetlink-settable, but only
-in passthru mode, which requires port->count == 0 and so cannot be
-reached from a second upper.)
+qnap_mcu_exec() puts the address of an on-stack buffer into the shared
+reply state before sending a command:
 
-rtnetlink checks CAP_NET_ADMIN against the network namespace the
-configured device lives in and nothing else, so once a macvlan has been
-moved into a child network namespace, an administrator of that namespace
-alone reaches macvlan_changelink(), which applies both attributes
-without considering who owns the lower device.
+	unsigned char rx[QNAP_MCU_RX_BUFFER_SIZE];
+	...
+	reply->data = rx;
+	reply->length = length;
+	reply->received = 0;
 
-The create path has the same gap. macvlan_common_newlink() resolves a
-lower device that is itself a macvlan to the real lower device:
+qnap_mcu_receive_buf() clears reply->length once a full reply or a
+recognised error reply has arrived, and refuses to touch anything while
+it is zero:
 
-	if (netif_is_macvlan(lowerdev))
-		lowerdev = macvlan_dev_real_dev(lowerdev);
+	if (!reply->length) {
+		dev_warn(dev, "Received %zu bytes, we were not waiting for\n", size);
+		return size;
+	}
 
-That real device may sit in a network namespace that was never
-capability-checked. The new upper then joins its macvlan_port and runs
-update_port_bc_queue_len() on it, and, when IFLA_MACVLAN_BC_CUTOFF is
-present, update_port_bc_cutoff().
+	while (src < end) {
+		reply->data[reply->received] = *src++;
 
-port->bc_cutoff is not a local tuning knob. update_port_bc_cutoff()
-recomputes port->bc_filter, which macvlan_handle_frame() tests to decide
-whether a multicast frame is deferred to the port broadcast work queue
-or flooded inline from the RX softirq, and a negative cutoff clears
-bc_filter outright. A namespace that administers none of the other
-uppers can therefore change how all of them receive multicast.
+The timeout path in qnap_mcu_exec() returns without clearing any of it.
+reply->data then keeps pointing into a stack frame that is gone, and
+because reply->length is still set the guard in the receive callback
+does not fire, so a reply that turns up after the timeout is written
+over whatever is using that stack now. bus_lock does not help: the write
+comes from the serdev receive callback, not from another caller of
+qnap_mcu_exec().
 
-Reproduced on 6.8 with a dummy lower device and two macvlan uppers, one
-left in the initial namespace and one moved into a child user and
-network namespace. From the child, both a changelink and a nested
-newlink carrying IFLA_MACVLAN_BC_CUTOFF were accepted, and the value
-read back on the initial-namespace sibling followed them, changing from
-1 to -7 and then to -42.
+The write stays within QNAP_MCU_RX_BUFFER_SIZE bytes, since the entry
+check rejects longer replies and the loop stops at reply->length, so
+this is a bounded write to a dead frame rather than an unbounded one.
 
-Require CAP_NET_ADMIN in the lower device network namespace before
-applying a shared port setting or creating a macvlan on a flattened
-lower device. rtnl_dev_link_net_capable() short-circuits when the lower
-device shares the macvlan network namespace, so an ordinary
-single-namespace configuration is unaffected, and per-upper settings
-such as mode and flags stay available to an administrator of the
-macvlan's own namespace. This is the model ipvlan has used since
-commit 7cc9f7003a96 ("ipvlan: disallow userns cap_net_admin to change
-global mode/flags").
+Clear the length and the pointer on the timeout path, so a late reply is
+dropped by the check that is already there.
 
-Found by 0sec automated security-research tooling (https://0sec.ai).
-
-The newlink gate is unconditional rather than keyed on a BC attribute
-being present, because joining another namespace's macvlan_port is
-itself a mutation of shared state; ipvlan gates ipvlan_link_new() the
-same way.
-
-IFLA_MACVLAN_BC_QUEUE_LEN is gated here as well as by any magnitude
-check, because the two address different things: a magnitude check
-bounds how large a value any caller may request, while this bounds who
-may write the shared port at all. update_port_bc_queue_len() takes the
-maximum across uppers, so a cross-namespace lowering has no security
-effect and this over-rejects it; that is accepted in exchange for one
-rule covering every writer of the shared struct.
-
-Fixes: d4bff72c8401 ("macvlan: Support for high multicast packet rate")
-Fixes: 954d1fa1ac93 ("macvlan: Add netlink attribute for broadcast cutoff")
+Fixes: 998f70d1806b ("mfd: Add base driver for qnap-mcu devices")
 Cc: stable@vger.kernel.org
-Assisted-by: 0sec:multi-model
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
 ---
-v2:
- - Drop the Reported-by: and Closes: naming Xiang Mei. Xiang confirmed
-   this is a real issue but a different bug from the broadcast-backlog
-   OOM reported in
-   https://lore.kernel.org/r/20260706212556.3199234-1-xmei5@asu.edu ,
-   and demonstrated it by reproducing that OOM on a kernel carrying v1.
-   The two differ in who the caller is: there the caller administers
-   everything it uses, here it does not administer the lower device.
-   Thanks to Xiang for separating them. Bounding the backlog is a
-   separate fix, and this patch neither replaces nor competes with it.
- - Rewrite the commit message around what this patch alone covers,
-   cross-namespace mutation of shared macvlan_port state, with
-   IFLA_MACVLAN_BC_CUTOFF and the nested-newlink path as the parts
-   nothing else addresses.
- - Add a second Fixes: tag for the commit that introduced
-   IFLA_MACVLAN_BC_CUTOFF.
- - Add extack messages on both rejections.
- - Add the cross-namespace bc_cutoff reproduction described above.
+Found by reading the driver, not from a reported failure; I have no QNAP
+NAS to test on. What I checked in the tree: reply->length is only set
+back to zero in qnap_mcu_receive_buf(), at the two points where a reply
+is complete, and reply->data, reply->length and reply->received are only
+set again at the top of the next qnap_mcu_exec(). So between a timeout
+returning and the next command there is a window where the state still
+describes a frame that has been left.
 
-The permission check itself is unchanged from v1.
+This is the minimal version. It does not close the window completely:
+qnap_mcu_receive_buf() runs without bus_lock, so a reply can still
+arrive between the check and the two stores. Closing that properly means
+either stopping serdev receive around the timeout or protecting the
+reply state with a lock the receive callback can also take, and which of
+those fits the driver is your call rather than mine. I went with the
+small fix because it removes the stale pointer without changing how the
+driver is serialized.
 
-v1: https://lore.kernel.org/netdev/20260726125447.32244-1-doruk@0sec.ai/
+ drivers/mfd/qnap-mcu.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
- drivers/net/macvlan.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
-index c40fa331836bb..19c599b676076 100644
---- a/drivers/net/macvlan.c
-+++ b/drivers/net/macvlan.c
-@@ -1479,8 +1479,14 @@ int macvlan_common_newlink(struct net_device *dev,
- 	/* When creating macvlans or macvtaps on top of other macvlans - use
- 	 * the real device as the lowerdev.
- 	 */
--	if (netif_is_macvlan(lowerdev))
-+	if (netif_is_macvlan(lowerdev)) {
- 		lowerdev = macvlan_dev_real_dev(lowerdev);
-+		if (!rtnl_dev_link_net_capable(dev, dev_net(lowerdev))) {
-+			NL_SET_ERR_MSG(extack,
-+				       "Creating a macvlan on a lower device in another network namespace requires CAP_NET_ADMIN in that namespace");
-+			return -EPERM;
-+		}
-+	}
+diff --git a/drivers/mfd/qnap-mcu.c b/drivers/mfd/qnap-mcu.c
+index 8de974ddac3e..f810cb4ff2ab 100644
+--- a/drivers/mfd/qnap-mcu.c
++++ b/drivers/mfd/qnap-mcu.c
+@@ -239,6 +239,8 @@ int qnap_mcu_exec(struct qnap_mcu *mcu,
  
- 	if (!tb[IFLA_MTU])
- 		dev->mtu = lowerdev->mtu;
-@@ -1619,6 +1625,14 @@ static int macvlan_changelink(struct net_device *dev,
- 	enum macvlan_macaddr_mode macmode;
- 	int ret;
+ 	if (!wait_for_completion_timeout(&reply->done, msecs_to_jiffies(QNAP_MCU_TIMEOUT_MS))) {
+ 		dev_err(&mcu->serdev->dev, "Command timeout\n");
++		reply->length = 0;
++		reply->data = NULL;
+ 		return -ETIMEDOUT;
+ 	}
  
-+	if (data &&
-+	    (data[IFLA_MACVLAN_BC_QUEUE_LEN] || data[IFLA_MACVLAN_BC_CUTOFF]) &&
-+	    !rtnl_dev_link_net_capable(dev, dev_net(vlan->lowerdev))) {
-+		NL_SET_ERR_MSG(extack,
-+			       "Changing shared macvlan port settings requires CAP_NET_ADMIN in the lower device network namespace");
-+		return -EPERM;
-+	}
-+
- 	/* Validate mode, but don't set yet: setting flags may fail. */
- 	if (data && data[IFLA_MACVLAN_MODE]) {
- 		set_mode = true;
+
+base-commit: 2d2338c93da79b3bfe4b6099a931d9468d539952
 -- 
-2.43.0
+2.55.0
 
