@@ -1,134 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from sender-of-o58.zoho.eu (sender-of-o58.zoho.eu [136.143.169.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2DF43B1EC8;
-	Sun,  2 Aug 2026 12:13:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785672789; cv=none; b=HUbye5q6dPsNwd6/BcKKMDiqUo8JdS3BWzlDygaSpC+LJycLUB8gkDd87una2Ju3brbFppa6uGeqMg3DJPXQ4/DF64Z6atRuFgHlDEse3CtPvEqV84nUWQto08/I8l8Yvqgb7pAWJd1BoRQ4YoT65wTqIjxs1j6jPsMPayerZnk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785672789; c=relaxed/simple;
-	bh=WGFFdsRUYtTtbwa6B95ZHBXoVvi4dQVulYeTYwNSlW4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=b1qb9dnJytazAdaF3PlarKzi5wDAueaWw07ZX/8E/07G0iWwKaduGCpgFt7iz+r0f+7ux7X0eDFuF1Ib04iRw3m0vp6uw3OK3g2xnoEV4s1jpixzFx4Pe/72WpSp5I65lnGR5PnuVfehAjmiKJ4p7QlzchGr85JWMYCQjJ49Tkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o7idJfot; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D403B19BC;
+	Sun,  2 Aug 2026 12:14:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785672869; cv=pass; b=X+DhsLf25AGenccofAz38rVljbpFMeRsJJxNIJisPEqLuMiWWENITjdGIkAd8QpBJOxg7nEBnaTgSuFUyi5F00N4y7qnstRfh/eYVXoVEG8QcZ+bHExpHFIm9FQxC7Z0JqrGsLBipDCWC7QYIzhbjGKwtNxI17FglJVtNBETVWQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785672869; c=relaxed/simple;
+	bh=OPbLElIkHo/wqkPmMFVscbCIHgECPNyFagn14aio6KA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oOJSM/yDCsay+bxQBADiTZJB4E2U33s8fKz8Bg4rZrYU/LTOKCNUcPAor/XMAoyDu79AGZjBlLbQerT5ODTRwwv7qGuFqjy1oe69HiVVo0D4hRat5oBBaT0dEkfZxvfnTcL0AiKXJQ+2+wC/2GfePYm9LZWGjEkZugZUjhsZxlM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com; spf=pass smtp.mailfrom=iusegentoo.com; dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b=BKTRLrUw; arc=pass smtp.client-ip=136.143.169.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iusegentoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o7idJfot"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A1A85C2BCF7;
-	Sun,  2 Aug 2026 12:13:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785672788;
-	bh=WGFFdsRUYtTtbwa6B95ZHBXoVvi4dQVulYeTYwNSlW4=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=o7idJfotBYjHgV7BD/qzIbHPVLcD/XoMUy9s8ojgK0jmAoCn2FWDW+ymSuUcPfIfO
-	 OCdlDNhckDEQqpeiX0vKB9T0X3sNngjGCEu+6o12lMEGlGRvzcr4u0f5m7xG6po5gX
-	 Etry41WpIN3wrC+UshFlToIF3Qc5RCWLodIyZbcNLmuVQGYrxhDVN9pvPumOP1M8sw
-	 3XVaFmHzcQw/SzFoBwwIuXjQo9pqRCfpk5pISKa/cFPYOUSe+zUQc4uzs0HxFLddWy
-	 uR7nyQ8GqNjFMbAdKCsGtoecesGadlA/lUjm3f8OfmoKRfNcZvw4FbDL2xD6iMBY1g
-	 V45utSMzj6ogA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F55AC55177;
-	Sun,  2 Aug 2026 12:13:08 +0000 (UTC)
-From: lurenjia534 via B4 Relay <devnull+lurenjia534.outlook.com@kernel.org>
-Date: Sun, 02 Aug 2026 20:12:54 +0800
-Subject: [PATCH] wifi: mac80211_hwsim: drop frames with invalid channel
- width
+	dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b="BKTRLrUw"
+ARC-Seal: i=1; a=rsa-sha256; t=1785672848; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=N+uma7GOM3V20tXQFo1SQEr+g76aIRr0+5fXkOTMQRedqtgF9rHjc09CxkAHhOzkoXwx2t1VUBCcaK0IfJNmYWXZ+n6A4d6V67anbevL7pnGkonkLtARbPJx1ucSwJfr2/VbGggF+OehScuJf1bxRVfdSR34u5HFGUT9Mn8vi3s=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1785672848; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=hVfIqyAxZc11cL68bNSZ6AEkiUZdqHgG8bCKLzr4WVo=; 
+	b=NWhneQlxkZFQ49t8Sq30J1HeP5cYAltFyS7y51/3QCVyiLtctzNcfUi7TJuW6A6nommxcXvfJO8uIG+xUqpx+rgMLGRFA4QeBN1Be374SjULgDk4xfIOyE43xaGnkB8xGKX06hS/VxlhlEmi3PZ+4Y7kCyqPC5uanOoEmSvySdM=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iusegentoo.com;
+	spf=pass  smtp.mailfrom=ali@iusegentoo.com;
+	dmarc=pass header.from=<ali@iusegentoo.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785672848;
+	s=zmail; d=iusegentoo.com; i=ali@iusegentoo.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=hVfIqyAxZc11cL68bNSZ6AEkiUZdqHgG8bCKLzr4WVo=;
+	b=BKTRLrUwXyLEfpEe7HSvnWsKwndA9DqvxABxhTlpwnKhYjCiac5Q4dMugz89Tlzi
+	WlBgijNPo6gITSl5awrRxvLV7kaHaLewuYSmjCby69/XsHEQUAGSZ5/eiSeeyztkWI/
+	7Fc6YuLnVYPNXqZIHgbOjH5w/36tLmnioI0ZZ0M8=
+Received: by mx.zoho.eu with SMTPS id 1785672845983951.2405778335522;
+	Sun, 2 Aug 2026 14:14:05 +0200 (CEST)
+From: Ali Ahmet Memis <ali@iusegentoo.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] staging: rtl8723bs: validate HT capability IE length before use
+Date: Sun,  2 Aug 2026 12:13:54 +0000
+Message-ID: <20260802121354.14245-1-ali@iusegentoo.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260802-mac80211-hwsim-invalid-width-v1-1-94d9bba2ae60@outlook.com>
-X-B4-Tracking: v=1; b=H4sIAEU0b2oC/yWMQQ6CMBBFr0Jm7UTaBVSvYlxMy2jHQDUdBBPC3
- W119fN+Xt4GyllY4dxskHkRlWcqYA4NhEjpzihDYbCt7VrXWpwolDEG46oyoaSFRhlwlWGOeOp
- 7Z3zH1HcOSuKV+SafX/5y/bO+/YPDXJvV8KSMPlMKsV6rZB5Z9TiRJNj3Lz8k8gGgAAAA
-X-Change-ID: 20260802-mac80211-hwsim-invalid-width-97781b6ea768
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
- syzbot+435fdb053cf98bfa5778@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, lurenjia534 <lurenjia534@outlook.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785672786; l=2911;
- i=lurenjia534@outlook.com; s=20260801; h=from:subject:message-id;
- bh=/iY0dNxP0zkE1SAHnpQcq1gmr+HYoaV6xhQaYs/s9EQ=;
- b=DKMeWXh6UssVYnAqq0vsaXgnuNYEkVb3aQrBjTUK+Ujiq65tB29Nk01utpN5/qzZ5JsvqSm45
- og9bgY1+E4VCnN2H0C0xW6P9NBK78klLBwkOIJc5FaZzH+DLmEfqRpk
-X-Developer-Key: i=lurenjia534@outlook.com; a=ed25519;
- pk=nMa0OcUJYxnaGbhs5f95IwVQ7sPrWI7It3LMsh0BJX4=
-X-Endpoint-Received: by B4 Relay for lurenjia534@outlook.com/20260801 with
- auth_id=906
-X-Original-From: lurenjia534 <lurenjia534@outlook.com>
-Reply-To: lurenjia534@outlook.com
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-From: lurenjia534 <lurenjia534@outlook.com>
+rtw_get_ie() reports the length byte straight out of the frame and does
+not impose a minimum, so a received HT capability element can be any
+size from 0 to 255. Five callers only test that the length is non zero
+and then cast the element body to a fixed layout:
 
-A frame injected through a monitor interface can request a VHT transmit
-rate wider than the channel configured on the simulated radio.  The rate
-comes from userspace-provided radiotap metadata, so it can be invalid.
+	p = rtw_get_ie(..., WLAN_EID_HT_CAPABILITY, &len, ...);
+	if (p && len > 0) {
+		pht_cap = (struct ieee80211_ht_cap *)(p + 2);
+		ht_cap_info = le16_to_cpu(pht_cap->cap_info);
 
-mac80211_hwsim_tx() currently warns and returns when the requested rate is
-wider than the channel.  A warning is inappropriate for invalid userspace
-input.  Moreover, hwsim owns the skb after its ->tx() callback is invoked,
-so returning without reporting status or freeing the skb leaks it.
+cap_info is 16 bits, so a element declaring a length of 1 makes the
+driver read one byte beyond the element. rtw_update_ht_cap() goes
+further and takes ampdu_params_info at offset 2, and
+rtw_check_beacon_data() writes back into cap_info.
 
-Drop frames with an invalid channel width and release their SKBs with
-ieee80211_free_txskb().  Frames with valid rates continue through the
-existing transmit path.
+Mostly this only produces a wrong cap_info, because the element area is
+the fixed 768 byte ies[] array and the extra byte is still inside it.
+rtw_check_bcn_info() is different: its struct wlan_bssid_ex comes from
+kzalloc() and ies[] is the last member, so a beacon that fills the area
+to MAX_IE_SZ and ends with a truncated HT capability element reads one
+byte past the allocation.
 
-The reproducer triggered the warning in 20 of 20 unmodified-kernel boots.
-With this change, 100 iterations completed without a warning on both the
-report baseline and wireless/main.  An E2E control also confirmed that a
-valid 20 MHz frame was forwarded while a 160 MHz request on the same
-channel was dropped.
+Require the full element before dereferencing it, which is what
+mac80211 does in ieee802_11_parse_elems_full():
 
-Fixes: 585625c955b1 ("mac80211_hwsim: check TX and STA bandwidth")
-Reported-by: syzbot+435fdb053cf98bfa5778@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a441a03.b42ede87.8e801.0009.GAE@google.com/
-Tested-by: syzbot+435fdb053cf98bfa5778@syzkaller.appspotmail.com
+	if (elen >= sizeof(struct ieee80211_ht_cap))
+		elems->ht_cap_elem = (void *)pos;
+
+The neighbouring HT operation blocks read infos[0] only and are left
+alone, a length of 1 is enough for them.
+
+Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5.6 MAX
-Signed-off-by: lurenjia534 <lurenjia534@outlook.com>
+Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
 ---
-Testing:
-- syzbot #syz test on wireless/main: pass
-- original syzbot C reproducer: 20/20 report-baseline boots warned;
-  unmodified wireless/main warned in 3/3 independent boots
-- patched original reproducer: 100/100 iterations clean on both the report
-  baseline and wireless/main
-- monitor-injection E2E: valid 20 MHz frame forwarded; invalid 160 MHz
-  frame dropped
-- CONFIG_MAC80211_HWSIM=y/m runtime tests: clean, taint 0
-- GCC x86-64 full y/m builds, GCC W=1, sparse, and Clang x86-64/arm64
-  target builds: pass
----
- drivers/net/wireless/virtual/mac80211_hwsim_main.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Found by auditing the IE parsers in this driver for length checks that do
+not cover the structure being cast onto the element body.
 
-diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-index 75caa97bec..2d4bc3cd9a 100644
---- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-+++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-@@ -2256,8 +2256,10 @@ static void mac80211_hwsim_tx(struct ieee80211_hw *hw,
- 		else if (rflags & IEEE80211_TX_RC_160_MHZ_WIDTH)
- 			bw = NL80211_CHAN_WIDTH_160;
+Tested by lifting rtw_get_ie() and the rtw_check_bcn_info() caller into a
+userspace harness under ASan, with the element area as an exact 768 byte
+allocation so the redzone sits where ies[] ends, and a beacon whose last
+element is a HT capability with a declared length of 1:
+
+  HT cap IE at offset 765, body ends at 768, area ends at 768
+  ERROR: AddressSanitizer: unknown-crash
+  READ of size 2 at 0x7d028e5e037f
+    #0 in main harness.c:106
+  0x7d028e5e0380 is located 0 bytes after 768-byte region
+
+With the check changed to len >= sizeof(struct ieee80211_ht_cap) the
+element is rejected and ASan is quiet. I do not have RTL8723BS hardware,
+so this is the parsing code exercised out of tree rather than a live
+driver run; happy to redo it another way if you would rather see that.
+
+ drivers/staging/rtl8723bs/core/rtw_ap.c        | 2 +-
+ drivers/staging/rtl8723bs/core/rtw_ieee80211.c | 2 +-
+ drivers/staging/rtl8723bs/core/rtw_mlme.c      | 2 +-
+ drivers/staging/rtl8723bs/core/rtw_mlme_ext.c  | 2 +-
+ drivers/staging/rtl8723bs/core/rtw_wlan_util.c | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/staging/rtl8723bs/core/rtw_ap.c b/drivers/staging/rtl8723bs/core/rtw_ap.c
+index 065850a9e894..b3c14e62312e 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_ap.c
++++ b/drivers/staging/rtl8723bs/core/rtw_ap.c
+@@ -802,7 +802,7 @@ int rtw_check_beacon_data(struct adapter *padapter, u8 *pbuf,  int len)
+ 		       WLAN_EID_SSID,
+ 		       &ie_len,
+ 		       (pbss_network->ie_length - _BEACON_IE_OFFSET_));
+-	if (p && ie_len > 0) {
++	if (p && ie_len >= sizeof(struct ieee80211_ht_cap)) {
+ 		memset(&pbss_network->ssid, 0, sizeof(struct ndis_802_11_ssid));
+ 		memcpy(pbss_network->ssid.ssid, (p + 2), ie_len);
+ 		pbss_network->ssid.ssid_length = ie_len;
+diff --git a/drivers/staging/rtl8723bs/core/rtw_ieee80211.c b/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
+index 863ddf846218..2e66a6e86a32 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
++++ b/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
+@@ -1094,7 +1094,7 @@ void rtw_get_bcn_info(struct wlan_network *pnetwork)
+ 	/* get bwmode and ch_offset */
+ 	/* parsing HT_CAP_IE */
+ 	p = rtw_get_ie(pnetwork->network.ies + _FIXED_IE_LENGTH_, WLAN_EID_HT_CAPABILITY, &len, pnetwork->network.ie_length - _FIXED_IE_LENGTH_);
+-	if (p && len > 0) {
++	if (p && len >= sizeof(struct ieee80211_ht_cap)) {
+ 		pht_cap = (struct ieee80211_ht_cap *)(p + 2);
+ 		pnetwork->bcn_info.ht_cap_info = le16_to_cpu(pht_cap->cap_info);
+ 	} else {
+diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
+index 1196ec011455..03dd4b5e94d6 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
++++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
+@@ -2416,7 +2416,7 @@ void rtw_update_ht_cap(struct adapter *padapter, u8 *pie, uint ie_len, u8 channe
+ 	/* check Max Rx A-MPDU Size */
+ 	len = 0;
+ 	p = rtw_get_ie(pie + sizeof(struct ndis_802_11_fix_ie), WLAN_EID_HT_CAPABILITY, &len, ie_len - sizeof(struct ndis_802_11_fix_ie));
+-	if (p && len > 0) {
++	if (p && len >= sizeof(struct ieee80211_ht_cap)) {
+ 		pht_capie = (struct ieee80211_ht_cap *)(p + 2);
+ 		max_ampdu_sz = (pht_capie->ampdu_params_info & IEEE80211_HT_CAP_AMPDU_FACTOR);
+ 		max_ampdu_sz = 1 << (max_ampdu_sz + 3); /*  max_ampdu_sz (kbytes); */
+diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+index a443b3530fb9..c884700d6e0d 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
++++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+@@ -3934,7 +3934,7 @@ u8 collect_bss_info(struct adapter *padapter, union recv_frame *precv_frame, str
+ 		struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
  
--		if (WARN_ON(hwsim_get_chanwidth(bw) > hwsim_get_chanwidth(confbw)))
-+		if (hwsim_get_chanwidth(bw) > hwsim_get_chanwidth(confbw)) {
-+			ieee80211_free_txskb(hw, skb);
- 			return;
-+		}
- 	}
+ 		p = rtw_get_ie(bssid->ies + ie_offset, WLAN_EID_HT_CAPABILITY, &len, bssid->ie_length - ie_offset);
+-		if (p && len > 0) {
++		if (p && len >= sizeof(struct HT_caps_element)) {
+ 			struct HT_caps_element	*pHT_caps;
  
- 	/* wmediumd mode check */
+ 			pHT_caps = (struct HT_caps_element	*)(p + 2);
+diff --git a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
+index a4de538722b5..7fd032b89429 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
++++ b/drivers/staging/rtl8723bs/core/rtw_wlan_util.c
+@@ -1130,7 +1130,7 @@ int rtw_check_bcn_info(struct adapter *Adapter, u8 *pframe, u32 packet_len)
+ 	/* check bw and channel offset */
+ 	/* parsing HT_CAP_IE */
+ 	p = rtw_get_ie(bssid->ies + _FIXED_IE_LENGTH_, WLAN_EID_HT_CAPABILITY, &len, bssid->ie_length - _FIXED_IE_LENGTH_);
+-	if (p && len > 0) {
++	if (p && len >= sizeof(struct ieee80211_ht_cap)) {
+ 		pht_cap = (struct ieee80211_ht_cap *)(p + 2);
+ 		ht_cap_info = le16_to_cpu(pht_cap->cap_info);
+ 	} else {
 
----
-base-commit: 2812e64e1575e05500a35c405aaa6e99b7d7930b
-change-id: 20260802-mac80211-hwsim-invalid-width-97781b6ea768
-
-Best regards,
---  
-lurenjia534 <lurenjia534@outlook.com>
-
+base-commit: 2d2338c93da79b3bfe4b6099a931d9468d539952
+-- 
+2.55.0
 
