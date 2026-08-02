@@ -1,74 +1,50 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-of-o58.zoho.eu (sender-of-o58.zoho.eu [136.143.169.58])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B35361A262D
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 13:20:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785676836; cv=none; b=dtoO8VbBqPknl8rJaZ79zcWesJ6gobAFx0/ndCwcj6Dt5a3V8mfDnlZ2pb1o8xaoMMhntc8CY04+cbdmN/KFqJxlTUBuDVscApMpbiNRYTVeVXdBf7+CHKwO8UacvNFvnvBNnDLogZzqPaQIxvOn+IShHeqi4EcLk+eGuvirPu8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785676836; c=relaxed/simple;
-	bh=VLQyAYtULRZagQmNoCHD7IAvvHyJU9vQFCpQQCOoadM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bPRYiIZJ9qGrJIGnFRhoucS+XkKJCrQxCIwy9z9pD1RJQRD15rZCHfHtMxmaDvp5h7rgpCCPIM+XgTaa0wFnKRxnj06t8Ho6wpN0wu6GHAh8/5drCQvbNlv0TXuPJLUKh+31NKc2rVeYOW/UEj4EVIEkf3S693MSqunM3V5rTTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai; spf=pass smtp.mailfrom=0sec.ai; dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b=sc7mXQ8N; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0sec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0sec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8577E3B83FB;
+	Sun,  2 Aug 2026 13:53:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785678834; cv=pass; b=UvyTizSOnK2XFFLk6/FBbGN96JAmejfgh4aOHSPlA1KbogC1fDBXYNDENtD/PaTsM187uVb2G5us4G3HuTSIw/9loi1IeMhLIAir9985P8zOl7wXTnW/gh/ZYhb+GOyRvVOj07Kf9k2M9jC+8TV9Qs3ld4TSdmkeTYHyvY0sSHU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785678834; c=relaxed/simple;
+	bh=8LnF5ffux6+AGVmnLZWNQnzyj+FhzZbozWboYiTLSbE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NEIcdKz4GAaSjTVlNWZkCKbHqzMhrYitWeSZmjm65UmIa/74AATa8qt6qgfFi7s0WLcFBoNi2dug9DysddRWW+1G/qQ8F0gXjfIKpOHjHASeSpQ9b6sX5GTwc+gOFMZj8uGbJuNG4QpMGECsK/9FLQcUOgxv88PAw3vnPzDBOIk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com; spf=pass smtp.mailfrom=iusegentoo.com; dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b=FAlLkGr1; arc=pass smtp.client-ip=136.143.169.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iusegentoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror (0-bit key) header.d=0sec.ai header.i=@0sec.ai header.b="sc7mXQ8N"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-47fe2d179e2so2514f8f.1
-        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 06:20:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0sec.ai; s=google; t=1785676833; x=1786281633; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hV44Gh0Q41UPQ1NztmVqRIIGr05UAdzVNPCYL2ru+ao=;
-        b=sc7mXQ8NeYE2eVvWL29QNmCroQmg1ADDGevFkxqA2/p2O3B8PZw59rJqwo8jgrhBQK
-         uDJH7YqFl+3E/seMpzNSTbOJ+nj/3vE8Fo3ABOUITk+f9aRlM4/7dz29RELbrqCt0xiu
-         /OpGYCAVTM7k9PWpQCjWrEIUJC4yo7ZCdBuFaiPpb/7Floj6Su7BR7iCA5Zw96C87foK
-         18kxg0Wt8lQ5WFcvtclaIwBmvfZsg9fTq+epTMl/YmR/fWrhNHbBeqwihNcxMa+nrd6M
-         IMjDPuSTLVkbGwqc8l3PQAB8pOT4RhFTzMsOKhougEqV8IWa36Ut93xEzs1l0waSnnHq
-         +R/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785676833; x=1786281633;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hV44Gh0Q41UPQ1NztmVqRIIGr05UAdzVNPCYL2ru+ao=;
-        b=bfYHmn8JlmDlxztu9ZjLaNwi1DsicNen2sXA6tOLAR/ya0lruHZBOHPK+s7/iG6wyZ
-         DI+0wV2sB5zKC9iFKUYgtszB1KeTbBDeMHU0t7H3Nx6uavau+PS0oFwPtwmYm21/HQI4
-         xjOEkftJwo0X8UjJjhmS1c1GhfqzfP0Od94/ipPU6VJwKHHA0WSEo57QlNdEdn+iwYxz
-         oiNMtBphsxagE63WuaYlbhpXjyYoSzzh1W9u/ZieJS6EHPPyoQ1tkfqVaZKmskV/Syxt
-         sywYt+AcrWbmWtG41zNTugfSZrkbxxJv7kV5r34OLM1OPZCaPtKtCPTs/NHREq8RrM1H
-         SEQw==
-X-Forwarded-Encrypted: i=1; AHgh+RoWgQpPdUavQUJi/r7TZS1HynL0D3yjaQep3yV7kBv9R8w7oH1JlThwaE+g47ju8oawytuYvU0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyNokZwWM4FNaHpbPzo4PdOKiJsWTXI8U/dNqKwuDFX+4O2qOPr
-	jI+T5yCAUdjtlGqsQN9xBWIGwjwNZ1cyxuDjvLvqIhpWVqtLWkr+yC1PTnEzx/zWVhN57GdG9Vm
-	CwqqaFQ==
-X-Gm-Gg: AR+sD10JWx1zv36OpHd8HpdOHDS15Ly7rvWCFbje2N0YsdzGn8XBHi1WR4KZin2rhL1
-	w30vxU2HqkZCMxylGOm04HVyPd59qScFd2b8kaCH5eqotamug8n0Fpmv06SPqgqbK5JafCJp9np
-	U/IYpiH4yXOuqXwNMXO1gvMpRr5DBVT/u3F0gdDL6ZdBbkWEgDMHD9aRpP+Bx4YORFhbzEYoRLe
-	sxi2V5xvXFyo9U16d3tD8NeiWEy1SxtKKFEsctERpTVROYGG8jSivPRa51rdYNGcppKtZBS2K9h
-	14AlKCsINhPxL9v9Y1UgnbKH3bg6J9EQlcIle+25P7Z0vGYVkflOTq66zY+DGT08/+CqERsm63D
-	nKq8BJk9NOUhY3uKbauB3xh0reC7N2V70qAgeQHn/GxFbxOIrwgLFp7IYxwAelrrVY4UvSWp5Kj
-	t727p05KlpQemMXjGq6Li6hGjMYM8HJvMLh4I/ESfX4GPmINMQYyntKNCaqRC7QeEs1vIkvXok1
-	zHeXhzAEmhCOVyKZgDrDYVzPffKpZjyxhfEQV88iMnLKQxq4diojDhJq64UqL3fTR9giLuhr3w/
-	26dzURo5p2U02av+Yvo5fiahGfduTA==
-X-Received: by 2002:adf:e9cc:0:b0:47f:4e42:669 with SMTP id ffacd0b85a97d-47fd72b0a31mr11669791f8f.22.1785676832932;
-        Sun, 02 Aug 2026 06:20:32 -0700 (PDT)
-Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.158])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd458adc9sm25429435f8f.27.2026.08.02.06.20.30
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 02 Aug 2026 06:20:31 -0700 (PDT)
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-To: luiz.dentz@gmail.com,
-	marcel@holtmann.org
-Cc: linux-bluetooth@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b="FAlLkGr1"
+ARC-Seal: i=1; a=rsa-sha256; t=1785678800; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=MkXhCojgLF4zgsAmAcB5E3H8sQnriDYGA/5GkNDBKAmc7a8JfdoSd7uuCqE8iPEVXBGB3hNmEuDWYj7D7c2ogbZfrhU2B3XMxOrSkGQQCF1szMApwX0AeVMfMhLRfolMUsCT/VdvqbN9LFbyWLk5kspsrYSaVERD9OYlgVwL8/M=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1785678800; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=tPDUMVhdRwUTaaGEfDcv30DZhrsJ+20oD7Px6MCdUpU=; 
+	b=HtZT/05AlUbSq+LouKpvfkKxSdiANAGvYhuWE8xozS2lwKw+pcdd0NfmnubYsaDxuiPaolY/CZbR3UzuBiw99Hxa0szyMA1EVKV1lxNLd53/xUrbBrCxGkJ8xZX0rjBUHLyXXErc2LuRf6LnzcxeDHw5HKxnnJV9lDHsHOZzJvI=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iusegentoo.com;
+	spf=pass  smtp.mailfrom=ali@iusegentoo.com;
+	dmarc=pass header.from=<ali@iusegentoo.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785678800;
+	s=zmail; d=iusegentoo.com; i=ali@iusegentoo.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=tPDUMVhdRwUTaaGEfDcv30DZhrsJ+20oD7Px6MCdUpU=;
+	b=FAlLkGr1MvTJ2CEpjEU+KlSbBOdHHw/186ErpisyQ/Vo/dlg5yNV0KntYKiy1jeZ
+	M3WJNRQbXcGXMT8Gsu9yeed5ljzyuHuFuIug1oEoSXGLlW4b7XicwMZVVwvhiT2CjfL
+	Aqa9aV+ssqx17OevjuTgIN+6ckNJMJMaJgSOk61Y=
+Received: by mx.zoho.eu with SMTPS id 1785678797901270.71141046914715;
+	Sun, 2 Aug 2026 15:53:17 +0200 (CEST)
+From: Ali Ahmet Memis <ali@iusegentoo.com>
+To: Heiko Stuebner <heiko@sntech.de>,
+	Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2] Bluetooth: L2CAP: Fix list corruption in ecred defer recvmsg path
-Date: Sun,  2 Aug 2026 15:20:29 +0200
-Message-ID: <20260802132029.5118-1-doruk@0sec.ai>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH v2] mfd: qnap-mcu: keep the reply buffer alive past a command timeout
+Date: Sun,  2 Aug 2026 13:53:07 +0000
+Message-ID: <20260802135307.31380-1-ali@iusegentoo.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,137 +52,149 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-When a deferred L2CAP_MODE_EXT_FLOWCTL connection is accepted,
-l2cap_sock_recvmsg() (BT_CONNECT2 + BT_SK_DEFER_SETUP branch) calls
-__l2cap_ecred_conn_rsp_defer() while holding only lock_sock(sk).  That
-function walks conn->chan_l via __l2cap_chan_list_id() and, on the
-authorization/refuse path, removes channels with l2cap_chan_del() ->
-list_del(&chan->list) -- all without conn->lock.
+qnap_mcu_exec() publishes an on-stack buffer to the receive path:
 
-conn->chan_l is serialised by conn->lock and is concurrently mutated by
-the RX worker, which processes inbound signalling (e.g. an
-L2CAP_DISCONN_REQ -> l2cap_chan_del()) under conn->lock.  Every other
-walker of the list holds that lock: l2cap_chan_list() takes it around
-__l2cap_chan_list(), and the signalling handlers reach the list from
-l2cap_recv_frame(), which runs with it held.  The deferred-accept path
-from l2cap_sock_recvmsg() is the only one that does not, so a peer
-disconnect landing during the walk leaves it on a poisoned entry:
+	unsigned char rx[QNAP_MCU_RX_BUFFER_SIZE];
+	...
+	reply->data = rx;
+	reply->length = length;
 
-  list_del corruption, ffff88810420c480->next is LIST_POISON1
-  (dead000000000100)
-  WARNING: CPU: 1 PID: 88 at lib/list_debug.c:56
-  __list_del_entry_valid_or_report+0xd6/0x140
-   l2cap_chan_del+0x7c/0x7c0
-   __l2cap_ecred_conn_rsp_defer+0x333/0x340
-   l2cap_sock_recvmsg+0x338/0x340
-   sock_recvmsg+0xec/0xf0
-   __sys_recvfrom+0x14c/0x1f0
+and qnap_mcu_receive_buf() writes into it from the serdev receive path,
+which runs out of flush_to_ldisc() and is not serialized against
+qnap_mcu_exec() at all. bus_lock cannot cover it, because qnap_mcu_exec()
+holds that mutex across wait_for_completion_timeout().
 
-  BUG: KASAN: wild-memory-access in
-  __l2cap_ecred_conn_rsp_defer+0x1c0/0x340
-  Read of size 8 at addr dead000000000100 by task race/95
-   __l2cap_ecred_conn_rsp_defer+0x1c0/0x340
-   l2cap_sock_recvmsg+0x338/0x340
-   sock_recvmsg+0xec/0xf0
-   __sys_recvfrom+0x14c/0x1f0
-  Oops: general protection fault, probably for non-canonical
-  address 0xdead000000000100
+On a timeout qnap_mcu_exec() returns with reply->data still pointing at
+its own frame. A reply that arrives late, or an unsolicited message from
+the MCU, is then written into a stack frame that has been left, corrupting
+whatever runs next on that stack. The same applies when qnap_mcu_write()
+fails, since that path returns without touching the reply state either.
 
-Take conn->lock around __l2cap_ecred_conn_rsp_defer().  The established
-lock order is conn->lock -> chan->lock -> sk_lock (the RX worker reaches
-the socket via l2cap_chan_del() -> l2cap_sock_teardown_cb() ->
-lock_sock_nested()), so the socket lock is dropped before conn->lock is
-taken, mirroring l2cap_sock_shutdown().  The conn is pinned with
-l2cap_conn_hold_unless_zero() across the unlocked window.  Only the
-EXT_FLOWCTL branch needs this; the LE and BR/EDR defer paths respond for
-a single channel and do not walk conn->chan_l.
+Move the receive buffer into struct qnap_mcu. It is 37 bytes and the
+structure is devm_kzalloc()ed, so it lives as long as the driver, and a
+late write lands in memory that is still valid and is reinitialized by the
+next command. bus_lock keeps commands from sharing it.
 
-Reproduced with hci_vhci on a KASAN + PROVE_LOCKING kernel: a peer sends
-L2CAP_ECRED_CONN_REQ over LE, userspace accepts the deferred channels,
-and an L2CAP_DISCONN_REQ for a sibling channel races the recvmsg() that
-completes the accept.  7 of 10 unpatched boots reproduced it; 10 patched
-boots gave neither a splat nor a lockdep report.  Well-formed traffic is
-unaffected: the response is built from the same channels with the same
-contents, and the only case now skipped is a channel the RX worker has
-already removed from conn->chan_l, for which no response is meaningful.
+This deliberately does not clear reply->data or reply->length on the
+timeout path. Doing so races with qnap_mcu_receive_buf(), which reads both
+after its
 
-Found by 0sec (https://0sec.ai).
-Fixes: 15f02b910562 ("Bluetooth: L2CAP: Add initial code for Enhanced Credit Based Mode")
+	if (!reply->length)
+		return size;
+
+check: clearing reply->data gives a NULL dereference, and clearing
+reply->length alone removes the reply->received == reply->length exit
+condition, so the copy loop runs until the uart chunk is consumed and
+overruns the buffer. Leaving both set keeps the write bounded by
+reply->length, which qnap_mcu_exec() has already checked against
+sizeof(mcu->rx).
+
+Fixes: 998f70d1806b ("mfd: Add base driver for qnap-mcu devices")
 Cc: stable@vger.kernel.org
-Assisted-by: 0sec:multi-model
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
 ---
-v2: Rewrite the commit message.  v1 called this the recvmsg-path sibling
-    of 41c2713b204e; that commit fixes iterator invalidation in a path
-    that already runs under conn->lock, not a missing lock, so the
-    reference is dropped and the invariant is stated directly instead.
-    v1 also cited l2cap_sock_cleanup_listen() as precedent for taking
-    conn->lock, which is backwards: it deliberately avoids conn->lock
-    because it runs under the parent sk lock.  Only l2cap_sock_shutdown()
-    is cited now.  The splat is quoted from an actual run.  Shorten the
-    subject to 80 columns and use the AGENT_NAME:MODEL_VERSION form for
-    Assisted-by.  The only code change from v1 is four comment lines on
-    why chan needs no extra reference across the unlocked window.
+v1 cleared reply->length and reply->data on the timeout path. That was
+wrong: it races with qnap_mcu_receive_buf() and, as sashiko-bot pointed
+out on that thread, can give a NULL dereference or drop the copy loop's
+exit condition and overrun the buffer. It made one failure mode worse than
+the one it fixed. Thanks to the bot for catching it.
 
-    Note for stable: this uses FLAG_DEL, added by b66774b48dd9
-    ("Bluetooth: L2CAP: Fix UAF in channel timeout by holding conn ref",
-    v7.2-rc1).  Trees without that commit need it first; the patch does
-    not build otherwise.
+  https://lore.kernel.org/all/20260802132012.537B81F000E9@smtp.kernel.org/
 
-v1: https://lore.kernel.org/linux-bluetooth/20260714125209.39790-1-doruk@0sec.ai/
- net/bluetooth/l2cap_sock.c | 37 +++++++++++++++++++++++++++++++++++--
- 1 file changed, 35 insertions(+), 2 deletions(-)
+v2 leaves the reply state alone and gives the buffer a lifetime instead,
+so there is nothing to tear down and no new race.
 
-diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
-index 735167f73f312..af35608791994 100644
---- a/net/bluetooth/l2cap_sock.c
-+++ b/net/bluetooth/l2cap_sock.c
-@@ -1227,9 +1227,42 @@ static int l2cap_sock_recvmsg(struct socket *sock, struct msghdr *msg,
- 	if (sk->sk_state == BT_CONNECT2 && test_bit(BT_SK_DEFER_SETUP,
- 						    &bt_sk(sk)->flags)) {
- 		if (pi->chan->mode == L2CAP_MODE_EXT_FLOWCTL) {
-+			struct l2cap_chan *chan = pi->chan;
-+			struct l2cap_conn *conn;
-+
- 			sk->sk_state = BT_CONNECTED;
--			pi->chan->state = BT_CONNECTED;
--			__l2cap_ecred_conn_rsp_defer(pi->chan);
-+			chan->state = BT_CONNECTED;
-+
-+			/* __l2cap_ecred_conn_rsp_defer() walks and mutates
-+			 * conn->chan_l (via __l2cap_chan_list_id() and
-+			 * l2cap_chan_del()), which is serialised by conn->lock
-+			 * and is concurrently modified by the RX worker.  The
-+			 * established lock order is
-+			 * conn->lock -> chan->lock -> sk_lock, so the socket
-+			 * lock must be dropped before taking conn->lock to
-+			 * avoid inverting it (lockdep deadlock).  Pin the conn
-+			 * across the unlocked window; chan needs no extra
-+			 * reference because the socket holds one until
-+			 * sk->sk_socket is cleared, which cannot happen while
-+			 * this call is in progress.
-+			 */
-+			conn = l2cap_conn_hold_unless_zero(chan->conn);
-+			release_sock(sk);
-+			if (conn) {
-+				mutex_lock(&conn->lock);
-+				/* The RX worker may have torn the channel down
-+				 * (FLAG_DEL, removed from conn->chan_l) while the
-+				 * socket lock was dropped; skip the response in
-+				 * that case. conn->lock below serialises the
-+				 * chan_l walk against the RX worker's
-+				 * l2cap_chan_del().
-+				 */
-+				if (!test_bit(FLAG_DEL, &chan->flags))
-+					__l2cap_ecred_conn_rsp_defer(chan);
-+				mutex_unlock(&conn->lock);
-+				l2cap_conn_put(conn);
-+			}
-+			lock_sock(sk);
- 		} else if (bdaddr_type_is_le(pi->chan->src_type)) {
- 			sk->sk_state = BT_CONNECTED;
- 			pi->chan->state = BT_CONNECTED;
+What this does not fix, and what I am not proposing to fix here: a late
+reply can still be written into the buffer while the next command is using
+it, so it can corrupt that command's data or complete it early. The
+checksum test turns most of that into -EPROTO rather than bad data
+reaching the caller. Fixing it properly means serializing reply setup and
+teardown against qnap_mcu_receive_buf(), which is a change to the driver's
+synchronisation model and not something I want to fold into a fix. Same
+for the unprotected reply->received accesses, which KCSAN would flag.
+
+I have no QNAP hardware, so this is from reading the driver rather than
+from an observed corruption. What I checked:
+
+  - flush_to_ldisc() calls receive_buf() from a workqueue, so it is
+    process context and genuinely concurrent with qnap_mcu_exec()
+  - bus_lock is held across wait_for_completion_timeout(), so
+    qnap_mcu_receive_buf() cannot take it
+  - struct qnap_mcu comes from devm_kzalloc() in qnap_mcu_probe()
+  - length is checked against sizeof(mcu->rx) before it is published,
+    so the bounded write stays inside the buffer
+  - the u8 rx[14] in qnap_mcu_get_version() is a caller buffer, filled by
+    memcpy() under bus_lock after the reply is complete, so it is not
+    exposed to the receive path and is left alone
+
+ drivers/mfd/qnap-mcu.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/mfd/qnap-mcu.c b/drivers/mfd/qnap-mcu.c
+index 8de974ddac3e..93a3dd93404d 100644
+--- a/drivers/mfd/qnap-mcu.c
++++ b/drivers/mfd/qnap-mcu.c
+@@ -56,6 +56,7 @@ struct qnap_mcu_reply {
+  * @reply:	Reply data structure
+  * @variant:	Device variant specific information
+  * @version:	MCU firmware version
++ * @rx:		Receive buffer the reply is assembled in
+  */
+ struct qnap_mcu {
+ 	struct serdev_device *serdev;
+@@ -63,6 +64,7 @@ struct qnap_mcu {
+ 	struct qnap_mcu_reply reply;
+ 	const struct qnap_mcu_variant *variant;
+ 	u8 version[QNAP_MCU_VERSION_LEN];
++	u8 rx[QNAP_MCU_RX_BUFFER_SIZE];
+ };
+ 
+ /*
+@@ -214,19 +216,18 @@ int qnap_mcu_exec(struct qnap_mcu *mcu,
+ 		  const u8 *cmd_data, size_t cmd_data_size,
+ 		  u8 *reply_data, size_t reply_data_size)
+ {
+-	unsigned char rx[QNAP_MCU_RX_BUFFER_SIZE];
+ 	size_t length = reply_data_size + QNAP_MCU_CHECKSUM_SIZE;
+ 	struct qnap_mcu_reply *reply = &mcu->reply;
+ 	int ret = 0;
+ 
+-	if (length > sizeof(rx)) {
++	if (length > sizeof(mcu->rx)) {
+ 		dev_err(&mcu->serdev->dev, "expected data too big for receive buffer");
+ 		return -EINVAL;
+ 	}
+ 
+ 	guard(mutex)(&mcu->bus_lock);
+ 
+-	reply->data = rx;
++	reply->data = mcu->rx;
+ 	reply->length = length;
+ 	reply->received = 0;
+ 	reinit_completion(&reply->done);
+@@ -242,15 +243,15 @@ int qnap_mcu_exec(struct qnap_mcu *mcu,
+ 		return -ETIMEDOUT;
+ 	}
+ 
+-	if (!qnap_mcu_verify_checksum(rx, reply->received)) {
++	if (!qnap_mcu_verify_checksum(mcu->rx, reply->received)) {
+ 		dev_err(&mcu->serdev->dev, "Invalid Checksum received from controller\n");
+ 		return -EPROTO;
+ 	}
+ 
+-	if (qnap_mcu_reply_is_any_error(mcu, rx, reply->received))
++	if (qnap_mcu_reply_is_any_error(mcu, mcu->rx, reply->received))
+ 		return -EPROTO;
+ 
+-	memcpy(reply_data, rx, reply_data_size);
++	memcpy(reply_data, mcu->rx, reply_data_size);
+ 
+ 	return 0;
+ }
+
+base-commit: 2d2338c93da79b3bfe4b6099a931d9468d539952
 -- 
-2.43.0
+2.55.0
 
