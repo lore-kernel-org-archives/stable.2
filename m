@@ -1,35 +1,43 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9A6DD2D063E;
-	Sun,  2 Aug 2026 02:04:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF7F17557E
+	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 02:33:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785636262; cv=none; b=WZr2lA6kAjcx8m02IoKwr8I9qJcngCXQ/PC3dHBZxsnkav95aVh4uHcJBj3XCRPubY4mO3/IJROIFlHSu9TY/6ypA2e89TxsMIFKG1Z7SSJF317fIYpo1I3m7dJg6RD0AY0MkNgd1K2OW0QgFrBecBykw/BgGPUOjjPMRvqZeRI=
+	t=1785638002; cv=none; b=G8qmgnxNMJ7hIEM6/xlHNWKIdagQYt5isoC3TeXXuFKdoHJXSWg+1afsjz9wqYJ9r6CEs4CxEjLzkBrVRcQLWn5qPpnTZPYyDO+g/+m8mI7B//E8hdMxtTl0n5ozLVznUbtqI6ZXumZQHdQTCyGS0ie0fpaYV/yr6NSBuq2ZCEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785636262; c=relaxed/simple;
-	bh=xKbEZNSJ0MfUPk/Ogo4MrO+ZKJhEBz4eja60qCvYOlQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VYZeoD4f5Q4rhlZz0yFVlSOBUWkn7QSOW3T/gaS2s9Hl2OYHSegkA/gIoB0wMuN8tIQFJhYIve2tAdnSbcbUpuZRuBJFVGs+DYYugnFa+3QvtUcsRRkArzlAYSQ/mV9e9wCHoyuRh9XwlL+MhLtXIXdZ5MaE8AHtQ7L6057V7kQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wAn8n2bpW5q+QxZAA--.8833S3;
-	Sun, 02 Aug 2026 10:04:12 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgCH9cqbpW5qgk5zAw--.23194S2;
-	Sun, 02 Aug 2026 10:04:11 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-pm@vger.kernel.org
-Cc: sre@kernel.org,
-	linusw@kernel.org,
-	arun.murthy@stericsson.com,
-	anton.vorontsov@linaro.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] power: supply: ab8500_fg: fix use-after-free on remove
-Date: Sun,  2 Aug 2026 02:03:16 +0000
-Message-Id: <20260802020316.417757-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1785638002; c=relaxed/simple;
+	bh=Wprza5eq+gyapQfIDJ5T2X9vd1yznJxhpo9RLbuVgHE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TVDr4hjP1DtbryjHd3oPPiNLkJHji64Ibrgj6+993GzKt3MgGFFgFsHqKG4xfNQZlBPeJJFotDLMNgeXeHBHwt4eNTyUTCFey2EBNCzFnGT+XQxKklCVyGKwN0EnsEuzMKI2j/HkscbMXYd/vVJrT1fOkg5ox37c303P70YpPZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HNjtb2KC; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HNjtb2KC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B25B71F00ACF;
+	Sun,  2 Aug 2026 02:33:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785638001;
+	bh=X9NxTWcmkd900DPZnWMyTKriUTJQ2HDWbZejTpzubS0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HNjtb2KCDe9sbyOMUIYph9h8JFypkJH5ifGldnPDpt0v0fNXrefSc/hxI7naTFO6J
+	 wYGcY3Pw22GCZBzUIAJ3JuFuNgS5VAFJaE6BOSAsFLmsinpz5aL83q0jWvw02Irbyg
+	 0iDe+/en6ZCJpPjgqzlFFXgbeFwT+YAZgmlDaQx0OaMiafLSnf34gSwxRWLqeTHJwy
+	 uN6uUXnLoGO7WHc2lJhL9qKSYbuMf1aZWXsaRqG93D934UW2FNfQcbP1lmpIJQnsAM
+	 vnxgJbFLaEIwGk176Kp+tFnGgJZt8zUOcK/4opysdr1OYMDi3QQmOIb9OrczbEYMhC
+	 vlXTPfQMmkPUw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>,
+	Santhosh Reddy Guddati <santhosh.reddy.guddati@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/3] drm/i915/hdcp: Skip inactive MST connectors when building stream list
+Date: Sat,  1 Aug 2026 22:33:16 -0400
+Message-ID: <20260802023317.1298318-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260802023317.1298318-1-sashal@kernel.org>
+References: <2026072916-pelican-detract-661d@gregkh>
+ <20260802023317.1298318-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,129 +45,63 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgCH9cqbpW5qgk5zAw--.23194S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?WLVragXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI0TwYvJJsLt58VnWhmFj6/wTGpwf9BHTNqP+i4dXGDUEahK
-	PROcqqbFF12lOVoJfpep9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxAFyfArWkJFWkGr43WF1fKrX_yoW5uF1xpF
-	Z3WFyYk3y8XF4jvFZxJr17CF13Ca1xAr17Cw4fGa1Syw15X3yqyw1rKFy0gF95WFyrJ39r
-	Aa95J393ur1F9agCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Cb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAF
-	wI0_Cr1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57
-	IF6xkI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE
-	14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2
-	IYc2Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I
-	3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxV
-	WUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAF
-	wI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcI
-	k0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j
-	6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jUGYJUUUUU=
 
-ab8500_fg_remove() destroys the driver workqueue while the threaded
-interrupt handlers are still armed; they are devm-managed and freed
-only after ->remove() returns, so a handler that fires in that
-window queues work on the freed workqueue.
+From: Suraj Kandpal <suraj.kandpal@intel.com>
 
-Tear the workqueue down through devm instead, registering its cleanup
-after the power supply and before the interrupt requests.  devm then
-frees the interrupts first, so the handlers can no longer queue work,
-before disabling the delayed and plain work items and destroying the
-workqueue.  Disabling the items, rather than cancelling them, keeps
-them disabled so no producer (including the power-supply
-external_power_changed callback) can requeue them.
+[ Upstream commit 0161e2c2016337a2f22ef79dff0aee43c0841bce ]
 
-Found by an in-house static analysis tool.
+intel_hdcp_required_content_stream() walks every connector on the
+digital port to populate hdcp_port_data->streams[]. The only filter is
+connector_status_disconnected, which reflects physical presence on the
+MST topology, not whether the connector currently drives a stream.
+On a multi-sink MST setup where only a subset of sinks are modeset,
+the loop can pick a sibling MST connector that is connected but has
+no active CRTC / VC payload. intel_conn_to_vcpi() then logs "MST
+Payload not present" and returns 0, and the bogus StreamID=0 is
+written to the repeater in RepeaterAuth_Stream_Manage (DPCD 0x693F0).
+Authentication completes, but the repeater shortly raises
+LINK_INTEGRITY_FAILURE (RxStatus 0x69493 bit4) because the StreamID
+does not match any stream on its input. The HDCP check work then
+tears the link down, the Content Protection property drops back to
+DESIRED, and userspace observes a spurious HDCP enable failure.
+Filter the connector iteration to only those with a CRTC assigned in
+the new atomic state, so intel_conn_to_vcpi() is called for the
+connector actually being enabled and reads its real VCPI from the MST
+topology state.
 
-Fixes: 13151631b5bd ("ab8500-fg: A8500 fuel gauge driver")
-Cc: stable@vger.kernel.org # v6.10+
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Reviewed-by: Santhosh Reddy Guddati <santhosh.reddy.guddati@intel.com>
+Link: https://patch.msgid.link/20260505094022.4064256-1-suraj.kandpal@intel.com
+Stable-dep-of: bbb15a6b042d ("drm/i915/hdcp: check streams[] bounds before overflow")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/ab8500_fg.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/power/supply/ab8500_fg.c b/drivers/power/supply/ab8500_fg.c
-index 0000000..1111111 100644
---- a/drivers/power/supply/ab8500_fg.c
-+++ b/drivers/power/supply/ab8500_fg.c
-@@ -3054,6 +3054,20 @@
- 	flush_workqueue(di->fg_wq);
- }
- 
-+/* Disable, not cancel: works stay disabled so nothing can re-arm them. */
-+static void ab8500_fg_destroy_workqueue(void *data)
-+{
-+	struct ab8500_fg *di = data;
-+
-+	disable_work_sync(&di->fg_acc_cur_work);
-+	disable_work_sync(&di->fg_work);
-+	disable_delayed_work_sync(&di->fg_reinit_work);
-+	disable_delayed_work_sync(&di->fg_low_bat_work);
-+	disable_delayed_work_sync(&di->fg_check_hw_failure_work);
-+	disable_delayed_work_sync(&di->fg_periodic_work);
-+	destroy_workqueue(di->fg_wq);
-+}
-+
- static const struct component_ops ab8500_fg_component_ops = {
- 	.bind = ab8500_fg_bind,
- 	.unbind = ab8500_fg_unbind,
-@@ -3155,6 +3169,11 @@
- 		return PTR_ERR(di->fg_psy);
- 	}
- 
-+	/* Registered after fg_psy, before the IRQs: devm frees IRQ -> workqueue -> fg_psy. */
-+	ret = devm_add_action_or_reset(dev, ab8500_fg_destroy_workqueue, di);
-+	if (ret)
-+		return ret;
-+
- 	di->fg_samples = SEC_TO_SAMPLE(di->bm->fg_params->init_timer);
- 
- 	/*
-@@ -3168,7 +3187,6 @@
- 	for (i = 0; i < ARRAY_SIZE(ab8500_fg_irq); i++) {
- 		irq = platform_get_irq_byname(pdev, ab8500_fg_irq[i].name);
- 		if (irq < 0) {
--			destroy_workqueue(di->fg_wq);
- 			return irq;
- 		}
- 
-@@ -3180,7 +3198,6 @@
- 		if (ret != 0) {
- 			dev_err(dev, "failed to request %s IRQ %d: %d\n",
- 				ab8500_fg_irq[i].name, irq, ret);
--			destroy_workqueue(di->fg_wq);
- 			return ret;
- 		}
- 		dev_dbg(dev, "Requested %s IRQ %d: %d\n",
-@@ -3196,7 +3213,6 @@
- 	ret = ab8500_fg_sysfs_init(di);
- 	if (ret) {
- 		dev_err(dev, "failed to create sysfs entry\n");
--		destroy_workqueue(di->fg_wq);
- 		return ret;
- 	}
- 
-@@ -3204,7 +3220,6 @@
- 	if (ret) {
- 		dev_err(dev, "failed to create FG psy\n");
- 		ab8500_fg_sysfs_exit(di);
--		destroy_workqueue(di->fg_wq);
- 		return ret;
- 	}
- 
-@@ -3224,7 +3239,6 @@
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index 565880d3a558..8dff524933a5 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -97,6 +97,7 @@ intel_hdcp_required_content_stream(struct intel_atomic_state *state,
  {
- 	struct ab8500_fg *di = platform_get_drvdata(pdev);
+ 	struct intel_display *display = to_intel_display(state);
+ 	struct drm_connector_list_iter conn_iter;
++	struct drm_connector_state *new_conn_state;
+ 	struct intel_digital_port *conn_dig_port;
+ 	struct intel_connector *connector;
+ 	struct hdcp_port_data *data = &dig_port->hdcp_port_data;
+@@ -123,6 +124,11 @@ intel_hdcp_required_content_stream(struct intel_atomic_state *state,
+ 		if (conn_dig_port != dig_port)
+ 			continue;
  
--	destroy_workqueue(di->fg_wq);
- 	component_del(&pdev->dev, &ab8500_fg_component_ops);
- 	list_del(&di->node);
- 	ab8500_fg_sysfs_exit(di);
++		new_conn_state = drm_atomic_get_new_connector_state(&state->base,
++								    &connector->base);
++		if (!new_conn_state || !new_conn_state->crtc)
++			continue;
++
+ 		data->streams[data->k].stream_id =
+ 			intel_conn_to_vcpi(state, connector);
+ 		data->k++;
 -- 
-2.34.1
+2.53.0
 
