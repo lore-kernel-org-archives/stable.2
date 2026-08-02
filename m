@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A776EEC3
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 01:49:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D2B63C07A
+	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 01:49:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785635362; cv=none; b=g13B4Mlidxh933jyR+CfMNhY1+/Jl2AInFrvEzGTXH8vfUuxSEOVQ/VomL7d487bqrXEOreBKcJzQGDkbhtspPxGCq1NsaNEYZOsSYxbsDhuCAhexxp2SGACU19Rb4ZzfMmNxZk/sApEALy9kYobKEMkYylmAVah1++1+mTVGWg=
+	t=1785635363; cv=none; b=BIOHf+usRQH103dnshNoAeG5JxkY2RvXYKQsta21P1tio0UVwd8xsnml5n5TlM3FpLtANNHgF5h1+ntGqYWqW0nSsFjn6/apv4OBeT4F8zVM5BRMnlz4kCiyXoUokyHE2BoKm93ZY7bXxSWyQ44hm5bPkWn1ooIX9Vvx+y1xXBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785635362; c=relaxed/simple;
-	bh=ULm1eNmgWlp3xTmjOyrtSq9Po5TWP/gwaj3mnYRFzHY=;
+	s=arc-20240116; t=1785635363; c=relaxed/simple;
+	bh=0hS01KNtLV5wQOv2UuzuATKb6nhy7su07NbkykuNnKU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OU90IULXJ6iCpma/6S/mK8JKiaJKU6dM1j4i+TPVX50pJ565KKsaziRNpjJqMEnHKtDNE+TvMSsDcpRnoekWSG4y2wDtclvGEk5AzNv2Pp0pFVZni0d9YUSwUZH6VObvUsUEhpaT4pWcPcwXbWVrCbOLLH6QRZwTZHC7wsmgK6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f9BOFssl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=UcEXksmcxnCnKyiQ3P0Rkcc831G6AACC8px6AcJAxUYikxVzKebpiNZwkQpzGB0PumwWswDS76cBSkbIcxkmeTnupiHHjVecLykH+yVYN/xuRbNNgVHYJjbyHaPtfK32MGiCF6Neold4XoioQ97iGNknl6LSuYRzC49jol3EgU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YCA6nJeB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f9BOFssl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8321F00ADB;
-	Sun,  2 Aug 2026 01:49:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCA6nJeB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5420E1F00AC4;
+	Sun,  2 Aug 2026 01:49:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785635361;
-	bh=FXG4TDxJjxHWxD7byUVXWiLRX4P0a6bAvI4E8ZbEEvk=;
+	s=k20260515; t=1785635362;
+	bh=XaS3NbYzTiFcxwVdklwukz/89H0uzt1bb7oCKDug9rk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f9BOFsslc5QRm+B1V2Ng6IXLKuvdR+fuJ9zTzvqXsBLR9KLWX2iuiXOqPQC7YSGC1
-	 70weGJuJwj/LLhQWwIfcxnCM+vWJ1RttRG8UG659I6OUpiNNxi07syAOjqGooo6Tkh
-	 XY1SIpVC2OFX3zCxBKoiEkrZ411rW9Tm22qqX/hiKv222dzojEMll8CdRUAiz5uGUD
-	 Y7oIR60rM0bhs5OetMTnnp5xkv9/Dgdq9vyC+dGujMTJKmp79rNHM1yS2glUi8MtyP
-	 uaa/UwkJFA52W+jjg1TIaGpUWf6JCcLZpME+HrDOQvfQNM+xpV7Rx2d/mWP55FlnaO
-	 yl+6SrogTtERQ==
+	b=YCA6nJeBW7Ra544pKilDPE4WbTnaQeoWMFbTb8WKPECIzobSCUxmmI1SrE0qSaYJ4
+	 m3iXTkzf2JVBfozIK8z30TPUf88gdwR0+TXOAwqiooTu4FaTgHQ+Zzc709EhuwkxE8
+	 LBKxsxWOJH8msRuPZVeVhJNcNJw6qawgMAVtBsrvRG0QT7aYOABvvHS2vy+mQ/LmCt
+	 OF6Eaw61xymnl5/S9khumuphz/vVb6OUfkPuI6RYeW2VFj1XjaDQiU4ZOvmE7dQRfJ
+	 DIn6WN824ts3Ns4SUNRd0ON7WQfhvpTfHzb5JzwKw5EmpbYpcLOYgXD6tH/6+R/Wvs
+	 SMghoKC5bio3w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Oak Zeng <oak.zeng@intel.com>,
-	Brian Nguyen <brian3.nguyen@intel.com>,
-	Shuicheng Lin <shuicheng.lin@intel.com>,
+Cc: Zongyao Bai <zongyao.bai@intel.com>,
+	Matthew Auld <matthew.auld@intel.com>,
 	Matthew Brost <matthew.brost@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/4] drm/xe: Add page reclamation info to device info
-Date: Sat,  1 Aug 2026 21:49:14 -0400
-Message-ID: <20260802014916.504747-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y 4/4] drm/xe/pt: Reset current_op in xe_pt_update_ops_init()
+Date: Sat,  1 Aug 2026 21:49:15 -0400
+Message-ID: <20260802014916.504747-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260802014916.504747-1-sashal@kernel.org>
 References: <2026072945-jaybird-vaguely-739f@gregkh>
@@ -46,67 +46,68 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Oak Zeng <oak.zeng@intel.com>
+From: Zongyao Bai <zongyao.bai@intel.com>
 
-[ Upstream commit 9b1a0e0a15c97987fdf56a615f3d13995bafd042 ]
+[ Upstream commit 6384271ac1ac0099198d15df79212a19ebdb929d ]
 
-Starting from Xe3p, HW adds a feature assisting range based page
-reclamation. Introduce a bit in device info to indicate whether
-device has such capability.
+xe_pt_update_ops_init() fails to reset current_op to 0. On the
+vm_bind path, ops_execute() calls xe_pt_update_ops_prepare() inside
+the xe_validation_guard() / drm_exec_until_all_locked() loop. When
+that loop retries due to lock contention or OOM eviction
+(drm_exec_retry_on_contention() / xe_validation_retry_on_oom()),
+xe_pt_update_ops_prepare() runs again on the same vops, and each
+call to bind_op_prepare() increments current_op without resetting it.
 
-Signed-off-by: Oak Zeng <oak.zeng@intel.com>
-Signed-off-by: Brian Nguyen <brian3.nguyen@intel.com>
-Reviewed-by: Shuicheng Lin <shuicheng.lin@intel.com>
+After N retries current_op exceeds the array size allocated by
+xe_vma_ops_alloc(), causing an out-of-bounds write into
+SLUB-poisoned memory and a subsequent UAF crash in
+xe_migrate_update_pgtables_cpu() when reading the corrupted pt_op->bind.
+
+Also reset needs_svm_lock and needs_invalidation which are derived in
+the same prepare pass and would otherwise cause wrong migrate ops
+selection and redundant TLB invalidation on retry.
+
+Fix this by resetting current_op, needs_svm_lock and needs_invalidation
+in xe_pt_update_ops_init().
+
+v2 (Matt):
+   - Add details in commit message.
+   - Add Fixes tag and Cc to stable@vger.kernel.org
+
+Fixes: e8babb280b5e ("drm/xe: Convert multiple bind ops into single job")
+Suggested-by: Matthew Auld <matthew.auld@intel.com>
+Cc: stable@vger.kernel.org
+Assisted-by: GitHub-Copilot:claude-sonnet-4.6
+Signed-off-by: Zongyao Bai <zongyao.bai@intel.com>
 Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Link: https://patch.msgid.link/20251212213225.3564537-15-brian3.nguyen@intel.com
-Stable-dep-of: 6384271ac1ac ("drm/xe/pt: Reset current_op in xe_pt_update_ops_init()")
+Link: https://patch.msgid.link/20260714232433.2737533-1-zongyao.bai@intel.com
+(cherry picked from commit 046045543e530605c441063535e7dca0075369a6)
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_device_types.h | 2 ++
- drivers/gpu/drm/xe/xe_pci.c          | 1 +
- drivers/gpu/drm/xe/xe_pci_types.h    | 1 +
- 3 files changed, 4 insertions(+)
+ drivers/gpu/drm/xe/xe_pt.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
-index 0e80f2940c99..2ed03fd074ff 100644
---- a/drivers/gpu/drm/xe/xe_device_types.h
-+++ b/drivers/gpu/drm/xe/xe_device_types.h
-@@ -305,6 +305,8 @@ struct xe_device {
- 		 * pcode mailbox commands.
- 		 */
- 		u8 has_mbx_power_limits:1;
-+		/** @info.has_page_reclaim_hw_assist: Device supports page reclamation feature */
-+		u8 has_page_reclaim_hw_assist:1;
- 		/** @info.has_pxp: Device has PXP support */
- 		u8 has_pxp:1;
- 		/** @info.has_range_tlb_inval: Has range based TLB invalidations */
-diff --git a/drivers/gpu/drm/xe/xe_pci.c b/drivers/gpu/drm/xe/xe_pci.c
-index 89cc6d32f041..b78729211790 100644
---- a/drivers/gpu/drm/xe/xe_pci.c
-+++ b/drivers/gpu/drm/xe/xe_pci.c
-@@ -591,6 +591,7 @@ static int xe_info_init_early(struct xe_device *xe,
- 	xe->info.has_heci_cscfi = desc->has_heci_cscfi;
- 	xe->info.has_late_bind = desc->has_late_bind;
- 	xe->info.has_llc = desc->has_llc;
-+	xe->info.has_page_reclaim_hw_assist = desc->has_page_reclaim_hw_assist;
- 	xe->info.has_pxp = desc->has_pxp;
- 	xe->info.has_sriov = desc->has_sriov;
- 	xe->info.skip_guc_pc = desc->skip_guc_pc;
-diff --git a/drivers/gpu/drm/xe/xe_pci_types.h b/drivers/gpu/drm/xe/xe_pci_types.h
-index 9b9766a3baa3..a7b6576725ed 100644
---- a/drivers/gpu/drm/xe/xe_pci_types.h
-+++ b/drivers/gpu/drm/xe/xe_pci_types.h
-@@ -42,6 +42,7 @@ struct xe_device_desc {
- 	u8 has_late_bind:1;
- 	u8 has_llc:1;
- 	u8 has_mbx_power_limits:1;
-+	u8 has_page_reclaim_hw_assist:1;
- 	u8 has_pxp:1;
- 	u8 has_sriov:1;
- 	u8 needs_scratch:1;
+diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+index a32752c57ea4..c21f46a56be3 100644
+--- a/drivers/gpu/drm/xe/xe_pt.c
++++ b/drivers/gpu/drm/xe/xe_pt.c
+@@ -2143,8 +2143,11 @@ static void
+ xe_pt_update_ops_init(struct xe_vm_pgtable_update_ops *pt_update_ops)
+ {
+ 	init_llist_head(&pt_update_ops->deferred);
++	pt_update_ops->current_op = 0;
+ 	pt_update_ops->start = ~0x0ull;
+ 	pt_update_ops->last = 0x0ull;
++	pt_update_ops->needs_svm_lock = false;
++	pt_update_ops->needs_invalidation = false;
+ }
+ 
+ /**
 -- 
 2.53.0
 
