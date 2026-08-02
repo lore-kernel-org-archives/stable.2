@@ -1,79 +1,35 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691573806B6
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 06:59:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C68692AD37;
+	Sun,  2 Aug 2026 07:19:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785653988; cv=none; b=OhQUYwXcHoqNyUkeM6z9qXehuzqMH5EnOcLMz2Pnk1TWXJvAO0txPQjyTyBUYStFTJF6CvxDBDMIm/pN+x+xcA4SsZtfqO4peyJ3y5NPeMPMqd9KYZdymBg6xT4WYEhmbuTFeHrF4yOq9pVjar6eNYesVECQhC9qCcPbsAdUcmM=
+	t=1785655201; cv=none; b=H0yNaazyxsRUB2xWf0+zH+AQV4FRXOOgCuGvKJ4vVDFXQN+FaxNbphF3tWU1ttyRZVMCC5Mg90v6APwxK4MMMySkL/3Bx4xbQ3ynWsTXCcsT4KLhHztNyKPk1rCT6+2xvDw+HEXFOVGXEz/b9yWfTq46aHzEGx3oKDaEjA5xvoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785653988; c=relaxed/simple;
-	bh=nxQBXurTXH8h8nqKnYqBo0gNwDUJEs5Sjw7UsMyg2ig=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lgCRTG/c7Eruoj8679mE7Y2EsBsn1OGjXHaJnNasQiDLqUU9rhN2wQkowJ1svmjBX0EaA4T1qyL81b9Zd0ise6FhT/WVEd9fQQRByb3GTq/IkmKVoc2kR+QB/m7yxuxIWfqeM8PiXaHV9jzUbua1iM1aINoHqVq8+5K82g9hZR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jzy+VcWO; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jzy+VcWO"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cab973140bso28917515ad.3
-        for <stable@vger.kernel.org>; Sat, 01 Aug 2026 23:59:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785653987; x=1786258787; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kwuSTX4BUVRHkplVMx2ZhWG7cEDPoxgXZ0IM1LCsc/c=;
-        b=jzy+VcWO01A+nZuWMbA8CpE2qTHRR7tcVw2UwOye9xkTWWmOmwk7zpxy38iDvveFNX
-         Kt7YLaz1h4j11q+Pronqx+8ovWxi3yER4mRYWDDug2C5JoCAPjX6vRpzLWplTh/vEQl0
-         ErejtQRotK/VjlLYsxtFcK9Zgd8V85oIfnJCwSPH7keOEj56ShVPLvoBnHNjiBzSslrO
-         KcbgARbpHyYk0pHls0yqXuti2PGCyUipPPMX6DzVK5ZYp1iAv7h3K/+GZf8ZkmPWG84X
-         4cM3NbedBT/xTHh6uugzp0271lAqFgAEf8ud7aMGO77AwpkmeYmq3Bg2inBJ/T5SMIWk
-         mG/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785653987; x=1786258787;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kwuSTX4BUVRHkplVMx2ZhWG7cEDPoxgXZ0IM1LCsc/c=;
-        b=EXWbrLGU3OXGEXpU5CzjHuG9tpnyK9amyz3w1hZqpREcE+dF5bvX2ijPF1ndt00XIu
-         hHV1MkSUpHOzZoxFnX1UBgeYFqPeAiDVaBBvhU1X5Pkqg+PHpy7l7rGAMHWgWJGiOwaY
-         iIiPEnvDpWKLKT/Dk25JoYpI259fIW8yH5aGhldoYVS5KRgiGJK8Y4IM+HVrpEcvt3F2
-         JuaH2KV1b1Fu9txh2zMK714gHvLfer9pgcc4xYswL+EELq4agQ1UOoFAxN5eHKYGPyF2
-         Q9vXb/CSCAUS5OebgX1BEZbnEOtF/7R7nSyrb2dUVFQ1Fc0a6RCRVcl/e7fWHvy7+gcY
-         ML/A==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0A1s56YsRLC8edQwe+eObC8WQn3UtIQur8T+ufBs3nYlHC8xQiMLvDMpGzWE8LCenZcYWoto=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyO0aCZor7H9PC+3amsrvDjlylD9Q2E9xVSbV8FdSQT0RsAmH+E
-	KkBzvSZJv+BYbMX7Wr+Ag+NTy4Sk2PDh4sO+XpLqj41QYKvp5is+WzH4
-X-Gm-Gg: AR+sD12qEbTHIy14FUuGF2fJp62WuWcFtiRkYPk1A/D/KkDSSxj1t4bYXo+6V+/nbNP
-	qdGGjFUEhw1WDwvjtJzbjezIyVYkj139vmPRlVDRTJwZnnNTGpaZu0nQ+QWiJ3i8fwIlmaIHQBS
-	SRGKWz1Fz9P25a3vsAWPZLU5amGepyjqFZ0zw61veENzqHu4mGDKGUjZLpuwvEDonRZo8MU8HBf
-	cszibxW/ij6P4okUIeuZL5dfPbnt6Sa2n8OLw4G0LCj+9XGgRXJ7lFZfPZbl4mu4MmowH5VJrt6
-	Fwq13Lb4Y/6A7xLUYBvdaQKYnQ0D+5QHxAdMhqzWW+aYV4L2LWnrkQtQlG/IUKf3PQJqATr1qct
-	wAIrux11NVty+2lhTvN9Yv7uvcoJ0TkNnA3y3bhQMj5pWj284mBxOK0RttvTb6cVTyx6qoyYd8b
-	w68cWDmi9cj5mKybmLqSDzXSmw6dvP9itc8tw/f3DrSSv/gKy4it+nkivNKc8auTjXIgAq0NlYJ
-	092OKP9bs+Qt8iH+XmQKKZiB+UitZcGKWje/OnQ7Mzc+7X4kKtOChHzGLr0q6Jus1gGxpUg66jV
-	/niAq/CiCy+MjnzECEDhAA8nGytEYmOuKKEdIQCOHiji8SZam60W
-X-Received: by 2002:a05:6a21:910c:b0:3bf:5539:f93 with SMTP id adf61e73a8af0-3c92a89cbd0mr6154510637.38.1785653986498;
-        Sat, 01 Aug 2026 23:59:46 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.252.203.158])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153dd9c96asm25453361eec.7.2026.08.01.23.59.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 23:59:46 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: linux-ext4@vger.kernel.org
-Cc: tytso@mit.edu,
-	jack@suse.cz,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	ojaswin@linux.ibm.com,
-	Matthias Goergens <matthias.goergens@gmail.com>,
-	syzbot+e68dbebd9617a9250e8d@syzkaller.appspotmail.com,
+	s=arc-20240116; t=1785655201; c=relaxed/simple;
+	bh=93uv5jk6v/ieTBwy86ryR7DXv68TCIL2/fXflnPIvTc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=C44cbL9/YLKp+PBEyfc4kBrHo/al6BiWYCuefeIYIItiATHFRsmz0yTaJK9oZDWM3DJcOUe8q90JREFfZjMA7PhiM5thp8EPsCt6rFCj1TNigH3oemhR1XivoMiLAuK1jN8AOycVn/B5pl3a15RmT9a9sI6pnYSkfsYZTo4Pklw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCHgyiZ725qVNNZAA--.19066S3;
+	Sun, 02 Aug 2026 15:19:54 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app4 (Coremail) with SMTP id zi_KCgBXijGZ725q9r3QAg--.53239S2;
+	Sun, 02 Aug 2026 15:19:53 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: jic23@kernel.org
+Cc: mranostay@gmail.com,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] ext4: stop retrying saturated xattr cache entries
-Date: Sun,  2 Aug 2026 14:59:41 +0800
-Message-ID: <20260802065941.1726052-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Subject: [PATCH] iio: chemical: atlas-sensor: use iio_trigger_poll_nested() to fix remove UAF
+Date: Sun,  2 Aug 2026 07:18:58 +0000
+Message-Id: <20260802071858.430780-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,72 +37,107 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zi_KCgBXijGZ725q9r3QAg--.53239S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?oj6ajAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnXz+g1OQfMo27QHy5TwQyZyFLp0gqdfrRoFLp/uDBcfxMLS/T6KhAij0CU/uQ6QPqT0m
+	RWid1CAbc/R1tmRRnhKp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxuryrCr1rGrWkuF4fAw1kZwc_yoW5Aw4kpF
+	Z09FWq9rWkXF10vr4DC3WjyFyayrnxGay7KwsIg3sFq3s0yr1F9F40kFyaqF15AFWkWF15
+	ZrWrtrWDurs8AFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-ext4_xattr_block_set() retries when a cache entry selected for reuse
-has a saturated reference count after taking the buffer lock. The retry
-returns to the mbcache lookup without making that entry ineligible, so
-it can select the same unusable entry indefinitely. A task spinning
-there can hold the parent directory's i_rwsem and leave concurrent
-rmdir callers blocked.
+The atlas driver requests its hardware data-ready IRQ with
+devm_request_threaded_irq(); its threaded handler queues an irq_work,
+atlas_work_handler(), that calls iio_trigger_poll(data->trig).
 
-Normally a reusable entry has a reference count below
-EXT4_XATTR_REFCOUNT_MAX because the count and MBE_REUSABLE_B are
-updated under the same buffer lock. A corrupted filesystem can violate
-that invariant. The syzbot reproducer reports allocator and xattr
-corruption before triggering this retry loop.
+The IRQ is devm-managed, so free_irq() runs from the devres unwind after
+atlas_remove() returns without flushing that irq_work.  Once a buffer is
+enabled, conversion-complete IRQs keep firing and queueing it; a pending
+irq_work can therefore run after the unwind has freed atlas_data/indio_dev
+and the trigger, when atlas_work_handler() derives the atlas_data pointer
+via container_of() and dereferences data->trig, a use-after-free.
 
-Check the untrusted on-disk count before incrementing it, avoiding
-overflow, and clear MBE_REUSABLE_B when it is already saturated. The
-next lookup then skips the entry that was just proven unusable. This
-mirrors the normal transition at EXT4_XATTR_REFCOUNT_MAX; the release
-path marks the entry reusable again on the exact 1024-to-1023
-transition.
+Call iio_trigger_poll_nested() directly from the threaded handler instead
+of bouncing through irq_work.  free_irq() then drains the threaded handler,
+closing the window; other iio drivers with a threaded data-ready IRQ do the
+same (e.g. bmi270).
 
-Using the same QEMU harness and guest parameters, current unpatched
-Linux hung in 6 of 8 420-second trials with the do_rmdir signature;
-representative NMI backtraces caught the owner spinning in
-ext4_xattr_block_set(). The patched kernel completed 28 of 28 trials
-without a hung-task report; the final twelve trials exercised the
-reviewed overflow-safe form of the change. syzbot's patch testing also
-completed without reproducing the hang.
+This issue was found by an in-house static analysis tool.
 
-Reported-and-tested-by: syzbot+e68dbebd9617a9250e8d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e68dbebd9617a9250e8d
-Fixes: 65f8b80053a1 ("ext4: fix race when reusing xattr blocks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+Fixes: 7103b99b031c ("iio: chemical: atlas-ph-sensor: reorg driver to allow multiple chips")
+Cc: stable@vger.kernel.org # v6.4+
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- fs/ext4/xattr.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
-index 982a1f831e228..3c1bb547b2f54 100644
---- a/fs/ext4/xattr.c
-+++ b/fs/ext4/xattr.c
-@@ -2075,12 +2075,13 @@ ext4_xattr_block_set(handle_t *handle, struct inode *inode,
- 				 * stable so we can check the additional
- 				 * reference fits.
- 				 */
--				ref = le32_to_cpu(BHDR(new_bh)->h_refcount) + 1;
--				if (ref > EXT4_XATTR_REFCOUNT_MAX) {
-+				ref = le32_to_cpu(BHDR(new_bh)->h_refcount);
-+				if (ref >= EXT4_XATTR_REFCOUNT_MAX) {
- 					/*
- 					 * Undo everything and check mbcache
- 					 * again.
- 					 */
-+					clear_bit(MBE_REUSABLE_B, &ce->e_flags);
- 					unlock_buffer(new_bh);
- 					dquot_free_block(inode,
- 							 EXT4_C2B(EXT4_SB(sb),
-@@ -2091,6 +2092,7 @@ ext4_xattr_block_set(handle_t *handle, struct inode *inode,
- 					new_bh = NULL;
- 					goto inserted;
- 				}
-+				ref++;
- 				BHDR(new_bh)->h_refcount = cpu_to_le32(ref);
- 				if (ref == EXT4_XATTR_REFCOUNT_MAX)
- 					clear_bit(MBE_REUSABLE_B, &ce->e_flags);
--- 
-2.55.0
+ drivers/iio/chemical/atlas-sensor.c | 13 +------------
+ 1 file changed, 1 insertion(+), 12 deletions(-)
+
+diff --git a/drivers/iio/chemical/atlas-sensor.c b/drivers/iio/chemical/atlas-sensor.c
+--- a/drivers/iio/chemical/atlas-sensor.c
++++ b/drivers/iio/chemical/atlas-sensor.c
+@@ -13,7 +13,6 @@
+ #include <linux/mutex.h>
+ #include <linux/err.h>
+ #include <linux/irq.h>
+-#include <linux/irq_work.h>
+ #include <linux/i2c.h>
+ #include <linux/mod_devicetable.h>
+ #include <linux/regmap.h>
+@@ -88,7 +87,6 @@ struct atlas_data {
+ 	struct iio_trigger *trig;
+ 	const struct atlas_device *chip;
+ 	struct regmap *regmap;
+-	struct irq_work work;
+ 	unsigned int interrupt_enabled;
+ 	/* 96-bit data + 32-bit pad + 64-bit timestamp */
+ 	__be32 buffer[6] __aligned(8);
+@@ -437,13 +435,6 @@ static const struct iio_buffer_setup_ops atlas_buffer_setup_ops = {
+ 	.predisable = atlas_buffer_predisable,
+ };
+
+-static void atlas_work_handler(struct irq_work *work)
+-{
+-	struct atlas_data *data = container_of(work, struct atlas_data, work);
+-
+-	iio_trigger_poll(data->trig);
+-}
+-
+ static irqreturn_t atlas_trigger_handler(int irq, void *private)
+ {
+ 	struct iio_poll_func *pf = private;
+@@ -470,7 +461,7 @@ static irqreturn_t atlas_interrupt_handler(int irq, void *private)
+ 	struct iio_dev *indio_dev = private;
+ 	struct atlas_data *data = iio_priv(indio_dev);
+
+-	irq_work_queue(&data->work);
++	iio_trigger_poll_nested(data->trig);
+
+ 	return IRQ_HANDLED;
+ }
+@@ -666,8 +657,6 @@ static int atlas_probe(struct i2c_client *client)
+ 		goto unregister_trigger;
+ 	}
+
+-	init_irq_work(&data->work, atlas_work_handler);
+-
+ 	if (client->irq > 0) {
+ 		/* interrupt pin toggles on new conversion */
+ 		ret = devm_request_threaded_irq(&client->dev, client->irq,
+--
+2.43.0
 
