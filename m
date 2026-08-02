@@ -1,319 +1,252 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2733242D9B
-	for <stable@vger.kernel.org>; Sun,  2 Aug 2026 07:36:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C08042A80;
+	Sun,  2 Aug 2026 08:00:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785656183; cv=none; b=k+6Y6fc5RQ9k46XuDvaEvyy20vJeRZpQVQqDyqqIGrE6SkHWXdMOqGGDqd9tksYCFaEwdWhr7ASoKxrXBc8QimbieW1wcDouqfryNbfsSMQiSJF1aQdXs1n9s/bk8d0vkAdeLtSjF43FukBhD3LOAyYM4LpsbojEJ07MsjUfHoE=
+	t=1785657661; cv=none; b=rfL7GeSb+hjNeo/x8+8cQyQKzXxaYFmIZq/8UB9WgeF6GKlT75czwxetVcaUH35LEkwbCJZ0fgjMMr7S0yBZu//5TWWsGiwmFnyFd/heCpyl7WD7mOMnsx8c68zYxASXSoEFiRrVwPtyeKjXZLnmefuPEPe6y2NOh94lyI9cg+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785656183; c=relaxed/simple;
-	bh=i0G+QSe+rEqjSiXLOrhIPMXcruhSgfqXHbCCwbIII3w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dlQzbONWaKSq6/8ucRpbP4FjrmYPACLazetzS5vRTWBFOPlcHK4UvgYS7k3wG3ivaBk8UXf/Opz8v9+BlN+JRpBxs+apQL1uC0C85SVSubzSTHJmc6qBto1e6GFqvS0gtSaiZMQTVeWlPDOXKzjd8AFa2acmEPMt+damSnKE8qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LrihRtG+; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785657661; c=relaxed/simple;
+	bh=h2Y318P01d59xwR/WCY//9NEgCWv2F/2Z8GjA9mfyL4=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=UJ9COdCoIP/hP6rGIaoYsPDsD++jeFwN4euAJp00yYFx+94k/LYITjp0j0V1LnWhctVBhjUwPu5B9NsiFFq5T7jtruMd+J2pkgMhzRyVq2/xiIe0Xhg/h94pHsNicqmPJx59B718sIa4uUGGhH6tB2aJcLUJ2TvCTd3COiE5b78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Z4OrSIma; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sXY6Qdg+; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LrihRtG+"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38de840f2f0so1526501a91.0
-        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 00:36:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785656181; x=1786260981; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UFDuvOjw6QzhXgiQmLV3vmIEEiB9ylNJEhhslAcVqTA=;
-        b=LrihRtG+rXoKs8qVOU26ssYNgrUP+RO1dL7JxWY9n/lFSchnl/Rw+c+jpdGQWrTMrt
-         9AtO1UEJdJVtaYitMgWdcZ4etGGA+Os23erRJs3+OdfgSw1rG0Vdcos/N2+TIg2UZXpK
-         94FBX8w5Z85pTLzfqBNf694NOTc1ELXxVeQWbiAaHuyA9JQSJMhX0ehYKistWeWWEwPI
-         i/tK/aLo5uarruOWZi+iSrzMrV7ilGug+P6+YY8w8VPC5wIu7RdmY9d9MShc/5jnkHh6
-         dTKhO3gcq3pt3177IvQK1ByVrPaL84RMIk5ddaZkjnd0LVB0s+9Oklmr7hbh2zqWB7wY
-         L3iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785656181; x=1786260981;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UFDuvOjw6QzhXgiQmLV3vmIEEiB9ylNJEhhslAcVqTA=;
-        b=U9rM52P3HFPSiw0wR/OiGa1UwSJDY4QKm1MKjslswjoENYB+zpFrbQ1RVEmY3L72tL
-         j/Drn/zddvuYeZRbiGHu6QRCMZG63gkzQ9+qFBZNj6Za5gf7QtNxsfZebwrI/8pVxinQ
-         AA2OTvMQB/j8/aCOxsy6CWOaxoOycFlvbnEwGKGTXXlXqKGTY4G476P0ZeF4n0RbMiE5
-         LHrPP3NjJ8I/ZxzRUsYV/HYDXXBOH1wsag7Qs6/hMcyt5Kj056TRt2/b1RltWA/k6mnz
-         KPX/y3cpI+dX9u3WdlHzCrK22MxjB3FfzN/1LuHXTiI/fFnZ4tArQS3LpzB2/1HuPAKa
-         i6WQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rok7wv9wdoTzb1MjklAtTdsN7pFBbVcBIp4ESSMuC22BNRqChXsDvsblbLxtMYnn8ex9zb/IZo=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy00B5MnKXI5miV3xpcqNdV2Rfum67ujPgXoOvOvh/agVx5dR5j
-	6hAGzbjLaHa73jlxUygvwCsUv9TrHzQCT7VsAJHE3yolgnV210v79sqH
-X-Gm-Gg: AR+sD135Ot3SpRKWX6bAsnL2383noDTWXnvmJ79w/Jr4wJ8v31Sul8F3BPsN8+n045i
-	YgggUEyALJw+LRIno16nMPWG772Az/dCHHv0dcUkBbIXTLtELFdVgw4LbpyD0rMAKYrAvS/XXqc
-	x54lctyHttIVlcwlDVNjWiaJxDxEEAtSiMiM9u+egmwjO4+hmJ21/zj/Q2CI0rTsJEJnkBm//Wn
-	QUxL5RCUPDvjFp63usE0KJabKC9nKcXiu4LFUvMKtsGPewoYLuYpZhbQxlN8XApoj6eftjHPnAU
-	bKtqdJF7k/yasHBR2YpS6o42hFgXrvPnkUl0IBWsC/vHGDQN1Mof4s9o9uHd5ZWmsRD1vwMOjlM
-	6pwxLNgW+28NWj8H80aEBD1OxO41+mhnxDYnq5sgqJFEo+7DvkH7tCMs67tc2UxTmvJdX3XHjYb
-	qnLIaGIxn8y9cR7WGHlrOuqZCk2UMev/qL21cv6f5d9y2VvsKbxJlK2J8Si25tA7MeTNegMpdZI
-	zdozy/WAZqGykre7p7B2Lklz7NDa41vU388jc80TVGtA9Qjg86808PDlZE+
-X-Received: by 2002:a17:90b:17c5:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-38fbc424a3dmr4963381a91.10.1785656180857;
-        Sun, 02 Aug 2026 00:36:20 -0700 (PDT)
-Received: from DESKTOP-4AJO944.tail156a05.ts.net (ppp-49-237-104-56.revip6.asianet.co.th. [49.237.104.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38fb2bac459sm1649732a91.4.2026.08.02.00.36.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 02 Aug 2026 00:36:19 -0700 (PDT)
-From: Woraphat Khiaodaeng <worapat.kd2@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Woraphat Khiaodaeng <worapat.kd2@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] io_uring/cmd: fix iovec leak when the async cmd is not recycled
-Date: Sun,  2 Aug 2026 14:35:18 +0700
-Message-ID: <20260802073518.419-1-worapat.kd2@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Z4OrSIma";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sXY6Qdg+"
+Date: Sun, 02 Aug 2026 08:00:49 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1785657652;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=umbk5J5aCoy4rxd4oT1izA12X0gH0p+mnt5u56sbcwc=;
+	b=Z4OrSImaYSGkvE3rNF5yJFj2gj/TrhN2mqqBUt7p+HdJKOGRZOVmZ+3RDTsYx65oVWdMof
+	ZuzTfwI31RSQYzJ9QOmdtJc1uLAXxWFwkU2NlmkEL+Zn3Nav8HBq1grvKo5bc4/U1WfXYF
+	XRgDi0QWvURgkJ6ZjgZdSfscmSBukFBIKiYgX4fJtsTSsxCO3IH29l6eStnk+CH4o5ydbF
+	oaGpouQGs4khq043OZfcWy9jKhCeRxUliuzfXu5xcOzhOJoev6Lajyr8FfPRpZovIopw1Q
+	mCLtMppW8cP7D3HTL+AWoxtIbfenNhX2l3A8RBSEEFdVl3vlPjCeZu19q/jpPA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1785657652;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=umbk5J5aCoy4rxd4oT1izA12X0gH0p+mnt5u56sbcwc=;
+	b=sXY6Qdg+5/eT+w7ttyhnOFoQ7dS3atFGZ8TaqVx8U67KXAQR/NcLzZsvJ2uRsuEhyKf7bS
+	8pYDzV7J2RTN81CA==
+From: "tip-bot2 for Keno Fischer" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: locking/urgent] futex: Prevent robust futex exit race some more
+Cc: Keno Fischer <keno@juliahub.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260730194705.38981-1-keno@juliacomputing.com>
+References: <20260730194705.38981-1-keno@juliacomputing.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <178565764983.1210945.12829743922221592811.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-An io_async_cmd carries an iovec array in ->vec.iovec, allocated when the
-vec has to grow and kept across recycling through ctx->cmd_cache.  On two
-paths nothing frees it and io_clean_op()'s kfree(req->async_data) drops
-the io_async_cmd without it.
+The following commit has been merged into the locking/urgent branch of tip:
 
-io_req_uring_cleanup() clears the async data flags only when
-io_alloc_cache_put() succeeds, and the cache holds IO_ALLOC_CACHE_MAX ==
-128 entries, so once it is full the put fails and the vec is left behind.
-An NVMe passthrough workload gets there without doing anything unusual:
-nvme_uring_cmd_io() returns -EIOCBQUEUED, so the io_async_cmd stays
-attached for the lifetime of the command and the live object count tracks
-the queue depth.  Above 128 the puts start failing.
+Commit-ID:     6d4514ca9cdf61fec4ec634cf50386f6f7e69748
+Gitweb:        https://git.kernel.org/tip/6d4514ca9cdf61fec4ec634cf50386f6f7e=
+69748
+Author:        Keno Fischer <keno@juliacomputing.com>
+AuthorDate:    Tue, 21 Jul 2026 00:31:48=20
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Sun, 02 Aug 2026 09:57:35 +02:00
 
-->cleanup is the last chance to free an inherited vec, since
-io_req_uring_cleanup() returns early for an io-wq issued command and is
-not called at all for one completed without ever being issued.  But
-io_clean_op() calls ->cleanup only if REQ_F_NEED_CLEANUP is set, and for
-uring_cmd that happens only where the vec has to grow, so a command
-reusing a large enough cached vec never sets it.  io_rw_alloc_async() and
-io_msg_alloc_async() flag an inherited vec for exactly this reason;
-io_uring_cmd_prep() does not.
+futex: Prevent robust futex exit race some more
 
-Flag an inherited vec in io_uring_cmd_prep(), and free the vec when the
-cache put fails, as io_req_rw_cleanup() does.
+A robust futex unlock stores 0 over the whole futex value - wiping
+FUTEX_WAITERS - and wakes a single waiter. That wakeup is a one-shot
+notification: the protocol relies on its recipient to either acquire the
+futex (and eventually unlock while aware of the remaining contention) or
+re-arm FUTEX_WAITERS before sleeping again.  If the woken waiter is killed
+before it can do either, the kernel must jump in and wake the next task
+down the line.
 
-The leak is invisible under KASAN, where io_alloc_cache_vec_kasan() frees
-the vec unconditionally.
+This is a known complication of the futex protocol with a previous
+partial fix in commit ca16d5bee598 ("futex: Prevent robust futex exit
+race"). Unfortunately, that fix is insufficient.
 
-Fixes: 3a4689ac109f ("io_uring/cmd: add iovec cache for commands")
+If a third task re-acquired the futex through the uncontended fast
+path in the meantime, the notification is lost: robust exit processing
+sees that it is owned by another task and does nothing, while the new
+owner sees no FUTEX_WAITERS when it unlocks and wakes nobody.
+The remaining waiters sleep forever behind a free futex:
+
+  A owns the futex, B and C sleep in FUTEX_WAIT
+                                        uval =3D=3D A | FUTEX_WAITERS
+  A robust unlock: store 0, FUTEX_WAKE(1) wakes B
+                                        uval =3D=3D 0
+  D fast path acquire: cmpxchg(0 -> D)
+                                        uval =3D=3D D, no FUTEX_WAITERS
+  B killed before acting on the wakeup
+  B exit walk, pending op: owner D !=3D B -> no action
+  D unlock: no FUTEX_WAITERS -> no wake
+                                        C sleeps forever
+
+This is clearly a shortcoming in the implementation, which fails to keep
+the FUTEX_WAITERS bit consistent.
+
+Work around this by augmenting the robust list exit processing to also
+perform the extra wakeup if the futex word is owned by another thread but
+FUTEX_WAITERS is not set.
+
+This does not fix the problem of a non-contended take over/release and free
+sequence, which has been discussed for years and has been addressed by
+commit 3ca9595d9fb6 ("futex: Add support for unlocking robust futexes") and
+subsequent changes, but failed to take the problem described above into
+account.
+
+A more complete solution which is based on the in kernel unlock of
+contended robust futexes has been discussed in the context of this change
+and should show up in mainline sooner than later.
+
+[ tglx: Amend change log slightly and fixup coding style ]
+
+Fixes: ca16d5bee598 ("futex: Prevent robust futex exit race")
+Signed-off-by: Keno Fischer <keno@juliahub.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Assisted-by: ClaudeCode:claude-fable-5 tla+
 Cc: stable@vger.kernel.org
-Signed-off-by: Woraphat Khiaodaeng <worapat.kd2@gmail.com>
+Link: https://patch.msgid.link/20260730194705.38981-1-keno@juliacomputing.com
 ---
+ kernel/futex/core.c | 85 ++++++++++++++++++++++++++++++--------------
+ 1 file changed, 58 insertions(+), 27 deletions(-)
 
-Found by comparing the three users of struct iou_vec, then confirmed on
-v7.2-rc5 in a QEMU guest with kmemleak and CONFIG_KASAN=n.
-
-On the design choice: net.c does not free on a failed put either, but its
-->cleanup is io_sendmsg_recvmsg_cleanup(), which calls
-io_netmsg_iovec_free(), so the comment there -- "Let normal cleanup path
-reap it if we fail adding to the cache" -- holds.  uring_cmd's ->cleanup
-only retries the put, so nothing reaps it.  Having ->cleanup free the vec
-unconditionally would work too, but it gives up recycling, hence freeing
-only on a failed put.  That leaves REQ_F_NEED_CLEANUP set so ->cleanup
-runs once more, which is harmless -- io_vec_free() returns early on a
-NULL ->iovec, and the second put may now succeed.
-
-  no fix                  5360 unreferenced objects
-  cleanup hunk only       2432
-  both hunks                 0
-
-all of them reported as
-
-  unreferenced object 0xffff888006af5e00 (size 512):
-    comm "iou-wrk-70"
-      io_vec_realloc
-      io_import_reg_vec
-      io_mock_cmd
-      io_uring_cmd
-      io_wq_submit_work
-      io_worker_handle_work
-      io_wq_worker
-
-The middle row is the io-wq path.  With only the cleanup hunk, a command
-whose vec came from the cache already large enough never sets
-REQ_F_NEED_CLEANUP; io_req_uring_cleanup() had already returned early on
-IO_URING_F_UNLOCKED, so ->cleanup was never called and nothing ran at all.
-
-The reproducer drives IORING_MOCK_CMD_COPY_REGBUF and needs
-CONFIG_IO_URING_MOCK_FILE=y, CONFIG_DEBUG_KMEMLEAK=y and CONFIG_KASAN=n.
-
-IOSQE_ASYNC in the reproducer is load bearing, and not just to keep the
-cache full: it is what routes the command through io-wq and therefore
-through the IO_URING_F_UNLOCKED early return, i.e. the second path.
-Without it the mock command completes inline, the cache barely fills, and
-nothing leaks, so anyone reproducing this needs to keep it.
-
-nvme is not like that.  It completes from the device via
-nvme_uring_task_cb() -> io_uring_cmd_done32() with
-IO_URING_CMD_TASK_WORK_ISSUE_FLAGS, which is IO_URING_F_COMPLETE_DEFER
-(include/linux/io_uring/cmd.h:144), and the inline IOPOLL variant passes
-0.  Neither carries IO_URING_F_UNLOCKED, so nvme always runs
-io_req_uring_cleanup() in full and only ever hits the first path.
-
-To be clear about what is measured and what is not: the numbers above only
-exercise the io-wq route, through the mock file.  The only in-tree callers
-of io_uring_cmd_import_fixed_vec() are drivers/nvme/host/ioctl.c:495 and
-io_uring/mock_file.c:85, and the mock file is the one I could drive
-without hardware.
-
-The other two routes into the second path come from reading the code and
-I have not measured either:
-
- - a uring_cmd completed without ever being issued, where
-   io_req_uring_cleanup() is never called and IORING_OP_URING_CMD has no
-   ->fail handler to stand in for it.  Reachable from a submission
-   failure (io_submit_fail_init() -> io_queue_sqe_fallback() ->
-   io_req_defer_failed()), from a link member failed behind its head
-   (io_disarm_next() -> io_fail_links()), and from a drained request
-   cancelled when the ring goes away (io_cancel_defer_files() ->
-   io_req_task_queue_fail()).  None of these need a provider at all,
-   only a ring whose cmd_cache already holds an io_async_cmd with a vec.
- - nvme returning an error inline after a successful import, from
-   nvme_alloc_user_request() or nvme_map_user_request(), on a command
-   issued from io-wq.  That one is on real hardware, in an error path.
-
-Happy to follow up with a liburing test for this if that helps.
-
-Unrelated, but noticed while comparing: rw.c, net.c and uring_cmd.c now
-spell the same recycle-or-free dance three slightly different ways.  That
-looks like it wants a shared helper, but as a separate cleanup rather than
-mixed into a fix.
-
-Reproducer:
-
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/mman.h>
-#include <sys/syscall.h>
-#include <liburing.h>
-#include <linux/io_uring/mock_file.h>
-
-#define NSEGS		8	/* <= IO_VEC_CACHE_SOFT_CAP */
-#define INFLIGHT	400	/* > IO_ALLOC_CACHE_MAX */
-#define ROUNDS		20
-#define BUFSZ		(1 << 20)
-
-static int mock_create(struct io_uring *ring, int devfd)
-{
-	struct io_uring_mock_create mc = { .file_size = BUFSZ };
-	struct io_uring_sqe *sqe;
-	struct io_uring_cqe *cqe;
-	int ret;
-
-	sqe = io_uring_get_sqe(ring);
-	io_uring_prep_rw(IORING_OP_URING_CMD, sqe, devfd, NULL, 0, 0);
-	sqe->cmd_op = IORING_MOCK_MGR_CMD_CREATE;
-	sqe->addr = (unsigned long)&mc;
-	sqe->len = sizeof(mc);
-	io_uring_submit(ring);
-	if (io_uring_wait_cqe(ring, &cqe))
-		return -1;
-	ret = cqe->res;
-	io_uring_cqe_seen(ring, cqe);
-	return ret < 0 ? ret : (int)mc.out_fd;
-}
-
-int main(void)
-{
-	struct io_uring_sqe *sqe;
-	struct io_uring_cqe *cqe;
-	struct io_uring ring;
-	struct iovec iovs[NSEGS], reg;
-	unsigned char *buf;
-	int devfd, mockfd, ret, i, r;
-
-	devfd = open("/dev/io_uring_mock", O_RDWR);
-	if (devfd < 0)
-		return perror("open /dev/io_uring_mock"), 1;
-	if (io_uring_queue_init(1024, &ring, 0) < 0)
-		return 1;
-
-	buf = mmap(NULL, BUFSZ, PROT_READ | PROT_WRITE,
-		   MAP_ANONYMOUS | MAP_PRIVATE | MAP_POPULATE, -1, 0);
-	memset(buf, 0x5a, BUFSZ);
-	reg.iov_base = buf;
-	reg.iov_len = BUFSZ;
-	if (syscall(__NR_io_uring_register, ring.ring_fd,
-		    IORING_REGISTER_BUFFERS, &reg, 1))
-		return perror("register buffers"), 1;
-
-	mockfd = mock_create(&ring, devfd);
-	if (mockfd < 0)
-		return fprintf(stderr, "mock create failed\n"), 1;
-
-	for (i = 0; i < NSEGS; i++) {
-		iovs[i].iov_base = buf + i * 4096;
-		iovs[i].iov_len = 4096;
-	}
-
-	for (r = 0; r < ROUNDS; r++) {
-		for (i = 0; i < INFLIGHT; i++) {
-			sqe = io_uring_get_sqe(&ring);
-			if (!sqe)
-				break;
-			io_uring_prep_rw(IORING_OP_URING_CMD, sqe, mockfd,
-					 NULL, 0, 0);
-			sqe->cmd_op = IORING_MOCK_CMD_COPY_REGBUF;
-			sqe->addr = (unsigned long)iovs;
-			sqe->len = NSEGS;
-			sqe->addr3 = (unsigned long)buf;
-			sqe->buf_index = 0;
-			sqe->uring_cmd_flags = IORING_URING_CMD_FIXED;
-			sqe->flags |= IOSQE_ASYNC;
-		}
-		ret = io_uring_submit(&ring);
-		if (ret < 0)
-			break;
-		for (i = 0; i < ret; i++) {
-			if (io_uring_wait_cqe(&ring, &cqe))
-				break;
-			io_uring_cqe_seen(&ring, cqe);
-		}
-	}
-
-	io_uring_queue_exit(&ring);
-	puts("done; now: echo scan > /sys/kernel/debug/kmemleak");
-	return 0;
-}
-
- io_uring/uring_cmd.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/io_uring/uring_cmd.c b/io_uring/uring_cmd.c
-index c14c22cff..7f33eba23 100644
---- a/io_uring/uring_cmd.c
-+++ b/io_uring/uring_cmd.c
-@@ -38,6 +38,8 @@ static void io_req_uring_cleanup(struct io_kiocb *req, unsigned int issue_flags)
- 	if (io_alloc_cache_put(&req->ctx->cmd_cache, ac)) {
- 		ioucmd->sqe = NULL;
- 		io_req_async_data_clear(req, REQ_F_NEED_CLEANUP);
-+	} else {
-+		io_vec_free(&ac->vec);
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index 179b26e..2650d1e 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -982,8 +982,11 @@ retry:
+ 		return -1;
+=20
+ 	/*
+-	 * Special case for regular (non PI) futexes. The unlock path in
+-	 * user space has two race scenarios:
++	 * Special case for regular (non PI) futexes. Ordinarily, we do
++	 * not perform any processing here unless the current thread was
++	 * the owner of the futex (by the TID check below).
++	 *
++	 * However, the unlock path has three race scenarios:
+ 	 *
+ 	 * 1. The unlock path releases the user space futex value and
+ 	 *    before it can execute the futex() syscall to wake up
+@@ -992,42 +995,70 @@ retry:
+ 	 * 2. A woken up waiter is killed before it can acquire the
+ 	 *    futex in user space.
+ 	 *
+-	 * In the second case, the wake up notification could be generated
+-	 * by the unlock path in user space after setting the futex value
+-	 * to zero or by the kernel after setting the OWNER_DIED bit below.
++	 * 3. A woken up waiter is killed in user space after another
++	 *    thread has acquired the futex, but before it can set
++	 *    FUTEX_WAITERS.
++	 *
++	 * Note that, if userspace uses the FUTEX_ROBUST_UNLOCK flag, we
++	 * will not see case 1 here.
++	 *
++	 * In the second and third case, the wake up notification could
++	 * be generated from any of:
++	 *
++	 *    i.   An ordinary futex wakeup after unlock (with or
++	 *         without FUTEX_ROBUST_UNLOCK)
++	 *    ii.  A robust wakeup from another thread's death
++	 *    iii. A previous round through this special case
++	 *
++	 * As a result, the futex world will be in one of four states:
++	 *
++	 *    A. The futex word is 0 (unlocked)
++	 *    B. The futex word is owned by another thread
++	 *       (FUTEX_WAITERS is not set)
++	 *    C. The futex word is owned by another thread
++	 *       (FUTEX_WAITERS set)
++	 *    D. The futex's owner died and OWNER_DIED is set
++	 *       (the owner part of the word is 0)
+ 	 *
+-	 * In both cases the TID validation below prevents a wakeup of
+-	 * potential waiters which can cause these waiters to block
+-	 * forever.
++	 * The key issue is that the kernel usually (at least from
++	 * sources ii. and iii. or when so requested by userspace from
++	 * source i.) only ever wakes *one* waiter at a time. If this
++	 * waiter dies before acquiring the futex (or setting the
++	 * FUTEX_WAITERS bit), the kernel *must* still wake the next
++	 * waiter down the line to uphold the futex invariants and
++	 * avoid lost wakeups. Note we do not need to handle state C,
++	 * as it does not matter to us whether *we* successfully set
++	 * the bit or a third thread did so in the meantime.
+ 	 *
+-	 * In both cases the following conditions are met:
++	 * Therefore, in these cases we must issue an additional
++	 * futex_wake(). Note however that we *must not* set OWNER_DIED
++	 * here. Our thread is *not* the owner of the futex.
+ 	 *
+-	 *	1) task->futex.robust_list->list_op_pending !=3D NULL
+-	 *	   @pending_op =3D=3D true
+-	 *	2) The owner part of user space futex value =3D=3D 0
++	 * Thus to summarize, the conditions for needing the additional
++	 * futex_wake() are:
++	 *
++	 *	1) @pending_op =3D=3D true (the thread has not finished the
++	 *	   mutex operation)
++	 *	2) The futex word is in one of the states A, B or D
+ 	 *	3) Regular futex: @pi =3D=3D false
+ 	 *
+-	 * If these conditions are met, it is safe to attempt waking up a
+-	 * potential waiter without touching the user space futex value and
+-	 * trying to set the OWNER_DIED bit. If the futex value is zero,
+-	 * the rest of the user space mutex state is consistent, so a woken
+-	 * waiter will just take over the uncontended futex. Setting the
+-	 * OWNER_DIED bit would create inconsistent state and malfunction
+-	 * of the user space owner died handling. Otherwise, the OWNER_DIED
+-	 * bit is already set, and the woken waiter is expected to deal with
+-	 * this.
++	 * Note in particular that in all of the states A-D the owner
++	 * portion of the futex word differs from our thread's TID
++	 * (unless the actual owner has the same TID in another PID
++	 * namespace, but we cannot currently distinguish that
++	 * scenario), so this can be a special-case wakeup in the bail
++	 * path of the ordinary TID check.
+ 	 */
+ 	owner =3D uval & FUTEX_TID_MASK;
+=20
+-	if (pending_op && !pi && !owner) {
+-		futex_wake(uaddr, FLAGS_SIZE_32 | FLAGS_SHARED, NULL, 1,
+-			   FUTEX_BITSET_MATCH_ANY);
++	if (owner !=3D task_pid_vnr(curr)) {
++		if (pending_op && !pi && (!owner || !(uval & FUTEX_WAITERS))) {
++			futex_wake(uaddr, FLAGS_SIZE_32 | FLAGS_SHARED, NULL, 1,
++				   FUTEX_BITSET_MATCH_ANY);
++		}
+ 		return 0;
  	}
- }
- 
-@@ -208,6 +210,8 @@ int io_uring_cmd_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- 	ac = io_uring_alloc_async_data(&req->ctx->cmd_cache, req);
- 	if (!ac)
- 		return -ENOMEM;
-+	if (ac->vec.iovec)
-+		req->flags |= REQ_F_NEED_CLEANUP;
- 	ioucmd->sqe = sqe;
- 	return 0;
- }
--- 
-2.43.0
-
+=20
+-	if (owner !=3D task_pid_vnr(curr))
+-		return 0;
+-
+ 	/*
+ 	 * Ok, this dying thread is truly holding a futex
+ 	 * of interest. Set the OWNER_DIED bit atomically
