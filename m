@@ -1,102 +1,148 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A525A39D6D9
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 20:27:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A5D4340A76
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 20:27:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785788823; cv=none; b=CXcOxu6ClrXUo8f+h3TBLqw4vpndfrgdntvF0MaiJbtSWu7XCHjVP7Dl+O5O61+WYiL7XHDXps/UTjEfbsrAKEekz/5470TsLoryKYcrjmT4XOCOeM1oE0tW5B8GKr2qkGT3N/16hMa4F/w09zmfRAmqCLcWOIC5V5va4/SdqqE=
+	t=1785788824; cv=none; b=pdQ9UE6t+KBC8Zc2XQem4rSLyW8Ce44f5aaRrtGrgu41u93IiyI89xU4BZsfvZPBZDxgB2KDDRXUC9CNeKA5sCQjEuwIFkGxjxF+9PmprqpFcoT9zH+DxYTXo0fjvz5e1jql/UUdPTS5z+n/wSbRUVnxDDaZrXQX6nA48kBgdMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785788823; c=relaxed/simple;
-	bh=5CtAIQxlxV7+/R3qss+LA4IawxZ1kzCXbsLvfCGF9c8=;
+	s=arc-20240116; t=1785788824; c=relaxed/simple;
+	bh=P255w0JQaVdNF5MW/P9LjBA5Z+lfy8fiR3qnR7mdm9M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=megUC8tc/q/7xNlFTSmpf2oDRweuygK6ecyDpfWrj6TVNoBS1WDVhT0kbrnCM6elt6tQ448qwTrAbm75ej8VTYKC3pY5jJOJU6K6wz9rdkbqf4a/q9PTEn06GcErB05Rb41Y+6261ZlJM5SCVEixXrXjLy6cD6lz2QL5g2k4Ivo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tsm/zjiv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=k9XlNU7uRcWxanIcxzUh9NA3GqoKnW18lhmcCX2u5yZtIZHOLudbmwYB79fU5eu1ebXnPGetieNYOcWKandCrJpnxWsy83KUBwTL2MC1QVyJGZg7zIOcUh04GrgCq9gqNZCbTiclR11eQrGszK1q2r4aT2CeCkcXy1Aa16VOvE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iNxJaw4a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tsm/zjiv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1961F000E9;
-	Mon,  3 Aug 2026 20:27:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iNxJaw4a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE14D1F00A3A;
+	Mon,  3 Aug 2026 20:27:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785788821;
-	bh=xjpfjDWNqpZvEkjWecBm49a5yQR33iNzP/IK0MwY+Ls=;
+	s=k20260515; t=1785788822;
+	bh=MU3DsyKj8fjuEa7H6o/m0IPNXnQMl9rBw6Na/MTz2D0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Tsm/zjivRKBCIHE/kVU3e268pEkg7Xp95fRXIVsq0b5Fe+7J8XUpFwk2M4P1bACH0
-	 cJ9oPmN/ZaGKXhxmuxS1Q3TQEhKmRUu//WTTl45wOsUKPX0HCnIqGCO3d1IKBbZWm1
-	 yIxRtZJzcVwJ6Dpnb2HKeVaaC8P30yP4ewJf9AqcI/A4KKK8fKn0RjJApPowFEcWrz
-	 sjTOeed6ZEc4nD+k1s9hCONpGjP3WiOz7ZBJa9Jx+VuO6rSvkRDp1/y9Hpy8mqx8Fm
-	 MT5eBecT8JQV33fmjy4iUX6YWtQtDgIMtUSTe64btAvuzx2xRPO1f7OyZTRQY8e40H
-	 AwWKLnwMxXQrA==
+	b=iNxJaw4aLU5MTsgXqKnH5rHddCRn7ure20BsgdotOeEM5cWx2KF7a0M/jn4O95lFP
+	 OtdxxlcBPrO1ekJc1h6DiNMhMMdAeITKJmyMLzD0K/R3/Ry6M6VrVdEoJNwye7xyFF
+	 jXwNaHU4fnncpX4kpcyB5/oh76nvHiMy1j/sW6k1jvcVb/ml3kKfpXxuUBSacqdMfi
+	 Ty/tY84um1jzP0+7SQwb3VkKYyXDAFLv1oUjq04FQmXgm4U88FBJVA5EDtKo3aJEjq
+	 sN7adLae2HyyGhgV2KpujxhxRLR3CFnGNQ1KUYgN+6pIxk9b5/3xU2MOMigXE22/xF
+	 fMe8AD4dbTfHQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>,
+	Santhosh Reddy Guddati <santhosh.reddy.guddati@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/4] drm/i915/fbc: Extract intel_fbc_has_fences()
-Date: Mon,  3 Aug 2026 16:26:55 -0400
-Message-ID: <20260803202658.1647132-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/4] drm/i915/hdcp: Skip inactive MST connectors when building stream list
+Date: Mon,  3 Aug 2026 16:26:57 -0400
+Message-ID: <20260803202658.1647132-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072917-dugout-sufferer-eb18@gregkh>
+In-Reply-To: <20260803202658.1647132-1-sashal@kernel.org>
 References: <2026072917-dugout-sufferer-eb18@gregkh>
+ <20260803202658.1647132-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+From: Suraj Kandpal <suraj.kandpal@intel.com>
 
-[ Upstream commit bc34d310b578952d37b5200a7fa7475ab2a2bd5e ]
+[ Upstream commit 0161e2c2016337a2f22ef79dff0aee43c0841bce ]
 
-Pull the "do we have fences?" check into a single helper in the FBC
-code. Avoids having to call to outside the display code in multiple
-places for this.
+intel_hdcp_required_content_stream() walks every connector on the
+digital port to populate hdcp_port_data->streams[]. The only filter is
+connector_status_disconnected, which reflects physical presence on the
+MST topology, not whether the connector currently drives a stream.
+On a multi-sink MST setup where only a subset of sinks are modeset,
+the loop can pick a sibling MST connector that is connected but has
+no active CRTC / VC payload. intel_conn_to_vcpi() then logs "MST
+Payload not present" and returns 0, and the bogus StreamID=0 is
+written to the repeater in RepeaterAuth_Stream_Manage (DPCD 0x693F0).
+Authentication completes, but the repeater shortly raises
+LINK_INTEGRITY_FAILURE (RxStatus 0x69493 bit4) because the StreamID
+does not match any stream on its input. The HDCP check work then
+tears the link down, the Content Protection property drops back to
+DESIRED, and userspace observes a spurious HDCP enable failure.
+Filter the connector iteration to only those with a CRTC assigned in
+the new atomic state, so intel_conn_to_vcpi() is called for the
+connector actually being enabled and reads its real VCPI from the MST
+topology state.
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20240705145254.3355-2-ville.syrjala@linux.intel.com
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Reviewed-by: Santhosh Reddy Guddati <santhosh.reddy.guddati@intel.com>
+Link: https://patch.msgid.link/20260505094022.4064256-1-suraj.kandpal@intel.com
 Stable-dep-of: bbb15a6b042d ("drm/i915/hdcp: check streams[] bounds before overflow")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_fbc.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-index 25382022cd276..a6861c3bd224a 100644
---- a/drivers/gpu/drm/i915/display/intel_fbc.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-@@ -223,6 +223,11 @@ static u16 intel_fbc_override_cfb_stride(const struct intel_plane_state *plane_s
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index 0ba324ec60d32..15b28d056687f 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -30,7 +30,7 @@
+ #define KEY_LOAD_TRIES	5
+ #define HDCP2_LC_RETRY_CNT			3
  
-+static bool intel_fbc_has_fences(struct drm_i915_private *i915)
-+{
-+	return intel_gt_support_legacy_fencing(to_gt(i915));
-+}
-+
- static u32 i8xx_fbc_ctl(struct intel_fbc *fbc)
+-static int intel_conn_to_vcpi(struct drm_atomic_state *state,
++static int intel_conn_to_vcpi(struct intel_atomic_state *state,
+ 			      struct intel_connector *connector)
  {
- 	const struct intel_fbc_state *fbc_state = &fbc->state;
-@@ -608,7 +613,7 @@ static void ivb_fbc_activate(struct intel_fbc *fbc)
- 	else if (DISPLAY_VER(i915) == 9)
- 		skl_fbc_program_cfb_stride(fbc);
+ 	struct drm_dp_mst_topology_mgr *mgr;
+@@ -43,7 +43,7 @@ static int intel_conn_to_vcpi(struct drm_atomic_state *state,
+ 		return 0;
+ 	mgr = connector->port->mgr;
  
--	if (intel_gt_support_legacy_fencing(to_gt(i915)))
-+	if (intel_fbc_has_fences(i915))
- 		snb_fbc_program_fence(fbc);
+-	drm_modeset_lock(&mgr->base.lock, state->acquire_ctx);
++	drm_modeset_lock(&mgr->base.lock, state->base.acquire_ctx);
+ 	mst_state = to_drm_dp_mst_topology_state(mgr->base.state);
+ 	payload = drm_atomic_get_mst_payload_state(mst_state, connector->port);
+ 	if (drm_WARN_ON(mgr->dev, !payload))
+@@ -2111,8 +2111,7 @@ static void intel_hdcp_check_work(struct work_struct *work)
+ static int i915_hdcp_component_bind(struct device *drv_kdev,
+ 				    struct device *mei_kdev, void *data)
+ {
+-	struct intel_display *display = to_intel_display(drv_kdev);
+-	struct drm_i915_private *i915 = to_i915(display->drm);
++	struct drm_i915_private *i915 = kdev_to_i915(drv_kdev);
  
- 	intel_de_write(i915, ILK_DPFC_CONTROL(fbc->id),
-@@ -992,7 +997,7 @@ static void intel_fbc_update_state(struct intel_atomic_state *state,
- 	fbc_state->fence_y_offset = intel_plane_fence_y_offset(plane_state);
+ 	drm_dbg(&i915->drm, "I915 HDCP comp bind\n");
+ 	mutex_lock(&i915->display.hdcp.hdcp_mutex);
+@@ -2126,8 +2125,7 @@ static int i915_hdcp_component_bind(struct device *drv_kdev,
+ static void i915_hdcp_component_unbind(struct device *drv_kdev,
+ 				       struct device *mei_kdev, void *data)
+ {
+-	struct intel_display *display = to_intel_display(drv_kdev);
+-	struct drm_i915_private *i915 = to_i915(display->drm);
++	struct drm_i915_private *i915 = kdev_to_i915(drv_kdev);
  
- 	drm_WARN_ON(&i915->drm, plane_state->flags & PLANE_HAS_FENCE &&
--		    !intel_gt_support_legacy_fencing(to_gt(i915)));
-+		    !intel_fbc_has_fences(i915));
+ 	drm_dbg(&i915->drm, "I915 HDCP comp unbind\n");
+ 	mutex_lock(&i915->display.hdcp.hdcp_mutex);
+@@ -2297,6 +2295,7 @@ intel_hdcp_set_streams(struct intel_digital_port *dig_port,
+ 		       struct intel_atomic_state *state)
+ {
+ 	struct drm_connector_list_iter conn_iter;
++	struct drm_connector_state *new_conn_state;
+ 	struct intel_digital_port *conn_dig_port;
+ 	struct intel_connector *connector;
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+@@ -2322,8 +2321,13 @@ intel_hdcp_set_streams(struct intel_digital_port *dig_port,
+ 		if (conn_dig_port != dig_port)
+ 			continue;
  
- 	if (plane_state->flags & PLANE_HAS_FENCE)
- 		fbc_state->fence_id =  i915_vma_fence_id(plane_state->ggtt_vma);
++		new_conn_state = drm_atomic_get_new_connector_state(&state->base,
++								    &connector->base);
++		if (!new_conn_state || !new_conn_state->crtc)
++			continue;
++
+ 		data->streams[data->k].stream_id =
+-			intel_conn_to_vcpi(&state->base, connector);
++			intel_conn_to_vcpi(state, connector);
+ 		data->k++;
+ 
+ 		/* if there is only one active stream */
 -- 
 2.53.0
 
