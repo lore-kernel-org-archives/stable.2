@@ -1,141 +1,109 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CFB8400DFF
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 14:57:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785769043; cv=none; b=nx7pRcXEUC14VogyOnbxkHPyTVI6mpqPqLCYgjYb28MvesGEW1IKvpN4uPe1DIGiKY8E4aQAItDhM0bSVXvHU941G180zga4cWoUtZUVvwZHQJquO4NPjRbM3nUceDFD3jjTtr38N0mucRileYnuHr5n/j1En3SkjU2m6DWwVj0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785769043; c=relaxed/simple;
-	bh=sJUF2UnrPqNELsMR2fGhE2BlL02YRxP+ImQptnWyR38=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lCvSR98mvlpvEX6cnbusqnvDCE0qozr7dgXtJGYHw1rAyY02YKuNcDzvzsEGsjudU59/W4WOosW7S8ztpUQiPSifTTq6PSkifQj0aPsBbjYWf+i2vhkGifEQJV6iCWkiADCZG3Sxipdim5Bz6QJJotgT/b2we0IhdnaSwPRkX4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q1DTg55O; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2866A2836F
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 14:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785769087; cv=pass; b=mTZBrzbz0EyMgb+87/EGPTHo9NQspbSH501Xs7msklK4wH8pJe3d3OgQbflY2a/8bkoJDzhnONBMBXNDichrrMC5x6ZomE44R5zVte0Ln4HkjRnpecw1FLmGMipg/F/0r9MhfK47BvfRG/UgksUer9b0ZE7xfKbl0f+YPVYIv5Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785769087; c=relaxed/simple;
+	bh=DBLsZBTcpOpqSPXBTYH+P28xN9Gb07adf8wrpusAmuY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VtOEXvBFZoxrcdjZhd2nsXUyhPTJWH/9fVhoRXmSkgff/oy3YI5mI7JU+31dbL67c3NDlmYxyO95nkUCjA69Szv1XU3n14sMQZTbQ1qC39CNKZfWJicGb/6BqZD1KV4q2BweM0uqnI3wCBjtbQSEIjJeZZHkBT2hNqiK2qvvVHU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=robert.mader@collabora.com header.b=DysI+TXI; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q1DTg55O"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47f904e80eeso3198572f8f.1
-        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 07:57:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785769041; x=1786373841; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=doE31CPU3agNQxp/VoBL0iESGBCUl1rgFFpxig9/S98=;
-        b=Q1DTg55Owbntlw+hzW+8wHku+ILoMKsn9GIdItpV9AoA5NXWy0e4noxuabNN7pss6g
-         HOHDIT5xazzHU/cwZB+j/DpWQKpPrT03wrjJPtjewkzg11nULqRkketK7Eiitsj3Sg5l
-         oz5E1TCvvpowX9lfEV1Y7n6Vx6b3O53He8Mhj94qRdl2RshoT3LyZwHtbs0wYYH1hnD2
-         fYpqpP3H2xQI8YfPZIssnNoomzsOOvhGq90gNu5oOPB/818TgSsINqRXEA8oNsTFvlWY
-         6sI6iop4LVk+lmPkOjlPSFUFM6KR8Elal21kae+VjX+bLnH6sohgQtWykW0Hi/wsoOKw
-         us/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785769041; x=1786373841;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=doE31CPU3agNQxp/VoBL0iESGBCUl1rgFFpxig9/S98=;
-        b=BGupqwV6MDJVsJ5JbF29uYmopCaXb9181UB7vn6MCIgnKqQdvYcKGI8sOf9MZzwwWB
-         U+ITZGU06rbds6LZ4BJobRlveR0M9T6wLng468ktaqIpdzmNXVRP7F/TCQZOmB6fsp7l
-         W5Jm4HcgVFEzOlNEzGAMA3XandivteXZeW25fp13eI/89Xz+g8JBlK5ZYGdgvHvrpum1
-         Ff+Heae1BjWDraIozc31vCdAPLcUp6M4Inmyy6uo69qQdzWKCXkvRrxSLB9xLZbX0UHD
-         aVIi4BCwucc+c9w9eI5KpKTTjYWwJy8W7kBUx8LZKn61AmeJzNBLcdNRiMf5e6w4SNHn
-         0UkQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr8AJUq6vmKi1kCi2qclsZ46CwIKIvQ6oLxzrXlsp7hkSbqIqmQdyTfJ8zXhPCox5X6s3Q+8qQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxtwVS1vs7Bm9ndmDxJksBqHrd/YoqwNVLu4IIYMzMCqaC1W6F0
-	i78GEXSC1FxacocYtVqpQEqq8a0wK1NEgISv6SFyEWdKDmwosp11VPXPzXhg4+VRJ1s=
-X-Gm-Gg: AR+sD13nJZCcMClxpsABT682p9RkPLaHu7Fu+uEmbqi0l8WxoIHDMXvkIr+bB1M+6vN
-	tSGFbtSVLFwpwziv//73nnp64Ztx41I3soPMRxlAgO/rVROfdLyCcVCLXiVe28N3OfjT+gKeoGC
-	3w9A7c+0Pi6Ar6IIzX1hKMWvXxpPTnsOmV8igCx/+GTQlMHajOT+XSaMbmtIdCMc+inS2nMEevc
-	PnZfzFKHVpSBG0VUCpcNMBd02KCnrjlJREQTZl7bVOBOnZOifzR01g9F2VDP5sIF4ZuDhilana4
-	oG8eaMZMK8QzuSWMSneeebCtWoi2G4X4DCRDUxs+OXTP1UNQcISOXz07UizUU7P6OfakijTgsxl
-	j6C0T7ELLYrT+I3cDxvjCHEgUpF/yR/Cw8hXAbbECGoG71Wq5jMgDtL96KkaztHYx/DTtGc5q3p
-	uQkFS/TEz13Vp3M1nlArRz3LbxhkXVk2pLNCLWve4J4Ebrx8/Kq6+I1VdOAkiU3ac74f3x18iQo
-	1ZhpOqdI3nTKiFwjt8l1nCW6w==
-X-Received: by 2002:adf:fdcd:0:b0:47f:8fc8:af01 with SMTP id ffacd0b85a97d-47fd72f1fd4mr22343046f8f.27.1785769040415;
-        Mon, 03 Aug 2026 07:57:20 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd458bf7csm35015001f8f.32.2026.08.03.07.57.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 07:57:20 -0700 (PDT)
-Date: Mon, 3 Aug 2026 15:57:15 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, stable@vger.kernel.org,
- damon@lists.linux.dev, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 2/2] mm/damon/lru_sort: error out for >10000
- active_mem_bp
-Message-ID: <20260803155715.08868ca7@pumpkin>
-In-Reply-To: <20260803134034.15217-3-sj@kernel.org>
-References: <20260803134034.15217-1-sj@kernel.org>
-	<20260803134034.15217-3-sj@kernel.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=robert.mader@collabora.com header.b="DysI+TXI"
+ARC-Seal: i=1; a=rsa-sha256; t=1785769068; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=nCbIWIpOY9mnXvTlxX4V3ItQJolyEDAVuCn987X95RUwD+yysCaY/7ipSKkIx9ImGmjztedcKbubmk2c8AbxUjwZDT3E7QbtC+wXuwNq8o39rOKorsyqGRhH2XF/k0TMFfwfsE2UbQT0ehpxJDqFvSgWCbTHXToS2moT3M31mI0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1785769068; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=gtnRxnAJy2dsiKrobx2oFPPKqEB9iFtcSoUIiKrtqa4=; 
+	b=FilKMOvbhSjpRQMHqH2o8A7F/MFfqAaMETAGrSEHqR9g6aoI0ANjUnlNWQlX4w5uT6nXhq0z6nsYlqozzcRtwImfPAylhN3rRFJoiWl++tPx2KtPX4fam3spKKEjQm+YXQ7ypw9eZyYCKmcuo71GvGxTWAyAMif33znXYrR34DI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+	dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785769068;
+	s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=gtnRxnAJy2dsiKrobx2oFPPKqEB9iFtcSoUIiKrtqa4=;
+	b=DysI+TXIVYay5Z5FUzkO3OefQHVO87Au7luV5QsHXGVC/cEdimXoYHf4DNqzRULT
+	VpkJzjQtFrLwW7X289Bl/2HRYPYMfKT5DUWniEKXE8qIVaaNSlGh2nM+SKOvJon9TT+
+	DaJp3bvB3Ujvx1ashhL6I3+ewclbSiDPpWHeJHUs=
+Received: by mx.zohomail.com with SMTPS id 1785769067337954.6216272757437;
+	Mon, 3 Aug 2026 07:57:47 -0700 (PDT)
+Message-ID: <2353697f-b1da-495a-b043-7a81d875856e@collabora.com>
+Date: Mon, 3 Aug 2026 16:57:43 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] udmabuf: vastly increase the size limit per dmabuf
+To: Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org
+Cc: wayland-devel@lists.freedesktop.org, kraxel@redhat.com,
+ stable@vger.kernel.org
+References: <20260803144120.11524-1-xaver.hugl@kde.org>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20260803144120.11524-1-xaver.hugl@kde.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Mon,  3 Aug 2026 06:40:33 -0700
-SJ Park <sj@kernel.org> wrote:
+See 
+https://lore.kernel.org/dri-devel/20260722110145.36641-1-robert.mader@collabora.com/ 
+;)
 
-> damos_quota_score() can trigger division by zero if the target value is
-> zero.  DAMON_LRU_SORT lets users set the target value for the hot memory
-> scheme via active_mem_bp parameter.  It avoids setting it as the target
-> value if the parameter value is zero.  However, it also sets the cold
-> memory scheme with a target value that is calculated as '10000 -
-> active_mem_bp + 2'.  Hence, if a user sets active_mem_bp 10002, the cold
-> memory scheme's quota goal target value can be zero.  As a result,
-> division by zero can be triggered.  Fix by returning an error when the
-> user tries to start DAMON with >10000 active_mem_bp parameter value.
-> 
-> It makes no sense to set active_mem_bp with 10002.  It also requires
-> module parameters write permission to reproduce the issue.  That said,
-> the consequence is quite bad.
-> 
-> One reliable way to reproduce the issue is like below:
-> 
->     # cd /sys/module/damon_lru_sort/parameters
->     # echo 1000 > wmarks_high
->     # echo 995 > wmarks_mid
->     # echo 0 > wmarks_low
->     # echo 10002 > active_mem_bp
->     # echo Y > enabled
->     # dmesg -w
->     [...]
->     [  597.421247] Oops: divide error: 0000 [#1] SMP NOPTI
->     [  597.428848] RIP: 0010:damos_quota_score+0x6f/0x480
-> 
-> This issue was discovered [1] by Sashiko.
-> 
-> [1] https://lore.kernel.org/20260801213028.5127-1-sj@kernel.org
-> 
-> Fixes: 40d98d31cd70 ("mm/damon/lru_sort: support active:inactive memory ratio based auto-tuning")
-> Cc: <stable@vger.kernel.org> # 7.0.x
-> Signed-off-by: SJ Park <sj@kernel.org>
+On 03.08.26 16:41, Xaver Hugl wrote:
+> Buffer sizes can get big very fast, and the previous limit of 64MB
+> is easily hit nowadays.
+> I hit this problem while working on better multi-gpu copies for KWin,
+> where on my 5120x1440 monitor with scaling applied, some apps ended
+> up using a resolution of 8192x2304, resulting in buffer sizes of
+> roughly 75MB.
+>
+> As another reference, with merely 32 bits per pixel, buffers reach
+> - 33MB for 4k
+> - 133MB for 8k
+> - 530MB for 16k
+>
+> With 64bpp, those sizes would be doubled, and even 4k would hit the
+> previous 64MB limit.
+>
+> Signed-off-by: Xaver Hugl <xaver.hugl@kde.org>
+> Cc: stable@vger.kernel.org
 > ---
->  mm/damon/lru_sort.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/mm/damon/lru_sort.c b/mm/damon/lru_sort.c
-> index 7e077084cb03a..3920d5042f109 100644
-> --- a/mm/damon/lru_sort.c
-> +++ b/mm/damon/lru_sort.c
-> @@ -233,6 +233,8 @@ static int damon_lru_sort_add_quota_goals(struct damos *hot_scheme,
->  
->  	if (!active_mem_bp)
->  		return 0;
-> +	if (10000 < active_mem_bp)
+>   drivers/dma-buf/udmabuf.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+> index 2f94be1df525..8cbba7ddfa00 100644
+> --- a/drivers/dma-buf/udmabuf.c
+> +++ b/drivers/dma-buf/udmabuf.c
+> @@ -20,9 +20,9 @@ static int list_limit = 1024;
+>   module_param(list_limit, int, 0644);
+>   MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
+>   
+> -static int size_limit_mb = 64;
+> +static int size_limit_mb = 1024;
+>   module_param(size_limit_mb, int, 0644);
+> -MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 64.");
+> +MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 1024.");
+>   
+>   struct udmabuf {
+>   	pgoff_t pagecount;
 
-That is backwards...
+-- 
+Robert Mader
+Consultant Software Developer
 
-> +		return -EINVAL;
->  	goal = damos_new_quota_goal(DAMOS_QUOTA_ACTIVE_MEM_BP, active_mem_bp);
->  	if (!goal)
->  		return -ENOMEM;
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
 
