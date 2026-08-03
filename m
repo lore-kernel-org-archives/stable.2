@@ -1,197 +1,121 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9047D376A0A
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 10:10:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D4A375AC6;
+	Mon,  3 Aug 2026 10:10:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785751833; cv=none; b=EfRozcr1XbR8sLCkz4jKEUlIuIl7JJ/2196GTKsjlLzm+RuSFeJDuqwlhnSn8ltp7sKGgmXyOG+yZkKL5/EFa3zarDQNkZ/pRvbekzXtqlGwRIXnBeRfi0FUJjz4wet00Kzib8ZtBdqaEu6mTZesvp0AIldsDmRguqmYGoync9U=
+	t=1785751848; cv=none; b=A2YsLtsSi8g/n4f8wQENbW6mMs+B5J3ptQ0W+s+eFQxPXtr7ctwC2RfLBAnB0k+SfiX8ohJa5XnUnWuVKIXNLkL41fpZf3hr1g8h5eX7RZjTanXFv8o6CNA5itkW/iFEJmCS1/by+1JWSoCDoAdNIocIkSOOREc8dqSvEs+Y0C4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785751833; c=relaxed/simple;
-	bh=6H/FC0av6p39mNjIw5d+m54NfFgH0VpsV7GQqp7fLGM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rM4MX+m1pM4Sl1ocqf61+2RuJHAqf1t7I0M66pj4uvTVbyMVUtb3oBNerh6MkhkEo3r/0WQ8rn/GEUxgvQ8czRXVOPV0skOa+r3iVT5M3+j02dG+1uy3uArtwGejQe+NiOLUW06DbccsnZTUzguqKphpJN1993p86h9FE8vahPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=s5g6BQvV; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=hmlAv1mD; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=CYkyq0tv; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Xk/l9XTT; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1785751848; c=relaxed/simple;
+	bh=IWCQm8tLPzjpOZNzhCpYt+p9RNtt2R4TqxzOT/CnZo0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=E6383/0MeV3CBgv1hYVaPasK7LZ3aDYoeRsYWcMlkRoAm+89TPcZa5RrB9KD1T+hJALutspuhrZk8I3daiVrBEXL0Jok+Rrmdv3zL0+SjbC7AGN2t25RUKZexdLafMyF66z+ODwrfsHH/raAXaPOdDXIVBF4TF7VXoa0MtU8GGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=H1xD4Oab; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="s5g6BQvV";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="hmlAv1mD";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="CYkyq0tv";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Xk/l9XTT"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="H1xD4Oab"
+Received: from [10.0.0.182] (unknown [10.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 752233FBC;
-	Mon,  3 Aug 2026 10:10:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1785751825; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CJy+2EF3Dhy7TWltT4LTBFxglCjp/1DLAObwpS2vbxU=;
-	b=s5g6BQvVZG8RDe3yt65d4JQZ6C59PLnSSIM4/BfX1l9oDaQSjQfVrkSLW9IuUXD94MapKm
-	RqiPnVwVBlbD5KIrKOlYOJPoyxLY/FlxTbcGZb4urZAbA11NvHJWOc2C0x/JLkxSGIXK1B
-	vphLoBmy6bHec4B9KxeZL4fD1oLBnpU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1785751825;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CJy+2EF3Dhy7TWltT4LTBFxglCjp/1DLAObwpS2vbxU=;
-	b=hmlAv1mDsn8WmBWPwYuO58lUDV78JYGXHRXOfxhwZSxSLH14PmjKPWstZ2Ilknw14S1SQe
-	rhjJ1oeXyT1/xbDQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=CYkyq0tv;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="Xk/l9XTT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1785751821; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CJy+2EF3Dhy7TWltT4LTBFxglCjp/1DLAObwpS2vbxU=;
-	b=CYkyq0tviSrq1b1LRYdKuIGhYsB62sbi17BNyQue5Q72VmkFvqP6vhuDM0XRgcsodzv96E
-	MztRq+aB/0gSC+GuRvNClM5objHgnXOaEMvu2ep+jowdIxGyY3F856O9/zH+PS9H5+Kd1q
-	hYuN8QWSmKjw7Q+Emlu8HWvPWz4+CLQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1785751821;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CJy+2EF3Dhy7TWltT4LTBFxglCjp/1DLAObwpS2vbxU=;
-	b=Xk/l9XTTVJIz9+jKrHUbAz0VK0Bs8BxzPzxmzHBQtfhadH0+OQZFvo20v4Za5O81KkRjIl
-	pWyU9IA9IrZE/SDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 658AF779A1;
-	Mon,  3 Aug 2026 10:10:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 9ofBGA1pcGqIQwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 03 Aug 2026 10:10:21 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 116E0A13A4; Mon, 03 Aug 2026 12:10:17 +0200 (CEST)
-Date: Mon, 3 Aug 2026 12:10:17 +0200
-From: Jan Kara <jack@suse.cz>
-To: Ali Ahmet Memis <ali@iusegentoo.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Kees Cook <kees@kernel.org>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] ufs: validate cylinder group metadata before caching
- it
-Message-ID: <3zr3q6j73h6ttv3rib34rjeb3luxv3y3c7rovyqik5cp4dflf6@eif226wccquv>
-References: <20260801071306.59484-1-ali@iusegentoo.com>
- <20260801071306.59484-3-ali@iusegentoo.com>
+	by ixit.cz (Postfix) with ESMTPSA id 5CCE35340219;
+	Mon, 03 Aug 2026 12:10:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1785751836;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=5UkrUPKFMQxGSzoLVUsaINV2t4g5tESGXbZwT1xQcT4=;
+	b=H1xD4OabAR0SYArdYhSzJqK7d0GSsTMpHOcBGxEqzblKMEAs4Lh3kq6VLAZBaVXlQZnWQI
+	wsx1XkzYrc6qgCjED/nHAh9LuBJsKknGYHwi5r9tebEgMyzV5sRTrVvtMpL/p5leKCxjP5
+	2IP7jWg0t2a4HRJcX1iekKgghKugg2E=
+Message-ID: <403cf202-dcc7-411a-9bed-0da1ce819640@ixit.cz>
+Date: Mon, 3 Aug 2026 12:10:35 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260801071306.59484-3-ali@iusegentoo.com>
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	URIBL_BLOCKED(0.00)[iusegentoo.com:email,suse.cz:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[iusegentoo.com:email,suse.com:email,suse.cz:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 752233FBC
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: sdm845-lg: fix sdcard pinctrl nodes
+To: Paul Sajna <sajattack@postmarketos.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Anton Bambura <jenneron@protonmail.com>,
+ Stefan Hansson <newbie13xd@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20260802-judyln-sdcard-fix-v1-1-b3477cfc42cc@postmarketos.org>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260802-judyln-sdcard-fix-v1-1-b3477cfc42cc@postmarketos.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat 01-08-26 10:12:58, Ali Ahmet Memis wrote:
-> ufs_read_cylinder() copies the cylinder group index and the rotor
-> positions straight from the on-disk group and caches them without any
-> check:
+On 02/08/2026 21:06, Paul Sajna wrote:
+> sdcard was previously rather unreliable during boot on sdm845-lg-judyln
 > 
-> 	ucpi->c_cgx    = fs32_to_cpu(sb, ucg->cg_cgx);
-> 	ucpi->c_rotor  = fs32_to_cpu(sb, ucg->cg_rotor);
-> 	ucpi->c_frotor = fs32_to_cpu(sb, ucg->cg_frotor);
-> 	ucpi->c_irotor = fs32_to_cpu(sb, ucg->cg_irotor);
+> Identified and applied correct settings from downstream lineageos kernel.
 > 
-> They are then used as indices during allocation and free:
+> Verified card was properly detected over 5 reboots with rootfs on sdcard.
 > 
->   - c_cgx indexes the cylinder summary array as
->     UFS_SB(sb)->fs_cs(ucpi->c_cgx), so a value past s_ncg writes a 32
->     bit count outside the s_csp allocation.
+> Refer to downstream: https://github.com/LineageOS/android_kernel_lge_sdm845/blob/efa8458f79dffeb380d43b38b9403407f87d9f05/arch/arm64/boot/dts/qcom/sdm845-pinctrl.dtsi#L148-L303
 > 
->   - c_frotor becomes a bitmap scan start, start = c_frotor >> 3, and
->     then length = ((s_fpg + 7) >> 3) - start. A start beyond the block
->     bitmap wraps the unsigned length to a huge value, so ubh_scanc()
->     walks far past the cylinder group buffers. c_irotor drives the
->     inode bitmap the same way.
-> 
-> A crafted image can set any of these freely, turning an ordinary
-> allocation into an out of bounds access.
-> 
-> Reject a cylinder group whose recorded index does not match the group
-> being read, or whose rotors fall outside the group, before the metadata
-> is cached. Valid filesystems keep cg_cgx equal to the group number and
-> the rotors within the group, so only malformed images are rejected.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
-
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
+> Fixes: 28ae8aa3923c ("arm64: dts: qcom: add device tree for LG G7 and LG V35")
+> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 > ---
->  fs/ufs/cylinder.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+>   arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 13 +++----------
+>   1 file changed, 3 insertions(+), 10 deletions(-)
 > 
-> diff --git a/fs/ufs/cylinder.c b/fs/ufs/cylinder.c
-> index a2813270c..b930ee1cf 100644
-> --- a/fs/ufs/cylinder.c
-> +++ b/fs/ufs/cylinder.c
-> @@ -68,6 +68,16 @@ static bool ufs_read_cylinder(struct super_block *sb,
->  	ucpi->c_clustersumoff = fs32_to_cpu(sb, ucg->cg_u.cg_44.cg_clustersumoff);
->  	ucpi->c_clusteroff = fs32_to_cpu(sb, ucg->cg_u.cg_44.cg_clusteroff);
->  	ucpi->c_nclusterblks = fs32_to_cpu(sb, ucg->cg_u.cg_44.cg_nclusterblks);
-> +
-> +	/* these on-disk values become array and bitmap indices */
-> +	if (ucpi->c_cgx != cgno ||
-> +	    ucpi->c_rotor >= uspi->s_fpg ||
-> +	    ucpi->c_frotor >= uspi->s_fpg ||
-> +	    ucpi->c_irotor >= uspi->s_ipg) {
-> +		ufs_error(sb, __func__,
-> +			  "inconsistent metadata in cylinder group %u\n", cgno);
-> +		goto failed;
-> +	}
->  	UFSD("EXIT\n");
->  	return true;
->  	
-> -- 
-> 2.54.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Reviewed-by: David Heidelberg <david@ixit.cz>
+
+Thank you!
