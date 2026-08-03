@@ -1,161 +1,206 @@
-Received: from SY5PR01CU010.outbound.protection.outlook.com (mail-australiaeastazolkn19012009.outbound.protection.outlook.com [52.103.72.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672F630C353;
-	Mon,  3 Aug 2026 09:59:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785751163; cv=fail; b=rPa/hUn0roSzqgn7l6FNvfOzFPTj8Ke05Z5LJiKMeQ30Hh+yTQpGZ5dNtKAS+IQMpWxGTpYrUJlOMLLf0H8xymyHKXYurZ+lLKHVOHXS0bOVtK0myH7HxQYMpal3NfaCDSVIMY2dpxIC4YhT8S3HIqxiBUIW8aTVkZMcUMOzM60=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785751163; c=relaxed/simple;
-	bh=C4ZxzOuSQfzDfbNckt3H25xjiZIEzgKT1Hfs4n8c1YY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=S6fwfhxIKOkOMUC2KZyFX+B+9m+0Lf0eAI6rZ03Y4pRYYK6AhZZNDYhbS3efO1gMemxeNSPUT1NOUnAdEA6Duadph+exsYpwBvL9f0jIuVuoWmnJkDgGaQBdY4S1qEojx/bZMXZqoGjUA5gGyR5pxxsWdDFuE9pjxo/wGLFDboA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=RBGwA4Fy; arc=fail smtp.client-ip=52.103.72.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BE43806B6
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 10:06:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785751614; cv=none; b=kTK3tKa5NE6jY/WW8tgSlHMRQ2n/I8e599s63JGUHAnAUYDUSSH/ztOmgueB1jA/RiafdIrEpM5YtecjXC67KofiX6IgVHcQWSJ3SkEGfiXvUJAAqVsGkECHg9lsEx03ZIyi/Q2i81qIEDIJzmq2o5YoN9Pn2DrWKWEglgTHpPE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785751614; c=relaxed/simple;
+	bh=8FRlLbA9WCFWOMINk88Sk2OsraUDY7vNxZBbAaLNNgE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TznKbPF6l+I6kwySvNF/yv/kOyjYp5w1jyrIVVFUQwt2c462YkL2mqO3d+VMbarcB2ZVAjQHiLmkR/slnVbCCsuqftmZDiBTBdwdZ94siJtIRXNrYnU2k0BQMoFxdqR8HxbBG0mlg+4DWmzZtoAIr7lUpzQ9+8vX0OpRGSbIRBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=yATYq7ws; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Iryosf8W; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=hgHtbNQV; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=PtD6SNPW; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="RBGwA4Fy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V6fd1LdmJsimjbzUttnEtWg7cx7bIgoJPpUTsi3qc3Xb876w3t04ltmQp+G4DhD4HM3XYA9KHghys4v6kcXkO5oAQFUdyFrc1FVJTPJar1mrYr/bztmOHdZTIMiYH5EaHpxZQNXmZBzfLlJ6z5fJ7dwlGGzhilOm2edHTuM+umuSZ7Y9Miz5kaOQ49CoLQRncC3ug518xWVRj5X1/3eF0FuwJ/R6aVHVeno6whFc6AFWcC0l/3m4TOkwXH5QBTJNP7s1Giq8NWOUqZC+4MQMrIHYNBEgPU9VKlaYdiDpsG5BB43PiRlNMUSAtKIRnSHKMyrr/NaJ2mBGkFrlHYUKLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5VVtcaR+K4fTZCq/g5VBt4yON14I2zoyDJVnhlwL2eA=;
- b=WzZpYgREeeFyqiOL26MU/JhNG8sng7z7/cl3Ftgynl6G8FsaYzoouQusT15NiPvczmyDSFbpJIYne3V4hCutoqZdN3UH5pr+6PeRkA4r5qkwJKEX7We1FkXk2ZOZZt5cRKRxSabY3ievISY1VHDugtVPPMBXOdt7M9wUYZmipDvsZSc/xC8hkSaoJz67R+eZPjOdfriilGQue4qjYy7vOPP0Wnprg+6Ho0w6B2m4sNcsbdR4ZpVwIIXTnQF/NBniPnKsn9U3bdao41Pq9KqH0e5KaJSbn7WB55q3onDvT8qyjBbbc35aMEQudOGNuD4dqCsTiXo33QuaJlKX3gcJwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5VVtcaR+K4fTZCq/g5VBt4yON14I2zoyDJVnhlwL2eA=;
- b=RBGwA4FyjcoF40csy4p6FtCcBtqlXRvrTkvKqpmb6jPQan4fMdfc72Cy08ZoA6VVKjk1w1ViFp/3yThzpBWUXk7K8dFfCR9EYHp3Hw2L/2/etkHDeggrKRE54fIx1NG7PFIotBBJKi0AaGlvgO3bXKEWbwhoIBpqVuGayuNXkrpVeU4FT/FgshPVKZM9TMKYSjpncW7qZHUxP1lV11KYKyr9Byw75Ljb7wl2oN8QGlSWtkueyjO5Tzz+g04wfgsTdibH+429+H2UI6QqGkDCNKuIp7Be2THQYliVQ+4gEMMQkPtiLcBSURX9xxmvMmgSnsQUCnBTu680XMHhifeTPQ==
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
- by SY7PR01MB11484.ausprd01.prod.outlook.com (2603:10c6:10:34c::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Mon, 3 Aug
- 2026 09:59:17 +0000
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c%3]) with mapi id 15.21.0270.016; Mon, 3 Aug 2026
- 09:59:17 +0000
-From: Junrui Luo <moonafterrain@outlook.com>
-To: Arnd Bergmann <arnd@arndb.de>
-CC: Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman
-	<mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy
-	<chleroy@kernel.org>, Paul Mackerras <paulus@ozlabs.org>, Alexander Viro
-	<viro@zeniv.linux.org.uk>, "linuxppc-dev@lists.ozlabs.org"
-	<linuxppc-dev@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Yuhao Jiang <danisjiang@gmail.com>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH 0/6] powerpc/spufs: assorted fixes
-Thread-Topic: [PATCH 0/6] powerpc/spufs: assorted fixes
-Thread-Index: AQHdIpbafWrFzrsOd0a44iIFf4B2oraMD8kAgAAH4IA=
-Date: Mon, 3 Aug 2026 09:59:17 +0000
-Message-ID: <9E49BF8D-34E4-449A-A24A-AACCF6215DAF@outlook.com>
-References: <20260802-fixes-v1-0-7368423440f4@outlook.com>
- <a1c11e04-a3df-4beb-84c8-f0e0443bb828@app.fastmail.com>
-In-Reply-To: <a1c11e04-a3df-4beb-84c8-f0e0443bb828@app.fastmail.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SYBPR01MB7881:EE_|SY7PR01MB11484:EE_
-x-ms-office365-filtering-correlation-id: 1d92a396-3ac2-4434-d88e-08def145e1c4
-x-microsoft-antispam:
- BCL:0;ARA:14566002|12121999013|22091999003|39105399006|24021099003|15080799012|24121999003|31061999003|4140399003|8060799015|19110799012|8062599012|25010399006|40105399003|18071099003|2607281247196008|102099032|440099028|19061999003|3412199025;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?ZNdWX9JsUe5Nadksj3MWIoaVQ4nDaZIobOyWDWpjdRql1zV4df/iUNOqg/1O?=
- =?us-ascii?Q?GcatqicOEGzBz8BXXIm7CLCEqIJdtsGtu0B9a0XAc/SCzjTm0Np0bRzbB6h4?=
- =?us-ascii?Q?Fg1r9ti5YBRbWqJfJwtJH42vEvO59oi5VHKhv126F8ZEJjcX3FIAv7FMhkTZ?=
- =?us-ascii?Q?cN8kkv0jmm45AzsEmvbgzmup9gnORKSt2Jn3RsMZ3rr0LIRyZHYcsVY4yAOW?=
- =?us-ascii?Q?G82MGzcqB9DMBL5jJIEZay/vV9EFID9abcC7Geun58Z/5nluYTdYyHd/Dy/m?=
- =?us-ascii?Q?Uk1wZLgLolWw5VeqJUTi4+2Pg+ccfEYso1M+lCcUVZqR2PJWOF0NxWZTix6l?=
- =?us-ascii?Q?LOJnN5MqD/Qpx0bnN16bBa2fflWQIJ7LjL7G2ogTup6u8CkhuHxcdOIwCnxQ?=
- =?us-ascii?Q?EjQejE4d8FgvaAXVahKX8S4L8cdYdNkc4So+uzrCNcQ6M04LhynZiMoJQzNO?=
- =?us-ascii?Q?CwnfIoPO8V+tTjk8RFpImdOKP1d6IP1LLf8T6jNNp9fIrawWtYKh6z3aiB4q?=
- =?us-ascii?Q?UxpMLhwJCOqZ3jqovYWcyFIGzOlmrTMWvmYtbrzQHjQNyXKwjiL/+XnZ5dxO?=
- =?us-ascii?Q?TSE8mdF7lSH82y3rPXdEj9H3C92a5gJcTWJxagnK4YuDqyJAAmv8+oEET762?=
- =?us-ascii?Q?lRRnJa9L+gcHR3CZFUdYmu2sz9dL00MhzeFsmNB3m7aGacWDII4qEeBNoxo/?=
- =?us-ascii?Q?5lx5mS2rjf8lGOABDstg8xu8eywB5WltX+OFd3/dfvP8xBUO/h/MCmDyMLkZ?=
- =?us-ascii?Q?dEMqD1bmbgbLKGPNAhqzEOwYWJpOZXqAvB3PtVWvT54x+EAEDBc7iXnw8k1z?=
- =?us-ascii?Q?U66gPLTM9HwvVR4ST9TfhcK1BPKcviFwa075mtE1ju9Xlztoc3hHOZMn28YB?=
- =?us-ascii?Q?WC3ak6sNmrG2vFt7Hcff2JoVeeWn0KRbmxOa2e9OBJ488AfCLu6f9K5fkf8g?=
- =?us-ascii?Q?lUx+Rfce4ufFQEe+DrZONK1n9kqEvoRLNRCG/e+VZs7kIZhh3HRMshXGbDGi?=
- =?us-ascii?Q?+t0v/UvNCXT0fSOZl2kralwJbbwNV9z1XkpH2/Ae/A8WhwGmMjXz7nfV/fHM?=
- =?us-ascii?Q?sBIhvC8GAvGSejjh+iG+CwdEJawlhA=3D=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?0PhxrbdAs5ICCs8d0wYCR0o6k8Y2be99iBpW1CAVcWg4OJRElvnvcTyOKgr/?=
- =?us-ascii?Q?tIcCSxJ8UB5Qz5ZuDLS/xq7VcL+fqaOH8A/ogWB4ruwf5/8AKVwpSl33aZi8?=
- =?us-ascii?Q?M5IwuGTAPE31Iw25wzbSvVPt1AhnWegFnsw/L3M2Eq40f+jEutsSgpd+ai95?=
- =?us-ascii?Q?AIgU3nc+t0mIMnh+UA0nEpl0siI2W4Y4dIjAcfXmXzyGloyrt4PSm0UJISQa?=
- =?us-ascii?Q?ouZ4xmjuyR9mFXj6WpngLt7sIjA0Mk6YfOanPEzOmMFDDaYjUtbIcKP90QbO?=
- =?us-ascii?Q?dmVWvyRFT7BebwasU/Q5ZYswM0nqEAlsagb6gVmmPmBhzXzSBYfbSqA+Rb3k?=
- =?us-ascii?Q?kPHtgLoU0HIKKbC7mQUlzeNGeQy9yjdw3wqvkPQ4Io3i0evM8XVuRI7pTeIK?=
- =?us-ascii?Q?HuXblNRfTKxICYViV9IHiPhCz5HKIup3EaFkl2e5G66IVzG1yNQgLlG5wlN3?=
- =?us-ascii?Q?/nDXnia7dAXKqe72bB4+Bf6x1kHf2ot12U/vSL51dLAgZE7X30gOzn7XvnVH?=
- =?us-ascii?Q?rWdAhrsieHTElgxKvh17vC2LJkNVkHb8C9Nn0CyIbihozimqtgIs1XGiqoFX?=
- =?us-ascii?Q?McTfDjOBBZA9A2rrYbyDa7wSJsn8jIarell4/lzB2ZaiYv4468JOvaaqok9x?=
- =?us-ascii?Q?ZKCYIiom1H2fHe/7xX/z2RLYQVTLSKgV9PIV03FDfwx8VxBlexrLuvkBNOro?=
- =?us-ascii?Q?o5+5QhrhxdvdVzievbVvXsS2HgAIvPxoQTP2xWiYsuvYzY3pRgWOK4eyUllE?=
- =?us-ascii?Q?1PKPJLjlsfc8ZZ82GLWCfRxGvOs1QHLPpV2/5hi3xGqxTL8dFslUDGtod2Nn?=
- =?us-ascii?Q?GW+hIywoVOsGzivvP8blsjUGIpsUAj42cGASMt96VlCCy12liyrcTvxxfhWc?=
- =?us-ascii?Q?cPnbmSC0GfrX6P50Cz7nzVlHOtaYI7Zo+DKXuCxklXdwNhf76BdR5DtEIjwg?=
- =?us-ascii?Q?DXVyi3sA1yYO2A6b/HhkszAqaEgeOyKQIQPtACM5skH7RRvWuzQnek8CSh1o?=
- =?us-ascii?Q?cCSAJoViIEhaywXfv4J0ScRuUcGOw+/DcJlQHLlGZj7d0xxjcUq7ukDLvz3W?=
- =?us-ascii?Q?7E4N8drCWLzpXtnM2lnEQMM7tu9KZG2/MeutPgWTLIN2lQ1VLulg/7PVxGHL?=
- =?us-ascii?Q?5ZC/OouQrWIzPn4S7UKNwF2iroDk3UbTk2dedR1sKIWeBKvsvEPL0oBFLeZS?=
- =?us-ascii?Q?d+KZNFHPTIVCMgdeudKkLa9+rOMjas89jIRRvBJmY3kYRwofvOug2UPujCY2?=
- =?us-ascii?Q?qK5Qi10lANbRj0yqF/Mw4Mi4MlOgQnoAWoOQgXee2s6NmUGP0JmDKS3zXGG/?=
- =?us-ascii?Q?0iTg/jLM4a5LZD8Je36mpOo1MXIHxsHat2tLNSIBq1B/78l2G+YPyOHSpQn8?=
- =?us-ascii?Q?UtmVD4awY+Odn3xgwMJr/uwOyuBq85yGPcic2J9slcelqVuErQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <8452DF422F792E498EE5A043ED656361@ausprd01.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="yATYq7ws";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Iryosf8W";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="hgHtbNQV";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="PtD6SNPW"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id DD4BC3F5E;
+	Mon,  3 Aug 2026 10:06:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785751607; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mIp0J0Cf6G2Gc0vNBn3JQce/ys9BKqGk0T5zMEqiAHE=;
+	b=yATYq7wseVBADe2kh54ogtFvo/KsWzolRNX/JxNGoBz/3BCWFVumAWLk/pIryUstT5TJzI
+	XgFbfPEzDFuJWuRGzxFBOiicGhhNAH9X+Afi9yIjbBF4qe6VFIgqafXk6YbXO00Bvg3cgY
+	xKgjJ6XdxNuYo050jfu7wziBqymZpNY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785751607;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mIp0J0Cf6G2Gc0vNBn3JQce/ys9BKqGk0T5zMEqiAHE=;
+	b=Iryosf8WtmdfRf1TwF/TqguMXwYw8RS/zwYE1X6XcGARNT2xHnAPLx1Qdn+vvACbf45p0j
+	VFscpNRe6SMyC4AA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=hgHtbNQV;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=PtD6SNPW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785751602; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mIp0J0Cf6G2Gc0vNBn3JQce/ys9BKqGk0T5zMEqiAHE=;
+	b=hgHtbNQVgfGuZYmxwrnJ2x6UW2kjU5AT3A0Tw/qzvzgODPon7TXBn6gz+HEJ6UH1UHIpOo
+	3sMJkjoUGtWwX98DwfX1v7yRC7gdUX/ght0PQh+mwZE/4m3e+FN+K4WDtnaQ50nvuAwqZn
+	Yu6U1D8qTSKQ6jxRkkjLmYAAwZUxF9E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785751602;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mIp0J0Cf6G2Gc0vNBn3JQce/ys9BKqGk0T5zMEqiAHE=;
+	b=PtD6SNPWA6cCwCHdtkqplIg/2nYvacGy+gq7XdzqwUOee4Zab+tGKn6r/Dms0zM0Yt5H3B
+	q1KnMjApIH5i+bBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CDA21779A1;
+	Mon,  3 Aug 2026 10:06:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id I8DiMTJocGqCQAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 03 Aug 2026 10:06:42 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 7697AA13A4; Mon, 03 Aug 2026 12:06:38 +0200 (CEST)
+Date: Mon, 3 Aug 2026 12:06:38 +0200
+From: Jan Kara <jack@suse.cz>
+To: Ali Ahmet Memis <ali@iusegentoo.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Kees Cook <kees@kernel.org>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] ufs: create the root dentry after loading cylinder
+ metadata
+Message-ID: <q6zgjx7g3ciaxfbc6wnmgafuc6bsyz53opvljuogfblwxy45hb@nkpbchrwbngx>
+References: <20260801071306.59484-1-ali@iusegentoo.com>
+ <20260801071306.59484-2-ali@iusegentoo.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d92a396-3ac2-4434-d88e-08def145e1c4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2026 09:59:17.5431
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY7PR01MB11484
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260801071306.59484-2-ali@iusegentoo.com>
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	URIBL_BLOCKED(0.00)[suse.cz:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,iusegentoo.com:email];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:dkim,iusegentoo.com:email,suse.com:email];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: DD4BC3F5E
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 
-On Mon, Aug 03, 2026 at 11:28:46AM +0200, Arnd Bergmann wrote:
-> On Sun, Aug 2, 2026, at 17:51, Junrui Luo via B4 Relay wrote:
-> >
-> > Patches 1-5 are tagged for stable. 6/6 is deliberately not: it changes =
-the
-> > atomicity of multi-element mailbox transfers rather than just adding a
-> > check, so it seems better to let it soak in mainline first.
-> >
-> > Build-tested only. I have no Cell or PS3 hardware, so none of this has
-> > been exercised at runtime.
->=20
-> These are all reasonable fixes as far as I can tell, but I'm missing
-> information about why you care about spufs. If you used some atomated
-> tooling, please add some reference to what you used.
->=20
->        Arnd
+On Sat 01-08-26 10:12:57, Ali Ahmet Memis wrote:
+> ufs_fill_super() installed sb->s_root before it loaded the cylinder
+> group structures for a writable mount:
+> 
+> 	sb->s_root = d_make_root(inode);
+> 	...
+> 	if (!sb_rdonly(sb))
+> 		if (!ufs_read_cylinder_structures(sb))
+> 			goto failed;
+> 
+> When ufs_read_cylinder_structures() failed, the error path freed the
+> in-core superblock information and set sb->s_fs_info to NULL while
+> sb->s_root stayed installed. get_tree_bdev() then reached
+> deactivate_locked_super(), and because s_root was present,
+> generic_shutdown_super() called sync_filesystem() and the put_super
+> operation. Both dereference UFS_SB(sb), which is now NULL, so a mount
+> that fails only while reading the cylinder groups oopses during
+> teardown. A crafted image whose first cylinder group cannot be read
+> reaches this path.
+> 
+> Load the cylinder group metadata first and create the root dentry last,
+> so the superblock is published to the VFS only once it is fully set up.
+> ufs_setup_cstotal() and ufs_read_cylinder_structures() take only the
+> super_block and do not use the root inode, so the reordering is safe.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
 
-Hi Arnd,
+Looks good. Feel free to add:
 
-We're working on a paper on LLM-assisted vulnerability research. spufs
-was just picked at random as one of the modules to look at. The tooling
-is an agent we developed ourselves. Should we add an Assisted-by tag in
-v2?
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Thanks,
-Junrui Luo=
+								Honza
+
+> ---
+>  fs/ufs/super.c | 17 +++++++++--------
+>  1 file changed, 9 insertions(+), 8 deletions(-)
+> 
+> diff --git a/fs/ufs/super.c b/fs/ufs/super.c
+> index c4831a8b9..7deecb395 100644
+> --- a/fs/ufs/super.c
+> +++ b/fs/ufs/super.c
+> @@ -1199,6 +1199,15 @@ static int ufs_fill_super(struct super_block *sb, struct fs_context *fc)
+>  	sb->s_maxbytes = ufs_max_bytes(sb);
+>  	sb->s_max_links = UFS_LINK_MAX;
+>  
+> +	ufs_setup_cstotal(sb);
+> +	/*
+> +	 * Read cylinder group structures
+> +	 */
+> +	if (!sb_rdonly(sb))
+> +		if (!ufs_read_cylinder_structures(sb))
+> +			goto failed;
+> +
+> +	/* create the root dentry last, once UFS_SB(sb) is fully set up */
+>  	inode = ufs_iget(sb, UFS_ROOTINO);
+>  	if (IS_ERR(inode)) {
+>  		ret = PTR_ERR(inode);
+> @@ -1210,14 +1219,6 @@ static int ufs_fill_super(struct super_block *sb, struct fs_context *fc)
+>  		goto failed;
+>  	}
+>  
+> -	ufs_setup_cstotal(sb);
+> -	/*
+> -	 * Read cylinder group structures
+> -	 */
+> -	if (!sb_rdonly(sb))
+> -		if (!ufs_read_cylinder_structures(sb))
+> -			goto failed;
+> -
+>  	UFSD("EXIT\n");
+>  	return 0;
+>  
+> -- 
+> 2.54.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
