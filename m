@@ -1,65 +1,82 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28CEF3515CA
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 22:40:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2FBF33FE15
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 22:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785796837; cv=none; b=PzUBho09q+YM9Zspak5N8h5xaWaiOJ5gtTi7Jf1JKpQ/J78hv6WuK/yn718WXPZJ4SAaASaGDTMAk4Z95O3StKedHRQN1kf8E0S5GUOx4DmjYeAeL7vT8A+zQWzFkz+cMZw2MRLhMl2Z5IIyakNA98/qw988F+VEcdEyyjzf1qs=
+	t=1785797062; cv=none; b=WCoR/fGaltJ0tH2bfZgkmFiI+tRf5XnnG2/hDtcetRV7KeI48gzEyd3ej+O7a1QvmFvaRN4VKDenLWqBhY30oWLtCIsBFMGBqLzXwXZl1AHMWm3B7xNW/YbSrox2URKr/6jd1jxSc65k1zzYUrc8UTMT0vxqVPGck5irhsdGi8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785796837; c=relaxed/simple;
-	bh=6Go4fUb6eczzq34zvvuA177QcMs7n5eZiGo6vrb/6yM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M2LacJcuNsEQ8TKTxOCTDxVTFTo4hWTqwMVU1lUSeIKu4CTbob/VDalDOtwjMlNWwahcB3uvFz0pEJmOQnhsvgetzzO8UrQo8xBaBtaYTc9M9A4tnSvaXXbgDUB0JJXHKuUAJCg4DRiCbvX5h3DJ/qlNaOvTJFsqQGfDzCKjNxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=SK7neU4J; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1785797062; c=relaxed/simple;
+	bh=8tEf08+M05wAtfNLABdkntRWnfi1nh+gHafD8skemv0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=P2V6dLJMvA/6QEFxDlQx1OUfWZMTqUUdvqCLxgohzG/72gY91tAn9Ba+j2OJOCipxvug5UTn3a+OLX0NK3LfEOEBBtVrIEorVxpK16ODn6qUSVY+cI9Zir3AyDiSJqtrSHLxTbuibugw8hUQPj72RRWGEmfJE2KyEzuQvku+2a0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l8NMy2lL; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="SK7neU4J"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 673JlZbe2994267
-	for <stable@vger.kernel.org>; Mon, 3 Aug 2026 22:40:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=k7RRNCTc/DlsnNSvULum1lPZtzI1SX1djZRoM5+3K
-	ck=; b=SK7neU4Jlqa7yDoKk0aEedE8agCGCjclBSY/xpJl9SZyL5JWp+V2U4HDK
-	rMGGUrEyOLy+k8YyGQLzC8VK2u/uJ5i14RPyro/mdU/Ob3OFaG+6BB53jbGxel2H
-	agt/PuxlwY4StJcw4VEHO5imVbB22tcfcz/nG3A3D4rHX+QFkS1NRdxF/YOxGrlP
-	wuBIRr2/rZQZqO6SJkY03mI6pR7uP29BX3xH80YKIGsVOXQysfKCR75tVAZSCqJv
-	jdOdp8gaFC2+rzpKiL8UouzNNtsdXNWbQmjEtaKVilvdyTO10y0817yMff9I1O59
-	ojd8QwFIG0oSfP8C8VOGGtZ+KtQhw==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8h4u3pt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 03 Aug 2026 22:40:34 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 673MQIvA030447;
-	Mon, 3 Aug 2026 22:40:33 GMT
-Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fsu4qfkbx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 03 Aug 2026 22:40:33 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
-	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 673MeW2121430852
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 3 Aug 2026 22:40:32 GMT
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 588CF58054;
-	Mon,  3 Aug 2026 22:40:32 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 141775805C;
-	Mon,  3 Aug 2026 22:40:31 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.67.105.130])
-	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  3 Aug 2026 22:40:30 +0000 (GMT)
-From: Gaurav Batra <gbatra@linux.ibm.com>
-To: maddy@linux.ibm.com
-Cc: sbhat@linux.ibm.com, ritesh.list@gmail.com, vaibhav@linux.ibm.com,
-        harshpb@linux.ibm.com, ltc-dev@lists.linux.ibm.com, npiggin@gmail.com,
-        Gaurav Batra <gbatra@linux.ibm.com>, stable@vger.kernel.org
-Subject: [PATCH v2] powerpc/pseries/iommu: switch to Default DMA window during kdump
-Date: Mon,  3 Aug 2026 17:40:29 -0500
-Message-ID: <20260803224029.60538-1-gbatra@linux.ibm.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l8NMy2lL"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-495635a85d2so23981045e9.0
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 15:44:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785797059; x=1786401859; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wXVKLiTea0/59JUrrH+7PA7Bo3NKwmFvSDJL86vx0Jw=;
+        b=l8NMy2lL5hd6WpZnl+8onFmvrS1XhSDUDtAqbTXQKS6UaXw3BU9xZ2OkpeYI+e2X9v
+         5rCxtJ0ihWg34HdjcUWwLfx7Ku3Osuhm1G7oGVgvF8TzGNpmfTU/IV4gHv16bFupsGMv
+         czes9jXb3olV54ozqFtdCfZVW8HmjQHw4t1cxWH3FwS/k6wBrlFZB6rnPkShQzhqRKF1
+         YjK6ijK4Pg3Qj0xIzm287HRp48lOlMeKeZLWivr5Py/6Jg0O2xQ8d8ZisPdoSgDccriQ
+         tnEyrQcqAczg/4Unw3AcjAYYyLLwswoj0NHA5KbzQsc9CLQtMK4heQjAx+rdcjiliUOX
+         RQ/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785797059; x=1786401859;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wXVKLiTea0/59JUrrH+7PA7Bo3NKwmFvSDJL86vx0Jw=;
+        b=kW2VU8pM+RcWIIpVjKRYwytFuPHSx2c5zNHWQPi3Q/VPqsXVr2HAgzV1xgtK6z6bXl
+         tYIlsRnDL+eqQQ6yN1H1EDpOxIoYiu1FOSge4oBoD4YQXsIYfCBPa2+bf5phBnBP688G
+         eSsWezLr6cOxEgg6RMF1/7e84orRflWaha0fcpQyC73OCgK0v3o5dhpfwzDHLO3aZkK8
+         eoojz2DPV5FFNNhSv2vQdIXdfctrELx8ZAcpEUgahc9w0W69YyZY69doQC3+2TUzbrqI
+         PZ65pJZ/reUNco9Ok1dBmx5gpFYXXNvZMmqmWDFqmiPMrEZRZpfuiScLC2CyvrKGckCu
+         Ln3g==
+X-Forwarded-Encrypted: i=1; AHgh+RokYXCZ4Y4qZm4sQ7IQFvCfqId4fqORm51MabJRFdtV1caVFJhGqI5G4GWwpxB4Ayu7nOXhE8M=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwHW+dts5IBnQ4bbOTDJgCoNQUgn+JWE9sonFwmXIgNfuQmP3k9
+	U3rGPLkNs5VhOVP91dowj7o7rRJjYLKrr1dZX1nuJlyzDhz182LkLq16
+X-Gm-Gg: AR+sD11JK2+RFGcNS06AiAnVVpfB81yLSigeSun2pv7PVtZ8h/pCFiJCHowXiMJpJoc
+	FPjsUskzbL5ohj0nOg5opY93bQ658LCZna9lTtrey8ap3irt/fo/mRedEeskPzMYVefgRSUI8W3
+	4BpON1RpEgzbraz96wMTAV0TwADjiNBmDDIEuS545ZAEXnwJ8E/5/A8hHA0kSnv4vpqKpxLzeJU
+	6COGktvF1ONdY0irNw2/RbJPdLdlMJ8ECyeuA13TDAvITMkfNMFPEJGhOYp+SQcFLpC/NfTc3Tr
+	orxt1F49R9khnQNz/jYBRRebGE3KzpBjt4EDNax4TwSA+VRjIhUGEhjQFv2J0WfYCot2FSS/EFS
+	6VAm/MDmXCgeF55UYVbeUmYg2G5FildIEKDlC/i26OXl/ETMLFV17QZIwkyAXp5DQsiF/+2FZqt
+	JOd0VBkJnBrszmgljSSQAePFAfSePZhp58eLCSOhuyAjzM+FC6q/YRTSVmGCeaP/PT0Th5Bo1xH
+	YECzvTJhcfDx9y7fBhgKD0yUjtwrQXAIvubtprkcdzEnDfDKlyt/IlndAJMZDiztiDeV3HvqOY2
+	kY/WwfBfD2yOfIRPWcZC8xHwyf7sRh2YYEIZtKKG1yophkOAeWZiWjg/CyulQmd7PSW4
+X-Received: by 2002:a05:600c:1908:b0:495:7838:7e25 with SMTP id 5b1f17b1804b1-4980ee9f00fmr252333455e9.15.1785797058758;
+        Mon, 03 Aug 2026 15:44:18 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b3d4-c101-2c67-9805-4069-c4eb.310.pool.telefonica.de. [2a02:3100:b3d4:c101:2c67:9805:4069:c4eb])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd456a6cbsm32690944f8f.23.2026.08.03.15.44.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 03 Aug 2026 15:44:18 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Fuad Tabba <tabba@google.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] KVM: arm64: nv: Allocate the shadow S2 MMUs individually
+Date: Tue,  4 Aug 2026 00:44:04 +0200
+Message-Id: <20260803224405.41468-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,157 +84,248 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDE5NiBTYWx0ZWRfX2vGAiNP6Al7j
- 1oCNrtmsofOiHRHwos36upy+LOs1LA0V0SVLa/H20uq/gWMTjFZEGbCYXYNUce4ljps+WG+brzs
- peAcpu1vT6bQ2txtPFfax1zVGosTCKY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDE5NiBTYWx0ZWRfX9YmTssqJ2ko/
- KZWYwLUHRMiQopxZwB2CJ/UV9+i1MGNslaboC3BiYi6CTsfWDFtbC6G6im5VhE/98QnkQhydAph
- EXiSz0AuEcz8Wz9pvsEtJjNb+hJT163UyhsPRrpyKH85NMHaJ7tVPntriFd6JG9Xo1Fo8XmgpaQ
- qvRIT0D3OzyQuhaIXAyAYVtizSdwysHrxYCVw+xYvZklJ0bCyadBFItN91N6oaNNvp7Ev/bsqFT
- AJ25x5wPJY2QHKizw0Cl/RA9NSquHO0tirZE0f4Rou9llrcJxuEe2Dtes54yz2Cqz5Wzp7P5N4M
- Agcp0UUiDjDL3xGi7sLTPgwl4IVcVczyq6wvIfJm+QmHnCArWmblTB8q89HBNQ1cc+FW2iFlywo
- redeN5imtUV9AJRgwr3BK5unOFN22l3DwzpGGa+ApPUBQ3tlDVbDxaCkXdtqcUBHLqvCzGa2Pg+
- ctjJ3h2jVY3W12LLUMA==
-X-Authority-Analysis: v=2.4 cv=SI1ykuvH c=1 sm=1 tr=0 ts=6a7118e3 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=pGLkceISAAAA:8
- a=Cugy0JS6tUXJvBfQomMA:9
-X-Proofpoint-ORIG-GUID: 0uW7D04yKryxFd1GCGHFJpwNY8pxFlts
-X-Proofpoint-GUID: dcQVI81vEEJZ7zTlq4wYuAko4sJ5MJ8a
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-03_05,2026-08-03_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 suspectscore=0 impostorscore=0 spamscore=0
- phishscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608030196
 
-In PowerPC (pseries) a non-virtualized adapter will have 2 DMA windows -
-2GB default and a larger Dynamic DMA Window (DDW). DDW is large enough to
-map total RAM to a device.
+A vCPU in L2 caches its shadow S2 MMU in vcpu->arch.hw_mmu.
+kvm_vcpu_init_nested() can grow kvm->arch.nested_mmus while initialising
+another vCPU: it copies the MMUs, publishes the new allocation, and frees
+the old one.  It updates pgt->mmu back-pointers, but not hw_mmu, leaving
+the first vCPU with a pointer to freed memory.  hw_mmu cannot be fixed up
+the same way: a running vCPU reads it without holding mmu_lock.  Copying
+also duplicates the MMU's refcount, leaving the live copy permanently
+elevated.
 
-During normal functioning of OS, since RAM is pre-mapped, 2GB default
-window is not used. The only scenario it might get used is when buffers in
-pmemory are mapped to the device for DMA.
+KASAN reports this as a slab-use-after-free in kvm_handle_guest_abort().
 
-As of today, during kdump, during early device discovery, pci_dma_find()
-finds that the device has 2 DMA windows. It selects to use DDW. This is a
-kdump path and DMA window is needed for IO to the device.
+Make nested_mmus a pointer table and allocate each MMU separately.
+Growing the table now moves only pointer entries, preserving cached
+hw_mmu pointers, pgt->mmu back-pointers, and each MMU's refcount.  Fully
+initialise new MMUs before publishing the table and its size under
+mmu_lock.
 
-Although commit 09a3c1e46142 ("powerpc/pseries/iommu: IOMMU table is not
-initialized for kdump over SR-IOV") fixed an issue during kdump with SR-IOV
-case, but this also made the kdump prefer DDW over the default DMA window
-when both are present (dedicated adapter case). Since the DDW is fully
-mapped by the previous kernel, iommu_table_clear() can free only
-KDUMP_MIN_TCE_ENTRIES (2048) TCEs for use by kdump kernel.
+The old failure path passed uninitialised entries to
+kvm_free_stage2_pgd(), which needs mmu->arch.  Use an allocation helper
+that returns only fully initialised MMUs, so error cleanup frees only
+completed objects; kvm_init_stage2_mmu() unwinds a failed initialisation.
 
-This is not enough when the dump device is NVMe over Fibre Channel.
-Because nvme-fc driver DMA-maps the cmds and resp IUs of every
-pre-allocated request and each such mapping consumes roughly:
-
-    32 (IO queues, one per cpus = nr_cpus) *
-    64 (queue_depth, blk-mq kdump limit) *
-    2 (cmd+resp) = 4096
-
-This is already double of what we have without counting admin queues and
-lpfc driver's own allocations / mapping requirement. Hence this results
-into iommu_alloc failures like -
-
-lpfc 0153:70:00.0: iommu_alloc failed,
-tbl 0000000034ebcf5e vaddr 00000000d814df0b npages 1
-lpfc 0153:70:00.0: FCP Op failed - cmdiu dma mapping failed.
-lpfc 0153:70:00.0: iommu_alloc failed,
-tbl 0000000034ebcf5e vaddr 000000009779e4d2 npages 1
-lpfc 0153:70:00.0: FCP Op failed - cmdiu dma mapping failed.
-
-iommu_map_phys+0x1c4/0x1f0 (unreliable)
-dma_iommu_map_phys+0x54/0xa0
-dma_map_phys+0x3f8/0x590
-__nvme_fc_init_request+0x110/0x300 [nvme_fc]
-nvme_fc_init_request+0x60/0xb8 [nvme_fc]
-blk_mq_alloc_map_and_rqs+0x388/0x510
-blk_mq_alloc_tag_set+0x2a4/0x5f0
-nvme_alloc_io_tag_set+0xe0/0x1e0 [nvme_core]
-nvme_fc_connect_ctrl_work+0x85c/0xdac [nvme_fc]
-process_one_work+0x1e4/0x5a0
-worker_thread+0x1ec/0x3e0
-
-Increasing the number of free TCE entries in iommu_table_clear() will
-increase the probability of hitting EEH since there could still be some
-active IOs from the previous life of the kernel.
-
-Hence this patch partially reverts the previous fixes commit and
-switches the kdump's default back to 2GB default DMA window instead of
-DDW window. This window will mostly be empty. Or, could be slightly used
-if buffers in pmemory were mapped for IO.
-
-Fixes: 09a3c1e46142 ("powerpc/pseries/iommu: IOMMU table is not initialized for kdump over SR-IOV")
+Fixes: 4f128f8e1aaa ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gaurav Batra <gbatra@linux.ibm.com>
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
-Change log:
 
-V1 -> V2
+Tested on an arm64 KASAN kernel under QEMU TCG with EL2 emulation
+(-machine virt,virtualization=on -cpu max, kvm-arm.mode=nested): the
+selftest in patch 2 reports the slab-use-after-free without this patch
+and passes with it.
 
-1. Ritesh: Add more details to commit message that previous patch
-   is partially reverted.
+ arch/arm64/include/asm/kvm_host.h |  6 +-
+ arch/arm64/kvm/nested.c           | 92 +++++++++++++++++++++----------
+ 2 files changed, 67 insertions(+), 31 deletions(-)
 
-   Response: Incorporated changes
-
-
- arch/powerpc/platforms/pseries/iommu.c | 23 ++++++++++++-----------
- 1 file changed, 12 insertions(+), 11 deletions(-)
-
-diff --git a/arch/powerpc/platforms/pseries/iommu.c b/arch/powerpc/platforms/pseries/iommu.c
-index 3e1f915fe4f6..272e9aab66d4 100644
---- a/arch/powerpc/platforms/pseries/iommu.c
-+++ b/arch/powerpc/platforms/pseries/iommu.c
-@@ -812,18 +812,11 @@ static struct device_node *pci_dma_find(struct device_node *dn,
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index bae2c4f92ef5..f587b01039f9 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -319,10 +319,10 @@ struct kvm_arch {
+ 	u64 fgu[__NR_FGT_GROUP_IDS__];
  
- 	/* parse DMA window property. During normal system boot, only default
- 	 * DMA window is passed in OF. But, for kdump, a dedicated adapter might
--	 * have both default and DDW in FDT. In this scenario, DDW takes precedence
--	 * over default window.
-+	 * have both default and DDW in FDT. In this scenario, default window
-+	 * takes precedence over DDW. For a dedicated adapter, default window will
-+	 * potentially have more unused TCEs.
+ 	/*
+-	 * Stage 2 paging state for VMs with nested S2 using a virtual
+-	 * VMID.
++	 * Stage 2 paging state for VMs with nested S2 using a virtual VMID.
++	 * MMUs are individually allocated to keep their addresses stable.
  	 */
--	if (ddw_win) {
--		struct dynamic_dma_window_prop *p;
--
--		p = (struct dynamic_dma_window_prop *)ddw_prop;
--		prop->liobn = p->liobn;
--		prop->dma_base = p->dma_base;
--		prop->tce_shift = p->tce_shift;
--		prop->window_shift = p->window_shift;
--	} else if (default_win) {
-+	if (default_win) {
- 		unsigned long offset, size, liobn;
+-	struct kvm_s2_mmu *nested_mmus;
++	struct kvm_s2_mmu **nested_mmus;
+ 	size_t nested_mmus_size;
+ 	int nested_mmus_next;
  
- 		of_parse_dma_window(rdn, default_prop, &liobn, &offset, &size);
-@@ -832,6 +825,14 @@ static struct device_node *pci_dma_find(struct device_node *dn,
- 		prop->dma_base = cpu_to_be64(offset);
- 		prop->tce_shift = cpu_to_be32(IOMMU_PAGE_SHIFT_4K);
- 		prop->window_shift = cpu_to_be32(order_base_2(size));
-+	} else {
-+		struct dynamic_dma_window_prop *p;
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index dfb96edbdc43..af804a5ddca7 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include <linux/bitfield.h>
++#include <linux/err.h>
+ #include <linux/kvm.h>
+ #include <linux/kvm_host.h>
+ 
+@@ -66,11 +67,36 @@ static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
+ 	return kvm_init_stage2_mmu(kvm, mmu, kvm_get_pa_bits(kvm));
+ }
+ 
++static struct kvm_s2_mmu *alloc_nested_s2_mmu(struct kvm *kvm)
++{
++	struct kvm_s2_mmu *mmu;
++	int ret;
 +
-+		p = (struct dynamic_dma_window_prop *)ddw_prop;
-+		prop->liobn = p->liobn;
-+		prop->dma_base = p->dma_base;
-+		prop->tce_shift = p->tce_shift;
-+		prop->window_shift = p->window_shift;
++	mmu = kzalloc_obj(*mmu, GFP_KERNEL_ACCOUNT);
++	if (!mmu)
++		return ERR_PTR(-ENOMEM);
++
++	ret = init_nested_s2_mmu(kvm, mmu);
++	if (ret) {
++		/* kvm_init_stage2_mmu() frees its internal allocations on error */
++		kfree(mmu);
++		return ERR_PTR(ret);
++	}
++
++	return mmu;
++}
++
++static void free_nested_s2_mmu(struct kvm_s2_mmu *mmu)
++{
++	kvm_free_stage2_pgd(mmu);
++	kfree(mmu);
++}
++
+ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm *kvm = vcpu->kvm;
+-	struct kvm_s2_mmu *tmp;
+-	int num_mmus, ret = 0;
++	struct kvm_s2_mmu **tmp;
++	int i, num_mmus, ret = 0;
+ 
+ 	if (test_bit(KVM_ARM_VCPU_HAS_EL2_E2H0, kvm->arch.vcpu_features) &&
+ 	    !cpus_have_final_cap(ARM64_HAS_HCR_NV1))
+@@ -96,38 +122,48 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
+ 		if (!tmp)
+ 			return -ENOMEM;
+ 
++		/*
++		 * Populate new slots before publishing: table walkers hold
++		 * mmu_lock and iterate up to nested_mmus_size.
++		 */
++		for (i = kvm->arch.nested_mmus_size; i < num_mmus; i++) {
++			struct kvm_s2_mmu *mmu = alloc_nested_s2_mmu(kvm);
++
++			if (IS_ERR(mmu)) {
++				ret = PTR_ERR(mmu);
++				break;
++			}
++
++			tmp[i] = mmu;
++		}
++
++		if (ret) {
++			while (i-- > kvm->arch.nested_mmus_size)
++				free_nested_s2_mmu(tmp[i]);
++
++			kvfree(tmp);
++
++			free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
++			vcpu->arch.ctxt.vncr_array = NULL;
++
++			return ret;
++		}
++
+ 		write_lock(&kvm->mmu_lock);
+ 
+ 		if (kvm->arch.nested_mmus_size) {
+ 			memcpy(tmp, kvm->arch.nested_mmus,
+ 			       size_mul(sizeof(*tmp), kvm->arch.nested_mmus_size));
+-
+-			for (int i = 0; i < kvm->arch.nested_mmus_size; i++)
+-				tmp[i].pgt->mmu = &tmp[i];
+ 		}
+ 
+ 		swap(kvm->arch.nested_mmus, tmp);
++		kvm->arch.nested_mmus_size = num_mmus;
+ 
+ 		write_unlock(&kvm->mmu_lock);
+ 
+ 		kvfree(tmp);
  	}
  
- 	return rdn;
+-	for (int i = kvm->arch.nested_mmus_size; !ret && i < num_mmus; i++)
+-		ret = init_nested_s2_mmu(kvm, &kvm->arch.nested_mmus[i]);
+-
+-	if (ret) {
+-		for (int i = kvm->arch.nested_mmus_size; i < num_mmus; i++)
+-			kvm_free_stage2_pgd(&kvm->arch.nested_mmus[i]);
+-
+-		free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
+-		vcpu->arch.ctxt.vncr_array = NULL;
+-
+-		return ret;
+-	}
+-
+-	kvm->arch.nested_mmus_size = num_mmus;
+-
+ 	return 0;
+ }
+ 
+@@ -725,7 +761,7 @@ void kvm_s2_mmu_iterate_by_vmid(struct kvm *kvm, u16 vmid,
+ 	write_lock(&kvm->mmu_lock);
+ 
+ 	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
+-		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
++		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+ 
+ 		if (!kvm_s2_mmu_valid(mmu))
+ 			continue;
+@@ -767,7 +803,7 @@ struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu)
+ 	 *   if S2 translation is disabled.
+ 	 */
+ 	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
+-		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
++		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+ 
+ 		if (!kvm_s2_mmu_valid(mmu))
+ 			continue;
+@@ -806,7 +842,7 @@ static struct kvm_s2_mmu *get_s2_mmu_nested(struct kvm_vcpu *vcpu)
+ 	for (i = kvm->arch.nested_mmus_next;
+ 	     i < (kvm->arch.nested_mmus_size + kvm->arch.nested_mmus_next);
+ 	     i++) {
+-		s2_mmu = &kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
++		s2_mmu = kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
+ 
+ 		if (atomic_read(&s2_mmu->refcnt) == 0)
+ 			break;
+@@ -1223,7 +1259,7 @@ void kvm_nested_s2_wp(struct kvm *kvm)
+ 		return;
+ 
+ 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
+-		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
++		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+ 
+ 		if (kvm_s2_mmu_valid(mmu))
+ 			kvm_stage2_wp_range(mmu, 0, kvm_phys_size(mmu));
+@@ -1242,7 +1278,7 @@ void kvm_nested_s2_unmap(struct kvm *kvm, bool may_block)
+ 		return;
+ 
+ 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
+-		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
++		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+ 
+ 		if (kvm_s2_mmu_valid(mmu))
+ 			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
+@@ -1261,7 +1297,7 @@ void kvm_nested_s2_flush(struct kvm *kvm)
+ 		return;
+ 
+ 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
+-		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
++		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+ 
+ 		if (kvm_s2_mmu_valid(mmu))
+ 			kvm_stage2_flush_range(mmu, 0, kvm_phys_size(mmu));
+@@ -1273,10 +1309,10 @@ void kvm_arch_flush_shadow_all(struct kvm *kvm)
+ 	int i;
+ 
+ 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
+-		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
++		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+ 
+ 		if (!WARN_ON(atomic_read(&mmu->refcnt)))
+-			kvm_free_stage2_pgd(mmu);
++			free_nested_s2_mmu(mmu);
+ 	}
+ 	kvfree(kvm->arch.nested_mmus);
+ 	kvm->arch.nested_mmus = NULL;
 
-base-commit: 4549871118cf616eecdd2d939f78e3b9e1dddc48
+base-commit: 38436106b2f5ceb55950a7098c1a5804de2bde62
 -- 
-2.52.0
-
+2.39.5 (Apple Git-154)
