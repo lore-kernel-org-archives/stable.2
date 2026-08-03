@@ -1,140 +1,129 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F2B1FF7C7
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 06:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785737049; cv=pass; b=Cp29OO48JSyPFzVZE7ilyQHTY5bQ3Loki0z53kudx/3oohdtLdSbbg24V0siwoeR4Az8CanarTS6rAYMGFeTvMRZbEY6IT/VLr37VXmCmBBjM+0v2tFZRLxUM3yKaPOqA15mPmFo5+acmwbnYibUDuL75fuX6iux3Ae85jWDtcU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785737049; c=relaxed/simple;
-	bh=Vud7PaT1VUqc41R/KxUTZRAgv7I11MadSnh5c1uI3AY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dFUz2aI1ZucV7W6xvQk5FRMAznqn+W5xj3I/nM/wjccuE+hjw8B5c8ZpNA/FkRODjEYAzJ8gPPJpaZo4jiG7IWvsLMf5hl3qTaTSA+o7jd2n0E0EOA5oJazzKAThQeObn8sleENXJKZic2jrFzlU1RjgbixcFpwRwknnAwdlr5Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ryWcCX8e; arc=pass smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B28D3845D5;
+	Mon,  3 Aug 2026 06:07:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785737230; cv=none; b=JAeWQmc8EJiLK+DwWt6SVemtRn9njozIOUlrcneggzUxodmGiqyhkCuHQ/4+sZ61MRvvSJqvu0k9dya/mpni4IfnNn5fjM6o75jnQWnqJXC7ND5lReD/SGMO49PEuFyqJb7QbqpdlNnSKPU1eCwmepJ/vG5ZUTLkFiz1zM0a8tw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785737230; c=relaxed/simple;
+	bh=2kU2611CdfQ1tJrynaYBHpxi8aIegsDte2fVHCblXoM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Vvlva8M0jKWU79RlkCwLARuQafFhrTf0hCCDFMcsT6gzfctwpII8gJTPsvL5LN6+vRiweVmV+7QZCe4se+jW7stKS7RBsJzRyIH5Jhg/asDIQGXlHGden7ZKbGkyUtvH/VHW8laWXF4hxIj76p86i6JcljOoJ3x7ah5v4uRQoEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BNhLdoQ+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ryWcCX8e"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cc8311c6ddso1693205ad.0
-        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 23:04:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785737047; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TOH7IsEmsCKsjlrPoqcIag1alycH0alnED4tg6ZUAQaoNRaNxOyulpqV/gEZxN+wgu
-         OFdPDESeVJ8wnuAp2FPEzzjBlaa4YO0GwJwFIRQ9ClRfQ4+vqBcNL5As1PuQSrr6ILVj
-         /wVk8lTq6FXkdTQNaxSLl5JZtgYMHZDJX2WFe1J7sxMCxcu9i8t/BiwZ5KvgYJcARvXf
-         N8w4VjR4+KxaegSKfUvpLe5cMuNX0QXkb26L1VsC1YZCKEz1C4rh6PsS/TqvyM5V5Qou
-         hsQ72yedVXpKV0RTiq4Jp9llulvA8Lsb6PdhtoRRdfuXIo0eCSuFejSvQJgdiPrga4L8
-         w4DQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=opkoRNulYp+bLHD2LANAtEBVTpeSMM/+YetLJXty+YI=;
-        fh=uYCztzemtpIc1/Qq3QihI6Yg5hw4E3cMZklXMjWhgEU=;
-        b=Pu35uGnRYHUWw/5rwt6b7XE8tqCKH3FyzrUrxEj5A1X/xCnq77CaBXxboSxE09OzsQ
-         RcVBAbul9vQyc2X2PILypHZOhSyq1HXcsmUOLOCMIT/pGZLhQXqcTNGLrl5BcJuXZYZI
-         ZmneYK7ZDKhHOegyO9XjpZvWU0rrwqXbs5NHpcUhcoySlfC56QC2nP3F6J8DSfCsI6te
-         uXCgaHPqTOGDsYCMa5+5Lymj+iy/mPkCHdlHelBt6EVLqO5Xh/GZN40YnTpaQrJJRF6O
-         YWUCLf9P7VRK/+rQJr95eLpVDMY7oH1CUP+SRz0pgV+6+Qy1qMWE109XRRC7Tu4Prkzz
-         nQ6A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785737047; x=1786341847; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=opkoRNulYp+bLHD2LANAtEBVTpeSMM/+YetLJXty+YI=;
-        b=ryWcCX8etwfle55J6LMW3x5DLJ0bqNdZwfp2AyIjVPKTMKMv7010scEBBPZzGjh3rW
-         bE+8dfeokNHoohaO0bC3o8NeNcLUhHtDb2QfYbsuGzneEEEhwd6Hiq6gnctBW0jycxOx
-         +B75CU1sT49FA301mgEfnEdYEsFeNoEaS56hXxTvcJBxt3+7fVN1WY45eCVR2D3Vq0S5
-         T+xwK/Qmk4duOcjgHeFxOlBUgVkaLcXn7jq/ko6oKVSZhicTJi3PompXXzpVhi33PWRH
-         q7kKhffe+s8mQSEIFMHEUKiJ/GxHvhqZZ8TZTezLVKisfBnfPmYeAf0LkJN5p/JTzM1L
-         vp1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785737047; x=1786341847;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=opkoRNulYp+bLHD2LANAtEBVTpeSMM/+YetLJXty+YI=;
-        b=YWtbnVCsgJJZW6liKr60mEq6u6ckBoXkPAjODe0ONMFuZURo0uYQFyVJnrPNCWrO9G
-         vHNp04tbXbgzbcdpUB6B0vx8V/YmiarbRT+m3X8ZeLovdfIjAZ5wV+9VfP/EqGfYJ5t1
-         dAaMQ7Z3L9LEhK1Mq2AtX3Q/LekmzCQhVOStyLyYpCBzqpvh1CYjEAzS+7p4PToPuWzh
-         7/yZ7kjzr0LpQI67QG/KJTxUtKSp4sVT5JGiBgBsiaQj0XdN0R/CqXhxMALQMoEGdYc0
-         a5vJEvnaQjafxTfCbjdh3xfPIc28lS1HIR3vlKXoY/uMDriZ3NLESccto07BeoVDztC4
-         S5qA==
-X-Forwarded-Encrypted: i=1; AHgh+RrxtJDwMBTMzvHdrFV2vxU8CfnpmMhqNaes5dElOV2Z/DH5EM6w+6plUGbsuUbh1I/s1G1bCgg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx2SJHGsKEfG9FQ7HZQTbe0iF5P7voaNv58019N0xYeZ/Q5/pzw
-	YRNBm/rPqX9jLgeuJfkvrlsbW/SSln41J37xOoQNpvJO2XyMcsBoNTUggiH7OcDogblZeayfrQ6
-	O98B+re6dVaioRuzmKNTKu7I4FUL8p4M=
-X-Gm-Gg: AR+sD108iZj5AO905AzNsPIh/s9ZPIwfPzxIm4nblkuFElSlfKRowOzy49hlcpcCH75
-	mDglrvQjTtWCXsmb3W3yOhotxnl71lKhi190wZk0p7Rge9pD1evBaVmWgTXM6KNTucfzMuxqtuc
-	SkgAI51qUTL06Bvk42j6zN0nVsvenFEXFPizI4sQM3QL14GnO4ICYihA0wZ62f9+CkNg6G+l4G1
-	2HMn9w89Ob+e1po7cTiYyzGNecJz6OPWRJ14gVq0rNoANDOD16G0mqzEPN693GiNlw+H5fAdiQ4
-	+PUaiqQKf4ldvOf09ac4jVwnbDtU4Nx8XZrOK77jQS7AGozEyCD87tY2WjpTZOomVg3CQ6avfC1
-	0AYv8XtcN8/6zIXqp31XJFNMCxbcuUg17rFHLkrWdwwjY0ZnlTeYrvUBinIqG
-X-Received: by 2002:a17:903:2f8d:b0:2c9:ed4a:c3a4 with SMTP id
- d9443c01a7336-2d052064a84mr115238245ad.0.1785737047606; Sun, 02 Aug 2026
- 23:04:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BNhLdoQ+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A79C1F000E9;
+	Mon,  3 Aug 2026 06:07:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785737228;
+	bh=2lPsuaaSLnBVFLML1WjWzkVxnE72AXO0eFebBy2HKs8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BNhLdoQ+kmteaVIJHEgq2T/Ch+OdyEIQEcfN4AwOxCqVWFit6BXSkD5X+vE7hk2dr
+	 cYwiKhHM+vf18ZNFMz87nWu8umjVBRmJ3Wg/NDlZyLha7oMJW4P9bdvEWT2qH2kfMb
+	 D8cJc4tl/u7NnCwMg8jOoIqEtav+94/gVGdcB6ybPJiYNWANvmoIEdx2xSscRrCANW
+	 YR2p4nBKF34U60WVsf2nsNaDTjXdTw1XPF/e87m31k0lSQBtnXNLRkl02Jt56NNF6H
+	 h2nOpte2SOYDF2cy4WOIz7zJ84zVN4Hx+s4oLui/2X02XueXXp2Pz/k0RA9bVxCb7L
+	 t29MPJX+UIw5g==
+Message-ID: <908e828b-1fbc-4a44-8718-f0e7459b6ed1@kernel.org>
+Date: Mon, 3 Aug 2026 08:06:58 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260728191448.349241-1-ojeda@kernel.org>
-In-Reply-To: <20260728191448.349241-1-ojeda@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 3 Aug 2026 08:03:54 +0200
-X-Gm-Features: AUfX_mxqcdfWM3aLdK2D68JD6cYnTf-Oa20VFAYdnXMbU0EIgzsttXPt-hp0GA0
-Message-ID: <CANiq72mLq4B530DKYf=tnb4zvaKQx_zVWRBY2+ARDwxMn64iNQ@mail.gmail.com>
-Subject: Re: [PATCH] objtool/rust: add one more `noreturn` Rust function for
- Rust 1.99.0
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	rust-for-linux@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] tty: moxa: unwind tty driver if PCI registration
+ fails
+To: Myeonghun Pak <mhun512@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+References: <20260731161809.45066-1-mhun512@gmail.com>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ xsFNBE6S54YBEACzzjLwDUbU5elY4GTg/NdotjA0jyyJtYI86wdKraekbNE0bC4zV+ryvH4j
+ rrcDwGs6tFVrAHvdHeIdI07s1iIx5R/ndcHwt4fvI8CL5PzPmn5J+h0WERR5rFprRh6axhOk
+ rSD5CwQl19fm4AJCS6A9GJtOoiLpWn2/IbogPc71jQVrupZYYx51rAaHZ0D2KYK/uhfc6neJ
+ i0WqPlbtIlIrpvWxckucNu6ZwXjFY0f3qIRg3Vqh5QxPkojGsq9tXVFVLEkSVz6FoqCHrUTx
+ wr+aw6qqQVgvT/McQtsI0S66uIkQjzPUrgAEtWUv76rM4ekqL9stHyvTGw0Fjsualwb0Gwdx
+ ReTZzMgheAyoy/umIOKrSEpWouVoBt5FFSZUyjuDdlPPYyPav+hpI6ggmCTld3u2hyiHji2H
+ cDpcLM2LMhlHBipu80s9anNeZhCANDhbC5E+NZmuwgzHBcan8WC7xsPXPaiZSIm7TKaVoOcL
+ 9tE5aN3jQmIlrT7ZUX52Ff/hSdx/JKDP3YMNtt4B0cH6ejIjtqTd+Ge8sSttsnNM0CQUkXps
+ w98jwz+Lxw/bKMr3NSnnFpUZaxwji3BC9vYyxKMAwNelBCHEgS/OAa3EJoTfuYOK6wT6nadm
+ YqYjwYbZE5V/SwzMbpWu7Jwlvuwyfo5mh7w5iMfnZE+vHFwp/wARAQABzSFKaXJpIFNsYWJ5
+ IDxqaXJpc2xhYnlAa2VybmVsLm9yZz7CwXcEEwEIACEFAlW3RUwCGwMFCwkIBwIGFQgJCgsC
+ BBYCAwECHgECF4AACgkQvSWxBAa0cEnVTg//TQpdIAr8Tn0VAeUjdVIH9XCFw+cPSU+zMSCH
+ eCZoA/N6gitEcnvHoFVVM7b3hK2HgoFUNbmYC0RdcSc80pOF5gCnACSP9XWHGWzeKCARRcQR
+ 4s5YD8I4VV5hqXcKo2DFAtIOVbHDW+0okOzcecdasCakUTr7s2fXz97uuoc2gIBB7bmHUGAH
+ XQXHvdnCLjDjR+eJN+zrtbqZKYSfj89s/ZHn5Slug6w8qOPT1sVNGG+eWPlc5s7XYhT9z66E
+ l5C0rG35JE4PhC+tl7BaE5IwjJlBMHf/cMJxNHAYoQ1hWQCKOfMDQ6bsEr++kGUCbHkrEFwD
+ UVA72iLnnnlZCMevwE4hc0zVhseWhPc/KMYObU1sDGqaCesRLkE3tiE7X2cikmj/qH0CoMWe
+ gjnwnQ2qVJcaPSzJ4QITvchEQ+tbuVAyvn9H+9MkdT7b7b2OaqYsUP8rn/2k1Td5zknUz7iF
+ oJ0Z9wPTl6tDfF8phaMIPISYrhceVOIoL+rWfaikhBulZTIT5ihieY9nQOw6vhOfWkYvv0Dl
+ o4GRnb2ybPQpfEs7WtetOsUgiUbfljTgILFw3CsPW8JESOGQc0Pv8ieznIighqPPFz9g+zSu
+ Ss/rpcsqag5n9rQp/H3WW5zKUpeYcKGaPDp/vSUovMcjp8USIhzBBrmI7UWAtuedG9prjqfO
+ wU0ETpLnhgEQAM+cDWLL+Wvc9cLhA2OXZ/gMmu7NbYKjfth1UyOuBd5emIO+d4RfFM02XFTI
+ t4MxwhAryhsKQQcA4iQNldkbyeviYrPKWjLTjRXT5cD2lpWzr+Jx7mX7InV5JOz1Qq+P+nJW
+ YIBjUKhI03ux89p58CYil24Zpyn2F5cX7U+inY8lJIBwLPBnc9Z0An/DVnUOD+0wIcYVnZAK
+ DiIXODkGqTg3fhZwbbi+KAhtHPFM2fGw2VTUf62IHzV+eBSnamzPOBc1XsJYKRo3FHNeLuS8
+ f4wUe7bWb9O66PPFK/RkeqNX6akkFBf9VfrZ1rTEKAyJ2uqf1EI1olYnENk4+00IBa+BavGQ
+ 8UW9dGW3nbPrfuOV5UUvbnsSQwj67pSdrBQqilr5N/5H9z7VCDQ0dhuJNtvDSlTf2iUFBqgk
+ 3smln31PUYiVPrMP0V4ja0i9qtO/TB01rTfTyXTRtqz53qO5dGsYiliJO5aUmh8swVpotgK4
+ /57h3zGsaXO9PGgnnAdqeKVITaFTLY1ISg+Ptb4KoliiOjrBMmQUSJVtkUXMrCMCeuPDGHo7
+ 39Xc75lcHlGuM3yEB//htKjyprbLeLf1y4xPyTeeF5zg/0ztRZNKZicgEmxyUNBHHnBKHQxz
+ 1j+mzH0HjZZtXjGu2KLJ18G07q0fpz2ZPk2D53Ww39VNI/J9ABEBAAHCwV8EGAECAAkFAk6S
+ 54YCGwwACgkQvSWxBAa0cEk3tRAAgO+DFpbyIa4RlnfpcW17AfnpZi9VR5+zr496n2jH/1ld
+ wRO/S+QNSA8qdABqMb9WI4BNaoANgcg0AS429Mq0taaWKkAjkkGAT7mD1Q5PiLr06Y/+Kzdr
+ 90eUVneqM2TUQQbK+Kh7JwmGVrRGNqQrDk+gRNvKnGwFNeTkTKtJ0P8jYd7P1gZb9Fwj9YLx
+ jhn/sVIhNmEBLBoI7PL+9fbILqJPHgAwW35rpnq4f/EYTykbk1sa13Tav6btJ+4QOgbcezWI
+ wZ5w/JVfEJW9JXp3BFAVzRQ5nVrrLDAJZ8Y5ioWcm99JtSIIxXxt9FJaGc1Bgsi5K/+dyTKL
+ wLMJgiBzbVx8G+fCJJ9YtlNOPWhbKPlrQ8+AY52Aagi9WNhe6XfJdh5g6ptiOILm330mkR4g
+ W6nEgZVyIyTq3ekOuruftWL99qpP5zi+eNrMmLRQx9iecDNgFr342R9bTDlb1TLuRb+/tJ98
+ f/bIWIr0cqQmqQ33FgRhrG1+Xml6UXyJ2jExmlO8JljuOGeXYh6ZkIEyzqzffzBLXZCujlYQ
+ DFXpyMNVJ2ZwPmX2mWEoYuaBU0JN7wM+/zWgOf2zRwhEuD3A2cO2PxoiIfyUEfB9SSmffaK/
+ S4xXoB6wvGENZ85Hg37C7WDNdaAt6Xh2uQIly5grkgvWppkNy4ZHxE+jeNsU7tg=
+In-Reply-To: <20260731161809.45066-1-mhun512@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 28, 2026 at 9:15=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wro=
-te:
->
-> Starting with Rust 1.99.0 (expected 2026-10-01), `objtool` may report:
->
->     rust/kernel.o: warning: objtool: _R..._6kernel3str9parse_intaNtNtB2_7=
-private12FromStrRadix14from_str_radix()
->     falls through to next function _R..._6kernel3str9parse_intaNtNtB2_7pr=
-ivate12FromStrRadix16from_u64_negated()
->
-> due to calls to the `noreturn` symbol:
->
->     core::num::from_ascii_bytes_radix_panic
->
-> The function was renamed from `from_ascii_radix_panic` [1], which is
-> already in the list.
->
-> Thus add the new one to the list so that `objtool` knows it is actually
-> `noreturn`.
->
-> See commit 56d680dd23c3 ("objtool/rust: list `noreturn` Rust functions")
-> for more details.
->
-> Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned i=
-n older LTSs).
-> Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Link: https://github.com/rust-lang/rust/pull/159554 [1]
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+On 31. 07. 26, 18:18, Myeonghun Pak wrote:
+> moxa_init() registers the tty driver before registering the PCI driver.
+> If pci_register_driver() fails, module initialization returns without
+> unregistering the tty driver or dropping its reference. moxa_exit() is
+> not called after a failed module initialization.
+> 
+> Unregister the tty driver and drop its reference before returning the
+> PCI registration error.
+I think, we should remove the whole driver instead:
+https://lore.kernel.org/all/2da84e36-7ac6-407d-8e08-edca82f4cbce@kernel.org/
 
-Applied to `rust-next` -- thanks everyone!
+> ---
+>   drivers/tty/moxa.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/tty/moxa.c b/drivers/tty/moxa.c
+> index 1bb2376af85c..680b2dd65462 100644
+> --- a/drivers/tty/moxa.c
+> +++ b/drivers/tty/moxa.c
+> @@ -1172,8 +1172,11 @@ static int __init moxa_init(void)
+>   	}
+>   
+>   	retval = pci_register_driver(&moxa_pci_driver);
+> -	if (retval)
+> +	if (retval) {
+>   		printk(KERN_ERR "Can't register MOXA pci driver!\n");
+> +		tty_unregister_driver(moxaDriver);
+> +		tty_driver_kref_put(moxaDriver);
+> +	}
+>   
+>   	return retval;
+>   }
 
-Cheers,
-Miguel
+
+-- 
+js
+suse labs
