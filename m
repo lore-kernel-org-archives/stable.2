@@ -1,204 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f228.google.com (mail-vk1-f228.google.com [209.85.221.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853193B42CD;
-	Mon,  3 Aug 2026 08:42:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5804D3B27F7
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 08:55:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785746524; cv=none; b=HgsnMVXPx3ixMzCHVWO78ac5stRApn9M+QbGWfjlLQtLubD6LJb5rlsD0Loas7L9FVVm/IHQchogEPdHN8YoWUoDkUdohWeVyTTyKHo+rTnf8W9u3u+ALfHBQzbZyyzl0qgQfIIqrkr8A1QQtdz6GHOTl8vMT0kuLlO4/dkAGSY=
+	t=1785747304; cv=none; b=Df/TnqwLoh5XaAXxJv+kuHD7DANts1S96V/3kEVjU/e+cs85X1olAYcET1HsJVm6qFOSGx5qYJxlvHT2L84ZamfT9tuXXtPhkx9IQQmES7jjB+6gik/vxBt5VQa2cH5ZLR5XZuvl7qdV/TpG1Sy/AQYrLFqlKdh4fMuPeq7jhxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785746524; c=relaxed/simple;
-	bh=AAmPH4AFTnSwsOZoxTqdCqduB2kcebf3tQWBS4gCNMU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=reduDe64+D3AEoNkO1hFmbpQ/Davi1gDSlXwLFdcE8bHFYel59JJdi96IAgCFLHLm+oKqQZup9XeRXqRX9V171XyylcZ0RVjbt0qaECSn54wSf0gVDIWgQkbHEyVeP/pF9hephjZaPOlswOOOM+GY92/mAGE3xNZUsuwT28Q0sQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUXJtip9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785747304; c=relaxed/simple;
+	bh=AV0pToG9zNPBiZyyn1M9cI3XYMude2xTH+l+24aft2Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ns3HHRh7pWuVt4r7ksxdM4l8/8FVpjkq0BuNSf09ARvqQcWjhcHiEbokOGoipAjOqOsMFsFUZiP0KHMtJ9Vaabdh/brIlSPmUxzpSVXEe/LDJ9JGxNPXLp/KWLSaQoLqHCyVU5S8CnOmbCs1Fu2OoCpPtaD1JJKR966nX430j4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=HP4JwJ9s; arc=none smtp.client-ip=209.85.221.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUXJtip9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AC181F00A3A;
-	Mon,  3 Aug 2026 08:42:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785746523;
-	bh=keLCU7WQK3zBMIhP1foWN89TjNNLSy9Gap6tFdyl+AA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cUXJtip9YBUW764F+VRZxrDxJVSnguZ6ciIRUm9T9fWAmH32vG1RANmQt2AvNfcNW
-	 1npUkf+cYb9NTaycdr5xE+9JgNfJ28gutrmZnoHy4crZeCZi3Qzail6hfMsJHzginD
-	 hpT3zYoJKYPAi5A6YWvUKte5BwRO1XFJf2+nVmYRUTqqB+75c3wiBC+LCWSAck6a0a
-	 1r1hrvtmSxFyAg0WtDuMmwhiKB6aHOilg5OR6REnK5swZP1spdDTWfD8y7GhndixMi
-	 zPwdnginWDnMU3whZXJsfw6C+w+P6NcXD4ZWqK+8gAPBmuH490pJ/GpNzvgAezgZHi
-	 RmDI31BDKW5jw==
-Date: Mon, 3 Aug 2026 10:42:00 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: sun jian <sun.jian.kdev@gmail.com>
-Cc: Mohsin Bashir <mohsin.bashr@gmail.com>, netdev@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Hangbin Liu <liuhangbin@gmail.com>,
-	Krishna Kumar <krikku@gmail.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Martin Karsten <mkarsten@uwaterloo.ca>,
-	Toke =?iso-8859-1?Q?H=F8iland-J=F8rgensen?= <toke@redhat.com>,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	maciej.fijalkowski@intel.com, stable@vger.kernel.org
-Subject: Re: [PATCH net v2 2/2] veth: fix skb length accounting after XDP
- frag adjustment
-Message-ID: <anBUWIxmURvbr04i@lore-desk>
-References: <20260731032357.6114-1-sun.jian.kdev@gmail.com>
- <20260731032357.6114-3-sun.jian.kdev@gmail.com>
- <80687d9c-9c27-494c-b3f2-efd0230b1895@gmail.com>
- <CABFUUZGTJptpOKKAeU3ThibmPpXize4Eud2=EBX-vqaX3YH4pg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="HP4JwJ9s"
+Received: by mail-vk1-f228.google.com with SMTP id 71dfb90a1353d-5c2c0df0b45so1145491e0c.1
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 01:55:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785747302; x=1786352102;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=6QujGCeTnnZ3aprREzL53swawys0bVa+jOxZyTHDqDc=;
+        b=lxDIWUdUXswWMxGNgrh7Yo7Hc5/iouhxU2Nyf/Z9u/nL+/SG4xXqbg597CdlzKxZB6
+         oUnd9AT0QImAfk/kJZqUpAyixyDLUmNoqgppY12/2OI9IXshHdVPfHvbAicVXhtezxEU
+         OPYvH5MLwysj3m4DlGKdeDOjvSRHuh2NqnPXqaZV5WKAYxm9ATB9BCthNptBexXdNriD
+         G2nBp1rDqw80uXMZWjSMaHCU3VCPpFD2Bvd87hy1Tqo53xiBEuYx6ymiCFvZ0dvo8QtA
+         H9CJN2kMpxPbsi93zYeljwgwk/ixW31sBY5R71cfERh6qI4mms0DkEpQgWpfAujtMRQr
+         VSVg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr/q2WDxcunpL70PGnnBtFNWWZGEG2pFJs/oZESmPISSafiqa7jyafVSY9OHvdfXgfWKyFPaZo=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyhg72RQg0STxjXzpfT/Ay9tZB5AnIcoXrA1J0sMEnfbqg/s/80
+	kMhywtBjkbkcbGQoMSNg5Ui3hXz92op1dfHXCPSIspYUsXQH/6ixWTKTEbYFTrbXPtvUZLI6ROm
+	+qsypNKY8knvjRtFzDbAKYz6FGRMlZHHKuGT1J2pr7oaxywmqP03oEZMGYEcwYGmD6e0spxQ5M1
+	YTKzOE4cjzGQmQxqLVFcMWkeYL82ihsUJma6OwWOSg1ypwCGFbGnQ8OTzPpHvFZOL6WUKUhJiGT
+	kR5YrjioLQASeBqUQ==
+X-Gm-Gg: AR+sD10mhGS6mDdin8z0s/KMYJjHlFRB4Bx8j+sfP8L+aQB1jXoNnCXGvMhjGST6Z3e
+	+6UEEIfIFhuib0+rYc88bBiYH+sOC9D+mWVGX1VvTE2KtEe0gXsgJLraHkMzMpJRwbzHw4/bDuq
+	Gyqi/Wx9HMg6wSkwX2S+h2ywtqYXsuHVQaXdxb+Epzq5l10s5nLb7tniJvHCjRbidpZ7R477yWL
+	j+OP2FIaZ0f0sjBSHXBo1NvxMm2S3wGelsNPF8vJKRUrMM4Teuch7uOo4a/sH5gYHNzdL6rZAyR
+	9rK1liBwY3NUAaa4+CWVDd/Px21Gi4wR9TWmVy1K0PALMYImXri3q13cNBkW7GQzLF9Nk7tAqVo
+	VZqEywms92wc0jY0R78QnbVCa6uyl27UWiTYsT5FNpOXkAuJzIU9nFGCQ23OpHGpYkCZFBgnmd9
+	Iv8PyqFwz+DzRiaY0PqWfumQNGHQyv41gZa5dbCSM=
+X-Received: by 2002:a05:6122:32c5:b0:5c2:8ba1:1c2 with SMTP id 71dfb90a1353d-5c387825762mr2265867e0c.10.1785747301915;
+        Mon, 03 Aug 2026 01:55:01 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
+        by smtp-relay.gmail.com with ESMTPS id a1e0cc1a2514c-977e69538b3sm492123241.5.2026.08.03.01.55.00
+        for <stable@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 03 Aug 2026 01:55:01 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c12e43b98so31567541cf.1
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 01:55:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1785747300; x=1786352100; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6QujGCeTnnZ3aprREzL53swawys0bVa+jOxZyTHDqDc=;
+        b=HP4JwJ9slPbJzazz6ZHBq5LNStXE1n/NmJCVdRqB/8vLAc/TuiZ3MZILwZDpTZimHb
+         VvU92eWn71N59v7l1mzKqkBJzxLuNaW5aMX75nzJU70yzy3QPgZdI+DBchiG8G6j5XfH
+         cjB5e4dHQoEWtdJRcZf1gykr0LKCckYxEszmY=
+X-Forwarded-Encrypted: i=1; AHgh+RohtxzEMzmHX1YFMe3hhtpGtDGQsiBYmzQeVvG2YLgfR8CjN97VciFL5jC7Y4KnxFQs1jv6x54=@vger.kernel.org
+X-Received: by 2002:ac8:5fcb:0:b0:51c:e14:87ae with SMTP id d75a77b69052e-52b5686a056mr179473371cf.34.1785747300364;
+        Mon, 03 Aug 2026 01:55:00 -0700 (PDT)
+X-Received: by 2002:ac8:5fcb:0:b0:51c:e14:87ae with SMTP id d75a77b69052e-52b5686a056mr179473231cf.34.1785747299954;
+        Mon, 03 Aug 2026 01:54:59 -0700 (PDT)
+Received: from [10.176.2.103] ([192.19.176.250])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-908434a2400sm70190036d6.18.2026.08.03.01.54.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 03 Aug 2026 01:54:59 -0700 (PDT)
+Message-ID: <c5aad785-8d7d-4015-a3c9-1f70f2a69579@broadcom.com>
+Date: Mon, 3 Aug 2026 10:54:59 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="YM0lzDBH++kuull8"
-Content-Disposition: inline
-In-Reply-To: <CABFUUZGTJptpOKKAeU3ThibmPpXize4Eud2=EBX-vqaX3YH4pg@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] wifi: brcmfmac: Fix memory leak in
+ brcmf_sdio_read_control()
+To: Johannes Berg <johannes@sipsolutions.net>,
+ Abdun Nihaal <nihaal@cse.iitm.ac.in>
+Cc: linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
+ brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260722110713.115988-1-nihaal@cse.iitm.ac.in>
+ <20260802083905.3819981-2-arend.vanspriel@broadcom.com>
+ <e059b52701d3cad4480dfb506e61474924b9f29e.camel@sipsolutions.net>
+ <6648c1d61a44ad732550ff20c0b1aecaa43676f6.camel@sipsolutions.net>
+ <19fc626a040.2873.9b12b7fc0a3841636cfb5e919b41b954@broadcom.com>
+ <c2589f1c-c754-4282-815b-df64f0250623@broadcom.com>
+ <e628d43a4aca1763cafcde41338cf7a34fe57d6c.camel@sipsolutions.net>
+Content-Language: en-US
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+In-Reply-To: <e628d43a4aca1763cafcde41338cf7a34fe57d6c.camel@sipsolutions.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
---YM0lzDBH++kuull8
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 03/08/2026 10:35, Johannes Berg wrote:
+> On Mon, 2026-08-03 at 10:21 +0200, Arend van Spriel wrote:
+>>>
+>>> I looked at moving the vfree() to the done: label, but the code also
+>>> gets there in the success path to wakeup waiters. In the success path
+>>> the buf is stored for further processing so it should not be freed.
+> 
+> Hah, my bad, sorry!
+> 
+>>> Maybe better to do:
+>>>
+>>>          spin_unlock_bh(&bus->rxctl_lock);
+>>>          brcmf_sdio_dcmd_resp_wake(bus);
+>>>          return;
+>>>
+>>> fail:
+>>>          vfree(buf);
+>>>          /* Awake any waiters */
+>>>          brcmf_sdio_dcmd_resp_wake(bus);
+>>> }
+>> Actually it turns out brcmf_sdio_read_control() is only called once so
+>> the brcmf_sdio_dcmd_resp_wake() can be taken outside the function.
+> 
+> Or just something like this?
+> 
+> --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+> +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+> @@ -1827,15 +1827,17 @@ brcmf_sdio_read_control(struct brcmf_sdio *bus, u8 *hdr, uint len, uint doff)
+>          if (bus->rxctl) {
+>                  brcmf_err("last control frame is being processed.\n");
+>                  spin_unlock_bh(&bus->rxctl_lock);
+> -               vfree(buf);
+>                  goto done;
+>          }
+>          bus->rxctl = buf + doff;
+>          bus->rxctl_orig = buf;
+>          bus->rxlen = len - doff;
+>          spin_unlock_bh(&bus->rxctl_lock);
+> +       /* buffer is queued */
+> +       buf = NULL;
+>   
+>   done:
+> +       vfree(buf);
+>          /* Awake any waiters */
+>          brcmf_sdio_dcmd_resp_wake(bus);
+>   }
+> 
+> 
+> It's already using vmalloc() so seems it wouldn't care that much about
+> calling vfree(NULL) on the success path?
+True. And yes, the existing vfree() should go, but I figured that goes 
+without saying so I did not mention that. I am fine with your proposal, 
+but I guess the author will have to submit a v2 patch, right?
 
-> On Sat, Aug 1, 2026 at 12:14=E2=80=AFAM Mohsin Bashir <mohsin.bashr@gmail=
-=2Ecom> wrote:
-> >
-> >
-> >
-> > On 7/30/26 8:23 PM, Sun Jian wrote:
-> > > veth exposes non-linear skb fragments through an xdp_buff. If an XDP
-> > > program adjusts the fragment area, veth_xdp_rcv_skb() copies
-> > > xdp_frags_size back to skb->data_len but leaves skb->len containing t=
-he
-> > > old fragment contribution.
-> > >
-> > > After a fragment shrink, this makes skb_headlen() larger than the act=
-ual
-> > > linear area. In the reproduced UDP receive path, __skb_datagram_iter()
-> > > copied 1024 bytes past the actual linear tail to userspace, starting =
-at
-> > > struct skb_shared_info. The copied bytes included the affected skb's
-> > > nr_frags, xdp_frags_size and a kernel pointer from
-> > > skb_shinfo(skb)->frags[0]. Real packet data was displaced by the same
-> > > amount and truncated at the end.
-> > >
-> > > Subtract the old data_len before replacing it and add the new data_len
-> > > afterwards, keeping skb->len and skb->data_len synchronized.
-> > >
-> > > The fragment accounting must run before the linear tail adjustment:
-> > > when bpf_xdp_adjust_tail() shrinks the packet into the linear area it
-> > > releases all fragments, and __skb_put() requires skb->data_len =3D=3D=
- 0
-> > > by that point.
-> > >
-> > > A 60000-byte UDP datagram on a veth pair with MTU 64000 was shortened=
- by
-> > > 1024 bytes from its fragment area. Before the fix, all 10 runs produc=
-ed
-> > > corrupted payloads. After the fix, all 10 runs matched the expected
-> > > payload exactly.
-> > >
-> > > Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accep=
-t non-linear skb")
-> > > Cc: stable@vger.kernel.org
-> > > Link: https://lore.kernel.org/bpf/al9T9Eto%2FhRIzP5W@boxer/
-> > > Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
-> > > ---
-> > >   drivers/net/veth.c | 23 +++++++++++++++--------
-> > >   1 file changed, 15 insertions(+), 8 deletions(-)
-> > >
-> > > diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-> > > index 00e34afd858e..348391e87e14 100644
-> > > --- a/drivers/net/veth.c
-> > > +++ b/drivers/net/veth.c
-> > > @@ -865,18 +865,25 @@ static struct sk_buff *veth_xdp_rcv_skb(struct =
-veth_rq *rq,
-> > >
-> > >       skb_reset_mac_header(skb);
-> > >
-> > > -     /* check if bpf_xdp_adjust_tail was used */
-> > > -     off =3D xdp->data_end - orig_data_end;
-> > > -     if (off !=3D 0)
-> > > -             __skb_put(skb, off); /* positive on grow, negative on s=
-hrink */
-> > > -
-> > >       /* XDP frag metadata (e.g. nr_frags) are updated in eBPF helpers
-> > > -      * (e.g. bpf_xdp_adjust_tail), we need to update data_len here.
-> > > +      * (e.g. bpf_xdp_adjust_tail). Remove the old fragment contribu=
-tion
-> > > +      * from skb->len before updating data_len, then add the new one=
- back.
-> > > +      * This must precede the linear tail adjustment below: a changed
-> > > +      * data_end implies that no fragments remain, and __skb_put() r=
-equires
-> > > +      * a linear skb.
-> > >        */
-> > > -     if (xdp_buff_has_frags(xdp))
-> > > +     skb->len -=3D skb->data_len;
-> > > +     if (xdp_buff_has_frags(xdp)) {
-> > >               skb->data_len =3D skb_shinfo(skb)->xdp_frags_size;
-> > > -     else
-> > > +             skb->len +=3D skb->data_len;
-> > > +     } else {
-> > >               skb->data_len =3D 0;
-> > > +     }
-> > > +
-> > > +     /* check if bpf_xdp_adjust_tail was used */
-> > > +     off =3D xdp->data_end - orig_data_end;
-> > > +     if (off !=3D 0)
-> > > +             __skb_put(skb, off); /* positive on grow, negative on s=
-hrink */
-> > >
-> > >       skb->protocol =3D eth_type_trans(skb, rq->dev);
-> > >
-> >
-> > I am most likely missing something here but what happens if we have
-> > frags and we attempt to advance data_end while leaving some frags
-> > present (e.g., bpf_xdp_pull_data())? Looks like, in that case we would
-> > issue __skb_put(skb, off) with off > 0 and we would hit
-> > SKB_LINEAR_ASSERT() because skb is still non-linear?
->=20
-> Hi Mohsin,
->=20
-> Thanks for catching this. You're right that bpf_xdp_pull_data() can advan=
-ce
-> data_end while leaving frags present. I'll investigate this path and foll=
-ow up.
->=20
-> Thanks,
-> Sun Jian
-
-I guess we should implement the same approach used in
-bpf_prog_run_generic_xdp(), something like:
-
-	if (off) {
-		skb_set_tail_pointer();
-		skb->len +=3D off;
-	}
-
-Regards,
-Lorenzo
-
---YM0lzDBH++kuull8
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCanBUWAAKCRA6cBh0uS2t
-rKJxAQCQx9l9vI+JhD4aLxY3M5M93S1Mnk8c49lxrJ0nHzQm+wEA0lEj4L5etXeB
-pV6N1BBBrN4bVsy29Mv9eV621WyLwQk=
-=seow
------END PGP SIGNATURE-----
-
---YM0lzDBH++kuull8--
+Gr. AvS
