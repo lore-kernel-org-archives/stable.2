@@ -1,64 +1,64 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3680240EBA9
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 14:31:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C0540F74D
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 14:31:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785767472; cv=none; b=j1SA1oQZw6RaRxpJsPWus0LlZ23q/IFPmiXtCjuPmIJCW7NeL4ge946s23Vu8i1ojjCsGGVdUyCAlMBv7Nn2gqZo9V5sSsFGdCcJcnsQCoOzVhVOAEAWWDv0IdCnvwdhev9vKaYNjFsQ+eiwHHzZmalvlgE8hjTYfMJunIxs3YQ=
+	t=1785767473; cv=none; b=BI7Mklm8VtYSMJimC+80Oz4ww+DVQ76Yf88qNx+bqWuRftWqC4p7FhBDK86kkhvGBe6CD7R0CYETYLuyZjTVhPLMwXTC4p3mkd0TuXs/ywnZtKtD+0PFhaFEBKu/PMvaM1TcFeqqQ8MN74MqA/taD0KF2U9smzS75E6Oumm8m1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785767472; c=relaxed/simple;
-	bh=9EehTMGdJoM/pmPAG9mZtREZbrypCyCVR7Mvq/DwalQ=;
+	s=arc-20240116; t=1785767473; c=relaxed/simple;
+	bh=rhIU1zG+Cz1JEJ/DZCxK23rcEZYVi7vpJbqoVBA+2qQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BYOJjCFE3jBmzg9iYVIdnVft3EAH+yguRsLDbW9vH8D8WgkKyL4LbqSmNFnVz5/HBlTP6vyyIRdesjADTHjAzqLAv+u8bM9sbbk9Ap2prRZ3Dd+b/T3/UkpxxYVdQvFfDAGuOWuPat14PwILGIUJ6PBbsDdOWq9DYZxwlwp90vQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j57ld/vk; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=NqkhwSYp2oCiQuP+ubX31XJEUU8hLbvAYllnKD0LbtZfC7hWyrS/1rK1TnqWMOl7NKQCNFL7oVVRFO6hCiweIX/mdK0nb7Ty3EKptl2OUEhBTmMwg8HCi5B5pOAEZYbO9ZcDsu2hyNdQY+8d3WdwjNtdFg3Cii/hmNmToaZUj9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EN5AsLZO; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j57ld/vk"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso14083885e9.1
-        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 07:31:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EN5AsLZO"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f7027ca11so2188027f8f.3
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 07:31:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785767468; x=1786372268; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785767469; x=1786372269; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=K+s/eo+/pWpLLFnoufPaOpVfgTjc+a46l3h08Co/MXY=;
-        b=j57ld/vkaa2fmuH3Yi1q5RQ/SjAtSvZQAuhOZekAqC+zoqQeXCzpLSh/lfSLPmVSn2
-         9+hs5OcdIIZ04ZsczuuqgKkZJ4A3FjsmBOVhjZpCeNVDxbhLWxp5GYw0i62t9i5gugjf
-         BJwpFcKJvSctA2OCXysPKi5KL7cz3NfC5dfS1Hl5ED1dEkEvhRtwEariEKt19nlP8Iwo
-         JN9Mznz7z6KSnG5rzqFNe67svlelMGa3o2IJ1DMUGPGGc+QoABWQ40c4UqA2CB/WxKvW
-         U+bbZW+lcJvSdKKBkQvHDqyrfV4EzEXlAO1mMZOe1b4o5otHzZjuX8jbl1MRX/d7psqC
-         JDWw==
+        bh=TzXAlvJrvz8VJKZL5THLFAhA3g1WFYpeVuZ+6qv41B0=;
+        b=EN5AsLZOMn9+iUtyfCYtIKMbFvHptztVv+bPHFA279POyADHOG7dixnM1f0411liHX
+         1PrbJZBzQIwEditG2W6wojAatIoBiGxAJd/wLzW/kS179E72gKahzvmNEdr2PUHZasCF
+         /uNQUqpJbkQ89P/Y3YFc8EYUonMWW+Ti2KnKGvvSBL86ycM/ev7qHiO0plpvIbSrTDir
+         hArKa/sM1Ld4W4vKlF86AIKp1P1m65B5WnJ1vkEQZJi2w/8XuEpWp1lqMgU2XXDYA15z
+         MoflB0MCxFRLbu2mLz4rQcHentmwCMrUmlY82EnYk+iqO6meeg3u9jdeu4BYD0pu7crr
+         FTng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785767468; x=1786372268;
+        d=1e100.net; s=20251104; t=1785767469; x=1786372269;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K+s/eo+/pWpLLFnoufPaOpVfgTjc+a46l3h08Co/MXY=;
-        b=rWy8tX4N4ydytvx6t8OrYOWnjVqnZJ7+lq5sDVPZ0nem+1OGcgE5ijXJl/6La0hVmS
-         JTOC4FTqvrFTlOVSDhJ55+VasGInp6TW+K7FaUMoCJgQvmp1X8EEHgbk5yPOzLAUMsir
-         aFOK056kSkJ9x1NAfeP8dL67s6XLnNMB41hwtbWLMHZmh3iPhL/p+gdh4tbiw3bDaime
-         omwrvwlYVyf4QL1INgNlinQJxbPAdFp+VZ/yJqqOolxMGXBysZBfNI4xSaKB1uN/JL61
-         P9gmRGc4obq97DUH1426TK0RP1ySUQanST6wsEs+NCp8nBqvAvT/JrpegGB1u3uCHbN0
-         r17A==
-X-Forwarded-Encrypted: i=1; AHgh+RrsgjS4KGkZjfBbTJShQAowBWWQNOzQlwK/LqrC/St/FIn5AKIFtuQfnUCdZh8xJN72HQDkUWY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxcqDUnzlGz0l+HaZ5WJr2w9RxIR7CIVV5DoRx2KRNSTrDAlqYM
-	T974Ximev3Wi54OOC+2C42vlZKUCIJ8euXgk/oTx1/N4yIVhwrwgZL1B
-X-Gm-Gg: AR+sD11VrWLIStT3izSTbWj92S522ONZBaiqPacQ1Dh8B5bYrqH1Sm8mcPqqm3BLlTC
-	/EUraFjLP5FzNPLuiKOpk40k8LRCuiy8HAC8WNZ4bzGk8kr6bEAyJM4TZHGmzwXDkJH+kyoCzZ1
-	JIdla34kQaulqfpKXdwR2Rk92a/3z6Z2RmCBWC7BCVzgHOP0fmCPhRF33d8tBBY4xmQYIKST3cc
-	wH+ztTkBkMqbs7GBRnyC53wkMtQkIhKBPiUdEEwALfIUQdbKbxmq8mGyMkdMlZvmDwTo1L0LxPc
-	C+1x8HbyhsFqKh/Jr3GScW1evK94pSFzqpDjouTjIaZYQipub28W9wOmxlMXQrUUj2DcU/TFbxo
-	aG0asqivzxqxoCLDKpnN14/1EddvijOM5iqy07ZuMadEfbequEr026yEi2c3SUitr/gAGFTZSWL
-	HWbexDWF3GGijEHZMIw2ZsjZl9VHdbrbVathHEeBG9a6i3tcunPAi9d1mTqTonhz43FOPEDrchW
-	JCqOPifaeeS24hjHepJIdhShvjZkwBiwHrEYolWHUs=
-X-Received: by 2002:a05:600c:5395:b0:493:faf3:3ea5 with SMTP id 5b1f17b1804b1-4980c66c751mr293605105e9.4.1785767463425;
-        Mon, 03 Aug 2026 07:31:03 -0700 (PDT)
+        bh=TzXAlvJrvz8VJKZL5THLFAhA3g1WFYpeVuZ+6qv41B0=;
+        b=LnTfgKPpoBOGb96HzmI/KY+3Z4LkwLgNwCP1hc6+rlAhEUkd1XoeGw7o5+/8FDAMSj
+         Ze1+zSuWZvRmfQ27eC1/tqB7VHWNMSh/icH36O6Bv35EhMZ1jmrIxAwk4PqT9Wb+sdTW
+         orj9LppH6/8tm6qgkWOsYB1jIr3yPqdN7VrBLsOYTRhWruQfoGZdA5TBt56MQAd2pRtm
+         nfjsLW6Q74tuRaHXmVXFcHWdZTK7UWYQedB2bWSl7cvc2mnGhAAhJajI8VkV69eHW5aH
+         ZPYR0i9f4xsWsYd+o2+4fE56bdM2o4qay4egU+85W7eXzMvmjSitXHw79xUFk2iZ+DPb
+         fcvQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpyiwjzegpBosoVCnaCqjWGDLqD37wfr1dSEPfXwGPOBSaprvV/rDkIxrxx5lf7rRQuTTMqpTg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxuDOdx1jPrsZ/4BBE4gVEAtl9xK/99ylgqrXUJboGUgBl474m8
+	mg8FlyN6NYQaiI5Km/wftbSWltCQBFqSSH0NRwFoV3ZoY/vJBcAZYMERCD2gpYsY/sU=
+X-Gm-Gg: AR+sD11xXZovnY9f+jypurpqtORMnRgHI67YXAYWhfGso2k/bZYlJva6kzTp1KKOZ/K
+	kM37xP74oqHp8UX8Z2SK6DCEgy4QWDS3uL/xCikouBob4AIBEsgB8ebGKKi7rZzKvyon3Kg7ibO
+	ENkL+G9vESVVTy43UoYPs/OVZlPpn/Rf9dzfY22+shj+ET0WFLvuTiN1F+j3sVjM3yCEYp7bocC
+	hXJsy7QQ8ABP2wzDzIuiEGeS4t10Wn+2nWwsq7xhKvxSSe/WgJVX3kz6Fnv4rf6LtL5ChTiOZr2
+	3hzQQAu8zuKc3Ww2WodtFJvnh7/nx5Cmy0WnprvWg1Ab43DHuCrMLVKwrzOlOvxSzUociXMc8DU
+	R3FX0nF23LNBejH+woszwCpWNzVd36Bl13vmbmGwtYk+8dQRlojqeCznRxbhxOteoeSCqz4bw3V
+	bjqWG5cY2vqOPkBkbgpWNcHjPAu8Ta0/LvtLIHpkayq8QdSapj5UMghDgNFQDmPGKWJjZ+OQHsb
+	r5QE0IGaRhd00erAlYfOYc16V28VS7zlQ8D6LjH+A==
+X-Received: by 2002:a05:600c:214d:b0:495:3e08:ad19 with SMTP id 5b1f17b1804b1-4980c653c0cmr169146715e9.9.1785767469327;
+        Mon, 03 Aug 2026 07:31:09 -0700 (PDT)
 Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49807b98284sm236575295e9.12.2026.08.03.07.31.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49807b98284sm236575295e9.12.2026.08.03.07.31.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 07:31:02 -0700 (PDT)
+        Mon, 03 Aug 2026 07:31:08 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
 To: platform-driver-x86@vger.kernel.org
 Cc: jorge.lopez2@hp.com,
@@ -68,9 +68,9 @@ Cc: jorge.lopez2@hp.com,
 	linux-kernel@vger.kernel.org,
 	meatuni001@gmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH 05/13] platform/x86: hp-bioscfg: fix off-by-one heap OOB write in audit_log_entries_show
-Date: Mon,  3 Aug 2026 19:30:28 +0500
-Message-ID: <20260803143037.93105-6-meatuni001@gmail.com>
+Subject: [PATCH 07/13] platform/x86: hp-bioscfg: fix new_password_store overwriting current_password
+Date: Mon,  3 Aug 2026 19:30:30 +0500
+Message-ID: <20260803143037.93105-8-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260803143037.93105-1-meatuni001@gmail.com>
 References: <20260803143037.93105-1-meatuni001@gmail.com>
@@ -82,49 +82,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The per-iteration guard in audit_log_entries_show() is:
+current_password_store() and new_password_store() both call
+store_password_instance() with is_current = true:
 
-	if (ret < 0 || (LOG_ENTRY_SIZE * i) > PAGE_SIZE)
-		break;
-	...
-	memcpy(buf, audit_log_buffer, LOG_ENTRY_SIZE);
-	buf += LOG_ENTRY_SIZE;
+	static ssize_t new_password_store(...)
+	{
+		return store_password_instance(kobj, buf, count, true);
+	}
 
-At i == 256 (PAGE_SIZE / LOG_ENTRY_SIZE), LOG_ENTRY_SIZE * i equals
-PAGE_SIZE exactly, which is not ">" PAGE_SIZE, so the loop does not
-break and instead writes another LOG_ENTRY_SIZE (16) bytes starting at
-offset 4096 of the page-sized sysfs output buffer, one entry past its
-end.
+so a write to new_password is routed to current_password instead, and
+the new_password field is never written by either sysfs entry point.
 
-This needs the BIOS to report more than 256 audit log entries, which
-already exceeds this driver's own documented LOG_MAX_ENTRIES of 254,
-so it requires a non-compliant or corrupted firmware value rather than
-the roughly 85 million entries an unrelated integer-overflow read of
-this code might suggest.
+Fix by passing false from new_password_store(), matching what the
+is_current parameter is meant to select.
 
-Fix by checking the bound against the offset the write is about to
-reach, (i + 1), instead of the offset already written.
-
-Fixes: 63e8f906e94e ("platform/x86: hp-bioscfg: surestart-attributes")
+Fixes: 8646a3b5ee3a ("platform/x86: hp-bioscfg: passwdobj-attributes")
 Cc: stable@vger.kernel.org
 Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
- drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c | 2 +-
+ drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-index b57e42f29282..6b63fdb84606 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-@@ -90,7 +90,7 @@ static ssize_t audit_log_entries_show(struct kobject *kobj,
- 					   HPWMI_SURESTART,
- 					   audit_log_buffer, 1, 128);
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
+index acb123985ede..6bd56d3f5bd0 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
+@@ -123,7 +123,7 @@ static ssize_t new_password_store(struct kobject *kobj,
+ 				  struct kobj_attribute *attr,
+ 				  const char *buf, size_t count)
+ {
+-	return store_password_instance(kobj, buf, count, true);
++	return store_password_instance(kobj, buf, count, false);
+ }
  
--		if (ret < 0 || (LOG_ENTRY_SIZE * i) > PAGE_SIZE) {
-+		if (ret < 0 || (LOG_ENTRY_SIZE * (i + 1)) > PAGE_SIZE) {
- 			/*
- 			 * Encountered a failure while reading
- 			 * individual logs. Only a partial list of
+ static struct kobj_attribute password_new_password = __ATTR_WO(new_password);
 -- 
 2.55.0
 
