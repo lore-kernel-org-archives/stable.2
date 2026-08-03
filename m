@@ -1,41 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7989A4334B2;
-	Mon,  3 Aug 2026 19:03:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B432931FC;
+	Mon,  3 Aug 2026 19:10:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785783790; cv=none; b=rkTsqWOHBolUpCXRx/auC9k8cf1o8mSKQihGbbuNZks+QMMlQzW43zPsMNcmqf+Fr+6+hWnm5w4Wf6gzJA5JCvAj3HBiBNxQLmgTDBvfjr+rUpDQMc+zeb4tkV6vsHcQz39UWydOSsTzrvwWDXlLehxv/gGeZgESitggR7Vsc/4=
+	t=1785784231; cv=none; b=DLRRkeb0WK+P9woFPdQx1ZgwnS3KMr0xJ1Cvs9ZxDfqE+r+84WRi46nSxo78NuNWN526p5LeVUSKCOZQ0jSSiXn5MQ0ceUMOxTRIINzSoSHD/sw0/wMisxhX/1kpf777qm39N7UhKr5Rd94pUFyCCIbtDMbQZL7qGek0K1Z0AB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785783790; c=relaxed/simple;
-	bh=q79nvBknNJwlsPFH3ffiXtIe7Otx+TdZPcim1Cc1BB0=;
+	s=arc-20240116; t=1785784231; c=relaxed/simple;
+	bh=zFyEHXr2OusskRszUDzPD4uvCUQzm+Wji6wQnGHkIqc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=USc/d0/VoVohJ3sxIW9H932FEJjXj6yCyT3v3rpIslpVJQD9OtbSJSHWYbh14qFl4JMzy6k2GMNd7mMOtnkJtvfIiqOfdNT74PTpjeOlzpVLt0pCNcZxuGWcI5TK24NyaASKWcwSEgLLvE6Yqjlc5HZ1viZnqtgaE2Q4tQPj/ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J06W7bLP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=EzLEy8mDByeBK/uXaZoQRPXgk9srFzXnEdaegreDZCg1W9ov7eWT1k9gB5cNjCvpPldG7ryYI6QRmWqX/PlgYdBwuWPfP8x/WdTiFI4kRBwGeQIMc9/W7pWLl4ur4gakRoVEGx9SJxOLhWKjLidQsIMD6tXTwZZ76/Ey5XaHeBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oWKrBMYM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J06W7bLP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E67A1F000E9;
-	Mon,  3 Aug 2026 19:03:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oWKrBMYM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83F711F000E9;
+	Mon,  3 Aug 2026 19:10:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785783789;
-	bh=FoBvKsqdoyz4c3zKUfYQSTb6gh4q85lnXIpmkbUqoBU=;
+	s=k20260515; t=1785784229;
+	bh=iUN+q0zuQtiAx8BaxKD9+kz0B/7SxOMEYBkzWwMFM6M=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=J06W7bLPcPFQqbF10mXIU98Nj6EUEQfnkA+1S8wHbyKW5Fhv8OFiFW9m17y5ke96y
-	 0JXeUhhJgeR4j6dX6lDIZwIXFnM2zeMbWt6EHHFQyynLPhaSL2MF+NHY1uMXNntWZf
-	 gYzcoSvJyTufPvc63/M5RTJPWynaRIh+tCIKBEG7RQ4QoZOwihSY2YIgXBTsw7sspa
-	 zGw7b+cmXDYeIIA2kc62vLjvfmMfECbFkS65Oqp18EJ68tpGXYKZ1TY8Dqjs05dRaI
-	 2NPXwMbxO+CsYTLI4YR+g3SQW7a716uuGCN+7ShkjZBlDfUgvFjnKnOn+PyvO5Mddb
-	 gyVin951eeSOg==
-Date: Mon, 3 Aug 2026 21:03:06 +0200 (CEST)
+	b=oWKrBMYMy+ttZWa3W8UBBjKQc8xlcFWDNFFI2h5Zn1DMkx1UfVLB0HaqldZoXzJrR
+	 NPz5AEC8NyvF2xnoB5BjfjjXpa181T97BxgRTV9RONKix+kgxmc0OCvMvwUvKKIUHd
+	 hRMu2uG2Mq2A6At+1iAdE0n6fc/NhMnVkM9+9qMvXGpWqnFGGzlUZkNHTDLO4Aq/9L
+	 JKrMywIZftVkW9jUVJoaaAyUKiXNX5SSnykv6yT//5yTdcPLrdvxTvw6hWbA31xtxm
+	 Xm+2wJ1FaFxG8dkCs/oiNg6J8cR6dHjAeyihgONLEZarwYmSNSIe3jAFAnDljcGUlk
+	 PVPgD0Lz7EsEA==
+Date: Mon, 3 Aug 2026 21:10:26 +0200 (CEST)
 From: Jiri Kosina <jikos@kernel.org>
-To: Andrei Fed <andfed.net@gmail.com>
-cc: Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
+To: Michael Bommarito <michael.bommarito@gmail.com>
+cc: Benjamin Tissoires <bentiss@kernel.org>, kys@microsoft.com, 
+    Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+    Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
+    linux-input@vger.kernel.org, linux-hyperv@vger.kernel.org, 
     linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] HID: magicmouse: fix battery reporting for Bluetooth
- Magic Trackpad USB-C
-In-Reply-To: <20260706175507.47288-1-andfed.net@gmail.com>
-Message-ID: <s548r57p-qnq7-34o4-2989-9r4911q0r2q2@xreary.bet>
-References: <20260706175507.47288-1-andfed.net@gmail.com>
+Subject: Re: [PATCH 0/2] HID: hyperv: bound initial device info descriptor
+In-Reply-To: <20260710022854.3739558-1-michael.bommarito@gmail.com>
+Message-ID: <23o67n97-nro8-37q3-3843-pnqr434n60n2@xreary.bet>
+References: <20260710022854.3739558-1-michael.bommarito@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,14 +46,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 6 Jul 2026, Andrei Fed wrote:
+On Thu, 9 Jul 2026, Michael Bommarito wrote:
 
-> The Apple Magic Trackpad 2 (USB-C) reports a wildly wrong battery
-> capacity over Bluetooth, for example a constant 4% for a pack that is
-> actually at 74%.
-[ ... snip ... ]
+> A malicious Hyper-V host or backend can crash a guest with a short
+> SYNTH_HID_INITIAL_DEVICE_INFO message. mousevsc_on_receive_device_info()
+> trusts the HID descriptor bLength and wDescriptorLength without checking
+> that the received VMBus packet actually contains both byte ranges, so a
+> truncated packet with an oversized report-descriptor length makes the
+> guest read past the received packet while copying the descriptor. This
+> matters most for a confidential guest, where the host is outside the trust
+> boundary.
 
-Applied, thanks.
+Well, untrusted host can crash the (confidential) guest in various other 
+ways.
+
+Anyway, the sanitization is good, so I've now applied it.
+
+Thanks,
 
 -- 
 Jiri Kosina
