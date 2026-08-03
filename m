@@ -1,99 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15E539D6CC;
-	Mon,  3 Aug 2026 07:08:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2D03A16B6;
+	Mon,  3 Aug 2026 07:13:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785740884; cv=none; b=D/hXvmfesVrh6EFkXqaXxa2nuDobda8uBleAaWkZVL5gQ1DlE6HA8bHsYejuerdh8/+BtfyM9/iABVygWCVhfhQwERxaLGH6FLpQcpTKafMG28FCqGW3Gn5XvTREni2PEW5ooc8tvHV6Pexibd3LUgdfPLWIhqMY2FWRkxVrn9U=
+	t=1785741242; cv=none; b=lUxSxBxV4kITHOISEx3H9GVEeLJH6YfRGZ6hQnkXT4mhoHsdYRsWZaQVGps/2dIjJt/EAtNs8NGlIFX79UcfNwrg8pkDJW13rDFce1Wq1LapNZgu1D+jYZz28d97EF+L6O4CILkV/Z0QvhICC6LCzLeFU2CZfvBTqaVhJXNjTjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785740884; c=relaxed/simple;
-	bh=yuhAkuUz7lyXELljjeRQe98l8YJ10zN4dr6+xC/YDyw=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=CeAZ40R5UDF34z10avcgZij8jblCI9SJGxyFSfH6STbWJkZIfn+SPYblvCnZ5n09+iztZ+8mnLfW2HCgWOahH3u/WxKJ1eGPmoJyoEyTTDEfdEfdGaoSPrdTQQE6dT18rJ4XQ33hN14J+LavyECEeQpPQc3V7GFB5GVR7XRUCKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jAeQkoFt; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jAeQkoFt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A521F000E9;
-	Mon,  3 Aug 2026 07:08:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785740882;
-	bh=O4JiXbd+a30fELma3hISkdDkULyA1AU9v/peO8WzUe8=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=jAeQkoFt7WhF36HIiKZE1FWXw7GajEghVI/VG0yFpeYFsmymQPi2vAtmNqhArxkj8
-	 et0eErY7KeP2YLj/KRPTwp2RLHZwJLcpNc5hnv5yF0TtYSyVtYTjeEUxOvyUcwdCUz
-	 bRBvWmARk4cKizrXkUuFw3TJuiETTmCMOEGtMjus2+vgCnZmBHdgAPHCpixVHzlrkt
-	 cf7cpLFA5haRaZ7us8BGvTYzky2rbsvei060XYm/vOFWjM8gFR7w6UkU7OI16J2loy
-	 NAX/hUJeV52qKJ5g+0/SEUK1xIsVl5gBIyirtB3KXgf100ZF2p7n7jVmgMg3a7237B
-	 aRVtfuDodhT2w==
-Message-ID: <4febf145-36cf-4d4a-b9d3-1c33ac273607@kernel.org>
-Date: Mon, 3 Aug 2026 15:07:59 +0800
+	s=arc-20240116; t=1785741242; c=relaxed/simple;
+	bh=oKW56WB29aVdQbZ2a2+PLLmmJvSVlo1+b5MCMgWixJ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ADP48kJYsMl1QaMSCLkK0L5gAcL2ez7cgxf8Ge/yZIQWDAvFuDuCOR9aFQnsNGSHvD7CK+JFkj2abf0POe84akjQSuJygb9VjJVri7s5nX7vRK9LvjVK//wr/E4Pr3yjDjQ5GxI3YLf4+0qv24FEKsMK+vK3D5C3oCP175ZFA6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: df0d172e8f0a11f1aa26b74ffac11d73-20260803
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
+	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
+	DMARC_NOPASS, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS
+	GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:83c85866-a35b-41b3-a8df-cf917676c53a,IP:15,
+	URL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:35
+X-CID-INFO: VERSION:1.3.12,REQID:83c85866-a35b-41b3-a8df-cf917676c53a,IP:15,UR
+	L:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:35
+X-CID-META: VersionHash:e7bac3a,CLOUDID:f848636028004f5f7a061d63051ba044,BulkI
+	D:260803151352FDMH56MT,BulkQuantity:0,Recheck:0,SF:10|66|78|81|82|102|127|
+	865|898,TC:nil,Content:0|15|50,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,
+	QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:1,BRE:0
+	,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: df0d172e8f0a11f1aa26b74ffac11d73-20260803
+X-User: pengcan@kylinos.cn
+Received: from lenovo [(116.128.244.171)] by mailgw.kylinos.cn
+	(envelope-from <pengcan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1974420165; Mon, 03 Aug 2026 15:13:47 +0800
+From: Can Peng <pengcan@kylinos.cn>
+To: arend.vanspriel@broadcom.com
+Cc: linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	Can Peng <pengcan@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 2/2] wifi: brcmfmac: validate msgbuf flowring IDs before use
+Date: Mon,  3 Aug 2026 15:12:59 +0800
+Message-ID: <20260803071259.546631-3-pengcan@kylinos.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260803071259.546631-1-pengcan@kylinos.cn>
+References: <20260803071259.546631-1-pengcan@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] f2fs: reject overlapping move range after len expansion
-To: Hao-Qun Huang <alvinhuang0603@gmail.com>, Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20260708065439.1139937-1-alvinhuang0603@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260708065439.1139937-1-alvinhuang0603@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/8/26 14:54, Hao-Qun Huang wrote:
-> F2FS_IOC_MOVE_RANGE treats a zero length as a request to move data
-> from pos_in to EOF. However, the same-file overlap check runs before
-> that expansion, so a request with len == 0 bypasses the overlap
-> rejection added for same-file moves.
-> 
-> For example, with a four-block file, moving from block 0 to block 1
-> with len == 0 is accepted by the old check because pos_in + len is
-> still pos_in at that point. The code then expands len to cover the
-> rest of the file and calls __exchange_data_block() on overlapping
-> source and destination ranges in the same inode, which is the
-> data-corruption case the overlap check was meant to reject.
-> 
-> Move the overlap check after the source range has been validated and
-> len == 0 has been expanded, so it sees the effective length. This is a
-> no-op for non-zero len (the value is unchanged there) and keeps the
-> existing early return for identical positions.
-> 
-> Fixes: d95fd91c1ac1 ("f2fs: exclude special cases for f2fs_move_file_range")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Hao-Qun Huang <alvinhuang0603@gmail.com>
-> ---
-> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-> index 4b52c56d71f0..fdfef01dc799 100644
-> --- a/fs/f2fs/file.c
-> +++ b/fs/f2fs/file.c
-> @@ -3144,8 +3144,6 @@ static int f2fs_move_file_range(struct file *file_in, loff_t pos_in,
->   	if (src == dst) {
->   		if (pos_in == pos_out)
->   			return 0;
-> -		if (pos_out > pos_in && pos_out < pos_in + len)
-> -			return -EINVAL;
->   	}
->   
->   	inode_lock(src);
-> @@ -3171,6 +3169,8 @@ static int f2fs_move_file_range(struct file *file_in, loff_t pos_in,
->   		goto out_unlock;
->   	if (len == 0)
->   		olen = len = src->i_size - pos_in;
-> +	if (src == dst && pos_out > pos_in && pos_out < pos_in + len)
-> +		goto out_unlock;
+Firmware messages carry flow_ring_id values which brcmfmac converts
+to an internal flowid by subtracting
+BRCMF_H2D_MSGRING_FLOWRING_IDSTART. The resulting value is used as
+a bit index in txstatus_done_map and as an array index into
+msgbuf->flowrings and the flowring state.
 
-Reviewed-by: Chao Yu <chao@kernel.org>
+Validate the firmware supplied flow_ring_id before using it. This
+prevents flow_ring_id values below BRCMF_H2D_MSGRING_FLOWRING_IDSTART
+from underflowing and rejects values outside msgbuf->max_flowrings.
 
-Thanks,
+In the tx status path, complete the packet with an error after
+removing a valid packet id so the skb is not leaked when the flow
+ring id is invalid.
 
->   	if (pos_in + len == src->i_size)
->   		len = ALIGN(src->i_size, F2FS_BLKSIZE) - pos_in;
->   	if (len == 0) {
+Fixes: 9a1bb60250d2 ("brcmfmac: Adding msgbuf protocol.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Can Peng <pengcan@kylinos.cn>
+---
+ .../broadcom/brcm80211/brcmfmac/msgbuf.c      | 46 ++++++++++++++++---
+ 1 file changed, 40 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
+index 9c41e4a35815..959659bfea99 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
+@@ -548,6 +548,28 @@ brcmf_msgbuf_remove_flowring(struct brcmf_msgbuf *msgbuf, u16 flowid)
+ 	brcmf_flowring_delete(msgbuf->flow, flowid);
+ }
+ 
++static bool brcmf_msgbuf_get_flowid(struct brcmf_msgbuf *msgbuf,
++				    u16 flow_ring_id, u16 *flowid)
++{
++	u32 id = flow_ring_id;
++
++	if (id < BRCMF_H2D_MSGRING_FLOWRING_IDSTART) {
++		bphy_err(msgbuf->drvr, "invalid flowring id %u\n",
++			 flow_ring_id);
++		return false;
++	}
++
++	id -= BRCMF_H2D_MSGRING_FLOWRING_IDSTART;
++	if (id >= msgbuf->max_flowrings) {
++		bphy_err(msgbuf->drvr, "invalid flowring id %u\n",
++			 flow_ring_id);
++		return false;
++	}
++
++	*flowid = id;
++	return true;
++}
++
+ static struct brcmf_msgbuf_work_item *
+ brcmf_msgbuf_dequeue_work(struct brcmf_msgbuf *msgbuf)
+ {
+@@ -855,17 +877,23 @@ brcmf_msgbuf_process_txstatus(struct brcmf_msgbuf *msgbuf, void *buf)
+ 	struct msgbuf_tx_status *tx_status;
+ 	u32 idx;
+ 	struct sk_buff *skb;
++	u16 flow_ring_id;
+ 	u16 flowid;
+ 
+ 	tx_status = (struct msgbuf_tx_status *)buf;
+ 	idx = le32_to_cpu(tx_status->msg.request_id) - 1;
+-	flowid = le16_to_cpu(tx_status->compl_hdr.flow_ring_id);
+-	flowid -= BRCMF_H2D_MSGRING_FLOWRING_IDSTART;
++	flow_ring_id = le16_to_cpu(tx_status->compl_hdr.flow_ring_id);
+ 	skb = brcmf_msgbuf_get_pktid(msgbuf->drvr->bus_if->dev,
+ 				     msgbuf->tx_pktids, idx);
+ 	if (!skb)
+ 		return;
+ 
++	if (!brcmf_msgbuf_get_flowid(msgbuf, flow_ring_id, &flowid)) {
++		brcmf_txfinalize(brcmf_get_ifp(msgbuf->drvr, tx_status->msg.ifidx),
++				 skb, false);
++		return;
++	}
++
+ 	set_bit(flowid, msgbuf->txstatus_done_map);
+ 	commonring = msgbuf->flowrings[flowid];
+ 	atomic_dec(&commonring->outstanding_tx);
+@@ -1204,13 +1232,16 @@ brcmf_msgbuf_process_flow_ring_create_response(struct brcmf_msgbuf *msgbuf,
+ 	struct msgbuf_flowring_create_resp *flowring_create_resp;
+ 	u16 status;
+ 	u16 flowid;
++	u16 flow_ring_id;
+ 
+ 	flowring_create_resp = (struct msgbuf_flowring_create_resp *)buf;
+ 
+-	flowid = le16_to_cpu(flowring_create_resp->compl_hdr.flow_ring_id);
+-	flowid -= BRCMF_H2D_MSGRING_FLOWRING_IDSTART;
++	flow_ring_id = le16_to_cpu(flowring_create_resp->compl_hdr.flow_ring_id);
+ 	status =  le16_to_cpu(flowring_create_resp->compl_hdr.status);
+ 
++	if (!brcmf_msgbuf_get_flowid(msgbuf, flow_ring_id, &flowid))
++		return;
++
+ 	if (status) {
+ 		bphy_err(drvr, "Flowring creation failed, code %d\n", status);
+ 		brcmf_msgbuf_remove_flowring(msgbuf, flowid);
+@@ -1232,13 +1263,16 @@ brcmf_msgbuf_process_flow_ring_delete_response(struct brcmf_msgbuf *msgbuf,
+ 	struct msgbuf_flowring_delete_resp *flowring_delete_resp;
+ 	u16 status;
+ 	u16 flowid;
++	u16 flow_ring_id;
+ 
+ 	flowring_delete_resp = (struct msgbuf_flowring_delete_resp *)buf;
+ 
+-	flowid = le16_to_cpu(flowring_delete_resp->compl_hdr.flow_ring_id);
+-	flowid -= BRCMF_H2D_MSGRING_FLOWRING_IDSTART;
++	flow_ring_id = le16_to_cpu(flowring_delete_resp->compl_hdr.flow_ring_id);
+ 	status =  le16_to_cpu(flowring_delete_resp->compl_hdr.status);
+ 
++	if (!brcmf_msgbuf_get_flowid(msgbuf, flow_ring_id, &flowid))
++		return;
++
+ 	if (status) {
+ 		bphy_err(drvr, "Flowring deletion failed, code %d\n", status);
+ 		brcmf_flowring_delete(msgbuf->flow, flowid);
+-- 
+2.53.0
 
