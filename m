@@ -1,141 +1,86 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C462A3C1D62;
-	Mon,  3 Aug 2026 09:12:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from forward103b.mail.yandex.net (forward103b.mail.yandex.net [178.154.239.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB1E3C063F;
+	Mon,  3 Aug 2026 09:13:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785748346; cv=none; b=jxO67hJe3dpKI9dcQQ4np4B5FnyAIcowBWEu7ntz3rzRfb2KXa/6btzbAmAuTSNH2tTYEwq7oEDcYng3TawIgMymQ9gTKmxvxf96R4U25c59rpqqKqmT9ur97aIfQfiF2YWUYZ4ImszKCS7k+dfexqTVniq3ZFUmneL31sZnvi4=
+	t=1785748401; cv=none; b=UV10A/I8nhxosF/75ChFzKavT/2kNV+HKAZ/saZf6ZxdviI8shwTpfag5O6Oof6vgFX3A16+BSfCQXSFs5GtrneVEY7UN1RqKLOjX2qLfH2VkECkm9o2k84I0Uotj0GQ4/RmznEcRFz9SRGaGKHaCr1EecW/XuRavPCaUj3YmzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785748346; c=relaxed/simple;
-	bh=2lf5Ph1rkfA6Mj7KtrQZutViAdYU2nBThnlFN/K7DM8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ie81llkz39suXmilJxYjkjF+xYcn0NEhHkhja+czMNnSn7B+7r4DMRfP9kIoNMHfQ+3coBtT45mTpSXnpD0Z4OvlxlUv/d/dQIFd5Xp4mkcQkoa1khLUwe4HA0sg01jjjKsQfk2anwIgT/LIAYPxT4voA/AVzG11UyrDjv+BFhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lhVhgSR2; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1785748401; c=relaxed/simple;
+	bh=f2yd3L/pZHye4maJGKlhelS8yD0Euk9e+/q+UEv6M1s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Bgj5FJuOSkBrugvg2gkpDre8bXCsb4joEmK8HYJEjAS4NZHJmqfEKesW696eQenN8FZafp88CLAaj7cZVWQkPckBWG8PotoltJXBhRvqHzQmMNIyDoO+vXl4JVFyA1J6X3v/F8V5Ysf08McJ7gNAMwkqJ09zcjgeEFsTFKh7SLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=mDdklVje; arc=none smtp.client-ip=178.154.239.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lhVhgSR2"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A7A8A143D;
-	Mon,  3 Aug 2026 02:12:14 -0700 (PDT)
-Received: from [10.1.39.91] (e127648.arm.com [10.1.39.91])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D09043F66F;
-	Mon,  3 Aug 2026 02:12:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1785748338; bh=2lf5Ph1rkfA6Mj7KtrQZutViAdYU2nBThnlFN/K7DM8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lhVhgSR2mnTifeFoMQAaTi3EqZlAYklGOndRNEJz9kySBVlhz9ToWggwYAZPwEqyF
-	 jLqoFue3wG/N2eY4joJdzCY/0q9qmdGM3UkvZ6iXPK8WmOHuuAI/H5VlhIsHTgZhI2
-	 YJ8ioAoQD1LDbKmlckzf95uE/OyZXhTfcmUP7lnE=
-Message-ID: <b4fcd43c-bd24-4b81-887b-dc3aa9d4d66a@arm.com>
-Date: Mon, 3 Aug 2026 10:12:15 +0100
+	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="mDdklVje"
+Received: from mail-nwsmtp-smtp-production-main-89.sas.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-89.sas.yp-c.yandex.net [IPv6:2a02:6b8:c11:2281:0:640:870e:0])
+	by forward103b.mail.yandex.net (postfix) with ESMTPS id 53FC1C009E;
+	Mon, 03 Aug 2026 12:13:03 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-89.sas.yp-c.yandex.net (smtp) with ESMTPSA id 1Dfnu4md9a60-HZ5ya4WP;
+	Mon, 03 Aug 2026 12:13:02 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1785748382; bh=ooDqqQeTj1ixxIS+VW69uRjljBAoaoYzB0zEO6r51Y4=;
+	h=Message-ID:Date:Cc:Subject:To:From;
+	b=mDdklVjeTdzPyKGfGuuwtMe3LszcJtAJ+gNPj4MT/3fc+h6xe6hJ4iwABSI3uQzlL
+	 IqjKW4g10hgj8bTJcBPJdrzuVOQqdXlmmPfZhjS7Bywu9irkAVwJK71kEmlQL1s+4n
+	 KKUgd46KxRMWCNwopYEAZYANB2HcebSMzwt9AfP8=
+Authentication-Results: mail-nwsmtp-smtp-production-main-89.sas.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+From: Dmitry Antipov <dmantipov@yandex.ru>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Al Viro <viro@zeniv.linux.org.uk>,
+	linux-usb@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Dmitry Antipov <dmantipov@yandex.ru>,
+	syzbot+6aa97991da41499aa852@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: gadget: fix device data management error in gadgetfs_bind()
+Date: Mon,  3 Aug 2026 12:12:58 +0300
+Message-ID: <20260803091258.85969-1-dmantipov@yandex.ru>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2 1/3] ACPI: CPPC: Reject desired_perf reads on ACPI 6.6+
-To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org, Len Brown <lenb@kernel.org>,
- Jie Zhan <zhanjie9@hisilicon.com>, Lifeng Zheng <zhenglifeng1@huawei.com>,
- Pierre Gondois <pierre.gondois@arm.com>, Sumit Gupta <sumitg@nvidia.com>,
- Sudeep Holla <sudeep.holla@arm.com>,
- Ionela Voinescu <ionela.voinescu@arm.com>, stable@vger.kernel.org
-References: <20260729100245.2628302-1-christian.loehle@arm.com>
- <20260729100245.2628302-2-christian.loehle@arm.com>
- <5fd20dee-9091-488a-9956-ac8a0ae1d34f@oss.qualcomm.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <5fd20dee-9091-488a-9956-ac8a0ae1d34f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 7/31/26 11:45, Zhongqiu Han wrote:
-> On 7/29/2026 6:02 PM, Christian Loehle wrote:
->> When CPPC feedback counters cannot provide a usable sample, cppc-cpufreq
->> calls cppc_get_desired_perf() because some platforms repurpose Desired
->> Performance to report actual delivered performance.
->>
->> The fallback was added for platforms on which Desired Performance reflects
->> delivered performance. ACPI 6.6 defines the register as write-only, so
->> invoking that workaround on an ACPI 6.6 or later platform would require an
->> invalid register read.
->>
->> Make cppc_get_desired_perf() return -EOPNOTSUPP in that case. Its caller
->> already handles an error by using the cached desired-performance value.
->> When checking the FADT minor revision, mask off its upper errata-generation
->> bits and compare only the specification minor version.
->>
->> Fixes: c47195631960 ("cppc_cpufreq: Use desired perf if feedback ctrs are 0 or unchanged")
-> 
-> Hi Christian,
-> Please feel free to correct me if there is any misunderstanding.
-> 
-> ACPI 6.6 was released on 05/13/2025:
-> https://uefi.org/sites/default/files/resources/ACPI_Spec_6.6.pdf
-> 
-> And the fixes tag commit c47195631960 was committed on 09/29/2024.
-> 
-> Would this be considered an adaptation rather than a regression fix?
+In 'gadgetfs_bind()', 'get_dev()' on appropriate 'struct dev_data'
+instance should be performed immediately after the pointer is stored.
+Otherwise an attempt to handle -ENOMEM later will issue an unbalanced
+'put_dev()' in 'gadgetfs_unbind()', thus leading to UAF errors.
 
+Reported-by: syzbot+6aa97991da41499aa852@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=6aa97991da41499aa852
+Cc: stable@vger.kernel.org
+Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
+---
+ drivers/usb/gadget/legacy/inode.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-That is all correct, but the fixes tag is supposed to mean "this patch makes
-the commit in question work" (and therefore should be backported to all kernels
-containing this), which is then correct, as older kernels may still boot on
-newer (6.6) ACPI systems.
-It doesn't mean that the mentioned commit is 'bad' or 'wrong'.
-
-
-> 
-> 
-> With the Fixes tag confirmed/fixed:
-> Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Thanks, I'll leave as-is and pick this up if you don't mind.
-
-> 
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
->> ---
->>   drivers/acpi/cppc_acpi.c | 15 ++++++++++++++-
->>   1 file changed, 14 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
->> index 53d09ca98f06..6e5381f8de38 100644
->> --- a/drivers/acpi/cppc_acpi.c
->> +++ b/drivers/acpi/cppc_acpi.c
->> @@ -1316,15 +1316,28 @@ static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
->>       return cpc_write(cpu, reg, val);
->>   }
->>   +static bool cppc_desired_perf_readable(void)
->> +{
->> +    u8 minor_revision = acpi_gbl_FADT.minor_revision & 0x0f;
->> +
->> +    return acpi_gbl_FADT.header.revision < 6 ||
->> +           (acpi_gbl_FADT.header.revision == 6 && minor_revision < 6);
->> +}
->> +
->>   /**
->>    * cppc_get_desired_perf - Get the desired performance register value.
->>    * @cpunum: CPU from which to get desired performance.
->>    * @desired_perf: Return address.
->>    *
->> - * Return: 0 for success, -EIO otherwise.
->> + * Return: 0 for success, -EOPNOTSUPP for ACPI 6.6 or later, and a negative
->> + * errno otherwise.
->>    */
->>   int cppc_get_desired_perf(int cpunum, u64 *desired_perf)
->>   {
->> +    /* ACPI 6.6 no longer specifies Desired Performance as readable. */
->> +    if (!cppc_desired_perf_readable())
->> +        return -EOPNOTSUPP;
->> +
->>       return cppc_get_reg_val(cpunum, DESIRED_PERF, desired_perf);
->>   }
->>   EXPORT_SYMBOL_GPL(cppc_get_desired_perf);
-> 
-> 
+diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+index d87a8ab51510..a86a1c68903e 100644
+--- a/drivers/usb/gadget/legacy/inode.c
++++ b/drivers/usb/gadget/legacy/inode.c
+@@ -1681,6 +1681,7 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
+ 	set_gadget_data (gadget, dev);
+ 	dev->gadget = gadget;
+ 	gadget->ep0->driver_data = dev;
++	get_dev(dev);
+ 
+ 	/* preallocate control response and buffer */
+ 	dev->req = usb_ep_alloc_request (gadget->ep0, GFP_KERNEL);
+@@ -1696,7 +1697,6 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
+ 	spin_lock_irq(&dev->lock);
+ 	dev->state = STATE_DEV_UNCONNECTED;
+ 	spin_unlock_irq(&dev->lock);
+-	get_dev (dev);
+ 	return 0;
+ 
+ enomem:
+-- 
+2.55.0
 
