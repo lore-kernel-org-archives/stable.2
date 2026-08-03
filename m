@@ -1,118 +1,98 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A7567416852;
-	Mon,  3 Aug 2026 14:46:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4842C3932F9;
+	Mon,  3 Aug 2026 14:46:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785768367; cv=none; b=KjXcRoqJFoUWvcSNXDugyOBlWio9bzDu/dYBiRsHJe8AyyIk9ubK6g0usu6H1bbQT98ew5n2A3d7WHfq87WtSf3nwxQFLBvqWPwlMya50UN/Fe5KGFyadWSYN7K/OIUcTMamIlBpxjlC4S4s9H/ifE6mjLeZLLYqXhwBsvpEpFE=
+	t=1785768416; cv=none; b=NpcYeKxUUTa/+fveuQon9EAHVnTN5E0AMA4T02raskG9kreZ1LrEw34hiL2CwdSfPXVAbJoz1wtl9vPSZaOKdW+DKU6lapRrLstSZ0I+tgdvArVKrNZcuOoj4rbbtPFp5ZNkXE6po+tZAJYGfiNq/tawVdDq/V/ecHnhLbZCnuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785768367; c=relaxed/simple;
-	bh=X7PUFf51jq9YwJqLruZyMfGrRDnFxYEF1Up2HYXFI8Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HFHhbfJNJ8AB3FvhRclFUsJFUJR1J6dDU8PM1noawYodRzQPfman+2+tFNQEeFIDKZTnVbPKsGY18xcKizKJ48MoJH3fjBrv46sEljS42huwWJjV0IH/cnfrb7+DLUBsF1DF4L+5FUZOPzbL+KACxW0NsTmmZE+DhMrV/LUrSCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=ieXAluoF reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1785768416; c=relaxed/simple;
+	bh=uOJQvn6ePwCEmnFu9yOTrYq83LR3UMqJA2aQI//M8iM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=OY/7fADN7PEypv7mObmnsagcGzUtnX4vh5XBzwr747md4/ikdeMoiAMo2MSShdMMirBDaI7KvcVvFiS1qlSgE4I2wJHmQxcAQyjNFBk52tXVaYL1A+xHhfjmvvHqViDChHyXVNXOmEitLTAhQi2/rDQX+MgFHk1yt5BBtSLIZc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=w9/gsPtt; arc=none smtp.client-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="ieXAluoF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=9u1ZX7DoEX
-	iFdpyPwL7ZYYK6ksDIUUh9av5/Gp5cRVA=; b=ieXAluoFxiq5xXpqZEL7u8nKDL
-	FlFUwTEff/AIMhbPSEJ+NWBKUt6arONYRSEYeUvWbDOcne5C5MhNC92BSVlUcGAf
-	EGYeWlNipAz64vIWdgWvahFNkBU9xz+mn1dmW2n27pP2DHxETK9UDsiAsTKjODju
-	HXl9VGzU+ouCfwJ8Q=
-Received: from wmy.localdomain (unknown [221.14.152.201])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with SMTP id BLQMCkCW3DGlqXBquGbTAQ--.12834S2;
-	Mon, 03 Aug 2026 22:46:01 +0800 (CST)
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-To: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	stable@vger.kernel.org,
-	Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Subject: [PATCH v3] tty: vt: fix memory leak in vc_allocate()
-Date: Mon,  3 Aug 2026 22:45:56 +0800
-Message-Id: <20260803144556.163856-1-25181214217@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="w9/gsPtt"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=S0MpRY0Tk44n+dARSgzv6DDumfwkdCqIhOS0UREYyuE=;
+	b=w9/gsPttq6IXx6sBWtVwhH30xGkyCn9MTNoE3H+APgVtLt3nmf7z1CN6MFINkF/SB98XdBfsF
+	qhbOmi/4jTx/ddze/B7svhKhcqu+nBVgn7zNZs3uRUHUMuK8dVKIEYv5wHUy0hPPYL7XD1Ws5Sm
+	bUOxJ1MNeLKRlHHN5wysSPE=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hDK590J9BzmV7C;
+	Mon,  3 Aug 2026 22:37:17 +0800 (CST)
+Received: from whupemo200004.china.huawei.com (unknown [7.152.184.18])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7293D4057A;
+	Mon,  3 Aug 2026 22:46:47 +0800 (CST)
+Received: from [10.67.120.233] (10.67.120.233) by
+ whupemo200004.china.huawei.com (7.152.184.18) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Mon, 3 Aug 2026 22:46:46 +0800
+Message-ID: <0849c634-16cc-4db7-afdb-c702a66fc7df@huawei.com>
+Date: Mon, 3 Aug 2026 22:46:44 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] hwtracing: hisi_ptt: Fix reset timeout handling
+ and clean up trace start
+To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>,
+	"alexander.shishkin@linux.intel.com" <alexander.shishkin@linux.intel.com>,
+	"suzuki.poulose@arm.com" <suzuki.poulose@arm.com>, Jonathan Cameron
+	<jic23@kernel.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Sanman
+ Pradhan <psanman@juniper.net>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, "yangyccccc@gmail.com" <yangyccccc@gmail.com>,
+	"zhanjie9@hisilicon.com" <zhanjie9@hisilicon.com>
+References: <20260414172451.14331-1-sanman.pradhan@hpe.com>
+ <d558a593-ca12-4237-a9b0-5f20441c9d52@huawei.com>
+ <20260730222259.67293-1-sanman.pradhan@hpe.com>
+From: Sizhe Liu <liusizhe5@huawei.com>
+In-Reply-To: <20260730222259.67293-1-sanman.pradhan@hpe.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkCW3DGlqXBquGbTAQ--.12834S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tr1kWF4fAF1UXFy5Zw17GFg_yoW8KryDpr
-	n8Kr42yas8K3WSyFnrAa18XFyruay5KFy5GrWj934FvwsxXr10kF1rta45Wry8Xrs7Caya
-	qrWUAwnIgF1qvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9014x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
-	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
-	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
-	x2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0JUfnY7UUUUU=
-X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUOEWpvXvycUAABsy
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ whupemo200004.china.huawei.com (7.152.184.18)
 
-If the screen buffer allocation fails in vc_allocate(), the error handling
-path jumps to `err_free`. However, this path fails to release the unicode
-screen map attached to `vc->uni_pagedict_loc`.
+On 2026/7/31 6:23, Pradhan, Sanman wrote:
 
-During the early stages of vc_allocate(), the unicode screen map is either
-newly allocated via con_set_default_unimap() or shares the default unicode
-map from a previously initialized console (which increments its refcount).
-If the subsequent kzalloc() for the screen buffer fails, the err_free path
-frees the vc structure but leaves the attached uni_pagedict with an
-elevated refcount. This results in an unreferenced object memory leak, as
-the reference to the dictionary is lost and its refcount can never reach
-zero.
+> From: Sanman Pradhan <psanman@juniper.net>
+>
+> Hi all,
+>
+> Gentle ping on this v2 series:
+>
+>    https://lore.kernel.org/lkml/20260414172451.14331-1-sanman.pradhan@hpe.com/
+>    https://lore.kernel.org/lkml/20260417134550.0000027c@huawei.com/
+>    https://lore.kernel.org/lkml/20260414172451.14331-3-sanman.pradhan@hpe.com/
+>
+> Both patches have been reviewed and I don't believe there are any
+> outstanding comments. Could you let me know the expected path/timeline
+> for merging these, and whether anything further is needed from my side?
+>
+> Thank you.
+>
+> Regards,
+> Sanman Pradhan
+Hi Sanman,
 
-This issue was discovered by DevGen (an automated virtual device modeling
-fuzzer based on Syzkaller). During fuzzing with kernel fault injection
-(failslab) enabled, the fuzzer forcefully failed the kzalloc() for the
-screen buffer, exposing this error-handling path leak.
+In my opinion, there is nothing more you need to do.
+Jonathan and Yicong have left Huawei for a while, and a patch updating 
+the maintainer was sent before they left.
+I am willing to look after this code going forward, but I am also 
+waiting for a response.
+https://lore.kernel.org/lkml/20260416094219.25258-1-Jonathan.Cameron@huawei.com/
 
-Fix this by checking *vc->uni_pagedict_loc and calling con_free_unimap(vc)
-in the err_free path before kfree(vc). This safely decrements the refcount
-and releases the dictionary memory if this was the last reference. The
-explicit check is added to maintain consistency with other callers.
+By the way,  I hope this helps.
+Tested-by: Sizhe Liu <liusizhe5@huawei.com>
 
-Fixes: 34902b7f2754 ("tty: vt, get rid of weird source code flow")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
----
-Changes in v3:
-- Added an explicit check for *vc->uni_pagedict_loc before calling
-  con_free_unimap(vc) to maintain consistency with other callers, as
-  suggested by Greg KH.
-
-Changes in v2:
-- Added documentation in the commit message detailing the fuzzing
-  environment (DevGen/Syzkaller) and the fault injection (failslab)
-  mechanism used to discover the bug.
-
- drivers/tty/vt/vt.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
-index 8f467b22b799..fdb5c10258a8 100644
---- a/drivers/tty/vt/vt.c
-+++ b/drivers/tty/vt/vt.c
-@@ -1134,6 +1134,8 @@ int vc_allocate(unsigned int currcons)	/* return 0 on success */
- 	return 0;
- err_free:
- 	visual_deinit(vc);
-+	if (*vc->uni_pagedict_loc)
-+		con_free_unimap(vc);
- 	kfree(vc);
- 	vc_cons[currcons].d = NULL;
- 	return err;
--- 
-2.34.1
-
+Best regards,
+Sizhe
