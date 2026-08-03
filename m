@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 062C939EF24;
-	Mon,  3 Aug 2026 07:15:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744E02F3C3D;
+	Mon,  3 Aug 2026 07:15:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785741318; cv=none; b=IEVk1k44wVuI9vrTmC0oJm/3+kSOxy0zoLhS8CxiS7gjYXUVOUQFi2r7IUX1l3+3IlC6ieYPU1qPlo6ZJbRZjGgOSZP7tF4HpuZSW6HqC5TBMtQoXfQM8f6K1PxYyzFhG4Im+Lb5aEENLjSKlAZKph8Fz8r3gvWK1GmTy1cXaNo=
+	t=1785741321; cv=none; b=kONQnwqA+fF3RsD2s72EW96Keo2XICaBVlGkNHSEB08ijXCqFiLOAYB/S5PMSU7wu+rNlRp7/92lhHvgC5nye5ZPAt15dO7bt+5Dpc4A7GEz8Cof3/x2tl37OY8BYFwP8b24JMkiNf3HvqiIaFM2f/iD6VE8EZMc0GhijkTyOFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785741318; c=relaxed/simple;
-	bh=CSXC3MRl+fr5K535DZhZ1ieZPxaiUMr+iVKFoRwzN5o=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gmrBHkz8iLiOlY3xNqdCf+OEhOP2q6fFeKVVrpmE8id7hTXKFt+9HHAXIHFgv8rcjqfS/sPXCp+Zd50vcLv2D9aFEQgRnbGVE14Yu4OU1JKOtqz6B3YO1QF1jG7LnCq/zUM9KAYu4+Et+gyrzMzUi4D6ODQMGGt5Tb+ta1KAGCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DpFxADqY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785741321; c=relaxed/simple;
+	bh=4N/XCinh0WfhPly58rkdTsrEj4YBnC4HmY1lGRaRLbk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=IHwOBZ7MvO0zTDLtFIUnnbg7MLfVE+4LXH+5ubG5B4Hgs3clqrOiyAf/rbOKFnKwWfDILV8Jdc2EP5PrTHXF3nV95ctiz3VihYcbtfbWzq68sH3pS2kk97tBax2bDzjiyUCrNm/+LC7Tzt7+QZySbvuxmphLgni5o4/7IdVTWgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ViWKvJ1H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DpFxADqY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09371F000E9;
-	Mon,  3 Aug 2026 07:15:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ViWKvJ1H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A1AB1F00A3A;
+	Mon,  3 Aug 2026 07:15:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785741316;
-	bh=lOw5vekGbjNw6ykDt0fzbiYJA2c7NYGfZyY2lgJKOak=;
-	h=From:Subject:Date:To:Cc;
-	b=DpFxADqYOi+VHQ+Hrpil882FXtGQulPwbpCRjtbBGElPW+ao4/mQfksudQQLthqF5
-	 pkVTVUYOo5vZhYepoOIxvvFHOtkoPHMo/dz57XR7S4sxJlyoo9A+w2q3TJou3wKf9U
-	 /AQhkfpmmahTv41Cm0E5We5ZQiFqkL1bhX55rKzwMVJrb+NUrLf59e51n0xMXGD/Hz
-	 xDMCGpqeCUp0V6KrAcV6FiqZLg5sC6G1QlFj//4EYFd3DMno52+L34cmZHx+tz/qWw
-	 WM7JxxUZlbEz2fzVoZZgGa5+tV3uZ7QPEakf10G1xJ7OLUMr8rSAv+EgrxhPs+8xDU
-	 RgY5si8IGAFpA==
+	s=k20260515; t=1785741320;
+	bh=Y8X3NP6f1tb6ECA/APcxd2Ra/6Y+sgbGOMzwFL5+0xI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=ViWKvJ1HlFBgT9zzheZGicUdhe4AKPRypbeHJ6dCCBtQo+tWpReZAC6iEKc8yd/wz
+	 1fFc3v1/HVqMGMkFLHBbllmVaRbNxfgOth4OdMRGC35E6vMleNCiqY5dmFrtg57OzE
+	 mQecCxQAKIO2a/FN9Fe0hih30bqi18qyhxtQmwkdG2dg8RxAKYtnYxprsPV/j8Defr
+	 8XsNuevPbDvqMIXndhk42p+26tfR3/I8bfH869bQV+hNIOV1ZRR5KJoVoURXURnU92
+	 Ujk4yqxKpvDDv7V3k9X41/Qe0fbS2kfsEQRwgmggFrbc1VT0MCmONhO5GE6UEZQDwH
+	 zr+FxCyskGarw==
 From: "Harry Yoo (Oracle)" <harry@kernel.org>
-Subject: [PATCH 6.18.y 0/2] mm/slab: fix unbounded recursion in free path
- with memalloc profiling
-Date: Mon, 03 Aug 2026 07:15:09 +0000
-Message-Id: <20260803-kmalloc-no-objext-for-6-18-y-v1-0-8b01d1021f0d@kernel.org>
+Date: Mon, 03 Aug 2026 07:15:10 +0000
+Subject: [PATCH 6.18.y 1/2] lib/alloc_tag: introduce
+ mem_alloc_profiling_permanently_disabled()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,10 +38,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQ6CMBAAwK+QPbukrbEWv0I4lLLAKnZJawyE8
- Hcbj3OZAzIlpgyP6oBEX84ssUBfKgizjxMhD8VglLHKqSu+3n5ZJGAUlP5J2wdHSWhRO9zxRqa
- 5e9cPTdBQijXRyNu/b8HW2tU7dOf5A0OcH2x2AAAA
-X-Change-ID: 20260803-kmalloc-no-objext-for-6-18-y-5e297a8bd9c1
+Message-Id: <20260803-kmalloc-no-objext-for-6-18-y-v1-1-8b01d1021f0d@kernel.org>
+References: <20260803-kmalloc-no-objext-for-6-18-y-v1-0-8b01d1021f0d@kernel.org>
+In-Reply-To: <20260803-kmalloc-no-objext-for-6-18-y-v1-0-8b01d1021f0d@kernel.org>
 To: Suren Baghdasaryan <surenb@google.com>, 
  Andrew Morton <akpm@linux-foundation.org>, 
  Vlastimil Babka <vbabka@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
@@ -55,58 +54,72 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
 
-This is backport of "mm/slab: fix unbounded recursion in free path with
-memalloc profiling" series [1] for 6.18.y.
+commit a37b0066a10aabf3c968b4566706fb866eaf9a85 upstream.
 
-The last patch has a slight functional difference compared to mainline
-due to lack of SLAB_ALLOC_* flags. I described those subtlties in the
-backporting notes in detail.
+mem_alloc_profiling_enabled() tells whether memalloc profiling is
+currently enabled. However, even when this function returns false,
+it can be enabled later.
 
-The first two patches from the patchset are not backported to 6.18.y
-as they are no-op in 6.18.y.
+However, this is not enough. Some optimizations can be applied only when
+memalloc profiling is permanently disabled. For example, to skip the
+creation of KMALLOC_NO_OBJ_EXT caches at boot time, mem_profiling must
+be set to "never", "0" w/ debugging on, or have been shutdown so that
+it can no longer be enabled.
 
- - mm/slab: fix a memory leak due to bootstrapping sheaves twice
- - mm/slab: decouple SLAB_NO_SHEAVES from SLAB_NO_OBJ_EXT
+Introduce mem_alloc_profiling_permanently_disabled() for this purpose.
 
-[1] https://lore.kernel.org/all/20260713-kmalloc-no-objext-v3-0-47c7bd138de7@kernel.org
-
-To: Suren Baghdasaryan <surenb@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-To: Vlastimil Babka <vbabka@kernel.org>
-To: Christoph Lameter <cl@gentwo.org>
-To: David Rientjes <rientjes@google.com>
-To: Roman Gushchin <roman.gushchin@linux.dev>
-To: Harry Yoo <harry@kernel.org>
-To: Kees Cook <kees@kernel.org>
-To: Danielle Costantino <dcostantino@meta.com>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-To: Hao Ge <hao.ge@linux.dev>
-To: Hao Li <hao.li@linux.dev>
-To: Pedro Falcato <pfalcato@suse.de>,
-To: "Liam R . Howlett" <liam@infradead.org>
-Cc: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-
+Signed-off-by: Harry Yoo (Oracle) <harry@kernel.org>
+Acked-by: Suren Baghdasaryan <surenb@google.com>
+Link: https://patch.msgid.link/20260713-kmalloc-no-objext-v3-3-47c7bd138de7@kernel.org
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 Signed-off-by: Harry Yoo <harry@kernel.org>
 ---
-Harry Yoo (Oracle) (2):
-      lib/alloc_tag: introduce mem_alloc_profiling_permanently_disabled()
-      mm/slab: prevent unbounded recursion in free path with new kmalloc type
+ include/linux/alloc_tag.h | 3 +++
+ lib/alloc_tag.c           | 9 +++++++++
+ 2 files changed, 12 insertions(+)
 
- include/linux/alloc_tag.h |  3 ++
- include/linux/slab.h      |  8 ++++-
- lib/alloc_tag.c           |  9 ++++++
- mm/slab.h                 | 28 +++++++++++++++--
- mm/slab_common.c          | 13 ++++++++
- mm/slub.c                 | 76 +++++++++++++++--------------------------------
- 6 files changed, 82 insertions(+), 55 deletions(-)
----
-base-commit: 2fe596715f840d053aed5cee5455f701bdcd2b50
-change-id: 20260803-kmalloc-no-objext-for-6-18-y-5e297a8bd9c1
+diff --git a/include/linux/alloc_tag.h b/include/linux/alloc_tag.h
+index 02de2ede560f..7e7cdc7612be 100644
+--- a/include/linux/alloc_tag.h
++++ b/include/linux/alloc_tag.h
+@@ -134,6 +134,8 @@ static inline bool mem_alloc_profiling_enabled(void)
+ 				   &mem_alloc_profiling_key);
+ }
+ 
++bool mem_alloc_profiling_permanently_disabled(void);
++
+ static inline struct alloc_tag_counters alloc_tag_read(struct alloc_tag *tag)
+ {
+ 	struct alloc_tag_counters v = { 0, 0 };
+@@ -239,6 +241,7 @@ static inline bool alloc_tag_is_inaccurate(struct alloc_tag *tag)
+ 
+ #define DEFINE_ALLOC_TAG(_alloc_tag)
+ static inline bool mem_alloc_profiling_enabled(void) { return false; }
++static inline bool mem_alloc_profiling_permanently_disabled(void) { return true; }
+ static inline void alloc_tag_add(union codetag_ref *ref, struct alloc_tag *tag,
+ 				 size_t bytes) {}
+ static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes) {}
+diff --git a/lib/alloc_tag.c b/lib/alloc_tag.c
+index 3082d977efaa..7c6d3a086fdc 100644
+--- a/lib/alloc_tag.c
++++ b/lib/alloc_tag.c
+@@ -26,6 +26,15 @@ static bool mem_profiling_support = true;
+ static bool mem_profiling_support;
+ #endif
+ 
++/*
++ * Memory allocation profiling is permanently disabled and cannot be enabled.
++ * Must be called after setup_early_mem_profiling().
++ */
++bool mem_alloc_profiling_permanently_disabled(void)
++{
++	return !mem_profiling_support;
++}
++
+ static struct codetag_type *alloc_tag_cttype;
+ 
+ #ifdef CONFIG_ARCH_MODULE_NEEDS_WEAK_PER_CPU
 
-Best regards,
 -- 
-Cheers,
-Harry / Hyeonggon
+2.53.0
 
