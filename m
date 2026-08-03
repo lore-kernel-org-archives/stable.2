@@ -1,76 +1,74 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2BDE31F983
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 10:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C8B3803D3
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 10:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785753729; cv=none; b=argMCBXdNcAWVNMi0QaokcT0jWlgo4ZQ58h6w/gcoYuM1Zlqd7UOTpO7HiTCyEe+t/s9HMnbdVOEcq960yxNdSqU5RqX09V0R6s1nq7V3G1BIEFVuN6weZHAmVfVvFXU8VgWlCYwkpdW+Gcpk7NBPNFyBrjlzHKVBDGfeouBPQU=
+	t=1785753876; cv=none; b=OOLIuWxAJ6E+gM3h0Dl0q8XzyIqpZqJY/d7gFpYvXzZhgQCup08q9PbtxAsoNCMYDfvpWZ7/GURkV7F6T2TxH6UL+9Q+arB7rn3S9MqlL+9v1ZG/l+7OJdgAjEGY3MaLe4p3X7j1ulgvA6CExdFVyP/tBoRrC3acr6Q9auTHnwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785753729; c=relaxed/simple;
-	bh=zhsvf8AUhSm/vPJMbWw29S95YWwHL0kAWxVcONvzQMg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q5tRqkWDXiZjJJjJKaxelSijA5ggS2uZrfDrc/mU19UOGwlbVwkgIJxnH9OGL0sY2popHijy6SotPE1E/TahcTNc8iahgKz8GotHrn7RHKn+M5qfJZ5tWIoXqWISjq84WR3v3SlMsRQbQfmZzcBOHLrTSVBdWMV1BlL113Zig54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=R8mjUVgg; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1785753876; c=relaxed/simple;
+	bh=tMpC1xzdo63lqopHFPlw01oLOuykRATWAu2nX08wIec=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qr/+2SO7Gbcl/38SUi/JShylmIOfgWNdDLqcknVBQO0IlKBEHdl//8SZ1cs9KY9a8t59Px6qhVuXEe0gIHnjlZa8B4TzSYWb4zJLLlsnp792MJiRi2DsxCodo8dr08wmzjjpeM6SsYC5UVtjMBWFzFQb25AEKzlyKHsAfYdg/Sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f0pZr/Ey; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="R8mjUVgg"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8486ac3f347so3963328b3a.1
-        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 03:42:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f0pZr/Ey"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47df6a5655aso402715f8f.1
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 03:44:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1785753725; x=1786358525; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785753873; x=1786358673; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rcsAVzU3hfKQ9Mjr4UzblWsJSQEWKcZUw54vAPfxOFA=;
-        b=R8mjUVggTgjHSdquSxKHxQfyPM867hm03H2eTRHGsZfXZnyctDUoRqsS3LDE7e3XxZ
-         FfPkiFoJo54vJP0BUABBC/STcObfOM2cFj8hC+mo9ApGEOh58yV5CztzbYjpuva6VsF/
-         sleM/qAYZafOT6rW5Pc2QWq35pKeHgEVC/4AA6Ri4CfkF8WGRSk/FiypaKXfPXH4SWV/
-         X1iOr8EIHDuXbZjmOGIhYmu/cK9YIp7QtZeTOwmFI6dFD9YHQsnpIg9bLYrVuRTG+ERd
-         o/LP4GihNGF2VRWcU7G666rxU6+3U7AEPtih5pgRe8/1a9Eeu3wTdJbhjhx7mJ0wCf95
-         nEFw==
+        bh=Fe47mFnGJrnj7q96fsdIDjsBMpDbZQXw/JGM6RT1ooQ=;
+        b=f0pZr/Ey3JhQIvvRc3kq+T+IZnZkjDMWwHayn1NA5CcFslDkyEBcC1SAX/jW8Rbsw4
+         iAXW4hyxhC9d6tLRIaGCFy/7kWhKZtinAOC5t5eY2ZhrH1SdK+86yxjq0VPcqbs+apeL
+         usn5yfbROiiTiQz3xp5nFcb54wBW/ndRkxxTVYsuEkm5oY4QcqWWMTsuTlKv3LgTIe19
+         GwH0HZl3n7D93iYiCsTD2ptoZZR9+/mxejKXFDQYjWryAq/F3cdcn3DwC94AmFkd7LQR
+         1VP57f9Otq6SkvP6mlSTx7x8yfHnZ0TiaMhCutTfr9tlOE43DKtGSojgnWGb40+KyKSF
+         66NQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785753725; x=1786358525;
+        d=1e100.net; s=20251104; t=1785753873; x=1786358673;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rcsAVzU3hfKQ9Mjr4UzblWsJSQEWKcZUw54vAPfxOFA=;
-        b=W8tPqt3exbOXxGbUufHWw7ockJ4aeC3IlzT8EJsHF/Gbwr8r05yUC0YoiX23Hi3TY4
-         8WsngrZAW7W543ps9hRnDlQ/clTv2uxSf1Rlrf2u8hwmVuWLyRxSlOvm4uKqCdB7Ql6F
-         kZb7hRuJmNjp0IupXMbIjZbfFOxP665Bk5qXAs3Bjw8HojNG+iQMKvOaG/iWW/XBFEu9
-         g7Ne/Q6Q3IzYAaL7aTl7vaV60mkoQBYSxiWlvjjoC+/a7qfbLEaf1GB1S5xNg75UtqoS
-         aAX7Kqcq/BzhUbbcfVbEsz7OA5xiDOqxcaqyLrN/v0o3yo7Cu0b6Mfbqumk24xpVr1HG
-         jNkA==
-X-Forwarded-Encrypted: i=1; AHgh+Rrz5jpzmcraHEfS9mIpdLNqYeIv2xBeigZROpfZCpgknNwLnMplCJLXtDF9P1G0O4/dLrUwJBw=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxXrGT7iNOcf/GldNUpf7Viq+/kq87XA+wVKa1k82BKx9qKQyN/
-	kFcLTkY9s28Sa8nUsCgpi99EASPtmjCYtzN9xCuntsX5WSxJyqtfMugVTEGtuCJIgBw=
-X-Gm-Gg: AR+sD12JMZkEZZsQSgUXRjcsyWyirU+jXwOu4oKBYhXz5ZW+mhVNgy8psp8GdQLa340
-	DKzwXlrZNpWI8nWyy5bCq7fG7RS9YbVkajXYnb6wTlHKG0Oh7y+C18bRLr4dludVG1vOseKuwzD
-	1gru/L/WCO6kiHY/ZlZ1xOLaYxXJLvsfTX+F7mATgBbETEeCBWsgqAlAz3sD9jpmjk6q0YjgUQU
-	ORTPuKTSwRFqtD0PLE/Bm7eXkNxaqI3cD7nF6vUKhtj0ER78zpUxFeIyRcmOkuFMt5wPsfgIUpH
-	g6QrwxBSZ/yHpnPw1IPDDHk4bGk2G3g2Hsk5Si4Ehiw4T5C1/FbhETkOzzNzY3wYPonS99qZA4j
-	tcFs3hi75eKrAb0KgBhozpL7qLVYF/0V0otpBYBdte60jltpMmXd45aHypknwE40O3afxCmYe6l
-	TuleJ9kfKuv06NwooR3MhuuuCw+saNzzwjYplNRVMgysT0lDckYRUxWKrkURcy0D5kK2WC
-X-Received: by 2002:aa7:888b:0:b0:846:a04:acdc with SMTP id d2e1a72fcca58-84ed74bde0amr10673990b3a.26.1785753724933;
-        Mon, 03 Aug 2026 03:42:04 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84edbe791dfsm3596878b3a.23.2026.08.03.03.42.02
+        bh=Fe47mFnGJrnj7q96fsdIDjsBMpDbZQXw/JGM6RT1ooQ=;
+        b=YXBuwi5GOlYIHGahW8qGdudG+qQrbmz3i5W6bfdmbQz6dFGcWq6aFwupuewcyG9Hwh
+         jiRFapSWwoofE+kOUaB0biR2yDU6hooZbaRv/dl8a8BmfUdTGt8LkT6g5ai1C4sEJ13W
+         QqxZK2jC++iVwG4stVm1B52IJX5udyhXULsS44ftp+HX3oEB523py2bWAk7UY8Nlt2HG
+         FigyuK/TnErzg/ckVCitWG5kJPZK+BeLhHvm+zDKXKKXrKGXronLdoFwie2XwsnfI1Z3
+         qbP/HnDv1MDXJQmeQko9VxhSdYQ8IMBfz8DHMlAzS7fxxXaicrvVm1uKceak1RhyGO9M
+         Lpyw==
+X-Forwarded-Encrypted: i=1; AHgh+RrH/8dZpRtDcs7f/IFGOYvaz1cEzvDJQussTsXvXEleDa0YYX/k6+gMudrtMS6vyu+nAoCH4Ac=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz4dqPlZrsL+7m3vT/eBVaf3v9S9WBldIfJZdahV7wCpOuM0Jac
+	8MA9WVPudLO+vgWijeEeo6z9xraMP6wkvwGaCb5McIrBTUJe3LQe/nr4
+X-Gm-Gg: AR+sD110QoSQPNUulx1RX23xgLEwyb1D93jF/pA8juZCueUGiK4J2cdxp9oFA5J7VZi
+	yJPxH+JPaxFXWQQlyAIepDTnOP1wcr7REyxLypOoYsnQhRkpqmkHEHTl2/lDY6dhl6SKqlHbS8m
+	zLQEV56p5he7SHAVytP+662rgCrYo+QfkmfIczlvdRkUPGmHemyrixrZIDHKEh9+AltYARuOS38
+	qJMENAzIcLMnIiy71FcBPooc39U/zO7YdnLeMXR+28BUsFHY4LJyr5+rh7QNpz40bV+QYWeX5YN
+	VaEJdTCNVX0m1ddPXb838eTHRNzG+HUQYwt+BDksHKEVS1knmzi4uTkhMqoYGk+fiFzumkDhDDb
+	zwc4bv8OR7ES5yiGzFNubEXzfykr0aPpYaSWnJEKjf4IiWIG3riZRQfrShCh9WyM60vc9LzMWQD
+	QPHgQnZasASKs7UsfzDmlvQqt3QvXPqI4cXg0jWiXDa9pZYj50Mld1UBF6fPhWchZ9fxwB+UJ7b
+	fxuGbfB7mgL6Kugll5vZ/I=
+X-Received: by 2002:a05:600c:4687:b0:495:650b:4c61 with SMTP id 5b1f17b1804b1-4980c68e3f1mr104460385e9.3.1785753872457;
+        Mon, 03 Aug 2026 03:44:32 -0700 (PDT)
+Received: from thomas-precision3591.. ([2a04:cec0:101e:c128:347c:a6c3:e6c1:747])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49807b5f0c3sm199352955e9.5.2026.08.03.03.44.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 03:42:04 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: lduncan@suse.com,
-	cleech@redhat.com,
-	michael.christie@oracle.com,
-	James.Bottomley@HansenPartnership.com,
-	martin.petersen@oracle.com
-Cc: open-iscsi@googlegroups.com,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+        Mon, 03 Aug 2026 03:44:32 -0700 (PDT)
+From: Thomas Fourier <fourier.thomas@gmail.com>
+To: 
+Cc: Thomas Fourier <fourier.thomas@gmail.com>,
 	stable@vger.kernel.org,
-	James Bottomley <James.Bottomley@suse.de>
-Subject: [PATCH] scsi: libiscsi: validate the ITT reflected in a Reject PDU
-Date: Mon,  3 Aug 2026 19:41:48 +0900
-Message-ID: <20260803104149.2114414-1-yhlee@isslab.korea.ac.kr>
+	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+	Kalle Valo <kvalo@kernel.org>,
+	Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
+	linux-wireless@vger.kernel.org (open list:QUALCOMM ATHEROS ATH9K WIRELESS DRIVER),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net] ath9k_htc: fix possibly missing barrier in ath9k_htc_rxep()
+Date: Mon,  3 Aug 2026 12:44:22 +0200
+Message-ID: <20260803104424.25880-1-fourier.thomas@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -80,92 +78,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A Reject PDU carries a copy of the header it rejects, and
-iscsi_handle_reject() takes the ITT out of that copy to find the task to
-clean up:
+ath9k_rx_init() initialises the rx buffer and its lock then calls a
+memory barrier and then sets the priv->rx.initialized flag. However,
+ath9k_htc_rxep() reads that flag and imidiatly takes the lock. This may
+cause the lock to be taken while not fully initialized.
 
-      memcpy(&rejected_pdu, data, sizeof(struct iscsi_hdr));
-      ...
-      task = iscsi_itt_to_task(conn, rejected_pdu.itt);
+Add a barrier to prevent speculative read of the lock before checking
+the initized flag.
 
-That value is whatever the target put there. iscsi_itt_to_task() bounds
-the index against cmds_max and checks nothing else, so any task in the
-pool can be named, and iscsi_nop_out_rsp() then completes it.
-
-An index that has never been used gives a NULL task->conn: the pool is
-zeroed at session setup and conn is assigned only when a task is
-allocated. If the task was used and returned, iscsi_complete_task()
-hits its WARN_ON_ONCE(task->state == ISCSI_TASK_FREE) and the refcount
-underflows. An in-flight SCSI command is completed as successful - a
-1 MiB read returned 1048576 with none of its buffer written and no
-warning.
-
-Validate the reflected ITT the way iscsi_itt_to_ctask() validates a
-command ITT, and require the task to be in flight and not a SCSI
-command.
-
-[    6.248477] Oops: general protection fault, probably for non-canonical address 0xdffffc000000000c: 0000 [#1] SMP KASAN NOPTI
-[    6.249357] KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
-[    6.249951] CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted 7.2.0-rc5-ISCSI1-gf5098b6bae76 #1 PREEMPT(lazy)
-[    6.250718] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[    6.251616] RIP: 0010:iscsi_nop_out_rsp.constprop.0+0x46/0x160
-[    6.252043] Code: c1 ea 03 48 83 ec 08 80 3c 02 00 0f 85 f5 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 8b 6b 58 48 8d 7d 60 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 c0 00 00 00 48 8b 45 60 48 39 c3 74 50 48 b8 00
-[    6.252813] RSP: 0018:ffff88806c907b80 EFLAGS: 00010206
-[    6.253042] RAX: dffffc0000000000 RBX: ffff88800607e000 RCX: ffffffff8d571a25
-[    6.253345] RDX: 000000000000000c RSI: ffff88806c907c38 RDI: 0000000000000060
-[    6.253642] RBP: 0000000000000000 R08: 0000000000000000 R09: fffffbfff235a504
-[    6.253947] R10: 0000000000000003 R11: 7463656e6e6f6320 R12: 0000000000000000
-[    6.254251] R13: 0000000000000000 R14: ffff88806c907c38 R15: 0000000000000000
-[    6.254549] FS:  0000000000000000(0000) GS:ffff8880d95bc000(0000) knlGS:0000000000000000
-[    6.254887] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    6.255140] CR2: 00007fc393e8ffc0 CR3: 0000000005252006 CR4: 0000000000770ef0
-[    6.255439] PKRU: 55555554
-[    6.255564] Call Trace:
-[    6.255674]  <IRQ>
-[    6.255768]  __iscsi_complete_pdu+0x18bf/0x22a0
-[    6.256733]  iscsi_complete_pdu+0x54/0xa0
-[    6.256905]  iscsi_tcp_data_recv_done+0xf4/0x250
-[    6.257103]  iscsi_tcp_recv_skb+0x31e/0xec0
-[    6.257680]  iscsi_sw_tcp_recv+0x12f/0x390
-[    6.258061]  __tcp_read_sock+0x1ab/0x810
-[    6.258853]  iscsi_sw_tcp_data_ready+0x18b/0x510
-[    6.259808]  tcp_data_queue+0x1f13/0x4cd0
-[    6.260567]  tcp_rcv_established+0x8a5/0x3a00
-[    6.261931]  tcp_v4_do_rcv+0x449/0x960
-[    6.262269]  tcp_v4_rcv+0x2245/0x3bc0
-
-Fixes: 8afa1439fcff ("[SCSI] libiscsi: handle immediate command rejections")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Fixes: b0ec7e55fce6 ("ath9k_htc: fix NULL pointer dereference at ath9k_htc_rxep()")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
 ---
-Measured on 7.2-rc5 with KASAN over a proxy that injects one Reject PDU.
-Unpatched: the unused index oopses, the returned index warns and
-underflows the refcount, and the in-flight read returns 1048576 with 0
-bytes filled. With the patch the reject is refused in all three cases
-and the connection is failed the way an unknown ITT already is. A
-NOP-Out ping reflected in a Reject - the case this branch exists for -
-completes normally on both kernels.
- drivers/scsi/libiscsi.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/net/wireless/ath/ath9k/htc_drv_txrx.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/scsi/libiscsi.c b/drivers/scsi/libiscsi.c
-index 160f02f2f51d..d881f4dc47b4 100644
---- a/drivers/scsi/libiscsi.c
-+++ b/drivers/scsi/libiscsi.c
-@@ -1147,8 +1147,11 @@ static int iscsi_handle_reject(struct iscsi_conn *conn, struct iscsi_hdr *hdr,
- 			 * Our nop as ping got dropped. We know the target
- 			 * and transport are ok so just clean up
- 			 */
--			task = iscsi_itt_to_task(conn, rejected_pdu.itt);
--			if (!task) {
-+			task = NULL;
-+			if (!iscsi_verify_itt(conn, rejected_pdu.itt))
-+				task = iscsi_itt_to_task(conn, rejected_pdu.itt);
-+			if (!task || task->state == ISCSI_TASK_FREE ||
-+			    task->sc) {
- 				iscsi_conn_printk(KERN_ERR, conn,
- 						 "Invalid pdu reject. Could "
- 						 "not lookup rejected task.\n");
+diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c b/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
+index bed7ea2425a0..97d61f3f0aad 100644
+--- a/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
++++ b/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
+@@ -1145,6 +1145,12 @@ void ath9k_htc_rxep(void *drv_priv, struct sk_buff *skb,
+ 	if (!data_race(priv->rx.initialized))
+ 		goto err;
+ 
++	/*
++	 * Make sure all the ath9k_rx_init() memory writes are visible before
++	 * proceeding.
++	 */
++	smp_rmb();
++
+ 	spin_lock_irqsave(&priv->rx.rxbuflock, flags);
+ 	list_for_each_entry(tmp_buf, &priv->rx.rxbuf, list) {
+ 		if (!tmp_buf->in_process) {
 -- 
 2.43.0
 
