@@ -1,57 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A6935AC0E;
-	Mon,  3 Aug 2026 23:01:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA7436B903;
+	Mon,  3 Aug 2026 23:04:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785798117; cv=none; b=MRwQy50jjz2Ci+OmKShJer4y0Q5Xib84gfXqM49e3ag/4PtzZtuLTRg8PuFXKwOjDtgnqYihS6v14By2lpMc+1szp48ACfVXWaPjZgiwklh1mauTWCHrZxKaC7h+2nPeb0aq3Duu//V9vfi0xL3g3njDlJvibvU5kEk6eBYRmJc=
+	t=1785798287; cv=none; b=sZa/3xGgvOZNQ4XsX993xZm48SGaFJHzHJvmvc07hCMDveb+eRsLejH+jHLXG9KSzacb5uXm+SUAwsxTqqgQZ72+2fh+xs8xo915nHF5X0G8Vqk9JGRdeEz7pWuAHH6HXLF6ZinTeX3gSmQLqeuZ8c2wPpvZ0wKiIfUY+H0qVKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785798117; c=relaxed/simple;
-	bh=qRqlhtOg+EH5y4ZE5//+f6FThADMBmCgZXhXnTSHfMA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=kBLh/4HbYKEo6Cl5/N5pBtgVOvg+o5l8Ppwuxotai5fr4WDJbExxbhTB6e0HlrbwE5PnIFjTCYRHoc9KFIHCis3JbYWh2daNyVHBBThnsTeiTvkBX0Xi6Wm3jP7qfD4MFLFej5O4BKPgoZWyEUlmG6MvJD0Fk7/RwPBLmNe2zo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 484681F000E9;
-	Mon,  3 Aug 2026 23:01:56 +0000 (UTC)
-Received: by venus (Postfix, from userid 1000)
-	id BB30618073B; Tue, 04 Aug 2026 01:01:54 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: linux-pm@vger.kernel.org, Fan Wu <fanwu01@zju.edu.cn>
-Cc: sre@kernel.org, l.stach@pengutronix.de, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260802051249.424015-1-fanwu01@zju.edu.cn>
-References: <20260802051249.424015-1-fanwu01@zju.edu.cn>
-Subject: Re: [PATCH] power: supply: ucs1002: fix use-after-free on remove
-Message-Id: <178579811475.234019.11116107083120527143.b4-ty@b4>
-Date: Tue, 04 Aug 2026 01:01:54 +0200
+	s=arc-20240116; t=1785798287; c=relaxed/simple;
+	bh=fV/vX0cIO+XOnCK8fEAz4VAe9VlB7u00hYokhyGjVqo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=E7hm/klo8MJxqgk71KHN8s5i6XCBUqlU5lBOL3MwkXVpatnWwkFNkvZfhXTgRyP8QSHXGv69/PLx0q81NaniDWfRIpksBMYSi/FAGRCIgTmL81U7mzm/ixgZybb2pmhFAjxh1gczcVto+hti0a3m4xAaosuVSemaniqjjBvtBSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5YRIR3C; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5YRIR3C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D161F000E9;
+	Mon,  3 Aug 2026 23:04:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785798286;
+	bh=fV/vX0cIO+XOnCK8fEAz4VAe9VlB7u00hYokhyGjVqo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=H5YRIR3CHWiNY/c5PS7hpBEM5SvdP1bB1Oaemh0JigG0eNSRmCSsQacOKyETPPAJE
+	 yA6FnmKO/JlkeSdvQd1F/2dkyi5ePa11dVs8+YYXbyWtFWbJpbrN4v7JJeMJOajjea
+	 iSax2OhUv1laUmnjs2zTIASOlP0D1CI2HxX4aAwQUpM4zTMzNvI1qm4Aalmkxf3MfQ
+	 pWglChs0lK0BRA+Q9yc+7pTGIRI6I+thy4MWjfbBeVZZZvi0FAn1E7AC6LqVpAGrgh
+	 dRYWWuai2Nish2+5YiA9ZV+1pOW+q5QAhSI2cMagY9Wa6eGGHdqcb7cKd0AjlM8Peg
+	 UEEZ6n4X/yh+w==
+Date: Mon, 3 Aug 2026 16:04:44 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Weiming Shi <bestswngs@gmail.com>
+Cc: Claudiu Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean
+ <vladimir.oltean@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
+ Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Pablo Neira
+ Ayuso <pablo@netfilter.org>, Jozsef Kadlecsik <kadlec@netfilter.org>, Jamal
+ Hadi Salim <jhs@mojatatu.com>, Cong Wang <xiyou.wangcong@gmail.com>, Jiri
+ Pirko <jiri@resnulli.us>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org,
+ syzbot+5a66db916cdde0dbcc1c@syzkaller.appspotmail.com, Xiang Mei
+ <xmei5@asu.edu>, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: flow_offload: serialize driver callback
+ lists
+Message-ID: <20260803160444.44a1cf32@kernel.org>
+In-Reply-To: <20260726120338.488658-1-bestswngs@gmail.com>
+References: <20260719175028.988301-2-bestswngs@gmail.com>
+	<20260726120338.488658-1-bestswngs@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
 
+On Sun, 26 Jul 2026 05:03:15 -0700 Weiming Shi wrote:
+> Add a flow-offload callback mutex and hold it across direct and indirect
+> setup, callback ownership transfer and rollback. Move indirect-unregister
+> list removal into the flow-offload core, and keep indirect-device
+> registration transactional on setup failure. When TC must reject an
+> indirect bind after callback installation, unwind only the callbacks
+> created by that bind so existing callbacks remain intact.
 
-On Sun, 02 Aug 2026 05:12:49 +0000, Fan Wu wrote:
-> ucs1002 has no remove callback, so unbind runs entirely through devm.
-> The alert IRQ handler queues the health_poll delayed work, and the work
-> reschedules itself while the chip reports a bad-health condition.  devm
-> frees the alert IRQ, which only synchronizes the handler; it does not
-> cancel the delayed work, which can then run after devm frees the driver
-> data and dereference it.
-> 
-> [...]
-
-Applied, thanks!
-
-[1/1] power: supply: ucs1002: fix use-after-free on remove
-      commit: 609af0ceeaefdfa42cd01dd060b20f2e41f9a232
-
-Best regards,
--- 
-Sebastian Reichel <sebastian.reichel@collabora.com>
-
+Isn't the unbind / rollback stuff mostly orthogonal to the locking?
+Looks like the patch should be split.
