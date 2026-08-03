@@ -1,206 +1,107 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-48.ptr.blmpb.com (va-2-48.ptr.blmpb.com [209.127.231.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9428136B92B
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 23:10:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB33F388E5A
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 23:15:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785798641; cv=none; b=S8zJayFdVI7Z2NriNHc1tIEfsAijG/pnGKNcqmJZhaft0cSdH3T9sJK7JsIz7gdKVMyLQw580nBd0PYwO5D5x9Cu+PPE7YwHglUg0goCaQJTgNHirn6IKB7zLvkNX1q/H1rpS4/NfCNqCR2AweWIr5MWKh7ZfQBSJ72D93vokUk=
+	t=1785798954; cv=none; b=q5VL76Zp2WfAuFf5jEvifv1+9sUClGEPW4ApoJvC0MAnsQFXEBl/2hQ51UvgoH7IDACCkSS3GPJM+82e5eECelH9oEUlOhmw0koAtNYS7WLJmSxvaoXRlr0DeQxQ04lt6ZaIdA/Y9SY95+EGX7i20ewRR+L0F3bw2UMJ32hFW9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785798641; c=relaxed/simple;
-	bh=V3rulQPcTgHvc1xrWGwxacGTM5z9n3TxnrcZGC/YI0Q=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pvL176RWJQXcRg7wiqfribLuH2CLAQEyZOKvUSFD5Nqzd5Hhb93aKu+SD4/nEfc4L+Ob9fTv5NEr0Vg3uvvWyod7C8moT3GX6dtr8PffdrPNDLjBf8YA8bWsgtWoO2CewYpspC3QLv/XAh38wVuk1E8KmepCO7nte1GIKFXmam4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m+XrVEqA; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1785798954; c=relaxed/simple;
+	bh=OuyjxBWgEpGzFof5aUCl4B4FVBpU/yyef9DnNzJ/Hrc=;
+	h=From:Message-Id:Mime-Version:Cc:Subject:Date:To:Content-Type; b=RC61DUg94Yenx0MneAJfA++Rq7xBlzyFSBijHGqiZ0XaERSa06aPO9ns1EAJc2qw5mdHIMm+Cegduolf+S4JCFNuR7QH3jaxgt3RvqLCjRAgxIsBlPNV3IsxECOTx5Q4HB6KByD0Bls8MMGjvFQ+PkKSKdhNkaby34EYp8uX3pE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=EZyszHLL; arc=none smtp.client-ip=209.127.231.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m+XrVEqA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785798639; x=1817334639;
-  h=date:message-id:from:to:cc:subject:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=V3rulQPcTgHvc1xrWGwxacGTM5z9n3TxnrcZGC/YI0Q=;
-  b=m+XrVEqAkqN51H0gYVb41EVtyTDyvN97w+lhBWAP88X9Bd1mXEmmyZRI
-   6RQM4fVaY5yAB5RdIMr3HS75C2iY3zs02GL1Fa0pLlV3xgBpSMfK37mMh
-   2MlmSKWfm0vFphfjkBXuwjmYkXsYnJPHJjN8AI6gmSLkgu+7PhvBAxcVF
-   RV/20sBRKvi+iV70WKpDU5fbtfyvd1L6sVefZwfPL5I2799uAtSRvkdeH
-   24dYI+pEOGw6s/jJJhHwmO+FCSCHMMOfsvaEQxQkrRt0bA5wXC7RZDCrF
-   pWRA2aQ9fjHbHn6gZ2vNXM/OMdEHnF5Zz8pBizC4zuIhERxEEoehCfv3w
-   g==;
-X-CSE-ConnectionGUID: GTCYDLXOQcKEYkiiOtSXpw==
-X-CSE-MsgGUID: SJMFVOnxQcuXMCbgHT2I8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="111899996"
-X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
-   d="scan'208";a="111899996"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:10:38 -0700
-X-CSE-ConnectionGUID: LoWJeUqtSyegEjN18+fvXw==
-X-CSE-MsgGUID: z1gI1HbDQCiPz+VzvskJmQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
-   d="scan'208";a="255054934"
-Received: from unknown (HELO adixit-MOBL3.intel.com) ([10.241.243.62])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:10:38 -0700
-Date: Mon, 03 Aug 2026 16:10:37 -0700
-Message-ID: <87mrv2242a.wl-ashutosh.dixit@intel.com>
-From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org,	Umesh Nerlige Ramappa
- <umesh.nerlige.ramappa@intel.com>,	Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 7.1.y] drm/xe/rtp: Maintain OA whitelists separately
-In-Reply-To: <20260801004526.3662973-1-sashal@kernel.org>
-References: <2026072958-unmasked-acting-7c2a@gregkh>
-	<20260801004526.3662973-1-sashal@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
- Emacs/30.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="EZyszHLL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1785798942; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=u5odJSIa/si0f6OfyBko5IXp2Ehgx5VfQJD3r16gr4Y=;
+ b=EZyszHLLfWeVfdR/kwyYwoOhR1VbR80O6TvxLfjr7siiTxmPDg4aESBuw6vzCzzd8Cj4I0
+ mnVqTW6NfPi/IYs9qic4N/EaJkJw5C/1CK2sqRsNlteWkyhaImByTazWzjp/9yUGDHoMpC
+ KDE2ENDwXpu+sv782HbRWrwgxt/3aprIJVL3eMlTub7K9wuhlRo0NJhunsLqFyDHAYCjLz
+ pfLT51oW8U721F1iVw43TaVfwcpg6g6Nx2l5RYt59Nmi5BK8SYDDFkwyU4HkjMUb3oxMJ0
+ NhPvrWiJZ67FjSACinYSWv2wbREviO/qKx4sxlIj9lz/Wz/jJfv7SAMNK/HhoQ==
+From: "Shengzhuo Wei" <me@cherr.cc>
+Message-Id: <20260804-oxp-fix-v1-1-51a4fe787167@cherr.cc>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+X-Change-Id: 20260804-oxp-fix-879390c5e47f
+Cc: <linux-input@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH] HID: hid-oxp: fix UAF on pending work in remove()
+Date: Tue, 04 Aug 2026 07:15:32 +0800
+X-Mailer: b4 0.14.2
+X-Lms-Return-Path: <lba+26a71211c+f35465+vger.kernel.org+me@cherr.cc>
+To: "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+	"Jiri Kosina" <jikos@kernel.org>, 
+	"Benjamin Tissoires" <bentiss@kernel.org>, 
+	"Zhouwang Huang" <honjow311@gmail.com>
+X-B4-Tracking: v=1; b=H4sIABMhcWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE vPSU3UzU4B8JSMDIzMDCwMT3fyKAt20zApdC3NLY0uDZNNUE/M0JaDqgqJUoDDYpOjY2loARyl bLlkAAAA=
+Received: from [192.168.9.107] ([111.42.148.195]) by smtp.feishu.cn with ESMTPS; Tue, 04 Aug 2026 07:15:39 +0800
+Content-Type: text/plain; charset=UTF-8
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Content-Transfer-Encoding: 7bit
 
-On Fri, 31 Jul 2026 17:45:26 -0700, Sasha Levin wrote:
->
+oxp_cfg_probe() arms drvdata.oxp_mcu_init to run 50 ms after probe, and
+oxp_mcu_init_fn() dereferences drvdata.hdev to issue MCU output reports
+(oxp_set_buttons()/oxp_gen_2_property_out() -> hid_hw_output_report(),
+each followed by msleep(200)). oxp_hid_remove() cancels it with the
+non-synchronising cancel_delayed_work(), so a worker already running is
+not waited for; removing the device while the worker is asleep then frees
+the hid_device underneath it, leaving drvdata.hdev stale -- a
+use-after-free when the worker wakes.
 
-Hi Sasha/Greg,
+The oxp_rgb_queue and oxp_btn_queue workers, wired up the same way and
+also cancelled with cancel_delayed_work() in oxp_hid_remove(), have the
+same problem.
 
-The patch below is correct. However, because you will encounter conflicts
-in other patches of this series too, I have backported the entire series
-for linux-7.1.y here:
+Drain all three works with cancel_delayed_work_sync() in oxp_hid_remove()
+so they have exited before the hid_device is freed.
 
-https://lore.kernel.org/stable/20260803230136.3270230-1-ashutosh.dixit@inte=
-l.com/
+Fixes: 84910c459d65 ("HID: hid-oxp: Add OneXPlayer configuration driver")
+Fixes: e4c850a6e750 ("HID: hid-oxp: Add Button Mapping Interface")
+Fixes: 2f424f28fb39 ("HID: hid-oxp: Add Second Generation Gamepad Mode Switch")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+Same delayed-work use-after-free class as the 7.2-rc6 sweep
+(hid-lenovo-go, hid-lenovo-go-s, hid-lg-g15, hid-appleir, hid-letsketch);
+hid-oxp was missed. The fix mirrors the cancel_delayed_work_sync()
+approach already used by hid-lenovo-go / hid-lenovo-go-s.
+---
+ drivers/hid/hid-oxp.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Will it be possible to apply the patches from the above link instead?
-Since it will save us some work.
+diff --git a/drivers/hid/hid-oxp.c b/drivers/hid/hid-oxp.c
+index 20a54f337220dc2aee3483a14d542b66c487bd60..d8fb6a69d40d43f2595179df1067d42b4b3e166a 100644
+--- a/drivers/hid/hid-oxp.c
++++ b/drivers/hid/hid-oxp.c
+@@ -1552,9 +1552,9 @@ static int oxp_hid_probe(struct hid_device *hdev,
+ 
+ static void oxp_hid_remove(struct hid_device *hdev)
+ {
+-	cancel_delayed_work(&drvdata.oxp_rgb_queue);
+-	cancel_delayed_work(&drvdata.oxp_btn_queue);
+-	cancel_delayed_work(&drvdata.oxp_mcu_init);
++	cancel_delayed_work_sync(&drvdata.oxp_rgb_queue);
++	cancel_delayed_work_sync(&drvdata.oxp_btn_queue);
++	cancel_delayed_work_sync(&drvdata.oxp_mcu_init);
+ 	hid_hw_close(hdev);
+ 	hid_hw_stop(hdev);
+ }
 
-I will also send backports of this series to linux-6.12.y and linux-6.18.y.
+---
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+change-id: 20260804-oxp-fix-879390c5e47f
 
-Sorry, I am not too sure of the process to follow here. So if it needs to
-be done differently please let me know.
-
-Thanks.
---
-Ashutosh
-
-> From: Ashutosh Dixit <ashutosh.dixit@intel.com>
->
-> [ Upstream commit 31e2437561621b4867c08efc890bf629d017df03 ]
->
-> OA registers are dynamically whitelisted (and again dewhitelisted) on OA
-> stream open/close. Maintaining OA whitelists separately from non-OA
-> register whitlists simplifies this management of OA register
-> whitelisting/dewhitelisting.
->
-> Fixes: 828a8eaf37c3 ("drm/xe/oa: Add MMIO trigger support")
-> Cc: stable@vger.kernel.org # v6.12+
-> Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
-> Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-> Link: https://patch.msgid.link/20260615224227.34880-3-ashutosh.dixit@inte=
-l.com
-> (cherry picked from commit c478244a9e2d14b3f1f92e8bd293919e554622a5)
-> Signed-off-by: Thomas Hellstr=F6m <thomas.hellstrom@linux.intel.com>
-> [ adapted RTP table from struct wrapper macro `XE_RTP_TABLE_SR()` back to=
- plain `struct xe_rtp_entry_sr[]` array and restored the 5-arg `xe_rtp_proc=
-ess_to_sr()` call with `ARRAY_SIZE()` ]
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  drivers/gpu/drm/xe/xe_gt_debugfs.c      | 4 +++-
->  drivers/gpu/drm/xe/xe_hw_engine.c       | 2 ++
->  drivers/gpu/drm/xe/xe_hw_engine_types.h | 8 ++++++++
->  drivers/gpu/drm/xe/xe_reg_whitelist.c   | 6 ++++++
->  4 files changed, 19 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/xe/xe_gt_debugfs.c b/drivers/gpu/drm/xe/xe_g=
-t_debugfs.c
-> index f45306308cd6..c38bcacb27e4 100644
-> --- a/drivers/gpu/drm/xe/xe_gt_debugfs.c
-> +++ b/drivers/gpu/drm/xe/xe_gt_debugfs.c
-> @@ -149,8 +149,10 @@ static int register_save_restore(struct xe_gt *gt, s=
-truct drm_printer *p)
->	drm_printf(p, "\n");
->
->	drm_printf(p, "Whitelist\n");
-> -	for_each_hw_engine(hwe, gt, id)
-> +	for_each_hw_engine(hwe, gt, id) {
->		xe_reg_whitelist_dump(&hwe->reg_whitelist, p);
-> +		xe_reg_whitelist_dump(&hwe->oa_whitelist, p);
-> +	}
->
->	return 0;
->  }
-> diff --git a/drivers/gpu/drm/xe/xe_hw_engine.c b/drivers/gpu/drm/xe/xe_hw=
-_engine.c
-> index a7441a66e94c..b5a869c720af 100644
-> --- a/drivers/gpu/drm/xe/xe_hw_engine.c
-> +++ b/drivers/gpu/drm/xe/xe_hw_engine.c
-> @@ -575,6 +575,8 @@ static void hw_engine_init_early(struct xe_gt *gt, st=
-ruct xe_hw_engine *hwe,
->	hw_engine_setup_default_state(hwe);
->
->	xe_reg_sr_init(&hwe->reg_whitelist, hwe->name, gt_to_xe(gt));
-> +	xe_reg_sr_init(&hwe->oa_whitelist, hwe->name, gt_to_xe(gt));
-> +	xe_reg_sr_init(&hwe->oa_sr, hwe->name, gt_to_xe(gt));
->	xe_reg_whitelist_process_engine(hwe);
->  }
->
-> diff --git a/drivers/gpu/drm/xe/xe_hw_engine_types.h b/drivers/gpu/drm/xe=
-/xe_hw_engine_types.h
-> index e4191a7a2c31..04ca7545d22c 100644
-> --- a/drivers/gpu/drm/xe/xe_hw_engine_types.h
-> +++ b/drivers/gpu/drm/xe/xe_hw_engine_types.h
-> @@ -128,6 +128,14 @@ struct xe_hw_engine {
->	 * @reg_whitelist: table with registers to be whitelisted
->	 */
->	struct xe_reg_sr reg_whitelist;
-> +	/**
-> +	 * @oa_whitelist: oa registers to be whitelisted
-> +	 */
-> +	struct xe_reg_sr oa_whitelist;
-> +	/**
-> +	 * @oa_sr: oa nonpriv whitelist registers, changed on oa stream open/cl=
-ose
-> +	 */
-> +	struct xe_reg_sr oa_sr;
->	/**
->	 * @reg_lrc: LRC workaround registers
->	 */
-> diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/x=
-e_reg_whitelist.c
-> index 8cc313182968..089335b185d1 100644
-> --- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
-> +++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-> @@ -89,6 +89,9 @@ static const struct xe_rtp_entry_sr register_whitelist[=
-] =3D {
->			 WHITELIST(VFLSKPD,
->				   RING_FORCE_TO_NONPRIV_ACCESS_RW))
->	},
-> +};
-> +
-> +static const struct xe_rtp_entry_sr oa_whitelist[] =3D {
->
->  #define WHITELIST_OA_MMIO_TRG(trg, status, head) \
->	WHITELIST(trg, RING_FORCE_TO_NONPRIV_ACCESS_RW), \
-> @@ -191,6 +194,9 @@ void xe_reg_whitelist_process_engine(struct xe_hw_eng=
-ine *hwe)
->	xe_rtp_process_to_sr(&ctx, register_whitelist, ARRAY_SIZE(register_whitel=
-ist),
->			     &hwe->reg_whitelist, false);
->	whitelist_apply_to_hwe(hwe);
-> +
-> +	xe_rtp_process_to_sr(&ctx, oa_whitelist, ARRAY_SIZE(oa_whitelist),
-> +			     &hwe->oa_whitelist, false);
->  }
->
->  /**
-> --
-> 2.53.0
->
+Best regards,
+-- 
+Shengzhuo Wei <me@cherr.cc>
