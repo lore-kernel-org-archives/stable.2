@@ -1,68 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-73.mail.aliyun.com (out28-73.mail.aliyun.com [115.124.28.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923B33A4F2F;
-	Mon,  3 Aug 2026 06:34:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A33D352C54;
+	Mon,  3 Aug 2026 06:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785738884; cv=none; b=l9k3x1/bu985YRLMaxrPY1RJ/8aJv/cH9GFqmiEGN1erKCPBww411VNG5u1XJsAy/+7Ed0VjXyWFgDB3QCuu0SNsXM9F0I0sqphpQRbZPmIf0+b9WKv9gf+g5GYtNsfpC/zT2e/DrVU2gE4XpOWc/mOqWvtnDyHgnQYIX4NXrDs=
+	t=1785739667; cv=none; b=l5TuOoCk3wn354m/U8vGjHqChRdfGA+PGpiicT7W99WrlJofOp85PIHOVk4UCOVqgaEvawzWMH/FAfJquSfgLLfhKUe1vbl7Llwslhq6cUoEDHB3T80OOth4O9nhJjAkhrYfBUui0AJHqVZgoMei3cel2otdQusQMIYTc/liSXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785738884; c=relaxed/simple;
-	bh=rajIQLXyhV8qIEomluIxQ8rbuxL4Ex9MVkwlWveKCZQ=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=txR8viJel9FAP55D0kIXSRpsKPurUAwEw1ZDSUfMWwbcCL+dgpu7c3qfzXvNa8UN7Mj3yFp0GWsGM0uh/Coj/tQTQHVycmWFDymqsKrMD2Km4y0vkMBMeBwSZx6sMzecjsoTa4PFE/J92ExMJtuep4xYX62EczyP4vhLMp5m2z8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EFKnAWgO; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EFKnAWgO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6BD1F000E9;
-	Mon,  3 Aug 2026 06:34:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785738883;
-	bh=1xo3QhVa/3N9gRoVOTnoKB8qxDMTYOzjDluERd6gZBU=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=EFKnAWgOtmuT+4QF3+nakc7y7eOiN2UZDdvKWVwyy1UzWcS/Ni1vMTBXa5uxbKDV6
-	 ZhQ2ttGIBL5RhJDaZPO27DB7T1C9iZIG/lzp6mhcTztSh9wcqjSP2f6Y0KMb245/YR
-	 jxdl1TsoaLaYpawiNzMAZtuRytY1zThgtbKDlaex/ri27PJrbV0nUnv3Vv6UqTUjHQ
-	 dUYSoTYmp1zj/0kcwK8rtd0Uhp8J+zIOzmZfZHaJsRDkXP6WVqq+N7JTzONvpjR/uV
-	 9aSZoq4qfK3dPTGljTAnhmYOiBpq1LPzwGGuceUDP/Pn+Y5mAkKgknp3RhxWWeWVQx
-	 GxKdCfiRAjNDA==
-Message-ID: <2405e513-c1be-4281-8ab8-bb1ed48bbf14@kernel.org>
-Date: Mon, 3 Aug 2026 14:34:38 +0800
+	s=arc-20240116; t=1785739667; c=relaxed/simple;
+	bh=ZlPxhPsLA1vUia2Y8tO3Cnyk1YXdWLIHaDJvdDZF8LQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=eZJUspK+T44H5/ZIyhMo7j/2j2ISCAYJ3Ygup1+29A5kL3g/JBfVPl2FNtV4BOFjsNzf/GRtbwyWfeRl4YLv4Kh2lEe9mFK2BQXFWjzPnGZsntfaargp+SD07EzrgJH36/dsX+hr9ovPPNiVYFBCSm6lM1t4cA8Jc7MuGjNncYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sz-huijia.com; spf=pass smtp.mailfrom=sz-huijia.com; arc=none smtp.client-ip=115.124.28.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sz-huijia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sz-huijia.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.9203386|0.1519993;CH=green;DM=|AD|false|;DS=CONTINUE|ham_alarm|0.393476-0.000866224-0.605657;FP=8646379598522245346|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037022039;MF=hj117@sz-huijia.com;NM=1;PH=DS;RN=4;RT=4;SR=0;TI=SMTPD_---.icKD0h._1785739652;
+Received: from HJ117-PC.hjz.lan(mailfrom:hj117@sz-huijia.com fp:SMTPD_---.icKD0h._1785739652 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 03 Aug 2026 14:47:32 +0800
+From: Dongxu Su <hj117@sz-huijia.com>
+To: dmitry.torokhov@gmail.com, linux-input@vger.kernel.org
+Cc: stable@vger.kernel.org, gregkh@linuxfoundation.org
+Subject: [PATCH v3] Input: xpad - add Voyetra Turtle Beach PC Rematch Gamepad
+Date: Mon, 03 Aug 2026 14:47:31 +0800
+Message-ID: <178573965180.24908.11825133918986345820@sz-huijia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Christian Brauner <brauner@kernel.org>,
- Pedro Falcato <pfalcato@suse.de>, Jan Kara <jack@suse.cz>,
- linux-f2fs-devel@lists.sourceforge.net, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
-Subject: Re: [PATCH] f2fs: use the mount idmap for the owner check in
- f2fs_xattr_advise_set()
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>, Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20260716025908.608098-1-zhanxusheng@xiaomi.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260716025908.608098-1-zhanxusheng@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On 7/16/26 10:59, Zhan Xusheng wrote:
-> f2fs_xattr_advise_set() calls inode_owner_or_capable() with &nop_mnt_idmap
-> before allowing the "system.advise" xattr to be set, instead of the idmap
-> that the VFS passes to the ->set() handler.
-> 
-> f2fs supports idmapped mounts, so on such a mount this checks the caller's
-> fsuid against the unmapped on-disk owner rather than the mapped owner: the
-> actual owner can be wrongly denied with -EPERM and an unrelated caller
-> wrongly allowed.  Pass the handler's idmap instead.
-> 
-> Fixes: 01beba7957a2 ("fs: port inode_owner_or_capable() to mnt_idmap")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-Reviewed-by: Chao Yu <chao@kernel.org>
+Add support for the Voyetra Turtle Beach PC Rematch Gamepad,
+a triple-mode (wired, 2.4G wireless, Bluetooth) PC game controller.
 
-Thanks,
+The VID 0x10F5 is already in the XPAD_XBOXONE_VENDOR whitelist
+(covering the GIP mode PIDs 0x6015 and 0x6016), but XInput support
+was missing.
+
+Add XPAD_XBOX360_VENDOR(0x10F5) to xpad_table to enable XInput mode
+(both wired and wireless), and add xpad_device entries for all four
+PIDs to give them human-readable names:
+  - 0x6013: XInput wired (XTYPE_XBOX360)
+  - 0x6014: XInput wireless 2.4G (XTYPE_XBOX360)
+  - 0x6015: GIP wired (XTYPE_XBOXONE)
+  - 0x6016: GIP wireless 2.4G (XTYPE_XBOXONE)
+
+The 2.4G wireless dongle operates as a transparent bridge presenting
+itself as a standard wired XInput device (Protocol 1), not using the
+proprietary Microsoft multi-controller receiver format, so
+XTYPE_XBOX360 is used instead of XTYPE_XBOX360W.
+
+Signed-off-by: Dongxu Su <hj117@sz-huijia.com>
+
+---
+
+Changes in v3:
+- Fix XTYPE_XBOX360W -> XTYPE_XBOX360 for PID 0x6014 (wireless dongle
+  uses Protocol 1, not multi-controller receiver format)
+- Reorder xpad_device[] entries: place 0x60xx PIDs before 0x70xx PIDs
+  to comply with the array's VID/PID sorting requirement
+- Add changelog (was missing in v2)
+
+Changes in v2:
+- Fix base64-encoded email body that corrupted the patch (v1)
+- Fix file path from xpad.c to drivers/input/joystick/xpad.c (v1)
+---
+ drivers/input/joystick/xpad.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
+index feb8f36..32720e9 100644
+--- a/drivers/input/joystick/xpad.c
++++ b/drivers/input/joystick/xpad.c
+@@ -265,6 +265,10 @@ static const struct xpad_device {
+ 	{ 0x102c, 0xff0c, "Joytech Wireless Advanced Controller", 0, XTYPE_XBOX },
+ 	{ 0x1038, 0x1430, "SteelSeries Stratus Duo", 0, XTYPE_XBOX360 },
+ 	{ 0x1038, 0x1431, "SteelSeries Stratus Duo", 0, XTYPE_XBOX360 },
++	{ 0x10f5, 0x6013, "PC Rematch Gamepad", 0, XTYPE_XBOX360 },
++	{ 0x10f5, 0x6014, "PC Rematch Gamepad (Wireless)", 0, XTYPE_XBOX360 },
++	{ 0x10f5, 0x6015, "PC Rematch Gamepad", 0, XTYPE_XBOXONE },
++	{ 0x10f5, 0x6016, "PC Rematch Gamepad (Wireless)", 0, XTYPE_XBOXONE },
+ 	{ 0x10f5, 0x7005, "Turtle Beach Recon Controller", 0, XTYPE_XBOXONE },
+ 	{ 0x10f5, 0x7008, "Turtle Beach Recon Controller", MAP_SHARE_BUTTON, XTYPE_XBOXONE },
+ 	{ 0x10f5, 0x7073, "Turtle Beach Stealth Ultra Controller", MAP_SHARE_BUTTON, XTYPE_XBOXONE },
+@@ -522,6 +526,7 @@ static const struct usb_device_id xpad_table[] = {
+ 	XPAD_XBOXONE_VENDOR(0x0f0d),		/* Hori controllers */
+ 	XPAD_XBOX360_VENDOR(0x1038),		/* SteelSeries controllers */
+ 	XPAD_XBOXONE_VENDOR(0x10f5),		/* Turtle Beach Controllers */
++	XPAD_XBOX360_VENDOR(0x10f5),		/* Turtle Beach Controllers */
+ 	XPAD_XBOX360_VENDOR(0x11c9),		/* Nacon GC100XF */
+ 	XPAD_XBOX360_VENDOR(0x11ff),		/* PXN V900 */
+ 	XPAD_XBOX360_VENDOR(0x1209),		/* Ardwiino Controllers */
+-- 
+2.47.1.windows.1
+
+
