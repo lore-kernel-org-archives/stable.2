@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744E02F3C3D;
-	Mon,  3 Aug 2026 07:15:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25FFC3A1681;
+	Mon,  3 Aug 2026 07:15:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785741321; cv=none; b=kONQnwqA+fF3RsD2s72EW96Keo2XICaBVlGkNHSEB08ijXCqFiLOAYB/S5PMSU7wu+rNlRp7/92lhHvgC5nye5ZPAt15dO7bt+5Dpc4A7GEz8Cof3/x2tl37OY8BYFwP8b24JMkiNf3HvqiIaFM2f/iD6VE8EZMc0GhijkTyOFE=
+	t=1785741325; cv=none; b=hhLTPAg0vUKkyDz2EBmCzzBcGkXcsxNhLqqXB9fiaXJLClYGUcCflZ5g0kwq0rGwv/LM9Wazfo05RDevGIxRehPiXQUyXy3DsRJcqX0E1GWxKk+KhqeZhLVA71fxwGvdhnRncJnnAPfqmHcPopkDX/3Yk0p/cuJgVgfNHZMJEko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785741321; c=relaxed/simple;
-	bh=4N/XCinh0WfhPly58rkdTsrEj4YBnC4HmY1lGRaRLbk=;
+	s=arc-20240116; t=1785741325; c=relaxed/simple;
+	bh=0oMpZjAu75L2+lf3f0gk8XO20LCRd8G2oMf7OsEqsPc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IHwOBZ7MvO0zTDLtFIUnnbg7MLfVE+4LXH+5ubG5B4Hgs3clqrOiyAf/rbOKFnKwWfDILV8Jdc2EP5PrTHXF3nV95ctiz3VihYcbtfbWzq68sH3pS2kk97tBax2bDzjiyUCrNm/+LC7Tzt7+QZySbvuxmphLgni5o4/7IdVTWgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ViWKvJ1H; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=ssG9B1J6sy609ljoRmz2CWAum5Tjub23fP+BWr/VbTqzutsivWcdeKei4unD/aOHout0/PtQUPEtMCUHJgDh+0dn28fcHogdSeSuWJveooPWQQGAPH6hQB6UbqysvMWVT58eANITHrZZJXXS1CmrgDgpFdRBTcThck0+6CowMws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJNZhQMc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ViWKvJ1H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A1AB1F00A3A;
-	Mon,  3 Aug 2026 07:15:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJNZhQMc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882E71F000E9;
+	Mon,  3 Aug 2026 07:15:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785741320;
-	bh=Y8X3NP6f1tb6ECA/APcxd2Ra/6Y+sgbGOMzwFL5+0xI=;
+	s=k20260515; t=1785741323;
+	bh=bJLS+wEfhYqj/nz4UZ37tiiK2O8q2l0gss7WHTqEygc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ViWKvJ1HlFBgT9zzheZGicUdhe4AKPRypbeHJ6dCCBtQo+tWpReZAC6iEKc8yd/wz
-	 1fFc3v1/HVqMGMkFLHBbllmVaRbNxfgOth4OdMRGC35E6vMleNCiqY5dmFrtg57OzE
-	 mQecCxQAKIO2a/FN9Fe0hih30bqi18qyhxtQmwkdG2dg8RxAKYtnYxprsPV/j8Defr
-	 8XsNuevPbDvqMIXndhk42p+26tfR3/I8bfH869bQV+hNIOV1ZRR5KJoVoURXURnU92
-	 Ujk4yqxKpvDDv7V3k9X41/Qe0fbS2kfsEQRwgmggFrbc1VT0MCmONhO5GE6UEZQDwH
-	 zr+FxCyskGarw==
+	b=EJNZhQMcLPygGPM8Z27xbZSONJ7piIJyflwN05ailhz0abMnM2/VoQYmTNhfVts66
+	 jDMPGGmaVXK8hv6MT6JQB85DkGhXlmtHrYH4ZmfTCBN0TmMw3jjgtxBDdHiKnCZ7A0
+	 lnUcgvIH/FVXmmz5d5MWrmVRYBuYSZrcKzONRRBErngGL4XiMRnsCCE8VWWj6RnSgO
+	 MTfSUSDLZmnWkI6thQTnF1bZgULvx6DAv//uDRUE/FLpXC4eeQP4DWzFrZL1jrbyzu
+	 LsLdfY+prp8FYGoPIupWRsVDm5SNLvSvSoQxvBEEpcK+UBObQfoITmuxv7oZFU9zMD
+	 KsOXivWEwCxKA==
 From: "Harry Yoo (Oracle)" <harry@kernel.org>
-Date: Mon, 03 Aug 2026 07:15:10 +0000
-Subject: [PATCH 6.18.y 1/2] lib/alloc_tag: introduce
- mem_alloc_profiling_permanently_disabled()
+Date: Mon, 03 Aug 2026 07:15:11 +0000
+Subject: [PATCH 6.18.y 2/2] mm/slab: prevent unbounded recursion in free
+ path with new kmalloc type
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-kmalloc-no-objext-for-6-18-y-v1-1-8b01d1021f0d@kernel.org>
+Message-Id: <20260803-kmalloc-no-objext-for-6-18-y-v1-2-8b01d1021f0d@kernel.org>
 References: <20260803-kmalloc-no-objext-for-6-18-y-v1-0-8b01d1021f0d@kernel.org>
 In-Reply-To: <20260803-kmalloc-no-objext-for-6-18-y-v1-0-8b01d1021f0d@kernel.org>
 To: Suren Baghdasaryan <surenb@google.com>, 
@@ -54,71 +54,381 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
 
-commit a37b0066a10aabf3c968b4566706fb866eaf9a85 upstream.
+commit d9e6a7623938968e3752b67e37eaff097e559a54 upstream.
 
-mem_alloc_profiling_enabled() tells whether memalloc profiling is
-currently enabled. However, even when this function returns false,
-it can be enabled later.
+Commit 280ea9c3154b ("mm/slab: avoid allocating slabobj_ext array from
+its own slab") avoided recursive allocation of obj_exts from kmalloc
+caches of the same size, by bumping the obj_exts array's allocation
+size whenever the array size equals the size of the object being
+allocated.
 
-However, this is not enough. Some optimizations can be applied only when
-memalloc profiling is permanently disabled. For example, to skip the
-creation of KMALLOC_NO_OBJ_EXT caches at boot time, mem_profiling must
-be set to "never", "0" w/ debugging on, or have been shutdown so that
-it can no longer be enabled.
+However, as reported by Danielle Costantino and Shakeel Butt,
+even slabs from kmalloc caches of different sizes can form a cycle
+by allocating obj_exts arrays from each other [1]:
 
-Introduce mem_alloc_profiling_permanently_disabled() for this purpose.
+  What happened: a KMALLOC_NORMAL slab's obj_exts array (used by
+  allocation profiling / memcg accounting) is itself kmalloc()'d from a
+  KMALLOC_NORMAL cache, so the "slab holds another slab's obj_exts array"
+  relation can form cycles. With sizeof(struct slabobj_ext) == 16 and
+  the host's geometry:
 
+  - kmalloc-512 has 64 objects/slab -> array is 64*16 == 1024 bytes,
+    served from kmalloc-1k;
+  - kmalloc-1k  has 32 objects/slab -> array is 32*16 ==  512 bytes,
+    served from kmalloc-512.
+
+  A kmalloc-512 slab and a kmalloc-1k slab therefore hold each other's
+  obj_exts array.  Discarding one frees the other's array, which empties
+  and discards that slab, which frees the first's array, and so on:
+  __free_slab() -> free_slab_obj_exts() -> kfree() -> discard_slab() ->
+  __free_slab() recurses along the cycle until the stack is exhausted.
+
+With memory allocation profiling, this allows unbounded recursion
+in the free path and led to a stack overflow on a production host in
+the Meta fleet [1]:
+
+  BUG: TASK stack guard page was hit
+  Oops: stack guard page
+  RIP: 0010:kfree+0x8/0x5d0
+  Call Trace:
+   __free_slab+0x66/0xc0
+   kfree+0x3f0/0x5d0
+   ... ( ~125x __free_slab <-> kfree ) ...
+   <kernel driver freeing a resource>
+   do_syscall_64
+
+It is proposed [1] to resolve this issue by always serving the obj_exts
+array allocation from kmalloc caches (or large kmalloc) of sizes larger
+than the object size. However, as pointed out by Vlastimil Babka [2],
+this can waste an excessive amount of memory as slabs from large
+kmalloc sizes (e.g. kmalloc-8k) generally need obj_exts arrays much
+smaller than the object size.
+
+Therefore, rather than bumping the size, let us take a different
+approach; disallow formation of cycles between kmalloc types when
+allocating obj_exts arrays. Currently, all obj_exts arrays are served
+from normal kmalloc caches. Cycles cannot be created if obj_exts arrays
+of normal kmalloc caches are served from a special kmalloc type that can
+never have obj_exts arrays.
+
+To achieve this, create a new kmalloc type called KMALLOC_NO_OBJ_EXT.
+KMALLOC_NO_OBJ_EXT caches are created with SLAB_NO_OBJ_EXT flag when
+either 1) memory allocation profiling is not permanently disabled,
+or 2) kmalloc types with a priority higher than KMALLOC_CGROUP are
+aliased with KMALLOC_NORMAL.
+
+Sheaf bootstrapping for KMALLOC_NO_OBJ_EXT caches now must be deferred
+because allocation of a barn can trigger obj_exts array allocation of
+normal kmalloc caches when the KMALLOC_NO_OBJ_EXT cache for that size
+is not ready yet. For simplicity, perform bootstrapping of sheaves for
+all kmalloc caches later.
+
+Introduce a new slab alloc flag, SLAB_ALLOC_NO_OBJ_EXT, to prevent
+allocation of obj_exts arrays, and let kmalloc_slab() override the type
+to KMALLOC_NO_OBJ_EXT when specified. Note that kmalloc_type() remains
+unchanged because kmalloc_flags() bypasses the kmalloc fastpath.
+
+Do not pass SLAB_ALLOC_NO_RECURSE to kmalloc_flags() in
+alloc_slab_obj_exts() and instead use SLAB_ALLOC_NO_OBJ_EXT only when
+the objects are allocated from normal kmalloc caches. While this
+prevents unbounded recursive allocation of obj_exts, it allows
+KMALLOC_NO_OBJ_EXT caches to have sheaves.
+
+Since sheaf allocations specify SLAB_ALLOC_NO_RECURSE that prevents
+allocation of both sheaves and obj_exts arrays, the recursion depth
+is bounded.
+
+obj_exts arrays for non-kmalloc-normal caches can now have a valid tag.
+Do not call mark_obj_codetag_empty() when freeing an obj_exts array to
+avoid false warnings. KMALLOC_NO_OBJ_EXT don't need this as they never
+allocate those arrays.
+
+Reported-by: Danielle Costantino <dcostantino@meta.com>
+Reported-by: Shakeel Butt <shakeel.butt@linux.dev>
+Closes: https://lore.kernel.org/linux-mm/20260625230029.703750-1-shakeel.butt@linux.dev [1]
+Fixes: 4b8736964640 ("mm/slab: add allocation accounting into slab allocation and free paths")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/linux-mm/c5c4208d-a6f0-413e-bad9-49be12f12d55@kernel.org [2]
 Signed-off-by: Harry Yoo (Oracle) <harry@kernel.org>
-Acked-by: Suren Baghdasaryan <surenb@google.com>
-Link: https://patch.msgid.link/20260713-kmalloc-no-objext-v3-3-47c7bd138de7@kernel.org
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Link: https://patch.msgid.link/20260713-kmalloc-no-objext-v3-4-47c7bd138de7@kernel.org
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+[harry@kernel.org: Backport notes:
+ - Fix a minor conflict due to missing partitioned
+   kmalloc caches in 6.18.
+
+ - Use __GFP_NO_OBJ_EXT instead of SLAB_ALLOC_NO_OBJ_EXT
+   since slab's internal alloc_flags do not exist in 6.18.
+
+ - Deferring sheaf bootstrapping for kmalloc caches is not applied
+   as they don't have sheaves in 6.18.
+
+ - Adjust the comment for SLAB_NO_OBJ_EXT, like in the commit
+   982e31382d9a ("mm/slab: decouple SLAB_NO_SHEAVES from
+   SLAB_NO_OBJ_EXT"). The rest of that commit is a no-op in 6.18 as
+   kmalloc caches don't have sheaves and thus only adjust the comment.
+
+ - Apply the __GFP_NO_OBJ_EXT flag to the !allow_spin path in
+   alloc_slab_obj_exts(). ]
 Signed-off-by: Harry Yoo <harry@kernel.org>
 ---
- include/linux/alloc_tag.h | 3 +++
- lib/alloc_tag.c           | 9 +++++++++
- 2 files changed, 12 insertions(+)
+ include/linux/slab.h |  8 +++++-
+ mm/slab.h            | 28 +++++++++++++++++--
+ mm/slab_common.c     | 13 +++++++++
+ mm/slub.c            | 76 +++++++++++++++++-----------------------------------
+ 4 files changed, 70 insertions(+), 55 deletions(-)
 
-diff --git a/include/linux/alloc_tag.h b/include/linux/alloc_tag.h
-index 02de2ede560f..7e7cdc7612be 100644
---- a/include/linux/alloc_tag.h
-+++ b/include/linux/alloc_tag.h
-@@ -134,6 +134,8 @@ static inline bool mem_alloc_profiling_enabled(void)
- 				   &mem_alloc_profiling_key);
+diff --git a/include/linux/slab.h b/include/linux/slab.h
+index 22daf3f34a76..a12601cc93a1 100644
+--- a/include/linux/slab.h
++++ b/include/linux/slab.h
+@@ -238,7 +238,7 @@ enum _slab_flag_bits {
+ #endif
+ #define SLAB_TEMPORARY		SLAB_RECLAIM_ACCOUNT	/* Objects are short-lived */
+ 
+-/* Slab created using create_boot_cache */
++/* Slab caches without obj_exts array */
+ #ifdef CONFIG_SLAB_OBJ_EXT
+ #define SLAB_NO_OBJ_EXT		__SLAB_FLAG_BIT(_SLAB_NO_OBJ_EXT)
+ #else
+@@ -641,6 +641,9 @@ enum kmalloc_cache_type {
+ #endif
+ #ifndef CONFIG_MEMCG
+ 	KMALLOC_CGROUP = KMALLOC_NORMAL,
++#endif
++#ifndef CONFIG_SLAB_OBJ_EXT
++	KMALLOC_NO_OBJ_EXT = KMALLOC_NORMAL,
+ #endif
+ 	KMALLOC_RANDOM_START = KMALLOC_NORMAL,
+ 	KMALLOC_RANDOM_END = KMALLOC_RANDOM_START + RANDOM_KMALLOC_CACHES_NR,
+@@ -654,6 +657,9 @@ enum kmalloc_cache_type {
+ #endif
+ #ifdef CONFIG_MEMCG
+ 	KMALLOC_CGROUP,
++#endif
++#ifdef CONFIG_SLAB_OBJ_EXT
++	KMALLOC_NO_OBJ_EXT,
+ #endif
+ 	NR_KMALLOC_TYPES
+ };
+diff --git a/mm/slab.h b/mm/slab.h
+index 36893299fa67..c452f2a32c80 100644
+--- a/mm/slab.h
++++ b/mm/slab.h
+@@ -394,9 +394,13 @@ static inline struct kmem_cache *
+ kmalloc_slab(size_t size, kmem_buckets *b, gfp_t flags, unsigned long caller)
+ {
+ 	unsigned int index;
++	enum kmalloc_cache_type type = kmalloc_type(flags, caller);
++
++	if (flags & __GFP_NO_OBJ_EXT)
++		type = KMALLOC_NO_OBJ_EXT;
+ 
+ 	if (!b)
+-		b = &kmalloc_caches[kmalloc_type(flags, caller)];
++		b = &kmalloc_caches[type];
+ 	if (size <= 192)
+ 		index = kmalloc_size_index[size_index_elem(size)];
+ 	else
+@@ -435,7 +439,8 @@ static inline bool is_kmalloc_normal(struct kmem_cache *s)
+ {
+ 	if (!is_kmalloc_cache(s))
+ 		return false;
+-	return !(s->flags & (SLAB_CACHE_DMA|SLAB_ACCOUNT|SLAB_RECLAIM_ACCOUNT));
++
++	return !(s->flags & (SLAB_CACHE_DMA|SLAB_ACCOUNT|SLAB_RECLAIM_ACCOUNT|SLAB_NO_OBJ_EXT));
  }
  
-+bool mem_alloc_profiling_permanently_disabled(void);
-+
- static inline struct alloc_tag_counters alloc_tag_read(struct alloc_tag *tag)
- {
- 	struct alloc_tag_counters v = { 0, 0 };
-@@ -239,6 +241,7 @@ static inline bool alloc_tag_is_inaccurate(struct alloc_tag *tag)
- 
- #define DEFINE_ALLOC_TAG(_alloc_tag)
- static inline bool mem_alloc_profiling_enabled(void) { return false; }
-+static inline bool mem_alloc_profiling_permanently_disabled(void) { return true; }
- static inline void alloc_tag_add(union codetag_ref *ref, struct alloc_tag *tag,
- 				 size_t bytes) {}
- static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes) {}
-diff --git a/lib/alloc_tag.c b/lib/alloc_tag.c
-index 3082d977efaa..7c6d3a086fdc 100644
---- a/lib/alloc_tag.c
-+++ b/lib/alloc_tag.c
-@@ -26,6 +26,15 @@ static bool mem_profiling_support = true;
- static bool mem_profiling_support;
+ bool __kfree_rcu_sheaf(struct kmem_cache *s, void *obj);
+@@ -520,6 +525,25 @@ bool slab_in_kunit_test(void);
+ static inline bool slab_in_kunit_test(void) { return false; }
  #endif
  
 +/*
-+ * Memory allocation profiling is permanently disabled and cannot be enabled.
-+ * Must be called after setup_early_mem_profiling().
++ * Return true if KMALLOC_NORMAL caches may need obj_exts arrays.
++ *
++ * Memory allocation profiling requires obj_exts for all caches.
++ * Memcg usually doesn't need them for normal kmalloc caches, but kmalloc types
++ * with a priority higher than KMALLOC_CGROUP can be aliased with KMALLOC_NORMAL.
 + */
-+bool mem_alloc_profiling_permanently_disabled(void)
++static inline bool need_kmalloc_no_objext(void)
 +{
-+	return !mem_profiling_support;
++	if (!mem_alloc_profiling_permanently_disabled())
++		return true;
++
++	if (!mem_cgroup_kmem_disabled() &&
++			(KMALLOC_NORMAL == KMALLOC_RECLAIM))
++		return true;
++
++	return false;
 +}
 +
- static struct codetag_type *alloc_tag_cttype;
+ #ifdef CONFIG_SLAB_OBJ_EXT
  
- #ifdef CONFIG_ARCH_MODULE_NEEDS_WEAK_PER_CPU
+ /*
+diff --git a/mm/slab_common.c b/mm/slab_common.c
+index 04583044a2bf..085af9a96fd9 100644
+--- a/mm/slab_common.c
++++ b/mm/slab_common.c
+@@ -803,6 +803,12 @@ EXPORT_SYMBOL(kmalloc_size_roundup);
+ #define KMALLOC_RANDOM_NAME(N, sz)
+ #endif
+ 
++#ifdef CONFIG_SLAB_OBJ_EXT
++#define KMALLOC_NO_OBJ_EXT_NAME(sz) .name[KMALLOC_NO_OBJ_EXT] = "kmalloc-no-objext-" #sz,
++#else
++#define KMALLOC_NO_OBJ_EXT_NAME(sz)
++#endif
++
+ #define INIT_KMALLOC_INFO(__size, __short_size)			\
+ {								\
+ 	.name[KMALLOC_NORMAL]  = "kmalloc-" #__short_size,	\
+@@ -810,6 +816,7 @@ EXPORT_SYMBOL(kmalloc_size_roundup);
+ 	KMALLOC_CGROUP_NAME(__short_size)			\
+ 	KMALLOC_DMA_NAME(__short_size)				\
+ 	KMALLOC_RANDOM_NAME(RANDOM_KMALLOC_CACHES_NR, __short_size)	\
++	KMALLOC_NO_OBJ_EXT_NAME(__short_size)			\
+ 	.size = __size,						\
+ }
+ 
+@@ -917,6 +924,12 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
+ 			return;
+ 		}
+ 		flags |= SLAB_ACCOUNT;
++	} else if (IS_ENABLED(CONFIG_SLAB_OBJ_EXT) && type == KMALLOC_NO_OBJ_EXT) {
++		if (!need_kmalloc_no_objext()) {
++			kmalloc_caches[type][idx] = kmalloc_caches[KMALLOC_NORMAL][idx];
++			return;
++		}
++		flags |= SLAB_NO_OBJ_EXT | SLAB_NO_MERGE;
+ 	} else if (IS_ENABLED(CONFIG_ZONE_DMA) && (type == KMALLOC_DMA)) {
+ 		flags |= SLAB_CACHE_DMA;
+ 	}
+diff --git a/mm/slub.c b/mm/slub.c
+index 71e09c675047..5ddd2a5c9e79 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -2096,42 +2096,6 @@ static inline void init_slab_obj_exts(struct slab *slab)
+ 	slab->obj_exts = 0;
+ }
+ 
+-/*
+- * Calculate the allocation size for slabobj_ext array.
+- *
+- * When memory allocation profiling is enabled, the obj_exts array
+- * could be allocated from the same slab cache it's being allocated for.
+- * This would prevent the slab from ever being freed because it would
+- * always contain at least one allocated object (its own obj_exts array).
+- *
+- * To avoid this, increase the allocation size when we detect the array
+- * may come from the same cache, forcing it to use a different cache.
+- */
+-static inline size_t obj_exts_alloc_size(struct kmem_cache *s,
+-					 struct slab *slab, gfp_t gfp)
+-{
+-	size_t sz = sizeof(struct slabobj_ext) * slab->objects;
+-	struct kmem_cache *obj_exts_cache;
+-
+-	if (sz > KMALLOC_MAX_CACHE_SIZE)
+-		return sz;
+-
+-	if (!is_kmalloc_normal(s))
+-		return sz;
+-
+-	obj_exts_cache = kmalloc_slab(sz, NULL, gfp, 0);
+-	/*
+-	 * We can't simply compare s with obj_exts_cache, because random kmalloc
+-	 * caches have multiple caches per size, selected by caller address.
+-	 * Since caller address may differ between kmalloc_slab() and actual
+-	 * allocation, bump size when sizes are equal.
+-	 */
+-	if (s->object_size == obj_exts_cache->object_size)
+-		return obj_exts_cache->object_size + 1;
+-
+-	return sz;
+-}
+-
+ int alloc_slab_obj_exts(struct slab *slab, struct kmem_cache *s,
+ 		        gfp_t gfp, bool new_slab)
+ {
+@@ -2140,13 +2104,17 @@ int alloc_slab_obj_exts(struct slab *slab, struct kmem_cache *s,
+ 	unsigned long new_exts;
+ 	unsigned long old_exts;
+ 	struct slabobj_ext *vec;
+-	size_t sz;
++	size_t sz = sizeof(struct slabobj_ext) * slab->objects;
+ 
+ 	gfp &= ~OBJCGS_CLEAR_MASK;
+-	/* Prevent recursive extension vector allocation */
+-	gfp |= __GFP_NO_OBJ_EXT;
+ 
+-	sz = obj_exts_alloc_size(s, slab, gfp);
++	/*
++	 * In most cases, obj_exts arrays are allocated from normal kmalloc.
++	 * However, normal kmalloc caches must allocate them from
++	 * KMALLOC_NO_OBJ_EXT caches to prevent recursion.
++	 */
++	if (is_kmalloc_normal(s))
++		gfp |= __GFP_NO_OBJ_EXT;
+ 
+ 	/*
+ 	 * Note that allow_spin may be false during early boot and its
+@@ -2155,7 +2123,7 @@ int alloc_slab_obj_exts(struct slab *slab, struct kmem_cache *s,
+ 	 * very early allocations on those.
+ 	 */
+ 	if (unlikely(!allow_spin))
+-		vec = kmalloc_nolock(sz, __GFP_ZERO | __GFP_NO_OBJ_EXT,
++		vec = kmalloc_nolock(sz, __GFP_ZERO | (gfp & __GFP_NO_OBJ_EXT),
+ 				     slab_nid(slab));
+ 	else
+ 		vec = kmalloc_node(sz, gfp | __GFP_ZERO, slab_nid(slab));
+@@ -2173,8 +2141,21 @@ int alloc_slab_obj_exts(struct slab *slab, struct kmem_cache *s,
+ 		return -ENOMEM;
+ 	}
+ 
+-	VM_WARN_ON_ONCE(virt_to_slab(vec) != NULL &&
+-			virt_to_slab(vec)->slab_cache == s);
++	if (IS_ENABLED(CONFIG_DEBUG_VM)) {
++		struct kmem_cache *exts_cache;
++		struct slab *exts_slab;
++
++		exts_slab = virt_to_slab(vec);
++		if (exts_slab) {
++			/*
++			 * The vector must be allocated from either normal or
++			 * KMALLOC_NO_OBJ_EXT kmalloc caches to avoid cycles.
++			 */
++			exts_cache = exts_slab->slab_cache;
++			WARN_ON_ONCE(!is_kmalloc_normal(exts_cache) &&
++					!(exts_cache->flags & SLAB_NO_OBJ_EXT));
++		}
++	}
+ 
+ 	new_exts = (unsigned long)vec;
+ 	if (unlikely(!allow_spin))
+@@ -2198,7 +2179,6 @@ int alloc_slab_obj_exts(struct slab *slab, struct kmem_cache *s,
+ 		 * assign slabobj_exts in parallel. In this case the existing
+ 		 * objcg vector should be reused.
+ 		 */
+-		mark_objexts_empty(vec);
+ 		if (unlikely(!allow_spin))
+ 			kfree_nolock(vec);
+ 		else
+@@ -2229,14 +2209,6 @@ static inline void free_slab_obj_exts(struct slab *slab)
+ 		return;
+ 	}
+ 
+-	/*
+-	 * obj_exts was created with __GFP_NO_OBJ_EXT flag, therefore its
+-	 * corresponding extension will be NULL. alloc_tag_sub() will throw a
+-	 * warning if slab has extensions but the extension of an object is
+-	 * NULL, therefore replace NULL with CODETAG_EMPTY to indicate that
+-	 * the extension for obj_exts is expected to be NULL.
+-	 */
+-	mark_objexts_empty(obj_exts);
+ 	if (unlikely(READ_ONCE(slab->obj_exts) & OBJEXTS_NOSPIN_ALLOC))
+ 		kfree_nolock(obj_exts);
+ 	else
 
 -- 
 2.53.0
