@@ -1,60 +1,49 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A433ACF1B
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 20:08:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E5F43C7CA;
+	Mon,  3 Aug 2026 20:09:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785787734; cv=none; b=R5EkwSoNe15Z3oCTKDGoB931DXQYuCKpoBEv7xhle/uUShAywLl81sP3b+JhUxm9wuYsnBqIkpzO1CQg/ZbdLQZzfWeKW9LbExDVZEH8wxqSj8WcOcfoQPcorx25M5ejxOGKIsCCNbuRUkpjQaPQ9AHgYPc2EPqksvtbBbfhAhA=
+	t=1785787769; cv=none; b=Zan2WkKvn0j6P0pjc41lzJF+wh50LWoJpnliB9tmClPs2+rQkW3TZZ35mWtQjheL4Dmbtit5KpxRSZFw4oD+TeIwUhQnHZlQ3TCkQ4X1A8UeWQDz0tKfi4oKrJw822jpCpwUFCw1j8kI7hLSK80Clk9i7YY09PbTUzvIBTPbht8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785787734; c=relaxed/simple;
-	bh=/f5hrtoz/LJM9Jypmu/MosHfMJJwsjNtu6GLYz2mHhE=;
+	s=arc-20240116; t=1785787769; c=relaxed/simple;
+	bh=UL2xleWTCcWwHem/iqrc1U7A5unIZgxGBleOLLjDWOM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vFjplRixNCP/3Rq8hCs8N97Lg3sSm9eQARNzXnzCyqliS6OspxJY6SSKzJkISgHzrB46WDKywCHxL4fRnP9RNg20JtbOaIM6eAIIGnCx2qzrUwX/dvQNCu7LV0HoUwQCXUVU/S5IJpGjKAKbK3lg2PnXX13kaoOiD4yscIWx+QA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kEOmlBky; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 MIME-Version; b=S+jg4yCINYzlTtvtRR2fYu/Z/Yi4lxe4g2WOm7kl7xKB4h0Lu7h6FCHac9kxR6Cr8cMsLEsSHZ33cKfcNZcy0jp48eiZxbjtzzDQsWOywKv6dmtc0U6KSO5pOBjTDyym3dGG5AstebGEniS4Izo09Tfj077BBbBM4XrGyUJ6n78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i/pKQDpC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kEOmlBky"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785787732; x=1817323732;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=/f5hrtoz/LJM9Jypmu/MosHfMJJwsjNtu6GLYz2mHhE=;
-  b=kEOmlBkyhR4fr3KLZCn9nN+mSSLsGv5G0Ad45aQ62Vr9oPrKG0vqarZ0
-   fL1G5hgn0wlQazI+ow/A2S5BVMtNSLMnO/MNQ5/DJKU5+tsDlFRylaFkO
-   OcdTaskGZc6yiMPop6w+Vr1YabMxunXn821Zii/VGGr6Pm1Nl05VKiIk5
-   SP9xvkidADgIab5Ib8tHkN1e2n4guVmkckgmqTgrbIYO22VQCU7dWIRfn
-   bxu7yTTiyUodXiMmBCtI45Z2Zyahq4D6I7g6fUhSIY0ifMqgnOWll3kmE
-   CdqQUB+B+VmK4Pfg0GjlCcshiTAcBfoM/KViHp3A1bcSxNx+4KESXnEig
-   w==;
-X-CSE-ConnectionGUID: TlbrD1UTR7mh59IpN8X5sw==
-X-CSE-MsgGUID: YbiV3bAXRHio9RhxXOoWkA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86188517"
-X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
-   d="scan'208";a="86188517"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 13:08:50 -0700
-X-CSE-ConnectionGUID: OfYEwV1RRU2LJOXoBnF/Ow==
-X-CSE-MsgGUID: 33pV5/XESumLielvLKDl/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
-   d="scan'208";a="266433159"
-Received: from dut6094bmgfrd.fm.intel.com ([10.80.55.44])
-  by fmviesa005.fm.intel.com with ESMTP; 03 Aug 2026 13:08:50 -0700
-From: Jia Yao <jia.yao@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: Jia Yao <jia.yao@intel.com>,
-	Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i/pKQDpC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4507C1F00A3A;
+	Mon,  3 Aug 2026 20:09:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785787767;
+	bh=S4wgGwgsCBRRXQKZClNyXQ3RiCfnTB3Ppk7F8joCYbA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=i/pKQDpCU2wSaA/9vZ/3zwi5GD85sCCi9SW3gEemITSRsQR/8tFwXqSrTfKUGTW+o
+	 flrFErvOJUkTpbMsu3IaDz2wN0vg3PVjYEdUuh14LYR036Fmkj7I2CaoIez+2AwtVe
+	 BAABmyVTMgFkIM5Y5j3jUXEaiLP22wV0VgcvCsV/AaFjgsCtGm/31oWW21Q08cSeXP
+	 4XEcrKJaBIRYb+oDfw+r7MBISGwtpNOIjZz4dx57vyZ+VWMBR1YooyDO3/BrZD/14e
+	 xDVek94YJGGDRtQXQPJJNgliEaEJ6qEA0zoZQoyMh/RjE8NQ+YHAUYdY5e8W7Ahn6+
+	 8QnNn7VbcW8yA==
+From: Andrey Albershteyn <aalbersh@kernel.org>
+To: linux-xfs@vger.kernel.org,
+	fsverity@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	ebiggers@kernel.org
+Cc: Andrey Albershteyn <aalbersh@kernel.org>,
+	hch@lst.de,
+	linux-ext4@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-btrfs@vger.kernel.org,
+	djwong@kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v7 3/3] drm/xe/guc_ads: use uncached mapping for UM queue BO
-Date: Mon,  3 Aug 2026 20:08:38 +0000
-Message-ID: <20260803200838.98826-4-jia.yao@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260803200838.98826-1-jia.yao@intel.com>
-References: <20260803200838.98826-1-jia.yao@intel.com>
+Subject: [PATCH v14 07/21] fsverity: hoist statx reporting of fs-verity flag
+Date: Mon,  3 Aug 2026 22:07:57 +0200
+Message-ID: <20260803200820.393203-8-aalbersh@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260803200820.393203-1-aalbersh@kernel.org>
+References: <20260803200820.393203-1-aalbersh@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,36 +52,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Pre-Xe3p platform, the GAM write the UM queue through DPA using UC.
-if GuC GuC reads the queue via GGTT (WB), stale data may be observed
-when the cacheline has been polluted by another agent.
+All filesystems, supporting fsverity, report this status by checking
+inode flag. Also, BTRFS was missing stat->attributes_mask, which is
+fixed now.
 
-To match the GAM's UC writes, configure the GuC mapping as UC as well.
-
-Fixes: 9c57bc08652a ("drm/xe/lnl: Drop force_probe requirement")
-Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: <stable@vger.kernel.org> # v6.12+
-Signed-off-by: Jia Yao <jia.yao@intel.com>
-Reviewed by: Matthew Auld <matthew.auld@intel.com>
+Fixes: 146054090b08 ("btrfs: initial fsverity support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrey Albershteyn <aalbersh@kernel.org>
+Acked-by: Eric Biggers <ebiggers@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_guc_ads.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/btrfs/inode.c | 3 ---
+ fs/ext4/inode.c  | 5 +----
+ fs/f2fs/file.c   | 5 +----
+ fs/stat.c        | 6 +++++-
+ 4 files changed, 7 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
-index a69ec584cc0f..97a2dbb03558 100644
---- a/drivers/gpu/drm/xe/xe_guc_ads.c
-+++ b/drivers/gpu/drm/xe/xe_guc_ads.c
-@@ -459,7 +459,8 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
- 		u32 um_flags = XE_BO_FLAG_VRAM_IF_DGFX(tile) |
- 			       XE_BO_FLAG_GGTT |
- 			       XE_BO_FLAG_GGTT_INVALIDATE |
--			       XE_BO_FLAG_PINNED_NORESTORE;
-+			       XE_BO_FLAG_PINNED_NORESTORE |
-+			       XE_BO_FLAG_NEEDS_UC;
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index 272598f6ae77..de729c44d6d2 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -8040,7 +8040,6 @@ static int btrfs_getattr(struct mnt_idmap *idmap,
+ 	struct inode *inode = d_inode(path->dentry);
+ 	u32 blocksize = btrfs_sb(inode->i_sb)->sectorsize;
+ 	u32 bi_flags = BTRFS_I(inode)->flags;
+-	u32 bi_ro_flags = BTRFS_I(inode)->ro_flags;
  
- 		bo = xe_managed_bo_create_pin_map(xe, tile, um_size, um_flags);
- 		if (IS_ERR(bo))
+ 	stat->result_mask |= STATX_BTIME;
+ 	stat->btime.tv_sec = BTRFS_I(inode)->i_otime_sec;
+@@ -8053,8 +8052,6 @@ static int btrfs_getattr(struct mnt_idmap *idmap,
+ 		stat->attributes |= STATX_ATTR_IMMUTABLE;
+ 	if (bi_flags & BTRFS_INODE_NODUMP)
+ 		stat->attributes |= STATX_ATTR_NODUMP;
+-	if (bi_ro_flags & BTRFS_INODE_RO_VERITY)
+-		stat->attributes |= STATX_ATTR_VERITY;
+ 
+ 	stat->attributes_mask |= (STATX_ATTR_APPEND |
+ 				  STATX_ATTR_COMPRESSED |
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index ce99807c5f5b..99fa7a28951f 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -6250,15 +6250,12 @@ int ext4_getattr(struct mnt_idmap *idmap, const struct path *path,
+ 		stat->attributes |= STATX_ATTR_IMMUTABLE;
+ 	if (flags & EXT4_NODUMP_FL)
+ 		stat->attributes |= STATX_ATTR_NODUMP;
+-	if (flags & EXT4_VERITY_FL)
+-		stat->attributes |= STATX_ATTR_VERITY;
+ 
+ 	stat->attributes_mask |= (STATX_ATTR_APPEND |
+ 				  STATX_ATTR_COMPRESSED |
+ 				  STATX_ATTR_ENCRYPTED |
+ 				  STATX_ATTR_IMMUTABLE |
+-				  STATX_ATTR_NODUMP |
+-				  STATX_ATTR_VERITY);
++				  STATX_ATTR_NODUMP);
+ 
+ 	generic_fillattr(idmap, request_mask, inode, stat);
+ 	return 0;
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index 4b52c56d71f0..9b531a016ed4 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -1024,15 +1024,12 @@ int f2fs_getattr(struct mnt_idmap *idmap, const struct path *path,
+ 		stat->attributes |= STATX_ATTR_IMMUTABLE;
+ 	if (flags & F2FS_NODUMP_FL)
+ 		stat->attributes |= STATX_ATTR_NODUMP;
+-	if (IS_VERITY(inode))
+-		stat->attributes |= STATX_ATTR_VERITY;
+ 
+ 	stat->attributes_mask |= (STATX_ATTR_COMPRESSED |
+ 				  STATX_ATTR_APPEND |
+ 				  STATX_ATTR_ENCRYPTED |
+ 				  STATX_ATTR_IMMUTABLE |
+-				  STATX_ATTR_NODUMP |
+-				  STATX_ATTR_VERITY);
++				  STATX_ATTR_NODUMP);
+ 
+ 	generic_fillattr(idmap, request_mask, inode, stat);
+ 
+diff --git a/fs/stat.c b/fs/stat.c
+index 89909746bed1..ae1299bd7436 100644
+--- a/fs/stat.c
++++ b/fs/stat.c
+@@ -203,8 +203,12 @@ int vfs_getattr_nosec(const struct path *path, struct kstat *stat,
+ 	if (IS_DAX(inode))
+ 		stat->attributes |= STATX_ATTR_DAX;
+ 
++	if (IS_VERITY(inode))
++		stat->attributes |= STATX_ATTR_VERITY;
++
+ 	stat->attributes_mask |= (STATX_ATTR_AUTOMOUNT |
+-				  STATX_ATTR_DAX);
++				  STATX_ATTR_DAX |
++				  STATX_ATTR_VERITY);
+ 
+ 	idmap = mnt_idmap(path->mnt);
+ 	if (inode->i_op->getattr) {
 -- 
-2.43.0
+2.54.0
 
