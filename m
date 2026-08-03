@@ -1,86 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6FB305680;
-	Mon,  3 Aug 2026 14:54:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CFB8400DFF
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 14:57:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785768856; cv=none; b=XQlqtKsR2CEV2/G2W7Whcgxy5ycqjNd1RCPIRaSJsmKy9f/P1h4QCynzOuLQpbf1TmWLGNB4oKI8ypCUXXLyVJ4js/WA7a2n64m6G+04/2rrIg1wWw8MMA4iGwK7tmWuFg3MQxwAoMaqqg5kEF8Ud2bWCty3nf5HMWHw4nPs83U=
+	t=1785769043; cv=none; b=nx7pRcXEUC14VogyOnbxkHPyTVI6mpqPqLCYgjYb28MvesGEW1IKvpN4uPe1DIGiKY8E4aQAItDhM0bSVXvHU941G180zga4cWoUtZUVvwZHQJquO4NPjRbM3nUceDFD3jjTtr38N0mucRileYnuHr5n/j1En3SkjU2m6DWwVj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785768856; c=relaxed/simple;
-	bh=bn9DntWmYHX7rjqyF2E8Zl/GfronaN47+0YjZ0pG1R0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fEkqyuFG7n3nCg6U9ekK/PnwHRJPOaCVWkrjCHofyaIE+Sm5I4mSVe14Lw9BF7hBAlBUC+xEpr9Koz4BWbDzsAihDlPRGHU2RndBeGOV14o/JArLDceCtkUIM8kwYzhIMD3tNN+6b2MFz9O2lZl5WF9aImfRRZhmuntoNqG97sQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fNMCSboL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785769043; c=relaxed/simple;
+	bh=sJUF2UnrPqNELsMR2fGhE2BlL02YRxP+ImQptnWyR38=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lCvSR98mvlpvEX6cnbusqnvDCE0qozr7dgXtJGYHw1rAyY02YKuNcDzvzsEGsjudU59/W4WOosW7S8ztpUQiPSifTTq6PSkifQj0aPsBbjYWf+i2vhkGifEQJV6iCWkiADCZG3Sxipdim5Bz6QJJotgT/b2we0IhdnaSwPRkX4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q1DTg55O; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fNMCSboL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A471F000E9;
-	Mon,  3 Aug 2026 14:54:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785768854;
-	bh=LWWMyiRyHQgnIeqT2FsVGOyXULdTvyWYrbxiNMTKbzc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fNMCSboL3Q4QfowHWSTQl4JGBKt7K2MpilPyyL7bcEHAJ9Nj8N/OlLUXPRngp3m9w
-	 e5ZCPSNNOmvz2UDmhRh7vDfrEaBgLlJVOr472RvCkZocJKhbOAHnLjJTXPhwpAeJDd
-	 mUggtZjIrCuWKohhfIobaJuy6Cuv1c3MMYitaG2s=
-Date: Mon, 3 Aug 2026 16:53:59 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Jiri Slaby <jirislaby@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v4 5/5] serial: imx: serialize imx_uart_ports[] lifetime
-Message-ID: <2026080341-agreeing-context-ca78@gregkh>
-References: <20260731181844.11330-1-kmehltretter@gmail.com>
- <20260731181844.11330-6-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q1DTg55O"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47f904e80eeso3198572f8f.1
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 07:57:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785769041; x=1786373841; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=doE31CPU3agNQxp/VoBL0iESGBCUl1rgFFpxig9/S98=;
+        b=Q1DTg55Owbntlw+hzW+8wHku+ILoMKsn9GIdItpV9AoA5NXWy0e4noxuabNN7pss6g
+         HOHDIT5xazzHU/cwZB+j/DpWQKpPrT03wrjJPtjewkzg11nULqRkketK7Eiitsj3Sg5l
+         oz5E1TCvvpowX9lfEV1Y7n6Vx6b3O53He8Mhj94qRdl2RshoT3LyZwHtbs0wYYH1hnD2
+         fYpqpP3H2xQI8YfPZIssnNoomzsOOvhGq90gNu5oOPB/818TgSsINqRXEA8oNsTFvlWY
+         6sI6iop4LVk+lmPkOjlPSFUFM6KR8Elal21kae+VjX+bLnH6sohgQtWykW0Hi/wsoOKw
+         us/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785769041; x=1786373841;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=doE31CPU3agNQxp/VoBL0iESGBCUl1rgFFpxig9/S98=;
+        b=BGupqwV6MDJVsJ5JbF29uYmopCaXb9181UB7vn6MCIgnKqQdvYcKGI8sOf9MZzwwWB
+         U+ITZGU06rbds6LZ4BJobRlveR0M9T6wLng468ktaqIpdzmNXVRP7F/TCQZOmB6fsp7l
+         W5Jm4HcgVFEzOlNEzGAMA3XandivteXZeW25fp13eI/89Xz+g8JBlK5ZYGdgvHvrpum1
+         Ff+Heae1BjWDraIozc31vCdAPLcUp6M4Inmyy6uo69qQdzWKCXkvRrxSLB9xLZbX0UHD
+         aVIi4BCwucc+c9w9eI5KpKTTjYWwJy8W7kBUx8LZKn61AmeJzNBLcdNRiMf5e6w4SNHn
+         0UkQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr8AJUq6vmKi1kCi2qclsZ46CwIKIvQ6oLxzrXlsp7hkSbqIqmQdyTfJ8zXhPCox5X6s3Q+8qQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxtwVS1vs7Bm9ndmDxJksBqHrd/YoqwNVLu4IIYMzMCqaC1W6F0
+	i78GEXSC1FxacocYtVqpQEqq8a0wK1NEgISv6SFyEWdKDmwosp11VPXPzXhg4+VRJ1s=
+X-Gm-Gg: AR+sD13nJZCcMClxpsABT682p9RkPLaHu7Fu+uEmbqi0l8WxoIHDMXvkIr+bB1M+6vN
+	tSGFbtSVLFwpwziv//73nnp64Ztx41I3soPMRxlAgO/rVROfdLyCcVCLXiVe28N3OfjT+gKeoGC
+	3w9A7c+0Pi6Ar6IIzX1hKMWvXxpPTnsOmV8igCx/+GTQlMHajOT+XSaMbmtIdCMc+inS2nMEevc
+	PnZfzFKHVpSBG0VUCpcNMBd02KCnrjlJREQTZl7bVOBOnZOifzR01g9F2VDP5sIF4ZuDhilana4
+	oG8eaMZMK8QzuSWMSneeebCtWoi2G4X4DCRDUxs+OXTP1UNQcISOXz07UizUU7P6OfakijTgsxl
+	j6C0T7ELLYrT+I3cDxvjCHEgUpF/yR/Cw8hXAbbECGoG71Wq5jMgDtL96KkaztHYx/DTtGc5q3p
+	uQkFS/TEz13Vp3M1nlArRz3LbxhkXVk2pLNCLWve4J4Ebrx8/Kq6+I1VdOAkiU3ac74f3x18iQo
+	1ZhpOqdI3nTKiFwjt8l1nCW6w==
+X-Received: by 2002:adf:fdcd:0:b0:47f:8fc8:af01 with SMTP id ffacd0b85a97d-47fd72f1fd4mr22343046f8f.27.1785769040415;
+        Mon, 03 Aug 2026 07:57:20 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd458bf7csm35015001f8f.32.2026.08.03.07.57.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 03 Aug 2026 07:57:20 -0700 (PDT)
+Date: Mon, 3 Aug 2026 15:57:15 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, stable@vger.kernel.org,
+ damon@lists.linux.dev, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 2/2] mm/damon/lru_sort: error out for >10000
+ active_mem_bp
+Message-ID: <20260803155715.08868ca7@pumpkin>
+In-Reply-To: <20260803134034.15217-3-sj@kernel.org>
+References: <20260803134034.15217-1-sj@kernel.org>
+	<20260803134034.15217-3-sj@kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260731181844.11330-6-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jul 31, 2026 at 08:18:44PM +0200, Karl Mehltretter wrote:
-> imx_uart_probe() publishes its devm-allocated port in imx_uart_ports[]
-> before uart_add_one_port() because console setup uses the table. The entry
-> is not cleared when adding the port fails or after removal, leaving a
-> dangling pointer.
+On Mon,  3 Aug 2026 06:40:33 -0700
+SJ Park <sj@kernel.org> wrote:
+
+> damos_quota_score() can trigger division by zero if the target value is
+> zero.  DAMON_LRU_SORT lets users set the target value for the hot memory
+> scheme via active_mem_bp parameter.  It avoids setting it as the target
+> value if the parameter value is zero.  However, it also sets the cold
+> memory scheme with a target value that is calculated as '10000 -
+> active_mem_bp + 2'.  Hence, if a user sets active_mem_bp 10002, the cold
+> memory scheme's quota goal target value can be zero.  As a result,
+> division by zero can be triggered.  Fix by returning an error when the
+> user tries to start DAMON with >10000 active_mem_bp parameter value.
 > 
-> A sibling probe can register the shared console through that stale entry.
-> This was reproduced under KASAN on QEMU mcimx6ul-evk by unbinding a
-> sibling UART, unbinding the console UART and rebinding the sibling.
+> It makes no sense to set active_mem_bp with 10002.  It also requires
+> module parameters write permission to reproduce the issue.  That said,
+> the consequence is quite bad.
 > 
-> Keep the entry valid through uart_remove_one_port(), then clear it. Protect
-> port addition and removal together with their table updates so sibling
-> operations cannot interleave. Reject an occupied slot rather than
-> clobbering an active port during a duplicate-line probe.
+> One reliable way to reproduce the issue is like below:
 > 
-> Fixes: dbff4e9ea2e8 ("IMX UART: remove statically initialized tables")
-> Fixes: 9f322ad064f9 ("imx: serial: handle initialisation failure correctly")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/all/20260719162850.043B41F000E9@smtp.kernel.org
-> Link: https://lore.kernel.org/all/20260719222501.CB4CB1F000E9@smtp.kernel.org
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+>     # cd /sys/module/damon_lru_sort/parameters
+>     # echo 1000 > wmarks_high
+>     # echo 995 > wmarks_mid
+>     # echo 0 > wmarks_low
+>     # echo 10002 > active_mem_bp
+>     # echo Y > enabled
+>     # dmesg -w
+>     [...]
+>     [  597.421247] Oops: divide error: 0000 [#1] SMP NOPTI
+>     [  597.428848] RIP: 0010:damos_quota_score+0x6f/0x480
+> 
+> This issue was discovered [1] by Sashiko.
+> 
+> [1] https://lore.kernel.org/20260801213028.5127-1-sj@kernel.org
+> 
+> Fixes: 40d98d31cd70 ("mm/damon/lru_sort: support active:inactive memory ratio based auto-tuning")
+> Cc: <stable@vger.kernel.org> # 7.0.x
+> Signed-off-by: SJ Park <sj@kernel.org>
 > ---
-> Backport note: the removal fix is self-contained. Complete probe-failure
-> coverage also requires patch 1. With patch 1, all fallible allocations
-> precede console registration, so rollback can safely clear the table.
-> Without it, a late allocation failure (only reachable with fault
-> injection) can leave the console registered after imx_uart_ports[] is
-> cleared, turning the pre-existing use-after-free into a NULL
-> dereference.
+>  mm/damon/lru_sort.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/mm/damon/lru_sort.c b/mm/damon/lru_sort.c
+> index 7e077084cb03a..3920d5042f109 100644
+> --- a/mm/damon/lru_sort.c
+> +++ b/mm/damon/lru_sort.c
+> @@ -233,6 +233,8 @@ static int damon_lru_sort_add_quota_goals(struct damos *hot_scheme,
+>  
+>  	if (!active_mem_bp)
+>  		return 0;
+> +	if (10000 < active_mem_bp)
 
-None of these should probably be backported, so this should be ok :)
+That is backwards...
 
-thanks,
+> +		return -EINVAL;
+>  	goal = damos_new_quota_goal(DAMOS_QUOTA_ACTIVE_MEM_BP, active_mem_bp);
+>  	if (!goal)
+>  		return -ENOMEM;
 
-greg k-h
