@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA254233928
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 15:30:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13E02FC01B
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 15:30:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785771047; cv=none; b=YLSPghrrkS6u4+NsfJFWB6K97U3c9whaDX2FF2vuPXvaLTlhmhaUjcp63M/ENryghbsdRufBLlM0YzdTOj+Pj7K3MjnVpr2D+iDp77B1sKQQo3M16ftpVwqxhu+58oCvTFMGvC1igp0WZRR322hFPaQzCnOCVuDy1txQBpqJuzI=
+	t=1785771047; cv=none; b=mxod0eULBsb2DS2DA2REfeQUQ53y90OIAX54w5W3nqD7UOZjt4oocnzW/aSXH2Cmox2fjygNBoXW4aQQObigGj6Xsf/wmJhB3Kh5Hgy2MomHXvRLOg2kcAW7Sz7I9chbgOrkQdgES3m8nEc8LLwMSNHjCHPcFH/DNCiWEj1sW9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785771047; c=relaxed/simple;
-	bh=PsYUqNKmI+JWGmavSM7wnmiYMKTWz6Qa0Ps4R/3ScOI=;
+	bh=Gp3XTrInhJNSFM7OXO9A3RParpfCePCEy4hkY4+JGQw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HTmhpwKWjh9xbC5dhlVIOIT1pgKYDOnUllOneeIZgB6JF8mBKXau/fGKdgj/EYMvNZ4kC6gEiCGPdNbwyG6LGm2H89crTYzRtyxJNj+wL8bDo4r/mQq45NhHyF7unvzVOYonoa9ymUrH3Zq/Q/fTo4gHgf0/qqP3lzDh3VuTIh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o06LeACx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Ie8A1EyRvm87RSnRu7+mOpThwVp6SE4w4F7aOes4unPlAarUfZ44Bnlcv6iTqWkaNPPJFHTmKFJnyBhZHciT6kNULBf924BtrSc3zlXNFbn/Q6TONv5zuYj/OwR/nsXdWKEnS0gcA3JeNRckWWmowZfOtIQ3np++ICbqZBP6zvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ciyh8HQD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o06LeACx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BE601F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ciyh8HQD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF6CC1F00A3E;
 	Mon,  3 Aug 2026 15:30:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785771045;
-	bh=Nj79/+0HPhe96NEM1hryTen7H0fwmsKgqhyKgZBVBZc=;
+	s=k20260515; t=1785771046;
+	bh=vKThLuGdb4vaVPE+I48srIjFavFmr8wMDjVQmuDMUUQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=o06LeACx/1iAr33X/6y06E7v/tlw7lc2eWNWrkBXcJaTVrc3l4oZ0tN6dHjGDuAlO
-	 N5IEtYeyeP9KSCQRJBfGEVIAF+qNnhawXLQfp+WNkSiH48hA4SM25M3JNBiPpnIACV
-	 L0zoXaY1eQAI8slBdAwvUbCyg7tf8iECMB912JYkBxU83KlarDWZ5iDGK1Y12wcJsb
-	 hSf0FOYP07MwMqRarP8EkmDJAPd2BApkAoRLbgq7kOty7JzM/BkyCEy7jBYRZ9qTvr
-	 xPO6ZVpMgu3UgJjN4PuDb0e4gePffL6FEwgOP8zRdvMkKRoBKW9y5tXrigr4Rxhng2
-	 D6kyb7O7bM29g==
+	b=ciyh8HQDkW5gS+AntmY7EJAgGOTdYiEgYhKC3iVmSEuQ9JIuZmqtq1tPThKSdek7j
+	 Axu47/nBpbDnF7loI2rT0to/h0kdN3ydL/YSZAYmbA4Z9XDb5P48sFrDYF3fj/MpUS
+	 1EKL+BnrAcEhQDhdNZIlRuitsVhI0wQiSJ0AuIkWgu3UdnWjIo7n6WVkv/3q0lHhnC
+	 Ej26w3R6v8wOOCu/nJAXz+4HyQ5pE4ZtkEEddeadWm0rWpP+Gw16jiMi3mNkQ4m3Ny
+	 7scYFRvMxFuUu6Grq5E9NUrrx33So2RVyjkx78Ol7XdkknQ4epTmVzoB1SajCxeUgx
+	 pZDqBWWLVjbZQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Matthew Brost <matthew.brost@intel.com>,
-	Lucas De Marchi <lucas.demarchi@intel.com>,
-	Francois Dugast <francois.dugast@intel.com>,
+Cc: Zongyao Bai <zongyao.bai@intel.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] drm/xe: Stub out new pagefault layer
-Date: Mon,  3 Aug 2026 11:30:41 -0400
-Message-ID: <20260803153043.878690-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] drm/xe/pt: Reset current_op in xe_pt_update_ops_init()
+Date: Mon,  3 Aug 2026 11:30:42 -0400
+Message-ID: <20260803153043.878690-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072945-delicacy-outlook-06e9@gregkh>
+In-Reply-To: <20260803153043.878690-1-sashal@kernel.org>
 References: <2026072945-delicacy-outlook-06e9@gregkh>
+ <20260803153043.878690-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,289 +49,65 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Matthew Brost <matthew.brost@intel.com>
+From: Zongyao Bai <zongyao.bai@intel.com>
 
-[ Upstream commit 620a09fb0bddf387f418663478b48ca4ba62b6d6 ]
+[ Upstream commit 6384271ac1ac0099198d15df79212a19ebdb929d ]
 
-Stub out the new page fault layer and add kernel documentation. This is
-intended as a replacement for the GT page fault layer, enabling multiple
-producers to hook into a shared page fault consumer interface.
+xe_pt_update_ops_init() fails to reset current_op to 0. On the
+vm_bind path, ops_execute() calls xe_pt_update_ops_prepare() inside
+the xe_validation_guard() / drm_exec_until_all_locked() loop. When
+that loop retries due to lock contention or OOM eviction
+(drm_exec_retry_on_contention() / xe_validation_retry_on_oom()),
+xe_pt_update_ops_prepare() runs again on the same vops, and each
+call to bind_op_prepare() increments current_op without resetting it.
 
-v2:
- - Fix kernel doc typo (checkpatch)
- - Remove comment around GT (Stuart)
- - Add explaination around reclaim (Francois)
- - Add comment around u8 vs enum (Francois)
- - Include engine instance (Stuart)
-v3:
- - Fix XE_PAGEFAULT_TYPE_ATOMIC_ACCESS_VIOLATION kernel doc (Stuart)
+After N retries current_op exceeds the array size allocated by
+xe_vma_ops_alloc(), causing an out-of-bounds write into
+SLUB-poisoned memory and a subsequent UAF crash in
+xe_migrate_update_pgtables_cpu() when reading the corrupted pt_op->bind.
 
+Also reset needs_svm_lock and needs_invalidation which are derived in
+the same prepare pass and would otherwise cause wrong migrate ops
+selection and redundant TLB invalidation on retry.
+
+Fix this by resetting current_op, needs_svm_lock and needs_invalidation
+in xe_pt_update_ops_init().
+
+v2 (Matt):
+   - Add details in commit message.
+   - Add Fixes tag and Cc to stable@vger.kernel.org
+
+Fixes: e8babb280b5e ("drm/xe: Convert multiple bind ops into single job")
+Suggested-by: Matthew Auld <matthew.auld@intel.com>
+Cc: stable@vger.kernel.org
+Assisted-by: GitHub-Copilot:claude-sonnet-4.6
+Signed-off-by: Zongyao Bai <zongyao.bai@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Tested-by: Francois Dugast <francois.dugast@intel.com>
-Link: https://patch.msgid.link/20251031165416.2871503-2-matthew.brost@intel.com
-Stable-dep-of: 6384271ac1ac ("drm/xe/pt: Reset current_op in xe_pt_update_ops_init()")
+Link: https://patch.msgid.link/20260714232433.2737533-1-zongyao.bai@intel.com
+(cherry picked from commit 046045543e530605c441063535e7dca0075369a6)
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/xe/Makefile             |   1 +
- drivers/gpu/drm/xe/xe_pagefault.c       |  65 +++++++++++
- drivers/gpu/drm/xe/xe_pagefault.h       |  19 ++++
- drivers/gpu/drm/xe/xe_pagefault_types.h | 136 ++++++++++++++++++++++++
- 4 files changed, 221 insertions(+)
- create mode 100644 drivers/gpu/drm/xe/xe_pagefault.c
- create mode 100644 drivers/gpu/drm/xe/xe_pagefault.h
- create mode 100644 drivers/gpu/drm/xe/xe_pagefault_types.h
+ drivers/gpu/drm/xe/xe_pt.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
-index edfd812e0f417..4464d56b4540e 100644
---- a/drivers/gpu/drm/xe/Makefile
-+++ b/drivers/gpu/drm/xe/Makefile
-@@ -78,6 +78,7 @@ xe-y += xe_bb.o \
- 	xe_module.o \
- 	xe_oa.o \
- 	xe_observation.o \
-+	xe_pagefault.o \
- 	xe_pat.o \
- 	xe_pci.o \
- 	xe_pcode.o \
-diff --git a/drivers/gpu/drm/xe/xe_pagefault.c b/drivers/gpu/drm/xe/xe_pagefault.c
-new file mode 100644
-index 0000000000000..d509a80cb1f31
---- /dev/null
-+++ b/drivers/gpu/drm/xe/xe_pagefault.c
-@@ -0,0 +1,65 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2025 Intel Corporation
-+ */
-+
-+#include "xe_pagefault.h"
-+#include "xe_pagefault_types.h"
-+
-+/**
-+ * DOC: Xe page faults
-+ *
-+ * Xe page faults are handled in two layers. The producer layer interacts with
-+ * hardware or firmware to receive and parse faults into struct xe_pagefault,
-+ * then forwards them to the consumer. The consumer layer services the faults
-+ * (e.g., memory migration, page table updates) and acknowledges the result back
-+ * to the producer, which then forwards the results to the hardware or firmware.
-+ * The consumer uses a page fault queue sized to absorb all potential faults and
-+ * a multi-threaded worker to process them. Multiple producers are supported,
-+ * with a single shared consumer.
-+ *
-+ * xe_pagefault.c implements the consumer layer.
-+ */
-+
-+/**
-+ * xe_pagefault_init() - Page fault init
-+ * @xe: xe device instance
-+ *
-+ * Initialize Xe page fault state. Must be done after reading fuses.
-+ *
-+ * Return: 0 on Success, errno on failure
-+ */
-+int xe_pagefault_init(struct xe_device *xe)
-+{
-+	/* TODO - implement */
-+	return 0;
-+}
-+
-+/**
-+ * xe_pagefault_reset() - Page fault reset for a GT
-+ * @xe: xe device instance
-+ * @gt: GT being reset
-+ *
-+ * Reset the Xe page fault state for a GT; that is, squash any pending faults on
-+ * the GT.
-+ */
-+void xe_pagefault_reset(struct xe_device *xe, struct xe_gt *gt)
-+{
-+	/* TODO - implement */
-+}
-+
-+/**
-+ * xe_pagefault_handler() - Page fault handler
-+ * @xe: xe device instance
-+ * @pf: Page fault
-+ *
-+ * Sink the page fault to a queue (i.e., a memory buffer) and queue a worker to
-+ * service it. Safe to be called from IRQ or process context. Reclaim safe.
-+ *
-+ * Return: 0 on success, errno on failure
-+ */
-+int xe_pagefault_handler(struct xe_device *xe, struct xe_pagefault *pf)
-+{
-+	/* TODO - implement */
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/xe/xe_pagefault.h b/drivers/gpu/drm/xe/xe_pagefault.h
-new file mode 100644
-index 0000000000000..bd0cdf9ed37f1
---- /dev/null
-+++ b/drivers/gpu/drm/xe/xe_pagefault.h
-@@ -0,0 +1,19 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2025 Intel Corporation
-+ */
-+
-+#ifndef _XE_PAGEFAULT_H_
-+#define _XE_PAGEFAULT_H_
-+
-+struct xe_device;
-+struct xe_gt;
-+struct xe_pagefault;
-+
-+int xe_pagefault_init(struct xe_device *xe);
-+
-+void xe_pagefault_reset(struct xe_device *xe, struct xe_gt *gt);
-+
-+int xe_pagefault_handler(struct xe_device *xe, struct xe_pagefault *pf);
-+
-+#endif
-diff --git a/drivers/gpu/drm/xe/xe_pagefault_types.h b/drivers/gpu/drm/xe/xe_pagefault_types.h
-new file mode 100644
-index 0000000000000..d3b516407d600
---- /dev/null
-+++ b/drivers/gpu/drm/xe/xe_pagefault_types.h
-@@ -0,0 +1,136 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2025 Intel Corporation
-+ */
-+
-+#ifndef _XE_PAGEFAULT_TYPES_H_
-+#define _XE_PAGEFAULT_TYPES_H_
-+
-+#include <linux/workqueue.h>
-+
-+struct xe_gt;
-+struct xe_pagefault;
-+
-+/** enum xe_pagefault_access_type - Xe page fault access type */
-+enum xe_pagefault_access_type {
-+	/** @XE_PAGEFAULT_ACCESS_TYPE_READ: Read access type */
-+	XE_PAGEFAULT_ACCESS_TYPE_READ	= 0,
-+	/** @XE_PAGEFAULT_ACCESS_TYPE_WRITE: Write access type */
-+	XE_PAGEFAULT_ACCESS_TYPE_WRITE	= 1,
-+	/** @XE_PAGEFAULT_ACCESS_TYPE_ATOMIC: Atomic access type */
-+	XE_PAGEFAULT_ACCESS_TYPE_ATOMIC	= 2,
-+};
-+
-+/** enum xe_pagefault_type - Xe page fault type */
-+enum xe_pagefault_type {
-+	/** @XE_PAGEFAULT_TYPE_NOT_PRESENT: Not present */
-+	XE_PAGEFAULT_TYPE_NOT_PRESENT			= 0,
-+	/** @XE_PAGEFAULT_TYPE_WRITE_ACCESS_VIOLATION: Write access violation */
-+	XE_PAGEFAULT_TYPE_WRITE_ACCESS_VIOLATION	= 1,
-+	/** @XE_PAGEFAULT_TYPE_ATOMIC_ACCESS_VIOLATION: Atomic access violation */
-+	XE_PAGEFAULT_TYPE_ATOMIC_ACCESS_VIOLATION	= 2,
-+};
-+
-+/** struct xe_pagefault_ops - Xe pagefault ops (producer) */
-+struct xe_pagefault_ops {
-+	/**
-+	 * @ack_fault: Ack fault
-+	 * @pf: Page fault
-+	 * @err: Error state of fault
-+	 *
-+	 * Page fault producer receives acknowledgment from the consumer and
-+	 * sends the result to the HW/FW interface.
-+	 */
-+	void (*ack_fault)(struct xe_pagefault *pf, int err);
-+};
-+
-+/**
-+ * struct xe_pagefault - Xe page fault
-+ *
-+ * Generic page fault structure for communication between producer and consumer.
-+ * Carefully sized to be 64 bytes. Upon a device page fault, the producer
-+ * populates this structure, and the consumer copies it into the page-fault
-+ * queue for deferred handling.
-+ */
-+struct xe_pagefault {
-+	/**
-+	 * @gt: GT of fault
-+	 */
-+	struct xe_gt *gt;
-+	/**
-+	 * @consumer: State for the software handling the fault. Populated by
-+	 * the producer and may be modified by the consumer to communicate
-+	 * information back to the producer upon fault acknowledgment.
-+	 */
-+	struct {
-+		/** @consumer.page_addr: address of page fault */
-+		u64 page_addr;
-+		/** @consumer.asid: address space ID */
-+		u32 asid;
-+		/**
-+		 * @consumer.access_type: access type, u8 rather than enum to
-+		 * keep size compact
-+		 */
-+		u8 access_type;
-+		/**
-+		 * @consumer.fault_type: fault type, u8 rather than enum to
-+		 * keep size compact
-+		 */
-+		u8 fault_type;
-+#define XE_PAGEFAULT_LEVEL_NACK		0xff	/* Producer indicates nack fault */
-+		/** @consumer.fault_level: fault level */
-+		u8 fault_level;
-+		/** @consumer.engine_class: engine class */
-+		u8 engine_class;
-+		/** @consumer.engine_instance: engine instance */
-+		u8 engine_instance;
-+		/** consumer.reserved: reserved bits for future expansion */
-+		u8 reserved[7];
-+	} consumer;
-+	/**
-+	 * @producer: State for the producer (i.e., HW/FW interface). Populated
-+	 * by the producer and should not be modified—or even inspected—by the
-+	 * consumer, except for calling operations.
-+	 */
-+	struct {
-+		/** @producer.private: private pointer */
-+		void *private;
-+		/** @producer.ops: operations */
-+		const struct xe_pagefault_ops *ops;
-+#define XE_PAGEFAULT_PRODUCER_MSG_LEN_DW	4
-+		/**
-+		 * @producer.msg: page fault message, used by producer in fault
-+		 * acknowledgment to formulate response to HW/FW interface.
-+		 * Included in the page-fault message because the producer
-+		 * typically receives the fault in a context where memory cannot
-+		 * be allocated (e.g., atomic context or the reclaim path).
-+		 */
-+		u32 msg[XE_PAGEFAULT_PRODUCER_MSG_LEN_DW];
-+	} producer;
-+};
-+
-+/**
-+ * struct xe_pagefault_queue: Xe pagefault queue (consumer)
-+ *
-+ * Used to capture all device page faults for deferred processing. Size this
-+ * queue to absorb the device’s worst-case number of outstanding faults.
-+ */
-+struct xe_pagefault_queue {
-+	/**
-+	 * @data: Data in queue containing struct xe_pagefault, protected by
-+	 * @lock
-+	 */
-+	void *data;
-+	/** @size: Size of queue in bytes */
-+	u32 size;
-+	/** @head: Head pointer in bytes, moved by producer, protected by @lock */
-+	u32 head;
-+	/** @tail: Tail pointer in bytes, moved by consumer, protected by @lock */
-+	u32 tail;
-+	/** @lock: protects page fault queue */
-+	spinlock_t lock;
-+	/** @worker: to process page faults */
-+	struct work_struct worker;
-+};
-+
-+#endif
+diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+index 422dc351dc0e0..de445e4d1ae0d 100644
+--- a/drivers/gpu/drm/xe/xe_pt.c
++++ b/drivers/gpu/drm/xe/xe_pt.c
+@@ -1823,8 +1823,11 @@ static void
+ xe_pt_update_ops_init(struct xe_vm_pgtable_update_ops *pt_update_ops)
+ {
+ 	init_llist_head(&pt_update_ops->deferred);
++	pt_update_ops->current_op = 0;
+ 	pt_update_ops->start = ~0x0ull;
+ 	pt_update_ops->last = 0x0ull;
++	pt_update_ops->needs_userptr_lock = false;
++	pt_update_ops->needs_invalidation = false;
+ }
+ 
+ /**
 -- 
 2.53.0
 
