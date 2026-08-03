@@ -1,241 +1,112 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B7013A0E80
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 07:14:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 062C939EF24;
+	Mon,  3 Aug 2026 07:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785741261; cv=none; b=Zev/TNawVrc4YTUvz3lmowhlKHMUiz+1CBoY8uoJ5dmG1s/fGVKhkbiOI9cVop00iMlRjQ8Er5ROBZG25lBDpKsk58VygMSkBzoaEgc3wjo/Cw6HEPrWGHwRu1YbZ9MJ5Y+Viucz4U11C+lDYVDlmYdh2wmoeGv9uCEw08PIP3c=
+	t=1785741318; cv=none; b=IEVk1k44wVuI9vrTmC0oJm/3+kSOxy0zoLhS8CxiS7gjYXUVOUQFi2r7IUX1l3+3IlC6ieYPU1qPlo6ZJbRZjGgOSZP7tF4HpuZSW6HqC5TBMtQoXfQM8f6K1PxYyzFhG4Im+Lb5aEENLjSKlAZKph8Fz8r3gvWK1GmTy1cXaNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785741261; c=relaxed/simple;
-	bh=pl59Mynf1Har5nfHFNGB2fnpDOeCr2qMuf76HPWNGjY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e9kP1I4HE7dYnAnkL1W7El1SEyxo4fG/hlIHmVSa3upVIEJgrUXLhfIpZn9P1A3+dRUELESHwbJC9LJDqxTBR7okjglutXfsTSyMHDRG1DFFK0R8A+ek6O74otbZcPvHNRiCHLl7lfyjU+2th7yHFHz77C3BwjJ4jyAXOf8CbwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QRADpaPy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TY+N93OT; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785741318; c=relaxed/simple;
+	bh=CSXC3MRl+fr5K535DZhZ1ieZPxaiUMr+iVKFoRwzN5o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gmrBHkz8iLiOlY3xNqdCf+OEhOP2q6fFeKVVrpmE8id7hTXKFt+9HHAXIHFgv8rcjqfS/sPXCp+Zd50vcLv2D9aFEQgRnbGVE14Yu4OU1JKOtqz6B3YO1QF1jG7LnCq/zUM9KAYu4+Et+gyrzMzUi4D6ODQMGGt5Tb+ta1KAGCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DpFxADqY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QRADpaPy";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TY+N93OT"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6736DBPm3654820
-	for <stable@vger.kernel.org>; Mon, 3 Aug 2026 07:14:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1vxEOBWwcQ1gPMY31104ohoxWNiwHBRZHzCPyJUjfPg=; b=QRADpaPysiHpZkPp
-	KvSYoCd/7vS3NIjZ9ipYAVV6SVn3d0IVArXMXU5yxTKyWQZznzrNlDzfZBnEXZzt
-	t2V5mlk33BEx44k292ZM7BdKAkx0QhzTvCUgLDkFF55F4eoUCrL8b/AZUTw6J5Qk
-	iLKTnpNeGJoH2yWiMGfwhD92BlSR81CLVjYi6IVL5VgYqZs5m6bnApVZkgaLyJkm
-	2qY27Nq4lHknfO3CX6wq6Knd1E9QGU3NUu4IqEP+rr0ZzdWG75qaQRGXF2xOyqr8
-	/39xxaX+u7twJTrf0vMMixastzEvPVSAaqfsCUs5UCIlp3kktwETb65c/+hBa8cW
-	WPWe6g==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftnhb07y1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 03 Aug 2026 07:14:17 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8487eb67173so6062324b3a.2
-        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 00:14:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785741257; x=1786346057; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1vxEOBWwcQ1gPMY31104ohoxWNiwHBRZHzCPyJUjfPg=;
-        b=TY+N93OTWG/TdQrxFcAGC7jMfAERsc7nEAkhfGOkXrx2G07eDL998P4y0Kxttxf7U8
-         RaCcoO9JB1URATBbuwaGMxfiB5PrhgGcuncDUC+Z9kqaJV3fZ55eUbnYfjGl/ABX3RRb
-         uSjtM3tBiIrrcgX9ua5kNdM09PvLwby5SLcspsBHpVZKIQ/0f1W7UYkJTbh9FBPnKDHX
-         PWtmucuDxkY+YTZRLUe3dRBJ50KSb7dmu08DCIiffIjdHorkwxhcMu9jNDvfaFRdziYe
-         nf8GPi2GitO4+RsgJ7ff8D4GQTLkSclxY4npaX3lZ1iGBM2rit3H55TbQxPp4m3R2WhE
-         Zq/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785741257; x=1786346057;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1vxEOBWwcQ1gPMY31104ohoxWNiwHBRZHzCPyJUjfPg=;
-        b=V1eUACm+SlQo2II0ozbl57qVg1KV4K9yusm/sjr49MzTwNh+UIwqZDfQcubEiCyHzn
-         ofiT8GzzM+CbzF3WfmOwiE7SZmcD/ZHBusNUJRMOWA7f8gCA0Fl7/wTXgSFHqdg1YSU4
-         sSD/WDkkj3bvMbiUVZBJCmoTa5z3EviFCkkjXHdto8A5RkeC7X3zTQeKukShAnD3SSGK
-         CR51nXsh1CZyv9B1nfrfsTqyQR035eqcNHOMuMTZ6tt4IxDXAF7MVdOQak0V0LIpX/0O
-         Uk3/IGLFVqZjiunnNtZn68LuN7eIAQPwzZAVbyiT12UNTyUtYVmIqu2xXYIw7VW5+V8/
-         toOg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp4cpVtx4RHbkDXi07BHWOUm+1UBxI1rZ7RmHLClwbaa1llr0K1YGJhF/Iofxz9chM/X7gN1fU=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz7GVaMarRphBCBGHjIDjk2qDT1eIsws/MQlubYzUvCKQ5WjzJC
-	EhRsn/iS3DzkT7kBSLfdbm4XwXNMe1s2SoHzhdo6ssWLeAYANeJaJGreZjQsHO+z6jD2JMcBd2P
-	uk9ZqEppKHn4EJLmceQYmxtM2aKkFrgogZiRAacODOi7KUDUK0fNhVxuEyAQ=
-X-Gm-Gg: AR+sD10VOYG7z7vLiFtSS1g4cwbdn60LvPEltYULLnpFhi2m6k1lG7YzdafOvaxhaPy
-	AF8q7xBVLlcQBe6IQVsoVe2TEY6MOJNKpkmE8RWNN9bv9vR+mC5TPLEl2Q3VwsA9Kdw8yWGcxaX
-	g3gXFnaZE2H9Y0vgqiAe/M4yAsnGWbXRFKe2fuwQylJyhB1ErtZyCrWM7sMYoeeiypBXaQuBl1+
-	QvJKxDZy7iF/I6QYj5AKs2isqVw3f4d7Xc76HL5ojDq+HzQ5YMRWlxORqyBsCztfCw8CWJ4eilr
-	dEQIpg1looOLFJhecRk7Tvfra51jLXhtbo7WnXaD19VtH3JUN7w/P7a5yBS5hI+m+RJBsmFYcME
-	rnCJkmH7/rQ/R8M6Np8ppQ3VFxiqNIkDgIyBii2yOqhINKqpS0CqcvXJSB17y5oSFLw==
-X-Received: by 2002:a05:6a00:2381:b0:848:6dd5:f69 with SMTP id d2e1a72fcca58-84ee48a4d02mr8210497b3a.42.1785741257243;
-        Mon, 03 Aug 2026 00:14:17 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2381:b0:848:6dd5:f69 with SMTP id d2e1a72fcca58-84ee48a4d02mr8210479b3a.42.1785741256832;
-        Mon, 03 Aug 2026 00:14:16 -0700 (PDT)
-Received: from [10.133.33.161] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84edc2d6dd3sm3283510b3a.46.2026.08.03.00.14.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 03 Aug 2026 00:14:16 -0700 (PDT)
-Message-ID: <aeeeebf9-dbd4-4f57-847a-5f495b3236a2@oss.qualcomm.com>
-Date: Mon, 3 Aug 2026 15:14:11 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DpFxADqY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09371F000E9;
+	Mon,  3 Aug 2026 07:15:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785741316;
+	bh=lOw5vekGbjNw6ykDt0fzbiYJA2c7NYGfZyY2lgJKOak=;
+	h=From:Subject:Date:To:Cc;
+	b=DpFxADqYOi+VHQ+Hrpil882FXtGQulPwbpCRjtbBGElPW+ao4/mQfksudQQLthqF5
+	 pkVTVUYOo5vZhYepoOIxvvFHOtkoPHMo/dz57XR7S4sxJlyoo9A+w2q3TJou3wKf9U
+	 /AQhkfpmmahTv41Cm0E5We5ZQiFqkL1bhX55rKzwMVJrb+NUrLf59e51n0xMXGD/Hz
+	 xDMCGpqeCUp0V6KrAcV6FiqZLg5sC6G1QlFj//4EYFd3DMno52+L34cmZHx+tz/qWw
+	 WM7JxxUZlbEz2fzVoZZgGa5+tV3uZ7QPEakf10G1xJ7OLUMr8rSAv+EgrxhPs+8xDU
+	 RgY5si8IGAFpA==
+From: "Harry Yoo (Oracle)" <harry@kernel.org>
+Subject: [PATCH 6.18.y 0/2] mm/slab: fix unbounded recursion in free path
+ with memalloc profiling
+Date: Mon, 03 Aug 2026 07:15:09 +0000
+Message-Id: <20260803-kmalloc-no-objext-for-6-18-y-v1-0-8b01d1021f0d@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks
- enabled
-To: Stanislaw Pal <kuncy7@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>
-Cc: Brian Masney <bmasney@redhat.com>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org,
-        devnull+george.moussalem.outlook.com@kernel.org
-References: <20260730191353.557494-1-kuncy7@gmail.com>
-Content-Language: en-US
-From: Jie Luo <jie.luo@oss.qualcomm.com>
-In-Reply-To: <20260730191353.557494-1-kuncy7@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: Tpi11orrBtp8TZwyfcnREzNISFL_kOXc
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDA2MiBTYWx0ZWRfX5F2IMElhCmUC
- izhtk+42ErFSFA4YTTQMsPP9HD0NrSUTTMB5QvctagbyTJKFCUbtJBim+9h/o1uT2BszR0qg6Cl
- U4S7HKF5HCk8+fstXBZAjKuAHXOek68=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDA2MiBTYWx0ZWRfX5k8zRegPwats
- A7ohSN+Ssn/ig18hoG4JI6JuVzsCVLEICPN291InI4UvHYrCJ6FmEgLNj7nx7FwrR2JpTau1Fvs
- QUV7csmHWbk9sTyA1s/gGknBSkShJSrtVG+kwCIXfNgZbgjsBPZVYnPFYei3KJMOUGlSXkXlqfB
- CKxQfyrncpSOkmyKK5wtY89YhD8MXpjuGUBdSsExY4fIWUfUyv91sfg70Yva6VytbpMbpSZrnxq
- lcLNk4uSj2KKFzam3mFIN8NlcDXgmIN7ZhJfhYkV8aWtKNh2WwmTSFbFYQ23VaNJVyPbDRc2OHH
- kNwlZHbzF+/EMPj5kxzD6HiydofbA4yJCbLxLJ0uhTMm+bKR5pLXFuqRTQK9NnOCEsCGSVISxsu
- FDWnoNXcZw2JzPMEjLsv+nlBbOr0yHshpBEg9U1AUK0NO8qx39ljS1ynCIRqbD1OrhNR+Np72li
- d1vCYUHzk1xflQLQ3CQ==
-X-Proofpoint-GUID: Tpi11orrBtp8TZwyfcnREzNISFL_kOXc
-X-Authority-Analysis: v=2.4 cv=bKEm5v+Z c=1 sm=1 tr=0 ts=6a703fca cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=7_mjQ7ShsriNIxc-HisA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-02_06,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 suspectscore=0 phishscore=0 adultscore=0
- impostorscore=0 bulkscore=0 malwarescore=0 clxscore=1011 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030062
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQ6CMBAAwK+QPbukrbEWv0I4lLLAKnZJawyE8
+ Hcbj3OZAzIlpgyP6oBEX84ssUBfKgizjxMhD8VglLHKqSu+3n5ZJGAUlP5J2wdHSWhRO9zxRqa
+ 5e9cPTdBQijXRyNu/b8HW2tU7dOf5A0OcH2x2AAAA
+X-Change-ID: 20260803-kmalloc-no-objext-for-6-18-y-5e297a8bd9c1
+To: Suren Baghdasaryan <surenb@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ David Rientjes <rientjes@google.com>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, Harry Yoo <harry@kernel.org>, 
+ Kees Cook <kees@kernel.org>, Danielle Costantino <dcostantino@meta.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Hao Ge <hao.ge@linux.dev>, 
+ Hao Li <hao.li@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
+ "Liam R . Howlett" <liam@infradead.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
+This is backport of "mm/slab: fix unbounded recursion in free path with
+memalloc profiling" series [1] for 6.18.y.
 
+The last patch has a slight functional difference compared to mainline
+due to lack of SLAB_ALLOC_* flags. I described those subtlties in the
+backporting notes in detail.
 
-On 7/31/2026 3:13 AM, Stanislaw Pal wrote:
-> The probe function takes a runtime PM reference to enable the GCC AHB &
-> SYS clocks of the CMN PLL block, registers the clocks, and then drops
-> the reference. Once the autosuspend kicks in, pm_clk gates both clocks
-> a few milliseconds after probe has returned.
-> 
-> That is wrong on two counts:
-> 
->   - The clock ops access the CMN PLL registers without taking a runtime
->     PM reference of their own, so any later clk_set_rate() or rate
->     recalculation touches the register file with its bus clock gated.
+The first two patches from the patchset are not backported to 6.18.y
+as they are no-op in 6.18.y.
 
-clk_cmn_pll_set_rate() is invoked as part of the AHB and SYS clock
-enable sequence. The CMN PLL clock rate is configured according to the
-DTS assigned-clock-rates-u64 property, which is applied when
-devm_of_clk_add_hw_provider() (called inside
-ipq_cmn_pll_register_clks()) triggers the call chain:
+ - mm/slab: fix a memory leak due to bootstrapping sheaves twice
+ - mm/slab: decouple SLAB_NO_SHEAVES from SLAB_NO_OBJ_EXT
 
-of_clk_add_hw_provider() → of_clk_set_defaults()
+[1] https://lore.kernel.org/all/20260713-kmalloc-no-objext-v3-0-47c7bd138de7@kernel.org
 
-This corresponds to the following DTS entries:
-assigned-clocks = <&cmn_pll IPQ5018_CMN_PLL_CLK>;
-assigned-clock-rates-u64 = /bits/ 64 <4800000000>;
+To: Suren Baghdasaryan <surenb@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+To: Vlastimil Babka <vbabka@kernel.org>
+To: Christoph Lameter <cl@gentwo.org>
+To: David Rientjes <rientjes@google.com>
+To: Roman Gushchin <roman.gushchin@linux.dev>
+To: Harry Yoo <harry@kernel.org>
+To: Kees Cook <kees@kernel.org>
+To: Danielle Costantino <dcostantino@meta.com>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+To: Hao Ge <hao.ge@linux.dev>
+To: Hao Li <hao.li@linux.dev>
+To: Pedro Falcato <pfalcato@suse.de>,
+To: "Liam R . Howlett" <liam@infradead.org>
+Cc: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
 
-> 
->   - On IPQ5018 the consequences are not contained to this device:
->     gating the CMN block bus clocks makes the SoC hang on a subsequent
->     bus access. Measured on a TP-Link Archer AX55 v1 (IPQ5018), the
->     machine dies silently within a few milliseconds of the CMN PLL
->     probe returning - mid-character on the UART - and the victim is
->     whichever device happens to probe next. Whether a given boot
->     survives the window is a micro-timing lottery: different binary
->     layouts of the same kernel ranged from occasional failures to a
->     100% reproducible boot loop.
-> 
-> Keep the runtime PM usage count elevated on the probe success path, so
-> the bus clocks stay enabled. With this one change the same board went
-> from boot-looping to surviving every boot attempt (verified across
-> three previously-failing kernel binaries, plus repeated soft and hard
-> resets on the final one).
+Signed-off-by: Harry Yoo <harry@kernel.org>
+---
+Harry Yoo (Oracle) (2):
+      lib/alloc_tag: introduce mem_alloc_profiling_permanently_disabled()
+      mm/slab: prevent unbounded recursion in free path with new kmalloc type
 
-The CMN PLL AHB/SYS clocks will remain enabled as long as a downstream
-consumer of the CMN PLL clocks is active — this behaviour was confirmed
-experimentally on the IPQ9574 platform as example.
+ include/linux/alloc_tag.h |  3 ++
+ include/linux/slab.h      |  8 ++++-
+ lib/alloc_tag.c           |  9 ++++++
+ mm/slab.h                 | 28 +++++++++++++++--
+ mm/slab_common.c          | 13 ++++++++
+ mm/slub.c                 | 76 +++++++++++++++--------------------------------
+ 6 files changed, 82 insertions(+), 55 deletions(-)
+---
+base-commit: 2fe596715f840d053aed5cee5455f701bdcd2b50
+change-id: 20260803-kmalloc-no-objext-for-6-18-y-5e297a8bd9c1
 
-# insmod ipq-cmn-pll.ko
-#
-# devmem 0x9b780
-0x00000000
-#
-# insmod nsscc-ipq9574.ko
-# devmem 0x9b780
-0x000000FF
-#
-
-> 
-> Fixes: f81715a4c87c ("clk: qcom: Add CMN PLL clock controller driver for IPQ SoC")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Stanislaw Pal <kuncy7@gmail.com>
-> ---
-> One more observation from the same debugging session, for the people
-> who know this silicon: on IPQ5018 the CMN_PLL_LOCKED bit (offset 0x64,
-> bit 8) never asserts. Every clk_cmn_pll_set_rate() call runs its
-> regmap_read_poll_timeout() to the full 100 ms timeout - including under
-> the bootloader-programmed configuration the hardware demonstrably runs
-> fine with - and nobody notices, because clk_change_rate() ignores the
-> .set_rate return value, so the -ETIMEDOUT is swallowed silently. Is the
-> lock status readable at a different offset on this SoC, or is the bit
-> simply not functional there? Happy to send a follow-up (surfacing the
-> error, or skipping the poll where it cannot work) once someone can say
-> what the intended behavior is.
-
-The CMN_PLL_LOCKED bit offset and behavior are consistent across all IPQ
-platforms — the same register layout applies to IPQ5018.
-
-> 
->  drivers/clk/qcom/ipq-cmn-pll.c | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
-> 
-> --- a/drivers/clk/qcom/ipq-cmn-pll.c
-> +++ b/drivers/clk/qcom/ipq-cmn-pll.c
-> @@ -454,11 +454,19 @@
->  
->  	/* Register CMN PLL clock and fixed rate output clocks. */
->  	ret = ipq_cmn_pll_register_clks(pdev);
-> -	pm_runtime_put(dev);
-> -	if (ret)
-> +	if (ret) {
-> +		pm_runtime_put(dev);
->  		return dev_err_probe(dev, ret,
->  				     "Failed to register CMN PLL clocks\n");
-> +	}
->  
-> +	/*
-> +	 * Keep the runtime PM usage count elevated on the success path, so
-> +	 * the CMN block AHB & SYS clocks stay enabled: the clock ops access
-> +	 * the CMN PLL registers without taking a runtime PM reference, and
-> +	 * on IPQ5018 gating these clocks after probe hangs the SoC on a
-> +	 * subsequent bus access.
-> +	 */
->  	return 0;
->  }
->  
-> 
+Best regards,
+-- 
+Cheers,
+Harry / Hyeonggon
 
