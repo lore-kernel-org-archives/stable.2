@@ -1,37 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0623C8728;
-	Mon,  3 Aug 2026 09:14:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3C63D7A07;
+	Mon,  3 Aug 2026 09:16:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785748496; cv=none; b=qsn/ZciCv8qZ4SJihZu48bTffVirQlJxYC2n6Y9xGX8tSnrb6st/Vss71SnJYinjQPE13DsIuZKG6rlX+x4HJFYHbQX4LlugtwT0UMgxEnBYqX04G2LN988SfNeUyqGmmiN6BLgS5EYyFTgezaXCANUK1XHRojZjTY1OEDAAPhs=
+	t=1785748567; cv=none; b=DLlfaug8YMtz20vJU8f2vI81HfLHPspQAkWhCz0X/SlQ/TS4c11LDVpk4L948qBhrGlz2tzhLKn+6W4yFSTFC8ZHnQJy08mZVJ6taoY93SOwtvnYlDmzbSQyWrvu34zzcuNnID+w8oxhf2cG6Wgkizj5ThsW38Ml6Qfz9HRLnbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785748496; c=relaxed/simple;
-	bh=r0avL45YisffyW7ENM7UncyXQolGflP72UQqd27chAk=;
+	s=arc-20240116; t=1785748567; c=relaxed/simple;
+	bh=b+WfG+D9/aFWpcsel/SW8JgM6DSzvUaMeLAfpFYTF9o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uX1aF4f+6gkRSn2xbKBRPfx8L4Hg3XX0C6bsunH7FNRcTLxSR1fDe25H5DGoqDfPXohhp2Ic+/dI2fv8XS1BT3yNrJ10Uv7Ig2FSxGGDUTuKaXwAevRP4yUITlicXsvm73m0xZWm1Og7PB9SD05GaFBjnEpjCgcFigbiYMxKsdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=X5nnwJhY; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=mzymRoNfJXLYuo9M+t0B43ZGzKOFDzn9CyAREYnzom1HEjQIRXFQmEjKWY2YZmQZIlq+i2vsPdu5RvD2S0VbKDSZwg7HwYgNsVHoqXF4h+Hfin6bagX7vW6ahbd7yfBAenAanuABJeAhKS7nCqfGmTR2jLx0AWNekf7ELEOIW2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BmMtaJ9l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="X5nnwJhY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 695EA1F000E9;
-	Mon,  3 Aug 2026 09:14:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BmMtaJ9l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36D131F000E9;
+	Mon,  3 Aug 2026 09:16:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785748492;
-	bh=1/FqPAf6NXN6P9N+LddU8JXF6C3Ygknx45fwKkKYZus=;
+	s=korg; t=1785748563;
+	bh=Vm236Xn218GXH0KPXmcqLVndSX5H2on+SCGR0K4QSvQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=X5nnwJhYKGR59doifDZjmWXKP5MeXX1g5pwCrf53P0fJBwcb9IEkOAj8AcBNKEr+g
-	 Z69ND2es1FjqhdyLYTx/sVk2GP3XOryeR/VChhxBC4oRqPcuF6BNhQTretDGE7Txbw
-	 FN8CgFaR4EkOAgJuk/mefFW6CORwu6vfZCSgo11E=
-Date: Mon, 3 Aug 2026 11:14:37 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Hongyan Xu <getshell@seu.edu.cn>
-Cc: sashal@kernel.org, arnd@arndb.de, linusw@kernel.org, brgl@kernel.org,
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, jianhao.xu@seu.edu.cn
-Subject: Re: [RFC PATCH 6.6.y 0/4] misc: ti-st: close transport removal races
-Message-ID: <2026080323-peso-hesitate-9920@gregkh>
-References: <20260724052842.1052-1-getshell@seu.edu.cn>
+	b=BmMtaJ9lqROF+j5Y61ambifPQuMaP3BGlyP/xNG1YYBnDlkM5JRVu3dd2+tZ+1Bux
+	 283ArXUqlNMEHcLY16gmkgEwb3zyeBA5ryf+pLUmWEq91bhX1yedb0ON+eLgLkfqxD
+	 qFVWJNtemVK1nOMS+b82kl7aRL6fzhlr/Z7YERUw=
+Date: Mon, 3 Aug 2026 11:15:48 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Dmitry Antipov <dmantipov@yandex.ru>
+Cc: Al Viro <viro@zeniv.linux.org.uk>, linux-usb@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	syzbot+6aa97991da41499aa852@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb: gadget: fix device data management error in
+ gadgetfs_bind()
+Message-ID: <2026080336-roast-sudden-e02e@gregkh>
+References: <20260803091258.85969-1-dmantipov@yandex.ru>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,26 +42,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260724052842.1052-1-getshell@seu.edu.cn>
+In-Reply-To: <20260803091258.85969-1-dmantipov@yandex.ru>
 
-On Fri, Jul 24, 2026 at 01:28:38PM +0800, Hongyan Xu wrote:
-> The TI shared transport is published before probe completes and remains
-> published while remove tears its core down.  The exported protocol entry
-> points can retain the raw core pointer across that teardown.  An attached
-> N_TI_WL line discipline and its write-wakeup work provide another path to
-> the same freed core.
+On Mon, Aug 03, 2026 at 12:12:58PM +0300, Dmitry Antipov wrote:
+> In 'gadgetfs_bind()', 'get_dev()' on appropriate 'struct dev_data'
+> instance should be performed immediately after the pointer is stored.
+> Otherwise an attempt to handle -ENOMEM later will issue an unbalanced
+> 'put_dev()' in 'gadgetfs_unbind()', thus leading to UAF errors.
 > 
-> This series publishes only fully initialized transports, accounts users of
-> the published pointer, withdraws and drains that pointer on remove, and
-> synchronously closes an attached TTY before freeing the core.
-> 
-> This is an RFC for the 6.6 stable tree because the driver is still present
-> there but was removed from mainline by commit 78fe66360ed6 ("misc: ti-st:
-> st_kim: remove the driver").  There is consequently no current mainline
-> code location through which these fixes can first be merged.
+> Reported-by: syzbot+6aa97991da41499aa852@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=6aa97991da41499aa852
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
+> ---
+>  drivers/usb/gadget/legacy/inode.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Great, then you shouldn't worry about this driver as obviously no one
-uses it :)
+What commit id does this fix?
 
 thanks,
 
