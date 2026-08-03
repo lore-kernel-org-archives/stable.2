@@ -1,82 +1,49 @@
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C186340A76;
-	Mon,  3 Aug 2026 06:15:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8744399358;
+	Mon,  3 Aug 2026 06:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785737709; cv=none; b=WXYKkaX42DA46zXXWM4J+O3oeU2W0amedbe/GkRVG05Rh13cWxZtDYePaW1/g4uiVd6ObVKmPRQbXXAZmZ9DL5qL77jYOkfznM/BlA/dPt1TOSr++bHgUNYLMOR50XHZaL6DbeJa68mirQiOD94iFXSvhHoPmBQiU0tbOQC+nsE=
+	t=1785738134; cv=none; b=N6bRM0PYyCJOWZH60eQFVXUYWbIWTPntASMfgM54evors19Q/fmrMfaFT/b1j7JhHYKmm6mw/HjZQJf2uCl6q8dVzJ7xk6GPIfFBAbms4HpGeFPWEJ/O7AO93u8n3jEgWG0wVGFUmlFYkzQqyn7EsMWff1xDfJkeXgMTz4SodCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785737709; c=relaxed/simple;
-	bh=Tb21yfu87NFZBVpS9Ap/HWKpf3xQaoyHjh3UwfkWTp4=;
+	s=arc-20240116; t=1785738134; c=relaxed/simple;
+	bh=EwJ6aICvVhqawbdW+e4+zbWAT0473MQYDhBcopBltfQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XJByAOFbVCWr91kUdbD/k78OE/83zkiMqAe6i/nRqZsx8S0X594mJs62nnagbCMQUZw3JDMiVv3XwOy9yzDxWZMWJ6SbSc8Kalh+me6CYE6QSxUfPqD3UGSNvZo7b5JKchy8UUPwSLWSHEYuYpoT+3phFhZxUbvnRK64lWy6DVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=U9bUao6K; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VYGIV0IF; arc=none smtp.client-ip=103.168.172.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=BMA1YkkJDDGvzFzesLW072pN+7bBZ8J4uyzFt3iWDu1lMqQaAW68a30prypQuWt5e0YTZIJK8yqh/OJTUz9+dipVIQFqOKJjrQMN/oKbjg3qDZOvg4Asm+5qPOQu3FsxXcw4EHgw11/bJ2WN5YkDAxS5DBmjVvFiq5fU7POwKew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=KvucVTpQ; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="U9bUao6K";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VYGIV0IF"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id 3D2CAEC00A6;
-	Mon,  3 Aug 2026 02:15:06 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Mon, 03 Aug 2026 02:15:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1785737706; x=1785824106; bh=Tb21yfu87N
-	FZBVpS9Ap/HWKpf3xQaoyHjh3UwfkWTp4=; b=U9bUao6KuNjE8I04a+8vWPT1HY
-	LTl/6XEQns9ce4EtQzIweSHeEdEf3H26oWXotcwgJXDaWdtdMnT963hYXEtL+bt6
-	TeI3FaF3WBEPUfsGhACpww7eab7Aqeo49SUGVmhP+ztyeN6x1+q1FsH75VDCTkEy
-	hVmX8U2regLPs7z5QTCGRqqeiZL/jvclN04caS+4Yjb2IGTdM8itqVUfXFSkOfno
-	Sg0RfwwQzeBxEHfeR+qfdueQQdgQWBgeTgd2RcXYPxbu8ANVX4W4XQB62SbTH7ln
-	qz3ZPAQhXTRtC7yKTSN/xgma8vIoC5bfJKb6v+zFH46TmzbYC+tHCAxfoSrw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1785737706; x=1785824106; bh=Tb21yfu87NFZBVpS9Ap/HWKpf3xQaoyHjh3
-	UwfkWTp4=; b=VYGIV0IFxZxSjzZ72gEIRDzd+NvtLLjDmFa91QDZy6563G3wD0W
-	sBEQf0nWne4vNOGD8Y5YcSzPVz/y+hDD3DOiajDSYLx0XmfYsMBkGn7qJOFmFZHH
-	vtm8wKvUOPYMQj7FlTRRcpC0VTzmVlawEs6+S6/4i84cM+MIOxIn+G9j/ErHd6N9
-	SknDgLUiv1Cj5VmYNjp3kFnSKDa8mBXFa700it7zPsehHzRhQAxFHdfvDncaZuLe
-	MZhrWuuRvayMXDuLYBPg4fQaCffPYFrCr6SMnA1LbfhpKDnTqcME1SC+cvbU97ge
-	uN6F360m+hcyoQPZ8CQxnfDLEfkV/TfEfeA==
-X-ME-Sender: <xms:6TFwaicNG8O5uLMwpnPHkmKlO962-qowM6SHcOYegGK3LDAAsr4cbA>
-    <xme:6TFwahbryYLhvjJnsURXexvsvngwEVs_ASTXNGjShhi3ymswsSIk1RfzjZvzhnlQa
-    HmdusZVlqcylht0m_abO9PqUaHwptiHP4BWVvN8TphBjcYuzQ>
-X-ME-Received: <xmr:6TFwam5k4QTv_Z38rs0x4aUmRcXqLGyFJ1NPyZBPvO2kaO9Mzvxh-W9oue23Jhffoc2GR2qmtuOXR6xHwxxi5UespRkAKtv6qpRehYoMDKY>
-X-ME-Proxy-Cause: dmFkZTEdxWFx6PHPk4/J0sy8vZcNNRDZ3mcZK5kzim1fg9VQzbIW9Ii3kQ/eSjK1U8QcLy
-    nMvMm8DSQveOXCFFG/NkriwpiynWZ7C9rITDAniIEh0+1ZNWsjZMsguHcUQ/7LNvqhbQOl
-    xbBbv4B/qsTQ8BB/o27FtveQ16J9S5e63/SZDj25Mw4FZYoGYYDwkcINEKVjN+UNJuCFaY
-    NrsJm0Ob0qDae9iIySjTu1V9xzgKaoN263rDphrGdSdGucpiuiXVMsrcmnKYto9R7sCEJ9
-    xUidFn/HfFkLt0LyMAVabg8mDlZdkfaMvEAEpGYi0oeTYitVyr9wC+rhU/+Aomr+AskNCh
-    kb9uTK1SaO65cVLlYzXzgVn3kr++m2N7zL6a5IMq6GIDqI4yihUHJJqcw6cGNQWVxtqKsB
-    z+n9JgWJxFu3YUQlhtjvQN2E5BzVSfaOfh+lfMGEuTJGt67ew6SVz7doBOqBFzSQLKmvc2
-    2LYZM74bDtw4AKps8/MKdsKxmRjDhsQUPswfM+T8E4VFkUR4phjBhj/+8kDyXF6arumOWP
-    zLfHnGOFxSa2xbSdAX8EIBJYOYgb5x8OOTlteRWpLXKKwST4+mjMH3/Tx6rvQMZoXaMH6y
-    7T1PAswharchUPFbf2f6zwkkhIJ1lY2zHmt6GvK05Sgu5KZqDYPKKwQtloyA
-X-ME-Proxy: <xmx:6TFwavfVuCuqLNmrczrjZKgVJia3PSr8uZDZdAIeke1PKAzkloYIog>
-    <xmx:6TFwapyXHgKc-BecE_co2SOH93PCD1Z9k6NT4qYboZ8OWf29P2Z9Jg>
-    <xmx:6TFwalo17a-Pabsp3zcui4VGtM70l0JYiigZFn6M5v28uHZMvY60CA>
-    <xmx:6TFwanwkooNi4tCB-nn07N2_le3CquQ__yayJcSDnlbIwq4MYJK8ig>
-    <xmx:6jFwamIgPvFMcErnziQvI7C8RbSKEBkvnYXq3ChqG-kLAAF8fpZ-lAZR>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 3 Aug 2026 02:15:05 -0400 (EDT)
-Date: Mon, 3 Aug 2026 08:13:36 +0200
-From: Greg KH <greg@kroah.com>
-To: lurenjia534@outlook.com
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzbot+435fdb053cf98bfa5778@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: mac80211_hwsim: drop frames with invalid channel
- width
-Message-ID: <2026080324-paralyses-unmanaged-039f@gregkh>
-References: <20260802-mac80211-hwsim-invalid-width-v1-1-94d9bba2ae60@outlook.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="KvucVTpQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=lBBugwHFsZF3Vdxqj+U4Xg2kKWSwhiYQvZFlirl6zJM=; b=KvucVTpQcVQO84yuzuIvhrWw4/
+	MfyFILd+Q2ntSmtDg/Gwym5hq3Skb7g+CUvI17ANepw/3lt8l0vXYy9p0kmN+69OzwXVgwNhvNJYH
+	3KnzOPYKjj0zImYTkDlI0x3KN7zOghgyQBoLJZTD1levZ/m9sTEXXaqgzBN/tD+UbgH+G7VhsHzB8
+	LEDd9v8QJQaN5EHiGjxsweCntmFTyht0ybAmSm4SWkS3T/BMUOFwFCGzH7hENQ6ogA0pqqeWKOKWz
+	5PkBJoJlWqLNolsMAFMmLj6MGCHMBvX002u8RYmdvil5SHwW7lwClQnkzDUwsugRVIN+6sDJFjugD
+	9XSJXk+w==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wqm3l-00000006m2o-49Jn;
+	Mon, 03 Aug 2026 06:22:02 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 2CF2E30045A; Mon, 03 Aug 2026 08:22:01 +0200 (CEST)
+Date: Mon, 3 Aug 2026 08:22:01 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Yao Zi <me@ziyao.cc>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Randy Dunlap <rdunlap@infradead.org>, x86@kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/locking: Use sfence for wmb() if SSE is available
+Message-ID: <20260803062201.GT49951@noisy.programming.kicks-ass.net>
+References: <20260801182953.15069-1-me@ziyao.cc>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -85,13 +52,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260802-mac80211-hwsim-invalid-width-v1-1-94d9bba2ae60@outlook.com>
+In-Reply-To: <20260801182953.15069-1-me@ziyao.cc>
 
-On Sun, Aug 02, 2026 at 08:12:54PM +0800, lurenjia534 via B4 Relay wrote:
-> From: lurenjia534 <lurenjia534@outlook.com>
+On Sat, Aug 01, 2026 at 06:29:53PM +0000, Yao Zi wrote:
+> When adding cc clobber to wmb()'s definition, the alternative()
+> condition to use sfence was incorrectly raised from X86_FEATURE_XMM to
+> X86_FEATURE_XMM2.
+> 
+> Restore the correct constraint for potential better performance on
+> machines without SSE2.
 
-We need a real name please.
+So Google tells me that SSE was introduced with P-III, while SSE2 was
+introduced with P4, so this affects only P-III.
 
-thanks,
+Anything earlier won't care, and anything later will have DTRT.
 
-greg k-h
+I suppose we can do this, for those few people that still care about
+P-III... *sigh*.
+
+> Fixes: bd922477d935 ("locking/x86: Add cc clobber for ADDL")
+> Signed-off-by: Yao Zi <me@ziyao.cc>
+> Cc: stable@vger.kernel.org
+> ---
+>  arch/x86/include/asm/barrier.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/include/asm/barrier.h b/arch/x86/include/asm/barrier.h
+> index b0096b5645a9..e0e59da15748 100644
+> --- a/arch/x86/include/asm/barrier.h
+> +++ b/arch/x86/include/asm/barrier.h
+> @@ -17,7 +17,7 @@
+>  #define rmb() asm volatile(ALTERNATIVE("lock addl $0,-4(%%esp)", "lfence", \
+>  				       X86_FEATURE_XMM2) ::: "memory", "cc")
+>  #define wmb() asm volatile(ALTERNATIVE("lock addl $0,-4(%%esp)", "sfence", \
+> -				       X86_FEATURE_XMM2) ::: "memory", "cc")
+> +				       X86_FEATURE_XMM) ::: "memory", "cc")
+>  #else
+>  #define __mb()	asm volatile("mfence":::"memory")
+>  #define __rmb()	asm volatile("lfence":::"memory")
+> -- 
+> 2.54.0
+> 
