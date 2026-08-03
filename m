@@ -1,223 +1,202 @@
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+Received: from cvsmtppost31.nm.naver.com (cvsmtppost31.nm.naver.com [114.111.35.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A7B126C17;
-	Mon,  3 Aug 2026 05:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.165.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785733760; cv=fail; b=kMPXvffgpwSqOkgUMk/Ncz+ch0pD4pALKu8gIB1XJ9GR0iezqKs03OaWKk8osjL50vJ/9B2NJe8cKMAlwdT158jL72lfLcqMAodYRnKuu57zMVMdNzBlKiYtBU++V8s5vkL6a+1+riy16o4qrzqtR66fMaWsLQD/mky+9HIKtuE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785733760; c=relaxed/simple;
-	bh=NvFy+YWQbH+KWSsbAnPb31yd/Qs9OkEQdEbh+kPl0uk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=dFCEnGkOI7cbRBlNSMUW2jNlAjuvXOH0wlGJt/ayimytoIupiwzBopWv1DPZhCYu01Ms+KNFp6cmA6rfl77a3Gox8a/OoF4M6TTNROrR0f0wJug0PAaV2CyDT80iGPdcvrtCRbViVHsOiYcoXB2YZEkLTVyBzIox85vewFMrF6M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=D3kjrvNg; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=IfCVnE3N; arc=fail smtp.client-ip=205.220.165.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B8F2BF3D7
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 05:21:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.166
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785734518; cv=none; b=TCjqna371X/TcZTc8iYDLU2IeKW8p6L0Q2hSLhHX0LTlaj6qzFD8H90BcenRJqyNKUQdINPQcTefdZdHZ7dGCiMbHqu62SOCmAMnUfcaxBSL5CSvyMF7Sq3lYYQ+AbLL7V+4os/oCKGlt6YBAU/+DCp5YOXgCrMD/63S22C4fAA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785734518; c=relaxed/simple;
+	bh=Odm4bgUe5yiGB1PQFAXlnF8TGTM0tTyU/1kX3aDHpWI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cw4yRNXyhi+bKEzVZ+hiPpdz7LMGoghpWgXUflhMtHHM+FMimT5ft5qxqFDbdnhCIVbdWS+ixKAvkWtPKoIB/2RotB4kTOD/JVRnwhVSj76t24z6Ql9Z2eCvjbtNTrQ1jEADOqKDUbMQ2aHwl2AgwWjVPIeXXucASkrpCBsoDG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=CApIy78F; arc=none smtp.client-ip=114.111.35.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="D3kjrvNg";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="IfCVnE3N"
-Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67320Lo22035834;
-	Mon, 3 Aug 2026 05:09:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=E6BdfNtQLMLQF6bapZf86ixCmHI6Exr/DASb9p4vpVM=; b=
-	D3kjrvNg83AC8wW2l8ZiClOHBKjn6N4QqKUCejBg0zUjwdq8hkA6Nd087dzIkDml
-	ylM3c3lvcQt2Uezs6KlrfGrXYe0XeATOWR+yu/m73d5ac+CZrGQL5e+Cp5WacJuo
-	sWcH3wYmBhly7rU+/IFptY//UeJcAHNGr0kD8XPitAmSPB68vaAUhymSaY5QNMeK
-	1OcdOrtk8ZBxS31LrpY01jeayKuzf/Y/4L/FH9fa/AOW9zqEh9ze1Ao/DltVLT73
-	vAosr7YOYhUqMRo2fO5pw8n0HgIFFmwDY9qMd39mZ+degjrn4X2vdcS0efGen+3b
-	Ci9WJSVZOlTrIwPcLPIKXg==
-Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4fs7qa3d31-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 03 Aug 2026 05:09:15 +0000 (GMT)
-Received: from pps.filterd (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 673555R3007674;
-	Mon, 3 Aug 2026 05:09:13 GMT
-Received: from bn8pr05cu002.outbound.protection.outlook.com (mail-eastus2azon11011053.outbound.protection.outlook.com [52.101.57.53])
-	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4fs78a7jag-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 03 Aug 2026 05:09:13 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Dx67ikTqT+qP4k9aTPrm14O2bZCFnRINTvTyZ0ichB8J4/pj/j9Y9apPIIDbawVC1zUKhBidaxHWMOakq596RjUzpUMljkKM/8xMrXZnyH3Z4ALpcHdPjgi/2R0boAKyNRMeUK6PSYRfoh/c2RHHU7tYVq/3mFjd+SegHrpMfGp2xMf7XLoa9RuVPvFxe7xjWknBzxZS43uZiEJiuBKVWe3ySOR8EndlYcWbF4V/TXiaJyk00/h24MmXSO5Q/Mmz579AULysQUE8gR8cBxY3n3/bGE1d5tVvQaAtwRnXD1s6CE6E4ZBC/aXlE48Ei9oiMpKOFmPE9GGekrgRyfX8ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E6BdfNtQLMLQF6bapZf86ixCmHI6Exr/DASb9p4vpVM=;
- b=udM/E+LDoNCl/tXlfOiA1nOarmVhA5GYCVeSQehDyzeNXpllYGz0q/FC4jrgZOAaBAaRsnrRqar56zBTjBibn467jAPNoDbJiXmpVPNE2tkyTnYKr5+fSj9ZWfQeTaOPCH6YX3KYDwvHOIXIGry3OWU9jd6mY8VqV/IdACdAZza8rDFXBh9OoT9ydY5vUKBqtOzsFPmhu2Z9Tt4e9uRpIjyz2DNylB4+beumNNnBYHQe6fXueJHMV0QRCgRVVR4NJKgLEBB/3RdOHI0/wME2mSLAHb70fZ9J2T4toXifQwc0FUMNE4kOcRCwkNOooTYOUrud2bNSuOXkv/AcOSLpIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E6BdfNtQLMLQF6bapZf86ixCmHI6Exr/DASb9p4vpVM=;
- b=IfCVnE3Nfyoj0fxoQCk+soUJYxcVFQRjis/OlLaagrx01/qIniHnOIKHOLY2gVKh1gqTa7duaCrvnWp7d9bDlMIOkBwgwEwRlwgv1Mv6lyb93JS8fI5JkBIly7ZpBC8XFwABDNYeUNVGtKoonQfppJZdAe+DgGC4WuLQMs4nnPc=
-Received: from DS3PR10MB997700.namprd10.prod.outlook.com (2603:10b6:8:347::19)
- by LV3PR10MB7844.namprd10.prod.outlook.com (2603:10b6:408:1ae::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Mon, 3 Aug
- 2026 05:09:07 +0000
-Received: from DS3PR10MB997700.namprd10.prod.outlook.com
- ([fe80::4c1c:3bb:c4c9:8e7a]) by DS3PR10MB997700.namprd10.prod.outlook.com
- ([fe80::4c1c:3bb:c4c9:8e7a%7]) with mapi id 15.21.0270.016; Mon, 3 Aug 2026
- 05:09:07 +0000
-Message-ID: <f793d6a0-d734-4e4e-8b9e-24a633b18554@oracle.com>
-Date: Mon, 3 Aug 2026 10:39:01 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 541/602] bpf: Refactor
- {acquire,release}_reference_state
-To: Sasha Levin <sashal@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Eduard Zingerman <eddyz87@gmail.com>,
-        Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-        Alexei Starovoitov <ast@kernel.org>, vegard.nossum@oracle.com
-References: <20260730141435.976815864@linuxfoundation.org>
- <20260730141447.394161782@linuxfoundation.org>
- <129ad991-e9fa-4f6b-bc1a-a1d78eff6145@oracle.com>
- <20260802030151.769b0f1c8214@kernel.org>
-Content-Language: en-US
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-In-Reply-To: <20260802030151.769b0f1c8214@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO6P265CA0009.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:339::14) To DS3PR10MB997700.namprd10.prod.outlook.com
- (2603:10b6:8:347::19)
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="CApIy78F"
+Received: from cvsendbo026.nm ([10.112.20.48])
+  by cvsmtppost31.nm.naver.com with ESMTP id NeDj2TtZTT62sZ5AIADAGQ
+  for <stable@vger.kernel.org>;
+  Mon, 03 Aug 2026 05:21:48 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1785734508; bh=Odm4bgUe5yiGB1PQFAXlnF8TGTM0tTyU/1kX3aDHpWI=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=CApIy78FiC+hxk0kQn++GlULR9pInsVQL3vbsWoDP58Bk94R1xSVaCA8EROzRfE1E
+	 fVc2woqg6bmslEH9+2wnDkzwrWNmQtmM6xL88gl8t555afqjEAMTcK4vZxAZiswWd4
+	 Qx31MSMflefisTg22LGyCV5pJE7XzAsDS8kf6eQUACuAfS4gUsuxViN80rRFNu0f1R
+	 jnvHnQsjtFIoJFh0KJ7TvBGb6hG2Qe3EbJgHea41q+jMoK2CNNc8EnZUJZ84GZdybV
+	 6PhMaHcEF37TLtqp2JQcgiqA7SRjAiUbZJYhQPg8LeIfCqQp4j9Hhtepgnq8NyUIhV
+	 fcPbpB1Q3H0XQ==
+X-Session-ID: 2Llb3e00Q4Ooir7Ie8einA
+X-Works-Send-Opt: rle8W4eXjHwYKBm9FAF9FHmwKo2mKqErKqb/jJIFjAJYKg==
+X-Works-Smtp-Source: YwnmFqE/FqJZ+HmXKAuZ+6E=
+Received: from localhost.localdomain ([125.131.91.97])
+  by cvnsmtp009.nm.naver.com with ESMTP id 2Llb3e00Q4Ooir7Ie8einA
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Mon, 03 Aug 2026 05:21:47 -0000
+From: Hyeontae Lee <wonju345@naver.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	ntfs3@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyeontae Lee <wonju345@naver.com>
+Subject: [PATCH] fs/ntfs3: bound DeleteAttribute asize against rec->used in do_action
+Date: Mon,  3 Aug 2026 14:21:45 +0900
+Message-ID: <20260803052145.71949-1-wonju345@naver.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PR10MB997700:EE_|LV3PR10MB7844:EE_
-X-MS-Office365-Filtering-Correlation-Id: 57068bca-1743-4c5a-91b9-08def11d588c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|56012099006|10067099003|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	DmbJ7JSd6zFAmhdDpNBfL+/7So/SEMkMBXss+i8sODINzf2LYFVISaVFngQbu3mz4Jy5+HGzBsKC3W4gTeX+UZvV8E4Mwo/U4RN57eMg1y9dyNx5auPGAXTmWdK2nNceHY19M9S0MFGb3+zozRtNNMaAuTRgp7q5+0yvyN7l8geSDPTD2j7tWDs6AgIvtmKYvlv6Zv4dsgQgUIssAq34tiQ3fTAi7c4fUBqIGXIIpOZPI7kk8VdnKkvwsQGscPaudhEc7oKYPFOXbx/UDnXML4eczZVEHEqf6p/dgyEbYAHMKBR23nSXXTZ6yOm5P1OwETpy64I4y/e8drGvU2KCbCI8ie/7dqsIVFiTDgcxfYi+RzN9CSDv+WrahrEs7mRBWLUXoAne0v+TFewIjKpA1y+GtoFnVMA0YlnyVjbONKJoQ6IEr7AS8ELBMgQ3Uv208OfplRQSsr8eDNQtDCxF8/o4lTTLrrjxoODpscwxmaTMYAPAqS/OTenNaZpiY9/erRUOBzn5Mm6GR1z4B6SZKw8gQt9lewS030AONjFHc0AIF6PRQxoGiysPFyIp4BzgEMUt4dnWd1iaUtsLRpY08JY/SsMYXbOGM0ymCTSdd6UyA9wkoHXRsc2+hUFp9dEfPIUYA7CCEyKkKjZfTThLfrzJVOv4fi5zu0vNZYG3bSQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS3PR10MB997700.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(56012099006)(10067099003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZjBnZlpUWlc4WWI4UXJJaWszTDRYM0hucDlPY28xREdjRW5rZHl1bWROdXpG?=
- =?utf-8?B?bjA2VzczTkZVNkNvY3p3clRISW40blVkU2kvKzJDVmNXQlhNcE5QQlpZamMw?=
- =?utf-8?B?NVBrZ09DNDE3ZjNDbTBzSE1hbHhMdjNSYWYzVjE5V1BvR1Izcm9WYUZsSFFk?=
- =?utf-8?B?S3V2Q3MvVnZ2cTVaM3FoYTNpYkdnVDJwMWZYQ3BQSnpHK2RVT2FiQWh2S0pK?=
- =?utf-8?B?L015TzYrYlpXeVBCZzVjZWx2cGdsY2JodGJ2WWRHSjN0YXBHZ1hkbUtUZ1kz?=
- =?utf-8?B?N1luS1oyYVRabmRDN3ppYVVac3lBYzNnRkgxZFlYSkpKQ3RVOTdYZmNub21U?=
- =?utf-8?B?cmlvTXlhZ3VUZjBaWFVLZ1QzUlJVeGhjbG8vdTNWS3g2UzF1eS84b1NVb3ho?=
- =?utf-8?B?UHlUWktkbTNiS2ZRc095Y3NJbEthWTYwSlRTcUR6N1NZaUkzK2Y3QVRTcmtV?=
- =?utf-8?B?STc1TnFyZFM2dGpVT3ZzenFhWEg5cHY5c2d4T0d6NG12TGxDV0VEZ0pTczdJ?=
- =?utf-8?B?TGNYTk1meEYrak0rODluaEd4eUQyMW5VLzdId0xIOHNwbWkvTnBEMlAra25R?=
- =?utf-8?B?UzJFNGJXWndDejQwSElNUnNDQWtuQm1BWXNWSXRHUG5idHBqMTBhWE1HY2xM?=
- =?utf-8?B?OWdNRGhRSUltU0RsZlVOejJGK2JlSGhNYXpZV2V6Sk4wSmhQdnB6Q0NwOW9X?=
- =?utf-8?B?UnREdkxPUXdSU3ZoVDNiNTVsTU03WWhWN1QxUUw2SHFma0x5dHgyZW1wQjBB?=
- =?utf-8?B?R3RvRDgrVUlYYUVjaUl4VDhxWVNmVkVOdVJvdkZRRU44WjJJaU53NVJkWHA2?=
- =?utf-8?B?ZWd3dlErbk5TQUppbmwyU0RzOVZ6ZUxzM1JpcllJbVdLc0VUWDYvcVdYVXZK?=
- =?utf-8?B?dXpSNjZpZHc1MGc3SWw5L1lST2Q5WUVQQUNrb2hoTVVueUprMnVJYjczeEZ1?=
- =?utf-8?B?UTVDaDByVVd5YW5oT1Yxdjk4U0pkMUlKSVRicHY2bTZ3M09xdDBRRlJ3ZWJz?=
- =?utf-8?B?RHhYYWNFRi9ZQVg2RjFKOGZsbjBJU3VVT0F4SjNpRlkyb1J6SUhQUmRMMTEz?=
- =?utf-8?B?M29mMlpwWWt4enliYW4rWE5rRWliR21NRG9VRFh1UGVYdXcvakRqZWMwM3g3?=
- =?utf-8?B?VG1QVGJSWldWZjJDTFlkZXlFbUpoZmR5em5LN0FaQWxLUkJhVjlUbmEvQ29T?=
- =?utf-8?B?d0VhVVUzSitXTHV0VFJCOWZpbm1pUVY5M0t5bGFHSFNlc0w5djJMZmxMZXpm?=
- =?utf-8?B?MDZBMFN3aEx6ckZhUE90QU9HMDdWME45VVh4Z3IzZmcyZlArMGdTQm9sNUFQ?=
- =?utf-8?B?eFZ0dmVVVURtOFhrVDZRUFlrZm9yOWxtcytkZitJdXlSbk1iS09sTTVXRGp3?=
- =?utf-8?B?SG02bkVBSTBXbG1Ua29Rc2o2ODZYcXV1Ri9FWWVrbEtsZTg0T2FoQjljMjlH?=
- =?utf-8?B?bzVnOEhYSGRhTU8zTlZHRWZtSm1hNWt5U0VVTXdIWFVqbzN0N2p3QktHZElE?=
- =?utf-8?B?Q2VhQ1pnSmtjeUZEYmpDeTZGT0N4WTRLNEZuUWwxbEx0R2hVUkJWMGdPbU5G?=
- =?utf-8?B?bGh4WWh5eDJnUEZZMnM0NnpoZWlHZnF1Nm5sWERvTjVKcXY1YnBlSW1hZlNu?=
- =?utf-8?B?VXo3RWxGVmw5WVplQVMyR25pYURuUXc1cGFGVUVRTldVL2NGc2lCcmgzOFRV?=
- =?utf-8?B?YmkvVk8zTUIvTFFLdlBpbEVReHRQN1VUd2RYL09JU3ViYUsvU05PVGMrV0dw?=
- =?utf-8?B?c0NDOUNRdDJPQkxVcU1pbmlFbllRY2V2bFlZdWg5QnBhbVZpMEdibGRjV1Zm?=
- =?utf-8?B?MUVtZXBtdWpQK0FEL2x4eW9sdFVRak91KzJnMi93QkltTGV6Z0FSZ25KOFVF?=
- =?utf-8?B?T0NjNDNuLzRBajMwSUdicXRKSTJraENwVEN0OGVpOWhqSHFxb3lIbTlUcFV6?=
- =?utf-8?B?MGY4cHcyWnZZOVhmS01qUXBqKzgwUUE2M3BVdFhBS0JKYTBVMjJzUHhNbmdq?=
- =?utf-8?B?MmRQWFdjbHNhT3JVcFE2cWN3Ly9kbktEUTdFQUJDdGd2V2FPSWtGRCsxdFZ4?=
- =?utf-8?B?aVFPQ21CMnEyUUxLTHZGYW8rOHQvTWhqcU15d2gyU0pTbjdoN1lhaTlDaUlT?=
- =?utf-8?B?SW9DSkVETWRZb2VSblRud1ZkblBQSm1SaDVWYkwyOUxyajRQeUVGdkxNODFw?=
- =?utf-8?B?THZxbTNTWjdlNzloWVRtTjg1MVdXVTlPNW9nZ3Z4RUp6YlF4VzBhNXhHV0di?=
- =?utf-8?B?M0UyaitvOHhoc1NVVmgxT1c0N0ZkNmFXdkN3bDNFU0MzWGtJNnM0bEJIeDRi?=
- =?utf-8?B?NlNjdGlveTlpT1JzZ1lnRVdrUFpoZHQ5L2JORGpXdU5XOWNpVDJRUmNJQmZV?=
- =?utf-8?Q?/Tf75hdKSR3fQAI/Jm3v454Qjpy2XYtpQqokP?=
-X-Exchange-RoutingPolicyChecked:
-	Xd/hDGdkgp4IMVmrNKeU9M3fv4SWom0zxTQiHJM+pUo2PrZ2fqdVxe86+QfduxN4HkxkmtHYHT+HeaUbFMEbWiDjJjJRoSmVwnHGpuMETyd9oRaxUSMFNgzA89lnWTZmVEd1Uywxav/P/gyxZ+DEio4HzwqhFJVQXb7TQ2ArKkLFwQZ6ykdQRM199N+54NVg3z8gzr3qOus6/GtbGHizKcIQWFcYIhTtxc2k1GoGOHELIdODbv6kzEN4dryGpgVz6LpB+9OTvmlbMHSqip+ROQgikgTQUDOub03rlRwKMCO4McMZgTo3ns4Ol0E2iT/lWbSszsRJG+LIkHGio1z2/g==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	xCRpet7FFfJkO9ZciAOyFY0yHspQc1NW32GPQ8o9rpYq2xHI63XQBvhfZDT6M0fq76qb+RtIYp5BDg2cPFlvyMjnmEsUfDaWBISdn5Dlvj+U9N6L3TCYX7+29Ek6xB15iQDeIesjc2K8SOLWYbEpHWId/A19CipbMNdgecSeq7DYY7ceC5yGjknZvpyBC0SfHwXfHClxTBw0LAHDoUVY+SNO0k4zwhlp9666nyY9KFWp4gbsyWRv9BMu+WkNcTNaZX7DtGYNnBzyr3TVmFacOrHhrp8vs336dBAB0+f5BqLGCQMpuwToECOssTUNKLoMT7SIkyVOCwMoQfhivKv957GecFdz2mqDkLaHNEL7i0SXIWHsPtGXAPp/uUdP8S5PvNG7NCNS79/CbmX11ShDG+XgK5PZP3AYQFnz4gEssU7/a/yetxeMKNsps5AQnGZqjcUKvNrtgla1enAf4R8DujnC6FlBCHoX6WGhlQljEA29lzqxxd9SLdzEYzqgWea+RSa3aeLtlAq9fTOctCDxgcTAbrObHCiDNzgEBEi37hDutQNggs4B0U9mmCobhkhFdr5vkeBX+bkWzdXesVSapgLZY4UhFORRo044Bba5+lI=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57068bca-1743-4c5a-91b9-08def11d588c
-X-MS-Exchange-CrossTenant-AuthSource: DS3PR10MB997700.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 05:09:07.7147
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pubfhtEmFe77FT9tcsK1t3T6tz57CoSnGaia7TMpRlROOR+t0AKlctswtOerXH3XDG85vkDj1FFanRCEi9FDvVYG7I1nfFruEM5AVagUz712i8LdM0+YNJFJMLfxzQCB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR10MB7844
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-02_06,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- lowpriorityscore=0 suspectscore=0 adultscore=0 mlxscore=0 bulkscore=0
- spamscore=0 malwarescore=0 mlxlogscore=999 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.19.0-2606160000 definitions=main-2608030042
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDA0MiBTYWx0ZWRfX33SJEAkS7iTd
- +1fljmguE6+A3dxFoiORxl29Sx8ZXrTgOO0m28eGUHzOVow+KNnfxdb7ehJW0xXs7CsIP/1WuuT
- 7NvvWM88ZOMUXnZOuExqEK4LLarFPUzt48qPY7utXEMpucCcZZfUeMB/mHlll+oeZGmR5yU5tNT
- RtEDUMbc27yeVfL/H/oRRzDGCCcrGwrlQWNLzFUO2/yuwdhnC57Q/LFC6B8LLlfe3lTIw1I6T3b
- oMPTnGHdvpKBlZbJKoaFYXHDnmi0lVKU0bP/g0tbRpDWUM3KxLwzNLB/xuXky6IYvCMzq0HSbBm
- D1TizRX0uiCqWmJFTPYeDu4FCpKjH1/FkBuCp6piOa/S8DXQuByEFD1zJiBi2ohbPYYvFCOXzXT
- ulYrc+5cLmHynDq7/4K5VnyGk3jsW1rvhCUfgncd6xTG2xM9TRtrhqCjc9xlCGvbmg3vU/LQQVl
- ZVG+LwDPa6YtQfym20g==
-X-Proofpoint-GUID: 2Kctx9fg6XakhVb1cLgLqcYN_b09OZZd
-X-Authority-Analysis: v=2.4 cv=frDsol4f c=1 sm=1 tr=0 ts=6a70227b b=1 cx=c_pps
- a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Sv0fKeRqtYgA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=x0eKOSpe3m1H3M0S9YoZ:22 a=zaxhBlLj2UWU9TMZRmgA:9
- a=QEXdDO2ut3YA:10 a=WmVTiCyuxqgg3mnwYu6p:22
-X-Proofpoint-ORIG-GUID: 2Kctx9fg6XakhVb1cLgLqcYN_b09OZZd
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDA0MiBTYWx0ZWRfX95j1TE/ZoHZF
- BDlQU2HX0CIy9BpHSJwU5wrhGnQJcKFgDGOMGVi9PC9SQnmKgbaO3RrBb0lbF+fTnnvfoxU1dZO
- Az13wpoYB6JUL5hx3RgFL4jNGCm0Pdr3sPyxA3fEQ4+d06AXmEk6
+Content-Transfer-Encoding: 8bit
 
-Hi Sasha,
+In do_action()'s DeleteAttribute case (fslog.c:3316), attr is
+Add2Ptr(rec, roff) with roff taken from the on-disk lrh->record_off, and
+asize = le32_to_cpu(attr->size) is read straight out of the MFT record:
 
-On 02/08/26 8:45 am, Sasha Levin wrote:
-> On Sat, Aug 01, 2026 at 11:34:53PM +0530, Harshit Mogalapalli wrote:
->> So 769b0f1c8214 is recorded as present although its semantics are
->> absent, while 201b62ccc831 is split across two differently attributed
->> commits.
-> 
-> Confirmed, and thanks for chasing this down - your reading of it is
-> correct.
-> 
->> Maybe we could be replacing 76344b7301ce plus 4ee2d0ce3e82 with one
->> correctly attributed adapted backport of 201b62ccc831 before
->> 6261a33d665b.
-> 
-> For now I've dropped all three from the 6.12 queue:
-> 
->    - bpf: Refactor {acquire,release}_reference_state (769b0f1c8214)
->    - bpf: Refactor check_ctx_access() (201b62ccc831)
->    - bpf: Reset register bounds before narrowing retval range in
->      check_mem_access() (5e0b273e0a62)
-> 
-> I'll requeue the fix next cycle with a corrected dependency set.
-> 
+	asize = le32_to_cpu(attr->size);
+	used  = le32_to_cpu(rec->used);
 
-Thanks again, that plan looks good to me.
+	if (!check_if_attr(rec, lrh))
+		goto dirty_vol;
+	...
+	memmove(attr, Add2Ptr(attr, asize), used - asize - roff);
 
-regards,
-Harshit
+check_if_attr() (fslog.c:2869) walks the attribute chain from
+rec->attr_off and returns o == ro.  Its loop breaks on ATTR_END, so ro may
+legitimately equal the offset of the ATTR_END marker; that is exactly how
+CreateAttribute appends to a record.  But check_file_record()'s walk
+(fslog.c:2831) also stops at ATTR_END, so check_attr() never inspects the
+bytes there.  When roff is the ATTR_END offset, those never-validated bytes
+are what gets read as attr->size, and used - asize - roff underflows.
+
+The read itself is also unbounded: roff is a u16 and attr->size is
+dereferenced at fslog.c:3317, before check_if_attr() has constrained roff
+at all, so it can be up to ~64K past a record_size-sized object.
+
+Commit 0ca0485e4b2e ("fs/ntfs3: validate rec->used in journal-replay file
+record check") added at fslog.c:2844
+
+	if (used < PtrOffset(rec, attr) + sizeof(attr->type))
+		return false;
+
+and its changelog names this very memmove.  It bounds rec->used against the
+ATTR_END offset; it does not bound asize.  With record_size 0x400,
+attr_off 0x38, a valid three-attribute chain ending in ATTR_END at 0x158
+and used 0x160, a record whose four bytes at 0x15c read 0x100 gives
+
+	used - asize - roff = 0x160 - 0x100 - 0x158 = 0xffffff08
+
+i.e. a ~4 GiB memmove whose source and destination both run off the end of
+rec, a kmalloc(sbi->record_size) object (record.c:105).
+
+The equivalent non-replay path already refuses this.  mi_remove_attr()
+performs the same removal and starts with (record.c:548):
+
+	if (aoff + asize > used)
+		return false;
+
+Apply the same bound, spelled as a subtraction to match the neighbouring
+cases, and move the attr->size read after check_if_attr() so that the
+header is known to lie inside the record before it is dereferenced.
+Requiring roff + SIZEOF_RESIDENT <= used rejects the ATTR_END offset
+without rejecting any real attribute: for an attribute the walk validated,
+roff + asize <= off(ATTR_END) <= used - 4, and any attribute a
+DeleteAttribute record can legitimately name carries a full resident
+header, so roff + SIZEOF_RESIDENT <= roff + asize <= used - 4.
+check_attr() itself imposes no lower bound on asize, so a crafted
+sub-header asize can still pass the first test; the second test then
+bounds it and the memmove stays inside the record.
+
+Reproduced by mounting a crafted image on v7.2-rc5, which already contains
+0ca0485e4b2e, under KASAN.  The image is an ordinary mkfs.ntfs volume with
+four bytes of one MFT record changed and a crafted $LogFile:
+
+  BUG: KASAN: slab-out-of-bounds in do_action.isra.0+0x3211/0x83c0
+  Read of size 4294967048 at addr ffff888002423258 by task mount/66
+
+  CPU: 1 UID: 0 PID: 66 Comm: mount Not tainted 7.2.0-rc5 #3
+  Call Trace:
+   kasan_report+0xce/0x100
+   kasan_check_range+0x105/0x1b0
+   __asan_memmove+0x23/0x60
+   do_action.isra.0+0x3211/0x83c0
+   log_replay+0x920a/0xd300
+   ntfs_loadlog_and_replay+0x3ef/0x510
+   ntfs_fill_super+0x1d23/0x4550
+   get_tree_bdev_flags+0x2ef/0x550
+   vfs_get_tree+0x82/0x2f0
+   fc_mount+0x10/0x1b0
+   path_mount+0x517/0x1df0
+   __x64_sys_mount+0x20b/0x270
+   do_syscall_64+0xf9/0x540
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+  Allocated by task 66:
+   __kasan_kmalloc+0x8f/0xa0
+   __kmalloc_noprof+0x1b4/0x460
+   mi_init+0x81/0x110
+   mi_get+0x6a/0x220
+   do_action.isra.0+0x1dbf/0x83c0
+   log_replay+0x920a/0xd300
+   ntfs_loadlog_and_replay+0x3ef/0x510
+   ntfs_fill_super+0x1d23/0x4550
+
+  The buggy address belongs to the object at ffff888002423000
+   which belongs to the cache kmalloc-1k of size 1024
+  The buggy address is located 600 bytes inside of
+   allocated 1024-byte region [ffff888002423000, ffff888002423400)
+
+KASAN reports the source side because __asan_memmove()
+(mm/kasan/shadow.c:94) validates src before dest and returns without
+copying.  Both ends are out of bounds, and on a kernel built without
+KASAN the copy is performed.
+
+rec->used is also left at used - asize by fslog.c:3323 before the memmove,
+so the record stays inconsistent even when the copy is suppressed; the same
+mount goes on to report "ino=1a, mi_enum_attr" and marks the volume dirty.
+
+Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Hyeontae Lee <wonju345@naver.com>
+---
+ fs/ntfs3/fslog.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
+index f038c799e7ac..f415785c60f9 100644
+--- a/fs/ntfs3/fslog.c
++++ b/fs/ntfs3/fslog.c
+@@ -3314,10 +3314,21 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
+ 		break;
+ 
+ 	case DeleteAttribute:
+-		asize = le32_to_cpu(attr->size);
+ 		used = le32_to_cpu(rec->used);
+ 
+-		if (!check_if_attr(rec, lrh))
++		/*
++		 * check_if_attr() accepts a record_off that points at the
++		 * ATTR_END marker, which is how CreateAttribute appends.  The
++		 * bytes there are not an attribute and check_attr() never
++		 * validated them, so refuse an offset that cannot hold a
++		 * resident header before reading attr->size, and then bound it
++		 * as mi_remove_attr() does.
++		 */
++		if (!check_if_attr(rec, lrh) || roff + SIZEOF_RESIDENT > used)
++			goto dirty_vol;
++
++		asize = le32_to_cpu(attr->size);
++		if (asize > used - roff)
+ 			goto dirty_vol;
+ 
+ 		rec->used = cpu_to_le32(used - asize);
+-- 
+2.43.0
 
