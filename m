@@ -1,130 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361BF3C1D62;
-	Mon,  3 Aug 2026 09:01:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571B13B71C4;
+	Mon,  3 Aug 2026 09:05:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785747724; cv=none; b=gVho4RhJVDk22BmAO+mVKkfnNYr74/nzwxKpseSlWnpTfi2RlYgaaBvAAr9MiDERu1QyV8oVwGYhh0XRmIJewzWg9rH+fI+9dB6R6qFW6To9exfy4xLbtHrcdCW48bPodBNUTkSSj/SU6ZVQjkScjiJPu9nU1y+PV3ebZK748gc=
+	t=1785747947; cv=none; b=DfFB5tbSJHtmhxLqi6EzqJAnjyHqiMODcyMG4HJjvV/JnXLXbDBztA1GGoAQKOEWgec2s4ny6t4jvXLPY8X5e3yqzf5JeHu68q9AFNdDRr7E/7cJr983zoIryIScTBoArWmrZE/AnCXbw5S0XfGUkEQjpcQ0ahkyDw9ksGthBm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785747724; c=relaxed/simple;
-	bh=Wjn+LZxUrxElbvXFFCW3gXKqvIO82B95SF3ql9F8SX0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BgoGTnmOvElM6HVtCeKFukCDlO5NiktB4FGbnXSHYttLU+q4sIdHWAB5qrRAvT89uGIYLkMK2HJjuzdlhi87JAThSGVH9DPLVYK8cCkJ3K43ML5XJv86+2U2bitgGLio13f5YYomQs5ZK2INHv3vYUFq8gwzE5OJVHqQA9x0RN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hHQWaGgb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785747947; c=relaxed/simple;
+	bh=NnHtT+b3Qiye4Yp0uUBANizduTZCS8BbwpRtm/Y1De4=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=oBbUkbqptBWW/4qRbZE0AvP1mOsyOsa2hTs7XnAULW1oowYFcFDNGGKT8tu9XSD0DwE5cGVlBgs+Kqw+QWVv/wHBCmJtjpXA8hAwWDF65p0nLO9ibbAV1oztiSIQaR+tnvZWuNck2mwp7Wu4gWG2AFqM2/SatTtCPVXRaVgMNyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=L0KnyfMq; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=GMj+2Fse; arc=none smtp.client-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hHQWaGgb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 222E71F000E9;
-	Mon,  3 Aug 2026 09:01:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785747719;
-	bh=o0089o0bbEQtwfWpK1qclgTAGKt6rykweg4h/h9+YTs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hHQWaGgbXNZeB2w2D76rXAIOxO3eMc2cb443NOh7mi3AglrQtoVjKGAc9NUqOeCMq
-	 jdRgwX/bhWguU5P6LXSi2V93YCxzw1k7VDoXaZO2v8sv9x2OlPok8QFBDKNb3gGPkA
-	 ueJFEgTuACqwuvG+1YtN4+kn9ZqnlaLHI5AezO1r9M8v5CVVBPSRsZJ0pzhGDXM66K
-	 cAxJG+9Dk5KYGoZZPeTx/xFzPW0km9f3IXFMcPHKPGc6rPk5mAMuP6KPD3OXqA9RBv
-	 sk8XuoQizTzg//Yl5uNZFCYbVaR9M1c+4KYs29xENH2Tm2kgpKJva1H8i5BH0ibaD6
-	 RTHJxMCSUhufA==
-Message-ID: <abf64852-1987-4ae4-8001-dad4169cc182@kernel.org>
-Date: Mon, 3 Aug 2026 11:01:54 +0200
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="L0KnyfMq";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="GMj+2Fse"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 42AE114000CC;
+	Mon,  3 Aug 2026 05:05:38 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Mon, 03 Aug 2026 05:05:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1785747938;
+	 x=1785834338; bh=NnHtT+b3Qiye4Yp0uUBANizduTZCS8BbwpRtm/Y1De4=; b=
+	L0KnyfMqEanfuLJms+4Htc4y20xWQ8nXZXQymKtiQc4FnDncdS1/2nalkzg1kJGr
+	GPy4CHOC3xieo49RvSZ73DufPtIB0+HRWi1nXrNuIkzsA6dt+kGUO7/+2mLrB7GK
+	7EddNe49cXkbehL/shOutGkVJLdzVYS0jxxnJF02K4+yvDd0oj5grUYrLhXafBnX
+	QGLwBd0qYWWIkJXqJ1N6QArWFBX0z0Aj6Fpl11Ucco6X3SR7iDPnhHtQ+Ry/Weg4
+	+SdYcgq9cj2Sl/lYVtuavCU/MGniQzc+drKQ33UwQYWbY7ED45oxsqery4R/9Jh2
+	gpylNd0D1dfZeg4Hv22W5g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1785747938; x=
+	1785834338; bh=NnHtT+b3Qiye4Yp0uUBANizduTZCS8BbwpRtm/Y1De4=; b=G
+	Mj+2FsePoKPkAlo6H29nlAncoexiuhfxd7uv1wGF0taBZOm6FobwEuQ55SzHSvd9
+	R8fqCoM679LPDYR8mmUnTJ1O0DXoWZFs+6V1Kev5UrqleGloEI/Se5/JfL9CWk2X
+	4/K4vPk/BNd6CmqW8qWiLJh2FUEFdEk6tnCa4916lSmDycyi8XuS4PogkXDLtYCa
+	SLt5O6aN5dx8oH9CV2R9Np3RWn3wKTL4j9N14Knc8PpF9cJaJOup4FKPqInUVqVG
+	1kfJafA/m6BtD4TmT0L3PCRSjz8amFgkA6DJuOl8CyTwZ66q2Vq7ZJckJcbxrlr/
+	PBecWw1H1V/6CI6srSSSA==
+X-ME-Sender: <xms:21lwapyNsTshWBY8FdqTU_ji8L7cPfPy3Rt0fZCykbfDizM0wiygWg>
+    <xme:21lwakFHMp_8QCgwU-4z6ZppPva2mMhl6y-RFIBF9HOewzxjiRcmdQeMK7yJWJkgx
+    bHNTzMHXgOm48A8wrCDXInRaMVJfhqOF6WCAriMKzGKqeXtWN3fUJM>
+X-ME-Proxy-Cause: dmFkZTFzyMgTqu0jLIpbo2pKkb6HHBDTgg0uSi900V1ofKJ5LwtvHQE/955DGS70N4VIcS
+    4A7QluVgyDmnJ+babjbGyQ4oTOWbds9YJS3vuXNkrNeNNhPZ9se7AF3h5NbsrHgpoSm1i/
+    wFi+QQAhdVa8WIbsQIYw1irvqGYsdky6vE619SAaEdj9n+MD96sfCit3bIERdjcNB9Hb2P
+    chUS0eYnCr2ZV0MQ0ASSsT9TkAtwtqfbwjvYGj5cPqEJTUN2sqF2aPvJIG69ZOilUa2L8B
+    MzQEw6x94i9bYT7+29QJlDC4y4hakw/NcpPXkKqyax5MIG6Ivzt9dAmGa6Xv0o5IGBt1CK
+    pTAw4R/doSiLhcivx8hrqonhMUsP2L9lCLZ7RoBzQ/pMVF7RsknTcqr49Lt5nst9czkm2M
+    gppwaGVht1sORSBrUGSuD3nrotm89aXe1nJecGVBwCU7o5E81sNngYGcG5qlNbKStQX9yr
+    pKNfxFH9KQ8xQ47sPVtVVPyxU2lgYDNIWzTl29Xj9vAFA3Y6F2yaVltPqVLwuJgt0XJcoG
+    7W72lrocRGpK81Zhc8N06U8qYEo2RT4O4lKSc+Cs5id5jhTFSWDRon8Y6rI5aZSF5BO25i
+    r8ktVf/yFIHNlWuqIe/cuZMNiCC1WYQpITBqOj+HP2ju2FPGUUTGaPELy3EQ
+X-ME-Proxy: <xmx:3llwatDA3EUAYi7NPnEbont1T5KrUo5ea1BCuU7dOHS5y_2h_mF-DQ>
+    <xmx:3llwaiCYZpnjemypq3XeOEZBenDyzK7Sp28NShLEyIEHVyTVskKRCQ>
+    <xmx:3llwammQxROwO74-mNoHE5C-s2VDwi_zJHRUjlw9m06FzUTrzFzxLw>
+    <xmx:3llwaqgeUyfG2gh1Z5yZTMIwkgEAjE6MDwVv0GFTXApmF4NSdZVzug>
+    <xmx:4llwatvbkwAU_gfhIkt8O-hvvKrdmr0pvAMPCyt3lMPH3jIYecaE3gSp>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 6A40732A0060; Mon,  3 Aug 2026 05:05:31 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/gup: fix always draining LRU caches in
- collect_longterm_unpinnable_folios()
-To: Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe
- <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
- Hugh Dickins <hughd@google.com>, Ackerley Tng <ackerleytng@google.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260731-check_and_migrate_movable_folios-v1-1-e0002d7b791e@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260731-check_and_migrate_movable_folios-v1-1-e0002d7b791e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+X-ThreadId: AP-oKdSeCNZ7
+Date: Mon, 03 Aug 2026 11:05:11 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: moonafterrain@outlook.com, "Madhavan Srinivasan" <maddy@linux.ibm.com>,
+ "Michael Ellerman" <mpe@ellerman.id.au>,
+ "Nicholas Piggin" <npiggin@gmail.com>,
+ "Christophe Leroy" <chleroy@kernel.org>,
+ "Paul Mackerras" <paulus@ozlabs.org>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ "Yuhao Jiang" <danisjiang@gmail.com>, stable@vger.kernel.org
+Message-Id: <034d9118-b2b9-4521-88eb-3d88d805834b@app.fastmail.com>
+In-Reply-To: <20260802-fixes-v1-1-7368423440f4@outlook.com>
+References: <20260802-fixes-v1-0-7368423440f4@outlook.com>
+ <20260802-fixes-v1-1-7368423440f4@outlook.com>
+Subject: Re: [PATCH 1/6] powerpc/spufs: fix spu_context leak in coredump
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On 7/31/26 22:27, David Hildenbrand (Arm) wrote:
-> folio_may_be_lru_cached() is currently only true for small folios, and
-> for small folios FOLL_PIN adds GUP_PIN_COUNTING_BIAS references instead
-> of 1 in try_grab_folio()/try_grab_folio_fast().
-> 
-> Consequently, our
-> 
-> 	folio_ref_count(folio) != folio_expected_ref_count(folio) + 1
-> 
-> check in collect_longterm_unpinnable_folios() will currently always
-> identify "reference mismatch" and first drain the local LRU cache to then
-> drain the LRU cache on all CPUs, as collect_longterm_unpinnable_folios()
-> is really called after pinning the folios with FOLL_PIN.
-> 
-> Add a comment because the current code is not quite intuitive: we used to
-> drain only to make sure the folio_isolate_lru() would succeed. But then we
-> also started draining to make later migration more reliable.
-> 
-> We'll refactor that code soon a bit, to also make it usable in other
-> context where we really want to remove any references from LRU caches.
-> 
-> Let's add CC stable, because having an easy way for excessive LRU cache
-> draining on all CPUs does not sound right. In common scenarios we
-> don't expect to every have to drain.
+On Sun, Aug 2, 2026, at 17:51, Junrui Luo via B4 Relay wrote:
+> From: Junrui Luo <moonafterrain@outlook.com>
+>
+> coredump_next_context() returns a spu_context with a reference taken by
+> get_spu_context(), which the caller must drop.
+> spufs_coredump_extra_notes_size() does so on all of its exits, but
+> spufs_coredump_extra_notes_write() never calls put_spu_context(), so
+> every context dumped through elf_coredump_extra_notes_write() leaks a
+> reference, including on the success path.
+>
+> Fix by dropping the reference on each of the three exits of the loop,
+> mirroring ..._size().
+>
+> Fixes: 38b407be172d ("powerpc/spufs: Rework fcheck() usage")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 
-Stumbling over this:
-
-s/every/ever/
-
-Thanks for the review Hugh!
-
--- 
-Cheers,
-
-David
+Reviewed-by: Arnd Bergmann <arnd@arndb.de>
