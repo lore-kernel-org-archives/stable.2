@@ -1,176 +1,138 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B5730D403
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 20:28:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC0801A6834;
+	Mon,  3 Aug 2026 20:35:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785788898; cv=none; b=NXT6z/koJ/LYIaNWOtNnhL//Lz+ni8qWJhrjzi1eg0rm6Iv+2C32b8HugTEqkxXx0c6CA/f7hFYYER20kqhdUZFNSfFEAyiRhQFLDYJjj6SbCj1ss6BJU2hip66JO4N4SkftAadAwcCDZ5M8p5Vtz6zHkYhJCPTCDl6L2FqXOOA=
+	t=1785789346; cv=none; b=lU3h0NygsMldZMdqSQAQfgmMBQtBHywH2/3/ny6nh69ojskQ9k1L7XVhRV3GlVzY+B/JzVKCCfiEQzEIxwIHn/BitvxnQZQdps3HVr8Kt2N4B6gLjdLkAABv3L2mciVRikbaO3opyWJpxypUu+HJiTpzJ1VpKauebk6khGADlhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785788898; c=relaxed/simple;
-	bh=DMyHLafdGRp2TK42AThhS6zHgRAC9enbNNZVGg6k9nc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NxS5mA8OBLbIv18j3s/0rGBomgZWwQd1eEK3vTzNqPU9MPhPESJe0r6UdhOCAIielUnkfBinpp6CMcT9ZhN/lTr4cx18wNnbiJsZYDn8b8hfH7W7VABRZ2Wo+1rpLt326EE50aUXHwBHQ3HHApQNwqiftuvD2fD4dnYxfHiFaog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=duq+Syu+; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=jUWyjNV8; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785789346; c=relaxed/simple;
+	bh=cAmFF5z2bCn5RIMRTn7iLSXF6TmUSyMhjFNGIkV1spU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Va0OW5JjvXDYVc+AHvlvqky+lInNwXnVHLxApBK0yj6GhO/QeVSg1MaI2AMNfGG34slN+fVcc1gi9i2tsM4wjekAi37iDCN6GgVGAexh7HxC5UPGPiJdDykv9bJNmD7TKCZWGk+hmJHnZAyxdpAvncyT5aLnDO8bBBbUTxPbNHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XlmQ85EF; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="duq+Syu+";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="jUWyjNV8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785788895;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wX+bqNXzbUvOFq+BzRqzbHoTdraqMXAamIS5FpWS7aU=;
-	b=duq+Syu+QAQr1yMkoilHt0PGRdqe/Ae8qb+dy+I5Zv2T9kyZ3UY0T0Z+PdygpScNi6otAw
-	pgcKNnPGsvbHIYlcIivzVe57wKQE6i4JB2G9+89bYai2eQg8OvCn0oq8M9bSLaQE1IS2g/
-	XKpEiF4pG7dPAjuVoJsd9Pyl21V93WA=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-60-APL7Cl_zPDejQJN-RBPi9w-1; Mon, 03 Aug 2026 16:28:14 -0400
-X-MC-Unique: APL7Cl_zPDejQJN-RBPi9w-1
-X-Mimecast-MFC-AGG-ID: APL7Cl_zPDejQJN-RBPi9w_1785788894
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e53b8a302so373093785a.1
-        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 13:28:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785788894; x=1786393694; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=wX+bqNXzbUvOFq+BzRqzbHoTdraqMXAamIS5FpWS7aU=;
-        b=jUWyjNV8KhgGKkADBAxjAF4nSSk62yClO7pJuA8U9CMIF2jnzOUsn9scDSrcXN/gSU
-         1RmQsKNoy0FjteKgDpijUY6pZOJPoq9L5TEX8I3sYayQpBz0P+1PMnCCpVBOvuxNQ6dF
-         36+q4qw+xXdcFxH40N+m7UuMxzvAkOi+breFRKp3VmfwLjpPwGCKlp9URMGSoTt9XFHO
-         Pj6ovye90Vt82EjtCHQoOXEUbRjclWOpZ+aI6WQkMujEePicfg2fgsx8CDPuUYbLLfeA
-         n7rvWGiUIFOofIxq0BVUiErGnTUgzGxOZgkLarqETPIeZd6JtIzvKOk65PcTlzKwx5Ty
-         pzhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785788894; x=1786393694;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wX+bqNXzbUvOFq+BzRqzbHoTdraqMXAamIS5FpWS7aU=;
-        b=dlaN56eutnYHZN673y9jKd3K4QesQScdP4cAiwO7z20bRbMITNQC9pVNpTiPl43vAU
-         1TOynidTgXPINoXNsLKIn1qDMNwrLjQml9a82xOEkNNYbeRQ7hk+eU3Tgqpm6EtPk85a
-         NOOD6abaUWJ31EB7XTqMr/xdhJAaRy6CZ072KYZaeYKvl1nouX2m5CzKCpaRguaTmg1C
-         F3K2ycxvZMO+rd4vywDwljfp5EAaOz6zW1Dqz7CsY1K0oxe6JzamKPNAdyH62av4gy7i
-         ntedYG447sVlDnpml6j7nwAaPM0uSjc5iD9LMYqtZDlYYYvAFojSGu6dpCTFH8Z2njZ2
-         RkAA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro2BXHCXggdfoje70ZYQuzL/RvDGlfVw+Va0Flw+d8eYYPMFwzAdmrivC8TXofP6xwePYwvUwo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwQEUaxoGidiOl5BYH+LHgtYNAUmvpQhPuSJyi0m3br3yJcN8J8
-	VLx68rvgIvXZ9VKJet+ClLWEd7KiSUkBOAQn5TOC9YfntlHqzxdG1yRZfxU5X/Sdkp5ALfVMlvk
-	/wT8e9vETZBT01VE1rNO+VS40fQqxQZgKkDpBP+g9rCXN7pPtOGTLeiDejw==
-X-Gm-Gg: AR+sD108xbekzQYuP49tvtkewdqfmK9/Q4zw9a/a4rGJcwsWcxtoFYy9DS17XLGk1e3
-	SsN08r5MslYG7W6zjo2XhzH3a3Q7cVmhj22Nq/kNTLgMa8tRyhZ7nDfqCegOxmLzz+/1aNymWrg
-	wRGpEArhoAabkgmAklQFadYv7e419FObo8VpEzBCotrDbxwbWm2l6ZEznwZBX0q4Bk1c9fFvlmJ
-	+9gcbTBh8BqYKrsq0lv8iQnxNaaKbBSxy2Lnqxgz/IsznHBPY0SbU9JjoXfu20SeGEWVwpoO8Xr
-	sml4z1pwiPLRPrp1tVqMem/hivSMoBdqrIoKJQYoR+y5qqDpyy4AY6DZ2CJTE0XLoLh8mSVIgA=
-	=
-X-Received: by 2002:a05:620a:a0db:20b0:914:e3dd:17ea with SMTP id af79cd13be357-934a07873b9mr1716839485a.12.1785788893643;
-        Mon, 03 Aug 2026 13:28:13 -0700 (PDT)
-X-Received: by 2002:a05:620a:a0db:20b0:914:e3dd:17ea with SMTP id af79cd13be357-934a07873b9mr1716836085a.12.1785788893100;
-        Mon, 03 Aug 2026 13:28:13 -0700 (PDT)
-Received: from redhat.com ([2600:382:8125:3ab5:9f4e:536:3d0c:6b89])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9349bc25410sm737190485a.7.2026.08.03.13.28.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 13:28:12 -0700 (PDT)
-Date: Mon, 3 Aug 2026 16:28:07 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Akari Tsuyukusa <akkun11.open@gmail.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Yassine Oudjana <y.oudjana@protonmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Laura Nao <laura.nao@collabora.com>,
-	=?iso-8859-1?Q?N=EDcolas_F=2E_R=2E_A=2E?= Prado <nfraprado@collabora.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Haotian Zhang <vulab@iscas.ac.cn>, Kees Cook <kees@kernel.org>,
-	Miles Chen <miles.chen@mediatek.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Sam Shih <sam.shih@mediatek.com>,
-	"open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>,
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
-	"open list:PTP HARDWARE CLOCK SUPPORT:Keyword:(?:b|_)ptp(?:b|_)" <netdev@vger.kernel.org>,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XlmQ85EF"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 33B3C1476;
+	Mon,  3 Aug 2026 13:35:39 -0700 (PDT)
+Received: from e127648.arm.com (unknown [10.57.0.71])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id DA83A3F632;
+	Mon,  3 Aug 2026 13:35:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1785789343; bh=cAmFF5z2bCn5RIMRTn7iLSXF6TmUSyMhjFNGIkV1spU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=XlmQ85EF9kd78pIOJgG5f6JGTZJ6aQ8GrlfbzFLJoCaLH1S6DKr8aWPT1TYCrbYVc
+	 52Ek3lm4+dKV/tC03ikYb6RqbcaHLN64aCZXHdsjk1N8uXGv3JdD0M3/IhpkNoOKnO
+	 tUNEuDa29HeqcUslBw/4bbbJgJI12JFB0zlp+AYw=
+From: Christian Loehle <christian.loehle@arm.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-pm@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Len Brown <lenb@kernel.org>,
+	Jie Zhan <zhanjie9@hisilicon.com>,
+	Lifeng Zheng <zhenglifeng1@huawei.com>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Sumit Gupta <sumitg@nvidia.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Ionela Voinescu <ionela.voinescu@arm.com>,
+	zhongqiu.han@oss.qualcomm.com,
+	Christian Loehle <christian.loehle@arm.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 00/32] clk: mediatek: Migrate to common probe/remove
- helpers and fix memory leaks
-Message-ID: <anD518s51UBvJHj4@redhat.com>
-References: <20260803141659.559129-1-akkun11.open@gmail.com>
- <20260803125034.49055f62@kernel.org>
+Subject: [PATCH 1/3] ACPI: CPPC: Reject desired_perf reads on _CPC revision 4+
+Date: Mon,  3 Aug 2026 21:35:29 +0100
+Message-Id: <20260803203531.1268651-2-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260803203531.1268651-1-christian.loehle@arm.com>
+References: <20260803203531.1268651-1-christian.loehle@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260803125034.49055f62@kernel.org>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+Content-Transfer-Encoding: 8bit
 
-Hi Jakub,
+When CPPC feedback counters cannot provide a usable sample, cppc-cpufreq
+calls cppc_get_desired_perf() because some platforms repurpose Desired
+Performance to report actual delivered performance.
 
-On Mon, Aug 03, 2026 at 12:50:34PM -0700, Jakub Kicinski wrote:
-> On Mon,  3 Aug 2026 23:16:27 +0900 Akari Tsuyukusa wrote:
-> > This series migrates most MediaTek clock drivers to the common
-> > probe/remove helpers provided by the MTK clock framework.
-> 
-> Why are you CCing netdev on this? None of it touches networking
+ACPI 6.5 defines _CPC revision 3 and lists Read/Write as the Optional
+Attribute of Desired Performance. ACPI 6.6 advances _CPC to revision 4 and
+lists only Write, so invoking that workaround for revision 4 or later would
+require a register read that the interface no longer specifies.
 
-I saw that message from you about two different mediatek patch series
-from different submitters. This series has 38 files, all under
-drivers/clk/mediatek/. If I run get_maintainers.pl on each file path
-individuall like this:
+Make cppc_get_desired_perf() return -EOPNOTSUPP for _CPC revision 4 or
+later. Use the revision retained in the per-CPU CPC descriptor rather than
+the platform-wide FADT revision.
 
-  $ cat filelist | awk '{print $1}' | \
-  	xargs -iblah echo ./scripts/get_maintainer.pl blah
+The _CPC revision may still not accurately describe the implemented
+register semantics. If a nominally revision 3 platform implements a
+non-readable Desired Performance register, a read may return zero and make
+cppc_cpufreq_get_rate() report 0 kHz. Treat a zero read as unusable and
+fall back to the cached OSPM request, just as for a failed read.
 
-Then netdev list doesn't show up.
+Fixes: c47195631960 ("cppc_cpufreq: Use desired perf if feedback ctrs are 0 or unchanged")
+Cc: stable@vger.kernel.org
+Suggested-by: Sumit Gupta <sumitg@nvidia.com>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+---
+ drivers/acpi/cppc_acpi.c       | 17 ++++++++++++++++-
+ drivers/cpufreq/cppc_cpufreq.c |  2 +-
+ 2 files changed, 17 insertions(+), 2 deletions(-)
 
-However, if I look at it as a whole, then it shows up:
-
-    $ b4 am 20260803141659.559129-1-akkun11.open@gmail.com
-    $ ./scripts/get_maintainer.pl \
-    	./20260803_akkun11_open_clk_mediatek_migrate_to_common_probe_remove_helpers_and_fix_memory_leaks.mbx
-
-    ...
-    netdev@vger.kernel.org (open list:PTP HARDWARE CLOCK SUPPORT:Keyword:(?:\b|_)ptp(?:\b|_))
-
-I think it's matching on this entry in MAINTAINERS:
-
-PTP HARDWARE CLOCK SUPPORT
-M:      Richard Cochran <richardcochran@gmail.com>
-L:      netdev@vger.kernel.org
-S:      Maintained
-W:      http://linuxptp.sourceforge.net/
-F:      Documentation/ABI/testing/sysfs-ptp
-F:      Documentation/driver-api/ptp.rst
-F:      drivers/net/phy/dp83640*
-F:      drivers/ptp/*
-F:      include/linux/ptp_cl*
-K:      (?:\b|_)ptp(?:\b|_)
-
-I think it's the K: for the ptp that's matching.
-
-$ grep ptp 20260803_akkun11_open_clk_mediatek_migrate_to_common_probe_remove_helpers_and_fix_memory_leaks.mbx
--static const struct mtk_pll_data ptp_plls[] = {
--	PLL(CLK_PTPPLL, "ptppll", PTPPLL_CON0, PTPPLL_CON0, 0, 0, PLL_AO,
-+static const struct mtk_clk_desc ptp_plls = {
-+		PLL(CLK_PTPPLL, "ptppll", PTPPLL_CON0, PTPPLL_CON0, 0, 0, PLL_AO,
-
-Brian
+diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+index 53d09ca98f06..42aeb749ebe0 100644
+--- a/drivers/acpi/cppc_acpi.c
++++ b/drivers/acpi/cppc_acpi.c
+@@ -1316,15 +1316,30 @@ static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
+ 	return cpc_write(cpu, reg, val);
+ }
+ 
++static bool cppc_desired_perf_readable(const struct cpc_desc *cpc_desc)
++{
++	return cpc_desc->version < CPPC_V4_REV;
++}
++
+ /**
+  * cppc_get_desired_perf - Get the desired performance register value.
+  * @cpunum: CPU from which to get desired performance.
+  * @desired_perf: Return address.
+  *
+- * Return: 0 for success, -EIO otherwise.
++ * Return: 0 for success, -EOPNOTSUPP for _CPC revision 4 or later, and a
++ * negative errno otherwise.
+  */
+ int cppc_get_desired_perf(int cpunum, u64 *desired_perf)
+ {
++	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpunum);
++
++	if (!cpc_desc)
++		return -ENODEV;
++
++	/* _CPC revision 4 no longer specifies Desired Performance as readable. */
++	if (!cppc_desired_perf_readable(cpc_desc))
++		return -EOPNOTSUPP;
++
+ 	return cppc_get_reg_val(cpunum, DESIRED_PERF, desired_perf);
+ }
+ EXPORT_SYMBOL_GPL(cppc_get_desired_perf);
+diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+index 6fe0e972952a..80893844353c 100644
+--- a/drivers/cpufreq/cppc_cpufreq.c
++++ b/drivers/cpufreq/cppc_cpufreq.c
+@@ -836,7 +836,7 @@ static unsigned int cppc_cpufreq_get_rate(unsigned int cpu)
+ 	 * value first as some platforms may update the actual delivered perf
+ 	 * there; if failed, resort to the cached desired perf.
+ 	 */
+-	if (cppc_get_desired_perf(cpu, &delivered_perf))
++	if (cppc_get_desired_perf(cpu, &delivered_perf) || !delivered_perf)
+ 		delivered_perf = cpu_data->perf_ctrls.desired_perf;
+ 
+ 	return cppc_perf_to_khz(&cpu_data->perf_caps, delivered_perf);
+-- 
+2.34.1
 
