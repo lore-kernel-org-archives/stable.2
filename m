@@ -1,192 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 654C4413221;
-	Mon,  3 Aug 2026 18:54:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F8C4322E6;
+	Mon,  3 Aug 2026 18:55:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785783286; cv=none; b=BsaHZjW/5zb9htMYMXl4TtnwQkD5qColmYzTeggEoKuKdJQVFUJN7fK/fbvEV9TQe8wMkXrjCQqAbGrTvOcyCBVeJsmEkev4ILiL+u+YqulJaPYgnoGqITZSkMEpm0n1cZZHOQScu9WHC6XfT2O+CiNYVP44mHZVrFp+thknSTs=
+	t=1785783304; cv=none; b=e98oXMF1ya0lhPMixABS/eOlaFvoW4MpPQil3DPVo5o9RT/cz9Tc2M/4uFyT46JiN30433KdsDYkR4H9OUaubRKtCHQMRzJhS/RyZKx9zGVVOE6iLXlBJRVbETn5qTunsgZcYAT8bvajoaDAwgvEz8JdfSC775VOuz/hrX5rFYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785783286; c=relaxed/simple;
-	bh=sp4StduCyC8sQKys5TOKubIWlp4NS1wl74CoNJKd4xc=;
-	h=Date:To:From:Subject:Message-Id; b=mmY+2BCQnCz+tco90RYnX+oWarg4bkuoPgQFmfQ3ogJQqKjcuDWR9qdbnU/1XkKTXFHU1WC6Ohr2zAaGZCKtxvqM/zFBAHzH7nZcnyivl/uEdQGtXiInvFQHv6cjhaw0qwn3Lx0FNvWlbrhMHf3Sx43GK7saAyJxzfsE283Idnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=jobynUbc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785783304; c=relaxed/simple;
+	bh=BFy1mHr7X4+eG6w2oV3Q6JFRozZEGT4to+nTEWSDQto=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=d/LmBsfhgL1rRZZnXqqe3+8gZcQmf1BaIQ/oOcraHZIpZlBTgsDsP23HfaNYoLLNYGvD55xbAOL7DUbTp7DTMQkCdt4KOBVdjlHnEQD8lcH25k6YYM0JaIqYa7FcJEY29oL2YoDTiEpxhd1DfbM0NWFIczM5AXMcB1qqa00C4HA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eepH/rW0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="jobynUbc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D7121F000E9;
-	Mon,  3 Aug 2026 18:54:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785783285;
-	bh=38MtYX4pmH2Nj3f6kgHGJM01zytdL7ql0wSOe2Wq720=;
-	h=Date:To:From:Subject;
-	b=jobynUbcgXjsWBGRCTrpDBr8JXdQmPZC0AJI/yVqrJVyYg2AX34iWEWkDZmf1kX20
-	 UmnaU0jI5ikoxd2ZkaDwPvK4cUflTqdJ8rAip9QRCSBVNTy8LLLcXOY9bRLqb5E2gC
-	 xRLGAl7I7BXrNHaaTDXlZq8BRXCASXZqqs4IHSjo=
-Date: Mon, 03 Aug 2026 11:54:44 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,aethernet65535@gmail.com,sj@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-lru_sort-skip-damon_call-if-ctx-has-not-started.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260803185445.2D7121F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eepH/rW0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69B0F1F000E9;
+	Mon,  3 Aug 2026 18:55:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785783303;
+	bh=Pxke/vqfk9U7IMz7tijv+uflzPa8znz+eeiIXihph84=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=eepH/rW06JMNgz46yjOqSUW4rQ0sE8cHvxiKaNZCYlQ7h0g++X/SgiQP0GX4c8poR
+	 O/ZReWnvwqfK2MraCc1DAC9Fp1f6LP6dp/fFWcQoSbkv6Bw6rvP3Z58CbfLWqo9Cou
+	 kagRyCbY3JZ+opciiklySLQzWMqyZMhAwHZc046C0Te2dlQ65vkn4sx4SQSf7s2tEM
+	 Ndwfx1Pmqj10XlQCHW458yGBw+V/WztKpYMeFeT6HhjRbretExzEMB0P9/Omi2ouMf
+	 Vf0JRBon8hO+tT5wSAuFU64skHxTc7hsh8HWTIBAprxZvkof2iqo4dvgAuHPWdDQQg
+	 mEDavr8PA/uGA==
+Date: Mon, 3 Aug 2026 20:55:00 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: raoxu <raoxu@uniontech.com>
+cc: erazor_de@users.sourceforge.net, bentiss@kernel.org, 
+    linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH] HID: roccat: free buffered reports when destroying
+ device
+In-Reply-To: <B93A126D2A126AAD+20260731084926.1771993-1-raoxu@uniontech.com>
+Message-ID: <89r4o32s-150q-8q34-0oq8-sp77rr5q0q1n@xreary.bet>
+References: <B93A126D2A126AAD+20260731084926.1771993-1-raoxu@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
+On Fri, 31 Jul 2026, raoxu wrote:
 
-The patch titled
-     Subject: mm/damon/lru_sort: skip damon_call() if ctx has not started
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-damon-lru_sort-skip-damon_call-if-ctx-has-not-started.patch
+> From: Xu Rao <raoxu@uniontech.com>
+> 
+> roccat_report_event() duplicates each report with kmemdup() and stores
+> the allocation in a circular-buffer slot. The allocation is released only
+> when that slot is reused.
+> 
+> The device destruction paths free struct roccat_device without releasing
+> reports still stored in cbuf[]. This makes those allocations unreachable
+> and leaks up to ROCCAT_CBUF_SIZE report buffers per device.
+> 
+> Add a small destructor that frees every buffered report before freeing the
+> device, and use it in both paths that can destroy a registered device.
+> 
+> Fixes: 206f5f2fcb5f ("HID: roccat: propagate special events of roccat hardware to userspace")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-lru_sort-skip-damon_call-if-ctx-has-not-started.patch
+Applied, thanks.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/lru_sort: skip damon_call() if ctx has not started
-Date: Mon, 3 Aug 2026 06:46:45 -0700
-
-DAMON_LRU_SORT calls damon_call() for commit_inputs parameter user input
-if the DAMON context is initialized.  The context could be initialized,
-but not yet successfully started.  In the case, damon_call() could
-indefinitely hang.  Read the comment on damon_call() for more detail.  Fix
-the problem by memorizing if the DAMON context has ever successfully
-started, and skip damon_call() if it has not.
-
-This issue can easily be reproduced by writing Y to the commit_inputs
-parameter file on a system that DAMON_LRU_SORT has not turned on before.
-
-Link: https://lore.kernel.org/20260803134646.16640-3-sj@kernel.org
-Fixes: de3c60e1c831 ("mm/damon: add synchronous commit for commit_inputs")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: Liew Rui Yan <aethernet65535@gmail.com>
-Cc: <stable@vger.kernel.org> # 7.2.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/damon/lru_sort.c |   11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
-
---- a/mm/damon/lru_sort.c~mm-damon-lru_sort-skip-damon_call-if-ctx-has-not-started
-+++ a/mm/damon/lru_sort.c
-@@ -351,6 +351,8 @@ static int damon_lru_sort_commit_inputs_
- 	return damon_lru_sort_apply_parameters();
- }
- 
-+static bool damon_lru_sort_damon_has_started;
-+
- static int damon_lru_sort_commit_inputs_store(const char *val,
- 					      const struct kernel_param *kp)
- {
-@@ -371,11 +373,8 @@ static int damon_lru_sort_commit_inputs_
- 	if (!commit_inputs_request)
- 		return 0;
- 
--	/*
--	 * Skip damon_call() if ctx is not initialized to avoid
--	 * NULL pointer dereference.
--	 */
--	if (!ctx)
-+	/* Skip damon_call() if ctx has not successfully started. */
-+	if (!damon_lru_sort_damon_has_started)
- 		return -EINVAL;
- 
- 	err = damon_call(ctx, &control);
-@@ -426,6 +425,8 @@ static int damon_lru_sort_turn(bool on)
- 	err = damon_start(&ctx, 1, true);
- 	if (err)
- 		return err;
-+	if (!damon_lru_sort_damon_has_started)
-+		damon_lru_sort_damon_has_started = true;
- 	return damon_call(ctx, &call_control);
- }
- 
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-mm-damon-adjust-isolated-pages-stat-for-damos_migrate_hotcold.patch
-samples-damon-mtier-error-out-for-zero-quota-goal-target-values.patch
-mm-damon-lru_sort-error-out-for-10000-active_mem_bp.patch
-mm-damon-reclaim-skip-damon_call-if-ctx-has-not-started.patch
-mm-damon-lru_sort-skip-damon_call-if-ctx-has-not-started.patch
-mm-damon-core-stop-ctxs-in-damon_start-before-returning-an-error.patch
-samples-damon-mtier-do-not-stop-first-context-for-damon_start-failure.patch
-mm-damon-core-make-damon_stop-never-fails.patch
-mm-damon-sysfs-ignore-damon_stop-return-value.patch
-mm-damon-reclaaim-ignore-damon_stop-return-value.patch
-mm-damon-lru_sort-ignore-damon_stop-return-value.patch
-mm-damon-core-change-damon_stop-return-type-to-void.patch
-samples-damon-mtier-stop-all-contexts-with-single-damon_stop-call.patch
-mm-damon-core-wait-ctx-stop-in-damon_call-before-reruning-an-error.patch
-samples-damon-wsse-do-not-stop-ctx-for-damon_call-failure.patch
-samples-damon-prcl-do-not-stop-damon-for-damon_call-failure.patch
-mm-damon-core-remove-comment-and-test-for-nr_to_bp-divide-by-zero.patch
-mm-damon-core-s-damon_max_nr_accesses-damon_nr_samples_per_aggr.patch
-mm-damon-core-s-accesses_bp_to_nr_accesses-sample_bp_to_count.patch
-mm-damon-core-s-nr_accesses_to_accesses_bp-sample_count_to_bp.patch
-mm-damon-core-s-nr_accesses_for_new_attrs-nr_samples_for_new_attrs.patch
-mm-damon-core-update-probe-hits-for-new-parameter-commit.patch
-mm-damon-core-handle-unreset-probe_hits-in-probe_hits_mvsum.patch
-mm-damon-core-introduce-damon_probe-weight.patch
-mm-damon-core-ask-apply_probes-ops-callback-to-set-sampling-address.patch
-mm-damon-paddr-set-samples-in-apply_probes-if-requested.patch
-mm-damon-core-ask-apply_probe-to-return-max-probe-hits-weighted-sum.patch
-mm-damon-core-implement-damon_probe_hits_wsum.patch
-mm-damon-paddr-respect-return_max_wsum.patch
-mm-damon-core-use-abs_diff-instead-of-abs.patch
-mm-damon-core-extend-merge-function-to-work-with-probe-hits.patch
-mm-damon-core-disallow-probe_hits-overflow-on-attrs-only-monitoring.patch
-mm-damon-core-validate-params-for-probe-hits-weighted-sum-overflow.patch
-mm-damon-core-disable-access-monitoring-when-probe-weights-are-set.patch
-mm-damon-core-set-samples-in-apply_probes-if-probe-weights-are-set.patch
-mm-damon-core-s-max_nr_accesses-max_merge_score-in-kdamond_fn.patch
-mm-damon-core-get-merge-threshold-from-probe-hits-when-weights-are-set.patch
-mm-damon-core-implement-damon_has_probe_weight.patch
-mm-damon-sysfs-implement-probe-weight-file.patch
-docs-mm-damon-design-document-attrs-only-monitoring.patch
-docs-admin-guide-mm-damon-usage-document-weight-sysfs-file.patch
-docs-abi-damon-document-probe-weight-file.patch
-mm-damon-core-skip-aging-from-repeated-aggressive-merging.patch
-mm-damon-core-hide-private-damon_region-fields.patch
-mm-damon-core-hide-private-damon_target-fields.patch
-mm-damon-core-hide-private-damos_quota_goal-fields.patch
-mm-damon-core-hide-private-damos_quota-fields.patch
-mm-damon-core-hide-private-damos_filter-fields.patch
-mm-damon-core-hide-private-damos-fields.patch
-mm-damon-core-hide-private-damon_filter-fields.patch
-mm-damon-core-hide-private-damon_probe-fields.patch
-mm-damon-sysfs-do-not-directly-access-damon_ctx-ops.patch
-mm-damon-core-hide-core-private-damon_ctx-fields.patch
-mm-damon-core-avoid-infinite-kdamond_merge_regions-internal-loop.patch
-mm-damon-tests-core-kunit-catch-test-failure-in-test_merge_regions_of.patch
-mm-damon-vaddr-drop-last-same-folio-access-check-optimization.patch
-mm-damon-paddr-drop-last-same-folio-access-check-reuse-optimization.patch
-mm-damon-sysfs-read-addr_unit-only-once-in-damon_sysfs_apply_inputs.patch
-mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs.patch
-mm-damon-core-initialize-damos-last_applied.patch
-mm-damon-core-kunit-check-region-count-before-testing-in-split_at.patch
-mm-damon-vaddr-kunit-check-region-count-in-three_regions-test.patch
-mm-damon-core-kunit-handle-region-split-failure-in-filter_out.patch
-mm-damon-core-kunit-skip-wrong-dest-walk-in-commit_dests_for.patch
-mm-damon-core-kunit-skip-wrong-quota-goal-walk-in-commit_quota_goals.patch
-mm-damon-core-kunit-skip-wrong-region-walk-in-commit_target_regions.patch
-mm-damon-ops-common-use-nr_accesses-moving-sum-for-quota-score.patch
-mm-damon-core-handle-region-split-failure-in-apply_min_nr_regions.patch
+-- 
+Jiri Kosina
+SUSE Labs
 
