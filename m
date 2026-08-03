@@ -1,52 +1,52 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C1E374A0A;
-	Mon,  3 Aug 2026 10:20:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9FC374A0A;
+	Mon,  3 Aug 2026 10:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785752457; cv=none; b=sSHDJ7a7KC+ZbORLu/oBbDmQxi4Ptt03GFIRfvK72jLQ3vJi6jpJnauHlo8cpV8Hq49zPSa/riZD07muqofOOiNgFZ90Qsf9ZoQ1d0xXAkDRZJ4ABfDcTStcEkZhdmDtoJ+GnH4hMbzeD2BLrvuYlEZaLSZTtdIVO2Dg9otykVE=
+	t=1785752461; cv=none; b=f/FoX4Q00LC/RejuBFzJNBZMq0qhkwr3mKBgAlSP53LdkZ0b01s5bH2tqxEz9zDJc8lSmxsSB4lw0RMSK5P02MTAcAkIXeZm6r0l2Dt7bsdkqd05VyPoa85wVrBoor1wLYDNoUbVVk2keEO9i02+McuuMgEaAkjGYzAgWiN4rcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785752457; c=relaxed/simple;
-	bh=0BF/dXdsYiEC/Tt8lDMrV8hwXEYF4zGOCWToRvpxPwI=;
+	s=arc-20240116; t=1785752461; c=relaxed/simple;
+	bh=YHLTsSgBycIo95LkRYRc4Yf6aA1AkFQaeRYrKiSJK50=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=HowSez+47sbcmFbq0g5G0fPzd+nYmf2gIBk7zDApxKLu2AcubhoohKUZaNBIzxQA+kOk5fiBOIoDIC3JEcd493Z52B21fY2cVZurWqfJwrB/B8IoXH9gubxf2ODqh8uIcmuj3upRcUxtLc2wfUju6TuBuT3nWR2IVKmt1B0oDME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=tPpTfcup; arc=none smtp.client-ip=68.232.153.233
+	 In-Reply-To:To:CC; b=dnTXHHOIXQesAWN1TV41PcYTESQQ56c/p/8bx06v/PgGxstW/ucZ7e9SEfzisfVQ2qwxcdtXUBAmkP1+3AhryBfLHw0zZ/tAaTWdTfkFQZfjDSFbtSQvuz4prh9iOEVTsndXxH4oU8Dikh/oaBq8my6U0ylrdp/G0K8ubt6eldA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=0MpKkkXn; arc=none smtp.client-ip=68.232.154.123
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="tPpTfcup"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="0MpKkkXn"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1785752455; x=1817288455;
+  t=1785752460; x=1817288460;
   h=from:date:subject:mime-version:content-transfer-encoding:
    message-id:references:in-reply-to:to:cc;
-  bh=0BF/dXdsYiEC/Tt8lDMrV8hwXEYF4zGOCWToRvpxPwI=;
-  b=tPpTfcupP1pNIUGcGH+ffP/+gAtxgQZmoaYeG86nv/MJvUKOjs3v116N
-   eZVY5i73xMClDLthVwwQXGxmXwvSCtazs0y8XmNYyO54qiWwBJeYEDo69
-   uzMdheVJ2WUX/jh5Yx1s6ZgCQa8axQhWxA2S143R4U5/ahdIuU8anlvLj
-   pu9o81qnpN5RrpUN5gA+KcLspX/2zOCuiBElK5KuSIK5R72ERv6C/syvc
-   naUbJ6iOxgxQqYMY9SJex7ApOimTJiUdeY21ytjMKPAdMbqUY5/Z4YFlx
-   EIlK9TMEil21c/avmJxA+TJn1kmYk0NcQLmCWlacJRUmfZlJ2a1a18FPt
-   Q==;
-X-CSE-ConnectionGUID: JsRevXirQgyX+aMFRqyb4g==
-X-CSE-MsgGUID: tPX0I/gCQ2KXyRH6NImDAQ==
+  bh=YHLTsSgBycIo95LkRYRc4Yf6aA1AkFQaeRYrKiSJK50=;
+  b=0MpKkkXntTfUM500C84auCXtXxU1viHfoqibc0iXju+n19IVo3Ghc9tt
+   nEUr9IdUucnp4HCZdn4GdmSJr0cTOwDlZOD85pdDT2XWdziH9S73ty11C
+   jsXNh7Yz5HCDRSgouhkwZyTt5dd7LQsgTOcCI08xR8Sigi0TwcYJ5Dpno
+   mdaYhbhUDGkgjCVgcqVHUgx11OzoLhT+V/fRZ8QvL6VCBK/0cLXaNB2Qt
+   jC7Q0NLeK3X3raw/8QoKRSky8NY8v/Srh8UQP6Tiwq/U7paGPFSD5X0zR
+   Qb+Q8eJajFEMNGaaYraxFz9WVX2fCqmkYYXk/JmEWyOXETtUgsxH8bqxD
+   w==;
+X-CSE-ConnectionGUID: WXuNkdtESBaPX8K/sxoLvw==
+X-CSE-MsgGUID: s2qOamZpShaGBuDNZ2RR/A==
 X-IronPort-AV: E=Sophos;i="6.25,202,1779174000"; 
-   d="scan'208";a="71118324"
+   d="scan'208";a="228697301"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 03 Aug 2026 03:20:54 -0700
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 03 Aug 2026 03:20:59 -0700
 Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Mon, 3 Aug 2026 03:20:54 -0700
+ 15.1.2507.58; Mon, 3 Aug 2026 03:20:58 -0700
 Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex03.mchp-main.com
  (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Mon, 3 Aug 2026 03:20:49 -0700
+ Transport; Mon, 3 Aug 2026 03:20:55 -0700
 From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Mon, 3 Aug 2026 15:50:38 +0530
-Subject: [PATCH v4 03/10] media: microchip-isc: synchronize the IRQ before
- disabling clocks on stop
+Date: Mon, 3 Aug 2026 15:50:39 +0530
+Subject: [PATCH v4 04/10] media: microchip-isc: disable histogram and flush
+ AWB work on teardown
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,7 +55,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260803-balki-isc-prefix-fixes-v1-v4-3-f625d6aa0ae1@microchip.com>
+Message-ID: <20260803-balki-isc-prefix-fixes-v1-v4-4-f625d6aa0ae1@microchip.com>
 References: <20260803-balki-isc-prefix-fixes-v1-v4-0-f625d6aa0ae1@microchip.com>
 In-Reply-To: <20260803-balki-isc-prefix-fixes-v1-v4-0-f625d6aa0ae1@microchip.com>
 To: Eugen Hristev <ehristev@kernel.org>, Mauro Carvalho Chehab
@@ -66,78 +66,56 @@ CC: Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus
 	<balakrishnan.s@microchip.com>, <stable@vger.kernel.org>
 X-Mailer: b4 0.14.3
 
-isc_stop_streaming() masks the DMA interrupt and then drops the runtime
-PM reference, which disables the ISC clocks. microchip_isc_interrupt()
-may still be executing on another CPU at that point; it reads ISC_INTSR
-over regmap, and touching the unclocked registers triggers an external
-abort.
+isc_stop_streaming() and the isc_start_streaming() error path dropped the
+runtime PM reference with the histogram still enabled. A HISDONE firing
+just before the stop, or a failed isc_update_profile() on the start path,
+can queue isc_awb_work(), which reads the histogram registers before
+taking its own PM reference and faults on the unclocked device.
 
-Store the IRQ number at probe and call synchronize_irq() after masking
-the interrupt, before dropping the PM reference.
+Disable the histogram, synchronize the IRQ and flush the work before
+dropping the PM reference on both paths. synchronize_irq() must come
+before cancel_work_sync(), so an in-flight handler cannot re-queue
+awb_work after it is cancelled.
 
-Fixes: 106267444f12 ("[media] atmel-isc: add the Image Sensor Controller code")
+Fixes: 93d4a26c3dab ("[media] atmel-isc: add the isc pipeline function")
 Cc: stable@vger.kernel.org
 Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
 ---
- drivers/media/platform/microchip/microchip-isc-base.c    | 3 +++
- drivers/media/platform/microchip/microchip-isc.h         | 1 +
- drivers/media/platform/microchip/microchip-sama5d2-isc.c | 2 ++
- drivers/media/platform/microchip/microchip-sama7g5-isc.c | 2 ++
- 4 files changed, 8 insertions(+)
+ drivers/media/platform/microchip/microchip-isc-base.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index ca4f3b5f58aa..debbc38717de 100644
+index debbc38717de..54f3093e14fc 100644
 --- a/drivers/media/platform/microchip/microchip-isc-base.c
 +++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -425,6 +425,9 @@ static void isc_stop_streaming(struct vb2_queue *vq)
+@@ -382,6 +382,13 @@ static int isc_start_streaming(struct vb2_queue *vq, unsigned int count)
+ 	return 0;
+ 
+ err_configure:
++	isc_set_histogram(isc, false);
++
++	/* let a running IRQ handler finish before the clock is disabled */
++	synchronize_irq(isc->irq);
++
++	cancel_work_sync(&isc->awb_work);
++
+ 	pm_runtime_put_sync(isc->dev);
+ err_pm_get:
+ 	v4l2_subdev_call(isc->current_subdev->sd, video, s_stream, 0);
+@@ -425,9 +432,13 @@ static void isc_stop_streaming(struct vb2_queue *vq)
  	/* Disable DMA interrupt */
  	regmap_write(isc->regmap, ISC_INTDIS, ISC_INT_DDONE);
  
-+	/* let a running IRQ handler finish before the clock is disabled */
-+	synchronize_irq(isc->irq);
++	isc_set_histogram(isc, false);
++
+ 	/* let a running IRQ handler finish before the clock is disabled */
+ 	synchronize_irq(isc->irq);
+ 
++	cancel_work_sync(&isc->awb_work);
 +
  	pm_runtime_put_sync(isc->dev);
  
  	/* Disable stream on the sub device */
-diff --git a/drivers/media/platform/microchip/microchip-isc.h b/drivers/media/platform/microchip/microchip-isc.h
-index ad4e98a1dd8f..f5e322c2e36b 100644
---- a/drivers/media/platform/microchip/microchip-isc.h
-+++ b/drivers/media/platform/microchip/microchip-isc.h
-@@ -287,6 +287,7 @@ struct isc_device {
- 	u32			dcfg;
- 
- 	struct device		*dev;
-+	int			irq;
- 	struct v4l2_device	v4l2_dev;
- 	struct video_device	video_dev;
- 
-diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-index 532f2b50e2ea..fa06b272b25d 100644
---- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-@@ -447,6 +447,8 @@ static int microchip_isc_probe(struct platform_device *pdev)
- 	if (irq < 0)
- 		return irq;
- 
-+	isc->irq = irq;
-+
- 	ret = devm_request_irq(dev, irq, microchip_isc_interrupt, 0,
- 			       "microchip-sama5d2-isc", isc);
- 	if (ret < 0) {
-diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-index 0b72a61b51ee..eef4d0f4c520 100644
---- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-@@ -436,6 +436,8 @@ static int microchip_xisc_probe(struct platform_device *pdev)
- 	if (irq < 0)
- 		return irq;
- 
-+	isc->irq = irq;
-+
- 	ret = devm_request_irq(dev, irq, microchip_isc_interrupt, 0,
- 			       "microchip-sama7g5-xisc", isc);
- 	if (ret < 0) {
 
 -- 
 2.34.1
