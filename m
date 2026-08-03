@@ -1,83 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E1A409293;
-	Mon,  3 Aug 2026 13:22:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A76A40A940;
+	Mon,  3 Aug 2026 13:27:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785763383; cv=none; b=TsVjBt2BoQz9kTjQCh+8ex9IW3sXZcMI6a5z0cMs3V554M5KrAuPEbutkoQ8fsvKBVwYPNLosqP+J48n3uZ+lXZUTyESxlJgIu0WQXpLQKKT2X+liPXHDXOgiWnpohB+yxjHwIJty9eFyNOFqt/8L9bxfspV48mR6YHHVivQZ7Y=
+	t=1785763627; cv=none; b=pNqFuajzLb4RNjPxIQyR/yeyqctbTzTX4RCdSD7NICbyESVCLptleerc0yEHhPTZzuBPYEgZc5qyO74kYkPpEYQRM8OGYwrc+o+3+5XD0hQ6VgJ+gmQdwaytjq0VxLNQ7timjrOR1OMokiJH1qRc1I3aQBAC30iFOYwmyI/qeo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785763383; c=relaxed/simple;
-	bh=Lb9Biq+DD++JUY+flC/0uH0E6hrJ0eLYiBA/gV5nQI4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ERRebUipPSF3zHbOocgrW62UKC1oxLCurMDAglMvxwohwAEA0Ci8WPPo6NknpebpYwuJeVzxieKIyFv6JaBEgYXS7v2SU3Xr13G519+9tg4LTtstKoGvc0C1WlhuI/iqh1OPaMk56KOnSSbYxwJS6DIl8DHjjbixSJU10bxhaUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVOAs7l2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785763627; c=relaxed/simple;
+	bh=ZAs1UJTnc5myktNT9d7ssqtaWfnqDjbdx+EXdy+DlzI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hWRFIchfXEAmmVJXPDQoHTByYLRrX994ZiyhKfwEohJRwhY44ovstNdnY0XGwKQ5eZ9FCH4yKXl42EZS8k8khfThGJ03IAAlrF2YQT9V6fWHWHAl2SYoIzZoA2AJPIu8jg/vuzOrw7tMl6bgHM5LU8JSPtxVzhjs6RyFsVaVfJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OWkRFGSj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVOAs7l2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11A6C1F000E9;
-	Mon,  3 Aug 2026 13:22:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785763375;
-	bh=6AUbVHF/JsdMG8W87nQADeBszJs2o0aIq2vbV086hV4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=EVOAs7l2/z0hG+Xmm7XdgeyQVcEahT06jy1TJFI/uxAwHRhGjVl4W7MZ9nNERAHcZ
-	 j3bISj/e94NBMJNTiNleW1vTH15YUNYskX2kC+80jp+rvBxzcXBmMTWilosZPSqKtw
-	 YK9RPE4zggOGl5T200SqJ/La0BUFoTW7VHoh1LpPC0LIgks+VoXV16/kl5dId/JFbb
-	 knhrtYxwNUfZSqljqoOIny9TrCa4ybdaNxP0Gf43GEhK0Q5683a3M5YUjedcMdp+Ur
-	 gD9acutl1uphYnVk5JcFYHrA0ykiP2l00xx/okCKtRxeqH39TeRnR/wkeotGr82JYE
-	 pCiHOhP1hsvpg==
-From: Carlos Maiolino <cem@kernel.org>
-To: hch@lst.de, "Darrick J. Wong" <djwong@kernel.org>
-Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-In-Reply-To: <178512389537.1495075.1621818931849629575.stgit@frogsfrogsfrogs>
-References: <178512389537.1495075.1621818931849629575.stgit@frogsfrogsfrogs>
-Subject: Re: [PATCHSET v2 2/2] xfs: LLM-inspired iunlink repair bug fixes
-Message-Id: <178576337368.315832.7276081015664013624.b4-ty@kernel.org>
-Date: Mon, 03 Aug 2026 15:22:53 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OWkRFGSj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26DD01F000E9;
+	Mon,  3 Aug 2026 13:27:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785763623;
+	bh=HyDasUl5xJAi8s7xwyQZZPeZ+YeItyDCVXgGzPgumaU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OWkRFGSjWIYCFzT+QaS4+Cm0Gn3hwkqXd8O3b5JwuqWmbylgNjogQhRJ1bLOWFajz
+	 TJoL/rsWE92hJKXlZzK+rIyzT3KlvQNZMnjDvfKJOKbtplV7TpjWvriPfD5MjYQXwt
+	 aF7Ti0tw0ExeSu5GH9JLTUEyqLn+aL51rZfv1sSs=
+Date: Mon, 3 Aug 2026 15:26:47 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Dmitry Antipov <dmantipov@yandex.ru>
+Cc: Al Viro <viro@zeniv.linux.org.uk>, linux-usb@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	syzbot+6aa97991da41499aa852@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb: gadget: fix device data management error in
+ gadgetfs_bind()
+Message-ID: <2026080327-tightrope-relieve-0d40@gregkh>
+References: <20260803091258.85969-1-dmantipov@yandex.ru>
+ <2026080336-roast-sudden-e02e@gregkh>
+ <ed1607b6-0ced-487a-a241-17f1efa27dfa@yandex.ru>
+ <2026080307-glamour-reveal-a851@gregkh>
+ <f18f3752-f5b2-4e38-934c-9f6afbc60575@yandex.ru>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f18f3752-f5b2-4e38-934c-9f6afbc60575@yandex.ru>
 
-On Sun, 26 Jul 2026 22:22:54 -0700, Darrick J. Wong wrote:
-> These bugfixes got started as part of a series of assorted bug fixes.
-> However, in writing a test case to exercise weird corruption scenarios
-> I discovered a few more fixes, so I decided to collect them all in a
-> targeted series.
+On Mon, Aug 03, 2026 at 04:13:05PM +0300, Dmitry Antipov wrote:
+> On 8/3/26 3:25 PM, Greg Kroah-Hartman wrote:
 > 
-> v2: add rvbs, fix a few minor coding errors, strengthen loop detection
+> > I'd like to drop all the "legacy" USB gadget code
 > 
-> [...]
+> Hm. Then I would like to ask you to mark this code with Obsolete:
+> in MAINTAINERS and wait for some grace period at least.
 
-Applied to for-next, thanks!
+Grace periods never work, I'll just go make a patch to delete them all
+now and see who says anything :)
 
-[01/10] xfs: hoist per-bucket unlinked list check to helper
-        commit: 7cdafd8f10ebdf745ba6046b9fa67490c343a17f
-[02/10] xfs: don't livelock in scrub on a circular unlinked list
-        commit: 527eaaefddb6ec5c83a06c9a1559960dd6361753
-[03/10] xfs: don't walk off the end of a null sc->sa.agi_bp in AGI repair
-        commit: 1e96a00e0d3a00be6e4f368b2f18e2d345f813ce
-[04/10] xfs: load next_agino from the correct xfarray in xrep_iunlink_relink_prev
-        commit: 6b9cd540138a06660a843a519facc147060acbef
-[05/10] xfs: pass runtime errors from xrep_iunlink_mark_ondisk_rec up to callers
-        commit: 5644fab990fc72406dddc91cbb8304659d77f3f1
-[06/10] xfs: check xfarray iteration errors when committing unlinked inode lists
-        commit: 2daf3ed5d059dec79c123aec42eb8d28e0c016d4
-[07/10] xfs: fix allocated inodes that show up in the unlinked list
-        commit: 68ab37650ce5195b4f4f8466444a36a78207840c
-[08/10] xfs: fix another iunlink infinite loop bug in online fsck
-        commit: 6d67c6b99f1fc07c64b97fcbc974c6f1ada7f622
-[09/10] xfs: set the prev pointer when reinserting an inode on the unlinked list
-        commit: af146cb7ff8ff5c54162f35c238f3ff1d5ad110f
-[10/10] xfs: don't ignore runtime errors in xrep_iunlink_reload_next
-        commit: 0052633527158b49762ab427e73924e4f8d25e6c
+thanks,
 
-Best regards,
--- 
-Carlos Maiolino <cem@kernel.org>
-
+greg k-h
