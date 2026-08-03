@@ -1,55 +1,55 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A40E53446C3
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 23:33:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE8236B913
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 23:34:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785800041; cv=none; b=KCh2sMKVLGIiu35oPslYVeYy9ua5zlaeF1FU8pjazGv5nLYvx8ZcVrNcxHm6J4c/3bXxhBJMU+pmjvofKa8y26aVEhDE4b2lw9bD1bVxjUt0V2I/pS9PXuXg4VGz5OiJCW7c2EKKty8cIzLq/XXfRVZoLwmLXKyxSwgOAj3PXL0=
+	t=1785800042; cv=none; b=ZQcDGwa/MkfW4XtNiK4AEKrA9Lp1fzzLbZzJJFWK84ZJPQ/eQXCvkPD7VVykIgtKDedWv9Nk0ay/TpBEGARJ86cFzqMuJA5gBu2yOwU1h7m66ZFGma9DqUdF+9i559X6o2OzxhceVduiy7XTQ2OcOqNBqJhvUeYb4nnCyzbCq2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785800041; c=relaxed/simple;
-	bh=/Q2htPPJ4I52sLSIhlc4/dTeENO8idXDSGHHkCwHD0Y=;
+	s=arc-20240116; t=1785800042; c=relaxed/simple;
+	bh=B+GE3tvrzNB4fnD3OS5vOAvjbWRRa0CQ3hpdxBLivVI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cuKwybaU5E7S40HIdWrWUjmICv06x1KhT3ClOMKekkDP6rj15dzoKow6H8yWw+55A7wEPtftrnQQ4k6PLsQpr+JrlM+4nitQ/GmQIn6XEEKoRdPJfKy9r9S/4AVEk34/YMYHzvYtAi/ZWtF7Ew/3WMKcdaEz+rD068iPo0PgU0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b1/RwvGs; arc=none smtp.client-ip=198.175.65.20
+	 MIME-Version; b=WdH6nTqvQlO62I0xNa7o/Kg7Dte6CxzYH3wslA9s5hSItet9aD68C5KVrTxvGjZGAHBQwYZxU7QufZzXRAAShNhRm1/+6CCk+iq7B+ioTxFx13bjC5caYgxWEMzVuEcKzbwjilXfgZTl54R2pbc6XOWi7WTI79qua7XnGO+j7VA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jl7IhRpJ; arc=none smtp.client-ip=198.175.65.20
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b1/RwvGs"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jl7IhRpJ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785800038; x=1817336038;
+  t=1785800041; x=1817336041;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=/Q2htPPJ4I52sLSIhlc4/dTeENO8idXDSGHHkCwHD0Y=;
-  b=b1/RwvGss47mFUgVwa8a9DhIAy6hRhRX+FWG3UZUHpSxJ5eCQJ9IWuDV
-   G31s9vDott2vDl5NDxFT0ylrxPiXmeARoiro0Hfqj/T73CYIOoA8W7HtZ
-   B2Rv/wrZgQaekxGYIEq/4/RD2Zcb1f7+cCUg0wQk7Z1Yfo0Qw/X/SBkjn
-   0c+k2nQhA2P9d935Rh0ypicDP/AKJwvDKYgS+dahtf4u5LXOdx+jfaFbb
-   FvPJTnpDi7sfm0RBxELaxFKm0VKkQvXjXXBbvPKUvVFvndySmPKLaPnTP
-   wq4jsNmjNjm9Qm/7RsouLPkEZbIiJZME5gHxzGsN0PiPlB+elD3Rsg5cT
-   g==;
-X-CSE-ConnectionGUID: 4OwAZshWRbaIDLsbxdHNuQ==
-X-CSE-MsgGUID: qt6W3lH9Rnaztfqx8WXtfA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86112914"
+  bh=B+GE3tvrzNB4fnD3OS5vOAvjbWRRa0CQ3hpdxBLivVI=;
+  b=jl7IhRpJBnyiOXrgq+dLROzPV2qh7h3jEWN/isVxZCiVjnNNBlOBON6+
+   iKJ3Z3MjBzWuh2az3fidx1sY9IpNkEF/e8qcxs7mbKqeNNPozJ4zst8cY
+   qJPEviFd8WHdZNieMzRNSWTbES67dzekg2WIA2Team5C8J3rj7iwD6ExH
+   DgH0oB2N5ES63SG4D9zibIvQhXqtoJ0RylfJg3bszWGQkh2MA6voljBXw
+   /BW5w8pZX5Ko0C0wifvFF78uODeEQO50Iu/EXRwJiZpaoyFYLSknJSKMj
+   6moeTzo0VWo40CQgDETNgVsTgGpjP8NdW+y5D1D5lF/xY6EBp9LFbenxF
+   Q==;
+X-CSE-ConnectionGUID: HuYTN2LmQBqrXsT0L1qUlw==
+X-CSE-MsgGUID: CXEBkX1ST5O9waYqxjvmdw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86112924"
 X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
-   d="scan'208";a="86112914"
+   d="scan'208";a="86112924"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
   by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:33:54 -0700
-X-CSE-ConnectionGUID: bNOsWTY+QL6UuDnVa1NObQ==
-X-CSE-MsgGUID: 0g6HfmISRbej+M/OGzB8Ug==
+X-CSE-ConnectionGUID: RT2zwy0JTRePB1ZgWeXWTA==
+X-CSE-MsgGUID: j8M7PodoTCeFAWcuHRQa2g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
-   d="scan'208";a="264838285"
+   d="scan'208";a="264838288"
 Received: from orsosgc001.jf.intel.com ([10.88.27.185])
   by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:33:53 -0700
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 6.12.y 06/12] drm/xe/rtp: Keep track of non-OA nonpriv slots
-Date: Mon,  3 Aug 2026 16:33:40 -0700
-Message-ID: <20260803233346.3277427-7-ashutosh.dixit@intel.com>
+Subject: [PATCH 6.12.y 09/12] drm/xe/rtp: Toggle 'deny' bit to (de-)whitelist OA regs
+Date: Mon,  3 Aug 2026 16:33:43 -0700
+Message-ID: <20260803233346.3277427-10-ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260803233346.3277427-1-ashutosh.dixit@intel.com>
 References: <20260803233346.3277427-1-ashutosh.dixit@intel.com>
@@ -61,55 +61,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-[ Upstream commit 15739920b71ef3c56868973b4e7e3164a793d09d ]
+[ Upstream commit aeaa7d2bb017272ab9e18759fe00bf758cd3299f ]
 
-In order to dynamically whitelist/dewhitelist OA registers on OA stream
-open/close, we need to keep track of nonpriv slots occupied by non-OA
-register whitelists.
+Whitelist or de-whitelist OA registers by setting or resetting the 'deny'
+bit in OA nonpriv registers and writing new register values to HW.
 
 Fixes: 828a8eaf37c3 ("drm/xe/oa: Add MMIO trigger support")
 Cc: stable@vger.kernel.org # v6.12+
 Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Link: https://patch.msgid.link/20260615224227.34880-4-ashutosh.dixit@intel.com
+Link: https://patch.msgid.link/20260615224227.34880-7-ashutosh.dixit@intel.com
 ---
- drivers/gpu/drm/xe/xe_reg_whitelist.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/xe/xe_reg_whitelist.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-index d82b14f8d0716..12d12d8f0e99c 100644
+index a3a45f470faa1..39f577a0cac71 100644
 --- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
 +++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-@@ -94,7 +94,7 @@ static const struct xe_rtp_entry_sr oa_whitelist[] = {
- 	{}
- };
+@@ -162,6 +162,21 @@ void xe_reg_whitelist_process_engine(struct xe_hw_engine *hwe)
+ 	whitelist_apply_to_hwe(hwe, &hwe->oa_whitelist, &hwe->reg_sr, first_oa_slot);
+ }
  
--static void whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
-+static int whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
- {
- 	struct xe_reg_sr *sr = &hwe->reg_whitelist;
- 	struct xe_reg_sr_entry *entry;
-@@ -126,6 +126,8 @@ static void whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
- 
- 		slot++;
- 	}
++__maybe_unused static void __whitelist_oa_regs(struct xe_hw_engine *hwe, bool whitelist)
++{
++	struct xe_reg_sr_entry *entry;
++	unsigned long reg;
 +
-+	return slot;
- }
- 
++	xa_for_each(&hwe->oa_sr.xa, reg, entry) {
++		if (whitelist)
++			entry->set_bits &= ~RING_FORCE_TO_NONPRIV_DENY;
++		else
++			entry->set_bits |= RING_FORCE_TO_NONPRIV_DENY;
++	}
++
++	xe_reg_sr_apply_mmio(&hwe->oa_sr, hwe->gt);
++}
++
  /**
-@@ -139,9 +141,10 @@ static void whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
- void xe_reg_whitelist_process_engine(struct xe_hw_engine *hwe)
- {
- 	struct xe_rtp_process_ctx ctx = XE_RTP_PROCESS_CTX_INITIALIZER(hwe);
-+	int first_oa_slot;
- 
- 	xe_rtp_process_to_sr(&ctx, register_whitelist, &hwe->reg_whitelist);
--	whitelist_apply_to_hwe(hwe);
-+	first_oa_slot = whitelist_apply_to_hwe(hwe);
- 
- 	xe_rtp_process_to_sr(&ctx, oa_whitelist, &hwe->oa_whitelist);
- }
+  * xe_reg_whitelist_print_entry - print one whitelist entry
+  * @p: DRM printer
 -- 
 2.54.0
 
