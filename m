@@ -1,74 +1,70 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E5C33508E
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 03:26:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12C7374169
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 03:27:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785727575; cv=none; b=XdWuVYthkSBMhMu3fiYnb6GQ1l1xp/xk5rloZDsjgqZ9IGy6DwTHQlTxEmqjfQtAed6/QatFDqlBghFaUnjxl3UHYNi/0UsT8WCtgQFJePbS0g31jyw+gyEIjg9VFfMK0+bFMIgLwVYm9gKgrXCgAHSUIYbbSLCSfVH5ddEjQKU=
+	t=1785727663; cv=none; b=RFz6QGMoD7AkSNpd2/gaKmbp8mu3oWkL67Zfuaqcq1LU+ACXBc6W6f7kasLtPlYjyOJ7euJ5vTBy+RfysEgw4xzHmcmpuIcXYBPQ9cmHiqLfVqiZ+hPRrKERZ9dmw7/Q14jJj7FAMxqUfg7FjybgR0MJywx+Ul8fhZkz04JvFJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785727575; c=relaxed/simple;
-	bh=sZRItxkKEi929mswecs046fLGMHQUXMIE+250d1nYLA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MmYW1T4plryLCfKQId6d3vCT2MoA8RiazVTRoDZzRhB6f3MPX/VoAou9mE/mo2pqN23UCv+SrxOrM5B9dDax+rERqOJvZyJTV7YCfWrd8+AEg07HVf6MKFBmAnPp5Z4XAYRXfJfEFhnNOeRSt18kQOsBxwLAwgykuYrQ2DnXUjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dKuRMzT8; arc=none smtp.client-ip=209.85.210.174
+	s=arc-20240116; t=1785727663; c=relaxed/simple;
+	bh=Jsn2r1uveXbUFYaD7Tectcn3uRJrKN6MuVwv/rRQ9e4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W3JLw4kWb2ENpkF1jDPsYKBqveITAOCbwOUuwY9Dm2p+KXfzi+JlasAI9sFwp6ZBJUtnMPv7pXtwIw0v+B+eHE1jyMTjwzuF24e4+UWxbCwz8HJgg+KgtdNb2B+VRpII8spTJT8t+wSzD4LQJ0dY5jTqT9qwzgUeUEv+5OPNwL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W4HDi/EV; arc=none smtp.client-ip=209.85.215.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dKuRMzT8"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84a2c90e383so2502204b3a.0
-        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 20:26:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W4HDi/EV"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-caf45fc5202so1920116a12.1
+        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 20:27:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785727572; x=1786332372; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785727661; x=1786332461; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qd0UrtkXJJ6ssaYcfX3RHhmPo0J6xySI3bKftzJ6dHg=;
-        b=dKuRMzT8Twj319XXyC4LkdABEQkwRhz/VpqbbOzZwTrROWyN0VaVNWRbjNfOz7re/z
-         6LkCLsB2B3jQKP3WjYWIngcoKJ362cEfQkEcnJ8+CpmngZzVgUj+vRbWfpzNDpyM/8/v
-         AysJsyaN6zoY+pT/U/uqCY+WqB18Y17ovbuFvhahCmA7bgRfzL33LtQCfgxc6f6XoePT
-         P6wlcAQkrS0ZK5rFZUZv/icKkLwJw6/vuMjfBO6f0SNP7Rqn0EGgKKi4WgHX7aV4EGM1
-         5RHdOsVdv5a2u3bfckl1TxHrNT7hvHGdRIN0MceaLYluYF8dubgR2rjyZROiai4b7H7t
-         mxVA==
+        bh=oYoOGjZWCQI6jE6FLVWCCG9hsc76kxEv4IGNCI27rDA=;
+        b=W4HDi/EViFVwgJqt+YeTU6JoZ3MyI9Zg5Real9ezzDYLdwKBoetvzgCnNxZSTPGwXd
+         trsQKNNU0z3WpCHuZ6oPAc6raUvHEHlvPBGW+vyH51lF6wBYFsip7a8gYa93nMHREie/
+         5RMRBKU19v1kEK+kLuvSRPae4eOKl5m3y7LX9E1VVq2fElnfH+AoGibH5XpjwkQ2OtmF
+         QiqyAA8DhzJKb06VDIZPQxswpsmBISQOiTjJVt9QtSbwcXKqR/nGSwVNOwxU/kzrBrVO
+         tginxrlKYnJziOPPcEdzNv1HF7Dh19fOaTQTR+AnmAWvNhijR4Q2XkC0yQx6NPV3VMN5
+         NxZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785727572; x=1786332372;
+        d=1e100.net; s=20251104; t=1785727661; x=1786332461;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Qd0UrtkXJJ6ssaYcfX3RHhmPo0J6xySI3bKftzJ6dHg=;
-        b=ND/P5abGbJVtQNtdT4LFwqqdRdHgXdFoY7K50e/63HLIbBlIiB+6QDSqJrWI+lTQ02
-         7Nv6tg0dhthmz/IjYhjlNQ4AMcbmDWjYLcEGEIKgzuLCxrIw1q3G90DvuPrNZebVBrNk
-         G42U8HrXcVH9PSWtzMJ8Gj186RHFbzbPSlmIePnSYPm1XLQ3AL4UA23uPeKmar00Bdgz
-         G+/yasz2dJsbRjfV+FAvsk/mq5rwYJMLndKiJU2FsYN4cCRpiQE3Li0g9ukdSiiE0FdX
-         MXZ/XfkIOhwdKzEdhHDycxHY+XXhybiNd8MsO6nbPgXmenHghwaySjUOAn1VJuoMZ72N
-         21Sg==
-X-Forwarded-Encrypted: i=1; AHgh+RrP9gAHp8K+bXDodm4rrhk351cdAQybP0fUF4hvEzuqzIi6b17NoJFPyP0GvwtXimbbtxW+ULA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZVRfMjdKV5sgwTEHN0ehL9TO8vmg8OZBsAwkmRWRMtxbcn9mI
-	fh9MJkSJWiQJknhHVfE62unO1cKWE7ZTKExev3VLNXffD3uoGi2qOGS5
-X-Gm-Gg: AR+sD12efS1TV0YxIb/snshGVcZGEkxjCJ07tuwL29InWQzEFvOECnJKRQl+a0u0F/q
-	Vy2GifyriCAZHoZyUoPVJ0jHdY0lThKOdf6IKZ2hkVt/8M6BdPBxMD6vYAjr5fsly21V+DlvQAv
-	ExX4q9VzLW82iB0r6STQGfbek4AwJ1vaAQqvWQcJSR+FDE+D1+1x5/Ruib6CTILi7R6pciY9mTy
-	vFVYgeq3C1ZnK/Q1/j2ByryZX0pkl9WtdV77tyN9k+BYXYHI4HHhJRrOrAnEF9KK+5FAlxz0pCo
-	kXReJvy9IXl/MSL0XfS3rfIUpd0FDWj8i0OuHlSc/Nkl+tTukiA9tgaBcprYYAmeUrC5UH5j8MK
-	pQcMUxmtwZrcNSO6I1KBfzaXUMwVyZaeEK2CJ9/RK1uJXG+5EYD4tEj3YPhOj+JD2EuCvreyZ5A
-	FZjILBOmInhiq8DlfdPvq/NTctxJS0au0Hp0TX4H8iXepRL/AG+E0gyC/iOzccbFTjlqSXarM49
-	hC8AO3NjuMo+A==
-X-Received: by 2002:a05:6a21:4cc5:b0:3c3:6c34:f9ea with SMTP id adf61e73a8af0-3c92afdafb1mr7337597637.39.1785727572406;
-        Sun, 02 Aug 2026 20:26:12 -0700 (PDT)
+        bh=oYoOGjZWCQI6jE6FLVWCCG9hsc76kxEv4IGNCI27rDA=;
+        b=s/PhpbD5DXi/lbq1E/ajvZxJFeLCfCpe997DrLyqbOGYnBP3d3WcP1bptCcE4Q04qM
+         f4w1F4Jras8+ZRcMuUXcEgO45AMnkCNcmTWHWv7vXXeQv5D+vuYqnifs2YUt2px5rLp5
+         aXrmvEcXpFnPa4dNO+C+qM97ftpxkohXMgJsO7eRMcnAnOE2XFzfBR9xkKVUUXcZkeEn
+         SFJHWqHUubA/jUrHtsxZwUpE0j3sUgVCZUmPKHcz66f+jln/KVhvvl6GlmbRnVf0utVC
+         e063CTuwwcdOAgAVfNuTEfQisufprv3f9YjgkWi2SjpMLHV2DJ9rjCux6u6qmHtBawIr
+         MEpQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoxolVdJdO4/HiCPX+s502cwIHjF330nlSsobSXAtSxb4PIMP5JZSCClzm54ZlY4R96SanQ0s4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyMX4IN0YQ1Yia+sgbLezTlJ0gVgqK/0ltlCrZOitiaK2f92bvR
+	70/4f+anfzgPxN8wdH1HbuuzVTLK9eKUT6f4U9xzZk/pgnmAUpbbjMqHvc71A1B160M=
+X-Gm-Gg: AR+sD13JQ/aMYib/1dBgtev2HZbqHBreytIqvUo+Uo5LpaclWHw0CfWeiFzq7YsMZoQ
+	VoRnPf00QH3uCNakJOwAQGfAicrQDN/IFKos98h9yOLLr69Z2wYc5nnOYUY1eiLZIDR/Rdj4r8h
+	j+fu8mlGLTdpPlnGa4KolWMcq5FrSR0jl+qBggGg6OQ3QvHOM+HoKxyUfW/zszQ6HVcUzk1al5Q
+	36hTSf8WIZM6s4FBx4Y9KgshKQtiSbwDZMa8pMLvkWBQ0b9Z67GNFAn87yHXB3atvAKEV441/iB
+	fBMIAaO8eKzInaokgFVKQMJJhsUhLsEMBLyiT4YaOhphROpN0CNv4mWwW1iNYi4bqsWDL1H7VZj
+	xTAEnfOXcyvu1rkh6It5WY3uaJD2ngaNtiytKCqpCzkOPeB3rpRKvjkdPHUyTPjX2BM8jcu2mgR
+	fX3YUbX35NXipw880o8U9mPM7Z9ECNN3FM8mzdleTumA/BH04M114f/gzZ/krlywpNIzkOBBpoW
+	F8MH31ebp4IQg==
+X-Received: by 2002:a05:6a20:7348:b0:3bf:9142:ba3a with SMTP id adf61e73a8af0-3c92a58e834mr8230483637.26.1785727661332;
+        Sun, 02 Aug 2026 20:27:41 -0700 (PDT)
 Received: from localhost.localdomain ([113.23.46.216])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153dd4e47dsm46591358eec.3.2026.08.02.20.26.08
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e18d9c6sm33203673eec.30.2026.08.02.20.27.38
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 02 Aug 2026 20:26:11 -0700 (PDT)
+        Sun, 02 Aug 2026 20:27:40 -0700 (PDT)
 From: Yuejie Shi <syjcnss@gmail.com>
-To: Russell King <rmk+kernel@armlinux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: Bae Yeonju <iwasbaeyz@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
+To: Phillip Lougher <phillip@squashfs.org.uk>
+Cc: squashfs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] adfs: validate zone_spare in adfs_checkdiscrecord()
-Date: Mon,  3 Aug 2026 11:26:06 +0800
-Message-ID: <20260803032606.81686-1-syjcnss@gmail.com>
+Subject: [PATCH] squashfs: bound the fragment offset stored in an inode
+Date: Mon,  3 Aug 2026 11:27:35 +0800
+Message-ID: <20260803032735.81785-1-syjcnss@gmail.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -78,101 +74,128 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The size of a free space map zone is derived from two on-disk fields:
+Both the REG and LREG inode readers take the fragment offset verbatim
+off disk:
 
-	zone_size = (8 << dr->log2secsize) - le16_to_cpu(dr->zone_spare);
+	frag = le32_to_cpu(sqsh_ino->fragment);
+	if (frag != SQUASHFS_INVALID_FRAG) {
+		/*
+		 * the file cannot have a fragment (tailend) and have a
+		 * file size a multiple of the block size
+		 */
+		if ((inode->i_size & (msblk->block_size - 1)) == 0) { ... }
+		frag_offset = le32_to_cpu(sqsh_ino->offset);
+		...
+	}
+	...
+	squashfs_i(inode)->fragment_offset = frag_offset;
 
-log2secsize is validated by adfs_checkdiscrecord() to be 8, 9 or 10, so
-the left-hand term is at most 8192.  zone_spare is a plain 16-bit
-on-disk field that nothing checks at all, so any value above the number
-of bits in a zone makes this unsigned subtraction wrap to nearly 4G.
+The check added by commit 9ee94bfbe930 ("Squashfs: add additional inode
+sanity checking") is about i_size, not about offset, and nothing else
+looks at offset at all.  It reaches squashfs_copy_data() unchanged, for
+instance from squashfs_readahead_fragment():
 
-zone_size is then used as the scan limit of every map zone:
+	bytes = squashfs_copy_data(addr, buffer, offset +
+			squashfs_i(inode)->fragment_offset, avail);
 
-	dm[zone].dm_endbit = 32 + zone_size;
+where the parameter is a signed int:
 
-and both bitmap walkers use dm_endbit as the bound of a buffer_head that
-is only (1 << log2secsize) bytes long:
+	while (offset < entry->length) {
+		void *buff = entry->data[offset / PAGE_SIZE]
+				+ (offset % PAGE_SIZE);
 
-	fragend = find_next_bit_le(map, endbit, start + idlen);
+An on-disk offset of 0x80000000 arrives as -2147483648, the loop guard
+passes, and entry->data[-524288] is loaded from about 4 MiB below the
+cache entry's page pointer array.
 
-so lookup_zone() and scan_free_map() scan hundreds of megabytes past the
-end of the map buffer.  The fragment end they come back with feeds
-adfs_map_lookup()'s returned block number, so this is not only a crash:
-it is an out-of-bounds read whose result steers which disc block is read
-next.
-
-The same expression also divides:
-
-	asb->s_ids_per_zone = zone_size / (asb->s_idlen + 1);
-
-and adfs_map_lookup() does "zone = frag_id / asb->s_ids_per_zone", so a
-zone_spare that leaves fewer than idlen + 1 bits is a divide-by-zero as
-well.
-
-Reject both in adfs_checkdiscrecord(), which is the single gate both
-adfs_validate_bblk() and adfs_validate_dr0() run before adfs_read_map()
-is reached, by requiring zone_spare to leave room for at least one
-fragment id.
+The tailend of the file has to lie inside the uncompressed fragment
+block, and that block is at most msblk->block_size bytes, so check that
+when the inode is read -- the offset is on-disk metadata and belongs
+validated where it is parsed, not where it eventually faults.
 
 Mounting a crafted image requires CAP_SYS_ADMIN in the initial user
-namespace -- ADFS is FS_REQUIRES_DEV and not FS_USERNS_MOUNT -- so a
-plain unprivileged local user cannot reach this.  The realistic threat
-model is untrusted media and images: automounted removable media,
-container/VM disk images opened by a privileged mounting agent, and
-forensic or CI tooling.  Once mounted read-only, an ordinary
-getdents64() is enough to fire it.
+namespace -- SquashFS is not FS_USERNS_MOUNT, so an unprivileged user in
+a user namespace cannot mount one either.  The realistic threat model is
+untrusted images: automounted removable media and udisks2, .snap and
+AppImage style container images, mount -o loop from a setuid helper, and
+any service that mounts a squashfs it did not build.  Note the trigger
+is unprivileged and a read-only mount is enough: a single read() of the
+crafted file by any user who can open it.
 
-  # 4 GiB sparse image, log2secsize=10, nzones=2, zone_spare=9000
-  mount -t adfs -o ro /dev/vda /mnt
-  ls -la /mnt
+  # mksquashfs -noI -noD -noF -noX -b 4096 with one 1-byte file, then
+  # rewrite that inode's fragment offset to 0x80000000
+  mount -t squashfs -o ro /dev/loop0 /mnt
+  cat /mnt/file
 
-  BUG: KASAN: use-after-free in _find_next_bit+0x68/0xd0
-  Read of size 8 at addr ffff0000ccc6d000 by task ls/136
-   __asan_load8+0xcc/0xd0
-   _find_next_bit+0x68/0xd0
-   adfs_map_lookup+0x1b8/0x378
-   adfs_dir_read_buffers+0x178/0x2b0
-   adfs_fplus_read+0x50/0x2c8
-   adfs_dir_read_inode+0xa8/0x120
-   adfs_iterate+0xf0/0x2c0
-   iterate_dir+0x12c/0x400
-   __arm64_sys_getdents64+0xf0/0x230
+  BUG: KASAN: wild-memory-access in squashfs_copy_data+0xb8/0x158
+  Read of size 8 at addr 007f0000c7b1a0a0 by task cat/132
+   __asan_load8+0x84/0xd0
+   squashfs_copy_data+0xb8/0x158
+   squashfs_readahead+0x9b8/0xe60
+   read_pages+0x134/0x550
+   page_cache_ra_unbounded+0x264/0x540
+   filemap_get_pages+0x1d0/0xaa0
+   filemap_splice_read+0x248/0x548
+   do_sendfile+0x540/0x618
+   __arm64_sys_sendfile64+0x1f8/0x220
+   el0t_64_sync+0x198/0x1a0
+  Unable to handle kernel paging request at virtual address 007f0000c7b1a0a0
+  ...
+  Kernel panic - not syncing: Oops: Fatal exception
 
-(KASAN calls it use-after-free only because the scan leaves the
-buffer_head's page and lands in freed pages; there is no lifetime bug in
-ADFS.)  Hundreds of further reports follow, including reads from inside
-adfs_map_lookup() itself.
+The KASAN report is immediately followed by a fatal page fault at the
+same address, so this is not a sanitizer-only artefact: the same load
+oopses on a kernel built without KASAN.  (The trace goes through
+sendfile(2) because busybox cat uses it; the plain read(2) path reaches
+the same squashfs_copy_data() through squashfs_readpage_fragment().)
 
-Real ADFS images use a small zone_spare -- a handful of bits of padding
-per zone -- so this rejects nothing that mounts today.
+mksquashfs packs tailends inside a single fragment block, so every image
+it produces satisfies the new check.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 6545b246a2c8 ("Squashfs: inode operations")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yuejie Shi <syjcnss@gmail.com>
 ---
- fs/adfs/super.c |  9 +++++++++
- 1 file changed, 9 insertions(+)
+ fs/squashfs/inode.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/fs/adfs/super.c b/fs/adfs/super.c
-index a4cd0a5159dd..1ab810f96edb 100644
---- a/fs/adfs/super.c
-+++ b/fs/adfs/super.c
-@@ -82,6 +82,15 @@ static int adfs_checkdiscrecord(struct adfs_discrecord
- 	if (dr->idlen > max_idlen)
- 		return 1;
- 
-+	/*
-+	 * zone_spare is subtracted from the number of bits in a map zone to
-+	 * give the zone size, which is computed as an unsigned quantity and
-+	 * is also the divisor for the number of ids per zone.  Require it to
-+	 * leave room for at least one fragment id.
-+	 */
-+	if (le16_to_cpu(dr->zone_spare) > (8 << dr->log2secsize) - dr->idlen - 1)
-+		return 1;
-+
- 	/* reserved bytes should be zero */
- 	for (i = 0; i < sizeof(dr->unused52); i++)
- 		if (dr->unused52[i] != 0)
+diff --git a/fs/squashfs/inode.c b/fs/squashfs/inode.c
+index 82b687414e65..4872b28f1b77 100644
+--- a/fs/squashfs/inode.c
++++ b/fs/squashfs/inode.c
+@@ -156,6 +156,16 @@ int squashfs_read_inode(struct inode *inode, long long
+ 				goto failed_read;
+ 			}
+ 			frag_offset = le32_to_cpu(sqsh_ino->offset);
++			/*
++			 * the tailend has to lie within the uncompressed
++			 * fragment block, which is at most block_size bytes
++			 */
++			if (frag_offset +
++			    (inode->i_size & (msblk->block_size - 1)) >
++					msblk->block_size) {
++				err = -EINVAL;
++				goto failed_read;
++			}
+ 			frag_size = squashfs_frag_lookup(sb, frag, &frag_blk);
+ 			if (frag_size < 0) {
+ 				err = frag_size;
+@@ -212,6 +222,16 @@ int squashfs_read_inode(struct inode *inode, long long
+ 				goto failed_read;
+ 			}
+ 			frag_offset = le32_to_cpu(sqsh_ino->offset);
++			/*
++			 * the tailend has to lie within the uncompressed
++			 * fragment block, which is at most block_size bytes
++			 */
++			if (frag_offset +
++			    (inode->i_size & (msblk->block_size - 1)) >
++					msblk->block_size) {
++				err = -EINVAL;
++				goto failed_read;
++			}
+ 			frag_size = squashfs_frag_lookup(sb, frag, &frag_blk);
+ 			if (frag_size < 0) {
+ 				err = frag_size;
 --
 2.51.0
