@@ -1,144 +1,163 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05FD412C08
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 13:44:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7D742C51B
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 13:46:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.179
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785764701; cv=pass; b=MmSZB95o/KXG4JcjjK8g69kDOLt8huUeRrew5Dm7vLT3zWbf8bMCXCtOVcu7j85QcYw676mbUMTT9Vd8F2OGRcDopPjGOpLgcvWsirPFz/DFw265A7g5oyk3WJfgkJEcMC/4AzqdWVWVvJBA4ZqJqM0eH9KbuTDs2Iv2U+oVYxY=
+	t=1785764773; cv=pass; b=RzpTUGpqpXtCYF/uJA6+/Qy+G80z0Dib8Zpag+HPPEI7jltQEvxW1LharD9TYY3voXN7NKNz8kEdu/5HTbEgTqk1bDntJU6fAkDU4L8+Qrn3bxGE4rrqN0Ycput22uZ42HqxnElqzOExI33Fx3KAKX0VrDGTDJQct+ai5Ud5gKA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785764701; c=relaxed/simple;
-	bh=/hpeuRssaa6XcAvdK1eK6+2E+wNiDC4goF4wBMKm+6Q=;
+	s=arc-20240116; t=1785764773; c=relaxed/simple;
+	bh=Ee4kLdXfVk2GCa9eJc5mwREr0xBuHFjtFrr8xmqcFZ8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kxPKV/3UliuK9QnvTU/P5xkr1imfFVjyhk+G1SwD2/lEsAFzocTL9gzuYfON5T/YrQ0qf1ZlM60AYHecT+yYmFXU5bF+z4kUpKJNN6/jQLwy8Z8aGdZAFfD00nYzWy6AVHZsMhVSGJiVEpzChCpFpJhmMYxTdSDfQoQ59i6HJ7A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MTUg4rKl; arc=pass smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=uxVhhg+iB5TLO2RBqHaMY397jAMbz7N9phXkDbngZ5meHXTCjswao0tJKGHZz3G0NhRhSkrxFT8XYvcPzF/MCQDEdR3hA54vaJtsiKBCGgQk6rU0MW17C55o2OGirBU/t1PTi9EnuysBeoNHsDzjsjneK6lmpQKaP9pk6OZ2Ay8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nXbfito7; arc=pass smtp.client-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MTUg4rKl"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cede6375caso133545ad.0
-        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 06:44:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785764699; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nXbfito7"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-81ee6b2da98so41362767b3.3
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 06:46:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785764771; cv=none;
         d=google.com; s=arc-20260327;
-        b=Dl7sVNYRSexbvvXl6r2mQ1rHzbZLNBrRY5ABbKIVdhmVtnQON5BJhuSYwYSPZEA9hO
-         EdOblao6yZpX6WTf5ftqZV1pJFgfKCyJIlgScjkbtW11rrvrZSe9uBWuwIsovxbooUNA
-         e3+r/IQlqd+djn2saoHkc4HKeXHeyGSNH6KOISmpEFyIH6AZCjCJuzQ9NuLPEzZYXM5o
-         NrbLPeP7RjI+u7ews+eK/syMpRk15JUuSkYk/dXciWrA2RcCmDxFwFUPqn8dVdGgPD/E
-         fanL4Ts98vFu6uIVnw5Yo0UjY1KMxwiOdJouTupAxBUu2wWfDhO0J18a2eC9dEDUehLg
-         eg3w==
+        b=YX3VQJVtqEECvXe9WEgFusqjeY6ofY+lqBUd15YLAR54VLsHHQ+Kpf5IkXhjREzvIS
+         +4IVc28E/g56eS/2spUIrMCFPHisisglLOjiU7S/qAwGtNaRCxsi1nz/kqnGCDp2UQY1
+         GB5eR811VI45MawP5/q3wUQQbrf6Wm84K2As426qDPfZlujUIpa+2rz+Yo5qTrx0ydWK
+         gEa8xCrRkrx4hHzbgeuTg3vFvm23NYPcuINDnVswux4CkI46q+1leaD6vBO8S535Acw2
+         X6s9uaUR/Pc0ZfUABg2p2iWDrKzUiT7tt11U8ltb74eKuGGCTHaqopuJPWEEhmXb25sO
+         jqpQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=og0yvuLtJG8uMDCPPvFKEGgNRUhvDLT0Vv/6jZ7ygcA=;
-        fh=quaEuGDPE3+tyI0jJmTdItYU2T+hpWFu33QjYlrUs00=;
-        b=gH/IZs28zY6ZnbOZ767iE7Ka7dJhPqIIAAz5TMhfuN1pmB9isSB2vrcomX2m6xF0tS
-         jQ1qnoZ21R8DVTg8BG9Tl3z33SGiumleLJ56CfMbpqN2AnCwNFSxUtsaaw44X7HdeO+E
-         3GdypwnBMq69Kq/iJjkjwCm+3dnMDKSVQvFwmuXKY0o9WXA8L34jvHtoRQ5mHSIPf3j8
-         oXay7aRyefrmKSE4tNY9Dm6GvvVQmpt49fiT2VvflWJeyj7XIkQFlOZIiQS4fGQweMeU
-         QVRMqK2ESrwqmKv4qCQz3cNa6wM7vzhZ5HeIu26g45obzyS1fl6tK30kkthQZE8kYw8D
-         j9KA==;
+        bh=aFLLowd+OV3t61SPjHw+s1uSeKRn83nLQOLuHiouvho=;
+        fh=5VadLEulxAng2oHzDfedM75q5CuYz1LY3OV1l1PTTqc=;
+        b=I3bEHcDIY/gILnyAGH1z5Wgbly2jovkwRY3eGivjoioHce2rufWNo4p39qQDdCNiBm
+         zulQkBoUrt0Fz/QjKz1UFNuXvqZiOSvSBoO/b+spnQC77qf3YvvBkcucikwrwo9/+GAJ
+         DpBqtd7Nx82P8Jetp9BNAqa27dxldKFm5y7Re2/fTXBcbKWiHLKlGh2v+uiu+2Z2Jx7k
+         DdA7O6RKaXqsx6KzDNgKrkPx0Ngswi2tCGiB9e3xpn3fvMpjO9JILloP1LwrzbZbJXMY
+         O1h5od50vqT8OyHRfqchO6lx5oFNJ39x1emhsiwMTBu9VQIMLpLJ3cwqy41x3kmxnmh6
+         jWrw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785764699; x=1786369499; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785764771; x=1786369571; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=og0yvuLtJG8uMDCPPvFKEGgNRUhvDLT0Vv/6jZ7ygcA=;
-        b=MTUg4rKlUUL8Nu7o+/d0PeSTI1dnlJUcV3Byah4LTBrTotyXmQweamfNFl+3SIfDCr
-         ng01Np5Mq0xloHVmINFBFGdquGx1OE1ovhKZHLmVoi+zg8x1fxrzYeoZH8M7yGI8E0L0
-         ZuO5mC7WcaPb03GMQ1r+iPwCb/2/vkh/QIyYlQA1F22wiIppKv6Uc0l++a6wfd8n1G17
-         Csl/X4H06JruwFzE9LpjIG1eYOx7Ge2I3GsFY3mh2JsMAqlQsWBjUANNNUgBNG8ys752
-         QF4Y8PhVFgDQ1v6Wcyjm0VwCuV5Eey004tFKFZlLsUFXeTonmuIcIxKwGFdjO94JqfM4
-         YmNQ==
+        bh=aFLLowd+OV3t61SPjHw+s1uSeKRn83nLQOLuHiouvho=;
+        b=nXbfito7PDF93pQpmw29hqbkWhUvQ73zky3hp6Bha5drCbQD2XsTDNwd2Z6nwkkyvt
+         vIHAIELyySxnFuG1tpS2FJ4Vo6E4yc4PcA3b/GeOn9mDkObjc135jTL/n75KY4fsW5D8
+         r5b/B7u1UikAZyq54DNI3ynFsG5LPulnqi9hzJVP++qNciT52FQPvYWwOCtnQFRsDISl
+         RER6C/KlN5WYjpxkePB8PCQ3g2dvxwB2zF7EwMtfYwjWRXCwTqeIzZgrsCFzsZVe1Qch
+         A19qkKZh5/v/P82qv4AwDId1VFaITh3/UmBJckfPfx/T2/vXestDLyg9fdcIjsshjqOF
+         CdTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785764699; x=1786369499;
+        d=1e100.net; s=20251104; t=1785764771; x=1786369571;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=og0yvuLtJG8uMDCPPvFKEGgNRUhvDLT0Vv/6jZ7ygcA=;
-        b=PJqQ5F+yVO10TjOJSqvJRK8CFQ7zNfUfyGmi9JftepZNKf274QAZXjLqVRHBgaj0m6
-         R3U1TviByIGX4g43+5jCgbkBo4X7x04hKMk/tSgID59XXdX3EvYfEmg5/gCNJ8NoXNIR
-         1kqj0G3+qpNQnCAw7J/VF9NGrg3rF0c7lrZDfWg0eegQGPMMSREgzQn8Ew3Z+eN86b5O
-         NizLHFu/iHflKfO3+yOI/89REVdERL/G0w3hBFhCsjU51ou6FH6lBpWpupxNQEc9F+yi
-         K0mi4L4NvwAVnCE8mh4ma+v4aN9jSx092zeyZIQGyzMuCYngXTXeQ5KHaKvQfcE2uXVh
-         Gwjw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrakq7eL2vr+xA8EMGriR/1qGFeKsPefpmwAxzDCHWLI/G9mGhzvCuyDbRTHkbAem/CuLV+bmI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy1ck8IXRXBiEsDvmAPwqF6Uvjj2mDQuPgNwTNIFrnVypezeSuO
-	hyXVKf6o+YJCIjCE5IMf5HoBj6OHyYlvWBpue48pTKaSYHvIstxgMKxfv211WmS1+CY6NUv65tW
-	Cl8TTSumxm/GS7qj+EHcmyUmKl6vrC2IB5H8Awzvv
-X-Gm-Gg: AR+sD12UVOGs6bLb6rl+7EqVzwj5zmgA2tXkLPDLRMqLO1MteH44H1yDUXlGK3uFqM3
-	uIB/4GYLf9Q2eGL2WOQbjpOixkcm+wFGAEfhKyGJ95Tcb9T3N41WUMdqn+GIOYc8nnN2sGy13O/
-	m8LOAiz0dlVGKJfjQ0YoN6lUCTgHf07AYnMRayHx9f0JHFrdShwH2tcxWBYQKFyH1qc9OC5Z5NO
-	Ei55dm4WUp4tOC4BldaWgFleCA/Cte1SqTyB5zeXCMSJDYYqmZEiTe6UIliUdgGJ/T4oz1fgkkj
-	nqjg7TWQt7djDdqRzRQRneAKXtvUCCpEbcCFAfH4XDcoHCXOuNcdOl6EAEYj+koIMxuJDAhf+pk
-	tbbFDn8aD1tbXX6s8EsSFBcocVtT+FMblcMOHLrpEVNU=
-X-Received: by 2002:a17:903:3c63:b0:2c6:99be:9dd with SMTP id
- d9443c01a7336-2d0547fc556mr15355195ad.12.1785764698053; Mon, 03 Aug 2026
- 06:44:58 -0700 (PDT)
+        bh=aFLLowd+OV3t61SPjHw+s1uSeKRn83nLQOLuHiouvho=;
+        b=apddg38ORJ4mTaveNC23awaQNnl2mLGOKvM2CukquabQCv+YcSJJBELVkDgTbyhvgd
+         UDlbEzMxzt23SoZj9ume3sUFmOeDEMx1zqrLM78EIaJs00+eHCony6CLrCVLmgktoSGm
+         8Y+tL3/GPuNqq1k1Rf/rzGtK9PwqEm6+VJ8dF1csBOQN2ewdTlQq6nXDAPC3x+FKYXI5
+         p095uJwrY8mhT6MGvdulRaLW4cUXImpFzJg8lXJXj6WUwRvhCnvmrrn8m2pL/AOVpHLD
+         EV1Cxpx1BNQXHZ2b+Z183f8znIj0B6caZ62Qqc5UC5Cyd7LzbzOtbWxSURuq3+uvY1bz
+         uXFQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoN68UBQ593J/T0kqvJWl9R1cH8k6ZczqOyUTwBicJyNRHfMr1NOb8nx2fu7KgQAp7gx6TCWBM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwQak1J09df7BVN9wcTEenIxyAgFig4VIHkjXMcucRxGoHK+M2N
+	KncAqQKSt93D4oYkgWC2tUbtFyKY7KGDsi0JdSkVICpEcQ8U7L8gg6CPHSdNmBOTQYwqIWG5U65
+	0Y+X9eMmyy58zYk2CtMHZXggfu3i8fR0=
+X-Gm-Gg: AR+sD10G0V0N/erpPC5/lrRUqqH5cieDIv3llqu4VDxL5YD5ansCJE9+bTshxljE2s3
+	5Y/VaQbxy65W6OVOa+HfoZjddIVHRuz+lNkt5pTQommi0Sg7h6+OEuK4H+F8zA9EC04bccNC1xn
+	9TsKG6a9u8K9Gu+9Ccur/+0Wg7jPaD0dqgf/29PI6oFvz0aGrLmqN8ITL69QyeeXJ15Gy3EjmO2
+	xu5q5bvv6jsN23X0L/MyH7A9RLpDsw8zrA9Ku8xmeLs3mb5HjVlQssisy0spAUQkLkKf5nKiYvX
+	L4CAGhIJLiQq4rPfR7vWf/cYPQVcAr55HHo07cRGV6Y+frXQXLd1NIIr
+X-Received: by 2002:a05:690c:6e0e:b0:81d:489e:8847 with SMTP id
+ 00721157ae682-81fd49c716cmr144522987b3.2.1785764770880; Mon, 03 Aug 2026
+ 06:46:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260731-pidfd-exec-update-lock-v1-1-b388f2f3a8b0@black-desk.cn>
-In-Reply-To: <20260731-pidfd-exec-update-lock-v1-1-b388f2f3a8b0@black-desk.cn>
-From: Jann Horn <jannh@google.com>
-Date: Mon, 3 Aug 2026 15:44:21 +0200
-X-Gm-Features: AUfX_mzMs8LPMGeaw0QXamLvi3sESQh9nHboIA3NCYUg_jtF9QZJiqeYlNr2lt0
-Message-ID: <CAG48ez2YssN-F9DHHskmiWORTnaBPUUyixqufD-L5VkW96Uv4Q@mail.gmail.com>
-Subject: Re: [PATCH] pidfd: hold exec_update_lock around namespace ioctl
-To: me@black-desk.cn, Christian Brauner <brauner@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
-	Jeff Layton <jlayton@kernel.org>, Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
-	Josef Bacik <josef@toxicpanda.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260803112218.3361213-2-dingning04@gmail.com> <a66afeeafca30042408238757e166de2d5ed5bc93a4098e0d57627c63ed7efb2@mail.kernel.org>
+In-Reply-To: <a66afeeafca30042408238757e166de2d5ed5bc93a4098e0d57627c63ed7efb2@mail.kernel.org>
+From: Amery Hung <ameryhung@gmail.com>
+Date: Mon, 3 Aug 2026 06:45:59 -0700
+X-Gm-Features: AUfX_mygFOBvWcZJpU-pd4J_Eq18s-OyZUvHm9LKyyCuB02wT2BpWLcTbEZuahI
+Message-ID: <CAMB2axObnCmR91CTZjf8egdskM-DGVqaArK5n+YYmACUfSOOAA@mail.gmail.com>
+Subject: Re: [PATCH bpf v3 1/4] bpf: Keep refcount_acquire nullable for
+ borrowed RCU kptrs
+To: bot+bpf-ci@kernel.org
+Cc: dingning04@gmail.com, bpf@vger.kernel.org, memxor@gmail.com, 
+	greg@kroah.com, stable@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net, 
+	john.fastabend@gmail.com, andrii@kernel.org, eddyz87@gmail.com, 
+	martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
+	jolsa@kernel.org, emil@etsalapatis.com, davemarchevsky@fb.com, 
+	linux-kernel@vger.kernel.org, martin.lau@kernel.org, clm@meta.com, 
+	ihor.solodrai@linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 31, 2026 at 4:50=E2=80=AFPM Chen Linxuan via B4 Relay
-<devnull+me.black-desk.cn@kernel.org> wrote:
-> The PIDFD_GET_*_NAMESPACE ioctls in pidfd_ioctl() perform a filesystem
-> credentials ptrace access check before handing out a namespace file
-> descriptor.  The accompanying comment states that the code "mirrors nsfs
-> behavior", but, unlike the corresponding procfs paths, it does so without
-> holding the target task's exec_update_lock.
+On Mon, Aug 3, 2026 at 6:14=E2=80=AFAM <bot+bpf-ci@kernel.org> wrote:
 >
-> proc_ns_get_link() and proc_ns_readlink() both take exec_update_lock for
-> reading around the ptrace check and the namespace lookup, so that the
-> credentials used for the access decision match those of the task when its
-> namespace is read.  Without it, a caller can pass the check against the
-> target's old credentials and then read the namespace after the target has
-> execve()'d a setuid binary and committed new credentials -- accessing
-> namespace information it should have been denied.
+> > bpf: Keep refcount_acquire nullable for borrowed RCU kptrs
+> >
+> > The verifier can mistake an RCU-loaded map kptr for an owned reference =
+and
+> > assume bpf_refcount_acquire() cannot return NULL. The kfunc uses
+> > refcount_inc_not_zero(), so it can return NULL after the last reference=
+ is
+> > dropped. Passing that unchecked result to bpf_obj_drop() can crash the
+> > kernel.
+> >
+> > Only treat the argument as owned when the verifier tracks an acquired
+> > reference for it. Borrowed pointers remain nullable, while owned pointe=
+rs
+> > keep the existing behavior.
+> >
+> > Fixes: 1b12171533a9 ("bpf: Mark direct ld of stashed bpf_{rb,list}_node=
+ as non-owning ref")
+
+^^^ The fix tag is correct.
+
+Reviewed-by: Amery Hung <ameryhung@gmail.com>
+
 >
-> Hold exec_update_lock for reading around the ptrace check and the
-> namespace lookup so that pidfd truly mirrors nsfs behavior, as the commen=
-t
-> already claims.  open_namespace() itself runs outside the lock: once a
-> namespace reference is obtained it carries its own refcount and is opened
-> with the caller's own credentials, so a concurrent execve() on the target
-> can no longer affect the outcome.
-
-I think this makes sense.
-
-Given that the rest of this function is written with scope-based
-cleanup (https://docs.kernel.org/core-api/cleanup.html), I wonder if
-this patch would look cleaner if it also used scope-based cleanup...
-that documentation also says:
-
-"Lastly, given that the benefit of cleanup helpers is removal of
-=E2=80=9Cgoto=E2=80=9D, and that the =E2=80=9Cgoto=E2=80=9D statement can j=
-ump between scopes, the
-expectation is that usage of =E2=80=9Cgoto=E2=80=9D and cleanup helpers is =
-never mixed
-in the same function."
-
-But we probably shouldn't be holding the exec_update_lock across the
-open_namespace() call... so I guess this will require either
-refactoring this function into two, or indenting most of the function
-body, or some explicit "drop this guard" operation.
-
-@Christian, do you have an opinion on this?
+> Does this Fixes tag point to the right commit?
+>
+> Looking at the code change, the fix adds && reg_is_referenced(env, reg)
+> to an existing condition that checks !type_is_non_owning_ref(reg->type).
+> The problem being fixed is that the verifier incorrectly assumes pointers
+> that are not non-owning refs must be owning refs, which fails to account
+> for borrowed RCU pointers.
+>
+> The commit 1b12171533a9 added logic to mark certain pointers as
+> non-owning refs, but the bug appears to originate from commit
+> 7793fc3babe9 ("bpf: Make bpf_refcount_acquire fallible for non-owning
+> refs"), which introduced the logic:
+>
+>   if (!type_is_non_owning_ref(reg->type))
+>       meta->arg_owning_ref =3D true;
+>
+> That commit incorrectly assumed pointers that are not non-owning refs
+> must be owning refs, missing the case of borrowed RCU pointers which are
+> neither. The current fix addresses this by verifying the verifier tracks
+> an acquired reference before treating the pointer as owned.
+>
+> Should the Fixes tag be:
+>
+>   Fixes: 7793fc3babe9 ("bpf: Make bpf_refcount_acquire fallible for non-o=
+wning refs")
+>
+>
+> ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a =
+bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/READM=
+E.md
+>
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/308109=
+49269
