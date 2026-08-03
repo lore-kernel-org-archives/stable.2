@@ -1,217 +1,157 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942652BE639
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 23:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B99384243
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 23:40:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785800297; cv=none; b=gU2Acqjrc56g27OyhHz+BsCnXYQmFB12DVQG2ixpHrI/Fr4RiCGmiui4ApHcycI55X/y9R9J3FL4xKLeAoAxoKyhPUhuVqS6HJVC4z4gaOmubxc9gUDO8YSZtgpKlXQUUjTWLnUBqLnLcwI6UJkO0tuu2T6gCQmnQ9W3PHTZbjk=
+	t=1785800451; cv=none; b=ZSugD48pzeL+Kr9o+Wgkf4P9WphBBaNJt3vsvsrpCNacoQsdcyo3tlv81UBjKsUNrZmA6uISyfWiEZNIcOaaqGjqIIaKUnt1VJnQM73avezgi6KSOSqrBNlVEqIaQV0y/Z/+e62Nar5WCIBoMCsPLr+EIm8I4vpZJ9IiQeohA4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785800297; c=relaxed/simple;
-	bh=Cy1oAtxcnMK5nPcTLXnW4zbsd9CKyOG8CpKg2UWPqq4=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YFbAaqszZ6z9uwzU6hq8yBJakE9MT1v8aDiVRnUXKajxLZNj4CIIWZafTrdssMylrGQ2/o6litL16B6gj3hOPs8FiLRr6OMsMfDP559fAIW69DZpZLRq+EM62tm05lAa0/J9NjR3hXlD2qRPn7WCBftxu9HHe1r30sfiFkyflFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kI63eaxC; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1785800451; c=relaxed/simple;
+	bh=xmWuIF3gvmbx4DiLSNyVNuxpNp9mTMt+/4AKY0oZYD0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=obngh+lQenppgkihW7UUa+OjKuh+aNWIqzQAcMXBY35o9H0iy8vPzEScqRLLO0RZoL6xojY6FwYLs+CEvJi7xwijijD1BOURfbSO7dlrblqyLm06EGVs/hKRVwxKL2zluY3sb99HL1jTUhkn2dpOABF6L7tOk3cziGuAr0leZnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LJqzHwRr; arc=none smtp.client-ip=74.125.224.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kI63eaxC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785800296; x=1817336296;
-  h=date:message-id:from:to:cc:subject:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Cy1oAtxcnMK5nPcTLXnW4zbsd9CKyOG8CpKg2UWPqq4=;
-  b=kI63eaxCCDcWLREoiBPp9zVBTPyDqao7BrQHjJbCW9k4O6ZWY+/YgX/3
-   vxzsh1Mh0Tbchd7vWZsY4I6kauQ9GRCAn6TC0cGEhJwFCiqkaWY0O0fu+
-   Ts9ulvm56+2iDhJEAHcxiPuaOKl59cQyAju3fB7TqNqY8R8fwiH4QNsvb
-   YoaaI5pKqwD9rno+LPDYj+gIbBZQxfoybpBHAKpFw0puuzS0X9xDbK+H7
-   kvyWgCOPU1n8YbmZOOZ6ij06+53LaGU/6KP/dQVU1KvD/i+inhKbr4raZ
-   0WC7muHLnbxlnixtkJKpXatn8CiQJi3E9YZvxbK5kI09Wb6/TvomI3GFn
-   w==;
-X-CSE-ConnectionGUID: C1jmTc3tQp2DO9/H9b7IYw==
-X-CSE-MsgGUID: zLWvI2+aSau2SdLlt88cAQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86113344"
-X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
-   d="scan'208";a="86113344"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:38:16 -0700
-X-CSE-ConnectionGUID: 3ly6EoD3QuSvhYMwBw7opA==
-X-CSE-MsgGUID: /tdSAT9bTsGeXLMLT8weFQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
-   d="scan'208";a="264839385"
-Received: from unknown (HELO adixit-MOBL3.intel.com) ([10.241.243.62])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:38:15 -0700
-Date: Mon, 03 Aug 2026 16:38:14 -0700
-Message-ID: <87ldam22s9.wl-ashutosh.dixit@intel.com>
-From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc:<stable@vger.kernel.org>,	Umesh Nerlige Ramappa
- <umesh.nerlige.ramappa@intel.com>,	Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>,	Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 7.1.y] drm/xe/rtp: Maintain OA whitelists separately
-In-Reply-To: <87mrv2242a.wl-ashutosh.dixit@intel.com>
-References: <2026072958-unmasked-acting-7c2a@gregkh>
-	<20260801004526.3662973-1-sashal@kernel.org>
-	<87mrv2242a.wl-ashutosh.dixit@intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
- Emacs/30.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJqzHwRr"
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-668005ba03cso5411908d50.2
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 16:40:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785800448; x=1786405248; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=U+7Ru6jZFSxz7ibFdQEbmpjCAkPd7K+3B96IxICOxK8=;
+        b=LJqzHwRr7gEY9qMY/x/cI42n0OwdoPFXgRESTQ97I2VdoFtzXbrmZSPJaOUyZ2fuTv
+         Ei2oFFCfMIBsvyPXpu+DyAm3x67V7slOIcW1z2njG6Qf1AcFaaDraIMTiCy2wC7u51Lk
+         Ypg+CG2tfZOcvajkhdeetluhMfGpUs0k/mF+21AmLvYWxGCNBQDnqtmZOEuDwbMPHapc
+         2g/7VXvApzJRTMzjT3kF/yjt79JL1cXQjclqecc9oloCPHNOusewSzMFHOZH8wQqW3na
+         wFpJlUDfNYAWjNvDSuIoVyLBLPWZf9vm3ToxDPPYL8Ne912bYEr5utodA0oZD5gI18mG
+         2j3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785800448; x=1786405248;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=U+7Ru6jZFSxz7ibFdQEbmpjCAkPd7K+3B96IxICOxK8=;
+        b=FigChIa9GRBr3SYAxa00LEZKWKcm7Z+hdgWQdU4lFbOjhazw4V9unassYMuVGKT0jb
+         2vWbW9Z4obd0TDFKVuZEkLUpRs1O2+LkRsCdFZPE16kEyxPDslA3QqYiQr50ChnAWHWo
+         kWOrG+6bRKl8Ujo6curTlzUmaFOyLCGdIMniIvlA9NX7bHHHCMqQlmLv5MxrAOEJuEFL
+         bJoiTmGfONRCuUcUpe14MTyH0klBEWoy01XoCeAjlvqP6NFw8k07T4q+FkfUHwFzum9s
+         bYTvI0mIegZqE7RT0WjOuqRQ5wQId0AXbantBFmsBBM0jAlZctBv/fztLChe7U7yVbzw
+         SewQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoYpyyOlq6taVgcFn53p5LCqH8Iem05JloU82NlDGAxbV16lZrtHCtZUpBwZCFWxZhIfKPv7wM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwqmnY9RyWvEhmYheHbKx9X0GF2v5GjKrwxr5qyEjmWxR1x4FCi
+	ohn52Xuy3akuZFNpVJUkmfR54mJ35mW2Fgm+w/agaT5+YN0ku787jOdJ
+X-Gm-Gg: AR+sD136KnWLLDVlY4ty+4ZHkQCfam6VemDPaeUIRh0+/UhMvQiGP091DRD/Hyf773j
+	IUV9ERoHUaXNaHSCo1Z4oWXEM+02pKV+pTQ6iELYq3gySTe5+ShecMivkVd/iOCep1aJrPP8oiu
+	+5j8Erc03IHffcR4cyMlCqQpDGyOi51n1YErySeTfy96RESMtGd6UeaOEPDOGPhzok7pT0z5NXT
+	PJmM/OQ6gKvDUJT3wgn1l7eVnm2oeklDWUgU5Xdd7JKNULmhykbvxqFipN0BgGfDTaI6IiGSkcJ
+	HmabZoyC8vEJT37eNRk4fVqm0BNQp9pcSjIiX7wKDUAOy8+hSXUmnF8/yZstvI+uf08uns2yuGy
+	gc2sjqvJz8IO4aIKtJvmKDs1oHFBiX2BGofYtRmpCz96qS4jyA71yHWn06+w/X7GfCi5TC7/ph4
+	bglga3yzL9tFPWl/haoiuILuFiIUqCOxbw5Ols4eiAbGjM4wK26S1cVKoG8dDRaS0dfr+CBbJ5
+X-Received: by 2002:a53:c745:0:b0:668:43a3:9db2 with SMTP id 956f58d0204a3-6694f17d897mr10635045d50.32.1785800447478;
+        Mon, 03 Aug 2026 16:40:47 -0700 (PDT)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66948b98babsm6681654d50.0.2026.08.03.16.40.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 03 Aug 2026 16:40:45 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+Subject: [PATCH 0/3] alpha: fix floating-point exception state handling
+Date: Mon, 03 Aug 2026 19:40:44 -0400
+Message-Id: <20260803-alpha-fp-exceptions-v1-0-c99d75608e60@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7bsGKsvpKdBBbcyFMNEIQ/550H
+ JiZDJECU4S1yRDo5ci3q9C1DWir3EnIR2XoRT+JWQyoLm8VGo+UNPmn6hFHLeWxkBilGqCWPpD
+ h9F+3vZQP4EcgZ2UAAAA=
+X-Change-ID: 20260803-alpha-fp-exceptions-5c77d9e057a3
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ sparclinux@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-sh@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-On Mon, 03 Aug 2026 16:10:37 -0700, Dixit, Ashutosh wrote:
->
-> On Fri, 31 Jul 2026 17:45:26 -0700, Sasha Levin wrote:
-> >
->
-> Hi Sasha/Greg,
->
-> The patch below is correct. However, because you will encounter conflicts
-> in other patches of this series too, I have backported the entire series
-> for linux-7.1.y here:
->
-> https://lore.kernel.org/stable/20260803230136.3270230-1-ashutosh.dixit@in=
-tel.com/
->
-> Will it be possible to apply the patches from the above link instead?
-> Since it will save us some work.
->
-> I will also send backports of this series to linux-6.12.y and linux-6.18.=
-y.
+Three fixes to floating-point exception handling on Alpha.  The first two
+are a pair and should be applied and backported together; each commit
+message explains why taking one alone is worse than taking neither.
 
-Ports to linux-6.12.y and linux-6.18.y are here:
+The first fixes ieee_swcr_to_fpcr() setting FPCR_DNOD unconditionally,
+which disabled denormal operand traps for every process using the default
+FPU settings.  Instructions built with the software completion suffix
+never reached the kernel emulator, and the hardware silently substituted
+zero for denormal operands.  This affects anything built with -mieee,
+glibc included.
 
-https://lore.kernel.org/stable/20260803233346.3277427-1-ashutosh.dixit@inte=
-l.com/
-https://lore.kernel.org/stable/20260803232608.3276045-1-ashutosh.dixit@inte=
-l.com/
+The second stops hardware-fabricated exception bits from reaching user
+space.  On EV6 and later the hardware writes exception status into the
+FPCR before delivering a software completion trap, and those bits can be
+wrong for the instruction that trapped.  alpha_fp_emul() only wrote the
+FPCR back when soft-fp raised something, so whenever it found the
+instruction exact the fabricated bits stayed visible to fetestexcept().
+The exception summary register is now passed down so the handler can tell
+which exceptions the hardware attributed to the trapping instruction.
 
-> Sorry, I am not too sure of the process to follow here. So if it needs to
-> be done differently please let me know.
->
-> Thanks.
-> --
-> Ashutosh
->
-> > From: Ashutosh Dixit <ashutosh.dixit@intel.com>
-> >
-> > [ Upstream commit 31e2437561621b4867c08efc890bf629d017df03 ]
-> >
-> > OA registers are dynamically whitelisted (and again dewhitelisted) on OA
-> > stream open/close. Maintaining OA whitelists separately from non-OA
-> > register whitlists simplifies this management of OA register
-> > whitelisting/dewhitelisting.
-> >
-> > Fixes: 828a8eaf37c3 ("drm/xe/oa: Add MMIO trigger support")
-> > Cc: stable@vger.kernel.org # v6.12+
-> > Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
-> > Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-> > Link: https://patch.msgid.link/20260615224227.34880-3-ashutosh.dixit@in=
-tel.com
-> > (cherry picked from commit c478244a9e2d14b3f1f92e8bd293919e554622a5)
-> > Signed-off-by: Thomas Hellstr=F6m <thomas.hellstrom@linux.intel.com>
-> > [ adapted RTP table from struct wrapper macro `XE_RTP_TABLE_SR()` back =
-to plain `struct xe_rtp_entry_sr[]` array and restored the 5-arg `xe_rtp_pr=
-ocess_to_sr()` call with `ARRAY_SIZE()` ]
-> > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > ---
-> >  drivers/gpu/drm/xe/xe_gt_debugfs.c      | 4 +++-
-> >  drivers/gpu/drm/xe/xe_hw_engine.c       | 2 ++
-> >  drivers/gpu/drm/xe/xe_hw_engine_types.h | 8 ++++++++
-> >  drivers/gpu/drm/xe/xe_reg_whitelist.c   | 6 ++++++
-> >  4 files changed, 19 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/xe/xe_gt_debugfs.c b/drivers/gpu/drm/xe/xe=
-_gt_debugfs.c
-> > index f45306308cd6..c38bcacb27e4 100644
-> > --- a/drivers/gpu/drm/xe/xe_gt_debugfs.c
-> > +++ b/drivers/gpu/drm/xe/xe_gt_debugfs.c
-> > @@ -149,8 +149,10 @@ static int register_save_restore(struct xe_gt *gt,=
- struct drm_printer *p)
-> >	drm_printf(p, "\n");
-> >
-> >	drm_printf(p, "Whitelist\n");
-> > -	for_each_hw_engine(hwe, gt, id)
-> > +	for_each_hw_engine(hwe, gt, id) {
-> >		xe_reg_whitelist_dump(&hwe->reg_whitelist, p);
-> > +		xe_reg_whitelist_dump(&hwe->oa_whitelist, p);
-> > +	}
-> >
-> >	return 0;
-> >  }
-> > diff --git a/drivers/gpu/drm/xe/xe_hw_engine.c b/drivers/gpu/drm/xe/xe_=
-hw_engine.c
-> > index a7441a66e94c..b5a869c720af 100644
-> > --- a/drivers/gpu/drm/xe/xe_hw_engine.c
-> > +++ b/drivers/gpu/drm/xe/xe_hw_engine.c
-> > @@ -575,6 +575,8 @@ static void hw_engine_init_early(struct xe_gt *gt, =
-struct xe_hw_engine *hwe,
-> >	hw_engine_setup_default_state(hwe);
-> >
-> >	xe_reg_sr_init(&hwe->reg_whitelist, hwe->name, gt_to_xe(gt));
-> > +	xe_reg_sr_init(&hwe->oa_whitelist, hwe->name, gt_to_xe(gt));
-> > +	xe_reg_sr_init(&hwe->oa_sr, hwe->name, gt_to_xe(gt));
-> >	xe_reg_whitelist_process_engine(hwe);
-> >  }
-> >
-> > diff --git a/drivers/gpu/drm/xe/xe_hw_engine_types.h b/drivers/gpu/drm/=
-xe/xe_hw_engine_types.h
-> > index e4191a7a2c31..04ca7545d22c 100644
-> > --- a/drivers/gpu/drm/xe/xe_hw_engine_types.h
-> > +++ b/drivers/gpu/drm/xe/xe_hw_engine_types.h
-> > @@ -128,6 +128,14 @@ struct xe_hw_engine {
-> >	 * @reg_whitelist: table with registers to be whitelisted
-> >	 */
-> >	struct xe_reg_sr reg_whitelist;
-> > +	/**
-> > +	 * @oa_whitelist: oa registers to be whitelisted
-> > +	 */
-> > +	struct xe_reg_sr oa_whitelist;
-> > +	/**
-> > +	 * @oa_sr: oa nonpriv whitelist registers, changed on oa stream open/=
-close
-> > +	 */
-> > +	struct xe_reg_sr oa_sr;
-> >	/**
-> >	 * @reg_lrc: LRC workaround registers
-> >	 */
-> > diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe=
-/xe_reg_whitelist.c
-> > index 8cc313182968..089335b185d1 100644
-> > --- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
-> > +++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-> > @@ -89,6 +89,9 @@ static const struct xe_rtp_entry_sr register_whitelis=
-t[] =3D {
-> >			 WHITELIST(VFLSKPD,
-> >				   RING_FORCE_TO_NONPRIV_ACCESS_RW))
-> >	},
-> > +};
-> > +
-> > +static const struct xe_rtp_entry_sr oa_whitelist[] =3D {
-> >
-> >  #define WHITELIST_OA_MMIO_TRG(trg, status, head) \
-> >	WHITELIST(trg, RING_FORCE_TO_NONPRIV_ACCESS_RW), \
-> > @@ -191,6 +194,9 @@ void xe_reg_whitelist_process_engine(struct xe_hw_e=
-ngine *hwe)
-> >	xe_rtp_process_to_sr(&ctx, register_whitelist, ARRAY_SIZE(register_whit=
-elist),
-> >			     &hwe->reg_whitelist, false);
-> >	whitelist_apply_to_hwe(hwe);
-> > +
-> > +	xe_rtp_process_to_sr(&ctx, oa_whitelist, ARRAY_SIZE(oa_whitelist),
-> > +			     &hwe->oa_whitelist, false);
-> >  }
-> >
-> >  /**
-> > --
-> > 2.53.0
-> >
+The third makes the emulation determine tininess after rounding, as the
+hardware does.  soft-fp had no notion of the distinction and always
+determined it before rounding, so an operation that trapped for software
+completion could report an underflow the same operation would not report
+when it did not trap.  The two paths disagreed on the same machine, which
+IEEE 754 does not allow.  This adds _FP_TININESS_AFTER_ROUNDING to the
+shared soft-fp code, as glibc's copy already has, and sets it for Alpha
+only.  It defaults to zero, so powerpc, sh and sparc are unchanged.
+
+Measured with the glibc testsuite on an UP1500 (EV67), with
+CONFIG_MATHEMU=y.  Without that option alpha_fp_emul() is not built at
+all and roughly 830 math tests fail on their own, so it is a prerequisite
+for any of this being reachable.
+
+  glibc make check subdirs=math
+
+  before                              831 failures
+  after patch 1                        48 failures
+  after patch 2                        28 failures
+  after patch 3 (and glibc fixes)       3 failures
+
+The three that remain are a GCC bug: a long double to float cast on Alpha
+is lowered as quad to double to float, but C requires it to round once,
+and the intermediate can land on a float halfway point.  Two glibc fixes
+are being posted separately to libc-alpha.
+
+stdlib/tst-tininess passes, which confirms the hardware determines
+tininess after rounding for the results it produces itself.
+
+The shared soft-fp change was compile tested on sparc32, sparc64 and
+ppc32 in addition to alpha.  Only Alpha was tested at runtime; elsewhere
+the new code is unreachable by default.
+
+---
+Matt Turner (3):
+      alpha: fix ieee_swcr_to_fpcr setting FPCR_DNOD unconditionally
+      alpha: don't leak hardware-fabricated FP exception bits to user space
+      alpha: determine tininess after rounding in the FP emulation
+
+ arch/alpha/include/asm/sfp-machine.h |  4 ++
+ arch/alpha/include/uapi/asm/fpu.h    |  8 +++-
+ arch/alpha/kernel/traps.c            |  6 +--
+ arch/alpha/math-emu/math.c           | 88 +++++++++++++++++++++++++++++++-----
+ include/math-emu/op-common.h         | 23 +++++++++-
+ include/math-emu/soft-fp.h           |  8 ++++
+ 6 files changed, 119 insertions(+), 18 deletions(-)
+---
+base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+change-id: 20260803-alpha-fp-exceptions-5c77d9e057a3
+
+Best regards,
+-- 
+Matt Turner <mattst88@gmail.com>
+
