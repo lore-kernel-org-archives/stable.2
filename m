@@ -1,36 +1,36 @@
-Received: from forward500b.mail.yandex.net (forward500b.mail.yandex.net [178.154.239.144])
+Received: from forward502a.mail.yandex.net (forward502a.mail.yandex.net [178.154.239.82])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F7140F757;
-	Mon,  3 Aug 2026 13:08:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE32B40BCC2;
+	Mon,  3 Aug 2026 13:19:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.82
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785762527; cv=none; b=C3VuMI6xlqpl9QUgm2Yhl3Wfhd8uX60Unbtdp9pzVCbUVvhquGib3gBA98SG6gWW8s3ieQtbiBQhKGhA9cIDL2dK39/6sgBpMSEv76NYE9YDMcud09yfWdeS3XsJ/usKLM9cYbDkuHORWib5DC1R+FmcZpIxDue/3kk6suhG72Y=
+	t=1785763151; cv=none; b=HzxwlX7Nbs7PX2n6120jNShcjp3h2M/8EvNx9vz6TztRSJ7qfdUcP98K0o+shfSt5MUf95Mds8V/THCuHKKrRFFCfjuXpRtwm+NAeS7qs7Bf8Tl7avC+UTQpq2NH9+QlQxb2cyLCfkUWQz1YM1SgXSmQRd7h4I2xYfeuFDEu+UE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785762527; c=relaxed/simple;
-	bh=wtZY2ezo0VnONKLHMMc4vyeRbPr2VY+XGb1Hui4wwQc=;
+	s=arc-20240116; t=1785763151; c=relaxed/simple;
+	bh=yplk1HANaY+P8tiXLrt7CsXt822BnTyeJCcLd6Y1kqM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u+xef38xp0d9fj3/Q1eaFMYnVomRzyIHg+K2b4pm4DZL6xzvJr2sISPekq9mL2dIerNC4n5H+bP0b5x0BkKDgqtYQMOTVXBpRskTeofDXsrDjC8q4YFa2sEhddLqjfSjQUyVUFNSOftGS8MFmcBatoUXveRub2M6MaJohiQG9XY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=Yo0Bt9JH; arc=none smtp.client-ip=178.154.239.144
+	 In-Reply-To:Content-Type; b=PmnyfYWVLCBamntL6BrfdXeJ6946FfRqJsZFU98SLvRW+YivdLi24AQecZVTgHZG+PyS33+XO3/TRkWRN43ZnOzNIEzTvdNFlihSISX6AQ48NjC3PzoIrhVvKcPSMRXuh0rES+mGOGmxwOqmgHVTpxyKoQ9pN32ELFTpqCyNCbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=ra1fdXIw; arc=none smtp.client-ip=178.154.239.82
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="Yo0Bt9JH"
-Received: from mail-nwsmtp-smtp-production-main-91.sas.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-91.sas.yp-c.yandex.net [IPv6:2a02:6b8:c16:161c:0:640:b95e:0])
-	by forward500b.mail.yandex.net (postfix) with ESMTPS id CCD9DC0D69;
-	Mon, 03 Aug 2026 16:08:40 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-91.sas.yp-c.yandex.net (smtp) with ESMTPSA id c8jSjkngqeA0-0mjfm0rI;
-	Mon, 03 Aug 2026 16:08:40 +0300
+	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="ra1fdXIw"
+Received: from mail-nwsmtp-smtp-production-main-84.vla.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-84.vla.yp-c.yandex.net [IPv6:2a02:6b8:c0f:39a:0:640:15c4:0])
+	by forward502a.mail.yandex.net (postfix) with ESMTPS id C5C2F80D74;
+	Mon, 03 Aug 2026 16:13:07 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-84.vla.yp-c.yandex.net (smtp) with ESMTPSA id 5DjqVbre5eA0-gKowOiXl;
+	Mon, 03 Aug 2026 16:13:07 +0300
 X-Yandex-Fwd: 1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1785762520; bh=wtZY2ezo0VnONKLHMMc4vyeRbPr2VY+XGb1Hui4wwQc=;
+	t=1785762787; bh=yplk1HANaY+P8tiXLrt7CsXt822BnTyeJCcLd6Y1kqM=;
 	h=From:In-Reply-To:Cc:Date:References:To:Subject:Message-ID;
-	b=Yo0Bt9JHk5eRERNT5kKU3shYMlFXokRXrvmXlOJoUAJYzEooiBUCAZE4vsxB1+TvV
-	 Vj7YaLGHNti1LqxwD6ZhCwowV2wopAIRSQuHi/kzXt/PzJdhA4Mw+Co7/ZzASYVAw3
-	 OHxfOHWh1TDJKm24vfIsL56u/j0I2m5Jv5ik8Nu4=
-Authentication-Results: mail-nwsmtp-smtp-production-main-91.sas.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
-Message-ID: <49291e7f-031e-4478-9d5c-a399c0533881@yandex.ru>
-Date: Mon, 3 Aug 2026 16:08:38 +0300
+	b=ra1fdXIwkw7Y3T9RAhh7MKZtcCDlFOYrxWidZ7CxI9+eQQF4Z8gQONa5l3oSOy4Oj
+	 Fijjhzjp7JLInU4equt/f4LJRafhFkGB0hgHEvadJjBDtdFD8kEr6RV2LA04CczF1x
+	 5Fs2FBOKLGPyiOxFeSHxuyk83rG5C+b7xW7czDpI=
+Authentication-Results: mail-nwsmtp-smtp-production-main-84.vla.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Message-ID: <f18f3752-f5b2-4e38-934c-9f6afbc60575@yandex.ru>
+Date: Mon, 3 Aug 2026 16:13:05 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,19 +47,18 @@ Cc: Al Viro <viro@zeniv.linux.org.uk>, linux-usb@vger.kernel.org,
 References: <20260803091258.85969-1-dmantipov@yandex.ru>
  <2026080336-roast-sudden-e02e@gregkh>
  <ed1607b6-0ced-487a-a241-17f1efa27dfa@yandex.ru>
- <2026080337-ovary-grappling-8541@gregkh>
+ <2026080307-glamour-reveal-a851@gregkh>
 Content-Language: en-US
 From: Dmitry Antipov <dmantipov@yandex.ru>
-In-Reply-To: <2026080337-ovary-grappling-8541@gregkh>
+In-Reply-To: <2026080307-glamour-reveal-a851@gregkh>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 8/3/26 3:24 PM, Greg Kroah-Hartman wrote:
+On 8/3/26 3:25 PM, Greg Kroah-Hartman wrote:
 
-> So this is not anything a normal user could ever hit, given the age?
-> It's only something that fault-injection causes?
+> I'd like to drop all the "legacy" USB gadget code
 
-Not sure. Anyway it just looks like the regular -ENOMEM handling which
-may be found almost anywhere else.
+Hm. Then I would like to ask you to mark this code with Obsolete:
+in MAINTAINERS and wait for some grace period at least.
 
 Dmitry
