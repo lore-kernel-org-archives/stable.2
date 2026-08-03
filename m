@@ -1,275 +1,179 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SY8PR01CU002.outbound.protection.outlook.com (mail-australiaeastazolkn19010079.outbound.protection.outlook.com [52.103.72.79])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381D040802F
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 12:41:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785760913; cv=none; b=uCYVIJRiJt+JFBRu/oVczzTciOieN0mqdfIo700nO8veyRlKcRXJULzKaUMjrtNlcWSwBpVC1JRGMokc8MkwnmJVG6+5LKfklDgliuWwGFPyyEVT3UHRk3J1MZ+11kxrT2jPpnJwbQg+2kReynZSqcOiq8UBUvPd019oqhZ/0YI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785760913; c=relaxed/simple;
-	bh=VtwXvO03/d0Np5b75y/sGJIOp+lh4BJuGwz96xd5TZQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YlsNq3xMvJFHLUT71RmBCxm+YY/wf9se81mP5txQBrQWWjHa6SbaMcbq3CtMCUmvJGBOOGRwTQHVZ6GQo84gDca/NZufG60TG/Q5aSlNt0/KJRdX/+WiLFTFOifQDi0bOHQgOdikRnlONpwH3DizJnOdkaUGqdRmI7xk8g9cL0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YndVUhhs; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=rxaAgSfH; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=T+pUauja; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=DUEa6KbP; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E403B40927F;
+	Mon,  3 Aug 2026 12:44:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.79
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785761099; cv=fail; b=MQs+RMgQi7Qffw0fSLnRKj6UtjqF0tsMbk4SKR8u77EK+4h1nBw0C8fmKYZAFRjianWnnfMgNFdIiLfOSg6bgfJhuckJZbBVjz6F+5bpFersJTOWVlYa1EnyYZ8NgKZFyxMI0sZs8k/eH0BQX49vr/ralhOgErDAqN2IiNQsuS0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785761099; c=relaxed/simple;
+	bh=C8EQvscOVlVVTuf/tw5EjAbjPvSFlUH9i6YzkuDu7LY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Dy+d5JZXnd7hyCDV7W8ThfQHtgwKmLq5BZBQ45/C1uqA+bpSxLgl/u+Fapar5Gb5buOrNFp3sYqC56Xr/X8UJqvCcPrZrk8ZwZGxndC7jOqJUYT3GzQJTuvNnsqqFrQnOx11J+ZvoU5lJfzEx9fao3JqvyYYujb2unn1ZHIFsjU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=ASi4pIa8; arc=fail smtp.client-ip=52.103.72.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YndVUhhs";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rxaAgSfH";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="T+pUauja";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DUEa6KbP"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 18F377F0E6;
-	Mon,  3 Aug 2026 12:41:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1785760905; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1ODL6gCk8lof5B/HMStAKTE/E0Vq5yUl2rgXGKUHBio=;
-	b=YndVUhhsn6D+xFCay2LMawar+ReWclRkw0K5TrxNoDo7HKj5P8kfn0p0wA/kIrgVjguYEn
-	B+7gcaYxJpC0ouMiWbRla7tPefR4OAs8tfvZZUeDV9Of2cI0eqoV7AM/2coLKtyeQ7xSmD
-	7T045LAIgwFm39g+PRGd0J6xQ+Pg6ec=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1785760905;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1ODL6gCk8lof5B/HMStAKTE/E0Vq5yUl2rgXGKUHBio=;
-	b=rxaAgSfHajmj2MULUhqVM9DoGPlRJIjG+f6wT/HWG2LWYwll1qfjEjP0FCZ7J/Ivf/QNa0
-	F0Mq+25xMD/Oc3Dg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1785760901; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1ODL6gCk8lof5B/HMStAKTE/E0Vq5yUl2rgXGKUHBio=;
-	b=T+pUaujadhUEuzF7AIYqqNeI6LapYg3PXnwUPFVlo/5vy3LGvd9eDpA2VA+oj5/0MAM3Wt
-	nkAR7pCNV/J21jLpSIWw8/ri5F+floyzpUlreyhWtzY57kOO0hynLtsAmj/M5aU+VxsOU2
-	4XbNneXfDF6WIeoM6SU79ltF5/7nWMQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1785760901;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1ODL6gCk8lof5B/HMStAKTE/E0Vq5yUl2rgXGKUHBio=;
-	b=DUEa6KbPFzZTiB+sI1npko+DVVChlHKpZ9fVEgKgILoCLtiKoqwKNh0nsyLI2RubGfRQEn
-	6m+G7cmj6hao5DCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 14A75779A1;
-	Mon,  3 Aug 2026 12:41:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 98s4AYOMcGpuWAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 03 Aug 2026 12:41:39 +0000
-Date: Mon, 3 Aug 2026 13:41:37 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Steffen Dirkwinkel <lists@steffen.cc>, 
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, 
-	"Denis V. Lunev" <den@openvz.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
-	David CARLIER <devnexen@gmail.com>, David Hildenbrand <david@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, Juergen Gross <jgross@suse.com>, 
-	Kevin Tian <kevin.tian@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Lu Baolu <baolu.lu@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Suren Baghdasaryan <surenb@google.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Toshi Kani <toshi.kani@hpe.com>, Vishal Moola <vishal.moola@gmail.com>, 
-	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org, x86@kernel.org, 
-	syzbot@syzkaller.appspotmail.com, Jiri Slaby <jirislaby@kernel.org>
-Subject: Re: [PATCH 0/5] x86/mm/pat: CPA fixes
-Message-ID: <anCK3eWFMwZqq5ka@pedro-suse>
-References: <20260728-cpa-fixes-v1-0-2ed2352300b3@kernel.org>
- <555ea1d43a12c30a8f1eaf10c899b3790d728f33.camel@dirkwinkel.cc>
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="ASi4pIa8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Wofak6E74qwrlcP5CXc1QTK4+70Suq23tDqwkx3B5LJbO6wUcdB8LZTmfCjPd6SAU+H/IMom14YVcn/x+QCF651qXHjNpT7IEgTmczBJzzUsFNB4M8/wC/1bKuQQ9m63jn9UPutiDtlTKBELLnftjUd7Y1HPbLnFFFITKprV5eqify9OIFKeSp88KwW+3QDhaSlXLawVX3rdkhzJWh+rOtAlSshwijvhSx9KVDz6wOPFCwvmrB0tNfc6o3Y/clfqoomnYNe9su1IF/kAh9/tyBxx3Yp2ufZr3E3Vr2wL2hMEugG5uvE5gZm/8NkJwcQ+7MbolfJz0QzGteUg2UFyVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bRdbckxE7X6/v/jGvlPkzzdxzQK+faoZ52q/+IOPFHc=;
+ b=xbCo8h0dl4CUI6yMSHgd+gbGC/YX6SL2sl5BE+g8LbW9hmbZNkcifSm0l+6oEJ2bewPwOJo0uBLnRuEwYCqMzgm94dROCx3UHO9f3XRrJU+CWXzBGBM5VJsd3es9BqoS7fo1G5W10eHcoebcTbODjINfEr1mm2K0jmfR46Xt9CMMIWJZYaIQ2KgPXy1xiHA3yJThzM+PfEkz61XeRqDyUeCVcgTyb6apSLVKcj94ti3e2NGv1oa8b7LxPe0NgA6WmBjDjBh71k3a1lM4gixl9ZIS5fpQwSvkmQpzA+T8HhoMjpAPA+IzJCXbE6muirGIgSnfEaARskGa01pS3nywRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bRdbckxE7X6/v/jGvlPkzzdxzQK+faoZ52q/+IOPFHc=;
+ b=ASi4pIa83dwrIHA51SErs7qOxt6OLJhy/xeaDF7YIcSIBdhdyQvdTUo/uf60mZuDuHRT7wAhVgYjKqpohkv6RdtVkf8AL8lf3OTh7ErnjE/BlR8kC3y6To3nlS/BKnHmhlwuURzDTfowLuphUzyHRVWX2ivucsoZ2W+A4T2MJ9jR5qk8cIQUJXhdsZX66vMDzq3KPVlfJv23+h7tEopncgKgciGaAsWDIfluD7ckBadrXw+87V8KKE399VQLmm4id7s5h1+kau0XeNT6OadDWbP+GBGiTQVnVrJUlGfP51zrncwxa+H1JyuwzDlfCGdBjUGQ95+bymZLUdPdHU1M6g==
+Received: from MEYPR01MB7886.ausprd01.prod.outlook.com (2603:10c6:220:17e::8)
+ by SY7PR01MB9055.ausprd01.prod.outlook.com (2603:10c6:10:21e::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
+ 2026 12:44:53 +0000
+Received: from MEYPR01MB7886.ausprd01.prod.outlook.com
+ ([fe80::19df:3891:d8aa:692d]) by MEYPR01MB7886.ausprd01.prod.outlook.com
+ ([fe80::19df:3891:d8aa:692d%4]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
+ 12:44:53 +0000
+From: Junrui Luo <moonafterrain@outlook.com>
+To: Nicolas Dufresne <nicolas@ndufresne.ca>
+CC: Hans Verkuil <hverkuil@kernel.org>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, Dafna Hirschfeld <dafna3@gmail.com>, Mauro Carvalho
+ Chehab <mchehab+samsung@kernel.org>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, Yuhao Jiang <danisjiang@gmail.com>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH] media: vicodec: fix out-of-bounds write on capture buffer
+Thread-Topic: [PATCH] media: vicodec: fix out-of-bounds write on capture
+ buffer
+Thread-Index: AQHc8cLfT36G8KLRYEyWjUEbjsvUi7ZvjqoAgB0Zf4A=
+Date: Mon, 3 Aug 2026 12:44:53 +0000
+Message-ID: <5DCE028E-E3A6-46DA-9CF2-DEACBBAD5B2F@outlook.com>
+References:
+ <SYBPR01MB7881A4E2AC434488ABFA775CAF152@SYBPR01MB7881.ausprd01.prod.outlook.com>
+ <79f19fa34a875dc4b6944ec8df498d9862b5d3f6.camel@ndufresne.ca>
+In-Reply-To: <79f19fa34a875dc4b6944ec8df498d9862b5d3f6.camel@ndufresne.ca>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MEYPR01MB7886:EE_|SY7PR01MB9055:EE_
+x-ms-office365-filtering-correlation-id: ee9407e1-baf1-4aad-b94e-08def15d03ea
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|31061999003|8060799015|8062599012|19110799012|8022599003|24121999003|22091999003|15080799012|24021099003|25010399006|3071699003|2607281247196008|102099032|3412199025|440099028;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?odu4ZGrEdUO/onFTYoDNtE9+VK1SHh/L8PG2Whik4srqw+g/UjVh/GzcPjFl?=
+ =?us-ascii?Q?PhmtKh/1dMi6/nvjLlrOeehG51g9r43ePPIaVK5dKhJ3GVn9U0ZtlfCUoVVQ?=
+ =?us-ascii?Q?rU6S/4AYESHgBAjenggTFxJWHgADQ41gveFdQJwvHqrfyJFDSKwK6ivtNTd5?=
+ =?us-ascii?Q?0gfTj+KZdBkBCNLL1euUnwHP5wwIl1x8OfBfmCr/ew9EvEenDyTNKq2xfY6e?=
+ =?us-ascii?Q?i1cqNDMhgZRmv6QldvJvrilQsi3PcVPlUx5cm/d8Bbi8Mqgh4Iq9ynY1jPRx?=
+ =?us-ascii?Q?IpHze2NC4QwQcd3w3Qn22j52YHlPnwLiosedT8/ifT1nbjUhsW1gygYTLEOP?=
+ =?us-ascii?Q?5Y4EmHrNIXyWF/nBW72kwop11KI+N6L0380yYrXtLT/cOR1A1+EJPOSuR4rh?=
+ =?us-ascii?Q?qezXFpL7+BnxPrfDzHovA9esYHhSAQKZlHs+6QZ3zCg0D56vAvuXpybE75X3?=
+ =?us-ascii?Q?+tHeGNB62V4LdaVZF7yiusPxgBnt6XPj9dNW3d53IGp7C93pGm0EKEoMJWu9?=
+ =?us-ascii?Q?5wMWs0l6YH8d53Rb3QrZDsjzfOS8GQ8/vKKCT28Jb24uBQ33BnaDKpJ8302B?=
+ =?us-ascii?Q?jkjMYshO5Dkby9x+F54NZcfGkk/FhSglGqzH8fGYMhaWu+YekpAvCO34YH3e?=
+ =?us-ascii?Q?hLN3BabMogIOpnbggbI1V1Ta42PNqHhF1qi5Gi+IS3v0HYgQ4Qgzrr/74VOp?=
+ =?us-ascii?Q?0lvufyfbwJHQqVuynBotMNEtnC9HLMu022GB4SPXScwfJzA9H2lPhRAWHFnC?=
+ =?us-ascii?Q?cQ/GkhH2T9qwZxRgX4BSpYFOnaFEBTCMwdzjpQZ9avr+7cDmfw7BBscypciC?=
+ =?us-ascii?Q?eXKBxuo/QV/8wxYUcwXelFOUAuT4rX4s4STpICBMKv5GAWjT2RhgeFQeXZlQ?=
+ =?us-ascii?Q?biuQkdic7HShcd9sJkmj7kqZ3PdfOh6F2lvR7MpEwJn/fBB1RQ9XNvZcwPen?=
+ =?us-ascii?Q?uXwX4YCSloGPmjkrB0PDPf9UMIQ4WwZEFnVNZi1a0/JEGVtE3yOBr/x0B54G?=
+ =?us-ascii?Q?GRBT?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Fx8JdoZaqkIcNzlnhv+m/GRtdIsVWRoZ4yapzjUf47GQWrCSLe08QoFEjrTQ?=
+ =?us-ascii?Q?2WH1FPnpMmazp9H+h7A2Ij5n5G3Idcl19i1qOdZSUdqsdLafVd9f5oTwhCGp?=
+ =?us-ascii?Q?ktDgBw0Gq1lFG+BAyFpkRbQfhi01ZCQUX0VeCYE76vEGaEmTWzeJDF5xeTZ/?=
+ =?us-ascii?Q?j+h4+fpTSrlM7Ywqw/TzGmqdVB9OS0tP964/LkXsT2ReDEl9CLzvMrRfpjw3?=
+ =?us-ascii?Q?/6KxaLkRMAuGUlBQaRo2urrcZ1nH+CHHIkS9Wvet9KWVqTNKzV0ANtSWPo7j?=
+ =?us-ascii?Q?W0/UTBGxUADbTxozoVa39EPziqZWZoCFHxei5CBj5GaPK+RUEX6HGj7Y5BhN?=
+ =?us-ascii?Q?BJYurNH9a3nkuMJnP4G8QbXmoIU2lVoQgdOj2y5Zom+jUaYAsEqHSp58DpXH?=
+ =?us-ascii?Q?pM06FbkUJlgyoOfWsS7J4Hy+8F0KzBfZYqw3o0kgMyIuvwG12qpcKO8QjQFm?=
+ =?us-ascii?Q?VmgA4JUeKEpGQJLsNtdODFVPLXKnufkmlVPuBzhyAO1HyomJ0XPAnp+E7Raf?=
+ =?us-ascii?Q?BIuFf+ZXIg2s0SMA6ijLe1y3etC8lDgQQej1Xqbn815/rastfeddcVhgR3gZ?=
+ =?us-ascii?Q?snGobI+X/rSSjqM+gvUOXAOXVOFx987bU9qJ+70FrvspYR0+t9G2gNA+/IgA?=
+ =?us-ascii?Q?d9KPsiREKQ+hjonrAgt/OQ1Dqp+sl7ay4rd3fg+i4uCf0uhImRPdY6Z7yJ4a?=
+ =?us-ascii?Q?qNx6HK2WyHQjnqYgrNgCt3U8iANv779HwKyGcf76P3ky0nNIbMkc9kiHhZZZ?=
+ =?us-ascii?Q?8BdqJMvtesxXA4DPM5j9Px2fUf+kuA3BcnPUn4y6UuofNruMrRUqB+13iHf+?=
+ =?us-ascii?Q?FnAF9OikIXlLS6wPtNQIIpxnUJEkzkFTe2gQOlJUFytve/55aXG6PqUROQ4V?=
+ =?us-ascii?Q?4dPHomoMbxBWTR3itl9dyMrQuf09OmkdBVZGzN+txhxbzxSfsfyebObBR0pa?=
+ =?us-ascii?Q?Stl1a9KbYxvaYN7iVuGxV7IgLXoLw5mi9queVZU5JauPnLLaMsMHU9mnj4kj?=
+ =?us-ascii?Q?r+t9I8cL9nczx+oNDLU8hXqSzm8v0VUxqsLct8gF4mwl8tvcGFnrbOc2igwb?=
+ =?us-ascii?Q?00n/TOBjbxEyviicZbm8AOB0DyKR+nqTMCBsKUHmPTFIMvjxaBbGsY5bjHns?=
+ =?us-ascii?Q?JIz7Sfud6Spfx7HGxF1vnHIGOuoO5b9iPXdfR4PO/p+b0ZIG0nLSY3gQQPSL?=
+ =?us-ascii?Q?c9wouGk4P/4druw94s14gbfEFaRn+maNQ9s3Dp0PINjkJMweXKVCSQ8aGM7D?=
+ =?us-ascii?Q?h7XZKQPHn6pv9wXg82ueCGrlaoLfat1L9FQD/le4QJPEvF68pZ+M07lZjYIy?=
+ =?us-ascii?Q?Cc+k7w5egvaC2YRrJNiZuBc7DIZJu1OSkzVOZyM0U1rOPFum2k0BwKo4avMR?=
+ =?us-ascii?Q?FnakhaQ4hBRwF4VU6UkZnPLo9ZKd2euNXxqBhMeUs2C9E0l2Bw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <8C362B8603E4E649B5B90FA38C8768A0@ausprd01.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="bh5jbue2ogdsvams"
-Content-Disposition: inline
-In-Reply-To: <555ea1d43a12c30a8f1eaf10c899b3790d728f33.camel@dirkwinkel.cc>
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[multipart/mixed,text/plain,text/x-patch];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[33];
-	RCVD_TLS_ALL(0.00)[];
-	URIBL_BLOCKED(0.00)[steffen.cc:email,opensuse.org:url,suse.de:email,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux.intel.com,openvz.org,linux-foundation.org,kernel.org,alien8.de,gmail.com,redhat.com,ziepe.ca,suse.com,intel.com,infradead.org,zytor.com,linux.dev,google.com,hpe.com,lists.linux.dev,vger.kernel.org,kvack.org,syzkaller.appspotmail.com];
-	R_RATELIMIT(0.00)[to_ip_from(RL3mhzhn45zpqpmgqn4z7synfm)];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,steffen.cc:email,opensuse.org:url,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_TWO(0.00)[2];
-	HAS_ATTACHMENT(0.00)[]
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MEYPR01MB7886.ausprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee9407e1-baf1-4aad-b94e-08def15d03ea
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2026 12:44:53.2985
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY7PR01MB9055
 
+On Wed, Jul 15, 2026 at 08:21:50PM -0400, Nicolas Dufresne wrote:
+> The analyses is just incorrect. At this point, the driver is entering DRC=
+,
+> meaning the queue will be drain and will stop until streamoff/on cycle ha=
+ppen. =20
+> If there is a out-of-bound bug, it would be that that q_data->sizeimage i=
+s not
+> match to be smaller or equal to the vb2 buffer size at streamon time, not=
+ during
+> processing.
+>=20
+> NAK
+>=20
+> Nicolas
 
---bh5jbue2ogdsvams
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks for looking. Right, `source_changed` gates the draining during the
+streamoff/on cycle.
 
-On Thu, Jul 30, 2026 at 05:53:50PM +0200, Steffen Dirkwinkel wrote:
-> Hello,
-> 
-> 
-> On Tue, 2026-07-28 at 16:07 +0300, Mike Rapoport (Microsoft) wrote:
-> > There are a couple of CPA fixes floating around:
-> > 
-> > Denis Lunev fixed races between split and collapse of the large mappings:
-> > 
-> > https://lore.kernel.org/all/20260715183453.2381141-1-den@openvz.org
-> 
-> We saw the error below and I was wondering if it might be related to these fixes
-> or a similar case that's unfixed still. Seems to have happened during concurrent
-> kernel module loading of kvm and i915 (similar to the case in the patch from
-> Denis Lunev). But we got it without KASAN and the stack looks a little
-> different. I was not able to reproduce this with a ~16 hour concurrent module
-> load unload loop so far.
-> 
-> Kernel: v7.1.5, PREEMPT_RT, tainted because of /dev/msr access
-> CPU: Elkhart Lake Atom X6214RE, 2 cores, isolcpus=1-N
-> 
-> ------------[ cut here ]------------
-> kernel BUG at arch/x86/kernel/alternative.c:2644!
-> Oops: invalid opcode: 0000 [#1] SMP NOPTI
-> CPU: 0 UID: 0 PID: 559 Comm: (udev-worker) Tainted: G S                  7.1.5-
-> rt1-bhf-369933-f1a4ee1dd787 #1 PREEMPT_{RT,(lazy)} 
-> Tainted: [S]=CPU_OUT_OF_SPEC
-> RIP: 0010:__text_poke+0x356/0x3d0
-> Call Trace:
->  <TASK>
->  smp_text_poke_batch_finish+0x1aa/0x3a0
->  ? vmx_switch_vmcs+0xc8/0xd0 [kvm_intel]
->  __static_call_transform+0xfa/0x1f0
->  ? vmx_switch_vmcs+0xc8/0xd0 [kvm_intel]
->  ? __pfx_preempt_schedule_thunk+0x10/0x10
->  arch_static_call_transform+0x57/0xa0
->  ? vmx_switch_vmcs+0xc8/0xd0 [kvm_intel]
->  __static_call_init+0x1aa/0x230
->  ? __SCT__tp_func_kvm_mmu_split_huge_page+0x8/0x8
->  ? __SCT__tp_func_kvm_mmu_split_huge_page+0x8/0x8
->  static_call_module_notify+0x11f/0x150
+However, `source_changed` is only set in job_ready(). The first source chan=
+ge
+goes through vicodec_buf_queue(), which sets `first_source_change_sent` but=
+ not
+`source_changed`, so it does not drain. A non-conforming application could
+commit CAPTURE resources before calling STREAMON(OUTPUT).
 
-We're also observing something very similar downstream
-(https://bugzilla.opensuse.org/show_bug.cgi?id=1271202) on 7.1.3 kernels, on our QA infra.
+On v7.0-rc3, KASAN:
+[    3.777164] BUG: KASAN: slab-out-of-bounds in device_run+0x969/0x1850
+[    3.779180] Write of size 2560 at addr ffff888008de1000 by task trigger/=
+69
 
-I wrote a patch that should fix it (I didn't get to test it yet, since
-this didn't hit mainline/stable yet), on top of this. Mike, do you mind
-throwing it on top of this series, or should I submit separately?
+It can be triggered by S_FMT(CAPTURE, GREY 1280x720), CREATE_BUFS(CAPTURE) =
+[plane
+over-allocated], STREAMON(CAPTURE). Then QBUF(OUTPUT) with an FWHT
+header for the same 1280x720 but NV24 (3 components, full chroma). That
+grows q_dst->sizeimage to 2764800 without changing coded_width/height, so
+STREAMON(OUTPUT) runs device_run() and copy_cap_to_ref() memcpy()s the
+NV24 chroma plane past the GREY-sized ref_frame.buf.
 
--- 
-Pedro
+As for the fix, where would you prefer the guard? I'll send a v2 accordingl=
+y.
 
---bh5jbue2ogdsvams
-Content-Type: text/x-patch; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0001-x86-alternative-exclude-text-poking-against-change_p.patch"
+Thanks,
+Junrui Luo
 
-From 0a483fd05fda6e3953861b722995b58daf4878ef Mon Sep 17 00:00:00 2001
-From: Pedro Falcato <pfalcato@suse.de>
-Date: Mon, 3 Aug 2026 13:16:25 +0100
-Subject: [PATCH] x86/alternative: exclude text poking against
- change_page_attr()
-
-From time to time, the following BUG can be observed[0]:
-
-> kernel BUG at arch/x86/kernel/alternative.c:2576!
-> Oops: invalid opcode: 0000 [#1] SMP NOPTI
-> CPU: 0 UID: 0 PID: 355 Comm: (udev-worker) Not tainted 7.1.3-1-default #1 PREEMPT(full) openSUSE Tumbleweed  8c1795b03ec64f997e57a8ad38b1161e3b98da64
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS unknown 02/02/2022
-> RIP: 0010:__text_poke+0x2aa/0x450
-> Call Trace:
->  <TASK>
->  smp_text_poke_batch_finish+0x2a7/0x320
->  __static_call_transform+0xb7/0x220
->  arch_static_call_transform+0x5b/0xb0
->  __static_call_init+0xe9/0x270
->  static_call_module_notify+0x11f/0x150
->  notifier_call_chain+0x61/0xe0
->  blocking_notifier_call_chain_robust+0x63/0xc0
->  load_module+0x1c92/0x20c0
->  init_module_from_file+0xd8/0x140
->  idempotent_init_module+0x100/0x2f0
->  __x64_sys_finit_module+0x71/0xe0
->  do_syscall_64+0xe1/0x610
->  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-which matches the following BUG_ON in alternative.c:
-	/*
-	 * If something went wrong, crash and burn since recovery paths are not
-	 * implemented.
-	 */
-	BUG_ON(!pages[0] || (cross_page_boundary && !pages[1]));
-
-This can happen if vmalloc_to_page() fails, for any reason. Such can happen
-if text poking races with CPA, which can possibly result in the collapsing
-of page tables (or breaking of PMD hugepages). It is not a problem for most
-users of vmalloc_to_page() (they solely own the vmalloc'd range) but, when
-CONFIG_ARCH_HAS_EXECMEM_ROX=y, various modules own a single execmem vmalloc
-range, and can call set_memory_*() in parallel on it. This can happen to
-race against __text_poke and cause havoc in vmalloc_to_page().
-
-Fix it by excluding against CPA using the init_mm mmap read lock.
-
-Fixes: 64f6a4e10c05 ("x86: re-enable EXECMEM_ROX support")
-Reported-by: Jiri Slaby <jirislaby@kernel.org>
-Link: https://bugzilla.opensuse.org/show_bug.cgi?id=1271202 [0]
-Reported-by: Steffen Dirkwinkel <lists@steffen.cc>
-Link: https://lore.kernel.org/linux-mm/555ea1d43a12c30a8f1eaf10c899b3790d728f33.camel@dirkwinkel.cc/
-Cc: stable@vger.kernel.org
-Signed-off-by: Pedro Falcato <pfalcato@suse.de>
----
- arch/x86/kernel/alternative.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
-index 62936a3bde19..9071eb870eab 100644
---- a/arch/x86/kernel/alternative.c
-+++ b/arch/x86/kernel/alternative.c
-@@ -2559,6 +2559,14 @@ static void *__text_poke(text_poke_f func, void *addr, const void *src, size_t l
- 	 */
- 	BUG_ON(!after_bootmem);
- 
-+	/*
-+	 * Exclude against change_page_attr() collapse in execmem ROX regions.
-+	 * These are PMD sized and this module may not own the whole PMD,
-+	 * thus breakdown/collapse may happen at any moment by concurrent module
-+	 * loading, which races with vmalloc_to_page().
-+	 */
-+	guard(mmap_read_lock)(&init_mm);
-+
- 	if (!core_kernel_text((unsigned long)addr)) {
- 		pages[0] = vmalloc_to_page(addr);
- 		if (cross_page_boundary)
--- 
-2.55.0
-
-
---bh5jbue2ogdsvams--
