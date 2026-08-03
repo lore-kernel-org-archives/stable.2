@@ -1,67 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA7436B903;
-	Mon,  3 Aug 2026 23:04:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9428136B92B
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 23:10:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785798287; cv=none; b=sZa/3xGgvOZNQ4XsX993xZm48SGaFJHzHJvmvc07hCMDveb+eRsLejH+jHLXG9KSzacb5uXm+SUAwsxTqqgQZ72+2fh+xs8xo915nHF5X0G8Vqk9JGRdeEz7pWuAHH6HXLF6ZinTeX3gSmQLqeuZ8c2wPpvZ0wKiIfUY+H0qVKk=
+	t=1785798641; cv=none; b=S8zJayFdVI7Z2NriNHc1tIEfsAijG/pnGKNcqmJZhaft0cSdH3T9sJK7JsIz7gdKVMyLQw580nBd0PYwO5D5x9Cu+PPE7YwHglUg0goCaQJTgNHirn6IKB7zLvkNX1q/H1rpS4/NfCNqCR2AweWIr5MWKh7ZfQBSJ72D93vokUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785798287; c=relaxed/simple;
-	bh=fV/vX0cIO+XOnCK8fEAz4VAe9VlB7u00hYokhyGjVqo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=E7hm/klo8MJxqgk71KHN8s5i6XCBUqlU5lBOL3MwkXVpatnWwkFNkvZfhXTgRyP8QSHXGv69/PLx0q81NaniDWfRIpksBMYSi/FAGRCIgTmL81U7mzm/ixgZybb2pmhFAjxh1gczcVto+hti0a3m4xAaosuVSemaniqjjBvtBSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5YRIR3C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785798641; c=relaxed/simple;
+	bh=V3rulQPcTgHvc1xrWGwxacGTM5z9n3TxnrcZGC/YI0Q=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pvL176RWJQXcRg7wiqfribLuH2CLAQEyZOKvUSFD5Nqzd5Hhb93aKu+SD4/nEfc4L+Ob9fTv5NEr0Vg3uvvWyod7C8moT3GX6dtr8PffdrPNDLjBf8YA8bWsgtWoO2CewYpspC3QLv/XAh38wVuk1E8KmepCO7nte1GIKFXmam4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m+XrVEqA; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5YRIR3C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D161F000E9;
-	Mon,  3 Aug 2026 23:04:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785798286;
-	bh=fV/vX0cIO+XOnCK8fEAz4VAe9VlB7u00hYokhyGjVqo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=H5YRIR3CHWiNY/c5PS7hpBEM5SvdP1bB1Oaemh0JigG0eNSRmCSsQacOKyETPPAJE
-	 yA6FnmKO/JlkeSdvQd1F/2dkyi5ePa11dVs8+YYXbyWtFWbJpbrN4v7JJeMJOajjea
-	 iSax2OhUv1laUmnjs2zTIASOlP0D1CI2HxX4aAwQUpM4zTMzNvI1qm4Aalmkxf3MfQ
-	 pWglChs0lK0BRA+Q9yc+7pTGIRI6I+thy4MWjfbBeVZZZvi0FAn1E7AC6LqVpAGrgh
-	 dRYWWuai2Nish2+5YiA9ZV+1pOW+q5QAhSI2cMagY9Wa6eGGHdqcb7cKd0AjlM8Peg
-	 UEEZ6n4X/yh+w==
-Date: Mon, 3 Aug 2026 16:04:44 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: Claudiu Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean
- <vladimir.oltean@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
- Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Pablo Neira
- Ayuso <pablo@netfilter.org>, Jozsef Kadlecsik <kadlec@netfilter.org>, Jamal
- Hadi Salim <jhs@mojatatu.com>, Cong Wang <xiyou.wangcong@gmail.com>, Jiri
- Pirko <jiri@resnulli.us>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org,
- syzbot+5a66db916cdde0dbcc1c@syzkaller.appspotmail.com, Xiang Mei
- <xmei5@asu.edu>, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net: flow_offload: serialize driver callback
- lists
-Message-ID: <20260803160444.44a1cf32@kernel.org>
-In-Reply-To: <20260726120338.488658-1-bestswngs@gmail.com>
-References: <20260719175028.988301-2-bestswngs@gmail.com>
-	<20260726120338.488658-1-bestswngs@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m+XrVEqA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785798639; x=1817334639;
+  h=date:message-id:from:to:cc:subject:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=V3rulQPcTgHvc1xrWGwxacGTM5z9n3TxnrcZGC/YI0Q=;
+  b=m+XrVEqAkqN51H0gYVb41EVtyTDyvN97w+lhBWAP88X9Bd1mXEmmyZRI
+   6RQM4fVaY5yAB5RdIMr3HS75C2iY3zs02GL1Fa0pLlV3xgBpSMfK37mMh
+   2MlmSKWfm0vFphfjkBXuwjmYkXsYnJPHJjN8AI6gmSLkgu+7PhvBAxcVF
+   RV/20sBRKvi+iV70WKpDU5fbtfyvd1L6sVefZwfPL5I2799uAtSRvkdeH
+   24dYI+pEOGw6s/jJJhHwmO+FCSCHMMOfsvaEQxQkrRt0bA5wXC7RZDCrF
+   pWRA2aQ9fjHbHn6gZ2vNXM/OMdEHnF5Zz8pBizC4zuIhERxEEoehCfv3w
+   g==;
+X-CSE-ConnectionGUID: GTCYDLXOQcKEYkiiOtSXpw==
+X-CSE-MsgGUID: SJMFVOnxQcuXMCbgHT2I8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="111899996"
+X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
+   d="scan'208";a="111899996"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:10:38 -0700
+X-CSE-ConnectionGUID: LoWJeUqtSyegEjN18+fvXw==
+X-CSE-MsgGUID: z1gI1HbDQCiPz+VzvskJmQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
+   d="scan'208";a="255054934"
+Received: from unknown (HELO adixit-MOBL3.intel.com) ([10.241.243.62])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:10:38 -0700
+Date: Mon, 03 Aug 2026 16:10:37 -0700
+Message-ID: <87mrv2242a.wl-ashutosh.dixit@intel.com>
+From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org,	Umesh Nerlige Ramappa
+ <umesh.nerlige.ramappa@intel.com>,	Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH 7.1.y] drm/xe/rtp: Maintain OA whitelists separately
+In-Reply-To: <20260801004526.3662973-1-sashal@kernel.org>
+References: <2026072958-unmasked-acting-7c2a@gregkh>
+	<20260801004526.3662973-1-sashal@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/30.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 26 Jul 2026 05:03:15 -0700 Weiming Shi wrote:
-> Add a flow-offload callback mutex and hold it across direct and indirect
-> setup, callback ownership transfer and rollback. Move indirect-unregister
-> list removal into the flow-offload core, and keep indirect-device
-> registration transactional on setup failure. When TC must reject an
-> indirect bind after callback installation, unwind only the callbacks
-> created by that bind so existing callbacks remain intact.
+On Fri, 31 Jul 2026 17:45:26 -0700, Sasha Levin wrote:
+>
 
-Isn't the unbind / rollback stuff mostly orthogonal to the locking?
-Looks like the patch should be split.
+Hi Sasha/Greg,
+
+The patch below is correct. However, because you will encounter conflicts
+in other patches of this series too, I have backported the entire series
+for linux-7.1.y here:
+
+https://lore.kernel.org/stable/20260803230136.3270230-1-ashutosh.dixit@inte=
+l.com/
+
+Will it be possible to apply the patches from the above link instead?
+Since it will save us some work.
+
+I will also send backports of this series to linux-6.12.y and linux-6.18.y.
+
+Sorry, I am not too sure of the process to follow here. So if it needs to
+be done differently please let me know.
+
+Thanks.
+--
+Ashutosh
+
+> From: Ashutosh Dixit <ashutosh.dixit@intel.com>
+>
+> [ Upstream commit 31e2437561621b4867c08efc890bf629d017df03 ]
+>
+> OA registers are dynamically whitelisted (and again dewhitelisted) on OA
+> stream open/close. Maintaining OA whitelists separately from non-OA
+> register whitlists simplifies this management of OA register
+> whitelisting/dewhitelisting.
+>
+> Fixes: 828a8eaf37c3 ("drm/xe/oa: Add MMIO trigger support")
+> Cc: stable@vger.kernel.org # v6.12+
+> Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+> Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+> Link: https://patch.msgid.link/20260615224227.34880-3-ashutosh.dixit@inte=
+l.com
+> (cherry picked from commit c478244a9e2d14b3f1f92e8bd293919e554622a5)
+> Signed-off-by: Thomas Hellstr=F6m <thomas.hellstrom@linux.intel.com>
+> [ adapted RTP table from struct wrapper macro `XE_RTP_TABLE_SR()` back to=
+ plain `struct xe_rtp_entry_sr[]` array and restored the 5-arg `xe_rtp_proc=
+ess_to_sr()` call with `ARRAY_SIZE()` ]
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  drivers/gpu/drm/xe/xe_gt_debugfs.c      | 4 +++-
+>  drivers/gpu/drm/xe/xe_hw_engine.c       | 2 ++
+>  drivers/gpu/drm/xe/xe_hw_engine_types.h | 8 ++++++++
+>  drivers/gpu/drm/xe/xe_reg_whitelist.c   | 6 ++++++
+>  4 files changed, 19 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/xe/xe_gt_debugfs.c b/drivers/gpu/drm/xe/xe_g=
+t_debugfs.c
+> index f45306308cd6..c38bcacb27e4 100644
+> --- a/drivers/gpu/drm/xe/xe_gt_debugfs.c
+> +++ b/drivers/gpu/drm/xe/xe_gt_debugfs.c
+> @@ -149,8 +149,10 @@ static int register_save_restore(struct xe_gt *gt, s=
+truct drm_printer *p)
+>	drm_printf(p, "\n");
+>
+>	drm_printf(p, "Whitelist\n");
+> -	for_each_hw_engine(hwe, gt, id)
+> +	for_each_hw_engine(hwe, gt, id) {
+>		xe_reg_whitelist_dump(&hwe->reg_whitelist, p);
+> +		xe_reg_whitelist_dump(&hwe->oa_whitelist, p);
+> +	}
+>
+>	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/xe/xe_hw_engine.c b/drivers/gpu/drm/xe/xe_hw=
+_engine.c
+> index a7441a66e94c..b5a869c720af 100644
+> --- a/drivers/gpu/drm/xe/xe_hw_engine.c
+> +++ b/drivers/gpu/drm/xe/xe_hw_engine.c
+> @@ -575,6 +575,8 @@ static void hw_engine_init_early(struct xe_gt *gt, st=
+ruct xe_hw_engine *hwe,
+>	hw_engine_setup_default_state(hwe);
+>
+>	xe_reg_sr_init(&hwe->reg_whitelist, hwe->name, gt_to_xe(gt));
+> +	xe_reg_sr_init(&hwe->oa_whitelist, hwe->name, gt_to_xe(gt));
+> +	xe_reg_sr_init(&hwe->oa_sr, hwe->name, gt_to_xe(gt));
+>	xe_reg_whitelist_process_engine(hwe);
+>  }
+>
+> diff --git a/drivers/gpu/drm/xe/xe_hw_engine_types.h b/drivers/gpu/drm/xe=
+/xe_hw_engine_types.h
+> index e4191a7a2c31..04ca7545d22c 100644
+> --- a/drivers/gpu/drm/xe/xe_hw_engine_types.h
+> +++ b/drivers/gpu/drm/xe/xe_hw_engine_types.h
+> @@ -128,6 +128,14 @@ struct xe_hw_engine {
+>	 * @reg_whitelist: table with registers to be whitelisted
+>	 */
+>	struct xe_reg_sr reg_whitelist;
+> +	/**
+> +	 * @oa_whitelist: oa registers to be whitelisted
+> +	 */
+> +	struct xe_reg_sr oa_whitelist;
+> +	/**
+> +	 * @oa_sr: oa nonpriv whitelist registers, changed on oa stream open/cl=
+ose
+> +	 */
+> +	struct xe_reg_sr oa_sr;
+>	/**
+>	 * @reg_lrc: LRC workaround registers
+>	 */
+> diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/x=
+e_reg_whitelist.c
+> index 8cc313182968..089335b185d1 100644
+> --- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
+> +++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
+> @@ -89,6 +89,9 @@ static const struct xe_rtp_entry_sr register_whitelist[=
+] =3D {
+>			 WHITELIST(VFLSKPD,
+>				   RING_FORCE_TO_NONPRIV_ACCESS_RW))
+>	},
+> +};
+> +
+> +static const struct xe_rtp_entry_sr oa_whitelist[] =3D {
+>
+>  #define WHITELIST_OA_MMIO_TRG(trg, status, head) \
+>	WHITELIST(trg, RING_FORCE_TO_NONPRIV_ACCESS_RW), \
+> @@ -191,6 +194,9 @@ void xe_reg_whitelist_process_engine(struct xe_hw_eng=
+ine *hwe)
+>	xe_rtp_process_to_sr(&ctx, register_whitelist, ARRAY_SIZE(register_whitel=
+ist),
+>			     &hwe->reg_whitelist, false);
+>	whitelist_apply_to_hwe(hwe);
+> +
+> +	xe_rtp_process_to_sr(&ctx, oa_whitelist, ARRAY_SIZE(oa_whitelist),
+> +			     &hwe->oa_whitelist, false);
+>  }
+>
+>  /**
+> --
+> 2.53.0
+>
