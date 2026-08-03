@@ -1,91 +1,104 @@
-Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4F04330F52B;
-	Mon,  3 Aug 2026 14:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3E8417BFD
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 14:41:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785768005; cv=none; b=gOYiP/ThitzNbErHOWmfx0MicBSrh6uNpG7gdAVwjKrGA7SCeewYG2T3xZ1k5evPamzEvIWxTq0JuxnnI0U2/KuIt5OxaokU/bxT4P8AEYd+4zRUALI41JLT0b2UcXnqTEWo5wF2W2nsE8myEAb9TcnjYFcAV6n72JDf6lMwTso=
+	t=1785768105; cv=none; b=H8wrMwpe97BjuSdZRZXskuTvEK19EO8ywZRCtM5T39W53A9DXnh3W4J8xPNG2319fEttsJccNk/4ywpxSZdN0sZ+c0QrbUHSsYllqpmCzFE+S1vxQpQN85iKJvCcwWItC45iPxHyueQYDw03kH/wK4aHzOWJB3U9G1Xi+EYCsBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785768005; c=relaxed/simple;
-	bh=vB+JLyRZfqkypQxs3bd+09E6Vb40JbVt60BfXZfh56s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QB4XBFoe6FaTkAYDEbf150b43Tl4rc+3NfI8EkKY1i1GoHpQTjdVrNtyykh0SY8/3PzMUtP1n6J+0mNlE1+b8STGdn5+tS0URWYd2u8OeV4X/1eHV9Epk/xVaFOHq/PMX6IolqTJJkOT/xSJQRuvxCF5mxN0skoJ7er4kxHVeYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=rRIhaz9E reason="key not found in DNS"; arc=none smtp.client-ip=206.189.79.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="rRIhaz9E"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
-	MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=zikC+lXga
-	ySyf9v4+Joz+DRFET+DATnOMZ1d30rrZfw=; b=rRIhaz9EiuIjWRrQaUvzKH5U/
-	487IYE359D4as/6APUD+Hy43rB0Dsmuvo/3HJFq4CRDzCeuOwZKGIB1xPQtiDt5e
-	hyuM+0na+jyJZDBb8AnGtX5zgcc8+egfEp8/fnXB9XjwQOHxV8sRRpYeuPM+7DGh
-	qiwrGPxd0whSPJmtGk=
-Received: from [192.168.1.110] (unknown [115.53.185.209])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with SMTP id BbQMCkB22NEhqHBqEWXTAQ--.18132S3;
-	Mon, 03 Aug 2026 22:39:30 +0800 (CST)
-Message-ID: <514ebe5c-4867-47e8-9500-0b0cab9eb243@stu.xidian.edu.cn>
-Date: Mon, 3 Aug 2026 22:39:29 +0800
+	s=arc-20240116; t=1785768105; c=relaxed/simple;
+	bh=NdAboDuOLqP9r3rS8jQyd300GdkgXGkqEAGWwCKIg2A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aiZEsyrewdLdva1aas8+g9G/bQ9ZMYv0bOOKSVYFn1+ZdGDWhfJhQgkjE3JupmFEn/IpSNlVjeHnn0eAbf2dgac7zatPCrcJF1bzGOlxDwjS5D3/Apgv0eawHUAj34M56JSd9ePp5dEGpHGDuWR7gaai7CBE7AW94zssQu2UYv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kde.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kde.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4954aff6088so18973035e9.3
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 07:41:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785768102; x=1786372902;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gVwi5SS2DhtslphVSRNDsHwdJ8hwzelyA1BXN11cays=;
+        b=ZmMKa9g4mIRB8FlYOTcJTIV5DXw5nW64tkGe0p7dII4m45Tu+Pki68LO6V7bX6YYYY
+         oMUhnwzRU6Tc63WPeI48CmG1bJQTXNJFT21cIKn/sZlJGQcWDowsq8ICWyOuyutRP9cy
+         BBCt7CqvoiyliGK/1beNgfKD14ah9l/+JJMyBmMFgdIMZagrD3QnnzGPwGYPzNKiruPz
+         2QczQb9UzhUxbEYQltSmmJX6yAsAtSyBYwjLPNeEfA3pUmEVfJ9tdydRo9M6cVaD9mwv
+         ipf6scYQ1/fiMZGH8EKC4EGl6hoIEb+5EVIgXaVXOdwDE8Emk2GQUrLON6mLeFA5/vkq
+         Zibg==
+X-Forwarded-Encrypted: i=1; AHgh+RrJN8W851bY07ixQNM3sng/9puUrHPOVoevE+dd9f0PJtb0X+XRM+RxhlyX2TJNmNsFyFQL0XQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yze6lRMYtmDnzII4jkpHv5qmNNnzab5jq6DWMddaxYBGr4OkTgu
+	Axa9FQNTFlY0A1iW6KaT7e1Y6a5DhTSRpWf2YMh34mGxLH+OFBiIGb+L
+X-Gm-Gg: AR+sD13e/F5E8hbodlQBGGVHQYit2Ymx3RVWq2rQ1qpO8BJO5/QiouiT56ogO4y6jeO
+	RfY5YAR0SI9vf189wAyro7NTP4UCPACUGlQbm3bRJKAKBZZXFk/jEOTFG3F0uenakmpTzFPQP4Z
+	sJDil+heXTULZ/v1R/yRIvVQcrrS7nUugCe4ToKVc9GC50/HxhVGmkYiw5I9rLvaxIdP6Qs086e
+	fTBxibRH2v/Z0/VPDya1QgqEbMfOj6NBobTQHFMYcR/X81YSzD8qZ5MKFuXrOCHbLXTXZawGaMt
+	KYkIiTuwv0rQRKbzCVV6XMIoBMBB6ijBjGmbDtn9BCAimNP5NTrIcn6BqxnlOLkaleLAFMtFrwN
+	RGjnGfdlYVuCaCFeqHO986XkxylP+sQ8l7burbwt9lTisu5/BUz6fPmQSW7Svh8S7fmA1Xoj9MJ
+	5NRdOLbEwI+H9dlqJCn1umBFl0iwAuN87DMAKKFu7C69QSEY62tChI7I3LR1MeNehci/VFnVuWL
+	x5fwilnpCI=
+X-Received: by 2002:a05:600c:1d29:b0:493:e451:a9e1 with SMTP id 5b1f17b1804b1-4980c66c867mr238381095e9.2.1785768101578;
+        Mon, 03 Aug 2026 07:41:41 -0700 (PDT)
+Received: from xavers-framework.fritz.box ([2a04:7d84:aacc:d760:34ad:268d:e7ae:c44f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-498081a12a3sm350878155e9.8.2026.08.03.07.41.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 03 Aug 2026 07:41:39 -0700 (PDT)
+From: Xaver Hugl <xaver.hugl@kde.org>
+To: dri-devel@lists.freedesktop.org
+Cc: wayland-devel@lists.freedesktop.org,
+	kraxel@redhat.com,
+	Xaver Hugl <xaver.hugl@kde.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] udmabuf: vastly increase the size limit per dmabuf
+Date: Mon,  3 Aug 2026 16:41:20 +0200
+Message-ID: <20260803144120.11524-1-xaver.hugl@kde.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] tty: vt: fix memory leak in vc_allocate()
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: jirislaby@kernel.org, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, stable@vger.kernel.org
-References: <20260731024550.158801-1-25181214217@stu.xidian.edu.cn>
- <2026080339-proofing-catsup-bee9@gregkh>
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-In-Reply-To: <2026080339-proofing-catsup-bee9@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:BbQMCkB22NEhqHBqEWXTAQ--.18132S3
-X-Coremail-Antispam: 1UD129KBjvdXoWrZw4DtFy8Jw1kZFyktw1xAFb_yoW3KrXEg3
-	Z5tFnIy3s7CF4ktwnFkrW7ZrZrWw4fWrWUGF95uwnxKryUuanrZa1DWrWqvF4xGasrWFWY
-	krZ8ZFWftw129jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbaxYjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I
-	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
-	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0
-	cI8IcVCY1x0267AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8I
-	j28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr
-	4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY
-	1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Xryl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYx
-	BIdaVFxhVjvjDU0xZFpf9x07jF89NUUUUU=
-X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUOEWpvXvycTwAAss
+Content-Transfer-Encoding: 8bit
 
-Hi Greg,
+Buffer sizes can get big very fast, and the previous limit of 64MB
+is easily hit nowadays.
+I hit this problem while working on better multi-gpu copies for KWin,
+where on my 5120x1440 monitor with scaling applied, some apps ended
+up using a resolution of 8192x2304, resulting in buffer sizes of
+roughly 75MB.
 
-> Shouldn't you be checking vc->uni_pagedict_loc before calling this
-> function?
->
-> Right now we have callers sometimes checking this, and sometimes not,
-> while the function doesn't seem to care, but we should be consistant,
-> right?  This will only need to be cleaned up if the previous check in
-> this function was correct.
+As another reference, with merely 32 bits per pixel, buffers reach
+- 33MB for 4k
+- 133MB for 8k
+- 530MB for 16k
 
-Thank you for the review.
+With 64bpp, those sizes would be doubled, and even 4k would hit the
+previous 64MB limit.
 
-Yes, the previous check in this function is correct. It acts as a
-conditional initialization, allocating the default map only if the VC
-did not already inherit one during visual_init().
+Signed-off-by: Xaver Hugl <xaver.hugl@kde.org>
+Cc: stable@vger.kernel.org
+---
+ drivers/dma-buf/udmabuf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-While con_free_unimap() safely handles NULL internally, I completely
-agree that keeping the callers consistent is better for readability
-and maintenance.
-
-I will add the explicit check for *vc->uni_pagedict_loc in the
-err_free path and send a v3 shortly.
-
-Best regards,
-Mingyu Wang
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index 2f94be1df525..8cbba7ddfa00 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -20,9 +20,9 @@ static int list_limit = 1024;
+ module_param(list_limit, int, 0644);
+ MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
+ 
+-static int size_limit_mb = 64;
++static int size_limit_mb = 1024;
+ module_param(size_limit_mb, int, 0644);
+-MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 64.");
++MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 1024.");
+ 
+ struct udmabuf {
+ 	pgoff_t pagecount;
+-- 
+2.55.0
 
