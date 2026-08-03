@@ -1,103 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5E331DFFB;
-	Mon,  3 Aug 2026 12:06:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86510B672
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 12:14:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785758767; cv=none; b=S/k57hmkHC2RitxeI1rY18kY7iKl86SGC1JCBby9afH4KXC/wxnoIEEqQrW7i/3cPc7ti/3fSCX+uvWPZ3o+BrER1TBcm4Uxs2jN4nFk8Z+IMWUMjeISRUyVIcYFGKcbARwjCHWhNIeOYN1azzlDMMv7khI3YkvWuBEL5zS3M4M=
+	t=1785759267; cv=none; b=LtKLFhNxEdmfkmJ79f/FegpianyDVlIW/LSGJKXLgj8MwLSCEy9MsJuFKShh6pEmh8ki4DHhUaw6kJddNqQof9TF27x7wr+TmW4ytDWEG56i1WK2xnz/HvH7YDzv5racmkDtOcXdQc1KUfJcU0x18353/jaaOi/Ipy17ZbIkzWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785758767; c=relaxed/simple;
-	bh=LmrZPd0sXoO1lZfpdxiRX9ff149gvbgTbp/A/5LhyxQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=lPslMX5oyN3y3RC2Zk0kP312Ot4hj4rA7bxFoGjRs9AdEkyZc1RAW3v71JjiNkcTh45NW0/H6MTa//NyVhhlAMgycSTmSNq85hggKWmqNdrCROt2eJLVz0PYRkuVVI0gM9lQ5JF4YcXbQYp9hcVvhmFv50SuwCNX+w0asntrJcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dzpQ3qXN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785759267; c=relaxed/simple;
+	bh=f2IeBydYflBbokmTRr0G1FOW2R46iKxBxZ8HYd/3pEA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=caSOHII0Xt9aX7wVY7NLpnpXVWNa2vjFlUTudaeSRS4St+/4medCWAaw8YktzOwdKfTRz1RGWbrcdg3Jy7j70uiD9VQvBz2XMGpIUoyUp1tBYXOo7gduLKqVNWZUpa2tZhggrp8R93GzBepGjNiF2T9DJPQ1E4r1ou8cnln1YOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=G+sItBUn; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ZG8CCAi3; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Ni8tPixJ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=bXABiAQ7; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dzpQ3qXN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA05A1F000E9;
-	Mon,  3 Aug 2026 12:06:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785758766;
-	bh=GwiisxtxnRbjDd426dl411y8wKX4uuzvgnveiiV+zlA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=dzpQ3qXNlgtGGtOcrD0U2ShzzrqMsnplHupbtdOUqpHXauGaDbEXRqrGrCMYcXwVw
-	 TJpzVo/UY/wzOlDHbFE1b8ZmE1oTgXHVIirIpBu4S6mvuOymqBSssMZsb+44rofNUa
-	 mSRPsriSXw0VXRs22pJmrtMGaNIIQxy53HVAnKpbuhibP2gsIP2RzYFW8wow9CzFfF
-	 nE13mTxGoAoKzagi1pDYcCu1speJ1DV5yEBcIUOYKyCgx/1rORBJHL44gTVxVEXWqO
-	 W12DB1kkj8CTPIj98filsSQfhOefRUwpCuFJpHim16TzJ70hdYFMjV6pC7+Hy0sxwa
-	 ABaHj1w7KBwkg==
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
- =?utf-8?q?Dawid_Wro=CC=81bel?= <me@dawidwrobel.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260730-worktree-lpass-tx-macro-enum-fix-v2-0-6d091c736116@dawidwrobel.com>
-References: <20260730-worktree-lpass-tx-macro-enum-fix-v2-0-6d091c736116@dawidwrobel.com>
-Subject: Re: [PATCH v2 0/2] ASoC: codecs: lpass-{tx,wsa}-macro: fix enum
- kcontrol accesses
-Message-Id: <178554254606.353541.16114714913692707408.b4-ty@b4>
-Date: Sat, 01 Aug 2026 01:02:26 +0100
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="G+sItBUn";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ZG8CCAi3";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Ni8tPixJ";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="bXABiAQ7"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 80F957F055;
+	Mon,  3 Aug 2026 12:14:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785759258;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R+JcgPuwnr3lLGSKtX/fgYC1e8dUAx9CFcV0O+8Cxws=;
+	b=G+sItBUnZfL/t7m+fkzWkSLgiRs+xLefF+6mKwvFpald7lX1+J++eS+fW4SFnJovhpugLk
+	zTDLkC4UsYWg/A2sI5Gv+ZkabAlSIu+ODSWqbZ1jFq7CTABdSekwL9dMbg5MORgm5qzeKR
+	/1zONYNJRYj+L7MWI9juxfBrZC2+6XE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785759258;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R+JcgPuwnr3lLGSKtX/fgYC1e8dUAx9CFcV0O+8Cxws=;
+	b=ZG8CCAi3py4NlkvxWa/uuQOcnHRk8GKh+89q2h6xLQD0xbXTV+BAMoO0WyZdpEDJm5BGj0
+	ZdDn5wCO0VpoSkCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785759254;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R+JcgPuwnr3lLGSKtX/fgYC1e8dUAx9CFcV0O+8Cxws=;
+	b=Ni8tPixJstUs1eh1QB4aasYEoGGCpUK5EyIDy/6JFiTmtr3BJ3+CDd6tW/jxDlEErhSTLf
+	fkTS8zLYSKN1Ego2vvLiXpm9V567SreDLeGSta58A9NyjnQTEGDKoRs1l6YIENiV54O/yK
+	4BnCZDywLvoa2eDAMC339BPG9iOqLkA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785759254;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R+JcgPuwnr3lLGSKtX/fgYC1e8dUAx9CFcV0O+8Cxws=;
+	b=bXABiAQ7lkJwIoFcC3bHFKrs83+yNiV2qiiSE99WYBzREbw4op1Sxe8wFYKS1B8ZWPa6U9
+	lKyLNL3mX8k5vMCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5B7FD779A1;
+	Mon,  3 Aug 2026 12:14:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id zZ0gFhaGcGp1PQAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Mon, 03 Aug 2026 12:14:14 +0000
+Date: Mon, 3 Aug 2026 14:14:09 +0200
+From: David Sterba <dsterba@suse.cz>
+To: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-serial@vger.kernel.org,
+	Jiri Kosina <jikos@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] tty: remove the ipwireless driver
+Message-ID: <20260803121409.GA867448@suse.cz>
+Reply-To: dsterba@suse.cz
+References: <20260803091938.259944-1-qingfang.deng@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1519; i=broonie@kernel.org;
- h=from:subject:message-id; bh=LmrZPd0sXoO1lZfpdxiRX9ff149gvbgTbp/A/5LhyxQ=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqcIQrWTkq4bz/8qyU1z3GHWxO0eSvnwLU8qEEs
- U6g5DaamMqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCanCEKwAKCRAk1otyXVSH
- 0InVB/4+5hAUgsj77ZVk98Q8SJlVK6FhxtAr2+XB1yGKSAFOXsTSvpRj+TXd0mOT3mW6LH8msKK
- Kgprp67UDCdRuryf0h/RZGpMKuuFJ+a+sKd5bBhJl+WsOAStLHSk+q8uK8jtVBZsb/csZXE1+XQ
- afngOhgQIp1cQeh1OuwIr6SH5HA90Gpg4eNP/NriqmjZbQH6abmp25DHznlXuHvB0UNOkihr83m
- tmjWAK/3CC2rvOUI3UAwUED2XMGuIIk19DpO9c8dglb6XjJktJePDXYN2zS7q5KoPUVQtO7BDI3
- zH9KMJh0wfkY/AdisXO9goyn4t7pU3w+0VubcdQVgSoUOp/z
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260803091938.259944-1-qingfang.deng@linux.dev>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	NEURAL_HAM_SHORT(-0.20)[-0.991];
+	MIME_GOOD(-0.10)[text/plain];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	URIBL_BLOCKED(0.00)[suse.cz:mid,suse.cz:replyto,imap1.dmz-prg2.suse.org:helo,suse.com:email,linux.dev:email];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux.ibm.com,ellerman.id.au,gmail.com,kernel.org,linuxfoundation.org,lunn.ch,linux-m68k.org,stu.xidian.edu.cn,orcam.me.uk,vger.kernel.org,lists.ozlabs.org];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:email,suse.com:email,suse.cz:mid,suse.cz:replyto,imap1.dmz-prg2.suse.org:helo];
+	RCVD_COUNT_TWO(0.00)[2];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
 
-On Thu, 30 Jul 2026 12:58:11 +0200, Dawid Wróbel wrote:
-> ASoC: codecs: lpass-{tx,wsa}-macro: fix enum kcontrol accesses
+On Mon, Aug 03, 2026 at 05:19:18PM +0800, Qingfang Deng wrote:
+> The last mentions of this driver on local Linux and telco support forums
+> date back to 2011. This does not prove that no users remain, but the
+> likelihood is too low to justify continuing to carry the driver in the
+> kernel.
 > 
-> Both drivers access enumerated controls through value.integer.value[0]
-> instead of value.enumerated.item[0]. The same bug was fixed in rx-macro
-> and va-macro in 2022 (bcfe5f76cc40, 0ea5eff7c606); tx-macro and
-> wsa-macro were missed.
+> The maintainer agreed that the driver should be removed and noted that it
+> is simple enough to build as an external module if a user resurfaces [1].
 > 
-> [...]
+> Remove the driver along with its Kconfig, defconfig, build and MAINTAINERS
+> entries.
+> 
+> [1] https://lore.kernel.org/linux-serial/20260218152330.GI26902@suse.cz/
+> 
+> Assisted-by: Codex:GPT-5.6
+> Cc: stable@vger.kernel.org
 
-Applied to
+This is not for stable trees.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
+> Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
 
-Thanks!
-
-[1/2] ASoC: codecs: lpass-tx-macro: Fix enum kcontrol accesses
-      https://git.kernel.org/broonie/misc/c/1ba381759e45
-[2/2] ASoC: codecs: lpass-wsa-macro: Fix enum kcontrol accesses
-      https://git.kernel.org/broonie/misc/c/56f24311fd56
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Reviewed-by: David Sterba <dsterba@suse.com>
+Acked-by: David Sterba <dsterba@suse.com>
 
