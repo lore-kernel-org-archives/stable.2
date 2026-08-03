@@ -1,104 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E5835C183;
-	Mon,  3 Aug 2026 12:56:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453F43BCD00;
+	Mon,  3 Aug 2026 13:02:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785761786; cv=none; b=Imdpx2VyxxOlhQSGY714FRzxuIR+swlgyIu+yYy+VBYNMgQ8sITSJLT/K6SjNN7yHZrNTfYa5bqO84rTnAIAMNMnBcSzXFcG1Yt4jnJXChloYfq/dWU75TZz/U2Bo6ijNV1yiuFNJEK7iXDlnYoBidrVTmdDCXyvBYm3VD1AFo4=
+	t=1785762132; cv=none; b=aj7Y60btZcjsOau50BtxTb9LVdAWGS8Ze2EDILZ/rhiIbPBr/GIER8cEdZjemSWwK4c9+U5UAAvG0cogalXcJLThsqgR0DvKzBAQn+7Ac6kPKoTfEPVj7/17yaY+aeq5oSc3oK5S8MMlvq+SroGd5+aNIGsJOPh/+Fwj61QHwKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785761786; c=relaxed/simple;
-	bh=zR4lh11GRIdJttYDzLy5OV+hGlxex6I8HHNmW5c1c7g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZmNUw3vvlIqEo77OTA2HvV79Pjqeu/jaLslRzPSYzkAhqmqEEc7rX8fRQO2qJtRPes4GqsVYmkMpAmicSz4863Q5OF8bbO1j9pWX5Cb4dS9CtqzqDrg4wrs5muWJ3ai7q/Mn6YgZyS+1GizwGc3x7YWTQ1XkHA+Ra6kURC6a80Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AiFtnJVF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785762132; c=relaxed/simple;
+	bh=NdVH5UnPIcR8sCVSXiPGOl8TJlQb63rdYlYGxkZgPwc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TZgIUlaU6N5ti802Wf64xpCNRQ9OYn5VnksZWtISCAp5oj2FddZNHy4U2qwGbrir71gww1WtLQvWC7geLOUF4hRH7yvIJBFa9eDnuUJzmCTWLFipp4zYFBFzTnI/wWS3LqSsqKKbkqXuxgt1brvpRg8Fc+vUWX4ktFmfRHWV6MI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOJr/n1K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AiFtnJVF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 920B91F000E9;
-	Mon,  3 Aug 2026 12:56:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785761784;
-	bh=OXsmNyUVqCO5xA+kOWaRUZXD1UJnnyoHcYSRN+f169Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AiFtnJVFAFBBIKh0EPIwW87Oz3N9pcoJZbeOBCaxCS+gCfiQirvahvaoxfVWmGZp2
-	 iUf9s2c3v5qCIoi/X5WXH9DCHszcug02GU5cHfQzVDL57/wFI3dTx9loJ0IOfAXBdz
-	 tSnCKr+uYJczSMUAcvjHRBek+nutqqRfTtIamdeU=
-Date: Mon, 3 Aug 2026 14:56:08 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: jirislaby@kernel.org, broonie@kernel.org, zhao.xicheng@vivo.com,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] tty: serial: max3100: shut down timer before freeing
- port
-Message-ID: <2026080353-bats-jailhouse-804f@gregkh>
-References: <2026073036-coping-starter-ad07@gregkh>
- <20260801061208.356142-1-fanwu01@zju.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOJr/n1K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BD261F000E9;
+	Mon,  3 Aug 2026 13:02:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785762128;
+	bh=pXzD0gO2e1hNQR5V3zklsDSptDxGKPZhI2uRPLHOX7o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=IOJr/n1KTqxyXJhlF0mjg1uGqTLPoHOmOobxOoQlQ5lHWeoObSq9RAdaGD1uhE9DL
+	 a4LeYXfKsu0jjJ+vWMk/s8EufzCLxwqBczNb8jNg7b/8+IPXu8zfeqBpFH18BJV79R
+	 P7VeBQpoNYJZ/WD4Dfh86cJuLSezkPGzy8YsRWf0cZFqLDRuakXdA9BBuWojfldmdO
+	 HpKbVNb0GCcouhesT9gMWumCMrqh01xMxpixFMoRdJcWhV2MkoQbiUQkfgap7H5ONL
+	 RWm8evbVCF78xG2j4iBwFu75jxr2qvfFQXte8GCiik4jXqZPgsyYH6R40TqjXDfUfe
+	 21FvpPvQy9LaA==
+Message-ID: <0be2d538-8e18-45ad-9181-f7e3fb7e02ed@kernel.org>
+Date: Mon, 3 Aug 2026 22:02:05 +0900
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260801061208.356142-1-fanwu01@zju.edu.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] zloop: round capacity up to a zone-size multiple
+To: raoxu <raoxu@uniontech.com>
+Cc: axboe@kernel.dk, hch@lst.de, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <906CDA1B6AAAD5B8+20260803095810.3453016-1-raoxu@uniontech.com>
+Content-Language: en-US
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <906CDA1B6AAAD5B8+20260803095810.3453016-1-raoxu@uniontech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Aug 01, 2026 at 06:12:08AM +0000, Fan Wu wrote:
-> max3100_shutdown() stops the polling timer but returns early during
-> system suspend. If the SPI device is unbound before resume, the serial
-> core does not call max3100_shutdown() again, so max3100_remove() frees
-> the port while the timer remains armed. max3100_timeout() can then
-> access the freed port and re-arm the timer.
+On 8/3/26 18:58, raoxu wrote:
+> From: Xu Rao <raoxu@uniontech.com>
 > 
-> Add final timer teardown to max3100_remove() and use
-> timer_shutdown_sync() to prevent a racing callback from re-arming it.
-> Also drain the IRQ and workqueue before freeing the port.
+> zloop_ctl_add() derives the number of zones by shifting the requested
+> capacity by ilog2(zone_size). Since zone_size is validated as a power of
+> two, this is equivalent to integer division and discards any remainder.
+> However, Documentation/admin-guide/blockdev/zoned_loop.rst specifies that
+> capacity_mb is always rounded up to the nearest higher multiple of the
+> zone size.
 > 
-> Keep timer_delete_sync() in max3100_shutdown() so that a subsequent
-> open() can re-arm the timer.
+> Only configurations whose requested capacity is not aligned to the zone
+> size are affected. Aligned configurations, including the defaults of
+> 16384 MiB capacity and 256 MiB zones, keep the same geometry. An affected
+> device is also internally consistent and remains usable, but it is
+> smaller than requested. For example, capacity_mb=130 with
+> zone_size_mb=64 currently creates two zones and exposes 128 MiB instead
+> of the documented three zones and 192 MiB. Since this does not cause an
+> error or an I/O failure, and normal test configurations generally use an
+> integral number of zones, the discrepancy can remain unnoticed.
 > 
-> Introduce an irq_registered flag to track whether the IRQ is registered,
-> independently of port->irq, so a failed request_irq() can be retried on
-> the next open().
+> Calculate the number of zones with DIV_ROUND_UP_SECTOR_T() so a partial
+> final zone request is represented by one additional full zone. This
+> matches the documented control interface while preserving the existing
+> sector_t handling on both 32-bit and 64-bit architectures.
 > 
-> Found by static analysis.
-> 
-> Fixes: 7831d56b0a35 ("tty: MAX3100")
-> Cc: stable@vger.kernel.org # 6.2+
-> Assisted-by: Codex:gpt-5.6
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> Fixes: eb0570c7df23 ("block: new zoned loop block device driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xu Rao <raoxu@uniontech.com>
 > ---
-> Changes since v1:
->   - Drop the shared drain helper; call timer_shutdown_sync() only in
->     max3100_remove(), keeping timer_delete_sync() in max3100_shutdown()
->     so a later open() can re-arm the timer.
->   - Track IRQ registration with a flag instead of clearing port->irq,
->     so a failed request_irq() can be retried on the next open().
+>  drivers/block/zloop.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> v1: https://lore.kernel.org/all/20260721035631.3186613-1-fanwu01@zju.edu.cn/
-> ---
->  drivers/tty/serial/max3100.c | 18 ++++++++++++++++--
->  1 file changed, 16 insertions(+), 2 deletions(-)
+> diff --git a/drivers/block/zloop.c b/drivers/block/zloop.c
+> index b69d798f203c..e29d82ff52ae 100644
+> --- a/drivers/block/zloop.c
+> +++ b/drivers/block/zloop.c
+> @@ -1187,7 +1187,7 @@ static int zloop_ctl_add(struct zloop_options *opts)
 > 
-> diff --git a/drivers/tty/serial/max3100.c b/drivers/tty/serial/max3100.c
-> index 44b745fa26c6..7bc3c5cfe886 100644
-> --- a/drivers/tty/serial/max3100.c
-> +++ b/drivers/tty/serial/max3100.c
-> @@ -107,6 +107,7 @@ struct max3100_port {
->  	int  force_end_work;
->  	/* need to know we are suspending to avoid deadlock on workqueue */
->  	int suspending;
-> +	bool irq_registered;
+>  	__module_get(THIS_MODULE);
+> 
+> -	nr_zones = opts->capacity >> ilog2(opts->zone_size);
+> +	nr_zones = DIV_ROUND_UP_SECTOR_T(opts->capacity, opts->zone_size);
 
-LLMs _love_ to use boolean flags to attempt to figure things out that
-they can't seem to determine.  Are you _SURE_ this really is needed?
-How about unwinding things better so it's not required?  You are just
-adding another "state" to the device, adding to the complexity overall,
-which is generally not a good idea.
+Your explanation and this change are consistent, but this is going to break many
+things because we do not maintain the size of zone per zone and instead always
+use zlo->zone_size, assuming that all zones have the same size.
+Your change would result in bad things. For instance, zloop_finish_zone()
+truncates a zone file to zlo->zone_size, which would be too big for a last runt
+zone smaller than other zones.
 
-And do you have this hardware to test this with?
+So nack for this patch. Instead, I think we should fix the documentation to make
+more explicit that we do not support a smaller last zone.
 
-thanks,
+>  	if (opts->nr_conv_zones >= nr_zones) {
+>  		pr_err("Invalid number of conventional zones %u\n",
+>  		       opts->nr_conv_zones);
+> --
+> 2.50.1
+> 
 
-greg k-h
+
+-- 
+Damien Le Moal
+Western Digital Research
