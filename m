@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7546838837C;
-	Mon,  3 Aug 2026 16:17:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38654392C48;
+	Mon,  3 Aug 2026 16:17:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785773832; cv=none; b=OtSobTJJU9plcr4k+LqmC9GB3uVAUdAEjG+pbBq/kEDdWATHRqieA8zB8Iof4AZV69a5/N0bcajSrFiyUz8I8cXNbS48ZEROaHxuCAmRoO5DBc0qR5OAokqTAA5RNh9TJcNjazcY3sxcfkM2oHuD4maG+IgIWvaLnOiqFi/0Oz0=
+	t=1785773835; cv=none; b=ID6sQ1P0VJ9ULOOb0kTJPRPFg5+wxWaRo8DS+mqM/CAvTFb0o2zsig8lVuMAef/YVqrwWjR+VC31K7Sju3jhXFSItQnblrxkim8vCPuZ+uoDC1C2LQNh0+ToKEQqrGX6YTY5k/GU+WYPyp4Pq7j3AiSXwI8OayucS1NMXdfI8Wc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785773832; c=relaxed/simple;
-	bh=m4x0bxSy6TxsUPrJI6w5irHD5JNUjCHFJQxz6MDrmzA=;
+	s=arc-20240116; t=1785773835; c=relaxed/simple;
+	bh=xnqFISoqTLMCerUD5c4zSjTlfN+SKMko6NaQaLus8dk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=N1TBj0QQDx7g2LmvaZd9tb+FlY3u0fxUKzSo7/UE87RQWss1RSbUxaVWqYkmqXOFA5DWPbzs2TEIl4p3vCOfGyL+UVu9LpsEtO11IFt2aWVtb3U0+gq55NyKpISO3JZMLhtUUgroiJlPH0NvEgCzQAAKkD8SU4x7ZGr3SyvbgJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ETX0ARW+; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=NOuNXR4itO1uJYsoa1H4qeebb0LQ7BZ048fCkKvB3qlN9d61MrfB8EJwdPl+YJtOExRvphdDQM+tzpU5zJ66LGdOAG3gHcLNiN21Z/F5+NJkACHKhkrfcF84kQRTP3fo+dAL5hK9UG/lcYtrwYN7zIV+iQ9ASDs6y7T2AEOnzbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NyHYZb8S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ETX0ARW+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 946421F00A3A;
-	Mon,  3 Aug 2026 16:17:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NyHYZb8S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 748551F000E9;
+	Mon,  3 Aug 2026 16:17:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785773831;
-	bh=mFgngIcB30lySgR+387wwGE2NX/cftkfr18bbdf5vD0=;
+	s=k20260515; t=1785773833;
+	bh=j4Eph3k7INwhaL5Gv4jnG9wsbDawQ3A4kZn6N6ISjdc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ETX0ARW+Jn/ys6uDSy+TVJMDUfgQwAuVIKKHV80gsAlNGTS0TJxFdl6TW+Rts3pPB
-	 W5DoijpGogKrrz9x369A/7bw+etoa2ezB18RJsjtp0hFn4Ek+M0Ba1bscAJTJaqab2
-	 ROTBtOu39hksKwhwC1NIPH7QT11wEiEYeF+1nU0Y33w6nYs5/caH33ZD29UmSukp4X
-	 pGIeAgr7Yr7C4mJH77mjOSZJiju/AjfR8M/KYIdvZwmQJAcqrFQUDT6YfxVNzGB1To
-	 m+7+THVNg03uCSYL3LlvLZdyyLpP+8Pvv/v18enEiZbIyeWRY6FZA+PS0qSpyjYFGJ
-	 Pw76SiEGwHrIw==
+	b=NyHYZb8SvWK3YIZFKUCqRZjaTsIrlePTuMXayKGAo2k5FOYmCO/vbsIvElTEXuk+5
+	 m5hpZdV57Q+sjEcSXbgfxTYMnPIVYeqPQDedEo43s0PKGr2sTiMUFToixMb+gi7Nza
+	 r4fwSdfQqlcBv0lPZc5Kdluq3Yyjq75ofWfmZlz4GNDRIIIky1U8VbayQzGEwN0k00
+	 S/rCCoQA5GW5qSBFvUJl18ii1Skz5P2x0NZKhfHrYCTtazN4sUjhOsQrbwoCuBUGqp
+	 b9/7CKLIjS60Ocmax4z0epsR7yYym7Hbzw2Fyhk39gQuSoZadNCBsV6ae+GVIotB0F
+	 9LEzMcVRgKTdg==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Mon, 03 Aug 2026 18:16:37 +0200
-Subject: [PATCH net v2 5/8] selftests: mptcp: join: mark tests with data
- corruption as failed
+Date: Mon, 03 Aug 2026 18:16:38 +0200
+Subject: [PATCH net v2 6/8] mptcp: pm: fix memory leak from
+ alloc-during-teardown race
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-net-mptcp-misc-fixes-7-2-rc6-v2-5-b8f496d71664@kernel.org>
+Message-Id: <20260803-net-mptcp-misc-fixes-7-2-rc6-v2-6-b8f496d71664@kernel.org>
 References: <20260803-net-mptcp-misc-fixes-7-2-rc6-v2-0-b8f496d71664@kernel.org>
 In-Reply-To: <20260803-net-mptcp-misc-fixes-7-2-rc6-v2-0-b8f496d71664@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -47,65 +47,132 @@ To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
  Simon Horman <horms@kernel.org>
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
- Gang Yan <yangang@kylinos.cn>, stable@vger.kernel.org, 
- Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
+ Shardul Bankar <shardul.b@mpiricsoftware.com>, stable@vger.kernel.org, 
+ Kishen Maloor <kishen.maloor@intel.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1789; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=OVf+JQzy7NpD1xgEnXRFt97nQ/5etoH6bLJALYeGoSQ=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIK9n00O5i3f97XW+op7pwB1z7vPFp2f7vV3BuaGw9ks
- s42WO9l3lHKwiDGxSArpsgi3RaZP/N5FW+Jl58FzBxWJpAhDFycAjARH3+Gf9pPtvT+evKs/d41
- qVtFEw2/fd395jbbvv64DOcVif2ZulqMDGeDbZ5W7T93/u13H/sau0kTDm67svGv8IMLiTcOhj/
- M3c0GAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4572; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=HhsABg2acSkM/Qyo/cPU//Pg2lIC3VAwQp0iPEbLdOk=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIK9n2aOj/85pGZdX8M5N42T9TIVdloHVWpkdnPbaXBG
+ //18ZWLHaUsDGJcDLJiiizSbZH5M59X8ZZ4+VnAzGFlAhnCwMUpABNZHszI8PrHNJs56seVs+4s
+ +2Bvy7dF3LvlX5RPkuWJtWzNR9iS2Rn+cLvZL31eOi2pL/qLcGem6U4j9oPbt0WItX5cUG/i8E2
+ ZFQA=
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-From: Gang Yan <yangang@kylinos.cn>
+From: Shardul Bankar <shardul.b@mpiricsoftware.com>
 
-check_transfer() compares the input and output files byte-by-byte using
-`cmp -l "$in" "$out" | while read ...`. Because the while-loop body runs
-in a subshell (the script sets neither lastpipe nor pipefail), the
-fail_test call inside it -- which sets the global ret/last_test_failed --
-and the `return 1` both act on the subshell, not on check_transfer().
+mptcp_pm_destroy() empties msk->pm.anno_list and
+msk->pm.userspace_pm_local_addr_list under msk->pm.lock during socket
+teardown, dropping the lock between the two.
 
-check_transfer() thus always falls through to `return 0`, and any data
-corruption affecting only the payload (leaving the subflow/PM counters
-untouched) is silently reported as PASS.
+A concurrent userspace PM genl ANNOUNCE on the same msk holds a sock
+reference via mptcp_token_get_sock() and, in
+mptcp_pm_nl_announce_doit(), calls
+mptcp_userspace_pm_append_new_local_addr() and
+mptcp_pm_announced_alloc(). Both take msk->pm.lock briefly to add to
+their respective lists. Because the genl handler holds a sock reference,
+mptcp_pm_destroy() may run on the same msk via mptcp_disconnect(), which
+invokes mptcp_destroy_common() without dropping the sock refcount,
+before the handler completes.
 
-Fixes: 8117dac3e7c3 ("selftests: mptcp: add invert check in check_transfer")
+If the lock acquisitions interleave such that mptcp_pm_destroy() empties
+a list first, the later alloc adds its entry to a list head that nothing
+else iterates for this msk, and the entry leaks. kmemleak reports both
+mptcp_pm_add_addr objects (from mptcp_pm_announced_alloc()) and
+mptcp_pm_addr_entry objects (from
+mptcp_userspace_pm_append_new_local_addr()) under sustained concurrent
+ANNOUNCE + close load against the userspace PM.
+
+Add an MPTCP_PM_DESTROYING bit in msk->pm.status, set by
+mptcp_pm_destroy() under pm.lock before the lists are emptied and
+checked under pm.lock by the alloc paths. Either the alloc takes pm.lock
+first, in which case its entry is on the list when mptcp_pm_destroy()
+frees it; or mptcp_pm_destroy() takes pm.lock first, in which case the
+later alloc observes the bit and refuses.
+
+Found by an MPTCP protocol-flow harness extending BRF (arXiv:2305.08782).
+
+Fixes: 9ab4807c84a4 ("mptcp: netlink: Add MPTCP_PM_CMD_ANNOUNCE")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:GLM-5.2
-Signed-off-by: Gang Yan <yangang@kylinos.cn>
+Assisted-by: Claude:claude-opus-4-7
+Signed-off-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
 Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: linux-kselftest@vger.kernel.org
+Cc: Kishen Maloor <kishen.maloor@intel.com>
+v2: New.
 ---
- tools/testing/selftests/net/mptcp/mptcp_join.sh | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ net/mptcp/pm.c           | 13 +++++++++++--
+ net/mptcp/pm_userspace.c |  4 ++++
+ net/mptcp/protocol.h     |  7 ++++---
+ 3 files changed, 19 insertions(+), 5 deletions(-)
 
-diff --git a/tools/testing/selftests/net/mptcp/mptcp_join.sh b/tools/testing/selftests/net/mptcp/mptcp_join.sh
-index c0aeffd5cb71..7dc91fac4917 100755
---- a/tools/testing/selftests/net/mptcp/mptcp_join.sh
-+++ b/tools/testing/selftests/net/mptcp/mptcp_join.sh
-@@ -584,7 +584,7 @@ check_transfer()
- 		mv "$tmpfile" "$out"
- 		tmpfile=""
- 	fi
--	cmp -l "$in" "$out" | while read -r i a b; do
-+	while read -r i a b; do
- 		local sum=$((0${a} + 0${b}))
- 		if [ $check_invert -eq 0 ] || [ $sum -ne $((0xff)) ]; then
- 			fail_test "$what does not match (in, out):"
-@@ -595,7 +595,7 @@ check_transfer()
- 		else
- 			print_info "$what has inverted byte at ${i}"
- 		fi
--	done
-+	done < <(cmp -l "$in" "$out")
+diff --git a/net/mptcp/pm.c b/net/mptcp/pm.c
+index c71dcf887683..64a1236aabee 100644
+--- a/net/mptcp/pm.c
++++ b/net/mptcp/pm.c
+@@ -443,6 +443,9 @@ bool mptcp_pm_announced_alloc(struct mptcp_sock *msk,
  
- 	return 0
+ 	lockdep_assert_held(&msk->pm.lock);
+ 
++	if (msk->pm.status & BIT(MPTCP_PM_DESTROYING))
++		return false;
++
+ 	add_entry = mptcp_pm_announced_lookup(msk, addr);
+ 	if (add_entry) {
+ 		if (WARN_ON_ONCE(mptcp_pm_is_kernel(msk)))
+@@ -1145,10 +1148,16 @@ void mptcp_pm_worker(struct mptcp_sock *msk)
+ 
+ void mptcp_pm_destroy(struct mptcp_sock *msk)
+ {
++	spin_lock_bh(&msk->pm.lock);
++	msk->pm.status |= BIT(MPTCP_PM_DESTROYING);
++	spin_unlock_bh(&msk->pm.lock);
++
+ 	mptcp_pm_free_announced_list(msk);
+ 
+-	if (mptcp_pm_is_userspace(msk))
+-		mptcp_userspace_pm_free_local_addr_list(msk);
++	/* Free the userspace local address list unconditionally: the socket
++	 * can be reused (mptcp_disconnect()) and re-selected to a different PM
++	 */
++	mptcp_userspace_pm_free_local_addr_list(msk);
  }
+ 
+ void mptcp_pm_data_reset(struct mptcp_sock *msk)
+diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
+index 945aa5afc2dd..2203cc2d2748 100644
+--- a/net/mptcp/pm_userspace.c
++++ b/net/mptcp/pm_userspace.c
+@@ -54,6 +54,10 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
+ 	bitmap_zero(id_bitmap, MPTCP_PM_MAX_ADDR_ID + 1);
+ 
+ 	spin_lock_bh(&msk->pm.lock);
++	if (msk->pm.status & BIT(MPTCP_PM_DESTROYING)) {
++		ret = -EINVAL;
++		goto append_err;
++	}
+ 	mptcp_for_each_userspace_pm_addr(msk, e) {
+ 		addr_match = mptcp_addresses_equal(&e->addr, &entry->addr, true);
+ 		if (addr_match && entry->addr.id == 0 && needs_id)
+diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
+index c13680d18994..1b80f2d6ec5a 100644
+--- a/net/mptcp/protocol.h
++++ b/net/mptcp/protocol.h
+@@ -190,9 +190,10 @@ enum mptcp_pm_status {
+ 	MPTCP_PM_ESTABLISHED,
+ 	MPTCP_PM_SUBFLOW_ESTABLISHED,
+ 	MPTCP_PM_ALREADY_ESTABLISHED,	/* persistent status, set after ESTABLISHED event */
+-	MPTCP_PM_MPC_ENDPOINT_ACCOUNTED /* persistent status, set after MPC local address is
+-					 * accounted int id_avail_bitmap
+-					 */
++	MPTCP_PM_MPC_ENDPOINT_ACCOUNTED, /* persistent status, set after MPC local address is
++					  * accounted int id_avail_bitmap
++					  */
++	MPTCP_PM_DESTROYING,		/* To fence out PM list allocs */
+ };
+ 
+ enum mptcp_pm_type {
 
 -- 
 2.53.0
