@@ -1,102 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45395411FA3;
-	Mon,  3 Aug 2026 16:17:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79C034DB72;
+	Mon,  3 Aug 2026 16:29:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785773841; cv=none; b=m/mTwQVvc87kGAZa+vl+j1q+mEBu4/ub1StOoyPVBRcxUXSsDUFlf3d44stcPjmVPDm2fgqAX7sXqGo6tnbzJ+vZ13p+iwZPQtXPNZr5cUyWwPF9KvTmPoODMtZ3ggi22iH8ngDQEcGXnojjY5HTiBdlavNys6bSXq3zyiEKWaU=
+	t=1785774559; cv=none; b=fI2YYv+F+C2bJ3u+VnAQlDGr7Rvh+Cka5xPzZzvtTGNI8OQRwFfdYaOTaDOcFuvdEQULRLzImJs4jOoqr8vg+bpFP1xENpuTYcYY4ND56dO9wso38kdiViLjCgFk9PLl/0M5GMuewpSgVH+K+6z9V3zz8w3cPyxNoWRSpIeKX5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785773841; c=relaxed/simple;
-	bh=2LCtQYaFHMYShjE0L774cau909DKU6IxvzHD3daSzt8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BjeVjHgNKbQuGIvYls2TrHLXbkMdjNaawEmO9vxyrAm7T03dSu+Fn5JfQiCv2m/QNKqheA73e5pQJxFiWXJjQa9RBTT4pvRSk80P41nkXKC7UwMoypYsyjfvFJ7mo5R2/Nv2e0h6FjkkgggG/fSv+UjOHFtmQYBaXAk1rEoDlAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZXb5lbk3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785774559; c=relaxed/simple;
+	bh=faOivm577K9+uwYplagHcU5WqGset1aBEvOPfnSuMB8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=solF7ajvPmoJOyihwGx6lQoM+U0KoAJ2adfElUYtT3fCU9jtg6LJ4XH8adZ0OVoPPl9R4plHPBvR7+DbOTbCPxN6/xvpuuGsCVmgPfFDbOGeIhljN8jlXqSuPoOO919yIxdsARhq9xekkIEB9Mc4pJ7EOkgqANjWECk9vrnMH48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RBwa89Tu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZXb5lbk3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC3F31F000E9;
-	Mon,  3 Aug 2026 16:17:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RBwa89Tu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 877411F00A3A;
+	Mon,  3 Aug 2026 16:29:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785773839;
-	bh=CHz7hPGcuGQaXXaAvcxIgvtwBW6pE1qWtUMNAIp/Hpw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ZXb5lbk3U2Cm5cd/gEH44ystsRNdr1zre2oUmXbG8QEnqE77841Z857R3YWC3pDg7
-	 B0tAEJeDTt5/7fBYcPRUdixNKbpkdYDPURnHy4di3jGnJFEUKn76O9+7TMWW4HEuZb
-	 CIdAjNFxYNcRfshGef/LJhbDJYjGABYPxxyNYwRZ46hkUd6mmX0NumNP+ao8AfP1zB
-	 m22e0F1SYV/dNPL9HBtAZjJSs/h82zlSJqvsNxs7iIEpZ+ivHNBUKxt38Q0EGPAyCr
-	 LIyGuSxC04oEveYZQYSuGPLe9JWR9NWGvtzhc0DitPGwlvwuJRApcFoXHy3U+8AzCi
-	 RmVVELdv/zbJw==
-From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Mon, 03 Aug 2026 18:16:40 +0200
-Subject: [PATCH net v2 8/8] mptcp: reclaim forward-allocated memory on RX
- path errors
+	s=k20260515; t=1785774558;
+	bh=VTJEjMglHaP3Q9CuRwRgsauX04grHbmCrNe5pDLVfwE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RBwa89Tux9uVDlpeeU9GdrQNagoRxTsNuISbe+nJLtgIepv7UdV7FwX1a6HG0Pq5h
+	 dB7BYidFVRrjPaR/+0nLyin2AIKyBNLfvQv+ws4IAdW8pa4dftP7NRg7HiXMGgy3pK
+	 4NpZZYGTjSGs7v2l3gFgBXQj3uRXmPOA83DT/D5EytoZdqOf1bVQ58/UBhP11ZZYAf
+	 XlOMUj0cbOD7sP1pB55xXRUVczObxKLQXu8ri5gqDP8XpFI9D+c2wFoLra0F2qtsW3
+	 klhBp2haG9mvTiNtPFTPA4+tCuzaYSfMha25EunobsT2nB5CMeBPFdsrEjrlzrXiVL
+	 29tOEkICjtCMQ==
+Message-ID: <c746110c-6ac4-4500-a4f0-491a06838173@kernel.org>
+Date: Mon, 3 Aug 2026 10:29:15 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cpupower: Avoid uninitialized reads in topology sorting
+To: Ali Ahmet Memis <ali@iusegentoo.com>, Thomas Renninger <trenn@suse.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "John B . Wyatt IV" <jwyatt@redhat.com>, John Kacur <jkacur@redhat.com>,
+ stable@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>
+References: <7fa98ba5-6790-48b4-b102-c1193685822f@smtp-relay.sendinblue.com>
+Content-Language: en-US
+From: Shuah <shuah@kernel.org>
+In-Reply-To: <7fa98ba5-6790-48b4-b102-c1193685822f@smtp-relay.sendinblue.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-net-mptcp-misc-fixes-7-2-rc6-v2-8-b8f496d71664@kernel.org>
-References: <20260803-net-mptcp-misc-fixes-7-2-rc6-v2-0-b8f496d71664@kernel.org>
-In-Reply-To: <20260803-net-mptcp-misc-fixes-7-2-rc6-v2-0-b8f496d71664@kernel.org>
-To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
- linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1341; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=13ycqCYB6Icqk3NK7EG0GaWaP44YW7kNbjVu5JUlTgc=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIK9n2RaFxZbX1qsdwdSfa7ps8W371q1Kye9mfeCt+mS
- 1+299cs7yhlYRDjYpAVU2SRbovMn/m8irfEy88CZg4rE8gQBi5OAZiI1WZGhm7LDVtfKlxxmz6x
- 9lJHaMlmfjXmK4s5LMvtero0TnH/cGb4X7v3tuWJ640GO56uZIqtPfd0cvjh3ws3bpE/oraoYfb
- 0r9wA
-X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
- fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-From: Paolo Abeni <pabeni@redhat.com>
+On 7/29/26 20:07, Ali Ahmet Memis wrote:
+> 
+> get_cpu_topology() allocates core_info with malloc(). If a topology
+> attribute disappears while CPUs are being hotplugged, an error path can
+> leave core_cpu_list uninitialized. __compare_core_cpu_list() then passes
+> the field to strcmp() while sorting the array.
+> 
+> Use calloc() for the array and ignore entries without complete topology
+> data when counting cores. Besides avoiding the invalid read, this keeps an
+> incomplete entry from being counted as a physical core.
+> 
+> Fixes: f89cb9cba7a2 ("cpupower: Implement CPU physical core querying")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
+> ---
+> Tested with a two-CPU topology mock that makes the second CPU's sysfs
+> reads fail. Valgrind reports uninitialized reads before this patch and
+> no errors after it.
+> 
+> Build-tested with:
+>    make -C tools/power/cpupower NLS=false CPUFREQ_BENCH=false
 
-After commit 9db5b3cec4ec ("mptcp: borrow forward memory from subflow"),
-errors in the receive path prior to queueing skbs into the receive
-queue do not trigger forward-allocated memory reclaiming.
+Sorry I am not taking this patch.
 
-Prevent forward memory from growing unboundedly in pathological drop
-scenarios by explicitly reclaiming memory when skbs are dropped.
+Please note that build test just verifies that the code build which
+fall way short of testing the changed code.
 
-Fixes: 9db5b3cec4ec ("mptcp: borrow forward memory from subflow")
-Cc: stable@vger.kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
----
-v2: Start comment on the same line as the opening /*, like in most
-    places in the code. (Clashiko)
----
- net/mptcp/protocol.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index ca644ec53eed..7c8180d8d5ef 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -149,6 +149,12 @@ struct sock *__mptcp_nmpc_sk(struct mptcp_sock *msk)
- 
- static void mptcp_drop(struct sock *sk, struct sk_buff *skb)
- {
-+	/* The skb forward memory was already transferred to sk by
-+	 * mptcp_borrow_fwdmem(), even before setting the destructor.
-+	 */
-+	if (!skb->destructor)
-+		sk_mem_reclaim(sk);
-+
- 	sk_drops_skbadd(sk, skb);
- 	__kfree_skb(skb);
- }
-
--- 
-2.53.0
-
+thanks,
+-- Shuah
