@@ -1,129 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B28D3845D5;
-	Mon,  3 Aug 2026 06:07:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C186340A76;
+	Mon,  3 Aug 2026 06:15:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785737230; cv=none; b=JAeWQmc8EJiLK+DwWt6SVemtRn9njozIOUlrcneggzUxodmGiqyhkCuHQ/4+sZ61MRvvSJqvu0k9dya/mpni4IfnNn5fjM6o75jnQWnqJXC7ND5lReD/SGMO49PEuFyqJb7QbqpdlNnSKPU1eCwmepJ/vG5ZUTLkFiz1zM0a8tw=
+	t=1785737709; cv=none; b=WXYKkaX42DA46zXXWM4J+O3oeU2W0amedbe/GkRVG05Rh13cWxZtDYePaW1/g4uiVd6ObVKmPRQbXXAZmZ9DL5qL77jYOkfznM/BlA/dPt1TOSr++bHgUNYLMOR50XHZaL6DbeJa68mirQiOD94iFXSvhHoPmBQiU0tbOQC+nsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785737230; c=relaxed/simple;
-	bh=2kU2611CdfQ1tJrynaYBHpxi8aIegsDte2fVHCblXoM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Vvlva8M0jKWU79RlkCwLARuQafFhrTf0hCCDFMcsT6gzfctwpII8gJTPsvL5LN6+vRiweVmV+7QZCe4se+jW7stKS7RBsJzRyIH5Jhg/asDIQGXlHGden7ZKbGkyUtvH/VHW8laWXF4hxIj76p86i6JcljOoJ3x7ah5v4uRQoEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BNhLdoQ+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785737709; c=relaxed/simple;
+	bh=Tb21yfu87NFZBVpS9Ap/HWKpf3xQaoyHjh3UwfkWTp4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XJByAOFbVCWr91kUdbD/k78OE/83zkiMqAe6i/nRqZsx8S0X594mJs62nnagbCMQUZw3JDMiVv3XwOy9yzDxWZMWJ6SbSc8Kalh+me6CYE6QSxUfPqD3UGSNvZo7b5JKchy8UUPwSLWSHEYuYpoT+3phFhZxUbvnRK64lWy6DVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=U9bUao6K; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VYGIV0IF; arc=none smtp.client-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BNhLdoQ+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A79C1F000E9;
-	Mon,  3 Aug 2026 06:07:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785737228;
-	bh=2lPsuaaSLnBVFLML1WjWzkVxnE72AXO0eFebBy2HKs8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BNhLdoQ+kmteaVIJHEgq2T/Ch+OdyEIQEcfN4AwOxCqVWFit6BXSkD5X+vE7hk2dr
-	 cYwiKhHM+vf18ZNFMz87nWu8umjVBRmJ3Wg/NDlZyLha7oMJW4P9bdvEWT2qH2kfMb
-	 D8cJc4tl/u7NnCwMg8jOoIqEtav+94/gVGdcB6ybPJiYNWANvmoIEdx2xSscRrCANW
-	 YR2p4nBKF34U60WVsf2nsNaDTjXdTw1XPF/e87m31k0lSQBtnXNLRkl02Jt56NNF6H
-	 h2nOpte2SOYDF2cy4WOIz7zJ84zVN4Hx+s4oLui/2X02XueXXp2Pz/k0RA9bVxCb7L
-	 t29MPJX+UIw5g==
-Message-ID: <908e828b-1fbc-4a44-8718-f0e7459b6ed1@kernel.org>
-Date: Mon, 3 Aug 2026 08:06:58 +0200
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="U9bUao6K";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VYGIV0IF"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.phl.internal (Postfix) with ESMTP id 3D2CAEC00A6;
+	Mon,  3 Aug 2026 02:15:06 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Mon, 03 Aug 2026 02:15:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1785737706; x=1785824106; bh=Tb21yfu87N
+	FZBVpS9Ap/HWKpf3xQaoyHjh3UwfkWTp4=; b=U9bUao6KuNjE8I04a+8vWPT1HY
+	LTl/6XEQns9ce4EtQzIweSHeEdEf3H26oWXotcwgJXDaWdtdMnT963hYXEtL+bt6
+	TeI3FaF3WBEPUfsGhACpww7eab7Aqeo49SUGVmhP+ztyeN6x1+q1FsH75VDCTkEy
+	hVmX8U2regLPs7z5QTCGRqqeiZL/jvclN04caS+4Yjb2IGTdM8itqVUfXFSkOfno
+	Sg0RfwwQzeBxEHfeR+qfdueQQdgQWBgeTgd2RcXYPxbu8ANVX4W4XQB62SbTH7ln
+	qz3ZPAQhXTRtC7yKTSN/xgma8vIoC5bfJKb6v+zFH46TmzbYC+tHCAxfoSrw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1785737706; x=1785824106; bh=Tb21yfu87NFZBVpS9Ap/HWKpf3xQaoyHjh3
+	UwfkWTp4=; b=VYGIV0IFxZxSjzZ72gEIRDzd+NvtLLjDmFa91QDZy6563G3wD0W
+	sBEQf0nWne4vNOGD8Y5YcSzPVz/y+hDD3DOiajDSYLx0XmfYsMBkGn7qJOFmFZHH
+	vtm8wKvUOPYMQj7FlTRRcpC0VTzmVlawEs6+S6/4i84cM+MIOxIn+G9j/ErHd6N9
+	SknDgLUiv1Cj5VmYNjp3kFnSKDa8mBXFa700it7zPsehHzRhQAxFHdfvDncaZuLe
+	MZhrWuuRvayMXDuLYBPg4fQaCffPYFrCr6SMnA1LbfhpKDnTqcME1SC+cvbU97ge
+	uN6F360m+hcyoQPZ8CQxnfDLEfkV/TfEfeA==
+X-ME-Sender: <xms:6TFwaicNG8O5uLMwpnPHkmKlO962-qowM6SHcOYegGK3LDAAsr4cbA>
+    <xme:6TFwahbryYLhvjJnsURXexvsvngwEVs_ASTXNGjShhi3ymswsSIk1RfzjZvzhnlQa
+    HmdusZVlqcylht0m_abO9PqUaHwptiHP4BWVvN8TphBjcYuzQ>
+X-ME-Received: <xmr:6TFwam5k4QTv_Z38rs0x4aUmRcXqLGyFJ1NPyZBPvO2kaO9Mzvxh-W9oue23Jhffoc2GR2qmtuOXR6xHwxxi5UespRkAKtv6qpRehYoMDKY>
+X-ME-Proxy-Cause: dmFkZTEdxWFx6PHPk4/J0sy8vZcNNRDZ3mcZK5kzim1fg9VQzbIW9Ii3kQ/eSjK1U8QcLy
+    nMvMm8DSQveOXCFFG/NkriwpiynWZ7C9rITDAniIEh0+1ZNWsjZMsguHcUQ/7LNvqhbQOl
+    xbBbv4B/qsTQ8BB/o27FtveQ16J9S5e63/SZDj25Mw4FZYoGYYDwkcINEKVjN+UNJuCFaY
+    NrsJm0Ob0qDae9iIySjTu1V9xzgKaoN263rDphrGdSdGucpiuiXVMsrcmnKYto9R7sCEJ9
+    xUidFn/HfFkLt0LyMAVabg8mDlZdkfaMvEAEpGYi0oeTYitVyr9wC+rhU/+Aomr+AskNCh
+    kb9uTK1SaO65cVLlYzXzgVn3kr++m2N7zL6a5IMq6GIDqI4yihUHJJqcw6cGNQWVxtqKsB
+    z+n9JgWJxFu3YUQlhtjvQN2E5BzVSfaOfh+lfMGEuTJGt67ew6SVz7doBOqBFzSQLKmvc2
+    2LYZM74bDtw4AKps8/MKdsKxmRjDhsQUPswfM+T8E4VFkUR4phjBhj/+8kDyXF6arumOWP
+    zLfHnGOFxSa2xbSdAX8EIBJYOYgb5x8OOTlteRWpLXKKwST4+mjMH3/Tx6rvQMZoXaMH6y
+    7T1PAswharchUPFbf2f6zwkkhIJ1lY2zHmt6GvK05Sgu5KZqDYPKKwQtloyA
+X-ME-Proxy: <xmx:6TFwavfVuCuqLNmrczrjZKgVJia3PSr8uZDZdAIeke1PKAzkloYIog>
+    <xmx:6TFwapyXHgKc-BecE_co2SOH93PCD1Z9k6NT4qYboZ8OWf29P2Z9Jg>
+    <xmx:6TFwalo17a-Pabsp3zcui4VGtM70l0JYiigZFn6M5v28uHZMvY60CA>
+    <xmx:6TFwanwkooNi4tCB-nn07N2_le3CquQ__yayJcSDnlbIwq4MYJK8ig>
+    <xmx:6jFwamIgPvFMcErnziQvI7C8RbSKEBkvnYXq3ChqG-kLAAF8fpZ-lAZR>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 3 Aug 2026 02:15:05 -0400 (EDT)
+Date: Mon, 3 Aug 2026 08:13:36 +0200
+From: Greg KH <greg@kroah.com>
+To: lurenjia534@outlook.com
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+435fdb053cf98bfa5778@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: mac80211_hwsim: drop frames with invalid channel
+ width
+Message-ID: <2026080324-paralyses-unmanaged-039f@gregkh>
+References: <20260802-mac80211-hwsim-invalid-width-v1-1-94d9bba2ae60@outlook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] tty: moxa: unwind tty driver if PCI registration
- fails
-To: Myeonghun Pak <mhun512@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-References: <20260731161809.45066-1-mhun512@gmail.com>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- xsFNBE6S54YBEACzzjLwDUbU5elY4GTg/NdotjA0jyyJtYI86wdKraekbNE0bC4zV+ryvH4j
- rrcDwGs6tFVrAHvdHeIdI07s1iIx5R/ndcHwt4fvI8CL5PzPmn5J+h0WERR5rFprRh6axhOk
- rSD5CwQl19fm4AJCS6A9GJtOoiLpWn2/IbogPc71jQVrupZYYx51rAaHZ0D2KYK/uhfc6neJ
- i0WqPlbtIlIrpvWxckucNu6ZwXjFY0f3qIRg3Vqh5QxPkojGsq9tXVFVLEkSVz6FoqCHrUTx
- wr+aw6qqQVgvT/McQtsI0S66uIkQjzPUrgAEtWUv76rM4ekqL9stHyvTGw0Fjsualwb0Gwdx
- ReTZzMgheAyoy/umIOKrSEpWouVoBt5FFSZUyjuDdlPPYyPav+hpI6ggmCTld3u2hyiHji2H
- cDpcLM2LMhlHBipu80s9anNeZhCANDhbC5E+NZmuwgzHBcan8WC7xsPXPaiZSIm7TKaVoOcL
- 9tE5aN3jQmIlrT7ZUX52Ff/hSdx/JKDP3YMNtt4B0cH6ejIjtqTd+Ge8sSttsnNM0CQUkXps
- w98jwz+Lxw/bKMr3NSnnFpUZaxwji3BC9vYyxKMAwNelBCHEgS/OAa3EJoTfuYOK6wT6nadm
- YqYjwYbZE5V/SwzMbpWu7Jwlvuwyfo5mh7w5iMfnZE+vHFwp/wARAQABzSFKaXJpIFNsYWJ5
- IDxqaXJpc2xhYnlAa2VybmVsLm9yZz7CwXcEEwEIACEFAlW3RUwCGwMFCwkIBwIGFQgJCgsC
- BBYCAwECHgECF4AACgkQvSWxBAa0cEnVTg//TQpdIAr8Tn0VAeUjdVIH9XCFw+cPSU+zMSCH
- eCZoA/N6gitEcnvHoFVVM7b3hK2HgoFUNbmYC0RdcSc80pOF5gCnACSP9XWHGWzeKCARRcQR
- 4s5YD8I4VV5hqXcKo2DFAtIOVbHDW+0okOzcecdasCakUTr7s2fXz97uuoc2gIBB7bmHUGAH
- XQXHvdnCLjDjR+eJN+zrtbqZKYSfj89s/ZHn5Slug6w8qOPT1sVNGG+eWPlc5s7XYhT9z66E
- l5C0rG35JE4PhC+tl7BaE5IwjJlBMHf/cMJxNHAYoQ1hWQCKOfMDQ6bsEr++kGUCbHkrEFwD
- UVA72iLnnnlZCMevwE4hc0zVhseWhPc/KMYObU1sDGqaCesRLkE3tiE7X2cikmj/qH0CoMWe
- gjnwnQ2qVJcaPSzJ4QITvchEQ+tbuVAyvn9H+9MkdT7b7b2OaqYsUP8rn/2k1Td5zknUz7iF
- oJ0Z9wPTl6tDfF8phaMIPISYrhceVOIoL+rWfaikhBulZTIT5ihieY9nQOw6vhOfWkYvv0Dl
- o4GRnb2ybPQpfEs7WtetOsUgiUbfljTgILFw3CsPW8JESOGQc0Pv8ieznIighqPPFz9g+zSu
- Ss/rpcsqag5n9rQp/H3WW5zKUpeYcKGaPDp/vSUovMcjp8USIhzBBrmI7UWAtuedG9prjqfO
- wU0ETpLnhgEQAM+cDWLL+Wvc9cLhA2OXZ/gMmu7NbYKjfth1UyOuBd5emIO+d4RfFM02XFTI
- t4MxwhAryhsKQQcA4iQNldkbyeviYrPKWjLTjRXT5cD2lpWzr+Jx7mX7InV5JOz1Qq+P+nJW
- YIBjUKhI03ux89p58CYil24Zpyn2F5cX7U+inY8lJIBwLPBnc9Z0An/DVnUOD+0wIcYVnZAK
- DiIXODkGqTg3fhZwbbi+KAhtHPFM2fGw2VTUf62IHzV+eBSnamzPOBc1XsJYKRo3FHNeLuS8
- f4wUe7bWb9O66PPFK/RkeqNX6akkFBf9VfrZ1rTEKAyJ2uqf1EI1olYnENk4+00IBa+BavGQ
- 8UW9dGW3nbPrfuOV5UUvbnsSQwj67pSdrBQqilr5N/5H9z7VCDQ0dhuJNtvDSlTf2iUFBqgk
- 3smln31PUYiVPrMP0V4ja0i9qtO/TB01rTfTyXTRtqz53qO5dGsYiliJO5aUmh8swVpotgK4
- /57h3zGsaXO9PGgnnAdqeKVITaFTLY1ISg+Ptb4KoliiOjrBMmQUSJVtkUXMrCMCeuPDGHo7
- 39Xc75lcHlGuM3yEB//htKjyprbLeLf1y4xPyTeeF5zg/0ztRZNKZicgEmxyUNBHHnBKHQxz
- 1j+mzH0HjZZtXjGu2KLJ18G07q0fpz2ZPk2D53Ww39VNI/J9ABEBAAHCwV8EGAECAAkFAk6S
- 54YCGwwACgkQvSWxBAa0cEk3tRAAgO+DFpbyIa4RlnfpcW17AfnpZi9VR5+zr496n2jH/1ld
- wRO/S+QNSA8qdABqMb9WI4BNaoANgcg0AS429Mq0taaWKkAjkkGAT7mD1Q5PiLr06Y/+Kzdr
- 90eUVneqM2TUQQbK+Kh7JwmGVrRGNqQrDk+gRNvKnGwFNeTkTKtJ0P8jYd7P1gZb9Fwj9YLx
- jhn/sVIhNmEBLBoI7PL+9fbILqJPHgAwW35rpnq4f/EYTykbk1sa13Tav6btJ+4QOgbcezWI
- wZ5w/JVfEJW9JXp3BFAVzRQ5nVrrLDAJZ8Y5ioWcm99JtSIIxXxt9FJaGc1Bgsi5K/+dyTKL
- wLMJgiBzbVx8G+fCJJ9YtlNOPWhbKPlrQ8+AY52Aagi9WNhe6XfJdh5g6ptiOILm330mkR4g
- W6nEgZVyIyTq3ekOuruftWL99qpP5zi+eNrMmLRQx9iecDNgFr342R9bTDlb1TLuRb+/tJ98
- f/bIWIr0cqQmqQ33FgRhrG1+Xml6UXyJ2jExmlO8JljuOGeXYh6ZkIEyzqzffzBLXZCujlYQ
- DFXpyMNVJ2ZwPmX2mWEoYuaBU0JN7wM+/zWgOf2zRwhEuD3A2cO2PxoiIfyUEfB9SSmffaK/
- S4xXoB6wvGENZ85Hg37C7WDNdaAt6Xh2uQIly5grkgvWppkNy4ZHxE+jeNsU7tg=
-In-Reply-To: <20260731161809.45066-1-mhun512@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260802-mac80211-hwsim-invalid-width-v1-1-94d9bba2ae60@outlook.com>
 
-On 31. 07. 26, 18:18, Myeonghun Pak wrote:
-> moxa_init() registers the tty driver before registering the PCI driver.
-> If pci_register_driver() fails, module initialization returns without
-> unregistering the tty driver or dropping its reference. moxa_exit() is
-> not called after a failed module initialization.
-> 
-> Unregister the tty driver and drop its reference before returning the
-> PCI registration error.
-I think, we should remove the whole driver instead:
-https://lore.kernel.org/all/2da84e36-7ac6-407d-8e08-edca82f4cbce@kernel.org/
+On Sun, Aug 02, 2026 at 08:12:54PM +0800, lurenjia534 via B4 Relay wrote:
+> From: lurenjia534 <lurenjia534@outlook.com>
 
-> ---
->   drivers/tty/moxa.c | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/tty/moxa.c b/drivers/tty/moxa.c
-> index 1bb2376af85c..680b2dd65462 100644
-> --- a/drivers/tty/moxa.c
-> +++ b/drivers/tty/moxa.c
-> @@ -1172,8 +1172,11 @@ static int __init moxa_init(void)
->   	}
->   
->   	retval = pci_register_driver(&moxa_pci_driver);
-> -	if (retval)
-> +	if (retval) {
->   		printk(KERN_ERR "Can't register MOXA pci driver!\n");
-> +		tty_unregister_driver(moxaDriver);
-> +		tty_driver_kref_put(moxaDriver);
-> +	}
->   
->   	return retval;
->   }
+We need a real name please.
 
+thanks,
 
--- 
-js
-suse labs
+greg k-h
