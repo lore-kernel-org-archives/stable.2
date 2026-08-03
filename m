@@ -1,129 +1,140 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CEB1F2380
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 05:59:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F2B1FF7C7
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 06:04:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.181
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785736771; cv=pass; b=YOLNHoOsV5DbcuFvseqpFNbNj/ncrx1IK0oFiLa2K6CXyMCo50ReWzipsRYZ8EueWtW1TCt3Y3qCCtakHJ14OgXvC4Aip5wralNhBmHnMdBckEJp772y3BIjI8miYoyvUHFaULJeY59LtGlmtnPpeIDWTg0GSzK4wNGCfUoAXJw=
+	t=1785737049; cv=pass; b=Cp29OO48JSyPFzVZE7ilyQHTY5bQ3Loki0z53kudx/3oohdtLdSbbg24V0siwoeR4Az8CanarTS6rAYMGFeTvMRZbEY6IT/VLr37VXmCmBBjM+0v2tFZRLxUM3yKaPOqA15mPmFo5+acmwbnYibUDuL75fuX6iux3Ae85jWDtcU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785736771; c=relaxed/simple;
-	bh=u6bP/qobKEFgmg4MAmuD9F/zCR1J43W5ZKFxpuI6hSQ=;
+	s=arc-20240116; t=1785737049; c=relaxed/simple;
+	bh=Vud7PaT1VUqc41R/KxUTZRAgv7I11MadSnh5c1uI3AY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EhyVt9CvnTHx1Q2LTssVmz7+jffAs0Uv6Ka2FEEbTOW9OJDH3vUaY6za2mXuPH/EQcLP3ZxrOvOdWtPYOJugY6qclHz5X1iAUralCpfY1Syfpn1enCNVF1xhHeWXbtLIR5Xz1kTOYGbN1Cj54vRd+78P+a31PnN9j8lsTz0Ye4w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jPLvUGOp; arc=pass smtp.client-ip=209.85.128.42
+	 To:Cc:Content-Type; b=dFUz2aI1ZucV7W6xvQk5FRMAznqn+W5xj3I/nM/wjccuE+hjw8B5c8ZpNA/FkRODjEYAzJ8gPPJpaZo4jiG7IWvsLMf5hl3qTaTSA+o7jd2n0E0EOA5oJazzKAThQeObn8sleENXJKZic2jrFzlU1RjgbixcFpwRwknnAwdlr5Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ryWcCX8e; arc=pass smtp.client-ip=209.85.214.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jPLvUGOp"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-495757ccbc1so14980855e9.2
-        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 22:59:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785736768; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ryWcCX8e"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cc8311c6ddso1693205ad.0
+        for <stable@vger.kernel.org>; Sun, 02 Aug 2026 23:04:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785737047; cv=none;
         d=google.com; s=arc-20260327;
-        b=Tjj7pGEEQwLh9C6Uaw9UkqhhAWzHnobaWLGdeU79KCgNMg87AuKObzM4FUvr4IBd/3
-         SntMpStyetSF2O0vBBb8uhFtjSMAiBgDZqGUT7TbutbubiigGerWJjsvwSpGVKmrkP05
-         ovEjUTHYfJq37u2Xq33pvJrDc6WVyL9xofSdsRmtqEZgcBBiMBDR1FXbVh+uTIogvGGB
-         sXuWrnmIUfgRcytEJT5WKxTu8udaj6oX7KvObP5XV1MyYsGkVDb6asrW9O/ZMgdClDfF
-         gXsw5k7WljjnHa3yiqRnZcm4vaYW1+CZ+WSAPXvVA2I6Ei7aGmYxjDDEq04ZE3MV0hlo
-         uz9Q==
+        b=TOH7IsEmsCKsjlrPoqcIag1alycH0alnED4tg6ZUAQaoNRaNxOyulpqV/gEZxN+wgu
+         OFdPDESeVJ8wnuAp2FPEzzjBlaa4YO0GwJwFIRQ9ClRfQ4+vqBcNL5As1PuQSrr6ILVj
+         /wVk8lTq6FXkdTQNaxSLl5JZtgYMHZDJX2WFe1J7sxMCxcu9i8t/BiwZ5KvgYJcARvXf
+         N8w4VjR4+KxaegSKfUvpLe5cMuNX0QXkb26L1VsC1YZCKEz1C4rh6PsS/TqvyM5V5Qou
+         hsQ72yedVXpKV0RTiq4Jp9llulvA8Lsb6PdhtoRRdfuXIo0eCSuFejSvQJgdiPrga4L8
+         w4DQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=u6bP/qobKEFgmg4MAmuD9F/zCR1J43W5ZKFxpuI6hSQ=;
-        fh=eyFnPeL1yrhdabePsoO5KFUGQnMqUQaQ2yfwM1E6rHw=;
-        b=MBUS1lG13oH51Lft/D3dmSlIO5/cLhIEkFbquYgqem8MQuMjbIA9cSsZdjIVK0Xd3u
-         GYgUiyQ2n9/LsVbrBuq5RfCnsOnbqUZE9MEBDM2WDtsWZAJzDPeT7+tKfFBgp5WNz7k+
-         97ECWSWb6kXRLsCUbgyKHjQhNkP6lC0hKY42uFkxzHEWvyn+EJW2/XUGtCv/VAQrUiOy
-         rBw4PPoXeQA9cV1ELciJ8o+1Xpv2//DpXnwyDxybcIVvNHHZlZXGgaPR387DJUx/ATsa
-         wSov4objxJLWcjzHA5If/aaKAhBlNMRU5Qb5/i56yaw0Vr9wUexvwbpWKOO2tp1p2mEW
-         DavA==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=opkoRNulYp+bLHD2LANAtEBVTpeSMM/+YetLJXty+YI=;
+        fh=uYCztzemtpIc1/Qq3QihI6Yg5hw4E3cMZklXMjWhgEU=;
+        b=Pu35uGnRYHUWw/5rwt6b7XE8tqCKH3FyzrUrxEj5A1X/xCnq77CaBXxboSxE09OzsQ
+         RcVBAbul9vQyc2X2PILypHZOhSyq1HXcsmUOLOCMIT/pGZLhQXqcTNGLrl5BcJuXZYZI
+         ZmneYK7ZDKhHOegyO9XjpZvWU0rrwqXbs5NHpcUhcoySlfC56QC2nP3F6J8DSfCsI6te
+         uXCgaHPqTOGDsYCMa5+5Lymj+iy/mPkCHdlHelBt6EVLqO5Xh/GZN40YnTpaQrJJRF6O
+         YWUCLf9P7VRK/+rQJr95eLpVDMY7oH1CUP+SRz0pgV+6+Qy1qMWE109XRRC7Tu4Prkzz
+         nQ6A==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785736768; x=1786341568; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u6bP/qobKEFgmg4MAmuD9F/zCR1J43W5ZKFxpuI6hSQ=;
-        b=jPLvUGOp8CRUjYzsDsaoLxW6oFeGJ5HIlEQ1eikWUbfjop7unuFSzLzjZbDGu59FmE
-         4meYQ0oNfxiyKaI4zRaycb/dWhxL2Y1gPePnaj1rWNFsx2HkcP/0UGzmnB+6BmpAqQrB
-         w+P0Zi/8VdjPPzzdi0hJECkVK8NI9Y+l/huX8Adn6GeSCMxIgg9djc1ewKE1ww9uj8lQ
-         F33XeH9dABYDdby2+LAV1ln4kcbR3B5vwwegWeCVq9hIPg7cHwcsAXT3eE6r2PXit2q+
-         Q+RLaRnooB7LnxkRQhtSKfaFB8OWt5ywUiyyWKB+Ej7FAuC2Wfm6bMDgIQHnbdQzFVWz
-         I+jw==
+        d=gmail.com; s=20251104; t=1785737047; x=1786341847; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=opkoRNulYp+bLHD2LANAtEBVTpeSMM/+YetLJXty+YI=;
+        b=ryWcCX8etwfle55J6LMW3x5DLJ0bqNdZwfp2AyIjVPKTMKMv7010scEBBPZzGjh3rW
+         bE+8dfeokNHoohaO0bC3o8NeNcLUhHtDb2QfYbsuGzneEEEhwd6Hiq6gnctBW0jycxOx
+         +B75CU1sT49FA301mgEfnEdYEsFeNoEaS56hXxTvcJBxt3+7fVN1WY45eCVR2D3Vq0S5
+         T+xwK/Qmk4duOcjgHeFxOlBUgVkaLcXn7jq/ko6oKVSZhicTJi3PompXXzpVhi33PWRH
+         q7kKhffe+s8mQSEIFMHEUKiJ/GxHvhqZZ8TZTezLVKisfBnfPmYeAf0LkJN5p/JTzM1L
+         vp1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785736768; x=1786341568;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=u6bP/qobKEFgmg4MAmuD9F/zCR1J43W5ZKFxpuI6hSQ=;
-        b=Adkv9qMysp8Q6qGtvyDM72pRPWZXT0vivxfth84ABzd2A+7sbyyzNjPZx/1BbnWRWG
-         NekQ4tmDhjYQH8EpRPWRpOTGpJRzna/+oY7xwj76MAIIi64pEzrsaucEsWSx//5q5kkT
-         sS86sdVlnP7VdUQClOs0XcqB/bmgT8fbpa5lQnrcY7TxbiS4CorqUtPs4ptrISNeY4mT
-         lzl243EdL7ZpohAq5Jjgi9jwLrGbdw/6t/TlyE7U7KVZinaVhfkXSbh9yq95K+6iaA4u
-         cCbrA/V6Fkx/hy3hd973JLnfZlt5snc8Je66nUcxPafv4mbCUoFNExTWe3CEULfUN8mm
-         ea0g==
-X-Forwarded-Encrypted: i=1; AHgh+RqawF2E0krenWaqgoIQvMIieSvYjizW54IoMu6McmocG1rHkqAzppPX9UhtLQfb6T0ei3z3QmE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRv3mvkIqmz8/hB6iQaw6lmaTUtZaiJH7dDrNQc1h3PeBUmZh2
-	1Lk4vG5to0ugBqUe5W7JY5r8r0tmjJMdng/0cHneVnTC4JHi4ZEQ9ykSjNQMfbP2jwQRq3QhfDU
-	NE95LaDr7BhGpd4XKxfYzzYO++pet0Q8=
-X-Gm-Gg: AR+sD12ZdzwrVaW9CUcvt5sutX4o5iUmCMEFRi1WQgG9kHmhGDdhGX+Uu+z7BHBTzzO
-	byen5Nakmemz7Cr6MaR+N3rSyJ0Pp3L6F/wGPu9vHz3eWMApDzvNGzpJuI8p1k+mmIE6H5UTDsc
-	hl9GufYGWN2veNIxFFj1CGfCani0/3cpK7qsftI3gzwxTEejlp/aG+spnm4G6dNip2B5qYTiy7o
-	dwG6bfiCoohhAl36NgBdN/VVG9RIBFaKfYMbEhOOPin9PD/OBgxPXIeR2aCj9NThpyrG5kA0AQh
-	/A8gN+Oqa4pXXb5lrNM3rZSIfCneTW8V90pPySjtntt4vvJW9+hyyYaQgpm0IorEYMy2cueex8j
-	4gat0vNh4/7WVD257lR2B9wvPyWdj+pVnhKShgKr+Oo6AFoaSnrPPkAoGOH4MtiRDPqL12gVRdS
-	N5mlp2TbAHN1ICALRJhGNYRXt/Wx/nztxvDrq2Px5IHM4fqrTgEJsu7U9HVZtgCH33ooG7QyWKT
-	/hbCbP/Gzs9kfs52Hag94JNmr8nMv2oE6OXHL8=
-X-Received: by 2002:a05:600c:33a5:b0:496:c1f3:e8f8 with SMTP id
- 5b1f17b1804b1-4980c66d95bmr127096415e9.7.1785736767790; Sun, 02 Aug 2026
- 22:59:27 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785737047; x=1786341847;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=opkoRNulYp+bLHD2LANAtEBVTpeSMM/+YetLJXty+YI=;
+        b=YWtbnVCsgJJZW6liKr60mEq6u6ckBoXkPAjODe0ONMFuZURo0uYQFyVJnrPNCWrO9G
+         vHNp04tbXbgzbcdpUB6B0vx8V/YmiarbRT+m3X8ZeLovdfIjAZ5wV+9VfP/EqGfYJ5t1
+         dAaMQ7Z3L9LEhK1Mq2AtX3Q/LekmzCQhVOStyLyYpCBzqpvh1CYjEAzS+7p4PToPuWzh
+         7/yZ7kjzr0LpQI67QG/KJTxUtKSp4sVT5JGiBgBsiaQj0XdN0R/CqXhxMALQMoEGdYc0
+         a5vJEvnaQjafxTfCbjdh3xfPIc28lS1HIR3vlKXoY/uMDriZ3NLESccto07BeoVDztC4
+         S5qA==
+X-Forwarded-Encrypted: i=1; AHgh+RrxtJDwMBTMzvHdrFV2vxU8CfnpmMhqNaes5dElOV2Z/DH5EM6w+6plUGbsuUbh1I/s1G1bCgg=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx2SJHGsKEfG9FQ7HZQTbe0iF5P7voaNv58019N0xYeZ/Q5/pzw
+	YRNBm/rPqX9jLgeuJfkvrlsbW/SSln41J37xOoQNpvJO2XyMcsBoNTUggiH7OcDogblZeayfrQ6
+	O98B+re6dVaioRuzmKNTKu7I4FUL8p4M=
+X-Gm-Gg: AR+sD108iZj5AO905AzNsPIh/s9ZPIwfPzxIm4nblkuFElSlfKRowOzy49hlcpcCH75
+	mDglrvQjTtWCXsmb3W3yOhotxnl71lKhi190wZk0p7Rge9pD1evBaVmWgTXM6KNTucfzMuxqtuc
+	SkgAI51qUTL06Bvk42j6zN0nVsvenFEXFPizI4sQM3QL14GnO4ICYihA0wZ62f9+CkNg6G+l4G1
+	2HMn9w89Ob+e1po7cTiYyzGNecJz6OPWRJ14gVq0rNoANDOD16G0mqzEPN693GiNlw+H5fAdiQ4
+	+PUaiqQKf4ldvOf09ac4jVwnbDtU4Nx8XZrOK77jQS7AGozEyCD87tY2WjpTZOomVg3CQ6avfC1
+	0AYv8XtcN8/6zIXqp31XJFNMCxbcuUg17rFHLkrWdwwjY0ZnlTeYrvUBinIqG
+X-Received: by 2002:a17:903:2f8d:b0:2c9:ed4a:c3a4 with SMTP id
+ d9443c01a7336-2d052064a84mr115238245ad.0.1785737047606; Sun, 02 Aug 2026
+ 23:04:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260730135811.1498-1-joshua.crofts1@gmail.com>
-In-Reply-To: <20260730135811.1498-1-joshua.crofts1@gmail.com>
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Mon, 3 Aug 2026 07:59:17 +0200
-X-Gm-Features: AUfX_mwngWZS0ENLACe0n5Md1emZnsHLeqqNDxr9A158H0w0RAP4p88ETr9aR-A
-Message-ID: <CALoEA-yuzdD9=gBy0s0VFc2yD5Kwga57LjECUWTTXdF2SHed8g@mail.gmail.com>
-Subject: Re: [PATCH] usb: gadget: midi2: remove default configfs groups on teardown
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, syzbot+eaa106d192c9daf37f95@syzkaller.appspotmail.com
+References: <20260728191448.349241-1-ojeda@kernel.org>
+In-Reply-To: <20260728191448.349241-1-ojeda@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 3 Aug 2026 08:03:54 +0200
+X-Gm-Features: AUfX_mxqcdfWM3aLdK2D68JD6cYnTf-Oa20VFAYdnXMbU0EIgzsttXPt-hp0GA0
+Message-ID: <CANiq72mLq4B530DKYf=tnb4zvaKQx_zVWRBY2+ARDwxMn64iNQ@mail.gmail.com>
+Subject: Re: [PATCH] objtool/rust: add one more `noreturn` Rust function for
+ Rust 1.99.0
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 30 Jul 2026 at 15:58, Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+On Tue, Jul 28, 2026 at 9:15=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wro=
+te:
 >
-> f_midi2_alloc_inst() creates default configfs child groups for the
-> default endpoint and default block using configfs_add_default_group(),
-> setting their internal refcount to 1.
+> Starting with Rust 1.99.0 (expected 2026-10-01), `objtool` may report:
 >
-> However, during function teardown in f_midi2_free_inst() or EP cleanup
-> in f_midi2_ep_opts_release(), configfs_remove_default_groups() is
-> never called, therefore never dropping the refcount and leaking struct
-> f_midi2_ep_opts and f_midi2_block_opts.
+>     rust/kernel.o: warning: objtool: _R..._6kernel3str9parse_intaNtNtB2_7=
+private12FromStrRadix14from_str_radix()
+>     falls through to next function _R..._6kernel3str9parse_intaNtNtB2_7pr=
+ivate12FromStrRadix16from_u64_negated()
 >
-> Add the missing configfs_remove_default_groups() in the afformentioned
-> functions to free the structs properly.
+> due to calls to the `noreturn` symbol:
 >
-> Fixes: 8b645922b223 ("usb: gadget: Add support for USB MIDI 2.0 function driver")
-> Cc: <stable@vger.kernel.org>
-> Reported-by: syzbot+eaa106d192c9daf37f95@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=eaa106d192c9daf37f95
-> Tested-by: syzbot+eaa106d192c9daf37f95@syzkaller.appspotmail.com
-> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> ---
-> Aside from testing the fix locally with QEMU and the reproducer,
-> syzbot also reports no issues after running `syz test`.
-> ---
+>     core::num::from_ascii_bytes_radix_panic
+>
+> The function was renamed from `from_ascii_radix_panic` [1], which is
+> already in the list.
+>
+> Thus add the new one to the list so that `objtool` knows it is actually
+> `noreturn`.
+>
+> See commit 56d680dd23c3 ("objtool/rust: list `noreturn` Rust functions")
+> for more details.
+>
+> Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned i=
+n older LTSs).
+> Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Link: https://github.com/rust-lang/rust/pull/159554 [1]
+> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 
-Hi Greg,
+Applied to `rust-next` -- thanks everyone!
 
-Gentle ping on this patch.
-
-Kind regards,
-Joshua Crofts
+Cheers,
+Miguel
