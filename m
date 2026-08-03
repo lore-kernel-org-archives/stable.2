@@ -1,243 +1,144 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8979433BA2;
-	Mon,  3 Aug 2026 19:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785786057; cv=fail; b=HsYmqwoZxgi79hPmeyl2cHhk8O0gSI0A9RhABdsaT2CY5DQlBRV7pNYj7BYk/NixWvb/68cnWM2mrCu82odiJ6VHb/KKA48tE9VzGxtV0dNH4hHsVmhHzCPyiGCDY6tc3SOQi97cV3pmxITIipkmmUwcWFgkEL4JlqkOJoHRYPc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785786057; c=relaxed/simple;
-	bh=mwXch3drW7Cxf73zodcCln/JI9ZiZqW87y6xTGBSBD8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=AM8lfCIwTqQVDNRR4qnuMUV9OVXIAj3sDBWJvvmpF6FBpuySgyAqLVwtDpyx37B7g+l/TEYXP/FAcT+FpV+Em3nzej5I70YPNcupYQCESsDwpd+fqoKLNOwaukcWQLePevlcM2aSa0+WBqHaTHjALS47exQ7AgtPcmX6L5wrVBo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=YdcNmRB3; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=tA1irsXH; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18570433BA2
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 19:42:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785786180; cv=none; b=CAP0T2tIeepp2RJ/272SX6g90FSKVdDQE9mTqbXcuS5CIdJYopZCrMPdUwNEVlLeWBV/YU4Is0eXKRPg4aznG8euMSd8RvxcyiUIBZnFRHON5OBXg8nKr9tMGjSzDu/LJvLOMH4KHuhgvmQRavzpNAw7zCQzAgKZAA6IhX9Lyx8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785786180; c=relaxed/simple;
+	bh=8P4WPxOTYGImqUUcIeBUdKh02DVYLKu8M/s85ThEmAM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iDof2c7ha7dQgQQ9zh2yF+BzdmIZfoqOg5cM8C+BSmgcFl1QNzqaqVH0D6+Nfpazd3uLU3ex7Ku46oS4ZsDjRgIty9URntj2ClMXF5F5Ywzxif8KAIgn+acutcpiVzgqyW8ViOx0s18FJHHznMZX7B3eqYsCdb9k5aiG2o9FCNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hVvV2uZo; arc=none smtp.client-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="YdcNmRB3";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="tA1irsXH"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 673H03FJ233731;
-	Mon, 3 Aug 2026 14:40:44 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=CWhSvV8yXLQLBiTcqUn7Qpp9YsTSMUqslaspjnI0h
-	A0=; b=YdcNmRB3r+45iuyFrGuF/BDp3I+S72SXLVe5EPeqOxGNu282+R1rPrxiU
-	QtRDXUCXyTF+pgBsOmQPk0ilcAOKt30n+Qdad3IMyy329E9bPaRtXdm2JhmEUvP+
-	FdEkJOgLsjsvKjdjqCn6mZ0iNuxgYgLDE5uXZFdqsjDaxYzWH4HPUCsAPS5BdHdf
-	LzPHq0dsbUoHa8YfC1U/as3NeBIWUMeZR1Q4XS+RKerSgYMf5VT5GW3Eq9EYEUcX
-	BMzoi8IUBSgcDpecbklYxwlnqgdUsNYK2PBmoKGLkIUvxeh3Y2rMUuJtB5/DjfjM
-	fIbnf9jnHBfofuLToo5EnFYyaYRZA==
-Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013023.outbound.protection.outlook.com [40.93.196.23])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4ftsxpkwhp-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 03 Aug 2026 14:40:43 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iHm9H3mlEe0eL3jfOgd1ebcsbSOtIXEdvINsufjQrxneuOXPTYmZTbtYbVZf9mZVsJjuLFVKedP6iQkFuQPait2v67dsP/SXE1Id8xsp+JKEJFquPVWMUFzsWwobovDkg4fBeRn/UIiiW5VWt2Uf734Rd8JrngG4VBmHA0R62WGdiervkYr9WQY/tgTwK9s9El2E/vPnbyS0gu5RrUb2RIywVYdoXqFe+gy0ygeQAkoKDsvMwHVdqbsOFCjCAWjtnLTYXZD/XHSPr5zUxYvIspdvfX9ZorPgzg6dINarxhH6HPhD99xGkkD35Yx6LntFVxDVFp3JVRHoM7u1eMFuXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CWhSvV8yXLQLBiTcqUn7Qpp9YsTSMUqslaspjnI0hA0=;
- b=qgnp4lZ8SkdSlNOs7ThoFt2bFmKNArx2KMAnuTdGZLQNFioViP4FB7Sq8eix1RcvjBDpQdJGG8nduIIz1ze8oQglSdqDLad+/bUkVYqcfbu5oEV1EXuBBcNimxcJYrbXkOFlcCG6SZxTEiDqET3XSHXw3IS18KX/vpdj3KsMVmuyT74npzAueGmkIFg66mfsxwOENcENL4lXu2UUhUz5aG0dz7KCbtA9FNsVeXx4+K5hkF0pBKxpdrvEMtuJxNikfXkrRXI4zrh0iqdCmNmtFAI0JzeUCbwoM+hvpu6rkgMB6X1e5L5BIQSElf3x8Bkkgz6G/CDoizkuge+a7G134A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CWhSvV8yXLQLBiTcqUn7Qpp9YsTSMUqslaspjnI0hA0=;
- b=tA1irsXHHTOWJgHevMBQVOAejB1X6pgT4AbbC6TexfxLgrf0pjG/JFxu4RKbTQuLdmT2zGGokKzA2uCurj+aFyxn2IuWaa5V5SwsSA2y3cCMcnlyz59rPnpmi+QH2AsjyBTCbLXyR1ui5dCHwo7Jk9mk8TNl4MGcPL9ihZKFS+M=
-Received: from MW4PR04CA0081.namprd04.prod.outlook.com (2603:10b6:303:6b::26)
- by SN7PR10MB6547.namprd10.prod.outlook.com (2603:10b6:806:2aa::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Mon, 3 Aug
- 2026 19:40:37 +0000
-Received: from SJ1PEPF000026C8.namprd04.prod.outlook.com
- (2603:10b6:303:6b:cafe::ad) by MW4PR04CA0081.outlook.office365.com
- (2603:10b6:303:6b::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.18 via Frontend Transport; Mon, 3
- Aug 2026 19:40:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- SJ1PEPF000026C8.mail.protection.outlook.com (10.167.244.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Mon, 3 Aug 2026 19:40:36 +0000
-Received: from DLEE209.ent.ti.com (157.170.170.98) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 3 Aug
- 2026 14:40:35 -0500
-Received: from DLEE211.ent.ti.com (157.170.170.113) by DLEE209.ent.ti.com
- (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 3 Aug
- 2026 14:40:35 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE211.ent.ti.com
- (157.170.170.113) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Mon, 3 Aug 2026 14:40:35 -0500
-Received: from [10.249.34.24] ([10.249.34.24])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 673JeZgI2348385;
-	Mon, 3 Aug 2026 14:40:35 -0500
-Message-ID: <ae76ddd0-5401-49e3-8f52-cc7aab189a7c@ti.com>
-Date: Mon, 3 Aug 2026 14:40:35 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hVvV2uZo"
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-92e533aacf2so182067285a.2
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 12:42:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785786178; x=1786390978; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rwuoYLIZuv5ApTNScLZwtjL2AQGWD4RWVJHiBkDbMFE=;
+        b=hVvV2uZoBCVAh0kOoRixmWEWq0grvG0fuG1G5J06pOgrA8C1BiLP4limNhkJEWYNun
+         5wqmdKhP87NMFsW1W34r1G0s5F/QMB1EaTQWNEzyDzz0qN8ra7K1BDFOKDj4GaFznplq
+         TN8Zurpcf9a7C6CKlE1ooMLeJo9pWjRGm61U1TMVL/4wWcqyfQYhJJ3vZvdMnhLBHkwO
+         +lTeKGFLD212wXIyHfJBCcuLNe7zK/iGdFYXtDtaLJbyTP0yMDYFl69bnGLBo0ayiQKl
+         7qnBZnskeuj1bVIVlhcZylJIPsIZ0C/8IcjrTelqbwK+NP81HT3dns/C+R8HHW8wtm+v
+         TpXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785786178; x=1786390978;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rwuoYLIZuv5ApTNScLZwtjL2AQGWD4RWVJHiBkDbMFE=;
+        b=dKiU2yeo3LjsfxV4EuTbnKzjF8gRaYVDuuM6f1T7QTDthuQzZLVt5WVhOjFAWQNQi9
+         IGknUU0wkmMlWUQW/wbuhog8Zn8VoFicXqjLo9hgQhH5iWIgTJADi81YgOkS2tvjX0Dt
+         8728SernyJklDJ8a5ei0x/93vwygf37H+URRXRtrAyZBkl3RjJPSp6h5LqErxnn0rAjU
+         1l+TqAf5qUpDTmNizHOrejDv8nHpSf+Nf/ZpxW2EtfL4kZl6lFVQSwN9Ze5m9Zmuoo6r
+         CfiKDLxnRq/b9N+JeCUoFsZxHLRH2cAqHdBety661kvEXtOLND7pB8+sQXlVcBAYb7AR
+         wH/w==
+X-Forwarded-Encrypted: i=1; AHgh+RojfixR44v7StsuacVsL9hORJEjbnyIV8KKwISr3jNcJOAigM55MjSgQQyFMA+jderkWT6l1vc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz5N6eN4meRv3MN8nBHYMaIkSTMnJcjGJs0OG0hwdLWmW9eeu+c
+	2IRmaKSv+0c4SHOxNS3xHhiJxdQprw0B4zOCiksphBjH8Lm4lcQOnhIO
+X-Gm-Gg: AR+sD13gUhDCLP+2vKV2CLtBEf0zpIJRCf7Mh2UNjQERFoICSGowpFmFBv8wXJt6Fle
+	UHXCt4WSTxXimMxZi3hXEG48px85NzceNRNqkYp9sqMnzYLJBkVQBOvffZ/tRZUU2ZCVvn9iY8e
+	+luKAB7SWkoTka/HSRy0Xy9ryIXU9qKXQHHXsHRExbmtmE6cRdCZxXKsQGGw9AGuPrCUqNRNxP3
+	Fhm7HJzYx7MmtzDHAaROqXG1/m7SDVOZnjx0q9c9TMDBWpDlBNKRXcOIcABnxPKg94E/d4ni1/l
+	P6PUlf38NJdG2WqE6+BZdyIPUs4SdqI3outdWxp6SUoNsnb+OaXvccUSORdym81q7w0XqSWPlG5
+	fhg6RgbU8dzVPqtL5xqQQKV3w9i7xjty0KTswDARktxTbWFv3GNrWQ7f1OEestsXRlCYqLaNigd
+	/R4W3wawdXGXWuAWC4RW0Ws52pSn71Hg4BtM6qMNUDFtkpmmDcyua88A6KBPXnWdz3bVF14gB8p
+	yocZeMbqoK2C+ZvaR+doiQIoW8SOSIcXA3PutuhAf/bahf8WjSdvmkrOg4xunaMMQacZrnm
+X-Received: by 2002:a05:620a:284e:b0:92e:db1f:185c with SMTP id af79cd13be357-934a0aaee08mr2254503585a.43.1785786177782;
+        Mon, 03 Aug 2026 12:42:57 -0700 (PDT)
+Received: from CW-D0XG2Q16P7-L (pool-173-68-111-115.nycmny.fios.verizon.net. [173.68.111.115])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9349bc25410sm729451885a.7.2026.08.03.12.42.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 03 Aug 2026 12:42:57 -0700 (PDT)
+From: Maxi Saparov <maxi.saparov@gmail.com>
+To: Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>
+Cc: Alexander Graf <graf@amazon.com>,
+	Evangelos Petrongonas <epetron@amazon.de>,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	sdimitropoulos@coreweave.com,
+	Maxi Saparov <masaparov@coreweave.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] kho: do not reserve scratch memory in the kdump kernel
+Date: Mon,  3 Aug 2026 15:39:38 -0400
+Message-ID: <20260803193938.8778-1-maxi.saparov@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] mmc: sdhci_am654: Clear ITAPDLY on tuning failure
-To: "Diogo Ivo (Schneider Electric)" <diogo.ivo@bootlin.com>,
-        Adrian Hunter
-	<adrian.hunter@intel.com>,
-        Ulf Hansson <ulfh@kernel.org>
-CC: <linux-mmc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        "Pascal
- EBERHARD" <pascal.eberhard@se.com>,
-        Thomas Petazzoni
-	<thomas.petazzoni@bootlin.com>,
-        Miquel Raynal <miquel.raynal@bootlin.com>, <stable@vger.kernel.org>
-References: <20260803-am654-sdhci-v2-0-a5ee5be86133@bootlin.com>
- <20260803-am654-sdhci-v2-3-a5ee5be86133@bootlin.com>
-Content-Language: en-US
-From: "Mendez, Judith" <jm@ti.com>
-In-Reply-To: <20260803-am654-sdhci-v2-3-a5ee5be86133@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C8:EE_|SN7PR10MB6547:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8b4bc2c-711f-4e1b-5f9a-08def1971717
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|6133799003|10067099003|56012099006|18002099003|22082099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	rYSShDAPyDTxfGp99DHg1/gWoz5L1WnxCgkJbLW4YvD7QuHR2yF3AZytCSn0uvq2CgmfLooON8IieIN8qaBMtSFYQlRqAafN14o8WIBUNfhY4aAG5UFovCL/yki0OqDgkvUg2JzlkCMd25BOLZFE9IN/tUus/+LJ4tw5tj4EXynTi2c77/H5bdzjya3fkmWJT11FUOmILLi4CiiQOEs2BCwgqZMltUkGa79ozDY/Vh3grwHVZ7FlpZrwiSPfCjYCRkoRNtQR+DJeMOEZOtQ7QVNQgIW2OPbFML+AUPyFtTkZ0pxFZmkaQAkZ8GBAK7MvWyY40GkJKzi9u/VNe0Vrgtzt7Clpxt7ZVWPaS0U+Zpj/avUhUOjk80+PWe6oxgOKepuw+CWwR7LR+O48SXqTQZuhF9jcre4U93j3kpyvlHsaCGD7dNuZCXDCYDzaovHaOBhKiZl/HIswAruud18J7wNaVCbTkYarLEgRr/hJPwrRY0/avwQGdx6yO5SNZT1VXXPffXlfDwpnv5ua9deYF1oM0OfdSNNyq/MWi/Uhe06LlPwX+T9KWKfjmWSW6OYEJRYoF0RY4552152zybSTK7xiM6PqXyz276xIj6sUYlHp4K+UkmqxE8qaBfHweWv5HcuzUPx4Z6Uk5e3TNfu6u/Je+SBKq4xpx1D+1vk7dHA8DOH5V1B81D+KY0tHuf2edM8Ic4Mxpu4qDFt5OEup2w==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(6133799003)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ofYpILfwyLbe/3oa5BRvAbeawNjKL7onQQWntuMkaXxWH/AxBkm9MIkPF6R6tBEp4f70NXFlN0AUEpzmd2/RNJdRYxXqTOfI2sdxrH+i27Z7gW69f/Tdgfqq4xGAkQKlShwciBX7cWPDEdzAbxAke+5RD5Of7qGWEU0BBxTxM6yWxh7zXII2bQH5wvYjsRYMBlfYDtGeYeqtd2SFMiQLAp6yE3AC0UlDuAGi/9yFuYLyJWDLFvCihm9T++zMK4cR46jmJKbO9IUSZQOghqa6S/zX8NCp1Oyoyau2M/47A8doxOCOSaJo2liRFan5AYRq4YCD7SmyXSdJAoIE6vBmhr0v1V9dKvpJcwiYuUwZnX509pEFAo/kNFtSW3IrB8K4RVDnHmgddOyQWpRIs+VQ7h9q08LkcvIP0wi0ZCJPu8ZuzUV+7kLimIO7LQZQt3kT
-X-Exchange-RoutingPolicyChecked:
-	HO31kzg/aVRX5bIDtB6FqYHh38OpdpqIWs4/sIOxX50kSq+koMeGYQa1+3V8IVtB1K+9UBiZuXo7Z0GC/bd4cQqpai/fQqkDzVtKPmGvMcWfoWAicTxKo2h86v21T7B4suEqGCRcefHaRwKGaS+8ZTWd41YWgppJR2pRWIxpYNINDlMJIwiM6xhEFRxyRzW8EjZ9iTfczNtEbW+CcxY+T/eJ6hrcIOE1T62skNhAatKgCZzF3mnSPaE/j9ScAbXZwvo3Vfn++VnDIE18o+nUAUznijBmoklJnkWpLyzf3lR5JRSUaAYjh52pZce6G0wFiZ6wcbvkUbJdyxXAnCfKoQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 19:40:36.1731
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8b4bc2c-711f-4e1b-5f9a-08def1971717
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000026C8.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR10MB6547
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDE3MyBTYWx0ZWRfX7120IY1QUWc+
- YHP3OPX09R5voeyFeEh9M2+f2yKPjIdAnJwSolvufSY8N9HzSCiPA8AdFnI+JcbcYqEheUbcB3o
- QGrd4QDbmtVws6/XehxeicXgUeRFYmW6i3a42Wb3b24627hLLHEkrryO+ZuTaKndOYuqgovdz52
- SFouiNtKp6KYb2XCqMgTQRAix3biLwSQiaONkee0PRTt9Gfh5NM4vNCMBN4t41BcVkPpSEHxJgO
- n9E6xe9e7hCz5fLQncDan3DI9tCjZjCIMoOZYxdrnMqS7AOuVqsXMOLi7nfod+SQ/hLdP+lloRk
- QHe1i3BS/ycdbdKt6ENzBi/6GFaYNPXrWOKpIIug0O1QZe1S18wTe4EYt21Qu8oT816wW7ed6G0
- NjzvqU+wHfB2Gx/b5gpyrf44eAu5CRw6oT6BEviZ6bCc7R2o5Os+VNjVpNF3YPhhLmv4QKa2co8
- 3/Qob3T5xUDy64VwHtQ==
-X-Authority-Analysis: v=2.4 cv=YaaNIQRf c=1 sm=1 tr=0 ts=6a70eebc cx=c_pps
- a=iHXbSHwDNs+yH6wS+48/mw==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8
- a=P-IC7800AAAA:8 a=sozttTNsAAAA:8 a=t7ESMcVb2SY3lHOZi18A:9 a=QEXdDO2ut3YA:10
- a=O8hF6Hzn-FEA:10 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-ORIG-GUID: pyOW2VEarA_0gHOWW_wMAebnH9i2Z_ew
-X-Proofpoint-GUID: pyOW2VEarA_0gHOWW_wMAebnH9i2Z_ew
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDE3MyBTYWx0ZWRfX3rgOT57hPmiW
- xwgINnmn5zmkP1CDUiFDT+0MBzdp5/nxpeJ286MedPwRmXC89lUUuLOOL/Amy2tzwm8cIeC0PRY
- sl6rFsjS9xGHoDoXsofcJHY+BwwdDJk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-03_04,2026-08-03_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 priorityscore=1501 phishscore=0 impostorscore=0
- malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030173
+Content-Transfer-Encoding: 8bit
 
-Hi Diogo,
+From: Maxi Saparov <masaparov@coreweave.com>
 
-Thanks for the fix.
+If a kernel with CONFIG_KEXEC_HANDOVER_ENABLE_DEFAULT=y (or kho=on)
+does not receive a handover FDT, it reserves KHO scratch memory in
+kho_reserve_scratch(). The function computes the sizes from the early
+memblock reservations of the kernel. The default scratch_scale is
+200%. The lowmem and global scratch areas each get twice the size of
+the early reservations. Each NUMA node gets one more scratch area at
+the same scale.
 
-On 8/3/2026 8:47 AM, Diogo Ivo (Schneider Electric) wrote:
-> When tuning fails, stale ITAPDLY values can persist and interfere with
-> subsequent I/O accesses, for example in DDR50 mode in cards with no tuning
-> support. Move the ITAPDLY enable setting out of the tuning loop to after
-> successful tuning, and explicitly clear ITAPDLY (delay and enable) when
-> tuning fails so that we are sure only working values are actually left in
-> hardware.
-> 
-> Fixes: 901d16e46296 ("mmc: sdhci_am654: Add retry tuning")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Diogo Ivo (Schneider Electric) <diogo.ivo@bootlin.com>
+The kdump kernel always takes this path. Since commit a6715d7ec472
+("kho: skip KHO for crash kernel"), the kernel does not add KHO
+metadata to the crash kimage. As a result, the kdump kernel never
+receives a handover FDT and always reserves scratch memory.
 
-Reviewed-by: Judith Mendez <jm@ti.com>
+The kdump kernel boots in the small crashkernel= memory reservation.
+On our x86 hosts, the kernel and initramfs make approximately 176 MB
+of early reservations. The scratch areas then use approximately
+650 MB more of the crashkernel memory. When a large early allocation
+fails, the kdump kernel panics:
 
-> ---
-> Changes in v2:
->   - As suggested by Sashiko clear the values in itap_del_sel[] and itap_del_ena[]
->     so that they agree with what is written in HW and subsequent runtime_suspend()
->     and runtime_resume() can never write stale values.
->   - Remove now unused timing variable
-> ---
->   drivers/mmc/host/sdhci_am654.c | 12 +++++++-----
->   1 file changed, 7 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/mmc/host/sdhci_am654.c b/drivers/mmc/host/sdhci_am654.c
-> index 0db587e702ac..8ce10422bba0 100644
-> --- a/drivers/mmc/host/sdhci_am654.c
-> +++ b/drivers/mmc/host/sdhci_am654.c
-> @@ -527,7 +527,6 @@ static int sdhci_am654_do_tuning(struct sdhci_host *host,
->   {
->   	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
->   	struct sdhci_am654_data *sdhci_am654 = sdhci_pltfm_priv(pltfm_host);
-> -	unsigned char timing = host->mmc->ios.timing;
->   	struct window fail_window[ITAPDLY_LENGTH];
->   	struct device *dev = mmc_dev(host->mmc);
->   	u8 curr_pass, itap;
-> @@ -536,11 +535,8 @@ static int sdhci_am654_do_tuning(struct sdhci_host *host,
->   
->   	memset(fail_window, 0, sizeof(fail_window));
->   
-> -	/* Enable ITAPDLY */
-> -	sdhci_am654->itap_del_ena[timing] = 0x1;
-> -
->   	for (itap = 0; itap < ITAPDLY_LENGTH; itap++) {
-> -		sdhci_am654_write_itapdly(sdhci_am654, itap, sdhci_am654->itap_del_ena[timing]);
-> +		sdhci_am654_write_itapdly(sdhci_am654, itap, 0x1);
->   
->   		curr_pass = !mmc_send_tuning(host->mmc, opcode, NULL);
->   
-> @@ -584,10 +580,16 @@ static int sdhci_am654_platform_execute_tuning(struct sdhci_host *host,
->   
->   	if (itapdly < 0) {
->   		dev_err(dev, "Failed to find itapdly, fail tuning\n");
-> +		sdhci_am654_write_itapdly(sdhci_am654, 0, 0);
-> +		sdhci_am654->itap_del_ena[timing] = 0;
-> +		sdhci_am654->itap_del_sel[timing] = 0;
->   		return -1;
->   	}
->   
->   	dev_dbg(dev, "Passed tuning, final itapdly=%d\n", itapdly);
-> +
-> +	/* Enable ITAPDLY */
-> +	sdhci_am654->itap_del_ena[timing] = 0x1;
->   	sdhci_am654_write_itapdly(sdhci_am654, itapdly, sdhci_am654->itap_del_ena[timing]);
->   	/* Save ITAPDLY */
->   	sdhci_am654->itap_del_sel[timing] = itapdly;
-> 
+  bio: can't create integrity buf pool
+
+A kdump kernel has nothing to hand over: its only task is to dump the
+memory of the old kernel and reboot. Disable KHO in the kdump kernel
+so that it does not reserve scratch memory.
+
+Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Maxi Saparov <masaparov@coreweave.com>
+---
+ kernel/liveupdate/kexec_handover.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+index 6fad9152387a..53b59edb5b36 100644
+--- a/kernel/liveupdate/kexec_handover.c
++++ b/kernel/liveupdate/kexec_handover.c
+@@ -12,6 +12,7 @@
+ 
+ #include <linux/cleanup.h>
+ #include <linux/cma.h>
++#include <linux/crash_dump.h>
+ #include <linux/kmemleak.h>
+ #include <linux/count_zeros.h>
+ #include <linux/kasan.h>
+@@ -1636,6 +1637,9 @@ void __init kho_memory_init(void)
+ 
+ 		if (kho_mem_retrieve(kho_get_fdt()))
+ 			kho_in.fdt_phys = 0;
++	} else if (is_kdump_kernel()) {
++		kho_enable = false;
++		pr_info("disabled in the kdump kernel\n");
+ 	} else {
+ 		kho_reserve_scratch();
+ 	}
+
+base-commit: 3a0b8fa2eb36afc88b62a95f33f0c77c71fa5ded
+-- 
+2.55.0
 
