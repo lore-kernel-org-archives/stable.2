@@ -1,59 +1,59 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF50384230
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 23:49:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D973CFF65
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 23:51:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785800974; cv=none; b=bKSenpl5ZqqyYFb15SFmEhn1sHJ4VmqNSDfWML2v8ZIQqH+uB1vJjREBJe84tXeYD96lx9Asn961jeM0wLQ5beZsXxKo9MjWKsjNBzRdY2ZNy9OAXJckXZ3rlYpVWsNawXR0ou+IfF7zpaLq89p4dZDyZ9+dPrXXyOXE/U2L83s=
+	t=1785801068; cv=none; b=bz/TT1YSdVs4Y3jsABJJYHSiD8pTuvolISFIsuX2bj2JtoYKXnNCnmEif+3Fq1nGpKz+0I/z3wp0b6hnxaSKcGbFeUMgqC1UfUWChYZM7pTCdZ8OeRx6S+jOav0GDYECHqhZwJSg25M+O9AVtgnGK4b5hPetiIszY5uu6XX9aZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785800974; c=relaxed/simple;
-	bh=ued8duKyl9Nz4MLbZucHPIXkFs4oPcVFVWNpIEKGzVY=;
+	s=arc-20240116; t=1785801068; c=relaxed/simple;
+	bh=0biaiIWy6N5hD3AIFsSH0xpSSkGpIJzVhYpm5gso5C0=;
 	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LovEOB1UcRt76wzB07xKQUcvJ/3viqvD+yyh31mI/ElAfDSyrbUVathzXO+obViLZuuBjmLt8HC7wBDUn3kN+XL5hFHk3+2mfU+X8cza+gcpC9yZPSrq4mbQrrz8QXiPQnI8Jlcbo5N8Me1YTvjXdaUrpPwLAc6JKEH0GJJXvEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UrwPQtsd; arc=none smtp.client-ip=198.175.65.11
+	 MIME-Version:Content-Type; b=er+K8zm6CDUBCwSVszkhNqHOtj+/3E7nwugQlCirMEcg0TiHR7Voe+Yz5iN3qNTApMXUcMQESq7pODR4b+1TPl5yAqevi6k6PbwdxDqa+syKnZN7sbUzMVTvJAOEl5ptVM0iMfLltWvvOm8wb74FjxKrzPqD/oCOtOCM35tcS2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TpKk1YOb; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UrwPQtsd"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TpKk1YOb"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785800970; x=1817336970;
+  t=1785801061; x=1817337061;
   h=date:message-id:from:to:cc:subject:in-reply-to:
    references:mime-version;
-  bh=ued8duKyl9Nz4MLbZucHPIXkFs4oPcVFVWNpIEKGzVY=;
-  b=UrwPQtsds1KzAvLWThXrYy8ufEOFOghR7xGTTB+8FtESf42nJzwlbZNu
-   HbIWc8ioC+3ugg2tpjvojBqFFnWsgPPW71iP38pZ5m8rlUb/CgYr48zIz
-   VNxzd5VV5MVGHi66CENgDMOsydEkjW6APQ/RvpMAFclpnmOmEnfQsQWfB
-   fGT8fWbs9MalxOwOy08OEMx4iOMPRrXCxIeiEhtLFG0PSELNQ37kyZ2bB
-   EVueeCKzL4twPnd527eMT7ejYFMauivMwH0wulBMhQiBGqAMKDtRUijGo
-   W+b+sF/boV4Hyk4kBplnEAoTXk3U2sptkoBfyqc09E2kP36w4CNRKTt3x
-   g==;
-X-CSE-ConnectionGUID: YV+ZkEkqTi6jH2CDhD8KxA==
-X-CSE-MsgGUID: 49p9E2pqRsCKih9Wc1Oo1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="96707802"
+  bh=0biaiIWy6N5hD3AIFsSH0xpSSkGpIJzVhYpm5gso5C0=;
+  b=TpKk1YObjjrER2i4MlqQPiuUSFXlwuocoquRhAuo4Owc71c90ydZRha6
+   RL0jAHAsVIbJKJ5bHqCaVrvbnt4wciDORkW3CXN/QDaKSP7RrrpzXP1tO
+   iSMtLEw/ZQRwpSOzUkLZQ9QGExv1ip6YkunjImXRPor1pvQNnScH0g7TF
+   Ok4gt6ZpPE9828oo42uy5PmLYa7XL6/pknDuzIK7hPq67DPkQxHasxwXm
+   YCCk3no8Mjeas7Cr0sgOc2trxAU7EQ1SRcktXwvgWFMvsEcX/RI4mFVBJ
+   kD1vra/o4kYGAON17LJiC1rY7XMBpwQOnwZvsxzOeSooFHxM0amVFFR0e
+   A==;
+X-CSE-ConnectionGUID: OcOrFQ8/R7mw0puh8fSGtw==
+X-CSE-MsgGUID: BEpLQMDtRwiKUc/UeA55nA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="96937808"
 X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
-   d="scan'208";a="96707802"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:49:28 -0700
-X-CSE-ConnectionGUID: ezLLXYgdRue4oc4DkNtJFA==
-X-CSE-MsgGUID: QBEupqALRQG3dDpIn8Aphw==
+   d="scan'208";a="96937808"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:50:47 -0700
+X-CSE-ConnectionGUID: l5eQL6nmQTGZ4n56k1RpPA==
+X-CSE-MsgGUID: tOtiWqBHTs263f6+xiYZ2w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
-   d="scan'208";a="261935314"
+   d="scan'208";a="255061326"
 Received: from unknown (HELO adixit-MOBL3.intel.com) ([10.241.243.62])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:49:28 -0700
-Date: Mon, 03 Aug 2026 16:49:27 -0700
-Message-ID: <87jyq6229k.wl-ashutosh.dixit@intel.com>
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:50:46 -0700
+Date: Mon, 03 Aug 2026 16:50:46 -0700
+Message-ID: <87ik5q227d.wl-ashutosh.dixit@intel.com>
 From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
 To: Sasha Levin <sashal@kernel.org>
 Cc: stable@vger.kernel.org,
 	Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 6.18.y 2/3] drm/xe/rtp: Refactor OAG MMIO trigger register whitelisting
-In-Reply-To: <20260801004533.3663723-2-sashal@kernel.org>
-References: <2026072902-gorgeous-negligee-5e08@gregkh>
-	<20260801004533.3663723-1-sashal@kernel.org>
-	<20260801004533.3663723-2-sashal@kernel.org>
+Subject: Re: [PATCH 6.12.y 7/8] drm/xe/rtp: Refactor OAG MMIO trigger register whitelisting
+In-Reply-To: <20260801031050.987390-7-sashal@kernel.org>
+References: <2026072902-purity-frenzy-fc0b@gregkh>
+	<20260801031050.987390-1-sashal@kernel.org>
+	<20260801031050.987390-7-sashal@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
  Emacs/30.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -65,14 +65,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 31 Jul 2026 17:45:32 -0700, Sasha Levin wrote:
+On Fri, 31 Jul 2026 20:10:49 -0700, Sasha Levin wrote:
 >
 
 Hi Sasha,
 
-I have backported this entire series to linux-6.18.y here:
+I have backported this entire series to linux-6.12.y here:
 
-https://lore.kernel.org/stable/20260803232608.3276045-1-ashutosh.dixit@intel.com/
+https://lore.kernel.org/stable/20260803233346.3277427-1-ashutosh.dixit@intel.com/
 
 Thanks.
 --
@@ -95,7 +95,7 @@ Ashutosh
 >  1 file changed, 19 insertions(+), 22 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-> index 9f4b56808a27..b9ddbad12a58 100644
+> index b568686973a8..5914ae2f88f0 100644
 > --- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
 > +++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
 > @@ -66,28 +66,6 @@ static const struct xe_rtp_entry_sr register_whitelist[] = {
