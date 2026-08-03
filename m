@@ -1,121 +1,252 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D4A375AC6;
-	Mon,  3 Aug 2026 10:10:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785751848; cv=none; b=A2YsLtsSi8g/n4f8wQENbW6mMs+B5J3ptQ0W+s+eFQxPXtr7ctwC2RfLBAnB0k+SfiX8ohJa5XnUnWuVKIXNLkL41fpZf3hr1g8h5eX7RZjTanXFv8o6CNA5itkW/iFEJmCS1/by+1JWSoCDoAdNIocIkSOOREc8dqSvEs+Y0C4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785751848; c=relaxed/simple;
-	bh=IWCQm8tLPzjpOZNzhCpYt+p9RNtt2R4TqxzOT/CnZo0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=E6383/0MeV3CBgv1hYVaPasK7LZ3aDYoeRsYWcMlkRoAm+89TPcZa5RrB9KD1T+hJALutspuhrZk8I3daiVrBEXL0Jok+Rrmdv3zL0+SjbC7AGN2t25RUKZexdLafMyF66z+ODwrfsHH/raAXaPOdDXIVBF4TF7VXoa0MtU8GGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=H1xD4Oab; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE79E371049
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 10:14:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785752088; cv=pass; b=DL43C24r314sy/fLoLN38zAfqEgbWhH0caFxmGntHTfF/poeIGbokammYzmIQgZpCv2KkF043KYQgmtnpia2fV/7C0hGsJMU5BdzJfe4Z843/WsX5NGZkFYEj9SJEUQyk87ADKGvhDM8kNEvD7MMRo/fh2YHBclDG2ijauHZ9dU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785752088; c=relaxed/simple;
+	bh=gAGAUv0xZN3unMadQ+Q0yg6cGFB8E+F+y+wNougceUU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ps1NtaZibLLySgGt3I0lATab5aHhKKlmGBhZNtzAfwMloG52ZjeVo0QrcoF4yBsAYYPEKZg2TR1+c/LsGNjShBCZWf9MO0Hp3aTSBCcfV9X8NjyxrU7isFEDUDKkeT8DRI0JBezhB+vcMCRRTUMXiV7LCpAVGy9NkbZwSr6gKTg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eJf/F4UL; arc=pass smtp.client-ip=74.125.224.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="H1xD4Oab"
-Received: from [10.0.0.182] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 5CCE35340219;
-	Mon, 03 Aug 2026 12:10:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1785751836;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=5UkrUPKFMQxGSzoLVUsaINV2t4g5tESGXbZwT1xQcT4=;
-	b=H1xD4OabAR0SYArdYhSzJqK7d0GSsTMpHOcBGxEqzblKMEAs4Lh3kq6VLAZBaVXlQZnWQI
-	wsx1XkzYrc6qgCjED/nHAh9LuBJsKknGYHwi5r9tebEgMyzV5sRTrVvtMpL/p5leKCxjP5
-	2IP7jWg0t2a4HRJcX1iekKgghKugg2E=
-Message-ID: <403cf202-dcc7-411a-9bed-0da1ce819640@ixit.cz>
-Date: Mon, 3 Aug 2026 12:10:35 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eJf/F4UL"
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-66807ba2f0fso4562803d50.3
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 03:14:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785752086; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ofuADmmJYn1ZAaeQZ9L74p4BtOyTPz9Da8jbST31jbk16R8+YtzmgZD/elrQHrAiui
+         L7OM9EeAjI1oF1e4LnStnrcl9HwMZYyiW896lstup4tfTFGgzTBwsNheJ920FRMZCbsJ
+         pZhXPKddAFmTAlUn+s/kcmwz8DM7CuvkMdDkv5jgTQOMrPbnbD8DBqlgSzKOtgTnWtAF
+         k6LhDNurK3lthxeluyPbjdgYhQZ1pq42TCEosM+Ji6dA1N/kAgQo/+5lpvtJGd9VLpz6
+         NG+O2vDf9Ox064hNqgvyhImQynbyk6kUIZ3AcLtcqRRvpN40xWSxavN5md18w2fd15gG
+         GSzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BzmVrf3A5yS5pBlOOrTATRIeczmTdyqSxUxktv0y96U=;
+        fh=rnFDSeJKRghlGSlJY7Ztq+i0NxU3k3k4/ZAxpPIVS4k=;
+        b=Nk2sTe6lBxhRIzLGvFGFkR8eWVbBcGshR/Yk6YuI7zAVL77zXCc7sOcqfTX57b+MK8
+         ItSOLDbF5K+LigNz+wp506pUhHR0MbEiDXxQCbonGssqxn/EEcdrGxibCkyrnBqzkreh
+         EyTFYqxmVw9QHI3sMfaOGCx+p4jE9hkyqEvLqU99CWe4ZRz5GNG9aAP/oBDINQw75cFl
+         aswN089xx0lgc55tTXOB4f+QDIDXoQfBVIWl6A2UsAFq/jZ1w/mt73+ShtJ+guZH0rE3
+         7XCFnMgwXR/R1SwCb/ziT+ln9bHJSzGaiHaWToTSyvfDgnJpT5YjWHTjqMsMGmtlZ1oK
+         3M2g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785752086; x=1786356886; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BzmVrf3A5yS5pBlOOrTATRIeczmTdyqSxUxktv0y96U=;
+        b=eJf/F4ULf+4f76f8Q/NN/yD7rLBvEv6Zim1LMt8046dW/OeU1xjUtqrIZfVlSERmN1
+         7Qd1Z4Z+KWEHVv7clMkcwonP6sygNbnTfNd31lx0Jbl1Qiav/Ldkf4kFXsyIrbI7foMk
+         lFsWnV7XotIMAR/1rB7mU/0RcQ0PBWerMI4W+HVREg7CwIy+tXXtbD4S8IVMcr47/BIX
+         2sBWNzQMWbnbYIUncUzhfCYnxWm9bxzba6xqwp65Qs676u78TUfgNNbED8WePG5DiaID
+         nLdpMDWL9u77jl8sEubLn0dCZP9V3S7Sgkt5LQewzr4vDY/9fVZTcT42g+suUham/e07
+         KJ/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785752086; x=1786356886;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BzmVrf3A5yS5pBlOOrTATRIeczmTdyqSxUxktv0y96U=;
+        b=Yb90l/5b53Ig4NCTJ2kN/K/Ai7fnGO3E09nXuqVNllFS1IXy+mxvtkgXxuWKHzr6I1
+         4TZuoLE/MfCgXePZ/r5Mc6g4qyEpjeV2JnjRxVaG0aiGNkOvxYE69S6IeJmimnfhWpSR
+         Fku7tpYJcMtPmDTCD14/Z9yQT+b1DnPd6pG47Bp3n4yseb6Gfrz5gORWQHEIdPewIbYJ
+         5G500kQJUeMeVIRtMeWgG0Y0SU2tKK0vVzkyyV6KhcdDXVDL7ZscYTZXCeCvJDsy11Io
+         Nx1Xq38N3X99kuJL1eIwkK+aLEzlTmkamlai/YzVxx3XhRcHVjaDl5l2+KRfvprTUqha
+         12Wg==
+X-Forwarded-Encrypted: i=1; AHgh+RrNuxTyFCkjN7hsYeYl2d8Wn3bXnXhlvwssznuE0WzqvoH+6RjAasBzSdJsfjaVi7rL8tTpJbI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyTUK2Xn5rG0AscXMw1Ce2vwdx4ourerm79rfM4OvUnG6jj9tsE
+	l51H5Ersf71zC/3tfLqfVkRsfgj21Z3mSU1P+RYMZXDBtpb/QxEhN2IMn21dJDR+SAsySn7l0gy
+	+u+T8RUmRftc0yxSxHBoev/JhkwrP9OI=
+X-Gm-Gg: AR+sD10OLvgKDxAqi5V9/4KL61kWyUAKJH2+lIzGYaw/sRUGDEwqIVUJEoPmsuIaOPk
+	hj2OnHG38HsJjMLVwirXWSFHmNGLwt6PcxOkPVUPJ/asurHlFvCJnJH0XTDubkAgr+08RPFjtvc
+	tSrdUVYTAKiD2OtWzHHNzSQPlK42o00vAhfTXzlD5UGko409xR6zv7upYb9CTygo5l3DaosTxqj
+	raGSRlcaJwbWN3Um69cV3Yq6Lm9ehsfXqFzxHGP9nL09tOujz3yOU6rPMHLNAW8aVKk0IVvgqxZ
+	jXeO4YZjD+pJoVwtsKCeZUae8fNT/vJYLyTcNYP2YushGA7XERJwlYYTGlBdZCPUntSC45VuPo6
+	b0q+KsgRbqPxkMNYOV4z8bjo=
+X-Received: by 2002:a05:690e:4810:b0:664:f064:f663 with SMTP id
+ 956f58d0204a3-6694f15a12cmr8115341d50.28.1785752085633; Mon, 03 Aug 2026
+ 03:14:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: sdm845-lg: fix sdcard pinctrl nodes
-To: Paul Sajna <sajattack@postmarketos.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Anton Bambura <jenneron@protonmail.com>,
- Stefan Hansson <newbie13xd@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260802-judyln-sdcard-fix-v1-1-b3477cfc42cc@postmarketos.org>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260802-judyln-sdcard-fix-v1-1-b3477cfc42cc@postmarketos.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260731032357.6114-1-sun.jian.kdev@gmail.com>
+ <20260731032357.6114-3-sun.jian.kdev@gmail.com> <80687d9c-9c27-494c-b3f2-efd0230b1895@gmail.com>
+ <CABFUUZGTJptpOKKAeU3ThibmPpXize4Eud2=EBX-vqaX3YH4pg@mail.gmail.com> <anBUWIxmURvbr04i@lore-desk>
+In-Reply-To: <anBUWIxmURvbr04i@lore-desk>
+From: sun jian <sun.jian.kdev@gmail.com>
+Date: Mon, 3 Aug 2026 18:14:34 +0800
+X-Gm-Features: AUfX_mzdeHrInwG6bTPBGc0xnW3lweBnwEFe9T99a8tN3R763lJ6zfwZrV1QoDY
+Message-ID: <CABFUUZGYauuj1EpwzfhwWrqQY8zaE7SFk-UAbwxy3qCbEDWKjg@mail.gmail.com>
+Subject: Re: [PATCH net v2 2/2] veth: fix skb length accounting after XDP frag adjustment
+To: Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Mohsin Bashir <mohsin.bashr@gmail.com>, netdev@vger.kernel.org, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+	John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Hangbin Liu <liuhangbin@gmail.com>, 
+	Krishna Kumar <krikku@gmail.com>, Samiullah Khawaja <skhawaja@google.com>, 
+	Martin Karsten <mkarsten@uwaterloo.ca>, =?UTF-8?B?VG9rZSBIw7hpbGFuZC1Kw7hyZ2Vuc2Vu?= <toke@redhat.com>, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	maciej.fijalkowski@intel.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 02/08/2026 21:06, Paul Sajna wrote:
-> sdcard was previously rather unreliable during boot on sdm845-lg-judyln
-> 
-> Identified and applied correct settings from downstream lineageos kernel.
-> 
-> Verified card was properly detected over 5 reboots with rootfs on sdcard.
-> 
-> Refer to downstream: https://github.com/LineageOS/android_kernel_lge_sdm845/blob/efa8458f79dffeb380d43b38b9403407f87d9f05/arch/arm64/boot/dts/qcom/sdm845-pinctrl.dtsi#L148-L303
-> 
-> Fixes: 28ae8aa3923c ("arm64: dts: qcom: add device tree for LG G7 and LG V35")
-> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
-> ---
->   arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 13 +++----------
->   1 file changed, 3 insertions(+), 10 deletions(-)
-> 
-Reviewed-by: David Heidelberg <david@ixit.cz>
+On Mon, Aug 3, 2026 at 4:42=E2=80=AFPM Lorenzo Bianconi <lorenzo@kernel.org=
+> wrote:
+>
+> > On Sat, Aug 1, 2026 at 12:14=E2=80=AFAM Mohsin Bashir <mohsin.bashr@gma=
+il.com> wrote:
+> > >
+> > >
+> > >
+> > > On 7/30/26 8:23 PM, Sun Jian wrote:
+> > > > veth exposes non-linear skb fragments through an xdp_buff. If an XD=
+P
+> > > > program adjusts the fragment area, veth_xdp_rcv_skb() copies
+> > > > xdp_frags_size back to skb->data_len but leaves skb->len containing=
+ the
+> > > > old fragment contribution.
+> > > >
+> > > > After a fragment shrink, this makes skb_headlen() larger than the a=
+ctual
+> > > > linear area. In the reproduced UDP receive path, __skb_datagram_ite=
+r()
+> > > > copied 1024 bytes past the actual linear tail to userspace, startin=
+g at
+> > > > struct skb_shared_info. The copied bytes included the affected skb'=
+s
+> > > > nr_frags, xdp_frags_size and a kernel pointer from
+> > > > skb_shinfo(skb)->frags[0]. Real packet data was displaced by the sa=
+me
+> > > > amount and truncated at the end.
+> > > >
+> > > > Subtract the old data_len before replacing it and add the new data_=
+len
+> > > > afterwards, keeping skb->len and skb->data_len synchronized.
+> > > >
+> > > > The fragment accounting must run before the linear tail adjustment:
+> > > > when bpf_xdp_adjust_tail() shrinks the packet into the linear area =
+it
+> > > > releases all fragments, and __skb_put() requires skb->data_len =3D=
+=3D 0
+> > > > by that point.
+> > > >
+> > > > A 60000-byte UDP datagram on a veth pair with MTU 64000 was shorten=
+ed by
+> > > > 1024 bytes from its fragment area. Before the fix, all 10 runs prod=
+uced
+> > > > corrupted payloads. After the fix, all 10 runs matched the expected
+> > > > payload exactly.
+> > > >
+> > > > Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to acc=
+ept non-linear skb")
+> > > > Cc: stable@vger.kernel.org
+> > > > Link: https://lore.kernel.org/bpf/al9T9Eto%2FhRIzP5W@boxer/
+> > > > Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
+> > > > ---
+> > > >   drivers/net/veth.c | 23 +++++++++++++++--------
+> > > >   1 file changed, 15 insertions(+), 8 deletions(-)
+> > > >
+> > > > diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+> > > > index 00e34afd858e..348391e87e14 100644
+> > > > --- a/drivers/net/veth.c
+> > > > +++ b/drivers/net/veth.c
+> > > > @@ -865,18 +865,25 @@ static struct sk_buff *veth_xdp_rcv_skb(struc=
+t veth_rq *rq,
+> > > >
+> > > >       skb_reset_mac_header(skb);
+> > > >
+> > > > -     /* check if bpf_xdp_adjust_tail was used */
+> > > > -     off =3D xdp->data_end - orig_data_end;
+> > > > -     if (off !=3D 0)
+> > > > -             __skb_put(skb, off); /* positive on grow, negative on=
+ shrink */
+> > > > -
+> > > >       /* XDP frag metadata (e.g. nr_frags) are updated in eBPF help=
+ers
+> > > > -      * (e.g. bpf_xdp_adjust_tail), we need to update data_len her=
+e.
+> > > > +      * (e.g. bpf_xdp_adjust_tail). Remove the old fragment contri=
+bution
+> > > > +      * from skb->len before updating data_len, then add the new o=
+ne back.
+> > > > +      * This must precede the linear tail adjustment below: a chan=
+ged
+> > > > +      * data_end implies that no fragments remain, and __skb_put()=
+ requires
+> > > > +      * a linear skb.
+> > > >        */
+> > > > -     if (xdp_buff_has_frags(xdp))
+> > > > +     skb->len -=3D skb->data_len;
+> > > > +     if (xdp_buff_has_frags(xdp)) {
+> > > >               skb->data_len =3D skb_shinfo(skb)->xdp_frags_size;
+> > > > -     else
+> > > > +             skb->len +=3D skb->data_len;
+> > > > +     } else {
+> > > >               skb->data_len =3D 0;
+> > > > +     }
+> > > > +
+> > > > +     /* check if bpf_xdp_adjust_tail was used */
+> > > > +     off =3D xdp->data_end - orig_data_end;
+> > > > +     if (off !=3D 0)
+> > > > +             __skb_put(skb, off); /* positive on grow, negative on=
+ shrink */
+> > > >
+> > > >       skb->protocol =3D eth_type_trans(skb, rq->dev);
+> > > >
+> > >
+> > > I am most likely missing something here but what happens if we have
+> > > frags and we attempt to advance data_end while leaving some frags
+> > > present (e.g., bpf_xdp_pull_data())? Looks like, in that case we woul=
+d
+> > > issue __skb_put(skb, off) with off > 0 and we would hit
+> > > SKB_LINEAR_ASSERT() because skb is still non-linear?
+> >
+> > Hi Mohsin,
+> >
+> > Thanks for catching this. You're right that bpf_xdp_pull_data() can adv=
+ance
+> > data_end while leaving frags present. I'll investigate this path and fo=
+llow up.
+> >
+> > Thanks,
+> > Sun Jian
+>
+Hi Lorenzo,
 
-Thank you!
+> I guess we should implement the same approach used in
+> bpf_prog_run_generic_xdp(), something like:
+>
+>         if (off) {
+>                 skb_set_tail_pointer();
+>                 skb->len +=3D off;
+>         }
+Yes, that makes sense. I confirmed Mohsin's case: bpf_xdp_pull_data()
+can advance data_end while keeping frags, so the current v2 can hit
+SKB_LINEAR_ASSERT() through __skb_put() on a non-linear skb.
+
+I tested the skb_set_tail_pointer() + skb->len update approach locally
+with a forced-tailroom reproducer, and it fixes that path. I will fold
+this into v3.
+
+Thanks,
+Sun Jian
+>
+> Regards,
+> Lorenzo
