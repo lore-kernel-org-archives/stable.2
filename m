@@ -1,139 +1,107 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A3A367B7B;
-	Mon,  3 Aug 2026 09:48:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF3035E1A4;
+	Mon,  3 Aug 2026 09:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785750501; cv=none; b=fbTP+C0SApLPHY2YowJcgDWa9EgBRX7L+axfSrE5N8wbfnNOgvcw3lY0fc3tibhX9wWrIM6TsMGGSOlYT/fjlP3opOj5k5OPpNpYdf2KOmH8N4giu1JQkWQ2n4OyfbLww1zSnccd679En7nMUPIzAi1uWChII6FPhw2U63r0J4I=
+	t=1785750864; cv=none; b=gPIg6KaYMHIATpv3/mFJz3BnG4f1gEH/8KFddM1dXIcERcqiXON2TzUhWBwT+h1JO7DYJMzbgykXGRetVLABLKbkO9ota3qTK+7BGKwYUaQroamUJYE5bR0qvM6lETaIA/kH1NGCXYCs0w5rIaIoa+xL3rdFdICk/3OFdi7xc+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785750501; c=relaxed/simple;
-	bh=VtRcCBYFOpCxmbipGKu1tjyC0LEbheqd3X0s+e0JJYc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MspIHc1QLYvM//Grl3F5XF/ST9JTg4f3Qy4aBcQsiIg1rRpkgyp07Uo1C+OWXYAAWEOwB1b+ueqaN/oRcLgekJyi3u20V5ZJU/ew8yVvMTTPSqNX119wnkfzlwop0BMjan4N/7gFxtOjd/ACLe6mwIGVH7V/zicxZr81Al0lZ8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=Rwt6wypE; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1785750864; c=relaxed/simple;
+	bh=coWnFrdWDjH8Z3c76M7MSFy62PKcrltWv82fndpKiwI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eT7/9u0JIDPL38f07qYEcOVEz3gPjDl8ogQOaQykyRJnnNdelXgxtqzKqXdv1ALx1EiFUUgjKDyS3+gLhNpSBzWD6lMZtYusqld/VV1fYa8TGJp8Xbkagvv+JAsAT27ATWWye/QAMWmxuSQAdFj2ZMQqKFEpH0Pmmoe/1qd7XOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=dT1E9c3Y; arc=none smtp.client-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="Rwt6wypE"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=VPm2F0UXpev5LSmRv0dgVwfwkoR2kq/J1qPVrxHeh5k=; b=Rwt6wypEtEyaMvUfFnB3xhcPAU
-	F22cricOqpY3qbzD8nSwqdsQ+0Wsqtz0kjBd5nOaS6J8MTfQsvSQkfO3lPXXFMmhu1tNcP3Qz+YGk
-	qARKRtFKfdWX5d3Dc2L7cEQGlI45ItZk9A248qzos0AKDH5uL9oKGyP92Oaa7cf9110QIG2Km5m3W
-	Odus4xCcsDmnyoZZiElH4TAciSN6MtfQooGLzDT0U6DyqJszj0+XY0kx4bBY++59ywW1JlkaVeBnF
-	l6PIIACZLt9/kp1zL4kdxDECMyGU+ro8lD2rSaeQ84EaGQayUwQJ/zmgw4P9yYl36HxEQAIv5z1UA
-	NjvpPQeA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1wqpGz-00CGwK-10;
-	Mon, 03 Aug 2026 09:47:53 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Mon, 03 Aug 2026 02:47:40 -0700
-Subject: [PATCH] x86/mce: Set up the polling timer before CMCI discovery
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="dT1E9c3Y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1785750827;
+	bh=GZ03EPD2RMxylnn/CLUGqP3Rrch6Nxym4GqmJgtyISM=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=dT1E9c3YHR+flT1/5LtG1ts6ZpnMKGFfFL3i7mlJFRqHbj/3dxC0s8z69KoMfcYr/
+	 nkfOiyA5p6SXNLawsoQ/wbhIe1aMdARjVFu+mf6ECeLFaAlopxR2QcOCdGLgz82eeA
+	 mt7gaBypFrEKPIoXMV7lO2Y97xNga0wag+GzQN1I=
+X-QQ-mid: esmtpsz17t1785750811t09786653
+X-QQ-Originating-IP: 5HavgVDtO0+rs5FAeoIMkgzfENetjggfcZuX6GK066I=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 03 Aug 2026 17:53:29 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 3872845753252988733
+EX-QQ-RecipientCnt: 6
+From: raoxu <raoxu@uniontech.com>
+To: James.Bottomley@HansenPartnership.com
+Cc: martin.petersen@oracle.com,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: scsi_debug: negate wrapped memcmp() result
+Date: Mon,  3 Aug 2026 17:53:28 +0800
+Message-ID: <E5AD42E9C0E18633+20260803095328.3445311-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-mce_timer_init-v1-1-9539db424330@debian.org>
-X-B4-Tracking: v=1; b=H4sIALtjcGoC/yXMQQqDMBAF0KsMf20gUbGaq4hITKftCKaSpEUQ7
- 16sy7d5OxJH4QRLOyJ/Jck7wJIpCP7lwpOV3GEJpS4bfauMWjyPWRaOowTJyk2VqVun264xKAh
- r5Ids/7AfLqfPNLPP54Lj+AHUh2F9cgAAAA==
-X-Change-ID: 20260731-mce_timer_init-ab3148a08961
-To: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>
-Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel-team@meta.com, stable@vger.kernel.org, 
- Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.16-dev-d5d98
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2058; i=leitao@debian.org;
- h=from:subject:message-id; bh=VtRcCBYFOpCxmbipGKu1tjyC0LEbheqd3X0s+e0JJYc=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqcGPERUvGlhnLg8bUEwpioNXie0DexHi22BdNY
- 6Y9c0LCvBiJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCanBjxAAKCRA1o5Of/Hh3
- bTRpD/4wd9GXM3thY0EbRrY3BjyC3luYtFuG1igHR3pEal4rlHgLYq/YgjKotzyoZ33Vg87mf6U
- jds0APFdbp02aKiVy9BjZsoNl0oQc/KSoseQ1AeT1VX3ZK7aiyqqjD9WnEv7uIC49YB3THrlu88
- Yg3V9x58JIRb8evkqcSjGceEiF+X9M7CgaoBC8VWY6Dq11xkvyVLJ8PnsEwAYTWJqFg+6Zmakx5
- slijkE7EFhYsth7an9GDlQXZ+aba9ZjcJe7yHhmpuAsVSauzrz1nh0tMi8yPfUfBySdEggeSc09
- HiQTSFx6txuT9qGErsX+ldXribkXJj82Q2MBIOKRPPIWPCb8JppRjR1yaYEhaSjjZVyKYb2XRce
- TqVdeIEPbObvyyOFkC3vJ8ZnAaygUYy75fkYlUb3t+JnomDmU9OcuEkOHrmrVGpcr4zYNYMSFbg
- 59N30fSJZwYlfdpQtLidXtsxzr7crjQBlzftOj/QgKR7OMbGB8LC9U+AOd5VV3G5Tm+iGEaf7k8
- Ll6Q3KJi6whe0XOji7HyJnhzi9lsyoJ+99pjkEgacKE8h7KF+5TI4k5ESY6RclAq2w/O1cdL6Rr
- Y3LPK/bf5XPU9AtW3vmmAq+w02lgAS+VDLeBWx87fW2Zh9oF7IbglhPHezoWB/phvBAavtXQEnR
- 59uXO85oN5VqtPQ==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: N7k3iE00JiuZHsnbAtOTggDZHr/qEd6L+PbsROeznRKaF9haUZqEiI33
+	Rxz3hJ7hr3OmdUzQlOe0J79nAzLA3JaHFjmXvVwTiAN7Fj2jAxrdYYnwwdE6ya9lkwrzYiJ
+	6ZknnlLoQz7RcVMWlUmLi6noOhZwa0eIWWV63WfhYz3xGuBNeIZc6J2FHBSIF160DnyE1Ep
+	vXZqWDcvnEb08Et/R0AmTQVsfOYij6IitpddOy8qgbwY0WC9mx4FYLNbNz0gyLn8ATzO/Ai
+	kKs5IS+Vh6eX2TykNGxVdsMKMRPYzpRkSxfzNfvEmHVm0oPBeb52FqvMpml8H0Fpl10Z5rO
+	p8CahUf66G9hdNwktKced+nD4SHxOFVr1rwIq8A9AHmCxUWsMOt1L9SbTWqKRj1/FFMNMEC
+	Rt+xHQxis4rlXLMgUMPUKVFcOTsI6j4wc6FNoQllJh7WBsah5dyumktT3faX4d7WS8YA2dg
+	6x9+poQk+fi76b79EWq8e971W2977JHLLw1cq/9FEdJcsgadCfoFGIIs27/mxGpfLaON9Ad
+	ZUDxBirfHgLHy8v30OZKiX54Wk30rrwcyYfjisJI8ETSep7eoX4GJy6JI7pIk4ANCEqcTKh
+	9XAxRAUStMrRD73LqlTLINMgDXqsnXPyyBhdeNCCzJHJwtJ+GMxgw0Pj+igP1Rdus3QHPjb
+	5IKRWmti/K2JfwpkmcVpQaTM+2mKN5D5G0XB9etWRdRy46fkwzPWDGci0kQrz+cz4hgmlzR
+	KUmeRjPLSGHnNSvJjMHv75xgPHOKL5OX5M4iro46h32MrzBjTA/t6X3YPHF2VAIpDczwjwU
+	uEIBCJ1Ounuhp6NRO8zl8v5CAGbg0VoWppZUi7P2BafrJaHAzG3pFec4GHReEtZLE2iIuFK
+	JpwM2DcUaQ3a2Vwqfm5j5PVVps2XhKa3+SL7H4gYV6gcmFrVZcKeCSSJtEH/V+M/D8lEv8i
+	unCSa7B0I26/fGT4JNrRIz5Sy/dlgaqkpb3YpIYWHOKxsYSGRKT9BbANlroLl27Mok2s5Vs
+	EWNck2urL4OFiGajjcOeZAA2W73soyY+oqfLgk4mtAPtaS8lS6
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-I hit the following on one of my machines:
+From: Xu Rao <raoxu@uniontech.com>
 
-  mce: CPU0 BANK15 CMCI inherited storm
-  ------------[ cut here ]------------
-  ODEBUG: assert_init not available (active state 0) object: (____ptrval____) object type: timer_list hint: 0x0
-  WARNING: lib/debugobjects.c:632 at debug_object_assert_init+0x178/0x230, CPU#0: swapper/0/0
-  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-rc5 #3 PREEMPTLAZY
-  RIP: 0010:debug_object_assert_init+0x18f/0x230
-  Call Trace:
-   <TASK>
-   __mod_timer
-   mce_timer_kick
-   cmci_discover
-   intel_init_cmci
-   mce_intel_feature_init
-   mcheck_cpu_init
-   identify_cpu
-   identify_boot_cpu
-   arch_cpu_finalize_init
-   start_kernel
+comp_write_worker() returns true when the compared data matches.
+memcmp() returns zero for equal data and non-zero for different data, so
+its result must be negated before it is stored in a bool.
 
-A second splat follows right after, from timer_setup() finding that same
-timer already queued:
+The first segment already uses !memcmp(), but the wrapped segment uses
+memcmp() directly, reversing the match result. Use !memcmp() there as
+well.
 
-  ODEBUG: init active (active state 0) object: (____ptrval____) object type: timer_list hint: stub_timer+0x0/0x10
-
-This is happening because we are trying to modify the timer before it
-was properly setup'ed.
-
-Set the timer up first. __mcheck_cpu_setup_timer() only calls
-timer_setup(), and depends on neither the generic nor the vendor init.
-
-Fixes: 1f68ce2a0272 ("x86/mce: Handle Intel threshold interrupt storms")
+Fixes: 38d5c8336e60 ("scsi_debug: add Report supported opcodes+tmfs; Compare and write")
 Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
 ---
- arch/x86/kernel/cpu/mce/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/scsi/scsi_debug.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
-index 9bba1e2f03af7..cfb74be19994d 100644
---- a/arch/x86/kernel/cpu/mce/core.c
-+++ b/arch/x86/kernel/cpu/mce/core.c
-@@ -2266,10 +2266,10 @@ void mcheck_cpu_init(struct cpuinfo_x86 *c)
- 
- 	mca_cfg.initialized = 1;
- 
-+	__mcheck_cpu_setup_timer();
- 	__mcheck_cpu_init_generic();
- 	__mcheck_cpu_init_vendor(c);
- 	__mcheck_cpu_init_prepare_banks();
--	__mcheck_cpu_setup_timer();
- 	cr4_set_bits(X86_CR4_MCE);
- }
- 
-
----
-base-commit: 8ba098e6b6ff0db8edf28528d1552be261af30d4
-change-id: 20260731-mce_timer_init-ab3148a08961
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+diff --git a/drivers/scsi/scsi_debug.c b/drivers/scsi/scsi_debug.c
+index 9d1c9c41d0f9..a5911482fc44 100644
+--- a/drivers/scsi/scsi_debug.c
++++ b/drivers/scsi/scsi_debug.c
+@@ -4310,8 +4310,8 @@ static bool comp_write_worker(struct sdeb_store_info *sip, u64 lba, u32 num,
+ 	if (!res)
+ 		return res;
+ 	if (rest)
+-		res = memcmp(fsp, arr + ((num - rest) * lb_size),
+-			     rest * lb_size);
++		res = !memcmp(fsp, arr + ((num - rest) * lb_size),
++			      rest * lb_size);
+ 	if (!res)
+ 		return res;
+ 	if (compare_only)
+--
+2.50.1
 
