@@ -1,39 +1,91 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A4642A14D;
-	Mon,  3 Aug 2026 19:35:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785785726; cv=none; b=K64Bq3Diz2WdbGRsnl6eiPqtRjRuE7P+GKfNmBMYbWXM7Hs6KQccohvZmV217l5ahG80Wgsc0lpwqDsiWUvnNT7ipo5G2r6XCn1Hcmsp+ny+iEvj243xykX32EJZOfFp+36R0JPGQsreexx2Yfk5kQqsOVntT1kzIhU5iVcgWlI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785785726; c=relaxed/simple;
-	bh=0u2a1lSVQ4ZR1c9tPuyVboKw1enQLnWGm/vncMiKhk8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PFt7ryKw1DPvD1PBKH/cuhUOAT/zX6EW8DeYFoLaO5Bmq+gkKt0oH161tAQvLawBTimEO0DaINmf9ItyHbis0B/U1MXNVkqxOgGwHAcGERmdJeN1+u9vIxtC5DvcDCMa/CNAdO5/5vYLWc8DMcjhYFfmd35G5D+q/iIqASQlCqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=CCKoQ1CV; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8979433BA2;
+	Mon,  3 Aug 2026 19:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785786057; cv=fail; b=HsYmqwoZxgi79hPmeyl2cHhk8O0gSI0A9RhABdsaT2CY5DQlBRV7pNYj7BYk/NixWvb/68cnWM2mrCu82odiJ6VHb/KKA48tE9VzGxtV0dNH4hHsVmhHzCPyiGCDY6tc3SOQi97cV3pmxITIipkmmUwcWFgkEL4JlqkOJoHRYPc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785786057; c=relaxed/simple;
+	bh=mwXch3drW7Cxf73zodcCln/JI9ZiZqW87y6xTGBSBD8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=AM8lfCIwTqQVDNRR4qnuMUV9OVXIAj3sDBWJvvmpF6FBpuySgyAqLVwtDpyx37B7g+l/TEYXP/FAcT+FpV+Em3nzej5I70YPNcupYQCESsDwpd+fqoKLNOwaukcWQLePevlcM2aSa0+WBqHaTHjALS47exQ7AgtPcmX6L5wrVBo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=YdcNmRB3; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=tA1irsXH; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="CCKoQ1CV"
-Received: from [10.0.0.182] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id AA37E5340321;
-	Mon, 03 Aug 2026 21:35:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1785785719;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=qNkEgZtE9MyrRrLinjI/1vsPROGFxoSujraxlInN0iw=;
-	b=CCKoQ1CVpmqp8XoxyeAiSn1Wke25wcx+oIwCGSfaJkvDrezNwe9fgfOWhY+y71UhUhRLO1
-	/0HfWAFcTOX46qQ75eNsOvZ5YmwCY8Y3PquVUqU/ltOdR0QYunrLxXDFgX2P9EQ6eC4a18
-	mEZ8erCjUnmSdpDymfaUC0GKg00N/j4=
-Message-ID: <58da7454-e539-4e2b-b658-829cece52205@ixit.cz>
-Date: Mon, 3 Aug 2026 21:35:19 +0200
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="YdcNmRB3";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="tA1irsXH"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 673H03FJ233731;
+	Mon, 3 Aug 2026 14:40:44 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=CWhSvV8yXLQLBiTcqUn7Qpp9YsTSMUqslaspjnI0h
+	A0=; b=YdcNmRB3r+45iuyFrGuF/BDp3I+S72SXLVe5EPeqOxGNu282+R1rPrxiU
+	QtRDXUCXyTF+pgBsOmQPk0ilcAOKt30n+Qdad3IMyy329E9bPaRtXdm2JhmEUvP+
+	FdEkJOgLsjsvKjdjqCn6mZ0iNuxgYgLDE5uXZFdqsjDaxYzWH4HPUCsAPS5BdHdf
+	LzPHq0dsbUoHa8YfC1U/as3NeBIWUMeZR1Q4XS+RKerSgYMf5VT5GW3Eq9EYEUcX
+	BMzoi8IUBSgcDpecbklYxwlnqgdUsNYK2PBmoKGLkIUvxeh3Y2rMUuJtB5/DjfjM
+	fIbnf9jnHBfofuLToo5EnFYyaYRZA==
+Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013023.outbound.protection.outlook.com [40.93.196.23])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4ftsxpkwhp-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 03 Aug 2026 14:40:43 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iHm9H3mlEe0eL3jfOgd1ebcsbSOtIXEdvINsufjQrxneuOXPTYmZTbtYbVZf9mZVsJjuLFVKedP6iQkFuQPait2v67dsP/SXE1Id8xsp+JKEJFquPVWMUFzsWwobovDkg4fBeRn/UIiiW5VWt2Uf734Rd8JrngG4VBmHA0R62WGdiervkYr9WQY/tgTwK9s9El2E/vPnbyS0gu5RrUb2RIywVYdoXqFe+gy0ygeQAkoKDsvMwHVdqbsOFCjCAWjtnLTYXZD/XHSPr5zUxYvIspdvfX9ZorPgzg6dINarxhH6HPhD99xGkkD35Yx6LntFVxDVFp3JVRHoM7u1eMFuXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CWhSvV8yXLQLBiTcqUn7Qpp9YsTSMUqslaspjnI0hA0=;
+ b=qgnp4lZ8SkdSlNOs7ThoFt2bFmKNArx2KMAnuTdGZLQNFioViP4FB7Sq8eix1RcvjBDpQdJGG8nduIIz1ze8oQglSdqDLad+/bUkVYqcfbu5oEV1EXuBBcNimxcJYrbXkOFlcCG6SZxTEiDqET3XSHXw3IS18KX/vpdj3KsMVmuyT74npzAueGmkIFg66mfsxwOENcENL4lXu2UUhUz5aG0dz7KCbtA9FNsVeXx4+K5hkF0pBKxpdrvEMtuJxNikfXkrRXI4zrh0iqdCmNmtFAI0JzeUCbwoM+hvpu6rkgMB6X1e5L5BIQSElf3x8Bkkgz6G/CDoizkuge+a7G134A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CWhSvV8yXLQLBiTcqUn7Qpp9YsTSMUqslaspjnI0hA0=;
+ b=tA1irsXHHTOWJgHevMBQVOAejB1X6pgT4AbbC6TexfxLgrf0pjG/JFxu4RKbTQuLdmT2zGGokKzA2uCurj+aFyxn2IuWaa5V5SwsSA2y3cCMcnlyz59rPnpmi+QH2AsjyBTCbLXyR1ui5dCHwo7Jk9mk8TNl4MGcPL9ihZKFS+M=
+Received: from MW4PR04CA0081.namprd04.prod.outlook.com (2603:10b6:303:6b::26)
+ by SN7PR10MB6547.namprd10.prod.outlook.com (2603:10b6:806:2aa::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Mon, 3 Aug
+ 2026 19:40:37 +0000
+Received: from SJ1PEPF000026C8.namprd04.prod.outlook.com
+ (2603:10b6:303:6b:cafe::ad) by MW4PR04CA0081.outlook.office365.com
+ (2603:10b6:303:6b::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.18 via Frontend Transport; Mon, 3
+ Aug 2026 19:40:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ SJ1PEPF000026C8.mail.protection.outlook.com (10.167.244.105) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.8 via Frontend Transport; Mon, 3 Aug 2026 19:40:36 +0000
+Received: from DLEE209.ent.ti.com (157.170.170.98) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 3 Aug
+ 2026 14:40:35 -0500
+Received: from DLEE211.ent.ti.com (157.170.170.113) by DLEE209.ent.ti.com
+ (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 3 Aug
+ 2026 14:40:35 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE211.ent.ti.com
+ (157.170.170.113) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Mon, 3 Aug 2026 14:40:35 -0500
+Received: from [10.249.34.24] ([10.249.34.24])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 673JeZgI2348385;
+	Mon, 3 Aug 2026 14:40:35 -0500
+Message-ID: <ae76ddd0-5401-49e3-8f52-cc7aab189a7c@ti.com>
+Date: Mon, 3 Aug 2026 14:40:35 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,148 +93,151 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] arm64: dts: imx8mq-librem5: Dongwoon DW9714 coil
- requires higher voltage
-To: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Ondrej Jirman <megi@xff.cz>, Olivier Benjamin
- <olivier.benjamin@bootlin.com>, Manuel Traut <manut@mecka.net>,
- Alexander Warnecke <awarnecke002@hotmail.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Martin Kepplinger <martin.kepplinger@puri.sm>,
- Shawn Guo <shawnguo@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- phone-devel@vger.kernel.org, imx@lists.linux.dev, stable@vger.kernel.org
-References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
- <20260801-pp-pro-camera-v1-4-7b4d90788f9f@ixit.cz>
- <yJywMSNTQGGZm3rbxd56Yw@puri.sm>
+Subject: Re: [PATCH v2 3/4] mmc: sdhci_am654: Clear ITAPDLY on tuning failure
+To: "Diogo Ivo (Schneider Electric)" <diogo.ivo@bootlin.com>,
+        Adrian Hunter
+	<adrian.hunter@intel.com>,
+        Ulf Hansson <ulfh@kernel.org>
+CC: <linux-mmc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        "Pascal
+ EBERHARD" <pascal.eberhard@se.com>,
+        Thomas Petazzoni
+	<thomas.petazzoni@bootlin.com>,
+        Miquel Raynal <miquel.raynal@bootlin.com>, <stable@vger.kernel.org>
+References: <20260803-am654-sdhci-v2-0-a5ee5be86133@bootlin.com>
+ <20260803-am654-sdhci-v2-3-a5ee5be86133@bootlin.com>
 Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <yJywMSNTQGGZm3rbxd56Yw@puri.sm>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: "Mendez, Judith" <jm@ti.com>
+In-Reply-To: <20260803-am654-sdhci-v2-3-a5ee5be86133@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C8:EE_|SN7PR10MB6547:EE_
+X-MS-Office365-Filtering-Correlation-Id: d8b4bc2c-711f-4e1b-5f9a-08def1971717
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|6133799003|10067099003|56012099006|18002099003|22082099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	rYSShDAPyDTxfGp99DHg1/gWoz5L1WnxCgkJbLW4YvD7QuHR2yF3AZytCSn0uvq2CgmfLooON8IieIN8qaBMtSFYQlRqAafN14o8WIBUNfhY4aAG5UFovCL/yki0OqDgkvUg2JzlkCMd25BOLZFE9IN/tUus/+LJ4tw5tj4EXynTi2c77/H5bdzjya3fkmWJT11FUOmILLi4CiiQOEs2BCwgqZMltUkGa79ozDY/Vh3grwHVZ7FlpZrwiSPfCjYCRkoRNtQR+DJeMOEZOtQ7QVNQgIW2OPbFML+AUPyFtTkZ0pxFZmkaQAkZ8GBAK7MvWyY40GkJKzi9u/VNe0Vrgtzt7Clpxt7ZVWPaS0U+Zpj/avUhUOjk80+PWe6oxgOKepuw+CWwR7LR+O48SXqTQZuhF9jcre4U93j3kpyvlHsaCGD7dNuZCXDCYDzaovHaOBhKiZl/HIswAruud18J7wNaVCbTkYarLEgRr/hJPwrRY0/avwQGdx6yO5SNZT1VXXPffXlfDwpnv5ua9deYF1oM0OfdSNNyq/MWi/Uhe06LlPwX+T9KWKfjmWSW6OYEJRYoF0RY4552152zybSTK7xiM6PqXyz276xIj6sUYlHp4K+UkmqxE8qaBfHweWv5HcuzUPx4Z6Uk5e3TNfu6u/Je+SBKq4xpx1D+1vk7dHA8DOH5V1B81D+KY0tHuf2edM8Ic4Mxpu4qDFt5OEup2w==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(6133799003)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ofYpILfwyLbe/3oa5BRvAbeawNjKL7onQQWntuMkaXxWH/AxBkm9MIkPF6R6tBEp4f70NXFlN0AUEpzmd2/RNJdRYxXqTOfI2sdxrH+i27Z7gW69f/Tdgfqq4xGAkQKlShwciBX7cWPDEdzAbxAke+5RD5Of7qGWEU0BBxTxM6yWxh7zXII2bQH5wvYjsRYMBlfYDtGeYeqtd2SFMiQLAp6yE3AC0UlDuAGi/9yFuYLyJWDLFvCihm9T++zMK4cR46jmJKbO9IUSZQOghqa6S/zX8NCp1Oyoyau2M/47A8doxOCOSaJo2liRFan5AYRq4YCD7SmyXSdJAoIE6vBmhr0v1V9dKvpJcwiYuUwZnX509pEFAo/kNFtSW3IrB8K4RVDnHmgddOyQWpRIs+VQ7h9q08LkcvIP0wi0ZCJPu8ZuzUV+7kLimIO7LQZQt3kT
+X-Exchange-RoutingPolicyChecked:
+	HO31kzg/aVRX5bIDtB6FqYHh38OpdpqIWs4/sIOxX50kSq+koMeGYQa1+3V8IVtB1K+9UBiZuXo7Z0GC/bd4cQqpai/fQqkDzVtKPmGvMcWfoWAicTxKo2h86v21T7B4suEqGCRcefHaRwKGaS+8ZTWd41YWgppJR2pRWIxpYNINDlMJIwiM6xhEFRxyRzW8EjZ9iTfczNtEbW+CcxY+T/eJ6hrcIOE1T62skNhAatKgCZzF3mnSPaE/j9ScAbXZwvo3Vfn++VnDIE18o+nUAUznijBmoklJnkWpLyzf3lR5JRSUaAYjh52pZce6G0wFiZ6wcbvkUbJdyxXAnCfKoQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 19:40:36.1731
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8b4bc2c-711f-4e1b-5f9a-08def1971717
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000026C8.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR10MB6547
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDE3MyBTYWx0ZWRfX7120IY1QUWc+
+ YHP3OPX09R5voeyFeEh9M2+f2yKPjIdAnJwSolvufSY8N9HzSCiPA8AdFnI+JcbcYqEheUbcB3o
+ QGrd4QDbmtVws6/XehxeicXgUeRFYmW6i3a42Wb3b24627hLLHEkrryO+ZuTaKndOYuqgovdz52
+ SFouiNtKp6KYb2XCqMgTQRAix3biLwSQiaONkee0PRTt9Gfh5NM4vNCMBN4t41BcVkPpSEHxJgO
+ n9E6xe9e7hCz5fLQncDan3DI9tCjZjCIMoOZYxdrnMqS7AOuVqsXMOLi7nfod+SQ/hLdP+lloRk
+ QHe1i3BS/ycdbdKt6ENzBi/6GFaYNPXrWOKpIIug0O1QZe1S18wTe4EYt21Qu8oT816wW7ed6G0
+ NjzvqU+wHfB2Gx/b5gpyrf44eAu5CRw6oT6BEviZ6bCc7R2o5Os+VNjVpNF3YPhhLmv4QKa2co8
+ 3/Qob3T5xUDy64VwHtQ==
+X-Authority-Analysis: v=2.4 cv=YaaNIQRf c=1 sm=1 tr=0 ts=6a70eebc cx=c_pps
+ a=iHXbSHwDNs+yH6wS+48/mw==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8
+ a=P-IC7800AAAA:8 a=sozttTNsAAAA:8 a=t7ESMcVb2SY3lHOZi18A:9 a=QEXdDO2ut3YA:10
+ a=O8hF6Hzn-FEA:10 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-ORIG-GUID: pyOW2VEarA_0gHOWW_wMAebnH9i2Z_ew
+X-Proofpoint-GUID: pyOW2VEarA_0gHOWW_wMAebnH9i2Z_ew
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDE3MyBTYWx0ZWRfX3rgOT57hPmiW
+ xwgINnmn5zmkP1CDUiFDT+0MBzdp5/nxpeJ286MedPwRmXC89lUUuLOOL/Amy2tzwm8cIeC0PRY
+ sl6rFsjS9xGHoDoXsofcJHY+BwwdDJk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-03_04,2026-08-03_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 priorityscore=1501 phishscore=0 impostorscore=0
+ malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030173
 
-On 03/08/2026 20:12, Sebastian Krzyszkowiak wrote:
-> On sobota, 1 sierpnia 2026 02:35:23 czas środkowoeuropejski letni David
-> Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
->> Usually it's around 2.8 V. Here it matches the reg_vcam_2v8.
+Hi Diogo,
+
+Thanks for the fix.
+
+On 8/3/2026 8:47 AM, Diogo Ivo (Schneider Electric) wrote:
+> When tuning fails, stale ITAPDLY values can persist and interfere with
+> subsequent I/O accesses, for example in DDR50 mode in cards with no tuning
+> support. Move the ITAPDLY enable setting out of the tuning loop to after
+> successful tuning, and explicitly clear ITAPDLY (delay and enable) when
+> tuning fails so that we are sure only working values are actually left in
+> hardware.
 > 
-> It doesn't - VCAM_2V8 isn't connected to DW9714 (and neither is CSI_1V8);
-> VCAM_AFVDD is.
+> Fixes: 901d16e46296 ("mmc: sdhci_am654: Add retry tuning")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Diogo Ivo (Schneider Electric) <diogo.ivo@bootlin.com>
 
-I didn't realized we have datasheet here :)
+Reviewed-by: Judith Mendez <jm@ti.com>
 
+> ---
+> Changes in v2:
+>   - As suggested by Sashiko clear the values in itap_del_sel[] and itap_del_ena[]
+>     so that they agree with what is written in HW and subsequent runtime_suspend()
+>     and runtime_resume() can never write stale values.
+>   - Remove now unused timing variable
+> ---
+>   drivers/mmc/host/sdhci_am654.c | 12 +++++++-----
+>   1 file changed, 7 insertions(+), 5 deletions(-)
 > 
->> 1.8 V here is likely used for i2c level shifter.
+> diff --git a/drivers/mmc/host/sdhci_am654.c b/drivers/mmc/host/sdhci_am654.c
+> index 0db587e702ac..8ce10422bba0 100644
+> --- a/drivers/mmc/host/sdhci_am654.c
+> +++ b/drivers/mmc/host/sdhci_am654.c
+> @@ -527,7 +527,6 @@ static int sdhci_am654_do_tuning(struct sdhci_host *host,
+>   {
+>   	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
+>   	struct sdhci_am654_data *sdhci_am654 = sdhci_pltfm_priv(pltfm_host);
+> -	unsigned char timing = host->mmc->ios.timing;
+>   	struct window fail_window[ITAPDLY_LENGTH];
+>   	struct device *dev = mmc_dev(host->mmc);
+>   	u8 curr_pass, itap;
+> @@ -536,11 +535,8 @@ static int sdhci_am654_do_tuning(struct sdhci_host *host,
+>   
+>   	memset(fail_window, 0, sizeof(fail_window));
+>   
+> -	/* Enable ITAPDLY */
+> -	sdhci_am654->itap_del_ena[timing] = 0x1;
+> -
+>   	for (itap = 0; itap < ITAPDLY_LENGTH; itap++) {
+> -		sdhci_am654_write_itapdly(sdhci_am654, itap, sdhci_am654->itap_del_ena[timing]);
+> +		sdhci_am654_write_itapdly(sdhci_am654, itap, 0x1);
+>   
+>   		curr_pass = !mmc_send_tuning(host->mmc, opcode, NULL);
+>   
+> @@ -584,10 +580,16 @@ static int sdhci_am654_platform_execute_tuning(struct sdhci_host *host,
+>   
+>   	if (itapdly < 0) {
+>   		dev_err(dev, "Failed to find itapdly, fail tuning\n");
+> +		sdhci_am654_write_itapdly(sdhci_am654, 0, 0);
+> +		sdhci_am654->itap_del_ena[timing] = 0;
+> +		sdhci_am654->itap_del_sel[timing] = 0;
+>   		return -1;
+>   	}
+>   
+>   	dev_dbg(dev, "Passed tuning, final itapdly=%d\n", itapdly);
+> +
+> +	/* Enable ITAPDLY */
+> +	sdhci_am654->itap_del_ena[timing] = 0x1;
+>   	sdhci_am654_write_itapdly(sdhci_am654, itapdly, sdhci_am654->itap_del_ena[timing]);
+>   	/* Save ITAPDLY */
+>   	sdhci_am654->itap_del_sel[timing] = itapdly;
 > 
-> I'm not sure where you've got an I2C level shifter from, there's none involved
-
-it's copy-paste from previous commits.
-
-> there. CSI_1V8 is passed to the rear camera module as DOVDD and is consumed by
-> S5K3L6 as VDDIO, and both S5K3L6 and DW9714 are connected to I2C4_SDA/
-> I2C4_SCL, operating at the 1.8V level, only though an EMI filter (F7 in the
-> schematic).
-
-I don't see the AFVDD in the [1], do you have it somewhere defined?
-
-Thanks
-David
-
-[1] 
-https://source.puri.sm/Librem5/linux/-/tree/pureos/latest/arch/arm64/boot/dts/freescale?ref_type=heads
-
-> 
->>
->> Fixes: f00df2bdb512 ("arm64: dts: imx8mq-librem5: describe the voice coil
->> motor for focus control") Cc: stable@vger.kernel.org
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->>   arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
->> b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi index
->> f5d529c5baf3e..583cba2d3bebf 100644
->> --- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
->> +++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
->> @@ -1167,17 +1167,17 @@ &i2c4 {
->>   	pinctrl-1 = <&pinctrl_i2c4_gpio>;
->>   	scl-gpios = <&gpio5 20 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
->>   	sda-gpios = <&gpio5 21 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
->>   	status = "okay";
->>
->>   	vcm@c {
->>   		compatible = "dongwoon,dw9714";
->>   		reg = <0x0c>;
->> -		vcc-supply = <&reg_csi_1v8>;
->> +		vcc-supply = <&reg_vcam_2v8>;
->>   	};
->>
->>   	bat: fuel-gauge@36 {
->>   		compatible = "maxim,max17055";
->>   		reg = <0x36>;
->>   		interrupt-parent = <&gpio3>;
->>   		interrupts = <20 IRQ_TYPE_LEVEL_LOW>;
->>   		pinctrl-names = "default";
-> 
-> 
-> 
-> 
-
--- 
-David Heidelberg
 
