@@ -1,98 +1,86 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4842C3932F9;
-	Mon,  3 Aug 2026 14:46:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6FB305680;
+	Mon,  3 Aug 2026 14:54:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785768416; cv=none; b=NpcYeKxUUTa/+fveuQon9EAHVnTN5E0AMA4T02raskG9kreZ1LrEw34hiL2CwdSfPXVAbJoz1wtl9vPSZaOKdW+DKU6lapRrLstSZ0I+tgdvArVKrNZcuOoj4rbbtPFp5ZNkXE6po+tZAJYGfiNq/tawVdDq/V/ecHnhLbZCnuk=
+	t=1785768856; cv=none; b=XQlqtKsR2CEV2/G2W7Whcgxy5ycqjNd1RCPIRaSJsmKy9f/P1h4QCynzOuLQpbf1TmWLGNB4oKI8ypCUXXLyVJ4js/WA7a2n64m6G+04/2rrIg1wWw8MMA4iGwK7tmWuFg3MQxwAoMaqqg5kEF8Ud2bWCty3nf5HMWHw4nPs83U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785768416; c=relaxed/simple;
-	bh=uOJQvn6ePwCEmnFu9yOTrYq83LR3UMqJA2aQI//M8iM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=OY/7fADN7PEypv7mObmnsagcGzUtnX4vh5XBzwr747md4/ikdeMoiAMo2MSShdMMirBDaI7KvcVvFiS1qlSgE4I2wJHmQxcAQyjNFBk52tXVaYL1A+xHhfjmvvHqViDChHyXVNXOmEitLTAhQi2/rDQX+MgFHk1yt5BBtSLIZc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=w9/gsPtt; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1785768856; c=relaxed/simple;
+	bh=bn9DntWmYHX7rjqyF2E8Zl/GfronaN47+0YjZ0pG1R0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fEkqyuFG7n3nCg6U9ekK/PnwHRJPOaCVWkrjCHofyaIE+Sm5I4mSVe14Lw9BF7hBAlBUC+xEpr9Koz4BWbDzsAihDlPRGHU2RndBeGOV14o/JArLDceCtkUIM8kwYzhIMD3tNN+6b2MFz9O2lZl5WF9aImfRRZhmuntoNqG97sQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fNMCSboL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="w9/gsPtt"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=S0MpRY0Tk44n+dARSgzv6DDumfwkdCqIhOS0UREYyuE=;
-	b=w9/gsPttq6IXx6sBWtVwhH30xGkyCn9MTNoE3H+APgVtLt3nmf7z1CN6MFINkF/SB98XdBfsF
-	qhbOmi/4jTx/ddze/B7svhKhcqu+nBVgn7zNZs3uRUHUMuK8dVKIEYv5wHUy0hPPYL7XD1Ws5Sm
-	bUOxJ1MNeLKRlHHN5wysSPE=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hDK590J9BzmV7C;
-	Mon,  3 Aug 2026 22:37:17 +0800 (CST)
-Received: from whupemo200004.china.huawei.com (unknown [7.152.184.18])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7293D4057A;
-	Mon,  3 Aug 2026 22:46:47 +0800 (CST)
-Received: from [10.67.120.233] (10.67.120.233) by
- whupemo200004.china.huawei.com (7.152.184.18) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 3 Aug 2026 22:46:46 +0800
-Message-ID: <0849c634-16cc-4db7-afdb-c702a66fc7df@huawei.com>
-Date: Mon, 3 Aug 2026 22:46:44 +0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fNMCSboL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A471F000E9;
+	Mon,  3 Aug 2026 14:54:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785768854;
+	bh=LWWMyiRyHQgnIeqT2FsVGOyXULdTvyWYrbxiNMTKbzc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fNMCSboL3Q4QfowHWSTQl4JGBKt7K2MpilPyyL7bcEHAJ9Nj8N/OlLUXPRngp3m9w
+	 e5ZCPSNNOmvz2UDmhRh7vDfrEaBgLlJVOr472RvCkZocJKhbOAHnLjJTXPhwpAeJDd
+	 mUggtZjIrCuWKohhfIobaJuy6Cuv1c3MMYitaG2s=
+Date: Mon, 3 Aug 2026 16:53:59 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Jiri Slaby <jirislaby@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v4 5/5] serial: imx: serialize imx_uart_ports[] lifetime
+Message-ID: <2026080341-agreeing-context-ca78@gregkh>
+References: <20260731181844.11330-1-kmehltretter@gmail.com>
+ <20260731181844.11330-6-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] hwtracing: hisi_ptt: Fix reset timeout handling
- and clean up trace start
-To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>,
-	"alexander.shishkin@linux.intel.com" <alexander.shishkin@linux.intel.com>,
-	"suzuki.poulose@arm.com" <suzuki.poulose@arm.com>, Jonathan Cameron
-	<jic23@kernel.org>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Sanman
- Pradhan <psanman@juniper.net>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, "yangyccccc@gmail.com" <yangyccccc@gmail.com>,
-	"zhanjie9@hisilicon.com" <zhanjie9@hisilicon.com>
-References: <20260414172451.14331-1-sanman.pradhan@hpe.com>
- <d558a593-ca12-4237-a9b0-5f20441c9d52@huawei.com>
- <20260730222259.67293-1-sanman.pradhan@hpe.com>
-From: Sizhe Liu <liusizhe5@huawei.com>
-In-Reply-To: <20260730222259.67293-1-sanman.pradhan@hpe.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- whupemo200004.china.huawei.com (7.152.184.18)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260731181844.11330-6-kmehltretter@gmail.com>
 
-On 2026/7/31 6:23, Pradhan, Sanman wrote:
+On Fri, Jul 31, 2026 at 08:18:44PM +0200, Karl Mehltretter wrote:
+> imx_uart_probe() publishes its devm-allocated port in imx_uart_ports[]
+> before uart_add_one_port() because console setup uses the table. The entry
+> is not cleared when adding the port fails or after removal, leaving a
+> dangling pointer.
+> 
+> A sibling probe can register the shared console through that stale entry.
+> This was reproduced under KASAN on QEMU mcimx6ul-evk by unbinding a
+> sibling UART, unbinding the console UART and rebinding the sibling.
+> 
+> Keep the entry valid through uart_remove_one_port(), then clear it. Protect
+> port addition and removal together with their table updates so sibling
+> operations cannot interleave. Reject an occupied slot rather than
+> clobbering an active port during a duplicate-line probe.
+> 
+> Fixes: dbff4e9ea2e8 ("IMX UART: remove statically initialized tables")
+> Fixes: 9f322ad064f9 ("imx: serial: handle initialisation failure correctly")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/all/20260719162850.043B41F000E9@smtp.kernel.org
+> Link: https://lore.kernel.org/all/20260719222501.CB4CB1F000E9@smtp.kernel.org
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+> Backport note: the removal fix is self-contained. Complete probe-failure
+> coverage also requires patch 1. With patch 1, all fallible allocations
+> precede console registration, so rollback can safely clear the table.
+> Without it, a late allocation failure (only reachable with fault
+> injection) can leave the console registered after imx_uart_ports[] is
+> cleared, turning the pre-existing use-after-free into a NULL
+> dereference.
 
-> From: Sanman Pradhan <psanman@juniper.net>
->
-> Hi all,
->
-> Gentle ping on this v2 series:
->
->    https://lore.kernel.org/lkml/20260414172451.14331-1-sanman.pradhan@hpe.com/
->    https://lore.kernel.org/lkml/20260417134550.0000027c@huawei.com/
->    https://lore.kernel.org/lkml/20260414172451.14331-3-sanman.pradhan@hpe.com/
->
-> Both patches have been reviewed and I don't believe there are any
-> outstanding comments. Could you let me know the expected path/timeline
-> for merging these, and whether anything further is needed from my side?
->
-> Thank you.
->
-> Regards,
-> Sanman Pradhan
-Hi Sanman,
+None of these should probably be backported, so this should be ok :)
 
-In my opinion, there is nothing more you need to do.
-Jonathan and Yicong have left Huawei for a while, and a patch updating 
-the maintainer was sent before they left.
-I am willing to look after this code going forward, but I am also 
-waiting for a response.
-https://lore.kernel.org/lkml/20260416094219.25258-1-Jonathan.Cameron@huawei.com/
+thanks,
 
-By the way,  I hope this helps.
-Tested-by: Sizhe Liu <liusizhe5@huawei.com>
-
-Best regards,
-Sizhe
+greg k-h
