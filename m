@@ -1,55 +1,55 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AB2395AD3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F00395ADA
 	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 23:33:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785800038; cv=none; b=jw5niaIFnEqBMYoTJX90kUAu8zHwM2en7bvKud5WbgLmKlzev8wKRAyExvZPT2z3UBtzP3IRFDhMVobQQtXAVUYCAtgbmafgI2nzqwPNJHtRyaLtj7fTxQCqaIT2tQymXa4kFzt2raGvhdIy4KOlKI4Y6LZCTVoN+eLY5aHaLSU=
+	t=1785800038; cv=none; b=taYnEQu2rDuk5hbBjBnr8bmrdF4voPfaUxYB433aKjjHSHae14cjiLE59cMPx/4dZFUPd1UlowkrGi4VVGJh/BqHRMcyha6lpKV19uoDw4/UhW1Brhh2yw1SH8rqtvLjn0oq4ThmtfwXlUrWx0FwVC9RsYsbDwJ5xBTavfXWdIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785800038; c=relaxed/simple;
-	bh=WrIjazSUpdO4AQ8g+16lX0XhYpa00/lT0OQu4YAIlJw=;
+	bh=z1S1my+CPsOyVjqX20hYJgXAgDg9+RTWIox6gDLiVc0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bb9XqAlme5jvLQyeqVxdgw8HXKmqkCjf+cowMbNy5gNYxCx4MFCjO1YJSg9AiMqcWVttSibGxhlXQ9bfdc/RxZqBinIkjndwNMK7AMIX/XbQYaln2A5dCu8sgl3rvdFnm5IINZVab8YNGW6ItUoXno0e5qnOxAULpwqE8QAus8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OCrbQ+tv; arc=none smtp.client-ip=198.175.65.20
+	 MIME-Version; b=qze/Y1yOX8GN7f76mJIOtUB7I1yNe3n/X6LY5g99XAZ6jOytm699JsuQee+bBMQX+5N7ERKKnWgP0dyD8k9E7Nkm5IpohC4ov+SJUaBBvG7vWyCyrPDWVbWU95zXraiCLn+9YB94j1chHYqgiZYplnquuKqK99ruGHHGmOKrMyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HkG5q2HX; arc=none smtp.client-ip=198.175.65.20
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OCrbQ+tv"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HkG5q2HX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1785800037; x=1817336037;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=WrIjazSUpdO4AQ8g+16lX0XhYpa00/lT0OQu4YAIlJw=;
-  b=OCrbQ+tvEVzJzffX7WnY/gTIhm6uCl4iEbiA6l/vNm8v4VUJOsvUdtfh
-   JpyKQxxliGuntVebfPYD/++vXN7Q72a1z+ScHr73+jiOPUfpht4YPBFOH
-   Mu4Hey1S4QRKtTlSeX54QuXlPX6MVu6l125mUzFMOyM9dxIbYHpVlOFbP
-   oUI4aWJXZPbGUerroDkrf8oUfFvqzYKDtUIiU5wxRi5n+eUL3RuOXpHZ1
-   q2J8vv9y3+AFfw5FcKRHxFDWWE3RDNhRFnT+vyf9ISyztI/MYEeek9U6S
-   jEBIxOiuRM+qg/qWCCZCLkeaz+wOomAZKo6M9AchO+PLLJPPQdVHUoC5w
+  bh=z1S1my+CPsOyVjqX20hYJgXAgDg9+RTWIox6gDLiVc0=;
+  b=HkG5q2HXtJWE1VJWE7RJ2uTDZVFnzyLxcw1Bfz7mK2CBdjS2JAgrx2Jo
+   lPqBEt4YxvBH1obY7g8IFwmyl4a+CM5lkVOwcr4KZ6v8SDRsGJcbQQGmk
+   RsuTgX4lxdAKnUyfi67tBmSM+aierX4tvjjAbhAry0+DV3BzLDZOeFLdj
+   4jKmqR0OXuxXwENtm+iRzS4IOxOV8jy3iyUhkFLO4ZmHeSYox60zKxw/7
+   oWHq0fEqEZmKEQ6LYCGzWoliWHMrtguGSpebO9oUiuNAiMV++Q3q+c84V
+   ZAzO/9THPtBgp/+Eqxe0JUw7WoPoOrDGVj8iciCWXN7vqqWeJEZE2H4tp
    A==;
-X-CSE-ConnectionGUID: M0hNmbz0Tnqlj4VT30qKQQ==
-X-CSE-MsgGUID: XQ2DiSPNQsesaZOu7YfBkg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86112904"
+X-CSE-ConnectionGUID: Miju7kcWTlyhez2NaABVMQ==
+X-CSE-MsgGUID: VhCetW6PStedyya94WDJXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86112911"
 X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
-   d="scan'208";a="86112904"
+   d="scan'208";a="86112911"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
   by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:33:54 -0700
-X-CSE-ConnectionGUID: ZV0Npxp3T9qcrwe3uyHsJQ==
-X-CSE-MsgGUID: iSLjX2i5Q+eQhUxMU51WOw==
+X-CSE-ConnectionGUID: wvbcltLhS3GM/5M6uyScvQ==
+X-CSE-MsgGUID: Y/i8FvZnRuWtCh6VLc36JA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
-   d="scan'208";a="264838282"
+   d="scan'208";a="264838284"
 Received: from orsosgc001.jf.intel.com ([10.88.27.185])
   by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:33:53 -0700
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 6.12.y 03/12] drm/xe: Apply whitelist to engine save-restore
-Date: Mon,  3 Aug 2026 16:33:37 -0700
-Message-ID: <20260803233346.3277427-4-ashutosh.dixit@intel.com>
+Subject: [PATCH 6.12.y 05/12] drm/xe/rtp: Maintain OA whitelists separately
+Date: Mon,  3 Aug 2026 16:33:39 -0700
+Message-ID: <20260803233346.3277427-6-ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260803233346.3277427-1-ashutosh.dixit@intel.com>
 References: <20260803233346.3277427-1-ashutosh.dixit@intel.com>
@@ -61,214 +61,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lucas De Marchi <lucas.demarchi@intel.com>
+[ Upstream commit c478244a9e2d14b3f1f92e8bd293919e554622a5 ]
 
-[ Upstream commit 3fcf68d7393fd622b96cd45124ccb1eddf77684c ]
+Contains minor modification of the above commit because of changed API.
 
-Changes in xe_guc_ads.c in the above commit are not needed for linux-6.12.y.
+OA registers are dynamically whitelisted (and again dewhitelisted) on OA
+stream open/close. Maintaining OA whitelists separately from non-OA
+register whitlists simplifies this management of OA register
+whitelisting/dewhitelisting.
 
-Instead of handling the whitelist directly in the GuC ADS
-initialization, make it follow the same logic as other engine registers
-that are save-restored. Main benefit is that then the SW tracking then
-shows it in debugfs and there's no risk of an engine workaround to write
-to the same nopriv register that is being passed directly to GuC.
-
-This means that xe_reg_whitelist_process_engine() only has to process
-the RTP and convert them to entries for the hwe.  With that all the
-registers should be covered by xe_reg_sr_apply_mmio() to write to the HW
-and there's no special handling in GuC ADS to also add these registers
-to the list of registers that is passed to GuC.
-
-Example for DG2:
-
-	# cat  /sys/kernel/debug/dri/0000\:03\:00.0/gt0/register-save-restore
-	...
-	Engine
-	rcs0
-		...
-		REG[0x24d0] clr=0xffffffff set=0x1000dafc masked=no mcr=no
-		REG[0x24d4] clr=0xffffffff set=0x1000db01 masked=no mcr=no
-		REG[0x24d8] clr=0xffffffff set=0x0000db1c masked=no mcr=no
-	...
-	Whitelist
-	rcs0
-		REG[0xdafc-0xdaff]: allow read access
-		REG[0xdb00-0xdb1f]: allow read access
-		REG[0xdb1c-0xdb1f]: allow rw access
-
-v2:
-  - Use ~0u for clr bits so it's just a write (Matt Roper)
-  - Simplify helpers now that unused slots are not written
-
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20241209232739.147417-6-lucas.demarchi@intel.com
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Fixes: 828a8eaf37c3 ("drm/xe/oa: Add MMIO trigger support")
+Cc: stable@vger.kernel.org # v6.12+
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Link: https://patch.msgid.link/20260615224227.34880-3-ashutosh.dixit@intel.com
 ---
- drivers/gpu/drm/xe/xe_gt.c            |  4 +-
- drivers/gpu/drm/xe/xe_hw_engine.c     |  1 -
- drivers/gpu/drm/xe/xe_reg_sr.c        | 53 ---------------------------
- drivers/gpu/drm/xe/xe_reg_whitelist.c | 37 +++++++++++++++++++
- 4 files changed, 38 insertions(+), 57 deletions(-)
+ drivers/gpu/drm/xe/xe_gt_debugfs.c      | 4 +++-
+ drivers/gpu/drm/xe/xe_hw_engine.c       | 2 ++
+ drivers/gpu/drm/xe/xe_hw_engine_types.h | 8 ++++++++
+ drivers/gpu/drm/xe/xe_reg_whitelist.c   | 6 ++++++
+ 4 files changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_gt.c b/drivers/gpu/drm/xe/xe_gt.c
-index 292947e44a8a8..e2ac1589dfbf6 100644
---- a/drivers/gpu/drm/xe/xe_gt.c
-+++ b/drivers/gpu/drm/xe/xe_gt.c
-@@ -722,10 +722,8 @@ static int do_gt_restart(struct xe_gt *gt)
+diff --git a/drivers/gpu/drm/xe/xe_gt_debugfs.c b/drivers/gpu/drm/xe/xe_gt_debugfs.c
+index 8f95d3a5949bc..15ff52dfe461b 100644
+--- a/drivers/gpu/drm/xe/xe_gt_debugfs.c
++++ b/drivers/gpu/drm/xe/xe_gt_debugfs.c
+@@ -191,8 +191,10 @@ static int register_save_restore(struct xe_gt *gt, struct drm_printer *p)
+ 	drm_printf(p, "\n");
  
- 	xe_mocs_init(gt);
+ 	drm_printf(p, "Whitelist\n");
+-	for_each_hw_engine(hwe, gt, id)
++	for_each_hw_engine(hwe, gt, id) {
+ 		xe_reg_whitelist_dump(&hwe->reg_whitelist, p);
++		xe_reg_whitelist_dump(&hwe->oa_whitelist, p);
++	}
  
--	for_each_hw_engine(hwe, gt, id) {
-+	for_each_hw_engine(hwe, gt, id)
- 		xe_reg_sr_apply_mmio(&hwe->reg_sr, gt);
--		xe_reg_sr_apply_whitelist(hwe);
--	}
+ 	xe_pm_runtime_put(gt_to_xe(gt));
  
- 	/* Get CCS mode in sync between sw/hw */
- 	xe_gt_apply_ccs_mode(gt);
 diff --git a/drivers/gpu/drm/xe/xe_hw_engine.c b/drivers/gpu/drm/xe/xe_hw_engine.c
-index 45d0ae074e652..ca4c2dee276bc 100644
+index ca4c2dee276bc..9f560ac9e2b8a 100644
 --- a/drivers/gpu/drm/xe/xe_hw_engine.c
 +++ b/drivers/gpu/drm/xe/xe_hw_engine.c
-@@ -546,7 +546,6 @@ static int hw_engine_init(struct xe_gt *gt, struct xe_hw_engine *hwe,
- 	xe_gt_assert(gt, gt->info.engine_mask & BIT(id));
+@@ -532,6 +532,8 @@ static void hw_engine_init_early(struct xe_gt *gt, struct xe_hw_engine *hwe,
+ 	hw_engine_setup_default_state(hwe);
  
- 	xe_reg_sr_apply_mmio(&hwe->reg_sr, gt);
--	xe_reg_sr_apply_whitelist(hwe);
- 
- 	hwe->hwsp = xe_managed_bo_create_pin_map(xe, tile, SZ_4K,
- 						 XE_BO_FLAG_VRAM_IF_DGFX(tile) |
-diff --git a/drivers/gpu/drm/xe/xe_reg_sr.c b/drivers/gpu/drm/xe/xe_reg_sr.c
-index ae9e6df2f4e12..01ee54d53531b 100644
---- a/drivers/gpu/drm/xe/xe_reg_sr.c
-+++ b/drivers/gpu/drm/xe/xe_reg_sr.c
-@@ -24,7 +24,6 @@
- #include "xe_hw_engine_types.h"
- #include "xe_macros.h"
- #include "xe_mmio.h"
--#include "xe_reg_whitelist.h"
- #include "xe_rtp_types.h"
- 
- static void reg_sr_fini(struct drm_device *drm, void *arg)
-@@ -194,58 +193,6 @@ void xe_reg_sr_apply_mmio(struct xe_reg_sr *sr, struct xe_gt *gt)
- 	xe_gt_err(gt, "Failed to apply, err=%d\n", err);
+ 	xe_reg_sr_init(&hwe->reg_whitelist, hwe->name, gt_to_xe(gt));
++	xe_reg_sr_init(&hwe->oa_whitelist, hwe->name, gt_to_xe(gt));
++	xe_reg_sr_init(&hwe->oa_sr, hwe->name, gt_to_xe(gt));
+ 	xe_reg_whitelist_process_engine(hwe);
  }
  
--void xe_reg_sr_apply_whitelist(struct xe_hw_engine *hwe)
--{
--	struct xe_reg_sr *sr = &hwe->reg_whitelist;
--	struct xe_gt *gt = hwe->gt;
--	struct xe_device *xe = gt_to_xe(gt);
--	struct xe_reg_sr_entry *entry;
--	struct drm_printer p;
--	u32 mmio_base = hwe->mmio_base;
--	unsigned long reg;
--	unsigned int slot = 0;
--	int err;
--
--	if (xa_empty(&sr->xa))
--		return;
--
--	drm_dbg(&xe->drm, "Whitelisting %s registers\n", sr->name);
--
--	err = xe_force_wake_get(gt_to_fw(gt), XE_FORCEWAKE_ALL);
--	if (err)
--		goto err_force_wake;
--
--	p = drm_dbg_printer(&xe->drm, DRM_UT_DRIVER, NULL);
--	xa_for_each(&sr->xa, reg, entry) {
--		if (slot == RING_MAX_NONPRIV_SLOTS) {
--			xe_gt_err(gt,
--				  "hwe %s: maximum register whitelist slots (%d) reached, refusing to add more\n",
--				  hwe->name, RING_MAX_NONPRIV_SLOTS);
--			break;
--		}
--
--		xe_reg_whitelist_print_entry(&p, 0, reg, entry);
--		xe_mmio_write32(gt, RING_FORCE_TO_NONPRIV(mmio_base, slot),
--				reg | entry->set_bits);
--		slot++;
--	}
--
--	/* And clear the rest just in case of garbage */
--	for (; slot < RING_MAX_NONPRIV_SLOTS; slot++) {
--		u32 addr = RING_NOPID(mmio_base).addr;
--
--		xe_mmio_write32(gt, RING_FORCE_TO_NONPRIV(mmio_base, slot), addr);
--	}
--
--	err = xe_force_wake_put(gt_to_fw(gt), XE_FORCEWAKE_ALL);
--	XE_WARN_ON(err);
--
--	return;
--
--err_force_wake:
--	drm_err(&xe->drm, "Failed to apply, err=%d\n", err);
--}
--
- /**
-  * xe_reg_sr_dump - print all save/restore entries
-  * @sr: Save/restore entries
+diff --git a/drivers/gpu/drm/xe/xe_hw_engine_types.h b/drivers/gpu/drm/xe/xe_hw_engine_types.h
+index 8be6d420ece40..ac876a8c3eec3 100644
+--- a/drivers/gpu/drm/xe/xe_hw_engine_types.h
++++ b/drivers/gpu/drm/xe/xe_hw_engine_types.h
+@@ -128,6 +128,14 @@ struct xe_hw_engine {
+ 	 * @reg_whitelist: table with registers to be whitelisted
+ 	 */
+ 	struct xe_reg_sr reg_whitelist;
++	/**
++	 * @oa_whitelist: oa registers to be whitelisted
++	 */
++	struct xe_reg_sr oa_whitelist;
++	/**
++	 * @oa_sr: oa nonpriv whitelist registers, changed on oa stream open/close
++	 */
++	struct xe_reg_sr oa_sr;
+ 	/**
+ 	 * @reg_lrc: LRC workaround registers
+ 	 */
 diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-index d88261921ae46..ef1bb1b47af09 100644
+index d75bc87cb3cb1..d82b14f8d0716 100644
 --- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
 +++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-@@ -10,7 +10,9 @@
- #include "regs/xe_oa_regs.h"
- #include "regs/xe_regs.h"
- #include "xe_gt_types.h"
-+#include "xe_gt_printk.h"
- #include "xe_platform_types.h"
-+#include "xe_reg_sr.h"
- #include "xe_rtp.h"
- #include "xe_step.h"
+@@ -66,6 +66,10 @@ static const struct xe_rtp_entry_sr register_whitelist[] = {
+ 		       ENGINE_CLASS(RENDER)),
+ 	  XE_RTP_ACTIONS(WHITELIST(CSBE_DEBUG_STATUS(RENDER_RING_BASE), 0))
+ 	},
++	{}
++};
++
++static const struct xe_rtp_entry_sr oa_whitelist[] = {
  
-@@ -86,6 +88,40 @@ static const struct xe_rtp_entry_sr register_whitelist[] = {
- 	{}
- };
+ #define WHITELIST_DENY(r, f) WHITELIST(r, (f) | RING_FORCE_TO_NONPRIV_DENY)
  
-+static void whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
-+{
-+	struct xe_reg_sr *sr = &hwe->reg_whitelist;
-+	struct xe_reg_sr_entry *entry;
-+	struct drm_printer p;
-+	unsigned long reg;
-+	unsigned int slot;
-+
-+	xe_gt_dbg(hwe->gt, "Add %s whitelist to engine\n", sr->name);
-+	p = xe_gt_dbg_printer(hwe->gt);
-+
-+	slot = 0;
-+	xa_for_each(&sr->xa, reg, entry) {
-+		struct xe_reg_sr_entry hwe_entry = {
-+			.reg = RING_FORCE_TO_NONPRIV(hwe->mmio_base, slot),
-+			.set_bits = entry->reg.addr | entry->set_bits,
-+			.clr_bits = ~0u,
-+			.read_mask = entry->read_mask,
-+		};
-+
-+		if (slot == RING_MAX_NONPRIV_SLOTS) {
-+			xe_gt_err(hwe->gt,
-+				  "hwe %s: maximum register whitelist slots (%d) reached, refusing to add more\n",
-+				  hwe->name, RING_MAX_NONPRIV_SLOTS);
-+			break;
-+		}
-+
-+		xe_reg_whitelist_print_entry(&p, 0, reg, entry);
-+		xe_reg_sr_add(&hwe->reg_sr, &hwe_entry, hwe->gt);
-+
-+		slot++;
-+	}
-+}
-+
- /**
-  * xe_reg_whitelist_process_engine - process table of registers to whitelist
-  * @hwe: engine instance to process whitelist for
-@@ -99,6 +135,7 @@ void xe_reg_whitelist_process_engine(struct xe_hw_engine *hwe)
- 	struct xe_rtp_process_ctx ctx = XE_RTP_PROCESS_CTX_INITIALIZER(hwe);
+@@ -138,6 +142,8 @@ void xe_reg_whitelist_process_engine(struct xe_hw_engine *hwe)
  
  	xe_rtp_process_to_sr(&ctx, register_whitelist, &hwe->reg_whitelist);
-+	whitelist_apply_to_hwe(hwe);
+ 	whitelist_apply_to_hwe(hwe);
++
++	xe_rtp_process_to_sr(&ctx, oa_whitelist, &hwe->oa_whitelist);
  }
  
  /**
