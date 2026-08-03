@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453F43BCD00;
-	Mon,  3 Aug 2026 13:02:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCEF39CD12;
+	Mon,  3 Aug 2026 13:04:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785762132; cv=none; b=aj7Y60btZcjsOau50BtxTb9LVdAWGS8Ze2EDILZ/rhiIbPBr/GIER8cEdZjemSWwK4c9+U5UAAvG0cogalXcJLThsqgR0DvKzBAQn+7Ac6kPKoTfEPVj7/17yaY+aeq5oSc3oK5S8MMlvq+SroGd5+aNIGsJOPh/+Fwj61QHwKw=
+	t=1785762276; cv=none; b=mC8Gf0PhoRfoCMOQTPXkE5J1q3nEjHmwfoutVFRpRuUfmr01QVPYuEOoor7r47+6Iuq6N3an2c+5ogQP3KSB6p2gOgcKqEVZZh4vzBdsvfB62SWOmYcSRf39cH1M/R970hCogqKQgKOlMQ5+8YV/4Hp900DXhEIBeXnkf75Oer0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785762132; c=relaxed/simple;
-	bh=NdVH5UnPIcR8sCVSXiPGOl8TJlQb63rdYlYGxkZgPwc=;
+	s=arc-20240116; t=1785762276; c=relaxed/simple;
+	bh=ZUKZQ9thx2h5E+xFzRTEWFqTvbWzS9W9fWz3rniJbrg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TZgIUlaU6N5ti802Wf64xpCNRQ9OYn5VnksZWtISCAp5oj2FddZNHy4U2qwGbrir71gww1WtLQvWC7geLOUF4hRH7yvIJBFa9eDnuUJzmCTWLFipp4zYFBFzTnI/wWS3LqSsqKKbkqXuxgt1brvpRg8Fc+vUWX4ktFmfRHWV6MI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOJr/n1K; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=o0hNP76dAddbzt1AHYwz9yKJSrH9POYiGyzVJyJcjOb2y0ZYcsSYQtFtTCFP+DvP43MiMxDvlIawAT4UYBT9sQGvh/DVw/5SBQ6e2Icx/Y3vo4OgGbDzvXOO21f7BfCED56VEZSUKfSSaqK6/GjqD/mO+4DLwdRiHDuMe4Dyqy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j7pyrgZs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOJr/n1K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BD261F000E9;
-	Mon,  3 Aug 2026 13:02:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j7pyrgZs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 066251F000E9;
+	Mon,  3 Aug 2026 13:04:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785762128;
-	bh=pXzD0gO2e1hNQR5V3zklsDSptDxGKPZhI2uRPLHOX7o=;
+	s=k20260515; t=1785762274;
+	bh=D1cv6VZ22zxHySq7Kh00twNIIokqefR10rF1y+eC+eA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IOJr/n1KTqxyXJhlF0mjg1uGqTLPoHOmOobxOoQlQ5lHWeoObSq9RAdaGD1uhE9DL
-	 a4LeYXfKsu0jjJ+vWMk/s8EufzCLxwqBczNb8jNg7b/8+IPXu8zfeqBpFH18BJV79R
-	 P7VeBQpoNYJZ/WD4Dfh86cJuLSezkPGzy8YsRWf0cZFqLDRuakXdA9BBuWojfldmdO
-	 HpKbVNb0GCcouhesT9gMWumCMrqh01xMxpixFMoRdJcWhV2MkoQbiUQkfgap7H5ONL
-	 RWm8evbVCF78xG2j4iBwFu75jxr2qvfFQXte8GCiik4jXqZPgsyYH6R40TqjXDfUfe
-	 21FvpPvQy9LaA==
-Message-ID: <0be2d538-8e18-45ad-9181-f7e3fb7e02ed@kernel.org>
-Date: Mon, 3 Aug 2026 22:02:05 +0900
+	b=j7pyrgZsEVENWsq2u+EmiUuN/XqNXhAEAOe9FEAAvbHFznSZbDkJNwTpm0GsPFMu5
+	 xs7GnzvvqhCLyPhaC5RRTKNsZ4Vucb+JFZMhuTXKWDamjk5rizCCJzxtDlGLnEE/BZ
+	 fm6VsteXxqqp5bAQ1VZ2T71cU4rEO8mvlJW0KkTIG9LgBv0iLtbObOPSBfNPOFCRa6
+	 OA3vqZwIkb3EjQqwbfjXwYg50EQE639vPZc6j4bRXOrhj7gWdoeOM3HTch3DZKqW+s
+	 1GWNUWrG7Dece83YDCpzNTd506Cf6PzMkcruQ5RvYTisv6jmx25sRYv4m9QWgQFbbZ
+	 mGWm0XQnezqMA==
+Message-ID: <78d0627b-e711-4ce2-84ac-6e501898407c@kernel.org>
+Date: Mon, 3 Aug 2026 22:04:32 +0900
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,78 +35,69 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] zloop: round capacity up to a zone-size multiple
+Subject: Re: [PATCH] zloop: restore finished zones with reduced capacity
 To: raoxu <raoxu@uniontech.com>
 Cc: axboe@kernel.dk, hch@lst.de, linux-block@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <906CDA1B6AAAD5B8+20260803095810.3453016-1-raoxu@uniontech.com>
+References: <2D18C0B4D202858C+20260731061139.1190909-1-raoxu@uniontech.com>
 Content-Language: en-US
 From: Damien Le Moal <dlemoal@kernel.org>
 Organization: Western Digital Research
-In-Reply-To: <906CDA1B6AAAD5B8+20260803095810.3453016-1-raoxu@uniontech.com>
+In-Reply-To: <2D18C0B4D202858C+20260731061139.1190909-1-raoxu@uniontech.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 8/3/26 18:58, raoxu wrote:
+On 7/31/26 15:11, raoxu wrote:
 > From: Xu Rao <raoxu@uniontech.com>
 > 
-> zloop_ctl_add() derives the number of zones by shifting the requested
-> capacity by ilog2(zone_size). Since zone_size is validated as a power of
-> two, this is equivalent to integer division and discards any remainder.
-> However, Documentation/admin-guide/blockdev/zoned_loop.rst specifies that
-> capacity_mb is always rounded up to the nearest higher multiple of the
-> zone size.
+> zloop_finish_zone() truncates a finished sequential zone backing file to
+> zone_size. When zone_capacity is smaller than zone_size,
+> zloop_update_seq_zone() rejects that file when the device is re-added
+> because it treats every file larger than zone_capacity as invalid.
 > 
-> Only configurations whose requested capacity is not aligned to the zone
-> size are affected. Aligned configurations, including the defaults of
-> 16384 MiB capacity and 256 MiB zones, keep the same geometry. An affected
-> device is also internally consistent and remains usable, but it is
-> smaller than requested. For example, capacity_mb=130 with
-> zone_size_mb=64 currently creates two zones and exposes 128 MiB instead
-> of the documented three zones and 192 MiB. Since this does not cause an
-> error or an I/O failure, and normal test configurations generally use an
-> integral number of zones, the discrepancy can remain unnoticed.
+> Documentation/admin-guide/blockdev/zoned_loop.rst, section "Overview",
+> states that a zone finish operation truncates the backing file to the zone
+> size. A file whose size equals zone_size is therefore a valid
+> representation of a finished zone.
 > 
-> Calculate the number of zones with DIV_ROUND_UP_SECTOR_T() so a partial
-> final zone request is represented by one additional full zone. This
-> matches the documented control interface while preserving the existing
-> sector_t handling on both 32-bit and 64-bit architectures.
+> Accept both zone_capacity and zone_size as full-zone representations. Keep
+> rejecting all other files larger than zone_capacity.
 > 
 > Fixes: eb0570c7df23 ("block: new zoned loop block device driver")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Xu Rao <raoxu@uniontech.com>
 > ---
->  drivers/block/zloop.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/block/zloop.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 > 
 > diff --git a/drivers/block/zloop.c b/drivers/block/zloop.c
-> index b69d798f203c..e29d82ff52ae 100644
+> index 55eeb6aac0ea..b69d798f203c 100644
 > --- a/drivers/block/zloop.c
 > +++ b/drivers/block/zloop.c
-> @@ -1187,7 +1187,7 @@ static int zloop_ctl_add(struct zloop_options *opts)
-> 
->  	__module_get(THIS_MODULE);
-> 
-> -	nr_zones = opts->capacity >> ilog2(opts->zone_size);
-> +	nr_zones = DIV_ROUND_UP_SECTOR_T(opts->capacity, opts->zone_size);
+> @@ -324,7 +324,8 @@ static int zloop_update_seq_zone(struct zloop_device *zlo, unsigned int zone_no)
+>  	}
+>  
+>  	file_sectors = stat.size >> SECTOR_SHIFT;
+> -	if (file_sectors > zlo->zone_capacity) {
+> +	if (file_sectors > zlo->zone_capacity &&
+> +	    file_sectors != zlo->zone_size) {
+>  		pr_err("Zone %u file too large (%llu sectors > %llu)\n",
+>  		       zone_no, file_sectors, zlo->zone_capacity);
+>  		return -EINVAL;
+> @@ -339,7 +340,8 @@ static int zloop_update_seq_zone(struct zloop_device *zlo, unsigned int zone_no)
+>  	spin_lock(&zone->wp_lock);
+>  	if (!file_sectors) {
+>  		zloop_mark_empty(zlo, zone);
+> -	} else if (file_sectors == zlo->zone_capacity) {
+> +	} else if (file_sectors == zlo->zone_capacity ||
+> +		   file_sectors == zlo->zone_size) {
+>  		zloop_mark_full(zlo, zone);
+>  	} else {
+>  		if (zone->cond != BLK_ZONE_COND_IMP_OPEN &&
 
-Your explanation and this change are consistent, but this is going to break many
-things because we do not maintain the size of zone per zone and instead always
-use zlo->zone_size, assuming that all zones have the same size.
-Your change would result in bad things. For instance, zloop_finish_zone()
-truncates a zone file to zlo->zone_size, which would be too big for a last runt
-zone smaller than other zones.
-
-So nack for this patch. Instead, I think we should fix the documentation to make
-more explicit that we do not support a smaller last zone.
-
->  	if (opts->nr_conv_zones >= nr_zones) {
->  		pr_err("Invalid number of conventional zones %u\n",
->  		       opts->nr_conv_zones);
-> --
-> 2.50.1
-> 
-
+The problem comes from at least zloop_finish_zone() which truncates a zone file
+to zlo->zone_size << SECTOR_SHIFT instead of zlo->zone_capacity << SECTOR_SHIFT.
+So I think that is what we need to fix.
 
 -- 
 Damien Le Moal
