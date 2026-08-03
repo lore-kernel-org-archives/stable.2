@@ -1,38 +1,38 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574343876C9;
-	Mon,  3 Aug 2026 09:45:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898DC36F42D;
+	Mon,  3 Aug 2026 09:45:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785750356; cv=none; b=qMijbpFZXcJgRcAQzsc6WKXNVwDU6KcgzWzBfHFYbq511f6+IcqEoi7L6MzsNVwwu28Arhj+4k4RKBRGlxUezjmI5K7bhd/WOvQxZwjFePK6ygQQAcXmEoBmIwrrk/8enmucOqWK5VlbJ525cYlcqRVNvx2jJH+K8FnjOCOpeMc=
+	t=1785750356; cv=none; b=WQRHz19wt3zyzNceZI8RWM0Na5CDDpvBzMB20plm/BkZXHvxSiUuClCTv/lZYLGGOoh1HnlQuuZqVp2MYAB6c8HWDPZjx0DIX+HGPLfN3w2q7Ba6PKgSsXmpMTvJz7bt4o5hqYVXiBwW/OkyhCtre/1goJqxdV60uBHM/QzPqw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785750356; c=relaxed/simple;
-	bh=ELSJCgqOhg11ARt8mfy+vrMr2W578dYLcTEIel+Kzv0=;
+	bh=udAEIJylS7t/IEQhTibNthSXiZkK1prZKZ0rvTQhJBQ=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=HF+H4M5m0rNwt2kaLZ9xvrFT5TqXzhLVfbgJDdV1t8vrUnFNmcGlppYtkqsoAZQksD8T9mumxQdamFFOSl6bAQHzWeGgEBPuvV5fUwYj2OgyGjI2khfg2zAn6pZhCWAdl1PwicfAgG5VIg0U6uJ8H3KeVmQMD1zpNDBjRvea4BM=
+	 MIME-Version; b=mP09fEEVQMPofiBKfrwrU01y7AbKKC1oB5DZKGCovxT22SiIJ5EgvqyDUE1rngB4RWi9bCH0jqcW2ueb2ALZ/kqVqYeNAqdlzyGAUJFoXAK7YuhhoXR5FJ3hExGTkPwvPdLVXM1w164PpskTxHG/p7fIg1zV7OL3KmpR3KObXJM=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 195fda968f2011f1aa26b74ffac11d73-20260803
+X-UUID: 192982ac8f2011f1aa26b74ffac11d73-20260803
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:c8b04289-20b1-4458-949f-d877ccb269a8,IP:0,U
+X-CID-O-INFO: VERSION:1.3.12,REQID:dd875203-74eb-4cac-9658-d6158c07af40,IP:0,U
 	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
 	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:a8465eb09277316421c3ece6be80f4e4,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|136|850|865|898,TC:nil,Content
-	:0|15|50,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:2270fee7dfe588a50a0c9ee97627c6ad,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|865|898,TC:nil,Content:0|1
+	5|50,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI
+	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 195fda968f2011f1aa26b74ffac11d73-20260803
+X-UUID: 192982ac8f2011f1aa26b74ffac11d73-20260803
 X-User: chenchangcheng@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <chenchangcheng@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 2097077048; Mon, 03 Aug 2026 17:45:45 +0800
+	with ESMTP id 1235745383; Mon, 03 Aug 2026 17:45:44 +0800
 From: Chen Changcheng <chenchangcheng@kylinos.cn>
 To: mchehab@kernel.org,
 	crope@iki.fi
@@ -40,9 +40,9 @@ Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Chen Changcheng <chenchangcheng@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH 2/2] media: dvb-usb-v2: reallocate URBs after a failed reconfiguration
-Date: Mon,  3 Aug 2026 17:45:39 +0800
-Message-Id: <20260803094539.242495-3-chenchangcheng@kylinos.cn>
+Subject: [PATCH 1/2] media: dvb-usb-v2: fix URB double free and use-after-free on allocation failure
+Date: Mon,  3 Aug 2026 17:45:38 +0800
+Message-Id: <20260803094539.242495-2-chenchangcheng@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260803094539.242495-1-chenchangcheng@kylinos.cn>
 References: <20260803094539.242495-1-chenchangcheng@kylinos.cn>
@@ -54,39 +54,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-usb_urb_reconfig()'s "all fields are same" early-out only compares the
-stream configuration fields; when a reconfiguration attempt failed, the
-stream is left without URBs (urbs_initialized == 0 after the allocation
-error path is fixed) and every later usb_urb_submitv2() call with a
-matching configuration skips the reallocation, silently leaving the
-stream without any submitted URBs.
+usb_urb_alloc_bulk_urbs() and usb_urb_alloc_isoc_urbs() free the URBs
+allocated so far when usb_alloc_urb() fails, but they do not reset
+urbs_initialized.  The stream is then left with a stale non-zero
+urbs_initialized count covering already freed, dangling urb_list[]
+entries, while every other user of the stream state
+(usb_urb_free_urbs(), usb_urb_submitv2()) relies on "urbs_initialized
+valid entries" as the invariant.
 
-Include urbs_initialized in the early-out condition, so that a stream
-without URBs is always (re)built on the next submission, no matter which
-configuration is requested.  This makes a failed reconfiguration
-recoverable by the next start_feed() call.
+Two failure scenarios follow:
 
-Fixes: bce1c0290270 ("[media] dvb_usb_v2: dynamic USB stream URB configuration")
+1. Probe failure path: dvb_usbv2_adapter_stream_init() fails and the
+   probe error path runs dvb_usbv2_adapter_exit(), which calls
+   usb_urb_exitv2() -> usb_urb_free_urbs() on the same adapter (it is
+   reached because adap->props was assigned before stream init).  The
+   already freed URBs are freed a second time -> double free.
+
+2. Runtime reconfig path: while the probe path above is hit whenever
+   allocation fails during probe, this one additionally depends on the
+   device's get_stream_config() returning a configuration different
+   from the one used at probe; such devices exist (e.g. af9035 shrinks
+   the buffer size on full-speed USB ports).  usb_urb_reconfig() then
+   frees the old URBs, updates stream->props and calls
+   usb_urb_alloc_*_urbs().  If the allocation fails, the next
+   usb_urb_submitv2() call with the same parameters short-circuits in
+   reconfig()'s "all fields are same" check and then submits the stale,
+   already freed URBs -> use-after-free.
+
+Reset urbs_initialized to 0 on the allocation error path, keeping the
+invariant that a non-zero urbs_initialized only covers live URBs.
+
+Fixes: c79b339f9292 ("[media] dvb_usb_v2: copy current dvb_usb as a starting point")
 Cc: stable@vger.kernel.org
 Signed-off-by: Chen Changcheng <chenchangcheng@kylinos.cn>
 ---
- drivers/media/usb/dvb-usb-v2/usb_urb.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/media/usb/dvb-usb-v2/usb_urb.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/media/usb/dvb-usb-v2/usb_urb.c b/drivers/media/usb/dvb-usb-v2/usb_urb.c
-index 9ba9aceabb5b..15603d448fc1 100644
+index 2ad2ddeaff51..9ba9aceabb5b 100644
 --- a/drivers/media/usb/dvb-usb-v2/usb_urb.c
 +++ b/drivers/media/usb/dvb-usb-v2/usb_urb.c
-@@ -276,7 +276,8 @@ int usb_urb_reconfig(struct usb_data_stream *stream,
- 	}
+@@ -145,6 +145,7 @@ static int usb_urb_alloc_bulk_urbs(struct usb_data_stream *stream)
+ 			dev_dbg(&stream->udev->dev, "%s: failed\n", __func__);
+ 			for (j = 0; j < i; j++)
+ 				usb_free_urb(stream->urb_list[j]);
++			stream->urbs_initialized = 0;
+ 			return -ENOMEM;
+ 		}
+ 		usb_fill_bulk_urb(stream->urb_list[i],
+@@ -175,6 +176,7 @@ static int usb_urb_alloc_isoc_urbs(struct usb_data_stream *stream)
+ 			dev_dbg(&stream->udev->dev, "%s: failed\n", __func__);
+ 			for (j = 0; j < i; j++)
+ 				usb_free_urb(stream->urb_list[j]);
++			stream->urbs_initialized = 0;
+ 			return -ENOMEM;
+ 		}
  
- 	/* check if all fields are same */
--	if (stream->props.type == props->type &&
-+	if (stream->urbs_initialized &&
-+			stream->props.type == props->type &&
- 			stream->props.count == props->count &&
- 			stream->props.endpoint == props->endpoint) {
- 		if (props->type == USB_BULK &&
 -- 
 2.25.1
 
