@@ -1,158 +1,70 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-60.ptr.blmpb.com (va-2-60.ptr.blmpb.com [209.127.231.60])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D973CFF65
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 23:51:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B013C343A
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 23:55:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.60
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785801068; cv=none; b=bz/TT1YSdVs4Y3jsABJJYHSiD8pTuvolISFIsuX2bj2JtoYKXnNCnmEif+3Fq1nGpKz+0I/z3wp0b6hnxaSKcGbFeUMgqC1UfUWChYZM7pTCdZ8OeRx6S+jOav0GDYECHqhZwJSg25M+O9AVtgnGK4b5hPetiIszY5uu6XX9aZw=
+	t=1785801313; cv=none; b=P3Hdnk/6TizeskQ1LkgQaWfpKVQVhWsBO/0oYx5p527e8xEmyJDnV2EcpGz5zhoes0iL0nVQ2AvawH7cxlVHz/WembM6AHPhPxTJgjn29ro6UPXP+PnTfljyZf0Sm4WnJFOSegLBvQhkBWapwYa+y10MLy00wKf6tPIwdgox8YU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785801068; c=relaxed/simple;
-	bh=0biaiIWy6N5hD3AIFsSH0xpSSkGpIJzVhYpm5gso5C0=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=er+K8zm6CDUBCwSVszkhNqHOtj+/3E7nwugQlCirMEcg0TiHR7Voe+Yz5iN3qNTApMXUcMQESq7pODR4b+1TPl5yAqevi6k6PbwdxDqa+syKnZN7sbUzMVTvJAOEl5ptVM0iMfLltWvvOm8wb74FjxKrzPqD/oCOtOCM35tcS2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TpKk1YOb; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1785801313; c=relaxed/simple;
+	bh=rfOy4ijqLRjq51iAooUviNWJz0Pp+uy/0o0AjyPa2Vo=;
+	h=Cc:From:Mime-Version:References:To:Subject:Date:Message-Id:
+	 Content-Disposition:Content-Type:In-Reply-To; b=gki8TXU7iQcZjHjyIzT36q9qoj/djdNZpXpjF4lNBScW6tXr7EqvetA2xVYaf0PSeg/GH+A+9AUX5esAJZ6ES+y50v6odhMGPSjgMIVCrtZOq9qL3L9ZJuo+/t82LYLT1IP/VWlNCxDayxzHUwlSVPYbbrczZFJqSs0r6qC6Sts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=VxJcjkJN; arc=none smtp.client-ip=209.127.231.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TpKk1YOb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785801061; x=1817337061;
-  h=date:message-id:from:to:cc:subject:in-reply-to:
-   references:mime-version;
-  bh=0biaiIWy6N5hD3AIFsSH0xpSSkGpIJzVhYpm5gso5C0=;
-  b=TpKk1YObjjrER2i4MlqQPiuUSFXlwuocoquRhAuo4Owc71c90ydZRha6
-   RL0jAHAsVIbJKJ5bHqCaVrvbnt4wciDORkW3CXN/QDaKSP7RrrpzXP1tO
-   iSMtLEw/ZQRwpSOzUkLZQ9QGExv1ip6YkunjImXRPor1pvQNnScH0g7TF
-   Ok4gt6ZpPE9828oo42uy5PmLYa7XL6/pknDuzIK7hPq67DPkQxHasxwXm
-   YCCk3no8Mjeas7Cr0sgOc2trxAU7EQ1SRcktXwvgWFMvsEcX/RI4mFVBJ
-   kD1vra/o4kYGAON17LJiC1rY7XMBpwQOnwZvsxzOeSooFHxM0amVFFR0e
-   A==;
-X-CSE-ConnectionGUID: OcOrFQ8/R7mw0puh8fSGtw==
-X-CSE-MsgGUID: BEpLQMDtRwiKUc/UeA55nA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="96937808"
-X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
-   d="scan'208";a="96937808"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:50:47 -0700
-X-CSE-ConnectionGUID: l5eQL6nmQTGZ4n56k1RpPA==
-X-CSE-MsgGUID: tOtiWqBHTs263f6+xiYZ2w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; 
-   d="scan'208";a="255061326"
-Received: from unknown (HELO adixit-MOBL3.intel.com) ([10.241.243.62])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 16:50:46 -0700
-Date: Mon, 03 Aug 2026 16:50:46 -0700
-Message-ID: <87ik5q227d.wl-ashutosh.dixit@intel.com>
-From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org,
-	Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 6.12.y 7/8] drm/xe/rtp: Refactor OAG MMIO trigger register whitelisting
-In-Reply-To: <20260801031050.987390-7-sashal@kernel.org>
-References: <2026072902-purity-frenzy-fc0b@gregkh>
-	<20260801031050.987390-1-sashal@kernel.org>
-	<20260801031050.987390-7-sashal@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
- Emacs/30.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="VxJcjkJN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1785801302; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=rfOy4ijqLRjq51iAooUviNWJz0Pp+uy/0o0AjyPa2Vo=;
+ b=VxJcjkJNx0V0GKZEFpKA1cCpP5KrigQLBc3olQm5/HcgMLr9yz+raGwI+t31T5Yb+Dz8QA
+ IA+WjBxSbJYnsa7IcOe31f95Y7Uz7LWpyCfg78of+k6XkAdR0UlLM1A7B1pMsKDXXcYGql
+ CyFsF4g1OCt1oylvADJYuFpjYcvYGN38EOrORQEuhsUGkVhHIG3vXAMDpZ8812ehejW5l3
+ maILytQa/8RVxgatfwgdatIlMnEdolcZAQqCzX5U3pFWU10jI9DiCtBOQahj0sjwxElOJq
+ e8SH3zLo8FjQM/2kTfzn18Jab7F1vjZwYVe8D5x0bYrexkhfu2ynrOLX+sNcVA==
+Cc: "Shengzhuo Wei" <me@cherr.cc>, 
+	"Derek J. Clark" <derekjohn.clark@gmail.com>, 
+	"Jiri Kosina" <jikos@kernel.org>, 
+	"Benjamin Tissoires" <bentiss@kernel.org>, 
+	"Zhouwang Huang" <honjow311@gmail.com>, <linux-input@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+From: "Shengzhuo Wei" <me@cherr.cc>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
+Mime-Version: 1.0
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+References: <20260804-oxp-fix-v1-1-51a4fe787167@cherr.cc> <anElA4get_VxNuB4@google.com>
+Content-Transfer-Encoding: quoted-printable
+X-Lms-Return-Path: <lba+26a712a54+87fdaf+vger.kernel.org+me@cherr.cc>
+To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>
+Subject: Re: [PATCH] HID: hid-oxp: fix UAF on pending work in remove()
+Received: from pve ([111.42.148.29]) by smtp.feishu.cn with ESMTPS; Tue, 04 Aug 2026 07:54:59 +0800
+Date: Tue, 4 Aug 2026 07:54:57 +0800
+Message-Id: <anEqUZyJGBrQ6HIW@pve>
+Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <anElA4get_VxNuB4@google.com>
 
-On Fri, 31 Jul 2026 20:10:49 -0700, Sasha Levin wrote:
->
+On 2026-08-03 16:33, Dmitry Torokhov wrote:
+=20
+> What stops these jobs from re-arming? Should it use
+> disable_delayed_work_sync() instead?
 
-Hi Sasha,
+Agreed =E2=80=94 cancel_delayed_work_sync() only drains the running instanc=
+e; it
+doesn't stop the works from being re-queued from the raw_event / sysfs /
+LED-brightness paths before the device is fully torn down, so the UAF
+window isn't closed. I'll switch all three calls to
+disable_delayed_work_sync() in v2.
 
-I have backported this entire series to linux-6.12.y here:
+Do you have any other comments you'd like addressed in v2?
 
-https://lore.kernel.org/stable/20260803233346.3277427-1-ashutosh.dixit@intel.com/
-
-Thanks.
---
-Ashutosh
-
-> From: Ashutosh Dixit <ashutosh.dixit@intel.com>
->
-> [ Upstream commit ed455775c5a68b75e5f6ad6c8e0e3e9c98fd3f64 ]
->
-> Minor refactor of OAG MMIO trigger register whitelisting for code reuse
-> with OAM MMIO trigger register whitelisting.
->
-> Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
-> Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-> Link: https://patch.msgid.link/20251202025115.373546-5-ashutosh.dixit@intel.com
-> Stable-dep-of: e70086a3a06d ("drm/xe/rtp: Add RING_FORCE_TO_NONPRIV_DENY to OA whitelists")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  drivers/gpu/drm/xe/xe_reg_whitelist.c | 41 +++++++++++++--------------
->  1 file changed, 19 insertions(+), 22 deletions(-)
->
-> diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-> index b568686973a8..5914ae2f88f0 100644
-> --- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
-> +++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-> @@ -66,28 +66,6 @@ static const struct xe_rtp_entry_sr register_whitelist[] = {
->		       ENGINE_CLASS(RENDER)),
->	  XE_RTP_ACTIONS(WHITELIST(CSBE_DEBUG_STATUS(RENDER_RING_BASE), 0))
->	},
-> -	{ XE_RTP_NAME("oa_reg_render"),
-> -	  XE_RTP_RULES(GRAPHICS_VERSION_RANGE(1200, XE_RTP_END_VERSION_UNDEFINED),
-> -		       ENGINE_CLASS(RENDER)),
-> -	  XE_RTP_ACTIONS(WHITELIST(OAG_MMIOTRIGGER,
-> -				   RING_FORCE_TO_NONPRIV_ACCESS_RW),
-> -			 WHITELIST(OAG_OASTATUS,
-> -				   RING_FORCE_TO_NONPRIV_ACCESS_RD),
-> -			 WHITELIST(OAG_OAHEADPTR,
-> -				   RING_FORCE_TO_NONPRIV_ACCESS_RD |
-> -				   RING_FORCE_TO_NONPRIV_RANGE_4))
-> -	},
-> -	{ XE_RTP_NAME("oa_reg_compute"),
-> -	  XE_RTP_RULES(GRAPHICS_VERSION_RANGE(1200, XE_RTP_END_VERSION_UNDEFINED),
-> -		       ENGINE_CLASS(COMPUTE)),
-> -	  XE_RTP_ACTIONS(WHITELIST(OAG_MMIOTRIGGER,
-> -				   RING_FORCE_TO_NONPRIV_ACCESS_RW),
-> -			 WHITELIST(OAG_OASTATUS,
-> -				   RING_FORCE_TO_NONPRIV_ACCESS_RD),
-> -			 WHITELIST(OAG_OAHEADPTR,
-> -				   RING_FORCE_TO_NONPRIV_ACCESS_RD |
-> -				   RING_FORCE_TO_NONPRIV_RANGE_4))
-> -	},
->	{ XE_RTP_NAME("14024997852"),
->	  XE_RTP_RULES(GRAPHICS_VERSION_RANGE(3000, 3005), ENGINE_CLASS(RENDER)),
->	  XE_RTP_ACTIONS(WHITELIST(FF_MODE,
-> @@ -95,6 +73,25 @@ static const struct xe_rtp_entry_sr register_whitelist[] = {
->			 WHITELIST(VFLSKPD,
->				   RING_FORCE_TO_NONPRIV_ACCESS_RW))
->	},
-> +
-> +#define WHITELIST_OA_MMIO_TRG(trg, status, head) \
-> +	WHITELIST(trg, RING_FORCE_TO_NONPRIV_ACCESS_RW), \
-> +	WHITELIST(status, RING_FORCE_TO_NONPRIV_ACCESS_RD), \
-> +	WHITELIST(head, RING_FORCE_TO_NONPRIV_ACCESS_RD | RING_FORCE_TO_NONPRIV_RANGE_4)
-> +
-> +#define WHITELIST_OAG_MMIO_TRG \
-> +	WHITELIST_OA_MMIO_TRG(OAG_MMIOTRIGGER, OAG_OASTATUS, OAG_OAHEADPTR)
-> +
-> +	{ XE_RTP_NAME("oag_mmio_trg_rcs"),
-> +	  XE_RTP_RULES(GRAPHICS_VERSION_RANGE(1200, XE_RTP_END_VERSION_UNDEFINED),
-> +		       ENGINE_CLASS(RENDER)),
-> +	  XE_RTP_ACTIONS(WHITELIST_OAG_MMIO_TRG)
-> +	},
-> +	{ XE_RTP_NAME("oag_mmio_trg_ccs"),
-> +	  XE_RTP_RULES(GRAPHICS_VERSION_RANGE(1200, XE_RTP_END_VERSION_UNDEFINED),
-> +		       ENGINE_CLASS(COMPUTE)),
-> +	  XE_RTP_ACTIONS(WHITELIST_OAG_MMIO_TRG)
-> +	},
->  };
->
->  static void whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
-> --
-> 2.53.0
->
+Thanks,
+Shengzhuo
