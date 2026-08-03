@@ -1,47 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57FC543744A;
-	Mon,  3 Aug 2026 20:47:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE0B438033
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 20:47:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785790031; cv=none; b=Kc3fsHxega4/+dkiqVGaUZw8AEsX9knLaSnQWyY3Kp0muzXuFXHM8PuEp8No0S+oLCbIb6GHIy0GUMHccgwonCumHLU/M3Fo5Ywl1TLx/QyJPDHaQIh9EniFioZsgVtjFAkQHpanbnsYHd+6bhx7Q9HNhy/EgHdpAy8cYb3BBaQ=
+	t=1785790032; cv=none; b=uyk8USECUgmpdNbvyItJG0SarfQTHlxKLS6pzr70OFsGNxQwbFYDjFn8vCNApzgTlAeaNOdUx+RK02M1Mq/76JP28dWzDscNL3rnB2ZRHOS4y22p31FUQTQN7cS3QC+AotZQRWt5GN9btBdVJAPda36UjVUGDiJ5dC4ECisblS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785790031; c=relaxed/simple;
-	bh=NtRI4G++zgdofnVphFzmDP/P6d0GStgoozM2/pxzgdM=;
+	s=arc-20240116; t=1785790032; c=relaxed/simple;
+	bh=YAwG/uHJqGSVpFL6qGH3+z4PyuiglyME5nmxIRePbI8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JEtnpcUf7MrABfZjvxCW87BdNwuA0+kN75cGi8QaY4FF0/A9pUSxLyr/nyrgATofOL+aRgYsmRoOL8245nLQHz7IMMZeiRxrSAcygi8GH3MHX1KGFRlD4mSeKZqYsvCm1JZIDx81DDrXsfQXeMxVLlB13yvHlUONdHIoDZX3SFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OjrmWomv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dcYN+0o3l2ALOtRiHSPTupLCzlkiqkpA65EYQu4kCn9aGrAIv4Fz4QUpHu+yfMQmUiX7tY4Fmjdu9Dl+9ZdsaAXbkZneUJUvQM1sCtAHd8LFSE3K+MYi9tDi/tsRAKUb1qkbLIsrM8i4ciVgNVw0PYqj1N+not8NgGvbR53BDeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hdHR1l5x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OjrmWomv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 199311F00A3D;
-	Mon,  3 Aug 2026 20:47:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hdHR1l5x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 425C91F00A3F;
+	Mon,  3 Aug 2026 20:47:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1785790030;
-	bh=9znsjw4t6667kLfYMDFGAgCoXeHgQcpi30lJtlf9JjY=;
+	bh=UhKmumJRKPyxAGiDFKTZuGGKEElwdy3UdH9fvK389Bc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OjrmWomv7kBGgiA+V6dSZ2ToyLu9t2sL7rBtjaF/jcoCEdcLbv+I0WI0E8mxH+1yJ
-	 X1XQbpaUucI0zOUKQCr21KtQn+OE2YEZpJ0Zhqc76IDXNW7zwfstal2L0VagBpbT1Z
-	 P0zv/Q9jpA/zqjJTWc99XW26xsZEyPxoBBfz5FaBmQ8ngb8qiWjxgUgBeC7OrMqX65
-	 P3Y0u7R3OczC1yrXnIz3uSVgh1PPHe7IEgZRXA1ipIOwj4puEUb+iMNC8i01MS0q5C
-	 uWJRhwZEYAu0X0OiL8OhDbn5C7hLTZAV/3fiJ/DsMwsZeDGW7GacnwN3hKIUf/nSCJ
-	 CC9bAUQpx6hWg==
+	b=hdHR1l5xErRDmDmHz756bXe500DJEJqwQNYpVHOaLb/Iqoy9bMD30Fi0wKlb4Ab0/
+	 9imOvh81Wex//kkSMc5W5eYjIACF9Tr8621bzIT8vK5nDUvijHTuj1v3Fyp++EFoG6
+	 ytjho3H8vMO+8uBLvWMWfSXl1TK5Sovt21b//UwPAyE9vZqd9niaDEj6zkVrtjDyQj
+	 5nXK6Gm7ru4e7GaPtbNnQTvblQXWpposu4b75BG4AZr8i+wzzDhX7DbAOlI55CsyVL
+	 ojCyBFGL0x4iASAVJpDjBPZakzCC0h+BO/Ywi2uxZNZKPzKgVvZArL2AQcz/4m+VfF
+	 SongLJJK9iraQ==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
+To: gregkh@linuxfoundation.org,
+	yi1tang.yang@gmail.com
 Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	vegard.nossum@oracle.com,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 6.12 541/602] bpf: Refactor {acquire,release}_reference_state
-Date: Mon,  3 Aug 2026 16:46:58 -0400
-Message-ID: <20260803203506.stable-0007@kernel.org>
+	stable@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>
+Subject: Re: FAILED: patch "[PATCH] io_uring/rw: fix missing ERESTARTSYS conversion in read paths" failed to apply to 6.12-stable tree
+Date: Mon,  3 Aug 2026 16:46:59 -0400
+Message-ID: <20260803203507.stable-0008@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <f793d6a0-d734-4e4e-8b9e-24a633b18554@oracle.com>
-References: <f793d6a0-d734-4e4e-8b9e-24a633b18554@oracle.com>
+In-Reply-To: <8ebae381-f1cc-4cd2-8afd-8508cf9cb217@kernel.dk>
+References: <8ebae381-f1cc-4cd2-8afd-8508cf9cb217@kernel.dk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,10 +46,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 03, 2026 at 10:39:01AM +0530, Harshit Mogalapalli wrote:
-> Thanks again, that plan looks good to me.
+On Sat, Aug 01, 2026 at 10:18:11PM -0600, Jens Axboe wrote:
+> Right, this original email was superseded by the later ones. As long
+> as the sent out patches got queued up, we should be fine.
 
-Re-queued for 6.12 now.
+They did - "io_uring/rw: fix missing ERESTARTSYS conversion in read
+paths" is queued for 6.12 (and for 6.1 as well).
 
 -- 
 Thanks,
