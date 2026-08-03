@@ -1,180 +1,95 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1422C4219E7
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 18:28:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7B742C4ED;
+	Mon,  3 Aug 2026 18:29:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785781741; cv=none; b=suNXkbmsCmQAldkU1wO+P7AuyC+KL5wk4iT7Rziodg+hEiznvE2EkrFAgHkvUBkJeNkHtjDOBdvDcdLMeP7sv44bB5Ch9fzGF3O90KMDIpLi/wLmm+Og9ucRUZo60Q2Z/voGGh3IuSa3k1+3LShXkd7Coz/W3eX+WOD9lOKnLDI=
+	t=1785781759; cv=none; b=rticOjB9tzb7AXUjvKSnvRWLxue6jGsurOCQEqv+XUxTf086kv6k6FKmyDjDnefaJtP31Fw1+XrN6RW+Oe0Frrb+R5xPcMYJX+h8IB8GIZiDuUz+uWPR/4xsRpXJaZJ5RhZWIkBTzV3jE6bDQjn9LQOSWNCZWz9FWUIJ8UUOEMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785781741; c=relaxed/simple;
-	bh=5dAW2wmbtidI5gVpvg/cVrzbBBJdhnVmI6fLJTdKrrY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mmI64Bu4KR3i3TiObq7xwNXnwkJRPUTXU70wbbgxeXLPE4O3Vn2y/WFRWOPaaZ3khrBHG+MSI5v0bU+1vnh+5QiC0snWkFVFJuO2WZTjNQPNk6rdKTxWE2+1ERoeqkjEHxs5BkywT99LZKh9tRzRww0AG4ecWJMEraNRelqpv1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=iSyFt5p2; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1785781759; c=relaxed/simple;
+	bh=bHFxxFiRgw7oqdEQWiqDO4hDfcxA+zqWQoS5AA/r0Xg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=sVjSZE1xtetMWebF6gScHFzREVVk+4VncVSPsf5l4fZ1oSM1H/BC41DgHC+3TqSzWr9f6NQ47IuXILWsgzHSdUPWQgzlRVUievKq37s4/0Ztec4JO7bxtXcrZUcTxb3YmwBZUC/ti0j5Zrxb3M1ZlPofyYR4c0G2cFHFlGB+Im0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fQsSUVTp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="iSyFt5p2"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cede6375caso18375ad.0
-        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 11:28:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785781739; x=1786386539; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YCj2r/JqY5u5nyX++s6hFCTol5l9mZg/fkApmxyULqA=;
-        b=iSyFt5p2kaRZat/YaTCZ3s3maqt36oI9W4N4+KXf4BV30Oahsu/TnAVcgWJSdruPcX
-         QWnYtb76Bg89o4jn3D9e06to6DS+obFkxmqhfaHfh2XN0NuyGzlJYmuJKgCB7eQ5xG1v
-         Sj99EH4PhogTZLq5DSl9nRdVZQ2ntPqd5xKNyxUpZ2alwT6H/FiXnpyHlvGI+xR/ISkJ
-         4dFv04bea7h9U6iYhbfEE/gPSqkD1iiBQYrH+GLCvUVDX6PukUAN0sucQlpMmUyCiAM9
-         jV3hAk+KitZCZQKiIONsmz98Po8LWC3lbKL36rwbEs2sJSbrQ0CbX0VttJqEzWehLDf7
-         ZDCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785781739; x=1786386539;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YCj2r/JqY5u5nyX++s6hFCTol5l9mZg/fkApmxyULqA=;
-        b=LQ0Yitp6qX/+TiXKSXZ5Z/+gYTPSt3Qnn/d9s7RYqWLbSFtg52W3Jyf/AcGJjm4H3D
-         8m1GqkuMcjrB8FD7n9wBDfFsdxh/jfwb1Yz0VcDLYsjPo9Gupi/rwhhniP/IN4uJJAfO
-         1nKsi2XqCuckSzPXYDGgz96K40Dm/jd/dBh2SnWzTabKgkHs3hK0Aq6izNJxnV6lV527
-         VczkvttYQA6OrKpydWf5iXaDviPAPt1i5xzAkoKH+Zj2L1KNEODj43yWpuTOT0XxgYd2
-         KSObFMzlz5r0hvjs9k8zOeVfDSCS/OxlKmbPL4YqK9tJlKfRuBODgu40sQE8Cl7MBe/W
-         n7EA==
-X-Forwarded-Encrypted: i=1; AHgh+RqZ0fdC/e55WK7MgK3FnX7wN9zlAfC2NyUfDLQmFPw+aUCxmzyA/nhzsLMMV4e40OeT3Y6arWo=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx1whB6klhFYzODFBSj6IyXA8Ze3kK79XzIZoLxosiSHlOzpGSu
-	ozGHd7Du56MAuWpsAfP72167Z1ytkQfGCTT49FEM0aaSj0MSs8PjJEtcmxgqMiRBHQ==
-X-Gm-Gg: AR+sD13JH2K7w/EQUaSm2C4mDjBd9K0bNkezFNWEOyflxD3OYyFylxGPmGQ+uugrFjx
-	R6gzc8dGdoEYOF+En7YKEwSlfSSsCfkAeat9DMlkGd6ELyoBSZq8MJfScU6XIFIYc4rcIcsBmLW
-	sR/BCUUFf4Pom9SywSADk7Sj10rGCV92nR1EMt6Dfy6r0VZpdqg9cwCietBNG9FcpJy+68sAlOQ
-	G0GiHfEArj2iOovshmf1t4PCXPgz8NsDIpfiriAhDUyzXCx/eIpBQEBlLME5t/3mOAEPWL9EhNf
-	kRDTwyIVW3gDJRveWaGOm8RrPui0YwOgzrhM+jH++gyEnvzgI1Z2QEwtyIk/WbDADJ7yXin0qz6
-	XdouXqS8FLfVvzDRpCg4gZNWgw/0ZLWVsMePoL/ri649Y1fT6gnenrlU0ya5nHYAdkyTb0wXuiV
-	gGAQIXje+zOeFveFTQ/lf2UbbSZrxDV5v1TOPj/XppPEi1mXL9eIATWnXusR+f59PYEAT+LFKo3
-	aSF2IFCJqJIEm3zJswDMRKz3Oin5QpSMLWyTY8L0iVxXe/4sNs4IZ/dEPSsEr1LRupPAw==
-X-Received: by 2002:a17:902:ea0b:b0:2ce:b436:272a with SMTP id d9443c01a7336-2d08cdb06a7mr964365ad.3.1785781738650;
-        Mon, 03 Aug 2026 11:28:58 -0700 (PDT)
-Received: from google.com (210.87.127.34.bc.googleusercontent.com. [34.127.87.210])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbe396ea598sm4113578a12.19.2026.08.03.11.28.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 11:28:58 -0700 (PDT)
-Date: Mon, 3 Aug 2026 18:28:55 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Lu Baolu <baolu.lu@linux.intel.com>
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Kevin Tian <kevin.tian@intel.com>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH 1/5] iommu/vt-d: Fix shift overflow in
- qi_desc_dev_iotlb_pasid()
-Message-ID: <anDd37AO0g0Budzu@google.com>
-References: <20260731054329.2948252-1-baolu.lu@linux.intel.com>
- <20260731054329.2948252-2-baolu.lu@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fQsSUVTp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A24581F00A3A;
+	Mon,  3 Aug 2026 18:29:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785781753;
+	bh=63aSZEWLdtDpxGWcR9RyTQJuWBDy9VOieOwbCJXeWbA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=fQsSUVTpql6sGxygaH+s94K5nMONoiPRn2aSPI3o8oQEEMPpgHWxbod5f6EmNPBHp
+	 WN/HlD32j1znh94m0cinehVkqZQVyzHr1i3XNz8DR1Kl+C4WK8jtuI28kaT/LyPAUS
+	 sg4kMp4YH3T8c+h6qCjiu5q9z8nEV14DMM7YZCeG7aEfOXM5SvSM/NiiAUUDLmQLm9
+	 7oF6Aa1IjBNThvtazne/lOB7CPtvecpIzmGt9fB3LrOs1K3ep7MbhNgf7HDgnmG8Or
+	 mvrfmMo9VXnVsThGV6QMYE5xBw0NQrruFavOnZ9ecx5LzVBe2kN8I4d3NUjx2GSGxr
+	 2f54A1L8lMV3Q==
+Date: Mon, 3 Aug 2026 20:29:10 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Baul Lee <baul.lee@xbow.com>
+cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    bentiss@kernel.org, federico.kirschbaum@xbow.com, stable@vger.kernel.org
+Subject: Re: [PATCH] HID: core: fix OOB read of field->usage in
+ hid_set_field()
+In-Reply-To: <20260726065024.46088-1-baul.lee@xbow.com>
+Message-ID: <510on277-p2p2-11p2-p30o-5914n0r8n221@xreary.bet>
+References: <20260726065024.46088-1-baul.lee@xbow.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260731054329.2948252-2-baolu.lu@linux.intel.com>
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, Jul 31, 2026 at 01:43:25PM +0800, Lu Baolu wrote:
->Callers request a full Device-TLB flush by passing MAX_AGAW_PFN_WIDTH
->(64 - VTD_PAGE_SHIFT == 52) as @size_order.  Two shifts in
->qi_desc_dev_iotlb_pasid() are not prepared for a value that large:
->
->  unsigned long mask = 1UL << (VTD_PAGE_SHIFT + size_order - 1);
->  ...
->  if (!IS_ALIGNED(addr, VTD_PAGE_SIZE << size_order))
->
->The first evaluates to 1UL << 63.  On 32-bit builds this is undefined
->behaviour; in practice x86 masks the shift count to 5 bits, so the
->expression yields 1UL << 31 and ~mask becomes 0x7fffffff.  That value is
->zero-extended when it is applied to the 64-bit descriptor, so
->
->  desc->qw1 &= ~mask;
->
->clears qw1[63:32] as well as bit 31.  The ADDR field, which had just been
->filled with ones to request the widest possible range, collapses to
->0x7ffff000.  As the S bit remains set, hardware decodes the least
->significant zero bit of ADDR and invalidates only 2GiB instead of the
->entire address space.  Device-TLB entries above that boundary survive the
->unmap, leaving an ATS-capable device able to keep accessing memory that
->has already been freed.
->
->The second shift, VTD_PAGE_SIZE << size_order, is 1UL << 64 and is
->therefore undefined on 64-bit builds too.  On x86_64 the shift count
->masks to zero, IS_ALIGNED(addr, 1) is trivially true and the sanity check
->silently degrades into a no-op.
->
->Compute both quantities in 64-bit and clamp @size_order to the largest
->range the ADDR field can encode.  Capping at 63 - VTD_PAGE_SHIFT keeps
->the intended "flush everything" behaviour: qw1[62:12] is set, bit 62 is
->cleared as the size indicator and the S bit is set.  The non-PASID
->variant qi_desc_dev_iotlb() already uses 1ULL and is unaffected.
->
->Fixes: f701c9f36bcb7 ("iommu/vt-d: Factor out invalidation descriptor composition")
->Cc: stable@vger.kernel.org
->Reported-by: Sashiko <sashiko-bot@kernel.org>
->Closes: https://sashiko.dev/#/patchset/20260623060122.3796325-1-guanghuifeng%40linux.alibaba.com
->Assisted-by: Claude:claude-opus-5
->Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
->---
-> drivers/iommu/intel/iommu.h | 16 ++++++++++++----
-> 1 file changed, 12 insertions(+), 4 deletions(-)
->
->diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
->index c00f44db0020..8a59c7c9d0a6 100644
->--- a/drivers/iommu/intel/iommu.h
->+++ b/drivers/iommu/intel/iommu.h
->@@ -1105,12 +1105,20 @@ static inline void qi_desc_dev_iotlb_pasid(u16 sid, u16 pfsid, u32 pasid,
-> 					   unsigned int size_order,
-> 					   struct qi_desc *desc)
-> {
->-	unsigned long mask = 1UL << (VTD_PAGE_SHIFT + size_order - 1);
->-
-> 	desc->qw0 = QI_DEV_EIOTLB_PASID(pasid) | QI_DEV_EIOTLB_SID(sid) |
-> 		QI_DEV_EIOTLB_QDEP(qdep) | QI_DEIOTLB_TYPE |
-> 		QI_DEV_IOTLB_PFSID(pfsid);
->
->+	/*
->+	 * The invalidation range is encoded in the ADDR field, which only
->+	 * covers bits 63:12.  Clamp @size_order so that callers asking for a
->+	 * full flush (e.g. with MAX_AGAW_PFN_WIDTH) do not overflow the
->+	 * shifts below.  The clamped value still spans the whole range that
->+	 * the descriptor is able to express.
->+	 */
->+	if (size_order > 63 - VTD_PAGE_SHIFT)
->+		size_order = 63 - VTD_PAGE_SHIFT;
->+
-> 	/*
-> 	 * If S bit is 0, we only flush a single page. If S bit is set,
-> 	 * The least significant zero bit indicates the invalidation address
->@@ -1120,7 +1128,7 @@ static inline void qi_desc_dev_iotlb_pasid(u16 sid, u16 pfsid, u32 pasid,
-> 	 * Max Invs Pending (MIP) is set to 0 for now until we have DIT in
-> 	 * ECAP.
-> 	 */
->-	if (!IS_ALIGNED(addr, VTD_PAGE_SIZE << size_order))
->+	if (!IS_ALIGNED(addr, BIT_ULL(VTD_PAGE_SHIFT + size_order)))
-> 		pr_warn_ratelimited("Invalidate non-aligned address %llx, order %d\n",
-> 				    addr, size_order);
->
->@@ -1136,7 +1144,7 @@ static inline void qi_desc_dev_iotlb_pasid(u16 sid, u16 pfsid, u32 pasid,
-> 		desc->qw1 |= GENMASK_ULL(size_order + VTD_PAGE_SHIFT - 1,
-> 					VTD_PAGE_SHIFT);
-> 		/* Clear size_order bit to indicate size */
->-		desc->qw1 &= ~mask;
->+		desc->qw1 &= ~BIT_ULL(VTD_PAGE_SHIFT + size_order - 1);
-> 		/* Set the S bit to indicate flushing more than 1 page */
-> 		desc->qw1 |= QI_DEV_EIOTLB_SIZE;
+On Sun, 26 Jul 2026, Baul Lee wrote:
+
+> hid_set_field() hands field->usage + offset to hid_dump_input() before
+> the guard that bounds offset:
+> 
+> 	hid_dump_input(field->report->device, field->usage + offset, value);
+> 
+> 	if (offset >= field->report_count) {
+> 		hid_err(...);
+> 		return -1;
 > 	}
->-- 
->2.43.0
->
->
+> 
+> Under CONFIG_DEBUG_FS hid_dump_input() dereferences that pointer, with
+> buf = hid_resolv_usage(usage->hid, NULL).  The usage[] array is
+> allocated inline with the hid_field in hid_register_field() and holds
+> field->maxusage entries, so an offset past it reads off the end of the
+> kvzalloc()ed allocation and into a neighbouring object.  Had the guard
+> run first, offset < report_count <= maxusage would already have confined
+> the pointer to the array.
+> 
+> A caller supplies such an offset today.  picolcd_fb_send_tile()
+> validates only report->maxfield before issuing
+> hid_set_field(report->field[0], 11 + i, ...) for i = 0..31, so its
+> offsets are fixed at 11..42 and are never checked against the bound
+> field.  When the device registers that field with fewer usages, the
+> framebuffer deferred-io work drives the read on every tile.  KASAN
+> reports a 4-byte slab-out-of-bounds read in hid_dump_input() below
+> hid_set_field(), and the same boot logs "offset (1) exceeds
+> report_count (1)" from the guard that runs only afterwards.
+> 
+> Move the hid_dump_input() call below the guard.  Because
+> field->maxusage >= field->report_count, the guard then establishes that
+> field->usage + offset lies inside the array before it is dereferenced,
+> for every caller and without changing behaviour on the valid path.
+> 
+> Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
+> Reported-by: Baul Lee <baul.lee@xbow.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Baul Lee <baul.lee@xbow.com>
 
-Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
+Good catch. Applied, thanks.
+
+-- 
+Jiri Kosina
+SUSE Labs
+
