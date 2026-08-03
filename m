@@ -1,122 +1,131 @@
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C8833FE2F;
-	Mon,  3 Aug 2026 10:18:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342113793B4;
+	Mon,  3 Aug 2026 10:20:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785752320; cv=none; b=HcAm8Es9M6bnunmS8dUMIAFlxnr8JTTCyfk0JicrbEl5Kglg7LWXadOEpgN4Bd/ZXkxIfGAFjqZsyUeo6oyYqoGDNrg9Jf1FsUNrdyNpt8kB6brlIgv09MwgIk7vvw+xbnwkE50lEKuvbUa+zK+f8g0azfds8g18Ppc2F3m+o1o=
+	t=1785752449; cv=none; b=mxrYuBMD5dt41fEgDrrhz+bbFygayaHhz0h3NbU8sW2kafT58foML53EVrpDPp4B+VYfLOIy+mPxaZtFK77bznDd7aUxLviq5az2SWcT4CBj9ztZikadZtpoXpRo6zqbOYkuIETy8sjJi5UNoKzXqmjdn486Bxei7EqWFEwA2wI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785752320; c=relaxed/simple;
-	bh=AuDxaPyqNWLx5/LkZ5wzqlrvIBRPuXaEU6S2k+SH3Vo=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=QTZ5Re5S8wK+2FUxjNrMWvBzaI3kDSyYWPqHeLDX1vvpY527DCbimdPZ1daVdHKlBzyLUMNThQCEld1gNPWCCbkyp9q95Rl4Ln1LILyyp0K4TQoZYTfkSm/22gDA/LKDW+caqhrjOhnc8X0TUsQl6b9DaP5i3EDSfayo9Ajkjx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=FJJoVLbc; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=JMG/zUXc; arc=none smtp.client-ip=103.168.172.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1785752449; c=relaxed/simple;
+	bh=KzLvhioSEn02OX6ZxnR1KybNELfQr0PY4KZPXlxz4ww=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=n9jThmvdvnpv2Bw88qpAyMx1/wvEvT+kUEOpuDTUmyPVeZRMYOIUkafJ3jvCPrzWVHa+4u4W22I8YoK5xoO22aHE43P1sfaLOHlrUO14UAcF2nZDDWeZ3B/PYAoaAmFkRPmRRP07XSH3icFi+RG7oV1besKtZJodxGs3NCs5u3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=KGWu0LPE; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="FJJoVLbc";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="JMG/zUXc"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 19EB7EC0123;
-	Mon,  3 Aug 2026 06:18:37 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Mon, 03 Aug 2026 06:18:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1785752316;
-	 x=1785838716; bh=nJWAmiK/YDsLpcDRD19IyFBb+1QwODK59Xiam0oEnn4=; b=
-	FJJoVLbc3ZmX5fpIePUqZeraQhsChe2tQkKJKpqTaB3balRKsl0fxra0VstKbvcX
-	tIss4Qqe8zdjM+vh7DPcPDaqFCcCpIszYxE/UCeCfpJTesTjKbThDx8gCaj3oFYG
-	CTWoT8kf8H6B9pDaxw2V0T/ST56EzpI6vqvU+PBqK2eSFZzUI8QXAIPu48t+XRRf
-	6r5yUK6T7C+bpMBMb3KSwjMT41eurT5o+wbeOwG0fbCh73hIxLsKugJHfs4TvCOf
-	tVsG1eHN/g2SoGF3nFa1A9hta6+oB1mpWimOg8tHHtuxVPcdrfP+q0X2bJb9ekHc
-	iMMKJELywUlZ85NniZ1kvw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1785752316; x=
-	1785838716; bh=nJWAmiK/YDsLpcDRD19IyFBb+1QwODK59Xiam0oEnn4=; b=J
-	MG/zUXcsKk2cgo7pYFZaQPjDtlQzxxKCNrztauvrJdZ00jw+pOUDgVQMNbSf+/uP
-	jOYvZsgXbs/1m/oDgcE282oweOHcRCdKLS6pHogTKc6f+mtiNZEcvB0jM4hH9+eF
-	O72x3t+pc9+wBUGIWzjP7qap/C/dI+FLV5phBUc1Mx3e0bNNIKmQdTNQNrtSDwYm
-	tfLUBOiET2tZw9wU8nPSnvjxisDsiqa91iWtJGu0Pb6MeAQgwwJvBbbyl9jdAV2b
-	M+ngsE64ewbs1GBa+2JomlAqaDnaHf6wwEK7Fd8ENpkZX4yJdoPyCLGILElR0SVQ
-	W0cWbwKznG7f5vod82Ndg==
-X-ME-Sender: <xms:9Wpwam19vjPHpjWuBwec6tDmAashtMB3DS4VY2qZahyOGEf_NJx5Sw>
-    <xme:9Wpwaj4p1i4WwDDy0EGNA1WYEEN9perFYPBRW1yGpo6-qdtjZnd4HP6lzRXSvHz2K
-    hencEOQ_hkwqm08xQq5OII1-zcuVWxfAIgGRplpEteyX44QXYl44hvP>
-X-ME-Proxy-Cause: dmFkZTEy4iNVFMTHvJ74Iz+PXArk4nRhmAi/Hp0/FiwaNzyHmcpp1vZqox0Qduh1Aw1rZx
-    mx5wM+EexPoc0vymZaaiG1M+/Qw7te6Eu3V9UMu801YgfVuiUsOr9jFFcerRK1QjRtrBUZ
-    WGs/2j+osW6O63m39fwq2j/LdnJ5MdBF7fY9ftcrV4rBHXNfIa9WlYQ86A6He5nmDi8BsL
-    1QSOGBog2fWZ+ZWaAM6w+M0eCNeEB1WGJUZRAO1XsUVhYnDjnPJOFkOpPAetduTjkaK4kj
-    u3ZiPSAcPOvW4T0yY1QGgeymVrRjJUEwRP/XmbWeIXPlB6Tbh0qlfJozdXa7L6yvdatBTo
-    e9Oywkh7tbKzDSRX3yf/Qufzgub+05DU3o7OacGkoSMv1efWWDHTvZ1NlwJA33vUQBpOwm
-    4c9gUCezKoR5OkaJoYIRyzwh9OMWFl1fNv1xBdK2CWWpXwLkpraacAHYHl76RUpyMRdNzf
-    tOT1k7POJXvKny6sS9R0DG0mGoag/23sHHaUz7QTb/ydBXiDsApCAtxzk/8/zej4ZHVlfW
-    KZLhC8ozJ4XQiHGWroMPvOP0PnN7nwrP0dAoyqaI5KCa5tCOWmmgJaTUWI3e0oy8+T2tzd
-    E5xj+c+oPN+VRG4RUn2Kb+zWriDLtr1m8R6Wz0wjp6Zw/dY2HQvjMVeDDv4g
-X-ME-Proxy: <xmx:-GpwasmI9vRR6VIlVdkp0ki_F2a0204oAEjv9xjZmNj8bdibj14hNg>
-    <xmx:-GpwaiVzlpjCbgba7UiyAait9jH3ufl8lLpWo6ecs0tGLV4rkU6LNA>
-    <xmx:-GpwaopPiPiwQFCPdeI788R5uuKkVzoxsDvBcc8kLgksOzU4XBNVng>
-    <xmx:-GpwarUlYla0FBqcd9_POc3vCw0ypgAEJExxPjbGjfMoqcB2kKqWdA>
-    <xmx:_GpwaoQUoQHGFoVnnHhYLp9XS_DG7jCMJETbU-y_kBfGx7V9YTYGNcNm>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id E204F32A0061; Mon,  3 Aug 2026 06:18:29 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="KGWu0LPE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1785752448; x=1817288448;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=KzLvhioSEn02OX6ZxnR1KybNELfQr0PY4KZPXlxz4ww=;
+  b=KGWu0LPE24YWqIFbLoazdwVwx3cr+iN+XCPRx1DdRmKqoIDQIKglKkv3
+   LkO14PLLk8/It4YOUqrmzXu6r9zgKmxM9IQuiPlmWlhpahNoBvzrA5YM9
+   49M+Wus0gYGiXD0mZuEQc17EtdneUQZYFbuCjoPVhZ8lpRH9s4Z5orB+r
+   /MyCnff8R+PmF9YLI2QV9SrwHD5vDokJdEiv6v48VpIGG8gAPcXXhhBo/
+   UDNKioZdYCMZ6gETQf0jzZZqZCenoYXIV1akrOUBpFFOm7f68FMpgvBAb
+   Iq+ICyhFG4yDJS4o+ktLJpnm8p8DUOxNWE5LMKe2d/6Dd/jl7/6KXjKi8
+   Q==;
+X-CSE-ConnectionGUID: 6Zzq/Eg0SFWlwt+IHYs12g==
+X-CSE-MsgGUID: NGwoY5evQQKUNa6sAcF4VQ==
+X-IronPort-AV: E=Sophos;i="6.25,202,1779174000"; 
+   d="scan'208";a="71118322"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 03:20:41 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Mon, 3 Aug 2026 03:20:40 -0700
+Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex03.mchp-main.com
+ (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Mon, 3 Aug 2026 03:20:37 -0700
+From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Subject: [PATCH v4 00/10] media: microchip-isc: AWB, stream-stop and
+ endpoint-ref fixes
+Date: Mon, 3 Aug 2026 15:50:35 +0530
+Message-ID: <20260803-balki-isc-prefix-fixes-v1-v4-0-f625d6aa0ae1@microchip.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A94vFq1Dmk6Z
-Date: Mon, 03 Aug 2026 12:18:09 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Junrui Luo" <moonafterrain@outlook.com>
-Cc: "Madhavan Srinivasan" <maddy@linux.ibm.com>,
- "Michael Ellerman" <mpe@ellerman.id.au>,
- "Nicholas Piggin" <npiggin@gmail.com>,
- "Christophe Leroy" <chleroy@kernel.org>,
- "Paul Mackerras" <paulus@ozlabs.org>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "Yuhao Jiang" <danisjiang@gmail.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Message-Id: <8391ed30-d739-49b2-ae8c-d31f01343841@app.fastmail.com>
-In-Reply-To: <9E49BF8D-34E4-449A-A24A-AACCF6215DAF@outlook.com>
-References: <20260802-fixes-v1-0-7368423440f4@outlook.com>
- <a1c11e04-a3df-4beb-84c8-f0e0443bb828@app.fastmail.com>
- <9E49BF8D-34E4-449A-A24A-AACCF6215DAF@outlook.com>
-Subject: Re: [PATCH 0/6] powerpc/spufs: assorted fixes
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHNrcGoC/33NwQrCMAwG4FcZPVtp065znnwP8dBlrQs6J60MZ
+ ezd7SaiiAySw5+QLwOLLpCLbJsNLLieInWXFPQqY9jYy9FxqlNmIMAII3Ne2fOJOEXk1+A83Xl
+ qF3kvOW5QawCN1kqW7l/72d4fUm4o3rrwmF/1cpq+VbOgphK8AmWKwmNuK7NrCUOHDV3X2LVsk
+ nv40qBc0iBpqpIgEFWhwf/T1EcrQC5pKmneOymMFhbq8lcbx/EJLDmmF2IBAAA=
+X-Change-ID: 20260615-balki-isc-prefix-fixes-v1-c8c44224caa1
+To: Eugen Hristev <ehristev@kernel.org>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>
+CC: Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus
+	<sakari.ailus@linux.intel.com>, <linux-media@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Balakrishnan Sambath
+	<balakrishnan.s@microchip.com>, <stable@vger.kernel.org>
+X-Mailer: b4 0.14.3
 
-On Mon, Aug 3, 2026, at 11:59, Junrui Luo wrote:
-> On Mon, Aug 03, 2026 at 11:28:46AM +0200, Arnd Bergmann wrote:
->> On Sun, Aug 2, 2026, at 17:51, Junrui Luo via B4 Relay wrote:
->> >
->> > Patches 1-5 are tagged for stable. 6/6 is deliberately not: it changes the
->> > atomicity of multi-element mailbox transfers rather than just adding a
->> > check, so it seems better to let it soak in mainline first.
->> >
->> > Build-tested only. I have no Cell or PS3 hardware, so none of this has
->> > been exercised at runtime.
->> 
->> These are all reasonable fixes as far as I can tell, but I'm missing
->> information about why you care about spufs. If you used some atomated
->> tooling, please add some reference to what you used.
->
-> We're working on a paper on LLM-assisted vulnerability research. spufs
-> was just picked at random as one of the modules to look at. The tooling
-> is an agent we developed ourselves. Should we add an Assisted-by tag in
-> v2?
+This series has a few fixes for the Microchip ISC/XISC driver, found
+while testing and from the feedback on the combined series [1].
 
-Yes, I think that would help.
+Fixes only, sent ahead of the enhancements so they can reach stable.
+All but the two pfe_cfg0_bps cleanups carry a Fixes tag and Cc: stable.
 
-      Arnd
+[1] https://lore.kernel.org/r/20260603-microchip-isc-fixes-v6-0-8c3d7474a768@microchip.com
+
+Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+---
+Changes in v4:
+- Retarget the Fixes: tags to the atmel-isc commits that introduced
+  each bug; microchip-isc is a verbatim copy, so the real origin is
+  older. Kept the Reviewed-by tags as only the Fixes: SHAs changed.
+  Let me know if you disagree.
+- Init the ISC mutexes with devm_mutex_init() at probe, and drop the
+  dead isc_async_complete_err label (Eugen).
+- Drop a stale FIELD_PREP comment.
+- Link to v3: https://lore.kernel.org/r/20260721-balki-isc-prefix-fixes-v1-v3-0-ffe10640a2d9@microchip.com
+
+Changes in v3:
+- Rewrite the WB offset/gain register writes with FIELD_PREP() (Eugen). No
+  functional change; verified on SAMA7G5-EK.
+- Collect Eugen's Reviewed-by on the PFE_CFG0 and macro-typo patches.
+- Link to v2: https://lore.kernel.org/r/20260629-balki-isc-prefix-fixes-v1-v2-0-3b120cc3742f@microchip.com
+
+Changes in v2:
+- Squash the stop and start-error histogram/AWB-flush patches into one (Eugen).
+- Store pfe_cfg0_bps unshifted, apply with FIELD_PREP() at the write (Eugen).
+- Skip the WB register writes during the stop window too (isc->stop check).
+- New patch: fix the ISC_PFG_CFG0_BPS macro name typo.
+- Add Eugen's Reviewed-by on the IRQ-sync patch.
+- Link to v1: https://lore.kernel.org/r/20260616-balki-isc-prefix-fixes-v1-v1-0-b23677fc5ab6@microchip.com
+
+---
+Balakrishnan Sambath (10):
+      media: microchip-isc: fix awb_mutex and lock lifecycle
+      media: microchip-isc: take a reference on the parsed endpoints
+      media: microchip-isc: synchronize the IRQ before disabling clocks on stop
+      media: microchip-isc: disable histogram and flush AWB work on teardown
+      media: microchip-isc: do not touch WB registers when not streaming
+      media: microchip-isc: store the unshifted PFE_CFG0 BPS value
+      media: microchip-isc: fix ISC_PFG_CFG0_BPS macro name typo
+      media: microchip-isc: fix PM runtime leak in AWB work handler
+      media: microchip-isc: fix SBGGR10 Bayer pattern
+      media: microchip-isc: fix WB offset and gain register field masking
+
+ .../media/platform/microchip/microchip-isc-base.c  | 78 ++++++++++++++--------
+ .../media/platform/microchip/microchip-isc-regs.h  | 16 +++--
+ drivers/media/platform/microchip/microchip-isc.h   |  5 +-
+ .../platform/microchip/microchip-sama5d2-isc.c     | 49 +++++++++-----
+ .../platform/microchip/microchip-sama7g5-isc.c     | 49 +++++++++-----
+ 5 files changed, 130 insertions(+), 67 deletions(-)
+---
+base-commit: 05f7e89ab9731565d8a62e3b5d1ec206485eeb0b
+change-id: 20260615-balki-isc-prefix-fixes-v1-c8c44224caa1
+
+Best regards,
+-- 
+Balakrishnan Sambath <balakrishnan.s@microchip.com>
+
