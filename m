@@ -1,237 +1,160 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012027.outbound.protection.outlook.com [40.107.200.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D06E2848AA;
-	Mon,  3 Aug 2026 12:26:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785759999; cv=fail; b=ebanQ5UhWHktlJTihHa1ue8FB7Gu6Skj8GoJ4K3OcFg8yMoBay3kCCDtmLIpR8T8uT93kiesIqkogaEe2lKNdZh9XbDNZtOlAPgyNZw0Yv1KrKxEsVLBXPetfyRvoiRmKq9enpj0JB+prCAfnvMvQZUK43lQceCY3vCtW+bGTTA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785759999; c=relaxed/simple;
-	bh=qT+pLYQwS3sTznqBSMnttYdcnZylMddinc0tHeSGpuY=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=XiOIwal4ZvqgQoZWLg+MjwNR4ZPub4VEHpwRJ5QFB5iHouJhC1HCj5y0kxeLCbARq1Hc2ssESeg1KAfEek2R0MQHYk4VwjDQ6FY9daAPno1G2joe+N9qIN5mUyGA+ryCAWJvc7gAK9yel+V/nOddx2VZ/jGgt0rhoEVfrzbqEyQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=tTTIpK/L; arc=fail smtp.client-ip=40.107.200.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C7A3FC5A4
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 12:28:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785760082; cv=none; b=kHC+tRCDL+9Zwb/4nnSp59ZstksCkaEuTnSblRdskD6X5RjMmiVier02QsHxMEVdILDODupnCPRnstDX24vQTogD3Jrp1H1jW0KNAbXFtK6ijhNtdZ4In4RonDoHM8kn7UdgZQ/lgGhpHwM89bgvkTPzOwhZcgmDQOewYJ71ryo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785760082; c=relaxed/simple;
+	bh=5/7hj4hoEQjCkOnCixcXYimdh7QE4er4nfDyqMofnAM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=saiWuJZxuyHscrDZWqWYnEftPtSmBsyNB+Mi4CZa1hzNFiFMRjFM7EUUr7KTr6Q6C12MKtIOBcjBMc8uOV5r/VupRqWVcBpa18lt2DXOwTAi+ucFveNkkObDJEjS8PqFzJYAu5AtnFvb0EFdqtZhwE+xjrOK1bysecSLnMHG5/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=OuL4Pukw; arc=none smtp.client-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="tTTIpK/L"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PyrGYagXHbXMqIGeOkqvHCgJibKg4aYhmF5AWxI2eWTlN+7MaGAfWoRsgtckyaz9COdL2+1V538ZTtQHsSneAZVnZDlpxv/7t2PuxB7tv4EFX+IHmHT9EBEHgYSvpXBBn06kFAKVMYUre8bhUGEZoLIcvkaE7PpDr4fb0GfKBmo4iflIJYpGiqvQhAzOl1wiNpa/U6hFXd12R5C5GHbaR8ocklaj+wiLAg1LL/0mn1IOKcoTxLVbOvyB6UxS/+NK1kZVUdXlZbxuRNDrIYNUhD6duzCwYKEjh8lJ70Pt/kElB+J7pDtr5EdzFxCmm6aiM4y3fWTvhtM1O87baOjc/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kfU5Nx3Kh2ifQVKWvnfxkACHpShKMvPF86hb0aZ4kmw=;
- b=e6Cgga8s3md7eVmeHul5kmwOKMD6d6UmyigQkJ4h5B9/mFPqT6K095uKu4SeI7natf9xY+5KHC4WEZSyMRpvPUxdolK6BSn+rFJEUqvNla4gfZHUb/0ruvv32SPYuQMnYxvRQtvrkjCI509uFXVlJNHezyDNmMj1DacVzx1CBLIzgzpAN8kyw4czyQXKfrcBZvb+BEi+R+bTMuF1zKEcf90LMMwaOvipbg5URxeZuXAG0nSVWPC8VjhjaIPVPpl/OOFK63pqYuIaz5xqXNKQvOULWTwSUSoUr5qOBTb/4bp/1YQ2BvlYGsi2Ach8qsky898bhefaLPz9RdF6RDNIpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kfU5Nx3Kh2ifQVKWvnfxkACHpShKMvPF86hb0aZ4kmw=;
- b=tTTIpK/LDeOXbXVlKMOGPJo/ZgwjpzDf0emX1kDbsTGVeMezpR2EfhEGl+4dMTOV0cTetAtWLrW1j+KgNIrHg8VyEua49OYMB1WU4vGjCF3NbY5rfLZ7prMfGjHLMX/DztK5BnVDBRQWQtm2M6RIe5xFRiS6R/BQGT78fkqd35E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA0PR12MB4446.namprd12.prod.outlook.com (2603:10b6:806:71::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
- 2026 12:26:35 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
- 12:26:34 +0000
-Message-ID: <5beb0994-556c-4715-aa1c-c8a31b5929b5@amd.com>
-Date: Mon, 3 Aug 2026 14:26:26 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] drm/drm_crtc: ensure dma_fence_ops remain valid
- during device unbind
-To: phasta@kernel.org, =?UTF-8?Q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Danilo Krummrich <dakr@kernel.org>, Sean Paul <seanpaul@chromium.org>,
- Gustavo Padovan <gustavo.padovan@collabora.co.uk>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- Peter Griffin <peter.griffin@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>,
- kernel-team@android.com, Simona Vetter <simona.vetter@ffwll.ch>,
- stable@vger.kernel.org
-References: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
- <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
- <d2d9aca41c4f0b9b6e5ae4e9b8e5de3c2d8f95c6.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <d2d9aca41c4f0b9b6e5ae4e9b8e5de3c2d8f95c6.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0201.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e5::17) To SJ0PR12MB5673.namprd12.prod.outlook.com
- (2603:10b6:a03:42b::13)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="OuL4Pukw"
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-9063b380982so32447686d6.0
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 05:28:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1785760080; x=1786364880; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cIGzOSmfX5U9v0HP7D+OfyZu9svWo+sYZ2GuaxYoJbk=;
+        b=OuL4PukwXtEnGhIgL39HTIn92V4eq/mwUvXuVPuduihmtZL5Dm9207ixXl0J3lwyp9
+         WX2GYg/q4p1SvNxa4kudwAgHGHuutfmCDZSgonhp6MCk5XGS63uf1CMxsr4CbjQyWIFj
+         y2nMvJWdPfLKPhHafUM8HUyg9KRxJ+Eor0cIPPP0M+sr7R01sxCDxw09Vpd3S/tLkT46
+         NxI9qEwgA1YraimMg+BB8V6iwUHASz8USgk0DjE7wHDtD8cjApDzIejTSnBdPZbXrHZk
+         8YSBGe6/nBWwTd8Ddxg0wVzD6bwHaBfM54eG8RNtZymp86zXmJvatZt1Uod3moDwwPhn
+         63Aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785760080; x=1786364880;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cIGzOSmfX5U9v0HP7D+OfyZu9svWo+sYZ2GuaxYoJbk=;
+        b=r7w4fo9QAQPxYAXEUukPZXLFifbw+jfv0cTjoPVyzY9ZE3qozS/KfA3ylJEzVa73cQ
+         wkV2k0g3U6MHIwyF6nhlHJZwUntPRER0oXaLPAvPNxE3U9daEHY9W5gWFTCOU9PPaT+/
+         T/t0P7M/+26fBrutFg4FlEWcm8Z+vULTT1UGY5svNkYwLdzRb2GKiz4g+QyM80gjCS9R
+         VJCYVuu57q5Izs/ekZeCMtk7v5Fh/63IfGCHA3WbmlGFuMhyzjtyvO5NGlHzIjYM14P8
+         mi7PUmB7h+fi9h5DUMU1p6HZRWMiRe1bHl4T0fT67xKLddukKXTM+YMoxZrAbKWmFJiC
+         xGaw==
+X-Forwarded-Encrypted: i=1; AHgh+RpdkoCJloaPD9NGF+Wk6Wuq2C9TsL8+L6PHcw9i5tIEV6l+L8xT8UVEX5k3kXr0wbImEBASiw0=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyforupK8EKD92HWnizEtpbtTxKoRAG3Z2JhlS698kyGUhj+c/s
+	7vPYNBjZLGrudrv6WuHB0gkCmBNZ+J8GOYTQf3bCBTaYT3l7KJorXaKJkx75c+iOjYY=
+X-Gm-Gg: AR+sD13Lb/48VjTYT3fELtk5UAqqFw1nisBB3b7jsdcp70MkATyet5//uw9h60fq/Py
+	FUfwqICfsZmaH5WazkJsYnZiZdXggPZiRH+KmiQmov22EnQD+vap7HBw8OvWFcoq1ExTM0KyN4b
+	mk5ddVCxiysQmkIYTpcrpuyeIQmFGqQyoIqFQRpopPw4f6mQFcC4uaeAWTR19IdlRt7ZRlLEfis
+	jZFOh8hA2Yde3VolvNtBi1Lmg0keRY+qPzRQt7zptS4hYI7iPCU6XEcLTifI8lBRug06nu2XFzJ
+	v/zBIHA/e8Z9laXHlrBp/OAsCdyntQWX72EMETiY6jr3J8tMJw1M7KqvOlmWLRgriDI1VIMpN+k
+	X1H3fz6uxJdfgINMBTIv1FlU/LkVAA5TUR87lL6W9mLpbpUVfAIoTOtWYoZrPWJdz7uMeIAlX6S
+	a+EREyc+i3zV05VtVcbwYApQ6QVVYa6RqjNwF9bs0UqvzkGMXLudfwmPh2CrlmiktcAg==
+X-Received: by 2002:a05:6214:29c5:b0:8f3:1770:f731 with SMTP id 6a1803df08f44-9084966cfb4mr210247346d6.15.1785760079795;
+        Mon, 03 Aug 2026 05:27:59 -0700 (PDT)
+Received: from localhost ([146.190.222.192])
+        by smtp.gmail.com with UTF8SMTPSA id 6a1803df08f44-9084a8386a3sm59397846d6.15.2026.08.03.05.27.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 03 Aug 2026 05:27:59 -0700 (PDT)
+From: David Lee <david.lee@trailofbits.com>
+To: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: Kyle Zeng <kylebot@openai.com>,
+	Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>,
+	Sven Eckelmann <sven@narfation.org>,
+	horms@kernel.org,
+	YOSHIFUJI Hideaki <yoshfuji@linux-ipv6.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	David Lee <david.lee@trailofbits.com>
+Subject: [PATCH net v2] ipv6: prevent in6_dev_get() from resurrecting inet6_dev
+Date: Mon,  3 Aug 2026 12:27:57 +0000
+Message-ID: <20260803122758.666112-1-david.lee@trailofbits.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA0PR12MB4446:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d2a0922-e155-4fb4-6dcb-08def15a749c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|4143699003|56012099006|11063799006|10067099003|6133799003|18002099003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	sOfBtrTJPBrF6arjPt/n4xQDs8pJevWUd5eJk0oYhmGU+z7+YEKvAcLgEbA5WCGDSVElJ4Eq3cYwsaazxRZjyH6+E5foZmB3WiF0dtD07kBMn2udyoMiKrSNEkVOqYT1AxKpVR+skQLDRFQdHvRNZFuXhb7Rj3gA3gyi2wHMFFf7rpnsFSJEB1hP0AoPbteCEMdG2JTfjL/93HvWCSY/ogXABV/MXvfefRgv8HQqGAorU8LFNCWMtrM7KrHXDV1wTF/6ISl+m4mGdh0QfrXSTtsrSJMv4KTo1UFvNI6B2i2yMyqI7NtbGmkTdTk9utwmA06+nvP8TXNf4S/EpMfXBzwUy25hEI7hSlKZpBQUoMO6ui+M2Ax5LEo63+jr0kVL3zAJD85veoZzOY0JnIexyIctFWrQ9JIvKEEhKhIezX8BqCS7z7kqjTYggTS2I9DNdMUFhiiYqXldoEnjXUuBonkgaSG+mCIFPFZU6sOIykpR81Gq/VnMGAf0NnCwP++q5LUYywyq0bsGD5HjEeC2wDjbXnaPy07rpP54BylPAaIud/AAZ45B4kKyNb+vH6J/BoCT5oruMRoy7gVDPqimfTMiFl0wjP4p3v2eYgenY+dVgJo5z5328WAXxuJUSGSqvkdC1Q1Uh7qTJc1hjBiUsQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(4143699003)(56012099006)(11063799006)(10067099003)(6133799003)(18002099003)(22082099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cXYweU9Sa09TVVliTWhid1pHYUNZTjBHMFJNVEV5QkRRdEVqeVMwdzNLdmtY?=
- =?utf-8?B?RlRYMUdlRW5FcGZjLzFEZXZkcXBCd3k2Wm1WOU14WVFveXVuRnNPR3NuYTND?=
- =?utf-8?B?Z25wK0NWTmtEM05GdnlHOXg1U1FVN2lYMVVzYXc4U3NPdEpBRmR5WVIrYzdI?=
- =?utf-8?B?T2lqQ2F2MzF4WWFEeHA3SnlqVVdKUnp4QSt2SnNzL3pBcDRHMktRZlhBUHZi?=
- =?utf-8?B?QmFCZ3lIaTJRM3piVDdDYUZXTVN5dzcrMkx4L0xpQWtOSVBEeG0zY3VxZnFi?=
- =?utf-8?B?Q0dacDBqVVVaUmpVdlI5Rlg3UFErc0pScDdLSVgyRS9YMXA4ODdqU0h1RzlO?=
- =?utf-8?B?YVJPSTBlU2U2QjJtY1pVUUFsUnhzQnZtSkR1QlRXeGl4bkY2c1RKVmJwajFX?=
- =?utf-8?B?dGhDMTRJdW9abGxybDdiWlBCOUd2VUZtMHBXRFFkbzFqaHQwcGNiTldTWHpE?=
- =?utf-8?B?azZqVTdLNzU4Y0R3OGM4YTZ3OTk0YjFsQzVGTDdCY095MVAwZ3JaT0lmWFVj?=
- =?utf-8?B?S1Y4bWRmWE91UDhBTHdkbVhpU21NSmZjdU1nQ0JtQk02c3FTOFQzQnF3K21Y?=
- =?utf-8?B?VndtcERuWUJHQ2EydEZUZDZkc0FFWXFTTFBsamtlRXhtMVN4MStQNjM5TG4z?=
- =?utf-8?B?amNaQjY0N2ptSDUwVnRLNWtpTnZScGpUdEVWNXBMRFVvaCtqNDd4Z0tPL3Bh?=
- =?utf-8?B?Ym1tL1VsT2hTVU9PRitqWHZURE44K2tVRnJzcnQzUjhwV3FSYzhjVTJBSE5t?=
- =?utf-8?B?dFpiZFdtUTB0c3E3Zm5zSXVQZTJpdFlWdUQyTXpPL2IzZjR1K1V2SE9DdFdK?=
- =?utf-8?B?RGVVNU4xMTdzcDVvVUhCS1dTU0RFc2lKUUR1RUxMUDc5L1g2MkVUZ3pZQk9I?=
- =?utf-8?B?OHp4RFpweWYyODZqMmtsNDQvNnRhYVZpQ0hDWGlYaWF4SzNvdUxTQm9aSXNQ?=
- =?utf-8?B?YU15UEh5OG9LNHkrajFWYlN4UGhsSDFKWDMvSVFYaDRkRDBSVUJLSmxuY09K?=
- =?utf-8?B?N002RUl3c2VFQU5qQ2lZWUNrRE9VaFEzRDgyNXJIWVRSUldFR2dpUGg2QzMw?=
- =?utf-8?B?L0E0ZUgwaFc3S2xzNHk3VEptUWhQMG4yOWRET1VtWmoxaDRVeEhuRFQ0bUUv?=
- =?utf-8?B?WmE2STJFSldhWDJESzZnSkZnMjBGNjJrVTQzQU54S0dOT3QrTlpmQUR6c2VG?=
- =?utf-8?B?UHE2c0tQZmtRdXNzVlFMWjFTQ0RmVzlacmw5THpER1g2YWF2Q05SRTBtcExJ?=
- =?utf-8?B?K0RFSUg0ckoxZ2pYNE1sOFUwVmNRcEJ4VTl4V0tFNzhLeU80dGpzdVJQQy9x?=
- =?utf-8?B?Z29JTG8wUVVJeW53Q0V0aTRhaExaY0t5c3ZOa1ZCbXQ3VGF2TTVjamZlVG9Q?=
- =?utf-8?B?eEhBNVRuZGRyRTdGQ3hqWGFLVmVvZkFibzNoYWN1TlVjcThuZjQ3VTBLQkY5?=
- =?utf-8?B?bDVENlpyNjhrZm0xZEVieVJ1UTMxRzNDZU5IQ0dDUm1RYURaZlE4MWZvaEtp?=
- =?utf-8?B?YWdFSFpuNU1GV25rQWUxYWxPQ0piWmFESGJQajdWcitiS2kxL2tBTFFKYlVn?=
- =?utf-8?B?ZFdqUnIxSFVybHRRQXRIbDRiMzBVVUdqbVdQVEJHUGZsdUVHNmd0WlZtU0lu?=
- =?utf-8?B?Y0hxMDRkMW5DeGJnbTd3RzhWUDJkV0hHenZFVWJZNEh2UTNJbzFxK0FhQzAw?=
- =?utf-8?B?aUdnZGZUdTJoZ3Q5ZmhENTV5d0VNMnY2N1dFSjB4NzNDRGRoYXpGbDRBQ0Nw?=
- =?utf-8?B?WUVRSUVKSjc1NGg5b1hVZUJiR200YlhEYUxaZHJEa2QwdUhvUWZZaGMyeVBk?=
- =?utf-8?B?dDd0VVNxMW1tQ3k2dXRnTGtqVzRBOGFkbW9vQktsRXdTNzdaWExKb1hUVDUv?=
- =?utf-8?B?eG5WR0VlWk1KRFhvNklLNldpTEVJY2hsdjMra1dZUk12dS8yc3IwYXJpUW9D?=
- =?utf-8?B?bDlvalN3eG40T0pYZjVJSUU4UnBjR3pPVEdLN09qVWd4NDZRMWNBS3ZYYzNy?=
- =?utf-8?B?K21XZ3ptekxKbzR5UDl6ZjRYbHk1bk5vV1YwMFpaRnJsZjJUR281TEtTbjVW?=
- =?utf-8?B?bnp3akZ1d0Qwbk9VMzdEekl4MUtrazZxNlQyRHVPcE52aE1XblNVSGlUa1J2?=
- =?utf-8?B?L09tWTZnd29NMGZEVWU1eG1pVU9kanc3UHQ2MktJNzhDUU9QRXJSMFlCblJ3?=
- =?utf-8?B?V1A0dnJMOTFidWpkcDZyQUFkalYwZTF1YUxLQWxldEFkS0ZaMmE3bThOd1ZU?=
- =?utf-8?B?WWRaaXhOSFVwOFBHRW1sM09YOGZMeWUyb3oxY25GS1gzbzl5Y3RZVEY5Zjhj?=
- =?utf-8?Q?1kEV7gEQK/Kde4bYQ+?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d2a0922-e155-4fb4-6dcb-08def15a749c
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 12:26:34.7295
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6CmZqGL67c4rEa1ngRN62QIWZVkN9WyvEECIMN/RLl1iGTB/10wM5GuS2hzwwV+F
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4446
+Content-Transfer-Encoding: 8bit
 
-On 7/21/26 13:20, Philipp Stanner wrote:
-> On Tue, 2026-07-21 at 09:21 +0100, André Draszik wrote:
->> In [1], sashiko reported the following issue:
->>
->> === snip ===
->> Looking at how these fences are managed, drm_crtc_create_fence()
->> creates a dma_fence without taking a reference to the drm_device or
->> drm_crtc. Because the sync_file framework exposes this fence to
->> userspace, the fence can outlive the CRTC.
->>
->> The dma_fence contract requires that data accessed by dma_fence_ops
->> (like get_driver_name) must remain valid for an RCU grace period after
->> the fence is signaled. However, drm_crtc_cleanup() and the subsequent
->> freeing of the device do not wait for an RCU grace period via
->> synchronize_rcu().
->>
->> If userspace calls ioctl(SYNC_IOC_FILE_INFO) concurrently with a device
->> hot-unplug:
->>
->> CPU1 (Userspace)
->> sync_file_get_name()
->>   ops = rcu_dereference(fence->ops);
->>   if (!dma_fence_test_signaled_flag())
->>     // Preempted or delayed here
-> 
-> nit: no one will be preempted here since the RCU read lock must be
-> held. The Sashiko tool misses the point, which is simply that someone
-> illegally frees up stuff that might be still in use, with or without
-> delay or preemption, that's all irrelevant for the issue.
-> 
-> Anyways, thanks for fixing this:
+From: Kyle Zeng <kylebot@openai.com>
 
-Seconded.
+in6_dev_get() reads dev->ip6_ptr under RCU and then unconditionally
+increments its refcount. Device teardown can clear the pointer and drop
+the last reference between these operations. The increment then
+resurrects an object whose RCU free has already been queued, so callers
+can use it after it is freed.
 
-> 
->>
->>
-> 
-> […]
-> 
->> Link: https://sashiko.dev/#/patchset/20260618-linux-drm_crtc_fix2-v1-1-c03e77b36f34@linaro.org?part=1
->> Fixes: 6d6003c4b613 ("drm/fence: add fence timeline to drm_crtc")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: André Draszik <andre.draszik@linaro.org>
-> 
-> Reviewed-by: Philipp Stanner <phasta@kernel.org>
+Use refcount_inc_not_zero() and return NULL when the object has already
+reached zero. RCU keeps the memory accessible through the attempted
+reference acquisition, and a successful increment pins the object for
+the caller.
 
-Reviewed-by: Christian König <christian.koenig@amd.com> for both patches.
+An independent run on the exact unpatched 6f5156d7a31a (v7.2-rc3)
+kernel reproduced the invalid reference acquisition as UID 1000:
 
-> 
->>
->> ---
->> v3:
->> - Philipp: update kerneldoc, add Fixes:
->>
->> v2: new patch
->> ---
->>  drivers/gpu/drm/drm_crtc.c | 15 ++++++++++++---
->>  1 file changed, 12 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
->> index 63ead8ba6756..e8e80c936852 100644
->> --- a/drivers/gpu/drm/drm_crtc.c
->> +++ b/drivers/gpu/drm/drm_crtc.c
->> @@ -493,14 +493,23 @@ EXPORT_SYMBOL(__drmm_crtc_alloc_with_planes);
->>   * drm_crtc_cleanup - Clean up the core crtc usage
->>   * @crtc: CRTC to cleanup
->>   *
->> - * This function cleans up @crtc and removes it from the DRM mode setting
->> - * core. Note that the function does *not* free the crtc structure itself,
->> - * this is the responsibility of the caller.
->> + * This function cleans up @crtc and removes it from the DRM mode setting core,
->> + * after first waiting an RCU grace period to ensure @crtc->dev can safely be
->> + * dereferenced by our dma_fence_ops.
->> + *
->> + * Note that the function does *not* free the crtc structure itself, this is the
->> + * responsibility of the caller.
->>   */
->>  void drm_crtc_cleanup(struct drm_crtc *crtc)
->>  {
->>  	struct drm_device *dev = crtc->dev;
->>  
->> +	/* Ensure our dma_fence_ops remain valid for an RCU grace period after
->> +	 * the fence is signaled. This is necessary because our dma_fence_ops
->> +	 * dereference crtc->dev.
->> +	 */
->> +	synchronize_rcu();
->> +
->>  	/* Note that the crtc_list is considered to be static; should we
->>  	 * remove the drm_crtc at runtime we would have to decrement all
->>  	 * the indices on the drm_crtc after us in the crtc_list.
+  refcount_t: addition on 0; use-after-free.
+  ip6_mc_source+0xef4/0x17e0
 
+It was followed by the corresponding reference underflow in
+ip6_mc_source(). The supplied trace from the same unpatched revision
+additionally shows the access after the RCU read-side section ends:
+
+  BUG: KASAN: slab-use-after-free in mutex_lock+0x76/0xe0
+  Write of size 8 at addr ffff888015b50240 by task poc/1219
+
+Bug found and triaged by OpenAI Security Research and
+validated by Trail of Bits.
+
+Fixes: 8814c4b53381 ("[IPV6] ADDRCONF: Convert addrconf_lock to RCU.")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6-sol gpt-5.5-cyber
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Co-developed-by: David Lee <david.lee@trailofbits.com>
+Signed-off-by: David Lee <david.lee@trailofbits.com>
+---
+Changes in v2:
+- Use the net tree and v2 subject prefixes.
+- Preserve Kyle as the author and add David's co-development and
+  submission trailers.
+- Include the initial refcount warning and identify the unpatched test
+  revision.
+
+Ido flagged the corresponding IPv4 issue, which turned out to have a
+similar refcount race. in_dev_get() performs a zero-to-one refcount
+increment that can be reached through RTM_GETNETCONF.
+
+I reproduced it on an unpatched v7.2-rc5 kernel. It first produced a
+refcount warning, followed by a KASAN slab-use-after-free in
+inet_netconf_fill_devconf().
+
+I will send a separate patch for IPv4 because this bug was introduced
+by a different commit.
+
+Link: https://lore.kernel.org/netdev/20260731135202.566337-1-david.lee@trailofbits.com/
+
+ include/net/addrconf.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/include/net/addrconf.h b/include/net/addrconf.h
+index 8ced27a82..e67642459 100644
+--- a/include/net/addrconf.h
++++ b/include/net/addrconf.h
+@@ -405,8 +405,8 @@ static inline struct inet6_dev *in6_dev_get(const struct net_device *dev)
+ 
+ 	rcu_read_lock();
+ 	idev = rcu_dereference(dev->ip6_ptr);
+-	if (idev)
+-		refcount_inc(&idev->refcnt);
++	if (idev && !refcount_inc_not_zero(&idev->refcnt))
++		idev = NULL;
+ 	rcu_read_unlock();
+ 	return idev;
+ }
