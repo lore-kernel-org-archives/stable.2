@@ -1,123 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37563324B22;
-	Mon,  3 Aug 2026 07:30:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3C83A900B;
+	Mon,  3 Aug 2026 07:45:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785742212; cv=none; b=n9Q9OV7J202ZQop3p3uvKis85Bmwaihnb5P+rH1xUCi9cfg2E6/SXDNZgblRS2ZQuB1pDsZgQIn6YZXcOiujPBom2P5XzsbXjezfdbITBMzN6DtQyOqT12Gb3zwLVHjcEA9DMmpr04lqebZB5SkQKwDUoqb2U/5ZLlHUeHnjwmg=
+	t=1785743150; cv=none; b=Q/zdBQtWzb6qI8iV6JR5e4sFHM+RqSykS8/D0kxqfTA9Qlj1OO5OE8LMwW8je6xlNWzJ3JxV+evPpDp9N1MMBk3VbmjLvyjTzItBxbWcPOBrssW0e9CbslHxdXEgVjOzQE/TUwqgzuN4E9O0idTRy8OY8AjOdad+aYHbDxe+gu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785742212; c=relaxed/simple;
-	bh=nW4Oria3JDl4RQUhHTC6Ik0Nt7jezSYNDBlP9xfAKwc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kzLjWMkxqDLoAso1GWIr3S8a1UNkcWj3r+E+XP7SnHA0wGPV1xBhgP0ORfKv9wM8A9C3E8P/dQe6o9a8wM2aKnymiVh2ikHN0bdnBBXHEYQxXYsyYbjNLRhpF0na/yzfwIqXeC3YLCTIaV+cV38MIL5q2iKybhBYyCwKpWcqSnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O6asfHzA; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O6asfHzA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E4093C2BCB9;
-	Mon,  3 Aug 2026 07:30:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785742211;
-	bh=nW4Oria3JDl4RQUhHTC6Ik0Nt7jezSYNDBlP9xfAKwc=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=O6asfHzAHoJUgY4Q6Vm4e4JwyiJJ1DTOkTlU2ZKTe65e2GMoPusFY/ZDfsaym+ajC
-	 vEgW2LVyTgvBmbqaLwIHSgvMCdmUTJz6fovtduyRWEXElDAhIlTZGebp8oSDtzUcSn
-	 oAdiDNDi4eL89dX+jFalkngCKKN5YP0skLI0lLQLNjskpOX9WcDgBoRIkhyYJfbWlx
-	 m6z8H4nv0TXWNtnRuamIu9lWM9j5qCTR8iTsgH/D31UHdYimI1hlbVnJS29Mp8FtrO
-	 aXL/01UkIFnweesJwepBW6ETEDgkeUaqpbQuIVvEQy+luI77Tmm24dsgEARRxrIVKK
-	 gnYsSDv/XAsLw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BA564C55175;
-	Mon,  3 Aug 2026 07:30:10 +0000 (UTC)
-From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Mon, 03 Aug 2026 15:29:36 +0800
-Subject: [PATCH] media: vicodec: fix NULL deref on oversized frame
+	s=arc-20240116; t=1785743150; c=relaxed/simple;
+	bh=Q4r4ZvXvKZwECSEmaFUQVnzHnLIZEnKUGzPMldu9CAg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=F9G1M/msSwBET7R7DVMMMQPAhQpzH0j6ZFG+t+m7aom1jW1asq828MsZksFFKeD9EWRA6TqIF2PpALkN9Z8+M2+Y7aEJFp88dTU5/oH9cFZ0CF//9JwCsME7bILBq7yLZbTWoQcRXwFtEvn6k3R1DgH9wGqXMEkvlt6MLsKw66c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 5396d3c48f0f11f1aa26b74ffac11d73-20260803
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:015f9374-1893-4090-9b34-cf2db0364426,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:20
+X-CID-META: VersionHash:e7bac3a,CLOUDID:062436e5b30e25e69534dbe91d0b9e05,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|136|850|865|898,TC:nil,Content
+	:0|15|50,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,
+	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5396d3c48f0f11f1aa26b74ffac11d73-20260803
+X-User: chenchangcheng@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <chenchangcheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1694666554; Mon, 03 Aug 2026 15:45:41 +0800
+From: Chen Changcheng <chenchangcheng@kylinos.cn>
+To: chao@kernel.org
+Cc: jaegeuk@kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	ccc194101@163.com,
+	Chen Changcheng <chenchangcheng@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] f2fs: fix valid block count leak on data block allocation failure
+Date: Mon,  3 Aug 2026 15:43:44 +0800
+Message-Id: <20260803074344.219899-1-chenchangcheng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260803073800.218814-1-chenchangcheng@kylinos.cn>
+References: <20260803073800.218814-1-chenchangcheng@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-vicodec-fixes-v1-1-f3cc40cacd05@outlook.com>
-X-B4-Tracking: v=1; b=H4sIAF9DcGoC/x3LTQqAIBBA4avErBP8qbCuEi1Cx5qNhoIE4t0bW
- n48XoOCmbDANjTIWKlQigw1DuDuM14oyLNBS71IK42o5JJHJwK9WESwRplVG5zUDPw8Gf/Ay37
- 0/gGlSAuEXwAAAA==
-X-Change-ID: 20260803-vicodec-fixes-f8313923e415
-To: Hans Verkuil <hverkuil@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Dafna Hirschfeld <dafna3@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Nicolas Dufresne <nicolas@ndufresne.ca>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- stable@vger.kernel.org, Junrui Luo <moonafterrain@outlook.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2344;
- i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=iV3617BfwTniNi3UKnCkcCHXT5MEjJv0HupDO6zG/sQ=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrALnRosKNnO1BXc+WMzrUhcLu3bjFMdO4ZyWL3rLt
- QIzWzz/WHSUsjCIcTHIiimyHC+49M3Cd4vuFp8tyTBzWJlAhjBwcQrARHZnMDLcaH5U8mXvl6/+
- 1pNS+gOWKTrsY/sUo/V66Rm207xfPr0IZ2RorFzk9n7NaZb1re+0NRWOB9+wvZFuvH+22fbH8g/
- 5Ap/xAAAntku5
-X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
- fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
-X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
- auth_id=909
-X-Original-From: Junrui Luo <moonafterrain@outlook.com>
-Reply-To: moonafterrain@outlook.com
+Content-Transfer-Encoding: 8bit
 
-From: Junrui Luo <moonafterrain@outlook.com>
+In __allocate_data_block(), when allocating a new data block
+(dn->data_blkaddr == NULL_ADDR), inc_valid_block_count() is
+called first to increment total_valid_block_count and i_blocks.
+If the subsequent f2fs_allocate_data_block() fails, the function
+returns the error directly without rolling back the
+already-incremented block counts, causing a permanent leak.
 
-job_ready() only honours the is_header_valid() verdict when
-ctx->comp_has_frame is set, and comp_has_frame is only set once
-comp_size reaches the full frame size. Since the copy is clamped to
-ctx->comp_max_size, a header advertising a larger size leaves comp_size
-stuck at comp_max_size, so comp_has_frame stays false and the failed
-validation is discarded.
+Fix this by calling dec_valid_block_count() to undo the
+increment before returning the error. The condition
+old_blkaddr == NULL_ADDR precisely identifies the case where
+inc_valid_block_count() was called.
 
-Control then falls into the resolution change branch, which calls
-update_capture_data_from_header(). That function re-derives info via
-info_from_header(), assigns it to q_dst->info and dereferences it as
-q_dst->info->sizeimage_mult, with no NULL check of its own.
-is_header_valid() does check that same info_from_header() result --
-if (!info) return false which is precisely the false verdict
-job_ready() discarded above. info_from_header() returns NULL whenever the
-header flags resolve to no supported pixel format.
-
-Drop the comp_has_frame conjunct so an invalid header always bails out.
-The resolution change path is unaffected, as it is entered with a valid
-header. Oversized frames are then rejected by device_process(), which
-already returns -EINVAL when comp_frame_size exceeds comp_max_size.
-
-Fixes: 3b15f68e19c2 ("media: vicodec: Add support for resolution change event.")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+Fixes: 54607494875e ("f2fs: compress: fix to avoid inconsistence bewteen i_blocks and dnode")
+Cc: <stable@vger.kernel.org>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Chen Changcheng <chenchangcheng@kylinos.cn>
 ---
- drivers/media/test-drivers/vicodec/vicodec-core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/f2fs/data.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/test-drivers/vicodec/vicodec-core.c b/drivers/media/test-drivers/vicodec/vicodec-core.c
-index 318e8330f16a..dfc8dde4bad6 100644
---- a/drivers/media/test-drivers/vicodec/vicodec-core.c
-+++ b/drivers/media/test-drivers/vicodec/vicodec-core.c
-@@ -654,7 +654,7 @@ static int job_ready(void *priv)
- 	 * if the header is invalid the device_run will just drop the frame
- 	 * with an error
- 	 */
--	if (!is_header_valid(&ctx->state.header) && ctx->comp_has_frame)
-+	if (!is_header_valid(&ctx->state.header))
- 		return 1;
- 	flags = ntohl(ctx->state.header.flags);
- 	hdr_width_div = (flags & V4L2_FWHT_FL_CHROMA_FULL_WIDTH) ? 1 : 2;
-
----
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-change-id: 20260803-vicodec-fixes-f8313923e415
-
-Best regards,
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index a765fda71536..819631bb61ae 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -1532,8 +1532,11 @@ static int __allocate_data_block(struct dnode_of_data *dn, int seg_type)
+ 	old_blkaddr = dn->data_blkaddr;
+ 	err = f2fs_allocate_data_block(sbi, NULL, old_blkaddr,
+ 				&dn->data_blkaddr, &sum, seg_type, NULL);
+-	if (err)
++	if (err) {
++		if (old_blkaddr == NULL_ADDR)
++			dec_valid_block_count(sbi, dn->inode, count);
+ 		return err;
++	}
+ 
+ 	if (GET_SEGNO(sbi, old_blkaddr) != NULL_SEGNO)
+ 		f2fs_invalidate_internal_cache(sbi, old_blkaddr, 1);
 -- 
-Junrui Luo <moonafterrain@outlook.com>
-
+2.25.1
 
