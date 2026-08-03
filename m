@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BD03E5A38;
-	Mon,  3 Aug 2026 16:17:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45395411FA3;
+	Mon,  3 Aug 2026 16:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785773839; cv=none; b=Nj7OpcyEhbzdjnbFZ4dyyGsuPRCjmxdMzeKE+eQS3SbvPchiJhHyqay1PIYfEimAm5byRfLlPcNcmG2QPargn5Piq7j3J1+kJNaUsRlFWOMIYISQwDJqhEwFFqc2ZwEDxTJkKONCiSW4TW9eeJ633rOKAmggjcKsUK1zKjW+8XU=
+	t=1785773841; cv=none; b=m/mTwQVvc87kGAZa+vl+j1q+mEBu4/ub1StOoyPVBRcxUXSsDUFlf3d44stcPjmVPDm2fgqAX7sXqGo6tnbzJ+vZ13p+iwZPQtXPNZr5cUyWwPF9KvTmPoODMtZ3ggi22iH8ngDQEcGXnojjY5HTiBdlavNys6bSXq3zyiEKWaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785773839; c=relaxed/simple;
-	bh=a50rDkuPZo2+Ajw0lTnGCH+IgCJD/gdXH5g/0VvRJ24=;
+	s=arc-20240116; t=1785773841; c=relaxed/simple;
+	bh=2LCtQYaFHMYShjE0L774cau909DKU6IxvzHD3daSzt8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=n3ojUYmaof5+n1mxTc4kX/nmd9K9C5lquJPmLWcsBWwokTzAK7IevAI1iLAocAsgXGXxFGpS08pY2Qz3cq4gbZSvVA775ZzwWN/U3L5LYEW7u45TOO7UZjwmuopswavEFa0WI+Zn1/GDSu8UBoiJGw7ZD0uiFeU2qqpiBVF55Gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtcfDLrP; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=BjeVjHgNKbQuGIvYls2TrHLXbkMdjNaawEmO9vxyrAm7T03dSu+Fn5JfQiCv2m/QNKqheA73e5pQJxFiWXJjQa9RBTT4pvRSk80P41nkXKC7UwMoypYsyjfvFJ7mo5R2/Nv2e0h6FjkkgggG/fSv+UjOHFtmQYBaXAk1rEoDlAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZXb5lbk3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtcfDLrP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EA8E1F00A3A;
-	Mon,  3 Aug 2026 16:17:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZXb5lbk3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC3F31F000E9;
+	Mon,  3 Aug 2026 16:17:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785773837;
-	bh=MFsCO3HIEA7tvcBR0h/SaDgADYrMrUwYc79JJ2kD76w=;
+	s=k20260515; t=1785773839;
+	bh=CHz7hPGcuGQaXXaAvcxIgvtwBW6pE1qWtUMNAIp/Hpw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LtcfDLrPTfb8aMCeNf3qxn8Dxt9gtkybaz4wIexP7zshbyh0E17KhdWOPOmC9FGLL
-	 Af97eDj7/orDNhzdNnZWb3BLfY+Y+f6QuNlCL/tQGGhm9KjRuaEKhXgb7ZJuontnSz
-	 Y2iDbBKOcfgrBBge9iVD9sD0beL88nE9EYhFx3Je9S9vZHCLUUX6h0D8VNjnrUYH2b
-	 7gt/w88FucoW8/a7/sfyaeIaQE8qJzqrfQk0jE/7K9aqZK4d0P9ktbvzJtECSD8OAQ
-	 RfWZxJMkjLiMAevPtlxsi+mqvc+wBt1gK8x/MSPIIpnAtiYErO5WNkBvvsqizbTG84
-	 pHJxA68jN8ifQ==
+	b=ZXb5lbk3U2Cm5cd/gEH44ystsRNdr1zre2oUmXbG8QEnqE77841Z857R3YWC3pDg7
+	 B0tAEJeDTt5/7fBYcPRUdixNKbpkdYDPURnHy4di3jGnJFEUKn76O9+7TMWW4HEuZb
+	 CIdAjNFxYNcRfshGef/LJhbDJYjGABYPxxyNYwRZ46hkUd6mmX0NumNP+ao8AfP1zB
+	 m22e0F1SYV/dNPL9HBtAZjJSs/h82zlSJqvsNxs7iIEpZ+ivHNBUKxt38Q0EGPAyCr
+	 LIyGuSxC04oEveYZQYSuGPLe9JWR9NWGvtzhc0DitPGwlvwuJRApcFoXHy3U+8AzCi
+	 RmVVELdv/zbJw==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Mon, 03 Aug 2026 18:16:39 +0200
-Subject: [PATCH net v2 7/8] mptcp: fastopen: only mark MPTFO subflows with
- SYN data
+Date: Mon, 03 Aug 2026 18:16:40 +0200
+Subject: [PATCH net v2 8/8] mptcp: reclaim forward-allocated memory on RX
+ path errors
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-net-mptcp-misc-fixes-7-2-rc6-v2-7-b8f496d71664@kernel.org>
+Message-Id: <20260803-net-mptcp-misc-fixes-7-2-rc6-v2-8-b8f496d71664@kernel.org>
 References: <20260803-net-mptcp-misc-fixes-7-2-rc6-v2-0-b8f496d71664@kernel.org>
 In-Reply-To: <20260803-net-mptcp-misc-fixes-7-2-rc6-v2-0-b8f496d71664@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -47,83 +47,55 @@ To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
  Simon Horman <horms@kernel.org>
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
- Wyatt Feng <bronzed_45_vested@icloud.com>, stable@vger.kernel.org, 
- Yuan Tan <yuantan098@gmail.com>, Yifan Wu <yifanwucs@gmail.com>, 
- Juefei Pu <tomapufckgml@gmail.com>, Zhengchuan Liang <zcliangcn@gmail.com>, 
- Xin Liu <bird@lzu.edu.cn>, Ren Wei <n05ec@lzu.edu.cn>, 
- Dmytro Shytyi <dmytro@shytyi.net>
+ stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2405; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=m4h2VvVXoQsxyUp0cTHCmA7BgFqI3pJF+c4g9B5voAg=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIK9n2eG6h5sbvhZbqGAPehXylbrhjz6CU9Xsh02Zerp
- +Vv54ztHaUsDGJcDLJiiizSbZH5M59X8ZZ4+VnAzGFlAhnCwMUpABMxmsfwP92sf5ZR1PTKav6K
- L+wMsdPjLaqA/Or779tfGgZMUedi+Gd7P+3dvvy1yf+Tn85TEfx4RnVf8JLJnQeNM0wW1V68s5w
- VAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1341; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=13ycqCYB6Icqk3NK7EG0GaWaP44YW7kNbjVu5JUlTgc=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIK9n2RaFxZbX1qsdwdSfa7ps8W371q1Kye9mfeCt+mS
+ 1+299cs7yhlYRDjYpAVU2SRbovMn/m8irfEy88CZg4rE8gQBi5OAZiI1WZGhm7LDVtfKlxxmz6x
+ 9lJHaMlmfjXmK4s5LMvtero0TnH/cGb4X7v3tuWJ640GO56uZIqtPfd0cvjh3ws3bpE/oraoYfb
+ 0r9wA
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-From: Wyatt Feng <bronzed_45_vested@icloud.com>
+From: Paolo Abeni <pabeni@redhat.com>
 
-Passive TCP Fast Open accepts a valid-cookie SYN even when it carries
-no data. In that case the child socket's receive queue is intentionally
-left empty.
+After commit 9db5b3cec4ec ("mptcp: borrow forward memory from subflow"),
+errors in the receive path prior to queueing skbs into the receive
+queue do not trigger forward-allocated memory reclaiming.
 
-mptcp_fastopen_subflow_synack_set_params() set is_mptfo before checking
-for queued SYN data. That made data-less TFO SYNs hit a WARN and, if
-the warning was non-fatal, left stale MPTFO state behind. The stale
-flag could later trigger a state-confusion bug in
-check_fully_established().
+Prevent forward memory from growing unboundedly in pathological drop
+scenarios by explicitly reclaiming memory when skbs are dropped.
 
-Only mark the subflow as MPTFO after confirming that an SKB was queued.
-Return quietly when the receive queue is empty.
-
-Note that mptcp_subflow_context's is_mptfo field is now not just about
-subflows where the TFO was present, but about MPTFO subflow that
-consumed SYN data. Only having a valid cookie but not carrying data is
-not really "doing TFO".
-
-Fixes: 36b122baf6a8 ("mptcp: add subflow_v(4,6)_send_synack()")
+Fixes: 9db5b3cec4ec ("mptcp: borrow forward memory from subflow")
 Cc: stable@vger.kernel.org
-Reported-by: Yuan Tan <yuantan098@gmail.com>
-Reported-by: Yifan Wu <yifanwucs@gmail.com>
-Reported-by: Juefei Pu <tomapufckgml@gmail.com>
-Reported-by: Zhengchuan Liang <zcliangcn@gmail.com>
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Assisted-by: Codex:GPT-5.4
-Signed-off-by: Wyatt Feng <bronzed_45_vested@icloud.com>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
-Cc: Dmytro Shytyi <dmytro@shytyi.net>
-Note: a v1 has already been shared alone on the netdev ML:
-  https://patch.msgid.link/81f26b8fddd59ebb6cecc417fb138d9ff5214e08.1780458440.git.bronzed_45_vested@icloud.com
-v2: update commit message to reply to AI reviews. (Clashiko)
+v2: Start comment on the same line as the opening /*, like in most
+    places in the code. (Clashiko)
 ---
- net/mptcp/fastopen.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ net/mptcp/protocol.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/net/mptcp/fastopen.c b/net/mptcp/fastopen.c
-index 082c46c0f50e..f717750906ff 100644
---- a/net/mptcp/fastopen.c
-+++ b/net/mptcp/fastopen.c
-@@ -24,12 +24,13 @@ void mptcp_fastopen_subflow_synack_set_params(struct mptcp_subflow_context *subf
- 	sk = subflow->conn;
- 	tp = tcp_sk(ssk);
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index ca644ec53eed..7c8180d8d5ef 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -149,6 +149,12 @@ struct sock *__mptcp_nmpc_sk(struct mptcp_sock *msk)
  
--	subflow->is_mptfo = 1;
--
-+	/* A valid TFO cookie does not guarantee SYN data. */
- 	skb = skb_peek(&ssk->sk_receive_queue);
--	if (WARN_ON_ONCE(!skb))
-+	if (!skb)
- 		return;
- 
-+	subflow->is_mptfo = 1;
+ static void mptcp_drop(struct sock *sk, struct sk_buff *skb)
+ {
++	/* The skb forward memory was already transferred to sk by
++	 * mptcp_borrow_fwdmem(), even before setting the destructor.
++	 */
++	if (!skb->destructor)
++		sk_mem_reclaim(sk);
 +
- 	/* dequeue the skb from sk receive queue */
- 	__skb_unlink(skb, &ssk->sk_receive_queue);
- 	skb_ext_reset(skb);
+ 	sk_drops_skbadd(sk, skb);
+ 	__kfree_skb(skb);
+ }
 
 -- 
 2.53.0
