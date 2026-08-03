@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE0B438033
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 20:47:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F25B030C60D
+	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 20:48:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785790032; cv=none; b=uyk8USECUgmpdNbvyItJG0SarfQTHlxKLS6pzr70OFsGNxQwbFYDjFn8vCNApzgTlAeaNOdUx+RK02M1Mq/76JP28dWzDscNL3rnB2ZRHOS4y22p31FUQTQN7cS3QC+AotZQRWt5GN9btBdVJAPda36UjVUGDiJ5dC4ECisblS0=
+	t=1785790083; cv=none; b=fbjanID7Z4Xk5XDmN9fVbukijQZiGPc7Ib2QpWggEmaVPLsa84HDCeXvIOB4yEXceJSBRlgtdYGJO7iJ0hjhXFfUYobPNjxj8OMRqMTCo610+xVRxRmuBaBfXh463td6+dk6LNY1ho3lDSUirco8bsa8uKzyl84SooWEZccAkEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785790032; c=relaxed/simple;
-	bh=YAwG/uHJqGSVpFL6qGH3+z4PyuiglyME5nmxIRePbI8=;
+	s=arc-20240116; t=1785790083; c=relaxed/simple;
+	bh=PkClmh99PfV3ETOJ7r3UKm/WK1zCvjYD14fzCutRF9M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dcYN+0o3l2ALOtRiHSPTupLCzlkiqkpA65EYQu4kCn9aGrAIv4Fz4QUpHu+yfMQmUiX7tY4Fmjdu9Dl+9ZdsaAXbkZneUJUvQM1sCtAHd8LFSE3K+MYi9tDi/tsRAKUb1qkbLIsrM8i4ciVgNVw0PYqj1N+not8NgGvbR53BDeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hdHR1l5x; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=I0T4bByLofs5EHTiZR+a57ybfUyfV39rajxpXYK3UaBO0CqLI1ywyyTkLMZskN4tcB+jkrQyDZxXeev8OFetnmq3FirjuKyFKpB5I3SwO2FN5HJI1YZjEB0CW2oiw7ilEj+dLPKTYQkujxnV8eN1JRnwPKkN/qc3ORZcA6dWAVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DcXznGJX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hdHR1l5x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 425C91F00A3F;
-	Mon,  3 Aug 2026 20:47:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DcXznGJX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0477C1F000E9;
+	Mon,  3 Aug 2026 20:48:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785790030;
-	bh=UhKmumJRKPyxAGiDFKTZuGGKEElwdy3UdH9fvK389Bc=;
+	s=k20260515; t=1785790081;
+	bh=zExrZzhiojQ+jeBTV+O2dmpr9TiPE7oteNy8v8y9BZM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hdHR1l5xErRDmDmHz756bXe500DJEJqwQNYpVHOaLb/Iqoy9bMD30Fi0wKlb4Ab0/
-	 9imOvh81Wex//kkSMc5W5eYjIACF9Tr8621bzIT8vK5nDUvijHTuj1v3Fyp++EFoG6
-	 ytjho3H8vMO+8uBLvWMWfSXl1TK5Sovt21b//UwPAyE9vZqd9niaDEj6zkVrtjDyQj
-	 5nXK6Gm7ru4e7GaPtbNnQTvblQXWpposu4b75BG4AZr8i+wzzDhX7DbAOlI55CsyVL
-	 ojCyBFGL0x4iASAVJpDjBPZakzCC0h+BO/Ywi2uxZNZKPzKgVvZArL2AQcz/4m+VfF
-	 SongLJJK9iraQ==
+	b=DcXznGJX+j/kHA+Pp79qvp3cNQPL23Fwgdw2jzWK7QOUMeeQ1P4HWa8z80SsQgUKL
+	 opu1wKgBxl6IIXv1qj3EsiS+TjRRg61ETAFFo32hZVEdW4GFAWSZhquUxVFB+ZhW2Y
+	 oOWpVLi6peu/ebqxps9rb0CiU7NgFtwheddJCQrBZQuIl/LEGKT/h0HGriRXSe7whL
+	 63IbK0X9jjouKQq8FqqVGv6ZLePaGOkF1qdOx1CfSj4AYyGsQf33rj0auTNFZF49rX
+	 hokjGG3qAZ+otHN/s96qgFqZbCeSpsTnLpZHp1cVXv8ElxabH1HUnr1IodzqeEo/dy
+	 kNHLq/9d3sTbw==
 From: Sasha Levin <sashal@kernel.org>
-To: gregkh@linuxfoundation.org,
-	yi1tang.yang@gmail.com
-Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>
-Subject: Re: FAILED: patch "[PATCH] io_uring/rw: fix missing ERESTARTSYS conversion in read paths" failed to apply to 6.12-stable tree
-Date: Mon,  3 Aug 2026 16:46:59 -0400
-Message-ID: <20260803203507.stable-0008@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Carlier <devnexen@gmail.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] media: aspeed: fix missing of_reserved_mem_device_release() on probe failure
+Date: Mon,  3 Aug 2026 16:47:59 -0400
+Message-ID: <20260803204759.1661368-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <8ebae381-f1cc-4cd2-8afd-8508cf9cb217@kernel.dk>
-References: <8ebae381-f1cc-4cd2-8afd-8508cf9cb217@kernel.dk>
+In-Reply-To: <2026072935-extenuate-bonsai-d478@gregkh>
+References: <2026072935-extenuate-bonsai-d478@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,13 +45,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 01, 2026 at 10:18:11PM -0600, Jens Axboe wrote:
-> Right, this original email was superseded by the later ones. As long
-> as the sent out patches got queued up, we should be fine.
+From: David Carlier <devnexen@gmail.com>
 
-They did - "io_uring/rw: fix missing ERESTARTSYS conversion in read
-paths" is queued for 6.12 (and for 6.1 as well).
+[ Upstream commit 253c8ef7d57da0c74db251f385324faaa5ae2257 ]
 
+aspeed_video_init() calls of_reserved_mem_device_init() to associate
+reserved memory regions with the device. When aspeed_video_setup_video()
+subsequently fails in aspeed_video_probe(), the error path frees the
+JPEG buffer and unprepares the clocks but does not release the reserved
+memory association, leaking the rmem_assigned_device entry on the global
+list.
+
+The normal remove path already calls of_reserved_mem_device_release()
+correctly; only the probe error path was missing it.
+
+Add the missing of_reserved_mem_device_release() call to the
+aspeed_video_setup_video() failure cleanup.
+
+Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Carlier <devnexen@gmail.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/media/platform/aspeed-video.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
+index 9d9124308f6ad..56fe20ba8041a 100644
+--- a/drivers/media/platform/aspeed-video.c
++++ b/drivers/media/platform/aspeed-video.c
+@@ -1724,6 +1724,7 @@ static int aspeed_video_probe(struct platform_device *pdev)
+ 	rc = aspeed_video_setup_video(video);
+ 	if (rc) {
+ 		aspeed_video_free_buf(video, &video->jpeg);
++		of_reserved_mem_device_release(&pdev->dev);
+ 		clk_unprepare(video->vclk);
+ 		clk_unprepare(video->eclk);
+ 		return rc;
 -- 
-Thanks,
-Sasha
+2.53.0
+
