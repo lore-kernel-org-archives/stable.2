@@ -1,185 +1,90 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FAC305691
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 21:15:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACFA843A7E7;
+	Tue,  4 Aug 2026 21:19:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785878145; cv=none; b=VP9vUgU0yrDJHDoUlAN4ghQtmqkKrlkIbpnPU7b6Ibvhhmk4GEjF6cHgm4CvpF5f9UhS6AExPnH0to3OLmL68nR+zScKpVfhJouosHG7sYHkcPYkmD1L0NC2Q0qk9LPCIs4itwMvxvJ9CnWBIKhrk5D9aRt/EET5jXpFsTMtF2g=
+	t=1785878348; cv=none; b=ZtpG15IPEaN8nVtuliAVkYPvhQxurv1Rzy23MHEU9oneDnxawwOxdQWQ85ig/+O4MfkhbZJ3ZN5ETJ/Cwx6JKpHUwcZvT34+YHNGvacsbFaLs+m9WhBU+wcjZFZae9hB9Bdx7PfuKPRHBMVFRaR0dyRY/3nC9O6A9gO/dXqJ6nA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785878145; c=relaxed/simple;
-	bh=V24gjxcUr3ORAZpKWAzvSMyLvHPceaEPhTg/9RjdeKU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=F79SFlYShJgbbaKt4RnfkmH8dszbBajpeEsEEmWhQT/ieCmn4TVeWEAVxemS5+B+jIwYVg9lZNATkkHngTdoXv7BLVBhzPcqb4cIkSb46fu+neiDAXMWHKxV23zoNcxOTicKhTW5fgeoyLIfueD5UP6VlzhAuwXYYk+8tAxW9XE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qx0u21El; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1785878348; c=relaxed/simple;
+	bh=OgcGXWrO+K5QIB1eNMp48jcNvGG7WDhPq3aQyzqGBzs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=VadoKkiTK8x99sMBaoCf0Dg6JQp3OWuzrgegZzqWxAPECyHN+ZYTuVh2x2aYsJTkRhSZHjDtXDnSy5xICdhboQiZSC5g+GSNiiMJZ81ucApXl+mvBTAE3ZDh2io+tgQSsETv23rPfc1+UL4ojiOWaakr5k5SGZHokNlvAHxMVqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UyAEMkHY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qx0u21El"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e22137fb3so331502a91.0
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 14:15:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785878143; x=1786482943; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rHQOfCFF6yaKH9HqGSLDO98Dtf8szKrkpDeyDbaXUEA=;
-        b=qx0u21ElGri4nA2vtySnKHwHC39X73+BhlvETjTiUPqw/eyhsSzTzaIk4UWBWMy/QQ
-         0R84MhhLIDWt1n8qBRvFWLvn/3e9JEPGZzxOdEgSQI6Jo9m8QBqKVXtql8vtQpvIaf4Y
-         YATaQMOx3qW2ghW1yd6lOyqY9rImE23O5/MI2gNaLC3/Gtlyh9ZEKL2b16OIAB80okOD
-         bJvENobethFWPIDprRqPfArFi37jqbYzb7CDZursr34M7KHWJP32r32ex+RwYKtuKikY
-         RRLLkkXfoGlIyg3p/rnjdxkElkcwlM6cbmcUUpuPze6Sj6ks256u/rf3m1aR4Yz/efyl
-         8k+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785878143; x=1786482943;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rHQOfCFF6yaKH9HqGSLDO98Dtf8szKrkpDeyDbaXUEA=;
-        b=cT58+UiePqpZSNeiY/+zYVrsj+EEk84d5faYGfeDPzz3ybUZXEf6gGYkTr7BeKmanL
-         7edkeywTzR4ozP2XVh0o2xr5qYNRXHD4gbmZHYc84HJ65JdOyuKwuVYgIp340ddSL6zG
-         ylVCkQCZNdAgHX5T/ehXs61cCkkdAt+LbgvUzaP1cq/UkO+8gBli44RYe1QOY/a3gzXb
-         vrhhCSmDgzy0T9hjZOjbqVcPUEHTT6mGsf4+93FDNI/gLpqNdrfWcqKW/z2TAxXVEuz2
-         1MdfpWWH1eflsD0o3bcBpsYJzsec6MtpZsEP3w/200/vrObLBTnPwT+eBNHbfHkR6Sg9
-         HKiw==
-X-Forwarded-Encrypted: i=1; AHgh+RrAzo+RsDyHSJEkyEKlFx9YLXGYWPsVo35NWRkVdAk2spW0GNmpklGQuG+K53x5aOvQ7grwOAk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxOnoEb73suKZkDPfBVvqJNo+FEpfDgJ5TLgFlZL/APsWABZ1GN
-	8Q9cnEELmiCcR+U9wF3TcqNFmIs+PtMzDhJq1R7RvWMcmjCNLR7x5oxYAXPx4PkRRIt8G2nueW/
-	V7xVzNg==
-X-Received: from pjot9.prod.google.com ([2002:a17:90a:9509:b0:38e:1db:751c])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:540e:b0:38e:6a30:4bbc
- with SMTP id 98e67ed59e1d1-3903c681346mr1785320a91.21.1785878142058; Tue, 04
- Aug 2026 14:15:42 -0700 (PDT)
-Date: Tue, 4 Aug 2026 14:15:41 -0700
-In-Reply-To: <20260804120529.1730187-5-pbonzini@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UyAEMkHY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 060FE1F000E9;
+	Tue,  4 Aug 2026 21:19:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785878347;
+	bh=+lrxdQ8iUYKtBjJhImhkRJG3H3/g7sbgzX1kZlyOn0I=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=UyAEMkHYUQ32kj1HWnTk7R7nMY6bc66CCvw2Ad/S5vrU9K0K4SMUyrNUkGXRNE9Gs
+	 he4nGIpaVJS0FwCs6V/2ZkBF/jC+a6o6IhDsFEkSbo1H/gGuwmdw+O3NDJEJgGjHlr
+	 LK4Gt69riOMBbAjzaYWff9CacrowwFRi86LhL0T+41F5CYsBepi7J3pZ0aMmAl4JvF
+	 0ERbWXl5G/VrBrqEVRivRuxVFaJKDCvB1hU0qFui79AhEGPLpwnVGCAtqfXwn35Q+h
+	 TL2v+kRWy6jPtn2p/YufG5c13xlQKoLzouTHujFdxxotwBFit7YHJZaiWpEoi5xtQO
+	 qioWnaO/+Zwvg==
+From: Mark Brown <broonie@kernel.org>
+To: jonas.gorski@gmail.com, william.zhang@broadcom.com, 
+ kursad.oney@broadcom.com, Can Peng <pengcan@kylinos.cn>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20260804072017.860974-1-pengcan@kylinos.cn>
+References: <20260804072017.860974-1-pengcan@kylinos.cn>
+Subject: Re: [PATCH] spi: bcm63xx-hsspi: disable clocks on resume failure
+Message-Id: <178586729796.111355.1152517870926382176.b4-ty@b4>
+Date: Tue, 04 Aug 2026 19:14:57 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260804120529.1730187-1-pbonzini@redhat.com> <20260804120529.1730187-5-pbonzini@redhat.com>
-Message-ID: <anJWfesPj1C8fzFr@google.com>
-Subject: Re: [PATCH v2 4/6] kvm: apply VM_READ/VM_WRITE checks to all VMA types
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	Alex Williamson <alex@shazbot.org>, bcm-kernel-feedback-list@broadcom.com, 
-	Boris Brezillon <boris.brezillon@collabora.com>, Christian Koenig <christian.koenig@amd.com>, 
-	David Hildenbrand <david@kernel.org>, dri-devel@lists.freedesktop.org, 
-	Fei Li <fei1.li@intel.com>, Huang Rui <ray.huang@amd.com>, linux-mm@kvack.org, 
-	linux-s390@vger.kernel.org, Michal Hocko <mhocko@suse.com>, Peter Xu <peterx@redhat.com>, 
-	Sergio Lopez <slp@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1114; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=OgcGXWrO+K5QIB1eNMp48jcNvGG7WDhPq3aQyzqGBzs=;
+ b=owGbwMvMwMWocq27KDak/QLjabUkhqyicA8HfdaY5PiDL+fd7yiX0Hx73nSr6usJJpqx65ftm
+ CLDU2rRyWjMwsDIxSArpsiy9lnGqvRwia3zH81/BTOIlQlkCgMXpwBMZFoY+19J5cPG7Kmb7JdV
+ F/LVPNVi2KC3XCySYap1t2As/87r6xi36En8MVpk+/7TXWnX1kf+HtxhG8VmcAo+asthqfXfy3F
+ 3UrPReabzMeq2U1lCnzc9L7tuEFLxMPeFcm0sa/et9y0m3bblcar7lv+7k9XAdkQs+ntWdvUz2S
+ nH8gzZ8ldxiDFvill/47+y//mQCSKcm9PSuWMyhK5edYxiU/NKzl63tm+S5W/pexw8Snc0Wfk9p
+ nIprtNi7G39sfQGpyXPffUU7evvU9d9eG+w+9Cv1jbPNXKpnU87ua1Mt30LvOq6Q+V33ySpAs+b
+ sfuXsIqrM94Xt3niu0EnTSXsBkfdxLY8pagDV335JkoCAA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-KVM:
+On Tue, 04 Aug 2026 15:20:17 +0800, Can Peng wrote:
+> spi: bcm63xx-hsspi: disable clocks on resume failure
 
-On Tue, Aug 04, 2026, Paolo Bonzini wrote:
-> The VM_READ and VM_WRITE flags are checked only at the very end of
-> hva_to_pfn().  For both the hva_to_pfn_remapped() case and for regular
-> mappings, this adds unnecessary cases and inconsistent error behavior.
-> 
-> For hva_to_pfn_remapped(), the code is relying on fixup_user_fault() to
-> detect this situation.  This is fragile because hva_to_pfn_remapped()
-> returns different error codes for a !VM_WRITE VMA depending on whether
-> the PTE happens to be mapped:
-> 
-> * if the PTE is present, follow_pfnmap_start() sets args.writable to
->   false and KVM_PFN_ERR_RO_FAULT is returned;
-> 
-> * if no PTE is present, fixup_user_fault(FAULT_FLAG_WRITE) returns
->   -EFAULT after checking vma_permits_fault(), and hva_to_pfn() ends
->   up returning KVM_PFN_ERR_FAULT.
-> 
-> With this patch KVM_PFN_ERR_RO_FAULT is returned uniformly.  Likewise,
-> a PROT_NONE pfnmap VMA would be mapped into the guest if the PTE was
-> pte_present()[1] when the guest attempted to read it; with the patch
-> instead KVM uniformly returns KVM_PFN_ERR_FAULT.  Doing the check early
-> avoids these special cases and also sidesteps the issue pointed out at
-> https://sashiko.dev/#/patchset/20260731160514.1101989-1-pbonzini%40redhat.com.
-> 
-> For regular mappings a PROT_READ VMA, if placed in a writable memslot,
-> would return KVM_PFN_ERR_FAULT instead of KVM_PFN_ERR_RO_FAULT when
-> the guest writes to it.  This would cause a -EFAULT exit to userspace,
-> instead of triggering emulation as the VM_IO|VM_PFNMAP arm would do;
-> however it should be considered part of the KVM API because mmu_stress_test
-> relies on it.
-> 
-> Still, even with this snag about the returned pfn error code, pull the
-> vm_flags checks in front so that they are done for all VMAs and the
-> above inconsistency goes away for the VM_IO|VM_PFNMAP case.
-> 
-> [1] on x86, for example, such a page would have _PAGE_PRESENT clear
->   but _PAGE_PROTNONE set
-> 
-> Fixes: 28e3918179aa ("drm/gem-shmem: Track folio accessed/dirty status in mmap")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  virt/kvm/kvm_main.c | 34 ++++++++++++++++------------------
->  1 file changed, 16 insertions(+), 18 deletions(-)
-> 
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index 45e784462ec6..576bcb21be3a 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -2925,17 +2925,6 @@ static int hva_to_pfn_slow(struct kvm_follow_pfn *kfp, kvm_pfn_t *pfn)
->  	return npages;
->  }
->  
-> -static bool vma_is_valid(struct vm_area_struct *vma, bool write_fault)
-> -{
-> -	if (unlikely(!(vma->vm_flags & VM_READ)))
-> -		return false;
-> -
-> -	if (write_fault && (unlikely(!(vma->vm_flags & VM_WRITE))))
-> -		return false;
-> -
-> -	return true;
-> -}
-> -
->  static int hva_to_pfn_remapped(struct vm_area_struct *vma,
->  			       struct kvm_follow_pfn *kfp, kvm_pfn_t *p_pfn)
->  {
-> @@ -3008,20 +2997,29 @@ kvm_pfn_t hva_to_pfn(struct kvm_follow_pfn *kfp)
->  retry:
->  	vma = vma_lookup(current->mm, kfp->hva);
->  
-> -	if (vma == NULL)
-> +	/*
-> +	 * GUP failed.  It could be an inaccessible mapping, a pfnmap one,
-> +	 * or the page might be absent.
-> +	 */
-> +
+Applied to
 
-Unnecessary newline, IMO.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.3
 
-> +	if (vma == NULL || unlikely(!(vma->vm_flags & VM_READ))) {
->  		pfn = KVM_PFN_ERR_FAULT;
-> -	else if (vma->vm_flags & (VM_IO | VM_PFNMAP)) {
-> +	} else if ((kfp->flags & FOLL_WRITE) && unlikely(!(vma->vm_flags & VM_WRITE))) {
-> +		/*
-> +		 * Exit to userspace for PROT_READ mappings in a writable
-> +		 * memslot, as this is part of the API.
+Thanks!
 
-Can we say something along the lines of "for backwards compatibility" instead
-of saying this is part of the API?  Because that's definitely not KVM's documented
-API, and we're hoping it's not part of KVM's undocumented API either.
+[1/1] spi: bcm63xx-hsspi: disable clocks on resume failure
+      https://git.kernel.org/broonie/spi/c/3b0cee026640
 
-> +		 */
-> +		pfn = vma->vm_flags & (VM_IO | VM_PFNMAP) ? KVM_PFN_ERR_RO_FAULT :
-> +			KVM_PFN_ERR_FAULT;
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Please align the two branches of the ternary operators:
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-		pfn = vma->vm_flags & (VM_IO | VM_PFNMAP) ? KVM_PFN_ERR_RO_FAULT :
-							    KVM_PFN_ERR_FAULT;
-	} else if (vma->vm_flags & (VM_IO | VM_PFNMAP)) {
-		r = hva_to_pfn_remapped(vma, kfp, &pfn);
-		if (r == -EAGAIN)
-			goto retry;
-		if (r < 0)
-			pfn = KVM_PFN_ERR_FAULT;
-	} else {
-		pfn = kfp->flags & FOLL_NOWAIT ? KVM_PFN_ERR_NEEDS_IO :
-						 KVM_PFN_ERR_FAULT;
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
