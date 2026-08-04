@@ -1,109 +1,176 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67EB4570E4;
-	Tue,  4 Aug 2026 08:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 107DC442FB7;
+	Tue,  4 Aug 2026 08:59:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785833922; cv=none; b=OeRA+qLADO6NgnGSIVS+ebJbJtm0iTNX9T+Kc5gJpmYg51QD9648xj/ihMMTr9sdCSct97cfFdJhB1SbdFhyfrfwYXW+mWPoDTC4dEjrYXMxw0Rq4LnTCoaM56nwnhmuMN+przmtDp6OlUzeqb7hdMBaUrkUlLTJ+tqeL2T8ZIg=
+	t=1785833942; cv=none; b=blq35KxcF+O13nLvDilyOajbtSMcMlw1HKfSTwFLJfQCsKulzlLQvQ8ZEjDtuCaE+tvCKYn9awWYff41yBOKo6A4oSHrgwVC8s+ms/eXwSdv7kFW1dRPRK/k8rQt9gB6sMgCzdQruRCKEQn/FcaLPCw6pBkwUtdCDTzsk5zA2r8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785833922; c=relaxed/simple;
-	bh=b/DuuSsvmuVlVPKJOLHepnTtFA0rRYDllpQumRKUE84=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y0BESuLFSSC5knG3rIXEs924hTQKkbCscZeIB2o3To2N7xYUGb+wRvIAkWAQXMMVldnmF3Zp2ppbvv3rYB2XNGxjy5H6t3MjQLoH1HtZwq7ozfRS2ouaA54gtm9+0s/bvuQFGKWiQBzROxYH+iuTEYkBtoCRfnZOO9pbSXXjNvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ol9u3KU+; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785833942; c=relaxed/simple;
+	bh=Je6vKkUp/+7zRMPokN8+f1do3UhOUA0E54l3kWOWZ+U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NH8HUgwJDCPkqO8bLOrBdnTkNu9nUKJbBVGRl0P5rTqa0/a2DIRaxZH+025Th66/d1kJiNYaJz1W22Uf8wbr+kj3JaZeP1q2Hdj4q0y6ETZ6IQBCWAZADHCCMUe7ddAaDZ4IcXJTWq9SdBG9+14lc8Ve+jzrn+wtDKjBdrhXubk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=LyQrhK3R; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ol9u3KU+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785833921; x=1817369921;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=b/DuuSsvmuVlVPKJOLHepnTtFA0rRYDllpQumRKUE84=;
-  b=Ol9u3KU+c65SN6qg3s4QSogps+saH/j+gZTPo79uy0/unQSFo+3N0uCm
-   ArIuhOfjM9oRMEubAWIKgs8E22ub3PmQ1LtWXBfgMuDK926DkGS98m7dI
-   5gNGCCHnZKNsC3btOAwZDcVlQrLoYya3TWGHI9cIg7lxoi0C8IFq2IuR1
-   n4bN4eRcW7dQ4PoQl2GJqkRSpQm9gh1MNuJZ7IvhI5J7lJbb2MRV7Cu24
-   jZySfb7KYb0UyrogwdQ63LQf1Ew4jV8FCpWzuQTr5uJnaEkLCBx6/qNK6
-   1Bn6PFw5ZTMhBdaMBe22ddz22DVzmv6TJhvxCm26cDRLgtc/IWB1mUIZ/
-   A==;
-X-CSE-ConnectionGUID: sEwXaHqiTF+vywzwegzrcw==
-X-CSE-MsgGUID: zeTiZcTFQ/6pviVBQBL0/g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86390006"
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; 
-   d="scan'208";a="86390006"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 01:58:38 -0700
-X-CSE-ConnectionGUID: KSkW1hF3SkiMvUK3Z3y95A==
-X-CSE-MsgGUID: MgL4lDeeSlS8X4ZxLl7ISg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; 
-   d="scan'208";a="257123845"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.141])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 01:55:33 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 7C633121197;
-	Tue, 04 Aug 2026 11:55:37 +0300 (EEST)
-Date: Tue, 4 Aug 2026 11:55:37 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Antti Laakso <antti.laakso@linux.intel.com>
-Cc: Jiangshan Yi <yijiangshan@kylinos.cn>, israel.a.cepeda.lopez@intel.com,
-	hansg@kernel.org, gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	13667453960@163.com, stable@vger.kernel.org
-Subject: Re: [PATCH] usb: misc: usbio: check ibuf_len against rxbuf_len in
- bulk msg
-Message-ID: <anGpCYRxnqtxWonR@kekkonen.localdomain>
-References: <20260722101810.458634-1-yijiangshan@kylinos.cn>
- <amtDubB1yNk1JGXG@alaakso-desk>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="LyQrhK3R"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6748HY3Z2640220;
+	Tue, 4 Aug 2026 08:58:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=QNg/HbvmC/rx8tp89ixJSSZjEJr5cqSrnJvxm+Bwm
+	bg=; b=LyQrhK3RJcYe2+WKObZmabOe7PCKs2ZRAcLtTTvntOp8fPD0KtbTxtqHJ
+	l50Sk4Ay6NhLAm1aDIctTMjXYNBM+AymLBEdvURSD4UmCrcZWOETq+EQ6/6zDCnD
+	Q3wwP589Riyr6wL9AcHf8h/jFaM51tc37wYeNvPia26x/h+JvWYOOlAV8f7VW7I3
+	zgfCYQJ++J1QhtXQ7oChTIW446A9yT+bZHt781jqSP4mph0AJTf5vZzbD/qmhfQ+
+	9TUHcHQhqMYOBD9AQVv3z4Y3evAT7Zj3EBKx9hp1C/CKe3nI+nWOcX0MxTEZQM+f
+	RpfVznj350f37VHpLxX/fZkcXGJUA==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8fqmyk5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 04 Aug 2026 08:58:53 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6748uEup010042;
+	Tue, 4 Aug 2026 08:58:52 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fswtygysv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 04 Aug 2026 08:58:52 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6748wmoB42926338
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 4 Aug 2026 08:58:48 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8EF982004B;
+	Tue,  4 Aug 2026 08:58:48 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 547CE20043;
+	Tue,  4 Aug 2026 08:58:48 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with SMTP;
+	Tue,  4 Aug 2026 08:58:48 +0000 (GMT)
+Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 55271)
+	id 342461628DA; Tue, 04 Aug 2026 10:58:48 +0200 (CEST)
+From: Alexandra Winter <wintera@linux.ibm.com>
+To: Hidayath Khan <hidayath@linux.ibm.com>, David Miller <davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+        Eric Dumazet <edumazet@google.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: netdev@vger.kernel.org, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Simon Horman <horms@kernel.org>,
+        stable@vger.kernel.org
+Subject: [PATCH net] net/dibs: Fix UAF of dmb_clientid_arr after dibs_dev_del()
+Date: Tue,  4 Aug 2026 10:58:48 +0200
+Message-ID: <20260804085848.3579518-1-wintera@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <amtDubB1yNk1JGXG@alaakso-desk>
+Content-Transfer-Encoding: quoted-printable
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: dJ8rKf8KJihxKqjlmOwusvoi6369nmJR
+X-Proofpoint-ORIG-GUID: MIXW45-rt74MP9nk1bJwGNJcYUawEiE5
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDA2OCBTYWx0ZWRfX1nTRh7d3gY7w
+ hUUubkw3s6j/DCt3x6OHvb1H0f1cjC1GbPlANmWMO0F7q7vq6s6FKErs3HBmUnPyvKG0QnMthzs
+ OcC6RwOtAUNKVJu7nDcDQF49Pk7eR2w=
+X-Authority-Analysis: v=2.4 cv=K8cS2SWI c=1 sm=1 tr=0 ts=6a71a9cd cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=ULihBTfnfYTdAxTj7HYA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDA2OCBTYWx0ZWRfX/Qfhmxe9hvmG
+ hw8M+QctmLoWEl0P2ZSDztiOpt6eubtKRMdiQLPDfwpYRFp76x1U3xTREb6Mxm/cxZovzLSW0fG
+ 9yS5VoujBX40UfyOQsi/mF7wP49CRDAcCaRrLg8T9TRadWdpQ9HoGdENc5+yvCCMZkJyLjC7GrA
+ HtTJQk0675LF+HB6kVRURtgOVIWiMVDIsQNdyjWkVcUITI7oivbOy12yspYZfZ6FHDIwEhiuLHJ
+ UUmQ5xbv2KWCDoybtw7Zl4pzls+IlcGg84nac3twJbjekwXJ7GPerwjyKOdN5PCEaYZBNX0qzAl
+ +w8zNNpaF2PJ2/p5E9mtGnGoy6SYl+2Sti0ITyaxipJWoE4SqtpYUDJvWKTPKrDtRrwaF5X1PtM
+ QqUACrqEs86NmtugnabVeK0tjWxmQj8xSYpnt3KzuhY8LkFN8/0ZMeCRDNTypiH85wn42/HQWP4
+ F+j0xuLmwa9Mc9qLz1A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-04_02,2026-08-03_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 malwarescore=0 phishscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608040068
 
-On Thu, Jul 30, 2026 at 03:29:45PM +0300, Antti Laakso wrote:
-> On Wed, Jul 22, 2026 at 06:18:10PM +0800, Jiangshan Yi wrote:
-> > ibuf_len is the bulk IN (receive) buffer size, but the EMSGSIZE check
-> > in usbio_bulk_msg() compares it against txbuf_len — the bulk OUT
-> > endpoint size.  Both are taken independently from different endpoints
-> > in usbio_probe(), so the check is wrong when they differ.
-> > 
-> > Use rxbuf_len for the IN direction.  This matches the buffer that
-> > actually holds the response data.
-> > 
-> > Fixes: 121a0f839dbb ("usb: misc: Add Intel USBIO bridge driver")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
-> > ---
-> >  drivers/usb/misc/usbio.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/usb/misc/usbio.c b/drivers/usb/misc/usbio.c
-> > index 3c2474dca810..fe093e7760d5 100644
-> > --- a/drivers/usb/misc/usbio.c
-> > +++ b/drivers/usb/misc/usbio.c
-> > @@ -265,7 +265,7 @@ int usbio_bulk_msg(struct auxiliary_device *adev, u8 type, u8 cmd, bool last,
-> >  	lockdep_assert_held(&usbio->bulk_mutex);
-> >  
-> >  	if ((obuf_len > (usbio->txbuf_len - sizeof(*bpkt))) ||
-> > -	    (ibuf_len > (usbio->txbuf_len - sizeof(*bpkt))))
-> > +	    (ibuf_len > (usbio->rxbuf_len - sizeof(*bpkt))))
-> >  		return -EMSGSIZE;
-> >  
-> >  	if (ibuf_len)
-> 
-> Tested-by: Antti Laakso <antti.laakso@linux.intel.com>
+A dibs device interrupt handler can be active after dibs_dev_del() and
+may still access dmb_clientid_arr.
 
-Acked-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Free dmb_clientid_arr in dibs_dev_release() after last reference is gone.
+Note that allocating in dibs_dev_add() instead of dibs_dev_alloc() is ok
+for now, because no dmbs can be registered before dibs_dev_add().
 
--- 
-Sakari Ailus
+Fixes: cc21191b584c ("dibs: Move data path to dibs layer")
+Cc: stable@vger.kernel.org
+Co-developed-by: Hidayath Khan <hidayath@linux.ibm.com>
+Signed-off-by: Hidayath Khan <hidayath@linux.ibm.com>
+Signed-off-by: Alexandra Winter <wintera@linux.ibm.com>
+---
+ drivers/dibs/dibs_main.c | 14 ++++----------
+ 1 file changed, 4 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/dibs/dibs_main.c b/drivers/dibs/dibs_main.c
+index 14c3e2d84902..f059fefb09bf 100644
+--- a/drivers/dibs/dibs_main.c
++++ b/drivers/dibs/dibs_main.c
+@@ -128,6 +128,7 @@ static void dibs_dev_release(struct device *dev)
+=20
+ 	dibs =3D container_of(dev, struct dibs_dev, dev);
+=20
++	kfree(dibs->dmb_clientid_arr);
+ 	kfree(dibs);
+ }
+=20
+@@ -194,12 +195,13 @@ int dibs_dev_add(struct dibs_dev *dibs)
+=20
+ 	ret =3D device_add(&dibs->dev);
+ 	if (ret)
+-		goto free_client_arr;
++		return ret;
+=20
+ 	ret =3D sysfs_create_group(&dibs->dev.kobj, &dibs_dev_attr_group);
+ 	if (ret) {
+ 		dev_err(&dibs->dev, "sysfs_create_group failed for dibs_dev\n");
+-		goto err_device_del;
++		device_del(&dibs->dev);
++		return ret;
+ 	}
+ 	mutex_lock(&dibs_dev_list.mutex);
+ 	mutex_lock(&clients_lock);
+@@ -214,13 +216,6 @@ int dibs_dev_add(struct dibs_dev *dibs)
+ 	mutex_unlock(&dibs_dev_list.mutex);
+=20
+ 	return 0;
+-
+-err_device_del:
+-	device_del(&dibs->dev);
+-free_client_arr:
+-	kfree(dibs->dmb_clientid_arr);
+-	return ret;
+-
+ }
+ EXPORT_SYMBOL_GPL(dibs_dev_add);
+=20
+@@ -247,7 +242,6 @@ void dibs_dev_del(struct dibs_dev *dibs)
+ 	mutex_unlock(&dibs_dev_list.mutex);
+=20
+ 	device_del(&dibs->dev);
+-	kfree(dibs->dmb_clientid_arr);
+ }
+ EXPORT_SYMBOL_GPL(dibs_dev_del);
+=20
+--=20
+2.53.0
+
