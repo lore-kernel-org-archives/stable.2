@@ -1,274 +1,186 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2682527B340
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 22:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D706C2E8B83;
+	Tue,  4 Aug 2026 23:02:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785883571; cv=none; b=eK1cN69pSqep/EIucv6QJAiMhlbJ5NtwD6YdxP9FvzekPv7prrhyJGSwwXtgkP7hYZ26ruVWElP/B1kagwn+hcTeFgJK4M0lO9g4ewHp3dvdWsw8UhMoZSeQ2C2cfVEdd1gFwqzFkO4AUQZ5+mGM/x+bkvkSrAPh/RYUsfrXzVo=
+	t=1785884535; cv=none; b=RArv3X5aeDrau0cFo+3gRWP+XM0qML3StXuvF/xTvC4QQnu+6eYeQfUqamsey5uYjsO/UO1oJcH5bhBHNLvw8EoRaQWQHx5JWbSJXgeeTUiK23Gi97znHysKFHg3mVQHv8ctBd5eDuoQ66b6be2fQYqoAqvPh7D90iofdHJc9dU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785883571; c=relaxed/simple;
-	bh=34+0I7kt26muOiDfJi+sNMdkXPAHjEIa3+5SPre9+A4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SZyzG1HBYhmtAW8q8J0MPBE/bEajMPDkJs/UCNnsWtviKwmfiX+FLSyu65N8bbEUVF477xNa9QaYunPxuKhvv/xizgaZt1+M+hUOvjaG3bxbk+TPaEXpbFfRME6pNZztai0/Rgc7/wPybXd/og19ma+nYEDz3YRCH8uv5O45Ff8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=x0AosRIK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gfOipscD; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SzJl2brn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7UMEiAX6; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1785884535; c=relaxed/simple;
+	bh=KgtdYbm0RcI2AaWEtlcbVy7DtzEBZwPbrtv8IsvgtwE=;
+	h=Date:To:From:Subject:Message-Id; b=SDrFuDQXrLhFapfMcPU8sEUIsTEWaXyGAVHsXAueGrmmrn5qSP9ddeLL/8my5QTThXv0Uw/VQ+IOjwCRl3LuLul4Ii4P1IlBIy8dFGUSDwD7PX8/ouvuJpxzP57DY0nwQkds2Au5LBqw5eCS9VMkt/k0OTN8nAdxztSRp8r8usQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=K6kAw3+n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="x0AosRIK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gfOipscD";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SzJl2brn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7UMEiAX6"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E92987DA4F;
-	Tue,  4 Aug 2026 22:45:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1785883564; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nckDj9uSVJQNTLpL7gMUG7fWxQkNwuDaAqk1qZvF4j4=;
-	b=x0AosRIKSR9RQJ/0WQ8ntveBL1Mp+/B/0UoRn56gF2/BYDyddU3PG0aYZ5GbpHz8FfIsmw
-	u5ZpsOIQOJCqi6b9ATauwZP6ZB4QuM+Noye5R6lNDN7OdW+cAZylwvFPyu8Wlzf831tJTk
-	VfQx6h36EOQOpoxOe/cGwoJwsUMbLfI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1785883564;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nckDj9uSVJQNTLpL7gMUG7fWxQkNwuDaAqk1qZvF4j4=;
-	b=gfOipscDfoJOE7qgp6Ul1T7E44NulKU8Mijn1B+M0YL4iU76CzP9ikWD6Q7Ka3oyM9stF8
-	aIQP/rRXZu36F2CQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=SzJl2brn;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=7UMEiAX6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1785883560; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nckDj9uSVJQNTLpL7gMUG7fWxQkNwuDaAqk1qZvF4j4=;
-	b=SzJl2brnfYHL8nVC9+JgU5y+vut0ewd3a5y5YmW5xx35FyavHNG/zGpb6ZPo9dFbgxlrUA
-	HzcE17ekovl1NeIpte6T5LvjbYP8EuuQ45kuivVQb2I+7c4xJ2m+aq/vKFcWudatw2gEoz
-	2COdbdzrnbkUwHnmkSj0YrqiVp9YSeM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1785883560;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nckDj9uSVJQNTLpL7gMUG7fWxQkNwuDaAqk1qZvF4j4=;
-	b=7UMEiAX6oxmjch/6I2znAsZu/lx4lIOyU4WooZVlhDul1cz9dV/R+bo3bo6chwgtwR7vJI
-	dCr4jJSEu9jbMIAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AEF59779BB;
-	Tue,  4 Aug 2026 22:45:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id GhelJaZrcmrvJgAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Tue, 04 Aug 2026 22:45:58 +0000
-Date: Tue, 4 Aug 2026 23:45:56 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, ada.coupriediaz@arm.com, 
-	ardb@kernel.org, catalin.marinas@arm.com, cl@gentwo.org, david@kernel.org, 
-	david.laight.linux@gmail.com, james.morse@arm.com, ljs@kernel.org, maz@kernel.org, 
-	peterz@infradead.org, ruanjinjie@huawei.com, ryan.roberts@arm.com, 
-	stable@vger.kernel.org, vladimir.murzin@arm.com, will@kernel.org, 
-	yang@os.amperecomputing.com
-Subject: Re: [PATCH v2 13/20] arm64: percpu: Add infrastructure for
- preemptible this_cpu_*() ops
-Message-ID: <anJm-EDndC8H6xMi@pedro-suse.lan>
-References: <20260804170503.3513916-1-mark.rutland@arm.com>
- <20260804170503.3513916-14-mark.rutland@arm.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="K6kAw3+n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A9201F000E9;
+	Tue,  4 Aug 2026 23:02:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1785884533;
+	bh=IcyQRIOq97goKmOthzAgDSg4eLhyhLk8un2pXJb4OOY=;
+	h=Date:To:From:Subject;
+	b=K6kAw3+nBky5T20GxSW5JgyFxNLojaTMN7xwVjEsICSz1/frkHUFjNVqAzHtoN4OH
+	 4XU0Poejg0MyWuIYBn0qK7I6URCzLbMUAn8BQVcIbVpncM0T+1JGFRaOUMXhjDkPVc
+	 wVKgqcZgGlZ+3jM+ubwKIwRvHA7xOBPWYQzD43iI=
+Date: Tue, 04 Aug 2026 16:02:12 -0700
+To: mm-commits@vger.kernel.org,willy@infradead.org,william.kucharski@oracle.com,stable@vger.kernel.org,ryan.roberts@arm.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,hannes@cmpxchg.org,dev.jain@arm.com,david@kernel.org,baolin.wang@linux.alibaba.com,baohua@kernel.org,ziy@nvidia.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-huge_memory-use-folios-memcg-inside-__folio_split.patch added to mm-unstable branch
+Message-Id: <20260804230213.6A9201F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260804170503.3513916-14-mark.rutland@arm.com>
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	MISSING_XM_UA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.infradead.org,arm.com,kernel.org,gentwo.org,gmail.com,infradead.org,huawei.com,vger.kernel.org,os.amperecomputing.com];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -3.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: E92987DA4F
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
 
-On Tue, Aug 04, 2026 at 06:04:56PM +0100, Mark Rutland wrote:
-> Currently arm64's this_cpu_*() ops transiently disable preemption in
-> order to guarantee that the address generation and memory access(es)
-> occur on the same CPU.
-> 
-> Transiently disabling preemption can be  expensive. When re-enabling
-> preemption it is necessary to make a conditional function call to
-> preempt_schedule[_notrace]() in order to handle the rare case that the
-> task needs to be rescheduled. The potential function call has a number
-> of negative effects on code generation (e.g. due to the need to create a
-> stack frame and spill registers), and the conditionality can result in
-> poor code generation and/or poor branch prediction.
-> 
-> This patch adds infrastructure for a scheme where this_cpu_*() ops do
-> not need to transiently disable preemption, avoiding the negative
-> impacts described above. Individual operations will be converted in
-> subsequent patches.
-> 
-> Each operation registers a critical section during which the exception
-> return code will adjust the offset and addresses if preemption occurs
-> mid-sequence. The critical section is registered/unregistered with a
-> small prologue and epilogue which encodes three distinct GPRRs (<pcp>,
-> <off>, <addr>) into a new thread_info::pcp_gprs field:
-> 
->          // Prologue. Enable fixups for <off> and <addr>.
->          mrs	<tsk>, sp_el0
->          mov	<tmp>, #__VAL_PCPU_GPRS(<pcp>, <off>, <addr>)
->          strh	<tmp>, [<tsk>, #TSK_TI_PCPU_GPRS]
-> 
->          // Generate cpu-specific address
->          mrs	<off>, TPIDR_ELx
->          add	<addr>, <pcp>, <off>
-> 
->          // Perform access sequence
->          ldr	<val>, [<addr>]
-> 
->          // Epilogue. Disable fixups
->          strh	wzr, [<tsk>, #TSK_TI_PCPU_GPRS]
-> 
-> If an exception is taken from within the critical section, the exception
-> return code will adjust <off> to be the current CPU's offset, and will
-> adjust <addr> to be (<pcp> + <off>). Distinct registers are used for
-> <pcp>, <off>, and <addr>, so that the fixup can be applied safely at any
-> point during the critical section.
-> 
-> To ensure that this_cpu_*() operations within exception handlers work
-> correctly and do not corrupt state, thread_info::pcpu_gprs is saved
-> into a new pt_regs::pcpu_gprs field upon exception entry, and restored
-> upon exception return.
-> 
-> Looking at a simple this_cpu_operation:
-> 
-> | void outline_this_cpu_add_u64(u64 __percpu *p, u64 v)
-> | {
-> | 	this_cpu_add(*p, v);
-> | }
-> 
-> Atop v7.2-rc4, with GCC 15.2.0 and defconfig, this is compiled as:
-> 
-> | <outline_this_cpu_add_u64>:
-> |        paciasp
-> |        stp     x29, x30, [sp, #-16]!
-> |        mrs     x2, sp_el0
-> |        mov     x29, sp
-> |        ldr     w3, [x2, #8]
-> |        add     w3, w3, #0x1
-> |        str     w3, [x2, #8]
-> |        mrs     x3, tpidr_el1
-> |        add     x0, x0, x3
-> | 1:     ldxr    x5, [x0]
-> |        add     x5, x5, x1
-> |        stxr    w4, x5, [x0]
-> |        cbnz    w4, 1b
-> |        ldr     x0, [x2, #8]
-> |        sub     x0, x0, #0x1
-> |        str     w0, [x2, #8]
-> |        cbz     x0, 2f
-> |        ldr     x0, [x2, #8]
-> |        cbnz    x0, 3f
-> | 2:     bl      preempt_schedule_notrace
-> | 3:     ldp     x29, x30, [sp], #16
-> |        autiasp
-> |        ret
-> 
-> With the scheme added in this patch, this can be compiled as:
-> 
-> | <outline_this_cpu_add_u64>:
-> |        mrs     x2, sp_el0
-> |        mov     x4, #0xc80     // __VAL_PCPU_GPRS(x0, x4, x3)
-> |        strh    w4, [x2, #20]
-> |        mrs     x4, tpidr_el1
-> |        add     x3, x0, x4
-> | 1:     ldxr    x6, [x3]
-> |        add     x6, x6, x1
-> |        stxr    w5, x6, [x3]
-> |        cbnz    w5, 1b
-> |        strh    wzr, [x2, #20]
-> |        ret
 
-I think I had an Interesting Idea(tm) while reading the per-cpu discussion
-in linux-mm. In case the 3 instruction preamble is too expensive:
+The patch titled
+     Subject: mm/huge_memory: use folio's memcg inside __folio_split()
+has been added to the -mm mm-unstable branch.  Its filename is
+     mm-huge_memory-use-folios-memcg-inside-__folio_split.patch
 
-1) Pass -ffixed-x18 (this natively conflicts with SHADOW_CALL_STACK.
-SHADOW_CALL_STACK is already not-optimal codegen wise, so maybe not a big deal).
-2) arm64 kernel bits will use x18 as a cheap task flags register
-3) #define TASK_KRSEQ     (1 << 0)
-4) Switching into the krseq mode is just a matter of toggling the bit in x18, so
-	orr x18, x18, #TASK_KRSEQ
-a single instruction.
-5) Switching off is just a matter of clearing the bit in x18, so:
-	and x18, x18, #~TASK_KRSEQ
-6) On the preempt side we keep the krseq tables in memory, and do a sort of lookup
-(binary search sounds easiest?) on them. But _only_ if x18 TASK_KRSEQ is set.
-This penalises unlucky preempts but keeps fast paths maximally fast.
-7) entry points of course get to clear it after saving it
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-huge_memory-use-folios-memcg-inside-__folio_split.patch
 
-The end result would look something like:
-| <outline_this_cpu_add_u64>:
-|	 orr x18, x18, #TASK_KRSEQ
-|        mrs     x4, tpidr_el1
-|        add     x3, x0, x4
-| 1:     ldxr    x6, [x3]
-|        add     x6, x6, x1
-|        stxr    w5, x6, [x3]
-|        cbnz    w5, 1b
-| 2:
-|	 and x18, x18, #~TASK_KRSEQ
-|        ret
-| .pushsection .data.krseq
-| .word 1b
-| .word 2b
-| .word whateverelse
-| .popsection
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-This of course precludes the use of x18 for the compiler, so it would
-require careful benchmarking in case it negatively affects codegen too much.
-But it avoids any sort of extraneous stores in the fast path.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Other architectures could do similar as long as they have interesting ways of
-signaling this using solely the register set.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Anyway, just throwing it out there in case this can actually make a
-difference & rings some bells on people smarter than me :)
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
--- 
-Pedro
+------------------------------------------------------
+From: Zi Yan <ziy@nvidia.com>
+Subject: mm/huge_memory: use folio's memcg inside __folio_split()
+Date: Tue, 04 Aug 2026 17:04:27 -0400
+
+Patch series "Honor XA_FLAGS_ACCOUNT in xas_split_alloc() and charge to
+folio's memcg", v3.
+
+__GFP_ACCOUNT is needed for xarray node allocation accounting when
+XA_FLAGS_ACCOUNT is set. Commit 7b785645e8f13 ("mm: fix page cache
+convergence regression") fixed a workingset regression with it.
+xas_split_alloc() does not have it and needs to be fixed.
+
+In addition, based on Sashiko's review[1] and Johannes' confirmation[2], to
+charge the right memcg, folio's memcg needs to be active during folio
+split. Add that before adding __GFP_ACCOUNT.
+
+There is no workingset convergence regression related to missing
+__GFP_ACCOUNT in xas_split_alloc() and the impact to userspace should be
+minor.
+
+
+This patch (of 2):
+
+During a pagecache folio split, an xarray node allocation can happen and
+needs to charge at folio's memcg instead of folio split invoker's memcg,
+because for example folio split can happen during reclaim and reclaim's
+active memcg might not be folio's memcg.  Switch to folio's memcg at the
+beginning and switch back afterwards.
+
+Link: https://lore.kernel.org/20260804-add-gfp_account-to-xas_split_alloc-v3-0-38cb3ff325c5@nvidia.com
+Link: https://lore.kernel.org/20260804-add-gfp_account-to-xas_split_alloc-v3-1-38cb3ff325c5@nvidia.com
+Link: https://sashiko.dev/#/patchset/20260727-add-gfp_account-to-xas_split_alloc-v1-1-9fae6bf64838%40nvidia.com?part=1 [1]
+Link: https://lore.kernel.org/all/amtcBZ-_QVRgCd6b@cmpxchg.org/ [2]
+Fixes: 6b24ca4a1a8d4 ("mm: Use multi-index entries in the page cache")
+Signed-off-by: Zi Yan <ziy@nvidia.com>
+Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: William Kucharski <william.kucharski@oracle.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/huge_memory.c |   20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+--- a/mm/huge_memory.c~mm-huge_memory-use-folios-memcg-inside-__folio_split
++++ a/mm/huge_memory.c
+@@ -4106,34 +4106,42 @@ static int __folio_split(struct folio *f
+ 	XA_STATE(xas, &folio->mapping->i_pages, folio->index);
+ 	struct folio *end_folio = folio_next(folio);
+ 	bool is_anon = folio_test_anon(folio);
++	struct mem_cgroup *memcg, *old_memcg;
+ 	struct address_space *mapping = NULL;
+ 	struct anon_vma *anon_vma = NULL;
+ 	int old_order = folio_order(folio);
+ 	struct folio *new_folio, *next;
+ 	int nr_shmem_dropped = 0;
+ 	enum ttu_flags ttu_flags = 0;
+-	int ret;
+ 	pgoff_t end = 0;
++	int ret;
+ 
+ 	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
+ 	VM_WARN_ON_ONCE_FOLIO(!folio_test_large(folio), folio);
+ 
+ 	if (folio != page_folio(split_at) || folio != page_folio(lock_at)) {
+ 		ret = -EINVAL;
+-		goto out;
++		goto out_no_memcg;
+ 	}
+ 
+ 	if (new_order >= old_order) {
+ 		ret = -EINVAL;
+-		goto out;
++		goto out_no_memcg;
+ 	}
+ 
+ 	ret = folio_check_splittable(folio, new_order, split_type);
+ 	if (ret) {
+ 		VM_WARN_ONCE(ret == -EINVAL, "Tried to split an unsplittable folio");
+-		goto out;
++		goto out_no_memcg;
+ 	}
+ 
++	/*
++	 * switch to folio's memcg as xarray node allocation can happen and
++	 * needs to charge to it.
++	 */
++	memcg = get_mem_cgroup_from_folio(folio);
++	old_memcg = set_active_memcg(memcg);
++
+ 	if (is_anon) {
+ 		/*
+ 		 * The caller does not necessarily hold an mmap_lock that would
+@@ -4276,6 +4284,10 @@ out_unlock:
+ 	if (mapping)
+ 		i_mmap_unlock_read(mapping);
+ out:
++	/* restore to caller's old_memcg */
++	set_active_memcg(old_memcg);
++	mem_cgroup_put(memcg);
++out_no_memcg:
+ 	xas_destroy(&xas);
+ 	if (is_pmd_order(old_order))
+ 		count_vm_event(!ret ? THP_SPLIT_PAGE : THP_SPLIT_PAGE_FAILED);
+_
+
+Patches currently in -mm which might be from ziy@nvidia.com are
+
+mm-percpu-km-clear-page-private-before-free-them.patch
+mm-compaction-stop-recording-free-page-order-in-page-private.patch
+mm-huge_memory-add-page-private-check-back-in-__split_folio_to_order.patch
+mm-page_alloc-make-sure-tail_page-private-is-zero-at-page-free-time.patch
+mm-page_alloc-remove-set_page_private-in-prep_compound_tail.patch
+mm-huge_memory-use-folios-memcg-inside-__folio_split.patch
+xarray-honor-xa_flags_account-in-xas_split_alloc.patch
+
