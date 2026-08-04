@@ -1,131 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ABCF43CE57;
-	Tue,  4 Aug 2026 09:46:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6027D18A92F
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 09:49:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785836772; cv=none; b=SxWC634fmTICG44NAyWEEkTKMsZ+o5DA7lPvEApdVaAf8N32dic1VnUbPzszR44emOzui1/9Q1iBs+mKSAek7aFbYYGKErwpRTEoGpCS9ZY30+vSL+9oCnGRmziJmwjKzcy/Zbmfa/tyDwFILyOf79EsOPmo/N8EQjCt56ZJyFI=
+	t=1785836996; cv=none; b=K66Ldla0yljxGGp+M9eEwvoFwABLfBQXvFPHu4X0GuT6x1Un9rthke0jAwC8LAuHy4WOZb0szHydvcVz8WusedJxvBOZSyJ8eDKmPOJIilcFwuLBiREwVvAlyXMA5DW9ro5nFakQTtYm7WtWaeKoL1/lqpNVnk9oQYjh+X8FNjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785836772; c=relaxed/simple;
-	bh=YcU7GrGFUaJqL+3aXbZSaVkG/0ztE1GW5kFuqvSxOhw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Iitsw00oVmGcQQ4y8tcXxkwiLQ0/gYiEsB8hk9cRGb/vWTRpkndzUn65pGKelkTH5sBN8JYQYb0hrVPqasjwHNcfXTBb4KwhaVSQIs+3E5k9CU5+Y/JTgsxrytpsVqa52VK0EaTqspdzPHL4EVtAXQsvmoVYE8vkQbmCh3QDl5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d2cNLvU4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785836996; c=relaxed/simple;
+	bh=0rQuZGGzfMjCG0FpIW84EoAmTPvDLT8hzCjzULUE6Pc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JEQ1Z2QpgzCxNILO8cex13kgvJeV7jwd34z8W+E6PjO575dunagzJdKJDhK2b95Jlhooa3RKcWnwvU1h7DiMjjpkXSgJn8JrWBlCro+N0uGfTI4WGrf0hjtCujko9jB1Nfg4YEYlkXRpk9yvgyhF31usuby338zfkOjY26HbqYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hZ/LAolu; arc=none smtp.client-ip=91.218.175.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d2cNLvU4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6091B1F00A3E;
-	Tue,  4 Aug 2026 09:46:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785836770;
-	bh=RJh+bg3/dAMmaBEyL3S0BEiJK+J4XOxu5GyZH+nl4KQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d2cNLvU42RThjouHPhOs6cOBdFWezzxcpAwQo2dRDv2cpEs7SI0l6PUyZnXu65kXq
-	 wFxy5vFFgngPvXPqu9CDis0JXmamoZZ78FcafdO1GaSp7INuz8iVniLf4veA929cZ0
-	 u9CWcVRXHHapYvGH2jv/6uh7Wef8/33wyI8wDmGvp+RgIbXssgLucslVd/GfZn8d6H
-	 wdLWzIOHkjOngaqKeni35i8rXwdSWZQZ9oJXdWQQ5AGKM9CzATViffFE11voMw5iLj
-	 +cCPDIsn4NKmcxTMcAXxaLc4DHR/QOn/YL+yOTPVbsVV8ruiWN6kGvqFv2Ctge19UH
-	 GTzqoTWrjUMxQ==
-From: cem@kernel.org
-To: cem@kernel.org
-Cc: jack@suse.cz,
-	djwong@kernel.org,
-	hch@lst.de,
-	serge@hallyn.com,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	stable@vger.kernel.org,
-	"Dr. Thomas Orgis" <thomas.orgis@uni-hamburg.de>
-Subject: [PATCH v4 1/5] xfs: fix capability check in xfs
-Date: Tue,  4 Aug 2026 11:45:51 +0200
-Message-ID: <20260804094602.84766-2-cem@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260804094602.84766-1-cem@kernel.org>
-References: <20260804094602.84766-1-cem@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hZ/LAolu"
+Message-ID: <1745d0cd-c1a6-46c6-a054-ff4c08753dd1@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785836988;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8266ewtSQqX33fmCJb17/XpTd+S9uHhwz2iKFF7QQyc=;
+	b=hZ/LAoluwG0aKwBytwdZ91mVyYvdi7/kqhI/26i1QWrQ7LY8p+j/Rk6+nq92Dh4t7hny+/
+	Ui0LUpwffcRdHZfELdNgR7dlUnuj34vzHSpr2dxhB7DrwPTitcjr7MMxojG5yMbAsYw6OP
+	TeEAs8mtygdFAmDhuNBcCdlFJLJ5eaM=
+Date: Tue, 4 Aug 2026 17:49:04 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Subject: Re: [PATCH] Fix incorrect flush address in direct page table reclaim
+To: "David Hildenbrand (Arm)" <david@kernel.org>, luto@kernel.org,
+ linux-mm@kvack.org
+Cc: luto@amacapital.net, Liam Howlett <liam.howlett@oracle.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Michal Hocko
+ <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>, stable@vger.kernel.org
+References: <20260804003708.49830-1-luto@kernel.org>
+ <313133db-3b94-4a63-8bcd-21952ff77e41@kernel.org>
+ <8cf8eaca-fc04-4a68-bbc8-50ecdbf96382@linux.dev>
+ <3d3aa670-76bc-4df3-9c36-609c14354e9e@kernel.org>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <3d3aa670-76bc-4df3-9c36-609c14354e9e@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-From: Carlos Maiolino <cem@kernel.org>
 
-An user reported a bug where he managed to evade group's quota
-by changing a file's gid to a different group id the same user
-belonged to, even though quotas were enforced on both gids and the
-file's size was big enough to exceed the quota's hardlimit.
 
-Commit eba0549bc7d1 replaced a capable() call by a
-has_capability_noaudit() to prevent unnecessary selinux audit messages.
-Turns out that both calls have slightly different semantics even though
-their documentation seems similar. Where in a nutshell:
+On 8/4/26 5:34 PM, David Hildenbrand (Arm) wrote:
+> On 8/4/26 11:25, Qi Zheng wrote:
+>>
+>>
+>> On 8/4/26 5:05 PM, David Hildenbrand (Arm) wrote:
+>>> On 8/4/26 02:37, luto@kernel.org wrote:
+>>>> From: Andy Lutomirski <luto@kernel.org>
+>>>>
+>>>> When zap_pte_range reclaims a page table, it does:
+>>>>
+>>>>       pte_free_tlb(tlb, pmd_pgtable(pmdval), addr);
+>>>>
+>>>> and this is unconditionally wrong: if this code executes, addr *always*
+>>>> points one past the end of the range covered by the table.  The addr
+>>>> parameter is used to flush the TLB (really the paging-structure-cache)
+>>>> to drop references to the to-be-freed table, and any architecture that
+>>>> cares about the parameter will flush the wrong address.  (But they'll
+>>>> still free the correct page).
+>>>>
+>>>> I think it's worth contemplating why the kernel works at all.
+>>>
+>>> Note that this only triggers when someone does e.g., a MADV_DONTNEED over
+>>> a large enough range (covering at least a full PTE table).
+>>>
+>>> So this isn't the ordinary munmap()/exit() page table reclaim code.
+>>>
+>>> I'm still surprised that it took so long to show up; likely we need more
+>>> targeted tests for PT_RECLAIM that
+>>
+>> We backported the PT_RECLAIM to our internal tree a while ago (excluding
+>> the rework patch being fixed here), and it has been running stably ever
+>> since.
+> 
+> I'm wondering whether we should have a selftest that triggers this exact scenario:
+> 
+> (a) Populate page table(s)
+> (b) MADV_DONTNEED to reclaim the page table(s)
+> (c) Allocate plenty of pages for another purpose (draining PCP where the page
+>      table likely ended up) and fill them with some data that looks like present page
+>      table entries.
+> (d) Re-access the reclaimed VA space, expecting re-population of anonymous
+>      pages.
+> 
+> I can find someone to work on that.
 
-capable() - Tests the task's effective credentials
-has_ns_capability_noaudit() - Tests the task's real credentials
+That's great!
 
-This most of the time has no practical difference but in some cases like
-changing attrs (specifically group id in this case) through a NFS client
-this will allow the quota code to use XFS_QMOPT_FORCE_RES, effectively
-bypassing quota accounting checks.
+> 
+> Any other ideas what we could check? We could certainly also check that the page table
+> was actually reclaimed during MADV_DONTNEED.
 
-Using instead ns_capable_noaudit() should fix this issue and prevent
-selinux audit messages.
+Right, only the empty PTEs corresponding to fully PMD_SIZE - aligned PMD
+will be reclaimed. We should probably include this kind of basic testing
+in kselftests.
 
-This also fix the remaining calls to has_capability_noaudit()
+Thanks,
+Qi
 
-Fixes: eba0549bc7d1 ("xfs: don't generate selinux audit messages for capability testing")
-Cc: <stable@vger.kernel.org> # v5.18
-Reported-by: Dr. Thomas Orgis <thomas.orgis@uni-hamburg.de>
-Signed-off-by: Carlos Maiolino <cmaiolino@redhat.com>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
----
- fs/xfs/xfs_fsmap.c | 2 +-
- fs/xfs/xfs_ioctl.c | 2 +-
- fs/xfs/xfs_iops.c  | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/fs/xfs/xfs_fsmap.c b/fs/xfs/xfs_fsmap.c
-index b6a3bc9f143c..7c79fbe0a74c 100644
---- a/fs/xfs/xfs_fsmap.c
-+++ b/fs/xfs/xfs_fsmap.c
-@@ -1175,7 +1175,7 @@ xfs_getfsmap(
- 		return -EINVAL;
- 
- 	use_rmap = xfs_has_rmapbt(mp) &&
--		   has_capability_noaudit(current, CAP_SYS_ADMIN);
-+		   ns_capable_noaudit(&init_user_ns, CAP_SYS_ADMIN);
- 	head->fmh_entries = 0;
- 
- 	/* Set up our device handlers. */
-diff --git a/fs/xfs/xfs_ioctl.c b/fs/xfs/xfs_ioctl.c
-index 1b53701bebea..1a8af827dde1 100644
---- a/fs/xfs/xfs_ioctl.c
-+++ b/fs/xfs/xfs_ioctl.c
-@@ -647,7 +647,7 @@ xfs_ioctl_setattr_get_trans(
- 		goto out_error;
- 
- 	error = xfs_trans_alloc_ichange(ip, NULL, NULL, pdqp,
--			has_capability_noaudit(current, CAP_FOWNER), &tp);
-+			ns_capable_noaudit(&init_user_ns, CAP_FOWNER), &tp);
- 	if (error)
- 		goto out_error;
- 
-diff --git a/fs/xfs/xfs_iops.c b/fs/xfs/xfs_iops.c
-index 6339f4956ecb..7a8c77fdcf68 100644
---- a/fs/xfs/xfs_iops.c
-+++ b/fs/xfs/xfs_iops.c
-@@ -835,7 +835,7 @@ xfs_setattr_nonsize(
- 	}
- 
- 	error = xfs_trans_alloc_ichange(ip, udqp, gdqp, NULL,
--			has_capability_noaudit(current, CAP_FOWNER), &tp);
-+			ns_capable_noaudit(&init_user_ns, CAP_FOWNER), &tp);
- 	if (error)
- 		goto out_dqrele;
- 
--- 
-2.55.0
+> 
 
