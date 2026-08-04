@@ -1,97 +1,92 @@
-Received: from out-179.mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF49F391507
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 21:19:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE9C43E071;
+	Tue,  4 Aug 2026 21:19:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785878349; cv=none; b=AkDFDhz+yBpsiriVaQaxXY5VVP7QgqUV7nlUiXiAxONgzqHfOdr+aKnGaDOCEHcOLvK1DD5IVR2eDMw/pOeP0QEqEunO3zhf7MY5h6GbKa2Zl/Nqz8S3raV52TiFrRO8eq8P2PCnLlnPHlJ+kyTETEqCZL8xxBccDhalmzOSatw=
+	t=1785878353; cv=none; b=CmROw1kZws2Ik12Upe3/EMRkJIco1/NVynlHRWdEg1UbC/JsIk/AOVV9lNRr7YDp5NYNuBhwWHXAPERl19XYI8SdipHBpp5rYkPxbJMvXhtdAiPXlDB4EvY9i35v/HxT/YjaYZOgfoxiaIy7WSzQ1c4Y0bc7RYIF+ovWQ+WZb7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785878349; c=relaxed/simple;
-	bh=sr2Cq9PRWWi2YOdQ68q3lF48Fp53MwBlfAhHyCZ5ViE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ScpwNomHU6LEBaCDItRrAF1XuNooWxn4MCOHiNAdZ1hc27wwUz6n5n5qUoP1wSpkWXfkydxaxDoVC7dZtfLzyv+/QduL0wFnDkSHQNnhiJVzQiDb2d1K6vpCuD8YMkJk1e+1k4szeWlwYuhUjdaLuPXbWoql1KrxrNrJ6JXarrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hZC2a5Cw; arc=none smtp.client-ip=95.215.58.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785878353; c=relaxed/simple;
+	bh=254rLJZg1P/Ua+ZJxcWr1cD5IIiB1V2uB7r340A/S5U=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=q/FNfz2FdoisUiemlHyPe4PD7fgxZbylHLKAAxPuFBaxdJeLkALmQSFdDGlCHsU6JyRUHKAAh1oJGw0lMAPACgAW31rQp3qmCdWfot2iMIbjFGGmbFAZpSxNJfG6Bt+pl082SB8lOO16Iqe20WXsbUC7Tdc0cnHFuA8YZz/4j0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ImCai4fc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hZC2a5Cw"
-Message-ID: <38b89c7d-58db-410a-b943-7ebf30c47905@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785878335;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u7+ldWnQ/ZMVcD+XRoaEbqgZ0HqDoRKLAZFfAukpgXc=;
-	b=hZC2a5CwsVGTNf9ebavs5WVzJDIOV99BR4asEfugnfeE/yQ96emVvepo7MriWJwfIIcFcC
-	g4w5Da1GlJdfLgSy5qK4nredpSlQ72jwzzmWwrZI4RHYCN31E9SKhpSb+P7qRsa6Lzq2eH
-	NhrFYoWGrLkZ4whU50V10DckZvfl0Bc=
-Date: Tue, 4 Aug 2026 22:18:41 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ImCai4fc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E9DA1F000E9;
+	Tue,  4 Aug 2026 21:19:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785878352;
+	bh=+G1U0PM3mhdF8K/wC5MdMG8ZWLjf/C6FGfsv064MMeA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=ImCai4fcMYua8UoJ7OZmIu8CbYAMIMmh8NW19pwuQVjcSLmZ/zIW9pl96K/7sxT+M
+	 LlmX27RUQtw4o1q870ggMkLtLXtJK3aVNF/4BxaqXdGb3cV2fgDm76PaEt9dOISrvC
+	 lPvgY4iYcFvXIFVJd6InLm1twscrQ2EuzA/j+PsktztX9v6lZWSLfdhBPVmg75Cdi+
+	 pZVZsVbVmUtvSakJgur38onXol4xffGn6tChHDFi114+sjdGEf0UPKGq1Xijyx4zcS
+	 lIJZJ8Kgh1IlWyC+yIwn4pRkEAlt0oVHhts+lU4J7O8r0DoEETlldkuhFdd4Pun4nU
+	 yvcO97EruQEOA==
+From: Mark Brown <broonie@kernel.org>
+To: jonas.gorski@gmail.com, william.zhang@broadcom.com, 
+ kursad.oney@broadcom.com, anand.gore@broadcom.com, 
+ florian.fainelli@broadcom.com, rafal@milecki.pl, 
+ Can Peng <pengcan@kylinos.cn>
+Cc: linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260804071904.860842-1-pengcan@kylinos.cn>
+References: <20260804071904.860842-1-pengcan@kylinos.cn>
+Subject: Re: [PATCH] spi: bcmbca-hsspi: disable clocks on resume failure
+Message-Id: <178587386677.111355.14222455977856705143.b4-ty@b4>
+Date: Tue, 04 Aug 2026 21:04:26 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH net v3] ptp: ocp: Fix board ID over-read
-To: Ahmad Byagowi <ahmadexp@gmail.com>, netdev@vger.kernel.org
-Cc: Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260804210751.48248-1-ahmadexp@gmail.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <20260804210751.48248-1-ahmadexp@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1112; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=254rLJZg1P/Ua+ZJxcWr1cD5IIiB1V2uB7r340A/S5U=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqcldNbOCyfs8Ffux8R0kxAlYvvdk9+HdCFWrtF
+ Iw/pLZ9skaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCanJXTQAKCRAk1otyXVSH
+ 0HwxB/9S4fNDNkldFXrjX8TrdFfLPHFvHMEepS5ewziq7GkXNm3EjSui8salsd59LWTqJGGjxzN
+ OWfbl5XFU7KYQ0OnsUU+VL9o4OPQ51dRFAYJIa2awNGQEMCdOAFOcbeG311oiPFVy4kZHbbu9cF
+ Uml2cLji24wqJod+FpUkYrNOYigiXWDMadQIckkS/ShlXNoZLBYGZPTsRwXo+/n3xCyMkhcnEUl
+ oc8IDc8+Ony8NTKUWmd/3cD1UPUj9l5mhm/hZUCKhhdBYschLNxi7+0svwtLlUdqUvHKfigTjZc
+ C5ZV23WLDHjaBjT8hulFzUBXSj7eJ2pyywBI+a+3q+qXoJSt
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On 04.08.2026 22:07, Ahmad Byagowi wrote:
-> The EEPROM board ID is a fixed 13-byte field and is not guaranteed to
-> contain a NUL terminator. Passing it directly to
-> devlink_info_version_fixed_put() treats it as a C string and may read
-> beyond the field.
-> 
-> Format at most OCP_BOARD_ID_LEN bytes into the existing local buffer
-> before reporting the ID. Use a precision limit because the snprintf()
-> output size alone does not bound the source string scan.
-> 
-> Fixes: 0cfcdd1ebcfe ("ptp: ocp: add nvmem interface for accessing eeprom")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ahmad Byagowi <ahmadexp@gmail.com>
-> ---
-> Changes since RFC v2:
-> - Split the safety fix from the net-next feature series and target net.
-> - Use the short Fixes hash.
-> - Reuse the existing devlink info buffer and bound the source scan with
->    string precision.
-> - Limit the change to the board ID over-read.
-> 
-> RFC v2:
-> https://lore.kernel.org/r/20260803205011.1249-5-ahmadexp@gmail.com/
-> 
->   drivers/ptp/ptp_ocp.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-> index 35e911f1ad78c..3d26ec1f7b9ec 100644
-> --- a/drivers/ptp/ptp_ocp.c
-> +++ b/drivers/ptp/ptp_ocp.c
-> @@ -2177,9 +2177,11 @@ ptp_ocp_devlink_info_get(struct devlink *devlink, struct devlink_info_req *req,
->   	if (err)
->   		return err;
->   
-> +	snprintf(buf, sizeof(buf), "%.*s", OCP_BOARD_ID_LEN,
-> +		 (const char *)bp->board_id);
->   	err = devlink_info_version_fixed_put(req,
->   			DEVLINK_INFO_VERSION_GENERIC_BOARD_ID,
-> -			bp->board_id);
-> +			buf);
->   	if (err)
->   		return err;
->   
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+On Tue, 04 Aug 2026 15:19:04 +0800, Can Peng wrote:
+> spi: bcmbca-hsspi: disable clocks on resume failure
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.3
+
+Thanks!
+
+[1/1] spi: bcmbca-hsspi: disable clocks on resume failure
+      https://git.kernel.org/broonie/spi/c/d2f5a606710a
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
