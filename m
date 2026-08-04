@@ -1,126 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010052.outbound.protection.outlook.com [52.101.56.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFE13480968;
-	Tue,  4 Aug 2026 20:10:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785874258; cv=none; b=AjfAyqRHdbFAOH+TgmHhMgDBqh0As0biwB5YvStMm8PiufTqAo0qLEKW8Q7IWmtP4/Zyc+7uI+VLOlRI+VBpml5oXF00LlfQ1Ce3Z4sU0jmi7IvzDWfLYTKtrioMmsFkTjYVtKQRavAqftZA7DInuYgWmBzXPiauJ+vZFTCq+pA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785874258; c=relaxed/simple;
-	bh=cmhvBq4fKuDwtPrRzX+lcSI89jAJ6FvcxY9NPdoruXM=;
-	h=Date:To:From:Subject:Message-Id; b=K9tH+cxfIMjx6RAduqRyviPckAr6pWPdZP+edCyAMd08GwFZrBQYvNonq59II5tvJ2dmLxX8M4nwRqBgFV8xf0MoP0IwEe89Faf7Y0TpnF5euuS6Ai5aWNaKjNxAWwsCzOP9zfCeFbNpue5hYNsieCznXCnSTYG8VsYzKzCCYhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=fq8+C5m0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 052CE2D5922
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 21:04:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785877457; cv=fail; b=gMiqOYh4iNrY7IoMwKDiLF6qMAEQL+ZKT2RDDwFvCAWtyALHOcnymirY7BiTIpxtHhA1/HvzN0+fViYD4Od7hxOZ6bdHRCGMOqL0xG8Fuiyj+N7qyoV8lxgTRpLOWRdxxGdJ7EukGKgwZQUyQ7mqhbtipuYDBfYDXan2KGDnnp0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785877457; c=relaxed/simple;
+	bh=GfcZeMzXBiipClcpNRTx8W6nhNQdtmN0piMk8gS/CcI=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MY89Q8UxA27k0pFrEliew7Dil32bqI8mB+jE25zoXt7MfA73XP/seJOSF7M4rqApZlTEc7NKFGBKusmgYLdZuTaHf1Ml1Exxb9O16PwfeovtFUPE8MptgHfjC/bjja/qkVIcZ5bZzJl+e1raseYUs+qocP31QDJL6jwuDlBtzyo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=rERO2CAb; arc=fail smtp.client-ip=52.101.56.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="fq8+C5m0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435221F000E9;
-	Tue,  4 Aug 2026 20:10:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785874256;
-	bh=JtKQl9rMaeDAkHwjE/v8QG/2z4gNzwJW0qDcVxf3LZc=;
-	h=Date:To:From:Subject;
-	b=fq8+C5m0QDXifHPkYM7kQ8kVKNG2B+0+UnLrrE5AazU0qXzBLsk9rI22POJWPMgHA
-	 /BK6G0Q4BRIPSockepYPChwufoflIFdcLfWTRyBaEFEnzFpOhvC8T6gnweHQzXlfKT
-	 FHW0UfvvJPHsxQ7HC1NZ1Ku9vjCnhoyxIyiiCCA4=
-Date: Tue, 04 Aug 2026 13:10:55 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,senozhatsky@chromium.org,minchan@kernel.org,axboe@kernel.dk,xialonglong@kylinos.cn,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + zram-fix-out-of-bounds-access-in-read_block_state.patch added to mm-new branch
-Message-Id: <20260804201056.435221F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="rERO2CAb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n3J+J6OEMy1L5TZAWqdcmLNJNowP98JoKWZb6vBXzSNVsNweKa6dtKLyCYFDnfoiTQ18CAZ5mEmGva2xnnR9zbWbanr8YMe9ChLu4U4vP5LFr6JFKAXPFBmNLV8jntDp7HRFHf+fnwEEhcow3+JpE58B1L8fCZpDhq4BNcFgimngun1TDvmJo8HumTt7F4dmki5HghPNRL3OCWE4YDBRtV4RPHfqGN3Fj6Su32MGZC0K5H+7YI/J21TmGXoV2BCclNK+9rnB0lgXfHo8X8nb92rGpQdsximHMBEiDIx75T9ueTPdEwMSo14j1skE9HWV5A0U7b66KRqyRPL37Mnofg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BWTHwnuUaO7ajui6E7rPF8gG2/2nrmU6m2hOE121N3Y=;
+ b=YuzCPw8PIZCM3qg8eo9/QktwbL1/Hu1Or5iFp+SSB/nZ7x7UMC2V4YoaYuf76CQ6HS2+cizfqDQWejirU+K/nTxoQldALC8r1HhIdrA+Z0gvnQ3vFFzcJ5kBl3Kye5YPJVx+uxMeeD6o2kDbkBrj+HwV8Q8VoamtdWbNmtp0/T0iiXyiOqdpfmAowyJ6xf9PnN3aexkUkZhXPLyroCOVEoFJ63WfNYxHRqmkk6jAoP3lCKA2z9zsbM+HVoeOCRD6w2D8FhyMPvq13Pw767kJQyrw1a5canovuir0QvADnSOBLB8D4bLbsjBuHvr4NGrp/uXtg2lD8Rqyyn/y7ymBEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BWTHwnuUaO7ajui6E7rPF8gG2/2nrmU6m2hOE121N3Y=;
+ b=rERO2CAbvMz6dhDVY6b1IXeM1utHtx/cU0tkzXRBv4CUvpSwYF2eAtsuQ2h/IYP/P3PuMptTus+K2Tqdhv1c5RAdSCAidSWU4GbiZTS89ZPxpf1BytgvO/aYSF57m4tCJMl60/u8BtNvPNdBM3Od6VbPQ/Wm+De8548A4p2nQD0=
+Received: from SJ0PR05CA0166.namprd05.prod.outlook.com (2603:10b6:a03:339::21)
+ by DS7PR12MB8372.namprd12.prod.outlook.com (2603:10b6:8:eb::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.16; Tue, 4 Aug 2026 21:04:12 +0000
+Received: from SJ5PEPF000001D2.namprd05.prod.outlook.com
+ (2603:10b6:a03:339:cafe::43) by SJ0PR05CA0166.outlook.office365.com
+ (2603:10b6:a03:339::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.15 via Frontend Transport; Tue, 4
+ Aug 2026 21:04:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001D2.mail.protection.outlook.com (10.167.242.54) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.8 via Frontend Transport; Tue, 4 Aug 2026 21:04:11 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 4 Aug
+ 2026 16:04:11 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 4 Aug
+ 2026 14:04:11 -0700
+Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Tue, 4 Aug 2026 16:04:10 -0500
+From: Harry Wentland <harry.wentland@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH 2/2] drm/amd/display: validate plane degamma LUT size for private color prop
+Date: Tue, 4 Aug 2026 17:04:05 -0400
+Message-ID: <20260804210405.278934-2-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260804210405.278934-1-harry.wentland@amd.com>
+References: <20260804210405.278934-1-harry.wentland@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D2:EE_|DS7PR12MB8372:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d5a83f2-9b25-4294-88dc-08def26beefa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|6133799003|56012099006|10067099003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	6+mmccT/8J+RyQAS1utdJS9M1/9sJp2DwmhFQsQDz1/cSPAueKUfQOfrTua/WoJ8f1Vy4jZieZ3ehDJlpL+5v+YTv/SDoFhTWcC6f3gIRt9N/1ppVjtjFMBIv5oPSwEYkbTwHvE2GWrdFfd9SCO90Kp8uZcxkB8SnekJ0GfC/6pr+GmKz/yAcjUb9xH6qUvtzVbKXbOsen1Wi6wnVgCvZhySdzOh5b6BJTE6gnDyA5A+5up4z3WJSMai0RWoRRuIzq/VRFwbncGGXtLZ7HXdG+kgPV6f82XsDWlvqi3GlgqeENjAj0ZtJJziLhA+6oh+V+NBJ5Gc+eKa0z5Ju9vyBaQVzqNBGUvyOqLdyJZApvyX+OWUGUqU4vc7Cpy6C5K4NWmjr1x+rfBWR5t8ARAQmQV0U18RLqMO29tWJA72zikjsEADl5LL4n51s7hbmiA0lj5F/ZoeAyHyO/6o37thuc2bODNNQ5y+XcV7FfiwibwRQEYHD6PzLSovdyePuOq/7Qdb+dm+TyLMbxf8yK/3KXwvydjYLEY8OhOB2QX+2qvxGGZpwy87J+aelmXDEiDNxZICfTbX/iMj4Zy2p9S22I43SWh6e48F19HqTsnT7CNCdY60UfhLqd9JZ5T12e2+kNwo38vy0ev1Wd3L2MH0wYdN6DDHPJFnR1roaTlLpdDwHRFApdzFg902+Ki7Vdnk7v5L80EFO3+mReh3ntJk5Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(6133799003)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	oh3j5uyLBmdEDXXa/30oI+dzy4HsDDb/j7APdzayGZaaUlwGWS1qEF7ar0jvqAepaO9gMHZyhbYoyl4m3Fp8M3+hNJCP0mZVtWWpwO4tG82rJFrQMJwSnDsyLnOZbY93o2k3HzEXJswEZJLJESZjXFmRq4DGnAYMB+7ysLfxeYYTSMMHfA4eQ5mNOBVsLqz7S9HmHiBNOteAk/Yaw1XnHMydz0aYdcWXYiY/5bU3A9UrV2PfCzMRi+5ZnCTLwBV8Bwkfm2b5fAYIB2PrXWqAcZc/+eJrlhrtU8BIckjJ6t1/bV/eJca+ADD237TP8paQQc38jIbZHgAO1OHWKyhofZJPkSgMLcDYCYYlPKAvHoVkyRLgoqOym3ynIj3cFX6AaUGVqvcPcHD1+im8q4/iC46TC4JRbcDHm5IPnJgGFp+J9hyDjyKoaixb8oblLEe9
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 21:04:11.6924
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d5a83f2-9b25-4294-88dc-08def26beefa
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001D2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8372
 
+Unlike the CRTC degamma path, which is guarded by
+amdgpu_dm_verify_lut_sizes(), the per-plane degamma LUT size was never
+validated before use. __set_dm_plane_degamma() passed the user-supplied
+size straight into __is_lut_linear() and, for a non-linear LUT, into
+__set_input_tf() -> __drm_lut_to_dc_gamma(), the latter always iterating
+MAX_COLOR_LUT_ENTRIES entries regardless of the actual LUT size.
 
-The patch titled
-     Subject: zram: fix out-of-bounds access in read_block_state()
-has been added to the -mm mm-new branch.  Its filename is
-     zram-fix-out-of-bounds-access-in-read_block_state.patch
+A malformed AMD_PLANE_DEGAMMA_LUT blob (e.g. a single entry) could thus
+trigger a divide-by-zero in __is_lut_linear() or an out-of-bounds read in
+__drm_lut_to_dc_gamma(). Reject any plane degamma LUT whose size does not
+match MAX_COLOR_LUT_ENTRIES, mirroring the invariant the code already
+asserts a few lines below (and which the CRTC path enforces).
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/zram-fix-out-of-bounds-access-in-read_block_state.patch
+The AMD_PLANE_DEGAMMA_LUT property is only exposed on builds with
+AMD_PRIVATE_COLOR defined.
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Longlong Xia <xialonglong@kylinos.cn>
-Subject: zram: fix out-of-bounds access in read_block_state()
-Date: Tue, 4 Aug 2026 14:59:19 +0800
-
-read_block_state() calculates nr_pages before taking dev_lock.  If the
-device is reset and reinitialized with a smaller disksize before lock
-acquisition, nr_pages still describes the old table.  The subsequent loop
-can then call slot_lock() past the end of the newly allocated table.
-
-Read disksize after acquiring dev_lock and checking that the device is
-initialized.  The read lock then keeps the table and its bound stable for
-the duration of the scan.
-
-Link: https://lore.kernel.org/20260804065919.3970386-3-xialonglong2025@163.com
-Fixes: c0265342bff4 ("zram: introduce zram memory tracking")
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
-Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Minchan Kim <minchan@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 980f8710075a ("drm/amd/display: add plane degamma TF and LUT support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
- drivers/block/zram/zram_drv.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
---- a/drivers/block/zram/zram_drv.c~zram-fix-out-of-bounds-access-in-read_block_state
-+++ a/drivers/block/zram/zram_drv.c
-@@ -1543,7 +1543,7 @@ static ssize_t read_block_state(struct f
- 	char *kbuf;
- 	ssize_t index, written = 0;
- 	struct zram *zram = file->private_data;
--	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
-+	unsigned long nr_pages;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index 26e5c89375a5..d55dc06167a8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -1495,6 +1495,13 @@ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
+ 	degamma_lut = __extract_blob_lut(dm_plane_state->degamma_lut,
+ 					 &degamma_size);
  
- 	kbuf = kvmalloc(count, GFP_KERNEL);
- 	if (!kbuf)
-@@ -1555,6 +1555,8 @@ static ssize_t read_block_state(struct f
- 		return -EINVAL;
- 	}
- 
-+	nr_pages = zram->disksize >> PAGE_SHIFT;
++	if (degamma_lut && degamma_size != MAX_COLOR_LUT_ENTRIES) {
++		drm_dbg(plane_state->state->dev,
++			"Invalid Plane Degamma LUT size. Should be %u but got %u.\n",
++			MAX_COLOR_LUT_ENTRIES, degamma_size);
++		return -EINVAL;
++	}
 +
- 	for (index = *ppos; index < nr_pages; index++) {
- 		int copied;
+ 	has_degamma_lut = degamma_lut &&
+ 			  !__is_lut_linear(degamma_lut, degamma_size);
  
-_
-
-Patches currently in -mm which might be from xialonglong@kylinos.cn are
-
-mm-ksm-avoid-missing-ksmd-wakeups-in-ksm_enter.patch
-zram-fix-out-of-bounds-access-in-writeback_store.patch
-zram-fix-out-of-bounds-access-in-read_block_state.patch
+-- 
+2.55.0
 
