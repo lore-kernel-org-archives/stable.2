@@ -1,176 +1,178 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011039.outbound.protection.outlook.com [52.101.52.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 107DC442FB7;
-	Tue,  4 Aug 2026 08:59:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785833942; cv=none; b=blq35KxcF+O13nLvDilyOajbtSMcMlw1HKfSTwFLJfQCsKulzlLQvQ8ZEjDtuCaE+tvCKYn9awWYff41yBOKo6A4oSHrgwVC8s+ms/eXwSdv7kFW1dRPRK/k8rQt9gB6sMgCzdQruRCKEQn/FcaLPCw6pBkwUtdCDTzsk5zA2r8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785833942; c=relaxed/simple;
-	bh=Je6vKkUp/+7zRMPokN8+f1do3UhOUA0E54l3kWOWZ+U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NH8HUgwJDCPkqO8bLOrBdnTkNu9nUKJbBVGRl0P5rTqa0/a2DIRaxZH+025Th66/d1kJiNYaJz1W22Uf8wbr+kj3JaZeP1q2Hdj4q0y6ETZ6IQBCWAZADHCCMUe7ddAaDZ4IcXJTWq9SdBG9+14lc8Ve+jzrn+wtDKjBdrhXubk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=LyQrhK3R; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D4475801
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 08:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.39
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785833954; cv=fail; b=DKYpGk2xZWh+nnGaRJWRHv0cYbiad0ynecu9NxRazdvaaEtCg11b32pnDucJ7ajvpt/AX1aWGsjT7fUqVYF157Hwgmdd0MjxzBoYxKFGJglZgBlxUxPShQbgb+td2Ig7fPxa4yBT3TjbEFHfMAEo+QoHBcrflprmjklYYE8XEkM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785833954; c=relaxed/simple;
+	bh=vzicSzl0um0kQ1cInEBC8fbdZYeX1GnNPHdUcQtgdnk=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VeYO5AN/da1bb3xqg3cLIksAFhBdFRKvuzUY9VgDbHAdf8KrFvNPXieNwC7nZiDVjp2FsECI71/HNhgMnTmzFr+ln9Fmr23ADWpeg9YqlmfvqsDyR276s4O6CkBgtDqhYcGT7IG6gOWWmcQ+0bsAcP+fJ2wJuk4xjF4l6EynRvY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=JWl/43+S; arc=fail smtp.client-ip=52.101.52.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="LyQrhK3R"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6748HY3Z2640220;
-	Tue, 4 Aug 2026 08:58:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=QNg/HbvmC/rx8tp89ixJSSZjEJr5cqSrnJvxm+Bwm
-	bg=; b=LyQrhK3RJcYe2+WKObZmabOe7PCKs2ZRAcLtTTvntOp8fPD0KtbTxtqHJ
-	l50Sk4Ay6NhLAm1aDIctTMjXYNBM+AymLBEdvURSD4UmCrcZWOETq+EQ6/6zDCnD
-	Q3wwP589Riyr6wL9AcHf8h/jFaM51tc37wYeNvPia26x/h+JvWYOOlAV8f7VW7I3
-	zgfCYQJ++J1QhtXQ7oChTIW446A9yT+bZHt781jqSP4mph0AJTf5vZzbD/qmhfQ+
-	9TUHcHQhqMYOBD9AQVv3z4Y3evAT7Zj3EBKx9hp1C/CKe3nI+nWOcX0MxTEZQM+f
-	RpfVznj350f37VHpLxX/fZkcXGJUA==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8fqmyk5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 04 Aug 2026 08:58:53 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6748uEup010042;
-	Tue, 4 Aug 2026 08:58:52 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fswtygysv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 04 Aug 2026 08:58:52 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6748wmoB42926338
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 4 Aug 2026 08:58:48 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8EF982004B;
-	Tue,  4 Aug 2026 08:58:48 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 547CE20043;
-	Tue,  4 Aug 2026 08:58:48 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Tue,  4 Aug 2026 08:58:48 +0000 (GMT)
-Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 55271)
-	id 342461628DA; Tue, 04 Aug 2026 10:58:48 +0200 (CEST)
-From: Alexandra Winter <wintera@linux.ibm.com>
-To: Hidayath Khan <hidayath@linux.ibm.com>, David Miller <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        Eric Dumazet <edumazet@google.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: netdev@vger.kernel.org, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Simon Horman <horms@kernel.org>,
-        stable@vger.kernel.org
-Subject: [PATCH net] net/dibs: Fix UAF of dmb_clientid_arr after dibs_dev_del()
-Date: Tue,  4 Aug 2026 10:58:48 +0200
-Message-ID: <20260804085848.3579518-1-wintera@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="JWl/43+S"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PBv3kTmg9sK8F+P7dswnlB8CHUXsYnqvYUDlA3yryG+1BnDBmA7/czeSBXprByYH1Whs05gXAz2fm2HHDlz7dM01XzwvqD6tjrFRuTg6vbSq8r0ehhEkEzmbR8mB3vHlVlUaCS7O4isIO8oFCQ+H5V4kqmWhkYkfZN71yU++nmGoNrqvrh138WVrr3T9SVU2W82RhbpTLR2u5/pFaN5JgTvuq+ce+L1HsqbDzCVxv9qYUrqpI1nWg7LNj8AZuAY7wvGsSKI+OltA2GehNZy2zuJr9GUMMiH53YLYqysD9y5jcZmBE91gakBs7crXbbf7D5U9/T1n8YH2RQOHyXZWAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cUSyxnm9+/zVfjo0GEKgz+lyaGzHwemBc/anBclQVeY=;
+ b=mOBXLXYeyzjfFtiFS2//CDypDjggRYMQ6qLwsAySSk2SKLy6sZ/mfvuGmq0l195U7aPTm0q4NBNdooG0U+F5kdolPkm1tWWDDxTCDakU0W2VgKXZ5+iok+rB/1+3sDdLfYZdtbvZ5Gag2VVteiWB8y/8WDQkQgPBOZB9LPWRzIfvfP8cdqs44xR24PaL7+7gT3YqN7rvQvb9xWl15YLmSbw1VFBq9APNNxwVueg50sIrLqHHbNI9EVbgrV4i4Dlu3iufZRTB4tVolHgTrsfQbCNsXfJ8HPO9wa3IzX7ct9fk59gC6uk0D50RKfRnFY7P0pQIigGrloSpTtrRjKR27A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cUSyxnm9+/zVfjo0GEKgz+lyaGzHwemBc/anBclQVeY=;
+ b=JWl/43+SZ5hgLjrTj1LIpTWn+m4vMSfRC0fhDcrS7rNjeyUPhyOqeedBVoJowkyJ+jqObfVw/3cRjcp0pxOvch4VOCNH6NiXnvCgp6Y/2NbhSXUvIyrCldfbwENCAKaBAN67NpJC/vYutRt5OhUZyriBRBYFhQbMThGhiazrDJs8bvLIBhz/MkygJfxURwpuA43U6p4ZiqZXP3niXO1Lx/IczMzi3MmpGO5ND6yc2Nw55zA9I6IS/c/CFPpBu0t37Nrl7ZcAPms0nE7C+kKPa9lWPggD90M4sxR1XlodtTSX1SB6rUwAbKt1p0KeXr/pSJSBTgaIWKKzdpWavu4GDA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
+ by MN6PR03MB7597.namprd03.prod.outlook.com (2603:10b6:208:4f3::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Tue, 4 Aug
+ 2026 08:59:09 +0000
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01%5]) with mapi id 15.21.0270.017; Tue, 4 Aug 2026
+ 08:59:08 +0000
+From: tze.yee.ng@altera.com
+To: stable@vger.kernel.org
+Subject: [PATCH v2 5.10.y] firmware: stratix10-svc: fix memory leaks and list corruption bugs
+Date: Tue,  4 Aug 2026 01:59:01 -0700
+Message-ID: <7ddb7d1021fe8261a7a3d163ee78d345c6ea78fa.1785833566.git.tze.yee.ng@altera.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <2026072955-cranial-friend-2d3c@gregkh>
+References: <2026072955-cranial-friend-2d3c@gregkh>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR13CA0045.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c2::20) To SJ0PR03MB5950.namprd03.prod.outlook.com
+ (2603:10b6:a03:2d3::20)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: dJ8rKf8KJihxKqjlmOwusvoi6369nmJR
-X-Proofpoint-ORIG-GUID: MIXW45-rt74MP9nk1bJwGNJcYUawEiE5
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDA2OCBTYWx0ZWRfX1nTRh7d3gY7w
- hUUubkw3s6j/DCt3x6OHvb1H0f1cjC1GbPlANmWMO0F7q7vq6s6FKErs3HBmUnPyvKG0QnMthzs
- OcC6RwOtAUNKVJu7nDcDQF49Pk7eR2w=
-X-Authority-Analysis: v=2.4 cv=K8cS2SWI c=1 sm=1 tr=0 ts=6a71a9cd cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=ULihBTfnfYTdAxTj7HYA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDA2OCBTYWx0ZWRfX/Qfhmxe9hvmG
- hw8M+QctmLoWEl0P2ZSDztiOpt6eubtKRMdiQLPDfwpYRFp76x1U3xTREb6Mxm/cxZovzLSW0fG
- 9yS5VoujBX40UfyOQsi/mF7wP49CRDAcCaRrLg8T9TRadWdpQ9HoGdENc5+yvCCMZkJyLjC7GrA
- HtTJQk0675LF+HB6kVRURtgOVIWiMVDIsQNdyjWkVcUITI7oivbOy12yspYZfZ6FHDIwEhiuLHJ
- UUmQ5xbv2KWCDoybtw7Zl4pzls+IlcGg84nac3twJbjekwXJ7GPerwjyKOdN5PCEaYZBNX0qzAl
- +w8zNNpaF2PJ2/p5E9mtGnGoy6SYl+2Sti0ITyaxipJWoE4SqtpYUDJvWKTPKrDtRrwaF5X1PtM
- QqUACrqEs86NmtugnabVeK0tjWxmQj8xSYpnt3KzuhY8LkFN8/0ZMeCRDNTypiH85wn42/HQWP4
- F+j0xuLmwa9Mc9qLz1A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-04_02,2026-08-03_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
- lowpriorityscore=0 malwarescore=0 phishscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608040068
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|MN6PR03MB7597:EE_
+X-MS-Office365-Filtering-Correlation-Id: 353e1613-f366-4105-7a32-08def206a2d5
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|55112099003|18002099003|22082099003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	sSRf4DzfSNkVDvd6FehZ4RP1PO+0JDVs0t0h6hTSZ7e2Kw4TYSVZvMQUW6aZsQJ33Evp9hiamroEVcLS4OEsIEm6CjlVBomZL4EKQyus+m2roeIkC+oGKeAc6EZgJ8KbgIEjzXDekXiW8b3r+1wJhjV0ysErq4uYdf90Jy6epWZng5ik95v3h4zYQEPDt7hPYfFDbTte3t8qHTOjIttsb4MC2VJc5zM1xuuaUSh2LTYV/VB726eTR7Ho1zREPe0aGzmnr9DTxARtzMRlXg+KfmNk5cUbYCWTkZHthFO7jWLUcAJ9lE8HQtdXR5lfSW3tN7D5OBm0i2vgN81gMLtlWc5Q3oyKDOqDdub5xGgdLeMcwhPCZoZJz05GsQvLNiUsxbl/yIMi048hwt/XPeKjdZduuM5XPjX3kI0Kdfs0Ho1Rqpdob18iBfSok34Ba0mR0bcB8cjdIsrFHFyYhXLzMKC6WPQK8073EhEVq5aHE7h0rAL3jesAAwb/GWw2oNKzY8rMd1C+0KEzwww1B1o3KwhABfsOOWZYWTWoYvy0iYqSuLtmFarN161fuxHng0q6PSVSOytfjm/hgITOwhR+8JsntamluLBlAfo7/jpwsWCd6/G9K39um/yJKpAujhu0JMPvMmyQ0lUim6wD3TDmnIDNC+Ym3Povxq7Cl4Bpj8E=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(55112099003)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?q4sdpTpCIN5CzSnEhmNWX4G+USfrISYYoPumarUQtgHtigELRCyhqzx4f+cU?=
+ =?us-ascii?Q?1nLEi5oJiyMdP0FE3G4y3pmACc6jKCrUs9VMT3QPra3295gZXMIy2jVBCqDx?=
+ =?us-ascii?Q?OKYpLaKk6U/DuTcVTxcSff6TUd0MdkGVXvj2eAyAeFLL4Nny0VpJjOmTH0Zu?=
+ =?us-ascii?Q?NapRq0S8Msd+slmXxMYVRHpvASbKGRZQ0ZqxAwwgvyRlQIwpm9Qngayzxur6?=
+ =?us-ascii?Q?OzKLeZYoRo0EbLM4qKw/qpFYoa47aKQAHBy1EYFOe1YUW9/AL0nOua3oydkp?=
+ =?us-ascii?Q?vsY+BequCQEkP0e4Kh6xOOKaFuD4QaMwdR2k4WXzqlYxeEqYXqvedyO3wXTq?=
+ =?us-ascii?Q?GAbqZwdvv04KUCG5G5CydNN34wOIpXhNPtRVp3AKZPlrGmeU/LvYJLD4tYCS?=
+ =?us-ascii?Q?UelLi1HObOL4h6g7jkMrmFSEw3lhldtO9byeCxJ3G+z45mp8dnQml5UJ4NhJ?=
+ =?us-ascii?Q?sNbUQ6RSl7lSFICy86Lo9XEXkgkpBPJAtcJ8RT8LtJ+id5u3dft569T9K03P?=
+ =?us-ascii?Q?hXEf8pnfTueffsfK8rg9kEIzF9z9OQW2uVipl24LnzA6z1rTyBVQBF/IQVXh?=
+ =?us-ascii?Q?uzyXCWHtCFQwEYc6Jz7Y8th7lu5eDxaLh3E+mO4w0dw+zd+wWMTEnbLoRTCb?=
+ =?us-ascii?Q?5Dps0Ie5OKIC6YU8frKbHhBL+FVhXT3N25ZoiOQodczWEAbvGZ3n/ewbagKw?=
+ =?us-ascii?Q?Arl+9cNKbv1TDWysACg5mYelkaF8gjyXUfkcPugok/9dC9AIqU5nKcWB8zp2?=
+ =?us-ascii?Q?sGCJojaHLlMQnlEjfNPXfLy2GQpW/K93t6WOEXqWT8e7g7vw4v2FwGDHjmSp?=
+ =?us-ascii?Q?0o+/UZFcJf5K3mxwrsDjzZ63ypiZFCXvAElrAZm6DJB5OPtDhpwMd9YUvGwD?=
+ =?us-ascii?Q?As8llxdKvX9bmlVTPMoLBUUSuMDTbHaGhayfxbDZ/j85UeXs3wHycn2Jvv7L?=
+ =?us-ascii?Q?wDxHaatVFyc+guoVEgKgkNXQ/+4Rn/tI3V6mE+k2wXXEe+pWOgYH5POXiZJu?=
+ =?us-ascii?Q?B6+EXo78YyF7dzfTQJ6wYcgtMscvnku+jIcTrR6+95YvAi3fh1jSDuN0hvnq?=
+ =?us-ascii?Q?3qtRQoSHSmsJCol4GrnG9gWqlz08ZE99fbaPU6wPW+gt34rFFwRyUIS7cfxn?=
+ =?us-ascii?Q?NGpJmL/bubKFoIkhevlWb1vEch/Z1VAWV1TNLWBNtH0zGuda2nJGZqt2SZUd?=
+ =?us-ascii?Q?iYVFE8oM2P50Hpkt2GM4/NJCKmhW4FXVfbjJg8wwHSVOAu/s7Lj/DA9uP4d+?=
+ =?us-ascii?Q?nbQMZUtmkaD87SbPYCqp0u7Lv4Ixlld3Re1iG6ctrpoy1Nmq5wE7iEfOsxCY?=
+ =?us-ascii?Q?iEFKTfesAcVZ98zEajgIxtlcgoKs999gs1rH9dwVcUA/rfnOVY8i37hx5zMd?=
+ =?us-ascii?Q?/hRUqwwe/GaXZVoiB965mfdzDpMxv3Ss+ouHE6Czs8twhqYFFhwByyOC1mC5?=
+ =?us-ascii?Q?jUsUSu8rxzk/aDRYqoilH7BqUWhTJOfsAYNnn7xW54TbyH78f1JmPS5/hqOS?=
+ =?us-ascii?Q?sC9ecmrOxC/UuHHmfCi2MFfI1gyzwfLfuX+Kv15SyWWvxU8z3lrbX3Ig52IH?=
+ =?us-ascii?Q?HT+HYGZJVZOSHjaGg/pP0313+hLCRq//dICgLHi1CysMScV3/eQU/X3j/Gfy?=
+ =?us-ascii?Q?HzysdeI5z80FX03ZFHL9I/OPDhihl9ZpGIG0X7nguxB5Vcw5yaPPeLlHNRzY?=
+ =?us-ascii?Q?Dx2fV1zH1NfnZzEK2sZH7uOaXvbN3Ly05dBmr60Mqdi7jT/FrZ47LwwuQ7Ib?=
+ =?us-ascii?Q?a6LI/zpVYA=3D=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 353e1613-f366-4105-7a32-08def206a2d5
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 08:59:08.8597
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dxJ0raxhKxsQoG7sgP0q8UGpXxJMKrRDYdjJxdoTiBJwrFignMzyjh32xtwzNGy8Q+e6NCGuqJdYv+aNt9+E0g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR03MB7597
 
-A dibs device interrupt handler can be active after dibs_dev_del() and
-may still access dmb_clientid_arr.
+From: Tze Yee Ng <tze.yee.ng@altera.com>
 
-Free dmb_clientid_arr in dibs_dev_release() after last reference is gone.
-Note that allocating in dibs_dev_add() instead of dibs_dev_alloc() is ok
-for now, because no dmbs can be registered before dibs_dev_add().
+Fix a memory leak when gen_pool_alloc() fails by freeing pmem on the error
+path. Switch pmem allocation from devm_kzalloc() to kzalloc() with
+explicit kfree() in the free path to match its list-managed lifetime.
+Remove the erroneous list_del(&svc_data_mem) which corrupted the list head
+on failed lookups.
 
-Fixes: cc21191b584c ("dibs: Move data path to dibs layer")
-Cc: stable@vger.kernel.org
-Co-developed-by: Hidayath Khan <hidayath@linux.ibm.com>
-Signed-off-by: Hidayath Khan <hidayath@linux.ibm.com>
-Signed-off-by: Alexandra Winter <wintera@linux.ibm.com>
+Fixes: 7ca5ce896524 ("firmware: add Intel Stratix10 service layer driver")
+Cc: stable@vger.kernel.org#5.0+
+Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
+Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
+(cherry picked from commit 9119ceb76e987c2ec2b549ea100e3268ce3a1c7c)
 ---
- drivers/dibs/dibs_main.c | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
+Changes in v2:
+- Replaced kzalloc_obj() with kzalloc(sizeof(*pmem), GFP_KERNEL).
+- Dropped the stray guard(mutex)(&svc_mem_lock) which is added
+  accidentally when rebase.
+---
+ drivers/firmware/stratix10-svc.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/dibs/dibs_main.c b/drivers/dibs/dibs_main.c
-index 14c3e2d84902..f059fefb09bf 100644
---- a/drivers/dibs/dibs_main.c
-+++ b/drivers/dibs/dibs_main.c
-@@ -128,6 +128,7 @@ static void dibs_dev_release(struct device *dev)
-=20
- 	dibs =3D container_of(dev, struct dibs_dev, dev);
-=20
-+	kfree(dibs->dmb_clientid_arr);
- 	kfree(dibs);
- }
-=20
-@@ -194,12 +195,13 @@ int dibs_dev_add(struct dibs_dev *dibs)
-=20
- 	ret =3D device_add(&dibs->dev);
- 	if (ret)
--		goto free_client_arr;
-+		return ret;
-=20
- 	ret =3D sysfs_create_group(&dibs->dev.kobj, &dibs_dev_attr_group);
- 	if (ret) {
- 		dev_err(&dibs->dev, "sysfs_create_group failed for dibs_dev\n");
--		goto err_device_del;
-+		device_del(&dibs->dev);
-+		return ret;
- 	}
- 	mutex_lock(&dibs_dev_list.mutex);
- 	mutex_lock(&clients_lock);
-@@ -214,13 +216,6 @@ int dibs_dev_add(struct dibs_dev *dibs)
- 	mutex_unlock(&dibs_dev_list.mutex);
-=20
- 	return 0;
+diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix10-svc.c
+index 6b6a819fcddf..ae6d942ab2d7 100644
+--- a/drivers/firmware/stratix10-svc.c
++++ b/drivers/firmware/stratix10-svc.c
+@@ -911,13 +911,15 @@ void *stratix10_svc_allocate_memory(struct stratix10_svc_chan *chan,
+ 	struct gen_pool *genpool = chan->ctrl->genpool;
+ 	size_t s = roundup(size, 1 << genpool->min_alloc_order);
+ 
+-	pmem = devm_kzalloc(chan->ctrl->dev, sizeof(*pmem), GFP_KERNEL);
++	pmem = kzalloc(sizeof(*pmem), GFP_KERNEL);
+ 	if (!pmem)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	va = gen_pool_alloc(genpool, s);
+-	if (!va)
++	if (!va) {
++		kfree(pmem);
+ 		return ERR_PTR(-ENOMEM);
++	}
+ 
+ 	memset((void *)va, 0, s);
+ 	pa = gen_pool_virt_to_phys(genpool, va);
+@@ -950,10 +952,9 @@ void stratix10_svc_free_memory(struct stratix10_svc_chan *chan, void *kaddr)
+ 				       (unsigned long)kaddr, pmem->size);
+ 			pmem->vaddr = NULL;
+ 			list_del(&pmem->node);
++			kfree(pmem);
+ 			return;
+ 		}
 -
--err_device_del:
--	device_del(&dibs->dev);
--free_client_arr:
--	kfree(dibs->dmb_clientid_arr);
--	return ret;
--
+-	list_del(&svc_data_mem);
  }
- EXPORT_SYMBOL_GPL(dibs_dev_add);
-=20
-@@ -247,7 +242,6 @@ void dibs_dev_del(struct dibs_dev *dibs)
- 	mutex_unlock(&dibs_dev_list.mutex);
-=20
- 	device_del(&dibs->dev);
--	kfree(dibs->dmb_clientid_arr);
- }
- EXPORT_SYMBOL_GPL(dibs_dev_del);
-=20
---=20
-2.53.0
+ EXPORT_SYMBOL_GPL(stratix10_svc_free_memory);
+ 
+-- 
+2.43.7
 
