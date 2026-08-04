@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6909D3822AA
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 17:06:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7A505474245
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 17:06:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785863184; cv=none; b=qRKbvkUHVKFVqD4jmldylfFkPmUWxfeOH9lDIEy2VYn7SQV0niLGr6wTO2/xEQQLX3CYk92JHKi8U2+9N54pi/eRIVekLuOpLVBh4E+RHumOInWBv2gsnSqZE4oHTnG4Ve7QmiiCx39j7oquhrLn2UXIR2vaGAH4AN2W3qbb21A=
+	t=1785863188; cv=none; b=gPcL5gIZ5hW/JSecbvEc86ek4WvtFXrypwprl032rMiX0hc+cUDi1z0fY6rFJWt94+9WvIlU6ezKhRMuvL66bpzNA5kRbhvsDM+HjS6kEi/yOBeh+Wv0i6MQbjom7mxBO8JiY5mx3nxCuiKqyMBkR6EpahlZ6HPv//xfQwzVE1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785863184; c=relaxed/simple;
-	bh=XZjvGkTQofdBvvBwSuBBvXySbzPZJO4hBi/MD5ui/Nk=;
+	s=arc-20240116; t=1785863188; c=relaxed/simple;
+	bh=sTGBfUvzjREhkQ+5bSeBU7PXovumMGH1x3aA9QLvhaU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=caNGbIs9U2M1+dkypI2QJJeOkRph+k/v0UDdRlgaF1mMpHLdmA7jFihCuNnCCCr8E4UmrnhSRKjfhkbZMFBjUFGQQvbPmJzGNPsLt+WPtzDgtA77jrXQVHBfreodpPaXXNm81ikGVbRZOT8y5jE+jdspneUQWe3Wk340hFTNMXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=C3HdOizz; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=PVtJTL6ib+a6+pknEssK+j5ST7xkRbxs/dIuk1fVJNblilrQ/9IqjBX99kiuFHAFnVGaNWUbHOsnbwm5PaUA9blQlTzcMR1ynongXq9vcnqqYi5ITQAndPrGC8VDkwrd8uE9M+c8PImmzTksJNhblnLndQGyoKynFRv3VocvHOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=MHRubCVf; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="C3HdOizz"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="MHRubCVf"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F121C1684;
-	Tue,  4 Aug 2026 10:06:06 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 447F01692;
+	Tue,  4 Aug 2026 10:06:11 -0700 (PDT)
 Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 293303F632;
-	Tue,  4 Aug 2026 10:06:06 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 65D0B3F632;
+	Tue,  4 Aug 2026 10:06:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1785863171; bh=XZjvGkTQofdBvvBwSuBBvXySbzPZJO4hBi/MD5ui/Nk=;
+	t=1785863175; bh=sTGBfUvzjREhkQ+5bSeBU7PXovumMGH1x3aA9QLvhaU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=C3HdOizzKiGOwIKH+hZzDcVkHqzhmhmHvBYB3DWy4UWFurOF6YXL++L+zFPeVavel
-	 6xnXc0dgdXfe+aqLL+s8NA8ki+PtkXYW1WO+uqV+sX9ibyxRl4t9FnLTCa4TqMbDd0
-	 JOUDd1eTxA0MPYFevtL8g1AO2QI3DSMrOBa+89JQ=
+	b=MHRubCVfa3deeHBCg1p5SSfZNv5FMcc4MMSes9V7j4Lwq3EMTq/b6bJu79CaKT1rM
+	 IMzW6uLoOMx3zMQwZXI81LW7KQA39VHdTJSLLZff661HzUTXa6ndhxxXJgqSqINtyN
+	 pVUjcUao2LahLskvQACErAkmzzRSiSsA/rD1XoFc=
 From: Mark Rutland <mark.rutland@arm.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: ada.coupriediaz@arm.com,
@@ -45,9 +45,9 @@ Cc: ada.coupriediaz@arm.com,
 	vladimir.murzin@arm.com,
 	will@kernel.org,
 	yang@os.amperecomputing.com
-Subject: [PATCH v2 13/20] arm64: percpu: Add infrastructure for preemptible this_cpu_*() ops
-Date: Tue,  4 Aug 2026 18:04:56 +0100
-Message-Id: <20260804170503.3513916-14-mark.rutland@arm.com>
+Subject: [PATCH v2 14/20] arm64: percpu: Implement preemptible read/write ops
+Date: Tue,  4 Aug 2026 18:04:57 +0100
+Message-Id: <20260804170503.3513916-15-mark.rutland@arm.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260804170503.3513916-1-mark.rutland@arm.com>
 References: <20260804170503.3513916-1-mark.rutland@arm.com>
@@ -59,65 +59,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently arm64's this_cpu_*() ops transiently disable preemption in
-order to guarantee that the address generation and memory access(es)
-occur on the same CPU.
+Use the PCPU GPR infrastructure to implement preemptible this_cpu_read()
+and this_cpu_write().
 
-Transiently disabling preemption can be  expensive. When re-enabling
-preemption it is necessary to make a conditional function call to
-preempt_schedule[_notrace]() in order to handle the rare case that the
-task needs to be rescheduled. The potential function call has a number
-of negative effects on code generation (e.g. due to the need to create a
-stack frame and spill registers), and the conditionality can result in
-poor code generation and/or poor branch prediction.
+This change means that this_cpu_read() will always use a plain LDR, even
+in LTO configurations where READ_ONCE() will use LDA[P]R. Using plain
+LDR is preferable, given that the rationale for using LDA[P]R in
+READ_ONCE() was to retain address dependencies against values written by
+other CPUs, which isn't expected usage for this_cpu_read(). Using plain
+LDR will enforce fewer ordering constraints.
 
-This patch adds infrastructure for a scheme where this_cpu_*() ops do
-not need to transiently disable preemption, avoiding the negative
-impacts described above. Individual operations will be converted in
-subsequent patches.
+Test case:
 
-Each operation registers a critical section during which the exception
-return code will adjust the offset and addresses if preemption occurs
-mid-sequence. The critical section is registered/unregistered with a
-small prologue and epilogue which encodes three distinct GPRRs (<pcp>,
-<off>, <addr>) into a new thread_info::pcp_gprs field:
-
-         // Prologue. Enable fixups for <off> and <addr>.
-         mrs	<tsk>, sp_el0
-         mov	<tmp>, #__VAL_PCPU_GPRS(<pcp>, <off>, <addr>)
-         strh	<tmp>, [<tsk>, #TSK_TI_PCPU_GPRS]
-
-         // Generate cpu-specific address
-         mrs	<off>, TPIDR_ELx
-         add	<addr>, <pcp>, <off>
-
-         // Perform access sequence
-         ldr	<val>, [<addr>]
-
-         // Epilogue. Disable fixups
-         strh	wzr, [<tsk>, #TSK_TI_PCPU_GPRS]
-
-If an exception is taken from within the critical section, the exception
-return code will adjust <off> to be the current CPU's offset, and will
-adjust <addr> to be (<pcp> + <off>). Distinct registers are used for
-<pcp>, <off>, and <addr>, so that the fixup can be applied safely at any
-point during the critical section.
-
-To ensure that this_cpu_*() operations within exception handlers work
-correctly and do not corrupt state, thread_info::pcpu_gprs is saved
-into a new pt_regs::pcpu_gprs field upon exception entry, and restored
-upon exception return.
-
-Looking at a simple this_cpu_operation:
-
-| void outline_this_cpu_add_u64(u64 __percpu *p, u64 v)
+| void outline_this_cpu_write_u64(u64 __percpu *p, u64 v)
 | {
-| 	this_cpu_add(*p, v);
+| 	this_cpu_write(*p, v);
 | }
 
-Atop v7.2-rc4, with GCC 15.2.0 and defconfig, this is compiled as:
+Generated code before this patch (v7.2-rc4):
 
-| <outline_this_cpu_add_u64>:
+| <outline_this_cpu_write_u64>:
 |        paciasp
 |        stp     x29, x30, [sp, #-16]!
 |        mrs     x2, sp_el0
@@ -126,34 +87,26 @@ Atop v7.2-rc4, with GCC 15.2.0 and defconfig, this is compiled as:
 |        add     w3, w3, #0x1
 |        str     w3, [x2, #8]
 |        mrs     x3, tpidr_el1
-|        add     x0, x0, x3
-| 1:     ldxr    x5, [x0]
-|        add     x5, x5, x1
-|        stxr    w4, x5, [x0]
-|        cbnz    w4, 1b
+|        str     x1, [x0, x3]
 |        ldr     x0, [x2, #8]
 |        sub     x0, x0, #0x1
 |        str     w0, [x2, #8]
-|        cbz     x0, 2f
+|        cbz     x0, 1f
 |        ldr     x0, [x2, #8]
-|        cbnz    x0, 3f
-| 2:     bl      preempt_schedule_notrace
-| 3:     ldp     x29, x30, [sp], #16
+|        cbnz    x0, 2f
+| 1:     bl      preempt_schedule_notrace
+| 2:     ldp     x29, x30, [sp], #16
 |        autiasp
 |        ret
 
-With the scheme added in this patch, this can be compiled as:
+Generated code after this patch:
 
-| <outline_this_cpu_add_u64>:
+| <outline_this_cpu_write_u64>:
 |        mrs     x2, sp_el0
-|        mov     x4, #0xc80     // __VAL_PCPU_GPRS(x0, x4, x3)
-|        strh    w4, [x2, #20]
-|        mrs     x4, tpidr_el1
-|        add     x3, x0, x4
-| 1:     ldxr    x6, [x3]
-|        add     x6, x6, x1
-|        stxr    w5, x6, [x3]
-|        cbnz    w5, 1b
+|        mov     w3, #0x7c60
+|        strh    w3, [x2, #20]
+|        mrs     x3, tpidr_el1
+|        str     x1, [x0, x3]
 |        strh    wzr, [x2, #20]
 |        ret
 
@@ -169,272 +122,122 @@ Cc: Vladimir Murzin <vladimir.murzin@arm.com>
 Cc: Will Deacon <will@kernel.org>
 Cc: Yang Shi <yang@os.amperecomputing.com>
 ---
- arch/arm64/include/asm/percpu.h      | 71 ++++++++++++++++++++++++++++
- arch/arm64/include/asm/ptrace.h      |  5 ++
- arch/arm64/include/asm/thread_info.h |  1 +
- arch/arm64/kernel/asm-offsets.c      |  2 +
- arch/arm64/kernel/entry-common.c     | 38 +++++++++++++++
- arch/arm64/kernel/entry.S            | 19 ++++++++
- 6 files changed, 136 insertions(+)
+ arch/arm64/include/asm/percpu.h | 79 ++++++++++++++++++++++++---------
+ 1 file changed, 58 insertions(+), 21 deletions(-)
 
 diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
-index 29f20c8748fe1..8b4c9ea05d4e6 100644
+index 8b4c9ea05d4e6..a094c137d797f 100644
 --- a/arch/arm64/include/asm/percpu.h
 +++ b/arch/arm64/include/asm/percpu.h
-@@ -5,10 +5,13 @@
- #ifndef __ASM_PERCPU_H
- #define __ASM_PERCPU_H
+@@ -128,15 +128,42 @@ static inline unsigned long __kern_my_cpu_offset(void)
+ #define __my_cpu_offset __kern_my_cpu_offset()
+ #endif
  
-+#include <linux/bits.h>
- #include <linux/preempt.h>
-+#include <linux/stringify.h>
- 
- #include <asm/alternative.h>
- #include <asm/cmpxchg.h>
-+#include <asm/gpr-num.h>
- #include <asm/stack_pointer.h>
- #include <asm/sysreg.h>
- 
-@@ -51,6 +54,74 @@ static inline unsigned long __kern_my_cpu_offset(void)
- 	return off;
+-#define PERCPU_RW_OPS(sz)						\
+-static inline unsigned long __percpu_read_##sz(void *ptr)		\
+-{									\
+-	return READ_ONCE(*(u##sz *)ptr);				\
+-}									\
+-									\
+-static inline void __percpu_write_##sz(void *ptr, unsigned long val)	\
+-{									\
+-	WRITE_ONCE(*(u##sz *)ptr, (u##sz)val);				\
++#define PERCPU_RW_OPS(w, sfx, sz)						\
++static inline unsigned long __percpu_read_##sz(void __percpu *pcp)		\
++{										\
++	u16 *gprs = &current_thread_info()->pcpu_gprs;				\
++	unsigned long off;							\
++	unsigned long val;							\
++										\
++	asm volatile(								\
++	__PCPU_GPRS_BEGIN_OFFSET("%[gprs]", "%[pcp]", "%[off]")			\
++	"	ldr" #sfx "\t%" #w "[val], [%[pcp], %[off]]\n"			\
++	__PCPU_GPRS_END("%[gprs]")						\
++	: [gprs] "=Qo" (*gprs),							\
++	  [off] "=&r" (off),							\
++	  [val] "=&r" (val)							\
++	: [pcp] "r" (pcp)							\
++	: "memory"								\
++	);									\
++										\
++	return val;								\
++}										\
++										\
++static inline void __percpu_write_##sz(void __percpu *pcp, u##sz val)		\
++{										\
++	u16 *gprs = &current_thread_info()->pcpu_gprs;				\
++	unsigned long off;							\
++										\
++	asm volatile(								\
++	__PCPU_GPRS_BEGIN_OFFSET("%[gprs]", "%[pcp]", "%[off]")			\
++	"	str" #sfx "\t%" #w "[val], [%[pcp], %[off]]\n"			\
++	__PCPU_GPRS_END("%[gprs]")						\
++	: [gprs] "=Qo" (*gprs),							\
++	  [off] "=&r" (off)							\
++	: [pcp] "r" (pcp),							\
++	  [val] "r" (val)							\
++	: "memory"								\
++	);									\
  }
  
-+#define PCPU_GPR_PCP_SHIFT		0
-+#define PCPU_GPR_PCP			GENMASK(4, 0)
-+#define PCPU_GPR_OFF_SHIFT		5
-+#define PCPU_GPR_OFF			GENMASK(9, 5)
-+#define PCPU_GPR_ADDR_SHIFT		10
-+#define PCPU_GPR_ADDR			GENMASK(14, 10)
-+
-+#define __VAL_PCPU_GPRS(pcp, off, addr)							\
-+	"("										\
-+		"(" __GPR_NUM(pcp)  " << " __stringify(PCPU_GPR_PCP_SHIFT) ") | "	\
-+		"(" __GPR_NUM(off)  " << " __stringify(PCPU_GPR_OFF_SHIFT) ") | "	\
-+		"(" __GPR_NUM(addr) " << " __stringify(PCPU_GPR_ADDR_SHIFT) ")"		\
-+	")"
-+
-+#define __ASSERT_PCPU_GPRS_DISTINCT(pcp, off, addr)			\
-+	".if ("								\
-+		"(" __GPR_NUM(pcp) " == " __GPR_NUM(off) ") || "	\
-+		"(" __GPR_NUM(pcp) " == " __GPR_NUM(addr) ") || "	\
-+		"(" __GPR_NUM(off) " == " __GPR_NUM(addr) ")"		\
-+	"    )\n"							\
-+	".error \"PCPU GPRS overlap: {" pcp "," off "," addr "}\"\n"	\
-+	".endif\n"
-+
-+#define ____PCPU_GPRS_BEGIN(gprs, pcp, off, addr)			\
-+	"// ____PCPU_GPRS_BEGIN(" gprs ", " pcp ", " off ", " addr")\n"	\
-+	__DEFINE_ASM_GPR_NUMS						\
-+	__DEFINE_ASM_GPR_ALIASES					\
-+	__ASSERT_PCPU_GPRS_DISTINCT(pcp, off, addr)			\
-+	"	mov w" off ", #" __VAL_PCPU_GPRS(pcp, off, addr) "\n"	\
-+	"	strh	w" off ", " gprs "\n"				\
-+	__KERN_ASM_CPU_OFFSET(off) "\n"
-+
-+/*
-+ * Begin a PCPU GPR critical section which requires <addr> (and <off>).
-+ *
-+ * At the start of the critical section, and upon any (preemptible) exception
-+ * until __PCPU_GPRS_END():
-+ * - <off>  will be set to the current CPU's percpu offset.
-+ * - <addr> will be set to <pcp> + <off>.
-+ *
-+ * The <pcp>, <off>, and <addr> registers must be distinct GPRs.
-+ *
-+ * <gprs> must be '&current_thread_info()->gprs', as a memory operand which can
-+ * be written both at the start and end of the critical section (e.g. using
-+ * "=Qo" constraints).
-+ */
-+#define __PCPU_GPRS_BEGIN(gprs, pcp, off, addr)				\
-+	____PCPU_GPRS_BEGIN(gprs, pcp, off, addr)			\
-+	"	add	" addr ", " pcp ", " off "\n"
-+
-+/*
-+ * Begin a PCPU GPR critical section which only requires <off> and does not
-+ * require <addr>.
-+ *
-+ * This is only for operations that can use register-offset addressing,
-+ * e.g. STR <Xt>, [<Xn>, <Xm].
-+ *
-+ * All other details are the same as __PCPU_GPRS_BEGIN().
-+ */
-+#define __PCPU_GPRS_BEGIN_OFFSET(gprs, pcp, off)			\
-+	____PCPU_GPRS_BEGIN(gprs, pcp, off, "xzr")
-+
-+/*
-+ * End a PCU GPR critical section.
-+ */
-+#define __PCPU_GPRS_END(gprs)						\
-+	"	strh	wzr, " gprs "\n"
-+
- #ifdef __KVM_NVHE_HYPERVISOR__
- #define __my_cpu_offset __hyp_my_cpu_offset()
- #else
-diff --git a/arch/arm64/include/asm/ptrace.h b/arch/arm64/include/asm/ptrace.h
-index a1aa668aad50e..962013df20c7a 100644
---- a/arch/arm64/include/asm/ptrace.h
-+++ b/arch/arm64/include/asm/ptrace.h
-@@ -169,6 +169,11 @@ struct pt_regs {
+ #define __PERCPU_OP_CASE(w, sfx, name, sz, op_llsc, op_lse)		\
+@@ -196,10 +223,10 @@ __percpu_##name##_return_case_##sz(void *ptr, unsigned long val)	\
+ 	__PERCPU_RET_OP_CASE(w,  , name, 32, op_llsc, op_lse)		\
+ 	__PERCPU_RET_OP_CASE( ,  , name, 64, op_llsc, op_lse)
  
- 	u64 sdei_ttbr1;
- 	struct frame_record_meta stackframe;
-+
-+	u16	pcpu_gprs;
-+	u16	__unused1;
-+	u32	__unused2;
-+	u64	__unused3;
- };
+-PERCPU_RW_OPS(8)
+-PERCPU_RW_OPS(16)
+-PERCPU_RW_OPS(32)
+-PERCPU_RW_OPS(64)
++PERCPU_RW_OPS(w, b, 8)
++PERCPU_RW_OPS(w, h, 16)
++PERCPU_RW_OPS(w,  , 32)
++PERCPU_RW_OPS( ,  , 64)
  
- /* For correct stack alignment, pt_regs has to be a multiple of 16 bytes. */
-diff --git a/arch/arm64/include/asm/thread_info.h b/arch/arm64/include/asm/thread_info.h
-index 5d7fe3e153c85..6db5fa72211d1 100644
---- a/arch/arm64/include/asm/thread_info.h
-+++ b/arch/arm64/include/asm/thread_info.h
-@@ -46,6 +46,7 @@ struct thread_info {
- 	u64			mpam_partid_pmg;
- #endif
- 	u32			cpu;
-+	u16			pcpu_gprs;
- };
- 
- #define thread_saved_pc(tsk)	\
-diff --git a/arch/arm64/kernel/asm-offsets.c b/arch/arm64/kernel/asm-offsets.c
-index b6367ff3a49ca..bde09e9fe3e64 100644
---- a/arch/arm64/kernel/asm-offsets.c
-+++ b/arch/arm64/kernel/asm-offsets.c
-@@ -36,6 +36,7 @@ int main(void)
-   DEFINE(TSK_TI_SCS_BASE,	offsetof(struct task_struct, thread_info.scs_base));
-   DEFINE(TSK_TI_SCS_SP,		offsetof(struct task_struct, thread_info.scs_sp));
- #endif
-+  DEFINE(TSK_TI_PCPU_GPRS,	offsetof(struct task_struct, thread_info.pcpu_gprs));
-   DEFINE(TSK_STACK,		offsetof(struct task_struct, stack));
- #ifdef CONFIG_STACKPROTECTOR
-   DEFINE(TSK_STACK_CANARY,	offsetof(struct task_struct, stack_canary));
-@@ -78,6 +79,7 @@ int main(void)
-   DEFINE(S_PMR,			offsetof(struct pt_regs, pmr));
-   DEFINE(S_STACKFRAME,		offsetof(struct pt_regs, stackframe));
-   DEFINE(S_STACKFRAME_TYPE,	offsetof(struct pt_regs, stackframe.type));
-+  DEFINE(S_PCPU_GPRS,		offsetof(struct pt_regs, pcpu_gprs));
-   DEFINE(PT_REGS_SIZE,		sizeof(struct pt_regs));
-   BLANK();
- #ifdef CONFIG_DYNAMIC_FTRACE_WITH_ARGS
-diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
-index ceb4eb11232a6..5bba1359280c3 100644
---- a/arch/arm64/kernel/entry-common.c
-+++ b/arch/arm64/kernel/entry-common.c
-@@ -25,12 +25,49 @@
- #include <asm/irq_regs.h>
- #include <asm/kprobes.h>
- #include <asm/mmu.h>
-+#include <asm/percpu.h>
- #include <asm/processor.h>
- #include <asm/sdei.h>
- #include <asm/stacktrace.h>
- #include <asm/sysreg.h>
- #include <asm/system_misc.h>
- 
-+/*
-+ * Where the context being returned to had an active percpu GPR critical
-+ * section, ensure that the offset and address GPRs are updated to match the
-+ * current CPU.
-+ *
-+ * For simplicity we always update the GPRs when a critical section is active
-+ * and preemption was *possible*, regardless of whether preemption actually
-+ * occurred. Where preemption did not occur, the updates are redundant but not
-+ * harmful.
-+ */
-+static __always_inline void irqentry_exit_pcpu_adjust(struct pt_regs *regs)
-+{
-+	int reg_pcp, reg_off, reg_addr;
-+	unsigned long pcp, off, addr;
-+	u16 gprs = regs->pcpu_gprs;
-+
-+	/*
-+	 * Zero means no active PCPU GPRs. As the PCPU GPRs must be distinct,
-+	 * a PCPU critical section cannot possibly use {x0,x0,x0}.
-+	 */
-+	if (likely(!gprs))
-+		return;
-+
-+	reg_pcp  = FIELD_GET(PCPU_GPR_PCP,  gprs);
-+	reg_off  = FIELD_GET(PCPU_GPR_OFF,  gprs);
-+	reg_addr = FIELD_GET(PCPU_GPR_ADDR, gprs);
-+
-+	pcp = pt_regs_read_reg(regs, reg_pcp);
-+
-+	off = __kern_my_cpu_offset();
-+	pt_regs_write_reg(regs, reg_off, off);
-+
-+	addr = pcp + off;
-+	pt_regs_write_reg(regs, reg_addr, addr);
-+}
-+
  /*
-  * Handle IRQ/context state management when entering from kernel mode.
-  * Before this function is called it is not safe to call regular kernel code,
-@@ -58,6 +95,7 @@ static void noinstr arm64_exit_to_kernel_mode(struct pt_regs *regs,
- 	local_irq_disable();
- 	irqentry_exit_to_kernel_mode_preempt(regs, state);
- 	local_daif_mask();
-+	irqentry_exit_pcpu_adjust(regs);
- 	mte_check_tfsr_exit();
- 	irqentry_exit_to_kernel_mode_after_preempt(regs, state);
- }
-diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
-index 1b4cd70515550..567d8096b87d9 100644
---- a/arch/arm64/kernel/entry.S
-+++ b/arch/arm64/kernel/entry.S
-@@ -194,6 +194,17 @@ alternative_cb_end
- #endif
- 	.endm
+  * Use value-returning atomics for CPU-local ops as they are more likely
+@@ -245,23 +272,33 @@ PERCPU_RET_OP(add, add, ldadd)
+ 	__retval;							\
+ })
  
-+	.macro pcpu_gprs_entry, tsk:req, regs:req, tmp:req
-+	ldrh	w\tmp, [\tsk, #TSK_TI_PCPU_GPRS]
-+	strh	w\tmp, [\regs, #S_PCPU_GPRS]
-+	strh	wzr, [\tsk, #TSK_TI_PCPU_GPRS]
-+	.endm
++#define _pcp_wrap(op, pcp, ...)						\
++({									\
++	op(&(pcp), __VA_ARGS__);					\
++})
 +
-+	.macro pcpu_gprs_exit, tsk:req, regs:req, tmp:req
-+	ldrh	w\tmp, [\regs, #S_PCPU_GPRS]
-+	strh	w\tmp, [\tsk, #TSK_TI_PCPU_GPRS]
-+	.endm
++#define _pcp_wrap_return(op, pcp, args...)				\
++({									\
++	(typeof(pcp))op(&(pcp), ##args);				\
++})
 +
- 	.macro	kernel_entry, el, regsize = 64
- 	.if	\el == 0
- 	alternative_insn nop, SET_PSTATE_DIT(1), ARM64_HAS_DIT
-@@ -277,6 +288,7 @@ alternative_else_nop_endif
- 	.else
- 	add	x21, sp, #PT_REGS_SIZE
- 	get_current_task tsk
-+	pcpu_gprs_entry	tsk, sp, x0
- 	.endif /* \el == 0 */
- 	mrs	x22, elr_el1
- 	mrs	x23, spsr_el1
-@@ -335,6 +347,7 @@ alternative_else_nop_endif
- 	.macro	kernel_exit, el
- 	.if	\el != 0
- 	disable_daif
-+	pcpu_gprs_exit	tsk, sp, x0
- 	.endif
+ #define this_cpu_read_1(pcp)		\
+-	_pcp_protect_return(__percpu_read_8, pcp)
++	_pcp_wrap_return(__percpu_read_8, pcp)
+ #define this_cpu_read_2(pcp)		\
+-	_pcp_protect_return(__percpu_read_16, pcp)
++	_pcp_wrap_return(__percpu_read_16, pcp)
+ #define this_cpu_read_4(pcp)		\
+-	_pcp_protect_return(__percpu_read_32, pcp)
++	_pcp_wrap_return(__percpu_read_32, pcp)
+ #define this_cpu_read_8(pcp)		\
+-	_pcp_protect_return(__percpu_read_64, pcp)
++	_pcp_wrap_return(__percpu_read_64, pcp)
  
- #ifdef CONFIG_ARM64_PSEUDO_NMI
-@@ -1044,10 +1057,16 @@ SYM_CODE_START(__sdei_asm_handler)
- 	stp	x29, x4, [sp, #-16]!
- 	mov	x29, sp
+ #define this_cpu_write_1(pcp, val)	\
+-	_pcp_protect(__percpu_write_8, pcp, (unsigned long)(val))
++	_pcp_wrap(__percpu_write_8, pcp, (unsigned long)(val))
+ #define this_cpu_write_2(pcp, val)	\
+-	_pcp_protect(__percpu_write_16, pcp, (unsigned long)(val))
++	_pcp_wrap(__percpu_write_16, pcp, (unsigned long)(val))
+ #define this_cpu_write_4(pcp, val)	\
+-	_pcp_protect(__percpu_write_32, pcp, (unsigned long)(val))
++	_pcp_wrap(__percpu_write_32, pcp, (unsigned long)(val))
+ #define this_cpu_write_8(pcp, val)	\
+-	_pcp_protect(__percpu_write_64, pcp, (unsigned long)(val))
++	_pcp_wrap(__percpu_write_64, pcp, (unsigned long)(val))
  
-+	add	x16, x19, #SDEI_EVENT_INTREGS
-+	pcpu_gprs_entry tsk, x16, x17
-+
- 	add	x0, x19, #SDEI_EVENT_INTREGS
- 	mov	x1, x19
- 	bl	__sdei_handler
- 
-+	add	x16, x19, #SDEI_EVENT_INTREGS
-+	pcpu_gprs_exit tsk, x16, x17
-+
- 	msr	sp_el0, x20
- 	/* restore regs >x17 that firmware won't restore */
- 	mov	x4, x19         // keep x4 for __sdei_asm_exit_trampoline
+ #define this_cpu_add_1(pcp, val)	\
+ 	_pcp_protect(__percpu_add_case_8, pcp, val)
 -- 
 2.30.2
 
