@@ -1,189 +1,298 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17574746CF
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 16:07:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE144480357
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 16:51:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785859641; cv=none; b=YGK/mVpfmRozn1Y+Uv9axkBst/9X0/e/K9CcwKEdqXqZhKFmJDtu7cGIphd0kkzsEGxqn386WbsKg4Ac3Nt8yRIqggj0TFOx/kA/Qnfwr9ISrkukWc1EhDuhRM896pZBpOy1osru9iayRyIv0+FLk8qBJYZypmejQP2P2m/9xeA=
+	t=1785862274; cv=none; b=eTwGj3A+Vd8ZlvX5D19Z/DFR6PcDV3c5pnpbA0+sjQXqXrQyusGOxzhkWUeOp3SApnHM0xnt/l6nVICejfws41avIgupjmz44MdVySt1OfnQb+sV+PNbJBy+q7+JfIKxJY67x1KxPEoUTGqT9EQWbl91FQAmjUmSKx+tJQ3Qv9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785859641; c=relaxed/simple;
-	bh=0eiisYAm+1enV9BqCmdNdgBxpwLndFGB7ROkLcOTte8=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rbJXD9khDroe68FjA2xH2MLJvZTUcFc3fnXvH4PzdEXVBFifWu6abABuBZncC4sX4pVB42EtSTrntVuM6FJz1R81Xlose5vjs5QRDB1HN2yh9bDVIa2wyfFsghY5CEbwGc626oRcv/RQ59AnRRCLrRH6YIQVDY85XObFaWIY64s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LJq0BMzu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=1pN654+C; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1YR0EJGU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=kY+LiWkh; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1785862274; c=relaxed/simple;
+	bh=FcRIAHwBctHcwnV75HUDxELkr+OOI6TELqublq5tJIs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=t6sRIJQiN03GILceiGwB4NnZEP1vboX3v5LcB1ZkL51u+IOYxMBA4/egHcG2HOKNILLUgLO24n5NW8V/1AuZ4S1Qju9zRyFmKgqy2L7xYNWF+O6AaQYWpUFw9mPa5QyQXv3Srk6HyRiL3NnE8UH1ZM8BG2ygleM1V4d/kFErkT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ULNYK1hk; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LJq0BMzu";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1pN654+C";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1YR0EJGU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kY+LiWkh"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 01CEB3DF9;
-	Tue,  4 Aug 2026 16:07:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1785859634; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ievpcyz5UJBJ9G9fjdq/98l0EXmq1NY787SwMBSUoQY=;
-	b=LJq0BMzusDMguwfjgZYRSa4p30sYCvKGCIQq40FYtCtjjYGR1suDux5aInUVc5J4SJs21o
-	InT2QSl5yBDUXNYxe3d7VjX3V0fdKePIV8vIEFtACi64FioQXGaS3GTa+QyAF4ivIFAHPs
-	MVsmU6jcAdBahUfi2IRqZ7RB/k3IKUg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1785859634;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ievpcyz5UJBJ9G9fjdq/98l0EXmq1NY787SwMBSUoQY=;
-	b=1pN654+C4Hor50+hyQasxuajJN5uANZpiRhugGYDRLxVaO5HnEkPQYM3ZbP8QM1CRAebEo
-	VMZSbdqGqc3h85AA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1785859630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ievpcyz5UJBJ9G9fjdq/98l0EXmq1NY787SwMBSUoQY=;
-	b=1YR0EJGUCFgwPqtA8Pcex52A9I4dJwOY1T/ousctCyqAYNCz6EZjRIaK1ER9gxr29LFb19
-	HgMaZ02Z37xZWMDFTaSjYSI/xA0D8BPjUghyfOt9jD7x0G3dnTdreti8bM9850Rw+M6Huz
-	yxOlzsCVDVanF5SJFa3XBYs6HpKo/Fk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1785859630;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ievpcyz5UJBJ9G9fjdq/98l0EXmq1NY787SwMBSUoQY=;
-	b=kY+LiWkhRSa0H9Tw0d/ZgIIE7OFPwK8FEPGId285uXHM0RhMNfuSaqbxOFJnXsThFBoYAo
-	Bef/sXA+O1T0h6CA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BCAEB779BE;
-	Tue,  4 Aug 2026 16:07:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id rBLlLC0OcmrjKQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 04 Aug 2026 16:07:09 +0000
-Date: Tue, 04 Aug 2026 18:07:09 +0200
-Message-ID: <874ih9j2du.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Baul Lee <baul.lee@xbow.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	ramiserifpersia@gmail.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	federico.kirschbaum@xbow.com,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ULNYK1hk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785862270; x=1817398270;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=FcRIAHwBctHcwnV75HUDxELkr+OOI6TELqublq5tJIs=;
+  b=ULNYK1hkX6OIC5jMxablmUFajFpeiGjNhzuzntny5qcoBX8NRuFYxDes
+   FKmsuACGCQ+mWCMVEvlwh9MsxSx89Jq4XwVUhU/EaMtt8FrqfW7yb8SZ3
+   7C5OpuH1CslfJBseK8gYEKHF4V57BcO9TcQw/tpA2NThyFqwTa8Cx/yyS
+   bV9EtzXW/NnA5hlucsgmH6YCVHkRRZxNa1pSPkCEPc0vi9J3lP8pd5WRp
+   ldLA1oBrZOTk/pCFTjG8CtCLwrJRQ4G7DLylLE/3OQkAvRCcgqwqlCqfv
+   A1M/PoxfE5u/GmRy/S6uq/BgrItD74n22Sey6BrGFGimSlF9uu1aysxkv
+   A==;
+X-CSE-ConnectionGUID: 7IlE+hlCSWywOFhcc5qKjg==
+X-CSE-MsgGUID: T7L28vZzTP6O/yD8WHXCAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="97925418"
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; 
+   d="scan'208";a="97925418"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 09:51:06 -0700
+X-CSE-ConnectionGUID: K9vpZRsoSWaw0XcO1160XA==
+X-CSE-MsgGUID: Z9y41QM+QUqBMGmXCSTeEA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; 
+   d="scan'208";a="265063686"
+Received: from dut6094bmgfrd.fm.intel.com ([10.80.55.44])
+  by orviesa003.jf.intel.com with ESMTP; 04 Aug 2026 09:51:07 -0700
+From: Jia Yao <jia.yao@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Jia Yao <jia.yao@intel.com>,
+	Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
+	Matthew Auld <matthew.auld@intel.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: us144mkii: re-anchor capture URBs on resubmission
-In-Reply-To: <20260804123625.91769-1-baul.lee@xbow.com>
-References: <20260804123625.91769-1-baul.lee@xbow.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+Subject: [PATCH v8 1/3] drm/xe/guc_ads: allocate UM queues in a separate BO
+Date: Tue,  4 Aug 2026 16:50:55 +0000
+Message-ID: <20260804165057.129529-2-jia.yao@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260804165057.129529-1-jia.yao@intel.com>
+References: <20260804165057.129529-1-jia.yao@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.29 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.19)[-0.967];
-	MIME_GOOD(-0.10)[text/plain];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[perex.cz,suse.com,gmail.com,vger.kernel.org,xbow.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,xbow.com:email,suse.de:mid]
-X-Spam-Flag: NO
-X-Spam-Score: -3.29
-X-Spam-Level: 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 04 Aug 2026 14:36:25 +0200,
-Baul Lee wrote:
-> 
-> capture_urb_complete() resubmits each capture URB without anchoring it:
-> 
-> 	usb_get_urb(urb);
-> 	ret = usb_submit_urb(urb, GFP_ATOMIC);
-> 
-> Anchoring is a property of a submission, not of the URB.  The giveback
-> path calls usb_unanchor_urb() before urb->complete(), so an URB
-> resubmitted from its own completion handler is off the anchor.  The
-> capture URBs are anchored once, at stream start, so from the first
-> completion onward tascam->capture_anchor is empty.
-> 
-> tascam_free_urbs(), tascam_disconnect(), tascam_suspend() and the
-> stop-work path all call usb_kill_anchored_urbs(&tascam->capture_anchor)
-> to reap the capture URBs before anything is freed.  With the anchor empty
-> those calls return immediately and the URBs stay queued on the host
-> controller.
-> 
-> tascam_free_urbs() then returns the capture transfer buffers with
-> usb_free_coherent(), and snd_card_free() releases the snd_card
-> allocation that embeds tascam (card->private_data).  The controller
-> completes the queued URBs afterwards, writing device-supplied data into
-> the freed transfer buffer, and capture_urb_complete() dereferences the
-> freed driver object.
-> 
-> KASAN on 7.2.0-rc5 (arm64):
-> 
->   BUG: KASAN: slab-use-after-free in dummy_timer
->   Write of size 512 at addr ffff000015b62000
->    __asan_memcpy
->    dummy_timer
->    hrtimer_run_softirq
->   Allocated by task 64:
->    usb_alloc_coherent
->    tascam_alloc_urbs
->    tascam_probe
->   Freed by task 170:
->    usb_free_coherent
->    tascam_free_urbs
->    tascam_disconnect
->    usb_unbind_interface
-> 
->   BUG: KASAN: slab-use-after-free in capture_urb_complete
->   Read of size 4 at addr ffff0000170ee878
->   Freed by task 170:
->    release_card_device
->    snd_card_free
->    tascam_disconnect
-> 
-> Restore the usb_anchor_urb() between the reference count bump and the
-> resubmission.  That also makes the handler's usb_unanchor_urb() failure
-> arm meaningful again and restores usb_kill_anchored_urbs() as a barrier
-> on the disconnect, suspend and stop-work paths.
-> 
-> The anchoring was removed on the premise that the URB is already anchored
-> from the initial submission, which does not hold once the first giveback
-> has run.
-> 
-> Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
-> 
-> Fixes: 5cff1529a2f9 ("ALSA: us144mkii: capture_urb_complete: redundant usb_anchor_urb corrupts anchor list on each resubmission")
-> Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
-> Reported-by: Baul Lee <baul.lee@xbow.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Baul Lee <baul.lee@xbow.com>
+Move the UM queues into a dedicated UC BO (ads->um_queue_bo) and avoid
+CPU memset operations on it, which eliminates the CPU as a potential
+cacheline-polluting agent and helps maintain consistency between GAM
+writes and GuC reads.
 
-Applied now.  Thanks.
+Fixes: 9c57bc08652a ("drm/xe/lnl: Drop force_probe requirement")
+Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: <stable@vger.kernel.org> # v6.12+
+Signed-off-by: Jia Yao <jia.yao@intel.com>
+---
+ drivers/gpu/drm/xe/xe_bo.h            | 14 +++++
+ drivers/gpu/drm/xe/xe_guc.c           |  6 ++
+ drivers/gpu/drm/xe/xe_guc_ads.c       | 90 +++++++++++++++++----------
+ drivers/gpu/drm/xe/xe_guc_ads_types.h |  5 ++
+ 4 files changed, 83 insertions(+), 32 deletions(-)
 
+diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+index 7ae1d9ac0574..57039cf42ea7 100644
+--- a/drivers/gpu/drm/xe/xe_bo.h
++++ b/drivers/gpu/drm/xe/xe_bo.h
+@@ -6,6 +6,7 @@
+ #ifndef _XE_BO_H_
+ #define _XE_BO_H_
+ 
++#include <drm/drm_prime.h>
+ #include <drm/ttm/ttm_tt.h>
+ 
+ #include "xe_bo_types.h"
+@@ -548,6 +549,19 @@ void xe_bo_dev_fini(struct xe_bo_dev *bo_device);
+ 
+ struct sg_table *xe_bo_sg(struct xe_bo *bo);
+ 
++/**
++ * xe_bo_sg_is_contiguous() - Check if a BO's DMA address space is contiguous.
++ * @bo: the BO to check (must have a valid sg table, i.e. !xe_bo_is_vram())
++ * @len: required contiguous length in bytes
++ *
++ * Returns true if the first @len bytes of the BO are mapped to a contiguous
++ * DMA address range.
++ */
++static inline bool xe_bo_sg_is_contiguous(struct xe_bo *bo, size_t len)
++{
++	return drm_prime_get_contiguous_size(xe_bo_sg(bo)) >= len;
++}
++
+ /*
+  * xe_sg_segment_size() - Provides upper limit for sg segment size.
+  * @dev: device pointer
+diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
+index 4286bd05c686..4f132bf8539d 100644
+--- a/drivers/gpu/drm/xe/xe_guc.c
++++ b/drivers/gpu/drm/xe/xe_guc.c
+@@ -732,6 +732,12 @@ static int xe_guc_realloc_post_hwconfig(struct xe_guc *guc)
+ 	if (ret)
+ 		return ret;
+ 
++	if (guc->ads.um_queue_bo) {
++		ret = xe_managed_bo_reinit_in_vram(xe, tile, &guc->ads.um_queue_bo);
++		if (ret)
++			return ret;
++	}
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
+index f0ac00586d3a..f8c679cef003 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ads.c
++++ b/drivers/gpu/drm/xe/xe_guc_ads.c
+@@ -64,10 +64,14 @@ ads_to_map(struct xe_guc_ads *ads)
+ 
+ /*
+  * The Additional Data Struct (ADS) has pointers for different buffers used by
+- * the GuC. One single gem object contains the ADS struct itself (guc_ads) and
+- * all the extra buffers indirectly linked via the ADS struct's entries.
++ * the GuC. One gem object (ads->bo) contains the ADS struct itself (guc_ads)
++ * and most of the extra buffers linked via the ADS struct's entries.  The UM
++ * fault queues (PAGE_FAULT, PAGE_FAULT_RESPONSE, ACCESS_COUNTER rings) are
++ * kept in a separate BO (ads->um_queue_bo) so that the full memset of ads->bo
++ * performed on every GT reset does not discard fault descriptors already
++ * written into the rings by the GPU.
+  *
+- * Layout of the ADS blob allocated for the GuC:
++ * Layout of the ADS blob (ads->bo):
+  *
+  *      +---------------------------------------+ <== base
+  *      | guc_ads                               |
+@@ -99,10 +103,6 @@ ads_to_map(struct xe_guc_ads *ads)
+  *      +---------------------------------------+
+  *      | padding                               |
+  *      +---------------------------------------+ <== 4K aligned
+- *      | UM queues                             |
+- *      +---------------------------------------+
+- *      | padding                               |
+- *      +---------------------------------------+ <== 4K aligned
+  *      | private data                          |
+  *      +---------------------------------------+
+  *      | padding                               |
+@@ -156,16 +156,6 @@ static size_t guc_ads_capture_size(struct xe_guc_ads *ads)
+ 	return PAGE_ALIGN(ads->capture_size);
+ }
+ 
+-static size_t guc_ads_um_queues_size(struct xe_guc_ads *ads)
+-{
+-	struct xe_device *xe = ads_to_xe(ads);
+-
+-	if (!xe->info.has_usm)
+-		return 0;
+-
+-	return GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX;
+-}
+-
+ static size_t guc_ads_private_data_size(struct xe_guc_ads *ads)
+ {
+ 	return PAGE_ALIGN(ads_to_guc(ads)->fw.private_data_size);
+@@ -206,22 +196,12 @@ static size_t guc_ads_capture_offset(struct xe_guc_ads *ads)
+ 	return PAGE_ALIGN(offset);
+ }
+ 
+-static size_t guc_ads_um_queues_offset(struct xe_guc_ads *ads)
+-{
+-	u32 offset;
+-
+-	offset = guc_ads_capture_offset(ads) +
+-		 guc_ads_capture_size(ads);
+-
+-	return PAGE_ALIGN(offset);
+-}
+-
+ static size_t guc_ads_private_data_offset(struct xe_guc_ads *ads)
+ {
+ 	size_t offset;
+ 
+-	offset = guc_ads_um_queues_offset(ads) +
+-		guc_ads_um_queues_size(ads);
++	offset = guc_ads_capture_offset(ads) +
++		guc_ads_capture_size(ads);
+ 
+ 	return PAGE_ALIGN(offset);
+ }
+@@ -461,6 +441,46 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
+ 
+ 	ads->bo = bo;
+ 
++	if (xe->info.has_usm) {
++		/*
++		 * Allocate a separate BO for the HW fault ring (UM queues).
++		 *
++		 * Round the size up to the next power of two so that
++		 * (system memory, no IOMMU) the TTM pool issues a single
++		 * alloc_pages(order=N) call, maximising the chance of getting
++		 * a physically contiguous block.  GuC requires contiguous DPA.
++		 */
++		size_t um_size = roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
++						    GUC_UM_HW_QUEUE_MAX);
++
++		u32 um_flags = XE_BO_FLAG_SYSTEM |
++			       XE_BO_FLAG_GGTT |
++			       XE_BO_FLAG_GGTT_INVALIDATE |
++			       XE_BO_FLAG_PINNED_NORESTORE;
++
++		bo = xe_managed_bo_create_pin_map(xe, tile, um_size, um_flags);
++		if (IS_ERR(bo))
++			return PTR_ERR(bo);
++
++		/*
++		 * On pre-Xe3p platforms, GAM (not GuC) accesses the UM queue
++		 * ring via base_dpa, which must be a contiguous DMA address
++		 * range.  Verify that the allocated pages are contiguous in
++		 * DMA address space.
++		 */
++		if (!xe_bo_is_vram(bo) &&
++		    !xe_guc_using_main_gamctrl_queues(ads_to_guc(ads)) &&
++		    unlikely(!xe_bo_sg_is_contiguous(bo,
++						     GUC_UM_QUEUE_SIZE *
++						     GUC_UM_HW_QUEUE_MAX))) {
++			drm_err(&xe->drm,
++				"UM fault queue memory is not contiguous in DMA address space; GAM requires contiguous DPA\n");
++			return -ENOMEM;
++		}
++
++		ads->um_queue_bo = bo;
++	}
++
+ 	return 0;
+ }
+ ALLOW_ERROR_INJECTION(xe_guc_ads_init, ERRNO); /* See xe_pci_probe() */
+@@ -893,7 +913,7 @@ static void guc_mmio_reg_state_init(struct xe_guc_ads *ads)
+ 
+ static void guc_um_init_params(struct xe_guc_ads *ads)
+ {
+-	u32 um_queue_offset = guc_ads_um_queues_offset(ads);
++	struct xe_bo *um_bo = ads->um_queue_bo;
+ 	struct xe_guc *guc = ads_to_guc(ads);
+ 	struct xe_device *xe = ads_to_xe(ads);
+ 	u64 base_dpa;
+@@ -903,8 +923,14 @@ static void guc_um_init_params(struct xe_guc_ads *ads)
+ 
+ 	with_dpa = !xe_guc_using_main_gamctrl_queues(guc);
+ 
+-	base_ggtt = xe_bo_ggtt_addr(ads->bo) + um_queue_offset;
+-	base_dpa = xe_bo_main_addr(ads->bo, PAGE_SIZE) + um_queue_offset;
++	if (um_bo) {
++		/* All USM platforms: UM queues in dedicated um_queue_bo */
++		base_ggtt = xe_bo_ggtt_addr(um_bo);
++		base_dpa = xe_bo_main_addr(um_bo, PAGE_SIZE);
++	} else {
++		/* Platform does not support USM: no UM queues, nothing to do */
++		return;
++	}
+ 
+ 	for (i = 0; i < GUC_UM_HW_QUEUE_MAX; ++i) {
+ 		/*
+diff --git a/drivers/gpu/drm/xe/xe_guc_ads_types.h b/drivers/gpu/drm/xe/xe_guc_ads_types.h
+index 48a8e092023f..845c1fbd93a4 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ads_types.h
++++ b/drivers/gpu/drm/xe/xe_guc_ads_types.h
+@@ -16,6 +16,11 @@ struct xe_bo;
+ struct xe_guc_ads {
+ 	/** @bo: Xe BO for GuC ads blob */
+ 	struct xe_bo *bo;
++	/**
++	 * @um_queue_bo: Dedicated BO for the HW fault ring (UM queues).
++	 * NULL if the platform does not support USM.
++	 */
++	struct xe_bo *um_queue_bo;
+ 	/** @golden_lrc_size: golden LRC size */
+ 	size_t golden_lrc_size;
+ 	/** @regset_size: size of register set passed to GuC for save/restore */
+-- 
+2.43.0
 
-Takashi
