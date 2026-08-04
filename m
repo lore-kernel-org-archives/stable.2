@@ -1,92 +1,92 @@
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86E93EDE7C
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 02:43:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F56B3AAF44
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 02:45:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.181
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785811402; cv=pass; b=pwnHvDUBWW+iM9s6PQ0t5OeO4Glx/HebeYB+Dw0PI3fDqwOk/w0Ihp/5mF6+94kXvWj8kiIljccawhawIj9rJV2lhPoFOgUPAg14ih3kgbAm/IFNZVaJWVrYHogxVL80NF9J71ud6KbIDIW+QFLJraNCyRICPNeRJ9HidbaI5sI=
+	t=1785811546; cv=pass; b=bKUWk1yA1mmpqZhwE+G+TMS7TAeW5sKcVpLblUkBYFS5VEZgu3EhaPeLJuVW56uwmLWGtCrYwKWq1IyjdUfHM364FVnsFaQYzBllovXkolCusSN29Z9NzUBJh6yFZmIcNkJd2ftO7oispxeoyMERp4kWdc4N45PzRL1NhEOzHfU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785811402; c=relaxed/simple;
-	bh=YZKYb+GkPftg01Ou+o7yt15VY2iSSja29MKhp+0jynE=;
+	s=arc-20240116; t=1785811546; c=relaxed/simple;
+	bh=AUHZK43CT/N++9FBcUl1JAIfA+cKuOObfqC5yDHgHUM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=D1cl/F84hxUSjEpE3CtOWWh0LpWbH1PmB4I4nmYDNxw3V295oijWehq9z6RCHPVAU+psLnSCXZzeP/4V45QtYnvgye4IIgB1Q6fMo0NUrj5HqPU0eBVGUEeGm8aqS9pBVqirVXxMF2oHM61doqy2ubrk9Jjfqe47OSVFBmvS6Eg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=jC8vkyGR; arc=pass smtp.client-ip=209.85.128.179
+	 To:Cc:Content-Type; b=cBJ1jP/KV8/tX6ttglngJwRaU4y7sG6AbS8PjZM7VWSb8TKV4iB6wJbSk2JxJpB3Xa9qkvhiihNYvrlO3ql1SyFsq+TmuYZ4UP7AP4CCRyNRg1iu17da2GQvk+PQm8+ktz+tCfBf2vnKNB4OxSY5C8wMQ0JFwH/7oGdijee3mQk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=WgErTmhf; arc=pass smtp.client-ip=209.85.128.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="jC8vkyGR"
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-80e2cfe6918so43400657b3.0
-        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 19:43:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785811399; cv=none;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="WgErTmhf"
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-81e9f7491ffso61192427b3.0
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 19:45:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785811544; cv=none;
         d=google.com; s=arc-20260327;
-        b=MjuR+OKuToxV3f5wqUKqMVEx9S+0Q5+kOueFfMMvR4k5Ljt+jWRKx86K44xOY9nfAk
-         G/iqRqaD9GeP5LfBwqa3QHjhZA/fWNAHIOxhNrU7whnMAYhNqk9nr8jHh6UspnydYi3X
-         3/cmLq4sM4NopsLJL/987+WKNafHSorUHKWv15n49odU6XDsVm2f9x8v4yZC7JRmQB6i
-         rRxlJlJ2/RrS60IBFz6YFUf2qNy52G1ye7VXlAcp14geYzxLhwJpzrpsy1FXRkP453Rb
-         oBd1FHsfjcKmT9IJzwfbuPecASB5FYhYWueEIXRxpWiqP8CSlVtfWNpddB4SajGWoITE
-         KYnw==
+        b=Pv4+r3iALO66IWYNMgaOrFXB6P6eYl2FiDZK3LZ2CduI9qnVHiFt8fO87NHT9+UZnw
+         V/pjVXPPuRlTN1kydK9S6kNXxL9/ifiIzrOwlbOQFpMYK8rVBz5+8VumFQ/G/luBVQoV
+         mZyPuj2i7jXvt5s661dxvU4EgHKUqQuxQDYH0Z2xhxxQyn3s+pRfm5Oo+jxGwBq9a5I6
+         DpGLI5skkvic6JbjwBCvcBr76ivXAo3gPNvfuO4bwHwcLYFuFQXUKnW+MkLB6o9DKCiM
+         VoQ71lrEp87tu7PFIEImToiP0Xa/Sylz1dx/jjRLhM0XGbQvfwWTGHtHinDC7O5Wl5vj
+         /pzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=RF3fTD6VniiBpbG6B64SSlFMt6UnvATMppDDhdm47VI=;
-        fh=KzFm5/pEoeIIojJXFmmN/VlVLgyNu2QG9ePdBnbY0RY=;
-        b=HN7dBoYCiXkfO7wbIaoixpYF13gLVpKYoS0uwE7wgRUz447fnwHHn17AvtlmIlM0UV
-         5F1qnIlB1ZE97C6i+Au2vJ92vafWoH6xXXSBgU3LCPvxwapOVI/Kyurwk8ZnirzYUEJv
-         Ng90ddwG0rHTSq9TycFZpiVja7to2YEZ7s32hZfL+wv7GE7kQ3+gzTQ98ufcmieQXzuq
-         bakvEI/23GdfBdH6yiK8kTOANqENGbfKbZ4b/IRcaPSC6N+2BcBuBGKN+3UTubZwaEzX
-         eKSpOKJN3OV2hIZYTab7eyYdPngQN1qaDjr3ZL1EnFBUs6xZW+h9HnQJjxz7znMdtFIX
-         FUMg==;
+        bh=AUHZK43CT/N++9FBcUl1JAIfA+cKuOObfqC5yDHgHUM=;
+        fh=2HKOanEaxex9Z7yg/NKEMwZg3DwHNPPO/lTOhr1yMG0=;
+        b=Bbm3K/UQmSSB/KEgf/YOjyj4+d2fJpb+IoxzpKgK/33U1MZG9ohLjeknfxSYbyO5+v
+         eFQpsSjQ6PMCiy6pvX+jbbGaSXuBTk2MxkbH8D/TjPgtQbq3nSq1Vm6eXwqwzjeOUczE
+         dQY0+839U/YACMDb/J9puXQ8HeCFlvZfJmNa7pt9AqJ5STvN+USxeTik87gCunwUcBp4
+         tNCP7usXPI8ByBLl/HsNAFEqyT9VwOGuq93GTev3GBT59O53+sRmFW8em4/YCG3YvYCA
+         2TjhLefdJicEIrB5uhoTBR2CZuWhiuFX7X5mEC61VADnMFCfv09hsyj7Ahav8fAvmiQE
+         ZrrQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1785811399; x=1786416199; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1785811544; x=1786416344; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=RF3fTD6VniiBpbG6B64SSlFMt6UnvATMppDDhdm47VI=;
-        b=jC8vkyGRk/6dVnzI57mRjrGd4MqWLiArc7JTmqjqD6z0oiS0mwNucudqoCumJqjU6B
-         yfCx7waIOJmSxiWu6GvOnURVX/TuBoZF/zv/89yb+OVs/IWg5BeyTcALp8iho/2z2Lwg
-         k15bw1pWFm6RivINUFCPNnpZjG4nxfykdY+6s=
+        bh=AUHZK43CT/N++9FBcUl1JAIfA+cKuOObfqC5yDHgHUM=;
+        b=WgErTmhfNRjNzhJhVn1FMcCJZc198tvCR2mywUwTerla7mLgodvReQHOaXBoMRh2Bk
+         p8MDcwBiF5wgNmjRtmlukA3PGBxMXvSt5GJiP1wFZBfBNFTjBM+fYDauqE3vPQ5+4u0/
+         w1Sc02oG6DtdJNiQG2ebax7JXtN8ewys652WY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785811399; x=1786416199;
+        d=1e100.net; s=20251104; t=1785811544; x=1786416344;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RF3fTD6VniiBpbG6B64SSlFMt6UnvATMppDDhdm47VI=;
-        b=DKt8qX4r7MR505guXJdIXfklXCPMpAhqMIQANPOTs7Y8N2kngv7LQ7EuqHKDfB+nEI
-         TJKFMYi/CjfN4MaUF2ufSRP06b37zUfi4NBRZuoJK+1Bq76PoVnmPpuABt5Cb8Kalhjy
-         rpZQ/1qr4z7MnkVnEGESDD1wBwhvOb4c1qEdqm4J9rPYHIOA72J0a+0fpPld35bvUs8X
-         JP3Qy7604MBGCkfefyqlmrOuBbGc9pL/mo2iP/hiw3PlSWK82GW8YZpegxjH43DhSx2G
-         8pxvXgZS/FRenQF4ylGIuEcnM55WKmAZJIZwt6lU5q30xYuXcJct1rYUeHJ30UHe4F2d
-         e+YA==
-X-Forwarded-Encrypted: i=1; AHgh+RoLdPxs8bndCtFABlXYKU4wXKx9odwEf5L2b9vNDgZrm0fnhuM9AEa8TqATYk4K3l+pBYoggTc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzzCeEgPZL1Sj0z9Ooq0tmze03G4U5Ix3x2LQ2MeLyHFiw510w8
-	adjt1A257uPrmY0YOa1UaCEe4mgCUaGDksWAuea96tFflmKHoUa6I35mlF3/YDtmmkN1x7qbH1X
-	wyuYzqZuts2Mbv6ZEgsn9rQLxscDI2bVx+0IT8Hh7
-X-Gm-Gg: AR+sD12i/EpCmYd5c0/anzf0iIu90nH1tsRkmeSC+Q4j7wKW3S0TuvRaVeMn+8ycIiG
-	rTuBh4+fNlwLLwohERDxQAFWgt9dnPcEZBfkREN3mdazgOkMJok7EpWWUemgtUCZ9bJ8gsIFEan
-	swseoHhglyLu/OlrzS3aavSuLfsTq+mHER6K0AOvzRYV5UilCoeGyBm0QG39ZaE+b3I9ehCk/KX
-	Nhl5HoAnzvcoZg8aiJ1Z4ueCXCIiJ2QG+eTakED0k9k+jr+b7kJxhjfLnZ3Bxnsc0sUjAjyv3xa
-	hUMs4VxWBPRIgMJIyD2OYpJ1i/nHuQo/BzLEEd8DLt0feJc=
-X-Received: by 2002:a05:690c:6984:b0:81e:a425:fe88 with SMTP id
- 00721157ae682-81fd4bf523fmr168290117b3.33.1785811398719; Mon, 03 Aug 2026
- 19:43:18 -0700 (PDT)
+        bh=AUHZK43CT/N++9FBcUl1JAIfA+cKuOObfqC5yDHgHUM=;
+        b=PyJ0PN/vvfX+yeeMd2Vl81OhSBHO6owZldkOZwPS01JFTCi7obLLW95Ig6tWTBjuIa
+         nQLPAPLFJPtJMUGlTyaCwj3p+wBawAzislW/2OnN186IiCWFMytalQtW4jGRueQZp/z9
+         X/p9HTltWLnCLzl516N2dubPUgtoXEpe0kMOxAv99qhhwJ05/fz+yzXAPDR3wzgYZXK6
+         2d9+IhTTtEF4NEb6bFnchKpI/axkLfq0bn+CJoREnF09rLaJBsEsb+YEltOY6KYglSpQ
+         liUsZQKMCLuiJEzbezfWZehdk+7AO13KMtF8tNI99Sr8bzAdHnwXq/22OO85dLFXzxY6
+         TRfw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro0IruSEqhaWDZx3bjbgvWdQhYsNOnreHE+v9YtG66y55DhtODNaq9HeFKLatkLLtE/gBLWg/s=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx01eOZ/nrvqNunNC5vKmro1wyUae8V52JODC7tbl7FZkovCSC7
+	yajLxF0nVfgN7H9M0bQJAFGx0Oye8VtqL0CZAOuSTTiNIP4w+lUh+kAthlXyxJeexUR3cCoEMQR
+	yOJpjCh7tuo2VLydYNbSFUHY+xs25KAdzZggkyEkS
+X-Gm-Gg: AR+sD10CpswVybUn61209T5xPLE6dC59R5hl+dkZuHuet8QXzH9pX2JdLh3GtI5EFid
+	En+AJu0vcRsH1tfItyN1g+TxXcSM1dvCdof0Mwy3dndCQLUvl0CaRMGtaDVlUMOuNrswCzUgjUh
+	GLaUxtg2V/CSrt/17nssam/OBbPbSlsoOwVXBnlx7Zl+v9PIish6Pb2MQdP0/1Wy8kpxnNtW/vt
+	3cHYrcVs53aByZJ9vboTHJRrXe/rmp4lxYYh+IZdjvIlYII2pzPdmc6IpmpLKOgaxzvlSp01KSW
+	7FiLW/RpACRjl/z1ajuWof7loE+NjtFvL7wLXNjRPRP4FC4=
+X-Received: by 2002:a05:690c:6d07:b0:81f:27f8:2de4 with SMTP id
+ 00721157ae682-81fd4a04799mr160372987b3.8.1785811544182; Mon, 03 Aug 2026
+ 19:45:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260803141659.559129-1-akkun11.open@gmail.com> <20260803141659.559129-12-akkun11.open@gmail.com>
-In-Reply-To: <20260803141659.559129-12-akkun11.open@gmail.com>
+References: <20260803141659.559129-1-akkun11.open@gmail.com> <20260803141659.559129-14-akkun11.open@gmail.com>
+In-Reply-To: <20260803141659.559129-14-akkun11.open@gmail.com>
 From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Tue, 4 Aug 2026 10:43:08 +0800
-X-Gm-Features: AUfX_mw0ODj1uLGkUiNOBLIVs6yIxP-U-M-JHW0wgLxFKYiXjICIFii0-d42exg
-Message-ID: <CAGXv+5FHSNH5SLiCiXyHDieO2rUDypAQBi5-nbTFKFzb+3ZWRA@mail.gmail.com>
-Subject: Re: [PATCH 11/32] clk: mediatek: Add auto-population of sub-devices
- support in simple probe
+Date: Tue, 4 Aug 2026 10:45:33 +0800
+X-Gm-Features: AUfX_mwLcNdgKSX0dY1YbYf9cwLK9DsvJWUXl-Ukek71RJiEJ4s-l_75YEo7Ku0
+Message-ID: <CAGXv+5HRsFFhzSYPdk-zmipLTVwxPkHLbuFP=wn_f_D+3ejAMQ@mail.gmail.com>
+Subject: Re: [PATCH 13/32] clk: mediatek: mt2701: Switch to common
+ probe/remove helpers
 To: Akari Tsuyukusa <akkun11.open@gmail.com>
 Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
 	Brian Masney <bmasney@redhat.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
@@ -111,72 +111,16 @@ Content-Transfer-Encoding: quoted-printable
 On Mon, Aug 3, 2026 at 10:18=E2=80=AFPM Akari Tsuyukusa <akkun11.open@gmail=
 .com> wrote:
 >
-> MediaTek audio clock drivers call devm_of_platform_populate() after
-> mtk_clk_simple_probe(). Extend __mtk_clk_simple_probe() to run
-> devm_of_platform_populate() when the new 'populate_children' flag is
-> set, reducing boilerplate.
->
-> Note that explicit of_platform_depopulate() calls in remove functions
-> are unnecessary because devm_of_platform_populate() is managed by
-> devres and cleans up automatically.
->
-> Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
-> ---
->  drivers/clk/mediatek/clk-mtk.c | 7 +++++++
->  drivers/clk/mediatek/clk-mtk.h | 1 +
->  2 files changed, 8 insertions(+)
->
-> diff --git a/drivers/clk/mediatek/clk-mtk.c b/drivers/clk/mediatek/clk-mt=
-k.c
-> index c3369a04cdec..71d70b5a9990 100644
-> --- a/drivers/clk/mediatek/clk-mtk.c
-> +++ b/drivers/clk/mediatek/clk-mtk.c
-> @@ -12,6 +12,7 @@
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/of_address.h>
-> +#include <linux/of_platform.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/slab.h>
-> @@ -609,6 +610,12 @@ static int __mtk_clk_simple_probe(struct platform_de=
-vice *pdev,
->         if (mcd->need_runtime_pm)
->                 pm_runtime_put(&pdev->dev);
->
-> +       if (mcd->populate_children) {
-> +               r =3D devm_of_platform_populate(&pdev->dev);
-> +               if (r)
-> +                       goto unregister_clks;
+> The MT2701 clock drivers can use the MediaTek clock framework
+> common initialization sequence. Reduce boilerplate code by creating
+> struct mtk_clk_desc and using the mtk_clk_simple_probe/remove helpers.
 
-You cannot use devm_* here, as they get unrolled _after_ the probe function
-returns an error or after the remove function returns. A child could be
-referencing a clock that got tore down in the error path below.
+For all the subsequent conversion patches, please try to mention _what_
+led to the converted driver being able to use the common helpers, i.e.
+what prevented it from being used before. Was it the PLL, or PLLFH, or
+something else?
 
-All devm_* functions need to happen before anything that requires manual
-tear down. You can't mix the two together.
+Details matter.
 
 
 ChenYu
-
-> +       }
-> +
->         return r;
->
->  unregister_clks:
-> diff --git a/drivers/clk/mediatek/clk-mtk.h b/drivers/clk/mediatek/clk-mt=
-k.h
-> index b6504b3e77ed..11939e3e0b38 100644
-> --- a/drivers/clk/mediatek/clk-mtk.h
-> +++ b/drivers/clk/mediatek/clk-mtk.h
-> @@ -265,6 +265,7 @@ struct mtk_clk_desc {
->         unsigned int mfg_clk_idx;
->
->         bool need_runtime_pm;
-> +       bool populate_children;
->  };
->
->  int mtk_clk_pdev_probe(struct platform_device *pdev);
-> --
-> 2.55.0
->
