@@ -1,80 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0759D20E702;
-	Tue,  4 Aug 2026 22:28:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3C13EA66;
+	Tue,  4 Aug 2026 22:30:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785882494; cv=none; b=YE0cGRquxCxfvUjxKPa1hnv/ya3mtrimYQYETgxw++FfeOrR+ZmX6BydQeHEgRA3WeIP7zTIp+CieapC6+cgLRZ6BCsYAlhmOsoD5Fn7T2DtcL1HzQU6EH31h/HAIeEhI5H1xpPl/8YxFJRZymC3Njh9eYKODDjSBm5YUFfusVo=
+	t=1785882646; cv=none; b=PNV9YKSsta9RUb4fPfE3rbGGlh9KcTOVSjXMwARU4pwDq7ETWDhe3R2uPOVApWZJqNEsNTbbIamc6jtklzKL5LzR+/VobAy4q8knKi/OrSEER981Xhl2QawzF4RpLi6xKgwpO1wi53SiNwdM/mLPrwl/djIfIZAlEhathlH2XrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785882494; c=relaxed/simple;
-	bh=mdt0W9sI9DPNLVtNcWbATHR5J3IXzx5migq62Y66YOQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Bbni86DcQiB+rsfooym36ftFE8YBf+kRLGx9zELyCnA8DGZwHBrZFh7a6ZchhIMMyZe0vSiQW1t2Xil8N35Gh4Mc54XBr6D0NVz/0T6xqmADoyhDysPaOq6qpvtpvG3Ng0JLmBkvbqP3vcO+o1qtzNYIy3nKAMRiaUMjBjdAPE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N2wemNAv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785882646; c=relaxed/simple;
+	bh=R4meS5TRxOPrYTgAHKeq7Mr11/rRHStJ1OvMdrYJ9eo=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=Vj7AMwQZ4Koy4JNEf3lGwfVYkuO+tOWW1lXhCo6OU2UE4YHoGLfwRGiZRwcJ+SGQB2Tu3p1cf1/9iVPn/vV6/p6a/rzCsJTc4gvtN9b1kVmc6MH6UMsk2w2gzTC4yssBkO/wxogLyE5I53kuf6PxLTnil2kTRyfy/kBCT5rs/HE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K4k6xtpA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N2wemNAv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57C631F000E9;
-	Tue,  4 Aug 2026 22:28:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K4k6xtpA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 274371F000E9;
+	Tue,  4 Aug 2026 22:30:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785882492;
-	bh=IrK+sFIlkFTgCaWsK9DUWhSC502yfO7RwF/MpE5Myxw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=N2wemNAvBS2zTNnVQMWlqmNOOBvt7tnmkkBTQQKICH99Psa6lO+6bQlOtR/QB2yHX
-	 IzSMt6tdzOE2AYMxqCA91Z6/S16+Q4y6KtR8W+tWe2rxmCYDO3k+ZNE0gBwraGEt6X
-	 HOn0iT7E2uL8BjTeaTjJL1V4Jtxzu9840GpQ+yfXzfaxCxejb7pdiycKUxABsfxuA+
-	 n3yZjO7ErIyQ2IrP43QZSImOnPI7w7FCHPyCbtt+JZFj/HhJolwncn0E8kU3acJ4cl
-	 5KL/dAk9It/6xlq02XswUuDECXcRknjUh430JW6nRL37Y9lI6t4/uB7LV8U1xmlVqY
-	 uNy7ieQxY/Vpw==
-Message-ID: <04736898-ccfe-4d16-acc7-31d70c6276b3@kernel.org>
-Date: Wed, 5 Aug 2026 07:28:09 +0900
+	s=k20260515; t=1785882645;
+	bh=qumM/ZUvhwCYG8/BhtTMQCcxLsfhFjHB5gMQ4M558k4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=K4k6xtpAmJCBXq/WO7+NJwcEEQVvsGTlGaRZD7oXeH7lDjy7uvABUrYnroTkJOIj6
+	 WqyBg+Vxqop6H+c2dRM21muAM0Q/0jpwEsndr3zlgqoTEJDykxAqyd6ODx7stF+r/d
+	 oCqFd8a0OXf+U01whnyllLv3pAbtmcOi6Y8q7K5O9urkTRhK/ndqjOPqWydi8WlyNS
+	 lGmWJQGIZrb3fQfaGGtfe6HuVS1Zez9yzj0ubkDFngpzdsvlYhxVT4bXTYgNYNwIj8
+	 vG6N2PlG8IUw4WWtpVGFw2L66tTQaR+jTIsPotT1T30o7Ud0DkaVjHuOSkfRDTCxxt
+	 jLHEj5u42VXJg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B8E50392664C;
+	Tue,  4 Aug 2026 22:30:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvmet: pci-epf: put CQ ref on create_cq mapping failure
-To: Yifei Gao <gyf161023@gmail.com>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni <kch@nvidia.com>,
- Keith Busch <kbusch@kernel.org>, linux-nvme@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260804213626.3410403-1-gyf161023@gmail.com>
-Content-Language: en-US
-From: Damien Le Moal <dlemoal@kernel.org>
-Organization: Western Digital Research
-In-Reply-To: <20260804213626.3410403-1-gyf161023@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] ipv6: prevent in6_dev_get() from resurrecting
+ inet6_dev
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178588260564.3813627.866249845630224776.git-patchwork-notify@kernel.org>
+Date: Tue, 04 Aug 2026 22:30:05 +0000
+References: <20260803122758.666112-1-david.lee@trailofbits.com>
+In-Reply-To: <20260803122758.666112-1-david.lee@trailofbits.com>
+To: David Lee <david.lee@trailofbits.com>
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, kylebot@openai.com,
+ dominik.czarnota@trailofbits.com, sven@narfation.org, horms@kernel.org,
+ yoshfuji@linux-ipv6.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-On 8/5/26 06:36, Yifei Gao wrote:
-> nvmet_pci_epf_create_cq() calls nvmet_cq_create(), which takes a
-> reference on the controller and installs the completion queue. If the
-> subsequent PCI address-space mapping fails or returns a too-small partial
-> mapping, the function jumps to err_internal / err_unmap_queue without
-> calling nvmet_cq_put(). The matching put in nvmet_pci_epf_delete_cq() is
-> gated on NVMET_PCI_EPF_Q_LIVE, which is only set after the mapping
-> succeeds, so teardown never releases these references. A remote PCI host
-> that drives Create IO CQ commands with a failing PRP1/pci_addr therefore
-> leaks the CQ and a controller reference on each attempt.
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Mon,  3 Aug 2026 12:27:57 +0000 you wrote:
+> From: Kyle Zeng <kylebot@openai.com>
 > 
-> Drop the CQ reference on the mapping-failure paths. The err_internal and
-> err_unmap_queue labels are only reachable after nvmet_cq_create() has
-> succeeded, so this pairs the create/put correctly.
+> in6_dev_get() reads dev->ip6_ptr under RCU and then unconditionally
+> increments its refcount. Device teardown can clear the pointer and drop
+> the last reference between these operations. The increment then
+> resurrects an object whose RCU free has already been queued, so callers
+> can use it after it is freed.
 > 
-> Fixes: 0faa0fe6f90e ("nvmet: New NVMe PCI endpoint function target driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Yifei Gao <gyf161023@gmail.com>
+> [...]
 
-Looks OK.
+Here is the summary with links:
+  - [net,v2] ipv6: prevent in6_dev_get() from resurrecting inet6_dev
+    https://git.kernel.org/netdev/net/c/0e243671bc7b
 
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-
-Note: it would be nice if could explicitly mention if you actually tested this
-or if this is just an AI generated fix.
-
+You are awesome, thank you!
 -- 
-Damien Le Moal
-Western Digital Research
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
