@@ -1,120 +1,98 @@
-Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C1A426D16;
-	Tue,  4 Aug 2026 07:39:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.181.215.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1F3429818
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 07:42:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785829192; cv=none; b=Ze+dewAJ71K5qTvQ4KPIYV2eZOfn0jKaTYof9ujT5kuD//FtFql9X9ri4gR0MAN3KBu5mfTV6y0k807qD+wPLy+pd0kS5sp8W1cq/8/EvH/kH7RO05ACPTR7gZ3Z8O5DiQDZjcWAJZN6y+MS+aYZ4INO+gy/GfzyFC/LIq8syhY=
+	t=1785829333; cv=none; b=DAv4Of2F/5YGU6YUc2t8F+ciVbJa2xBw4S2/4YN2Ep30XBZh+BA23nX8Q1gJ2P+alNwebkrJ4SXWqlJvitYvta2lk/B4+lcWqEgs3cUkqIhppiIFm4lnyMs/u+bAjWPzUIhtip7/QIwuxcKl4QM1lYc5rlxAknjxKXDbrkGXERM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785829192; c=relaxed/simple;
-	bh=NEF8spb5u7CiwNS+iTwEBVYL0bpl2VvikQOwHzvJeLU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BOwcWQFdAz4YezwOzvj1uc+aCnZwk5rO4OA2lQvUqCBiSu0sIEcCh9hC+YKIn/iPGLzoJbSL7uuT42e/SVAgH1ULZW86+46FwSGbsjIgEaRYS8p3oNGa2+ux3rB2Ej+B2I+sde1eQdzcpTZ5URr2GI8Ybi4h8Hsf2ufSfBh9WCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz; spf=pass smtp.mailfrom=xff.cz; dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b=kOZQ0H0n; arc=none smtp.client-ip=195.181.215.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xff.cz
+	s=arc-20240116; t=1785829333; c=relaxed/simple;
+	bh=+24tJxmTNGsbjfwGGtdlYvjVz7uY6owvK0gfMvh1x4k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZMMmOJh7ciMtyJpBQ0FNL1+jSPQoEYBlW+ElVlsCVUVqH22wzEggK49gRv8U2mjm45y0xZEmlQ8eNTRorJobWqbUyuDMKznXIVUpnlWTvQ+7KWEBB9YQ0jj6lrEj5Jx6TXFnozZRRTwlcYyMztAhM2ys6VD4hlTjyf0n5tCAE+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cIRWlw1i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b="kOZQ0H0n"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xff.cz; s=mail;
-	t=1785829186; bh=NEF8spb5u7CiwNS+iTwEBVYL0bpl2VvikQOwHzvJeLU=;
-	h=Date:From:To:Cc:Subject:X-My-GPG-KeyId:References:From;
-	b=kOZQ0H0n7b4gT77O6FBv02l9YBjBiXc3PjJevI3AcTpQiuCrJKoGdy8lThP1WN8O+
-	 LYL6yXozTGg6QoO71NQ2O/8HW2d6OcbzYlnWX7KEjrdZ8wve5TZzLAvlmV4VvdTMcx
-	 LQ77Q1yNMEjykXQO5teDSBR6JP/u93MDiL9nLKAU=
-Date: Tue, 4 Aug 2026 09:39:45 +0200
-From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>
-To: david@ixit.cz
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Olivier Benjamin <olivier.benjamin@bootlin.com>, 
-	Manuel Traut <manut@mecka.net>, Alexander Warnecke <awarnecke002@hotmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Martin Kepplinger <martin.kepplinger@puri.sm>, Shawn Guo <shawnguo@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, phone-devel@vger.kernel.org, imx@lists.linux.dev, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/4] arm64: dts: rockchip: rk3399-pinephone-pro: DW9714
- coil requires higher voltage
-Message-ID: <2j7ogeqj565sftp5wzqvtzi2id76fof623bifbmyu6ckhf6vm6@ya7h4tp5i4qf>
-Mail-Followup-To: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>, 
-	david@ixit.cz, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Olivier Benjamin <olivier.benjamin@bootlin.com>, 
-	Manuel Traut <manut@mecka.net>, Alexander Warnecke <awarnecke002@hotmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Martin Kepplinger <martin.kepplinger@puri.sm>, Shawn Guo <shawnguo@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, phone-devel@vger.kernel.org, imx@lists.linux.dev, 
-	stable@vger.kernel.org
-X-My-GPG-KeyId: EBFBDDE11FB918D44D1F56C1F9F0A873BE9777ED
- <https://xff.cz/key.txt>
-References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
- <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cIRWlw1i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0945D1F00A3D
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 07:42:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785829332;
+	bh=Z/iyYkMo3J3MpY+sBFfuLCphuanoP24xAaUBOU7OBHg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cIRWlw1i48pKecN1ACparvW4LPLECs9JHMgI3rubS75Z5uvTkZzttg7s9+Dcrfc4o
+	 W/R0cGyNBc+9Zh3xhPxNfLeMhTP/1FvFh7spy2/q6YlR8hobyVCCmZZC2prTbM9hzh
+	 a7IothsPBRn8jj+Wt23ZR9UgcrGQf3ZnfXd6qe53rV7fnau0I2lae+Idq16so0k6tv
+	 ZescojDv4ErbAGZ9wm+HWopFnY9WoKYbc/cmQN2FDzcmWvJBsVy5iK1Us0ohCiP3Ru
+	 Hgc/TRqR41Gq49YasX8K9OJRb4NLfLE0YPqznt4QPwiqD8Xm0B9U/f8LuZpjHcLOGx
+	 4fiKs+eeekV4w==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b15dcaca31so4066637e87.0
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 00:42:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqMZ/1yMLkDecKugj1w9T6SY2miKgGFOGiFNIcgLyc708Y5G106EiAkdU+4c3n8913qARWr/z8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwgBdS5zSOhMyxPEjgsKbL1pthkdGVy7OYe7RPSn5NfPFT23BcU
+	WDeUx27YSH5ffbEE1Bdryb82JQ8jzdpv3LdvtGBnWLN1fPJwfNF/mpqZrY5qa2cF5bDHeE8x+zH
+	9dMLhoasg7B0sECnRmIUC6Lk9zygXp0U=
+X-Received: by 2002:a05:6512:3da8:b0:5ae:a81f:c1db with SMTP id
+ 2adb3069b0e04-5b2e4f1afa6mr2972872e87.13.1785829330830; Tue, 04 Aug 2026
+ 00:42:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
+References: <20260731032747.2987292-1-junjie.cao@intel.com>
+In-Reply-To: <20260731032747.2987292-1-junjie.cao@intel.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 4 Aug 2026 09:41:58 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkAjQG7hFsdX+dy8wZUoKKDCaOzMD0EJ0nn3gYmaEOJDw@mail.gmail.com>
+X-Gm-Features: AUfX_mxshjhXPBoVr7O5EjGs8xJzPlqOSJ7vXDCmceSjj8EKGV2yiAL6JAI4HKA
+Message-ID: <CAD++jLkAjQG7hFsdX+dy8wZUoKKDCaOzMD0EJ0nn3gYmaEOJDw@mail.gmail.com>
+Subject: Re: [PATCH] gpio: ml-ioh: use raw_spinlock_t for the register lock
+To: Junjie Cao <junjie.cao@intel.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Fri, Jul 31, 2026 at 5:30=E2=80=AFAM Junjie Cao <junjie.cao@intel.com> w=
+rote:
 
-On Sat, Aug 01, 2026 at 02:35:21AM +0200, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
-> Usually it's around 2.8 V. Here it matches the avdd2v8_dvp.
-> 
-> Fixes: 9336eb829a18 ("arm64: dts: rockchip: describe I2c Bus 1 and IMX258 world camera on PinePhone Pro")
+> ioh_irq_type() is registered as the irq_chip .irq_set_type callback and
+> takes chip->spinlock with spin_lock_irqsave().  This callback is reached
+> from __setup_irq() -> __irq_set_trigger() -> chip->irq_set_type() while
+> the caller holds desc->lock, a raw_spinlock_t, with hardirqs disabled.
+> That context is not sleepable, but on PREEMPT_RT a regular spinlock_t is
+> an rtmutex-backed sleeping lock, so acquiring it there is invalid.
+> ioh_irq_enable() and ioh_irq_disable() take the same lock from the
+> .irq_enable/.irq_disable callbacks, which are likewise invoked with
+> desc->lock held.
+>
+> Convert the register lock to raw_spinlock_t.  The same lock also
+> serializes the GPIO direction/value callbacks and the suspend/resume
+> register save/restore, and those critical sections only perform short
+> sequences of MMIO register accesses (ioread32()/iowrite32()); the
+> .irq_set_type callback additionally emits a dev_warn() on an unsupported
+> type.  None of these are sleepable operations, so keeping this register
+> lock non-sleeping is appropriate for the irqchip callbacks and does not
+> change the GPIO-side locking contract.
+>
+> This is the same fix as commit a02b8950d619 ("gpio: pch: use
+> raw_spinlock_t for the register lock"); this driver shares the same
+> structure as gpio-pch.
+>
+> Fixes: 54be566317b6 ("gpio-ml-ioh: Support interrupt function")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-> index d46cdfe3f7849..bde35d9b2263e 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-> @@ -473,17 +473,17 @@ wcam_out: endpoint {
->  			};
->  		};
->  	};
->  
->  	wcam_lens: camera-lens@c {
->  		compatible = "dongwoon,dw9714";
->  		reg = <0x0c>;
->  		/* Same I2c bus as both cameras, depends on vcca1v8_codec for power. */
-> -		vcc-supply = <&vcc1v8_dvp>;
-> +		vcc-supply = <&avdd2v8_dvp>;
+> Signed-off-by: Junjie Cao <junjie.cao@intel.com>
 
-This does not match reality, schematic says it's VCC2V8_DVP:
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-	https://xff.cz/dl/tmp/6253a0465329df41.png
+If you have time, look into the issue reported by sashiko about suspend/res=
+ume
+ignoring the spinlock.
 
-regards,
-	o.
-
->  	};
->  
->  	ucam: camera@36 {
->  		compatible = "ovti,ov8858";
->  		reg = <0x36>;
->  		clocks = <&cru SCLK_CIF_OUT>; /* MIPI_MCLK1, derived from CIF_CLK0 */
->  		clock-names = "xvclk";
->  		dovdd-supply = <&vcc1v8_dvp>;
-> 
-> -- 
-> 2.53.0
-> 
-> 
+Thanks!
+Linus Walleij
