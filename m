@@ -1,120 +1,74 @@
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA62E40DB5A
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 06:12:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.180
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A6DD3603C2;
+	Tue,  4 Aug 2026 06:18:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785823952; cv=none; b=jG4H+XNRwyInK7mMl5INHV0wL771W9DhDfPuy9zJmvEew+EjsrIuw0a+Cv/R4QXYM7OtuyPGz3StGoNzemSM0rfylu8a9d3m2KsiP5UVPfxovjrOVU6D8+tU6WxKOgDlxFdASbHmk0CFQ97qWhUkpwg37KsabksMqIeg83mG3PQ=
+	t=1785824340; cv=none; b=i4XlB51Qb3jry7wbzLQkbbxoRNnO4niKWcMbqGEyz6Py4ImeGnbO3aGNzrD9ZbF0RuoNam4Fj5DarRMkigftOvGMgpXvoH54Z6jZKHps8OItBRwPUxF0lRdEt7F67rHD4Y0y2laNCsZFFV/o3Yuf9mTWKdeQ8+E8BE5AC/tbDuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785823952; c=relaxed/simple;
-	bh=K5Ph9XcyqOYkIasx02lR7AFxCwUH0dmM/cCvoQIHRKk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k+1pN0Y0S0zJ8Dr7TrUzgne2YNMJhSDc42l185IspqyQK+/71T12o4e05w3XvRmIVmTDVlR+7HAogsF1fnC/fyebRQxxyYy9qdUNvizO0ZOeOwboB5x1hL3Cq4IqZzHkTfZ309qkq3r1xAmN+TlPF26d6wX38j6bay3WFaDckY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gT4p7sUZ; arc=none smtp.client-ip=209.85.167.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785824340; c=relaxed/simple;
+	bh=5fE3X1Wjtrr36x9FoDny7H2bXEFplz1eLA2gXJUQmy8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kZs//rMimDx/bxU2RZWgOocWzZ0Zxev2uDaN53m65xHaojvUvGK3kOrOQ3lBXeMIrz2QWF6qiKI6i5ktCyW8H6jPRKgZieuPf0Squ3bqjodLJgqDbisSLNGF9t9l2sYL3YgXD4cvRhrLOfj2XIlqWV9hXyudpwxadL1y42zaF9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=EY6frFRZ reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gT4p7sUZ"
-Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-49da0c3a1d9so510589b6e.2
-        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 23:12:30 -0700 (PDT)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="EY6frFRZ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785823950; x=1786428750; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lLnrl7cvfXhXnP0TWy+i62c7ISWemwc6cOZstir8oEI=;
-        b=gT4p7sUZvuSsh9OotrRHNVX2EjaglX+SdQVFp0IVMq6A0q4T0j0ZrMrHSYg425g4MG
-         Z2qAERqDZMbFvk4TFCCuIC4Tk8x13jp8iZPAbsQPy0tvdhtszjgWHBS8hz6Od3e56V4R
-         wB17X5EpOPF4pcl10QmBK3VVUgfWZS6M4YJe+k5gRSUHUA4gxUVj9xB5XvAi8Os1n002
-         ClfygzJmaG5heyKftdIqQWqWSfaoPprNx8+fHLLgPZ7Z3SqrSOqLpa6poZhLs5pkXDP3
-         ULPUHfXJfck02dQ9UfeJUtPmk+A0NO80uFc50ywPevTrODBwGvtapeWeRKBHfk0IsDjv
-         6kxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785823950; x=1786428750;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lLnrl7cvfXhXnP0TWy+i62c7ISWemwc6cOZstir8oEI=;
-        b=g1tGOASWQmnkzX1nwu6DYNc8Q5LBV8DSuatSN8OsA3bOcV0aruDuoBT0LKvXWkc8OF
-         0G3+FpIMP3qHJavwpLA143qZ/5RREnECZxSDFC3gS82+YeVmbykmQmIZ+GfMXWZSYWHd
-         tZRcF4RYYYJj1XXbYKS5zIY9d+iF4fZ803QP33xcnaJ9+u41UQJkseqWoNohBg4bhxj4
-         bFUOkWaaoZMSaDdlKS8s18tUrn2LDmQsahRHxN5oYipwXRbs7LucD3lVs/i7A0/GrEvJ
-         oM56biStADbNtxIpka9/P6r5/1RbkATzMvrJuVuTQO8tiWKctjxyiYX/DOrV+Cx8esBH
-         Kfrg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq9v5NadxIhOHr9WqfwlWHEdsuKXjGk7/ZVdS78lz58mutT8FplN45oAGehZHkkwy530hrFg+M=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxAj0IZuohZHNdsB8T9x9uRJlwl4ZIhkRFk+uk9FsTXG4eBsj61
-	lkD5hP2nLzuZNLCw4U5CXHDFbjGXWmWwT4RV/biTPrMAt1sS1wexT519
-X-Gm-Gg: AR+sD13cOuzqoB8unOr55ZhhZDlSo1G3d+Uc8DhHi19227JAInSYRYNNnlILbqrW9ww
-	p+YCKQzaUG9iOCHQi57johmJp9cgLKIp68kl1mMtFSfgdST2pgtlzUgwfbaecT9Yicmogp72zgu
-	PApoEskFMRSMEbEgaD3vj4q+EOlHIdFPt4PsamDcYD+7IIdEMKHTVDzIHGQwsNVUeZ+n9TTKuJH
-	nBGmoez/sBf0rhYP583fStUgujmZhcEJcbgmyDuaZkFlZAG9+NFhfkamc4f6P4n3N9eWtCzVujq
-	/W0d6nqn7pBw9e0g82HV1xxOrKi9wFf+Gt1yL17G2nbD1XF5X76SHmsNJp8VR28noBC89BdD5iN
-	luCkUo4dIvVP+Z+BszkpvxCFeLNCW+5V16okGFsr/ixjWDV0CvnwTTqvKp9wWfWNo5WtYSkDA7m
-	+nD7wEWobqxlxaHjVQl0kBQptfYuKEhDtCHrcpvIIK/8e5ro6W2QGjDsqJ/jItNjZJLgAkfH6sD
-	JK0LUUhVGo7jv4q+l6xEIFacYImdZLk38TER6EiO+XOHxKl695HrFsZs8f2DRw=
-X-Received: by 2002:a05:6808:1387:b0:495:ac16:7afa with SMTP id 5614622812f47-4af5e3740eamr13419377b6e.4.1785823949634;
-        Mon, 03 Aug 2026 23:12:29 -0700 (PDT)
-Received: from antares ([149.88.25.215])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4af58d11372sm7918032b6e.7.2026.08.03.23.12.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 23:12:27 -0700 (PDT)
-From: Bogdan Nicolae <bogdan.nicolae@gmail.com>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v4] wifi: brcmfmac: cyw: pass PMKID to firmware if present
-Date: Tue,  4 Aug 2026 01:08:59 -0500
-Message-ID: <20260804060859.412348-1-bogdan.nicolae@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
+	MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=iwPMobUGJ
+	b9Mp6jsLSzeM4wpVTSjA/s5fET8NykvjHY=; b=EY6frFRZEUZ7gu3TEv4cBWOdJ
+	QJOXaEVBqRQQ4R6zTSIYGWoJf0r00N/0KnOyxnfvjONBOtZVrWXUvbnkIOUbKhIQ
+	gqFdCJHyEcRKeStgkKGLkZ3TAhToQW7AhLsxjznEEo7T87zHOqEODe1Po79cpEn5
+	tuBf4q0KhcgTTieqwE=
+Received: from [192.168.1.110] (unknown [115.53.183.158])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with SMTP id BbQMCkCW+9RAhHFqjD7bAQ--.20798S3;
+	Tue, 04 Aug 2026 14:18:41 +0800 (CST)
+Message-ID: <2459be1a-7507-4bc4-a235-09c18ca6b8a6@stu.xidian.edu.cn>
+Date: Tue, 4 Aug 2026 14:18:40 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] module: fix UAF and GPF in idempotent_init_module via
+ heap allocation
+To: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>
+Cc: Aaron Tomlin <atomlin@atomlin.com>, Johan Hovold <johan@kernel.org>,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260717082601.81704-1-25181214217@stu.xidian.edu.cn>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+In-Reply-To: <20260717082601.81704-1-25181214217@stu.xidian.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:BbQMCkCW+9RAhHFqjD7bAQ--.20798S3
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYH7k0a2IF6F1UM7kC6x804xWl14x267AK
+	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r4j
+	6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gr
+	1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAac4AC62xK8xCEY4vEwIxC
+	4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
+	IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
+	M4x0Y48IcVAKI48JMxkIecxEwVAFwVW8AwCF04k20xvY0x0EwIxGrwCF54CYxVCY1x0262
+	kKe7AKxVWUtVW8ZwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1l
+	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
+	A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7xRMnYFDUUUUU==
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAQUPEWpwsO5ougAAsM
 
-Zero out auth_status on initialization. Otherwise, garbage will
-leak from the stack to the firmware (when ssid is less than 32 bytes
-and/or when params->pmkid is set). Then, pass the params->pmkid to the
-firmware (without it, the firmware caches a garbage PMKID on successful
-authentication and denies a subsequent association request that includes
-the PMKID).
+Hi Luis, Petr, and others,
 
-Fixes: 66f909308a7c ("wifi: brcmfmac: cyw: support external SAE authentication in station mode")
-Signed-off-by: Bogdan Nicolae <bogdan.nicolae@gmail.com>
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
----
-v4: Fixed indentation
-v3: Added Fixes, Cc: stable, and Acked-by tags
-v2: Split into a separate patch
+Gentle ping on this patch.
+Please let me know if there are any updates or if further modifications 
+are needed from my side.
 
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Thanks,
+Mingyu
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
-index 873754be5..2c59b5e57 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
-@@ -200,7 +200,7 @@ brcmf_cyw_external_auth(struct wiphy *wiphy, struct net_device *dev,
- {
- 	struct brcmf_if *ifp;
- 	struct brcmf_pub *drvr;
--	struct brcmf_auth_req_status_le auth_status;
-+	struct brcmf_auth_req_status_le auth_status = {};
- 	int ret = 0;
- 
- 	brcmf_dbg(TRACE, "Enter\n");
-@@ -208,6 +208,8 @@ brcmf_cyw_external_auth(struct wiphy *wiphy, struct net_device *dev,
- 	ifp = netdev_priv(dev);
- 	drvr = ifp->drvr;
- 	if (params->status == WLAN_STATUS_SUCCESS) {
-+		if (params->pmkid)
-+			memcpy(auth_status.pmkid, params->pmkid, WLAN_PMKID_LEN);
- 		auth_status.flags = cpu_to_le16(BRCMF_EXTAUTH_SUCCESS);
- 	} else {
- 		bphy_err(drvr, "External authentication failed: status=%d\n",
--- 
-2.55.0
