@@ -1,98 +1,144 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68F645D1B2;
-	Tue,  4 Aug 2026 14:56:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 382EE46A607;
+	Tue,  4 Aug 2026 14:56:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785855378; cv=none; b=qZI98MZ/Y3aSgKDRrF491eJsjiI37M/XLFesJlA5m56ySdPc6Q/Y4W+YDYkUxVg8XG5B+rFQvftdOW7LaKBTnAx/M0//mFYZl6auQC3gk0YJ+bHAgxZ/LM+HkUQj3BEx2yhlZ7J8B2Z2awSgnIfoYk4O0qJsElIBLhOCIRCd49U=
+	t=1785855389; cv=none; b=soGHzPNegd0FIcJwjp2e28TPZOnC9bQNhefFd9andeSkgJjJTOo6Ehp81icV8OuHfg5CvFEN+MSEroccsDLEVzt5geK8ZfF/JXmQCQJJ8l9MvERXxyjw0gIXZHx+04dBjVNJj7rK9UKjz9vCgqnISOdQUbfVLE0yW6wlSzmr6oI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785855378; c=relaxed/simple;
-	bh=8RNOwG3ZepOtWh9A3e9lLXLVAvJfkOaUb5pq19/wUZY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=evD4taE3HwW3XCe403Rol2fwtS+GDjD11+bw5v2Cu8uZQQGcDPS23bvuylrcl1U6dARa5xZ5gBtHhkIXiP3vlABBU2HDMoBFNhqgTHQOz2UGHZH72wpsQgead2fl7nR8V7MzxYyjrC6jCGn5hh5vYTdYaTQwk+dJd9QGcd29CHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ZmiiEWgG; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ZmiiEWgG"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 516D51A140A;
-	Tue,  4 Aug 2026 14:56:13 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 21AED6029E;
-	Tue,  4 Aug 2026 14:56:13 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E807911C32F2D;
-	Tue,  4 Aug 2026 16:56:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1785855372; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=wMKCpGzde44WGCNaOstqI+K+UpoNsd04Cs3OOxvzj80=;
-	b=ZmiiEWgGNhPpblkf/h+w9ty3Lje9o8Sqki+qcNvV6oXV/HMkDK3g9JmD/ExhYtKRHPmfDT
-	HGRH0vofNGHVBo+eAIfQlw2rK8J28u67erckzLZgZAROJIn3GxmSJDjjiaqEzfHwiOX+02
-	YcQC4NEDIloxUxXtSjhkR1OezLQ/1YiE3TTGbAuQkMOIrSEFDjgHEvGEST2+VVXsMY86te
-	lIHDgqFsowIxauBEd5sA5Wl0UypMPYLFWuVlxJ/8KhZgq6ADdxrxbeDesJMwHZ0Aqee3zP
-	D3WJowxkE/VQWHFcaV4vHZvG5Nx0E0AylamxeAPyrxI+/XkjDs4WGKRVAT6F5g==
-From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-Subject: [PATCH 0/4] Congatec Board Controller: Add storage devices support
-Date: Tue, 04 Aug 2026 16:55:50 +0200
-Message-Id: <20260804-cgbc-i2c-storage-devices-support-v1-0-fed38510671c@bootlin.com>
+	s=arc-20240116; t=1785855389; c=relaxed/simple;
+	bh=G8AQuawFH1bb49rZ1Mc9YB2h6/WXYx6qel0iSLf9Zis=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oLLCK7CVpVPjF61igAvxSNAKUX+l7JtAjWFEI9fAUV1JOUlrirfu/OJgDs0/GJ7TNXSiRG18c+JfPsr3JUnXbE5w/dCJ+BFyAt7Y+0OIccXoErH6nwW05D5UGRS6FSIQ+9M1G/Q0yIUWy0+u3SGNFeHj1ORpBNUigoyilUzplLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wBnfnyI_XFq8RplAA--.12054S3;
+	Tue, 04 Aug 2026 22:56:09 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgBXyM2G_XFqFFKJAw--.18278S2;
+	Tue, 04 Aug 2026 22:56:06 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-pm@vger.kernel.org
+Cc: sre@kernel.org,
+	r-rivera-matos@ti.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] power: supply: bq256xx: drain usb_work before freeing the charger
+Date: Tue,  4 Aug 2026 14:55:11 +0000
+Message-Id: <20260804145511.103470-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NwQrCQAxEf6XkbGC7Cy74K+Jhm8aaS3dNtiKU/
- rtBPb4ZZt4OxipscBl2UH6JSV0dxtMA9CjrwiizM8QQzyGPGWmZCCUSWq9avJ99RWxoW2tVO06
- JOROXlGIAv2nKd3l/Fdfbj5Wfm5v6PzyOD12h8kqHAAAA
-X-Change-ID: 20260717-cgbc-i2c-storage-devices-support-b3ee7cea3320
-To: Lee Jones <lee@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
- "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>, 
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgBXyM2G_XFqFFKJAw--.18278S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?zXCYfgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI1+2rKgwZbUJoZLd1K+vX+HY6thFd2cGMvnkHTL9dfkgmDO
+	2kpSfiCVE4veLEz8xT2p9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxZryDXr47GrW3GFWkJF15WrX_yoW5Cr1rp3
+	98CFn8Cr4kZFW8GFWqqF1kZa48K3WftrW5Ar1fJ34YvrnxGw1Dta48tFs0g3yxJFyrZr40
+	y3y7tay7uay5CrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU2LIDUUUUU
 
-The Congatec Board Controller has an internal I2C bus with several storage
-devices (EEPROM and RAM). The bus and devices are virtual but act as real
-hardware. This series adds support for both the bus and devices.
+The USB-PHY notifier queues usb_work, whose handler calls
+power_supply_changed(bq->charger). The reset devm action only unregisters
+the notifier and was registered before the power supplies, so devm frees
+bq->charger on unwind before the action runs; a usb_work still queued can
+then dereference it.
 
-List of devices:
-- Secure Data EEPROM  (64 bytes, RO): static and dynamic board info
-- BIOS EEPROM         (32 bytes, RW): reserved for BIOS applications
-- BC EEPROM           (32 bytes, RO): Board Controller operational params
-- User EEPROM         (32 bytes, RW): user applications
-- BIOS RAM            (32 bytes, RW): reserved for BIOS applications
-- BC RAM               (8 bytes, RO): Board Controller operational params
-- User RAM            (16 bytes, RW): user applications
+Register the reset action after the power supplies, so it unregisters
+the notifiers and drains usb_work before the supplies are released.
+Initialize usb_work and obtain the PHY references before registering
+the notifiers, so the worker cannot run before the supplies exist.
 
-The i2c-cgbc driver instantiates these devices. A dedicated driver for
-these devices was not necessary since the at24 driver can handle them.
-The 24c01 entry (the most generic one) is used, and parameters (size,
-read-only flag...) are customized via the software_node properties.
+Found by static analysis.
 
-I also took this opportunity to fix an issue reported by Sashiko in the MFD
-driver (PATCH 1).
-
-Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+Fixes: 32e4978bb920 ("power: supply: bq256xx: Introduce the BQ256XX charger driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
-Thomas Richard (congatec GmbH) (4):
-      mfd: cgbc: Fix use of negative error code as valid session handle
-      i2c: cgbc: Add virtual I2C bus support
-      mfd: cgbc: Add virtual I2C bus support
-      i2c: cgbc: Add virtual storage devices on the virtual I2C bus
 
- drivers/i2c/busses/i2c-cgbc.c | 174 ++++++++++++++++++++++++++++++++++++++++--
- drivers/mfd/cgbc-core.c       |   7 +-
- 2 files changed, 174 insertions(+), 7 deletions(-)
----
-base-commit: 82442496954504a901faf74105a5ab592d782288
-change-id: 20260717-cgbc-i2c-storage-devices-support-b3ee7cea3320
+ drivers/power/supply/bq256xx_charger.c | 29 +++++++++++++++--------------
+ 1 file changed, 15 insertions(+), 14 deletions(-)
 
-Best regards,
---  
-Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+diff --git a/drivers/power/supply/bq256xx_charger.c b/drivers/power/supply/bq256xx_charger.c
+index 5a6634fde8..43e1da849d 100644
+--- a/drivers/power/supply/bq256xx_charger.c
++++ b/drivers/power/supply/bq256xx_charger.c
+@@ -896,6 +896,8 @@ static void bq256xx_charger_reset(void *data)
+ 
+ 	if (!IS_ERR_OR_NULL(bq->usb3_phy))
+ 		usb_unregister_notifier(bq->usb3_phy, &bq->usb_nb);
++
++	cancel_work_sync(&bq->usb_work);
+ }
+ 
+ static int bq256xx_set_charger_property(struct power_supply *psy,
+@@ -1721,24 +1723,12 @@ static int bq256xx_probe(struct i2c_client *client)
+ 		return ret;
+ 	}
+ 
+-	ret = devm_add_action_or_reset(dev, bq256xx_charger_reset, bq);
+-	if (ret)
+-		return ret;
++	INIT_WORK(&bq->usb_work, bq256xx_usb_work);
++	bq->usb_nb.notifier_call = bq256xx_usb_notifier;
+ 
+ 	/* OTG reporting */
+ 	bq->usb2_phy = devm_usb_get_phy(dev, USB_PHY_TYPE_USB2);
+-	if (!IS_ERR_OR_NULL(bq->usb2_phy)) {
+-		INIT_WORK(&bq->usb_work, bq256xx_usb_work);
+-		bq->usb_nb.notifier_call = bq256xx_usb_notifier;
+-		usb_register_notifier(bq->usb2_phy, &bq->usb_nb);
+-	}
+-
+ 	bq->usb3_phy = devm_usb_get_phy(dev, USB_PHY_TYPE_USB3);
+-	if (!IS_ERR_OR_NULL(bq->usb3_phy)) {
+-		INIT_WORK(&bq->usb_work, bq256xx_usb_work);
+-		bq->usb_nb.notifier_call = bq256xx_usb_notifier;
+-		usb_register_notifier(bq->usb3_phy, &bq->usb_nb);
+-	}
+ 
+ 	ret = bq256xx_power_supply_init(bq, &psy_cfg, dev);
+ 	if (ret) {
+@@ -1746,6 +1736,17 @@ static int bq256xx_probe(struct i2c_client *client)
+ 		return ret;
+ 	}
+ 
++	/* Register after the power supplies so devm runs it first. */
++	ret = devm_add_action_or_reset(dev, bq256xx_charger_reset, bq);
++	if (ret)
++		return ret;
++
++	if (!IS_ERR_OR_NULL(bq->usb2_phy))
++		usb_register_notifier(bq->usb2_phy, &bq->usb_nb);
++
++	if (!IS_ERR_OR_NULL(bq->usb3_phy))
++		usb_register_notifier(bq->usb3_phy, &bq->usb_nb);
++
+ 	if (client->irq) {
+ 		ret = devm_request_threaded_irq(dev, client->irq, NULL,
+ 						bq256xx_irq_handler_thread,
+
+-- 
+2.34.1
 
