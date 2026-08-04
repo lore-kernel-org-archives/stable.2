@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9632F5324;
-	Tue,  4 Aug 2026 04:05:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C4C423768;
+	Tue,  4 Aug 2026 04:05:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785816345; cv=none; b=bUkQLqX6PW2l+tJRAErDSZ+rm2swityYGdjHa6ESbG5DHE2droXfvXTsBASWYGJjuzIj138yxUGyeCjBMhfamsTaGXzc1IiY9nB7JEfsso3Ks5/A4RETgj91QWVwiuCzu1+DJlsNm6FtN7IPgGzVU+IcHvENcMK9N2RnQMzw/3Q=
+	t=1785816350; cv=none; b=OmkyHHuKJlGtRLOtrvAhfoY27AZZqi0VEhwwNCYmHO+ARD5PPbycr1o8on84LmO2io8WFqImn0c6A9opsnrNxN+2ygrn/Z/TRuLucUgrsYjw8qGIGwRAp11Ws1ITq5dbdXAqIv9TpY/oeoGF93ul22tDKxVaozynE35dmWD8AWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785816345; c=relaxed/simple;
-	bh=4GuRHplfAvixBJyIHR7sR1MAO4AMfiH/LVJhYQ9He00=;
-	h=Date:To:From:Subject:Message-Id; b=dsjTcKbEb3MLdwMQo7LkXGnpfbz8AI9ZsqqsWyMADDifw4aE0E3VFroRp75x2BwcpTrZIdb602j20d3WEDJwVF1KTK8GGAMltk5jlV1mznJGmOD/Suw/3mXXqqZbiuS6HWpI+GCpwVADMC3mnLNF/r4Kgup6HP7K/R8VUzAR1cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=k1MFStJW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785816350; c=relaxed/simple;
+	bh=Bj++6D6RMfgDXvz8cbHSnwP7jrA18ZTAVup4QfXcdMs=;
+	h=Date:To:From:Subject:Message-Id; b=A/SmxJClIrab66+rIdJOd6QdNG2uH2dorHqQLBBJ+s2APsd9IgF3Eb8TkKjJnAsVHhFf4oUTAVNamjF68XpUHzgbuAyaRt52kE23nYpD1xIaZKIxLyRXTH2DcjdbY/utK+LLep+YIPI1+YhOSOgXQqxEHeq0okMCfxfAKKOrhMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=as/TgHKY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="k1MFStJW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D2A1F000E9;
-	Tue,  4 Aug 2026 04:05:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="as/TgHKY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8621D1F000E9;
+	Tue,  4 Aug 2026 04:05:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785816344;
-	bh=1iOX0glbqbzopHAvNheEG8zAHBHUl7L2lbCwwhcOc5M=;
+	d=linux-foundation.org; s=korg; t=1785816348;
+	bh=CD/zfRZy+PusS5g9mr5CS3fOkaJcys/BHSkUle+kplo=;
 	h=Date:To:From:Subject;
-	b=k1MFStJWVu2QVXINulIjRFY5nj2uU3WFrsWY/gZgxTkyu48I85RTseb9Mvw5vmkNG
-	 KZ3jzZS7x2W9q0wQy9A6yg9QIYHUlP0Tm8uHw3qeS+VKgX1oPs5QqQOunm71jDl9+k
-	 eMCsU15vVjC+8cgHAOnudDkg1wQX9raPRdAtXliw=
-Date: Mon, 03 Aug 2026 21:05:44 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,ptikhomirov@virtuozzo.com,mjguzik@gmail.com,legion@kernel.org,include@grrlz.net,ebiederm@xmission.com,brauner@kernel.org,blbllhy@gmail.com,oleg@redhat.com,akpm@linux-foundation.org
+	b=as/TgHKYlpUubGQ4aBAjAmoG6emjeup+/0pugm9VGhchH1EXt9iK2sVY38wUnDu0G
+	 Y29bxWHYnfhqeG4waPTNhXsthcWW4mkX5L6bmmpqZW+eitHDP3cAA1I4rayOXTO6gS
+	 d9ciXO4kFzDpKJKGrc8761vqv1Y8nVLwJyeiUEN8=
+Date: Mon, 03 Aug 2026 21:05:48 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,dmantipov@yandex.ru,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-stable] sysctl-move-the-cad_pid-entry-from-pid_table-to-kern_reboot_table.patch removed from -mm tree
-Message-Id: <20260804040544.84D2A1F000E9@smtp.kernel.org>
+Subject: [merged mm-nonmm-stable] ocfs2-always-run-deallocs-on-copy-on-write-completion.patch removed from -mm tree
+Message-Id: <20260804040548.8621D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,143 +35,196 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: sysctl: move the "cad_pid" entry from pid_table[] to kern_reboot_table[]
+     Subject: ocfs2: always run deallocs on copy-on-write completion
 has been removed from the -mm tree.  Its filename was
-     sysctl-move-the-cad_pid-entry-from-pid_table-to-kern_reboot_table.patch
+     ocfs2-always-run-deallocs-on-copy-on-write-completion.patch
 
 This patch was dropped because it was merged into the mm-nonmm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Oleg Nesterov <oleg@redhat.com>
-Subject: sysctl: move the "cad_pid" entry from pid_table[] to kern_reboot_table[]
-Date: Mon, 20 Jul 2026 13:13:43 +0200
+From: Dmitry Antipov <dmantipov@yandex.ru>
+Subject: ocfs2: always run deallocs on copy-on-write completion
+Date: Tue, 21 Jul 2026 13:28:40 +0300
 
-cad_pid is global, and kill_cad_pid() is only used in the root namespace.
+Local fuzzing of 6.12.94 has found the following memory leak
+caused by doing 'copy_file_range()' within the same filesystem:
 
-However, due to pid_table_root_permissions(), a non-root user can unshare
-pid/user namespaces and modify it from the child namespace.  This makes no
-sense and is simply wrong.
+unreferenced object 0xffff88812192c980 (size 32):
+  comm "syz.0.49", pid 12095, jiffies 4294964143
+  hex dump (first 32 bytes):
+    00 00 00 00 00 00 00 00 08 00 00 00 00 00 00 00  ................
+    c0 c5 92 21 81 88 ff ff 00 02 00 00 00 06 00 00  ...!............
+  backtrace (crc 7068d63f):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:42 [inline]
+    slab_post_alloc_hook mm/slub.c:4152 [inline]
+    slab_alloc_node mm/slub.c:4197 [inline]
+    __kmalloc_cache_noprof+0x168/0x2c0 mm/slub.c:4358
+    kmalloc_noprof include/linux/slab.h:878 [inline]
+    ocfs2_find_per_slot_free_list fs/ocfs2/alloc.c:6618 [inline]
+    ocfs2_cache_block_dealloc+0x155/0x4b0 fs/ocfs2/alloc.c:6786
+    ocfs2_cache_extent_block_free fs/ocfs2/alloc.c:6819 [inline]
+    ocfs2_unlink_path+0x286/0x450 fs/ocfs2/alloc.c:2613
+    ocfs2_rotate_subtree_left fs/ocfs2/alloc.c:2779 [inline]
+    __ocfs2_rotate_tree_left+0x1f6f/0x2da0 fs/ocfs2/alloc.c:2985
+    ocfs2_rotate_tree_left+0x283/0xe00 fs/ocfs2/alloc.c:3237
+    ocfs2_try_to_merge_extent+0xf56/0x1a20 fs/ocfs2/alloc.c:3825
+    ocfs2_split_extent+0x15f4/0x2940 fs/ocfs2/alloc.c:5138
+    ocfs2_clear_ext_refcount+0x2f6/0x550 fs/ocfs2/refcounttree.c:3098
+    ocfs2_replace_clusters fs/ocfs2/refcounttree.c:3131 [inline]
+    ocfs2_make_clusters_writable fs/ocfs2/refcounttree.c:3255 [inline]
+    ocfs2_replace_cow+0x991/0x1660 fs/ocfs2/refcounttree.c:3349
+    ocfs2_refcount_cow_hunk fs/ocfs2/refcounttree.c:3427 [inline]
+    ocfs2_refcount_cow+0x5e1/0x9f0 fs/ocfs2/refcounttree.c:3470
+    ocfs2_prepare_inode_for_write fs/ocfs2/file.c:2340 [inline]
+    ocfs2_file_write_iter+0xbda/0x1880 fs/ocfs2/file.c:2451
+    iter_file_splice_write+0x890/0xf60 fs/splice.c:743
+    do_splice_from fs/splice.c:944 [inline]
+    direct_splice_actor+0x232/0x480 fs/splice.c:1167
+    splice_direct_to_actor+0x4b4/0xb60 fs/splice.c:1111
+    do_splice_direct_actor fs/splice.c:1210 [inline]
+    do_splice_direct+0x10f/0x1c0 fs/splice.c:1236
+    do_sendfile+0x430/0xbf0 fs/read_write.c:1388
 
-Move it to kern_reboot_table[] where it logically belongs; this ensures
-that only GLOBAL_ROOT_UID can read/modify this sysctl.
+unreferenced object 0xffff88812192c5c0 (size 32):
+  comm "syz.0.49", pid 12095, jiffies 4294964143
+  hex dump (first 32 bytes):
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    29 70 00 00 00 00 00 00 19 00 00 00 00 00 00 00  )p..............
+  backtrace (crc afec850f):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:42 [inline]
+    slab_post_alloc_hook mm/slub.c:4152 [inline]
+    slab_alloc_node mm/slub.c:4197 [inline]
+    __kmalloc_cache_noprof+0x168/0x2c0 mm/slub.c:4358
+    kmalloc_noprof include/linux/slab.h:878 [inline]
+    kzalloc_noprof include/linux/slab.h:1014 [inline]
+    ocfs2_cache_block_dealloc+0x25c/0x4b0 fs/ocfs2/alloc.c:6793
+    ocfs2_cache_extent_block_free fs/ocfs2/alloc.c:6819 [inline]
+    ocfs2_unlink_path+0x286/0x450 fs/ocfs2/alloc.c:2613
+    ocfs2_rotate_subtree_left fs/ocfs2/alloc.c:2779 [inline]
+    __ocfs2_rotate_tree_left+0x1f6f/0x2da0 fs/ocfs2/alloc.c:2985
+    ocfs2_rotate_tree_left+0x283/0xe00 fs/ocfs2/alloc.c:3237
+    ocfs2_try_to_merge_extent+0xf56/0x1a20 fs/ocfs2/alloc.c:3825
+    ocfs2_split_extent+0x15f4/0x2940 fs/ocfs2/alloc.c:5138
+    ocfs2_clear_ext_refcount+0x2f6/0x550 fs/ocfs2/refcounttree.c:3098
+    ocfs2_replace_clusters fs/ocfs2/refcounttree.c:3131 [inline]
+    ocfs2_make_clusters_writable fs/ocfs2/refcounttree.c:3255 [inline]
+    ocfs2_replace_cow+0x991/0x1660 fs/ocfs2/refcounttree.c:3349
+    ocfs2_refcount_cow_hunk fs/ocfs2/refcounttree.c:3427 [inline]
+    ocfs2_refcount_cow+0x5e1/0x9f0 fs/ocfs2/refcounttree.c:3470
+    ocfs2_prepare_inode_for_write fs/ocfs2/file.c:2340 [inline]
+    ocfs2_file_write_iter+0xbda/0x1880 fs/ocfs2/file.c:2451
+    iter_file_splice_write+0x890/0xf60 fs/splice.c:743
+    do_splice_from fs/splice.c:944 [inline]
+    direct_splice_actor+0x232/0x480 fs/splice.c:1167
+    splice_direct_to_actor+0x4b4/0xb60 fs/splice.c:1111
+    do_splice_direct_actor fs/splice.c:1210 [inline]
+    do_splice_direct+0x10f/0x1c0 fs/splice.c:1236
+    do_sendfile+0x430/0xbf0 fs/read_write.c:1388
 
-Note that this patch doesn't preserve "#ifdef CONFIG_PROC_SYSCTL" around
-the "cad_pid"; CONFIG_PROC_SYSCTL selects CONFIG_SYSCTL, so it is always
-set when kern_reboot_table[] is compiled.
+This happens when 'ocfs2_cache_block_dealloc()' called from
+'ocfs2_cache_extent_block_free()' uses the suballocator to
+schedule extent removal, so 'ocfs2_run_deallocs()' should
+be run unconditionally to complete the removal with
+'ocfs2_free_cached_blocks()'. An extra semi-automated static
+analysis [1] suspects that the same scenario looks possible in
+'ocfs2_attach_refcount_tree()' and 'ocfs2_reflink_remap_blocks()'
+as well, but, since 'ocfs2_run_deallocs()' is a safe no-op for
+an empty dealloc context, 'ocfs2_create_reflink_node()' and
+'ocfs2_reflink_xattrs()' may be adjusted in the same way too,
+thus keeping the code pattern consistent.
 
-Link: https://lore.kernel.org/al4C572uhLdBvyzH@redhat.com
-Fixes: e054bcbe7e7a ("sysctl: move cad_pid into kernel/pid.c")
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
-Acked-by: Alexey Gladkov <legion@kernel.org>
-Reviewed-by: Bradley Morgan <include@grrlz.net>
-Reviewed-by: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Eric Biederman <ebiederm@xmission.com>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
+Link: https://lore.kernel.org/20260721102840.387663-1-dmantipov@yandex.ru
+Link: https://lore.kernel.org/ocfs2-devel/f1d7e266-4b44-41b9-98c0-5b3868a8d9c3@yandex.ru [1]
+Fixes: 6f70fa519976 ("ocfs2: Add CoW support.")
+Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
+Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- kernel/pid.c    |   31 -------------------------------
- kernel/reboot.c |   29 +++++++++++++++++++++++++++++
- 2 files changed, 29 insertions(+), 31 deletions(-)
+ fs/ocfs2/refcounttree.c |   20 ++++++++------------
+ fs/ocfs2/xattr.c        |    5 ++---
+ 2 files changed, 10 insertions(+), 15 deletions(-)
 
---- a/kernel/pid.c~sysctl-move-the-cad_pid-entry-from-pid_table-to-kern_reboot_table
-+++ a/kernel/pid.c
-@@ -764,29 +764,6 @@ static struct ctl_table_root pid_table_r
- 	.set_ownership	= pid_table_root_set_ownership,
- };
+--- a/fs/ocfs2/refcounttree.c~ocfs2-always-run-deallocs-on-copy-on-write-completion
++++ a/fs/ocfs2/refcounttree.c
+@@ -3387,10 +3387,9 @@ static int ocfs2_replace_cow(struct ocfs
+ 		cow_start += num_clusters;
+ 	}
  
--static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffer,
--		size_t *lenp, loff_t *ppos)
--{
--	struct pid *new_pid;
--	pid_t tmp_pid;
--	int r;
--	struct ctl_table tmp_table = *table;
--
--	tmp_pid = pid_vnr(cad_pid);
--	tmp_table.data = &tmp_pid;
--
--	r = proc_dointvec(&tmp_table, write, buffer, lenp, ppos);
--	if (r || !write)
--		return r;
--
--	new_pid = find_get_pid(tmp_pid);
--	if (!new_pid)
--		return -ESRCH;
--
--	put_pid(xchg(&cad_pid, new_pid));
--	return 0;
--}
--
- static const struct ctl_table pid_table[] = {
- 	{
- 		.procname	= "pid_max",
-@@ -797,14 +774,6 @@ static const struct ctl_table pid_table[
- 		.extra1		= &pid_max_min,
- 		.extra2		= &pid_max_max,
- 	},
--#ifdef CONFIG_PROC_SYSCTL
--	{
--		.procname	= "cad_pid",
--		.maxlen		= sizeof(int),
--		.mode		= 0600,
--		.proc_handler	= proc_do_cad_pid,
--	},
--#endif
- };
- #endif
+-	if (ocfs2_dealloc_has_cluster(&context->dealloc)) {
++	if (ocfs2_dealloc_has_cluster(&context->dealloc))
+ 		ocfs2_schedule_truncate_log_flush(osb, 1);
+-		ocfs2_run_deallocs(osb, &context->dealloc);
+-	}
++	ocfs2_run_deallocs(osb, &context->dealloc);
  
---- a/kernel/reboot.c~sysctl-move-the-cad_pid-entry-from-pid_table-to-kern_reboot_table
-+++ a/kernel/reboot.c
-@@ -1366,6 +1366,29 @@ static struct attribute *reboot_attrs[]
- };
+ 	return ret;
+ }
+@@ -3873,10 +3872,9 @@ unlock:
+ 	ocfs2_unlock_refcount_tree(osb, ref_tree, 1);
+ 	brelse(ref_root_bh);
  
- #ifdef CONFIG_SYSCTL
-+static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffer,
-+			   size_t *lenp, loff_t *ppos)
-+{
-+	struct ctl_table tmp_table = *table;
-+	struct pid *new_pid;
-+	pid_t tmp_pid;
-+	int r;
-+
-+	tmp_pid = pid_vnr(cad_pid);
-+	tmp_table.data = &tmp_pid;
-+
-+	r = proc_dointvec(&tmp_table, write, buffer, lenp, ppos);
-+	if (r || !write)
-+		return r;
-+
-+	new_pid = find_get_pid(tmp_pid);
-+	if (!new_pid)
-+		return -ESRCH;
-+
-+	put_pid(xchg(&cad_pid, new_pid));
-+	return 0;
-+}
-+
- static const struct ctl_table kern_reboot_table[] = {
- 	{
- 		.procname       = "poweroff_cmd",
-@@ -1381,6 +1404,12 @@ static const struct ctl_table kern_reboo
- 		.mode           = 0644,
- 		.proc_handler   = proc_dointvec,
- 	},
-+	{
-+		.procname	= "cad_pid",
-+		.maxlen		= sizeof(int),
-+		.mode		= 0600,
-+		.proc_handler	= proc_do_cad_pid,
-+	},
- };
+-	if (!ret && ocfs2_dealloc_has_cluster(&dealloc)) {
++	if (!ret && ocfs2_dealloc_has_cluster(&dealloc))
+ 		ocfs2_schedule_truncate_log_flush(osb, 1);
+-		ocfs2_run_deallocs(osb, &dealloc);
+-	}
++	ocfs2_run_deallocs(osb, &dealloc);
+ out:
+ 	/*
+ 	 * Empty the extent map so that we may get the right extent
+@@ -4162,10 +4160,9 @@ out_unlock_refcount:
+ 	ocfs2_unlock_refcount_tree(osb, ref_tree, 1);
+ 	brelse(ref_root_bh);
+ out:
+-	if (ocfs2_dealloc_has_cluster(&dealloc)) {
++	if (ocfs2_dealloc_has_cluster(&dealloc))
+ 		ocfs2_schedule_truncate_log_flush(osb, 1);
+-		ocfs2_run_deallocs(osb, &dealloc);
+-	}
++	ocfs2_run_deallocs(osb, &dealloc);
  
- static void __init kernel_reboot_sysctls_init(void)
+ 	return ret;
+ }
+@@ -4718,10 +4715,9 @@ loff_t ocfs2_reflink_remap_blocks(struct
+ 	}
+ 
+ out:
+-	if (ocfs2_dealloc_has_cluster(&dealloc)) {
++	if (ocfs2_dealloc_has_cluster(&dealloc))
+ 		ocfs2_schedule_truncate_log_flush(osb, 1);
+-		ocfs2_run_deallocs(osb, &dealloc);
+-	}
++	ocfs2_run_deallocs(osb, &dealloc);
+ 
+ 	return ret;
+ }
+--- a/fs/ocfs2/xattr.c~ocfs2-always-run-deallocs-on-copy-on-write-completion
++++ a/fs/ocfs2/xattr.c
+@@ -7424,10 +7424,9 @@ out_unlock:
+ 				   ref_tree, 1);
+ 	brelse(ref_root_bh);
+ 
+-	if (ocfs2_dealloc_has_cluster(&dealloc)) {
++	if (ocfs2_dealloc_has_cluster(&dealloc))
+ 		ocfs2_schedule_truncate_log_flush(OCFS2_SB(old_inode->i_sb), 1);
+-		ocfs2_run_deallocs(OCFS2_SB(old_inode->i_sb), &dealloc);
+-	}
++	ocfs2_run_deallocs(OCFS2_SB(old_inode->i_sb), &dealloc);
+ 
+ out:
+ 	return ret;
 _
 
-Patches currently in -mm which might be from oleg@redhat.com are
+Patches currently in -mm which might be from dmantipov@yandex.ru are
 
 
