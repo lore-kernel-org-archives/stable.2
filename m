@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7316F37F315
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 01:06:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311ED3ACA58
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 01:06:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785805593; cv=none; b=jtcRwZQa6tIkY9UYusqDu/XLn64VUfQjC9Kh6UAEOAy4OWM7D7DpWwI056qDLtJr5pIQdSJzD2mJfWcsuKpDEjyKKb0afGKkPHwgCoEy9xq0pTtmTIIV2EVQuHtFEqdt0C1q0CoRj3lgLrwVdgdF8cZeJpgG8hsGqlXmdREBV/U=
+	t=1785805601; cv=none; b=Ja1Pd8QaQ2Qe4IAOQAv0yvVbh5Q5wK+Kt0X+niyn3W1n16YixCZhgxR/v/MARuEiQXdbb73gBmo87PVoUhsWhVHXDMkKtu/F3CuWq18RiWaKrucEHlfH9r1GQ84Dc6/gUY9KpKYB5zHUT/GF/+ErYdhjwWbqyNVgaOz2qy8HRkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785805593; c=relaxed/simple;
-	bh=3cxzMgKrtjfz35iL9h0Nidd1dSTR8V9Zm50SYVvigFc=;
+	s=arc-20240116; t=1785805601; c=relaxed/simple;
+	bh=P3buKRvi6WBA25AAS5vTuSTs/yGmMPb9qTgwYu3vnH8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=psx4oLQkVZVVw/T4Kq1NE4eIxGqOW9a7fnZeYSMQBxNNhCaItkz12TyGHbSiSAdbYCsx1fWmir3nuZVMyeajvi4qcJf/DIoV4HVLQrhvU/hutICYP0snH9aopoxc22Ms+YmC1v+GddUbLLxqm6iC0Vx/gEdyHgDNQXUqrJjYFmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nyr65wP0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=g+chwmHeXUTIs5VGX4KtNNijiiCa/g37sROE66TGQ9O06Kr8672P6KruCX3JWEIbO1Ea+ltgVRjlWY2Va8JnTuJOoYSuFsSorJHQnQj/GcNtz2nJk0i6ISqWdSfunMA6qVO5+A9jpDRBN5jFdoguu4Ryb6VrbaYuB/krEYSW9eU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E9745jAL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nyr65wP0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 608811F000E9;
-	Tue,  4 Aug 2026 01:06:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E9745jAL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18C451F000E9;
+	Tue,  4 Aug 2026 01:06:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785805592;
-	bh=fXSVO9ice+2GuPQXh0GsOODOFK84AzFtJTrx10N5rqA=;
+	s=k20260515; t=1785805599;
+	bh=evM60mehFm6oQmpMpmDxa8BQ2iFlfyNMKkLQppRc9hk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nyr65wP0XE1+ymQVMQX92REr0Xx96FrA09FgLBi4un33ElP04SMrkniO+qu3K144C
-	 yqbM+onyjc4hkFNrDgxY6EHXD8pV6rUIxWXDdLL78JItEs3+6e/IdMZZNYqs8z+85/
-	 C5kZVkPbIvNx53uyeK8vuPENxx96CHM/ozQLMVDbJtelQGi6DcIetXvOFZZPOydfGJ
-	 gDZo+knUO95TCshu14EJhqtDDaNyEeEGIV5vXzVglZdmcn1XUJjCx8BDDz5Pix2UF4
-	 y10FPqcyTQKwbfOkWNmiEIXCqV5515juJVsHyPkaIlvfvwOM26wgo9ysPux5a1TqWx
-	 fLX7yclp1Zdhg==
+	b=E9745jAL8eDQGSr2Yy9f1Jz1OYeAWxNynqNbvgMsASfu9JroYWwC02uckyWMMlRGL
+	 fXEjwOz+yYgTnTcS8jjAXKnsa4+OM4mGl2pC1rHa8qilMK/anESMsFYvGbFLN+EGeZ
+	 BM26fL1+XJrQx+HlWIsHAMGPqNBg4PI0Trl6nEU1baKoDI5bC9l3JWK05JO0XGD287
+	 XXv0Sm5yqO+c7XbsH/VOLDfLo49+eH51X4/i4Lq97V6Ha0NwkR0L9+vpPUZotouboP
+	 PSAfUlSlsK/rWYW4ye/+jP3vHPxrHNsAEmA3AUZvgZDcqVdyN/Y8o4S+qepB6FZgcx
+	 bSph5RQRllbEQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jackson Lee <jackson.lee@chipsnmedia.com>,
-	Nas Chung <nas.chung@chipsnmedia.com>,
-	Brandon Brnich <b-brnich@ti.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Jani Nikula <jani.nikula@intel.com>,
+	Martin Hodo <martin.hodo@intel.com>,
+	Anshuman Gupta <anshuman.gupta@intel.com>,
+	Suraj Kandpal <suraj.kandpal@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y] media: chips-media: wave5: Support CBP profile
-Date: Mon,  3 Aug 2026 21:06:29 -0400
-Message-ID: <20260804010629.2350099-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] drm/i915/hdcp: check streams[] bounds before overflow
+Date: Mon,  3 Aug 2026 21:06:35 -0400
+Message-ID: <20260804010635.2350358-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072917-haiku-scalping-5001@gregkh>
-References: <2026072917-haiku-scalping-5001@gregkh>
+In-Reply-To: <2026072917-oversleep-unawake-5cba@gregkh>
+References: <2026072917-oversleep-unawake-5cba@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,85 +48,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jackson Lee <jackson.lee@chipsnmedia.com>
+From: Jani Nikula <jani.nikula@intel.com>
 
-[ Upstream commit f8505f9d6b223a26854003bfdba1a0772457886d ]
+[ Upstream commit bbb15a6b042d02e5508a02b4847e02d2579ee7bc ]
 
-Constrained Baseline Profile (CBP) and Baseline Profile (BP) have been
-treated as the same.
-Introduce the ability to differentiate between the two.
+The data->streams[] overflow check is done after the buffer overflow has
+already happened. Move the overflow check before the write.
 
-Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
-Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
-Tested-by: Brandon Brnich <b-brnich@ti.com>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Side note, emitting a warning splat with a backtrace might be overkill
+here, but prefer not changing the behaviour other than not doing the
+overrun.
+
+Discovered using AI-assisted static analysis confirmed by Intel Product
+Security.
+
+Reported-by: Martin Hodo <martin.hodo@intel.com>
+Fixes: e03187e12cae ("drm/i915/hdcp: MST streams support in hdcp port_data")
+Cc: stable@vger.kernel.org # v5.12+
+Cc: Anshuman Gupta <anshuman.gupta@intel.com>
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Link: https://patch.msgid.link/20260625170304.1104723-1-jani.nikula@intel.com
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+(cherry picked from commit 9284ab3b6e776c315883ac2611283d263c9460fd)
+Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/chips-media/wave5/wave5-hw.c      | 3 +++
- drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c | 5 ++++-
- drivers/media/platform/chips-media/wave5/wave5-vpuapi.h  | 1 +
- 3 files changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-hw.c b/drivers/media/platform/chips-media/wave5/wave5-hw.c
-index 687ce6ccf3ae2..4b85336e4b2c5 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-hw.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-hw.c
-@@ -1762,6 +1762,9 @@ int wave5_vpu_enc_init_seq(struct vpu_instance *inst)
- 			(p_param->skip_intra_trans << 25) |
- 			(p_param->strong_intra_smooth_enable << 27) |
- 			(p_param->en_still_picture << 30);
-+	else if (inst->std == W_AVC_ENC)
-+		reg_val |= (p_param->constraint_set1_flag << 29);
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index 6406fd487ee52..6771983da5f14 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -98,6 +98,9 @@ intel_hdcp_required_content_stream(struct intel_digital_port *dig_port)
+ 		if (!enforce_type0 && !dig_port->hdcp_mst_type1_capable)
+ 			enforce_type0 = true;
+ 
++		if (drm_WARN_ON(&i915->drm, data->k >= INTEL_NUM_PIPES(i915)))
++			return -EINVAL;
 +
- 	vpu_write_reg(inst->dev, W5_CMD_ENC_SEQ_SPS_PARAM, reg_val);
+ 		data->streams[data->k].stream_id = intel_conn_to_vcpi(connector);
+ 		data->k++;
  
- 	reg_val = (p_param->lossless_enable) |
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-index c605a91718d8b..97c7ead3e72a4 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-@@ -915,6 +915,8 @@ static int wave5_vpu_enc_s_ctrl(struct v4l2_ctrl *ctrl)
- 		case V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_BASELINE:
- 			inst->enc_param.profile = H264_PROFILE_BP;
- 			inst->bit_depth = 8;
-+			if (ctrl->val == V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_BASELINE)
-+				inst->enc_param.constraint_set1_flag = 1;
- 			break;
- 		case V4L2_MPEG_VIDEO_H264_PROFILE_MAIN:
- 			inst->enc_param.profile = H264_PROFILE_MP;
-@@ -1190,6 +1192,7 @@ static int wave5_set_enc_openparam(struct enc_open_param *open_param,
- 			open_param->wave_param.intra_period = input.avc_idr_period;
- 		}
- 	} else {
-+		open_param->wave_param.constraint_set1_flag = input.constraint_set1_flag;
- 		open_param->wave_param.avc_idr_period = input.avc_idr_period;
+@@ -107,7 +110,7 @@ intel_hdcp_required_content_stream(struct intel_digital_port *dig_port)
  	}
- 	open_param->wave_param.entropy_coding_mode = input.entropy_coding_mode;
-@@ -1662,7 +1665,7 @@ static int wave5_vpu_open_enc(struct file *filp)
- 			  -6, 6, 1, 0);
- 	v4l2_ctrl_new_std(v4l2_ctrl_hdl, &wave5_vpu_enc_ctrl_ops,
- 			  V4L2_CID_MPEG_VIDEO_H264_8X8_TRANSFORM,
--			  0, 1, 1, 1);
-+			  0, 1, 1, 0);
- 	v4l2_ctrl_new_std(v4l2_ctrl_hdl, &wave5_vpu_enc_ctrl_ops,
- 			  V4L2_CID_MPEG_VIDEO_H264_CONSTRAINED_INTRA_PREDICTION,
- 			  0, 1, 1, 0);
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
-index c641357698691..a77569a580c7b 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
-@@ -570,6 +570,7 @@ struct enc_wave_param {
- 	u32 transform8x8_enable: 1; /* enable 8x8 intra prediction and 8x8 transform */
- 	u32 mb_level_rc_enable: 1; /* enable MB-level rate control */
- 	u32 forced_idr_header_enable: 1; /* enable header encoding before IDR frame */
-+	u32 constraint_set1_flag: 1; /* enable CBP */
- };
+ 	drm_connector_list_iter_end(&conn_iter);
  
- struct enc_open_param {
+-	if (drm_WARN_ON(&i915->drm, data->k > INTEL_NUM_PIPES(i915) || data->k == 0))
++	if (drm_WARN_ON(&i915->drm, !data->k))
+ 		return -EINVAL;
+ 
+ 	/*
 -- 
 2.53.0
 
