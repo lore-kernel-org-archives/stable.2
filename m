@@ -1,90 +1,99 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F6833C502
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 07:12:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910E8429803;
+	Tue,  4 Aug 2026 07:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785827538; cv=none; b=OEwLJ0K341kQrzhEeswH0wxd47QXtWSon0wbIefoFd6whn13ac2B6Io7z+sO/L8Ja6eWWWT10BrFf/Ha6omrtNHvoV8Jnr7golRnUFylgOai0P+vWZcEN5r9iD0u5xXGGMrv53+aywT8l9Oummz4xKJUUqASuH8/5O12K93TpAQ=
+	t=1785827942; cv=none; b=ac/sjWD0a1UrvlDdZbvz37xODgubfnE3nEHR0HceLZGh7Pd02HRSX7X9prFf0QZRggBATjmuDxM5UHhxlOPuElZ0CfepLfS2ZGNKk4qAgiWMnHKu1Liw/DhhQOu6oUbyqDaVLCFLQLcErwcqKaiWNROov9e80zlnroxcI85BRBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785827538; c=relaxed/simple;
-	bh=sYv2Yt7hshDOuKP+c1TAcrZZTNZsh9OCGmezpu25zVM=;
-	h=From:Date:Content-Type:Cc:Message-Id:Mime-Version:To:Subject; b=H9ko5nsU5K61PztJBHWBz69KmMBWe+aK1Wm3qq9KqYu1Y3g1lXgpHOqZKthC3egIKdFmR3/8F+MxoKPTraqtgPRDKjACVfeJyxyQLVMYgSVnGZbJR99fp3jKbcuBikrNxUqZ/D03YXXm0d0RkUQEksXGOsPjG96zooGEYBTUNJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=JxSe5OQt; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="JxSe5OQt"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1785827525; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=m5M1Lm+/NdKKpBFcWcOxFS9rDfn8UtHqjcdy9ymxzsA=;
- b=JxSe5OQt9XYwi7RshxhsAuRjOsfxnlvMWsLvOxxY1v6ixuLldp5pceztssqEBbK8oDUa6m
- 7On7kWBXabIED2uQvt+a0li8EOzMQJuqKJxX6669aKuJ/TITGu7rysHi6ien7Tl0y8vO4r
- pLTNaDfKK0JaPOCEIiu1gV5sZS50DQR8LfJrNYvL5I5iKnAIeilSuFMWRNZQV8Pf9djnxI
- MALW6+ctSwoDLPnqFiULqFw59ltvyihhft4WgTctGgg5kfUNqUwkqABegfus78gHcRWfRi
- sF/8WVhzXl1pVLdNlYw7ZJg6m/UBB0vCjSWXs6IEnQHHfE4HWA3XuWNd6ycJ0A==
-From: "Bo Li" <libo.gcs85@bytedance.com>
-Date: Tue,  4 Aug 2026 15:11:28 +0800
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
-Cc: <hpa@zytor.com>, <peterz@infradead.org>, <sshegde@linux.ibm.com>, 
-	<jgross@suse.com>, <wangyang.guo@intel.com>, <seanjc@google.com>, 
-	<pasha.tatashin@oracle.com>, <linux-kernel@vger.kernel.org>, 
-	"Bo Li" <libo.gcs85@bytedance.com>, <stable@vger.kernel.org>
-Message-Id: <20260804071128.31022-1-libo.gcs85@bytedance.com>
+	s=arc-20240116; t=1785827942; c=relaxed/simple;
+	bh=CX6o/N5o1avkkBL/5xmjTxr9sVFm8v/U2nhmtqp/ljU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Pct6gvFJRfs3bYqTtD4jyvSwbpcPwgZWhQLoWIKuSHPsBEE8N7p6p553q1UiBsV4/KwDI2t7YijNdcCWluJJFjuLsQTv4R6gq7jnyDRlLGxVer5I5OFeMjIuEHBm4QmrjU8j7cz9XiiVruC7FruxtbyVx9f+TRy9Izne49Zg8IQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: ba1aed408fd411f1aa26b74ffac11d73-20260804
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR
+	DN_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_TRUSTED
+	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:7390a256-812d-4a8d-bf6c-64fa0767ff61,IP:10,
+	URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:5
+X-CID-INFO: VERSION:1.3.12,REQID:7390a256-812d-4a8d-bf6c-64fa0767ff61,IP:10,UR
+	L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:5
+X-CID-META: VersionHash:e7bac3a,CLOUDID:8c147ce4ce05ce5fe79a12776bc462ef,BulkI
+	D:260804151849OV0UBDCP,BulkQuantity:0,Recheck:0,SF:10|38|66|78|85|102|127|
+	136|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk
+	:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,
+	BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: ba1aed408fd411f1aa26b74ffac11d73-20260804
+X-User: pengcan@kylinos.cn
+Received: from lenovo [(42.200.176.183)] by mailgw.kylinos.cn
+	(envelope-from <pengcan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 910985419; Tue, 04 Aug 2026 15:18:44 +0800
+From: Can Peng <pengcan@kylinos.cn>
+To: jonas.gorski@gmail.com,
+	broonie@kernel.org
+Cc: linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Can Peng <pengcan@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] spi: bcm63xx: disable clock on resume failure
+Date: Tue,  4 Aug 2026 15:18:31 +0800
+Message-ID: <20260804071831.860784-1-pengcan@kylinos.cn>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-To: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>, 
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>
-X-Original-From: Bo Li <libo.gcs85@bytedance.com>
-Subject: [PATCH] x86/tsc: Fix misplaced seqcount_latch_init() in cyc2ns_init_secondary_cpus()
-X-Lms-Return-Path: <lba+26a7190bf+9b43d9+vger.kernel.org+libo.gcs85@bytedance.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-In cyc2ns_init_secondary_cpus(), seqcount_latch_init(&c2n->seq) is
-called _before_ c2n is advanced to the next CPU via per_cpu_ptr().
-As a result:
+bcm63xx_spi_resume() enables the controller clock before restarting the
+SPI controller queue.
 
- 1. On the first iteration, c2n still points at the BSP's struct, so
-    the BSP's seqcount_latch is re-initialized. cyc2ns_init_boot_cpu()
-    already did this correctly, so it happens to work by accident
-    because no concurrent readers are live at __init time.
+If spi_controller_resume() fails, the function currently reports success
+and leaves the clock enabled. Propagate the error and disable the clock
+before returning.
 
- 2. On subsequent iterations, seqcount_latch_init() initializes the
-    previous CPU's seqcount (because c2n was advanced by the prior
-    per_cpu_ptr()), so all CPUs except the last one in the for_each
-    loop happen to get initialized. The last secondary CPU's seqcount
-    is left uninitialized.
-
-Move seqcount_latch_init() _after_ c2n is pointed at the target CPU's
-struct, so each secondary CPU's seqcount is correctly initialized.
-
-Fixes: e2a9ca29b5ed ("x86/tsc: Initialize cyc2ns when tsc frequency is determined")
+Fixes: b42dfed83d95 ("spi: add Broadcom BCM63xx SPI controller driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bo Li <libo.gcs85@bytedance.com>
+Signed-off-by: Can Peng <pengcan@kylinos.cn>
 ---
- arch/x86/kernel/tsc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/spi/spi-bcm63xx.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-index ce10ae4b298b..84fb80492b01 100644
---- a/arch/x86/kernel/tsc.c
-+++ b/arch/x86/kernel/tsc.c
-@@ -223,8 +223,8 @@ static void __init cyc2ns_init_secondary_cpus(void)
+diff --git a/drivers/spi/spi-bcm63xx.c b/drivers/spi/spi-bcm63xx.c
+index 8cef725aab26..1d8e257bad30 100644
+--- a/drivers/spi/spi-bcm63xx.c
++++ b/drivers/spi/spi-bcm63xx.c
+@@ -653,7 +653,11 @@ static int bcm63xx_spi_resume(struct device *dev)
+ 	if (ret)
+ 		return ret;
  
- 	for_each_possible_cpu(cpu) {
- 		if (cpu != this_cpu) {
--			seqcount_latch_init(&c2n->seq);
- 			c2n = per_cpu_ptr(&cyc2ns, cpu);
-+			seqcount_latch_init(&c2n->seq);
- 			c2n->data[0] = data[0];
- 			c2n->data[1] = data[1];
- 		}
+-	spi_controller_resume(host);
++	ret = spi_controller_resume(host);
++	if (ret) {
++		clk_disable_unprepare(bs->clk);
++		return ret;
++	}
+ 
+ 	return 0;
+ }
 -- 
-2.20.1
+2.53.0
+
