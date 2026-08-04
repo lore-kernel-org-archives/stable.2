@@ -1,34 +1,73 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1955431AABF;
-	Tue,  4 Aug 2026 06:12:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA62E40DB5A
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 06:12:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785823936; cv=none; b=j1HOCoN4BAfpMmWZnq/8gPX9AkjfNLpDU1MZeMw6hSEdXflC//kmQNFvLUZduSZaZrBfuXAlY/22+P3xdmRZ2db9/VV4dO3grLOcBfXz+bqwriIInEUm+I7fXdMqb68LP+FCqV3tFSLiJ42H3AjGCJOShwy7q5u25kRmfi6MT4M=
+	t=1785823952; cv=none; b=jG4H+XNRwyInK7mMl5INHV0wL771W9DhDfPuy9zJmvEew+EjsrIuw0a+Cv/R4QXYM7OtuyPGz3StGoNzemSM0rfylu8a9d3m2KsiP5UVPfxovjrOVU6D8+tU6WxKOgDlxFdASbHmk0CFQ97qWhUkpwg37KsabksMqIeg83mG3PQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785823936; c=relaxed/simple;
-	bh=QZ7HU7TVrJI/Ym28cZCoeeJ5FDQt6B/2QCuH1EV1tYk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jXZ/fh0Ge1h72ujQJDbGDcfDfUlgENxhU8pucglK6p0nOMaxf2qmernvwaBmauIDo3RygrQZBNSiQQBga/Wsu+xqucdVo6DMbbhUZSDk/afyjznwXLcButKO6ycojiv8gfD5m/14HKjL5AN9RARPgLwEskhs51nsfRZjFSt5uOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.68.205])
-	by gateway (Coremail) with SMTP id _____8BxXZu6gnFqQy4KAA--.10106S3;
-	Tue, 04 Aug 2026 14:12:10 +0800 (CST)
-Received: from kernelserver (unknown [223.64.68.205])
-	by front1 (Coremail) with SMTP id qMiowJDxPcW5gnFqnxAjAA--.57941S2;
-	Tue, 04 Aug 2026 14:12:09 +0800 (CST)
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	Ulf Hansson <ulf.hansson@linaro.org>
-Cc: Huacai Chen <chenhuacai@kernel.org>,
-	linux-mmc@vger.kernel.org,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
+	s=arc-20240116; t=1785823952; c=relaxed/simple;
+	bh=K5Ph9XcyqOYkIasx02lR7AFxCwUH0dmM/cCvoQIHRKk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k+1pN0Y0S0zJ8Dr7TrUzgne2YNMJhSDc42l185IspqyQK+/71T12o4e05w3XvRmIVmTDVlR+7HAogsF1fnC/fyebRQxxyYy9qdUNvizO0ZOeOwboB5x1hL3Cq4IqZzHkTfZ309qkq3r1xAmN+TlPF26d6wX38j6bay3WFaDckY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gT4p7sUZ; arc=none smtp.client-ip=209.85.167.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gT4p7sUZ"
+Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-49da0c3a1d9so510589b6e.2
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 23:12:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785823950; x=1786428750; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lLnrl7cvfXhXnP0TWy+i62c7ISWemwc6cOZstir8oEI=;
+        b=gT4p7sUZvuSsh9OotrRHNVX2EjaglX+SdQVFp0IVMq6A0q4T0j0ZrMrHSYg425g4MG
+         Z2qAERqDZMbFvk4TFCCuIC4Tk8x13jp8iZPAbsQPy0tvdhtszjgWHBS8hz6Od3e56V4R
+         wB17X5EpOPF4pcl10QmBK3VVUgfWZS6M4YJe+k5gRSUHUA4gxUVj9xB5XvAi8Os1n002
+         ClfygzJmaG5heyKftdIqQWqWSfaoPprNx8+fHLLgPZ7Z3SqrSOqLpa6poZhLs5pkXDP3
+         ULPUHfXJfck02dQ9UfeJUtPmk+A0NO80uFc50ywPevTrODBwGvtapeWeRKBHfk0IsDjv
+         6kxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785823950; x=1786428750;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lLnrl7cvfXhXnP0TWy+i62c7ISWemwc6cOZstir8oEI=;
+        b=g1tGOASWQmnkzX1nwu6DYNc8Q5LBV8DSuatSN8OsA3bOcV0aruDuoBT0LKvXWkc8OF
+         0G3+FpIMP3qHJavwpLA143qZ/5RREnECZxSDFC3gS82+YeVmbykmQmIZ+GfMXWZSYWHd
+         tZRcF4RYYYJj1XXbYKS5zIY9d+iF4fZ803QP33xcnaJ9+u41UQJkseqWoNohBg4bhxj4
+         bFUOkWaaoZMSaDdlKS8s18tUrn2LDmQsahRHxN5oYipwXRbs7LucD3lVs/i7A0/GrEvJ
+         oM56biStADbNtxIpka9/P6r5/1RbkATzMvrJuVuTQO8tiWKctjxyiYX/DOrV+Cx8esBH
+         Kfrg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq9v5NadxIhOHr9WqfwlWHEdsuKXjGk7/ZVdS78lz58mutT8FplN45oAGehZHkkwy530hrFg+M=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxAj0IZuohZHNdsB8T9x9uRJlwl4ZIhkRFk+uk9FsTXG4eBsj61
+	lkD5hP2nLzuZNLCw4U5CXHDFbjGXWmWwT4RV/biTPrMAt1sS1wexT519
+X-Gm-Gg: AR+sD13cOuzqoB8unOr55ZhhZDlSo1G3d+Uc8DhHi19227JAInSYRYNNnlILbqrW9ww
+	p+YCKQzaUG9iOCHQi57johmJp9cgLKIp68kl1mMtFSfgdST2pgtlzUgwfbaecT9Yicmogp72zgu
+	PApoEskFMRSMEbEgaD3vj4q+EOlHIdFPt4PsamDcYD+7IIdEMKHTVDzIHGQwsNVUeZ+n9TTKuJH
+	nBGmoez/sBf0rhYP583fStUgujmZhcEJcbgmyDuaZkFlZAG9+NFhfkamc4f6P4n3N9eWtCzVujq
+	/W0d6nqn7pBw9e0g82HV1xxOrKi9wFf+Gt1yL17G2nbD1XF5X76SHmsNJp8VR28noBC89BdD5iN
+	luCkUo4dIvVP+Z+BszkpvxCFeLNCW+5V16okGFsr/ixjWDV0CvnwTTqvKp9wWfWNo5WtYSkDA7m
+	+nD7wEWobqxlxaHjVQl0kBQptfYuKEhDtCHrcpvIIK/8e5ro6W2QGjDsqJ/jItNjZJLgAkfH6sD
+	JK0LUUhVGo7jv4q+l6xEIFacYImdZLk38TER6EiO+XOHxKl695HrFsZs8f2DRw=
+X-Received: by 2002:a05:6808:1387:b0:495:ac16:7afa with SMTP id 5614622812f47-4af5e3740eamr13419377b6e.4.1785823949634;
+        Mon, 03 Aug 2026 23:12:29 -0700 (PDT)
+Received: from antares ([149.88.25.215])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4af58d11372sm7918032b6e.7.2026.08.03.23.12.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 03 Aug 2026 23:12:27 -0700 (PDT)
+From: Bogdan Nicolae <bogdan.nicolae@gmail.com>
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] mmc: loongson2: Fix sg iteration in data reorder functions
-Date: Tue,  4 Aug 2026 14:12:00 +0800
-Message-ID: <20260804061200.3897779-1-zhoubinbin@loongson.cn>
-X-Mailer: git-send-email 2.52.0
+Subject: [PATCH v4] wifi: brcmfmac: cyw: pass PMKID to firmware if present
+Date: Tue,  4 Aug 2026 01:08:59 -0500
+Message-ID: <20260804060859.412348-1-bogdan.nicolae@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,68 +75,46 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxPcW5gnFqnxAjAA--.57941S2
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEJCGpxaFEBDwAAst
-X-Coremail-Antispam: 1Uk129KBj93XoW7ZrykuF47Cw1xJF48Kw4kuFX_yoW8Cry5pa
-	4fAw1a9F4UtF4Yvr98X3y7ury5ua4aga42gF4DGwn5uFWkXr1Uur1UK3WFqF129FWYkFyI
-	qr4qgrZxW3Z5GFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUk0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4j6r4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
-	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAF
-	wI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28IcxkI7V
-	AKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
-	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6x
-	IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x
-	0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU25EfUUUUU
 
-In ls2k0500_mmc_reorder_cmd_data() and ls2k2000_mmc_reorder_cmd_data(),
-the for_each_sg() macro already iterates over the scatterlist entries,
-with 'sg' pointing to the current entry. However, the code incorrectly
-uses '&sg[i]' and 'sg_dma_len(&sg[i])' inside the loop, which treats
-'sg' as an array base and indexes it again, leading to access of
-wrong sg entries (or out-of-bounds if the list is not an array).
+Zero out auth_status on initialization. Otherwise, garbage will
+leak from the stack to the firmware (when ssid is less than 32 bytes
+and/or when params->pmkid is set). Then, pass the params->pmkid to the
+firmware (without it, the firmware caches a garbage PMKID on successful
+authentication and denies a subsequent association request that includes
+the PMKID).
 
-Cc: stable@vger.kernel.org
-Fixes: d0f8e961deae ("mmc: loongson2: Add Loongson-2K2000 SD/SDIO/eMMC controller driver")
-Fixes: 2115772014bd ("mmc: loongson2: Add Loongson-2K SD/SDIO controller driver")
-Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+Fixes: 66f909308a7c ("wifi: brcmfmac: cyw: support external SAE authentication in station mode")
+Signed-off-by: Bogdan Nicolae <bogdan.nicolae@gmail.com>
+Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
 ---
- drivers/mmc/host/loongson2-mmc.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+v4: Fixed indentation
+v3: Added Fixes, Cc: stable, and Acked-by tags
+v2: Split into a separate patch
 
-diff --git a/drivers/mmc/host/loongson2-mmc.c b/drivers/mmc/host/loongson2-mmc.c
-index f553e92fd9e5..118eccbaf8cd 100644
---- a/drivers/mmc/host/loongson2-mmc.c
-+++ b/drivers/mmc/host/loongson2-mmc.c
-@@ -641,8 +641,8 @@ static void ls2k0500_mmc_reorder_cmd_data(struct loongson2_mmc_host *host,
- 		return;
- 
- 	for_each_sg(cmd->data->sg, sg, cmd->data->sg_len, i) {
--		data = sg_virt(&sg[i]);
--		for (j = 0; j < (sg_dma_len(&sg[i]) / 4); j++)
-+		data = sg_virt(sg);
-+		for (j = 0; j < (sg_dma_len(sg) / 4); j++)
- 			if (cmd->opcode == SD_SWITCH)
- 				data[j] = bitrev8x4(data[j]);
- 			else
-@@ -758,8 +758,8 @@ static void ls2k2000_mmc_reorder_cmd_data(struct loongson2_mmc_host *host,
- 		return;
- 
- 	for_each_sg(cmd->data->sg, sg, cmd->data->sg_len, i) {
--		data = sg_virt(&sg[i]);
--		for (j = 0; j < (sg_dma_len(&sg[i]) / 4); j++)
-+		data = sg_virt(sg);
-+		for (j = 0; j < (sg_dma_len(sg) / 4); j++)
- 			data[j] = bitrev8x4(data[j]);
- 	}
- }
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-base-commit: e27c946b589c53520409a0956b33d52ef7a0898f
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
+index 873754be5..2c59b5e57 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c
+@@ -200,7 +200,7 @@ brcmf_cyw_external_auth(struct wiphy *wiphy, struct net_device *dev,
+ {
+ 	struct brcmf_if *ifp;
+ 	struct brcmf_pub *drvr;
+-	struct brcmf_auth_req_status_le auth_status;
++	struct brcmf_auth_req_status_le auth_status = {};
+ 	int ret = 0;
+ 
+ 	brcmf_dbg(TRACE, "Enter\n");
+@@ -208,6 +208,8 @@ brcmf_cyw_external_auth(struct wiphy *wiphy, struct net_device *dev,
+ 	ifp = netdev_priv(dev);
+ 	drvr = ifp->drvr;
+ 	if (params->status == WLAN_STATUS_SUCCESS) {
++		if (params->pmkid)
++			memcpy(auth_status.pmkid, params->pmkid, WLAN_PMKID_LEN);
+ 		auth_status.flags = cpu_to_le16(BRCMF_EXTAUTH_SUCCESS);
+ 	} else {
+ 		bphy_err(drvr, "External authentication failed: status=%d\n",
 -- 
-2.52.0
-
+2.55.0
