@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8874570C8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7C94570C7;
 	Tue,  4 Aug 2026 08:50:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785833455; cv=none; b=lmSEirb0bedePXV9wGvbab5YmYvWbJc/51H1xNn6NSSw6ZwoCPHGI89+Gv4B9mmQO6OSzG/lCX1LVWjmSwt4iMuxUJnc8gD69zVQNzyTZH60gjamoDD2ioJSUeYLb0RhbJ3fAvrZV53MfP6muRBoL6hGDOB2qZ9tTOu3nWWd3Jg=
+	t=1785833455; cv=none; b=knC4PWN3wlGQ4Svs5BuAKm8cC86bY0WJCMqxds4/mBJasH7/YWLWmbkXLj1SGOc+S2bsG/wsK9KJgofyxOKbp5UZShrGZukyn0pY8eOhsFHHltvaF4vAfH126DKGP8VnADW/WZR/F0z51px7DsFWCyv+Vq18wt0tcEvb7DvZUDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785833455; c=relaxed/simple;
-	bh=QCVnxSeHlT4Kk1BbHgcw8WESABILpZ1Gcclv0+B9Efw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=sAp4ALv4p1HFboG8SJFI04m94RK8FhOc2dbx80/sfJ7gI3hNiBbgNOLHaOxPXWxa9Je7HoDlvpK0PDeBqODVPUPN91JpXhRLkjDdlujFoCeBU1Wxyd6dcphZbQ3aiO9JtBUaIsqSfllsQ4WWoybfLq6fmm/O3r6IcgdC6ZpI4cA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OLcXzo1i; arc=none smtp.client-ip=10.30.226.201
+	bh=Wg4a5GYB2+hy3rEJTPDy6EHTyRLohXwG7vmwER8t2Ps=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=lipP7ygJW96ZcbHM8OSbLT1C/2+6K3WME4hfW0oWfIw7etz0x/7Y/Ke3zEBN6LLKHLlEjEIO0C3hmzGxURrvfsrAK6dILhaRuwuQN8GjTmZWp01112xcA8zaSp+6JShZ3LAlJSby+w6ofE5Y+JkPR8aVKuZ4Q2KZ8FrIduNyrNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f7oii5zk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OLcXzo1i"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 73784C2BCF4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f7oii5zk"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8B9DDC2BCF7;
 	Tue,  4 Aug 2026 08:50:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785833454;
-	bh=QCVnxSeHlT4Kk1BbHgcw8WESABILpZ1Gcclv0+B9Efw=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=OLcXzo1idtKnk8lzZal02RNT+eUz4MI3Ioe0BNjTFy4iox0ffrj4MlEQvK+PMG8XQ
-	 sXACspI43lIxCEEUDQSOzfNHubxUxpbAZ/pumHdLnJ7OQxvPmt5k1gut8Lv3TKmJx3
-	 d5J2JmQfRGqY9H8t5S6mJVTgMimG/hrrQUIENHpdQXhhWszpm8EFwagOMN+28yTRLh
-	 P+z3veI4f4GGe75wZnrGXfZ/tFzeO71tSlQpnw7GPdJZzcs/vuv9208b+DlJZ/GOyc
-	 w6dWnHR8Qb8Vt3cEUwM5Dd1ep29vzqviEXJgLd2EP6HQuLWzfebjrkTv+5a9H9Qc65
-	 i3yJ/r/sWz4KA==
+	bh=Wg4a5GYB2+hy3rEJTPDy6EHTyRLohXwG7vmwER8t2Ps=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=f7oii5zktCjjdWcUS97nDJCz3QoJlcSOSLdMHx7F8kFdlcDx1MzzBAKKCpsbSdD5d
+	 tHZvvGLDnf9NNMlz+KVnFuwMs185XmgGbwDmTzOyaAKzQVXa3LHvzoccDbFP1jjgAR
+	 Z0YOFHXMYpvqCaa3TNT0jc2LRNvCoMwJzJxQTrxnTiGTji41xGgy+yI5GgJgA6EnnC
+	 Csh8I/TF8uxE3ddyvpv7pFtPJpHhrquC+yEY7xHz3Lt+BtwBT4VqaYjp1dxAdfawE3
+	 2WlMKRLh8j6JkZOx52K5SQIxMDGI9WPTWcHwOhY4wK4/+SfhtCdWr80VEqSjwI6Bi6
+	 BwrBuM4MwZBbw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EDA9C55184;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79615C5518F;
 	Tue,  4 Aug 2026 08:50:54 +0000 (UTC)
 From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Subject: [PATCH v2 0/5] powerpc/spufs: assorted fixes
-Date: Tue, 04 Aug 2026 16:50:37 +0800
-Message-Id: <20260804-fixes-v2-0-5bfd827297f9@outlook.com>
+Date: Tue, 04 Aug 2026 16:50:38 +0800
+Subject: [PATCH v2 1/5] powerpc/spufs: fix spu_context leak in coredump
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,10 +40,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAN2ncWoC/12MQQ7CIBBFr9LMWgwMBBtX3sN0UXGwE7XTQG00D
- XcXu3T5/n95K2RKTBmOzQqJFs4sYwXcNRCGfryR4mtlQI1etxpV5DdlFa213gRzwZ6gulOi7aj
- quas8cJ4lfbbsYn7rf2ExSquD9a1D65yO7iSv+SFy3wd5QldK+QKRXSXYnAAAAA==
-X-Change-ID: 20260802-fixes-f33361c1b2ae
+Message-Id: <20260804-fixes-v2-1-5bfd827297f9@outlook.com>
+References: <20260804-fixes-v2-0-5bfd827297f9@outlook.com>
+In-Reply-To: <20260804-fixes-v2-0-5bfd827297f9@outlook.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
  Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
  "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
@@ -53,13 +52,13 @@ Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org, 
  Junrui Luo <moonafterrain@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2656;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1758;
  i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=QCVnxSeHlT4Kk1BbHgcw8WESABILpZ1Gcclv0+B9Efw=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrMLlry/5/e87ufmR/BnWtfHpHIHrQyawX+Nw/ekRF
- PCw42+Jt0tHKQuDGBeDrJgiy/GCS98sfLfobvHZkgwzh5UJZAgDF6cATEQoieF/lJoy52nuRazf
- itafO39H+rGWU6HqsR8PvjXzbolcde3db4Y/HOoCK16bHTHdpGSwISJGZsOK8hPsiUGXzzs/4ry
- wT/cYPwBdQU1U
+ bh=XdWocYlkrxGjIsGC8gAbyPABgvp/vlZdqZWZhKwsHTk=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrMLlr7OeK/LPnp5999fChz+TfA179+0qld6/7q/xO
+ ieVZTIeoYYdpSwMYlwMsmKKLMcLLn2z8N2iu8VnSzLMHFYmkCEMXJwCMJHTKxgZ9q9epFt57ONa
+ FmvF/w99a1zkVzS0n30q9Dba+YW1/SzFJQz/Y8tOfZ3JdntNbvtHp2MM8ZbuX1+pzb4/40pz171
+ sc7nLHADYSE9b
 X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
  fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
 X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
@@ -67,65 +66,59 @@ X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
 X-Original-From: Junrui Luo <moonafterrain@outlook.com>
 Reply-To: moonafterrain@outlook.com
 
-Five independent fixes for spufs. There is no dependency between them,
-so they can be applied or dropped individually.
+From: Junrui Luo <moonafterrain@outlook.com>
 
-  1/5  spufs_coredump_extra_notes_write() never drops the reference taken
-       by coredump_next_context(), so every SPE context written into a
-       core dump leaks a spu_context. The matching ..._size() path gets
-       this right.
+coredump_next_context() returns a spu_context with a reference taken by
+get_spu_context(), which the caller must drop.
+spufs_coredump_extra_notes_size() does so on all of its exits, but
+spufs_coredump_extra_notes_write() never calls put_spu_context(), so
+every context dumped through elf_coredump_extra_notes_write() leaks a
+reference, including on the success path.
 
-  2/5  do_spu_run() copies out an uninitialized 'status' on the paths
-       where spufs_run_spu() returns before assigning it, leaking four
-       bytes of kernel stack to userspace.
+Fix by dropping the reference on each of the three exits of the loop,
+mirroring ..._size().
 
-  3/5  spufs_setattr() calls setattr_copy() without setattr_prepare().
-       notify_change() leaves that check to the filesystem, so mode and
-       ownership of a context's files can be changed without the usual
-       authorization.
-
-  4/5  spufs_create_gang() calls unuse_gang() with the parent directory's
-       i_rwsem held for write, and the resulting simple_recursive_removal()
-       takes it again as I_MUTEX_CHILD. The task deadlocks against itself
-       and leaves the spufs directory write-locked.
-
-  5/5  The mailbox read/write handlers hold ctx->state_mutex across
-       put_user()/get_user(), so a userfaultfd region or FUSE-backed user
-       buffer can stall the context lock for an arbitrary time.
-
-Patches 1-4 are tagged for stable. 5/5 is deliberately not: it changes the
-atomicity of multi-element mailbox transfers rather than just adding a
-check, so it seems better to let it soak in mainline first.
-
-Build-tested only. I have no Cell or PS3 hardware, so none of this has
-been exercised at runtime.
-
+Fixes: 38b407be172d ("powerpc/spufs: Rework fcheck() usage")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
-Changes in v2:
-- Add an Assisted-by: trailer to each patch identifying the tooling, as
-  requested by Arnd.
-- Drop 3/6 from v1 (bound NPC against local store size).
-- Link to v1: https://lore.kernel.org/r/20260802-fixes-v1-0-7368423440f4@outlook.com
+ arch/powerpc/platforms/cell/spufs/coredump.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
----
-Junrui Luo (5):
-      powerpc/spufs: fix spu_context leak in coredump
-      powerpc/spufs: don't leak kernel stack via spu_run
-      powerpc/spufs: check permissions in spufs_setattr()
-      powerpc/spufs: fix deadlock on gang creation failure
-      powerpc/spufs: don't hold state_mutex during user access
+diff --git a/arch/powerpc/platforms/cell/spufs/coredump.c b/arch/powerpc/platforms/cell/spufs/coredump.c
+index 301ee7d8b7df..f5964c9ebb3e 100644
+--- a/arch/powerpc/platforms/cell/spufs/coredump.c
++++ b/arch/powerpc/platforms/cell/spufs/coredump.c
+@@ -162,13 +162,16 @@ int spufs_coredump_extra_notes_write(struct coredump_params *cprm)
+ 	fd = 0;
+ 	while ((ctx = coredump_next_context(&fd)) != NULL) {
+ 		rc = spu_acquire_saved(ctx);
+-		if (rc)
++		if (rc) {
++			put_spu_context(ctx);
+ 			return rc;
++		}
+ 
+ 		for (j = 0; spufs_coredump_read[j].name != NULL; j++) {
+ 			rc = spufs_arch_write_note(ctx, j, cprm, fd);
+ 			if (rc) {
+ 				spu_release_saved(ctx);
++				put_spu_context(ctx);
+ 				return rc;
+ 			}
+ 		}
+@@ -177,6 +180,7 @@ int spufs_coredump_extra_notes_write(struct coredump_params *cprm)
+ 
+ 		/* start searching the next fd next time */
+ 		fd++;
++		put_spu_context(ctx);
+ 	}
+ 
+ 	return 0;
 
- arch/powerpc/platforms/cell/spufs/coredump.c |  6 +++-
- arch/powerpc/platforms/cell/spufs/file.c     | 52 ++++++++++++++++------------
- arch/powerpc/platforms/cell/spufs/inode.c    | 21 +++++++----
- arch/powerpc/platforms/cell/spufs/syscalls.c |  2 +-
- 4 files changed, 50 insertions(+), 31 deletions(-)
----
-base-commit: 02dc699f83d04069fdabc996fc22d47cda47a4a9
-change-id: 20260802-fixes-f33361c1b2ae
-
-Best regards,
 -- 
-Junrui Luo <moonafterrain@outlook.com>
+2.51.2
 
 
