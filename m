@@ -1,255 +1,149 @@
-Received: from mout.web.de (mout.web.de [212.227.15.3])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4EC83C8C65;
-	Tue,  4 Aug 2026 14:32:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.3
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785853973; cv=none; b=XSL5OQbMepDGvyvg58CfSlIyUwmmHwid+L5ObRb+HXDUatyiq62BSW2U4KnsRDtg873vSRFltDIjTGeS3+/vWI7mvzsqe7Ii1YQZGVqQ8j19RQdyUClXLaH4cgL52GnjbNVg/uAfDUU5URKHxkrnLCXyzgslvakJqk8YrW8uos0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785853973; c=relaxed/simple;
-	bh=2DX4OKnrPnVzjghCo2HZChbMK1uWjzRuJ92rgd3NjDE=;
-	h=Content-Type:Message-ID:Date:MIME-Version:From:Subject:To:Cc:
-	 References:In-Reply-To; b=Qz/dTGdaYoxUT2zTzP+fDTAaYtRjSo/0LWllY86tf4OywxQPST3SDUhuOT3E3y2kgSo2+69brFo6vcBrcqIrNGsygPrg4MXCcqmMgolBNSfT4QwT2DNZ2A7qTxQFr/mFRVjVTe85DDgAf+mSKE+ZegH1C6aKGpJfylm+snDXeEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=frank.scheiner@web.de header.b=PGXglcFO; arc=none smtp.client-ip=212.227.15.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE4C399340
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 14:34:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785854082; cv=pass; b=Fn1e5C+5nY9AgR+T5YJSqks7EL1zjUOOtHr/xQRzN23Jd/3ZkKvGw/9fSyO+L0HPmA7m9JxkL5KTqLva7iYzecS+Mc6AAA5OjocyVBeEi5ajblHo8GeX412OG3gR7igN76ZE+FmIPFt3OqoQcLZZbQP3vZqBGZ+D5dwdEIi3zjI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785854082; c=relaxed/simple;
+	bh=AkpbKoqkLE2ago1nKO8zeKKdehNgTrIPaOMhneanm5Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UnjoQpgU/4ilwU6nwvrYzggND40em71QTDJgiuRXDR4y0aNFOpXu5BqamFezVzL8BeQ3LGD7uS2SRfstdwckO7Y78msfXVCpTaU1TDPosysv+IB5HEZMpghiD8W6zyii08WzvwCOZbq7Z3XGELtlB31QKUIU9nwTWihFcMISzxU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=b3we5V7U; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=oeMRMRpR; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=frank.scheiner@web.de header.b="PGXglcFO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1785853913; x=1786458713; i=frank.scheiner@web.de;
-	bh=aWpNZDbulEgmtERlHV+bqlLhmeaTGxBeZbAXFPg+2/I=;
-	h=X-UI-Sender-Class:Content-Type:Message-ID:Date:MIME-Version:From:
-	 Subject:To:Cc:References:In-Reply-To:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=PGXglcFOagySL0PhPk6ai4z2HUhHvGeOhNu1p1oI1ASnx9Qqkt5jGhg61+tCiuAb
-	 x9bPP2KJBUCk4zMAITYtrTxT822iRcGAGGimKIGJ6ET2T12P2l9rD8nImVRHwDb8q
-	 qagZw65Ow4Sh7u9YErUDIRBNCLLXImqyqcUyVhLOI5GApM49lGkOkxy3vhe2NLngq
-	 j3jTXBgBF1sHiK9xCc+uXtYzhGaR+vT5vO9n77TpLAKuwori+0Q3QkuWzNFsQWUc2
-	 V9AUucf6mkdLoTI1JIg49XzFdKkgVAs/qEiLnJge9mbbvRV9erVzpK6tXputVHeE8
-	 6NhlkuXoSZqXJ7FNNg==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1Melaj-1xR8hR3KU9-00aBrB; Tue, 04
- Aug 2026 16:31:52 +0200
-Content-Type: multipart/mixed; boundary="------------fMwjKfsybg0Z1na6aaC9I0k0"
-Message-ID: <4da1cbe8-3ec2-4b20-8b0e-572ccbf73e29@web.de>
-Date: Tue, 4 Aug 2026 16:31:50 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="b3we5V7U";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="oeMRMRpR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785854068;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AkpbKoqkLE2ago1nKO8zeKKdehNgTrIPaOMhneanm5Q=;
+	b=b3we5V7UvlhlD3TTG9R1sBM9eROLbjYrnKuw+fq/CN5lpvoGXBS33Rxag6DJstwW1aMFc9
+	m1kzFk5iFziFyYifY28KKX1MqdZuKKpTMDfSjw+PFRVLR+QcOl0rV2tnvltblqIG7iUQyl
+	IP9zYpw8Ztil/RJ2qInZyjdAgGV7MGQ=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-211-dDXBEqiMPDOPU9hRZifeIg-1; Tue, 04 Aug 2026 10:34:26 -0400
+X-MC-Unique: dDXBEqiMPDOPU9hRZifeIg-1
+X-Mimecast-MFC-AGG-ID: dDXBEqiMPDOPU9hRZifeIg_1785854065
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49544a639e9so17879975e9.1
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 07:34:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785854065; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EzsqXHIlNCKg+0+vt4HyfsdngXibdI/AhVM4oSk4co/AnKWRliQRSt82PbyhfKwaap
+         ECwKDjFupne8+M4V4TOWQ5ObjIsQRAtAOuHJIEt77gM0QzKL3HztryzsdxLijaG/JEu/
+         z11ZW3LTQ88iuvCK304d0viczd8LQbrGvcGVVpZME9f8l4qQGkzxF9XRxAmUIHi5mS6v
+         zHtw2rYBXaQWXK6HzR9s7P+pDWXfMig9H7hRptsHkxrhQ01qv4vycGEYoPkgyZgJeHnY
+         r5u8czckO3XmKUhw/pUgXxAq++0v0Hnph/tT3qmhPVl8QDDsRkVw2+/7v0UtNTfUQtSo
+         3obg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=AkpbKoqkLE2ago1nKO8zeKKdehNgTrIPaOMhneanm5Q=;
+        fh=4HnrCL66xgVEBZU6xA5OYAA+22Wk+Wh9uhKyGmngRnM=;
+        b=p9qtVqbSe7iRgWFez+9XItGAXmAbHa9tOYk19kopCUXnSUdsV+h2SWDVeaDCCRtC9w
+         1XAdF1f62GgrH/c7Q1XoZxHhr1E1/WKQ2K43nn1iGu9NObjzjve8QpCOqupnNrHydx62
+         k1+zdt6tlRANdKTVgYdKI6c2EpbQ4yG3p8K2uIB1fDB78l83ovIktT70gRfqSyfNPIZ5
+         fMe8wFotMUTPcb4RuNmhcXc8DKsDufwO4opNOWfS7F8Xk+R1dZ+f0SI9g7a0ZLM7JK+L
+         FGV+nnZLoNefA8V4w/IX7BniOd6apfU1HqsyLLwnXb0+6wsk/eU8rbETgA/PM8FvaSy/
+         BaWQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1785854065; x=1786458865; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AkpbKoqkLE2ago1nKO8zeKKdehNgTrIPaOMhneanm5Q=;
+        b=oeMRMRpRXphJnO2A7FxxFVB0wCiMjMW8eGzqDqv2/23j2YgrmWgB31vK8yab9wfqmT
+         jeXV01qn72sI+XW26nr9Pp+VaUaYtCIwGOEN2kQTbP3Y5NDiF11zSq+99UbaZkOJkRn+
+         lP98cWMUkl/z3pBC62N3IYiwBs9uXTzp6ONVbnk7Wy/UqTkWYoDzNuetR4hI57Tb7Gb3
+         /7h/ywWBQEAF39kFKL65t05fzKpIOE81lYviqwnR+q/7opfdn1AhQ2bxyR0eP2Wrozuo
+         8Dad5ojqaEsh4lUNarBzp+AdKK+TZjHygsQvdW9wwyZz9AEkOYm7Q+BmyYiQYiS4PNGE
+         T9+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785854065; x=1786458865;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AkpbKoqkLE2ago1nKO8zeKKdehNgTrIPaOMhneanm5Q=;
+        b=VDcDXLwAw5E7ERZUi1i/JdL25+bQNCAZUVdYkaUqJWcnU6P72GvhGbLLBmM6UzveTP
+         vGNHc8U8QXA7zrMSCE5n3rTYWH66k3GVt3OiwGF+Ucsmy39jbdgmCKWvRv/iiCZbrn+v
+         tMCxVi/jTN4pZ/bGGUDMP2xXI3p93OPJ1Nc9H6ROWX8xk/CSTGBEofyK3F73WK6Kgt90
+         SajX2URDZnPni75FPLrSyLgwhE9VnSJGT30ncs+7hOwwYj0hWrWq3a4je5fviSMr4va9
+         weQrALOOkO7jsVyWL+NurBSbD1SO9vlWDsEaiKTPdpzRCbq8LweRbYKNBg4zPNSpM/Fj
+         uA/A==
+X-Forwarded-Encrypted: i=1; AHgh+Rp4Az319G3m0selvmwLCx6BpiLI4LLwe9htM19vVqM0BNiPvh74dlWLobNs/8F8Vu3VGwvb3JQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzsKwnHC/N5JwjYSLeI+e2TN9EOKzf2tpie6NkSY33a50JT5+3I
+	9HskGHrTmGP+oRxrc3KzkQZWKnm/1Q3GofBZ5s2aiVyRnjBKiSKNGAOHgyuKQ4qvdHuhmM1vKo7
+	Ji041jtoj0c8TRjRsnboSzvyb9sv3OgyRbEdNCbkccn9o06Rh8Ch9zkHvn8RZ3+7lWdzAxdf87F
+	VAPtSpHydfcL3wZaf12QseXGPYRn6zMxaU
+X-Gm-Gg: AR+sD123Vo48r7aezjpeIydsrCqPn4LgQIl6YVA/sdTmk+UYr7tGx9heKM9syWdop3k
+	Cuqh3adCo5gljfn87Kr6yoBH+FqQXq/rQg8Bw59+qPCD9tfBHM3Szt9CtEoCXYS6Nmew5RfkRw6
+	ka1QYRGgvJrjlhPXXJNc9fGy7+7OnHvEiFN0vdoYlvSGceL9QzzgRzkoEEL2CP3ZAxQyfvzsN0G
+	B8V4kQD0eWnnBQJh0TM4JpDB7kuaaTjdeqFTgciUocWvP8l8Dbj8FdBoBg=
+X-Received: by 2002:a05:600c:4fc5:b0:494:6baa:ccef with SMTP id 5b1f17b1804b1-4980f23257cmr337369065e9.11.1785854064946;
+        Tue, 04 Aug 2026 07:34:24 -0700 (PDT)
+X-Received: by 2002:a05:600c:4fc5:b0:494:6baa:ccef with SMTP id
+ 5b1f17b1804b1-4980f23257cmr337368035e9.11.1785854064514; Tue, 04 Aug 2026
+ 07:34:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Frank Scheiner <frank.scheiner@web.de>
-Subject: Re: [PATCH 6.6 000/484] 6.6.148-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
- linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
- akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
- patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com,
- jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com,
- rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com, cc@epic-linux.org
-References: <20260730141423.392222816@linuxfoundation.org>
- <e2abbb8e-e222-49d5-bc58-6b5328490ac6@web.de>
- <2026080313-stony-spree-9b45@gregkh>
-Content-Language: en-US
-In-Reply-To: <2026080313-stony-spree-9b45@gregkh>
-X-Provags-ID: V03:K1:xBb5l5KvvSUzW9f0RdTIFqbUpJZc60jjT5dGiObi4YYTSnHBoqu
- WKhzECJlFN5x26f5Gk9sHbzzlpzNv8+siV2GE3CwuQyxV5pNweh2EsLC+0ylLFe9q0Wzb3k
- OxlOdn1d9T7tQ1EiUevFpmRdmheBPfzrH9dYtwAuwyQ5moejSJGQaojvf2qjxjQwKPR0gEn
- Tez/EwcDmNuFYzzsJ2o3A==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:rCPMCNNSwPo=;gcY7NxH0W+u0016Q00lwJRxI3Oh
- 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
- DQw3yye1fyK1OrVNjL7gUVEWMKTXQ0Q5t3r6w=
-
-This is a multi-part message in MIME format.
---------------fMwjKfsybg0Z1na6aaC9I0k0
-Content-Type: text/plain; charset=UTF-8
+References: <20260804120529.1730187-1-pbonzini@redhat.com> <20260804120529.1730187-3-pbonzini@redhat.com>
+ <20260804161549.4cd9a66f@fedora-21.home> <20260804161850.58c55c6e@fedora-21.home>
+In-Reply-To: <20260804161850.58c55c6e@fedora-21.home>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Tue, 4 Aug 2026 16:34:10 +0200
+X-Gm-Features: AUfX_my1qzxj9_dJklyDF5G5un-IXavjOuTxcyczoqFAniCfVGichGNEROtCVP4
+Message-ID: <CABgObfbAveuhkjXzmemvGtycmcmDePKABr8Q35Y9mZP0den5aA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/6] drm/shmem_helper: use vmf_insert_pfn_mkwrite()
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	Alex Williamson <alex@shazbot.org>, bcm-kernel-feedback-list@broadcom.com, 
+	Christian Koenig <christian.koenig@amd.com>, David Hildenbrand <david@kernel.org>, 
+	dri-devel@lists.freedesktop.org, Fei Li <fei1.li@intel.com>, 
+	Huang Rui <ray.huang@amd.com>, linux-mm@kvack.org, linux-s390@vger.kernel.org, 
+	Michal Hocko <mhocko@suse.com>, Peter Xu <peterx@redhat.com>, Sergio Lopez <slp@redhat.com>, 
+	Sean Christopherson <seanjc@google.com>, Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On 03.08.26 10:14, Greg Kroah-Hartman wrote:
-> [...]
-> Ugh.  This is what happens when we are trying to deal with stable stuff
-> that is not upstream, we almost always get it wrong.
->=20
-> Can you send me a revert patch for this, so we can fix your build?
+On Tue, Aug 4, 2026 at 4:19=E2=80=AFPM Boris Brezillon
+<boris.brezillon@collabora.com> wrote:
+> On Tue, 4 Aug 2026 16:15:49 +0200
+> Boris Brezillon <boris.brezillon@collabora.com> wrote:
+> > Actually, if we're making the drm_gem_shmem_record_mkwrite() call
+> > unconditional (for PTE and PMD updates) in that path, can't we drop the
+> > drm_gem_shmem_pfn_mkwrite() call living in drm_gem_shmem_pfn_mkwrite()?
+> >
+> > Also, I'm not even sure we can end up with write=3Dtrue for PTE updates=
+,
+> > because our pfn_mkwrite implementation returns zero, not VM_FAULT_ERROR
+> > or VM_FAULT_NOPAGE. This means the default RO -> RW PTE upgrade
+> > implemented in finish_mkwrite_fault() [1] will take place. If we really
+> > want out try_insert_pfn() to be called for those RO -> RW updgrades, we
+> > need to call try_insert_pfn() from drm_gem_shmem_pfn_mkwrite().
+>
+> Nevermind, it's all explained in the comment you've added. Sorry for
+> the noise. I keep wondering if we shouldn't call try_insert_pfn() from
+> pfn_mkwrite() though, like is done in other places.
 
-Locally I use [1] for now, also attached, based on linux-6.6.y at
-aa0e49877a2e61e9f4ca10e039727a34f59e9964, tag: v6.6.148.
+No, the .pfn_mkwrite() callback is invoked when a PTE already exists,
+and mm/ already takes care of making it writable. So there's nothing
+to insert, you just have to take note which you do with
+drm_gem_shmem_record_mkwrite().
 
-[1]: https://raw.githubusercontent.com/linux-ia64/linux-stable-rc/refs/hea=
-ds/__mirror/patches/linux-6.6.y/0001-Revert-ia64-Make-acpi_cpufreq_cpu_exi=
-t-return-void.patch
+Paolo
 
->  ANd
-> going forward, I think we're just going to have to stick to the "it has
-> to be usptream" stuff, and if you wish to keep this arch alive outside
-> of upstream, the api/build/whatever fallout will have to be on you, as
-> we just can't handle it here, sorry.
-
-I kind of understand the issue here. But if it's impossible to maintain
-all architectures in an LTS kernel that were present during its first
-release, the LTS somewhat loses its meaning IMHO - unless this never
-covered all architectures present in a release. But then I also don't
-understand:
-
-"The ia64 architecture gets its well-earned retirement as planned,
- now that there is one last (mostly) working release that will be
- maintained as an LTS kernel."
-
-...from [2].
-
-[2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/co=
-mmit/?id=3D1e0c505e13162a2abe7c984309cfe2ae976b428d
-
-But I also wonder: if a mainline patch that should go into a stable
-kernel branch but won't work as is, it needs to be backported somewhow,
-or?
-
-Which is IMHO exactly the situation we have here: A mainline patch ([3])
-from a Linux version (6.11) after an arch removal "failed" to modify all
-relevant files in a stable Linux version (6.6) before that arch removal.
-Hence that mainline patch requires modifications.
-
-[3]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/co=
-mmit/?id=3Db4b1ddc9dfe997a5f492fa3a36487f8e7a5de30d
-
-I assume there must have been already cases where a mainline patch was
-desired, but didn't fit as is and so required modifications. If that
-case is supported, it should also work for the few stable Linux branches
-that still have support for ia64 included (linux-5.10.y, linux-5.15.y,
-linux-6.1.y and linux-6.6.y)), no?
-
-****
-
-But if you can't handle that case, sure, we can do it on our own. Though
-again I think there is not much of a difference to cases where a
-mainline patch breaks some still supported arch, device driver, whatever
-in a stable branch and people like to have both working: they cannot fix
-it in mainline.
-
-Cheers,
-Frank
-
---------------fMwjKfsybg0Z1na6aaC9I0k0
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-Revert-ia64-Make-acpi_cpufreq_cpu_exit-return-void.patch"
-Content-Disposition: attachment;
- filename*0="0001-Revert-ia64-Make-acpi_cpufreq_cpu_exit-return-void.patc";
- filename*1="h"
-Content-Transfer-Encoding: base64
-
-RnJvbSA3ZDIxM2RkZTExNWI3N2VlNTc1OWZmZmZjZGNkNGE1MDI2NDY0ZDQ5IE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBGcmFuayBTY2hlaW5lciA8ZnJhbmsuc2NoZWluZXJA
-d2ViLmRlPgpEYXRlOiBUdWUsIDQgQXVnIDIwMjYgMTU6NDg6MDggKzAyMDAKU3ViamVjdDog
-W1BBVENIXSBSZXZlcnQgImlhNjQ6IE1ha2UgYWNwaV9jcHVmcmVxX2NwdV9leGl0IHJldHVy
-biB2b2lkIgoKQ29tbWl0IGI0YjFkZGM5ZGZlOSAoImNwdWZyZXE6IE1ha2UgY3B1ZnJlcV9k
-cml2ZXItPmV4aXQoKSByZXR1cm4Kdm9pZCIpIHdhcyBwYXJ0IG9mIHY2LjYuMTQ1LXJjMS4g
-QnV0IGFzIGl0IHdhcyBkZXJpdmVkIGZyb20gYQpsYXRlciBMaW51eCB2ZXJzaW9uIHcvbyBz
-dXBwb3J0IGZvciBpYTY0IGl0IGRpZG4ndCB0b3VjaCBhbGwKcmVsZXZhbnQgcGFydHMgaW4g
-bGludXgtNi42LnkuIFdoaWNoIG5vdyByZXF1aXJlZCBhbiBleHRyYSBmaXggdG8KYnVpbGQg
-Y29ycmVjdGx5IGZvciBpYTY0LiBCdXQgYjRiMWRkYzlkZmU5IHdhcyB0aGVuIG5vdCBwYXJ0
-IG9mCnRoZSByZWxlYXNlIHY2LjYuMTQ1LiBTbyB0aGUgZXh0cmEgZml4IGNhbiBnbyBub3cs
-IHRvby4KClRoaXMgcmV2ZXJ0cyBjb21taXQgYmI1MWI2MjZiNWE4ZWYzNDliMTE4NzY1NzI1
-NDBmMTlhZDRkNTAzMC4KClNpZ25lZC1vZmYtYnk6IEZyYW5rIFNjaGVpbmVyIDxmcmFuay5z
-Y2hlaW5lckB3ZWIuZGU+Ci0tLQogZHJpdmVycy9jcHVmcmVxL2lhNjQtYWNwaS1jcHVmcmVx
-LmMgfCA0ICsrKy0KIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRp
-b24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2NwdWZyZXEvaWE2NC1hY3BpLWNwdWZyZXEu
-YyBiL2RyaXZlcnMvY3B1ZnJlcS9pYTY0LWFjcGktY3B1ZnJlcS5jCmluZGV4IGY2OTI3Mjkw
-NjhmNS4uYzZiZGM0NTU1MTdmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2NwdWZyZXEvaWE2NC1h
-Y3BpLWNwdWZyZXEuYworKysgYi9kcml2ZXJzL2NwdWZyZXEvaWE2NC1hY3BpLWNwdWZyZXEu
-YwpAQCAtMzAyLDcgKzMwMiw3IEBAIGFjcGlfY3B1ZnJlcV9jcHVfaW5pdCAoCiB9CiAKIAot
-c3RhdGljIHZvaWQKK3N0YXRpYyBpbnQKIGFjcGlfY3B1ZnJlcV9jcHVfZXhpdCAoCiAJc3Ry
-dWN0IGNwdWZyZXFfcG9saWN5ICAgKnBvbGljeSkKIHsKQEAgLTMxNiw2ICszMTYsOCBAQCBh
-Y3BpX2NwdWZyZXFfY3B1X2V4aXQgKAogCQlrZnJlZShwb2xpY3ktPmZyZXFfdGFibGUpOwog
-CQlrZnJlZShkYXRhKTsKIAl9CisKKwlyZXR1cm4gKDApOwogfQogCiAKLS0gCjIuMjUuMQoK
-
-
---------------fMwjKfsybg0Z1na6aaC9I0k0--
