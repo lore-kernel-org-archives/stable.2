@@ -1,422 +1,255 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout.web.de (mout.web.de [212.227.15.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A9D4052DB;
-	Tue,  4 Aug 2026 14:31:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4EC83C8C65;
+	Tue,  4 Aug 2026 14:32:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785853896; cv=none; b=ekhEz/R5OJU09otINKV8tynEc5Z9JX9pwYGMZEqnqC8pdQlgPJSbAbA4ys9O1w2bf8jKul/faJwJhYXCdlLc8jppm4D5QLHOewTN4ZGMo2L/bB5ZhHbM+oeCJl7nXoMH4cVDmLO0JZYrQD3BqztTMfZ863La3Vge7f08r2SMvCw=
+	t=1785853973; cv=none; b=XSL5OQbMepDGvyvg58CfSlIyUwmmHwid+L5ObRb+HXDUatyiq62BSW2U4KnsRDtg873vSRFltDIjTGeS3+/vWI7mvzsqe7Ii1YQZGVqQ8j19RQdyUClXLaH4cgL52GnjbNVg/uAfDUU5URKHxkrnLCXyzgslvakJqk8YrW8uos0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785853896; c=relaxed/simple;
-	bh=ohHOXM5wQOlHKeNq7+XEf7uA0YljkWjbylX0mI0TFhg=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lWWAVdpHF6qRb8I4K+FuWU4g8AyaycT6Bj+ZmnJset1wWdEPFi74BaruaS9R274YoRdBz6CoVuDPEJSIYYEgHqHpGQeNx5DYQnDb7pxKPU6MEx+PIZuvehUliQKVqbU1c5Aovgoo2BP9ctG9Y9lJe5dMMOYxPk1gHIgbNpL57gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sh/WQOEi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785853973; c=relaxed/simple;
+	bh=2DX4OKnrPnVzjghCo2HZChbMK1uWjzRuJ92rgd3NjDE=;
+	h=Content-Type:Message-ID:Date:MIME-Version:From:Subject:To:Cc:
+	 References:In-Reply-To; b=Qz/dTGdaYoxUT2zTzP+fDTAaYtRjSo/0LWllY86tf4OywxQPST3SDUhuOT3E3y2kgSo2+69brFo6vcBrcqIrNGsygPrg4MXCcqmMgolBNSfT4QwT2DNZ2A7qTxQFr/mFRVjVTe85DDgAf+mSKE+ZegH1C6aKGpJfylm+snDXeEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=frank.scheiner@web.de header.b=PGXglcFO; arc=none smtp.client-ip=212.227.15.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sh/WQOEi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1AB1F00A3A;
-	Tue,  4 Aug 2026 14:31:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785853876;
-	bh=Aah06r2kJUNESuaCRJwfmRB0PjzfXKjZfKFJ9FOwtcg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Sh/WQOEi/PaPZdBK+YL7mjBqtr8CvowxxGrtblO7xyapUoJ7dc/Nt882O8YDAZTP2
-	 n9Gei8cHpIThK5wAZUvU+7f7Mn/g9hcGAaUSlZbfF3/fcmzumWZVUCAyBhoaDQPcDv
-	 AjcNQSaOI4aaE7p77ysKy2TV12QFwabs49+tRhIzGGlG93oVSxKcYxpTmKb6bty8ZA
-	 ui9uvScVQxdzJ9/nNJoAO1yDtfY9Q+fuN6+lL5YmytqlzBn/0y93kcJCNBHEYOX4pX
-	 k9O270VYe0GBChZFq0p3wCgwzjmP7alX95PsB1e5fwMVHUdVojqvvM0NUuZAF5ULsh
-	 1qbhu5O4f+e2Q==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wrGAj-0000000CFET-3Ww4;
-	Tue, 04 Aug 2026 14:31:13 +0000
-Date: Tue, 04 Aug 2026 15:31:13 +0100
-Message-ID: <86mrv2arf2.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: arm64: nv: Allocate the shadow S2 MMUs individually
-In-Reply-To: <20260803224405.41468-1-kmehltretter@gmail.com>
-References: <20260803224405.41468-1-kmehltretter@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=web.de header.i=frank.scheiner@web.de header.b="PGXglcFO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1785853913; x=1786458713; i=frank.scheiner@web.de;
+	bh=aWpNZDbulEgmtERlHV+bqlLhmeaTGxBeZbAXFPg+2/I=;
+	h=X-UI-Sender-Class:Content-Type:Message-ID:Date:MIME-Version:From:
+	 Subject:To:Cc:References:In-Reply-To:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=PGXglcFOagySL0PhPk6ai4z2HUhHvGeOhNu1p1oI1ASnx9Qqkt5jGhg61+tCiuAb
+	 x9bPP2KJBUCk4zMAITYtrTxT822iRcGAGGimKIGJ6ET2T12P2l9rD8nImVRHwDb8q
+	 qagZw65Ow4Sh7u9YErUDIRBNCLLXImqyqcUyVhLOI5GApM49lGkOkxy3vhe2NLngq
+	 j3jTXBgBF1sHiK9xCc+uXtYzhGaR+vT5vO9n77TpLAKuwori+0Q3QkuWzNFsQWUc2
+	 V9AUucf6mkdLoTI1JIg49XzFdKkgVAs/qEiLnJge9mbbvRV9erVzpK6tXputVHeE8
+	 6NhlkuXoSZqXJ7FNNg==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1Melaj-1xR8hR3KU9-00aBrB; Tue, 04
+ Aug 2026 16:31:52 +0200
+Content-Type: multipart/mixed; boundary="------------fMwjKfsybg0Z1na6aaC9I0k0"
+Message-ID: <4da1cbe8-3ec2-4b20-8b0e-572ccbf73e29@web.de>
+Date: Tue, 4 Aug 2026 16:31:50 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: kmehltretter@gmail.com, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Frank Scheiner <frank.scheiner@web.de>
+Subject: Re: [PATCH 6.6 000/484] 6.6.148-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+ linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+ akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+ patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com,
+ jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com,
+ rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com, cc@epic-linux.org
+References: <20260730141423.392222816@linuxfoundation.org>
+ <e2abbb8e-e222-49d5-bc58-6b5328490ac6@web.de>
+ <2026080313-stony-spree-9b45@gregkh>
+Content-Language: en-US
+In-Reply-To: <2026080313-stony-spree-9b45@gregkh>
+X-Provags-ID: V03:K1:xBb5l5KvvSUzW9f0RdTIFqbUpJZc60jjT5dGiObi4YYTSnHBoqu
+ WKhzECJlFN5x26f5Gk9sHbzzlpzNv8+siV2GE3CwuQyxV5pNweh2EsLC+0ylLFe9q0Wzb3k
+ OxlOdn1d9T7tQ1EiUevFpmRdmheBPfzrH9dYtwAuwyQ5moejSJGQaojvf2qjxjQwKPR0gEn
+ Tez/EwcDmNuFYzzsJ2o3A==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:rCPMCNNSwPo=;gcY7NxH0W+u0016Q00lwJRxI3Oh
+ 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
+ DQw3yye1fyK1OrVNjL7gUVEWMKTXQ0Q5t3r6w=
 
-On Mon, 03 Aug 2026 23:44:04 +0100,
-Karl Mehltretter <kmehltretter@gmail.com> wrote:
-> 
-> A vCPU in L2 caches its shadow S2 MMU in vcpu->arch.hw_mmu.
-> kvm_vcpu_init_nested() can grow kvm->arch.nested_mmus while initialising
-> another vCPU: it copies the MMUs, publishes the new allocation, and frees
-> the old one.  It updates pgt->mmu back-pointers, but not hw_mmu, leaving
-> the first vCPU with a pointer to freed memory.  hw_mmu cannot be fixed up
-> the same way: a running vCPU reads it without holding mmu_lock.  Copying
-> also duplicates the MMU's refcount, leaving the live copy permanently
-> elevated.
-> 
-> KASAN reports this as a slab-use-after-free in kvm_handle_guest_abort().
-> 
-> Make nested_mmus a pointer table and allocate each MMU separately.
-> Growing the table now moves only pointer entries, preserving cached
-> hw_mmu pointers, pgt->mmu back-pointers, and each MMU's refcount.  Fully
-> initialise new MMUs before publishing the table and its size under
-> mmu_lock.
-> 
-> The old failure path passed uninitialised entries to
-> kvm_free_stage2_pgd(), which needs mmu->arch.  Use an allocation helper
-> that returns only fully initialised MMUs, so error cleanup frees only
-> completed objects; kvm_init_stage2_mmu() unwinds a failed initialisation.
+This is a multi-part message in MIME format.
+--------------fMwjKfsybg0Z1na6aaC9I0k0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-I like the approach, but this is making things a bit more complicated
-than they should really be IMO.
+On 03.08.26 10:14, Greg Kroah-Hartman wrote:
+> [...]
+> Ugh.  This is what happens when we are trying to deal with stable stuff
+> that is not upstream, we almost always get it wrong.
+>=20
+> Can you send me a revert patch for this, so we can fix your build?
 
->
-> Fixes: 4f128f8e1aaa ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
-> 
-> Tested on an arm64 KASAN kernel under QEMU TCG with EL2 emulation
-> (-machine virt,virtualization=on -cpu max, kvm-arm.mode=nested): the
-> selftest in patch 2 reports the slab-use-after-free without this patch
-> and passes with it.
-> 
->  arch/arm64/include/asm/kvm_host.h |  6 +-
->  arch/arm64/kvm/nested.c           | 92 +++++++++++++++++++++----------
->  2 files changed, 67 insertions(+), 31 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> index bae2c4f92ef5..f587b01039f9 100644
-> --- a/arch/arm64/include/asm/kvm_host.h
-> +++ b/arch/arm64/include/asm/kvm_host.h
-> @@ -319,10 +319,10 @@ struct kvm_arch {
->  	u64 fgu[__NR_FGT_GROUP_IDS__];
->  
->  	/*
-> -	 * Stage 2 paging state for VMs with nested S2 using a virtual
-> -	 * VMID.
-> +	 * Stage 2 paging state for VMs with nested S2 using a virtual VMID.
-> +	 * MMUs are individually allocated to keep their addresses stable.
->  	 */
-> -	struct kvm_s2_mmu *nested_mmus;
-> +	struct kvm_s2_mmu **nested_mmus;
->  	size_t nested_mmus_size;
->  	int nested_mmus_next;
->  
-> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> index dfb96edbdc43..af804a5ddca7 100644
-> --- a/arch/arm64/kvm/nested.c
-> +++ b/arch/arm64/kvm/nested.c
-> @@ -5,6 +5,7 @@
->   */
->  
->  #include <linux/bitfield.h>
-> +#include <linux/err.h>
->  #include <linux/kvm.h>
->  #include <linux/kvm_host.h>
->  
-> @@ -66,11 +67,36 @@ static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
->  	return kvm_init_stage2_mmu(kvm, mmu, kvm_get_pa_bits(kvm));
->  }
->  
-> +static struct kvm_s2_mmu *alloc_nested_s2_mmu(struct kvm *kvm)
-> +{
-> +	struct kvm_s2_mmu *mmu;
-> +	int ret;
-> +
-> +	mmu = kzalloc_obj(*mmu, GFP_KERNEL_ACCOUNT);
-> +	if (!mmu)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	ret = init_nested_s2_mmu(kvm, mmu);
-> +	if (ret) {
-> +		/* kvm_init_stage2_mmu() frees its internal allocations on error */
-> +		kfree(mmu);
-> +		return ERR_PTR(ret);
-> +	}
-> +
-> +	return mmu;
-> +}
-> +
-> +static void free_nested_s2_mmu(struct kvm_s2_mmu *mmu)
-> +{
-> +	kvm_free_stage2_pgd(mmu);
-> +	kfree(mmu);
-> +}
-> +
->  int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
->  {
->  	struct kvm *kvm = vcpu->kvm;
-> -	struct kvm_s2_mmu *tmp;
-> -	int num_mmus, ret = 0;
-> +	struct kvm_s2_mmu **tmp;
-> +	int i, num_mmus, ret = 0;
->  
->  	if (test_bit(KVM_ARM_VCPU_HAS_EL2_E2H0, kvm->arch.vcpu_features) &&
->  	    !cpus_have_final_cap(ARM64_HAS_HCR_NV1))
-> @@ -96,38 +122,48 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
->  		if (!tmp)
->  			return -ENOMEM;
->  
-> +		/*
-> +		 * Populate new slots before publishing: table walkers hold
-> +		 * mmu_lock and iterate up to nested_mmus_size.
-> +		 */
-> +		for (i = kvm->arch.nested_mmus_size; i < num_mmus; i++) {
-> +			struct kvm_s2_mmu *mmu = alloc_nested_s2_mmu(kvm);
-> +
-> +			if (IS_ERR(mmu)) {
-> +				ret = PTR_ERR(mmu);
-> +				break;
-> +			}
-> +
-> +			tmp[i] = mmu;
-> +		}
+Locally I use [1] for now, also attached, based on linux-6.6.y at
+aa0e49877a2e61e9f4ca10e039727a34f59e9964, tag: v6.6.148.
 
-You now are allocating each s2_mmu individually. But you know you want
-at most S2_MMU_PER_VCPU structures, and not any extra ones. So you
-could allocate one block for the current vcpu, and let the next guy
-allocate its own quota.
+[1]: https://raw.githubusercontent.com/linux-ia64/linux-stable-rc/refs/hea=
+ds/__mirror/patches/linux-6.6.y/0001-Revert-ia64-Make-acpi_cpufreq_cpu_exi=
+t-return-void.patch
 
-The other thing is that reallocating the pointer array isn't great. It
-adds complexity, and makes everything more fragile than it should be.
+>  ANd
+> going forward, I think we're just going to have to stick to the "it has
+> to be usptream" stuff, and if you wish to keep this arch alive outside
+> of upstream, the api/build/whatever fallout will have to be on you, as
+> we just can't handle it here, sorry.
 
-See the hack below that seems to work OK.
+I kind of understand the issue here. But if it's impossible to maintain
+all architectures in an LTS kernel that were present during its first
+release, the LTS somewhat loses its meaning IMHO - unless this never
+covered all architectures present in a release. But then I also don't
+understand:
 
-	M.
+"The ia64 architecture gets its well-earned retirement as planned,
+ now that there is one last (mostly) working release that will be
+ maintained as an LTS kernel."
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 81d359ac7af14..65a1305c4a749 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -321,7 +321,7 @@ struct kvm_arch {
- 	 * Stage 2 paging state for VMs with nested S2 using a virtual
- 	 * VMID.
- 	 */
--	struct kvm_s2_mmu *nested_mmus;
-+	struct kvm_s2_mmu **nested_mmus;
- 	size_t nested_mmus_size;
- 	int nested_mmus_next;
- 
-diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-index 012d711034d17..d21be647ac571 100644
---- a/arch/arm64/include/asm/kvm_nested.h
-+++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -66,7 +66,7 @@ static inline u64 translate_ttbr0_el2_to_ttbr0_el1(u64 ttbr0)
- 
- extern bool forward_smc_trap(struct kvm_vcpu *vcpu);
- extern bool forward_debug_exception(struct kvm_vcpu *vcpu);
--extern void kvm_init_nested(struct kvm *kvm);
-+extern int kvm_init_nested(struct kvm *kvm);
- extern int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu);
- extern void kvm_init_nested_s2_mmu(struct kvm_s2_mmu *mmu);
- extern struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu);
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 9a6c72a186727..ae27ccc37b330 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -236,7 +236,9 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 	mutex_unlock(&kvm->lock);
- #endif
- 
--	kvm_init_nested(kvm);
-+	ret = kvm_init_nested(kvm);
-+	if (ret)
-+		return ret;
- 
- 	ret = kvm_share_hyp(kvm, kvm + 1);
- 	if (ret)
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index dfb96edbdc43c..e7a066a41b552 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -44,11 +44,15 @@ struct vncr_tlb {
-  */
- #define S2_MMU_PER_VCPU		2
- 
--void kvm_init_nested(struct kvm *kvm)
-+int kvm_init_nested(struct kvm *kvm)
- {
--	kvm->arch.nested_mmus = NULL;
-+	kvm->arch.nested_mmus = kvmalloc_array(KVM_MAX_VCPUS * S2_MMU_PER_VCPU,
-+					       sizeof(struct s2_mmu *),
-+					       GFP_KERNEL_ACCOUNT);
- 	kvm->arch.nested_mmus_size = 0;
- 	atomic_set(&kvm->arch.vncr_map_count, 0);
-+
-+	return kvm->arch.nested_mmus ? 0 : -ENOMEM;
- }
- 
- static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
-@@ -69,8 +73,7 @@ static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
- int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
- {
- 	struct kvm *kvm = vcpu->kvm;
--	struct kvm_s2_mmu *tmp;
--	int num_mmus, ret = 0;
-+	int num_mmus;
- 
- 	if (test_bit(KVM_ARM_VCPU_HAS_EL2_E2H0, kvm->arch.vcpu_features) &&
- 	    !cpus_have_final_cap(ARM64_HAS_HCR_NV1))
-@@ -92,42 +95,34 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
- 	num_mmus = atomic_read(&kvm->online_vcpus) * S2_MMU_PER_VCPU;
- 
- 	if (num_mmus > kvm->arch.nested_mmus_size) {
--		tmp = kvcalloc(num_mmus, sizeof(*tmp), GFP_KERNEL_ACCOUNT);
-+		struct kvm_s2_mmu *tmp;
-+		int ret = 0;
-+
-+		tmp = kvcalloc(S2_MMU_PER_VCPU, sizeof(*tmp), GFP_KERNEL_ACCOUNT);
- 		if (!tmp)
- 			return -ENOMEM;
- 
--		write_lock(&kvm->mmu_lock);
-+		for (int i = 0; !ret && i < S2_MMU_PER_VCPU; i++)
-+			ret = init_nested_s2_mmu(kvm, &tmp[i]);
- 
--		if (kvm->arch.nested_mmus_size) {
--			memcpy(tmp, kvm->arch.nested_mmus,
--			       size_mul(sizeof(*tmp), kvm->arch.nested_mmus_size));
-+		if (ret) {
-+			for (int i = 0; i < S2_MMU_PER_VCPU; i++)
-+				kvm_free_stage2_pgd(&tmp[i]);
- 
--			for (int i = 0; i < kvm->arch.nested_mmus_size; i++)
--				tmp[i].pgt->mmu = &tmp[i];
-+			kvfree(tmp);
-+			free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
-+			vcpu->arch.ctxt.vncr_array = NULL;
-+			return ret;
- 		}
-+		
-+		guard(write_lock)(&kvm->mmu_lock);
- 
--		swap(kvm->arch.nested_mmus, tmp);
-+		for (int i = 0; i < S2_MMU_PER_VCPU; i++)
-+			kvm->arch.nested_mmus[i + kvm->arch.nested_mmus_size] = &tmp[i];
- 
--		write_unlock(&kvm->mmu_lock);
--
--		kvfree(tmp);
-+		kvm->arch.nested_mmus_size += S2_MMU_PER_VCPU;
- 	}
- 
--	for (int i = kvm->arch.nested_mmus_size; !ret && i < num_mmus; i++)
--		ret = init_nested_s2_mmu(kvm, &kvm->arch.nested_mmus[i]);
--
--	if (ret) {
--		for (int i = kvm->arch.nested_mmus_size; i < num_mmus; i++)
--			kvm_free_stage2_pgd(&kvm->arch.nested_mmus[i]);
--
--		free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
--		vcpu->arch.ctxt.vncr_array = NULL;
--
--		return ret;
--	}
--
--	kvm->arch.nested_mmus_size = num_mmus;
--
- 	return 0;
- }
- 
-@@ -725,7 +720,7 @@ void kvm_s2_mmu_iterate_by_vmid(struct kvm *kvm, u16 vmid,
- 	write_lock(&kvm->mmu_lock);
- 
- 	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (!kvm_s2_mmu_valid(mmu))
- 			continue;
-@@ -767,7 +762,7 @@ struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu)
- 	 *   if S2 translation is disabled.
- 	 */
- 	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (!kvm_s2_mmu_valid(mmu))
- 			continue;
-@@ -806,7 +801,7 @@ static struct kvm_s2_mmu *get_s2_mmu_nested(struct kvm_vcpu *vcpu)
- 	for (i = kvm->arch.nested_mmus_next;
- 	     i < (kvm->arch.nested_mmus_size + kvm->arch.nested_mmus_next);
- 	     i++) {
--		s2_mmu = &kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
-+		s2_mmu = kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
- 
- 		if (atomic_read(&s2_mmu->refcnt) == 0)
- 			break;
-@@ -1223,7 +1218,7 @@ void kvm_nested_s2_wp(struct kvm *kvm)
- 		return;
- 
- 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_wp_range(mmu, 0, kvm_phys_size(mmu));
-@@ -1242,7 +1237,7 @@ void kvm_nested_s2_unmap(struct kvm *kvm, bool may_block)
- 		return;
- 
- 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
-@@ -1261,7 +1256,7 @@ void kvm_nested_s2_flush(struct kvm *kvm)
- 		return;
- 
- 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_flush_range(mmu, 0, kvm_phys_size(mmu));
-@@ -1270,13 +1265,14 @@ void kvm_nested_s2_flush(struct kvm *kvm)
- 
- void kvm_arch_flush_shadow_all(struct kvm *kvm)
- {
--	int i;
--
--	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+	for (int i = kvm->arch.nested_mmus_size - 1; i >= 0; i--) {
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (!WARN_ON(atomic_read(&mmu->refcnt)))
- 			kvm_free_stage2_pgd(mmu);
-+
-+		if ((i % S2_MMU_PER_VCPU) == 0)
-+			kvfree(mmu);
- 	}
- 	kvfree(kvm->arch.nested_mmus);
- 	kvm->arch.nested_mmus = NULL;
+...from [2].
 
--- 
-Without deviation from the norm, progress is not possible.
+[2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/co=
+mmit/?id=3D1e0c505e13162a2abe7c984309cfe2ae976b428d
+
+But I also wonder: if a mainline patch that should go into a stable
+kernel branch but won't work as is, it needs to be backported somewhow,
+or?
+
+Which is IMHO exactly the situation we have here: A mainline patch ([3])
+from a Linux version (6.11) after an arch removal "failed" to modify all
+relevant files in a stable Linux version (6.6) before that arch removal.
+Hence that mainline patch requires modifications.
+
+[3]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/co=
+mmit/?id=3Db4b1ddc9dfe997a5f492fa3a36487f8e7a5de30d
+
+I assume there must have been already cases where a mainline patch was
+desired, but didn't fit as is and so required modifications. If that
+case is supported, it should also work for the few stable Linux branches
+that still have support for ia64 included (linux-5.10.y, linux-5.15.y,
+linux-6.1.y and linux-6.6.y)), no?
+
+****
+
+But if you can't handle that case, sure, we can do it on our own. Though
+again I think there is not much of a difference to cases where a
+mainline patch breaks some still supported arch, device driver, whatever
+in a stable branch and people like to have both working: they cannot fix
+it in mainline.
+
+Cheers,
+Frank
+
+--------------fMwjKfsybg0Z1na6aaC9I0k0
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-Revert-ia64-Make-acpi_cpufreq_cpu_exit-return-void.patch"
+Content-Disposition: attachment;
+ filename*0="0001-Revert-ia64-Make-acpi_cpufreq_cpu_exit-return-void.patc";
+ filename*1="h"
+Content-Transfer-Encoding: base64
+
+RnJvbSA3ZDIxM2RkZTExNWI3N2VlNTc1OWZmZmZjZGNkNGE1MDI2NDY0ZDQ5IE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBGcmFuayBTY2hlaW5lciA8ZnJhbmsuc2NoZWluZXJA
+d2ViLmRlPgpEYXRlOiBUdWUsIDQgQXVnIDIwMjYgMTU6NDg6MDggKzAyMDAKU3ViamVjdDog
+W1BBVENIXSBSZXZlcnQgImlhNjQ6IE1ha2UgYWNwaV9jcHVmcmVxX2NwdV9leGl0IHJldHVy
+biB2b2lkIgoKQ29tbWl0IGI0YjFkZGM5ZGZlOSAoImNwdWZyZXE6IE1ha2UgY3B1ZnJlcV9k
+cml2ZXItPmV4aXQoKSByZXR1cm4Kdm9pZCIpIHdhcyBwYXJ0IG9mIHY2LjYuMTQ1LXJjMS4g
+QnV0IGFzIGl0IHdhcyBkZXJpdmVkIGZyb20gYQpsYXRlciBMaW51eCB2ZXJzaW9uIHcvbyBz
+dXBwb3J0IGZvciBpYTY0IGl0IGRpZG4ndCB0b3VjaCBhbGwKcmVsZXZhbnQgcGFydHMgaW4g
+bGludXgtNi42LnkuIFdoaWNoIG5vdyByZXF1aXJlZCBhbiBleHRyYSBmaXggdG8KYnVpbGQg
+Y29ycmVjdGx5IGZvciBpYTY0LiBCdXQgYjRiMWRkYzlkZmU5IHdhcyB0aGVuIG5vdCBwYXJ0
+IG9mCnRoZSByZWxlYXNlIHY2LjYuMTQ1LiBTbyB0aGUgZXh0cmEgZml4IGNhbiBnbyBub3cs
+IHRvby4KClRoaXMgcmV2ZXJ0cyBjb21taXQgYmI1MWI2MjZiNWE4ZWYzNDliMTE4NzY1NzI1
+NDBmMTlhZDRkNTAzMC4KClNpZ25lZC1vZmYtYnk6IEZyYW5rIFNjaGVpbmVyIDxmcmFuay5z
+Y2hlaW5lckB3ZWIuZGU+Ci0tLQogZHJpdmVycy9jcHVmcmVxL2lhNjQtYWNwaS1jcHVmcmVx
+LmMgfCA0ICsrKy0KIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRp
+b24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2NwdWZyZXEvaWE2NC1hY3BpLWNwdWZyZXEu
+YyBiL2RyaXZlcnMvY3B1ZnJlcS9pYTY0LWFjcGktY3B1ZnJlcS5jCmluZGV4IGY2OTI3Mjkw
+NjhmNS4uYzZiZGM0NTU1MTdmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2NwdWZyZXEvaWE2NC1h
+Y3BpLWNwdWZyZXEuYworKysgYi9kcml2ZXJzL2NwdWZyZXEvaWE2NC1hY3BpLWNwdWZyZXEu
+YwpAQCAtMzAyLDcgKzMwMiw3IEBAIGFjcGlfY3B1ZnJlcV9jcHVfaW5pdCAoCiB9CiAKIAot
+c3RhdGljIHZvaWQKK3N0YXRpYyBpbnQKIGFjcGlfY3B1ZnJlcV9jcHVfZXhpdCAoCiAJc3Ry
+dWN0IGNwdWZyZXFfcG9saWN5ICAgKnBvbGljeSkKIHsKQEAgLTMxNiw2ICszMTYsOCBAQCBh
+Y3BpX2NwdWZyZXFfY3B1X2V4aXQgKAogCQlrZnJlZShwb2xpY3ktPmZyZXFfdGFibGUpOwog
+CQlrZnJlZShkYXRhKTsKIAl9CisKKwlyZXR1cm4gKDApOwogfQogCiAKLS0gCjIuMjUuMQoK
+
+
+--------------fMwjKfsybg0Z1na6aaC9I0k0--
