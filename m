@@ -1,74 +1,70 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A6DD3603C2;
-	Tue,  4 Aug 2026 06:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF5621767D;
+	Tue,  4 Aug 2026 06:26:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785824340; cv=none; b=i4XlB51Qb3jry7wbzLQkbbxoRNnO4niKWcMbqGEyz6Py4ImeGnbO3aGNzrD9ZbF0RuoNam4Fj5DarRMkigftOvGMgpXvoH54Z6jZKHps8OItBRwPUxF0lRdEt7F67rHD4Y0y2laNCsZFFV/o3Yuf9mTWKdeQ8+E8BE5AC/tbDuY=
+	t=1785824784; cv=none; b=mfhwuwH4W+x0LHJHg9SxxCMGWXVIZNDMViWUpiN1XC6SHjCGf5MgsiP7hPWfnmb13asw/KQ18QMv0Kiw3gJUiXGJQZaxqPCGU6K8YZ1ms8NJ1maRPVhE+xY4xu0aLMHqriX9ypuwi3o1BBn0JouKTBlodx27exmSjzvg4RW7jrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785824340; c=relaxed/simple;
-	bh=5fE3X1Wjtrr36x9FoDny7H2bXEFplz1eLA2gXJUQmy8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kZs//rMimDx/bxU2RZWgOocWzZ0Zxev2uDaN53m65xHaojvUvGK3kOrOQ3lBXeMIrz2QWF6qiKI6i5ktCyW8H6jPRKgZieuPf0Squ3bqjodLJgqDbisSLNGF9t9l2sYL3YgXD4cvRhrLOfj2XIlqWV9hXyudpwxadL1y42zaF9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=EY6frFRZ reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1785824784; c=relaxed/simple;
+	bh=c7w9zmE87QSB+Fi2WqrLag1E4Sr6WjMNT5E4OEo81hI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UvM6J24x3cHwURz9giaEWWpJC9n72KQCJexQPovnHFYQSFwbdcdUhPEl5PlS4B3FMBtJt06dhAX8FloSYKy9sK3AuIe4vv99lG25/7/xhb4OedyH3tWH7K6WCdcrygHPglTZBqjyJ2hEh8WEWFkRHDrJft19V4t6oFSpIHi3VSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=A6HsTikc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="EY6frFRZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
-	MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=iwPMobUGJ
-	b9Mp6jsLSzeM4wpVTSjA/s5fET8NykvjHY=; b=EY6frFRZEUZ7gu3TEv4cBWOdJ
-	QJOXaEVBqRQQ4R6zTSIYGWoJf0r00N/0KnOyxnfvjONBOtZVrWXUvbnkIOUbKhIQ
-	gqFdCJHyEcRKeStgkKGLkZ3TAhToQW7AhLsxjznEEo7T87zHOqEODe1Po79cpEn5
-	tuBf4q0KhcgTTieqwE=
-Received: from [192.168.1.110] (unknown [115.53.183.158])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with SMTP id BbQMCkCW+9RAhHFqjD7bAQ--.20798S3;
-	Tue, 04 Aug 2026 14:18:41 +0800 (CST)
-Message-ID: <2459be1a-7507-4bc4-a235-09c18ca6b8a6@stu.xidian.edu.cn>
-Date: Tue, 4 Aug 2026 14:18:40 +0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="A6HsTikc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D68531F000E9;
+	Tue,  4 Aug 2026 06:26:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785824783;
+	bh=u7ScsXC9B7i6Ms3pvR7Shh6wb2KMsAsSGvEVyKiqgxM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A6HsTikc3UFM2sx8zRg53QccF7EnFU60iVdFXdkV7gF5PupJJ7gIzqj8v1FotzhBi
+	 RThwkyrp1WQ0PiaHVIwKOtUIVkRFD544W+Ks/HWoUE1uxDbMVRPAZvMkSI2yn3BioV
+	 i/BCX+6ZcSfWqOV1Tkg1cAwHT5yA6epqsGxkGDSc=
+Date: Tue, 4 Aug 2026 08:24:54 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Cc: heikki.krogerus@linux.intel.com, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: tipd: fix uninitialized typec_partner_desc
+ on stack
+Message-ID: <2026080439-elusive-lushness-2165@gregkh>
+References: <20260803171521.3381942-1-radhey.shyam.pandey@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] module: fix UAF and GPF in idempotent_init_module via
- heap allocation
-To: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>
-Cc: Aaron Tomlin <atomlin@atomlin.com>, Johan Hovold <johan@kernel.org>,
- linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260717082601.81704-1-25181214217@stu.xidian.edu.cn>
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-In-Reply-To: <20260717082601.81704-1-25181214217@stu.xidian.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:BbQMCkCW+9RAhHFqjD7bAQ--.20798S3
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYH7k0a2IF6F1UM7kC6x804xWl14x267AK
-	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
-	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r4j
-	6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gr
-	1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAac4AC62xK8xCEY4vEwIxC
-	4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
-	IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
-	M4x0Y48IcVAKI48JMxkIecxEwVAFwVW8AwCF04k20xvY0x0EwIxGrwCF54CYxVCY1x0262
-	kKe7AKxVWUtVW8ZwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
-	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr4
-	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1l
-	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
-	A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7xRMnYFDUUUUU==
-X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAQUPEWpwsO5ougAAsM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260803171521.3381942-1-radhey.shyam.pandey@amd.com>
 
-Hi Luis, Petr, and others,
+On Mon, Aug 03, 2026 at 10:45:21PM +0530, Radhey Shyam Pandey wrote:
+> tps6598x_connect() and cd321x_update_work() pass a stack-allocated
+> typec_partner_desc to typec_register_partner() after initializing only
+> usb_pd, accessory and identity.
+> 
+> typec_register_partner() copies attach and deattach from the descriptor
+> into the partner. With those fields left unset, garbage function pointers
+> may be stored and later invoked from typec_partner_link_device() when a USB
+> device is linked to the port. Uninitialized pd_revision and usb_capability
+> similarly leak stack data through partner sysfs.
+> 
+> Zero-initialize the descriptor so optional callbacks remain NULL and the
+> remaining fields are zero.
+> 
+> Fixes: 82432bbfb9e8 ("usb: typec: tipd: Handle mode transitions for CD321x")
+> Fixes: 0a4c005bd171 ("usb: typec: driver for TI TPS6598x USB Power Delivery controllers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+> ---
+> AI code scanning identified this issue; the possible call graph is shown below.
 
-Gentle ping on this patch.
-Please let me know if there are any updates or if further modifications 
-are needed from my side.
+Nice, then please use an Assisted-by: tag.
 
-Thanks,
-Mingyu
+thanks,
 
+greg k-h
