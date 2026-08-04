@@ -1,87 +1,75 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5720A383C8F
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 12:34:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4385E3502A5
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 12:36:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785846899; cv=none; b=kam3ff4M6AlK38FuYxUOmzIL+n7Rq/OYWIl7RjRdHXPvirjLo/h/yiuPOHUD6JXcXKAgnnCLd/H9yhwrHzMCtnclg+pZLz6SYvkckpD4ggRFnSTA9jVG2nl+SkpboyflKxmxllw2F5Dft/4p7dJ8IAMAEviaLn3ZDrMY3R+7Evk=
+	t=1785846980; cv=none; b=maNfEIa+mMqhx6tTmjqAWta3dg33w/YBowCY/3DhzcPH/RkIMnKbjPlxuVFfYwiIjeBFOrHd1NgByYLaPwWluQZNQph+9js2xqrJ6t2GoTOCl/LlVkielrU/qbiHoDnAn8K7bzc8WmegJaO1iKOmoI5dIXzDRQHHysWRkR1NpdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785846899; c=relaxed/simple;
-	bh=xvzx6jNSlsMnElj3JdiPx7NYYZ80ry82gdfZdzM/6/E=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=j7kUr6Ua0/31rWj3iw/Px1DdOWpmd1vNo09AC22nGRx4CHJBxNSgWClc5xb3OX/nwk7YWUxTv+HMlskT4QXV7o/6XIHqVdcErzphhapUoJYLpJkJdjfbxUQxB0f4r1/pFYjD7u5NE80fl/55qRAju81aBUOb28ecUFLN7r7/i2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TgsAtjym; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785846980; c=relaxed/simple;
+	bh=oHaM34hp+B9wAo6Y7dFZXtCxJZUfh5bqm1Nuxuql9Zk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sL2yUeUNtxQAwqjG723CjCNIMXW5WGzIKolJ4p3pq4Bqy2v9wR9yZDwFsSZWUH3tkqrYISd4syQxGmhYf5m2W3bSKhdueo0gaRtqMUwLBO5wC2D/ZDuppc/XmRSXuuQwkhQ8hoWYuMExn8/FoC8EH3UHrhsyBDN8Nih1fSOejqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=haNHaKdR; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xbow.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TgsAtjym"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ce98cb8165so11479555ad.1
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 05:34:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="haNHaKdR"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-84e0688b7e8so4297796b3a.1
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 05:36:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785846896; x=1786451696; darn=vger.kernel.org;
+        d=xbow.com; s=google; t=1785846978; x=1786451778; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CB1U22h59ehvXfT2urrNAh9x6cLRqc+DhUPBJEXZPtY=;
-        b=TgsAtjym+JauGZITblkq2/wv8Rt71NgbklCUFYV7f6fJ42+CY36ESviPPPJhlMChfT
-         s83gYQ1rda7PS8CWkAhR9iwdwwMPN79TZOxOznHRt7ziCtRAjf1xaS4uzc+Qn8/meD3b
-         utmCmwnZmJEOtx1ZNsqZgso4KFjaQzSjhP65Yr0NufcUsTBwtnl9fXbGoXzJMB2l9Gcc
-         2aBon0QoKkYPYqn9uY63JRAuccukPP7fTSsyQc3W5xT0nmzFx3BAuIqgejZpGlS0WfVR
-         Y5EN/znE+/NGvY2XyQNTnvr/UZwwGVCp3uQEX4/K18uIGPpvABiO2sAUVWSkXYfjS+MH
-         B4Ag==
+        bh=ACp9n2o3Ordwb2znUSpgKmVNWolGQJeT8LdRSV1/Gjs=;
+        b=haNHaKdRvadfIfFLC6UbmprU1LvMKpyi/cHhEHtQSDoetWSl76L6oJwNN2ZOS6rvQf
+         E0kMwPRQhw4xlr7PUmIfEpkulxpynCVg9Va9ZHrVFapprymRpgKxf+AUNnqlNSyEi6V+
+         pgyja77egGtcmz/TUxdlPW9GTlqM41fnPECt7PDV2bbLMmwcKHPc6Y9+gW/YyCqRB7Ix
+         wLp0wLVVFPNuOuSFMjaLmwSfEJGfpvX2IMMWyRgsH+m+IAABT8T1dm/+Tz0n478ib4FS
+         alTiYP/pfCWU7Zk1kISbxzw1aG0tNbvEaOui632mn5Q5hDFQ0Q8i8YGokGFLCTW/13wI
+         LO0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785846897; x=1786451697;
+        d=1e100.net; s=20251104; t=1785846978; x=1786451778;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CB1U22h59ehvXfT2urrNAh9x6cLRqc+DhUPBJEXZPtY=;
-        b=f3SYfevh6K37frfEHoRf0Kivuu+gt/Vq+Gs9gxZ+WCRk3b4f5MGximWzgIF+txOeHJ
-         9wVpARhWebTkO8gxPfXCN7DmKnChpXihbUSDODBBrP8olGRj+owuX2KA90qt+s584LcQ
-         WmvV7Ep27LVMPqenaCpg1EYaKHi+Jk/ZWz6VYvJwO6AG4o7AZAAAMYJcZ/WzJEMxfTwL
-         1/iluWh16PZRAdjQM/OipB88wHHVITptuGpxJtyzNc1MRNk0w1R4jqUvSQ8lPicQ2Lph
-         yioXZF4Fx1oAfsYK3M4Z8zWH7gKPUAIBGDuWr2fP2YcHqnSycSmaqYqcEuoztPwJcYuJ
-         pgRg==
-X-Forwarded-Encrypted: i=1; AHgh+RpvQ2zjdlrDGnXwazmpLPzmZGIz+7ysSNqkIgOl3Zx/mdgRhebqjDyXe8dWDSmfeQ178RboWUI=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy88nunMHUKNqG90ctolnHTdX+g6bK1t0jf/zmtKy2j2b33OiT8
-	3fqxm+MMtvvzaVUH1q5R24ntKqDNWViye82zxWB3vUuSv4NpHrNE6boH
-X-Gm-Gg: AR+sD12tKYNuvT1B75Q1xsrCRhRHQaI0oxjv/AYzO21WLwLMGpZclbaB3wqI/1dTlKY
-	Cb1ctwS0WANun6HYBzIh7pbtxAXCsccSfzzwSg3C2b2ifitR2QNqZB4CLKDperEqLQ9kqHwTfy4
-	L9r09bhjJuxg2LtX9erqY9FH9EARCBarwrKmCVKeF+xQrTrPavUj++wb12O6pnVrEAElVzs3AgS
-	EToFLUzKsgzbVVuiuOB5UL6OVQk26WQpGMa+4WHCqOZvZ0YWnR0dHr3OI+67+Lz5uJ1iDi1uZaH
-	uYmW8Sk3NxOpRbEfduGWh8DXzKaRJa0ilX1Kny0CMIgTm01jW9f9cDFmvqsLex0vPGNVjPaB291
-	5qr8HI4/9drUgLtSPmjhyqAPRPIbevVXnWktFwZahouTcjw06V0N9laWbtJOK6r06uy4oC1bzRA
-	vrIYhiRfbcQdWqcPD+fpAwdmwvNDSZ+1NP/wgPEEkiBcIt3WupN3PhJhfwybB0GafRti4572Tew
-	k4oiLy1fsh8UNKn77W9hLAYgNh5TZVsLKc0Kz2VNmoKZg==
-X-Received: by 2002:a17:903:2ecb:b0:2cf:70d2:da7c with SMTP id d9443c01a7336-2d08aa7fdddmr31872815ad.12.1785846896392;
-        Tue, 04 Aug 2026 05:34:56 -0700 (PDT)
-Received: from chcpu15.cse.ust.hk (191host116.mobilenet.cse.ust.hk. [143.89.191.116])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0a9f9370esm7101365ad.8.2026.08.04.05.34.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 05:34:55 -0700 (PDT)
-From: Qi Zhang <marsy12010123@gmail.com>
-To: "D. Wythe" <alibuda@linux.alibaba.com>,
-	Dust Li <dust.li@linux.alibaba.com>,
-	Sidraya Jayagond <sidraya@linux.ibm.com>,
-	Wenjia Zhang <wenjia@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Tony Lu <tonylu@linux.alibaba.com>,
-	Wen Gu <guwen@linux.alibaba.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Ursula Braun <ubraun@linux.vnet.ibm.com>
-Cc: linux-rdma@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	netdev@vger.kernel.org,
+        bh=ACp9n2o3Ordwb2znUSpgKmVNWolGQJeT8LdRSV1/Gjs=;
+        b=BwVECsUBGFwMx0dBaRnsMdXFsKYAnCh7GnKZjfOqXoOEiMH6rPD57nGwnHLUrRkyYu
+         93MPtgTdoAQeEYm6o9NwAIXZ2k+nx5jMe+1TuWL5mof8BDsFd6+Q3o3egouEexcpQEOk
+         SrQ6fuJuM4ksUNdpCermyMKHEm5WqturbtbgZHvrJevVXxrE/rvFXHt0aUgGblauQNAI
+         SgfzJCyHTXu4uOGnfVK98eQO6b2s+AaVJj/sCF9WJp5csH1cAHiaYmUDXa9PLbpT6e6O
+         xiV7GcIvr4WeHlQ/gEuD8VL7Rg5MHWZju28uacvyQXE+JTCRarYBr0J8ECEspLB5mlMW
+         e49g==
+X-Forwarded-Encrypted: i=1; AHgh+Rpn+CVtgiopFEsYvwuKGJ+7kWca2XIbaA1+P0zkUu8QtidPu8ZnNRrXuhGcprkIqZ63OJS0l8I=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4r6XI83m/GSSOStdhCfxFpQms/NnJhvd+6wE7efPnLIvjqKsv
+	DcLGg0reviGOGyQ6+qEvRKrfkZFXzmJz1J56ZWO45guW3dY67S+tTqI4kt8gDRQKQNw=
+X-Gm-Gg: AR+sD13/4kT3+LNoto6W9MqJTfGdRClF9S6j/Ewryr0pL842OOw6HjbliIJmbqDWnIj
+	OknfkOGwBMht5XrBsfDdGni5Zx5hFfn3b/+xihGKNbjHc2ckTyPOOinRoXwLCoADNqX54vKp1/j
+	qzZcrgBC1m8+uGPjJm2KOxlaIMfaq67ZL2APGkFGpVvo/Q+S8VUZZ8bb2GfW5A4vq9CNyTd7IF9
+	ZX8njf/1tnAzyF3JmcT8XQxPE9zfQErc6+kaKftZWN+d5chFn8/z8vleoVnEkTadJ3jG62xUkMC
+	ork80pJZjRDE/R0BHvaNoVBkRsMm7ktTl8dVkjTh8gT0IRanAokJedn30O5K4TIG6ELrTW3GZ5w
+	ccYTiEeK1s6ACXKvbDglgmAYFxTK/evniO1vRos4pM6Tvwc8ZNdh1fxmgTeNpNOZy7yXWi6kaX1
+	QNPPRM7BVofgF13So0u34q2qWzZKzmDiSOgOiRrBHOmFr1xBKBdBTI2NOdiC2eUPHbvozdM4+uZ
+	+UrWvaCZZU/hfzslO0B/IAXDxHftzA2W7Sfftc=
+X-Received: by 2002:a05:6a00:4652:b0:848:2f7a:2e5c with SMTP id d2e1a72fcca58-84ee499eab3mr12628434b3a.75.1785846978444;
+        Tue, 04 Aug 2026 05:36:18 -0700 (PDT)
+Received: from Mac.lan ([125.128.148.126])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84edbe593basm5086345b3a.21.2026.08.04.05.36.14
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 04 Aug 2026 05:36:17 -0700 (PDT)
+From: Baul Lee <baul.lee@xbow.com>
+To: g@b4.vu,
+	perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	federico.kirschbaum@xbow.com,
 	stable@vger.kernel.org,
-	Qi Zhang <marsy12010123@gmail.com>
-Subject: [PATCH net] net/smc: prevent device removal during connection setup
-Date: Tue,  4 Aug 2026 20:34:18 +0800
-Message-Id: <20260804123418.2214979-1-marsy12010123@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	Baul Lee <baul.lee@xbow.com>
+Subject: [PATCH] ALSA: FCP: fix OOB write in fcp_meter_ctl_get()
+Date: Tue,  4 Aug 2026 21:36:11 +0900
+Message-ID: <20260804123611.91715-1-baul.lee@xbow.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -90,289 +78,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+fcp_ioctl_set_meter_map() bounds the user-supplied Level Meter map size
+by the driver's own limit of 255
 
-smc_pnet_determine_gid() stores an smc_ib_device pointer in connection
-initialization data while holding smc_ib_devices.mutex. Connection setup
-keeps using the pointer after releasing the mutex, but device removal only
-waits for links which have already incremented lnk_cnt.
+	if (map.map_size < 1 || map.map_size > 255 ||
+	    map.meter_slots < 1 || map.meter_slots > 255)
+		return -EINVAL;
 
-This permits the following interleaving:
+and passes it to fcp_add_new_ctl() as the control's channel count, where
+it is stored as elem->channels.
 
-  connection setup                 device removal
-  ----------------                 --------------
-  select smcibdev
-  store ini->smcrv2.ib_dev_v2
-  mutex_unlock()
-                                   remove smcibdev from the device list
-                                   observe lnk_cnt == 0
-                                   return from the remove callback
-                                   kfree(smcibdev)
-  copy smcibdev->pnetid
+Every control read writes into struct snd_ctl_elem_value, whose integer
+array is declared long value[128], so the limit is 128, not 255.
+fcp_meter_ctl_get() stores one 64-bit word per channel into that array
+with no bound of its own:
 
-KASAN reported:
+	for (i = 0; i < elem->channels; i++) {
+		int idx = private->meter_level_map[i];
+		int value = idx < 0 ? 0 : le32_to_cpu(resp[idx]);
 
-  BUG: KASAN: slab-use-after-free in smc_conn_create+0x1330/0x2680
-  Read of size 16 at addr ffff888112dbd934 by task smc_bug86/97
-  Call Trace:
-   __asan_memcpy
-   smc_conn_create
-   __smc_connect
-   smc_connect
-   __sys_connect
-  Allocated by task 93:
-   smc_ib_add_dev
-   add_client_context
-   ib_register_device
-   nldev_newlink
-  Freed by task 98:
-   kfree
-   remove_client_context
-   __ib_unregister_device
-   nldev_dellink
+		ucontrol->value.integer.value[i] = value;
+	}
 
-Track selected-device users separately from established links. Acquire a
-selection reference while smc_ib_devices.mutex protects the device list,
-and release it when the connection initialization data is discarded. After
-delisting a device, wait for these users before terminating its links. This
-lets in-flight setup either fail or make any newly created link visible to
-the termination pass, while delisting prevents new users.
+snd_ctl_elem_read_user() serves that object from
+memdup_user(_control, sizeof(*control)), 1224 bytes on LP64 out of
+kmalloc-2048.  offsetof(struct snd_ctl_elem_value, value) is 72, so
+element i is written at byte 72 + 8 * i and element 144 already lands
+past the allocation.  At map_size 255 the last store ends at byte 2112,
+888 bytes past the object and 64 bytes into the adjacent slab object.
+The stored words come from the device and meter_level_map[] selects
+which word lands in which slot, so extent and contents are both
+controlled.
 
-Fixes: a046d57da19f ("smc: CLC handshake (incl. preparation steps)")
+The core does not catch this.  snd_ctl_check_elem_info() is reached only
+from __snd_ctl_elem_info(), which snd_ctl_elem_read() calls under
+CONFIG_SND_CTL_DEBUG; without that option snd_ctl_skip_validation() is a
+compile-time true.  __snd_ctl_add_replace() validates kcontrol->count and
+never inspects elem->channels.
+
+Installing an oversized map needs CAP_SYS_RAWIO, but the control outlives
+the hwdep descriptor that created it, so the out-of-bounds stores are
+issued by any process able to read controls on /dev/snd/controlC0.
+
+KASAN on 7.2.0-rc5 (arm64), triggered by an unprivileged control read:
+
+  BUG: KASAN: slab-out-of-bounds in fcp_meter_ctl_get
+  Write of size 8 at addr ffff000017af04c8 by task fcp_trigger/185
+   __asan_store8
+   fcp_meter_ctl_get
+   snd_ctl_elem_read
+   snd_ctl_ioctl
+  Allocated by task 185:
+   memdup_user
+   snd_ctl_ioctl
+  The buggy address is located 0 bytes to the right of
+   allocated 1224-byte region [ffff000017af0000, ffff000017af04c8)
+
+Bound the map size by the ABI limit rather than by 255, and bound the
+store loop at the sink so it cannot run past the value array whatever
+elem->channels holds.
+
+Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+
+Fixes: 46757a3e7d50 ("ALSA: FCP: Add Focusrite Control Protocol driver")
+Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
+Reported-by: Baul Lee <baul.lee@xbow.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Qi Zhang <marsy12010123@gmail.com>
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
 ---
- net/smc/af_smc.c   | 11 +++++++----
- net/smc/smc_core.c | 11 +++++++++++
- net/smc/smc_core.h |  3 +++
- net/smc/smc_ib.c   |  5 +++++
- net/smc/smc_ib.h   | 13 +++++++++++++
- net/smc/smc_llc.c  |  8 ++++----
- net/smc/smc_pnet.c |  8 ++++++++
- 7 files changed, 51 insertions(+), 8 deletions(-)
-
-diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-index b5db69073e20..160271464305 100644
---- a/net/smc/af_smc.c
-+++ b/net/smc/af_smc.c
-@@ -1225,7 +1225,7 @@ void smc_fill_gid_list(struct smc_link_group *lgr,
- 	       SMC_GID_SIZE);
+diff --git a/sound/usb/fcp.c b/sound/usb/fcp.c
+index 6f5dcd35e1d4..2bf572c6fdc4 100644
+--- a/sound/usb/fcp.c
++++ b/sound/usb/fcp.c
+@@ -129,6 +129,10 @@ struct fcp_data {
  
- out:
--	kfree(alt_ini);
-+	smc_init_info_free(alt_ini);
- }
+ #define FCP_SEGMENT_APP_GOLD 0
  
- static int smc_connect_rdma_v2_prepare(struct smc_sock *smc,
-@@ -1596,14 +1596,14 @@ static int __smc_connect(struct smc_sock *smc)
- 	SMC_STAT_CLNT_SUCC_INC(sock_net(smc->clcsock->sk), aclc);
- 	smc_connect_ism_vlan_cleanup(ini);
- 	kfree(buf);
--	kfree(ini);
-+	smc_init_info_free(ini);
- 	return 0;
- 
- vlan_cleanup:
- 	smc_connect_ism_vlan_cleanup(ini);
- 	kfree(buf);
- fallback:
--	kfree(ini);
-+	smc_init_info_free(ini);
- 	return smc_connect_decline_fallback(smc, rc, version);
- }
- 
-@@ -2343,7 +2343,10 @@ static void smc_find_rdma_v2_device_serv(struct smc_sock *new_smc,
- 
- not_found:
- 	ini->smcr_version &= ~SMC_V2;
-+	if (ini->smcrv2.ib_dev_v2_ref)
-+		smc_ibdev_init_put(ini->smcrv2.ib_dev_v2);
- 	ini->smcrv2.ib_dev_v2 = NULL;
-+	ini->smcrv2.ib_dev_v2_ref = false;
- 	ini->check_smcrv2 = false;
- }
- 
-@@ -2587,7 +2590,7 @@ static void smc_listen_work(struct work_struct *work)
- 	smc_listen_decline(new_smc, rc, ini ? ini->first_contact_local : 0,
- 			   proposal_version);
- out_free:
--	kfree(ini);
-+	smc_init_info_free(ini);
- 	kfree(buf);
- }
- 
-diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-index cf6b620fef05..e59f327f294c 100644
---- a/net/smc/smc_core.c
-+++ b/net/smc/smc_core.c
-@@ -55,6 +55,17 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft);
- 
- static void smc_link_down_work(struct work_struct *work);
- 
-+void smc_init_info_free(struct smc_init_info *ini)
-+{
-+	if (!ini)
-+		return;
-+	if (ini->ib_dev_ref)
-+		smc_ibdev_init_put(ini->ib_dev);
-+	if (ini->smcrv2.ib_dev_v2_ref)
-+		smc_ibdev_init_put(ini->smcrv2.ib_dev_v2);
-+	kfree(ini);
-+}
++#define FCP_MAX_METER_MAP_SIZE \
++	(sizeof_field(struct snd_ctl_elem_value, value.integer.value) / \
++	 sizeof(long))
 +
- /* return head of link group list and its lock for a given link group */
- static inline struct list_head *smc_lgr_list_head(struct smc_link_group *lgr,
- 						  spinlock_t **lgr_lock)
-diff --git a/net/smc/smc_core.h b/net/smc/smc_core.h
-index 5c18f08a4c8a..385f16cc5368 100644
---- a/net/smc/smc_core.h
-+++ b/net/smc/smc_core.h
-@@ -403,6 +403,7 @@ struct smc_init_info_smcrv2 {
+ /* Forward declarations */
+ static int fcp_init(struct usb_mixer_interface *mixer,
+ 		    void *step0_resp, void *step2_resp);
+@@ -410,6 +414,9 @@ static int fcp_meter_ctl_get(struct snd_kcontrol *kctl,
+ 	if (err < 0)
+ 		return err;
  
- 	/* Output fields when saddr is set */
- 	struct smc_ib_device	*ib_dev_v2;
-+	bool			ib_dev_v2_ref;
- 	u8			ib_port_v2;
- 	u8			ib_gid_v2[SMC_GID_SIZE];
- 
-@@ -438,6 +439,7 @@ struct smc_init_info {
- 	u8			peer_mac[ETH_ALEN];
- 	u8			peer_systemid[SMC_SYSTEMID_LEN];
- 	struct smc_ib_device	*ib_dev;
-+	bool			ib_dev_ref;
- 	u8			ib_gid[SMC_GID_SIZE];
- 	u8			ib_port;
- 	u32			ib_clcqpn;
-@@ -594,6 +596,7 @@ void smc_rtoken_set2(struct smc_link_group *lgr, int rtok_idx, int link_id,
- void smc_sndbuf_sync_sg_for_device(struct smc_connection *conn);
- void smc_rmb_sync_sg_for_cpu(struct smc_connection *conn);
- int smc_vlan_by_tcpsk(struct socket *clcsock, struct smc_init_info *ini);
-+void smc_init_info_free(struct smc_init_info *ini);
- 
- void smc_conn_free(struct smc_connection *conn);
- int smc_conn_create(struct smc_sock *smc, struct smc_init_info *ini);
-diff --git a/net/smc/smc_ib.c b/net/smc/smc_ib.c
-index 9bb495707445..01c9b5c62df7 100644
---- a/net/smc/smc_ib.c
-+++ b/net/smc/smc_ib.c
-@@ -950,6 +950,8 @@ static int smc_ib_add_dev(struct ib_device *ibdev)
- 
- 	smcibdev->ibdev = ibdev;
- 	INIT_WORK(&smcibdev->port_event_work, smc_ib_port_event_work);
-+	atomic_set(&smcibdev->init_cnt, 0);
-+	init_waitqueue_head(&smcibdev->init_wait);
- 	atomic_set(&smcibdev->lnk_cnt, 0);
- 	init_waitqueue_head(&smcibdev->lnks_deleted);
- 	mutex_init(&smcibdev->mutex);
-@@ -1000,6 +1002,9 @@ static void smc_ib_remove_dev(struct ib_device *ibdev, void *client_data)
- 	mutex_unlock(&smc_ib_devices.mutex);
- 	pr_warn_ratelimited("smc: removing ib device %s\n",
- 			    smcibdev->ibdev->name);
-+	if (atomic_read(&smcibdev->init_cnt))
-+		wait_event(smcibdev->init_wait,
-+			   !atomic_read(&smcibdev->init_cnt));
- 	smc_smcr_terminate_all(smcibdev);
- 	smc_ib_cleanup_per_ibdev(smcibdev);
- 	ib_unregister_event_handler(&smcibdev->event_handler);
-diff --git a/net/smc/smc_ib.h b/net/smc/smc_ib.h
-index ef8ac2b7546d..8e9fd5a200a2 100644
---- a/net/smc/smc_ib.h
-+++ b/net/smc/smc_ib.h
-@@ -51,6 +51,8 @@ struct smc_ib_device {				/* ib-device infos for smc */
- 	struct work_struct	port_event_work;
- 	unsigned long		port_event_mask;
- 	DECLARE_BITMAP(ports_going_away, SMC_MAX_PORTS);
-+	atomic_t		init_cnt;	/* number of device selections */
-+	wait_queue_head_t	init_wait;	/* wait for selections to end */
- 	atomic_t		lnk_cnt;	/* number of links on ibdev */
- 	wait_queue_head_t	lnks_deleted;	/* wait 4 removal of all links*/
- 	struct mutex		mutex;		/* protect dev setup+cleanup */
-@@ -59,6 +61,17 @@ struct smc_ib_device {				/* ib-device infos for smc */
- 	int			ndev_ifidx[SMC_MAX_PORTS]; /* ndev if indexes */
- };
- 
-+static inline void smc_ibdev_init_get(struct smc_ib_device *smcibdev)
-+{
-+	atomic_inc(&smcibdev->init_cnt);
-+}
++	if (WARN_ON_ONCE(elem->channels > FCP_MAX_METER_MAP_SIZE))
++		return -EINVAL;
 +
-+static inline void smc_ibdev_init_put(struct smc_ib_device *smcibdev)
-+{
-+	if (atomic_dec_and_test(&smcibdev->init_cnt))
-+		wake_up(&smcibdev->init_wait);
-+}
-+
- static inline __be32 smc_ib_gid_to_ipv4(u8 gid[SMC_GID_SIZE])
- {
- 	struct in6_addr *addr6 = (struct in6_addr *)gid;
-diff --git a/net/smc/smc_llc.c b/net/smc/smc_llc.c
-index 954b2ff1815c..15ae19a9db07 100644
---- a/net/smc/smc_llc.c
-+++ b/net/smc/smc_llc.c
-@@ -1118,7 +1118,7 @@ int smc_llc_cli_add_link(struct smc_link *link, struct smc_llc_qentry *qentry)
- out_reject:
- 	smc_llc_cli_add_link_reject(qentry);
- out:
--	kfree(ini);
-+	smc_init_info_free(ini);
- 	kfree(qentry);
- 	return rc;
- }
-@@ -1192,7 +1192,7 @@ static void smc_llc_cli_add_link_invite(struct smc_link *link,
- 	smc_llc_send_add_link(link, ini->ib_dev->mac[ini->ib_port - 1],
- 			      ini->ib_gid, NULL, SMC_LLC_REQ);
- out:
--	kfree(ini);
-+	smc_init_info_free(ini);
- 	kfree(qentry);
- }
+ 	/* copy & translate from resp[] using meter_level_map[] */
+ 	for (i = 0; i < elem->channels; i++) {
+ 		int idx = private->meter_level_map[i];
+@@ -636,7 +643,8 @@ static int fcp_ioctl_set_meter_map(struct usb_mixer_interface *mixer,
+ 	}
  
-@@ -1512,7 +1512,7 @@ int smc_llc_srv_add_link(struct smc_link *link,
- 	rc = smc_llc_srv_conf_link(link, link_new, lgr_new_t);
- 	if (rc)
- 		goto out_err;
--	kfree(ini);
-+	smc_init_info_free(ini);
- 	return 0;
- out_err:
- 	if (link_new) {
-@@ -1520,7 +1520,7 @@ int smc_llc_srv_add_link(struct smc_link *link,
- 		smcr_link_clear(link_new, false);
- 	}
- out:
--	kfree(ini);
-+	smc_init_info_free(ini);
- 	if (send_req_add_link_resp)
- 		smc_llc_send_req_add_link_response(req_qentry);
- 	return rc;
-diff --git a/net/smc/smc_pnet.c b/net/smc/smc_pnet.c
-index 63e286e2dfaa..7e01e01a522b 100644
---- a/net/smc/smc_pnet.c
-+++ b/net/smc/smc_pnet.c
-@@ -980,14 +980,22 @@ static int smc_pnet_determine_gid(struct smc_ib_device *ibdev, int i,
- 	if (!ini->check_smcrv2 &&
- 	    !smc_ib_determine_gid(ibdev, i, ini->vlan_id, ini->ib_gid, NULL,
- 				  NULL)) {
-+		if (ini->ib_dev_ref)
-+			smc_ibdev_init_put(ini->ib_dev);
-+		smc_ibdev_init_get(ibdev);
- 		ini->ib_dev = ibdev;
-+		ini->ib_dev_ref = true;
- 		ini->ib_port = i;
- 		return 0;
- 	}
- 	if (ini->check_smcrv2 &&
- 	    !smc_ib_determine_gid(ibdev, i, ini->vlan_id, ini->smcrv2.ib_gid_v2,
- 				  NULL, &ini->smcrv2)) {
-+		if (ini->smcrv2.ib_dev_v2_ref)
-+			smc_ibdev_init_put(ini->smcrv2.ib_dev_v2);
-+		smc_ibdev_init_get(ibdev);
- 		ini->smcrv2.ib_dev_v2 = ibdev;
-+		ini->smcrv2.ib_dev_v2_ref = true;
- 		ini->smcrv2.ib_port_v2 = i;
- 		return 0;
- 	}
+ 	/* Validate the map size */
+-	if (map.map_size < 1 || map.map_size > 255 ||
++	if (map.map_size < 1 ||
++	    map.map_size > FCP_MAX_METER_MAP_SIZE ||
+ 	    map.meter_slots < 1 || map.meter_slots > 255)
+ 		return -EINVAL;
+ 
 -- 
-2.43.0
+2.50.1 (Apple Git-155)
 
