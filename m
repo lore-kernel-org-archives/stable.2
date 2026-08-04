@@ -1,81 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D35427F8A;
-	Tue,  4 Aug 2026 07:30:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C1A426D16;
+	Tue,  4 Aug 2026 07:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.181.215.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785828651; cv=none; b=bECcZVLn4/Su475Sv04ta4qBlr6aSsNy3mQTFF5xz2hmGYNUFf7X6Q7Na7k4HrwfOXHmOweLIP0UAHl6YzZaVwzk/IE7A7OH0SLQDGSGd6EuIDBfbdq7zAiD3li0Ue1ug3sRY0dbpMfxZX2S89SGPzpNSnTl4zQxvdlennvOUf4=
+	t=1785829192; cv=none; b=Ze+dewAJ71K5qTvQ4KPIYV2eZOfn0jKaTYof9ujT5kuD//FtFql9X9ri4gR0MAN3KBu5mfTV6y0k807qD+wPLy+pd0kS5sp8W1cq/8/EvH/kH7RO05ACPTR7gZ3Z8O5DiQDZjcWAJZN6y+MS+aYZ4INO+gy/GfzyFC/LIq8syhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785828651; c=relaxed/simple;
-	bh=SOLTJEJEXzwaRmRUywBLmqrxVfDxNPkNMw1db+bkp5A=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=bm3ypJofMffot8zUqZQAdEnJ3N2aiwXT5xkz5TIoo2oUOjmHX9omLBHQRzRj1zIxj9Cl4HKUbEkAq5T/eGLDyUVbnAKhPd1b9YWDx5ARoEmNVY+U2y7Z6jpYFFPiqbTowkGqHxSuFCL9j6iGmzFvesmkJdrywM/Z5PxahjE74U4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZLLtvy6V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785829192; c=relaxed/simple;
+	bh=NEF8spb5u7CiwNS+iTwEBVYL0bpl2VvikQOwHzvJeLU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BOwcWQFdAz4YezwOzvj1uc+aCnZwk5rO4OA2lQvUqCBiSu0sIEcCh9hC+YKIn/iPGLzoJbSL7uuT42e/SVAgH1ULZW86+46FwSGbsjIgEaRYS8p3oNGa2+ux3rB2Ej+B2I+sde1eQdzcpTZ5URr2GI8Ybi4h8Hsf2ufSfBh9WCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz; spf=pass smtp.mailfrom=xff.cz; dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b=kOZQ0H0n; arc=none smtp.client-ip=195.181.215.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xff.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZLLtvy6V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20E061F00A3A;
-	Tue,  4 Aug 2026 07:30:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785828650;
-	bh=oYV5O3eWZLdXdoL+FVkjAr1wH1gOiwtwjBSgUcld4qM=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ZLLtvy6V64IS29HeSFNsiy1L54s0YnzkP9fhy4b84TZle3bqd8BgzVIBHrvvL3161
-	 3eOFRheE7Y66k02D2I2WdJHidsgMjAo6ljQcru9l3Oo4JhKMf1Vv1dyvXbT6XONBBz
-	 CKRQ+KfZJc7dQfF/iETPQYPdKauhgS3b0a23PgTG8+SeFW4C5hn7NuxmsrJX+kODKv
-	 VzzASV1hizn8h5k9C7Sl643XmV2eC7PgUQptWNAsLBTL4s13hDsZ6AhB1Y3MXvO8N3
-	 9YW/x0Dtqf2xfXZFZCUHXWGfi73vno9WggK8q25dTUD7jDC2gsThmYf5i8iz8epEhp
-	 e/EJNxRQwFUUg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 197AF3924A65;
-	Tue,  4 Aug 2026 07:30:12 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b="kOZQ0H0n"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xff.cz; s=mail;
+	t=1785829186; bh=NEF8spb5u7CiwNS+iTwEBVYL0bpl2VvikQOwHzvJeLU=;
+	h=Date:From:To:Cc:Subject:X-My-GPG-KeyId:References:From;
+	b=kOZQ0H0n7b4gT77O6FBv02l9YBjBiXc3PjJevI3AcTpQiuCrJKoGdy8lThP1WN8O+
+	 LYL6yXozTGg6QoO71NQ2O/8HW2d6OcbzYlnWX7KEjrdZ8wve5TZzLAvlmV4VvdTMcx
+	 LQ77Q1yNMEjykXQO5teDSBR6JP/u93MDiL9nLKAU=
+Date: Tue, 4 Aug 2026 09:39:45 +0200
+From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>
+To: david@ixit.cz
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Olivier Benjamin <olivier.benjamin@bootlin.com>, 
+	Manuel Traut <manut@mecka.net>, Alexander Warnecke <awarnecke002@hotmail.com>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Martin Kepplinger <martin.kepplinger@puri.sm>, Shawn Guo <shawnguo@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, phone-devel@vger.kernel.org, imx@lists.linux.dev, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/4] arm64: dts: rockchip: rk3399-pinephone-pro: DW9714
+ coil requires higher voltage
+Message-ID: <2j7ogeqj565sftp5wzqvtzi2id76fof623bifbmyu6ckhf6vm6@ya7h4tp5i4qf>
+Mail-Followup-To: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>, 
+	david@ixit.cz, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Olivier Benjamin <olivier.benjamin@bootlin.com>, 
+	Manuel Traut <manut@mecka.net>, Alexander Warnecke <awarnecke002@hotmail.com>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Martin Kepplinger <martin.kepplinger@puri.sm>, Shawn Guo <shawnguo@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, phone-devel@vger.kernel.org, imx@lists.linux.dev, 
+	stable@vger.kernel.org
+X-My-GPG-KeyId: EBFBDDE11FB918D44D1F56C1F9F0A873BE9777ED
+ <https://xff.cz/key.txt>
+References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
+ <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf v2 0/2] Fixes for bpf_get_fsverity_digest()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178582861063.3014158.3566038608254697461.git-patchwork-notify@kernel.org>
-Date: Tue, 04 Aug 2026 07:30:10 +0000
-References: <20260803181232.14743-1-ebiggers@kernel.org>
-In-Reply-To: <20260803181232.14743-1-ebiggers@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: bpf@vger.kernel.org, fsverity@lists.linux.dev,
- linux-kernel@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev,
- song@kernel.org, yonghong.song@linux.dev, emil@etsalapatis.com,
- jolsa@kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
 
-Hello:
+Hi,
 
-This series was applied to bpf/bpf.git (master)
-by Kumar Kartikeya Dwivedi <memxor@gmail.com>:
-
-On Mon,  3 Aug 2026 11:12:30 -0700 you wrote:
-> Two fixes for bpf_get_fsverity_digest().
+On Sat, Aug 01, 2026 at 02:35:21AM +0200, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
 > 
-> Changed in v2:
->     - Added patch to fix silent truncation.
->     - Updated commit message to clarify that the size > INT_MAX case
->       seems to be unreachable currently.
->     - Added Acked-bys
+> By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
+> Usually it's around 2.8 V. Here it matches the avdd2v8_dvp.
 > 
-> [...]
+> Fixes: 9336eb829a18 ("arm64: dts: rockchip: describe I2c Bus 1 and IMX258 world camera on PinePhone Pro")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> index d46cdfe3f7849..bde35d9b2263e 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> @@ -473,17 +473,17 @@ wcam_out: endpoint {
+>  			};
+>  		};
+>  	};
+>  
+>  	wcam_lens: camera-lens@c {
+>  		compatible = "dongwoon,dw9714";
+>  		reg = <0x0c>;
+>  		/* Same I2c bus as both cameras, depends on vcca1v8_codec for power. */
+> -		vcc-supply = <&vcc1v8_dvp>;
+> +		vcc-supply = <&avdd2v8_dvp>;
 
-Here is the summary with links:
-  - [bpf,v2,1/2] fsverity: Fix bpf_get_fsverity_digest() dynptr assumptions
-    https://git.kernel.org/bpf/bpf/c/3e8ec7c03872
-  - [bpf,v2,2/2] fsverity: Fix silent truncation in bpf_get_fsverity_digest()
-    https://git.kernel.org/bpf/bpf/c/7c68ed5c5ad4
+This does not match reality, schematic says it's VCC2V8_DVP:
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+	https://xff.cz/dl/tmp/6253a0465329df41.png
 
+regards,
+	o.
 
+>  	};
+>  
+>  	ucam: camera@36 {
+>  		compatible = "ovti,ov8858";
+>  		reg = <0x36>;
+>  		clocks = <&cru SCLK_CIF_OUT>; /* MIPI_MCLK1, derived from CIF_CLK0 */
+>  		clock-names = "xvclk";
+>  		dovdd-supply = <&vcc1v8_dvp>;
+> 
+> -- 
+> 2.53.0
+> 
+> 
