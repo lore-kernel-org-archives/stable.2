@@ -1,133 +1,218 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-167.mta1.migadu.com (out-167.mta1.migadu.com [95.215.58.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291AD3DC4D3
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 13:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785851742; cv=pass; b=pYsiilGPHmYNQj2Hba0KLI2d6i6C9+9CnYChBrg7hd3IFXZkczPa51j28zms905N9h4t9r6vgsdv1yrJf5dJ0SNK81n1Q5mB6hfSiqt1U8mDRq1rmSmCaSi8zh04nr/arLV6YPsDuFcTRStE4SYY2+ecOFM4c7Rl6Q4aK/RdyXk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785851742; c=relaxed/simple;
-	bh=HDUm59yYe2fE0m3pYKR/0WdYy2OIMCPhbSHIT3YZtmc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cJcq6nrsjdKA9BwonSHYfmJX5yaVbZs7v2ypgii2HHTgm0j7rQDevtULCg0uQkwQWAB2w8FrdkPDb2UM0G/LLxkbL1Mcko3MnkZtgvBH3C0LtQq4rbtocVVb6yyXWpnfyl5L0hsNt7+jkvrXmfxZwzqQgywORJ5K1yfL//wLPiI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pffSzX4C; arc=pass smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A723E00A9
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 13:55:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.167
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785851757; cv=none; b=gOJ7IO04NZZ16/d/hfAGsFy3HciG2APS2xMZGCe6r87V3AncZCyjSZcaH0g4VqDC6OBlmr+Px2DcCsEqTl2VLRG4G4Fimrbz9CH1G2pyQBCzYTRMNysZPrNoDwoPPmVlCkpJA1OsuR0cNYCI14ZNCUa1U0PnP34YxkhNEU+GSB4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785851757; c=relaxed/simple;
+	bh=LcYiPqB4tVrRiy7Cltegl8juqIwND8gItntjWapowOk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L6gnK8I3Zwumf7L3jcXyw9AXGVVhHIEqu/IItvioW7KnzR5OabKqfxWJwuZLhn1pe0BwlJ3o8fjFCuL9gafrpkomBZAK1UcrpeZqk7fquTde8FF6TY5kE5fnB3sV40fop97DdrUm01pkpvy5HyWWkWqvlzOcolN9ulg2i+HD2lY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FYZtil51; arc=none smtp.client-ip=95.215.58.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pffSzX4C"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c1670dad7a8so646484766b.3
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 06:55:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785851739; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rjAET5gRnh4+DW5oeemUne7VWJNM24Lpyt3GOiER4NL2Y3dVX5wy5pI6seXYf2NOJz
-         FCalNahV072PK+z9ICjK9dnT5oJ3fnoJuYyv/0+fUVC8w0YqgOxcAxZEoTW01H64v4zA
-         FoBvfOp/14Un8/2Yw7vpns3YnOrQQqgMr2FlB9uaa7qU4aCNcNmwDOL58O9f23AyG8Hz
-         nuJSrgJqYbqUP3hhI7nqIHCDmxecZUAhDmUmEwxH8F3PPAJAgFjbnSoqe+Mii1FbE6P/
-         MtbpTIGNjVo6kooblvE+Y4bMDmkkhOscIVW1H234CHRj7N5EqoQX0N+eqQzFHIfZr33u
-         TNpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HDUm59yYe2fE0m3pYKR/0WdYy2OIMCPhbSHIT3YZtmc=;
-        fh=cYLkVBSd6elZrYTe0V0uNM4vaeb6QMDdZ9aMufZ9E2g=;
-        b=N3ORWAKhyEMwJPowjbNrVDlapCxkkEeeXQJ2NfLUE+Aspd3sA5YoFtukbNRculyQjf
-         p/0K8kl33NI/JMLfVvnnJKUlhqcyu8eHRbe3nNte7tUV4v+fYaxhwx3vVN+qiqKd0MLK
-         jo7dCyM+tgH/oO0vTHaENoHAr0PELe5qwtS8vHTNOApDXIJ+da4msm73LFlR5Oh6pw3e
-         wNZ/vpTTBwBgO/2Uti1+SqsUUtKQpllzg2T4eo9xRvyNYGa7oG8HTeue4xqGkZNPBHj0
-         SAbUK7mde3ltHAWSQN9T5f/chGJQbpfUZ68Y//bGSflGvTSz1El34Vn2X/V8lhrpO25D
-         mnLQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785851739; x=1786456539; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HDUm59yYe2fE0m3pYKR/0WdYy2OIMCPhbSHIT3YZtmc=;
-        b=pffSzX4CsLCjJtBzio4AZ3Sc/xFnuxXVjGeR+ljF4EdMFEmMoxg8uexFlyuT7R9QYh
-         2qShPsSREunpK9tdaxopOpS0wTIQO4EAclCGYYDj6tHmqV7BZoEOUL17sewM2z6PceWA
-         t9qUG6HHuwDxv3Wu8s8HzOYJF22D+NBvbDDe3viQ6pdGAwvuqOVhy2MoG5+NA26dnIku
-         gve6cCbgyOpJe2nACfiEUvg/gai7gvxs/rmLD8DZTcqL2mlpeZI+097todcpEoNMywCr
-         CgztBSXwAXdns+ZtOyvmwr+Iuz68AWNKW8q5EUJdJWaC+/p5pRaLyG4KovmMOcYeSIeO
-         wCnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785851739; x=1786456539;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HDUm59yYe2fE0m3pYKR/0WdYy2OIMCPhbSHIT3YZtmc=;
-        b=NQHvMYjIhxujc1i8QDbVXvf5VzTC0iavIcDbZwtZL9mB5ArY+ew3UNCbGCt5zmIVQN
-         WXl+jPHe9yK1nwXZLj3+5wHHmHJt6jy8rroOWDHfC+PqD6iAdBEKf+3orQQshO6yNqJr
-         l4dMHMQ721FbKOBbdQ25HyDavglDKXk2iLIYPVjCNtSOVTLFicfBOkZSwYw4uGEPFYwV
-         LxGmfd3T8R2UfdBSsSSvNvlbAx5Rk/P5RceHKv3wtrZu6eYqsh3eAJ6PDPs+N/8UQz99
-         lO3AQzZ6aOWmTTUPnYIDW+gPJ0pyJkpcjWZb7p3zMcd94JkulpCfj0+3av8gV0vdlHje
-         8KBQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqlI9YxQOQJLHbKiXC3V8yLlvj1b5W1dwx3VWTfQpv8k/AKqfB25L7OXM6K8lF0LMZSlU7h+jI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfzpQMyXItLVAD4NLif8osftfKoVtLw7Itwo0jmvtymMh2kI2q
-	XP4CAVGwttG2RvIrYWajIgnxSpf9QB0QEAZSqf5IR4gHDe8O96amTMDthR1nXVJdJjIVcAJhph6
-	og05ntt7hllGR0GWUfcn4/wo/wmBVxA==
-X-Gm-Gg: AR+sD13AmmRlsTd6eC2BGnlv68pcb4zpyJtu6Wv+wx1zJS8KSXjszifvdVasx9xuZ4y
-	4JvLkL83VYzRHrIzNhLIqXPR1ypV88gKoHuq3xXC6JxSXSNOE4uV37/xLgWwPXhJ4c1QzvFhxmp
-	0c+/23cgS7n69NnwTBRgArvLOJZZZpYtm5Mkme20ewkKmBheKBCo/WZcVADgUe63S1xumsSUE/Z
-	Yb10WP4H03J8QOrB3hP1KqVIsBwOx9+BYiGdskU2IIuqu9k5/y5rMMB5ICFSrHYB3f7XtU3c7U7
-	oRaPZF7nehmjl5y0TBRtM9QLlWjD8tE/vgZD2gCpAJebod2E3Nx2M6O3dO9udTdcTOEdD+CRWQ5
-	MrSR++434zKoImiWCo2RZZQ2RdS1lj+Yx3HJ2Xk/eWFdvNif55yo32CiLIzOVsMWPqA==
-X-Received: by 2002:a17:907:ea8c:b0:c12:a469:c with SMTP id
- a640c23a62f3a-c1fe81672d1mr1321489066b.9.1785851738996; Tue, 04 Aug 2026
- 06:55:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FYZtil51"
+Message-ID: <4ef01fa0-969f-4ec0-997b-5f5f3f67e11a@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785851742;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gYaRYJJ4lK/MLOWAM2e1uCFUmqoZIVPfPNaQ31GMp0Q=;
+	b=FYZtil51LzrZNx/hTwezUS2eYSm/487ebVTBuTingdSO8uBcyrhjubzK1fAG6PcwWSkRPD
+	zBrz32hja2gVCBTzht+8r03mrRntjCdIpIvmrBDfj3qKue+wASayNRuJEd3iYBE708hwp2
+	46ODWFVYxV9tghywi/XhsIpsaAGZbZM=
+Date: Tue, 4 Aug 2026 14:55:17 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260731161809.45066-1-mhun512@gmail.com> <908e828b-1fbc-4a44-8718-f0e7459b6ed1@kernel.org>
- <2026080347-diaper-uncloak-ced0@gregkh>
-In-Reply-To: <2026080347-diaper-uncloak-ced0@gregkh>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Tue, 4 Aug 2026 22:55:25 +0900
-X-Gm-Features: AUfX_mzg4abd6aDeysWOgkJNMFUfwJAoCyKRecMOH-c1Blp-df2LuW5ELpjcFCU
-Message-ID: <CAGEsz8E7iZZOUXZz+Ga1f+F2yYXxALh4XQQAHQ_rn4O5effVWA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] tty: moxa: unwind tty driver if PCI registration fails
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Ijae Kim <ae878000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC net-next v2 4/6] ptp: ocp: Validate EEPROM board IDs
+To: Ahmad Byagowi <ahmadexp@gmail.com>, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-i2c@vger.kernel.org, netdev@vger.kernel.org
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Peter Rosin <peda@lysator.liu.se>, Nam Tran <trannamatk@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260803205011.1249-1-ahmadexp@gmail.com>
+ <20260803205011.1249-5-ahmadexp@gmail.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <20260803205011.1249-5-ahmadexp@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-Hi Jiri and Greg,
+On 03/08/2026 21:50, Ahmad Byagowi wrote:
+> The EEPROM board ID is a fixed 13-byte field. It is stored without room
+> for a terminator and passed to devlink as a C string. An erased EEPROM
+> therefore exposes 0xff bytes and can make devlink read beyond the field
+> while formatting board.id.
+> 
+> Reserve a trailing byte, classify erased and malformed contents, and
+> publish board.id only when the field contains printable text with valid
+> padding. Continue reporting the serial number when the board ID is
+> absent.
+> 
+> Fixes: 0cfcdd1ebcfe1a9b262f6ad8419580720dc843c4 ("ptp: ocp: add nvmem interface for accessing eeprom")
 
-Thanks for the review. I agree that removing the whole MOXA driver is
-the better direction, which supersedes this patch. Please drop/ignore
-this patch.
+use short format of hash to provide commit to fix:
 
-Best regards,
-Myeonghun
+Fixes: 0cfcdd1ebcfe ("ptp: ocp: add nvmem interface for accessing eeprom")
 
-2026=EB=85=84 8=EC=9B=94 3=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 9:41, Gr=
-eg Kroah-Hartman <gregkh@linuxfoundation.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=
-=EC=84=B1:
->
-> On Mon, Aug 03, 2026 at 08:06:58AM +0200, Jiri Slaby wrote:
-> > On 31. 07. 26, 18:18, Myeonghun Pak wrote:
-> > > moxa_init() registers the tty driver before registering the PCI drive=
-r.
-> > > If pci_register_driver() fails, module initialization returns without
-> > > unregistering the tty driver or dropping its reference. moxa_exit() i=
-s
-> > > not called after a failed module initialization.
-> > >
-> > > Unregister the tty driver and drop its reference before returning the
-> > > PCI registration error.
-> > I think, we should remove the whole driver instead:
-> > https://lore.kernel.org/all/2da84e36-7ac6-407d-8e08-edca82f4cbce@kernel=
-.org/
->
-> I agree, I'll submit a patch to just drop it.
->
-> thanks,
->
-> greg k-h
+And as this is a fix, it has to go to net rather than net-next
+
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ahmad Byagowi <ahmadexp@gmail.com>
+> ---
+>   drivers/ptp/ptp_ocp.c | 69 +++++++++++++++++++++++++++++++++++++++++--
+>   1 file changed, 66 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
+> index 35e911f1a..cec936bd1 100644
+> --- a/drivers/ptp/ptp_ocp.c
+> +++ b/drivers/ptp/ptp_ocp.c
+> @@ -347,6 +347,13 @@ struct ptp_ocp_serial_port {
+>   #define OCP_SIGNAL_NUM			4
+>   #define OCP_FREQ_NUM			4
+>   
+> +enum ptp_ocp_board_id_state {
+> +	OCP_BOARD_ID_UNREAD,
+> +	OCP_BOARD_ID_VALID,
+> +	OCP_BOARD_ID_ERASED,
+> +	OCP_BOARD_ID_INVALID,
+> +};
+> +
+>   enum {
+>   	PORT_GNSS,
+>   	PORT_GNSS2,
+> @@ -401,8 +408,9 @@ struct ptp_ocp {
+>   	bool			fw_loader;
+>   	u8			fw_tag;
+>   	u16			fw_version;
+> -	u8			board_id[OCP_BOARD_ID_LEN];
+> +	char			board_id[OCP_BOARD_ID_LEN + 1];
+>   	u8			serial[OCP_SERIAL_LEN];
+> +	enum ptp_ocp_board_id_state board_id_state;
+>   	bool			has_eeprom_data;
+>   	u32			pps_req_map;
+>   	int			flash_start;
+> @@ -472,18 +480,23 @@ struct ptp_ocp_eeprom_map {
+>   	.len = sizeof_field(struct ptp_ocp, member),		\
+>   	.bp_offset = offsetof(struct ptp_ocp, member)
+>   
+> +#define EEPROM_ENTRY_LEN(addr, member, entry_len)		\
+> +	.off = addr,						\
+> +	.len = entry_len,					\
+> +	.bp_offset = offsetof(struct ptp_ocp, member)
+> +
+>   #define BP_MAP_ENTRY_ADDR(bp, map) ({				\
+>   	(void *)((uintptr_t)(bp) + (map)->bp_offset);		\
+>   })
+>   
+>   static struct ptp_ocp_eeprom_map fb_eeprom_map[] = {
+> -	{ EEPROM_ENTRY(0x43, board_id) },
+> +	{ EEPROM_ENTRY_LEN(0x43, board_id, OCP_BOARD_ID_LEN) },
+>   	{ EEPROM_ENTRY(0x00, serial), .tag = "mac" },
+>   	{ }
+>   };
+>   
+>   static struct ptp_ocp_eeprom_map art_eeprom_map[] = {
+> -	{ EEPROM_ENTRY(0x200 + 0x43, board_id) },
+> +	{ EEPROM_ENTRY_LEN(0x200 + 0x43, board_id, OCP_BOARD_ID_LEN) },
+>   	{ EEPROM_ENTRY(0x200 + 0x63, serial) },
+>   	{ }
+>   };
+> @@ -1969,6 +1982,52 @@ ptp_ocp_nvmem_device_put(struct nvmem_device **nvmemp)
+>   	*nvmemp = NULL;
+>   }
+>   
+> +static enum ptp_ocp_board_id_state
+> +ptp_ocp_classify_board_id(char *board_id)
+> +{
+> +	bool all_zero = true;
+> +	bool all_ones = true;
+> +	bool terminated = false;
+> +	unsigned int i;
+> +
+> +	board_id[OCP_BOARD_ID_LEN] = '\0';
+> +	for (i = 0; i < OCP_BOARD_ID_LEN; i++) {
+> +		u8 value = board_id[i];
+> +
+> +		all_zero &= value == 0;
+> +		all_ones &= value == 0xff;
+> +	}
+> +
+> +	if (all_zero || all_ones) {
+> +		board_id[0] = '\0';
+> +		return OCP_BOARD_ID_ERASED;
+> +	}
+> +
+> +	for (i = 0; i < OCP_BOARD_ID_LEN; i++) {
+> +		u8 value = board_id[i];
+> +
+> +		if (terminated) {
+> +			if (value)
+> +				goto invalid;
+> +			continue;
+> +		}
+> +
+> +		if (!value) {
+> +			terminated = true;
+> +			continue;
+> +		}
+> +		if (value < 0x20 || value > 0x7e)
+> +			goto invalid;
+> +	}
+> +
+> +	if (board_id[0])
+> +		return OCP_BOARD_ID_VALID;
+> +
+> +invalid:
+> +	board_id[0] = '\0';
+> +	return OCP_BOARD_ID_INVALID;
+> +}
+> +
+>   static void
+>   ptp_ocp_read_eeprom(struct ptp_ocp *bp)
+>   {
+> @@ -2001,6 +2060,7 @@ ptp_ocp_read_eeprom(struct ptp_ocp *bp)
+>   			goto fail;
+>   	}
+>   
+> +	bp->board_id_state = ptp_ocp_classify_board_id(bp->board_id);
+>   	bp->has_eeprom_data = true;
+>   
+>   out:
+> @@ -2177,6 +2237,9 @@ ptp_ocp_devlink_info_get(struct devlink *devlink, struct devlink_info_req *req,
+>   	if (err)
+>   		return err;
+>   
+> +	if (bp->board_id_state != OCP_BOARD_ID_VALID)
+> +		return 0;
+> +
+
+why don't simply
+snprintf(buf, OCP_BOARD_ID_LEN + 1, "%s", bp->board_id); ?
+
+buf is already used in the function, let's reuse it
+
+>   	err = devlink_info_version_fixed_put(req,
+>   			DEVLINK_INFO_VERSION_GENERIC_BOARD_ID,
+>   			bp->board_id);
+
