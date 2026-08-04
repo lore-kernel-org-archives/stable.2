@@ -1,139 +1,101 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D83C54334DE
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 04:06:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA6E4334DE;
+	Tue,  4 Aug 2026 04:06:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785816372; cv=none; b=iJLxmEgpZCraP3s3gw1vz8LJqg1niWMPc3QuKGepP/wo7Yndq4+KcTY1PAqg70L0V78qI8GW3IIIOiHweScCG8B+f8QXIvajR2fSzdGOzcSs740fy2bMQ+d1W1OkNuRxmCo7ZksBfBSP4KS8NhC3ZO5PdhDgoH53AJ1g0ucRW1E=
+	t=1785816374; cv=none; b=TdUc+FF12mEx+WTp+UrXe4oYft6BIZmlh/JqMRHUInfXipxiC/QwHc+vid3pWtGgAlOP+B4J0V8/RYN9QwpDqtxsUGgr6DcRjh9BnlCcgas0TrunHJ2TcNRs3Yi0YLZcjXSZerlfHk8xY9pwv8REfPKZmSsHGQUrCfBu4XrKJI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785816372; c=relaxed/simple;
-	bh=5DE4KQsM7346xeBKvK3gf4RPk9kJfK5f72ku+Z9mtWQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J3BXxgLdx1LSlMAWOJVcEP7a6p58XlHBp9sG9ODT/XKOv0m5HW8s4+hOWCfIEQFLPoDRhvevlVxbBLjHAEolV56hww+b1NJApDQ9lVNDgl0Z22FU8fEhRYtUN6ARFWeU9L5hvk5S1TOGgL+uupNShltcKb3Il5XgE+9HGjStM+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=lUKemQmm; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1785816374; c=relaxed/simple;
+	bh=Vn/2HKDO8dEFlTPcx0zq+KN4KSWHaYJYFftG+RUdymA=;
+	h=Date:To:From:Subject:Message-Id; b=tCVtRoQNS4PgHVWGNcK7uHew39Vo7cQzveJnw5iqa5NzINueq8ql8xSqFET4A6iTD3HooEho/RkB/y8k7a4M1N3OngEMqiZ/T24hpthDYOOMDZ18DTygJw72nEGEeBIxCRdpUBCA7DPHtUTmdZbF7n4ztEAn5C1AH5pcUTDZVtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=UQZI3x5Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="lUKemQmm"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cf52d15d88so34047305ad.2
-        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 21:06:10 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="UQZI3x5Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 429391F00A3A;
+	Tue,  4 Aug 2026 04:06:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1785816370; x=1786421170; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=za1Dlg5MtkIibFTGSkfNOwAtn76AnP6HPzWNLsvhv18=;
-        b=lUKemQmm9QETeTffwq36G+BrDLCxd2IMl2zffaNwjs1HjIMRzDZtCXA6J55TUy2ue2
-         fHe4ZSEnS1Kn01UeKuMjCCpZEW9pKdX0up+XicdeqRXhcwwfgym6sraP75+L6kuNMHsG
-         D48K9pNjwVOwTYlvJMLOAMhl1b4QpvPU3GUbkqeCm38V97eC/S1tPlefMa7mtU7ECcJ8
-         07JUMPi8xxGqR0+54hrrElvgDz0JZ1zbcv+St1mcgNMOs8EGtO5vZE/UFs/K/e6JcJ/j
-         TdwxhxpsYdfz5IGuE2uW2Tle1Ip0e5RUa5QBLQ/KsDA9Es6xC67Vg0DbzZlPC5oL2qOU
-         OrJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785816370; x=1786421170;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=za1Dlg5MtkIibFTGSkfNOwAtn76AnP6HPzWNLsvhv18=;
-        b=b/KsLxcFmPyvmQQlQFxnc7I29YDge4/pq8QNSJ8XCP+XeWRoh9vP1EpuCzA9KxTwH9
-         39/kEw73WIUsx833v5Zd9NBprjpr/wwc46GrZHzGdWwf3DXinuY3SPgHB+vnWGhxKC4O
-         kGmhJcdiLWR4tSki2hdPTuilFtg0YrssItWv+Fsy7oLO5iVM9bTWuhMWlxHnyvavKZvO
-         PfqYV3LhCXQycgCoYXFyLxeod6TqtpOnc0aXdLRFQzeOVDpWFbyuRXxcQwfVEiNYR4ZL
-         bFfMRHiFW83L66ijgnZMC0jhEQXge9cPP3c/eZ623S5u3jephb9CyDT+E2vGA6Em+sVt
-         3CGw==
-X-Forwarded-Encrypted: i=1; AHgh+RpMElO6b73ea/jF+iqfoUPRhEA88/g/ujQmPftSw0lMSPmffVM1J+dhIXaZpN6XpQhcpaz4oiU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyIvVssuG+32ui0gJDu9SZn6Xv5ROR0eEJ7PGMHh9x9MsRSI9Rr
-	CrsHwJ/9YM1XjTNepUiRi0X6QUTX1/ToimH8aw6t6mObmtOXwXjbDJiJmwyP3OaQ7JI=
-X-Gm-Gg: AR+sD13G1+4nUFkjFE8F8qOCoJrmANYSVX6S2XJBxGvzRqgHbvA0bWWt2K92dBziMFK
-	bIEgimXCTF8GVYvZhf5LOUkD2+yZeuUbJZrJ44BMwejwJo6l3nZdbrSxmUV03OLcxFtxWKAiwzR
-	D89+rxdxKmtCfRyWMWpMotC9YaEvrT2mrdjk2Z9RoS5GDoaHZGxf6mAG0r4GnoaNhbfpUQ4sazb
-	2ZaEOigovTGnMsyDuW7V30kRSOi2lDJvejOsK4uYv8KnbILaGgk/VJpP8tKE0nNRbR/K2NsjxIY
-	CrJelrI0bx/rmXcJCXbgfWlK8bI4Gczmg/2R+h0+kWPOSedqZzYxbttyR732DO1ci4EKP6zKale
-	dofsMbVQjABas2KuryfwODIzrVfh++StvuLZeHYYVqTtbpuOjvmD5LEKqg7Wc5H88jjnkDpJ2zz
-	4XQK7aLcyDvWnHhDp1d4QvnNNJRxqEoEs2GVzFW+/6LHl6xodYi9cyAggJ2n13oVShA0fb
-X-Received: by 2002:a17:902:ea0d:b0:2cf:83bf:6b05 with SMTP id d9443c01a7336-2d0523e144emr111189575ad.41.1785816370167;
-        Mon, 03 Aug 2026 21:06:10 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d04b11f9a9sm46075465ad.57.2026.08.03.21.06.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 21:06:09 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: lduncan@suse.com,
-	cleech@redhat.com,
-	michael.christie@oracle.com,
-	James.Bottomley@HansenPartnership.com,
-	martin.petersen@oracle.com
-Cc: open-iscsi@googlegroups.com,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/3] scsi: libiscsi: reject a negative task index from parse_pdu_itt
-Date: Tue,  4 Aug 2026 13:05:44 +0900
-Message-ID: <20260804040546.2264137-2-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260804040546.2264137-1-yhlee@isslab.korea.ac.kr>
-References: <20260804040546.2264137-1-yhlee@isslab.korea.ac.kr>
+	d=linux-foundation.org; s=korg; t=1785816373;
+	bh=gIGQOt6TX9xKLGXBdCOpUBfbDd7Q4g5BbzikC3VmCfQ=;
+	h=Date:To:From:Subject;
+	b=UQZI3x5Yr6LiaTp1mYyWZLRv/3obPwjyDgnVvUxsF0Pe+/IZmgl4Kf0R/1NBcqfsL
+	 J4M/O8qZElQ5towuITd5jo1+kCJFOsBficxUXsejrLiP+jhgoHTWnBucYQrODux/mb
+	 rXNT6wFk74gMhvxhS58LBi+44P2jBRfTBp9a+zTI=
+Date: Mon, 03 Aug 2026 21:06:12 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mporter@kernel.crashing.org,gregkh@linuxfoundation.org,error27@gmail.com,alex.bou9@gmail.com,james010kim@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [merged mm-nonmm-stable] rapidio-mport_cdev-fix-use-after-free-in-dma_req_free.patch removed from -mm tree
+Message-Id: <20260804040613.429391F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-A transport that implements parse_pdu_itt hands libiscsi an index taken
-from the PDU, and both lookups bound it from above only:
 
-      if (i >= session->cmds_max)
+The quilt patch titled
+     Subject: rapidio: mport_cdev: fix use-after-free in dma_req_free()
+has been removed from the -mm tree.  Its filename was
+     rapidio-mport_cdev-fix-use-after-free-in-dma_req_free.patch
 
-i and cmds_max are both int, so a negative index passes and
-session->cmds[i] is read from before the array.
+This patch was dropped because it was merged into the mm-nonmm-stable branch
+of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-be2iscsi produces one. beiscsi_parse_pdu() assigns the raw tag,
+------------------------------------------------------
+From: James Kim <james010kim@gmail.com>
+Subject: rapidio: mport_cdev: fix use-after-free in dma_req_free()
+Date: Fri, 24 Jul 2026 08:52:20 +0900
 
-      *index = (int)itt;
+dma_req_free() acquires buf_mutex through req->map, drops the mapping
+reference with kref_put(), and then dereferences req->map again to unlock
+the mutex.
 
-and beiscsi_complete_pdu() forwards an unsolicited NOP-In from the
-hardware async ring without replacing its ITT, so the value is the
-target's. It also reports the session's own age rather than the one in
-the tag, which leaves the age comparison in iscsi_verify_itt() with
-nothing to reject.
+If kref_put() drops the last reference, mport_release_mapping() frees the
+mapping, and the subsequent mutex_unlock() dereferences a freed object. 
+This is a use-after-free.
 
-Bound the index from below in both lookups.
+Fix this by caching map and md before kref_put(), clearing req->map while
+holding buf_mutex, and using the cached md for mutex unlocking.
 
-Fixes: bfead3b2cb46 ("[SCSI] be2iscsi: Adding msix and mcc_rings V3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+The bug is reachable from userspace via the RapidIO mport character device
+interface.
+
+Link: https://lore.kernel.org/20260723235220.588424-1-james010kim@gmail.com
+Fixes: e8de370188d0 ("rapidio: add mport char device driver")
+Signed-off-by: James Kim <james010kim@gmail.com>
+Reviewed-by: Dan Carpenter <error27@gmail.com>
+Cc: Alexandre Bounine <alex.bou9@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Matt Porter <mporter@kernel.crashing.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
-Not reproduced: I have no be2iscsi hardware. The reachability argument
-is in the commit message.
- drivers/scsi/libiscsi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/scsi/libiscsi.c b/drivers/scsi/libiscsi.c
-index 160f02f2f51d..7a74bc697d23 100644
---- a/drivers/scsi/libiscsi.c
-+++ b/drivers/scsi/libiscsi.c
-@@ -1191,7 +1191,7 @@ struct iscsi_task *iscsi_itt_to_task(struct iscsi_conn *conn, itt_t itt)
- 		session->tt->parse_pdu_itt(conn, itt, &i, NULL);
- 	else
- 		i = get_itt(itt);
--	if (i >= session->cmds_max)
-+	if (i < 0 || i >= session->cmds_max)
- 		return NULL;
- 
- 	return session->cmds[i];
-@@ -1384,7 +1384,7 @@ int iscsi_verify_itt(struct iscsi_conn *conn, itt_t itt)
- 		return ISCSI_ERR_BAD_ITT;
+ drivers/rapidio/devices/rio_mport_cdev.c |   10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+--- a/drivers/rapidio/devices/rio_mport_cdev.c~rapidio-mport_cdev-fix-use-after-free-in-dma_req_free
++++ a/drivers/rapidio/devices/rio_mport_cdev.c
+@@ -564,9 +564,13 @@ static void dma_req_free(struct kref *re
  	}
  
--	if (i >= session->cmds_max) {
-+	if (i < 0 || i >= session->cmds_max) {
- 		iscsi_conn_printk(KERN_ERR, conn,
- 				  "received invalid itt index %u (max cmds "
- 				   "%u.\n", i, session->cmds_max);
--- 
-2.43.0
+ 	if (req->map) {
+-		mutex_lock(&req->map->md->buf_mutex);
+-		kref_put(&req->map->ref, mport_release_mapping);
+-		mutex_unlock(&req->map->md->buf_mutex);
++		struct rio_mport_mapping *map = req->map;
++		struct mport_dev *md = map->md;
++
++		mutex_lock(&md->buf_mutex);
++		req->map = NULL;
++		kref_put(&map->ref, mport_release_mapping);
++		mutex_unlock(&md->buf_mutex);
+ 	}
+ 
+ 	kref_put(&priv->dma_ref, mport_release_dma);
+_
+
+Patches currently in -mm which might be from james010kim@gmail.com are
+
 
