@@ -1,56 +1,75 @@
-Received: from mx16.kaspersky-labs.com (mx16.kaspersky-labs.com [5.79.125.27])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CB638DC65;
-	Tue,  4 Aug 2026 12:06:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.79.125.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D6D39CCE6;
+	Tue,  4 Aug 2026 12:06:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785845191; cv=none; b=LNz8ptbAl+EdoLJfj1hZ6pLT2x/GT6Qbe2czLExHTehlV4LoSfoWG1o/wHPITVv5PGsedh8ZMi7lgxlY8ZVAqjmoAIsRPGCZq1DVslQ+fFSGk4cDID2yXGwDZA7lMkrnQLMLxpTWdcRoIbjocPxGRZLKUJ/qxJwVF6MJqcI0+74=
+	t=1785845212; cv=none; b=SQ8WLE4KJl9Khl4imFO6/Ov0BYLR0b6GLar4+/6rv/YjMgsvRmGMBmAhxTeJUKxp3a6OsPkYFvOs+cP/KpsFmBknRvptsiObelExGpORlmXTsKUNIdpl2rQmPig+8kDxNwxWk9SYwrqdCdFoLuf/4XLQqyvXzK30zYsB3cd9E9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785845191; c=relaxed/simple;
-	bh=s/xDRImuDq2rKz0W0t51qUIXAgKj2J1FzpxgeHydw9I=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XuXhDPKipwboFdiyyBqOynHMwz2tRwBJvjclAy3glTa2yifBqfhI7gOgHiXhNAOtbzOu3Cj8UxL0+dwCcRuAuTUPO8fonasiSKJieZtwWcKXsIbJAUhM62xcmVn6dU0YL5huzK+T4xYgQQuiyFs4TkwaLnQMA8qQfEfe6P8V2wI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kaspersky.com; spf=pass smtp.mailfrom=kaspersky.com; dkim=pass (2048-bit key) header.d=kaspersky.com header.i=@kaspersky.com header.b=xKLa43Sz; arc=none smtp.client-ip=5.79.125.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kaspersky.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kaspersky.com
+	s=arc-20240116; t=1785845212; c=relaxed/simple;
+	bh=xl3vHG+cLqCBEvV+7SCVREzMMvOf38P9Ynw84+w7n2w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aEHQ4rUmg/I7H3lzruOeutBw5DBF5HvXN5X6Hk3NvvTfSPiJI4nTEGO5i6nfUz8W5M8GebN6CG6Pc4XWu4KRuRUu851l91W03JPiGQOI+E9UzOXL9f7sNTMNgg7z/fWILvM0H0S1eMnnn2xk2/NK6c8eRhZHUwSHCZdfaVyHzVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=GAtlY4B5; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kaspersky.com header.i=@kaspersky.com header.b="xKLa43Sz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kaspersky.com;
-	s=mail202505; t=1785845168;
-	bh=9+IPCJOp+lCVk8vltzg3r2dhoNSVm+XO+Q7NRrEIaNE=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	b=xKLa43SzXdmtUThQMCxsgG0GEU/vHUeUtx3faw21kxko+mE6ddmoPmaw197TYYaFj
-	 HaC2e4KxnSiJHIJ2QeD6oAiOsJd0rYXXhAW3dK8VeirMICUMAx7g1z4ypQ/FuBIFxs
-	 caEZF4rh98QKoVjKqdWfwvYLMAPNobwZyVV2dt+8S1NHjZzltqMU/hhPXxMiQ522E7
-	 bePqcP9QfKWuWxIbpA6wqNNboIFmGNWA8MVf3Q+10vyoLSTZPpxJTDUE1vaqgrkHoZ
-	 Z3CVOQ1Am083WEXgRS7o3+tqOTd2854TlsnFOd+p5VhKp+I9ZzxfDitPR+Dva9XVPV
-	 KgT+nVC2tj7fA==
-Received: from relay16.kaspersky-labs.com (localhost [127.0.0.1])
-	by relay16.kaspersky-labs.com (Postfix) with ESMTP id C9902C084C7;
-	Tue,  4 Aug 2026 15:06:08 +0300 (MSK)
-Received: from mail-hq2.kaspersky.com (unknown [91.103.66.208])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(Client CN "mail-hq2.kaspersky.com", Issuer "Kaspersky MailRelays CA G3" (verified OK))
-	by mailhub16.kaspersky-labs.com (Postfix) with ESMTPS id 06940C080B5;
-	Tue,  4 Aug 2026 15:06:07 +0300 (MSK)
-Received: from frolov-se.avp.ru (10.16.49.179) by HQMAILSRV1.avp.ru
- (10.64.57.51) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 4 Aug
- 2026 15:05:57 +0300
-From: <Sergey.V.Frolov@kaspersky.com>
-To: Sunil Goutham <sgoutham@marvell.com>
-CC: Geetha sowjanya <gakula@marvell.com>, Ratheesh Kannoth
-	<rkannoth@marvell.com>, Subbaraya Sundeep <sbhatta@marvell.com>, Bharat
- Bhushan <bbhushan2@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Naveen
- Mamindlapalli <naveenm@marvell.com>, <netdev@vger.kernel.org>, "Sergey V .
- Frolov" <Sergey.V.Frolov@kaspersky.com>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, <lvc-project@linuxtesting.org>
-Subject: [PATCH net v2] net: octeontx2-pf: Fix UB in shift operation
-Date: Tue, 4 Aug 2026 15:04:48 +0300
-Message-ID: <20260804120446.1955448-1-Sergey.V.Frolov@kaspersky.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="GAtlY4B5"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6748HYOF295950;
+	Tue, 4 Aug 2026 12:06:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=bCs5zaovYzZ8UBIt9
+	SQI1Hy194BwqW/Ko3GqXOVaRrk=; b=GAtlY4B5xizf/ZvHWq/CGmyoDRnBG8CG0
+	N2ja/ij3c454hbLf7BVVDxPrR3ikwJZ2QZ6SuKITiSsddBEhyYMmh8i+7VH/89vc
+	3yToZlOmb7Y89EDQsdzpT3GXt6xGRqAHOT2w0fwbLad1pBoqUJbGYzGpWa4nsGP+
+	oKhB40ro3H2kWD9MySx70tgVLVElMnkpsO8J31jttkkIAu9hrztlrdlLx7Y0hWXJ
+	RDyieqgm3BfCgccaX9m8JVgjM0UhM3w3oP/QO+0GDjCEyDKs1OytmnNrEQSGf7A8
+	We4Ii/UjdU+YJZIJpUNxTHf4UtjQzJgOzfvhosrUlatAfQBJTQyEA==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8a3wpj0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 04 Aug 2026 12:06:42 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 674BuO7r028088;
+	Tue, 4 Aug 2026 12:06:41 GMT
+Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fsu4qhyjj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 04 Aug 2026 12:06:41 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
+	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 674C6ecb29557364
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 4 Aug 2026 12:06:40 GMT
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 61FDD58051;
+	Tue,  4 Aug 2026 12:06:40 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4BA685805A;
+	Tue,  4 Aug 2026 12:06:38 +0000 (GMT)
+Received: from b35lp69.lnxne.boe (unknown [9.87.84.240])
+	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  4 Aug 2026 12:06:38 +0000 (GMT)
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
+To: KVM <kvm@vger.kernel.org>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        linux-s390 <linux-s390@vger.kernel.org>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>,
+        Douglas Freimuth <freimuth@linux.ibm.com>, stable@vger.kernel.org
+Subject: [PATCH 2/3] KVM: s390: zero initialize irq for inject_pfault_token
+Date: Tue,  4 Aug 2026 14:06:30 +0200
+Message-ID: <20260804120631.736919-3-borntraeger@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260804120631.736919-1-borntraeger@linux.ibm.com>
+References: <20260804120631.736919-1-borntraeger@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,104 +77,65 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: HQMAILSRV5.avp.ru (10.64.57.55) To HQMAILSRV1.avp.ru
- (10.64.57.51)
-X-KSE-ServerInfo: HQMAILSRV1.avp.ru, 9
-X-KSE-AntiSpam-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 08/04/2026 11:54:41
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 204987 [Aug 04 2026]
-X-KSE-AntiSpam-Info: Version: 6.1.1.22
-X-KSE-AntiSpam-Info: Envelope from: Sergey.V.Frolov@kaspersky.com
-X-KSE-AntiSpam-Info: LuaCore: 113 0.3.113
- b83a27b0bdff87150e3aba5d24ea90b4a220db99
-X-KSE-AntiSpam-Info: {date_rfc_vio_soft_silent}
-X-KSE-AntiSpam-Info: {Tracking_cluster_exceptions}
-X-KSE-AntiSpam-Info: {Tracking_real_kaspersky_domains}
-X-KSE-AntiSpam-Info: {Tracking_black_eng_exceptions}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;frolov-se.avp.ru:5.0.1,7.1.1;kaspersky.com:5.0.1,7.1.1
-X-KSE-AntiSpam-Info: {Tracking_white_helo}
-X-KSE-AntiSpam-Info: FromAlignment: s
-X-KSE-AntiSpam-Info: Rate: 0
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Deterministic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 08/04/2026 11:57:00
-X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
- rules found
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: Clean, bases: 8/4/2026 11:11:00 AM
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
-X-KSE-AttachmentFiltering-Interceptor-Info: no applicable attachment filtering
- rules found
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Interceptor-Info: not scanned
-X-KSMG-AntiSpam-Status: not scanned, disabled by settings
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.1.8310, bases: 2026/08/04 10:25:00 #28645284
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 52
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=E6P9Y6dl c=1 sm=1 tr=0 ts=6a71d5d2 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=Q_Ct-ZrBiiAWXo638_EA:9
+X-Proofpoint-ORIG-GUID: rAXo96FyUZOn1xqhfORAA8i9Zu_8IROV
+X-Proofpoint-GUID: rAXo96FyUZOn1xqhfORAA8i9Zu_8IROV
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDA5NCBTYWx0ZWRfX+PClx7DJXlbo
+ sZLtXdYt0rHw5MhBcclyypDvJ1Igx7rZ7MsZXqgHDq57OfZxKD9fUiTzX+rfTJ1KcOpflRNtdA+
+ ipcxosdfJbo0Ul+DKLI9qgxygJzwFvU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDA5NCBTYWx0ZWRfXxwb8Y7YeWQOK
+ KcO4m5s2nu1+X3/DPjG31kGlqC+f/0YZsQ6BjgyrqhsC4n/2qS6utmkB7y9JqqB9wAW/mivw7hi
+ p+U4a1OwwRBD/QE0EeM/encFmP3XquDYqjs6Z3yavstyaCpnjsLMTknCNrzHxCKgFAaS6Uo4eYC
+ gxbJrLMgfX5yt/X/ZowNRgE2JoOiXpWpHfXNEPHdZCLvUQN+WG+hPIPc9K4Pr1DvFQlRG8co6GP
+ gXZnW0h3XpvnrEk1fB5NBiRHGa3Gf0JYT7pUVELz2zh1igD3T8NH4VeohFEKvQPKIkMjOZz5f99
+ 3uP26yFevXmYtac546qNzE7MGI3xOTYJLgYwrGQmE3lMdOqul3ANTm/iGn4sHJhvZfc1vqeLSzN
+ Q7rNLms0JeO3uko+83m7gUmnuTlfanUOhW58dgZV2RXQMd7nE6Lv1oNLH4UbBF4c/+Q/4UtxDLk
+ CN/HOx8xuXakPkPW3nQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-04_02,2026-08-03_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
+ suspectscore=0 adultscore=0 spamscore=0 malwarescore=0 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608040094
 
-From: "Sergey V. Frolov" <Sergey.V.Frolov@kaspersky.com>
+__kvm_inject_pfault_token() only sets .type and .u.ext.ext_params2 of
+the on-stack struct kvm_s390_irq but the full ext substructure is copied
+into the cpu local variable on inject. ext_params and pad contain stale
+stack values.
 
-In function otx2_get_egress_burst_cfg, when the parameter `burst` is
-255 and the max mantissa is 255 (0xFFULL), `burst_exp` is set to
-`ilog2(255) - 1`, which equals 6.
+Interrupt delivery only uses ext_params2, so nothing leaks, but a host
+user can use the migration ioctls to get to the data.
 
-This results in an unsigned wrap-around when calculating
-`(1ULL << (*burst_exp - 7))`, since `*burst_exp - 7` becomes -1,
-which makes the shift operand 0xFFFFFFFF. This value is greater than
-the width of the left operand.
+Fix by zero-initializing the irq struct.
 
-According to standard 6.5.7 p.3:
-"The type of the result is that of the promoted left operand.
-If the value of the right operand is negative or is greater than
-or equal to the width of the promoted left operand, the behavior
-is undefined."
-
-Fix the off-by-one boundary condition.
-
-Add a WARN_ON(*burst_exp < 7) before the else branch as an
-explicit safeguard. This ensures that if max_mantissa ever changes
-in a way that reintroduces this condition, it will be immediately
-caught at runtime rather than silently triggering UB.
-
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: e638a83f167e ("octeontx2-pf: TC_MATCHALL egress ratelimiting offload")
-Signed-off-by: Sergey V. Frolov <Sergey.V.Frolov@kaspersky.com>
+Fixes: 383d0b050106 ("KVM: s390: handle pending local interrupts via bitmap")
 Cc: stable@vger.kernel.org
+Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
 ---
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ arch/s390/kvm/kvm-s390.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
-index 40162b08014d..652276cb314c 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
-@@ -53,10 +53,12 @@ static void otx2_get_egress_burst_cfg(struct otx2_nic *nic, u32 burst,
- 	if (burst) {
- 		*burst_exp = ilog2(burst) ? ilog2(burst) - 1 : 0;
- 		tmp = burst - rounddown_pow_of_two(burst);
--		if (burst < max_mantissa)
-+		if (burst <= max_mantissa) {
- 			*burst_mantissa = tmp * 2;
--		else
-+		} else {
-+			WARN_ON(*burst_exp < 7);
- 			*burst_mantissa = tmp / (1ULL << (*burst_exp - 7));
-+		}
- 	} else {
- 		*burst_exp = MAX_BURST_EXPONENT;
- 		*burst_mantissa = max_mantissa;
+diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
+index 4a38de3d6758..447e6a61f886 100644
+--- a/arch/s390/kvm/kvm-s390.c
++++ b/arch/s390/kvm/kvm-s390.c
+@@ -4474,7 +4474,7 @@ static void __kvm_inject_pfault_token(struct kvm_vcpu *vcpu, bool start_token,
+ 				     unsigned long token)
+ {
+ 	struct kvm_s390_interrupt inti;
+-	struct kvm_s390_irq irq;
++	struct kvm_s390_irq irq = {};
+ 	struct kvm_s390_interrupt_info *inti_mem = NULL;
+ 	int ret = 0;
+ 
 -- 
-2.34.1
+2.53.0
 
