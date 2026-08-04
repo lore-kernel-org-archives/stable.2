@@ -1,124 +1,105 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0BB2F12D4;
-	Tue,  4 Aug 2026 13:30:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1C94562B7
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 13:42:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785850242; cv=none; b=jCT+TaORARbwsdRB6l1YjQB/jf0xcW0mQl1FrVWqGszRlaJ6iYChAN0h7QknyHiumVbHYzBpL3nqdZ1m0CBoDTePkb3hOhvZTcyU+DxmgQ5UaA7MS0PP/MFeyqW2qQd3o3TK7Q0EHdK+T8aAcFRFd7rhrWB1ZkXGyAzEEu2e0M4=
+	t=1785850952; cv=none; b=gpmPZ/W2EtQqwJAvfqFKJlf0fZ/iVZVuwASQCoKrq5UT24SVD7AoyIhX5D9u22UFdpYN6++s55lV3yGrZa79/JU0PEthEI+znnU6AEHiyql0QY4dhg07UE3NN95cA689DYJr8olANdCVVM5L/pGbHHY5FGoDpaYBaRSjtylnnnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785850242; c=relaxed/simple;
-	bh=uD2EAqaxdu2Ad94aZTmRzl9FmKqSuNpzPhj9uHY/iGM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KsL0nYehLa/CfahSaMk0ZXqZhvcDMCDJq4jJGT70Pu++dmSj1SVk3PgCcA/WHbBeb5OwpZ297g+02jyaz5UGf6y3UNyoCEYPbEdA5oIxAat5SXGU6fA9RfM3Z2qLhQnogjMuemk4sAFykLit7zkhLtINsxKUP1kMYlxBb4Z7D04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=X/EruXhD; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1785850952; c=relaxed/simple;
+	bh=6BqqmJ+CkjzQyLJ9nl1mxgsYp2XZlncwLWU2u6v8GGk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J3/L89n0lUhKGnC3WpdX05qABHxkmpfk7RAMiVpXK8PhZ54kqz+Sm33o9wmMryXgmD+nGaqKOOZ8ruo+EkcqK+gIKZpf0k0B+IDntilpkbcfWBlWhskkBh6Bd/rpIznzZFPYHW1vnNDH2qBfNuWRT+1I76j7QJF/R+Grj6/gYsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0x0f.com; spf=pass smtp.mailfrom=0x0f.com; dkim=pass (1024-bit key) header.d=0x0f.com header.i=@0x0f.com header.b=HVNDJ2sl; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0x0f.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="X/EruXhD"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 674Cmmns865775;
-	Tue, 4 Aug 2026 13:30:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=MfBvc5
-	RPOR0v3+Yg7LH5RErvSIo9WaYBzAeLOhBgNg8=; b=X/EruXhDvXEuDRGbUdK/nn
-	imRH6VmPQ6DcAqD7kIXJIgoSEM41o0/Ngv5XUXF776aMHYW01G7hfNhUniuzX4tO
-	Whxw2PgErFUnSeltp5beywxzp62r2dhfJqoK9aNWhWriNnyiXzzop6WO/GZjYpXo
-	KLkcB2g2PUbDcs2je9RT+UGEZAUjzCU21tZm/w19Dbu7/OO2/tFPvPud2rfP0pg+
-	UY40aqOrHKSDeeIa5AwMku0hQeUXmNQo0KGf9jwY6dQsjM3N9dVF0I870kgYYsAK
-	S13qyrccibGzoFgP9BErzbKqDr0DiBchPXhxD2ceGbb5ss2TkeQZDtcST2U/1XMg
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8a3x1k3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 04 Aug 2026 13:30:37 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 674DQF3L003146;
-	Tue, 4 Aug 2026 13:30:36 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fswtyhvne-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 04 Aug 2026 13:30:36 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 674DUWGH42664256
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 4 Aug 2026 13:30:32 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AF43020043;
-	Tue,  4 Aug 2026 13:30:32 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7F52720040;
-	Tue,  4 Aug 2026 13:30:32 +0000 (GMT)
-Received: from [9.224.91.49] (unknown [9.224.91.49])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  4 Aug 2026 13:30:32 +0000 (GMT)
-Message-ID: <8c62f8c9-54ca-4fa2-a199-6d7cf0b26f25@linux.ibm.com>
-Date: Tue, 4 Aug 2026 15:30:32 +0200
+	dkim=pass (1024-bit key) header.d=0x0f.com header.i=@0x0f.com header.b="HVNDJ2sl"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84e27035206so4714844b3a.3
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 06:42:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=0x0f.com; s=google; t=1785850950; x=1786455750; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6BqqmJ+CkjzQyLJ9nl1mxgsYp2XZlncwLWU2u6v8GGk=;
+        b=HVNDJ2slChBLAnAtHJWsuM0GqQ+U+3j5u8Cc8lkAul0O+w064O3addkYOLXF8JgZA5
+         JVvXgnopt/Ar23f/ERGQYebRecvOLu1bnMh/KasRc4bAUdtPyEymba/0tQk3od0O1/n1
+         seakULTsJyWKgcz8t2Th3LZwg9ADI7IyEVMSw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785850950; x=1786455750;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6BqqmJ+CkjzQyLJ9nl1mxgsYp2XZlncwLWU2u6v8GGk=;
+        b=UPqhj+i+275PxA/6+3nQ6A64XAHSiZg8+5P573BBraLoBIupqDC5mYZ47eu9IU90bd
+         5RHgwltpAQYG7D9XYu0QTBw0uX3AKi2S+YAneJ7+MFvg+jwLmGXsBalJmQ0iEKZ4lLmW
+         0wxRCKWJmIXOa4RaWLWl8rQPprfW3i+B22WW9kI+SO6OuD6vN8IVhEuwKy3p+tZXp9p0
+         wqlprzhEJjQZnxmkUhQggyzqSAP27u/RE2YwoEXGngtuPiekwEdVnNpB81QBWBAz5s9/
+         pbfyYLFi8dlwg1NXQj7HqXCPrDiGewZjyZMTLqoLCUfxqVNrxgZJTRU/BPYCDgnZfBRY
+         cCvA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro7QWOiyr6M2SEpYxJo9Klp56xQd9omxbuMHEWkKjC0WkjDGpn7yhTVOpcL7qxV6U4d19MVUtI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+Gdx/bJnThwIm2x2bk7TChCJ9GHsxb5LWwqJ5OzJAFUVxlPaO
+	8lD9RpTBXYA+BJYeavOZ+bLr/Z/KLJZ17GWJRetsiAzW77Da8T23nUG1M9EnmYM8sSxYb9AbZ8w
+	NkaztmCw=
+X-Gm-Gg: AR+sD12JGhBxUZVoKurAsLQ5zywit5+EQTf9jfl8pOTUnRQ8hvFUxUK7n6Q4WC7/Qle
+	hJjAgPImTC94OGUw0FQQXWEMiMiaQE3xbuaFF37cnKLeZzS64NqxP5yxf974WNojeKwFFYZBs3J
+	cqUmeSEJu9tRnqFQ6d46cUk6d2gFcMEa8o4KZB8ByMyMozWJxlyQ+bmG7STq0dguR8bkSFsIXtU
+	jo6NIhg7Qyz6f38yt9y7qLi7ktA8EJqQKIb/PGig60FFJwD2AP0SmbD2/3oqfuRFZhGoXYN8Wen
+	Ttom814esB9Gh2kBlpjAiJGgeU/nkjb38p1mCA88N3jFo7JFQGcWxyf07IefKe4BZbHKs9LcWiL
+	vA4vReRNrDI9v7CN2c70dUR9Stdh5NEpvUkxrsvTbXqPMRSVC4Wpp2D6pTnfpPAJaCO37YpeaTF
+	ElKiWgYN7DISDrKY0Pe+Elf/RVV41WlizvFG7i19NG0+3IparGlKs=
+X-Received: by 2002:a05:6a00:12c9:b0:848:67ca:c03 with SMTP id d2e1a72fcca58-84ee4915d1fmr13645029b3a.58.1785850950265;
+        Tue, 04 Aug 2026 06:42:30 -0700 (PDT)
+Received: from shiro ([2400:4162:2428:2ffe:e3e3:8255:fe3e:c7f5])
+        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-84edc29e6f0sm5258690b3a.39.2026.08.04.06.42.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 06:42:29 -0700 (PDT)
+From: Daniel Palmer <daniel@0x0f.com>
+To: jkoolstra@xs4all.nl
+Cc: ast@kernel.org,
+	bpf@vger.kernel.org,
+	brauner@kernel.org,
+	corbet@lwn.net,
+	daniel@iogearbox.net,
+	farid.m.zakaria@gmail.com,
+	jack@suse.cz,
+	jannh@google.com,
+	kees@kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	mail@johnericson.me,
+	stable@vger.kernel.org,
+	viro@zeniv.linux.org.uk
+Subject: Re: [PATCH] binfmt_elf_fdpic: only honour the first PT_INTERP
+Date: Tue,  4 Aug 2026 22:42:25 +0900
+Message-ID: <20260804134225.3631912-1-daniel@0x0f.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <al_MqBrjDW1QjRau@daedalus>
+References: <al_MqBrjDW1QjRau@daedalus>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] net/iucv: fix UAF in afiucv_netdev_event()
-To: Nagamani PV <nagamani@linux.ibm.com>, davem@davemloft.net,
-        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
-Cc: horms@kernel.org, linux-s390@vger.kernel.org, netdev@vger.kernel.org,
-        twinkler@linux.ibm.com, heiko.carstens@de.ibm.com,
-        hidayath@linux.ibm.com, borntraeger@linux.ibm.com,
-        stable@vger.kernel.org
-References: <20260803182053.2355882-1-nagamani@linux.ibm.com>
- <9cda0e57-ce4b-428b-9385-743fdef02789@linux.ibm.com>
- <029629de-ee55-4b3e-a7fb-a693c2b1261d@linux.ibm.com>
-Content-Language: en-US
-From: Alexandra Winter <wintera@linux.ibm.com>
-In-Reply-To: <029629de-ee55-4b3e-a7fb-a693c2b1261d@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=E6P9Y6dl c=1 sm=1 tr=0 ts=6a71e97d cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=Hd0oI2eGEmljHiqTlHIA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
-X-Proofpoint-ORIG-GUID: SfIb4Tq2tIp9RVOLZ_W_vxkDqpX3sYkJ
-X-Proofpoint-GUID: UiRLhOHgbQ7vBwWdMETijgKFUdz2V27H
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDEwNyBTYWx0ZWRfX8LaFXWYND0kg
- xzh7G+1UYCHoUkkU9fK7fsj6Jek6g49XPMadOQra+fYnD2owcnvmWWQlONhSSOrEmTIW63wSRg6
- Y9fRfkhAHXvo7mYx4caS+2movBuFQeM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDEwNyBTYWx0ZWRfXzUoPi2ooSV+2
- YTrOXqOe6hYmwKdKAQPL3TQAJJWnbcGfujLo7qEhK+iX4WU9lJUAtyn4cFaQE7deaN4ZmaMV0If
- naRuAsG/rRWMQedYdBunu/E3cKezpM0f+Ir9CKrKL81uh31nWpx66rfmSY0dSctrt/gt4YJPJDy
- P3brvgtc3VGFLRDDEaRijDZmg7oU9402y00bCyW5MIw1sAcH2Q9+fwAn5Mn9uCJQXNcuhSeQSb0
- RvAEf7RvHRbJJs8STVNHxNZL8AJcLiFWKBaeJpFEuSBCbHdaZTaQDakPUpCqPbDDXtHo34PDI+i
- pMgDdyzmTrTTZ91ukZmgddBNDOc8IfrZy/H92GHjwTx+rDFTq+MYUNt52pS9onwz9tUhLm8lp7S
- m3EwHKQxzhViYo1liuivIMUxQafnvnxwRG+J6Mc0NWWBTNVHjK7BXp2EyVGj0TdNrG4lYeXrmvz
- MSo+ojltNNEdeublznw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-04_03,2026-08-03_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- suspectscore=0 adultscore=0 spamscore=0 malwarescore=0 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608040107
 
+Hi,
 
+Sorry if I messed this up. First time replying via git.
 
-On 04.08.26 14:52, Nagamani PV wrote:
->> I'd rather continue to work on a more complete fix than take this one,
->> but both ways are possible.
->>
-> Understood. This patch addresses the UAF on iucv_sk_list traversal
-> specifically. The lock_sock() concern is at a different level and
-> could be a follow-up.
-> 
-> Could you clarify your preference — take this as an incremental fix
-> with a follow-up for lock_sock(), or hold and work toward a combined
-> solution?
+>Afaict, currently read_code() may blow past what vm_mmap() allocated
+>there, which may result in memory corruption for a non MMU system.
 
-I prefer to work on the combined solution
+I ran Fable on all of the "nommu files" and it found the issue this
+commit fixes and the above issue,
+I sent a patch (co-written with fable) and we proved this is an actual
+issue on nommu via a reproducer tested on a real system.
+
+https://lore.kernel.org/all/20260710121443.1059549-1-daniel@thingy.jp/
+
+Thanks,
+
+Daniel
