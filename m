@@ -1,180 +1,146 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57DC633EB1A
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 20:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785874143; cv=pass; b=DO805kWZreUxPPnXSUcyNawpnZ8Hrjk63nOMmL5zEjh6m0RANqO4tL1iQj0Bvc9LdQN6z+p8RXxmsqVaZUppRDBRl4KFPIIoLfvBMQRBm3CgOnhfDmOJHkbzDOz0Pn/NSTYRKy8QWJrhQTEoOtBZ7yK0OTzsDOsQml7/xKDiWMM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785874143; c=relaxed/simple;
-	bh=w8embR9BTW+t5dUO7ZziHTZ8jQl44WhxcOaK3zXIKZ0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M3OXS1DWD2wj9g5EvjZmCPfm4qcMZDIZ7Sse/r2KRyZi0D3FH4YpkSlO7QePOTIjpZu5hV3QkKs//NsDVeo7YLzKLnvRSEFtKk6HdKI9Ru/Mtl6TViif/umt+D1Vys1wrK+c2wnrfxWdkJVzlsCQUpPHcxmUF4r6KiQGFccF0O0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=g3URB2LY; arc=pass smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57793314C4;
+	Tue,  4 Aug 2026 20:10:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785874256; cv=none; b=s/ytNg+H12HSIBrqdw3Z1/fd6ZEJL4ya2E4OlTX98JLEM4PqXX83uB1na61/OevbxvY+A4asWiiHPYqHgJ+oPe5Cork6A7We2G7jjbUmQijzRecaV5RHhsn+h6TMUMae8JpT6qZkMw8BUS8YqzEgzdcgmhJzGq+Ii8aZ0vDWjP4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785874256; c=relaxed/simple;
+	bh=T7nmMAk59SNDivRK0G2GHNfk5LxBtLamPl7hg0gBg+I=;
+	h=Date:To:From:Subject:Message-Id; b=jOCMxb3cOpHDWMAf9xSMF5aPfEp1JmhSvVtbeZJXPE2P8zaeajvJCOT+0FCRdKGB4kCDFIK8QDNmABd5PUEhbjjj5VAMsVpGVnydvHbU3SXWGc/FcOfxyyjaWrtv+KwLJ4pgsSNQ5SpCsmja4aYflwMaEgWejKt9+Ejj4H/ibl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=uWRHAlBh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="g3URB2LY"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-51c10e86e52so9581cf.1
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 13:09:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785874141; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DG3m3QAzCtDOmJrz5EStiyM5narJNfdEjO/C/zY4N2HyLYagneDxdwAjzlDH73/syU
-         eHIYDgmCuphk7GLLqFy9HLdy25TWNSqL/2iRUc2jEpo0Ht9V87w2loCHnJGYwYDxKN/V
-         OCVcdIinDMx2XpTTgxilDLNKmpBxiv04V6PPUVpkeC7E+9IXHJ6mY/hs02UewA2tnLEo
-         rpSj+0J9Did/xYgwx0y1dX1Fq6MXkjd7vVcLkM+PD9pCw3cV5KfTeIcZP/gYtIc0K/qw
-         5sZySI2ut2beQiqrHkl/ToML58wh9Ze9KvqJrwRKsGle6P7Pl3XnRJuDMuzZnq16YEdO
-         FixQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gLpRO5dH+fN1LCShnLYbtBYMbkUOmAnIe7RU35Aq/BY=;
-        fh=+IJSwUQIAL6CHhXbP0Vj9fSZpU8eU83jL/N3Z+gVmyA=;
-        b=YdH7yZ4dwnQQzwZwN7Jp6Y6sG9wknbM6wlstCxvSuyJtZVXaI/11Y3GaWDJG5znvMc
-         qJTXlTUT1Dahjc48aWnY4hRCWuVtmZp81MB7QA8KGJlUDR71s7ITV/te7q7FUisB1BGy
-         qKa+AelzTjIVViYJcMS483jSBL+uMHb857dAMZVCswSOphxc6J7fhM0MNRo5Nvg6m+qi
-         ro+4OmflgA9i0rrCRQqcm7BoGejMuIjpgOskxLsF4CuUsHZeoiCxD3cXzwMDLtqYLnkl
-         rTo5AYDmtSF4NjgsUZqk8JQ1z63oWc25N+R/ovV+94SO750J0ZFUTUUhyD8KFYKEcFCW
-         fU3A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="uWRHAlBh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43AF21F000E9;
+	Tue,  4 Aug 2026 20:10:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785874141; x=1786478941; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gLpRO5dH+fN1LCShnLYbtBYMbkUOmAnIe7RU35Aq/BY=;
-        b=g3URB2LYtL9TNdU1rHG/0OhJfu/HtdrT4QuF0CkHxYKle6JLWHAx2SHpIJOHh6ZIg3
-         R0/Yn+WqZyKwKUK2q2crER4FJLtt70nmlK9hz8ECYhexQTDJ5HDOcyI7LsIjb6TQrjcO
-         F7II1bcITN5sHLogGacQJVapZifmpvWfJ/a8kYfRTyWRIMwf7BBGhOLpzrTKpFW1cAyU
-         k2P8wvQhGItOtxmxlmgk4WcvurKKwXP0mHHaRxEqS4auPbtXQ6E5IEgGjFcbQ7m9pmke
-         HZYovyLim6oFxglMfuDeyJZqjLsC0b2n6nQgcZEuajUhrHUGM6LUff+MeNSg54vkRWnE
-         cffA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785874141; x=1786478941;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gLpRO5dH+fN1LCShnLYbtBYMbkUOmAnIe7RU35Aq/BY=;
-        b=gi3PYi4kaJibPwujFaKIyG/AXlbMIdnVY4M9mDc3gvTWABjd1eJbIH/SM9I7+ufFua
-         SBtOEYPGJKXbqvkE1vT4fyzSGhe5mvky9LtA6N0QID9sOszxzyR12iGnP/QOwGSva8gn
-         u1LpVcf1tTVCVOM24mDRyDg1Yxp8WTmyMW2k4s/ubIMc36ZZPtKjSdxfDlQf/VoFzZjU
-         jqKw9yHxlEZUJJFSMqArVtHZ+4xW8WyWBN5CB4YchbFrXk1wjRfydJoCZbipdenkvBDI
-         7W0awJqDjL2YgssLmuF5c64Ow+Ja22TDQw7CsrR230iFqqw+TdM7dScpRMWDUb2H/7dn
-         qcpg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq55skrn2IcBIr6HO/8XJHMJy3DiJs1Tjb4aTReT0laIfM9dwj6lX7Q2d6TYqMTVn7/08+K3AQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyfNeSiCH9oDxVZMcy4op5Utz4NMu/T6eLOKwC2ZG/jvKZjvmYI
-	utX/tF9UyXBpLomNmR79J6QblnQD6EfJK+fcWaH39xUyj7gzBmWJaeE5McPgAPGn0e06Gse5svK
-	QAmLFwes1+efYTb0WKcbDQiiOkrLNC/EBRzwj/nVeS1Rejp1p9BJG/0YpvDg=
-X-Gm-Gg: AR+sD13d37jnS4o/1R1KNroO2a0T/6wLcy/6Gkh69pXMJ8Hr1bIOcaBKydtsnwRVmV7
-	G7Dq95LLp9bRJ+6D2aEWhsr0DPl+WxB0P2cq6rjri+1HeSfbptBaRRiQvjdvKB7vkyA9Jcx5NCt
-	SPBo1NLOnFD3Atn2VKRxsOg6s0EF8TK30EeyM9sB0CdTqhkTEUq1Xr5Rsj7TBtWd7J/D6wrsIFi
-	nf4JQICs/Zxw13L/JUQqsD5vQ9B9fcEP1v1baNBPrSYJIR1gdIfDQOwAscuC9F+8osyFZkejWOc
-	UJE87QF3liPtc+KG2fEKgCngAPpzcN/u8t1M1/EzIUqvH3VUgfLSbDyrKTUyEtt3+t54fOhgUsE
-	=
-X-Received: by 2002:a05:622a:a6c3:b0:51c:ae6:a57 with SMTP id
- d75a77b69052e-52ce6c8ef40mr4163801cf.11.1785874140324; Tue, 04 Aug 2026
- 13:09:00 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1785874254;
+	bh=vOgIvI/GUR47yVOT5RxRKwEaNJeYF7UKRzFIhAV8oE8=;
+	h=Date:To:From:Subject;
+	b=uWRHAlBhuiZUoxvGRCstexT+RqvHxnUUGoB5ffnmx2A2K5wSYWnebaELZMFVvVgpM
+	 UqYDBLQHEaBJSZAG8qygV4LCuLYvOSqg07cf4bO2yt3KPqqO5vAzJ7h2voFyz2eyT2
+	 HVLR8WxWtUAA5f8Te+DYKHoiPxXAa0TyWD/jJTbo=
+Date: Tue, 04 Aug 2026 13:10:53 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,senozhatsky@chromium.org,minchan@kernel.org,axboe@kernel.dk,xialonglong@kylinos.cn,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + zram-fix-out-of-bounds-access-in-writeback_store.patch added to mm-new branch
+Message-Id: <20260804201054.43AF21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260804122038.190270-1-hao.ge@linux.dev>
-In-Reply-To: <20260804122038.190270-1-hao.ge@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Tue, 4 Aug 2026 13:08:49 -0700
-X-Gm-Features: AUfX_mwIgnpCsSpVuGaJq123_P9l9T9DSb_2ViQo7h1MG8JSNzWnfW8YjiUletY
-Message-ID: <CAJuCfpGit7zcNPGAB9D2A5+718NY-qdksxt7gUaN_eRcB_5+Ug@mail.gmail.com>
-Subject: Re: [PATCH v2] alloc_tag: fix undetected compressed tag overflow when
- profiling is disabled
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Abhishek Bapat <abhishekbapat@google.com>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 4, 2026 at 5:21=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
->
-> In reserve_module_tags(), the tag overflow check is gated on
-> mem_alloc_profiling_enabled():
->
->     if (mem_alloc_profiling_enabled() && !tags_addressable())
->
-> If profiling is toggled off at runtime and a module is loaded whose
-> tags exceed the compressed-mode limit, shutdown_mem_profiling() is
-> skipped. vm_module_tags_populate() still maps memory for the tags and
-> the module loads successfully, but the total tag count now exceeds what
-> NR_UNUSED_PAGEFLAG_BITS can address.
->
-> Once profiling is re-enabled, ref_to_idx() computes each tag's index
-> as its position in the alloc_tag array. update_page_tag_ref() masks
-> it to alloc_tag_ref_mask before storing in page->flags. Indices
-> beyond the mask are truncated and idx_to_ref() resolves them to wrong
-> tags.
->
-> mem_alloc_profiling_enabled() and mem_profiling_compressed are
-> independent. Once compressed mode is established at boot, it stays
-> active regardless of runtime toggles of mem_profiling.
->
-> Remove the mem_alloc_profiling_enabled() guard. Also return an error
-> after shutdown_mem_profiling() to skip vm_module_tags_populate(), as
-> the mapped pages would never be reused - shutdown_mem_profiling() sets
-> mem_profiling_support to false, so no future module load enters the
-> codetag path.
->
-> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compress=
-ion")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
 
-Thanks for the fix, Hao!
+The patch titled
+     Subject: zram: fix out-of-bounds access in writeback_store()
+has been added to the -mm mm-new branch.  Its filename is
+     zram-fix-out-of-bounds-access-in-writeback_store.patch
 
-> ---
-> Changes in v2:
-> - Return error after shutdown_mem_profiling() to skip unnecessary
->   vm_module_tags_populate()
->   v1 link: https://lore.kernel.org/all/20260804064408.105033-1-hao.ge@lin=
-ux.dev/
-> ---
->  mm/alloc_tag.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-> index 52aece27b00e..d8c36430f1c0 100644
-> --- a/mm/alloc_tag.c
-> +++ b/mm/alloc_tag.c
-> @@ -904,10 +904,11 @@ static void *reserve_module_tags(struct module *mod=
-, unsigned long size,
->                 int grow_res;
->
->                 module_tags.size =3D offset + size;
-> -               if (mem_alloc_profiling_enabled() && !tags_addressable())=
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/zram-fix-out-of-bounds-access-in-writeback_store.patch
+
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Longlong Xia <xialonglong@kylinos.cn>
+Subject: zram: fix out-of-bounds access in writeback_store()
+Date: Tue, 4 Aug 2026 14:59:18 +0800
+
+Patch series "zram: fix stale scan bounds after reinitialization".
+
+Both writeback_store() and read_block_state() derive their table scan
+bounds from zram->disksize before acquiring dev_lock.  If the device is
+reset and reinitialized with a smaller disksize between that read and lock
+acquisition, the bound can describe the old table while the scan operates
+on the new one.  This can lead to out-of-bounds slot accesses.
+
+Move both bound calculations under dev_lock so each bound remains
+consistent with the table throughout its scan.  Keep the fixes separate
+because the affected interfaces originate from different commits and can
+be backported independently.
+
+
+This patch (of 2):
+
+writeback_store() calculates the table scan bounds before taking dev_lock.
+A reset followed by reconfiguration with a smaller disksize can therefore
+replace zram->table while writeback_store() is waiting for the lock.  Once
+it acquires the lock, it sees an initialized device but scans the new
+table using the old upper bound, resulting in an out-of-bounds access.
+
+Calculate the number of pages while holding dev_lock so the scan bound
+matches the table protected by the lock.
+
+Link: https://lore.kernel.org/20260804065919.3970386-1-xialonglong2025@163.com
+Link: https://lore.kernel.org/20260804065919.3970386-2-xialonglong2025@163.com
+Fixes: a939888ec38b ("zram: support idle/huge page writeback")
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Minchan Kim <minchan@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ drivers/block/zram/zram_drv.c |    7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+--- a/drivers/block/zram/zram_drv.c~zram-fix-out-of-bounds-access-in-writeback_store
++++ a/drivers/block/zram/zram_drv.c
+@@ -1235,8 +1235,8 @@ static ssize_t writeback_store(struct de
+ 			       const char *buf, size_t len)
  {
+ 	struct zram *zram = dev_to_zram(dev);
+-	u64 nr_pages = zram->disksize >> PAGE_SHIFT;
+-	unsigned long lo = 0, hi = nr_pages;
++	u64 nr_pages;
++	unsigned long lo = 0, hi;
+ 	struct zram_pp_ctl *pp_ctl = NULL;
+ 	struct zram_wb_ctl *wb_ctl = NULL;
+ 	char *args, *param, *val;
+@@ -1250,6 +1250,9 @@ static ssize_t writeback_store(struct de
+ 	if (!zram->backing_dev)
+ 		return -ENODEV;
+ 
++	nr_pages = zram->disksize >> PAGE_SHIFT;
++	hi = nr_pages;
++
+ 	pp_ctl = init_pp_ctl();
+ 	if (!pp_ctl)
+ 		return -ENOMEM;
+_
 
-Makes sense but how about replacing mem_alloc_profiling_enabled() with
-mem_profiling_support? Otherwise this warning will be issued multiple
-times if we are loading multiple modules.
+Patches currently in -mm which might be from xialonglong@kylinos.cn are
 
-> +               if (!tags_addressable()) {
->                         shutdown_mem_profiling(true);
->                         pr_warn("With module %s there are too many tags t=
-o fit in %d page flag bits. Memory allocation profiling is disabled!\n",
->                                 mod->name, NR_UNUSED_PAGEFLAG_BITS);
-> +                       return ERR_PTR(-ENOSPC);
+mm-ksm-avoid-missing-ksmd-wakeups-in-ksm_enter.patch
+zram-fix-out-of-bounds-access-in-writeback_store.patch
+zram-fix-out-of-bounds-access-in-read_block_state.patch
 
-This ENOSPC error will be propagated all the way up to the init_module
-syscall and it's not among the error codes currently expected (see:
-https://man7.org/linux/man-pages/man2/init_module.2.html). I suggest
-returning ENOMEM instead.
-
->                 }
->
->                 grow_res =3D vm_module_tags_populate();
-> --
-> 2.25.1
->
