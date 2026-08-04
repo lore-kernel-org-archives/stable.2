@@ -1,98 +1,75 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4183F39EA;
-	Tue,  4 Aug 2026 08:05:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ADFC13D3CE3;
+	Tue,  4 Aug 2026 08:29:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785830708; cv=none; b=JYNAGi/y6SZDvA39p2zWiu68lEqIWuaTOJNWCKTMH6qYZYQMqgddAN+8srbxaDTZG6Ti+uIStgEZJgpiPe44fIdpOTEqeM8/mGLESiysPkSRgfoI3fkF6tTk8FdEf6XM8bl/VXZk9ZeP2CEMNyqSLB2bLjOkdMCuxwJMXueoL7s=
+	t=1785832156; cv=none; b=Y2odJSOhBFb4UjmTsB5BA7bSlgcv7wuE68HNxYTXy4odo5KY7/NMEXFlUibTOTAWYPRos8YdIhOX8+LuMfpoQCgfITDk9nN/sTV1LZ8bH3387LYkbryeqQ84vMnQZmtjQs2v70SUFvIU4AWGq/pO1WK0PuqLUlUz8vnEy0P4miY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785830708; c=relaxed/simple;
-	bh=we1aL2u2OJHpX7f6AxPP6q+3fRXXdH/4wVnWhe1VCPE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r/1qa3icx83gTG6oP+/ldIZuYl8oiTuHAaTRdS/fr2tU6hJh2K8a+2HJ3OEMa3E7xL37A/Yx1k/qruA3kHFu4m6eRRjb+Sv/Un+VNrCLvdFiVBDyLGSbTLuD6j6tgnuS0mA71FnQwIpoFyVDfLODffSm0kmHO1HJc7VWyanSg8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=Ic9iooQ4; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="Ic9iooQ4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=jIdOuiLKenbu7yg3o/ZRE0+gje33E8BVBjzOz2eBMCE=; b=Ic9iooQ4WBp/TwtzcHm3AwIHEe
-	ud3kPAkeWRjK9NeUKG91xPEKKalrH5SxgDmTb4g/tlVGe7RP1yAbS+BldDV+15K+fvPlCicOQ/RS1
-	5LhjtAJVstdVIZ434euyBic8c6UmkXDhzqkmW0xRPtwjGLArSlqPlT6PYgh7yeYTaih0oEeN8NWJJ
-	9bRI4UxCR6GM73JMGKolhK9A1FpzdsJ+HtpMrRQ4l4424agP9pLAXEPGZsJbpM0oIcUy93kEK3Wt/
-	VppL5cCuayFJPe1XpNZHRCCm+33IxITu1PJrp9sXd77qjMW5NKg8B089p2h9rNtXRPFY8x4XKvDE3
-	CVHSAWxA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1wrA8z-00D00A-23;
-	Tue, 04 Aug 2026 08:05:02 +0000
-Date: Tue, 4 Aug 2026 01:04:57 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Markus Boehme <markus.boehme@mailbox.org>
-Cc: stable@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
-	Simon Horman <horms@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.12] netconsole: avoid OOB reads, msg is not
- nul-terminated
-Message-ID: <anGdHcAGMUbblP2c@gmail.com>
-References: <20260803184129.24594-2-markus.boehme@mailbox.org>
+	s=arc-20240116; t=1785832156; c=relaxed/simple;
+	bh=k7yk5/b7qdepsPMCeaP36SdxlZvojFFonqwUNc0xcSs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EoQIjuHcdoRo6/n+x8b9U21zaeFoV7AtWkD0rc5ZM4lBrQ4d9/YUbtSsJvDfWMHIeTFM5XgTCyapBTpVSHiOTUioF1MgBOB5tgsvZ0mryutS8EQL/ER2VX0KuWWQr6pFUKsfJukQMsnGgfZbN6RnqJDinjdUOskLogbibTJai28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.2.5.213])
+	by gateway (Coremail) with SMTP id _____8DxturXonFqizYKAA--.33315S3;
+	Tue, 04 Aug 2026 16:29:11 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.2.5.213])
+	by front1 (Coremail) with SMTP id qMiowJDxfQfXonFqliwjAA--.5687S2;
+	Tue, 04 Aug 2026 16:29:11 +0800 (CST)
+From: Bibo Mao <maobibo@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: kvm@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] LoongArch: KVM: Set cpu before IN_GUEST_MODE is set
+Date: Tue,  4 Aug 2026 16:21:53 +0800
+Message-Id: <20260804082153.1220709-1-maobibo@loongson.cn>
+X-Mailer: git-send-email 2.39.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260803184129.24594-2-markus.boehme@mailbox.org>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxfQfXonFqliwjAA--.5687S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7
+	ZEXasCq-sGcSsGvfJ3UbIjqfuFe4nvWSU5nxnvy29KBjDU0xBIdaVrnUUvcSsGvfC2Kfnx
+	nUUI43ZEXa7xR_UUUUUUUUU==
 
-On Mon, Aug 03, 2026 at 08:41:29PM +0200, Markus Boehme wrote:
-> From: Jakub Kicinski <kuba@kernel.org>
-> 
-> [ Upstream commit 82aec772fca2223bc5774bd9af486fd95766e578 ]
-> 
-> msg passed to netconsole from the console subsystem is not guaranteed
-> to be nul-terminated. Before recent
-> commit 7eab73b18630 ("netconsole: convert to NBCON console infrastructure")
-> the message would be placed in printk_shared_pbufs, a static global
-> buffer, so KASAN had harder time catching OOB accesses. Now we see:
-> 
->     printk: console [netcon_ext0] enabled
->     BUG: KASAN: slab-out-of-bounds in string+0x1f7/0x240
->     Read of size 1 at addr ffff88813b6d4c00 by task pr/netcon_ext0/594
-> 
->     CPU: 65 UID: 0 PID: 594 Comm: pr/netcon_ext0 Not tainted 6.19.0-11754-g4246fd6547c9
->     Call Trace:
->      kasan_report+0xe4/0x120
->      string+0x1f7/0x240
->      vsnprintf+0x655/0xba0
->      scnprintf+0xba/0x120
->      netconsole_write+0x3fe/0xa10
->      nbcon_emit_next_record+0x46e/0x860
->      nbcon_kthread_func+0x623/0x750
-> 
->     Allocated by task 1:
->      nbcon_alloc+0x1ea/0x450
->      register_console+0x26b/0xe10
->      init_netconsole+0xbb0/0xda0
-> 
->     The buggy address belongs to the object at ffff88813b6d4000
->                 which belongs to the cache kmalloc-4k of size 4096
->     The buggy address is located 0 bytes to the right of
->                 allocated 3072-byte region [ffff88813b6d4000, ffff88813b6d4c00)
-> 
-> Fixes: c62c0a17f9b7 ("netconsole: Append kernel version to message")
-> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-> Reviewed-by: Simon Horman <horms@kernel.org>
-> Link: https://patch.msgid.link/20260219195021.2099699-1-kuba@kernel.org
-> Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+In function kvm_make_vcpu_request(), it will send IPI to physical CPU
+when vCPU is in IN_GUEST_MODE mode. And physical CPU is set in function
+kvm_check_vpid(), and it should be called before IN_GUEST_MODE is set.
+Otherwise IPI will send to wrong old physical CPU where vCPU is running.
 
-Acked-by: Breno Leitao <leitao@debian.org>
+Fixes: 2fc3bd86db4b ("LoongArch: KVM: Implement basic vcpu interfaces")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bibo Mao <maobibo@loongson.cn>
+---
+ arch/loongarch/kvm/vcpu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/loongarch/kvm/vcpu.c b/arch/loongarch/kvm/vcpu.c
+index 20c207d80e31..fd0dd22a7162 100644
+--- a/arch/loongarch/kvm/vcpu.c
++++ b/arch/loongarch/kvm/vcpu.c
+@@ -300,10 +300,10 @@ static int kvm_pre_enter_guest(struct kvm_vcpu *vcpu)
+ 		 */
+ 		local_irq_disable();
+ 		kvm_deliver_exception(vcpu);
++		kvm_check_vpid(vcpu);
+ 		/* Make sure the vcpu mode has been written */
+ 		smp_store_mb(vcpu->mode, IN_GUEST_MODE);
+ 		kvm_deliver_intr(vcpu);
+-		kvm_check_vpid(vcpu);
+ 
+ 		/*
+ 		 * Called after function kvm_check_vpid()
+
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+-- 
+2.39.3
+
