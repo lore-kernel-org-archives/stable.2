@@ -1,101 +1,80 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786C835AC09;
-	Tue,  4 Aug 2026 07:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B12341E6D8;
+	Tue,  4 Aug 2026 07:30:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785828233; cv=none; b=fJKP8bMfiGEX5Gb4mYotxZRu+2EeUvUmEUzYdgz7cXSJjVoA6KB78UVrvHgc5GA+0t4QENhgs1FXmfuP/788daICWwiLY/kYjX7t2Vxkaa4RyMDcbqPt+7HdQnAF3eLzOCah3Un49Ku0GZcTSspzpekCyw5Q8hFwT2y8KqknuBw=
+	t=1785828650; cv=none; b=sEzybW+OUmy1wYsxG5Tg6v1RgsdAPVLHZVTHEzkQlZxhZHb25NXFlScvKc6tp5odNk+KsX2M2TdSsvxfH2dbpfA6clRN4vI2iay4mdcCJtivCazqgwCChckcfdXf7Ctkc20IalpF3ri8Lmz9Rm2Bx8zlfrd1HtyFu4lnO1z/+1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785828233; c=relaxed/simple;
-	bh=rGvD89MhKlmzZRPMrJPqg9C1kPX4WXWfyL9s4jZGOfU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UgU8CvrbGoVV8gahC8doXsFlccfQaoHtrbhHOK2nEyN1cayg04uaQJ+AZ+Jo/44Qgg5oiS1YSKezF4xp19kqlqfDnl44RlnDjxDjvt77NavyuwWEFoleuxS/Jhkgc/8xtaxDC32aWeAPbj0STUqb2P4UlQFzFDUXLKCb97SnPMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=c6K/IsTF; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1785828650; c=relaxed/simple;
+	bh=uQo5xmHWgWZM+XNe9mvOTnt7Nc54mzCP0VFu1Jw45J8=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=eNrEJMJ20FZ8r/peEYDFrxWmI5o1NqAKWDUrd1NchwMUg9l9BcG8e3JmgGfGLAbB9gVl2erCDxI2dM7E+wqOg4IZUCgsU56+g++x5qQDQ2YMGWhGfkU2QSw+fhIe03R2kcyTICFeSd1TRwjF9GMXC7b/xEbO4e/PGV9jl7xb4sQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A6Q2mknU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="c6K/IsTF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=XodPIm67WpP4LA6qBjgDmlDJKaqtJYIf0blYppf+Fqg=; b=c6K/IsTFs/obfc9mMbUo+a78NN
-	+KLQsR6Gsj5YWNDvhqepfYJipdUylD0UjbkFaC4ZTXd62N0fk0G3b6wuCXftY5GPZuEirQGVeBzU2
-	GqllWMnmzrIfmaYCi/cNEHxa7EsQ41WL0rSplnSKH1xyMsnZ+lJ66T5ny0ZDMbiPmBER5OkOfuQ5g
-	BxNji25q6AUNdTMnrknXQnyjVW0RD1P7wxDCYBnIuGjxge+gKku5DwHP1ouEv+0EpGB7JhGpTQgtf
-	+IqGUneRvXTSFn9VQLbeM4YzYvQLF+Z4NxXLNFjnQ/Aw2yA6qfhCv9S/k6vvQdMh/gXnUJID1FhJS
-	eqlQb+Fw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wr9U2-000000015Je-24Af;
-	Tue, 04 Aug 2026 07:22:42 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id C7BDE30093A; Tue, 04 Aug 2026 09:22:40 +0200 (CEST)
-Date: Tue, 4 Aug 2026 09:22:40 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Bo Li <libo.gcs85@bytedance.com>
-Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-	sshegde@linux.ibm.com, jgross@suse.com, wangyang.guo@intel.com,
-	seanjc@google.com, pasha.tatashin@oracle.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] x86/tsc: Fix misplaced seqcount_latch_init() in
- cyc2ns_init_secondary_cpus()
-Message-ID: <20260804072240.GK687043@noisy.programming.kicks-ass.net>
-References: <20260804071128.31022-1-libo.gcs85@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A6Q2mknU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7E51F000E9;
+	Tue,  4 Aug 2026 07:30:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785828648;
+	bh=Mgv41DrsNNY5KSr/+kJxMfoMTv6unJRL/btwkappeSo=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=A6Q2mknU8T3IvjsgFjyXL0egXOcFAG26Uz/FjLstMJZEgxpnRnPaG68g9mYrqKCDe
+	 vp9nGDvKH8UHypZmK2NTl6ylGqqIEfahcif/wLkqOlT5lLcZEDiM2297uoGfLSDKlG
+	 1deN9y5DYKPi/FQNP2xh9LnmbFhiXpG4lDk4iQA/Dv7Du0iFxQncSfjTcoVsiLBTM7
+	 rSdtvapvon+ATdJBa69+Pt6Nc0z1XfCTlKVJGgmuJwcXDqFm4pYRrRHcjPQSXsXLGd
+	 HMj9bIFgTsBQVK/6o4FibqsHnet8Y69p57pICfXGVdtk4+ryMTkKQzLIlw/JrXiB46
+	 NM0F2qPTaqMsw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93B123924A65;
+	Tue,  4 Aug 2026 07:30:10 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260804071128.31022-1-libo.gcs85@bytedance.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] fsverity: Fix bpf_get_fsverity_digest() dynptr
+ assumptions
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178582860939.3014158.15212060647956229102.git-patchwork-notify@kernel.org>
+Date: Tue, 04 Aug 2026 07:30:09 +0000
+References: <20260731003925.2728977-1-ebiggers@kernel.org>
+In-Reply-To: <20260731003925.2728977-1-ebiggers@kernel.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: fsverity@lists.linux.dev, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev,
+ song@kernel.org, yonghong.song@linux.dev, emil@etsalapatis.com,
+ jolsa@kernel.org, stable@vger.kernel.org
 
-On Tue, Aug 04, 2026 at 03:11:28PM +0800, Bo Li wrote:
-> In cyc2ns_init_secondary_cpus(), seqcount_latch_init(&c2n->seq) is
-> called _before_ c2n is advanced to the next CPU via per_cpu_ptr().
-> As a result:
-> 
->  1. On the first iteration, c2n still points at the BSP's struct, so
->     the BSP's seqcount_latch is re-initialized. cyc2ns_init_boot_cpu()
->     already did this correctly, so it happens to work by accident
->     because no concurrent readers are live at __init time.
-> 
->  2. On subsequent iterations, seqcount_latch_init() initializes the
->     previous CPU's seqcount (because c2n was advanced by the prior
->     per_cpu_ptr()), so all CPUs except the last one in the for_each
->     loop happen to get initialized. The last secondary CPU's seqcount
->     is left uninitialized.
-> 
-> Move seqcount_latch_init() _after_ c2n is pointed at the target CPU's
-> struct, so each secondary CPU's seqcount is correctly initialized.
-> 
-> Fixes: e2a9ca29b5ed ("x86/tsc: Initialize cyc2ns when tsc frequency is determined")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Bo Li <libo.gcs85@bytedance.com>
-> ---
->  arch/x86/kernel/tsc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-> index ce10ae4b298b..84fb80492b01 100644
-> --- a/arch/x86/kernel/tsc.c
-> +++ b/arch/x86/kernel/tsc.c
-> @@ -223,8 +223,8 @@ static void __init cyc2ns_init_secondary_cpus(void)
->  
->  	for_each_possible_cpu(cpu) {
->  		if (cpu != this_cpu) {
-> -			seqcount_latch_init(&c2n->seq);
->  			c2n = per_cpu_ptr(&cyc2ns, cpu);
-> +			seqcount_latch_init(&c2n->seq);
->  			c2n->data[0] = data[0];
->  			c2n->data[1] = data[1];
->  		}
+Hello:
 
-No, this looks wrong. Note that per the 'cpu != this_cpu' there are only
-N-1 invocations. One CPU will not be initialized. Further note the name
-of this function, and the name of the function above it.
+This patch was applied to bpf/bpf.git (master)
+by Kumar Kartikeya Dwivedi <memxor@gmail.com>:
+
+On Fri, 31 Jul 2026 00:39:25 +0000 you wrote:
+> The BPF verifier and the dynptr abstraction ensure that the memory space
+> referenced by a dynptr remains valid.  They do not, however, provide any
+> guarantee that the contents of the memory are stable.  kfuncs are
+> expected to remain memory-safe even if concurrent modifications occur.
+> 
+> bpf_get_fsverity_digest() didn't follow that: it could crash if
+> arg->digest_size was concurrently modified.
+> 
+> [...]
+
+Here is the summary with links:
+  - fsverity: Fix bpf_get_fsverity_digest() dynptr assumptions
+    https://git.kernel.org/bpf/bpf/c/3e8ec7c03872
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
