@@ -1,70 +1,97 @@
-Received: from va-2-60.ptr.blmpb.com (va-2-60.ptr.blmpb.com [209.127.231.60])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B013C343A
-	for <stable@vger.kernel.org>; Mon,  3 Aug 2026 23:55:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D1F212542;
+	Tue,  4 Aug 2026 00:08:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785801313; cv=none; b=P3Hdnk/6TizeskQ1LkgQaWfpKVQVhWsBO/0oYx5p527e8xEmyJDnV2EcpGz5zhoes0iL0nVQ2AvawH7cxlVHz/WembM6AHPhPxTJgjn29ro6UPXP+PnTfljyZf0Sm4WnJFOSegLBvQhkBWapwYa+y10MLy00wKf6tPIwdgox8YU=
+	t=1785802097; cv=none; b=rSSKUH74hetmaxk8SgR8lvk3+bwgNZfOs3131WfxBaF8IJ2dhi+3SOiXqj27r5qCls3S9EIenNrN9DciD6wKq7yAVEysZUD7FL9Q+/I3LnXdfjBW7sXi1aTioNH3yb2eLhE3ZBUdKXwDRKjWoxt3mo4DYy/d5ll3obaz748xO5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785801313; c=relaxed/simple;
-	bh=rfOy4ijqLRjq51iAooUviNWJz0Pp+uy/0o0AjyPa2Vo=;
-	h=Cc:From:Mime-Version:References:To:Subject:Date:Message-Id:
-	 Content-Disposition:Content-Type:In-Reply-To; b=gki8TXU7iQcZjHjyIzT36q9qoj/djdNZpXpjF4lNBScW6tXr7EqvetA2xVYaf0PSeg/GH+A+9AUX5esAJZ6ES+y50v6odhMGPSjgMIVCrtZOq9qL3L9ZJuo+/t82LYLT1IP/VWlNCxDayxzHUwlSVPYbbrczZFJqSs0r6qC6Sts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=VxJcjkJN; arc=none smtp.client-ip=209.127.231.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1785802097; c=relaxed/simple;
+	bh=yRAyrMuenJyHY+SW/5KVuil7zSjOUFXgHszBM3J4Ggk=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=TS7+AHgAXRj/eu21kuuLJ6Zz7p7mQNJzLvQNSf4m4G+/eaIfwoR9DrP+UQxjwXLArdISwQFckIDVhwNiGxXlhXWT9iuL4Qg77lQtOTXBL6VvKLxxPD+E/do1Ykzh+88xInpGtYpYN1NZPGEBTi34jgdIpZk3K0ro2sFz0Kp++tE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l4hEkZUP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="VxJcjkJN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1785801302; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=rfOy4ijqLRjq51iAooUviNWJz0Pp+uy/0o0AjyPa2Vo=;
- b=VxJcjkJNx0V0GKZEFpKA1cCpP5KrigQLBc3olQm5/HcgMLr9yz+raGwI+t31T5Yb+Dz8QA
- IA+WjBxSbJYnsa7IcOe31f95Y7Uz7LWpyCfg78of+k6XkAdR0UlLM1A7B1pMsKDXXcYGql
- CyFsF4g1OCt1oylvADJYuFpjYcvYGN38EOrORQEuhsUGkVhHIG3vXAMDpZ8812ehejW5l3
- maILytQa/8RVxgatfwgdatIlMnEdolcZAQqCzX5U3pFWU10jI9DiCtBOQahj0sjwxElOJq
- e8SH3zLo8FjQM/2kTfzn18Jab7F1vjZwYVe8D5x0bYrexkhfu2ynrOLX+sNcVA==
-Cc: "Shengzhuo Wei" <me@cherr.cc>, 
-	"Derek J. Clark" <derekjohn.clark@gmail.com>, 
-	"Jiri Kosina" <jikos@kernel.org>, 
-	"Benjamin Tissoires" <bentiss@kernel.org>, 
-	"Zhouwang Huang" <honjow311@gmail.com>, <linux-input@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-From: "Shengzhuo Wei" <me@cherr.cc>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l4hEkZUP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78CFC1F000E9;
+	Tue,  4 Aug 2026 00:08:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785802095;
+	bh=V6JMc4T97qa7AdgeRhkv+CB1f4XYEGtyD+lrlDxriQw=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=l4hEkZUPUZb9N+vu4/HX9J0GdPbpGLarUO0nVFsrdNUHQaCJNOfP926uUyJflCuWU
+	 477JaJAZGnB3CvWbo9ePBlmoyB3IlOIsEHY7UJoEgzmWy8Yu9nv1LPrtavtlRglwcH
+	 gEkSVJXRw0e68Jcmc33bWDquJjh2NexYGb6VU0UTDW1GtIYdedMGhSxbhI6rnHlNL1
+	 X9Tc7ip9deJvdk7T6y+sOsKYh0VzOIySrCmlYC6yCRBqRtwHxG/vFzlQZgKtyEuzvG
+	 4BQ8DKUb3mOii3bRqILZABTzURgz9g+bWOLG/HGgrv88Jnt8ArlS+SeMupdDuYqVEd
+	 37zpDI3Sb4yYw==
+Message-ID: <0b450e92-b9b0-4a55-bd16-ad106245d7e1@kernel.org>
+Date: Tue, 4 Aug 2026 08:08:12 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-References: <20260804-oxp-fix-v1-1-51a4fe787167@cherr.cc> <anElA4get_VxNuB4@google.com>
-Content-Transfer-Encoding: quoted-printable
-X-Lms-Return-Path: <lba+26a712a54+87fdaf+vger.kernel.org+me@cherr.cc>
-To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>
-Subject: Re: [PATCH] HID: hid-oxp: fix UAF on pending work in remove()
-Received: from pve ([111.42.148.29]) by smtp.feishu.cn with ESMTPS; Tue, 04 Aug 2026 07:54:59 +0800
-Date: Tue, 4 Aug 2026 07:54:57 +0800
-Message-Id: <anEqUZyJGBrQ6HIW@pve>
-Content-Disposition: inline
-Content-Type: text/plain; charset=UTF-8
-In-Reply-To: <anElA4get_VxNuB4@google.com>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, jaegeuk@kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+ ccc194101@163.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2] f2fs: fix valid block count leak on data block
+ allocation failure
+To: Chen Changcheng <chenchangcheng@kylinos.cn>
+References: <20260803073800.218814-1-chenchangcheng@kylinos.cn>
+ <20260803074344.219899-1-chenchangcheng@kylinos.cn>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260803074344.219899-1-chenchangcheng@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2026-08-03 16:33, Dmitry Torokhov wrote:
-=20
-> What stops these jobs from re-arming? Should it use
-> disable_delayed_work_sync() instead?
+On 8/3/26 15:43, Chen Changcheng wrote:
+> In __allocate_data_block(), when allocating a new data block
+> (dn->data_blkaddr == NULL_ADDR), inc_valid_block_count() is
+> called first to increment total_valid_block_count and i_blocks.
+> If the subsequent f2fs_allocate_data_block() fails, the function
+> returns the error directly without rolling back the
+> already-incremented block counts, causing a permanent leak.
+> 
+> Fix this by calling dec_valid_block_count() to undo the
+> increment before returning the error. The condition
+> old_blkaddr == NULL_ADDR precisely identifies the case where
+> inc_valid_block_count() was called.
+> 
+> Fixes: 54607494875e ("f2fs: compress: fix to avoid inconsistence bewteen i_blocks and dnode")
 
-Agreed =E2=80=94 cancel_delayed_work_sync() only drains the running instanc=
-e; it
-doesn't stop the works from being re-queued from the raw_event / sysfs /
-LED-brightness paths before the device is fully torn down, so the UAF
-window isn't closed. I'll switch all three calls to
-disable_delayed_work_sync() in v2.
+Should be?
 
-Do you have any other comments you'd like addressed in v2?
+Fixes: 7d009e048d7c ("f2fs: fix to handle segment allocation failure correctly")
 
 Thanks,
-Shengzhuo
+
+> Cc: <stable@vger.kernel.org>
+> Reviewed-by: Chao Yu <chao@kernel.org>
+> Signed-off-by: Chen Changcheng <chenchangcheng@kylinos.cn>
+> ---
+>   fs/f2fs/data.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index a765fda71536..819631bb61ae 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -1532,8 +1532,11 @@ static int __allocate_data_block(struct dnode_of_data *dn, int seg_type)
+>   	old_blkaddr = dn->data_blkaddr;
+>   	err = f2fs_allocate_data_block(sbi, NULL, old_blkaddr,
+>   				&dn->data_blkaddr, &sum, seg_type, NULL);
+> -	if (err)
+> +	if (err) {
+> +		if (old_blkaddr == NULL_ADDR)
+> +			dec_valid_block_count(sbi, dn->inode, count);
+>   		return err;
+> +	}
+>   
+>   	if (GET_SEGNO(sbi, old_blkaddr) != NULL_SEGNO)
+>   		f2fs_invalidate_internal_cache(sbi, old_blkaddr, 1);
+
