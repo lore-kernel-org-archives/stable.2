@@ -1,74 +1,81 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163822874F5
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 06:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CDB33438F
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 06:10:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785823751; cv=none; b=E73Nj4l4NvCYpT9T+g8BfDN4Dw3sdgTRmFBoKOgptQ2DDkOtT6DWS/I3l4N4nnmiHmolu+ad6Z0kjf+K6vfuBDdG6EHcnNk+v6D1hkwS5LFTv4pvfpFdR37WVB/nRuwxHyhAY890bVXYDxpqPxjNcFIpj77KqxHVoyrw6rXQNE0=
+	t=1785823803; cv=none; b=sHazQ2zsBEJYjjJD0bV7j0B7cokWxNO1vPZ/ycxyqde1gKIRoefyM/ysEgVi1dYkyG61JIg5HItOrwbD2DMDgWopxRPp7DsNvPJHcBS8rPrT5tzRN81CpziM3L/QwOJwv6yZ2Q6OIvo73h+ao0ZO9qb3mj04Og+Cqgx6dBNr/aM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785823751; c=relaxed/simple;
-	bh=82W1jolxQXWCFZM2JCRJXessZ9IBLu9YUb9lv+2DmGs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CEWEMxNl1J8Uc+xJL8c9lA9IEAGKjoLsRHR6ld7XZknv+bX84TsMuIf8C7L7TKCcYsKG1ut9DAIZ24GwXU/66J12iE24xkCIK6qXDKAjESjiJzzqfF2qySdO72Gay3wPQemn1I8FS4r54Ah5wpbZwgT8IbdPvSY+EkF+4TK/ca8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=DE9UlXdH; arc=none smtp.client-ip=209.85.222.180
+	s=arc-20240116; t=1785823803; c=relaxed/simple;
+	bh=hoBcQLufPj2/EG+NglGciSArXHLoJN4T/RIwQYNKVmw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RCru4uZjNTfFjBdQhBzHGNO5w/V8sNO96t3MVC7BDByClLTO93oBEnC5FAB35oJCXIvcAIph17aVVvuujpoetshNP4Ujc0kNZ5b4KwHH8WzrM60z8u5z7zCUy5WwGmKKx+tO1GWGV20+B/Qocm1PK4iso2d/Lp2d06Gb5AyAy3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=kPlDBj90; arc=none smtp.client-ip=209.85.222.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="DE9UlXdH"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-92e7c6ec9dbso196732785a.0
-        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 23:09:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="kPlDBj90"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-92e55b62640so199416285a.0
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 23:10:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1785823749; x=1786428549; darn=vger.kernel.org;
+        d=trailofbits.com; s=google; t=1785823800; x=1786428600; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tre2t3DqAwsbqOY53Q7DgQbI8TFT+tAJpRwqGOsH2Sg=;
-        b=DE9UlXdHd5X3OGM81+ZByuOzOGlNOvoEp0wX+xgD6sY2OkPSr/JnBDVH/O4N0gcro8
-         McwRvxdpMONl5vfwGA8tpSbgkQJBiz97H6rF51yl3zo6QfYYKbuBeP5xcvpf0gl1D2JM
-         4kr1Waxgki7PfYzklmcK4V6nrm8DGedILZ9KUcbgHfXyEeyiiyVWpIIFjqNEqCVmMUlW
-         vKrA0BYumt9Y1s0AQMgHXv+YLFfC1/aSix/2s9KxdZlJSWLkj5nqTrFtA2W8Zfh936jQ
-         lIFqhAgdPTfI2GtBqklBlclpUvDMAnyUOC5tO0Z54hdKLzcXcfAmLnij3Y6KRDCmFqwB
-         woYA==
+        bh=C9tpyP4DZI5UiWip+9VyOdslieTAF/jyWhJQO7HCZHE=;
+        b=kPlDBj90P3bbhP5+hnQjotXEoVzY65HhP+a1ZX2RHToahUmoRON5fyq+/1ma9Dweti
+         LRWeoKY5K7vyJirBK3XNBhXOdTWdRx3ONh4eeVjx3meCpo1iJxOTbrA+SRqyhe96f9Eq
+         xw43oX0bfaq96PtJxvvszcg3Fve8f+JzTvleAnyRgofwyKDXC30yJW14e+4b3ev1yZF0
+         +Qskbn7natNW4PVq+ZnWvZKhXe1jGGkewPrLQC9KCMTjYYzhVHnxf4PxRYhu6jQLh87i
+         72rDqa+NmgeNWXM78de103TIt3T8i0meMTYQ6g4slVagrcictYgDOH+pDHt/DSOCyyYY
+         6Jkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785823749; x=1786428549;
+        d=1e100.net; s=20251104; t=1785823800; x=1786428600;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tre2t3DqAwsbqOY53Q7DgQbI8TFT+tAJpRwqGOsH2Sg=;
-        b=qIkzgdiPjqsOlId8UtMZK4bLwAyPovcnYg+6fNn3SkD4LrYQV26EIkXH+LFY6Shlcv
-         GyPsEMGlGmStg8yhCJoY/KLdAsMAirqmK8NCXbXu+UEgFBNtPQfy9nRYJQUyKd4dsUB+
-         aJMIB+VT4YPVQyd5WS4QM/pGVdd38Zak9MwrSYVQvAha15CAxv7s3PUHroIHfECJg8D6
-         NfPloTjFe5+/ijk38q1siu1xvAehwYv1YtjEYJ+k+VET0MBQR7889SYZT8a05eCmBl1d
-         HGD8O7CrC/urZ6iOaR7561V2uGsSfuOOweSAWKQ4IsJevfoHh30d0x9fsjHzXYFcEkZw
-         kNPQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpuYsrvpl1qRIQNSnXMWe8R7keslnXMZ3wI1RZsECZ9gEhBUBA4/1eclzC/QN94o0VWvQbjndk=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywk8l2jS+z0tzZNlVvxf0QYga5Kd0XTvxKwZpkHRxqm3bkvlXfU
-	H0GcKcLdBIQGhV8+5LUo/uu9UQPEoJ1rD6lKXYdT04Tq9C6ccP2Nklk1h6fj2zY+G0w6Qp1rMX+
-	hQrmd
-X-Gm-Gg: AR+sD10OdimOJx/kgPXgUkJZWkPsaABX7eD+AuGoUlH2ERjZ7+JI3yLp21w8Bf27Jcb
-	Y6QptZ/hPI9/C6pagPlhcxQq04NbBATZzDsyj/7orwfg4/XsUDRdZMVoGtsIZUVdF2u49SMqHX1
-	80OWpbQAkWeXRG/MxBEZppubquybBmoyb6EUWe53F7vcibeXObw9EYDLVY6W5eTTwQbMrsaAWUX
-	Cx7DrFW7xMJbmb+t7k95Q3AnKu+gsDCjtgnJjJ04N8EaZvmmYjN/fvrX1mxMmiO3fiFwQRzWsgY
-	MHLacaQOU3ewJ9z3xDt3LTG22BJmr/wZngi6ZisHRf37NAzs8PWq0/73pVfcdKKOMWet78mvOLE
-	m87pZzpAPSIhEewLA2uOIEpvWHn+q8HEk4VsLIwFb2F1DcnYxEHB3uviMV4U0KP8D0LYoGHTNk4
-	wRPdH1IMV0biHI0mt4yN4JC2DYSKV1jU5urRp4drp3mEGaCj5LMkkFC0ujef9le7t+OQ==
-X-Received: by 2002:a05:620a:935a:b0:92e:76a1:96cd with SMTP id af79cd13be357-934a0786047mr1718187385a.13.1785823749092;
-        Mon, 03 Aug 2026 23:09:09 -0700 (PDT)
+        bh=C9tpyP4DZI5UiWip+9VyOdslieTAF/jyWhJQO7HCZHE=;
+        b=bxrQgk/fmEI6sq8ld6/iU/yumZan5EZc0zqgzxL8WvDCX0WqGvWXJOiZNSXA4rDt/l
+         v0ry0oUVj41l4P9//03onpdVrdCcWNYpq6A3jSkB+EwdJnsd91WvdZ/HhE4uLrgA4LA4
+         hYkic+GXflJThjKnhiXF8F5K6SkH2iLjgkjn1O2KHFfEKR6W6kz3/O3R1EmLefgnq31z
+         XVqOpfX8J09YYz079SJ3FLbRC0S+jdy+q5DPGX+4QHjSc4cure2aIGjjRFjcBm1lEeHe
+         D9fPcBWR8AqxYsSVyOlOtVgGHOYLmbNLRd0EQvB9OXAkNLOVUVfpmczj8toc3itZCHFN
+         RJpw==
+X-Forwarded-Encrypted: i=1; AHgh+RrbvRqT5vqc8XgKLrTqBTplIpX8bgG/lpOspqb8UfgCr+Qy+rmj9/TZ9dOkWhDbe7ILK0XZaek=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqRoR5KdP4jaaA03UEaofOgJCv8VWefsVK/y6Oy+cPbe01372w
+	d+950NTBU4D8aKcChhKOkBuDvFYuMgIN4NLQPBMS4qqw6gOeuU8CDKbVBRBH7D8lqKE=
+X-Gm-Gg: AR+sD10Ip+buFfFaKBG8D3DQyVeiRGmJEBRehLrssmTVov35jFfxShGyL2r3ki10+aX
+	NkrqzD8RlF1OBOxv9h154NScxgLIGWsR20sDecoSUy2duHPNxmOTJ/aNdKlKrHUj7b4RP1bVU3Y
+	JnzeOF/avkBKx9FMoP4sYHXlUjT3FO7mKUUda1Dd2PKIokosACDTwmhknJ7ZaRsGAMMhEFTRydK
+	2Fn0zEo2R7AQFp2iy9PGOuRrWnuOy4TbXT5CoevoTk+7La7p1mqF7DVbmrDCXjheAlGOm0xeMt0
+	ZvpSq0GmIlGSF8vtLUnteF2ulCkhMWTWANaS8vZ4MPWoDNPvQh0skOLK2CsmkRQM7GjmzfLEDtI
+	EBnkltULC7MxW+fDqOkRBJLByR23jsYe+9k1N61Q+w5S3fPX2Xpyt+6hFzw+3z+hFSMu/PC+L4T
+	6Y3TaSZlUdLkM4gERuVSW57V/uOsXgvsol+LV6QxaDrck7DLOz51EGAij/5q5lp90zMA==
+X-Received: by 2002:a05:620a:2792:b0:92e:e125:55bb with SMTP id af79cd13be357-934a0750096mr2572674085a.4.1785823800003;
+        Mon, 03 Aug 2026 23:10:00 -0700 (PDT)
 Received: from localhost ([146.190.222.192])
-        by smtp.gmail.com with UTF8SMTPSA id af79cd13be357-93641748985sm5080285a.16.2026.08.03.23.09.08
+        by smtp.gmail.com with UTF8SMTPSA id 6a1803df08f44-908432a0cb9sm93059666d6.7.2026.08.03.23.09.59
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 03 Aug 2026 23:09:08 -0700 (PDT)
+        Mon, 03 Aug 2026 23:09:59 -0700 (PDT)
 From: David Lee <david.lee@trailofbits.com>
-To: miklos@szeredi.hu
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
 Cc: Kyle Zeng <kylebot@openai.com>,
 	Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>,
 	Sven Eckelmann <sven@narfation.org>,
-	fuse-devel@lists.linux.dev,
+	Petr Machata <petrm@nvidia.com>,
+	Amit Cohen <amcohen@nvidia.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	David Lee <david.lee@trailofbits.com>
-Subject: [PATCH v2] fuse: wait for sync init request after abort
-Date: Tue,  4 Aug 2026 06:09:07 +0000
-Message-ID: <20260804060908.711279-1-david.lee@trailofbits.com>
+Subject: [PATCH net v2] vxlan: keep the last remote linked during FDB flush
+Date: Tue,  4 Aug 2026 06:09:58 +0000
+Message-ID: <20260804060958.711335-1-david.lee@trailofbits.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -80,18 +87,23 @@ Content-Transfer-Encoding: 8bit
 
 From: Kyle Zeng <kylebot@openai.com>
 
-After a fatal signal interrupts synchronous FUSE_INIT,
-request_wait_answer() aborts the channel and returns immediately.  If the
-request is in an FR_LOCKED reply-copy interval, fuse_chan_abort() leaves
-it for the writer to finish.  The synchronous caller can then free the
-fuse_init_args that owns the reply destination while the writer is still
-copying into it.
+A non-nexthop FDB entry is expected to have at least one remote while it
+remains reachable through the FDB hash table. A filtered bulk flush
+violates this invariant when every remote matches: It unlinks the last
+remote in vxlan_fdb_dst_destroy() and only afterwards tells vxlan_flush()
+to destroy the parent FDB entry.
 
-Wait for fuse_request_end() after aborting the channel.  This keeps the
-synchronous caller's reply storage alive until any locked copy has
-finished, while preserving the fatal-signal abort behavior.
+An RCU reader can find the parent during this interval.
+first_remote_rcu() then applies list_entry_rcu() to the empty list head,
+producing an invalid remote pointer that the receive learning path can
+read from and write to.
 
-Fixes: 204aa22a686b ("fuse: abort on fatal signal during sync init")
+When a matching remote is the sole remaining remote, leave it linked and
+ask the caller to destroy the entire FDB entry. vxlan_fdb_destroy() keeps
+the remote attached while sending the deletion notification and removing
+the parent from the lookup structures.
+
+Fixes: c499fccb71cb ("vxlan: vxlan_core: Support FDB flushing by destination VNI")
 Cc: stable@vger.kernel.org
 Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
 Signed-off-by: Kyle Zeng <kylebot@openai.com>
@@ -99,32 +111,37 @@ Co-developed-by: David Lee <david.lee@trailofbits.com>
 Signed-off-by: David Lee <david.lee@trailofbits.com>
 ---
 Changes in v2:
+- Add the net tree prefix to the subject.
 - Restore Kyle Zeng as the patch author and correct the sign-off chain.
 - Move the research credit below the commit-message separator.
+- Add the recipients reported by netdev CI.
 
-v1: https://lore.kernel.org/all/20260731120353.558833-1-david.lee@trailofbits.com/
+v1: https://lore.kernel.org/all/20260731141311.570187-1-david.lee@trailofbits.com/
 
 Bug found and triaged by OpenAI Security Research and
 validated by Trail of Bits.
 
 Trail of Bits has a reproducer for this bug that triggers a
-KASAN use-after-free and can share if needed.
+KASAN slab-out-of-bounds read in vxlan_snoop() and can share if needed.
 
- fs/fuse/dev.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/vxlan/vxlan_core.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-index 5763a7cd3..deee1585d 100644
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@ -725,6 +725,8 @@ static void request_wait_answer(struct fuse_req *req)
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index d834a4865..a00df127d 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -3058,6 +3058,11 @@ vxlan_fdb_flush_match_remotes(struct vxlan_fdb *f, struct vxlan_dev *vxlan,
+ 		if (!vxlan_fdb_flush_remote_matches(desc, rd))
+ 			continue;
  
- 		if (req->args->abort_on_kill) {
- 			fuse_chan_abort(fch, false);
-+			wait_event(req->waitq,
-+				   test_bit(FR_FINISHED, &req->flags));
- 			return;
- 		}
- 
++		if (list_is_singular(&f->remotes)) {
++			*p_destroy_fdb = true;
++			return;
++		}
++
+ 		vxlan_fdb_dst_destroy(vxlan, f, rd, true);
+ 		remotes_flushed = true;
+ 	}
 -- 
 2.53.0
