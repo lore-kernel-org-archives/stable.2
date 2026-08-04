@@ -1,141 +1,133 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D6D39CCE6;
-	Tue,  4 Aug 2026 12:06:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E81733F383
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 12:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785845212; cv=none; b=SQ8WLE4KJl9Khl4imFO6/Ov0BYLR0b6GLar4+/6rv/YjMgsvRmGMBmAhxTeJUKxp3a6OsPkYFvOs+cP/KpsFmBknRvptsiObelExGpORlmXTsKUNIdpl2rQmPig+8kDxNwxWk9SYwrqdCdFoLuf/4XLQqyvXzK30zYsB3cd9E9o=
+	t=1785845801; cv=none; b=n4CmxpK9vO82+yh5I7FOta32ga/ahvO12Y7ioD5JoynVtAJvqeNHaelKPixtt8kaCCZZ07UIY2FdPckCnR3NJ63/I/rCn90GOV5VgBfMQC95NkR/8Hvk3f8z1Wf860LCF6z56hcw5KcR/MkuqDQqyEAhSHX9OmCppXfXnZqCvcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785845212; c=relaxed/simple;
-	bh=xl3vHG+cLqCBEvV+7SCVREzMMvOf38P9Ynw84+w7n2w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aEHQ4rUmg/I7H3lzruOeutBw5DBF5HvXN5X6Hk3NvvTfSPiJI4nTEGO5i6nfUz8W5M8GebN6CG6Pc4XWu4KRuRUu851l91W03JPiGQOI+E9UzOXL9f7sNTMNgg7z/fWILvM0H0S1eMnnn2xk2/NK6c8eRhZHUwSHCZdfaVyHzVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=GAtlY4B5; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1785845801; c=relaxed/simple;
+	bh=bklSOIvEO6ydtChVkoQV9BjzbbdWhS+ESNcqx1MZvzE=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 Mime-Version:Content-Type; b=FUv26EzXzhnhxIxY0LSaDPwtYoeZk2soCxE0xOOJ82bpn3x/TECQXM7jm3WBAzZnNj2SD1qfaZ3ybphV0WlICbhyofn7UCRid8DS2HA+/+Lou9a4SRYKsTuJ2+6mFhga6aT5JO7qWmXwbvDalQcPBDDtd2LknX9cFkbkMTn67xY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z0PaeMVz; arc=none smtp.client-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="GAtlY4B5"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6748HYOF295950;
-	Tue, 4 Aug 2026 12:06:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=bCs5zaovYzZ8UBIt9
-	SQI1Hy194BwqW/Ko3GqXOVaRrk=; b=GAtlY4B5xizf/ZvHWq/CGmyoDRnBG8CG0
-	N2ja/ij3c454hbLf7BVVDxPrR3ikwJZ2QZ6SuKITiSsddBEhyYMmh8i+7VH/89vc
-	3yToZlOmb7Y89EDQsdzpT3GXt6xGRqAHOT2w0fwbLad1pBoqUJbGYzGpWa4nsGP+
-	oKhB40ro3H2kWD9MySx70tgVLVElMnkpsO8J31jttkkIAu9hrztlrdlLx7Y0hWXJ
-	RDyieqgm3BfCgccaX9m8JVgjM0UhM3w3oP/QO+0GDjCEyDKs1OytmnNrEQSGf7A8
-	We4Ii/UjdU+YJZIJpUNxTHf4UtjQzJgOzfvhosrUlatAfQBJTQyEA==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8a3wpj0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 04 Aug 2026 12:06:42 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 674BuO7r028088;
-	Tue, 4 Aug 2026 12:06:41 GMT
-Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fsu4qhyjj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 04 Aug 2026 12:06:41 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
-	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 674C6ecb29557364
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 4 Aug 2026 12:06:40 GMT
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 61FDD58051;
-	Tue,  4 Aug 2026 12:06:40 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4BA685805A;
-	Tue,  4 Aug 2026 12:06:38 +0000 (GMT)
-Received: from b35lp69.lnxne.boe (unknown [9.87.84.240])
-	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  4 Aug 2026 12:06:38 +0000 (GMT)
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-To: KVM <kvm@vger.kernel.org>
-Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        linux-s390 <linux-s390@vger.kernel.org>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Matthew Rosato <mjrosato@linux.ibm.com>,
-        Douglas Freimuth <freimuth@linux.ibm.com>, stable@vger.kernel.org
-Subject: [PATCH 2/3] KVM: s390: zero initialize irq for inject_pfault_token
-Date: Tue,  4 Aug 2026 14:06:30 +0200
-Message-ID: <20260804120631.736919-3-borntraeger@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260804120631.736919-1-borntraeger@linux.ibm.com>
-References: <20260804120631.736919-1-borntraeger@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z0PaeMVz"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8114a4542b2so66427957b3.1
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 05:16:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785845797; x=1786450597; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3WZH5i3Rn0Miw5AIdlaT1MFKoD8HfWrkPOLXr3/e2mM=;
+        b=Z0PaeMVzfUSvVYc4ajX07y9SzmpB+myLqRO1cMY7zr7oQQG2NQIrXNshLSTqyyJEXf
+         Q6ciaDxsc0rZrdhBeTeGrrH9mF2WZqidjcQvhnWUjIBFql/vY752Ej2aDarvRTXFgs9Y
+         uwNAtDG4vlcJeJzHJDXbio1lky2b0YLb/4oC6hamjonXbkuQxR3WX1TOiTJy9O+8avgm
+         R+WAnXO7r4vcR93Br4Em6bxJhJIqUJwMH5oE7DZ+Nk6t3C4L3BPrmua7njAg1U304d5E
+         ehlGIv/4cys+Cv+N4XYT6LbkneSm04Ek61+WFkL94j6xiHl+9Racv2/yQfGQ9GLDL3uH
+         yobQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785845797; x=1786450597;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3WZH5i3Rn0Miw5AIdlaT1MFKoD8HfWrkPOLXr3/e2mM=;
+        b=Cjv2Y7J91egnOOdhSEBuR80qeF9xj+kOgCHz+mNEAQEUVH6wRQ8XHhx5azJr9Jeub7
+         vgKeZanaHZRXykuojPylFbZdT2P95HcBsf9IriqhuTUtybi6XIULFdaD9UtVjoBKW7Qn
+         C6GsTQb36P0InRdFsHAIsgNrXoajECcUntz1U4/jeDkhlsHblyH44xS0bLdLgnFhphjs
+         qnQLmOemiCTPAewK5vlGLeg6kYErYd8ebID+3hXI0oc1i/7x+RciWWi/8m8fcylpHQOP
+         DdEy0iXSG1OFg7RZAzPPnDRmpr+BR5rmNojcyZ9mdB7tDGm3UgxzgwBt9+KG+6k3IKUo
+         z6IQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq51jGs4BmRrFbwoirKxELd9KmFA5jCMCMieVU8vR0vZBWIrdJbJ4AztGnxJ0hIFXQjAFnOxHI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywm+GGNxMRvnbbi7QguJEttKhjMApfd4beJOpVTufd0/doP02F2
+	GHYdlZlcuiJ6A8uG+KUB6zEj2y37Y7G4bB45e0wOm5O1JTnxOSDPNpdy
+X-Gm-Gg: AR+sD10G6uFmb1VIioUV0TiT+gk+jkp829DLczLnpFN/v5wPtxIJ8FdBL/GQ//6axa9
+	uCIdFeK/TnEi7c1MdUzOa0fBOhcCv5pvygiI/IQRhKGOoGcKPhtILbiHhb5QZ93fCneoIBwzQO4
+	3pKQnVXE/DcoRaB5Jbx07ooeUUAN6oLihgWexj3n7H6uCZFQgR73uUcvjQz73y2MSS3DLjmjEyU
+	bLu2JqZswJOdK654ed20pX9YZzM/cstZan9tBC7nLTndiBOSDtuuMtZuFKfty65rktF003f+0GR
+	M3Ty0btsEfaFr1hrhCtIHS6h2Ta4yVzM9vf0DOrNQzs6kaK4TK/19bq3JRzs6cO1sEYHFDNasCZ
+	bIPjMASD03AKEbsaW9UWSdr8JmzvczeizZ13ihPel4n0JpnLHkJHbm6FMYw0osYoTWXwtWJAkC8
+	jq0N2ZVkhyLKd0UwECrji1525SsRV1v9PKQrRjMSwy9rpPgoPQ0FQ41YZdvDD7FvGQ9ZiK6TzHj
+	vjUNBi5lk1WFiTdFz1mSP1FavPE8+SHKsYo
+X-Received: by 2002:a05:690c:6b05:b0:80f:9998:e614 with SMTP id 00721157ae682-81fd4bc110emr162889387b3.28.1785845797150;
+        Tue, 04 Aug 2026 05:16:37 -0700 (PDT)
+Received: from gmail.com (250.4.48.34.bc.googleusercontent.com. [34.48.4.250])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-820134d8ed2sm3812087b3.45.2026.08.04.05.16.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 05:16:36 -0700 (PDT)
+Date: Tue, 04 Aug 2026 08:16:35 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Qihang <q.h.hack.winter@gmail.com>, 
+ netdev@vger.kernel.org
+Cc: willemdebruijn.kernel@gmail.com, 
+ willemb@google.com, 
+ daniel.zahka@gmail.com, 
+ davem@davemloft.net, 
+ edumazet@google.com, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ horms@kernel.org, 
+ stable@vger.kernel.org, 
+ Qihang Tang <q.h.hack.winter@gmail.com>
+Message-ID: <willemdebruijn.kernel.1d1da452d95b8@gmail.com>
+In-Reply-To: <20260804090016.33353-2-q.h.hack.winter@gmail.com>
+References: <20260730082925.93759-1-q.h.hack.winter@gmail.com>
+ <20260804090016.33353-1-q.h.hack.winter@gmail.com>
+ <20260804090016.33353-2-q.h.hack.winter@gmail.com>
+Subject: Re: [PATCH net v6 1/3] net: remove CAP_SYS_RAWIO zero-padding in
+ dev_validate_header
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=E6P9Y6dl c=1 sm=1 tr=0 ts=6a71d5d2 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=Q_Ct-ZrBiiAWXo638_EA:9
-X-Proofpoint-ORIG-GUID: rAXo96FyUZOn1xqhfORAA8i9Zu_8IROV
-X-Proofpoint-GUID: rAXo96FyUZOn1xqhfORAA8i9Zu_8IROV
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDA5NCBTYWx0ZWRfX+PClx7DJXlbo
- sZLtXdYt0rHw5MhBcclyypDvJ1Igx7rZ7MsZXqgHDq57OfZxKD9fUiTzX+rfTJ1KcOpflRNtdA+
- ipcxosdfJbo0Ul+DKLI9qgxygJzwFvU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDA5NCBTYWx0ZWRfXxwb8Y7YeWQOK
- KcO4m5s2nu1+X3/DPjG31kGlqC+f/0YZsQ6BjgyrqhsC4n/2qS6utmkB7y9JqqB9wAW/mivw7hi
- p+U4a1OwwRBD/QE0EeM/encFmP3XquDYqjs6Z3yavstyaCpnjsLMTknCNrzHxCKgFAaS6Uo4eYC
- gxbJrLMgfX5yt/X/ZowNRgE2JoOiXpWpHfXNEPHdZCLvUQN+WG+hPIPc9K4Pr1DvFQlRG8co6GP
- gXZnW0h3XpvnrEk1fB5NBiRHGa3Gf0JYT7pUVELz2zh1igD3T8NH4VeohFEKvQPKIkMjOZz5f99
- 3uP26yFevXmYtac546qNzE7MGI3xOTYJLgYwrGQmE3lMdOqul3ANTm/iGn4sHJhvZfc1vqeLSzN
- Q7rNLms0JeO3uko+83m7gUmnuTlfanUOhW58dgZV2RXQMd7nE6Lv1oNLH4UbBF4c/+Q/4UtxDLk
- CN/HOx8xuXakPkPW3nQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-04_02,2026-08-03_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- suspectscore=0 adultscore=0 spamscore=0 malwarescore=0 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608040094
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-__kvm_inject_pfault_token() only sets .type and .u.ext.ext_params2 of
-the on-stack struct kvm_s390_irq but the full ext substructure is copied
-into the cpu local variable on inject. ext_params and pad contain stale
-stack values.
+Qihang wrote:
+> From: Qihang Tang <q.h.hack.winter@gmail.com>
+> 
+> dev_validate_header() reads dev->hard_header_len directly when
+> zero-padding short link layer headers for CAP_SYS_RAWIO holders:
+> 
+>     if (capable(CAP_SYS_RAWIO)) {
+>         memset(ll_header + len, 0, dev->hard_header_len - len);
+>         return true;
+>     }
+> 
+> Packet send paths call dev_validate_header() on skbs whose headroom was
+> allocated from an earlier hard_header_len read. If the device is
+> reconfigured so that dev->hard_header_len increases before validation,
+> the memset writes past the reserved buffer, an out-of-bounds write.
+> 
+> This out-of-bounds write is masked in some SOCK_RAW paths today because
+> the same concurrent increase can first make skb_push() exceed the
+> reserved headroom and trigger skb_under_panic(). Remove the zero-padding
+> branch before making those hard_header_len reads consistent, so the
+> snapshot fixes do not turn a loud panic into a silent overwrite.
+> 
+> This path is only reached for variable length L2 protocols, where
+> len < hard_header_len but len >= min_header_len. No remaining in-tree
+> variable length L2 protocol implements header_ops->validate, and the
+> CAP_SYS_RAWIO bypass that zero-pads and accepts short headers has no
+> real value beyond allowing testing of intentionally malformed input.
+> 
+> Drop the CAP_SYS_RAWIO branch. The remaining reads of
+> dev->hard_header_len in dev_validate_header() are comparisons only and
+> have no memory safety impact.
+> 
+> Suggested-by: Willem de Bruijn <willemb@google.com>
+> Fixes: 2793a23aacbd ("net: validate variable length ll headers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qihang Tang <q.h.hack.winter@gmail.com>
 
-Interrupt delivery only uses ext_params2, so nothing leaks, but a host
-user can use the migration ioctls to get to the data.
+Reviewed-by: Willem de Bruijn <willemb@google.com>
 
-Fix by zero-initializing the irq struct.
-
-Fixes: 383d0b050106 ("KVM: s390: handle pending local interrupts via bitmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
----
- arch/s390/kvm/kvm-s390.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
-index 4a38de3d6758..447e6a61f886 100644
---- a/arch/s390/kvm/kvm-s390.c
-+++ b/arch/s390/kvm/kvm-s390.c
-@@ -4474,7 +4474,7 @@ static void __kvm_inject_pfault_token(struct kvm_vcpu *vcpu, bool start_token,
- 				     unsigned long token)
- {
- 	struct kvm_s390_interrupt inti;
--	struct kvm_s390_irq irq;
-+	struct kvm_s390_irq irq = {};
- 	struct kvm_s390_interrupt_info *inti_mem = NULL;
- 	int ret = 0;
- 
--- 
-2.53.0
-
+For future patches: don't send new revisions as replies to existing threads.
