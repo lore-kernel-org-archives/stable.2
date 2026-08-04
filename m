@@ -1,75 +1,73 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F10E30ACF6
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 21:36:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F5845DF5A
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 21:37:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785879403; cv=none; b=rpN0Sfe9JJLzTLI4jjcSzqIMrn6pXMiBKeW7HpLAOiYhj7NSb44+5jk8FghgbT5TN6XSf0mRf4rjH595+dyoDq1uHlBUkwV4gdfS4dEebgUvOOncTTXalrdxpDH/wf+g28RVUCfkRQ9qtGuj2vrBWuykHTgP7fUCZqGKOnGrAV0=
+	t=1785879433; cv=none; b=mXYQ0NsYe3mlr42hli3zUL4KBLJYved3Dx42EhxFuCMHco3wEPcfn1m7SI0hAv1nk6184Vn0ZmgGMSoUyn7xvJoig3y9gK0znTq+9FVShPGI/v8OFHE54slTSpPwO/R0g7snS1qgFexbn9knW9jAfVWhtkWTj2AgbpGrXi94Jyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785879403; c=relaxed/simple;
-	bh=YH1N+wRvSRBpaEPyBNpid6Jr+SC4it0QGTm+4oIdieU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C4cZU093Yk+1iBDkM+kMExLaPlJzGQoq0RjWHInsVlJLbGBpnQK30QOL+P6sSXtmwBfKdEFskkwIvN6Gr0hF+7oymwhe1Ehp6yrP8P+UFGrtQXByltjtZtvQZi9dz8OhNRV6RCsVLpmmyfVE85fMr456cpaQ2lZn+sYq9/4G/Uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mxlvdvuP; arc=none smtp.client-ip=209.85.215.174
+	s=arc-20240116; t=1785879433; c=relaxed/simple;
+	bh=EojRtJx11W5xlguZUK4s5OiYfzm/jUFXVb7sX9hq9PE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dMpHt5QgDOZMZIxoh2bPeXnZE0JBOb+C/67ca3pE3LNhBreTxtgaTUvpfn7RPv1rDgYys2D47fJXqxlH8yqxCypwPAxDLaEcJgDGEeddhIT6MPgCbIvRcrYTCL/CAy4F05LqnHGpW7pqhJKm3nWINwxLv1ZSOTkR7UJc7ZO75WE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rtFC8i+i; arc=none smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mxlvdvuP"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cbb7926836eso174868a12.3
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 14:36:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rtFC8i+i"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cc891373e0so3988785ad.2
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 14:37:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785879402; x=1786484202; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785879432; x=1786484232; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yRZ9KtvM4Uvs1PJvqeEv2QOFNUN6xaam9dkuxhQtkew=;
-        b=mxlvdvuPiwFfsAVbYOPmwiIoy1DyWvlb/PRdydqyzQ5hTwqSh3WUz02E8A8URuUHEh
-         IJDFCiu9Rh8uezwIKUkFYaZ7KWfn7H6eQJkvEay6utGPmNJ2UZjRBj/I9NXvAU2b65p1
-         wrcCtLb/hdAlqIgg/0xAR8XLpRSVunAFdtrXRxkoYBxip+Tyhf6aZgIaKJGVrcoq7zuf
-         a3oQTNc9wo99mYcJp5qbpzdZqDKQbcntpZuyaNNw7AA3V5O+P6H2ZItbs9Tu2m+kS2Zh
-         8FIs9OXw+KF8P33VpD+GakZ3Rak8uEwuUPbo5vgBzcVRraGlqNO0/8XkTud7arDBF3zv
-         8kJQ==
+        bh=i+wiL1g37iz3L+Oh1WFh/qb02WbdA5XTOtdYfs+Nou8=;
+        b=rtFC8i+imWIcK/Bf3jTHIti4mE5qdwFjcIgyZaxH2OYWK98I5Mup2NvVA41LNAAYDD
+         a2+deYmWeeDDS550BwmcgrZ/s/pLMLyOzoiy4bW+9fH5HGR1rxgsitFAqYx/sE65EZ+3
+         y4gBu2fugFC2HxNs2WA4m3m4uIPIwo1DKRbezpUNBaUKpqsd5slGkPYxhemz28cgsZJr
+         evN4QRW+lIEfN8KRMy4AeDC69AsaF4BKdqc/7Hy7kXFb4Mlq6Cq8kyyEICyL2BpzF7C0
+         5oke3Z4LZxm/Pgzf6xOgipsdZjeGELcE5niCNljwoO3QAEh/rqhNe3pG/Bfq8KdXsgGG
+         4M0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785879402; x=1786484202;
+        d=1e100.net; s=20251104; t=1785879432; x=1786484232;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yRZ9KtvM4Uvs1PJvqeEv2QOFNUN6xaam9dkuxhQtkew=;
-        b=EqfJdYRJ8u+kPwIrLNK+eDFGSOvKHchZLPFq/jNVJlnX1yKtBLyX931BlHU8cpYQZl
-         ep40LSCER0kfjBPLvsNUn9zmg3fAJhzTVn336IoDMrR+9StLJwZkuq+bH3O+9e7q8FuH
-         Rik60Y2QHCL1bb9vY1aY+ozwiFELFOuf0AqopiG5r9qNRSLj0oKQffseuP3M2CQ3PUdd
-         hZ2wvmXvjAf+FFoFqMBdAzNIU3XjkgFnEh4QJXgIbCKhtKnst/VOl1YLwjDQmnovrO+O
-         K1TlJiJy0XknejouIY/M3X+EJYOUlbopd1nWttG4SIXSgVuqxI1QUknEIAa+mPBILVxF
-         QinQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpXM+zDWEZwEExl7H6MV5kVgsPDwFloU0x0889LrxOyJrwSdlb6z+WAV/oKzIIqC3n1MsuzUAs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyuSUgA5172TQzINQN1Un4cbTdPrOi0wOxa/L+agkE+JIXonsM6
-	w95ZlA6Q8Q0WRYhhi7MNGSQqkBad9K2PUAthB3p70k6P9luxMkoTeNLR
-X-Gm-Gg: AR+sD10Nxkk0qyZiHwapt4VFasOXab7lRLFjXrNZ9yx4dAu8Sl7iNBVk0/EiglJx7Fg
-	jmkS8cZS/HpB+NfO791ipv/ykewiwijc80UXF17eKfA8b/cFWx0d2kRfp5G/Hl6Xwote/6mIlI/
-	N4hRgK1Wl7CurjgCgFJAFDiUGGlRWcsIAfwccUVViMWK4dygO88knwMkLXB1mohLLZCGG9bPBW6
-	jJ8WqhRfk8xj5uuspdqUQsr2NbpW7wnDiPnFkftjBHDnkoeAuuSMUtSBT/WJonf4Ayq9/xzTQIt
-	E+EGSakC6asN4KXCs8Uv/Pwps6B3754QrkNewqQzK/S52j7jAW3aGIojnyTZG0U2al8tnwIJuEA
-	oXp5PmOcAEUTOniB+6GM8bAAGztT9D7j+0uICdxivS/n0kgF9JyaT8Qs4eN7oFiqkwEHPaedmsL
-	B8dMJEpInDAoD8OdvBkGP9q3cllk+XaaNKKJnpTycHnnLSw0EUOkdIgHicPE7mBZuOOp+Wloa2m
-	GrSL20IQysdZJI6uwuqJZkaeTo2qnJJjTmy9451A9Ns1z0TZGLsDg==
-X-Received: by 2002:a05:6a21:7a9c:b0:3b1:a9ce:507e with SMTP id adf61e73a8af0-3cb8607a666mr1715295637.32.1785879401687;
-        Tue, 04 Aug 2026 14:36:41 -0700 (PDT)
+        bh=i+wiL1g37iz3L+Oh1WFh/qb02WbdA5XTOtdYfs+Nou8=;
+        b=LQSVyrl9DI87qEIaal5UgHkA/Rihkqp0NDz7Bbb0lptR4vviiMwwD0VxuTEUzi0dtP
+         od4Mq2fHFkd3cyQmf0DJGnINC0hPZlFPvdn1usJJcmZWFUkPTO6hElIS8ZDczbiHRmsv
+         7+WrGxVYOIAhmW1/DkevKb73o4JjklPF8YbVuvWtFpHeMV4bypibRUP6Tv0jK8gvc+u6
+         GMy+srWqC0n2TLV4ba/TYcn7djAXROT1KmbCBkc1HonBHzFsFUrnysdF6BPxiYdwCUxW
+         RTEHJ/A27ruJKY5iEGeyabQRvRWw9jnzUMjNYRagnT43Xw0/lDIvxByOZVEC49NuUrex
+         usXw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr2rZO+3rxufiY9Sy6Oyo7pZxngWrO98jBN17yFBWl3LV8tw1C+0IzLSJqPKtlmhmNbF8plRHE=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzychAcFxKuD6smlKvzc3WZs4bQ2lAFG/iC5jqV0Of3hisc37Ea
+	nqj2ScrLu5UVKThAmLpI5ZkLcGQ1GuCMGI8a4JvOu2CnIwz5uKNoV7d2
+X-Gm-Gg: AR+sD13b3JaQDHAlAMB/pDq/BZw0xNW3wdKqTTGRfPZR7dCSaKlZZEkOQrZew9x9lUw
+	dlQZeYjExheBNt3DCAwkOe1iytxcjeEAc+FU7SGrQU11h/vH5EcKSblp5x/KIIcHO/SidSRetUM
+	Jqyo2GBRDOM384ggyTbqpoo9pQYWA9QQx/toWFP1fb3zRLv2qNAAMUtIgArOiw9dzuyF94J0C3i
+	FrLY8DzCeiCno6YdVZxt4cURPs1ZtSaJ/8lbz8d0ATVrBzqXaFPUWNJqhlT2+U25icMKbIUL6ep
+	0xwaq66BPv22MDEVNwRoUhlLoT9Ty60HSnq6I6jG8Bw/Gw0xRLw0m5sKIFWLYcVmShduSOJ63EE
+	8T0FmHxEX2QTSHa2TgIqUWisSxF9oYrFCw2IGxyKR1V1zgiQNUI7QvpYFaSVe/IzurmNAGnQxjy
+	vpQHK6RL8DCI9P+6r615bsAXaAqbxFESyU1jJlTY6TgEqYfYYJYR346UEnyCG4up9pV6kFcOZuz
+	0O2LyxzttrEzSNMrBIzVmB3Eq9BccH0RTHmAE1rIJc=
+X-Received: by 2002:a05:6a21:329c:b0:3c3:8315:80b7 with SMTP id adf61e73a8af0-3cb85e9757amr1738601637.9.1785879431707;
+        Tue, 04 Aug 2026 14:37:11 -0700 (PDT)
 Received: from LAPTOP-DPAKMOI4.it.purdue.edu (pal-210-106-74.itap.purdue.edu. [128.210.106.74])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31586777bcfsm12780536eec.21.2026.08.04.14.36.40
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fca8df89asm13408224c88.9.2026.08.04.14.37.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 14:36:41 -0700 (PDT)
+        Tue, 04 Aug 2026 14:37:11 -0700 (PDT)
 From: Yifei Gao <gyf161023@gmail.com>
-To: Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Keith Busch <kbusch@kernel.org>,
-	linux-nvme@lists.infradead.org
-Cc: Damien Le Moal <dlemoal@kernel.org>,
+To: "Martin K . Petersen" <martin.petersen@oracle.com>,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org
+Cc: Mike Christie <michael.christie@oracle.com>,
 	linux-kernel@vger.kernel.org,
 	Yifei Gao <gyf161023@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] nvmet: pci-epf: put CQ ref on create_cq mapping failure
-Date: Tue,  4 Aug 2026 21:36:25 +0000
-Message-ID: <20260804213626.3410403-1-gyf161023@gmail.com>
+Subject: [PATCH] scsi: target: tcm_fc: use kref_get_unless_zero() in ft_sess_get()
+Date: Tue,  4 Aug 2026 21:37:02 +0000
+Message-ID: <20260804213703.3411166-1-gyf161023@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -79,40 +77,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nvmet_pci_epf_create_cq() calls nvmet_cq_create(), which takes a
-reference on the controller and installs the completion queue. If the
-subsequent PCI address-space mapping fails or returns a too-small partial
-mapping, the function jumps to err_internal / err_unmap_queue without
-calling nvmet_cq_put(). The matching put in nvmet_pci_epf_delete_cq() is
-gated on NVMET_PCI_EPF_Q_LIVE, which is only set after the mapping
-succeeds, so teardown never releases these references. A remote PCI host
-that drives Create IO CQ commands with a failing PRP1/pci_addr therefore
-leaks the CQ and a controller reference on each attempt.
+ft_sess_get() walks the RCU-protected session hash under rcu_read_lock()
+and takes a plain kref_get() on a matching session. Session teardown does
+hlist_del_rcu() and then drops ft_lport_lock before the final
+ft_sess_put() -> kfree_rcu(). A reader that is preempted between the
+port_id comparison and the kref_get() can therefore revive a session whose
+refcount has already dropped to zero and is pending free, leading to a
+use-after-free and a double target_remove_session().
 
-Drop the CQ reference on the mapping-failure paths. The err_internal and
-err_unmap_queue labels are only reachable after nvmet_cq_create() has
-succeeded, so this pairs the create/put correctly.
+Use kref_get_unless_zero() and treat a zero refcount as "not found",
+matching the standard pattern for RCU lookups that race with kref-based
+teardown.
 
-Fixes: 0faa0fe6f90e ("nvmet: New NVMe PCI endpoint function target driver")
+Fixes: 3699d92a4d7b ("[SCSI] tcm_fc: Adding FC_FC4 provider (tcm_fc) for FCoE target (TCM - target core) support")
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Yifei Gao <gyf161023@gmail.com>
 ---
- drivers/nvme/target/pci-epf.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/target/tcm_fc/tfc_sess.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/target/pci-epf.c b/drivers/nvme/target/pci-epf.c
-index 4e9db96ebfec..794e88d1d9a5 100644
---- a/drivers/nvme/target/pci-epf.c
-+++ b/drivers/nvme/target/pci-epf.c
-@@ -1339,6 +1339,7 @@ static u16 nvmet_pci_epf_create_cq(struct nvmet_ctrl *tctrl,
- 	nvmet_pci_epf_mem_unmap(ctrl->nvme_epf, &cq->pci_map);
- err_internal:
- 	status = NVME_SC_INTERNAL | NVME_STATUS_DNR;
-+	nvmet_cq_put(&cq->nvme_cq);
- err:
- 	if (test_and_clear_bit(NVMET_PCI_EPF_Q_IRQ_ENABLED, &cq->flags))
- 		nvmet_pci_epf_remove_irq_vector(ctrl, cq->vector);
+diff --git a/drivers/target/tcm_fc/tfc_sess.c b/drivers/target/tcm_fc/tfc_sess.c
+index 797be06ab71b..1bc7d2dcbea3 100644
+--- a/drivers/target/tcm_fc/tfc_sess.c
++++ b/drivers/target/tcm_fc/tfc_sess.c
+@@ -172,7 +172,8 @@ static struct ft_sess *ft_sess_get(struct fc_lport *lport, u32 port_id)
+ 	head = &tport->hash[ft_sess_hash(port_id)];
+ 	hlist_for_each_entry_rcu(sess, head, hash) {
+ 		if (sess->port_id == port_id) {
+-			kref_get(&sess->kref);
++			if (!kref_get_unless_zero(&sess->kref))
++				break;
+ 			rcu_read_unlock();
+ 			TFC_SESS_DBG(lport, "port_id %x found %p\n",
+ 				     port_id, sess);
 -- 
 2.43.0
 
