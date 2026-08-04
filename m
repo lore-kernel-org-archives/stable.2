@@ -1,113 +1,132 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0176044998F;
-	Tue,  4 Aug 2026 10:41:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D033376BC1
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 10:47:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785840129; cv=none; b=KcLGaRSeVg1ByrsYgEmxqs48RIideC5qSlzEs66S/0wEvOhXAMgnySMcK4AnNsquG2UtONopjs49IIG6JkpAMYZXq5KwcBB1c4dnI4G/yt+nJ1GHDG1WGo+KPp+B0MpfkfRsvPhjZL1KXz3KvNQUt/MbSVgiFTOkqHEpu46lC4o=
+	t=1785840436; cv=none; b=FFWv7yFc8dUeQeLz3bLEp2JvqylGk/jZ1GIyMr60qR2iRm2vG5HYXVeVjjKE7U0Zq2cfz/QfOCO8lQGaBaVuELnCyxfZTjSvA9R4YYs19g8Wi5Bf4yJKb/Pc7jK4+OYvh+ZijcjuAHRugG5txSB2VouulYHosZm6piqV6kuXYc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785840129; c=relaxed/simple;
-	bh=WTo0rdPyb4dnV0ZLhVfdxGqsoXq5+8Z48HZSCO9kRnY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GKHySIm+3uMC8Z8WnFlAmWBvrCS4FjFWeSXBy4CaO1hQPgwBNs4O1DVNzADr8NDb67DtE69QuN4o7YFL4ugr5X824zQzhQrRaEzX9nwKKbWK6I/z6Y1zRID2USkY6mfoGQKny08+tuGnBWVRkCgArnNu9uod7EBLpgFMqa7D018=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=60WPnwuw reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1785840436; c=relaxed/simple;
+	bh=UqqPSTNTjbWq2wVKqrrWr2auX5+XScnWMaJfGFTbSDU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dYVDD6yE6RIZ5wRlJ/vynas0YiLgz8v2CHb1wgux2/HDHsd5Ei2VU48eEDQ3U4vLk/j4FXP6h9UHU1uOR9F9prv85nwh1dP/DWL3CHKAYqm/PV5ihpGUDr8VwrGcYHyjvw+V1VPGl5wlrevuzooymjpXm5FdmGEJtutBztfXeJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UJcdc75O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="60WPnwuw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
-	MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=WTo0rdPyb
-	4dnV0ZLhVfdxGqsoXq5+8Z48HZSCO9kRnY=; b=60WPnwuw93fsWbFJcwPMlrfKw
-	/BNjoEHwEs4K8prouW/wx4/t2LmfiY8thVkBuEAACt6H4OZ9WT9y4elfuHgO5xhx
-	65klLU/loJMJL6vEV4k2XWo/jlU8ubCIN+Ges/77EAhwdspwNrMnaW2aLjGxzUiW
-	9P9N5j5/GE7gsz+khA=
-Received: from [192.168.1.110] (unknown [115.53.140.128])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with SMTP id BrQMCkBmiA7jwXFq92ndAQ--.1748S3;
-	Tue, 04 Aug 2026 18:41:40 +0800 (CST)
-Message-ID: <f79bc014-a606-4ab5-adfd-1b56dbdc30ba@stu.xidian.edu.cn>
-Date: Tue, 4 Aug 2026 18:41:40 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UJcdc75O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19C8A1F000E9;
+	Tue,  4 Aug 2026 10:47:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785840434;
+	bh=vOds2zItoQS0ehfXOIaAdjTc7h1B29y2nKyHgGv1LLM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UJcdc75OKDLWTY+XPtyDALPowyjwwVdqKKsJT+ER622igmE+s7ItXqnOxLHVMtS/o
+	 +dmeHBvQ1hT0Em55nQxv5jGVXBIs6aZUQR3CO1XIS1iH7hRUDLiQnUeOv1XsRLisJb
+	 Hq7eFqiiAUxAhKE0xYknhzu6rirZSkwja8EtbB9T/6ZGZHQBNvnDvhc7NzsJxPdcUb
+	 S0gJQtVSBZgBxxRhbwxcnvSYFOrLfuzKWewZfsmxvWp0KZoG0Z52v4XeTzmDAEyySZ
+	 XgQ+L45R4lr2gCfzsktNIF4oakwDuuA34YhssavjjdsHWQFUJk1jwKVVM8plmISMj8
+	 ITiVG2cjssQiw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jackson Lee <jackson.lee@chipsnmedia.com>,
+	Nas Chung <nas.chung@chipsnmedia.com>,
+	Brandon Brnich <b-brnich@ti.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] media: chips-media: wave5: Support CBP profile
+Date: Tue,  4 Aug 2026 06:47:12 -0400
+Message-ID: <20260804104712.2825343-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072917-aside-unpaved-8076@gregkh>
+References: <2026072917-aside-unpaved-8076@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] module: fix UAF and GPF in idempotent_init_module via
- heap allocation
-To: Petr Pavlu <petr.pavlu@suse.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
- Johan Hovold <johan@kernel.org>, linux-modules@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260717082601.81704-1-25181214217@stu.xidian.edu.cn>
- <8d507b50-b5a2-48a8-a4bb-f196ac28b5e4@suse.com>
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-In-Reply-To: <8d507b50-b5a2-48a8-a4bb-f196ac28b5e4@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkBmiA7jwXFq92ndAQ--.1748S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr1DGrW3XFykWF18Zw1xuFg_yoW8ur4kpF
-	W8Wryakr4kZa1kKayxXw4UCFyFg392yryYgr95Xw4Ivwn8KFy2yFnIg3WUXrWxCr4rG3Wj
-	qF40y3W8CayUJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l
-	c7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4DMxAIw28IcxkI7VAKI48JMxC20s026x
-	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
-	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
-	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
-	UvcSsGvfC2KfnxnUUI43ZEXa7IU5qPftUUUUU==
-X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUPEWpwsH1ogQACsl
 
-Hi Petr,
+From: Jackson Lee <jackson.lee@chipsnmedia.com>
 
-> I'm confused by this description and I'm not sure what problem the patch
-> is trying to solve. A task is not normally terminated in the middle of
-> a syscall. This could happen only if it hits an oops. However, that
-> means there is an earlier bug and the module loader isn't expected to be
-> resilient to a post-oops state.
->
-> Could you clarify the scenario that you ran into?
+[ Upstream commit f8505f9d6b223a26854003bfdba1a0772457886d ]
 
-Thank you for the review. You are entirely correct; the task did not
-terminate during a normal syscall, but was indeed killed by a prior
-oops.
+Constrained Baseline Profile (CBP) and Baseline Profile (BP) have been
+treated as the same.
+Introduce the ability to differentiate between the two.
 
-Here is the exact scenario discovered during driver fuzzing by our
-automated virtual device modeling tool, DevGen:
+Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
+Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
+Tested-by: Brandon Brnich <b-brnich@ti.com>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/media/platform/chips-media/wave5/wave5-hw.c      | 3 +++
+ drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c | 5 ++++-
+ drivers/media/platform/chips-media/wave5/wave5-vpuapi.h  | 1 +
+ 3 files changed, 8 insertions(+), 1 deletion(-)
 
-1. A `modprobe` task (PID 433) concurrently loaded a faulty driver
-    (the `atlantic` net driver in our trace).
-2. It passed the idempotent() check and added its stack-allocated
-    `struct idempotent` node to the global `idem_hash` list.
-3. During init_module_from_file(), the `atlantic` driver hit a fatal
-    oops in its hardware init path (aq_hw_write_reg+0x39/0x50).
-4. The kernel initiated oops recovery, terminating the `modprobe` task
-    (exited with preempt_count 1) and freeing its kernel stack.
-5. The oops recovery path does not clean up the `idem_hash` list,
-    leaving a dangling pointer to the freed stack in the global list.
-6. A subsequent module loading attempt traversed `idem_hash`,
-    dereferenced the stale stack pointer, and triggered a secondary
-    KASAN use-after-free and GPF.
-
-While the root cause of the initial crash lies within the specific
-buggy driver, the current stack allocation allows an isolated driver
-oops to corrupt a global synchronization primitive, preventing any
-further module loading across the entire system.
-
-By migrating this allocation to the heap via kmalloc_obj(), the patch
-prevents the global memory corruption. We acknowledge this leaves a
-leaked node in the hash list. Consequently, subsequent attempts to load
-that *specific* oopsed module will hang, but the rest of the module
-subsystem survives and functions normally.
-
-Thanks,
-Mingyu
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-hw.c b/drivers/media/platform/chips-media/wave5/wave5-hw.c
+index d94cf84c3ee5f..fd3c3c2168158 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-hw.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-hw.c
+@@ -1762,6 +1762,9 @@ int wave5_vpu_enc_init_seq(struct vpu_instance *inst)
+ 			(p_param->skip_intra_trans << 25) |
+ 			(p_param->strong_intra_smooth_enable << 27) |
+ 			(p_param->en_still_picture << 30);
++	else if (inst->std == W_AVC_ENC)
++		reg_val |= (p_param->constraint_set1_flag << 29);
++
+ 	vpu_write_reg(inst->dev, W5_CMD_ENC_SEQ_SPS_PARAM, reg_val);
+ 
+ 	reg_val = (p_param->lossless_enable) |
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
+index 50cba21fdcdce..03687a1e23c71 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
+@@ -915,6 +915,8 @@ static int wave5_vpu_enc_s_ctrl(struct v4l2_ctrl *ctrl)
+ 		case V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_BASELINE:
+ 			inst->enc_param.profile = H264_PROFILE_BP;
+ 			inst->bit_depth = 8;
++			if (ctrl->val == V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_BASELINE)
++				inst->enc_param.constraint_set1_flag = 1;
+ 			break;
+ 		case V4L2_MPEG_VIDEO_H264_PROFILE_MAIN:
+ 			inst->enc_param.profile = H264_PROFILE_MP;
+@@ -1190,6 +1192,7 @@ static int wave5_set_enc_openparam(struct enc_open_param *open_param,
+ 			open_param->wave_param.intra_period = input.avc_idr_period;
+ 		}
+ 	} else {
++		open_param->wave_param.constraint_set1_flag = input.constraint_set1_flag;
+ 		open_param->wave_param.avc_idr_period = input.avc_idr_period;
+ 	}
+ 	open_param->wave_param.entropy_coding_mode = input.entropy_coding_mode;
+@@ -1662,7 +1665,7 @@ static int wave5_vpu_open_enc(struct file *filp)
+ 			  -6, 6, 1, 0);
+ 	v4l2_ctrl_new_std(v4l2_ctrl_hdl, &wave5_vpu_enc_ctrl_ops,
+ 			  V4L2_CID_MPEG_VIDEO_H264_8X8_TRANSFORM,
+-			  0, 1, 1, 1);
++			  0, 1, 1, 0);
+ 	v4l2_ctrl_new_std(v4l2_ctrl_hdl, &wave5_vpu_enc_ctrl_ops,
+ 			  V4L2_CID_MPEG_VIDEO_H264_CONSTRAINED_INTRA_PREDICTION,
+ 			  0, 1, 1, 0);
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
+index bc101397204da..8112d4899ce46 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
+@@ -570,6 +570,7 @@ struct enc_wave_param {
+ 	u32 transform8x8_enable: 1; /* enable 8x8 intra prediction and 8x8 transform */
+ 	u32 mb_level_rc_enable: 1; /* enable MB-level rate control */
+ 	u32 forced_idr_header_enable: 1; /* enable header encoding before IDR frame */
++	u32 constraint_set1_flag: 1; /* enable CBP */
+ };
+ 
+ struct enc_open_param {
+-- 
+2.53.0
 
