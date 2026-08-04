@@ -1,162 +1,309 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011045.outbound.protection.outlook.com [52.101.57.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517C546A603;
-	Tue,  4 Aug 2026 10:14:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785838459; cv=fail; b=TLqa7pbF4Lx53qT8oi0XONnXUE5en1OTYd8XZlZgGNihlxVwHj78rZq2Djula2oK7bw0AcpKHILfQnsY5kuLYGEMCJgResEaPxqtn/v6d4tGsESQpBgj727y/e8kYB+Gwx2Nk99GtbY08LBHpBwSe13w5tOyWgp8f1C0H/soCZc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785838459; c=relaxed/simple;
-	bh=Iensk0F5/I00Oz+lUVszG7FuDmmf8NxEpcNwIkJOcUc=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gSzXpyO/yWVxIdTIpOdWIJxx4Ls/RO3pCiLIViBiGUkjnQ/e04/KxUelUq+aCHLeeeEFMMzty1Swfz7QVd9YwAGDcO3nyYCg50Q+0r/Kh0tWhGxBA2yh8LfURY0s7vV8Xj6CTq5ntK0IlTTZm71ca+Wn25NbN8lJHMkqi51XKyk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=e50o08xi; arc=fail smtp.client-ip=52.101.57.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E9BCC43D508;
+	Tue,  4 Aug 2026 10:25:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785839121; cv=none; b=kEu6ONma8SoyIy88hJ05ZILOzYkWVyKuoiLvh6yQOn+18E8eAlo3rAVP4KoXqWenzoifbePaOf6LqF85GdQKqEvzLPXQWLUNlL1JpUblXkVBRB06tSM7KT8sdtNGybcbrfikhEwu4CwbiNo1ApPOJbeXwH4enegGAkDu1QF6m84=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785839121; c=relaxed/simple;
+	bh=ypAXrYlU3284ZQhZ9clrIQrMOuh27KFxBPJSFxwpKPs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PtT9QlXIbMs1Qr//ynCc6LVvIYS3K3Lgnk+47N47Yfu0d/ZSzxVFwf1NWWclbajYGZuen+Vlyg+El1xPBrFZacDVTmDHAuo/XhaRtITcOUpsWa5Qsnw41sF1qRT+zH4bc1Fmr/MNpFYO1WFrcgW3W3Bn0690zxORCBGm4mWgPq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=S/xwpGme; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="e50o08xi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sfTSiunT9ho5XOtQ0pAc9tZYdyYBJOetTg6Ha110vh/WOfulh4x5stDui8zB/BB541PyzXzF7pAgxt+FgR3TInefgNd0SapZUNRvYw9UL9K8sXuOwDTsA4PRHKbDtvq57oOVHzK5NLauN9x1qqjmpI5QcRVnT91Nea+e5JDegjkHN2Eq6y4VjBROQvjfyNxK1no+bluVKVZXEbZr40+0KZ03iU3dKEHYqf1HnQsp+a25LqzqTW1aMBqxyvHb0a+fsXow/pMUNSi6fpLTEe/ZmlB2HzJZbY6AcRznuwGcTd2uCXDZD8lM3pqVRiobHbXa3JiNyafIvPUPIa9g2ohN4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iuFK8CN/P8iK0SzNQbj8g0zy5MbRNkWrrz5kBJWEM0A=;
- b=eZTY1neuBDaW74uxwTutpIh6yHIx/g+cmgB+2T3xqHT/gaYZ9hp9r8Y8IZzTnchHoYfgmEtYoPPW/t9HvqJXJv5rSdPNOEArYWkrOc4LAbqoTWV3yZyK7CvCIy7N0H/Trc0ekxjkj2/wl8wutFUEo+9QYEQ33Y2m9Bj36ZWUxDJB0GVGO6e8M30hggsyRutLLV/XQoUtgqre+ji10ioMIZYdZ80hPFH24k3CgcXSGeys0IxSi+fCg6Zh6CrQg5f/KjhvRtqTInd8Xt5HljSozuRQRKPBgUSXamlGGoGB7Two78HbEtV40LppN8ot3BboGBwAMqf9AIe4vB6JWuaCxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=bootlin.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iuFK8CN/P8iK0SzNQbj8g0zy5MbRNkWrrz5kBJWEM0A=;
- b=e50o08xi1SLecXjYlJzZxfDKYclK94SvM8cbT9rJAO1/mTMusO+0FfcfwJg9t0+lFtot+v05Z9TPAE1BGIfOZFSvvdwGHItDN69rX6B0KQmC+wCNSL97M3YWExSWCB4U6M0K9VjiTj9sxHl+IheowpkM5dxoXd1VoORHsXn6ESSRsfDnY9k1YUt6hwfUaN0T6GFt+So6Yerlx87WJoK6pW9Gs2QI3Z3qw1h+X/FKpVE65f/sek92IwZp0n07FNL1oXpcrX8hOgDlFy/uqTSSO3e6VXzp6neex4pbiIi4eJH0ILyjaMjhz8568ZO/rWwmb5nPym+BG7qxLqYISTJy3Q==
-Received: from BN9PR03CA0066.namprd03.prod.outlook.com (2603:10b6:408:fc::11)
- by IA0PR12MB8839.namprd12.prod.outlook.com (2603:10b6:208:493::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Tue, 4 Aug
- 2026 10:14:09 +0000
-Received: from BN2PEPF000044A3.namprd02.prod.outlook.com
- (2603:10b6:408:fc:cafe::7b) by BN9PR03CA0066.outlook.office365.com
- (2603:10b6:408:fc::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.16 via Frontend Transport; Tue, 4
- Aug 2026 10:14:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BN2PEPF000044A3.mail.protection.outlook.com (10.167.243.154) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Tue, 4 Aug 2026 10:14:09 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 4 Aug
- 2026 03:13:54 -0700
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 4 Aug
- 2026 03:13:53 -0700
-Received: from build-akhilrajeev-noble-20260602.internal (10.127.8.11) by
- mail.nvidia.com (10.129.68.8) with Microsoft SMTP Server id 15.2.2562.20 via
- Frontend Transport; Tue, 4 Aug 2026 03:13:51 -0700
-From: Akhil R <akhilrajeev@nvidia.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
-	<Frank.Li@nxp.com>, Adrian Hunter <adrian.hunter@intel.com>, Akhil R
-	<akhilrajeev@nvidia.com>, <linux-i3c@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-CC: Sashiko AI review <sashiko-bot@kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCH 5/5] i3c: dw: Resume the controller before unregistering the bus
-Date: Tue, 4 Aug 2026 10:13:01 +0000
-Message-ID: <20260804101301.2975911-6-akhilrajeev@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260804101301.2975911-1-akhilrajeev@nvidia.com>
-References: <20260804101301.2975911-1-akhilrajeev@nvidia.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="S/xwpGme"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1D70A1476;
+	Tue,  4 Aug 2026 03:25:14 -0700 (PDT)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 00BB93F86F;
+	Tue,  4 Aug 2026 03:25:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1785839118; bh=ypAXrYlU3284ZQhZ9clrIQrMOuh27KFxBPJSFxwpKPs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=S/xwpGmePFvakgf8QMuF5FP0Il5C4azvj3bbFsPNiYLlqtClLeXcB3R0JH53isPdZ
+	 5+fdbTQqwrtOULwTFa+QqdLbWibAmhmaqd/MpmgFdGaMhxZSUOLqCobo/Zt/jVL76L
+	 vVeVu8ZVJPLZ7JERn48usH4pgK7HQI5oMsgVjf/c=
+Date: Tue, 4 Aug 2026 11:24:59 +0100
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>
+Cc: Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] KVM: arm64: nv: Allocate the shadow S2 MMUs
+ individually
+Message-ID: <it25udexjmb33rrfnugdcjzzbe5a3zpwpwyp2s3rvjfpyy7moy@wjlokfxjqp3v>
+References: <20260803224405.41468-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A3:EE_|IA0PR12MB8839:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7883ad75-2f61-4e8a-db3b-08def211200b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|13003099007|10067099003|56012099006|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	9mlw/99ABzjJ7aWPoWyN/519WkNubC3eE79QJzGzJWC1M5N+qAhJSeox4KjBmBz+v2t4RN3dIxLmK/78GZrltYUQeSWRM6dLed/k6VD0Redi+jn7wgkyjNsa9DK1Q2rFct+J+E4apJOIpHUSbqtCVASKcTgkxM8HdplvYOBU8lkgMEyqaotPhJmhLHFZCeNxXMHqpR3dqwi6ZWfvYu72b+QeoOm+ZFpIyil2gtnBPowdbGrnOHgy/8QdE30ErUZzIJ6nwQBoCTmmA2Keq0LxOOZAR+iFapuDNhmf0Hq0jz6uu4pHM1Yi6bTtj/7/y5B3o8Rsiw+N7qWFE2CGJJq0N2R6IOVuYDKSZsg77FITve0FSYGnvyZQu3YISQzh2BINShua4rlPJDzHGw/cGcnr2Ah4uD3HQK5I89Orgb4ryKe5PhrmhlhqnDqimkEiYF0UtYgrK+MzR0qXL5dEkynElyQNUIRw57SD7SjSDo/TiOcOIPMM0GUN3HdtSlROLwE6/dCQ83sAPVMF6CswOIjRbp/Jlr+Zzucp8NBNUKZDvCTDIUMQ+mDeLDdfH8W/xnS8hUK5z5LeJCr+GKAC1S36HMmJ6Q7mOnGR/jJ5WogCneX1N0jrdUD78JmmAw92UKMffwX+6EwFMtv6DSBWtvPVTlMKedgLQwyPtzC2inP8c35SljyDcguVLrDmgquq2DYg3GLTEe3abevIUQHv3p7hNw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(13003099007)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	R3yNDz3F8RjvFx2JRnQFhXL4nf/Vddp0ZUIVpy8I1x6lDg2Exx6NIsDVdacu4gRorOLkcdAsEMS8xINkvjsJHb9Hra6NhgP9kPbGmsJYIiyzgw75IgHgUsOPVgmVZoRBJsMM7iqWIrvuX+axANlWXXVgCJi6qV/37yldftVERqH4VET8gKxXOX9U1I4MNPWxWiWmVcKbIunjujo+YGcfobMtrzll3wzjXnFimHlxAWmJ5uM8fDdB0gTBCXnlaQB9PLHrSmvSMlnyAL5cmcJvIh2dtX34JacP2oCQC2EwKvDFAUuxCDlWNX0zYYSGKxMI7uPg0flIzopj3gEhEjmTIOQ5EF4ZnPfyb+9ofWBV6ezL5Mz79ftCbplCpFQAR8BkprYvPnh77YbyU+wl0C3oDofzct33KWtzHppW9//RFcgHDUR5hgClfCA4V93m3bXq
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 10:14:09.7212
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7883ad75-2f61-4e8a-db3b-08def211200b
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000044A3.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8839
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260803224405.41468-1-kmehltretter@gmail.com>
 
-dw_i3c_common_remove() unregisters the I3C bus without resuming the
-device first. i3c_master_unregister() ends up in
-dw_i3c_master_bus_cleanup(), which writes DEVICE_CTRL, so unbinding the
-driver while the controller is runtime suspended accesses registers with
-the clocks gated and the reset asserted, which hangs or aborts on most
-platforms.
+Hi Karl,
 
-Resume the device around the unregistration and drop the reference
-before runtime PM is disabled, so the clocks are running for the
-register accesses and the state stays balanced.
+On Tue, Aug 04, 2026 at 12:44:04AM +0200, Karl Mehltretter wrote:
+> A vCPU in L2 caches its shadow S2 MMU in vcpu->arch.hw_mmu.
+> kvm_vcpu_init_nested() can grow kvm->arch.nested_mmus while initialising
+> another vCPU: it copies the MMUs, publishes the new allocation, and frees
+> the old one.  It updates pgt->mmu back-pointers, but not hw_mmu, leaving
+> the first vCPU with a pointer to freed memory.  hw_mmu cannot be fixed up
+> the same way: a running vCPU reads it without holding mmu_lock.  Copying
+> also duplicates the MMU's refcount, leaving the live copy permanently
+> elevated.
+> 
+> KASAN reports this as a slab-use-after-free in kvm_handle_guest_abort().
+> 
+> Make nested_mmus a pointer table and allocate each MMU separately.
+> Growing the table now moves only pointer entries, preserving cached
+> hw_mmu pointers, pgt->mmu back-pointers, and each MMU's refcount.  Fully
+> initialise new MMUs before publishing the table and its size under
+> mmu_lock.
+> 
+> The old failure path passed uninitialised entries to
+> kvm_free_stage2_pgd(), which needs mmu->arch.  Use an allocation helper
+> that returns only fully initialised MMUs, so error cleanup frees only
+> completed objects; kvm_init_stage2_mmu() unwinds a failed initialisation.
 
-Fixes: 62fe9d06f570 ("i3c: dw: Add power management support")
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260728071757.5B3CD1F000E9@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
----
- drivers/i3c/master/dw-i3c-master.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Just a comment, instead of allocaing the nested mmus individually
+another option is to just fail VCPU_INIT if any of the nested mmus have
+refcnt > 0.
 
-diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
-index 17e1dd4fb5f3..df542ab7744b 100644
---- a/drivers/i3c/master/dw-i3c-master.c
-+++ b/drivers/i3c/master/dw-i3c-master.c
-@@ -1723,8 +1723,20 @@ EXPORT_SYMBOL_GPL(dw_i3c_common_probe);
- 
- void dw_i3c_common_remove(struct dw_i3c_master *master)
- {
-+	int ret;
-+
-+	/* Unregistering the bus accesses the controller registers */
-+	ret = pm_runtime_resume_and_get(master->dev);
-+	if (ret < 0)
-+		dev_err(master->dev,
-+			"<%s> cannot resume i3c bus master, err: %d\n",
-+			__func__, ret);
-+
- 	i3c_master_unregister(&master->base);
- 
-+	if (ret >= 0)
-+		pm_runtime_put_noidle(master->dev);
-+
- 	/* Balance pm_runtime_get_noresume() from probe() */
- 	if (master->quirks & DW_I3C_DISABLE_RUNTIME_PM_QUIRK)
- 		pm_runtime_put_noidle(master->dev);
--- 
-2.43.0
+However, we probably want to return EBUSY in that case, but that's a
+uAPI change.
 
+Thanks,
+Wei-Lin Chang
+
+> 
+> Fixes: 4f128f8e1aaa ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+> 
+> Tested on an arm64 KASAN kernel under QEMU TCG with EL2 emulation
+> (-machine virt,virtualization=on -cpu max, kvm-arm.mode=nested): the
+> selftest in patch 2 reports the slab-use-after-free without this patch
+> and passes with it.
+> 
+>  arch/arm64/include/asm/kvm_host.h |  6 +-
+>  arch/arm64/kvm/nested.c           | 92 +++++++++++++++++++++----------
+>  2 files changed, 67 insertions(+), 31 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index bae2c4f92ef5..f587b01039f9 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -319,10 +319,10 @@ struct kvm_arch {
+>  	u64 fgu[__NR_FGT_GROUP_IDS__];
+>  
+>  	/*
+> -	 * Stage 2 paging state for VMs with nested S2 using a virtual
+> -	 * VMID.
+> +	 * Stage 2 paging state for VMs with nested S2 using a virtual VMID.
+> +	 * MMUs are individually allocated to keep their addresses stable.
+>  	 */
+> -	struct kvm_s2_mmu *nested_mmus;
+> +	struct kvm_s2_mmu **nested_mmus;
+>  	size_t nested_mmus_size;
+>  	int nested_mmus_next;
+>  
+> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> index dfb96edbdc43..af804a5ddca7 100644
+> --- a/arch/arm64/kvm/nested.c
+> +++ b/arch/arm64/kvm/nested.c
+> @@ -5,6 +5,7 @@
+>   */
+>  
+>  #include <linux/bitfield.h>
+> +#include <linux/err.h>
+>  #include <linux/kvm.h>
+>  #include <linux/kvm_host.h>
+>  
+> @@ -66,11 +67,36 @@ static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
+>  	return kvm_init_stage2_mmu(kvm, mmu, kvm_get_pa_bits(kvm));
+>  }
+>  
+> +static struct kvm_s2_mmu *alloc_nested_s2_mmu(struct kvm *kvm)
+> +{
+> +	struct kvm_s2_mmu *mmu;
+> +	int ret;
+> +
+> +	mmu = kzalloc_obj(*mmu, GFP_KERNEL_ACCOUNT);
+> +	if (!mmu)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	ret = init_nested_s2_mmu(kvm, mmu);
+> +	if (ret) {
+> +		/* kvm_init_stage2_mmu() frees its internal allocations on error */
+> +		kfree(mmu);
+> +		return ERR_PTR(ret);
+> +	}
+> +
+> +	return mmu;
+> +}
+> +
+> +static void free_nested_s2_mmu(struct kvm_s2_mmu *mmu)
+> +{
+> +	kvm_free_stage2_pgd(mmu);
+> +	kfree(mmu);
+> +}
+> +
+>  int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
+>  {
+>  	struct kvm *kvm = vcpu->kvm;
+> -	struct kvm_s2_mmu *tmp;
+> -	int num_mmus, ret = 0;
+> +	struct kvm_s2_mmu **tmp;
+> +	int i, num_mmus, ret = 0;
+>  
+>  	if (test_bit(KVM_ARM_VCPU_HAS_EL2_E2H0, kvm->arch.vcpu_features) &&
+>  	    !cpus_have_final_cap(ARM64_HAS_HCR_NV1))
+> @@ -96,38 +122,48 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
+>  		if (!tmp)
+>  			return -ENOMEM;
+>  
+> +		/*
+> +		 * Populate new slots before publishing: table walkers hold
+> +		 * mmu_lock and iterate up to nested_mmus_size.
+> +		 */
+> +		for (i = kvm->arch.nested_mmus_size; i < num_mmus; i++) {
+> +			struct kvm_s2_mmu *mmu = alloc_nested_s2_mmu(kvm);
+> +
+> +			if (IS_ERR(mmu)) {
+> +				ret = PTR_ERR(mmu);
+> +				break;
+> +			}
+> +
+> +			tmp[i] = mmu;
+> +		}
+> +
+> +		if (ret) {
+> +			while (i-- > kvm->arch.nested_mmus_size)
+> +				free_nested_s2_mmu(tmp[i]);
+> +
+> +			kvfree(tmp);
+> +
+> +			free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
+> +			vcpu->arch.ctxt.vncr_array = NULL;
+> +
+> +			return ret;
+> +		}
+> +
+>  		write_lock(&kvm->mmu_lock);
+>  
+>  		if (kvm->arch.nested_mmus_size) {
+>  			memcpy(tmp, kvm->arch.nested_mmus,
+>  			       size_mul(sizeof(*tmp), kvm->arch.nested_mmus_size));
+> -
+> -			for (int i = 0; i < kvm->arch.nested_mmus_size; i++)
+> -				tmp[i].pgt->mmu = &tmp[i];
+>  		}
+>  
+>  		swap(kvm->arch.nested_mmus, tmp);
+> +		kvm->arch.nested_mmus_size = num_mmus;
+>  
+>  		write_unlock(&kvm->mmu_lock);
+>  
+>  		kvfree(tmp);
+>  	}
+>  
+> -	for (int i = kvm->arch.nested_mmus_size; !ret && i < num_mmus; i++)
+> -		ret = init_nested_s2_mmu(kvm, &kvm->arch.nested_mmus[i]);
+> -
+> -	if (ret) {
+> -		for (int i = kvm->arch.nested_mmus_size; i < num_mmus; i++)
+> -			kvm_free_stage2_pgd(&kvm->arch.nested_mmus[i]);
+> -
+> -		free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
+> -		vcpu->arch.ctxt.vncr_array = NULL;
+> -
+> -		return ret;
+> -	}
+> -
+> -	kvm->arch.nested_mmus_size = num_mmus;
+> -
+>  	return 0;
+>  }
+>  
+> @@ -725,7 +761,7 @@ void kvm_s2_mmu_iterate_by_vmid(struct kvm *kvm, u16 vmid,
+>  	write_lock(&kvm->mmu_lock);
+>  
+>  	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
+> -		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
+> +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+>  
+>  		if (!kvm_s2_mmu_valid(mmu))
+>  			continue;
+> @@ -767,7 +803,7 @@ struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu)
+>  	 *   if S2 translation is disabled.
+>  	 */
+>  	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
+> -		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
+> +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+>  
+>  		if (!kvm_s2_mmu_valid(mmu))
+>  			continue;
+> @@ -806,7 +842,7 @@ static struct kvm_s2_mmu *get_s2_mmu_nested(struct kvm_vcpu *vcpu)
+>  	for (i = kvm->arch.nested_mmus_next;
+>  	     i < (kvm->arch.nested_mmus_size + kvm->arch.nested_mmus_next);
+>  	     i++) {
+> -		s2_mmu = &kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
+> +		s2_mmu = kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
+>  
+>  		if (atomic_read(&s2_mmu->refcnt) == 0)
+>  			break;
+> @@ -1223,7 +1259,7 @@ void kvm_nested_s2_wp(struct kvm *kvm)
+>  		return;
+>  
+>  	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
+> -		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
+> +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+>  
+>  		if (kvm_s2_mmu_valid(mmu))
+>  			kvm_stage2_wp_range(mmu, 0, kvm_phys_size(mmu));
+> @@ -1242,7 +1278,7 @@ void kvm_nested_s2_unmap(struct kvm *kvm, bool may_block)
+>  		return;
+>  
+>  	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
+> -		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
+> +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+>  
+>  		if (kvm_s2_mmu_valid(mmu))
+>  			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
+> @@ -1261,7 +1297,7 @@ void kvm_nested_s2_flush(struct kvm *kvm)
+>  		return;
+>  
+>  	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
+> -		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
+> +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+>  
+>  		if (kvm_s2_mmu_valid(mmu))
+>  			kvm_stage2_flush_range(mmu, 0, kvm_phys_size(mmu));
+> @@ -1273,10 +1309,10 @@ void kvm_arch_flush_shadow_all(struct kvm *kvm)
+>  	int i;
+>  
+>  	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
+> -		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
+> +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
+>  
+>  		if (!WARN_ON(atomic_read(&mmu->refcnt)))
+> -			kvm_free_stage2_pgd(mmu);
+> +			free_nested_s2_mmu(mmu);
+>  	}
+>  	kvfree(kvm->arch.nested_mmus);
+>  	kvm->arch.nested_mmus = NULL;
+> 
+> base-commit: 38436106b2f5ceb55950a7098c1a5804de2bde62
+> -- 
+> 2.39.5 (Apple Git-154)
