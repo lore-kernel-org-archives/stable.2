@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B40E3749EB
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 01:05:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 387C53C8C77
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 01:05:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785805554; cv=none; b=ro2ykypAp/CfUOSmflURvtFbsDWa/TdW4cVowSZWhiY2cZuEwf83XWDHj94CocZTGW7RAbc4DAAL2Z8qvTYXijH5vAeOj0aj5JeG9/5uOIbVXanm2jaSSbyc97ljBKlPD4JCJz7pDJGyqJvpU2t/OAPaWtLR/Q7eCDajrcAUNsk=
+	t=1785805555; cv=none; b=oVlnTR5hoKzcbYpfrm/Omds9EJ/g4o/oZe9FBQhMoZ+nK+L19TFtHwZ6WDqa6hX7bmBKZprGip19VFRJ+cKsYYFHrlVkSSpDUbPOYJo0L6ACAhqJjaUOSYBL2NUWJzbdHw+a/wfAy9ZQj7wAh6xGSC3rfbnUswCN6hcspZJcrhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785805554; c=relaxed/simple;
-	bh=xpcrTrXvL3w4GtO5g7iQ9Vt0FSR87caBLqqAmeTZNhs=;
+	s=arc-20240116; t=1785805555; c=relaxed/simple;
+	bh=zBkWTRIQJ266Vipk9uDWJTe1jOGOG6HBa1SNgj13wVQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AZYqCF1aiaZkBTMoc3FGDblIw4R2jMIeDEav5XfwrYnOzwPEygaPBAhRZjVB+5rIxsCAlNGyVQvXfX8GzwN5o5CfBR/9VLasI3WZsr78lbZIZZlg2Po6p91ISiJ+NoqMPcBRJHLoYsk4ZyqJk9kLB3mluPeKrl4VlOfLJYYSc3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cwDTZDOs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=YXqYiKVdgLgNmhdxbwXEsLoeguQdSXsJulPPFEDWPtaUr5szPuWggKEC6JU5rwdtktLd6QKNwUEYmIF/3gXgFIYhRR79shuiqjh1Q4oDsf8iYsnj9LkkADwHV2Jgg0yd25OdUDq9xKRrvVmugURDQ2P8b6A7fiyZ6yyW9L4AJpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=osMbXW51; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cwDTZDOs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB53B1F00A3D;
-	Tue,  4 Aug 2026 01:05:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="osMbXW51"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA39E1F000E9;
+	Tue,  4 Aug 2026 01:05:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785805552;
-	bh=8MaVAXtQRc0Xp1HLpVf714lXOa6hw8Hmq1bDQrXCUmg=;
+	s=k20260515; t=1785805553;
+	bh=OIsutFDROjAawfXqhATjxUhNDmVtdp/Edn0nplJF5n8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cwDTZDOs8XRcWnRCE732BDQJLRkTtVESfpW+gY/W8aYsoxft0w6rxf5xnUxk+wmlL
-	 jVitcJbNgE4X8Ppc98lqL81QCde0qgMIapMk5wuIgTPKScC/UzVG9GaPLYoQ5+YMIr
-	 THe3WnWadHZZP+AJ8p5OFlqDp3OflcqdWNTsqnOQUcGWns7l/h4NNuJGdSxjnRjXVs
-	 T3zpSrGPubgI9Yj3bZxc1ph99X6wuQXwWuEVU5wnV7SmyPZ3HzlayooHwEY3iv7ib2
-	 9/Eg4/rul412Chjwi9ziGEwcL7fo5khnYNBtV1O36XYBL5BAmOltcskXXycD9kho2/
-	 /bi9UDpyvkn/Q==
+	b=osMbXW513P1keNxfM75i/joqZ7ZNgwCFEk1m+GnoCXuS3eXGhuaCbn9iZhZS2AX0I
+	 WIxpgxUXCon983msVhtltwFAIKbybphNkqS8aJXNXDEU5HRKU//eGX5wcl9Ppm3+QS
+	 HTpF5V8Iq117gqPsakZzIXS2NNg9owJwSPHnWQ7hEZWzikFjhbvaZWuMzmaoB2JzoV
+	 ODgGkC6E6alrwBO9h9bzooiYm9S5iagv3r1rdRICIhbmQxRnmSnusAOPr4w2tXrvTR
+	 fhmE8TlN0MaWkTlzksusCHM01O8zy0KG22uKU0RGChy5XC60UOuGoNKgbtTKVKp3EW
+	 EhUf3DtxWZpxA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
@@ -35,12 +35,12 @@ Cc: Sasha Levin <sashal@kernel.org>,
 	daniel@iogearbox.net,
 	kuba@kernel.org,
 	davem@davemloft.net
-Subject: Re: [PATCH 5.15.y] tls: separate no-async decryption request handling from async
-Date: Mon,  3 Aug 2026 21:05:45 -0400
-Message-ID: <20260803210502.stable-0003@kernel.org>
+Subject: Re: [PATCH 5.10.y] tls: separate no-async decryption request handling from async
+Date: Mon,  3 Aug 2026 21:05:46 -0400
+Message-ID: <20260803210503.stable-0004@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260803193216.98111-1-wen.gang.wang@oracle.com>
-References: <20260803193216.98111-1-wen.gang.wang@oracle.com>
+In-Reply-To: <20260803195149.7578-1-wen.gang.wang@oracle.com>
+References: <20260803195149.7578-1-wen.gang.wang@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,10 +49,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 03, 2026 at 12:32:16PM -0700, Wengang Wang wrote:
->Subject: [PATCH 5.15.y] tls: separate no-async decryption request handling from async
+On Mon, Aug 03, 2026 at 12:51:49PM -0700, Wengang Wang wrote:
+>Subject: [PATCH 5.10.y] tls: separate no-async decryption request handling from async
 
-Queued for 5.15, thanks.
+Queued for 5.10, thanks.
 
 -- 
 Thanks,
