@@ -1,158 +1,97 @@
-Received: from out199-14.us.a.mail.aliyun.com (out199-14.us.a.mail.aliyun.com [47.90.199.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BC24A21;
-	Tue,  4 Aug 2026 03:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.199.14
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785815238; cv=none; b=cYqYloRA9esKK0il6WKp9siKJ1S1k7D4IejN69EdroDAOWEuA0+I9wOOhs9zZfiPQMr+S7RoicHjecnP2wjd6mYXTpCyIrrLvKX5o1RRkvKYWI9lHjOe8gP5LDqnJFE666EhNGimvMrnG/oCsd7ukLTxdW1TC5ORWvnzBTPW96Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785815238; c=relaxed/simple;
-	bh=MpNAUrNQ6mrcpoJ6eyqy8Ugz4dZpRH+hXtNtbHGIFXE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n6BssWNgnq3mxN+YdacN20Q2q101h6moJththszHK50eQjKOkiF+ComsgXPBREduoIONYzVNjgQdGw+cRv6wn1c7M9O3zMlMD30+lKwe3wfB6mFOn/rGbxbn5k4NiMr8hJeKBCBFI1HfxVPghhII1sMCeQCkZbkMn425wOjRWHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=BveHJmsR; arc=none smtp.client-ip=47.90.199.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A341640B0FB
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 03:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785815866; cv=pass; b=Skj9Pbz/868olDSNFvLPNaIeiv5s9L5i9PPM9aa5njKKzGNEhljFIupBZoYRJfceZ2ymSknisIjF5UsMrbzPlGGrRsAG4iexWPbMiQlVRUEjSI6WSfG84EILOdOkww3KR95Ny7zP2otkDq3ATUTvOkB+pGh1UJgo2Ady0eFTU3Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785815866; c=relaxed/simple;
+	bh=gm1y3HjSbfjetP2qj6SkQ/PvAerOiP935sq/jHQIUpg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=necLvpnS4+s6lntVLdcUWwhvnAsXPLK0FC9sKb3HENm/uXeKK4exdl22YFSx8XEWE9GfouOjI7lmW47U65WCQXrWdo9adf6cswQfyJQ5IeKcZDjnjTsrO9NnGQImdJh0ksMYuAnlbyBCMMK4h30jHAKN3Fhfiv+9++78n0AzZ7Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iNvzzOC7; arc=pass smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="BveHJmsR"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1785815215; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=VjSgLvpVkLAlpt0h3TqURSDDPzFkTT5uHnKOEmZFvx0=;
-	b=BveHJmsRyAwech8UWwWsPPySw3ynwY1Vy0+4I9YrwzEyIl2Bho7qMouX5tJtQHjY3MBzge9mQ5WepS7UrHAP3XTS6t8hUuwUUXVfu+1WbkrZmVb6EdRLWbBaVtSR15QfI/8wwhlu2QCZFDkl4KLKiwCOyRQ4KNNLhPZJ26N1HgM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=yaoyuan@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0X8MUVM._1785815214;
-Received: from localhost(mailfrom:yaoyuan@linux.alibaba.com fp:SMTPD_---0X8MUVM._1785815214 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 04 Aug 2026 11:46:54 +0800
-Date: Tue, 4 Aug 2026 11:46:52 +0800
-From: Yao Yuan <yaoyuan@linux.alibaba.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Steffen Eiden <seiden@linux.ibm.com>, 
-	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Oliver Upton <oupton@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Hyunwoo Kim <imv4bel@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 4/6] KVM: arm64: Correctly handle end of VA space TLBI
- invalidation
-Message-ID: <bebthvofsp6rdtj7da7rtqgsdi6sjoq5dmodqzpi445r3msyoh@fd4pndoqqmix>
-References: <20260801124818.366274-1-maz@kernel.org>
- <20260801124818.366274-5-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iNvzzOC7"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a0ed034947so2812180a12.0
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 20:57:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785815863; cv=none;
+        d=google.com; s=arc-20260327;
+        b=o0usZNe+cJVfxGydbRRSvMxZT3Y+4CxRD0cqlog2kM11pvGn0ZgmVVDPZmLKdX5sWf
+         CFSH4nahpUv29UL8jBCR8yz4Cw1KFx3D5Rkl5M8iXXZg2mzfouot9nL3ffBYslM8F+td
+         SPDj3ygF8kMINfv5n+nlzYM+ttAmWQWpbAwXrTLEbRQ1lGGV//j16lJipBFJAFpegDwt
+         aMY/7LhDNWAU5vAo9sZZQj4zSlGV0VdJeuwbtt72qC7FPKXJxv06G9h15WUXAlgUkCSL
+         3ZledG3QWkVB3hcNpSBjXCH7gHHAX8eQiPxIBz92EWn/7nw4Kqm2C2IOobbQOH4/wJvt
+         mZkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=gm1y3HjSbfjetP2qj6SkQ/PvAerOiP935sq/jHQIUpg=;
+        fh=a0IBgUxT9BIcq3BUkVZvJfazMvlslq1GZHGzx2Td0UM=;
+        b=mH8vicpxES9wdJ81TO4/qoZhnOJNVtKHsMHhJ389T1NBDvZiJEIf4TXJZ6K9vrXwT2
+         g0jkvN+dIlw+vhGG/iGyOMmuNkGHpjeaAwDBvj8rNgitHYPlRHNgpSNTQoH2hrTXJcSm
+         pxtyg0BxnXcmbre5eI6Pm1KjX6aODD/S9a/XevwjOuAY13FsYa6MSIZUqDYNvInnWnR8
+         oFURnaKDlDfBf7kt98M4Yb45ociaeCncgMMoeDeh5v87GgZHygkvEA4Q0jtGwmLUMqsk
+         YKmdqeFc99edgopvSP+Ur19S0u+7v3GkjZujdFlp0RXDs65m8gGRZK/F7alQBiWx1I/S
+         bxwQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785815863; x=1786420663; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gm1y3HjSbfjetP2qj6SkQ/PvAerOiP935sq/jHQIUpg=;
+        b=iNvzzOC7T+K6dFDsC7BPI/8812nLPWZ8xKNQjTTB+r6oytcEjbc1RWorNUPKvDdHck
+         i4RGYFDO/jiaD752XcQJVqCI53MeJO5/i3srduU3fzHICb7LkTBytj1isk8tUUJVzG01
+         1vOhPobqlF4FwYJRUyooka0mDV6Dtx/6Y5vR5WvvcI90Mm7hNg9cMftK1QhrR8N4EgsH
+         KOHv02SDN9fn5oXtGDIVfDVslXVJE+ofhcCntSU5avMF+uc4s4iyRCDsxOKnRFhTvm3b
+         fGuQJuza+9eopn9yZ16QSm3uKp2Jv1Th4woti1nXZUz6dCqOKHQrjGo4/Urv48jd/0xm
+         ZTcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785815863; x=1786420663;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gm1y3HjSbfjetP2qj6SkQ/PvAerOiP935sq/jHQIUpg=;
+        b=AFzLn+9O5PzWmF6XD1t7gzM3WeeoQV8AuN9qTJMHZhCTgKw7OvfhFLaSEFIMsMSxXy
+         3BTuaQ6nLErUefFrfUDuoVa+VFJUgcI3JXt93SLuT+rOeVfJx6wGwoN2YbjAxRU/faLH
+         dFxuDZ3LwSxf02uAJwRQI4STYjBGRs0gmzyGJ22ITNsYeKvTT4G9fHaUSVq3TE62vFR4
+         dkf046ZdLCTak4kHmdCRvpiM9dkKcmLZAdZ4XNskld2NfwYgJNgcHoiOzIOWQRRJLMUD
+         E2afVgWlAWKSDrIBWJZKH0shq4yd2BdJhe7qVG+vm1elHTqN31ajrC2eYJ4g1peZrnmd
+         0MwA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1HurH0uWZMoAz5BfFppZ5s6Kt7ehN69rpYXAzO1BuoMAMS5UgIE85ef0xLgT/lKoIXKb/4Do=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzdh00vSdX5H53yHffstmmgXi+WKDB/uaPo7FF6V8n/I99UL9lr
+	LIfLAvaDq0goVhk7KgiualjZhazGynjYg3JXWRkt9uTtoDOVZ7h88hZVIUQo2ppLMDr9Z8bXUBL
+	pDxXY1FQSj7KHachu9m0c14W4MA8jFw==
+X-Gm-Gg: AR+sD11NdaB9wbEuo2Nr4Pe3MlePW9D/GPLCQpj4ShEJvtx33zTxr7cSr5qvov8S1aH
+	Ozu5YGgUr7Zwk1QlwJiBLCRpVqc+II0BCNiMdgegt41VHgL4orOafS9qNfLhMjnmdc/C/bmkmeC
+	Du9bkNOzHUuuNg+hSgpl5PYoumSIlLQgbcX2UhYoyuEJGec8mjdn2NK1GYpo4qeMWuVK1gvyqhE
+	GwKgkjfOwYBSOXBvJrBiVa+l6F7LV8T1rPDnp+BoJ+auAWpL6zUs663T9xyp1eh+RC/tLtCXvBQ
+	HiFadXWVcUyQwn8Semd/vPOoKRH1yh94PqOppBs69Wy/ms9tFXIu6BLB0yfYr1DQQ4G3EOnmKEF
+	CVbmD77Fwd8eUPwKvo7mbdqnXtJegETGQDUip/ChHNi0qknzpXINPBg==
+X-Received: by 2002:a05:6402:a0d4:b0:6a0:927e:39e4 with SMTP id
+ 4fb4d7f45d1cf-6a0a7c60461mr10431732a12.5.1785815862763; Mon, 03 Aug 2026
+ 20:57:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260801124818.366274-5-maz@kernel.org>
+References: <20260802073518.419-1-worapat.kd2@gmail.com>
+In-Reply-To: <20260802073518.419-1-worapat.kd2@gmail.com>
+From: Anuj gupta <anuj1072538@gmail.com>
+Date: Tue, 4 Aug 2026 09:27:05 +0530
+X-Gm-Features: AUfX_mxCWwomdP2oAHWsA-q3XBV_o0o2posED603H5ePaS1OysZQAJTy14DQT2M
+Message-ID: <CACzX3AswYsGDrmgNmgsUVaT8_QT_YCmG3OBc5k0izgsE4Eqnxw@mail.gmail.com>
+Subject: Re: [PATCH] io_uring/cmd: fix iovec leak when the async cmd is not recycled
+To: Woraphat Khiaodaeng <worapat.kd2@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Pavel Begunkov <asml.silence@gmail.com>, io-uring@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Aug 01, 2026 at 01:48:16PM +0800, Marc Zyngier wrote:
-> Our TLB invalidation by VA code is based on comparing two ranges,
-> one defined by the TLB, and one defined by the TLBI instruction.
->
-> Each range is defined by a start and a size. However, the way the
-> comparison is done doesn't account for address rollover, as it
-> compares an address with (base + size). This works nicely until
-> this expression represent the last page/block in the TTBR1 VA space,
-> as the result is a big fat 0. And a failed TLB invalidation.
->
-> Rewrite the comparison in a way that is immune to the address
-> rollover (making the end address inclusive instead of exclusive),
-> and move this into a common helper that is used by both VA and IPA
-> invalidations, as suggested by Hyunwoo Kim (although the IPA version
-> didn't suffer from this particular problem, obviously).
->
-> Fixes: 4ffa72ad8f37e ("KVM: arm64: nv: Add S1 TLB invalidation primitive for VNCR_EL2")
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> Cc: stable@vger.kernel.org
-> ---
->  arch/arm64/kvm/nested.c | 43 ++++++++++++++++++-----------------------
->  1 file changed, 19 insertions(+), 24 deletions(-)
->
-> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> index d7dba02dc84fe..47d61d3cf053c 100644
-> --- a/arch/arm64/kvm/nested.c
-> +++ b/arch/arm64/kvm/nested.c
-> @@ -999,6 +999,20 @@ static void invalidate_vncr(struct vncr_tlb *vt)
->  		clear_fixmap(vncr_fixmap(vt->cpu));
->  }
->
-> +static bool vncr_tlb_intersects(struct vncr_tlb *vt, u64 addr,
-> +				u64 scope_start, u64 scope_size)
-> +{
-> +	u64 tlb_size, tlb_start, tlb_end, scope_end;
-> +
-> +	tlb_size = ttl_to_size(pgshift_level_to_ttl(vt->wi.pgshift, vt->wr.level));
-> +
-> +	tlb_start = addr & ~(tlb_size - 1);
-> +	tlb_end = tlb_start + tlb_size - 1;
-> +	scope_end = scope_start + scope_size - 1;
-> +
-> +	return !(tlb_end < scope_start || tlb_start > scope_end);
-
-Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
-
-> +}
-> +
->  /*
->   * VNCR TLB invalidation occurs from MMU notifiers or TLBI instructions, and
->   * either can race against a vcpu not being onlined yet (no pseudo-TLB
-> @@ -1021,19 +1035,9 @@ static void kvm_invalidate_vncr_ipa(struct kvm *kvm, u64 start, u64 end)
->  	if (!kvm_has_feat(kvm, ID_AA64MMFR4_EL1, NV_frac, NV2_ONLY))
->  		return;
->
-> -	kvm_for_each_vncr_tlb(i, vcpu, vt, kvm) {
-> -		u64 ipa_start, ipa_end, ipa_size;
-> -
-> -		ipa_size = ttl_to_size(pgshift_level_to_ttl(vt->wi.pgshift,
-> -							    vt->wr.level));
-> -		ipa_start = vt->wr.pa & ~(ipa_size - 1);
-> -		ipa_end = ipa_start + ipa_size;
-> -
-> -		if (ipa_end <= start || ipa_start >= end)
-> -			continue;
-> -
-> -		invalidate_vncr(vt);
-> -	}
-> +	kvm_for_each_vncr_tlb(i, vcpu, vt, kvm)
-> +		if (vncr_tlb_intersects(vt, vt->wr.pa, start, end - start))
-> +			invalidate_vncr(vt);
->  }
->
->  struct s1e2_tlbi_scope {
-> @@ -1059,28 +1063,19 @@ static void invalidate_vncr_va(struct kvm *kvm,
->  	lockdep_assert_held_write(&kvm->mmu_lock);
->
->  	kvm_for_each_vncr_tlb(i, vcpu, vt, kvm) {
-> -		u64 va_start, va_end, va_size;
-> -
-> -		va_size = ttl_to_size(pgshift_level_to_ttl(vt->wi.pgshift,
-> -							   vt->wr.level));
-> -		va_start = vt->gva & ~(va_size - 1);
-> -		va_end = va_start + va_size;
-> -
->  		switch (scope->type) {
->  		case TLBI_ALL:
->  			break;
->
->  		case TLBI_VA:
-> -			if (va_end <= scope->va ||
-> -			    va_start >= (scope->va + scope->size))
-> +			if (!vncr_tlb_intersects(vt, vt->gva, scope->va, scope->size))
->  				continue;
->  			if (vt->wr.nG && vt->wr.asid != scope->asid)
->  				continue;
->  			break;
->
->  		case TLBI_VAA:
-> -			if (va_end <= scope->va ||
-> -			    va_start >= (scope->va + scope->size))
-> +			if (!vncr_tlb_intersects(vt, vt->gva, scope->va, scope->size))
->  				continue;
->  			break;
->
-> --
-> 2.47.3
->
+Reviewed-by: Anuj Gupta <anuj20.g@samsung.com>
