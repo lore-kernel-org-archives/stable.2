@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B12341E6D8;
-	Tue,  4 Aug 2026 07:30:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D35427F8A;
+	Tue,  4 Aug 2026 07:30:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785828650; cv=none; b=sEzybW+OUmy1wYsxG5Tg6v1RgsdAPVLHZVTHEzkQlZxhZHb25NXFlScvKc6tp5odNk+KsX2M2TdSsvxfH2dbpfA6clRN4vI2iay4mdcCJtivCazqgwCChckcfdXf7Ctkc20IalpF3ri8Lmz9Rm2Bx8zlfrd1HtyFu4lnO1z/+1k=
+	t=1785828651; cv=none; b=bECcZVLn4/Su475Sv04ta4qBlr6aSsNy3mQTFF5xz2hmGYNUFf7X6Q7Na7k4HrwfOXHmOweLIP0UAHl6YzZaVwzk/IE7A7OH0SLQDGSGd6EuIDBfbdq7zAiD3li0Ue1ug3sRY0dbpMfxZX2S89SGPzpNSnTl4zQxvdlennvOUf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785828650; c=relaxed/simple;
-	bh=uQo5xmHWgWZM+XNe9mvOTnt7Nc54mzCP0VFu1Jw45J8=;
+	s=arc-20240116; t=1785828651; c=relaxed/simple;
+	bh=SOLTJEJEXzwaRmRUywBLmqrxVfDxNPkNMw1db+bkp5A=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=eNrEJMJ20FZ8r/peEYDFrxWmI5o1NqAKWDUrd1NchwMUg9l9BcG8e3JmgGfGLAbB9gVl2erCDxI2dM7E+wqOg4IZUCgsU56+g++x5qQDQ2YMGWhGfkU2QSw+fhIe03R2kcyTICFeSd1TRwjF9GMXC7b/xEbO4e/PGV9jl7xb4sQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A6Q2mknU; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=bm3ypJofMffot8zUqZQAdEnJ3N2aiwXT5xkz5TIoo2oUOjmHX9omLBHQRzRj1zIxj9Cl4HKUbEkAq5T/eGLDyUVbnAKhPd1b9YWDx5ARoEmNVY+U2y7Z6jpYFFPiqbTowkGqHxSuFCL9j6iGmzFvesmkJdrywM/Z5PxahjE74U4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZLLtvy6V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A6Q2mknU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7E51F000E9;
-	Tue,  4 Aug 2026 07:30:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZLLtvy6V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20E061F00A3A;
+	Tue,  4 Aug 2026 07:30:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785828648;
-	bh=Mgv41DrsNNY5KSr/+kJxMfoMTv6unJRL/btwkappeSo=;
+	s=k20260515; t=1785828650;
+	bh=oYV5O3eWZLdXdoL+FVkjAr1wH1gOiwtwjBSgUcld4qM=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=A6Q2mknU8T3IvjsgFjyXL0egXOcFAG26Uz/FjLstMJZEgxpnRnPaG68g9mYrqKCDe
-	 vp9nGDvKH8UHypZmK2NTl6ylGqqIEfahcif/wLkqOlT5lLcZEDiM2297uoGfLSDKlG
-	 1deN9y5DYKPi/FQNP2xh9LnmbFhiXpG4lDk4iQA/Dv7Du0iFxQncSfjTcoVsiLBTM7
-	 rSdtvapvon+ATdJBa69+Pt6Nc0z1XfCTlKVJGgmuJwcXDqFm4pYRrRHcjPQSXsXLGd
-	 HMj9bIFgTsBQVK/6o4FibqsHnet8Y69p57pICfXGVdtk4+ryMTkKQzLIlw/JrXiB46
-	 NM0F2qPTaqMsw==
+	b=ZLLtvy6V64IS29HeSFNsiy1L54s0YnzkP9fhy4b84TZle3bqd8BgzVIBHrvvL3161
+	 3eOFRheE7Y66k02D2I2WdJHidsgMjAo6ljQcru9l3Oo4JhKMf1Vv1dyvXbT6XONBBz
+	 CKRQ+KfZJc7dQfF/iETPQYPdKauhgS3b0a23PgTG8+SeFW4C5hn7NuxmsrJX+kODKv
+	 VzzASV1hizn8h5k9C7Sl643XmV2eC7PgUQptWNAsLBTL4s13hDsZ6AhB1Y3MXvO8N3
+	 9YW/x0Dtqf2xfXZFZCUHXWGfi73vno9WggK8q25dTUD7jDC2gsThmYf5i8iz8epEhp
+	 e/EJNxRQwFUUg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93B123924A65;
-	Tue,  4 Aug 2026 07:30:10 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 197AF3924A65;
+	Tue,  4 Aug 2026 07:30:12 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,16 +37,15 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] fsverity: Fix bpf_get_fsverity_digest() dynptr
- assumptions
+Subject: Re: [PATCH bpf v2 0/2] Fixes for bpf_get_fsverity_digest()
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <178582860939.3014158.15212060647956229102.git-patchwork-notify@kernel.org>
-Date: Tue, 04 Aug 2026 07:30:09 +0000
-References: <20260731003925.2728977-1-ebiggers@kernel.org>
-In-Reply-To: <20260731003925.2728977-1-ebiggers@kernel.org>
+ <178582861063.3014158.3566038608254697461.git-patchwork-notify@kernel.org>
+Date: Tue, 04 Aug 2026 07:30:10 +0000
+References: <20260803181232.14743-1-ebiggers@kernel.org>
+In-Reply-To: <20260803181232.14743-1-ebiggers@kernel.org>
 To: Eric Biggers <ebiggers@kernel.org>
-Cc: fsverity@lists.linux.dev, bpf@vger.kernel.org,
+Cc: bpf@vger.kernel.org, fsverity@lists.linux.dev,
  linux-kernel@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
  andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev,
  song@kernel.org, yonghong.song@linux.dev, emil@etsalapatis.com,
@@ -54,23 +53,25 @@ Cc: fsverity@lists.linux.dev, bpf@vger.kernel.org,
 
 Hello:
 
-This patch was applied to bpf/bpf.git (master)
+This series was applied to bpf/bpf.git (master)
 by Kumar Kartikeya Dwivedi <memxor@gmail.com>:
 
-On Fri, 31 Jul 2026 00:39:25 +0000 you wrote:
-> The BPF verifier and the dynptr abstraction ensure that the memory space
-> referenced by a dynptr remains valid.  They do not, however, provide any
-> guarantee that the contents of the memory are stable.  kfuncs are
-> expected to remain memory-safe even if concurrent modifications occur.
+On Mon,  3 Aug 2026 11:12:30 -0700 you wrote:
+> Two fixes for bpf_get_fsverity_digest().
 > 
-> bpf_get_fsverity_digest() didn't follow that: it could crash if
-> arg->digest_size was concurrently modified.
+> Changed in v2:
+>     - Added patch to fix silent truncation.
+>     - Updated commit message to clarify that the size > INT_MAX case
+>       seems to be unreachable currently.
+>     - Added Acked-bys
 > 
 > [...]
 
 Here is the summary with links:
-  - fsverity: Fix bpf_get_fsverity_digest() dynptr assumptions
+  - [bpf,v2,1/2] fsverity: Fix bpf_get_fsverity_digest() dynptr assumptions
     https://git.kernel.org/bpf/bpf/c/3e8ec7c03872
+  - [bpf,v2,2/2] fsverity: Fix silent truncation in bpf_get_fsverity_digest()
+    https://git.kernel.org/bpf/bpf/c/7c68ed5c5ad4
 
 You are awesome, thank you!
 -- 
