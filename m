@@ -1,49 +1,49 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D9AC23C0A13;
-	Tue,  4 Aug 2026 12:43:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BB734B669;
+	Tue,  4 Aug 2026 12:44:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785847422; cv=none; b=Pr836Fbdreo3iK42cFUSzg6CJbbRZQS5659u04jGYEWCvKifd8m2P6V7uO3ft9Lw6vCyvRxxD/kU8znRXs5lbMcrtc5sghVWAIDiBQAVhWwTGWSsye7p1LRqQhNwJbGPYykk8qSjW8ZlUwrftjWgPQe3R7uRcfcPqMpW0hX1apA=
+	t=1785847475; cv=none; b=Uppbp3XFwU+0N84R+wuFlSQ/bBCvmJZDR0GwghGTAzJtNzMvNtdwJR7WK5cJJcK+QmCJzJTUti+b/br4Jp/xJAXljPfUljlAQHLBirg1+N867xOJJcZ9kPphvNbWnnbFN8djRI6SjA0QnWA0BIxwBe9SGz1qM8jtEAVdB8e+Qc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785847422; c=relaxed/simple;
-	bh=9E8GdqP31dgwfZYT4f13k2PUrM5L41eD1gFxUICd/xw=;
+	s=arc-20240116; t=1785847475; c=relaxed/simple;
+	bh=A/Y2A7jceVvUSyGZq9J4Wg4Frp0rYlrD99DKK86qstg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mxG3vcxfgaW5mj3hpF1QgFkzQvmASKvXQlCX7anBnsR3w8eNwONxkHh0oQfIHBYjmwGBUqXLHe0vv4thAAnv0oyrj4jOg+kwGtTulkEb0BV5ykYqYsn52HkAOk55f6wA+gR5ojT4g6eMrgio3P6H9tOyAgocWdV+EZxU1ksZ4bM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.68.205])
-	by gateway (Coremail) with SMTP id _____8DxPJt43nFqAUUKAA--.10256S3;
-	Tue, 04 Aug 2026 20:43:36 +0800 (CST)
-Received: from kernelserver (unknown [223.64.68.205])
-	by front1 (Coremail) with SMTP id qMiowJAxTOVx3nFqYHAjAA--.43S2;
-	Tue, 04 Aug 2026 20:43:33 +0800 (CST)
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yinbo Zhu <zhuyinbo@loongson.cn>,
-	zhanghongchen <zhanghongchen@loongson.cn>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Lee Jones <lee@kernel.org>
-Cc: Huacai Chen <chenhuacai@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	mfd@lists.linux.dev,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v4 1/5] thermal/drivers/loongson2: Correct thermal sensor registration loop
-Date: Tue,  4 Aug 2026 20:42:13 +0800
-Message-ID: <1c0f32f83a43a11a35e151fe97e9b5d4b21ea459.1785829933.git.zhoubinbin@loongson.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1785829933.git.zhoubinbin@loongson.cn>
-References: <cover.1785829933.git.zhoubinbin@loongson.cn>
+	 MIME-Version; b=e0SiWSahskVbl1PDtrO+RVn+ZNUxrO4g1BGm0ZMat4P3j4ioAWhW5O+qgKOhrey4O1kGsnG5Sd13LjAqkkHULSg/sSfPXXWeA0IrFF/6dX0L23uq3ON+Ibu6dn+blisKjuIhLj74s0FCeZggFrU8Yj5ort/xDbMbdWKpmkklo6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=u76nuvLS; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="u76nuvLS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=hnFOIp+6jvboBDxPvHjWBgbUGmcdALyTf4EzwQnS42Q=; b=u76nuvLSFL00hs2y7vahxLq+FP
+	7pYA0MhibCbeg1Cn2bJgdUr8rruqbyUsrVcEZRJhmsWZI4UY5+lUq3xFj+seeb+QtsIQ/3wD/6hIR
+	tvOQoAJluxehwgQQdPyI6zbN4HXNlWVX+rBWlbgrYljn+U45Tqu8RTRaxlJDF6ZC02jV2R/YgkKVo
+	AKzoUIt6UTSIS4hdqakmEUqXJJQvey8PTKqBWgXc5MLE+rmtk/ISeopYtLG06PmRfpu4i9p7v/Ryv
+	Fl5MC0sp4IQWNA6BiF+Q/gReEicVn8OS7F+sglRMLp1S3j4IPoTB9hF74oSuGdspG2Yyor4hHrtoE
+	SPupSgrQ==;
+Received: from [93.123.20.94] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wrEVU-00000001qUG-2aWV;
+	Tue, 04 Aug 2026 12:44:33 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Christian Brauner <brauner@kernel.org>
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Anuj Gupta <anuj20.g@samsung.com>,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] iomap: don't free integrity payload that doesn't exist
+Date: Tue,  4 Aug 2026 05:43:57 -0700
+Message-ID: <20260804124404.737145-2-hch@lst.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260804124404.737145-1-hch@lst.de>
+References: <20260804124404.737145-1-hch@lst.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,70 +51,40 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxTOVx3nFqYHAjAA--.43S2
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgEJCGpxbi8nxQAAs6
-X-Coremail-Antispam: 1Uk129KBj93XoW7tr1UCFW8ZFy5Jw13Wr43CFX_yoW8Cr1rpF
-	sxC3WYkr98GFs7Z34DArWUXan0ya4ftFW7WF4xWw1rWrn3J34agryrJFW2qa40yFy8ZF1Y
-	qr98tFWDCayDZrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
-	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
-	6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
-	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xII
-	jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
-	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
-	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8XTm3UUUUU==
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-The registration loop in loongson2_thermal_probe() incorrectly uses
-dev_err_probe() when the sensor is not present (-ENODEV). In that case,
-the driver should continue to the next sensor index rather than treating
-it as a fatal error.
+fs_bio_integrity_alloc might not allocate a bio integrity payload if PI
+verification is disabled on the block device.  Check for that case before
+calling fs_bio_integrity_free in iomap_bio_read_folio_range_sync to
+avoid a NULL pointer dereferences.
 
-Fix this by correctly handling -ENODEV and only returning on other
-errors. Also add a final check to ensure at least one thermal zone was
-registered.
+Make the branch cover the PI verification as well - while
+fs_bio_integrity_verify works without an integrity payload, it requires
+one to actually do useful work.
 
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/cover.1783670011.git.zhoubinbin@loongson.cn?part=2
-Fixes: e7e3a7c35791 ("thermal/drivers/loongson-2: Add thermal management support")
-Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+Fixes: 0b10a370529c ("iomap: support T10 protection information")
+Cc: <stable@vger.kernel.org> # v7.1
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Anuj Gupta <anuj20.g@samsung.com>
+Reviewed-by: Kanchan Joshi <joshi.k@samsung.com>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
 ---
- drivers/thermal/loongson2_thermal.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ fs/iomap/bio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
-index ea4dd2fb1f47..5f47fa51fb90 100644
---- a/drivers/thermal/loongson2_thermal.c
-+++ b/drivers/thermal/loongson2_thermal.c
-@@ -161,16 +161,18 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- 
- 	for (i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
- 		tzd = devm_thermal_of_zone_register(dev, i, data, thermal_ops);
--
- 		if (!IS_ERR(tzd))
- 			break;
- 
--		if (PTR_ERR(tzd) != -ENODEV)
-+		if (PTR_ERR(tzd) == -ENODEV)
- 			continue;
- 
--		return dev_err_probe(dev, PTR_ERR(tzd), "failed to register");
-+		return dev_err_probe(dev, PTR_ERR(tzd), "failed to register sensor %d\n", i);
- 	}
- 
-+	if (IS_ERR(tzd))
-+		return dev_err_probe(dev, -ENODEV, "No thermal sensor registered\n");
-+
- 	ret = devm_request_threaded_irq(dev, irq, NULL, loongson2_thermal_irq_thread,
- 					IRQF_ONESHOT, "loongson2_thermal", tzd);
- 	if (ret < 0)
+diff --git a/fs/iomap/bio.c b/fs/iomap/bio.c
+index dc8ac7e370a5..30ef78a66b4f 100644
+--- a/fs/iomap/bio.c
++++ b/fs/iomap/bio.c
+@@ -179,7 +179,7 @@ int iomap_bio_read_folio_range_sync(const struct iomap_iter *iter,
+ 	if (srcmap->flags & IOMAP_F_INTEGRITY)
+ 		fs_bio_integrity_alloc(&bio);
+ 	error = submit_bio_wait(&bio);
+-	if (srcmap->flags & IOMAP_F_INTEGRITY) {
++	if (bio_integrity(&bio)) {
+ 		if (!error)
+ 			error = fs_bio_integrity_verify(&bio, sector, len);
+ 		fs_bio_integrity_free(&bio);
 -- 
-2.52.0
+2.53.0
 
