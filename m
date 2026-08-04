@@ -1,110 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68C221883E;
-	Tue,  4 Aug 2026 04:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7736520E334
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 04:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785817752; cv=none; b=TJaoPswj5U0shD+cuWtNHxglNaSNwPpO15iUOeBNzemfr6GQiUEFLdDLbgUa6OsmgD6QNOaFqXrkC1lSIH5DxCVrzOWBcEjP/dJjGsElPYs8IoZ/s2q/hN6WQBsOZsbNiwy7hqqbyoUO2eyUbMZ1eMVsARGH6Puq4e5lNxydr14=
+	t=1785819081; cv=none; b=jo4Dw7CyylIx7jQPTXDiI0FNSePLV0/UXiDSXcyolsuQmIRh9VAi55987g+WMgh++s32YKICCIH2h9CtC8dumHSGQnA9l1dkKxypSFVugMVDOKk6pXaKSL4FZecg/bdkJDMm8L0yrr0wcRQyiXNe2upEe79OSMVpwGX3m4Y9wws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785817752; c=relaxed/simple;
-	bh=PWy6HkMc450frXde2fJKWbUjPH9yK5J2nsQY0CvF4yY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=i2Go8KsmHl8rLkTHqYOH+zmNIceOgVtiOc7MAC91WbKZKfhPbb7naLo8GXRdhOJkqDq1q+Md205XBsPp72kiMpLpYc3m7cFpGuZuWqAML2EPebyK7m7IWHoKh4rb4npPq8t5ZHBNt1hPnGZmjXwISpQrAAp9EmsVqgCN3KqzW5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WAV2evLm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785819081; c=relaxed/simple;
+	bh=bTEnF0GSN3SBXW2xrn7XaencUwWpEBCFuVm/FLAWE4E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mRaTunReSu+RtwAmZJEq+KIkHwjrgZZ6yud1+/pxL1LrR7TrnvSuAKrUedCR7ARIsR+0mNM+OYdNQ4VCvrO26sjld/PTg37dsBHzCrK9+6U7N3thFPJgT7JY6xVrW6h56HTSBV6QdmmLtjJI9gWemn/EA2u3V0JD1WUIBWB9ZoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G1XeVLEt; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WAV2evLm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8408D1F000E9;
-	Tue,  4 Aug 2026 04:29:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785817751;
-	bh=nPz6co9halTHG7r/bUw3VxfPO9Gwuo2/06MTqot21pQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WAV2evLmSpxaPRKKQpcpd/mj/L4i1T+VfQPSgAYdqbBR9BODhMUtddmJtk6OV4Al4
-	 15qT/LUYivwG92apNeF17gOTFlstH8cpIo3i9DEzvO/JS6dCIa4xgvE9sR4dshs+m0
-	 k2wOZU621JJJDNJlO+iZwfAUhazO8hVddP5bEipI4ttV/vm6+uabi/21RlzeNP581b
-	 oVAapnQfVevZBitjKX3Z7xgLEizZ94nfRHP214VlNbuCSyxnhRWniee8SAttZW5w95
-	 0MGm+eL6bgMGPZr7uYLimH+23DWilk3d6jI4MFYaDrKi/+gCRinneAtpWUtYMyTm1c
-	 y5g3YH1gxQl9Q==
-Message-ID: <8da2a239-e074-41f8-8d8d-552b1652edfd@kernel.org>
-Date: Tue, 4 Aug 2026 13:29:09 +0900
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G1XeVLEt"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-382ef647e20so4362045a91.1
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 21:51:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785819080; x=1786423880; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mdfSBvQXwGzTtQw/QDJdQFO/fQB5csp00HtUR8um7Bk=;
+        b=G1XeVLEtPdPT9+IQ3T+TlKetDbfOEdLmB6GR9t7e3Usj2K4QRtnyDOapJfNKU9KeY3
+         KVkKBK1zrZSvoyS4ugeKf9uc4Fg4D7NVzYLC0sRMDZnD73mFqoouBdbXk2WR4PM9Kbpu
+         VelIgZr/JFCKvdOwYAbLC6TtBT0orAjaWot9/5HPhUzHGyflfcwGeVQbxe/GfzNfJ+o5
+         li2ajTNu0BEUwaBwv4Xo3IiDo5FcAJCvnzgeoGHDSvxP0MKeMt9wfsS02foOMqVDZ+iS
+         PmZk2V7BIA2py2aDoquMD6gTE5/u1jZtwa1JSWM++ny6xDVoK7zummbg+hFs7qNEZqq4
+         9+xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785819080; x=1786423880;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mdfSBvQXwGzTtQw/QDJdQFO/fQB5csp00HtUR8um7Bk=;
+        b=r06RWTSBKu7pRPnRQ4OqVxUPzMOB4xcJzupecrMDNC/Jkv+GB3d/QbJA6wQ4Dk3G0F
+         S1gHW48+ydHvrLURUEXreWFOHoBXmey5rNcw+BZUdBF60PD4mH1/dHL1zQyvlYjFc+ct
+         draHtTYL6+fDBpsiGWG0upRArwi3SYK3zkGZ1++qy64AaYITP9rQcMOQ436U7R1+rgB3
+         JnXwcky0JYThTdyvuMzOa8szLfPCtdhRMEzsf2vmTJu0a0uI/QUVvsxqeJxIFiS6p6HR
+         FYk4kgPhgm/zpHjsoIuwZwrFlwxl3D3wYlOnZRkkCjszkVW4Sr9yRFWPfyO6i5s6M9gs
+         tWRQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoipWqnRN4kjKjtVwOgha40i/VPd7PWHHnioQgmaR1qlE8lE3nwRmWWFywrJBFVt8b4fMQ+kU8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxP9lR0UNfB0GpjKdp+4aCZv3Cuc22TeARnjor9OdSmYuGSVTyI
+	YQ+KYHn/oRGf8WaWG0XYbp2tl30ssyJa35emy2F76fvx3uOlMfwHl1gf
+X-Gm-Gg: AR+sD10JVbDn7qk/sxLBnv2uPG/+h0KbNnNQB/4y266Oi1K4SmmCGUSoQFm3ctpgs/X
+	fv/TUVy7zxry1g9us/nyNZkfqEcWiUbSGVYx8QOw4Vb8lvIhBqkHWPFkclDkOyCFC8WVm/FCrER
+	uAvIc+avSyXd4ZpNX7AvgAisOVbOiTuIXOiUs1WDSvZfzYHaFhpZdDMt6mF8ikRc78yDeywqzFC
+	S095pSLwrIi6p/G8aqJ/7HiVw3sZbqwpxwwQlcc2p9O8Nv7qI+x7iXqdxIjPFBXKZAvRis7hzVP
+	eoxArnDjezl1/mvdNABzsNZNjS0RT1ELTn8PPsvv9vKt0+9DDSPNIUj6XJrnW9WTJu69mLU/Vjk
+	vfitAOCavnqtLFp3X9gnaOdbUudA/7oWbKGNELzvZzAld3fnhP9XcMJo9EqYgnrk8c1SOwgEAg0
+	N1Gpwm8uznOMUKUNrULQq2XlC03Pmb+TQrwovMGMapnPlFmyv4xWkq8HMDClstpDB7e53+fJh/e
+	LTzUaLJkbwNgc95WQeoTg4nEYnokg==
+X-Received: by 2002:a17:90b:3851:b0:38e:dc4:3f64 with SMTP id 98e67ed59e1d1-38fbc52da42mr11200125a91.38.1785819079614;
+        Mon, 03 Aug 2026 21:51:19 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:d109:cdba:8a20:74ad])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e06f8dbsm46423466eec.22.2026.08.03.21.51.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 03 Aug 2026 21:51:18 -0700 (PDT)
+Date: Mon, 3 Aug 2026 21:51:16 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Jianing Li <m13940358460@163.com>
+Cc: linux-input@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] Input: hynitron_cstxxx: validate touch count and
+ finger IDs
+Message-ID: <anFu87r00Dv6cP-u@google.com>
+References: <20260804020314.2082-1-m13940358460@163.com>
+ <20260804031339.2379-1-m13940358460@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] Documentation: block: zloop: clarify capacity
- alignment
-To: raoxu <raoxu@uniontech.com>
-Cc: axboe@kernel.dk, hch@lst.de, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <0be2d538-8e18-45ad-9181-f7e3fb7e02ed@kernel.org>
- <8100621B7A58105B+20260804034121.1036479-1-raoxu@uniontech.com>
-Content-Language: en-US
-From: Damien Le Moal <dlemoal@kernel.org>
-Organization: Western Digital Research
-In-Reply-To: <8100621B7A58105B+20260804034121.1036479-1-raoxu@uniontech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260804031339.2379-1-m13940358460@163.com>
 
-On 8/4/26 12:41, raoxu wrote:
-> From: Xu Rao <raoxu@uniontech.com>
+Hi Jianing,
+
+On Tue, Aug 04, 2026 at 11:13:39AM +0800, Jianing Li wrote:
+> The driver allocates max_touch_num input slots, which are indexed from
+> zero through max_touch_num - 1.  The current check allows a finger ID
+> equal to max_touch_num to reach input_mt_report_slot_state(), resulting
+> in an out-of-bounds slot access.
+
+This is not quite correct. There is no OOB access because input core
+validates reported slot ids and wil refuse switching to a slot that is
+outside of limits.
+
+Still, the driver should not be reporting such packets.
+
 > 
-> zloop divides the requested capacity by the zone size to determine the
-> number of zones. Since it uses one zone size for all zones, a smaller last
-> zone is not supported and an unaligned capacity is rounded down.
+> The touch count is read from the controller's report and is used to
+> index the fixed-size report buffer without first checking its range.
+> Reject counts larger than the supported number of touch slots before
+> checking the trailing byte or parsing touch data.
 > 
-> The capacity_mb description incorrectly states that the capacity is rounded
-> up. Correct it to document the actual behavior.
+> Reject IDs at the upper bound before using them as slot indexes.
 > 
-> Fixes: 9e4f11c1228c ("Documentation: Document the new zoned loop block device driver")
-> Suggested-by: Damien Le Moal <dlemoal@kernel.org>
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
+> The V821 Avaota F1 board configures the vendor driver with one touch
+> slot, so finger ID 1 is already invalid on that device.
+> 
+> Fixes: 66603243f528 ("Input: add driver for Hynitron cstxxx touchscreens")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jianing Li <m13940358460@163.com>
 > ---
-> Changes in v2:
-> - Replace the code change with a documentation correction.
-> - State that a smaller last zone is unsupported and that an unaligned
->   capacity is rounded down.
+>  drivers/input/touchscreen/hynitron_cstxxx.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 > 
->  Documentation/admin-guide/blockdev/zoned_loop.rst | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/blockdev/zoned_loop.rst b/Documentation/admin-guide/blockdev/zoned_loop.rst
-> index f4f1f31..fd99e5c 100644
-> --- a/Documentation/admin-guide/blockdev/zoned_loop.rst
-> +++ b/Documentation/admin-guide/blockdev/zoned_loop.rst
-> @@ -71,8 +71,9 @@ follows.
->  ===================   =========================================================
->  id                    Device number (the X in /dev/zloopX).
->                        Default: automatically assigned.
-> -capacity_mb           Device total capacity in MiB. This is always rounded up
-> -                      to the nearest higher multiple of the zone size.
-> +capacity_mb           Device total capacity in MiB. A smaller last zone is not
-> +                      supported, so an unaligned value is rounded down to a
-> +                      zone-size multiple.
+> diff --git a/drivers/input/touchscreen/hynitron_cstxxx.c b/drivers/input/touchscreen/hynitron_cstxxx.c
+> index f6139b1a8681..05e877b0d877 100644
+> --- a/drivers/input/touchscreen/hynitron_cstxxx.c
+> +++ b/drivers/input/touchscreen/hynitron_cstxxx.c
+> @@ -293,6 +293,11 @@ static void cst3xx_touch_report(struct i2c_client *client)
+>  	touch_cnt = buf[5] & CST3XX_TOUCH_COUNT_MASK;
+> +	if (touch_cnt > ts_data->chip->max_touch_num) {
+> +		dev_err(&client->dev, "cst3xx touch read failure\n");
 
-Let's make this a proper sentence:
+We need to have better error message.
 
-capacity_mb		Device total capacity in MiB. A smaller last zone is not
-			supported, so a capacity value that is not multiple of
-			the zone size is rounded down to the closest multiple of
-			the zone-size.
+> +		return;
+> +	}
+> +
+>  	/*
+>  	 * Check the check bit of the last touch slot. The check bit is
+>  	 * always present after touch point 1 for valid data, and then
+>  	 * appears as the last byte after all other touch data.
+>  	 */
+> @@ -333,7 +338,7 @@ static void cst3xx_touch_report(struct i2c_client *client)
+>  		sw = (buf[idx] & 0x0f) >> 1;
+>  		finger_id = (buf[idx] >> 4) & 0x0f;
+>  
+>  		/* Sanity check we don't have more fingers than we expect */
+> -		if (ts_data->chip->max_touch_num < finger_id) {
+> +		if (finger_id >= ts_data->chip->max_touch_num) {
+>  			dev_err(&client->dev, "cst3xx touch read failure\n");
 
-With that,
+Same here.
 
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+>  			break;
 
->                        Default: 16384 MiB (16 GiB).
->  zone_size_mb          Device zone size in MiB. Default: 256 MiB.
->  zone_capacity_mb      Device zone capacity (must always be equal to or lower
-> --
-> 2.47.3
-> 
-> 
+Not your change but break here results in finalizing incomplete packet.
+It is better to abort (return) and wait for proper packet without
+invalid fingers.
 
+>  	}
+
+I made adjustments and applied, thank you.
 
 -- 
-Damien Le Moal
-Western Digital Research
+Dmitry
