@@ -1,189 +1,157 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703093C10B6
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 14:15:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4F4376BC1;
+	Tue,  4 Aug 2026 14:15:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785852948; cv=none; b=bQg45oaNgX1n3RuwhvdirYEte3A+dTFo/zQdiAF3qvSzAs2Txx0PFv+fXtBt8qVYOS5vtjPitP4FlC5tanHzHCFhzn2E/4AG0gJs0VO2hrHXN2GPFIR3wKyAsOqoQpfPiMya26RItz+1ji9i5QOJRFFg+TcFhc9i8czg4ljjJjo=
+	t=1785852969; cv=none; b=jbkNL1qT5CX0KJljsSUfjWN2xtUPik9wlY3ioFxq6OpjKdqnis4Dj6HkjXf17burzaGYngXq7NFmx2VpDEYWR5srh/aXhYi5lE1lMiLU2//KdblrZNUyA6ZHQ8p7rms65u0dZdPnFfDdClAFZe02PVBVfxU45FSfnNJiIxjqs/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785852948; c=relaxed/simple;
-	bh=tseOFkRH+VkKpLPw9eW+OguB+gLNud5Nib8WI23LXjg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bjAjSjviB6lW5S04teBBAmKPqOd31bSqkUwXOJ3odrhniqUHxTqNE016kH5nq39yaF8ESXAmULIRAuj4RXWSGdPd0md8IPqiX1bdkUznfHOAhuvtp+GywsvJLs3w8ZbQStWjSnsgZDaFLs03j6u5+cKNMekCGo/a9npinpgy2ek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vv0Hh89c; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785852969; c=relaxed/simple;
+	bh=+3Z5rwHR3Npu6BOoPBa6/MBmkSks84W8RMudMGSUNxc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=F/iMuxDeDYqqynThh5koGQd7IMhVGnRuQw+h+1Y6/e8DbsAOdP9GDfeb7j47u0y/DyCkI2l63DUTIoOhgTVPApkn9Dl/oTUOb7zCgjj957vKAg1yYNPMEkbIISYPMWZ6ojwBb1/jtTLaXnbi8nS64z7HyxbRRFkVLbkoH7VjGls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=U9Y+ykcr; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vv0Hh89c"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c9e0b89e228so2539048a12.1
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 07:15:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785852931; x=1786457731; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pkA8brq9aD3a7UhTDQ51dCKqynsS+dZa04GQD9wvAc4=;
-        b=Vv0Hh89cNQYO/nUQIm9aGhNeLirmizlPEgBmX6wUNfZmsQYTOc8XKTMCeMV3J7aKQR
-         tmXjwB5D48Pz2ujWFzzv1BsXBZanARX0FSVNP3IwV46mMu9Hgxnz0pYxXcPT1fLmC5zl
-         Dge9noHfOzgvuvlODNCW8wb1G/x+f4VHU5xN6I6hAHUUzEkTK8s30Pto4jbeWSkwbK+f
-         UA+Hqz/nQagvYHSoeEqxNfUQUllT0c04aaH3BlfL4a0a692t42yWhRJVE/qovszsWQe2
-         VAMVbK8k/pIf3QHSAoBxyguKDer956kcbJYIxLubs4QDygjNnwM4ikTc/9nJzwGdJAWz
-         YfAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785852931; x=1786457731;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pkA8brq9aD3a7UhTDQ51dCKqynsS+dZa04GQD9wvAc4=;
-        b=UJbKoFC3RT3zEDXmxB2GSXkJUyzKAyhThPeAgmAqj5ZfGMoc050lADj5bqk6n1yZic
-         UNhm+nsb2SPVxB3/1PZNgLXawS/1OqDUGVeWUlNw9/IZ2U3rAOai4NX1hNj3dT4Oxjn2
-         JuV92XFPVh3hnhJ+Jm8YlrhjGpdcjsVCtyC5k2CgMe8+FImz8csA0rQ+ygWwmxFbdIPK
-         yClZNQ16ESE2v7IrVmn53i5FLXq1kQTBim5c4BEoMT59JuLCtezKlpbjIkRNRaTvZXKa
-         tX+xxbypAH1SGDCAjwDIcAbhzo69k2SRMa215ksrlhJsHpm1LQLmjijRN73gMQkF7cuw
-         OSMA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr6YJyLZpBGmvf0GCT+dW2uIa6EUoMXthQxftX9z4ZC274AnhBWz4HVNds8rFvixFUBH7Tv1bM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxByxOx5/YWedDeUDAGr3NnYunxNclFmRTvVuQfZ71++do1WxvS
-	D3zJf4sN2SilgaHCXEqtjF5m05ZUNYp8fYLaxAOCKa9IzmSpob5RpWU=
-X-Gm-Gg: AR+sD106Wajsg9ZOmKdWKIhGW+y886ZFmpC9gg+wm4S0F/EAYGyu08woiY+EkdrmlKP
-	ZIsYVpMYmswmw5+co2n+9DwJ1tY3pB1aZtamH12ww3RreEFlTEx0l3k85tAX2HRHutKB14RmmS1
-	5UqnztgWOY5yIiiD9hbNrVA+jPzp1UsOOG3fY0x3/mN6A6ldGFkAFYSup7pYijl8JR40EsvV4zY
-	0yt8TR2zrjmr1nMqEbsxQwN1tIzwJch58Q9nkfBoZVYbeaWKbqti1q6nNWxLRIHvtbxGTIw0pNZ
-	HwPW9w7fPnm3yw9lXxTvOnvm9wXmF9awzZjD7pi3fAvpSQJaQtBa7ke9Ly/0MFystQoTP2zQM1R
-	ZgPJjcndzxlXkQHAVYfkcm8q6umhgSQMpyd4Zz+Wi3DtsF046jqefgCrsBmcsmJwV1Pj4Xmem6q
-	AZwD7NUuw9FJEc7rfVe9AJkqnBs3+QZmvPBiCTjP8vihOY6mCT02DE31QWKtm10gcZ+AcHxxFsI
-	S6gdSPyzj3Apos5Mpg9aPeMoaiqeBh72Am2lzf28FOSK+lv7IboRf+KtzABdYJceOlHesx51Gp7
-	i/vaXkHjYDR06fTOJBTVWec3vidyJZYd6Q==
-X-Received: by 2002:a05:6a20:6a1e:b0:3c8:e313:8d42 with SMTP id adf61e73a8af0-3c92a77e60fmr14018709637.31.1785852931219;
-        Tue, 04 Aug 2026 07:15:31 -0700 (PDT)
-Received: from localhost.localdomain ([1.226.165.54])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbe396eb7e2sm5056572a12.18.2026.08.04.07.15.27
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 04 Aug 2026 07:15:30 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Samuel Ortiz <sameo@linux.intel.com>,
-	Rabin Vincent <rabin.vincent@stericsson.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] Input: stmpe-keypad - disable keypad on probe failure
-Date: Tue,  4 Aug 2026 23:15:25 +0900
-Message-ID: <20260804141525.39388-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="U9Y+ykcr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1785852953;
+	bh=+3Z5rwHR3Npu6BOoPBa6/MBmkSks84W8RMudMGSUNxc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=U9Y+ykcrneFm0SMzgD5Wequ5C+6YI9+5KWqJjq6MLqKcdspZXPBqRSTKLAQbn0Dwe
+	 Jh4DlMKtwG72LHsJHkUlb16WIQJUUj+18D9Om/xq2DDIQYHJIqqeqV+cs4S2K8ll0u
+	 4Xn8vps1thOfJAuih04f0ajvJ02z0b+dNM7G5KG4vsA9uJkF+UPMtoBzuOl8N0d9/o
+	 Axxxz0skaIMlF/q2UUrgx2HHInYAouN6PFta0IFcrqGw7mD/F5MJfrJPa2J0b9Xe+D
+	 51C3Oe/EKywkLcUXr5kjR7m7lRQJZFO/08vh07hJlCOSImCykqaB0uJfKf5qoEjrQj
+	 v2Cf5nQUhFxUg==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8ABF017E0048;
+	Tue, 04 Aug 2026 16:15:52 +0200 (CEST)
+Date: Tue, 4 Aug 2026 16:15:49 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Alex Williamson
+ <alex@shazbot.org>, bcm-kernel-feedback-list@broadcom.com, Christian Koenig
+ <christian.koenig@amd.com>, David Hildenbrand <david@kernel.org>,
+ dri-devel@lists.freedesktop.org, Fei Li <fei1.li@intel.com>, Huang Rui
+ <ray.huang@amd.com>, linux-mm@kvack.org, linux-s390@vger.kernel.org, Michal
+ Hocko <mhocko@suse.com>, Peter Xu <peterx@redhat.com>, Sergio Lopez
+ <slp@redhat.com>, Sean Christopherson <seanjc@google.com>, Thomas
+ Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/6] drm/shmem_helper: use vmf_insert_pfn_mkwrite()
+Message-ID: <20260804161549.4cd9a66f@fedora-21.home>
+In-Reply-To: <20260804120529.1730187-3-pbonzini@redhat.com>
+References: <20260804120529.1730187-1-pbonzini@redhat.com>
+	<20260804120529.1730187-3-pbonzini@redhat.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-stmpe_keypad_chip_init() enables the keypad block before programming
-its registers. If any subsequent register access fails, the function
-returns without disabling the block. The later IRQ request and input
-device registration failures have the same problem.
+On Tue,  4 Aug 2026 14:05:24 +0200
+Paolo Bonzini <pbonzini@redhat.com> wrote:
 
-Route every failure after a successful stmpe_enable() through a cleanup
-path so a failed probe does not leave the keypad block enabled.
+> This ensures that KVM or VFIO correctly see a writable PTE when
+> they request one.  Otherwise, a guest write to an unpopulated
+> PTE from a mapping backed by a DRM GEM BO triggers a VM exit
+> with EFAULT.
+> 
+> The code actually is simpler, because the same logic already
+> applied to the hugepage mapping case using vmf_insert_pfn_pmd().
+> 
+> Reported-by: Sergio Lopez <slp@redhat.com>
+> Link: https://lore.kernel.org/kvm/20260729072044.25796-1-slp@redhat.com/
+> Tested-by: Sergio Lopez <slp@redhat.com>
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Fixes: 28e3918179aa ("drm/gem-shmem: Track folio accessed/dirty status in mmap")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  drivers/gpu/drm/drm_gem_shmem_helper.c | 38 ++++++++++++++------------
+>  1 file changed, 20 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> index c989459eb215..c81be3e97317 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -589,11 +589,25 @@ static void drm_gem_shmem_record_mkwrite(struct vm_fault *vmf)
+>  	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+>  }
+>  
+> +/*
+> + * Because the vm_ops have a .pfn_mkwrite() callback, vma_set_page_prot()
+> + * has cleared the write bit from vma->vm_page_prot.  vmf_insert_pfn()
+> + * would install a read-only entry even for a write fault, relying on a
+> + * second fault to reach .pfn_mkwrite() and upgrade it, but that second
+> + * fault never happens for fixup_user_fault() callers that directly
+> + * walk the page tables with follow_pfnmap_start().  To ensure that
+> + * they don't see the read-only entry, pass FAULT_FLAG_WRITE info down
+> + * to install a writable entry right away.  Because .pfn_mkwrite() is
+> + * not invoked, record the write afterwards.
+> + */
+>  static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+>  				 unsigned long pfn)
+>  {
+> +	bool write = vmf->flags & FAULT_FLAG_WRITE;
+> +	vm_fault_t ret = VM_FAULT_FALLBACK;
+> +
+>  	if (!order) {
+> -		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
+> +		ret = vmf_insert_pfn_mkwrite(vmf->vma, vmf->address, pfn, write);
+>  #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+>  	} else if (order == PMD_ORDER) {
+>  		unsigned long paddr = pfn << PAGE_SHIFT;
+> @@ -601,27 +615,15 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+>  
+>  		if (aligned &&
+>  		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
+> -			vm_fault_t ret;
+> -
+>  			pfn &= PMD_MASK >> PAGE_SHIFT;
+> -
+> -			/* Unlike PTEs which are automatically upgraded to
+> -			 * writeable entries, the PMD upgrades go through
+> -			 * .huge_fault(). Make sure we pass the "write" info
+> -			 * along in that case.
+> -			 * This also means we have to record the write fault
+> -			 * here, instead of in .pfn_mkwrite().
+> -			 */
+> -			ret = vmf_insert_pfn_pmd(vmf, pfn,
+> -						 vmf->flags & FAULT_FLAG_WRITE);
+> -			if (ret == VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
+> -				drm_gem_shmem_record_mkwrite(vmf);
+> -
+> -			return ret;
+> +			ret = vmf_insert_pfn_pmd(vmf, pfn, write);
+>  		}
+>  #endif
+>  	}
+> -	return VM_FAULT_FALLBACK;
+> +
+> +	if (ret == VM_FAULT_NOPAGE && write)
+> +		drm_gem_shmem_record_mkwrite(vmf);
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+Actually, if we're making the drm_gem_shmem_record_mkwrite() call
+unconditional (for PTE and PMD updates) in that path, can't we drop the
+drm_gem_shmem_pfn_mkwrite() call living in drm_gem_shmem_pfn_mkwrite()?
 
-Fixes: 76f10845318b ("input: Add STMPE keypad driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/input/keyboard/stmpe-keypad.c | 38 ++++++++++++++++++---------
- 1 file changed, 26 insertions(+), 12 deletions(-)
+Also, I'm not even sure we can end up with write=true for PTE updates,
+because our pfn_mkwrite implementation returns zero, not VM_FAULT_ERROR
+or VM_FAULT_NOPAGE. This means the default RO -> RW PTE upgrade
+implemented in finish_mkwrite_fault() [1] will take place. If we really
+want out try_insert_pfn() to be called for those RO -> RW updgrades, we
+need to call try_insert_pfn() from drm_gem_shmem_pfn_mkwrite().
 
-diff --git a/drivers/input/keyboard/stmpe-keypad.c b/drivers/input/keyboard/stmpe-keypad.c
-index 0acded4fb9c9c..58a5ce4eaa80b 100644
---- a/drivers/input/keyboard/stmpe-keypad.c
-+++ b/drivers/input/keyboard/stmpe-keypad.c
-@@ -280,35 +280,44 @@ static int stmpe_keypad_chip_init(struct stmpe_keypad *keypad)
- 
- 	ret = stmpe_keypad_altfunc_init(keypad);
- 	if (ret < 0)
--		return ret;
-+		goto disable_keypad;
- 
- 	ret = stmpe_reg_write(stmpe, STMPE_KPC_COL, keypad->cols);
- 	if (ret < 0)
--		return ret;
-+		goto disable_keypad;
- 
- 	ret = stmpe_reg_write(stmpe, STMPE_KPC_ROW_LSB, keypad->rows);
- 	if (ret < 0)
--		return ret;
-+		goto disable_keypad;
- 
- 	if (variant->max_rows > 8) {
- 		ret = stmpe_set_bits(stmpe, STMPE_KPC_ROW_MSB,
- 				     STMPE_KPC_ROW_MSB_ROWS,
- 				     keypad->rows >> 8);
- 		if (ret < 0)
--			return ret;
-+			goto disable_keypad;
- 	}
- 
- 	ret = stmpe_set_bits(stmpe, STMPE_KPC_CTRL_MSB,
- 			     STMPE_KPC_CTRL_MSB_SCAN_COUNT,
- 			     keypad->scan_count << 4);
- 	if (ret < 0)
--		return ret;
-+		goto disable_keypad;
-+
-+	ret = stmpe_set_bits(stmpe, STMPE_KPC_CTRL_LSB,
-+			     STMPE_KPC_CTRL_LSB_SCAN |
-+			     STMPE_KPC_CTRL_LSB_DEBOUNCE,
-+			     STMPE_KPC_CTRL_LSB_SCAN |
-+			     (keypad->debounce_ms << 1));
-+	if (ret < 0)
-+		goto disable_keypad;
- 
--	return stmpe_set_bits(stmpe, STMPE_KPC_CTRL_LSB,
--			      STMPE_KPC_CTRL_LSB_SCAN |
--			      STMPE_KPC_CTRL_LSB_DEBOUNCE,
--			      STMPE_KPC_CTRL_LSB_SCAN |
--			      (keypad->debounce_ms << 1));
-+	return 0;
-+
-+disable_keypad:
-+	stmpe_disable(stmpe, STMPE_BLOCK_KEYPAD);
-+
-+	return ret;
- }
- 
- static void stmpe_keypad_fill_used_pins(struct stmpe_keypad *keypad,
-@@ -389,19 +398,24 @@ static int stmpe_keypad_probe(struct platform_device *pdev)
- 					  IRQF_ONESHOT, "stmpe-keypad", keypad);
- 	if (error) {
- 		dev_err(&pdev->dev, "unable to get irq: %d\n", error);
--		return error;
-+		goto disable_keypad;
- 	}
- 
- 	error = input_register_device(input);
- 	if (error) {
- 		dev_err(&pdev->dev,
- 			"unable to register input device: %d\n", error);
--		return error;
-+		goto disable_keypad;
- 	}
- 
- 	platform_set_drvdata(pdev, keypad);
- 
- 	return 0;
-+
-+disable_keypad:
-+	stmpe_disable(stmpe, STMPE_BLOCK_KEYPAD);
-+
-+	return error;
- }
- 
- static void stmpe_keypad_remove(struct platform_device *pdev)
--- 
-2.47.1
-
+[1]https://elixir.bootlin.com/linux/v7.2-rc5/source/mm/memory.c#L4021
