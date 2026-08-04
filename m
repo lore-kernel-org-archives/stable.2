@@ -1,124 +1,177 @@
-Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E123D88EC
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 12:55:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98B93DEFF3;
+	Tue,  4 Aug 2026 12:55:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785848123; cv=none; b=a1X+hpn3nJxnEJ8Lj0LorSJMaDiliI3Wh0Y60eGyYGld6Aq9U8nCTYD8/stUCJhh1EC7Ziw/wqb4Z35R2MNuyzVRQJ/abSHkvbaEFyrnPUKyve5LP1z8FGLLphW60BKpYuUWD5DQ8Vg4DP9jfqV7k5cynXb2fzRrT/jXVS+ozoY=
+	t=1785848156; cv=none; b=UC2CPJenJdUt8Vp0/Z69XbB9uxwMyTYNq2JMziXSiEKxYQrmUbQVLhkhW1zpsBXzXEaPaGZ2KkuIKXfwk8+j7T45QFOiDXpQ5BnJXuNR7Q1eRGcbmzjUZBDmvkAPPFV4QqtOsIWriD4BtysMGbrbNIg2BuJndPYfBBfcmp92T/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785848123; c=relaxed/simple;
-	bh=zCZZePGb0WoyS18toDDsnewWPzKP+uLwNrc5sJH4l5w=;
-	h=Cc:References:From:Subject:Date:Content-Type:Message-Id:
-	 Mime-Version:To:In-Reply-To; b=pClba8MQxy5EVDpnokdHzF9Djf25hdllgJ3RWrhFymNFqof6FrU84gw73adItfpBwqy4NEiukRs4lLe6QjlEB05cu8rabnYkvCYUXP4VHfUjRzOwbI/LTqNtEsT7opDE2FrNQESpPcdVr4ztGQxK7v+7IoxR9qePbMmqyXejUyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=GA7+9fwr; arc=none smtp.client-ip=209.127.230.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1785848156; c=relaxed/simple;
+	bh=UWf8AIhrfDSysYrd2vcKiE0Y8twQUOxDL0Ss0NxnqXI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FddwRb4nZZrs33y+5KbC5GR0gbkeecPpOI2SS4zEZvnZk3vOs8Cyd+e1fEiNAXvZuCLY1jY8oT8Fh6IUaUtDUy5w8cuZwE9toub93JtQ7ZNc4n5+DVeEaxzXaTkYtI/pkDABJ8cKCWTjbFJIA3Lfp7UKe5XB9VwuaVbx7DMVIzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=XDjSmrrw; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="GA7+9fwr"
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="XDjSmrrw"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1785848116; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=rwqeOfz4nMAWC52VIPRe5Z4fyDbUmW2QxMJZ/Ka4LeY=;
- b=GA7+9fwrUnJg2kpPOE7xTI82yvd73CDCdiDlLVCBfnoKt8FU+mnEGYwVKS0kWtdUR1Vitd
- 1W/rT+BKDqwTZVzykJjGbhr5ppYXD7sonPT8OBXEL/h434aaupP8rkEzyVUVpfLfwB1CIr
- L0vQKXX6RN7JFb2Q2eea4rwH2W+vkd0ZL6wxG+ulDRNB1irN511+VwM481QF9L/LeBf6p+
- 7goyDWCVyzuN9j9roX6COx0li4LevBa7PdiHTGMJeoxtGf8qMWAxxq3ZLPjVkv3uYPD6aX
- RSGVgBXiv/Wf0Oi1JSZQ8iaLNM6Y8VOuGTFFKMymuUniFRn0XXRQwA598WebgA==
-Cc: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>, 
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>, 
-	<sshegde@linux.ibm.com>, <jgross@suse.com>, <wangyang.guo@intel.com>, 
-	<seanjc@google.com>, <pasha.tatashin@oracle.com>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <20260804071128.31022-1-libo.gcs85@bytedance.com> <20260804072240.GK687043@noisy.programming.kicks-ass.net>
-X-Original-From: Bo Li <libo.gcs85@bytedance.com>
-From: "Bo Li" <libo.gcs85@bytedance.com>
-Subject: Re: [PATCH] x86/tsc: Fix misplaced seqcount_latch_init() in cyc2ns_init_secondary_cpus()
-Date: Tue, 4 Aug 2026 20:54:53 +0800
-Content-Type: text/plain; charset=UTF-8
-Message-Id: <e8ee32c4-9b2d-468d-b829-847e6e65ab58@bytedance.com>
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=04KrBkpcoFfvgvC/GcgGQQxQh8SuWqcGOybO49ng0pM=; b=XDjSmrrwjaB8SVrn3hBXQ76S0C
+	NoYMdzxYLNXnasAI2s2ajtDxRJ3UcbFGw6SdOzndeCr2f2GGMZH93qm096X6OdNy0e4+YhDmQrhiE
+	WbJv/UT2tUbfXWyWFyOZ76nfb/OKQTAxPTwvol1QtSj0oYAAQMabHghdgWrkv/fZd5WFS+MB8LKlL
+	/ivEtmRApcr/wHxjNKdUxgi5jravDMS62gX4uVIBrKl0NC9l3yWMIYwz7VAohM0zgvtemUp/U6xGr
+	DXaJ7jdimgf36UHDO5gZBvz4mcuJvFpklyWOeU1VqbcO9YDP+I1Vo/F0LbDde8NcT5/NC2YaON412
+	9sRacAWw==;
+Received: from [151.115.150.205] (port=51640 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1wrEgN-0000000GaXQ-3kVu;
+	Tue, 04 Aug 2026 14:55:46 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>
+Cc: netdev@vger.kernel.org,
+	jeremy.jean@oss.cyber.gouv.fr,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH] tls: rx: restore msg_iter before TLS 1.3 optimistic retry
+Date: Tue,  4 Aug 2026 12:55:28 +0000
+Message-ID: <20260804125528.2139928-1-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26a71e132+63819b+vger.kernel.org+libo.gcs85@bytedance.com>
-Content-Transfer-Encoding: 7bit
-To: "Peter Zijlstra" <peterz@infradead.org>
-In-Reply-To: <20260804072240.GK687043@noisy.programming.kicks-ass.net>
-User-Agent: Mozilla Thunderbird
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-scw-domain: oss.cyber.gouv.fr
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On 8/4/26 3:22 PM, Peter Zijlstra wrote:
-> On Tue, Aug 04, 2026 at 03:11:28PM +0800, Bo Li wrote:
->> In cyc2ns_init_secondary_cpus(), seqcount_latch_init(&c2n->seq) is
->> called _before_ c2n is advanced to the next CPU via per_cpu_ptr().
->> As a result:
->>
->>   1. On the first iteration, c2n still points at the BSP's struct, so
->>      the BSP's seqcount_latch is re-initialized. cyc2ns_init_boot_cpu()
->>      already did this correctly, so it happens to work by accident
->>      because no concurrent readers are live at __init time.
->>
->>   2. On subsequent iterations, seqcount_latch_init() initializes the
->>      previous CPU's seqcount (because c2n was advanced by the prior
->>      per_cpu_ptr()), so all CPUs except the last one in the for_each
->>      loop happen to get initialized. The last secondary CPU's seqcount
->>      is left uninitialized.
->>
->> Move seqcount_latch_init() _after_ c2n is pointed at the target CPU's
->> struct, so each secondary CPU's seqcount is correctly initialized.
->>
->> Fixes: e2a9ca29b5ed ("x86/tsc: Initialize cyc2ns when tsc frequency is determined")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Bo Li <libo.gcs85@bytedance.com>
->> ---
->>   arch/x86/kernel/tsc.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
->> index ce10ae4b298b..84fb80492b01 100644
->> --- a/arch/x86/kernel/tsc.c
->> +++ b/arch/x86/kernel/tsc.c
->> @@ -223,8 +223,8 @@ static void __init cyc2ns_init_secondary_cpus(void)
->>   
->>   	for_each_possible_cpu(cpu) {
->>   		if (cpu != this_cpu) {
->> -			seqcount_latch_init(&c2n->seq);
->>   			c2n = per_cpu_ptr(&cyc2ns, cpu);
->> +			seqcount_latch_init(&c2n->seq);
->>   			c2n->data[0] = data[0];
->>   			c2n->data[1] = data[1];
->>   		}
-> 
-> No, this looks wrong. Note that per the 'cpu != this_cpu' there are only
-> N-1 invocations. One CPU will not be initialized. Further note the name
-> of this function, and the name of the function above it.
-> 
+tls_decrypt_sg() advances msg->msg_iter when it maps user pages for
+the optimistic TLS 1.3 zero-copy path. If the decrypted record turns
+out not to be unpadded application data, tls_decrypt_sw() retries into
+a kernel skb, but leaves the iterator advanced.
 
-Agreed - the loop is N-1 and deliberately skips this_cpu, which is
-initialized by cyc2ns_init_boot_cpu(). That CPU is not my concern.
-Sorry, my changelog was unclear. The issue is an off-by-one in the
-existing code: seqcount_latch_init(&c2n->seq) runs before c2n is
-advanced to the target CPU, so each iteration initializes the seqcount
-of the previous c2n rather than the current one:
+The subsequent copy from the skb then writes decrypted bytes again at
+a later point in the caller iovecs while recvmsg() reports only the
+post-retry length. A TLS peer can trigger this after the receiver
+enables TLS_RX_EXPECT_NO_PAD.
 
-	c2n = this_cpu_ptr(&cyc2ns);		/* c2n -> boot cpu */
-	for_each_possible_cpu(cpu) {
-		if (cpu != this_cpu) {
-			seqcount_latch_init(&c2n->seq);   /* inits the previous c2n */
-			c2n = per_cpu_ptr(&cyc2ns, cpu);  /* only now advanced */
-			...
-		}
-	}
+Revert the iterator by the number of bytes consumed by the optimistic
+mapping before retrying without zero-copy.
 
-Concretely, with this_cpu=0 and possible cpus {0,1,2,3}:
-	cpu=1: inits cpu0 (boot, already done by cyc2ns_init_boot_cpu())
-	cpu=2: inits cpu1
-	cpu=3: inits cpu2
-	=> cpu3, the last secondary, is never initialized, while boot is
-	   redundantly re-initialized.
+Add a selftest which sends a TLS 1.3 control record with
+TLS_RX_EXPECT_NO_PAD enabled and verifies that recvmsg() does not
+overwrite later iovecs beyond the returned length.
 
-Moving seqcount_latch_init() after per_cpu_ptr() makes each secondary
-initialize its own seqcount.
+Fixes: ce61327ce989 ("tls: rx: support optimistic decrypt to user buffer with TLS 1.3")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ net/tls/tls_sw.c                  |  2 ++
+ tools/testing/selftests/net/tls.c | 57 +++++++++++++++++++++++++++++++
+ 2 files changed, 59 insertions(+)
+
+diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
+index d4afc90fd796..fcf95978be38 100644
+--- a/net/tls/tls_sw.c
++++ b/net/tls/tls_sw.c
+@@ -1442,6 +1442,8 @@ tls_decrypt_sw(struct sock *sk, struct tls_context *tls_ctx,
+ 	/* If opportunistic TLS 1.3 ZC failed retry without ZC */
+ 	if (unlikely(darg->zc && prot->version == TLS_1_3_VERSION &&
+ 		     darg->tail != TLS_RECORD_TYPE_DATA)) {
++		iov_iter_revert(&msg->msg_iter, strp_msg(darg->skb)->full_len -
++				prot->overhead_size);
+ 		darg->zc = false;
+ 		if (!darg->tail)
+ 			TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSRXNOPADVIOL);
+diff --git a/tools/testing/selftests/net/tls.c b/tools/testing/selftests/net/tls.c
+index cbdd3ea28b99..af5e3314c017 100644
+--- a/tools/testing/selftests/net/tls.c
++++ b/tools/testing/selftests/net/tls.c
+@@ -1802,6 +1802,63 @@ TEST_F(tls, recv_efault)
+ }
+ 
+ #define TLS_RECORD_TYPE_HANDSHAKE      0x16
++
++TEST_F(tls_basic, recvmsg_nopad_retry_iov)
++{
++	char payload[32];
++	char first_iov[sizeof(payload)];
++	char later_iov[sizeof(payload) * 2];
++	char expected_later_iov[sizeof(later_iov)];
++	char cbuf[CMSG_SPACE(sizeof(char))];
++	struct tls_crypto_info_keys tls13;
++	struct iovec iov[] = {
++		{ .iov_base = first_iov, .iov_len = sizeof(first_iov) },
++		{ .iov_base = later_iov, .iov_len = sizeof(later_iov) },
++	};
++	struct msghdr msg = {
++		.msg_iov = iov,
++		.msg_iovlen = ARRAY_SIZE(iov),
++		.msg_control = cbuf,
++		.msg_controllen = sizeof(cbuf),
++	};
++	int one = 1;
++	int ret;
++	int i;
++
++	if (self->notls)
++		SKIP(return, "no TLS support");
++
++	tls_crypto_info_init(TLS_1_3_VERSION, TLS_CIPHER_AES_GCM_128,
++			     &tls13, 0);
++
++	ret = setsockopt(self->fd, SOL_TLS, TLS_TX, &tls13, tls13.len);
++	ASSERT_EQ(ret, 0);
++
++	ret = setsockopt(self->cfd, SOL_TLS, TLS_RX, &tls13, tls13.len);
++	ASSERT_EQ(ret, 0);
++
++	ret = setsockopt(self->cfd, SOL_TLS, TLS_RX_EXPECT_NO_PAD,
++			 &one, sizeof(one));
++	ASSERT_EQ(ret, 0);
++
++	for (i = 0; i < sizeof(payload); i++)
++		payload[i] = 0x40 + i;
++	memset(first_iov, 0xa5, sizeof(first_iov));
++	memset(later_iov, 0x5a, sizeof(later_iov));
++	memset(expected_later_iov, 0x5a, sizeof(expected_later_iov));
++
++	/* A control record forces optimistic TLS 1.3 RX to retry. */
++	ret = tls_send_cmsg(self->fd, TLS_RECORD_TYPE_HANDSHAKE,
++			    payload, sizeof(payload), 0);
++	ASSERT_EQ(ret, sizeof(payload));
++
++	ret = recvmsg(self->cfd, &msg, 0);
++	ASSERT_EQ(ret, sizeof(payload));
++	EXPECT_EQ(memcmp(first_iov, payload, sizeof(payload)), 0);
++	EXPECT_EQ(memcmp(later_iov, expected_later_iov,
++			 sizeof(later_iov)), 0);
++}
++
+ /* key_update, length 1, update_not_requested */
+ static const char key_update_msg[] = "\x18\x00\x00\x01\x00";
+ static void tls_send_keyupdate(struct __test_metadata *_metadata, int fd)
+-- 
+2.47.3
+
