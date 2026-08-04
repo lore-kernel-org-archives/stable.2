@@ -1,143 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077833D994
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 00:37:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8C03537C8
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 00:49:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785803856; cv=none; b=gI7HD5f+B2dSA0ITYAKmjWdrxAiG0IzTKxFPL3mHO+e0QE8+1b/SL5KD0/WDiDWM2cgo8FlDBziEniUZpd4hcEN7Ufva5BX3zfomGIeiL5lxa5rs7/MkZTltYcEu0cpYtQFsUe860EE7nWNmNJcx7SP++sQdmjtCJfgUZfQlwyY=
+	t=1785804580; cv=none; b=DUTfzyos0jOKRx9+qxDTnK6zPRPmw0TjsmqrPphHGpeLG3vsxDmUCx2rHlidOzHrDZRgqtVvNK37S4tmI89ZPLT89rjrDA8FjvmjHb8HznXyFS5yBxdhm2Ro1CNSK3LXtcPY5hwx0+vEqY4xZPXb8fjByAQcPNOGKIlv4A9u4Ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785803856; c=relaxed/simple;
-	bh=b8RVIt7lQdUaJae+RcGuITsWUZOF2lSJoHD7Fu4dImo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=thxgD42JnfT3fV/PVQZy6DciAMAeJyGwWbOqWb+P3MItP7+IXgMqplS9ucwFHVv5Lu1IPiCIs+NkZCSZsjLwH9+95JxfWfBnd/ylErQ9XSSMstOafab1AQiQMKFcU0q3i+jFiDbY6ymqxbTyaA/07GN/Fr89/UW3ZD6vMQqjADU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GbDL8vOf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785804580; c=relaxed/simple;
+	bh=oa+H6nWC+O0SGtuz+1s7AAMO0NBQhgXa1uTfnS6jUk4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ltBqxAy79/rmVo3wKbOBCvQhqQKfOvJOIcKFLKOd03z0VkatOTIZpAwLc1J9AiK+A3yTzNk+1FLUrzCMp3J0AKFOkauSsMPGI+PsxjBU/+ZGOSt1GMRHFHGEiQK8nHIMBWPw/BXnpHUbZYQXTgWS9jgb7EENMCcq3BTdzwGle64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O3QoWO+y; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GbDL8vOf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EC981F000E9;
-	Tue,  4 Aug 2026 00:37:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785803854;
-	bh=W9DygNyHW+E1VUj2JEzj3GqHGlULW7/nccPrZjgZMO0=;
-	h=From:To:Cc:Subject:Date;
-	b=GbDL8vOf3FtW0krOJtwvRUdJj00bVX4UPXzOsLf9u6y9J14kK8XTFR80E2XLKgSRl
-	 IBRZ+jSj+s15+nni9G58BlRT2xUfRPJROpqkS2gkMOsboChxiNEBB1Oh1z7/odKuD+
-	 O9Ed9Yo4Nsy41UpI0IoC0oIveGEKRbsQgCeT+LDsg3krjl4sfq63hO8oJH/yW0JFyy
-	 jjmQxdzN+oBadG2o3fpDgoa6CspsxhLH67diEvw2S9Rhu8KWCA2H+4TBqRD+1BazX7
-	 qCACpxgDDfZMMn2FI3XLBXB/b+IJ3o4839nBKPLtiY0+BUjRh78yTPbo/a17+I1CZs
-	 yR06vRXtPoHxQ==
-From: luto@kernel.org
-To: linux-mm@kvack.org
-Cc: luto@amacapital.net,
-	Andy Lutomirski <luto@kernel.org>,
-	"David Hildenbrand (Red Hat)" <david@kernel.org>,
-	Qi Zheng <zhengqi.arch@bytedance.com>,
-	Liam Howlett <liam.howlett@oracle.com>,
-	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O3QoWO+y"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c9b373d5af0so3087209a12.2
+        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 17:49:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785804578; x=1786409378; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7vHz5OIbygjwNdyPf22CXsjNKdQWVu+Ycy4+8mUpd8A=;
+        b=O3QoWO+yq4TphsvWi3Mp8Ybbh/womT5q8Z0yh6gxeC1OOxqvkKjo8h74vYw2aJvdhc
+         wS88Ggka+F/1WqkX+GNPUEYL5BGUwQxrKROUm6e9XNRa/kQ+xZVCnLXyqcAnXsfOdfEu
+         rZQ/8eGvmINH3uRX5k7ClGg7WyhZ+4vj80AhmCgFEiyymZB2dTDHmA65/SaS1AB7g8cV
+         8iKJHEXgIDFVXHeQeQitTcqAGIZ2ql7H6zN44aYMFVafhr32grTlPU4gb8vNw9M9Q/Gr
+         /5u6Icft6kRfjZoznJkC+9h2FQp8U948A2fFl4xDk2EdlZ0KxfREP6nhcfy3sBI74veM
+         oAoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785804578; x=1786409378;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7vHz5OIbygjwNdyPf22CXsjNKdQWVu+Ycy4+8mUpd8A=;
+        b=q9v7Y/wYxXGvoLt4w4F0pqSFUV/Kxuc0/27SMm7X9R8oMvayWN8bG+Kmz4AaFiqP4N
+         O4tlDd1Ym2rntBtdDlwsXey5SzWDIoUsFQkXdO9YmpFQkTuKLL2UqsOBDikvqmsOcoBP
+         lrIrL6rYW7JVgyOFH3BHRoqYv4xJTOwnO3UCcMPFE+3oeaHQavyoziIeunu32jC25IwI
+         PBO6b3bMuxv10MPAoLZ0xefWQKag4dvA+4+clnxlqr5U051TASO/qItSg5cWyw2Ln82g
+         GQgiFTkUxlYFrYXlC8LujHL20VYdtuDsm/aY3gob5xDsY16DFEh59D8Li7qVbIRMEPqU
+         EwvQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoANw79lkBEJw1wMoXxZ1m/7sgJqmvQAz3iCS5RylXoFHiQW/WoRmpflywtsgOf0JqrT9PWM3A=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxub0Un537MwKo/PdnVxc4fB3H0kPMzg8JiSIqunp4pw7xYW19b
+	UiwPvPG6fBuaABrnMnYiQQoNXxThLdVVk5tbYvOQALnRtDgbTEb6DlicJjcJkQ==
+X-Gm-Gg: AR+sD13G5aSkt2yl0B8mjqKNPLbYO5Pefsd52hC1diBEFE1+vhfIQ6mkwR87/rsz845
+	pDRJLEGg9WDpf+jh7m2tIdL9pCHMtrgQ9Vo1MMrzpM9HDC5a770pgh2VKZZ+9BGMpx+HBJLAP9l
+	9atGfDfgEQgSYG9cPVBNA0U/mCCpEzI0+rANPVl55DtxzaG6D64NQmgAZb4vcT/evlgP8moy50m
+	zbEm+M/iRBeA4NC8je6mCgyPfwKg3TUaZ8QKbVNMIbgDc3CIATfU+0mxekfj8VpgI2M+Zuz1bOP
+	AmnzvBJn83jSkSERf/NPsaXKGCsJYSZpOV1o+q1cMF+hPmn4Y9OW0/jTojZQaNCDcgBnZHQ27E4
+	JVzu+Wk85vYIwNsGuMFwqG3nYmEUQnSmHD9FMjq/6Pag5ooTyBtFE3U8yUUTDx/YvhL0R4HKnq6
+	8ZJcmeSi9mpWsnvgN31KlkVrPPSsyqghNYwJpihCGLnwTW0xONbQhpqQ7+Zk/ek2BqaRPoz61ag
+	KCIvLQyaqBNDA47Hn8RBWcaMqKo/g==
+X-Received: by 2002:a05:6a21:6cc4:b0:3c3:7fa2:9618 with SMTP id adf61e73a8af0-3c92a89bebamr11916363637.37.1785804578109;
+        Mon, 03 Aug 2026 17:49:38 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:d109:cdba:8a20:74ad])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153dd4f0f0sm41716849eec.2.2026.08.03.17.49.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 03 Aug 2026 17:49:37 -0700 (PDT)
+Date: Mon, 3 Aug 2026 17:49:34 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Shengzhuo Wei <me@cherr.cc>
+Cc: "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+	Zhouwang Huang <honjow311@gmail.com>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Subject: [PATCH] Fix incorrect flush address in direct page table reclaim
-Date: Mon,  3 Aug 2026 17:37:08 -0700
-Message-ID: <20260804003708.49830-1-luto@kernel.org>
-X-Mailer: git-send-email 2.55.0
+Subject: Re: [PATCH] HID: hid-oxp: fix UAF on pending work in remove()
+Message-ID: <anEuB78-HMX4Dwx7@google.com>
+References: <20260804-oxp-fix-v1-1-51a4fe787167@cherr.cc>
+ <anElA4get_VxNuB4@google.com>
+ <anEqUZyJGBrQ6HIW@pve>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <anEqUZyJGBrQ6HIW@pve>
 
-From: Andy Lutomirski <luto@kernel.org>
+On Tue, Aug 04, 2026 at 07:54:57AM +0800, Shengzhuo Wei wrote:
+> On 2026-08-03 16:33, Dmitry Torokhov wrote:
+>  
+> > What stops these jobs from re-arming? Should it use
+> > disable_delayed_work_sync() instead?
+> 
+> Agreed — cancel_delayed_work_sync() only drains the running instance; it
+> doesn't stop the works from being re-queued from the raw_event / sysfs /
+> LED-brightness paths before the device is fully torn down, so the UAF
+> window isn't closed. I'll switch all three calls to
+> disable_delayed_work_sync() in v2.
+> 
+> Do you have any other comments you'd like addressed in v2?
 
-When zap_pte_range reclaims a page table, it does:
+Since you are addressing work-related UAF, fixing it on probe failures
+would be nice (Sashiko mentioned it).
 
-    pte_free_tlb(tlb, pmd_pgtable(pmdval), addr);
+The other Sahiko comment regarding global instance would be nice to get
+fixed as well (but separate patch and only if you have
+time/inclination).
 
-and this is unconditionally wrong: if this code executes, addr *always*
-points one past the end of the range covered by the table.  The addr
-parameter is used to flush the TLB (really the paging-structure-cache)
-to drop references to the to-be-freed table, and any architecture that
-cares about the parameter will flush the wrong address.  (But they'll
-still free the correct page).
+Another potential change is not to create device attribute group by hand
+but attach it to the driver structure so it is created and torn down
+automatically, and control visibility of the attributes through
+is_visible() method.
 
-I think it's worth contemplating why the kernel works at all.
+Thanks.
 
-If we hit the offending line of code, we will first clear the PMD entry
-(line 1954, zap_empty_pte_table), then we will issue pending flushes if
-force_flush is set (tlb_flush_mmu_tlbonly(tlb)), then we will skip the
-retry on line 1979 (phew!), and then we will do the offending
-pte_free_tlb call.  *Or* we will clear the PMD entry immediately before
-pte_free_tlb (line 1983, zap_pte_table_if_empty).
-
-If we have any pending flushes (i.e. we actually zapped any last-level
-entries) at the time we clear the PMD entry, then the flush really ought
-to flush all references to the table (Linus certainly seems to think it
-will on all architectures [0]).
-
-The condition under which we have no accumulated flushes at the time of
-the clear is very complex (the whole zap_pte_range function has absurdly
-complex control flow).  If we do hit the bad case, then we will end up
-clearing the PMD entry after the last time the range is flushed, and any
-CPU is free to cache a reference to the (empty) page table.  If this
-happens due to an ordinary read or write, it would segfault, so it would
-be rare.  But the cache could be speculatively filled as well.  Then
-we'll flush the wrong address and then free and possibly reuse the
-table.
-
-On x86, even flushing the wrong address works on non-KPTI Intel systems
-because INVLPG flushes *all* paging-structure-caches, not just the ones
-for the target address.  But INVPCID does not, and flush_tlb_one_user
-will use INVPCID if it's available.  And then we're toast.  AMD systems
-are more susceptible: we set the EFER.TCE bit, which makes even INVLPG
-only flush the target address.
-
-P.S. IMO zap_pte_range is a mess.  The control flow is excessively
-complex.  The direct_reclaim variable itself has a confused meaning --
-for the first part of the function it means, approximately, "we should
-free the table if can_reclaim_pt".  But, later on, it means "we ALREADY
-reclaimed the table".  And the goto retry on line 1979 is IMO just
-asking for trouble if the condition ever changes such that it might
-happen after clearing the PMD.
-
-I think this might fix an issue in ripgrep reported here:
-https://github.com/BurntSushi/ripgrep/issues/3494
-
-[0] https://lore.kernel.org/all/CA+55aFzBggoXtNXQeng5d_mRoDnaMBE5Y+URs+PHR67nUpMtaw@mail.gmail.com/T/#u
-
-Fixes: 4c640eb4181c ("mm: move pte table reclaim code to memory.c")
-Cc: David Hildenbrand (Red Hat) <david@kernel.org>
-Cc: Qi Zheng <zhengqi.arch@bytedance.com>
-Cc: Liam Howlett <liam.howlett@oracle.com>
-Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Cc: Andrew Morton <akpm@linux-foundation.org>.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Andy Lutomirski <luto@kernel.org>
----
- mm/memory.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/mm/memory.c b/mm/memory.c
-index 86a973119bd4..13b70861c8a3 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -1981,7 +1981,7 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
- 
- 	if (can_reclaim_pt) {
- 		if (direct_reclaim || zap_pte_table_if_empty(mm, pmd, start, &pmdval)) {
--			pte_free_tlb(tlb, pmd_pgtable(pmdval), addr);
-+			pte_free_tlb(tlb, pmd_pgtable(pmdval), start);
- 			mm_dec_nr_ptes(mm);
- 		}
- 	}
 -- 
-
+Dmitry
