@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049A13E717A
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 10:47:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21AB44570E0
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 10:47:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785840466; cv=none; b=WpqTTMN1vtD6NRRWWwIJjhp7dkPP3Aj1MwdELDr8Eym1YkP8agG+I8WitNS/HPguezfNhZANJY43LLoqfC482ENe9kxCCdUe84RvgizgBIWs8RBo5wTl1u9UWOikJl7RVMD94Im7B3oMFJLeQ4aM6olGsxAcE9oFO4iX+j2ghz4=
+	t=1785840467; cv=none; b=PRQJouOaTHP/ycAZ1IqPgdfAL8VjZQKnDiJBqx8V4FdtTfvhwr2+Bzqoqj/q1FZhH+Vu2t/sbJlE7Qm/HH+gcT6xfWICjzcSm7xyN3VRfPff4vQfa8Ng3tmMEARSe3yKShUGuqK09HbPQpWS8MDN1GGWs/QXzBBCLNP7kAJHzgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785840466; c=relaxed/simple;
-	bh=fWbjzAfb3a38yY8qGi4qdSBa+0l5UMU5KvSV0UUNVys=;
+	s=arc-20240116; t=1785840467; c=relaxed/simple;
+	bh=W8squY0T+hYVLx4q7mQjuGi9LPxXNWgnyrucGgLfMpc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VtniDxCztUPtmCrtsAGZdEnJgJn3eKDI7UOPwsuPZdUAwscnjWGm6JI1bBPiKBIWXy5o6VwjuP87sUo32eRKoO35oWGiqjzJgUDfDSmnA5To1mG+fGWxIoCWi9jToa+bdMAHXb7ZjB4laj6A3dcefr/9QYsPG5NDbvJl0gIl32U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TNx6Jr9P; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TUgDCEppVyAATHVAk9uFNfvcX2vNgqaaixJWqv5K92E7VsWt7VeaBU3tvy+sIXzcdfY2EG87oPpfGjJshXHYwFIwzFpHWl9IZEvQYGEjDImJpUPTe4IBkTBlLAw57mFzrC5iXRwd07xuXOt5UXTpLb7HBBqUu0qYOriMZBmLjF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F7FMWF2g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TNx6Jr9P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49BA21F00A3D;
-	Tue,  4 Aug 2026 10:47:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F7FMWF2g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646501F00AC4;
+	Tue,  4 Aug 2026 10:47:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1785840464;
-	bh=s0dpWHqNSdeCBiKH2n+1uyoLGS3sITz+Izvsn9VKuhc=;
+	bh=q6uJV4tdUk617n7X738/QV2VsRnKh5yXixuDdZJn5Gc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TNx6Jr9PXrUajhcj4Jig2D8/2cpcs3jJ/Gy7km4P8v5YCqN2zdVkO6iTSEO7YHyg5
-	 vQ3OZatKmAWyniD/pPuLKtk4CxrlRXW3I40p9Mept9RgNPqYpvZb39JHzK5aHY9Ior
-	 W8m31yKNB8K0RfCZ5A4lvAsQVmJ0mTHXfVpv39qrwHYkUUy4igc+NlJBCKRKp1M1pY
-	 QsR6q668/lgzjg+94wPfGNGjJZ/cpgXxthRCjgfa9UyY0ZOUgHqDoHXF9igmJYWMtE
-	 WlOZnOr+PwpiqIn/4f5s5YdeNIP+KpxWOOFCV2hQkknEdI82+ViCqWCDqv3b99sKIE
-	 AfAGlnuPIg/Ig==
+	b=F7FMWF2g5ATr9d9j8q3jNJQbM7oO5GkEM594a0AsYnCjv3LxJZtEwTAIInKZYvorS
+	 f9dZmlMc9Dg33/E0pab+LHNkJh2IbW+hZZytKrpWtII9ML2E12BBf0fPTJNt+1OtVi
+	 Ua53fsjDfrwO3ua8RnLtyLC7FdjBAJVsnr1BdoumTWe6awkyACCkapY0KmnYp0tziB
+	 wwW/pGodsqr8oEUTTIZtUcaSvZSobusHU7IJlMBT3uDB8rXebu3mwA48Hpf7l00e6G
+	 pOLJPEEv4Drl+1JPH6aAErpLvBgvq6rNZuADgUOskKB2mY+u2G9m7kBSaE35a/CwzN
+	 FAqEUrenotHvg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans Verkuil <hverkuil@xs4all.nl>,
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 6/7] media: i2c: imx219: Rename VTS to FRM_LENGTH
-Date: Tue,  4 Aug 2026 06:47:36 -0400
-Message-ID: <20260804104737.2827302-6-sashal@kernel.org>
+Subject: [PATCH 6.6.y 5/7] media: i2c: imx219: Calculate crop rectangle dynamically
+Date: Tue,  4 Aug 2026 06:47:35 -0400
+Message-ID: <20260804104737.2827302-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260804104737.2827302-1-sashal@kernel.org>
 References: <2026072955-retouch-favorably-ee17@gregkh>
@@ -48,129 +48,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jai Luthra <jai.luthra@ideasonboard.com>
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-[ Upstream commit 04f78503f99ae7e9887c7fe5e4bc54a7cfb10fe0 ]
+[ Upstream commit 0af46fbc333d1a52c72823d935590410357bab47 ]
 
-The IMX219 datasheet refers to the vertical length + blanking as
-FRM_LENGTH instead of VTS.
+Calculate the crop rectangle size and location dynamically when setting
+the format, instead of storing it in the imx219_mode structure. This
+removes duplicated information from the mode, to guarantee consistency.
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Signed-off-by: Hans Verkuil <hverkuil@xs4all.nl>
+Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
 Stable-dep-of: 2c4f1ba73543 ("media: imx219: Fix maximum frame length in lines")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/i2c/imx219.c | 31 +++++++++++++++----------------
- 1 file changed, 15 insertions(+), 16 deletions(-)
+ drivers/media/i2c/imx219.c | 45 +++++++++++++-------------------------
+ 1 file changed, 15 insertions(+), 30 deletions(-)
 
 diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-index 4c5388edc10b0..457d4d1ed4c2b 100644
+index f8c563430d639..4c5388edc10b0 100644
 --- a/drivers/media/i2c/imx219.c
 +++ b/drivers/media/i2c/imx219.c
-@@ -71,9 +71,8 @@
- #define IMX219_EXPOSURE_MAX		65535
- 
- /* V_TIMING internal */
--#define IMX219_REG_VTS			CCI_REG16(0x0160)
--#define IMX219_VTS_MAX			0xffff
--
-+#define IMX219_REG_FRM_LENGTH_A		CCI_REG16(0x0160)
-+#define IMX219_FLL_MAX			0xffff
- #define IMX219_VBLANK_MIN		32
- 
- /* HBLANK control - read only */
-@@ -163,7 +162,7 @@ struct imx219_mode {
+@@ -18,6 +18,7 @@
+ #include <linux/delay.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
++#include <linux/minmax.h>
+ #include <linux/module.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
+@@ -161,9 +162,6 @@ struct imx219_mode {
+ 	/* Frame height */
  	unsigned int height;
  
+-	/* Analog crop rectangle. */
+-	struct v4l2_rect crop;
+-
  	/* V-timing */
--	unsigned int vts_def;
-+	unsigned int fll_def;
+ 	unsigned int vts_def;
  
- 	/* Default register values */
- 	struct imx219_reg_list reg_list;
-@@ -363,7 +362,7 @@ static const struct imx219_mode supported_modes[] = {
+@@ -365,12 +363,6 @@ static const struct imx219_mode supported_modes[] = {
  		/* 8MPix 15fps mode */
  		.width = 3280,
  		.height = 2464,
--		.vts_def = 3526,
-+		.fll_def = 3526,
+-		.crop = {
+-			.left = IMX219_PIXEL_ARRAY_LEFT,
+-			.top = IMX219_PIXEL_ARRAY_TOP,
+-			.width = 3280,
+-			.height = 2464
+-		},
+ 		.vts_def = 3526,
  		.reg_list = {
  			.num_of_regs = ARRAY_SIZE(mode_3280x2464_regs),
- 			.regs = mode_3280x2464_regs,
-@@ -374,7 +373,7 @@ static const struct imx219_mode supported_modes[] = {
+@@ -382,12 +374,6 @@ static const struct imx219_mode supported_modes[] = {
  		/* 1080P 30fps cropped */
  		.width = 1920,
  		.height = 1080,
--		.vts_def = 1763,
-+		.fll_def = 1763,
+-		.crop = {
+-			.left = 688,
+-			.top = 700,
+-			.width = 1920,
+-			.height = 1080
+-		},
+ 		.vts_def = 1763,
  		.reg_list = {
  			.num_of_regs = ARRAY_SIZE(mode_1920_1080_regs),
- 			.regs = mode_1920_1080_regs,
-@@ -385,7 +384,7 @@ static const struct imx219_mode supported_modes[] = {
+@@ -399,12 +385,6 @@ static const struct imx219_mode supported_modes[] = {
  		/* 2x2 binned 30fps mode */
  		.width = 1640,
  		.height = 1232,
--		.vts_def = 1763,
-+		.fll_def = 1763,
+-		.crop = {
+-			.left = IMX219_PIXEL_ARRAY_LEFT,
+-			.top = IMX219_PIXEL_ARRAY_TOP,
+-			.width = 3280,
+-			.height = 2464
+-		},
+ 		.vts_def = 1763,
  		.reg_list = {
  			.num_of_regs = ARRAY_SIZE(mode_1640_1232_regs),
- 			.regs = mode_1640_1232_regs,
-@@ -396,7 +395,7 @@ static const struct imx219_mode supported_modes[] = {
+@@ -416,12 +396,6 @@ static const struct imx219_mode supported_modes[] = {
  		/* 640x480 30fps mode */
  		.width = 640,
  		.height = 480,
--		.vts_def = 1763,
-+		.fll_def = 1763,
+-		.crop = {
+-			.left = 1008,
+-			.top = 760,
+-			.width = 1280,
+-			.height = 960
+-		},
+ 		.vts_def = 1763,
  		.reg_list = {
  			.num_of_regs = ARRAY_SIZE(mode_640_480_regs),
- 			.regs = mode_640_480_regs,
-@@ -518,7 +517,7 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
- 			  imx219->hflip->val | imx219->vflip->val << 1, &ret);
- 		break;
- 	case V4L2_CID_VBLANK:
--		cci_write(imx219->regmap, IMX219_REG_VTS,
-+		cci_write(imx219->regmap, IMX219_REG_FRM_LENGTH_A,
- 			  format->height + ctrl->val, &ret);
- 		break;
- 	case V4L2_CID_TEST_PATTERN_RED:
-@@ -593,15 +592,15 @@ static int imx219_init_controls(struct imx219 *imx219)
- 	/* Initial vblank/hblank/exposure parameters based on current mode */
- 	imx219->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx219_ctrl_ops,
- 					   V4L2_CID_VBLANK, IMX219_VBLANK_MIN,
--					   IMX219_VTS_MAX - mode->height, 1,
--					   mode->vts_def - mode->height);
-+					   IMX219_FLL_MAX - mode->height, 1,
-+					   mode->fll_def - mode->height);
- 	hblank = IMX219_PPL_DEFAULT - mode->width;
- 	imx219->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx219_ctrl_ops,
- 					   V4L2_CID_HBLANK, hblank, hblank,
- 					   1, hblank);
- 	if (imx219->hblank)
- 		imx219->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
--	exposure_max = mode->vts_def - 4;
-+	exposure_max = mode->fll_def - 4;
- 	exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
- 		exposure_max : IMX219_EXPOSURE_DEFAULT;
- 	imx219->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &imx219_ctrl_ops,
-@@ -969,12 +968,12 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+@@ -966,6 +940,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 	int exposure_max, exposure_def, hblank;
+ 	struct v4l2_mbus_framefmt *format;
+ 	struct v4l2_rect *crop;
++	unsigned int bin_h, bin_v;
+ 
+ 	mode = v4l2_find_nearest_size(supported_modes,
+ 				      ARRAY_SIZE(supported_modes),
+@@ -975,10 +950,20 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 	imx219_update_pad_format(imx219, mode, &fmt->format, fmt->format.code);
+ 
+ 	format = v4l2_subdev_get_pad_format(sd, sd_state, 0);
+-	crop = v4l2_subdev_get_pad_crop(sd, sd_state, 0);
+-
+ 	*format = fmt->format;
+-	*crop = mode->crop;
++
++	/*
++	 * Use binning to maximize the crop rectangle size, and centre it in the
++	 * sensor.
++	 */
++	bin_h = min(IMX219_PIXEL_ARRAY_WIDTH / format->width, 2U);
++	bin_v = min(IMX219_PIXEL_ARRAY_HEIGHT / format->height, 2U);
++
++	crop = v4l2_subdev_get_pad_crop(sd, sd_state, 0);
++	crop->width = format->width * bin_h;
++	crop->height = format->height * bin_v;
++	crop->left = (IMX219_NATIVE_WIDTH - crop->width) / 2;
++	crop->top = (IMX219_NATIVE_HEIGHT - crop->height) / 2;
+ 
+ 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
  		imx219->mode = mode;
- 		/* Update limits and set FPS to default */
- 		__v4l2_ctrl_modify_range(imx219->vblank, IMX219_VBLANK_MIN,
--					 IMX219_VTS_MAX - mode->height, 1,
--					 mode->vts_def - mode->height);
-+					 IMX219_FLL_MAX - mode->height, 1,
-+					 mode->fll_def - mode->height);
- 		__v4l2_ctrl_s_ctrl(imx219->vblank,
--				   mode->vts_def - mode->height);
-+				   mode->fll_def - mode->height);
- 		/* Update max exposure while meeting expected vblanking */
--		exposure_max = mode->vts_def - 4;
-+		exposure_max = mode->fll_def - 4;
- 		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
- 			exposure_max : IMX219_EXPOSURE_DEFAULT;
- 		__v4l2_ctrl_modify_range(imx219->exposure,
 -- 
 2.53.0
 
