@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83EFC4534B3
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 10:47:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D284456E12
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 10:47:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785840462; cv=none; b=IgGt3K+cXbs+lHP0LrCQBVwuHCWS6y6Kd4n0+IJHFxz3zfxvGha8Dl4WQDwlACgL+LIflxClpIWKfB4LX9BNwBCrBvGEX4t6xhUOmUSZqfWN4HkG/BiU6VWhXsZpO5DPyI66izvZEHmIBlhLhkcLxScan0Lv5DicC5ec+LvMVtE=
+	t=1785840463; cv=none; b=oRud5K0iNz6PRtOrOEz5AmMg8JWB2ZvxR8It1DlgsZnaKylY0vBg5wr2smgFLyGRpX8VNLfBOR+JXTzQ04c2ej/jP5+y+G8CIT8htqaHR56QjEOWsk+/JQ5AHAVqaibe61ftU6VQ2V094qE202t0QhkMUKeG4q9MbH6ru8ZmGY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785840462; c=relaxed/simple;
-	bh=dPlFNlz9GZi3SDlsyu3C5kSmDMI1+j5jPIygStp5MPg=;
+	s=arc-20240116; t=1785840463; c=relaxed/simple;
+	bh=/2tg8CNYTZ/R9i8UsashDjiW8CAAuCI2OM0CfWJSNUM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UZjQeXghiD3IBAcA/LETEWqcErflV/mAxOhP5mmK3K2q7xKgd7p7dFaYYFm93eh2OImiU6K6R/hY7hnXr+igDhNVu2uul/UabYZTvXRBl1yQb6P8Ylo7Jwo+l8/oIyJxT6Ww/0IcF5JJ8AhpTfKIDj0iZa9Xvs0zEOIuke/oBgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDdpNuh8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BjOyQKUXcR5eQ8NFk7171H/UlzEwwr8QH1XQpuwt2DC03upfJoJLbRh59s05J/x7G6u1LJnIyky+406IeV0lBy0kfsWNyvEnPrvVLs7eKjBGil8VrWwspoPOk/FGJbv8rjpzS7zb2ze0pESP2zfPEzYB++pLMwLq28rvca4EwD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cy3riDWs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDdpNuh8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8083F1F00A3D;
-	Tue,  4 Aug 2026 10:47:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cy3riDWs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C3C61F00A3F;
+	Tue,  4 Aug 2026 10:47:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785840461;
-	bh=WBEM2Bw7oIV2uhJHAO1ErOFh/H1myTlSJ2HiLtYSVpU=;
+	s=k20260515; t=1785840462;
+	bh=SQl4ahUl0PkJAZTV9dR+B5ITd6TJ4y2GJyA3jjkXuDM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kDdpNuh8YiqPehi7mEC8U+ygNvN86oIMwPcH56PBXY48iD07xPqDr6EBSlc2KukvE
-	 coiKOozCFZuSnye1Uuh3JuLXBvwgwXrRLjAk7u7lAPQT4y8wTLBd384BJuufncczpC
-	 4I8Eug/COaPW4zKoNSdBncGmW+IEwWD7AIzkbLKcqxtH/lqKvDTFfwRmVIt8Ghe9jp
-	 5cfNsp4rVBI0AwageNlRY59RG/bxXqCjD5tmEaXttwRHFsj02vdppLe4+eAL2CVqJh
-	 Dt746r89kVgy6KB63Kj13i+WXqWJi49GLgRp5en7qdhn1OTe0uj7XPKykpo++whBpT
-	 Tlo3YKiYX7Thw==
+	b=cy3riDWsqN/ODi5BVlk6XQNoNHxgkqqYWNwB1ugtal1AjUHuRtnskZpAYjk/TlP6c
+	 XuwKghzs5wPcFSHNxSFJu0ejtTBjxWqKkdjKvnU4kc/PnKz1xMhc1a8DuynFqHOSGU
+	 SR4PD0ZwEEER8ICh21Lm1w5Id6jHO9UrrWdX7Uw9Uw2Q40V4TkIWcPFsymqlBgyywM
+	 wV/kyMhGYWCHsGvEStJcCiN4U1yD2MYEWqwSSmm2mXD5bPLaz4soJiXtAieBCQiWoN
+	 mXOrZ9qyUNojzIaxw7Grgw+oPHqrv/IarfyypSSx97Zyp+oRGYwmWGoozxVgEL5w32
+	 FUFxXjy6jUFIw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
 	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/7] media: i2c: imx219: Don't store the current mode in the imx219 structure
-Date: Tue,  4 Aug 2026 06:47:32 -0400
-Message-ID: <20260804104737.2827302-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/7] media: i2c: imx219: Drop IMX219_VTS_* macros
+Date: Tue,  4 Aug 2026 06:47:33 -0400
+Message-ID: <20260804104737.2827302-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260804104737.2827302-1-sashal@kernel.org>
 References: <2026072955-retouch-favorably-ee17@gregkh>
@@ -51,68 +51,85 @@ Content-Transfer-Encoding: 8bit
 
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-[ Upstream commit e3e5d172d5fce9151bc101427554a158d4759856 ]
+[ Upstream commit 5ebbdd7aab3321e60a8be23aac1fee4f16644021 ]
 
-The mode field of the imx219 structure is only used in
-imx219_init_controls(), after the probe function sets it to point to the
-default mode. Use the default mode directly when initializing controls,
-and drop the mode field from the imx219 structure.
+The IMX219_VTS_* macros define default VTS values for the modes
+supported by the driver. They are used in a single place, and hinder
+readability compared to using the value directly as a decimal number.
+Drop them.
 
 Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
 Stable-dep-of: 2c4f1ba73543 ("media: imx219: Fix maximum frame length in lines")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/i2c/imx219.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ drivers/media/i2c/imx219.c | 18 ++++--------------
+ 1 file changed, 4 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-index 64c4d2d538bd1..c34a8bb5854ad 100644
+index c34a8bb5854ad..c6894b15bc431 100644
 --- a/drivers/media/i2c/imx219.c
 +++ b/drivers/media/i2c/imx219.c
-@@ -1067,8 +1067,8 @@ static unsigned long imx219_get_pixel_rate(struct imx219 *imx219)
- static int imx219_init_controls(struct imx219 *imx219)
- {
- 	struct i2c_client *client = v4l2_get_subdevdata(&imx219->sd);
-+	const struct imx219_mode *mode = &supported_modes[0];
- 	struct v4l2_ctrl_handler *ctrl_hdlr;
--	unsigned int height = imx219->mode->height;
- 	struct v4l2_fwnode_device_properties props;
- 	int exposure_max, exposure_def, hblank;
- 	int i, ret;
-@@ -1097,15 +1097,15 @@ static int imx219_init_controls(struct imx219 *imx219)
- 	/* Initial vblank/hblank/exposure parameters based on current mode */
- 	imx219->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx219_ctrl_ops,
- 					   V4L2_CID_VBLANK, IMX219_VBLANK_MIN,
--					   IMX219_VTS_MAX - height, 1,
--					   imx219->mode->vts_def - height);
--	hblank = IMX219_PPL_DEFAULT - imx219->mode->width;
-+					   IMX219_VTS_MAX - mode->height, 1,
-+					   mode->vts_def - mode->height);
-+	hblank = IMX219_PPL_DEFAULT - mode->width;
- 	imx219->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx219_ctrl_ops,
- 					   V4L2_CID_HBLANK, hblank, hblank,
- 					   1, hblank);
- 	if (imx219->hblank)
- 		imx219->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
--	exposure_max = imx219->mode->vts_def - 4;
-+	exposure_max = mode->vts_def - 4;
- 	exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
- 		exposure_max : IMX219_EXPOSURE_DEFAULT;
- 	imx219->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &imx219_ctrl_ops,
-@@ -1298,7 +1298,8 @@ static int imx219_probe(struct i2c_client *client)
- 	/* Set default mode to max resolution */
- 	imx219->mode = &supported_modes[0];
+@@ -71,20 +71,10 @@
  
--	/* sensor doesn't enter LP-11 state upon power up until and unless
-+	/*
-+	 * Sensor doesn't enter LP-11 state upon power up until and unless
- 	 * streaming is started, so upon power up switch the modes to:
- 	 * streaming -> standby
- 	 */
+ /* V_TIMING internal */
+ #define IMX219_REG_VTS			CCI_REG16(0x0160)
+-#define IMX219_VTS_15FPS		0x0dc6
+-#define IMX219_VTS_30FPS_1080P		0x06e3
+-#define IMX219_VTS_30FPS_BINNED		0x06e3
+-#define IMX219_VTS_30FPS_640x480	0x06e3
+ #define IMX219_VTS_MAX			0xffff
+ 
+ #define IMX219_VBLANK_MIN		32
+ 
+-/*Frame Length Line*/
+-#define IMX219_FLL_MIN			0x08a6
+-#define IMX219_FLL_MAX			0xffff
+-#define IMX219_FLL_STEP			1
+-#define IMX219_FLL_DEFAULT		0x0c98
+-
+ /* HBLANK control - read only */
+ #define IMX219_PPL_DEFAULT		3448
+ 
+@@ -381,7 +371,7 @@ static const struct imx219_mode supported_modes[] = {
+ 			.width = 3280,
+ 			.height = 2464
+ 		},
+-		.vts_def = IMX219_VTS_15FPS,
++		.vts_def = 3526,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_3280x2464_regs),
+ 			.regs = mode_3280x2464_regs,
+@@ -398,7 +388,7 @@ static const struct imx219_mode supported_modes[] = {
+ 			.width = 1920,
+ 			.height = 1080
+ 		},
+-		.vts_def = IMX219_VTS_30FPS_1080P,
++		.vts_def = 1763,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1920_1080_regs),
+ 			.regs = mode_1920_1080_regs,
+@@ -415,7 +405,7 @@ static const struct imx219_mode supported_modes[] = {
+ 			.width = 3280,
+ 			.height = 2464
+ 		},
+-		.vts_def = IMX219_VTS_30FPS_BINNED,
++		.vts_def = 1763,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1640_1232_regs),
+ 			.regs = mode_1640_1232_regs,
+@@ -432,7 +422,7 @@ static const struct imx219_mode supported_modes[] = {
+ 			.width = 1280,
+ 			.height = 960
+ 		},
+-		.vts_def = IMX219_VTS_30FPS_640x480,
++		.vts_def = 1763,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_640_480_regs),
+ 			.regs = mode_640_480_regs,
 -- 
 2.53.0
 
