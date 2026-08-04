@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D033376BC1
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 10:47:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E9A376BC1
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 10:47:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785840436; cv=none; b=FFWv7yFc8dUeQeLz3bLEp2JvqylGk/jZ1GIyMr60qR2iRm2vG5HYXVeVjjKE7U0Zq2cfz/QfOCO8lQGaBaVuELnCyxfZTjSvA9R4YYs19g8Wi5Bf4yJKb/Pc7jK4+OYvh+ZijcjuAHRugG5txSB2VouulYHosZm6piqV6kuXYc4=
+	t=1785840444; cv=none; b=TdSgy77tOYgS9pzKmMIKtW70eZ2mdYERC0/pJflC0CyHEM5rsYtsfRfw9H5s+aK+u8Pyr9xzQ8K1v6z/JlDE4rku0GE5Dx2vyTY8hDs2w/BO1EVggDn7AsJFprh/XIz9wS7VDAC8z3IBmdgF4M1LDcMCTRLvygAxlCuhXrZbONA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785840436; c=relaxed/simple;
-	bh=UqqPSTNTjbWq2wVKqrrWr2auX5+XScnWMaJfGFTbSDU=;
+	s=arc-20240116; t=1785840444; c=relaxed/simple;
+	bh=bQNNpHwIcecqMAPd3YYRIvw2aO7OqNdi2y0RYS2fWBI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dYVDD6yE6RIZ5wRlJ/vynas0YiLgz8v2CHb1wgux2/HDHsd5Ei2VU48eEDQ3U4vLk/j4FXP6h9UHU1uOR9F9prv85nwh1dP/DWL3CHKAYqm/PV5ihpGUDr8VwrGcYHyjvw+V1VPGl5wlrevuzooymjpXm5FdmGEJtutBztfXeJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UJcdc75O; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IXzUimfutqMVJpR4HRRT2Z0N283Gey8VIEfI54CCCpHWyT1Dzk/5A2n6jKaC8AEW4WlPQWRVf1IhxH+PxS3ILWb1Wms4SH18OpanU8ePxWtWW6yWdSifAC2baqYlobGWmnoZufkHXV6abRQwdOiGEK6phTHLhtVyLuUxSGTxBSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oawsb9qQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UJcdc75O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19C8A1F000E9;
-	Tue,  4 Aug 2026 10:47:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oawsb9qQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE7991F000E9;
+	Tue,  4 Aug 2026 10:47:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785840434;
-	bh=vOds2zItoQS0ehfXOIaAdjTc7h1B29y2nKyHgGv1LLM=;
+	s=k20260515; t=1785840442;
+	bh=6sB0z7/qPyho+bqStMlepFjStBJebcOhYBuPzR74h8U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UJcdc75OKDLWTY+XPtyDALPowyjwwVdqKKsJT+ER622igmE+s7ItXqnOxLHVMtS/o
-	 +dmeHBvQ1hT0Em55nQxv5jGVXBIs6aZUQR3CO1XIS1iH7hRUDLiQnUeOv1XsRLisJb
-	 Hq7eFqiiAUxAhKE0xYknhzu6rirZSkwja8EtbB9T/6ZGZHQBNvnDvhc7NzsJxPdcUb
-	 S0gJQtVSBZgBxxRhbwxcnvSYFOrLfuzKWewZfsmxvWp0KZoG0Z52v4XeTzmDAEyySZ
-	 XgQ+L45R4lr2gCfzsktNIF4oakwDuuA34YhssavjjdsHWQFUJk1jwKVVM8plmISMj8
-	 ITiVG2cjssQiw==
+	b=oawsb9qQr0QUuOIdN6Gu+1DDPQyUxYAck4i8lRiOmRKnGiHE8VdzO2oCflOX6Wfoz
+	 oQ1yfbSNK21SJWmWSLDQOWYknEOvIaoWhfB8czjQkqIr0t1XHRGcLIkH0Atmx2Ia8T
+	 NtQ0euAsE1p6cuUnVZf7Ijfb6OkPr+GpCUh/ag1oDDvadZFNFr6LYeUMkyMp2NmV4h
+	 btM2mIgN/E+D3tEKOi6yjnd08OmE3b/dONJHoBe/2vfgcn4pO0HctOl+k417bZk2fE
+	 mnKfh7Ghzo0n8ltg/mjlYBQJZlbWOCO1zNx3yv/vnCl77AGZCpappj40E5gfZncMV9
+	 TkoFQ7ZSlQo6A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jackson Lee <jackson.lee@chipsnmedia.com>,
-	Nas Chung <nas.chung@chipsnmedia.com>,
-	Brandon Brnich <b-brnich@ti.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Jani Nikula <jani.nikula@intel.com>,
+	Martin Hodo <martin.hodo@intel.com>,
+	Suraj Kandpal <suraj.kandpal@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] media: chips-media: wave5: Support CBP profile
-Date: Tue,  4 Aug 2026 06:47:12 -0400
-Message-ID: <20260804104712.2825343-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] drm/i915/hdcp: require monotonically increasing seq_num_v
+Date: Tue,  4 Aug 2026 06:47:18 -0400
+Message-ID: <20260804104718.2825645-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072917-aside-unpaved-8076@gregkh>
-References: <2026072917-aside-unpaved-8076@gregkh>
+In-Reply-To: <2026072905-drainable-smolder-6384@gregkh>
+References: <2026072905-drainable-smolder-6384@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,85 +47,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jackson Lee <jackson.lee@chipsnmedia.com>
+From: Jani Nikula <jani.nikula@intel.com>
 
-[ Upstream commit f8505f9d6b223a26854003bfdba1a0772457886d ]
+[ Upstream commit db9e64c983dcb07ff256bd455f258c44aa530ff8 ]
 
-Constrained Baseline Profile (CBP) and Baseline Profile (BP) have been
-treated as the same.
-Introduce the ability to differentiate between the two.
+The HDCP 2.2 specification requires the seq_num_v to be monotonically
+increasing, and repeated seq_num_v needs to be treated as an integrity
+failure. Make it so.
 
-Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
-Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
-Tested-by: Brandon Brnich <b-brnich@ti.com>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+For the first message, seq_num_v must be zero, and is already
+checked. We can only check for less-than-or-equal for the subsequent
+messages, where hdcp2_encrypted is true.
+
+Discovered using AI-assisted static analysis confirmed by Intel Product
+Security.
+
+Reported-by: Martin Hodo <martin.hodo@intel.com>
+Fixes: d849178e2c9e ("drm/i915: Implement HDCP2.2 repeater authentication")
+Cc: stable@vger.kernel.org # v5.2+
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Link: https://patch.msgid.link/20260625104407.1025614-1-jani.nikula@intel.com
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+(cherry picked from commit 58a224375c81179b52558c53d8857b93196d2687)
+Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/chips-media/wave5/wave5-hw.c      | 3 +++
- drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c | 5 ++++-
- drivers/media/platform/chips-media/wave5/wave5-vpuapi.h  | 1 +
- 3 files changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_hdcp.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-hw.c b/drivers/media/platform/chips-media/wave5/wave5-hw.c
-index d94cf84c3ee5f..fd3c3c2168158 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-hw.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-hw.c
-@@ -1762,6 +1762,9 @@ int wave5_vpu_enc_init_seq(struct vpu_instance *inst)
- 			(p_param->skip_intra_trans << 25) |
- 			(p_param->strong_intra_smooth_enable << 27) |
- 			(p_param->en_still_picture << 30);
-+	else if (inst->std == W_AVC_ENC)
-+		reg_val |= (p_param->constraint_set1_flag << 29);
-+
- 	vpu_write_reg(inst->dev, W5_CMD_ENC_SEQ_SPS_PARAM, reg_val);
- 
- 	reg_val = (p_param->lossless_enable) |
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-index 50cba21fdcdce..03687a1e23c71 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-@@ -915,6 +915,8 @@ static int wave5_vpu_enc_s_ctrl(struct v4l2_ctrl *ctrl)
- 		case V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_BASELINE:
- 			inst->enc_param.profile = H264_PROFILE_BP;
- 			inst->bit_depth = 8;
-+			if (ctrl->val == V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_BASELINE)
-+				inst->enc_param.constraint_set1_flag = 1;
- 			break;
- 		case V4L2_MPEG_VIDEO_H264_PROFILE_MAIN:
- 			inst->enc_param.profile = H264_PROFILE_MP;
-@@ -1190,6 +1192,7 @@ static int wave5_set_enc_openparam(struct enc_open_param *open_param,
- 			open_param->wave_param.intra_period = input.avc_idr_period;
- 		}
- 	} else {
-+		open_param->wave_param.constraint_set1_flag = input.constraint_set1_flag;
- 		open_param->wave_param.avc_idr_period = input.avc_idr_period;
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index ebc2e32aec0bc..eb03e540d3b6a 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -1642,9 +1642,10 @@ int hdcp2_authenticate_repeater_topology(struct intel_connector *connector)
+ 		return -EINVAL;
  	}
- 	open_param->wave_param.entropy_coding_mode = input.entropy_coding_mode;
-@@ -1662,7 +1665,7 @@ static int wave5_vpu_open_enc(struct file *filp)
- 			  -6, 6, 1, 0);
- 	v4l2_ctrl_new_std(v4l2_ctrl_hdl, &wave5_vpu_enc_ctrl_ops,
- 			  V4L2_CID_MPEG_VIDEO_H264_8X8_TRANSFORM,
--			  0, 1, 1, 1);
-+			  0, 1, 1, 0);
- 	v4l2_ctrl_new_std(v4l2_ctrl_hdl, &wave5_vpu_enc_ctrl_ops,
- 			  V4L2_CID_MPEG_VIDEO_H264_CONSTRAINED_INTRA_PREDICTION,
- 			  0, 1, 1, 0);
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
-index bc101397204da..8112d4899ce46 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
-@@ -570,6 +570,7 @@ struct enc_wave_param {
- 	u32 transform8x8_enable: 1; /* enable 8x8 intra prediction and 8x8 transform */
- 	u32 mb_level_rc_enable: 1; /* enable MB-level rate control */
- 	u32 forced_idr_header_enable: 1; /* enable header encoding before IDR frame */
-+	u32 constraint_set1_flag: 1; /* enable CBP */
- };
  
- struct enc_open_param {
+-	if (seq_num_v < hdcp->seq_num_v) {
+-		/* Roll over of the seq_num_v from repeater. Reauthenticate. */
+-		drm_dbg_kms(&dev_priv->drm, "Seq_num_v roll over.\n");
++	if (hdcp->hdcp2_encrypted && seq_num_v <= hdcp->seq_num_v) {
++		/* Reauthenticate on Seq_num_v repeat or rollover */
++		drm_dbg_kms(&dev_priv->drm, "Seq_num_v %s\n",
++			    seq_num_v == hdcp->seq_num_v ? "repeat" : "rollover");
+ 		return -EINVAL;
+ 	}
+ 
 -- 
 2.53.0
 
