@@ -1,440 +1,243 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+Received: from mail-qk1-f227.google.com (mail-qk1-f227.google.com [209.85.222.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2384747DF97
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 17:12:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785863582; cv=pass; b=efO2VTm6SQPezsPZEcFzduj0ckJBkOO9Ynzv4ENF0aeA/+Ye5SFOIaiBhbCvCqmnwmAGLFh7W99RizjIW0qYvJ1TqI0pqsiICIMStJhv9cgaEqJRBOEaEsdiRlLbFQNpcqu1/cBqpEA2f7h5qW7PLMgycsFW2im1FLc9MKaWsj0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785863582; c=relaxed/simple;
-	bh=hWOxQobg8ldW59tbLei1oLLiGpx2Ld9GYhoqx0fvAp4=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3C448035B
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 17:23:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.227
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785864204; cv=none; b=Du4++XuVhe5qdcpqDINxTcv1mMg87R0spcFKzUSYXyDXgGM2sT/STDTebq7vk6Zquff4D7lAFXqg0Tm6JH4bhSXIppn0xzAbbZMUbJPPNsB6qWKK0tKYQjoQuHZP7zONWZgNAkfvBKFKMbaGnPnMo3p4qkkq/rkZs0SJ0piqfhg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785864204; c=relaxed/simple;
+	bh=T0aWRerpWcXWWullqyzpR2NtiRQvm6l0z78JcZIlncA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JlRcl51xjcvvr5x4h0f5w022ySuhp1BoOHYP3W2twhThGuX3mfWxBVBT1GpgdOeVmaGrf4vXz3/YTRWs+uCvDSo5CuWswVEAfOrJBFpywtyjpoQ7oPzzEjYGKh6aTWErgSLZkAgjlNv0gPvv9KoGyckcArH4S2d/bzaB8Z1m/O4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=THY3wBMs; arc=pass smtp.client-ip=74.125.224.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=P2BIT7xn6s0/88DT0VV9auLwjq6hhaiMsfrJ8RpU2umlk+FtjsZkGZaZPCKgW6XDE0nq2cDgfSKDTecWL9IR2iWZwySsuCNvtxsvtsBgtOmBBMUgoSEYZbf/VHjoilqwjUpmOXpei3kC2PIsZ0pBgUhJ0vPRuPfrixLsiBaXI+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=ZOxlWm6U; arc=none smtp.client-ip=209.85.222.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="THY3wBMs"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66899c7b57bso2656d50.1
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 10:12:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785863565; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Lk1YHZA2QEvjVaFPPJz4Tr+PTD8etbCnYc5A4NYE/PXTHmAhS5EHECwIgFr/19mDI6
-         Pk7qfWv+W92zscAGYAoI6Dlynl2EmyIzTkWPNSl6IeqZcw+Ze/M+pzTlcI2PLR6Qlrxn
-         ftLicmAUzpDciAPT9DUSlsN1/pcE1JHPqfqfqo0QkFWRNIYJV2+PYEQCkr1L+XZ3sZEZ
-         myKZ/7klGet9PS6oFEjvofD5xMzyS/rAo6X7oEcmOtkSvVecueDI8xcV5JZeA5Fq0iGr
-         4nbqCfPBkBtpGZkWcHiZMIi0BnC2KLk5PGjhYxJ7mkM04LyNuOg+VgM+th5qba9zrvKD
-         8v1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PVTkNYfzNYlAmRE06g5Qd6oywBpWBs0JAsrXYTsIpTs=;
-        fh=6AuW3xRFWBYkVo3J/YWcmJ2TnOb5YpEGWDI3TXmVfU0=;
-        b=rAveQtXqeegwbMxXuHgp6BYOB95TvpTEsEA74kMc7Olhp1Z77pTb2LcQ/R1X3R1VWr
-         so1djAbHCUK1MmjcbNGTRvKzjEnIk7VPwM2lNwHFjhDQf/YypryMaiICUsQXgvJx2AJX
-         7d4sqOFabgHTnucdAGaxP06iDy0Essq4jLfd4DFsB3x4EPQ+vwYLNQIBN1j3xGo7B5dC
-         xBlcQmat3F4qMmQBvbmjxyablOniA5uTNrjYPVA8Hj6LER8FJJzJrb/CeH4s+BOCz+4E
-         yyUb02KTYYswSyzwanmvjssHMbs2ziERyO9FAZfanncqZpY6MuEPNEhQAia05yaxqH4H
-         X3QA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785863565; x=1786468365; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PVTkNYfzNYlAmRE06g5Qd6oywBpWBs0JAsrXYTsIpTs=;
-        b=THY3wBMsNEQhPOCv6mOnK3mL/k/9kNpHJ/k4QaXsWfQani8m8ijWApRK8Q1qTpxV6Q
-         91JNUa8ntEEeyWV9r4cGiC1S7zPiF1L0SN3jeOCk6m6aU2XN4cJCxPsPChXQTJIuusyG
-         pBLMJOZ601oGFpOy2fwLYTL5m3qBkeICBMxr9Hd5zU+/s5hZj3RCms2ILI0Sl2IStpvo
-         GBIOQeZ552n95Q5USDZXiuTTwaOqbXGt4epwXCjppRZxsiereZodviiNHdRdDJTPJFFM
-         MbT+29Sszx4dp7qb2kWZgr2uDHG2aAG6MLC0pvk68zCGGmztLFkPxnMP8LIkQ19j+Y6T
-         9V/Q==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="ZOxlWm6U"
+Received: by mail-qk1-f227.google.com with SMTP id af79cd13be357-93108a3c326so82895485a.1
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 10:23:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785863565; x=1786468365;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=1e100.net; s=20251104; t=1785864196; x=1786468996;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Fdo7I0omL4H701yyP/SclL5mRA8rk2dCKS/Etmx9Lw4=;
+        b=akHdOIyfAr8zPVDnBs+oFuStiPWwOMgzLjFpE7n7eP1NiFm+gSt0zry50hNDRMbegI
+         dkyu6QMDCz7H/4ldjnKCmN7uLf6QpmutYpDt11tK4Zd/xa1We+kt/Rr2bGDI3pENn972
+         RKxMJNG9+jS29hoCeKPACRY5CJuZUmiWseFz3D0Tzddl5QeimMuhbtx6eFlPyqkFXt0A
+         AYZbXABwoelHMAPf5zYUmwQJjQP6pCjfts2KhavGBVLW3MpSGQGE2VUfljIRS5ZT2DEf
+         jyfLA1jKVSh9TMo91eYxMPrgTD9Z3zfRjgYd4mJDu4yQG3utn4KY2Ag84iXLZUfsMlyA
+         pKTQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqXbfzeHhJyzB2wvagPB46aQdxW3u3/U20qBwq3CK0WbRxS182UOOGGmqOwfCdhbdyNn1KuDs8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxT2I1waC0taaDAU9sFx08Ps3OK99gw0t+lkHSjki4fw+d5yR8m
+	ea0kD+0PKD1DwwBpRYpcR92r1bR8A8cRzhQOamKofyYpdlt994TIoBf51nP60PEDZGC2Gc4yOvM
+	G7F6zkrvHdNHEwNegSjBsTEZywGXF3D44XM1jhWF9oDq+DQEIGEVe7qEgzgqWXx/+xrmqodiWDL
+	IfMbW73xA0w9WIcsR49BVVl62Xxw5F2OGt/Lu4KatWrytMgJoT30i8kD6mTdXeIxVUerEMo/+Lz
+	E8eJ7KZLw==
+X-Gm-Gg: AR+sD10CYC/Jy/HJ1xhERQ2z8BelY3ASPJsAc19/w3bA6bAtCVZadUUJpLVPbWV1gp5
+	3Zp3kkyDkJJq5L+g3NfWL2gSBG8KTZk4+eGYTtuSc3dt7mECzZqJiqwUBmJGaLvv0Zodt8utabp
+	Irky293RACuUOPLCI8aQ4irOpEeuYQFKkPQT81aOJ4snd4sd/g2vxxIy73fIldHm7gjGnKrd54F
+	w4Gkrn0xWQDGjVmw0cb/eHOik3ikFE6Iwl1pYz2qLgzF1AhwhvWoUkG2TrBieWgJwbmKmdUztMe
+	vDw7OVHnBjk9YnADi1r5P3+Q2sV9XBXfyJXhA7+x+JNdn7yuOj40fSxP/JC2qipF8fr1pUjvgXq
+	dYjp5zZAT3JkJ7gc8jh99Loerr0fucy5+H3tWssEmAwE+PsrJYIRygqA7831anaJdm2le+5R/w4
+	HlZU9C1qqoAVbhiAhm9ittglAb5sA91DG7Ww==
+X-Received: by 2002:a05:620a:6547:b0:915:e8fc:1396 with SMTP id af79cd13be357-93647e400c4mr74527885a.13.1785864195727;
+        Tue, 04 Aug 2026 10:23:15 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-27.dlp.protect.broadcom.com. [144.49.247.27])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-936419f2277sm7843485a.5.2026.08.04.10.23.15
+        for <stable@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 04 Aug 2026 10:23:15 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-lf1-f71.google.com with SMTP id 2adb3069b0e04-5b2d7c7ec76so57134e87.1
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 10:23:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1785864194; x=1786468994; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PVTkNYfzNYlAmRE06g5Qd6oywBpWBs0JAsrXYTsIpTs=;
-        b=QizwS5I7EAk92AgQPOvuyCkOeQepxkH10Dul7DMr1yYwpYVBaCAlfGBKH9PVg6IlkP
-         btsCYzKfjG/tV9zVk3OoPMbgeoJsh+aXwutmycBLg6qJ1kz4+8m1T95ZsLypiwOqPT/y
-         9dKObEnpqSLvHZ0e6+jBv16GS5qUHv27bqZQ9iN/Svc9oiEeletmWYLf5KshehHya4vk
-         0f+Nj6kb05ziImuiRb9geNVtvHVnXvPX1yV9gAl4ysAxGwIof57P/zzcOitcvU9Tg+t4
-         qTovsn6oQgfC1qFWIZOYhV/FhN2P5KN4IKJ1qVkuK74tRvBNTXKgLDf2oTJ3lo5OtCVJ
-         jc2w==
-X-Forwarded-Encrypted: i=1; AHgh+RrxEl98y5orrSCfEqokuftwoAMB/jzehhRzLucAOxxS6qR6D0/+ZJZSyRPTiZBe/W74kIBixEo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMdJ3Z063KlGXDQ59oI+FEK5LazsHgYbw70UmmWuJqQ2asdC+6
-	agrgUY27zw2df+LCzy+acH8synxhXa5kFsRP+RAG+5anW2PTavklXIjQzr1mLcF23pi+MyGE8QM
-	H/h9x8lDoKEy/mRjzU/Qe0uzvzNv2XdQ=
-X-Gm-Gg: AR+sD108YeJU9qKijA4mS2m/an7YHj3S5ScAPtUzjaJnAIrgzgEPwjkAQ+b9uNocFlx
-	9+7iFfksCkHbhft7++S5I2OfeZ/WJQA4naNlDGnDO1s0t9HsS+9jcKOA4EmIfnd5NV5ldazqhQ/
-	Syz0g97pVdvwYNiz1CoXdTCQlV8UyU9oxRluvua0t6xfESos+d9/basPE2XPn8mJRMzbALzsF28
-	ioUG4zAbjq1QQnuCcG3vLraYxQyqpIIRUe8rpfY6Ms73k4JbdRMz2jwNh6XxH4vG1WqRMcjrFM0
-	m3x6bksBqU6UcW+uBBEQjhPLTJWjHyphcplfuy7LxY68/EwZGWpGiuiO1x0r8rCcMupCEAscVRU
-	10dTjI5g8uso7lnyLgoSZRH6NKpFl3gI+nIg=
-X-Received: by 2002:a53:a44e:0:b0:667:f20a:4cc8 with SMTP id
- 956f58d0204a3-6699ad93aaamr117346d50.51.1785863564366; Tue, 04 Aug 2026
- 10:12:44 -0700 (PDT)
+        bh=Fdo7I0omL4H701yyP/SclL5mRA8rk2dCKS/Etmx9Lw4=;
+        b=ZOxlWm6Ui6jd0g6tQ6Rrrx3OvOIqO8I6DFQ3/gweKv6W1eM/KAYLgS99FfgLOOgI5G
+         7CL1j2RIErx5F2aGR2NhXX+rABgHZegZgruzvYEvJbdB5vHHL2z2o+gmiZ+tUPUiKt7e
+         gOE7TpK2DQwOlS1KA4Yz1p2NSaZdA1tqFz7fk=
+X-Forwarded-Encrypted: i=1; AHgh+RpiJliIbwtsD8yMgssu1vkXPPizypSfoOo9S6/N1UDcRr8Jopf3DRKcUa0pg6oYCZ9AcJELR8U=@vger.kernel.org
+X-Received: by 2002:a05:6512:6683:20b0:5b0:1359:3dd4 with SMTP id 2adb3069b0e04-5b2f4b88af4mr36784e87.5.1785864194038;
+        Tue, 04 Aug 2026 10:23:14 -0700 (PDT)
+X-Received: by 2002:a05:6512:6683:20b0:5b0:1359:3dd4 with SMTP id
+ 2adb3069b0e04-5b2f4b88af4mr36774e87.5.1785864193488; Tue, 04 Aug 2026
+ 10:23:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260801145430.3560911-1-nicoyip.dev@gmail.com>
-In-Reply-To: <20260801145430.3560911-1-nicoyip.dev@gmail.com>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Tue, 4 Aug 2026 13:12:33 -0400
-X-Gm-Features: AUfX_mwH7csUONkr6gK5pGwtK6jAUjfdx0TUm4TbZ6bng-ZzDdlQ0byFFuui6_Q
-Message-ID: <CABBYNZLH_cZ_4Q+9zEOzJ78tXuVAgRk9QAP8hFyPHTqdOeUYzw@mail.gmail.com>
-Subject: Re: [PATCH v2] Bluetooth: hci_sync: wait for directed advertising completion
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
+References: <20260804071904.860842-1-pengcan@kylinos.cn>
+In-Reply-To: <20260804071904.860842-1-pengcan@kylinos.cn>
+From: Kursad Oney <kursad.oney@broadcom.com>
+Date: Tue, 4 Aug 2026 13:23:00 -0400
+X-Gm-Features: AUfX_mzpgt47XuQbfnsbecGhD0MWE5BYmKiAwsEOsjeyd25D-PahBe4WmeXRDaY
+Message-ID: <CAMm8Nh3Fo5+jvo16RDY2HaS1eD+r8qdUbuc55ij-k01XS-gAFA@mail.gmail.com>
+Subject: Re: [PATCH] spi: bcmbca-hsspi: disable clocks on resume failure
+To: Can Peng <pengcan@kylinos.cn>
+Cc: jonas.gorski@gmail.com, william.zhang@broadcom.com, broonie@kernel.org, 
+	anand.gore@broadcom.com, florian.fainelli@broadcom.com, rafal@milecki.pl, 
+	linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="000000000000eb3f8e06583be8a0"
+
+--000000000000eb3f8e06583be8a0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Chengfeng,
-
-On Sat, Aug 1, 2026 at 10:54=E2=80=AFAM Chengfeng Ye <nicoyip.dev@gmail.com=
-> wrote:
+On Tue, Aug 4, 2026 at 3:20=E2=80=AFAM Can Peng <pengcan@kylinos.cn> wrote:
 >
-> le_conn_timeout is embedded in struct hci_conn, but queuing the work does
-> not hold a reference to the connection.  hci_conn_del() uses
-> cancel_delayed_work() because synchronous cancellation would deadlock whe=
-n
-> le_conn_timeout() itself calls hci_conn_del() while holding hdev->lock.
+> bcmbca_hsspi_resume() enables the HSSPI clock, and optionally the PLL
+> clock, before restarting the SPI controller queue.
 >
-> This leaves the following interleaving possible:
+> If spi_controller_resume() fails, the function currently reports success
+> and leaves those clocks enabled. Propagate the error and disable the
+> clocks before returning.
 >
->   CPU 0                               CPU 1
->   le_conn_timeout()
->                                       hci_conn_del()
->                                         cancel_delayed_work() =3D false
->                                         hci_conn_cleanup()
->                                           put_device()
->                                             kfree(conn)
->   hci_conn_failed(conn, ...)
->
-> The callback then dereferences the released connection.  KASAN reported:
->
->   BUG: KASAN: slab-use-after-free in hci_conn_failed+0x232/0x250
->   Read of size 8 at addr ffff8881180e8e20 by task kworker/u33:1/111
->   Workqueue: hci0 le_conn_timeout
->   Call Trace:
->    hci_conn_failed+0x232/0x250
->    le_conn_timeout+0x23e/0x2c0
->    process_one_work+0x61b/0xf50
->    worker_thread+0x45b/0xd10
->
-> Remove le_conn_timeout instead of adding another connection reference.
-> Have the legacy and extended directed-advertising enable commands wait fo=
-r
-> the appropriate LE Connection Complete event in hci_le_create_conn_sync()=
-.
-> The command-sync entry already holds a connection reference until its
-> completion callback returns.
->
-> Mark directed advertising as an in-flight connection attempt so teardown
-> can cancel the wait.  Disable advertising synchronously when that wait
-> fails, and preserve HCI_ERROR_ADVERTISING_TIMEOUT for a software timeout.
-> There is then no delayed callback that can race with connection deletion.
->
-> Fixes: 980ffc0a2cec ("Bluetooth: Fix LE connection timeout deadlock")
+> Fixes: a38a2233f23b ("spi: bcmbca-hsspi: Add driver for newer HSSPI contr=
+oller")
 > Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/linux-bluetooth/20260730104103.2080325-1-ni=
-coyip.dev@gmail.com/
-> Suggested-by: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> Signed-off-by: Can Peng <pengcan@kylinos.cn>
 > ---
-> Changes in v2:
-> - Remove le_conn_timeout instead of adding references around delayed work=
-.
-> - Wait for LE Connection Complete from both directed-advertising enable p=
-aths.
-> - Make the wait cancellable and disable advertising after a failed wait.
+>  drivers/spi/spi-bcmbca-hsspi.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
 >
-> Link: https://lore.kernel.org/linux-bluetooth/20260730104103.2080325-1-ni=
-coyip.dev@gmail.com/ [v1]
->
->  include/net/bluetooth/hci_core.h |  1 -
->  net/bluetooth/hci_conn.c         | 45 --------------------------------
->  net/bluetooth/hci_event.c        | 25 ++----------------
->  net/bluetooth/hci_sync.c         | 42 ++++++++++++++++++++---------
->  4 files changed, 32 insertions(+), 81 deletions(-)
->
-> diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci=
-_core.h
-> index 3df59849dcbe..937c9ba1e6b7 100644
-> --- a/include/net/bluetooth/hci_core.h
-> +++ b/include/net/bluetooth/hci_core.h
-> @@ -761,7 +761,6 @@ struct hci_conn {
->         struct delayed_work disc_work;
->         struct delayed_work auto_accept_work;
->         struct delayed_work idle_work;
-> -       struct delayed_work le_conn_timeout;
->
->         struct device   dev;
->         struct dentry   *debugfs;
-> diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-> index b1f911fd4ad6..74bf0686f428 100644
-> --- a/net/bluetooth/hci_conn.c
-> +++ b/net/bluetooth/hci_conn.c
-> @@ -687,48 +687,6 @@ static void hci_conn_auto_accept(struct work_struct =
-*work)
->                      &conn->dst);
->  }
->
-> -static void le_disable_advertising(struct hci_dev *hdev)
-> -{
-> -       if (ext_adv_capable(hdev)) {
-> -               struct hci_cp_le_set_ext_adv_enable cp;
-> -
-> -               cp.enable =3D 0x00;
-> -               cp.num_of_sets =3D 0x00;
-> -
-> -               hci_send_cmd(hdev, HCI_OP_LE_SET_EXT_ADV_ENABLE, sizeof(c=
-p),
-> -                            &cp);
-> -       } else {
-> -               u8 enable =3D 0x00;
-> -               hci_send_cmd(hdev, HCI_OP_LE_SET_ADV_ENABLE, sizeof(enabl=
-e),
-> -                            &enable);
-> -       }
-> -}
-> -
-> -static void le_conn_timeout(struct work_struct *work)
-> -{
-> -       struct hci_conn *conn =3D container_of(work, struct hci_conn,
-> -                                            le_conn_timeout.work);
-> -       struct hci_dev *hdev =3D conn->hdev;
-> -
-> -       BT_DBG("");
-> -
-> -       /* We could end up here due to having done directed advertising,
-> -        * so clean up the state if necessary. This should however only
-> -        * happen with broken hardware or if low duty cycle was used
-> -        * (which doesn't have a timeout of its own).
-> -        */
-> -       if (conn->role =3D=3D HCI_ROLE_SLAVE) {
-> -               /* Disable LE Advertising */
-> -               le_disable_advertising(hdev);
-> -               hci_dev_lock(hdev);
-> -               hci_conn_failed(conn, HCI_ERROR_ADVERTISING_TIMEOUT);
-> -               hci_dev_unlock(hdev);
-> -               return;
-> -       }
-> -
-> -       hci_abort_conn(conn, HCI_ERROR_REMOTE_USER_TERM);
-> -}
-> -
->  struct iso_list_data {
->         union {
->                 u8  cig;
-> @@ -1121,7 +1079,6 @@ static struct hci_conn *__hci_conn_add(struct hci_d=
-ev *hdev, int type,
->         INIT_DELAYED_WORK(&conn->disc_work, hci_conn_timeout);
->         INIT_DELAYED_WORK(&conn->auto_accept_work, hci_conn_auto_accept);
->         INIT_DELAYED_WORK(&conn->idle_work, hci_conn_idle);
-> -       INIT_DELAYED_WORK(&conn->le_conn_timeout, le_conn_timeout);
->
->         spin_lock_init(&conn->proto_lock);
->
-> @@ -1269,8 +1226,6 @@ void hci_conn_del(struct hci_conn *conn)
->                         hdev->acl_cnt +=3D conn->sent;
->                 break;
->         case LE_LINK:
-> -               cancel_delayed_work(&conn->le_conn_timeout);
-> -
->                 if (hdev->le_pkts) {
->                         if (!hci_conn_num(hdev, LE_LINK) ||
->                             hdev->le_cnt + conn->sent > hdev->le_pkts)
-> diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-> index 741d658e9630..b6b279b5a103 100644
-> --- a/net/bluetooth/hci_event.c
-> +++ b/net/bluetooth/hci_event.c
-> @@ -1557,22 +1557,10 @@ static u8 hci_cc_le_set_adv_enable(struct hci_dev=
- *hdev, void *data,
->
->         hci_dev_lock(hdev);
->
-> -       /* If we're doing connection initiation as peripheral. Set a
-> -        * timeout in case something goes wrong.
-> -        */
-> -       if (*sent) {
-> -               struct hci_conn *conn;
-> -
-> +       if (*sent)
->                 hci_dev_set_flag(hdev, HCI_LE_ADV);
-> -
-> -               conn =3D hci_lookup_le_connect(hdev);
-> -               if (conn)
-> -                       queue_delayed_work(hdev->workqueue,
-> -                                          &conn->le_conn_timeout,
-> -                                          conn->conn_timeout);
-> -       } else {
-> +       else
->                 hci_dev_clear_flag(hdev, HCI_LE_ADV);
-> -       }
->
->         hci_dev_unlock(hdev);
->
-> @@ -1604,8 +1592,6 @@ static u8 hci_cc_le_set_ext_adv_enable(struct hci_d=
-ev *hdev, void *data,
->                 adv =3D hci_find_adv_instance(hdev, set->handle);
->
->         if (cp->enable) {
-> -               struct hci_conn *conn;
-> -
->                 hci_dev_set_flag(hdev, HCI_LE_ADV);
->
->                 if (adv)
-> @@ -1613,11 +1599,6 @@ static u8 hci_cc_le_set_ext_adv_enable(struct hci_=
-dev *hdev, void *data,
->                 else if (!set->handle)
->                         hci_dev_set_flag(hdev, HCI_LE_ADV_0);
->
-> -               conn =3D hci_lookup_le_connect(hdev);
-> -               if (conn)
-> -                       queue_delayed_work(hdev->workqueue,
-> -                                          &conn->le_conn_timeout,
-> -                                          conn->conn_timeout);
->         } else {
->                 if (cp->num_of_sets) {
->                         if (adv)
-> @@ -5770,8 +5751,6 @@ static void le_conn_complete_evt(struct hci_dev *hd=
-ev, u8 status,
->                                                           &conn->init_add=
-r_type);
->                         }
+> diff --git a/drivers/spi/spi-bcmbca-hsspi.c b/drivers/spi/spi-bcmbca-hssp=
+i.c
+> index af88ce04948b..2aed876e5deb 100644
+> --- a/drivers/spi/spi-bcmbca-hsspi.c
+> +++ b/drivers/spi/spi-bcmbca-hsspi.c
+> @@ -598,7 +598,13 @@ static int bcmbca_hsspi_resume(struct device *dev)
 >                 }
-> -       } else {
-> -               cancel_delayed_work(&conn->le_conn_timeout);
 >         }
 >
->         /* The HCI_LE_Connection_Complete event is only sent once per con=
-nection.
-> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-> index c8d14128c363..714bb1d55926 100644
-> --- a/net/bluetooth/hci_sync.c
-> +++ b/net/bluetooth/hci_sync.c
-> @@ -1616,7 +1616,9 @@ int hci_update_scan_rsp_data_sync(struct hci_dev *h=
-dev, u8 instance)
->         return __hci_set_scan_rsp_data_sync(hdev, instance);
+> -       spi_controller_resume(host);
+> +       ret =3D spi_controller_resume(host);
+> +       if (ret) {
+> +               if (bs->pll_clk)
+> +                       clk_disable_unprepare(bs->pll_clk);
+> +               clk_disable_unprepare(bs->clk);
+> +               return ret;
+> +       }
+>
+>         return 0;
 >  }
->
-> -int hci_enable_ext_advertising_sync(struct hci_dev *hdev, u8 instance)
-> +static int hci_enable_ext_advertising_sync_ev(struct hci_dev *hdev,
-> +                                             u8 instance, u8 event,
-> +                                             u32 timeout)
->  {
->         struct hci_cp_le_set_ext_adv_enable *cp;
->         struct hci_cp_ext_adv_set *set;
-> @@ -1656,10 +1658,16 @@ int hci_enable_ext_advertising_sync(struct hci_de=
-v *hdev, u8 instance)
->                 set->duration =3D cpu_to_le16(duration / 10);
->         }
->
-> -       return __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_EXT_ADV_ENABLE,
-> -                                    sizeof(*cp) +
-> -                                    sizeof(*set) * cp->num_of_sets,
-> -                                    data, HCI_CMD_TIMEOUT);
-> +       return __hci_cmd_sync_status_sk(hdev, HCI_OP_LE_SET_EXT_ADV_ENABL=
-E,
-> +                                       sizeof(*cp) +
-> +                                       sizeof(*set) * cp->num_of_sets,
-> +                                       data, event, timeout, NULL);
-> +}
-> +
-> +int hci_enable_ext_advertising_sync(struct hci_dev *hdev, u8 instance)
-> +{
-> +       return hci_enable_ext_advertising_sync_ev(hdev, instance, 0,
-> +                                                 HCI_CMD_TIMEOUT);
->  }
->
->  int hci_start_ext_adv_sync(struct hci_dev *hdev, u8 instance)
-> @@ -6605,7 +6613,11 @@ static int hci_le_ext_directed_advertising_sync(st=
-ruct hci_dev *hdev,
->                         return err;
->         }
->
-> -       return hci_enable_ext_advertising_sync(hdev, 0x00);
-> +       return hci_enable_ext_advertising_sync_ev(hdev, 0x00,
-> +                               use_enhanced_conn_complete(hdev) ?
-> +                               HCI_EV_LE_ENHANCED_CONN_COMPLETE :
-> +                               HCI_EV_LE_CONN_COMPLETE,
-> +                               conn->conn_timeout);
->  }
->
->  static int hci_le_directed_advertising_sync(struct hci_dev *hdev,
-> @@ -6656,8 +6668,12 @@ static int hci_le_directed_advertising_sync(struct=
- hci_dev *hdev,
->
->         enable =3D 0x01;
->
-> -       return __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_ADV_ENABLE,
-> -                                    sizeof(enable), &enable, HCI_CMD_TIM=
-EOUT);
-> +       return __hci_cmd_sync_status_sk(hdev, HCI_OP_LE_SET_ADV_ENABLE,
-> +                                       sizeof(enable), &enable,
-> +                                       use_enhanced_conn_complete(hdev) =
-?
-> +                                       HCI_EV_LE_ENHANCED_CONN_COMPLETE =
-:
-> +                                       HCI_EV_LE_CONN_COMPLETE,
-> +                                       conn->conn_timeout, NULL);
->  }
->
->  static void set_ext_conn_params(struct hci_conn *conn,
-> @@ -6761,6 +6777,7 @@ static int hci_le_create_conn_sync(struct hci_dev *=
-hdev, void *data)
->                 /* Pause advertising while doing directed advertising. */
->                 hci_pause_advertising_sync(hdev);
->
-> +               set_bit(HCI_CONN_CREATE, &conn->flags);
->                 err =3D hci_le_directed_advertising_sync(hdev, conn);
->                 goto done;
->         }
-> @@ -6847,7 +6864,9 @@ static int hci_le_create_conn_sync(struct hci_dev *=
-hdev, void *data)
->  done:
->         clear_bit(HCI_CONN_CREATE, &conn->flags);
->
-> -       if (err =3D=3D -ETIMEDOUT)
-> +       if (err && conn->role =3D=3D HCI_ROLE_SLAVE)
-> +               hci_disable_advertising_sync(hdev);
-> +       else if (err =3D=3D -ETIMEDOUT)
->                 hci_le_connect_cancel_sync(hdev, conn, 0x00);
->
->         /* Re-enable advertising after the connection attempt is finished=
-. */
-> @@ -7184,9 +7203,8 @@ static void create_le_conn_complete(struct hci_dev =
-*hdev, void *data, int err)
->         if (conn !=3D hci_lookup_le_connect(hdev))
->                 goto unlock;
->
-> -       /* Flush to make sure we send create conn cancel command if neede=
-d */
-> -       flush_delayed_work(&conn->le_conn_timeout);
-> -       hci_conn_failed(conn, bt_status(err));
-> +       hci_conn_failed(conn, conn->role =3D=3D HCI_ROLE_SLAVE && err =3D=
-=3D -ETIMEDOUT ?
-> +                        HCI_ERROR_ADVERTISING_TIMEOUT : bt_status(err));
->
->  unlock:
->         hci_dev_unlock(hdev);
 > --
-> 2.43.0
+> 2.53.0
+>
 
-Looks like there is a problem when the command generates a command
-complete it bypass the custom event matching, so we will need to fix
-that first:
+Reviewed-by: Kursad Oney <kursad.oney@broadcom.com>
 
-https://sashiko.dev/#/patchset/20260801145430.3560911-1-nicoyip.dev%40gmail=
-.com
+--000000000000eb3f8e06583be8a0
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
---=20
-Luiz Augusto von Dentz
+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
+WLjT+gks0Kd/cbP0dcNN3CUcYMYtVlHhJc0alhNIUhEYGBn5FXwIovRjv4w8vYdAGu3Mn4GwoqgH
+BnSQFD3St8aq6hgohc9jxXxTR/9DDqSSq64xM/ugqaLZXv5xuQK1zCt8lK07JWIJ1rXkqKtennWP
+nt58zpNGlmYBHojF6BbjYTd6vpd1pHQISwi8DrWMAUDa7iWHpBocw6gSZm8SvaRJFodIma4Ev9kW
+ekRCoHi74o5vbrDz/aqNlFa0iAIHoDNw11sCAwEAAaOCAdwwggHYMA4GA1UdDwEB/wQEAwIFoDAM
+BgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3NlY3Vy
+ZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEFBQcw
+AYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1UdIARe
+MFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIBFiZo
+dHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAyhjBo
+dHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwIwYDVR0RBBww
+GoEYa3Vyc2FkLm9uZXlAYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8GA1UdIwQY
+MBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBRaQVTN1g3mGepKgQklJr3uMbCS9DAN
+BgkqhkiG9w0BAQsFAAOCAgEAE2m7WsjjPj3wmw0t3GJ0XtNFKqFHZfT6zb3d4heSwp+Tq1fHkjpF
+xUhIzJnD2MXCryCAuX73pAQmLEf8UDdEPZegH6g4poXTtCd2WBv3B2NU0TIMjCEhk5u+XIroo7Sz
+p9g+wuVY0yUcl5QBswTk3kT3jkd6jx7k59ihAYsTMMUNK6RPOQHJazd+CY+A48ptKEzcauFBVUwg
+l/ZEcN6oWAP9DY5J8aQCLH73UFn7mo2Qkmvx2wzEGlq8ilowQtOwpPHdKjxaMaR9x7NZMU5IE/cX
+hClA1WVIp0Cp6CUUJh8Z3RPss8624Ct2QfedUjKjK2TtaiIAv4dcJF0NXoBWx9J0r8Z5IGDGCC0t
+xiRAyerE6s5S90gIvKSKA4kz1kGjoFD0g0Mu88Wklna1FxyX72YwJY6XGqUpxfUSJpj/6+hEqpLe
+Lucnxpvr0aqEZrjnm3at4dwAMd3bpddoSDkGIzXgB/EDinMopHueiwlvK0vIbrX5eHue7yFCJhpr
+s24mwnppy3Oy++8ql2+ifJ7VbVqYdYAKzjVrx0E7KqHH2/QqgW4fv9fQwQjHaslT/r0Qv0XVyNtR
+wRPbY6ZzeUcVxB6a5vC8XrXD/+k+ujXBjRIg/yKZk7OB2sFC8cv9Up8rPQDaguQMJ0BRG53ggwcO
+ikPna8ZaE9vI/f7PcdSt3v0xggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBH
+bG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAyMDIz
+Agw5Ja1W5pJarmzi09UwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIDNXmZeU1Hys
+KLV62IDS/GdvPnkMOFZ7onlZimlamh8kMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZI
+hvcNAQkFMQ8XDTI2MDgwNDE3MjMxNFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQMEASowCwYJ
+YIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJYIZIAWUD
+BAIBMA0GCSqGSIb3DQEBAQUABIIBAGxHB5fc/OKgG4phUxnAtYZNEi8XpAqCtCw0d4YFnWfa/BIa
+94UcpkuBzOnFUBEjK/AmF6AhK1R1CUIHgncsoOolnCOt1mCSkLw/paoKqwDCTfiv5MLJCWoedW0J
+yzfYlcpQGfCgqT6Gg0tIa630Um9RrOrUi0GQIxzSI/GwcBIg40TFmFQm91KbMx1fmHhHEYMRG5R2
+rVJPzHWkGGl4sOkmIIyTNsf888zizfC7/NeEGzqvYEd1N/SfiRq6+Ig8XogILO2sbT7yGANerXto
+GHNPNoAH3/+Qlf3+Pa2Nq0cxOJW01H59q1u+5bkbslC6qJ1HRQ3cZDl0eELRpxP+Gv8=
+--000000000000eb3f8e06583be8a0--
