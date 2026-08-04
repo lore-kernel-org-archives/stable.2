@@ -1,103 +1,101 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3AA32E143;
-	Tue,  4 Aug 2026 07:20:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786C835AC09;
+	Tue,  4 Aug 2026 07:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785828053; cv=none; b=or97HgP/VOcPDUJBcQtsbp2DBdj0km9RjTNqgjU3GwhfWxD5nj6I+0dpefdGRkdPs7lavbi8PZbu+COzkrfy7j7VSZvy4ZzoadBn08ZzjrE+Iuc//jQmV2/B4U8eogcotf73koMAsGpEqQacQqKUn0NVA2VqRQ37OibHjDJm4y8=
+	t=1785828233; cv=none; b=fJKP8bMfiGEX5Gb4mYotxZRu+2EeUvUmEUzYdgz7cXSJjVoA6KB78UVrvHgc5GA+0t4QENhgs1FXmfuP/788daICWwiLY/kYjX7t2Vxkaa4RyMDcbqPt+7HdQnAF3eLzOCah3Un49Ku0GZcTSspzpekCyw5Q8hFwT2y8KqknuBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785828053; c=relaxed/simple;
-	bh=Z5ehI4sjc8J24Wh0VCw0y6vqNh3dc46pzsE40x/+Cfc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YWH/JBlag9dRZ0vIHJri83fiy/jEvixx0IgyPxMhyUT/offZuEB3XhZQVikgMDsPYDEf1LddyLS+CerBO96FnZ2i3bD/sZvnfXCNFOIH6FtshLjKQ9hZoNRQPxRxY/eIpfvokEPck3hTixm1XaPKhh2fJx/5LunVANIfIPKdxHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: fd6cec608fd411f1aa26b74ffac11d73-20260804
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR
-	DN_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_TRUSTED
-	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, OB_FP
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:3ac7add4-69d3-4ae8-8ae1-f61a803b28f3,IP:10,
-	URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:5
-X-CID-INFO: VERSION:1.3.12,REQID:3ac7add4-69d3-4ae8-8ae1-f61a803b28f3,IP:10,UR
-	L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:5
-X-CID-META: VersionHash:e7bac3a,CLOUDID:14282bff1daeaae735d1ea8dfb4cdc94,BulkI
-	D:260804152043RIF8VH0T,BulkQuantity:0,Recheck:0,SF:10|38|66|78|85|102|127|
-	136|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk
-	:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,
-	BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: fd6cec608fd411f1aa26b74ffac11d73-20260804
-X-User: pengcan@kylinos.cn
-Received: from lenovo [(42.200.176.183)] by mailgw.kylinos.cn
-	(envelope-from <pengcan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1100653409; Tue, 04 Aug 2026 15:20:37 +0800
-From: Can Peng <pengcan@kylinos.cn>
-To: jonas.gorski@gmail.com,
-	william.zhang@broadcom.com,
-	kursad.oney@broadcom.com,
-	broonie@kernel.org
-Cc: linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Can Peng <pengcan@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] spi: bcm63xx-hsspi: disable clocks on resume failure
-Date: Tue,  4 Aug 2026 15:20:17 +0800
-Message-ID: <20260804072017.860974-1-pengcan@kylinos.cn>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1785828233; c=relaxed/simple;
+	bh=rGvD89MhKlmzZRPMrJPqg9C1kPX4WXWfyL9s4jZGOfU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UgU8CvrbGoVV8gahC8doXsFlccfQaoHtrbhHOK2nEyN1cayg04uaQJ+AZ+Jo/44Qgg5oiS1YSKezF4xp19kqlqfDnl44RlnDjxDjvt77NavyuwWEFoleuxS/Jhkgc/8xtaxDC32aWeAPbj0STUqb2P4UlQFzFDUXLKCb97SnPMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=c6K/IsTF; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="c6K/IsTF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=XodPIm67WpP4LA6qBjgDmlDJKaqtJYIf0blYppf+Fqg=; b=c6K/IsTFs/obfc9mMbUo+a78NN
+	+KLQsR6Gsj5YWNDvhqepfYJipdUylD0UjbkFaC4ZTXd62N0fk0G3b6wuCXftY5GPZuEirQGVeBzU2
+	GqllWMnmzrIfmaYCi/cNEHxa7EsQ41WL0rSplnSKH1xyMsnZ+lJ66T5ny0ZDMbiPmBER5OkOfuQ5g
+	BxNji25q6AUNdTMnrknXQnyjVW0RD1P7wxDCYBnIuGjxge+gKku5DwHP1ouEv+0EpGB7JhGpTQgtf
+	+IqGUneRvXTSFn9VQLbeM4YzYvQLF+Z4NxXLNFjnQ/Aw2yA6qfhCv9S/k6vvQdMh/gXnUJID1FhJS
+	eqlQb+Fw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wr9U2-000000015Je-24Af;
+	Tue, 04 Aug 2026 07:22:42 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id C7BDE30093A; Tue, 04 Aug 2026 09:22:40 +0200 (CEST)
+Date: Tue, 4 Aug 2026 09:22:40 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Bo Li <libo.gcs85@bytedance.com>
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	sshegde@linux.ibm.com, jgross@suse.com, wangyang.guo@intel.com,
+	seanjc@google.com, pasha.tatashin@oracle.com,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/tsc: Fix misplaced seqcount_latch_init() in
+ cyc2ns_init_secondary_cpus()
+Message-ID: <20260804072240.GK687043@noisy.programming.kicks-ass.net>
+References: <20260804071128.31022-1-libo.gcs85@bytedance.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260804071128.31022-1-libo.gcs85@bytedance.com>
 
-bcm63xx_hsspi_resume() enables the HSSPI clock, and optionally the PLL
-clock, before restarting the SPI controller queue.
+On Tue, Aug 04, 2026 at 03:11:28PM +0800, Bo Li wrote:
+> In cyc2ns_init_secondary_cpus(), seqcount_latch_init(&c2n->seq) is
+> called _before_ c2n is advanced to the next CPU via per_cpu_ptr().
+> As a result:
+> 
+>  1. On the first iteration, c2n still points at the BSP's struct, so
+>     the BSP's seqcount_latch is re-initialized. cyc2ns_init_boot_cpu()
+>     already did this correctly, so it happens to work by accident
+>     because no concurrent readers are live at __init time.
+> 
+>  2. On subsequent iterations, seqcount_latch_init() initializes the
+>     previous CPU's seqcount (because c2n was advanced by the prior
+>     per_cpu_ptr()), so all CPUs except the last one in the for_each
+>     loop happen to get initialized. The last secondary CPU's seqcount
+>     is left uninitialized.
+> 
+> Move seqcount_latch_init() _after_ c2n is pointed at the target CPU's
+> struct, so each secondary CPU's seqcount is correctly initialized.
+> 
+> Fixes: e2a9ca29b5ed ("x86/tsc: Initialize cyc2ns when tsc frequency is determined")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Bo Li <libo.gcs85@bytedance.com>
+> ---
+>  arch/x86/kernel/tsc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
+> index ce10ae4b298b..84fb80492b01 100644
+> --- a/arch/x86/kernel/tsc.c
+> +++ b/arch/x86/kernel/tsc.c
+> @@ -223,8 +223,8 @@ static void __init cyc2ns_init_secondary_cpus(void)
+>  
+>  	for_each_possible_cpu(cpu) {
+>  		if (cpu != this_cpu) {
+> -			seqcount_latch_init(&c2n->seq);
+>  			c2n = per_cpu_ptr(&cyc2ns, cpu);
+> +			seqcount_latch_init(&c2n->seq);
+>  			c2n->data[0] = data[0];
+>  			c2n->data[1] = data[1];
+>  		}
 
-If spi_controller_resume() fails, the function currently reports success
-and leaves those clocks enabled. Propagate the error and disable the
-clocks before returning.
-
-Fixes: 142168eba9dc ("spi: bcm63xx-hsspi: add bcm63xx HSSPI driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Can Peng <pengcan@kylinos.cn>
----
- drivers/spi/spi-bcm63xx-hsspi.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/spi/spi-bcm63xx-hsspi.c b/drivers/spi/spi-bcm63xx-hsspi.c
-index 37b3534d0b0a..633164e5a856 100644
---- a/drivers/spi/spi-bcm63xx-hsspi.c
-+++ b/drivers/spi/spi-bcm63xx-hsspi.c
-@@ -919,7 +919,13 @@ static int bcm63xx_hsspi_resume(struct device *dev)
- 		}
- 	}
- 
--	spi_controller_resume(host);
-+	ret = spi_controller_resume(host);
-+	if (ret) {
-+		if (bs->pll_clk)
-+			clk_disable_unprepare(bs->pll_clk);
-+		clk_disable_unprepare(bs->clk);
-+		return ret;
-+	}
- 
- 	return 0;
- }
--- 
-2.53.0
+No, this looks wrong. Note that per the 'cpu != this_cpu' there are only
+N-1 invocations. One CPU will not be initialized. Further note the name
+of this function, and the name of the function above it.
 
