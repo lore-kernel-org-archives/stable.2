@@ -1,151 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950B3486BA9
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 17:05:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 835554570D5
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 17:05:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785863116; cv=none; b=PzoGJl5kd/b0gWZi8Q04cOuvQgu6A5/e110515aQmbvGGdMEjiZTpynRBXiV5XqeJbZ1QRPLr/L0XGRcuE4tXJUP+213INxJqObjcdDFe6+eMqCDbALkPG2NR3b1C2etMDVI8OQybW1DyFoO3Oi4ee6gyLO0dP5RcYTlrHpVA6I=
+	t=1785863132; cv=none; b=BzrlRoS8unS8n/f6hcg/SN0YEvr5lPB+IY0ZXeKyRhgoUA5t1Ac5o+vVsFo6EJTmOifTlaYWtrcx/icmvGMCCTL2ZqFnU7dQUNqUYE1J14e9PzMuFwtpbV/XAyP4lRkUgZkuUkVy8Gi7FlyDX2BUu+DjEJ3icfc+4oMIAdbfxl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785863116; c=relaxed/simple;
-	bh=IIPV+uK9RzIxM4qreYDUAaEKrit9xi6m9STGo+r87Q0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OI9LlR+G6BBcWqrifo4ByW6P6uIWGeU6J8LUb7yGkHbjrUEoJH18jU5IUo+TZZSTbxtkk8H4TAxvFkIRhMc55EpalzaL0/4SYCgWfimUJkYazfcqlUG86UWc2Nryc8kR3o1YR9gswsqeX2AuRff7LxzTe6iHeE+OmVeu8ndjiuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nhk5V3wk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785863132; c=relaxed/simple;
+	bh=WVzy+CFQzZ9ki8AaGr2tZyokJVK18eIfmnCV3Kgx2R0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=dodXtVHyfF38IbDJILz8Z9ZwBYGn+c3NeShS5I/vj7KelP/xfl94oiZDECsfqfnkdVePJt4PCt/cCYDMTyIckQxToTXr+aQNw1C9Bc37bvO8pIXwii0njMUp72bANolxkF1XZfzFB8ni6PsTBUKZS3qHhldOl6vTwX+2oTvL9gM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sGehTrTU; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nhk5V3wk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E8721F000E9;
-	Tue,  4 Aug 2026 17:05:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785863107;
-	bh=YDEfVs0Bi8dTQeWZgvTkiOBxm/ntA3Pj+qKWpGUZhAA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nhk5V3wkrUDVAWtxPRfrQm3EDSC20ZGWnFbzLCdVbKHLe/kjkLcRVxXiLC/fpqmuT
-	 s6oz3TO5LyY54d2/8z3wG2yq1YsXkfUjM7RBP/waiT3/rOvVyIZtbC1EaHLzgih/JQ
-	 gCk5ghpFp3q4QJF1UfpTsjMr2MPiKTxtMnVsaUSGQCThWNj03urvT1yTYKe/FFSYOq
-	 y8yn1/WasyUfVRfZ65K/xeWPp2lS1Uhrk9AV4iczW2Zub9+WHrkObkv6unPBpqWPr/
-	 HeAJHGLUqzCJroT6mK1il32ogZzOLpWkj5eSi/upLIwHqTyE8sJtp2+KRKyZDhia0k
-	 NPoyi3CVzMuBA==
-Message-ID: <556894de-2e06-424b-9414-36fb0ecd9657@kernel.org>
-Date: Tue, 4 Aug 2026 19:05:02 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sGehTrTU"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 533831684;
+	Tue,  4 Aug 2026 10:05:16 -0700 (PDT)
+Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CFE643F632;
+	Tue,  4 Aug 2026 10:05:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1785863120; bh=WVzy+CFQzZ9ki8AaGr2tZyokJVK18eIfmnCV3Kgx2R0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=sGehTrTUwMenQPYItLGFO9Vpv7W1HiuDEAatv/sjFrxlAx3wLHPoXTh4GY2NfFKSX
+	 BlUKhI5zrxRUz8aSlfnPPqzQRtlKyDECCx4QSn3HAsKzijYJm5luPkrCPgChQH/8O5
+	 o59yg178gbY80vIMcCK8WHGJbvw61cewmODJs6EQ=
+From: Mark Rutland <mark.rutland@arm.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: ada.coupriediaz@arm.com,
+	ardb@kernel.org,
+	catalin.marinas@arm.com,
+	cl@gentwo.org,
+	david@kernel.org,
+	david.laight.linux@gmail.com,
+	james.morse@arm.com,
+	ljs@kernel.org,
+	mark.rutland@arm.com,
+	maz@kernel.org,
+	peterz@infradead.org,
+	ruanjinjie@huawei.com,
+	ryan.roberts@arm.com,
+	stable@vger.kernel.org,
+	vladimir.murzin@arm.com,
+	will@kernel.org,
+	yang@os.amperecomputing.com
+Subject: [PATCH v2 01/20] arm64: percpu: Fix this_cpu_write() casting
+Date: Tue,  4 Aug 2026 18:04:44 +0100
+Message-Id: <20260804170503.3513916-2-mark.rutland@arm.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260804170503.3513916-1-mark.rutland@arm.com>
+References: <20260804170503.3513916-1-mark.rutland@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Fix incorrect flush address in direct page table reclaim
-To: Andy Lutomirski <luto@amacapital.net>
-Cc: Qi Zheng <qi.zheng@linux.dev>, luto@kernel.org, linux-mm@kvack.org,
- Liam Howlett <liam.howlett@oracle.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Michal Hocko
- <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, stable@vger.kernel.org
-References: <3d3aa670-76bc-4df3-9c36-609c14354e9e@kernel.org>
- <0B39A63B-3697-4FEC-B6FF-2F4D5901F7E9@amacapital.net>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <0B39A63B-3697-4FEC-B6FF-2F4D5901F7E9@amacapital.net>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 8/4/26 15:43, Andy Lutomirski wrote:
-> 
->> On Aug 4, 2026, at 2:34 AM, David Hildenbrand (Arm) <david@kernel.org> wrote:
->>
->> ﻿On 8/4/26 11:25, Qi Zheng wrote:
->>>
->>>
->>>
->>> We backported the PT_RECLAIM to our internal tree a while ago (excluding
->>> the rework patch being fixed here), and it has been running stably ever
->>> since.
->>
->> I'm wondering whether we should have a selftest that triggers this exact scenario:
->>
->> (a) Populate page table(s)
->> (b) MADV_DONTNEED to reclaim the page table(s)
->> (c) Allocate plenty of pages for another purpose (draining PCP where the page
->>    table likely ended up) and fill them with some data that looks like present page
->>    table entries.
->> (d) Re-access the reclaimed VA space, expecting re-population of anonymous
->>    pages.
->>
-> 
-> If you want a better chance of hitting this bug, you could try:
-> 
-> - First DONTNEED the range in multiple calls so none of them reclaim the table.
+The arm64 implementation of this_cpu_write() casts 'val' to unsigned
+long. This is necessary to handle cases where 'val' is a pointer type,
+and to avoid spurious compiler warnings for the (unreachable!) cases
+where the pointer type would be cast to a smaller integer type.
 
-Not required. If MADV_DONTNEED spans the full page table we always reclaim if it
-is empty after MADV_DONTNEED (there are some oddities around uffd-wp handling,
-which wouldn't apply here).
+Unfortunately, the cast is applied to 'val' rather than '(val)', which
+won't always generate the expected value when 'val' is an expression.
 
-> 
-> - Then PREFETCH the range (or use your favorite speculative read gadget or even do a real read and ignore the signal).  Maybe also do this from multiple CPUs.
-> 
+For example, for this_cpu_write(pcp, zero - 1), where 'pcp' is a u64 and
+'zero' is a u32:
 
-Not sure if that's required, but if that's required to trigger it that certainly
-makes it less elegant.
+* 'zero'                      ===> (u32) 0x00000000
+* 'zero - 1'                  ===> (u32) 0xffffffff
+* '(unsigned long)zero - 1'   ===> (u64) 0xffffffffffffffff
+* '(unsigned long)(zero - 1)' ===> (u64) 0x00000000ffffffff
 
-> - Trigger reclaim
+Fix this by adding brackets around 'val'
 
-Also not sure if that one would really help.
+The bug described above can be seen from the disassembly of the
+following test code:
 
-> 
-> Then do c and d.
-> 
-> The result might be so specialized that it would be of dubious value.
-> 
+| void this_cpu_write_zero_minus_1(u64 __percpu *pcp)
+| {
+| 	u32 zero = 0;
+| 	this_cpu_write(*pcp, zero - 1);
+| }
+|
+| void this_cpu_write_zero_minus_1_brackets(u64 __percpu *pcp)
+| {
+| 	u32 zero = 0;
+| 	this_cpu_write(*pcp, (zero - 1));
+| }
 
-Right, if we cannot easily trigger it then it's way to special.
+Generated code before this patch:
 
+| <this_cpu_write_zero_minus_1>:
+|        paciasp
+|        stp     x29, x30, [sp, #-16]!
+|        mrs     x1, sp_el0
+|        mov     x29, sp
+|        ldr     w2, [x1, #8]
+|        add     w2, w2, #0x1
+|        str     w2, [x1, #8]
+|        mov     x3, #0xffffffffffffffff
+|        mrs     x2, tpidr_el1
+|        str     x3, [x0, x2]
+|        ldr     x0, [x1, #8]
+|        add     x0, x0, x3
+|        str     w0, [x1, #8]
+|        cbz     x0, 1f
+|        ldr     x0, [x1, #8]
+|        cbnz    x0, 2f
+| 1:     bl      preempt_schedule_notrace
+| 2:     ldp     x29, x30, [sp], #16
+|        autiasp
+|        ret
+|
+| <this_cpu_write_zero_minus_1_brackets>:
+|        paciasp
+|        stp     x29, x30, [sp, #-16]!
+|        mrs     x1, sp_el0
+|        mov     x29, sp
+|        ldr     w2, [x1, #8]
+|        add     w2, w2, #0x1
+|        str     w2, [x1, #8]
+|        mov     x3, #0xffffffff
+|        mrs     x2, tpidr_el1
+|        str     x3, [x0, x2]
+|        ldr     x0, [x1, #8]
+|        sub     x0, x0, #0x1
+|        str     w0, [x1, #8]
+|        cbz     x0, 1f
+|        ldr     x0, [x1, #8]
+|        cbnz    x0, 2f
+| 1:     bl      preempt_schedule_notrace
+| 2:     ldp     x29, x30, [sp], #16
+|        autiasp
+|        ret
+
+Generated code after this patch:
+
+| <this_cpu_write_zero_minus_1>:
+|        paciasp
+|        stp     x29, x30, [sp, #-16]!
+|        mrs     x1, sp_el0
+|        mov     x29, sp
+|        ldr     w2, [x1, #8]
+|        add     w2, w2, #0x1
+|        str     w2, [x1, #8]
+|        mov     x3, #0xffffffff
+|        mrs     x2, tpidr_el1
+|        str     x3, [x0, x2]
+|        ldr     x0, [x1, #8]
+|        sub     x0, x0, #0x1
+|        str     w0, [x1, #8]
+|        cbz     x0, 1f
+|        ldr     x0, [x1, #8]
+|        cbnz    x0, 2f
+| 1:     bl      preempt_schedule_notrace
+| 2:     ldp     x29, x30, [sp], #16
+|        autiasp
+|        ret
+|
+| <this_cpu_write_zero_minus_1_brackets>:
+|        b       this_cpu_write_zero_minus_1
+
+Fixes: 959bf2fd03b5 ("arm64: percpu: Rewrite per-cpu ops to allow use of LSE atomics")
+Reported-by: David Laight <david.laight.linux@gmail.com>
+Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: James Morse <james.morse@arm.com>
+Cc: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Vladimir Murzin <vladimir.murzin@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Yang Shi <yang@os.amperecomputing.com>
+Cc: stable@vger.kernel.org
+---
+ arch/arm64/include/asm/percpu.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
+index b57b2bb009677..63bbfd4944a37 100644
+--- a/arch/arm64/include/asm/percpu.h
++++ b/arch/arm64/include/asm/percpu.h
+@@ -179,13 +179,13 @@ PERCPU_RET_OP(add, add, ldadd)
+ 	_pcp_protect_return(__percpu_read_64, pcp)
+ 
+ #define this_cpu_write_1(pcp, val)	\
+-	_pcp_protect(__percpu_write_8, pcp, (unsigned long)val)
++	_pcp_protect(__percpu_write_8, pcp, (unsigned long)(val))
+ #define this_cpu_write_2(pcp, val)	\
+-	_pcp_protect(__percpu_write_16, pcp, (unsigned long)val)
++	_pcp_protect(__percpu_write_16, pcp, (unsigned long)(val))
+ #define this_cpu_write_4(pcp, val)	\
+-	_pcp_protect(__percpu_write_32, pcp, (unsigned long)val)
++	_pcp_protect(__percpu_write_32, pcp, (unsigned long)(val))
+ #define this_cpu_write_8(pcp, val)	\
+-	_pcp_protect(__percpu_write_64, pcp, (unsigned long)val)
++	_pcp_protect(__percpu_write_64, pcp, (unsigned long)(val))
+ 
+ #define this_cpu_add_1(pcp, val)	\
+ 	_pcp_protect(__percpu_add_case_8, pcp, val)
 -- 
-Cheers,
+2.30.2
 
-David
