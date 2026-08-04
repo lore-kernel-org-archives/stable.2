@@ -1,188 +1,148 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B4123C503
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 09:33:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93968430CE4
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 09:34:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785835993; cv=none; b=Oo8218WEyCtnSmo4RYdlUtnZlk9Bd8zZXNHOzE4Iq75Krg/WE2tfU76FhZW52fSz+PQjp/yOPjqF5KSiGI2lGUIVbj6haef5/KR0l2GNiLa39zGIWqcclXI/weZNBPoW8mC6BpVbJmTaF0qfZ1ybHgaUnh2p35KsB/tg05DRcKQ=
+	t=1785836090; cv=none; b=oVF059Z6HaMDvQ20baSdASNPWSaoOhaxn+w/c7iOOQN5eLMtbxr5ZRUhYShcn03gnSnviu92B5k/E4zcKLBGvp/H8vufxun0ifHKcDYperhdJ08DarE058n4OXcHnr7bXHj5fioo0N5iMrjagPEBYIs25bINQkY3Nqby6YUFaRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785835993; c=relaxed/simple;
-	bh=2c3j+x1oQYyMuC6YkSoOlfgH9+YHkAE/oawSeizlMoI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c2I3etMqHm/enG1aDv21TWgOBBd/S7caUBVAtiQiZWV6yf+D+5FA2/n90/DE/dZs0+NWv+Hahu6SyCkMXO5a1sQbddkpBTh1dqc7W/LLZOS9PjGcxv03FM8rNAPpylKev7bzM4s5vT8kaKfxrpV/J79ilICDr0C9aNVBacm2kG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DNd0WWVD; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785836090; c=relaxed/simple;
+	bh=L1KIGWC1SDXi+12vqyjnlbgB7xgvEeCmOPgubzKrUtI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=moOAE9xZ/j1HChOzj/v7x7JqzfrV85Ov44kNZNxDPIr5aPREx2wY38PJoIQs9JWqGuhp/bzR+ezHPv5P0mVO6vMqLY2Z4SAQNd138F9wa+RxxJXbycJhjXcgvSBjKMAOV6ebb8erZ8A0NgHDtJXE7V0fMmQt79jkgOd3cMhUWqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HyGnv5y3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DNd0WWVD"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cad68425a7so4784165ad.1
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 02:33:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785835991; x=1786440791; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bJek6yMdu453eh5vhUQNuwpWpa+Mp383syuPawBLsMg=;
-        b=DNd0WWVDOyy9O+FC9u9GJ35Tz+7+tBzaoeDtaX4gn/D9koMZFRA75DQu0zE/AGwk+Y
-         mEBKjoKWmXjn5Y4s4SlHgRWlP/NGwPGGfg01rgN+yoaZhG1QWqJC5xeeMH0v0kVnZ5yu
-         1GHmxruifYZDFayDjOAYwTqLivYGjwoDhig2m9Rgth0hpkRyB8f/S1NLKFHJH2dZ8k4H
-         3530AgtnfL6LUanOSc7xRFVDvoGpBm9JFDnuQgDFFEMZJlWt9NJOEGKMlDPScMuWcNmm
-         B593Uz7o7CPwgAbZpgdwSXtyIF5YvNakNdRrU6OziPN2Ces7WmA5ISAsSPEq3Hc0LjhX
-         HTlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785835991; x=1786440791;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bJek6yMdu453eh5vhUQNuwpWpa+Mp383syuPawBLsMg=;
-        b=el7TkiG8/qDr4eb4idS1/48E5iRudqXyWhKJ+4LJcKmWfmOssYAN6qIcN7DJfSwzfK
-         Qfj2nJhIi4HssABRJjF4/sqyFgLTs8ipwVBh63C/RhW27nJFZ+qZlLUjm2MQSrPuVu3q
-         NwRO7GS2YeTzgDovx7AqpROdQqNlGMCH6Jy5m05Ug9pQ9zMITnBsYxzY0EOrQYevjzpV
-         NAln79EKsM/GwOUzxwZsvC1DXrEFcLh2NLssdbllkTWg7qI9QWxWyDuuwDgdQXy/B9/k
-         RcnzIKx12XvuQviqJ7eELgRO3q9EBxLga+Wiq5vXZW7QzsYG/z+eZws3e5V5X2BtHKS8
-         daBA==
-X-Forwarded-Encrypted: i=1; AHgh+RqlZjcj/JauDbj11ej7mwYarc2iyDtfHTeOB113X0HifbgnsvNAF7TzpboEY2ZV56I7FI3Ab/w=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxM8wcGEUKadIZShIsgkXqwpqwiEJuh+57Euk7RgBIHffXUSYO8
-	/kbLSVJwMU79U2Ihjnt/968qhMLuQixf8byxhiOhGwZQKegO2/Ezglq9
-X-Gm-Gg: AR+sD10jJnZ2yQB10Z2lL0QtWy4YN7Az1vHoUkgfSanwJ+vZHOqibgnHIcNw189P53K
-	/vcO5xfHAEmwzKyySIVAdh0ZYyY3D++hOby52O+JV9remuGSXekv68Q4bLrVLaLr6ozhQ8w9APG
-	abn8AHUa19zYOL9+i3A2uinV/986id3YefAEnLtWOIUfxSTNHbTESGDY4zbicUMiiWKL07DPiem
-	5oVWlxn1zaKUdnjU9C02BSyc1XzT+F09khMC/C03yOwZNw04Xn5TMAuH4sJVwy6LXaLOMDCQWBZ
-	S9/1LPUSApRg6EZBRZzZ2SZ2TJOYUkJkc9mU6CqSpfKxY8gHVYK763T6bWcmyH/mb3MThAMHvSs
-	aN4XPT6HcLc5RghUtCULAJBEGxMcVYtaMxo/kRcKNfa2EKyPh7brweXXPlH9Ffonn/AqTReoZXm
-	CILYZVztpV+39xQRsxa4zfXm6cE2XLyw+2gp0jTAkg9DJwzACO0/VK5p62za8GICjWYCqL9E0Ym
-	JsMPTrzxqsKxvsEvowUe9BsM01Dy7niJ+dw0v7HUvHGl2bGiYI=
-X-Received: by 2002:a17:903:1450:b0:2c9:d298:6c0a with SMTP id d9443c01a7336-2d05246fbb8mr198442035ad.2.1785835991198;
-        Tue, 04 Aug 2026 02:33:11 -0700 (PDT)
-Received: from localhost.localdomain ([139.159.170.67])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0a9fd5f7fsm3731525ad.19.2026.08.04.02.33.06
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 04 Aug 2026 02:33:10 -0700 (PDT)
-From: Qihang <q.h.hack.winter@gmail.com>
-To: netdev@vger.kernel.org
-Cc: willemdebruijn.kernel@gmail.com,
-	willemb@google.com,
-	daniel.zahka@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	stable@vger.kernel.org,
-	Qihang Tang <q.h.hack.winter@gmail.com>
-Subject: [PATCH net v6 3/3] packet: use consistent hard_header_len in TX_RING send path
-Date: Tue,  4 Aug 2026 17:33:02 +0800
-Message-ID: <20260804093302.33990-1-q.h.hack.winter@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260730082925.93759-1-q.h.hack.winter@gmail.com>
-References: <20260730082925.93759-1-q.h.hack.winter@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HyGnv5y3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A0271F000E9;
+	Tue,  4 Aug 2026 09:34:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785836085;
+	bh=+YKYiz5iTdfFEMJaPEj6yrMIWXkZCjJhOHD8EBaC80E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HyGnv5y3p2hvpSxIIcgF3U/pil4U3CErzZ68qzEUM+7gPXNmL0TaXpOpFJPPVn/Na
+	 HPQ316f2aOLzV3gCXl0R2l9riT1SGArdeEMrw1lWt6Ao+5wWQxpd3e/2A6LAi6UaSG
+	 v851YUaKUgSejnkqDLFHRhmns28FXd5jNMX7QJgFIyY18mr/KYOlX/SqPNz6yoQDq4
+	 v/XdZd+Riu7eW9SYjNmv11Vyfxd4SasZebovbtxUkzlCndPiIt9SCrcbUuQixzMERy
+	 5RWxD77ztTz5yIr3gE2ZPDoMczMI08/lWIaG3YK7Tl4H2eZcUMZFxjnhc3fMZP1k2r
+	 2AlywvS6Kcezg==
+Message-ID: <3d3aa670-76bc-4df3-9c36-609c14354e9e@kernel.org>
+Date: Tue, 4 Aug 2026 11:34:41 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Fix incorrect flush address in direct page table reclaim
+To: Qi Zheng <qi.zheng@linux.dev>, luto@kernel.org, linux-mm@kvack.org
+Cc: luto@amacapital.net, Liam Howlett <liam.howlett@oracle.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Michal Hocko
+ <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>, stable@vger.kernel.org
+References: <20260804003708.49830-1-luto@kernel.org>
+ <313133db-3b94-4a63-8bcd-21952ff77e41@kernel.org>
+ <8cf8eaca-fc04-4a68-bbc8-50ecdbf96382@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <8cf8eaca-fc04-4a68-bbc8-50ecdbf96382@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Qihang Tang <q.h.hack.winter@gmail.com>
+On 8/4/26 11:25, Qi Zheng wrote:
+> 
+> 
+> On 8/4/26 5:05 PM, David Hildenbrand (Arm) wrote:
+>> On 8/4/26 02:37, luto@kernel.org wrote:
+>>> From: Andy Lutomirski <luto@kernel.org>
+>>>
+>>> When zap_pte_range reclaims a page table, it does:
+>>>
+>>>      pte_free_tlb(tlb, pmd_pgtable(pmdval), addr);
+>>>
+>>> and this is unconditionally wrong: if this code executes, addr *always*
+>>> points one past the end of the range covered by the table.  The addr
+>>> parameter is used to flush the TLB (really the paging-structure-cache)
+>>> to drop references to the to-be-freed table, and any architecture that
+>>> cares about the parameter will flush the wrong address.  (But they'll
+>>> still free the correct page).
+>>>
+>>> I think it's worth contemplating why the kernel works at all.
+>>
+>> Note that this only triggers when someone does e.g., a MADV_DONTNEED over
+>> a large enough range (covering at least a full PTE table).
+>>
+>> So this isn't the ordinary munmap()/exit() page table reclaim code.
+>>
+>> I'm still surprised that it took so long to show up; likely we need more
+>> targeted tests for PT_RECLAIM that
+> 
+> We backported the PT_RECLAIM to our internal tree a while ago (excluding
+> the rework patch being fixed here), and it has been running stably ever
+> since.
 
-tpacket_snd() reads dev->hard_header_len independently for skb
-allocation and header construction in tpacket_fill_skb(). Concurrent
-netdevice reconfiguration can therefore make the reserved headroom
-smaller than the amount later pushed, or make copylen - hard_header_len
-negative.
+I'm wondering whether we should have a selftest that triggers this exact scenario:
 
-Snapshot hard_header_len once before processing ring frames and use it
-for the frame limit, headroom allocation, copy length, and skb
-construction. Pass the snapshot to tpacket_fill_skb().
+(a) Populate page table(s)
+(b) MADV_DONTNEED to reclaim the page table(s)
+(c) Allocate plenty of pages for another purpose (draining PCP where the page
+    table likely ended up) and fill them with some data that looks like present page
+    table entries.
+(d) Re-access the reclaimed VA space, expecting re-population of anonymous
+    pages.
 
-The separate SOCK_DGRAM consistency problem between hard_header_len and
-header_ops->create is not addressed here.
+I can find someone to work on that.
 
-Fixes: 69e3c75f4d54 ("net: TX_RING and packet mmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qihang Tang <q.h.hack.winter@gmail.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
----
- net/packet/af_packet.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+Any other ideas what we could check? We could certainly also check that the page table
+was actually reclaimed during MADV_DONTNEED.
 
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 88674a6e868c..e9b6810c885e 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -2574,6 +2574,7 @@ static int packet_snd_vnet_parse(struct msghdr *msg, size_t *len,
- static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
- 		void *frame, struct net_device *dev, void *data, int tp_len,
- 		__be16 proto, unsigned char *addr, int hlen, int copylen,
-+		int hard_header_len,
- 		const struct sockcm_cookie *sockc)
- {
- 	union tpacket_uhdr ph;
-@@ -2605,8 +2606,8 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
- 	} else if (copylen) {
- 		int hdrlen = min_t(int, copylen, tp_len);
- 
--		skb_push(skb, dev->hard_header_len);
--		skb_put(skb, copylen - dev->hard_header_len);
-+		skb_push(skb, hard_header_len);
-+		skb_put(skb, copylen - hard_header_len);
- 		err = skb_store_bits(skb, 0, data, hdrlen);
- 		if (unlikely(err))
- 			return err;
-@@ -2737,7 +2738,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 	void *data;
- 	int len_sum = 0;
- 	int status = TP_STATUS_AVAILABLE;
--	int hlen, tlen, copylen = 0;
-+	int hard_header_len, hlen, tlen, copylen = 0;
- 	long timeo;
- 
- 	mutex_lock(&po->pg_vec_lock);
-@@ -2784,8 +2785,9 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto out_put;
- 	}
- 
-+	hard_header_len = READ_ONCE(dev->hard_header_len);
- 	if (po->sk.sk_socket->type == SOCK_RAW)
--		reserve = dev->hard_header_len;
-+		reserve = hard_header_len;
- 	size_max = po->tx_ring.frame_size
- 		- (po->tp_hdrlen - sizeof(struct sockaddr_ll));
- 
-@@ -2822,7 +2824,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto tpacket_error;
- 
- 		status = TP_STATUS_SEND_REQUEST;
--		hlen = LL_RESERVED_SPACE(dev);
-+		hlen = LL_RESERVED_SPACE_EX(dev, hard_header_len);
- 		tlen = dev->needed_tailroom;
- 		if (vnet_hdr_sz) {
- 			data += vnet_hdr_sz;
-@@ -2840,10 +2842,10 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 						    vnet_hdr.hdr_len);
- 			has_vnet_hdr = true;
- 		}
--		copylen = max_t(int, copylen, dev->hard_header_len);
-+		copylen = max_t(int, copylen, hard_header_len);
- 		skb = sock_alloc_send_skb(&po->sk,
- 				hlen + tlen + sizeof(struct sockaddr_ll) +
--				(copylen - dev->hard_header_len),
-+				(copylen - hard_header_len),
- 				!need_wait, &err);
- 
- 		if (unlikely(skb == NULL)) {
-@@ -2853,7 +2855,8 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 			goto out_status;
- 		}
- 		tp_len = tpacket_fill_skb(po, skb, ph, dev, data, tp_len, proto,
--					  addr, hlen, copylen, &sockc);
-+					  addr, hlen, copylen, hard_header_len,
-+					  &sockc);
- 		if (likely(tp_len >= 0) &&
- 		    tp_len > dev->mtu + reserve &&
- 		    !vnet_hdr_sz &&
 -- 
-2.50.1 (Apple Git-155)
+Cheers,
 
+David
