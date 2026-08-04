@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6622E41167C;
-	Tue,  4 Aug 2026 04:05:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9632F5324;
+	Tue,  4 Aug 2026 04:05:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785816343; cv=none; b=WlbbXNbiBUeKVyOvMR4TuHQvmgPd5Qwnw7F+UZxj8VwWG8XsndoBFzmbKDpsAQGRQNv6h5iFXjgEAMPNAqHssYDOO9jdtQAV/3NVnVEXxrDBXKeQKVi0LlypuEYB75x8DXkKyuOpT/5L4cs1QjuC42AXvolBm+NxcgSkO+CB/RE=
+	t=1785816345; cv=none; b=bUkQLqX6PW2l+tJRAErDSZ+rm2swityYGdjHa6ESbG5DHE2droXfvXTsBASWYGJjuzIj138yxUGyeCjBMhfamsTaGXzc1IiY9nB7JEfsso3Ks5/A4RETgj91QWVwiuCzu1+DJlsNm6FtN7IPgGzVU+IcHvENcMK9N2RnQMzw/3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785816343; c=relaxed/simple;
-	bh=rOX9d6xpDVs1ntIwo495qPRn197N/2YCcTLT0aquGuw=;
-	h=Date:To:From:Subject:Message-Id; b=h38jox1diN1xueSnFDxChJ6b4xV3htnjkj3+8tshoQ3MEHmKTuMK4H3a6yjFDN3JoFVhkJk795N+bommVvtYjwXsuFy0Kv1m+R5O+n0GZpilS4vZyrMSyT3slxEKQb5i2ycvxjVbbyCZsJywaft0h+X9nk6M9Rwi9NCxzK4EBaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=EWY3C+hz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785816345; c=relaxed/simple;
+	bh=4GuRHplfAvixBJyIHR7sR1MAO4AMfiH/LVJhYQ9He00=;
+	h=Date:To:From:Subject:Message-Id; b=dsjTcKbEb3MLdwMQo7LkXGnpfbz8AI9ZsqqsWyMADDifw4aE0E3VFroRp75x2BwcpTrZIdb602j20d3WEDJwVF1KTK8GGAMltk5jlV1mznJGmOD/Suw/3mXXqqZbiuS6HWpI+GCpwVADMC3mnLNF/r4Kgup6HP7K/R8VUzAR1cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=k1MFStJW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="EWY3C+hz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D96A1F000E9;
-	Tue,  4 Aug 2026 04:05:42 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="k1MFStJW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D2A1F000E9;
+	Tue,  4 Aug 2026 04:05:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785816342;
-	bh=ZBdJKJZ7pltF+0ZJ7vVF8UNHXQ8fvhwoL1ZRqTBJLhM=;
+	d=linux-foundation.org; s=korg; t=1785816344;
+	bh=1iOX0glbqbzopHAvNheEG8zAHBHUl7L2lbCwwhcOc5M=;
 	h=Date:To:From:Subject;
-	b=EWY3C+hzFj0JAIHh3VZQdbEsJ/T/nXZvs+krFI9KoRh7/HfvCzo4Rr8c9MKO0PmoB
-	 VVuvJ7o5s3fnP3bVeVwzncl7PmRM1XS6LYGaic/YxAziIgCRP1znmeNF3myUl2DizA
-	 +566A4EYYj09YuIc9KOE/nbsOyPrcNJ7h/s84RWE=
-Date: Mon, 03 Aug 2026 21:05:41 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,kees@kernel.org,junxiao.bi@oracle.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,doruk@0sec.ai,akpm@linux-foundation.org
+	b=k1MFStJWVu2QVXINulIjRFY5nj2uU3WFrsWY/gZgxTkyu48I85RTseb9Mvw5vmkNG
+	 KZ3jzZS7x2W9q0wQy9A6yg9QIYHUlP0Tm8uHw3qeS+VKgX1oPs5QqQOunm71jDl9+k
+	 eMCsU15vVjC+8cgHAOnudDkg1wQX9raPRdAtXliw=
+Date: Mon, 03 Aug 2026 21:05:44 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,ptikhomirov@virtuozzo.com,mjguzik@gmail.com,legion@kernel.org,include@grrlz.net,ebiederm@xmission.com,brauner@kernel.org,blbllhy@gmail.com,oleg@redhat.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-stable] ocfs2-validate-directory-index-entry-counts-when-reading-metadata.patch removed from -mm tree
-Message-Id: <20260804040542.3D96A1F000E9@smtp.kernel.org>
+Subject: [merged mm-nonmm-stable] sysctl-move-the-cad_pid-entry-from-pid_table-to-kern_reboot_table.patch removed from -mm tree
+Message-Id: <20260804040544.84D2A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,134 +35,143 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: ocfs2: validate directory-index entry counts when reading metadata
+     Subject: sysctl: move the "cad_pid" entry from pid_table[] to kern_reboot_table[]
 has been removed from the -mm tree.  Its filename was
-     ocfs2-validate-directory-index-entry-counts-when-reading-metadata.patch
+     sysctl-move-the-cad_pid-entry-from-pid_table-to-kern_reboot_table.patch
 
 This patch was dropped because it was merged into the mm-nonmm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-Subject: ocfs2: validate directory-index entry counts when reading metadata
-Date: Mon, 13 Jul 2026 22:56:25 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+Subject: sysctl: move the "cad_pid" entry from pid_table[] to kern_reboot_table[]
+Date: Mon, 20 Jul 2026 13:13:43 +0200
 
-ocfs2_validate_dx_leaf() and ocfs2_validate_dx_root() check the ECC and
-signature of an indexed-directory block before it reaches higher-level
-callers, but neither validator bounds the ocfs2_dx_entry_list counts
-against the capacity of the block that holds them.
+cad_pid is global, and kill_cad_pid() is only used in the root namespace.
 
-ocfs2_dx_dir_search() then walks
+However, due to pid_table_root_permissions(), a non-root user can unshare
+pid/user namespaces and modify it from the child namespace.  This makes no
+sense and is simply wrong.
 
-	for (i = 0; i < le16_to_cpu(entry_list->de_num_used); i++)
-		dx_entry = &entry_list->de_entries[i];
+Move it to kern_reboot_table[] where it logically belongs; this ensures
+that only GLOBAL_ROOT_UID can read/modify this sysctl.
 
-over de_num_used entries with no bounds check.  entry_list is either
-dx_leaf->dl_list (from ocfs2_read_dx_leaf) or, for an inline root,
-dx_root->dr_entries.  A crafted on-disk image can set de_num_used (and
-de_count, which is the __counted_by_le() bound of de_entries) to 0xffff
-and make the walk read far past the end of the 4KB metadata block, giving
-a slab out-of-bounds read reachable from any path lookup, stat() or open()
-on an indexed directory once the image is mounted.
+Note that this patch doesn't preserve "#ifdef CONFIG_PROC_SYSCTL" around
+the "cad_pid"; CONFIG_PROC_SYSCTL selects CONFIG_SYSCTL, so it is always
+set when kern_reboot_table[] is compiled.
 
-Commit 775c17386a6f ("ocfs2: validate dx_root extent list fields during
-block read") already bounds dr_list for the non-inline dx_root, but left
-the inline dr_entries path and the dx_leaf dl_list unchecked.  Add the
-same read-time validation for both entry lists: de_count must equal the
-capacity of the block (ocfs2_dx_entries_per_leaf()/per_root()) and
-de_num_used must not exceed de_count, rejecting corrupted metadata with
--EFSCORRUPTED before ocfs2_dx_dir_search() can walk an out-of-range entry
-array.
-
-de_count is always written as exactly the block capacity when a leaf or
-inline root is formatted, so the equality check does not reject any valid
-image.
-
-Found by 0sec automated security-research tooling (https://0sec.ai).
-
-Link: https://lore.kernel.org/20260713205625.92391-1-doruk@0sec.ai
-Fixes: 9b7895efac90 ("ocfs2: Add a name indexed b-tree to directory inodes")
-Fixes: 4ed8a6bb083b ("ocfs2: Store dir index records inline")
-Assisted-by: 0sec:claude-opus-4-8
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Heming Zhao <heming.zhao@suse.com>
+Link: https://lore.kernel.org/al4C572uhLdBvyzH@redhat.com
+Fixes: e054bcbe7e7a ("sysctl: move cad_pid into kernel/pid.c")
+Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+Acked-by: Alexey Gladkov <legion@kernel.org>
+Reviewed-by: Bradley Morgan <include@grrlz.net>
+Reviewed-by: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Eric Biederman <ebiederm@xmission.com>
+Cc: Mateusz Guzik <mjguzik@gmail.com>
+Cc: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- fs/ocfs2/dir.c |   45 +++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 41 insertions(+), 4 deletions(-)
+ kernel/pid.c    |   31 -------------------------------
+ kernel/reboot.c |   29 +++++++++++++++++++++++++++++
+ 2 files changed, 29 insertions(+), 31 deletions(-)
 
---- a/fs/ocfs2/dir.c~ocfs2-validate-directory-index-entry-counts-when-reading-metadata
-+++ a/fs/ocfs2/dir.c
-@@ -625,6 +625,28 @@ static int ocfs2_validate_dx_root(struct
- 					  le16_to_cpu(el->l_count));
- 			goto bail;
- 		}
-+	} else {
-+		struct ocfs2_dx_entry_list *dl_list = &dx_root->dr_entries;
-+
-+		if (le16_to_cpu(dl_list->de_count) !=
-+		    ocfs2_dx_entries_per_root(sb)) {
-+			ret = ocfs2_error(sb,
-+					  "Dir Index Root # %llu has invalid de_count %u (expected %u)\n",
-+					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-+					  le16_to_cpu(dl_list->de_count),
-+					  ocfs2_dx_entries_per_root(sb));
-+			goto bail;
-+		}
-+
-+		if (le16_to_cpu(dl_list->de_num_used) >
-+		    le16_to_cpu(dl_list->de_count)) {
-+			ret = ocfs2_error(sb,
-+					  "Dir Index Root # %llu has invalid de_num_used %u (de_count %u)\n",
-+					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
-+					  le16_to_cpu(dl_list->de_num_used),
-+					  le16_to_cpu(dl_list->de_count));
-+			goto bail;
-+		}
- 	}
+--- a/kernel/pid.c~sysctl-move-the-cad_pid-entry-from-pid_table-to-kern_reboot_table
++++ a/kernel/pid.c
+@@ -764,29 +764,6 @@ static struct ctl_table_root pid_table_r
+ 	.set_ownership	= pid_table_root_set_ownership,
+ };
  
- bail:
-@@ -664,10 +686,25 @@ static int ocfs2_validate_dx_leaf(struct
- 		return ret;
- 	}
+-static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffer,
+-		size_t *lenp, loff_t *ppos)
+-{
+-	struct pid *new_pid;
+-	pid_t tmp_pid;
+-	int r;
+-	struct ctl_table tmp_table = *table;
+-
+-	tmp_pid = pid_vnr(cad_pid);
+-	tmp_table.data = &tmp_pid;
+-
+-	r = proc_dointvec(&tmp_table, write, buffer, lenp, ppos);
+-	if (r || !write)
+-		return r;
+-
+-	new_pid = find_get_pid(tmp_pid);
+-	if (!new_pid)
+-		return -ESRCH;
+-
+-	put_pid(xchg(&cad_pid, new_pid));
+-	return 0;
+-}
+-
+ static const struct ctl_table pid_table[] = {
+ 	{
+ 		.procname	= "pid_max",
+@@ -797,14 +774,6 @@ static const struct ctl_table pid_table[
+ 		.extra1		= &pid_max_min,
+ 		.extra2		= &pid_max_max,
+ 	},
+-#ifdef CONFIG_PROC_SYSCTL
+-	{
+-		.procname	= "cad_pid",
+-		.maxlen		= sizeof(int),
+-		.mode		= 0600,
+-		.proc_handler	= proc_do_cad_pid,
+-	},
+-#endif
+ };
+ #endif
  
--	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf)) {
--		ret = ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
--				  7, dx_leaf->dl_signature);
--	}
-+	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf))
-+		return ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
-+				   7, dx_leaf->dl_signature);
-+
-+	if (le16_to_cpu(dx_leaf->dl_list.de_count) !=
-+	    ocfs2_dx_entries_per_leaf(sb))
-+		return ocfs2_error(sb,
-+				   "Dir Index Leaf # %llu has invalid de_count %u (expected %u)\n",
-+				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
-+				   le16_to_cpu(dx_leaf->dl_list.de_count),
-+				   ocfs2_dx_entries_per_leaf(sb));
-+
-+	if (le16_to_cpu(dx_leaf->dl_list.de_num_used) >
-+	    le16_to_cpu(dx_leaf->dl_list.de_count))
-+		return ocfs2_error(sb,
-+				   "Dir Index Leaf # %llu has invalid de_num_used %u (de_count %u)\n",
-+				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
-+				   le16_to_cpu(dx_leaf->dl_list.de_num_used),
-+				   le16_to_cpu(dx_leaf->dl_list.de_count));
+--- a/kernel/reboot.c~sysctl-move-the-cad_pid-entry-from-pid_table-to-kern_reboot_table
++++ a/kernel/reboot.c
+@@ -1366,6 +1366,29 @@ static struct attribute *reboot_attrs[]
+ };
  
- 	return ret;
- }
+ #ifdef CONFIG_SYSCTL
++static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffer,
++			   size_t *lenp, loff_t *ppos)
++{
++	struct ctl_table tmp_table = *table;
++	struct pid *new_pid;
++	pid_t tmp_pid;
++	int r;
++
++	tmp_pid = pid_vnr(cad_pid);
++	tmp_table.data = &tmp_pid;
++
++	r = proc_dointvec(&tmp_table, write, buffer, lenp, ppos);
++	if (r || !write)
++		return r;
++
++	new_pid = find_get_pid(tmp_pid);
++	if (!new_pid)
++		return -ESRCH;
++
++	put_pid(xchg(&cad_pid, new_pid));
++	return 0;
++}
++
+ static const struct ctl_table kern_reboot_table[] = {
+ 	{
+ 		.procname       = "poweroff_cmd",
+@@ -1381,6 +1404,12 @@ static const struct ctl_table kern_reboo
+ 		.mode           = 0644,
+ 		.proc_handler   = proc_dointvec,
+ 	},
++	{
++		.procname	= "cad_pid",
++		.maxlen		= sizeof(int),
++		.mode		= 0600,
++		.proc_handler	= proc_do_cad_pid,
++	},
+ };
+ 
+ static void __init kernel_reboot_sysctls_init(void)
 _
 
-Patches currently in -mm which might be from doruk@0sec.ai are
+Patches currently in -mm which might be from oleg@redhat.com are
 
 
