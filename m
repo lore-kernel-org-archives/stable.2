@@ -1,70 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF5621767D;
-	Tue,  4 Aug 2026 06:26:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0C01C23EAB0;
+	Tue,  4 Aug 2026 06:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785824784; cv=none; b=mfhwuwH4W+x0LHJHg9SxxCMGWXVIZNDMViWUpiN1XC6SHjCGf5MgsiP7hPWfnmb13asw/KQ18QMv0Kiw3gJUiXGJQZaxqPCGU6K8YZ1ms8NJ1maRPVhE+xY4xu0aLMHqriX9ypuwi3o1BBn0JouKTBlodx27exmSjzvg4RW7jrU=
+	t=1785824836; cv=none; b=YMlSKc/oupGjY/wfZ1AIy37SputZsFgJ5Z58SNtyCgTPgrk/qn0Xqm9Bk7QVFdlxdMCSYV1FywpFC3OpaNfmgw5pd139pRU5GNmArOl1SnXpPCNxZ+gX7aXXgBguTlcgfLLd7zRcPTwakVOy3pOLA6kDu36LLkFULjXdTjA+rAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785824784; c=relaxed/simple;
-	bh=c7w9zmE87QSB+Fi2WqrLag1E4Sr6WjMNT5E4OEo81hI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UvM6J24x3cHwURz9giaEWWpJC9n72KQCJexQPovnHFYQSFwbdcdUhPEl5PlS4B3FMBtJt06dhAX8FloSYKy9sK3AuIe4vv99lG25/7/xhb4OedyH3tWH7K6WCdcrygHPglTZBqjyJ2hEh8WEWFkRHDrJft19V4t6oFSpIHi3VSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=A6HsTikc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785824836; c=relaxed/simple;
+	bh=GZw+V1zr6GJ+fFmlwMN9cGDcnrj9DC3erOpXhpi1qdA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Xr9BGmEdMrGaqLjs1+VFCTzDOvgNnk/YYWu1yhYhHNiJQ+bfJkeg3ge1ZucvRg01bT937/xeGYw7pDHIt+ht48RAMBgbezJEe5q4uLolyhEX4og5acK44pfQyWS2ERtzej+Avcv9KanAX4Q022ezEDfvZ7WuegjhxXgldpqcads=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=bzLrhpra reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="A6HsTikc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D68531F000E9;
-	Tue,  4 Aug 2026 06:26:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785824783;
-	bh=u7ScsXC9B7i6Ms3pvR7Shh6wb2KMsAsSGvEVyKiqgxM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A6HsTikc3UFM2sx8zRg53QccF7EnFU60iVdFXdkV7gF5PupJJ7gIzqj8v1FotzhBi
-	 RThwkyrp1WQ0PiaHVIwKOtUIVkRFD544W+Ks/HWoUE1uxDbMVRPAZvMkSI2yn3BioV
-	 i/BCX+6ZcSfWqOV1Tkg1cAwHT5yA6epqsGxkGDSc=
-Date: Tue, 4 Aug 2026 08:24:54 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Cc: heikki.krogerus@linux.intel.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: tipd: fix uninitialized typec_partner_desc
- on stack
-Message-ID: <2026080439-elusive-lushness-2165@gregkh>
-References: <20260803171521.3381942-1-radhey.shyam.pandey@amd.com>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="bzLrhpra"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
+	MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=GZw+V1zr6
+	GJ+fFmlwMN9cGDcnrj9DC3erOpXhpi1qdA=; b=bzLrhpraoh59nOUwD/6K6ofme
+	IBgkMlABKu/dc9gRaEPrQtu1DWLXiKLEabbMfc4ilx/Tp77cpugcypB9IlK8UlpY
+	0wj6uOLcngxIqHft43MCKe5ruNko26RiPCM+KOWCo9GLg+UWvV2Kojoqo9rXGnnB
+	5EEqpDujOvNBlgCAFA=
+Received: from [192.168.1.110] (unknown [115.53.189.222])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with SMTP id BbQMCkD2WdM2hnFqWlDbAQ--.59253S3;
+	Tue, 04 Aug 2026 14:27:03 +0800 (CST)
+Message-ID: <461151f7-9474-4856-bf5c-d5145d9bb9dc@stu.xidian.edu.cn>
+Date: Tue, 4 Aug 2026 14:27:02 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260803171521.3381942-1-radhey.shyam.pandey@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] i2c: i801: Fix hardware state machine corruption and
+ stack-out-of-bounds
+To: jdelvare@suse.com, andi.shyti@kernel.org
+Cc: wsa@kernel.org, hkallweit1@gmail.com, djkurtz@chromium.org,
+ linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260627111749.482415-1-25181214217@stu.xidian.edu.cn>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+In-Reply-To: <20260627111749.482415-1-25181214217@stu.xidian.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:BbQMCkD2WdM2hnFqWlDbAQ--.59253S3
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYd7k0a2IF6F4UM7kC6x804xWl14x267AK
+	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1I
+	6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gr
+	1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAac4AC62xK8xCEY4vEwIxC
+	4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
+	IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
+	M4x0Y48IcVAKI48JMxkIecxEwVAFwVW8AwCF04k20xvY0x0EwIxGrwCF54CYxVCY1x0262
+	kKe7AKxVWUAVWUtwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
+	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jr_-PUUUUU=
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUPEWpwsH1obgAAsI
 
-On Mon, Aug 03, 2026 at 10:45:21PM +0530, Radhey Shyam Pandey wrote:
-> tps6598x_connect() and cd321x_update_work() pass a stack-allocated
-> typec_partner_desc to typec_register_partner() after initializing only
-> usb_pd, accessory and identity.
-> 
-> typec_register_partner() copies attach and deattach from the descriptor
-> into the partner. With those fields left unset, garbage function pointers
-> may be stored and later invoked from typec_partner_link_device() when a USB
-> device is linked to the port. Uninitialized pd_revision and usb_capability
-> similarly leak stack data through partner sysfs.
-> 
-> Zero-initialize the descriptor so optional callbacks remain NULL and the
-> remaining fields are zero.
-> 
-> Fixes: 82432bbfb9e8 ("usb: typec: tipd: Handle mode transitions for CD321x")
-> Fixes: 0a4c005bd171 ("usb: typec: driver for TI TPS6598x USB Power Delivery controllers")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-> ---
-> AI code scanning identified this issue; the possible call graph is shown below.
+Hi Jean and Andi,
 
-Nice, then please use an Assisted-by: tag.
+Just a gentle ping on this patch.
 
-thanks,
+It addresses a critical KASAN stack-out-of-bounds issue that occurs
+when a transaction times out or aborts, and the hardware fires a
+delayed or spurious interrupt after the stack frame is destroyed.
 
-greg k-h
+Please let me know if there are any further comments, or if it
+looks good to be queued up.
+
+Thanks,
+Mingyu
+
