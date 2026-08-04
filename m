@@ -1,45 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F16440A3C
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 11:21:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D42383C88
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 11:47:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785842508; cv=none; b=IPRXc6HlUyfTIELFYOr/UrOTaxwvr5fWcQq5r3/QXjv9AwXjtwF1+0JRVijV9OecjGa2+Mjh58e9dXmMFoqDsIW+QFWR2CqxawhCd1QlvuiWx6DXHtKNjZcvJNsAiWSU75v0ikWVpsZWA3hklqoG4dpfRUuG1e04+LFlHrlXtr0=
+	t=1785844024; cv=none; b=bcU9VvYC0jzxSU2UEd9G0k1W+gdKIKRFz3SpACEtoXfjZVG2RLKMeW/C5rmRM+ek15zxAjq5gVf3CCbV0gJlYP891vw31+OQcPg7z7aFZfdLq9qZ4elx9eSXBWrzzwmfTJhgy72D+FSEUPTMH+xbwBh98oyBHDeHDfa55Sw6Sog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785842508; c=relaxed/simple;
-	bh=F6P0OzkbCP8wmgkwoS+5N37Ktna6alCJ0eZTpIrKcJk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DB27kqa+cwnaJiqiQ3FkItkG51kUFPY/RvehXrEaoQy7urb/arkfdmARKe0v2VXz6xsuzOSKsCJPI6g6C078CPriaKgfPwy8vcI2AfxDkl8Wws3NZPNGSAP2GdcWwEOFuEc0sCQHJV6+TMtB9mF906JV53KM4O6j/7JGFAZZevU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jMj9pvy6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785844024; c=relaxed/simple;
+	bh=XxqNS50tBpxlE2P29zTDYXh7Xwj62CrJ08IlelI2hk8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dtmANtS3I3e7623DY6tsxh9yZrAl2UVEv00yYI4jWdVD1Gb2wAOz2H9Uuj15dqg4U4FHS/3ygwtM4OQvNwJHwcCbo/xqdGIwp1Mmwk+VvO0HcQyQ11atfcVjtnejNuSSZByEU4/YjirqhL7EMc/skqS21wJ7KV4ZIc+6F0hMAYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cT62ObCd; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jMj9pvy6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEA1D1F000E9;
-	Tue,  4 Aug 2026 11:21:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785842506;
-	bh=hTbSzw1oCYbQD/Cx8gXluucG5tBP1kh1sw/9Iu2cdBQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jMj9pvy66mPfbB8JsH9a3d/h6+D/dHFYaiDPMzx5DpgeHx0SpVyq1ks5jSyTD1V7Z
-	 EuZ6LLTz3tRgtujb7rlUgIPr4yywwIAn/on2EoOrZS4h/238pNniFJIJtWQgMARX9v
-	 xRDoktMUtLH+m8cJINa8OKAHfrbSjMZty01YKQu/zga+Rve/C2DVuHjUMAPgSaclzj
-	 4I2N9A2DD10AWLJnPhAH6F59CwS2TXA0Iz5HPctIc331tuDhQsk1YkzbElcJqCaoN1
-	 kUsTaQ0gE5lQydMLcRPK8mgBmFwMYLuqQLpUTOtv72mCUIOxYEdNcmDwATlWsPVduD
-	 QMs6LmZATmuww==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cT62ObCd"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2caced6038eso11299215ad.0
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 04:47:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785844022; x=1786448822; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9tB62FksLX7ZQ0iAAw6nUq5NKmSatJoxx9sauneOGhA=;
+        b=cT62ObCdeBUSqpxcFXDeB0uwsMFF4OSp9kkrSRWv8gPn3509GZuP2Qc32X1n8mvKtG
+         8Q7rMinJdZ5mEzCFoB+4gWbvE28UAXZWhLi4J9TpWTm5pPxuBv7MnScHzpSfHJ/d/Z6f
+         KRQNRLWiippd9tu7Q5dUCFZKU1WTgrcbquO9buKbFZQar7Ar9KSBLz7aTZrNehFGh79O
+         FeAbBXXQK7caryojF6gakiGQ4vro5582wU2rvGkh0q6OAz+CgnlN4z5WRTzNf0PiQQ9I
+         m63mRcqmCKECcoA09Waxw7b8Ifyx7/wKkm6/dzYDTpenHoSVuls4Ie/Ee00KFbW21J1T
+         MQyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785844022; x=1786448822;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9tB62FksLX7ZQ0iAAw6nUq5NKmSatJoxx9sauneOGhA=;
+        b=n9rK6MrSZoMSQSkeVZCR4hL1r5JdZeOn5ZFmnARVjM0okM4NtUwu3GjKh5tRlBGnoP
+         RxVg2Lz2JcBO/IMNfUa+4BVVAfPm1dzDTDlo7smF4W3spfrcx5X9c3DCjodUNEN/nhb8
+         b6+18RPD0ctSVmC1uP7tELt4NuayUhaP4N/303I8Qfdswm2UxXccrj5PAhpTYvt6rIVm
+         ttrbvQzg7Pr8RxYuviO2VdGenmmhkN7P7mBSim+m4LuicVG+aqQ5N5N3gtkObOyyyNJu
+         jdq2qymNZI42vn6CugdIvysKzfk3vRiTBLGF7hRtuO5J+3p9UzqCeSw1WFPPL6eX0fzR
+         a0zQ==
+X-Gm-Message-State: AOJu0Yw8GE0evMuWLEsrqoOluq00Bph4pgSXY+nluyDHpOcEoIiVZ6Uk
+	cwu+Jh8eacfwyfn+JevWoqrM8wjasC6thWPq9X/dvsPBdWU9qRJ3jQubQYTmQQ==
+X-Gm-Gg: AR+sD12sYrQodpCQd07QIFwKsEFYk/eCqx0QwWrCVxNd0Vu+p1rB5PIYosqd3y9JRsH
+	OgwpthoI5pR6PqmJEpBmwCwS6R84shFaEnKU8biXqE25sEcwQH/rDItbMyOTLZZxMtoHtn6bAGF
+	DElzFf4aVAQrqX/dT9mFGsPV6z8ZloWlx2Q/XyGRi7cuOcQvXnNSVHkZfmQR/w+h3w82o3jCDEo
+	CftOEEd6/LOPlqCKg4nv8+Phqe7g3oqgTNPVgvQhWPLjcTpP2E7Xb+UnZyzxZUeMbJBKXGXh8Gz
+	BfO0CC3d2gomVqzE9MrCIT72JJ5fi1Qx0EPSCkTgzHE/MAxMPCsMBAyUk2oGVQmTStzsGsBS7Kt
+	pKhuecUlBuQLO8oTPFV3oun3eaT4d6c2SKdH2SGka1/7SydWtjpM6sbRkH4euV29C3w7s37t+RV
+	WZdEFgemEK9wvU5yohvkW4z/zBo8o9UhntfgSnMhn3U0o3GPG4koweKJkypRa5CgIj1Bdip+eyE
+	PU=
+X-Received: by 2002:a17:903:98f:b0:2cf:461a:3863 with SMTP id d9443c01a7336-2d08ab8bec3mr32019075ad.22.1785844021710;
+        Tue, 04 Aug 2026 04:47:01 -0700 (PDT)
+Received: from online.mioffice.cn ([43.224.245.228])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0aa013dafsm5778535ad.35.2026.08.04.04.46.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 04:47:01 -0700 (PDT)
+From: Pengfei Zhang <zhangfeionline@gmail.com>
 To: stable@vger.kernel.org
-Cc: Jackson Lee <jackson.lee@chipsnmedia.com>,
-	Nas Chung <nas.chung@chipsnmedia.com>,
-	Brandon Brnich <b-brnich@ti.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] media: chips-media: wave5: Support CBP profile
-Date: Tue,  4 Aug 2026 07:21:44 -0400
-Message-ID: <20260804112144.2939763-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072917-agency-urban-6464@gregkh>
-References: <2026072917-agency-urban-6464@gregkh>
+Cc: gregkh@linuxfoundation.org,
+	sashal@kernel.org,
+	davem@davemloft.net,
+	dsahern@kernel.org,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	idosch@nvidia.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhangpengfei16@xiaomi.com,
+	Pengfei Zhang <zhangfeionline@gmail.com>
+Subject: [PATCH 5.10.y 6.1.y 6.6.y] ipv6: fib6: fix NULL deref in fib6_walk_continue() on multi-batch dump
+Date: Tue,  4 Aug 2026 19:46:54 +0800
+Message-ID: <20260804114655.179105-1-zhangfeionline@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,85 +82,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jackson Lee <jackson.lee@chipsnmedia.com>
+commit 9facb861dc6b9b9ea9793ef5032a9a826f7a4229 upstream.
 
-[ Upstream commit f8505f9d6b223a26854003bfdba1a0772457886d ]
+inet6_dump_fib() saves its progress in cb->args[1] as a positional
+index within the current hash chain.  Between batches, a concurrent
+fib6_new_table() can insert a new table at the chain head, shifting
+all existing entries.  The saved index then lands on a different
+table, causing fib6_dump_table() to set w->root to the wrong table
+while w->node still points into the previous one.
+fib6_walk_continue() dereferences w->node->parent (NULL) and panics:
 
-Constrained Baseline Profile (CBP) and Baseline Profile (BP) have been
-treated as the same.
-Introduce the ability to differentiate between the two.
+  BUG: kernel NULL pointer dereference, address: 0000000000000008
+  RIP: 0010:fib6_walk_continue+0x6e/0x170
+  Call Trace:
+   <TASK>
+   fib6_dump_table.isra.0+0xc5/0x240
+   inet6_dump_fib+0xf6/0x420
+   rtnl_dumpit+0x30/0xa0
+   netlink_dump+0x15b/0x460
+   netlink_recvmsg+0x1d6/0x2a0
+   ____sys_recvmsg+0x17a/0x190
 
-Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
-Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
-Tested-by: Brandon Brnich <b-brnich@ti.com>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fix by storing tb->tb6_id in cb->args[1] instead of a positional
+index.  On resume, skip entries until the id matches; a concurrent
+head-insert can never match the saved id, so the walker always
+resumes on the correct table.
+
+Fixes: 1b43af5480c3 ("[IPV6]: Increase number of possible routing tables to 2^32")
+Signed-off-by: Pengfei Zhang <zhangfeionline@gmail.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260625070517.965597-1-zhangfeionline@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[Adapted to 5.10/6.1/6.6: inet6_dump_fib() there predates 22e36ea9f5d7
+ and 5fc68320c1fb, so the return variable is "res" not "err" and the
+ RCU-protected hash walk exits via "out_unlock" instead of "unlock".
+ Context-only change; the fix itself is identical.]
+Signed-off-by: Pengfei Zhang <zhangfeionline@gmail.com>
 ---
- drivers/media/platform/chips-media/wave5/wave5-hw.c      | 3 +++
- drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c | 5 ++++-
- drivers/media/platform/chips-media/wave5/wave5-vpuapi.h  | 1 +
- 3 files changed, 8 insertions(+), 1 deletion(-)
+Notes for maintainers, not for the changelog:
 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-hw.c b/drivers/media/platform/chips-media/wave5/wave5-hw.c
-index 710311d851138..1daac56dd1d44 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-hw.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-hw.c
-@@ -1753,6 +1753,9 @@ int wave5_vpu_enc_init_seq(struct vpu_instance *inst)
- 			(p_param->skip_intra_trans << 25) |
- 			(p_param->strong_intra_smooth_enable << 27) |
- 			(p_param->en_still_picture << 30);
-+	else if (inst->std == W_AVC_ENC)
-+		reg_val |= (p_param->constraint_set1_flag << 29);
-+
- 	vpu_write_reg(inst->dev, W5_CMD_ENC_SEQ_SPS_PARAM, reg_val);
+This fix was picked up for 5.15.y, 6.12.y, 6.18.y and 7.1.y, but
+silently dropped for 5.10.y, 6.1.y and 6.6.y, where it does not apply.
+Those three are the only maintained trees still missing it.
+
+The two mainline commits that reshaped inet6_dump_fib() are
+
+  22e36ea9f5d7 ("inet: allow ip_valid_fib_dump_req() to be called with
+                 RTNL or RCU")                                  -- v6.9
+  5fc68320c1fb ("ipv6: remove RTNL protection from inet6_dump_fib()")
+                                                                -- v6.10
+
+6.12.y and later already contain both, since they branched off after
+v6.10.  5.15.y had both backported as prerequisites together with the
+fix, which is why the unmodified patch applied there.  5.10.y, 6.1.y and
+6.6.y never received them, so the upstream patch no longer applies.
+
+I did not backport those two commits on purpose: they are RTNL
+scalability work rather than fixes, and 22e36ea9f5d7 touches six files
+including common inet code.  Re-contextualising the fix is the smaller
+and safer change for these trees.
+
+The race is unaffected by the locking difference -- it happens between
+netlink dump batches, when no lock is held at all -- so the older
+RTNL-held shape is equally exposed.
+
+inet6_dump_fib() is byte-for-byte identical in 5.10.262, 6.1.180 and
+6.6.148, so this single patch covers all three.  Build- and boot-tested
+on each of them.
+
+ net/ipv6/ip6_fib.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
+
+diff --git a/net/ipv6/ip6_fib.c b/net/ipv6/ip6_fib.c
+--- a/net/ipv6/ip6_fib.c
++++ b/net/ipv6/ip6_fib.c
+@@ -625,11 +625,11 @@
+ 	const struct nlmsghdr *nlh = cb->nlh;
+ 	struct net *net = sock_net(skb->sk);
+ 	unsigned int h, s_h;
+-	unsigned int e = 0, s_e;
+ 	struct fib6_walker *w;
+ 	struct fib6_table *tb;
+ 	struct hlist_head *head;
+ 	int res = 0;
++	u32 s_id;
  
- 	reg_val = (p_param->lossless_enable) |
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-index b7761d8a7d0ac..0e92eca182365 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-@@ -906,6 +906,8 @@ static int wave5_vpu_enc_s_ctrl(struct v4l2_ctrl *ctrl)
- 		case V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_BASELINE:
- 			inst->enc_param.profile = H264_PROFILE_BP;
- 			inst->bit_depth = 8;
-+			if (ctrl->val == V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_BASELINE)
-+				inst->enc_param.constraint_set1_flag = 1;
- 			break;
- 		case V4L2_MPEG_VIDEO_H264_PROFILE_MAIN:
- 			inst->enc_param.profile = H264_PROFILE_MP;
-@@ -1168,6 +1170,7 @@ static void wave5_set_enc_openparam(struct enc_open_param *open_param,
- 			open_param->wave_param.intra_period = input.avc_idr_period;
- 		}
- 	} else {
-+		open_param->wave_param.constraint_set1_flag = input.constraint_set1_flag;
- 		open_param->wave_param.avc_idr_period = input.avc_idr_period;
+ 	if (cb->strict_check) {
+ 		int err;
+@@ -687,25 +687,24 @@
  	}
- 	open_param->wave_param.entropy_coding_mode = input.entropy_coding_mode;
-@@ -1631,7 +1634,7 @@ static int wave5_vpu_open_enc(struct file *filp)
- 			  -6, 6, 1, 0);
- 	v4l2_ctrl_new_std(v4l2_ctrl_hdl, &wave5_vpu_enc_ctrl_ops,
- 			  V4L2_CID_MPEG_VIDEO_H264_8X8_TRANSFORM,
--			  0, 1, 1, 1);
-+			  0, 1, 1, 0);
- 	v4l2_ctrl_new_std(v4l2_ctrl_hdl, &wave5_vpu_enc_ctrl_ops,
- 			  V4L2_CID_MPEG_VIDEO_H264_CONSTRAINED_INTRA_PREDICTION,
- 			  0, 1, 1, 0);
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
-index d2370511faf89..703b2413dafa1 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
-@@ -568,6 +568,7 @@ struct enc_wave_param {
- 	u32 lambda_scaling_enable: 1; /* enable lambda scaling using custom GOP */
- 	u32 transform8x8_enable: 1; /* enable 8x8 intra prediction and 8x8 transform */
- 	u32 mb_level_rc_enable: 1; /* enable MB-level rate control */
-+	u32 constraint_set1_flag: 1; /* enable CBP */
- };
  
- struct enc_open_param {
+ 	s_h = cb->args[0];
+-	s_e = cb->args[1];
++	s_id = cb->args[1];
+ 
+ 	rcu_read_lock();
+-	for (h = s_h; h < FIB6_TABLE_HASHSZ; h++, s_e = 0) {
+-		e = 0;
++	for (h = s_h; h < FIB6_TABLE_HASHSZ; h++, s_id = 0) {
+ 		head = &net->ipv6.fib_table_hash[h];
+ 		hlist_for_each_entry_rcu(tb, head, tb6_hlist) {
+-			if (e < s_e)
+-				goto next;
++			if (s_id && tb->tb6_id != s_id)
++				continue;
++
++			s_id = 0;
++			cb->args[1] = tb->tb6_id;
+ 			res = fib6_dump_table(tb, skb, cb);
+ 			if (res != 0)
+ 				goto out_unlock;
+-next:
+-			e++;
+ 		}
+ 	}
+ out_unlock:
+ 	rcu_read_unlock();
+-	cb->args[1] = e;
+ 	cb->args[0] = h;
+ out:
+ 	res = res < 0 ? res : skb->len;
 -- 
-2.53.0
+2.54.0
 
