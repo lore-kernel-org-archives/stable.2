@@ -1,39 +1,50 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E14E42FCDE;
-	Tue,  4 Aug 2026 09:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5704334B2
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 09:16:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785834748; cv=none; b=IpcNSMekqAA6GfbDIwrAR2muyevxc7zItuzBXxzfQ+jqvtWIKg+5oxK53E8xsVMYAvkUsOoo9BEVNIy0N+isDDbvEFX4/HK+dN2vBowYASO4KwXLJ8QBm3K3dbufpA+BXh8h4m6QGOqcAzEsUIZQg2r7m7zcFKgCIDMzj42GPVc=
+	t=1785834974; cv=none; b=aTKySz4LNt/aylNTYVxI8eV2a/eC40FJFpswuojdVh/YGC5QDcEUKXVErD+WNZX5qnsPCkM9+zd2wS71ykwFZld+cnCi0SqHOZDsRqApgL70bHiYpzawAid8vKuTbHWvVvr5xSebBYZi94Uo82WJrf1nNcHz3MGS9xdt20oxrCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785834748; c=relaxed/simple;
-	bh=rA3ndTPXDRKlf1VX6Bg0uKtMubVbUgJkDdvtaNj4igc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=I4MpJNrwYYwu+wvzyqUB5C1sOGBU5tQz0u2iZJI3X/F3G7Yf9iFEryu53FzAq+/hvLRmK4FjCgOZr7vOoDBPfCQXRJpWq8Y55r1U2ObtkpyGJ8gqKhT9yw5SlN+IqxCFd92S5NwyEIdh1viW5TpNQHJf4PDxBHy7SgJSuxuqFIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=Yb9uSmGE; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1785834974; c=relaxed/simple;
+	bh=5QlIOjC6Jpbo66snd/FfKofyDqbOGgkcgpZFX8XSXUg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=I6Z/vP8EPmB/G/3LsEsuxJxvXGcoB/WCVFdGwwS8gKRkSTaXFGx7U6d3MOb9Lwyy4x6sskwKQ0t2z1jlOjqOIALZZ/9tPQdSEAAQffVv8dDddDT3LsCCOIdL1eTgjeIMvYgU1SD7+4w8geGe9S+mOmGRw6/IDYn7GTqqoCGm3cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kj+EQeHb; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="Yb9uSmGE"
-Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id D059353400F7;
-	Tue, 04 Aug 2026 11:12:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1785834742;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=wfzxdUNz5hU0FrJNe5i6lUnlVJ8GKKJNvBxqXSs0TCI=;
-	b=Yb9uSmGE0ah/7nH3FizhJeXyiqfu1R43yomBq+k5hC+fsLvtTCgkb/Jo/jLbq9Hs8nRC6X
-	23tpXNuSwosQx24cfAgtOgdtEcW9/MA7c05wI4lVjc+g/VUoZX5qckm85sGbRKfB3treR7
-	oSWoxsCZbKZuBMHA/UUpooMdxbHNyK0=
-Message-ID: <7d55eaba-967c-4de6-8021-6b2d17670b1f@ixit.cz>
-Date: Tue, 4 Aug 2026 11:12:21 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kj+EQeHb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785834971; x=1817370971;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=5QlIOjC6Jpbo66snd/FfKofyDqbOGgkcgpZFX8XSXUg=;
+  b=kj+EQeHbrulDz3cNjJeD5fQTbIoawyv6lJDdwEW3ZuPjsNVgM2P2MXkH
+   Uam3IQmWwBgHpcRaQF9GaUsYLTtPsxPIHQ3xb4liuKKg43RSSA/z2SIyp
+   rlCNpLio93mPIxnstkXP8rdThqD+AHUcRButpxhT5aCWrTG8mExTTT3OF
+   WsDjcRP1l/uhywbFrNShf+sO2FSsid3BMZLJsCTvGCiYDxaZhwRoS4Jty
+   CFt+GhU4deI3tT2V3+9JCgh07oSNEKo8vztjbVE+QjU8JzrSgKMtMOK23
+   LHT0xWE9Uz5jegBrdkr7RRydrREQsujS87YiqGJro8gTorV3G53LpCFaZ
+   A==;
+X-CSE-ConnectionGUID: bclInkMBQdWC/tzTAXSmqg==
+X-CSE-MsgGUID: GE874pgbQrqRERLVV8Xb8Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86391847"
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; 
+   d="scan'208";a="86391847"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 02:16:10 -0700
+X-CSE-ConnectionGUID: UyAyMfkgQfW0GCjtyswHQA==
+X-CSE-MsgGUID: xx6z0YvnTVSRHq+4pFSVoA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; 
+   d="scan'208";a="257126725"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.172]) ([10.245.245.172])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 02:16:09 -0700
+Message-ID: <23d6d8e8-a885-4bed-8384-d2b0b8dc5e11@intel.com>
+Date: Tue, 4 Aug 2026 10:16:07 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,140 +52,247 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] arm64: dts: rockchip: rk3399-pinephone-pro: DW9714
- coil requires higher voltage
-To: =?UTF-8?Q?Ond=C5=99ej_Jirman?= <megi@xff.cz>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Olivier Benjamin <olivier.benjamin@bootlin.com>,
- Manuel Traut <manut@mecka.net>, Alexander Warnecke
- <awarnecke002@hotmail.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- phone-devel@vger.kernel.org, imx@lists.linux.dev, stable@vger.kernel.org
-References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
- <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
- <2j7ogeqj565sftp5wzqvtzi2id76fof623bifbmyu6ckhf6vm6@ya7h4tp5i4qf>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
- 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
- lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
- 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
- dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
- F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
- NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
- 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
- AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
- k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
- ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
- AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
- AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
- afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
- loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
- jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
- ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
- VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
- W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
- zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
- QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
- UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
- zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
- 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
- IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
- jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
- FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
- aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
- NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
- AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
- hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
- rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
- qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
- 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
- 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
- 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
- NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
- GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
- yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
- zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
- fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
- ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <2j7ogeqj565sftp5wzqvtzi2id76fof623bifbmyu6ckhf6vm6@ya7h4tp5i4qf>
+Subject: Re: [PATCH v7 1/3] drm/xe/guc_ads: allocate UM queues in a separate
+ BO
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Jia Yao <jia.yao@intel.com>, intel-xe@lists.freedesktop.org,
+ Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>, stable@vger.kernel.org
+References: <20260803200838.98826-1-jia.yao@intel.com>
+ <20260803200838.98826-2-jia.yao@intel.com>
+ <fff60c87-460c-4713-a65a-e9c3841bbf2b@intel.com>
+ <anGo2nE/j1QUKE0J@gsse-cloud1.jf.intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <anGo2nE/j1QUKE0J@gsse-cloud1.jf.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04/08/2026 09:39, Ondřej Jirman wrote:
-> Hi,
+On 04/08/2026 09:54, Matthew Brost wrote:
+> On Tue, Aug 04, 2026 at 09:00:19AM +0100, Matthew Auld wrote:
+>> On 03/08/2026 21:08, Jia Yao wrote:
+>>> Move the UM queues into a dedicated UC BO (ads->um_queue_bo) and avoid
+>>> CPU memset operations on it, which eliminates the CPU as a potential
+>>> cacheline-polluting agent and helps maintain consistency between GAM
+>>> writes and GuC reads.
+>>>
+>>> Fixes: 9c57bc08652a ("drm/xe/lnl: Drop force_probe requirement")
+>>> Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+>>> Cc: Matthew Auld <matthew.auld@intel.com>
+>>> Cc: <stable@vger.kernel.org> # v6.12+
+>>> Signed-off-by: Jia Yao <jia.yao@intel.com>
+>>> ---
+>>>    drivers/gpu/drm/xe/xe_guc.c           |  6 ++
+>>>    drivers/gpu/drm/xe/xe_guc_ads.c       | 89 +++++++++++++++++----------
+>>>    drivers/gpu/drm/xe/xe_guc_ads_types.h |  5 ++
+>>>    3 files changed, 68 insertions(+), 32 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
+>>> index 4286bd05c686..4f132bf8539d 100644
+>>> --- a/drivers/gpu/drm/xe/xe_guc.c
+>>> +++ b/drivers/gpu/drm/xe/xe_guc.c
+>>> @@ -732,6 +732,12 @@ static int xe_guc_realloc_post_hwconfig(struct xe_guc *guc)
+>>>    	if (ret)
+>>>    		return ret;
 > 
-> On Sat, Aug 01, 2026 at 02:35:21AM +0200, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
->> Usually it's around 2.8 V. Here it matches the avdd2v8_dvp.
->>
->> Fixes: 9336eb829a18 ("arm64: dts: rockchip: describe I2c Bus 1 and IMX258 world camera on PinePhone Pro")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->>   arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
->> index d46cdfe3f7849..bde35d9b2263e 100644
->> --- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
->> +++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
->> @@ -473,17 +473,17 @@ wcam_out: endpoint {
->>   			};
->>   		};
->>   	};
->>   
->>   	wcam_lens: camera-lens@c {
->>   		compatible = "dongwoon,dw9714";
->>   		reg = <0x0c>;
->>   		/* Same I2c bus as both cameras, depends on vcca1v8_codec for power. */
->> -		vcc-supply = <&vcc1v8_dvp>;
->> +		vcc-supply = <&avdd2v8_dvp>;
+> Add a newline here.
 > 
-> This does not match reality, schematic says it's VCC2V8_DVP:
-> 
-> 	https://xff.cz/dl/tmp/6253a0465329df41.png
-
-Ahoj,
-
-thanks for spotting this, since I know you have the device, would be too much to 
-ask you to send standalone fix for PP Pro?
-
-I would drop the change from the series.
-
-David
-
-P.S. I noticed I didn't mark this series RFC. Too late.
-
-> 
-> regards,
-> 	o.
-> 
->>   	};
->>   
->>   	ucam: camera@36 {
->>   		compatible = "ovti,ov8858";
->>   		reg = <0x36>;
->>   		clocks = <&cru SCLK_CIF_OUT>; /* MIPI_MCLK1, derived from CIF_CLK0 */
->>   		clock-names = "xvclk";
->>   		dovdd-supply = <&vcc1v8_dvp>;
+>>> +	if (guc->ads.um_queue_bo) {
+>>> +		ret = xe_managed_bo_reinit_in_vram(xe, tile, &guc->ads.um_queue_bo);
+>>> +		if (ret)
+>>> +			return ret;
+>>> +	}
+>>> +
+>>>    	return 0;
+>>>    }
+>>> diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
+>>> index f0ac00586d3a..ef8e9cc35c8c 100644
+>>> --- a/drivers/gpu/drm/xe/xe_guc_ads.c
+>>> +++ b/drivers/gpu/drm/xe/xe_guc_ads.c
+>>> @@ -8,6 +8,7 @@
+>>>    #include <linux/fault-inject.h>
+>>>    #include <drm/drm_managed.h>
+>>> +#include <drm/drm_prime.h>
+>>>    #include <generated/xe_wa_oob.h>
+>>> @@ -64,10 +65,14 @@ ads_to_map(struct xe_guc_ads *ads)
+>>>    /*
+>>>     * The Additional Data Struct (ADS) has pointers for different buffers used by
+>>> - * the GuC. One single gem object contains the ADS struct itself (guc_ads) and
+>>> - * all the extra buffers indirectly linked via the ADS struct's entries.
+>>> + * the GuC. One gem object (ads->bo) contains the ADS struct itself (guc_ads)
+>>> + * and most of the extra buffers linked via the ADS struct's entries.  The UM
+>>> + * fault queues (PAGE_FAULT, PAGE_FAULT_RESPONSE, ACCESS_COUNTER rings) are
+>>> + * kept in a separate BO (ads->um_queue_bo) so that the full memset of ads->bo
+>>> + * performed on every GT reset does not discard fault descriptors already
+>>> + * written into the rings by the GPU.
+>>>     *
+>>> - * Layout of the ADS blob allocated for the GuC:
+>>> + * Layout of the ADS blob (ads->bo):
+>>>     *
+>>>     *      +---------------------------------------+ <== base
+>>>     *      | guc_ads                               |
+>>> @@ -99,10 +104,6 @@ ads_to_map(struct xe_guc_ads *ads)
+>>>     *      +---------------------------------------+
+>>>     *      | padding                               |
+>>>     *      +---------------------------------------+ <== 4K aligned
+>>> - *      | UM queues                             |
+>>> - *      +---------------------------------------+
+>>> - *      | padding                               |
+>>> - *      +---------------------------------------+ <== 4K aligned
+>>>     *      | private data                          |
+>>>     *      +---------------------------------------+
+>>>     *      | padding                               |
+>>> @@ -156,16 +157,6 @@ static size_t guc_ads_capture_size(struct xe_guc_ads *ads)
+>>>    	return PAGE_ALIGN(ads->capture_size);
+>>>    }
+>>> -static size_t guc_ads_um_queues_size(struct xe_guc_ads *ads)
+>>> -{
+>>> -	struct xe_device *xe = ads_to_xe(ads);
+>>> -
+>>> -	if (!xe->info.has_usm)
+>>> -		return 0;
+>>> -
+>>> -	return GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX;
+>>> -}
+>>> -
+>>>    static size_t guc_ads_private_data_size(struct xe_guc_ads *ads)
+>>>    {
+>>>    	return PAGE_ALIGN(ads_to_guc(ads)->fw.private_data_size);
+>>> @@ -206,22 +197,12 @@ static size_t guc_ads_capture_offset(struct xe_guc_ads *ads)
+>>>    	return PAGE_ALIGN(offset);
+>>>    }
+>>> -static size_t guc_ads_um_queues_offset(struct xe_guc_ads *ads)
+>>> -{
+>>> -	u32 offset;
+>>> -
+>>> -	offset = guc_ads_capture_offset(ads) +
+>>> -		 guc_ads_capture_size(ads);
+>>> -
+>>> -	return PAGE_ALIGN(offset);
+>>> -}
+>>> -
+>>>    static size_t guc_ads_private_data_offset(struct xe_guc_ads *ads)
+>>>    {
+>>>    	size_t offset;
+>>> -	offset = guc_ads_um_queues_offset(ads) +
+>>> -		guc_ads_um_queues_size(ads);
+>>> +	offset = guc_ads_capture_offset(ads) +
+>>> +		guc_ads_capture_size(ads);
+>>>    	return PAGE_ALIGN(offset);
+>>>    }
+>>> @@ -461,6 +442,44 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
+>>>    	ads->bo = bo;
+>>> +	if (xe->info.has_usm) {
+>>> +		/*
+>>> +		 * Allocate a separate BO for the HW fault ring (UM queues).
+>>> +		 *
+>>> +		 * Round the size up to the next power of two so that
+>>> +		 * (system memory, no IOMMU) the TTM pool issues a single
+>>> +		 * alloc_pages(order=N) call, maximising the chance of getting
+>>> +		 * a physically contiguous block.  GuC requires contiguous DPA.
+>>> +		 */
+>>> +		size_t um_size = roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
+>>> +						    GUC_UM_HW_QUEUE_MAX);
+>>> +
+>>> +		bo = xe_managed_bo_create_pin_map(xe, tile, um_size,
+>>> +						  XE_BO_FLAG_SYSTEM |
+>>> +						  XE_BO_FLAG_GGTT |
+>>> +						  XE_BO_FLAG_GGTT_INVALIDATE |
+>>> +						  XE_BO_FLAG_PINNED_NORESTORE);
+>>> +		if (IS_ERR(bo))
+>>> +			return PTR_ERR(bo);
+>>> +
+>>> +		/*
+>>> +		 * On pre-Xe3p platforms, GAM (not GuC) accesses the UM queue
+>>> +		 * ring via base_dpa, which must be a contiguous DMA address
+>>> +		 * range.  Verify that the allocated pages are contiguous in
+>>> +		 * DMA address space.
+>>> +		 */
+>>> +		if (xe_bo_sg(bo) &&
 >>
->> -- 
->> 2.53.0
 >>
+>> There is a comment from Sashiko that there might not be a valid tt for vram
+>> buffers, so perhaps just make this check !xe_bo_is_vram() instead?
 >>
+>>> +		    !xe_guc_using_main_gamctrl_queues(ads_to_guc(ads)) &&
+>>> +		    unlikely(drm_prime_get_contiguous_size(xe_bo_sg(bo)) <
+> 
+> Using drm_prime_* really is the wrong layering. Either this helper
+> should be some drm or sg generic or IMO we implement this helper
+> ourselves until we have a proper one in drm or sg generic.
+> 
+> e.g., for SG specific BOs, something like this should work.
+> 
+> xe_bo_sg_is_contigous(struct xe_bo *bo)
+> {
+> 	struct xe_res_cursor cur;
+> 
+> 	xe_assert(xe_bo_device(bo), xe_bo_sg(bo));
+> 	xe_res_first_sg(xe_bo_sg(bo), 0, xe_bo_size(bo), &cur);
+> 
+> 	return cur.size == xe_bo_size(bo);
+> }
 
--- 
-David Heidelberg
+AFAICT I don't think it's the same since you could potentially get 
+multiple sg entries underneath, where they still occupy something contig 
+as a whole, and xe_res_first_sg() doesn't try to coalesce. Maybe it 
+should? The !xe_bo_sg_is_contigous() will be fatal, so I think we should 
+try as hard as possible for the check.
+
+Agreed drm_prime_get_contiguous_size() is a bit odd, but essentially we 
+were previously implementing the same thing.
+
+> 
+> Matt
+> 
+>>> +			     GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX)) {
+>>> +			drm_err(&xe->drm,
+>>> +				"UM fault queue memory is not contiguous in DMA address space; GAM requires contiguous DPA\n");
+>>> +			return -ENOMEM;
+>>> +		}
+>>> +
+>>> +		ads->um_queue_bo = bo;
+>>> +	}
+>>> +
+>>>    	return 0;
+>>>    }
+>>>    ALLOW_ERROR_INJECTION(xe_guc_ads_init, ERRNO); /* See xe_pci_probe() */
+>>> @@ -893,7 +912,7 @@ static void guc_mmio_reg_state_init(struct xe_guc_ads *ads)
+>>>    static void guc_um_init_params(struct xe_guc_ads *ads)
+>>>    {
+>>> -	u32 um_queue_offset = guc_ads_um_queues_offset(ads);
+>>> +	struct xe_bo *um_bo = ads->um_queue_bo;
+>>>    	struct xe_guc *guc = ads_to_guc(ads);
+>>>    	struct xe_device *xe = ads_to_xe(ads);
+>>>    	u64 base_dpa;
+>>> @@ -903,8 +922,14 @@ static void guc_um_init_params(struct xe_guc_ads *ads)
+>>>    	with_dpa = !xe_guc_using_main_gamctrl_queues(guc);
+>>> -	base_ggtt = xe_bo_ggtt_addr(ads->bo) + um_queue_offset;
+>>> -	base_dpa = xe_bo_main_addr(ads->bo, PAGE_SIZE) + um_queue_offset;
+>>> +	if (um_bo) {
+>>> +		/* All USM platforms: UM queues in dedicated um_queue_bo */
+>>> +		base_ggtt = xe_bo_ggtt_addr(um_bo);
+>>> +		base_dpa = xe_bo_main_addr(um_bo, PAGE_SIZE);
+>>> +	} else {
+>>> +		/* Platform does not support USM: no UM queues, nothing to do */
+>>> +		return;
+>>> +	}
+>>>    	for (i = 0; i < GUC_UM_HW_QUEUE_MAX; ++i) {
+>>>    		/*
+>>> diff --git a/drivers/gpu/drm/xe/xe_guc_ads_types.h b/drivers/gpu/drm/xe/xe_guc_ads_types.h
+>>> index 48a8e092023f..845c1fbd93a4 100644
+>>> --- a/drivers/gpu/drm/xe/xe_guc_ads_types.h
+>>> +++ b/drivers/gpu/drm/xe/xe_guc_ads_types.h
+>>> @@ -16,6 +16,11 @@ struct xe_bo;
+>>>    struct xe_guc_ads {
+>>>    	/** @bo: Xe BO for GuC ads blob */
+>>>    	struct xe_bo *bo;
+>>> +	/**
+>>> +	 * @um_queue_bo: Dedicated BO for the HW fault ring (UM queues).
+>>> +	 * NULL if the platform does not support USM.
+>>> +	 */
+>>> +	struct xe_bo *um_queue_bo;
+>>>    	/** @golden_lrc_size: golden LRC size */
+>>>    	size_t golden_lrc_size;
+>>>    	/** @regset_size: size of register set passed to GuC for save/restore */
+>>
 
