@@ -1,136 +1,165 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36D9370D5E
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 15:08:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1025030D40B;
+	Tue,  4 Aug 2026 15:16:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785856098; cv=none; b=J7TYEhcFKCI2Di2x8DMJSFexf8TvZvCQz5NMaTFs5r2dfEGnxQeTmvE4LhZgAnfQqCahd1GsYJYyrILjczOggy1x3WzxnePHUFrQyNtXFS4XukUR1f1fqHV5VxcVExDmc9PEcZP+jtqzkTxoQH8vNNh5GEPS+VO82PdOdtkQcO0=
+	t=1785856566; cv=none; b=YZZP5tgEWAYfgw9x4D9T0iF9iOILPz45TcnEZgesxi0T6Uvk90cf1qBz1EgyrDho87/DV1Wnh5fBmE1YpCaKHEb6UPIrCb4QJbHmtfLsRxI7EZKGkBgZ6q1F9+1ukVNPjk11nZvR4s9onAWSJcnZDYZcDUg4P5+gFSQO0UTeTvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785856098; c=relaxed/simple;
-	bh=s4p6juCwQ475aHXTn+wYPeV0BPHhmlo0G++9AOmJWt0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=inWIZXYpG/BRT+VSFIcHXhJvhcwPLyHEjb4UewhksSUScMHt+M2+j49SPM1CHfQGqxP2K0TS7vzWyg3rIjbjHOvWgZqmvkspoh8io96K40TEedjDdUCobUE8hCx2J/ucBi+Un2Gki/URwJ/D/kSaNuAuuQNjIaYxEsVBLEDzEjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UVV2WGgI; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785856566; c=relaxed/simple;
+	bh=/BHuaHt5d+Zle4n4t1PFaIiQekCwHpfZciAES6Xkzhw=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ioQcs2TvdjodT57V5jv/zhxSIv7Hxa0m8GhP1A6B1mmlL4rhXj8zixhnvQEWbGK6Ijlia4NL5epLDSN8EwvKRjlBZunKwDhO7ssqcc/aA7+HjgkV9LKmGaJV7ZcIgylJplj6xCVI1Ius9gnQ0gdCIhiXr8gRQGKf6TLwmaTkIYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HRufI+Em; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UVV2WGgI"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84862b0d5aeso5654656b3a.2
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 08:08:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785856097; x=1786460897; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S4Qg2o+emc3m6rF47B2E/svsOXDIcQrkgOFSzKR4MaY=;
-        b=UVV2WGgIHTSiMeZNrU9W2yknVXj9o3So2xx4hrGTg6MxxpPy+L0tn+W9hYNRD1RklW
-         CqfpX/D+bbvq4MfN1Np4736CFVPA39RctRFcXJFpI5JXlKH0qpvZf1hih0Vlgo1AzSQz
-         vDmej0JKt94+tD2QqPvTNT6s907d0bCZv1fw+UwTyCiMCFc4C3oLoK9Yv4tsAlA+qwFb
-         v+5/OpjS/x/Qnb3cv7SeBdzp4hX2raNlxBqbt3A6EujgbEJTQ3TzcnCjabdQM5xl5gF5
-         3EAz4JYseuxhVxjWSTfzvucR0lgT1HO46cjpIVVviUfxcxnu5Du8UBiequFUg9MkVM0U
-         gYQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785856097; x=1786460897;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S4Qg2o+emc3m6rF47B2E/svsOXDIcQrkgOFSzKR4MaY=;
-        b=CKFBh4JLTPXHhhOV/cTlw4jmANqoDJppDTbIDUg8XxnhQTjUq6RWDrydPa0H1mmpBz
-         edV64rMYnLYPdp9y6FWDqP1XE+ZqsQPYlPWp9SyOPdquDja5NYvNHhIwN5ym7Dv6Jy+1
-         OnI+ofwVhDT1EKhoKybB25EPowMxNwlt6zTMDK220pC8+dJIa9aPmAzyyu4zHngmNfg2
-         87iu2y0LlZJNGOez/7GMRRdzI7Ge9AlEc0bULVmg3/5RIPsQjN3skcAVOC3Ax6cbY4WI
-         8frMrZcreKNxWWX0smUk8nGi7Dx16z34AFxmQurujB2VGMgQ80YV7PvFSDc6sSCE3Zlh
-         KVdA==
-X-Forwarded-Encrypted: i=1; AHgh+Rrw42lh6og0HR1oEctRgYcrsa6jYwiuqbC/dDY/jdCOn6qTX+Yj2dn4Yo4RaBaZDQTylip5SLg=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywf6Y087Yia4+h6JYCAn2MMwtYq2m3Zh8X6XDIyidEBqngZS6j6
-	k0negTXj9ivd/S5nnLuV0tOXEkqlkav7TAyQs/fT5Nz7QKTTBIWVyFU=
-X-Gm-Gg: AR+sD11MNhY6dZD+I1R/yN4Zr7OtH0KQWIw/kqedXeRNBn05bIPS5o/ykDFvRjAzyhR
-	K5XYWli7VJzrm8NXmmg0JW+6cZqQrMzFTlq/Lplfn248Z3ssOWFA1jsvbWgy04PYvmp15fGPgYV
-	jnFn2glO6DnRJEbGYqbUsT9H3XLrHxVQXi6EagOd1MwwOFNh1qzuPmO7WwImvaNKFDh54zRUA1N
-	tcoSKfCyBJ7waxsbzI4LlhBdOguk/n7rdGRgrcOE5992L/EGawaXCXAUeVK+qxctjYuRghQSo+z
-	LdLwZn5T9mp/wQBJJL1TFyZT8QhP6hTGs4uinPpV13NiqymfFE8YzzL6BQOsYKtxE8XaG56/GoO
-	hxPhvExzhmwC2bEH7TehYURTwcGhM7BpmJ7JWGdTbE8DuCW8Mt7dNfHG/yjKwll/42WwbyC/hm1
-	crvPcqHRUfC2dt/eIRT6kf/WUv2FEvOCYIy2VpItzxedc+cULnaPxxLMUlezHibwz3fxGFt9qs0
-	/ahdoT3Yu4lF7GmXnz366NnJnZDzeE4BsNsGDqTwWx2+swKaAyyKIzvmvp2/Ku7xoFPL8AV5JtL
-	iv0TRuh+PQB9VQq+Taklog4=
-X-Received: by 2002:a05:6a00:ad1:b0:845:4126:222b with SMTP id d2e1a72fcca58-84ee47d8768mr14159742b3a.28.1785856096851;
-        Tue, 04 Aug 2026 08:08:16 -0700 (PDT)
-Received: from localhost.localdomain ([1.226.165.54])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84edc41ca4dsm5420587b3a.52.2026.08.04.08.08.11
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 04 Aug 2026 08:08:15 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-amlogic@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HRufI+Em"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89E0B1F000E9;
+	Tue,  4 Aug 2026 15:16:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785856564;
+	bh=ftTsgcVpNbKCmx0FJnA+PSQP6EmU4JeV42lZlsrS4B0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HRufI+Emv/LZbJmWN1om8HUrS3Vvz6U/9Y3SL83gqQvWGcxXXpzb6wSdZkqQXL5Lg
+	 bL1xUE/uyaKmnqYu2ifr9UFgMqW9fhGIUNR8nCst2kP+4eKzBYlbMOL1Tj0ZvoeXji
+	 RDRbjoP6/Iqa6Qw5kEAb90eihNF1YChONzouTFrEtMgGkpeqXEzZhTTidD1QOdAvKN
+	 hdhxCIJQTr2XBiU99pO0NfDOmSqNuOfEK5fGMEeffo57m/X8nNf8/ls8fEH4FqHUMF
+	 mLZTd34ThEHML72RnYQUEkp8VOMFqDQuYqRc84U0QWsz/kPfnKzpBJz++gl2hmbuLX
+	 cX+iKdUQas5/A==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wrGs6-0000000CGJt-1b0o;
+	Tue, 04 Aug 2026 15:16:02 +0000
+Date: Tue, 04 Aug 2026 16:16:02 +0100
+Message-ID: <86ik5pc3wt.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Joey Gouly <joey.gouly@arm.com>
+Cc: kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	kernel test robot <lkp@intel.com>,
-	oe-kbuild-all@lists.linux.dev,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v2] drm/meson: clean up KMS polling on register failure
-Date: Wed,  5 Aug 2026 00:08:02 +0900
-Message-ID: <20260804150802.45262-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260524160657.17802-1-mhun512@gmail.com>
-References: <20260524160657.17802-1-mhun512@gmail.com>
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Hyunwoo Kim <imv4bel@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 3/6] KVM: arm64: Consider SCTLR_EL2.M when mapping the L1 VNCR page
+In-Reply-To: <anHIhHS6INKZLnrZ@e143914.arm.com>
+References: <20260801124818.366274-1-maz@kernel.org>
+	<20260801124818.366274-4-maz@kernel.org>
+	<anHIhHS6INKZLnrZ@e143914.arm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: joey.gouly@arm.com, kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, seiden@linux.ibm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, imv4bel@gmail.com, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-meson_drv_bind_master() starts the KMS polling helper before registering
-the DRM device. If drm_dev_register() fails, probe unwinds the IRQ and
-DRM device without stopping the polling helper.
+On Tue, 04 Aug 2026 12:09:56 +0100,
+Joey Gouly <joey.gouly@arm.com> wrote:
+> 
+> Another thing I forgot..
+> 
+> On Sat, Aug 01, 2026 at 01:48:15PM +0100, Marc Zyngier wrote:
+> > We record a VNCR TLB even when SCTLR_EL2.M is 0 in order to make
+> > our life easier. But this is not something that the architecture
+> > anticipate.
+> > 
+> > As a consequence, a hypervisor is free to set VNCR_EL2 to
+> > some PA when SCTLR_EL2.M==0, use it to run a guest which indirectly
+> > accesses the VNCR page, then eventually set SCTLR_EL2.M==1 with
+> > the same VA. Yes, this is odd, but apparently legal.
+> > 
+> > A common trick in HW is to invalidate the TLBs on SCTLR_ELx.M being
+> > flipped. But doing this is a not a good idea for us (we'd need to
+> > trap SCTLR accesses), and wouldn't scale as we nest deeper.
+> > 
+> > Instead, use the fact that the S1 MMU being off at the point of
+> > translation is cached in our TLB, and simply ignore it if it
+> > doesn't match the current MMU state.
+> > 
+> > Fixes: 2a359e072596f ("KVM: arm64: nv: Handle mapping of VNCR_EL2 at EL2")
+> > Signed-off-by: Marc Zyngier <maz@kernel.org>
+> > Cc: stable@vger.kernel.org
+> > ---
+> >  arch/arm64/include/asm/kvm_nested.h | 7 +++++++
+> >  arch/arm64/kvm/at.c                 | 2 --
+> >  arch/arm64/kvm/nested.c             | 3 +++
+> >  3 files changed, 10 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
+> > index 012d711034d17..cc48817a5bf7a 100644
+> > --- a/arch/arm64/include/asm/kvm_nested.h
+> > +++ b/arch/arm64/include/asm/kvm_nested.h
+> > @@ -388,6 +388,8 @@ struct s1_walk_result {
+> >  	bool	failed;
+> >  };
+> >  
+> > +#define S1_MMU_DISABLED		(-127)
+> > +
+> >  static inline void fail_s1_walk(struct s1_walk_result *wr, u8 fst, bool s1ptw)
+> >  {
+> >  	wr->fst		= fst;
+> > @@ -396,6 +398,11 @@ static inline void fail_s1_walk(struct s1_walk_result *wr, u8 fst, bool s1ptw)
+> >  	wr->failed	= true;
+> >  }
+> >  
+> > +static inline bool s1_mmu_disabled(struct s1_walk_result *wr)
+> > +{
+> > +	return wr->level == S1_MMU_DISABLED;
+> > +}
+> > +
+> >  int __kvm_translate_va(struct kvm_vcpu *vcpu, struct s1_walk_info *wi,
+> >  		       struct s1_walk_result *wr, u64 va);
+> >  int __kvm_find_s1_desc_level(struct kvm_vcpu *vcpu, u64 va, u64 ipa,
+> > diff --git a/arch/arm64/kvm/at.c b/arch/arm64/kvm/at.c
+> > index 640f2dc00a8ba..0926426b87989 100644
+> > --- a/arch/arm64/kvm/at.c
+> > +++ b/arch/arm64/kvm/at.c
+> > @@ -11,8 +11,6 @@
+> >  #include <asm/kvm_mmu.h>
+> >  #include <asm/lsui.h>
+> >  
+> > -#define S1_MMU_DISABLED		(-127)
+> > -
+> >  static int get_ia_size(struct s1_walk_info *wi)
+> >  {
+> >  	return 64 - wi->txsz;
+> > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> > index 035cda256e2a5..d7dba02dc84fe 100644
+> > --- a/arch/arm64/kvm/nested.c
+> > +++ b/arch/arm64/kvm/nested.c
+> > @@ -1578,6 +1578,9 @@ static void kvm_map_l1_vncr(struct kvm_vcpu *vcpu)
+> >  	if (!vt->valid)
+> >  		return;
+> >  
+> > +	if (!(vcpu_read_sys_reg(vcpu, SCTLR_EL2) & SCTLR_ELx_M) != s1_mmu_disabled(&vt->wr))
+> > +		return;
+> 
+> Another thing, should we set valid=false? (Haven't really looked into
+> what that implies..)
 
-Call drm_kms_helper_poll_fini() on that failure path before freeing the
-IRQ.
+No. The TLB itself is still valid. We just haven't hit it. Which is
+why we don't map the page in the fixmap, and wait until we take the
+fault. When (and if) it happens, we can invalidate it, rewalk, and
+establish the new TLB.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+At this stage, this doesn't bring much. But if one day we need to
+cache multiple translations, we will want this exact flow.
 
-Fixes: bbbe775ec5b5 ("drm: Add support for Amlogic Meson Graphic Controller")
-Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
----
-Changes in v2:
-- Avoid the unused uninstall_irq label reported by the kernel test robot.
-- Link to v1: https://lore.kernel.org/r/20260524160657.17802-1-mhun512@gmail.com
+HTH,
 
- drivers/gpu/drm/meson/meson_drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+	M.
 
-diff --git a/drivers/gpu/drm/meson/meson_drv.c b/drivers/gpu/drm/meson/meson_drv.c
-index 49ff9f1f16..bcc36f2cdc 100644
---- a/drivers/gpu/drm/meson/meson_drv.c
-+++ b/drivers/gpu/drm/meson/meson_drv.c
-@@ -351,8 +351,10 @@ static int meson_drv_bind_master(struct device *dev, bool has_components)
- 	platform_set_drvdata(pdev, priv);
- 
- 	ret = drm_dev_register(drm, 0);
--	if (ret)
-+	if (ret) {
-+		drm_kms_helper_poll_fini(drm);
- 		goto uninstall_irq;
-+	}
- 
- 	drm_client_setup(drm, NULL);
- 
 -- 
-2.47.1
+Without deviation from the norm, progress is not possible.
