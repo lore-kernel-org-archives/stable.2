@@ -1,41 +1,44 @@
-Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA7A426ED3
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 06:44:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7831A40DFD5;
+	Tue,  4 Aug 2026 06:59:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785825884; cv=none; b=XHs4/c/zjdrti0ruroHgQBbT2fcS+Q9nf+h7HHHyvnA0skixG0K8nx/jg+6+q+IkEdhXqnB1DyyazSt+SB8ZiudSN4/xs5h0VMR+mtGEM4P5t3AKyAdb/Vs2LUzutSjTkIKSgf435GMV+WNDGs/r5ka83hH1vhniWXzso/lniP0=
+	t=1785826801; cv=none; b=SUdadyJPgP25vknmVLpM/IVpamZWJiHQebDf0G5L8NyJDBU6uINObXvifiNuo+uBaLPd7nV3LoYNcQaS8n+yMEj7YLKSa+dIBW9Ksj7qD6KRn8StGNYB02CatdiHwcY0sQa3+5JpoMyAjryNT3gLfsEM7ysmpl4i10aE1Xk3mJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785825884; c=relaxed/simple;
-	bh=auyo8K/F0LOd5Qt/4SOXsPr0pHJn1K42mGK0XoMRGS4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=l/7/ftxIFCKyLcjkqaWWxr7db+YWo00T4cY/Pg2uBtZ1WjrfvCFV693XGHVT6VUC7GR6wT8DCqluhYMNPivvLQXuWIGlrVZrKudhjEbSf+wHDRQZ505Vw3hArSwxdFMVSrJV8WmNTBDfD+MAPqiFzKTNR5hMb7ejmTIsJi/Ovxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ta9rkB+P; arc=none smtp.client-ip=91.218.175.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785826801; c=relaxed/simple;
+	bh=ir1QM2G3+r6Hc4AbWgtVJ7sj5gAESnFCcrK0ZjIMNo4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PLLdAJHYDQWcCkXB8yhkzzHFpZtWRvpMYmklpI1uhnPkl2zQGuI+KQwrPciH/UOcQiVl1BpEvNoOhHGGd+dc9P41ChfI3qB5U5HzWz4B0wHfWulGjHgsKXFGmeNDbOZ3K4PNlXDuWMdcnXGGrfP/zeuDylDywdK7Bk6sIYQ48N0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AuD9RKUz; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ta9rkB+P"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785825870;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=zKx75AMauM0RaOxCF4agyTe8wC94OE6OVaWCflojIjw=;
-	b=Ta9rkB+PXIYAYLAnSW3VYj9gennu9yzIK27t64FtepCEz+k78xTO29O9dhgq+0Ezcyw1qk
-	TEPtyLHvsPGcg+yWOfldKG1o7yf23+dGfP96HgFAOrMhHuxekJqF/hJyjm38xpOl7f+1Sx
-	O6pgGIgtEiRTc7DdzWXX7bq+BN/rk5Y=
-From: Hao Ge <hao.ge@linux.dev>
-To: Suren Baghdasaryan <surenb@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Hao Ge <hao.ge@linux.dev>
-Cc: linux-mm@kvack.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AuD9RKUz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Mq
+	yM0XSCVl95o6QAASoxa/Hb1m9rTLKwdgnnVqqg558=; b=AuD9RKUzvgs6QBjSHN
+	yCdd0nW5wj5ToCENSbgTr1knWO4D6YRVMsx71ys1MBGZB3uL8Gf/vaYJIHrfgjbv
+	Bw80MKriv1nGavQ/7QTb5yLGXXZ2ZAV3XRlkWqmOQqmOyNgTWADDW7rrKpw56gav
+	+GYE9Ac6KYCK9jWh11KO1lW60=
+Received: from XLL-9950X.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wAnD2LOjXFqfGujNQ--.47278S4;
+	Tue, 04 Aug 2026 14:59:27 +0800 (CST)
+From: Longlong Xia <xialonglong2025@163.com>
+To: Minchan Kim <minchan@kernel.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Jens Axboe <axboe@kernel.dk>,
+	linux-block@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Abhishek Bapat <abhishekbapat@google.com>,
+	Longlong Xia <xialonglong@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] alloc_tag: fix undetected compressed tag overflow when profiling is disabled
-Date: Tue,  4 Aug 2026 14:44:08 +0800
-Message-Id: <20260804064408.105033-1-hao.ge@linux.dev>
+Subject: [PATCH 2/2] zram: fix out-of-bounds access in read_block_state()
+Date: Tue,  4 Aug 2026 14:59:19 +0800
+Message-ID: <20260804065919.3970386-3-xialonglong2025@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260804065919.3970386-1-xialonglong2025@163.com>
+References: <20260804065919.3970386-1-xialonglong2025@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,51 +46,55 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+X-CM-TRANSID:_____wAnD2LOjXFqfGujNQ--.47278S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uw1DKF43tr48Zw13ZFyDtrb_yoW8Xw17pF
+	WUtw1Ykr4DGF18Zr1fJ392gr15Cw1DCayjqrW7Zw1Y93s5GF9Fv345tFWDXFy2qr48AFZF
+	vFZ0yrZ5AF1UurJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jg8n5UUUUU=
+X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC3BCOh2pxjdArAwAA3r
 
-In reserve_module_tags(), the tag overflow check is gated on
-mem_alloc_profiling_enabled():
+From: Longlong Xia <xialonglong@kylinos.cn>
 
-    if (mem_alloc_profiling_enabled() && !tags_addressable())
+read_block_state() calculates nr_pages before taking dev_lock. If the
+device is reset and reinitialized with a smaller disksize before lock
+acquisition, nr_pages still describes the old table. The subsequent
+loop can then call slot_lock() past the end of the newly allocated
+table.
 
-If profiling is toggled off at runtime and a module is loaded whose
-tags exceed the compressed-mode limit, shutdown_mem_profiling() is
-skipped. vm_module_tags_populate() still maps memory for the tags and
-the module loads successfully, but the total tag count now exceeds what
-NR_UNUSED_PAGEFLAG_BITS can address.
+Read disksize after acquiring dev_lock and checking that the device is
+initialized. The read lock then keeps the table and its bound stable for
+the duration of the scan.
 
-Once profiling is re-enabled, ref_to_idx() computes each tag's index
-as its position in the alloc_tag array. update_page_tag_ref() masks
-it to alloc_tag_ref_mask before storing in page->flags. Indices
-beyond the mask are truncated and idx_to_ref() resolves them to wrong
-tags.
-
-mem_alloc_profiling_enabled() and mem_profiling_compressed are
-independent. Once compressed mode is established at boot, it stays
-active regardless of runtime toggles of mem_profiling.
-
-We therefore remove the mem_alloc_profiling_enabled() guard.
-
-Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
+Fixes: c0265342bff4 ("zram: introduce zram memory tracking")
+Cc: <stable@vger.kernel.org>
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
 ---
- mm/alloc_tag.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/block/zram/zram_drv.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-index 52aece27b00e..a387a17211de 100644
---- a/mm/alloc_tag.c
-+++ b/mm/alloc_tag.c
-@@ -904,7 +904,7 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
- 		int grow_res;
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index 02fd64475a9a..e5f42f56220d 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -1552,7 +1552,7 @@ static ssize_t read_block_state(struct file *file, char __user *buf,
+ 	char *kbuf;
+ 	ssize_t index, written = 0;
+ 	struct zram *zram = file->private_data;
+-	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
++	unsigned long nr_pages;
  
- 		module_tags.size = offset + size;
--		if (mem_alloc_profiling_enabled() && !tags_addressable()) {
-+		if (!tags_addressable()) {
- 			shutdown_mem_profiling(true);
- 			pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
- 				mod->name, NR_UNUSED_PAGEFLAG_BITS);
+ 	kbuf = kvmalloc(count, GFP_KERNEL);
+ 	if (!kbuf)
+@@ -1564,6 +1564,8 @@ static ssize_t read_block_state(struct file *file, char __user *buf,
+ 		return -EINVAL;
+ 	}
+ 
++	nr_pages = zram->disksize >> PAGE_SHIFT;
++
+ 	for (index = *ppos; index < nr_pages; index++) {
+ 		int copied;
+ 
 -- 
-2.25.1
+2.43.0
 
