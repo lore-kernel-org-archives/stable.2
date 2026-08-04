@@ -1,64 +1,64 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A0338734A
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 09:01:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A6943E9FB
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 09:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785834068; cv=none; b=N58F2Erf1jKj5AW0FQmEC0TVvx7DR4yF34jd9ELeL7wPDt+VW8dUxTGLz79PiXRbvEoB+sodJzLQHvrj2kJWYoijpE8cmkcEhtZ1jTvKEIqdgHK5PPCE0obNmDjTaJEATsXOndGpuVXNhR2A85BWLymGNoYUiJUTqfbLBFqtogI=
+	t=1785834081; cv=none; b=oKu5Z+3g0LqnZTabKMUJe7oDwkxfkKoph02+uQVA23eFQMN+udanuBinwn1RHnDxya8cq12P5fROWp30iXTps7f+TfNBHJ1qsS7fp7SASftLsqiL4iYrV/bu/PgH1r6iGVq1v5/2m4Ym/N61q2lRyzV0pNXw+vCXkYR3HX638Ko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785834068; c=relaxed/simple;
-	bh=C0712y9v+3Cnwu+fzKHEe+5eb6C88dqmH0oQugUbpT4=;
+	s=arc-20240116; t=1785834081; c=relaxed/simple;
+	bh=cKn0rvdC49BIcqAimFO1T40WDQRqjLgqEK6HkR4ZC2k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F3Oz40cOVvVvUOS7k2Ibh8+Iiy7KrGLjL2+Mk6LRt6hCrSxLageduDtPZfQGz+IiLYs75T5pobRojhHTYkZhQr52iFtuZycqifUSgTKOAop68PuMSnKwFOo5l5TmXdM+DzLss0ln/hQGZSFfH0piwIYe5Bb0VlY5fNUZQuaCcdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nQZ+GzIi; arc=none smtp.client-ip=209.85.210.180
+	 MIME-Version; b=Fzq4UJxa62ve0cIKKha9RitsgjtXjI09a3sW8TrbQudcVCPOTyG/pkpAmTC1rzFejkTZJwCN+2ACw5kp6rayMQDrfHg2GeeAvSniE/z3IXlyY4fjBGVUlN92lHYCOduQzIXrvJukmlivCglG9YWZ4+k+YEwGKdZRwZyHwFYLRRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=de2h0YNR; arc=none smtp.client-ip=209.85.210.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nQZ+GzIi"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8485ab7c382so457571b3a.1
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 02:01:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="de2h0YNR"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8485ab7c382so457644b3a.1
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 02:01:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785834067; x=1786438867; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785834080; x=1786438880; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=88i/kpHkeSfRDq0C8BDJPfVUyr9cy+9c455SwktNUuY=;
-        b=nQZ+GzIiXL/jZF6WMNUPzVKlyAAEtNZN4Laj49AN6olWefgWC8fEV3f4AJOxpehBRj
-         wBmQ8hvSp5LaIZzu7odBhxjS97zJMm5WbOtcqU2OEoezkbGucZ6QLPmeo4JCAq/jvZst
-         XOK4I742F16is1I2bmzUpWTMcZz22/QiBIn3yZjmUB4zrEUsdp0lno/DQgy8IcHdRrvh
-         AcM9avYZ+OEpjO71TfsHpTBlto+w5hwb1T4/dFf1G4zjOCf9C7NuzxoKdQXus2yu9kOW
-         If1Ys6B+MxLug3HN5pUoM1XYAhZGXesAOjxAr3OeWVM3xEsRaQJ5qsRVabvlVv3lcL0+
-         /Ppg==
+        bh=ALanzQpzebmmM5lW2CkhaK/fD5aNgZLXF16Jkbg/hKA=;
+        b=de2h0YNRZgML5tODJM0Kz8NSQ/lV8Y8LLq5SmeIlC8NPdPgZXSo/3BE/u70FKeaglU
+         3/8FlooGX6pujskVZVJ2wDmapHp0Ggu99ms/Foxj0a6bTKhM8BTDWcMrydcpax0xY1mz
+         TcoYV14OLbP6VMuGmEB5IjDc1c16Tip5SGGOPvBnP+CN6hiTdlB0r5SQKvWR958f7wo6
+         h2mEWgpU900dLT2e/snG2LZ/WQhUtQSMmhIxxiAz9aV/VEhRJunr2OiEDwC4q1fPLKz5
+         izNFZS2l0VFZcUIGO9gzBVmWaLulE/ep7wI2ISiP/zTu8rHDnV0sJwXQcafuUNbkQVe/
+         qS0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785834067; x=1786438867;
+        d=1e100.net; s=20251104; t=1785834080; x=1786438880;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=88i/kpHkeSfRDq0C8BDJPfVUyr9cy+9c455SwktNUuY=;
-        b=hqpynYBneoRUfdnVHTy0JgDJ1UOPU7HlWsSEEe4LwdVPuvL0W+Khpcn5+klTEXwh67
-         7E233RGwGLsRFpLOViMOHyvOx9LiVVCIZKRCxfEZrgY0b+EO5U8Db2zco4vufI+Tadv8
-         lqj6luTSbIHIbLgPSpu2DaBWumHFemUPUzo7eVMG2tLiky+srSYe4f89FwqGjbqaZ0OX
-         VhIXF3tK0oeq9acr5WP17t+65RIv8J9+ZDp+KrrsaoptNS0D6pmZC21f1o0KW54iYNz/
-         u1eQPdpsVlwP7ViBfy2zT+FyBhIssbnlzMiuH/NoY6KoL2J9bJgp7iF3aiGKlfbYrs/1
-         07RQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrF1kQ1sObv51+MQK0osOFoL/sAe3oLnKY6nSoU3gsdbpeQYj3Hx0xk12D3SM3A55w+4lvjUmk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyO43qwKx2ZMGgKf/T+EdWl6oxHwfVsa0vKzb7fF7tUHin+lzVq
-	m7pisXkq0BGepyK1JKisEdoKtrnZOEXxXticXg5rC577mPBDIyoyrpxk
-X-Gm-Gg: AR+sD10VnOCLXC5LtXs6ehiGMIcqX3K3kvxQejHYIEs4iNBNL3+jZRPAve9GVzmg3xr
-	0czYphv8w4OEYSmcCd3Bz1FyIZ0VOXYi5ocZglGPWCO3s1wIZidnhvxS4FSTtki3vqKeWkBuB77
-	fswuaVaETuUWxtF3ZYDbDSh9aSzJtR+4qznjKw8hODa1JMx2e84YzRSJPqKlbxbR9N2WVnWgMgs
-	CaHc+y3U2OMN4SOWrooG7nohEf3sWXkpQ3dlZ4TmclztG16McAIF20pt8L/4wWMJLC4VT5HuoGo
-	K7cpYiTeuguwjH5zZ40pdK+blk2WWMm5/q4aP0Jed7vJ9YnzNs08tGj1/8z49qftUCUYjmauiQa
-	67xfdZniILnAlpRHmbdR0jdP5Z/0D+BTOzNKxqBkdKtHdf5pCeHLyvcuTK1Zbxixq+8BtA7ZtuB
-	N5KGaUnw/npxfqhZWHyp15YIboCx683CmBiuMwhvaHdU0FNWDeXP2iOot4WNanPhxlXqHDbUO68
-	ftHJejY5lV/xEoH5bXCV5CKR6aTBvNbShuJN/wLBElGwjguSa0=
-X-Received: by 2002:a05:6a00:bc7:b0:84e:b5a9:ca3b with SMTP id d2e1a72fcca58-84ee4587f4emr12275640b3a.0.1785834066642;
-        Tue, 04 Aug 2026 02:01:06 -0700 (PDT)
+        bh=ALanzQpzebmmM5lW2CkhaK/fD5aNgZLXF16Jkbg/hKA=;
+        b=Pw1Vhs51FoXiDJhAuBKonvuCTzMetP2Csj7zxBOHj5/cSkuksFHnv9SEWfuIc0tqAi
+         lYAKSxDHHxn3xhOn6zW1I+5x/v2px1uWDTxMdwdZZc0azxLWl5KMG7wF80s6cyP4meSQ
+         UpjyFK6EnNFIKrg2wAjs4Z1mHznsKdV/9g/GJaD4fVV8zXoDhrm/veoDa7O6J1106wUy
+         WGc30ypxp5wtGxdhnSQ+ec/ztUgzIZLG5cEnibIdS5EyUFaeIUownq0hviNleLEhHuHi
+         Mortf90iDTCoVaMFVFbxQkmGf6hBU8MKg3Q+HIGIqIkXNOxiBN38YWI1N0oMqncLVKJq
+         Iygw==
+X-Forwarded-Encrypted: i=1; AHgh+RoZw6pWvH9HHgMEPNPmOPeZ4eBgvE3K9qQ5BVGxolPow1iHVmGIreyJJX7JD0zI2p6aTWdX0Ps=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxr6FUOm2Pk9pQo1tsxyEPN+Z+zrkXMwNXvCCwtKM5qsTkoNC0A
+	NZQo3mr5yKhtpgnDQjg891ylHV/Rxx+W2DEnPkeqQysmdqOGOAiOMfw22IR4c+T8
+X-Gm-Gg: AR+sD10Rv91FbNlKONhVavFyDQhny9tZ0gix5MtDc+EhrFKc3ko598YO9XfvhUBtM9+
+	oEvRUTDmZ3gqrQtlIm6AYqqcroH1M1yfzxbuZ1G8aCyL5HOW6JqYNOXR7E2hcqti1nsU8+egqge
+	873r0QFdmWQxMqXonGT8SQ3G6Dsuifmp8f7buAMC5CY9sifse+5CZWNwatYGm6qJotpEqW9YJJi
+	gLElY6IKW+Y2+Vnf9yOjfW5nWh/f/qmKVDnjqBmFC/jOlW87rZde+dLNVGqM93smfhFOGTdDC41
+	ZhNonpi0t8rW7Ov7LexM8hnqxzvgomcZLs+UMNa14Dr8qmME5HUm6XMCeRl4FeiUSgbm89F2Pwe
+	TX6R+2RPNsSz0huKY7avfs83IktcAfYcZ1doANNaXLp2goxGp1fCZUSpRYdktyVBN3rGkUUDEyE
+	+WR1ttTgfZYHABPOfobYr1J8bYpbiQ6vnyNjYoYj27p9aovOXF0qbBukoDzM+m5RiTGCc8d5doW
+	YyVbI+6c0RTot87VqElH1wDeKJBknKiX78A8uogXXquS9qFER0=
+X-Received: by 2002:a05:6a00:3d44:b0:848:3dbd:5cb0 with SMTP id d2e1a72fcca58-84ee48bb3e6mr16511860b3a.2.1785834079603;
+        Tue, 04 Aug 2026 02:01:19 -0700 (PDT)
 Received: from localhost.localdomain ([139.159.170.74])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84edc2d45afsm4813032b3a.41.2026.08.04.02.00.59
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84edc2d45afsm4813032b3a.41.2026.08.04.02.01.12
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 04 Aug 2026 02:01:06 -0700 (PDT)
+        Tue, 04 Aug 2026 02:01:19 -0700 (PDT)
 From: Qihang <q.h.hack.winter@gmail.com>
 To: netdev@vger.kernel.org
 Cc: willemdebruijn.kernel@gmail.com,
@@ -71,12 +71,13 @@ Cc: willemdebruijn.kernel@gmail.com,
 	horms@kernel.org,
 	stable@vger.kernel.org,
 	Qihang Tang <q.h.hack.winter@gmail.com>
-Subject: [PATCH net v6 0/3] net: fix hard_header_len races in packet send paths
-Date: Tue,  4 Aug 2026 17:00:13 +0800
-Message-ID: <20260804090016.33353-1-q.h.hack.winter@gmail.com>
+Subject: [PATCH net v6 1/3] net: remove CAP_SYS_RAWIO zero-padding in dev_validate_header
+Date: Tue,  4 Aug 2026 17:00:14 +0800
+Message-ID: <20260804090016.33353-2-q.h.hack.winter@gmail.com>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260730082925.93759-1-q.h.hack.winter@gmail.com>
+In-Reply-To: <20260804090016.33353-1-q.h.hack.winter@gmail.com>
 References: <20260730082925.93759-1-q.h.hack.winter@gmail.com>
+ <20260804090016.33353-1-q.h.hack.winter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,43 +88,59 @@ Content-Transfer-Encoding: 8bit
 
 From: Qihang Tang <q.h.hack.winter@gmail.com>
 
-The packet socket TX paths read dev->hard_header_len independently for
-skb allocation and header construction. Concurrent netdevice
-reconfiguration (e.g. bonding device type changes) can change this value
-in between, leading to mismatched headroom and copy length, and in the
-SOCK_RAW case to out-of-bounds writes.
+dev_validate_header() reads dev->hard_header_len directly when
+zero-padding short link layer headers for CAP_SYS_RAWIO holders:
 
-Patch 1 removes the CAP_SYS_RAWIO zero-padding branch in
-dev_validate_header(). That branch sizes a memset against the live
-dev->hard_header_len while operating on an skb whose headroom was
-allocated from an earlier hard_header_len read, so a concurrent increase
-can write past the reserved buffer. Removing it first keeps the later
-snapshot fixes bisect-safe: they do not replace an earlier skb_under_panic
-with a silent overwrite.
+    if (capable(CAP_SYS_RAWIO)) {
+        memset(ll_header + len, 0, dev->hard_header_len - len);
+        return true;
+    }
 
-Patches 2 and 3 snapshot hard_header_len once per send and use it
-consistently for allocation and construction, in the non-ring and TX_RING
-paths respectively. The separate SOCK_DGRAM consistency problem between
-hard_header_len and header_ops->create remains out of scope, as noted in
-the commit messages.
+Packet send paths call dev_validate_header() on skbs whose headroom was
+allocated from an earlier hard_header_len read. If the device is
+reconfigured so that dev->hard_header_len increases before validation,
+the memset writes past the reserved buffer, an out-of-bounds write.
 
-v5 -> v6:
-- Fix Signed-off-by to use full name (DCO).
-- Add patch 1: remove CAP_SYS_RAWIO zero-padding in dev_validate_header,
-  before the snapshot fixes for per-commit safety. Suggested by Willem de
-  Bruijn.
-- Add Reviewed-by from Willem de Bruijn to the TX_RING patch (given on v5).
+This out-of-bounds write is masked in some SOCK_RAW paths today because
+the same concurrent increase can first make skb_push() exceed the
+reserved headroom and trigger skb_under_panic(). Remove the zero-padding
+branch before making those hard_header_len reads consistent, so the
+snapshot fixes do not turn a loud panic into a silent overwrite.
 
-v5: https://lore.kernel.org/netdev/20260730082925.93759-1-q.h.hack.winter@gmail.com/
+This path is only reached for variable length L2 protocols, where
+len < hard_header_len but len >= min_header_len. No remaining in-tree
+variable length L2 protocol implements header_ops->validate, and the
+CAP_SYS_RAWIO bypass that zero-pads and accepts short headers has no
+real value beyond allowing testing of intentionally malformed input.
 
-Qihang Tang (3):
-  net: remove CAP_SYS_RAWIO zero-padding in dev_validate_header
-  packet: use consistent hard_header_len in non-ring send paths
-  packet: use consistent hard_header_len in TX_RING send path
+Drop the CAP_SYS_RAWIO branch. The remaining reads of
+dev->hard_header_len in dev_validate_header() are comparisons only and
+have no memory safety impact.
 
- include/linux/netdevice.h | 11 ++++------
- net/packet/af_packet.c    | 45 +++++++++++++++++++++++----------------
- 2 files changed, 31 insertions(+), 25 deletions(-)
+Suggested-by: Willem de Bruijn <willemb@google.com>
+Fixes: 2793a23aacbd ("net: validate variable length ll headers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qihang Tang <q.h.hack.winter@gmail.com>
+---
+ include/linux/netdevice.h | 5 -----
+ 1 file changed, 5 deletions(-)
 
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 9981d637f8b5..9a770eb823ce 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -3531,11 +3531,6 @@ static inline bool dev_validate_header(const struct net_device *dev,
+ 	if (len < dev->min_header_len)
+ 		return false;
+ 
+-	if (capable(CAP_SYS_RAWIO)) {
+-		memset(ll_header + len, 0, dev->hard_header_len - len);
+-		return true;
+-	}
+-
+ 	if (dev->header_ops && dev->header_ops->validate)
+ 		return dev->header_ops->validate(ll_header, len);
+ 
 -- 
 2.50.1 (Apple Git-155)
+
