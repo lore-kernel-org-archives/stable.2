@@ -1,176 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4F130D40B;
-	Tue,  4 Aug 2026 15:16:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 851DB46D08F
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 15:39:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785856586; cv=none; b=Y/VVyU6TCCqhKVBnjackkU4OBi0deeguhb4AMTLlrTCqnobwGb0XRDi2pvct6jNGGZScXmGaKbtgqzX8b8SNkWIbdnROX7hTef5R9Gj0C/D0Eg4T5xm3EUbOfe83NaD3WZTdG9l1VIri4n51H8pAWNE9pDwD9uBF+ozisYAafQs=
+	t=1785857962; cv=none; b=g4MMKeSmK5915uLTBhdu2h8FJUi0YJGV3prk5iQDSQifGLk6Em09IToLmWZGK9zk1bdxIHfiTgmPM6lVvE1G7GVcvo8Ox7TWsB1BVQaKr35GkCDpQC7fHEyZl/s/aPxmHjFT/JIKJvc2O0uipiuvnd2jq7WsJHF4NKUWHCKrkEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785856586; c=relaxed/simple;
-	bh=XW4UhJwwZ32w6A5v+gluvdHrownap3EA5jXPN8zoYa4=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r6Om5m/sy5b+227qpp0reWs6YIyqcYebSrYE3wNIkgcVylF7BbFkQDXDGWWkNym+neGOwps7fTwvv1ZBiVDBkcfZoHpP3IYa3DZomdREeypZjLUDnMZbbWaYa12vC1/KgLwYGzhickYhkN1iEsM8b1igshpqAyRolAlQZacW+Jo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GLZl8Pc9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785857962; c=relaxed/simple;
+	bh=sXiCqlNJXI3CJuO1zVLOIYVT9vhiv5LI4e+m0XwaOyI=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=cRcHkJoG41F1UI1FRY+KlKaUA0dIjtuyyDpSUT0Gpd2sz0QCrn6V+5OYDAY/K1F2ojOF30YF4a+YhZjZkM2yZQW1PgGdCWG4bwZm7wqD0DNvnlF6A4c85Y/2BEgZC2h/JE3VH6Poe+U26eIUFUF+pFQaITW816M0IWa/X2Cm0nM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MGgNluVg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GLZl8Pc9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705751F000E9;
-	Tue,  4 Aug 2026 15:16:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MGgNluVg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FFC11F00A3D;
+	Tue,  4 Aug 2026 15:39:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785856585;
-	bh=5bKVEcNFiFbLr1dxAdp9i5MeCT8J5gRCnSlut5TctaM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GLZl8Pc9AsSkRLZYTRt8E99d8OlNZ7RgOVfHiYonOUdCEovyjx1lDjeV7JfrL3csI
-	 9wNQbKgovsfbtpsxo/IpKu1HfUDeWUWS6YieZn4r68x+j2aEpbSGWlO/uxaSf2sk3g
-	 VExXrqYkzICC3Xe+VEmzHc93BYv/yzXAGpmMbGHM9+ZBmB1gx0Ovp3SeW61a5Kn0qA
-	 OK/Kk9/4x2Vp7yjsApHxkdw/W2Esg/bMBSbgyrzqQoIn2RWwktzfbqXfUDOVtUiIui
-	 yIrDDbg/zP7OK+jkSvAmtN1M4ofLmypu8evk6/huXxlxevQrno29XpTcLeiUH+JiFw
-	 NRteEAT0I6Gwg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wrGsR-0000000CGKT-2XG5;
-	Tue, 04 Aug 2026 15:16:23 +0000
-Date: Tue, 04 Aug 2026 16:16:23 +0100
-Message-ID: <86h5l9c3w8.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Joey Gouly <joey.gouly@arm.com>
-Cc: kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Hyunwoo Kim <imv4bel@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 3/6] KVM: arm64: Consider SCTLR_EL2.M when mapping the L1 VNCR page
-In-Reply-To: <anHHA9Fj3be5ndmB@e143914.arm.com>
-References: <20260801124818.366274-1-maz@kernel.org>
-	<20260801124818.366274-4-maz@kernel.org>
-	<anHHA9Fj3be5ndmB@e143914.arm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1785857955;
+	bh=oc0oP1Ct2BQKN7wFd+idUzNhRk49DlIKA26EtbXw8IY=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=MGgNluVgu8M+0jZs8M+bajpVt5Hpw3HafMZYuZ66jiJSzNpQgDPm2ULWGqlJe1eTX
+	 /QMIhVkA0uiW4SSYab6CQ/c5m6/n2DWVi976QWh8VxWdI3WTtAdWxi/FyeZZ29AxxR
+	 wOXH5OHuP5/y4Smi0ylaUHOLv5PCBiyvzHCgzVl3U3KURU4tWttUtHEi96nlUtLCga
+	 XTPBs5DVCMHE+EN6Xc5wl/1H0ItmearqkvPUQ1U+lPHzUiiRBbk4p/qjUKQFcFy5gm
+	 8h58s+WoYqX7VJZ9gxDaBItnW/TOfX6njDjtovZnxG0FikKbxppqi+UxOgwXzW5ymE
+	 MRn7YaxmC7YAw==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id A2968198004A;
+	Tue,  4 Aug 2026 11:39:13 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Tue, 04 Aug 2026 11:39:13 -0400
+X-ME-Sender: <xms:nwdyaukYxLQOIPL2N1GJpTYLXzLaAaTKIADQc0rIXVZrIC7C43AfOg>
+    <xme:nwdyagrFOgaGDbsCIJ8oJw0AaybUkAvLKB-ZmAy7ARLQ_OegDE-qKQpdE7uu37Bft
+    ZR5-rDmGYm54EXbFMqlf_5JrTiG1lWoFERjvWTj180RKxgoVef44A>
+X-ME-Proxy-Cause: dmFkZTGOumS+svVsEIiYmK5xWEOOcHtq9yofYVBRVCUPcf/QqIv3WSuKq1wQ17wiMoJdOl
+    etg6njQIU5UQFBhkamlO1vNYYcLf0v2Zynv4KQeUT6qUaJmXX7uFZi4jnrfQ24MzoOfF1I
+    Pw/lyC59zBmqanPnLyMB9eiIAayK4DZ+11SPaYjoSMNAsxm96jfdRH6d18V1akGKplb/rp
+    7x9xuZMJ8OKUPr6YmoIdt3BTJ+OPoEFKUosAeVz73rRQ8n49DvgSrCRxEgTslWF5wzHPx8
+    3wWWFynPOrE1Ix4ktZWPJnaJpnVL3UiVmHhEffxRrwTpeEVOIsQm+lZ5NHWXgxi6+mH7ET
+    QS3w2KWQjCoaA62tyR96+u684ynGvmcsKM/BAEt3PFYKG1CTt/lS1E/QZCxm8/tUTc5AcE
+    rik4y1adyIGc+arHROhf5EpDddA5cLOndg8PddJbPl/oigE/w5LKXvfV45soh0o1Ms8gFR
+    Ivny27U+gMIvjsIZrfU9uPKqJuJ3esT92vXJ/0KTg9WGlPXLGLJpkH/DEmiQh2qH/xifs1
+    31aTYA9s2AEp0bcBoyFmJvchTBqldTiRiR3dW8iNR/v1hbEiO4L4Xre94cZToiyyfog4CE
+    FFkGUHCfe/rgYC0xLBLnxzw/amrtJ87V36fQfWVamdnqASeX+U/D25/hI32w
+X-ME-Proxy: <xmx:oQdyauJaKeoz2ak3FIppB1c86cXBLycZpOyeR6DDoqOdKII5LcuuxQ>
+    <xmx:oQdyaiCRf5Y-_TN5JkpWk7PNXNS4oManisSQI8kr-0KjO-0yLi1RkA>
+    <xmx:oQdyarul_gln2yp6VXsSV4H7-WbajZJAuCOepxTmvKzbb5GhE8WVsw>
+    <xmx:oQdyaoT957lwKrxmg4fBAXVjK6CG3NPQxuILZ9Ole7aGxCS8V-f1SA>
+    <xmx:oQdyaqLCjIuRNGzSeEZC0EDQL2EM6IhCc8fDxsmMoZj4t__hW91xJkOX>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 080C9F80060; Tue,  4 Aug 2026 11:39:11 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: joey.gouly@arm.com, kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, seiden@linux.ibm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, imv4bel@gmail.com, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Date: Tue, 04 Aug 2026 18:38:50 +0300
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Eric Biggers" <ebiggers@kernel.org>, linux-crypto@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, "Jason A . Donenfeld" <Jason@zx2c4.com>,
+ "Herbert Xu" <herbert@gondor.apana.org.au>, kunit-dev@googlegroups.com,
+ "Brendan Higgins" <brendan.higgins@linux.dev>,
+ "David Gow" <david@davidgow.net>, "Rae Moar" <raemoar63@gmail.com>,
+ stable@vger.kernel.org
+Message-Id: <fa5455c2-58c5-4280-9770-0a5da80e3af7@app.fastmail.com>
+In-Reply-To: <20260803181842.44648-1-ebiggers@kernel.org>
+References: <20260803181842.44648-1-ebiggers@kernel.org>
+Subject: Re: [PATCH] kunit: irq: Continue increasing hrtimer interval for longer
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Tue, 04 Aug 2026 12:03:31 +0100,
-Joey Gouly <joey.gouly@arm.com> wrote:
+
+
+On Mon, 3 Aug 2026, at 21:18, Eric Biggers wrote:
+> Currently, kunit_irq_test_timer_func() stops increasing the hrtimer
+> interval as soon as some forward progress is made in each of softirq and
+> task context.  Update it to use a more aggressive strategy: increase the
+> interval as long as the hrtimer is running significantly faster than
+> either context.
+>
+> This resolves an occasional hang in the CRC and crypto library tests
+> under qemu-system-s390x.  It was exposed by the change in the default
+> preemption model on s390 from NONE to LAZY.  That seems to have exposed
+> the issue by allowing some forward progress to be made while the actual
+> system timer tick is still starved, preventing jiffies from increasing
+> or the task context from making much progress towards max_iterations.
+>
+> Fixes: 201ceb94aa1d ("kunit: irq: Ensure timer doesn't fire too frequently")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> ---
+>
+> This patch is targeting libcrypto-next
+>
+>  include/kunit/run-in-irq-context.h | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+>
+> diff --git a/include/kunit/run-in-irq-context.h 
+> b/include/kunit/run-in-irq-context.h
+> index bfe60d6cf28d..3802b6fb218e 100644
+> --- a/include/kunit/run-in-irq-context.h
+> +++ b/include/kunit/run-in-irq-context.h
+> @@ -38,11 +38,13 @@ static enum hrtimer_restart 
+> kunit_irq_test_timer_func(struct hrtimer *timer)
+>  	softirq_calls = atomic_read(&state->softirq_func_calls);
 > 
-> Hi Marc,
+>  	/*
+> -	 * If the timer is firing too often for the softirq or task to ever have
+> -	 * a chance to run, increase the timer interval.  This is needed on very
+> -	 * slow systems.
+> +	 * If the hrtimer is running much faster than the bh_work or the task,
+> +	 * then it is firing too fast and might be starving those contexts as
+> +	 * well as the actual system timer tick.  Increase the interval.
+>  	 */
+> -	if (hardirq_calls >= 20 && (softirq_calls == 0 || task_calls == 0))
+> +	if (hardirq_calls >= 20 &&
+> +	    (hardirq_calls / 2 > softirq_calls ||
+> +	     hardirq_calls / 2 > task_calls))
+>  		state->interval = ktime_add_ns(state->interval, 250);
 > 
-> Two small comments/suggestions.
-> 
-> On Sat, Aug 01, 2026 at 01:48:15PM +0100, Marc Zyngier wrote:
-> > We record a VNCR TLB even when SCTLR_EL2.M is 0 in order to make
-> > our life easier. But this is not something that the architecture
-> > anticipate.
-> > 
-> > As a consequence, a hypervisor is free to set VNCR_EL2 to
-> > some PA when SCTLR_EL2.M==0, use it to run a guest which indirectly
-> > accesses the VNCR page, then eventually set SCTLR_EL2.M==1 with
-> > the same VA. Yes, this is odd, but apparently legal.
-> > 
-> > A common trick in HW is to invalidate the TLBs on SCTLR_ELx.M being
-> > flipped. But doing this is a not a good idea for us (we'd need to
-> > trap SCTLR accesses), and wouldn't scale as we nest deeper.
-> > 
-> > Instead, use the fact that the S1 MMU being off at the point of
-> > translation is cached in our TLB, and simply ignore it if it
-> > doesn't match the current MMU state.
-> 
-> Could you expand/change this a little, something like:
-> 	
-> 	Instead, use the fact that the S1 MMU being off at the point of
-> 	translation is cached in our VNCR TLB, and if it doesn't match
-> 	the current MMU state, leave the VNCR unmapped.
+>  	if (!state->func(state->test_specific_state))
 >
 
-Yup, that reads better. Thanks.
-
-> > 
-> > Fixes: 2a359e072596f ("KVM: arm64: nv: Handle mapping of VNCR_EL2 at EL2")
-> > Signed-off-by: Marc Zyngier <maz@kernel.org>
-> > Cc: stable@vger.kernel.org
-> > ---
-> >  arch/arm64/include/asm/kvm_nested.h | 7 +++++++
-> >  arch/arm64/kvm/at.c                 | 2 --
-> >  arch/arm64/kvm/nested.c             | 3 +++
-> >  3 files changed, 10 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-> > index 012d711034d17..cc48817a5bf7a 100644
-> > --- a/arch/arm64/include/asm/kvm_nested.h
-> > +++ b/arch/arm64/include/asm/kvm_nested.h
-> > @@ -388,6 +388,8 @@ struct s1_walk_result {
-> >  	bool	failed;
-> >  };
-> >  
-> > +#define S1_MMU_DISABLED		(-127)
-> > +
-> >  static inline void fail_s1_walk(struct s1_walk_result *wr, u8 fst, bool s1ptw)
-> >  {
-> >  	wr->fst		= fst;
-> > @@ -396,6 +398,11 @@ static inline void fail_s1_walk(struct s1_walk_result *wr, u8 fst, bool s1ptw)
-> >  	wr->failed	= true;
-> >  }
-> >  
-> > +static inline bool s1_mmu_disabled(struct s1_walk_result *wr)
-> > +{
-> > +	return wr->level == S1_MMU_DISABLED;
-> > +}
-> > +
-> >  int __kvm_translate_va(struct kvm_vcpu *vcpu, struct s1_walk_info *wi,
-> >  		       struct s1_walk_result *wr, u64 va);
-> >  int __kvm_find_s1_desc_level(struct kvm_vcpu *vcpu, u64 va, u64 ipa,
-> > diff --git a/arch/arm64/kvm/at.c b/arch/arm64/kvm/at.c
-> > index 640f2dc00a8ba..0926426b87989 100644
-> > --- a/arch/arm64/kvm/at.c
-> > +++ b/arch/arm64/kvm/at.c
-> > @@ -11,8 +11,6 @@
-> >  #include <asm/kvm_mmu.h>
-> >  #include <asm/lsui.h>
-> >  
-> > -#define S1_MMU_DISABLED		(-127)
-> > -
-> >  static int get_ia_size(struct s1_walk_info *wi)
-> >  {
-> >  	return 64 - wi->txsz;
-> > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> > index 035cda256e2a5..d7dba02dc84fe 100644
-> > --- a/arch/arm64/kvm/nested.c
-> > +++ b/arch/arm64/kvm/nested.c
-> > @@ -1578,6 +1578,9 @@ static void kvm_map_l1_vncr(struct kvm_vcpu *vcpu)
-> >  	if (!vt->valid)
-> >  		return;
-> >  
-> > +	if (!(vcpu_read_sys_reg(vcpu, SCTLR_EL2) & SCTLR_ELx_M) != s1_mmu_disabled(&vt->wr))
-> > +		return;
-> 
-> A comment here would also be useful for future archaeology (also current
-> reading since the !( .. != ) code is confusing).
-> 
-> Or maybe:
-> 
-> 	bool mmu_disabled_sctlr = vcpu_read_sys_reg(vcpu, SCTLR_EL2) & SCTLR_ELx_M) == 0;
-> 	if (mmu_disabled_sctlr != s1_mmu_disabled(&vt->wr)) 
-
-And maybe using positive logic? I'll see what I can do.
-
-Thanks,
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+Acked-by: Ard Biesheuvel <ardb@kernel.org>
