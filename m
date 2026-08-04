@@ -1,88 +1,88 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C085F476696
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 16:06:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17574746CF
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 16:07:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785859579; cv=none; b=TMuanR32wJHLL5S0Jd4nv1TYxAi4QAZuH5hD5VuzxMSqC5jwBplEyoUEUlsVv6H+zPUjD4IlEy0OXVs7kTNwD77SGH6veQgv4QwJT6YNT8YBynydOlapXYiNnyADymhCf4G4kVhCgMUbnN2++BkW+UX52itoyF5JRsozEN+ZbYs=
+	t=1785859641; cv=none; b=YGK/mVpfmRozn1Y+Uv9axkBst/9X0/e/K9CcwKEdqXqZhKFmJDtu7cGIphd0kkzsEGxqn386WbsKg4Ac3Nt8yRIqggj0TFOx/kA/Qnfwr9ISrkukWc1EhDuhRM896pZBpOy1osru9iayRyIv0+FLk8qBJYZypmejQP2P2m/9xeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785859579; c=relaxed/simple;
-	bh=NmqKaSCLNrrSr5Medjkh6eyTJ7zSLem+HseJFBvyT9M=;
+	s=arc-20240116; t=1785859641; c=relaxed/simple;
+	bh=0eiisYAm+1enV9BqCmdNdgBxpwLndFGB7ROkLcOTte8=;
 	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GKr7Vg+DDAPzRUo4PHcZI2sIvIrHCyAW1tlNii9CJIxzktsFLGfBqzuHYWV72f0RZPT7kZvIXcTuisIxFim6qoeugonikXEk+VShy55fz4V+oAdfwwbsK3YT2939ch14NHACzHqM2pgFqf6K+U8vQltiGVjOaSP2ky5htqdJj7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=b7AU9fUe; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=44OhwmTZ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=PiNDmRrQ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=8qCGg2Pw; arc=none smtp.client-ip=195.135.223.130
+	 MIME-Version:Content-Type; b=rbJXD9khDroe68FjA2xH2MLJvZTUcFc3fnXvH4PzdEXVBFifWu6abABuBZncC4sX4pVB42EtSTrntVuM6FJz1R81Xlose5vjs5QRDB1HN2yh9bDVIa2wyfFsghY5CEbwGc626oRcv/RQ59AnRRCLrRH6YIQVDY85XObFaWIY64s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LJq0BMzu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=1pN654+C; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1YR0EJGU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=kY+LiWkh; arc=none smtp.client-ip=195.135.223.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="b7AU9fUe";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="44OhwmTZ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PiNDmRrQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8qCGg2Pw"
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LJq0BMzu";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1pN654+C";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1YR0EJGU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kY+LiWkh"
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id AF8217F8A6;
-	Tue,  4 Aug 2026 16:06:07 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 01CEB3DF9;
+	Tue,  4 Aug 2026 16:07:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1785859571; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1785859634; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=WrKlqfzYyjUKTNp/EILvRTuQebBEyWgZDL/MeJvXwpw=;
-	b=b7AU9fUeHr7FbBszniGo0oNslSitPQ7O1jcw5UVlSGklVk8L3jgbXYJZZ0ARu+6tPXLart
-	rlXehdUjSioFUwdNSB97pMIaE0aMKXAilcFIlKXZcvOxqZnYJeHrGYMhU0+3XK6Fqi9UgP
-	MaMw2/UX/Eu/2pycR5y+l7NBPCRAy6I=
+	bh=ievpcyz5UJBJ9G9fjdq/98l0EXmq1NY787SwMBSUoQY=;
+	b=LJq0BMzusDMguwfjgZYRSa4p30sYCvKGCIQq40FYtCtjjYGR1suDux5aInUVc5J4SJs21o
+	InT2QSl5yBDUXNYxe3d7VjX3V0fdKePIV8vIEFtACi64FioQXGaS3GTa+QyAF4ivIFAHPs
+	MVsmU6jcAdBahUfi2IRqZ7RB/k3IKUg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1785859571;
+	s=susede2_ed25519; t=1785859634;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=WrKlqfzYyjUKTNp/EILvRTuQebBEyWgZDL/MeJvXwpw=;
-	b=44OhwmTZFXQW40FJwfUKpAykhW1F/PFcy8/slLqbIIHVaQw6vG+jYVBS5HSpiWWksGwDn0
-	0Kuir/w1SooqL7DA==
-Authentication-Results: smtp-out1.suse.de;
+	bh=ievpcyz5UJBJ9G9fjdq/98l0EXmq1NY787SwMBSUoQY=;
+	b=1pN654+C4Hor50+hyQasxuajJN5uANZpiRhugGYDRLxVaO5HnEkPQYM3ZbP8QM1CRAebEo
+	VMZSbdqGqc3h85AA==
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1785859567; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1785859630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=WrKlqfzYyjUKTNp/EILvRTuQebBEyWgZDL/MeJvXwpw=;
-	b=PiNDmRrQGD2w9fnnOX5usH5v1ZtG8+9j3jEBYMlDsyOhq8FEJNFzPDNQ8U7eXgBb5NjCMJ
-	wap0nw9SlKmQNAi9L5cYiuh3jQ6mbT+tnH9B/flLgE4RuMrG5KGCBZjRlqp9YSUPWt68UG
-	Kbcv5wMVR2TYZYJm0luScRE1s6mCNwY=
+	bh=ievpcyz5UJBJ9G9fjdq/98l0EXmq1NY787SwMBSUoQY=;
+	b=1YR0EJGUCFgwPqtA8Pcex52A9I4dJwOY1T/ousctCyqAYNCz6EZjRIaK1ER9gxr29LFb19
+	HgMaZ02Z37xZWMDFTaSjYSI/xA0D8BPjUghyfOt9jD7x0G3dnTdreti8bM9850Rw+M6Huz
+	yxOlzsCVDVanF5SJFa3XBYs6HpKo/Fk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1785859567;
+	s=susede2_ed25519; t=1785859630;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=WrKlqfzYyjUKTNp/EILvRTuQebBEyWgZDL/MeJvXwpw=;
-	b=8qCGg2PwyeZsBj/1fzcdvrTGByZ1TardU8XR8mWbY9sBvI2aqXC5Zu8fCKd3fIvy4YzsmG
-	LNd9THFIqH+Q32Ag==
+	bh=ievpcyz5UJBJ9G9fjdq/98l0EXmq1NY787SwMBSUoQY=;
+	b=kY+LiWkhRSa0H9Tw0d/ZgIIE7OFPwK8FEPGId285uXHM0RhMNfuSaqbxOFJnXsThFBoYAo
+	Bef/sXA+O1T0h6CA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 73970779BE;
-	Tue,  4 Aug 2026 16:06:07 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BCAEB779BE;
+	Tue,  4 Aug 2026 16:07:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id s44SGu8NcmqWKAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 04 Aug 2026 16:06:07 +0000
-Date: Tue, 04 Aug 2026 18:06:07 +0200
-Message-ID: <875x1pj2fk.wl-tiwai@suse.de>
+	id rBLlLC0OcmrjKQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 04 Aug 2026 16:07:09 +0000
+Date: Tue, 04 Aug 2026 18:07:09 +0200
+Message-ID: <874ih9j2du.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Baul Lee <baul.lee@xbow.com>
-Cc: g@b4.vu,
-	perex@perex.cz,
+Cc: perex@perex.cz,
 	tiwai@suse.com,
+	ramiserifpersia@gmail.com,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	federico.kirschbaum@xbow.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: FCP: fix OOB write in fcp_meter_ctl_get()
-In-Reply-To: <20260804123611.91715-1-baul.lee@xbow.com>
-References: <20260804123611.91715-1-baul.lee@xbow.com>
+Subject: Re: [PATCH] ALSA: us144mkii: re-anchor capture URBs on resubmission
+In-Reply-To: <20260804123625.91769-1-baul.lee@xbow.com>
+References: <20260804123625.91769-1-baul.lee@xbow.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -91,94 +91,93 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.28 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
+X-Spamd-Result: default: False [-3.29 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.18)[-0.918];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.19)[-0.967];
 	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,gmail.com,vger.kernel.org,xbow.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo,xbow.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,xbow.com:email,suse.de:mid]
 X-Spam-Flag: NO
-X-Spam-Score: -3.28
+X-Spam-Score: -3.29
 X-Spam-Level: 
 
-On Tue, 04 Aug 2026 14:36:11 +0200,
+On Tue, 04 Aug 2026 14:36:25 +0200,
 Baul Lee wrote:
 > 
-> fcp_ioctl_set_meter_map() bounds the user-supplied Level Meter map size
-> by the driver's own limit of 255
+> capture_urb_complete() resubmits each capture URB without anchoring it:
 > 
-> 	if (map.map_size < 1 || map.map_size > 255 ||
-> 	    map.meter_slots < 1 || map.meter_slots > 255)
-> 		return -EINVAL;
+> 	usb_get_urb(urb);
+> 	ret = usb_submit_urb(urb, GFP_ATOMIC);
 > 
-> and passes it to fcp_add_new_ctl() as the control's channel count, where
-> it is stored as elem->channels.
+> Anchoring is a property of a submission, not of the URB.  The giveback
+> path calls usb_unanchor_urb() before urb->complete(), so an URB
+> resubmitted from its own completion handler is off the anchor.  The
+> capture URBs are anchored once, at stream start, so from the first
+> completion onward tascam->capture_anchor is empty.
 > 
-> Every control read writes into struct snd_ctl_elem_value, whose integer
-> array is declared long value[128], so the limit is 128, not 255.
-> fcp_meter_ctl_get() stores one 64-bit word per channel into that array
-> with no bound of its own:
+> tascam_free_urbs(), tascam_disconnect(), tascam_suspend() and the
+> stop-work path all call usb_kill_anchored_urbs(&tascam->capture_anchor)
+> to reap the capture URBs before anything is freed.  With the anchor empty
+> those calls return immediately and the URBs stay queued on the host
+> controller.
 > 
-> 	for (i = 0; i < elem->channels; i++) {
-> 		int idx = private->meter_level_map[i];
-> 		int value = idx < 0 ? 0 : le32_to_cpu(resp[idx]);
+> tascam_free_urbs() then returns the capture transfer buffers with
+> usb_free_coherent(), and snd_card_free() releases the snd_card
+> allocation that embeds tascam (card->private_data).  The controller
+> completes the queued URBs afterwards, writing device-supplied data into
+> the freed transfer buffer, and capture_urb_complete() dereferences the
+> freed driver object.
 > 
-> 		ucontrol->value.integer.value[i] = value;
-> 	}
+> KASAN on 7.2.0-rc5 (arm64):
 > 
-> snd_ctl_elem_read_user() serves that object from
-> memdup_user(_control, sizeof(*control)), 1224 bytes on LP64 out of
-> kmalloc-2048.  offsetof(struct snd_ctl_elem_value, value) is 72, so
-> element i is written at byte 72 + 8 * i and element 144 already lands
-> past the allocation.  At map_size 255 the last store ends at byte 2112,
-> 888 bytes past the object and 64 bytes into the adjacent slab object.
-> The stored words come from the device and meter_level_map[] selects
-> which word lands in which slot, so extent and contents are both
-> controlled.
+>   BUG: KASAN: slab-use-after-free in dummy_timer
+>   Write of size 512 at addr ffff000015b62000
+>    __asan_memcpy
+>    dummy_timer
+>    hrtimer_run_softirq
+>   Allocated by task 64:
+>    usb_alloc_coherent
+>    tascam_alloc_urbs
+>    tascam_probe
+>   Freed by task 170:
+>    usb_free_coherent
+>    tascam_free_urbs
+>    tascam_disconnect
+>    usb_unbind_interface
 > 
-> The core does not catch this.  snd_ctl_check_elem_info() is reached only
-> from __snd_ctl_elem_info(), which snd_ctl_elem_read() calls under
-> CONFIG_SND_CTL_DEBUG; without that option snd_ctl_skip_validation() is a
-> compile-time true.  __snd_ctl_add_replace() validates kcontrol->count and
-> never inspects elem->channels.
+>   BUG: KASAN: slab-use-after-free in capture_urb_complete
+>   Read of size 4 at addr ffff0000170ee878
+>   Freed by task 170:
+>    release_card_device
+>    snd_card_free
+>    tascam_disconnect
 > 
-> Installing an oversized map needs CAP_SYS_RAWIO, but the control outlives
-> the hwdep descriptor that created it, so the out-of-bounds stores are
-> issued by any process able to read controls on /dev/snd/controlC0.
+> Restore the usb_anchor_urb() between the reference count bump and the
+> resubmission.  That also makes the handler's usb_unanchor_urb() failure
+> arm meaningful again and restores usb_kill_anchored_urbs() as a barrier
+> on the disconnect, suspend and stop-work paths.
 > 
-> KASAN on 7.2.0-rc5 (arm64), triggered by an unprivileged control read:
-> 
->   BUG: KASAN: slab-out-of-bounds in fcp_meter_ctl_get
->   Write of size 8 at addr ffff000017af04c8 by task fcp_trigger/185
->    __asan_store8
->    fcp_meter_ctl_get
->    snd_ctl_elem_read
->    snd_ctl_ioctl
->   Allocated by task 185:
->    memdup_user
->    snd_ctl_ioctl
->   The buggy address is located 0 bytes to the right of
->    allocated 1224-byte region [ffff000017af0000, ffff000017af04c8)
-> 
-> Bound the map size by the ABI limit rather than by 255, and bound the
-> store loop at the sink so it cannot run past the value array whatever
-> elem->channels holds.
+> The anchoring was removed on the premise that the URB is already anchored
+> from the initial submission, which does not hold once the first giveback
+> has run.
 > 
 > Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
 > 
-> Fixes: 46757a3e7d50 ("ALSA: FCP: Add Focusrite Control Protocol driver")
+> Fixes: 5cff1529a2f9 ("ALSA: us144mkii: capture_urb_complete: redundant usb_anchor_urb corrupts anchor list on each resubmission")
 > Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
 > Reported-by: Baul Lee <baul.lee@xbow.com>
 > Cc: stable@vger.kernel.org
