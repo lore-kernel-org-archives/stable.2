@@ -1,127 +1,185 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC4147B413
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 21:39:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34DB4854F2
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 21:44:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785879568; cv=none; b=BOLDLlxsLiOaSMuVwSu5q+sjJnBm1HNokC316URWyAXytQ/lntN6a//oAz0V6EiIRbvNFcbf7bB7nwCC8Gh00nXDJJO8r0P6E8p6Wdfa21SeFziZebCpSk5gTJyL5uW1+pw5xsyOSqprTD84X33VcsTSWy5Bz7uasEu4HIstfog=
+	t=1785879887; cv=none; b=Id0kXO5cS0kiVh2inZspzzQlXwlmMYLGnJTTnz9hhGBTg5jVI1j0fKx2SolznA3dOI33MHBZZVQuZmIIbuynIIA/k1jWCfhC095K38lCHSIz8muKd6Z1Hcr382QBWz40T+sdQete09Oa6p2mFI3OP8Abvgzcu8GUwZrm5cVvfHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785879568; c=relaxed/simple;
-	bh=c0jHAqCKMMLGqElB9P0Zc/ra2eBZhFiyVAmWgrs0dpc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nzj5DHx1CcTcSHqyKcqrzs8iQSb7MGZBm6zNRO3RVbCBSsfdI66s5fsxlIR5kSAJzKPNJuXclJ/CDg4o4BmxqpHOHBvjrvQTcrEnjzh7JpRPcwcH1O2As9t976rvyCkUlXNosnpUnJHQ9IZKi1rTZ9lUTxqICO8XdqR/4BeMheQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e6SmcVV5; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785879887; c=relaxed/simple;
+	bh=Plr2udUrnPzJhrO88d8/cUYCuYFUqVPKmPeP0WjYuzY=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=JGQkWdIBO3QninBWyhqZb4QZyOFpBAgG9UvaYxoapvEH9UiNWLolKbWw8idTtmt7VJ4Ee4zn4th8NSq0S1HuqgnuknWim4qeTo1hxu1+P+pKolkyEbmJbH/flVQyZ2N8z2ctbUg8G4Cr/wZxVcXMZdNBw8I5/Jo1uLaBCqTXS/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tkjos.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h3b13pDo; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tkjos.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e6SmcVV5"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ceab75934dso4166835ad.2
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 14:39:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h3b13pDo"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cccfa32670so3840415ad.2
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 14:44:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785879564; x=1786484364; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AVzPi9qdoodMQ73+79x+gG0Fw90m+Wzneqb+ihmK6gQ=;
-        b=e6SmcVV5jfw8sFCaBIZVZtBXSOxoKLFnviVSNIVBBcs83peqIeViDqgJEo3jqTaY0d
-         TR8/fjJmVb0hWCcPgGzufqhPCPutU31Xm4xTfJoOCv6teNG29GSiL+L0E48vQwy5jTQ3
-         mA/7d2LQHgAacqW5xthUbx9uNEk+JkD2qY11MFzXLwQ3R2pLOPBZe7zB45/csv+uoVDa
-         9WBxSmYkNRb7LDzTaCqlF0pqpjxCWtK+Z1M/wOpKyeQhWFNuWI4k+dD1XSOnqQGgwCaD
-         djz6ydqXVE1xwO6hy1v8ouFil/C2+7sha/+kWbmx/lw4a3dnppMvVTTnxiIv4qzYIqVj
-         2M2Q==
+        d=google.com; s=20251104; t=1785879885; x=1786484685; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IQAROO2SKZMfB0rf4vSIrisCuL+veKyZjlIzUVOrEqg=;
+        b=h3b13pDo+UDmzTwe2p67GeF5fOUR7bsFyGzETWXZXs5tBjWfSVPsU3E13QkOlUzC6l
+         lREMc52gtnvx69Q97KLxUvM7dBEMcq4MM3CBxnB9KHAClMi1tb/7g3gbbPbSDToR+sEX
+         bmQXAJfxkPmj8JLyKG8iB3MMV1gKy2HolCJRRtzaYZEH3V1tcMPjDJx8SWFfq6VNAL2l
+         SgV9hvjFlkvpZMaYBz/SfHeLO7sS0fYp2gSXqjGWpzSBYeKxiKnL5oeAMCoNozmR3NaC
+         2RPFBjlAbp53XlOBG6LDAnc2k+yaPlX85lxFxfqZJDQt/TCfvTStfssOiXgaKNn6cdZu
+         NJtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785879564; x=1786484364;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AVzPi9qdoodMQ73+79x+gG0Fw90m+Wzneqb+ihmK6gQ=;
-        b=TxWMYUbvojvUCHVoJoSXK3HcMVFY7JZFHyLNLg+8IfBWxZQHDLnlJH9PdBbbm99yY3
-         zs2Jga4SFAChgUCWNei4pZLJbkW0icKc7IPJefmqJWhBjZrGdD0NZpKFtk8isN7aovk1
-         zuKC1INvnlFovxmyBWbc17iCvzQZ/lDcBn+ZUnl/89Iqda9d/Rx8M40Vjx2o4iV4aawK
-         eiIYDASfKvO9C+yeOy6mANNQgkKT4iwNXlsYwUnf8zv0EHYWkbDehUkKugJtg1xv/LJU
-         l0Zcj3FAur0rRoW8aU2AJvzd7YavmEW/mKEG9uCrmoCGk4N/DZREmr3eXilBUTXqzLU5
-         K+xg==
-X-Forwarded-Encrypted: i=1; AHgh+RrvOhpCOGFBamsBiTY4kUaNqsGKlx6C5VMfmO8wSaXNFkflmW2daco0R1pgckp0auqmSXE32ds=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwYIuAizGIyxwkf6R9aTsrI4P/WckGskVJqaGkZiYQFnKlcKXDR
-	LiNq6oZGt7/TTPH0anF0Fy1BseShxLcTFwYhkhI/oUB9+6Rtp24pPh0yGQLr4PH6LiM=
-X-Gm-Gg: AR+sD12DI23ZvazhlsDEnXI/a3TLCP4DErYEZS0T5Ayxtsf2CTm2W+uy+yBVxrEt6US
-	jJViHJUzHQ82gsf51rLt1NkteGeon4/+fpjXx+Zy5L9aHOSnoNvAU7prjvQ4nvPJSs4i20EpQN0
-	C9rEQyvM+rTLer4FGZUz10ZZws6oqDt0qXDSY+begrAnL1CDOYMGx4+pEXQRGHXrJmpBNju8Onh
-	ibIgfhB4gnAYvaLYG+jalfteo9P8UCM3zU1YrD69KUFdTZ6tkad9818Nua2x04p7NVrB2Rlz7xs
-	b5INcHZDcgTIwTnnNh/jSNg0sVwijLDorrFGPiyG7yfKnZBPVZBMP/+pkXOFO5wr8/KwmiQ8QHy
-	aWlzL9nguwQ8viiFvIgQTxaQGG+Yy3KV2j/dQWMuC05DZjVe2SOxbvpAacuAayyCrILeGhNlF+h
-	ocJXU8S0r6DLfC/ivHoOFytRuKukb+qHktIKwZcZ35+7uPOFqHNRyftAyTLYrOQBbGiXHkwXQgj
-	1OgCWChHia3aTC3/LINME0w/NdjiW9+SngyEGMgyLQ=
-X-Received: by 2002:a05:6a21:a38d:b0:3bf:6fb1:ce0d with SMTP id adf61e73a8af0-3cb85ea3663mr1881337637.21.1785879564575;
-        Tue, 04 Aug 2026 14:39:24 -0700 (PDT)
-Received: from LAPTOP-DPAKMOI4.it.purdue.edu (pal-210-106-74.itap.purdue.edu. [128.210.106.74])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315867bc341sm14727379eec.27.2026.08.04.14.39.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 14:39:24 -0700 (PDT)
-From: Yifei Gao <gyf161023@gmail.com>
-To: "D . Wythe" <alibuda@linux.alibaba.com>,
-	Dust Li <dust.li@linux.alibaba.com>,
-	Sidraya Jayagond <sidraya@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	linux-rdma@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: Tony Lu <tonylu@linux.alibaba.com>,
-	Wen Gu <guwen@linux.alibaba.com>,
-	Karsten Graul <kgraul@linux.ibm.com>,
-	Ursula Braun <ubraun@linux.ibm.com>,
-	Wenjia Zhang <wenjia@linux.ibm.com>,
-	linux-kernel@vger.kernel.org,
-	Yifei Gao <gyf161023@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] net/smc: fix sock refcount leak in smc_switch_conns() error path
-Date: Tue,  4 Aug 2026 21:39:17 +0000
-Message-ID: <20260804213917.3413525-1-gyf161023@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1785879885; x=1786484685;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IQAROO2SKZMfB0rf4vSIrisCuL+veKyZjlIzUVOrEqg=;
+        b=sdP2uv1liP3dyuggMAPWARgi8ynStI3NKukcEQpvSV6oN1NU4ShzU5Q9WMX5YGTG+8
+         qrpe4Wj7ggEDtmu6C65urBeZ58FL5fD96GyLaRYYZj5vuS+kZyrdGPWEn/ZhWyTOLSPa
+         5tSVlYEJRnZOZ8s9nGNVkeBQgtGdxXNknXdn53efyqmqoitIa/PR4sb7nTnyxoxXEBz0
+         bMCDI2PhoVyfRDaCXGTt1ZeMNRDvv0UMi/m++kNZiVaBtOLT9uMKiZfEO8a2VdC9r0m/
+         3jJEXwJNrY09Z+v+NHCA4kcirAseuAJOzeSwwdyYGmAkyOEB4SInkUNgpHZmMXOgIscG
+         3tdg==
+X-Gm-Message-State: AOJu0Yy1sC3QJN4CUF4RsO8GYJoPBI6TvQA5Ijrab0VT1ENGX2tac3X+
+	i1zaKyOFDjotsze/Z70c1ULgM4AtuSzijw/wp4Rg7pQjCLqQGdDMxPfce1A95AbHqm0Ce45+Z7h
+	D+o6Y06OWKmIlMZMPwuq+RhIVsdejMHZ62mTh6IrfifkXm7wbh8EbynzTbyd2S5V6yi8jto11Vl
+	ZPrYyd/3j4x9cET8mo88rz8cQoB6ntB0E=
+X-Received: from plgf4.prod.google.com ([2002:a17:902:ce84:b0:2cc:66fd:42ff])
+ (user=tkjos job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f54d:b0:2ca:ecf6:9104
+ with SMTP id d9443c01a7336-2d0ca711c8emr20045565ad.4.1785879884724; Tue, 04
+ Aug 2026 14:44:44 -0700 (PDT)
+Date: Tue,  4 Aug 2026 21:44:05 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.571.g244d577d93-goog
+Message-ID: <20260804214406.750710-1-tkjos@google.com>
+Subject: [PATCH 1/2 5.10.y] Bluetooth: SCO: Fix UAF on sco_sock_timeout
+From: Todd Kjos <tkjos@google.com>
+To: stable@vger.kernel.org
+Cc: kernel-team@android.com, Lee Jones <lee@kernel.org>, 
+	Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg <johan.hedberg@gmail.com>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, linux-bluetooth@vger.kernel.org, 
+	netdev@vger.kernel.org, Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, 
+	syzbot+4c0d0c4cde787116d465@syzkaller.appspotmail.com, 
+	Xiangyu Chen <xiangyu.chen@windriver.com>, He Zhe <zhe.he@windriver.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Todd Kjos <tkjos@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-smc_switch_conns() takes a reference on the socket with sock_hold() before
-dropping conns_lock to prefetch a tx slot. On success the reference is
-released by the sock_put() after smc_switch_cursor(). When
-smc_cdc_get_free_slot() fails, however, the function jumps straight to
-err_out without a sock_put(), leaking the reference and leaving the socket
-unreclaimable. During SMC-R link failover with an exhausted backup link
-this leaks one reference per failing connection switch.
+From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-Release the reference before jumping to err_out. The err_out label is also
-reached from the smc_switch_cursor() failure path, which has already done
-its own sock_put(), so the put must stay at the get_free_slot failure site
-rather than at the label.
+commit 1bf4470a3939c678fb822073e9ea77a0560bc6bb upstream.
 
-Fixes: c6f02ebeea3a ("net/smc: switch connections to alternate link")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Yifei Gao <gyf161023@gmail.com>
+conn->sk maybe have been unlinked/freed while waiting for sco_conn_lock
+so this checks if the conn->sk is still valid by checking if it part of
+sco_sk_list.
+
+Reported-by: syzbot+4c0d0c4cde787116d465@syzkaller.appspotmail.com
+Tested-by: syzbot+4c0d0c4cde787116d465@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=4c0d0c4cde787116d465
+Fixes: ba316be1b6a0 ("Bluetooth: schedule SCO timeouts with delayed_work")
+Change-Id: I0520456fb59dfdb11b0d8a4d6b7087684736a0ae
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Xiangyu Chen <xiangyu.chen@windriver.com>
+Signed-off-by: He Zhe <zhe.he@windriver.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ Resolved trivial conflicts in net/bluetooth/sco.c ]
+Signed-off-by: Todd Kjos <tkjos@google.com>
 ---
- net/smc/smc_core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ include/net/bluetooth/bluetooth.h |  1 +
+ net/bluetooth/af_bluetooth.c      | 22 ++++++++++++++++++++++
+ net/bluetooth/sco.c               | 16 ++++++++++++----
+ 3 files changed, 35 insertions(+), 4 deletions(-)
 
-diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-index cf6b620fef05..04c6ce608ec7 100644
---- a/net/smc/smc_core.c
-+++ b/net/smc/smc_core.c
-@@ -1148,8 +1148,10 @@ struct smc_link *smc_switch_conns(struct smc_link_group *lgr,
- 		read_unlock_bh(&lgr->conns_lock);
- 		/* pre-fetch buffer outside of send_lock, might sleep */
- 		rc = smc_cdc_get_free_slot(conn, to_lnk, &wr_buf, NULL, &pend);
--		if (rc)
-+		if (rc) {
-+			sock_put(&smc->sk);
- 			goto err_out;
+diff --git a/include/net/bluetooth/bluetooth.h b/include/net/bluetooth/bluetooth.h
+index 43b4386018e26c41c914f87e050a0fe958700135..85bab90a6921ce1e9b9025647e23fafd97117ece 100644
+--- a/include/net/bluetooth/bluetooth.h
++++ b/include/net/bluetooth/bluetooth.h
+@@ -317,6 +317,7 @@ void bt_sock_link(struct bt_sock_list *l, struct sock *s);
+ void bt_sock_unlink(struct bt_sock_list *l, struct sock *s);
+ struct sock *bt_sock_alloc(struct net *net, struct socket *sock,
+ 			   struct proto *prot, int proto, gfp_t prio, int kern);
++bool bt_sock_linked(struct bt_sock_list *l, struct sock *s);
+ int  bt_sock_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
+ 		     int flags);
+ int  bt_sock_stream_recvmsg(struct socket *sock, struct msghdr *msg,
+diff --git a/net/bluetooth/af_bluetooth.c b/net/bluetooth/af_bluetooth.c
+index bef5b6330dd807504292671301c860b96c2ed18e..0af14e3318e7e02173970a1af8e183723bef2c50 100644
+--- a/net/bluetooth/af_bluetooth.c
++++ b/net/bluetooth/af_bluetooth.c
+@@ -184,6 +184,28 @@ void bt_sock_unlink(struct bt_sock_list *l, struct sock *sk)
+ }
+ EXPORT_SYMBOL(bt_sock_unlink);
+ 
++bool bt_sock_linked(struct bt_sock_list *l, struct sock *s)
++{
++	struct sock *sk;
++
++	if (!l || !s)
++		return false;
++
++	read_lock(&l->lock);
++
++	sk_for_each(sk, &l->head) {
++		if (s == sk) {
++			read_unlock(&l->lock);
++			return true;
 +		}
- 		/* avoid race with smcr_tx_sndbuf_nonempty() */
- 		spin_lock_bh(&conn->send_lock);
- 		smc_switch_link_and_count(conn, to_lnk);
++	}
++
++	read_unlock(&l->lock);
++
++	return false;
++}
++EXPORT_SYMBOL(bt_sock_linked);
++
+ void bt_accept_enqueue(struct sock *parent, struct sock *sk, bool bh)
+ {
+ 	const struct cred *old_cred;
+diff --git a/net/bluetooth/sco.c b/net/bluetooth/sco.c
+index 01a01d6f01c309a6333859784261d97335dda413..8ac1f9a0222f3e947e75f37ac87115c74cbc0da9 100644
+--- a/net/bluetooth/sco.c
++++ b/net/bluetooth/sco.c
+@@ -76,6 +76,16 @@ struct sco_pinfo {
+ #define SCO_CONN_TIMEOUT	(HZ * 40)
+ #define SCO_DISCONN_TIMEOUT	(HZ * 2)
+ 
++static struct sock *sco_sock_hold(struct sco_conn *conn)
++{
++	if (!conn || !bt_sock_linked(&sco_sk_list, conn->sk))
++		return NULL;
++
++	sock_hold(conn->sk);
++
++	return conn->sk;
++}
++
+ static void sco_sock_timeout(struct work_struct *work)
+ {
+ 	struct sco_conn *conn = container_of(work, struct sco_conn,
+@@ -87,9 +97,7 @@ static void sco_sock_timeout(struct work_struct *work)
+ 		sco_conn_unlock(conn);
+ 		return;
+ 	}
+-	sk = conn->sk;
+-	if (sk)
+-		sock_hold(sk);
++	sk = sco_sock_hold(conn);
+ 	sco_conn_unlock(conn);
+ 
+ 	if (!sk)
+@@ -192,7 +200,7 @@ static void sco_conn_del(struct hci_conn *hcon, int err)
+ 
+ 	/* Kill socket */
+ 	sco_conn_lock(conn);
+-	sk = conn->sk;
++	sk = sco_sock_hold(conn);
+ 	sco_conn_unlock(conn);
+ 
+ 	if (sk) {
 -- 
-2.43.0
+2.55.0.571.g244d577d93-goog
 
