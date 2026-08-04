@@ -1,105 +1,127 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07783470128
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 15:55:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6617E472F82
+	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 16:00:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785858907; cv=none; b=d3LTC7758M/Rcys4Qb4PzP18XG6zLyVQI6PHPrieTbJH/btpPS2XXlWWgUlorDFpAJ5LoWNQuJjxrmqAsWrvclOwMxAItcbeinqa5z/QdrvYW09z1tqHcl+7T2EhEM0+6GQzwHfbTaO1R2R5tj0pR2o/8x2QZ/Sn1DAaiDJLJfo=
+	t=1785859255; cv=none; b=AVjviB8FE582RUVlWwcpFVVlXqshSJZyIzQwrgTjs4NlATNRlEgEhK1W/k2ZITapYzFI8Pf9MfPO40+MtFB4KLzyQh58quiyg1WKwwaMvMKG2MOstFPYRm8yZtdQhZC/etFzKoYItv1pKfuvxNBdtN3ZuRMDjLfi4lDfiGOvcxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785858907; c=relaxed/simple;
-	bh=Q//y5m5Yxd18sp0LOAnD3pfZW9rQUoqnCAMq/cVsN1k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BIAvjYP3tY+UQ1I97Cr6J6MHTCo3UkHhesxZqe4nq9WWVaRQp/nq0Kgj7CNPVsk6EQMuP1KRzf69r2BLZ8qaLmUPYIAQAe2xdviFZ63o/x9dNmJmBHena9ui3CkiJx5FXqhfxgEkEkvsxLxaqpDT1vaP1vCv80VlDDrQHSe1E4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=As+HP7Kk; arc=none smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1785859255; c=relaxed/simple;
+	bh=L4zI4rFzbBdq96SX5DdXQZ7hn9ePYp9NpqWY50dUL0U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s6p7id9ayd0OI8PdzlazW4QTuUT5ofNvtrwTQp4AaF39zPMsRt2TicqXGpZQX4mMqyLTeomCYMvnLn2b+nqLGWfBJ/23DbEy+9PdHmPAE/KPxepc2v2tq53O7SSNpN+7KgTqVtrVZdlP27xetat4NUZz5l49n7EkXBu19gb4K6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MyMlvdlq; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="As+HP7Kk"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6983f20a8bfso7730439a12.1
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 08:55:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MyMlvdlq"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493b966dd74so19380995e9.3
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 09:00:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1785858903; x=1786463703; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o4xgJp2B/z+NAqHhu5Ojm/1pvtssSxY1YUWVWv7CENo=;
-        b=As+HP7KkrSISBrbzeQNFg3nMS/h8wgkiMD2MU3ZPjLjmWK6Zbn+lv8Y3lrlF1kAZjg
-         gzmr9WhhO2v6O3Kvsx6CTBHp41haaiphsvKFO8BHQ1NmKvNXmnkjSpXZonRlhjNOimzL
-         bQCrVJj4nqUI+Ew+rST6/dLM+xSqRYwxr1AJ4=
+        d=gmail.com; s=20251104; t=1785859252; x=1786464052; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=39LYywLmPcXSkKCIulhHDm7OS4Hd0MM7+1BesXcpx0I=;
+        b=MyMlvdlq7EaKRhttWcIPfr4o5JcOSpOkX4IOfVqaL+wg/k3qnDh7rIDdckCs0UaNyS
+         LRs/GbrqvotxSoYpYcY9dpnQT7WkG1PF4x8wOZEeGweRfdHMgXQ/vSeIggGAKFhVOR6q
+         Tdxnx9aRKB8c6t4pcveQZIyD2fgZWQ2bOLHkPSlXAkNes2Id8+HJN3oOvnRiiXcXwyxX
+         bRkrm8XDs2+c7NcikGoZXlYw8wm1pwHGcYS6mVu8NNJjsMYb9oXqLa9Hwp7F1yxnqeVr
+         Ni/KdXWUTGRUzU3VmlqCtYeij/u5rgo+MvLqJ+iDqua5O8IKB+W1798+r/wUW+HzSYvW
+         e/nA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785858903; x=1786463703;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=o4xgJp2B/z+NAqHhu5Ojm/1pvtssSxY1YUWVWv7CENo=;
-        b=N7B/U06PP81wHR6lFy3FTQ/u8XnYqkS0AYstN3qvNtE814whqHcR4AaL03Yc6Qe8Lg
-         yXywsDuzJfmXk5ZFRyOvvd3cyh8h8CTgwcDNVnibGuzQRHiP+PA/tHV8M4jBYL41qum4
-         zbocjVVT5RGCojWOKHHMG5pMaLPMnl9L1fVxZDENNyyvMFskLtz2//85wfBAq0oscwvy
-         +PeKO4pRnsjGRgWx+vhdLtam7napZt0PAA+Thhab35zEbh2MMYBbWV0Jux9A3ewm9yM8
-         VQGAk12Nhv4+Qh66+qpR1+vcz72NP0Oebof3a/Ue7xip2pxoF9choi9NxtqahPWT9ceX
-         fIBA==
-X-Forwarded-Encrypted: i=1; AHgh+RowF/61Y5VHnFDRF5qqbhK+ChEttTc+Z8s9axLl6uJ91ebTN3S2HSOXzairFl2gZWFluJGExMc=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy6vDvkew2Ze6Y5ZKgY+Qii5VAFd/R2s0IzophB4kJsVWjdMDBO
-	u8HNsgCFUkaeEhBsEjm56jJ5JK+RAEWwQx+bqxqvzL8HEB4rnYQicwp5LBkY2NqocztO8q97zg1
-	ZXC5mkKqi8Q==
-X-Gm-Gg: AR+sD11JaRDdX2FtyIvABLHXDXFMVcK3xE19j2h3hmHwEj7pIqBCcyagp061yUsXxIp
-	6xeWj5bJ90/WBM+QxjE++Muzk6fhjikaPwJ0mJ9nwglEXOJS2OHSYoy4oEWGltwloDXnmJlqnO5
-	xsj2ekH9vixl+XgwwCXSXcG+m5Z0GopwnW1DalMwQrjVrh+SjUo+Gtv+rn2uHZBlrHtoj8uY0HC
-	CYb/X3bxP3Yodje5mgNm4iAiHdzvbzwSDBpPnU4lWwgLT0bOaE9U43sE10BQKHpwGo4f7cyA+HS
-	+WWFPO+UeQbwhC2BtUYe5/fKJYm+fqAnAhVvpSbYXb0WBcnsTBTWfz9ccG2M62q5NZ4iuE8vFqJ
-	joP1RUdVLekNjRf+crytnjET2JArIfMIgxWQ/w5226LTny/CmNGsPxuNA+bcA0PaID9CVheAxe3
-	JsFQK14ZEOsPiIaM/pEYCYwC+sxLNUtfNF6hrWpn5jIH1NAWUivjDBEAuzPO6d1R3eAjZXkeesz
-	H5Crk5vmXYxr/aQ+jUG+RGnBgtjv+6RB8AY+A==
-X-Received: by 2002:a05:6402:1cd0:b0:6a0:a644:355e with SMTP id 4fb4d7f45d1cf-6a14f0a1306mr3049a12.2.1785858902950;
-        Tue, 04 Aug 2026 08:55:02 -0700 (PDT)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com. [209.85.218.53])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a145c2a6fdsm289172a12.1.2026.08.04.08.55.01
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 04 Aug 2026 08:55:01 -0700 (PDT)
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c1c26d7e951so10314966b.0
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 08:55:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RocVFeVaAfk9EiiFAg04+okeFUSBEUYJh2y2NBlvC2b4gZSRV4l+rH4BPYsHhSmmDlZ5dQIiPE=@vger.kernel.org
-X-Received: by 2002:a17:906:5ace:b0:c15:a487:3482 with SMTP id
- a640c23a62f3a-c1fe7efc4bemr980444666b.21.1785858901284; Tue, 04 Aug 2026
- 08:55:01 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785859252; x=1786464052;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=39LYywLmPcXSkKCIulhHDm7OS4Hd0MM7+1BesXcpx0I=;
+        b=o5s67sY0RBRJXmWaGmjBZnXNnL9vkNdU0gC0puaVfGxQTHiNUiCdF96MyKhqLfC//3
+         joHrfz9V/Pek7vsbjN9S0A60gE1Tm8WQIIuBMB6ZwUK/32gCl14XK4gYSVRDqYCNjuob
+         nzLANQ1C8vVr1wEuUCtrnNUItYoKqBGbJ+Q/VinZNSENbcpaqK4dUcPgLXFNooMxESFb
+         1YKZ1T5G0zM46o+0ZJT3SghJi04MaZchjxEoc0p9aAXHgRWdwptgGS9r98l0fulNgciE
+         Yiuhj9RjGNFncHEn1S3amutu51U5H0PU5oS5apEP5LrSbVQ0+mrbOe2k4F8ZJ2PMAWZG
+         kZkw==
+X-Forwarded-Encrypted: i=1; AHgh+RrAy3cT2CMBIxDkWBtwK3leprcDAC6a6u4P/tT5a33o/3FVfrA+9vw80C6CMhanB8YRK4TuqAA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPFa3Pfx5RTnBpOe4x9dybyW0pC3aCpskjxvY/txPB5X0DhK9l
+	c/8enChS+rxaVp2AKCrsldMKcWS4hNEVowYr6vZsJu8ikYG7XsME6L9f
+X-Gm-Gg: AR+sD13m+8T7T0dqCEhkb1ASHCvE/xc3wvMyg9bzWYBVK53MDTejZ6SrS2118vJ/xKQ
+	hEPUPPXxmrftVamPvEZiQc2qrSE1XnaRtBhC2rcBPiH/Ln9Gjxf35XVIeuWQ/3mlLsPZqHOojme
+	8HtOnvQlLzhr6q413CF/RwkqrzMycQiaaXGbQrMVCIL9pnkmBtfTS9NSVfNxdA0paqw8JvZBUHX
+	1MBAjOf8n0YXQqPCgRRnpAwMCFEsg1HyIjwqeC3eUvrXuvJXuqMSFyCVyobM8eZn8RP46minOoW
+	1apgp8kiJMEfGO16owEGuVD/jmXhVdeCEfh0sT5SMZbugdMADxcBgDlcKKku8vXcyqonaqKfvS0
+	2HR2cKD4ewS/w294uaD9ioJHmw0Sc5vFUujBAYX8gOtJOd2pbPSWqrZTw2YMKTwdiKKzNqFi86L
+	JwfxGO+5ZMebLbFJjBJqQyvcyRNioIm6nZVOpP6PA/tFVzwcvVTbm/S3J1sPkkSCnlu8Jn9qt7/
+	rpi5LoEf6spsfOs3SluaSYLcg==
+X-Received: by 2002:a05:600c:1992:b0:498:28b:1045 with SMTP id 5b1f17b1804b1-4980c645611mr301569525e9.3.1785859252122;
+        Tue, 04 Aug 2026 09:00:52 -0700 (PDT)
+Received: from osama.. ([2a02:908:185:7e40:b6d0:3270:8423:f239])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49807ba6abesm260913495e9.2.2026.08.04.09.00.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 09:00:51 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
+	stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: [PATCH] drm/panthor: validate userspace queue count against initialized firmware slot count
+Date: Tue,  4 Aug 2026 18:00:47 +0200
+Message-ID: <20260804160048.174148-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260804003708.49830-1-luto@kernel.org> <0adaae9e-7086-4213-811e-ba6e4181e145@kernel.org>
-In-Reply-To: <0adaae9e-7086-4213-811e-ba6e4181e145@kernel.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 4 Aug 2026 08:54:44 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wiO8NDCyBYrDMpjh8zMKnzgD2XuPYo0nk4Hwgq44R_jKg@mail.gmail.com>
-X-Gm-Features: AUfX_myhVk8FsTTBsauy1SMj6wBQHUdARrPzjNn3Fs3t9DNtnJgmwbJSdme97Ag
-Message-ID: <CAHk-=wiO8NDCyBYrDMpjh8zMKnzgD2XuPYo0nk4Hwgq44R_jKg@mail.gmail.com>
-Subject: Re: [PATCH] Fix incorrect flush address in direct page table reclaim
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: luto@kernel.org, linux-mm@kvack.org, luto@amacapital.net, 
-	"David Hildenbrand (Red Hat)" <david@kernel.org>, Qi Zheng <zhengqi.arch@bytedance.com>, 
-	Liam Howlett <liam.howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
-	Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Andrew Morton <akpm@linux-foundation.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, 4 Aug 2026 at 02:49, Vlastimil Babka (SUSE) <vbabka@kernel.org> wrote:
->
-> +Cc Linus for nerd sniping purposes
+In panthor_drv.c:panthor_ioctl_group_create(),
+the queue count is validated against the hardcoded maximum:
 
-I don't know what to say - the patch looks obviously correct to me,
-and I certainly can't disagree with the verbiage in the commit message
-either.
+	if (!args->queues.count || args->queues.count > MAX_CS_PER_CSG)
+		return -EINVAL;
 
-The fact that the current code looks to be *so* broken makes me a bit
-nervous that there's something subtle going on, but I *think* it's all
-just a very non-subtle bug and it just happens to work because the
-whole zap code typically uses the mmu_gather infrastructure and other
-things end up resulting in the tlb being flushed regardless. But
-that's just me waving my hands so wildly that I think I had lift-off
-for a moment.
+However, if the firmware reports fewer slots than MAX_CS_PER_CSG,
+panthor_fw_init_ifaces() will only initialize that smaller number of
+stream interfaces.
 
-                Linus
+If unprivileged userspace requests more queues than the firmware reported
+(but no more than MAX_CS_PER_CSG), cs_slot_prog_locked() fetches an
+uninitialized stream interface and may crash when dereferencing
+cs_iface->input->ringbuf_base.
+
+Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+Cc: stable@vger.kernel.org
+Reported-by: sashiko-bot@kernel.org
+Closes: https://sashiko.dev/#/patchset/20260803141149.68182-1-osama.abdelkader@gmail.com?part=1
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+---
+ drivers/gpu/drm/panthor/panthor_sched.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 5832dccfc093..64749750e6ee 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -3673,6 +3673,9 @@ int panthor_group_create(struct panthor_file *pfile,
+ 	    hweight64(group_args->tiler_core_mask) < group_args->max_tiler_cores)
+ 		return -EINVAL;
+ 
++	if (group_args->queues.count > sched->cs_slot_count)
++		return -EINVAL;
++
+ 	group = kzalloc_obj(*group);
+ 	if (!group)
+ 		return -ENOMEM;
+-- 
+2.43.0
+
