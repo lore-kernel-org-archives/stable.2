@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BAE423EA9;
-	Tue,  4 Aug 2026 04:04:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69AA8423E9D;
+	Tue,  4 Aug 2026 04:04:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785816297; cv=none; b=Zajdd+QPFf2L2uHJD8Fpo6N86ycgvS4Vo3POMPsxed041lMehGEx0dLM5PSH/GsR7aBGVkwqOw7ZVUS2BvHO8Qi/aVM2T8sjjxcHJdM5L4OBYONV7mcQHkRMIsx2xJyN7M9fRseIpbS+nPvgtKKmk4OGJNQl+U+uIYtiqyZsZvA=
+	t=1785816300; cv=none; b=m/sc6rizJEHtN/pRemfwebi9CJUDZWjXRn5aaWBpWyyQPdspNWhuCQf6ZWP1ckGGQgfQXY0UtpURS35cvRxTwfrcA6cCBrkBhJpSeoh88qjK0YhwE0aoDOijv3M3CjJ2O8WgbafM7mj3oNO6alVVcxOqDj3iDNPcJC9UATlPebs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785816297; c=relaxed/simple;
-	bh=pwBpiNMuWQxI/eWemAKcpTcjkR80y1IMFdLTcI52SxM=;
-	h=Date:To:From:Subject:Message-Id; b=PX74tmNgXRkGymSH7ixTIcK90cxCUt80f6931O+/6kcS8tftqCRalLIpbXa/1MBb09O6Us8GC1HydvLpP1JdXjBECPt4eEy+9nyVWYCwuAGFehA2RRBTc6+htIbs4hxvH+MGwQRSbqIIW3ArdTLOXrddX13/4gTZlGB86GCQLzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=HydUs4Zg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785816300; c=relaxed/simple;
+	bh=vXQh7tQvWrniMpFST5Xx/v0mI6LFZxnLh5KSnj48gM4=;
+	h=Date:To:From:Subject:Message-Id; b=ShAawpKUD3xKxdAt6aku/ae9JHm6/rCXEHL8UI/kv/DynaLdBCgfjFqJApP4dHHp4qEKPtQso28dYNSu56ya/fTYaBCq4YY8QbvpmnASmlfYZA0B9MbacRwZsHrJa1TK/zPSPPAMURs88aXcecSqyWqLJcUceO5lVLtMFZaniHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=x0Kn2yxX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="HydUs4Zg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93E031F000E9;
-	Tue,  4 Aug 2026 04:04:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="x0Kn2yxX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0059F1F00A3A;
+	Tue,  4 Aug 2026 04:04:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785816295;
-	bh=vmn2a3cQG98FQltQELTIgZZpy9BuvwnPFlARKLK7+oE=;
+	d=linux-foundation.org; s=korg; t=1785816299;
+	bh=HM6MWdURkbdrg2OecRgOVPzZIw5eU9Cp58GgIT4mrV8=;
 	h=Date:To:From:Subject;
-	b=HydUs4ZgYtNZpmfmvoJTBnIwLYb70Tw3mU3g9oWWEAFvaEQ5QD7P9JGYQaB8/V+HL
-	 Y+Riwdext/WXGXohqXHOxyVszZRr592aBzvY9NE/pf+0EKuv8Qjmw1vdwuitV8wypF
-	 keo7mjmLelIIt6CZuzRMhQ5MO0veb4CBy1ciyHxc=
-Date: Mon, 03 Aug 2026 21:04:55 -0700
-To: mm-commits@vger.kernel.org,yuantan098@gmail.com,yifanwucs@gmail.com,tomapufckgml@gmail.com,stable@vger.kernel.org,n05ec@lzu.edu.cn,hirofumi@mail.parknet.co.jp,brauner@kernel.org,bird@lzu.edu.cn,prcups@krgm.moe,akpm@linux-foundation.org
+	b=x0Kn2yxXLSRPR3VCYWydDq2n/Xavyb9qzTcZEpnTuP+OdsfatjyUwqkuwO02MyvYq
+	 6MDIORDeXNufB+OgaJayiv6IG5VBYVOiL1u0CHKrnJuRn3wv3US5AiA9iz0EXfdyid
+	 WyWdEpVdBA6Qq3avq/P1CzRkd6Dj+QmicJgAPjQ8=
+Date: Mon, 03 Aug 2026 21:04:58 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,nathan@kernel.org,david.laight.linux@gmail.com,rkr0k0r@gmail.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-stable] fat-restore-original-value-when-fat_ent_write-failed.patch removed from -mm tree
-Message-Id: <20260804040455.93E031F000E9@smtp.kernel.org>
+Subject: [merged mm-nonmm-stable] tools-compiler-match-glibc-242-definition-of-__attribute_const__.patch removed from -mm tree
+Message-Id: <20260804040459.0059F1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,56 +35,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: fat: restore original value when fat_ent_write failed
+     Subject: tools/compiler: match glibc 2.42 definition of __attribute_const__
 has been removed from the -mm tree.  Its filename was
-     fat-restore-original-value-when-fat_ent_write-failed.patch
+     tools-compiler-match-glibc-242-definition-of-__attribute_const__.patch
 
 This patch was dropped because it was merged into the mm-nonmm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Yemu Lu <prcups@krgm.moe>
-Subject: fat: restore original value when fat_ent_write failed
-Date: Mon, 25 May 2026 16:56:49 +0800
+From: "Joy H.J. Lee" <rkr0k0r@gmail.com>
+Subject: tools/compiler: match glibc 2.42 definition of __attribute_const__
+Date: Thu, 2 Jul 2026 05:06:35 +0900
 
-fat_ent_write() may have committed the new link to the primary FAT but
-then failed on the mirror copy, leaving the chain pointing to new_dclus
-even though the caller will free it.  Restore the original value to keep
-the chain consistent.
+glibc 2.42 added __attribute_const__ to sys/cdefs.h:
 
-Link: https://lore.kernel.org/20260525085649.781643-1-n05ec@lzu.edu.cn
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Yemu Lu <prcups@krgm.moe>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-Reported-by: Yuan Tan <yuantan098@gmail.com>
-Reported-by: Yifan Wu <yifanwucs@gmail.com>
-Reported-by: Juefei Pu <tomapufckgml@gmail.com>
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-Cc: Christian Brauner <brauner@kernel.org>
+    # define __attribute_const__ __attribute__ ((__const__))
+
+GCC 15 warns when a macro is redefined to a different replacement list
+(-Wbuiltin-macro-redefined). Since host tool Makefiles (resolve_btfids,
+objtool) pass -Werror, this conflict becomes fatal.
+
+The warning is suppressed on standard native builds because GCC treats
+/usr/include as a system header path (-isystem), and macro-redefinition
+warnings from system headers are silently suppressed by GCC. It fires
+when glibc headers are on a regular include path (-I) instead, which
+is the case in cross-compilation setups such as NixOS, where the
+sysroot's glibc is passed explicitly via -I rather than -isystem.
+
+Per (C11 6.10.3), identical replacement lists are accepted silently.
+Match the glibc definition exactly, including the space before "((", so
+the redefinition is accepted without warning regardless of whether
+glibc headers are treated as system or non-system includes.
+
+Link: https://lore.kernel.org/20260701200635.3992767-1-rkr0k0r@gmail.com
+Signed-off-by: Joy H.J. Lee <rkr0k0r@gmail.com>
+Cc: Nathan Chancellor <nathan@kernel.org>
+Cc: David Laight <david.laight.linux@gmail.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- fs/fat/misc.c |    4 ++++
- 1 file changed, 4 insertions(+)
+ tools/include/linux/compiler.h |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/fs/fat/misc.c~fat-restore-original-value-when-fat_ent_write-failed
-+++ a/fs/fat/misc.c
-@@ -133,7 +133,11 @@ int fat_chain_add(struct inode *inode, i
- 		ret = fat_ent_read(inode, &fatent, last);
- 		if (ret >= 0) {
- 			int wait = inode_needs_sync(inode);
-+			int old = ret;
-+
- 			ret = fat_ent_write(inode, &fatent, new_dclus, wait);
-+			if (ret < 0)
-+				fat_ent_write(inode, &fatent, old, wait);
- 			fatent_brelse(&fatent);
- 		}
- 		if (ret < 0)
+--- a/tools/include/linux/compiler.h~tools-compiler-match-glibc-242-definition-of-__attribute_const__
++++ a/tools/include/linux/compiler.h
+@@ -119,7 +119,7 @@
+ #define __read_mostly
+ 
+ #ifndef __attribute_const__
+-# define __attribute_const__
++# define __attribute_const__ __attribute__ ((__const__))
+ #endif
+ 
+ #ifndef __maybe_unused
 _
 
-Patches currently in -mm which might be from prcups@krgm.moe are
+Patches currently in -mm which might be from rkr0k0r@gmail.com are
 
 
