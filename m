@@ -1,236 +1,198 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E6532C937;
-	Tue,  4 Aug 2026 08:29:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785832170; cv=fail; b=RxV5QovfthpdV9BiqwQtZnc2WAM7ZElSItmDkavZ874/eZ/D6F7PEe6U5rayJgLd/Kbmu/KKI8LHBR59aJ9b7DPhQOkx4NK+/5IGP5phScw9HWKW0ULRC9+NHMK3ymFqz9KSRssqu+Wn3qOn2cnBIZyKI3BU81NdYDUSenNu/EI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785832170; c=relaxed/simple;
-	bh=ugVzBFOWPGxs+6wqzRVg58jBZUmDvJI5w7lSkTkc53Y=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=V2LHzt3ynwrN507wnKs0eBwezwf7PM01wtAa2uCP0lwGBC99XCHqMP9pk66p9MopxHVngtkRGMUn+JQhbDkOenC2+ysRKcl3B1N22PhAS6mdKMtP/3GOUR5HG6hXGaraPxXnsqazxwnzwKfKpnWhYC0iLFlvwtWR+7LkppzwZIE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cVh0Z52J; arc=fail smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1AD43B3E2;
+	Tue,  4 Aug 2026 08:33:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785832394; cv=none; b=OPnIi9P7YD8S1M9RejlhIuB+rLyXhMEhf+9/ehMJQig65oU4/DRLE8rUni4Nw0HlMMrBOYxO2XNoPIm4AP+E47V9sHHmqkPgddnF8KSDizvVJ1SVJ22kXfHVGCGoMpJKWWLsVBhOXuFy1nR7rKBXJ8ASTG05XhIY+q2l/K/2AkY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785832394; c=relaxed/simple;
+	bh=4H8YaPKvU7z9ldKF02BCWLUqxmOOD3+PPdE1h82yTY8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=T+Nk+PXpMn7XalllJkX+O9T/bc/doIHkOkDzDt5jALs7UvcGA+MM7hQHfpYWOqtYu3xcFsyPrm5uBreOcfokxvx1+NuEJr3VNIrmS7f6Bv1AJNeK+JmsMFYcpNQdcHrKnqKr9RHTA0gdbESVyFJ3bw+1vhaffFeMNw8mzwK1E/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=sW3NjUb4; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cVh0Z52J"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785832168; x=1817368168;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=ugVzBFOWPGxs+6wqzRVg58jBZUmDvJI5w7lSkTkc53Y=;
-  b=cVh0Z52JpK/3tEQecQPFcbo2YAxcDE3o+lCeRcu3jMnvZ4wNVBTuT3jX
-   E8TihmpbkrKeJzo48/+nOptyCiTXa/knYmej1HN1Uk+2IIS6Gk6kFc1gP
-   q7cQa91Hmjc2E450khCG2eua7e3QJ8PGeGOt/2gbPtceLl920MtdE4E1k
-   8wS4sj36VWWdjyt016YljSmf9qFv2bjEHHGBNMimTcX4Pd1sf4bqAGLzU
-   cSAvkx3Syo7dRC0Sc0aBSMyVspR7FQmHLa0RpYhjL9jsl/59fJvzGbas3
-   6xvEn86lXmAHSwh3oHDUutbkbXd4aZYnPSOLkacCvaELxtHjE/Njr2l4/
-   A==;
-X-CSE-ConnectionGUID: NSB8dHyeQIaBNn9pM6FKQg==
-X-CSE-MsgGUID: sP8vaekORSSsGg6NyD7j+w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86497090"
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; 
-   d="scan'208";a="86497090"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 01:29:28 -0700
-X-CSE-ConnectionGUID: inQKLcpETvyn79DYcBCEVA==
-X-CSE-MsgGUID: A91gykBQTO6Lbfqu4VS+sA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; 
-   d="scan'208";a="258772524"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 01:29:28 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 4 Aug 2026 01:29:27 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Tue, 4 Aug 2026 01:29:27 -0700
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.45) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 4 Aug 2026 01:29:26 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hDZNm5+XSQV7wlaM3+Vis7qS5HQiB1oTbSaIRVJa1kD1MBOEQdVQb90SvKrYe6eP5XDGsdzTai9WdazX984+y0ESMnOMNuW6r5Wzzj+LxjDpNafTRNudytuQ7cw4rvBAPd0SY7G5zw9n1IrMqczOwDLcDWHw6iAwDsa/kN++gTH3Uutrwz1y4xMSK8pymMSWX2NqYVs5RkddWCzOdnvm3Dvj9eKlm7N54kT/Rs6+KmWW/LuJGO5vQRtG1sywPaY2UT1/HUM2QQZ4fnSnKJ9q166/DEwtX3Irp9ksAf/ylpp6Lc4hRczLHQjlzECIb23dhjLeq3WqiU3tGUNSYMrbRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PqeehGH5aBBqnKugrdZgJw3++jwa/q14CRRjB95btys=;
- b=V9KydafklERYbcA1+l9QtAA5i03p1k5YeTYrF8tt1ZZEhjwHpBkpNsAzZYVTIxdSqBY/ejY0/MsKrrg57+TCG9XE82pmT6UxLWWgSJPJLKRnq0IJ/u4hZzUKvCk4bFpVtw/wknbxcjB9oldk8EtxsfCE/aZ1i6Fv5dbag8nVv3ET2+ScpR4SNS3uxwcCCIRl284OmPwS2siywprIpzTE4YuqV+HKfIJNVV1I6VXxagoZNX+b/ksXhBvMkI54eSQa2lvSJ8/3mYku5EoVtF/zykpGrAOnsmpvw/cfiGmx7jhWIrh4YXM7c/S6/oqEox9iO4ZimfDoiU+sX2mnIyqoNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from LV4PR11MB9514.namprd11.prod.outlook.com (2603:10b6:408:2e0::10)
- by CO1PR11MB5121.namprd11.prod.outlook.com (2603:10b6:303:98::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Tue, 4 Aug
- 2026 08:29:24 +0000
-Received: from LV4PR11MB9514.namprd11.prod.outlook.com
- ([fe80::79a5:106b:2126:a7fa]) by LV4PR11MB9514.namprd11.prod.outlook.com
- ([fe80::79a5:106b:2126:a7fa%5]) with mapi id 15.21.0270.017; Tue, 4 Aug 2026
- 08:29:24 +0000
-Message-ID: <dec971cd-d26c-401a-953e-6ef3523ab245@intel.com>
-Date: Tue, 4 Aug 2026 11:29:19 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Intel-wired-lan] [PATCH] igc: fix netdev not re-attached after
- resume if interface is down
-To: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>, Philipp David
-	<pd-lkml@3b.pm>, "intel-wired-lan@lists.osuosl.org"
-	<intel-wired-lan@lists.osuosl.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>
-CC: "Nguyen, Anthony L" <anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S
- . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <20260717092159.35496-2-pd-lkml@3b.pm>
- <IA3PR11MB8986D164F76EFE059EF2EA23E5C02@IA3PR11MB8986.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: "Ruinskiy, Dima" <dima.ruinskiy@intel.com>
-In-Reply-To: <IA3PR11MB8986D164F76EFE059EF2EA23E5C02@IA3PR11MB8986.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TL0P290CA0014.ISRP290.PROD.OUTLOOK.COM (2603:1096:950:5::8)
- To LV4PR11MB9514.namprd11.prod.outlook.com (2603:10b6:408:2e0::10)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="sW3NjUb4"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6748Hulc236730;
+	Tue, 4 Aug 2026 08:33:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=SdRKvs
+	6kPYlCAUvmapjyp5JQ8+eqk34UJeLzWHXsD2E=; b=sW3NjUb4ADvHQHJaPxVVPj
+	pREtOzOBeZuoRhlgq9KMIzkoJ19nKpmfkzTWZeLdHs3MNxtHxiVjKKoIcthCMIhx
+	VavK/Q30yG/gy/g3xI8zk13cEQqnF04wvTl6ozwjQwxh0WrbviwET00p0NQ6Nd/m
+	IOBBoRWFxd2r1bhAw4QjWdVBsxERElxn/u/AAqfrG7aYSkOjr8gMbf5TukoP7WQL
+	BrcAuo6EXdCiwoE2hrra9iQZP/w22NnA8I+UmUoMF/t5zQLhF7xx2jhE6GiPFixK
+	llt8gQeljWGAU0mO2YMo/wgV+Byol9FwH/vvbDSVqbCxCcNgsrNdDjMSUNVogtvg
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs77g4pfv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 04 Aug 2026 08:33:07 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6748BwqR005959;
+	Tue, 4 Aug 2026 08:33:06 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fsugw189w-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 04 Aug 2026 08:33:06 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6748X2L248759272
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 4 Aug 2026 08:33:02 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 71C572004D;
+	Tue,  4 Aug 2026 08:33:02 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3E27C20043;
+	Tue,  4 Aug 2026 08:33:02 +0000 (GMT)
+Received: from [9.224.94.95] (unknown [9.224.94.95])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  4 Aug 2026 08:33:02 +0000 (GMT)
+Message-ID: <9cda0e57-ce4b-428b-9385-743fdef02789@linux.ibm.com>
+Date: Tue, 4 Aug 2026 10:33:02 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV4PR11MB9514:EE_|CO1PR11MB5121:EE_
-X-MS-Office365-Filtering-Correlation-Id: b760dacf-73dd-4c28-2758-08def2027d87
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|11063799006|4143699003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: OUL0Vzow6ck2Yq/NRXktWTzIKTd7gWu8qSWJBoXiaypYRdYVUZzcQCjEKoJ6NoVhozraQeVPyCAncMAG3rVaOM3AnK1uTBdYkZg3prwtGTS3aIHQNhKhDSBIchXOZfBKEQntM0sGRGPcPni2uDuFHx3tZW9UpzwyxpQ8J3pJsufTKe/O/PBT5kq0K6BpPrJoUQJhuDJ3ZTvXtEoxW2L4ja9C41cgHLNRIcCuh7zz0OwHQEO3kf9hUzWRS3psGl6MLpybIlcoYDm3wei41i1CAZYnSLcnrmwk5AXuxBIOjTtXh/ZAMOCtoiRWOKX5IN11kxUiDehRUphjADEGN3HDO4R9zZdCfmNsXEz9LxY2vk/FAv5Ec2aFSIfQInbVwlxEdniJW52dsFuDxKuEzu+2/IJXbvRYgMzf/EAqZUie0JQtlFk9e0mRL28syygKXYTyb3RSru2QV7WZXSto47pgSY1u+QioONxpZ/JsHYj8uNeOUNe80RjGeSC78HiDkJurVUa8nCsg+yRaY9M8t1tC5gHcQCC6BKyDeHDbeKZftaok0jqD8pEHkPbk6CgZyb7rTLfALOK6YGJya2u+tEAqLY5WAOp9IS7A2ES3oQFY6iTwzwj84WxUp6JyAQLwhhkd2clp9lEcQ1L5UoASdaUcr+h68UvGX2EnC9XC1hqKMqA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV4PR11MB9514.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(11063799006)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OTNEeEREUUM4THBNREVvMmEvcDYwOW53ay90VGpQTk5ueUhoZFU5NzA3b08x?=
- =?utf-8?B?dTZCemxGSlU1ZjhCUHZnTTFObFZRRG1BRGVZaURjbnBIZWsxYUY1ZTZiVGlj?=
- =?utf-8?B?a3JqMm9BSXpQYXdrcUVXREt5NGNvcmRjQVdlTVl3QVdkTmJzOXhSTkViaWs5?=
- =?utf-8?B?ZGFNanNYOGZBNU1FKys1TWQ4NWtPcStaWXpzK1BvU3h3N0hQL0h1bGR5SWR2?=
- =?utf-8?B?bjlNZFlBMjlWeHBNWmcySjlId2FnN0pOcHdMTVkwVXh0SWlGSWhUSkZUa2ND?=
- =?utf-8?B?Q1dCbUVhWmxZVlQ3Z1J1MzIxSXhsd2lFOTQ2ak9MV016NXQ3b1ZDT1UxTk5l?=
- =?utf-8?B?L1pkMTNpSmgwR01SVWNFNk0xdWt1QjdsaUtZcm5WWnpZOGpFKzF5VVBvYWxM?=
- =?utf-8?B?cW1uWTNVTC9WYkRlK2tYSlFQTFp1bTZ6Q2dFZlBpbkpFWm1mOEIvaXA5NG5x?=
- =?utf-8?B?YVFUWGFUSUowcllsemxrNGQraWhMSjNlVnBMTE4xNmJwRUFpTUxRcGNSL05y?=
- =?utf-8?B?NmM5R3RyRXpZaThuSEoxVko0T0FhdHlOTWExa3NpUnA0TXRMMGh6ZlFUc2t2?=
- =?utf-8?B?WlNXODZsY3Zqb2puTloxc3pBclRzSFZtR2pXT0ltWW1lbE04MWRLbFQyalZv?=
- =?utf-8?B?cU0vSkR1VzFpNGlJY3YxVUhKVXlvT0tnZjR6dldqbVkzOUNkajVyb1ltTUxE?=
- =?utf-8?B?OTY2Qk1UVUpybTNLOFBzL3dFM2l6NjFKL1JpRkxROEx5V0ljbU5UNDBJVXJW?=
- =?utf-8?B?SGdvNXVuM01wZHNWRFN0dG04Ums4S0R4dWd4em1QUnVOOWY5U2NPQ0R2NHU4?=
- =?utf-8?B?UVVOQlJFRjdUNVVlTzY4c1NpMXBuZFV4YmdxUWM4cUFSR1RmV3ZFaVY5dnZn?=
- =?utf-8?B?aWxmU3IzaksvcUxGNkpmcFVqVmFpS3ZyZjlxOEZHUlpENndIQ2toVDA0UTFo?=
- =?utf-8?B?QjRRSXFQMjRzakJnRkJMdVMrRlhIZEdITG9RamNnREVYNVJmdm9Pa0R3emMx?=
- =?utf-8?B?Q1BnQXZIS2FVQWFwMW5yQ0lpdm1iRkJJVFVVTjhzTFl0aUw5VVpUTU1XOVRq?=
- =?utf-8?B?dlpjOW5PaFg3Ni9WVVhXclVwcUlUQmp2Ry9ycStQT3pwMzkyeTdMSkNGR0tE?=
- =?utf-8?B?ZjVIM0ZURnc5UzF3azVrZW1lQllYTWwvaGxzK1N2TGgxcnFXMGIyU243OTI1?=
- =?utf-8?B?VWUzWGtIMmdFSGhTdjNqZkRrUzJVS1VaUlRzdXZ4ZDM5YXVlUUluZTVKS3FE?=
- =?utf-8?B?NXAxZlYrdUNkVEdRSSs1RUJlWWlhS2dlUk5lc3U4SWt5UFMyYVZOZHlmMzhN?=
- =?utf-8?B?WTJ4NkJ3VE8xSGMxV3JIMHgxaDJhTVU4ejMxK3FKT1pxU2JqNHRleDBVZlhE?=
- =?utf-8?B?Yk1ENmlJNVBLbVJJR0ZsRVowR3Y5RmRoWWZPaHFXV0NpNSt5TGxZbFpsNVVN?=
- =?utf-8?B?Nnc3MTRVa0xvTXBQb2FBbE9xbTJiYkZoODZCSUNJWjFHZlVQZkVVRGpueWZK?=
- =?utf-8?B?aGd6cFJRVFduSHRxNmVUVEZkTEZyTEZRQ3kwT2c2bFJkRGFEMVdMazJoWDVz?=
- =?utf-8?B?bVlvQzh2UkduRGtsVzNsVFFaNnBtMnBVYXV4eTFJNEpNcW0vRm0xNy9hZGpt?=
- =?utf-8?B?SkdJem42Uy9FdXpkZmdQOFlRV1FoZThPZHp1Nnc0Y1AxdlF1aThxbElodlRm?=
- =?utf-8?B?VWdac3hkOGloYUwwWW4rd2NONkVrRjA1L3N0cWgwMlM4QUZRSitvUGRzR2Jk?=
- =?utf-8?B?TzhYeXZtbitFVExlZlp1bDNJZ3pyY0pYak1xOU1pR0U2c25ici8vdHMwRGsr?=
- =?utf-8?B?eitZb3VnenB6K1JLeFErb2Y5WFBJZUs2d3gybnRwdGJzRTRJRnZtOFNrSjNG?=
- =?utf-8?B?N2Y4K0E0RTYvSitzUlhIS0xyOFdtbnh4K1MxNXFHQWsrYzZYZDduS1VtTDd1?=
- =?utf-8?B?RWhDcy9GUTFuNVVuOUJCSjRtL0Z3Y1c2TkJlamVmbDZsTFQyMExPS2JFSzRl?=
- =?utf-8?B?V1lUM04wSEdnV2RSR1FjV1hXdTdmL0V6eDJWazNKYW41YjZIeHA3NFg4ZlN3?=
- =?utf-8?B?bmRLQlVzMmh0c2VyanFMcUlYS3ZCSjlQQ01PT25ZN25ZOW1GSjRUKzRZV2Rr?=
- =?utf-8?B?ZGxNQmVVTlhnSVB6V2pxRnRJWkpWRVRZRFhSTndvMzVQVHlXSG9yZnVyVU95?=
- =?utf-8?B?eHBRQTczMm9aL3hhWHFYcUlGeGN2TzNCbC9zRklQZG90RVYra01XeGREU3lI?=
- =?utf-8?B?NUpIUm0zV1lGaS80V2pnSnhHR1lFTGxkVUZOZ1ZsTDRYeC80UVp0bEUwYnpR?=
- =?utf-8?B?MUdmcU9td29wUzdpTWcwbjJMNHJTQ0hzbGkrTFV4MTV5a1VodFZLUT09?=
-X-Exchange-RoutingPolicyChecked: GadM6S4BfekIdtuMwyKdEAH3VqIu1nxRW/2J5AiBQ4LyHeRKngfVzsgDvsU5Bg0cFenlP53iDZGOQ1NfjtF0gryKwYtFrqBiayWmTUJwsA1yHRYIf2ALdf+N4Y+4B4IoUfYqrCyifNxOm0m4S9xfb+6W0JWCH1yB7fSFF31j+LoITkfVW4CPDwAaKe1TnKk0X2U1/C9/6gxrLxTqgS6WPoEloaMWx2E7Enu2dW+Ob5awzl+6OyYrAocXi+TAbwh3c+tcqjWZNi+04Ad8rJexZP/Rjy1BQ7gcz6u1IMI8k5TJsCcYJlevCVk9mdXgT0KihIaaFyYJCutPv961mK2AZw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: b760dacf-73dd-4c28-2758-08def2027d87
-X-MS-Exchange-CrossTenant-AuthSource: LV4PR11MB9514.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 08:29:24.5247
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: t1AC25rk+Z63vNnY4VEfpT5h71Tr6h9MDcNgoO+PyRvjwKDkMlkMfNfnsWT4PiM0JoG9vHQUEyctK0Tpjk8vFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5121
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next] net/iucv: fix UAF in afiucv_netdev_event()
+To: Nagamani PV <nagamani@linux.ibm.com>, davem@davemloft.net,
+        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
+Cc: horms@kernel.org, linux-s390@vger.kernel.org, netdev@vger.kernel.org,
+        twinkler@linux.ibm.com, heiko.carstens@de.ibm.com,
+        hidayath@linux.ibm.com, borntraeger@linux.ibm.com,
+        stable@vger.kernel.org
+References: <20260803182053.2355882-1-nagamani@linux.ibm.com>
+Content-Language: en-US
+From: Alexandra Winter <wintera@linux.ibm.com>
+In-Reply-To: <20260803182053.2355882-1-nagamani@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDA2NCBTYWx0ZWRfXxqEkXfUlEy19
+ 9djxHXMfSZSy07x/WrzMV5GJi2XwNXSNuK7tr90K1+SLcWW53WWbykaxDKgIdi/VykMeZdxwqr3
+ xTki/bZdK7aPINn8rOYTfEjRn1HR6tVarTRNlhzrMCuavewU8Cpgu05D6lOgfDGob8igjvwSBvn
+ imAdhQMkxphq3nJ5kCTziBFvaJrGOctwyAAvgW/NnN5r/pvjiyeGel7rcDTJaBgMSdWU1ECkWP8
+ F/rGuHtRuH1qOuZY1Iqhev2uvlriTkgDG/tnqWyi/j+t3lUd9Nzlk2ubrFoE/C80DmO+SDVBWkk
+ E0n3L5RWvYlIfqf5fwNNuKRHZ0OajUiKODY7DZZjxREWhWMrYebUfT6QEVsfGkGtKyg66Gg3QwP
+ tu3Ey71izdarDuudbgsQvNf6aQv5KzJtY+Ys0mLeh2op6lyTn8Qfo+vtX1d3jpJf03ndmtRhcHD
+ TiaDJJku14mnsgskz8A==
+X-Authority-Analysis: v=2.4 cv=WIFPmHsR c=1 sm=1 tr=0 ts=6a71a3c3 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=uVe4GPN_aIkUaB-KmjYA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: QLmbgmNpbF93mjvzHpfemKNJNBLlvUa1
+X-Proofpoint-ORIG-GUID: vt8loBXEU42YFhu6Rxxy9_v0KfACujKk
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDA2NCBTYWx0ZWRfX9GYJdh023BEj
+ WW7NBAIky62NEm9vM0LecVpcQ0mXdnczaNZHV0npL08IOJq1PAL8WIIarQEGjqRVsn+TaP2Eplu
+ cPAyF6+e6xMzG7Ke280JRQrf81Nhr0c=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-04_02,2026-08-03_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 malwarescore=0
+ suspectscore=0 clxscore=1015 impostorscore=0 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608040064
 
-On 23/07/2026 12:18, Loktionov, Aleksandr wrote:
+
+
+On 03.08.26 20:20, Nagamani PV wrote:
+> afiucv_netdev_event() traverses iucv_sk_list without holding
+> iucv_sk_list.lock.
 > 
+> A concurrent socket teardown can unlink and free an af_iucv socket via
+> iucv_sock_kill() while the netdevice notifier path is still traversing
+> the list, resulting in a use-after-free when dereferencing the socket.
 > 
->> -----Original Message-----
->> From: Intel-wired-lan <intel-wired-lan-bounces@osuosl.org> On Behalf
->> Of Philipp David via Intel-wired-lan
->> Sent: Friday, July 17, 2026 11:22 AM
->> To: intel-wired-lan@lists.osuosl.org; netdev@vger.kernel.org
->> Cc: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel,
->> Przemyslaw <przemyslaw.kitszel@intel.com>; Andrew Lunn
->> <andrew+netdev@lunn.ch>; David S . Miller <davem@davemloft.net>; Eric
->> Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo
->> Abeni <pabeni@redhat.com>; Philipp David <pd-lkml@3b.pm>;
->> stable@vger.kernel.org
->> Subject: [Intel-wired-lan] [PATCH] igc: fix netdev not re-attached
->> after resume if interface is down
->>
->> __igc_resume() calls netif_device_attach() only inside the
->> netif_running() branch, so an interface that was down during suspend
->> is never re-attached on resume. It then stays in the not-present state
->> that __igc_shutdown() set via netif_device_detach(): ethtool reports
->> ENODEV and every attempt to bring the interface up fails the
->> netif_device_present() check in __dev_open() with -ENODEV, silently,
->> since __igc_resume() returns 0. Only reloading the driver recovers the
->> device.
->>
->> This is easy to hit in practice because NetworkManager brings managed
->> interfaces down before sleep unless Wake-on-LAN is configured, making
->> the adapter unusable after every suspend/resume cycle with WoL
->> disabled.
->>
->> Re-attach the netdev on every successful resume, as igb and e1000e do.
->>
->> Fixes: 6f31d6b643a3 ("igc: Refactor runtime power management flow")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Philipp David <pd-lkml@3b.pm>
->> ---
->>   drivers/net/ethernet/intel/igc/igc_main.c | 8 +++++---
->>   1 file changed, 5 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/net/ethernet/intel/igc/igc_main.c
->> b/drivers/net/ethernet/intel/igc/igc_main.c
->> index 2c9e2dfd8499..e777c2df0b73 100644
->> --- a/drivers/net/ethernet/intel/igc/igc_main.c
->> +++ b/drivers/net/ethernet/intel/igc/igc_main.c
->> @@ -7586,11 +7586,13 @@ static int __igc_resume(struct device *dev,
->> bool rpm)
->>   		err = __igc_open(netdev, true);
->>   		if (!rpm)
->>   			rtnl_unlock();
->> -		if (!err)
->> -			netif_device_attach(netdev);
->> +		if (err)
->> +			return err;
->>   	}
->>
->> -	return err;
->> +	netif_device_attach(netdev);
->> +
->> +	return 0;
->>   }
->>
->>   static int igc_resume(struct device *dev)
->> --
->> 2.54.0
+> syzbot reported a KASAN slab-use-after-free triggered from the netdevice
+> notifier path:
 > 
-> Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Reviewed-by: Dima Ruinskiy <dima.ruinskiy@intel.com>
+>   BUG: KASAN: slab-use-after-free in afiucv_netdev_event+0x166/0x570
+>   Read of size 8 at addr 001a54009dcda368 by task syz.3.24/516
+> 
+>   Call Trace:
+>     afiucv_netdev_event+0x166/0x570 net/iucv/af_iucv.c:2193
+>     notifier_call_chain+0x18e/0x510 kernel/notifier.c:85
+>     call_netdevice_notifiers net/core/dev.c:2301 [inline]
+>     __dev_close_many+0x1c6/0x680 net/core/dev.c:1747
+>     unregister_netdevice_many_notify+0x9b6/0x2650 net/core/dev.c:12388
+>     unregister_netdevice_queue+0x392/0x3d0 net/core/dev.c:12291
+>     __tun_detach+0xa50/0x1990 drivers/net/tun.c:621
+> 
+>   Allocated by task 521:
+>     sk_prot_alloc+0xd2/0x230 net/core/sock.c:2247
+>     sk_alloc+0x48/0x680 net/core/sock.c:2303
+>     iucv_sock_alloc+0x4e/0x710 net/iucv/af_iucv.c:456
+>     iucv_sock_create+0x114/0x180 net/iucv/af_iucv.c:2254
+> 
+>   Freed by task 519:
+>     kfree+0x164/0x500 mm/slub.c:6561
+>     iucv_sock_release+0x12e/0x150 net/iucv/af_iucv.c:1482
+>     sock_close+0xa4/0x230 net/socket.c:1514
+> 
+> Protect the list traversal with the existing read-side lock.
+> Use read_lock_bh()/read_unlock_bh() to synchronize with
+> write_lock_bh()-protected updates to iucv_sk_list.
+> 
+> Fixes: 9fbd87d41392 ("af_iucv: handle netdev events")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Hidayath Khan <hidayath@linux.ibm.com>
+> Signed-off-by: Nagamani PV <nagamani@linux.ibm.com>
+> 
+> ---
+>  net/iucv/af_iucv.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/net/iucv/af_iucv.c b/net/iucv/af_iucv.c
+> index ea047bab65e7..034039c50941 100644
+> --- a/net/iucv/af_iucv.c
+> +++ b/net/iucv/af_iucv.c
+> @@ -2213,6 +2213,7 @@ static int afiucv_netdev_event(struct notifier_block *this,
+>  	switch (event) {
+>  	case NETDEV_REBOOT:
+>  	case NETDEV_GOING_DOWN:
+> +		read_lock_bh(&iucv_sk_list.lock);
+>  		sk_for_each(sk, &iucv_sk_list.head) {
+>  			iucv = iucv_sk(sk);
+>  			if ((iucv->hs_dev == event_dev) &&
+> @@ -2223,6 +2224,7 @@ static int afiucv_netdev_event(struct notifier_block *this,
+>  				sk->sk_state_change(sk);
+>  			}
+>  		}
+> +		read_unlock_bh(&iucv_sk_list.lock);
+>  		break;
+>  	case NETDEV_DOWN:
+>  	case NETDEV_UNREGISTER:
+
+Nagmani,
+As this is a fix, it should have been prefixed with net and not net-next.
+
+
+See the discussions with Bryam Vargas [1]:
+It is correct that afiucv_netdev_event() is missing lock protection.
+
+However for a complete solution it should call lock_sock()
+(because netdev events are called in process context) and handle
+owned_by_user and a backlog queue.
+
+So this patch improves the situation, but is not the complete solution.
+I'd rather continue to work on a more complete fix than take this one,
+but both ways are possible.
+
+Kind regards
+Alexandra
+
+[1] https://lore.kernel.org/netdev/20260724222917.134769-1-hexlabsecurity@proton.me/
+
+
+
