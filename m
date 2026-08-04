@@ -1,126 +1,146 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F56B3AAF44
-	for <stable@vger.kernel.org>; Tue,  4 Aug 2026 02:45:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785811546; cv=pass; b=bKUWk1yA1mmpqZhwE+G+TMS7TAeW5sKcVpLblUkBYFS5VEZgu3EhaPeLJuVW56uwmLWGtCrYwKWq1IyjdUfHM364FVnsFaQYzBllovXkolCusSN29Z9NzUBJh6yFZmIcNkJd2ftO7oispxeoyMERp4kWdc4N45PzRL1NhEOzHfU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785811546; c=relaxed/simple;
-	bh=AUHZK43CT/N++9FBcUl1JAIfA+cKuOObfqC5yDHgHUM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cBJ1jP/KV8/tX6ttglngJwRaU4y7sG6AbS8PjZM7VWSb8TKV4iB6wJbSk2JxJpB3Xa9qkvhiihNYvrlO3ql1SyFsq+TmuYZ4UP7AP4CCRyNRg1iu17da2GQvk+PQm8+ktz+tCfBf2vnKNB4OxSY5C8wMQ0JFwH/7oGdijee3mQk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=WgErTmhf; arc=pass smtp.client-ip=209.85.128.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3359386422;
+	Tue,  4 Aug 2026 02:46:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785811570; cv=none; b=D3knhQYgWL7UUNVZPlwe/QlNLny1wt2WoxUMUVff2mOgdm85F+fkCq8TtJIFr76X25kK22YJ2uVTONS3Qz/yyh/J8lGdYvsvCn7+G2ysk6YtWxq1SNcA9egrl3bDrBe+iTzuMQJcrabIbsuseqc1uEy7AAWyFG1yo7dQqKXpaV0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785811570; c=relaxed/simple;
+	bh=MzYfCQfBovgX+gxZ+YGCTylBZJwTHxtS2AoKTt95VBQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n01W21xO2ED4BWn4hZq3c0Pl+aiu1AANSloIBXiB8h02HrQ/Y5Wddw248NSmOY5OgT7ugPOU5mhI0qMvq7+1uYzSTGB+IVSk3xFRA3nsuW/9BSVV7TSDaamp1hyFMZRzfnQavdXc7FW2b6IhvPR1FcwsjbjyVbFY12Tq1P/9d24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=a0aG8T0Q; arc=none smtp.client-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="WgErTmhf"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-81e9f7491ffso61192427b3.0
-        for <stable@vger.kernel.org>; Mon, 03 Aug 2026 19:45:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785811544; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Pv4+r3iALO66IWYNMgaOrFXB6P6eYl2FiDZK3LZ2CduI9qnVHiFt8fO87NHT9+UZnw
-         V/pjVXPPuRlTN1kydK9S6kNXxL9/ifiIzrOwlbOQFpMYK8rVBz5+8VumFQ/G/luBVQoV
-         mZyPuj2i7jXvt5s661dxvU4EgHKUqQuxQDYH0Z2xhxxQyn3s+pRfm5Oo+jxGwBq9a5I6
-         DpGLI5skkvic6JbjwBCvcBr76ivXAo3gPNvfuO4bwHwcLYFuFQXUKnW+MkLB6o9DKCiM
-         VoQ71lrEp87tu7PFIEImToiP0Xa/Sylz1dx/jjRLhM0XGbQvfwWTGHtHinDC7O5Wl5vj
-         /pzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=AUHZK43CT/N++9FBcUl1JAIfA+cKuOObfqC5yDHgHUM=;
-        fh=2HKOanEaxex9Z7yg/NKEMwZg3DwHNPPO/lTOhr1yMG0=;
-        b=Bbm3K/UQmSSB/KEgf/YOjyj4+d2fJpb+IoxzpKgK/33U1MZG9ohLjeknfxSYbyO5+v
-         eFQpsSjQ6PMCiy6pvX+jbbGaSXuBTk2MxkbH8D/TjPgtQbq3nSq1Vm6eXwqwzjeOUczE
-         dQY0+839U/YACMDb/J9puXQ8HeCFlvZfJmNa7pt9AqJ5STvN+USxeTik87gCunwUcBp4
-         tNCP7usXPI8ByBLl/HsNAFEqyT9VwOGuq93GTev3GBT59O53+sRmFW8em4/YCG3YvYCA
-         2TjhLefdJicEIrB5uhoTBR2CZuWhiuFX7X5mEC61VADnMFCfv09hsyj7Ahav8fAvmiQE
-         ZrrQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1785811544; x=1786416344; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AUHZK43CT/N++9FBcUl1JAIfA+cKuOObfqC5yDHgHUM=;
-        b=WgErTmhfNRjNzhJhVn1FMcCJZc198tvCR2mywUwTerla7mLgodvReQHOaXBoMRh2Bk
-         p8MDcwBiF5wgNmjRtmlukA3PGBxMXvSt5GJiP1wFZBfBNFTjBM+fYDauqE3vPQ5+4u0/
-         w1Sc02oG6DtdJNiQG2ebax7JXtN8ewys652WY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785811544; x=1786416344;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AUHZK43CT/N++9FBcUl1JAIfA+cKuOObfqC5yDHgHUM=;
-        b=PyJ0PN/vvfX+yeeMd2Vl81OhSBHO6owZldkOZwPS01JFTCi7obLLW95Ig6tWTBjuIa
-         nQLPAPLFJPtJMUGlTyaCwj3p+wBawAzislW/2OnN186IiCWFMytalQtW4jGRueQZp/z9
-         X/p9HTltWLnCLzl516N2dubPUgtoXEpe0kMOxAv99qhhwJ05/fz+yzXAPDR3wzgYZXK6
-         2d9+IhTTtEF4NEb6bFnchKpI/axkLfq0bn+CJoREnF09rLaJBsEsb+YEltOY6KYglSpQ
-         liUsZQKMCLuiJEzbezfWZehdk+7AO13KMtF8tNI99Sr8bzAdHnwXq/22OO85dLFXzxY6
-         TRfw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0IruSEqhaWDZx3bjbgvWdQhYsNOnreHE+v9YtG66y55DhtODNaq9HeFKLatkLLtE/gBLWg/s=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx01eOZ/nrvqNunNC5vKmro1wyUae8V52JODC7tbl7FZkovCSC7
-	yajLxF0nVfgN7H9M0bQJAFGx0Oye8VtqL0CZAOuSTTiNIP4w+lUh+kAthlXyxJeexUR3cCoEMQR
-	yOJpjCh7tuo2VLydYNbSFUHY+xs25KAdzZggkyEkS
-X-Gm-Gg: AR+sD10CpswVybUn61209T5xPLE6dC59R5hl+dkZuHuet8QXzH9pX2JdLh3GtI5EFid
-	En+AJu0vcRsH1tfItyN1g+TxXcSM1dvCdof0Mwy3dndCQLUvl0CaRMGtaDVlUMOuNrswCzUgjUh
-	GLaUxtg2V/CSrt/17nssam/OBbPbSlsoOwVXBnlx7Zl+v9PIish6Pb2MQdP0/1Wy8kpxnNtW/vt
-	3cHYrcVs53aByZJ9vboTHJRrXe/rmp4lxYYh+IZdjvIlYII2pzPdmc6IpmpLKOgaxzvlSp01KSW
-	7FiLW/RpACRjl/z1ajuWof7loE+NjtFvL7wLXNjRPRP4FC4=
-X-Received: by 2002:a05:690c:6d07:b0:81f:27f8:2de4 with SMTP id
- 00721157ae682-81fd4a04799mr160372987b3.8.1785811544182; Mon, 03 Aug 2026
- 19:45:44 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="a0aG8T0Q"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1785811557; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=tFLaVenczDK5Ii5dl1l3XfeTIeVw3Ra44uNhpjbL//A=;
+	b=a0aG8T0Q1EIHtPiTuvkte4YWxiVL4hMRu66/W91YZEXIdjkjInZ+4IqMg9H1WEJmKsuBnmNTYheAZIFqV+ac2YEG6ivOljgUHCXpRA/SbSV+aVRjlGX3BViKH57WfadphMJvBMMAj4Qc2nWG7+GfizOFEBrifu7ujmJBciHemf0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=yaoyuan@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0X8MEYed_1785811556;
+Received: from localhost(mailfrom:yaoyuan@linux.alibaba.com fp:SMTPD_---0X8MEYed_1785811556 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 04 Aug 2026 10:45:56 +0800
+Date: Tue, 4 Aug 2026 10:45:55 +0800
+From: Yao Yuan <yaoyuan@linux.alibaba.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Steffen Eiden <seiden@linux.ibm.com>, 
+	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Oliver Upton <oupton@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Hyunwoo Kim <imv4bel@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 1/6] KVM: arm64: Remove VM-wide VNCR mapping counter
+Message-ID: <loio5yjlm222debm2ohrpo6kz5ayviye2ugubv3nso6ouzglt5@ru3cnrl5f5cp>
+References: <20260801124818.366274-1-maz@kernel.org>
+ <20260801124818.366274-2-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260803141659.559129-1-akkun11.open@gmail.com> <20260803141659.559129-14-akkun11.open@gmail.com>
-In-Reply-To: <20260803141659.559129-14-akkun11.open@gmail.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Tue, 4 Aug 2026 10:45:33 +0800
-X-Gm-Features: AUfX_mwLcNdgKSX0dY1YbYf9cwLK9DsvJWUXl-Ukek71RJiEJ4s-l_75YEo7Ku0
-Message-ID: <CAGXv+5HRsFFhzSYPdk-zmipLTVwxPkHLbuFP=wn_f_D+3ejAMQ@mail.gmail.com>
-Subject: Re: [PATCH 13/32] clk: mediatek: mt2701: Switch to common
- probe/remove helpers
-To: Akari Tsuyukusa <akkun11.open@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Yassine Oudjana <y.oudjana@protonmail.com>, Richard Cochran <richardcochran@gmail.com>, 
-	Laura Nao <laura.nao@collabora.com>, 
-	=?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>, Haotian Zhang <vulab@iscas.ac.cn>, Kees Cook <kees@kernel.org>, 
-	Miles Chen <miles.chen@mediatek.com>, Daniel Golle <daniel@makrotopia.org>, 
-	Sam Shih <sam.shih@mediatek.com>, 
-	"open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>, 
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>, 
-	"open list:PTP HARDWARE CLOCK SUPPORT:Keyword:(?:b|_)ptp(?:b|_)" <netdev@vger.kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260801124818.366274-2-maz@kernel.org>
 
-On Mon, Aug 3, 2026 at 10:18=E2=80=AFPM Akari Tsuyukusa <akkun11.open@gmail=
-.com> wrote:
+On Sat, Aug 01, 2026 at 01:48:13PM +0800, Marc Zyngier wrote:
+> The global VNCR mapping counter is used to decide whether an L1
+> provided VNCR page is mapped in L0 on any CPU at the point of
+> dealing with a TLB invalidation. It is incremented when a mapping
+> is made in the fixmap, and decremented when unmapped.
 >
-> The MT2701 clock drivers can use the MediaTek clock framework
-> common initialization sequence. Reduce boilerplate code by creating
-> struct mtk_clk_desc and using the mtk_clk_simple_probe/remove helpers.
+> As it turns out, this tracking has several flaws:
+>
+> - we are trying to invalidate TLBs, and the mapping is only an
+>   opportunistic consequence of the TLB. Checking this counter to
+>   decide whether a TLB needs to be invalidated may result in missed
+>   invalidations.
+>
+> - an L1 vcpu invalidating its own TLB (a very likely case) will not
+>   succeed in invalidating the VNCR pseudo TLB because that page is
+>   not mapped in L0 at this stage.
 
-For all the subsequent conversion patches, please try to mention _what_
-led to the converted driver being able to use the common helpers, i.e.
-what prevented it from being used before. Was it the PLL, or PLLFH, or
-something else?
+Agree, the easiest way to trigger the issue is run single
+vcpu L1 and run single vcpu L2. I think it's more harder to
+hit the issue if the L1 has more vcpus and run L2 w/ more
+than 1 L2 vcpus.
 
-Details matter.
+Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
 
-
-ChenYu
+>
+> Given that this tracking fails at delivering the minimum guarantees
+> that are required and is only a performance optimisation, remove it
+> completely.
+>
+> Fixes: 4ffa72ad8f37e ("KVM: arm64: nv: Add S1 TLB invalidation primitive for VNCR_EL2")
+> Signed-off-by: Marc Zyngier <maz@kernel.org>
+> Cc: stable@vger.kernel.org
+> ---
+>  arch/arm64/include/asm/kvm_host.h | 3 ---
+>  arch/arm64/kvm/hyp/vhe/switch.c   | 3 +--
+>  arch/arm64/kvm/nested.c           | 3 ---
+>  3 files changed, 1 insertion(+), 8 deletions(-)
+>
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index bae2c4f92ef5c..ac16f96c878d6 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -411,9 +411,6 @@ struct kvm_arch {
+>  	/* Masks for VNCR-backed and general EL2 sysregs */
+>  	struct kvm_sysreg_masks	*sysreg_masks;
+>
+> -	/* Count the number of VNCR_EL2 currently mapped */
+> -	atomic_t vncr_map_count;
+> -
+>  	/*
+>  	 * For an untrusted host VM, 'pkvm.handle' is used to lookup
+>  	 * the associated pKVM instance in the hypervisor.
+> diff --git a/arch/arm64/kvm/hyp/vhe/switch.c b/arch/arm64/kvm/hyp/vhe/switch.c
+> index bbe9cebd3d9d5..c09b1d411c584 100644
+> --- a/arch/arm64/kvm/hyp/vhe/switch.c
+> +++ b/arch/arm64/kvm/hyp/vhe/switch.c
+> @@ -427,8 +427,7 @@ static bool kvm_hyp_handle_tlbi_el2(struct kvm_vcpu *vcpu, u64 *exit_code)
+>  	 * If we have to check for any VNCR mapping being invalidated,
+>  	 * go back to the slow path for further processing.
+>  	 */
+> -	if (vcpu_el2_e2h_is_set(vcpu) && vcpu_el2_tge_is_set(vcpu) &&
+> -	    atomic_read(&vcpu->kvm->arch.vncr_map_count))
+> +	if (vcpu_el2_e2h_is_set(vcpu) && vcpu_el2_tge_is_set(vcpu))
+>  		return false;
+>
+>  	__kvm_skip_instr(vcpu);
+> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> index dfb96edbdc43c..f3c75954cf36c 100644
+> --- a/arch/arm64/kvm/nested.c
+> +++ b/arch/arm64/kvm/nested.c
+> @@ -48,7 +48,6 @@ void kvm_init_nested(struct kvm *kvm)
+>  {
+>  	kvm->arch.nested_mmus = NULL;
+>  	kvm->arch.nested_mmus_size = 0;
+> -	atomic_set(&kvm->arch.vncr_map_count, 0);
+>  }
+>
+>  static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
+> @@ -890,7 +889,6 @@ static void this_cpu_reset_vncr_fixmap(struct kvm_vcpu *vcpu)
+>  	clear_fixmap(vncr_fixmap(vcpu->arch.vncr_tlb->cpu));
+>  	vcpu->arch.vncr_tlb->cpu = -1;
+>  	host_data_clear_flag(L1_VNCR_MAPPED);
+> -	atomic_dec(&vcpu->kvm->arch.vncr_map_count);
+>  }
+>
+>  void kvm_vcpu_put_hw_mmu(struct kvm_vcpu *vcpu)
+> @@ -1592,7 +1590,6 @@ static void kvm_map_l1_vncr(struct kvm_vcpu *vcpu)
+>  	if (pgprot_val(prot) != pgprot_val(PAGE_NONE)) {
+>  		__set_fixmap(vncr_fixmap(vt->cpu), vt->hpa, prot);
+>  		host_data_set_flag(L1_VNCR_MAPPED);
+> -		atomic_inc(&vcpu->kvm->arch.vncr_map_count);
+>  	}
+>  }
+>
+> --
+> 2.47.3
+>
