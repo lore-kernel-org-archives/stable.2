@@ -1,323 +1,241 @@
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F8B73E49EA;
-	Wed,  5 Aug 2026 08:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899903E63A2
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 08:37:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785919020; cv=none; b=aMXUnXtz7/vaUsnGKFj6VvbKAFdiTokMkLKAv/XG1J1JBx1k4yO36R7iD5BcQObAP7TX1ZGsbTAvQZglVYlqb23epnBhn5ZSD6EamILOrbpSYDD+cIGXlQBKepYcFKqWZ4UDsLUi1Y94Gy0PGBQ5b2VkMM6myWqNqae/dLgtESs=
+	t=1785919036; cv=none; b=kh3JM53snV9C9I5RcAM1dYca0JBEf6v4OKIhJvil8pp2Tc7KdMmlDO9MzldJlojVod1xa8NfZpnuGbsMYSNnrTZOG2C6Ge//rsf5c0c8ooVjxZTnEK2k0OrWCY4XhekjKaSDsbs3+ycwC1J3Lo8Weeqzhg5Nf6vN1FI9LiZ4xcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785919020; c=relaxed/simple;
-	bh=G4Ga89BZSwnVdtv9Lj1RpciqnZJs/iKNoPnziV6yics=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QPK4vrsi72b4G5l+3/JSej7IuNZfk9xHAyeK9z00HukWpa8QBNmg6ReOdb5ZJcldLp+wL7ikKD4s7Y6y2eHjlkeFDDPYRQlBfT1tvIXseBMiQVoo2dzvK3DYcNzTd5ts9LdoEY6rukHqKc1N5D6b064UHndYNZ1nHH1ySaJ27YE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=VwiXPLni; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WWVVFAoA; arc=none smtp.client-ip=103.168.172.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1785919036; c=relaxed/simple;
+	bh=+MDtHi6dPC1QIQzo0Z88w/cZsFiMqPteqBivyJBKpj0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IErBhNSF5AgG6zHm1n6KSAZr9fiLt2q3GboxFOeQOAENg/SydKFXiCOMacq3trx46iuF/Cd8IUeVMQf/9En8WZrqMPLfHIKaHj1q4/kntKcCNyh/+/FKAI85pwfAyaMJYo+XdMHBi57lijjQw/FZvouBK94Hn4T335R5gttx+o4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lQ4OPqTW; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="VwiXPLni";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WWVVFAoA"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id E90DE140013E;
-	Wed,  5 Aug 2026 04:36:56 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Wed, 05 Aug 2026 04:36:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1785919016;
-	 x=1786005416; bh=fmEeVpqePzkhws/uoLzztqujC7IXdMW8e75FyT73KDw=; b=
-	VwiXPLnikdNmOABIi5AaU0KtbtO20xGMOwMf+z9U7Rys7s/ojQrq+Q7gdGkeK2c5
-	vawzhaYtCH8Tx16Sw8Iy1RgmCKGnXneDC5doOtXSt0ToceIL5J7d24VJQQBgtRY2
-	ENCYokZdWzpeNzIYQn5e5m9JO4PSqCYUt4E7bFdzG15kJdIkyBmnrQZBrGf4OErt
-	jkICNtiLMcs+zxTJNEKzhP8HWXyqxgIvNa37NUg85BbUDSiTo3JYOtc3AXBHVPG5
-	C3g5/eY1vkzODoNl3koRYIVc2DabU7jT2gm5PctIC0cwRZwbRagJZzlhsfn6X2qT
-	u9TG+ylyxWy5YGXTRkdrCA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1785919016; x=
-	1786005416; bh=fmEeVpqePzkhws/uoLzztqujC7IXdMW8e75FyT73KDw=; b=W
-	WVVFAoACYhbd3lkELFAFB5tq81qiLBZvWFZN4vYLot4gUAMHW/mXmig8LrK1tRze
-	4+9JaNUIBirhRlujqCydHCbUyLPI0t7JvNv8dCyikbQXIhU+PKTBjYGyLq7pBRDi
-	Pz9Pk4BydQaAWvB+barXhWYF/PLhvm3TtIcKjrZdCXxeCN0CzIb2PgX07ZTIN1nc
-	SCZuNksOVfciGNB56jxZlJ9uSchijyRN1j65S7c3bOHzssvG14/a6hGT+v+vHl/T
-	wZ30Fa9oR1SSkobuQIJfABR+JvgXDNnV/nS/bCkcEPE6Rq9cp2MiMMgiKcSFxCft
-	B4mif8qyMFYNvkFBb6PDg==
-X-ME-Sender: <xms:J_ZyarVMcGdJKyKIZc4SM1Wn7weHPHPglSN-AGSClX-KshH265lHxw>
-    <xme:J_ZyajKGtTrF7oKRFtnsNLooQ-cj-GEoF_pEXaliatgDbe5rv1NLus2aXp__Z9gvy
-    ahQv-_bS5yQROjmZK-lD3I5OQOncINVR_ODqYXah6YhOZvhoJePTWGd>
-X-ME-Received: <xmr:J_ZyaruibgpoFajsxsfd3w2RuxyweThWa2MKhwq0Z9Y9TQlY8hsB__pnIpbBdQOGkPdZRV8zLw5ssh6y2UhN639-yBA07qc>
-X-ME-Proxy-Cause: dmFkZTFpCGmFe4yHTRvHTfDYX+lQPD8g8ONQ3Mdzpx37NCCrURnk6/vvTz+4fimZ1Sv0xr
-    NioBYhsXM9ZhzA03vEESHTLju57JtH2QiY87dJdhDeA2Mre248PH8Q+ANLL7dIIP1rtupH
-    3ql4U2cINC7fORMqnY1sLwvzXpb3sG5L1xgnEkxhF1/b3gOpEqwxPZBi5evTGLt4gbx2jn
-    XqbbUERn03fVa0eqkmafzEq1XGASIk0A9odJgWSf5OiDYRq5zwEEA84RE0auZz0+VyJXEi
-    pkbsZwK1EHDNdUxqKZUP3er9g2WqrflcfFgleRq5oiMJLXK5MruDZcrYuEKn3OeWALcAs7
-    QFOezWzI9t9kQhTsPkJJ5A/LVjbIvghiMqmc31tZHPqJri6Rd0E0thnadE4098u5rhyLTt
-    RAMZWk9sR/BSZVaAR9H3vi7LGWDUZuEVNOb5FL0efhKrhZ/ra2HJfTrz9HdJt8v+fpJXN8
-    xKil6j36NjevejcLsuncZfVCMCDlsLI4Am4R9NuWiFCM1poUdiPDi9/H4YXqGFxb6ClMXH
-    HjagZ5GLqaCx+GSA0I7WKXzfnycgkLbYkeH+iHn7SFKNGMykc9XLHzcCz9oXwHlMKBinH2
-    eZovOkg8NIfwdLc59CUAZ/g60EHgmCRjl5yTpO6znxDZ4Tx6t8C6RfMOJjRQ
-X-ME-Proxy: <xmx:J_Zyao3Lk0YldzLftRTzVzfCoppevsIvkOwrU7_e0bGm13k6teMUKw>
-    <xmx:J_ZyajPqhQS4Tx2OnA6G0LtQ14yii3DUrJP71bw3CllnptlckSMzow>
-    <xmx:J_ZyaoWep-UZfb5XBtQ1eT5Mkb0TpG5ZT2_HwfvdTUkVb8xNRAUoVQ>
-    <xmx:J_ZyaoacLIatMcA5SLqpPZ2CwYBtCwRrr-V7kELFzsxBAVA07i8Sdw>
-    <xmx:KPZyahtuF860c5Ew7cN97BZqlW22BZUaJegSuqCEXfiznZjXIjgSjrnE>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 5 Aug 2026 04:36:55 -0400 (EDT)
-Date: Wed, 5 Aug 2026 10:36:52 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: xuanqiang.luo@linux.dev, linux-renesas-soc@vger.kernel.org,
-	netdev@vger.kernel.org, paul@pbarker.dev, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
-	richardcochran@gmail.com, masaru.nagai.vx@renesas.com,
-	sergei.shtylyov@cogentembedded.com, luoxuanqiang@kylinos.cn,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net: ravb: fix use-after-free in ravb_get_ts_info
-Message-ID: <20260805083652.GE346309@ragnatech.se>
-References: <20260802090750.116215-1-xuanqiang.luo@linux.dev>
- <20260805010620.4093075-1-kuba@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lQ4OPqTW"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47f7027ca11so432829f8f.3
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 01:37:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785919032; x=1786523832; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=o6L5hEIACrzWkfhK+g6IqcfRxL0gKu8KPahN+8ZtlEc=;
+        b=lQ4OPqTWOGzA6nE29/Hb24sAAytpQUkAuHzeHOMAgBO9BKrtaftSv4i8k56pB46uYF
+         oVQN4D1HG3GNRLQkq66PNJqlysCxHAzdRaJ70CAPl3gwtprw9SDwucHhhQ75pJMruPGU
+         o3+jcsRfNHcSEAFQre1iH/FFJWIYgxPsoeGZnX04U+X1LCPcprb3PMGcoodeL7LKrz+A
+         F+tJI9O7BFFXknTljpQU/tgDXc3CkXQS+eveAJiX8W/SoTvUTZpf8h4J7PC+Mn5YW0Dr
+         ZgKz5ml7c7FbUX6Wri+i8wKKntKS2QGE8Eg2qYM8pLKdTasMFRWIG32wbcoGHONJb4CP
+         TWbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785919032; x=1786523832;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o6L5hEIACrzWkfhK+g6IqcfRxL0gKu8KPahN+8ZtlEc=;
+        b=d4kdGHsSMEbgJQsjs7ZWLbD+0xXaijC5GmpfEW9y0p5IFQBu9LL4O11ntgW0YEwcC9
+         5xMHmrgdx+l7hp0dKQSu0ht6x+MGTZa1qrujSWgiz7BKMMhIYr+TUogWM4AGiNUDEYlf
+         2b56X+E6KO2U6tt383tVe7ee/wvmLElxPPbJwnEsnNJQ1FiJnzB/MdMUhr357OUAs5wd
+         4HlhwWAlSHywCN2lRVqd8XvxBXpgjOakKRg+Zm+lKDdPYwYNMq5NDHoVIOnRCeJX60kJ
+         3dMfB+jINptuqFG34HR2cPV/+3akzmDN8SbBlabc8dsTPUEO8Lv8tk18XXUMm4Y++WnJ
+         9d1w==
+X-Forwarded-Encrypted: i=1; AHgh+Rok8r28NwMdNZU7XtbwYHjzkrY9de5FOhSTvLw1F8gwR5dmpHUkys6+70nkBWWxFIq1lXBBK3w=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz9sttj5Afi4hKqV9tQfBG92IZO59XZfeIFtJsKYmTzO5Ywi/zc
+	djd5f0a659Y1KzV5wJFv4j9qjCvToufnR4j8IJ9K62d7JwB+QVFhhYD+
+X-Gm-Gg: AR+sD11JAqFJeyb9+ER4e1g5qo73QhgusJUV5VRfoYntgljfwQWuyeB3OVhd6JFusD3
+	jEWc189+P/BXKRBzYhPMieADFJtJcMMK5HbkwIvqOi/026Prtr8Mme2ujkUQEbmec5uQAslepm7
+	7yxd7FkAP8TRcZtcHTn80QuZNEBWCWFGq4N7Tgoyvo6ZwXvfGXw0WGHMWkWO1P8dk/aQ0YXZQjn
+	P3KKHBUUkx630aGmPzpqpkxwf5Zs1kU4ge6AG2pzTxudSMmwBgIRvhOFoWJpgMCcHUdWQ+kBt4A
+	8N5Fy1UMtDUeSUcOIwgFHF850QxqVOMbCVvsN8Y8ziPhmH3Te/XaV6ZNMwgeQh+dbYJl33v2Q2b
+	ZHTrEgEgZ4ovYgaTf1dckWUyXvsBCqcISA9ppCAkS6zcdlSNku/KhlgJDTOJgFZxtUmSP3QLDyx
+	XLn5ytrcPhOrq9bfn/wiAY/cgIu2V6eV4gbhC+baW6CEyRpY7ZLX1VtyHtCWNhkk3O7r4AuejFQ
+	lRSNVDLEzs/BqnRErWRl3Xntg==
+X-Received: by 2002:a05:6000:29c2:b0:47f:cb30:8591 with SMTP id ffacd0b85a97d-47fec4e712dmr6453147f8f.6.1785919031999;
+        Wed, 05 Aug 2026 01:37:11 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47febfe5ecfsm6952226f8f.11.2026.08.05.01.37.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 01:37:11 -0700 (PDT)
+Date: Wed, 5 Aug 2026 09:37:10 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Mark Rutland <mark.rutland@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, ada.coupriediaz@arm.com,
+ ardb@kernel.org, catalin.marinas@arm.com, cl@gentwo.org, david@kernel.org,
+ james.morse@arm.com, ljs@kernel.org, maz@kernel.org, peterz@infradead.org,
+ ruanjinjie@huawei.com, ryan.roberts@arm.com, stable@vger.kernel.org,
+ vladimir.murzin@arm.com, will@kernel.org, yang@os.amperecomputing.com
+Subject: Re: [PATCH v2 01/20] arm64: percpu: Fix this_cpu_write() casting
+Message-ID: <20260805093710.3c4baf6c@pumpkin>
+In-Reply-To: <20260804170503.3513916-2-mark.rutland@arm.com>
+References: <20260804170503.3513916-1-mark.rutland@arm.com>
+	<20260804170503.3513916-2-mark.rutland@arm.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260805010620.4093075-1-kuba@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On Tue,  4 Aug 2026 18:04:44 +0100
+Mark Rutland <mark.rutland@arm.com> wrote:
 
-Some of the issues pointed out in this review are addressed in the RAVB 
-PTP rework series [1]. I will respin it as soon as the PTP clock for 
-R-Car Gen4 is merged [2].
+> The arm64 implementation of this_cpu_write() casts 'val' to unsigned
+> long. This is necessary to handle cases where 'val' is a pointer type,
+> and to avoid spurious compiler warnings for the (unreachable!) cases
+> where the pointer type would be cast to a smaller integer type.
+> 
+> Unfortunately, the cast is applied to 'val' rather than '(val)', which
+> won't always generate the expected value when 'val' is an expression.
+> 
+> For example, for this_cpu_write(pcp, zero - 1), where 'pcp' is a u64 and
+> 'zero' is a u32:
+> 
+> * 'zero'                      ===> (u32) 0x00000000
+> * 'zero - 1'                  ===> (u32) 0xffffffff
+> * '(unsigned long)zero - 1'   ===> (u64) 0xffffffffffffffff
+> * '(unsigned long)(zero - 1)' ===> (u64) 0x00000000ffffffff
+> 
+> Fix this by adding brackets around 'val'
+> 
+> The bug described above can be seen from the disassembly of the
+> following test code:
+> 
+> | void this_cpu_write_zero_minus_1(u64 __percpu *pcp)
+> | {
+> | 	u32 zero = 0;
+> | 	this_cpu_write(*pcp, zero - 1);
+> | }
+> |
+> | void this_cpu_write_zero_minus_1_brackets(u64 __percpu *pcp)
+> | {
+> | 	u32 zero = 0;
+> | 	this_cpu_write(*pcp, (zero - 1));
+> | }
+> 
+> Generated code before this patch:
+> 
+> | <this_cpu_write_zero_minus_1>:
+> |        paciasp
+> |        stp     x29, x30, [sp, #-16]!
+> |        mrs     x1, sp_el0
+> |        mov     x29, sp
+> |        ldr     w2, [x1, #8]
+> |        add     w2, w2, #0x1
+> |        str     w2, [x1, #8]
+> |        mov     x3, #0xffffffffffffffff
+> |        mrs     x2, tpidr_el1
+> |        str     x3, [x0, x2]
+> |        ldr     x0, [x1, #8]
+> |        add     x0, x0, x3
+> |        str     w0, [x1, #8]
+> |        cbz     x0, 1f
+> |        ldr     x0, [x1, #8]
+> |        cbnz    x0, 2f
+> | 1:     bl      preempt_schedule_notrace
+> | 2:     ldp     x29, x30, [sp], #16
+> |        autiasp
+> |        ret
+> |
+> | <this_cpu_write_zero_minus_1_brackets>:
+> |        paciasp
+> |        stp     x29, x30, [sp, #-16]!
+> |        mrs     x1, sp_el0
+> |        mov     x29, sp
+> |        ldr     w2, [x1, #8]
+> |        add     w2, w2, #0x1
+> |        str     w2, [x1, #8]
+> |        mov     x3, #0xffffffff
+> |        mrs     x2, tpidr_el1
+> |        str     x3, [x0, x2]
+> |        ldr     x0, [x1, #8]
+> |        sub     x0, x0, #0x1
+> |        str     w0, [x1, #8]
+> |        cbz     x0, 1f
+> |        ldr     x0, [x1, #8]
+> |        cbnz    x0, 2f
+> | 1:     bl      preempt_schedule_notrace
+> | 2:     ldp     x29, x30, [sp], #16
+> |        autiasp
+> |        ret
+> 
+> Generated code after this patch:
+> 
+> | <this_cpu_write_zero_minus_1>:
+> |        paciasp
+> |        stp     x29, x30, [sp, #-16]!
+> |        mrs     x1, sp_el0
+> |        mov     x29, sp
+> |        ldr     w2, [x1, #8]
+> |        add     w2, w2, #0x1
+> |        str     w2, [x1, #8]
+> |        mov     x3, #0xffffffff
+> |        mrs     x2, tpidr_el1
+> |        str     x3, [x0, x2]
+> |        ldr     x0, [x1, #8]
+> |        sub     x0, x0, #0x1
+> |        str     w0, [x1, #8]
+> |        cbz     x0, 1f
+> |        ldr     x0, [x1, #8]
+> |        cbnz    x0, 2f
+> | 1:     bl      preempt_schedule_notrace
+> | 2:     ldp     x29, x30, [sp], #16
+> |        autiasp
+> |        ret
+> |
+> | <this_cpu_write_zero_minus_1_brackets>:
+> |        b       this_cpu_write_zero_minus_1
+> 
+> Fixes: 959bf2fd03b5 ("arm64: percpu: Rewrite per-cpu ops to allow use of LSE atomics")
+> Reported-by: David Laight <david.laight.linux@gmail.com>
+> Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+> Cc: Ard Biesheuvel <ardb@kernel.org>
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: James Morse <james.morse@arm.com>
+> Cc: Jinjie Ruan <ruanjinjie@huawei.com>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Vladimir Murzin <vladimir.murzin@arm.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Yang Shi <yang@os.amperecomputing.com>
+> Cc: stable@vger.kernel.org
 
-1. https://lore.kernel.org/all/20260610102432.3538432-1-niklas.soderlund+renesas@ragnatech.se/
-2. https://lore.kernel.org/all/20260803095232.3527111-1-niklas.soderlund+renesas@ragnatech.se/
+I suspect there is no affected code - largely testable by comparing the
+output of two arm64 allmodconfig builds.
 
-On 2026-08-04 18:06:20 -0700, Jakub Kicinski wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
+Reviewed-by: David Laight <david.laight.linux@gmail.com>
+
 > ---
-> net: ravb: fix use-after-free in ravb_get_ts_info
+>  arch/arm64/include/asm/percpu.h | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 > 
-> This clears priv->ptp.clock in ravb_ptp_stop() after unregistering the PHC,
-> so that ravb_get_ts_info() no longer hands a dangling pointer to
-> ptp_clock_index().  It also gates the whole hardware timestamping capability
-> block in ravb_get_ts_info() on priv->ptp.clock being set.
-> 
-> A few questions on the changelog and on the new guards.
-> 
-> > The PHC is registered by ravb_open() and unregistered by ravb_close().
-> > However, ravb_ptp_stop() leaves priv->ptp.clock pointing at the freed
-> > clock. Since the netdev remains registered after ndo_stop, get_ts_info
-> > can still pass the dangling pointer to ptp_clock_index(), resulting in a
-> > use-after-free.
-> 
-> [Severity: Low]
-> Should the changelog also mention the plain NULL dereference case?
-> ravb_ptp_init() is only reached from ravb_open(), ravb_wol_restore() /
-> ravb_resume(), ravb_set_ringparam() and ravb_tx_timeout_work(), never from
-> ravb_probe().
-> 
-> So between register_netdev() and the first open, priv->ptp.clock is NULL,
-> and pre-patch ravb_get_ts_info() passed it directly to ptp_clock_index(),
-> which is just:
-> 
-> drivers/ptp/ptp_clock.c:ptp_clock_index() {
-> 	return ptp->index;
-> }
-> 
-> That means ethtool -T on a gptp/ccc_gac ravb interface that has never been
-> brought up faulted too.  Since this carries Cc: stable, would it help
-> backport triage to state that the most easily reachable manifestation is a
-> NULL dereference in the never-opened state, not only a dangling pointer read
-> after close?
-> 
-> > diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-> > index 5f88733094d0f..f22cff05ba35d 100644
-> > --- a/drivers/net/ethernet/renesas/ravb_main.c
-> > +++ b/drivers/net/ethernet/renesas/ravb_main.c
-> > @@ -1768,7 +1768,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
-> >  	struct ravb_private *priv = netdev_priv(ndev);
-> >  	const struct ravb_hw_info *hw_info = priv->info;
-> >  
-> > -	if (hw_info->gptp || hw_info->ccc_gac) {
-> > +	if ((hw_info->gptp || hw_info->ccc_gac) && priv->ptp.clock) {
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does a NULL-only test cover
-> the failure mode that actually puts an invalid pointer in priv->ptp.clock?
-> ravb_ptp_init() stores the return value unchecked:
-> 
-> drivers/net/ethernet/renesas/ravb_ptp.c:ravb_ptp_init() {
-> 	...
-> 	priv->ptp.clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
-> }
-> 
-> With CONFIG_PTP_1588_CLOCK=y, ptp_clock_register() returns ERR_PTR(-EINVAL),
-> ERR_PTR(-ENOMEM) or ERR_PTR(err) on failure, so priv->ptp.clock can be a
-> non-NULL error pointer.  An error pointer passes the new test here and then
-> reaches ptp_clock_index(), which is a bare return ptp->index, and it also
-> passes the new test in ravb_ptp_stop() and reaches ptp_clock_unregister(),
-> which dereferences it right away via ptp_vclock_in_use(ptp) and
-> get_device(&ptp->dev).
-> 
-> Would !IS_ERR_OR_NULL(priv->ptp.clock) be the right guard, plus having
-> ravb_ptp_init() normalize a failed registration to NULL?  The sibling driver
-> does check: rcar_gen4_ptp_register() tests IS_ERR() and propagates
-> PTR_ERR().
-> 
-> [Severity: Medium]
-> Is suppressing the entire block, rather than just phc_index, the intended
-> behaviour change?  With no PHC registered, ethtool -T now reports
-> tx_types = 0, rx_filters = 0 and loses SOF_TIMESTAMPING_TX_SOFTWARE, since
-> __ethtool_get_ts_info() only ORs back:
-> 
-> net/ethtool/common.c:__ethtool_get_ts_info() {
-> 	...
-> 	info->so_timestamping |= SOF_TIMESTAMPING_RX_SOFTWARE |
-> 				 SOF_TIMESTAMPING_SOFTWARE;
-> }
-> 
-> Meanwhile the peer paths in the same driver still implement all of it:
-> ravb_hwtstamp_set() still accepts HWTSTAMP_TX_ON and
-> HWTSTAMP_FILTER_PTP_V2_L2_EVENT (and silently promotes unknown filters to
-> HWTSTAMP_FILTER_ALL), ravb_start_xmit() still calls skb_tx_timestamp(), and
-> the receive path still fills skb_hwtstamps().
-> 
-> There is a second effect on CONFIG_PTP_1588_CLOCK=n builds.  CONFIG_RAVB
-> depends on PTP_1588_CLOCK_OPTIONAL and ravb_ptp.o is linked
-> unconditionally, and the stub is:
-> 
-> include/linux/ptp_clock_kernel.h {
-> 	static inline struct ptp_clock *ptp_clock_register(struct ptp_clock_info *info,
-> 							   struct device *parent)
-> 	{ return NULL; }
-> }
-> 
-> so priv->ptp.clock is permanently NULL there and this block becomes dead
-> code, even though the timestamping registers are still programmed and the
-> hwtstamp ioctl still works.  Before the patch those builds reported the
-> hardware filters with phc_index == -1.
-> 
-> Also, ethtool -T is generally read as static device capability, but it now
-> changes with interface up/down because the PHC lifetime follows
-> ravb_open()/ravb_close().  Would keeping the capability bits and only
-> computing info->phc_index when a PHC exists be a narrower fix?
-> 
-> >  		info->so_timestamping =
-> >  			SOF_TIMESTAMPING_TX_SOFTWARE |
-> >  			SOF_TIMESTAMPING_TX_HARDWARE |
-> 
-> [ ... ]
-> 
-> > diff --git a/drivers/net/ethernet/renesas/ravb_ptp.c b/drivers/net/ethernet/renesas/ravb_ptp.c
-> > index 226c6c0ab945b..fc8c601ed3a5e 100644
-> > --- a/drivers/net/ethernet/renesas/ravb_ptp.c
-> > +++ b/drivers/net/ethernet/renesas/ravb_ptp.c
-> > @@ -337,5 +337,8 @@ void ravb_ptp_stop(struct net_device *ndev)
-> >  	ravb_write(ndev, 0, GIC);
-> >  	ravb_write(ndev, 0, GIS);
-> >  
-> > -	ptp_clock_unregister(priv->ptp.clock);
-> > +	if (priv->ptp.clock) {
-> > +		ptp_clock_unregister(priv->ptp.clock);
-> > +		priv->ptp.clock = NULL;
-> > +	}
-> >  }
-> 
-> [Severity: Medium]
-> Can this new NULL store race the interrupt handler?  ravb_ptp_interrupt()
-> reads the same field in hardirq context and passes it on without a NULL
-> check:
-> 
-> drivers/net/ethernet/renesas/ravb_ptp.c:ravb_ptp_interrupt() {
-> 	u32 gis = ravb_read(ndev, GIS);
-> 
-> 	gis &= ravb_read(ndev, GIC);
-> 	if (gis & GIS_PTCF) {
-> 		...
-> 		event.timestamp = ravb_read(ndev, GCPT);
-> 		ptp_clock_event(priv->ptp.clock, &event);
-> 	}
-> 	...
-> }
-> 
-> The locksets do not intersect: ravb_ptp_interrupt() runs from
-> ravb_interrupt()/ravb_multi_interrupt() under spin_lock(&priv->lock), while
-> ravb_ptp_stop() runs in process context and takes no lock.  The irqs are
-> installed with devm_request_irq() at probe and stay installed while the
-> interface is down, and ravb_close() calls ravb_ptp_stop() before
-> ravb_stop_dma() and before napi_disable().
-> 
-> Writing GIC = 0 first does not appear to close the window, because the
-> handler's guard gis &= ravb_read(ndev, GIC) may already have been sampled:
-> 
-> CPU0 (hardirq)
->     reads GIS (GIS_PTCF set), reads GIC (GIC_PTCE set)
->     ravb_read(ndev, GCPT)          <-- slow MMIO read
-> 
-> CPU1 (ravb_close)
->     ravb_write(ndev, 0, GIC);
->     ptp_clock_unregister(priv->ptp.clock);
->     priv->ptp.clock = NULL;
-> 
-> CPU0 (hardirq, continues)
->     ptp_clock_event(NULL, &event); <-- spin_lock_irqsave(&ptp->tsevqs_lock)
-> 
-> Would masking GIC, then serializing with the handler (clearing the pointer
-> under spin_lock_irqsave(&priv->lock), or synchronize_irq() on the
-> DMAC/gPTP irq), and only then calling the sleeping ptp_clock_unregister()
-> on a local copy be safer?  Should ravb_ptp_interrupt() also tolerate a NULL
-> clock now that NULL is a reachable state while the irq is live?
-> 
-> [Severity: Medium]
-> Does clearing the pointer only after ptp_clock_unregister() returns leave
-> part of the use-after-free in place?  ravb_get_ts_info() does two separate
-> loads of priv->ptp.clock, one for the new test and one for
-> ptp_clock_index(), and there is no lock shared with this writer.
-> 
-> The assumption that RTNL serializes the two sides does not seem to hold.
-> __ethtool_get_ts_info() calls ops->get_ts_info() under nothing stronger
-> than rcu_read_lock(), and it is reachable from setsockopt(SO_TIMESTAMPING,
-> SOF_TIMESTAMPING_BIND_PHC):
-> 
-> net/core/sock.c:sock_timestamping_bind_phc() {
-> 	...
-> 	num = ethtool_get_phc_vclocks(dev, &vclock_index);
-> 	dev_put(dev);
-> 	...
-> }
-> 
-> which holds only a dev_get_by_index() reference, no rtnl_lock().  So:
-> 
-> CPU0 (setsockopt)                    CPU1 (ip link set down)
-> ravb_get_ts_info()
->   priv->ptp.clock != NULL            ravb_ptp_stop()
->                                        ptp_clock_unregister(...)
->                                        priv->ptp.clock = NULL;
->   ptp_clock_index(priv->ptp.clock)
->     return ptp->index;   <-- NULL
-> 
-> And during the window where the pointer is still non-NULL but
-> ptp_clock_unregister() is sleeping in the device_del()/put_device() path, a
-> reader can still use a clock that is being torn down; ptp_clock_release()
-> ends in a plain kfree(ptp) with no RCU deferral and the reader holds no
-> kref.
-> 
-> Would loading and clearing the pointer once under a lock shared with the
-> reader (for example priv->lock), and clearing it before the unregister,
-> close both of these?
-> -- 
-> pw-bot: cr
+> diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
+> index b57b2bb009677..63bbfd4944a37 100644
+> --- a/arch/arm64/include/asm/percpu.h
+> +++ b/arch/arm64/include/asm/percpu.h
+> @@ -179,13 +179,13 @@ PERCPU_RET_OP(add, add, ldadd)
+>  	_pcp_protect_return(__percpu_read_64, pcp)
+>  
+>  #define this_cpu_write_1(pcp, val)	\
+> -	_pcp_protect(__percpu_write_8, pcp, (unsigned long)val)
+> +	_pcp_protect(__percpu_write_8, pcp, (unsigned long)(val))
+>  #define this_cpu_write_2(pcp, val)	\
+> -	_pcp_protect(__percpu_write_16, pcp, (unsigned long)val)
+> +	_pcp_protect(__percpu_write_16, pcp, (unsigned long)(val))
+>  #define this_cpu_write_4(pcp, val)	\
+> -	_pcp_protect(__percpu_write_32, pcp, (unsigned long)val)
+> +	_pcp_protect(__percpu_write_32, pcp, (unsigned long)(val))
+>  #define this_cpu_write_8(pcp, val)	\
+> -	_pcp_protect(__percpu_write_64, pcp, (unsigned long)val)
+> +	_pcp_protect(__percpu_write_64, pcp, (unsigned long)(val))
+>  
+>  #define this_cpu_add_1(pcp, val)	\
+>  	_pcp_protect(__percpu_add_case_8, pcp, val)
 
--- 
-Kind Regards,
-Niklas Söderlund
