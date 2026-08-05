@@ -1,73 +1,73 @@
 Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B35472F65
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 13:45:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B360472777
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 13:45:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785937518; cv=none; b=UruNhrpc2ZS2Nl7YQoZryoCO3bOdPzpF88JVqe9mWFA36YQ5thNEf+dxblfKcygq1CcmBXkPuMHDGnEkXR64KpjgTIkWCLp7LEPfUsH0no//7Pj1dyyNvh5RruDItmnuiWEIPTDEqyO3ddmW5YHSwmSAmowJO1Mouz6k1Ecyn+8=
+	t=1785937521; cv=none; b=YGYwDwfwFiKyImzZGT312B0aKRPRHMOCkcypLBAF4jF2L7p+GLB5AE4yDHQpVEkrVO7cPE9dUIVMPIQzL8zIgJpcWw+2ceM/Jl3AKRnD7spb/UHg8EOp8isMcEOHYniKrPX/DpKfV1D9XwiNPIWWcwljdqrpsy2aqmyLu4RD/cw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785937518; c=relaxed/simple;
-	bh=dnfmCzjHuVTfGKyyPPZV7aB2Kaj19F0M+2o5/tC0ldE=;
+	s=arc-20240116; t=1785937521; c=relaxed/simple;
+	bh=QB1cpRLuXJjqKtRYT47qMTpI9a/LaqdPz0pJEK8tP+E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bfez490u/RFjUctZWpOANVlQQfeU03Hu8aDz0PVoW8p5isph5/lcSkie8F6mjK/Cp52Ae3UrWfYdCl2iLlt8Or1Zrn4jHHVUti3GMl82rdobn3Z3lIptkrNFtgqIX+Gsj6oqSEuCrtsDTCksIixrqfdZaFaOjf90Wqr5DI7VW8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=bOLQTqBh; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=XaYowWlJ; arc=none smtp.client-ip=202.12.124.145
+	 MIME-Version; b=RKOhZ47xY+PAKp961o4AbhaiKgvrk7RtSNeKYzNJfZfhClKVJDiyCpGjZFjh4avpkA6kGOXavoEfB92QDQ4povExpZqMcXMsV5cqvkihWr12T/dR6MrLuL26t+64d+2TPT2aEz8tZfeYkLEi5lPlSnrZhHLAeHRfC1jYoRleUok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=ueLx0ADu; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=GgRxC7V1; arc=none smtp.client-ip=202.12.124.145
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="bOLQTqBh";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="XaYowWlJ"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.stl.internal (Postfix) with ESMTP id 525A51D0019C;
-	Wed,  5 Aug 2026 09:45:15 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Wed, 05 Aug 2026 09:45:15 -0400
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="ueLx0ADu";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="GgRxC7V1"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id 7C4021D001A0;
+	Wed,  5 Aug 2026 09:45:18 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Wed, 05 Aug 2026 09:45:18 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1785937515; x=
-	1786023915; bh=N6XDQL5udfymHhFZ/rZPZIp2Kys3itPYgy68Z+5Cqs4=; b=b
-	OLQTqBhSGqxzoYSEojL7LNoVwoFzkEDWjOgGzmptzrcInxxP0xEdJLPo/+tx7ba6
-	N3jBBd66fdmoh4Xg3CaKxuQDgnyYcqB/5uysAy82zGYZKGP5CPv9EUanJTvt0e6w
-	tqkDOZ1Tx9dQiP9Nsmarcqt2zPtYzP1Hde4QJfy3SfScRRQgsRcEmlMMcvdNdi7t
-	mde0ZAV+t/k5BGteM1nLlHbmX4hn1uEmBESS2+X0ooqmEGyiM1Vg3IpAtLkfxry4
-	XROlgPGun5DFpXLkhIy7yatLGgE/Jg/rB2nJTThn/KC6vOyYzIzjXQkL6Y2mCbBm
-	Ngyp3IwogRLjRnrXUsL6w==
+	:reply-to:subject:subject:to:to; s=fm1; t=1785937518; x=
+	1786023918; bh=tS7rf/ZTIYL5Zavd9Xgl3dYGyBAVCylw8v2WwOy6LkQ=; b=u
+	eLx0ADupPmlxVTNXnExvOoZCGOYbAN23rtfiwNtMTRsGqNOAAgsFniQxxDe+umtq
+	tZ6W0/qvaKnYSYPfV/Cke+Pb4eawlOCZ8WfrXguQ5Q5dMd00pXy9JzQJlCh+u4dn
+	MVD1abmnYRlHm9A3tMKKhCRLVZxN2usS1H58XVcRoD55mJV8VaQ4uZcyq2d8wSdA
+	xCC64FWqmfOEaiW7z9u86zqvXBDRZzzUBYdgBLpzQlw3pIJQdvPUgWKmIGFDtHVn
+	ai7Ef+CYGV6/GJ/sGuJHBNqDALBn1UHPW72bDqDU4zKeVrqZBci8edqR4jv9YmvC
+	7LTthaeaNY56fVK4OqABw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1785937515; x=1786023915; bh=N
-	6XDQL5udfymHhFZ/rZPZIp2Kys3itPYgy68Z+5Cqs4=; b=XaYowWlJW7UZc/RLQ
-	zFx5IcJmunGR5M0ocecxGKyDpnUMyaDDzag002/SrqZC5TAvuxJh1KgICcB3oHVH
-	JJp6hgjtBLNfnCTz/ChdPYjR3vFM7rot16t4nY2PBPio1m8yja19VXBU3jg/jo/b
-	lGGSWtvzn9LA6yPTbddXKXlbwROLGqxMyCRz4uVw3G1Xk2rRv+UCJJ5CUiSqdWOb
-	DiFG9Dwwy99hmFzmuELcF+DjUoaShPakgGPfX9xi0uuUg2T6yBxyInG8SkuQBuJH
-	OZR6eW180EovYF+VJ09Kmgngm506htV8nyPKBAQ4IH75DMappMiiy7qKhmutArio
-	++Ctg==
-X-ME-Sender: <xms:aj5zagVdgOo0YInuBLAupL0tQwctHEwLIsGLI8Btrrk6HWH0kR4Mbg>
-    <xme:aj5zasLoZ5mFDfnyiQbTXcGST2UcEOPQaRMPQpC_BZWlR3AxrwYmPooROWOGQ4398
-    P7pyMz-KvzoMZ5DNFHvOZnKT0N5adECmb4TI8MqQHN-JPrrOkdjkaeq>
-X-ME-Received: <xmr:aj5zakBx35Wcaz2NQzQtyI74FIibShfkRxmuBcQzlT_upA03dHZzyyJxklc>
-X-ME-Proxy-Cause: dmFkZTGpCwdINvLnxM/ti6vyhVAZri4wrIATASKaJ+7EOsIAOMh5S02gZLgVSpopAnVoG3
-    9NYAeFbrqzw+Eb5QhrElZGaqACIJtWM2o7xQEdTHfzWsFvwsSS6M0kPPLjZuDo6A5m5WQi
-    TxS7pkog/QGfyK8iEbIPS1oGu3d7253YNfBS8mndRrvYvrJ5l+tyxqUxlQysgvpJXfq6Za
-    P3OU/IgFvJTlw3ClttWVgjGetU0g0jOVZMGJ+XtkU7NoKDe3Yg6WHrDiY6LKh/iwNswBa7
-    8a7GiyQSO7HXLwkG6WYZooubs4KaLMA8sDsqKhQWxKhMrahOvZtF61JLaFa0eNoU1OBsOE
-    WgwKONaZ6Ee7tQV0yFWeebvgbHTa1gLNiSzv+ZCCV7uydFZKY+a3RpS10kD3UjNOBvzrGi
-    hTcRxvFDjdkWGUA+0N1ZTC8w9ixrAF378Ki6l/nQwu/SVCigR2vCpID5V77CncbgSky1Ho
-    y5pS5CHOWCuB4AhV7+FzWaIse+edspN8r/RpsSD0M5TehdvHdmi14f3Wr3i5e14bFLA9zH
-    lwYE40IQcvKqqjT8Qf4uU4FOb+dLJ5cCSeiLA3dvqixTJjjkeZb3nc61tKU9rMhRAN+aHt
-    7/c8DWLCWrYc1s55gD6EYABdGHsxD1qyaMRsG+8EAEIrgOXOEzYzAljIEo+g
-X-ME-Proxy: <xmx:aj5zasEXlioX3_gVdZoRamlDTFqR3_ZC3qOJfHcnKHOGw2PnsxG6PA>
-    <xmx:aj5zahILfVMO-oStqFFpf0RCd7bQW7jA_XHTI_gkcsOWUe01PypFdw>
-    <xmx:aj5zarogTpS5hTCECLmGGvOtciwOYoQj_oqjIWy0K_TRbSAKbrkmXA>
-    <xmx:aj5zaggnH0RDXN6K8gJtL3QoXYvdiyQzUN1mIQQZFw_7fn2dz0PL0Q>
-    <xmx:az5zagSEyt9hRutTMmZXkMlsY5_6HflI_3g-Y_jUVoC7SPL36LEsKVZT>
+	:x-me-sender:x-sasl-enc; s=fm3; t=1785937518; x=1786023918; bh=t
+	S7rf/ZTIYL5Zavd9Xgl3dYGyBAVCylw8v2WwOy6LkQ=; b=GgRxC7V1yEAqZutLK
+	POjFUUZsrcWok6y924AFgVk0tnDa0zS33UYD4+1Zey83394+sSG9L0OmVDsmS8Q3
+	7jZdS/AvhS/FQ7YrKtM9paFHxlEvy0Cwa1ECDO+/dPtJ406HBsLWgXuN3NETC6ES
+	IQr7c1Q3RXbYn/nQxpPO+ZaT31C5XuI2tB8GP0mEtJio6+1lKI0l2lKBrVWyEwMg
+	DzAgTfOEnMSaOIeH9rJYUUaHigStgh5OzpBj48jreXMtblQ8DcQauvXZhRE6kfcF
+	pF9wose4XYKcOB4wpwuctu6B4L4Xyoz90cx9WZWcZzjKgsjcr2HxjYfMoUpIeITY
+	XZLEQ==
+X-ME-Sender: <xms:bj5zaq2lJvujDJe--gydjl5xEVJWaO0VcBhoHkrnL4SptKCUOguZbA>
+    <xme:bj5zakrIW8Att3E-3lbEo1a-r9BY7x-41NNXkQgGwyEMRK4MwxrcO2rwHjH7zziS_
+    Ul_BvQXnHjEqLQJqgav0gCzCllDIgt9qvKneW2WEYelM98kXhMd_gk>
+X-ME-Received: <xmr:bj5zaijO6Ucm-h19E0vS77tB1-xdLjsE9Pv248i7b044DewkPAPYCCUY93E>
+X-ME-Proxy-Cause: dmFkZTG1WIpnwM6A2sPO3HW6iewaMW0/4+TIO4pPW2/uwk56ZS/KPGy+yCjQkbNgzwh7Dp
+    HrFVyO8q+vRyzbuXZLx4ZRNdZlygKdksCAnT2d5WtZfp1EGqKHqXXY68pfaGDxhE3dklMX
+    TAItLC6QVDs7gHnCdninbx2GUIg9faOUQgcAyVlYeb3GL2FkhRp9zdX5+sJFUzDKsIUexX
+    d/fBcZz4muK+gxc/eqNUsc8j9ithciCVa/syXRp5lhqb1XYp7wY+9gTs5ep+/4gS/N+UE9
+    oY9owczXJOYyfWKvy8k+p8Txt2Q9mTdynEji7MrCnD75ivAmp9W4kvVpwWuKOO6Oog1Ajl
+    lbv0Tq8hpAVbjec2u4q+JthySK4ZqmY7VUYjz+oP19d2T2QPVZfiPxjqe4opaIYSY7SFCP
+    u5BzNSk7MNJOEB3QOL9YSmhKkihRtAHJz8e6Uj3aOAJtEBBH79QqVN6TvCULJW9Dqm5Ar8
+    sbz/wUuGs5AhBQCR9FEWHD2tUg6XLIzkFDA5oxv77vRHVoXZuWlT68gt56bnfBJDiYmh6Y
+    JO1d9vybVH+w/i+DF0i6bRlQXHdzpn7x2oQlFxOIiy4a/wA42MGkofnr32IzNmMUDpWGlM
+    0sjEU+ZqQmqUpYBirHmH4IUiJ1c03EZB+kigpxr56ZeUfBdray0pxaXdrjHA
+X-ME-Proxy: <xmx:bj5zaokWWB4Of1pvxMQOMQNxfrBzsRD6IjRrxS8wRTMQ6zTIvRF6zQ>
+    <xmx:bj5zajo2Xrieqhk7ZEtrCFlyaNO0o54J13rMmT_SAvMAQXnY_BwY6A>
+    <xmx:bj5zasJw000V_NzTZVL63y46F250vF-DGdO3qvk5SV0eN-hhSXVVxg>
+    <xmx:bj5zanBqKb_-WK8CDg_BKnPEsO6gOFBEdKv0PncqtoMigN-J3rDKAQ>
+    <xmx:bj5zaiyy8Cjs43jVfNOolONPydTa5sW7BwiCcOeZEHJVdIEh2H2-Rt8R>
 Feedback-ID: ie3994620:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 5 Aug 2026 09:45:14 -0400 (EDT)
+ 5 Aug 2026 09:45:17 -0400 (EDT)
 From: Kiryl Shutsemau <kirill@shutemov.name>
 To: stable@vger.kernel.org
 Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
@@ -85,12 +85,12 @@ Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
 	Nico Pache <npache@redhat.com>,
 	Ryan Roberts <ryan.roberts@arm.com>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 5.15.y] mm/huge_memory: unlock i_mmap_rwsem before releasing after-split folios
-Date: Wed,  5 Aug 2026 14:45:12 +0100
-Message-ID: <20260805134512.2776839-1-kirill@shutemov.name>
+Subject: [PATCH 6.1.y] mm/huge_memory: unlock i_mmap_rwsem before releasing after-split folios
+Date: Wed,  5 Aug 2026 14:45:16 +0100
+Message-ID: <20260805134516.2776849-1-kirill@shutemov.name>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026080503-upbeat-facility-22c2@gregkh>
-References: <2026080503-upbeat-facility-22c2@gregkh>
+In-Reply-To: <2026080503-fender-retold-01fb@gregkh>
+References: <2026080503-fender-retold-01fb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -172,19 +172,19 @@ Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
  1 file changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 934c08de74f4..94398e024d3a 100644
+index 7023bdf48960..153f06e42866 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -2403,7 +2403,7 @@ static void __split_huge_page_tail(struct page *head, int tail,
+@@ -2516,7 +2516,7 @@ static void __split_huge_page_tail(struct page *head, int tail,
  }
  
  static void __split_huge_page(struct page *page, struct list_head *list,
 -		pgoff_t end)
 +		pgoff_t end, struct address_space *mapping)
  {
- 	struct page *head = compound_head(page);
- 	struct lruvec *lruvec;
-@@ -2476,6 +2476,16 @@ static void __split_huge_page(struct page *page, struct list_head *list,
+ 	struct folio *folio = page_folio(page);
+ 	struct page *head = &folio->page;
+@@ -2594,6 +2594,16 @@ static void __split_huge_page(struct page *page, struct list_head *list,
  		split_swap_cluster(entry);
  	}
  
@@ -201,7 +201,7 @@ index 934c08de74f4..94398e024d3a 100644
  	for (i = 0; i < nr; i++) {
  		struct page *subpage = head + i;
  		if (subpage == page)
-@@ -2717,7 +2727,9 @@ int split_huge_page_to_list(struct page *page, struct list_head *list)
+@@ -2774,7 +2784,9 @@ int split_huge_page_to_list(struct page *page, struct list_head *list)
  			}
  		}
  
