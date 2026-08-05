@@ -1,154 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E493C2B8D
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 11:48:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E7443A81B
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 11:50:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785930536; cv=none; b=uqlRjZYrBFmFLkWkeIs0vUdFkZpvof3xtVGLIYYGSY5HsbbfQGjdmEoPEJBbJaj8apMXVDCZbVJLy07ADN3XcsduIoAsOQms59SEsWKYMhQzxDKPkwCd8DgubUdGp9/ycZxgqm5GaXPWjyDVbujASqhukbTM/nU3Z2x2rbb5cJo=
+	t=1785930649; cv=none; b=azVdQdYJcs1z6BhLlNndNshbfDf7740xr/2UeJ2HOsnN5XzItX+af3wJGc6ZYjHGxZiOz+aUETfXvF6ZEePDBGpUBuIsU3ET4yudbYQRCoOHYzJ5WyWfKslzpsTma19awogHG6pVXJJDYIxOc6KP8MJu/8IBGBzFzcf93ChPIiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785930536; c=relaxed/simple;
-	bh=xKVdMeucJEZH83Jzv+rsy7q444iUZMO+WxQzB3qC9a0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tYUZgKQSyJhwEaYeu6FQU1kMXfAAwbZG2V/Qzmb46zKcWrRGNqb1sl/t2PUOkq20cbcp6T7dTNMaIOxH6lf3ycz88F2HwB0CgzivLXzZgF3UQtYvH7paDBqhdVgXBkUdknYbBTScZcczama+V3R9UFigHbQBv33Nq7/Kx+nxpTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=prQIdhgW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785930649; c=relaxed/simple;
+	bh=8pB7ceD77AuYDPuNy5sp4YIR/n6BG/LvwP4jI0nxD+I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=W9vvHy8HvBB3wOKOr0BweLWT6hla8ku4UeuZG+OJd3jF2en1+7Lb1NT88YOBpIOJ0hJxO1mHYu6pON18tcVJPZ6Ck+qpRKTk2fEZYAPYaz+zvMmYAh7oDQyRNVXLi9wVnEw6o0WXmoJJyJ0ZCjquLDtJRocu9SbmCsp2XVVfVZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Id9ZbJPT; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="prQIdhgW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A5921F000E9;
-	Wed,  5 Aug 2026 11:48:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785930535;
-	bh=wvDqCD0RQvs9r+vugETkON7Qvq7pItMCXxJnL3XXViQ=;
-	h=Subject:To:Cc:From:Date;
-	b=prQIdhgWpGtYDDU3e4VE25dvyxa/8l0u3Uaq71J8d4dOHp+a6r9UcOEaYFEysnC6M
-	 JO7qSYXzHki5+heOIpK15FA75E8YXvkmCXkq7Jk4BYhkRtahB1R0pURXRpD10PHgo5
-	 ru5US6D3Zttc/4yxWi8evvG6z4s5nIhCjLXLlt9U=
-Subject: FAILED: patch "[PATCH] mm/huge_memory: unlock i_mmap_rwsem before releasing" failed to apply to 5.10-stable tree
-To: kas@kernel.org,akpm@linux-foundation.org,baohua@kernel.org,baolin.wang@linux.alibaba.com,david@kernel.org,dev.jain@arm.com,lance.yang@linux.dev,liam@infradead.org,linmiaohe@huawei.com,ljs@kernel.org,nao.horiguchi@gmail.com,npache@redhat.com,ryan.roberts@arm.com,stable@vger.kernel.org,zhanghao1@kylinos.cn,ziy@nvidia.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 13:47:04 +0200
-Message-ID: <2026080504-attitude-drizzle-259b@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Id9ZbJPT"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso782358a91.1
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 04:50:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785930647; x=1786535447; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9VOjG1qeqbpED3aclWfN9lJ5XhH5+1/8WZV2to/loYI=;
+        b=Id9ZbJPTCWTxJejmJ8zF26h8rAq9Hsz19pmsfrNKNk4MZPtixmPIubQ/HfbUMlYlwj
+         Qrd5Je9sc9u3jwj+Oqb30RXV6Q12LC38VgFAB5uRyZuvhMVHt7DQvLnMDuUphPgOQT+f
+         LMEdn/cPWhDhStvUtWqHEy9f3VBh2wlPKuIMf74HguZsoBdQP/dwTXV9eBV5oqXYcsdO
+         sG+UhEhNDnveXWJSEzMZV7xyYolyzt8SoTUaDCZAL+ugSua9Tpxcl78JXZ60/Xkct78/
+         0UbP/+xtql/e2/y5ovXjvIPMPKq6rUD+ypyWUndAgmQ7wyJ+tXMn39mr3GTDTPUS6hMr
+         ZpSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785930647; x=1786535447;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9VOjG1qeqbpED3aclWfN9lJ5XhH5+1/8WZV2to/loYI=;
+        b=fLATPkCN0/jBMjLXb0YyK9l8L79/SNOP5EpqTssAl/7MWke5gr4LHVn9xgAUv9WzCW
+         kdsalu77apTaVLeBYtPPVYxkSfuYUlQfib2XZ8jWHIPtmNTTZFQvGIxKOTGuEc5aTRTu
+         1h9Ui2GJSbgcCFJxNZ8P5v3W7QU/V5WpZOMrbvcqc/ytsq9a1+0AqsENL3b0P94IYgGB
+         nweCyQqTdLB3OKJ0LPTohmKnDwmXFqECycOr+81CzNWD4287r2mSyGHJUOw/pOPcjDd9
+         iZTg8KLXagCJlCYS6002cR9C3046JIQOqyhekYvyxHp8wFiq47OsIHyJz+NGTPFPTiTk
+         Xpkg==
+X-Forwarded-Encrypted: i=1; AHgh+RrjkK5cu0dIEOoREEitACGWmEJPktWwmK3xibpE8+Gn93dvl5FVZ61ko2h1BQVnpqWE5QkbfUY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy87vAI63anBo34UW3yU8dREhowu12Ktil8z+0Tcw38oXBfb6rK
+	6eZQ2s3ZmGSRvKbo7Ltp4bpYk7aX7XqK0YhvOe4voDmWdtMk5DXRpMCP
+X-Gm-Gg: AR+sD10lsXhEj9IkitY5K4tuoPjG9OBIGyKfAZ2N53E1nSsn8qjSdIR7ydUSTf8Rc2J
+	0OrzoIP2zPbN4HCeQ+GDlKKbCtCJ0Fz6b9jiYA3DdM7h961IX8ex0Flbs7mtTgPHhLpfnPhMdE4
+	ftI7wz6cpndvl28Al5rV7TpA2kk4cspG99Gncr2SwrwLsVxu5OzNsq8BWit4l4Z9JWBJkGIHnU1
+	H3FvQKNj2/3EqZXD5LVoBCyq0NEOJVWth61bJdLj10PN6UX2xOyTv7PMXJvOkbZDL6MafiXV5Ko
+	dtjboMRqAxR7TGs8DGX8uUzsljLSr/lRLyiqZyCQuHI14f9vB3+qKFDUiNCxt9AfKI0A4TFoga/
+	BYkNRLLL87XrO/B7tu0B1UZ7QGzgB1RA0zrhEvkLJF9ait0LAUIfVsJDetVvRlF0rwcg6uHNS80
+	NudvuUtcfet1gXX3MqU2pvEg1evUywR3KNx0HEKXBzom4zeumqr4/FU3ZWOdWf2ATHBaTOr43J7
+	CKTyziO4xlEtsub7XoM67p/bj8XS3xQKFFExkPkrqGJy4nw1WjE88EK3W72T15zeS7+WJIyNItG
+	jjsK01RNQ96+JBw/e6IJLybR30zwXa0n5wQoJOsHJJUEpGT7KgZK
+X-Received: by 2002:a17:90b:224e:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-3903c5c443dmr5103146a91.16.1785930647103;
+        Wed, 05 Aug 2026 04:50:47 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.252.203.158])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903927db6esm2936674a91.10.2026.08.05.04.50.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 04:50:46 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Roger Pau Monne <roger@xenproject.org>
+Cc: Matthias Goergens <matthias.goergens@gmail.com>,
+	Juergen Gross <jgross@suse.com>,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yannick Martin <yannick.martin@okazoo.eu>,
+	Thorsten Leemhuis <regressions@leemhuis.info>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: Re: [PATCH v2] x86/xen: fix init of balloon stats again
+Date: Wed,  5 Aug 2026 19:50:41 +0800
+Message-ID: <20260805115041.409008-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260805094008.95778-1-roger@xenproject.org>
+References: <20260730143548.39320-1-roger@xenproject.org> <20260805094008.95778-1-roger@xenproject.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+Hi Roger,
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+v2 looks good to me.  Keying append on the source of the initial count
+covers every case I can construct: by inspection, a domU always enters
+the fallback branch (current_pages stays 0), so HVM/PVH domU and the
+dom0 hypercall-failure path share the subtraction branch, while the PV
+start_info path and a successful dom0 XENMEM_current_reservation append.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+I also ran it on a nested-KVM Xen rig (Xen 4.23-unstable, Linux
+11028ab62899e as dom0, static busybox initramfs):
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x e923bd21058ea02fd0dcd3549d151d143fd036e5
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080504-attitude-drizzle-259b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+- PV dom0, dom0_mem=2048M,max:4096M and 3072M,max:4096M,
+  CONFIG_XEN_UNPOPULATED_ALLOC=n: no WARN, current_kb matches dom0_mem
+  (2 and 3 GiB respectively).  Same with =y.
+- PVH dom0, same two memory configurations, =n: v1 WARNed in
+  balloon_init and returned -ERANGE in exactly these cases; v2
+  completes cleanly and the balloon driver initialises.
 
-Possible dependencies:
+(Scope note: PVH dom0 userspace stalls later in boot under nested KVM
+for an unrelated reason, so the PVH evidence is boot-time dmesg and the
+balloon sysfs state.)
 
+Tested-by: Matthias Goergens <matthias.goergens@gmail.com>
 
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From e923bd21058ea02fd0dcd3549d151d143fd036e5 Mon Sep 17 00:00:00 2001
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Date: Thu, 16 Jul 2026 10:54:24 +0100
-Subject: [PATCH] mm/huge_memory: unlock i_mmap_rwsem before releasing
- after-split folios
-
-__folio_split() keeps dereferencing the mapping after the split:
-shmem_uncharge(mapping->host) and remap_page() while the folios are still
-frozen/locked, and i_mmap_unlock_read(mapping) at the very end, after the
-after-split folios have been unlocked and freed.
-
-Nothing holds an inode reference across that.  The split relies on @folio
--- which the beyond-EOF drop loop never removes, as it starts at
-folio_next(folio) -- staying locked and in the page cache to hold off
-eviction.  But the unlock loop unlocks @folio before i_mmap_unlock_read()
-runs.  If the caller's @lock_at is a tail beyond EOF, as memory_failure()
-passes when splitting a poisoned tail of a shmem THP that reaches past
-i_size during truncation, it too is gone from the page cache; so once
-@folio is unlocked no locked, in-cache folio pins the inode, and a
-concurrent final iput() can evict and RCU-free it before
-i_mmap_unlock_read() touches i_mmap_rwsem:
-
-  BUG: KASAN: slab-use-after-free in __up_read+0x634/0x790
-   i_mmap_unlock_read include/linux/fs.h:537 [inline]
-   __folio_split+0x732/0x1640 mm/huge_memory.c:4100
-   try_to_split_thp_page+0xab/0x390 mm/memory-failure.c:1675
-   memory_failure+0x1394/0x26e0 mm/memory-failure.c:2470
-
-  Freed by task 4601:
-   shmem_free_in_core_inode+0x54/0xb0 mm/shmem.c:5177
-   evict+0x57f/0xac0 fs/inode.c:870
-
-Do every mapping dereference while @folio still pins the inode: drop
-i_mmap_rwsem right after remap_page(), before the loop that unlocks and
-frees the after-split folios, and clear @mapping so the exit path does not
-unlock it again.  shmem_uncharge() and remap_page() already run before
-that point, so after this nothing past the unlock loop touches the inode
-or the mapping.
-
-This is now a rule the split depends on, alongside keeping @folio frozen
-until the page cache is updated: no inode or mapping dereference once the
-after-split folios start being unlocked.
-
-Link: https://lore.kernel.org/20260716095424.471052-1-kirill@shutemov.name
-Fixes: baa355fd3314 ("thp: file pages support for split_huge_page()")
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reported-by: Hao Zhang <zhanghao1@kylinos.cn>
-Closes: https://lore.kernel.org/linux-mm/20260710071344.GA106129@zh-pc
-Co-developed-by: Hao Zhang <zhanghao1@kylinos.cn>
-Signed-off-by: Hao Zhang <zhanghao1@kylinos.cn>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Nico Pache <npache@redhat.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 032702a4637b..58cabe6af33d 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4113,6 +4113,18 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 
- 	remap_page(folio, 1 << old_order, ttu_flags);
- 
-+	/*
-+	 * Drop the mapping while the inode is still pinned. @folio stays
-+	 * locked and present in the page cache until the loop below, so
-+	 * eviction cannot free the inode yet; @lock_at is not enough, it may
-+	 * be a tail beyond EOF that the split already dropped from the page
-+	 * cache. Nothing past this point may touch the inode or the mapping.
-+	 */
-+	if (mapping) {
-+		i_mmap_unlock_read(mapping);
-+		mapping = NULL;
-+	}
-+
- 	/*
- 	 * Unlock all after-split folios except the one containing
- 	 * @lock_at page. If @folio is not split, it will be kept locked.
-
+Thanks,
+Matthias
