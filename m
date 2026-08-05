@@ -1,73 +1,73 @@
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2353647255C
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 13:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8421B472F74
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 13:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785937524; cv=none; b=D/TJSSrqsmAC6mURkZ5TsTqTCr2/QSenkOI4/rgBX1pFnfcDliGwu+mZ1KZnxoOU0rQYJ6oQoUMl9TCtCW3U720xgjs6/Z/MmgD0Og1txR3YX4VUPOmYv51fo46r9ODA9DFyeHVP3UFr21OsGCuwa74BZLKllaKlm5vWanWRfvU=
+	t=1785937531; cv=none; b=RChTaO+BOdL3XHTAZDPz93vU2APrIzXmL3jupBh1Qei73n164gbLc9JdNQRYkRGZLxxlzJ/hv6iZCsns8Jd3TYdEu8dAV5KFVIF04+htTShvSt812SDlzsqkm44Erj+5OT9DARm9l5EfBqLgmVRqfKd8A73Vk8OIOp7h//v1/70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785937524; c=relaxed/simple;
-	bh=MySTx4ELqXdFK1nACo7MmqOBo04o/oRXH416DvGKJRg=;
+	s=arc-20240116; t=1785937531; c=relaxed/simple;
+	bh=u2Kx0RhAUDnPEcJhKxcV+bWnXBAi5xhAZ3N06mrgyfs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VZxX26DjQv5ASAaqWoBNerZ13lCWcRQ4LSM8JIbI/sF5aM4wMVef+NYbb2l6erRZWOjmSiUoSgZQK3xJXMhUoUaIZV61E+SHfA/Q/rZM8PRGEsAnEC6piCMiRasFtw32kFG5GKK+NVGL25iZFg9yz3EvEtIwgC9Y5nwlLQfqdhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=hySqGjQt; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IQ6AQHSG; arc=none smtp.client-ip=202.12.124.145
+	 MIME-Version; b=NXMzoonuJFW/Bkx+XH/b+M7vJqINEROI/8Gk567b+ZPMPJCbYBJEWK0lOrZLMSfdg3MwmSVotVEguQRc0+82uJZZfEqWRrNL1M0nWeDd7Zlk26pvpQJBwiGsw6AZxn0pCUYDFvU4Al0tCHw1UT8eREGGsbStG0hnGQUWNhoxm2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=X1Zb/gZ8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=beYq8jH3; arc=none smtp.client-ip=202.12.124.159
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="hySqGjQt";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IQ6AQHSG"
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfout.stl.internal (Postfix) with ESMTP id ECCAA1D00167;
-	Wed,  5 Aug 2026 09:45:21 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="X1Zb/gZ8";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="beYq8jH3"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 346817A013F;
+	Wed,  5 Aug 2026 09:45:25 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-08.internal (MEProxy); Wed, 05 Aug 2026 09:45:22 -0400
+  by phl-compute-02.internal (MEProxy); Wed, 05 Aug 2026 09:45:25 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1785937521; x=
-	1786023921; bh=acZHG1V4DY5RBwjJmE8DJYM61nOwVpX/MU8W2OnmEUQ=; b=h
-	ySqGjQtgFfV7/SloT53sT6H2g7u0wenauNWSLihiZC33Rb2WKOAMSL0rEARLMQDj
-	bAzbVFK9UXExGu/sxo34ZPmPqtG/2LX2cCXYr+xFOEfyzY+OCBElTBco9R86yBsz
-	Qa5Kh7MiWbsUNtKsp5dqDooluD5OqKxjmwBOcZq1EP2RlvgkEeaCqfMUte+86Wo2
-	gP8L+KnpKcNyLHhT7KK4LeUDu/q7aTK/OMD8TH25NhSW647eZlbnuRpAeE6ZqHwC
-	jlJMHo2ZEIpACtrMTKNmNhRTcRrKZDAK0a8GkffH4Bj8RszimmohgKa0w23xYZf2
-	jS6iJc4CyeGbzOKgvkQhA==
+	:reply-to:subject:subject:to:to; s=fm1; t=1785937525; x=
+	1786023925; bh=grefnCB3cp+zyoXZl52l1EW6RlEhnRnn5oKZvwSrZns=; b=X
+	1Zb/gZ8OdD9nuyxpphH3e71TxClu/bAf444NXSeULFwYpeqBOjlz/Tf51ODGrHQ1
+	WW+0wRChy4yi+05Qhxqg9VxD59i2q5FRGuZ2RJfx31oQxmCx3/MoiosX4WfMX2zr
+	huipE1LXHVzwcnNz/DgExyNx+DCY7c5C08OrthBlkcoJuzWTsBrEB1/gjvb8C8pt
+	gzOr5ihow06/yduwd/M0QuF2eAW/bO/nvTrSaoaEGwe//RJXgU3nb+S0Ell0UBCO
+	9JfUy/l0n0lrPMlV4EgWhMIbZZcGCkoGCyE7DbXQu3QE6/G3ITlHjXn7eQpap+ts
+	sXwmlkjxmC39sa21e5+yA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1785937521; x=1786023921; bh=a
-	cZHG1V4DY5RBwjJmE8DJYM61nOwVpX/MU8W2OnmEUQ=; b=IQ6AQHSGkxYSuxi0V
-	FME3jS+otcawELGNP5qtg2UCHfJFIMr/WWRxDUU03FU2U1logh3Vv43FIjZhUtcm
-	I22dd+/As0uLNnmLMsMsCJ5RPSDPQzF5h62vgUugflZPApPe+Jj4xV5/+YM9SSv7
-	xnPiS8gMayn2n1Tku4uWrzNpprnmIRdPJv+HH2s6bIL5B68WQ8yYgC8KOmPoLJ15
-	GexUvGRRI8UFkISMRqlA+vVL2SlwQkxVEASjTMUTbhEFZ/pzcM8JHln2pXJ7kYd3
-	XOsP8KJ1yG35O2AuFmXLFsNnn6lOLI+AAwWi+csV0a8kzaE5Acx46vcEfTAlD3+i
-	QQTJw==
-X-ME-Sender: <xms:cT5zavl4HF9EKWF7SMyjAKCRcgkeQqw_X20PZcrlvsYC7knluDK88g>
-    <xme:cT5zaqYH7d0p-FACWDojH1SrLctCY96uWkYshO2tFEI5-pLpd6kMPk8q4sGpxOiXZ
-    xc3-k7BD491Jr0O3c6abVr0vOcHN03Plm7ubBqTQYnzJwJLRqaebOs>
-X-ME-Received: <xmr:cT5zalRwfo5cj8z9P6_6n_Seuv5zzyJQRRhLki-c_aR87G133yxwCALF9DA>
-X-ME-Proxy-Cause: dmFkZTGpCwdINvLnxM/ti6vyhVAZri4wrIATASKaJ+7EOsIAOMh5S02gZLgVSpopAnVoG3
-    9NYAeFbrqzw+Eb5QhrElZGaqACIJtWM2o7xQEdTHfzWsFvwsSS6M0kPPLjZuDo6A5m5WQi
-    TxS7pkog/QGfyK8iEbIPS1oGu3d7253YNfBS8mndRrvYvrJ5l+tyxqUxlQysgvpJXfq6Za
-    P3OU/IgFvJTlw3ClttWVgjGetU0g0jOVZMGJ+XtkU7NoKDe3Yg6WHrDiY6LKh/iwNswBa7
-    8a7GiyQSO7HXLwkG6WYZooubs4KaLMA8sDsqKhQWxKhMrahOvZtF61JLaFa0eNoU1OBsjD
-    5GGAYAs92DfbW/k7HbtZhKSYn+G4wEQsc1fpU0jPI67UzxmucWp3eW73glBzdwJ6SWUK+H
-    j1rCAlaNJSVovxvIWD5zbtp4O2m+PXdfdmjmZt/0xPO5xVRLelwPyrzoLaW7vM8ulkgv0/
-    9aIPnee6DybX0PZFCRnIUPrPlE+27otTLFw6nRxwYhhnrcteEb3evYqxzCDQC+MhTWKt+w
-    Ip7hKhekR14a9VYka2PFcP2d8zjSBxxU8nXduzo4gn+mZQnPjMiebNoqMwzO7GguIX6qR9
-    a9r564Md61WAGC8yYhTn88hrv364S8NNqttQRn0G+0Srpb31mV1bh+434P6g
-X-ME-Proxy: <xmx:cT5zakWr5F05tz_Dv_iORPPNbI7Fys3qD28D9L6NJtoeuYWQc-H2eA>
-    <xmx:cT5zakZyKjrimXK0T2T9rxElqt44NqKwCf27CvjQTaUNGkz3IB5abw>
-    <xmx:cT5zat7Jy9J2IJ-K9S3kSSW3WshStqkiybkgT3Yp9DJ4oDSb4_D2Xg>
-    <xmx:cT5zalyDxuoWiv5OcQkvzh4GIxix3mH8H0d1eHc1IpSfSF-v7YHKvg>
-    <xmx:cT5zarjYtjirmbOkFy2YKYbLieoWSw5MMKDu0AnSQWiYFSzZY-r32lM1>
+	:x-me-sender:x-sasl-enc; s=fm3; t=1785937525; x=1786023925; bh=g
+	refnCB3cp+zyoXZl52l1EW6RlEhnRnn5oKZvwSrZns=; b=beYq8jH3P6yCpHNKp
+	bhM6sm6TZx6mzlZ6wYmhXQLb+kcCCxlureQwi/s0ms0GbKmDr53xVTj8D48CHsdr
+	14v/nCclkirlXXwKZXgtmJ6szp4DR2s+abxin+WqWua9JAHGyk4LKzcylG3s+2NF
+	asY18AIHwTCAP4iGYO9IUbx9xooz5CjrveHeLGqcw4DvK83wBqN+KlW0ex51hw25
+	0sBkLtj0ket2rksF7PxiUbJjp/nhACRdLhOUj8jiA9KmV56zsWHH667Po5fWP1VO
+	u3hSs/k+XJF2wfEpy3B1PVQtUkD6WEXvhg8Yz67ewBQhIgGjA5mtewfkAn0Fy76c
+	39cIw==
+X-ME-Sender: <xms:dD5zaiDxFAXqXzEfOc1bsBFsS8CtRhpny0O5Tz8URg7cEwxEGLC2Hw>
+    <xme:dD5zakE6n1r67P84-oD9KhhPIx_Wu2xA0IXMpgPFGvCSY52WAq8IuO_MflSj14RSL
+    jwZq2sAAOajffo018VItgmyzhGCN5s6t4BAm7V4wZi92FGqGE332AQ>
+X-ME-Received: <xmr:dD5zalM-udCFf_oTQ1rIQSGPackP03vu2Fssj-vIQMu42tebORDqOvn3eM0>
+X-ME-Proxy-Cause: dmFkZTGu97oI3pYUVfgfNzZrxwJPnm31USpJCOdyBwkzfqtZM+L3TiAQtP0rjGZJjYLOo4
+    xWk0E7hNrOhKUloXiU8avxmSlRI2RGeRD1/gTEgVPaTUC1zaE4cMasb614gbRm8XXQZ50k
+    xJgTwN1tyHXL089IzbJD2G8OjM6Gw0/sLqfvD74RKaaTgnpAVfEpa8hs2Cg2CXKf/pEADq
+    4dnZB1dJz2axtJ7K25RLDyG5EULynjrVLDHVcyQACiXg2X7iZaun9E9RiUpaaHyarugFxH
+    BcSZfbgRifuCSc+ehaiasTAbhZQS9sm29EkhCmls1Um4jDGdwXgfvWukq5LCWU5r4dUPUk
+    p/JOmvJmI8gZBbJL058uipMG53iKbT5QtdVq0lblL4R4/kQ3lAMqR8n5KltbHVLqGKIIW0
+    AAMItzLjFXTcybDE4kd50l8TYNYWeyAkgHmc6SOWWQt5XX6tei1Hwh/eFp5/qp8GI9420V
+    mfvOajj6hASk0w3520qaAg5hipI6O6WL9AzPril/MwGpFyyKNKbPMo1oHhwuuhNZAEiuZ4
+    0n58qKMAhCBO82R/vIXwmycid6LBCzrb9VKJaQB5xsNJ9sqyqL9KPRRVPQ7RzZIiVdui8U
+    8CAE5IJTn0wrJi+gDBzgmGWqz62tILN7L7wl+r2oVJbiQMexYuy2XGziJYCg
+X-ME-Proxy: <xmx:dD5zath6FW-J3riOLGHnzgPRVAw_Iy06h7fcmNm07Vu4TaRb1hQUMQ>
+    <xmx:dD5zat3l9DtqUpssFOEMi-a3ND3fHF0utIzvBzgTy1EMUYhaVSRYGA>
+    <xmx:dD5zaimrDPsBqdeoRD23jSCkckSkym8_ftjAYDoBDkFQCq5B9bqVZg>
+    <xmx:dD5zakvS8xPmUugKfKt01Pdwd2wKY5tc98vDfF8c3kuQhL83r_vn5Q>
+    <xmx:dT5zam9ozx60iqS7y8K5_lteQZ6iXU3ACZRPmUD_ckqXXbLxwkvNuo_T>
 Feedback-ID: ie3994620:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 5 Aug 2026 09:45:20 -0400 (EDT)
+ 5 Aug 2026 09:45:24 -0400 (EDT)
 From: Kiryl Shutsemau <kirill@shutemov.name>
 To: stable@vger.kernel.org
 Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
@@ -85,12 +85,12 @@ Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
 	Nico Pache <npache@redhat.com>,
 	Ryan Roberts <ryan.roberts@arm.com>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.6.y] mm/huge_memory: unlock i_mmap_rwsem before releasing after-split folios
-Date: Wed,  5 Aug 2026 14:45:19 +0100
-Message-ID: <20260805134519.2776859-1-kirill@shutemov.name>
+Subject: [PATCH 6.12.y] mm/huge_memory: unlock i_mmap_rwsem before releasing after-split folios
+Date: Wed,  5 Aug 2026 14:45:22 +0100
+Message-ID: <20260805134522.2776869-1-kirill@shutemov.name>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026080502-praising-baggy-3cbe@gregkh>
-References: <2026080502-praising-baggy-3cbe@gregkh>
+In-Reply-To: <2026080501-landmark-crabgrass-7664@gregkh>
+References: <2026080501-landmark-crabgrass-7664@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -162,7 +162,7 @@ Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
 (cherry picked from commit e923bd21058ea02fd0dcd3549d151d143fd036e5)
-[ kas: adapt to the __split_huge_page()/split_huge_page_to_list()
+[ kas: adapt to the __split_huge_page()/split_huge_page_to_list_to_order()
   two-function split: pass @mapping into __split_huge_page() and drop it
   there, before the loop that frees the after-split subpages while the
   head is still locked; the caller then skips its own i_mmap unlock ]
@@ -172,21 +172,21 @@ Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
  1 file changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 4443cc44cbf9..ff95a802d158 100644
+index e60c21b92464..b2daa1767d90 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -2489,7 +2489,7 @@ static void __split_huge_page_tail(struct folio *folio, int tail,
+@@ -3206,7 +3206,7 @@ static void __split_huge_page_tail(struct folio *folio, int tail,
  }
  
  static void __split_huge_page(struct page *page, struct list_head *list,
--		pgoff_t end)
-+		pgoff_t end, struct address_space *mapping)
+-		pgoff_t end, unsigned int new_order)
++		pgoff_t end, unsigned int new_order, struct address_space *mapping)
  {
  	struct folio *folio = page_folio(page);
- 	struct page *head = &folio->page;
-@@ -2564,6 +2564,16 @@ static void __split_huge_page(struct page *page, struct list_head *list,
- 	if (folio_test_swapcache(folio))
- 		split_swap_cluster(folio->swap);
+ 	/* Scan poisoned pages when split a poisoned folio to large folios */
+@@ -3303,6 +3303,16 @@ static void __split_huge_page(struct page *page, struct list_head *list,
+ 	if (new_order)
+ 		page = compound_head(page);
  
 +	/*
 +	 * Drop the mapping while the head page is still locked and thus pins
@@ -198,15 +198,15 @@ index 4443cc44cbf9..ff95a802d158 100644
 +	if (mapping)
 +		i_mmap_unlock_read(mapping);
 +
- 	for (i = 0; i < nr; i++) {
+ 	for (i = 0; i < nr; i += new_nr) {
  		struct page *subpage = head + i;
- 		if (subpage == page)
-@@ -2745,7 +2755,9 @@ int split_huge_page_to_list(struct page *page, struct list_head *list)
- 			}
+ 		struct folio *new_folio = page_folio(subpage);
+@@ -3580,7 +3590,9 @@ int split_huge_page_to_list_to_order(struct page *page, struct list_head *list,
+ 			mod_mthp_stat(order, MTHP_STAT_NR_ANON, -1);
+ 			mod_mthp_stat(new_order, MTHP_STAT_NR_ANON, 1 << (order - new_order));
  		}
- 
--		__split_huge_page(page, list, end);
-+		__split_huge_page(page, list, end, mapping);
+-		__split_huge_page(page, list, end, new_order);
++		__split_huge_page(page, list, end, new_order, mapping);
 +		/* __split_huge_page() dropped the i_mmap lock */
 +		mapping = NULL;
  		ret = 0;
