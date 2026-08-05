@@ -1,132 +1,122 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9536470EB4
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 20:31:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1C33D300F
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 20:47:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785961882; cv=none; b=HXR7nKqX7TJm/wspLkrHdc0uDajq42s21R492fBbHS05gJLvg5EtfahrhndeTozEPpZfLWuU8kRBjvgv1MFK1eakxvhuVKxpv6ee3mRgHr4GJXRNNAiR2SzYBe6UntejZ9EuqybbLDVl1fJBKRTkmaP05HkdoPvDQZMItAQnOJo=
+	t=1785962866; cv=none; b=jtdwNNosA2etOzyRU5LBhMtPDunFQoanE5xwcqu68cWNE+RAuLUOGdyNhnDx3qXXRicuvCioG+T5XoLWptUb0oC4WlLJpCOnTDmIc7ZTbtb4OBnOLWZMBhbZEjkp8zVn6K38UiaI1VC2CTVJbpPNwHprQRVV7zWKhbQEj24kT/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785961882; c=relaxed/simple;
-	bh=Or1MHs7BHU4RwEsjCS87/j+WE5saCqR41FA7BAZ9WfE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Y9LSxpIqa81Yb74mHmeCG1MjxlS/uB9qVsZDK99lVATjK3kzmJRN+GPjXgnlDxU7tlbC8AmmuKdcFYLkRuPd/xt7vZuQWEc9XmTLx/J8lmFBCMhfrld4VlshYBegf6uRjzdbw9Egrwuy7qP3Q7inc6N1YMnDG6Wmm5c7xNa44rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=M4zmHeO+; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	s=arc-20240116; t=1785962866; c=relaxed/simple;
+	bh=vdHkCJ+/Glc8aGhWZ+9VZu6loJVEoLi2/QJJuukYIo0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NUszaOaA2wz0cjqUy740o+VcmpmBxch++fomzun+1+NNsQNWfOsHoBCwDoWIyZsEjALg9h1DwODpPTT87sPd2l5zdINSSp/1SRQGldwjLuDwo9WQ/yDtypPWpQprOizsNZ0ZzosypDIRBfE1r6aK1kGDsuHAtGhLSKKp9NoXbZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fZ/e7J4E; arc=none smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="M4zmHeO+"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cbb973e6749so1746777a12.1
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 13:31:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fZ/e7J4E"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5218927884fso14113091cf.3
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 13:47:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1785961874; x=1786566674; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vi1HjMdF63tIWmwZPIcgrh+hHmXSZEnMc+Ltimo0SR4=;
-        b=M4zmHeO+lz0LxE+3Mgj9IrZthMTKMw3vnWABARi91BKVogswr2aB3RpFa0tK4aoBES
-         fxhJBNswhgccI4TZ2MNJAaXWwF7dz+Cg0OXzKd2pYSqQJq4JTe5z+m4FV72lcaTYEGaj
-         72biZY02Xbr+4mqf9W62EKbZCHafKPQiKZ+1mBfCPebLA0T+9/anzWNelUNMTZe1X+NW
-         E6QM3Wg7gmMDgd9VJ65SRIf83TFEqtHqUnfh+N77fIMff+eZdsH6HR8qra4h23zEviIs
-         kC3RedC2I/hzIXwth32V2wrKnU7Gp0nxD8mVo8y/1+a73ZLjKScmTI4sDyppeyz1JUyH
-         HJSw==
+        d=gmail.com; s=20251104; t=1785962863; x=1786567663; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m5G3Bj9i5eLT/ujfBhOPRMiKzFS7D44Om03rFcmwrNc=;
+        b=fZ/e7J4ExYoGHTMXUsqRbsjywkjr28M6SawtF3XqwIBsCwc3nYFPODNekklWyAqsC7
+         BrmlnOmCUe/SoFk3/vWBflrmYYKQxqTWUuwy3RInbmnZVJJjvBilxW1UPwe8CnQxTi26
+         VavLCNOw8S282e/ozwj3JO7WHYLYhfbFg8qAwa1seA5BRSwFhCaoWnXqGMNFKPL2xZ9B
+         rB1tWUUu9kB7A3yzm5NzKDiq8QqWbQsCHZ82D3FtmERWuUpa5yEzGaRFuxfl5NJzv09E
+         kpFeQbOXAxL77VqOhurN8QK7j4YWqMHuxz7vJAFUtb5y8X+CHY+7gbKhtfyas7jZ+a8J
+         EFyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785961874; x=1786566674;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Vi1HjMdF63tIWmwZPIcgrh+hHmXSZEnMc+Ltimo0SR4=;
-        b=UH+l0FexVgvKfJy8tsk6AD3ZnSdRm6LWvs5nNFqOBAeFd/jdHOVdJTlFMECfnL9KeZ
-         BF2BlV75OKal8SsLY8x17qc+aoGWXmpZUp5hQ6acD6ajuOxzHO55UY0viS4gfpjQrBMq
-         bAgkQ7bxe4VrkqDwYG5+Kj4qlY9sE1qFFIVdCqI/obpG63DBEVSM4geGffhubIaupH2z
-         qPeNu+pBENBo+NbYWCilEsB+rDmHi9TktzrNSoQHB/jL84TTbbZ+wcDcjiq3Sp/Ibh7r
-         zfFHBKNSaui29TOW4u9iArCuaxuqngFekXX3fVSATjZF8HTg5UuECvZiIGp9+QRfBj2L
-         lIpg==
-X-Forwarded-Encrypted: i=1; AHgh+RpLi0UJqA7HrXTQ+DcRiEj9JwV2vb++ayvmMD7VnU26y8pQ6b4pPR5RW8eGuFCRwArkXBNs95A=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyUyN+kL6OwhbSCx/cO9wR3c0wZ5fYC0UNZahaw94DBga6v14E+
-	HIucn5D9pSG9T/ZGTP2d9lg8riVdZoix5sPLd1OI2YsLMl1U6MMa6eHiNuqevpPkPkI=
-X-Gm-Gg: AR+sD11sEy9ReIyyPb61odL3u/DS1GkF6F9tU/Sjcwx4xzFhJAsMtsV+jBGIcpOsPu3
-	oEr5IKTVQvKZ+jVs6LmIUaN7Ib/tAbIJyaM4/MlA84dFthL+MWXHfHV2KkhEJ/imm6BoHfW0nn7
-	I7BLDxBjzg7FiOuZ5AWRUl228WNQQKlyrVKemh/prC1ZfacjDP7hDDrrL10ym0v/Z/2XNQZdYaM
-	AUxOAccmqBle5FN1CTS+zevWxY2VkMOFylJPB2EflJNJWcndmEemFzORjpGJYlVX7GfvjClG3Hc
-	z0OjiCKhEZjX7QUvyUCnjN7jY9uunIBcjzO0xTmkPObkeciXzahMVNJ5OR66zl6QeXoTlce38LK
-	jaJFUAdMGLvyZu7JvBcchKMDMv+8mdlbnCU5vkDpSNvkJnEOqU0w9uUkR75XGvudhl7EaNH4Qs8
-	adg+y7DLZm+wtuFiVTzUe1VRXLJit4mOmHB3OWu07CMB3H5LvzJF+eFof2lNoMp/u2gh7NfmLvY
-	A==
-X-Received: by 2002:a05:6a20:734b:b0:3b2:8685:1473 with SMTP id adf61e73a8af0-3cb85dcb2efmr10868548637.7.1785961874000;
-        Wed, 05 Aug 2026 13:31:14 -0700 (PDT)
-Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fca63ce12sm20694924c88.5.2026.08.05.13.31.13
+        d=1e100.net; s=20251104; t=1785962863; x=1786567663;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m5G3Bj9i5eLT/ujfBhOPRMiKzFS7D44Om03rFcmwrNc=;
+        b=MMmvLYeqzmnJE5R0jNJzaySYYpLbF7IrVzdZQQvjVEt+KZ/7CS74i9uw3Np/YCHg+1
+         rDvS+tJ/1KPYpW9Og7zO1AWPnv67GBBVX+I/NxKABoJQiQmrWWTEm96dClAcDSDQgZtR
+         YyYkqBgGLVA7BWaBFU/csqsTPl1qwXeJSMdB2SHdGuq8WRTmHhkUBFbRn2xf0/rx1w5M
+         DT6QWo9naeY8EGZVVoHaP9Gp1n5ee0oASTYsikezQGBCoYivGOgVzF/t4wM5lZh0Fjw5
+         xBPxHz87LR4H4MoQXHi5SL8Vjs6u27ul6eOsVcyjZpGF0V0gYPdkfqseIUgf6Ee3jSMa
+         4Gsg==
+X-Forwarded-Encrypted: i=1; AHgh+RojvgHPONTfQs3jNLYoG+xN+TC/+C5yPXgtwxhDb6K0QzlFEdo9wjHC0FRH8IpmoFKJTq6P+v0=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz9VbEqC868YCsXPiFQsaaWlvmcKwiivJpVbNXrLKp8yvy1JB3h
+	2EQ40h+1kvJL/03wfwlQe1lxHXxQ/jG0RKtOx4QFSkQRQZFarpl1I5nt
+X-Gm-Gg: AR+sD13wZ1/vpzHs8W2LQqzog9pij6yHaW7SWbTu1x3Wq1DidiB+W2/xR5phIIuge+l
+	NSWAIfJPBdI/RpIEABmkKEtNTWEf52Ln9AIIUDO7dOU/FICRtkj51++JAS7IyQMzWqWw56SI/Ek
+	T56yGlDEt0Sk9aNX7lx56ZgnLwa1LWf6KMg2v2bZezUjdBIPaZ/JPm0XYozyJ/1HuJMa38wisda
+	A1rvHJssokHrUJwmZwAY36rGhO42TkWNyXdyJiMkuDjpceIwf4757U/lrhST5ZTlwCgXK8P4fGW
+	K4rduC7iIKbSwxOs5kKGnmpyoxFVNNXiXNVivXcQ7a37/JXb8JHd90/aShbBYr4OH9nkomFHdqP
+	cgW/71d2ZmO+0vFq/QfhFXVx25eYawV7RqMoSwJf2nAyGxZrNhCcoM2HpLiFsWMhIxuCV6KlnDw
+	sBzgcaNKW3X48ux7RSoQNJ3ilAGtyHa4UtkFoWDrmTCA5MEi/vPmOBU93SZhJcKetQywMVUAnVI
+	W2zfTMxnWAjFDnrZQ==
+X-Received: by 2002:ac8:5747:0:b0:52b:4f1a:5fde with SMTP id d75a77b69052e-52ce6073bd3mr101761921cf.19.1785962863280;
+        Wed, 05 Aug 2026 13:47:43 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52ce87a9403sm27951871cf.2.2026.08.05.13.47.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 13:31:13 -0700 (PDT)
-From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Date: Wed, 05 Aug 2026 13:31:05 -0700
-Subject: [PATCH v6 06/10] of/overlay: only treat a positive changeset id as
- registered
+        Wed, 05 Aug 2026 13:47:42 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hyunwoo Kim <v4bel@theori.io>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: dvb-core: Fix UAF in dvb_ca_en50221_io_release()
+Date: Wed,  5 Aug 2026 16:47:04 -0400
+Message-ID: <20260805204704.3789917-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-nh-of-alias-overlay-v6-6-74f21d440819@nexthop.ai>
-References: <20260805-nh-of-alias-overlay-v6-0-74f21d440819@nexthop.ai>
-In-Reply-To: <20260805-nh-of-alias-overlay-v6-0-74f21d440819@nexthop.ai>
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
- Frank Rowand <frowand.list@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Shawn Guo <shawn.guo@linaro.org>, 
- Grant Likely <grant.likely@secretlab.ca>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Abdurrahman Hussain <abdurrahman@nexthop.ai>, stable@vger.kernel.org, 
- Geert Uytterhoeven <geert@linux-m68k.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785961866; l=1466;
- i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=Or1MHs7BHU4RwEsjCS87/j+WE5saCqR41FA7BAZ9WfE=;
- b=BI+hMWMEelWji4+07CG+Kl23bVoo3g1r9UXMuhI9QOPfBNP/orkMQKg0Kd65fLCicQGYx2EmA
- h9Lj5k6JHncBCgNMrN7tGo2IbTiIfRvHkXU+gtcNdIqWVZacDuB8Nif
-X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
- pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
+Content-Transfer-Encoding: 8bit
 
-of_overlay_fdt_apply() stores the idr_alloc() return value in
-ovcs->id before checking it. On failure the stored id is negative,
-free_overlay_changeset()'s "if (ovcs->id)" check passes, idr_remove()
-is called with a negative id and list_del() runs on ovcs->ovcs_list,
-which is not initialized until after the id allocation. An allocation
-failure at that point dereferences NULL.
+dvb_ca_en50221_io_release() drops the open file's reference to ca
+before testing ca->exit and unlocking ca->remove_mutex.
 
-Make free_overlay_changeset() treat only a strict-positive id as
-registered. The rest of the function already copes with a
-partially-initialized ovcs, so the error path stays a plain
-goto err_free_ovcs.
+If dvb_ca_en50221_release() concurrently drops the initial
+reference, the close path's put can be the final one and free ca. The
+following ca->exit access and mutex_unlock() then operate on freed
+memory.
 
-Fixes: 61b4de4e0b38 ("of: overlay: minor restructuring")
+Keep the close path's reference until it has finished accessing ca
+and released remove_mutex. The reference also keeps ca->dvbdev alive
+while the wake-up condition is handled.
+
+Fixes: 280a8ab81733 ("media: dvb-core: Fix use-after-free due to race condition at dvb_ca_en50221")
 Cc: stable@vger.kernel.org
-Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Assisted-by: Claude:claude-fable-5 [Claude Code]
-Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 ---
- drivers/of/overlay.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/media/dvb-core/dvb_ca_en50221.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
-index 284c9bc6c9cf..9b9f198a1d70 100644
---- a/drivers/of/overlay.c
-+++ b/drivers/of/overlay.c
-@@ -860,7 +860,8 @@ static void free_overlay_changeset(struct overlay_changeset *ovcs)
- 	if (ovcs->cset.entries.next)
- 		of_changeset_destroy(&ovcs->cset);
+diff --git a/drivers/media/dvb-core/dvb_ca_en50221.c b/drivers/media/dvb-core/dvb_ca_en50221.c
+index 1b91ebb8f667..86df28c4aa4b 100644
+--- a/drivers/media/dvb-core/dvb_ca_en50221.c
++++ b/drivers/media/dvb-core/dvb_ca_en50221.c
+@@ -1787,8 +1787,6 @@ static int dvb_ca_en50221_io_release(struct inode *inode, struct file *file)
  
--	if (ovcs->id) {
-+	/* a failed idr_alloc() leaves its negative error in ovcs->id */
-+	if (ovcs->id > 0) {
- 		idr_remove(&ovcs_idr, ovcs->id);
- 		list_del(&ovcs->ovcs_list);
- 		ovcs->id = 0;
-
+ 	module_put(ca->pub->owner);
+ 
+-	dvb_ca_private_put(ca);
+-
+ 	if (dvbdev->users == 1 && ca->exit == 1) {
+ 		mutex_unlock(&ca->remove_mutex);
+ 		wake_up(&dvbdev->wait_queue);
+@@ -1796,6 +1794,8 @@ static int dvb_ca_en50221_io_release(struct inode *inode, struct file *file)
+ 		mutex_unlock(&ca->remove_mutex);
+ 	}
+ 
++	dvb_ca_private_put(ca);
++
+ 	return err;
+ }
+ 
 -- 
-2.54.0
+2.43.0
 
