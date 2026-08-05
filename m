@@ -1,199 +1,183 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB3E38A739;
-	Wed,  5 Aug 2026 14:47:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785941260; cv=none; b=pMMezvh7CU9e7yICquX+gsPCbQ3XqUZkSY6UrN4VGXR4Zeqwv3dUVf03Cts2+s7TUi16FOQ5SjP4dUJxNbFx2UG1SofTCG+Iv3OWB0DsKbsoxLP0o0Vk/Eq5MynxJOcuY6jgpYV4+/uxjAU9gkCAYBkaL14dxo6yCmZ/c/omza0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785941260; c=relaxed/simple;
-	bh=Vr2YWlc1u8CLqC+TF8WMdiREC0eS7sOaTK7ubHITCbM=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bai7HkQib47yMOd40cBoKJTeChbqQJT4KgwybhUKDrAThso5oj1QzGpuKDMvbZLf4fq/yGuMr+Poh+QOrxg4t4G/EVY65CYwLxk4v1NLJi+1lYq/SjJOWns2nEVApVWVQhUvr4yVGJDj8D/gcMRlQinPqjsTh51cfQC2xbCU7o8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=IqqwDAPg; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087C035E1AA
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 14:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785941327; cv=pass; b=KvOIlSMoDF4ZvRDreixDMVrBuhIv1/9STgVp8bP7gCBOMdad5ihyUpajgMkWPzdtZjLOSGv+oBGUr88mgMr0IYZ4Ohp3V5YItYDBNlxpkfEzdYdbLhQJuLGqFkFYOXI1Iyy8o4qZJc+RvHLU6OFl3MxhhwIT47/Xh71EiF0ZZgA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785941327; c=relaxed/simple;
+	bh=+sm0oRaA6CohSwBYAY2+dXS3GPcskWTVG01fLCrlnwA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QCGuxThJ6lhNV7W+1EU5WSXusN/AxgH0xg2fHFd7+0i33/nXtxlZMw8BZwOI9a0fHDBEO8fp8WB7kCLrBEdvk3/jx40ykT2PjYGgq7UkVBys2VHm7XMcQX/pymWAFdONmwCTC9wIdvxo+4EPx06zxe3kpEnPgI0PRvV9kttS4MY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WEJUdGBr; arc=pass smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="IqqwDAPg"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:To:From:Subject:Message-ID:Sender:Reply-To:Cc:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Vr2YWlc1u8CLqC+TF8WMdiREC0eS7sOaTK7ubHITCbM=; b=IqqwDAPgBeDSfjGzHLuaARClt5
-	XCerfnn5PLQm11ndUZEph/oD/eZFfZPT5KIXtLtaFyLvEMvGTLys67s0nVjE9jzBgpvpOj8B8u2X7
-	XKRz271Iyyo++y51aSZVHhDUx6PSlgHfXSHsOFH+8S3DzL6dMJRcdxix3zhNTuixDCpE+1NySuk4R
-	PRzICHtizvhF+4XZO4vLpXweuxT5tzUTPYF4Rz8mSjjIc9KslDOc2mPLfstjDN1EDtfn/g/kaMGwj
-	EB0Vi3NX6fSapD8pg6DaJNDehaRL+oShV1t/uEJguGykUjkRYroNuJG9DnBBzK9kdsYcEcH39Uw1F
-	iu73t67w==;
-Received: from [2a07:aa00:8c:e0:2ef0:7ea2:4f15:3280] (helo=u09cd745991455d.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wrcu1-000000047TS-1nT5;
-	Wed, 05 Aug 2026 14:47:29 +0000
-Message-ID: <05be9bb6c5609ca9fc503c25596c9c9e411591d6.camel@infradead.org>
-Subject: Re: [syzbot] [kvm?] [kvm-x86?] KASAN: use-after-free Read in
- kvm_xen_shared_info_init
-From: David Woodhouse <dwmw2@infradead.org>
-To: syzbot <syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com>, 
-	aha310510@gmail.com, bp@alien8.de, dave.hansen@linux.intel.com,
- halves@igalia.com, 	hpa@zytor.com, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, mingo@redhat.com, 	paul@xen.org,
- pbonzini@redhat.com, pdurrant@amazon.com, seanjc@google.com, 
-	souradiptodas6@gmail.com, stable@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, tglx@kernel.org, x86@kernel.org
-Date: Wed, 05 Aug 2026 16:47:34 +0200
-In-Reply-To: <6a734239.d1b4d54b.5552d.001c.GAE@google.com>
-References: <6a734239.d1b4d54b.5552d.001c.GAE@google.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-AtVEoc1Y4RJ9ADC4sH9g"
-User-Agent: Evolution 3.60.3-0ubuntu1~ppa9~24.04 
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WEJUdGBr"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-698b78c05b0so9997a12.1
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 07:48:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785941322; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JivvYIWqj34fayyhH8EgY6Ow0MdF5GaE5eQCvAxhd5JcjxrEFM3lF+rJypx/Z4ds0a
+         d1szU+QZpd9NgBFfshYVEVHWqUtChEkkA70h9nsFet4CT3Fd0CRT5Bd1foRG8QSh+Uhq
+         kxWZ36oR4rXhlXDfk+DRirA4rMdcvJIVBkWhA5CGlfTKUQXOwjlLlH7rCR16kOxP4TZk
+         swfwfy0zH4xdwlEOvIY/qpQvglFDz/3H3257H7t5g9cddUVqIJ8W6fB4FJ0eUxscHxgr
+         4SF8v3bWfxm4tujc7dewTYgyj4dg3Z83PWxYuc+9jvvaXZ3O6yNWowGk+pn6QNCj+S63
+         P8fA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=74JnmzC+AtkPtezOthxS7FXM4/QTh3C+xB8eJUSwR4c=;
+        fh=yVjmxp/6DOHQ4MGXOPwb4NXdttNosuRGRgPrZTbHtrc=;
+        b=gy1WbZRckBtocqsKaEuf/lL6rf9PqTx7KRvUuWb27rlDRygaacK3BQNgpdKxxFL8J9
+         gfJ1GiIVMMCVx2U1OMih/XdNBdknQTd9EuDFcmmlRdwBXIgZPdonVkoSPlZj3gv3mN02
+         paLFPdibiw6ay/ZhVEYCwZV2vc4R8USxy4CY1xgtyG2bFDWCNMzuoMVBwfKCB8MLJjA2
+         UBUQZghgzCSq5JKlc42wbH7MD5Bl/j+RZ+ZnsP4zfCbv4JG0sYTgNdeMApMKkp+yM0nl
+         7rtdVwtBJz37Md3AkwXRwRI643RsMZiCcbauPGOZM9XF9HL+V8y5ut1XesppfzAp2UVv
+         /rHg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1785941322; x=1786546122; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=74JnmzC+AtkPtezOthxS7FXM4/QTh3C+xB8eJUSwR4c=;
+        b=WEJUdGBrauM8YzNdg5K0UE7jvaPSg7qNnJaEf43SRQxfGXPyY+EARXmDfGhxAEdfn9
+         nHBYhToAN98b5aZiNT0Ov5jywpd0gXO4yoxqEVCJGfkLd1Dy2WI8nGDVtxP8GnT9TTJH
+         pIeJe3hgR++mz7N7nPEKD2yoWys3wc58vtGgs0VUXwGu8g3JTq/p38UgZAZA0u713szF
+         2nCbXIhRHxk0NHO37H0BtSyvkSpnigdgDXqC69a9n8kuv1ELXCSazwuNi+6eUp0pM6qB
+         hrYFlANCazK30xnY6hlc9TlUKt42q8qX5PrEbjBdUoQe9K6RZiQ1TD7FxR4j3O4MkGib
+         vemA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785941322; x=1786546122;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=74JnmzC+AtkPtezOthxS7FXM4/QTh3C+xB8eJUSwR4c=;
+        b=WxMSY8FArePlsRT6FcSN52FYBHiBTo/MYvHHGgwJd98YT0rHkFFrxxq3KEtQrPbhSY
+         XbsayUnxT85TSHjatMbKDIwMkJGQ12a6b3mlG/2+t2B0hrFoTljDWnUuJRyFUJc8A17+
+         spxCTJkofb3XvDomjukUpl8uXvNZ1qbuUeWOCXjcvy6jGZi4ISHZTCX5cEVMOFOfUBAB
+         jttLsyQdEW67I+/bRogiOVmp1p8VqqrGr/T2G57AUnLTK0v66CQ1y57TvXUb+k8TXjZk
+         PkzfaTyWi6+h6ld9uoM5rhdWCgo/rC4qdps4TJWBEhd9m38ztmYdgxDFRgY8ayb17wys
+         u42g==
+X-Forwarded-Encrypted: i=1; AHgh+RqbluHHKLnZcqlC1yn7Jc6ankzm+D3QV9NzAmMM/1aMqntH9heZaDh+PaARuTPFzIF59N+rWBY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyDtjfBPfUSv3qreAV4MPl3nGK5SrzBjSSS/WDFuAHOY7cZayEj
+	+CZv+WoTMdkk4dUz01AWW0fir+yHZDA4Cuw+SlcZ4TJrV/StUeoLedo4k8ITJJXuigfpMBMhMN0
+	cA0nMyiySjU4HjMBjUc0BZ08/Q5NiN+OQf6eD4SZp
+X-Gm-Gg: AR+sD10Usl15jBiUUl/YzriQZTlH76lH4tYU/49v0E7FptrJIHWx56pZKN5PjaaCRQo
+	cWsw0bYw1SytNvpNpdHky/QPoTzb1dnAKUi1hLM6veWPmkhEAwHDb+aULLAVx8V5zB/0pG+27Zt
+	KeACirDxSKJPBw/en4bZjPdcT1rIFzyDor9qewE4kWFwKTYRcxC6uWV3WGBXSw5LvmIr1vZLEAq
+	Qnc5eecI+9keqm2rGwLr7C2WAhjzPB0bL7/i/A0mIdlpX7TXYrwbWJ90HmIHzmLqnd4K9dq27ry
+	TXdR2Kv4srar8N5ttO7IeC/OWkdjlRYpP3nRgCEFZAl52iy/4x63BUanBqqj5RlrO//ThfybYz8
+	=
+X-Received: by 2002:a05:6402:44c8:b0:697:7f69:48e3 with SMTP id
+ 4fb4d7f45d1cf-6a14fc7db15mr73328a12.10.1785941321666; Wed, 05 Aug 2026
+ 07:48:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-
-
---=-AtVEoc1Y4RJ9ADC4sH9g
+References: <20260805090633.141001-1-hao.ge@linux.dev>
+In-Reply-To: <20260805090633.141001-1-hao.ge@linux.dev>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Wed, 5 Aug 2026 07:48:27 -0700
+X-Gm-Features: AUfX_mycrpDzhEJqHYmTeNBhjo08UvV5vnN10hZEYxiggLM3MZtoYjhTvx18P2w
+Message-ID: <CAJuCfpHUqqD_GttG3bmxEPxeYNA9p7SH3aseWJFHAWN8aYKJAA@mail.gmail.com>
+Subject: Re: [PATCH v3] alloc_tag: fix undetected compressed tag overflow when
+ profiling is disabled
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Abhishek Bapat <abhishekbapat@google.com>, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2026-08-05 at 07:01 -0700, syzbot wrote:
-> syzbot has found a reproducer for the following issue on:
->=20
-> HEAD commit:=C2=A0=C2=A0=C2=A0 c21bb4193868 Merge tag 'for_linus' of git:=
-//git.kernel.org..
-> git tree:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=3D12ceecc658000=
-0
-> kernel config:=C2=A0 https://syzkaller.appspot.com/x/.config?x=3D145fa60d=
-73086782
-> dashboard link: https://syzkaller.appspot.com/bug?extid=3D0948c82180d475a=
-d24e2
-> compiler:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gcc (Debian 14.2.0-19) 14.2=
-.0, GNU ld (GNU Binutils for Debian) 2.44
-> C reproducer:=C2=A0=C2=A0 https://syzkaller.appspot.com/x/repro.c?x=3D160=
-80e49580000
->=20
+On Wed, Aug 5, 2026 at 2:07=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
+>
+> In reserve_module_tags(), the tag overflow check is gated on
+> mem_alloc_profiling_enabled():
+>
+>     if (mem_alloc_profiling_enabled() && !tags_addressable())
+>
+> If profiling is toggled off at runtime and a module is loaded whose
+> tags exceed the compressed-mode limit, shutdown_mem_profiling() is
+> skipped. vm_module_tags_populate() still maps memory for the tags and
+> the module loads successfully, but the total tag count now exceeds what
+> NR_UNUSED_PAGEFLAG_BITS can address.
+>
+> Once profiling is re-enabled, ref_to_idx() computes each tag's index
+> as its position in the alloc_tag array. update_page_tag_ref() masks
+> it to alloc_tag_ref_mask before storing in page->flags. Indices
+> beyond the mask are truncated and idx_to_ref() resolves them to wrong
+> tags.
+>
+> This silently corrupts /proc/allocinfo: allocated pages get attributed
+> to the wrong call sites, so the statistics it reports are wrong.
+>
+> mem_alloc_profiling_enabled() and mem_profiling_compressed are
+> independent. Once compressed mode is established at boot, it stays
+> active regardless of runtime toggles of mem_profiling.
+>
+> Remove the mem_alloc_profiling_enabled() guard. Also return an error
+> after shutdown_mem_profiling() to skip vm_module_tags_populate(), as
+> the mapped pages would never be reused - shutdown_mem_profiling() sets
+> mem_profiling_support to false, so no future module load enters the
+> codetag path.
+>
+> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compress=
+ion")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
 
-#syz test: git://git.infradead.org/users/dwmw2/linux.git pfncache-fixes
+Acked-by: Suren Baghdasaryan <surenb@google.com>
 
---=-AtVEoc1Y4RJ9ADC4sH9g
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-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
-MbxNuSRBMtYwLajhYzrAcCQAAAAAAAA=
-
-
---=-AtVEoc1Y4RJ9ADC4sH9g--
+> ---
+> Changes in v3:
+> - use pr_warn_once() instead of pr_warn()
+> - return -ENOMEM instead of -ENOSPC (Suren)
+> - expand the commit message to describe the /proc/allocinfo impact
+>   (Andrew)
+>
+> Changes in v2:
+> - return an error after shutdown_mem_profiling() to skip
+>   vm_module_tags_populate()
+>
+> v1: https://lore.kernel.org/all/20260804064408.105033-1-hao.ge@linux.dev/
+> v2: https://lore.kernel.org/all/20260804122038.190270-1-hao.ge@linux.dev/
+> ---
+>  mm/alloc_tag.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>
+> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> index 52aece27b00e..35ef2bbfa13a 100644
+> --- a/mm/alloc_tag.c
+> +++ b/mm/alloc_tag.c
+> @@ -904,10 +904,11 @@ static void *reserve_module_tags(struct module *mod=
+, unsigned long size,
+>                 int grow_res;
+>
+>                 module_tags.size =3D offset + size;
+> -               if (mem_alloc_profiling_enabled() && !tags_addressable())=
+ {
+> +               if (!tags_addressable()) {
+>                         shutdown_mem_profiling(true);
+> -                       pr_warn("With module %s there are too many tags t=
+o fit in %d page flag bits. Memory allocation profiling is disabled!\n",
+> -                               mod->name, NR_UNUSED_PAGEFLAG_BITS);
+> +                       pr_warn_once("With module %s there are too many t=
+ags to fit in %d page flag bits. Memory allocation profiling is disabled!\n=
+",
+> +                                    mod->name, NR_UNUSED_PAGEFLAG_BITS);
+> +                       return ERR_PTR(-ENOMEM);
+>                 }
+>
+>                 grow_res =3D vm_module_tags_populate();
+> --
+> 2.25.1
+>
