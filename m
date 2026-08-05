@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6153DCD95;
-	Wed,  5 Aug 2026 07:21:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E9C3E315E;
+	Wed,  5 Aug 2026 07:21:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785914465; cv=none; b=CGrPr8PZ3pwA2rmSuoWR6Dmla/g8Wkwt/b0hl3UHHygEhftcLnvG8xCtI+JEKoFQQ9Tu9OhIOzl6s8N0QJZKf8haVI3p6+Fg6zIo4oblb9/chbxipCGtbZ3TfOWKQeYmiTxldKFeWqGRDnhDCsJVEcUVADDtGJCy0qET3ZTlzxs=
+	t=1785914501; cv=none; b=nNFKcTFVB0vYCa4pmQw72S3i75Ie1pwUHasGhV2q6WJDkuX9bkrgv8H7MlXawG0JFBC/DQ+le7+cFWM0RmosyZ74/Z8XghTdbCRFyAA8PHIiIocxLxiwN+D0c2wFkp20iI8zcFPkpQ2PazrJtGmH4FSMYJcaGYqa0KJhEuHq3/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785914465; c=relaxed/simple;
-	bh=J//R8ok82HpAY8G4OfUCqGx+fy66wwAbC8XHJK7GiMI=;
+	s=arc-20240116; t=1785914501; c=relaxed/simple;
+	bh=4xXbWTtC/7UGZN2BXVjiO/BZNeH5ESPefA0/PdFdxAM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n9B/tjs9gysC3cCSruFASCpjMIBiAsTo+lX20jJZHNKdT1fMmeB04dVxC8Y9rNA2PurgaKKe3iz1DScL/rd2y6VXsYVddlcRTMAc/Aauyz41sjW04K2zB1bJCZyxSZL1BhyBqKPdki366YNDE5QJ8vhGF80BoGaPHOXt1IS2K9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RbD6FXrf; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=N7IVzyWmlTa6odyXSOLJi1E/U56CZAXDFjNQUyQ6LA2h19vCSl0EIEWST05ldOzX9+NTj2TjmYoCUV2cpgHPQwJhKInwH5PJBSb8hPUfmBFoCa8gimDWCIMix0Dd1Pqkrp7elfWCTL7RPx6mVxUKJcf4vtRfyjGkDZquCbyycbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AnMKQb5g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RbD6FXrf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7FD71F000E9;
-	Wed,  5 Aug 2026 07:21:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AnMKQb5g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99EDC1F000E9;
+	Wed,  5 Aug 2026 07:21:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785914463;
-	bh=FXsyZUd7PboUwtcX4ZZ0HKtYdB6exjVx91wRAsJHsOw=;
+	s=k20260515; t=1785914500;
+	bh=cdK8AKWPPhEwUaQW7Dxg4qsOc242eUKSg7dv/RpWNH0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RbD6FXrfZv9mf8buab9MdwkROVJz5pMIYQDSU95jdpNMTQfwiQZD7+GVpC4qRgzsb
-	 gamck3R2iqcMfvDCmpxQirAfz6fafuXCoKTyNZh/aOjXPgRlr1ca5SuC57KzmmX+it
-	 jUJ+OSIcpq4DVwk4Y3r9sGphu/xkWAO8KzAwk358MEYUbFaT4cMsFqQon7jtxxmR0V
-	 ngMof+zGqD/IHeEebQ27s9TIaTOywkf5VU9KsrcG2K7zb//u+CGUiYx7VSQl91ISU9
-	 9fSiJwEKSOrI9jRs0nVfDiiKfyd0RQxImSzF/dOW5s0Gi7Phc0ngW8+9P8EuDp8F0Q
-	 U6iVUXYaOvL6Q==
-Date: Wed, 5 Aug 2026 09:21:00 +0200
+	b=AnMKQb5grAjIrRzRANKpLl4LWF5Axk1uByKzp1TuCorI/OV0dfKrV+S5wcM7YuIsK
+	 JBWx5gvWO6NnpQuUOY6hLobCWOZFCc2tGZK4OW8jL7HhNH6Nj7Wlc3Xm45/gwqSFC1
+	 jZOdILr7uaYVNPEympm1RVDVA9tTs0tsT7DLoGVNoyTLGAqX2t962EFKDG2sNbEuBQ
+	 yxcELEgxstI5MSR5NwpP8BZp/pFJV9EUjvmaRNKzMIo8lLMxmTsD8dPuXHfxco7tNj
+	 WL8dNJd2KZ1Jtx4ptCrivyz5id+MawmU07MX06PXPkKVlN+njo0RNILat1mmtmPm6H
+	 wEtSGBJerDydA==
+Date: Wed, 5 Aug 2026 09:21:36 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
@@ -38,12 +38,13 @@ Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
 	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
 	Stephan Gerhold <stephan.gerhold@linaro.org>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org, Daniel J Blueman <daniel@quora.org>
-Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context
- bank subnodes to common schema
-Message-ID: <20260805-dark-voracious-jacamar-6aae4c@quoll>
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org, 
+	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, Daniel J Blueman <daniel@quora.org>
+Subject: Re: [PATCH v2 02/12] dt-bindings: media: qcom,sm8550-iris: Add
+ context bank subnodes
+Message-ID: <20260805-hulking-woodpecker-from-wonderland-15b7c0@quoll>
 References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
+ <20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,9 +53,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
+In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com>
 
-On Fri, Jul 31, 2026 at 11:52:16PM +0530, Vikash Garodia wrote:
+On Fri, Jul 31, 2026 at 11:52:17PM +0530, Vikash Garodia wrote:
 > The VPU issues DMA through several SMMU streams, and the hardware does
 > not give every stream the same addressable range. The non-pixel stream
 > is restricted to use 0-600MB of IOVA space, while the pixel stream can
@@ -68,152 +69,66 @@ On Fri, Jul 31, 2026 at 11:52:16PM +0530, Vikash Garodia wrote:
 >     +-----------------------------------------------------------+
 > A single "iommus" property on the video-codec node puts every stream in
 > one IOMMU domain sharing one IOVA allocator, so nothing keeps a
-> non-pixel buffer inside the low 600 MB. Once an allocation lands below
-> that boundary the hardware faults, which shows up as unhandled SMMU page
+> non-pixel buffer above 600 MB. Once an allocation lands below that
+> boundary the hardware faults, which shows up as unhandled SMMU page
 > faults and spontaneous reboots:
 > https://gitlab.freedesktop.org/drm/msm/-/work_items/100
 > 
-> Describe each stream as its own context bank subnode instead, so that
-> each can be associated with the IOVA range its stream can actually
-> reach. This limitation applies to every VPU generation, so add the
-> subnodes to the common schema rather than to each SoC schema
-> individually. "video-firmware" moves here from qcom,sc7180-venus.yaml
-> for the same reason; it is the same kind of node and was already
-> duplicated per-SoC.
-> Adding the subnodes requires two supporting properties on the parent
-> video-codec node:
-> - '#address-cells' and '#size-cells', both fixed at 2. These do not
->    describe registers on the codec node. They set the cell widths
->    used when a reserved-memory node names one of these subnodes in an
->    "iommu-addresses" entry: of_translate_dma_region() reads the
->    address/size cell counts from the parent of the phandle target, not
->    from the reserved-memory node. Pinning both to 2 lets a subnode be
->    referenced with a full 64-bit IOVA base and length, and keeps the
->    encoding identical across SoCs, whose buses vary between 1 and 2
->    cells.
-> - "dma-ranges", empty "dma-ranges" states the intended translation:
->    the subnode DMA address space maps 1:1 into the parent's, so an IOVA
->    reservation written against a subnode needs no offset applied.
->    of_translate_one() treats an empty "dma-ranges" as exactly that
->    identity mapping.
+> Reference qcom,venus-common.yaml, which describes the per-stream context
+> bank subnodes, and drop "iommus" from the required list. The common
+> schema accepts either the flat "iommus" or the "non-pixel" and "pixel"
+> subnode pair, so device trees that have not been converted still
+> validate.
 > 
-> The parent's "iommus" is kept as an alternative via "oneOf", so
-> platforms that have not been converted to subnodes still validate. New
-> platforms should use the subnode form.
+> Update the example to the subnode form, which also picks up the two
+> supporting properties the subnodes need on the parent video-codec node,
+> '#address-cells' and '#size-cells' of 2 and an empty "dma-ranges". Both
+> are described in the common schema change.
 > 
 > Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
 > Cc: stable@vger.kernel.org
+> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 > Tested-by: Daniel J Blueman <daniel@quora.org>
 
-Not a valid tag.
-
-
+Also not a valid tag.
 
 
 > Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 > ---
->  .../bindings/media/qcom,sc7180-venus.yaml          | 15 -------
->  .../bindings/media/qcom,venus-common.yaml          | 51 ++++++++++++++++++++++
->  2 files changed, 51 insertions(+), 15 deletions(-)
+>  .../devicetree/bindings/media/qcom,sm8550-iris.yaml    | 18 +++++++++++++++---
+>  1 file changed, 15 insertions(+), 3 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml b/Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml
-> index b21bed314848480b82153e49602f0b19e08e7335..bfd8b1ad473128c974bce84639cb0aff59d8c2cc 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml
-> @@ -91,21 +91,6 @@ properties:
->      deprecated: true
->      additionalProperties: false
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> index 0400ca1bff05dcef6b742c3fbf77e38adca9f280..3d8ff5677bd4fb7f3619a95b1c5f6f9eaf39b32c 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> @@ -98,10 +98,10 @@ required:
+>    - interconnect-names
+>    - resets
+>    - reset-names
+> -  - iommus
+>    - dma-coherent
 >  
-> -  video-firmware:
-> -    type: object
-> -    additionalProperties: false
-> -
-> -    description: |
-> -      Firmware subnode is needed when the platform does not
-> -      have TrustZone.
-> -
-> -    properties:
-> -      iommus:
-> -        maxItems: 1
-> -
-> -    required:
-> -      - iommus
-> -
->  required:
->    - compatible
->    - power-domain-names
-> diff --git a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> index 59a3fde846d2196ab1e4588eb396012ba6860712..ccae41bed757bf3d9518cd4afe4565f043b45166 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> @@ -47,6 +47,50 @@ properties:
->      minItems: 1
->      maxItems: 4
+>  allOf:
+> +  - $ref: qcom,venus-common.yaml#
+>    - if:
+>        properties:
+>          compatible:
+> @@ -177,12 +177,24 @@ examples:
+>          resets = <&gcc GCC_VIDEO_AXI0_CLK_ARES>;
+>          reset-names = "bus";
 >  
-> +  dma-ranges: true
-> +
-> +  '#address-cells':
-> +    const: 2
-> +
-> +  '#size-cells':
-> +    const: 2
+> -        iommus = <&apps_smmu 0x1940 0x0000>,
+> -                 <&apps_smmu 0x1947 0x0000>;
+>          dma-coherent;
+>  
+>          operating-points-v2 = <&iris_opp_table>;
+>  
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
 
-Above do not look valid. You do not describe the addressing of some
-other device node (not a child) here. You describe that addressing in
-that other device node's parent.
-
-> +
-> +  non-pixel:
-> +    type: object
-> +    description:
-> +      Context bank for VPU non-pixel buffers, including compressed and internal buffers.
-> +    properties:
-> +      iommus:
-> +        maxItems: 1
-> +      memory-region:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +      - memory-region
-> +    additionalProperties: false
-> +
-> +  pixel:
-> +    type: object
-> +    description:
-> +      Context bank for VPU pixel buffers containing uncompressed video data.
-> +    properties:
-> +      iommus:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +    additionalProperties: false
-> +
-> +  video-firmware:
-> +    type: object
-> +    description:
-> +      Context bank for the VPU firmware processing domain.
-
-Missing blank line
-
-> +    properties:
-> +      iommus:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +    additionalProperties: false
-
-For children this follows type or description for readability
-
-foo:
-  ...
-  description:
-  additionalprops:...
-
-  properties:
-    ...
-  required:
-    ...
-
+Drop both
 
 Best regards,
 Krzysztof
