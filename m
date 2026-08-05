@@ -1,58 +1,63 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7236B32B102
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 02:54:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB1633B71C4
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 02:55:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785898455; cv=none; b=EJb588uc7S6cRSe7D4QfrLMESZXlhqYvSXk1Wv1UefXCu3Rx4DjpCxqzw5wDcKy+RAOzwpQm9vkzZAkZaAyRdobz1iKYvKdIPWzs+3QK/FhHHgYUQYzHnXI+73KE3yoqTC814k6E6hWnPKQv2JZPJu3AYz5oztCrIoDxn06Yj30=
+	t=1785898538; cv=none; b=nvkk1nMn04X2/lqzTiim/kaap+UvZfEI1ZsQgv822CEWE+7k6T0k0EWfS6CBDf773UHLLeQj04mftiHxlrCdD8NqEDlCN4U1XTPyty94RXPyDUMSsmAyjyQJXC9bj/kzN/Bsyw6oc1pnTZikPpNhDV0QCfjGn0x6C1ILXNMQP7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785898455; c=relaxed/simple;
-	bh=D8+DhKXCQoyQFDY+amZfh+zn6hTdj6gYm9KTF69YJyo=;
+	s=arc-20240116; t=1785898538; c=relaxed/simple;
+	bh=FvJz7IxwWtWiNgxiZYdbpqp9ABQpGuzBknk4SeJrat0=;
 	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gx1CwD6ChAKeWjbk8VNqUzPM1c8Eza/UU1SXelw6h8evn8AE/xVYQDh5HxVFQyiFljWabbp9LEoKuMXO4SPy3LS6DpMZ/sT8C0cvtLcBHDnZIg7aRkVPBiFWoWSh+3/iVoGe7TLLV0LtljQVMJzFF5N0yHjKjEknQpfuT++UyIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QwzxQtwq; arc=none smtp.client-ip=192.198.163.9
+	 MIME-Version:Content-Type; b=Lkx0DRajLw+xH0Rt+pDWCXehMLrPBRPpPss2GhsvJqV9CGoswSXHz/jWU9RYVPrHipJpdOqsoSuMmo+e152wK37PYHnik9FW+Xbf0xFIrcc7rYhddZXW0/898B10mu4+AkQPktKd1k4fFS+oZu9ctFFmx4mNMo6TdL+AS+ne6xE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=G5LuCQGs; arc=none smtp.client-ip=192.198.163.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QwzxQtwq"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="G5LuCQGs"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785898455; x=1817434455;
+  t=1785898537; x=1817434537;
   h=date:message-id:from:to:cc:subject:in-reply-to:
    references:mime-version;
-  bh=D8+DhKXCQoyQFDY+amZfh+zn6hTdj6gYm9KTF69YJyo=;
-  b=QwzxQtwqE1iLpEhoC+qSrL1szFUO2o8L3jEbexzWbwt++8ueRKEpDI50
-   vKMdCc+yUktFIBAs+ae6vGuerbSXpQK3nquKmGe/KwyRJwUQDvHAucBX7
-   WowSa8iv92Gu37OOKqKuhVVeopMyR6zc/Oj19owLjiwM2E9A9MqAbGFkk
-   yDG8fK+w+pZ27ROIIqzfM+zYAjGnmDhuc91XiWcfd/Kds6JZ4AlXJuxIu
-   a91iDuShOd+2/6KuKhViJnNyaTNIz8M6OmIG4gr2FfsL0D/WclCjzVbHS
-   sdK2GHtUcq10kx/CNHeDFVRbJNqVZP0J6JuEkpobjc7TjYH8q/BbG6MyL
-   w==;
-X-CSE-ConnectionGUID: DDKB9Ri6Qt2BWBEg9wKyAg==
-X-CSE-MsgGUID: hs5I0o3cSuCXkbYtjxHEFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="97110038"
+  bh=FvJz7IxwWtWiNgxiZYdbpqp9ABQpGuzBknk4SeJrat0=;
+  b=G5LuCQGs2VGMqJjJoMpO8cwHIXhgA8/RMv7M3Fw5OWAMcTRcDIOxsSRC
+   4Jg9WQ1aKioWh4Fi2KMcQ4+AffK1WobJaqFNf0mCf2+eP04p894sOqeIp
+   SrTLUeV05+ldYsmz+sQ+xh95QtvagXEozbh90frZ5BG27JLUXKLmuHhxg
+   XbAecNrTCQQvfPqhkmhN8fKpfF8PTwuXFlYhW4NaoyY+f0qsVFEyRq92v
+   Z4LAgfrKkZJL6UTDMnvs3ISZ+mUL8hnmlDnnPv8+5EQBlq30weH+kYkCn
+   Sae7WnY+KTQR/5xClW/20rfH0AtGNzHT61OkMLCsxT8jU91s6H9dyuAQL
+   A==;
+X-CSE-ConnectionGUID: KQbFx7SPSVmLY/AQNiF3vA==
+X-CSE-MsgGUID: SeYIcMX0SRq1+VxQT0DqBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="86492543"
 X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; 
-   d="scan'208";a="97110038"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 19:54:14 -0700
-X-CSE-ConnectionGUID: 9ZyV1tyYRISF2OBRUYx+9Q==
-X-CSE-MsgGUID: noSHrnHkRyyR3hvrkLhyMA==
+   d="scan'208";a="86492543"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 19:55:36 -0700
+X-CSE-ConnectionGUID: Dos4zFPwRIeSxjqt/MRIKg==
+X-CSE-MsgGUID: fNE9FpMRSMmGW0otXE+/tA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; 
-   d="scan'208";a="265927360"
+   d="scan'208";a="261114283"
 Received: from maryammo-mobl.amr.corp.intel.com (HELO adixit-MOBL3.intel.com) ([10.125.66.170])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 19:54:14 -0700
-Date: Tue, 04 Aug 2026 19:54:13 -0700
-Message-ID: <87fr0t1dm2.wl-ashutosh.dixit@intel.com>
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 19:55:36 -0700
+Date: Tue, 04 Aug 2026 19:55:35 -0700
+Message-ID: <87ecgd1djs.wl-ashutosh.dixit@intel.com>
 From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
 To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 6.18.y 00/10] drivers/gpu/drm/xe: Don't whitelist OA registers unconditionally
-In-Reply-To: <20260805011004.stable-0005@kernel.org>
-References: <20260803232608.3276045-1-ashutosh.dixit@intel.com>
-	<20260805011004.stable-0005@kernel.org>
+Cc: <stable@vger.kernel.org>,
+	Umesh Nerlige Ramappa
+	<umesh.nerlige.ramappa@intel.com>,
+	Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>
+Subject: Re: [PATCH 6.12.y 7/8] drm/xe/rtp: Refactor OAG MMIO trigger register whitelisting
+In-Reply-To: <87ik5q227d.wl-ashutosh.dixit@intel.com>
+References: <2026072902-purity-frenzy-fc0b@gregkh>
+	<20260801031050.987390-1-sashal@kernel.org>
+	<20260801031050.987390-7-sashal@kernel.org>
+	<87ik5q227d.wl-ashutosh.dixit@intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
  Emacs/30.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -64,18 +69,20 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 04 Aug 2026 18:13:28 -0700, Sasha Levin wrote:
+On Mon, 03 Aug 2026 16:50:46 -0700, Dixit, Ashutosh wrote:
 >
-> On Mon, Aug 03, 2026 at 04:25:58PM -0700, Ashutosh Dixit wrote:
-> > Backport of the following series to Linux 6.18.y:
+> On Fri, 31 Jul 2026 20:10:49 -0700, Sasha Levin wrote:
 > >
-> > https://lore.kernel.org/intel-xe/20260615224227.34880-1-ashutosh.dixit@intel.com/
 >
-> Similar concerns as with the 7.1 backport...
+> Hi Sasha,
+>
+> I have backported this entire series to linux-6.12.y here:
+>
+> https://lore.kernel.org/stable/20260803233346.3277427-1-ashutosh.dixit@intel.com/
 
-Sorry about that. The new series with upstream commit sha's fixed is here:
+The new series with upstream commit sha's fixed is here:
 
-https://lore.kernel.org/stable/20260805024614.3406679-1-ashutosh.dixit@intel.com/
+https://lore.kernel.org/stable/20260805024915.3407033-1-ashutosh.dixit@intel.com/
 
 Thanks.
 --
