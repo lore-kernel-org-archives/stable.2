@@ -1,153 +1,93 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7353A37BE93;
-	Wed,  5 Aug 2026 14:20:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D8F38A73B
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 14:38:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785939664; cv=none; b=lZnXvy306DoK8OcqujI8Th4J3rHZP1o/eQ1n2tjCd1kyFTu+e3U5tkuwZfCpeLJx8UzQj+A4ZLMXSjczHXX7j/92M9LmRDNxPF8atvkntWiPOrm0bqBTHXmg6UU0tZ595mtA74yd1+X+rtCGuevUOdtLDpx1tHcKBiOZTuVX/T4=
+	t=1785940708; cv=none; b=mw7zMKrlMbm5tpbhQOKOOCa2jW5swqPgutvPYjx1/r3W3h5V0F/2KzZkMQcmhr15TWJ2cELnKI4vgEhiAx56yAg+DCdRvLNnM2EfM+T+q54WNiNNsGvLHoyrSOK1f1Ej1LBo4Zt0d9VK1ZbHrI0bKCKNjXwwMkb3j41ePQ2b7kM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785939664; c=relaxed/simple;
-	bh=XMBb6d/y1n/AwFvVUXVb8hKhKFloTDk1XVYh2Q2UY4k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SLdkZAT38/bet2XiOFqGpCZiAceJZeN8Z3sFnylETw9yN79IRGageWe63LoWCebuJTgqAzcG2N1Kikk4HCSIKaZhSxJ3wqfF8gM/ow+JRNJGZdpwPrYdWutoJHdxq7C1XXaNtzzD0jnYy+r6lcISPAhQDVWoSbsn12/+gdNDdHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDHoX6+RnNqoadpAA--.24993S3;
-	Wed, 05 Aug 2026 22:20:46 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgDHFMm+RnNqKSyTAw--.13400S2;
-	Wed, 05 Aug 2026 22:20:46 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: netdev@vger.kernel.org
-Cc: "K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	s=arc-20240116; t=1785940708; c=relaxed/simple;
+	bh=btSnk9M580UYnOIBUdL6XgXSt4VZJsBcyldHAqCQRu8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dR4oG6TSFFyI8RPthXJZXD9uxAUKPcTCxT5m1aBhXWNV1w06x8nK749X4m//tUb7KHQ9LtD3UDXbotQlV2nUIy4mFu/4LV1p/zqYysPz5ubxPt+feGHa7WaRFjS/+ZDun4Rko9wANXm4SkKcvPXSinR5wL2ounhMPcTtNxdgZSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gTnVOfyC; arc=none smtp.client-ip=209.85.167.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gTnVOfyC"
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5aebd52488cso1273118e87.2
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 07:38:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785940703; x=1786545503; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=btSnk9M580UYnOIBUdL6XgXSt4VZJsBcyldHAqCQRu8=;
+        b=gTnVOfyCDB6xEdH/pRHi5PoxpusnbNjLc8XJGlMdkYZ+T4LElFeksmHeSC2niCfxdI
+         g/m9u992Mg/wjoEISCi9fuToLVwxwdDssxc9gKif0rEagS6sTd5UE1G/DarfayG50uHa
+         x2S8cRzjArfP7JkwHzC14OefUbrALkQ7YTAqL3+1Nmq3RG2rJO3OWNjlqJ56oZ4DYMz2
+         ma5G0IoR160QogUYXo4Pth4dHCNsTdWVcsX+xesEmbzKGGIk6X5n9H8HL+dfKjfC74Ez
+         ITcD03XWJ5j/dSSGv3rcJrfZcVVejBncGbGPy4QRlz08YZpQhpKu9SbjNPbZ/PRUCCC/
+         yckg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785940703; x=1786545503;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=btSnk9M580UYnOIBUdL6XgXSt4VZJsBcyldHAqCQRu8=;
+        b=Hq+K4+JvlAX61f3bENzA3dnEHyX/Pu5B0g+MumWlGtca0nYXrwQYEcRWR5f9YewSg7
+         9A3VdG1mFcWeu2xpWZgLiWsw95QWyZBtZ6Az+PWJ9CkVHHeZz/8giAX0QfF/qeoYzoXI
+         jLrB/9VaBQ/7WWLPyxnMa4PDoqVlBqu/RSTuvfRhadeM1BwP8svwTuQF9fEAq3pi6NIT
+         orVEVtC1ALRbOcVZQVomUTheAB4YafJTGVqNmFAmSyzQrs0Rs6I/kVW+oXkHkhllKN6w
+         QVMiL45A43Y8Ecfezb/wEfRjwODBIvoZcMxPyc10VD+/5UG9ia0D61NWryWXquRst7Yo
+         UZPg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpu8eEfOgZFhLeVbEW+koZb++RteajLibIhHxmfjRLnUF+pOwvefVy2bXvWgJ65jumQ9PqOETk=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+uswLkx0E7deWV/BUBfctEzt/njhqsEPbBdZx8uIpFCHsM/35
+	P63MZoXKEIO/q4wTAj0zY2NW6Tnlt3L2S7hI9+ivp6F0T5UP6iUKyOKP
+X-Gm-Gg: AR+sD11p50FFC1t3DYcY+LuLjOMr8XITNepnCC+yRXnsNC1SRhBkn5totccEFEKSM40
+	XDY+4I+ic2c5p+2/JLdKgheTlcA/64o1T96Anys8WWuDFYOdeDDMcNpSM9vPtRH/gIalZHAi4cX
+	vQoTnN0N/zEnJFDxD4XL7HOuQCQJjTqKZQH10DAkKzLemvFCf8vZJpyvStwqPPnrzXgnxM3I/ei
+	fHIROLinjpOODm+n6LdzTP1S7MaJsdwHTdxv53uNwZ9WbxU2IaBVAvWvKVg32maaccLwt+AW636
+	nuh4Oguhwv7RZci4T4oe1SoUpbUJ68wI8YTE6Y6l8daDgV9D7NIDmRV5gLvWckiAQtBAseiLTE3
+	lVC3sH/YTRxZIScpOi3daGH3CFQvSk73370J/Za01sIdecPYVN021aDXYnKnx6/MqymfjyBSAjC
+	8kMA/DRULDXQS5YchajubIYn+rm1/OwytrPkP9nMbKWpjmvaihcYCVCeb3veKALa1O+UcqRQMv/
+	Sk5ULsO+QeCn59+NcitVyu/mIQ6DaTZTg==
+X-Received: by 2002:a05:6512:10d6:b0:5b2:a4bf:a6d2 with SMTP id 2adb3069b0e04-5b2f4cbfb38mr1220686e87.39.1785940702654;
+        Wed, 05 Aug 2026 07:38:22 -0700 (PDT)
+Received: from localhost (79-139-241-61.dynamic.spd-mgts.ru. [79.139.241.61])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2f623d952sm178526e87.19.2026.08.05.07.38.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 07:38:22 -0700 (PDT)
+Date: Wed, 5 Aug 2026 17:38:21 +0300
+From: Fedor Pchelkin <boddah8794@gmail.com>
+To: Huang Wei <huangwei@kylinos.cn>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benson Leung <bleung@chromium.org>, 
+	Pooja Katiyar <pooja.katiyar@intel.com>, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Subject: [PATCH net] net: mana: fix reset work race with device removal
-Date: Wed,  5 Aug 2026 14:19:37 +0000
-Message-Id: <20260805141937.217114-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH] usb: typec: ucsi: use UCSI_TIMEOUT_MS for sync command
+ completion
+Message-ID: <anNKgfHTMT6osz9O@fedora>
+References: <20260805085725.389761-1-huangwei@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgDHFMm+RnNqKSyTAw--.13400S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?nVl1gAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI1JaegsrYP5HYBdt5oM7HSW4wMYqaDAhteXpNQnYhTsXxI9
-	3Ub46l9QECHFwvNoaUfN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoWxGF47Gw1rZFyrKr15GF4ftFc_yoW5AryDpF
-	W5Wa48KryDKF17ua1UXw48ZFy5ua9aq3yrCrWIk3ZIkwnIyw4kJrn5tFy2qrWfJrZ5tFnI
-	vFW8t3W5uFyqq3XCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPYb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
-	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07jn-B_UUUUU=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260805085725.389761-1-huangwei@kylinos.cn>
 
-The reset service work runs on the system workqueue and obtains the
-GDMA context through PCI drvdata.  It can race with device removal
-(mana_gd_remove()), which frees the context.  A reset work that runs
-after removal can therefore dereference the freed context.
+On Wed, 05. Aug 16:57, Huang Wei wrote:
+> The synchronous command completion path in ucsi_sync_control_common()
+> hardcodes a 5 second (5 * HZ) timeout when waiting for the PPM to signal
+> command completion via ACPI notification. This value matched
+> UCSI_TIMEOUT_MS when it was still 5000 ms, but it was not updated when
+> that macro was later raised to 10000 ms to fix PPM reset timeouts.
 
-Serialize mana_serv_reset() with device removal by taking the PCI
-device lock across its drvdata access and reset sequence.  The driver
-core holds the same lock while invoking the remove callback, so remove
-waits for an in-progress reset.  Work that runs after remove observes
-the drvdata cleared before the context is freed.
+Thanks, lgtm.
 
-Drop the lock before rescanning, since the rescan path may remove the
-device and acquire the device lock again.  Also clear GC_IN_SERVICE
-before rescanning after a failed resume, so this exit follows the same
-service-state cleanup as the other reset exits.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: fbe346ce9d62 ("net: mana: Handle Reset Request from MANA NIC")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/net/ethernet/microsoft/mana/gdma_main.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-index e8b7ffb47eb9..ae03d7a53 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-@@ -591,15 +591,16 @@ static void mana_serv_fpga(struct pci_dev *pdev)
-
- static void mana_serv_reset(struct pci_dev *pdev)
- {
--	struct gdma_context *gc = pci_get_drvdata(pdev);
-+	struct gdma_context *gc;
- 	struct hw_channel_context *hwc;
- 	int ret;
-
-+	device_lock(&pdev->dev);
-+	gc = pci_get_drvdata(pdev);
- 	if (!gc) {
- 		/* Perform PCI rescan on device if GC is not set up */
- 		dev_err(&pdev->dev, "MANA service: GC not setup, rescanning\n");
--		mana_serv_rescan(pdev);
--		return;
-+		goto rescan;
- 	}
-
- 	hwc = gc->hwc.driver_data;
-@@ -621,8 +622,8 @@ static void mana_serv_reset(struct pci_dev *pdev)
- 	if (ret == -ETIMEDOUT || ret == -EPROTO) {
- 		/* Perform PCI rescan on device if we failed on HWC */
- 		dev_err(&pdev->dev, "MANA service: resume failed, rescanning\n");
--		mana_serv_rescan(pdev);
--		return;
-+		clear_bit(GC_IN_SERVICE, &gc->flags);
-+		goto rescan;
- 	}
-
- 	if (ret)
-@@ -632,6 +633,12 @@ static void mana_serv_reset(struct pci_dev *pdev)
-
- out:
- 	clear_bit(GC_IN_SERVICE, &gc->flags);
-+	device_unlock(&pdev->dev);
-+	return;
-+
-+rescan:
-+	device_unlock(&pdev->dev);
-+	mana_serv_rescan(pdev);
- }
-
- static void mana_do_service(enum gdma_eqe_type type, struct pci_dev *pdev)
-@@ -2436,6 +2443,7 @@ static void mana_gd_remove(struct pci_dev *pdev)
-
- 	pci_iounmap(pdev, gc->bar0_va);
-
-+	pci_set_drvdata(pdev, NULL);
- 	vfree(gc);
-
- 	pci_release_regions(pdev);
---
-2.34.1
-
+Reviewed-by: Fedor Pchelkin <boddah8794@gmail.com>
