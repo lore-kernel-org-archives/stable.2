@@ -1,76 +1,48 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3432D261B70
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 01:38:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB8F348C4B;
+	Wed,  5 Aug 2026 01:40:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785893890; cv=none; b=W6Q/adtksw8PFi4qp6xIARHOcXtn61ae5H/sIKJNoc6Y6piDCNLg8uzJlBHIRyqDrUkCGfDULBa1HAX2eD/D8XPAQsM/w4NnsM1vvpvA8ZqE4K+fCFJqzZhxRl8+mi3ZGxedS8N4taPSfdKbxqpiGxpG8SQKmknd8gngu6mbk7I=
+	t=1785894064; cv=none; b=DvNsu/U8/PCQjls/AAUoRWkuMLZ5esx8T4liXEQll83n2ek9RQWa8MGDOzaLDyNgFQFYaVIA+V95/aVysTlEGC0DO1fWic5uMYvkX/+YNTs2UXKuXjJO7Nw1gsSfKNiVMRYvRgv1eb8g0Dl1EBCwrigMgl/QwSzHuUxtz1xohBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785893890; c=relaxed/simple;
-	bh=5dXT5zFZx7tyIqtr8lCYyvpmc29kkA7AFdIpp4VU9Co=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KLlQugnDUAxfS/DrK0pa9LWuF31KzqfqfzSK4ou9Y2aVguGdUqGesOAX2JHGJY4BvNi+e0pLcDMBvpYFRxbkRGRadyWuo83LLSU/uQWOOT24aJoOlsAU/ajZjEmOigMrQiDjUkXhtJnqjq5w/tt1dbEgsmsG+BkKAuBKY0aRdOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=gKF1N7Kv; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xbow.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="gKF1N7Kv"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cf50c6f235so5930345ad.0
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 18:38:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=xbow.com; s=google; t=1785893888; x=1786498688; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s299Fhs4WKIhYcduu+EnoSm6nbyI7RdT+IYT+hOsyoo=;
-        b=gKF1N7Kve+UKY0aNGgxbC24f5W0j8aoUL/zDlxZkCiiS4G9iV5otPX/6+ADzDISK0V
-         z/TzyeMUGhDqTvsxPrOW1x2LSkhluOUB89hCohLHbYG2aRHHR275fEr0hHtXk5+xA4KQ
-         nCmitoLUUK4qpybqG/oCOKTxQlOPoogqvpO7yMpcfDmIY4jBMvMWxmvGzAjZTF4AYRSB
-         cG2XmyMaDZEvX2CRJIhSmDVw0FbEBrsy2RoT3OvcJ3m2x6QqXWEjfn8w2XxsA9xXq6sa
-         DyOf47HFDGLLvt1p0lx9kcsnytXjhVY9RP9gLzYd5puDetRSFp8NS/Khtq6TZ994aUFD
-         NlhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785893888; x=1786498688;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s299Fhs4WKIhYcduu+EnoSm6nbyI7RdT+IYT+hOsyoo=;
-        b=q4P05+oD1kRQT7Mj79/iK9za919d3YUCkhyVkZBGulVxCKWVcVbVE7SieuUb6UwaHM
-         6Y4Ij8ASHG8q6vJkMHMC7zjVqy/dbiR6s9c6TpsangPprGzJ1n01YvdQHzmHUzEb8AaX
-         KkABjQ1qqz7XZh7fFvzYu0nnXUZ3VbJKtG2LZ7Yi7X6zAaEmVr8u1Tjfpz1UW24lAnSa
-         Q6fDDb9D6iul/ZR+lV3OZK6qa0UtOwZIyK2ATaASG3TXFqQMrrpbWhvOACrXbV32nOdu
-         1Qx2f38TADJ9QK6ibl6a2BTHFhUqdmzSHiDybjoVUk4xsbXnwi4viKX2e7eFRK60ifwz
-         afsw==
-X-Forwarded-Encrypted: i=1; AHgh+RqPZB5Y+qmL+Uox93vjLXORtg9k6rE0rN3pq1xkbxpvjeibhXi+8bfYYw4g1FG96qk6fFMmlfI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwvrmeprLfEALeP6kN0gDxgT/3dT1sqJRSeif41jAtgm9ioWPoF
-	UKd2MSlU5+BcHcPP0ziW+TS9Xc7wsWF78kBcnGeUthZCpKT2Z4+l4CuJfXlFJhy2MOr8Iua+ixY
-	vvyKfzRI=
-X-Gm-Gg: AR+sD13TqJpcus8kzj/cxDPmTgIDdfKuVvc6NB/p2rLsMxU1FXJ1J0AmwnueU56Jqk3
-	+2ValO0poKM78OIR/nFTx2epSBs+M+dYiS1jYIcGRp87gOEGqVHUc2sXDkUXuSbOhxx0NN5DZAL
-	pEgu8GOpB6oIYDyVeJ4HWzikAcSkcV08K0OwvJ6CzhtLoAyh9tR8l4UcnHMxxkXDVw/zhCRI1x3
-	TmY3Nyg8o2BWw23mjH85t7sYhYHJw4TEdYCwA+aYsHhndAislMLzu2CLxSD91tx8Y9r8PCZh0fK
-	t7qa9T2woog7l1VR7tQJZZQU8MpMAEWcO5/q+7jPbzguvQgfHH3heJTV5RH9sH+2qTOcZvaJCuK
-	iQRS1IeIhA/pQjb28Ksz0CTfyuYMI84eyuWPmHvCOwtNd6UNwav0teVp/pnriXwVbVLWz5HYUu2
-	gdZaIoz/DFHa/+sLgXWsfVwnOERhEQ1zciZ8RuOcrh2WWR53q7++CHFFruK31FRCCx4HshoWdZd
-	ExkHggw2anPoWNag8zzyUdQIf7o
-X-Received: by 2002:a17:90b:5112:b0:38e:542:6485 with SMTP id 98e67ed59e1d1-3903c5919c4mr3048226a91.12.1785893888394;
-        Tue, 04 Aug 2026 18:38:08 -0700 (PDT)
-Received: from Mac.lan ([125.128.148.126])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39039179b07sm1138157a91.5.2026.08.04.18.38.06
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 04 Aug 2026 18:38:08 -0700 (PDT)
-From: Baul Lee <baul.lee@xbow.com>
-To: g@b4.vu,
-	perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	federico.kirschbaum@xbow.com,
-	stable@vger.kernel.org,
-	Baul Lee <baul.lee@xbow.com>
-Subject: [PATCH] ALSA: FCP: do not copy out an uninitialised init response
-Date: Wed,  5 Aug 2026 10:38:04 +0900
-Message-ID: <20260805013804.38839-1-baul.lee@xbow.com>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1785894064; c=relaxed/simple;
+	bh=m9lGJ1PPti98suGO6c7+JnypKTlaVN5Hx+xsrn3o4Lk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ICg9SnOLXScVaEinTE4iM2NRk07DSJTB7ZowuQHfKGl1Uc1RO8m4AYOd1Hx2Jw2eSKaczInf1N9u9uMcoYWMD1Is8hneQk58J65ODzepinTCxpXFrS8WxffXwhwWYi2RFEoMID88k93GIctZEbDRjIg3itpu2s7qgH3xEmjDBL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: b1a4fbf2906e11f1aa26b74ffac11d73-20260805
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:f424f8b3-04f0-4db9-8d31-5503ec6129c2,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:e7bac3a,CLOUDID:4edaa9e08d59eaa475e10643631151b1,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
+	DM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: b1a4fbf2906e11f1aa26b74ffac11d73-20260805
+X-User: xiaopei01@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <xiaopei01@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 259595402; Wed, 05 Aug 2026 09:40:52 +0800
+From: Pei Xiao <xiaopei01@kylinos.cn>
+To: Thinh.Nguyen@synopsys.com,
+	gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Pei Xiao <xiaopei01@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] usb: dwc3: gadget: Fix use-after-free in dwc3_gadget_free_endpoints due to race condition
+Date: Wed,  5 Aug 2026 09:40:49 +0800
+Message-Id: <331d1d5133496d2b4184e05f8848adb06930a138.1785893865.git.xiaopei01@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,113 +51,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fcp_ioctl_init() allocates its response buffer with kmalloc() and copies
-the whole buffer back to userspace:
+In dwc3_gadget_init_endpoint, &dep->nostream_work is bound with
+dwc3_nostream_work, and dwc3_gadget_endpoint_stream_event can queue
+this delayed work on system_percpu_wq when a DEPEVT_STREAM_NOSTREAM
+event is received.
 
-	buf_size = init.step0_resp_size + init.step2_resp_size;
+If we remove the gadget, dwc3_gadget_free_endpoints makes cleanup and
+the memory allocated for dep with kzalloc() is released by kfree(dep),
+while the delayed work mentioned above may still be pending or
+running. The sequence of operations that may lead to a UAF bug is as
+follows:
 
-	void *resp __free(kfree) =
-		kmalloc(buf_size, GFP_KERNEL);
-	...
-	if (copy_to_user(arg->resp, resp, buf_size))
-		return -EFAULT;
+CPU0                                      CPU1
 
-Nothing clears the buffer, and the only writer of its leading
-step0_resp_size bytes is the step-0 control transfer:
+                                          | dwc3_thread_interrupt
+                                          | dwc3_endpoint_interrupt
+                                          | dwc3_gadget_endpoint_stream_event
+                                          | queue_delayed_work(system_percpu_wq,
+                                          |                    &dep->nostream_work)
+dwc3_gadget_free_endpoints                |
+dwc3_free_trb_pool(dep)                   |
+list_del(&dep->endpoint.ep_list)          |
+dwc3_debugfs_remove_endpoint_dir(dep)     |
+kfree(dep)                                |
+// dep is freed                           |
+                                          | dwc3_nostream_work
+                                          | // use dep (use-after-free)
 
-	err = snd_usb_ctl_msg(dev, usb_rcvctrlpipe(dev, 0),
-		FCP_USB_REQ_STEP0,
-		USB_RECIP_INTERFACE | USB_TYPE_CLASS | USB_DIR_IN,
-		0, private->bInterfaceNumber,
-		step0_resp, private->step0_resp_size);
-	if (err < 0)
-		return err;
+Fix it by canceling the delayed work before kfree(dep) in
+dwc3_gadget_free_endpoints.
 
-usb_fill_control_urb() does not set URB_SHORT_NOT_OK, so a short or
-zero-length data stage completes with status 0 and snd_usb_ctl_msg()
-returns a small actual_length.  The only check is err < 0, so a short
-transfer is accepted as success.
-
-snd_usb_ctl_msg() copies the full size back unconditionally:
-
-	buf = kmemdup(data, size, GFP_KERNEL);
-	...
-	memcpy(data, buf, size);
-
-Bytes the device never wrote are therefore restored into resp unchanged
-and copied to userspace.  step0_resp_size and step2_resp_size are each
-validated only to 1..255, so the caller also picks the slab cache, from
-kmalloc-8 up to kmalloc-512.
-
-On 7.2.0-rc5 (arm64), device answering step 0 with a zero-length data
-stage, s0 = s2 = 255:
-
-  # init_on_alloc off, no spray
-  step0 window [0,255): nonzero=94/255
-  000: 00 80 60 06 00 00 ff ff 18 00 00 00 57 01 ea 01
-  010: 08 78 22 13 00 00 ff ff a8 c4 5f 80 00 80 ff ff
-
-  # same kernel, kmalloc-512 pre-seeded with an 8-byte tag
-  step0 window [0,255): nonzero=219/255  tagbytes=232
-
-  # identical run, init_on_alloc=1
-  step0 window [0,255): nonzero=0/255  tagbytes=0
-
-  # all three runs
-  step2 window [255,510): device words matched=62/62
-
-a8 c4 5f 80 00 80 ff ff is the little-endian kernel text address
-ffff8000805fc4a8.  The step-2 window is unaffected, so the disclosure is
-exactly the step-0 region.
-
-Zero the buffer, and require the step-0 transfer to deliver the full
-step0_resp_size bytes so a short data stage is reported as an error.
-
-Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
-
-Fixes: 46757a3e7d50 ("ALSA: FCP: Add Focusrite Control Protocol driver")
-Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
-Reported-by: Baul Lee <baul.lee@xbow.com>
+Fixes: dcfe437492e2 ("usb: dwc3: gadget: Reinitiate stream for all host NoStream behavior")
+Assisted-by: Codex:deepseek-v4-flash
+Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Baul Lee <baul.lee@xbow.com>
+Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
- sound/usb/fcp.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+changes in v2:
+add Acked-by add Cc stable
+---
+ drivers/usb/dwc3/gadget.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/usb/fcp.c b/sound/usb/fcp.c
-index 6f5dcd35e1d4..8f52a3dc9ec3 100644
---- a/sound/usb/fcp.c
-+++ b/sound/usb/fcp.c
-@@ -483,13 +483,13 @@ static int fcp_ioctl_init(struct usb_mixer_interface *mixer,
- 		return -EINVAL;
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+index fa0f16ffafef..fa944856f956 100644
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -3508,6 +3508,7 @@ static void dwc3_gadget_free_endpoints(struct dwc3 *dwc)
+ 		}
  
- 	/* Allocate response buffer */
- 	buf_size = init.step0_resp_size + init.step2_resp_size;
- 
- 	void *resp __free(kfree) =
--		kmalloc(buf_size, GFP_KERNEL);
-+		kzalloc(buf_size, GFP_KERNEL);
- 	if (!resp)
- 		return -ENOMEM;
- 
- 	private->step0_resp_size = init.step0_resp_size;
- 	private->step2_resp_size = init.step2_resp_size;
- 	private->init1_opcode = init.init1_opcode;
-@@ -1019,12 +1019,14 @@ static int fcp_init(struct usb_mixer_interface *mixer,
- 		FCP_USB_REQ_STEP0,
- 		USB_RECIP_INTERFACE | USB_TYPE_CLASS | USB_DIR_IN,
- 		0, private->bInterfaceNumber,
- 		step0_resp, private->step0_resp_size);
- 	if (err < 0)
- 		return err;
-+	if (err != private->step0_resp_size)
-+		return -EIO;
- 
- 	err = fcp_init_notify(mixer);
- 	if (err < 0)
- 		return err;
- 
- 	private->seq = 0;
+ 		dwc3_debugfs_remove_endpoint_dir(dep);
++		cancel_delayed_work_sync(&dep->nostream_work);
+ 		kfree(dep);
+ 	}
+ }
 -- 
-2.50.1 (Apple Git-155)
+2.25.1
 
