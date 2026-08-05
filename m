@@ -1,139 +1,144 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010026.outbound.protection.outlook.com [52.101.46.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48748352000
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 05:29:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785907787; cv=none; b=MVxPA4PX3K4LGNclBEThc1cEAa704l0rfp64Ljh8DsED9z1U5LpFgWpVSLvCumi4ItiqNUkASNlGWTsyP2VchOM4FGnY3mE9VoHxAV+BMY3q+klgSrJNxDxXIiRGfOqqFYrp1JI5s2jzwBTt+iCZxO1P8m61HIMDarPJpPJx85o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785907787; c=relaxed/simple;
-	bh=tou1oMvJ+1xi7K5Ayg0UJnhYTWNqiNkGHykmQO0m2n4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n+m5v2HeSHYojaE8Le3MT7peEjPLqjgxMK38ocHdR7RcVt4sU+a1MkFO494/5bC2VzFmFiV3aYgvWdkSaqZQ1AO+yEze19Qzdbb/wO7Vx+E9fSS8AEGABQXXOVhBr9A1LsFak4/m/pu6TbvsmNPpvS5Y18k1eBFSf0eoNuk9zTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EAZCjuFP; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=F4klHWUk; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41C633F5B0;
+	Wed,  5 Aug 2026 05:33:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785908036; cv=fail; b=fKAGuMVOgbWJ35pPREUWRwirb5auUZQhowL9YPqqmpgeNsPo0bp6k0BvK10DnE7xgbQBJvlFz6iMZFZs/p05FD+L54yiEd/H3LfiaSTl3CxBolI9I6wNAhd5+pllOGONoxGx0vROZDUVqRCaj7cVKJHaOUgx6tcel4cotSsbRwI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785908036; c=relaxed/simple;
+	bh=E/22vlE4EURb2ZymkFMduptQu9hayO9adxvdGK+QxAk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=j1FDKqUS+IEXdUUfh/jKC36NfJGyJ6f7LQQITXmumWdcsa3llAYe9m55XUHmKQK+WokI/hx1wfxA4abevNo5V7zxN0d3ZrsYuQ4+FNgfck/beM2criXKfEysyJT9ZcxC/GL+o0M3QBRPq6l3N4SKeXQClUThIbmoIknEwhVXUko=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=b0/N5bNY; arc=fail smtp.client-ip=52.101.46.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EAZCjuFP";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="F4klHWUk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785907785;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uoYUbeJfzYbnY0HKD2boTZCl0qawjKDIX6lvEivFnzg=;
-	b=EAZCjuFPkFVxooCq9VlZ1n2Q3+b9EVkL29Ha11zD+jNQsKHgteE0o5KO/kpcaJa/xM5Bj+
-	d4g4Jfo2m4c4zAns7H0p05WRHqOljfKQwkricpVpbXrloU2tq0TIpvbCNXVZJWuJxyS8bg
-	Ag8kaBjz8Rgk1Jj97ptwXSKSuAeou0M=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-183-TBQOVFGeMtmFS0OGJhjwzg-1; Wed, 05 Aug 2026 01:29:34 -0400
-X-MC-Unique: TBQOVFGeMtmFS0OGJhjwzg-1
-X-Mimecast-MFC-AGG-ID: TBQOVFGeMtmFS0OGJhjwzg_1785907773
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-496b408a5c0so2813285e9.0
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 22:29:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785907773; x=1786512573; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uoYUbeJfzYbnY0HKD2boTZCl0qawjKDIX6lvEivFnzg=;
-        b=F4klHWUkTjotiyaingIojdFVQTtcNHO8RN/IOT4HnPc8C0ke4lw7BwYQWpprMhAMYO
-         pPGv1FDg6EGW7hLPVFOKx3fjpkpR10YCSzd5ujjRRNKMIuBZNsIeUsXUQvR9t4+M6rGz
-         6M2gFPcEDJyN+PaQKmqrlb/a8I3WL2b1Awof8VmgVuKwYJM0pgN4kw81k7Wep94TnyKv
-         Wb3ZfYeJIZLXd4omCRjICr+wuXGeeeEMB/v3h/5YMURQRNAHtAlLwABoNUDuFO7qeaVx
-         z/c+JQmPsblUCx0C6PegHv1/HyXpnH9Zj4YRYP1LPK434TjK2DIRW/VqXfbL42OL1p1P
-         qzkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785907773; x=1786512573;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uoYUbeJfzYbnY0HKD2boTZCl0qawjKDIX6lvEivFnzg=;
-        b=dqySSwXyJYlDMiULXI/encRcToaYXGg4UVP8//hoQr3HTUObH6l+ugrl+3gUtubPNX
-         IG1SYX5yciM1/oBCTwofeEJs57pyEJtwR+ELXucDxPEeCZaJX2Nqhy4NKuodYbroq0pn
-         ukKoWRW3Q/9fe/oO+FUqY/vbNxDfIJew/wh/1Dizmf8w3yGX0q3rCF7tU1jhyvL7Nk2b
-         qXuRP9jmTbHFP7UbuOw0fdeI3YDeDBEgty9kjWxnbzV63ivY5jGfuep0Lqerg3XqOszD
-         bhbwcNzGf4bPvJdqCw9q7lceIcOz1j2WiiTwtrlOPdmPlme/KSDxiimN5Nzd5qOtWIDy
-         wV7g==
-X-Forwarded-Encrypted: i=1; AHgh+RpJGDyBWiU+y2KqCh90M8o49LDHjcRIvxQhIfQWecYdS9uuznGLQ6jr5kbN/+nlCNYn0+pcG+8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwLtZwSyJfPEX0o8UrEuwAe8lpBK8+yU4E9dn/Y0d6JzA03M+QO
-	LnZwqAaqAbArJ4Sx+dwrLxuWy5wxBHpzB56GA7gqL5sR82o7a7e/DZfmCtBBpxLud7PwD8nCyBr
-	I8HdH3aT863Ju/Shm4fF2KwJ//F1B1Ik3t9JikyFSR0YuqCMc95rlmA7XSw==
-X-Gm-Gg: AR+sD13Tk59Se+u8GNIorskzH3Cc2aD76mufECX1FB+qax/OxS6mBObiFdNx7wfFxtd
-	JOdhxzALp1e5fYxfVa+R6Vef++akiHjNAwvkVmh56alslv7ybAHoKq7KxeOLHNYwqXPyZSaEYp4
-	eoVxz8zXHL2GfPe3AjXWVIPd72gK1RVu/G8SgPSLHazSosemLBpUY1kvggFZldPcmG4MAmChFGc
-	O+WqFcTAE6lHb+hM6eL+fBZey2Y8m8NHWBtTiTXCqz2wdfswCyvdVzzp9/w6JxnUQEZ21qk29OQ
-	BGdlBSsZvyi2qizFxMFg2iJxBo+KevtSq6FQtWTXZkhLHtNI+xREFFNMYd8cuoK2zPf923whPGf
-	RC4Av53W5n824gAwNzrtnsA==
-X-Received: by 2002:a05:600c:1d1f:b0:496:c9cd:e7ab with SMTP id 5b1f17b1804b1-4994e71d2acmr37754705e9.5.1785907772751;
-        Tue, 04 Aug 2026 22:29:32 -0700 (PDT)
-X-Received: by 2002:a05:600c:1d1f:b0:496:c9cd:e7ab with SMTP id 5b1f17b1804b1-4994e71d2acmr37754275e9.5.1785907772318;
-        Tue, 04 Aug 2026 22:29:32 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-28-14.inter.net.il. [80.230.28.14])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4994df7e025sm63769205e9.0.2026.08.04.22.29.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 22:29:31 -0700 (PDT)
-Date: Wed, 5 Aug 2026 01:29:28 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Xiong Weimin <xiongweimin@kylinos.cn>
-Cc: virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>, Jason Wang <jasowang@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] virtio_input: reset device if input_register_device()
- fails
-Message-ID: <20260805012846-mutt-send-email-mst@kernel.org>
-References: <20260805032931.1606652-1-xiongweimin@kylinos.cn>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="b0/N5bNY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tC/iRpePxN3l9eyZdvGor8hy/E/m2HwKL/+fFjwUAwQp4F7ULJXbsmWEyVCLxZ67rGQcHa645p4Pjq3KD8oxSAhvJXMIl94qdh+7ce/usb4aVkoRFB6483GoQidqVPXTPWe1SPh/vEh0eaOQJbeJEWoRbrvHvdBXUeCq5LMeMZB1kBIEbtmfk8QjkL+UlppenlmCmHzoEHZE5WGRloAvd8zaNHgPQJMP4b4ypt53mUYXOUQBF7HETjjGZGGUwhqhhoruidRk5LyxHYokViC+fzWhosTG4bHEAotGwW8mUW1i+TfbH2rZSygMdAKJtguZAT/F1uJSFZkcfkM++1nr5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bmHhxf73gg61p76gtWxiauSjPFeJu+q8NPMY0eDqHWs=;
+ b=M3KnSlt5ggeZjIiln1uy8xehNkW10T970J7rhCcx4GlQqv61HAz8zVa2djR1J6+Vb5uFF+T3+dtV44yOU7e1wGWBw7xakT3cs3Co3xcvUXwdV07Bt5FGwonRO/qdTIaXbBt+PE76AIO0ODEtElG7KwZOU3jSVKN+yOhP2GkJ0U6F+/yxOGwHonvItQkVd1tobdx8jOd/sM4DFXV/XHsekFbhN4HBO9+vJrwsayVlIVfKtSBcy4zCi1jyVv3StclLkx9q98dETtoKcSv5bdBmYtpF6OkRSfR/0ElY9PEh8ZwUemIpFGgP0dSJmuD5Zxtt8Xo3IjL4nPci/f5rTeHfmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=ziepe.ca smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bmHhxf73gg61p76gtWxiauSjPFeJu+q8NPMY0eDqHWs=;
+ b=b0/N5bNYL0g/B8Jj5DDxXFZ17GT/e071P7Hi52AKE8djpPCzWHZKYUxtLvQE/7SKYZAha+KWWkDSjYMZBnWHm4jeQ2ZvBxtr7lSr1RPjTt3uAceWt8gLtgmTX2KGyeAPPFxYha6iPiHWOJOjNivyRs/0qqFSJRvKQYgByXsABtU=
+Received: from DS0PR17CA0018.namprd17.prod.outlook.com (2603:10b6:8:191::18)
+ by PH7PR12MB5688.namprd12.prod.outlook.com (2603:10b6:510:130::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Wed, 5 Aug
+ 2026 05:33:49 +0000
+Received: from CY4PEPF0000EE3E.namprd03.prod.outlook.com
+ (2603:10b6:8:191:cafe::27) by DS0PR17CA0018.outlook.office365.com
+ (2603:10b6:8:191::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.16 via Frontend Transport; Wed, 5
+ Aug 2026 05:33:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3E.mail.protection.outlook.com (10.167.242.16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.8 via Frontend Transport; Wed, 5 Aug 2026 05:33:49 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 5 Aug
+ 2026 00:33:48 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 4 Aug
+ 2026 22:33:48 -0700
+Received: from xhdipdslab46.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 5 Aug 2026 00:33:46 -0500
+From: Abhijit Gangurde <abhijit.gangurde@amd.com>
+To: <jgg@ziepe.ca>, <leon@kernel.org>
+CC: <allen.hubbe@amd.com>, <nikhil.agarwal@amd.com>,
+	<linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, Brett Creeley <brett.creeley@amd.com>, "Abhijit
+ Gangurde" <abhijit.gangurde@amd.com>
+Subject: [PATCH 1/2] RDMA/ionic: Cap eq_count to the eth driver's interrupt vector budget
+Date: Wed, 5 Aug 2026 11:02:53 +0530
+Message-ID: <20260805053254.4023262-1-abhijit.gangurde@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260805032931.1606652-1-xiongweimin@kylinos.cn>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3E:EE_|PH7PR12MB5688:EE_
+X-MS-Office365-Filtering-Correlation-Id: d5d0df4d-e29b-45c2-dccb-08def2b32077
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|18002099003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	XOyGR98DIzlDxvjLdyDWC7yf2LAzQDdxpa/fJMLujsYauBNEIMMOKBER91obXaV/Fe7OIjMQCAwOiQcZayuX/cddOJfpv/eWWfq2cFNY/XGTGVIvwGn3/BgZk3zzHsfxAjBKhmh5OSB1j8NqzfGvzxH3nIsBxRiiteT+R0eEnt/jsV1fFR7SindL209P9VjmmApXn8AiowS8dLgTFX147oEVjJJMUkS1rVdouHI5oIYuAn1C+lwPjGAWUNbxxw1B0teLbwE4IFzy8Y+Eg2wkfbEBbIEL+UsNzaM84AhmsoRw+EjZKQ408liNBK+UBrZuv+flrzROF77Xj8AkYg8J2gxuYdcUImS+K8amQiqn3kIV158dUl2fPfiM81YyDY4UZzFQKucVCiMds5+PPsUaXZkfJoLbSIy4gu+jDH9oIV+7UDQtMxvF0cRQrT8VPVSRX5zyCj7eXdq//Piitx1PCyNvn9kT9fK9t/OgihiIm6K5xkWSrKnqDKdMKJFh3uoy+LcLacX4JwCBEWG8k6J7y3kKmUWCmMN4iAk05WI28YZqCcwBOkf8tvqaRTGZZgZcDV3ICQ8MLs301WSfY3n5FGy0OwnAMWiYdbl5pcBgaBAQitEmGTs5Wor+oYPIWGltnb6HpuJO8jwUGlM4xfbwVI0S3LYqupNNG073z55/JPKMc6q8J74MSiKoLFcr3zsh7dLrasbkklq4fYw7MEOjKQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(18002099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/Xf+HFckB9k7N+elEV9oig2Ne2mFsIHTFmo4yIwNo9f+wcJZehbW+1epcSWGeoloEvuArj8RPjv9gW4Fl5xDp5gujzJKVUoTsUkdoP9XAhJzJ67w2WkyEDzkwxf3tNRCDL9VQpWXSQILXK0ZWG8zpHlsVQBOwP2pRF3cvlpMvCpEEuWcIkE1hP0Mxp+U/DK6iski1k3Mz910fmVEFlfW6iY9/C4JH+oPLVAC7P3P9Th+QqtdzCLUu0wzijzvcHfd2jy+EV0YTW1ZqlOL19wPp+bI7VSCgUQ0PLNc7M3JVYo+GDUrWAecL3U44wxoFJas1sb2XGkkrCGJrQM8mpmKMR59dRIiLMPArBiP8r7GFYhx9NJepKqHKcQxsCXTUVR49ejvgpxXbD71bpm+0BEjn/r75f58K3XFFJGZJNFlGwCt2T302l+fXSGl/FVuiNub
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 05:33:49.0355
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5d0df4d-e29b-45c2-dccb-08def2b32077
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EE3E.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5688
 
-On Wed, Aug 05, 2026 at 11:29:31AM +0800, Xiong Weimin wrote:
-> Probe marks the device DRIVER_OK with virtio_device_ready() before
-> calling input_register_device(). If registration fails, the error path
-> cleared vi->ready and called del_vqs() while the device was still live,
-> so the device could keep DMA to queues that were already torn down.
-> 
-> Match remove/freeze: call virtio_reset_device() on that path before
-> tearing down the virtqueues.
-> 
-> Fixes: 271c865161c5 ("Add virtio-input driver.")
-> Cc: stable@vger.kernel.org
+From: Brett Creeley <brett.creeley@amd.com>
 
+ionic_fill_lif_cfg() reads eq_count from firmware uncapped, but the
+eth driver only reserves ionic->neqs_per_lif MSI-X vectors for RDMA
+event queues. Since ionic_rdma probes via the auxiliary bus before
+the netdev is brought up, it can exhaust the shared interrupt bitmap,
+causing ionic_open() to fail with -ENOSPC when allocating rx/tx
+interrupts.
 
+Cap RDMA eq_count to neqs_per_lif, which is populated by
+ionic_lif_size() at PCI probe before the RDMA aux device registers.
 
-for each of these patches: is this a real or a theoretical issue?
-stable rules preclude the later kind.
+Fixes: 8d765af51a09 ("RDMA/ionic: Register auxiliary module for ionic ethernet adapter")
+Cc: stable@vger.kernel.org
+Signed-off-by: Brett Creeley <brett.creeley@amd.com>
+Signed-off-by: Abhijit Gangurde <abhijit.gangurde@amd.com>
+---
+ drivers/infiniband/hw/ionic/ionic_lif_cfg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Signed-off-by: Xiong Weimin <xiongweimin@kylinos.cn>
-> ---
->  drivers/virtio/virtio_input.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/virtio/virtio_input.c b/drivers/virtio/virtio_input.c
-> index deec24e8e..1a87be4c8 100644
-> --- a/drivers/virtio/virtio_input.c
-> +++ b/drivers/virtio/virtio_input.c
-> @@ -331,6 +331,7 @@ static int virtinput_probe(struct virtio_device *vdev)
->  	spin_lock_irqsave(&vi->lock, flags);
->  	vi->ready = false;
->  	spin_unlock_irqrestore(&vi->lock, flags);
-> +	virtio_reset_device(vdev);
->  err_mt_init_slots:
->  	input_free_device(vi->idev);
->  err_input_alloc:
-> -- 
-> 2.43.0
+diff --git a/drivers/infiniband/hw/ionic/ionic_lif_cfg.c b/drivers/infiniband/hw/ionic/ionic_lif_cfg.c
+index f3cd281c3a2f..45846dc2e89b 100644
+--- a/drivers/infiniband/hw/ionic/ionic_lif_cfg.c
++++ b/drivers/infiniband/hw/ionic/ionic_lif_cfg.c
+@@ -70,7 +70,7 @@ void ionic_fill_lif_cfg(struct ionic_lif *lif, struct ionic_lif_cfg *cfg)
+ 	 * eq_count is tunable; see ionic_eq_count
+ 	 */
+ 	cfg->aq_count = le32_to_cpu(ident->rdma.aq_qtype.qid_count);
+-	cfg->eq_count = le32_to_cpu(ident->rdma.eq_qtype.qid_count);
++	cfg->eq_count = lif->ionic->neqs_per_lif;
+ 	cfg->cq_count = le32_to_cpu(ident->rdma.cq_qtype.qid_count);
+ 	cfg->qp_count = le32_to_cpu(ident->rdma.sq_qtype.qid_count);
+ 	cfg->dbid_count = le32_to_cpu(lif->ionic->ident.dev.ndbpgs_per_lif);
+-- 
+2.43.0
 
