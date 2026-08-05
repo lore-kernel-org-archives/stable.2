@@ -1,100 +1,111 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D6C3BCD0B;
-	Wed,  5 Aug 2026 11:38:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035A6433BCC
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 11:38:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785929917; cv=none; b=cJsb9yfOeaKV70LdnFuiPlkcwRnJXdAdMKvACfbB3ZigJlY5he6GjbsHhai6MpjaI/od1o6YYMalU5f1ysWmGiU6WGSWrgAXU6LdOrGupaUEEgv022qzi/fPBdr3ps9gy15Z2/zvhgKpGlCcJbssxqgaI+JcZ2WHCf+dMBjej5M=
+	t=1785929918; cv=none; b=eKyBr95C654ajEP7k3dJGGTBQpvnWfORYJJgl4H7FWxQiX8mXLGSlpOYjE2k2uu5l8th09Z7ZQNw5vwChiC77Tc/yVDDoidgJZYoUD21JztyoPeAPrDN8d4YW2Igf6RWaeip5fbC0u9qn7c+QHKifPm7gw+d7sbKfTvr3sIClqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785929917; c=relaxed/simple;
-	bh=AgEDqx12GAMcoVD6bXxpqJVbra6G7B1k02pwzwn1XCM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k4Tan9cTWqlkOhOgKEFsISPFp+mKbfQi2mnRfErY8UGHXNEGaZ71iK1kFU/xSdfgsImkSSVKDWnvu9crdfx3sCM5pmZbIhIdBihwuK04oP4MbCZbNhEQUeTRedGp4y0FJ2oIEubDdR1BZ+00Y+vtr7H16BXp2GGTGbgCi9S9Nlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DKG/EkOD; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785929918; c=relaxed/simple;
+	bh=cUUtPrs+Ssp9tXtTTszFIekqWx0gIUm5zNbFvAd1JBI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=p1zpQL9a6Fjn/LasJ3M8xzFrFISD1TDmdpleNfyo+EHmdUTK4O0mWiggbo3Gxi3W+xsNtS1b0jdTfgpkH7zJgPjIOA/ujPrmocKcEuE1xtv5vk1sH0p8avX0O78R4oqmn49iWGCdw7shTp1R7neJC7s1u8Y7D5D/ErqzaaVAsio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YMAXg34o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DKG/EkOD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785929916; x=1817465916;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=AgEDqx12GAMcoVD6bXxpqJVbra6G7B1k02pwzwn1XCM=;
-  b=DKG/EkODrVXSP5FmpbInTfB2S5XR0o2PXly7Yn33aEwKdETUh1eKaotZ
-   oulyT3E8XKQXe6udRPr7d1bembDm/AERRNctO/PjWh/s9P1tETPxZ7Rxx
-   TcA01MwnAz4SB6j/TKBxIn3bNk2litkrARr16F+A1U01fRh+00gzCiRJE
-   0gi8D9u6kpmhaGUZtz1+CfTmqVLjTDYd5P9eC00uoLcqAvXUfzFhfSnU/
-   2UjBzeY/v2wLzSNGTNBI25DPPTURQYF7Jj2AVcNosShvmtGdZ6ZtCkMwW
-   2B2z6Y7Vk7RgKQOl4xRQlxS5k8kkDKNqHBeV6fdfiaDhzs53wfgi2h57w
-   w==;
-X-CSE-ConnectionGUID: /j/FEoH1SdKbtE8WTH7p+g==
-X-CSE-MsgGUID: pcfuh6z5QDyk+nV1znliBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="85625859"
-X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="85625859"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 04:38:35 -0700
-X-CSE-ConnectionGUID: n84CBrf1Qz+ZDzkAreoz5Q==
-X-CSE-MsgGUID: oQM+yIOzQPufSXr1U8EPeQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="285157094"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.246.218])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 04:38:33 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Srinivas Kandagatla <srini@kernel.org>
-Cc: Alexey Klimov <alexey.klimov@linaro.org>,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ASoC: pm4125-sdw: sort the register default table
-Date: Wed,  5 Aug 2026 14:39:11 +0300
-Message-ID: <20260805113911.21723-1-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YMAXg34o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CF021F000E9;
+	Wed,  5 Aug 2026 11:38:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785929916;
+	bh=kwro5ae7JIo2I1Xdb9NOiEGmI1UsEcZETC0lvHT3ZWo=;
+	h=Subject:To:Cc:From:Date;
+	b=YMAXg34ohgDBxY/VzSqpG6O2erFxuI7aMaG2xBdkL54eqE/PzHBmVnlExW3lLl+PD
+	 Hq2buoqNz3jK4wk/cWfOA5k2+M8DOjbYQdiK08RIWX2E/ZSSci/WTHM/WNAZwuG8FP
+	 ddio1pCewZ2ZNbuTsZL105cO8AFd1XbKqCqRq3e8=
+Subject: FAILED: patch "[PATCH] gpio: pca953x: fix cache_only and IRQ state on" failed to apply to 5.15-stable tree
+To: phucduc.bui@gmail.com,bartosz.golaszewski@oss.qualcomm.com,linusw@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 05 Aug 2026 13:38:19 +0200
+Message-ID: <2026080519-unblended-resort-81cc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-reg_defaults must be sorted by ascending register address, as
-regcache_lookup_reg() locates entries in it with bsearch().  See commit
-fd80df352ba1 ("regcache: Add support for sorting defaults arrays").
 
-PM4125_SWR_HPHPA_HD2 (0x3090) is listed before
-PM4125_ANA_HPHPA_SPARE_CTL (0x308e), which makes the latter unreachable.
-regcache_reg_needs_sync() then cannot compare it against its default and
-reports that a sync is needed, so it is written to the device on every
-regcache_sync() even when it was never touched.
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Sort the table by register address.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Fixes: 8ad529484937 ("ASoC: codecs: add new pm4125 audio codec driver")
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x d233087c19f6607ef926ac3f47d776e2406ffd1f
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080519-unblended-resort-81cc@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From d233087c19f6607ef926ac3f47d776e2406ffd1f Mon Sep 17 00:00:00 2001
+From: bui duc phuc <phucduc.bui@gmail.com>
+Date: Mon, 27 Jul 2026 15:02:05 +0700
+Subject: [PATCH] gpio: pca953x: fix cache_only and IRQ state on
+ restore_context() failure
+
+When pca953x_restore_context() fails, cache_only is left disabled and
+the IRQ left enabled, even though register synchronization may not have
+completed successfully. Restore cache_only and disable the IRQ again on
+failure, matching the state set by pca953x_save_context().
+
+Fixes: ec5bde62019b ("gpio: pca953x: Split pca953x_restore_context() and pca953x_save_context()")
+Fixes: 3e38f946062b ("gpio: pca953x: fix IRQ storm on system wake up")
 Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- sound/soc/codecs/pm4125-sdw.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Link: https://patch.msgid.link/20260727080205.16353-1-phucduc.bui@gmail.com
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-diff --git a/sound/soc/codecs/pm4125-sdw.c b/sound/soc/codecs/pm4125-sdw.c
-index 1c612ae4a4b2..ee4cde4d8686 100644
---- a/sound/soc/codecs/pm4125-sdw.c
-+++ b/sound/soc/codecs/pm4125-sdw.c
-@@ -126,8 +126,8 @@ static const struct reg_default pm4125_defaults[] = {
- 	{ PM4125_ANA_HPHPA_FSM_CLK,              0x12 },
- 	{ PM4125_ANA_HPHPA_L_GAIN,               0x00 },
- 	{ PM4125_ANA_HPHPA_R_GAIN,               0x00 },
--	{ PM4125_SWR_HPHPA_HD2,                  0x1B },
- 	{ PM4125_ANA_HPHPA_SPARE_CTL,            0x02 },
-+	{ PM4125_SWR_HPHPA_HD2,                  0x1B },
- 	{ PM4125_ANA_SURGE_EN,                   0x38 },
- 	{ PM4125_ANA_COMBOPA_CTL,                0x35 },
- 	{ PM4125_ANA_COMBOPA_CTL_4,              0x84 },
--- 
-2.55.0
+diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
+index e03bf1b12091..aac9ea7520b6 100644
+--- a/drivers/gpio/gpio-pca953x.c
++++ b/drivers/gpio/gpio-pca953x.c
+@@ -1378,9 +1378,20 @@ static int pca953x_restore_context(struct pca953x_chip *chip)
+ 	regcache_mark_dirty(chip->regmap);
+ 	ret = pca953x_regcache_sync(chip);
+ 	if (ret)
+-		return ret;
++		goto err;
+ 
+-	return regcache_sync(chip->regmap);
++	ret = regcache_sync(chip->regmap);
++	if (ret)
++		goto err;
++
++	return 0;
++
++err:
++	if (chip->client->irq > 0)
++		disable_irq(chip->client->irq);
++	regcache_cache_only(chip->regmap, true);
++
++	return ret;
+ }
+ 
+ static void pca953x_save_context(struct pca953x_chip *chip)
 
