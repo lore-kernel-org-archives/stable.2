@@ -1,89 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274DE26D4E5;
-	Wed,  5 Aug 2026 10:38:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0766A40EB9E;
+	Wed,  5 Aug 2026 10:41:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785926309; cv=none; b=RJ5rUx3PBgfmkQ9b3FjjTwkT/4zzx8G/wdp3vxcuLo2xHAbU1vLk68Ghgj8Ot0QbC6fnbFz4yHKymq+Boq2+nFcNeVEdnqf3T9JqOdUKeWf9UsSJqKOSobgHhOU65aRsvORiELjeX6jzLKSrUSaIQjSQWTeggL74/Evx4G7FGfM=
+	t=1785926479; cv=none; b=LuCqjZqzpPtqVZY529NhvD+kNhLM7KWCQtHWLJy83/tfP7B8A/zJkM7nJ+tXBGPxApL9ba4YsSxNJFDmrltZ+4vscJJLvI0qqNgI85OZLYYaMiFT7UXNs5NpgW6ok1BdUfDxVskcFgAf+jEKKDheGUngRp5sJ/hYtORKHaUcUKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785926309; c=relaxed/simple;
-	bh=n5NR0+2Zm2gD0BllD5WjS+wS9uYbUpL7jUazf7CLUNc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kHF3OdJrq3TNcx4QSir0TGs8dge+i45k0j9HU7A27R0lAJ/bb86IBqx8colhvrTVLakbuB3zCgzlATqs/k+TIcOlcZqXrfxSXeXP5mqv6zKpahdUrzQs5XUW/grBjAZ7gDdTsJrq+Sq8QwMMjE3Pw6PIvdSQWnvJivp3e5f42yQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jw2M5gvD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785926479; c=relaxed/simple;
+	bh=89qVP7+o+OEpBO0FxFFAcnhuSlKqq7Kl3P/mbViyo8A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W9rGkBmbGxhVXpnG1TscBrHjYArsvUlJoUJSxRyUWbstl1xzggkRaiil0YvDpTvWYsyacPEZNjkMgXfQqch2q7xfGuNjgy9SCru2PHC9h8s3P/TxvHCVcWIoQgt1H4UaW3gAgeGV5iWuAL0r45mn+n4FCZE7LsZ5UyFgaPErLws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lS+BvDB3; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jw2M5gvD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76F111F000E9;
-	Wed,  5 Aug 2026 10:38:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785926307;
-	bh=n5NR0+2Zm2gD0BllD5WjS+wS9uYbUpL7jUazf7CLUNc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jw2M5gvD9sDKV8MrxGzq9R7/ubWQg/pNQDYOcmZUJ8niMQV6IZhSIE3BYpIZbZXtV
-	 ataq3KhfJRWuNeqR4l6LWqI3V8jyRevixuuxtVGuUi2PKw85DDeMPUqK8m6TeaFIob
-	 cR6yQMplKJzUNVHzKuH3BCLBHPPHwoZa551zGvaO0xv1Nc9Pm+rsJvajZUq37cefJA
-	 Fzw9mXvXno8HogFGg1mgBQ2MIm2YllsVEQfcQ8Zt9WsthUYp7Uvx74ReDfVE9YJVOL
-	 yzWZ7QYotwvuWJn8LCfiu/ZaQOUlnJ1/5uTWHYWEwlfnl6h1dqmrKRIxkUXoeUK+nz
-	 GFyJGo89w6sPQ==
-Date: Wed, 5 Aug 2026 11:38:22 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lS+BvDB3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785926477; x=1817462477;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=89qVP7+o+OEpBO0FxFFAcnhuSlKqq7Kl3P/mbViyo8A=;
+  b=lS+BvDB3VsEroZK8qVk0/FIg0VXHlJ6Im8fcMZdZYW80/ETOTYpszjLd
+   nx36TYVy7QCl2SnhjO7ImiBFlXt4ofBMOOYEwcOe6fuDg5z4J1toSClRo
+   vd5kPp9howMUZC9BT0efy4X8jcfiu84MSlnuzK4XSpFnOG3y8RiPDKfIi
+   aldQ2c+yFLZzQTPIa5CkVRj62Wwkr4WsdydaFImCCCRaxanbpJhbTXO+y
+   0pWIOp8eX4X4IDNzHUsMwLTokR4d0alMm1lbHljq5KMgvWO6v9ieZlJ/H
+   GJ7M4dZbwO8MWv3lU43HHx4vQRniRDMW5IbxxZtbyAr/1JN5auyZQ3fKK
+   w==;
+X-CSE-ConnectionGUID: ZsRDkO8RR4qoqTCFeHXrkg==
+X-CSE-MsgGUID: qbySyt3ASuuY+bOm4i07pA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="97143811"
+X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
+   d="scan'208";a="97143811"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 03:41:14 -0700
+X-CSE-ConnectionGUID: 2eDHXOJJTkaemjrYrS/gEQ==
+X-CSE-MsgGUID: mFGo5jQyQ4eipe035V+C9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
+   d="scan'208";a="265278522"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.246.218])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 03:41:12 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Vlad Karpovich <vkarpovi@opensource.cirrus.com>,
-	Paul Handrigan <Paul.Handrigan@cirrus.com>,
-	patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+	Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Sen Wang <sen@ti.com>
+Cc: linux-sound@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 0/3] ASoC: cs35l41/cs35l45/cs4265: sort the reg_defaults
- tables
-Message-ID: <67e766e8-6fbb-4f84-9bca-ea5bd1145c03@sirena.org.uk>
-References: <20260805082413.26174-1-peter.ujfalusi@linux.intel.com>
- <c8aac762-c1a7-44ab-afff-72610cabe341@linux.dev>
+Subject: [PATCH 0/5] ASoC: TI codecs: sort the reg_defaults tables
+Date: Wed,  5 Aug 2026 13:41:44 +0300
+Message-ID: <20260805104149.9795-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BAoF9D0HFNL3ES48"
-Content-Disposition: inline
-In-Reply-To: <c8aac762-c1a7-44ab-afff-72610cabe341@linux.dev>
-X-Cookie: Stop ahead.
+Content-Transfer-Encoding: 8bit
 
+The reg_defaults array of a regmap_config must be sorted by ascending
+register address: regcache_lookup_reg() finds entries in it with
+bsearch(), and regcache_init() only kmemdup_array()s the array, it never
+sorts it.  See commit fd80df352ba1 ("regcache: Add support for sorting
+defaults arrays").
 
---BAoF9D0HFNL3ES48
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+When the array is not sorted, bsearch() descends into the wrong half and
+a number of entries can never be found.  regcache_reg_needs_sync() then
+cannot compare the cached value against the default and always reports
+that a sync is needed, so those registers are written to the device on
+every regcache_sync() even if they were never touched.
 
-On Wed, Aug 05, 2026 at 10:40:46AM +0200, Pierre-Louis Bossart wrote:
+I found this while chasing a SoundWire NAK on an unimplemented register
+and audited the reg_defaults tables in sound/ by replaying lib/bsearch.c
+over each of them.  These are the affected TI/Burr-Brown codecs:
 
-> Wow. Would it make sense to have a regmap helper to double-check the
-> addresses are indeed in-order in those reg_default tables?
-> I am not sure how this requirement can be enforced by just inspection, a
-> warning would help detect this sort of issues on more platforms.
+  pcm512x_reg_defaults    45 entries, 24 unreachable
+  tas675x_reg_defaults    69 entries, 14 unreachable
+  tas2552_reg_defs        21 entries,  7 unreachable
+  tas2764_reg_defaults    11 entries,  1 unreachable
+  tas2780_reg_defaults    10 entries,  1 unreachable
 
-We could also sort when we copy the defaults during device init rather
-than warning, at the moment we just kmemdup() the defaults array which
-we later do binary searches on.
+The patches only reorder the existing entries.  The text of every entry
+is kept verbatim, no default value is changed, and each resulting table
+was verified to be fully reachable.
 
---BAoF9D0HFNL3ES48
-Content-Type: application/pgp-signature; name="signature.asc"
+tas2783-sdw was fixed separately, it had already been posted.
 
------BEGIN PGP SIGNATURE-----
+The series is based on broonie/for-linus.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpzEp4ACgkQJNaLcl1U
-h9DXSwf+OxfrcyQ8QMma/J/ZUy0bAz22/Z8l5taFy50o8/prdlymsdzcF5uPqEJz
-zkR+mGSOpdGiRWZ1BCbkf6G73RBkvjPxmzRYYblbuNaq53vZOY7T5n7hlxeWObvT
-KGaF/5JNdQztTmMdWcIAMu4GDF3grcoNKynuqYPOxErAOSpTiTiGNJO9YB9V/fF4
-OEkZbAcY5q9oAXFIMYsU92NC2Q37IdOd800R2qwFWUKUMBsid40sia+ikqpVA0SY
-k4fLas1UXXADrvd5RyUVVRv1XmRTrgR/2x0+y5EFTMR9DMouOFi1NOKa658L4Htw
-1vTU6X1GGAMnQ52FiISHJav2B8nCQw==
-=FWd/
------END PGP SIGNATURE-----
+Peter Ujfalusi (5):
+  ASoC: pcm512x: sort the register default table
+  ASoC: tas2552: sort the register default table
+  ASoC: tas2764: sort the register default table
+  ASoC: tas2780: sort the register default table
+  ASoC: tas675x: sort the register default table
 
---BAoF9D0HFNL3ES48--
+ sound/soc/codecs/pcm512x.c | 40 +++++++++++++++++++-------------------
+ sound/soc/codecs/tas2552.c | 14 ++++++-------
+ sound/soc/codecs/tas2764.c |  2 +-
+ sound/soc/codecs/tas2780.c |  2 +-
+ sound/soc/codecs/tas675x.c | 18 ++++++++---------
+ 5 files changed, 38 insertions(+), 38 deletions(-)
+
+-- 
+2.55.0
+
