@@ -1,257 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82BC3FAE0D
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:42:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 937DC40098E
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:43:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785922972; cv=none; b=t8H0BbLJphLFR6IFxuXewtj5QTaeMg9s2RzTx98ZJroT7Yp05doirm76wsf75+eeYpLYlDAjPE4xtX7IDc8x16N+OWoi+mVKz3YJh2OIxqZ8zf/EkDteQs9KEjUICJkml8yTsBHTTQGmxWEA12q4Wp8HNP1ui15vK2GyRvMDRgw=
+	t=1785923008; cv=none; b=U2e7y9q9wzfSq6uyoS6o8lWlBILfAiVNq3LWF0YgeNKVutSLuUJ0G/DutIqO6HRsH1raHw7eLCqW7+SH275SxTOLYaaUcU+bhwyGZX88qcSMWnnAiexNZnNQHmQ6QD0N4tyOtQ/d5F7b7hXMzBGDsoD94VuIGKkpuuwsKFKzr+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785922972; c=relaxed/simple;
-	bh=ghSal12/lXctFL5TgDCy13IiLhVABkl+tgJzruVxUYU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iEI/5GeOPYTjLT56BfcJ0ama8QR+PTlpoxwb+8BrPFQlLBkGC3+JBY9tUjpmU/z+ok5IASehkndXy51YZ8Iy/y5v3wfGX+K0FPR//yWQvK322rEE4nelNLxCxOfBTsnxEeyCpCiLVmO3TDaHph36MRKlpuXXhJul1nIHvuHjSzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qGEploz4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785923008; c=relaxed/simple;
+	bh=cAmghhGppToWtHfEqpafMG+DPcIUgKmheEzXiL1IBbs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dQ/Y8VxCAShAtdyC5GQOCySDXd6NwvTLrfzOSOfD9L5Feghzgq0ejL/Q4BkQpwcGwT6wsGizE3xYaEvZiGu84WJHy4yeNO72535GsZd7QZG7aguvaTrzd46u+dX9l+HEqMdKHzHRrUCo/LSHtytjdyi+1A+DEWMT6+Rzimuyp3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=liUFiY/8; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qGEploz4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E7421F000E9;
-	Wed,  5 Aug 2026 09:42:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785922971;
-	bh=7geiIChADgNinuWLVNBW74gTyrD9BwEgPblEDSFJrMI=;
-	h=Subject:To:Cc:From:Date;
-	b=qGEploz47Q3u4h9M1XlsmF0RDTU25AuWdqqJMaEOaWw2/3924/I6ohZnhI0P3hGV4
-	 lko1T0RMixs1Lz7m/4unv+goMc5Ud2g2+JMAxDIrKQJE0gXrMVhnRoIqux7xqN/rBa
-	 nx2WF5VdwJXx+yYptoDGCTK4gm0SHk36cN/zCYJE=
-Subject: FAILED: patch "[PATCH] Bluetooth: mgmt: fix UAF in pair command cancellation" failed to apply to 5.10-stable tree
-To: xizh2024@lzu.edu.cn,enjou1224z@gmail.com,luiz.von.dentz@intel.com,vega@nebusec.ai
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 11:39:49 +0200
-Message-ID: <2026080549-footboard-custody-531e@gregkh>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="liUFiY/8"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EC3E716F3
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 02:43:21 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id BDBF23F66F
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 02:43:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1785923006; bh=cAmghhGppToWtHfEqpafMG+DPcIUgKmheEzXiL1IBbs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=liUFiY/8lVG9nbq9+XD8yhwvAVR17Ex6A02ED6THKhH8kmrAVsQUOjkeI/uEQlZK/
+	 QJcCsZ4l27H+fDHkfoosG7JXPCepY9569w6ee84eNND4sT9o99feZVJw0QXJnGi//9
+	 p0+FG7S6nAZUCHNs6ZFCzmVXDzjOEQkk5CCoAZVE=
+Date: Wed, 5 Aug 2026 10:43:12 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Osama Abdelkader <osama.abdelkader@gmail.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/panthor: validate userspace queue count against
+ initialized firmware slot count
+Message-ID: <anMFsGwrHRpB4hVq@e142607>
+References: <20260804160048.174148-1-osama.abdelkader@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260804160048.174148-1-osama.abdelkader@gmail.com>
 
+On Tue, Aug 04, 2026 at 06:00:47PM +0200, Osama Abdelkader wrote:
+> In panthor_drv.c:panthor_ioctl_group_create(),
+> the queue count is validated against the hardcoded maximum:
+> 
+> 	if (!args->queues.count || args->queues.count > MAX_CS_PER_CSG)
+> 		return -EINVAL;
+> 
+> However, if the firmware reports fewer slots than MAX_CS_PER_CSG,
+> panthor_fw_init_ifaces() will only initialize that smaller number of
+> stream interfaces.
+> 
+> If unprivileged userspace requests more queues than the firmware reported
+> (but no more than MAX_CS_PER_CSG), cs_slot_prog_locked() fetches an
+> uninitialized stream interface and may crash when dereferencing
+> cs_iface->input->ringbuf_base.
+> 
+> Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+> Cc: stable@vger.kernel.org
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://sashiko.dev/#/patchset/20260803141149.68182-1-osama.abdelkader@gmail.com?part=1
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Best regards,
+Liviu
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x d0a7b48ad0921bd88effaee10bf970ab1d5d0ddd
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080549-footboard-custody-531e@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+> ---
+>  drivers/gpu/drm/panthor/panthor_sched.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 5832dccfc093..64749750e6ee 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -3673,6 +3673,9 @@ int panthor_group_create(struct panthor_file *pfile,
+>  	    hweight64(group_args->tiler_core_mask) < group_args->max_tiler_cores)
+>  		return -EINVAL;
+>  
+> +	if (group_args->queues.count > sched->cs_slot_count)
+> +		return -EINVAL;
+> +
+>  	group = kzalloc_obj(*group);
+>  	if (!group)
+>  		return -ENOMEM;
+> -- 
+> 2.43.0
+> 
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From d0a7b48ad0921bd88effaee10bf970ab1d5d0ddd Mon Sep 17 00:00:00 2001
-From: Zihan Xi <xizh2024@lzu.edu.cn>
-Date: Tue, 21 Jul 2026 22:36:07 +0800
-Subject: [PATCH] Bluetooth: mgmt: fix UAF in pair command cancellation
-
-The pairing completion and authentication failure callbacks look up the
-pending MGMT_OP_PAIR_DEVICE command by walking hdev->mgmt_pending. The
-lookup returned a command that was still linked on the shared pending list,
-without keeping mgmt_pending_lock held for the later dereference and
-removal.
-
-A concurrent MGMT_OP_CANCEL_PAIR_DEVICE request can remove and free the
-same pending command before the callback uses it. The reverse race is also
-possible when cancel_pair_device() gets a command from pending_find() and a
-callback removes it before the cancel path dereferences it. This can lead
-to a use-after-free and a second list_del().
-
-Make the pairing lookup helpers transfer ownership of the pending command
-by removing it from hdev->mgmt_pending while holding mgmt_pending_lock.
-The callbacks and cancel path then complete the command and free it
-directly, so racing paths cannot find or free the same command again. Take
-a temporary hci_conn reference in cancel_pair_device() because the command
-completion drops the reference stored in the pending command.
-
-Fixes: e9a416b5ce0c ("Bluetooth: Add mgmt_pair_device command")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: Codex:gpt-5.4
-Signed-off-by: Zihan Xi <xizh2024@lzu.edu.cn>
-Reviewed-by: Ren Wei <enjou1224z@gmail.com>
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index 1db10e0f617f..4fd37ac79986 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -3514,11 +3514,13 @@ static int set_io_capability(struct sock *sk, struct hci_dev *hdev, void *data,
- 				 NULL, 0);
- }
- 
--static struct mgmt_pending_cmd *find_pairing(struct hci_conn *conn)
-+static struct mgmt_pending_cmd *remove_pairing(struct hci_conn *conn)
- {
- 	struct hci_dev *hdev = conn->hdev;
- 	struct mgmt_pending_cmd *cmd;
- 
-+	mutex_lock(&hdev->mgmt_pending_lock);
-+
- 	list_for_each_entry(cmd, &hdev->mgmt_pending, list) {
- 		if (cmd->opcode != MGMT_OP_PAIR_DEVICE)
- 			continue;
-@@ -3526,9 +3528,39 @@ static struct mgmt_pending_cmd *find_pairing(struct hci_conn *conn)
- 		if (cmd->user_data != conn)
- 			continue;
- 
-+		list_del(&cmd->list);
-+		mutex_unlock(&hdev->mgmt_pending_lock);
- 		return cmd;
- 	}
- 
-+	mutex_unlock(&hdev->mgmt_pending_lock);
-+
-+	return NULL;
-+}
-+
-+static struct mgmt_pending_cmd *remove_pairing_by_addr(struct hci_dev *hdev,
-+						       bdaddr_t *bdaddr)
-+{
-+	struct mgmt_pending_cmd *cmd;
-+	struct hci_conn *conn;
-+
-+	mutex_lock(&hdev->mgmt_pending_lock);
-+
-+	list_for_each_entry(cmd, &hdev->mgmt_pending, list) {
-+		if (cmd->opcode != MGMT_OP_PAIR_DEVICE)
-+			continue;
-+
-+		conn = cmd->user_data;
-+		if (bacmp(bdaddr, &conn->dst) != 0)
-+			continue;
-+
-+		list_del(&cmd->list);
-+		mutex_unlock(&hdev->mgmt_pending_lock);
-+		return cmd;
-+	}
-+
-+	mutex_unlock(&hdev->mgmt_pending_lock);
-+
- 	return NULL;
- }
- 
-@@ -3566,10 +3598,10 @@ void mgmt_smp_complete(struct hci_conn *conn, bool complete)
- 	u8 status = complete ? MGMT_STATUS_SUCCESS : MGMT_STATUS_FAILED;
- 	struct mgmt_pending_cmd *cmd;
- 
--	cmd = find_pairing(conn);
-+	cmd = remove_pairing(conn);
- 	if (cmd) {
- 		cmd->cmd_complete(cmd, status);
--		mgmt_pending_remove(cmd);
-+		mgmt_pending_free(cmd);
- 	}
- }
- 
-@@ -3579,14 +3611,14 @@ static void pairing_complete_cb(struct hci_conn *conn, u8 status)
- 
- 	BT_DBG("status %u", status);
- 
--	cmd = find_pairing(conn);
-+	cmd = remove_pairing(conn);
- 	if (!cmd) {
- 		BT_DBG("Unable to find a pending command");
- 		return;
- 	}
- 
- 	cmd->cmd_complete(cmd, mgmt_status(status));
--	mgmt_pending_remove(cmd);
-+	mgmt_pending_free(cmd);
- }
- 
- static void le_pairing_complete_cb(struct hci_conn *conn, u8 status)
-@@ -3598,14 +3630,14 @@ static void le_pairing_complete_cb(struct hci_conn *conn, u8 status)
- 	if (!status)
- 		return;
- 
--	cmd = find_pairing(conn);
-+	cmd = remove_pairing(conn);
- 	if (!cmd) {
- 		BT_DBG("Unable to find a pending command");
- 		return;
- 	}
- 
- 	cmd->cmd_complete(cmd, mgmt_status(status));
--	mgmt_pending_remove(cmd);
-+	mgmt_pending_free(cmd);
- }
- 
- static int pair_device(struct sock *sk, struct hci_dev *hdev, void *data,
-@@ -3762,23 +3794,17 @@ static int cancel_pair_device(struct sock *sk, struct hci_dev *hdev, void *data,
- 		goto unlock;
- 	}
- 
--	cmd = pending_find(MGMT_OP_PAIR_DEVICE, hdev);
-+	cmd = remove_pairing_by_addr(hdev, &addr->bdaddr);
- 	if (!cmd) {
- 		err = mgmt_cmd_status(sk, hdev->id, MGMT_OP_CANCEL_PAIR_DEVICE,
- 				      MGMT_STATUS_INVALID_PARAMS);
- 		goto unlock;
- 	}
- 
--	conn = cmd->user_data;
--
--	if (bacmp(&addr->bdaddr, &conn->dst) != 0) {
--		err = mgmt_cmd_status(sk, hdev->id, MGMT_OP_CANCEL_PAIR_DEVICE,
--				      MGMT_STATUS_INVALID_PARAMS);
--		goto unlock;
--	}
-+	conn = hci_conn_get(cmd->user_data);
- 
- 	cmd->cmd_complete(cmd, MGMT_STATUS_CANCELLED);
--	mgmt_pending_remove(cmd);
-+	mgmt_pending_free(cmd);
- 
- 	err = mgmt_cmd_complete(sk, hdev->id, MGMT_OP_CANCEL_PAIR_DEVICE, 0,
- 				addr, sizeof(*addr));
-@@ -3796,6 +3822,8 @@ static int cancel_pair_device(struct sock *sk, struct hci_dev *hdev, void *data,
- 	if (conn->conn_reason == CONN_REASON_PAIR_DEVICE)
- 		hci_abort_conn(conn, HCI_ERROR_REMOTE_USER_TERM);
- 
-+	hci_conn_put(conn);
-+
- unlock:
- 	hci_dev_unlock(hdev);
- 	return err;
-@@ -10137,14 +10165,14 @@ void mgmt_auth_failed(struct hci_conn *conn, u8 hci_status)
- 	ev.addr.type = link_to_bdaddr(conn->type, conn->dst_type);
- 	ev.status = status;
- 
--	cmd = find_pairing(conn);
-+	cmd = remove_pairing(conn);
- 
- 	mgmt_event(MGMT_EV_AUTH_FAILED, conn->hdev, &ev, sizeof(ev),
- 		    cmd ? cmd->sk : NULL);
- 
- 	if (cmd) {
- 		cmd->cmd_complete(cmd, status);
--		mgmt_pending_remove(cmd);
-+		mgmt_pending_free(cmd);
- 	}
- }
- 
-
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
