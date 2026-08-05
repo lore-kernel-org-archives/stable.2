@@ -1,119 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0D63C13F1;
-	Wed,  5 Aug 2026 02:26:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCED3248881
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 02:43:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785896817; cv=none; b=XvW7Ag3hLDNAkMamaAtythzFrXO3xgRlfleHZK6Hg+MBipM9/iJUDBy3kU8CiW0Hoo0EE+L/zb80U0vC3hLZOR+NiSCXwrl2snLYw3YVHNX0QikZflYLqHC2SBmhJ1p47c41+2dI7TtU01kZEir7e7ARmJUTSbp10V2hFtYYNNQ=
+	t=1785897789; cv=none; b=Ke92yosRQLSOILwrPHCl1WrvNPoqJ+G2jOJo2KWYdbQXf2K/fQTgACI96iiJNmz7CO0xRZRpFxmIHjoiAGCDtClKaP9dbLDo1rZPmtal/OCGRoykUOyg5QdLK37MC6MG17z/rGU7hBYwnMfoVO+/+iC6sf+ikPgTtUAIeVtN5tw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785896817; c=relaxed/simple;
-	bh=H3FrjSIraR80p2CZlaq5/7JyYYGeW1X0Oh/iyhx4a/Q=;
-	h=Date:To:From:Subject:Message-Id; b=jG/VNCxWjUCkOENiM94Bg6NfIICOwE5rGPBTqrpHkNufng4MsSDddrSDvqs8lSmfbBbA2BTEgsmzAtMY1PlEmJ3cO7qgaQMHZxmUd8aFg8EdsZflt5AKXhgnoAdhLYGKqH/1yN50GQmghOtWs43txk8NPAEKhFtQvs2M+PMoCQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=J8VkFF0/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785897789; c=relaxed/simple;
+	bh=B2ySGNq5kQanpzdvu8EippjFZxeefw2XxCuyXxiXU2E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NDlI202DClF1lKoYgWNWRbgSZk0F1qQZkFb/1eCAW0BQ6U2ugGztAdXccT5Zt3Y5PE9kyLYBQ9ijjnp5mD62KSbRnUM5J/tX8TsafTaG56svdMKevUd+C3MTAfqyOPBYT/YxIo0m4/5HzxLB7stjPN8OsjnLkl1kBkQXh1S8Z2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NUinAz2m; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="J8VkFF0/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A58451F000E9;
-	Wed,  5 Aug 2026 02:26:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785896815;
-	bh=2hQ+V1xyu+sEA7PQRPHGglWz5JXM/dwxPlnEY46jk6E=;
-	h=Date:To:From:Subject;
-	b=J8VkFF0/HM1VivN+f+nfB+UzbpcS7Eblm0XlwxASNerV0+hXY7ZgTceBidqT2fbcd
-	 1/BB/jARl/qSmUKwD6/sCA4bPIhI4srDynXKYzAItFUfamqKjGh/5lUUoZHGwMfHmT
-	 WXkv5UBHgMktPsIKSCCqGypCoBEuOIfC/tX2sd1c=
-Date: Tue, 04 Aug 2026 19:26:55 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@kernel.org,hannes@cmpxchg.org,cuitao@kylinos.cn,alex@ghiti.fr,zhangguopeng@kylinos.cn,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-memcontrol-update-state_local-when-flushing-nmi-stats.patch removed from -mm tree
-Message-Id: <20260805022655.A58451F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NUinAz2m"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785897787; x=1817433787;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=B2ySGNq5kQanpzdvu8EippjFZxeefw2XxCuyXxiXU2E=;
+  b=NUinAz2mwDoM7wEzWSE508qH2p6F/FLTRUxdRwu+TsSl78kmPW0r2Y1T
+   4kAPpX/DBfavvAKpgxmLGbJmFIjhq5eIWpTZlu9VuiB6z5Jqs6m+RMK+T
+   sf+gj98r2y0ffDnMIoCCptOjtVrOJ7aS/ufPywYumvAM7r7ocCE217xkV
+   I8wG1U8Fn8ah/46aYvm33Ka8W6ZJbuIWTVGWvKKBHSx8ycNYO3Sdec3Tp
+   b+rrzpFxZ44wMtUaq4ExwgyMhocB1YqMzldIPnHbPjUTRoVFSD1fSAQsp
+   +fBL4X129P7geZz8mCxFqDbMQ3u+zgbuMJcdi4PnUmy2xBUOXDow9g/fw
+   Q==;
+X-CSE-ConnectionGUID: Zdh8q/4nQ6abIsE84BX0qg==
+X-CSE-MsgGUID: CbMGlzCIQ9GK16ONFcdg8A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="85585770"
+X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; 
+   d="scan'208";a="85585770"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 19:43:06 -0700
+X-CSE-ConnectionGUID: Jeg6EypwQNWyBnzXyBQd2w==
+X-CSE-MsgGUID: c6Z/SfuSQDirhQnjVPk8jg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; 
+   d="scan'208";a="291612674"
+Received: from orsosgc001.jf.intel.com ([10.88.27.185])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 19:43:05 -0700
+From: Ashutosh Dixit <ashutosh.dixit@intel.com>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1.y v2 0/8]  drivers/gpu/drm/xe: Don't whitelist OA registers unconditionally
+Date: Tue,  4 Aug 2026 19:42:52 -0700
+Message-ID: <20260805024300.3406307-1-ashutosh.dixit@intel.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Backport of the following series to Linux 7.1.y:
 
-The quilt patch titled
-     Subject: mm: memcontrol: update state_local when flushing NMI stats
-has been removed from the -mm tree.  Its filename was
-     mm-memcontrol-update-state_local-when-flushing-nmi-stats.patch
+https://lore.kernel.org/intel-xe/20260615224227.34880-1-ashutosh.dixit@intel.com/
 
-This patch was dropped because it was merged into the mm-stable branch
-of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+v2: Fix upstream commit sha's (Sasha Levin)
 
-------------------------------------------------------
-From: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Subject: mm: memcontrol: update state_local when flushing NMI stats
-Date: Mon, 13 Jul 2026 16:50:53 +0800
+Ashutosh Dixit (8):
+  drm/xe/rtp: Maintain OA whitelists separately
+  drm/xe/rtp: Keep track of non-OA nonpriv slots
+  drm/xe/rtp: Generalize whitelist_apply_to_hwe
+  drm/xe/rtp: Save OA nonpriv registers to register save/restore lists
+  drm/xe/rtp: Toggle 'deny' bit to (de-)whitelist OA regs
+  drm/xe/rtp: (De-)whitelist OA registers for all hwe's for a gt
+  drm/xe/oa: (De-)whitelist OA registers on OA stream open/release
+  drm/xe/rtp: Ensure locking/ref counting for OA whitelists
 
-flush_nmi_stats() updates state[] for kmem and slab counters but leaves
-the corresponding state_local[] counters unchanged.  Local kmem and slab
-statistics therefore miss updates collected through the NMI-safe atomic
-path.
+ drivers/gpu/drm/xe/xe_gt_debugfs.c      |  4 +-
+ drivers/gpu/drm/xe/xe_hw_engine.c       |  2 +
+ drivers/gpu/drm/xe/xe_hw_engine_types.h |  8 +++
+ drivers/gpu/drm/xe/xe_oa.c              |  7 ++
+ drivers/gpu/drm/xe/xe_oa_types.h        |  3 +
+ drivers/gpu/drm/xe/xe_reg_whitelist.c   | 87 +++++++++++++++++++++++--
+ drivers/gpu/drm/xe/xe_reg_whitelist.h   |  4 ++
+ 7 files changed, 108 insertions(+), 7 deletions(-)
 
-Update state_local[] together with state[].
-
-Link: https://lore.kernel.org/20260713085053.2916813-1-guopeng.zhang@linux.dev
-Fixes: 940b01fc8dc1 ("memcg: nmi safe memcg stats for specific archs")
-Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Acked-by: Tao Cui <cuitao@kylinos.cn>
-Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Alexandre Ghiti <alex@ghiti.fr>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/memcontrol.c |    5 +++++
- 1 file changed, 5 insertions(+)
-
---- a/mm/memcontrol.c~mm-memcontrol-update-state_local-when-flushing-nmi-stats
-+++ a/mm/memcontrol.c
-@@ -4443,6 +4443,7 @@ static void flush_nmi_stats(struct mem_c
- 		int index = memcg_stats_index(MEMCG_KMEM);
- 
- 		memcg->vmstats->state[index] += kmem;
-+		memcg->vmstats->state_local[index] += kmem;
- 		if (parent)
- 			parent->vmstats->state_pending[index] += kmem;
- 	}
-@@ -4460,9 +4461,11 @@ static void flush_nmi_stats(struct mem_c
- 			int index = memcg_stats_index(NR_SLAB_RECLAIMABLE_B);
- 
- 			lstats->state[index] += slab;
-+			lstats->state_local[index] += slab;
- 			if (plstats)
- 				plstats->state_pending[index] += slab;
- 			memcg->vmstats->state[index] += slab;
-+			memcg->vmstats->state_local[index] += slab;
- 			if (parent)
- 				parent->vmstats->state_pending[index] += slab;
- 		}
-@@ -4471,9 +4474,11 @@ static void flush_nmi_stats(struct mem_c
- 			int index = memcg_stats_index(NR_SLAB_UNRECLAIMABLE_B);
- 
- 			lstats->state[index] += slab;
-+			lstats->state_local[index] += slab;
- 			if (plstats)
- 				plstats->state_pending[index] += slab;
- 			memcg->vmstats->state[index] += slab;
-+			memcg->vmstats->state_local[index] += slab;
- 			if (parent)
- 				parent->vmstats->state_pending[index] += slab;
- 		}
-_
-
-Patches currently in -mm which might be from zhangguopeng@kylinos.cn are
-
-mm-memcg-v1-account-vmpressure-event-allocations.patch
-mm-memcg-v1-fix-wrong-linux-mm-list-address-in-deprecation-warnings.patch
-mm-memcontrol-drop-unused-cpu-argument-from-flush_nmi_stats.patch
-mm-memcontrol-factor-out-memcg-kmem-uncharge-sequence.patch
-mm-memcg-v1-make-mem_cgroup_oom_notify_cb-return-void.patch
-mm-memcg-stop-reclaim-when-a-limit-update-is-superseded.patch
+-- 
+2.54.0
 
