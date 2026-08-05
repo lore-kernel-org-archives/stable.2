@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF7C541BA80
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 11:44:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC464399D3
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 11:48:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785930284; cv=none; b=j1l9gLWmB37oVHp9Wq8DIdMj9N59eZRJoGB06B7tLy2HQysryH6hLs5hRnTc1sdyDqG1EUrN2kaXtqahJe6lEC6TzZLLMsLYf1BEpE6bOokoPxtBmVWmdpB3/mcjKj0ZRMwCdXnV/rassV4Ys737b/qvoGNbeW25tSplhu3zRZg=
+	t=1785930522; cv=none; b=G7YY2A3Xbco45mq8vjCkCGnYbUTJundrRVBYVdrSrRQY6RJ/4MZ9QPwwGmk0OJ5c8yQGUoyfsW5fO5a/ojXuUMWgIoOI4u3njVvX+/96CKkVKVEXynL/XweqUY7loalt3zK/zUEjNSIKcHPq29PVMtyxWx3hJn3bzkT6eNtjMOg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785930284; c=relaxed/simple;
-	bh=VDmoLM47MPNDWVFBPhUMOBKyjC7RQBHFwsMDQ7sgWd8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GJkX/o4LpW34bP10kzrcwDrkMmBOOTmUtjGP4I461Zrx2MChhql4wbe8TrQFUvtRN8jnxzDRYoKYDLoOhHVEAKwQ+xyQLECvvuDJeIpEo7Ic1UpGylzmFLG0NQ6s4BoBrN0G9xM9L7oA0Q9YdjIhSdoisyY9sg2qs8m4tlhARjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=reKYIOOS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785930522; c=relaxed/simple;
+	bh=BjuZ0uc59LA/PZNRBYoLWOkZtDhUZ9yqdA4w+1icc3s=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kB4npEm9F2Wu0P+rF1TL+whTMQQnFSmlW4SGvN5KlO/XW3Rqf8OId/OBYk88nyBZBmYZH0XL6HC13S7okVtPR98MuC5SbK03QAoVgvKr1NlJyyzcsukoUz7Rp8g+VTuRsaahviN/j6qlDbL1uJoJj8lI4qi+NwjEHh7ZGnp1H1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bB3wI6or; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="reKYIOOS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 166641F000E9;
-	Wed,  5 Aug 2026 11:44:42 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bB3wI6or"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E83C81F000E9;
+	Wed,  5 Aug 2026 11:48:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785930283;
-	bh=xbgqScMAH00KggDxMm9XH98E7tS+U+QpU+v9p5sEq9s=;
+	s=korg; t=1785930521;
+	bh=hmoCfnBL/20WP9IJ8W+0qUEywbWAZDDhjxZTEQMmTLA=;
 	h=Subject:To:Cc:From:Date;
-	b=reKYIOOShyOBb8FbmTvyezXXTCRLmgFbq79ID51LEl1YfUAMj4/Dr5R3UgauEX5hB
-	 qw17Cviw3jWmOgEKXlfHK5/Ud72SfVOQTyAUrnQbIgNogNP772r6dwAEbag7M/cW1/
-	 zpFUVKR/G1k5V2mBiiGpe18kLdLmNfx7NM1VS48U=
-Subject: FAILED: patch "[PATCH] i2c: imx: Fix slave registration race and error handling" failed to apply to 5.10-stable tree
-To: liem16213@gmail.com,Frank.Li@nxp.com,andi.shyti@kernel.org,carlos.song@nxp.com,stable@vger.kernel.org
+	b=bB3wI6orI8UJtwPNjjLFDzh2glqmC74Hh+11Diqq+kXmoacSS1/Nb6qswcwBdEwZy
+	 1olDrvIYOo1yL5Cb04aWeKNH5udqTx9ZhzpVXb7/6f3Dxr8ynkUIS30utzvR4zZ9dI
+	 yaEO/ZBbGK1+T3bxFWfAqscFwNFxPBVgHP/b0N7Y=
+Subject: FAILED: patch "[PATCH] mm/huge_memory: unlock i_mmap_rwsem before releasing" failed to apply to 6.12-stable tree
+To: kas@kernel.org,akpm@linux-foundation.org,baohua@kernel.org,baolin.wang@linux.alibaba.com,david@kernel.org,dev.jain@arm.com,lance.yang@linux.dev,liam@infradead.org,linmiaohe@huawei.com,ljs@kernel.org,nao.horiguchi@gmail.com,npache@redhat.com,ryan.roberts@arm.com,stable@vger.kernel.org,zhanghao1@kylinos.cn,ziy@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 13:44:26 +0200
-Message-ID: <2026080526-crazed-dislodge-8584@gregkh>
+Date: Wed, 05 Aug 2026 13:47:01 +0200
+Message-ID: <2026080501-landmark-crabgrass-7664@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x d64ec362c369bbc33833f7936d5f3a706b0d5c45
+git cherry-pick -x e923bd21058ea02fd0dcd3549d151d143fd036e5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080526-crazed-dislodge-8584@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080501-landmark-crabgrass-7664@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,62 +62,93 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From d64ec362c369bbc33833f7936d5f3a706b0d5c45 Mon Sep 17 00:00:00 2001
-From: Liem <liem16213@gmail.com>
-Date: Mon, 29 Jun 2026 10:38:28 +0800
-Subject: [PATCH] i2c: imx: Fix slave registration race and error handling
+From e923bd21058ea02fd0dcd3549d151d143fd036e5 Mon Sep 17 00:00:00 2001
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Date: Thu, 16 Jul 2026 10:54:24 +0100
+Subject: [PATCH] mm/huge_memory: unlock i_mmap_rwsem before releasing
+ after-split folios
 
-In i2c_imx_reg_slave(), the slave pointer was assigned before
-pm_runtime_resume_and_get().  If pm_runtime_resume_and_get() failed,
-the error path returned without clearing i2c_imx->slave, leaving it
-non-NULL and causing all subsequent registration attempts to fail
-with -EBUSY.
+__folio_split() keeps dereferencing the mapping after the split:
+shmem_uncharge(mapping->host) and remap_page() while the folios are still
+frozen/locked, and i_mmap_unlock_read(mapping) at the very end, after the
+after-split folios have been unlocked and freed.
 
-Additionally, because this driver uses a shared IRQ, the interrupt
-handler i2c_imx_isr() can execute concurrently and, after acquiring
-slave_lock, dereference i2c_imx->slave.  The previous fix attempt
-added a lockless i2c_imx->slave = NULL on the error path, but that
-could race with the ISR under the lock and still cause a NULL pointer
-dereference.
+Nothing holds an inode reference across that.  The split relies on @folio
+-- which the beyond-EOF drop loop never removes, as it starts at
+folio_next(folio) -- staying locked and in the page cache to hold off
+eviction.  But the unlock loop unlocks @folio before i_mmap_unlock_read()
+runs.  If the caller's @lock_at is a tail beyond EOF, as memory_failure()
+passes when splitting a poisoned tail of a shmem THP that reaches past
+i_size during truncation, it too is gone from the page cache; so once
+@folio is unlocked no locked, in-cache folio pins the inode, and a
+concurrent final iput() can evict and RCU-free it before
+i_mmap_unlock_read() touches i_mmap_rwsem:
 
-Fix both issues by deferring the assignment of i2c_imx->slave and
-i2c_imx->last_slave_event to after a successful resume, and by
-performing the assignment inside the slave_lock critical section.
-This guarantees that the slave pointer is never left stale on the
-error path and is always valid when observed by the interrupt handler.
+  BUG: KASAN: slab-use-after-free in __up_read+0x634/0x790
+   i_mmap_unlock_read include/linux/fs.h:537 [inline]
+   __folio_split+0x732/0x1640 mm/huge_memory.c:4100
+   try_to_split_thp_page+0xab/0x390 mm/memory-failure.c:1675
+   memory_failure+0x1394/0x26e0 mm/memory-failure.c:2470
 
-Fixes: f7414cd6923f ("i2c: imx: support slave mode for imx I2C driver")
-Signed-off-by: Liem <liem16213@gmail.com>
-Cc: <stable@vger.kernel.org> # v5.11+
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Acked-by: Carlos Song <carlos.song@nxp.com>
-Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
-Link: https://lore.kernel.org/r/20260629023829.152651-2-liem16213@gmail.com
+  Freed by task 4601:
+   shmem_free_in_core_inode+0x54/0xb0 mm/shmem.c:5177
+   evict+0x57f/0xac0 fs/inode.c:870
 
-diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-index d549d630b41a..49859ee494c6 100644
---- a/drivers/i2c/busses/i2c-imx.c
-+++ b/drivers/i2c/busses/i2c-imx.c
-@@ -930,9 +930,6 @@ static int i2c_imx_reg_slave(struct i2c_client *client)
- 	if (i2c_imx->slave)
- 		return -EBUSY;
+Do every mapping dereference while @folio still pins the inode: drop
+i_mmap_rwsem right after remap_page(), before the loop that unlocks and
+frees the after-split folios, and clear @mapping so the exit path does not
+unlock it again.  shmem_uncharge() and remap_page() already run before
+that point, so after this nothing past the unlock loop touches the inode
+or the mapping.
+
+This is now a rule the split depends on, alongside keeping @folio frozen
+until the page cache is updated: no inode or mapping dereference once the
+after-split folios start being unlocked.
+
+Link: https://lore.kernel.org/20260716095424.471052-1-kirill@shutemov.name
+Fixes: baa355fd3314 ("thp: file pages support for split_huge_page()")
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reported-by: Hao Zhang <zhanghao1@kylinos.cn>
+Closes: https://lore.kernel.org/linux-mm/20260710071344.GA106129@zh-pc
+Co-developed-by: Hao Zhang <zhanghao1@kylinos.cn>
+Signed-off-by: Hao Zhang <zhanghao1@kylinos.cn>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 032702a4637b..58cabe6af33d 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4113,6 +4113,18 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
  
--	i2c_imx->slave = client;
--	i2c_imx->last_slave_event = I2C_SLAVE_STOP;
--
- 	/* Resume */
- 	ret = pm_runtime_resume_and_get(i2c_imx->adapter.dev.parent);
- 	if (ret < 0) {
-@@ -940,6 +937,11 @@ static int i2c_imx_reg_slave(struct i2c_client *client)
- 		return ret;
- 	}
+ 	remap_page(folio, 1 << old_order, ttu_flags);
  
-+	scoped_guard(spinlock_irqsave, &i2c_imx->slave_lock) {
-+		i2c_imx->slave = client;
-+		i2c_imx->last_slave_event = I2C_SLAVE_STOP;
++	/*
++	 * Drop the mapping while the inode is still pinned. @folio stays
++	 * locked and present in the page cache until the loop below, so
++	 * eviction cannot free the inode yet; @lock_at is not enough, it may
++	 * be a tail beyond EOF that the split already dropped from the page
++	 * cache. Nothing past this point may touch the inode or the mapping.
++	 */
++	if (mapping) {
++		i_mmap_unlock_read(mapping);
++		mapping = NULL;
 +	}
 +
- 	i2c_imx_slave_init(i2c_imx);
- 
- 	return 0;
+ 	/*
+ 	 * Unlock all after-split folios except the one containing
+ 	 * @lock_at page. If @folio is not split, it will be kept locked.
 
