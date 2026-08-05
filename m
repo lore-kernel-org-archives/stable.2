@@ -1,104 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C3846DFF1
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:13:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3385146D564;
+	Wed,  5 Aug 2026 12:13:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931994; cv=none; b=atMYH0BJrh19ZGqlxKV3Glb8ub9ZykGRZNLWI7TilHoBUi4HhtNNoqYYBPaveREuh4EYLSoCshWU1VCiz7/0yaJ2sopoFyP5Wrm8W2Ctc5q5w0a9Xly39ksULoMBoSonipAryPU/3I9U7RAG/+fjzbSDm4Px5zd85P3zgwq6/dE=
+	t=1785931996; cv=none; b=XDusrQbQt6+g+94xRzQ7ZfwS7nDfR1hyXAYLRAk+xjw0iqqBYOUsydPTLmzx39VlCiEm8jtll1CjS9mi4CUWipMIUr4JTh7U1koCA/KK3k+ndsAOrFBgNFfNqE3gmWtyYMS26ZvrOkpEzoeCiQ6Qr4YiBV463OykGP5dEzk9WQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931994; c=relaxed/simple;
-	bh=UFrZ4ca1A7kaqzuUMuXCda0GWCDqXyoHftB3Mikyx9I=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kk3Ei27yJ9sLig7P9MnVLxpDncFupGC2qRn7jd/v7vP7da5Xe71HVcHYLfalB59EJKQKZnIwkzAIbw1NUMDOSjF0UUrp3f4YydA+8I7CpXsh3A9KUsWsIEfX7LCWOvCjYbhE3uMImUNwDEcOxPO3MZHI8QiPa4mIOLiKz2aXnEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1f8olOeX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785931996; c=relaxed/simple;
+	bh=PspmvCkilmllWs+rB76lptSQjzPJmcGkMkA+NEOqnaE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MJsLhGVZGxgnT9lhwammsgdpz7O8N7aFCk7vztqtK5TjoO/ZdxvE4GXuy6UgJXYRWB0EKlTPSqxznuWTGKv+jsJ4o5jy9zX37AcwwG8m59D0SiCnXDm/28iH8xVVOvQXI6Dtgu/7QB1WT0c7nxJpauYyGLriKHxp1hQldK7+S94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AGGkVtuH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1f8olOeX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA9B81F000E9;
-	Wed,  5 Aug 2026 12:13:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785931993;
-	bh=fvSnEC9IxNFjQBP0xIHeSN3ESNL0kX2y1c2SScZvCHA=;
-	h=Subject:To:Cc:From:Date;
-	b=1f8olOeXTh1VD5FpdWALqJjejtJg1EJK4bzXcjcWbRXfqjZGdY1o7HfmYukDdYlYb
-	 BjM0eVbMYJSUAt7gjpDHxa14Gp0Bmn0qnx2AoP9DT5lekY2GffyhkNvp8vLjPx3kS/
-	 QIOrydIe6Fg/7idMSxtv7/ExRSMTPzyAJIieTtP4=
-Subject: FAILED: patch "[PATCH] drm/amdkfd: Add bounds check for CRAT subtype length" failed to apply to 6.12-stable tree
-To: William.Palacek@amd.com,Alysa.Liu@amd.com,alexander.deucher@amd.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 14:12:46 +0200
-Message-ID: <2026080546-bloomers-primary-c22d@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AGGkVtuH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 765811F00A3A;
+	Wed,  5 Aug 2026 12:13:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785931995;
+	bh=C+lFjplQUImCFc3yxBvZxiknpiJ+7Q6rhfLRxBfmbEQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AGGkVtuHzgL2hdh8PJ1tGbhQo+wMTEV2VX1SswjVSEgXVGaOrYCzXuSbsYnZZkjZ/
+	 +Q9c6pJntK9p6CL/6zWzvG7BQM5a0dgnzSgQTrbPf9WqMXHwblkL2wUSOpc5oAN2zo
+	 ISlNEoPn91aae39J9Z85aicmxgZU4LlR6fIXLC56DwRAr/0b/hSCGcfQoI766JD2Cy
+	 gHd1rAElSRn37q4yaySBthFUOyHX/9hxawdpCn4WR6Qerf73LmC+T68MY8tnoRMRuC
+	 pSo8ws5bODPsEja6yQ3A9FV72Lr3fjJ2DKbJEwpcMQhqDmkWssS2J3y+wPrQl5DQlu
+	 9qFXYX4SPt3WQ==
+Date: Wed, 5 Aug 2026 14:13:12 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] pinctrl: airoha: fix wrong value for PCIe reset pin
+Message-ID: <anMo2J5vNucxUQ7X@lore-desk>
+References: <20260805084143.3901-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cALPqJiXqOVi57wI"
+Content-Disposition: inline
+In-Reply-To: <20260805084143.3901-1-ansuelsmth@gmail.com>
 
+--cALPqJiXqOVi57wI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+> The PCIe reset pin actually require the bit to be set as 0 to work as PCIe
+> reset pin. When the bit is set as 1, then the PCIe reset pin act as a GPIO
+> for GPIO44, GPIO45 and GPIO46.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: 1c8ace2d0725 ("pinctrl: airoha: Add support for EN7581 SoC")
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 6e7566ba4739dd573c331adde1c96690f7a567bd
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080546-bloomers-primary-c22d@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+> ---
+>  drivers/pinctrl/airoha/pinctrl-airoha.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
+roha/pinctrl-airoha.c
+> index 04b4424c688b..6409572c0a4b 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+> @@ -1412,7 +1412,7 @@ static const struct airoha_pinctrl_func_group pcie_=
+reset_func_group[] =3D {
+>  			AIROHA_FUNC_MUX,
+>  			REG_GPIO_PON_MODE,
+>  			GPIO_PCIE_RESET0_MASK,
+> -			GPIO_PCIE_RESET0_MASK
+> +			0
+>  		},
+>  		.regmap_size =3D 1,
+>  	}, {
+> @@ -1421,7 +1421,7 @@ static const struct airoha_pinctrl_func_group pcie_=
+reset_func_group[] =3D {
+>  			AIROHA_FUNC_MUX,
+>  			REG_GPIO_PON_MODE,
+>  			GPIO_PCIE_RESET1_MASK,
+> -			GPIO_PCIE_RESET1_MASK
+> +			0
+>  		},
+>  		.regmap_size =3D 1,
+>  	}, {
+> @@ -1430,7 +1430,7 @@ static const struct airoha_pinctrl_func_group pcie_=
+reset_func_group[] =3D {
+>  			AIROHA_FUNC_MUX,
+>  			REG_GPIO_PON_MODE,
+>  			GPIO_PCIE_RESET2_MASK,
+> -			GPIO_PCIE_RESET2_MASK
+> +			0
+>  		},
+>  		.regmap_size =3D 1,
+>  	},
+> --=20
+> 2.53.0
+>=20
 
-Possible dependencies:
+--cALPqJiXqOVi57wI
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCanMo2AAKCRA6cBh0uS2t
+rBdvAP4nq6dzH7iLyJf2CZPFcV/zjU6EL+Hp7Uvjl04IAZKvIAEA/4h2d+AyfD+z
+lFKjbycUQMhImimRpwNHPASCGbQO2Qo=
+=lvz5
+-----END PGP SIGNATURE-----
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 6e7566ba4739dd573c331adde1c96690f7a567bd Mon Sep 17 00:00:00 2001
-From: William Palacek <William.Palacek@amd.com>
-Date: Mon, 6 Jul 2026 10:25:58 -0400
-Subject: [PATCH] drm/amdkfd: Add bounds check for CRAT subtype length
-
-The CRAT parser validates that the subtype header fits within the image,
-but does not verify that the advertised subtype length fits. A malformed
-CRAT table with an oversized length field causes out-of-bounds reads when
-kfd_parse_subtype() casts the header to specific subtype structures.
-
-Add validation that sub_type_hdr + length does not exceed the image
-boundary before parsing the subtype contents.
-
-Signed-off-by: William Palacek <William.Palacek@amd.com>
-Reviewed-by: Alysa Liu <Alysa.Liu@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 48e1d1e6e8798aef0312e68d8e586021b5b3cf4d)
-Cc: stable@vger.kernel.org
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 2a239f45fc24..6e0df685503d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1412,6 +1412,15 @@ int kfd_parse_crat_table(void *crat_image, struct list_head *device_list,
- 			break;
- 		}
- 
-+		/* Validate subtype fits within remaining image */
-+		if ((char *)sub_type_hdr + sub_type_hdr->length >
-+		    (char *)crat_image + image_len) {
-+			pr_warn("CRAT subtype length %u exceeds image bounds\n",
-+				sub_type_hdr->length);
-+			ret = -EINVAL;
-+			break;
-+		}
-+
- 		if (sub_type_hdr->flags & CRAT_SUBTYPE_FLAGS_ENABLED) {
- 			ret = kfd_parse_subtype(sub_type_hdr, device_list);
- 			if (ret)
-
+--cALPqJiXqOVi57wI--
