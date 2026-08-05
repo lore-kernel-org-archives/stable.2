@@ -1,241 +1,121 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899903E63A2
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 08:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419193E315E;
+	Wed,  5 Aug 2026 08:40:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785919036; cv=none; b=kh3JM53snV9C9I5RcAM1dYca0JBEf6v4OKIhJvil8pp2Tc7KdMmlDO9MzldJlojVod1xa8NfZpnuGbsMYSNnrTZOG2C6Ge//rsf5c0c8ooVjxZTnEK2k0OrWCY4XhekjKaSDsbs3+ycwC1J3Lo8Weeqzhg5Nf6vN1FI9LiZ4xcg=
+	t=1785919232; cv=none; b=O+FfIOYSYV+dsuPWf77jV0oaOs7UNlRvQwYSZzs3up7/ZOhuKG5rLUH6ztfM7LyfH69NG02w82ysw14EDtqFbzj4JgVaZdIEg+rB0cWmND9qqwpBsJnkS/elzqSJHQKShG/uHLdJg2gM82JwiuA/DdSm9Ws5XmJs9uwQZkQozQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785919036; c=relaxed/simple;
-	bh=+MDtHi6dPC1QIQzo0Z88w/cZsFiMqPteqBivyJBKpj0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IErBhNSF5AgG6zHm1n6KSAZr9fiLt2q3GboxFOeQOAENg/SydKFXiCOMacq3trx46iuF/Cd8IUeVMQf/9En8WZrqMPLfHIKaHj1q4/kntKcCNyh/+/FKAI85pwfAyaMJYo+XdMHBi57lijjQw/FZvouBK94Hn4T335R5gttx+o4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lQ4OPqTW; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785919232; c=relaxed/simple;
+	bh=gcB4lEiCOaCymtow9fcgrR+qMGvRF0K+NeIA+CgVvm4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ks3QGssrHk5SeuFa0HFZO6aM5BfkUNgbe4otG7ZstJcQ7bl4npKbb2yf/PL+rov4+LGv2Der7A6JPfVoGOQS1hBKfMOB483MqAvBEfIrXiU+YXa1BT9jtzDIth9+QBqAUDJRX+AbIhuz/oYNLp4QrdBaCulSed1JxX2ligOTeWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=caQutrPB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=UEHrnR3h; arc=none smtp.client-ip=103.168.172.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lQ4OPqTW"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47f7027ca11so432829f8f.3
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 01:37:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785919032; x=1786523832; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=o6L5hEIACrzWkfhK+g6IqcfRxL0gKu8KPahN+8ZtlEc=;
-        b=lQ4OPqTWOGzA6nE29/Hb24sAAytpQUkAuHzeHOMAgBO9BKrtaftSv4i8k56pB46uYF
-         oVQN4D1HG3GNRLQkq66PNJqlysCxHAzdRaJ70CAPl3gwtprw9SDwucHhhQ75pJMruPGU
-         o3+jcsRfNHcSEAFQre1iH/FFJWIYgxPsoeGZnX04U+X1LCPcprb3PMGcoodeL7LKrz+A
-         F+tJI9O7BFFXknTljpQU/tgDXc3CkXQS+eveAJiX8W/SoTvUTZpf8h4J7PC+Mn5YW0Dr
-         ZgKz5ml7c7FbUX6Wri+i8wKKntKS2QGE8Eg2qYM8pLKdTasMFRWIG32wbcoGHONJb4CP
-         TWbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785919032; x=1786523832;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o6L5hEIACrzWkfhK+g6IqcfRxL0gKu8KPahN+8ZtlEc=;
-        b=d4kdGHsSMEbgJQsjs7ZWLbD+0xXaijC5GmpfEW9y0p5IFQBu9LL4O11ntgW0YEwcC9
-         5xMHmrgdx+l7hp0dKQSu0ht6x+MGTZa1qrujSWgiz7BKMMhIYr+TUogWM4AGiNUDEYlf
-         2b56X+E6KO2U6tt383tVe7ee/wvmLElxPPbJwnEsnNJQ1FiJnzB/MdMUhr357OUAs5wd
-         4HlhwWAlSHywCN2lRVqd8XvxBXpgjOakKRg+Zm+lKDdPYwYNMq5NDHoVIOnRCeJX60kJ
-         3dMfB+jINptuqFG34HR2cPV/+3akzmDN8SbBlabc8dsTPUEO8Lv8tk18XXUMm4Y++WnJ
-         9d1w==
-X-Forwarded-Encrypted: i=1; AHgh+Rok8r28NwMdNZU7XtbwYHjzkrY9de5FOhSTvLw1F8gwR5dmpHUkys6+70nkBWWxFIq1lXBBK3w=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz9sttj5Afi4hKqV9tQfBG92IZO59XZfeIFtJsKYmTzO5Ywi/zc
-	djd5f0a659Y1KzV5wJFv4j9qjCvToufnR4j8IJ9K62d7JwB+QVFhhYD+
-X-Gm-Gg: AR+sD11JAqFJeyb9+ER4e1g5qo73QhgusJUV5VRfoYntgljfwQWuyeB3OVhd6JFusD3
-	jEWc189+P/BXKRBzYhPMieADFJtJcMMK5HbkwIvqOi/026Prtr8Mme2ujkUQEbmec5uQAslepm7
-	7yxd7FkAP8TRcZtcHTn80QuZNEBWCWFGq4N7Tgoyvo6ZwXvfGXw0WGHMWkWO1P8dk/aQ0YXZQjn
-	P3KKHBUUkx630aGmPzpqpkxwf5Zs1kU4ge6AG2pzTxudSMmwBgIRvhOFoWJpgMCcHUdWQ+kBt4A
-	8N5Fy1UMtDUeSUcOIwgFHF850QxqVOMbCVvsN8Y8ziPhmH3Te/XaV6ZNMwgeQh+dbYJl33v2Q2b
-	ZHTrEgEgZ4ovYgaTf1dckWUyXvsBCqcISA9ppCAkS6zcdlSNku/KhlgJDTOJgFZxtUmSP3QLDyx
-	XLn5ytrcPhOrq9bfn/wiAY/cgIu2V6eV4gbhC+baW6CEyRpY7ZLX1VtyHtCWNhkk3O7r4AuejFQ
-	lRSNVDLEzs/BqnRErWRl3Xntg==
-X-Received: by 2002:a05:6000:29c2:b0:47f:cb30:8591 with SMTP id ffacd0b85a97d-47fec4e712dmr6453147f8f.6.1785919031999;
-        Wed, 05 Aug 2026 01:37:11 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47febfe5ecfsm6952226f8f.11.2026.08.05.01.37.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 01:37:11 -0700 (PDT)
-Date: Wed, 5 Aug 2026 09:37:10 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, ada.coupriediaz@arm.com,
- ardb@kernel.org, catalin.marinas@arm.com, cl@gentwo.org, david@kernel.org,
- james.morse@arm.com, ljs@kernel.org, maz@kernel.org, peterz@infradead.org,
- ruanjinjie@huawei.com, ryan.roberts@arm.com, stable@vger.kernel.org,
- vladimir.murzin@arm.com, will@kernel.org, yang@os.amperecomputing.com
-Subject: Re: [PATCH v2 01/20] arm64: percpu: Fix this_cpu_write() casting
-Message-ID: <20260805093710.3c4baf6c@pumpkin>
-In-Reply-To: <20260804170503.3513916-2-mark.rutland@arm.com>
-References: <20260804170503.3513916-1-mark.rutland@arm.com>
-	<20260804170503.3513916-2-mark.rutland@arm.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="caQutrPB";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="UEHrnR3h"
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 4C7F81400100;
+	Wed,  5 Aug 2026 04:40:30 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-08.internal (MEProxy); Wed, 05 Aug 2026 04:40:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1785919230;
+	 x=1786005630; bh=u1PjjoI35Ws2xcnYvX3C+TUHtz2ZlmJvAor96QUKabY=; b=
+	caQutrPBcR1gVTSgqUwmRD0b1ngXxoBSauOcvTBZ9uwUj3hqmy+a9JNUtk+SrC4a
+	KQblsgJIs58BfYrt7++ezQjszUsLM7gQdhfHa+YzeBlbGLEWVhRJKX3J3jU/m5tH
+	SdHjI1j7QzYirYU/B+nX9qfS6A3y6DQL0yQTofqC42WRDi4eYSMzF+/qgnLJ4q+8
+	Cd8FqRAUUbqgpwBYc6vXRyLmKQqUXan1/y4YTJqcWOq/zq1ZsnezzYO88fqy4Kei
+	rTewqxZDE7iEFmsmXn8fQ2tqvJNQYklBRsZrn9gwG+4HWlsUTGA10vdszDd0Y5C+
+	+0clVaJNfwkUxruZl2nL7Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1785919230; x=
+	1786005630; bh=u1PjjoI35Ws2xcnYvX3C+TUHtz2ZlmJvAor96QUKabY=; b=U
+	EHrnR3hLojszPayrT/Faxv9wJDgv2t+l1UxaJQeNH8Aab4QCGjixBVxiV/vCrK8G
+	YYv3IRpLzxNEzIknytwWEfyNkcNKxUhKuIOvoRZAb3cFqDn+Hu5hkifpxEqHyftm
+	7Ha4yrff7+H4VytseLxI7cyS8oZcv5F1VGAohT3pv3j+amjTnNfqNQ56sT68SODr
+	/NwR7cnd+vQmwGPs2v46XikQxq+idEQWqu5SH3rsLgb8+JIkEBpJh+umOArk0nxg
+	GMnp4HHO/xnYt9YPL9qyCCQkjakXKFZxvuGLOuOzxW8rTkjPEMaKkSRym0Xd90Yq
+	g0GLJD2EIL/R28QW12Z5A==
+X-ME-Sender: <xms:_fZyaqNbY6M34iCEp7c2HCE-vA2zy4gFsb2d2DyyuL1ux1PccwuCuQ>
+    <xme:_fZyaoi1BEjqj95GtcN3RwjwLrue310wIKU78m6wz5lf-uKny74Y6I_AFQH7NEXmB
+    bfPsksDKuZ6muPvApzWfjzij6RrcNddoEpIDUnm99oRSOmB21goUrYd>
+X-ME-Received: <xmr:_fZyalkO9RA3txJKipcYEa9BYfrCQ4Z2HEvgcLEmLCtf5hRmayZv50zMm7Cp40Cw6MRRNUF8gkWakl4U2jFctMV9RKNi6ck>
+X-ME-Proxy-Cause: dmFkZTEAsYWjtkRA35fl88tIw5zGlye6xJH0Q1nXL32ic3sSb02vOCFHVqm2lipD9RQO5P
+    9WG9J1X4W/aA5IQBsYZ/O76E0cghup/SUqxMUwOzc9S0H4JZwgYXLmN/UuPQnx9J6JvQGL
+    2QlXxPmn/FbES0V9ZYAwEStrS9K+CHstwVie2dVjgkUiMUN9YoQMylN7JYR6UFIXU19POU
+    MW9PrtDF2CQ043c/0EsXqAWTvm4tuhkvo9gVBkd//gxSIaBWrQWoJgDg3mi9iXskJvcN/K
+    z8l0yKsPU/7JCOY3bj27Sw9XDDqzlPokTwHpKuaoGl1UIB01kxqJx6UJA0ctWGIpsintro
+    0dicIZqjHM1GdR++NU8xOHGTBty+7r0cTN0fj6n2ZoZ+vmrccdRQIx0/9AYnZC06hpNZhU
+    4ub0A/Z2KrU4FfVQTLNCzFapQgfNkEHGpqbHDOxQPavw+SAQKMpv94mv+kunn8wgc1cypy
+    A1eHdJjdExrCMQgpke3wTfuBttkdSanTClUFSKHqQzopyoGCpRbL0/hE5SQ7YQf6fjoxYx
+    1+BwTV6LD+RXYUyU5Bmo6Tdr19CWIsWZvh6s316eRw07se1NAEjabX5J2AiPfIlWmHLTnS
+    3zD8OqLebw1N9qtEZs0Wd9x9iJnCaHdgKJY38X77lMdHR/uVOYbF+KvvzBUQ
+X-ME-Proxy: <xmx:_fZyatORJwyGSeEp0KMRIz92gV52agIAuR1AkX1FoX9ezct-81ZItw>
+    <xmx:_fZyagE6HGVGdiTfNHVGG6ZJUZ6gKt5gQM3mhSPZyEAm-2eKpQcA1w>
+    <xmx:_fZyajutQkcpzmK6PbYRgGWiC6kwO7olqOO1fRfIkDkX1KXAqUIRLg>
+    <xmx:_fZyagRkMciGU8HKmq3VpgLD-_2hvcIQAt8SF7KuJCgIKtaG6yAgig>
+    <xmx:_vZyaom1qQNDq3HMggwC1XIK7actS2aCI4Z55xrgMIKqFwgol6PN4Iik>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 5 Aug 2026 04:40:28 -0400 (EDT)
+Date: Wed, 5 Aug 2026 10:40:27 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Xuanqiang Luo <xuanqiang.luo@linux.dev>,
+	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
+	paul@pbarker.dev, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, pabeni@redhat.com, richardcochran@gmail.com,
+	masaru.nagai.vx@renesas.com, sergei.shtylyov@cogentembedded.com,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: ravb: fix use-after-free in ravb_get_ts_info
+Message-ID: <20260805084027.GF346309@ragnatech.se>
+References: <20260802090750.116215-1-xuanqiang.luo@linux.dev>
+ <20260802121727.GA2716708@ragnatech.se>
+ <20260804180855.75f6c91c@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260804180855.75f6c91c@kernel.org>
 
-On Tue,  4 Aug 2026 18:04:44 +0100
-Mark Rutland <mark.rutland@arm.com> wrote:
+On 2026-08-04 18:08:55 -0700, Jakub Kicinski wrote:
+> On Sun, 2 Aug 2026 14:17:27 +0200 Niklas Söderlund wrote:
+> > > The PHC is registered by ravb_open() and unregistered by ravb_close().
+> > > However, ravb_ptp_stop() leaves priv->ptp.clock pointing at the freed
+> > > clock. Since the netdev remains registered after ndo_stop, get_ts_info
+> > > can still pass the dangling pointer to ptp_clock_index(), resulting in a
+> > > use-after-free.
+> > > 
+> > > Clear the pointer after unregistering the clock and only advertise hardware
+> > > timestamping support when a PHC is available.
+> > > 
+> > > Fixes: a0d2f20650e8 ("Renesas Ethernet AVB PTP clock driver")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>  
+> > 
+> > Thanks for re spinning this,
+> 
+> The AI reivewer has more comments, but at high level - why unregister
+> the PHC when the device goes down? The clocks stop?
 
-> The arm64 implementation of this_cpu_write() casts 'val' to unsigned
-> long. This is necessary to handle cases where 'val' is a pointer type,
-> and to avoid spurious compiler warnings for the (unreachable!) cases
-> where the pointer type would be cast to a smaller integer type.
-> 
-> Unfortunately, the cast is applied to 'val' rather than '(val)', which
-> won't always generate the expected value when 'val' is an expression.
-> 
-> For example, for this_cpu_write(pcp, zero - 1), where 'pcp' is a u64 and
-> 'zero' is a u32:
-> 
-> * 'zero'                      ===> (u32) 0x00000000
-> * 'zero - 1'                  ===> (u32) 0xffffffff
-> * '(unsigned long)zero - 1'   ===> (u64) 0xffffffffffffffff
-> * '(unsigned long)(zero - 1)' ===> (u64) 0x00000000ffffffff
-> 
-> Fix this by adding brackets around 'val'
-> 
-> The bug described above can be seen from the disassembly of the
-> following test code:
-> 
-> | void this_cpu_write_zero_minus_1(u64 __percpu *pcp)
-> | {
-> | 	u32 zero = 0;
-> | 	this_cpu_write(*pcp, zero - 1);
-> | }
-> |
-> | void this_cpu_write_zero_minus_1_brackets(u64 __percpu *pcp)
-> | {
-> | 	u32 zero = 0;
-> | 	this_cpu_write(*pcp, (zero - 1));
-> | }
-> 
-> Generated code before this patch:
-> 
-> | <this_cpu_write_zero_minus_1>:
-> |        paciasp
-> |        stp     x29, x30, [sp, #-16]!
-> |        mrs     x1, sp_el0
-> |        mov     x29, sp
-> |        ldr     w2, [x1, #8]
-> |        add     w2, w2, #0x1
-> |        str     w2, [x1, #8]
-> |        mov     x3, #0xffffffffffffffff
-> |        mrs     x2, tpidr_el1
-> |        str     x3, [x0, x2]
-> |        ldr     x0, [x1, #8]
-> |        add     x0, x0, x3
-> |        str     w0, [x1, #8]
-> |        cbz     x0, 1f
-> |        ldr     x0, [x1, #8]
-> |        cbnz    x0, 2f
-> | 1:     bl      preempt_schedule_notrace
-> | 2:     ldp     x29, x30, [sp], #16
-> |        autiasp
-> |        ret
-> |
-> | <this_cpu_write_zero_minus_1_brackets>:
-> |        paciasp
-> |        stp     x29, x30, [sp, #-16]!
-> |        mrs     x1, sp_el0
-> |        mov     x29, sp
-> |        ldr     w2, [x1, #8]
-> |        add     w2, w2, #0x1
-> |        str     w2, [x1, #8]
-> |        mov     x3, #0xffffffff
-> |        mrs     x2, tpidr_el1
-> |        str     x3, [x0, x2]
-> |        ldr     x0, [x1, #8]
-> |        sub     x0, x0, #0x1
-> |        str     w0, [x1, #8]
-> |        cbz     x0, 1f
-> |        ldr     x0, [x1, #8]
-> |        cbnz    x0, 2f
-> | 1:     bl      preempt_schedule_notrace
-> | 2:     ldp     x29, x30, [sp], #16
-> |        autiasp
-> |        ret
-> 
-> Generated code after this patch:
-> 
-> | <this_cpu_write_zero_minus_1>:
-> |        paciasp
-> |        stp     x29, x30, [sp, #-16]!
-> |        mrs     x1, sp_el0
-> |        mov     x29, sp
-> |        ldr     w2, [x1, #8]
-> |        add     w2, w2, #0x1
-> |        str     w2, [x1, #8]
-> |        mov     x3, #0xffffffff
-> |        mrs     x2, tpidr_el1
-> |        str     x3, [x0, x2]
-> |        ldr     x0, [x1, #8]
-> |        sub     x0, x0, #0x1
-> |        str     w0, [x1, #8]
-> |        cbz     x0, 1f
-> |        ldr     x0, [x1, #8]
-> |        cbnz    x0, 2f
-> | 1:     bl      preempt_schedule_notrace
-> | 2:     ldp     x29, x30, [sp], #16
-> |        autiasp
-> |        ret
-> |
-> | <this_cpu_write_zero_minus_1_brackets>:
-> |        b       this_cpu_write_zero_minus_1
-> 
-> Fixes: 959bf2fd03b5 ("arm64: percpu: Rewrite per-cpu ops to allow use of LSE atomics")
-> Reported-by: David Laight <david.laight.linux@gmail.com>
-> Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-> Cc: Ard Biesheuvel <ardb@kernel.org>
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: James Morse <james.morse@arm.com>
-> Cc: Jinjie Ruan <ruanjinjie@huawei.com>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Cc: Vladimir Murzin <vladimir.murzin@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Yang Shi <yang@os.amperecomputing.com>
-> Cc: stable@vger.kernel.org
+Yes, PTP clock is in the same power domain as the ndev. When the device 
+go down runtime PM suspends the device so the clock also stops.
 
-I suspect there is no affected code - largely testable by comparing the
-output of two arm64 allmodconfig builds.
-
-Reviewed-by: David Laight <david.laight.linux@gmail.com>
-
-> ---
->  arch/arm64/include/asm/percpu.h | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
-> index b57b2bb009677..63bbfd4944a37 100644
-> --- a/arch/arm64/include/asm/percpu.h
-> +++ b/arch/arm64/include/asm/percpu.h
-> @@ -179,13 +179,13 @@ PERCPU_RET_OP(add, add, ldadd)
->  	_pcp_protect_return(__percpu_read_64, pcp)
->  
->  #define this_cpu_write_1(pcp, val)	\
-> -	_pcp_protect(__percpu_write_8, pcp, (unsigned long)val)
-> +	_pcp_protect(__percpu_write_8, pcp, (unsigned long)(val))
->  #define this_cpu_write_2(pcp, val)	\
-> -	_pcp_protect(__percpu_write_16, pcp, (unsigned long)val)
-> +	_pcp_protect(__percpu_write_16, pcp, (unsigned long)(val))
->  #define this_cpu_write_4(pcp, val)	\
-> -	_pcp_protect(__percpu_write_32, pcp, (unsigned long)val)
-> +	_pcp_protect(__percpu_write_32, pcp, (unsigned long)(val))
->  #define this_cpu_write_8(pcp, val)	\
-> -	_pcp_protect(__percpu_write_64, pcp, (unsigned long)val)
-> +	_pcp_protect(__percpu_write_64, pcp, (unsigned long)(val))
->  
->  #define this_cpu_add_1(pcp, val)	\
->  	_pcp_protect(__percpu_add_case_8, pcp, val)
-
+-- 
+Kind Regards,
+Niklas Söderlund
