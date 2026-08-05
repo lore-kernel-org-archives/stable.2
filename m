@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6D0256C6D
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 00:08:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AF926B777
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 00:08:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785888517; cv=none; b=Dpc8xBZWjFoakasd/b3cfUKAg1B4aEn/39Ha4/96fOWzCjwYPswVd6nK7qVASdAghZQOz58cGqJ5tDjjUoLiv/MrjkZpSaIdIPl4Ie1tQTRGgriSw6GIOGscYD3yJGIZ8n3BjCIcRexTxP6JpbpPG2WtSLvtnIvfyJCW+XWkkIA=
+	t=1785888521; cv=none; b=orr9NFU9bEKfs2q1tjFdVWIPxBnM40vDcKLKfO6Fg3uhLAqUknCyCnhZIOrxINP32FztItwm09xajszijYOauyZFPd4sU0Vqg1jOlhOebhOtm+g0Nxp4TDt+HnDFu63UX/pde/GvSHsMrGqQXdPPcaTzI8E6L3sh9748bVACNYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785888517; c=relaxed/simple;
-	bh=4fcje+r/Eftgg6YPq4zT0/PIpoAIi3EHNJaoa5yiShE=;
+	s=arc-20240116; t=1785888521; c=relaxed/simple;
+	bh=fJ5y3llyqU9f9TFRl+GJNLkOAHMe8CV44jum2LZ6xoQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FT6/baj9sQgZhzqfx4A/EOXpO+5wXby78Z0y7OuDq/n12LH+l4hue9BeUitywerbGqKoC4rWitmny9iTNquCd2J8fdck1xk1tr7cO0Hno3JkIIfZpFOeN+9d9L+xTjtY0kTOivEs3/bUS4HdEBTQYd1OLsPBaYgWs7veSfzgvKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KtDgNhAb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gMxL/U75nSqqNDLfR5mhWvT7hGh+0fuClcxaNgNeOQJFNbdn/qxfhVZVGC9t2NLx0MxwFJ9moebhIhF4iZ4xsSEWZubAPFicr6yVZb1+5a7jK8BuPIzgzDzu5t02nDjCiir5D48Ukq3wd1FpuovVOlLeh0Nq0Kt/PPmecUucu1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3HnUQSj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KtDgNhAb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3601F00A3E;
-	Wed,  5 Aug 2026 00:08:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3HnUQSj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 645191F00A3D;
+	Wed,  5 Aug 2026 00:08:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785888516;
-	bh=8lWKFEW1IT0u1aCULazf8X1tbiyCPC4m70Ygv8f9kHM=;
+	s=k20260515; t=1785888520;
+	bh=m7tve6enV/9Gg0KdXlLK79rv6f8TZQsPVlf/7sPfSMA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KtDgNhAbaKMhHd2V4e9d489CT4gT232b4t3VkgDL749YNtrDdiuwOVZDO6NBap/Zf
-	 6T2wD+hpTqVyI7udTV3lK5aquiMEmI62LBUb4OpMlabYZXNsRYoqWIHf2mCS7eoHJ3
-	 9bGW3md+noovK9VBeI5O39FhHw3NzQF4N2MGTRr4+z0y2KBVA/racxYZJwzTNTlGu9
-	 gxwAOPYI4IHYyFOVbJ2p5TrcOxxNk/+nuE5qBbLMOA+hE4CHc7IO6AF7RljR3qRmJF
-	 M+df/y0H6ACIfeONtrapumuxx1DaYwBg3/rkEvybRCumjglm4azoFLkksjKB2bIdH/
-	 x83PoJC5QQ4Vw==
+	b=K3HnUQSjFXVbxYm3cJL3PC+f2sID3NavJOdAfG4LdjY/vATm7yPvXrI6BUKJeTSfW
+	 RXqmFCOj8cPYY0D80+lUos0lw3WY28hN44/ZM1/YnBXZb8aqLCH2V4tGI8CbrYEn5A
+	 v7792utQU+gf5njvQCzBldznhFDhtXDDP4AKovU6E974OjJaP+PX79fG02Xjwc1abJ
+	 99iiXEMgeLfyeTVkekneoik8APWzFlMzJBM6ZUBJn0rrrxCT2pvzIqWM+WuDU4Yuje
+	 hfnzjhl7AVkF8rvnJqP3I9vi1gCTLpSMuL1Uwe+AH9H6Py+N8gvdCFr9aS6Rw0IK84
+	 D9JQ7RK4NWHXQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] media: qcom: camss: Fix RDI streaming for CSID 340
-Date: Tue,  4 Aug 2026 20:08:33 -0400
-Message-ID: <20260805000833.3902619-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/4] media: i2c: imx219: Drop IMX219_VTS_* macros
+Date: Tue,  4 Aug 2026 20:08:34 -0400
+Message-ID: <20260805000837.3912288-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260805000833.3902619-1-sashal@kernel.org>
-References: <2026072933-pungent-everyday-da96@gregkh>
- <20260805000833.3902619-1-sashal@kernel.org>
+In-Reply-To: <2026072955-ice-rug-c64f@gregkh>
+References: <2026072955-ice-rug-c64f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,90 +48,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-[ Upstream commit cc1c35619c9895f918f9e388e3caa6ab2ff2fbe7 ]
+[ Upstream commit 5ebbdd7aab3321e60a8be23aac1fee4f16644021 ]
 
-Fix streaming from CSIDn RDI1 and RDI2 to VFEn RDI1 and RDI2. A pattern we
-have replicated throughout CAMSS where we use the VC number to populate
-both the VC fields and port fields of the CSID means that in practice only
-VC = 0 on CSIDn:RDI0 to VFEn:RDI0 works.
+The IMX219_VTS_* macros define default VTS values for the modes
+supported by the driver. They are used in a single place, and hinder
+readability compared to using the value directly as a decimal number.
+Drop them.
 
-Fix that for CSID 340 by separating VC and port. Fix to VC zero as a bugfix
-we will look to properly populate the VC field with follow on patches
-later.
-
-Fixes: f0fc808a466a ("media: qcom: camss: Add CSID 340 support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Stable-dep-of: 2c4f1ba73543 ("media: imx219: Fix maximum frame length in lines")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../media/platform/qcom/camss/camss-csid-340.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ drivers/media/i2c/imx219.c | 24 +++++++-----------------
+ 1 file changed, 7 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid-340.c b/drivers/media/platform/qcom/camss/camss-csid-340.c
-index 2b50f9b96a34e..0231985746edf 100644
---- a/drivers/media/platform/qcom/camss/camss-csid-340.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid-340.c
-@@ -74,9 +74,9 @@ static void __csid_ctrl_rdi(struct csid_device *csid, int enable, u8 rdi)
- 	writel_relaxed(!!enable, csid->base + CSID_RDI_CTRL(rdi));
- }
+diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+index 5066a67792391..290bc6c8a4854 100644
+--- a/drivers/media/i2c/imx219.c
++++ b/drivers/media/i2c/imx219.c
+@@ -49,20 +49,10 @@
  
--static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8 vc)
-+static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8 port, u8 vc)
- {
--	struct v4l2_mbus_framefmt *input_format = &csid->fmt[MSM_CSID_PAD_FIRST_SRC + vc];
-+	struct v4l2_mbus_framefmt *input_format = &csid->fmt[MSM_CSID_PAD_FIRST_SRC + port];
- 	const struct csid_format_info *format = csid_get_fmt_entry(csid->res->formats->formats,
- 								   csid->res->formats->nformats,
- 								   input_format->code);
-@@ -88,14 +88,14 @@ static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8
- 	 * the four least significant bits of the five bit VC
- 	 * bitfield to generate an internal CID value.
- 	 *
--	 * CSID_RDI_CFG0(vc)
-+	 * CSID_RDI_CFG0(port)
- 	 * DT_ID : 28:27
- 	 * VC    : 26:22
- 	 * DT    : 21:16
- 	 *
- 	 * CID   : VC 3:0 << 2 | DT_ID 1:0
- 	 */
--	dt_id = vc & 0x03;
-+	dt_id = port & 0x03;
+ /* V_TIMING internal */
+ #define IMX219_REG_VTS			0x0160
+-#define IMX219_VTS_15FPS		0x0dc6
+-#define IMX219_VTS_30FPS_1080P		0x06e3
+-#define IMX219_VTS_30FPS_BINNED		0x06e3
+-#define IMX219_VTS_30FPS_640x480	0x06e3
+-#define IMX219_VTS_MAX			0xffff
++#define IMX219_FLL_MAX			0xffff
  
- 	val = CSID_RDI_CFG0_DECODE_FORMAT_NOP; /* only for RDI path */
- 	val |= FIELD_PREP(CSID_RDI_CFG0_DT_MASK, format->data_type);
-@@ -105,10 +105,11 @@ static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8
- 	if (enable)
- 		val |= CSID_RDI_CFG0_ENABLE;
+ #define IMX219_VBLANK_MIN		4
  
--	dev_dbg(csid->camss->dev, "CSID%u: Stream %s (dt:0x%x vc=%u)\n",
--		csid->id, enable ? "enable" : "disable", format->data_type, vc);
-+	dev_dbg(csid->camss->dev, "CSID%u: Stream %s (dt:0x%x port=%u vc=%u)\n",
-+		csid->id, enable ? "enable" : "disable", format->data_type,
-+		port, vc);
+-/*Frame Length Line*/
+-#define IMX219_FLL_MIN			0x08a6
+-#define IMX219_FLL_MAX			0xffff
+-#define IMX219_FLL_STEP			1
+-#define IMX219_FLL_DEFAULT		0x0c98
+-
+ /* HBLANK control - read only */
+ #define IMX219_PPL_DEFAULT		3448
  
--	writel_relaxed(val, csid->base + CSID_RDI_CFG0(vc));
-+	writel_relaxed(val, csid->base + CSID_RDI_CFG0(port));
- }
- 
- static void csid_configure_stream(struct csid_device *csid, u8 enable)
-@@ -117,9 +118,10 @@ static void csid_configure_stream(struct csid_device *csid, u8 enable)
- 
- 	__csid_configure_rx(csid, &csid->phy);
- 
-+	/* Loop through all enabled ports and configure a stream for each */
- 	for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS; i++) {
- 		if (csid->phy.en_vc & BIT(i)) {
--			__csid_configure_rdi_stream(csid, enable, i);
-+			__csid_configure_rdi_stream(csid, enable, i, 0);
- 			__csid_ctrl_rdi(csid, enable, i);
- 		}
- 	}
+@@ -386,7 +376,7 @@ static const struct imx219_mode supported_modes[] = {
+ 			.width = 3280,
+ 			.height = 2464
+ 		},
+-		.vts_def = IMX219_VTS_15FPS,
++		.vts_def = 3526,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_3280x2464_regs),
+ 			.regs = mode_3280x2464_regs,
+@@ -403,7 +393,7 @@ static const struct imx219_mode supported_modes[] = {
+ 			.width = 1920,
+ 			.height = 1080
+ 		},
+-		.vts_def = IMX219_VTS_30FPS_1080P,
++		.vts_def = 1763,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1920_1080_regs),
+ 			.regs = mode_1920_1080_regs,
+@@ -420,7 +410,7 @@ static const struct imx219_mode supported_modes[] = {
+ 			.width = 3280,
+ 			.height = 2464
+ 		},
+-		.vts_def = IMX219_VTS_30FPS_BINNED,
++		.vts_def = 1763,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1640_1232_regs),
+ 			.regs = mode_1640_1232_regs,
+@@ -437,7 +427,7 @@ static const struct imx219_mode supported_modes[] = {
+ 			.width = 1280,
+ 			.height = 960
+ 		},
+-		.vts_def = IMX219_VTS_30FPS_640x480,
++		.vts_def = 1763,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_640_480_regs),
+ 			.regs = mode_640_480_regs,
+@@ -841,7 +831,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 		imx219->mode = mode;
+ 		/* Update limits and set FPS to default */
+ 		__v4l2_ctrl_modify_range(imx219->vblank, IMX219_VBLANK_MIN,
+-					 IMX219_VTS_MAX - mode->height, 1,
++					 IMX219_FLL_MAX - mode->height, 1,
+ 					 mode->vts_def - mode->height);
+ 		__v4l2_ctrl_s_ctrl(imx219->vblank,
+ 				   mode->vts_def - mode->height);
+@@ -1261,7 +1251,7 @@ static int imx219_init_controls(struct imx219 *imx219)
+ 	/* Initial vblank/hblank/exposure parameters based on current mode */
+ 	imx219->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx219_ctrl_ops,
+ 					   V4L2_CID_VBLANK, IMX219_VBLANK_MIN,
+-					   IMX219_VTS_MAX - height, 1,
++					   IMX219_FLL_MAX - height, 1,
+ 					   imx219->mode->vts_def - height);
+ 	hblank = IMX219_PPL_DEFAULT - imx219->mode->width;
+ 	imx219->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx219_ctrl_ops,
 -- 
 2.53.0
 
