@@ -1,176 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C58432300;
-	Wed,  5 Aug 2026 11:29:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8015A42E8E9
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 11:31:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785929365; cv=none; b=A41YATOHdGvSw9gnPIYPweJ4Vketc9XBt7HW/ia/VRAYBcTaN1Y1vaEgmwIbKUdvDOWDlZaHqSU3RdjAlIE/K15vQnvlT5ubQr4qEemHrlcvjsUwpmtc1NmuTw7dOUBpviStNQ0j6tF5Af1B1V6y0f/1fo6GR3zGdwe/SXuU8GY=
+	t=1785929479; cv=none; b=BGmQWVQUdfTDYASIfmWwezIrvc8AIOVcG4X39vE98J/KKKhJIT+jp2QwFb0xaguNU4/copxVDmd1NupQKa5S2/qyV+R9J3AYYea7EZkPW9HNfeAp4nD76jh22NGw6OkEsMmMzDs//DLsEwkvE+R/BJStyBoZQcHnBjFNQ3fyFl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785929365; c=relaxed/simple;
-	bh=7zPJ+iNuuRxIoAC6tHTfftFQHJu36EbUBFdWCcT5Bn4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uC3fRRyk/Yz2KpqazmHJ+1jN+O7sPh9A3Oqs8n4gCxW7RixWdbWewKAWTQEIcSnxB5WAbT70EzTQE6c4su6ew3S8gVcI7487L412fBvPc8C8vgg24SVeOKQpIff90YhCS86BwjvVHRajCD99XY8vYnne3scdsA+NSB4q+OT+BrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hHG/5bYh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785929479; c=relaxed/simple;
+	bh=I5gBVKszwJ9bjSXuburh67XOwPybtbpnQQFVW1bcjzE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=EXbHavAvk/9k3vCZ1lFBnhl6sbTjPC7TBq+Tc2QWoEurX7/bPjriVpixmfzFlvFSxoo+LtssK+4Y7Z9Hs7uxjkr/gZGcTWvZPeEEE7AiRSG7wvlWEPwyuobVrcEa71QsEQi0U4yFLBP6PElDv4j6+HRlu0/5dlf1TNfVtRiG93I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TEiKScZF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hHG/5bYh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28EBF1F000E9;
-	Wed,  5 Aug 2026 11:29:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785929363;
-	bh=1lTZbFX+1dzzmPCzEBJh+41sPCJYIbOFiDnmwBevWg4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hHG/5bYhQ63iutwTmecNjtPMxdPp1ryvJFyD19fgTqSNjiLZvkjDzBX/NpPUkfc5m
-	 Y+/rnxOJb7u1HYOLgDLCAH9j7+ftlCj2xEVDt2CC/eZUoi3eYmIWtRll+tTuv043tf
-	 SHnqnEZrLr8/scMHySDD9diPZhem+7udUBXUCgNDCvsr5g6l8AyOhQnvlxVbbL1/ZI
-	 KjaQiVqhK33pU2wMUiq9qgc9fA8dNHlZRyKmmdYy2AYOPO3k7PMJRD5hlDOCW53jQ2
-	 e4QhviZ/79/jyrMgRz/a5sy7B46EsV3zmc3pukXxntPKy1B8dARV/OfYL69tVS/E7K
-	 TEJ4Yt7qTmknA==
-Message-ID: <0b48cefe-7f05-481c-a827-4c1ffbc94598@kernel.org>
-Date: Wed, 5 Aug 2026 13:29:13 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TEiKScZF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E6C01F000E9;
+	Wed,  5 Aug 2026 11:31:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785929478;
+	bh=RnFEVMl1rTmlAEdRXJ0VQ85DBfonhIwNWyKkWVKs1zo=;
+	h=Subject:To:Cc:From:Date;
+	b=TEiKScZF6YpSdoyXwVXrz0o5UR08Hf2v0wyspsO6rshZeyZN7//83xDSeo4TKWUZb
+	 KxqrXP29P0EkcKDQNDyyuUoPudtSZ3dWXRxpyOP3axd6fPAMUbt1sNiNecnBOQZMrD
+	 apzJo5+rrZhWV3SsSy/vBI/mr083eS3NlVzgX3Nw=
+Subject: FAILED: patch "[PATCH] net: pktgen: fix proc entry use-after-free" failed to apply to 6.12-stable tree
+To: nicoyip.dev@gmail.com,horms@kernel.org,kuba@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 05 Aug 2026 13:31:01 +0200
+Message-ID: <2026080501-backup-vest-eab3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net v2 0/8] mptcp: misc fixes for v7.2-rc6
-Content-Language: fr
-To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Davide Caratti <dcaratti@redhat.com>, Florian Westphal <fw@strlen.de>,
- Christoph Paasch <cpaasch@openai.com>, Qing Luo <luoqing@kylinos.cn>,
- Gang Yan <yangang@kylinos.cn>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org,
- Shardul Bankar <shardul.b@mpiricsoftware.com>,
- Kishen Maloor <kishen.maloor@intel.com>,
- Wyatt Feng <bronzed_45_vested@icloud.com>, Yuan Tan <yuantan098@gmail.com>,
- Yifan Wu <yifanwucs@gmail.com>, Juefei Pu <tomapufckgml@gmail.com>,
- Zhengchuan Liang <zcliangcn@gmail.com>, Xin Liu <bird@lzu.edu.cn>,
- Ren Wei <n05ec@lzu.edu.cn>, Dmytro Shytyi <dmytro@shytyi.net>
-References: <20260803-net-mptcp-misc-fixes-7-2-rc6-v2-0-b8f496d71664@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20260803-net-mptcp-misc-fixes-7-2-rc6-v2-0-b8f496d71664@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Hello,
 
-Regarding the "funny" Clashiko's (long) comments [1]:
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-TL;DR: I think this series can be applied as it is.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-On 03/08/2026 18:16, Matthieu Baerts (NGI0) wrote:
-> Here are various unrelated fixes:
-> 
-> - Patches 1-3: harden incoming MPTCP suboptions parsing by rejecting
->   non-combinable ones. Patch 3 removes unreachable code after patch 2
->   added here for consistency, and to reduce comments from AI reviews.
->   Fixes for v5.6.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 817ff6efdb7f484ea547218e11e17d8e43daa3b4
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080501-backup-vest-eab3@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-- Patch 1: indeed, there is another existing issue to fix. This will be
-done in a follow-up patch.
+Possible dependencies:
 
-- Patch 2:
- - Yes, combining some options is wrong, even if the RFC doesn't
-explicitly mention that, and if there is space. As I explained in the
-commit message when this happens, it is likely a buggy or bad behaviour
-from the other peer, no need to try to get things working in this case.
- - No I'm not going to mention all possible wrong combinations, it is
-enough to explain the pattern and give the list of allowed combined options.
- - Also, no need to insist about the same existing issue...
 
-- Patch 3: wow, no comments :-O
 
-> - Patch 4: fix a data race in the ADD_ADDR timer callback. A fix for
->   v5.13.
+thanks,
 
-- An existing issue to fix, this will be done in a follow-up patch.
+greg k-h
 
-> - Patch 5: correctly catch data corruption during the MPTCP join
->   selftest by marking tests as failed, instead of only printing a
->   warning. A fix for v5.18.
-> 
-> - Patch 6: fix a leak with the userspace ADD_ADDR list in case of race
->   condition during teardown. A fix for v5.19.
+------------------ original commit in Linus's tree ------------------
 
-I don't think the mentioned existing race is possible: I would need a
-reproducer. Also, I don't think the commit message needs to be even
-longer, and no need to change the error for the userspace daemon: it
-will get the notification about the close, and it depends on how the
-userspace daemon handle that, possibly in an async way, so no need to
-get something better for this race case on the close side.
+From 817ff6efdb7f484ea547218e11e17d8e43daa3b4 Mon Sep 17 00:00:00 2001
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Sun, 19 Jul 2026 22:57:40 +0800
+Subject: [PATCH] net: pktgen: fix proc entry use-after-free
 
-Also, no need to add a BUILD_BUG_ON(). This can be dealt next time a
-flag is added (or on next).
+pktgen_change_name() replaces pkt_dev->entry while holding t->if_lock.
+pktgen_remove_device() removes the same entry before
+_rem_dev_from_if_list() takes that lock.
 
-> - Patch 7: deal with MPTFO with a valid token, but no data in the SYN. A
->   fix for v6.2.
+This allows the following interleaving:
 
-Same answer as on v1 (despite the new comment in the commit message):
-getting a more precise comment there doesn't have a lot of value: "doing
-TFO" means having data in the SYN there. If the comment is modified,
-that will certainly cause troubles during the backports.
+  CPU 0 (NETDEV_CHANGENAME)       CPU 1 (kpktgend)
+  if_lock(t)
+  proc_remove(pkt_dev->entry)
+                                  proc_remove(pkt_dev->entry)
+  pkt_dev->entry = proc_create_data(...)
+  if_unlock(t)
 
-> - Patch 8: reclaim forward-allocated memory in case of error on the
->   receive side. A fix for v6.19.
-Existing issue that will be addressed by the "mptcp: out-of-order queue
-pruning" series.
+The kthread can pass the stale proc_dir_entry to proc_remove() after the
+rename path has freed it. A reproducer with a widened race window reports:
 
-[1]
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260803-net-mptcp-misc-fixes-7-2-rc6-v2-0-b8f496d71664%40kernel.org
+  BUG: KASAN: slab-use-after-free in proc_remove+0x78/0x80
+  Read of size 8 at addr ffff8881478fea70 by task kpktgend_0/67
+  Call Trace:
+   proc_remove+0x78/0x80
+   pktgen_remove_device.isra.0+0x11c/0x4c0
+   pktgen_thread_worker+0x1214/0x6bc0
+   kthread+0x2c6/0x3b0
+  Allocated by task 95:
+   __proc_create+0x204/0x790
+   proc_create_data+0x72/0xe0
+   pktgen_thread_write+0xd61/0x1510
+  Freed by task 28:
+   kmem_cache_free+0xcb/0x3d0
+   proc_free_inode+0x5b/0x80
+   rcu_core+0x50a/0x1850
+  The buggy address belongs to the object at ffff8881478fea00
+   which belongs to the cache proc_dir_entry of size 192
 
-Cheers,
-Matt
--- 
-Sponsored by the NGI0 Core fund.
+Move proc_remove() into the if_lock-protected list removal helper. Keep it
+before list_del_rcu() to preserve the ordering required by add_device().
+The rename path must then finish replacing the entry before removal, or
+it observes that the device is no longer on the list.
+
+Fixes: 39df232f1a9b ("[PKTGEN]: fix device name handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20260719145740.2888967-1-nicoyip.dev@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+diff --git a/net/core/pktgen.c b/net/core/pktgen.c
+index 8e185b318288..ee64f3012321 100644
+--- a/net/core/pktgen.c
++++ b/net/core/pktgen.c
+@@ -3972,6 +3972,7 @@ static void _rem_dev_from_if_list(struct pktgen_thread *t,
+ 	struct pktgen_dev *p;
+ 
+ 	if_lock(t);
++	proc_remove(pkt_dev->entry);
+ 	list_for_each_safe(q, n, &t->if_list) {
+ 		p = list_entry(q, struct pktgen_dev, list);
+ 		if (p == pkt_dev)
+@@ -4001,9 +4002,6 @@ static int pktgen_remove_device(struct pktgen_thread *t,
+ 	 * list to determine if interface already exist, avoid race
+ 	 * with proc_create_data()
+ 	 */
+-	proc_remove(pkt_dev->entry);
+-
+-	/* And update the thread if_list */
+ 	_rem_dev_from_if_list(t, pkt_dev);
+ 
+ #ifdef CONFIG_XFRM
 
