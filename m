@@ -1,146 +1,116 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2038F3DBD4E
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 06:59:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD1F3E16A1;
+	Wed,  5 Aug 2026 07:07:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785913176; cv=none; b=AVnM1IUtISFxbyM0YgqNDmxIWNa7cTLmI6ZRrmImG8cuF+MFwHBAHRJga2lgU4RchNG7rh+yK3VgUdiexaLtZgz0uRYd8wB2+7gRTWoEm18ubDoGAwu29FcaOvGZlqCNcjRSOVFT+h/EZL0pEDhCsk5rekxRB8bDvWt50edyw7E=
+	t=1785913680; cv=none; b=e2PL+2KJa4RZvXNYznYZAeTQxWegG+xOkm37qBKgQaYiWq1owDnhHySCflQdiz3Ep6EvmmYHMnM/FSuWjIEhy3itHS+MEJG/goyOC46A+d6wHmMQxaKopj22BzeE2F/cXS4gK0Y6z/UJ4aE0F+uSHAWjRdxwe+DtS0YwpeWf+1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785913176; c=relaxed/simple;
-	bh=TgALdl+iEj9JSliTz8VrDMLm1WU+EhCs6+N4E75pEjQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ab3zfxZOifcPjXRaIDQZLAeqV1GMaoMWEGGL389QRwtiz+ulHSu8s/18aVs6f3Rk6WHRwS0KUMVJqqM1aiEcGYeBly1AuGVoIYvQmidkIp1EbItEniWdigD+koQ4Gb6XrFstGPIF7kHJucdcfdvoHOhmbBZAbz/YbCHuVCV1Yv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NxWw8qEY; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JeazDuot; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785913680; c=relaxed/simple;
+	bh=xrbaMmJJNYG7seiLwwRB5i68DoK/oManmHvexbfmTRI=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=lHeP0fVI0TP1vHlRAEfbX6bbzSSjlhSsVNle3IrdwOgy/bJ+6UUtvdIn9paAP1mVEg11bbHBG61UjB2g/6qykOyAVmjurwOh6WxA0xdkcKvWhk/VsO6LrHfQ1YyXSY3uDWPOm7ce2QJ3yDg4eSn8whw4hgo/bqHsmxNwcItqQiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m8gTQU9Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NxWw8qEY";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JeazDuot"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785913174;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lEhxxpwyE/rpJMtoGJj64x34mE0/II12LvK1GhW6WUk=;
-	b=NxWw8qEY1lf5Nbb1/UsoWr2PpehXEUCuVUo6uB+zIAZjbiWenAJPv2ORwHNv2iuK5vn3V8
-	/mCivdrh9Tr3okgu7zG09kDzp91kVjsOW33KKpdwG2kx76awoR7kShECBfMbd2OF/2b1XR
-	n4lfR3hYiYVIlO9OUk70dAX9iKd8KIk=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-250-m69-1YJrMv6DYgoTJeW0SA-1; Wed, 05 Aug 2026 02:59:32 -0400
-X-MC-Unique: m69-1YJrMv6DYgoTJeW0SA-1
-X-Mimecast-MFC-AGG-ID: m69-1YJrMv6DYgoTJeW0SA_1785913171
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-47fe85684b9so487423f8f.3
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 23:59:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785913171; x=1786517971; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lEhxxpwyE/rpJMtoGJj64x34mE0/II12LvK1GhW6WUk=;
-        b=JeazDuotjyYx0NtfCm7GFKC/gOPshkzK7D6G/QY61xjPVdHICFA6dLuzIo6c87oBHI
-         /Y3NVlmG6sReBENXXorPvkFWhWjx2lOt0j2lI/MUU9uTPy7Zi2emCnMHfmWQxNlI4xLi
-         HOZXVlTXlywWUmCfGxq56mCY1gj5+2Q3XDN0ZGtV43pPoyopXoYtqJaTc/8cH8OVL7A5
-         UI+Me1gsAT5lKMX7XGKHT9BGAn0sPHT14MFNDN42DRp8G2EsEbZTYkce2hUUf+sHCg9b
-         9Skf/Ti2C0W9Hwi5+wOCZ9r/TWtDqpNWAuMvOcLqPEtY34Yjw54wCZDCDywbYYWmV10i
-         n9mA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785913171; x=1786517971;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lEhxxpwyE/rpJMtoGJj64x34mE0/II12LvK1GhW6WUk=;
-        b=B+WICfjKBWKMHp4wK0VWFBCKcuvHqVaQpvm/6ZFc4IvHBmWoe1w+7oxmqgo78hiboq
-         lUH6OO5ADmg0sTC45E8XEc+foC4mAXYnamjqoCv4LOXTnRlcwJLc7+SPR5Qha4ZiUvyW
-         ajhmh9008WQvdwqxKVf2l6Sj0O13xwlfdUqDEKKC86Wzd60396nUWJHKUM9KUKAB4nJh
-         K3QB9BOFAQ9755NE7E5aTOGEmH0k1l6/YRd7Qv2PTL0jX/LD/ALcIgBFPX0gXJ4lrQsR
-         0exOkvN27R1DW1U7qH/Q8cRMSZKtvyPdTggfmhcgxd+f2HGjbDil2enMV1rNPnP7AE/N
-         V90Q==
-X-Forwarded-Encrypted: i=1; AHgh+RpyDwpMSzrjas/+omTtBAXP7w55ESPUBLGxKMg0So1tvcR4j04LI/DKOqvwc65J5YlwrgdCMHk=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx5dtARhmDXyLMuglO9lUVD1Xc+EUmU2kViRSYOFWCwgItmcf12
-	1jDVZP7GE4+NUJQw2X6DHgOzM/CzM2a2BdMKQZ6fRBQdJ1ESX1zC6D+uJpJ8/NFr2dGonkSTqM9
-	fD6pCyM4B8D2UXr4PeQFR1MhN+LBdCPhkRDOeWWBNQA3azNJ5yeDgGIIDkQ==
-X-Gm-Gg: AR+sD13U3DcL9RHS40fH+Ins8TnCkzrnQLJxy4OYLwnRC99W+/5G7VJB2LcTK9S+9C0
-	+Ee7+5idsBRI41rsoNI0GQE2GncsRzHiuxYfFS/W9Wq5J3mCRQFeFsyVscj0P/WvP2vEgRw2WbC
-	WQ/Ykita4ejEJkZu9sZyg7HYKlhifa6FexeloBRx1097lao2/Id3ukD4KKexWwdbKdt98wC+3TU
-	Gc2wj1j6Cp3rwahhT8g6JdzKrUebzgL9gu/Wi3bSS6ZoNAfdPnoRP5O++HYMfVkP4Y9uKS9xhSF
-	eZJw/FprMT25Tj96oYSPCzn7+ujapa6tw1/jV7VQbF6wO6BbDTBQYkXQY0Ct6jQqLhp2JneJTBQ
-	COvpfdpJK2LH4QvczKl0k/w==
-X-Received: by 2002:a05:6000:4211:b0:47f:96e3:5309 with SMTP id ffacd0b85a97d-47fec50d87amr7251146f8f.9.1785913171408;
-        Tue, 04 Aug 2026 23:59:31 -0700 (PDT)
-X-Received: by 2002:a05:6000:4211:b0:47f:96e3:5309 with SMTP id ffacd0b85a97d-47fec50d87amr7251098f8f.9.1785913171014;
-        Tue, 04 Aug 2026 23:59:31 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-28-14.inter.net.il. [80.230.28.14])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47febfe5d7csm6573640f8f.15.2026.08.04.23.59.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 23:59:30 -0700 (PDT)
-Date: Wed, 5 Aug 2026 02:59:27 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Xiong Weimin <xiongweimin@kylinos.cn>
-Cc: virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Jason Wang <jasowangio@gmail.com>, Jason Wang <jasowang@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] virtio_pci: do not mutate caller irq_affinity.pre_vectors
-Message-ID: <20260805025834-mutt-send-email-mst@kernel.org>
-References: <20260805032934.1606700-1-xiongweimin@kylinos.cn>
- <20260805013203-mutt-send-email-mst@kernel.org>
- <178591242683.1657366.2004019380773321385@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m8gTQU9Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6444D1F000E9;
+	Wed,  5 Aug 2026 07:07:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785913679;
+	bh=UGMpfuT8snJ0tfEwGHyplWLK/i+F2oymMko+Mu78Kgc=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=m8gTQU9ZFMy92/rC16QxOHZfJw/kMrRJPhdx7cuc13a+8XkfbClmetnJiDjGw7kxo
+	 alS0UTHx7Zct0mAfLYRN21R8sg8rsHliQJK+cqUNYdNGvdLNSqdG4BpJNi0AhAYa3+
+	 uJJFTepTFDX1X6x0KlhKPBl/hXQ/SGkNAfL4euPAxrmTuerAXggUiBeuzn28O1J3Mg
+	 wS8yQfmuqqIzrJ10TNlckzEIqCHt4qCYRsE5yT7oBdqNs9H5U6/linqwet6BEyEsmR
+	 cByYnCYyCxjDPVrRhC906M1dHJ1/n07jkxltxBXLRcjgBpdiJbRxLKOZ14UT+0GoW5
+	 Z8Ih6G8q7+1Qg==
+Content-Type: multipart/mixed; boundary="===============7106082230189184574=="
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178591242683.1657366.2004019380773321385@kylinos.cn>
+Message-Id: <5ef8aa40184d48efe9c1fb0def756263a654c22e4908bc803d0d92426e07ef52@mail.kernel.org>
+In-Reply-To: <84353363810b8d63e7933391f5c6a2ea46f348e3.1785906979.git.skb99@linux.ibm.com>
+References: <84353363810b8d63e7933391f5c6a2ea46f348e3.1785906979.git.skb99@linux.ibm.com>
+Subject: Re: [PATCH v10 4/8] selftest/bpf: Enable verifier selftest for powerpc64
+From: bot+bpf-ci@kernel.org
+To: skb99@linux.ibm.com,bpf@vger.kernel.org,linuxppc-dev@lists.ozlabs.org
+Cc: hbathini@linux.ibm.com,maddy@linux.ibm.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,shuah@kernel.org,linux-kselftest@vger.kernel.org,stable@vger.kernel.org,venkat88@linux.ibm.com,yeswanth@linux.ibm.com,skb99@linux.ibm.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,clm@meta.com,ihor.solodrai@linux.dev
+Date: Wed,  5 Aug 2026 07:07:58 +0000 (UTC)
 
-On Wed, Aug 05, 2026 at 02:47:06PM +0800, Xiong Weimin wrote:
-> On Wed, Aug 05, 2026 at 01:37:01AM -0400, Michael S. Tsirkin wrote:
-> > "tmp" in what sense? if we can come up with a sensible name, just
-> > "affinity" will do.
-> >
-> > We do not need a comment arguing with previous version of the code.
-> >
-> > just assign to desc, instead?
-> 
-> Thanks, will do. I will post a fresh [PATCH v2] as a new standalone
-> mail (not threaded under this one) with:
-> - a local "affinity" copy
-> - that comment dropped
-> - desc = &affinity, and keep passing desc
-> 
-> On the virtio_input thread you also asked whether this is real or
-> theoretical for stable. For this virtio_pci patch: real when the caller
-> passes irq_affinity and MSI-X policy falls back.
-> 
-> vp_find_vqs() retries EACH -> SHARED_SLOW -> SHARED. A failed
-> vp_request_msix_vectors() currently does desc->pre_vectors++ in place,
-> so a later successful attempt sees a polluted pre_vectors and gets the
-> wrong affinity layout. That fallback path is unconditional in the
-> driver.
-> 
-> I have not collected a userspace failure log yet. Please let me know if
-> you still want Cc: stable on the v2.
-> 
-> Thanks,
-> Xiong
+--===============7106082230189184574==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-do not cc stable on theoretical issue.
+> selftest/bpf: Enable verifier selftest for powerpc64
+>
+> This patch enables arch specifier "__powerpc64" in verifier
+> selftest for ppc64. Power 32-bit would require separate
+> handling. Changes tested for 64-bit only.
 
-there is a bit of a language issue.
+This isn't a bug, but would it read more precisely to name the new tag
+as __arch_powerpc64 (matching the macro added in bpf_misc.h) rather
+than "__powerpc64"?  The actual macro expands to __arch("POWERPC64"),
+and "__powerpc64__" is the compiler predefine used in test_loader.c,
+but there's no __powerpc64 tag itself.
 
-if the issue is real describe it:
+Also, would phrasing it imperatively match the series style better?
+For example, "Add __arch_powerpc64 so verifier tests can gate on ppc64"
+instead of "This patch enables..."?
 
-"this was observed: ... "
+> diff --git a/tools/testing/selftests/bpf/progs/bpf_misc.h b/tools/testing/selftests/bpf/progs/bpf_misc.h
+> index 5eacf1b432521..c35359c97e44b 100644
+> --- a/tools/testing/selftests/bpf/progs/bpf_misc.h
+> +++ b/tools/testing/selftests/bpf/progs/bpf_misc.h
+> @@ -159,6 +159,7 @@
+>  #define __arch_riscv64		__arch("RISCV64")
+>  #define __arch_s390x		__arch("s390x")
+>  #define __arch_loongarch	__arch("LOONGARCH")
+> +#define __arch_powerpc64	__arch("POWERPC64")
+>  #define __caps_unpriv(caps)	__test_tag("test_caps_unpriv=" EXPAND_QUOTE(caps))
+>  #define __load_if_JITed()	__test_tag("load_mode=jited")
+>  #define __load_if_no_JITed()	__test_tag("load_mode=no_jited")
+> diff --git a/tools/testing/selftests/bpf/test_loader.c b/tools/testing/selftests/bpf/test_loader.c
+> index 07807757b518d..221393f2a8ef4 100644
+> --- a/tools/testing/selftests/bpf/test_loader.c
+> +++ b/tools/testing/selftests/bpf/test_loader.c
+> @@ -378,6 +378,7 @@ enum arch {
+>  	ARCH_RISCV64	= 0x8,
+>  	ARCH_S390X	= 0x10,
+>  	ARCH_LOONGARCH	= 0x20,
+> +	ARCH_POWERPC64	= 0x40,
+>  };
+>
+>  static int get_current_arch(void)
+> @@ -392,6 +393,8 @@ static int get_current_arch(void)
+>  	return ARCH_S390X;
+>  #elif defined(__loongarch__)
+>  	return ARCH_LOONGARCH;
+> +#elif defined(__powerpc64__)
+> +	return ARCH_POWERPC64;
+>  #endif
+>  	return ARCH_UNKNOWN;
+>  }
+> @@ -585,6 +588,8 @@ static int parse_test_spec(struct test_loader *tester,
+>  				arch = ARCH_S390X;
+>  			} else if (strcmp(val, "LOONGARCH") == 0) {
+>  				arch = ARCH_LOONGARCH;
+> +			} else if (strcmp(val, "POWERPC64") == 0) {
+> +				arch = ARCH_POWERPC64;
+>  			} else {
+>  				PRINT_FAIL("bad arch spec: '%s'\n", val);
+>  				err = -EINVAL;
 
-if theoretical say so
 
--- 
-MST
 
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/30981212698
+--===============7106082230189184574==--
