@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D87045199B
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:00:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F24E4519A9
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:00:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931240; cv=none; b=IljN0McIgLXTHbdGkEB2SWZrfkOu6xDrVo0Pa3BnW+ul5pHfQuv2Olx0M1IwcLUkye8s+m/x8n1A4ASTkyEgDoINe+yDqhtI6KIEcxfRAj4Zn9kFJwa1jHdKbleK0rsxtYrtvNc+W25FbyxucGKI1lqqVWf5qj6ZHNEcx4TGQik=
+	t=1785931243; cv=none; b=e47ibS4pPnivMHUXg0/jvQEV/rveymZH+Uurwk3udkRtkiuB4q5GxvEgk7dzTHNUM4aEUnhp9cAZspG/juKeig3FCgYmagXZ0u2OreXozpO5uYMOc7CZg9tcQvx0cTntGzJw/qq+fzHWl552Lud7oUbwNHig3yMUg9gCkQp9Wkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931240; c=relaxed/simple;
-	bh=KSlvjY/6sE+U/+jB84aHjuRwsNK13Fg+h3SItqtSEY0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GDS9EfIfbmJ6duMykxZyRti3XhRSkmN9qmj+dpBMIi3zeFX3XG7+TotJIinX52VLtcXCL3WwnRK+YZczYuRVEUIuzqBdUqOzs9BGSh+PkUJsBBTfonQg3aEdDnVKS2w0rSutWjBKpv9JcXo87k7IHv5hMAAlCLb4+cKn957y/Io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Zg9vVXos; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785931243; c=relaxed/simple;
+	bh=eCtN05tsJ228l321BbGv8eXoEsmTzyby+mylrjNQous=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SlEwNEQYNJ9gBebvfllQgn0oQ+zY5X1O21d9QqPIpilmWZCXE9piRF1wkH+gUGbJX2t5f/Kk9djaML3DUVIrf32DmDfvrKdGVkWkMJ91jbmnRIcvAHMKgtxXzPfJuz9Qj1m3mm7XR6NJuhF48/ITzgDObY5pwQJuQK2bg+TJw7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2CFV/KNW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Zg9vVXos"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8D0E1F000E9;
-	Wed,  5 Aug 2026 12:00:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2CFV/KNW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89FF51F000E9;
+	Wed,  5 Aug 2026 12:00:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785931239;
-	bh=yY0yIe182XWH0WA8QQ09ka55QWzEHrkqaiMaLMQyVJM=;
+	s=korg; t=1785931242;
+	bh=28Xys67/lDvPYIkD5eySOQS22OEyhrBFwIitrUhEP+Y=;
 	h=Subject:To:Cc:From:Date;
-	b=Zg9vVXosnqGN4PozAfUDdvXuC+/Dewblu0uYA1dNN/KG3s74FHVTzpAyhcXd8IdJ+
-	 v/+WeD3DFW69tIT9tfyTJHWXZE9Vw7oDd08D8cl3q2FHGCT8l+4HV2bDQsPuNViYJr
-	 wjg2jmSlYmd/eMaRVTgMCEs4eM+ShWwSuVptn7ps=
-Subject: FAILED: patch "[PATCH] can: rcar_canfd: change the initializing flow for clocks and" failed to apply to 6.1-stable tree
+	b=2CFV/KNWW2ps9+eaBb0meisviUQ40wzFc7Zf/Tzje4SJ1igEeJFRxkxpLn2UyEVJV
+	 RMC4V06RyhEz+4WeLXfTmIxUEWEMigrfbX2QgOQfn3eeUEFY+6VAnV1C3H9/1VkJ6s
+	 E0al0Hem8PV7bmNFpXEBRfiwPEhQ/gApSgD2b9rI=
+Subject: FAILED: patch "[PATCH] can: rcar_canfd: change the initializing flow for clocks and" failed to apply to 6.12-stable tree
 To: tu.nguyen.xg@renesas.com,biju.das.jz@bp.renesas.com,claudiu.beznea.uj@bp.renesas.com,geert+renesas@glider.be,mailhol@kernel.org,mkl@pengutronix.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 05 Aug 2026 13:55:04 +0200
-Message-ID: <2026080504-effects-snap-d572@gregkh>
+Message-ID: <2026080504-absolve-stand-bb3e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x bef9004c5b91debfceaea2841855a4ebe81ff2b3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080504-effects-snap-d572@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080504-absolve-stand-bb3e@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
