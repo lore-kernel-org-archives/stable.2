@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB55840B103
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:45:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC04F40A93E
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:45:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785923158; cv=none; b=IjgJiA/OKYC5g/TtZAt9kVhpmuIkVzAnS7ek/+A0r2eE4DLOLbtidEYQ+fH+LUsxpTS3bOpP9sflAGj5F0OwZjuxzZkoRRTIDPfIgdEsGd1A7WTeSIGhXLjYSaxMOlfeVomtXKUGsuiy9rXvuqpA9j1CCpLcpwYmj/0aRp9ZyVg=
+	t=1785923160; cv=none; b=CuKlSASjt537dEjm+WKrCDaDx9Z9wRQPd1/nLVsSr3RgwttlNrCFvjvzJWS4U8vdI9/9uNllDgHJVXkq/SqBM/MfwOaxNFlrylm4e7husCW/hj/QvVHc3GKv1+ar+JA+wCfCBtFGf6Naz8or9VJB+OWE3ztLYWuOambxtzNjqAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785923158; c=relaxed/simple;
-	bh=gWy8AHZvbUDdA7NKJ2JXVgGRRK95en4adAoQid3f2SI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QylRqVMP9VkG32OdSYbnKoLRG5WCIhG5t1tkyU7DR29FTtizTtdoCllNLYX02H4rvEhobGVb3vyo5DVHr2JNQ4zK72lDJaBWC7CY6isWME6jdS7uLnzaxRbzlQVX8x1cm5pni9ZXWHiHmnVRo/PizcbJXKcWc9qbx63kQTJGUgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xooIZcG0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785923160; c=relaxed/simple;
+	bh=jYxf8HoVTAw/Fb+EVo64Hnyl8kPdCgvBFo1mzbb2xYQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rA70kdPZycCDCzrsTQ8+VzMs3TDBCc6MsDOAtBc4MIZrVoy3T9NZWnTWV69pPaUxpUrwqdN2VJklPY7tc9i35y6SlKEtwlae3ua9DYNvy/eFj3Oj46NGFEuP6NYn0Y265pn2rfWPfozxyHZ99PwZGRvwBGE9yS4HxLAr0GspE+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sLh9BhUf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xooIZcG0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 503151F000E9;
-	Wed,  5 Aug 2026 09:45:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sLh9BhUf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 296A91F000E9;
+	Wed,  5 Aug 2026 09:45:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785923156;
-	bh=t+WJwCKA9iYzoq3L2rQhQaS1e4447kG8ttl8tz2wEsk=;
+	s=korg; t=1785923159;
+	bh=OS+C57wtbfgopqcLjPYW48fytDMYbM9adTa4BZXm9eI=;
 	h=Subject:To:Cc:From:Date;
-	b=xooIZcG08DqM0+wihzR9Rvcrmrgg2+/E25XpbNhtY8P/+n/8q0Nf2W87EF2kev22Y
-	 qPbhZueC7TAoM0hrcW25d46lJr9JCvxZirSlTYKOoP5YHnlLJjKkCLLth5MfZVx+oh
-	 WztyMW/hy3QnVG5lQ6jziq9/V6gO/18JIrGOVDWE=
-Subject: FAILED: patch "[PATCH] ASoC: tas2562: Validate values for volume writes" failed to apply to 5.15-stable tree
+	b=sLh9BhUf/oguL1oI43DSB/gyt75nYTFZrWlBhZaY5C+L3qiDRC7ASU6Q38Rc1Tf9w
+	 EpP3oS6ynuxkRudvY3yYJMY3PYn2S/7+siPeK2uH6SLRrFneKNlJfJRAd+PYf1p/TU
+	 gKbfHUjTh+8uMKwNlhVRXVHcrbVie8LqppA/D8W8=
+Subject: FAILED: patch "[PATCH] ASoC: tas2562: Validate values for volume writes" failed to apply to 5.10-stable tree
 To: broonie@kernel.org,cezary.rojewski@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 05 Aug 2026 11:44:59 +0200
-Message-ID: <2026080559-decency-ultimate-2e09@gregkh>
+Message-ID: <2026080559-trickery-canned-cde6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 8fb41964f7e4e4207c8999af2056894caa7a252a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080559-decency-ultimate-2e09@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080559-trickery-canned-cde6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
