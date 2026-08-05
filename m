@@ -1,89 +1,126 @@
-Received: from out-180.mta1.migadu.com (out-180.mta1.migadu.com [95.215.58.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F4E3EBF23
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 08:41:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A58413E3DBD
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 08:41:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785919276; cv=none; b=i/tmcICkZVjFy5JwhljwpbBT/LBASMZBOOOOZX53u7ztCwW9/Kr/Iyr2Uh9ZrfmrpFL+HhikcI0IVB+jB357UOPRVVt5qmz9t/A1MU1mrJ8Xz5gZ0hBI5kQDxewmAsEpRNzDe9uHKN7yDKhXxTWpjnTs5+ufaGiGZQa7QJlRLlg=
+	t=1785919315; cv=none; b=WxEWiFzxak+6+a75LQclnK8rbmEktrXDeX1Uyxnh2mQBi4IkYjwVIkOGK5H1U03dTZfJN70231RjYSrPHGe3onekbnzJdkf+wm4dHSvTCdEbqikumyEEol3hd8NQzAOkTRYLNwwjL616liEDXzY+g+fDKNMIhxIhz2ZgCHPfdjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785919276; c=relaxed/simple;
-	bh=S38Ei+c21Lm+0Gv285ItkWpB1UcixQyvnhryTnK1jY8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P2l89aTvGPYCxL34R0yA36xDn0dL7atHylHQTwA3JyezRq+dj1wiUTJ1BiOBgS5tbUuRW1qBG7cx/UHvVgp8oPaPgRtA15sINPnrLFwZAWj2MNE/gpm3HDnQEDBrFOXFmDXtBtQtRzqZkA249+UFMOXponUJ5xM4KiE/DBBqol0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PGeWpUZ+; arc=none smtp.client-ip=95.215.58.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785919315; c=relaxed/simple;
+	bh=l/oWp5W71NAkATODGkRO0A+w9ni3mNScsDVkSE5s4Z0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sC62EKp2Kx0JRCsZDYW4PlgkG57/GAe5lujjeaHtCzwsBeFOD7lSOpWq8wA90kJjBhscEo+FZYjhCy11LAMNmUzUscO8MoRNvAzd/bHiEF1+VhzZuZQYSbV47mzHYtxQpCbk/q5xBc2KvVofi+I46qCje9Nr/ywx1aS+RD6UH5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BmUKjlbT; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PGeWpUZ+"
-Message-ID: <c8aac762-c1a7-44ab-afff-72610cabe341@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785919271;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IRXZcIXeXDWkdhDpN3QIMXR/hfQIQzwwbsAJ/HYacrU=;
-	b=PGeWpUZ+NvGD6QbTsGgBeXEekMXLTlL+cl4bodUSfPyUKfd0ZpmcC65uBGF59BBKl2DqcQ
-	X1Q5TveqW4Uqb8ZV0V8yQfD+s/hOgUrH+eF1noLz3IEdzhdqBE0XEy/gaPGj57DJnvGN3I
-	MRsFFObmkbldVSQ3TB2UVZ/c4fe7Rfk=
-Date: Wed, 5 Aug 2026 10:40:46 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BmUKjlbT"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47f703a9d05so437344f8f.0
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 01:41:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785919312; x=1786524112; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d3K5hA7CaLdIJbg5AimV7fCZLWk9OkFDdwcvRXHBYow=;
+        b=BmUKjlbTaK+c2Uo/hA6ZB6BM+d3oc2KPCaTqE0FEZF5E1wOZvLCmkaQ02h9y26h1Ff
+         vhmwR7k+vocoIO1i9EiVFLY/4lX50cgR4AwZeVBVN16X3y1wiAiB0aTStH7299WAFME2
+         RTEYrGrLglMxtk/SvW7ocV0hRAJ2xVRIUXygVoqZz6Q8PTNK3BolrO41aFsmlxoVIVkf
+         WJMGB8cwNCNFugqJ3ASpEWHk8YQE0sTz8MNy/iYcoSOJI51Fp9TbpUbPQrfBYjj1JCq4
+         23gHlT7ExEtSleSPMKq7ZibSQiOkPU3yPbFii4msjE/tq07Z/Hs72AtOGfgKtpdcyl2V
+         piUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785919312; x=1786524112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d3K5hA7CaLdIJbg5AimV7fCZLWk9OkFDdwcvRXHBYow=;
+        b=M8yVncvFLGd7Fb4y1MExCiZyW9AxAuhUsD484k5FBs+LC18yJZ9agNromb/YAnVJhg
+         AOGwyFJwURQxGGLLH/4kqylwRa9EGYAcrtFkYj5XJoVEOGrxU8DYtfm2XdlDk3YlJYLW
+         wQNgG/ms1DnozFSvvzvCtY9rPMXq+G1lw7MTvJqbMmLe+AWansrXJ7d+2CD0/v8NIVQs
+         WVnW1aLSvS/jJ6CT3pEfQp/wNJo11tU5USnQ1W4Z/xVLnXC3aJKdvaL7B8U0WfXvcj8A
+         nim5plOzhrf3qG4Rrwbj8EYIWm/Jf+uGCNTLl3GrHttZgtpXa9aL26poeYyie5owXSgL
+         79dw==
+X-Forwarded-Encrypted: i=1; AHgh+RpzxSvpDaLRCnL5j9Er7eUBIJSK612MtVBd95igt1QpUAcIp0akmxT8ND2N7cimkHW0ts7tJt8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqFhMkMf87tpFst1pIn/MIgSqsFrA8Srg8sKmBwpVup+50nABU
+	1lIg11Y/UDEOnfiQk/fd5lAv9ey/JGv21VjR/6gSUT+pb4FNRPoj/o2v
+X-Gm-Gg: AR+sD10/IOHQWSiOmv4viTPD+6e+2FeKGkLHxNkhshz4OZA8a0LJY0mneclX1e7Hjig
+	uSO5/8dhOTzBFoYuguChBkffGTqWJp4jiWYR1N+OC1m4jt+/2Hyw/2QciFvUvorDYq0x53hsM3O
+	LjfwrI4eDUnR0O5Y4msoZrmvUj55NFmNuGhNuonCcjqa8CcoBQt/lQlhnJcxebcb06nlM4dndKS
+	+nLyQIChAX3aIrrpPEdwwgWoy31ogLPu0wNElgkUmelrY/RiZdh3YiW4p84oyionhhNCIK+BNze
+	ZxIS+Y0za7+sOQfHZ2FLNfNi/7A93OD93R489Bdj3UGX2um4KQ0v6IGJLBdFtfa5mEHm8UNPmNN
+	WZM137CYaL/gHiRrA3OTow4IF4oQq9B8ZAZHhBPC02f5jidiTU+kiOMcT6ljZqDBP7jWjq5gSTk
+	hVctCooMjQVEAtWn1giLLCgFJMFOC9w+9HLrWqovrfEp4dSwayoaKNyfODvYAmdSifcQt1wPgku
+	jPFncblNjsMyTPPnIGX113Me8TI4FvON1joD2+JanDEHSIiDKkwtA==
+X-Received: by 2002:adf:ea89:0:b0:47f:9751:cb3d with SMTP id ffacd0b85a97d-47fec4f229bmr6673348f8f.8.1785919311697;
+        Wed, 05 Aug 2026 01:41:51 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-79-42-255-151.retail.telecomitalia.it. [79.42.255.151])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47febfe5b1bsm6278770f8f.12.2026.08.05.01.41.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 01:41:51 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Lorenzo Bianconi <lorenzo@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-mediatek@lists.infradead.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] pinctrl: airoha: fix wrong value for PCIe reset pin
+Date: Wed,  5 Aug 2026 10:41:41 +0200
+Message-ID: <20260805084143.3901-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/3] ASoC: cs35l41/cs35l45/cs4265: sort the reg_defaults
- tables
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
- Vlad Karpovich <vkarpovi@opensource.cirrus.com>,
- Paul Handrigan <Paul.Handrigan@cirrus.com>, patches@opensource.cirrus.com,
- linux-sound@vger.kernel.org, stable@vger.kernel.org
-References: <20260805082413.26174-1-peter.ujfalusi@linux.intel.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <20260805082413.26174-1-peter.ujfalusi@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
 
+The PCIe reset pin actually require the bit to be set as 0 to work as PCIe
+reset pin. When the bit is set as 1, then the PCIe reset pin act as a GPIO
+for GPIO44, GPIO45 and GPIO46.
 
-> reg_defaults must be sorted by ascending register address as
-> regcache_lookup_reg() locates the entries in it with bsearch(), see commit
-> fd80df352ba1 ("regcache: Add support for sorting defaults arrays").
-> 
-> These three tables have entries which are out of order, so the binary search
-> does not find part of them.  For those registers regcache_reg_needs_sync()
-> cannot compare the cached value against the default and reports that a sync
-> is needed, so they are written to the device on every regcache_sync() even
-> when they were never touched.
-> 
-> The patches only reorder the existing entries, the text of every entry is
-> kept verbatim and no default value is changed.  Each table was verified by
-> evaluating the register addresses and replaying lib/bsearch.c on them.
-> 
-> Entries not reachable by the binary search, per table:
-> 
->   cs35l41_reg           2 (of 47)
->   cs35l45_defaults     36 (of 73)
->   cs4265_reg_defaults   3 (of 16)
-> 
-> For cs35l45 this is nearly half of the table: the DSP1_RX*_RATE and
-> DSP1_TX*_RATE registers sit in the middle of it while their addresses are
-> far above everything else, which cuts the search off from the whole
-> 0x4c40 - 0xf010 range.
-> 
-> Found by an audit of all reg_defaults tables under sound/, the SoundWire
-> codec drivers are fixed by a separate series.
+Cc: stable@vger.kernel.org
+Fixes: 1c8ace2d0725 ("pinctrl: airoha: Add support for EN7581 SoC")
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
+ drivers/pinctrl/airoha/pinctrl-airoha.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Wow. Would it make sense to have a regmap helper to double-check the
-addresses are indeed in-order in those reg_default tables?
-I am not sure how this requirement can be enforced by just inspection, a
-warning would help detect this sort of issues on more platforms.
+diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/airoha/pinctrl-airoha.c
+index 04b4424c688b..6409572c0a4b 100644
+--- a/drivers/pinctrl/airoha/pinctrl-airoha.c
++++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+@@ -1412,7 +1412,7 @@ static const struct airoha_pinctrl_func_group pcie_reset_func_group[] = {
+ 			AIROHA_FUNC_MUX,
+ 			REG_GPIO_PON_MODE,
+ 			GPIO_PCIE_RESET0_MASK,
+-			GPIO_PCIE_RESET0_MASK
++			0
+ 		},
+ 		.regmap_size = 1,
+ 	}, {
+@@ -1421,7 +1421,7 @@ static const struct airoha_pinctrl_func_group pcie_reset_func_group[] = {
+ 			AIROHA_FUNC_MUX,
+ 			REG_GPIO_PON_MODE,
+ 			GPIO_PCIE_RESET1_MASK,
+-			GPIO_PCIE_RESET1_MASK
++			0
+ 		},
+ 		.regmap_size = 1,
+ 	}, {
+@@ -1430,7 +1430,7 @@ static const struct airoha_pinctrl_func_group pcie_reset_func_group[] = {
+ 			AIROHA_FUNC_MUX,
+ 			REG_GPIO_PON_MODE,
+ 			GPIO_PCIE_RESET2_MASK,
+-			GPIO_PCIE_RESET2_MASK
++			0
+ 		},
+ 		.regmap_size = 1,
+ 	},
+-- 
+2.53.0
 
