@@ -1,180 +1,113 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E17326D4C3;
-	Wed,  5 Aug 2026 06:02:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D81D37F328
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 06:04:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785909781; cv=none; b=OS5JRzpH7agugy25s8Kfif2Ostrex0wtL6VJmrzIpW9YiiHlrZDy5S3N+pqLK5Tmf23ad9f2oQH5MOzIp5hil4XTecWw6cl3mdFP4ZQBpo4G4+tB0yFeRjBtyUcBvq5bMcILIXIJiLqfGO+6pQ/kv2EqVAE07R1DVKrS10aR25g=
+	t=1785909850; cv=none; b=YBzTYNwU993OrB18pQ4FzuiizFTjOJFNO2HLIRUrCa58U44Ml8YMLoce63b07vGrYOKMaOkPjlgFilc6BCsC3WKXalx+I3J3E208aA8mdZmcJpdcFL8Jl7kjyHMkHiSxE74BtKBfEXgcjEdVL7aOmAnU9zL248Vf/zjKunFIjak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785909781; c=relaxed/simple;
-	bh=bqDx6vb2FXNsrrRRxni+b2maFJZgt6iCLkQbug5HZdc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fDiFNBBVWhHAkgz2hcs6AYdnysyXefflZEAAo86JhQ1tD7Z4nezpUgx84gQwvkqmqJebn1KoDh2Dd3/qS7t0vsv6PK4dkW5lfgwNRqoAVYzpic+c/fAiSJtAy7ukqkmwYSZ9ukrLt1UT461i7NAVlfcF5dCrN2QWPevqQ4VvGVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=ePaADWnz; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1785909850; c=relaxed/simple;
+	bh=Tm0uwjwfuqQ8kodrqFk021fxrUKJxI7jgEHfyeaz7rc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AJDzNFxQ+vbT5UftWoR36f2sMQTlL3o3RKxH0/+j49VTXawm2vkq7T9aoWz8uidXDDBjZDb4aoovyAVfZ9MTE7kwTUYxprVmXcsHdwQ1jhXRNcX3NWxW/SovVLMKhTwKxZ5TAlBVNTHORYl4SvGNATVUmhbkfbLRJUgtECXXf8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PvoOOyBk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="ePaADWnz"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=s5W4gQo3cQPXmeaei8VzoJ+1QXcSNANQYpgANPza/WM=; b=ePaADWnzBKMvo8O9pm45qFsJh7
-	0xIBbonvzCDHguIdg2fpd6jg/g1dlXcnT+89b+PRJ9MyDJhw+P3u7fT5oIruQ2YRusjZac6wipg3/
-	0PMm18pK3KFgbdXWZJYtUc9OnLcfwoQsZbcfIjQUaAJhdP/UgjRY9Br1Km30AExiyWJxHKac7/N7c
-	uLlXXHm9LEqPdgQlt+nlSLvu/FCZxtyKk4ez63WWxymIQsNp2Y7gLccn3u/gClNv1LYCCP/oLcGae
-	zvFfC2BSdAv3+AIoQC1lv68yvZh0/k6VUyQjMEz8faPC4IH/ope7iWLlUxDpbReXL0+sLV1qCEf0g
-	TLCx98pg==;
-Received: from [151.115.150.205] (port=52256 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1wrUiR-0000000FZIP-0OFa;
-	Wed, 05 Aug 2026 08:02:57 +0200
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: bpf@vger.kernel.org
-Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 bpf] bpf: harden bloom filter sizing and indexing on 32-bit kernels
-Date: Wed,  5 Aug 2026 06:02:28 +0000
-Message-ID: <20260805060228.2703051-1-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PvoOOyBk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D481F000E9;
+	Wed,  5 Aug 2026 06:04:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785909849;
+	bh=1V6xsKbzv4Oc8g71CDUBCGBJx1R/W2/HokkoKbrrkd4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PvoOOyBk2rt8FR13TEdaLNbyQP1d2nEQVNOU4bNv4bcviSP0ehpl+/SnJuSGQZuRy
+	 UPSudhakGWGdCcplBvaKYUR6um2zE8cQGbt5SkLdDB+ovpLzgt9iYgfjy45qTSW7XF
+	 Q0c+94YoSmxJeEY0DdNIbvzDygYexdAhpWlvHQveFKOCkacZSQkuTwzOH6fz5DCnMa
+	 rIAojzMjaH1XC4DUpp1d/DdahzNQYrqi9NoskmZo3FWAxgnMA80v9+ioHTZbGzVpGz
+	 07pB/SGPHhmok+JGRWiMemvLc9upsYLhBm9ps3QSLA4syZOaLw1zpcB1tjzwPNvPF+
+	 v1pXBDINTDyXg==
+Message-ID: <5130d601-84b4-49c5-a9f7-454d54a7412e@kernel.org>
+Date: Wed, 5 Aug 2026 08:04:02 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Fix incorrect flush address in direct page table reclaim
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: luto@kernel.org, linux-mm@kvack.org, luto@amacapital.net,
+ Qi Zheng <zhengqi.arch@bytedance.com>, Liam Howlett
+ <liam.howlett@oracle.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, stable@vger.kernel.org
+References: <20260804003708.49830-1-luto@kernel.org>
+ <0adaae9e-7086-4213-811e-ba6e4181e145@kernel.org>
+ <CAHk-=wiO8NDCyBYrDMpjh8zMKnzgD2XuPYo0nk4Hwgq44R_jKg@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <CAHk-=wiO8NDCyBYrDMpjh8zMKnzgD2XuPYo0nk4Hwgq44R_jKg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-scw-domain: oss.cyber.gouv.fr
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Transfer-Encoding: 7bit
 
-bloom_map_alloc() has two 32-bit-specific problems when the computed
-bitmap reaches the U32_MAX fallback case.
+On 8/4/26 17:54, Linus Torvalds wrote:
+> On Tue, 4 Aug 2026 at 02:49, Vlastimil Babka (SUSE) <vbabka@kernel.org> wrote:
+>>
+>> +Cc Linus for nerd sniping purposes
+> 
+> I don't know what to say - the patch looks obviously correct to me,
+> and I certainly can't disagree with the verbiage in the commit message
+> either.
+Can we get that fix into 7.2?
 
-First, BITS_TO_BYTES(U32_MAX) is evaluated with 32-bit arithmetic. The
-addition performed by DIV_ROUND_UP wraps, so the map allocates only the
-fixed-size bloom filter object while keeping bitset_mask == U32_MAX.
-Subsequent updates can then write past the allocated object.
-
-Second, fixing only the allocation size is not sufficient. The bloom hash
-is a u32, but set_bit() takes a signed long bit number and x86 test_bit()
-eventually feeds the index to variable_test_bit(long, ...). On 32-bit
-kernels, hashes in [0x80000000, U32_MAX] therefore become negative bit
-offsets. x86 bt/bts with a memory operand interpret those offsets relative
-to the supplied base, so a map with bitset_mask == U32_MAX can read or
-write before bloom->bitset even after allocating the full 512 MiB bitmap.
-
-Keep the U32_MAX fallback, but split each hash into a word pointer and an
-in-word bit number before calling test_bit() or set_bit(). The bitops
-argument is then always in [0, BITS_PER_LONG - 1], while BIT_WORD(h) still
-selects the intended word in the full bitmap.
-
-Compute the bitset size from (u64)bitset_mask + 1 before passing the final
-size to bpf_map_area_alloc(). This fixes the original under-allocation and
-keeps the allocated storage consistent with the addressable bitset.
-
-Exploitation note: local privilege escalation is possible on a 32-bit x86
-kernel using the under-allocation bug from a binary with CAP_BPF.
-
-Fixes: 9330986c0300 ("bpf: Add bloom filter map implementation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Assisted-by: Codex:gpt-5
----
-v1: https://lore.kernel.org/bpf/20260731204917.3845309-1-Jeremy.Jean@oss.cyber.gouv.fr/
-v2: https://lore.kernel.org/bpf/20260801083436.4014218-1-Jeremy.Jean@oss.cyber.gouv.fr/
-
-Changes in v3:
-- Address change request simplification from Andrii
-
-Changes in v2:
-- Address AI reviews.
-- Split full-width hashes into a word pointer and an in-word bit number
-  before calling bitops, so upper-half u32 hashes cannot become negative
-  offsets on 32-bit kernels.
-- Drop the redundant final u64 add-overflow check; bitset_bytes is bounded
-  at 512 MiB once it is computed from bitset_mask.
-
- kernel/bpf/bloom_filter.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
-
-diff --git a/kernel/bpf/bloom_filter.c b/kernel/bpf/bloom_filter.c
-index b73336c..b63839d 100644
---- a/kernel/bpf/bloom_filter.c
-+++ b/kernel/bpf/bloom_filter.c
-@@ -41,7 +41,8 @@ static long bloom_map_peek_elem(struct bpf_map *map, void *value)
- 
- 	for (i = 0; i < bloom->nr_hash_funcs; i++) {
- 		h = hash(bloom, value, map->value_size, i);
--		if (!test_bit(h, bloom->bitset))
-+		if (!test_bit(h % BITS_PER_LONG,
-+			      bloom->bitset + BIT_WORD(h)))
- 			return -ENOENT;
- 	}
- 
-@@ -57,9 +58,13 @@ static long bloom_map_push_elem(struct bpf_map *map, void *value, u64 flags)
- 	if (flags != BPF_ANY)
- 		return -EINVAL;
- 
-+	/*
-+	 * On 32-bit architectures, hashes larger than INT_MAX would be
-+	 * treated as negative by set_bit().
-+	 */
- 	for (i = 0; i < bloom->nr_hash_funcs; i++) {
- 		h = hash(bloom, value, map->value_size, i);
--		set_bit(h, bloom->bitset);
-+		set_bit(h % BITS_PER_LONG, bloom->bitset + BIT_WORD(h));
- 	}
- 
- 	return 0;
-@@ -94,9 +99,10 @@ static int bloom_map_alloc_check(union bpf_attr *attr)
- 
- static struct bpf_map *bloom_map_alloc(union bpf_attr *attr)
- {
--	u32 bitset_bytes, bitset_mask, nr_hash_funcs, nr_bits;
-+	u32 bitset_mask, nr_hash_funcs, nr_bits;
- 	int numa_node = bpf_map_attr_numa_node(attr);
- 	struct bpf_bloom_filter *bloom;
-+	u64 bitset_bytes;
- 
- 	if (attr->key_size != 0 || attr->value_size == 0 ||
- 	    attr->max_entries == 0 ||
-@@ -127,22 +133,16 @@ static struct bpf_map *bloom_map_alloc(union bpf_attr *attr)
- 	if (check_mul_overflow(attr->max_entries, nr_hash_funcs, &nr_bits) ||
- 	    check_mul_overflow(nr_bits / 5, (u32)7, &nr_bits) ||
- 	    nr_bits > (1UL << 31)) {
--		/* The bit array size is 2^32 bits but to avoid overflowing the
--		 * u32, we use U32_MAX, which will round up to the equivalent
--		 * number of bytes
--		 */
--		bitset_bytes = BITS_TO_BYTES(U32_MAX);
- 		bitset_mask = U32_MAX;
- 	} else {
- 		if (nr_bits <= BITS_PER_LONG)
- 			nr_bits = BITS_PER_LONG;
- 		else
- 			nr_bits = roundup_pow_of_two(nr_bits);
--		bitset_bytes = BITS_TO_BYTES(nr_bits);
- 		bitset_mask = nr_bits - 1;
- 	}
- 
--	bitset_bytes = roundup(bitset_bytes, sizeof(unsigned long));
-+	bitset_bytes = BITS_TO_LONGS((u64)bitset_mask + 1) * sizeof(unsigned long);
- 	bloom = bpf_map_area_alloc(sizeof(*bloom) + bitset_bytes, numa_node);
- 
- 	if (!bloom)
 -- 
-2.47.3
+Cheers,
+
+David
