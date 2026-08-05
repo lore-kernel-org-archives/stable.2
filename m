@@ -1,143 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153863DFC7B
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 06:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACCE3E009D;
+	Wed,  5 Aug 2026 06:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785912437; cv=none; b=ctmkVqlGWx9MWu0v44qCvUMfsvH8P8TVooMdA0u287YQw8PC9kmrLFx6QyOWpAtaXq4pmkbnTKOeON4DS0LwCfXj7vfOeDuryeyCfoFGLBK7ywvfE+tAQccIm9dG2+V6Bfa3548aPiWcEMTAQWnLvqAZfAoZNDujeBPNlevVJ50=
+	t=1785912441; cv=none; b=lK8/LWfArWsvDJPB1FroRALC6HO6fXgndkpED1HBIHCiiih1FV9hzywAAYrWv9Pq0JrSaShqh1fxd26C8xGCibuelPtdzLOL7IVNXbG0ZkcqngpR8hqAGjA0Wuji6lr0mpHNSKHMublDr/AVXsEqbXok9rYsyXtJq+aLj/lR7i0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785912437; c=relaxed/simple;
-	bh=imKn3tuWaSCWyxM4SH0hgkanysCvnBUm2QITeWJ66KA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=sGFfzABp6AGRd2/jBJanlxBekwOnLTRbUAw7NsXb3+rF+yQ+zsEWt5doMIvWvxuA6b0tmUQYnHZ1RH5qVEQjt+WLBpHQES30qkbAmWC+OM1qOKEQjTYBU1zT5kGOtSD+T/+I/ZDGQaEDrr2pDCL8jyVPgk4MsoYg81YTyJUNd5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Opi1qu8J; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Opi1qu8J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7A9D1F000E9;
-	Wed,  5 Aug 2026 06:47:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785912435;
-	bh=lzxl6ov54XABkEdqGVKNEiBDIIDgS5W3+aFuZLq5XxY=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=Opi1qu8JZZLOL3KmQh79XU8FqJKFaFl4tD3f2O1brEVBwfq1buPJZInLNUIgFOdVo
-	 wXj/1meF0rQI5di7eqK+U5G1QvmQG0dhg6xYr/IZEq0R/FZRgf9OSJyDmN49geFKmY
-	 NVOqU6XjUSdgMtaCTp5iwCvgolM57dbXArM5nP+WiD2OVOi5dl7Rr8zR6KbSKaey2P
-	 Ic9SG6Y/9wpeBP9JjnGzHFV5W/0xCH9+ib9IyDutIyU21VmfupAhvxYKQ6re7/pAbr
-	 P4nXHctAoaIYQbmJvBMMO4I+m4PUq2iUIpAaLfp3cZs8eOYHUDrF66eXey+f2zALg5
-	 l2+Gzf+lPBquA==
-Message-ID: <d600d0db-5109-4386-9a49-955be74cc432@kernel.org>
-Date: Wed, 5 Aug 2026 08:47:08 +0200
+	s=arc-20240116; t=1785912441; c=relaxed/simple;
+	bh=Cw3Le7HKYS1EgLz3s9q5QD0m+A8XUeHgzG8lDfw1idA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Uvrd6Z51RhtgnV1db2dxaadHDo17j33o10dbdJuZPASlg2n8zgAdVkz0ROSjB/Y5yjQ/XmpObim+2+0Sh2irOtfG4MPBAebPFnrvaCd4NSjkrTE+Eay/SFXXoIIgeH4RwzcW0ndwgk+iqpidnF18drhTH6siwVBCQ+KIXW/Rdp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 7cb2e1f4909911f1aa26b74ffac11d73-20260805
+X-CID-CACHE: Type:Local,Time:202608051419+08,HitQuantity:1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:3bde287d-4d1c-44aa-9ab0-afdac663e821,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:2e3763338239d60f27c80c304aa4a576,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|83|102|865|898,TC:nil,Content:0|15
+	|50,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:
+	0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 7cb2e1f4909911f1aa26b74ffac11d73-20260805
+X-User: xiongweimin@kylinos.cn
+Received: from [127.0.1.1] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <xiongweimin@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1386616065; Wed, 05 Aug 2026 14:47:12 +0800
+From: Xiong Weimin <xiongweimin@kylinos.cn>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Jason Wang <jasowangio@gmail.com>, Jason Wang <jasowang@redhat.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ Eugenio =?utf-8?q?P=C3=A9rez?= <eperezma@redhat.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] virtio_mmio: disable IRQ wake before free_irq
+Date: Wed, 05 Aug 2026 14:47:09 +0800
+Message-ID: <178591242945.1657366.12043874648568847249@kylinos.cn>
+In-Reply-To: <20260805032937.1606737-1-xiongweimin@kylinos.cn>
+References: <20260805032937.1606737-1-xiongweimin@kylinos.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/20] arm64: percpu: Add infrastructure for
- preemptible this_cpu_*() ops
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-To: Mark Rutland <mark.rutland@arm.com>, linux-arm-kernel@lists.infradead.org
-Cc: ada.coupriediaz@arm.com, ardb@kernel.org, catalin.marinas@arm.com,
- cl@gentwo.org, david.laight.linux@gmail.com, james.morse@arm.com,
- ljs@kernel.org, maz@kernel.org, peterz@infradead.org, ruanjinjie@huawei.com,
- ryan.roberts@arm.com, stable@vger.kernel.org, vladimir.murzin@arm.com,
- will@kernel.org, yang@os.amperecomputing.com
-References: <20260804170503.3513916-1-mark.rutland@arm.com>
- <20260804170503.3513916-14-mark.rutland@arm.com>
- <7df18d5e-886e-43d1-b53d-52a1d08aba49@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <7df18d5e-886e-43d1-b53d-52a1d08aba49@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 8/5/26 08:45, David Hildenbrand (Arm) wrote:
->> Atop v7.2-rc4, with GCC 15.2.0 and defconfig, this is compiled as:
->>
->> | <outline_this_cpu_add_u64>:
->> |        paciasp
->> |        stp     x29, x30, [sp, #-16]!
->> |        mrs     x2, sp_el0
->> |        mov     x29, sp
->> |        ldr     w3, [x2, #8]
->> |        add     w3, w3, #0x1
->> |        str     w3, [x2, #8]
->> |        mrs     x3, tpidr_el1
->> |        add     x0, x0, x3
->> | 1:     ldxr    x5, [x0]
->> |        add     x5, x5, x1
->> |        stxr    w4, x5, [x0]
->> |        cbnz    w4, 1b
->> |        ldr     x0, [x2, #8]
->> |        sub     x0, x0, #0x1
->> |        str     w0, [x2, #8]
->> |        cbz     x0, 2f
->> |        ldr     x0, [x2, #8]
->> |        cbnz    x0, 3f
->> | 2:     bl      preempt_schedule_notrace
->> | 3:     ldp     x29, x30, [sp], #16
->> |        autiasp
->> |        ret
-> 
-> FWIW, in a recent discussion on some prototype hacking [1] we saw some overhead
-> in micro-benchmarks that would really hammer on a path that would now do a
-> preempt_disable()+preempt_enable().
-> 
-> Switching from preempt_disable() to preempt_enable_no_resched() made it turn to
-> noise. Of course, that has other undesirable impacts, and I am not sure if we
-> are in the territory of code layout changes affecting the numbers.
-> 
-> Just mentioning it as some data point.
-> 
+On the virtio_input thread, Michael asked whether each of these patches
+is a real or a theoretical issue for stable. For this virtio_mmio patch:
 
-[1] https://lore.kernel.org/linux-mm/20260630174852-mutt-send-email-mst@kernel.org/
+Real when the DT node has "wakeup-source".
 
--- 
-Cheers,
+vm_find_vqs() may enable_irq_wake() on the shared IRQ, and vm_del_vqs()
+used to free_irq() without disable_irq_wake(), which leaves a wake
+reference and can warn on later free/request cycles. Platforms without
+that property do not hit it.
 
-David
+Please let me know if you still want Cc: stable on this one.
+
+Thanks,
+Xiong
