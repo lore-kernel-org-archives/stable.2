@@ -1,58 +1,58 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 014DD283FF5
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 02:53:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7236B32B102
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 02:54:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785898399; cv=none; b=KSTGE3XgBmMuSgpVyxrv21GM0GMegX2Pn1GAigCzVA10r0emaPnu9kkLeH3sl6azTI4sTHKkFZB35HnzIlAXn5vIcTub5rOpd3Cd5WQ7MBFpqSriOzzl/gxce+v0h/8y1MdaF1e9TvKZ+vAkoaBtuPE5yq7jyPZv3Ss3pLDGmCM=
+	t=1785898455; cv=none; b=EJb588uc7S6cRSe7D4QfrLMESZXlhqYvSXk1Wv1UefXCu3Rx4DjpCxqzw5wDcKy+RAOzwpQm9vkzZAkZaAyRdobz1iKYvKdIPWzs+3QK/FhHHgYUQYzHnXI+73KE3yoqTC814k6E6hWnPKQv2JZPJu3AYz5oztCrIoDxn06Yj30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785898399; c=relaxed/simple;
-	bh=oaSlKUXB9mfXSGa6Ia6qjfeZmmytqUexq1Ycd/JWe4k=;
+	s=arc-20240116; t=1785898455; c=relaxed/simple;
+	bh=D8+DhKXCQoyQFDY+amZfh+zn6hTdj6gYm9KTF69YJyo=;
 	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RpCCijwAIe5fLO7+4wcBrii7wcEWSsLzWMcld39E3zNG9ThkItPOI9rfD+1OBYYh6+DRkMLeDacUnUHtSomUHu+AuXLsiDMsAH42kaHrCVhFnhQeuUhe7yPDthdFnSRjMXGJygubFZEnVlAo0ljdGN46Lo5iALeqFdZmDPVAKIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LDXUcGs0; arc=none smtp.client-ip=192.198.163.9
+	 MIME-Version:Content-Type; b=gx1CwD6ChAKeWjbk8VNqUzPM1c8Eza/UU1SXelw6h8evn8AE/xVYQDh5HxVFQyiFljWabbp9LEoKuMXO4SPy3LS6DpMZ/sT8C0cvtLcBHDnZIg7aRkVPBiFWoWSh+3/iVoGe7TLLV0LtljQVMJzFF5N0yHjKjEknQpfuT++UyIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QwzxQtwq; arc=none smtp.client-ip=192.198.163.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LDXUcGs0"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QwzxQtwq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785898398; x=1817434398;
+  t=1785898455; x=1817434455;
   h=date:message-id:from:to:cc:subject:in-reply-to:
    references:mime-version;
-  bh=oaSlKUXB9mfXSGa6Ia6qjfeZmmytqUexq1Ycd/JWe4k=;
-  b=LDXUcGs0LhKEgMHcS1cZQR7OrxypWYKTh9LP4Z8ELdP6qtOil0OGR5VE
-   i+/uoGn9P51RBGJyRjISlcSOFQgD/EmGd3FcnSCL/yXehfzj1mdhz+6Uh
-   YCTzBfQzk2JyG6HO4kwUjXg0uwkxAYGwgrKsg41tGdhgajighVtUZxTpM
-   sHyoqDtWnW8eYhudg4NpbPd9l3I5OcxpwFOwsUUbdNcngcRYtQ7xR4etB
-   iOi6UY9hLBBvts1zehA553sCQpbSx5UewaK1U62m5SRglwMWCqmHLx6G6
-   q/9nNDb3r+2+8bpvr4rW5QK9Z476V1MX4AuZ2eA/ZZiyNGGX/q+SPlUSG
+  bh=D8+DhKXCQoyQFDY+amZfh+zn6hTdj6gYm9KTF69YJyo=;
+  b=QwzxQtwqE1iLpEhoC+qSrL1szFUO2o8L3jEbexzWbwt++8ueRKEpDI50
+   vKMdCc+yUktFIBAs+ae6vGuerbSXpQK3nquKmGe/KwyRJwUQDvHAucBX7
+   WowSa8iv92Gu37OOKqKuhVVeopMyR6zc/Oj19owLjiwM2E9A9MqAbGFkk
+   yDG8fK+w+pZ27ROIIqzfM+zYAjGnmDhuc91XiWcfd/Kds6JZ4AlXJuxIu
+   a91iDuShOd+2/6KuKhViJnNyaTNIz8M6OmIG4gr2FfsL0D/WclCjzVbHS
+   sdK2GHtUcq10kx/CNHeDFVRbJNqVZP0J6JuEkpobjc7TjYH8q/BbG6MyL
    w==;
-X-CSE-ConnectionGUID: rhj7+KbLRtmH8mHQTXIvew==
-X-CSE-MsgGUID: s99x2Ot4SXetCP4Y7G/YcA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="97109962"
+X-CSE-ConnectionGUID: DDKB9Ri6Qt2BWBEg9wKyAg==
+X-CSE-MsgGUID: hs5I0o3cSuCXkbYtjxHEFQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="97110038"
 X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; 
-   d="scan'208";a="97109962"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 19:53:17 -0700
-X-CSE-ConnectionGUID: 8Xml4i66TeWRipAAwAnXRg==
-X-CSE-MsgGUID: ntWtBk3iTaqsiI4/oqcT3A==
+   d="scan'208";a="97110038"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 19:54:14 -0700
+X-CSE-ConnectionGUID: 9ZyV1tyYRISF2OBRUYx+9Q==
+X-CSE-MsgGUID: noSHrnHkRyyR3hvrkLhyMA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; 
-   d="scan'208";a="263664994"
+   d="scan'208";a="265927360"
 Received: from maryammo-mobl.amr.corp.intel.com (HELO adixit-MOBL3.intel.com) ([10.125.66.170])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 19:53:17 -0700
-Date: Tue, 04 Aug 2026 19:53:16 -0700
-Message-ID: <87h5l91dnn.wl-ashutosh.dixit@intel.com>
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 19:54:14 -0700
+Date: Tue, 04 Aug 2026 19:54:13 -0700
+Message-ID: <87fr0t1dm2.wl-ashutosh.dixit@intel.com>
 From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
 To: Sasha Levin <sashal@kernel.org>
 Cc: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 7.1.y 0/8] drivers/gpu/drm/xe: Don't whitelist OA registers unconditionally
-In-Reply-To: <20260805011003.stable-0004@kernel.org>
-References: <20260803230136.3270230-1-ashutosh.dixit@intel.com>
-	<20260805011003.stable-0004@kernel.org>
+Subject: Re: [PATCH 6.18.y 00/10] drivers/gpu/drm/xe: Don't whitelist OA registers unconditionally
+In-Reply-To: <20260805011004.stable-0005@kernel.org>
+References: <20260803232608.3276045-1-ashutosh.dixit@intel.com>
+	<20260805011004.stable-0005@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
  Emacs/30.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -64,19 +64,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 04 Aug 2026 18:13:27 -0700, Sasha Levin wrote:
+On Tue, 04 Aug 2026 18:13:28 -0700, Sasha Levin wrote:
 >
-> On Mon, Aug 03, 2026 at 04:01:28PM -0700, Ashutosh Dixit wrote:
-> > Backport of the following series to Linux 7.1.y:
+> On Mon, Aug 03, 2026 at 04:25:58PM -0700, Ashutosh Dixit wrote:
+> > Backport of the following series to Linux 6.18.y:
 > >
 > > https://lore.kernel.org/intel-xe/20260615224227.34880-1-ashutosh.dixit@intel.com/
 >
-> Patches 2/8 through 8/8 tag "[ Upstream commit <sha> ]" with commits that
-> aren't in Linus' tree...
+> Similar concerns as with the 7.1 backport...
 
 Sorry about that. The new series with upstream commit sha's fixed is here:
 
-https://lore.kernel.org/stable/20260805024300.3406307-1-ashutosh.dixit@intel.com/
+https://lore.kernel.org/stable/20260805024614.3406679-1-ashutosh.dixit@intel.com/
 
 Thanks.
 --
