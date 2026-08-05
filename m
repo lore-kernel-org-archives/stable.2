@@ -1,142 +1,106 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0463E0C4F;
-	Wed,  5 Aug 2026 07:51:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E7123BD05;
+	Wed,  5 Aug 2026 07:51:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785916264; cv=none; b=f1GiFFsLpTDjEM9fdGi+FxNSPq/ITRSIIAflkuGUzdLVPC8Nkcoi+4Z9Nf8Dy9DQ8yFmmSJa/Yrpsh8mtBbN8klZWKE/Ija7a/qBDZahrgoM6DKB7j9pQa+0XqdIn0QWyXbQK3+LzSA0sWEADkFVTKnPJVOkvssh09YXsfkZIRU=
+	t=1785916313; cv=none; b=t5uOpb8sg7Lb04eyAo4OPzkkl/ghuYfRvpq745thxCoKqW/k+G/+InSqi29DP0vjGTQnV+Qx/lS9BX9jwmnt4dCIttILuK+knZ/qwsi0jLBgZMgr3itysyViYG60fTfiENUnLf9mcOaL35F3CySbnYFfJFt61YNWiADzqEZ0v4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785916264; c=relaxed/simple;
-	bh=pW6LONWKn+9k4wzFVYjL3OTPo7tIkw0UEPCVyCNi1fg=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=mjXhdNzvPJFnVjE1cSiTn0KPKyqgBDb52c5VulamtNAiND92I8NAKU/+K9CFAF4vfRScAS0c5NbK6/cb3hfBca8feMePwfCf/WvTFhvsHkQIY1ZaZ3lJEaCYnZlxT47AMJH6h/5K66MkGkOL5X4iW0njquqTdxAVbKOpblcBEYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=bUdDm6PG; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=BsVEXm1D; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1785916313; c=relaxed/simple;
+	bh=QciaFh05jOBkomG66aF5U+QkT0AqJFGre6Qg0gdCucQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HGrKbKP+H8Bf34IeOZRNMYSiz+4Nycntm2phaiOMHVLxT/xxJfPwYHBGFYXMjx1niSaDlNWTPQYTelP0WMF+ijLcTswNBLprNS4OAOppPF428tWzOp1LcJ3Uybpo02QVJRigWfO2XzoAgBFN47WjMVtmgeyxtSpjEZPD+RGIbTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=SJrGqsYT; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="bUdDm6PG";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="BsVEXm1D"
-Date: Wed, 05 Aug 2026 07:50:52 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1785916260;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hcgKWsf25t1+oz0PMKFIrygZNMqeTTCTDCJgmZ2tfHY=;
-	b=bUdDm6PGgZ4H8kxBXcVIOK5l7Tz9Btyiu6hJQ5BkDKj5IQjo1fynoH4ixCQhtXs0bIT/76
-	3TvoUBDDfrmUypuA4rMN/EEBPziX8pNnfEBZEu+gGZbaRKQo0j28xlP6e6PhYe2U6gyrVi
-	Eye13RJLlDX/1qFkQU1ZDEemSwtXC8qIggRgxbjDAkcDqM5vMJFu+cNkXbiPAapYD56Fg5
-	ypeP0l8WWb9pU4lS3HScU/cTEP7dqKOuvcV5q7nbDsTH4swnPgWVaajDIML0J9O5AbRPMR
-	2FsDYN0CRudJnppQDnbv5rUj1J5MfNw8aJhuL8hnJqsPJXiLCZgrJVtYPZFw3g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1785916260;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hcgKWsf25t1+oz0PMKFIrygZNMqeTTCTDCJgmZ2tfHY=;
-	b=BsVEXm1DoLe5IGKcsgcmOUfffwqsy9pBBSwxruDds3L+bwWMYMBK8xSvV3hKdi5MnH8ygD
-	FA66gQ+jw1bAjtAw==
-From: "tip-bot2 for Breno Leitao" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: x86/urgent] x86/mce: Set up the polling timer before CMCI discovery
-Cc: Breno Leitao <leitao@debian.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260803-mce_timer_init-v1-1-9539db424330@debian.org>
-References: <20260803-mce_timer_init-v1-1-9539db424330@debian.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="SJrGqsYT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1785916310;
+	bh=QciaFh05jOBkomG66aF5U+QkT0AqJFGre6Qg0gdCucQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=SJrGqsYThemKc0cMGie1NU+F5vXfw2dY+4VE6GofaLCz6Is948yHX9ZQ22Kdj288K
+	 E8tqgz4vpt8JqCLyhzy1f1Q/6uIdHlIATnhOsREeFmSwnQoOgBFtuOFJUISPtCq/GI
+	 Fj4nc4LXUOn7sBI2LhSFEe8AYXr12fe4zQHzhHyuz+imKJ88SIBf0Z3v2hJez5v2la
+	 3fbu+4kO3fdsT8z4McdwF+Qd8xrzqylQA7fjRxOeJMe3PuXDz7gk12Xh50KgVVaUt5
+	 aO8N7HAQ43BRtQs60vhqFcczT9sGVwkmstt2Tz8ovuQ6KTwHFmhCRWOQr+LxXQwdOM
+	 UgWyZF6+LOKxA==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7593117E025E;
+	Wed, 05 Aug 2026 09:51:49 +0200 (CEST)
+Date: Wed, 5 Aug 2026 09:51:45 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Osama Abdelkader <osama.abdelkader@gmail.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Heiko Stuebner
+ <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/panthor: validate userspace queue count against
+ initialized firmware slot count
+Message-ID: <20260805095145.147e8192@fedora-21.home>
+In-Reply-To: <20260804160048.174148-1-osama.abdelkader@gmail.com>
+References: <20260804160048.174148-1-osama.abdelkader@gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178591625266.708.5471494787214838709.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the x86/urgent branch of tip:
+On Tue,  4 Aug 2026 18:00:47 +0200
+Osama Abdelkader <osama.abdelkader@gmail.com> wrote:
 
-Commit-ID:     a213dfaa2596c1c0dc4dae91c14fbfa499c03223
-Gitweb:        https://git.kernel.org/tip/a213dfaa2596c1c0dc4dae91c14fbfa499c=
-03223
-Author:        Breno Leitao <leitao@debian.org>
-AuthorDate:    Mon, 03 Aug 2026 02:47:40 -07:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Tue, 04 Aug 2026 15:09:25 -07:00
+> In panthor_drv.c:panthor_ioctl_group_create(),
+> the queue count is validated against the hardcoded maximum:
+> 
+> 	if (!args->queues.count || args->queues.count > MAX_CS_PER_CSG)
+> 		return -EINVAL;
+> 
+> However, if the firmware reports fewer slots than MAX_CS_PER_CSG,
+> panthor_fw_init_ifaces() will only initialize that smaller number of
+> stream interfaces.
+> 
+> If unprivileged userspace requests more queues than the firmware reported
+> (but no more than MAX_CS_PER_CSG), cs_slot_prog_locked() fetches an
+> uninitialized stream interface and may crash when dereferencing
+> cs_iface->input->ringbuf_base.
+> 
+> Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+> Cc: stable@vger.kernel.org
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://sashiko.dev/#/patchset/20260803141149.68182-1-osama.abdelkader@gmail.com?part=1
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 
-x86/mce: Set up the polling timer before CMCI discovery
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-I hit the following on one of my machines:
+> ---
+>  drivers/gpu/drm/panthor/panthor_sched.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 5832dccfc093..64749750e6ee 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -3673,6 +3673,9 @@ int panthor_group_create(struct panthor_file *pfile,
+>  	    hweight64(group_args->tiler_core_mask) < group_args->max_tiler_cores)
+>  		return -EINVAL;
+>  
+> +	if (group_args->queues.count > sched->cs_slot_count)
+> +		return -EINVAL;
+> +
+>  	group = kzalloc_obj(*group);
+>  	if (!group)
+>  		return -ENOMEM;
 
-  mce: CPU0 BANK15 CMCI inherited storm
-  ------------[ cut here ]------------
-  ODEBUG: assert_init not available (active state 0) object: (____ptrval____)=
- object type: timer_list hint: 0x0
-  WARNING: lib/debugobjects.c:632 at debug_object_assert_init+0x178/0x230, CP=
-U#0: swapper/0/0
-  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-rc5 #3 PREEMPTLAZY
-  RIP: 0010:debug_object_assert_init+0x18f/0x230
-  Call Trace:
-   <TASK>
-   __mod_timer
-   mce_timer_kick
-   cmci_discover
-   intel_init_cmci
-   mce_intel_feature_init
-   mcheck_cpu_init
-   identify_cpu
-   identify_boot_cpu
-   arch_cpu_finalize_init
-   start_kernel
-
-A second splat follows right after, from timer_setup() finding that same
-timer already queued:
-
-  ODEBUG: init active (active state 0) object: (____ptrval____) object type: =
-timer_list hint: stub_timer+0x0/0x10
-
-This is happening because CMCI storm detection is trying to modify the timer
-before latter was properly set up.
-
-Set up the timer first. __mcheck_cpu_setup_timer() only calls timer_setup(),
-and depends on neither the generic nor the vendor init.
-
-  [ bp: Massage commit message. ]
-
-Fixes: 1f68ce2a0272 ("x86/mce: Handle Intel threshold interrupt storms")
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260803-mce_timer_init-v1-1-9539db424330@debi=
-an.org
----
- arch/x86/kernel/cpu/mce/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
-index 9bba1e2..cfb74be 100644
---- a/arch/x86/kernel/cpu/mce/core.c
-+++ b/arch/x86/kernel/cpu/mce/core.c
-@@ -2266,10 +2266,10 @@ void mcheck_cpu_init(struct cpuinfo_x86 *c)
-=20
- 	mca_cfg.initialized =3D 1;
-=20
-+	__mcheck_cpu_setup_timer();
- 	__mcheck_cpu_init_generic();
- 	__mcheck_cpu_init_vendor(c);
- 	__mcheck_cpu_init_prepare_banks();
--	__mcheck_cpu_setup_timer();
- 	cr4_set_bits(X86_CR4_MCE);
- }
-=20
