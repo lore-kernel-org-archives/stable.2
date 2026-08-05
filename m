@@ -1,189 +1,101 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from va-2-58.ptr.blmpb.com (va-2-58.ptr.blmpb.com [209.127.231.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53243D8100
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 07:56:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBE83E559A
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 08:01:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785916593; cv=none; b=seP1Hrn9jWsIMc9y4fFTI537OnFoIFMHJmKUVlE4gWtO9pel1sXOipYTUmBgFDXR6ylSXH0E7yLA1JDE+xo93zbU+Zk7RQOFRkA6qeKdNgZJ5gNr/gzCiaCykb40HLDx7VWd1zFzwND/nFiwEV38InN5WH6YRZRhLM412LnV6V8=
+	t=1785916897; cv=none; b=k9buQnMq6L3Nbgf4sk8sq3veBVrSWq03kKD8RFiaIO9IpFNARfJADKWBZC5/0+cU2CH4AmxXM8QhPiqS32JKfzcOkJ5qk+D0/ilSqzvRBhDO+qGmEp/9Q32lVrvXIaOnFql7NK9+vL/k8cCMUOCGH0WvzaJkG5lOWkbZ5/Unbcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785916593; c=relaxed/simple;
-	bh=1tsZOP1cJe1vBjHWkYNRr+dqkrAkT4Whnc/9jiAlbZ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VdCtPVG63uj8z/UdEHH4GsbCmb62r9E2BwKsHTzUnq6E5OqOBEWC2cfA0eDHGDQ7Cq9l8c/qQc38rff0mFiGcS9xqIkkzt7XrQtHCNm3lG9CsjngT3FhZpxHZvyjscjU+eYkMvwqZl/Gz+cQRB2OVtVOBFbI5Q38+G02ObTFCaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RbKnqcgh; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785916897; c=relaxed/simple;
+	bh=5nbgeTlwPmpvxBjsWXUMA4e+lDFnLr7P4RDG2gdlXMs=;
+	h=Subject:Date:Cc:Mime-Version:References:In-Reply-To:To:Message-Id:
+	 Content-Disposition:From:Content-Type; b=hPsVzDwr0dyL+NMDESvG2Dnxh3f0cZnAcJQqEV/PD0HmnwNm2W2IfpElcbWnWyeoRUK9w//dqpJ+wfSf9rvYqqKkw5qNymT4VNXf0HFTXE0mtfWndAvHGpNvtAnkCODu2zxtct3pJW4NQtOBSmzf1RGMzUR4GeZM3le74EE0x9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=pyBnnJWM; arc=none smtp.client-ip=209.127.231.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RbKnqcgh"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38101f85591so1633526a91.1
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 00:56:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785916591; x=1786521391; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0WUaISw6qk3Jf0zcCDZtifF5pf/akYlS+Jfhu1wJBuI=;
-        b=RbKnqcghVN3KHJh/C2lSYnlUWjQjHFkYbSlrWMyIBQdVtM2oc3T4FDpuZokMDoF22c
-         r3VdwhoMicQTl53tZERJZiZjjdtf6hTy2zx03VUDEoIlVBgsx0+uU/l1SHgtU7XFb1Mw
-         7GhAknrIP4oxBkvmu0dTEmBI/yygq/SJjf8plR4KBwc+622fDPTuYATSS2cb+BvCxKl5
-         WFcNKXDsjDAAW9lQnLcogwCLxUVCFfR5yopNrv/su+n2t5MiqrVwU3E5RLAt0Q7aWbQj
-         R6Tzlw8HjhhVtuqoRnjifhuPYF2XW/b8HGfwGtz6M9X2Qy7sxaudjdtofHLw6uNQgVfq
-         J70w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785916591; x=1786521391;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0WUaISw6qk3Jf0zcCDZtifF5pf/akYlS+Jfhu1wJBuI=;
-        b=Lzkg+gImIf43scyYiE5DzI2QAMO1FTCASniMmoOpvdsInbNI3PpWn4q6LGS2HANrwa
-         7KtxWKViry2E5SwrOrhaSqsW74taVo0CFywbq/2lgvlDe7B0NuzwW+QscD9+ULHGU06I
-         O/rwbnQMpyQTNLNcWOFNDabhEMxoSe4I1bwuu5J+h8IeucHYDeXowwEcFPXE3KqfwXhd
-         raYJv+UHPGc2HJP32yuNDtohNTMqkDP+kQIbZcVuwC61Dxem9/FvH0x4e26aXQiSFTFb
-         cEYSJCzOheoA38LwSm3nsUvFonE8tbbpBcX0Q0V+ezMufuq7V/e+tTWXbnhe5woTLkZD
-         J+aA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq9vQ/A262Q0l1dfvo5zxsD2hWlAmCFDgB3r6P9OzdhTI4VBABfkuTe4kbOOYM4pXGEq3++5uI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YytqGh8zMovelSC7WpMHWUKgd5ZAWHmUAjnolr9n5THUDBwllCo
-	qXeftS8LbqxQ+KWYC2gzkVa+K6s+iuz142inTP4sxOaKaYqIAkpa7mdY
-X-Gm-Gg: AR+sD13frK1XjR/9K3g0XnDO2aiBRD6dGqCAJroT68Q7ORJLJgh0myga6qzFphF8anH
-	pB4YPpxXr7I3Hv730QiMaydgTmBJ1O/gl3PQ2kmAWUikq+4LZkKOP+3PCvd5i6nBZqA/LWr6v14
-	XW9KTTiLwZ2zRhXZHLRs1UrirKKPqhEvWH8Mjj/zNHBfE4vNdRm1ilhYjlqMTAXvqNIpt5+q9hn
-	vSK7N4kK+Q/tKkAKvKzgs+ASOD55yLaM67qYQIY46CztQ8XT8/uaEzwgH+U+dMPnP0hbix4KlKX
-	P68EEK+5ZuW4XFYo2nikCXkXQvapUg3veW6zDRSrCcJqZ29ysz6fMIRWe543dNw4NYlWizuptVb
-	8rKYSPgJL+pcV5yuh6JHqIwhXZZDe4CUCpyCF9EnM29ie9pomI/tc8fKkHda8CIm/kJ5SZndZkZ
-	G1nZOBL1MDFFWjUm2C9a/8lQGH+WO0OVEDzgaxvnXKiDEp/X7cnvIBhIFCijMuN3I2a+qKMIiTy
-	fiZE17CeZfd6SuUG8UEt3KquMsICvBfx5SxzbaQ5+nVs6MhQfqIGRtXgC3jBYYdim9Ysmca9/KU
-	cpMK8Gvqr5SN0qeOXXVPZjvFerNN30oW27Y7QuAAB3OQZTd2ol5R
-X-Received: by 2002:a17:90b:17cc:b0:387:d5bd:622f with SMTP id 98e67ed59e1d1-3903c6fce95mr2091676a91.18.1785916591024;
-        Wed, 05 Aug 2026 00:56:31 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.252.203.158])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38febffb2ecsm3770582a91.8.2026.08.05.00.56.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 00:56:30 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Heming Zhao <heming.zhao@suse.com>
-Cc: Matthias Goergens <matthias.goergens@gmail.com>,
-	ocfs2-devel@lists.linux.dev,
-	mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com,
-	glass.su@suse.com,
-	akpm@linux-foundation.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ocfs2: fix cached cluster count after suballocator reclaim
-Date: Wed,  5 Aug 2026 15:56:25 +0800
-Message-ID: <20260805075625.3518094-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <anLkDGTDDzVDMijK@p15>
-References: <20260805070837.3390148-1-matthias.goergens@gmail.com> <anLkDGTDDzVDMijK@p15>
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="pyBnnJWM"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1785916887; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=5nbgeTlwPmpvxBjsWXUMA4e+lDFnLr7P4RDG2gdlXMs=;
+ b=pyBnnJWMoyhperjcxdEoaiV1DQEf+hfazApnmbDHpyTttz1lI6B5rWUp0WYmDiEXaXxmBq
+ us34Rl/dGRNi3iI07+Zji0otErOGFYYD3jUJty4LEguzXMbLMfEwzjKDGiFBvsjs+msen/
+ U041qEJjRDJOCpIbue10UGz9/ZRmIwLXuvG0xbKUjexUnCuAJTVRy9zkEDNh1plWCSl+Fw
+ z83i6EDY092qXrzrYetZlLD6lN7so0+rSkudoXsO+kR9QEw3lHs1YGkj4bPeVZDMk5mqQW
+ zVseLJJhU0JOgwROB7KLt+cr6VQz77/vHPWe/oMpz422wqBNWZPyRSqXL1Im6Q==
+Subject: Re: [PATCH v2] HID: hid-oxp: fix UAF on pending work in remove()
+Date: Wed, 5 Aug 2026 16:01:12 +0800
+Content-Transfer-Encoding: 7bit
+Cc: "Shengzhuo Wei" <me@cherr.cc>, "Jiri Kosina" <jikos@kernel.org>, 
+	"Benjamin Tissoires" <bentiss@kernel.org>, 
+	"Zhouwang Huang" <honjow311@gmail.com>, <linux-input@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260804-oxp-fix-v2-1-b2d56e4c8a2c@cherr.cc> <anJGWjlmRxNMoVLG@pve> <CAFqHKT=AEy0-AZsUmcFGbo1iQ00J+ZMdY_9dNJp64wq1QSk6Gw@mail.gmail.com> <anK_oQqFpZLwCA-a@google.com>
+In-Reply-To: <anK_oQqFpZLwCA-a@google.com>
+To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, 
+	"Derek John Clark" <derekjohn.clark@gmail.com>
+Message-Id: <anLtyBB-Vq2D6REw@pve>
+Content-Disposition: inline
+Received: from pve ([111.40.58.243]) by smtp.feishu.cn with ESMTPS; Wed, 05 Aug 2026 16:01:16 +0800
+X-Lms-Return-Path: <lba+26a72edce+f8d438+vger.kernel.org+me@cherr.cc>
+From: "Shengzhuo Wei" <me@cherr.cc>
+Content-Type: text/plain; charset=UTF-8
 
-Hello Heming,
+Hi Derek, Dmitry,
 
-On Wed, Aug 05, 2026 at 03:38:05PM +0800, Heming Zhao wrote:
-> Could you share your test case, I want to reproduce the issue and verify the
-> fix.
+Derek wrote:
+> Out of curiosity, do you have a device available to test as well? If
+> so, which model do you have?
 
-Sure.  The test runs in a QEMU guest on a snapshot-only virtio disk (the
-host image is never modified).  The image is a clean 256 MiB single-node
-local OCFS2 filesystem made with ocfs2-tools 1.8.9:
+I don't have any OneXPlayer hardware. I found this bug by creating a
+gen2 OXP device through /dev/uhid and tearing it down under KASAN in
+QEMU, not on a real device, and I'm not deeply familiar with the HID
+subsystem overall.
 
-    truncate --size=256M accounting.ocfs2
-    mkfs.ocfs2 -F -N 1 -M local accounting.ocfs2
+On disable_delayed_work_sync() I seem to be caught between your two
+positions. Derek:
 
-The guest runs the small program below: mount with
-heartbeat=none,localflocks, create 10,000 empty files, sync, then unlink
-them all, sync.  That drives four suballocator reclaims on this image.
+> I don't think the bug fix switching to disable_delayed_work_sync is
+> worth the side effects without first addressing the global drvdata
+> issue. That would introduce a true regression to fix a theoretical
+> logic bug. I would rather you either switch to the devm_alloc drvdata
+> first or hold that change until I'm able to do it later myself.
 
-To observe the accounting I used a temporary diagnostic, added immediately
-after the ip_clusters update in _ocfs2_reclaim_suballoc_to_main() (not part
-of the submitted patch):
+Dmitry:
 
-    pr_warn("OCFS2_RECLAIM_ACCOUNTING old=%u disk=%u cache=%u cpg=%u\n",
-            tmp_used, le32_to_cpu(fe->i_clusters),
-            OCFS2_I(alloc_inode)->ip_clusters, le16_to_cpu(cl->cl_cpg));
+> If there is possibility to have multiple instances then this driver is
+> FUBAR in the current shape: one device instance fires up work items
+> for another device. So holding the patch makes no sense IMO.
 
-On the stock kernel the first reclaim already leaves the cache at 512
-while the disk holds 2048, and later reclaims underflow the cache.  With
-the patch the cache matches the disk at every reclaim: 2048, 1536, 1024,
-512.
+I'm not well placed to own the per-device drvdata refactor: I have no
+hardware to validate the multi-interface behavior, and I don't have the
+HID-subsystem familiarity to do that rework confidently. So I'd rather
+not take that piece on.
 
-The guest reproducer (statically linked, run as init in a minimal
-initramfs):
+Given that, what would you like me to do? The realistic contribution I
+can stand behind is a minimal v3 that only fixes the use-after-free I
+actually found and verified -- cancel_delayed_work() ->
+cancel_delayed_work_sync() in oxp_hid_remove() (the v1 approach),
+reverting v2's probe change and dropping disable_delayed_work_sync().
+It's KASAN-verified, introduces no regression, and needs no hardware.
+The re-arm hardening and the drvdata/attr-ordering rework would then be
+Derek's, on real hardware with the hid-msi pattern.
 
-    #define _GNU_SOURCE
-
-    #include <errno.h>
-    #include <fcntl.h>
-    #include <stdio.h>
-    #include <string.h>
-    #include <sys/mount.h>
-    #include <sys/stat.h>
-    #include <unistd.h>
-
-    #define FILE_LIMIT 10000
-
-    int main(void)
-    {
-        int created = 0;
-
-        if (mkdir("/mnt", 0777) && errno != EEXIST) {
-            perror("mkdir /mnt");
-            return 1;
-        }
-        if (mount("/dev/vda", "/mnt", "ocfs2", MS_NODIRATIME,
-                  "heartbeat=none,localflocks")) {
-            perror("mount /dev/vda");
-            return 1;
-        }
-        if (chdir("/mnt")) {
-            perror("chdir /mnt");
-            return 1;
-        }
-
-        puts("ACCOUNTING_TEST: mounted; creating files");
-        for (int i = 0; i < FILE_LIMIT; i++) {
-            char path[32];
-            int fd;
-
-            snprintf(path, sizeof(path), "inode-%05d", i);
-            fd = open(path, O_CREAT | O_EXCL | O_RDWR, 0600);
-            if (fd < 0) {
-                printf("ACCOUNTING_TEST: create failed at %d: %s\n",
-                       i, strerror(errno));
-                break;
-            }
-            close(fd);
-            created++;
-        }
-        sync();
-
-        printf("ACCOUNTING_TEST: unlinking %d files\n", created);
-        for (int i = created - 1; i >= 0; i--) {
-            char path[32];
-
-            snprintf(path, sizeof(path), "inode-%05d", i);
-            if (unlink(path)) {
-                printf("ACCOUNTING_TEST: unlink failed at %d: %s\n",
-                       i, strerror(errno));
-                return 1;
-            }
-        }
-        sync();
-        puts("ACCOUNTING_TEST: complete");
-        return 0;
-    }
-
-I also have the full harness (image builder, initramfs builder, QEMU
-runner with a log-checking mode) if you want it; happy to post it or send
-it privately.
+If you'd rather I drop the patch entirely and leave the whole thing
+(including the cancel_delayed_work_sync part) to Derek, that's fine
+too. I'd like to land this fix if there's a version of it you'd accept
+from me, but I defer to your judgment on scope -- I just didn't want to
+silently walk away from a bug I reported.
 
 Thanks,
-Matthias
+Shengzhuo
