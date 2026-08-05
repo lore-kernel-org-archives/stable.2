@@ -1,108 +1,58 @@
-Received: from va-2-44.ptr.blmpb.com (va-2-44.ptr.blmpb.com [209.127.231.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123D8483BD1
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 16:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0333137419B
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 16:41:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785947923; cv=none; b=TQ7K8N9ck/Bb1F9/z4TqiCCg9q1H5u45Ffs45QC/JoIzUQSDUJoF2HGhuM89yVPnsFGmRBVrck3b7V+eAGP2Ps9gp0aUa0dSrxu3FkzJO3TfeKRKS6yUdc9McpWwNXVUpWXBZOv+sVgL3DtOmIxSRrja4thOulLCjuHM8tKpf5g=
+	t=1785948119; cv=none; b=fHRzVvSYF/jndAO4YRU7qNGrRKqEfFOIv8bekVHloUhJpIvXmxNtYqlBWN4w9mi6l4EejCP5fNT2A86CgcbLYhoAgokUn+kwRk3xamzHaUVJDvAutsZ3CRUaxNYGMhvmGd0WzWbLkQWlXoYPilEUNRntky3H8O1+w5o3Z24CjLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785947923; c=relaxed/simple;
-	bh=1eaZjSyQiauYjPvavxFDl1LvGdOwtRGiMfDerN/NcNc=;
-	h=Date:Mime-Version:To:From:Subject:Message-Id:Content-Type:Cc; b=O0aXkbKUPIg02Wxg7odX7933k7E6MLz3xlKVjhVZnksdybAolkcrb6au9tCcc74dsRCxvI1cuRIRu1eDyemsXQgXG/AdcbYpPjBqLe/ZTWt85hQ4lhaK4pZ72omddluLohduNiaumOmWGvPiZhhw4ob+s8pQRTZwi72wPgSy4no=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=VZImHwDo; arc=none smtp.client-ip=209.127.231.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1785948119; c=relaxed/simple;
+	bh=x50kFoJB2sr7P4wgPNeWHUItaNdH1O91AtJNxzutqNc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FIEnC15Bnn8qBS0dSCF15UDWjjs2lIP3qpXcYksEnVhd/YbCOMlm8UFDORH9hU5P3lPZnEw3JNuh6o0xtNzrBTgLOw47byyo9LbhByjDp8zymomEGoaz0R5q1PUx+gKvvPmchy5tra+zZalHuWt3WEMK0UUi7c8Dm8EsBm8RJok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QsQkAWk2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="VZImHwDo"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1785947916; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=LnsE1iNZiHSw8OO+Ugls5I5U6nYU7LBTDmRHK5suJ3U=;
- b=VZImHwDo0JalED+kG++QnWTV07wV81cfVk+C7p3gAVIg6XB6+fLvsdOKfQcn7dQ/HFb9gp
- /ivk5pibGare/KttFMfhNCqLlpzAtRAPOQiCfEDeMuXpPS3WxxGNVTJRnepA3VgCIeCbms
- jV/h+x9Htne7h5CRD/ukPQ+Dia7niPhluK2R3T1KPFHibDDSc/vhuDPgtlYkF9w3oaKm0Y
- bAg9JzStRHaMGRk8BQNBhv7KypOyj9rAJHYs7LhzcGgwhA7sliOssHmRnX8I9/adTuZSdD
- DXBzhBqKFiwFqwkn+UZXgrtqo5ygp4f6+OI6hZ0ybT/bpLPE5y0bX0zfVNdXqA==
-Date: Thu, 06 Aug 2026 00:38:19 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QsQkAWk2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4850E1F000E9;
+	Wed,  5 Aug 2026 16:41:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785948117;
+	bh=nTkWqo8KVaxCZoPrLGCzGWvWbbe/M02sXGKG6Y/V1+A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QsQkAWk2ljuFsgd8v/WIGVE2V2gOZC4JMCUvH3hK8C80wPrOcxoTKpLobbaus9nag
+	 CmaVROHrPuAfhfK1UMiMXcB1xdLczm8pmDaZqboYBgO3JcMojbOYWajY2oA+O6GP9C
+	 cZfSR1yE6ArQcjZh8CQK8qMCwBC3AVInH9d4kSF6oV3AcApbUCSPnq1DeBshqNTZT4
+	 eKfz2tfaCoWMSNQc0W/8KE9UXWV1Du5M8tl8/eYyuj+RhfKtaz49m2J2tTnG6fGHx2
+	 KIvE4LGbaU3/7PW606dVw70+ALV/xXzeB+0ef1u7O+Jon/E7Gex+SNUDbLWv6BO5b7
+	 Vtih24ujhJUKg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	Ashutosh Dixit <ashutosh.dixit@intel.com>
+Subject: Re: [PATCH 7.1.y v2 0/8] drivers/gpu/drm/xe: Don't whitelist OA registers unconditionally
+Date: Wed,  5 Aug 2026 12:41:47 -0400
+Message-ID: <20260805164000.stable-0001@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260805024300.3406307-1-ashutosh.dixit@intel.com>
+References: <20260805024300.3406307-1-ashutosh.dixit@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Received: from [192.168.9.107] ([111.40.58.243]) by smtp.feishu.cn with ESMTPS; Thu, 06 Aug 2026 00:38:33 +0800
-To: "Jiri Kosina" <jikos@kernel.org>, "Jonathan Cameron" <jic23@kernel.org>, 
-	"Srinivas Pandruvada" <srinivas.pandruvada@linux.intel.com>, 
-	"Benjamin Tissoires" <bentiss@kernel.org>
-From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: [PATCH] HID: sensor-hub: fix out-of-bounds access in sensor_hub_get_feature()
-Message-Id: <20260806-hid-sensor-hub-oob-v1-1-f8e210e7eafe@cherr.cc>
-X-Change-Id: 20260806-hid-sensor-hub-oob-f316fd015b76
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.2
-Content-Type: text/plain; charset=UTF-8
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Cc: <linux-input@vger.kernel.org>, <linux-iio@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
-X-B4-Tracking: v=1; b=H4sIAPpmc2oC/x3MQQqAIBBA0avErBvQIouuEi0yx5yNhkMRSHdPW r7F/wWEMpPA3BTIdLNwihW6bWAPWzwI2VVDpzqjJmUwsEOhKCljuCymZNH32nin9GBHAzU8M3l +/umyvu8HR4BHdWQAAAA=
-X-Lms-Return-Path: <lba+26a73670a+ae85e9+vger.kernel.org+me@cherr.cc>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-sensor_hub_get_feature() copies each field value with
-memcpy(..., report->field[...]->report_size / 8), a size taken only
-from the descriptor and bounded neither to the caller buffer nor to the
-field->value[] array.
+On Tue, Aug 04, 2026 at 07:42:52PM -0700, Ashutosh Dixit wrote:
+> Backport of the following series to Linux 7.1.y:
+>
+> https://lore.kernel.org/intel-xe/20260615224227.34880-1-ashutosh.dixit@intel.com/
+>
+> v2: Fix upstream commit sha's (Sasha Levin)
 
-When report_size exceeds the remaining buffer (e.g. a 64-bit power-state
-field into a 4-byte int) the copy overflows the caller's stack on the
-first iteration; when report_size > 32 it also reads past field->value[]
-(one __s32 per logical value) into slab, leaking bytes to userspace via
-callers that expose the buffer (hid-sensor-custom show_value over sysfs).
-Reachable from an untrusted USB or Bluetooth HID device with no local
-privileges.
+Queued the series for 7.1, thanks.
 
-Bound the per-iteration copy to min(report_size/8,
-(report_count-i)*sizeof(__s32), buffer_size - buffer_index).
-
-Fixes: 5459ada2b3cd ("HID: sensor-hub: Fix packing of result buffer for feature report")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
----
- drivers/hid/hid-sensor-hub.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-hub.c
-index 34f710c465b80a0c46cc207e3d99a07c5767f291..978335db71b09617c87e879911b8e75b6bfdebb8 100644
---- a/drivers/hid/hid-sensor-hub.c
-+++ b/drivers/hid/hid-sensor-hub.c
-@@ -270,11 +270,18 @@ int sensor_hub_get_feature(struct hid_sensor_hub_device *hsdev, u32 report_id,
- 
- 	val_ptr = (u8 *)report->field[field_index]->value;
- 	for (i = 0; i < report->field[field_index]->report_count; ++i) {
-+		int copy = report->field[field_index]->report_size / 8;
-+		int src_remaining = (report->field[field_index]->report_count - i) *
-+				    sizeof(__s32);
-+
- 		if (buffer_index >= ret)
- 			break;
- 
--		memcpy(&((u8 *)buffer)[buffer_index], val_ptr,
--		       report->field[field_index]->report_size / 8);
-+		if (copy > src_remaining)
-+			copy = src_remaining;
-+		if (copy > buffer_size - buffer_index)
-+			copy = buffer_size - buffer_index;
-+		memcpy(&((u8 *)buffer)[buffer_index], val_ptr, copy);
- 		val_ptr += sizeof(__s32);
- 		buffer_index += (report->field[field_index]->report_size / 8);
- 	}
-
----
-base-commit: bf0a94fb2b59542f9dd6fea4eec67336f1ccfa56
-change-id: 20260806-hid-sensor-hub-oob-f316fd015b76
-
-Best regards,
 -- 
-Shengzhuo Wei <me@cherr.cc>
+Thanks,
+Sasha
