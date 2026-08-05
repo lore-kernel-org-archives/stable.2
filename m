@@ -1,76 +1,42 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A58413E3DBD
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 08:41:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878333C9EE4
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 08:43:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785919315; cv=none; b=WxEWiFzxak+6+a75LQclnK8rbmEktrXDeX1Uyxnh2mQBi4IkYjwVIkOGK5H1U03dTZfJN70231RjYSrPHGe3onekbnzJdkf+wm4dHSvTCdEbqikumyEEol3hd8NQzAOkTRYLNwwjL616liEDXzY+g+fDKNMIhxIhz2ZgCHPfdjE=
+	t=1785919386; cv=none; b=AstCIdA+MfjAxaSeX1sSRpzXd7/aYAFVWJ9aeaORpiP97oEJDyseN+pOi+8MfL7dT2ycSQRiJ4f7v+9981P5H6X9eSdxUwybCoZ0U9M/HlHufqYK6Vv+RbelAwnMKNAI8HxSEdbW1ek9WWLtRtoRk+3rFCnfumDup17DxQ91w8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785919315; c=relaxed/simple;
-	bh=l/oWp5W71NAkATODGkRO0A+w9ni3mNScsDVkSE5s4Z0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sC62EKp2Kx0JRCsZDYW4PlgkG57/GAe5lujjeaHtCzwsBeFOD7lSOpWq8wA90kJjBhscEo+FZYjhCy11LAMNmUzUscO8MoRNvAzd/bHiEF1+VhzZuZQYSbV47mzHYtxQpCbk/q5xBc2KvVofi+I46qCje9Nr/ywx1aS+RD6UH5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BmUKjlbT; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785919386; c=relaxed/simple;
+	bh=z1APqFTks3Xt6TfPck/y3SBLewlpKzEzBxP35Lg5DIg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hX0o9aXfVaRFgrXjp10pPUfy+nTTNzSAVSsWQQvcO6V/LnZSJyDhS3UFjgqwgT9Jd1M0Gs8pZTfP/gYCXBVEWRcGGG7IptFK6gN/+advUfDzsc10qrkC2OF5JUw+pd74+fpufkmBt1LQn+s94SZjpfzrC7S47nXjntbUbFIFwgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gHFZT1OB; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BmUKjlbT"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47f703a9d05so437344f8f.0
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 01:41:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785919312; x=1786524112; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d3K5hA7CaLdIJbg5AimV7fCZLWk9OkFDdwcvRXHBYow=;
-        b=BmUKjlbTaK+c2Uo/hA6ZB6BM+d3oc2KPCaTqE0FEZF5E1wOZvLCmkaQ02h9y26h1Ff
-         vhmwR7k+vocoIO1i9EiVFLY/4lX50cgR4AwZeVBVN16X3y1wiAiB0aTStH7299WAFME2
-         RTEYrGrLglMxtk/SvW7ocV0hRAJ2xVRIUXygVoqZz6Q8PTNK3BolrO41aFsmlxoVIVkf
-         WJMGB8cwNCNFugqJ3ASpEWHk8YQE0sTz8MNy/iYcoSOJI51Fp9TbpUbPQrfBYjj1JCq4
-         23gHlT7ExEtSleSPMKq7ZibSQiOkPU3yPbFii4msjE/tq07Z/Hs72AtOGfgKtpdcyl2V
-         piUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785919312; x=1786524112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d3K5hA7CaLdIJbg5AimV7fCZLWk9OkFDdwcvRXHBYow=;
-        b=M8yVncvFLGd7Fb4y1MExCiZyW9AxAuhUsD484k5FBs+LC18yJZ9agNromb/YAnVJhg
-         AOGwyFJwURQxGGLLH/4kqylwRa9EGYAcrtFkYj5XJoVEOGrxU8DYtfm2XdlDk3YlJYLW
-         wQNgG/ms1DnozFSvvzvCtY9rPMXq+G1lw7MTvJqbMmLe+AWansrXJ7d+2CD0/v8NIVQs
-         WVnW1aLSvS/jJ6CT3pEfQp/wNJo11tU5USnQ1W4Z/xVLnXC3aJKdvaL7B8U0WfXvcj8A
-         nim5plOzhrf3qG4Rrwbj8EYIWm/Jf+uGCNTLl3GrHttZgtpXa9aL26poeYyie5owXSgL
-         79dw==
-X-Forwarded-Encrypted: i=1; AHgh+RpzxSvpDaLRCnL5j9Er7eUBIJSK612MtVBd95igt1QpUAcIp0akmxT8ND2N7cimkHW0ts7tJt8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqFhMkMf87tpFst1pIn/MIgSqsFrA8Srg8sKmBwpVup+50nABU
-	1lIg11Y/UDEOnfiQk/fd5lAv9ey/JGv21VjR/6gSUT+pb4FNRPoj/o2v
-X-Gm-Gg: AR+sD10/IOHQWSiOmv4viTPD+6e+2FeKGkLHxNkhshz4OZA8a0LJY0mneclX1e7Hjig
-	uSO5/8dhOTzBFoYuguChBkffGTqWJp4jiWYR1N+OC1m4jt+/2Hyw/2QciFvUvorDYq0x53hsM3O
-	LjfwrI4eDUnR0O5Y4msoZrmvUj55NFmNuGhNuonCcjqa8CcoBQt/lQlhnJcxebcb06nlM4dndKS
-	+nLyQIChAX3aIrrpPEdwwgWoy31ogLPu0wNElgkUmelrY/RiZdh3YiW4p84oyionhhNCIK+BNze
-	ZxIS+Y0za7+sOQfHZ2FLNfNi/7A93OD93R489Bdj3UGX2um4KQ0v6IGJLBdFtfa5mEHm8UNPmNN
-	WZM137CYaL/gHiRrA3OTow4IF4oQq9B8ZAZHhBPC02f5jidiTU+kiOMcT6ljZqDBP7jWjq5gSTk
-	hVctCooMjQVEAtWn1giLLCgFJMFOC9w+9HLrWqovrfEp4dSwayoaKNyfODvYAmdSifcQt1wPgku
-	jPFncblNjsMyTPPnIGX113Me8TI4FvON1joD2+JanDEHSIiDKkwtA==
-X-Received: by 2002:adf:ea89:0:b0:47f:9751:cb3d with SMTP id ffacd0b85a97d-47fec4f229bmr6673348f8f.8.1785919311697;
-        Wed, 05 Aug 2026 01:41:51 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (host-79-42-255-151.retail.telecomitalia.it. [79.42.255.151])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47febfe5b1bsm6278770f8f.12.2026.08.05.01.41.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 01:41:51 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Lorenzo Bianconi <lorenzo@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-mediatek@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gHFZT1OB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Dx
+	sOeJBgLD6jZEVkGeHk085+Bv5tTcnYZ6Dn+cOzVFY=; b=gHFZT1OB7HVXln+L5h
+	SWACOdotVQHKoF1PuuQRwTQT82vp2zkWyLcS+j6J4/7s/DZCFZwFKtUjbnkeIss3
+	HRy8VU3mz/vv53xDRBSJaYoEVUBDXK7a0MyPGHRprx32kJzS9Zm29rlhxfwVz28o
+	15WyFZqUVgBEqut/15kEMIV58=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wCnwmJz93JqARgeOA--.21852S2;
+	Wed, 05 Aug 2026 16:42:28 +0800 (CST)
+From: dayou5941@163.com
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org
+Cc: ziy@nvidia.com,
+	linux-mm@kvack.org,
+	Li Youhong <liyouhong@kylinos.cn>,
+	Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH] pinctrl: airoha: fix wrong value for PCIe reset pin
-Date: Wed,  5 Aug 2026 10:41:41 +0200
-Message-ID: <20260805084143.3901-1-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH v3] mm/memory-failure: fix concurrent access issue in min_order_for_split()
+Date: Wed,  5 Aug 2026 16:42:24 +0800
+Message-Id: <20260805084224.2597547-1-dayou5941@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,49 +44,99 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCnwmJz93JqARgeOA--.21852S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr4fKrWfGF1fXF47GrWDtwb_yoW5ZF43pF
+	W7Kwn8XrZagwnI9r47Xw4DAF1Fk34kWa15uF93Cw43A3Z8Aw1jkF47Ww4YyF4UKr48AFn7
+	tFyDXF1093WDtF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jFfO7UUUUU=
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC3RZSAWpy93YoUgAA37
 
-The PCIe reset pin actually require the bit to be set as 0 to work as PCIe
-reset pin. When the bit is set as 1, then the PCIe reset pin act as a GPIO
-for GPIO44, GPIO45 and GPIO46.
+From: Li Youhong <liyouhong@kylinos.cn>
 
+min_order_for_split() accesses folio->mapping without proper
+synchronization. While the compiler typically caches the value
+in a register making a NULL deref unlikely in practice, the
+real issue is that the callers in memory-failure.c do not hold
+the folio lock at the time of the call:
+
+- memory_failure() explicitly drops the folio lock before calling
+  min_order_for_split().
+- soft_offline_in_use_page() has not yet acquired the folio lock
+  when calling min_order_for_split().
+
+This means the value of folio->mapping may be modified by a
+truncate or invalidate operation while min_order_for_split() is
+executing, leading to a torn read or use of a stale mapping value.
+
+Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260803060001.800638-1-dayou5941@163.com
 Cc: stable@vger.kernel.org
-Fixes: 1c8ace2d0725 ("pinctrl: airoha: Add support for EN7581 SoC")
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
 ---
- drivers/pinctrl/airoha/pinctrl-airoha.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+v2:
+- Dropped the approach of caching folio->mapping inside min_order_for_split() in favor of adding the folio lock at the callers.
+- Added VM_WARN_ON_ONCE_FOLIO() in min_order_for_split().
+- Updated the commit message to clarify that the real issue is the callers not holding the folio lock, rather than a TOCTOU race.
+  v1: https://lore.kernel.org/all/20260804035828.2684059-1-dayou5941@163.com/
 
-diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/airoha/pinctrl-airoha.c
-index 04b4424c688b..6409572c0a4b 100644
---- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-+++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-@@ -1412,7 +1412,7 @@ static const struct airoha_pinctrl_func_group pcie_reset_func_group[] = {
- 			AIROHA_FUNC_MUX,
- 			REG_GPIO_PON_MODE,
- 			GPIO_PCIE_RESET0_MASK,
--			GPIO_PCIE_RESET0_MASK
-+			0
- 		},
- 		.regmap_size = 1,
- 	}, {
-@@ -1421,7 +1421,7 @@ static const struct airoha_pinctrl_func_group pcie_reset_func_group[] = {
- 			AIROHA_FUNC_MUX,
- 			REG_GPIO_PON_MODE,
- 			GPIO_PCIE_RESET1_MASK,
--			GPIO_PCIE_RESET1_MASK
-+			0
- 		},
- 		.regmap_size = 1,
- 	}, {
-@@ -1430,7 +1430,7 @@ static const struct airoha_pinctrl_func_group pcie_reset_func_group[] = {
- 			AIROHA_FUNC_MUX,
- 			REG_GPIO_PON_MODE,
- 			GPIO_PCIE_RESET2_MASK,
--			GPIO_PCIE_RESET2_MASK
-+			0
- 		},
- 		.regmap_size = 1,
- 	},
+v3:
+- Fix author name and Signed-off-by format as requested by Greg.
+  v2: https://lore.kernel.org/all/20260805072625.2437636-1-dayou5941@163.com/
+---
+ mm/huge_memory.c    |  2 ++
+ mm/memory-failure.c | 12 ++++++++++--
+ 2 files changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 58cabe6af33d..e3f16dadc1d4 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4300,6 +4300,8 @@ int folio_split(struct folio *folio, unsigned int new_order,
+  */
+ unsigned int min_order_for_split(struct folio *folio)
+ {
++	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
++
+ 	if (folio_test_anon(folio))
+ 		return 0;
+ 
+diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+index 3b1e6946821b..7391524b5046 100644
+--- a/mm/memory-failure.c
++++ b/mm/memory-failure.c
+@@ -2437,12 +2437,17 @@ int memory_failure(unsigned long pfn, int flags)
+ 		res = -EOPNOTSUPP;
+ 		goto unlock_mutex;
+ 	}
++
+ 	folio_unlock(folio);
+ 
+ 	if (folio_test_large(folio)) {
+-		const int new_order = min_order_for_split(folio);
++		const int new_order;
+ 		int err;
+ 
++		folio_lock(folio);
++		new_order = min_order_for_split(folio);
++		folio_unlock(folio);
++
+ 		/*
+ 		 * The flag must be set after the refcount is bumped
+ 		 * otherwise it may race with THP split.
+@@ -2796,8 +2801,11 @@ static int soft_offline_in_use_page(struct page *page)
+ 	};
+ 
+ 	if (!huge && folio_test_large(folio)) {
+-		const int new_order = min_order_for_split(folio);
++		const int new_order;
+ 
++		folio_lock(folio);
++		new_order = min_order_for_split(folio);
++		folio_unlock(folio);
+ 		/*
+ 		 * If new_order (target split order) is not 0, do not split the
+ 		 * folio at all to retain the still accessible large folio.
 -- 
-2.53.0
+2.25.1
 
