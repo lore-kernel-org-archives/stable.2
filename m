@@ -1,76 +1,208 @@
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF7C33343C
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 15:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DC43A6B82;
+	Wed,  5 Aug 2026 16:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785944764; cv=none; b=gIqTtEQtoSTm/r2BH2Pbv6niCG0rcOlfjk+zR6pVV1YWB1XKlUEfV8KvSgm+h08ptmwo8WfC8VJfW+3N5N3uJz+o2tNqyXCdn1yL8GJkL3Uf9RIzLzHoAg0931iBznIPs2uAhSWgSmUFs8sPyCxOJ6Nf8JzzxwGe72B+WX9A/Es=
+	t=1785945634; cv=none; b=qAQ8+bPBEESY++etO471rTzkCLEVbLZXXdPra1Ei94NIGPAqchStl8YUdln1X/e3ZqAgG74n0NCWEuniykfp3js9I7pgBc5ouNkFe6Mm5rtHpGUks5MXhTRDnFjszCCg+Yx/Pk5Cdnw38EwREuPOe5baC8ofXbWHgODXOnO8H/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785944764; c=relaxed/simple;
-	bh=ZL/4J8TTn3wXba9R5vqZ/yXEDwD0Q2tEaZEhsVWwzt0=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=a+IHT2WTTCb/rwZvdbpqYQ7I0vr2EPR2YT3u17p8To+EromCBcHFytSOQY2MKh0BLAbQTZbHHoKLeRoZtl+paPUrb+eOEa5I+nnKuACeM0UkIUeNK9bfPd1xALOkgLV0vYG+Lgt1b8FklEVeJ3Jfl6euSnmh/gmKv2KZDKFN+zc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-451fd211101so617575fac.1
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 08:46:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785944761; x=1786549561;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BeLwYL5ydMClGOYDYV09QEDBbdMa0yN74n5ogutYg5k=;
-        b=RcvyvFWlLYpQ70DSyQOqRTDEpKIAXPbZS9g6iR9Ab9VDaFe9PxDsJD4i/D/nCWHntB
-         mREK9iLPD8axjWbL0BfX2PbETlOparihCkjsklc8f75qZ1iLceu4ecLRToUjHWx4AUP+
-         6g0KFs+Cd8BZyN6o4aHTRplJwvB3w96fv6znoALT5kLw6kG/Grs5zAH0WnX5uwx/GEeC
-         bvnUWOIBGdWUECVtKwRyr+mGlomfyC2vDZthFIhBp7P5Ps0kiNVZa1v3wpnHq6y8F94K
-         xHMr3FGEw7b9e8TxjQhda94Cs0qdgdyPDxO8hVb6FvQ0pk95o6FUcpsCU1+e6j5/fVDV
-         95Xw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro67t55z8tvGOk1I0DQv94RlSQb1wkpH1v9K983sfZnRA0IwsnDxzgRyz3Jm3jh7Vxs6UAeSlQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzsoIm2/ZP7jtjHwQYNqj6dm0wRZ6yCvaVLhrqpcrlh2rshzjd1
-	xS3SSJkkkfZ/RHlh8L4+8q5WEGJKGJf85usZoMLkVBgsLfGuMYL72o2iylNplr+iEh/OvluoKb5
-	i50jn5MKHwOUpry58DqSlXgKpqtOsRYUkd0xAXN+FHaj1I9a1k0f/tgTLe+w=
+	s=arc-20240116; t=1785945634; c=relaxed/simple;
+	bh=+I9wAJlcFp52HzDo9SadpDSkTcLov57Moay5aLJVK34=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=q3K91QuTjKbhBiZcNzjl0QE9ltjJ7ofoI7dftU1bLC1pogGj79NBNxwmBWXMk+lhqwG7ZAaB2NGG7faaCpyL/6UltQdXhuwBbtZXSGOzZNDy/NBF4wrdQ8zV2cTcpj6nyp7bzR2+zJZ/8vTBIbtWjP4gft8fiuf2OHsFPysIbnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=LkdPep/f; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="LkdPep/f"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:To:From:Subject:Message-ID:Sender:Reply-To:Cc:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=+I9wAJlcFp52HzDo9SadpDSkTcLov57Moay5aLJVK34=; b=LkdPep/fLNGPweGMTPMoBoHoJL
+	gSwvHsVtGETSVYI5xiB/Cri9vrc0kCsEdk+tqzCjIp5db2SPXf8pgOWCFYf5f/6H1CmdR/SQbkQuG
+	M7KCEsuukWPTf5SXyQvuVuQmaT0GBGifmdpLaNXCykR/aKfjlG8lptKI9yqq2c4yFUKV+uB83mWaY
+	ybQJUIFB5Dyul+muuIFEHMlsnBQzD74Nf32VBLbhiwx0afbkjGNEz8QkVhU8dbpDc36CCfFuwGmBG
+	3E3/6wVLLKiZDjh3YrCU8Tk8uMg22MEWcb0moRko6r2pmPoKic1hdHqNMcAXl+fFfCJPyffuEdw6d
+	genA9dPQ==;
+Received: from [2a07:aa00:8c:e0:9faf:5742:60f5:922] (helo=u09cd745991455d.ant.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wre2W-00000004F4K-30PS;
+	Wed, 05 Aug 2026 16:00:21 +0000
+Message-ID: <faea706ef539a1a2d8620d97c59fd403155987e9.camel@infradead.org>
+Subject: Re: [syzbot] [kvm?] [kvm-x86?] KASAN: use-after-free Read in
+ kvm_xen_shared_info_init
+From: David Woodhouse <dwmw2@infradead.org>
+To: syzbot <syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com>, 
+	aha310510@gmail.com, bp@alien8.de, dave.hansen@linux.intel.com,
+ halves@igalia.com, 	hpa@zytor.com, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mingo@redhat.com, 	paul@xen.org,
+ pbonzini@redhat.com, pdurrant@amazon.com, seanjc@google.com, 
+	souradiptodas6@gmail.com, stable@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, tglx@kernel.org, x86@kernel.org
+Date: Wed, 05 Aug 2026 18:00:26 +0200
+In-Reply-To: <6a735ab9.41e285c5.91630.006b.GAE@google.com>
+References: <6a735ab9.41e285c5.91630.006b.GAE@google.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-BQM6bzofiSINuNuMWZH8"
+User-Agent: Evolution 3.60.3-0ubuntu1~ppa9~24.04 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2d0a:b0:6ae:4475:bc48 with SMTP id
- 006d021491bc7-6ae96ecd66amr3716387eaf.22.1785944761784; Wed, 05 Aug 2026
- 08:46:01 -0700 (PDT)
-Date: Wed, 05 Aug 2026 08:46:01 -0700
-In-Reply-To: <05be9bb6c5609ca9fc503c25596c9c9e411591d6.camel@infradead.org>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a735ab9.41e285c5.91630.006b.GAE@google.com>
-Subject: Re: [syzbot] [kvm?] [kvm-x86?] KASAN: use-after-free Read in kvm_xen_shared_info_init
-From: syzbot <syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com>
-To: aha310510@gmail.com, bp@alien8.de, dave.hansen@linux.intel.com, 
-	dwmw2@infradead.org, halves@igalia.com, hpa@zytor.com, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mingo@redhat.com, paul@xen.org, 
-	pbonzini@redhat.com, pdurrant@amazon.com, seanjc@google.com, 
-	souradiptodas6@gmail.com, stable@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, tglx@kernel.org, x86@kernel.org
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+
+
+--=-BQM6bzofiSINuNuMWZH8
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Wed, 2026-08-05 at 08:46 -0700, syzbot wrote:
+> Hello,
+>=20
+> syzbot has tested the proposed patch and the reproducer did not trigger a=
+ny issue:
+>=20
+> Reported-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
+> Tested-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
+>=20
+> Tested on:
+>=20
+> commit:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bd2b92fd [NOT-FOR=
+-UPSTREAM] repro: pfncache HVA-invali..
+> git tree:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 git://git.infradead.org/use=
+rs/dwmw2/linux.git pfncache-fixes
+> console output: https://syzkaller.appspot.com/x/log.txt?x=3D10362bb958000=
+0
+> kernel config:=C2=A0 https://syzkaller.appspot.com/x/.config?x=3D145fa60d=
+73086782
+> dashboard link: https://syzkaller.appspot.com/bug?extid=3D0948c82180d475a=
+d24e2
+> compiler:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gcc (Debian 14.2.0-19) 14.2=
+.0, GNU ld (GNU Binutils for Debian) 2.44
+>=20
+> Note: no patches were applied.
+> Note: testing is done by a robot and is best-effort only.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+#syz test: git://git.infradead.org/users/dwmw2/linux.git pfncache-rcu
 
-Reported-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
-Tested-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
+--=-BQM6bzofiSINuNuMWZH8
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
-Tested on:
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
++ZeG6JufyGjZlAMV315VnSQAAAAAAAA=
 
-commit:         bd2b92fd [NOT-FOR-UPSTREAM] repro: pfncache HVA-invali..
-git tree:       git://git.infradead.org/users/dwmw2/linux.git pfncache-fixes
-console output: https://syzkaller.appspot.com/x/log.txt?x=10362bb9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=145fa60d73086782
-dashboard link: https://syzkaller.appspot.com/bug?extid=0948c82180d475ad24e2
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-Note: no patches were applied.
-Note: testing is done by a robot and is best-effort only.
+--=-BQM6bzofiSINuNuMWZH8--
