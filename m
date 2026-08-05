@@ -1,88 +1,95 @@
 Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC36D40D590
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 13:43:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F8F40D590
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 13:43:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785937431; cv=none; b=mEkjqI+ycgewpG5+UfGAGafuzDI1sDVQNiBil1bl4THkdPSmFScvjjscrE9BNOIsYrTmrI+HG2rtPtDEwLUo5M9oJ82smjpWeuJphzlU77XwH+7fKhJS/Y4KrKe/+Pn64J/rtxq5UwsFypo+tF5xlKlTCymM2TRhT7prX6MotBs=
+	t=1785937434; cv=none; b=TCFqqXqbUCjBkOALiJ+rbfb2fbBsDwKH+jiVwVTt42j7t3PSrzphUuHZMWEUbUCR204Nblz+MIwc1a8bNSnBUHHMEdheVywiX+kF3gpzzLU4IPf30+AJCgXmTDreaDnJzVYttc2UEXYTQYakZtQ/AxdsyjBfHuxViPmr8ohnYnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785937431; c=relaxed/simple;
-	bh=kuK9yexfGQAOT+8+Rf+SLn+XceInBJ5E675/lruK9Is=;
+	s=arc-20240116; t=1785937434; c=relaxed/simple;
+	bh=0xmTlPsMG8HwTIBzsb8WyfEAk8CXKCUYUnskhAl5qBg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XFqoRJ4VaGA29yt5mGyaLzF6u4qSe7G9O9B177968V1luRl3a59HbZZnlACFY64OMu/sQykyPxebPQ3/pAx0rj+A8w6Lk65FG/D7oXof2MAOieth8VvXT4tGBTjhVheZk1ozxGMuBK+V9YpO6KrJuwEuFmn8Dro14OYajylzpMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=chfK2IIm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LCL9zbaA; arc=none smtp.client-ip=202.12.124.159
+	 MIME-Version; b=rEObjPYGnLA0H+1MvRkc7yxwWhd6vkIFKC5F+C5U7ulZynNw9ptPZECx1rmD8qTfVksg2vwN45yLH0Fb2K6oX62qQdYjMjgj6PMXI42Z5IkMBRL6uM/nF5aZb8jQWk3UdNSSeuyRpl2hgThGbvqL7DednjjJrl3wKu8LDRb7Va4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=UE8pkU1L; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=mOxaTQWQ; arc=none smtp.client-ip=202.12.124.159
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="chfK2IIm";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LCL9zbaA"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 90B8A7A014D;
-	Wed,  5 Aug 2026 09:43:48 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="UE8pkU1L";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="mOxaTQWQ"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id C47E27A0152;
+	Wed,  5 Aug 2026 09:43:51 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Wed, 05 Aug 2026 09:43:48 -0400
+  by phl-compute-05.internal (MEProxy); Wed, 05 Aug 2026 09:43:52 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1785937428; x=
-	1786023828; bh=bKmvPLLIRMJXI2uzQb//dcpbL7nm14xVg6kbmxHqdZY=; b=c
-	hfK2IImACnPUejq2n2TIZND6Heg7h/CpvfqguNk6zbj1l3eF54oi163UlqT/dTYv
-	3a4T/OJF7tKVjI63XicSJEBOl6mJTLfimdiQTMUsKfmGMbGi6sdbeyomEWKaslqG
-	Z+NYfVhLdPQdfU4TRTi2joZE+lNTteLSSL3GRn6MuWudW3TlZsTQBcz4NXhfE4fu
-	FkmQd/gKjx54QDcxMj05tHnqt1Z1+MdBO4xyJUaURnUfpWtQsgrRAGv3FnDlGyPh
-	oM6qDwvClTGJfWil76AV2vl2YNPwibmjM2WmC9hXrTHv9f5DE/UzIy4uhXUccZkM
-	JmAk+s6exAsn9wlbJxr6g==
+	:reply-to:subject:subject:to:to; s=fm1; t=1785937431; x=
+	1786023831; bh=Mgfwv5z0Brlh3y6VSL8fs6pGUUOGwKT89l127VblliA=; b=U
+	E8pkU1LksAJYLJJlGEyRjGXR/Oi0AhA4go+y8Nfj0PEfRJCDwrT0K7u3rFTBs+ck
+	aHjvgTUqhohPO4r0B0DIz4lTYLBcnO+Jo1ubqpTjNd3WlSeCTh5aZgEg6f7lT48N
+	TzLw/65BphFLH09kQbazmmFmFhbSm8kvm0V2ezfGQIbD5vFhhv3XcpI+38Uz7mH/
+	J5ffZaqxaa5TTGf2uHD3yA6brz0aFvBhv4L1xXSen/anvrKqIyiwDohiI6coT/Vq
+	sD8WvZZI7f0d+xhFFL9h+QQI/OR4x2FDiH/ArWSM/qEpQOU2M24eTJ5oqio7bFOm
+	llOq6YUyQwNasVw8Paetg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1785937428; x=1786023828; bh=b
-	KmvPLLIRMJXI2uzQb//dcpbL7nm14xVg6kbmxHqdZY=; b=LCL9zbaA5zMpFeGPn
-	x8s1kwBPgkvGJVMatHjnj+iiWue5icJI4Et53u8J0725dwlzpXl3rAubdoeagMpQ
-	Wo1SqWoyKpJ1ddBOYqNRks9puDt9QbrEdrFE4o3ioBShU7dAcC7TfC64fYOOyAim
-	eskqu74kWC+3bC5VJxoVDPIv5XkDID82LDMVlD7sPwEOZkhVe5xFdDAQafZhTkZX
-	UdbtY/2caiGLTBiti13ts7rSb2qqU9TUBQpS7YIiOZZa27E0aRXrX8PZQL+smTrU
-	mIE846It+JV6QQMpPPR8W6l99+pqBlVi3NQGjJf9khYtc5WfTGU1Y+Nt6PX69iQa
-	Ac1Hw==
-X-ME-Sender: <xms:FD5zagBgHrT4a8U4gjrLxP_8mvIIp9pVcqEhgPsazhYXwMInAo41-A>
-    <xme:FD5zahnblwm4rHu_CBpQ_hSHSe-xLRvcaXJwotH30qxneCYuwjIfMkJqAGiRM3Ysl
-    zyrgJQbA-5WheeL2J7A_01qqUvpVl3gSvHxaHPrIcdEWbmQK9Zyz1xz>
-X-ME-Received: <xmr:FD5zapx9GcFiZoD-gSpiDedIWoIRxWXBw6Fp1GRZWY-WSHjyuRw6T8c1fms>
-X-ME-Proxy-Cause: dmFkZTFjQi0qus4HXW1Ygv/5UV2JuUMPnx4qZXfeEY8SiPSdw/pp4dedR2NJfRwFbB153f
-    5MDfjTpvbXInJFDTVYcbdWaklEwOwVppz1CyxgIF0j2zlYgYbYnhZXAw3RBaZfRZ4ySqKv
-    4bqAGyVUx0pAShWyGgnv1IfzZIL0d3yAE7d2/TSFJKZJfyX+HhoIDS1g8NrMcnHWejfO7a
-    8Q51+US0EUMgbl3XeFgPNPVblCE4QvhwB/FmU9XpHMr0R0UjgNI1MhoXklG9LiQZMBmHC5
-    O5ozos/3nnf224s2wbM6lsVEvPSOZAXGKgY88BT0s1whoAsGJ2Knjut2jzh2hYLi9nsrB3
-    EUATmxa1owehduRgjF1l0QSS5rALfGirFMsbo1WX7t7QYdYdpj1E6Hq8RN/W6iQ10gzbJu
-    h3N/rzKgWaXB3i+PigvQJfl+MWsy3jE87WNDYQJbgmdcjOz5HvxOARL08IEM9FCZ5gPFS1
-    M5zQxueIs5+dVAWT7bICHM1tC+HeIXrZ88eMJFLM174/+9QI1hGtGGqBB7Ez9rpxd9Bvqe
-    Ei192tTuwYCC4Ybr9DPIAZBVDQv9Lr7pBKUdam/cuizzULxMOVG/iyHaPq55LiIwJ+mZkI
-    Txz6I8CxuIoWS6VQnOV1aTYxEn+7G5g7C39IKsyLmb2GaJZXrUBlPQfqwX4w
-X-ME-Proxy: <xmx:FD5zajTBbad7H-qcutgcOqF5ZI8pv6Qtx1iDu5W7BCWEmQIssFnLnw>
-    <xmx:FD5zap-JfkFUWUyQU-fRjxaxdhGxnQ-DE9t7q5VYCTW9OrbbyooyWw>
-    <xmx:FD5zaptw0TM2Fb7S4_WzIHLTbMHBL-Ztaa7fahJCaBw301rXcPF4aw>
-    <xmx:FD5zapOE__Z_9K5xy_Mx-Gies6pVMKYVY3B89GiBzyjk_okXrPgnsg>
-    <xmx:FD5zasZyI4xsx3Bcl5Wr8kTAYudTC7K_e2J5S0ROtyE0ozCNGppi4YXu>
+	:x-me-sender:x-sasl-enc; s=fm3; t=1785937431; x=1786023831; bh=M
+	gfwv5z0Brlh3y6VSL8fs6pGUUOGwKT89l127VblliA=; b=mOxaTQWQ9rBVDkB34
+	w/+eAxYCpgZf48B9akOneGXUyDT5HvA+xUizOzpZpt7PkG17hI+pE2qvfLEBVIzQ
+	N4qH/HDGyD+wm7cxkn1btNRtxxUwTBZSgyMcdIBaXYePnNFSz+2vqkd/RVuzENl+
+	PUVQFR9D7Sc/AtUWlt1YAm74cFSHAj4R/YPligp5YxOUOaP5F3eipnfGlnvRgI3M
+	efMSYh5NX30VKKV2I+TRo+vZRAD58qN/v9Zd3e2e+HbG1K28dD1rjPnuq2z9Ok6y
+	FNsbrb3xlRnJdWxrEcogtsmIrxyEH/idDhMKdHt36fymQ98uDGVFnsAS0aU/11cN
+	E2NyA==
+X-ME-Sender: <xms:Fz5zauukv9UUeDNClGcRKId4rbe0v36UiJyhIhxC6q3yn3jDUisd_Q>
+    <xme:Fz5zav3ZSETwxHza4RMDzrguenJH9aMnE3TkAd8TcLGJVIIMldQpS_dqXWCd3CJuj
+    14_aZbopIMx3fPIOHsM4nZXNNMHVACnemVe4-dMiCN8NyOKhF13sqg>
+X-ME-Received: <xmr:Fz5zauOv1SRY5auDUKqg79Lw_-YVH224zBn0lkf0o5vVAcuA2lvE3HH9hjA>
+X-ME-Proxy-Cause: dmFkZTFu7qtgJ94GvBO56d5NB9i9RxY+vT76bN+VdHOM6ACSSVXkdli2AUWlJPI7ZTliqo
+    FWLlpbne/YuV75c2Pg4lxAIwDq3h/XuUMFDy93k0ybaA13N1rAGTiIejKH2yi7AMgsTcig
+    yjOghgxkIfoPHfnODZnYUz4SIt457YDBUylJ/L8S4LIC4ZlEO8rD74mEB908/JFQ/qmMdK
+    a4XkfXLOugWT9D0c9ZU6SrhUS6IkxhibSLhvvh2EDPJmlcPyLQqgnldRy6yjmeH/YZoej7
+    j50uCiMow1NHmic8I3ZiKr4oTGPaPszYtGSBMkqJ0aci5zth7LupxsFWer9WHpOb6u86e+
+    klAmIedPVOK8sC51kKg8LYjp48Jo91BPNhgZxccwk1OzlxcPOOfF/LKi4iluJA3VJ25QBc
+    +5reUMyNTcaaVBybfhjylgBpN5liyrqHnXCFE9uM27zOL+gtFEJZ2TyVll6Rdls4Byc1oV
+    tKwtELHWP4sBFyXJ5YrRSbxrC1PA/9ecAfnaFIyNIjL2ezpSOYyoUiyjywBF0D/LCbNVpz
+    uMRjtNQFoV8X7H8dyTIAVPUahHMuAH56YyBxHCmMtuLERZ4AASeKcXKGt+n5OxqjgeaiA3
+    fsre15F0RnNRIBObryGIwHIoQrOCLuvTBOoOpL015MiI1ag5VVqDp6bxvQTw
+X-ME-Proxy: <xmx:Fz5zanXqejG_5jqEHPoqHgP6cFSp2s58qbot3gV3uMjQUbcXATZuxw>
+    <xmx:Fz5zaraRncasvI9MgJ0izBdwLPcwyaNcZqM3meRvaJPz18ZlT0oNcg>
+    <xmx:Fz5zap2yL2UF8EQR95LU9Xk2GGjDsw6PjBX0q-l3-bYCykyZXUVrpg>
+    <xmx:Fz5zavAfr1IC25ZhbYSv3wiPUVYo8bQhqogW5RxvOHiBTqC2VbHc_Q>
+    <xmx:Fz5zalP4hx2EE5YZqx94aHeCQLFzL8jPPR_zYj30-zolxpKXo1Zi4SZ6>
 Feedback-ID: ie3994620:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 5 Aug 2026 09:43:47 -0400 (EDT)
+ 5 Aug 2026 09:43:50 -0400 (EDT)
 From: Kiryl Shutsemau <kirill@shutemov.name>
 To: stable@vger.kernel.org
 Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Sashiko AI review <sashiko-bot@kernel.org>,
+	Muhammad Usama Anjum <usama.anjum@collabora.com>,
 	David Hildenbrand <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
+	Jann Horn <jannh@google.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
 	Peter Xu <peterx@redhat.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.18.y] mm/hugetlb: fix swap entry corruption when clearing uffd-wp at fork()
-Date: Wed,  5 Aug 2026 14:43:46 +0100
-Message-ID: <20260805134346.2776524-1-kirill@shutemov.name>
+Subject: [PATCH 6.12.y] fs/proc/task_mmu: fix PAGEMAP_SCAN written state for unpopulated ptes
+Date: Wed,  5 Aug 2026 14:43:49 +0100
+Message-ID: <20260805134349.2776535-1-kirill@shutemov.name>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026080514-idealist-duvet-aa1d@gregkh>
-References: <2026080514-idealist-duvet-aa1d@gregkh>
+In-Reply-To: <2026080504-lagged-gutless-4701@gregkh>
+References: <2026080504-lagged-gutless-4701@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -93,89 +100,82 @@ Content-Transfer-Encoding: 8bit
 
 From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-copy_hugetlb_page_range() clears the uffd-wp bit of migration and hwpoison
-entries with huge_pte_clear_uffd_wp(), which operates on the present-PTE
-bit position.  Swap entries keep the uffd-wp state elsewhere -- the
-migration branch reads and sets it with pte_swp_uffd_wp() and
-pte_swp_mkuffd_wp() -- and the present-PTE position falls into the swap
-payload.  On x86-64 it lands in the inverted swap offset, where a
-naturally-aligned hugetlb PFN always has the affected bit set, so the
-clear advances the encoded PFN by two pages.
+PAGEMAP_SCAN reports an unpopulated pte differently depending on which
+path serves the request.  The PAGE_IS_WRITTEN fast path in
+pagemap_scan_pmd_entry() reports a pte_none as written (and, under
+PM_SCAN_WP_MATCHING, arms a marker); pagemap_page_category() returns 0 for
+the same pte_none.  A request that cannot take the fast path (an extra
+category bit, category_anyof_mask or category_inverted) therefore reports
+the pte as clean and skips arming it.
 
-No userfaultfd needs to be involved: the clear is guarded only by the
-child VMA not being uffd-wp registered, so a plain fork() with an
-in-flight hugetlb migration entry (or a poisoned hugetlb page) corrupts
-the entry copied into the child.  Instrumenting the clear and forking
-after MADV_HWPOISON on a 2MB anon hugetlb page shows:
+A range that was populated and then MADV_DONTNEED'd reads as written via
+one mask and clean via another, and in the latter case is not re-armed for
+the next round -- an incremental-dump consumer (e.g.  CRIU) using a richer
+mask drops the zapped range and stops tracking writes to it.
 
-  offset before=120e00
-  offset after =120e02
+Report pte_none as written in pagemap_page_category() too.  A pte_none
+carries no uffd-wp marker, i.e.  it is not write-protected -- the same
+condition under which the present and swap cases already report
+PAGE_IS_WRITTEN.  The fast path applies no VMA test, so neither does this.
 
-The fallout is mostly latent: rmap walks match migration entries by folio
-range and remove_migration_pte() rebuilds the PTE from the folio, so a
-within-folio PFN skew heals once migration completes.  But any path that
-re-encodes the corrupted offset -- e.g.  hugetlb_change_protection()
-rewriting a writable migration entry via
-make_readable_migration_entry(swp_offset(entry)) -- propagates it.
+The hugetlb and fully-unpopulated-PMD (no page table) scans have no
+PAGE_IS_WRITTEN fast path, so they do not exhibit the per-entry divergence
+and are left unchanged.
 
-Migration entries legitimately carry uffd-wp, so clear it with
-pte_swp_clear_uffd_wp(), matching copy_nonpresent_pte() and
-move_huge_pte().
+Add a pagemap_ioctl selftest that populates a range, drops it with
+MADV_DONTNEED, and checks that the fast path and the generic
+(category_anyof_mask) path both report every page written.
 
-A hwpoison entry, on the other hand, never carries the uffd-wp bit: it is
-installed fresh by make_hwpoison_entry() (try_to_unmap_one() does not
-preserve uffd-wp on the hwpoison path) and hugetlb_change_protection()
-leaves hwpoison entries untouched.  There was nothing to clear there, only
-the corruption, so drop the clear entirely.
-
-Link: https://lore.kernel.org/20260708090110.136162-1-kirill@shutemov.name
-Fixes: bc70fbf269fd ("mm/hugetlb: handle uffd-wp during fork()")
+Link: https://lore.kernel.org/20260707151349.92143-1-kirill@shutemov.name
+Fixes: 12f6b01a0bcb ("fs/proc/task_mmu: add fast paths to get/clear PAGE_IS_WRITTEN flag")
 Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260703140011.99E601F000E9@smtp.kernel.org/
-Suggested-by: David Hildenbrand <david@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: Claude:claude-fable-5
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Pedro Falcato <pfalcato@suse.de>
 Cc: Peter Xu <peterx@redhat.com>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Assisted-by: Claude:claude-fable-5
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit 83abe2fd5b3aeb3123b5408a5a91709c5538fb23)
-[ kas: adapt to the pre-softleaf idiom ]
+(cherry picked from commit 07b4377bdbe74a3ec0c8da5849d014f70e003384)
+[ kas: fix only; selftest hunk dropped (pagemap_ioctl.c differs on this tree) ]
+
 Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- mm/hugetlb.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ fs/proc/task_mmu.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 9ac5df16b1a9..ecde673578d5 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -5633,8 +5633,12 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
- 			 */
- 			;
- 		} else if (unlikely(is_hugetlb_entry_hwpoisoned(entry))) {
--			if (!userfaultfd_wp(dst_vma))
--				entry = huge_pte_clear_uffd_wp(entry);
-+			/*
-+			 * A hwpoison entry never carries the uffd-wp bit: it is
-+			 * installed fresh by make_hwpoison_entry() and
-+			 * hugetlb_change_protection() leaves it untouched, so
-+			 * there is nothing to clear for the child.
-+			 */
- 			set_huge_pte_at(dst, addr, dst_pte, entry, sz);
- 		} else if (unlikely(is_hugetlb_entry_migration(entry))) {
- 			swp_entry_t swp_entry = pte_to_swp_entry(entry);
-@@ -5653,7 +5657,7 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
- 				set_huge_pte_at(src, addr, src_pte, entry, sz);
- 			}
- 			if (!userfaultfd_wp(dst_vma))
--				entry = huge_pte_clear_uffd_wp(entry);
-+				entry = pte_swp_clear_uffd_wp(entry);
- 			set_huge_pte_at(dst, addr, dst_pte, entry, sz);
- 		} else if (unlikely(is_pte_marker(entry))) {
- 			pte_marker marker = copy_pte_marker(
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index fb01a071b83d..a245330abebd 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -2097,6 +2097,19 @@ static unsigned long pagemap_page_category(struct pagemap_scan_private *p,
+ {
+ 	unsigned long categories = 0;
+ 
++	if (pte_none(pte)) {
++		/*
++		 * An unpopulated pte carries no uffd-wp marker, i.e. it is not
++		 * write-protected, the same condition under which the present
++		 * and swap cases below report PAGE_IS_WRITTEN. Report it here
++		 * too so this generic path agrees with the PAGE_IS_WRITTEN fast
++		 * path in pagemap_scan_pmd_entry(), which reports pte_none as
++		 * written and, under PM_SCAN_WP_MATCHING, arms a marker. The
++		 * fast path applies no VMA test, so neither does this.
++		 */
++		return PAGE_IS_WRITTEN;
++	}
++
+ 	if (pte_present(pte)) {
+ 		struct page *page;
+ 
 -- 
 2.54.0
 
