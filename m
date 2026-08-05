@@ -1,33 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A59142CB02
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 11:33:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61744322F6;
+	Wed,  5 Aug 2026 11:33:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785929614; cv=none; b=Jj/n1kndFXH8n+/4ct7jNmDo/uHSq+TWSpGwcUszad4etbh5Kes7iUs/aD6PZTi6Y2gsyy39tRDB4HdOX5K9vhw8g6HNYh1pEwLvkCu4Qht2PSNIFf6OPcDW7UwSzeQr/E9yEPn25W6NpxJ7/cWkVhTAcanyHfDNfp6jWCvs7ZQ=
+	t=1785929628; cv=none; b=U+43Ls3jop+LrK/OQ+v4OZ0QwWdfeKteTsQoSM0f/KrCgbuc8eASUWVKl8t6TRFcPjRNFGeekHPxs2Rn94vWLVdybAKfheYF7TRHKzItcf5BKeqwHSZci/rvbMUp/jQyCJNOI9OxvvCSl2loNuwuCT4hA6UuxsLzzdxWCK8mU7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785929614; c=relaxed/simple;
-	bh=/MXAPx+xgskwS8aX7pmYTo4LgwSQiHayvGN4SdNa/zs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qcJgMN2Or6fs4QfzvHNLmD9cUQAm+OZxJllehI9NS/4LC8z2A5AhciI9J6crWs2z4q0P2amA9TlCx5CjDKpSBu11Yxl0PDpR0lwJa3JFKDablNiE5UqofKSOxrjvMFVUjGD8j6bUyyayrcjFmHtT19fg/sNy29LuKWIxUdIT73U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=i5zj1kVM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785929628; c=relaxed/simple;
+	bh=3lWJYMs3nbBFgdmv4/bZs0/V4ibefvqdyoqjZL6QD24=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hEd1JlqKUXR7vV0TOrIMa+8WDfynvimbZwi5rvJfk+UqnFWCVLKckxHLcSzYARR0RGs2Kzu+e/tpwtFpSZUVAJi5ma3i/ZTcSNTY981GoyGtZ0ngk9Qx79QmNedXvS/rlS3zlyMPmSDRs8DTzucUu/J/xf3FhuVq/yiQTItC7fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=myOyWvkZ; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="i5zj1kVM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7332C1F000E9;
-	Wed,  5 Aug 2026 11:33:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785929613;
-	bh=c5yi+Mp/W7hP5vPbfrdiR/ZOdlXrTC32q8Kka4YK8DQ=;
-	h=Subject:To:Cc:From:Date;
-	b=i5zj1kVMPVo9W0q9z3kbmwv40+426wJwR0fFLmMxCPrv96xCz0PndGkdGfbYSSKny
-	 RZ+Qypth80FzUwurvFzxuI1QiKpcXybx+to/F9mtJdRC02qJEZ2FUIJ0zTafhm6iIh
-	 NIawM04lr7RWeNWyASBB+OOaOJMU3jaazoKp/+I8=
-Subject: FAILED: patch "[PATCH] veth: convert frag_list skbs before running XDP" failed to apply to 6.1-stable tree
-To: mfleming@cloudflare.com,kuba@kernel.org,lorenzo@kernel.org,toke@toke.dk
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 13:33:08 +0200
-Message-ID: <2026080508-marbling-excuse-5244@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="myOyWvkZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785929626; x=1817465626;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=3lWJYMs3nbBFgdmv4/bZs0/V4ibefvqdyoqjZL6QD24=;
+  b=myOyWvkZbZl+FcR3hzd+AufbzcZq0URU5Iy6NZ1NH0Rz9pZ6v4kGU592
+   KbRbPmEbtjt0dUoik8YIRUNlsJ2R5C8ExBWRVLt8oFU/HTk1mL4zPbmoJ
+   9Wuda6kE+P4B37SyKySGPUYBYMIGA9QHWIgy/1HX4VxKFbq4kZ1JcxQMq
+   78omujVERxCUEZ4wrCvbYI/CllyydAOh1xE0Za5/Q808fMumTMA9tAnFH
+   PfRdAAfZz/zvDWN3qYga08VhmRQV1xMX3hK2OqWpT0ESlCwAPaLKhwPyL
+   SFbRJ0UwR48hra/0tg2eV19uEUcY4F3CNTjIPSEN2EpRjPq3lbYEh38mq
+   g==;
+X-CSE-ConnectionGUID: tyJS2JLzQ+i15yQ2KuvZ7Q==
+X-CSE-MsgGUID: Og4Okb68Ttq137vLTlxJ9g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="86358165"
+X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
+   d="scan'208";a="86358165"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 04:33:44 -0700
+X-CSE-ConnectionGUID: 8qTpyZacQ5ylK+ugbK5C3Q==
+X-CSE-MsgGUID: s8apNhHaQTGF25KG/UCxNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
+   d="scan'208";a="265289744"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 04:33:44 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Gregory Price <gourry@gourry.net>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Balbir Singh <balbirs@nvidia.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Francois Dugast <francois.dugast@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] mm/migrate_device: Fix THP splitting of a CPU faulted device private folio
+Date: Wed,  5 Aug 2026 04:33:35 -0700
+Message-Id: <20260805113338.3742178-2-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260805113338.3742178-1-matthew.brost@intel.com>
+References: <20260805113338.3742178-1-matthew.brost@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,120 +90,279 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+When a CPU faults on a device private PMD and the device driver can only
+allocate order-0 destination folios, __migrate_device_pages() has to
+split the source THP via migrate_vma_split_unmapped_folio(). That path
+is broken in two independent ways when the fault is what triggered the
+migration.
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+First, the split never succeeds. At the point folio_split_unmapped() is
+called the folio carries two references beyond the ones it is
+entitled to:
 
-To reproduce the conflict and resubmit, you may use the following commands:
+  1 - taken by do_huge_pmd_device_private() for the duration of the
+      ->migrate_to_ram() callback
+  2 - taken by migrate_vma_collect_huge_pmd() when the folio was
+      collected
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x d0d6415963040c401e7a7e4e482a698ba52448cb
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080508-marbling-excuse-5244@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+(the mapping reference having been dropped by set_pmd_migration_entry()).
 
-Possible dependencies:
+folio_split_unmapped() requires folio_expected_ref_count(folio) ==
+folio_ref_count(folio) - 1, i.e. it tolerates exactly one caller
+reference. With both of the above held the check sees 2 against an
+expected 0 and returns -EAGAIN, so the migration is abandoned and the
+CPU fault makes no progress.
 
+The PTE-based split path does not have this problem:
+migrate_vma_split_folio() is called before any collect reference is
+taken and explicitly skips folio_get() for the fault folio, so the fault
+reference is the single caller reference the split expects.
 
+Fix it by dropping the fault reference across the split and re-taking it
+afterwards. do_huge_pmd_device_private() derives the fault page from the
+PMD entry, so it is always the head page of the folio and always ends up
+in the head folio of an uniform split to order 0; re-taking the
+reference on the folio therefore puts it back exactly where
+do_huge_pmd_device_private() will release it. The folio cannot be freed
+while the reference is dropped because the collect reference is still
+held.
 
-thanks,
+Second, the folio is split globally but the page tables were demoted
+only locally:
 
-greg k-h
+	split_huge_pmd_address(migrate->vma, addr, true);
+	ret = folio_split_unmapped(folio, 0);
 
------------------- original commit in Linus's tree ------------------
+migrate_device_unmap() unmaps via try_to_migrate(folio, 0), deliberately
+without TTU_SPLIT_HUGE_PMD, so every VMA that PMD maps the folio is left
+holding a PMD sized migration entry. A folio that was PMD mapped in more
+than one VMA -- after fork(), for example -- therefore keeps huge
+migration entries in all the other VMAs while only migrate->vma is
+demoted.
 
-From d0d6415963040c401e7a7e4e482a698ba52448cb Mon Sep 17 00:00:00 2001
-From: Matt Fleming <mfleming@cloudflare.com>
-Date: Wed, 22 Jul 2026 20:19:25 +0100
-Subject: [PATCH] veth: convert frag_list skbs before running XDP
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+folio_split_unmapped() does not notice: the folio is fully unmapped, so
+it only looks at the refcount and happily splits to order 0. The other
+VMAs are then left pointing a huge PMD at an order-0 folio, and
+migrate_vma_finalize() -> remove_migration_ptes() walks into it:
 
-A frag_list skb can reach veth with data_len set but nr_frags zero.
-veth_convert_skb_to_xdp_buff() only converts skbs that are shared,
-locked, have frags[], or do not have enough headroom. It later uses
-skb_is_nonlinear() to decide whether to set XDP_FLAGS_HAS_FRAGS and
-xdp_frags_size.
+  page dumped because: VM_BUG_ON_FOLIO(folio_test_hugetlb(folio) ||
+                                       !folio_test_pmd_mappable(folio))
+  kernel BUG at mm/migrate.c:368!
+  RIP: 0010:remove_migration_pte+0x56a/0x9b0
+  Call Trace:
+   rmap_walk_anon+0xfc/0x260
+   remove_migration_ptes+0x79/0xb0
+   __migrate_device_finalize+0x113/0x290
+   __drm_pagemap_migrate_to_ram+0x278/0x360 [drm_gpusvm_helper]
+   drm_pagemap_migrate_to_ram+0x5c/0x80 [drm_gpusvm_helper]
+   do_huge_pmd_device_private+0x160/0x280
 
-That exposes frag_list data to XDP as if it were stored in frags[], but
-frags[] is empty. AF_XDP copy mode can then trust the bogus XDP fragment
-metadata, walk an empty fragment entry, and crash in memcpy() from
-__xsk_rcv().
+Without CONFIG_DEBUG_VM the VM_BUG_ON_FOLIO() is compiled out and
+remove_migration_pmd() installs a huge PMD pointing at an order-0 page
+instead, along with add_mm_counter(mm, MM_ANONPAGES, HPAGE_PMD_NR). The
+victim mm then maps 2MB of address space onto a single 4K page, which
+shows up later as bad rss-counter state, leaked page tables and page
+allocator freelist corruption in unrelated processes.
 
-Route non-linear skbs through skb_pp_cow_data() before exposing them to
-XDP, and only advertise XDP frags when the resulting skb has frags[].
-skb_copy_bits() already handles frag_list input, and skb_pp_cow_data()
-builds frags[] output with skb_add_rx_frag(), which is the
-representation XDP multi-buffer expects.
+Note this second problem was latent before the refcount fix above: the
+split always failed, and the failed attempt left migrate->vma demoted,
+so the retried fault took the PTE path, where __folio_split() unmaps
+with TTU_SPLIT_HUGE_PMD and demotes every VMA.
 
-Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept non-linear skb")
+Fix it by walking the rmap and demoting every PMD sized migration entry
+mapping the folio before splitting it. Demote with freeze = false: entry
+creation in __split_huge_pmd_locked() is dispatched on
+pmd_is_migration_entry(), not on freeze, so a migration PMD becomes PTE
+sized migration entries either way, and freeze only controls a trailing
+put_page(). With freeze = false there is no refcount change at all,
+which makes the demotion idempotent across N VMAs.
+
+rmap_walk_control.anon_lock is deliberately left unset:
+folio_lock_anon_vma_read() depends on folio_mapped(), and the folio is
+already fully unmapped here. This mirrors remove_migration_ptes().
+
+Finally, refuse the split for a folio that is not anonymous. The rmap
+walk would otherwise reach a file backed VMA, where
+split_huge_pmd_address() zaps the PMD instead of demoting it.
+
+Fixes: 4265d67e405a ("mm/migrate_device: add THP splitting during migration")
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Nico Pache <nico.pache@linux.dev>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Usama Arif <usama.arif@linux.dev>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Francois Dugast <francois.dugast@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
-Reviewed-by: Toke Høiland-Jørgensen <toke@toke.dk>
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
-Link: https://patch.msgid.link/20260722191925.2192070-1-matt@readmodwrite.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Assisted-by: GitHub Copilot:claude-opus-5
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ mm/migrate_device.c | 98 ++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 89 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 1c5142149175..00e34afd858e 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -756,7 +756,7 @@ static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
- 	u32 frame_sz;
- 
- 	if (skb_shared(skb) || skb_head_is_locked(skb) ||
--	    skb_shinfo(skb)->nr_frags ||
-+	    skb_is_nonlinear(skb) ||
- 	    skb_headroom(skb) < XDP_PACKET_HEADROOM) {
- 		if (skb_pp_cow_data(rq->page_pool, pskb, XDP_PACKET_HEADROOM))
- 			goto drop;
-@@ -771,7 +771,7 @@ static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
- 	xdp_prepare_buff(xdp, skb->head, skb_headroom(skb),
- 			 skb_headlen(skb), true);
- 
--	if (skb_is_nonlinear(skb)) {
-+	if (skb_shinfo(skb)->nr_frags) {
- 		skb_shinfo(skb)->xdp_frags_size = skb->data_len;
- 		xdp_buff_set_frags_flag(xdp);
- 	} else {
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 18dabb4e9cfa..ba3dbac80fb4 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -927,6 +927,18 @@ static void skb_clone_fraglist(struct sk_buff *skb)
- 		skb_get(list);
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index 908d2d4ec43a..d1d81bbbf795 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -899,22 +899,104 @@ static int migrate_vma_insert_huge_pmd_page(struct migrate_vma *migrate,
+ 	return 0;
  }
  
-+/**
-+ * skb_pp_cow_data() - copy skb data into page-pool backed storage
-+ * @pool: page pool to allocate from
-+ * @pskb: pointer to skb pointer, replaced with the copied skb on success
-+ * @headroom: headroom to reserve in the copied skb
++static bool migrate_vma_split_pmd_one(struct folio *folio,
++				      struct vm_area_struct *vma,
++				      unsigned long addr, void *arg)
++{
++	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, addr, PVMW_SYNC | PVMW_MIGRATION);
++
++	while (page_vma_mapped_walk(&pvmw)) {
++		if (pvmw.pte)
++			continue;
++
++		addr = pvmw.address;
++		page_vma_mapped_walk_done(&pvmw);
++
++		/*
++		 * Demote with freeze = false: the PMD already holds a
++		 * migration entry, so __split_huge_pmd_locked() creates PTE
++		 * sized migration entries from it and leaves the refcount
++		 * alone. There is at most one PMD mapping @folio per VMA, so
++		 * stop the walk here.
++		 */
++		split_huge_pmd_address(vma, addr, false);
++		break;
++	}
++
++	return true;
++}
++
++/*
++ * Demote every PMD sized migration entry that maps @folio to PTE sized ones.
 + *
-+ * skb_copy_bits() handles both frags[] and frag_list input. If the copied
-+ * skb remains non-linear, it uses frags[], which is the representation used
-+ * by XDP multi-buffer.
-+ *
-+ * Return: 0 on success or a negative errno on failure.
++ * migrate_device_unmap() unmaps with try_to_migrate(folio, 0), i.e. without
++ * TTU_SPLIT_HUGE_PMD, so a folio that was PMD mapped in several VMAs -- after
++ * fork(), for instance -- ends up with a PMD sized migration entry in every one
++ * of them. folio_split_unmapped() below does not care, it only looks at the
++ * refcount, so splitting the folio without demoting all of those first would
++ * leave the other VMAs pointing a huge PMD at what is now an order-0 folio.
++ * remove_migration_ptes() trips over that in migrate_vma_finalize().
 + */
- int skb_pp_cow_data(struct page_pool *pool, struct sk_buff **pskb,
- 		    unsigned int headroom)
++static void migrate_vma_split_pmd_mappings(struct folio *folio)
++{
++	struct rmap_walk_control rwc = {
++		.rmap_one = migrate_vma_split_pmd_one,
++	};
++
++	/*
++	 * Do not pass .anon_lock: folio_lock_anon_vma_read() requires
++	 * folio_mapped(), and @folio is already fully unmapped here.
++	 */
++	rmap_walk(folio, &rwc);
++}
++
+ static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
+-					    unsigned long idx, unsigned long addr,
++					    unsigned long idx,
+ 					    struct folio *folio)
  {
-@@ -936,12 +948,6 @@ int skb_pp_cow_data(struct page_pool *pool, struct sk_buff **pskb,
- 	int err, i, head_off;
- 	void *data;
+ 	unsigned long i;
+ 	unsigned long pfn;
+ 	unsigned long flags;
++	bool fault_folio;
+ 	int ret = 0;
  
--	/* XDP does not support fraglist so we need to linearize
--	 * the skb.
--	 */
--	if (skb_has_frag_list(skb))
--		return -EOPNOTSUPP;
--
- 	max_head_size = SKB_WITH_OVERHEAD(PAGE_SIZE - headroom);
- 	if (skb->len > max_head_size + MAX_SKB_FRAGS * PAGE_SIZE)
- 		return -ENOMEM;
+ 	/*
+-	 * take a reference, since split_huge_pmd_address() with freeze = true
+-	 * drops a reference at the end.
++	 * migrate_vma_split_pmd_mappings() walks the rmap, and
++	 * split_huge_pmd_address() zaps rather than demotes a PMD in a VMA that
++	 * is not anonymous. migrate_vma_collect_huge_pmd() does not check the
++	 * VMA type, so a file THP can reach here; the rest of the migrate_vma()
++	 * machinery only supports anonymous memory anyway.
+ 	 */
+-	folio_get(folio);
+-	split_huge_pmd_address(migrate->vma, addr, true);
++	if (!folio_test_anon(folio))
++		return -EINVAL;
++
++	/*
++	 * A CPU fault on a device private PMD holds an extra reference on the
++	 * folio, taken by do_huge_pmd_device_private(). folio_split_unmapped()
++	 * only tolerates a single caller reference, so the split would always
++	 * fail with -EAGAIN while this fault reference is held.
++	 *
++	 * do_huge_pmd_device_private() derives the fault page from the PMD
++	 * entry, so it is always the head page of @folio, and therefore always
++	 * ends up in the head folio after an uniform split to order 0. Drop
++	 * the reference across the split and re-take it on the head folio
++	 * afterwards, leaving the reference exactly where it is expected to be
++	 * released.
++	 *
++	 * The folio cannot go away while the reference is dropped: the
++	 * reference taken by migrate_vma_collect_huge_pmd() is still held.
++	 */
++	fault_folio = migrate->fault_page &&
++		page_folio(migrate->fault_page) == folio;
++
++	migrate_vma_split_pmd_mappings(folio);
++
++	if (fault_folio)
++		folio_put(folio);
+ 	ret = folio_split_unmapped(folio, 0);
++	if (fault_folio)
++		folio_get(folio);
++
+ 	if (ret)
+ 		return ret;
+ 	migrate->src[idx] &= ~MIGRATE_PFN_COMPOUND;
+@@ -935,7 +1017,7 @@ static int migrate_vma_insert_huge_pmd_page(struct migrate_vma *migrate,
+ }
+ 
+ static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
+-					    unsigned long idx, unsigned long addr,
++					    unsigned long idx,
+ 					    struct folio *folio)
+ {
+ 	return 0;
+@@ -1103,7 +1185,6 @@ static void __migrate_device_pages(unsigned long *src_pfns,
+ 	struct mmu_notifier_range range;
+ 	unsigned long i, j;
+ 	bool notified = false;
+-	unsigned long addr;
+ 
+ 	for (i = 0; i < npages; ) {
+ 		struct page *newpage = migrate_pfn_to_page(dst_pfns[i]);
+@@ -1177,8 +1258,7 @@ static void __migrate_device_pages(unsigned long *src_pfns,
+ 					goto next;
+ 				}
+ 				nr = 1 << folio_order(folio);
+-				addr = migrate->start + i * PAGE_SIZE;
+-				if (migrate_vma_split_unmapped_folio(migrate, i, addr, folio)) {
++				if (migrate_vma_split_unmapped_folio(migrate, i, folio)) {
+ 					src_pfns[i] &= ~(MIGRATE_PFN_MIGRATE |
+ 							 MIGRATE_PFN_COMPOUND);
+ 					goto next;
+-- 
+2.34.1
 
