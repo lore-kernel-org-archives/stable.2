@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D89B35F8B9
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:00:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE4245041F
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:01:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931260; cv=none; b=eBiZVFr/7J3i3MLZT9vexl3ZC6CkhavxWfSysbbHlBO/nIdevU5IsOgR3+chSBARAi6qYq/aVExJQksbosF66rxcUmOZWTyJ1C1YDGb2vE4KGDl1etjhZV4/Bc4xOFoyQgBHKO2dRfm56UFrtRgqa4l6spx6Bi0KNLOaIlIPudc=
+	t=1785931263; cv=none; b=F6LJn4Bsztp0mFHvBoN5faCTnDM1EVjZmP8vcSm490TVq6Nk1pv4gfIP0AFsRJPD6ix3S7miKf4sqmRCYpRDOQiqYTrDEdfW/fiR2abHcVcagowq1Z2dBH15ZkByYpM3mhkdWLbkSJlHFEgo6c8FOhWVaZs5LQ8/7MB4/CG7vcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931260; c=relaxed/simple;
-	bh=FKiRt4cGdGAwhcmYn+u11TsqbfW8AIlF71GxKxbKP6E=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tmT7XTLFi9+sRKqL+WMWm6sA93TeGRuuJwegcJROpoFWiGu00YyB279txRKLbnVJMd743mqWvRZ49eKFlRWTYiBAEv1utejCVW0QeIeBnAQmUrwUEC896pku0zhXpuYM36EDgHxVex4NemT04ud3yF6I1PN9+vD4oUjxgowftec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0baslAmc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785931263; c=relaxed/simple;
+	bh=8zBNhMttd4hvRumSvq09brwit5oZahVTU1OvNTDXdaM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tIlhmL1IiEqeIwbXvhsRfgq9387DlyhePhhoANd34iRrOgtOtv+ex0OSFrOoyKoHvj8P/Wuvh0tvrnjjDnD9feNPdsnG5JLIfSZfXXjCX916fvfD3/VvSUi3pGZ3vJiUNFnX4GRm+L1TZt5KSv4irkB6W1b3rFT9cnf35jHNmvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kiQO/Ieg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0baslAmc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 897D91F000E9;
-	Wed,  5 Aug 2026 12:00:58 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kiQO/Ieg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 627251F000E9;
+	Wed,  5 Aug 2026 12:01:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785931259;
-	bh=BCOOkUMiZZ/efvmfiijsqNzcg4lH9lNiSg03P35SMJI=;
+	s=korg; t=1785931261;
+	bh=PVGeL+FH1w8j0lhgcMDiKz4ZNnPWmJHyvSZy5weI5Rg=;
 	h=Subject:To:Cc:From:Date;
-	b=0baslAmc96UWb1g03sfg/VmZG/zVkNXej0RlccB8lcWGDsGhU87fnUQAB1RXjf9ax
-	 BdMtlnMDTEsZtbxPrmjUNhDIBkYrDEEAsYARKZV7+QKPIb0boUKNXAw1ho7blFb/Gn
-	 PBM1DFil3dbEW1Bhh7UyRd0Jcd2DX/tqmiREBAr0=
-Subject: FAILED: patch "[PATCH] drm/bridge: display-connector: Fix I2C adapter resource leak" failed to apply to 6.1-stable tree
+	b=kiQO/Ieg/Gsgm9qy5GZ37MVtJFbGnevYN9pr9PXfEWW2CJoMS92FCHtE5Xs4/rQhU
+	 5J+y1RsZ+rX2Efdoa3v7785BRrEJFKuTkGzpaFifr8TwZAp9y0LwTSJwn9nYYIfHz+
+	 h41pqQVT28e9qF3O8s9w5AQXHhzOpb4dpDgUbVck=
+Subject: FAILED: patch "[PATCH] drm/bridge: display-connector: Fix I2C adapter resource leak" failed to apply to 5.15-stable tree
 To: laurent.pinchart+renesas@ideasonboard.com,johan@kernel.org,luca.ceresoli@bootlin.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 05 Aug 2026 13:57:23 +0200
-Message-ID: <2026080523-reputably-fantasize-8520@gregkh>
+Message-ID: <2026080523-elope-whimsical-f38a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 6a39ca1286dd97ad02bb8e03bbb65ee05368d778
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080523-reputably-fantasize-8520@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080523-elope-whimsical-f38a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
