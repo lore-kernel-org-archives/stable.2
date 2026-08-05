@@ -1,110 +1,87 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB8F348C4B;
-	Wed,  5 Aug 2026 01:40:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59392110E;
+	Wed,  5 Aug 2026 01:51:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785894064; cv=none; b=DvNsu/U8/PCQjls/AAUoRWkuMLZ5esx8T4liXEQll83n2ek9RQWa8MGDOzaLDyNgFQFYaVIA+V95/aVysTlEGC0DO1fWic5uMYvkX/+YNTs2UXKuXjJO7Nw1gsSfKNiVMRYvRgv1eb8g0Dl1EBCwrigMgl/QwSzHuUxtz1xohBk=
+	t=1785894718; cv=none; b=QxyW1alKtTe2F0k7CkzSB3VJbLRgY4JBQN51yACS1pzCjDtrwPOJxXz3o0ICZYgiyPOrrxDM36gRtglZmzIsFk+y+6ORr3SjyKgpfRVBvtsPR9YS6FDIha5H755gmDpRhda4ZpCjbuJGwCeAkJQR/gik10fkBDufPsD7ORo9cPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785894064; c=relaxed/simple;
-	bh=m9lGJ1PPti98suGO6c7+JnypKTlaVN5Hx+xsrn3o4Lk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ICg9SnOLXScVaEinTE4iM2NRk07DSJTB7ZowuQHfKGl1Uc1RO8m4AYOd1Hx2Jw2eSKaczInf1N9u9uMcoYWMD1Is8hneQk58J65ODzepinTCxpXFrS8WxffXwhwWYi2RFEoMID88k93GIctZEbDRjIg3itpu2s7qgH3xEmjDBL4=
+	s=arc-20240116; t=1785894718; c=relaxed/simple;
+	bh=gHiVNy9RsrJu8KEMKYnOTwduvWO3oLxdEvDDl3kf1ew=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=LhN9s8/tEDgd/tnk9qFJ5wZX9DiRpNqBVPhpAzVrto75l87VU+xgY3hvJiJC/Rg6s+ZX2TrdWsjzydCyHcO6VOaNPijvAsWYdsQgpqrhtm2QKqxIo/Zu1No+5NcZ53LWU1fEw55CSV83TTLRqkqvmTj02zgC/U+PKyP4oprrmXo=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: b1a4fbf2906e11f1aa26b74ffac11d73-20260805
+X-UUID: 3b682638907011f1aa26b74ffac11d73-20260805
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:f424f8b3-04f0-4db9-8d31-5503ec6129c2,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:e7bac3a,CLOUDID:4edaa9e08d59eaa475e10643631151b1,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
-	DM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
-	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-O-INFO: VERSION:1.3.12,REQID:1f692cfc-797b-4567-bb27-ce2c08d5066f,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:e7bac3a,CLOUDID:eefeb8e38f88419a6aa1c663a7fe148f,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|136|865|898,TC:nil,Content:0|15|50,E
+	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
+	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b1a4fbf2906e11f1aa26b74ffac11d73-20260805
-X-User: xiaopei01@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <xiaopei01@kylinos.cn>)
+X-UUID: 3b682638907011f1aa26b74ffac11d73-20260805
+X-User: xiongweimin@kylinos.cn
+Received: from [127.0.1.1] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <xiongweimin@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 259595402; Wed, 05 Aug 2026 09:40:52 +0800
-From: Pei Xiao <xiaopei01@kylinos.cn>
-To: Thinh.Nguyen@synopsys.com,
-	gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Pei Xiao <xiaopei01@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] usb: dwc3: gadget: Fix use-after-free in dwc3_gadget_free_endpoints due to race condition
-Date: Wed,  5 Aug 2026 09:40:49 +0800
-Message-Id: <331d1d5133496d2b4184e05f8848adb06930a138.1785893865.git.xiaopei01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	with ESMTP id 781994736; Wed, 05 Aug 2026 09:51:53 +0800
+From: Xiong Weimin <xiongweimin@kylinos.cn>
+To: Zhu Lingshan <lingshan.zhu@kernel.org>
+Cc: Michael S. Tsirkin <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ Eugenio =?utf-8?q?P=C3=A9rez?= <eperezma@redhat.com>,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Markus Elfring <Markus.Elfring@web.de>, stable@vger.kernel.org
+Subject: [PATCH v2] vdpa: ifcvf: Put device on unsupported feature error
+Date: Wed, 05 Aug 2026 09:51:52 +0800
+Message-ID: <178589471294.1556376.4816776800128323034@kylinos.cn>
+X-Mailer: git-send-email compatible Python smtplib
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-In dwc3_gadget_init_endpoint, &dep->nostream_work is bound with
-dwc3_nostream_work, and dwc3_gadget_endpoint_stream_event can queue
-this delayed work on system_percpu_wq when a DEPEVT_STREAM_NOSTREAM
-event is received.
+Route unsupported provisioned features through the common error path after
+vdpa_alloc_device() so the allocated device and adapter pointer are
+released consistently.
 
-If we remove the gadget, dwc3_gadget_free_endpoints makes cleanup and
-the memory allocated for dep with kzalloc() is released by kfree(dep),
-while the delayed work mentioned above may still be pending or
-running. The sequence of operations that may lead to a UAF bug is as
-follows:
-
-CPU0                                      CPU1
-
-                                          | dwc3_thread_interrupt
-                                          | dwc3_endpoint_interrupt
-                                          | dwc3_gadget_endpoint_stream_event
-                                          | queue_delayed_work(system_percpu_wq,
-                                          |                    &dep->nostream_work)
-dwc3_gadget_free_endpoints                |
-dwc3_free_trb_pool(dep)                   |
-list_del(&dep->endpoint.ep_list)          |
-dwc3_debugfs_remove_endpoint_dir(dep)     |
-kfree(dep)                                |
-// dep is freed                           |
-                                          | dwc3_nostream_work
-                                          | // use dep (use-after-free)
-
-Fix it by canceling the delayed work before kfree(dep) in
-dwc3_gadget_free_endpoints.
-
-Fixes: dcfe437492e2 ("usb: dwc3: gadget: Reinitiate stream for all host NoStream behavior")
-Assisted-by: Codex:deepseek-v4-flash
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+Fixes: 46fc0917bbab ("vDPA/ifcvf: implement features provisioning")
+Cc: stable@vger.kernel.org # v6.3+
+Signed-off-by: Xiong Weimin <xiongweimin@kylinos.cn>
 ---
-changes in v2:
-add Acked-by add Cc stable
----
- drivers/usb/dwc3/gadget.c | 1 +
- 1 file changed, 1 insertion(+)
+v2:
+- Add Fixes and Cc: stable tags
 
-diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-index fa0f16ffafef..fa944856f956 100644
---- a/drivers/usb/dwc3/gadget.c
-+++ b/drivers/usb/dwc3/gadget.c
-@@ -3508,6 +3508,7 @@ static void dwc3_gadget_free_endpoints(struct dwc3 *dwc)
+ drivers/vdpa/ifcvf/ifcvf_main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/vdpa/ifcvf/ifcvf_main.c b/drivers/vdpa/ifcvf/ifcvf_main.c
+index ab6d6ab3b..2af1cec95 100644
+--- a/drivers/vdpa/ifcvf/ifcvf_main.c
++++ b/drivers/vdpa/ifcvf/ifcvf_main.c
+@@ -724,7 +724,8 @@ static int ifcvf_vdpa_dev_add(struct vdpa_mgmt_dev *mdev,=
+ const char *name,
+ 		if (config->device_features & ~device_features) {
+ 			IFCVF_ERR(pdev, "The provisioned features 0x%llx are not supported by thi=
+s device with features 0x%llx\n",
+ 				  config->device_features, device_features);
+-			return -EINVAL;
++			ret =3D -EINVAL;
++			goto err;
  		}
- 
- 		dwc3_debugfs_remove_endpoint_dir(dep);
-+		cancel_delayed_work_sync(&dep->nostream_work);
- 		kfree(dep);
+ 		device_features &=3D config->device_features;
  	}
- }
--- 
-2.25.1
+--=20
+2.43.0
 
