@@ -1,363 +1,155 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F0E3F4DFD;
-	Wed,  5 Aug 2026 19:35:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF673EDE56
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 19:36:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785958551; cv=none; b=U+/YUEGsW6WOK/zIJxsTlBcaQUdSy2Icv48E8N5+blmCXGoKWTU3yTGge2CEtWYVqmTNy2dGq1LL85Z7GNDRR9CH85mPVRh9B1OcYPyNU7YEwFMwO2tv44YvBeEzczCSSoXomf4ddfqFhNN463eo891NQpQ9hpR4Jh440XKxS9c=
+	t=1785958608; cv=none; b=oi6fpS/dejW2eIa8VPbJlhYmhvPvDwN2noPh7v63Nw+szlHZ7gCCl6YQfiwcyFzK91Iv/I+mIMkggaRPIscv6dsZKXC9XTdimXfBgxjMse9pm+SvKhvr9BxgT2+qLCRPa0Oww0RsDYJE1UQgDoLgOUilbjIwc2LJNiLbB+rOg0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785958551; c=relaxed/simple;
-	bh=zZRj+b/NzvOD47gFxglRIPtyT0lDGG2KHr/65GQvaMk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JxP4GPXnIj6XxjICet9tbZZU9sy8bhHiA1yDIeynREJIzdkZwBbfyjOy5bXz7OCU8OJe9L2qysqJJw3bxtdNIY+pPvm3m8//plpvE66t+Gz6Hmb4OXtJgSi9yXPPTQVpwSw3+zgNPC3/mmei5luoB8TsfHH516CK80/D6iDlPOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NQ871CCP; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1785958608; c=relaxed/simple;
+	bh=iF9CeaCV/MT5QTis9XK16zAZl3wKMHXZrO5Be4dodzw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kh381df+sTkIzu79S4cnypTeoT5dwUgfeAyQ0ShZ+Lki4qSd28CTHhM8f3ap0W1Gyy/E7P0k40uCjGUhkMatsYTGVdsZgqizzSoFWY0mvGSGB2PWbq9C65vpBjbz8PVc+MAw7Fdgb8PPlGDtdIbqMngPFAqBc5WQlivexF3KSzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OGXHQpM4; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NQ871CCP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785958546; x=1817494546;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=zZRj+b/NzvOD47gFxglRIPtyT0lDGG2KHr/65GQvaMk=;
-  b=NQ871CCPmZq6iFjaAPhog7UBiX91R63iQ9jD3xQLvjUvqc8xz9dHgZxP
-   T0H6/L7EPNAmD3yHe/Mii2a9e9MLVWGE1lYTJyFBNXKWcD306ziDtSgZU
-   jEgQTEBlE+v0gna7kw+paXbxPdqv4XpAHdKaP9UcklRIdJlPfqpoxLwU7
-   skfgyoUDmaTjCVZTE8JV1pWHnbIj9vCc5eBZQ9R1L4/u0nta0T7uRdHCT
-   I6xALy2pdLAUfsUfsMZr9gBclRhVukCZ+8ZdyfOAqeQQGKQXG6Ykixq3+
-   eu4vERzJej5FO89NI9vuC0JN1CEbGuxdX6MG+mb6DxTl9WDeb8qS9MDKU
-   Q==;
-X-CSE-ConnectionGUID: bLJmhXgGROWSTSLolIvJBw==
-X-CSE-MsgGUID: hlmdfQPZQ0eWDQtgqd3uIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="109332968"
-X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; 
-   d="scan'208";a="109332968"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 12:35:44 -0700
-X-CSE-ConnectionGUID: 9lSYi9ToSZiwsdkFe3a+OQ==
-X-CSE-MsgGUID: SAeRpc4fQWWc+k0u9sIZ1Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; 
-   d="scan'208";a="285263531"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 12:35:43 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Balbir Singh <balbirs@nvidia.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Francois Dugast <francois.dugast@intel.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OGXHQpM4"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f703a9e5dso716022f8f.0
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 12:36:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785958605; x=1786563405; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9h2GbKMrBFLa4j0QbS4fEp7fC2n/Rdosi/gfxLWH5ik=;
+        b=OGXHQpM43B5G4GgLGAdmeDG7ApPRQmoM6xXy0urfv15RPmGiSaRBPYuE7SUlZBMsvi
+         88GuU+lDHb3QWNKqV4VH10mMOrRnPhjO3hDHBawQuVVl6xfM6HbN3c3dxF87gKWj4m8D
+         6El69V8Y+WFBWJMS7XM0Bii0qCXfjeZFVzwTn2291cIdCSFuG8gEITxr4FoARn9sEsgW
+         5rvax1t9yrPnFQQ03Nucm6ntxX/BpEGuSYTNmnrv2GTrBZcvvEj5aFjgRDdmv0oKrNKq
+         uKMP+hfk9ZTvLc+J0eLRt1ouUAqZHy1jmiDCVQDLGH1vgPlHulNWNpUpzT7ABPy600hA
+         Q29A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785958605; x=1786563405;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9h2GbKMrBFLa4j0QbS4fEp7fC2n/Rdosi/gfxLWH5ik=;
+        b=fXx2JvHQPgcI7tAa1GwmCnitZJccX6V4RVDdkHapvIPqFsDwC5StiPDT5n0UkO+snf
+         Jm+HAz5E2NdLuBbK8yJcrGMjmFaGX8tjztRNjNepO999tOzRjZC4rxuhS33Ns0Tqt7sJ
+         ovwIWMElHqT3CBTOMEPtiwOFWODxmx2NgD+oCRimgNSGbQDRm91exp1exX/BhFFUSEUN
+         LR6DBz5yElm4fnhkfU4ILx6cTCVdwr7HF8cDAIyYlrXKp/R0UKQoaUGbem7cZk0u4+w1
+         WubNFSVMQIWVgLMC/6r42DSDLDOSyw2z1MplGezn8Kv3jgjpMrvxG4udnRYLjOnCb9ub
+         U/hQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqzaEBcOkXlpnSNJsxlTK5tvUtMmUuYlAJQ8VQFchHkWxIg4mp8eDfA8p/idIIJkaAzbKlOYIo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzWR+hUam8+HZ74fzT+XyvSSBxrExP5v8IrhOy/6C8q1GrosOFK
+	aRFa7Pp4TWmUTPOZldEE4wmsImvwM71fGvEjji0eFsg1TCew9ruPyiEj
+X-Gm-Gg: AR+sD11M3sSY3GoMXAuFq40DRYpG9pBGIqTfz5hmjGE8/HlMsfJINbKf7soZZ3VL2/+
+	AxOUP3rXsMG6LTW9xi5HKhcIeb8NYjB/kbWARJUKNJOuA6CJpyKAtSD3UDzZq4t3sRsJWLf/cum
+	OinX6+GyIC4UgKHrITaTAAtugjo11mvMkJrd7bNUuKEO8KGHdUJIs9cv2OyKSNjROKoaoUJW7rv
+	dRUte1eTWY79Tl6N5tsF/6xJLxfHjTaDa5xWDhnAWUOqVobNBdh4OwtLqw46v9Kq3wwYuMl0z8A
+	Du/ZxZVt9wcUfyKD+hOdRpFig/WovoDbEFo/O7UBcYmrdh0uJBOqXPgHgi6AoY5EbXykZhErzSl
+	qFCUb04dWwQFrr7c2IK77xF0lQVeNNbJpjp0vZuFjANgWXt0+UuOzsZdmnW/qv2BPlVxIr3HOqQ
+	4OXW08aMsGB7JHjD14kNlgZicAF5gXe4JdNUFkz6+iXvCBA+MylJFGKtPAt6G1AGrG9o1jLNoep
+	aeWZABcaQ==
+X-Received: by 2002:a05:6000:25c4:b0:47f:8ac0:282 with SMTP id ffacd0b85a97d-47fec530687mr15302387f8f.17.1785958604669;
+        Wed, 05 Aug 2026 12:36:44 -0700 (PDT)
+Received: from VivoBook-ASUS-X712UA-M712UA.lan ([2a00:f44:cc3:6030:335:e595:4fbb:65b3])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fec23ede6sm12682789f8f.30.2026.08.05.12.36.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 12:36:44 -0700 (PDT)
+From: Stanislaw Pal <kuncy7@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>
+Cc: Mieczyslaw Nalewaj <namiltd@yahoo.com>,
+	Jie Luo <jie.luo@oss.qualcomm.com>,
+	Brian Masney <bmasney@redhat.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 4/5] drm/pagemap: Fix folio allocation fallback and use-after-put
-Date: Wed,  5 Aug 2026 12:35:35 -0700
-Message-Id: <20260805193536.3756457-5-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260805193536.3756457-1-matthew.brost@intel.com>
-References: <20260805193536.3756457-1-matthew.brost@intel.com>
+Subject: [PATCH v3] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks enabled
+Date: Wed,  5 Aug 2026 21:36:38 +0200
+Message-ID: <20260805193638.15327-1-kuncy7@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260804115359.16633-1-kuncy7@gmail.com>
+References: <20260804115359.16633-1-kuncy7@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-drm_pagemap_migrate_populate_ram_pfn() had two issues when populating
-RAM PFNs with higher-order folios:
+The probe function takes a runtime PM reference to enable the GCC AHB &
+SYS clocks of the CMN PLL block, registers the clocks, and then drops
+the reference, letting pm_clk gate both clocks a few milliseconds after
+probe has returned. The clock ops access the CMN PLL registers without
+a runtime PM reference of their own, and on IPQ5018 gating the CMN
+block bus clocks makes the SoC hang on a subsequent bus access: boards
+died silently within milliseconds of the CMN PLL probe, up to a 100%
+reproducible boot loop, depending on binary layout (micro-timing).
 
-1. The higher-order vma_alloc_folio()/folio_alloc() calls did not pass
-   __GFP_NOWARN, so a THP allocation failure under memory pressure
-   would spam the kernel log, and there was no fallback path despite a
-   TODO comment stating one was needed. Add __GFP_NOWARN to the
-   higher-order allocation and, on failure, fall back to order-0
-   allocations for the entire range originally covered by the failed
-   higher-order allocation, leaving MIGRATE_PFN_COMPOUND unset for
-   those PFNs.
+Take a devres-managed runtime PM reference in probe, so the bus clocks
+stay enabled for as long as the driver is bound and the reference is
+released again on unbind.
 
-2. In the free_pages error path, order was computed via
-   folio_order(page_folio(page)) *after* put_page(page) had already
-   dropped the reference, resulting in a use-after-free/put when that
-   was the last reference on the page. Compute order before releasing
-   the page.
-
-Introducing the fallback in 1. also requires the source page array
-handed to ->copy_to_ram() to be built differently. Both callers only
-populated the entry at the head of each source folio, relying on the
-copy callback to derive the rest of the folio from the order recorded
-in the matching drm_pagemap_addr. Once the destination has been demoted
-to order-0 folios the drm_pagemap_addr entries are per-page, so a source
-page is needed for every one of them; leaving them NULL makes the copy
-callback stop after the first page and the remainder of the range is
-never copied.
-
-The source folio is only split later, by migrate_vma_pages() /
-migrate_device_pages(), so its order cannot be used to detect the
-demotion - test the destination for MIGRATE_PFN_COMPOUND instead. Factor
-the array population out into drm_pagemap_migrate_populate_src_pages()
-and use it from both drm_pagemap_evict_to_ram() and
-__drm_pagemap_migrate_to_ram().
-
-Fixes: ddeda6136038 ("drm/pagemap: Allocate folios when possible")
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nico Pache <nico.pache@linux.dev>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Usama Arif <usama.arif@linux.dev>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Gregory Price <gourry@gourry.net>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Balbir Singh <balbirs@nvidia.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Francois Dugast <francois.dugast@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org
+Fixes: f81715a4c87c ("clk: qcom: Add CMN PLL clock controller driver for IPQ SoC")
 Cc: stable@vger.kernel.org
-Assisted-by: GitHub_Copilot:claude-opus-5
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-
+Signed-off-by: Stanislaw Pal <kuncy7@gmail.com>
 ---
- v2: Add THP-mid-PMD invariant (Sashiko)
----
- drivers/gpu/drm/drm_pagemap.c | 128 +++++++++++++++++++++++++++-------
- 1 file changed, 103 insertions(+), 25 deletions(-)
+Changes in v3:
+- Fix a reference leak on the devm_pm_runtime_get_noresume() failure
+  path: v2 placed the call after pm_runtime_resume_and_get(), so an
+  error return skipped the pm_runtime_put() further down and left that
+  reference unbalanced. Spotted by Mieczyslaw Nalewaj.
+  Rather than unwinding explicitly, the devres get is now taken before
+  pm_runtime_resume_and_get(). Both helpers undo their own get on
+  failure (devm_add_action_or_reset() runs the action,
+  pm_runtime_get_active() calls pm_runtime_put_noidle()), so no error
+  path needs cleanup at all. Happy to switch to the explicit
+  pm_runtime_put() form if that reads better.
 
-diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-index 892b325fa99b..05eb7254028f 100644
---- a/drivers/gpu/drm/drm_pagemap.c
-+++ b/drivers/gpu/drm/drm_pagemap.c
-@@ -383,6 +383,58 @@ drm_pagemap_migrate_map_system_pages(struct device *dev,
- 	return 0;
- }
- 
-+/**
-+ * drm_pagemap_migrate_populate_src_pages() - Populate the source page array
-+ * @pages: Array of source pages to populate
-+ * @src_mpfn: Source array of migrate PFNs
-+ * @dst_mpfn: Destination array of migrate PFNs
-+ * @npages: Number of pages in the arrays
-+ *
-+ * Populate @pages with the device pages the copy callback is to read from.
-+ *
-+ * Entries are normally only populated at the head of each source folio, with
-+ * the copy callback deriving the rest of the folio from the order recorded in
-+ * the corresponding drm_pagemap_addr. That does not work where
-+ * drm_pagemap_migrate_populate_ram_pfn() had to demote a higher-order source
-+ * folio to order-0 destination folios: the drm_pagemap_addr entries are then
-+ * per-page, and the copy callback needs a source page for each of them.
-+ * Populate every entry for those ranges.
-+ *
-+ * Note that the source folio itself is only split later, by
-+ * migrate_vma_pages() / migrate_device_pages(), so its order cannot be used to
-+ * detect the demotion - the destination has to be inspected instead.
-+ */
-+static void drm_pagemap_migrate_populate_src_pages(struct page **pages,
-+						   unsigned long *src_mpfn,
-+						   unsigned long *dst_mpfn,
-+						   unsigned long npages)
-+{
-+	unsigned long i;
-+
-+	for (i = 0; i < npages;) {
-+		struct page *page = migrate_pfn_to_page(src_mpfn[i]);
-+		unsigned int order = 0;
-+		unsigned long j, nr;
-+
-+		if (!page) {
-+			i++;
-+			continue;
-+		}
-+
-+		order = folio_order(page_folio(page));
-+		nr = NR_PAGES(order);
-+
-+		if (order && !(dst_mpfn[i] & MIGRATE_PFN_COMPOUND)) {
-+			for (j = 0; j < nr && i + j < npages; j++)
-+				pages[i + j] = folio_page(page_folio(page), j);
-+		} else {
-+			pages[i] = page;
-+		}
-+
-+		i += nr;
-+	}
-+}
-+
- /**
-  * drm_pagemap_migrate_unmap_pages() - Unmap pages previously mapped for GPU SVM migration
-  * @dev: The device for which the pages were mapped
-@@ -875,6 +927,7 @@ static int drm_pagemap_migrate_populate_ram_pfn(struct vm_area_struct *vas,
- 		struct page *page = NULL, *src_page;
- 		struct folio *folio;
- 		unsigned int order = 0;
-+		gfp_t gfp = GFP_HIGHUSER;
- 
- 		if (!(src_mpfn[i] & MIGRATE_PFN_MIGRATE))
- 			goto next;
-@@ -891,11 +944,51 @@ static int drm_pagemap_migrate_populate_ram_pfn(struct vm_area_struct *vas,
- 
- 		order = folio_order(page_folio(src_page));
- 
--		/* TODO: Support fallback to single pages if THP allocation fails */
-+		/*
-+		 * A large source folio is always collected whole, at its head
-+		 * page, PMD aligned and flagged MIGRATE_PFN_COMPOUND: anything
-+		 * else is split before it reaches us, either by
-+		 * migrate_vma_collect_pmd() or, for the eviction path, by
-+		 * migrate_device_pfns(). Both the order-0 fallback below and
-+		 * drm_pagemap_migrate_populate_src_pages() rely on that, as
-+		 * they index the folio from @i.
-+		 */
-+		WARN_ON_ONCE(order &&
-+			     (src_page != folio_page(page_folio(src_page), 0) ||
-+			      !(src_mpfn[i] & MIGRATE_PFN_COMPOUND)));
-+
-+		if (order)
-+			gfp |= __GFP_NOWARN;
-+
- 		if (vas)
--			folio = vma_alloc_folio(GFP_HIGHUSER, order, vas, addr);
-+			folio = vma_alloc_folio(gfp, order, vas, addr);
- 		else
--			folio = folio_alloc(GFP_HIGHUSER, order);
-+			folio = folio_alloc(gfp, order);
-+
-+		if (!folio && order) {
-+			/*
-+			 * Higher-order allocation failed, fall back to
-+			 * order-0 allocations for the entire range covered
-+			 * by the original higher-order allocation, without
-+			 * setting MIGRATE_PFN_COMPOUND, until we move past
-+			 * that range.
-+			 */
-+			unsigned long nr = NR_PAGES(order);
-+			unsigned long j;
-+
-+			gfp &= ~__GFP_NOWARN;
-+			for (j = 0; j < nr && i < npages; j++, i++, addr += PAGE_SIZE) {
-+				folio = vas ?
-+					vma_alloc_folio(gfp, 0, vas, addr) :
-+					folio_alloc(gfp, 0);
-+				if (!folio)
-+					goto free_pages;
-+
-+				page = folio_page(folio, 0);
-+				mpfn[i] = migrate_pfn(page_to_pfn(page));
-+			}
-+			continue;
-+		}
- 
- 		if (!folio)
- 			goto free_pages;
-@@ -940,11 +1033,11 @@ static int drm_pagemap_migrate_populate_ram_pfn(struct vm_area_struct *vas,
- 		if (!page)
- 			goto next_put;
- 
-+		order = folio_order(page_folio(page));
-+
- 		put_page(page);
- 		mpfn[i] = 0;
- 
--		order = folio_order(page_folio(page));
--
- next_put:
- 		i += NR_PAGES(order);
- 	}
-@@ -1120,7 +1213,7 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
- 	unsigned long *src, *dst;
- 	struct drm_pagemap_addr *pagemap_addr;
- 	void *buf;
--	int i, err = 0;
-+	int err = 0;
- 	unsigned int retry_count = 2;
- 
- 	npages = devmem_allocation->size >> PAGE_SHIFT;
-@@ -1160,15 +1253,7 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
- 	if (err)
- 		goto err_finalize;
- 
--	for (i = 0; i < npages;) {
--		unsigned int order = 0;
--
--		pages[i] = migrate_pfn_to_page(src[i]);
--		if (pages[i])
--			order = folio_order(page_folio(pages[i]));
--
--		i += NR_PAGES(order);
--	}
-+	drm_pagemap_migrate_populate_src_pages(pages, src, dst, npages);
- 
- 	err = ops->copy_to_ram(pages, pagemap_addr, npages, NULL);
- 	if (err)
-@@ -1235,7 +1320,7 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
- 	struct drm_pagemap_addr *pagemap_addr;
- 	unsigned long start, end;
- 	void *buf;
--	int i, err = 0;
-+	int err = 0;
- 
- 	zdd = drm_pagemap_page_zone_device_data(page);
- 	if (time_before64(get_jiffies_64(), zdd->devmem_allocation->timeslice_expiration))
-@@ -1290,15 +1375,8 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
- 	if (err)
- 		goto err_finalize;
- 
--	for (i = 0; i < npages;) {
--		unsigned int order = 0;
--
--		pages[i] = migrate_pfn_to_page(migrate.src[i]);
--		if (pages[i])
--			order = folio_order(page_folio(pages[i]));
--
--		i += NR_PAGES(order);
--	}
-+	drm_pagemap_migrate_populate_src_pages(pages, migrate.src, migrate.dst,
-+					       npages);
- 
- 	err = ops->copy_to_ram(pages, pagemap_addr, npages, NULL);
- 	if (err)
--- 
-2.34.1
+Changes in v2:
+- Use devm_pm_runtime_get_noresume() instead of simply skipping the
+  pm_runtime_put() on the probe success path. The v1 arrangement left
+  the usage count elevated with nothing to balance it on unbind; the
+  devres action releases it.
+- The diff is purely additive; the existing error handling in probe is
+  left untouched.
 
+Note for stable: devm_pm_runtime_get_noresume() was added in v6.16 by
+commit 73db799bf5ef ("PM: runtime: Add new devm functions"), while this
+driver dates back to v6.14. On 6.14.y/6.15.y (both EOL) the equivalent
+is to move the pm_runtime_put() out of probe and add one to
+ipq_cmn_pll_clk_remove() instead.
+
+v1: https://lore.kernel.org/linux-clk/20260730191353.557494-1-kuncy7@gmail.com/
+v2: https://lore.kernel.org/linux-clk/20260804115359.16633-1-kuncy7@gmail.com/
+
+ drivers/clk/qcom/ipq-cmn-pll.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+--- a/drivers/clk/qcom/ipq-cmn-pll.c
++++ b/drivers/clk/qcom/ipq-cmn-pll.c
+@@ -433,6 +433,17 @@ static int ipq_cmn_pll_clk_probe(struct
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to add SYS clock\n");
+ 
++	/*
++	 * The clock ops access the CMN PLL registers without taking a
++	 * runtime PM reference of their own, and on IPQ5018 gating the CMN
++	 * block AHB & SYS clocks after probe hangs the SoC on a subsequent
++	 * bus access. Hold a reference for as long as the driver is bound
++	 * so that the bus clocks stay enabled.
++	 */
++	ret = devm_pm_runtime_get_noresume(dev);
++	if (ret)
++		return ret;
++
+ 	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret)
+ 		return ret;
