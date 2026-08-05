@@ -1,220 +1,139 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2480B413787;
-	Wed,  5 Aug 2026 11:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F7133F9294
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 11:35:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785929633; cv=none; b=DXYnUtM6ZDLXjQuO4EmjJRfKE/5eu3/9s8/Bmbvo9JbPBlVYkyAXwo6wssXDxMLtrDMO+LH8MYUn2xBQk+8X6ptiruw1H3kv565z1DEdzsCxTdiQIz/0pk5srq24kSHcJoy9Act1CnEmbaYVHkeTkj89HxDgH+0BntYBjjaB9ms=
+	t=1785929719; cv=none; b=pD6YKCn1kNPAupkjnmIVIwu0XYsDmzeoTJEcR3ngQ/9c8JbMdDfkr8Q6RicjMUmUISI40WVtyuJyWFHxIW7nusyKwgZvtDr49qcJJkcYFEsJ5v8caeAPLB4dUwys4POQm0CQaXPdtLPxP8DaiL7MqOthdrLffxQCo1C46/y3U6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785929633; c=relaxed/simple;
-	bh=xRlcIXHSrwF2uzzkzRuCIueeNRYGGHl04MyQZjBITUE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jBF0gCD7qN6enO1fHW9W7aeWJ4Z3olu5s9b8KOXQLjFeHQ+NtPmI10877Jj2R0jpcsqDnyd/LKUEh9QvR7dCf5dTMOC5QUL7ZQbEibyfJw7E422ER5MSzLkELYRItpuIfZz33ckGVR0RF8Kplh8PIvV3k0xNGqpDZxv1L0iaUhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TEFSJOi2; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1785929719; c=relaxed/simple;
+	bh=3VVAPVEq11Cz+WZQpb6JpK9WVUWj8N9oBw6dIl9Ji6A=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ATI4ndJ1yPBRJ2w/EJ+M0Ulizuc2TPRDtRnU9y7OTigzst/1rrgIZYhnNvR5L5pFtFTM5/aQaozLIdrn+Iu5PVvZ5LOCshimP5euPiCUFwtZcGk2FE35ekgjs+lwEibvI88+F4aIcZTpJFQZBr+0+R/UZFnCzqoWgdj+UuDNokI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HfK2kG84; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TEFSJOi2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785929630; x=1817465630;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=xRlcIXHSrwF2uzzkzRuCIueeNRYGGHl04MyQZjBITUE=;
-  b=TEFSJOi2tM/LSauJn9pcy9E5BMyWm0AizH5AQ74j5xslOSWq0KeRWmTs
-   9T95xXYSjzJ2hywkoLdOxBoGdTFEgPJC/nyN30CZ703qaiIu0ecRsi4RZ
-   RsXL2eB91zYNeF/ioHN9hQiUNllBXZfEN9sS4FOGd0E+I9F9TQ6y6+g5h
-   /hAd2aqBaawUdvo8u9eTqvqUz7dl2zejV/pGv28RymUX78nOEgwLRVhp4
-   wqnunqasnsRYUz6QhQwzw8izcGWJHi8mjx2ANEwHxZWiJywHOl+plsAwb
-   ofTLCEjh2r50X5NPZtquUKmkYE72gkzHsvV35KtP0OLCJi1CJjpH+IY06
-   Q==;
-X-CSE-ConnectionGUID: oqEVrr3FQwGxiZ213HpF0w==
-X-CSE-MsgGUID: QlWsqnBKRs2mNT32mJsGCA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="86358219"
-X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="86358219"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 04:33:45 -0700
-X-CSE-ConnectionGUID: 0VOchQ9WTgCogTvfZhN3EQ==
-X-CSE-MsgGUID: LjdTZIqWRfKlmWbwkV99CQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="265289753"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 04:33:45 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Balbir Singh <balbirs@nvidia.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Francois Dugast <francois.dugast@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 4/4] drm/pagemap: Add fault injection for higher-order RAM folio allocation
-Date: Wed,  5 Aug 2026 04:33:38 -0700
-Message-Id: <20260805113338.3742178-5-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260805113338.3742178-1-matthew.brost@intel.com>
-References: <20260805113338.3742178-1-matthew.brost@intel.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HfK2kG84"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DC7E1F000E9;
+	Wed,  5 Aug 2026 11:35:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785929717;
+	bh=ZnbyTF48NIMDCOfA/WBVGmDSqt0pCFopja5qnD8j1/4=;
+	h=Subject:To:Cc:From:Date;
+	b=HfK2kG84/wKKGxsW53t1Pn1FUJdVt4CA/x4MFvoMof5slt9QjUqh98EBQY5fUh15i
+	 8aM+G/DHXPX+DpD2k9CwpO0T6C9bkz2pQTYrRrfoSJN91JmC0cto5H7KvDXtglz3xy
+	 BWG9iLRo2qIV13VFL4tpU7wcYr3VfFGhTSfEha7c=
+Subject: FAILED: patch "[PATCH] vxlan: use pskb_network_may_pull() for transmit path header" failed to apply to 6.12-stable tree
+To: edumazet@google.com,idosch@nvidia.com,kuba@kernel.org,vadim.fedorenko@linux.dev
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 05 Aug 2026 13:34:59 +0200
+Message-ID: <2026080559-twins-crimson-3764@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-Migrating a device-private THP back to system memory has two distinct
-paths in __migrate_device_pages(): the fast path where both source and
-destination carry MIGRATE_PFN_COMPOUND, and the fallback path where the
-destination could only be satisfied with order-0 folios and the source
-THP therefore has to be split via migrate_vma_split_unmapped_folio().
 
-The fallback path only triggers under genuine memory pressure, which
-makes it both rare and awkward to reproduce, yet it is the path where
-the interesting refcounting happens (the CPU fault holds an extra
-reference on the device folio taken by do_huge_pmd_device_private()).
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Add a fault_attr, modelled on backup_fault_inject in ttm_pool.c, that
-forces the higher-order allocation in
-drm_pagemap_migrate_populate_ram_pfn() to fail so the existing order-0
-fallback is taken deterministically.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-The attribute is exposed at /sys/kernel/debug/drm_pagemap_fault_inject
-and requires CONFIG_FAULT_INJECTION_DEBUG_FS. With
-CONFIG_FAULT_INJECTION disabled the helper compiles out to a constant
-false and the injection has no cost.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x b9553558b48db54ac9273e6b98d7263ef5c1a329
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080559-twins-crimson-3764@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nico Pache <nico.pache@linux.dev>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Usama Arif <usama.arif@linux.dev>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Gregory Price <gourry@gourry.net>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Balbir Singh <balbirs@nvidia.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Francois Dugast <francois.dugast@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From b9553558b48db54ac9273e6b98d7263ef5c1a329 Mon Sep 17 00:00:00 2001
+From: Eric Dumazet <edumazet@google.com>
+Date: Thu, 23 Jul 2026 14:42:49 +0000
+Subject: [PATCH] vxlan: use pskb_network_may_pull() for transmit path header
+ pulls
+
+In vxlan_xmit(), arp_reduce(), and vxlan_mdb_entry_skb_get(), pskb_may_pull() was
+being called to verify the availability of network layer headers (ARP, IPv6/ND,
+IP/IPv6 MDB keys).
+
+However, during transmit skb->data points to the MAC header, so skb_network_offset(skb)
+is ETH_HLEN (14 bytes). Using pskb_may_pull(skb, len) only checks len bytes from skb->data
+rather than skb_network_offset(skb) + len, which can leave part of the network header
+in non-linear frags.
+
+Replace these remaining pskb_may_pull() calls with pskb_network_may_pull() to properly
+account for the MAC header offset.
+
+Fixes: e4f67addf158 ("add DOVE extensions for VXLAN")
+Fixes: f564f45c4518 ("vxlan: add ipv6 proxy support")
+Fixes: 0f83e69f44bf ("vxlan: Add MDB data path support")
+Signed-off-by: Eric Dumazet <edumazet@google.com>
 Cc: stable@vger.kernel.org
-Assisted-by: GitHub Copilot:claude-opus-5
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/drm_pagemap.c | 36 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 35 insertions(+), 1 deletion(-)
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260723144249.759100-6-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-index 7610e233d238..01eb29ef023c 100644
---- a/drivers/gpu/drm/drm_pagemap.c
-+++ b/drivers/gpu/drm/drm_pagemap.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2024-2025 Intel Corporation
-  */
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index 2163e2687db0..1ded27768a97 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -1850,7 +1850,7 @@ static int arp_reduce(struct net_device *dev, struct sk_buff *skb, __be32 vni)
+ 	if (dev->flags & IFF_NOARP)
+ 		goto out;
  
-+#include <linux/debugfs.h>
- #include <linux/dma-fence.h>
- #include <linux/dma-mapping.h>
- #include <linux/migrate.h>
-@@ -12,6 +13,27 @@
- #include <drm/drm_pagemap_util.h>
- #include <drm/drm_print.h>
+-	if (!pskb_may_pull(skb, arp_hdr_len(dev))) {
++	if (!pskb_network_may_pull(skb, arp_hdr_len(dev))) {
+ 		dev_dstats_tx_dropped(dev);
+ 		vxlan_vnifilter_count(vxlan, vni, NULL,
+ 				      VXLAN_VNI_STATS_TX_DROPS, 0);
+@@ -2763,8 +2763,8 @@ static netdev_tx_t vxlan_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			return arp_reduce(dev, skb, vni);
+ #if IS_ENABLED(CONFIG_IPV6)
+ 		else if (ntohs(eth->h_proto) == ETH_P_IPV6 &&
+-			 pskb_may_pull(skb, sizeof(struct ipv6hdr) +
+-					    sizeof(struct nd_msg)) &&
++			 pskb_network_may_pull(skb, sizeof(struct ipv6hdr) +
++						    sizeof(struct nd_msg)) &&
+ 			 ipv6_hdr(skb)->nexthdr == IPPROTO_ICMPV6) {
+ 			struct nd_msg *m = (struct nd_msg *)(ipv6_hdr(skb) + 1);
  
-+#ifdef CONFIG_FAULT_INJECTION
-+#include <linux/fault-inject.h>
-+static DECLARE_FAULT_ATTR(migrate_to_ram_fault_inject);
-+
-+/*
-+ * Force a higher-order destination folio allocation to fail in
-+ * drm_pagemap_migrate_populate_ram_pfn(), exercising the order-0 fallback
-+ * (and, in turn, the THP split path in __migrate_device_pages()) without
-+ * having to drive the system into actual memory pressure.
-+ */
-+static bool drm_pagemap_fault_inject_folio(void)
-+{
-+	return should_fail(&migrate_to_ram_fault_inject, 1);
-+}
-+#else
-+static bool drm_pagemap_fault_inject_folio(void)
-+{
-+	return false;
-+}
-+#endif
-+
- /**
-  * DOC: Overview
-  *
-@@ -946,7 +968,9 @@ static int drm_pagemap_migrate_populate_ram_pfn(struct vm_area_struct *vas,
- 		if (order)
- 			gfp |= __GFP_NOWARN;
+diff --git a/drivers/net/vxlan/vxlan_mdb.c b/drivers/net/vxlan/vxlan_mdb.c
+index af7a0d7f95a5..9a9038ae90c1 100644
+--- a/drivers/net/vxlan/vxlan_mdb.c
++++ b/drivers/net/vxlan/vxlan_mdb.c
+@@ -1631,7 +1631,7 @@ struct vxlan_mdb_entry *vxlan_mdb_entry_skb_get(struct vxlan_dev *vxlan,
  
--		if (vas)
-+		if (order && drm_pagemap_fault_inject_folio())
-+			folio = NULL;
-+		else if (vas)
- 			folio = vma_alloc_folio(gfp, order, vas, addr);
- 		else
- 			folio = folio_alloc(gfp, order);
-@@ -1540,6 +1564,16 @@ void drm_pagemap_destroy(struct drm_pagemap *dpagemap, bool is_atomic_or_reclaim
- 		kfree(dpagemap);
- }
- 
-+static int __init drm_pagemap_module_init(void)
-+{
-+#if defined(CONFIG_DEBUG_FS) && defined(CONFIG_FAULT_INJECTION)
-+	fault_create_debugfs_attr("drm_pagemap_fault_inject", NULL,
-+				  &migrate_to_ram_fault_inject);
-+#endif
-+	return 0;
-+}
-+module_init(drm_pagemap_module_init);
-+
- static void drm_pagemap_exit(void)
- {
- 	flush_work(&drm_pagemap_work);
--- 
-2.34.1
+ 	switch (skb->protocol) {
+ 	case htons(ETH_P_IP):
+-		if (!pskb_may_pull(skb, sizeof(struct iphdr)))
++		if (!pskb_network_may_pull(skb, sizeof(struct iphdr)))
+ 			return NULL;
+ 		group.dst.sa.sa_family = AF_INET;
+ 		group.dst.sin.sin_addr.s_addr = ip_hdr(skb)->daddr;
+@@ -1640,7 +1640,7 @@ struct vxlan_mdb_entry *vxlan_mdb_entry_skb_get(struct vxlan_dev *vxlan,
+ 		break;
+ #if IS_ENABLED(CONFIG_IPV6)
+ 	case htons(ETH_P_IPV6):
+-		if (!pskb_may_pull(skb, sizeof(struct ipv6hdr)))
++		if (!pskb_network_may_pull(skb, sizeof(struct ipv6hdr)))
+ 			return NULL;
+ 		group.dst.sa.sa_family = AF_INET6;
+ 		group.dst.sin6.sin6_addr = ipv6_hdr(skb)->daddr;
 
