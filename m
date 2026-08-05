@@ -1,232 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289C8431E53
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 11:39:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80B342D753
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 11:39:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785929963; cv=none; b=QnbxDbcqk3fFZVxM5PsXR739hUf+HzYqDoFHmJevvUrAcsHXZQqZf9+v925eXXwcAhMOICsOBB4U4/2qfoiAkvwlqEdRv18pV3y9uEB7m+QBHamqL1l0xrlHvBD8TBIfe754G84jWh7T9aiQ9z5tZ1JLYcxevkULAPL9i2jmOTw=
+	t=1785929968; cv=none; b=GJQMwc+96X3sFP3F/fA+vC+KvILGcHlVf60hZDKC0tMq2BIemsaNJ09ncDZhiX9ot6ilccJkOc451wq19h2LFlJSY2Ego88CfDSwNszVAWTnPcAIRDSiULhSDQ9YussvG8lko67JabpLvErUtNBleWWtx2JXZbcmerEafnZr9MI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785929963; c=relaxed/simple;
-	bh=G7wJwaAMdNbzRzLqtNLf/N653dofljvdleruJkwfLfo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LVhZyou6rZjM4DRc3KUgZ0Ph/BJV0tuol8baPNt8dWJni2aEcD6RC/3K7U+kMYaax7fmfqH7wh1lc2byFX0HU424WTbUOYmU7c4GFK5VXxsI1URbLVYoy6zaERwlIOtSy/9pFE+lAPcygioa36QhmLQKXHTzDOocVr09MhNgJbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dFavr5RS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785929968; c=relaxed/simple;
+	bh=iAmUHHQzaz4f9Rg6y4wTz9QKPgpQfSPXphBN6MdnwQg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cvOAeSR7rxkL1AuPj3Qo47hKXSK2Uc9c64vT7qXF4JLJhNvb8vipUAwQybX2bkaFERlWD0Kp+euIYOEJZKHm9/RmN5iq000SM15RjkXvd7YIq2EYBZO1Ig95lMDpp07mn0AWXZQb1ckT88KT6oDoOJyoZWUj1yB+pHxnlSleIuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fBUOcS7Q; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dFavr5RS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40F4E1F00A3A;
-	Wed,  5 Aug 2026 11:39:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785929961;
-	bh=OmrByoXR6k6bcvmEsY9TvUOgv2kvxulxVi51HUyN1BE=;
-	h=Subject:To:Cc:From:Date;
-	b=dFavr5RSK44WemGs87o64VclVekeIf9vy6zmznWeW48AtESYZpvW2qZe/2uyz5qS5
-	 1D5lhAZl5SswwZA+Im7zOCyjL8k0d6TBc8oOXIQkPHzTfy+NWzuCWTWUm17bbR/Gw/
-	 7TfvHo63YiXCRnV/hxhDrHC4Kiv5W8ZxNXPCWGsI=
-Subject: FAILED: patch "[PATCH] gpio: pch: use raw_spinlock_t for the register lock" failed to apply to 5.15-stable tree
-To: junjie.cao@intel.com,bartosz.golaszewski@oss.qualcomm.com,linusw@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 13:38:41 +0200
-Message-ID: <2026080541-awning-suction-d5bc@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fBUOcS7Q"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84f10e55beaso222978b3a.1
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 04:39:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785929966; x=1786534766; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cWKwxfj+Ulmx669+xXO9b93Zs1csGNYfgoV9iYgU+M8=;
+        b=fBUOcS7QGurlf9Vnc4x6sAfVbAuZfaSJG4VHCVNOVFqqiD27/9FIYC/aif0wt5CjMn
+         x23CXRbXmOYGBYciMN8jGY28rPkNoDOqX1Pf+eR3AcEfO1TRyzu8+SKLjMITPGzP+YW7
+         WE/rP+VwgWcrPRD8BrLbxtsCas/U0IT81lWiqPOM8gpM85PT45ljoZXu4aYerofKIWyd
+         UgioUGDzsm3M7xEZd4cHv62SLRIOw1Bxvb8RmEMQmI2zLxf6mvXwIaOz/BE/dVxgPaRi
+         2ffaJHCUl3jnxdSfI+OrqYBhw804lRJx+zZXP0hpO7DEZTJvwxYDzmapBE30xUw7jqdi
+         n1uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785929966; x=1786534766;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cWKwxfj+Ulmx669+xXO9b93Zs1csGNYfgoV9iYgU+M8=;
+        b=eag/uOQwFK0kjxY2nF4n5pQLTAI9Bm04/02ycfjBBdoK33SgK5iTLy+IaIhiK2u1e8
+         0dpXMbtSa8o6BEbbNWmlSOIfnXsNFnAD7b0MUedpV05aQ0Y9G7nzD1ASwEzauCwYS++b
+         CN+3sq3zuiTiXK4KtiSmcdoUWholp2cYbWJTvK75j12AIBGv4/TFqaNVhq32Uoeb3d3u
+         f7XTQpfPZ88dn6eGY9J4XLhlVYSzIABFLKO10+ydoSNddg1jSlryAgW0hP6XAeEOr3q5
+         hAuLdcrVBukHUFUcPfTgvpkggLrQ/ANpFP1+3onbXmaxjwzhAf4DE5NJIcf4cXchZdQm
+         TPNg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro/xIMSPPeu8FFxmZ3G3OdRwdZMtWaoN97f8XwH08f1KbjVDPW8TT6MLAEa4HXqvhoFVs0N1fY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzqq50uyE8eMcR9MT8rnrIfiV6IvzDzy5fkNjAKVYKDL6m96+Tv
+	ej/ssYE6mF/ofkaff2DFAFenJ3fyWnvIksxmspTR4KWZztuNITI4ICto
+X-Gm-Gg: AR+sD12Hh6H5e/ue87cv/vtKghDBSsD7apEu5tmRTky9ZC00GA1KvSjz/eAPG6sk8rs
+	ftxFIzn32AHG7LJqLQq/WVY7+cuLBFTj15ZYd8zkkBrqZCyDebU5azf9hHJq9ddE757BwDDWZDG
+	SyycfoVGysKA3SeO75Df68NzAybJ/XC4Psd40kH9/T6ZnYcmlkeRUjOOHZJgnMCgn5KaLAw96XP
+	6WpQqxtCqgqyp4ceCfGnCgk2mk5hK4RNeh9RI8hmogj3we8yOXckfeIB1+ZuabSmzm2j4mq/Lca
+	BGM7eTRiCwbkGbRkDBC+VT5aIbm0wS6PNCF3WTPNBQb4SEFbB1JdeCNo9vSJgCvMg6TnIt3BH/K
+	RhaoP98UujmoPmIqXIMCmTIq0LKZ/jTZcZQ0Oet7o3pJKXP8+UxL6KiDz47fOysRiZXy+EXXI7D
+	Ua+ZLpgMBHUone5xHFnADuEwndWFq8dx8QtdEOTjjcJupqL/KUy6x/rN3MUVLzAXMfcTzItKSAH
+	mIhU932NVhAjyOAspDoK4XJxioHuhOZHh93OoxecrimGWa6NmhG/0Ep6HJFySLKqd3/rUMCytbX
+	85+ysHfAgjmDMzXwWp1oPAsFKCqwOVsrueH4V5/RUvgveyvStdZ2
+X-Received: by 2002:a05:6a00:22cc:b0:848:2c6c:dfc0 with SMTP id d2e1a72fcca58-84f2e04ea1amr6194826b3a.24.1785929966087;
+        Wed, 05 Aug 2026 04:39:26 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.252.203.158])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbe708c0ebesm1368088a12.19.2026.08.05.04.39.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 04:39:25 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: ocfs2-devel@lists.linux.dev
+Cc: heming.zhao@suse.com,
+	mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com,
+	glass.su@suse.com,
+	akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Matthias Goergens <matthias.goergens@gmail.com>
+Subject: [PATCH v2] ocfs2: fix cached cluster count after suballocator reclaim
+Date: Wed,  5 Aug 2026 19:39:20 +0800
+Message-ID: <20260805113920.385959-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <anL1pYKZK8UqYwsI@p15>
+References: <20260805070837.3390148-1-matthias.goergens@gmail.com> <anL1pYKZK8UqYwsI@p15>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+When reclaiming a suballocator block group, first reduce the on-disk
+cluster count by cl_cpg.  The current code then subtracts that new
+count (fe->i_clusters) from the old cached count
+(OCFS2_I(alloc_inode)->ip_clusters).
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+For an allocator with N block groups, that leaves the cache at
 
-To reproduce the conflict and resubmit, you may use the following commands:
+    N * cl_cpg - (N * cl_cpg - cl_cpg) = cl_cpg
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x a02b8950d619123da64f69b70fe1dadef217dfe4
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080541-awning-suction-d5bc@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+i.e. ip_clusters -= (fe->i_clusters - cl_cpg) leaves ip_clusters equal
+to cl_cpg regardless of N.  This happens to be correct when reclaiming
+from two block groups, but undercounts the clusters from three block
+groups onwards.  The incorrect cache value is also used immediately to
+update i_blocks.
 
-Possible dependencies:
+Assign the updated on-disk count to the cache, matching the allocation
+and inode refresh paths.
 
+In a QEMU test using a clean 256 MiB OCFS2 image and a 10,000-file
+create/delete workload, the first buggy reclaim left the on-disk
+(fe->i_clusters) and cached (ip_clusters) counts at 2048 and 512
+clusters respectively; later reclaims underflowed the cache.  With this
+change, the cache matched the on-disk count across all four reclaims:
+2048, 1536, 1024, and 512 clusters.
 
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From a02b8950d619123da64f69b70fe1dadef217dfe4 Mon Sep 17 00:00:00 2001
-From: Junjie Cao <junjie.cao@intel.com>
-Date: Thu, 23 Jul 2026 09:41:29 +0800
-Subject: [PATCH] gpio: pch: use raw_spinlock_t for the register lock
-
-pch_irq_type() is registered as the irq_chip .irq_set_type callback and
-takes chip->spinlock with spin_lock_irqsave().  This callback is reached
-from __setup_irq() -> __irq_set_trigger() -> chip->irq_set_type() while
-the caller holds desc->lock, a raw_spinlock_t, with hardirqs disabled.
-That context is not sleepable, but on PREEMPT_RT a regular spinlock_t is
-an rtmutex-backed sleeping lock, so acquiring it there is invalid.
-
-This was confirmed on a PREEMPT_RT kernel with lockdep
-(PROVE_RAW_LOCK_NESTING and DEBUG_ATOMIC_SLEEP).  A grounded PoC mirrored
-pch_irq_type()'s locking and drove it through the real genirq carrier
-irq_set_irq_type() -> __irq_set_trigger() -> chip->irq_set_type(), i.e.
-the same __irq_set_trigger() edge that __setup_irq() takes for a
-requested IRQ.  With the original spin_lock_irqsave() edge lockdep
-reported an invalid wait context, immediately followed by:
-
-  BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
-  in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 95, name: insmod
-  hardirqs last disabled at (3784): _raw_spin_lock_irqsave+0x4f/0x60
-   rt_spin_lock+0x3a/0x1c0
-   repro_irq_set_type+0x64/0xa0 [pch_repro]
-   __irq_set_trigger+0x69/0x140
-   irq_set_irq_type+0x78/0xd0
-
-Switching the mirrored lock to raw_spinlock_t made both splats go away.
-
-Convert the register lock to raw_spinlock_t.  The same lock also
-serializes the GPIO direction/value callbacks and the suspend/resume
-register save/restore, but all of those critical sections only perform
-MMIO register accesses (ioread32()/iowrite32()) and
-irq_set_handler_locked(); none of them contain sleepable operations.
-Keeping this register lock non-sleeping is therefore appropriate for the
-irqchip callbacks and does not change the GPIO-side locking contract.
-
-This is the same class of issue and fix as recently addressed for other
-GPIO controllers, e.g. commit 286533cb14a3 ("gpio: sch: use raw_spinlock_t
-in the irq startup path") and commit 90f0109019e6 ("gpio: eic-sprd: use
-raw_spinlock_t in the irq startup path").
-
-Fixes: 38eb18a6f92d ("gpio-pch: Support interrupt function")
+Fixes: 4a54331616b3 ("ocfs2: give ocfs2 the ability to reclaim suballocator free bg")
 Cc: stable@vger.kernel.org
-Signed-off-by: Junjie Cao <junjie.cao@intel.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Link: https://patch.msgid.link/20260723014129.1129730-1-junjie.cao@intel.com
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+---
 
-diff --git a/drivers/gpio/gpio-pch.c b/drivers/gpio/gpio-pch.c
-index 4ffa0955a9e3..07a5617b314b 100644
---- a/drivers/gpio/gpio-pch.c
-+++ b/drivers/gpio/gpio-pch.c
-@@ -96,7 +96,7 @@ struct pch_gpio {
- 	struct pch_gpio_reg_data pch_gpio_reg;
- 	int irq_base;
- 	enum pch_type_t ioh;
--	spinlock_t spinlock;
-+	raw_spinlock_t spinlock;
- };
+v2: commit-log wording revisions suggested by Heming Zhao; code unchanged.
+ fs/ocfs2/suballoc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/ocfs2/suballoc.c b/fs/ocfs2/suballoc.c
+index a4a2b87a45fe3..20c3aec6b9873 100644
+--- a/fs/ocfs2/suballoc.c
++++ b/fs/ocfs2/suballoc.c
+@@ -2759,7 +2759,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
+ 	fe->i_clusters = cpu_to_le32(tmp_used - le16_to_cpu(cl->cl_cpg));
  
- static int pch_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
-@@ -105,7 +105,7 @@ static int pch_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
- 	struct pch_gpio *chip =	gpiochip_get_data(gpio);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	reg_val = ioread32(&chip->reg->po);
- 	if (val)
- 		reg_val |= BIT(nr);
-@@ -113,7 +113,7 @@ static int pch_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
- 		reg_val &= ~BIT(nr);
- 
- 	iowrite32(reg_val, &chip->reg->po);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -133,7 +133,7 @@ static int pch_gpio_direction_output(struct gpio_chip *gpio, unsigned int nr,
- 	u32 reg_val;
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 
- 	reg_val = ioread32(&chip->reg->po);
- 	if (val)
-@@ -147,7 +147,7 @@ static int pch_gpio_direction_output(struct gpio_chip *gpio, unsigned int nr,
- 	pm |= BIT(nr);
- 	iowrite32(pm, &chip->reg->pm);
- 
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -158,12 +158,12 @@ static int pch_gpio_direction_input(struct gpio_chip *gpio, unsigned int nr)
- 	u32 pm;
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	pm = ioread32(&chip->reg->pm);
- 	pm &= BIT(gpio_pins[chip->ioh]) - 1;
- 	pm &= ~BIT(nr);
- 	iowrite32(pm, &chip->reg->pm);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -265,7 +265,7 @@ static int pch_irq_type(struct irq_data *d, unsigned int type)
- 		return 0;
- 	}
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 
- 	/* Set interrupt mode */
- 	im = ioread32(im_reg) & ~(PCH_IM_MASK << (im_pos * 4));
-@@ -277,7 +277,7 @@ static int pch_irq_type(struct irq_data *d, unsigned int type)
- 	else if (type & IRQ_TYPE_EDGE_BOTH)
- 		irq_set_handler_locked(d, handle_edge_irq);
- 
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 	return 0;
- }
- 
-@@ -374,7 +374,7 @@ static int pch_gpio_probe(struct pci_dev *pdev,
- 	chip->ioh = id->driver_data;
- 	chip->reg = chip->base;
- 	pci_set_drvdata(pdev, chip);
--	spin_lock_init(&chip->spinlock);
-+	raw_spin_lock_init(&chip->spinlock);
- 	pch_gpio_setup(chip);
- 
- 	ret = devm_gpiochip_add_data(dev, &chip->gpio, chip);
-@@ -407,9 +407,9 @@ static int pch_gpio_suspend(struct device *dev)
- 	struct pch_gpio *chip = dev_get_drvdata(dev);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	pch_gpio_save_reg_conf(chip);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -419,11 +419,11 @@ static int pch_gpio_resume(struct device *dev)
- 	struct pch_gpio *chip = dev_get_drvdata(dev);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	iowrite32(0x01, &chip->reg->reset);
- 	iowrite32(0x00, &chip->reg->reset);
- 	pch_gpio_restore_reg_conf(chip);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
+ 	spin_lock(&OCFS2_I(alloc_inode)->ip_lock);
+-	OCFS2_I(alloc_inode)->ip_clusters -= le32_to_cpu(fe->i_clusters);
++	OCFS2_I(alloc_inode)->ip_clusters = le32_to_cpu(fe->i_clusters);
+ 	fe->i_size = cpu_to_le64(ocfs2_clusters_to_bytes(alloc_inode->i_sb,
+ 					     le32_to_cpu(fe->i_clusters)));
+ 	spin_unlock(&OCFS2_I(alloc_inode)->ip_lock);
+-- 
+2.55.0
 
