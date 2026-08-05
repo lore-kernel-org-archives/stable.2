@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44EB33C8C46
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 11:41:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB91141B8C7
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 11:41:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785930095; cv=none; b=lPVAtefmh1cOQd48i15jpeJ3rtna/tP2OCxubhnKF+dC/K8bpKeN9ikOnqKQzf/teYTYneZj7P7gJxXhEGs2Si/LY9PbLkiysbuUi7is03Jl4Nn/1v/kt8/RKp8lKR5rZCA+Oacm8jvM6WAywAHKljrU6APQx8hUbKU73ujI9oo=
+	t=1785930099; cv=none; b=OcvGcPaqEiLaLsJNYebMJU9xqa90wfrwdbS/T/hqxn9w1bWtPv0AEY+FtfYTuccgPSAsDSC9Ie6yUVaX6D59jjmFhnlB8hviXEWtmnuJNe/pVlI9tUl41GULY5Up3n+BcGbLZBpGNudQ61nBZSwJnAS8Zh6ri+Fca99dIv82C5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785930095; c=relaxed/simple;
-	bh=wtxA+3z//1nu4CFo+Nz1dPZlommxTvO+5mRikK4mjmo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GRQLZVYU11rfrd8nS5LYaS+uB8Rq8UiAjfBEgHc6s0wP9qZwpc9HEKLTPubS4R6/xGTCHsHj/tM57H1VatRgdWsJma+XD7qfakqy5dmmhb5su3igZQKj8ovrQrmYNds/pqk7J7+BHZc4WDiOEdn5VVBPvxgDIMrGIIPjC65jb3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lgVWj9Zz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785930099; c=relaxed/simple;
+	bh=C44o9gmMz44NRdZIRWZkyZPcvGMBuSeT/B1+F5cc3gM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DD7e7+/IP/GMSJ2OSKqJD1/+6lHadM1hZpTNHO0+maXfaF/JBm5yqIs+iXDt7gEKRKpXXfF9Z1Y+HhUfG4MxJd6p+7Oq+tt5mPun25SUToiMDJ5h8LdhEvxU77A9ho2MSh4b9SvDIXIM66cs+EP/OJBzMskBtxyOlG+5R/MqfsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LGfLTVDc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lgVWj9Zz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66C9A1F000E9;
-	Wed,  5 Aug 2026 11:41:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LGfLTVDc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 514361F000E9;
+	Wed,  5 Aug 2026 11:41:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785930093;
-	bh=IRWquEL7OtsvS5I1/niprkwJvopKgY/9O3b/VtVgONE=;
+	s=korg; t=1785930097;
+	bh=Tk4US/5QNqy3AxrwpffgEqXmt2i5ACG2WpVwuSt1gOw=;
 	h=Subject:To:Cc:From:Date;
-	b=lgVWj9ZzqtZKUYhk0DAlDdSCeQPBOaVMmTmtEaC63tA6HoabYCb3jOKqRwoHLMlSd
-	 7mi67AIjqi/gD8rggrUjd1tZs9fFSmfA0oVt/3ZKmhKyc7fx9GPwgaJBC+zCzVQc3U
-	 6+TEKCSjKkndlXwcf41HgMs+O8/jNLhDQPYIUje0=
-Subject: FAILED: patch "[PATCH] s390/zcrypt: Close speculative mem read possibility" failed to apply to 6.6-stable tree
-To: freude@linux.ibm.com,borntraeger@linux.ibm.com,fcallies@linux.ibm.com,gor@linux.ibm.com
+	b=LGfLTVDcUG8R6/V1YiC9ALz/RDaWy5npKLdKTsEmYSzqMWTGgBF5xrAurp/3io4iw
+	 xa3/3yTubCGOfZFRbMyFcuAfZQw+T4C+kwKU8vIQL0AziV/c5161W3/pa20oUvjkQ9
+	 4Q9xrimxccRidpd4FKJfo+PKaz0Z2rsNkLch4pME=
+Subject: FAILED: patch "[PATCH] s390/zcrypt: Fix buffer over-read in cca_cipher2protkey" failed to apply to 6.12-stable tree
+To: freude@linux.ibm.com,gor@linux.ibm.com,ifranzki@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 13:41:06 +0200
-Message-ID: <2026080506-clamshell-obligate-3e73@gregkh>
+Date: Wed, 05 Aug 2026 13:41:20 +0200
+Message-ID: <2026080520-stooge-badge-9b53@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x e935cd525af4c6ed2e2c6404aa27ca19c7f39ddb
+git cherry-pick -x 36b230835b8a008266aad22168ca52afacc8a58d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080506-clamshell-obligate-3e73@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080520-stooge-badge-9b53@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,45 +62,260 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e935cd525af4c6ed2e2c6404aa27ca19c7f39ddb Mon Sep 17 00:00:00 2001
+From 36b230835b8a008266aad22168ca52afacc8a58d Mon Sep 17 00:00:00 2001
 From: Harald Freudenberger <freude@linux.ibm.com>
-Date: Thu, 23 Jul 2026 11:54:53 +0200
-Subject: [PATCH] s390/zcrypt: Close speculative mem read possibility
+Date: Wed, 29 Jul 2026 13:40:09 +0200
+Subject: [PATCH] s390/zcrypt: Fix buffer over-read in cca_cipher2protkey
 
-The domain value is extracted from a given CCA or EP11 ioctl struct
-when a CPRB is about to be sent. Thus this is a user controlled value.
-Under some special conditions (custom device node used, administrative
-load) this value is used as an array index after bounds checking, but
-without speculation barrier.
+Add validation of both the actual key buffer size and token length
+fields in all the cca_check_sec*token() functions. Additionally check
+in cca_gencipherkey() for possible underflow with returned key size.
 
-Add the missing array_index_nospec() call to prevent speculative
-execution where this domain value is used.
+The CCA token structures contain user-controlled len fields that
+were used in operations without proper validation against both the
+actual buffer size and minimum token structure size. An attacker
+could set this field larger than the actual buffer size, leading to
+reading beyond buffer boundaries. This may result in a kernel crash or
+exposure of memory via sending this as part of a request down to the
+crypto card. Also an attacker could have used a very small len value
+and thus enforce a buffer under-run which may produce similar effects
+as a over-read.
 
-Fixes: cfd68b33094e ("s390/zcrypt: Filter admin CPRBs on custom devices")
+So now a key must
+- key buf length must be at least sizeof the token struct
+- the key len field inside the token must fit into the range of
+  sizeof key token struct ... key buf length
+
+Fixes: 4bc123b18ce6 ("s390/zcrypt: Add low level functions for CCA AES cipher keys")
 Cc: stable@vger.kernel.org
-Reported-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Reviewed-by: Finn Callies <fcallies@linux.ibm.com>
+Reviewed-by: Ingo Franzki <ifranzki@linux.ibm.com>
 Signed-off-by: Harald Freudenberger <freude@linux.ibm.com>
 Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>
 
-diff --git a/drivers/s390/crypto/zcrypt_api.c b/drivers/s390/crypto/zcrypt_api.c
-index 81eefdeae248..ec6a4c2f9f04 100644
---- a/drivers/s390/crypto/zcrypt_api.c
-+++ b/drivers/s390/crypto/zcrypt_api.c
-@@ -879,6 +879,7 @@ static long _zcrypt_send_cprb(u32 xflags, struct ap_perms *perms,
+diff --git a/drivers/s390/crypto/pkey_cca.c b/drivers/s390/crypto/pkey_cca.c
+index 4bc47952324e..e8dc2f77c137 100644
+--- a/drivers/s390/crypto/pkey_cca.c
++++ b/drivers/s390/crypto/pkey_cca.c
+@@ -236,22 +236,16 @@ static int cca_key2protkey(const struct pkey_apqn *apqns, size_t nr_apqns,
+ 	if (hdr->type == TOKTYPE_CCA_INTERNAL &&
+ 	    hdr->version == TOKVER_CCA_AES) {
+ 		/* CCA AES data key */
+-		if (keylen < sizeof(struct secaeskeytoken))
+-			return -EINVAL;
+-		if (cca_check_secaeskeytoken(pkey_dbf_info, 3, key, 0))
++		if (cca_check_secaeskeytoken(pkey_dbf_info, 3, key, keylen, 0))
+ 			return -EINVAL;
+ 	} else if (hdr->type == TOKTYPE_CCA_INTERNAL &&
+ 		   hdr->version == TOKVER_CCA_VLSC) {
+ 		/* CCA AES cipher key */
+-		if (keylen < hdr->len)
+-			return -EINVAL;
+ 		if (cca_check_secaescipherkey(pkey_dbf_info,
+-					      3, key, 0, 1))
++					      3, key, keylen, 0, 1))
+ 			return -EINVAL;
+ 	} else if (hdr->type == TOKTYPE_CCA_INTERNAL_PKA) {
+ 		/* CCA ECC (private) key */
+-		if (keylen < sizeof(struct eccprivkeytoken))
+-			return -EINVAL;
+ 		if (cca_check_sececckeytoken(pkey_dbf_info, 3, key, keylen, 1))
+ 			return -EINVAL;
+ 	} else {
+@@ -484,7 +478,7 @@ static int cca_verifykey(const u8 *key, u32 keylen,
+ 	    hdr->version == TOKVER_CCA_AES) {
+ 		struct secaeskeytoken *t = (struct secaeskeytoken *)key;
  
- 	if (perms != &ap_perms && domain < AP_DOMAINS) {
- 		if (ap_msg.flags & AP_MSG_FLAG_ADMIN) {
-+			domain = array_index_nospec(domain, AP_DOMAINS);
- 			if (!test_bit_inv(domain, perms->adm)) {
- 				rc = -ENODEV;
- 				goto out;
-@@ -1079,6 +1080,7 @@ static long _zcrypt_send_ep11_cprb(u32 xflags, struct ap_perms *perms,
+-		rc = cca_check_secaeskeytoken(pkey_dbf_info, 3, key, 0);
++		rc = cca_check_secaeskeytoken(pkey_dbf_info, 3, key, keylen, 0);
+ 		if (rc)
+ 			goto out;
+ 		*keytype = PKEY_TYPE_CCA_DATA;
+@@ -512,7 +506,8 @@ static int cca_verifykey(const u8 *key, u32 keylen,
+ 		   hdr->version == TOKVER_CCA_VLSC) {
+ 		struct cipherkeytoken *t = (struct cipherkeytoken *)key;
  
- 	if (perms != &ap_perms && domain < AP_DOMAINS) {
- 		if (ap_msg.flags & AP_MSG_FLAG_ADMIN) {
-+			domain = array_index_nospec(domain, AP_DOMAINS);
- 			if (!test_bit_inv(domain, perms->adm)) {
- 				rc = -ENODEV;
- 				goto out;
+-		rc = cca_check_secaescipherkey(pkey_dbf_info, 3, key, 0, 1);
++		rc = cca_check_secaescipherkey(pkey_dbf_info, 3,
++					       key, keylen, 0, 1);
+ 		if (rc)
+ 			goto out;
+ 		*keytype = PKEY_TYPE_CCA_CIPHER;
+diff --git a/drivers/s390/crypto/zcrypt_ccamisc.c b/drivers/s390/crypto/zcrypt_ccamisc.c
+index 322677a8d320..f797786107b9 100644
+--- a/drivers/s390/crypto/zcrypt_ccamisc.c
++++ b/drivers/s390/crypto/zcrypt_ccamisc.c
+@@ -62,12 +62,18 @@ static DEFINE_MUTEX(dev_status_mem_mutex);
+  * also checked. Returns 0 on success or errno value on failure.
+  */
+ int cca_check_secaeskeytoken(debug_info_t *dbg, int dbflvl,
+-			     const u8 *token, int keybitsize)
++			     const u8 *token, u32 keysize, int keybitsize)
+ {
+ 	struct secaeskeytoken *t = (struct secaeskeytoken *)token;
+ 
+ #define DBF(...) debug_sprintf_event(dbg, dbflvl, ##__VA_ARGS__)
+ 
++	if (keysize < sizeof(*t)) {
++		if (dbg)
++			DBF("%s keysize %u < min token size %zu\n",
++			    __func__, keysize, sizeof(*t));
++		return -EINVAL;
++	}
+ 	if (t->type != TOKTYPE_CCA_INTERNAL) {
+ 		if (dbg)
+ 			DBF("%s token check failed, type 0x%02x != 0x%02x\n",
+@@ -101,14 +107,20 @@ EXPORT_SYMBOL(cca_check_secaeskeytoken);
+  * Returns 0 on success or errno value on failure.
+  */
+ int cca_check_secaescipherkey(debug_info_t *dbg, int dbflvl,
+-			      const u8 *token, int keybitsize,
+-			      int checkcpacfexport)
++			      const u8 *token, u32 keysize,
++			      int keybitsize, int checkcpacfexport)
+ {
+ 	struct cipherkeytoken *t = (struct cipherkeytoken *)token;
+ 	bool keybitsizeok = true;
+ 
+ #define DBF(...) debug_sprintf_event(dbg, dbflvl, ##__VA_ARGS__)
+ 
++	if (keysize < sizeof(*t)) {
++		if (dbg)
++			DBF("%s keysize %u < min token size %zu\n",
++			    __func__, keysize, sizeof(*t));
++		return -EINVAL;
++	}
+ 	if (t->type != TOKTYPE_CCA_INTERNAL) {
+ 		if (dbg)
+ 			DBF("%s token check failed, type 0x%02x != 0x%02x\n",
+@@ -121,6 +133,18 @@ int cca_check_secaescipherkey(debug_info_t *dbg, int dbflvl,
+ 			    __func__, (int)t->version, TOKVER_CCA_VLSC);
+ 		return -EINVAL;
+ 	}
++	if (t->len > keysize) {
++		if (dbg)
++			DBF("%s token check failed, len %d > keysize %u\n",
++			    __func__, (int)t->len, keysize);
++		return -EINVAL;
++	}
++	if (t->len < sizeof(*t)) {
++		if (dbg)
++			DBF("%s token check failed, len %d < min token size %zu\n",
++			    __func__, (int)t->len, sizeof(*t));
++		return -EINVAL;
++	}
+ 	if (t->algtype != 0x02) {
+ 		if (dbg)
+ 			DBF("%s token check failed, algtype 0x%02x != 0x02\n",
+@@ -195,6 +219,12 @@ int cca_check_sececckeytoken(debug_info_t *dbg, int dbflvl,
+ 
+ #define DBF(...) debug_sprintf_event(dbg, dbflvl, ##__VA_ARGS__)
+ 
++	if (keysize < sizeof(*t)) {
++		if (dbg)
++			DBF("%s keysize %u < min token size %zu\n",
++			    __func__, keysize, sizeof(*t));
++		return -EINVAL;
++	}
+ 	if (t->type != TOKTYPE_CCA_INTERNAL_PKA) {
+ 		if (dbg)
+ 			DBF("%s token check failed, type 0x%02x != 0x%02x\n",
+@@ -207,6 +237,12 @@ int cca_check_sececckeytoken(debug_info_t *dbg, int dbflvl,
+ 			    __func__, (int)t->len, keysize);
+ 		return -EINVAL;
+ 	}
++	if (t->len < sizeof(*t)) {
++		if (dbg)
++			DBF("%s token check failed, len %d < min token size %zu\n",
++			    __func__, (int)t->len, sizeof(*t));
++		return -EINVAL;
++	}
+ 	if (t->secid != 0x20) {
+ 		if (dbg)
+ 			DBF("%s token check failed, secid 0x%02x != 0x20\n",
+@@ -443,7 +479,8 @@ int cca_genseckey(u16 cardnr, u16 domain,
+ 
+ 	/* check secure key token */
+ 	rc = cca_check_secaeskeytoken(zcrypt_dbf_info, DBF_ERR,
+-				      prepparm->lv3.keyblock.tok, 8 * keysize);
++				      prepparm->lv3.keyblock.tok,
++				      seckeysize, 8 * keysize);
+ 	if (rc) {
+ 		rc = -EIO;
+ 		goto out;
+@@ -582,7 +619,8 @@ int cca_clr2seckey(u16 cardnr, u16 domain, u32 keybitsize,
+ 
+ 	/* check secure key token */
+ 	rc = cca_check_secaeskeytoken(zcrypt_dbf_info, DBF_ERR,
+-				      prepparm->lv3.keyblock.tok, 8 * keysize);
++				      prepparm->lv3.keyblock.tok,
++				      seckeysize, 8 * keysize);
+ 	if (rc) {
+ 		rc = -EIO;
+ 		goto out;
+@@ -842,6 +880,7 @@ int cca_gencipherkey(u16 cardnr, u16 domain, u32 keybitsize, u32 keygenflags,
+ 		} kb;
+ 	} __packed * prepparm;
+ 	struct cipherkeytoken *t;
++	u32 keybuflen;
+ 
+ 	/* get already prepared memory for 2 cprbs with param block each */
+ 	rc = alloc_and_prep_cprbmem(PARMBSIZE, &mem,
+@@ -936,23 +975,28 @@ int cca_gencipherkey(u16 cardnr, u16 domain, u32 keybitsize, u32 keygenflags,
+ 	}
+ 
+ 	/* and some checks on the generated key */
++	t = (struct cipherkeytoken *)prepparm->kb.tlv1.gen_key;
++	if (prepparm->kb.tlv1.len < 2 * sizeof(uint16_t) + sizeof(*t)) {
++		rc = -EIO;
++		goto out;
++	}
++	keybuflen = prepparm->kb.tlv1.len - 2 * sizeof(uint16_t);
+ 	rc = cca_check_secaescipherkey(zcrypt_dbf_info, DBF_ERR,
+ 				       prepparm->kb.tlv1.gen_key,
+-				       keybitsize, 1);
++				       keybuflen, keybitsize, 1);
+ 	if (rc) {
+ 		rc = -EIO;
+ 		goto out;
+ 	}
+ 
+ 	/* copy the generated vlsc key token */
+-	t = (struct cipherkeytoken *)prepparm->kb.tlv1.gen_key;
+ 	if (keybuf) {
+-		if (*keybufsize >= t->len)
+-			memcpy(keybuf, t, t->len);
++		if (*keybufsize >= keybuflen)
++			memcpy(keybuf, t, keybuflen);
+ 		else
+ 			rc = -EINVAL;
+ 	}
+-	*keybufsize = t->len;
++	*keybufsize = keybuflen;
+ 
+ out:
+ 	free_cprbmem(mem, PARMBSIZE, false, xflags);
+diff --git a/drivers/s390/crypto/zcrypt_ccamisc.h b/drivers/s390/crypto/zcrypt_ccamisc.h
+index 07bbb1c20022..a4534f8b2f1d 100644
+--- a/drivers/s390/crypto/zcrypt_ccamisc.h
++++ b/drivers/s390/crypto/zcrypt_ccamisc.h
+@@ -136,7 +136,7 @@ struct eccprivkeytoken {
+  * also checked. Returns 0 on success or errno value on failure.
+  */
+ int cca_check_secaeskeytoken(debug_info_t *dbg, int dbflvl,
+-			     const u8 *token, int keybitsize);
++			     const u8 *token, u32 keysize, int keybitsize);
+ 
+ /*
+  * Simple check if the token is a valid CCA secure AES cipher key
+@@ -146,8 +146,8 @@ int cca_check_secaeskeytoken(debug_info_t *dbg, int dbflvl,
+  * Returns 0 on success or errno value on failure.
+  */
+ int cca_check_secaescipherkey(debug_info_t *dbg, int dbflvl,
+-			      const u8 *token, int keybitsize,
+-			      int checkcpacfexport);
++			      const u8 *token, u32 keysize,
++			      int keybitsize, int checkcpacfexport);
+ 
+ /*
+  * Simple check if the token is a valid CCA secure ECC private
 
