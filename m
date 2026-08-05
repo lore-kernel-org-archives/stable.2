@@ -1,63 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED9E3AA4E0;
-	Wed,  5 Aug 2026 07:32:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B48A3E4C7A
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 07:34:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785915153; cv=none; b=sFgJyxJexdqmnGuOlfF5JP427Dfw2LMPeZfKGyW+kfhfVBFhPSJPobzDX+5VZgWfvIJbxraoHfwN9gOlRkTDzTzrD+JkMwvKCO/bKnH9anbyCKzL+LBraPK2kTllF4XD1lInqDzmAl+b/EQfi0Ry0DPPevgE2A4fTV5r7EfPrxM=
+	t=1785915243; cv=none; b=mQc4QNGtNt3Qc30ef72d6Vv0G22fl3boVtYtKDj0aKn2k74Bq6qMpXtCop34OPK1qwjqueo80zsszXqL8GTPle3V5N2WC+ShUeOxnXF0gNlK0Y8TannGnpnBzY3mdKJViaJ67F9Ap38asW1iUiOsw/6bhldQ2Y1Rct8WTxe0h6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785915153; c=relaxed/simple;
-	bh=e/edK18iGwrGI3is8JT2xxd4IFU/3bP5IVZj0CBsU7E=;
+	s=arc-20240116; t=1785915243; c=relaxed/simple;
+	bh=+gJTN6mi8M37nZVklJrSI8HoEMpYYyCXD6qAEQScjfA=;
 	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ccIi+A99nFWAbTJyJ1wBgP2d5gNAa7gsGw4G84K+wSZBYPQ/nABMYAtPyA006912jYSdigtPS3SNKq0jYhR8XSEV0/GjDpvmdfDsEJQmAFdx1o7o0OqkHsQcmN6gJLaX51pffqqgpGgXS4Be8pzL7x36kCusbGM2mpE1CwGZW5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AJJaA9T5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Sa7Lqhwlso3h19yoxuJDl4kPqXNXEK+hjTyDANLzfITbRQSfz1xuvKiuuWM3O2ARITKYt7QJW/Ec9Uu5vDQaQPRmcQqa77MPAG6u2CM7U77lTc1OftsZKzI2FWePIfOPhjNyh2O43V2hqKS4qkZpVqfbHQN43DS+xBKyzgjtjHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=o+kZgXDJ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HtOFglVj; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=BXZMYuJ5; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=gzkewCDk; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AJJaA9T5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6D91F000E9;
-	Wed,  5 Aug 2026 07:32:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785915152;
-	bh=4gwj0kFUhwuS98ircZVc44GpqB+5fy9yUkWQ55U7j40=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AJJaA9T5tFKel4SLkebN3gx+nsuoveBPZ42YEDRckt7z5kruBLv1cdm23oYFWUo5S
-	 2+0Uy2veLD2U0WtemOp5DFT8pOeKwMnYh7BfGDSHPFK6RD0dqCa+j8bfHG0k4sUI15
-	 APjHr9sxzCjMFbJnmXLX+Cy4cajxnSR6QLQXbSZyd8QNc2Wu3QyuGRHuxH+DT2vWUi
-	 PDLuTIFKK+UrX5hi4PA44H90RVHvhmJexgou2NK1zNvaE4o0wdp43YQ7Okb3YV5jC1
-	 P2OIor9K3oxs5BK8xht++hYBWLCkk3S9xo6QCLtvmvfiubshhWNZ/+gPb9B0BTkmjr
-	 N4JsiYxAy70eA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wrW73-0000000CUuY-39dd;
-	Wed, 05 Aug 2026 07:32:29 +0000
-Date: Wed, 05 Aug 2026 08:32:29 +0100
-Message-ID: <86ecgdaupe.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="o+kZgXDJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HtOFglVj";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="BXZMYuJ5";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gzkewCDk"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 17E707FB86;
+	Wed,  5 Aug 2026 07:33:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1785915236; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b4xVtkXgLYGk+LHt8B0/Yu5mUHGsKTFANxlSlQBbwfw=;
+	b=o+kZgXDJbbbpN6Xs0J5Qyt8g+pK0R+IVmYO2yQjURsq4vdsUcQB74MhaOZROtNhSiYQ9Gq
+	1QCwUgSFlQK1gV/OqrPi34IOkw7GQMDcUPy/CN3lxawtOSSY4eBDQfwJeSBT/yY+qMuKcY
+	igCSJkuDaFJOHYuR4ICHBj53xZBNxjI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1785915236;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b4xVtkXgLYGk+LHt8B0/Yu5mUHGsKTFANxlSlQBbwfw=;
+	b=HtOFglVjUX0sz9wuO3nRNN2PXq20elMFhuT9lcb1koglQNbDAOxL3fYR0VG6KcIC1DdaKy
+	KfccW1aPuhsEpkCA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1785915232; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b4xVtkXgLYGk+LHt8B0/Yu5mUHGsKTFANxlSlQBbwfw=;
+	b=BXZMYuJ5xbdADpsWSayQ8nZhZ8RzOUspvENhutx3jmtYGJrpuLwkbsmtqghe2BP6fB46N3
+	sxXXq8zafbZjRgJmZTcXf31ySa7+7st7gAuMPPgNGPWCzUoulYfufngAkn5rg1zTFIh5HZ
+	n0Fvt6UmBaceFIAHbqxLZF2xO2DSOms=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1785915232;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b4xVtkXgLYGk+LHt8B0/Yu5mUHGsKTFANxlSlQBbwfw=;
+	b=gzkewCDkCT2L/5Fn+WIwODVK9pQi1VGLFzGEk5vWbqIjCM6Bj5Jxq6zpw0Yqgzshf3HJqw
+	3t8dEhA+OpOSM6Bg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B4507779B6;
+	Wed,  5 Aug 2026 07:33:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Liy4Kl/ncmpbQgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 05 Aug 2026 07:33:51 +0000
+Date: Wed, 05 Aug 2026 09:33:51 +0200
+Message-ID: <87mrv1ggww.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Baul Lee <baul.lee@xbow.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	grayhat@foxmail.com
-Subject: Re: [PATCH 1/2] KVM: arm64: nv: Allocate the shadow S2 MMUs individually
-In-Reply-To: <anJcUNlnNmP-mKWH@gmail.com>
-References: <20260803224405.41468-1-kmehltretter@gmail.com>
-	<86mrv2arf2.wl-maz@kernel.org>
-	<86jyq6aq8g.wl-maz@kernel.org>
-	<anJcUNlnNmP-mKWH@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	federico.kirschbaum@xbow.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: 6fire: bound the MIDI event length from the device
+In-Reply-To: <20260805013423.38175-1-baul.lee@xbow.com>
+References: <20260805013423.38175-1-baul.lee@xbow.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,87 +90,88 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: kmehltretter@gmail.com, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org, grayhat@foxmail.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+X-Spam-Score: -3.29
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.29 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.19)[-0.969];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[xbow.com:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo]
 
-On Tue, 04 Aug 2026 22:54:30 +0100,
-Karl Mehltretter <kmehltretter@gmail.com> wrote:
+On Wed, 05 Aug 2026 03:34:23 +0200,
+Baul Lee wrote:
 > 
-> On Tue, Aug 04, 2026 at 03:56:47PM +0100, Marc Zyngier wrote:
-> > > The other thing is that reallocating the pointer array isn't great. It
-> > > adds complexity, and makes everything more fragile than it should be.
-> > > 
-> > > See the hack below that seems to work OK.
-> > > 
+> usb6fire_comm_receiver_handler() forwards a MIDI event using a length
+> byte the device supplies, with no bound and no check that the transfer
+> delivered that many bytes:
 > 
-> Your draft is indeed a bit simpler.
+> 	if (!urb->status) {
+> 		if (rt->receiver_buffer[0] == 0x10) /* midi in event */
+> 			if (midi_rt)
+> 				midi_rt->in_received(midi_rt,
+> 						rt->receiver_buffer + 2,
+> 						rt->receiver_buffer[1]);
+> 	}
 > 
-> Should I send a cleaned-up version as v2?
-
-Yes, please.
-
+> receiver_buffer is a 64-byte kzalloc() buffer (COMM_RECEIVER_BUFSIZE), so
+> only 62 bytes follow the two-byte header.  receiver_buffer[1] is a u8 the
+> device chooses, so a device that answers with 0x10 and a length of 0xFF
+> makes snd_rawmidi_receive() read 255 bytes starting two bytes into a
+> 64-byte object.  The bytes past the buffer are handed to userspace
+> through the rawmidi read path.
 > 
-> I would allocate the table on the first call to kvm_vcpu_init_nested()
-> and not in kvm_init_nested(), so it cannot leak if VM creation
-> fails.
+> urb->actual_length is not consulted either, so a short transfer leaves
+> both the type byte and the length byte at their previous values and the
+> handler acts on stale data.
+> 
+> The receiver URB is submitted from usb6fire_comm_init() at probe, so the
+> read happens on plug with no user action; forwarding to userspace also
+> needs a MIDI input substream open, since usb6fire_midi_in_received()
+> only calls snd_rawmidi_receive() when rt->in is set.
+> 
+> KASAN on 7.2.0-rc5 (arm64), single packet from an emulated device:
+> 
+>   BUG: KASAN: slab-out-of-bounds in snd_rawmidi_receive
+>   Read of size 255 at addr ffff000009f64682 by task bash/183
+>    __asan_memcpy
+>    snd_rawmidi_receive
+>    usb6fire_midi_in_received [snd_usb_6fire]
+>    usb6fire_comm_receiver_handler [snd_usb_6fire]
+>   Allocated by task 11:
+>    usb6fire_comm_init [snd_usb_6fire]
+>    usb6fire_chip_probe [snd_usb_6fire]
+>   The buggy address is located 2 bytes inside of
+>    allocated 64-byte region [ffff000009f64680, ffff000009f646c0)
+> 
+> Reject the event when the length exceeds the bytes that follow the
+> header, and require the transfer to have delivered the header plus that
+> many bytes.  The receiver URB is submitted with a 64-byte
+> transfer_buffer_length, so a genuine device cannot deliver an event
+> longer than those 62 bytes and nothing valid is dropped.
+> 
+> Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+> 
+> Fixes: c6d43ba816d1 ("ALSA: usb/6fire - Driver for TerraTec DMX 6Fire USB")
+> Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
+> Reported-by: Baul Lee <baul.lee@xbow.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Baul Lee <baul.lee@xbow.com>
 
-I'd rather keep it on the VM creation path. This is VM-wide data, by
-definition, and given that its size doesn't depend on the number of
-vcpus anymore (we allocate the maximum once and for all), it is right
-where it belongs. See the untested hack below for the freeing on error.
+Applied to for-next branch now.  Thanks.
 
-> There's another issue in the current code: the ptdump debugfs file
-> keeps the raw mmu pointer as its private data. I would add that to the
-> commit message.
 
-Why is that a problem? With this approach, the mmu pointers are always
-expected to be valid, irrespective of the allocation pattern, and we
-only publish pointers to the dumper when the S2_mmu is actively being
-used.
-
-We're about to rip out the NV ptdump anyway as it has many other
-problems, but I'd like to understand what you see that I don't.
-
-Thanks,
-
-	M.
-
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 9e42e92dbc7b1..e883e45382fb2 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -223,10 +223,6 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 	mutex_unlock(&kvm->lock);
- #endif
- 
--	ret = kvm_init_nested(kvm);
--	if (ret)
--		return ret;
--
- 	ret = kvm_share_hyp(kvm, kvm + 1);
- 	if (ret)
- 		return ret;
-@@ -241,6 +237,10 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 	if (ret)
- 		goto err_free_cpumask;
- 
-+	ret = kvm_init_nested(kvm);
-+	if (ret)
-+		goto err_uninit_mmu;
-+
- 	if (is_protected_kvm_enabled()) {
- 		/*
- 		 * If any failures occur after this is successful, make sure to
-@@ -269,6 +269,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 
- err_uninit_mmu:
- 	kvm_uninit_stage2_mmu(kvm);
-+	kvfree(kvm->arch.nested_mmus);
- err_free_cpumask:
- 	free_cpumask_var(kvm->arch.supported_cpus);
- err_unshare_kvm:
-
--- 
-Without deviation from the norm, progress is not possible.
+Takashi
