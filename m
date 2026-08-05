@@ -1,106 +1,244 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75893390234;
-	Wed,  5 Aug 2026 14:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785940869; cv=none; b=Nf6gf3ei9bxdkUUWvtFGeHs643NHJE2/zRsh4Vt7wXweRkeKi74YL7IuMdEV+7c4/Rj0D1gMrMoANXbktU9gP8nQ/Q2wptxbkSuK9Pu0RZpMf/ROuGlhKfonJzD99ZBm2LvgVDCDWMX3oHSAhtPajjd5nU9zKZUEo/wMNgr5YDw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785940869; c=relaxed/simple;
-	bh=Ys+Bm3HAcptcJY8mztSxc31f658W9MqMu6vD2Ly4muw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SaqdcmFPfAmWViMSUNpeV/fGpFPefObKV0D4R6yRhkch7Y05xOVHFgUd8xV2ivFmLutk/y0thkWluZcVvsnfTcYW/74hu80OupOeT/jfCd6+YJW13H42p4+gJbpPAEW4hrP3MJZAgODgUFCCjBXSVh0LVIfrHcCYOtGRSWYGfWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KPlfamkC; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9B4C381E98
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 14:46:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785941203; cv=pass; b=Is79zwiiNgk0AytancF4uGNdZhz8aVDhEKhfGU9Rw9QuAFrwYUlmu7igIy1HF3Rff8vmMZzSEioTTHRmseFbGImte5ufEfjo30LnvtBYGvq6fwohWNqg3U8jQG002bGEu+OxoUsHpdx4DW/+TJfoTk5BPK3VgcWO5fPVd1L9UE8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785941203; c=relaxed/simple;
+	bh=KvSM8cON3qujrkF2u8/ulKuxwtrvuhS86k/dRZa6tqk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=V8CPP+vBnUmndixDqIxdANq9U0tcRSPwgpvvF9WJlfJ3e8pkHMdOmDRhnCZ5p9oWSLf0N4MRJlBCNXfjg6mtQHYvza3i+UnkYDKX5ThZImUWkQ2u3pR7w5YBrCOMkYxahFJfq18pbJX0LDP2M8mpURGdjmsWsPdHeFuaD7h9ubQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=o6eFKmsX; arc=pass smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KPlfamkC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Dd
-	KekUZhzSFi+yc5KTHvN42O6H95FUeG1o1RwiMrKj0=; b=KPlfamkCMCNO8LR+JG
-	dD2ySy1k70EsQdflkcUtmTw5ZCXT260UXB0fMMvVv24fgEFZf+7UeHb6xGDoJr4D
-	FpKa3YUEP9TZrPMvu1LrKTBdenxRdXi7IjjFm1DVjyNxXoiwv+5SIB7F6N2hubSQ
-	7us8YKKZVbkZ5bVAMF7TIjSLs=
-Received: from localhost (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgAnH_81S3NqqC4ULg--.14152S2;
-	Wed, 05 Aug 2026 22:39:50 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: rafael@kernel.org,
-	viresh.kumar@linaro.org
-Cc: linux-pm@vger.kernel.org,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Su <sh_def@163.com>
-Subject: [PATCH] cpufreq: schedutil: Fix rate limit overflow
-Date: Wed,  5 Aug 2026 22:39:42 +0800
-Message-ID: <20260805143942.805176-1-sh_def@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="o6eFKmsX"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-698b78c05b0so9969a12.1
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 07:46:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785941198; cv=none;
+        d=google.com; s=arc-20260327;
+        b=P9MOo2GgS5pN3XcWa6Pd5f/z8AvmrNKK3/8CAMG4IO31SJAPh9MWbbvtH9Bn7JzkxO
+         1yTYp5zxLlV46mVt1mmncMpyo20ryGjZIDbGke8Gi2IUO0l5GQeiYXQgY2jLoILwbOBc
+         PG4AV68GARuG5xp2kQ022xoKjehOicbnE+4zJ/rjGYmzalSCcYsVxlIMySfaNy9Szn5M
+         vayuVZqI2xD+pf6BenOO3h5HFI0xAPWD6HNp/DT8qk4eXP6p1iwMryayB+eWwC0slxsa
+         5zn+jEoeXGO9qJ41bNemXjd3K51hBCJySWX9XLHA/CUiHcxaSJ/GZOh7wXhBp0/2q0PC
+         v2lA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dhHfw8IKmQhSRm7kIO0Cdw4azwnv0DEyL0+zw+KJvLs=;
+        fh=Ev0sdO/DtbgP4RprdG41di92UqF0yzq5Ac9Y1/vwviU=;
+        b=SFU1GzSm/Viq4d5Yr5juX53Ou3HRpdqbwxdpQqQCBX0Wc6Uk4e7PnVvAzohR0E/JLP
+         1pGq+a9A5VBzbcUB3orqIQ9rHCbsX8dKlRFF/8sfl3MDdaO0DYVhCR6nI5EYs71U3by5
+         fVIUesXJu5YD8z/GedTlhyd3udQIO2g8kvp64HmzSSoqurRtbeLvsU6iPqtD+PIlG+O/
+         +tebJr9QMvXmTeUBhqVSRZVO0zp1vL9LUC/DQJS7WuwbiP9DY5m5rjgEpg6PzL4cSQIT
+         oPMeQrwV95ATsU1psfCN7rH5K87SZISgT6VeaFIgShTYD6hid7Jxo/bxl6YGqKLau1LX
+         3vGw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1785941198; x=1786545998; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dhHfw8IKmQhSRm7kIO0Cdw4azwnv0DEyL0+zw+KJvLs=;
+        b=o6eFKmsX83lefxEXpG4AQOI828ZEbZ85PhkkfscF+ydCvGyrib176w+cma/RFsCOqI
+         jmI++uvWaI1d6i+n9VGNKFITjrV7NMi6gWoqR9L2Oz9eZR4epxPpoM2icl2IsAl4Qye4
+         sCajDtS6xYgHIRX7c3B56xmmgBL98b9YzCU9jIl6KTAO3NFL7XA6d1vQX7vA9u52ZO+X
+         Mykes7YqyOx4+xqeHBQgj4Plmh1v/fPoUu+GlTPKuQ9SjMcbN+UlWgOWfnPPIS3nTNc+
+         D6DsmQ5X4bJY3N6teznUoHOI/CwEoprS4NbZQ9kISiadLBvTZFqUqlGgbFD9P6IulCqh
+         pMcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785941198; x=1786545998;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dhHfw8IKmQhSRm7kIO0Cdw4azwnv0DEyL0+zw+KJvLs=;
+        b=qB4ymSE5VgluJ+P5akUMPqqj6TePRov4BulYCtKxPvdvBIEpQHjdv5dnXHT1dotyp5
+         woOvvrgnKRpW44hQgQVTLImyKN1zIDeGga+joxBPgkKnuwi/WUrkyoLuTb6m8g1wXrkS
+         TUVBn9sX8gEEd0MgH4FjbDL4weaZGi5wS3qMoyIjU2KO7WhRFC4NzVVz/JEy3OGP+Vl7
+         kqFYDNsdYZqarMcW5sxhI1muvlh79Sx8ryGXf4eB1jRlepr3lbwZ2ZXtreaJ4lHiG+nQ
+         ImzBsa+/cD1zvu3RqpLdTP56mIqlXrjUfOFmyo8EQFJ6WpILG8nXJYgGvNuh87t23NQD
+         m0Ag==
+X-Forwarded-Encrypted: i=1; AHgh+RrL/dJvQno0HqWWjcenFEsWBYrJhZNu2K97lyhzDI0CGjIDJXxAFXXvu10hcwMoPyr70LdFmtw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxIVllVQYauvYdAQzZHBOFmIibIFAhUesl9zHWK4HcXQ9bjdoB6
+	iiXrrVfUEn0JvRMwxtlSRhzgnyshLc0wplQgfHJ63Gfvrom9kqo9eohKcdIs3meImeBCUUlAVfd
+	myQhplQ7j7x/h0AGk5wiLUCAVn20m6LUrI10gYZu1
+X-Gm-Gg: AR+sD12n2WecgrL0tEdNKZ25Bp/8+IUMjAM/gWv5trAiYfmn4oVY0VDyqlds6h1gEGz
+	yitY6p3AegrxdRUY2pbHZ4rrLkNEshoOI55ZcK9lf0tJoGzNGuncVe1oVsYG4eaxon16vQCmOzn
+	Bg+Yi1BIPYjZ/A1KmguDvW+3vz9Y7mKpfG/ZflNVL6pcpD0J+QBQ6QRMZeIWAwVoFDY3Aca1pfg
+	/m+Adpvy/B91vvJFflXep7WnxUZFMtW9jgTcQezpFpV1rmRTs/9Of+p+Q9dHfK5fwUw0tiq4jrP
+	R3yysfwZTwaI70RoK2Z2UJXWALEj0dLjImQ4zC32cqngHGWrPjd0D/0/f+rN3dEmqoLOLysNtts
+	=
+X-Received: by 2002:a05:6402:2057:b0:672:117e:55d4 with SMTP id
+ 4fb4d7f45d1cf-6a14fb41676mr74064a12.0.1785941197837; Wed, 05 Aug 2026
+ 07:46:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgAnH_81S3NqqC4ULg--.14152S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Ar1kXF13uF13uw4rAF1rtFb_yoW8tFy7pF
-	Wakay0yr4qq3WUtrs3KF4Dua1UAF1UJ3srKryfC3Z2ywnxJw1Fg34xGF1DXFWxCFn0kw1f
-	A3WYqay5ZF18X37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEv38UUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwRZXtmpzSzYAkgAA3A
+References: <20260804122038.190270-1-hao.ge@linux.dev> <CAJuCfpGit7zcNPGAB9D2A5+718NY-qdksxt7gUaN_eRcB_5+Ug@mail.gmail.com>
+ <bd95f8c6-33e2-4fda-bd4b-ebc37ee7c0fb@linux.dev>
+In-Reply-To: <bd95f8c6-33e2-4fda-bd4b-ebc37ee7c0fb@linux.dev>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Wed, 5 Aug 2026 07:46:22 -0700
+X-Gm-Features: AUfX_mz50Be69N2L1uJmWHpgSowRNnB8Q9VYlBGvXf-rL5eJN_8IPVgC77iH3eo
+Message-ID: <CAJuCfpE+-nS9=g4nG=ZZZ0vCnWBxvgcU9LQKj+wFdicreD3Bww@mail.gmail.com>
+Subject: Re: [PATCH v2] alloc_tag: fix undetected compressed tag overflow when
+ profiling is disabled
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Abhishek Bapat <abhishekbapat@google.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-rate_limit_us is unsigned int. On 32-bit systems, multiplying it by
-NSEC_PER_USEC is therefore carried out in 32-bit arithmetic before
-the result is assigned to freq_update_delay_ns.
+On Tue, Aug 4, 2026 at 7:26=E2=80=AFPM Hao Ge <hao.ge@linux.dev> wrote:
+>
+> Hi Suren
+>
+>
+> Thanks a lot for your review.
+>
+>
+> On 2026/8/5 04:08, Suren Baghdasaryan wrote:
+> > On Tue, Aug 4, 2026 at 5:21=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
+> >> In reserve_module_tags(), the tag overflow check is gated on
+> >> mem_alloc_profiling_enabled():
+> >>
+> >>      if (mem_alloc_profiling_enabled() && !tags_addressable())
+> >>
+> >> If profiling is toggled off at runtime and a module is loaded whose
+> >> tags exceed the compressed-mode limit, shutdown_mem_profiling() is
+> >> skipped. vm_module_tags_populate() still maps memory for the tags and
+> >> the module loads successfully, but the total tag count now exceeds wha=
+t
+> >> NR_UNUSED_PAGEFLAG_BITS can address.
+> >>
+> >> Once profiling is re-enabled, ref_to_idx() computes each tag's index
+> >> as its position in the alloc_tag array. update_page_tag_ref() masks
+> >> it to alloc_tag_ref_mask before storing in page->flags. Indices
+> >> beyond the mask are truncated and idx_to_ref() resolves them to wrong
+> >> tags.
+> >>
+> >> mem_alloc_profiling_enabled() and mem_profiling_compressed are
+> >> independent. Once compressed mode is established at boot, it stays
+> >> active regardless of runtime toggles of mem_profiling.
+> >>
+> >> Remove the mem_alloc_profiling_enabled() guard. Also return an error
+> >> after shutdown_mem_profiling() to skip vm_module_tags_populate(), as
+> >> the mapped pages would never be reused - shutdown_mem_profiling() sets
+> >> mem_profiling_support to false, so no future module load enters the
+> >> codetag path.
+> >>
+> >> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compr=
+ession")
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> > Thanks for the fix, Hao!
+> >
+> >> ---
+> >> Changes in v2:
+> >> - Return error after shutdown_mem_profiling() to skip unnecessary
+> >>    vm_module_tags_populate()
+> >>    v1 link: https://lore.kernel.org/all/20260804064408.105033-1-hao.ge=
+@linux.dev/
+> >> ---
+> >>   mm/alloc_tag.c | 3 ++-
+> >>   1 file changed, 2 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> >> index 52aece27b00e..d8c36430f1c0 100644
+> >> --- a/mm/alloc_tag.c
+> >> +++ b/mm/alloc_tag.c
+> >> @@ -904,10 +904,11 @@ static void *reserve_module_tags(struct module *=
+mod, unsigned long size,
+> >>                  int grow_res;
+> >>
+> >>                  module_tags.size =3D offset + size;
+> >> -               if (mem_alloc_profiling_enabled() && !tags_addressable=
+()) {
+> > Makes sense but how about replacing mem_alloc_profiling_enabled() with
+> > mem_profiling_support? Otherwise this warning will be issued multiple
+> > times if we are loading multiple modules.
+>
+>
+> That's a really good point, this duplicate warning issue will indeed happ=
+en.
+>
+> When I thought over your point, I realized using mem_profiling_support
+> creates a small race window.
 
-For example, writing 4294968 to rate_limit_us wraps the delay from
-4294968000 ns to 704 ns. This makes schedutil update far more often
-than configured.
+Yeah, you are right.
 
-Add sugov_update_rate_limit_us() to widen the value to u64 before
-converting units. Use it when updating the tunable through sysfs and
-when starting the governor, so both paths set the same valid delay.
+>
+>
+> Thread A=EF=BC=88insmod A=EF=BC=89                      Thread B (insmod =
+B)
+>
+> --------- ---------
+>
+> needs_section_mem() -> true
+>
+>      needs_section_mem() -> true
+>
+>      (profiling still supported)
+>
+> reserve_module_tags()
+>
+>      overflow -> shutdown
+>
+>      mem_profiling_support=3Dfalse
+>
+>      return -ENOSPC
+>
+>      reserve_module_tags()
+>
+>          mem_profiling_support=3D=3Dfalse
+>
+>          -> overflow check skipped
+>
+>          -> vm_module_tags_populate()
+>
+>              maps unused tag pages
+>
+> So I'd rather go with pr_warn_once here.
 
-Fixes: 9bdcb44e391d ("cpufreq: schedutil: New governor based on scheduler utilization data")
-Signed-off-by: Hui Su <sh_def@163.com>
+pr_warn_once() works. Thanks!
 
-diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
-index dff4ee04694c2b90301ed0fa158a509a3423cee1..8bf7a2c34b9f200d8f5776205ea2a7f495e04e69 100644
---- a/kernel/sched/cpufreq_schedutil.c
-+++ b/kernel/sched/cpufreq_schedutil.c
-@@ -61,6 +61,12 @@ static DEFINE_PER_CPU(struct sugov_cpu, sugov_cpu);
- 
- /************************ Governor internals ***********************/
- 
-+static void sugov_update_rate_limit_us(struct sugov_policy *sg_policy)
-+{
-+	sg_policy->freq_update_delay_ns =
-+		(u64)sg_policy->tunables->rate_limit_us * NSEC_PER_USEC;
-+}
-+
- static bool sugov_should_update_freq(struct sugov_policy *sg_policy, u64 time)
- {
- 	s64 delta_ns;
-@@ -606,7 +612,7 @@ rate_limit_us_store(struct gov_attr_set *attr_set, const char *buf, size_t count
- 	tunables->rate_limit_us = rate_limit_us;
- 
- 	list_for_each_entry(sg_policy, &attr_set->policy_list, tunables_hook)
--		sg_policy->freq_update_delay_ns = rate_limit_us * NSEC_PER_USEC;
-+		sugov_update_rate_limit_us(sg_policy);
- 
- 	return count;
- }
-@@ -848,7 +854,7 @@ static int sugov_start(struct cpufreq_policy *policy)
- 	void (*uu)(struct update_util_data *data, u64 time, unsigned int flags);
- 	unsigned int cpu;
- 
--	sg_policy->freq_update_delay_ns	= sg_policy->tunables->rate_limit_us * NSEC_PER_USEC;
-+	sugov_update_rate_limit_us(sg_policy);
- 	sg_policy->last_freq_update_time	= 0;
- 	sg_policy->next_freq			= 0;
- 	sg_policy->work_in_progress		= false;
--- 
-2.43.0
-
+>
+>
+> >> +               if (!tags_addressable()) {
+> >>                          shutdown_mem_profiling(true);
+> >>                          pr_warn("With module %s there are too many ta=
+gs to fit in %d page flag bits. Memory allocation profiling is disabled!\n"=
+,
+> >>                                  mod->name, NR_UNUSED_PAGEFLAG_BITS);
+> >> +                       return ERR_PTR(-ENOSPC);
+> > This ENOSPC error will be propagated all the way up to the init_module
+> > syscall and it's not among the error codes currently expected (see:
+> > https://man7.org/linux/man-pages/man2/init_module.2.html). I suggest
+> > returning ENOMEM instead.
+>
+>
+> Agree, will change
+>
+>
+> Thanks
+>
+> Best Regards
+>
+> Hao
+>
+> >>                  }
+> >>
+> >>                  grow_res =3D vm_module_tags_populate();
+> >> --
+> >> 2.25.1
+> >>
