@@ -1,151 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CC93FD121
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:33:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF36B3FDBE7
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:33:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785922387; cv=none; b=mYp+F7uuWhGQvYcBtqgd5pcvreNcgsUXJuWsrhTP99HYxgK1s9u9uJwD/XJAr17bMd416zJ8yrkT54trDN1XdwDhqGu62RszrntoA2++pLbmHiTFr96u1ltgCp6t5dN5ITYWsneYuISU3WdipymFYZ0W9ac65rXmXLz3+awBEkY=
+	t=1785922391; cv=none; b=eBdhQRL4caBkfIHCjQ2RMFWU8cWn8wwA1Z3gkkExW+ERC/dEDKUxhywQXg3iSV3dP9amz+vuy9EM66RkucvBAWR8jWZGCaCXZxMHShurjyK/9y21rQomwaCxLfQ6PAd3Nke5CWWE357iNhfhQ/lwmLgOTovX6C7XX3psgB4T54E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785922387; c=relaxed/simple;
-	bh=7Pihs/sjwj0NosS6So1UXiL5gfG1RTniyq6UvPbh7Lo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EP6LVoDDmAlnJQtSdNuuZih36rQ+BIufhsKsxDywKD/h935MQoTRopB0MXW9rYf80fL7RybPZj4I1/OjdwhYfl5/K22z0yykGlzFS9MJTlZwlh7HvPBybDe6dTvuYR8ShtgOwNdJoA5FLZ7TpLj/uVDZTM+ettFij5oTFoVFl/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TV3NVZ7u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785922391; c=relaxed/simple;
+	bh=prIWR4A072OFjyglOBE+D0qFbOeJqOqa7tVBFnTHpno=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=p4JmpuYN66Kkas0xFMJZ6PGLt4+MDJbCe/FVGvOLnRNA8BM2cMJl+s6y/gjMKrTiDxXTB3Y2IxNxcTB2dhemSAvIxNbxSQ54a4UTJX4M/h06P50i4G28wBSkDlUSAtMLMy+xniX3spKUK4Csc2rWWZcp4U+uUPPrVj3Pswz67do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=m9qmDgir; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TV3NVZ7u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FEFE1F00A3D;
-	Wed,  5 Aug 2026 09:33:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785922382;
-	bh=bNSPhkhNPtYmenXs8cu1O3USEwCw/cTE1SHV8zst2nE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TV3NVZ7uKlrVLrToMH2tDsWTEHRFY5dWnRdkGbjl5U35va7uDOisS+AFKKW8SyIwX
-	 cuOt+FNdVWls4WRPl4MybnzUGH3lJL9Gl/UO2uIc3ESpQs2axolz7FsBaZ20aCNg4z
-	 izQut7pCFWc9Kyt2ug3ZdxWypPGdOxHB35nNrmhQL0RwQC2ls59mSr8AoO9leu76vr
-	 Meu09tg9W6HOwuotlY0zBG3yWlj8UF5PjGFd6myIOa1COB/DGr7ens+E2z2aa+ONeu
-	 asAm3ROH9B26sg05DV9+mOJx2yHoE9pxJv2l9eJ2G4A8dpZ3x6yZ91B/9iZkiVBgs6
-	 y1nXAajFDBt0Q==
-Date: Wed, 5 Aug 2026 10:32:45 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: dayou5941@163.com
-Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
-	linux-mm@kvack.org, Li Youhong <liyouhong@kylinos.cn>, 
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v3] mm/memory-failure: fix concurrent access issue in
- min_order_for_split()
-Message-ID: <anMDGv1p05wKlMyq@lucifer>
-References: <20260805084224.2597547-1-dayou5941@163.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="m9qmDgir"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 704C51F000E9;
+	Wed,  5 Aug 2026 09:33:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785922387;
+	bh=lXcxx+/WBDxds3XO35fqFMluY/xj72VTvpK1PYrPWIc=;
+	h=Subject:To:Cc:From:Date;
+	b=m9qmDgir8Jx7oQXbDTCqCphHKWCbSHCsxYmgkY4BalzpDLCK2Am7q7DyeqS66GV5a
+	 vhRsTJ9HGrBIFqeJZ47s0wM6T4RVpzkEenRYH3BaJncUACUGwvgWAjbdyR854iYyyz
+	 YoASZ7zQfzhHV8xB7PZD4Ya6Tgob93Yq5/Otl+QI=
+Subject: FAILED: patch "[PATCH] btrfs: zoned: fix missing chunk metadata reservation" failed to apply to 6.12-stable tree
+To: 3497809730@qq.com,dsterba@suse.com,johannes.thumshirn@wdc.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 05 Aug 2026 11:32:20 +0200
+Message-ID: <2026080520-punk-economist-e412@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260805084224.2597547-1-dayou5941@163.com>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Please stop sending series so quickly :)
 
-Leave at least a day between new revisions.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-There's review on the v2 that is outstanding.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-So engage in discussions there and wait until tomorrow before sending v4.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 8bc4d7209611e8aa9d5409b6a4a86a9eb91b69a3
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080520-punk-economist-e412@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-Thanks!
+Possible dependencies:
 
-On Wed, Aug 05, 2026 at 04:42:24PM +0800, dayou5941@163.com wrote:
-> From: Li Youhong <liyouhong@kylinos.cn>
->
-> min_order_for_split() accesses folio->mapping without proper
-> synchronization. While the compiler typically caches the value
-> in a register making a NULL deref unlikely in practice, the
-> real issue is that the callers in memory-failure.c do not hold
-> the folio lock at the time of the call:
->
-> - memory_failure() explicitly drops the folio lock before calling
->   min_order_for_split().
-> - soft_offline_in_use_page() has not yet acquired the folio lock
->   when calling min_order_for_split().
->
-> This means the value of folio->mapping may be modified by a
-> truncate or invalidate operation while min_order_for_split() is
-> executing, leading to a torn read or use of a stale mapping value.
->
-> Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260803060001.800638-1-dayou5941@163.com
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
-> ---
-> v2:
-> - Dropped the approach of caching folio->mapping inside min_order_for_split() in favor of adding the folio lock at the callers.
-> - Added VM_WARN_ON_ONCE_FOLIO() in min_order_for_split().
-> - Updated the commit message to clarify that the real issue is the callers not holding the folio lock, rather than a TOCTOU race.
->   v1: https://lore.kernel.org/all/20260804035828.2684059-1-dayou5941@163.com/
->
-> v3:
-> - Fix author name and Signed-off-by format as requested by Greg.
->   v2: https://lore.kernel.org/all/20260805072625.2437636-1-dayou5941@163.com/
-> ---
->  mm/huge_memory.c    |  2 ++
->  mm/memory-failure.c | 12 ++++++++++--
->  2 files changed, 12 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 58cabe6af33d..e3f16dadc1d4 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -4300,6 +4300,8 @@ int folio_split(struct folio *folio, unsigned int new_order,
->   */
->  unsigned int min_order_for_split(struct folio *folio)
->  {
-> +	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-> +
->  	if (folio_test_anon(folio))
->  		return 0;
->
-> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-> index 3b1e6946821b..7391524b5046 100644
-> --- a/mm/memory-failure.c
-> +++ b/mm/memory-failure.c
-> @@ -2437,12 +2437,17 @@ int memory_failure(unsigned long pfn, int flags)
->  		res = -EOPNOTSUPP;
->  		goto unlock_mutex;
->  	}
-> +
->  	folio_unlock(folio);
->
->  	if (folio_test_large(folio)) {
-> -		const int new_order = min_order_for_split(folio);
-> +		const int new_order;
->  		int err;
->
-> +		folio_lock(folio);
-> +		new_order = min_order_for_split(folio);
-> +		folio_unlock(folio);
-> +
->  		/*
->  		 * The flag must be set after the refcount is bumped
->  		 * otherwise it may race with THP split.
-> @@ -2796,8 +2801,11 @@ static int soft_offline_in_use_page(struct page *page)
->  	};
->
->  	if (!huge && folio_test_large(folio)) {
-> -		const int new_order = min_order_for_split(folio);
-> +		const int new_order;
->
-> +		folio_lock(folio);
-> +		new_order = min_order_for_split(folio);
-> +		folio_unlock(folio);
->  		/*
->  		 * If new_order (target split order) is not 0, do not split the
->  		 * folio at all to retain the still accessible large folio.
-> --
-> 2.25.1
->
 
---
-Cheers, Lorenzo
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 8bc4d7209611e8aa9d5409b6a4a86a9eb91b69a3 Mon Sep 17 00:00:00 2001
+From: Guanghui Yang <3497809730@qq.com>
+Date: Tue, 14 Jul 2026 17:55:43 +0800
+Subject: [PATCH] btrfs: zoned: fix missing chunk metadata reservation
+
+reserve_chunk_space() stores the return value of
+btrfs_zoned_activate_one_bg() in ret. The helper can return 1 after
+successfully activating a block group, but ret is later used to decide
+whether to reserve metadata for chunk tree updates.
+
+As a result, successful activation skips btrfs_block_rsv_add() and leaves
+trans->chunk_bytes_reserved unchanged. Use a separate variable for the
+activation result so positive success does not affect the later
+reservation. Keep activation failures in ret instead of returning early so
+the function uses the common tail path.
+
+Fixes: b6a98021e401 ("btrfs: zoned: activate necessary block group")
+CC: stable@vger.kernel.org
+Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Signed-off-by: Guanghui Yang <3497809730@qq.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+
+diff --git a/fs/btrfs/block-group.c b/fs/btrfs/block-group.c
+index ab76a5173272..8def7abb728f 100644
+--- a/fs/btrfs/block-group.c
++++ b/fs/btrfs/block-group.c
+@@ -4532,25 +4532,29 @@ static void reserve_chunk_space(struct btrfs_trans_handle *trans,
+ 		if (IS_ERR(bg)) {
+ 			ret = PTR_ERR(bg);
+ 		} else {
++			int activate_ret;
++
+ 			/*
+ 			 * We have a new chunk. We also need to activate it for
+ 			 * zoned filesystem.
+ 			 */
+-			ret = btrfs_zoned_activate_one_bg(info, true);
+-			if (ret < 0)
+-				return;
+-
+-			/*
+-			 * If we fail to add the chunk item here, we end up
+-			 * trying again at phase 2 of chunk allocation, at
+-			 * btrfs_create_pending_block_groups(). So ignore
+-			 * any error here. An ENOSPC here could happen, due to
+-			 * the cases described at do_chunk_alloc() - the system
+-			 * block group we just created was just turned into RO
+-			 * mode by a scrub for example, or a running discard
+-			 * temporarily removed its free space entries, etc.
+-			 */
+-			btrfs_chunk_alloc_add_chunk_item(trans, bg);
++			activate_ret = btrfs_zoned_activate_one_bg(info, true);
++			if (activate_ret < 0) {
++				ret = activate_ret;
++			} else {
++				/*
++				 * If we fail to add the chunk item here, we end
++				 * up trying again at phase 2 of chunk allocation,
++				 * at btrfs_create_pending_block_groups(). So
++				 * ignore any error here. An ENOSPC here could
++				 * happen, due to the cases described at
++				 * do_chunk_alloc() - the system block group we
++				 * just created was just turned into RO mode by a
++				 * scrub for example, or a running discard
++				 * temporarily removed its free space entries, etc.
++				 */
++				btrfs_chunk_alloc_add_chunk_item(trans, bg);
++			}
+ 		}
+ 	}
+ 
+
