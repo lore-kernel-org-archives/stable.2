@@ -1,206 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE51431C567
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:48:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0536D3CB556;
+	Wed,  5 Aug 2026 09:50:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785923290; cv=none; b=TScMXvEbmNawZXrq6it8Ttabn6/OuQ1f2qB7zLEqCTBYO8gVIpGGgakoLCk8iBUw9cNroHioRFZSqqKdQkt4Oj6B+EH8UupBvRZESVMVYRpfoLF2kgPQJ6HJbmQ4dt2DkfACYPmyr/kDMof6X2XxiIE3HBeRxPN4jLSV6cPB9sc=
+	t=1785923459; cv=none; b=q1rTuyrIXZlokVAonwdPBAnNkSHViZCCVbbcI0Yj09ldX4mxxlaL71OhgdNVoHkrcQ1uVp1tmjCTvNawa3yrwBzIaiQM4KhXs6ilRxEwe6lJDngVEhUJIiF0U8gRbjeMo2GEDkDfLzcNaq2cmx5MMHGBWPky6cjTnWCxucecvOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785923290; c=relaxed/simple;
-	bh=6T+Z3XilT1Ca6qwwns3bke66zvSNWpU8wXufQKAyvmI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UgLQa2z145fcCA2PlJ9vL2vQkwxT7RcyXHOSf0u8ydrKjsRkgw8JDVX8pxI+3f46WtIQUqq9r+XpR5Jhbfj2KlLfK+nisMCVF5/pAOWUOx9rAu8HPyCpjMc/+tGcTagnl9zXpSKpzIZNQTuq9jPixSWee6XPox3tPnTiXym1Fes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yQY0j4CH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785923459; c=relaxed/simple;
+	bh=GhJWIZsmMbbggVc5cejmd9Kk8vnoL563iVPmpLwdrHs=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=jmzR2I8RLhuwQPp0cthNQloLvMKJeRE8tbjVZIzn8OGLJaoNBo7N5t2ISMhmJeD1gFCTZFHS+h/EG2iC5pBIe+oAhjfZ1wrwoelwmIIacd5mLeoGWeW0NrXmeohDLY5DoOKwj/ZctpLnxd2BiXNIN18z1R/D63biJpDxmX/RlIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jH5Luowd; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yQY0j4CH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B25361F000E9;
-	Wed,  5 Aug 2026 09:48:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785923288;
-	bh=ZYLbR2TRwJuEGGaQBEhNUmdhfOXUL7WJtbKPfTUTzQ0=;
-	h=Subject:To:Cc:From:Date;
-	b=yQY0j4CHOQ6t/o02QcS/dMY3rHXX+DBdSRxQBLVJjynDBi9Nfl0MnQhAy0D+5JO2c
-	 qCFZ1DJfGcg97+hqKsFTzMqqE3WOzcrd6JAUSOeMe0RKJeWmpyVR6wl9IS6Ro20u6v
-	 /LTXr5Q9JB4NFV4JDGYmNj0qSURshjfpdvLX1jiY=
-Subject: FAILED: patch "[PATCH] ksmbd: reject repeated SMB2 NEGOTIATE requests" failed to apply to 5.15-stable tree
-To: linkinjeon@kernel.org,stfrench@microsoft.com,takemotoruna223@gmail.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 11:47:44 +0200
-Message-ID: <2026080544-grader-underline-e8ab@gregkh>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jH5Luowd"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id BC07E1A1428;
+	Wed,  5 Aug 2026 09:50:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 83C1A602AB;
+	Wed,  5 Aug 2026 09:50:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E944D11C3462D;
+	Wed,  5 Aug 2026 11:50:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1785923453; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=WQHukA8q/nWnCf8E4TYdCO3M6nSrkBqAfEwr+PxHQSY=;
+	b=jH5LuowduI/XKIkcaqUUxiW7Ol+EaGTPiorT3kiO854uKqBifIKgDbzQ9rMi2/ofKu1249
+	sbLzkXz0RnLqDiph3DHZvv556+U4DTxXi3J+9NzY/OHYhm6Cxk48hI5u2JGKNjm040vP6I
+	4a5bKHHeiDKY0r7MM2z2RPay+cLs2DntvgqyS0/48sT9QJo5B2ijdj5mJIgyxhPfU5iBYg
+	Pe7M2bdOPXn6YJd3c0TIFESE+Z9ykM3txG/jNRQQk/QGjTxBgC98f1f2IGPec7bGOBHphH
+	X7GRAaDEtut49k2NwCLvtf+rzYGgy6YRtXMElSONPmIJo85sRKBW+Z1/A0+gZw==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 1/3] drm/bridge: samsung-dsim: enable MFLUSH_VS for
+ Exynos 7870 DSIM
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Kaustabh Chakraborty <kauschluss@disroot.org>
+Cc: Inki Dae <inki.dae@samsung.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260723-exynos-dsim-fixes-v3-1-0c31ae1dbecc@disroot.org>
+References: <20260723-exynos-dsim-fixes-v3-0-0c31ae1dbecc@disroot.org>
+ <20260723-exynos-dsim-fixes-v3-1-0c31ae1dbecc@disroot.org>
+Date: Wed, 05 Aug 2026 11:50:38 +0200
+Message-Id: <178592343861.489541.8951125546023501465.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
+On Thu, 23 Jul 2026 00:28:32 +0530, Kaustabh Chakraborty <kauschluss@disroot.org> wrote:
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Hello Kaustabh,
 
-To reproduce the conflict and resubmit, you may use the following commands:
+> Commit a36c533ad3e1 ("drm/bridge: samsung-dsim: Always flush display
+> FIFO on vsync pulse") intends to enable FIFO flushing at v-sync pulse by
+> not setting the active-low MFLUSH_VS bit.
+> 
+> However, in Exynos 7870 DSIM, the MFLUSH_VS bit is active-high. There is
+> no publicly available documentation to the best of my knowledge, but
+> downstream kernel code [1] supports this claim. Enable the bit for
+> Exynos 7870.
+> 
+> Cc: stable@vger.kernel.org # v6.17 and later
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x cb469993b3a61a72653770856d37af616d72d05f
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080544-grader-underline-e8ab@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+Being a fix, there must be a Fixes: tag.
 
-Possible dependencies:
+>
+>
+> diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/bridge/samsung-dsim.c
+> index e2fc69fc51b6..b72542a0afb6 100644
+> --- a/drivers/gpu/drm/bridge/samsung-dsim.c
+> +++ b/drivers/gpu/drm/bridge/samsung-dsim.c
+> @@ -1089,6 +1089,13 @@ static int samsung_dsim_init_link(struct samsung_dsim *dsi)
+>  			reg |= DSIM_HBP_DISABLE_MODE;
+>  		if (dsi->mode_flags & MIPI_DSI_MODE_VIDEO_NO_HSA)
+>  			reg |= DSIM_HSA_DISABLE_MODE;
+> +
+> +		/*
+> +		 * For some hardware types, DSIM_MFLUSH_VS bit needs to be
+> +		 * enabled explicitly.
+> +		 */
+> +		if (dsi->plat_data->hw_type == DSIM_TYPE_EXYNOS7870)
+> +			reg |= DSIM_MFLUSH_VS;
+>  	}
 
+Based on your commit message, the differentiating point of the Exynos 7870
+not "needs to be enabled" but rather "it is active high". So a more
+understandable comment would be "The Mflush_VS bit is active low on most
+devices but active high on the Exynos 7870", or something similar.
 
+Luca
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From cb469993b3a61a72653770856d37af616d72d05f Mon Sep 17 00:00:00 2001
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Thu, 23 Jul 2026 23:07:14 +0900
-Subject: [PATCH] ksmbd: reject repeated SMB2 NEGOTIATE requests
-
-Unauthenticated client can send multiple successful SMB2 NEGOTIATE
-requests on one connection before SESSION_SETUP. While the connection is
-in KSMBD_SESS_NEED_SETUP, smb2_handle_negotiate() accepts another
-SMB3.1.1 NEGOTIATE and overwrites conn->preauth_info with a new allocation.
-Only the final allocation is freed when the connection is released, leaking
-one object for every additional successful request.
-
-A repeated SMB2 NEGOTIATE after a dialect has been selected is a protocol
-violation. MS-SMB2 section 3.3.5.4 requires the server to disconnect
-without replying in this case. Set the connection exiting when rejecting
-the request, in addition to suppressing the response.
-
-Reject SMB2 NEGOTIATE unless the connection is new or is waiting for the
-SMB2 NEGOTIATE that follows an SMB1 multi-protocol negotiate. Serialize
-both SMB1 and SMB2 negotiation paths under conn->srv_mutex, since they
-update connection-wide dialect and negotiation state.
-
-Move the locking contract to ksmbd_smb_negotiate_common(), where the state
-and dialect are selected, and add ksmbd_conn_new() for consistent state
-access.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Reported-by: Runa Takemoto <takemotoruna223@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-
-diff --git a/fs/smb/server/connection.h b/fs/smb/server/connection.h
-index ec75633b7da0..2a194ee36fb4 100644
---- a/fs/smb/server/connection.h
-+++ b/fs/smb/server/connection.h
-@@ -200,6 +200,11 @@ void ksmbd_conn_r_count_dec(struct ksmbd_conn *conn);
-  * This is a hack. We will move status to a proper place once we land
-  * a multi-sessions support.
-  */
-+static inline bool ksmbd_conn_new(struct ksmbd_conn *conn)
-+{
-+	return READ_ONCE(conn->status) == KSMBD_SESS_NEW;
-+}
-+
- static inline bool ksmbd_conn_good(struct ksmbd_conn *conn)
- {
- 	return READ_ONCE(conn->status) == KSMBD_SESS_GOOD;
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index c1ba5e01aa7f..404a4203f7da 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -1325,6 +1325,8 @@ static __le32 deassemble_neg_contexts(struct ksmbd_conn *conn,
-  * smb2_handle_negotiate() - handler for smb2 negotiate command
-  * @work:	smb work containing smb request buffer
-  *
-+ * The caller holds conn->srv_mutex.
-+ *
-  * Return:      0
-  */
- int smb2_handle_negotiate(struct ksmbd_work *work)
-@@ -1338,13 +1340,6 @@ int smb2_handle_negotiate(struct ksmbd_work *work)
- 
- 	ksmbd_debug(SMB, "Received negotiate request\n");
- 	conn->need_neg = false;
--	if (ksmbd_conn_good(conn)) {
--		pr_err("conn->tcp_status is already in CifsGood State\n");
--		work->send_no_response = 1;
--		return rc;
--	}
--
--	ksmbd_conn_lock(conn);
- 	smb2_buf_len = get_rfc1002_len(work->request_buf);
- 	smb2_neg_size = offsetof(struct smb2_negotiate_req, Dialects);
- 	if (smb2_neg_size > smb2_buf_len) {
-@@ -1495,7 +1490,6 @@ int smb2_handle_negotiate(struct ksmbd_work *work)
- 	ksmbd_conn_set_need_setup(conn);
- 
- err_out:
--	ksmbd_conn_unlock(conn);
- 	if (rc)
- 		rsp->hdr.Status = STATUS_INSUFFICIENT_RESOURCES;
- 
-diff --git a/fs/smb/server/smb_common.c b/fs/smb/server/smb_common.c
-index 7de73223189a..080fbc9eb470 100644
---- a/fs/smb/server/smb_common.c
-+++ b/fs/smb/server/smb_common.c
-@@ -608,23 +608,46 @@ int ksmbd_smb_negotiate_common(struct ksmbd_work *work, unsigned int command)
- 	struct ksmbd_conn *conn = work->conn;
- 	int ret;
- 
--	conn->dialect =
--		ksmbd_negotiate_smb_dialect(work->request_buf);
--	ksmbd_debug(SMB, "conn->dialect 0x%x\n", conn->dialect);
--
- 	if (command == SMB2_NEGOTIATE_HE) {
-+		/*
-+		 * An SMB2 NEGOTIATE is valid for a new connection, or after an
-+		 * SMB1 multi-protocol negotiate has selected SMB2. Do not allow
-+		 * a second SMB2 NEGOTIATE to replace connection-wide state
-+		 * while a session setup is pending. KSMBD_SESS_NEED_RECONNECT
-+		 * is a transient session state and does not restart transport
-+		 * negotiation.
-+		 */
-+		ksmbd_conn_lock(conn);
-+		if (!ksmbd_conn_new(conn) &&
-+		    !ksmbd_conn_need_negotiate(conn)) {
-+			work->send_no_response = 1;
-+			ksmbd_conn_set_exiting(conn);
-+			ksmbd_conn_unlock(conn);
-+			return 0;
-+		}
-+
-+		conn->dialect =
-+			ksmbd_negotiate_smb_dialect(work->request_buf);
-+		ksmbd_debug(SMB, "conn->dialect 0x%x\n", conn->dialect);
- 		ret = smb2_handle_negotiate(work);
-+		ksmbd_conn_unlock(conn);
- 		return ret;
- 	}
- 
- 	if (command == SMB_COM_NEGOTIATE) {
-+		ksmbd_conn_lock(conn);
-+		conn->dialect =
-+			ksmbd_negotiate_smb_dialect(work->request_buf);
-+		ksmbd_debug(SMB, "conn->dialect 0x%x\n", conn->dialect);
- 		if (__smb2_negotiate(conn)) {
- 			init_smb3_11_server(conn);
--			init_smb2_neg_rsp(work);
-+			ret = init_smb2_neg_rsp(work);
- 			ksmbd_debug(SMB, "Upgrade to SMB2 negotiation\n");
--			return 0;
-+		} else {
-+			ret = smb_handle_negotiate(work);
- 		}
--		return smb_handle_negotiate(work);
-+		ksmbd_conn_unlock(conn);
-+		return ret;
- 	}
- 
- 	pr_err("Unknown SMB negotiation command: %u\n", command);
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
