@@ -1,79 +1,51 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FAC3F929B
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:30:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DF33F9F46;
+	Wed,  5 Aug 2026 09:30:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785922222; cv=none; b=pEuvyfseTJZRw8qXDelIAsO10qlp+CrPeMmZGQTJRacOGOYAxV1lpclOU0QtuK1XYfrscaEtdZwHKqVE6chhpFp5Wyp1BRqXUt6RaJaJCjNMU9vaF+WKYEUMXSNWYGHkwyPNUKxtK4gAB0cfUrDwlhkDYTxRYH84t3NXfgaevvI=
+	t=1785922228; cv=none; b=M/aAl23x8LKk4A9VdVdgg1VjBfOnYC7H+qOPNROLkqGjFD8FophnuBSqdnlEVny/t4GPkewJhAtXiJKpwcZHSbcRAUEtZUOaYyPFPoKF16tf1kVbhM5r55FE04Z6KhzwEabIotSrbOMueWEpNntm4bH2XNe3oqoSUsnjaHieMt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785922222; c=relaxed/simple;
-	bh=R1qfl28bcTRyuDqlwIrb2wgtj2lT6TY1+KX0CgMB/Lg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ava9r97LF+2tjwZWKmxmv7dpp/RPPQHw3ulY18n/sWokEQbuwVEEQqB1pNCgx2+Fel6AwrSEdd8IHy+aRxfidVGkn/IcB00lwfF1I3vBZmnclP58WmZTlANij4BhH91kAecd1ZLHGZrlznwpzsfEq+X9PSpmHFwk7Xs+Q5GyYKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M3WUSmPv; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785922228; c=relaxed/simple;
+	bh=xIrBsfxd+4GfMLP8Lshd2UHQZLKHMfYKpNmsTNYPX/s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TdW/7i29EK2Cq0WPAwULJe31cAYIavAvABHxZtbLCYxNRXDKMxT+UHNdMB6kY7lnC2UfDsIy5Oq5Qdi9qtURXxtPm/fB2ry8dq1FFRh/MAHYmUL/PrQNU3FJbYRA4ZrIJBCegbTACZCr947OJ3cMuuX+8QMQSTp77J/hdmbdjjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UhswdTFn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M3WUSmPv"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8484f229529so627468b3a.2
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 02:30:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785922220; x=1786527020; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WIhXQgLhZ2pzW8mmQzoIH14CUe2+pfWcLRhH7gstZkc=;
-        b=M3WUSmPvAZ5mx72m44pPSL3vLyZTNH8ydaWbbFcwcLzZ+fXeZl8QsgyEvZk65ZpU+9
-         GdA0tS6WgU9QX5lI/nJpjCtcIlI2d1BB75e7PHf0byscva75Oc+IuCNslmVnOGA7cAv3
-         U3Y18WcZckmKEAYwUZpMbbdfyqPcupW89vAoxKESBa/zjM/7IkkiOzSU1ihlbo25CMBT
-         8P5dxapL3BnCGJqiNQURnRzD4y+v9EPLIEJQLLQ70t2qktCztHg4A3suNTRmyhRNoh8K
-         9FXgV52IF95n1V1T4wk2WI2u+VJLeMtkKm7y5wQ3sBpLSuFJPpoQjFuSVxuYZt7IuaT7
-         x/yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785922220; x=1786527020;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WIhXQgLhZ2pzW8mmQzoIH14CUe2+pfWcLRhH7gstZkc=;
-        b=Ey6JjT0Rc4JzqfWQijT1iaSw/0ommSg1iqwjosC0NERQ30h/RgxvefJUzxZ7ojF5Ed
-         NW4MmOr79pETlvnV2wYJxci+X8YTSMalr3rvlG0ijgiNvhYxy7zaMW+q3NoB2GpEMhcu
-         iCXEaCloUytZRCHgCXA8HFXaFIs7HjCpxeB5Z+reVSXALUaOhheV1NAviltcSjDbBc9N
-         hWkyb4Agt6Z0c18j5UPMYXPVsN9ZQCFkQOZTnKWHZWuT/5XNB7KAjAlWVb4CC7OH+Bwb
-         zVrs0z1FSbztADDeo+8Gss3WnR+RjUHD4V8D/5o2AuZ3odbiIkTpdy0OnRdnxmBHvITr
-         NDKQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoKtuZoFeyfG1DKp+c6C/fU8nakavLVfX7XlX14w1QdmRr9Qwwq8Q1VU5ldBitd73x/v9hlR7E=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyCHgXaTCvC8u/oYuRhI+gdozswK9ImENeHU6u++iPyyLpw0F8j
-	6SZJyhqJnzqEYVsgLI+OQAQ08RgZgjmHPolT0Gd+eSiU2bxow9wVF6EM
-X-Gm-Gg: AR+sD115zMfXqCHiHutvNY89MzAdgVoUsuk5Y3IHRZx8f0iYTLQZIGv7WWvn3jgz2aM
-	xJ4X6H51/jJhc9gk3seSm5Bn5m7VhgMs8/HL1zmFj++xhXvV1ltU0EqIY6azsI7UDXElf7hXsmv
-	WtYTtyBIDLs8ESjt9rAzK2il2utH+E2zcheZ+yvz96fK21iKZuRg1GCecOX4ZvwM64f6kwPt27a
-	rQJ0Z/maTxVQ9WSYvWz6KgFaUvoxLYnURJnreoSHChp31wpYriKXbD3Dhq0brBTe7q4/2SV7d4/
-	s7+ismZd6spaYBdPQyRpys+GixLF0U2SXA+ASI1NyHa0opIY0TY14egLY49k0BWRiE4TtTqH2wp
-	r6C1UPmdn8VYt9xXyUgi7kguCgVbZ9JIkUC3N3TGAhTsdEPXBJ9QwsZRSyn6ZGBfGGtH5ZwerHF
-	dnr4/azusRgb509HlNTJlRv9r1QIdr/+NEA4LPjQXB1eWvc1f2GFFqYAz7rhk03r8wBMfyuoFvZ
-	DTGhodAjoGxu4w34A7e6gPJZHTS3Q==
-X-Received: by 2002:a05:6a00:1310:b0:84e:216d:7e52 with SMTP id d2e1a72fcca58-84f2e03175emr5807527b3a.14.1785922220040;
-        Wed, 05 Aug 2026 02:30:20 -0700 (PDT)
-Received: from JIAPENGLIN-MC0.tencent.com ([43.132.141.20])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f2e50a00dsm603445b3a.48.2026.08.05.02.30.17
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 05 Aug 2026 02:30:19 -0700 (PDT)
-From: Aohan Mei <ljp1205831794@gmail.com>
-X-Google-Original-From: Aohan Mei <henrymei@tencent.com>
-To: jhs@mojatatu.com,
-	jiri@resnulli.us
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
-	corvus@tencent.com,
-	henrymei@tencent.com,
-	stable@vger.kernel.org
-Subject: [PATCH net] net/sched: cls_api: fix tp_created race losing existing tcf_proto
-Date: Wed,  5 Aug 2026 17:29:57 +0800
-Message-ID: <20260805093012.95155-1-henrymei@tencent.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UhswdTFn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 021871F00A3A;
+	Wed,  5 Aug 2026 09:30:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785922227;
+	bh=S4rfurStD8BbVjYojW5mAZYu3LdwwK5k7Jgz6d+nezQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UhswdTFnwzvZ2AR2KDxp2OVn9T06k7JQq2muXkJJxGGnqa96BMaEsjYuOfqoQAL6N
+	 GwEwz3Gp/zCar2rJw22pGBpvlkDg7mBivBhWIQa6QRpDvNS0FCq6PT5UC8mo4CaSmA
+	 VcetxftQAyPCHwWN9d96yuhWHiPYWAh2c0Q+Rfd06dWHERg7Mi3toa36WIjgeGXzQ+
+	 VVamhv+ls2R0+/VZ4XRZ7rpODMUjsokoDagC5jvknx/sKLVxK1j+MMNTU405lcqqKL
+	 MMiOdfdxHHjqxCmy6dmb/NVAUUMqMK1F5BSdcmw8CsKMZmlQe4WymHVdYFU0/BS+gb
+	 z7jksA+VNuDDw==
+From: Jiri Olsa <jolsa@kernel.org>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>
+Cc: stable@vger.kernel.org,
+	Tao Chen <chen.dylane@linux.dev>,
+	STAR Labs SG <info@starlabs.sg>,
+	bpf@vger.kernel.org,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Song Liu <songliubraving@fb.com>,
+	Yonghong Song <yhs@fb.com>,
+	Quentin Monnet <qmo@kernel.org>,
+	Arnaud Lecomte <contact@arnaud-lcm.com>
+Subject: [PATCHv4 bpf-next 10/12] bpf: Disable preemption in __bpf_get_stack
+Date: Wed,  5 Aug 2026 11:28:41 +0200
+Message-ID: <20260805092843.516315-11-jolsa@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260805092843.516315-1-jolsa@kernel.org>
+References: <20260805092843.516315-1-jolsa@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,112 +54,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tc_new_tfilter() attaches a filter to a chain. When no
-tcf_proto (tp) exists for the given (protocol, prio), it creates one
-with tcf_proto_create(), marks tp_created so the error path can clean
-it up, and inserts it with tcf_chain_tp_insert_unique().
+From: Daniel Borkmann <daniel@iogearbox.net>
 
-However, tcf_proto_create() can sleep, opening a race window in which a
-concurrent thread may insert a tp with the same (protocol, prio). In
-that case tcf_chain_tp_insert_unique() destroys tp_new and returns the
-*existing* tp, but tp_created is never reset. If the request then fails
-(e.g. kind mismatch), the errout path calls
-tcf_chain_tp_delete_empty() on a tp this thread never created. For
-classifiers without a delete_empty callback (all but cls_flower),
-tcf_proto_check_delete() removes the tp unconditionally: a live tp and
-all its filters are silently lost while the owner's change() still
-reports success. The race is reachable because cls_flower on
-ingress/clsact qdiscs runs without rtnl_lock and can interleave with
-rtnl_lock-holding classifiers such as u32.
+get_perf_callchain() returns a per-CPU perf_callchain_entry buffer and
+releases its recursion slot via put_callchain_entry() before returning,
+so nothing keeps the entry reserved while __bpf_get_stack() consumes
+it below.
 
-Fix this by making tcf_chain_tp_insert_unique() report through a new
-"inserted" out-parameter whether tp_new was actually inserted, and
-gate the errout delete_empty call on it instead of tp_created.
-tp_created itself must stay set on this path: the chain reference was
-consumed by the destroyed tp_new, and errout_tp relies on tp_created
-to decide whether to tcf_chain_put(), so resetting it would underflow
-the chain refcount.
+A preemptible BPF program (e.g. a non-sleepable raw tracepoint program
+on a PREEMPT kernel, which runs under migrate_disable() but not
+preempt_disable()) can be scheduled out between obtaining the entry
+and the copy. Another task scheduled on the same CPU then reuses the
+same per-CPU buffer and overwrites trace->nr with a larger value.
+copy_len is then computed from the inflated trace->nr and can exceed
+the caller's buffer, causing an out-of-bounds write in the memcpy()
+and in the build_id path.
 
-Fixes: 8b64678e0af8 ("net: sched: refactor tp insert/delete for concurrent execution")
+The rcu_read_lock() taken here alone does not prevent this. It is
+only taken on the may_fault path, and under CONFIG_PREEMPT_RCU it does
+not disable preemption; it merely keeps perf's callchain buffer array
+alive (freed via call_rcu()) and does nothing to stop another task
+from reusing the entry.
+
+Disable preemption around obtaining the callchain entry and copying
+it into the caller's buffer, so the entry cannot be reused underneath
+us and trace->nr stays bounded by max_depth. Build ID resolution may
+fault and is therefore deferred until after preemption is re-enabled;
+by then the instruction pointers have already been copied into buf,
+so it operates only on that private copy. Note, preempt_disable() also
+subsumes the buffer-lifetime guarantee the rcu_read_lock() provided,
+since a preempt-disabled section is an RCU read-side critical section
+for the callchain buffers' call_rcu() reclaim.
+
 Cc: stable@vger.kernel.org
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-Signed-off-by: Aohan Mei <henrymei@tencent.com>
+Fixes: c195651e565a ("bpf: add bpf_get_stack helper")
+Reported-by: Tao Chen <chen.dylane@linux.dev>
+Closes: https://lore.kernel.org/bpf/20260206090653.1336687-1-chen.dylane@linux.dev/
+Reported-by: STAR Labs SG <info@starlabs.sg>
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+[ changed Fixes: commit ]
+Signed-off-by: Jiri Olsa <jolsa@kernel.org>
 ---
- net/sched/cls_api.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ kernel/bpf/stackmap.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
-index fee4524ad..9ceb2b538 100644
---- a/net/sched/cls_api.c
-+++ b/net/sched/cls_api.c
-@@ -1937,7 +1937,8 @@ static struct tcf_proto *tcf_chain_tp_find(struct tcf_chain *chain,
- static struct tcf_proto *tcf_chain_tp_insert_unique(struct tcf_chain *chain,
- 						    struct tcf_proto *tp_new,
- 						    u32 protocol, u32 prio,
--						    bool rtnl_held)
-+						    bool rtnl_held,
-+						    bool *inserted)
- {
- 	struct tcf_chain_info chain_info;
- 	struct tcf_proto *tp;
-@@ -1948,6 +1949,7 @@ static struct tcf_proto *tcf_chain_tp_insert_unique(struct tcf_chain *chain,
- 	if (tcf_proto_exists_destroying(chain, tp_new)) {
- 		mutex_unlock(&chain->filter_chain_lock);
- 		tcf_proto_destroy(tp_new, rtnl_held, false, NULL);
-+		*inserted = false;
- 		return ERR_PTR(-EAGAIN);
+diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
+index eabeaef31b63..789fe35b893a 100644
+--- a/kernel/bpf/stackmap.c
++++ b/kernel/bpf/stackmap.c
+@@ -817,6 +817,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
+ 
+ 	if (may_fault)
+ 		rcu_read_lock(); /* need RCU for perf's callchain below */
++	preempt_disable();
+ 
+ 	if (kernel && task) {
+ 		trace = get_callchain_entry_for_task(task, max_depth);
+@@ -828,6 +829,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
+ 	if (unlikely(!trace) || trace->nr < skip) {
+ 		if (may_fault)
+ 			rcu_read_unlock();
++		preempt_enable();
+ 		goto err_fault;
  	}
  
-@@ -1964,6 +1966,11 @@ static struct tcf_proto *tcf_chain_tp_insert_unique(struct tcf_chain *chain,
- 		tp_new = ERR_PTR(err);
- 	}
+@@ -836,6 +838,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
+ 	/* trace should not be dereferenced after this point */
+ 	if (may_fault)
+ 		rcu_read_unlock();
++	preempt_enable();
  
-+	/* Tell the caller whether tp_new was actually inserted, or an
-+	 * already existing tp is being returned instead.
-+	 */
-+	*inserted = !tp && !err;
-+
- 	return tp_new;
- }
+ 	return callchain_finalize(buf, size, trace_nr, elem_size, flags, may_fault);
  
-@@ -2254,11 +2261,13 @@ static int tc_new_tfilter(struct sk_buff *skb, struct nlmsghdr *n,
- 	void *fh;
- 	int err;
- 	int tp_created;
-+	bool tp_inserted;
- 	bool rtnl_held = false;
- 	u32 flags;
- 
- replay:
- 	tp_created = 0;
-+	tp_inserted = false;
- 
- 	err = nlmsg_parse_deprecated(n, sizeof(*t), tca, TCA_MAX,
- 				     rtm_tca_policy, extack);
-@@ -2382,7 +2391,7 @@ static int tc_new_tfilter(struct sk_buff *skb, struct nlmsghdr *n,
- 
- 		tp_created = 1;
- 		tp = tcf_chain_tp_insert_unique(chain, tp_new, protocol, prio,
--						rtnl_held);
-+						rtnl_held, &tp_inserted);
- 		if (IS_ERR(tp)) {
- 			err = PTR_ERR(tp);
- 			goto errout_tp;
-@@ -2440,7 +2449,13 @@ static int tc_new_tfilter(struct sk_buff *skb, struct nlmsghdr *n,
- 	}
- 
- errout:
--	if (err && tp_created)
-+	/* Only delete a tp that we actually inserted ourselves. When
-+	 * tcf_chain_tp_insert_unique() raced with a concurrent insertion
-+	 * it returns the existing tp; tp_created must stay set then (the
-+	 * chain reference was consumed by the destroyed tp_new), but the
-+	 * existing tp must not be deleted.
-+	 */
-+	if (err && tp_inserted)
- 		tcf_chain_tp_delete_empty(chain, tp, rtnl_held, NULL);
- errout_tp:
- 	if (chain) {
 -- 
-2.50.1 (Apple Git-155)
+2.54.0
 
