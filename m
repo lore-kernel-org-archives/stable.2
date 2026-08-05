@@ -1,194 +1,143 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FF83F88B9
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:29:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785922153; cv=pass; b=Mj+qbnP563WCDmeWSK0Ot6C2fOXL8VJseDYHUtbvBlmmsrl+6GiJW9MWSd3QAidv+mu7CJo/aQv0UO6BWgmByqHTNEDDIs/hw9xCRe5IeTb80yiS3ukLodbJ+C184qZ/u9kORLZ+SOp/3koY4/RRISuK85VxL1xdxa4y75HGVHM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785922153; c=relaxed/simple;
-	bh=2CYxhUN06atxgyD+NuqEfp0FHRHqnrmTcjPfadvW5lM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ae0hIkAkp99uNIwXFc6JvDi2K69XMTIH88POgmDJ77RCwTLZE+Sx7+3eMbvYU+O6iVRzcZ3/vyLXC6TA7KOFLrsPRRsB21YG+LwgUPWkzRUC0aYLRvtfOkIBMCV1eHzeX7ycIukT+wBXz6r9X/QRDrBXMW1AOmE8FvRaxBoMD6c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oRaHTj72; arc=pass smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oRaHTj72"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a0de062db5so1091590a12.1
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 02:29:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785922148; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iOGEb2gKtoX+4pVxy7bzLF7DOvMgklkLqp/H0+pHfo5OTUnoNL/TFE/aakK3ry6wvB
-         hYI1puWLZGgwgVfzlFXd7f4rmteGN4Kmg6yrmuDF1cQugNFJdTXWl7t3xAz2G3mezx6t
-         h5LsL2lAWTraXgHgtqOa8gmKbyRNUB9VTsvON2rqgCa6WvhWMtuFNmThwTtX+eGkS5tE
-         SbQsrBxoBfOjgSNjB1C7XtCOz8Gicvuc+tRL+9ltEscKbIFLTNfj+RT4+67DiON6t/yK
-         rBdGJV9t6rBSzXJITcG5lL5zpLzRbv2QfwWWs6QeBkKz6FYFbCas3f1BRSS8kF+RwXxB
-         2yNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MyPWfyEFm2OExA3jphd/8vOHsrgk8sKB4KgKaoO1auA=;
-        fh=Y0VHLs7DfzEOdc7gmsP13V+4frcGcmRLCnQeaZmsfO4=;
-        b=ErI5cDCJ61x0P2QYXcNDmTJW9TS+RAJDnZ8WtNeygkUooWroTI6A8Fg6Z5M8wCNC6M
-         g5m+hQBSb9PP0+nDBjmtENCib/aHXkLleTdhOupmlPVCnJow0Y4RjhXLim0jbHY/sI6D
-         TVJ5+F7NyQ9G6ABAbk5HpuA3Nz4ri9zGn2WQjzt9+vcXo5RaVB2/NMa5X1FrewQ/KYRr
-         NS5K2rwHfGMuas3a3klmVFItjJ/Oe1hntxc+1htke49fLN9yc1suZjaeZXymEWYsKHiX
-         qUrnSpBUGL4uZnP+WakrwwYSf+LbWJ8jDiwg7BFPwfVzjiaD8GH+U5Q7UrTVQSCCt8xI
-         SXQQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785922148; x=1786526948; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MyPWfyEFm2OExA3jphd/8vOHsrgk8sKB4KgKaoO1auA=;
-        b=oRaHTj72e/XrckuRkA497cnrlo9Fzk7mRBhBXJ1RaHvG+7+2R4vfQrOftchvPQCl/P
-         k38QsTQmHSL+o3EqszzoPmxowRxK5l6gqFLnPydloJ6xxUi5if5535ZIQAYitjcu0O1h
-         HPKlnfL3fOxxo5uv/mNQpNaK4C87gz3GvP03hg7viPShIQaEPK4/Va4yQSRtx4yN71sh
-         7xebecoFtAEsMGmUSloibOVe69FFBOnuJ2IZeqeYn9PUE0zUR3wALOwo4xTWieb6caEd
-         5yxFYxilUTzGGFmWNqfK11/uoPLsvyvM/a6IwhXO5V9wvTsI/+rs65fsWVeKLolF3nSn
-         NRCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785922148; x=1786526948;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MyPWfyEFm2OExA3jphd/8vOHsrgk8sKB4KgKaoO1auA=;
-        b=pJSgOpMHMbJGTvHYG3jupTja4TI0RlHtOpm3e8pkA2HOn+7Z8V6q1zQuUHtN4JP5DH
-         /T98v5S82GoRDHsEksadVOQer+kzNuymcDlDbQ1DKn0E2Gg/TYi3Klw7Ts2MjrIZaMhX
-         2qtrp9zeEjDlgp9ydPXh2W+u5OAUPYA5co30zGwFDY9cipH5ZPfRsPZ9l/haLT/Ucm9s
-         cPwokX7X6ugGHFEPxEKpSiSi5doj63z7SkKWty54kN+xdmQQ/bRaguMVij0fVmajb0N2
-         pz6avWdTXyGmnc0mTpmfp5yKSquFXfPluLsIsIulX8vcYAJv+vohFx85MKuqioRNmKW4
-         RH1g==
-X-Forwarded-Encrypted: i=1; AHgh+RqGqNygCwRv2WHLWsgbqgwF0LnY+bXEkx+M+wLU50MrY60eElaKlbS6kbzTyewbCb18TSfvN7M=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyE5WyeF+HIxq1xs8AK2urdeiHZpWbN0tmEb0Ujsm/uJCQFuNal
-	tQpyeKHNlEeOC8nbfvBSmKUpbUI8pHlcoFw0efc3MjPApQI+N/magbYGp5QazcnfqrjtVceRVUL
-	Zn1z0ebbT4bFlCtq9ZdHNA1KojeBHAew=
-X-Gm-Gg: AR+sD12qVt1fv58i9HjJYmw+IdFvFeJTb+JfYUnvK1i33viCQTmsrEeYxhmHlXlFZ0z
-	M5inyVCXFXf7/yKCOsckksW56dg58sA2lR05oeZJEmIxG89RuNhA2I2CoXY9jDb2qi4VFfm/HEz
-	56sAjwuXX4AF8kAawDleca9VLRmJGAKf0WzDL7O/LothJgAH2d6Y+x/hpzbAziXJpfHHMCyYOz1
-	PgSfjY1ira0yMNPG1vccTIQ5xxTgJcxgWxMNZqd0/aOs5aCp6uKDzbzBQjJxMDwOaUXUGPjc09A
-	Bbsi3W29XbL3e0A1GC9r7Y4sYqPieQo680rk8zoGwOPvzCVWhqpvZ5vFjkLfUrYWvI/uwMDpQEL
-	YwMWpvPXmD2/4LxswCPxrvhGW7wJ1w7M=
-X-Received: by 2002:a05:6402:4543:b0:69f:2c1d:d83c with SMTP id
- 4fb4d7f45d1cf-6a14f2893e6mr2121332a12.21.1785922147806; Wed, 05 Aug 2026
- 02:29:07 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308863F4DCA;
+	Wed,  5 Aug 2026 09:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785922161; cv=none; b=UGV5FPffA87u9fJi4HFKT9deeMprlwjviik4DbWjEic5usOUIidy2ogNJPTlgGe7mvfH+zvsnvq/HcAGSnJ8c3cJHm6M2/H4annl8+SvP2MkMIOs0VOV1hVUuGcqSfCL5lXRwX+1SXBLO55PXUGN2bU9kIYNfA7j/+/O4EEsMHs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785922161; c=relaxed/simple;
+	bh=Ky0V2UofAujX66s+HUXLD01q1ni68J3p0RJ1NV/yM/A=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rXvk5O/lp5GkagB5gviVgwTHBUWgmRPMp9vgTrZdAtzbGjyiLASExgqOR2w3X12v6BAYdti3J4JrRdw7vLoxuL98GLJ34PYNRFMM7ZoNSEuzaRaj+cNhsff4VJ7yqjDL275b3VEqIgoLVFCzcyV26m6HgDOp2jlq5kUf1jkBJOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 1eb0878e90b011f1aa26b74ffac11d73-20260805
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:3a183ffd-c44f-4b1d-a550-e5b0ef6beab0,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:e7bac3a,CLOUDID:2d74e6fef57bd11b15d13d202d0218e5,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
+	DM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 1eb0878e90b011f1aa26b74ffac11d73-20260805
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1187836271; Wed, 05 Aug 2026 17:29:12 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com,
+	alexandro.calo@nozominetworks.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ntfs: fix name offset validation in ntfs_non_resident_attr_value_is_valid
+Date: Wed,  5 Aug 2026 17:29:08 +0800
+Message-Id: <20260805092908.77549-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260803-alpha-fp-exceptions-v1-0-c99d75608e60@gmail.com> <20260803-alpha-fp-exceptions-v1-1-c99d75608e60@gmail.com>
-In-Reply-To: <20260803-alpha-fp-exceptions-v1-1-c99d75608e60@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Wed, 5 Aug 2026 11:28:56 +0200
-X-Gm-Features: AUfX_mytZOAo7u-Z1H4SHvHV7AI6aSPHWr2nPnsXtr8HsGmlt0ibWkok5AeeFvA
-Message-ID: <CA+=Fv5RaZZeRvixhLYZVmNsWowBw7oWC5Z6AvbL8=c80CM6XLg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] alpha: fix ieee_swcr_to_fpcr setting FPCR_DNOD unconditionally
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 4, 2026 at 1:40=E2=80=AFAM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> ieee_swcr_to_fpcr() converts the software IEEE trap-enable and status
-> bits kept in thread_info.ieee_state into the hardware FPCR format.  It
-> contained:
->
->         fp |=3D (~sw & IEEE_TRAP_ENABLE_DNO) << 41;
->
-> FPCR_DNOD (bit 47) disables denormal operand traps: with it set the
-> hardware handles a denormal operand itself, treating it as zero, instead
-> of trapping for software completion.  The intent was to set DNOD when the
-> user has not asked for SIGFPE on denormal operands, but
-> IEEE_TRAP_ENABLE_DNO is clear by default, so ieee_swcr_to_fpcr(0) always
-> set DNOD.
->
-> Instructions built with the software completion suffix therefore never
-> trapped on a denormal operand.  The hardware silently substituted zero
-> and produced wrong results, affecting every program compiled with -mieee
-> and default FPU settings, glibc included.
->
-> Set FPCR_DNOD only when IEEE_MAP_DMZ is requested, which is exactly the
-> case where flushing denormal inputs to zero is what the user asked for.
-> DNOD then encodes MAP_DMZ, which ieee_fpcr_to_swcr() already recovers
-> from FPCR_DNZ, so drop its attempt to recover IEEE_TRAP_ENABLE_DNO from
-> DNOD; the DNO trap enable lives solely in ieee_state.
->
-> Both functions are in a uapi header, so the encoding change is visible to
-> userspace, but nothing outside the kernel is known to depend on DNOD
-> carrying the DNO trap enable, and the kernel is the only writer of the
-> FPCR.
->
-> This must not be backported on its own.  Re-enabling denormal operand
-> traps exposes a second bug, fixed in the following patch: those traps
-> usually find an exact result, and for an exact result the emulator did
-> not write the FPCR back, leaving hardware-fabricated exception bits
-> visible to user space.  Taken alone this change would make spurious
-> exception flags more common.
->
-> The bug predates the git history, so there is no commit to reference in a
-> Fixes tag.
->
-> Cc: stable@vger.kernel.org # 5.15+
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  arch/alpha/include/uapi/asm/fpu.h | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/alpha/include/uapi/asm/fpu.h b/arch/alpha/include/uapi/=
-asm/fpu.h
-> index cea9eafa056f..d28dc36786e2 100644
-> --- a/arch/alpha/include/uapi/asm/fpu.h
-> +++ b/arch/alpha/include/uapi/asm/fpu.h
-> @@ -101,7 +101,12 @@ ieee_swcr_to_fpcr(unsigned long sw)
->                       | IEEE_TRAP_ENABLE_OVF)) << 48;
->         fp |=3D (~sw & (IEEE_TRAP_ENABLE_UNF | IEEE_TRAP_ENABLE_INE)) << =
-57;
->         fp |=3D (sw & IEEE_MAP_UMZ ? FPCR_UNDZ | FPCR_UNFD : 0);
-> -       fp |=3D (~sw & IEEE_TRAP_ENABLE_DNO) << 41;
-> +       /*
-> +        * Disable denormal operand traps only when denormal inputs are t=
-o be
-> +        * flushed to zero.  Otherwise they must keep trapping, so that /=
-S
-> +        * instructions reach the kernel emulation handler.
-> +        */
-> +       fp |=3D (sw & IEEE_MAP_DMZ ? FPCR_DNOD : 0);
->         return fp;
->  }
->
-> @@ -116,7 +121,6 @@ ieee_fpcr_to_swcr(unsigned long fp)
->                              | IEEE_TRAP_ENABLE_OVF);
->         sw |=3D (~fp >> 57) & (IEEE_TRAP_ENABLE_UNF | IEEE_TRAP_ENABLE_IN=
-E);
->         sw |=3D (fp >> 47) & IEEE_MAP_UMZ;
-> -       sw |=3D (~fp >> 41) & IEEE_TRAP_ENABLE_DNO;
->         return sw;
->  }
->
->
-> --
-> 2.54.0
->
-Hi,
+ntfs_attr_update_meta() performs memmove operations on attribute names
+when converting between sparse and non-sparse attributes:
 
-The new mapping of FPCR_DNOD to IEEE_MAP_DMZ looks correct to me.
+- Converting to sparse shifts the name forward by 8 bytes
+  (name_offset + 8)
+- Converting from sparse shifts the name backward by 8 bytes
+  (name_offset - 8)
 
-I tested the complete series with CONFIG_MATHEMU=3Dy on the same machine
-and using the same glibc build. The kernel boots normally, and the
-glibc math testsuite improves from 48 to 28 failing test programs, with
-no new failing tests.
+However, the validator does not check that name_offset is within safe
+boundaries for these operations. A malicious MFT record could set
+name_offset such that:
 
-Reviewed-by: Magnus Lindholm linmag7@gmail.com
-Tested-by: Magnus Lindholm linmag7@gmail.com
+1. The name is positioned at the very end of a non-sparse attribute.
+   Converting to sparse would shift the name forward by 8 bytes,
+   writing beyond the attribute boundary.
+
+2. The name overlaps with the mapping pairs, causing corruption during
+   conversion.
+
+Add validation to ensure:
+- For named attributes, name_offset is within valid bounds
+- Name does not extend beyond the attribute or overlap with mapping pairs
+- For non-sparse attributes, name_end + 8 fits within attr_len to allow
+  room for the forward shift when becoming sparse
+
+Note: name_offset validation only applies when name_length != 0, as
+unnamed attributes use name_offset = 0 which is valid.
+
+Fixes: 7e2a1c554bc4 ("ntfs: Fix min_len for compressed/sparse attributes in ntfs_non_resident_attr_value_is_valid()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+ fs/ntfs/attrib.c | 33 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 32 insertions(+), 1 deletion(-)
+
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index d354c3b0fae1..778b13cf9762 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -693,6 +693,9 @@ static bool ntfs_non_resident_attr_value_is_valid(const struct attr_record *a)
+ 	u32 attr_len;
+ 	u32 min_len;
+ 	u16 mp_offset;
++	u16 name_offset;
++	u16 name_len;
++	u32 name_end;
+ 
+ 	attr_len = le32_to_cpu(a->length);
+ 	min_len = offsetof(struct attr_record, data.non_resident.initialized_size) +
+@@ -706,7 +709,35 @@ static bool ntfs_non_resident_attr_value_is_valid(const struct attr_record *a)
+ 		return false;
+ 
+ 	mp_offset = le16_to_cpu(a->data.non_resident.mapping_pairs_offset);
+-	return mp_offset >= min_len && mp_offset <= attr_len;
++	if (mp_offset < min_len || mp_offset > attr_len)
++		return false;
++
++	/*
++	 * Validate name_offset for named attributes.
++	 * Unnamed attributes have name_length = 0 and name_offset may be 0.
++	 */
++	name_len = le16_to_cpu(a->name_length);
++	if (name_len) {
++		name_offset = le16_to_cpu(a->name_offset);
++
++		if (name_offset < min_len || name_offset >= attr_len)
++			return false;
++
++		name_end = name_offset + name_len * sizeof(__le16);
++		if (name_end > attr_len || name_end > mp_offset)
++			return false;
++
++		/*
++		 * For non-sparse -> sparse conversion, name shifts forward
++		 * by 8 bytes. Ensure there's room for the shift.
++		 */
++		if (!(a->flags & ATTR_IS_SPARSE) &&
++		     name_end + 8 > attr_len)
++			return false;
++	}
++
++	return true;
++
+ }
+ 
+ static bool ntfs_attr_value_is_valid(struct ntfs_volume *vol,
+-- 
+2.25.1
+
