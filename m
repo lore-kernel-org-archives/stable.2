@@ -1,47 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1F345D1A4;
-	Wed,  5 Aug 2026 12:26:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9981B46C4A3;
+	Wed,  5 Aug 2026 12:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785932816; cv=none; b=FpUpov2kmm2S7nP4KtpaejdKshjzA5U2bjgML/rHqcxeQP8npIZe7vO0uN1UOLx3WQfXbFnO17uqdIF5rSg0nRwVAoXntePZekxiG5Bxo9qCkrl28he8/QQ/XB8kSRtI3o2TxrKPa2HL+6QSPb6SW32V/IGlr4pJYaxRjO0vYTM=
+	t=1785932818; cv=none; b=s04ArjGCRtmO1SrkKkGHaQrJp/lY4c8TcubmhLG475TLqhhg3l+f0H6bhCT0eyrhAO/rV6hxAUqk2KoBMPVnD5mAGLs3NZMB/YMB21zvCIs5YlDozsOurH/3Q6lWtrvz53zOwN5/1UuFxnq6n69NFzsSa2aVRNx1U8G9d6Q2yeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785932816; c=relaxed/simple;
-	bh=htpzpon18WeiEBFp6iHxjlhYa9chJGsaqn5wibjn60w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k2tUy692WunniPCX90gz6XdGVAyeaNy6xMu+dBXyDI51VV9o3UPpkktLwZZzXwCtP+g85nGAppE1h1mCfgwnF0OXnh8Fi85ZhCZBlj8Zi4mhJEKM7qY1EX8KDL7U4eUABBg6JygN3wmWeb/w33EmWZkvA/zcE6u3WhhkEiDLWWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SAfKGpHC; arc=none smtp.client-ip=198.175.65.18
+	s=arc-20240116; t=1785932818; c=relaxed/simple;
+	bh=HJ2QI3q/5ld7C3q7HnHy35phf+nTJpO/vy1yh1mMztU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EIb5VLQ72H8u9186/xokxM4FeEcsWZKFjTjFHBJyNKR8DzFgIgJTDGkJ3tUv176bVmsJkRwHymXpcZgncb29EirRDahW8a2zK+2AR91Y90vttunK+dEPmj2Dpd4UNaF6DFPr6edT+vxtd+nDhFqQZmy6ULCODK9iS/DwaO3NvAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DNlEDmhG; arc=none smtp.client-ip=198.175.65.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SAfKGpHC"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DNlEDmhG"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785932814; x=1817468814;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=htpzpon18WeiEBFp6iHxjlhYa9chJGsaqn5wibjn60w=;
-  b=SAfKGpHChaM3o3z1FoESAJKSsBjcbExrPWz2zsAn5HI9TliUC491xQ+I
-   VHT67V1Fi/cE9eajE1DLatOMTMdm82cDQRA0lXrUnRlMHVFIm3B9SFxdN
-   bKMU4CrIvFQUBAj4zALjXerg7puUMiN3Vmv4yjPTb8XZ4bJT3MhoHRYMK
-   3joEWkDXuMA7+7JqvkUAlIDI3A+1xThh4LWvR5dHfnzyArYzgepwghTTf
-   Ru/2woCDZ7+x8o/KeEY82T51Wbj7764ahOHknMOA1Cw8fsWHratMV/fYO
-   ESYRQbecfz9C/rkJhAMT1OQM5oWTZrZeQ/m7frR3oo/Aj2BbNAIkKGu8i
-   g==;
-X-CSE-ConnectionGUID: rUjvzPh8Q22rFnGnf0fRew==
-X-CSE-MsgGUID: YTWYdgUuQpKQKnb3hxLqmA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="86583162"
+  t=1785932817; x=1817468817;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=HJ2QI3q/5ld7C3q7HnHy35phf+nTJpO/vy1yh1mMztU=;
+  b=DNlEDmhG8GmWG0Q1Hg0st/ymbW/szYRtmBr0/LwLkmJKiyNJDLzdcYhE
+   iiUbq/C4ebXRGU9rjH4nb3JJVg+weYOtVgp62P0i6PreEMPHMMuwypnG2
+   K3y0aG9UmvTEjg96djDT/Zry6TMKkp+6lUQ8M2ReNoSAr1ASWC6K25TE1
+   iy4fP6LnR9RxspNRh6BpEb5A7HkhPGKa6EsciBBiP53A6Tsg8ATa1/YJz
+   ZjJ0uIjAHk0fHEv1itJxIJVShdFYWWuJAEaJ/yAwDQjokLYeXpYKK2zA/
+   70wwp5CeaKMa7FwlEjuRvyJS8SJ+zt+hYhcM1O0VLHYrA4/WFShBlo9p1
+   Q==;
+X-CSE-ConnectionGUID: CJuiO/9+QWKp7baxNVVDyQ==
+X-CSE-MsgGUID: HpOtQ19qR3Wb5LANinw4yg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="86583168"
 X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="86583162"
+   d="scan'208";a="86583168"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 05:26:53 -0700
-X-CSE-ConnectionGUID: xxvm/On6RBaFy4F4zsaw7Q==
-X-CSE-MsgGUID: WJXIZmG0SieRKTrfKjrDXw==
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 05:26:56 -0700
+X-CSE-ConnectionGUID: NBM/4DHyRAGjLOah8A2p7A==
+X-CSE-MsgGUID: z8aNROI3SgSY8LIPHofbwA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="258460211"
+   d="scan'208";a="258460214"
 Received: from mkosciow-mobl1.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.246.218])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 05:26:50 -0700
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 05:26:53 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -51,10 +52,12 @@ To: Mark Brown <broonie@kernel.org>,
 	Nicolin Chen <nicoleotsuka@gmail.com>
 Cc: linux-sound@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 0/2] ASoC: NXP/Freescale: sort the reg_defaults tables
-Date: Wed,  5 Aug 2026 15:27:26 +0300
-Message-ID: <20260805122728.12362-1-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 1/2] ASoC: sgtl5000: sort the register default table
+Date: Wed,  5 Aug 2026 15:27:27 +0300
+Message-ID: <20260805122728.12362-2-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260805122728.12362-1-peter.ujfalusi@linux.intel.com>
+References: <20260805122728.12362-1-peter.ujfalusi@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,31 +66,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+reg_defaults must be sorted by ascending register address, as
+regcache_lookup_reg() locates entries in it with bsearch().  See commit
+fd80df352ba1 ("regcache: Add support for sorting defaults arrays").
 
-reg_defaults must be sorted by ascending register address, since
-regcache_lookup_reg() locates entries in it with bsearch().  When a table is
-not sorted, bsearch() cannot find the entries which follow a descending step,
-so regcache_reg_needs_sync() falls back to reporting that a sync is needed for
-them.  Those registers are then written to the device on every regcache_sync()
-even when they were never touched.
+SGTL5000_CHIP_SHORT_CTRL (0x003c) is listed before
+SGTL5000_CHIP_ANA_TEST2 (0x003a), which makes the former unreachable.
+regcache_reg_needs_sync() then cannot compare it against its default and
+reports that a sync is needed, so it is written to the device on every
+regcache_sync() even when it was never touched.
 
-See commit fd80df352ba1 ("regcache: Add support for sorting defaults arrays")
-for the same problem in a different context.
+Sort the table by register address.
 
-The series is based on broonie/for-linus (05eebef3c7b2).
-
-Affected tables:
-  sgtl5000_reg_defaults    1 of 35 entries unreachable
-  fsl_easrc_reg_defaults   3 of 120 entries unreachable
-
-Peter Ujfalusi (2):
-  ASoC: sgtl5000: sort the register default table
-  ASoC: fsl_easrc: sort the register default table
-
+Fixes: 29aa37cddfb9 ("ASoC: sgtl5000: Fix the cache handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
  sound/soc/codecs/sgtl5000.c | 2 +-
- sound/soc/fsl/fsl_easrc.c   | 6 +++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
+index 59642673b4cb..35df1a8c4c8c 100644
+--- a/sound/soc/codecs/sgtl5000.c
++++ b/sound/soc/codecs/sgtl5000.c
+@@ -56,8 +56,8 @@ static const struct reg_default sgtl5000_reg_defaults[] = {
+ 	{ SGTL5000_CHIP_PLL_CTRL,		0x5000 },
+ 	{ SGTL5000_CHIP_CLK_TOP_CTRL,		0x0000 },
+ 	{ SGTL5000_CHIP_ANA_STATUS,		0x0000 },
+-	{ SGTL5000_CHIP_SHORT_CTRL,		0x0000 },
+ 	{ SGTL5000_CHIP_ANA_TEST2,		0x0000 },
++	{ SGTL5000_CHIP_SHORT_CTRL,		0x0000 },
+ 	{ SGTL5000_DAP_CTRL,			0x0000 },
+ 	{ SGTL5000_DAP_PEQ,			0x0000 },
+ 	{ SGTL5000_DAP_BASS_ENHANCE,		0x0040 },
 -- 
 2.55.0
 
