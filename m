@@ -1,133 +1,90 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0B53E49F2
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 07:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DF63E49D0;
+	Wed,  5 Aug 2026 07:44:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785915497; cv=none; b=UlhTCby+BHufqKkVo0IoWXpCVLW7vovtKEz31x7U0eSm+tqmJ/7z5iQ/1f7WT1oiWTCKtgvcBc0bPdJJJcu2SwrVp+MgkmC9tJ3Q1W1TrR2Q9A1cezsxLOUDDtlu30MxHQK0oCPPoZVDhklngyeQ7LjfRiPUgVEbrrelpof+h6g=
+	t=1785915850; cv=none; b=k6pGb7a9xhiLCYTKFxEZSuI5eKje8vwjp6mS1Ucr4+/oSyTSAMqw088P+/tOJNgFuIb41paNC7vS+dkIDv2iJG49XR6ul9xZFdbbmYvqy3S0yel0Tp62VRtdXj7Lu9clDYrBUEx6ll9nV9Rm6d9DMbY4Z/IMYSooxDbf44GYm7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785915497; c=relaxed/simple;
-	bh=XI4hTAnrlqQ1zIjV9q/lYkTlrEMba7KvOf/Kq4845i0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s7YYWXB+OFfMc6+BEHnetUnMFHOZ2452GaBDxQcKA4KoFxCABcKWL+i1nDlDWeBbTKE9x/4fN98F033sw87KIMtuH8t0My18TAy3BqVbT0UIBk3iQeprjl1b1ycGBbIv8KoXt1LgnEZoNwUyPV0D7oqtDOieq4Epo35e3Z2YKSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=MU5tZ4zw; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1785915850; c=relaxed/simple;
+	bh=hp2i/PGGCMpitbNxZUAlST9uv0iy4lEOi7R1hfvfIuk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s2KuinrgfxE7oFDBbZ3vSdr3YlgonpVman8kNmC/iWijqD6r/HRyo5vEJCsi0cYN1O0LH8YW2fpDocJzhIoozRQ1ZJvb4iIjlWewK7ja9eydrqm65fOwyhYozzxcK0waP8sWa1+ctFuPUwLdIzq3RUZS33TWUw1c6BnDYPPmftM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=c641dUj2; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="MU5tZ4zw"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4956d1d9fb2so579695e9.0
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 00:38:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1785915494; x=1786520294; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pryAcCweidUP055MOdKbB8yhGrbTMfIHwq/HAZxy2+E=;
-        b=MU5tZ4zwRtumtZIbIuhOgOdEpS4ccUllCq1+3UULWcWI47NPwL4V9872AtFNPYYDyJ
-         IUVD1rIaniRf3nlCO/TjZt1IlQFC3W47TrR+QB+sNrCEWS+g1PXq4Lqzgq8EWhPlUR0E
-         5qaCtA5mQFTi6dCY3P5HPk5QpkSEfqS/KBQJr4BYvRSdJ4tQoyPeO+tOXSD9Ai2+Zo1n
-         1lVndnuuW3nsqmKhDdQ4/yCxEM4pveBXnftttw7e3Wb1/2TftZ8TcgIHZQq5z6TysvnZ
-         8IZQCmebcvurF6cNggcXizJN+iHmGwJLbu7JbxKUZZD+IiVkgL9ivQ4hA/dnRqJS/X7f
-         1xOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785915494; x=1786520294;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pryAcCweidUP055MOdKbB8yhGrbTMfIHwq/HAZxy2+E=;
-        b=mxRInm9VBsawWQsOFV7qlNBTaTD9v8+qKqnvu59AXDEaXf+Et2sGnzAtt/xnDk0V3v
-         LJlPo7I+yo9GOMz4GjjG7JQ1eUqo/8koQnfAkqJO7ZNuCiwgtU+7AWisumhlVXItiM6N
-         hDjfI+1exnCLVzf0fnxBd9WC46+nTKAfL7mPj8rRFNwx/JeEVkUi7B/S0S4Exg1Jh8dN
-         dYUwkO/AOdXUBNhMlhgvolP38ONaRBgJ7qhcDkUGmKvIAZE8r6M3HQcEgD+D72Nk+Y2Q
-         7HJJFkTe0+55zGcuhPoNmLnsV+qqAG5pxkrNGAUidpLL7VI7ZS2UoicIABSguPFqjLy0
-         2HpQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrmlnzrYfxNp5IJp9OAT25rynuOMdkf6AhGhuHMXQPde3zjmVwfdiiciqWvWtkNpojar8xxj20=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTpCpVyQAFJcdSwt0O1VIstIT3iqPharwRmq6PXCLsev8rb4d8
-	iEkBkW/vVBc9H+PsofQODPdjpyQHU9ZwYg4kHHVWjzpleOOVg2niqXUzAiuoBNLILAk=
-X-Gm-Gg: AR+sD11yY0jCEZqp2MkN63rSQ2xsHMvp4/QNi2KBsoEaVxaFebBT95OflJwvE4LzgRW
-	zJ4L5J01yd0fnSVegEIfp70isJz2kgNU2s08uf0urK2LmczmZV0BnLglkWRwGqExRC7s22fMG9x
-	9UUNlZStQSMYjVYAB0lY0WiWAAvIBeVsFUK/oCjCv2+IoeWS5DI6v+E7TPt+lIDNkYxwL4mZcHe
-	rdyxQmCciZBqWJpZAlAzo1kg3HqxWo+2H4J4Ly0e6kvtzLitj2/KqGc0TEL4niTJRlQ/US1Xg4X
-	xlUrAJes/+i8c7v2dxCiGgfgG7lhlG2ImrdQwMWw6kxMiJKtbKujxwZnAG0S8Bb42j5aVkozbgP
-	YGd8V3oHUFobtJXftZN2LJTxBojuag6sowZW7R2cITn3pIspDPgguvBHpKKyEEmqz/oevPH1xe4
-	RJPmklqx+Mim6D+M5H/aSaqSp2uZqiAZShj5rUl4EAhCawNrUR4uulz8AlAgegnSWWkkCcYFM=
-X-Received: by 2002:a05:600c:1c22:b0:495:71ff:598d with SMTP id 5b1f17b1804b1-4994edf895dmr18352885e9.1.1785915494092;
-        Wed, 05 Aug 2026 00:38:14 -0700 (PDT)
-Received: from localhost ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbe709094fasm892080a12.27.2026.08.05.00.38.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 00:38:13 -0700 (PDT)
-Date: Wed, 5 Aug 2026 15:38:05 +0800
-From: Heming Zhao <heming.zhao@suse.com>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: ocfs2-devel@lists.linux.dev, mark@fasheh.com, jlbec@evilplan.org, 
-	joseph.qi@linux.alibaba.com, glass.su@suse.com, akpm@linux-foundation.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ocfs2: fix cached cluster count after suballocator
- reclaim
-Message-ID: <anLkDGTDDzVDMijK@p15>
-References: <20260805070837.3390148-1-matthias.goergens@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="c641dUj2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=wV
+	XeVZTf2M/GXSigAGCsBdLBqsm+xeB/8ix1nyvkrxg=; b=c641dUj2Q2losA3zG4
+	xumYcDb1PaPsCbDQ8zC2EOBPQmT1myigHzHtEH8TxdqfT9u1ude9TEOljasSnpOL
+	C/yOew+MCqNXZLwL0wl5F/SmRaNL7qJX+gDQEAnMVRhG7Kf8QsMLXy3zZPfy5kuS
+	LHO7M8mfuW2MvEsDojeP6QBcg=
+Received: from localhost (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgD3HxSl6XJqtf2bJw--.20463S2;
+	Wed, 05 Aug 2026 15:43:34 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: jic23@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hui Su <sh_def@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] iio: pressure: bmp280: fix out-of-bounds access in sampling frequency lookup
+Date: Wed,  5 Aug 2026 15:41:27 +0800
+Message-ID: <20260805074127.473731-1-sh_def@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260805070837.3390148-1-matthias.goergens@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgD3HxSl6XJqtf2bJw--.20463S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZrWkWryrAFy8AF1xCFWDXFb_yoW8Xrykpr
+	Z7KFyakrW5Gr1kZw1kJa1DGFyrZwnrJrWSgry7Cw48Aw43ZFyDXryj9ryrArWYyrsxJFsF
+	yrsF9FWDGrs8XFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEv38UUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwQbaOmpy6abt-QAA3g
 
-Hello Matthias,
+The sampling frequency tables store each frequency as an integer part
+and a fractional part in micro units. num_sampling_freq_avail is
+initialized to the number of flattened integer elements because
+read_avail() returns the table as a flat array.
 
-Could you share your test case, I want to reproduce the issue and verify the
-fix.
+bmp280_write_sampling_frequency(), however, indexes the same table as a
+two-dimensional array and uses num_sampling_freq_avail as the number of
+rows. This makes the lookup walk past the end of the table when an
+unsupported sampling frequency is written.
 
-Thanks,
-Heming
-On Wed, Aug 05, 2026 at 03:08:37PM +0800, Matthias Goergens wrote:
-> When reclaiming a suballocator block group, first reduce the on-disk
-> cluster count by cl_cpg.  The current code then subtracts that new count
-> from the old cached count.
-> 
-> For an allocator with N groups, that leaves the cache at
-> 
->     N * cl_cpg - (N - 1) * cl_cpg = cl_cpg
-> 
-> regardless of N.  This happens to be correct when reclaiming from two
-> groups, but undercounts the clusters from three groups onwards.  The
-> incorrect cache value is also used immediately to update i_blocks.
-> 
-> Assign the updated on-disk count to the cache, matching the allocation and
-> inode refresh paths.
-> 
-> In a QEMU test using a clean 256 MiB OCFS2 image and a 10,000-file
-> create/delete workload, the first buggy reclaim left the on-disk and cached
-> counts at 2048 and 512 clusters respectively; later reclaims underflowed
-> the cache.  With this change, the cache matched the on-disk count across
-> all four reclaims: 2048, 1536, 1024, and 512 clusters.
-> 
-> Fixes: 4a54331616b3 ("ocfs2: give ocfs2 the ability to reclaim suballocator free bg")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> ---
->  fs/ocfs2/suballoc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/ocfs2/suballoc.c b/fs/ocfs2/suballoc.c
-> index a4a2b87a45fe3..20c3aec6b9873 100644
-> --- a/fs/ocfs2/suballoc.c
-> +++ b/fs/ocfs2/suballoc.c
-> @@ -2759,7 +2759,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
->  	fe->i_clusters = cpu_to_le32(tmp_used - le16_to_cpu(cl->cl_cpg));
->  
->  	spin_lock(&OCFS2_I(alloc_inode)->ip_lock);
-> -	OCFS2_I(alloc_inode)->ip_clusters -= le32_to_cpu(fe->i_clusters);
-> +	OCFS2_I(alloc_inode)->ip_clusters = le32_to_cpu(fe->i_clusters);
->  	fe->i_size = cpu_to_le64(ocfs2_clusters_to_bytes(alloc_inode->i_sb,
->  					     le32_to_cpu(fe->i_clusters)));
->  	spin_unlock(&OCFS2_I(alloc_inode)->ip_lock);
-> -- 
-> 2.55.0
-> 
+Convert the flattened element count back to the number of rows before
+iterating over the table.
+
+Fixes: 10b40ffba2f9 ("iio: pressure: bmp280: Add more tunable config parameters for BMP380")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+ drivers/iio/pressure/bmp280-core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/iio/pressure/bmp280-core.c b/drivers/iio/pressure/bmp280-core.c
+index 990340a9b10c..ddd2de3c35ba 100644
+--- a/drivers/iio/pressure/bmp280-core.c
++++ b/drivers/iio/pressure/bmp280-core.c
+@@ -836,7 +836,8 @@ static int bmp280_write_sampling_frequency(struct bmp280_data *data,
+ 					   int val, int val2)
+ {
+ 	const int (*avail)[2] = data->chip_info->sampling_freq_avail;
+-	const int n = data->chip_info->num_sampling_freq_avail;
++	const int n = data->chip_info->num_sampling_freq_avail /
++		      ARRAY_SIZE(*avail);
+ 	int ret, prev;
+ 	int i;
+ 
+-- 
+2.43.0
+
