@@ -1,139 +1,151 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481223E3DBE
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 07:27:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED9E3AA4E0;
+	Wed,  5 Aug 2026 07:32:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785914832; cv=none; b=qfG8M7hbeA/J/ixA/BNYWS3a94TaHgaZsxbra8mnSUanpIx1fFCCYfSamL9Hrb9Scfi05s2P61rJbjGGnx0bKORjtL0VpmWYR35x2G89HpgOrEhQzgq4s+G4PDApv5DxUuSdx++0kU3qN3wJGknC/vOhmd5G/uqpyBI20BppWMo=
+	t=1785915153; cv=none; b=sFgJyxJexdqmnGuOlfF5JP427Dfw2LMPeZfKGyW+kfhfVBFhPSJPobzDX+5VZgWfvIJbxraoHfwN9gOlRkTDzTzrD+JkMwvKCO/bKnH9anbyCKzL+LBraPK2kTllF4XD1lInqDzmAl+b/EQfi0Ry0DPPevgE2A4fTV5r7EfPrxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785914832; c=relaxed/simple;
-	bh=Pa1Bp5oDeHBv8strhXlEBGksBSZoON+2QmKCC6T8FHY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JIqFK80mSisq2mAHfZPPQvC4V3mz9mSbZ9OkztH2tKw7NuQrDcEAvXJOxCKzoEiaXd3qFAHyXCAxY7BWcLWCipVt8MF97k6gnQp3WT5GVsTCsrkUNxv6RAexHGaNPQEFljdx8RouqSjT6XzKBbgtWoJvpN0vDL5roSHH1rQoW54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=hRK9TGUD; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1785915153; c=relaxed/simple;
+	bh=e/edK18iGwrGI3is8JT2xxd4IFU/3bP5IVZj0CBsU7E=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ccIi+A99nFWAbTJyJ1wBgP2d5gNAa7gsGw4G84K+wSZBYPQ/nABMYAtPyA006912jYSdigtPS3SNKq0jYhR8XSEV0/GjDpvmdfDsEJQmAFdx1o7o0OqkHsQcmN6gJLaX51pffqqgpGgXS4Be8pzL7x36kCusbGM2mpE1CwGZW5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AJJaA9T5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="hRK9TGUD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=U3
-	wrcV0k5ZLgN4YIkNlOZPK6c/r+xRI0oP9uZc18DtY=; b=hRK9TGUDUFYwWSlNvX
-	Vfq/LuomIQNXbdTld13rt4HjySi+PhGrWZZhMGar4j//Q40KeAmUT871oeQ/Pm8W
-	MfNuEI/+cLJj0t4NIkSoqrUXC7n1S+A9B9WTr5hm6wdXNkp8wXT7vpG7x8sxIgSX
-	Ih0JihXuclir3NxqN7G64zShc=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3PzWi5XJqs4gTOA--.20967S2;
-	Wed, 05 Aug 2026 15:26:27 +0800 (CST)
-From: dayou5941@163.com
-To: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org
-Cc: ziy@nvidia.com,
-	linux-mm@kvack.org,
-	liyouhong <liyouhong@kylinos.cn>,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] mm/memory-failure: fix concurrent access issue in min_order_for_split()
-Date: Wed,  5 Aug 2026 15:26:25 +0800
-Message-Id: <20260805072625.2437636-1-dayou5941@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AJJaA9T5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6D91F000E9;
+	Wed,  5 Aug 2026 07:32:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785915152;
+	bh=4gwj0kFUhwuS98ircZVc44GpqB+5fy9yUkWQ55U7j40=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AJJaA9T5tFKel4SLkebN3gx+nsuoveBPZ42YEDRckt7z5kruBLv1cdm23oYFWUo5S
+	 2+0Uy2veLD2U0WtemOp5DFT8pOeKwMnYh7BfGDSHPFK6RD0dqCa+j8bfHG0k4sUI15
+	 APjHr9sxzCjMFbJnmXLX+Cy4cajxnSR6QLQXbSZyd8QNc2Wu3QyuGRHuxH+DT2vWUi
+	 PDLuTIFKK+UrX5hi4PA44H90RVHvhmJexgou2NK1zNvaE4o0wdp43YQ7Okb3YV5jC1
+	 P2OIor9K3oxs5BK8xht++hYBWLCkk3S9xo6QCLtvmvfiubshhWNZ/+gPb9B0BTkmjr
+	 N4JsiYxAy70eA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wrW73-0000000CUuY-39dd;
+	Wed, 05 Aug 2026 07:32:29 +0000
+Date: Wed, 05 Aug 2026 08:32:29 +0100
+Message-ID: <86ecgdaupe.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	grayhat@foxmail.com
+Subject: Re: [PATCH 1/2] KVM: arm64: nv: Allocate the shadow S2 MMUs individually
+In-Reply-To: <anJcUNlnNmP-mKWH@gmail.com>
+References: <20260803224405.41468-1-kmehltretter@gmail.com>
+	<86mrv2arf2.wl-maz@kernel.org>
+	<86jyq6aq8g.wl-maz@kernel.org>
+	<anJcUNlnNmP-mKWH@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3PzWi5XJqs4gTOA--.20967S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAr4fKrWfGF1fXF47GrWDtwb_yoW5CryxpF
-	W7Kwn8XrZagwnF9w47Xw4DAF1Fk34kWa1UCF93CwsrA3Z8Aw1qkF47Ww4YyF4UGr48AFn7
-	tFyDXF1093Z8tr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jFzuAUUUUU=
-X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC3gPYh2py5aPVGAAA3R
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: kmehltretter@gmail.com, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org, grayhat@foxmail.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-From: liyouhong <liyouhong@kylinos.cn>
+On Tue, 04 Aug 2026 22:54:30 +0100,
+Karl Mehltretter <kmehltretter@gmail.com> wrote:
+> 
+> On Tue, Aug 04, 2026 at 03:56:47PM +0100, Marc Zyngier wrote:
+> > > The other thing is that reallocating the pointer array isn't great. It
+> > > adds complexity, and makes everything more fragile than it should be.
+> > > 
+> > > See the hack below that seems to work OK.
+> > > 
+> 
+> Your draft is indeed a bit simpler.
+> 
+> Should I send a cleaned-up version as v2?
 
-min_order_for_split() accesses folio->mapping without proper
-synchronization. While the compiler typically caches the value
-in a register making a NULL deref unlikely in practice, the
-real issue is that the callers in memory-failure.c do not hold
-the folio lock at the time of the call:
+Yes, please.
 
-- memory_failure() explicitly drops the folio lock before calling
-  min_order_for_split().
-- soft_offline_in_use_page() has not yet acquired the folio lock
-  when calling min_order_for_split().
+> 
+> I would allocate the table on the first call to kvm_vcpu_init_nested()
+> and not in kvm_init_nested(), so it cannot leak if VM creation
+> fails.
 
-This means the value of folio->mapping may be modified by a
-truncate or invalidate operation while min_order_for_split() is
-executing, leading to a torn read or use of a stale mapping value.
+I'd rather keep it on the VM creation path. This is VM-wide data, by
+definition, and given that its size doesn't depend on the number of
+vcpus anymore (we allocate the maximum once and for all), it is right
+where it belongs. See the untested hack below for the freeing on error.
 
-Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260803060001.800638-1-dayou5941@163.com
-Cc: stable@vger.kernel.org
-Signed-off-by: liyouhong <liyouhong@kylinos.cn>
----
-v2:
-- Dropped the approach of caching folio->mapping inside min_order_for_split() in favor of adding the folio lock at the callers.
-- Added VM_WARN_ON_ONCE_FOLIO() in min_order_for_split().
-- Updated the commit message to clarify that the real issue is the callers not holding the folio lock, rather than a TOCTOU race.
-v1: https://lore.kernel.org/all/20260804035828.2684059-1-dayou5941@163.com/
+> There's another issue in the current code: the ptdump debugfs file
+> keeps the raw mmu pointer as its private data. I would add that to the
+> commit message.
 
----
- mm/huge_memory.c    |  2 ++
- mm/memory-failure.c | 12 ++++++++++--
- 2 files changed, 12 insertions(+), 2 deletions(-)
+Why is that a problem? With this approach, the mmu pointers are always
+expected to be valid, irrespective of the allocation pattern, and we
+only publish pointers to the dumper when the S2_mmu is actively being
+used.
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 58cabe6af33d..e3f16dadc1d4 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4300,6 +4300,8 @@ int folio_split(struct folio *folio, unsigned int new_order,
-  */
- unsigned int min_order_for_split(struct folio *folio)
- {
-+	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-+
- 	if (folio_test_anon(folio))
- 		return 0;
+We're about to rip out the NV ptdump anyway as it has many other
+problems, but I'd like to understand what you see that I don't.
+
+Thanks,
+
+	M.
+
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 9e42e92dbc7b1..e883e45382fb2 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -223,10 +223,6 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
+ 	mutex_unlock(&kvm->lock);
+ #endif
  
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index 3b1e6946821b..7391524b5046 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -2437,12 +2437,17 @@ int memory_failure(unsigned long pfn, int flags)
- 		res = -EOPNOTSUPP;
- 		goto unlock_mutex;
- 	}
-+
- 	folio_unlock(folio);
+-	ret = kvm_init_nested(kvm);
+-	if (ret)
+-		return ret;
+-
+ 	ret = kvm_share_hyp(kvm, kvm + 1);
+ 	if (ret)
+ 		return ret;
+@@ -241,6 +237,10 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
+ 	if (ret)
+ 		goto err_free_cpumask;
  
- 	if (folio_test_large(folio)) {
--		const int new_order = min_order_for_split(folio);
-+		const int new_order;
- 		int err;
- 
-+		folio_lock(folio);
-+		new_order = min_order_for_split(folio);
-+		folio_unlock(folio);
++	ret = kvm_init_nested(kvm);
++	if (ret)
++		goto err_uninit_mmu;
 +
+ 	if (is_protected_kvm_enabled()) {
  		/*
- 		 * The flag must be set after the refcount is bumped
- 		 * otherwise it may race with THP split.
-@@ -2796,8 +2801,11 @@ static int soft_offline_in_use_page(struct page *page)
- 	};
+ 		 * If any failures occur after this is successful, make sure to
+@@ -269,6 +269,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
  
- 	if (!huge && folio_test_large(folio)) {
--		const int new_order = min_order_for_split(folio);
-+		const int new_order;
- 
-+		folio_lock(folio);
-+		new_order = min_order_for_split(folio);
-+		folio_unlock(folio);
- 		/*
- 		 * If new_order (target split order) is not 0, do not split the
- 		 * folio at all to retain the still accessible large folio.
+ err_uninit_mmu:
+ 	kvm_uninit_stage2_mmu(kvm);
++	kvfree(kvm->arch.nested_mmus);
+ err_free_cpumask:
+ 	free_cpumask_var(kvm->arch.supported_cpus);
+ err_unshare_kvm:
+
 -- 
-2.25.1
-
+Without deviation from the norm, progress is not possible.
