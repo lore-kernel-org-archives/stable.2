@@ -1,96 +1,101 @@
-Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B270C298CAB;
-	Wed,  5 Aug 2026 01:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B163430E0F2
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 01:28:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785893110; cv=none; b=Z28UGmJPQgqSQx4CBBMBllQr9IMl5imtT1zvpVONRZ9kRyYIaygy3crfg8xs6LGeE+UDqUYRdtvtQLWlGNHoFmWxW4PLKXpA674VeWlCDoZ21CqLgoRHb4sWgpI4Dy/tA76jo5K+VVsvlYVCd7uVMIEqzj1IPy1/WImUHfBnj2E=
+	t=1785893301; cv=none; b=CPdaqR/9ynDPZbBeoIkjVUicxWOoZsPYmeem6cZlLhNDzggqSN1Mnufewh1suIuIOSFj7rRXd0GYPPw/Cy575GcFQBThSILTNIWh6+r950bVj8MVTh8+Lvcu16fOjEY1Vhhux3TXfAZqyd+bj9ohNao+fd0cZNGwUNdh8m7oPu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785893110; c=relaxed/simple;
-	bh=14LQz/KZg6vzOaF8oXJI/mmrnCTlYceRnqOmtBZOcrI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=gTV+MmlQ6b6R06XQGWHFyxYONBG5Hg92PkF3Q/iqdB4jXzsEKy1QdtrIMELnv6uuXEPoVoSJVhmSBCeeLu5s1rmR8cr4bfvYW5YVnF7ZpAE0v2cT/bHqHWA6Yeuk/IoiHC3ObhQUlzNj+OHwoA+YVGo/I9OpBADCpqfM29sPKT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.79.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCHgD_TkHJqLfhmAA--.15366S3;
-	Wed, 05 Aug 2026 09:24:35 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app3 (Coremail) with SMTP id zS_KCgCHUXXSkHJqqx32Aw--.31562S2;
-	Wed, 05 Aug 2026 09:24:34 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	andrew+netdev@lunn.ch,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH net 2/2] fjes: cancel force_close_task in fjes_remove()
-Date: Wed,  5 Aug 2026 01:23:37 +0000
-Message-Id: <20260805012337.416908-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260805011410.414431-1-fanwu01@zju.edu.cn>
-References: <20260805011410.414431-1-fanwu01@zju.edu.cn>
+	s=arc-20240116; t=1785893301; c=relaxed/simple;
+	bh=LP/CPsWWk7JdhdkRUgVX64RFY6Mb6ULuSPlD2yzQEHk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oyPWjKPvxuIXj/VmJ3rGBDz9BMeYmimzxpbTLQFjMyz1oQZhg9k9TzdAB88ZkM92zxD3itoJA08Zip35OXnHqLriwymBbHl0fqTs00vmz2N7BKTJxbHwxv9H6hb7NnBnLmQJKS9LvB5KEJtKVFmTJVfXvGsjN1PWrmCq5zLKNr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=hvADBIN7; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="hvADBIN7"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso396752a91.3
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 18:28:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1785893299; x=1786498099; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hDRA8RaOryE0v7n4VH+L8tqsdWogJTvOgNRaAuqsLwI=;
+        b=hvADBIN7rloNVJUcjZwSAi9T70JUdSa0z/QU4PX57XNrGiSXe/61ezs7CjBU5JwkcO
+         KIpJUfnjj7UaaYLaJAf7f2zqFLKhLAwmMXknBvLrVtybaF6d4WEoL1Y4AvyQhnMCQxdB
+         uQ4DbY182uXwI+CJAzKyJ1javMr2Es1Aeo2AM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785893299; x=1786498099;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hDRA8RaOryE0v7n4VH+L8tqsdWogJTvOgNRaAuqsLwI=;
+        b=cMl/wbhMIB7aeLDk8WRwIKeB4USyrzlbmKI1I1bwpefHqF2T8fGzyuC6qFdatsFK2E
+         hg1pEh8b9KETcGUtbs/I54e+GrVyDz7WWesRlhsPgaaFeQxBsMShRByCVGmmrqOGtsM8
+         eLSQFx7qXNiKPX2omr9o/VVTo2RBCkyFX36zQympmPXOp79uC0pub0ysGrBeBDvQzoI7
+         gSaoBPvfTmYgMgGqs1Ll3Ti0Iu3xqxQzXYyVt/EywE2CgwjMQM3Kmt6RK3vVxJf5IZ94
+         E4ExZWXV4bZLku3XVfb7UxvNAdz5fKEd1FVbgi1vNZYS1Kd5CYTzOZ2LD7dS6Ned0Jvr
+         umcA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp6pRk+jR56mXV0qEbTRCguxva3EtlwsWdeQS9JMeRRwGRC8fO7ZuenwnFvlOsCZvs6arId4fs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzwfOPBK/2a5SpHHcOly/TOUC58Gn5nvwm9n2xmV8guXkdhggtR
+	1PJZfLMv9P1/3ujI+7wf6X4CobQXcPiZU22YFXGjzLmSMMom8vusahwMeACo4sTDdg==
+X-Gm-Gg: AR+sD12zYpNunSkI6o2To9yzk5t1ZGrFeXv4PKd8mMvHttDODrEposSt8rAKsDiFoNH
+	PcvT1j8NNHr8MidVbJlmUGdGvGesrXhezbPtR+AGT7+O8x6tKu40XhsFMB4xF/dmg9Cpmn4QJ4b
+	PO6wbN+XQhY+S3vTk2bjmSCKV6giR3O/Bj8RHL+6i+ys+Ogy51iwzg6H4TxH5QMzTDHSNdo+ZAL
+	J/Rap6ra6mze6YNVs6qriZtz+G6ELlXLcJ2covwQUQJEqOEV79uUsJkheQ9TofI2A/6KvckRs2G
+	8Hbd+mYPbqIeX3nAKjwvGf8iMmta/o8KlJ83+1uOBkujZUoa3YjVzWEzJBTvw/1JHoxmlySmJqn
+	a66EiIpDmnJie58g+zhV//ZqBIy2ny0Gqxab8iE9kHi9ImSMOrK9upOHXqx41sltdNdbpKojDtW
+	4ZwPrCqjOw5sOkBoi9uuwHtpGMpxF4p4nUhvDYtlq7IS0W2r+++PBeABjhIvCesjwUYRuLovfA4
+	P1ElEtX3sQLVKHUCinHbso+OanqeIljo/0tBf8=
+X-Received: by 2002:a17:90b:5447:b0:380:83fc:4315 with SMTP id 98e67ed59e1d1-3903c66b3bfmr3047061a91.21.1785893298950;
+        Tue, 04 Aug 2026 18:28:18 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:32eb:b46b:e9eb:65c5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903d183dadsm554776a91.0.2026.08.04.18.28.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 18:28:18 -0700 (PDT)
+Date: Wed, 5 Aug 2026 10:28:14 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Longlong Xia <xialonglong2025@163.com>, 
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: minchan@kernel.org, senozhatsky@chromium.org, axboe@kernel.dk, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Longlong Xia <xialonglong@kylinos.cn>
+Subject: Re: [PATCH 1/1] zram: reject disksizes that exceed slot index range
+Message-ID: <anKRhIPsWUwvCzm_@google.com>
+References: <20260804143832.146129-1-xialonglong2025@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zS_KCgCHUXXSkHJqqx32Aw--.31562S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?+txdwQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WMiY2ZC40s8wkgCtw1ZMdQGncnuOq8iCpYYcFIjXTUu9ygJ
-	P4TahSWiUUq494bm6VWp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj9xXoW7XF1DAw4xuw45ZrWDtF43urX_yoWDZrX_C3
-	42qFs7Ww4DCay0gw1jkF47Zr1IkFn2qrn293W2kayrtasrAw1ayrnrZrsYqryUZ3sxAF9r
-	u3ZIgw1Yqa4xuosvyTuYvTs0mTUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUbT8YFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
-	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
-	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
-	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
-	JbIYCTnIWIevJa73UjIFyTuYvjxU7rcfUUUUU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260804143832.146129-1-xialonglong2025@163.com>
 
-force_close_task runs on the system workqueue, which destroy_workqueue()
-does not drain, so it can run after free_netdev() and touch freed memory.
-Cancel it after destroying the workqueues, before free_netdev().
+On (26/08/04 22:38), Longlong Xia wrote:
+> zram uses u32 slot indexes, while disksize_store() accepts a u64
+> size. On 32-bit systems, a disksize larger than U32_MAX pages is
+> truncated when zram_meta_alloc() assigns the page count to size_t.
+> array_size() then sees only the truncated count, so a small table can
+> be allocated while the original capacity is published. Valid I/O
+> within that capacity can subsequently access beyond zram->table.
+> 
+> The same oversized capacity also lets full-device scanners compare a
+> u32 index with an upper bound larger than U32_MAX, so the index can
+> wrap instead of terminating.
+> 
+> Reject disksizes larger than U32_MAX pages before aligning and
+> allocating the table. This keeps the table size, published capacity and
+> slot index range consistent.
+> 
+> Fixes: 33863c21e69e ("Staging: zram: Replace ioctls with sysfs interface")
+> Cc: <stable@vger.kernel.org>
+> Assisted-by: Codex:gpt-5.6-sol
+> Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: 658d439b2292 ("fjes: Introduce FUJITSU Extended Socket Network Device driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/net/fjes/fjes_main.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/net/fjes/fjes_main.c b/drivers/net/fjes/fjes_main.c
-index cddabc965..a2c77ca0d 100644
---- a/drivers/net/fjes/fjes_main.c
-+++ b/drivers/net/fjes/fjes_main.c
-@@ -1402,6 +1402,8 @@ static void fjes_remove(struct platform_device *plat_dev)
- 	if (adapter->txrx_wq)
- 		destroy_workqueue(adapter->txrx_wq);
- 
-+	cancel_work_sync(&adapter->force_close_task);
-+
- 	fjes_hw_exit(hw);
- 
- 	netif_napi_del(&adapter->napi);
--- 
-2.34.1
-
+Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
