@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E053DE456
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:47:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B817C3BBFA4
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:47:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785923273; cv=none; b=TeKOOB/xSkRrYIk4Ber8kU80OIba7PUgq27jSSPC09JyxFLyPXFWkEGuAteeAFfMhewV0+/2EHDvJx/ckpGdX9tBXN54tgsrWQISmYojkl9IwSzvmcEnEj8WxNMVp1tmsbjbPHJ6Q2LzWi43a1mAdrqzDH+fIBEofxJbbQeMSEY=
+	t=1785923280; cv=none; b=eF+i6awu1bR/YTH6sMjzKPxqycn0ljHXfmPZoyKcBnPInTiNVJksEtnXNZCP/ph27aBXE5yoHhtXQuOcG6gQOqb/Nufac2XSGvPsOtmBGHSHm0a/5Qe155Ng4p4krTvzJSEZcolnbV/grJ0oJEQzqGfVyTWCsxzBQqJydYjT7B8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785923273; c=relaxed/simple;
-	bh=UCCI0FIT5bkDpmkMDqEYR7D03T7KTnLxgIKna8gd+MU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uHuhtj75lrzmteLFsxvp52Y3pXbQkLtQ1NPrIKWt1FbSXGAHbaMQe+9J8Aq4BVRZDQAcwPnNg3wrX4iubn3n7x0osUCo0r/qrS4F/i9cURpJfy9EsP5E565DZuYcXBnk0BEfHTuXwBx/6lH53u73iiwJAlMqyDrD3NQ50Ecqug8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TBoXAbLE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785923280; c=relaxed/simple;
+	bh=3yFdqVrrsKXV2PC1FpLN6Ow+VOyEzTzszc9rJgYBrwg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Agzbie7Dnn7wHU9u3k7PTJljqLTKE7fvuBTZqOoAuI3t+rNpQrpZWHBkW7mXfJ3FLaTOvwuAq+M60DeLAMrVJNgoja2wB9QSavudd6StHAv0kG5FAB85Awvpa4F02hYcWr7mCYHQ5uGtH6ipd4IMhssC1mhNUisMS8so8WxDLBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VaEWc4ZY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TBoXAbLE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6741F000E9;
-	Wed,  5 Aug 2026 09:47:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VaEWc4ZY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F88E1F000E9;
+	Wed,  5 Aug 2026 09:47:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785923271;
-	bh=XKKYnIZF8pEHr5xaTLw4bxNxQInq+5BMasQovTi9cS8=;
+	s=korg; t=1785923279;
+	bh=PBwzJf7hQ93lOkY+8qOxq4mqZVrvklhfCIUW0IHFoxM=;
 	h=Subject:To:Cc:From:Date;
-	b=TBoXAbLEL/KvBCnF1uoQ2LhoYzSun2IC9J4i40Em+tBNTVvYfrC1/jZZ4deIs2BKJ
-	 xDksblt4CWwWQRwYEvf65hkIwqol50PifRTYPJTlF+qlfLU2MB4T01dWXg3nwqJBt9
-	 IJqNLBPKTQu2d4FOmkvxnGF7SSQj6Z2loZjn6OVY=
-Subject: FAILED: patch "[PATCH] igc: remove napi_synchronize() in igc_down()" failed to apply to 5.15-stable tree
-To: devnexen@gmail.com,anthony.l.nguyen@intel.com,dima.ruinskiy@intel.com,maciej.fijalkowski@intel.com,moriyax.kadosh@intel.com
+	b=VaEWc4ZYvH8yidutOPl+9tR0Pws1LCV+7NdoDGSDY7nYl7CvVUEfmLz7jjEh/KHtF
+	 0Bdeq++N0vkMJ9PSpC174dEWtTgOIf9OzfDPD9rlSM6EAchs+eo3IGbZJ3igcwYb5z
+	 jfmJYicOMBcpByun/Pc9eDypXvAi+m7qXJJSzlLI=
+Subject: FAILED: patch "[PATCH] ksmbd: reject repeated SMB2 NEGOTIATE requests" failed to apply to 6.12-stable tree
+To: linkinjeon@kernel.org,stfrench@microsoft.com,takemotoruna223@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 11:47:22 +0200
-Message-ID: <2026080522-spinster-tricking-40ab@gregkh>
+Date: Wed, 05 Aug 2026 11:47:42 +0200
+Message-ID: <2026080542-stadium-unbaked-f538@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5ffab5b9589c50e4cfc0cf36ffd76c89422d4019
+git cherry-pick -x cb469993b3a61a72653770856d37af616d72d05f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080522-spinster-tricking-40ab@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080542-stadium-unbaked-f538@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,45 +62,145 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5ffab5b9589c50e4cfc0cf36ffd76c89422d4019 Mon Sep 17 00:00:00 2001
-From: David Carlier <devnexen@gmail.com>
-Date: Sun, 12 Jul 2026 14:22:42 +0100
-Subject: [PATCH] igc: remove napi_synchronize() in igc_down()
+From cb469993b3a61a72653770856d37af616d72d05f Mon Sep 17 00:00:00 2001
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 23 Jul 2026 23:07:14 +0900
+Subject: [PATCH] ksmbd: reject repeated SMB2 NEGOTIATE requests
 
-When an AF_XDP zero-copy application is killed abruptly, the XSK pool is
-torn down but NAPI keeps polling. igc_clean_rx_irq_zc() then returns the
-full budget on every poll, so napi_complete_done() never clears
-NAPI_STATE_SCHED.
+Unauthenticated client can send multiple successful SMB2 NEGOTIATE
+requests on one connection before SESSION_SETUP. While the connection is
+in KSMBD_SESS_NEED_SETUP, smb2_handle_negotiate() accepts another
+SMB3.1.1 NEGOTIATE and overwrites conn->preauth_info with a new allocation.
+Only the final allocation is freed when the connection is released, leaking
+one object for every additional successful request.
 
-igc_down() calls napi_synchronize() before napi_disable(), so it spins
-forever waiting for that bit and the interface never goes down. Drop the
-napi_synchronize() and let napi_disable() do the job -- it sets
-NAPI_STATE_DISABLE, which forces the stuck poll to complete. Reorder it
-ahead of igc_set_queue_napi() so the NAPI mapping is cleared only after
-polling has stopped, matching the recent igb fix b1e067240379.
+A repeated SMB2 NEGOTIATE after a dialect has been selected is a protocol
+violation. MS-SMB2 section 3.3.5.4 requires the server to disconnect
+without replying in this case. Set the connection exiting when rejecting
+the request, in addition to suppressing the response.
 
-Fixes: fc9df2a0b520 ("igc: Enable RX via AF_XDP zero-copy")
-Suggested-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Reject SMB2 NEGOTIATE unless the connection is new or is waiting for the
+SMB2 NEGOTIATE that follows an SMB1 multi-protocol negotiate. Serialize
+both SMB1 and SMB2 negotiation paths under conn->srv_mutex, since they
+update connection-wide dialect and negotiation state.
+
+Move the locking contract to ksmbd_smb_negotiate_common(), where the state
+and dialect are selected, and add ksmbd_conn_new() for consistent state
+access.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
-Reviewed-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Reviewed-by: Dima Ruinskiy <dima.ruinskiy@intel.com>
-Tested-by: Moriya Kadosh <moriyax.kadosh@intel.com>
-Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
+Reported-by: Runa Takemoto <takemotoruna223@gmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
 
-diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
-index 2c9e2dfd8499..b3883a5a7d7a 100644
---- a/drivers/net/ethernet/intel/igc/igc_main.c
-+++ b/drivers/net/ethernet/intel/igc/igc_main.c
-@@ -5352,9 +5352,8 @@ void igc_down(struct igc_adapter *adapter)
+diff --git a/fs/smb/server/connection.h b/fs/smb/server/connection.h
+index ec75633b7da0..2a194ee36fb4 100644
+--- a/fs/smb/server/connection.h
++++ b/fs/smb/server/connection.h
+@@ -200,6 +200,11 @@ void ksmbd_conn_r_count_dec(struct ksmbd_conn *conn);
+  * This is a hack. We will move status to a proper place once we land
+  * a multi-sessions support.
+  */
++static inline bool ksmbd_conn_new(struct ksmbd_conn *conn)
++{
++	return READ_ONCE(conn->status) == KSMBD_SESS_NEW;
++}
++
+ static inline bool ksmbd_conn_good(struct ksmbd_conn *conn)
+ {
+ 	return READ_ONCE(conn->status) == KSMBD_SESS_GOOD;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index c1ba5e01aa7f..404a4203f7da 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -1325,6 +1325,8 @@ static __le32 deassemble_neg_contexts(struct ksmbd_conn *conn,
+  * smb2_handle_negotiate() - handler for smb2 negotiate command
+  * @work:	smb work containing smb request buffer
+  *
++ * The caller holds conn->srv_mutex.
++ *
+  * Return:      0
+  */
+ int smb2_handle_negotiate(struct ksmbd_work *work)
+@@ -1338,13 +1340,6 @@ int smb2_handle_negotiate(struct ksmbd_work *work)
  
- 	for (i = 0; i < adapter->num_q_vectors; i++) {
- 		if (adapter->q_vector[i]) {
--			napi_synchronize(&adapter->q_vector[i]->napi);
--			igc_set_queue_napi(adapter, i, NULL);
- 			napi_disable(&adapter->q_vector[i]->napi);
-+			igc_set_queue_napi(adapter, i, NULL);
- 		}
+ 	ksmbd_debug(SMB, "Received negotiate request\n");
+ 	conn->need_neg = false;
+-	if (ksmbd_conn_good(conn)) {
+-		pr_err("conn->tcp_status is already in CifsGood State\n");
+-		work->send_no_response = 1;
+-		return rc;
+-	}
+-
+-	ksmbd_conn_lock(conn);
+ 	smb2_buf_len = get_rfc1002_len(work->request_buf);
+ 	smb2_neg_size = offsetof(struct smb2_negotiate_req, Dialects);
+ 	if (smb2_neg_size > smb2_buf_len) {
+@@ -1495,7 +1490,6 @@ int smb2_handle_negotiate(struct ksmbd_work *work)
+ 	ksmbd_conn_set_need_setup(conn);
+ 
+ err_out:
+-	ksmbd_conn_unlock(conn);
+ 	if (rc)
+ 		rsp->hdr.Status = STATUS_INSUFFICIENT_RESOURCES;
+ 
+diff --git a/fs/smb/server/smb_common.c b/fs/smb/server/smb_common.c
+index 7de73223189a..080fbc9eb470 100644
+--- a/fs/smb/server/smb_common.c
++++ b/fs/smb/server/smb_common.c
+@@ -608,23 +608,46 @@ int ksmbd_smb_negotiate_common(struct ksmbd_work *work, unsigned int command)
+ 	struct ksmbd_conn *conn = work->conn;
+ 	int ret;
+ 
+-	conn->dialect =
+-		ksmbd_negotiate_smb_dialect(work->request_buf);
+-	ksmbd_debug(SMB, "conn->dialect 0x%x\n", conn->dialect);
+-
+ 	if (command == SMB2_NEGOTIATE_HE) {
++		/*
++		 * An SMB2 NEGOTIATE is valid for a new connection, or after an
++		 * SMB1 multi-protocol negotiate has selected SMB2. Do not allow
++		 * a second SMB2 NEGOTIATE to replace connection-wide state
++		 * while a session setup is pending. KSMBD_SESS_NEED_RECONNECT
++		 * is a transient session state and does not restart transport
++		 * negotiation.
++		 */
++		ksmbd_conn_lock(conn);
++		if (!ksmbd_conn_new(conn) &&
++		    !ksmbd_conn_need_negotiate(conn)) {
++			work->send_no_response = 1;
++			ksmbd_conn_set_exiting(conn);
++			ksmbd_conn_unlock(conn);
++			return 0;
++		}
++
++		conn->dialect =
++			ksmbd_negotiate_smb_dialect(work->request_buf);
++		ksmbd_debug(SMB, "conn->dialect 0x%x\n", conn->dialect);
+ 		ret = smb2_handle_negotiate(work);
++		ksmbd_conn_unlock(conn);
+ 		return ret;
  	}
  
+ 	if (command == SMB_COM_NEGOTIATE) {
++		ksmbd_conn_lock(conn);
++		conn->dialect =
++			ksmbd_negotiate_smb_dialect(work->request_buf);
++		ksmbd_debug(SMB, "conn->dialect 0x%x\n", conn->dialect);
+ 		if (__smb2_negotiate(conn)) {
+ 			init_smb3_11_server(conn);
+-			init_smb2_neg_rsp(work);
++			ret = init_smb2_neg_rsp(work);
+ 			ksmbd_debug(SMB, "Upgrade to SMB2 negotiation\n");
+-			return 0;
++		} else {
++			ret = smb_handle_negotiate(work);
+ 		}
+-		return smb_handle_negotiate(work);
++		ksmbd_conn_unlock(conn);
++		return ret;
+ 	}
+ 
+ 	pr_err("Unknown SMB negotiation command: %u\n", command);
 
