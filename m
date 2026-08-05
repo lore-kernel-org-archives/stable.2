@@ -1,131 +1,207 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7524130DEA3
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 02:49:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 292522931D2
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 02:51:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785898173; cv=none; b=UFItRjnTI3luKtQqDi0jXHVwkJfuK/Amat/ew1tGA5/Fuq+ISBekRyoTAoHpgO9XarZlrVQdSE0453cW7J7OCPHXblFHXh0mBJMFokVWfD5d+Z+1ambsOWvJXxAA36brgf6yiBLatr74nRlY6kcPT4beP40nehUG0DbHDwdJqlk=
+	t=1785898297; cv=none; b=JrHJEA3eukeixdSlWxQjBFzl5W+vvavzZKbmxwOFZ6ala9ohifOBoi3gS06ojFJjv//y4qqkdIej7HrTmFd4PwiVTfNj7mk/WPTUyCDEU39BOSQ4oLPY8+/NBQPgd0+l75QFsptXXMY9bWoJ9qJmQ2Y/PUknA2WZL6CIGDupt6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785898173; c=relaxed/simple;
-	bh=Vt/wxt2eWLUFE9geyDCH4JCots7eZV3/PsdalNtCx4Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JWL8jHCqNQyyNBywx7QZS704ghPJk0Q08ZRpySXRMDuhQOnzUlOiO1BWurnNnSoCzTCPXJAfYa8lNDSphfhF7IhipBRANgnzbNKKAwLCVdsjZ2mvyZkHjaF+mDAIbO7qphDoJx8EWJs8M/Hb8MMpL83NC+CfyGtLwnajXQBSFJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Sj2avans; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1785898297; c=relaxed/simple;
+	bh=nzqJxkEr/cqshiSJA208I6RNG2UCSd1Cgd0rlKNLiZY=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=jwvy7xb1+svjHbNIbPMpjeqxiB22Ayrx01CkWMhOo/BvY9URNY9/Ya5JPhMfnjxanb8wX7FjydTVkuNV8yzze6Ax2O/IK24nDtdXSz0GyHzxsxB8dK0tesaueHA/t2nFzAbn84NMWXVeRb6Ub1U1jeMRZM5fSqTYxM1XzkxYzSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=g7uaV1pk; arc=none smtp.client-ip=91.218.175.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Sj2avans"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785898171; x=1817434171;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Vt/wxt2eWLUFE9geyDCH4JCots7eZV3/PsdalNtCx4Q=;
-  b=Sj2avansilsnnWpJE6PeurUjZg15SX5ZIP2X7/cdZp3rKbAQKJYSadAI
-   3J1BsUz8OXsReoR677wI9dNRGzOk6+EVng5VF4vuLSr4TXxzjzRUPorVO
-   dxTYwZjV7i3NpoeOXWIn4uzeRkE2KD6XBmx9ziIczufEaXbzEmEpOxrlY
-   HfoMPRwyMETUIqtdY15eiSt5sxDr/5aHKIaAbfAh2HBWl5j+GzeUe00r6
-   qOckQdEjdB0mel2+Dm3cWubVEKZBaDAO4AZ4UQFZ6+Hklf0lBp8eb8hNn
-   ER2juDc3YyMtdPBdb7rKfztWK4/EZxQe5hVLjNQcMFy50Ux8pX6jzP6rY
-   w==;
-X-CSE-ConnectionGUID: Tq4sw3HHSIyYUfpzOjMFrA==
-X-CSE-MsgGUID: 5eUc1dXMQt+hW73zKn0TCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="97826145"
-X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; 
-   d="scan'208";a="97826145"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 19:49:22 -0700
-X-CSE-ConnectionGUID: aUQwKdsVQOqgpIJjB+yibQ==
-X-CSE-MsgGUID: Lu2qSNBrS+uuWy0onokAKA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; 
-   d="scan'208";a="259911802"
-Received: from orsosgc001.jf.intel.com ([10.88.27.185])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 19:49:22 -0700
-From: Ashutosh Dixit <ashutosh.dixit@intel.com>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y v2 12/12] drm/xe/rtp: Ensure locking/ref counting for OA whitelists
-Date: Tue,  4 Aug 2026 19:49:15 -0700
-Message-ID: <20260805024915.3407033-13-ashutosh.dixit@intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260805024915.3407033-1-ashutosh.dixit@intel.com>
-References: <20260805024915.3407033-1-ashutosh.dixit@intel.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="g7uaV1pk"
+Message-ID: <b2684958-5c39-4a9f-ab83-2e665406c0c0@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785898282;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Mw6b4Ud9QmLN26rSrpMEOzWnoOiUv/ZPRwVZ5pminvo=;
+	b=g7uaV1pkzDfMhgrhziX3dxUuLUXbulybuyscS1M2Ap4htsEufpY/v7TbT7oYrep113eUS8
+	DWBlHCqiZxBDe7TBxzyPYF8qz1U/u/LuNBkxxihC61zSwN9khhyn6QcM1GIKBlBpMDOf5c
+	BPT1VqXjzwybh2e8WMqHWNa+QTLa2sg=
+Date: Wed, 5 Aug 2026 10:51:39 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Subject: Re: [PATCH v2] alloc_tag: fix undetected compressed tag overflow when
+ profiling is disabled
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Hao Ge <hao.ge@linux.dev>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Abhishek Bapat <abhishekbapat@google.com>,
+ stable@vger.kernel.org
+References: <20260804122038.190270-1-hao.ge@linux.dev>
+ <CAJuCfpGit7zcNPGAB9D2A5+718NY-qdksxt7gUaN_eRcB_5+Ug@mail.gmail.com>
+ <bd95f8c6-33e2-4fda-bd4b-ebc37ee7c0fb@linux.dev>
+Content-Language: en-US
+In-Reply-To: <bd95f8c6-33e2-4fda-bd4b-ebc37ee7c0fb@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-[ Upstream commit ef78e2a22f72c892fd6663f0760abd208d49a3e2 ]
 
-Since multiple OA streams might be open in parallel on a gt, ensure that
-proper locking is in place. Also ensure that OA registers are whitelisted
-when the first OA stream is open and de-whitelisted after the last OA
-stream is closed.
+On 2026/8/5 10:26, Hao Ge wrote:
+> Hi Suren
+>
+>
+> Thanks a lot for your review.
+>
+>
+> On 2026/8/5 04:08, Suren Baghdasaryan wrote:
+>> On Tue, Aug 4, 2026 at 5:21 AM Hao Ge <hao.ge@linux.dev> wrote:
+>>> In reserve_module_tags(), the tag overflow check is gated on
+>>> mem_alloc_profiling_enabled():
+>>>
+>>>      if (mem_alloc_profiling_enabled() && !tags_addressable())
+>>>
+>>> If profiling is toggled off at runtime and a module is loaded whose
+>>> tags exceed the compressed-mode limit, shutdown_mem_profiling() is
+>>> skipped. vm_module_tags_populate() still maps memory for the tags and
+>>> the module loads successfully, but the total tag count now exceeds what
+>>> NR_UNUSED_PAGEFLAG_BITS can address.
+>>>
+>>> Once profiling is re-enabled, ref_to_idx() computes each tag's index
+>>> as its position in the alloc_tag array. update_page_tag_ref() masks
+>>> it to alloc_tag_ref_mask before storing in page->flags. Indices
+>>> beyond the mask are truncated and idx_to_ref() resolves them to wrong
+>>> tags.
+>>>
+>>> mem_alloc_profiling_enabled() and mem_profiling_compressed are
+>>> independent. Once compressed mode is established at boot, it stays
+>>> active regardless of runtime toggles of mem_profiling.
+>>>
+>>> Remove the mem_alloc_profiling_enabled() guard. Also return an error
+>>> after shutdown_mem_profiling() to skip vm_module_tags_populate(), as
+>>> the mapped pages would never be reused - shutdown_mem_profiling() sets
+>>> mem_profiling_support to false, so no future module load enters the
+>>> codetag path.
+>>>
+>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag 
+>>> compression")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>> Thanks for the fix, Hao!
+>>
+>>> ---
+>>> Changes in v2:
+>>> - Return error after shutdown_mem_profiling() to skip unnecessary
+>>>    vm_module_tags_populate()
+>>>    v1 link: 
+>>> https://lore.kernel.org/all/20260804064408.105033-1-hao.ge@linux.dev/
+>>> ---
+>>>   mm/alloc_tag.c | 3 ++-
+>>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+>>> index 52aece27b00e..d8c36430f1c0 100644
+>>> --- a/mm/alloc_tag.c
+>>> +++ b/mm/alloc_tag.c
+>>> @@ -904,10 +904,11 @@ static void *reserve_module_tags(struct module 
+>>> *mod, unsigned long size,
+>>>                  int grow_res;
+>>>
+>>>                  module_tags.size = offset + size;
+>>> -               if (mem_alloc_profiling_enabled() && 
+>>> !tags_addressable()) {
+>> Makes sense but how about replacing mem_alloc_profiling_enabled() with
+>> mem_profiling_support? Otherwise this warning will be issued multiple
+>> times if we are loading multiple modules.
+>
+>
+> That's a really good point, this duplicate warning issue will indeed 
+> happen.
+>
+> When I thought over your point, I realized using mem_profiling_support 
+> creates a small race window.
+>
+>
+> Thread A（insmod A）                      Thread B (insmod B)
+>
+> --------- ---------
+>
+> needs_section_mem() -> true
+>
+>     needs_section_mem() -> true
+>
+>     (profiling still supported)
+>
+> reserve_module_tags()
+>
+>     overflow -> shutdown
+>
+>     mem_profiling_support=false
+>
+>     return -ENOSPC
+>
+>     reserve_module_tags()
+>
+>         mem_profiling_support==false
+>
+>         -> overflow check skipped
+>
+>         -> vm_module_tags_populate()
+>
+>             maps unused tag pages
 
-Fixes: 828a8eaf37c3 ("drm/xe/oa: Add MMIO trigger support")
-Cc: stable@vger.kernel.org # v6.12+
-Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
-Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Link: https://patch.msgid.link/20260615224227.34880-10-ashutosh.dixit@intel.com
----
- drivers/gpu/drm/xe/xe_oa_types.h      |  3 +++
- drivers/gpu/drm/xe/xe_reg_whitelist.c | 10 ++++++++++
- 2 files changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_oa_types.h b/drivers/gpu/drm/xe/xe_oa_types.h
-index fea9d981e414f..0faec73954b70 100644
---- a/drivers/gpu/drm/xe/xe_oa_types.h
-+++ b/drivers/gpu/drm/xe/xe_oa_types.h
-@@ -120,6 +120,9 @@ struct xe_oa_gt {
- 
- 	/** @oa_unit: array of oa_units */
- 	struct xe_oa_unit *oa_unit;
-+
-+	/** @whitelist_count: number of open streams for which oa registers are whitelisted */
-+	u32 whitelist_count;
- };
- 
- /**
-diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-index 8a1c3f3c82973..4b70460d6e002 100644
---- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
-+++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
-@@ -9,6 +9,7 @@
- #include "regs/xe_gt_regs.h"
- #include "regs/xe_oa_regs.h"
- #include "regs/xe_regs.h"
-+#include "xe_assert.h"
- #include "xe_gt.h"
- #include "xe_gt_printk.h"
- #include "xe_platform_types.h"
-@@ -188,6 +189,10 @@ void xe_reg_whitelist_oa_regs(struct xe_gt *gt)
- 	struct xe_hw_engine *hwe;
- 	enum xe_hw_engine_id id;
- 
-+	lockdep_assert_held(&gt->oa.gt_lock);
-+	if (gt->oa.whitelist_count++)
-+		return;
-+
- 	for_each_hw_engine(hwe, gt, id)
- 		__whitelist_oa_regs(hwe, true);
- }
-@@ -203,6 +208,11 @@ void xe_reg_dewhitelist_oa_regs(struct xe_gt *gt)
- 	struct xe_hw_engine *hwe;
- 	enum xe_hw_engine_id id;
- 
-+	lockdep_assert_held(&gt->oa.gt_lock);
-+	xe_assert(gt_to_xe(gt), gt->oa.whitelist_count);
-+	if (--gt->oa.whitelist_count)
-+		return;
-+
- 	for_each_hw_engine(hwe, gt, id)
- 		__whitelist_oa_regs(hwe, false);
- }
--- 
-2.54.0
+Sorry, my mail client messed up the race diagram, resend it.
 
+Thread A (insmod A)                   Thread B (insmod B)
+---------------------                 ---------------------
+needs_section_mem() -> true
+                                       needs_section_mem() -> true
+                                       (profiling still supported)
+reserve_module_tags()
+   overflow -> shutdown_mem_profiling()
+   mem_profiling_support = false
+   return -ENOMEM
+                                       reserve_module_tags()
+                                         mem_profiling_support == false
+                                         -> overflow check skipped
+                                         -> vm_module_tags_populate()
+                                            maps unused tag pages
+
+>
+> So I'd rather go with pr_warn_once here.
+>
+>
+>>> +               if (!tags_addressable()) {
+>>>                          shutdown_mem_profiling(true);
+>>>                          pr_warn("With module %s there are too many 
+>>> tags to fit in %d page flag bits. Memory allocation profiling is 
+>>> disabled!\n",
+>>>                                  mod->name, NR_UNUSED_PAGEFLAG_BITS);
+>>> +                       return ERR_PTR(-ENOSPC);
+>> This ENOSPC error will be propagated all the way up to the init_module
+>> syscall and it's not among the error codes currently expected (see:
+>> https://man7.org/linux/man-pages/man2/init_module.2.html). I suggest
+>> returning ENOMEM instead.
+>
+>
+> Agree, will change
+>
+>
+> Thanks
+>
+> Best Regards
+>
+> Hao
+>
+>>>                  }
+>>>
+>>>                  grow_res = vm_module_tags_populate();
+>>> -- 
+>>> 2.25.1
+>>>
