@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5AB23D7DF
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 02:49:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483DF36308D
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 02:49:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785898166; cv=none; b=EDWwVEyBl/cA7D7RsbAgYZzbJhsE4rcryrVGSpSneHYEEC0rdBQ1q3PbFe8Ra/9STBA2pJvM0bk1FCqZxtS+93CGJNWRuaGTn395E1z1ANvC8D3tzmWH/IgL0PLRaMT/zsFK1JK1QVAIMyASw8iUpu4AJ6VJTG71SVBwJOrXgiQ=
+	t=1785898167; cv=none; b=r4hL+QPFdT0ihrWvhOMLIQp9qoirwoDKgkI3uDpmoV2ebG/KK1ucosPntGoZeRkU7U0iX4DHFuCFUItWL6qM3AUGDyrOadwNIbFI2QjisDWm6gBVuBrG78PWs7lIbyrxri6j+zveas/qkixnh6BtH1DpjBsxZN98Em2lys1r83U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785898166; c=relaxed/simple;
-	bh=ihdNjvevTf67joVoOEHu00XbFYyaWDaLsbZtqxEa1vk=;
+	s=arc-20240116; t=1785898167; c=relaxed/simple;
+	bh=WrIjazSUpdO4AQ8g+16lX0XhYpa00/lT0OQu4YAIlJw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lQq7QdgZBtn9cbztwjL2KXRkQUrD3IlBcoqIFQ1p4mJc5TWDiSRWnBYrF3k7qj+QcEtDByDV3eJWVbYIZEMFIkcrAibvDdelQOmk+3oULsUbLSQv92jOYXSSq2yI7BhDlFZOaoJQUEsLnuRBuxgCFeK8DhzTyp9xhBdhxdYA+mc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aCl98Zu2; arc=none smtp.client-ip=192.198.163.10
+	 MIME-Version; b=kXqilNewGIiu9SPIhFYlUXS/8i9Rxsl83WfYc2UQYrzkU93OFSTxDgspMRzkMfGY2E3Q1fnUN6CYoz96AEVCPVvqbHNGDKsc2qbf1t2F2WbV42Esn2Cgf3iBTsUyOUQelu8AOwj3eIACX6oby/4QQ0VQbP3d7QYs9wCWt+u9+Qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZXb0whfT; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aCl98Zu2"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZXb0whfT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785898165; x=1817434165;
+  t=1785898166; x=1817434166;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ihdNjvevTf67joVoOEHu00XbFYyaWDaLsbZtqxEa1vk=;
-  b=aCl98Zu2br9GJcWOgdfwGzsdePyv6MVcz3c1CjT2V/Km1rEPUcUnDS72
-   MyEvDcWwJJwlZctxiE78rSZD8CcTC+g0AeqIkt7GAh/EeoS0j+s12Jh3p
-   lKO0jQpLwmsbTtRp3WT8mH2cvatZlsIUnnp9muTpf0wQHS0kcqcIXBvE9
-   ek9w73XDgz7evRsR/QZQ36skgK8R9e4i6kfryU7dqa9UH1f5LCz4DNe9Q
-   1BwxKWnaiS01c1iWCT07snPqLM/eTFIhjiRihNzGR8CHi+SSQvJAMAMmp
-   9Mbz1xHP6ErSWyr4ydHInWCkLWdG4C415OzSVJNAwfEAVbHAZPCZ6wyUg
-   w==;
-X-CSE-ConnectionGUID: icqDrieTS9iXktsFe88bAg==
-X-CSE-MsgGUID: STTLlsBnTTCfUxeOCKhd/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="97826121"
+  bh=WrIjazSUpdO4AQ8g+16lX0XhYpa00/lT0OQu4YAIlJw=;
+  b=ZXb0whfT5Zzb6fIHhNn6SKdMpHE+u+zHh/vRjU1tAkmEapLCkYwY74G9
+   OVWomrlt3wm88/Df+yz57MxZFNju6vkL9d8d4GWv527eJmlm+OxU8jmQT
+   DQnBEl9wS28ng5FjD0/qiCX+SgL53K1j3ZAxkcompIdQBtt0ONxPSQ5vQ
+   zMTJWQF1GXEXKz0/d/gFmyUbHpc/xo1cKcVrGl1ASZsAreb29mr2AQ97t
+   78flpkPD/e+wIVvjqd67T3kVV65+5Qf87iz8fXYhPJ+wRV75xcl5b9Y27
+   Nr8pjXH6tz1l8oX86Ts+bNWMljb+FOoGfaPfkWSDrfTSzNKM0r9BIFtUg
+   g==;
+X-CSE-ConnectionGUID: mviwpFlxS6imf+BrMSH1sg==
+X-CSE-MsgGUID: QfNntLC2RqqS15VkxqxUXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="97826124"
 X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; 
-   d="scan'208";a="97826121"
+   d="scan'208";a="97826124"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 19:49:21 -0700
-X-CSE-ConnectionGUID: 0wqHiT0VTZ2itQaxQnmcdw==
-X-CSE-MsgGUID: F5K5tMSIRTWEUCe+NQkswg==
+X-CSE-ConnectionGUID: 798RTQnoQNKnLpaPmN/XYQ==
+X-CSE-MsgGUID: CkWB1cZgR2uEpIrP/4BzZQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; 
-   d="scan'208";a="259911787"
+   d="scan'208";a="259911789"
 Received: from orsosgc001.jf.intel.com ([10.88.27.185])
   by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 19:49:22 -0700
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y v2 02/12] drm/xe: Introduce xe_gt_dbg_printer()
-Date: Tue,  4 Aug 2026 19:49:05 -0700
-Message-ID: <20260805024915.3407033-3-ashutosh.dixit@intel.com>
+Subject: [PATCH 6.12.y v2 03/12] drm/xe: Apply whitelist to engine save-restore
+Date: Tue,  4 Aug 2026 19:49:06 -0700
+Message-ID: <20260805024915.3407033-4-ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260805024915.3407033-1-ashutosh.dixit@intel.com>
 References: <20260805024915.3407033-1-ashutosh.dixit@intel.com>
@@ -60,69 +60,217 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+From: Lucas De Marchi <lucas.demarchi@intel.com>
 
-[ Upstream commit 26582fc61a923e81832df8d5a169bbdab095d15e ]
+[ Upstream commit 3fcf68d7393fd622b96cd45124ccb1eddf77684c ]
 
-We didn't have GT-oriented debug level printer as it was hard to
-correctly show actual callsite annotation. But this is now doable
-from commit c2ef66e9ad88 ("drm/print: Improve drm_dbg_printer").
+Changes in xe_guc_ads.c in the above commit are not needed for linux-6.12.y.
 
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20241209232739.147417-3-lucas.demarchi@intel.com
+Instead of handling the whitelist directly in the GuC ADS
+initialization, make it follow the same logic as other engine registers
+that are save-restored. Main benefit is that then the SW tracking then
+shows it in debugfs and there's no risk of an engine workaround to write
+to the same nopriv register that is being passed directly to GuC.
+
+This means that xe_reg_whitelist_process_engine() only has to process
+the RTP and convert them to entries for the hwe.  With that all the
+registers should be covered by xe_reg_sr_apply_mmio() to write to the HW
+and there's no special handling in GuC ADS to also add these registers
+to the list of registers that is passed to GuC.
+
+Example for DG2:
+
+	# cat  /sys/kernel/debug/dri/0000\:03\:00.0/gt0/register-save-restore
+	...
+	Engine
+	rcs0
+		...
+		REG[0x24d0] clr=0xffffffff set=0x1000dafc masked=no mcr=no
+		REG[0x24d4] clr=0xffffffff set=0x1000db01 masked=no mcr=no
+		REG[0x24d8] clr=0xffffffff set=0x0000db1c masked=no mcr=no
+	...
+	Whitelist
+	rcs0
+		REG[0xdafc-0xdaff]: allow read access
+		REG[0xdb00-0xdb1f]: allow read access
+		REG[0xdb1c-0xdb1f]: allow rw access
+
+v2:
+  - Use ~0u for clr bits so it's just a write (Matt Roper)
+  - Simplify helpers now that unused slots are not written
+
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20241209232739.147417-6-lucas.demarchi@intel.com
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/xe/xe_gt_printk.h | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ drivers/gpu/drm/xe/xe_gt.c            |  4 +-
+ drivers/gpu/drm/xe/xe_hw_engine.c     |  1 -
+ drivers/gpu/drm/xe/xe_reg_sr.c        | 53 ---------------------------
+ drivers/gpu/drm/xe/xe_reg_whitelist.c | 37 +++++++++++++++++++
+ 4 files changed, 38 insertions(+), 57 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_gt_printk.h b/drivers/gpu/drm/xe/xe_gt_printk.h
-index 5dc71394372d6..11da0228cea71 100644
---- a/drivers/gpu/drm/xe/xe_gt_printk.h
-+++ b/drivers/gpu/drm/xe/xe_gt_printk.h
-@@ -60,6 +60,21 @@ static inline void __xe_gt_printfn_info(struct drm_printer *p, struct va_format
- 	xe_gt_info(gt, "%pV", vaf);
+diff --git a/drivers/gpu/drm/xe/xe_gt.c b/drivers/gpu/drm/xe/xe_gt.c
+index 292947e44a8a8..e2ac1589dfbf6 100644
+--- a/drivers/gpu/drm/xe/xe_gt.c
++++ b/drivers/gpu/drm/xe/xe_gt.c
+@@ -722,10 +722,8 @@ static int do_gt_restart(struct xe_gt *gt)
+ 
+ 	xe_mocs_init(gt);
+ 
+-	for_each_hw_engine(hwe, gt, id) {
++	for_each_hw_engine(hwe, gt, id)
+ 		xe_reg_sr_apply_mmio(&hwe->reg_sr, gt);
+-		xe_reg_sr_apply_whitelist(hwe);
+-	}
+ 
+ 	/* Get CCS mode in sync between sw/hw */
+ 	xe_gt_apply_ccs_mode(gt);
+diff --git a/drivers/gpu/drm/xe/xe_hw_engine.c b/drivers/gpu/drm/xe/xe_hw_engine.c
+index 45d0ae074e652..ca4c2dee276bc 100644
+--- a/drivers/gpu/drm/xe/xe_hw_engine.c
++++ b/drivers/gpu/drm/xe/xe_hw_engine.c
+@@ -546,7 +546,6 @@ static int hw_engine_init(struct xe_gt *gt, struct xe_hw_engine *hwe,
+ 	xe_gt_assert(gt, gt->info.engine_mask & BIT(id));
+ 
+ 	xe_reg_sr_apply_mmio(&hwe->reg_sr, gt);
+-	xe_reg_sr_apply_whitelist(hwe);
+ 
+ 	hwe->hwsp = xe_managed_bo_create_pin_map(xe, tile, SZ_4K,
+ 						 XE_BO_FLAG_VRAM_IF_DGFX(tile) |
+diff --git a/drivers/gpu/drm/xe/xe_reg_sr.c b/drivers/gpu/drm/xe/xe_reg_sr.c
+index ae9e6df2f4e12..01ee54d53531b 100644
+--- a/drivers/gpu/drm/xe/xe_reg_sr.c
++++ b/drivers/gpu/drm/xe/xe_reg_sr.c
+@@ -24,7 +24,6 @@
+ #include "xe_hw_engine_types.h"
+ #include "xe_macros.h"
+ #include "xe_mmio.h"
+-#include "xe_reg_whitelist.h"
+ #include "xe_rtp_types.h"
+ 
+ static void reg_sr_fini(struct drm_device *drm, void *arg)
+@@ -194,58 +193,6 @@ void xe_reg_sr_apply_mmio(struct xe_reg_sr *sr, struct xe_gt *gt)
+ 	xe_gt_err(gt, "Failed to apply, err=%d\n", err);
  }
  
-+static inline void __xe_gt_printfn_dbg(struct drm_printer *p, struct va_format *vaf)
+-void xe_reg_sr_apply_whitelist(struct xe_hw_engine *hwe)
+-{
+-	struct xe_reg_sr *sr = &hwe->reg_whitelist;
+-	struct xe_gt *gt = hwe->gt;
+-	struct xe_device *xe = gt_to_xe(gt);
+-	struct xe_reg_sr_entry *entry;
+-	struct drm_printer p;
+-	u32 mmio_base = hwe->mmio_base;
+-	unsigned long reg;
+-	unsigned int slot = 0;
+-	int err;
+-
+-	if (xa_empty(&sr->xa))
+-		return;
+-
+-	drm_dbg(&xe->drm, "Whitelisting %s registers\n", sr->name);
+-
+-	err = xe_force_wake_get(gt_to_fw(gt), XE_FORCEWAKE_ALL);
+-	if (err)
+-		goto err_force_wake;
+-
+-	p = drm_dbg_printer(&xe->drm, DRM_UT_DRIVER, NULL);
+-	xa_for_each(&sr->xa, reg, entry) {
+-		if (slot == RING_MAX_NONPRIV_SLOTS) {
+-			xe_gt_err(gt,
+-				  "hwe %s: maximum register whitelist slots (%d) reached, refusing to add more\n",
+-				  hwe->name, RING_MAX_NONPRIV_SLOTS);
+-			break;
+-		}
+-
+-		xe_reg_whitelist_print_entry(&p, 0, reg, entry);
+-		xe_mmio_write32(gt, RING_FORCE_TO_NONPRIV(mmio_base, slot),
+-				reg | entry->set_bits);
+-		slot++;
+-	}
+-
+-	/* And clear the rest just in case of garbage */
+-	for (; slot < RING_MAX_NONPRIV_SLOTS; slot++) {
+-		u32 addr = RING_NOPID(mmio_base).addr;
+-
+-		xe_mmio_write32(gt, RING_FORCE_TO_NONPRIV(mmio_base, slot), addr);
+-	}
+-
+-	err = xe_force_wake_put(gt_to_fw(gt), XE_FORCEWAKE_ALL);
+-	XE_WARN_ON(err);
+-
+-	return;
+-
+-err_force_wake:
+-	drm_err(&xe->drm, "Failed to apply, err=%d\n", err);
+-}
+-
+ /**
+  * xe_reg_sr_dump - print all save/restore entries
+  * @sr: Save/restore entries
+diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/xe_reg_whitelist.c
+index d88261921ae46..ef1bb1b47af09 100644
+--- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
++++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
+@@ -10,7 +10,9 @@
+ #include "regs/xe_oa_regs.h"
+ #include "regs/xe_regs.h"
+ #include "xe_gt_types.h"
++#include "xe_gt_printk.h"
+ #include "xe_platform_types.h"
++#include "xe_reg_sr.h"
+ #include "xe_rtp.h"
+ #include "xe_step.h"
+ 
+@@ -86,6 +88,40 @@ static const struct xe_rtp_entry_sr register_whitelist[] = {
+ 	{}
+ };
+ 
++static void whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
 +{
-+	struct xe_gt *gt = p->arg;
-+	struct drm_printer dbg;
++	struct xe_reg_sr *sr = &hwe->reg_whitelist;
++	struct xe_reg_sr_entry *entry;
++	struct drm_printer p;
++	unsigned long reg;
++	unsigned int slot;
 +
-+	/*
-+	 * The original xe_gt_dbg() callsite annotations are useless here,
-+	 * redirect to the tweaked drm_dbg_printer() instead.
-+	 */
-+	dbg = drm_dbg_printer(&gt_to_xe(gt)->drm, DRM_UT_DRIVER, NULL);
-+	dbg.origin = p->origin;
++	xe_gt_dbg(hwe->gt, "Add %s whitelist to engine\n", sr->name);
++	p = xe_gt_dbg_printer(hwe->gt);
 +
-+	drm_printf(&dbg, "GT%u: %pV", gt->info.id, vaf);
++	slot = 0;
++	xa_for_each(&sr->xa, reg, entry) {
++		struct xe_reg_sr_entry hwe_entry = {
++			.reg = RING_FORCE_TO_NONPRIV(hwe->mmio_base, slot),
++			.set_bits = entry->reg.addr | entry->set_bits,
++			.clr_bits = ~0u,
++			.read_mask = entry->read_mask,
++		};
++
++		if (slot == RING_MAX_NONPRIV_SLOTS) {
++			xe_gt_err(hwe->gt,
++				  "hwe %s: maximum register whitelist slots (%d) reached, refusing to add more\n",
++				  hwe->name, RING_MAX_NONPRIV_SLOTS);
++			break;
++		}
++
++		xe_reg_whitelist_print_entry(&p, 0, reg, entry);
++		xe_reg_sr_add(&hwe->reg_sr, &hwe_entry, hwe->gt);
++
++		slot++;
++	}
 +}
 +
  /**
-  * xe_gt_err_printer - Construct a &drm_printer that outputs to xe_gt_err()
-  * @gt: the &xe_gt pointer to use in xe_gt_err()
-@@ -90,4 +105,20 @@ static inline struct drm_printer xe_gt_info_printer(struct xe_gt *gt)
- 	return p;
+  * xe_reg_whitelist_process_engine - process table of registers to whitelist
+  * @hwe: engine instance to process whitelist for
+@@ -99,6 +135,7 @@ void xe_reg_whitelist_process_engine(struct xe_hw_engine *hwe)
+ 	struct xe_rtp_process_ctx ctx = XE_RTP_PROCESS_CTX_INITIALIZER(hwe);
+ 
+ 	xe_rtp_process_to_sr(&ctx, register_whitelist, &hwe->reg_whitelist);
++	whitelist_apply_to_hwe(hwe);
  }
  
-+/**
-+ * xe_gt_dbg_printer - Construct a &drm_printer that outputs like xe_gt_dbg()
-+ * @gt: the &xe_gt pointer to use in xe_gt_dbg()
-+ *
-+ * Return: The &drm_printer object.
-+ */
-+static inline struct drm_printer xe_gt_dbg_printer(struct xe_gt *gt)
-+{
-+	struct drm_printer p = {
-+		.printfn = __xe_gt_printfn_dbg,
-+		.arg = gt,
-+		.origin = (const void *)_THIS_IP_,
-+	};
-+	return p;
-+}
-+
- #endif
+ /**
 -- 
 2.54.0
 
