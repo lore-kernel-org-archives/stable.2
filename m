@@ -1,95 +1,96 @@
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2D340D590
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 13:43:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1656C47255B
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 13:45:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785937437; cv=none; b=dV9vWEDh3ddEl5x9PNh15nfzwwk5PWGG1HuBsy9CV2h3J4t0OVQZwroJ6sqExKppWh2rRtqrz/FK9/28ALwcdUvW+a8jg4S1DgEO3oEev2BC5pi6OE5KP0QLNH8IY/OzForSu9VgPiUk0I6YpkBRvRQV2pTEPyYZxNOBWuyBRPw=
+	t=1785937515; cv=none; b=fJ87/O92bUiMHrMVUwLcdGI365MLFHssjOOR2ZUE3JyQwmmOMdFJNEZLyjBHw1une5o8J2+19NstI8OdNO/RsEmezeM7CyyAiR23m1vDpVlL0CN0cCj+XAyBTVk3MvtlnE5u+j4bg1c0N50f7zL7U6uKPbwmkjY+OjPpfDz+ucE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785937437; c=relaxed/simple;
-	bh=m3BWMPAV6leAvjuiffG77WgDEYhP5Yhegi3Y5PEWxv8=;
+	s=arc-20240116; t=1785937515; c=relaxed/simple;
+	bh=9WXQrWwxS3zMJI+in606pfk9O14a7dIK3ltbgaZLhfo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ktfaupaLZYG48aq/Jm+7lxv71you6KdeFjAFwf6wZxCVTkwtTNttWsf5MEVJbjXq6DpN23va4XmdHaXCitMpEaXtg8gylbzYA5m1v5epaH/Km7Bf6V4+xG1Oq/F/b+laKDPgJ1uAQnneRVku4BFrVGCv7NdrEiPOGn5xL3FgAus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=DmlklAZX; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Q24wxh3q; arc=none smtp.client-ip=202.12.124.159
+	 MIME-Version; b=qviaeUaBHCoeMFZdDl95a3lUhtlnG9wIYhO1CZxSEwgYkBdQmutDGkn1ZeF+RFfbVKNLu8ehOxa50ZhYu/3A86f26aVNWleXwzBKPyETKZdVKJf61DE+sWgABpGDPY/xE/Z0KxxYcLRY0kNa04dnUVr4vSrJ10WvtWTrwPIyFnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=FmUa+u0a; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=f2mOUJcZ; arc=none smtp.client-ip=202.12.124.145
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="DmlklAZX";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Q24wxh3q"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id CAE187A013F;
-	Wed,  5 Aug 2026 09:43:54 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="FmUa+u0a";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="f2mOUJcZ"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id E21311D00108;
+	Wed,  5 Aug 2026 09:45:11 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Wed, 05 Aug 2026 09:43:55 -0400
+  by phl-compute-06.internal (MEProxy); Wed, 05 Aug 2026 09:45:12 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1785937434; x=
-	1786023834; bh=sjSr/u6EAIPKA/2hljOHFGZwEyedxk31Dr0PD3SQC8M=; b=D
-	mlklAZXOIOW/iBsFlKVo28xV3KaSN88zPAnUeE04JEqumP7fv5qFSSGMKtqJ6ZTs
-	XEidxo9HjEZv8Nj+s0k3ExDPYDpSbo4k52ea4EfmYfvolWTgMad79ihFgn4AXVQh
-	xO9J56NmnW8152CSvR+K6mjEWcvSPNewZaaXxK2fAGyi5bUod/UpoX3droP2GkXp
-	Fm+vNsWIPlSnxUXYiCZqODjbauCv21Dqt53c0dnismHK5+U6Wj6P8Gtv20pYTAH4
-	d0fMrDy9bwF6AwfDqKfPZ5T9e62AkzYzWUqwDojwIx90yivsS1W45DiTNrcAFO9X
-	s5kv3wmufhBQm37gqJSnQ==
+	:reply-to:subject:subject:to:to; s=fm1; t=1785937511; x=
+	1786023911; bh=Osu5HAj31t3vA++SI5acuFL5HzmSaw12YbI9fEbrvLU=; b=F
+	mUa+u0ak4xaT7826lwZnle35sqpt2524DLSZUVVLIs2UX/fhgGw3XLWA1vgC0mXv
+	bPqp/Qf5eO3GivX68kHq2UXp3VYwIVkgDejCs7I15FHbXWnU23cF3Dq19p5y+xVe
+	gswYQpMBZazzyPKfz1dQN1hzWAczlcuZBnci1qrLvhwpIkd7wBg9zOKHEka5qa7C
+	GSyZPxr/GAnAAwqi5CnQkwgCndmb1fa8CTLqIiS/zL7B2sqKDCEQXXMC5V3F9B3G
+	2q53ww3MPa114Uxx+g3nn3eHXj1NOpQ6tKykop9vs4/PQuijegJXKMQlEF+fOzND
+	AVhOUjU85+dFWz/D8cmRA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1785937434; x=1786023834; bh=s
-	jSr/u6EAIPKA/2hljOHFGZwEyedxk31Dr0PD3SQC8M=; b=Q24wxh3qiIioJyUCi
-	u3qacykwsG6hpO3gJ0KzKkg25HVXcAY2zazI9o82kncJZ/WJr87TynW8ZYNSltYY
-	BgijQT5AS8IvSYPP4yv7Z64nF2ZneQo+SyekEMUy0u8b0/ailHew+cbI25DDQxar
-	pisepDqJlIsSsHV8xQhPyCX+hvUwgU52HggO+ucCRL8aBYgHg4eIJBeW4uydpbny
-	hCbmh6o1LdP1mHcSJPd1CeiRR3TKwNN7EOmnZn1MyrT7Do6CQQ2ZEuZA+v8Y2R3L
-	4e0gqBaFGJO2SNTTxCP7m5Tz2DNHNDSSPZLeLQtBpUkS4s0U0yJXPSdbQhmZflud
-	Y82AA==
-X-ME-Sender: <xms:Gj5zahh_3y-rxsKrY9ttZpkt4MX-_pRa62-Tkwf41GQmlTnujmOQSA>
-    <xme:Gj5zaiYtWWlcdPmXx67ake0G6JnaBbN_QIA2l2eFGyRbrYx_1bLcttMO9EwetB6Wn
-    IPMq-edOslmrYi8_h9aIbd66M-ExNzasyI00hPr7PTuiga0k73g0rSR>
-X-ME-Received: <xmr:Gj5zaljuS89WYhWavA9W3DFnRRV0Et7-FO2oBOFQGiJj7po-C-Y8B3iNTvE>
-X-ME-Proxy-Cause: dmFkZTG3OLJt0p9WL4NppxfoxRH8UUnETj2iaMz3+UuH1tkyjRW4ikhVvQ2gyhqCEBC6Bc
-    sYWoSFljbpTgfkb+cAi9v0fLGHUtrMP2m7fRNyMV35Rd6xhBvI7CugOXDJ9vUmLcgE3t3S
-    aSikudwY093ezmGJ1A6l6wZEsskmQxsazbLRFB3rrKqTkf7NwxixVKnYkH9F8MGPVORjLx
-    6EyvDYKf/ylKz9vuSbjhDWhRhHLyPUGCeRPVaUeDs+0GeN1zpA6fmd4IE9I7H6C16JfKva
-    ujX7qyWCNRrpnHbQdQ2U4w/I147GlAeuhheBXLHyFUQ8n/mjPbokc7aU1ynPQ8Ri0w0PLh
-    XcGAjjVFoQZd/l5aYMTK/IwMekVHohcvtY8f1QjGTQ6BL2R5XuAt/diGWYpVMGMaHHwYZd
-    v3RihmAqKjJUPy6CNa/4ISBahloHwkneja9DidogB5s2F8IS0nyU+/6sHehtJCHfqYaB1w
-    J5X3Xczlq+fRpweW4wv7V6roowLu9TOWB44twSNajNydt9F3vhrH/fthl4trjSHKpbxzZ3
-    cciXKwSep5EfdBl8iaYC7VjZwMW3SHM25GYPJvyixqArb5bqQmoIWN0dlSTShU7kVG+0i7
-    HVkwFJQGjTIq4h3Ogi4UMbcF3iU7RlNK3bwzdpK56mQQQdvpz9RAEneOWdIQ
-X-ME-Proxy: <xmx:Gj5zakagzAtDTfHJiNVUaB1SJNARc4iI8qRNsshWa4Oc3jp_wf6A1A>
-    <xmx:Gj5zarPBbf8iCSnMGJwshvRWIgRBYucxjONVb9vxWuQWkkepFV5ZzA>
-    <xmx:Gj5zalZvLUT_XUiisFYj3JpzzKrArKEvaYSkPtInsF6whLSltz9ABw>
-    <xmx:Gj5zarWw0qTZrQdK2ZM_XygpPHVL-y8pAWT_PcIoWeABodFuX3TbMQ>
-    <xmx:Gj5zanvwaN7kB0g7F9lm5Fmxe2YWiW068L9Ko3-DsGeTii71eDRpeBhE>
+	:x-me-sender:x-sasl-enc; s=fm3; t=1785937511; x=1786023911; bh=O
+	su5HAj31t3vA++SI5acuFL5HzmSaw12YbI9fEbrvLU=; b=f2mOUJcZghvn59LS1
+	T4G/nZaOSa/fEHFHYKVMdTcgDCRY6/DqQ+IbBEde8rAnP5Rm885W0GliJhpfVlpb
+	uBfpUWT8tSyoHIhZHBgt6LojMdv03TScVxPFLytgU8GlIsxpUpDYsWQAJy8TPGLx
+	uZ5OnXXnTEK0h2J5jCPbstyK0YPGq90AqZLCOnZfJng5iur1DMvomuOLTX8AlDgL
+	zTvt/7fHURhL0GadkFpl+FKzclR56O4b8H7eoShLtmwrv4jq5Z42EWE9NVcJ+ARV
+	ZFDHCkNGLg4mKCffrdd+4i944+kTeZDScDOZt0fdP4ZOslhwyinsWwDK8WzxmrfY
+	v6zhw==
+X-ME-Sender: <xms:Zj5zavJ07o_CKhrQkUci5luRpwzxCKpUULs77BWCXh7koqlPrc9ZFw>
+    <xme:Zj5zaqsGQ4cQZpv2oejrtbUcESXrl_wUyEYM3vCfwCzjbeoOOy0eedQqq7iSE3PME
+    2f5oub6FXPgbI_2ybqRX4RUpnQ_eF9N3z6ZhzV_O5z4hkOEAZdXoZk>
+X-ME-Received: <xmr:Zj5zanWD1lm2NA66xyrtLxWAudPKi99h76XAVMkNQNTbE8TLaDGnZaHKfPc>
+X-ME-Proxy-Cause: dmFkZTGu97oI3pYUVfgfNzZrxwJPnm31USpJCOdyBwkzfqtZM+L3TiAQtP0rjGZJjYLOo4
+    xWk0E7hNrOhKUloXiU8avxmSlRI2RGeRD1/gTEgVPaTUC1zaE4cMasb614gbRm8XXQZ50k
+    xJgTwN1tyHXL089IzbJD2G8OjM6Gw0/sLqfvD74RKaaTgnpAVfEpa8hs2Cg2CXKf/pEADq
+    4dnZB1dJz2axtJ7K25RLDyG5EULynjrVLDHVcyQACiXg2X7iZaun9E9RiUpaaHyarugFxH
+    BcSZfbgRifuCSc+ehaiasTAbhZQS9sm29EkhCmls1Um4jDGdwXgfvWukq5LCWU5r4dUPOQ
+    hsx9s1PBlz7liBb1t482ePolP06ZxY/cCLdcwHX/kK5fVGUMdddaF7LFFmtVo4nDnYm5wK
+    BudoW/8vQafA55xssPh8IKgU8GJcAjmNsKtgaPUB2qBplJdPGt/eH09al/qw73YJQ0SWmG
+    wk+08hcHltQJoB3PVpzqnDWaoly/L6M+p6hzXkBXyWsAioW4rY9+Sl94RkBGGnyJnso0NG
+    DmzGUYPzu7oz8qhatS+58DEu30dgNs6vwPJKnI0KIY8FbMd2FSq+0B7vPNvRzwJXOcRvpI
+    ij1y7m4lMWmyHduW/riG9llqwCmfnHpe+iwbKC0/9CHVRWlsYr40jY9F2S6A
+X-ME-Proxy: <xmx:Zj5zalJ2AFSUqa88JsL-Cb7_xe1SEoIzs3g-ARZmSOI8t6Iif5NQLA>
+    <xmx:Zj5zas-UaXIoQWV7S-eAzdpBvFGoVhtQmd8glGLwHRuG1HWu-n1UXA>
+    <xmx:Zj5zajOUACNhECvsd89NMv8fuO2aTzcN_k2mj9D1rjS0jwozrZhKXw>
+    <xmx:Zj5zao0HZbuKHBS9euFzyswaVspeeCSk-EWoxy2X99MQ3tmmhos4Cw>
+    <xmx:Zz5zaiE79PsmpYscGjrg6ljBNVtBdQ-8THplervP3aBzj2jLfMVjIXbM>
 Feedback-ID: ie3994620:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 5 Aug 2026 09:43:54 -0400 (EDT)
+ 5 Aug 2026 09:45:09 -0400 (EDT)
 From: Kiryl Shutsemau <kirill@shutemov.name>
 To: stable@vger.kernel.org
 Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Muhammad Usama Anjum <usama.anjum@collabora.com>,
-	David Hildenbrand <david@kernel.org>,
-	Jann Horn <jannh@google.com>,
+	Hao Zhang <zhanghao1@kylinos.cn>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Barry Song <baohua@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
 	"Liam R. Howlett" <liam@infradead.org>,
 	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Peter Xu <peterx@redhat.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Nico Pache <npache@redhat.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.18.y] fs/proc/task_mmu: fix PAGEMAP_SCAN written state for unpopulated ptes
-Date: Wed,  5 Aug 2026 14:43:52 +0100
-Message-ID: <20260805134352.2776545-1-kirill@shutemov.name>
+Subject: [PATCH 5.10.y] mm/huge_memory: unlock i_mmap_rwsem before releasing after-split folios
+Date: Wed,  5 Aug 2026 14:45:07 +0100
+Message-ID: <20260805134507.2776820-1-kirill@shutemov.name>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026080503-unpaired-outclass-9b75@gregkh>
-References: <2026080503-unpaired-outclass-9b75@gregkh>
+In-Reply-To: <2026080504-attitude-drizzle-259b@gregkh>
+References: <2026080504-attitude-drizzle-259b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -100,82 +101,117 @@ Content-Transfer-Encoding: 8bit
 
 From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-PAGEMAP_SCAN reports an unpopulated pte differently depending on which
-path serves the request.  The PAGE_IS_WRITTEN fast path in
-pagemap_scan_pmd_entry() reports a pte_none as written (and, under
-PM_SCAN_WP_MATCHING, arms a marker); pagemap_page_category() returns 0 for
-the same pte_none.  A request that cannot take the fast path (an extra
-category bit, category_anyof_mask or category_inverted) therefore reports
-the pte as clean and skips arming it.
+__folio_split() keeps dereferencing the mapping after the split:
+shmem_uncharge(mapping->host) and remap_page() while the folios are still
+frozen/locked, and i_mmap_unlock_read(mapping) at the very end, after the
+after-split folios have been unlocked and freed.
 
-A range that was populated and then MADV_DONTNEED'd reads as written via
-one mask and clean via another, and in the latter case is not re-armed for
-the next round -- an incremental-dump consumer (e.g.  CRIU) using a richer
-mask drops the zapped range and stops tracking writes to it.
+Nothing holds an inode reference across that.  The split relies on @folio
+-- which the beyond-EOF drop loop never removes, as it starts at
+folio_next(folio) -- staying locked and in the page cache to hold off
+eviction.  But the unlock loop unlocks @folio before i_mmap_unlock_read()
+runs.  If the caller's @lock_at is a tail beyond EOF, as memory_failure()
+passes when splitting a poisoned tail of a shmem THP that reaches past
+i_size during truncation, it too is gone from the page cache; so once
+@folio is unlocked no locked, in-cache folio pins the inode, and a
+concurrent final iput() can evict and RCU-free it before
+i_mmap_unlock_read() touches i_mmap_rwsem:
 
-Report pte_none as written in pagemap_page_category() too.  A pte_none
-carries no uffd-wp marker, i.e.  it is not write-protected -- the same
-condition under which the present and swap cases already report
-PAGE_IS_WRITTEN.  The fast path applies no VMA test, so neither does this.
+  BUG: KASAN: slab-use-after-free in __up_read+0x634/0x790
+   i_mmap_unlock_read include/linux/fs.h:537 [inline]
+   __folio_split+0x732/0x1640 mm/huge_memory.c:4100
+   try_to_split_thp_page+0xab/0x390 mm/memory-failure.c:1675
+   memory_failure+0x1394/0x26e0 mm/memory-failure.c:2470
 
-The hugetlb and fully-unpopulated-PMD (no page table) scans have no
-PAGE_IS_WRITTEN fast path, so they do not exhibit the per-entry divergence
-and are left unchanged.
+  Freed by task 4601:
+   shmem_free_in_core_inode+0x54/0xb0 mm/shmem.c:5177
+   evict+0x57f/0xac0 fs/inode.c:870
 
-Add a pagemap_ioctl selftest that populates a range, drops it with
-MADV_DONTNEED, and checks that the fast path and the generic
-(category_anyof_mask) path both report every page written.
+Do every mapping dereference while @folio still pins the inode: drop
+i_mmap_rwsem right after remap_page(), before the loop that unlocks and
+frees the after-split folios, and clear @mapping so the exit path does not
+unlock it again.  shmem_uncharge() and remap_page() already run before
+that point, so after this nothing past the unlock loop touches the inode
+or the mapping.
 
-Link: https://lore.kernel.org/20260707151349.92143-1-kirill@shutemov.name
-Fixes: 12f6b01a0bcb ("fs/proc/task_mmu: add fast paths to get/clear PAGE_IS_WRITTEN flag")
-Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
-Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Jann Horn <jannh@google.com>
+This is now a rule the split depends on, alongside keeping @folio frozen
+until the page cache is updated: no inode or mapping dereference once the
+after-split folios start being unlocked.
+
+Link: https://lore.kernel.org/20260716095424.471052-1-kirill@shutemov.name
+Fixes: baa355fd3314 ("thp: file pages support for split_huge_page()")
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reported-by: Hao Zhang <zhanghao1@kylinos.cn>
+Closes: https://lore.kernel.org/linux-mm/20260710071344.GA106129@zh-pc
+Co-developed-by: Hao Zhang <zhanghao1@kylinos.cn>
+Signed-off-by: Hao Zhang <zhanghao1@kylinos.cn>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Lance Yang <lance.yang@linux.dev>
 Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Assisted-by: Claude:claude-fable-5
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit 07b4377bdbe74a3ec0c8da5849d014f70e003384)
-[ kas: fix only; selftest hunk dropped (pagemap_ioctl.c differs on this tree). Add the pte_none early-return before the pte_present branch ]
 
+(cherry picked from commit e923bd21058ea02fd0dcd3549d151d143fd036e5)
+[ kas: adapt to the __split_huge_page()/split_huge_page_to_list()
+  two-function split: pass @mapping into __split_huge_page() and drop it
+  there, before the loop that frees the after-split subpages while the
+  head is still locked; the caller then skips its own i_mmap unlock ]
 Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- fs/proc/task_mmu.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ mm/huge_memory.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 4c5adfd4fc1f..22cf6620133e 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -2326,6 +2326,19 @@ static unsigned long pagemap_page_category(struct pagemap_scan_private *p,
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index fdcf89e3b1d2..f620861d0099 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2445,7 +2445,7 @@ static void __split_huge_page_tail(struct page *head, int tail,
+ }
+ 
+ static void __split_huge_page(struct page *page, struct list_head *list,
+-		pgoff_t end, unsigned long flags)
++		pgoff_t end, unsigned long flags, struct address_space *mapping)
  {
- 	unsigned long categories = 0;
+ 	struct page *head = compound_head(page);
+ 	pg_data_t *pgdat = page_pgdat(head);
+@@ -2515,6 +2515,16 @@ static void __split_huge_page(struct page *page, struct list_head *list,
+ 		split_swap_cluster(entry);
+ 	}
  
-+	if (pte_none(pte)) {
-+		/*
-+		 * An unpopulated pte carries no uffd-wp marker, i.e. it is not
-+		 * write-protected, the same condition under which the present
-+		 * and swap cases below report PAGE_IS_WRITTEN. Report it here
-+		 * too so this generic path agrees with the PAGE_IS_WRITTEN fast
-+		 * path in pagemap_scan_pmd_entry(), which reports pte_none as
-+		 * written and, under PM_SCAN_WP_MATCHING, arms a marker. The
-+		 * fast path applies no VMA test, so neither does this.
-+		 */
-+		return PAGE_IS_WRITTEN;
-+	}
++	/*
++	 * Drop the mapping while the head page is still locked and thus pins
++	 * the inode. The loop below may free the after-split subpages --
++	 * including the head, when @page is a tail beyond EOF that the split
++	 * dropped from the page cache -- which could otherwise let the inode,
++	 * and @mapping, be freed before this unlock.
++	 */
++	if (mapping)
++		i_mmap_unlock_read(mapping);
 +
- 	if (pte_present(pte)) {
- 		struct page *page;
+ 	for (i = 0; i < nr; i++) {
+ 		struct page *subpage = head + i;
+ 		if (subpage == page)
+@@ -2746,7 +2756,9 @@ int split_huge_page_to_list(struct page *page, struct list_head *list)
+ 				__dec_node_page_state(head, NR_FILE_THPS);
+ 		}
  
+-		__split_huge_page(page, list, end, flags);
++		__split_huge_page(page, list, end, flags, mapping);
++		/* __split_huge_page() dropped the i_mmap lock */
++		mapping = NULL;
+ 		ret = 0;
+ 	} else {
+ 		spin_unlock(&ds_queue->split_queue_lock);
 -- 
 2.54.0
 
