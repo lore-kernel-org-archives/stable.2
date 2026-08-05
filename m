@@ -1,239 +1,235 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FAB4156F5
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:55:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785923748; cv=none; b=uT57EXsJA1ynP/pUbUu3yf1bzJtT66pFtzwLupYJOvfmeiXtoJoDLTRn89ZlolfD0U5/xFhSQSnElgq4WMInyx3gKkw/EptjS8s+ZrBg082+VjUNZcvg/yRt3IjlzCLXc767Q1K/b9e907tiXRCDolFu4LnkUN/tLnBGJs/S4Dk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785923748; c=relaxed/simple;
-	bh=S3jAes5Vwu16hn3Ows2pLgWHj4lYq7+xJmgG0qu2avQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XZTvrO/Uonyt14mpX24+r+xyLPOoe5lyoBKxIc4ihkjDJvSXUGHVnscoImH1brzVGuo0ViHaIPQIatAeAdypFALyl1xB9Ns5PrrKUONm+jp5G9aySrqbzU/eZb7J/vC3a9uaf/NWt2btMFauESsfyjs8/Ytv7VCTCpvpO1X/fpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D0TER37D; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2C7418A4B;
+	Wed,  5 Aug 2026 09:57:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785923824; cv=fail; b=A671nAGgWGchuH05CIN65PkPZEU7iTiyNNtIiHzLhtaQM5kZf+AfdAJ3szXzJnCkxUJaxDz+Ap0fH7JdbTddNOhJw+XPZGLdZTRvus5cIVoNBa5UECgo4DFosqn6nTxuca0+EG0K1eJu1cCvKk7NH/ErnZOo/9HWuXFpVJdvx9U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785923824; c=relaxed/simple;
+	bh=yVsbKVKMX2kJtFLAo1wo91hXJtA4+tfqF7XYuHYtnw0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RmAsw68WxYvDFpQu2mOhmT+nMGL2SWIVHFLfgaelLILaJv26SVfAQffFDvLvjXPQbaxR+hHrvRxDF9WqF72EKyfq3ChCo1H1x76YFRGh13lT6kUW+zkfpP5flw2m2lGkhAoeQG5EwUtJHpvO6kWwXwMp6UpFVWVXg/Vc4EzO/IM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=dh/uEOqp; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=SBEsioT6; arc=fail smtp.client-ip=67.231.149.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D0TER37D"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2cea3004256so10249905ad.0
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 02:55:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="dh/uEOqp";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="SBEsioT6"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 674HY9x02306777;
+	Wed, 5 Aug 2026 04:56:56 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=zVuc2W/QQgxkgxpfDTJBJzL4Ke52RYjZZf5HdsVTPqg=; b=
+	dh/uEOqpVEkapQ+T4ltm3luaYqFnrdjuwAn5SFOnwq2S7Vuo2Br+j2qGBW99DF+G
+	uQGsOyDT1Qt4QH9hGhZwyCmoFrbTNwqdRZcd3iXv0Xdjyy3tZhdwolUR8ttyNbNU
+	VF3EChzh6FEBFRFjG4CM93u+Grno4oYB8Cea0olpIjjXR1ph5QheLK99vFueUUnq
+	XBIi6SHV4/N1vJs0sFDPIDEAtj3nO8nDLRphPEFNZ3mcJUmYXTRwhru8ZOB77Qr3
+	JmOLvEgGFWIMNOLWdDEFtR/EmbRwKIxNojrFQyzBzaKTMSCXlvhGvcxwYipiwknb
+	YVoUN8W5ET1y/y0liivWDw==
+Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11022099.outbound.protection.outlook.com [40.107.209.99])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4fse6vnf67-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 05 Aug 2026 04:56:56 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kpO/U7voIP8T8KdKS18tU9RACKU1B9MJVwmgtXJc/7lHVONR/ccrEnX9nJH4T6ZYj393TfboGEz24i6bhDMGFdPZI3C1FXL2s7ofImY1jjyi6c90a3j7qsyV0mR6p2DxXQmqPOapEWOWF71EchjRaHsN1354J5sd0J99RNg6kPQmIaYsN53K36F+IkNTBo/JaU0tLMzd25WkxbU4zfCy9GrSw5yg8wkhnCQ7xEs/ilawK3hA/hZuqQYEkmxE0U5XYfUECPoZjSvqfhBBRtT0ileNkQSDAMfPp3aFbnCcBMoVl8d5DmbHbkZOkehqgxh+HgHwcMukvqWUrzaUhnJ9HA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zVuc2W/QQgxkgxpfDTJBJzL4Ke52RYjZZf5HdsVTPqg=;
+ b=AO74N0wtkdCXFApcNOeITw5adHbszpf9qYL41hitstlwIJ15wRI6LGqzvWLQV3JZ7nY0PSSpWWyzCDp1hGRuP+BR+QCTc7sst4nRZCZUAY+8Sn8umYl5HjBpNqYy+TGQNBAJbVDf10FhTVqUF5HrtrWypunuCNN9sLU8kbRVgBEHpx1a7KGQL1Ulhz5fwmhX4I0p3M/P2yoXI2yx/u+QzJLhS+AP38Ha4CKNCyRUz+tURgN+zAzAyNAJGmqvogJDTz2vHDZgv7cxyljOqD0VK4H9/NDDnBeOoRKbTbGYnawlAylbfmebAxGV2Q9tj1eWWMM5J88v/Jrbz8DAGqiSnA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785923746; x=1786528546; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/N7OqRJx+Yy9AA2X5acYkU9CpPQnRCTgU5dHMwvshPo=;
-        b=D0TER37DT+4gvhv4oLcMQZc1U1sTQEbDJp1aLlZzKnNQ5HN2srKRnWxtd413qAhKH3
-         d5+8rdnn2lxTER2Zj6MMTn8uAEOoFdW9AERsZWOals3DWUijdQ8gU3sRBxlnxH+yV+nP
-         ZAVDMunxTPZyLY2kzpZwYLsu4YyFjyMTEH5QMOTawu8TzzVxj1sVJ89uUBnmCMQG1vMm
-         18Oiq2SmtDZhWuukehi14PebOn8eiQn6WUy++XxMTA1ygdoqNkE3C5SPpKjp7tZtprcS
-         tw7PSvoTYr3C6GpprSrx4b8A58CDIX51r/JJlm8aoR2LTiQPPQwaxRCjzgOVSBYE7NBR
-         Iyhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785923746; x=1786528546;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/N7OqRJx+Yy9AA2X5acYkU9CpPQnRCTgU5dHMwvshPo=;
-        b=q1fL1vN+enADD4SxcOZMkHtTlcWXUbiiu3ZinFOfqG/9fPmi6SlaoYmrHxWMbbXwb4
-         SGKGR1IcTRaqorSckmAZ117J2fQftrcu7+qgSxKaVpUeQnFDLGZvT7phwzLwPcI3Jvks
-         vW1A2OQ6qHkW3QRDu3usjQlcfMGLnmM4B/JPOKhCsNYsHA1bmFWwr05FYvq8dBAYPu68
-         kf0lnfEuTGTmMO90eiWIAwUXi+bW/yzh0kcGGyM2+pYhJGtFtkepia6cdB/0U/1y0l7x
-         MyGbMVhNrepjTEIACEcoC+evHkwct1nCSmnUiyskku8+wIRNwnn8ixRH7KkZEryNnnUH
-         ygDQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpgtDjKdkxtT+V1kxX7Muc/Z007MU+xhwRhhY4SAxMXxkhxNkyyAPczLa2tBjF3Zl+V1Gzcbx8=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywb1QTgwk0XmluwOItrzA/3jEMpOFq/Wob1aEiZkDVeLNbiiLXv
-	aaBCQmp9clffGEaVWCUXH+3h2u2mDW5AvtUoVaOF/LzWKUPs5J2nmBMR
-X-Gm-Gg: AR+sD10SSuuKFIAoGaRtab/+j3AKywIWyJJAFC3Db6syL2DUcfIyyqoxKX0C1dZqu3K
-	eg2yI4bMLg2zSLxpv5xhmOjFl0IR5m//4DixqpjRSTQfdO8mgzS4CWYGVXUjkEhjFMKafBycJL6
-	cTk70XoRRC5MakmOGRQc3MOn0MHLd38BaeqRErHra3rmcdF12DVFjns/yKzLMCiMc/NkU5CYTcM
-	a6F4LhI5vY6saCWHRN+oZzBrWoV+J2yGZ6bDMPgn+5XbPo4BQ5OWW+GK2piZAXJgkEVgGLKnqSS
-	f4aPyggCp7UTC1YBXHA2lHXVN+xFU5dVbzNj80zvJ3+fllkrcvnUNYHxiGq2BdpT4tjJZpEIZop
-	9v2Mas7kDmvGvebw98Ncu58fXZLDrc/IJsaGtDSHnTAme9BJy5VEE/kTpws8L+p1jSZPRkT5UF8
-	SPvqheoILUzE27Q6sn1YVsLTtbqeayaJ9H4dKds8NZ6Y2lFat8fM2yuiNFe87WY5rAbD33tCy5S
-	ph3AHxw2UKEpeapLydWnxdCvIQ4vK76HSS5Oi8=
-X-Received: by 2002:a17:90b:5203:b0:37d:f206:a2ac with SMTP id 98e67ed59e1d1-3903c598ce5mr6015939a91.7.1785923746041;
-        Wed, 05 Aug 2026 02:55:46 -0700 (PDT)
-Received: from BOOK-P74QMIQ7E8.localdomain ([163.239.22.31])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903927dddbsm2672970a91.9.2026.08.05.02.55.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 02:55:45 -0700 (PDT)
-From: hyunjungg <hj351016@gmail.com>
-To: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Tao Liu <taoliu828@163.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Hyunjung Ko <hj351016@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] net/sched: act_ct: fix sk_buff leak when the header checks reject a packet
-Date: Wed,  5 Aug 2026 18:55:39 +0900
-Message-Id: <20260805095539.204356-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zVuc2W/QQgxkgxpfDTJBJzL4Ke52RYjZZf5HdsVTPqg=;
+ b=SBEsioT6mt/jIkpD4IHZ2QTkzA3dywDU2TtXiOUuGqElaEAXlLVVGkVXuIPby30c+i8EvBi1ZJmpapWcB/KxHJOoYELVkNTF/pt1LdqVRyXi+pucysprcq4ppdCShQU943Vi4PTZGL7m6mu6PwLOXC6ynL5LJeaoDF+zT67Eey8=
+Received: from CH2PR08CA0013.namprd08.prod.outlook.com (2603:10b6:610:5a::23)
+ by LV3PR19MB8229.namprd19.prod.outlook.com (2603:10b6:408:199::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Wed, 5 Aug
+ 2026 09:56:53 +0000
+Received: from DS2PEPF00003443.namprd04.prod.outlook.com
+ (2603:10b6:610:5a:cafe::65) by CH2PR08CA0013.outlook.office365.com
+ (2603:10b6:610:5a::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.20 via Frontend Transport; Wed, 5
+ Aug 2026 09:56:52 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ DS2PEPF00003443.mail.protection.outlook.com (10.167.17.70) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.8
+ via Frontend Transport; Wed, 5 Aug 2026 09:56:52 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 0F5E0406544;
+	Wed,  5 Aug 2026 09:56:51 +0000 (UTC)
+Received: from [198.90.208.11] (ediswws06.ad.cirrus.com [198.90.208.11])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id E7C5B82025A;
+	Wed,  5 Aug 2026 09:56:50 +0000 (UTC)
+Message-ID: <ffa045f4-dfb1-4ec8-b9f5-ce2205e83fb5@opensource.cirrus.com>
+Date: Wed, 5 Aug 2026 10:56:50 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] ASoC: cs35l41/cs35l45/cs4265: sort the reg_defaults
+ tables
+To: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+        Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        Vlad Karpovich <vkarpovi@opensource.cirrus.com>,
+        Paul Handrigan <Paul.Handrigan@cirrus.com>,
+        patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20260805082413.26174-1-peter.ujfalusi@linux.intel.com>
+ <c8aac762-c1a7-44ab-afff-72610cabe341@linux.dev>
+ <b5631801-2904-48e3-b4f7-9ad6009c1198@opensource.cirrus.com>
+ <96c0cebf-3ec3-4136-b010-32187ff8c870@linux.intel.com>
+ <anMBeeNG1fDpFHzN@opensource.cirrus.com>
+ <81391ad1-1097-43ca-8729-ae01c00db3b2@opensource.cirrus.com>
+ <4c407a93-7cb6-4a44-a7b6-4d972e714b4e@linux.intel.com>
+Content-Language: en-GB
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <4c407a93-7cb6-4a44-a7b6-4d972e714b4e@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003443:EE_|LV3PR19MB8229:EE_
+X-MS-Office365-Filtering-Correlation-Id: 543993c4-55f0-44a9-f146-08def2d7e010
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|376014|61400799027|16102099003|22082099003|18002099003|11063799006|56012099006|5023799004|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	fq8Xgi68DJFlB9DamBU9hrPMvTHreQbYxGM0MqEbXc/7FlGnCcvfefAl34V6i7IOj0R3p9sU+x+eA+gYST0qRflVTh2vCwBEsaztlKbapUsi2e+t09Ke7eJYGxMBbRZpf4z4nS8XO/1kFosWQNEIDfPrhWkpdN1s71MvQHZETd/AK0S0xj4No3Y3RDJuFbpW/ze31DgiWfRkCLmdNGO1wSl+4VtmRZmJrpzmjnntFDB2e8QpfjYLmy4tk1Sns3vTa2hecl1OdrFayv2NzaMQyz/XcVufikpQ/w94hyguFJyHMRf9esy4PL/rpUSzEEcGvxewPpCtAtQmz6KaKGPVN2xa3lTSe2RFEmMuQQbtm3en47APtcSlearNedWgCp1DfYCTuISnXOh7MHcfudc1s3b0g+Q7kFZ9pmAeHu777okBgrsHin9S63tJEnNMkHPX+vFgQJnfv5agq7Vhy//xdKcBIdoS0bPSQk6M5+zbpkwfAVlpDNZHV4xLcAgep7y5nBDWuT/3MwJNJa0TmN6OYIDAFjodwzxGX1ngI522rI5VZDX0jiyxTHIHz4QaNug8h8BOMo8tB3yJDStOmlkSoXAT0/j01SG5wIZqLWpukHDhKY7clmVecPC9qRHAUZZrcdAQuoskP6CbmRKQ73gQHtn40MTiyZ8rcpMfXu2MsSPT4qDnQkGtvzydPeaL9N4YmmN8rPEg9SKlirjtnicnsg==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(61400799027)(16102099003)(22082099003)(18002099003)(11063799006)(56012099006)(5023799004)(4143699003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	7Ltzkt2Pnrs0oIWgslKs+ZBO1srQfQu1hlDPYznfVoRdAa4Y3SFQs6/93IZKORGZUnL52cE49GsH+xm0rzB8OM1lPNOYdj1C4uZkhsRVyG1EtpvfiqSp1SIOQjzhAIv7nVX4jmb/py/ZVgi7lQe2C7hVFaeKgTEveZo9tV75Diimy72J0uhvw90akWlP9vVgPszsbBg6L883NoobayDpA6NV36Jlqn0pXsBQEAlu1W+e5FAuLsrYDJeCSft8ITcvTJlSUQJ7s2i0Mtxn3IoO4AvkBxUmHbKNEue4Ala07EN2WbNApFZhBiLMo/wX/1s3D/11Fh2ffelLynG7lBtT9cb2KkP/KTXFoo6MEc9lsZ5D1Ppd0yS6ja8gE3yk6q9CRqEj6qLDqbJ5zPJpa3yjP+ikqHDSCmdpay1wuK89yQwId6RR1u/wzcEdea1VF9Hb
+X-Exchange-RoutingPolicyChecked:
+	QtjIocgQ44QjpK1HGvwYj4f+JkaEph2LdrvBL0Fo7pHf/egFQ5RDPkMUVk4KjT6ZVUO/lSpKGpsuDESuE2ytkGfpoexPKDmPV9ZG9aSJ1XY5J4NdwMRNQY0EFpq7AdF+nYHIQUuDOkpeblCzQ/nYcISED6Nh9gcm0kwT6cBk6/aCvh+DjwKGUg+vwnXP36xDM0b6uyZR7ed3DBlmsBduLHtuA1I4rtUot6akbhrQkjoa2MwSxUEaN7BKdfruhg3Ht3+BtJ9Gew0qppxs8rFD7WInjNih61b9V1LAvkDcAsgmgVSxi5rU3wNcEw/J55+bi/vWciG/WlHIIM5SVUSQlA==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 09:56:52.1520
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 543993c4-55f0-44a9-f146-08def2d7e010
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-DS2PEPF00003443.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR19MB8229
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA1MDA3OCBTYWx0ZWRfX5LrAEUxZv0j8
+ VXOtTQTzQHxo+i1vvwHGFd1WeiGrIwrTfwkDhsbZt7nsIN5jqgmmtDckh98QFLIjto7CI0IQwVn
+ LYoFCHLihCzAyfn74mpOyrrJCyOlUiY=
+X-Proofpoint-GUID: qR_HmNmevjqPTUFt8IoW49OpbFTdkFch
+X-Proofpoint-ORIG-GUID: qR_HmNmevjqPTUFt8IoW49OpbFTdkFch
+X-Authority-Analysis: v=2.4 cv=N+MZ0W9B c=1 sm=1 tr=0 ts=6a7308e8 cx=c_pps
+ a=TyCWzW9CAQ5Ogo61w8w6wA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
+ a=bh8BFq48CNL9zBbSfrgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA1MDA3OCBTYWx0ZWRfX2N8h/I+5D5si
+ YsfQacVMwKjD/e7TNV6fgeL3A1Lsn5ZGWJuQSmjNVTit+8iRSY6E7Rh2SyVFt6tA5+4PSfXqvor
+ yastG7VwEpU6cIgvNsCoFwquxsYlCKtSc7HpaCgmfbS3oBrBGE6HIRijKHJj0bzriaLx8dV/qb9
+ OShPcLHq7uY6Ap/IwIPGKIdZNKcjOZdjDL8rnbc0elOTJX8q/ojg+XhSdXiDRfPCIk5DyBXwmXW
+ w1/FGHwU78RaUuH85Gz37nXJRLSp79xFfdcco/OSXqvFId22Yiu1A3UWXbGblpZc+n5VtfcQKcn
+ FjnsLC/NFoursQovCcg8oiulbN284yr9PdN0W69PVnZyVCwqgJSTfuT5KVeUMkY42yTASSJ+rYD
+ vu9h5rLuJVzXZOdkIGXRvuJmYv+8jU1BMAemDx66SSDiqxffES0s7pAeK6JgFUs48p6YIYjhtXj
+ /UuN180IR9RkEvUwIbQ==
+X-Proofpoint-Spam-Reason: safe
 
-From: Hyunjung Ko <hj351016@gmail.com>
+On 05/08/2026 10:52 am, Péter Ujfalusi wrote:
+> 
+> 
+> On 05/08/2026 12:38, Richard Fitzgerald wrote:
+>> On 05/08/2026 10:25 am, Charles Keepax wrote:
+>>> On Wed, Aug 05, 2026 at 12:10:10PM +0300, Péter Ujfalusi wrote:
+>>>> On 05/08/2026 12:00, Richard Fitzgerald wrote:
+>>>>>>> Found by an audit of all reg_defaults tables under sound/, the
+>>>>>>> SoundWire
+>>>>>>> codec drivers are fixed by a separate series.
+>>>>>>
+>>>>>> Wow. Would it make sense to have a regmap helper to double-check the
+>>>>>> addresses are indeed in-order in those reg_default tables?
+>>>>>> I am not sure how this requirement can be enforced by just
+>>>>>> inspection, a
+>>>>>> warning would help detect this sort of issues on more platforms.
+>>>>>>
+>>>>> It does seem probable that anything that relies on people just
+>>>>> remembering to keep a large table sorted is prone to breaking,
+>>>>> especially if the addresses are provided by named constant instead of
+>>>>> a list of hardcoded numbers.
+>>>>>
+>>>>> Should regmap check the table when the regmap is first created?
+>>>>> As it has to search the table during normal use anyway, one extra walk
+>>>>> when the regmap is created probably isn't a serious overhead.
+>>>>
+>>>> But it will be done for _all_ devices which uses regmap on boot, small
+>>>> things do add up, see my reply to Pierre-Louis.
+>>>
+>>> Indeed, if we were to add some sort of auto-checker it should
+>>> be guarded behind something like perhaps a Kconfig option or the
+>>> DEBUG define.
+>>>
+>>> Thanks,
+>>> Charles
+>>
+>> regcache_init() already walks the defaults table checking the stride
+>>
+>>      for (i = 0; i < config->num_reg_defaults; i++)
+>>          if (config->reg_defaults[i].reg % map->reg_stride)
+>>              return -EINVAL;
+>>
+>> so checking that each entry is larger than previous is trivial extra
+>> overhead. I think most regmaps are cached.
+> 
+> Right, I think this should work:
+> 
+> diff --git a/drivers/base/regmap/regcache.c b/drivers/base/regmap/regcache.c
+> index aa8f2efed779..ce4b11d8a758 100644
+> --- a/drivers/base/regmap/regcache.c
+> +++ b/drivers/base/regmap/regcache.c
+> @@ -123,6 +123,7 @@ static void regcache_hw_exit(struct regmap *map)
+>   
+>   int regcache_init(struct regmap *map, const struct regmap_config *config)
+>   {
+> +	bool sort_defaults = false;
+>   	int count = 0;
+>   	int ret;
+>   	int i;
+> @@ -149,10 +150,15 @@ int regcache_init(struct regmap *map, const struct regmap_config *config)
+>   		return -EINVAL;
+>   	}
+>   
+> -	for (i = 0; i < config->num_reg_defaults; i++)
+> +	for (i = 0; i < config->num_reg_defaults; i++) {
+>   		if (config->reg_defaults[i].reg % map->reg_stride)
+>   			return -EINVAL;
+>   
+> +		if (i && config->reg_defaults[i - 1].reg >
 
-tcf_ct_handle_fragments() runs its header sanity checks before handing
-anything to the defragmentation engine:
+You could test the stride of defaults[0] first before the loop, and
+start the loop at i = 1. Then on each loop you can test [i] against
+[i - 1] without the need to check i != 0 every time.
 
-	if (family == NFPROTO_IPV4)
-		err = tcf_ct_ipv4_is_fragment(skb, &frag);
-	else
-		err = tcf_ct_ipv6_is_fragment(skb, &frag);
-	if (err || !frag)
-		return err;
+I don't think we need to sort them. Just fail, so that an unsorted table
+must be fixed.
 
-tcf_ct_ipv4_is_fragment() returns -EINVAL or -ENOMEM;
-tcf_ct_ipv6_is_fragment() adds -EPROTO when ipv6_find_hdr() fails. None of
-them frees or queues the skb, so on that path the caller still owns it.
-
-tcf_ct_act() however funnels every non-zero return into the
-ownership-transfer exit:
-
-	err = tcf_ct_handle_fragments(net, skb, family, p->zone, &defrag);
-	if (err)
-		goto out_frag;
-	...
-out_frag:
-	if (err != -EINPROGRESS)
-		tcf_action_inc_drop_qstats(&c->common);
-	return TC_ACT_CONSUMED;
-
-TC_ACT_CONSUMED means the action took ownership of the skb, so no caller
-frees it - sch_handle_ingress(), sch_handle_egress() and
-tcf_qevent_handle() all deliberately skip the free for that verdict. The
-skb is therefore orphaned: one sk_buff plus its data buffer is leaked per
-malformed packet, unbounded. Note the drop counter is already incremented
-for these errors, so the statistics claim a drop that never happens.
-
-Three different ownership states reach out_frag: today - the skb may be
-queued by the defrag engine (-EINPROGRESS), already freed by
-nf_ct_handle_fragments(), or still owned by us. Tell the caller which of
-those it is, and free the packet ourselves in the last case, which
-restores the TC_ACT_SHOT behaviour that predated the Fixes: commit.
-
-Reproduced on v7.2-rc6 with a 54-byte frame carrying a 40-byte IPv6
-header with nexthdr = 0 (hop-by-hop) and nothing after it, on a
-clsact ingress chain with "action ct". kmemleak reports one leaked
-232-byte skbuff_head_cache object plus its 704-byte data buffer per
-packet; with this patch it reports none.
-
-Fixes: 3f14b377d01d ("net/sched: act_ct: fix skb leak and crash on ooo frags")
-Cc: stable@vger.kernel.org # v6.8+
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
- net/sched/act_ct.c | 29 +++++++++++++++++++++++++----
- 1 file changed, 25 insertions(+), 4 deletions(-)
-
-Reproducer needs CONFIG_NET_ACT_CT, plus CONFIG_DEBUG_KMEMLEAK and
-kmemleak=on to observe it:
-
-  ip link add veth0 type veth peer name veth1
-  ip link set veth0 up; ip link set veth1 up
-  tc qdisc add dev veth0 clsact
-  tc filter add dev veth0 ingress matchall action ct
-
-then inject at veth1 a 54-byte frame: ethertype 0x86DD, a 40-byte IPv6
-header with nexthdr = 0 (hop-by-hop) and nothing after it, so
-ipv6_find_hdr() fails with -EBADMSG and tcf_ct_ipv6_is_fragment()
-returns -EPROTO.
-
-Before, one sk_buff plus its data buffer per packet:
-
-  kmemleak: 50 new suspected memory leaks
-  unreferenced object 0xffff888103ed13c0 (size 232):
-    kmem_cache_alloc_node_noprof+0x2f1/0x3e0
-    __alloc_skb+0xe5/0x860
-    alloc_skb_with_frags+0x82/0x750
-    sock_alloc_send_pskb+0x658/0x7e0
-    packet_sendmsg+0x1833/0x4860
-    __x64_sys_sendto+0xe0/0x1c0
-    do_syscall_64+0x102/0x5a0
-
-After: kmemleak reports no unreferenced objects.
-
-Note /proc/slabinfo is not a usable check here on a KASAN build -
-skbuff_head_cache active_objs still grows because the quarantine holds
-the freed objects. kmemleak is the reliable signal.
-
-No selftest accompanies this: tdc drives tc(8) only and cannot inject
-the malformed frame. A self-contained C reproducer is available on
-request.
-
-diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
-index be535a261fa0..e250969c84ac 100644
---- a/net/sched/act_ct.c
-+++ b/net/sched/act_ct.c
-@@ -840,8 +840,15 @@ static int tcf_ct_ipv6_is_fragment(struct sk_buff *skb, bool *frag)
- 	return 0;
- }
- 
-+/* On error, tells the caller whether it still owns @skb and must free it
-+ * itself.  @skb is ours only when the header checks below reject the packet
-+ * before it is handed to the defragmentation engine; once nf_ct_handle_
-+ * fragments() has been called the skb is either queued (-EINPROGRESS) or has
-+ * already been freed by it.
-+ */
- static int tcf_ct_handle_fragments(struct net *net, struct sk_buff *skb,
--				   u8 family, u16 zone, bool *defrag)
-+				   u8 family, u16 zone, bool *defrag,
-+				   bool *skb_is_ours)
- {
- 	enum ip_conntrack_info ctinfo;
- 	struct tc_skb_cb cb;
-@@ -859,8 +866,12 @@ static int tcf_ct_handle_fragments(struct net *net, struct sk_buff *skb,
- 		err = tcf_ct_ipv4_is_fragment(skb, &frag);
- 	else
- 		err = tcf_ct_ipv6_is_fragment(skb, &frag);
--	if (err || !frag)
-+	if (err) {
-+		*skb_is_ours = true;
- 		return err;
-+	}
-+	if (!frag)
-+		return 0;
- 
- 	cb = *tc_skb_cb(skb);
- 	err = nf_ct_handle_fragments(net, skb, zone, family, &proto, &cb.mru);
-@@ -977,6 +988,7 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 	int nh_ofs, err, retval;
- 	struct tcf_ct_params *p;
- 	bool add_helper = false;
-+	bool skb_is_ours = false;
- 	bool skip_add = false;
- 	bool defrag = false;
- 	struct nf_conn *ct;
-@@ -1012,9 +1024,18 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
- 	 */
- 	nh_ofs = skb_network_offset(skb);
- 	skb_pull_rcsum(skb, nh_ofs);
--	err = tcf_ct_handle_fragments(net, skb, family, p->zone, &defrag);
--	if (err)
-+	err = tcf_ct_handle_fragments(net, skb, family, p->zone, &defrag,
-+				      &skb_is_ours);
-+	if (err) {
-+		/* The skb is still ours only when the header checks rejected
-+		 * it; returning TC_ACT_CONSUMED for such a packet would leak
-+		 * it, since no caller frees an skb it was told it no longer
-+		 * owns.
-+		 */
-+		if (skb_is_ours)
-+			goto drop;
- 		goto out_frag;
-+	}
- 
- 	err = nf_ct_skb_network_trim(skb, family);
- 	if (err)
---
-2.43.0
