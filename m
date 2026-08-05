@@ -1,38 +1,51 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 25DBD2561A7;
-	Wed,  5 Aug 2026 00:41:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4521A683D;
+	Wed,  5 Aug 2026 00:51:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785890515; cv=none; b=jmp7g5FvF5ZhX+VdtbupjhNhIZ1ClvkGmhR+blBhA4UMcD/9BKEfcx9GwJ3WuId4Zr1laTHxp0t90LT/FsvjY5e5JtU0xLW0007tXooHNIUxhPi1dVuSPgxz+sMmLDoBIj8MvQ+S4EQZznuvIUtdLxSMddSkgdCfyIpG17QmqxM=
+	t=1785891080; cv=none; b=sQ7B9ttyg6wJ/3OLTVKFX5hizzRe6SRX/kUMJs/4q6nXMyL16gEz/6JyecJd1KKenrSUGLEuZgFleQpiVNQXPhivd9atyOWlnbJwnaq/8f6dsAHTTWpQwpq2CFwQPcDmErO+NOW3g/839Fdj3peRlzT/pm5SdKlxkvRcvR03awM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785890515; c=relaxed/simple;
-	bh=QL1C8oriicwyazzjRilusfKw0JwNpaWhAYQxMfbAdSE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=FHAvJmDFah7R8RmlNe2asTBePV5RhCMucGJHeTK35BWq5CcE5nMfYK+xoPeN6a4dSJ/xJjVIvdNgcUc7YT0wxXjmSqijW8kMEKxgzriblDWkFIlLXJMQHgYG17tYtsT5yrFmI5OAZ+Yciv8GYOU973ScywuEzP77zqFtngYXdDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDX3y_AhnJq2NNmAA--.15575S3;
-	Wed, 05 Aug 2026 08:41:37 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgCXyTC+hnJqZfnlAg--.1858S2;
-	Wed, 05 Aug 2026 08:41:35 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: gregkh@linuxfoundation.org
-Cc: jirislaby@kernel.org,
-	broonie@kernel.org,
-	zhao.xicheng@vivo.com,
-	linux-serial@vger.kernel.org,
+	s=arc-20240116; t=1785891080; c=relaxed/simple;
+	bh=fTbST+tLSsf39sdlkpMDK6svcFjRQbdOWE4xII5z0eo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=en+Y6H/VpBLWLZSybqE+aaZmqqGu0HnvcQ4UCTYUe9GvU5PvI+vKvYZTLV9QjRgiPrdh61QtoySIM0MEi70aUysldskCQGN/wys/q+CoUrtx4X67YRYjbQncINVSNPhoHiUxVpAInI+f9qW6mlkNKC/XKq9ExBDmI9UQwlx0u6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QK5XJUmF; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QK5XJUmF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 250C71F000E9;
+	Wed,  5 Aug 2026 00:51:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785891078;
+	bh=ePPDDaik4Qtf8gXCiiCDMsGPHOTienWAwHlE4JLRsHE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QK5XJUmFVYOLJ/OI+AUJ+nJhdhP0TbQs/mHd07EXp3XLtKjIVJmzo+qDx32ztaJX/
+	 oD1UC/0hLQUxeTeKZbwxvGpjHbsmWae9MBkZ+ym60M1B+npobujv6shnzq/wjlUg9L
+	 7x2IfkvGMTsfxi/BXi3gPLg4A5k6K+7oOiT6gFwkgXfdrNgkRmzJrLuhWG0aukzW1I
+	 GNSHrjijiaCig9iculNQb23J2J4hJGQSo7yjO3t03j/o2TIpBEwnxHE9NWy6VLvWsY
+	 vRNu3G+OrEn3f5ZWaJDiaW+SzI/88VGH2VCeisSIEubdkqLVlDtiwQa8jKCU+LHa6x
+	 4yFYncsAe73YQ==
+From: Jakub Kicinski <kuba@kernel.org>
+To: nicoyip.dev@gmail.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	sbrivio@redhat.com,
+	sd@queasysnail.net,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH v3] tty: serial: max3100: shut down timer before freeing port
-Date: Wed,  5 Aug 2026 00:40:39 +0000
-Message-Id: <20260805004039.382698-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <2026080353-bats-jailhouse-804f@gregkh>
-References: <2026080353-bats-jailhouse-804f@gregkh>
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] ipv4: fix use-after-free in fib_nhc_update_mtu()
+Date: Tue,  4 Aug 2026 17:51:16 -0700
+Message-ID: <20260805005116.4048739-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260731162938.3388534-1-nicoyip.dev@gmail.com>
+References: <20260731162938.3388534-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,92 +53,123 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgCXyTC+hnJqZfnlAg--.1858S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?xCuIiQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZyOVMmQOkizLkuaexDcogPgrmCuPT5teSqe6ob3RG8e4pvW
-	RyO2L90EXdLxFDLi2GMB5rM+H8XhqwExY4Cjs2QP
-X-Coremail-Antispam: 1Uk129KBj93XoW7Ar1xXFWrJF48JrWfZrWxZrc_yoW5JF45pF
-	s3urs8KFWrWr47uFnxCwsxXF15Wa1fJw47Gr1xKw1a9r15JryYg3WxKay7KFW5AFWkWF4D
-	JF95ta98Ar1qy3XCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Cb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAF
-	wI0_Cr1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57
-	IF6xkI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE
-	14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2
-	IYc2Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I
-	3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxV
-	WUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAF
-	wI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcI
-	k0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j
-	6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jbo7NUUUUU=
 
-max3100_shutdown() stops the polling timer but returns early during
-system suspend. If the SPI device is unbound before resume, the serial
-core does not call max3100_shutdown() again, so max3100_remove() frees
-the port while the timer remains armed. max3100_timeout() may then
-access the freed port and re-arm the timer.
-
-Add final timer teardown to max3100_remove() and use
-timer_shutdown_sync() to prevent a racing callback from re-arming it.
-Also free the IRQ and destroy the workqueue there before freeing the
-port. Keep timer_delete_sync() in max3100_shutdown() so that a
-subsequent open() can re-arm the timer.
-
-The workqueue is created before request_irq() and destroyed on both
-request_irq() failure and normal shutdown. Its presence at remove thus
-identifies the IRQ left registered when suspend bypasses shutdown.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 7831d56b0a35 ("tty: MAX3100")
-Cc: stable@vger.kernel.org # 6.2+
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+This is an AI-generated review of your patch. The human sending this
+email says "Clashiko says we need a real lock?"
 ---
-Changes since v2:
-  - Drop irq_registered; use the workqueue lifetime to decide whether
-    remove must release an IRQ left by the suspend path.
+ipv4: fix use-after-free in fib_nhc_update_mtu()
 
-v1: https://lore.kernel.org/all/20260721035631.3186613-1-fanwu01@zju.edu.cn/
-v2: https://lore.kernel.org/all/20260801061208.356142-1-fanwu01@zju.edu.cn/
----
- drivers/tty/serial/max3100.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+This wraps the fnhe hash table walk in fib_nhc_update_mtu() with
+rcu_read_lock() and switches the pointer loads from
+rcu_dereference_protected(..., 1) to rcu_dereference(), so that an fnhe
+freed by kfree_rcu() on another CPU cannot be reclaimed while the walk
+still holds a pointer to it.
 
-diff --git a/drivers/tty/serial/max3100.c b/drivers/tty/serial/max3100.c
-index 44b745fa26c6..48c66b6e1c18 100644
---- a/drivers/tty/serial/max3100.c
-+++ b/drivers/tty/serial/max3100.c
-@@ -537,9 +537,8 @@ static void max3100_shutdown(struct uart_port *port)
- 	if (s->workqueue) {
- 		destroy_workqueue(s->workqueue);
- 		s->workqueue = NULL;
--	}
--	if (port->irq)
- 		free_irq(port->irq, s);
-+	}
- 
- 	/* set shutdown mode to save power */
- 	max3100_sr(s, MAX3100_WC | MAX3100_SHDN, &rx);
-@@ -752,6 +751,14 @@ static void max3100_remove(struct spi_device *spi)
- 		if (max3100s[i] == s) {
- 			dev_dbg(&spi->dev, "%s: removing port %d\n", __func__, i);
- 			uart_remove_one_port(&max3100_uart_driver, &max3100s[i]->port);
-+
-+			s->force_end_work = 1;
-+			timer_shutdown_sync(&s->timer);
-+			if (s->workqueue) {
-+				destroy_workqueue(s->workqueue);
-+				s->workqueue = NULL;
-+				free_irq(s->port.irq, s);
-+			}
- 			kfree(max3100s[i]);
- 			max3100s[i] = NULL;
- 			break;
--- 
-2.34.1
+> diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
+> index 4f3c0740dde91..6ecc6654427ce 100644
+> --- a/net/ipv4/fib_semantics.c
+> +++ b/net/ipv4/fib_semantics.c
+> @@ -1879,16 +1879,17 @@ void fib_nhc_update_mtu(struct fib_nh_common *nhc, u32 new, u32 orig)
+>  	struct fnhe_hash_bucket *bucket;
+>  	int i;
+>  
+> -	bucket = rcu_dereference_protected(nhc->nhc_exceptions, 1);
+> +	rcu_read_lock();
+> +	bucket = rcu_dereference(nhc->nhc_exceptions);
+>  	if (!bucket)
+> -		return;
+> +		goto out;
+>  
+>  	for (i = 0; i < FNHE_HASH_SIZE; i++) {
+>  		struct fib_nh_exception *fnhe;
+>  
+> -		for (fnhe = rcu_dereference_protected(bucket[i].chain, 1);
+> +		for (fnhe = rcu_dereference(bucket[i].chain);
+>  		     fnhe;
+> -		     fnhe = rcu_dereference_protected(fnhe->fnhe_next, 1)) {
+> +		     fnhe = rcu_dereference(fnhe->fnhe_next)) {
+>  			if (fnhe->fnhe_mtu_locked) {
+>  				if (new <= fnhe->fnhe_pmtu) {
+>  					fnhe->fnhe_pmtu = new;
 
+[Severity: High]
+This isn't a race introduced by this patch, but since the patch is
+specifically fixing the locking of this walk, is the write side left
+unprotected on purpose?
+
+fib_nhc_update_mtu() does not only read the fnhe, it stores to
+fnhe->fnhe_pmtu and fnhe->fnhe_mtu_locked, and now does so with only
+rcu_read_lock() held. Every other writer of these two fields in
+net/ipv4/route.c holds fnhe_lock and treats them as one pair, for example
+update_or_create_fnhe():
+
+net/ipv4/route.c:update_or_create_fnhe() {
+	spin_lock_bh(&fnhe_lock);
+	...
+		if (pmtu) {
+			fnhe->fnhe_pmtu = pmtu;
+			fnhe->fnhe_mtu_locked = lock;
+		}
+		fnhe->fnhe_expires = max(1UL, expires);
+		/* Update all cached dsts too */
+		rt = rcu_dereference(fnhe->fnhe_rth_input);
+		if (rt)
+			fill_route_from_fnhe(rt, fnhe);
+	...
+}
+
+rt_bind_exception() clears the same pair under fnhe_lock on a genid change,
+and fnhe_remove_oldest()/ip_del_fnhe() use
+rcu_dereference_protected(..., lockdep_is_held(&fnhe_lock)) for the chain,
+which suggests fnhe_lock is the intended write-side lock here.
+
+Can the following interleaving mix the pair?
+
+CPU0: dev_set_mtu() -> netif_set_mtu_ext() -> fib_netdev_event() ->
+      fib_sync_mtu() -> fib_nhc_update_mtu()
+
+	} else if (new < fnhe->fnhe_pmtu ||
+		   orig == fnhe->fnhe_pmtu) {
+		/* fnhe_mtu_locked read as false, condition evaluated */
+
+CPU1: icmp frag-needed in softirq -> __ip_rt_update_pmtu() ->
+      update_or_create_fnhe()
+
+	spin_lock_bh(&fnhe_lock);
+	fnhe->fnhe_pmtu = pmtu;		/* clamped to ip_rt_min_pmtu */
+	fnhe->fnhe_mtu_locked = true;
+
+CPU0 then completes its store:
+
+		fnhe->fnhe_pmtu = new;
+
+leaving fnhe_pmtu set to the device MTU with fnhe_mtu_locked still true,
+which neither writer intended. Since ip_mtu_locked() then makes
+__ip_rt_update_pmtu() return early, would further PMTU reductions for that
+destination be suppressed until the exception expires (ip_rt_mtu_expires,
+600s by default, with expiry no longer refreshed because the updates are
+skipped)?
+
+The mirror ordering looks like it drops the new device MTU clamp instead,
+leaving fnhe_pmtu above the link MTU, which is the condition af7d6cce5369
+was added to avoid.
+
+There is also no WRITE_ONCE() on these stores while lockless readers such
+as ip_mtu_from_fib_result() consume fnhe_pmtu:
+
+net/ipv4/route.c:ip_mtu_from_fib_result() {
+	...
+		fnhe = find_exception(nhc, daddr);
+		if (fnhe && !time_after_eq(jiffies, fnhe->fnhe_expires))
+			mtu = fnhe->fnhe_pmtu;
+	...
+}
+
+Would taking spin_lock_bh(&fnhe_lock) around the walk (or calling a helper
+exported from route.c that does) cover both the reclaim race described in
+the changelog and the write-write race, and also keep the
+rcu_dereference() annotations honest for a walk that mutates the entries?
+
+The changelog says the change works "without serializing PMTU updates
+against the entire hash-table traversal" - is that tradeoff still correct
+given the walk writes to the entries it visits?
