@@ -1,151 +1,124 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5DC41448CFC;
-	Wed,  5 Aug 2026 11:56:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE031448B92
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 11:57:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931024; cv=none; b=TFdALPB6tLtWwZEtBmjkfn2pTZHZYo8KHg+erczSl97t4PK/Vl+rbUpuHa2CojdsRvZ4dHDH7sU5ogb7tdO4omu/tKG0l0ItLWidzpc5J787dw6tj4qzWXvdFQax4lZXs5rriuP1ehvqa5D35aYARPD0oEWO3VYZ7ZQbylAkkps=
+	t=1785931060; cv=none; b=NFzYNlVCYzHhC9yjD9IbwADGe3eGHDoUIQc/v08ypnI/B94gBraZLG9J53RQPgl1W6wANY7uQQxUh64jloivnocbfp5JDg72199vKpAo/bWPZ7WPGZXhhPvWfZPwPvhQL1PS2n69DA+CTS0jvMI8CKlKH+sr0f7Xf/CV2jbtrMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931024; c=relaxed/simple;
-	bh=10kVQYRCo6bNJci1C7wNF0Cjviiqu8GTE57w1E5iKRo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=c44GVhu0RvR3Tm6rC8bJOPTyBqXmSU6E259IM+A9a+F1rCCVnQF+c6xIWfiE5qGC+SGeNEOMqTpdF3Zc3iarTHNX9CorlJtrcoP2vHmpJixKi1VRuvdmCILn1QVOS+0HOkaCNUjpm3AxI7u43oBrXgrigdo1dy5fMLv1Ro2p8j4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wAX4n36JHNq4D9pAA--.20355S3;
-	Wed, 05 Aug 2026 19:56:43 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgAnd5_5JHNqa4iKAw--.51924S2;
-	Wed, 05 Aug 2026 19:56:42 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: dri-devel@lists.freedesktop.org
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Marek Vasut <marex@denx.de>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH v2] drm/bridge: ti-sn65dsi83: Cancel reset_work on remove to avoid use-after-free
-Date: Wed,  5 Aug 2026 11:55:46 +0000
-Message-Id: <20260805115546.152786-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260805090804.78914-1-fanwu01@zju.edu.cn>
-References: <20260805090804.78914-1-fanwu01@zju.edu.cn>
+	s=arc-20240116; t=1785931060; c=relaxed/simple;
+	bh=fho+8A9hJQvT0Opm84SysWl8ienRP/3SB2HFrHWg42A=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Ylws7ZTz4IRSjBrXXuCpGnljF7BaXn6oietHH6SeFamwoM6yqhodrdB1WNIJxfsaIBNDgmGiDVk71eKOTkiujQyf0BjXnG0INhX3k3e6UEu8/tVLuSmTxYfrpVJ5aPjzNzOK9tdbEyn1mCPBTmyhbyHhYsfCMLTa33cuhAdN1Zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dPaKWWAu; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dPaKWWAu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BA5D1F00A3A;
+	Wed,  5 Aug 2026 11:57:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785931058;
+	bh=sXSI6x2oWKc52k8cijuZQCfLwDTr/C52cQm+MUQYOEU=;
+	h=Subject:To:Cc:From:Date;
+	b=dPaKWWAuXEKWwoFtZrwYu5n2JjSNjfUufBZS38NyGJT79bAeAFvq6/m1kwY30QXex
+	 gMOydJyX+Y+T5YH/1r1Cr65R392/vcAC7BgHVijnmprDMAViYG4VtTMB9od3vLUKVb
+	 9ZArvv9dv23RW4YgqsKlfF38ibhuo7zAefE2dLBo=
+Subject: FAILED: patch "[PATCH] ice: wait for reset completion in ice_resume()" failed to apply to 5.15-stable tree
+To: aaron.ma@canonical.com,aleksandr.loktionov@intel.com,alexander.nowlin@intel.com,anthony.l.nguyen@intel.com,kohei@enjuk.jp,przemyslaw.kitszel@intel.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 05 Aug 2026 13:50:26 +0200
+Message-ID: <2026080526-docile-reply-8f04@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgAnd5_5JHNqa4iKAw--.51924S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?VLvJIwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBHsHPRTq1nu9Lig+QZosvpoMyN+4DStAKd0ilpoZmfYoolR
-	/bid1KQKukE0taufdXWp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxur4fJw4fCrWkZF15Ww47ZFc_yoW5Ww1UpF
-	sxW3s8C3ykXa1I9a9FyF15AFyYywnrtayrGrnrKw1fZa4Yqa15t34vkFWqqFyakFy8Jayj
-	vr4qyFWkZr47AFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
-	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU86c_DUUUUU==
 
-The error recovery code queues reset_work from the threaded IRQ handler
-and polling monitor_work. Neither the remove path nor the probe failure
-path after the IRQ is registered drains that work before devres releases
-the bridge allocation.
 
-Use drm_bridge_unplug() before stopping the work. It prevents a concurrent
-atomic commit from entering the bridge and re-arming monitor_work through
-monitor_start(), and waits for in-flight bridge critical sections to
-finish. Then disable the IRQ and drain monitor_work and reset_work.
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Use the same shutdown sequence when attaching the DSI host fails. This
-prevents error recovery work queued by an early IRQ from accessing the
-devm-managed bridge after the failed probe returns.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-This issue was found by an in-house static analysis tool.
-Compile-tested only; runtime testing is appreciated.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x c2816d613f388814d27bc9fd6dbd931a88056e19
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080526-docile-reply-8f04@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
-Fixes: ad5c6ecef27e ("drm: bridge: ti-sn65dsi83: Add error recovery mechanism")
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From c2816d613f388814d27bc9fd6dbd931a88056e19 Mon Sep 17 00:00:00 2001
+From: Aaron Ma <aaron.ma@canonical.com>
+Date: Wed, 29 Apr 2026 11:48:49 +0800
+Subject: [PATCH] ice: wait for reset completion in ice_resume()
+
+ice_resume() schedules an asynchronous PF reset and returns
+immediately. The reset runs later in ice_service_task(). If
+userspace tries to bring up the net device before the reset
+finishes, ice_open() fails with -EBUSY:
+
+  ice_resume()
+    ice_schedule_reset()          # sets ICE_PFR_REQ, returns
+  ...
+  ice_open()
+    ice_is_reset_in_progress()    # ICE_PFR_REQ still set, -EBUSY
+  ...
+  ice_service_task()
+    ice_do_reset()
+      ice_rebuild()               # clears ICE_PFR_REQ, too late
+
+Reproduced on E800 series NICs during suspend/resume with irdma
+enabled, where the aux device probe widens the race window.
+
+  ice 0000:81:00.0: can't open net device while reset is in progress
+
+Add a best-effort wait (10s timeout, matching ice_devlink_info_get())
+for the reset to complete before returning from ice_resume(). In
+practice the reset completes in ~300ms.
+
+Fixes: 769c500dcc1e ("ice: Add advanced power mgmt for WoL")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
-Changes since v1:
-  - Move drm_bridge_unplug() ahead of the work cancellation so a concurrent
-    atomic commit cannot re-arm monitor_work via monitor_start() after the
-    cancel.
-  - Drain from the probe-error path (err_remove_bridge) too, closing a UAF
-    where a spurious IRQ during probe queues reset_work and a later
-    -EPROBE_DEFER frees ctx.
-  - Factor the sequence into sn65dsi83_stop_error_recovery() shared by
-    both paths.
+Reviewed-by: Kohei Enju <kohei@enjuk.jp>
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
+Tested-by: Alexander Nowlin <alexander.nowlin@intel.com>
+Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
 
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-index 42b451432bbb..5f1a96856eac 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-@@ -997,6 +997,18 @@ static irqreturn_t sn65dsi83_irq(int irq, void *data)
- 	return IRQ_HANDLED;
- }
+diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/ethernet/intel/ice/ice_main.c
+index e2fd2dab03e3..d88835482d3a 100644
+--- a/drivers/net/ethernet/intel/ice/ice_main.c
++++ b/drivers/net/ethernet/intel/ice/ice_main.c
+@@ -5637,6 +5637,16 @@ static int ice_resume(struct device *dev)
+ 	/* Restart the service task */
+ 	mod_timer(&pf->serv_tmr, round_jiffies(jiffies + pf->serv_tmr_period));
  
-+static void sn65dsi83_stop_error_recovery(struct sn65dsi83 *ctx)
-+{
-+	/* Block new bridge users and wait for existing critical sections. */
-+	drm_bridge_unplug(&ctx->bridge);
++	/* Best-effort wait for the scheduled reset to finish so that the
++	 * device is operational before returning. Without this, userspace
++	 * (e.g. NetworkManager) may try to open the net device while the
++	 * asynchronous reset is still in progress, hitting -EBUSY.
++	 */
++	ret = ice_wait_for_reset(pf, secs_to_jiffies(10));
++	if (ret)
++		dev_err(dev, "Wait for reset timed out (10s) during resume: %d\n",
++			ret);
 +
-+	if (ctx->irq)
-+		disable_irq(ctx->irq);
-+
-+	cancel_delayed_work_sync(&ctx->monitor_work);
-+	cancel_work_sync(&ctx->reset_work);
-+}
-+
- static int sn65dsi83_probe(struct i2c_client *client)
- {
- 	const struct i2c_device_id *id = i2c_client_get_device_id(client);
-@@ -1061,7 +1073,7 @@ static int sn65dsi83_probe(struct i2c_client *client)
  	return 0;
- 
- err_remove_bridge:
--	drm_bridge_remove(&ctx->bridge);
-+	sn65dsi83_stop_error_recovery(ctx);
- 	return ret;
  }
  
-@@ -1069,6 +1081,6 @@ static void sn65dsi83_remove(struct i2c_client *client)
- {
- 	struct sn65dsi83 *ctx = i2c_get_clientdata(client);
- 
--	drm_bridge_unplug(&ctx->bridge);
-+	sn65dsi83_stop_error_recovery(ctx);
- }
- 
--- 
-2.51.0
 
