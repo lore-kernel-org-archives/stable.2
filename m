@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA51646AA61
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71F446A618
 	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:01:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931310; cv=none; b=pdmbwpicEwoeKSD5auE20PxvJ5bhGczTZpryHEZ0a64eSKbqCvd3kNjsj0Vl/FTPmm+lAHWEMj2txunrOjTuN9xj/pF6v6Mj/54o0ORL+X71vXdekB1+1OThsQqeb0dGy3xOMWv7gaKjkT52mgvoELowa8vZ4k1JT+UPsIypb5k=
+	t=1785931312; cv=none; b=ZcFqdB9/0+s3RNZqCLKsvD5EZ38jNg/QMXeLHyqIPGaOa9cPW+Joghl2FB+npdtJUI15d9grDiyWhJBX6KS/oE94tQNz6eGN5iAbXv0ZG2Grx6EelZ/anCM/FcjDeMZYaBOt9CC4Vn8PTOB6Oczb0D1GbfGo/bYdXLbYiwQ8PEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931310; c=relaxed/simple;
-	bh=2vno/+7zIZv5Rsc4B2AlDD6hw+dE8CdDhcfPQTrI0Do=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=o2D352uylga8Q8O02oY7Rnvsw/5oIa5aEgT3l1wT/+HFIuX431yCYdohEPEm0yvEIfRePm/cr59ADAx4GthBLTlxnPFUDcVx0k94M8+PcKngGTC0ik71F/DRzo2ia9fK9aqid/fIMtdaSng17R5hDGStiM9GEOsBJgCd6NfKINU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YQeN0dMr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785931312; c=relaxed/simple;
+	bh=hgeEJR+kgf1NQx4osUIRg8qnZHJIjmcWvvxDwbLmxVQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PqyTMhcus1p37G+RkkXh3KLSX7LXqLNt62YZjkH9HjiLPjBMEgC4Qh6YUVs8BsVWVO/cCz3B7spvmzox04QMakQUknHKShbBBkHXILIzvL93VOPoGmnF7a9AHdl45davcOQncd/A3ZkoM8khr2JL4nqgTOIFpUm1LiKfPw2o4lA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=B57UnMm/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YQeN0dMr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7658E1F00ACF;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="B57UnMm/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3E5F1F031E3;
 	Wed,  5 Aug 2026 12:01:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
 	s=korg; t=1785931295;
-	bh=hzGUNjXLiPO1yh5MioTETyg2eQRp/+5vU5snKnQBJec=;
+	bh=hwqR1h9PSW7N7yITeG2iw4R4/ZynvD4ILHgepVMwbMU=;
 	h=Subject:To:Cc:From:Date;
-	b=YQeN0dMr9jl6mOnUNoaEVSi3SN9cpNTubCuUesYNK/WzcYPODxLklCw52VclqnpTZ
-	 noUjXKe4Avv5fgufQlKIMnq6V+5wulgJmLWhk3Cv0kZqfUNYoBYvtbHfT3vKP+Ih2k
-	 Xy16e+opBBT46ex3QiYFJPdWBf8SEh9GVILHiVSs=
-Subject: FAILED: patch "[PATCH] drm/amd/pm: fix pptable use-after-free" failed to apply to 6.18-stable tree
+	b=B57UnMm/ygvi9y0w2F09ienSixL2iaobNSszZL1k9Yova9bDf/BVpXYvpMtldFaNy
+	 8bA14tVI6ArBL1lgsoZO9tJZfKhqUzFALtIKJ5ClbnY/jSgSt56qY/kUk/YNTcMlqu
+	 xiofjn4AKLC4120ZEWf3BthkhYSQ0TPHbv13NuyQ=
+Subject: FAILED: patch "[PATCH] drm/amd/pm: fix pptable use-after-free" failed to apply to 5.15-stable tree
 To: kevinyang.wang@amd.com,alexander.deucher@amd.com,kenneth.feng@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 13:59:37 +0200
-Message-ID: <2026080537-truck-divisibly-d15d@gregkh>
+Date: Wed, 05 Aug 2026 13:59:38 +0200
+Message-ID: <2026080538-gizzard-calibrate-8f17@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x bb493058c35c8676e48269ab6732688ea733d23c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080537-truck-divisibly-d15d@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080538-gizzard-calibrate-8f17@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
