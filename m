@@ -1,50 +1,47 @@
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0C43CF692
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 17:42:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D2B3B8BA5
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 17:42:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785951724; cv=none; b=j6U0PpTnXxE5PtMVDcW/KzHpxNC/+iKJ6JMv8lW62rTHp9P4MQ4qwkTcqL6lrAJpr7sa3gdJywHhWyTX4GWl1QavJZ5nULwpPQODvXLF9npJ8j6RzXcc3PjfUR7DZKUCitCPZP/gDwCqR8JDRztUUY5+yNllN/suuHNICkMOI2w=
+	t=1785951752; cv=none; b=c7dQ5KU2+wtRlpkO4WtlfWVdi9TFKzj38+pMQkFNvf4HssFBF1E43iSRCgla7KgcVFQFY2BwVwRxddH5Bv9Mgx7EBf00W1pWrfB//XXPZyNzk78QGAUY0W7G4tB7qCMvp1pd2xinrqw3RyFP2/I2yV/ASHwjik4ppTu9VcHhOCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785951724; c=relaxed/simple;
-	bh=rsg8UipBxGJZ+kYm7G81IwBVHM9i+bwpc9ZYzUJD4ag=;
+	s=arc-20240116; t=1785951752; c=relaxed/simple;
+	bh=HUHqKK3tEWqIlHSSdjMuGR8O49ZGWQ0XpK9KdBsbkP8=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CxcGm23lQ+DLLAzxjGlLtOY/ULCSxUnNs+FIfNHRHepc4B7zMbUjOL8oSYJmypUiLKL4Czhu5qpnP/R5nJMD8fidEkEMOP+bIMLCbI6hz66dxlj2I5Mx/lNmYUXdTjZCKRnuOeS6zT+Vb0KrCnQd4onUoVE1V51O5Guf+ZNpxBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Hvf0u9Qh; arc=none smtp.client-ip=54.243.244.52
+	 MIME-Version; b=ifGaSR612LLQsJbj15ATdEqDPRNTW78KVU95KIXg7tw/HLyLlNyeg2k3PCNv+yAmzUx1oyPXDlEhFGXOfLotsbyHFULjAlsSg1PqCYRi3diEOj5tpK20s8vKm+2+ASU37QJq4abqmg97uaNeTV4ZSU2Fx8YMudZblJhAUljy/74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=ozAI9SgX; arc=none smtp.client-ip=54.206.34.216
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Hvf0u9Qh"
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="ozAI9SgX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1785951687;
-	bh=9iZoB2kumZcpf52NfTQL0hJu3b5vcBsGbTYX+GlOeS8=;
+	s=onoh2408; t=1785951714;
+	bh=GIvESApwO4jMbvkbw91s0TD6yLv/yiWo2jhcEtKILtc=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=Hvf0u9QhR63mE6hLGKPKiWsrRXdfjZumfD5mTi7hM8vp0mh8Aq5e9+HLAgbnOda80
-	 h63/Jyl6dbjP5/7UovlXyONW1FnKBQGguXOUW9ESnBPe8QOuwD3/+GLv1t46scIVkV
-	 paVjMpa3aDM9p6gj+z/4rDlz5vigF7XHObzJKs+k=
-X-QQ-mid: esmtpgz16t1785951682tbe493c4b
-X-QQ-Originating-IP: IZXO80E0c2RS+D9LV/76uOxKXFP3Y887Z2/XfQsgtDo=
+	b=ozAI9SgXsGP53Dq/4PJKysKWqXhQ9XcYqCi6RmF0ekO7VCXRaolpf3PV83Xi8LKwo
+	 joucGc8A3oR53dgvDmi9uG99g1cr74ZFnqb/iLMBgHDndnlKiViKE4+OB5D467+rnG
+	 wjWCzezXXHPejebBxLMNQOONdc2lIge+Xlp3bkr8=
+X-QQ-mid: esmtpgz16t1785951695t88b48db5
+X-QQ-Originating-IP: IJQ4TIPQs62SJsP2sNyLtR81w0KRdg+tKkunBLFjB6U=
 Received: from localhost.localdomain ( [113.57.152.160])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 06 Aug 2026 01:41:10 +0800 (CST)
+	id ; Thu, 06 Aug 2026 01:41:24 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 16443814179195625780
-EX-QQ-RecipientCnt: 9
+X-BIZMAIL-ID: 14316294730529310377
+EX-QQ-RecipientCnt: 6
 From: Wentao Guan <guanwentao@uniontech.com>
 To: sashal@kernel.org
 Cc: stable@vger.kernel.org,
 	gregkh@linuxfoundation.org,
-	Wang Liang <wangliang74@huawei.com>,
 	Chuck Lever <chuck.lever@oracle.com>,
-	Dan Carpenter <dan.carpenter@linaro.org>,
-	Simon Horman <horms@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Wentao Guan <guanwentao@uniontech.com>
-Subject: [PATCH 6.18.y v3 4/8] net/handshake: Fix null-ptr-deref in handshake_complete()
-Date: Thu,  6 Aug 2026 01:39:58 +0800
-Message-Id: <20260805173958.660310-5-guanwentao@uniontech.com>
+Subject: [PATCH 6.18.y v3 5/8] net/handshake: Take a long-lived file reference at submit
+Date: Thu,  6 Aug 2026 01:40:00 +0800
+Message-Id: <20260805173958.660310-6-guanwentao@uniontech.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260805173958.660310-1-guanwentao@uniontech.com>
 References: <20260805173958.660310-1-guanwentao@uniontech.com>
@@ -57,88 +54,204 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MLma/q+g9AdMR+Q876yZMjzprAfw57vH0Itq0GdUVyXJz6sgcT0MVu8y
-	A+2p53sVObGRWSO7YLbHUIgpQ0N5POc/pRUEeeTcyJKBNJml3IvCKebkUvv6pliOGrMiwgc
-	yyUy3bZVLJYz46y9jAbrDrgxFx1n/EW78qkoWD2S+pG3kHprna1vITdiPEHsWK6dbNM2Bqa
-	nvGr9Ie/02IJV+xyUonJQFsRWLSGIy9OyFY94Q/yTlpnWgaNLAuVHUIo43/EaYrcmlXtap8
-	lqWZ44VHCTxPl8xUYeE8dOCPGlowpzmb6GGrzlIIkK8QQu/fib6BBRNYbh1k0HNrp3ceOTr
-	XliC1HxUG+rVZ//TEUswvcTtQ8OjBV9Y1MJzZFpDNuTf+lpNgmBkS8yP/Qx2r9a2gV1kH3S
-	biqcmSkco41fLIjPluAWI75E0Vs0OZT8lOeoK9h3F6ZTUKmLdi/RBp/aV+GO+4wsO19PmbH
-	xT935hvGD1CCE1KYR/e1+Kd7wLH7R6sl9z4w1Zhnd35asa3dk9Chbvj29E6xnYi9fVsMwrb
-	shpIymddpujEpFrrH28gsj7cBOj+EHqZfMwL0lyUMl1iwK9zV7oGDu0U5XvwHZkXQRfILwP
-	Usi8XeObCGvT7TQBFd/9GB3Q5ZS9WNkdT8+5Oz/BxF2awrdE2+FfzmooQvZEOmnhNd/oag+
-	pdpYgoyOE63naod7XG5NC5LRcT9ZmBEkbfZesaLvBxmCNcupq884bYclCIPljHltkv0exUJ
-	vuHakFx85Bf3qqbp1i3K05VjOAjCcxFGpjQ0xJiKUAsYozAQ9845abj9gkSWVThUnjrABZb
-	r7Gpay/wHxaVWWP1mu/i09XQBmI/SLgBwN8Z1UDb5Y/J3wBFxc76NaC162Bng9HlOpidg9z
-	MsZhZXjrwY02y8K/uvgC7JdWoNTcuniPM7ZXqGOqqQXJq/lsA0acJt3rZy1jVvaJsrQskfA
-	LeEQ5Sl2QbiCNBQ3whbAi9+tZEZog+2NARqjzq/wpwEl8pNHeWd6daP4cyElmqxr/bIgKHt
-	9vGJp0VxdviZv5ugs7D6KPJNZ1cYpLnk6hem0V2ychjT3OJQTE5cPN4jnrL2kjS5Vr5SHS5
-	kb6EvM0ngjcBi50rGRzIZiTQU/nPjby8NK9ALI4poyQ0ot6OdX2Fz3/2RVQfOiYErT1uPqS
-	qgATLHyio4/Sg6UUNWgqwalDEA==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-XMAILINFO: MRgdQjHFXWe6M5LikS5sFHJ3/mAi74fArKyHILSFRHWIEj0Fu0XqcmVX
+	HYz5CWC4lEjyE15dk+JakRIgXMtBpiU1cOHlBkuGSh+27SZldsUllBrQWZufNsV+1B6vNK8
+	i0UbnpVILeoGrPeWfRuNy9BvNaYMnVHZhKC5jf4yO70xHyUHFI4BOFM1fCfnbOZp0pxMle2
+	qMRm+HKz2O/7Eq+ZQBCPJ0ARnYk5NYzVKXserdfvllf93lFXioirpeB+1e5M+DLz/a7Coe6
+	aR210TfLv5GiAXxWR5MzjHRq6GW6JAp1y5V1DolX0owkR11jAhQ+fdYkhCmWxPPBHyG7uoe
+	yVvTIabyifUOPrcEymnUO4S7ZYET7HmfNHF+6FxSgND894pTx6FN5cD9Gac/NEHxtA7AZRV
+	baJGZpZCRj6EulMwaJoTFTyaJgQffMjXHr80XoefxcovG2OgRzFPwYMBT/qtQTThf9XFqxd
+	XU8XgmM3LvxMLodOAA2/AKs8NPiaplFvfSxXxZoZMiVz5zbK+r2eoaUOVsfraLQrXt3w4I3
+	ADwemrfqAXE4getAKYteTsbRguUdDvYYm8I0F57odp+F1Owi8KJckEv91ZIVCKHAkNXa9le
+	fEhCohJxmIMcoE4g/1+97aK3RHKYBouYeLeni8JY0BF6bOXGPZgQySYtr1dp29Y1nwEAYhV
+	OV4+89BuS3wnZURxMa/BxACyp3z11SPP9FSTv4a34WPQ0bZQraVVFP5F879fTl/w+tl2ppM
+	+tRgaH+h9ONjaJOVpVqXjNyeogcy7Cs3RExkRXrMIJUqJ7KatwbF0UMG8tdWBY72ox0CNxn
+	WCV+RmKZUFzptCJgb3UH9DSLSm81vvn0/JJDOFbXH6sh1ErEsBnym/dqG+Mngl3l7pdQnU4
+	s16YKFK5rjYQXKJA6Uxa74usu3IP8ho8cslJ5FB2m4fndE9zm1a3T2ILzmt/z656nwNfupN
+	BZwmVoaC4pqzGJlCi2jVxk+Vo396x98NmBCYc55M5EOXxcBHYMUt/D3pZNGuufyFNW+pt/b
+	vRYfhgulQl0HlsItyUoBVuEwrBq+NHYVk7zpVACes3wcbNd/WASh39Khe7IbIwoxOectMD0
+	sF7xTZRGtW82CDUzHrBE2Gv4r24NEItRhs78A76pDaFlgpTyW7OO2HN3C0297ESd1r92EhC
+	izbhSl8ZCIT4dpUNkQD+5ndkGyQSt6eiw825k0y1X0a9BrEr0KSX9fuGO6FkAAvDHioQ
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
 X-QQ-RECHKSPAM: 0
 
-From: Wang Liang <wangliang74@huawei.com>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-A null pointer dereference in handshake_complete() was observed [1].
+handshake_nl_accept_doit() needs the file pointer backing
+req->hr_sk->sk_socket to survive the window between
+handshake_req_next() and the subsequent FD_PREPARE() and get_file().
+The submit-side sock_hold() does not provide that.  sk_refcnt keeps
+struct sock alive, but struct socket is owned by sock->file: when
+the consumer fputs the last file reference, sock_release() tears
+the socket down regardless of any sock_hold.
 
-When handshake_req_next() return NULL in handshake_nl_accept_doit(),
-function handshake_complete() will be called unexpectedly which triggers
-this crash. Fix it by goto out_status when req is NULL.
+Add an hr_file pointer to struct handshake_req and acquire an
+explicit reference on sock->file during handshake_req_submit().
+handshake_complete() and handshake_req_cancel() release the
+reference on the completion-bit-winning path.
 
-[1]
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000005: 0000 [#1] SMP KASAN PTI
-RIP: 0010:handshake_complete+0x36/0x2b0 net/handshake/request.c:288
-Call Trace:
- <TASK>
- handshake_nl_accept_doit+0x32d/0x7e0 net/handshake/netlink.c:129
- genl_family_rcv_msg_doit+0x204/0x300 net/netlink/genetlink.c:1115
- genl_family_rcv_msg+0x436/0x670 net/netlink/genetlink.c:1195
- genl_rcv_msg+0xcc/0x170 net/netlink/genetlink.c:1210
- netlink_rcv_skb+0x14c/0x430 net/netlink/af_netlink.c:2550
- genl_rcv+0x2d/0x40 net/netlink/genetlink.c:1219
- netlink_unicast_kernel net/netlink/af_netlink.c:1318 [inline]
- netlink_unicast+0x878/0xb20 net/netlink/af_netlink.c:1344
- netlink_sendmsg+0x897/0xd70 net/netlink/af_netlink.c:1894
- sock_sendmsg_nosec net/socket.c:727 [inline]
- __sock_sendmsg net/socket.c:742 [inline]
- ____sys_sendmsg+0xa39/0xbf0 net/socket.c:2592
- ___sys_sendmsg+0x121/0x1c0 net/socket.c:2646
- __sys_sendmsg+0x155/0x200 net/socket.c:2678
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x5f/0x350 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x76/0x7e
- </TASK>
+The submit error path must also release the file reference, but
+after rhashtable insertion a concurrent handshake_req_cancel() can
+discover the request and race the error path.  Gate the error-path
+cleanup -- sk_destruct restoration, fput, and request destruction
+-- with test_and_set_bit(HANDSHAKE_F_REQ_COMPLETED), the same
+serialization handshake_complete() and handshake_req_cancel()
+already use.  When cancel has already claimed ownership, the submit
+error path returns without touching the request; socket teardown
+handles final destruction.
 
-Fixes: fe67b063f687 ("net/handshake: convert handshake_nl_accept_doit() to FD_PREPARE()")
-Reviewed-by: Chuck Lever <chuck.lever@oracle.com>
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-Closes: https://lore.kernel.org/kernel-tls-handshake/aScekpuOYHRM9uOd@morisot.1015granger.net/T/#m7cfa5c11efc626d77622b2981591197a2acdd65e
-Signed-off-by: Wang Liang <wangliang74@huawei.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20251212012723.4111831-1-wangliang74@huawei.com
+The accept-side dereferences are not yet retargeted; that change
+comes in the next patch.
+
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Link: https://patch.msgid.link/20260525-handshake-file-pin-v3-4-66c616906ead@oracle.com
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-
-(cherry picked from commit dabac51b8102e1643d8e297a8e6948dab190aa4c)
+(cherry picked from commit 09dba37eee70d0596e26645015f1aa95a9848e9d)
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- net/handshake/netlink.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ net/handshake/handshake.h |  2 ++
+ net/handshake/netlink.c   |  6 ------
+ net/handshake/request.c   | 42 ++++++++++++++++++++++++++++++++-------
+ 3 files changed, 37 insertions(+), 13 deletions(-)
 
+diff --git a/net/handshake/handshake.h b/net/handshake/handshake.h
+index 2289b0e274f40..da61cadd1ad3e 100644
+--- a/net/handshake/handshake.h
++++ b/net/handshake/handshake.h
+@@ -24,6 +24,7 @@ enum hn_flags_bits {
+ 	HANDSHAKE_F_NET_DRAINING,
+ };
+ 
++struct file;
+ struct handshake_proto;
+ 
+ /* One handshake request */
+@@ -32,6 +33,7 @@ struct handshake_req {
+ 	struct rhash_head		hr_rhash;
+ 	unsigned long			hr_flags;
+ 	const struct handshake_proto	*hr_proto;
++	struct file			*hr_file;
+ 	struct sock			*hr_sk;
+ 	void				(*hr_odestruct)(struct sock *sk);
+ 
 diff --git a/net/handshake/netlink.c b/net/handshake/netlink.c
-index 7b1d42607ae68..039344979de93 100644
+index 039344979de93..1a5821eb71847 100644
 --- a/net/handshake/netlink.c
 +++ b/net/handshake/netlink.c
-@@ -126,7 +126,8 @@ int handshake_nl_accept_doit(struct sk_buff *skb, struct genl_info *info)
+@@ -210,12 +210,6 @@ static void __net_exit handshake_net_exit(struct net *net)
+ 	while (!list_empty(&requests)) {
+ 		req = list_first_entry(&requests, struct handshake_req, hr_list);
+ 		list_del(&req->hr_list);
+-
+-		/*
+-		 * Requests on this list have not yet been
+-		 * accepted, so they do not have an fd to put.
+-		 */
+-
+ 		handshake_complete(req, -ETIMEDOUT, NULL);
+ 	}
+ }
+diff --git a/net/handshake/request.c b/net/handshake/request.c
+index 62efb7e32730e..35bc6290e1203 100644
+--- a/net/handshake/request.c
++++ b/net/handshake/request.c
+@@ -13,6 +13,7 @@
+ #include <linux/module.h>
+ #include <linux/skbuff.h>
+ #include <linux/inet.h>
++#include <linux/file.h>
+ #include <linux/rhashtable.h>
+ 
+ #include <net/sock.h>
+@@ -215,9 +216,16 @@ EXPORT_SYMBOL_IF_KUNIT(handshake_req_next);
+  * A zero return value from handshake_req_submit() means that
+  * exactly one subsequent completion callback is guaranteed.
+  *
+- * A negative return value from handshake_req_submit() means that
+- * no completion callback will be done and that @req has been
+- * destroyed.
++ * A negative return value from handshake_req_submit() guarantees that
++ * no completion callback will occur and that @req is no longer owned by
++ * the caller. If cancellation wins the completion race after the request
++ * has been published, final destruction is deferred until socket teardown.
++ *
++ * The caller must hold a reference on @sock->file for the duration
++ * of this call. Once the request is published to the accept side, a
++ * concurrent completion or cancellation may release the request's pin on
++ * @sock->file; the caller's reference is what keeps @sock->sk valid until
++ * handshake_req_submit() returns.
+  */
+ int handshake_req_submit(struct socket *sock, struct handshake_req *req,
+ 			 gfp_t flags)
+@@ -236,6 +244,14 @@ int handshake_req_submit(struct socket *sock, struct handshake_req *req,
+ 		kfree(req);
+ 		return -EINVAL;
+ 	}
++
++	/*
++	 * Pin sock->file for the lifetime of the request so the
++	 * accept side does not race a consumer that releases the
++	 * socket while a handshake is pending.
++	 */
++	req->hr_file = get_file(sock->file);
++
+ 	req->hr_odestruct = req->hr_sk->sk_destruct;
+ 	req->hr_sk->sk_destruct = handshake_sk_destruct;
+ 
+@@ -267,7 +283,11 @@ int handshake_req_submit(struct socket *sock, struct handshake_req *req,
+ 			goto out_err;
  	}
  
- out_complete:
--	handshake_complete(req, -EIO, NULL);
-+	if (req)
-+		handshake_complete(req, -EIO, NULL);
- out_status:
- 	trace_handshake_cmd_accept_err(net, req, NULL, err);
- 	return err;
+-	/* Prevent socket release while a handshake request is pending */
++	/*
++	 * Pin struct sock so sk_destruct does not run until the
++	 * handshake completion path releases it; struct socket is
++	 * held separately via hr_file above.
++	 */
+ 	sock_hold(req->hr_sk);
+ 
+ 	trace_handshake_submit(net, req, req->hr_sk);
+@@ -276,10 +296,13 @@ int handshake_req_submit(struct socket *sock, struct handshake_req *req,
+ out_unlock:
+ 	spin_unlock_bh(&hn->hn_lock);
+ out_err:
+-	/* Restore original destructor so socket teardown still runs on failure */
+-	req->hr_sk->sk_destruct = req->hr_odestruct;
+ 	trace_handshake_submit_err(net, req, req->hr_sk, ret);
+-	handshake_req_destroy(req);
++	if (!test_and_set_bit(HANDSHAKE_F_REQ_COMPLETED, &req->hr_flags)) {
++		/* Restore original destructor so socket teardown still runs. */
++		req->hr_sk->sk_destruct = req->hr_odestruct;
++		fput(req->hr_file);
++		handshake_req_destroy(req);
++	}
+ 	return ret;
+ }
+ EXPORT_SYMBOL(handshake_req_submit);
+@@ -291,11 +314,15 @@ void handshake_complete(struct handshake_req *req, int status,
+ 	struct net *net = sock_net(sk);
+ 
+ 	if (!test_and_set_bit(HANDSHAKE_F_REQ_COMPLETED, &req->hr_flags)) {
++		struct file *file = req->hr_file;
++
+ 		trace_handshake_complete(net, req, sk, status);
+ 		req->hr_proto->hp_done(req, status, info);
+ 
+ 		/* Handshake request is no longer pending */
+ 		sock_put(sk);
++
++		fput(file);
+ 	}
+ }
+ EXPORT_SYMBOL_IF_KUNIT(handshake_complete);
+@@ -344,6 +371,7 @@ bool handshake_req_cancel(struct sock *sk)
+ 
+ 	/* Handshake request is no longer pending */
+ 	sock_put(sk);
++	fput(req->hr_file);
+ 	return true;
+ }
+ EXPORT_SYMBOL(handshake_req_cancel);
 -- 
 2.30.2
 
