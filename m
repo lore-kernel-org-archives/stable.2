@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B658E3F86E2
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:38:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321682F8E9F
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:38:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785922699; cv=none; b=ubtlbBnnLvyRZJn1Vj75dUealV0p7XAySrcyBz5riHUedZLfhnJlNMZb4sFwIT7rODL19U2qEjMS+r8itBOySBtfFnrgPFyNcqqfJ/BwiE05DpfH/ZvTpldfTkpijSCpq0Xa5uwxlh5L1W7IB/WklMkWQVy64VvkN1JrwIfzwBI=
+	t=1785922707; cv=none; b=YyV/EscJbN8xr7OrmLdIHzbfjG+afYZwub6kzbDt4oPfgrJWcdFTj5Iq2iA7hWxnSax2PLrcEkSJlIU0xSof4EewCUs/IWNVnzqSCWcHzHBq1ujBmbjNVlp2uz+MJAdLkjjbttUr6MIWT0EyAUyyEA6w//IiucNeVmEp4KMad2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785922699; c=relaxed/simple;
-	bh=L+k2MfCRx5IfNdI8LSlCHs3+Xgbfnz315AnHLq3ur2g=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jGEuLPG7P7X2bzrTcoqy3ADL4cWSVjGB+5aqwGlScJsvpNNpo+AYljXeNtjiLrdHszinic7zFFWdMdOCH4X/uYX62OXhp+YvlECDkqYai73ThDYORv+uvRlUOULD/e5IUC+qZV88EvZMc72ZdgsB7Nt21UU/+epjBFvZ4+RNdjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=B3cOIzWV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785922707; c=relaxed/simple;
+	bh=0N/jA+ED8OMHHhigUrwnZ2h3+sc1fMs7P/0Jja/Ktsk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DqBY9gcFKy6lhPukoLilHEBMd2kNjYlXG1VeQIBg9rXDJFxkMrQpVfN8Pi2+8xgi7oVOSeZ9ExxGz4KPgvBHtfu0S0eMXQnHM3LX+7mBXStxOQsa+rkOIjTMobfQ+1cb8s4UkE5TCnxTYD2miQ6tZZUXwg2nChciBOOZx83lRqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iPb2qerl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="B3cOIzWV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 088F71F000E9;
-	Wed,  5 Aug 2026 09:38:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iPb2qerl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89A221F000E9;
+	Wed,  5 Aug 2026 09:38:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785922697;
-	bh=klXRd+A6INvUESUZkpgisqU5v58HGyrBeNWeddvSwTk=;
+	s=korg; t=1785922706;
+	bh=9hTFtK3n22/jm3MZ7StfnEgHtVR0sXqz5gUJIWXr+Nw=;
 	h=Subject:To:Cc:From:Date;
-	b=B3cOIzWV37bJjWG8Ap1Ty+W/BJuvkTsJsfPdh/5LJxWvo8So6ICdLqMciY0fWGWB8
-	 W4TrJOJ0UsokN9XSU9/hmV93t9q/JKa1tyyLrYI3yP0djUZZ8v4TNsPAR3eLjRHlmN
-	 UFKl4Ofy4cgPzbmUUmmPyOUd0/BmjQhgaal2fW/0=
-Subject: FAILED: patch "[PATCH] Bluetooth: hci_sync: Fix advertising data UAFs" failed to apply to 6.6-stable tree
+	b=iPb2qerlmWrHGvC16wiq9WQgQV0OpdiptOdKFRtvXYku7MBDL3+55RMBQwxIHQp2f
+	 gvnGv6f1zc5d5qDcjty3FMZtDLYKaB28hqpsblz0kyHShVRz+KdyDZaMCiG35R+2xU
+	 r2OAVYpzouqclkLTzdZcVwEy9DriIjJGdwmwxQLo=
+Subject: FAILED: patch "[PATCH] Bluetooth: hci_sync: Fix advertising data UAFs" failed to apply to 5.15-stable tree
 To: nicoyip.dev@gmail.com,luiz.dentz@gmail.com,luiz.von.dentz@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 11:38:00 +0200
-Message-ID: <2026080500-repeater-crust-fca2@gregkh>
+Date: Wed, 05 Aug 2026 11:38:01 +0200
+Message-ID: <2026080501-evacuate-collapse-c472@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x cdc36db204ffd97b947d64374cf23a210dc74777
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080500-repeater-crust-fca2@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080501-evacuate-collapse-c472@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
