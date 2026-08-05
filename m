@@ -1,294 +1,213 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DC1A446EC94
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 13:02:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785934941; cv=none; b=nNHj7Bt4TSt0Gbq0PU6muHA4+1aRFWO17jar2xW5axUzjK+WyCYzoCL3SPXI5hkihAC3Ep6zrbaNdkrOtmkHa5SDpVJZeATJPfpfZA/2Mi8b7ytFCFSuONf6LWdPEg/3ijeARiPUnkwyGE1CpWph0UJkWBljzL/wqiWVExKFZTc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785934941; c=relaxed/simple;
-	bh=JHrJLJsurOFTQ3bBMaq34RC8HheLTkhL1B4VZQQjVGM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F78A3lse/iDy72LqbEUC7fVP0nmVjCgXBCx172ickSmIvABE3/pGs4dx6GsETF160FKX4N20cV+MWmYaylAOdAWGsWpCj992+e3gjb+HXBJ4FiT5dxxW8drPE0S68UrnxK3w44r8xbvUH18QCBKQ8u112Uor3mgbioVdCM0oZcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=H+TKGHtm; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010021.outbound.protection.outlook.com [52.101.56.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A68350A0F;
+	Wed,  5 Aug 2026 13:17:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785935830; cv=fail; b=YzyClWuC85/r8ufd8TMO9BGnm8FBA+I74JwtLMUAxOYXV+DpXmYDujYbMvxNyBqylZ7mSWE8w1jzeAsEKqgwoMSFCi6knOOCwyrN+HdUd1pxasNZTAHxaul1qEU5mkAZ8rC+vnk44wxwAUb+S8sdr2d/y8bJdMJbqdVQOG3LiRY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785935830; c=relaxed/simple;
+	bh=VBhEd/H1JPLsRojqcA9mL01K4VwulzuI0ZycQ/wlm1U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=JMnCygXGX3dlo1qAFnaXgEWFigF/CKvWBboEXTaH1V6LBBuWciK00xMRdTXEd+hkWEAayLe9TzBbmXGdLB4FliD3xgP+o9LBQakdsXnCmnzHo2lyDkg+y/5lr2es7tz6MsaktOawFEwAXNKbv/jS7ceoLOm8/NDFdC9ANDfNtck=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=avxu+1Gw; arc=fail smtp.client-ip=52.101.56.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="H+TKGHtm"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C4E7A143D;
-	Wed,  5 Aug 2026 06:02:11 -0700 (PDT)
-Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5A72A3F632;
-	Wed,  5 Aug 2026 06:02:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1785934935; bh=JHrJLJsurOFTQ3bBMaq34RC8HheLTkhL1B4VZQQjVGM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=H+TKGHtmbXFbI/COjQw2c0m/qoI+oTvx71DCcAgStqzXQ5/hu3zz+AcC4gClmR0pR
-	 azuGdxXkHVOenaVihzhqRyl4ZdMa+xUZcXlCFZwfqxo5tEOP6fWp5culbufbXbmOo1
-	 VGqP9Z/jXNeMueZxl22H2fqzTDUaYI6HyxWbBNXA=
-Date: Wed, 5 Aug 2026 14:02:03 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, ada.coupriediaz@arm.com,
-	ardb@kernel.org, catalin.marinas@arm.com, cl@gentwo.org,
-	david@kernel.org, james.morse@arm.com, ljs@kernel.org,
-	maz@kernel.org, peterz@infradead.org, ruanjinjie@huawei.com,
-	ryan.roberts@arm.com, stable@vger.kernel.org,
-	vladimir.murzin@arm.com, will@kernel.org,
-	yang@os.amperecomputing.com
-Subject: Re: [PATCH v2 02/20] arm64: percpu: Fix this_cpu_and() mask
- generation
-Message-ID: <anM0S1jVmwO0mqEt@J2N7QTR9R3>
-References: <20260804170503.3513916-1-mark.rutland@arm.com>
- <20260804170503.3513916-3-mark.rutland@arm.com>
- <20260805101416.454a49b6@pumpkin>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="avxu+1Gw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FBsWEEPuiIoD2urv8cxMANTzlsBHgqflnv+b1PwUedgHol5ObHcRf1USlEwMPFlIbYLHpCCaRgdClQc51FR1jjhniTI72EfVTvmkfGcU50TIIiBzH7SyQn5pw+d/IIX2ibzqNJVQlrYGJDhYW3+jfluekCuvxW8XmGOCKAxdCIYL6Qex5naY/mkCXw3q9uK3rbHVkTbVw433VEK4AjJmcbL4eLaMm7cRgLwzzUE8PIJVxGOnfvMx8NtCuhIALcZKfj5cTobxmWI/kSnJx6N2IHCYnSX8pvnihH40+6yo61KR9/cuHjn3idJSvURtqJCfq+a49GolN1uLm0KXx2y//g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FRuPR/icjDA4o2JD/uphhLzqlAzZ8xh7YgCnEye3Az8=;
+ b=N3rUAS2NYon9EPT2QjIoOWz5jPK7a6RcVao2RwbiBEHw2ReBkJB2+CHWTxCLNPVLITBgmKQgWQlldpNCVXwWqClMcqy2rBSsfY1G63vmtGiSKC0jRI5yYHCREnOrI5kOH9fT6Uuf9VqRZfm9+7yi0npJcMPIaWMLQAmRRtTwbyhnHzSJBGlng1f58at2RBAzIZwzUBz5Lj1AMit0WLFlmyPfZDSo4kItpvfzVzC30ZPpIwfGFq/twzbUk7Ek+4jOs+Mg3zNCrl3n+MpEzTlJtMZhqUZ2c6znj5eZZBoQNI08qVxPa39cMZtAp9e5b++zI92nYVotmaKBtQppdTi2Mg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FRuPR/icjDA4o2JD/uphhLzqlAzZ8xh7YgCnEye3Az8=;
+ b=avxu+1GwuG0ZqQB18UuMuND9Nj8OlfvzVG7hgk5Kfq8TPiDVeJ3tf1tQOBu0d5+L/uvjm4abgozmLu4zHerJG4pJNy4ulXWrsbt1pfhqgOesShHoE1PdJHAl7+CrfgznaeNGajwYBydw+Wn6J6Xa7SkauQebSWdhzwzziwfICyZJpWVOZeCVSandjLzUVBz6ry5BBnH8eSe0n+qPTDO+KMe2dvMlBBezrwP0IrQa0sIrR2MWfeEPTWgMxhUhWSHVO3XVGIaZesHQabhDGl1D+RJqxgOSezj4DK2RQZ1nmkTTI6yuCONwDSkGWa4krMBLAJd25dKoOD+ApvlDsLuOPw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB7901.namprd12.prod.outlook.com (2603:10b6:806:306::12)
+ by LV5PR12MB9753.namprd12.prod.outlook.com (2603:10b6:408:2b6::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
+ 2026 13:17:04 +0000
+Received: from SA3PR12MB7901.namprd12.prod.outlook.com
+ ([fe80::6f7f:5844:f0f7:acc2]) by SA3PR12MB7901.namprd12.prod.outlook.com
+ ([fe80::6f7f:5844:f0f7:acc2%5]) with mapi id 15.21.0292.018; Wed, 5 Aug 2026
+ 13:17:04 +0000
+Date: Wed, 5 Aug 2026 16:16:54 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: David Lee <david.lee@trailofbits.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, Kyle Zeng <kylebot@openai.com>,
+	Dominik 'Disconnect3d' Czarnota <dominik.czarnota@trailofbits.com>,
+	Sven Eckelmann <sven@narfation.org>,
+	Petr Machata <petrm@nvidia.com>, Amit Cohen <amcohen@nvidia.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] vxlan: keep the last remote linked during FDB
+ flush
+Message-ID: <20260805131654.GA1489442@shredder>
+References: <20260804060958.711335-1-david.lee@trailofbits.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260804060958.711335-1-david.lee@trailofbits.com>
+X-ClientProxiedBy: FR3P281CA0076.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1f::14) To SA3PR12MB7901.namprd12.prod.outlook.com
+ (2603:10b6:806:306::12)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260805101416.454a49b6@pumpkin>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB7901:EE_|LV5PR12MB9753:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2bf50b97-cd34-4a6f-c60e-08def2f3d7a3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|22082099003|18002099003|11063799006|56012099006|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	Ecp5x7Avv2vmUJBzulxE67WcpKGi/kkEL48oGfuAdpNqf0Q+6GMA9s44zTbYOpHBOIjROS07S6CIuo7cfLqMl1na1qV3p4Ywu4vnxFYKaB8lKcOL5QFx84dPKj8XaPhLrRiJZf5iaePL4j1IQ5cy3Bp18KKlGhEsZ8r50qvN1xVnifYiKEE1ZsDD7HMDlb/qs45zPv16jLje2wucT5Yj5wdYRlt0ar2+sMz4dSVvaYgwI46aizSnVUqOgKadKuAHu5I0n6PiUtNrEzFSsDKBv/Xxu67nGOQNKP+DgkEFfF4gugiA/366CAW9yVcvFvjANsKOc8JWYqRtJVsrP/exP5jkWTZY2H7VKMJiNjKHN0axnmnTQfHs1DUYcQwHZ3ZbmQiyInlhCYmlNZ24v6UulY+mbsjitqCJzzKIZys536RRKEzo8f1tbd2duuAJMCvLZiGK6EhmdTENeoicTdDzbwxC4e++8/NZ7nHR62a+fdD4JFvffoPWLkMVqE9vM8DwGpZ7I5c6JGqFgfeF56Nib9LsDZ+qY4z7iOolE9mSm5DEi6Ri676CIC5FL1lxaapdUYzutWL4feeo7f465LV4NjG3jh6qBNb9lchqvhrtLp72YMvzmvV5/XsaBy4CorfGSGUbZEwSB0/KavWU9VQGcnNdhDbUq5rhnIX8fGZi7wQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR12MB7901.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?kDkpeqbCWG0NK2aOZcLFsZz4e1vhcfRHQ5aUKiVyf2mFhtn1MovmZRU7uDoX?=
+ =?us-ascii?Q?nrPhnSPxmhY2q5g8Vcu9Z+EtQE8tkKnODKQCJH7dUn/3igZJVU2HqxB+x5Pd?=
+ =?us-ascii?Q?TyomPdiSaXFailXcZIOgrTY7iF5NI4mSg/R2Xc3R+3NSVzgez6b/du8hGgLu?=
+ =?us-ascii?Q?EePS/CatlbOP8u/v1jBau2QCI+o/23SQhhmRwTKPc4NcX/qa8hZe+tOcS1gL?=
+ =?us-ascii?Q?7R+sWYTzR6/AVOyf/foidnsCVPvLjIq4MT0ci1PHEe2dhg1PzpVl49y87gIz?=
+ =?us-ascii?Q?mWeX955VhERWR+gkwnYbSOMziMtZD4osDzV03glMKh0VcnhnSmtIJl53S6Qx?=
+ =?us-ascii?Q?dzBo4RNe4EoXc5J3Fw1bUymGyG8FhZ78+foc12oT4CY/+3Y0ja8NoFvhaVn1?=
+ =?us-ascii?Q?488tO1Ucs6svTD+aQIt88NC07DJ5V3L8NG46ScJ4AGN80d4y7RdRX548xW2U?=
+ =?us-ascii?Q?juM/yqy4SKIfY/Pw02xv2Oe5pP0W9/qRNv5qrSJPaiJGF2kKPJZhBZnJsqwp?=
+ =?us-ascii?Q?v++ffLvuieyf/363zf8DTJS0oEY5+LxL1Br3gTDt/B+kT9oFvaxNckAUuMIt?=
+ =?us-ascii?Q?yuH60hTgu7D/E0PL0xFjR6M2y+yQlNfPvB8HH+UoA20PSmKWmIXZv7fIf+E1?=
+ =?us-ascii?Q?UixnAXdlz8LGk5hIQHwnZc9MxKCA+Od6C1zUFRkXeVR0wpvFjyj9RcMmraUo?=
+ =?us-ascii?Q?Fsfdt9GQdQ0dWdYG6ypjFFKvFrMhX+GOjUC6PqUQs17d//I9LE6EL8F038PQ?=
+ =?us-ascii?Q?uli19OtLUWzLfKuxy8hfHhmRt17PtYIan029DKngjAoQSVS6GGSfpknn1OEx?=
+ =?us-ascii?Q?15FNZ45Q2zNb+XHeKwbtNkV9lCr8y6PERxxcirFACC1sTSt6/DQUlwDO/Wj1?=
+ =?us-ascii?Q?+KbuWMLMOtGL96zgH9QX2SvabVv369XL2MenPPsu3BgNDUyJYcHfd3+onyta?=
+ =?us-ascii?Q?8DUWbn4MFXybh/RtobHHbkUG9xFMwtd893vAZpaXqV5gFC0bcrHiUWg/ANqm?=
+ =?us-ascii?Q?Ca06bl0Kp8cCMgr0FJEwJwpqdSL8IhcYnS9K9rcO7TwWHYL0P6Qi8afhf/G3?=
+ =?us-ascii?Q?EvqI1B2Hoe7PtP0hrgTc2d9ZjwKiDYwwquUUTyHmuHnI4d7MyRlb8Kpmnt95?=
+ =?us-ascii?Q?i2ozmI8u405AvF4uP8XoY4NMG8k+HTFX5z06IZ7KF6T6UWOWDiFpxWO3c5m5?=
+ =?us-ascii?Q?Td2yK+jcLshdKexqoYh/uACVVXYTcmzLSV4QTr5w5rxJFMkVzZ0ulzMeFopt?=
+ =?us-ascii?Q?T5fygBKLgpk+mJGX33hiGHlJDoEkjlR9DpYlw6LO8fDMlGDUMpp4CmvQ4/NQ?=
+ =?us-ascii?Q?D/mQB8Dyfntyu8K9lE0sAvYi/AsvogcgtvXy6PRsMg7C9vzbKa1oTE+q2EJW?=
+ =?us-ascii?Q?CxNjrpkOu8cQCszTgG3XK/4o3RHkLkONEjopEWPV7rtZsRXGN7Nxta2npGn4?=
+ =?us-ascii?Q?Px5UoYPILyHQ1jfLu7qcej2WIDGnpl7QW+UhvWuQbw1d4IF3Yw5h4wjbUWz8?=
+ =?us-ascii?Q?BfbSHH21RGZMcsuddVTM4av4W8HrNnQudef2j7zwDDwI8TAoAHLegJQIay/Y?=
+ =?us-ascii?Q?sndJd80rPc789BXifnntNOUGwnjEtO4Uk21Z39Zf92K5T6spSdJDSnvA65i0?=
+ =?us-ascii?Q?6gHRmMs4Fag4X+5223Tht/qrOuQSXyX0lEFE7zAduDdPzkDpBHgw3G8qYA6F?=
+ =?us-ascii?Q?RNYPQHREOGYTDoh3HbdAtdl4ehnaNb1nv2Qm9qsVAuVw4crZLrd0Z7Z7tv0w?=
+ =?us-ascii?Q?USPI2DTl9A=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2bf50b97-cd34-4a6f-c60e-08def2f3d7a3
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB7901.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 13:17:04.4612
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: z90GvH90n+ARobj9e30U19hhoAT9Gm4WJmk9EGfiWJUBvxSGG0FioYfY3pztJCdX+588B2nwzKYlU9FM7g/HgQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9753
 
-On Wed, Aug 05, 2026 at 10:14:16AM +0100, David Laight wrote:
-> On Tue,  4 Aug 2026 18:04:45 +0100
-> Mark Rutland <mark.rutland@arm.com> wrote:
+On Tue, Aug 04, 2026 at 06:09:58AM +0000, David Lee wrote:
+> From: Kyle Zeng <kylebot@openai.com>
 > 
-> > The arm64 implementation of this_cpu_and(pcp, val) is built in terms of
-> > ANDNOT operations, which requires the 'val' argument to be bitwise
-> > negated. The bitwise negation is not implemented correctly, with two
-> > bugs described below.
-> > 
-> > (1) The bitwise negation is performed as '~val' rather than '~(val)'.
-> >     This won't always generate the expected value when 'val' is an
-> >     expression.
-> > 
-> >     For example, for this_cpu_and(pcp, 1 - 1):
-> > 
-> >     * 'val'    is  '1 - 1'   ===> (int) 0x00000000
-> >     * '~val'   is '~1 - 1'   ===> (int) 0xfffffffd
-> >     * '~(val)' is '~(1 - 1)' ===> (int) 0xffffffff
-> > 
-> >     ... and thus bit[1] of 'pcp' would be preserved unexpectedly by the
-> >     ANDNOT operation.
-> > 
-> > (2) The bitwise negation is performed on 'val' before it has been cast
-> >     to (at least) the width of 'pcp'. This won't always generate the
-> >     expected value for the upper bits.
-> > 
-> >     For example, for this_cpu_and(pcp, zero), where 'pcp' is a u64 and
-> >     'zero' is a u32:
-> > 
-> >     * 'zero'           ===> (u32) 0x00000000
-> >     * '~(zero)'        ===> (u32) 0xffffffff
-> >     * '(u64)~(zero)'   ===> (u64) 0x00000000ffffffff
-> >     * '~((u64)(zero))' ===> (u64) 0xffffffffffffffff
-> > 
-> >     ... and thus bits[63:32] of 'pcp' would be preserved unexpectedly by
-> >     the ANDNOT operation.
-> > 
-> > Fix these issues by adding brackets around 'val', and by casting 'val'
-> > to an appropriately-sized type before bitwise negation.
-
-> > diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
-> > index 63bbfd4944a37..31193bcf89a2b 100644
-> > --- a/arch/arm64/include/asm/percpu.h
-> > +++ b/arch/arm64/include/asm/percpu.h
-> > @@ -206,13 +206,13 @@ PERCPU_RET_OP(add, add, ldadd)
-> >  	_pcp_protect_return(__percpu_add_return_case_64, pcp, val)
-> >  
-> >  #define this_cpu_and_1(pcp, val)	\
-> > -	_pcp_protect(__percpu_andnot_case_8, pcp, ~val)
-> > +	_pcp_protect(__percpu_andnot_case_8, pcp, ~(u8)(val))
-> >  #define this_cpu_and_2(pcp, val)	\
-> > -	_pcp_protect(__percpu_andnot_case_16, pcp, ~val)
-> > +	_pcp_protect(__percpu_andnot_case_16, pcp, ~(u16)(val))
+> A non-nexthop FDB entry is expected to have at least one remote while it
+> remains reachable through the FDB hash table. A filtered bulk flush
+> violates this invariant when every remote matches: It unlinks the last
+> remote in vxlan_fdb_dst_destroy() and only afterwards tells vxlan_flush()
+> to destroy the parent FDB entry.
 > 
-> I don't think the (u8) or (u16) casts are needed.
-
-They're not strictly needed, but I added them for consistency with the
-other cases.
-
-> They force the high 24/16 bits to be ones, but the asm should
-> ignore those bits (or possible even prefer they be zeros).
-
-For 'sz' bits, the asm for this op only cares about val[sz-1:0], and
-val[63:sz] is immaterial. There's no preference.
-
-> They might also force the compiler to emit code to mask the high bits.
-
-If __percpu_andnot_case_##sz() gets outlined, sure. When
-__percpu_andnot_case_##sz() is inlined (which we expect in almost all cases
-today), the compiler has visibility that bits [63:sz] are unused, and won't
-generate redundant code.
-
-That's a minor redundancy, not a functional issue. If we're worried about that,
-we can have __percpu_andnot_case_##sz() take its argument as a u##sz (which TBH
-we probably should anyway).
-
-For example, see the code generated for:
-
-| void this_cpu_and_u8__0xf0(u8 __percpu *p) 
-| {
-|         this_cpu_and(*p, 0xf0);
-| }
-
-At this point in the series, GCC 15.2.0 generates:
-
-| <this_cpu_and_u8__0xf0>:
-|        paciasp
-|        stp     x29, x30, [sp, #-16]!
-|        mrs     x1, sp_el0
-|        mov     x29, sp
-|        ldr     w2, [x1, #8]
-|        add     w2, w2, #0x1
-|        str     w2, [x1, #8]
-|        mov     w3, #0xf       // <------ Low 8 bits only!
-|        mrs     x2, tpidr_el1
-|        add     x0, x0, x2
-| 1:     ldxrb   w5, [x0]
-|        bic     w5, w5, w3
-|        stxrb   w4, w5, [x0]
-|        cbnz    w4, 1b
-|        ldr     x0, [x1, #8]
-|        sub     x0, x0, #0x1
-|        str     w0, [x1, #8]
-|        cbz     x0, 2f
-|        ldr     x0, [x1, #8]
-|        cbnz    x0, 3f
-| 2:     bl      preempt_schedule_notrace
-| 3:     ldp     x29, x30, [sp], #16
-|        autiasp
-|        ret
-
-> Actually the (u16) cast is wrong for (s8)128.
-> That is tricky to fix, maybe:
-> 	~(sizeof(val) == 1 ? (u8)(val) : (val))
-> (Remember ?: promotes its operands to int.)
-
-I do not follow, and I think you are wrong.
-
-My understanding is that the value arguments to a this_cpu_*() operation
-should be subject to the usual type promotion rules. For a u16 'pcp' and
-an s8 'v', 'pcp & v' should result in sign-extension of v, and
-this_cpu_and(pcp, v) should do the same.
-
-What makes you believe the semantic you propose is correct, and the
-semantic I've implemented is wrong? Is there some documentation?
-
-Tvhe semantic youe propose doesn't match what __this_cpu_and() does, and
-it doesn't match what this_cpu_and() does on x86_64.
-
-Note how __this_cpu_and() behaves. For the following test case:
-
-| void outline_and__u16__s8_128(u16 __percpu *p)
-| {
-|         s8 v = 128;
-|         __this_cpu_and(*p, v);
-| }
-| 
-| void outline_and__s16__s8_128(s16 __percpu *p)
-| {
-|         s8 v = 128;
-|         __this_cpu_and(*p, v);
-| }
-
-For arm64 this generates:
-
-| <outline_and__u16__s8_128>:
-|        mrs     x2, tpidr_el1
-|        ldrh    w1, [x0, x2]
-|        and     w1, w1, #0xffffff80
-|        strh    w1, [x0, x2]
-|
-| <outline_and__s16__s8_128>:
-|        mrs     x2, tpidr_el1
-|        ldrh    w1, [x0, x2]
-|        and     w1, w1, #0xffffff80
-|        strh    w1, [x0, x2]
-|        ret
-
-... where '(s8)128' is sign-extended to (at least) 16 bits.
-
-Note that LDRH and STRH only use the low 16 bits of the register, the
-upper bits of the AND are irrelevant.
-
-Note that for x86, those tests generate:
-
-|	andw   $0xff80,%gs:(%rdi)
-
-... which is clearly sign-extending to 16 bits.
-
-> >  #define this_cpu_and_4(pcp, val)	\
-> > -	_pcp_protect(__percpu_andnot_case_32, pcp, ~val)
-> > +	_pcp_protect(__percpu_andnot_case_32, pcp, ~(u32)(val))
+> An RCU reader can find the parent during this interval.
+> first_remote_rcu() then applies list_entry_rcu() to the empty list head,
+> producing an invalid remote pointer that the receive learning path can
+> read from and write to.
 > 
-> The (u32) cast isn't needed (and has pretty much no effect).
-
-As above, this is for consistency. I agree it happens to do nothing.
-
-> >  #define this_cpu_and_8(pcp, val)	\
-> > -	_pcp_protect(__percpu_andnot_case_64, pcp, ~val)
-> > +	_pcp_protect(__percpu_andnot_case_64, pcp, ~(u64)(val))
+> When a matching remote is the sole remaining remote, leave it linked and
+> ask the caller to destroy the entire FDB entry. vxlan_fdb_destroy() keeps
+> the remote attached while sending the deletion notification and removing
+> the parent from the lookup structures.
 > 
-> This one still isn't right.
-> If val is a signed int with a negative value then it is sign extended
-> before being inverted.
-> 	val             (int)0x80000000
-> 	(u64)(val)   0xffffffff80000000
-> 	~(u64)(val)  0x000000007fffffff
-> Something like ~(u64)((val) + 0u) will DTRT.
+> Fixes: c499fccb71cb ("vxlan: vxlan_core: Support FDB flushing by destination VNI")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> Co-developed-by: David Lee <david.lee@trailofbits.com>
+> Signed-off-by: David Lee <david.lee@trailofbits.com>
+> ---
+> Changes in v2:
+> - Add the net tree prefix to the subject.
+> - Restore Kyle Zeng as the patch author and correct the sign-off chain.
+> - Move the research credit below the commit-message separator.
+> - Add the recipients reported by netdev CI.
+> 
+> v1: https://lore.kernel.org/all/20260731141311.570187-1-david.lee@trailofbits.com/
+> 
+> Bug found and triaged by OpenAI Security Research and
+> validated by Trail of Bits.
+> 
+> Trail of Bits has a reproducer for this bug that triggers a
+> KASAN slab-out-of-bounds read in vxlan_snoop() and can share if needed.
+> 
+>  drivers/net/vxlan/vxlan_core.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+> index d834a4865..a00df127d 100644
+> --- a/drivers/net/vxlan/vxlan_core.c
+> +++ b/drivers/net/vxlan/vxlan_core.c
+> @@ -3058,6 +3058,11 @@ vxlan_fdb_flush_match_remotes(struct vxlan_fdb *f, struct vxlan_dev *vxlan,
+>  		if (!vxlan_fdb_flush_remote_matches(desc, rd))
+>  			continue;
+>  
+> +		if (list_is_singular(&f->remotes)) {
+> +			*p_destroy_fdb = true;
+> +			return;
+> +		}
+> +
+>  		vxlan_fdb_dst_destroy(vxlan, f, rd, true);
+>  		remotes_flushed = true;
+>  	}
 
-As above, where have you got that idea from?
+Can you squash the below into v3?
 
-AFAICT, a smaller signed type *should* be sign extended, and that must
-happen before bitwise negation, since that bitwise negation is to cancel
-out the NOT part of the ANDNOT operation.
+'*p_destroy_fdb' at the end is always false and it's initialized as such
+by the caller, so we can remove this line and 'remotes_flushed'.
+
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index 117fae9c05a4..0f686bcc5a20 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -3058,7 +3058,6 @@ vxlan_fdb_flush_match_remotes(struct vxlan_fdb *f, struct vxlan_dev *vxlan,
+ 			      const struct vxlan_fdb_flush_desc *desc,
+ 			      bool *p_destroy_fdb)
+ {
+-	bool remotes_flushed = false;
+ 	struct vxlan_rdst *rd, *tmp;
  
-Think:
-
-    'pcp'                    is (u64) 0x0123456789abcdef
-    'val'                    is (int) 0x800000000
-    '(u64)(val)'             is (u64) 0xffffffff80000000
-    'pcp & (u64)(val)'       is (u64) 0x0123456780000000
-
-    '~(u64)(val)'            is (u64) 0x000000007fffffff
-    'pcp ANDNOT ~(u64)(val)' is (u64) 0x0123456780000000
-    
-See:
-
-| void outline_and__u64__int_0x80000000(u64 __percpu *p)
-| {
-|         int v = 0x80000000;
-|         __this_cpu_and(*p, v);
-| }
-| 
-| void outline_and__s64__int_0x80000000(s64 __percpu *p)
-| {
-|         int v = 0x80000000;
-|         __this_cpu_and(*p, v);
-| }
-
-For which GCC 15.2.0 generates the following:
-
-| <outline_and__u64__int_0x80000000>:
-|        mrs     x2, tpidr_el1
-|        ldr     x1, [x0, x2]
-|        and     x1, x1, #0xffffffff80000000
-|        str     x1, [x0, x2]
-|        ret
-| 
-| <outline_and__s64__int_0x80000000>:
-|        mrs     x2, tpidr_el1
-|        ldr     x1, [x0, x2]
-|        and     x1, x1, #0xffffffff80000000
-|        str     x1, [x0, x2]
-|        ret
-
-Likewise on x86 this generates:
-
-|	andq   $0xffffffff80000000,%gs:(%rdi)
-
-Mark.
+ 	list_for_each_entry_safe(rd, tmp, &f->remotes, list) {
+@@ -3071,10 +3070,7 @@ vxlan_fdb_flush_match_remotes(struct vxlan_fdb *f, struct vxlan_dev *vxlan,
+ 		}
+ 
+ 		vxlan_fdb_dst_destroy(vxlan, f, rd, true);
+-		remotes_flushed = true;
+ 	}
+-
+-	*p_destroy_fdb = remotes_flushed && list_empty(&f->remotes);
+ }
+ 
+ /* Purge the forwarding table */
