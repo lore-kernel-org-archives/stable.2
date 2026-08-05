@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B52450414
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:01:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951F6455170
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:01:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931268; cv=none; b=sLNh/p/0ooo9Ww8i8TMoqqRt7J6DJS484RtsuaASYDNBM8ABdbehJvHo1D/5vTdvcPGmA1ZYFblXdiDLxqfXGhooRXu8Br8aWzJ6YmbFOt0+pFAXsTAspQIXOHz254TyaTJwRZHeRDNqB39C2TwF1dlL3vXoM9Guj1+vVZnWUB0=
+	t=1785931272; cv=none; b=HG1MdhMBdKc2n3+UlWKm+0i5fjOwbh1pxxm6wOC5etorkxd2vBaFSzhsY8Ga/hkqGTQ7ULDHCGhGy5G5U6sEpc22S8l9WJEU4TxTdukclZxiD71Haaend5Q9FZl6wvehepePNYXAAuUCLs9w3my9AAD6WbRkX0IH9WhYx9/dv/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931268; c=relaxed/simple;
-	bh=DA8U4VAOW585jFlypRV697khZNn4ZypNHl7Zism8hE0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GPRwvHfmKxJ/1H7mfG9Fa1asYeFrsrBdxHh6VrBzKOVilpVDO077/fE2ct5XHSVOviKe4nQAMOadBhlIo9xB1IfFaHH9Bipzrg55RdQA/0TEGHnMrgr6vDhLVj6ojt3n8d8VFxLmSZIRsTa/YP2gFLFtxChqLXDNVsPmxfimhbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PL6k2SSi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785931272; c=relaxed/simple;
+	bh=W7PRSoFZwq9i22+ey0tZNMVL5wibvq3rHFoYhWw5ouk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MsgfnkU+bliSWSGkyHVBclKkd0vez7nYx071wk2fxbMPyD5OWh3Tk0fhlnao/vqzyPpF6DRlBqQSh3ThUTvPSvWQwK+4tcq6ymv+9Gzz1I0MLvo2sAZC3Yk3NKEBZJnIe53SOKkfQv6v7bsnVVeo4BmOH2xv8WEHJzssSl0zJCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SNcWrI5N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PL6k2SSi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 171BC1F00A3A;
-	Wed,  5 Aug 2026 12:01:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SNcWrI5N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF8C01F00A3A;
+	Wed,  5 Aug 2026 12:01:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785931267;
-	bh=QRTPx2kmUTtjry8gffSKLdFrSHXDe9tGwynpSZ4uoIA=;
+	s=korg; t=1785931270;
+	bh=9K8dGrJiW4Hv10bEVyxcX1J78y5YRGTQHOjqoA5N6ks=;
 	h=Subject:To:Cc:From:Date;
-	b=PL6k2SSi3sep8WK7S0OXODXC+QLqnFnyyXJofWv2J50H9tn5agLD/9lBtE/o4oBFz
-	 41cQs6jAiFfoqIUKmAVCAdz35xL3LvFrvRT10fsiKswThKGL/TNOY8J/KGeS4zIeJ6
-	 NeJP3e16nGFfuM2C/d8kKLjjR7hiDafbq84NNSow=
-Subject: FAILED: patch "[PATCH] drm/mediatek: mtk_dsi: Enable HS clock only at pre-enable" failed to apply to 7.1-stable tree
-To: angelogioacchino.delregno@collabora.com,chunkuang.hu@kernel.org,ck.hu@mediatek.com,me@adamthiede.com,stable@vger.kernel.org
+	b=SNcWrI5NDIpE8214+R4rMYVX8j2EywValx3cu3lsO4IcybnC0xZC1FY2WLz+//zMD
+	 17ViqzJVgO4khECOGn09M0ZX1OL9YsejLBi4atP98RTEoo4hk96O+w9pf6dVQlmv8z
+	 euqShiVjOyAGvZqSQmGgNisw1LRhA/TU8EGJSdHo=
+Subject: FAILED: patch "[PATCH] drm/amdgpu: move debug_vm handling to amdgpu_cs_parser_fini" failed to apply to 6.12-stable tree
+To: pierre-eric.pelloux-prayer@amd.com,alexander.deucher@amd.com,christian.koenig@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 13:58:03 +0200
-Message-ID: <2026080503-borough-upstroke-2a33@gregkh>
+Date: Wed, 05 Aug 2026 13:58:42 +0200
+Message-ID: <2026080542-reload-plentiful-f343@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3e191eddbdcb8bf7beb1e9b58209073bd5450719
+git cherry-pick -x d8726ef11512754a68c0ab53c57634a569b8feff
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080503-borough-upstroke-2a33@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080542-reload-plentiful-f343@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,55 +62,81 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3e191eddbdcb8bf7beb1e9b58209073bd5450719 Mon Sep 17 00:00:00 2001
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Date: Tue, 28 Jul 2026 17:31:45 +0200
-Subject: [PATCH] drm/mediatek: mtk_dsi: Enable HS clock only at pre-enable
+From d8726ef11512754a68c0ab53c57634a569b8feff Mon Sep 17 00:00:00 2001
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Date: Mon, 22 Jun 2026 10:11:22 +0200
+Subject: [PATCH] drm/amdgpu: move debug_vm handling to amdgpu_cs_parser_fini
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Commit 76255024cadb ("drm/mediatek: mtk_dsi: enable hs clock
-during pre-enable") rightfully moves the HS clock enablement to
-before atomic_enable(), but it's moving it to mtk_dsi_poweron(),
-which is not only called in the .atomic_pre_enable() callback
-for the DRM bridge, but also in the MediaTek DRM's .ddp_start()
-callback, which happens way before the bridge ones.
+The commit referenced below restarts the CS if the validation is
+still in progress. When debug_vm is enabled, all BOs from the CS
+are invalidated so we will hit an infinite loop.
 
-The HS clock enablement should be done at just the right time,
-otherwise some bridge chips (or some Display Driver ICs) may
-not work correctly: this is seen at least with a Parade DSI to
-eDP bridge (PS8640) on the MT8173 Elm Chromebook.
+To avoid that, defer BO invalidation to amdgpu_cs_parser_fini.
 
-This resolves a regression that was seen on the aforementioned
-machine, which was happening only after a suspend-resume cycle.
+Fixes: 59720bfd8c6d ("drm/amdgpu: restart the CS if some parts of the VM are still invalidated")
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 8c990ee9daa295462df24982ce6878db997a380a)
+Cc: stable@vger.kernel.org
 
-Cc: <stable@vger.kernel.org> # 7.1.x
-Fixes: 76255024cadb ("drm/mediatek: mtk_dsi: enable hs clock during pre-enable")
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Tested-by: Adam Thiede <me@adamthiede.com>
-Reviewed-by: CK Hu <ck.hu@mediatek.com>
-Link: https://patchwork.kernel.org/project/linux-mediatek/patch/20260728153145.578404-1-angelogioacchino.delregno@collabora.com/
-Signed-off-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index eb325e68aa59..49dfc0f825cb 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -743,8 +743,6 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
- 	mtk_dsi_set_vm_cmd(dsi);
- 	mtk_dsi_config_vdo_timing(dsi);
- 	mtk_dsi_set_interrupt_enable(dsi);
--	mtk_dsi_lane_ready(dsi);
--	mtk_dsi_clk_hs_mode(dsi, 1);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index e714cee2997a..5445f75741b5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1177,19 +1177,6 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+ 		job->vm_pd_addr = amdgpu_gmc_pd_addr(vm->root.bo);
+ 	}
  
+-	if (adev->debug_vm) {
+-		/* Invalidate all BOs to test for userspace bugs */
+-		amdgpu_bo_list_for_each_entry(e, p->bo_list) {
+-			struct amdgpu_bo *bo = e->bo;
+-
+-			/* ignore duplicates */
+-			if (!bo)
+-				continue;
+-
+-			amdgpu_vm_bo_invalidate(bo, false);
+-		}
+-	}
+-
  	return 0;
- err_disable_engine_clk:
-@@ -858,6 +856,9 @@ static void mtk_dsi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
- 	ret = mtk_dsi_poweron(dsi);
- 	if (ret < 0)
- 		drm_err(drm, "failed to power on dsi\n");
-+
-+	mtk_dsi_lane_ready(dsi);
-+	mtk_dsi_clk_hs_mode(dsi, 1);
  }
  
- static void mtk_dsi_bridge_atomic_post_disable(struct drm_bridge *bridge,
+@@ -1378,6 +1365,8 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ /* Cleanup the parser structure */
+ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser)
+ {
++	struct amdgpu_device *adev = parser->adev;
++	struct amdgpu_bo_list_entry *e;
+ 	unsigned int i;
+ 
+ 	amdgpu_sync_free(&parser->sync);
+@@ -1393,8 +1382,21 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser)
+ 
+ 	if (parser->ctx)
+ 		amdgpu_ctx_put(parser->ctx);
+-	if (parser->bo_list)
++	if (parser->bo_list) {
++		if (adev->debug_vm) {
++			/* Invalidate all BOs to test for userspace bugs */
++			amdgpu_bo_list_for_each_entry(e, parser->bo_list) {
++				struct amdgpu_bo *bo = e->bo;
++
++				/* ignore duplicates */
++				if (!bo)
++					continue;
++
++				amdgpu_vm_bo_invalidate(bo, false);
++			}
++		}
+ 		amdgpu_bo_list_put(parser->bo_list);
++	}
+ 
+ 	for (i = 0; i < parser->nchunks; i++)
+ 		kvfree(parser->chunks[i].kdata);
 
