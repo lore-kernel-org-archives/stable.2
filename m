@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C5D4519B2
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:00:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D89B35F8B9
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:00:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931257; cv=none; b=lpUMfmfT8TkwRBDZsjCjLWs7NXFdFVDQGcExkgjy8J0ObaAJvmUR9eWZVluvUVH6FuEdAgFWRSPt6QWIs3aJTTjtlkGCn17H/jRQa6SlHARztr2xjA7U21jsYdo/m78Z4jp0tiLEtmWuyx3pXH/kZlq0O6oSkpMkQ0i+ZvzNuK8=
+	t=1785931260; cv=none; b=eBiZVFr/7J3i3MLZT9vexl3ZC6CkhavxWfSysbbHlBO/nIdevU5IsOgR3+chSBARAi6qYq/aVExJQksbosF66rxcUmOZWTyJ1C1YDGb2vE4KGDl1etjhZV4/Bc4xOFoyQgBHKO2dRfm56UFrtRgqa4l6spx6Bi0KNLOaIlIPudc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931257; c=relaxed/simple;
-	bh=jlD1/TfqFMJWUbH7xIWywG++XsJVZ2WYlnd3NRF0EAg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LYFqjafF5NxDJoMRjUeWahi/opwyY3CEZo4SeJyUAo+wXG+gLr4hL5p4z91NLJ0v4Or1MBhsbZgU++DQdodO4CADK4ylh7j3PSGoF6dmBDmW2CJ6KhRGJl115X4aUkEz++NsQ1geqwq6hDncT9CP8eXbGn5hxarvxZwFaG+yX5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2U5BD6sq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785931260; c=relaxed/simple;
+	bh=FKiRt4cGdGAwhcmYn+u11TsqbfW8AIlF71GxKxbKP6E=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tmT7XTLFi9+sRKqL+WMWm6sA93TeGRuuJwegcJROpoFWiGu00YyB279txRKLbnVJMd743mqWvRZ49eKFlRWTYiBAEv1utejCVW0QeIeBnAQmUrwUEC896pku0zhXpuYM36EDgHxVex4NemT04ud3yF6I1PN9+vD4oUjxgowftec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0baslAmc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2U5BD6sq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0F551F00A3A;
-	Wed,  5 Aug 2026 12:00:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0baslAmc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 897D91F000E9;
+	Wed,  5 Aug 2026 12:00:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785931256;
-	bh=g/jrA5TxlX+CPas+iH7+/uuWYFnU9ciHTVKwx/qQsEc=;
+	s=korg; t=1785931259;
+	bh=BCOOkUMiZZ/efvmfiijsqNzcg4lH9lNiSg03P35SMJI=;
 	h=Subject:To:Cc:From:Date;
-	b=2U5BD6sqW4aSx3Qw7lu3QBEGaODsYQTf05F905HR9AxynEjWPcx7RCMoC7xQjJOiE
-	 GcSmKMC0QK3JbGfW6/FNcqGZ5jaWhqugvJc3Fx/R0ACEpRQ+Mcuu2dEsMJ5q6VyHRb
-	 z3Q1ObKqA88bK6w+09YD7m8YJp0DURFjhHRGGcq0=
-Subject: FAILED: patch "[PATCH] drm/bridge: display-connector: Fix I2C adapter resource leak" failed to apply to 6.12-stable tree
+	b=0baslAmc96UWb1g03sfg/VmZG/zVkNXej0RlccB8lcWGDsGhU87fnUQAB1RXjf9ax
+	 BdMtlnMDTEsZtbxPrmjUNhDIBkYrDEEAsYARKZV7+QKPIb0boUKNXAw1ho7blFb/Gn
+	 PBM1DFil3dbEW1Bhh7UyRd0Jcd2DX/tqmiREBAr0=
+Subject: FAILED: patch "[PATCH] drm/bridge: display-connector: Fix I2C adapter resource leak" failed to apply to 6.1-stable tree
 To: laurent.pinchart+renesas@ideasonboard.com,johan@kernel.org,luca.ceresoli@bootlin.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 13:57:22 +0200
-Message-ID: <2026080522-french-pesticide-a50a@gregkh>
+Date: Wed, 05 Aug 2026 13:57:23 +0200
+Message-ID: <2026080523-reputably-fantasize-8520@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 6a39ca1286dd97ad02bb8e03bbb65ee05368d778
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080522-french-pesticide-a50a@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080523-reputably-fantasize-8520@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
