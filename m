@@ -1,180 +1,120 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6DB3D47DD
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 20:29:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B533DC4BD
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 20:31:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785961802; cv=none; b=V/sueceL59sl43ognnrjn3F3hSKYNtMeLaHQXHpQDLNfa/z3H0E1o4FDFmOprqtGj9f3h92CSqeRak4Pm1iB9/rQNEfOw1E1KusJ8fRH5s4B9hhbgohLSnvvcFCcNusHuVklNeS8KDnRIg7mJn9Y4FLBQ0btXkax0yloKrX2zrU=
+	t=1785961871; cv=none; b=jXoY3Sa6gKGE8yQ+sOt9yUui9KN0RiI2IztLO+zXN0meZvyTIEiHqpN/gnWgvxWbWtI/V8UEmko3/Qr7wcbEsFSgEb9Mc1meEabMGdlbBPX8M6XJTogd8kVzphGCeGpiAUQKM8JunADC+ThYGXOgcsPmY1HUOW1BH5tV7tSDl/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785961802; c=relaxed/simple;
-	bh=1G3eGfnllRZ6sY3D2eS7/x5qExSAZGpFlR8NP5yqxog=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IDNBY2SoJasv/ylcKhV39uEBkdwrjnV3j4I3rFka23l3NnBlTqVCV2GiZ9CUIWd/VqizUKOSbnFJqxB+lLjh12RUTUZjrPlwSMXeGHbeHi0lP1yZX+XrCc+yF2oLp3nEFclfJaXfFBbwP70AUDTYLLIMAQxFFdrjBtLJgNs8TZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V0c7vX15; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785961871; c=relaxed/simple;
+	bh=kN1eUXhzlmZ/uTG2/7ewWsiGSCgf0wXwrMYNI8HvUbw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=FlSak1VMZ73FZVzPZjaaEoKGwcOL+ayxaqKXgCewj2iLb0oy10QDJPvloQqX6rQbjl1062Dwpv2cnkhLVplJAasm9M9icqpEUhRfkBkkyhKH7VKgPHfP4APt5plG9btl2ZppuKlrfI2na+Xout5Qp6ABDXoMjv/73PLjvtbcQ1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=gGSbP4YZ; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V0c7vX15"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49545ba3d4eso7868725e9.3
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 13:29:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="gGSbP4YZ"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-ca80d708489so198694a12.1
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 13:31:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785961798; x=1786566598; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ul0FjFTuJIbCFAmP9N/qJSNmBrccWs8JRIa5IIQi3S8=;
-        b=V0c7vX15Kq4dfYpSD/MKu1fhNtkuuhuASb0GK1Lb3MTcrP7bZW4CkIviT2xAcbMIgR
-         dmWMuW1Ll40Sr/8rVAgdQ1lM4fSkpI0WQFophnvSvaPnasf51ZViX7jFJQkgC9lGlAhb
-         qxV2TY4TGVTq/lNqwVp6ut5CMCsZq8juvvOFHzbSUKHnIaBXB9QSl7ZYPrlTE44Ttd5g
-         nTixQq3/GAcIEXuce4a1gLe7IoetvWu0KZo/Q11U7ACnad/PC6m3FPZaFb1N27LyaQsg
-         jf4mwSx1wdG78MqP909N0bD1qdZQL+bUnsp/xRW1Py7uu1ew9+XX1Om/d2ONmssjdSRn
-         YFYQ==
+        d=nexthop.ai; s=google; t=1785961869; x=1786566669; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1LalWexc+0F8HjQc4krojZh1ADM6i/G7+RWOPIo9azY=;
+        b=gGSbP4YZKvDYRYE5Zj86Eztn85IThpLFh7ghTOjMzg9e4k1NjRV9a7tdHvhPfriHhY
+         BsNjahW6fF/z3UbCcltGej58XO3KQ+5KrE5Xp2GA3btamwAF8bxSo/Q1bgp2tZFlreqE
+         0jm75XPsOXk9FaOfPGjWYbeh1mgMPAGxf5OAWJJLAi6LagxhXtzruGWYzqbfL2C119M7
+         sSRiGmTUyzlGIRSp5OC2fusu35jV1U72gNq1IZafE+0nYJYLUk3cAD9E5nwwWCWGfQR0
+         MJy82hS9hmHdlZ7/uac50y5uEfAfmvVUqCyDOcWQsjHWFW72v9eM7E1MZo7B7LmZz0Pm
+         X80A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785961798; x=1786566598;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ul0FjFTuJIbCFAmP9N/qJSNmBrccWs8JRIa5IIQi3S8=;
-        b=XsJXbceZlxD2UAbPaTzTVCococJJGXaVNEvn7xMBqAV8Ly3kuzrJbr7lYl06cFAj6w
-         NSKsV81kQzsD5/7DkwJU9REGPLXUbCawlKGBM/21QRHUJyXYSxCgmv8QslHiUCTmi49S
-         0P4UAeES4aKgltKnZJHyKPYmBqwwxmdH57BypWXmDITP6B7uAnYcqGmNfrwa8mVAm6eg
-         GKxbnbo+/4x0RuFDcMEiOnbSWoBSfWPki2zElrKf+1mKBQ38D1FQUlI9CVcMeF0W2kZR
-         qM66PZB3B+wirmfCVQcBwr+4rCQR4ir632aOIIC361i2+93oP67+VAv5GveB/8barN5D
-         vXQw==
-X-Forwarded-Encrypted: i=1; AHgh+RrlFtrY4FrO/6wNS7CXCqHceKN4HassQbOmSoMvGIbjZro44xdM8kFs2D3ZYz/6N/oaQdmQHYA=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoVo3lVwiNNGZKXmYrnW+fXouhnOUiMQfM/IZA7AnbQw602Gb+
-	j3gylf1b06YwX/j1TKq0quDhv8r6B+XIk5Sxghqi2aQdVPEH7OTZX/co
-X-Gm-Gg: AR+sD13sH/3vtszSxSXwHp4jtEAeyJeES4oQpta8IQ8+OtE0buPu8ioYIsqy1oQStnX
-	xgLMlf1kbz5yAHopDkPVBs5ZUQ/8KINwSmVzGYkdJ2S9y2dZxLWPMmnBCLjqTt9UiNL28mRYitZ
-	0NYDU72PczEmlIiD3buw/cypUrjC915QDR1PyyMJiGbubpygP7qJfWJQ41+lh/KZhcxi1Ew076O
-	gZ2HqCEI4aCOVcjKkov70MkvP0MIe8vkSedHVdFLGx99h5fXFGXfWOainguj/4HbOZrEz3f7imH
-	UFpnut7r6XHeAPV4ZzkMY6yrn9cryQt147vPU3bqsNpWf+GxFUM0ro/nmg0TERaCzfSCcHToGKS
-	9qjLlDDv6YNs0C6VzksUDZxmGag7OxqfLYhxeWhi7HK2k5lutMejqYnQDDS04+KAqVY8B6zqGI4
-	JDDtFmMkG1pkKugblHaclVkaL9O0wgQ8WeHI1/bsq4oSxbVVg5VGpCJSK8/Dc=
-X-Received: by 2002:a05:600c:8b51:b0:495:6b55:f938 with SMTP id 5b1f17b1804b1-4994e7ba99emr144346045e9.10.1785961797646;
-        Wed, 05 Aug 2026 13:29:57 -0700 (PDT)
-Received: from krava ([176.74.159.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49954221f32sm6276925e9.9.2026.08.05.13.29.56
+        d=1e100.net; s=20251104; t=1785961869; x=1786566669;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1LalWexc+0F8HjQc4krojZh1ADM6i/G7+RWOPIo9azY=;
+        b=CzH4UAtVWNf+ukcVkisYNpPFzYjKCJaFzKGs8smxE7n/bgErePUaaPEWS3PXV+u1Wu
+         SpE8kMVPcJswdGtniZLyrf9SutzjPMwU9VltI/TmSUt3WjgM7DzDfCKw5xF8hrsCIDMm
+         Cwxx6m23e89ep51+G59EI78Fb4N7lTUIBBFluHrKjKBDppXOmU1rXOm8ygx3EB6sYpBl
+         hyi4QfunYmZkwAR+8Uty3yWoQxJ0nscF28a/llDV0xXdWtWlM4BHCG6UeNSU1h98UtVB
+         mM+wAm1g9mAbFBClnHJDAqIh73AE4K7mi+0MCqsrB9qX/+SHxMVPtM50b8xz+tglLoWm
+         m4Ng==
+X-Forwarded-Encrypted: i=1; AHgh+Rpv08sTedJmVaZTukwx6rIEcgiptu4tTM6eBbWiXSf3sbPnyAJVnta24vT/kCgkSWqvNMq2bAs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwGeOO8Ovk7bwRnZ0kUGzmnkOZ4wLv5S054IqQpvDqZzqc6gxmk
+	Tax1PJfj+qNLQ6Eip6CT0StyinE/oPjmavZMJm9RF1TB76JrImZC42gXZFzEi5oUHpI=
+X-Gm-Gg: AR+sD10yh8AVHp7dfgZ+AFOGyxLXChqSpPVQNipz39z4ITNjnkqfeCa2y88KxA348Wp
+	Db4u1RQgbSG+r+Ld4FvEFQ8+AL0h1IWrAhgRdn1nElSXp3Dyz/PHbkz2ys8FGE1JHsaLR4zT+6/
+	rfg9TycyfYE/+3aEojrfRUFa2gAjeyiM3uujfUoA89/CB5cK47q7hqGEhZ91W8lKf0s5w9bQ8YP
+	LeiD0L7eRUGuerGONmOXyzn3enVkiA6yT/n8I1ZgKfANfi1QQFkq6pAld+QD0CzOHPLCTS2kIjX
+	i3LY1uTufajad7/8yydEDgtKRGMUnALjcTqPQ77BHNP70eLRsfggfOvxmKEjn7z9tbXbC0eXgXd
+	DZTHHojJrN/FD/YacU7HOqEEgzjd0ryaWC3wlUW0OvO9YkmS1PZA+4Sf1C6emLiYInLIFaOEaPc
+	zqPVae4kCLe+vAG55aAW68w/i7GUjU5tOQHQxdld9GKuL9XFuNRhCs+EnslRICoTo=
+X-Received: by 2002:a05:6a21:2d4c:b0:3c4:320a:737 with SMTP id adf61e73a8af0-3cb9c2376femr2136084637.16.1785961869014;
+        Wed, 05 Aug 2026 13:31:09 -0700 (PDT)
+Received: from [127.0.0.2] ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fca63ce12sm20694924c88.5.2026.08.05.13.31.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 13:29:57 -0700 (PDT)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Wed, 5 Aug 2026 22:29:55 +0200
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>, stable@vger.kernel.org,
-	Tao Chen <chen.dylane@linux.dev>, STAR Labs SG <info@starlabs.sg>,
-	bpf@vger.kernel.org, Martin KaFai Lau <martin.lau@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
-	Quentin Monnet <qmo@kernel.org>,
-	Arnaud Lecomte <contact@arnaud-lcm.com>
-Subject: Re: [PATCHv4 bpf-next 10/12] bpf: Disable preemption in
- __bpf_get_stack
-Message-ID: <anOdQzvkS_JZG2Op@krava>
-References: <20260805092843.516315-1-jolsa@kernel.org>
- <20260805092843.516315-11-jolsa@kernel.org>
- <CAEf4BzZQXq5CNSkD4-gMOhs5+GU9Sf9Q7sHvLu1BkpqDTQHa5g@mail.gmail.com>
+        Wed, 05 Aug 2026 13:31:08 -0700 (PDT)
+From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Date: Wed, 05 Aug 2026 13:31:00 -0700
+Subject: [PATCH v6 01/10] of: fix out-of-bounds read in of_alias_scan()
+ stem parser
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEf4BzZQXq5CNSkD4-gMOhs5+GU9Sf9Q7sHvLu1BkpqDTQHa5g@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260805-nh-of-alias-overlay-v6-1-74f21d440819@nexthop.ai>
+References: <20260805-nh-of-alias-overlay-v6-0-74f21d440819@nexthop.ai>
+In-Reply-To: <20260805-nh-of-alias-overlay-v6-0-74f21d440819@nexthop.ai>
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+ Frank Rowand <frowand.list@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Shawn Guo <shawn.guo@linaro.org>, 
+ Grant Likely <grant.likely@secretlab.ca>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Abdurrahman Hussain <abdurrahman@nexthop.ai>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785961866; l=936;
+ i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
+ bh=kN1eUXhzlmZ/uTG2/7ewWsiGSCgf0wXwrMYNI8HvUbw=;
+ b=Pp9jRz3Hp/QzKiPlhgSbikASPf8D6CCitcDNJORdbru5ukCUr1beTjpvzpGh9tJkjqUnWxCM7
+ lvW9PlMxCy7Ad1lPD2/PA8u4kwiGKLmKkPxu/siajbwzuABGHWSB7tn
+X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
+ pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-On Wed, Aug 05, 2026 at 11:34:58AM -0700, Andrii Nakryiko wrote:
-> On Wed, Aug 5, 2026 at 2:30 AM Jiri Olsa <jolsa@kernel.org> wrote:
-> >
-> > From: Daniel Borkmann <daniel@iogearbox.net>
-> >
-> > get_perf_callchain() returns a per-CPU perf_callchain_entry buffer and
-> > releases its recursion slot via put_callchain_entry() before returning,
-> > so nothing keeps the entry reserved while __bpf_get_stack() consumes
-> > it below.
-> >
-> > A preemptible BPF program (e.g. a non-sleepable raw tracepoint program
-> > on a PREEMPT kernel, which runs under migrate_disable() but not
-> > preempt_disable()) can be scheduled out between obtaining the entry
-> > and the copy. Another task scheduled on the same CPU then reuses the
-> > same per-CPU buffer and overwrites trace->nr with a larger value.
-> > copy_len is then computed from the inflated trace->nr and can exceed
-> > the caller's buffer, causing an out-of-bounds write in the memcpy()
-> > and in the build_id path.
-> >
-> > The rcu_read_lock() taken here alone does not prevent this. It is
-> > only taken on the may_fault path, and under CONFIG_PREEMPT_RCU it does
-> > not disable preemption; it merely keeps perf's callchain buffer array
-> > alive (freed via call_rcu()) and does nothing to stop another task
-> > from reusing the entry.
-> >
-> > Disable preemption around obtaining the callchain entry and copying
-> > it into the caller's buffer, so the entry cannot be reused underneath
-> > us and trace->nr stays bounded by max_depth. Build ID resolution may
-> > fault and is therefore deferred until after preemption is re-enabled;
-> > by then the instruction pointers have already been copied into buf,
-> > so it operates only on that private copy. Note, preempt_disable() also
-> > subsumes the buffer-lifetime guarantee the rcu_read_lock() provided,
-> > since a preempt-disabled section is an RCU read-side critical section
-> > for the callchain buffers' call_rcu() reclaim.
-> >
-> > Cc: stable@vger.kernel.org
-> > Fixes: c195651e565a ("bpf: add bpf_get_stack helper")
-> > Reported-by: Tao Chen <chen.dylane@linux.dev>
-> > Closes: https://lore.kernel.org/bpf/20260206090653.1336687-1-chen.dylane@linux.dev/
-> > Reported-by: STAR Labs SG <info@starlabs.sg>
-> > Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-> > [ changed Fixes: commit ]
-> > Signed-off-by: Jiri Olsa <jolsa@kernel.org>
-> > ---
-> >  kernel/bpf/stackmap.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
-> > index eabeaef31b63..789fe35b893a 100644
-> > --- a/kernel/bpf/stackmap.c
-> > +++ b/kernel/bpf/stackmap.c
-> > @@ -817,6 +817,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
-> >
-> >         if (may_fault)
-> >                 rcu_read_lock(); /* need RCU for perf's callchain below */
-> > +       preempt_disable();
-> 
-> nit: asymmetrical to preempt_enable, I'll move it to before
-> rcu_read_lock, so we can have proper nesting
+The stem parser tests isdigit(*(end - 1)) before checking end > start
+and so reads one byte before the property name when the name is empty
+or all digits. Check the bound first.
 
-ugh, nice.. thanks
+Fixes: 611cad720148 ("dt: add of_alias_scan and of_alias_get_id")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-fable-5 [Claude Code]
+Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+---
+ drivers/of/base.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-jirka
+diff --git a/drivers/of/base.c b/drivers/of/base.c
+index 6e7a42dedad3..477017ed6f49 100644
+--- a/drivers/of/base.c
++++ b/drivers/of/base.c
+@@ -1967,7 +1967,7 @@ void of_alias_scan(void * (*dt_alloc)(u64 size, u64 align))
+ 
+ 		/* walk the alias backwards to extract the id and work out
+ 		 * the 'stem' string */
+-		while (isdigit(*(end-1)) && end > start)
++		while (end > start && isdigit(*(end - 1)))
+ 			end--;
+ 		len = end - start;
+ 
 
-> 
-> 
-> 
-> >
-> >         if (kernel && task) {
-> >                 trace = get_callchain_entry_for_task(task, max_depth);
-> > @@ -828,6 +829,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
-> >         if (unlikely(!trace) || trace->nr < skip) {
-> >                 if (may_fault)
-> >                         rcu_read_unlock();
-> > +               preempt_enable();
-> >                 goto err_fault;
-> >         }
-> >
-> > @@ -836,6 +838,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
-> >         /* trace should not be dereferenced after this point */
-> >         if (may_fault)
-> >                 rcu_read_unlock();
-> > +       preempt_enable();
-> >
-> >         return callchain_finalize(buf, size, trace_nr, elem_size, flags, may_fault);
-> >
-> > --
-> > 2.54.0
-> >
+-- 
+2.54.0
+
