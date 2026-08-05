@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C49C453A4E
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:00:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C5D4519B2
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:00:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931254; cv=none; b=Cbm/1YFRc8wV1EtHQYmjUTFg1Q0RH9CkbXLa+gd1vrKRlyBAKVyb0kgaRTNjEY+IZNi0sHx2HzlaPU70HOqkCD5O7mzwrYJ/iPfyZ109VzI7ApMvVJEU+fJ/IRHT8UR31/v5KYb8yW5J7/xhvLFSPIGxHfYEsNiN5f8nok6rHN4=
+	t=1785931257; cv=none; b=lpUMfmfT8TkwRBDZsjCjLWs7NXFdFVDQGcExkgjy8J0ObaAJvmUR9eWZVluvUVH6FuEdAgFWRSPt6QWIs3aJTTjtlkGCn17H/jRQa6SlHARztr2xjA7U21jsYdo/m78Z4jp0tiLEtmWuyx3pXH/kZlq0O6oSkpMkQ0i+ZvzNuK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931254; c=relaxed/simple;
-	bh=2cXUxRBUcS7u0Iryyej5Q8XcLz3PAOFlXS+5C46+Cqk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NbkTHsEMz206iRioVVtyKApLNwHysx+hmWLtc42pKSF/baurn3CK2z29vjzjf9LTy8xhk14PdOtp3NwQWURGLrB3jLuIX6XkG9rieNObj4y5lIRdpTuQHnKgN8z1wAizpUN+5qFlvZGwFlkv0AppMH6+7i63JFsGRKVq+AFMvkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jZILQWcM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785931257; c=relaxed/simple;
+	bh=jlD1/TfqFMJWUbH7xIWywG++XsJVZ2WYlnd3NRF0EAg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LYFqjafF5NxDJoMRjUeWahi/opwyY3CEZo4SeJyUAo+wXG+gLr4hL5p4z91NLJ0v4Or1MBhsbZgU++DQdodO4CADK4ylh7j3PSGoF6dmBDmW2CJ6KhRGJl115X4aUkEz++NsQ1geqwq6hDncT9CP8eXbGn5hxarvxZwFaG+yX5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2U5BD6sq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jZILQWcM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA18F1F00A3A;
-	Wed,  5 Aug 2026 12:00:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2U5BD6sq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0F551F00A3A;
+	Wed,  5 Aug 2026 12:00:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785931253;
-	bh=7Kyh4GxIwAG2oBpRyUYB/GaB64HGzAKb3pUIr+mp9Q8=;
+	s=korg; t=1785931256;
+	bh=g/jrA5TxlX+CPas+iH7+/uuWYFnU9ciHTVKwx/qQsEc=;
 	h=Subject:To:Cc:From:Date;
-	b=jZILQWcMRKYyMoPEkluXJlXGEfOwq2YxZjUnZUThVhBuv9SRNmvtI6RhEliM5ShMW
-	 r+WkR1Fw3OW6LwebgGUIZRcxB6EOkumWINcEP+00YPJmAqq/5dHEuC/O0YzpKmYt/v
-	 2YRjtylXQRrwSpB+aMibcd2+Zj1sZ6EWsJj1LAvo=
-Subject: FAILED: patch "[PATCH] drm/vc4: Supply the overflow slot size in BPOS, not the whole" failed to apply to 5.10-stable tree
-To: jmcasanova@igalia.com,itoral@igalia.com,mcanal@igalia.com
+	b=2U5BD6sqW4aSx3Qw7lu3QBEGaODsYQTf05F905HR9AxynEjWPcx7RCMoC7xQjJOiE
+	 GcSmKMC0QK3JbGfW6/FNcqGZ5jaWhqugvJc3Fx/R0ACEpRQ+Mcuu2dEsMJ5q6VyHRb
+	 z3Q1ObKqA88bK6w+09YD7m8YJp0DURFjhHRGGcq0=
+Subject: FAILED: patch "[PATCH] drm/bridge: display-connector: Fix I2C adapter resource leak" failed to apply to 6.12-stable tree
+To: laurent.pinchart+renesas@ideasonboard.com,johan@kernel.org,luca.ceresoli@bootlin.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 13:56:59 +0200
-Message-ID: <2026080559-cartridge-shelving-bc17@gregkh>
+Date: Wed, 05 Aug 2026 13:57:22 +0200
+Message-ID: <2026080522-french-pesticide-a50a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6395789e4739aa5177bbec0fa0f07ccc38d249b0
+git cherry-pick -x 6a39ca1286dd97ad02bb8e03bbb65ee05368d778
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080559-cartridge-shelving-bc17@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080522-french-pesticide-a50a@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,51 +62,60 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6395789e4739aa5177bbec0fa0f07ccc38d249b0 Mon Sep 17 00:00:00 2001
-From: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
-Date: Mon, 27 Jul 2026 11:32:28 -0300
-Subject: [PATCH] drm/vc4: Supply the overflow slot size in BPOS, not the whole
- bin BO size
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 6a39ca1286dd97ad02bb8e03bbb65ee05368d778 Mon Sep 17 00:00:00 2001
+From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Date: Fri, 17 Jul 2026 21:48:36 +0300
+Subject: [PATCH] drm/bridge: display-connector: Fix I2C adapter resource leak
 
-vc4_overflow_mem_work() points BPOA at a 512KB slot inside the 16MB
-binner BO, but writes the size of the whole BO to BPOS. On every binner
-out-of-memory event the PTB is therefore authorized to write tile lists
-across all the other slots (which may hold the tile state, tile alloc and
-overflow memory of in-flight jobs) and, for any slot but the first, past
-the end of the binner BO into unrelated CMA memory.
+If the probe function returns an error after getting the I2C adapter for
+DDC, the reference to the adapter is never released. Fix it by releasing
+it in the bridge .destroy() handler.
 
-Since CMA pages are recycled into page cache and user allocations, this
-is arbitrary memory corruption by GPU DMA. In practice it shows up as GPU
-hangs with corrupted control list pointers, userspace heap corruption, a
-GPU that stays permanently wedged after the first hang, and occasional
-full system crashes, whenever a job overflows the initial binner slot.
+There is no need to test the ddc pointer with !IS_ERR(), as
+of_get_i2c_adapter_by_node() returns NULL on error.
 
-The bug dates back to the conversion from a dedicated overflow BO (where
-writing the full BO size was correct) to the slotted binner BO.
-
-Fixes: 553c942f8b2c ("drm/vc4: Allow using more than 256MB of CMA memory.")
+Fixes: 2e2bf3a5584d ("drm/bridge: display-connector: add DP support")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4.8
-Signed-off-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
-Link: https://patch.msgid.link/20260727-vc4-bin-oom-fixes-v2-1-0d8a5eddc7c9@igalia.com
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
+Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Reviewed-by: Johan Hovold <johan@kernel.org>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Link: https://patch.msgid.link/20260717184836.2017386-1-laurent.pinchart+renesas@ideasonboard.com
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-diff --git a/drivers/gpu/drm/vc4/vc4_irq.c b/drivers/gpu/drm/vc4/vc4_irq.c
-index 8e5141bb5075..7877d493d80e 100644
---- a/drivers/gpu/drm/vc4/vc4_irq.c
-+++ b/drivers/gpu/drm/vc4/vc4_irq.c
-@@ -104,7 +104,7 @@ vc4_overflow_mem_work(struct work_struct *work)
- 	vc4->bin_alloc_overflow = BIT(bin_bo_slot);
+diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
+index 16c0631adeb1..6b128fabe3a9 100644
+--- a/drivers/gpu/drm/bridge/display-connector.c
++++ b/drivers/gpu/drm/bridge/display-connector.c
+@@ -40,6 +40,13 @@ static int display_connector_attach(struct drm_bridge *bridge,
+ 	return flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR ? 0 : -EINVAL;
+ }
  
- 	V3D_WRITE(V3D_BPOA, bo->base.dma_addr + bin_bo_slot * vc4->bin_alloc_size);
--	V3D_WRITE(V3D_BPOS, bo->base.base.size);
-+	V3D_WRITE(V3D_BPOS, vc4->bin_alloc_size);
- 	V3D_WRITE(V3D_INTCTL, V3D_INT_OUTOMEM);
- 	V3D_WRITE(V3D_INTENA, V3D_INT_OUTOMEM);
- 	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
++static void display_connector_destroy(struct drm_bridge *bridge)
++{
++	struct display_connector *conn = to_display_connector(bridge);
++
++	i2c_put_adapter(conn->bridge.ddc);
++}
++
+ static enum drm_connector_status display_connector_detect(struct drm_bridge *bridge)
+ {
+ 	struct display_connector *conn = to_display_connector(bridge);
+@@ -177,6 +184,7 @@ static u32 *display_connector_get_input_bus_fmts(struct drm_bridge *bridge,
+ 
+ static const struct drm_bridge_funcs display_connector_bridge_funcs = {
+ 	.attach = display_connector_attach,
++	.destroy = display_connector_destroy,
+ 	.detect = display_connector_bridge_detect,
+ 	.edid_read = display_connector_edid_read,
+ 	.atomic_get_output_bus_fmts = display_connector_get_output_bus_fmts,
+@@ -403,9 +411,6 @@ static void display_connector_remove(struct platform_device *pdev)
+ 		regulator_disable(conn->supply);
+ 
+ 	drm_bridge_remove(&conn->bridge);
+-
+-	if (!IS_ERR(conn->bridge.ddc))
+-		i2c_put_adapter(conn->bridge.ddc);
+ }
+ 
+ static const struct of_device_id display_connector_match[] = {
 
