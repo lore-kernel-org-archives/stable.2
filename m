@@ -1,178 +1,119 @@
-Received: from out-184.mta1.migadu.com (out-184.mta1.migadu.com [95.215.58.184])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164693C0607
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 02:26:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0D63C13F1;
+	Wed,  5 Aug 2026 02:26:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785896807; cv=none; b=nOqbxoIZwHaPMp51P1Dw/9g9H8h4UKy0VkxDr56nLFyYkqpr3t15MXDyPkUVuL9gxwGA2eDpu2KTWqfoCzCoi9j+M6fS3YE0HPJN2JA3qEKtR4GUAjNGmD2ed06B6SqJya0KqS9qzc+MaNnttoi5aG9JlvfNlPjrB6NVC915Txo=
+	t=1785896817; cv=none; b=XvW7Ag3hLDNAkMamaAtythzFrXO3xgRlfleHZK6Hg+MBipM9/iJUDBy3kU8CiW0Hoo0EE+L/zb80U0vC3hLZOR+NiSCXwrl2snLYw3YVHNX0QikZflYLqHC2SBmhJ1p47c41+2dI7TtU01kZEir7e7ARmJUTSbp10V2hFtYYNNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785896807; c=relaxed/simple;
-	bh=BpMXWW7tfMIZFD/W0Wt63S+GFgqRjkyqsN9/DXhlK+c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b/zYgLJ6pCsn8Oie9Fi+G/kPNpwMw99s4i4Ds4D90OSL6QuYq1ufhrMiV/d7/tlATuzzoH2yM4aubJPT0oCwAs25ARBzyY3cE+qWY1Owx4zggxd7Rx0yeYfX6k88TCfPWpQjJvPGZifQDgXWCxgMCfB5I76oHKHOAtEHHq3tTCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dApTgvPb; arc=none smtp.client-ip=95.215.58.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785896817; c=relaxed/simple;
+	bh=H3FrjSIraR80p2CZlaq5/7JyYYGeW1X0Oh/iyhx4a/Q=;
+	h=Date:To:From:Subject:Message-Id; b=jG/VNCxWjUCkOENiM94Bg6NfIICOwE5rGPBTqrpHkNufng4MsSDddrSDvqs8lSmfbBbA2BTEgsmzAtMY1PlEmJ3cO7qgaQMHZxmUd8aFg8EdsZflt5AKXhgnoAdhLYGKqH/1yN50GQmghOtWs43txk8NPAEKhFtQvs2M+PMoCQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=J8VkFF0/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dApTgvPb"
-Message-ID: <bd95f8c6-33e2-4fda-bd4b-ebc37ee7c0fb@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785896801;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qxhPyeCLidu0a6r7PQAlsqHOIelpm7O7iJDL5zwrXtA=;
-	b=dApTgvPbD40Jr9rJ8xg6bqSqA7DUkvdQNhYWYk+bmQWF+T+z3t3L3vb9NdAYXNWg+jNXM9
-	QNGrayoiJN2wymZ6QXooX+GxxcZe9eXFQpLIL+9T5n39E4XFV14xlTXYsAUlw1G7JGJwxr
-	Sl9E4w1frMLhSsDezKkitaXhkzt6uWg=
-Date: Wed, 5 Aug 2026 10:26:02 +0800
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="J8VkFF0/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A58451F000E9;
+	Wed,  5 Aug 2026 02:26:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1785896815;
+	bh=2hQ+V1xyu+sEA7PQRPHGglWz5JXM/dwxPlnEY46jk6E=;
+	h=Date:To:From:Subject;
+	b=J8VkFF0/HM1VivN+f+nfB+UzbpcS7Eblm0XlwxASNerV0+hXY7ZgTceBidqT2fbcd
+	 1/BB/jARl/qSmUKwD6/sCA4bPIhI4srDynXKYzAItFUfamqKjGh/5lUUoZHGwMfHmT
+	 WXkv5UBHgMktPsIKSCCqGypCoBEuOIfC/tX2sd1c=
+Date: Tue, 04 Aug 2026 19:26:55 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@kernel.org,hannes@cmpxchg.org,cuitao@kylinos.cn,alex@ghiti.fr,zhangguopeng@kylinos.cn,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [merged mm-stable] mm-memcontrol-update-state_local-when-flushing-nmi-stats.patch removed from -mm tree
+Message-Id: <20260805022655.A58451F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Subject: Re: [PATCH v2] alloc_tag: fix undetected compressed tag overflow when
- profiling is disabled
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Abhishek Bapat <abhishekbapat@google.com>,
- stable@vger.kernel.org
-References: <20260804122038.190270-1-hao.ge@linux.dev>
- <CAJuCfpGit7zcNPGAB9D2A5+718NY-qdksxt7gUaN_eRcB_5+Ug@mail.gmail.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <CAJuCfpGit7zcNPGAB9D2A5+718NY-qdksxt7gUaN_eRcB_5+Ug@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
-
-Hi Suren
 
 
-Thanks a lot for your review.
+The quilt patch titled
+     Subject: mm: memcontrol: update state_local when flushing NMI stats
+has been removed from the -mm tree.  Its filename was
+     mm-memcontrol-update-state_local-when-flushing-nmi-stats.patch
 
+This patch was dropped because it was merged into the mm-stable branch
+of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-On 2026/8/5 04:08, Suren Baghdasaryan wrote:
-> On Tue, Aug 4, 2026 at 5:21 AM Hao Ge <hao.ge@linux.dev> wrote:
->> In reserve_module_tags(), the tag overflow check is gated on
->> mem_alloc_profiling_enabled():
->>
->>      if (mem_alloc_profiling_enabled() && !tags_addressable())
->>
->> If profiling is toggled off at runtime and a module is loaded whose
->> tags exceed the compressed-mode limit, shutdown_mem_profiling() is
->> skipped. vm_module_tags_populate() still maps memory for the tags and
->> the module loads successfully, but the total tag count now exceeds what
->> NR_UNUSED_PAGEFLAG_BITS can address.
->>
->> Once profiling is re-enabled, ref_to_idx() computes each tag's index
->> as its position in the alloc_tag array. update_page_tag_ref() masks
->> it to alloc_tag_ref_mask before storing in page->flags. Indices
->> beyond the mask are truncated and idx_to_ref() resolves them to wrong
->> tags.
->>
->> mem_alloc_profiling_enabled() and mem_profiling_compressed are
->> independent. Once compressed mode is established at boot, it stays
->> active regardless of runtime toggles of mem_profiling.
->>
->> Remove the mem_alloc_profiling_enabled() guard. Also return an error
->> after shutdown_mem_profiling() to skip vm_module_tags_populate(), as
->> the mapped pages would never be reused - shutdown_mem_profiling() sets
->> mem_profiling_support to false, so no future module load enters the
->> codetag path.
->>
->> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> Thanks for the fix, Hao!
->
->> ---
->> Changes in v2:
->> - Return error after shutdown_mem_profiling() to skip unnecessary
->>    vm_module_tags_populate()
->>    v1 link: https://lore.kernel.org/all/20260804064408.105033-1-hao.ge@linux.dev/
->> ---
->>   mm/alloc_tag.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
->> index 52aece27b00e..d8c36430f1c0 100644
->> --- a/mm/alloc_tag.c
->> +++ b/mm/alloc_tag.c
->> @@ -904,10 +904,11 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
->>                  int grow_res;
->>
->>                  module_tags.size = offset + size;
->> -               if (mem_alloc_profiling_enabled() && !tags_addressable()) {
-> Makes sense but how about replacing mem_alloc_profiling_enabled() with
-> mem_profiling_support? Otherwise this warning will be issued multiple
-> times if we are loading multiple modules.
+------------------------------------------------------
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: mm: memcontrol: update state_local when flushing NMI stats
+Date: Mon, 13 Jul 2026 16:50:53 +0800
 
+flush_nmi_stats() updates state[] for kmem and slab counters but leaves
+the corresponding state_local[] counters unchanged.  Local kmem and slab
+statistics therefore miss updates collected through the NMI-safe atomic
+path.
 
-That's a really good point, this duplicate warning issue will indeed happen.
+Update state_local[] together with state[].
 
-When I thought over your point, I realized using mem_profiling_support 
-creates a small race window.
+Link: https://lore.kernel.org/20260713085053.2916813-1-guopeng.zhang@linux.dev
+Fixes: 940b01fc8dc1 ("memcg: nmi safe memcg stats for specific archs")
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Acked-by: Tao Cui <cuitao@kylinos.cn>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Alexandre Ghiti <alex@ghiti.fr>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
 
+ mm/memcontrol.c |    5 +++++
+ 1 file changed, 5 insertions(+)
 
-Thread A（insmod A）                      Thread B (insmod B)
+--- a/mm/memcontrol.c~mm-memcontrol-update-state_local-when-flushing-nmi-stats
++++ a/mm/memcontrol.c
+@@ -4443,6 +4443,7 @@ static void flush_nmi_stats(struct mem_c
+ 		int index = memcg_stats_index(MEMCG_KMEM);
+ 
+ 		memcg->vmstats->state[index] += kmem;
++		memcg->vmstats->state_local[index] += kmem;
+ 		if (parent)
+ 			parent->vmstats->state_pending[index] += kmem;
+ 	}
+@@ -4460,9 +4461,11 @@ static void flush_nmi_stats(struct mem_c
+ 			int index = memcg_stats_index(NR_SLAB_RECLAIMABLE_B);
+ 
+ 			lstats->state[index] += slab;
++			lstats->state_local[index] += slab;
+ 			if (plstats)
+ 				plstats->state_pending[index] += slab;
+ 			memcg->vmstats->state[index] += slab;
++			memcg->vmstats->state_local[index] += slab;
+ 			if (parent)
+ 				parent->vmstats->state_pending[index] += slab;
+ 		}
+@@ -4471,9 +4474,11 @@ static void flush_nmi_stats(struct mem_c
+ 			int index = memcg_stats_index(NR_SLAB_UNRECLAIMABLE_B);
+ 
+ 			lstats->state[index] += slab;
++			lstats->state_local[index] += slab;
+ 			if (plstats)
+ 				plstats->state_pending[index] += slab;
+ 			memcg->vmstats->state[index] += slab;
++			memcg->vmstats->state_local[index] += slab;
+ 			if (parent)
+ 				parent->vmstats->state_pending[index] += slab;
+ 		}
+_
 
---------- ---------
+Patches currently in -mm which might be from zhangguopeng@kylinos.cn are
 
-needs_section_mem() -> true
+mm-memcg-v1-account-vmpressure-event-allocations.patch
+mm-memcg-v1-fix-wrong-linux-mm-list-address-in-deprecation-warnings.patch
+mm-memcontrol-drop-unused-cpu-argument-from-flush_nmi_stats.patch
+mm-memcontrol-factor-out-memcg-kmem-uncharge-sequence.patch
+mm-memcg-v1-make-mem_cgroup_oom_notify_cb-return-void.patch
+mm-memcg-stop-reclaim-when-a-limit-update-is-superseded.patch
 
-     needs_section_mem() -> true
-
-     (profiling still supported)
-
-reserve_module_tags()
-
-     overflow -> shutdown
-
-     mem_profiling_support=false
-
-     return -ENOSPC
-
-     reserve_module_tags()
-
-         mem_profiling_support==false
-
-         -> overflow check skipped
-
-         -> vm_module_tags_populate()
-
-             maps unused tag pages
-
-So I'd rather go with pr_warn_once here.
-
-
->> +               if (!tags_addressable()) {
->>                          shutdown_mem_profiling(true);
->>                          pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
->>                                  mod->name, NR_UNUSED_PAGEFLAG_BITS);
->> +                       return ERR_PTR(-ENOSPC);
-> This ENOSPC error will be propagated all the way up to the init_module
-> syscall and it's not among the error codes currently expected (see:
-> https://man7.org/linux/man-pages/man2/init_module.2.html). I suggest
-> returning ENOMEM instead.
-
-
-Agree, will change
-
-
-Thanks
-
-Best Regards
-
-Hao
-
->>                  }
->>
->>                  grow_res = vm_module_tags_populate();
->> --
->> 2.25.1
->>
