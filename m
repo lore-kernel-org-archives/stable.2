@@ -1,62 +1,62 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52CE2773E5
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 01:34:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABD62494D8
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 01:34:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785893675; cv=none; b=j/HooQpcT3Rz+DRLVPi5crpN7JYudP2OVNlJWt5NKWzPsp6CL3S18pFFoUWcuSfV0GxQkREIjJRQeM53Px8gwD4mMkb78iI8xLsTlv80dnJpRkxPuMM1I1QheIuHlI43b4HcpAbRaNZ8kRL01mEBoP1QYaHWUHeJ7954FoNrjQs=
+	t=1785893687; cv=none; b=lUldXpLA+R0+Ut3g/hFGi9tH96Jkp1a+WUaGqIjiXM4dYjZGlgUbGqJ3S1VA0qWvDjvLJPApwUG2Li8x2jNOmqjWOt8r85XsO4fhPTzCJlwPC0gjQixs7E23oRWvV+x4PhIdJFrzRd2zFBge91Z3MFu2Bt86U5WQHEivMkCZrnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785893675; c=relaxed/simple;
-	bh=q823u0njtz+m4plilGlEDplQii7ULrveeIHxp0K8UO4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tdDXkBQIGh2DTdM4y+E3ZjPdjmET3EJNQ7c7K3pYI4jyvU4qkbD5vYRZzA+KvY1ZNRkF9dry4wLirHXSgMDijlUBojTaCtL/lhxDnn+e6NUOrwpUacT4tshDgOi7U93K9GcOy9rmtQmDiHtLKExnmjphvFaOs7qBISe2lwoceEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=LHIMfK77; arc=none smtp.client-ip=209.85.216.42
+	s=arc-20240116; t=1785893687; c=relaxed/simple;
+	bh=6ggo468VqCJiBEAW/CY4gRyFscERZZi0d+FSNRqo7fM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sjAVjmt4BY/fixB7OODOp5cZvGDRS+hDMg1MQ0YLL/LTmJkSGHfmY5b0x+JLwJ/B/eYbsXcHvuw1/YOo52U+m3SJvxsV9dG8mnImPFa7CdmYAk5Kfl72TTidmboeKj7pvBJ4NiZLtbBFGbI375URzhVmxWAJGTQ+aGG6mGYA1V4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=f5IG8uNz; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xbow.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="LHIMfK77"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38e69bdb0fcso427253a91.1
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 18:34:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="f5IG8uNz"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cf52d15d88so4512945ad.2
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 18:34:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=xbow.com; s=google; t=1785893673; x=1786498473; darn=vger.kernel.org;
+        d=xbow.com; s=google; t=1785893685; x=1786498485; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xXEGsu4DseU9TknSOGMT/FiZusk6YuzDKEuFzSC1RE4=;
-        b=LHIMfK77h/WeRlW09yE0DPKXj3wt7m81Ivf0rXahzC3qlHi/jVuWRs24m9yk3UF7rZ
-         mcizCeZuWzCTK6jn37PrLgO/vBp2rdoyJIff44Eo3Uu0jyHHsdhtPJS6asfm+Cq5NnZO
-         Vn7YWfVUG06oXhg1WkhvNULlR4BVGy1BLhjaFCDB6IyAHOd+XCzM8tD0zV+K1Zt4go5Y
-         vJXSlZ3ayDLQRtCoshGCJQqCLnS11UdV+hKx2FHyej1cPeBy6jGh6UCiFWiUxa1mWka6
-         iCC+EXl5n4fDWwL4hbdL4hptMkAGddf3KYX5bEV+hjfNnXoxXXh7Nz67MsXnnarkx6se
-         oUCA==
+        bh=4cYrPAdGr78t7YkoLwcMiDz4Rg7VzdKjNoh6ElfleWU=;
+        b=f5IG8uNzFilA+bx40PllHgen6xCmvCxpPtA5YGpIpz0e/ltOqlvTkHxL2IO35l0Gwb
+         ICLo0tlLQ0zJEuiliXsoX9dYAChX9rZDREoueg/RBIGkanujl+uKZrC3wXVwbrDKv/Ua
+         oUpeMJF5dwLHmyc8cbHyenvtqBv+7viuTB2UCqy++MzV7H70CHMD6d7CGngZ8N8fmIHU
+         f2PoOWaxVfbwOmklUTxI24901jJp0Y7VKAR/sK2sP5CN4N4zeHPu7Jzak2E+ISJW2AJD
+         HudQPn7ALTxL//rdvXHIeLMcTQDz7F6G5qTOhcXxthZigqla24PMVMaK0NYsD2b/AE7t
+         zafw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785893673; x=1786498473;
+        d=1e100.net; s=20251104; t=1785893685; x=1786498485;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xXEGsu4DseU9TknSOGMT/FiZusk6YuzDKEuFzSC1RE4=;
-        b=CK/b97WuYB3SqudqPU+LOxYx7CGuV33ZqCvUDAJ5MNSzgRGoUO/R4ivKxw9t/W6iBX
-         pfEc5yWcw/hRfo442yTi8tfZyBvzNs0nKBekKE8YeF4ahySj3NeYEWOL7eEBGhUvp5w/
-         JeA0V/fUb66iasqzLwAg8wyZ0AoBnxqM+CaDo6Cg8HlhPVzO0GPdPaVEwxo0JyGf+rdD
-         7ndSfS/msMtjrtaWWL1YdmwhjWRIN/Xu+4yunlMje+a3uz/m3RuQ+hfg6Qg67K4T6kGa
-         gcuoSQnvDQLNpIm20SIrpRW1MC4D2UZ4UQzMrgEzNz7b7StZEpc2zrzQ6uiksyhqqEHz
-         zRwA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro2DVDdj5J51Ws+c+xu50WQxrlWllPtjnROjSKaV0VHjtEShtNv4/pLrumS7+t9hpQOmT+LS7A=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx3iD4OLtHkkChH/n68Pdqp2dbBzpLmIt8X4DxGR9JxUQ3MYqJc
-	kkheN4QTD+IaJJqylvIXe6R3wDzU5x8w7+97Xxj3XF3jAPvl+iOLlQiRX2BwTekMeOg=
-X-Gm-Gg: AR+sD125LKMmf9ubEA2WayZXUhODaFiod6JBp4Am5mL1HmkvPWPyjLzrfkEzw+YWrb7
-	qGhotE766/XHM8NGxcLA2mJhiQKHUWD6oY1F7LNoCM8tL4QPFgrW+GukdReyy44R9Fp43/0hNhA
-	DN+MjDNkEtbKzpMcB8QWdFOHAWHEU4Lwj47mZBwbYhaDWGTsaVeWKwRucHNU9PE1F0d6yYwwQfc
-	qjcP/eV6stxvmY7NM6QBcOcH/6oY9okf9yIU10JKEl1jBW4sOicJxdZcYrwC4TCGIL9k5GhqBbz
-	VIkpdoZy+dvekGlTFsm+9YFAZqWDZ/H+unH8oVc5CGtn2Zpj3yE+qVYTo3FLEbBIeV1TY9U6XeD
-	70bROlskrgNI3oiX8EV/asCquYC32YIpTofM2WQy5qQcoiWNw74N3Be3vA7sgIXSjPH8GukayyO
-	gd+9YWEkX2cseJDGvuXmB8R/lJql6sMsNz5NUXMwDUni8b2d6+mmh7zH9iT8mBdYTt8fw70Rysh
-	AgoBVLVlQCV7JSPuTdBPDMPfouA
-X-Received: by 2002:a17:90b:4c89:b0:38c:a59b:5189 with SMTP id 98e67ed59e1d1-3903c5aefe9mr2806508a91.15.1785893672930;
-        Tue, 04 Aug 2026 18:34:32 -0700 (PDT)
+        bh=4cYrPAdGr78t7YkoLwcMiDz4Rg7VzdKjNoh6ElfleWU=;
+        b=KQD17rpdpb9gvtgTbKFz1yGGqfL+DoB9yTEKcCMYWbZ0Fan89F4i+snoxnhioVqq2F
+         JiOMyLnjYbQyeyM+NgfKEudWYoF2937HiPv6nyA53WIdoYShZZH2muEITMZgjsG9e2Oj
+         vhqU/nRrbywlPh3ZRKYtXvnKNsIQteXbxIpszgigH93MO/PmyYHZhhnPq2DQZ4lItBUu
+         9D3+hz1n1Od4gvTw/0R500l2MSa8evtQIZzbVABSJzYveyG1paEB4v7qDhO8bbFWpl58
+         pQFsBuUVLZgK7/esHUSfcrUFRTzO5WFDxcFw5ghUJWH4NeYPi9ydXbY9AjhXfr31HGZ/
+         Nyqw==
+X-Forwarded-Encrypted: i=1; AHgh+RqxbjZkuYTnoS5kWG/+pCKpwrP54JZnVkj7kW1pQjhLU+Lg63xcbr2V2lWYFuJ+Me3Ze8TjGnU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxvCbh9tO0iHExc8dYPTeGy5fI/fxHhsR0/YIsSFCXrtjIgn6Sx
+	VmVxJBw/FM+MzdDSJFleqtwHayLSGbj9rcnLec0D6n/u94dLonCGw0aGx9ct9x4nzu4=
+X-Gm-Gg: AR+sD12bcb1EbdIsidN/KRx7qHKxqDFQNk3liUQMVJXnVA1/uI7XRBcvCXbq+DOC5MG
+	+99YFXUZqBGRXrrCAOPiJUUepaSYkpoy92kspfzc7EtnORztBV+SthUJonfRGOFWfDKclME7Par
+	atEWBsSAd9oUD+fZGtbCG0rrjJRUA2uF9IOawCm3A32eJL9sRY0igKbfDWujEzVizArY3Yz7+0U
+	dvfqrYhG8J9E9/LrkYZdXCju6NpfeNekE/SDpu+DUCTAY4B8UKA+DtohjjtW254uUNXIaG8792l
+	sqb7FBVAC+eZggXSSYkor5YP9WcR0/CethpHg98hnASJXLZo4GFn93tOIzxxSnZyB+YMvBMQQ4b
+	Y6Z0dhAVuDAgjvDjrhClsvcb5d4Knfi40ZLlnSxTTc4ZCoEYlkBZDj9UTMLP82SHPEQvIX+SSaQ
+	Lpc8qAL+Dd/7bsNLKL/7AlKtnAYuBSaUK2DnUyWlolcJU6LxjaGESGJ62IU53BHUaHofbXAEVlF
+	GD1x1UxQi8wFl3P9atzEztS1CfiS81kBoHCLYg=
+X-Received: by 2002:a17:90b:5823:b0:38e:485c:ebd3 with SMTP id 98e67ed59e1d1-3903c5b727cmr3065888a91.15.1785893685187;
+        Tue, 04 Aug 2026 18:34:45 -0700 (PDT)
 Received: from Mac.lan ([125.128.148.126])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903f61ef2esm472369a91.3.2026.08.04.18.34.30
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903d2f9807sm545246a91.1.2026.08.04.18.34.43
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 04 Aug 2026 18:34:32 -0700 (PDT)
+        Tue, 04 Aug 2026 18:34:44 -0700 (PDT)
 From: Baul Lee <baul.lee@xbow.com>
 To: perex@perex.cz,
 	tiwai@suse.com
@@ -65,9 +65,9 @@ Cc: linux-sound@vger.kernel.org,
 	federico.kirschbaum@xbow.com,
 	stable@vger.kernel.org,
 	Baul Lee <baul.lee@xbow.com>
-Subject: [PATCH] ALSA: bcd2000: clear the URB pointers on disconnect
-Date: Wed,  5 Aug 2026 10:34:28 +0900
-Message-ID: <20260805013428.38204-1-baul.lee@xbow.com>
+Subject: [PATCH] ALSA: usb-audio: fix OOB write on Type II inbound URBs
+Date: Wed,  5 Aug 2026 10:34:41 +0900
+Message-ID: <20260805013441.38245-1-baul.lee@xbow.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -77,102 +77,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bcd2000_free_usb_related_resources() frees both URBs and leaves the
-pointers behind:
+data_ep_set_params() sizes each URB transfer buffer before it adds the
+Format Type II transfer delimiter:
 
-	usb_kill_urb(bcd2k->midi_out_urb);
-	usb_kill_urb(bcd2k->midi_in_urb);
+	u->packets = urb_packs;
+	u->buffer_size = maxsize * u->packets;
 
-	usb_free_urb(bcd2k->midi_out_urb);
-	usb_free_urb(bcd2k->midi_in_urb);
+	if (fmt->fmt_type == UAC_FORMAT_TYPE_II)
+		u->packets++; /* for transfer delimiter */
+	u->urb = usb_alloc_urb(u->packets, GFP_KERNEL);
 
-The rawmidi device outlives that call.  A substream that is still open
-when the device is unplugged reaches bcd2000_midi_send() from the
-trigger path on close.  That function writes to the freed URB and then
-hands it to the USB core:
+buffer_size is computed from the pre-increment packet count and never
+recomputed, so for a Type II endpoint the buffer is one packet short of
+the packet count the URB is built with.
 
-	bcd2k->midi_out_urb->transfer_buffer_length = BUFSIZE;
-	...
-	ret = usb_submit_urb(bcd2k->midi_out_urb, GFP_ATOMIC);
+prepare_inbound_urb() then lays out one iso frame per packet and never
+consults buffer_size:
 
-usb_kill_urb() does not stop a later submission either, so a submit that
-races the disconnect can requeue the URB after it has been reaped.
-midi_in_urb is exposed the same way: bcd2000_input_complete() resubmits
-it from the completion handler.
+	offs = 0;
+	for (i = 0; i < urb_ctx->packets; i++) {
+		urb->iso_frame_desc[i].offset = offs;
+		urb->iso_frame_desc[i].length = ep->curpacksize;
+		offs += ep->curpacksize;
+	}
 
-KASAN on 7.2.0-rc5 (arm64):
+	urb->transfer_buffer_length = offs;
+	urb->number_of_packets = urb_ctx->packets;
 
-  BUG: KASAN: slab-use-after-free in bcd2000_midi_send [snd_bcd2000]
-  Write of size 4 at addr ffff00001827d388 by task bpoc/168
-   __asan_store4
-   bcd2000_midi_send [snd_bcd2000]
-   bcd2000_midi_output_trigger [snd_bcd2000]
-   snd_rawmidi_kernel_write1
-   close_substream.part.0
-  Freed by task 168:
-   usb_free_urb
-   bcd2000_disconnect [snd_bcd2000]
+The last descriptor therefore points one packet past the end of the
+transfer buffer, where the host controller writes device data on every
+inbound transfer.  prepare_silent_urb() and prepare_playback_urb() bound
+their fill loops by ctx->buffer_size, so only capture is affected.
 
-  BUG: KASAN: slab-use-after-free in usb_submit_urb
-  Read of size 8 at addr ffff00001827d3b8 by task bpoc/168
+fmt_type comes from the device's audio streaming descriptors, so any
+device advertising a Type II capture format hits this once userspace sets
+hw_params on the stream.
 
-Clear both pointers after freeing and test them on the paths that can
-still run.  Poison the URBs before freeing them: usb_poison_urb() waits
-for a running completion handler and rejects any later submission, so
-after it returns the input path is quiesced and only the rawmidi trigger
-path can still reach bcd2000_midi_send().  No unpoison is needed; the
-URBs are freed on the next line.
+KASAN on 7.2.0-rc5 (arm64) with a dummy_hcd/raw-gadget device, one report
+per inbound transfer:
+
+  BUG: KASAN: slab-out-of-bounds in dummy_timer
+  Write of size 64 at addr ffff0000186171c0 by task cons02/166
+   __asan_memcpy
+   dummy_timer
+   hrtimer_run_softirq
+  Allocated by task 166:
+   usb_alloc_coherent
+   snd_usb_endpoint_set_params
+  The buggy address is located 0 bytes to the right of
+   allocated 64-byte region [ffff000018617180, ffff0000186171c0)
+
+Compute buffer_size after the delimiter packet has been accounted for,
+and bound the fill loop by buffer_size, as prepare_silent_urb() already
+does on the outbound side.  This grows every Type II URB allocation by
+one maxsize packet.
 
 Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
 
-Fixes: b47a22290d58 ("ALSA: MIDI driver for Behringer BCD2000 USB device")
+Fixes: 8fdff6a319e7 ("ALSA: snd-usb: implement new endpoint streaming model")
 Reported-by: Federico Kirschbaum <federico.kirschbaum@xbow.com>
 Reported-by: Baul Lee <baul.lee@xbow.com>
 Cc: stable@vger.kernel.org
 Signed-off-by: Baul Lee <baul.lee@xbow.com>
 ---
- sound/usb/bcd2000/bcd2000.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ sound/usb/endpoint.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/sound/usb/bcd2000/bcd2000.c b/sound/usb/bcd2000/bcd2000.c
-index bebb48cb9abc..c5c542d17ccc 100644
---- a/sound/usb/bcd2000/bcd2000.c
-+++ b/sound/usb/bcd2000/bcd2000.c
-@@ -134,6 +134,9 @@ static void bcd2000_midi_send(struct bcd2000 *bcd2k)
- 	if (!midi_out_substream)
- 		return;
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index dca06ba1c67e..a1d449f2a342 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -385,13 +385,15 @@ static int prepare_inbound_urb(struct snd_usb_endpoint *ep,
+ 	case SND_USB_ENDPOINT_TYPE_DATA:
+ 		offs = 0;
+ 		for (i = 0; i < urb_ctx->packets; i++) {
++			if (offs + ep->curpacksize > urb_ctx->buffer_size)
++				break;
+ 			urb->iso_frame_desc[i].offset = offs;
+ 			urb->iso_frame_desc[i].length = ep->curpacksize;
+ 			offs += ep->curpacksize;
+ 		}
  
-+	if (!bcd2k->midi_out_urb)
-+		return;
-+
- 	/* copy command prefix bytes */
- 	memcpy(bcd2k->midi_out_buf, device_cmd_prefix,
- 		sizeof(device_cmd_prefix));
-@@ -178,7 +181,7 @@ static int bcd2000_midi_output_close(struct snd_rawmidi_substream *substream)
- {
- 	struct bcd2000 *bcd2k = substream->rmidi->private_data;
+ 		urb->transfer_buffer_length = offs;
+-		urb->number_of_packets = urb_ctx->packets;
++		urb->number_of_packets = i;
+ 		break;
  
--	if (bcd2k->midi_out_active) {
-+	if (bcd2k->midi_out_active && bcd2k->midi_out_urb) {
- 		usb_kill_urb(bcd2k->midi_out_urb);
- 		bcd2k->midi_out_active = 0;
- 	}
-@@ -348,11 +351,13 @@ static int bcd2000_init_midi(struct bcd2000 *bcd2k)
- static void bcd2000_free_usb_related_resources(struct bcd2000 *bcd2k,
- 						struct usb_interface *interface)
- {
--	usb_kill_urb(bcd2k->midi_out_urb);
--	usb_kill_urb(bcd2k->midi_in_urb);
-+	usb_poison_urb(bcd2k->midi_out_urb);
-+	usb_poison_urb(bcd2k->midi_in_urb);
+ 	case SND_USB_ENDPOINT_TYPE_SYNC:
+@@ -1243,10 +1245,10 @@ static int data_ep_set_params(struct snd_usb_endpoint *ep)
+ 		u->index = i;
+ 		u->ep = ep;
+ 		u->packets = urb_packs;
+-		u->buffer_size = maxsize * u->packets;
  
- 	usb_free_urb(bcd2k->midi_out_urb);
- 	usb_free_urb(bcd2k->midi_in_urb);
-+	bcd2k->midi_out_urb = NULL;
-+	bcd2k->midi_in_urb = NULL;
- 
- 	if (bcd2k->intf) {
- 		usb_set_intfdata(bcd2k->intf, NULL);
+ 		if (fmt->fmt_type == UAC_FORMAT_TYPE_II)
+ 			u->packets++; /* for transfer delimiter */
++		u->buffer_size = maxsize * u->packets;
+ 		u->urb = usb_alloc_urb(u->packets, GFP_KERNEL);
+ 		if (!u->urb)
+ 			goto out_of_memory;
 -- 
 2.50.1 (Apple Git-155)
 
