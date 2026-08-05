@@ -1,163 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DF33ABD8D;
-	Wed,  5 Aug 2026 03:03:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701F637B3F9;
+	Wed,  5 Aug 2026 03:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785898993; cv=none; b=hN4f0q7DXOrwGtqIJqyIoaqnOyUwth+TcUwG3TbcjWa70U9PCeUlnTIv04UNpW2kS+oRlABLabDMet3akkmyLjQAi2ReF3ibvvxgx/HDMMVOvbvJhDAJCYnuA6lAzFmqZ/fRSoGMrHvt2alL0MFhiGMxfHnuE6cLp1ip5u7vGZc=
+	t=1785899918; cv=none; b=mbfyUoZQ9PNBUDrUNsiNdOQ8LCyOCSgr4xDTr1UNpnLT52AnY0hxFL5t6Ja7oFX1S3zpK3vciYH0p2VGrKWw51C1K2+j+Qkti8FMkr9IoxjeD7fZUomFalu7aWYU252QuDCxArRcsrLcRcnchDwxRKNELMjnL3LqjC4Rqj0yXDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785898993; c=relaxed/simple;
-	bh=PVCIK5jdFdPpXgeBEbb2hlSZsV+l3DEzvZ89ioCH6No=;
-	h=Date:To:From:Subject:Message-Id; b=s1jK40kYtuk0KX52RDJBBEmqKSLzmP0sL2nZdP8cucCD8+r43R9pCmdMCci9dzu80mFnkfA30NawZjczHXY7f9Ze3VeFg8r+So2GvRL5KB89uZY3WBCzuEpxmfRlIHHtu2gIWvlyz7hxe9J/YRNNB+/Nq/XaUrcJhnNLK8o+cNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=xmaxS42m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785899918; c=relaxed/simple;
+	bh=XmTzYePdCPSD7x6GhWoDyr3F6EIdfWcn4K6qWnY16fE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M06T73acIO3/DLppyqCgvNlXXkXAfWhKIkSmPGrm+JDYXaGxeBBm8y2UQYGCvRBj9ApjdYW8f4HpB9p49fhwGW8aLqxDmig3B/7mWYybEge9aZbIZ1echKCPqB7Eu83TrXm9RgqzZq6wtJh+frsvkMHj2foe5+j5jYd4PAfqc8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=C+X9a8D0; arc=none smtp.client-ip=115.124.30.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="xmaxS42m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D82C1F00A3A;
-	Wed,  5 Aug 2026 03:03:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785898991;
-	bh=n4mcIles1SnBg5E45m7BjHu/WIT3+3PZ8PD8samKtqo=;
-	h=Date:To:From:Subject;
-	b=xmaxS42mCUKyR/+e3aqYlu1WimcBQk4cj5uvlt7oqv7upJfM8HIjjiU2JmuwFaJuR
-	 Q9qj6ZqBg/lZvl4VeOP+fTFbFYE2yJJS0d5jYlL86AuxAos6KgUxCH/PuZr0vKJC7w
-	 oP4Vumf9uDDwkT6ZBW5Z9zUv5L1nvHIA/ytVj6fE=
-Date: Tue, 04 Aug 2026 20:03:10 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,hyeongtak.ji@sk.com,honggyu.kim@sk.com,sj@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-damon-adjust-isolated-pages-stat-for-damos_migrate_hotcold.patch removed from -mm tree
-Message-Id: <20260805030311.6D82C1F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="C+X9a8D0"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1785899901; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=gTMi+9O9uxqWDAp2n+p0LfXJQhDU9mWxjtuUL70XLjc=;
+	b=C+X9a8D0Eb84b3wJUnmth/4agAvaenO2F+upvKdVr3/8dPLC3Xg9rXzvXCFbl8Cxt2lEw8iVQ/+Kvxs3DObyyNxzLrVRnRXyYDCrgDzTtczWAD5EZBaAdvs3Nf84vPaOibQk7JOCzd8VE1L/DFMz/fAxjai/E7TTTummkw/e5XY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R651e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=tonylu@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0X8PlxZA_1785899900;
+Received: from localhost(mailfrom:tonylu@linux.alibaba.com fp:SMTPD_---0X8PlxZA_1785899900 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 05 Aug 2026 11:18:20 +0800
+Date: Wed, 5 Aug 2026 11:18:18 +0800
+From: Tony Lu <tonylu@linux.alibaba.com>
+To: Yifei Gao <gyf161023@gmail.com>
+Cc: "D . Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
+	netdev@vger.kernel.org, Wen Gu <guwen@linux.alibaba.com>,
+	Karsten Graul <kgraul@linux.ibm.com>,
+	Ursula Braun <ubraun@linux.ibm.com>,
+	Wenjia Zhang <wenjia@linux.ibm.com>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] net/smc: fix sock refcount leak in smc_switch_conns()
+ error path
+Message-ID: <anKretz4IRgMBdR9@TONYMAC-ALIBABA.local>
+Reply-To: Tony Lu <tonylu@linux.alibaba.com>
+References: <20260804213917.3413525-1-gyf161023@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260804213917.3413525-1-gyf161023@gmail.com>
 
+> Subject: [PATCH] net/smc: fix sock refcount leak in smc_switch_conns() error path
 
-The quilt patch titled
-     Subject: mm/damon: adjust isolated pages stat for DAMOS_MIGRATE_{HOT,COLD}
-has been removed from the -mm tree.  Its filename was
-     mm-damon-adjust-isolated-pages-stat-for-damos_migrate_hotcold.patch
+Please use [PATCH net] as the subject prefix when sending v2, since
+this fix targets the net tree.
 
-This patch was dropped because it was merged into the mm-hotfixes-stable branch
-of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon: adjust isolated pages stat for DAMOS_MIGRATE_{HOT,COLD}
-Date: Tue, 28 Jul 2026 07:04:03 -0700
-
-Callers of migrate_pages() should adjust NR_MIGRATED_{ANON,FILE} for
-isolations and putback of the folios.  That for migration succeeded folios
-is done by migrate_pages(), in migrate_folio_done().  That for MR_DEMOTION
-reason is an exception though.
-
-DAMOS_MIGRATE_{HOT,COLD} call migrate_pages() but mistakenly not doing the
-stat adjustment.  As a result, use of DAMOS_MIGRATE_{HOT,COLD} could
-corrupt the stat.  It could confuse too_many_isolated(), make compaction
-and reclaim to behave in unexpected ways.  The stat corruption can be
-reproduced and confirmed using DAMON user-space tool [1] on NUMA systems,
-like below.
-
-    $ numactl --hardware
-    available: 2 nodes (0-1)
-    [...]
-    $ sudo ./damo start --damos_action migrate_hot 1
-    $ sudo cat /proc/sys/vm/stat_refresh
-    $ sudo dmesg
-    [...]
-    [   80.215554] vmstat_refresh: nr_isolated_anon -5578
-    [   80.216842] vmstat_refresh: nr_isolated_file -34400
-
-This issue was discovered [2] by Sashiko.
-
-Link: https://lore.kernel.org/20260728140404.94476-1-sj@kernel.org
-Link: https://github.com/damonitor/damo [1]
-Link: https://lore.kernel.org/20260726164356.87940-1-sj@kernel.org [2]
-Fixes: b51820ebea65 ("mm/damon/paddr: introduce DAMOS_MIGRATE_COLD action for demotion")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: Honggyu Kim <honggyu.kim@sk.com>
-Cc: Hyeongtak Ji <hyeongtak.ji@sk.com>
-Cc: <stable@vger.kernel.org> # 6.11.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/damon/ops-common.c |    4 ++++
- mm/damon/paddr.c      |    2 ++
- mm/damon/vaddr.c      |    3 ++-
- 3 files changed, 8 insertions(+), 1 deletion(-)
-
---- a/mm/damon/ops-common.c~mm-damon-adjust-isolated-pages-stat-for-damos_migrate_hotcold
-+++ a/mm/damon/ops-common.c
-@@ -375,6 +375,8 @@ keep:
- 	while (!list_empty(folio_list)) {
- 		folio = lru_to_folio(folio_list);
- 		list_del(&folio->lru);
-+		node_stat_sub_folio(folio, NR_ISOLATED_ANON +
-+				folio_is_file_lru(folio));
- 		folio_putback_lru(folio);
- 	}
- 
-@@ -397,6 +399,8 @@ unsigned long damon_migrate_pages(struct
- 			struct folio *folio = lru_to_folio(folio_list);
- 
- 			list_del(&folio->lru);
-+			node_stat_sub_folio(folio, NR_ISOLATED_ANON +
-+					folio_is_file_lru(folio));
- 			folio_putback_lru(folio);
- 		}
- 		return nr_migrated;
---- a/mm/damon/paddr.c~mm-damon-adjust-isolated-pages-stat-for-damos_migrate_hotcold
-+++ a/mm/damon/paddr.c
-@@ -350,6 +350,8 @@ static unsigned long damon_pa_migrate(st
- 
- 		if (!folio_isolate_lru(folio))
- 			goto put_folio;
-+		node_stat_add_folio(folio, NR_ISOLATED_ANON +
-+				folio_is_file_lru(folio));
- 		list_add(&folio->lru, &folio_list);
- put_folio:
- 		addr += folio_size(folio);
---- a/mm/damon/vaddr.c~mm-damon-adjust-isolated-pages-stat-for-damos_migrate_hotcold
-+++ a/mm/damon/vaddr.c
-@@ -649,7 +649,8 @@ static void damos_va_migrate_dests_add(s
- isolate:
- 	if (!folio_isolate_lru(folio))
- 		return;
--
-+	node_stat_add_folio(folio, NR_ISOLATED_ANON +
-+			folio_is_file_lru(folio));
- 	list_add(&folio->lru, &migration_lists[i]);
- }
- 
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-mm-damon-core-skip-aging-from-repeated-aggressive-merging.patch
-mm-damon-core-hide-private-damon_region-fields.patch
-mm-damon-core-hide-private-damon_target-fields.patch
-mm-damon-core-hide-private-damos_quota_goal-fields.patch
-mm-damon-core-hide-private-damos_quota-fields.patch
-mm-damon-core-hide-private-damos_filter-fields.patch
-mm-damon-core-hide-private-damos-fields.patch
-mm-damon-core-hide-private-damon_filter-fields.patch
-mm-damon-core-hide-private-damon_probe-fields.patch
-mm-damon-sysfs-do-not-directly-access-damon_ctx-ops.patch
-mm-damon-core-hide-core-private-damon_ctx-fields.patch
-mm-damon-core-avoid-infinite-kdamond_merge_regions-internal-loop.patch
-mm-damon-tests-core-kunit-catch-test-failure-in-test_merge_regions_of.patch
-mm-damon-vaddr-drop-last-same-folio-access-check-optimization.patch
-mm-damon-paddr-drop-last-same-folio-access-check-reuse-optimization.patch
-mm-damon-sysfs-read-addr_unit-only-once-in-damon_sysfs_apply_inputs.patch
-mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs.patch
-mm-damon-core-initialize-damos-last_applied.patch
-mm-damon-core-kunit-check-region-count-before-testing-in-split_at.patch
-mm-damon-vaddr-kunit-check-region-count-in-three_regions-test.patch
-mm-damon-core-kunit-handle-region-split-failure-in-filter_out.patch
-mm-damon-core-kunit-skip-wrong-dest-walk-in-commit_dests_for.patch
-mm-damon-core-kunit-skip-wrong-quota-goal-walk-in-commit_quota_goals.patch
-mm-damon-core-kunit-skip-wrong-region-walk-in-commit_target_regions.patch
-mm-damon-ops-common-use-nr_accesses-moving-sum-for-quota-score.patch
-mm-damon-core-handle-region-split-failure-in-apply_min_nr_regions.patch
-
+On Tue, Aug 04, 2026 at 09:39:17PM +0000, Yifei Gao wrote:
+> smc_switch_conns() takes a reference on the socket with sock_hold() before
+> dropping conns_lock to prefetch a tx slot. On success the reference is
+> released by the sock_put() after smc_switch_cursor(). When
+> smc_cdc_get_free_slot() fails, however, the function jumps straight to
+> err_out without a sock_put(), leaking the reference and leaving the socket
+> unreclaimable. During SMC-R link failover with an exhausted backup link
+> this leaks one reference per failing connection switch.
+> 
+> Release the reference before jumping to err_out. The err_out label is also
+> reached from the smc_switch_cursor() failure path, which has already done
+> its own sock_put(), so the put must stay at the get_free_slot failure site
+> rather than at the label.
+> 
+> Fixes: c6f02ebeea3a ("net/smc: switch connections to alternate link")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Yifei Gao <gyf161023@gmail.com>
+> ---
+>  net/smc/smc_core.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+> index cf6b620fef05..04c6ce608ec7 100644
+> --- a/net/smc/smc_core.c
+> +++ b/net/smc/smc_core.c
+> @@ -1148,8 +1148,10 @@ struct smc_link *smc_switch_conns(struct smc_link_group *lgr,
+>  		read_unlock_bh(&lgr->conns_lock);
+>  		/* pre-fetch buffer outside of send_lock, might sleep */
+>  		rc = smc_cdc_get_free_slot(conn, to_lnk, &wr_buf, NULL, &pend);
+> -		if (rc)
+> +		if (rc) {
+> +			sock_put(&smc->sk);
+>  			goto err_out;
+> +		}
+>  		/* avoid race with smcr_tx_sndbuf_nonempty() */
+>  		spin_lock_bh(&conn->send_lock);
+>  		smc_switch_link_and_count(conn, to_lnk);
+> -- 
+> 2.43.0
