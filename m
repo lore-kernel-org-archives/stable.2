@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B39466AE2
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:11:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D798453A33
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:11:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931868; cv=none; b=IHPMz3+06uep2fqu7+F3RHAK0jNpQJd63cijB7Su8+Qre8HJJBuHeTTNOkdvMt1cU8ulR/uWPEsQhqRMCnQzvp1aMhjRFsSSIAgqt7aQejISlaTHpWMYaNwRDsE48UuKPaptVA7Vy6wNVjZOufItPSd+P53dRzO1G9XV2foWM/8=
+	t=1785931898; cv=none; b=eAMd/mJjCCxZ3WRQ9fb4vbNWBs610QQa3X96uyBCoMag46SuCjkJV7PkTh7RD4kaBTEz9UiVZhgkB2JKj/JgcQ3LsNXLBvGDm8fViYsbtw6W+fW8yllnETu6mrpDEhJOEtqiqoyEIo/v6+tazSBjit1wdCgpSERaLAHq7U8Q7o0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931868; c=relaxed/simple;
-	bh=MholY85TXeWgb+AXKzSgBAAPPG+BNAMRLYciq8n+cVE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZVzkmUFb0qTvpr6wivQpS+MJraE3Bov3LgEhwy/2sU0Iow+2NYadBrUrdblukjoJwKAapD4CU6d0Emb+8WfANmTiDuJPMmpshoqJQEGzoZAGlQE/c+1I4PX5qjZhYasOUXdSNzMs8LjC1tGkEaJ+uzBlaEpPJ38L692mMOKml2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dOCGk0pr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785931898; c=relaxed/simple;
+	bh=MMx2lE0LShox81mvRZN/bKSln2MuGRKzyC6dXbabeRw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qEkEd43xBMhdk/4hJTzGYCnYAswG4HnvC6AsXoRSxrAbjDZwmq2m+L2s8bM4q1eOo/iyxZmf7YS0EZJ4YN8pIys4NPuah4e7dY2+E1OxEQRakUwKitGUUHJ+3HHswVfYFAqnUrLHt53PksBNk5aNEQczQR5O5MU7jJUWmLeA21E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Q4sDdBMa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dOCGk0pr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37DBC1F00A3A;
-	Wed,  5 Aug 2026 12:11:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Q4sDdBMa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 790DB1F000E9;
+	Wed,  5 Aug 2026 12:11:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785931866;
-	bh=2pPk3K+hut1srvakzqJ1jiwI02bw1xcu8TsK9hnJtV4=;
+	s=korg; t=1785931897;
+	bh=j2DYKyE5zm8wXmPmBMr53LziNK/9BHPjRpp45X+HMU4=;
 	h=Subject:To:Cc:From:Date;
-	b=dOCGk0prNDm4AbvuiYO9PypaUDXSQlAXY9eUrOIewyG6J2oPCNfXg74xrukzKNj2O
-	 NDaK95R4cDz3OMmjD5XTFR3Um09ovjBNgWjxJM3RHkepDj1Xpa4d8Lhv2X6fi/Kw1W
-	 RuNdsNzTRygAImgK13LnwoWuWUAKlI91oRntn1WU=
-Subject: FAILED: patch "[PATCH] drm/amd/display: check if dml21_add_phantom_plane() is" failed to apply to 6.12-stable tree
-To: alexander.deucher@amd.com,daniel.wheeler@amd.com,dillon.varone@amd.com,jerry.zuo@amd.com
+	b=Q4sDdBMamtP7TzWhErs6bJIyj9WCmiG1O7tXyS2qVO6rT5ATVi8J/Uayf85sP8VPq
+	 EQycnO+Y24bOA7FQK6DkM5/zqdntAGD75aCodlfsxFSLJ22OvqjnaxGupywv/yr3RS
+	 +XCoDDix4lr6xXCE/hEh531k7i+Uf3nvKS3BRvEE=
+Subject: FAILED: patch "[PATCH] drm/amd/display: use proper context for logging" failed to apply to 6.6-stable tree
+To: jirislaby@kernel.org,Bhawanpreet.Lakha@amd.com,airlied@gmail.com,alexander.deucher@amd.com,bhawanpreet.lakha@amd.com,christian.koenig@amd.com,harry.wentland@amd.com,simona@ffwll.ch,siqueira@igalia.com,sunpeng.li@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 14:10:41 +0200
-Message-ID: <2026080541-difficult-synthetic-599f@gregkh>
+Date: Wed, 05 Aug 2026 14:11:20 +0200
+Message-ID: <2026080520-unpicked-volumes-c745@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 000acb4ce7fb9feba3072ce468ad681f6585cd5d
+git cherry-pick -x 114b42507b6a23d9d24e24e4ef165233332c64d4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080541-difficult-synthetic-599f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080520-unpicked-volumes-c745@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,48 +62,173 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 000acb4ce7fb9feba3072ce468ad681f6585cd5d Mon Sep 17 00:00:00 2001
-From: Alex Deucher <alexander.deucher@amd.com>
-Date: Mon, 16 Feb 2026 09:32:53 -0500
-Subject: [PATCH] drm/amd/display: check if dml21_add_phantom_plane() is
- successful
+From 114b42507b6a23d9d24e24e4ef165233332c64d4 Mon Sep 17 00:00:00 2001
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+Date: Thu, 23 Jul 2026 06:25:48 +0200
+Subject: [PATCH] drm/amd/display: use proper context for logging
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Verify that the phantom plane was allocated to avoid a later
-segfault.
+The same as the rest of the code, get_ss_info_from_atombios() uses
+calc_pll_cs->ctx->logger for logging. But calc_pll_cs->ctx is
+initialized only later in calc_pll_max_vco_construct(). Therefore, any
+output using DC_LOG_SYNC() leads to a NULL pointer deference in
+get_ss_info_from_atombios().
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4970
-Fixes: 70839da63605 ("drm/amd/display: Add new DCN401 sources")
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+According to Sashiko, the very same problem exists in
+dce112_get_pix_clk_dividers() and dcn3_get_pix_clk_dividers() too.
+
+To avoid accessing the NULL context, use clk_src->base.ctx->logger
+everywhere. That context in base is initialized earlier in
+dce110_clk_src_construct() and dce112_clk_src_construct(). Before
+get_ss_info_from_atombios() or Sashiko's get_pix_clk_dividers functions
+above are actually called. This is done by redefining DC_LOGGER to
+CTX->logger.
+
+Before:
+dce110_clk_src_construct() did:
+ -> sets clk_src->base.ctx = ctx;
+ -> ss_info_from_atombios_create()
+   -> get_ss_info_from_atombios()   <- uses calc_pll_cs->ctx  # BOOM
+ -> calc_pll_max_vco_construct()    <- sets calc_pll_cs->ctx
+
+After:
+dce110_clk_src_construct() does:
+ -> sets clk_src->base.ctx = ctx;
+ -> ss_info_from_atombios_create()
+   -> get_ss_info_from_atombios()   <- uses clk_src->base.ctx
+
+Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271175
+Closes: https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528ae3c63a3@kernel.org/
+Fixes: 1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
+Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 5adb54abe5a8e82cbff7f8806db30a5f4924329f)
+(cherry picked from commit 6f16fcbb0c46a87e3d9685407e906573d60104b0)
 Cc: stable@vger.kernel.org
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_utils.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_utils.c
-index 835fece1d46a..50e445275b14 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_utils.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_utils.c
-@@ -359,14 +359,13 @@ void dml21_handle_phantom_streams_planes(const struct dc *dc, struct dc_state *c
- 					main_plane = main_stream_status->plane_states[dc_plane_index];
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+index ecb8493ec523..8e3862f6dac2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+@@ -45,9 +45,7 @@
+ 	clk_src->base.ctx
  
- 					/* create phantom planes for subvp enabled plane */
--					dml21_add_phantom_plane(dml_ctx,
--							dc,
--							context,
--							phantom_stream,
--							main_plane,
--							&dml_ctx->v21.mode_programming.programming->plane_programming[dml_plane_index]);
+ #define DC_LOGGER \
+-	calc_pll_cs->ctx->logger
+-#define DC_LOGGER_INIT() \
+-	struct calc_pll_clock_source *calc_pll_cs = &clk_src->calc_pll
++	CTX->logger
+ 
+ #undef FN
+ #define FN(reg_name, field_name) \
+@@ -287,6 +285,7 @@ static bool calc_pll_dividers_in_range(
+ }
+ 
+ static uint32_t calculate_pixel_clock_pll_dividers(
++		struct dce110_clk_src *clk_src,
+ 		struct calc_pll_clock_source *calc_pll_cs,
+ 		struct pll_settings *pll_settings)
+ {
+@@ -474,7 +473,7 @@ static uint32_t dce110_get_pix_clk_dividers_helper (
+ {
+ 	uint32_t field = 0;
+ 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
+-	DC_LOGGER_INIT();
++
+ 	/* Check if reference clock is external (not pcie/xtalin)
+ 	* HW Dce80 spec:
+ 	* 00 - PCIE_REFCLK, 01 - XTALIN,    02 - GENERICA,    03 - GENERICB
+@@ -517,12 +516,14 @@ static uint32_t dce110_get_pix_clk_dividers_helper (
+ 		/*Calculate Dividers by HDMI object, no SS case or SS case */
+ 		pll_calc_error =
+ 			calculate_pixel_clock_pll_dividers(
++				        clk_src,
+ 					&clk_src->calc_pll_hdmi,
+ 					pll_settings);
+ 	else
+ 		/*Calculate Dividers by default object, no SS case or SS case */
+ 		pll_calc_error =
+ 			calculate_pixel_clock_pll_dividers(
++					clk_src,
+ 					&clk_src->calc_pll,
+ 					pll_settings);
+ 
+@@ -568,7 +569,6 @@ static uint32_t dce110_get_pix_clk_dividers(
+ {
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+ 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
+-	DC_LOGGER_INIT();
+ 
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+@@ -600,7 +600,6 @@ static uint32_t dce112_get_pix_clk_dividers(
+ 		struct pll_settings *pll_settings)
+ {
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+-	DC_LOGGER_INIT();
+ 
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+@@ -1442,8 +1441,6 @@ static uint32_t dcn3_get_pix_clk_dividers(
+ 	unsigned long long actual_pix_clk_100Hz = pix_clk_params ? pix_clk_params->requested_pix_clk_100hz : 0;
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+ 
+-	DC_LOGGER_INIT();
 -
--					phantoms_added = true;
-+					if (dml21_add_phantom_plane(dml_ctx,
-+								    dc,
-+								    context,
-+								    phantom_stream,
-+								    main_plane,
-+								    &dml_ctx->v21.mode_programming.programming->plane_programming[dml_plane_index]))
-+						phantoms_added = true;
- 				}
- 			}
- 		}
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+ 		DC_LOG_ERROR(
+@@ -1513,7 +1510,6 @@ static const struct clock_source_funcs dce110_clk_src_funcs = {
+ 	.get_dp_dto_frequency_100hz = get_dp_dto_frequency_100hz
+ };
+ 
+-
+ static void get_ss_info_from_atombios(
+ 		struct dce110_clk_src *clk_src,
+ 		enum as_signal_type as_signal,
+@@ -1526,7 +1522,7 @@ static void get_ss_info_from_atombios(
+ 	struct spread_spectrum_info *ss_info_cur;
+ 	struct spread_spectrum_data *ss_data_cur;
+ 	uint32_t i;
+-	DC_LOGGER_INIT();
++
+ 	if (ss_entries_num == NULL) {
+ 		DC_LOG_SYNC(
+ 			"Invalid entry !!!\n");
+@@ -1657,6 +1653,7 @@ static void ss_info_from_atombios_create(
+ }
+ 
+ static bool calc_pll_max_vco_construct(
++			struct dce110_clk_src *clk_src,
+ 			struct calc_pll_clock_source *calc_pll_cs,
+ 			struct calc_pll_clock_source_init_data *init_data)
+ {
+@@ -1808,6 +1805,7 @@ bool dce110_clk_src_construct(
+ 	ss_info_from_atombios_create(clk_src);
+ 
+ 	if (!calc_pll_max_vco_construct(
++			clk_src,
+ 			&clk_src->calc_pll,
+ 			&calc_pll_cs_init_data)) {
+ 		ASSERT_CRITICAL(false);
+@@ -1822,7 +1820,7 @@ bool dce110_clk_src_construct(
+ 
+ 
+ 	if (!calc_pll_max_vco_construct(
+-			&clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
++			clk_src, &clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
+ 		ASSERT_CRITICAL(false);
+ 		goto unexpected_failure;
+ 	}
 
