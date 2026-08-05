@@ -1,175 +1,180 @@
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD6A2BE644
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 14:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D063374A08;
+	Wed,  5 Aug 2026 14:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785938492; cv=none; b=XOdE8YvcO+YBsqQSy7OSB2h4VOn8MHyXtmKs0JIAmHCOuWISk/ZSwRQ6t7t9HeAnQ95SH93JBN0UivvwG8GdIMofXXy7Qc4JW9EcMgPITfgbKkl7+N1uyN4jr+tSZgHOOnmM8HU/t6s0GlkvkFPXjgnX8uKshdk78ea69a8YUss=
+	t=1785939578; cv=none; b=lD8pZZTlj+3Ml1Q2WrT+hOCHZ7MuR5jwSUk286ftpzyZQ3lYsvfmmhziHVs0L1A0FSM9O4zn5XybzYIsXSYq+par/yh0QDxTgCDV1ABtlletrHZtjJYch02djagD4gCh+ZxbhIqb+GhrySb2vfPjKsiHDZXF3fCeQR3ePRTB60I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785938492; c=relaxed/simple;
-	bh=k2fhYxdCRfpecQ2myWXJI5lz9KYdQfTTJ3HbH5BTX4s=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=g3gOzSed3KSA8OXO5XTwZ7GoJXaGyM5XE3t+AKFk54KwSCB46fxaSTsusOitZ21/G9Aa74vGXFTYkCt1kL8KXed1HMVOFe1JwggPMpd7lKALblq1o1OqCPsFdDn8UD2Nd8jod8tcJbjR+EgoEsPLgKyoPaaKgyuu4DCcJYcNdJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7ee59eeb8c1so636526a34.0
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 07:01:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785938489; x=1786543289;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0QdrHkt5hZY2NWnOKDR/D0JaMn6oDghAXHp9WeWqdoU=;
-        b=POcsu8HKC7fjP5uwxdjqqg38TbDWd1TjAtX5WTDJC9BWp5b8HzTWLPNmy2tOqgcuio
-         HUX+tqtFf9zN8pmIzVzvuxmFbJ3t+w21gZ+TkrHuBs3ZfS63QVTqgWozymEflb0HDl+a
-         E7/LomesxTq6xVWnOc+fgNCe96P3mCba75kOkVhjanfOZoPMkkk6OFMtfGGFnV6XztzU
-         jX5VAleGgPSZZjXnXgtloWoFUHfsGOX/xtQgO/NfQeNrARev3TaU2upXM+txgpz2SO43
-         EI0DfMKlmfY8LLgijcTHhn5HZhwZreW5CisAcDAt2mU00N8KlrDg3n8eAuj8G1hIo6mo
-         Wlxw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr/b7rwtxLVVmERyl+xK9fEftYIm9+WF3+mxUlMMWivni3VgRJma6JHeS3TZ36vfYLPqeMQYwc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzD0w8zZvT7t8/nb8qTL/emqIgZYiMye+TzmQCbQhc6/SldM8H7
-	Ycj8k6LLH4NmsVym2UIZd0fnLDm4T8GxauTJM4tLYbZz2N7TfBpbr2ig9hhFxt+WO30Kpp3ymgV
-	oRAQAYEqFUgLd5S52bkq4eJ0Wuf0KT4zanIXNvRI8E/5tObTOe+YQMr4m0Nk=
+	s=arc-20240116; t=1785939578; c=relaxed/simple;
+	bh=IJ5thZhW8GL9Aibbn+HyiqNnBcFwETx098EIc9+Nza0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=M9piazn6BX8wJYhW3s+EPYsqxvRXNsxOxUbjpiWENjsWss5nxMWVYK/FTuwWbrKwvBHiP4LZoXlqtszxTgCCAXBEaFqkOA5g4XyGCEkjczXqn9+4BFrL41jYolUYODqKYq11mERGx3VAECSfyyJC8O8fTbaVKGIBUZplPY3YZko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCHgD9gRnNqa6ZpAA--.20506S3;
+	Wed, 05 Aug 2026 22:19:14 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgB358xgRnNqByiTAw--.7866S2;
+	Wed, 05 Aug 2026 22:19:12 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: dri-devel@lists.freedesktop.org
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Marek Vasut <marex@denx.de>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH v3] drm/bridge: ti-sn65dsi83: Cancel reset_work on remove to avoid use-after-free
+Date: Wed,  5 Aug 2026 14:18:16 +0000
+Message-Id: <20260805141816.216900-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260805115546.152786-1-fanwu01@zju.edu.cn>
+References: <20260805115546.152786-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a4a:e841:0:b0:6a3:8738:4106 with SMTP id
- 006d021491bc7-6ae96f22d3fmr3721052eaf.26.1785938489456; Wed, 05 Aug 2026
- 07:01:29 -0700 (PDT)
-Date: Wed, 05 Aug 2026 07:01:29 -0700
-In-Reply-To: <6a0c5f2c.a00a0220.2c7954.0000.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a734239.d1b4d54b.5552d.001c.GAE@google.com>
-Subject: Re: [syzbot] [kvm?] [kvm-x86?] KASAN: use-after-free Read in kvm_xen_shared_info_init
-From: syzbot <syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com>
-To: aha310510@gmail.com, bp@alien8.de, dave.hansen@linux.intel.com, 
-	dwmw2@infradead.org, dwmw@amazon.co.uk, halves@igalia.com, hpa@zytor.com, 
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, mingo@redhat.com, 
-	paul@xen.org, pbonzini@redhat.com, pdurrant@amazon.com, seanjc@google.com, 
-	souradiptodas6@gmail.com, stable@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, tglx@kernel.org, x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgB358xgRnNqByiTAw--.7866S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?3EJdcwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI2Ta2RgZfddM+Y1FlRj8fDxb1K3cJlUE22gKRBQ9mMNwa2M
+	i+f+EPnglYqAJbTSbN0=
+X-Coremail-Antispam: 1Uk129KBj93XoWxuF43GFWDWw48KF47XryUCFX_yoWrXw1rpF
+	4fX390yrWvq3WI9a9FyF15Ary5Awnrta1rCr1kKw1Sva4rWa1Yq34kArWjgF1akFW8J3WY
+	yFs0vFy8ArWUAFbCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU86c_DUUUUU==
 
-syzbot has found a reproducer for the following issue on:
+The error recovery code queues reset_work from the threaded IRQ handler
+and polling monitor_work. Neither device removal nor a probe failure after
+requesting the IRQ drains that work before devres releases the bridge
+allocation.
 
-HEAD commit:    c21bb4193868 Merge tag 'for_linus' of git://git.kernel.org..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12ceecc6580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=145fa60d73086782
-dashboard link: https://syzkaller.appspot.com/bug?extid=0948c82180d475ad24e2
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16080e49580000
+Keep the IRQ disabled after it is requested and enable it only after the
+bridge has attached successfully. This prevents an IRQ during probe from
+queueing reset_work before bridge->encoder has been initialized.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
+On remove and the post-IRQ probe failure path, synchronously disable the
+IRQ before declaring the bridge unplugged. This prevents an asserted IRQ
+from repeatedly invoking a handler which can no longer acknowledge the
+device. drm_bridge_unplug() then blocks new DRM entry points and waits for
+existing bridge critical sections. Finally drain monitor_work and
+reset_work before devres can free the bridge allocation.
 
-==================================================================
-BUG: KASAN: use-after-free in kvm_xen_shared_info_init+0x3c6/0x440 arch/x86/kvm/xen.c:90
-Read of size 4 at addr ffff8880719c4900 by task syz.4.159/7379
+This issue was found by an in-house static analysis tool.
+Compile-tested only; runtime testing is appreciated.
 
-CPU: 0 UID: 0 PID: 7379 Comm: syz.4.159 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- kvm_xen_shared_info_init+0x3c6/0x440 arch/x86/kvm/xen.c:90
- kvm_xen_hvm_set_attr+0xcef/0x16a0 arch/x86/kvm/xen.c:806
- kvm_arch_vm_ioctl+0x2a0/0x18d0 arch/x86/kvm/x86.c:7514
- kvm_vm_ioctl+0x1560/0x4180 virt/kvm/kvm_main.c:5381
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x115/0x870 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f11c5d9e019
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f11c6d15028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f11c6026090 RCX: 00007f11c5d9e019
-RDX: 0000200000000840 RSI: 000000004048aec9 RDI: 0000000000000004
-RBP: 00007f11c5e3500c R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f11c6026128 R14: 00007f11c6026090 R15: 00007ffd79c7b7b8
- </TASK>
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xe pfn:0x719c4
-flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
-raw: 00fff00000000000 ffffea0001865f08 ffff8880b84414b0 0000000000000000
-raw: 000000000000000e 0000000000000000 00000000ffffffff 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as freed
-page last allocated via order 0, migratetype Movable, gfp_mask 0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), pid 7379, tgid 7374 (syz.4.159), ts 201002456742, free_ts 201021576054
- set_page_owner include/linux/page_owner.h:32 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1859
- prep_new_page mm/page_alloc.c:1867 [inline]
- get_page_from_freelist+0xf48/0x3530 mm/page_alloc.c:3946
- __alloc_frozen_pages_noprof+0x299/0x2dc0 mm/page_alloc.c:5304
- alloc_pages_mpol+0x1fb/0x540 mm/mempolicy.c:2490
- folio_alloc_mpol_noprof+0x36/0x260 mm/mempolicy.c:2509
- shmem_alloc_folio+0x135/0x160 mm/shmem.c:1917
- shmem_alloc_and_add_folio+0x371/0xd40 mm/shmem.c:1959
- shmem_get_folio_gfp+0x6ad/0x1910 mm/shmem.c:2512
- shmem_fault+0x1f9/0xa20 mm/shmem.c:2713
- __do_fault+0x10b/0x440 mm/memory.c:5425
- do_shared_fault mm/memory.c:5924 [inline]
- do_fault+0x2db/0x1750 mm/memory.c:5998
- do_pte_missing mm/memory.c:4566 [inline]
- handle_pte_fault mm/memory.c:6379 [inline]
- __handle_mm_fault+0x187d/0x2a00 mm/memory.c:6517
- handle_mm_fault+0x37b/0xa30 mm/memory.c:6686
- faultin_page mm/gup.c:1126 [inline]
- __get_user_pages+0x1178/0x32a0 mm/gup.c:1428
- __get_user_pages_locked mm/gup.c:1752 [inline]
- get_user_pages_unlocked+0x30a/0x7d0 mm/gup.c:2681
- hva_to_pfn_slow virt/kvm/kvm_main.c:2903 [inline]
- hva_to_pfn+0x871/0xd60 virt/kvm/kvm_main.c:2999
-page last free pid 7379 tgid 7374 stack trace:
- reset_page_owner include/linux/page_owner.h:25 [inline]
- __free_pages_prepare mm/page_alloc.c:1406 [inline]
- __free_frozen_pages+0x79f/0x1090 mm/page_alloc.c:2950
- __folio_put+0x3b4/0x5f0 mm/swap.c:112
- folio_put include/linux/mm.h:2124 [inline]
- put_page include/linux/mm.h:2193 [inline]
- kvm_release_page_clean virt/kvm/kvm_main.c:2813 [inline]
- kvm_release_page_clean+0x1dc/0x250 virt/kvm/kvm_main.c:2807
- hva_to_pfn_retry virt/kvm/pfncache.c:246 [inline]
- __kvm_gpc_refresh+0x1a63/0x22d0 virt/kvm/pfncache.c:330
- __kvm_gpc_activate+0x2ab/0x490 virt/kvm/pfncache.c:424
- kvm_gpc_activate_hva+0x73/0xa0 virt/kvm/pfncache.c:444
- kvm_xen_hvm_set_attr+0x395/0x16a0 arch/x86/kvm/xen.c:798
- kvm_arch_vm_ioctl+0x2a0/0x18d0 arch/x86/kvm/x86.c:7514
- kvm_vm_ioctl+0x1560/0x4180 virt/kvm/kvm_main.c:5381
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x115/0x870 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff8880719c4800: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff8880719c4880: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
->ffff8880719c4900: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-                   ^
- ffff8880719c4980: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff8880719c4a00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-==================================================================
-
-
+Fixes: ad5c6ecef27e ("drm: bridge: ti-sn65dsi83: Add error recovery mechanism")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Changes since v2:
+  - Request the IRQ with IRQF_NO_AUTOEN and enable it only after the bridge
+    attaches, so it cannot fire during probe and queue reset_work before
+    bridge->encoder is initialized.
+  - Disable the IRQ before drm_bridge_unplug() in the teardown helper, so
+    an asserted level IRQ is acknowledged by the handler while it can still
+    enter the bridge instead of re-firing once the unplug barrier rejects
+    it.
+
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c | 28 +++++++++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+index 42b451432bbb..d7648b5d5636 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+@@ -296,9 +296,14 @@ static int sn65dsi83_attach(struct drm_bridge *bridge,
+ 			    enum drm_bridge_attach_flags flags)
+ {
+ 	struct sn65dsi83 *ctx = bridge_to_sn65dsi83(bridge);
++	int ret;
+ 
+-	return drm_bridge_attach(encoder, ctx->panel_bridge,
+-				 &ctx->bridge, flags);
++	ret = drm_bridge_attach(encoder, ctx->panel_bridge, &ctx->bridge,
++				flags);
++	if (!ret && ctx->irq)
++		enable_irq(ctx->irq);
++
++	return ret;
+ }
+ 
+ static void sn65dsi83_detach(struct drm_bridge *bridge)
+@@ -997,6 +1004,19 @@ static irqreturn_t sn65dsi83_irq(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
+ 
++static void sn65dsi83_stop_error_recovery(struct sn65dsi83 *ctx)
++{
++	/* Stop the IRQ before the unplug barrier rejects its handler. */
++	if (ctx->irq)
++		disable_irq(ctx->irq);
++
++	/* Block new bridge users and wait for existing critical sections. */
++	drm_bridge_unplug(&ctx->bridge);
++
++	cancel_delayed_work_sync(&ctx->monitor_work);
++	cancel_work_sync(&ctx->reset_work);
++}
++
+ static int sn65dsi83_probe(struct i2c_client *client)
+ {
+ 	const struct i2c_device_id *id = i2c_client_get_device_id(client);
+@@ -1039,7 +1056,8 @@ static int sn65dsi83_probe(struct i2c_client *client)
+ 	if (client->irq) {
+ 		ctx->irq = client->irq;
+ 		ret = devm_request_threaded_irq(ctx->dev, ctx->irq, NULL, sn65dsi83_irq,
+-						IRQF_ONESHOT, dev_name(ctx->dev), ctx);
++						IRQF_ONESHOT | IRQF_NO_AUTOEN,
++						dev_name(ctx->dev), ctx);
+ 		if (ret)
+ 			return dev_err_probe(dev, ret, "failed to request irq\n");
+ 	}
+@@ -1061,7 +1078,7 @@ static int sn65dsi83_probe(struct i2c_client *client)
+ 	return 0;
+ 
+ err_remove_bridge:
+-	drm_bridge_remove(&ctx->bridge);
++	sn65dsi83_stop_error_recovery(ctx);
+ 	return ret;
+ }
+ 
+@@ -1069,6 +1086,6 @@ static void sn65dsi83_remove(struct i2c_client *client)
+ {
+ 	struct sn65dsi83 *ctx = i2c_get_clientdata(client);
+ 
+-	drm_bridge_unplug(&ctx->bridge);
++	sn65dsi83_stop_error_recovery(ctx);
+ }
+ 
+-- 
+2.51.0
+
