@@ -1,167 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABB440A93A;
-	Wed,  5 Aug 2026 09:58:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9F03FF896
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 10:01:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785923937; cv=none; b=cpcpIilG9totYoYdJknHHvWz9AAqJ8Cd+4+kfuozGOov+MTmu1GNLaW9qAtixK9mGnya2r0hiFXEwyqQOCG3CZliRmMUq3+IVGX7YORMBlif0j4Yt8oMh6zP9dc8KP+Jk/VhfUZSvIpIjFKB8VzRbL6xAO8aN6b3hbv6TKN9xj8=
+	t=1785924106; cv=none; b=X79cWrYIdMrsayl3NztMaTaB3i3ssqd7jqF9GR0tB1WJWljRdTLFziwbAn28hIY1bjGmWXbNEzDUYBb+p469YGYxbbmyKEqR/EsWZ2p2ln9T6flciCtmTpmPg5nm0J/m5wZfiUcuoMU6Qg/mBnHZB21MnZYqy9uoNtYxieImcDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785923937; c=relaxed/simple;
-	bh=sF0OGd1ob8oRw3chFtxg+BWQSg3uRNKOpuLbm5fVoiY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pHjcoWHL2GfhCR29pwjLzvSj0kedlfMDPXF5IK0GeGVyf9X61CVka9PPIbRsccKKAgt9mcS7Y7VNDby//vvTW4fcT6Qlcj3tHdCB/C1wpKmL5IXNTCpjKW/lTz3BU694iC+ceLQTUAdDCUWutiFibfstv/oRGay3u91pcXNHsME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mESjoHeO; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785924106; c=relaxed/simple;
+	bh=7GT3cFMblh8d4JT4vpM1PGuCKQLpDo4D1LyV7c5pVCo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lTWg4p9a8huE6KUb9t3NAJkZzFWgvIzxzmuNqzZhRWemYa/VZFuupuVRRJscZynn9dO3ehnVvrrDzG04pVNcPatZBzz65lWYpDfVxTXJ9yQyvr+vg7xDRxLlz2bphJMT2AllUwCqd0ks2PpF+Gibd6BX9G+6IXNBNMZlj80dGXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZHy7TLxq; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mESjoHeO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785923936; x=1817459936;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=sF0OGd1ob8oRw3chFtxg+BWQSg3uRNKOpuLbm5fVoiY=;
-  b=mESjoHeOaGtG4VCMbxpI7aYDIvFEuOQlSjLw/kDKmggROMYRCAtyh7Dz
-   TnD1Nn/+F2RKB6eP5Nzwt7oZck3ikCQXQCPKGqMoLwNO7kXwca5JqlG32
-   zqRfWAK3zzxpl27LIoHe1+G5l5PHgDOlAwHdGOG4CAU0C93Ajujs67G3k
-   TqZAboVxEwalVmW1IgFfIpofS3mHu4SvR9mCoT5XHUD5M9KSv1h4dZ4Az
-   U0hK71xuzgAS1IjWWC0tkE60Oezn6wPGyu9OGyJQ5yBnItoj1Ja9+C+o9
-   KD10IuqWGKmmX3wzpThYd0IY8qtUvFpYVrGKJh74x/a0PEpwGiIsXbpC4
-   A==;
-X-CSE-ConnectionGUID: 3M5D4rNNRaCjFssHuXri+w==
-X-CSE-MsgGUID: lIWEsoJuQkaF1gtwAF78aQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="97087661"
-X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="97087661"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 02:58:55 -0700
-X-CSE-ConnectionGUID: LWrKA3Q6QMWFmeNvsskuxg==
-X-CSE-MsgGUID: iNl4/XToSBepdCBp7tjw2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="260490359"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.246.218]) ([10.245.246.218])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 02:58:52 -0700
-Message-ID: <5d84444a-c472-4881-9432-e0dbe5610696@linux.intel.com>
-Date: Wed, 5 Aug 2026 12:59:30 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZHy7TLxq"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47db714766aso1120084f8f.0
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 03:01:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785924103; x=1786528903; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZvfYSf2Y/ppNSh+MrXHyeNORXj9DnMxf1Ar7j3eDWYw=;
+        b=ZHy7TLxqRClm/6txomPKbzOT0CTdf7Z9rhC3pKmvhhjhGoMX8J5fgze+Gxs0LRsl9A
+         ah259S38N7EB83EGzy5hSGd8jR3RnOjbgcRBxD68Bt1Fg2BtH0Q2oeQZ/Eng/U6+iei2
+         Buh+Jt96LLa9VqqZegUUsu4UCXNRUsTHtFqg7zs6BWU/cnVzMXPnzJPCS3q2GYrXoNi5
+         YfP1OfBtrr8X4ay6ScOjKsO35DwLD8HVviDkZ193F1Kn939vteIEQpG4DrLMUvt16TI6
+         ivaXFcY2P9EZGB1+5TjHZnmiJLMv70RC8AZYFemFG3oTKI6SO5gpG+QhAvRJK3aOgRKl
+         U8ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785924103; x=1786528903;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZvfYSf2Y/ppNSh+MrXHyeNORXj9DnMxf1Ar7j3eDWYw=;
+        b=mHuD2BiBLjwnQEm2kwogO346d6T70mmxm/sAyotMQ2OA48LLBBiWYwIp6vl9JyOV9G
+         3BEmXF+eylH+5+TUBLDJNAk32DIn0SFPR5dQlyv2MzWMdPsAluh0yC3b/GqZop2sdozY
+         XfYmAsprCNp1ceBu10xmuOZb1m54kfNPwbG1HY0p2FZyR1f1DFx+jG/qKpFRZpkeTi/N
+         2gO0UGP3QrlfqxxCWGQ1ydTeL6wDE3aPCILLdC2rT+s3Ob9gIxiVoPg4bXV1fA8DNZWX
+         E/txl8hkNSAn5kFuH60wua8jcn+qcHKOZJWRmAbmPD7cYEUj+qsYdM1w/E7nI3DL19ow
+         PaHg==
+X-Gm-Message-State: AOJu0YyMUCYAO6uJN0KwAQo9dfgBzWtnnUZYJ3kkawOL3zTd15AzPUr9
+	dCpQ7C+gmKvuw5kB6CNlp8gbqR1CGmFtyQBjZLYdAHeFjfTf5dFXPBuAk7IZ6MDN
+X-Gm-Gg: AR+sD12gtvPK7HJnGxMFxhw2f0xl9zXRVgHOB2gCPdpmQxEkp84vJWIRdOEexZdVIeL
+	43C5vlF67txIEpejdWAHwvCeEVvMyO/Cf8gp8sbS8TrajtzpI8voNvWXciLxyML+X+g7tE59Bs3
+	9qqkmwOitZ1eKVGdhBVd6BXQBWx0Z1Y7zPmvhIbRkXpE0z89Mq40pJobn0JoQeEG8FWyum+7Bui
+	B6amJ7fww99dPvQ3eN68JnuVdjVI7jU+ecKT/Qb98s37wqH7ea99HshpX9TSOiKgWbW0+ZQpd7y
+	3IWwQElqET1zR8QvGHe5wJPOXPipybWqGjpeaTiuBiD1qiPN7LByzS07DoHmOjMBJI5epaICyHA
+	RL3Vzs4lrlfHPFkmdBbcPFHcfyOL25yaYJafnvlWnooUfF7suM7+KORFGXD62+yY7p8NaGdUF7g
+	YbDoil5TdjcDtQW1opdf1X7fzv73uLCwSnK5Ge4hGsGOMJc8UKY+/3L2fvvqeEdU+pswf04HnLG
+	93j
+X-Received: by 2002:a5d:5f4a:0:b0:475:da0e:744d with SMTP id ffacd0b85a97d-47fec50b902mr8977646f8f.8.1785924103060;
+        Wed, 05 Aug 2026 03:01:43 -0700 (PDT)
+Received: from arbab-X395.dbs.corp ([110.93.227.54])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fec249a5fsm7344776f8f.33.2026.08.05.03.01.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 03:01:42 -0700 (PDT)
+From: Arbab Haider <arbabhaider649@gmail.com>
+To: stable@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Yun Zhou <yun.zhou@windriver.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 7.0.y 1/5] net: mvneta: re-enable percpu interrupt on resume
+Date: Wed,  5 Aug 2026 15:01:32 +0500
+Message-ID: <20260805100136.59101-1-arbabhaider649@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] ASoC: cs35l41/cs35l45/cs4265: sort the reg_defaults
- tables
-To: Richard Fitzgerald <rf@opensource.cirrus.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Vlad Karpovich <vkarpovi@opensource.cirrus.com>,
- Paul Handrigan <Paul.Handrigan@cirrus.com>, patches@opensource.cirrus.com,
- linux-sound@vger.kernel.org, stable@vger.kernel.org
-References: <20260805082413.26174-1-peter.ujfalusi@linux.intel.com>
- <c8aac762-c1a7-44ab-afff-72610cabe341@linux.dev>
- <b5631801-2904-48e3-b4f7-9ad6009c1198@opensource.cirrus.com>
- <96c0cebf-3ec3-4136-b010-32187ff8c870@linux.intel.com>
- <anMBeeNG1fDpFHzN@opensource.cirrus.com>
- <81391ad1-1097-43ca-8729-ae01c00db3b2@opensource.cirrus.com>
- <4c407a93-7cb6-4a44-a7b6-4d972e714b4e@linux.intel.com>
- <ffa045f4-dfb1-4ec8-b9f5-ce2205e83fb5@opensource.cirrus.com>
-Content-Language: en-US
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <ffa045f4-dfb1-4ec8-b9f5-ce2205e83fb5@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Yun Zhou <yun.zhou@windriver.com>
 
+On Marvell MPIC platforms (Armada 370/XP/38x), mvneta uses a percpu
+IRQ disable/enable scheme for NAPI: the ISR (mvneta_percpu_isr) calls
+disable_percpu_irq() to mask the MPIC per-CPU interrupt and schedules
+NAPI poll, which calls enable_percpu_irq() on completion to unmask.
 
-On 05/08/2026 12:56, Richard Fitzgerald wrote:
-> On 05/08/2026 10:52 am, Péter Ujfalusi wrote:
->>
->>
->> On 05/08/2026 12:38, Richard Fitzgerald wrote:
->>> On 05/08/2026 10:25 am, Charles Keepax wrote:
->>>> On Wed, Aug 05, 2026 at 12:10:10PM +0300, Péter Ujfalusi wrote:
->>>>> On 05/08/2026 12:00, Richard Fitzgerald wrote:
->>>>>>>> Found by an audit of all reg_defaults tables under sound/, the
->>>>>>>> SoundWire
->>>>>>>> codec drivers are fixed by a separate series.
->>>>>>>
->>>>>>> Wow. Would it make sense to have a regmap helper to double-check the
->>>>>>> addresses are indeed in-order in those reg_default tables?
->>>>>>> I am not sure how this requirement can be enforced by just
->>>>>>> inspection, a
->>>>>>> warning would help detect this sort of issues on more platforms.
->>>>>>>
->>>>>> It does seem probable that anything that relies on people just
->>>>>> remembering to keep a large table sorted is prone to breaking,
->>>>>> especially if the addresses are provided by named constant instead of
->>>>>> a list of hardcoded numbers.
->>>>>>
->>>>>> Should regmap check the table when the regmap is first created?
->>>>>> As it has to search the table during normal use anyway, one extra
->>>>>> walk
->>>>>> when the regmap is created probably isn't a serious overhead.
->>>>>
->>>>> But it will be done for _all_ devices which uses regmap on boot, small
->>>>> things do add up, see my reply to Pierre-Louis.
->>>>
->>>> Indeed, if we were to add some sort of auto-checker it should
->>>> be guarded behind something like perhaps a Kconfig option or the
->>>> DEBUG define.
->>>>
->>>> Thanks,
->>>> Charles
->>>
->>> regcache_init() already walks the defaults table checking the stride
->>>
->>>      for (i = 0; i < config->num_reg_defaults; i++)
->>>          if (config->reg_defaults[i].reg % map->reg_stride)
->>>              return -EINVAL;
->>>
->>> so checking that each entry is larger than previous is trivial extra
->>> overhead. I think most regmaps are cached.
->>
->> Right, I think this should work:
->>
->> diff --git a/drivers/base/regmap/regcache.c b/drivers/base/regmap/
->> regcache.c
->> index aa8f2efed779..ce4b11d8a758 100644
->> --- a/drivers/base/regmap/regcache.c
->> +++ b/drivers/base/regmap/regcache.c
->> @@ -123,6 +123,7 @@ static void regcache_hw_exit(struct regmap *map)
->>     int regcache_init(struct regmap *map, const struct regmap_config
->> *config)
->>   {
->> +    bool sort_defaults = false;
->>       int count = 0;
->>       int ret;
->>       int i;
->> @@ -149,10 +150,15 @@ int regcache_init(struct regmap *map, const
->> struct regmap_config *config)
->>           return -EINVAL;
->>       }
->>   -    for (i = 0; i < config->num_reg_defaults; i++)
->> +    for (i = 0; i < config->num_reg_defaults; i++) {
->>           if (config->reg_defaults[i].reg % map->reg_stride)
->>               return -EINVAL;
->>   +        if (i && config->reg_defaults[i - 1].reg >
-> 
-> You could test the stride of defaults[0] first before the loop, and
-> start the loop at i = 1. Then on each loop you can test [i] against
-> [i - 1] without the need to check i != 0 every time.
+If suspend occurs while NAPI poll is pending (between
+disable_percpu_irq in the ISR and enable_percpu_irq in poll
+completion), the interrupt is never re-enabled:
 
-OK, should be better like that
+  1. mvneta_percpu_isr: disable_percpu_irq() + napi_schedule()
+     => MPIC masked, percpu_enabled cpumask bit cleared
+  2. NAPI poll does not complete before suspend proceeds
+     (on PREEMPT_RT this is highly likely since softirqs run in
+     ksoftirqd which gets frozen; on non-RT it can happen when
+     softirq processing is deferred to ksoftirqd)
+  3. mvneta_stop_dev => napi_disable(): cancels the pending poll
+     without executing the completion path
+  4. suspend_device_irqs => IRQCHIP_MASK_ON_SUSPEND: masks MPIC
+     (already masked, but records IRQS_SUSPENDED)
+  5. Resume: mpic_resume checks irq_percpu_is_enabled() => false
+     (bit was cleared in step 1) => skips unmask
+  6. mvneta_start_dev only restores device-level INTR_NEW_MASK,
+     does not touch the MPIC per-CPU mask
 
-> I don't think we need to sort them. Just fail, so that an unsorted table
-> must be fixed.
+Result: MPIC per-CPU interrupt stays masked permanently. The NIC
+generates interrupts (INTR_NEW_CAUSE != 0) but the CPU never
+receives them, causing complete loss of network connectivity.
 
-That would be a big regression all around the place, ordering w/ the
-debug message if developer is interested is much better.
+Fix by calling on_each_cpu(mvneta_percpu_enable) in the resume path
+to unconditionally unmask the MPIC per-CPU interrupt regardless of
+pre-suspend state.
 
+Fixes: 12bb03b436da ("net: mvneta: Handle per-cpu interrupts")
+Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Link: https://patch.msgid.link/20260622074350.1666290-1-yun.zhou@windriver.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Upstream commit fd398d6480987e4c84fff0aaab6b9d6642a93343 ]
+
+---
+ drivers/net/ethernet/marvell/mvneta.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/net/ethernet/marvell/mvneta.c b/drivers/net/ethernet/marvell/mvneta.c
+index 9ba4aef7080c..22da95d46bef 100644
+--- a/drivers/net/ethernet/marvell/mvneta.c
++++ b/drivers/net/ethernet/marvell/mvneta.c
+@@ -5897,6 +5897,9 @@ static int mvneta_resume(struct device *device)
+ 	rtnl_unlock();
+ 	mvneta_set_rx_mode(dev);
+ 
++	if (!pp->neta_armada3700)
++		on_each_cpu(mvneta_percpu_enable, pp, true);
++
+ 	return 0;
+ }
+ #endif
 -- 
-Péter
+2.53.0
 
