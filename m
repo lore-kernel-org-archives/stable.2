@@ -1,73 +1,73 @@
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7495D23AE87
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 13:43:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC36D40D590
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 13:43:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785937428; cv=none; b=FDxUJufYnQP2XtgYZbhuDIoBohT/Ys9gPxw8mnUsPC60IRhy5pYe1PX1YToVFY0uVr29DM7smYLkG1NUIDnpmAHpM4/RlSOkVe7uBP7VXmHINwZkXO6OKCJ5GMfQcdwu/Jw+UjnQZq1XtTcYoR/CbmOBQP8/HlMHSVbmA3EhzGs=
+	t=1785937431; cv=none; b=mEkjqI+ycgewpG5+UfGAGafuzDI1sDVQNiBil1bl4THkdPSmFScvjjscrE9BNOIsYrTmrI+HG2rtPtDEwLUo5M9oJ82smjpWeuJphzlU77XwH+7fKhJS/Y4KrKe/+Pn64J/rtxq5UwsFypo+tF5xlKlTCymM2TRhT7prX6MotBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785937428; c=relaxed/simple;
-	bh=iaVsW9dYSqVbneBiU0MvY71SRQHcSi1dt811T6LnSnA=;
+	s=arc-20240116; t=1785937431; c=relaxed/simple;
+	bh=kuK9yexfGQAOT+8+Rf+SLn+XceInBJ5E675/lruK9Is=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C8oE2ScmF1OM9OmsIgqbry7oMNpizjdFZ+t2OUla+ChV24QBatFZAq8p06Kq7X8jUjayguLJ8Lu2pigH7q5Vapf4+K16R+dlRYX1as3WE71/etpamciOvchfvCfO41x/9xB4G833rMLo/KP7BPe5wrWlHJ30KIlvMJ4dGuVe0yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=BsTxm3wH; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=UKFNokbB; arc=none smtp.client-ip=202.12.124.145
+	 MIME-Version; b=XFqoRJ4VaGA29yt5mGyaLzF6u4qSe7G9O9B177968V1luRl3a59HbZZnlACFY64OMu/sQykyPxebPQ3/pAx0rj+A8w6Lk65FG/D7oXof2MAOieth8VvXT4tGBTjhVheZk1ozxGMuBK+V9YpO6KrJuwEuFmn8Dro14OYajylzpMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=chfK2IIm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LCL9zbaA; arc=none smtp.client-ip=202.12.124.159
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="BsTxm3wH";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="UKFNokbB"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 9373B1D00171;
-	Wed,  5 Aug 2026 09:43:45 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="chfK2IIm";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LCL9zbaA"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 90B8A7A014D;
+	Wed,  5 Aug 2026 09:43:48 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Wed, 05 Aug 2026 09:43:45 -0400
+  by phl-compute-02.internal (MEProxy); Wed, 05 Aug 2026 09:43:48 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1785937425; x=
-	1786023825; bh=mE04psZOD33Pi8Lqhpo+dbtDR+C88w5R4pEGJZb1fCA=; b=B
-	sTxm3wHyghvSZgh+2P4Q6oKETTdmpjoMIOgkhy9AyG/KJ46qnEJ8iljok8/hXa2E
-	e2vl87BDQTTOnJKNpFaJATXCvnPWJ7d3dxoZbhTyjslk75I2Xjn5aLw4hItqYoWU
-	ZeOb2d4iY60K6IXEnzriMYkTb04d2s/rUOKOJtqp3N5Ze1GBGtEB+lcemI677DyS
-	xmN45KcP7y9rE979fLv6fcyMaQ1Q98JjglzgIDZz66Q3128c3hHt0iSFNGTWlG1S
-	TephR6Zqkr7S1Vsj0Qmhg1Rt2ULAKZDtTgZx1bn0TjAqJkuZwGijxPsGaiBWnkZd
-	sWYlw4erVaz5RBk9ZSoGA==
+	:reply-to:subject:subject:to:to; s=fm1; t=1785937428; x=
+	1786023828; bh=bKmvPLLIRMJXI2uzQb//dcpbL7nm14xVg6kbmxHqdZY=; b=c
+	hfK2IImACnPUejq2n2TIZND6Heg7h/CpvfqguNk6zbj1l3eF54oi163UlqT/dTYv
+	3a4T/OJF7tKVjI63XicSJEBOl6mJTLfimdiQTMUsKfmGMbGi6sdbeyomEWKaslqG
+	Z+NYfVhLdPQdfU4TRTi2joZE+lNTteLSSL3GRn6MuWudW3TlZsTQBcz4NXhfE4fu
+	FkmQd/gKjx54QDcxMj05tHnqt1Z1+MdBO4xyJUaURnUfpWtQsgrRAGv3FnDlGyPh
+	oM6qDwvClTGJfWil76AV2vl2YNPwibmjM2WmC9hXrTHv9f5DE/UzIy4uhXUccZkM
+	JmAk+s6exAsn9wlbJxr6g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1785937425; x=1786023825; bh=m
-	E04psZOD33Pi8Lqhpo+dbtDR+C88w5R4pEGJZb1fCA=; b=UKFNokbBsZF4dlHbF
-	KRQwmdCL2Z9ZpObHk5mk6jZowDJY49D+9y98kL5dipulRSOiA5fHi350eYFbuCka
-	2BUy0ooYzTJfG4ZRsTnRpsvMhqDDCKzDNVFLgFocH25qsdo5cEPZbgk/ElJi5US7
-	QzBwr1k26tdrsqfWg9pSDn9c/aAasbSabYL+obgGOXDkujEL5j42b5AGmwr7IpRQ
-	wqqoFcDBhQrNjt2MM9Dg8KQLS1iXTMRCBaBPDUi8P6RVVOwu8oRZ7d98zK746zBE
-	Z573MsB6u9TVD70jopcfthRz+cr+b9AvSYBHKrd+X5N0mK+hCW+F2goB8MIQlMB+
-	wqCyg==
-X-ME-Sender: <xms:ET5zam5k1_GTQkwi5jO0xgSeVzV64LLBYJXEAPql9GBNhsaF6vx1tg>
-    <xme:ET5zau-RwQSgZKPG1CIagIcpdCupCnKZtVHgJNnH_DMgcxH8juLeFhvnhKm7CKnFx
-    krQLXYmx_mFQ1D0CBYJ8CeF67AC0tp6IBaWoLIxkTQNmn_8cRWqLPQ>
-X-ME-Received: <xmr:ET5zarqaaE3Rigtz2RhS4dQNcD_WCu4yUtem7fdiKjH0vcXz5sWGdTJo45E>
-X-ME-Proxy-Cause: dmFkZTGBRAs0ifpC+bV18Yb7txt+PthwywnJFv9LX2mQR508LI0G7bXc4hSAgTqIse5aOJ
-    KOOqZ6a2cdUC6JdkTzB6W4FdPJGfzSQphIFOhxzdyJpspvYPOYWGhnudaqX61/sg073roS
-    Q6WB36tIJT8BMIOzw/jjlC/yVFQRoH+LaOBnJApMgJmMiOzj5DDc8B2kismF1LEEvvqRhP
-    Kuopf0/CV7Y3WSTQ2g9I4uxpB+E8aB9RSBYwWO/mSLxp3IkrdUyx+aQcnVP8yy6Gs2cfsK
-    AcmcI4WnGINZqIYaI7Ux/UyMtEUIl655Vuz8EykTAeEkLQoJOMyBrsQG6pQOEct4V6AsZo
-    Q8PHz3Idl9lCVXAXenTvjlyMr3qLSj6McR2J1uI4xI9A4ZqKiObnC86I093NuUL4Jo5OBZ
-    4oPWOR8ZNB7Xl6aI5GeAt4IeWlq2J7jRownuodxu7qmNqos30YeHBZzCCVWLcG4l15qdA+
-    v9E8Ghq6p1oZdC5Br3HW4tfa0wnyAJ2X/ZIaKsTB05H1/3v8cVKuc0I4uigc3UK7HpBc51
-    4awY+8XXxuEDL89qIcmoL3GAvQ6vk98OpbRvS+6HMeMvKx9k9mzyLcOjIjHoxxg7brjnyV
-    yR3dXLP1+IaoKSrdGOUypzl0msqRUwmrov/PhuF2A4gq/VyS99w05zsUuR4g
-X-ME-Proxy: <xmx:ET5zavoa7lT1JxJ4TtDJij7OAo7HHajci-Sl6QCHoqImY-eAJ3szJQ>
-    <xmx:ET5zau2mVOiCz9oAXMncpLk4NTsVr8Tg20rXCw2OnTriINdGIcRQgQ>
-    <xmx:ET5zatH-N0ObszlGoBjEUS1aCpEdayoi81MJi_z9MZwsP6rxQub79g>
-    <xmx:ET5zapGVNpe87Ii0oMxBuqeuCb9obggVwOm5cb4H6OiCza9JJYQAAg>
-    <xmx:ET5zajSzFIkAkNyzFACdsAEWeQWa8PFk0lC54oSXiZluLfsdNfTRydWe>
+	:x-me-sender:x-sasl-enc; s=fm3; t=1785937428; x=1786023828; bh=b
+	KmvPLLIRMJXI2uzQb//dcpbL7nm14xVg6kbmxHqdZY=; b=LCL9zbaA5zMpFeGPn
+	x8s1kwBPgkvGJVMatHjnj+iiWue5icJI4Et53u8J0725dwlzpXl3rAubdoeagMpQ
+	Wo1SqWoyKpJ1ddBOYqNRks9puDt9QbrEdrFE4o3ioBShU7dAcC7TfC64fYOOyAim
+	eskqu74kWC+3bC5VJxoVDPIv5XkDID82LDMVlD7sPwEOZkhVe5xFdDAQafZhTkZX
+	UdbtY/2caiGLTBiti13ts7rSb2qqU9TUBQpS7YIiOZZa27E0aRXrX8PZQL+smTrU
+	mIE846It+JV6QQMpPPR8W6l99+pqBlVi3NQGjJf9khYtc5WfTGU1Y+Nt6PX69iQa
+	Ac1Hw==
+X-ME-Sender: <xms:FD5zagBgHrT4a8U4gjrLxP_8mvIIp9pVcqEhgPsazhYXwMInAo41-A>
+    <xme:FD5zahnblwm4rHu_CBpQ_hSHSe-xLRvcaXJwotH30qxneCYuwjIfMkJqAGiRM3Ysl
+    zyrgJQbA-5WheeL2J7A_01qqUvpVl3gSvHxaHPrIcdEWbmQK9Zyz1xz>
+X-ME-Received: <xmr:FD5zapx9GcFiZoD-gSpiDedIWoIRxWXBw6Fp1GRZWY-WSHjyuRw6T8c1fms>
+X-ME-Proxy-Cause: dmFkZTFjQi0qus4HXW1Ygv/5UV2JuUMPnx4qZXfeEY8SiPSdw/pp4dedR2NJfRwFbB153f
+    5MDfjTpvbXInJFDTVYcbdWaklEwOwVppz1CyxgIF0j2zlYgYbYnhZXAw3RBaZfRZ4ySqKv
+    4bqAGyVUx0pAShWyGgnv1IfzZIL0d3yAE7d2/TSFJKZJfyX+HhoIDS1g8NrMcnHWejfO7a
+    8Q51+US0EUMgbl3XeFgPNPVblCE4QvhwB/FmU9XpHMr0R0UjgNI1MhoXklG9LiQZMBmHC5
+    O5ozos/3nnf224s2wbM6lsVEvPSOZAXGKgY88BT0s1whoAsGJ2Knjut2jzh2hYLi9nsrB3
+    EUATmxa1owehduRgjF1l0QSS5rALfGirFMsbo1WX7t7QYdYdpj1E6Hq8RN/W6iQ10gzbJu
+    h3N/rzKgWaXB3i+PigvQJfl+MWsy3jE87WNDYQJbgmdcjOz5HvxOARL08IEM9FCZ5gPFS1
+    M5zQxueIs5+dVAWT7bICHM1tC+HeIXrZ88eMJFLM174/+9QI1hGtGGqBB7Ez9rpxd9Bvqe
+    Ei192tTuwYCC4Ybr9DPIAZBVDQv9Lr7pBKUdam/cuizzULxMOVG/iyHaPq55LiIwJ+mZkI
+    Txz6I8CxuIoWS6VQnOV1aTYxEn+7G5g7C39IKsyLmb2GaJZXrUBlPQfqwX4w
+X-ME-Proxy: <xmx:FD5zajTBbad7H-qcutgcOqF5ZI8pv6Qtx1iDu5W7BCWEmQIssFnLnw>
+    <xmx:FD5zap-JfkFUWUyQU-fRjxaxdhGxnQ-DE9t7q5VYCTW9OrbbyooyWw>
+    <xmx:FD5zaptw0TM2Fb7S4_WzIHLTbMHBL-Ztaa7fahJCaBw301rXcPF4aw>
+    <xmx:FD5zapOE__Z_9K5xy_Mx-Gies6pVMKYVY3B89GiBzyjk_okXrPgnsg>
+    <xmx:FD5zasZyI4xsx3Bcl5Wr8kTAYudTC7K_e2J5S0ROtyE0ozCNGppi4YXu>
 Feedback-ID: ie3994620:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 5 Aug 2026 09:43:44 -0400 (EDT)
+ 5 Aug 2026 09:43:47 -0400 (EDT)
 From: Kiryl Shutsemau <kirill@shutemov.name>
 To: stable@vger.kernel.org
 Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
@@ -77,12 +77,12 @@ Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
 	Oscar Salvador <osalvador@suse.de>,
 	Peter Xu <peterx@redhat.com>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.12.y] mm/hugetlb: fix swap entry corruption when clearing uffd-wp at fork()
-Date: Wed,  5 Aug 2026 14:43:43 +0100
-Message-ID: <20260805134343.2776514-1-kirill@shutemov.name>
+Subject: [PATCH 6.18.y] mm/hugetlb: fix swap entry corruption when clearing uffd-wp at fork()
+Date: Wed,  5 Aug 2026 14:43:46 +0100
+Message-ID: <20260805134346.2776524-1-kirill@shutemov.name>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026080515-mangle-frail-8d50@gregkh>
-References: <2026080515-mangle-frail-8d50@gregkh>
+In-Reply-To: <2026080514-idealist-duvet-aa1d@gregkh>
+References: <2026080514-idealist-duvet-aa1d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -149,10 +149,10 @@ Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
  1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 17865215fda7..d53f9252dfa2 100644
+index 9ac5df16b1a9..ecde673578d5 100644
 --- a/mm/hugetlb.c
 +++ b/mm/hugetlb.c
-@@ -5280,8 +5280,12 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+@@ -5633,8 +5633,12 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
  			 */
  			;
  		} else if (unlikely(is_hugetlb_entry_hwpoisoned(entry))) {
@@ -167,7 +167,7 @@ index 17865215fda7..d53f9252dfa2 100644
  			set_huge_pte_at(dst, addr, dst_pte, entry, sz);
  		} else if (unlikely(is_hugetlb_entry_migration(entry))) {
  			swp_entry_t swp_entry = pte_to_swp_entry(entry);
-@@ -5300,7 +5304,7 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+@@ -5653,7 +5657,7 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
  				set_huge_pte_at(src, addr, src_pte, entry, sz);
  			}
  			if (!userfaultfd_wp(dst_vma))
