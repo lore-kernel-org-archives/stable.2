@@ -1,107 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f1.google.com (mail-wr2-f1.google.com [74.125.225.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3417D12B94;
-	Wed,  5 Aug 2026 21:43:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F683DEAC4
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 22:19:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785966225; cv=none; b=tOcCylVknZ3vkFuVQO/7gnYxBEKse8xJEX+VysKZ+HEybNWoPfNAUTRpc1LeQiSCUtm1R66ypn+nLpB7wRCeut3Aylg5c0/LGt990E63KBSjtcrg/s4FBUvVXITtz2XobStn6gqtaB6Cok9kZIQqNXTW67RkfU3GhDOjgYC6Jvk=
+	t=1785968368; cv=none; b=buoVM50aqctKTYbyOEvFUapF/W8PBqOa7oFvlNff4QLuYC3I+OW8Bd5zJpGiJ/a3iintbHuJbVMemz8ap6MFNiWTgMSReruuG20L7O7Z6tGGKsvrjcX+83xxqWg+v8V0NeYznf1QkXYXfZZVV8xDQyzjG+cD56pTug8JgW0qFOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785966225; c=relaxed/simple;
-	bh=8RHbAmv6KRpmCG+t6ywRPdDYHla/g7QvFbRePRfjcu4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=AqktX7vQPRfxH3G0m/RPyjvDCIVcn+TRoN8My+W3FdsmzNnJAAJjR6+8C2YTfyk1DWO0wcoFw9bDAZ+Sp0V8/n8HoBgfUOZgQZy/3rYp0woGwj3WYpQgy2Dj3KTIPiz2dXYB4ClOkLKy3YcWEvWN4qXie/zt3lx6ZhM21ZZW4h4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtG8QosS; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtG8QosS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61DDC1F000E9;
-	Wed,  5 Aug 2026 21:43:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785966223;
-	bh=zAe38Q5XdGCCXXc3FNB8yIO9yBYGhs3n3bWbvpfLc84=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=LtG8QosSP+djHHDFCX9ScHQ1sNvfHyEGbeOMnrdFYOigp3YPV+hchYYtIAI6OzU6J
-	 mfm/p6WzxPEx6UlyNOouX1hg80LDX6RCULi9IiMvqjt70RVlIJJ5xbtVK+NZD1H8di
-	 khduHimyLasGbT0fXzvRueUH9/rTNIz5P+4w91kZ1z2JH8TgrDoZMVLKlNtrr6JpfU
-	 eqfjYfr6XbLSv6nvvAI7hOKDJr0OYpxEgp/ecED/c+KK34Rp+4q/60paSgu2EAKIvO
-	 T6/2hIcugRN1UkQ5M3QbemqN4gADu1yBg5U8aDmVa6ru+uciN67170wO/XtxK+9WqF
-	 AndBF8awEn7pQ==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Vlad Karpovich <vkarpovi@opensource.cirrus.com>, 
- Paul Handrigan <Paul.Handrigan@cirrus.com>, patches@opensource.cirrus.com, 
- linux-sound@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260805082413.26174-1-peter.ujfalusi@linux.intel.com>
-References: <20260805082413.26174-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/3] ASoC: cs35l41/cs35l45/cs4265: sort the
- reg_defaults tables
-Message-Id: <178593344382.199927.10716148204313114159.b4-ty@b4>
-Date: Wed, 05 Aug 2026 13:37:23 +0100
+	s=arc-20240116; t=1785968368; c=relaxed/simple;
+	bh=Ymxk42+nJuUH/T5EPJ/BRVz2PVYPRqY2vob+fMPp2DE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TKiheRs8bFdsLXYa57UUZBNv5iii9AdPB4IPzJjslGiOIQl4d1s4wbzqyUisg5AiX/VsPXm/s1aZO8EJN+f/iuprQfIcZ3SDTMJ/V7+qNVpZJXyiJJ/wwDNfixHJDagtjQBwIBGvrD6ELwAiv3easGJZBMkTl0eoC8YzN6o/Urk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr2-f1.google.com with SMTP id ffacd0b85a97d-47fad256d40so553652f8f.0
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 15:19:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785968364; x=1786573164;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MQfZzkTDQS3nrsIaPaEEx3fLiEXiOBaVz6nwxv/6Si8=;
+        b=DVjApGuMotB50D/VIbuFdsu4PqAK2/ImYxyMgLaZCIR/CwM5ghos5vxiwf8VQjRZ84
+         hiw0oXg0KeBcQItJmacbSKw/k4kEqA8yYu3pXIXw2eP3aiFaZ/RTSuIzkZuB1fhlFsEi
+         nnr2ErzmgYJkqwrdaKJ4DXP9NqAz4V6i/3N4moEonCRBVrPA3lYzAZC1iSJzarHcUP+w
+         3ftncdAPDSvcgGVtRQbPBTTncSr1oNFP+Xmp/CqBIZe8M3XXgLAVkCTU2bKq0Ps5Lxo8
+         S45woC22yuivoaisgv72krsOj6GweBOCsbL0iMRn9jAOpIdMOvCHh9nYQWQL+T4Yrq0B
+         aFeQ==
+X-Gm-Message-State: AOJu0Yx1LYpMMM7oygrRdWcp7uNnVkKkwR142euOYTxLqX6nAz922lqr
+	qw1lONY4nHukM+V2pDXifX6iyMOCtQlvkbfvOACe4vts7E7mWq+cjlVp2iFHGwnMtNU=
+X-Gm-Gg: AR+sD12/MsP5wh0GgVUVusbdTZh/PkAwhOR+LafW3MUbXwipKnDc1S9vNN0i4gX3oJn
+	senfo3q5mabF+jUoCoMP0yGji7ARCUPPJ2Hv4Hh0azZEq2JWmxEYC8XfxFbvMHJtSFPWWheGHVR
+	fTKBTd+jvktyCUYov32Pa9BuyaLv9v5+3WvY6zoNIf2D6V/O5ytiIdtFj4RIJnIuHtxzriYhU4x
+	AFcp+Q+VfIBymhxL6c8mzvwygIbo0DgXEmcS/ahYU+T/x0aFTd4AOJePdA8N//bQvEF0jSo7IrF
+	clVbYnqSKUVHgNFIGnC6iDHMZOcW/3Y22Kns7Vb6Gfe9sDnYLTKpPTeN4UK6JUaakrgmkgExXW2
+	jmn+m8M/2hGanhAoqAI2kWs8zlE6U6wfOxBgqODb211d+PlNzA2GWiy74vXHGJ9Bl0noZjtkXLm
+	cHC34a5Lrrb9peI3Qi+xv/wB2FKBkFr25Q9hTvfKqX9O62GLiWgO0gCvSU7UG32V7bhZb8aPBp8
+	Cdrx0wFRSw3A9ElgrN1SQ==
+X-Received: by 2002:a05:6000:e05:b0:47f:91eb:342 with SMTP id ffacd0b85a97d-47fec5051b5mr13640235f8f.13.1785968363949;
+        Wed, 05 Aug 2026 15:19:23 -0700 (PDT)
+Received: from im-t490s.redhat.com (89-24-57-65.nat.epc.tmcz.cz. [89.24.57.65])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47ff79b819dsm721695f8f.16.2026.08.05.15.19.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 15:19:23 -0700 (PDT)
+From: Ilya Maximets <i.maximets@ovn.org>
+To: stable@vger.kernel.org
+Cc: Ilya Maximets <i.maximets@ovn.org>,
+	Aaron Conole <aconole@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.1.y] net: openvswitch: fix skb leak on flow key update failure during recirculation
+Date: Thu,  6 Aug 2026 00:19:18 +0200
+Message-ID: <20260805221920.2820141-1-i.maximets@ovn.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026080537-savage-rarity-dbdb@gregkh>
+References: <2026080537-savage-rarity-dbdb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1590; i=broonie@kernel.org;
- h=from:subject:message-id; bh=8RHbAmv6KRpmCG+t6ywRPdDYHla/g7QvFbRePRfjcu4=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqc66HTi8P8Qr8Uj5/34H2qnom5wOayqdm2JgVg
- h6FXQHNAoSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCanOuhwAKCRAk1otyXVSH
- 0Gv/B/4jvCZvYTJob5mLW5Bz1trrT5+4Kk/425fX/PH/mNxL5XHr8I4FvunCAIeN08iVDjnYdRn
- nLG7FGp4eaFNjYZ50XXetCn4S7hC4zRjRaFkDcFkVBetGaU1YlRPycMmTagTpetYcpBgMDIx16r
- 5vhuJfyFQDTuuUzZi152D3ZILZWfS3LPv9+TnL6x5VdapCOOF2FZVE3npNp8cIsXSZEkqMFZD2h
- 6U5OWQUFax+L2BbP2UVH5T/ttCIfEL57imUFUaD+Az3es8xkE3reinT2mAgvwL8wUnF+GB/SRpw
- 4Yz3u5cyZFXLN+Z2uHfggSxLNZJVxN2CyYQn1LjR/TUp5Tzx
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Wed, 05 Aug 2026 11:24:10 +0300, Peter Ujfalusi wrote:
-> ASoC: cs35l41/cs35l45/cs4265: sort the reg_defaults tables
-> 
-> Hi,
-> 
-> reg_defaults must be sorted by ascending register address as
-> regcache_lookup_reg() locates the entries in it with bsearch(), see commit
-> fd80df352ba1 ("regcache: Add support for sorting defaults arrays").
-> 
-> [...]
+[ Upstream commit e1cf066244dad576221b7123a0e5005967f25a20 ]
 
-Applied to
+do_execute_actions() returns right away when execute_recirc() fails on
+the last action as it assumes this function always takes ownership of
+the skb when 'last' is true.  But when the flow key update fails, the
+function doesn't free the skb and it ends up leaked.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
+This is a very unlikely scenario as it requires the packet to become
+unparseable by applying a set of actions on a previously parseable skb,
+but should be fixed nevertheless.
 
-Thanks!
+Reported by Sashiko.
 
-[1/3] ASoC: cs35l41: sort the register default table
-      https://git.kernel.org/broonie/sound/c/d74aac116cfb
-[2/3] ASoC: cs35l45: sort the register default table
-      https://git.kernel.org/broonie/sound/c/f39a68ed08bb
-[3/3] ASoC: cs4265: sort the register default table
-      https://git.kernel.org/broonie/sound/c/e4fe3e046524
+Fixes: 971427f353f3 ("openvswitch: Add recirc and hash action.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+Reviewed-by: Aaron Conole <aconole@redhat.com>
+Link: https://patch.msgid.link/20260727181851.306076-2-i.maximets@ovn.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[OVS drop reasons are not available in 6.1, hence plain kfree_skb()]
+Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+---
+ net/openvswitch/actions.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
+index f7cc87e67d3c..845f275999c2 100644
+--- a/net/openvswitch/actions.c
++++ b/net/openvswitch/actions.c
+@@ -1111,6 +1111,10 @@ static int execute_masked_set_action(struct sk_buff *skb,
+ 	return err;
+ }
+ 
++/* When 'last' is true, recirc() should always consume the 'skb'.
++ * Otherwise, recirc() should keep 'skb' intact regardless what
++ * actions are executed on recirculation.
++ */
+ static int execute_recirc(struct datapath *dp, struct sk_buff *skb,
+ 			  struct sw_flow_key *key,
+ 			  const struct nlattr *a, bool last)
+@@ -1121,8 +1125,11 @@ static int execute_recirc(struct datapath *dp, struct sk_buff *skb,
+ 		int err;
+ 
+ 		err = ovs_flow_key_update(skb, key);
+-		if (err)
++		if (err) {
++			if (last)
++				kfree_skb(skb);
+ 			return err;
++		}
+ 	}
+ 	BUG_ON(!is_flow_key_valid(key));
+ 
+-- 
+2.55.0
 
