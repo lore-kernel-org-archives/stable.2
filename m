@@ -1,172 +1,160 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mout.web.de (mout.web.de [212.227.15.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26D435674E
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 05:37:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466BD3A641F;
+	Wed,  5 Aug 2026 05:40:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785908233; cv=none; b=dXSnx6q/AaoJxU4Y8/9ckW3dB9gYz+lOeC+BIORvFkvkcg1Jt3kqKNjZ5WDzVWObAekZcJOQJdxJ+Se47WIjZaENyEYPhRxr/EUA+8tzk/eceHU5JI/XDwnNBbJ4Q2TLrVfFZurxRJfjXNjZmWQB/kjLCaS2ccFlKSY0zgCyp1A=
+	t=1785908460; cv=none; b=XiwOEkX+cK3j27aATHelXpXHMmsqcPLwPyJzsCIhqq130EHX59qPCG0s+TZoWIyf/UCLeB+ywk8SzpVn9NX9mdm169GY6KZnOJZq3+Ik02tt7YDlp6iHdL3UIJN7l9Og02sEtSUc8T9BpdQ5oGbB6j+nGAkalcHnC6sv2XF0qEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785908233; c=relaxed/simple;
-	bh=e2f4jv+vddGdp/+tAV76YfONq6iQs8Ulaik9rath9Fo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PRwPr2YVIFPmcbB1i6mrwro8JS5z5+e97a31rhEJ+X/SKNZlUOFgNp+bYnPrQYrgYERreUrKCVcHsfZyt48pXsIeRrIJ0j+pPpLvH30YidyqczlyTq/VeZXxqE3etShRsPBYShNomvAXMXxEaAEvsvIUj9K4eHF+sRfPAVWd7uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RDbuOerJ; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=LWYjXYdK; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785908460; c=relaxed/simple;
+	bh=KLD7aeDNpCWZeixms3o73m4lwKNfa6f19RktPCodg/c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZCVwyg/8QqarDrMEmJvfENel8eaaeZDx+O3Jc9701NX0wAqyeqPCSysEsN1MVUqbc9yp/FoVjzflmeSmhe8IS3dMzwhpje2Cb7JQc27TtjfiasmMr2fhO2qCzMvWRMUTL9x+AFZLunCo203RFGX8dPY4uYHUQir7iTX6KqQfICk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=nfPpv6nS; arc=none smtp.client-ip=212.227.15.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RDbuOerJ";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="LWYjXYdK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785908230;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mlGRErAW413VLAmfzqbAojxRMBz/ChRXiAFusGe8Ptk=;
-	b=RDbuOerJvtYF7ysgxkE5MUUU8lP2lb+mwqIwSYSnfvMveJ0M2ztMZexA5vRrqBEXP4XGQK
-	Vy/de/+cufDNzcNlyBGdgJd3AzHxEpIg+/VLgjZXXgVybbNCl0BQysm3JK2jf/88rs64E8
-	0tSIeuGILIIfsOK+wPECH4ohBuMO8qo=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-669-xqGwCXynPvqNo0Yy_bMWWQ-1; Wed, 05 Aug 2026 01:37:07 -0400
-X-MC-Unique: xqGwCXynPvqNo0Yy_bMWWQ-1
-X-Mimecast-MFC-AGG-ID: xqGwCXynPvqNo0Yy_bMWWQ_1785908226
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-47f753a0aa0so288924f8f.3
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 22:37:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785908226; x=1786513026; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mlGRErAW413VLAmfzqbAojxRMBz/ChRXiAFusGe8Ptk=;
-        b=LWYjXYdKwibcw1AEuuPcjuRDqgD+rwh7IWaNRTzM1mvZdVIfP64AyxkdxaVjgWITBr
-         24EwcLSZjw1QSOmmJ2O4PKSy3z7sboSYxuXO4gcueBmQX+fTJt1WakYUl/5gQqYZ8l0P
-         ZDRMtWE966j+VIsgryOuhUDPRdxqhK7VIRPGTrJI1trkqhDp7ctB+cRvAFJTZNm5lmfC
-         CqKOx3Oo2fgpPaSASG31o7tFTh5byN7fGkrPz6PG+616PUk1BZ/zrnBFpELrfM8dc1Wt
-         yuhNr/T1xtvrl9o2bbHAV+pngw2WeRWGwndrSIQQziTqOi+abACw4TmLGtkfn9xmVUe/
-         2RMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785908226; x=1786513026;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mlGRErAW413VLAmfzqbAojxRMBz/ChRXiAFusGe8Ptk=;
-        b=RGHcYzRCxXh3MH4RtOYaVyGV90FkLvmd6QSkpLdz+LEGi8BvCNLxGflzsY+3be2NOU
-         dakEI7k4y53ajxzp3RZABCCiRgeqVt0av9uNw13VsufQHLpIRFYwWIoYvP12b9LhviWm
-         j8vg3jrLNgBZGf3rKLqI43rsawioTQsxjRmz2X3J86eKSADCR6nGporOgDtHsVm6peEi
-         PslFODqgLlG1lvWYHeLWbyNrKm4gx6wu/dHgK27l8WYIh9WzQGZA+RQpiNgOT1Go7Ljc
-         0AM+s3STtxVAkHXI2qFTlPkEmf9t75lFR6e/2vrNIucWOYIczT0RXozC9ykaJVGUhjZ0
-         NK8g==
-X-Forwarded-Encrypted: i=1; AHgh+RrpSFawb5ZCu72zcmig1rjnuhAuhDARck+tHyYJzE9y9Ms+j9LjxsIlntM/e5cOvB67Fv6Cjp0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwBLh+kl7YKy2I6/duo1DxvirmajW3iGgx1hnMsRA3tgDwl0MW3
-	3Av2CvNeOCFb1P+/c7RA+QXsQfOS5BrgVZOPliUskfxfspLesuXhvlSu1GqQJnUje+yHogzb9F+
-	5A0ppZs5Z1ozjBBVIusSfFtTZENzD4UKJtqm4xaVIsmPq67OyA8QoTpV7cQ==
-X-Gm-Gg: AR+sD118RALOSMLJdtXPNYHgz6ExQ0I+/HjUshlfuQiGI7gAbbdTI9wE6jRPhIDI2w7
-	YAJJNCGKbfUC+EiH3B/KvYucD00d+PLgX3uKyBO2BM5FuYAA0tKdljKMu14F9yIIocI0FHUn5l6
-	XM+2oXqBL276OQHs5mCtrwLkM3+BHSURB02sq2kqM18v6R94J5QludWij4KBISkOjaW1Coa7iR/
-	tmJSttVd14ibnnnEZ8kWal2TDZqyosuDzS6j8ryNH7pmYccgnVQZSUu2co+L6cu8C443gmHWa9I
-	7v44VQgGg3SfuLM81M6mwMD8Z+rZx/PhEDvMrJcdWzi10jRMCQuWarA4CllrpwJ0Oorp9LyRhAR
-	cjCTWqB4dGEWkTB0tfdB8rQ==
-X-Received: by 2002:a5d:5e08:0:b0:47f:8488:50f0 with SMTP id ffacd0b85a97d-47fec4e419emr6719582f8f.4.1785908225903;
-        Tue, 04 Aug 2026 22:37:05 -0700 (PDT)
-X-Received: by 2002:a5d:5e08:0:b0:47f:8488:50f0 with SMTP id ffacd0b85a97d-47fec4e419emr6719507f8f.4.1785908225411;
-        Tue, 04 Aug 2026 22:37:05 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-28-14.inter.net.il. [80.230.28.14])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fec232e40sm6878560f8f.19.2026.08.04.22.37.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 22:37:04 -0700 (PDT)
-Date: Wed, 5 Aug 2026 01:37:01 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Xiong Weimin <xiongweimin@kylinos.cn>
-Cc: virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Jason Wang <jasowangio@gmail.com>, Jason Wang <jasowang@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] virtio_pci: do not mutate caller irq_affinity.pre_vectors
-Message-ID: <20260805013203-mutt-send-email-mst@kernel.org>
-References: <20260805032934.1606700-1-xiongweimin@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="nfPpv6nS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1785908424; x=1786513224; i=markus.elfring@web.de;
+	bh=KLD7aeDNpCWZeixms3o73m4lwKNfa6f19RktPCodg/c=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=nfPpv6nS4O4GpPZVmSasSZFOGvRYkm0zzFICDjArW2RnTh4/SzOcsykHdVf/e2Oi
+	 awqNo9ol+acYTMUdpfym2uxpVGR1MHH3EGmg/w9JK6XrkG8l3DTPOWMTQGb8jDOzX
+	 T8jLGnjYsolGT2ZQFfPrIwcSs+2a82w4tZRnXRuD39aIgKoslsNrDnAInJAnuO4W9
+	 PoLA6ZLxSwZWy0zzr3JqVqG6iJsVtWHQlapFGC0eRDBkHQyhdD7CpmIET3LPxJlmN
+	 LYcwygavAMlkFelZWQ2L9wweidhFvEDQK2gdFvQVyTCyz5kot12XS6UuEPpzF6sab
+	 xe5/pNATYvajUHREKA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1Mhnvw-1xMALw0OTg-00Zipc; Wed, 05
+ Aug 2026 07:40:24 +0200
+Message-ID: <f872c251-6558-44c5-8be3-e892afa5664f@web.de>
+Date: Wed, 5 Aug 2026 07:40:12 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260805032934.1606700-1-xiongweimin@kylinos.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] vdpa: solidrun: Free IRQs after request failure
+To: Xiong Weimin <xiongweimin@kylinos.cn>, virtualization@lists.linux.dev,
+ Alvaro Karsz <alvaro.karsz@solid-run.com>
+Cc: stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+ Jason Wang <jasowangio@gmail.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+References: <178589471328.1556376.15570536900532373521@kylinos.cn>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <178589471328.1556376.15570536900532373521@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:iN8HX9pDmUxKhwmoHf0WliofVci/F50YpxNXxzGyCZeYLs7AaRC
+ vDO+7iTbGJwFwjimh9LBp2FQfTzCppm3OY75a5pnXN8lWTViDHBbyFUfW5G1BJ7jUc92prh
+ wmliBBadFq5/aPUXxACeX8wZeX7nHlAnQ5RCrspbkLUbIjBhe7tdnHb8ONB/HPjww02DBMt
+ 9dt7pcuWQB9vJbcQSuOhg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:4ZRVAa8Qauw=;bmuiuN5c4xRyFB+tNHQilGMYrMJ
+ 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
 
-On Wed, Aug 05, 2026 at 11:29:34AM +0800, Xiong Weimin wrote:
-> vp_request_msix_vectors() bumps desc->pre_vectors in place to reserve
-> the virtio config vector. vp_find_vqs() may call it more than once while
-> retrying MSI-X with different per-vq policies, so the caller's
-> irq_affinity keeps accumulating and later attempts get the wrong
-> affinity layout.
-> 
-> Copy the descriptor to a stack local, adjust pre_vectors there, and
-> pass that to pci_alloc_irq_vectors_affinity().
-> 
-> Fixes: ba74b6f7fcc0 ("virtio_pci: fix cpu affinity support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xiong Weimin <xiongweimin@kylinos.cn>
-> ---
->  drivers/virtio/virtio_pci_common.c | 16 ++++++++++------
->  1 file changed, 10 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/virtio/virtio_pci_common.c b/drivers/virtio/virtio_pci_common.c
-> index 164f480b1..9e75fd03e 100644
-> --- a/drivers/virtio/virtio_pci_common.c
-> +++ b/drivers/virtio/virtio_pci_common.c
-> @@ -128,6 +128,7 @@ static int vp_request_msix_vectors(struct virtio_device *vdev, int nvectors,
->  {
->  	struct virtio_pci_device *vp_dev = to_vp_device(vdev);
->  	const char *name = dev_name(&vp_dev->vdev.dev);
-> +	struct irq_affinity tmp_aff, *aff = NULL;
+> Unwind IRQs already requested by snet_request_irqs() before returning a
+> VQ IRQ request error so a later DRIVER_OK retry starts from a clean
+> state. The IRQs are requested and freed while the PCI device remains
+> bound, so the driver cannot wait for devres cleanup at detach time.
 
+I suggest to avoid duplicate SNET_ERR() calls for the implementation
+of the function =E2=80=9Csnet_request_irqs=E2=80=9D.
+https://elixir.bootlin.com/linux/v7.2-rc5/source/drivers/vdpa/solidrun/sne=
+t_main.c#L400-L426
 
-"tmp" in what sense? if we can come up with a sensible name, just
-"affinity" will do.
-
-
->  	unsigned int flags = PCI_IRQ_MSIX;
->  	unsigned int i, v;
->  	int err = -ENOMEM;
-> @@ -146,16 +147,19 @@ static int vp_request_msix_vectors(struct virtio_device *vdev, int nvectors,
->  					GFP_KERNEL))
->  			goto error;
->  
-> -	if (!per_vq_vectors)
-> -		desc = NULL;
-> -
-> -	if (desc) {
-> +	if (per_vq_vectors && desc) {
-> +		/*
-> +		 * Do not mutate the caller's irq_affinity across MSI-X
-> +		 * fallback retries in vp_find_vqs().
-> +		 */
-
-
-We do not need a comment arguing with previous version of the code.
-
-> +		tmp_aff = *desc;
-> +		tmp_aff.pre_vectors++; /* virtio config vector */
-> +		aff = &tmp_aff;
-
-
-just assign to desc, instead?
-
->  		flags |= PCI_IRQ_AFFINITY;
-> -		desc->pre_vectors++; /* virtio config vector */
->  	}
->  
->  	err = pci_alloc_irq_vectors_affinity(vp_dev->pci_dev, nvectors,
-> -					     nvectors, flags, desc);
-> +					     nvectors, flags, aff);
->  	if (err < 0)
->  		goto error;
->  	vp_dev->msix_enabled = 1;
-> -- 
-> 2.43.0
-
+Regards,
+Markus
