@@ -1,181 +1,81 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495623EE1EE;
-	Wed,  5 Aug 2026 21:20:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 745703EDE4A;
+	Wed,  5 Aug 2026 21:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785964829; cv=none; b=g8oK5vuxD+JSRKlPI5TExs916Dv3zVt0ZWb3u11QIX3RGPeO5otAXh3vdxXrrvpZkx0n4c3/EsieUv6F7WUvmHKG+pJMrcPF9GIRKiCl8hvrJK+K80UxS59hk88Y0n+nfhi9d7yFWEvDtwpaKI3iLqGp4U5bFzVK42/sKJOOD8A=
+	t=1785964888; cv=none; b=ETrlUH7t0MIQ5G6xSF7+MwCrFjRnlFd/586WP+gmKfYeY9chrQ/dPFkQkvMKUvr7DGNbJxx3MLSO21RKSs6PpfoKBeSF7JT7nAqdJS9Yo9XoP7JpBB0dWRocrkNIWL68WEBwd+4ofL+fyOotwyMM8fWJhUhudPptYgGW5kDOh1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785964829; c=relaxed/simple;
-	bh=fpRoZKbF2e8q5k7sXeU2+xeaef+9Njs626uYt/34cH4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gJ597kcVuclqPd0BYU8ICQ21YalQ7rxD8mxHpo8VJG4yhZRwWziJ7+/GkZ0SzgGxx5UuozAAlccPdVKdhuQyTJvRf4vEgT74O4A5PgeXHakQYvjeC2/qNcRHVDWrKZVMFnTeheZX11Wh7S1O+WKtVahB/MNRcnQ1M2vOW+2H8cY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DJYMWqz2; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1785964888; c=relaxed/simple;
+	bh=k4LGSmlJFw5rLUYn4YQZ7hH6wBKX+CmUcy3tDofvFaA=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=o7l31WMrGIghnVTQEGQBS6Ul7ouJt9EnL+XTqjnK2yH+c/6ImWGx9n0TG8KzFyQAID2RPH1Iwak8OeU+Did7rRVTbARfI9Th/VoNcnZgM2qQHNGIqnqcF+eKoLPSIaQcaWFOraOtZeb6UhZCWJ2TgGUb3UOicKb5XlLe3AmmY4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lMucsSXT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DJYMWqz2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785964823; x=1817500823;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=fpRoZKbF2e8q5k7sXeU2+xeaef+9Njs626uYt/34cH4=;
-  b=DJYMWqz2wBwOurJjk/eWMay3ESdWP40HS7oH288MdLEdD4IufLuUJGtz
-   s10rU4WRNSwPVpXY1OxodXHA9h1Rp/rCHkMh8vTkoGaIHhRX2DVDC9fjJ
-   MoESPKIBOLAHMmpuv058fCoyhw9J3Hte/VVD7+XmJLvm5g8nXw3PhPTyx
-   0V5qVnjEOsYRvvtxY8SKIKT+BdIi6UiecUvREkL4TNS6hFdT58ahmJSM+
-   lWI/E7aqu60RHvhO1kSqdix4wKotIj7zYJ4uFy/RtWioHaFvy3taVWrEi
-   GLe3I0+gVOOGh9Pc63M7HH2JyQbi4JDGtrdaWCGdqqyTM49cS2drDjtqv
-   g==;
-X-CSE-ConnectionGUID: ASPAX9bFRwaRTTM4syURsA==
-X-CSE-MsgGUID: +uie/gs0RPu5ylI14gFmuQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="109341694"
-X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; 
-   d="scan'208";a="109341694"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 14:19:49 -0700
-X-CSE-ConnectionGUID: Z4I1BAlYQ7iSmKcSmjDDUg==
-X-CSE-MsgGUID: 6FylbtVgQkikTWR6eBwdYQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; 
-   d="scan'208";a="300138486"
-Received: from vcostago-desk1.jf.intel.com (HELO [10.88.27.144]) ([10.88.27.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 14:19:49 -0700
-From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
-Date: Wed, 05 Aug 2026 14:19:26 -0700
-Subject: [PATCH v2 5/5] crypto: iaa - unmap dst before software fallback on
- decompress
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lMucsSXT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9221F000E9;
+	Wed,  5 Aug 2026 21:21:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785964880;
+	bh=BL9OPYOJe8BM8zFJ/oNMfT3XXZLUPunKIA9orCeaaDU=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=lMucsSXTUki+bteK8yIxGDpfhYQj1o5AEtcmZc6UoEhkH7LM4hLg9wFX9jf8Q5Ngx
+	 5noBZVbRABTltiGM9W0oE36E5zejAi6Vjkw6PyU7cmmq8BA61593QrTW9jCXneyP/d
+	 PH40MwFYfqxxAJJVUa4lMewbttaBXeouyvS4+vkZ3hAE4sHfVBaGR2DXslYFx4F68y
+	 OuJyKHwPczEjxyfcAb/UVjutrq2ixbWow1JEIzcVMfqQpy5qNY7RxUfK3WkYz43+Q9
+	 jwLDzmjfYv+/Ir08izvEDVcXcEyAI6wTRWNn8ufkaUJo6HumDpJiNUKls/mboBVGGZ
+	 JyBTLFO0Xd/Qw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A56392FFD1;
+	Wed,  5 Aug 2026 21:20:41 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-iaa-crypto-fixes-zswap-v2-5-55c02694f499@intel.com>
-References: <20260805-iaa-crypto-fixes-zswap-v2-0-55c02694f499@intel.com>
-In-Reply-To: <20260805-iaa-crypto-fixes-zswap-v2-0-55c02694f499@intel.com>
-To: Dave Jiang <dave.jiang@intel.com>, Vinod Koul <vkoul@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>, 
- Kristen Accardi <kristen.c.accardi@intel.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andrew Morton <akpm@linux-foundation.org>, Yosry Ahmed <yosry@kernel.org>, 
- Nhat Pham <nphamcs@gmail.com>
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-crypto@vger.kernel.org, 
- Vinicius Costa Gomes <vinicius.gomes@intel.com>, stable@vger.kernel.org
-X-Mailer: b4 0.16-dev-4217c
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785964788; l=3568;
- i=vinicius.gomes@intel.com; s=20230921; h=from:subject:message-id;
- bh=fpRoZKbF2e8q5k7sXeU2+xeaef+9Njs626uYt/34cH4=;
- b=86mR1jS9vLMsfNcxuBjSZQZnzXqC3W5RubH6HCjxOCxSHdw5ZSd+pj6DXrsVVUNayQLHURzkU
- E3y2/Ba7jgDCQD39ss8oZr2d+AXCwQOykwcw0AfnZ17/19E8mF+aKFP
-X-Developer-Key: i=vinicius.gomes@intel.com; a=ed25519;
- pk=aJkrtgqgT6TZ8iIHSG8/rTPsmlYnjMrUjCsMYvCzntk=
+Content-Transfer-Encoding: 8bit
+Subject: Re: [f2fs-dev] [PATCH] f2fs: use the mount idmap for the owner check
+ in
+ f2fs_xattr_advise_set()
+From: patchwork-bot+f2fs@kernel.org
+Message-Id: 
+ <178596484038.530543.7575324835869629902.git-patchwork-notify@kernel.org>
+Date: Wed, 05 Aug 2026 21:20:40 +0000
+References: <20260716025908.608098-1-zhanxusheng@xiaomi.com>
+In-Reply-To: <20260716025908.608098-1-zhanxusheng@xiaomi.com>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: jaegeuk@kernel.org, chao@kernel.org, brauner@kernel.org,
+ zhanxusheng@xiaomi.com, jack@suse.cz, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ pfalcato@suse.de
 
-On a hardware analytics error, decompress retries through the software
-fallback, which writes req->dst with the CPU while it is still mapped
-DMA_FROM_DEVICE. With SWIOTLB active the later dma_unmap_sg() copies the
-stale bounce buffer over req->dst, corrupting the result.
+Hello:
 
-Unmap before the fallback runs. The async path unmaps inline; the sync
-path signals the retry with -EAGAIN so iaa_comp_adecompress() runs the
-fallback after unmapping.
+This patch was applied to jaegeuk/f2fs.git (dev)
+by Jaegeuk Kim <jaegeuk@kernel.org>:
 
-Fixes: 2ec6761df889 ("crypto: iaa - Add support for deflate-iaa compression algorithm")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
----
- drivers/crypto/intel/iaa/iaa_crypto_main.c | 35 +++++++++++++++---------------
- 1 file changed, 18 insertions(+), 17 deletions(-)
+On Thu, 16 Jul 2026 10:59:08 +0800 you wrote:
+> f2fs_xattr_advise_set() calls inode_owner_or_capable() with &nop_mnt_idmap
+> before allowing the "system.advise" xattr to be set, instead of the idmap
+> that the VFS passes to the ->set() handler.
+> 
+> f2fs supports idmapped mounts, so on such a mount this checks the caller's
+> fsuid against the unmapped on-disk owner rather than the mapped owner: the
+> actual owner can be wrongly denied with -EPERM and an unrelated caller
+> wrongly allowed.  Pass the handler's idmap instead.
+> 
+> [...]
 
-diff --git a/drivers/crypto/intel/iaa/iaa_crypto_main.c b/drivers/crypto/intel/iaa/iaa_crypto_main.c
-index 51547c5fcf70..c9ab4b83ae02 100644
---- a/drivers/crypto/intel/iaa/iaa_crypto_main.c
-+++ b/drivers/crypto/intel/iaa/iaa_crypto_main.c
-@@ -995,6 +995,11 @@ static inline int check_completion(struct device *dev,
- 	return ret;
- }
- 
-+static bool iaa_error_should_retry(struct idxd_desc *idxd_desc)
-+{
-+	return idxd_desc->iax_completion->status == IAA_ANALYTICS_ERROR;
-+}
-+
- static void iaa_unmap_src(struct device *dev, struct acomp_req *req)
- {
- 	struct iaa_req_ctx *req_ctx = acomp_request_ctx(req);
-@@ -1082,18 +1087,21 @@ static void iaa_desc_complete(struct idxd_desc *idxd_desc,
- 			       ctx->compress, false);
- 	if (ret) {
- 		dev_dbg(dev, "%s: check_completion failed ret=%d\n", __func__, ret);
--		if (!ctx->compress &&
--		    idxd_desc->iax_completion->status == IAA_ANALYTICS_ERROR) {
-+		if (!ctx->compress && iaa_error_should_retry(idxd_desc)) {
- 			pr_warn("%s: falling back to deflate-generic decompress, "
- 				"analytics error code %x\n", __func__,
- 				idxd_desc->iax_completion->error_code);
-+			dma_unmap_sg(dev, ctx->req->dst, sg_nents(ctx->req->dst),
-+				     DMA_FROM_DEVICE);
-+			iaa_unmap_src(dev, ctx->req);
-+
- 			ret = deflate_generic_decompress(ctx->req);
- 			if (ret) {
- 				dev_dbg(dev, "%s: deflate-generic failed ret=%d\n",
- 					__func__, ret);
- 				err = -EIO;
--				goto err;
- 			}
-+			goto out;
- 		} else {
- 			err = -EIO;
- 			goto err;
-@@ -1477,19 +1485,9 @@ static int iaa_decompress(struct crypto_tfm *tfm, struct acomp_req *req,
- 	ret = check_completion(dev, idxd_desc->iax_completion, false, false);
- 	if (ret) {
- 		dev_dbg(dev, "%s: check_completion failed ret=%d\n", __func__, ret);
--		if (idxd_desc->iax_completion->status == IAA_ANALYTICS_ERROR) {
--			pr_warn("%s: falling back to deflate-generic decompress, "
--				"analytics error code %x\n", __func__,
--				idxd_desc->iax_completion->error_code);
--			ret = deflate_generic_decompress(req);
--			if (ret) {
--				dev_dbg(dev, "%s: deflate-generic failed ret=%d\n",
--					__func__, ret);
--				goto err;
--			}
--		} else {
--			goto err;
--		}
-+		if (iaa_error_should_retry(idxd_desc))
-+			ret = -EAGAIN;
-+		goto err;
- 	} else {
- 		req->dlen = idxd_desc->iax_completion->output_size;
- 
-@@ -1722,13 +1720,16 @@ static int iaa_comp_adecompress(struct acomp_req *req)
- 	if (ret == -EINPROGRESS)
- 		return ret;
- 
--	if (ret != 0)
-+	if (ret != 0 && ret != -EAGAIN)
- 		dev_dbg(dev, "asynchronous decompress failed ret=%d\n", ret);
- 
- 	dma_unmap_sg(dev, req->dst, 1, DMA_FROM_DEVICE);
- 	iaa_unmap_src(dev, req);
- 	iaa_wq_put(wq);
- 
-+	if (ret == -EAGAIN)
-+		ret = deflate_generic_decompress(req);
-+
- 	return ret;
- }
- 
+Here is the summary with links:
+  - [f2fs-dev] f2fs: use the mount idmap for the owner check in f2fs_xattr_advise_set()
+    https://git.kernel.org/jaegeuk/f2fs/c/a54ffce4637a
 
+You are awesome, thank you!
 -- 
-2.55.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
