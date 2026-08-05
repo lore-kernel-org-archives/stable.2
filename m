@@ -1,147 +1,147 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D26737B014;
-	Wed,  5 Aug 2026 06:08:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785910089; cv=none; b=cmNphjG4/qf8NBrEwAOpq8AOv46JyRDzPonsMUJJqMGzem0P+SQzuMwFYVbx4CNzWvgGSyoaeElgsnuFVClX6N1NGctZbWAamTQjlVzGonm76K6kyMAvyJzbhaH+EpQlEaszWRgagcSFZakuxGoqlmMiIk7mi3zLdNi2m6fB+vA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785910089; c=relaxed/simple;
-	bh=jpoMjcNw/89ZNPXSZbs1mBTNGTOjMQwKk9aH/Yc+QeQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oAEx2PPoVxk5nYKFL7v+GrwMZqPonZwsKRIgsJR3xf1dQ9x7LJsgjXh2FvjMt7nQWWdzdW/WuDqdQ/h5L8SwKHZFfq5h8cdDvbBP8MVVrTMoZUORE2xFrOP+W7uyL67E023YSiLxi41PvssMheWWjVBVIs/UD1IkQpo9v0tnsX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=oco2K8fJ; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F173C98A2
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 06:08:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785910122; cv=pass; b=FjFnvluWFyYqYZGFxsOoJgzuujrnGvZTVVtGZilfBuX6m6kRmfHOETt8TeLHeLbM7BXtFTk34lyXizCbhk/lt0l2KceOuUJJLgakEyfbhzMUJ2+1n1pmviZKbUW1HxtTqG/narm+kuW46eAQjlWb2xhyF3z+DKy2fKRBZ/pNIk4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785910122; c=relaxed/simple;
+	bh=W0Sm6aitHsc62gyEgQg2/9qpXlfx9wA/VX2KIRUAVSU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZQQN+LuhWLA4MY3tiajA0xYCKSYnIzz2Viyuprv33m4p+ZS5rvdop046fr7alWlcDYntiGkFzxed1WvP/VxITOErUnvv1RC8tSn9AT7nGwiR6BgJSaR8gyhZkyWqx9rC24VzSb09m+wyn34mPLzq8CgTKe82ecvQL2mjgwMD5FQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=jVN6HXQB; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=i+y5LgfF; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="oco2K8fJ"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6755mPba2910524;
-	Wed, 5 Aug 2026 06:07:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=uDTPb6dzY9jtW1k/H
-	1n8YTGW2zvvVpmc+b0m99r+uvo=; b=oco2K8fJysB/C0jQvAzfMBu4x8D2hR/pA
-	+GxSlQNSNKGEFy/IFIPSDWpGFrZJPVEwhVOiD8Dt0Rs8enXz6uUB+LW0yvpDVMgy
-	cpOp5nL58Ir26D1LrNbAg9htDqfPDtlNcuoZCryuAfNLLwPxRxcVTPldXZeKZGq4
-	ZnnzlIknN5ngrawsnvIAGAyCEnlXrPYOq3xeKzP6kZB88ndMrvnr7nWqueDCkEiX
-	O041Wo3/8tRoMe4kHyApmtYfE6UmbRtDKhyPBOfk1dq6c6E9kqx9sJz29kwTQw8Q
-	AgnA28vixNyYkHxEeFV33vCsNsUJAiHr5GbI5W8pyjzic8WKAZ6+w==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs77g96qt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 05 Aug 2026 06:07:49 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6755uiHP030288;
-	Wed, 5 Aug 2026 06:07:48 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fswtyn0re-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 05 Aug 2026 06:07:48 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 67567itA31916536
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 5 Aug 2026 06:07:44 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A154620043;
-	Wed,  5 Aug 2026 06:07:44 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 12C3020040;
-	Wed,  5 Aug 2026 06:07:41 +0000 (GMT)
-Received: from li-1cb9f04c-2ae1-11b2-a85c-a8a0a83790a8.ibm.com.com (unknown [9.124.213.166])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  5 Aug 2026 06:07:40 +0000 (GMT)
-From: Saket Kumar Bhaskar <skb99@linux.ibm.com>
-To: bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
-Cc: hbathini@linux.ibm.com, maddy@linux.ibm.com, ast@kernel.org,
-        andrii@kernel.org, daniel@iogearbox.net, shuah@kernel.org,
-        linux-kselftest@vger.kernel.org, stable@vger.kernel.org,
-        venkat88@linux.ibm.com, yeswanth@linux.ibm.com, skb99@linux.ibm.com
-Subject: [PATCH v10 8/8] powerpc64/bpf: fix percpu private stack leak on JIT failure
-Date: Wed,  5 Aug 2026 11:37:04 +0530
-Message-ID: <cf132f76a7af898af9f9690952067e213430c43f.1785906979.git.skb99@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1785906979.git.skb99@linux.ibm.com>
-References: <cover.1785906979.git.skb99@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="jVN6HXQB";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="i+y5LgfF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785910120;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W0Sm6aitHsc62gyEgQg2/9qpXlfx9wA/VX2KIRUAVSU=;
+	b=jVN6HXQBsue3BzZxFiYMlc+FI9GLlnYL8lB3zJajioL6Ue2STN/aEJUVxytWf0wEOuUlg4
+	dkBmRKuzWEDqcgai9ETubvuLP9CHZJdjYITXaT0UUKEQjGg64k/UBBcNkiKyPEPP53dX9Y
+	eVvVA8QE2lD1ZQN/Ll4J0khJ7gBzKE4=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-501-_JBIHGYmPryEYinDKXqwRw-1; Wed, 05 Aug 2026 02:08:31 -0400
+X-MC-Unique: _JBIHGYmPryEYinDKXqwRw-1
+X-Mimecast-MFC-AGG-ID: _JBIHGYmPryEYinDKXqwRw_1785910110
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-475e540a0ffso309533f8f.3
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 23:08:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785910110; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OSpyniCAy+uePeBkuqpQ31Svi6LYbkzWrwzuVG+BC0QsBpQL5sQwSMKb8LV1xySGll
+         IvA2FWsbLCmanF1GcnR3U8yOdLDzL92TSYtnYkoa1SWqYlMxqhBX9nMAhQG+1qex1C1H
+         fAq5GbvSj5pZGBn/BY2g4Ync4LNWFLEWwqLxCKVwFlF4wYyjTqQ2AmqzL2OiVyedZXu/
+         cRLicXXzCRv4PuUAm25nDnGCeCstewLG+MgT6lhdhKHtLQvoMRooci1HFO+UY6f6V52n
+         wey76QI/ftJY/LNnYTpey1O6VUHWHSZaMwJjHxq8Uz0MtnjlZ7ZX51UtLGuWvO3Q6BcL
+         f+CA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=W0Sm6aitHsc62gyEgQg2/9qpXlfx9wA/VX2KIRUAVSU=;
+        fh=J9CSIyRG4s2iX1gAttcLUFoD8gGYuH03Sm7wxFNyadE=;
+        b=Fe9kq3Qo86L8T4sYrIP+PXJOVDf0uAMG6m5XTfdcMM+tQZ4qZprqbaWFp8H2RM6btU
+         g92QiuMN0tfnn7oeoNjH+N7HAIS06LkUSTf4tblPSnlbZsCe5zV3kb72ns8FzJwAFhZ6
+         Ry2JdRjYNSrjpIQRIkTR9MJaGaTznkCIbxGvI2IosmrBT/clJgSDWyJqShHx6Efqzj+W
+         ODog4L9SWja2cC7tCEJ8w1OX1nm5Ohm3c7C80WqW3XJxAkcvuF3DFwu9T2jCx1ykh+vj
+         puOUpVd+zUPx8qVCWfY28uOks+yLmZNPs2zE792wfo1nXnVIgXu5YUIzlCWDnjsatLnO
+         3jrw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1785910110; x=1786514910; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=W0Sm6aitHsc62gyEgQg2/9qpXlfx9wA/VX2KIRUAVSU=;
+        b=i+y5LgfFY/jp9p2qY1DrA/Aq5Jgf2ReSbS7NdouwIkk8bNPUozzCpHECiXVSuaVsIU
+         A9zKCMSZnzsvYsYCIing134gae5QMiD/89iX1i91Lyn3wT7WUBE4SOx/UkpGRLHzFlg0
+         aSHMiH95oOmJonCtFxg+j0u8aiAGUHrZlXfyNpHfbJh2BBnUPy8UCmjVZ2ZsP+1mmvF+
+         xDotYXJiCaF8bFgjP2pmM8wER8RFrR+abo76NpO39d7lwMT5RqtJ4f4Ppu83VNII9krf
+         xQdunnII9lWsEydnDOS30fuvQk4txoU5zwr+nbwIoJxFmInpBatGIiOw9e7QVSnAVBE6
+         YOaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785910110; x=1786514910;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W0Sm6aitHsc62gyEgQg2/9qpXlfx9wA/VX2KIRUAVSU=;
+        b=DRBW9Mj800N/iObHgQxDwaPaeAo0P/LrLFKL62implMbyA6h0Fs2ST8VN6Y1PbsZNX
+         cVIIkXm5+/AFi3Fj7vcfTPGUX+k6u8IyxtAfxwKgq68BFfdc0hHimfiCWcpR5vBnx+ZK
+         5xHARtivqcMUj8BD3UY0bg8hofVxqteDW8grka3e2jdl0V0GLfa5q2wY7zFqWrV4WFG1
+         8l4bMFsDQtJJFaRVWT0Jo0/JGoUw4COTONgYLoVNjhVUIOcATuTj5H596IGgnTWHhOuo
+         IWDTDTJcapzZbXHuXSHdxPzkgwDhbgr6bvK4m+59tAjx1UvYbEBatQn2wtGiWgp/ImcT
+         rz1A==
+X-Forwarded-Encrypted: i=1; AHgh+RqKgidBeqNp406qvMYpOApxezXf9/tX8HsCqWoSDhgQJjIJKDe7AgbR8G1F0ZRsCgRw5/ohvNw=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwV3wAu84jA+DIC8QfaRkPXa6d3wGJscBMx7VXkWjErzJyFQQHf
+	8P/bwY13HzoIb+yGUR8UwMcPs3KlXTemrhJbS0wzDdY57tI/Od2CLE3PcAKUvTCbBCRnZ86wfOv
+	KuU98INQRXLxcru8VJTzAEHY9aeAiWQ2qmpYLk4NqJIFjgwQ24wlUUKhop5u56M4Q/M+U9stvti
+	OwnWL4pg4eGdyV0nnNkbyB91N4VAbuw5Uy
+X-Gm-Gg: AR+sD11gLmmXabUvzfuMSAQiBTCHNyh30WVYsf6p/dnDhdr+iZC/PccBMSYMPSaRW/E
+	sVDRiX3aVVZV4R5oE0CjJ3MUN+stTVv8eGltfr0/dARyEilHSILY6mARP3NGuIMRZ4CDcemxaAs
+	tCu2Hnjl0XUJM4jChaC7ZeQmmsuS//CRHg+BrZY4I4RcpbMxDyyEjF2zKgyXPvztOMPP7Q3hyCw
+	Ox52pKp5AJl4M/vweyNHsBAG/nmtTm7nkhd3C4janNAQXgTszA8nd+Rlb8=
+X-Received: by 2002:adf:e012:0:20b0:47f:753c:5393 with SMTP id ffacd0b85a97d-47fec4e888cmr5402582f8f.6.1785910109870;
+        Tue, 04 Aug 2026 23:08:29 -0700 (PDT)
+X-Received: by 2002:adf:e012:0:20b0:47f:753c:5393 with SMTP id
+ ffacd0b85a97d-47fec4e888cmr5402532f8f.6.1785910109519; Tue, 04 Aug 2026
+ 23:08:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA1MDA0MiBTYWx0ZWRfX6nKtj2oKgSdR
- pYWlWXvuAEEjUtDZXKZy/q42KogMk1hRjQ2FEEVdKqkFsZ01zOHeBI8pteiCgAK1l8HF3POzHDz
- FfORLlOGSDYumJ3DXWGheX9kbt9RwWtF2cc2Z2wPTP0c3Jp9czEDpMqQaIyG1y9b5iu72KUCv5E
- fEfUX8O3HYg7iEdf8mHEZOKc8e+hZjl89EzN0/cqmjHEBVNE5NXjMA7qQ5//hpWELyUaC/nSNWj
- daVQIAGEaTUoxsqknAihWiapUYO5Sc9I2BGHE1TXh9SztXWjMqyOuehs4Wgdd5JCD8zJ9g6c/tg
- kLJEZeC5pDDnqpBWoobWveaoiiTRP6pBbU7f+hUSA2RU/kwZTPCDwGMlxS2NGpGMPAriq4ckLdL
- Lil6NOgSMzRQME8uTPCaQ1M5fjLN2lX079kny1tVTNyxfJAZUqZQQo736IIyMxDe0ekYTI0EEVM
- Xr0inrDvwuYIvuejNxA==
-X-Authority-Analysis: v=2.4 cv=WIFPmHsR c=1 sm=1 tr=0 ts=6a72d335 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=SJ-jtujo7bo76xSWeacA:9
-X-Proofpoint-GUID: 0mGG3xd-nK8OsZBkB_0MKgKDqqrY6o-3
-X-Proofpoint-ORIG-GUID: 0mGG3xd-nK8OsZBkB_0MKgKDqqrY6o-3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA1MDA0MiBTYWx0ZWRfXwUR7Kt01Sf6s
- 64I2kGrFBBiFCVh8JmUMSmlkxGkeAp00Os9TEM064Wz4oDLQsHFt3oZqGen9oReZvHTJRibw2du
- AhBuMxtqzMqRqfp1e4HUZEvKwNVIYko=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_02,2026-08-04_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 malwarescore=0
- suspectscore=0 clxscore=1015 impostorscore=0 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608050042
+References: <20260804120529.1730187-1-pbonzini@redhat.com> <20260804120529.1730187-3-pbonzini@redhat.com>
+ <20260804161549.4cd9a66f@fedora-21.home> <20260804161850.58c55c6e@fedora-21.home>
+ <CABgObfbAveuhkjXzmemvGtycmcmDePKABr8Q35Y9mZP0den5aA@mail.gmail.com> <20260804164206.655874ce@fedora-21.home>
+In-Reply-To: <20260804164206.655874ce@fedora-21.home>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Wed, 5 Aug 2026 08:08:17 +0200
+X-Gm-Features: AUfX_mzo9t9ubVXz5xpYzVx4R9t4U8bdls__QKfQW65v6eCkMtC4FUkJ5hgXDI8
+Message-ID: <CABgObfY67mdG9QZ5__Q9GDrEq9Wutc42_tHo8YGSMOPnruZmsg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/6] drm/shmem_helper: use vmf_insert_pfn_mkwrite()
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	Alex Williamson <alex@shazbot.org>, bcm-kernel-feedback-list@broadcom.com, 
+	Christian Koenig <christian.koenig@amd.com>, David Hildenbrand <david@kernel.org>, 
+	dri-devel@lists.freedesktop.org, Fei Li <fei1.li@intel.com>, 
+	Huang Rui <ray.huang@amd.com>, linux-mm@kvack.org, linux-s390@vger.kernel.org, 
+	Michal Hocko <mhocko@suse.com>, Peter Xu <peterx@redhat.com>, Sergio Lopez <slp@redhat.com>, 
+	Sean Christopherson <seanjc@google.com>, Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Abhishek Dubey <adubey@linux.ibm.com>
+On Tue, Aug 4, 2026 at 4:42=E2=80=AFPM Boris Brezillon
+<boris.brezillon@collabora.com> wrote:
+> Okay, I thought I'd ask to be sure, because of all the implementations
+> of pfn_mkwrite listed here [1], only drm_gem_shmem_helper.c and
+> kernel/events/core.c do that.
 
-The existing conditional statement in bpf_int_jit_compile() frees the
-percpu private stack at out_addrs only when the image buffer was never
-allocated.
+Also the vmwgfx one in patch 3; and for the !DAX case ext4 and XFS too
+(e.g. xfs_filemap_pfn_mkwrite gets to iomap_page_mkwrite, not to
+filemap_fault).
 
-If bpf_jit_build_body() fails during a code-generation pass, the
-image buffer has already been allocated, so !image is false and the
-percpu stack is not freed.
+> The rest have their "generic" fault
+> handler (by generic I mean a fault handler helper that covers all the
+> order/WRITE_FLAG combinations) called from pfn_mkwrite(), and return a
+> non-zero vm_fault_t.
 
-Because JIT compilation failed, fp->jited remains at 0. The subsequent
-bpf_jit_free() path only frees priv_stack_ptr when fp->jited is set, so
-freeing is skipped here too, leaking the percpu allocation.
+I see; I think you can do that, it is handled at
+https://elixir.bootlin.com/linux/v7.2-rc5/source/mm/memory.c#L2681 and
+indeed it returns VM_FAULT_NOPAGE. But it's more or work for no real
+reason. Your .pfn_mkwrite is a single line of code and it is clearer
+IMO if you can see that try_insert_pfn() is calling the same helper as
+.pfn_mkwrite().
 
-Fix implements freeing the private stack whenever fp->jited was not set,
-i.e. compilation did not succeed, instead of keying off !image. !fp->jited
-already covers the !image case, since image is only NULL on early-failure
-paths where fp->jited is likewise 0.
-
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/bpf/20260616135426.A06B71F000E9@smtp.kernel.org
-Fixes: 156d985123b6 ("powerpc64/bpf: Implement JIT support for private stack")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
-Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
-Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
----
- arch/powerpc/net/bpf_jit_comp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
-index 3c20bb13cfd7..825999f8717b 100644
---- a/arch/powerpc/net/bpf_jit_comp.c
-+++ b/arch/powerpc/net/bpf_jit_comp.c
-@@ -404,7 +404,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 				(void *)fimage + FUNCTION_DESCR_SIZE);
- 
- out_addrs:
--		if (!image && priv_stack_ptr) {
-+		if (!fp->jited && priv_stack_ptr) {
- 			fp->aux->priv_stack_ptr = NULL;
- 			free_percpu(priv_stack_ptr);
- 		}
--- 
-2.54.0
+Paolo
 
