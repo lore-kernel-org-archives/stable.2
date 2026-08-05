@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61744322F6;
-	Wed,  5 Aug 2026 11:33:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349754334DE;
+	Wed,  5 Aug 2026 11:33:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785929628; cv=none; b=U+43Ls3jop+LrK/OQ+v4OZ0QwWdfeKteTsQoSM0f/KrCgbuc8eASUWVKl8t6TRFcPjRNFGeekHPxs2Rn94vWLVdybAKfheYF7TRHKzItcf5BKeqwHSZci/rvbMUp/jQyCJNOI9OxvvCSl2loNuwuCT4hA6UuxsLzzdxWCK8mU7E=
+	t=1785929631; cv=none; b=T5SOC+Lz25aftyOtKEIPeFygclzCh6e8TVAeNR7ceedbgm8DeBygKbK9aij0KXNS/VnuXYoIm1fsf1gPSZaQc76XdMSaJMCEF10wtnWqrsMtWFpsWhKNAKYtmD/SHimu3gSi3REhjSi3QvuGnnvHmbXuZ57dmYylCsQiAW/a1UQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785929628; c=relaxed/simple;
-	bh=3lWJYMs3nbBFgdmv4/bZs0/V4ibefvqdyoqjZL6QD24=;
+	s=arc-20240116; t=1785929631; c=relaxed/simple;
+	bh=ZxPU7quEySN5Hl4qRC5WeOO+MTXBZUcrGg6kx4/kNtY=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hEd1JlqKUXR7vV0TOrIMa+8WDfynvimbZwi5rvJfk+UqnFWCVLKckxHLcSzYARR0RGs2Kzu+e/tpwtFpSZUVAJi5ma3i/ZTcSNTY981GoyGtZ0ngk9Qx79QmNedXvS/rlS3zlyMPmSDRs8DTzucUu/J/xf3FhuVq/yiQTItC7fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=myOyWvkZ; arc=none smtp.client-ip=198.175.65.21
+	 MIME-Version:Content-Type; b=IGLwA2unxGKqXyqpFOa0DMu/Z0Uy63yAVidEn9zOmWWIO6ShpFO3kzI55ZWD0euT5g6wzufAHUqcJHaMAqmm2BQHSs8HFk4YBHQF442e2zDsDb0QcAlyLo9onQG5TVyfvxSzPBfFKOt6HhWPx7FE424fUMPaYJbHxtfoCuyl88o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FKf4ul02; arc=none smtp.client-ip=198.175.65.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="myOyWvkZ"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FKf4ul02"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785929626; x=1817465626;
+  t=1785929628; x=1817465628;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=3lWJYMs3nbBFgdmv4/bZs0/V4ibefvqdyoqjZL6QD24=;
-  b=myOyWvkZbZl+FcR3hzd+AufbzcZq0URU5Iy6NZ1NH0Rz9pZ6v4kGU592
-   KbRbPmEbtjt0dUoik8YIRUNlsJ2R5C8ExBWRVLt8oFU/HTk1mL4zPbmoJ
-   9Wuda6kE+P4B37SyKySGPUYBYMIGA9QHWIgy/1HX4VxKFbq4kZ1JcxQMq
-   78omujVERxCUEZ4wrCvbYI/CllyydAOh1xE0Za5/Q808fMumTMA9tAnFH
-   PfRdAAfZz/zvDWN3qYga08VhmRQV1xMX3hK2OqWpT0ESlCwAPaLKhwPyL
-   SFbRJ0UwR48hra/0tg2eV19uEUcY4F3CNTjIPSEN2EpRjPq3lbYEh38mq
-   g==;
-X-CSE-ConnectionGUID: tyJS2JLzQ+i15yQ2KuvZ7Q==
-X-CSE-MsgGUID: Og4Okb68Ttq137vLTlxJ9g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="86358165"
+  bh=ZxPU7quEySN5Hl4qRC5WeOO+MTXBZUcrGg6kx4/kNtY=;
+  b=FKf4ul02vvW6VTUWVqY1ohHMgpS97f8YoRI5VWA5V+/LsIjQ73hbaV8D
+   bHNJFM/7NI10FPMEnH3Q1zJgU6scxeFuMmKyR4uZLJ/xj96ULWz+g7+F8
+   bkTwr1sPBlaYo82FUuSXcnvbFm7Db+LKQmdIo2Y+oqpXvrmk9CEzlRuod
+   zDSwAcHQsklXFJw0eTA7jyKINj7OWafBJKtrVh/n/nSeSWPelEv3/sDdx
+   R1bv5pNvLKcIt/oM90kLC1v5Y5pXQ3bMBQLr5jgTJKVgZLCWcvNVTkhsd
+   AK4QaZ38lj5FKdWbzVoVSfsGWCXsaVSM9TTO3+DVdUKMrtHZA8S8jGagY
+   A==;
+X-CSE-ConnectionGUID: 0EerXESCSw+a/uNj8FeiQQ==
+X-CSE-MsgGUID: 4bCi1D0jSKSSnJ3xGBPuvw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="86358188"
 X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="86358165"
+   d="scan'208";a="86358188"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 04:33:44 -0700
-X-CSE-ConnectionGUID: 8qTpyZacQ5ylK+ugbK5C3Q==
-X-CSE-MsgGUID: s8apNhHaQTGF25KG/UCxNQ==
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 04:33:45 -0700
+X-CSE-ConnectionGUID: TlTSTTbZQ92hntgr1WOfMQ==
+X-CSE-MsgGUID: X+D8wfZAS76OZrI13c7G0A==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="265289744"
+   d="scan'208";a="265289747"
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 04:33:44 -0700
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 04:33:45 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org,
@@ -75,9 +75,9 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
 	Francois Dugast <francois.dugast@intel.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/4] mm/migrate_device: Fix THP splitting of a CPU faulted device private folio
-Date: Wed,  5 Aug 2026 04:33:35 -0700
-Message-Id: <20260805113338.3742178-2-matthew.brost@intel.com>
+Subject: [PATCH 2/4] mm/migrate_device: Apply the fault reference to the correct folio
+Date: Wed,  5 Aug 2026 04:33:36 -0700
+Message-Id: <20260805113338.3742178-3-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260805113338.3742178-1-matthew.brost@intel.com>
 References: <20260805113338.3742178-1-matthew.brost@intel.com>
@@ -90,100 +90,27 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When a CPU faults on a device private PMD and the device driver can only
-allocate order-0 destination folios, __migrate_device_pages() has to
-split the source THP via migrate_vma_split_unmapped_folio(). That path
-is broken in two independent ways when the fault is what triggered the
-migration.
+__migrate_device_pages() computed extra_cnt once, from the head page of
+the source folio, and then passed the same value to
+folio_migrate_mapping() for every one of the @nr sub-folios produced by
+migrate_vma_split_unmapped_folio().
 
-First, the split never succeeds. At the point folio_split_unmapped() is
-called the folio carries two references beyond the ones it is
-entitled to:
+The extra reference the CPU fault holds only exists on the single folio
+that ends up containing the fault page. Claiming it for all of them
+makes folio_migrate_mapping() expect one reference too many on every
+other sub-folio, so it returns -EAGAIN and MIGRATE_PFN_MIGRATE is
+cleared for them. Only the fault page would migrate; the remaining
+HPAGE_PMD_NR - 1 pages would be restored to device memory, and the
+faulting access would immediately fault again.
 
-  1 - taken by do_huge_pmd_device_private() for the duration of the
-      ->migrate_to_ram() callback
-  2 - taken by migrate_vma_collect_huge_pmd() when the folio was
-      collected
+Compute extra_cnt per sub-folio instead, comparing against the source
+page for that entry.
 
-(the mapping reference having been dropped by set_pmd_migration_entry()).
+While at it, use the sub-folio's own mapping rather than the mapping
+that was read from the pre-split folio.
 
-folio_split_unmapped() requires folio_expected_ref_count(folio) ==
-folio_ref_count(folio) - 1, i.e. it tolerates exactly one caller
-reference. With both of the above held the check sees 2 against an
-expected 0 and returns -EAGAIN, so the migration is abandoned and the
-CPU fault makes no progress.
-
-The PTE-based split path does not have this problem:
-migrate_vma_split_folio() is called before any collect reference is
-taken and explicitly skips folio_get() for the fault folio, so the fault
-reference is the single caller reference the split expects.
-
-Fix it by dropping the fault reference across the split and re-taking it
-afterwards. do_huge_pmd_device_private() derives the fault page from the
-PMD entry, so it is always the head page of the folio and always ends up
-in the head folio of an uniform split to order 0; re-taking the
-reference on the folio therefore puts it back exactly where
-do_huge_pmd_device_private() will release it. The folio cannot be freed
-while the reference is dropped because the collect reference is still
-held.
-
-Second, the folio is split globally but the page tables were demoted
-only locally:
-
-	split_huge_pmd_address(migrate->vma, addr, true);
-	ret = folio_split_unmapped(folio, 0);
-
-migrate_device_unmap() unmaps via try_to_migrate(folio, 0), deliberately
-without TTU_SPLIT_HUGE_PMD, so every VMA that PMD maps the folio is left
-holding a PMD sized migration entry. A folio that was PMD mapped in more
-than one VMA -- after fork(), for example -- therefore keeps huge
-migration entries in all the other VMAs while only migrate->vma is
-demoted.
-
-folio_split_unmapped() does not notice: the folio is fully unmapped, so
-it only looks at the refcount and happily splits to order 0. The other
-VMAs are then left pointing a huge PMD at an order-0 folio, and
-migrate_vma_finalize() -> remove_migration_ptes() walks into it:
-
-  page dumped because: VM_BUG_ON_FOLIO(folio_test_hugetlb(folio) ||
-                                       !folio_test_pmd_mappable(folio))
-  kernel BUG at mm/migrate.c:368!
-  RIP: 0010:remove_migration_pte+0x56a/0x9b0
-  Call Trace:
-   rmap_walk_anon+0xfc/0x260
-   remove_migration_ptes+0x79/0xb0
-   __migrate_device_finalize+0x113/0x290
-   __drm_pagemap_migrate_to_ram+0x278/0x360 [drm_gpusvm_helper]
-   drm_pagemap_migrate_to_ram+0x5c/0x80 [drm_gpusvm_helper]
-   do_huge_pmd_device_private+0x160/0x280
-
-Without CONFIG_DEBUG_VM the VM_BUG_ON_FOLIO() is compiled out and
-remove_migration_pmd() installs a huge PMD pointing at an order-0 page
-instead, along with add_mm_counter(mm, MM_ANONPAGES, HPAGE_PMD_NR). The
-victim mm then maps 2MB of address space onto a single 4K page, which
-shows up later as bad rss-counter state, leaked page tables and page
-allocator freelist corruption in unrelated processes.
-
-Note this second problem was latent before the refcount fix above: the
-split always failed, and the failed attempt left migrate->vma demoted,
-so the retried fault took the PTE path, where __folio_split() unmaps
-with TTU_SPLIT_HUGE_PMD and demotes every VMA.
-
-Fix it by walking the rmap and demoting every PMD sized migration entry
-mapping the folio before splitting it. Demote with freeze = false: entry
-creation in __split_huge_pmd_locked() is dispatched on
-pmd_is_migration_entry(), not on freeze, so a migration PMD becomes PTE
-sized migration entries either way, and freeze only controls a trailing
-put_page(). With freeze = false there is no refcount change at all,
-which makes the demotion idempotent across N VMAs.
-
-rmap_walk_control.anon_lock is deliberately left unset:
-folio_lock_anon_vma_read() depends on folio_mapped(), and the folio is
-already fully unmapped here. This mirrors remove_migration_ptes().
-
-Finally, refuse the split for a folio that is not anonymous. The rmap
-walk would otherwise reach a file backed VMA, where
-split_huge_pmd_address() zaps the PMD instead of demoting it.
+This has been latent so far because the split it depends on could never
+succeed while the fault reference was held.
 
 Fixes: 4265d67e405a ("mm/migrate_device: add THP splitting during migration")
 Cc: Andrew Morton <akpm@linux-foundation.org>
@@ -219,150 +146,52 @@ Cc: stable@vger.kernel.org
 Assisted-by: GitHub Copilot:claude-opus-5
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- mm/migrate_device.c | 98 ++++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 89 insertions(+), 9 deletions(-)
+ mm/migrate_device.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
 
 diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index 908d2d4ec43a..d1d81bbbf795 100644
+index d1d81bbbf795..65a6a15dba4d 100644
 --- a/mm/migrate_device.c
 +++ b/mm/migrate_device.c
-@@ -899,22 +899,104 @@ static int migrate_vma_insert_huge_pmd_page(struct migrate_vma *migrate,
- 	return 0;
- }
+@@ -1191,7 +1191,7 @@ static void __migrate_device_pages(unsigned long *src_pfns,
+ 		struct page *page = migrate_pfn_to_page(src_pfns[i]);
+ 		struct address_space *mapping;
+ 		struct folio *newfolio, *folio;
+-		int r, extra_cnt = 0;
++		int r;
+ 		unsigned long nr = 1;
  
-+static bool migrate_vma_split_pmd_one(struct folio *folio,
-+				      struct vm_area_struct *vma,
-+				      unsigned long addr, void *arg)
-+{
-+	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, addr, PVMW_SYNC | PVMW_MIGRATION);
-+
-+	while (page_vma_mapped_walk(&pvmw)) {
-+		if (pvmw.pte)
-+			continue;
-+
-+		addr = pvmw.address;
-+		page_vma_mapped_walk_done(&pvmw);
-+
-+		/*
-+		 * Demote with freeze = false: the PMD already holds a
-+		 * migration entry, so __split_huge_pmd_locked() creates PTE
-+		 * sized migration entries from it and leaves the refcount
-+		 * alone. There is at most one PMD mapping @folio per VMA, so
-+		 * stop the walk here.
-+		 */
-+		split_huge_pmd_address(vma, addr, false);
-+		break;
-+	}
-+
-+	return true;
-+}
-+
-+/*
-+ * Demote every PMD sized migration entry that maps @folio to PTE sized ones.
-+ *
-+ * migrate_device_unmap() unmaps with try_to_migrate(folio, 0), i.e. without
-+ * TTU_SPLIT_HUGE_PMD, so a folio that was PMD mapped in several VMAs -- after
-+ * fork(), for instance -- ends up with a PMD sized migration entry in every one
-+ * of them. folio_split_unmapped() below does not care, it only looks at the
-+ * refcount, so splitting the folio without demoting all of those first would
-+ * leave the other VMAs pointing a huge PMD at what is now an order-0 folio.
-+ * remove_migration_ptes() trips over that in migrate_vma_finalize().
-+ */
-+static void migrate_vma_split_pmd_mappings(struct folio *folio)
-+{
-+	struct rmap_walk_control rwc = {
-+		.rmap_one = migrate_vma_split_pmd_one,
-+	};
-+
-+	/*
-+	 * Do not pass .anon_lock: folio_lock_anon_vma_read() requires
-+	 * folio_mapped(), and @folio is already fully unmapped here.
-+	 */
-+	rmap_walk(folio, &rwc);
-+}
-+
- static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
--					    unsigned long idx, unsigned long addr,
-+					    unsigned long idx,
- 					    struct folio *folio)
- {
- 	unsigned long i;
- 	unsigned long pfn;
- 	unsigned long flags;
-+	bool fault_folio;
- 	int ret = 0;
+ 		if (!newpage) {
+@@ -1296,13 +1296,25 @@ static void __migrate_device_pages(unsigned long *src_pfns,
  
- 	/*
--	 * take a reference, since split_huge_pmd_address() with freeze = true
--	 * drops a reference at the end.
-+	 * migrate_vma_split_pmd_mappings() walks the rmap, and
-+	 * split_huge_pmd_address() zaps rather than demotes a PMD in a VMA that
-+	 * is not anonymous. migrate_vma_collect_huge_pmd() does not check the
-+	 * VMA type, so a file THP can reach here; the rest of the migrate_vma()
-+	 * machinery only supports anonymous memory anyway.
- 	 */
--	folio_get(folio);
--	split_huge_pmd_address(migrate->vma, addr, true);
-+	if (!folio_test_anon(folio))
-+		return -EINVAL;
-+
-+	/*
-+	 * A CPU fault on a device private PMD holds an extra reference on the
-+	 * folio, taken by do_huge_pmd_device_private(). folio_split_unmapped()
-+	 * only tolerates a single caller reference, so the split would always
-+	 * fail with -EAGAIN while this fault reference is held.
-+	 *
-+	 * do_huge_pmd_device_private() derives the fault page from the PMD
-+	 * entry, so it is always the head page of @folio, and therefore always
-+	 * ends up in the head folio after an uniform split to order 0. Drop
-+	 * the reference across the split and re-take it on the head folio
-+	 * afterwards, leaving the reference exactly where it is expected to be
-+	 * released.
-+	 *
-+	 * The folio cannot go away while the reference is dropped: the
-+	 * reference taken by migrate_vma_collect_huge_pmd() is still held.
-+	 */
-+	fault_folio = migrate->fault_page &&
-+		page_folio(migrate->fault_page) == folio;
-+
-+	migrate_vma_split_pmd_mappings(folio);
-+
-+	if (fault_folio)
-+		folio_put(folio);
- 	ret = folio_split_unmapped(folio, 0);
-+	if (fault_folio)
-+		folio_get(folio);
-+
- 	if (ret)
- 		return ret;
- 	migrate->src[idx] &= ~MIGRATE_PFN_COMPOUND;
-@@ -935,7 +1017,7 @@ static int migrate_vma_insert_huge_pmd_page(struct migrate_vma *migrate,
- }
+ 		BUG_ON(folio_test_writeback(folio));
  
- static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
--					    unsigned long idx, unsigned long addr,
-+					    unsigned long idx,
- 					    struct folio *folio)
- {
- 	return 0;
-@@ -1103,7 +1185,6 @@ static void __migrate_device_pages(unsigned long *src_pfns,
- 	struct mmu_notifier_range range;
- 	unsigned long i, j;
- 	bool notified = false;
--	unsigned long addr;
+-		if (migrate && migrate->fault_page == page)
+-			extra_cnt = 1;
+ 		for (j = 0; j < nr && i + j < npages; j++) {
+-			folio = page_folio(migrate_pfn_to_page(src_pfns[i+j]));
++			struct page *src_page = migrate_pfn_to_page(src_pfns[i+j]);
++			int extra_cnt = 0;
++
++			folio = page_folio(src_page);
+ 			newfolio = page_folio(migrate_pfn_to_page(dst_pfns[i+j]));
  
- 	for (i = 0; i < npages; ) {
- 		struct page *newpage = migrate_pfn_to_page(dst_pfns[i]);
-@@ -1177,8 +1258,7 @@ static void __migrate_device_pages(unsigned long *src_pfns,
- 					goto next;
- 				}
- 				nr = 1 << folio_order(folio);
--				addr = migrate->start + i * PAGE_SIZE;
--				if (migrate_vma_split_unmapped_folio(migrate, i, addr, folio)) {
-+				if (migrate_vma_split_unmapped_folio(migrate, i, folio)) {
- 					src_pfns[i] &= ~(MIGRATE_PFN_MIGRATE |
- 							 MIGRATE_PFN_COMPOUND);
- 					goto next;
+-			r = folio_migrate_mapping(mapping, newfolio, folio, extra_cnt);
++			/*
++			 * The CPU fault holds an extra reference on the folio
++			 * containing the fault page. @folio may have been
++			 * split above, so the fault page only accounts for an
++			 * extra reference on the folio it actually ended up
++			 * in, not on every folio of the original THP.
++			 */
++			if (migrate && migrate->fault_page == src_page)
++				extra_cnt = 1;
++
++			r = folio_migrate_mapping(folio_mapping(folio), newfolio,
++						  folio, extra_cnt);
+ 			if (r)
+ 				src_pfns[i+j] &= ~MIGRATE_PFN_MIGRATE;
+ 			else
 -- 
 2.34.1
 
