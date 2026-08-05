@@ -1,103 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8A92233723;
-	Wed,  5 Aug 2026 00:06:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64845261B91
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 00:08:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785888416; cv=none; b=hT+1ApmkpmEMEe9kNDvQ5oJeIVgLBXF0SD+TzN/I5oTymhvHqpgFyNLV9hxr89670ZzEmEgXAUhGRbRoXBi75U8asKQf124S0vocTquu10zcdG6mvyQlsMRZSIYX5yfeZobAbaM1+M0ClthqfJafvTLU3XpwRbi+r+qz2TqCztc=
+	t=1785888516; cv=none; b=dDOkgH2dlpDDGo4Fr/B3RBTPnq9Cv4qkLckZMRWovjM99sKTungEDR4TVwfpnuUG2wE7ZGon0r40GH7Vumr65cYdYgVq+zB4d/hvBIhYQUASZ4Aau7PDOrL7OFhfjKtLOZpf0BO3xhxcvLng+F7mVptTpMmxWxmlVtKgbSxEdus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785888416; c=relaxed/simple;
-	bh=Gj6pPKwL+wKGgG/tCBPzy2c0o7o+L4sFvKl6Ef5bx3E=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=vD0e47T6f6pi5DppC3Fzk8jH3qLrZi/k6B+xYxMEvFIBRDn4maEvyvU0pX66JssDFQOU+sSoR59MSTDI4guT2G5NB0pAHEYx8XtPNoMcbW0ZSJ7s2ZZZSwCKKWbKL9EEm45pBgthJGakYcfzDeDfrwvtLUw841aMeo1dKJFTNnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VzgzDjhi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785888516; c=relaxed/simple;
+	bh=4AUI5wZi/4cqTS1F4+vgkQLD0weQ7bBfpY3n51hBdXg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VRdBw3Avhsil3sI3zmNRPGa74A2Gh5mZfUr2Ks4qFV8agE+2nw5RrLbKmIoHfL4AqsAAaoPqkLUi0kxSoFyZkxLDV8Tu6VwB6Nd8kUVHsUlXH57n7r7l37OrcCyoXIyFl+PJ7iHa6HkQrm3pe/NrSiIPio4J9iVM0DC6dNpFA4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BMB5n6YT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VzgzDjhi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38F9A1F00A3D;
-	Wed,  5 Aug 2026 00:06:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BMB5n6YT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B4351F00A3A;
+	Wed,  5 Aug 2026 00:08:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785888415;
-	bh=fQGXTT1iD4XOXkRDxR3dG4pIjyvECfsrSvRyXf46TZw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=VzgzDjhi9Ja1W5hLt58pREs7AZFSvpvy+GUFRil24u3tV25E8RAAKfLuev7/BOVmP
-	 vHrhIqZhEvjxvB+PAVngR+Oc7nuvxKikPu/g+GEGygo4OY3dKClZNCVXwp1HJEleR+
-	 vxA09ZFsznPAeqmkWkTOlIEyfzrVBmq3rM33fMghLrZbdudoWcu0Fzdw3HRuXOwX21
-	 Goe8hzAwyafEPHVULdX1pg5cN7/3/qGFxy4somCLRZzzRVSSf48H8Le4EmPr1PlG5Y
-	 T4jU8POAIlgo2zsnrojq27axy/FhY0EDnxLvcOMc844HsFlT2JPUauNxRn0NyO2qpZ
-	 po8godmRCI81g==
-Date: Tue, 4 Aug 2026 17:06:53 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-To: Yifei Gao <gyf161023@gmail.com>
-cc: Eric Van Hensbergen <ericvh@kernel.org>, 
-    Latchesar Ionkov <lucho@ionkov.net>, 
-    Dominique Martinet <asmadeus@codewreck.org>, v9fs@lists.linux.dev, 
-    Christian Schoenebeck <linux_oss@crudebyte.com>, 
-    Juergen Gross <jgross@suse.com>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH] 9p/xen: fix refcount leak in p9_xen_response() on wrong
- tag
-In-Reply-To: <20260804213550.3409638-1-gyf161023@gmail.com>
-Message-ID: <ebcebd30-68e2-1650-f0e6-b69e4239619c@kernel.org>
-References: <20260804213550.3409638-1-gyf161023@gmail.com>
+	s=k20260515; t=1785888515;
+	bh=zVy6qRiuTuquc3t4j4o2l+eQWAUfAeiGwpz5H6pgXcs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BMB5n6YT5FjAxYN3qLsLdnVIep74pd4PkmkiZjdVUnxs5wFpRcqMXFcA21RXROfr3
+	 SulaZydMKNtCkWO3rqCKvTXNK1lbvPXjB14a74B6eSH+zeMcYChtA2TbkndGVzfh3n
+	 njvBCI6IrIpwqNj+EDtLIBOfyzv4vzc47Eu3iRVtiam4piL19ZwEbSOUR1gAoYDwOa
+	 lIl/bR5H3/zP/iKGiNuJbMLa9RfRXVrsZPDOnFiGBcHkexPrJ+pzG9DebSmlzuURlz
+	 zKsV/aFY0c/Hk6joEKRgLyNigx7vBXgwc/7rXlpNCu9E7K+dWO28+2zdWINN9nRfUl
+	 poZt6SV586bYA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] media: qcom: camss: csid-340: Fix unused variables
+Date: Tue,  4 Aug 2026 20:08:32 -0400
+Message-ID: <20260805000833.3902619-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072933-pungent-everyday-da96@gregkh>
+References: <2026072933-pungent-everyday-da96@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Tue, 4 Aug 2026, Yifei Gao wrote:
-> p9_xen_response() looks up the request for an incoming reply with
-> p9_tag_lookup(), which takes a reference on the returned p9_req_t. When
-> the tag does not resolve to a request in REQ_STATUS_SENT, the function
-> warns and continues the loop without dropping that reference, permanently
-> leaking the p9_req_t and its msize buffers. The reply header, including
-> the tag, is supplied by the backend, so a malicious or buggy 9P backend
-> can leak kernel memory on every crafted response.
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Most backend are trusted, including this. So I would avoid "malicious".
+[ Upstream commit 0b61ce8dc4a71ea7baa19275c655677c612dde6d ]
 
+The CSID driver has some unused variables and function parameters
+that are no longer needed (due to refactoring). Clean up those
+unused elements:
 
-> Drop the reference before continuing, mirroring the equivalent path in
-> trans_fd.c.
+- Remove the `vc` parameter from `__csid_configure_rx()`.
+- Drop the unused `lane_cnt` variable.
+- Adjust call to `__csid_configure_rx()` accordingly.
+
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Stable-dep-of: cc1c35619c98 ("media: qcom: camss: Fix RDI streaming for CSID 340")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/media/platform/qcom/camss/camss-csid-340.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/camss/camss-csid-340.c b/drivers/media/platform/qcom/camss/camss-csid-340.c
+index 22a30510fb792..2b50f9b96a34e 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid-340.c
++++ b/drivers/media/platform/qcom/camss/camss-csid-340.c
+@@ -55,8 +55,7 @@
+ #define CSID_RDI_CTRL_HALT_AT_FRAME_BOUNDARY		0
+ #define CSID_RDI_CTRL_RESUME_AT_FRAME_BOUNDARY		1
  
-It doesn't look like trans_fd.c behaves like this patch?
+-static void __csid_configure_rx(struct csid_device *csid,
+-				struct csid_phy_config *phy, int vc)
++static void __csid_configure_rx(struct csid_device *csid, struct csid_phy_config *phy)
+ {
+ 	u32 val;
+ 
+@@ -81,13 +80,9 @@ static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8
+ 	const struct csid_format_info *format = csid_get_fmt_entry(csid->res->formats->formats,
+ 								   csid->res->formats->nformats,
+ 								   input_format->code);
+-	u8 lane_cnt = csid->phy.lane_cnt;
+ 	u8 dt_id;
+ 	u32 val;
+ 
+-	if (!lane_cnt)
+-		lane_cnt = 4;
+-
+ 	/*
+ 	 * DT_ID is a two bit bitfield that is concatenated with
+ 	 * the four least significant bits of the five bit VC
+@@ -120,10 +115,11 @@ static void csid_configure_stream(struct csid_device *csid, u8 enable)
+ {
+ 	int i;
+ 
++	__csid_configure_rx(csid, &csid->phy);
++
+ 	for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS; i++) {
+ 		if (csid->phy.en_vc & BIT(i)) {
+ 			__csid_configure_rdi_stream(csid, enable, i);
+-			__csid_configure_rx(csid, &csid->phy, i);
+ 			__csid_ctrl_rdi(csid, enable, i);
+ 		}
+ 	}
+-- 
+2.53.0
 
-
-> Fixes: f66c72bea129 ("xen/9pfs: receive responses")
-
-This should be 728356dedeff
-
-Aside from the above, the code change looks correct
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Yifei Gao <gyf161023@gmail.com>
-> ---
->  net/9p/trans_xen.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
-> index f9fb2db7a066..8eea0da8797f 100644
-> --- a/net/9p/trans_xen.c
-> +++ b/net/9p/trans_xen.c
-> @@ -203,6 +203,8 @@ static void p9_xen_response(struct work_struct *work)
->  		req = p9_tag_lookup(priv->client, h.tag);
->  		if (!req || req->status != REQ_STATUS_SENT) {
->  			dev_warn(&priv->dev->dev, "Wrong req tag=%x\n", h.tag);
-> +			if (req)
-> +				p9_req_put(priv->client, req);
->  			cons += h.size;
->  			virt_mb();
->  			ring->intf->in_cons = cons;
-> -- 
-> 2.43.0
-> 
