@@ -1,125 +1,114 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from va-2-52.ptr.blmpb.com (va-2-52.ptr.blmpb.com [209.127.231.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C89A12B94
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 21:09:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A1B47F2F0
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 21:15:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785964197; cv=none; b=kiR/+WaKxm2OHRfbHHgtn7mTm4S03o5bAAtPfxGmODqgJ47+emUTj6f+mGZSABl4JIrn440Y1PWJIDj/RhbBokXL7eRI1umRxYileHCmHUkugcrJBtPmi7nWayfaHzgPyyd/L72XWN5OMhkv8Z6LeskmkSfB9ZDl2KkQysrFpzg=
+	t=1785964529; cv=none; b=c5jaeJhIzywy6q3WznLPJweMjd7J/t7xezwMN2mpElTjekUClAHKUUOTtBBekvKvHUDaOPG5L4PuZHPwXYjxzFMRXjqyV05av5TVkvkkaNIoojw8pz2kfwI6GcepPgdaCVZxi4+UyqUDcdckFY+TvtFXVVcu0o1BagkgpxTob8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785964197; c=relaxed/simple;
-	bh=j6D8ImoteM7kDuq1VRILlohiwkKfmrlM2XD9L0SLgL0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Vz80T3FdMazuU9d3YTNZbxLScq0zOceI4Voa67Qgh9tSzFNK05wUPccgv0iKbMnomEL3w/gRFg0bYpq4VEmwvjOC9OFI1uOksMTWlKUZ7cKKXflVVc+SaskYuXd5w7xNXVdrmQR4aGMpKH0FtJ41TY0NKmBQyAIkcq1aBvqeZug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bepM/hld; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785964529; c=relaxed/simple;
+	bh=rYfqoIFNwjvCC+6kagJIIOet3GAFYFzNfC6GCrz6IBQ=;
+	h=Cc:Subject:Mime-Version:Content-Type:To:Message-Id:From:Date; b=Rpguxg0cD/GGdfIjp6HqdaB8xZ/EYfdk7GDZQk26yZ0eoQwcqxsRBPeY4/y4vo4k8vs+WBfjkMGT1hE6qaoUqIluCmysf0/UkEB0rKkKaBtWnZyoC1TMOL0jxMHpoLgfhiNs36wnLNSLIE0Qo/MChO08HWwTghuKugxC1S0I108=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=vyDVk+y1; arc=none smtp.client-ip=209.127.231.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bepM/hld"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c9c26a5fb98so213675a12.0
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 14:09:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785964187; x=1786568987; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NCfLIwLQXd+ehjGtddX19Kp+kZQI1+gPoAz7ZcG61eM=;
-        b=bepM/hld3cwSizRaDp11fhZZCy5k3JTr3yOzBhHPrq7AEV6mpPwdfvAlWgs/2mdOqY
-         r8QVZCDUcGJ6BcFQoVhcdzaNG1WaAR5gXxMBmJYn2ikm36d4EBy8+hDStxksz1hzCstG
-         eCUp8pKO8ZvOJNza78+yn9Li9AG7dpn8WuyriuWKdicFSVExEyhymGZPap1nbQ0l8qVB
-         XtQtoKXh/veoQA9WNoBLDCkO18qRSxxQLIWfcBOM/TzUIm2T3phhmD9XTDHdQdNaU3fJ
-         KaP2R7ofz2OkPiLUvMrGsM0/l80GPoW/7u2rkAZHepFGeCF5zB8FjY9Ucjy1LTWU+ES+
-         QwSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785964187; x=1786568987;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NCfLIwLQXd+ehjGtddX19Kp+kZQI1+gPoAz7ZcG61eM=;
-        b=RP/N3iD5MIDiive1fM3BSMOVVyTGvbgiIrWWSlrXqitVJ0Xrj+EAqlGlXMFhqM5ceZ
-         XkY2oXPLn1eOwNG1dR20PwiBhF46WblPIPra9ebX/An8ONS/QylaEA1tKyiWzj669x9f
-         cS2SoNR/msPkwIwz81PJ+nVVhyyUrLqYs3DvLzvem31PA+0ibX43i28yfA3AQXOxok73
-         3frp9lQeFoHjyNtvhmkSRx4j7d4O3CFZErotTKMeQW+5Qi62dKyEPBND/go9Rh5NBYzf
-         A9w9hQl9n5rQH185WJukEERpYK4j115i+U6s83Gh12mEageQtI0lqlTRiuvySWiqZVh0
-         boMQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpSuXF/OqWu5SGumvR+/7+bwz439pyHcttWPLgyqoo0I825Z5wwUQAXZQOAG10iaopvYU3IVPk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyoW6e9nkNjIL7UfElXWqLavZSRdV+UBTA8SM1qPiNfZ4i1ER9R
-	KLXfxWCTxcYvrlQAoCFcpB2qbW1t9aSF14IKjCwFRtqrbX1jRxdQcLoQ
-X-Gm-Gg: AR+sD11FBDHdDynSmEGCrRns9f6jQcBa6RayTcTEaubszPCYk6xDQZI3xnnVkxUo4/D
-	1ekcKRKvXG9SMXfD4QiO+1xePgIM+CCpbnwZrpp7f9V2Rn/tHM5+0KNGeEOWqOoG7hqbfnF89VD
-	iGsZwrBj1fNUHpfnLs9lM+E+gUUSG3+ddNY5uek0SFmuaTsW05UTz/cScAt6Z4i2MHDmXt9ICEl
-	c29grbh7VrwsNfw1WF6axKBcIXfMh61h1TKhRyXlYhxWq6zEgWn2qbtrDlSq25u1H4LaC5jDotY
-	hqdgTBAlK5uBJUjuiScI0HppSRWoo35miZ2Z99XF66tHp2BeAl0Z4DluVzIet5Np9yRsP4WV37p
-	G5nFyubZKew66TyMbQ7qIMtvC0aldlTwzr+7t2hHHl8isykeLFfEpOg1jOF+yIYfs/BYsMrzRDb
-	ruYiSnojdkOnDyxPtFCohuvsL6OwfdnP7yOEowmy3F6o/oiaw5XJzd06NF9Q==
-X-Received: by 2002:a05:6a20:7f91:b0:3ba:d7b0:fcac with SMTP id adf61e73a8af0-3cb9c0a2040mr2070221637.5.1785964186427;
-        Wed, 05 Aug 2026 14:09:46 -0700 (PDT)
-Received: from eos ([103.89.26.200])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fca2e8ae2sm16914896c88.0.2026.08.05.14.09.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 14:09:45 -0700 (PDT)
-From: =?UTF-8?q?=E3=82=A4=E3=83=A0=E3=83=86=E3=82=A3=E3=83=A4=E3=82=BA?= <reza1234khan1234@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>,
-	linux-wireless@vger.kernel.org
-Cc: =?UTF-8?q?=E3=82=A4=E3=83=A0=E3=83=86=E3=82=A3=E3=83=A4=E3=82=BA?= <reza1234khan1234@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: rtw88: fix out-of-bounds CAM write when key table is full
-Date: Thu,  6 Aug 2026 03:09:41 +0600
-Message-ID: <20260805210941.75136-1-reza1234khan1234@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="vyDVk+y1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1785964502; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=DOdeTHScjlg8KvRPtx1PQYGvpV3GwXW8tvnccpldDFc=;
+ b=vyDVk+y1D1boASSO3/8EkkQMJuSdmz8r7iUnHR091TlCQ+T3lPzi/MeDehtE3TgmQsOAxO
+ HFzS2fKKC3yK3wRddUCSEQrgIOChA3aSKEJCNGpxSoOdXbZP5BH4KOYP4vPCGNqB1Y++lG
+ 27VC2uUPCFm8upPH0XSB6lnzOfDGPY+/P7Qip9rpNeznxP7h3nF4tb8mnTbIggO3eBEvBX
+ oJWHMbSv4hdlJ6ok5E5rsw9QB94BFGTucFauNmUgg0/ysKr2o6PuWK8oUyxehkiyS3pbbO
+ j8YHoHqUljH8yeRWHz/wYc7MRB5omnABuEIug38wtdH0+4QbfOixjHuE/LgRog==
+X-Change-Id: 20260806-fxls8962af-fifo-c3812fd02eeb
+Content-Transfer-Encoding: 7bit
+Received: from [192.168.9.107] ([111.40.58.194]) by smtp.feishu.cn with ESMTPS; Thu, 06 Aug 2026 05:15:00 +0800
+Cc: <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Jonathan Cameron" <jic23@kernel.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH] iio: accel: fxls8962af: clamp FIFO sample count
+X-Lms-Return-Path: <lba+26a73a7d4+d36c15+vger.kernel.org+me@cherr.cc>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: "Jonathan Cameron" <jic23@kernel.org>, 
+	"David Lechner" <dlechner@baylibre.com>, 
+	=?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+	"Andy Shevchenko" <andy@kernel.org>, "Sean Nyekjaer" <sean@geanix.com>
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Message-Id: <20260806-fxls8962af-fifo-v1-1-bd9d27047fee@cherr.cc>
+X-Mailer: b4 0.14.2
+X-B4-Tracking: v=1; b=H4sIAMync2oC/x3MQQqAIBBA0avIrBNsArGuEi3MZmogLBRCCO+et HyL/1/IlIQyTOqFRI9kuWJD3ykIh487admaAQ1a44zVXM7sRoueNQtfOgyuR94MEq3QqjsRS/m P81LrBzw2uzFhAAAA
+From: "Shengzhuo Wei" <me@cherr.cc>
+Date: Thu, 06 Aug 2026 05:14:53 +0800
 
-In rtw_ops_set_key(), when the CAM table is full,
-rtw_sec_get_free_cam() returns RTW_MAX_SEC_CAM_NUM (32) because
-find_next_zero_bit()/find_first_zero_bit() return the bitmap size
-when no free slot exists. The bounds check compares the returned
-index with ">" against total_cam_num (32), so the invalid index 32
-passes the check.
+fxls8962af_fifo_flush() copies the number of samples the device reports
+in its FIFO status register into an on-stack buffer
 
-rtw_sec_write_cam() then indexes cam_table[32], an array declared
-with RTW_MAX_SEC_CAM_NUM (32) entries, causing an out-of-bounds
-write that corrupts the cam_map allocation bitmap. The write also
-sets bit 32 of cam_map, which overruns the bitmap as well.
+	u16 buffer[FXLS8962AF_FIFO_LENGTH * 3];
 
-Fix the off-by-one by rejecting indices >= total_cam_num.
+which is sized for at most FXLS8962AF_FIFO_LENGTH (32) samples. The
+sample count is read from the BUF_STATUS register and only masked to its
+6 valid bits:
 
-Fixes: e3037485c68e ("rtw88: new Realtek 802.11ac driver")
+	count = reg & FXLS8962AF_BUF_STATUS_BUF_CNT;
+
+so it can be 0..63, while the buffer holds 32. The only other limit,
+the watermark, is applied on the write path (fxls8962af_set_watermark)
+but not here on the read path. count samples are then transferred into
+buffer[]:
+
+	fxls8962af_fifo_transfer(data, buffer, count);
+
+fxls8962af_fifo_transfer() reads count * 6 bytes through regmap, so a
+malfunctioning, malicious or counterfeit accelerometer (or an attacker
+tampering with the I2C/SPI bus) that reports up to 63 samples writes up
+to 378 bytes into the 192-byte buffer: a stack out-of-bounds write of up
+to 186 bytes that clobbers the stack canary, saved registers and the
+return address.
+
+Clamp count to FXLS8962AF_FIFO_LENGTH, the number of samples buffer[] is
+sized for, before the transfer, mirroring the watermark clamp already
+done in fxls8962af_set_watermark(). A well-formed flush reports at most
+FXLS8962AF_FIFO_LENGTH samples, so legitimate devices are unaffected.
+
+Fixes: 79e3a5bdd9ef ("iio: accel: fxls8962af: add hw buffered sampling")
 Cc: stable@vger.kernel.org
-
-Tested on: RTL8821CE (PCIe) on kernel
-7.2.0-rc6-rtw88test-00059-g0d8395707651. The patched module loaded
-and associated to a WPA2 network; ping traffic passed with 0% packet
-loss. Reassociation and disconnect/reconnect cycles completed
-without errors, and the CAM table (debugfs dump_cam) showed valid
-key entries. The CAM-full boundary (28+ pairwise keys) requires an
-access point with 28+ clients and is not reachable in a
-single-client setup, so that path was verified by code inspection.
-
-Tested-by: イムティヤズ <reza1234khan1234@gmail.com>
-Signed-off-by: イムティヤズ <reza1234khan1234@gmail.com>
+Assisted-by: GLM:5.2
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
 ---
- drivers/net/wireless/realtek/rtw88/mac80211.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This series adds a single patch clamping the device-reported FIFO sample
+count in fxls8962af_fifo_flush(), mirroring the bmc150 fix (ce0e1cae2609).
+---
+ drivers/iio/accel/fxls8962af-core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c b/drivers/net/wireless/realtek/rtw88/mac80211.c
-index 766f22d31079..3b6302f14de0 100644
---- a/drivers/net/wireless/realtek/rtw88/mac80211.c
-+++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
-@@ -597,7 +597,7 @@ static int rtw_ops_set_key(struct ieee80211_hw *hw, enum set_key_cmd cmd,
- 		hw_key_idx = key->keyidx;
+diff --git a/drivers/iio/accel/fxls8962af-core.c b/drivers/iio/accel/fxls8962af-core.c
+index d0c2a8daef0db964134ad10b25782b9f5752613d..3aa96adf3eef8ff525e65ceec9a371da82216ea4 100644
+--- a/drivers/iio/accel/fxls8962af-core.c
++++ b/drivers/iio/accel/fxls8962af-core.c
+@@ -966,6 +966,7 @@ static int fxls8962af_fifo_flush(struct iio_dev *indio_dev)
  	}
  
--	if (hw_key_idx > sec->total_cam_num) {
-+	if (hw_key_idx >= sec->total_cam_num) {
- 		ret = -ENOSPC;
- 		goto out;
- 	}
--- 
-2.55.0
+ 	count = reg & FXLS8962AF_BUF_STATUS_BUF_CNT;
++	count = min_t(u8, count, FXLS8962AF_FIFO_LENGTH);
+ 	if (!count)
+ 		return 0;
+ 
 
+---
+base-commit: 848acc8ffe1b7cd5f1bf427b93069becfebc2c9d
+change-id: 20260806-fxls8962af-fifo-c3812fd02eeb
+
+Best regards,
+-- 
+Shengzhuo Wei <me@cherr.cc>
