@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7CB2470E8C
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:02:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0A0468C03
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:04:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931361; cv=none; b=ja1HQ1AjE/b1q1TJUOLvUMTiOFLaO96sjlanLKlerYF6C15Ge71OpMKgPOlUNSZm4UMrlvW7r1GQ++2CBvmETkahySb2NQCsmBKpm1BMjNvyDNYFmgYuDiHtBY35sETywDM/5F2UfVYngScMkgJ4NNgqV8zkg5C/OlqHPVUnjAg=
+	t=1785931474; cv=none; b=WaYzoAqKAfwEAdn85PtwRtFv4K7+boIfKvnUvJyCvSzpd4NFsb0SiBUg0oLs23/aKz7HB3uUVmHkGhX5u+4oGbpbRY2++L4VA7cGDMe34e9uSOOvxq8NEqD/Q9CrW1QQOJ3Nz2P9/0IzaAFJeKG1pGabOXi/QlMv7myx0ZnRApk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931361; c=relaxed/simple;
-	bh=ZEWRu1P+bGO7TbaRYQydTIoFrjv66sXsKmyRNgncgUo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pbODopLAwkmffmaXfRv0M02sVGLN7aIAO2w0ogtZIubthuPyYedqCkA8f+h6N5pBJNLCKHyob3MaEcma3QoAdo8AVoVYmQDtiI+OUh/uZAxCWaItWh7JtAY/W6X1fiMCf2pd3CEp3by2yHyShtq29sOyhw380xJnH15ZV7sBuhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZjOdbsyk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785931474; c=relaxed/simple;
+	bh=4BOrB606xcfHWrvrffP6nR10d/qlkmCMcMMyMxzYkoU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NMH2mNT2DmJCh6FUfaOnrwxGv/8OHnfr3w2YgvM8wAxx/IEBdVpoafeqV+k9vdeh5kvnZ1Es0UzVr/As0TnidPDvWhnIbKq48pqs+GPv+v+xtRIPPXMrLqvxY9pQe/7WKoxqiHqNIRiZvTVWsqAkeLxVSEsB4FXcgYUtvL95ouQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0LcbIcOP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZjOdbsyk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CC451F33EF9;
-	Wed,  5 Aug 2026 12:01:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0LcbIcOP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5111E1F000E9;
+	Wed,  5 Aug 2026 12:04:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785931314;
-	bh=CpYUuTDWmZTd3pMCIOiDGh+VT9IdneUBCRacNpJaTi8=;
+	s=korg; t=1785931472;
+	bh=1+/gJYtwgCNFVXTnYtuhSFcdMf4lNKZ+l3LfIaGcZzI=;
 	h=Subject:To:Cc:From:Date;
-	b=ZjOdbsykaVeTzOWPO11gLIWYNy8Gqv2a6qYqnps/im9zJ30P8hxEM8PYszfeH8emc
-	 7WZh6FC7tbU8w1U2uaOL3iBt2KgaRSxI/k3yObeVq4PXIbKYolWHgBxa1DGBYNuCDZ
-	 c2DjOcXlDFCQ/Un2Zasr3scl81gS1FLr5yAINqIo=
-Subject: FAILED: patch "[PATCH] drm/amd/pm: use milliwatts for GPU power sensors" failed to apply to 5.15-stable tree
-To: kevinyang.wang@amd.com,alexander.deucher@amd.com,kenneth.feng@amd.com,l.nieradzik@gmail.com
+	b=0LcbIcOPWJxoHmGuLs89LO4NyFM6/UIRc54QcD/B2HKG7ykYOSZDZ7gx6vNr4Nq0A
+	 P3kaOdPgoa+weqH3fC5a565BK+1WiuEIstDGGCExOcmP6CPwPd/696hnQDVgzLTR64
+	 bmUk06DSqcFP5EpuL6BLrQsv1WqPOidbU99tEsiY=
+Subject: FAILED: patch "[PATCH] can: isotp: fix timer drain order, wakeup handling and tx_gen" failed to apply to 6.12-stable tree
+To: socketcan@hartkopp.net,mkl@pengutronix.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 14:00:12 +0200
-Message-ID: <2026080512-client-condense-557c@gregkh>
+Date: Wed, 05 Aug 2026 14:03:51 +0200
+Message-ID: <2026080551-puma-venture-46d7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1849a64165ccc23d3e5fc22b8be19227c21c1871
+git cherry-pick -x 050f010f920da17c1044a4f174766ad553e770b6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080512-client-condense-557c@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080551-puma-venture-46d7@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,531 +62,741 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1849a64165ccc23d3e5fc22b8be19227c21c1871 Mon Sep 17 00:00:00 2001
-From: Yang Wang <kevinyang.wang@amd.com>
-Date: Mon, 27 Jul 2026 12:23:17 +0800
-Subject: [PATCH] drm/amd/pm: use milliwatts for GPU power sensors
+From 050f010f920da17c1044a4f174766ad553e770b6 Mon Sep 17 00:00:00 2001
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+Date: Fri, 24 Jul 2026 20:15:25 +0200
+Subject: [PATCH] can: isotp: fix timer drain order, wakeup handling and tx_gen
+ ordering
 
-GPU average and input power backends report a mix of whole watts,
-milliwatts, Q24.8 watts and decimal-packed fractions. Q24.8 is inherited
-from the legacy PowerPlay sensor format. Milliwatts are a more natural unit
-for the hwmon and pm_info consumers in amdgpu_pm.c. A common decoder cannot
-distinguish these formats, and converting native milliwatts through Q24.8
-also loses precision.
+This patch is a follow-up to commit cf070fe33bfb ("can: isotp: serialize
+TX state transitions under so->rx_lock") which addresses following
+sashiko-bot findings:
 
-Use milliwatts as the internal unit across all PPT and PowerPlay backends.
-Decode Q24.8 only at the legacy smu7 input boundary and encode it only for
-the raw amdgpu_sensors debugfs interface. This gives hwmon, pm_info and the
-sensor ioctl one unambiguous unit while preserving the format used by UMR.
+- isotp_sendmsg(): drain so->txfrtimer first so a stale callback can't
+  re-arm echotimer after the claim
 
-Fixes: 5b79d0482f3c ("drm/amd/pp: Remove struct pp_gpu_power")
-Fixes: 01992b121fb6 ("drm/amd/pm: fix amdgpu_pm_info power display units")
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
-Reported-by: Lars Nieradzik <l.nieradzik@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 757ba0790bafec47a507e9662bf380f2e027d420)
-Cc: stable@vger.kernel.org
+- isotp_release(): wake so->wait after forcing ISOTP_SHUTDOWN so a
+  sleeping sendmsg() claim isn't stranded
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 662ec01961f4..df2588642817 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -43,6 +43,11 @@
+- isotp_sendmsg(): have both wait_event_interruptible() calls in
+  isotp_sendmsg() also wake on ISOTP_SHUTDOWN and do not return claim to
+  IDLE to avoid corrupting a concurrent isotp_release() process.
+
+- isotp_sendmsg(): handle potential claim of a new transfer when
+  the wait_event_interruptible() call returns in CAN_ISOTP_WAIT_TX_DONE
+  mode. Don't touch timers and states of the new transfer if a new thread
+  incremented so->tx_gen before getting the lock at err_event_drop.
+
+- isotp_sendmsg(): handle a stuck can_send() and omit timer and state
+  changes if a new transfer was claimed. wait_tx_done() returns the error
+  recorded in so->tx_result[], tagged with the caller's own generation.
+
+- isotp_tx_timeout(): on a claimed timeout, record the ECOMM error for
+  the timed-out transfer's own generation in so->tx_result[]; sk->sk_err
+  is raised unconditionally, same as every other error path here.
+
+- isotp_tx_gen_done()/isotp_tx_timeout(): always read tx.state (acquire)
+  before tx_gen - the reverse order let a weakly ordered CPU pair a fresh
+  tx.state with a stale tx_gen/tx_result slot.
+
+- isotp_sendmsg(): wait_tx_done: drain sk_err via sock_error() once we
+  have read the result from so->tx_result[], so an already-reported error
+  doesn't stay latched for a later poll()/SO_ERROR.
+
+Also align the remaining lock-free so->tx.state/rx.state/cfecho accesses
+and use skb->hash as unique loopback echo frame indicator.
+
+Fixes: cf070fe33bfb ("can: isotp: serialize TX state transitions under so->rx_lock")
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Link: https://patch.msgid.link/20260724181525.43556-1-socketcan@hartkopp.net
+Cc: stable@kernel.org
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+diff --git a/net/can/isotp.c b/net/can/isotp.c
+index 54becaf6898f..1f11c66b343c 100644
+--- a/net/can/isotp.c
++++ b/net/can/isotp.c
+@@ -127,6 +127,15 @@ MODULE_PARM_DESC(max_pdu_size, "maximum isotp pdu size (default "
+ #define ISOTP_FC_TIMEOUT 1	/* 1 sec */
+ #define ISOTP_ECHO_TIMEOUT 2	/* 2 secs */
  
- #if defined(CONFIG_DEBUG_FS)
- 
-+/* Encode milliwatts in the raw Q24.8 sensor report format used by UMR. */
-+#define AMDGPU_DEBUGFS_PWR_MW_TO_Q24_8(power_mw) \
-+	DIV_ROUND_CLOSEST_ULL((u64)(power_mw) * BIT(8), \
-+			      MILLIWATT_PER_WATT)
++/* so->tx_result[so->tx_gen % ISOTP_TX_RESULT_SLOTS] holds the packed value
++ * (err << ISOTP_TX_RESULT_GEN_BITS | gen) for each tx generation slot, so it
++ * can be handled with a single READ_ONCE()/WRITE_ONCE() access.
++ */
++#define ISOTP_TX_RESULT_SLOTS 4
++#define ISOTP_TX_RESULT_GEN_BITS 24
++#define ISOTP_TX_RESULT_GEN_MASK ((1U << ISOTP_TX_RESULT_GEN_BITS) - 1)
++#define ISOTP_TX_RESULT_ERR_MASK 0xFF
 +
- /**
-  * amdgpu_debugfs_process_reg_op - Handle MMIO register reads/writes
-  *
-@@ -1104,6 +1109,10 @@ static ssize_t amdgpu_debugfs_sensor_read(struct file *f, char __user *buf,
- 		return r;
+ enum {
+ 	ISOTP_IDLE = 0,
+ 	ISOTP_WAIT_FIRST_FC,
+@@ -166,7 +175,8 @@ struct isotp_sock {
+ 	u32 force_tx_stmin;
+ 	u32 force_rx_stmin;
+ 	u32 cfecho; /* consecutive frame echo tag */
+-	u32 tx_gen; /* generation, bumped per new tx transfer */
++	u32 tx_gen; /* transfer generation, increased per new tx transfer */
++	u32 tx_result[ISOTP_TX_RESULT_SLOTS]; /* per-generation result slots */
+ 	struct tpcon rx, tx;
+ 	struct list_head notifier;
+ 	wait_queue_head_t wait;
+@@ -177,6 +187,65 @@ static LIST_HEAD(isotp_notifier_list);
+ static DEFINE_SPINLOCK(isotp_notifier_lock);
+ static struct isotp_sock *isotp_busy_notifier;
+ 
++/* increase (24 bit) tx generation value */
++static u32 isotp_inc_tx_gen(u32 gen)
++{
++	return (gen + 1) & ISOTP_TX_RESULT_GEN_MASK;
++}
++
++/* store 8 bit error and 24 bit tx generation values in packed u32 element */
++static u32 isotp_pack_tx_result(u32 gen, int err)
++{
++	return gen | ((u32)err << ISOTP_TX_RESULT_GEN_BITS);
++}
++
++/* get the 24 bit tx generation value from the tx result */
++static u32 isotp_get_tx_gen(u32 gen_err)
++{
++	return gen_err & ISOTP_TX_RESULT_GEN_MASK;
++}
++
++/* get the 8 bit error value from the tx result */
++static u32 isotp_get_tx_err(u32 gen_err)
++{
++	return (gen_err >> ISOTP_TX_RESULT_GEN_BITS) & ISOTP_TX_RESULT_ERR_MASK;
++}
++
++/* store transfer result in per-generation%4 so->tx_result[] slot */
++static void isotp_set_tx_result(struct isotp_sock *so, u32 gen, int err)
++{
++	WRITE_ONCE(so->tx_result[gen % ISOTP_TX_RESULT_SLOTS],
++		   isotp_pack_tx_result(gen, err));
++}
++
++/* fetch the result recorded for 'gen', as a (negative) errno (0 for success) */
++static int isotp_get_tx_result(struct isotp_sock *so, u32 gen)
++{
++	u32 result = READ_ONCE(so->tx_result[gen % ISOTP_TX_RESULT_SLOTS]);
++
++	if (isotp_get_tx_gen(result) != gen) {
++		pr_notice_once("can-isotp: tx_result[] slot reused before read\n");
++
++		/* report failure rather than risk a false success */
++		return -ECOMM;
++	}
++
++	return -(isotp_get_tx_err(result));
++}
++
++/* true if done, shut down or superseded ('gen' is no longer the active
++ * transfer). Reads tx.state first (acquire) so tx_gen/tx_result reads
++ * below see at least what that state write published (common sequence).
++ */
++static bool isotp_tx_gen_done(struct isotp_sock *so, u32 gen)
++{
++	/* read tx.state first for the common sequence */
++	u32 state = smp_load_acquire(&so->tx.state);
++
++	return state == ISOTP_IDLE || state == ISOTP_SHUTDOWN ||
++	       READ_ONCE(so->tx_gen) != gen;
++}
++
+ static inline struct isotp_sock *isotp_sk(const struct sock *sk)
+ {
+ 	return (struct isotp_sock *)sk;
+@@ -199,7 +268,7 @@ static enum hrtimer_restart isotp_rx_timer_handler(struct hrtimer *hrtimer)
+ 					     rxtimer);
+ 	struct sock *sk = &so->sk;
+ 
+-	if (so->rx.state == ISOTP_WAIT_DATA) {
++	if (READ_ONCE(so->rx.state) == ISOTP_WAIT_DATA) {
+ 		/* we did not get new data frames in time */
+ 
+ 		/* report 'connection timed out' */
+@@ -208,7 +277,7 @@ static enum hrtimer_restart isotp_rx_timer_handler(struct hrtimer *hrtimer)
+ 			sk_error_report(sk);
+ 
+ 		/* reset rx state */
+-		so->rx.state = ISOTP_IDLE;
++		WRITE_ONCE(so->rx.state, ISOTP_IDLE);
  	}
  
-+	if (idx == AMDGPU_PP_SENSOR_GPU_AVG_POWER ||
-+	    idx == AMDGPU_PP_SENSOR_GPU_INPUT_POWER)
-+		values[0] = AMDGPU_DEBUGFS_PWR_MW_TO_Q24_8(values[0]);
-+
- 	if (size > valuesize) {
- 		amdgpu_virt_disable_access_debugfs(adev);
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 71272f40feef..8bb9c198ddec 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1210,7 +1210,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 					return -EINVAL;
- 				}
- 			}
--			ui32 >>= 8;
-+			ui32 /= MILLIWATT_PER_WATT;
- 			break;
- 		case AMDGPU_INFO_SENSOR_GPU_INPUT_POWER:
- 			/* get input GPU power */
-@@ -1219,7 +1219,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 						   (void *)&ui32, &ui32_size)) {
- 				return -EINVAL;
- 			}
--			ui32 >>= 8;
-+			ui32 /= MILLIWATT_PER_WATT;
- 			break;
- 		case AMDGPU_INFO_SENSOR_VDDNB:
- 			/* get VDDNB in millivolts */
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-index 6371f292f2d8..606d48115301 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -24,6 +24,8 @@
- #ifndef __KGD_PP_INTERFACE_H__
- #define __KGD_PP_INTERFACE_H__
+ 	return HRTIMER_NORESTART;
+@@ -372,20 +441,19 @@ static void isotp_send_cframe(struct isotp_sock *so);
+ static int isotp_rcv_fc(struct isotp_sock *so, struct canfd_frame *cf, int ae)
+ {
+ 	struct sock *sk = &so->sk;
++	int tx_err = EBADMSG; /* default for unknown FC status */
  
-+#include <linux/units.h>
-+
- extern const struct amdgpu_ip_block_version pp_smu_ip_block;
- extern const struct amdgpu_ip_block_version smu_v11_0_ip_block;
- extern const struct amdgpu_ip_block_version smu_v12_0_ip_block;
-@@ -150,8 +152,8 @@ enum amd_pp_sensors {
- 	AMDGPU_PP_SENSOR_MEM_TEMP,
- 	AMDGPU_PP_SENSOR_VCE_POWER,
- 	AMDGPU_PP_SENSOR_UVD_POWER,
--	AMDGPU_PP_SENSOR_GPU_AVG_POWER,
--	AMDGPU_PP_SENSOR_GPU_INPUT_POWER,
-+	AMDGPU_PP_SENSOR_GPU_AVG_POWER, /* milliwatts */
-+	AMDGPU_PP_SENSOR_GPU_INPUT_POWER, /* milliwatts */
- 	AMDGPU_PP_SENSOR_SS_APU_SHARE,
- 	AMDGPU_PP_SENSOR_SS_DGPU_SHARE,
- 	AMDGPU_PP_SENSOR_STABLE_PSTATE_SCLK,
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 763947fbf16f..85b089a3dc41 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -41,8 +41,6 @@
+-	if (so->tx.state != ISOTP_WAIT_FC &&
+-	    so->tx.state != ISOTP_WAIT_FIRST_FC)
++	if (READ_ONCE(so->tx.state) != ISOTP_WAIT_FC &&
++	    READ_ONCE(so->tx.state) != ISOTP_WAIT_FIRST_FC)
+ 		return 0;
  
- #define DEVICE_ATTR_IS(_name)		(attr_id == device_attr_id__##_name)
+ 	hrtimer_cancel(&so->txtimer);
  
--#define power_2_mwatt(power)	(((power) >> 8) * 1000 + ((power) & 0xff))
--
- struct od_attribute {
- 	struct kobj_attribute	attribute;
- 	struct list_head	entry;
-@@ -3351,7 +3349,7 @@ static int amdgpu_hwmon_get_power(struct device *dev,
- 		return r;
+ 	/* isotp_tx_timeout() may have given up on this job while
+-	 * hrtimer_cancel() above waited for it to finish; so->rx_lock
+-	 * (held by our caller isotp_rcv()) rules out a concurrent claim,
+-	 * so a plain recheck is enough here.
++	 * hrtimer_cancel() above waited for it to finish => recheck
+ 	 */
+-	if (so->tx.state != ISOTP_WAIT_FC &&
+-	    so->tx.state != ISOTP_WAIT_FIRST_FC)
++	if (READ_ONCE(so->tx.state) != ISOTP_WAIT_FC &&
++	    READ_ONCE(so->tx.state) != ISOTP_WAIT_FIRST_FC)
+ 		return 1;
  
- 	/* convert to microwatts */
--	return power_2_mwatt(query) * 1000;
-+	return query * 1000;
- }
+ 	if ((cf->len < ae + FC_CONTENT_SZ) ||
+@@ -396,13 +464,15 @@ static int isotp_rcv_fc(struct isotp_sock *so, struct canfd_frame *cf, int ae)
+ 		if (!sock_flag(sk, SOCK_DEAD))
+ 			sk_error_report(sk);
  
- static ssize_t amdgpu_hwmon_show_power_avg(struct device *dev,
-@@ -4919,7 +4917,7 @@ static int amdgpu_debugfs_pm_info_pp(struct seq_file *m, struct amdgpu_device *a
- 		seq_printf(m, "\t%u mV (VDDNB)\n", value);
- 	size = sizeof(uint32_t);
- 	if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_AVG_POWER, (void *)&query, &size)) {
--		mwatt = power_2_mwatt(query);
-+		mwatt = query;
- 		centiwatt = DIV_ROUND_CLOSEST(mwatt, 10);
- 		if (adev->flags & AMD_IS_APU)
- 			seq_printf(m, "\t%u.%02u W (average SoC including CPU)\n", centiwatt / 100, centiwatt % 100);
-@@ -4928,7 +4926,7 @@ static int amdgpu_debugfs_pm_info_pp(struct seq_file *m, struct amdgpu_device *a
+-		so->tx.state = ISOTP_IDLE;
++		isotp_set_tx_result(so, so->tx_gen, EBADMSG);
++		/* set to IDLE after publishing tx_result */
++		smp_store_release(&so->tx.state, ISOTP_IDLE);
+ 		wake_up_interruptible(&so->wait);
+ 		return 1;
  	}
- 	size = sizeof(uint32_t);
- 	if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_INPUT_POWER, (void *)&query, &size)) {
--		mwatt = power_2_mwatt(query);
-+		mwatt = query;
- 		centiwatt = DIV_ROUND_CLOSEST(mwatt, 10);
- 		if (adev->flags & AMD_IS_APU)
- 			seq_printf(m, "\t%u.%02u W (current SoC including CPU)\n", centiwatt / 100, centiwatt % 100);
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index bc82ba2e4c9b..f8a5648095d1 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -4062,7 +4062,7 @@ static int smu7_get_gpu_power(struct pp_hwmgr *hwmgr, u32 *query)
- 	    (adev->asic_type != CHIP_FIJI) &&
- 	    (adev->asic_type != CHIP_TONGA)) {
- 		smum_send_msg_to_smc_with_parameter(hwmgr, PPSMC_MSG_GetCurrPkgPwr, 0, &tmp);
--		*query = tmp;
-+		*query = PP_PWR_Q24_8_TO_MW(tmp);
  
- 		if (tmp != 0)
- 			return 0;
-@@ -4081,7 +4081,7 @@ static int smu7_get_gpu_power(struct pp_hwmgr *hwmgr, u32 *query)
- 		if (tmp != 0)
- 			break;
+ 	/* get static/dynamic communication params from first/every FC frame */
+-	if (so->tx.state == ISOTP_WAIT_FIRST_FC ||
++	if (READ_ONCE(so->tx.state) == ISOTP_WAIT_FIRST_FC ||
+ 	    so->opt.flags & CAN_ISOTP_DYN_FC_PARMS) {
+ 		so->txfc.bs = cf->data[ae + 1];
+ 		so->txfc.stmin = cf->data[ae + 2];
+@@ -426,13 +496,13 @@ static int isotp_rcv_fc(struct isotp_sock *so, struct canfd_frame *cf, int ae)
+ 			so->tx_gap = ktime_add_ns(so->tx_gap,
+ 						  (so->txfc.stmin - 0xF0)
+ 						  * 100000);
+-		so->tx.state = ISOTP_WAIT_FC;
++		WRITE_ONCE(so->tx.state, ISOTP_WAIT_FC);
  	}
--	*query = tmp;
-+	*query = PP_PWR_Q24_8_TO_MW(tmp);
  
+ 	switch (cf->data[ae] & 0x0F) {
+ 	case ISOTP_FC_CTS:
+ 		so->tx.bs = 0;
+-		so->tx.state = ISOTP_SENDING;
++		WRITE_ONCE(so->tx.state, ISOTP_SENDING);
+ 		/* send CF frame and enable echo timeout handling */
+ 		hrtimer_start(&so->echotimer, ktime_set(ISOTP_ECHO_TIMEOUT, 0),
+ 			      HRTIMER_MODE_REL_SOFT);
+@@ -447,14 +517,19 @@ static int isotp_rcv_fc(struct isotp_sock *so, struct canfd_frame *cf, int ae)
+ 
+ 	case ISOTP_FC_OVFLW:
+ 		/* overflow on receiver side - report 'message too long' */
+-		sk->sk_err = EMSGSIZE;
+-		if (!sock_flag(sk, SOCK_DEAD))
+-			sk_error_report(sk);
++		tx_err = EMSGSIZE;
+ 		fallthrough;
+ 
+ 	default:
+-		/* stop this tx job */
+-		so->tx.state = ISOTP_IDLE;
++		/* reserved/unknown flow status (tx_err defaults to EBADMSG) */
++
++		sk->sk_err = tx_err;
++		if (!sock_flag(sk, SOCK_DEAD))
++			sk_error_report(sk);
++
++		isotp_set_tx_result(so, so->tx_gen, tx_err);
++		/* set to IDLE after publishing tx_result */
++		smp_store_release(&so->tx.state, ISOTP_IDLE);
+ 		wake_up_interruptible(&so->wait);
+ 	}
  	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-index 4b92b52aba2b..c283309efe87 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-@@ -3934,8 +3934,8 @@ static int vega10_get_gpu_power(struct pp_hwmgr *hwmgr,
- 	if (ret)
- 		return ret;
+@@ -467,7 +542,7 @@ static int isotp_rcv_sf(struct sock *sk, struct canfd_frame *cf, int pcilen,
+ 	struct sk_buff *nskb;
  
--	/* SMC returning actual watts, keep consistent with legacy asics, low 8 bit as 8 fractional bits */
--	*query = value << 8;
-+	/* SMC returns whole Watts, while power sensors use milliwatts. */
-+	*query = value * MILLIWATT_PER_WATT;
+ 	hrtimer_cancel(&so->rxtimer);
+-	so->rx.state = ISOTP_IDLE;
++	WRITE_ONCE(so->rx.state, ISOTP_IDLE);
  
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-index 69a9074058ce..b466b08e4a67 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
-@@ -1419,7 +1419,7 @@ static int vega12_get_gpu_power(struct pp_hwmgr *hwmgr, uint32_t *query)
- 	if (ret)
- 		return ret;
+ 	if (!len || len > cf->len - pcilen)
+ 		return 1;
+@@ -501,7 +576,7 @@ static int isotp_rcv_ff(struct sock *sk, struct canfd_frame *cf, int ae)
+ 	int ff_pci_sz;
  
--	*query = metrics_table.CurrSocketPower << 8;
-+	*query = metrics_table.CurrSocketPower * MILLIWATT_PER_WATT;
+ 	hrtimer_cancel(&so->rxtimer);
+-	so->rx.state = ISOTP_IDLE;
++	WRITE_ONCE(so->rx.state, ISOTP_IDLE);
  
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-index 7b8f4c1b80eb..e9c194056e32 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-@@ -2154,12 +2154,13 @@ static int vega20_get_gpu_power(struct pp_hwmgr *hwmgr, int idx,
- 	switch (idx) {
- 	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
- 		if (hwmgr->smu_version == 0x282e00)
--			*query = metrics_table.AverageSocketPower << 8;
-+			*query = metrics_table.AverageSocketPower *
-+				 MILLIWATT_PER_WATT;
- 		else
- 			ret = -EOPNOTSUPP;
- 		break;
- 	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
--		*query = metrics_table.CurrSocketPower << 8;
-+		*query = metrics_table.CurrSocketPower * MILLIWATT_PER_WATT;
- 		break;
+ 	/* get the used sender LL_DL from the (first) CAN frame data length */
+ 	so->rx.ll_dl = padlen(cf->len);
+@@ -555,7 +630,7 @@ static int isotp_rcv_ff(struct sock *sk, struct canfd_frame *cf, int ae)
+ 
+ 	/* initial setup for this pdu reception */
+ 	so->rx.sn = 1;
+-	so->rx.state = ISOTP_WAIT_DATA;
++	WRITE_ONCE(so->rx.state, ISOTP_WAIT_DATA);
+ 
+ 	/* no creation of flow control frames */
+ 	if (so->opt.flags & CAN_ISOTP_LISTEN_MODE)
+@@ -573,7 +648,7 @@ static int isotp_rcv_cf(struct sock *sk, struct canfd_frame *cf, int ae,
+ 	struct sk_buff *nskb;
+ 	int i;
+ 
+-	if (so->rx.state != ISOTP_WAIT_DATA)
++	if (READ_ONCE(so->rx.state) != ISOTP_WAIT_DATA)
+ 		return 0;
+ 
+ 	/* drop if timestamp gap is less than force_rx_stmin nano secs */
+@@ -588,11 +663,9 @@ static int isotp_rcv_cf(struct sock *sk, struct canfd_frame *cf, int ae,
+ 	hrtimer_cancel(&so->rxtimer);
+ 
+ 	/* isotp_rx_timer_handler() may have raced us for so->rx.state
+-	 * while hrtimer_cancel() above waited for it to finish, already
+-	 * reporting ETIMEDOUT and resetting the reception; don't process
+-	 * this CF into a reassembly that has already been given up on.
++	 * while hrtimer_cancel() above waited for it to finish => recheck
+ 	 */
+-	if (so->rx.state != ISOTP_WAIT_DATA)
++	if (READ_ONCE(so->rx.state) != ISOTP_WAIT_DATA)
+ 		return 1;
+ 
+ 	/* CFs are never longer than the FF */
+@@ -613,7 +686,7 @@ static int isotp_rcv_cf(struct sock *sk, struct canfd_frame *cf, int ae,
+ 			sk_error_report(sk);
+ 
+ 		/* reset rx state */
+-		so->rx.state = ISOTP_IDLE;
++		WRITE_ONCE(so->rx.state, ISOTP_IDLE);
+ 		return 1;
+ 	}
+ 	so->rx.sn++;
+@@ -627,7 +700,7 @@ static int isotp_rcv_cf(struct sock *sk, struct canfd_frame *cf, int ae,
+ 
+ 	if (so->rx.idx >= so->rx.len) {
+ 		/* we are done */
+-		so->rx.state = ISOTP_IDLE;
++		WRITE_ONCE(so->rx.state, ISOTP_IDLE);
+ 
+ 		if ((so->opt.flags & ISOTP_CHECK_PADDING) &&
+ 		    check_pad(so, cf, i + 1, so->opt.rxpad_content)) {
+@@ -698,8 +771,10 @@ static void isotp_rcv(struct sk_buff *skb, void *data)
+ 
+ 	if (so->opt.flags & CAN_ISOTP_HALF_DUPLEX) {
+ 		/* check rx/tx path half duplex expectations */
+-		if ((so->tx.state != ISOTP_IDLE && n_pci_type != N_PCI_FC) ||
+-		    (so->rx.state != ISOTP_IDLE && n_pci_type == N_PCI_FC))
++		if ((READ_ONCE(so->tx.state) != ISOTP_IDLE &&
++		     n_pci_type != N_PCI_FC) ||
++		    (READ_ONCE(so->rx.state) != ISOTP_IDLE &&
++		     n_pci_type == N_PCI_FC))
+ 			goto out_unlock;
  	}
  
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-index ca71efaa1656..368200f7cf16 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-@@ -35,6 +35,11 @@ struct pp_hwmgr;
- struct phm_fan_speed_info;
- struct pp_atomctrl_voltage_table;
+@@ -794,6 +869,7 @@ static void isotp_send_cframe(struct isotp_sock *so)
+ 	struct canfd_frame *cf;
+ 	int can_send_ret;
+ 	int ae = (so->opt.flags & CAN_ISOTP_EXTEND_ADDR) ? 1 : 0;
++	u32 old_cfecho;
  
-+/* Decode legacy unsigned Q24.8 watts to internal milliwatts. */
-+#define PP_PWR_Q24_8_TO_MW(power) \
-+	DIV_ROUND_CLOSEST_ULL((u64)(power) * MILLIWATT_PER_WATT, \
-+			      BIT(8))
+ 	dev = dev_get_by_index(sock_net(sk), so->ifindex);
+ 	if (!dev)
+@@ -814,6 +890,9 @@ static void isotp_send_cframe(struct isotp_sock *so)
+ 
+ 	csx->can_iif = dev->ifindex;
+ 
++	/* set uid in tx skb to identify CF echo frames */
++	can_set_skb_uid(skb);
 +
- #define VOLTAGE_SCALE 4
- #define VOLTAGE_VID_OFFSET_SCALE1   625
- #define VOLTAGE_VID_OFFSET_SCALE2   100
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index 54d3dba7d354..cfad8cd74773 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -658,7 +658,7 @@ static int arcturus_get_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->VcnActivityPercentage;
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
--		*value = metrics->AverageSocketPower << 8;
-+		*value = metrics->AverageSocketPower * MILLIWATT_PER_WATT;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->TemperatureEdge *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-index e6e009df9840..bb9620666dae 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
-@@ -158,12 +158,10 @@ cyan_skillfish_get_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->Current.MemclkFrequency;
- 		break;
- 	case METRICS_CURR_SOCKETPOWER:
--		*value = (metrics->Current.CurrentSocketPower << 8) /
--				1000;
-+		*value = metrics->Current.CurrentSocketPower;
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
--		*value = (metrics->Average.CurrentSocketPower << 8) /
--				1000;
-+		*value = metrics->Average.CurrentSocketPower;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->Current.GfxTemperature / 100 *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index cd0457e13f54..6dfc3b585c6b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -602,7 +602,7 @@ static int navi10_get_legacy_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->AverageUclkActivity;
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
--		*value = metrics->AverageSocketPower << 8;
-+		*value = metrics->AverageSocketPower * MILLIWATT_PER_WATT;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->TemperatureEdge *
-@@ -691,7 +691,7 @@ static int navi10_get_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->AverageUclkActivity;
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
--		*value = metrics->AverageSocketPower << 8;
-+		*value = metrics->AverageSocketPower * MILLIWATT_PER_WATT;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->TemperatureEdge *
-@@ -777,7 +777,7 @@ static int navi12_get_legacy_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->AverageUclkActivity;
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
--		*value = metrics->AverageSocketPower << 8;
-+		*value = metrics->AverageSocketPower * MILLIWATT_PER_WATT;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->TemperatureEdge *
-@@ -866,7 +866,7 @@ static int navi12_get_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->AverageUclkActivity;
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
--		*value = metrics->AverageSocketPower << 8;
-+		*value = metrics->AverageSocketPower * MILLIWATT_PER_WATT;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->TemperatureEdge *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index f799e489b481..dccca6ddd5ad 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -855,9 +855,10 @@ static int sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
- 			metrics->AverageUclkActivity;
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
--		*value = use_metrics_v3 ? metrics_v3->AverageSocketPower << 8 :
--			use_metrics_v2 ? metrics_v2->AverageSocketPower << 8 :
--			metrics->AverageSocketPower << 8;
-+		*value = use_metrics_v3 ? metrics_v3->AverageSocketPower :
-+			use_metrics_v2 ? metrics_v2->AverageSocketPower :
-+			metrics->AverageSocketPower;
-+		*value *= MILLIWATT_PER_WATT;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = (use_metrics_v3 ? metrics_v3->TemperatureEdge :
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index c54675b00a96..3e3c68448ba9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -318,8 +318,7 @@ static int vangogh_get_legacy_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->UvdActivity / 100;
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
--		*value = (metrics->CurrentSocketPower << 8) /
--		1000 ;
-+		*value = metrics->CurrentSocketPower;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->GfxTemperature / 100 *
-@@ -387,12 +386,10 @@ static int vangogh_get_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->Current.UvdActivity;
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
--		*value = (metrics->Average.CurrentSocketPower << 8) /
--		1000;
-+		*value = metrics->Average.CurrentSocketPower;
- 		break;
- 	case METRICS_CURR_SOCKETPOWER:
--		*value = (metrics->Current.CurrentSocketPower << 8) /
--		1000;
-+		*value = metrics->Current.CurrentSocketPower;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->Current.GfxTemperature / 100 *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index 75335da224c7..175c44190caa 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -1215,9 +1215,10 @@ static int renoir_get_smu_metrics_data(struct smu_context *smu,
- 		    ((amdgpu_ip_version(adev, MP1_HWIP, 0) ==
- 		      IP_VERSION(12, 0, 0)) &&
- 		     (adev->pm.fw_version >= 0x373200)))
--			*value = metrics->CurrentSocketPower << 8;
-+			*value = metrics->CurrentSocketPower *
-+				 MILLIWATT_PER_WATT;
- 		else
--			*value = (metrics->CurrentSocketPower << 8) / 1000;
-+			*value = metrics->CurrentSocketPower;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = (metrics->GfxTemperature / 100) *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index 9d8b1227388f..18c0b43b93b9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -677,7 +677,8 @@ static int aldebaran_get_smu_metrics_data(struct smu_context *smu,
- 	case METRICS_AVERAGE_SOCKETPOWER:
- 		/* Valid power data is available only from primary die */
- 		if (aldebaran_is_primary(smu))
--			*value = metrics->AverageSocketPower << 8;
-+			*value = metrics->AverageSocketPower *
-+				 MILLIWATT_PER_WATT;
- 		else
- 			ret = -EOPNOTSUPP;
- 		break;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index acbd7046d8a5..0be34fbdac26 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -807,7 +807,7 @@ static int smu_v13_0_0_get_smu_metrics_data(struct smu_context *smu,
- 			     metrics->Vcn1ActivityPercentage);
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
--		*value = metrics->AverageSocketPower << 8;
-+		*value = metrics->AverageSocketPower * MILLIWATT_PER_WATT;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->AvgTemperature[TEMP_EDGE] *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-index fe929bd89058..8d476a60d62f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
-@@ -434,7 +434,8 @@ int smu_v13_0_12_get_smu_metrics_data(struct smu_context *smu,
- 		*value = SMUQ10_ROUND(metrics->DramBandwidthUtilization);
- 		break;
- 	case METRICS_CURR_SOCKETPOWER:
--		*value = SMUQ10_ROUND(metrics->SocketPower) << 8;
-+		*value = SMUQ10_ROUND(metrics->SocketPower) *
-+			 MILLIWATT_PER_WATT;
- 		break;
- 	case METRICS_TEMPERATURE_HOTSPOT:
- 		*value = SMUQ10_ROUND(metrics->MaxSocketTemperature) *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-index ba91bf590eed..a9d558f5b739 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
-@@ -338,10 +338,10 @@ static int smu_v13_0_4_get_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->UvdActivity / 100;
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
--		*value = (metrics->AverageSocketPower << 8) / 1000;
-+		*value = metrics->AverageSocketPower;
- 		break;
- 	case METRICS_CURR_SOCKETPOWER:
--		*value = (metrics->CurrentSocketPower << 8) / 1000;
-+		*value = metrics->CurrentSocketPower;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->GfxTemperature / 100 *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
-index 27372a60e83d..f95b15af436d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
-@@ -295,7 +295,7 @@ static int smu_v13_0_5_get_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->UvdActivity / 100;
- 		break;
- 	case METRICS_CURR_SOCKETPOWER:
--		*value = (metrics->CurrentSocketPower << 8) / 1000;
-+		*value = metrics->CurrentSocketPower;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->GfxTemperature / 100 *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index b12388134489..41608574bc61 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -1321,7 +1321,8 @@ static int smu_v13_0_6_get_smu_metrics_data(struct smu_context *smu,
- 		*value = SMUQ10_ROUND(GET_METRIC_FIELD(DramBandwidthUtilization, version));
- 		break;
- 	case METRICS_CURR_SOCKETPOWER:
--		*value = SMUQ10_ROUND(GET_METRIC_FIELD(SocketPower, version)) << 8;
-+		*value = SMUQ10_ROUND(GET_METRIC_FIELD(SocketPower, version)) *
-+			 MILLIWATT_PER_WATT;
- 		break;
- 	case METRICS_TEMPERATURE_HOTSPOT:
- 		*value = SMUQ10_ROUND(GET_METRIC_FIELD(MaxSocketTemperature, version)) *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 42c9ceeb4f7d..5d11ed8be4c3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -817,7 +817,7 @@ static int smu_v13_0_7_get_smu_metrics_data(struct smu_context *smu,
- 		*value = smu_safe_u16_nn(metrics->AverageUclkActivity);
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
--		*value = metrics->AverageSocketPower << 8;
-+		*value = metrics->AverageSocketPower * MILLIWATT_PER_WATT;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->AvgTemperature[TEMP_EDGE] *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-index 7bf88ffd311b..edc3fedca9f8 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
-@@ -372,7 +372,7 @@ static int yellow_carp_get_smu_metrics_data(struct smu_context *smu,
- 		*value = metrics->UvdActivity / 100;
- 		break;
- 	case METRICS_CURR_SOCKETPOWER:
--		*value = (metrics->CurrentSocketPower << 8) / 1000;
-+		*value = metrics->CurrentSocketPower;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->GfxTemperature / 100 *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-index 3d73f2050bbe..568665265a13 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-@@ -312,8 +312,7 @@ static int smu_v14_0_0_get_smu_metrics_data(struct smu_context *smu,
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
- 	case METRICS_CURR_SOCKETPOWER:
--		*value = (metrics->SocketPower / 1000 << 8) +
--		(metrics->SocketPower % 1000 / 10);
-+		*value = metrics->SocketPower;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->GfxTemperature / 100 *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index a6a88e7b2668..bd054cbfbae0 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@ -695,7 +695,7 @@ static int smu_v14_0_2_get_smu_metrics_data(struct smu_context *smu,
- 			     metrics->Vcn1ActivityPercentage);
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
--		*value = metrics->AverageSocketPower << 8;
-+		*value = metrics->AverageSocketPower * MILLIWATT_PER_WATT;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->AvgTemperature[TEMP_EDGE] *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
-index faa7d661f3bf..0da1ffb3a567 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
-@@ -378,8 +378,7 @@ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
- 		break;
- 	case METRICS_AVERAGE_SOCKETPOWER:
- 	case METRICS_CURR_SOCKETPOWER:
--		*value = (metrics->SocketPower / 1000 << 8) +
--		(metrics->SocketPower % 1000 / 10);
-+		*value = metrics->SocketPower;
- 		break;
- 	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->GfxTemperature / 100 *
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-index 2105a1d7bb34..118eda5429ff 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-@@ -411,7 +411,8 @@ static int smu_v15_0_8_get_smu_metrics_data(struct smu_context *smu,
- 		*value = SMUQ10_ROUND(metrics->DramBandwidthUtilization);
- 		break;
- 	case METRICS_CURR_SOCKETPOWER:
--		*value = SMUQ10_ROUND(metrics->SocketPower) << 8;
-+		*value = SMUQ10_ROUND(metrics->SocketPower) *
-+			 MILLIWATT_PER_WATT;
- 		break;
- 	case METRICS_TEMPERATURE_HOTSPOT:
- 		*value = SMUQ10_ROUND(metrics->MaxSocketTemperature) *
+ 	cf = (struct canfd_frame *)skb->data;
+ 	skb_put_zero(skb, so->ll.mtu);
+ 
+@@ -830,12 +909,15 @@ static void isotp_send_cframe(struct isotp_sock *so)
+ 	skb->dev = dev;
+ 	can_skb_set_owner(skb, sk);
+ 
+-	/* cfecho should have been zero'ed by init/isotp_rcv_echo() */
+-	if (so->cfecho)
+-		pr_notice_once("can-isotp: cfecho is %08X != 0\n", so->cfecho);
++	/* zero'ed by init/isotp_rcv_echo(); reached lock-free via
++	 * isotp_txfr_timer_handler() too, so use READ_ONCE()/WRITE_ONCE()
++	 */
++	old_cfecho = READ_ONCE(so->cfecho);
++	if (old_cfecho)
++		pr_notice_once("can-isotp: cfecho is %08X != 0\n", old_cfecho);
+ 
+ 	/* set consecutive frame echo tag */
+-	so->cfecho = *(u32 *)cf->data;
++	WRITE_ONCE(so->cfecho, skb->hash);
+ 
+ 	/* send frame with local echo enabled */
+ 	can_send_ret = can_send(skb, 1);
+@@ -887,7 +969,6 @@ static void isotp_rcv_echo(struct sk_buff *skb, void *data)
+ {
+ 	struct sock *sk = (struct sock *)data;
+ 	struct isotp_sock *so = isotp_sk(sk);
+-	struct canfd_frame *cf = (struct canfd_frame *)skb->data;
+ 
+ 	/* only handle my own local echo CF/SF skb's (no FF!) */
+ 	if (skb->sk != sk)
+@@ -899,32 +980,35 @@ static void isotp_rcv_echo(struct sk_buff *skb, void *data)
+ 	spin_lock(&so->rx_lock);
+ 
+ 	/* so->cfecho may since belong to a new transfer; recheck under lock */
+-	if (so->cfecho != *(u32 *)cf->data)
++	if (READ_ONCE(so->cfecho) != skb->hash)
+ 		goto out_unlock;
+ 
+ 	/* cancel local echo timeout */
+ 	hrtimer_cancel(&so->echotimer);
+ 
+ 	/* local echo skb with consecutive frame has been consumed */
+-	so->cfecho = 0;
++	WRITE_ONCE(so->cfecho, 0);
+ 
+ 	/* claiming a transfer also takes so->rx_lock, so a plain recheck
+ 	 * is enough: so->tx.state can't have flipped to ISOTP_SENDING for
+ 	 * a new claim while we're still in here
+ 	 */
+-	if (so->tx.state != ISOTP_SENDING)
++	if (READ_ONCE(so->tx.state) != ISOTP_SENDING)
+ 		goto out_unlock;
+ 
+ 	if (so->tx.idx >= so->tx.len) {
+ 		/* we are done */
+-		so->tx.state = ISOTP_IDLE;
++
++		isotp_set_tx_result(so, so->tx_gen, 0);
++		/* set to IDLE after publishing tx_result */
++		smp_store_release(&so->tx.state, ISOTP_IDLE);
+ 		wake_up_interruptible(&so->wait);
+ 		goto out_unlock;
+ 	}
+ 
+ 	if (so->txfc.bs && so->tx.bs >= so->txfc.bs) {
+ 		/* stop and wait for FC with timeout */
+-		so->tx.state = ISOTP_WAIT_FC;
++		WRITE_ONCE(so->tx.state, ISOTP_WAIT_FC);
+ 		hrtimer_start(&so->txtimer, ktime_set(ISOTP_FC_TIMEOUT, 0),
+ 			      HRTIMER_MODE_REL_SOFT);
+ 		goto out_unlock;
+@@ -946,16 +1030,20 @@ static void isotp_rcv_echo(struct sk_buff *skb, void *data)
+ 	spin_unlock(&so->rx_lock);
+ }
+ 
+-/* shared by so->txtimer's and so->echotimer's callbacks. Both timers get
+- * cancelled under so->rx_lock elsewhere, so this must stay lock-free to
+- * avoid deadlocking with that; uses so->tx_gen instead to avoid tainting
+- * a new transfer with an error from the one that just timed out.
++/* isotp_tx_timeout: we did not get any flow control or echo frame in time
++ *
++ * Shared by so->txtimer's and so->echotimer's callbacks. Both timers get
++ * cancelled under so->rx_lock elsewhere, so this must stay lock-free.
++ *
++ * tx.state is acquired before tx_gen. Common sequence in isotp_tx_gen_done().
++ * cmpxchg() only orders itself, not the two preceding loads.
+  */
+ static enum hrtimer_restart isotp_tx_timeout(struct isotp_sock *so)
+ {
+ 	struct sock *sk = &so->sk;
++	/* read tx.state first for the common sequence */
++	u32 old_state = smp_load_acquire(&so->tx.state);
+ 	u32 gen = READ_ONCE(so->tx_gen);
+-	u32 old_state = READ_ONCE(so->tx.state);
+ 
+ 	/* don't handle timeouts in IDLE or SHUTDOWN state */
+ 	if (old_state == ISOTP_IDLE || old_state == ISOTP_SHUTDOWN)
+@@ -965,14 +1053,14 @@ static enum hrtimer_restart isotp_tx_timeout(struct isotp_sock *so)
+ 	if (cmpxchg(&so->tx.state, old_state, ISOTP_IDLE) != old_state)
+ 		return HRTIMER_NORESTART;
+ 
+-	/* we did not get any flow control or echo frame in time */
++	/* detected timeout: report 'communication error on send' */
+ 
+-	if (READ_ONCE(so->tx_gen) == gen) {
+-		/* report 'communication error on send' */
+-		sk->sk_err = ECOMM;
+-		if (!sock_flag(sk, SOCK_DEAD))
+-			sk_error_report(sk);
+-	}
++	/* a stale read of this slot by a waiter still falls back to ECOMM */
++	isotp_set_tx_result(so, gen, ECOMM);
++
++	sk->sk_err = ECOMM;
++	if (!sock_flag(sk, SOCK_DEAD))
++		sk_error_report(sk);
+ 
+ 	wake_up_interruptible(&so->wait);
+ 
+@@ -1007,7 +1095,7 @@ static enum hrtimer_restart isotp_txfr_timer_handler(struct hrtimer *hrtimer)
+ 		      HRTIMER_MODE_REL_SOFT);
+ 
+ 	/* cfecho should be consumed by isotp_rcv_echo() here */
+-	if (so->tx.state == ISOTP_SENDING && !so->cfecho)
++	if (READ_ONCE(so->tx.state) == ISOTP_SENDING && !READ_ONCE(so->cfecho))
+ 		isotp_send_cframe(so);
+ 
+ 	return HRTIMER_NORESTART;
+@@ -1026,10 +1114,12 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 	s64 hrtimer_sec = ISOTP_ECHO_TIMEOUT;
+ 	struct hrtimer *tx_hrt = &so->echotimer;
+ 	u32 new_state = ISOTP_SENDING;
++	u32 my_gen;
++	u32 old_cfecho;
+ 	int off;
+ 	int err;
+ 
+-	if (!so->bound || so->tx.state == ISOTP_SHUTDOWN)
++	if (!so->bound || READ_ONCE(so->tx.state) == ISOTP_SHUTDOWN)
+ 		return -EADDRNOTAVAIL;
+ 
+ 	/* claim the socket under so->rx_lock: this serializes the claim
+@@ -1046,29 +1136,33 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 		if (msg->msg_flags & MSG_DONTWAIT)
+ 			return -EAGAIN;
+ 
+-		if (so->tx.state == ISOTP_SHUTDOWN)
++		if (READ_ONCE(so->tx.state) == ISOTP_SHUTDOWN)
+ 			return -EADDRNOTAVAIL;
+ 
+ 		/* wait for complete transmission of current pdu */
+ 		err = wait_event_interruptible(so->wait,
+-					       so->tx.state == ISOTP_IDLE);
++					       READ_ONCE(so->tx.state) == ISOTP_IDLE ||
++					       READ_ONCE(so->tx.state) == ISOTP_SHUTDOWN);
+ 		if (err)
+ 			return err;
+ 	}
+ 
+-	/* new transfer: bump so->tx_gen and drain the old one's timers,
+-	 * still under the so->rx_lock we just claimed the socket with
+-	 */
+-	WRITE_ONCE(so->tx.state, ISOTP_SENDING);
+-	WRITE_ONCE(so->tx_gen, READ_ONCE(so->tx_gen) + 1);
++	/* txfrtimer's callback re-arms echotimer lock-free: drain it first */
++	hrtimer_cancel(&so->txfrtimer);
+ 	hrtimer_cancel(&so->txtimer);
+ 	hrtimer_cancel(&so->echotimer);
+-	hrtimer_cancel(&so->txfrtimer);
+-	so->cfecho = 0;
++
++	/* new transfer: increment so->tx_gen and set tx.state after barrier */
++	my_gen = isotp_inc_tx_gen(READ_ONCE(so->tx_gen));
++	isotp_set_tx_result(so, my_gen, ECOMM); /* prevent stale slot matching */
++	WRITE_ONCE(so->tx_gen, my_gen);
++	smp_wmb(); /* see smp_load_acquire() in isotp_tx_[timeout|gen_done] */
++	WRITE_ONCE(so->tx.state, ISOTP_SENDING);
++	WRITE_ONCE(so->cfecho, 0);
+ 	spin_unlock_bh(&so->rx_lock);
+ 
+ 	/* so->bound is only checked once above - a wakeup may have
+-	 * unbound/rebound the socket meanwhile, so re-validate it
++	 * unbound/rebound the socket meanwhile => recheck
+ 	 */
+ 	if (!so->bound) {
+ 		err = -EADDRNOTAVAIL;
+@@ -1127,6 +1221,9 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 
+ 	csx->can_iif = dev->ifindex;
+ 
++	/* set uid in tx skb to identify CF echo frames */
++	can_set_skb_uid(skb);
++
+ 	so->tx.len = size;
+ 	so->tx.idx = 0;
+ 
+@@ -1134,8 +1231,9 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 	skb_put_zero(skb, so->ll.mtu);
+ 
+ 	/* cfecho should have been zero'ed by init / former isotp_rcv_echo() */
+-	if (so->cfecho)
+-		pr_notice_once("can-isotp: uninit cfecho %08X\n", so->cfecho);
++	old_cfecho = READ_ONCE(so->cfecho);
++	if (old_cfecho)
++		pr_notice_once("can-isotp: uninit cfecho %08X\n", old_cfecho);
+ 
+ 	/* check for single frame transmission depending on TX_DL */
+ 	if (size <= so->tx.ll_dl - SF_PCI_SZ4 - ae - off) {
+@@ -1163,7 +1261,7 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 			cf->data[ae] |= size;
+ 
+ 		/* set CF echo tag for isotp_rcv_echo() (SF-mode) */
+-		so->cfecho = *(u32 *)cf->data;
++		WRITE_ONCE(so->cfecho, skb->hash);
+ 	} else {
+ 		/* send first frame */
+ 
+@@ -1180,7 +1278,7 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 			so->txfc.bs = 0;
+ 
+ 			/* set CF echo tag for isotp_rcv_echo() (CF-mode) */
+-			so->cfecho = *(u32 *)cf->data;
++			WRITE_ONCE(so->cfecho, skb->hash);
+ 		} else {
+ 			/* standard flow control check */
+ 			new_state = ISOTP_WAIT_FIRST_FC;
+@@ -1190,12 +1288,12 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 			tx_hrt = &so->txtimer;
+ 
+ 			/* no CF echo tag for isotp_rcv_echo() (FF-mode) */
+-			so->cfecho = 0;
++			WRITE_ONCE(so->cfecho, 0);
+ 		}
+ 	}
+ 
+ 	spin_lock_bh(&so->rx_lock);
+-	if (so->tx.state == ISOTP_SHUTDOWN) {
++	if (READ_ONCE(so->tx.state) == ISOTP_SHUTDOWN) {
+ 		/* isotp_release() has since taken over and already drained
+ 		 * our timers - don't send into a socket that's going away
+ 		 */
+@@ -1206,7 +1304,7 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 		return -EADDRNOTAVAIL;
+ 	}
+ 	/* WAIT_FIRST_FC for standard FF, else stays ISOTP_SENDING */
+-	so->tx.state = new_state;
++	WRITE_ONCE(so->tx.state, new_state);
+ 	hrtimer_start(tx_hrt, ktime_set(hrtimer_sec, 0),
+ 		      HRTIMER_MODE_REL_SOFT);
+ 	spin_unlock_bh(&so->rx_lock);
+@@ -1223,20 +1321,49 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 			       __func__, ERR_PTR(err));
+ 
+ 		spin_lock_bh(&so->rx_lock);
++
++		/* new transfer already claimed by a concurrent completion,
++		 * timeout or sendmsg() while we were stuck in can_send()?
++		 */
++		if (READ_ONCE(so->tx_gen) != my_gen) {
++			/* don't touch timers and state of the new transfer */
++			spin_unlock_bh(&so->rx_lock);
++			return err;
++		}
++
+ 		/* no transmission -> no timeout monitoring */
+ 		hrtimer_cancel(tx_hrt);
+ 		goto err_out_drop_locked;
+ 	}
+ 
+ 	if (wait_tx_done) {
+-		/* wait for complete transmission of current pdu */
+-		err = wait_event_interruptible(so->wait, so->tx.state == ISOTP_IDLE);
++		/* wake up for:
++		 * - concurrent sendmsg() claiming a new transfer
++		 * - complete transmission of current PDU
++		 * - shutdown state change in isotp_release()
++		 * isotp_tx_gen_done() uses common tx.state/tx_gen read sequence
++		 */
++		err = wait_event_interruptible(so->wait,
++					       isotp_tx_gen_done(so, my_gen));
+ 		if (err)
+ 			goto err_event_drop;
+ 
+-		err = sock_error(sk);
+-		if (err)
+-			return err;
++		/* still our claim, but isotp_release() force-shut it down */
++		if (smp_load_acquire(&so->tx.state) == ISOTP_SHUTDOWN &&
++		    READ_ONCE(so->tx_gen) == my_gen) {
++			err = -EADDRNOTAVAIL;
++			goto err_event_drop;
++		}
++
++		/* own completion, or tx_gen moved on - either way this is
++		 * what isotp_get_tx_result() recorded for my_gen
++		 */
++		err = isotp_get_tx_result(so, my_gen);
++
++		/* drain to avoid stale error for a later poll()/SO_ERROR */
++		sock_error(sk);
++
++		return err ? err : size;
+ 	}
+ 
+ 	return size;
+@@ -1246,15 +1373,26 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 	spin_lock_bh(&so->rx_lock);
+ 	goto err_out_drop_locked;
+ err_event_drop:
+-	/* interrupted waiting on our own transfer - drain its timers */
++	/* interrupted or shut down while waiting on our own transfer */
+ 	spin_lock_bh(&so->rx_lock);
++
++	/* new transfer already started by concurrent sendmsg()? */
++	if (READ_ONCE(so->tx_gen) != my_gen) {
++		/* don't touch timers and states of the new transfer */
++		spin_unlock_bh(&so->rx_lock);
++		return err;
++	}
++
+ 	hrtimer_cancel(&so->txfrtimer);
+ 	hrtimer_cancel(&so->txtimer);
+ 	hrtimer_cancel(&so->echotimer);
+ err_out_drop_locked:
+ 	/* release the claim; so->rx_lock still held from above */
+-	so->cfecho = 0;
+-	so->tx.state = ISOTP_IDLE;
++	WRITE_ONCE(so->cfecho, 0);
++
++	/* only claim to IDLE if isotp_release() has not taken over */
++	if (READ_ONCE(so->tx.state) != ISOTP_SHUTDOWN)
++		WRITE_ONCE(so->tx.state, ISOTP_IDLE);
+ 	spin_unlock_bh(&so->rx_lock);
+ 	wake_up_interruptible(&so->wait);
+ 
+@@ -1320,8 +1458,9 @@ static int isotp_release(struct socket *sock)
+ 	/* best-effort: wait for a running pdu to finish, but don't block on
+ 	 * it forever - give up after the first signal
+ 	 */
+-	while (so->tx.state != ISOTP_IDLE &&
+-	       wait_event_interruptible(so->wait, so->tx.state == ISOTP_IDLE) == 0)
++	while (READ_ONCE(so->tx.state) != ISOTP_IDLE &&
++	       wait_event_interruptible(so->wait,
++					READ_ONCE(so->tx.state) == ISOTP_IDLE) == 0)
+ 		;
+ 
+ 	/* claim the socket under so->rx_lock like sendmsg() does, so its
+@@ -1329,9 +1468,12 @@ static int isotp_release(struct socket *sock)
+ 	 * unconditionally, even when a signal cut the wait above short
+ 	 */
+ 	spin_lock_bh(&so->rx_lock);
+-	so->tx.state = ISOTP_SHUTDOWN;
++	WRITE_ONCE(so->tx.state, ISOTP_SHUTDOWN);
+ 	spin_unlock_bh(&so->rx_lock);
+-	so->rx.state = ISOTP_IDLE;
++	WRITE_ONCE(so->rx.state, ISOTP_IDLE);
++
++	/* forced SHUTDOWN may have skipped IDLE (gave up on a signal) */
++	wake_up_interruptible(&so->wait);
+ 
+ 	spin_lock(&isotp_notifier_lock);
+ 	while (isotp_busy_notifier == so) {
+@@ -1447,7 +1589,8 @@ static int isotp_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int l
+ 	 * with so->bound in the same lock_sock() section above, so there is
+ 	 * no window in which a concurrent isotp_notify() could be missed.
+ 	 */
+-	if (so->tx.state != ISOTP_IDLE || so->rx.state != ISOTP_IDLE) {
++	if (READ_ONCE(so->tx.state) != ISOTP_IDLE ||
++	    READ_ONCE(so->rx.state) != ISOTP_IDLE) {
+ 		err = -EAGAIN;
+ 		goto out;
+ 	}
+@@ -1481,7 +1624,7 @@ static int isotp_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int l
+ 				isotp_rcv, sk, "isotp", sk);
+ 
+ 	/* no consecutive frame echo skb in flight */
+-	so->cfecho = 0;
++	WRITE_ONCE(so->cfecho, 0);
+ 
+ 	/* register for echo skb's */
+ 	can_rx_register(net, dev, tx_id, SINGLE_MASK(tx_id),
+@@ -1847,7 +1990,7 @@ static __poll_t isotp_poll(struct file *file, struct socket *sock, poll_table *w
+ 	poll_wait(file, &so->wait, wait);
+ 
+ 	/* Check for false positives due to TX state */
+-	if ((mask & EPOLLWRNORM) && (so->tx.state != ISOTP_IDLE))
++	if ((mask & EPOLLWRNORM) && (READ_ONCE(so->tx.state) != ISOTP_IDLE))
+ 		mask &= ~(EPOLLOUT | EPOLLWRNORM);
+ 
+ 	return mask;
 
