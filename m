@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82912471407;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82869471406;
 	Wed,  5 Aug 2026 13:29:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785936599; cv=none; b=aC9fSCDSlL+ExdD2hOGm5ORu0ho7STUMY0OCHAqKhJ57aUhS0GJfnRDSqKALIqrlXhr67VWwbUxA2S4nKZn15LG3NYgOVCHHBvCdn/RpyF0S9buZim6lVpvDkZRRnCrarI5z/3wjSo8qPVuEhwL/hyfmtukvHjJ4+rF8R63Pa/8=
+	t=1785936599; cv=none; b=SbLxLcLowuExi3HVyWhg74jwbRjeAJ8mjS6aHD5HpVhxlIZJbEOHmi6AK8awPfjt80fvdrIOU6//uuV4QFz4xmrOuYT1JwPiYLesZqHjdjimya4Rv7B349vrpnU9t70CeDJVLBS2+fjO0QKeIGdTjejOeDdvIdvJ/OzTXq80MvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785936599; c=relaxed/simple;
-	bh=3ONLOkCCikXZjvVxIR5WZoHWXthWoxkThJGRkJtifWc=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=s/79HgkEFUtbTdLsRD7Ixo4n2ieNDRCxIPWoN/aaUtws+pSoak4b2y860fpxZ0VFhOgaBsxNQVHG4RQ5dE0/aPJQ4zxi71gnqV7of+uOmkU9tsGOj7rSNJZa+uw0linY4uTDaD0qE6Prp2/ERoRaK47WAiqIWVAM5Zqlc+WY9Pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OhMdl5So; arc=none smtp.client-ip=10.30.226.201
+	bh=6iqn5fp1t88pzCb8MJ2UXey1PeGVxwxqC1sMmRI2dqY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Pin3mh/k/5AgVgFIKLqhQIiA6vbsHWXBFCE4ixdZZmsdavsDRFyYeY7NJky1xjIsi7ijKpJWJ/X5P0FV42Mh/3QI/q1U2i+2JehbQb2pjkRxTiw3ajBFeacLz65LrbZPIzevXkjDpxB6SzZpBS+nsFrjIgME02KFBfFImkb/JQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FyL+ZMBJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OhMdl5So"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 19872C19425;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FyL+ZMBJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3B1F3C2BCFC;
 	Wed,  5 Aug 2026 13:29:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785936599;
-	bh=3ONLOkCCikXZjvVxIR5WZoHWXthWoxkThJGRkJtifWc=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=OhMdl5SoA1KA3D7f4ThuIwpq0lOBganlWQ307PueJCV2UVljEVOoi0jsewBonDbHC
-	 ja37BWXUSDNMbh9m/WleOIua20iQe2nzOmVpYEkGtNku03SDKk6ZPYtUPxoxEFj255
-	 LbuIRwSa7+6pJ5bDvWFu/qcrtE1JGOVhHv6xI+/o7pbGGuVeTSuM302ZtnBwgPObQI
-	 RgTVZtBtKtUOXmsLsaMsY7jK+8tObOf6QT+pvgcTpEvgmUWyUE6LY9N9MxkOVXu0Kv
-	 DVrnY+FUZVAVppKGPvi2x/oLN7ue6igliwf4qTpsJDU5mtpj3eQkA3SEIREDFhBsyf
-	 5MBh2Ez6g3Xfw==
+	bh=6iqn5fp1t88pzCb8MJ2UXey1PeGVxwxqC1sMmRI2dqY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=FyL+ZMBJh5BjTR/jz2TpwW90t2qrkKpuYAk88HH5IysdOzkpc4mk1K2T3p4es+MTL
+	 gRPMW0FhipZVHVpZ1GYQqL4U9wg3k9O3pRgvtjQ6JtpB81/gR1VZmNlK4D+sn4sOXM
+	 cH1zgtcqWPZduHOe5spDpY/BuW9C1OHvpI5dNUaUfUmUJv/7lpPax6ptNPxG/M/EUN
+	 vD2QnbDUrS+AeUqWoP+NXRJS5djJO6Ki3P4BFId4Ec1gagXIiqWZ8FwIpl+g+ji/34
+	 UrMWFakY/GxmXRzL+kd3wtzd6xhbbneWsJOBagBaYDtRtX7InaL/OJX9rgJALRHFYf
+	 W90sXXURSpi2Q==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E9C27C55ABF;
-	Wed,  5 Aug 2026 13:29:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 18217C55174;
+	Wed,  5 Aug 2026 13:29:59 +0000 (UTC)
 From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Subject: [PATCH net 0/2] ovpn: fix peer float use-after-free and key slot
- NULL deref
-Date: Wed, 05 Aug 2026 21:29:35 +0800
-Message-Id: <20260805-ovpn-fixes-v1-0-763f8c237fb9@outlook.com>
+Date: Wed, 05 Aug 2026 21:29:37 +0800
+Subject: [PATCH net 2/2] ovpn: don't re-hash a removed peer on float
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,10 +40,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAL86c2oC/x2LQQqAIBAAvxJ7TlDJsL4SHcS22ouKhgTi31s6D
- jPToGAmLLAODTJWKhQDgxoH8LcLFwo6mEFLPUsrjYg1BXHSi0UY7dViJ2OddsBDyvgL7jcI+MD
- e+wcqScLJYQAAAA==
-X-Change-ID: 20260805-ovpn-fixes-52c198458a2a
+Message-Id: <20260805-ovpn-fixes-v1-2-763f8c237fb9@outlook.com>
+References: <20260805-ovpn-fixes-v1-0-763f8c237fb9@outlook.com>
+In-Reply-To: <20260805-ovpn-fixes-v1-0-763f8c237fb9@outlook.com>
 To: Antonio Quartulli <antonio@openvpn.net>, 
  Sabrina Dubroca <sd@queasysnail.net>, Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
@@ -53,13 +51,13 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Junrui Luo <moonafterrain@outlook.com>, Yuhao Jiang <danisjiang@gmail.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1819;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3264;
  i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=3ONLOkCCikXZjvVxIR5WZoHWXthWoxkThJGRkJtifWc=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrGKrqz3nznC0rb8yq8Hla3LLstxLLFknOe+VBMmqK
- q84xubC39lRysIgxsUgK6bIcrzg0jcL3y26W3y2JMPMYWUCGcLAxSkAE3ktzvA/ZJta7NWEVzyf
- c9atK73w2HvLnaDZ5caapxjLI/gU/MNMGRn2Xdl+dNf0C1vyUxJm7HU4tOzsoe/sHiUXgw9393F
- 4ZnxjBAC5t0xf
+ bh=TNob32RUD1q+jLQJNBoNmFv017reaFPJPazB8n2U7SU=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrGKrq47RCv6zixunbJ1qGlVSt9/va9jCY3kPQiRCn
+ rJ1bev4s6KjlIVBjItBVkyR5XjBpW8Wvlt0t/hsSYaZw8oEMoSBi1MAJtLox/CbbYfdB+fambaO
+ /9vCY9Lvfuz3YF+h8KN/V8T2w3031Do2MDJsvfWkd89Pm+z0ud0PJ+/czBKv8eHR0/mX2P9m7Kz
+ rvT2THwBJNFBQ
 X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
  fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
 X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
@@ -67,45 +65,88 @@ X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
 X-Original-From: Junrui Luo <moonafterrain@outlook.com>
 Reply-To: moonafterrain@outlook.com
 
-Two independent fixes for the ovpn driver, both in lifetime handling:
-one for a crypto key slot that can legitimately be empty, one for a peer
-that can be re-linked into a hash table after it has been removed.
+From: Junrui Luo <moonafterrain@outlook.com>
 
-Patch 1 fixes a NULL dereference in ovpn_crypto_kill_key(). It locates
-the slot holding a given key ID by reading both cs->slots[] entries and
-comparing ->key_id, without checking either pointer first. An empty slot
-is a normal state: the ordinary rekey sequence - install into the
-secondary slot, swap, delete the retired one - leaves primary_idx at 1
-with slots[0] empty, and key_id sits at offset 0, so the first
-comparison faults on a read of address 0.
+ovpn_peer_endpoints_update() releases peer->lock before sending the
+float notification, then re-acquires ovpn->lock and peer->lock to move
+the peer to its new bucket in the by_transp_addr table. The only
+re-check in that second critical section is for a NULL bind, which
+cannot detect removal: bind is cleared by ovpn_peer_release() only
+after the refcount drops to zero, and the RX path holds a reference
+across the whole float.
 
-Patch 2 fixes a use-after-free in the peer float path.
-ovpn_peer_endpoints_update() releases peer->lock to send the float
-notification, then re-acquires ovpn->lock and re-links the peer into
-by_transp_addr unconditionally - even if ovpn_peer_remove() unlinked it
-while the lock was not held. The teardown path never unlinks hash nodes
-again, so the peer ends up freed while still on the chain, and every
-later datagram walks it in ovpn_peer_get_by_transp_addr(). Reproduced
-under KASAN on 7.0-rc3; the splat is included in the patch.
+Both paths take ovpn->lock, but that only serialises them - it does
+not order them:
 
-The two patches are independent and touch different files; they can be
-applied in either order.
+  CPU0 (RX softirq)              CPU1
+  ovpn_peer_endpoints_update()
+    spin_unlock_bh(&peer->lock)
+    ovpn_nl_peer_float_notify()
+                                 ovpn_nl_peer_del_doit()
+                                   ovpn_peer_remove()  <- unlinks peer
+                                   unlock_ovpn()       <- drops last ref
+    spin_lock_bh(&ovpn->lock)
+    hlist_nulls_add_head_rcu()   <- removed peer re-linked
 
+ovpn_peer_release_rcu() then frees the peer without unlinking it again,
+leaving a dangling node in by_transp_addr that every later datagram
+walks in ovpn_peer_get_by_transp_addr():
+
+  BUG: KASAN: slab-use-after-free in ovpn_peer_endpoints_update+0xa5a/0x1010
+  Write of size 8 at addr ffff888008576858 by task trigger/78
+
+  Call Trace:
+   ovpn_peer_endpoints_update+0xa5a/0x1010
+   ovpn_decrypt_post+0x212/0x1040
+   ovpn_recv+0x2b6/0x540
+   ovpn_udp_encap_recv+0x21c/0x420
+   udp_queue_rcv_one_skb+0x1060/0x11a0
+   process_backlog+0x451/0x600
+
+  Freed by task 0:
+   kfree+0x11a/0x390
+   rcu_core+0x7aa/0x1570
+
+  Last potentially related work creation:
+   call_rcu+0x82/0x720
+   ovpn_peer_release_kref+0x5c/0xd0
+   ovpn_nl_peer_del_doit+0x355/0x550
+
+Fix it by extending the existing early return to also bail out when the
+peer is no longer hashed by ID. hash_entry_id is unhashed with
+hlist_del_init_rcu() by ovpn_peer_remove() under ovpn->lock, which the
+float path holds across both the check and the rehash, so a peer that
+passes the test cannot be removed before it is re-linked.
+
+Fixes: f0281c1d3732 ("ovpn: add support for updating local or remote UDP endpoint")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
 Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
-Junrui Luo (2):
-      ovpn: don't deref NULL key slot in ovpn_crypto_kill_key()
-      ovpn: don't re-hash a removed peer on float
+ drivers/net/ovpn/peer.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
- drivers/net/ovpn/crypto.c | 6 ++++--
- drivers/net/ovpn/peer.c   | 7 ++++++-
- 2 files changed, 10 insertions(+), 3 deletions(-)
----
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-change-id: 20260805-ovpn-fixes-52c198458a2a
+diff --git a/drivers/net/ovpn/peer.c b/drivers/net/ovpn/peer.c
+index a21d02ac715e..03886c46ec85 100644
+--- a/drivers/net/ovpn/peer.c
++++ b/drivers/net/ovpn/peer.c
+@@ -302,7 +302,12 @@ void ovpn_peer_endpoints_update(struct ovpn_peer *peer, struct sk_buff *skb)
+ 		spin_lock_bh(&peer->lock);
+ 		bind = rcu_dereference_protected(peer->bind,
+ 						 lockdep_is_held(&peer->lock));
+-		if (unlikely(!bind)) {
++		/* peer->lock was released above, therefore the peer may have
++		 * been removed in the meantime: ovpn_peer_remove() unhashes
++		 * hash_entry_id under ovpn->lock. Re-linking a removed peer
++		 * would leave it reachable after it has been freed.
++		 */
++		if (unlikely(!bind || hlist_unhashed(&peer->hash_entry_id))) {
+ 			spin_unlock_bh(&peer->lock);
+ 			spin_unlock_bh(&peer->ovpn->lock);
+ 			return;
 
-Best regards,
 -- 
-Junrui Luo <moonafterrain@outlook.com>
+2.51.2
 
 
