@@ -1,57 +1,57 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7BB468C20;
-	Wed,  5 Aug 2026 12:28:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5283845DF6B;
+	Wed,  5 Aug 2026 12:28:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785932930; cv=none; b=ntyzMW62yS2NtwPhqpPragsdZcuM2YUt0xEs8H+c4akvC0Bgy7F8zEcOCHjsbEXn7oCTDF7WhpPAvo4AX0VxbqYTWA6vE4JSXMdJKrPv6BBBifgW0YVlY0D4tZGGax+s/VEma1iLba3O72spk/5JGq90rd1cbCC+UMsOZlRuAlE=
+	t=1785932931; cv=none; b=Fq1GQL+cPtbcLmi21bJjLBwvMjYE2bPOjmL3iIOBfqnFwjj9DUAMhLqAyV3DwJGznNxHnVk5BDw+RE/7KtUHU8Mqu/9Z5VhPnfWX2u4pWyEmpoDSRkwJZa6zF8h+Ni2Oyji3u4s78zkArCXDgZxEZx+uYC3sfVZSq6Tr502PBqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785932930; c=relaxed/simple;
-	bh=oQvVpHarwzsCOBJSMY+xFc177jbULghqZwOe+e0gMKs=;
+	s=arc-20240116; t=1785932931; c=relaxed/simple;
+	bh=7chqYAWwczHNTyuBKJsnb7+C6GAbm2IhaxI58Ywl5/U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MXNGvya5IAdZWhcumHnYioHXmiE7FzBD9vqLxwvfzw5QfidN6hAl+bGt5pt8hHsbCn/W9vnZiD+/MAoota0Pe7noaRhkMiIbr3yHx3QYwkqJ/w1tsSNmGMs0e4Ev5jICdJdwH9Tp1ewjTmEB9juOABELimJjlPf7U/Fm5+jSDq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LNUQZ2pi; arc=none smtp.client-ip=198.175.65.16
+	 MIME-Version; b=QRTNdacTLtZC4kR4bOGTFHIFShBz/UNn6x3QFhK1v6fmNcyXjNHWq6fFuownsvdHBHOd4e2ZpAb/13HCaY4aT9QixazmwFTwjHBaPzeTOsdLOMy1+GiMplPtHsXgcT/uGoAkjpPDz2wpfi4T1slXHJDP87Nqfo8miJwK/R57+Kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ztkv31Wk; arc=none smtp.client-ip=198.175.65.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LNUQZ2pi"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ztkv31Wk"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785932929; x=1817468929;
+  t=1785932931; x=1817468931;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=oQvVpHarwzsCOBJSMY+xFc177jbULghqZwOe+e0gMKs=;
-  b=LNUQZ2piUrDN6/+Zi4vN31Ll3sFgxqAMouSsp/CIS5L700o8wxSC2qyG
-   RSFERXtLbsL/cIRHnYpCYYEjTItAoEKVOYhDZDwE+Fd7quuCTiyFvvolP
-   CdvAbqCsw9RA5qdXH+QGnZFTLJl7mt1ze+FSr9VWA8wVzhHkWfOp/pVKv
-   7xdStyTfep+DyOmoK0MG43QvxjpMkv09YFCkPvjtq7vOkQu7fHK+1aqMH
-   rLDj3XqPoqN0vjvmevbYJnHuybd4OI9Szb3YhKGJRaOZjZOa7UqoxszTb
-   sWneGRAxGb07Bnpc/cJvxVUu1z0aNN409epfWux0rLDA7msILOh56z7bf
+  bh=7chqYAWwczHNTyuBKJsnb7+C6GAbm2IhaxI58Ywl5/U=;
+  b=Ztkv31Wk4++bB3R9JktYLZElxJg3og1r1j0ecFmCwBVmuYnv5iD+NRWa
+   mkSGcAX8mT92N318iFlA6QlLOttoy1Gr/8+9L5884vxRJBV6IGv/YqhBJ
+   EJlPtzYvO9HH66kCvK4TO0tgFisUkH2pdiNCc0NQwDZPDivVAhRxQuby+
+   GXXM5c9ytCqIQDClTDJ0KPM8GYFpNiOGOakm+GPvMYkEaCdpPP4MvBfKK
+   A5a/HgfC397lHhWYFqf+hpJZm9Rn1aUW54UWSBap85UCmHWMrlySsKdbP
+   a78IaFY//R6sihhxRjsLGCQ7QVzUmJPgD5FhLQ9OEwvpYL9ls/sP2YrxY
    Q==;
-X-CSE-ConnectionGUID: 2EHGyAy2S1SeFvQ0YCFCnw==
-X-CSE-MsgGUID: 5Vp29fTeRZGu40LiM2I4Cw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="86706856"
+X-CSE-ConnectionGUID: hvQ+ifzuRjG6HpYGkbuKcA==
+X-CSE-MsgGUID: 7KF93zJUTWSN79s4qSwYkw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="86706858"
 X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="86706856"
+   d="scan'208";a="86706858"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
   by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 05:27:42 -0700
-X-CSE-ConnectionGUID: dbxHhu5BQfi025awXuZgiQ==
-X-CSE-MsgGUID: EzghSFspQgWQXzoERdSnuQ==
+X-CSE-ConnectionGUID: Fq1M5UteQsStVdZqsVAhBQ==
+X-CSE-MsgGUID: rSaptBnOT9elxnmcdHj5ZA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="285165312"
+   d="scan'208";a="285165315"
 Received: from mkosciow-mobl1.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.246.218])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 05:27:38 -0700
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 05:27:40 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Patrice Chotard <patrice.chotard@foss.st.com>
 Cc: linux-sound@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/4] ASoC: cx2072x: sort the register default table
-Date: Wed,  5 Aug 2026 15:28:09 +0300
-Message-ID: <20260805122811.13713-3-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 3/4] ASoC: max9860: sort the register default table
+Date: Wed,  5 Aug 2026 15:28:10 +0300
+Message-ID: <20260805122811.13713-4-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260805122811.13713-1-peter.ujfalusi@linux.intel.com>
 References: <20260805122811.13713-1-peter.ujfalusi@linux.intel.com>
@@ -67,209 +67,41 @@ reg_defaults must be sorted by ascending register address, as
 regcache_lookup_reg() locates entries in it with bsearch().  See commit
 fd80df352ba1 ("regcache: Add support for sorting defaults arrays").
 
-The table is grouped by function rather than by address: for every node
-the amplifier gain registers (0x41c0, 0x45c0, ...) are listed before the
-power state and stream format registers of the same node (0x4014,
-0x4414, ...).  This leaves 75 of the 132 entries unreachable.
-regcache_reg_needs_sync() then cannot compare them against their default
-and reports that a sync is needed, so they are written to the device on
-every regcache_sync() even when they were never touched.
+MAX9860_PWRMAN (0x10) is listed as the first entry, before
+MAX9860_INTEN (0x02), which makes MAX9860_INTEN unreachable.
+regcache_reg_needs_sync() then cannot compare it against its default and
+reports that a sync is needed, so it is written to the device on every
+regcache_sync() even when it was never touched.
 
 Sort the table by register address.
 
-Fixes: a497a4363706 ("ASoC: Add support for Conexant CX2072X CODEC")
+Fixes: 3b2af7f79968 ("ASoC: max9860: new driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/codecs/cx2072x.c | 122 ++++++++++++++++++-------------------
- 1 file changed, 61 insertions(+), 61 deletions(-)
+ sound/soc/codecs/max9860.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/cx2072x.c b/sound/soc/codecs/cx2072x.c
-index 83c6cbd40804..ffd6a5119f5e 100644
---- a/sound/soc/codecs/cx2072x.c
-+++ b/sound/soc/codecs/cx2072x.c
-@@ -96,51 +96,60 @@ static const struct reg_default cx2072x_reg_defaults[] = {
- 	{ CX2072X_GPIO_WAKE, 0x00000000 },
- 	{ CX2072X_GPIO_UM_ENABLE, 0x00000000 },
- 	{ CX2072X_GPIO_STICKY_MASK, 0x00000000 },
--	{ CX2072X_DAC1_CONVERTER_FORMAT, 0x00000031 },
--	{ CX2072X_DAC1_AMP_GAIN_RIGHT, 0x0000004a },
--	{ CX2072X_DAC1_AMP_GAIN_LEFT, 0x0000004a },
- 	{ CX2072X_DAC1_POWER_STATE, 0x00000433 },
- 	{ CX2072X_DAC1_CONVERTER_STREAM_CHANNEL, 0x00000000 },
- 	{ CX2072X_DAC1_EAPD_ENABLE, 0x00000000 },
--	{ CX2072X_DAC2_CONVERTER_FORMAT, 0x00000031 },
--	{ CX2072X_DAC2_AMP_GAIN_RIGHT, 0x0000004a },
--	{ CX2072X_DAC2_AMP_GAIN_LEFT, 0x0000004a },
-+	{ CX2072X_DAC1_AMP_GAIN_RIGHT, 0x0000004a },
-+	{ CX2072X_DAC1_AMP_GAIN_LEFT, 0x0000004a },
-+	{ CX2072X_DAC1_CONVERTER_FORMAT, 0x00000031 },
- 	{ CX2072X_DAC2_POWER_STATE, 0x00000433 },
- 	{ CX2072X_DAC2_CONVERTER_STREAM_CHANNEL, 0x00000000 },
--	{ CX2072X_ADC1_CONVERTER_FORMAT, 0x00000031 },
-+	{ CX2072X_DAC2_AMP_GAIN_RIGHT, 0x0000004a },
-+	{ CX2072X_DAC2_AMP_GAIN_LEFT, 0x0000004a },
-+	{ CX2072X_DAC2_CONVERTER_FORMAT, 0x00000031 },
-+	{ CX2072X_ADC1_CONNECTION_SELECT_CONTROL, 0x00000000 },
-+	{ CX2072X_ADC1_POWER_STATE, 0x00000433 },
-+	{ CX2072X_ADC1_CONVERTER_STREAM_CHANNEL, 0x00000000 },
- 	{ CX2072X_ADC1_AMP_GAIN_RIGHT_0, 0x0000004a },
--	{ CX2072X_ADC1_AMP_GAIN_LEFT_0, 0x0000004a },
- 	{ CX2072X_ADC1_AMP_GAIN_RIGHT_1, 0x0000004a },
--	{ CX2072X_ADC1_AMP_GAIN_LEFT_1, 0x0000004a },
- 	{ CX2072X_ADC1_AMP_GAIN_RIGHT_2, 0x0000004a },
--	{ CX2072X_ADC1_AMP_GAIN_LEFT_2, 0x0000004a },
- 	{ CX2072X_ADC1_AMP_GAIN_RIGHT_3, 0x0000004a },
--	{ CX2072X_ADC1_AMP_GAIN_LEFT_3, 0x0000004a },
- 	{ CX2072X_ADC1_AMP_GAIN_RIGHT_4, 0x0000004a },
--	{ CX2072X_ADC1_AMP_GAIN_LEFT_4, 0x0000004a },
- 	{ CX2072X_ADC1_AMP_GAIN_RIGHT_5, 0x0000004a },
--	{ CX2072X_ADC1_AMP_GAIN_LEFT_5, 0x0000004a },
- 	{ CX2072X_ADC1_AMP_GAIN_RIGHT_6, 0x0000004a },
-+	{ CX2072X_ADC1_AMP_GAIN_LEFT_0, 0x0000004a },
-+	{ CX2072X_ADC1_AMP_GAIN_LEFT_1, 0x0000004a },
-+	{ CX2072X_ADC1_AMP_GAIN_LEFT_2, 0x0000004a },
-+	{ CX2072X_ADC1_AMP_GAIN_LEFT_3, 0x0000004a },
-+	{ CX2072X_ADC1_AMP_GAIN_LEFT_4, 0x0000004a },
-+	{ CX2072X_ADC1_AMP_GAIN_LEFT_5, 0x0000004a },
- 	{ CX2072X_ADC1_AMP_GAIN_LEFT_6, 0x0000004a },
--	{ CX2072X_ADC1_CONNECTION_SELECT_CONTROL, 0x00000000 },
--	{ CX2072X_ADC1_POWER_STATE, 0x00000433 },
--	{ CX2072X_ADC1_CONVERTER_STREAM_CHANNEL, 0x00000000 },
--	{ CX2072X_ADC2_CONVERTER_FORMAT, 0x00000031 },
-+	{ CX2072X_ADC1_CONVERTER_FORMAT, 0x00000031 },
-+	{ CX2072X_ADC2_CONNECTION_SELECT_CONTROL, 0x00000000 },
-+	{ CX2072X_ADC2_POWER_STATE, 0x00000433 },
-+	{ CX2072X_ADC2_CONVERTER_STREAM_CHANNEL, 0x00000000 },
- 	{ CX2072X_ADC2_AMP_GAIN_RIGHT_0, 0x0000004a },
--	{ CX2072X_ADC2_AMP_GAIN_LEFT_0, 0x0000004a },
- 	{ CX2072X_ADC2_AMP_GAIN_RIGHT_1, 0x0000004a },
--	{ CX2072X_ADC2_AMP_GAIN_LEFT_1, 0x0000004a },
- 	{ CX2072X_ADC2_AMP_GAIN_RIGHT_2, 0x0000004a },
-+	{ CX2072X_ADC2_AMP_GAIN_LEFT_0, 0x0000004a },
-+	{ CX2072X_ADC2_AMP_GAIN_LEFT_1, 0x0000004a },
- 	{ CX2072X_ADC2_AMP_GAIN_LEFT_2, 0x0000004a },
--	{ CX2072X_ADC2_CONNECTION_SELECT_CONTROL, 0x00000000 },
--	{ CX2072X_ADC2_POWER_STATE, 0x00000433 },
--	{ CX2072X_ADC2_CONVERTER_STREAM_CHANNEL, 0x00000000 },
-+	{ CX2072X_ADC2_CONVERTER_FORMAT, 0x00000031 },
-+	{ CX2072X_MIXER_POWER_STATE, 0x00000433 },
-+	{ CX2072X_MIXER_GAIN_RIGHT_0, 0x0000004a },
-+	{ CX2072X_MIXER_GAIN_RIGHT_1, 0x0000004a },
-+	{ CX2072X_MIXER_GAIN_LEFT_0, 0x0000004a },
-+	{ CX2072X_MIXER_GAIN_LEFT_1, 0x0000004a },
- 	{ CX2072X_PORTA_CONNECTION_SELECT_CTRL, 0x00000000 },
- 	{ CX2072X_PORTA_POWER_STATE, 0x00000433 },
- 	{ CX2072X_PORTA_PIN_CTRL, 0x000000c0 },
- 	{ CX2072X_PORTA_UNSOLICITED_RESPONSE, 0x00000000 },
- 	{ CX2072X_PORTA_PIN_SENSE, 0x00000000 },
- 	{ CX2072X_PORTA_EAPD_BTL, 0x00000002 },
-+	{ CX2072X_PORTG_CONNECTION_SELECT_CTRL, 0x00000000 },
-+	{ CX2072X_PORTG_POWER_STATE, 0x00000433 },
-+	{ CX2072X_PORTG_PIN_CTRL, 0x00000040 },
-+	{ CX2072X_PORTG_EAPD_BTL, 0x00000002 },
- 	{ CX2072X_PORTB_POWER_STATE, 0x00000433 },
- 	{ CX2072X_PORTB_PIN_CTRL, 0x00000000 },
- 	{ CX2072X_PORTB_UNSOLICITED_RESPONSE, 0x00000000 },
-@@ -148,43 +157,16 @@ static const struct reg_default cx2072x_reg_defaults[] = {
- 	{ CX2072X_PORTB_EAPD_BTL, 0x00000002 },
- 	{ CX2072X_PORTB_GAIN_RIGHT, 0x00000000 },
- 	{ CX2072X_PORTB_GAIN_LEFT, 0x00000000 },
--	{ CX2072X_PORTC_POWER_STATE, 0x00000433 },
--	{ CX2072X_PORTC_PIN_CTRL, 0x00000000 },
--	{ CX2072X_PORTC_GAIN_RIGHT, 0x00000000 },
--	{ CX2072X_PORTC_GAIN_LEFT, 0x00000000 },
- 	{ CX2072X_PORTD_POWER_STATE, 0x00000433 },
- 	{ CX2072X_PORTD_PIN_CTRL, 0x00000020 },
- 	{ CX2072X_PORTD_UNSOLICITED_RESPONSE, 0x00000000 },
- 	{ CX2072X_PORTD_PIN_SENSE, 0x00000000 },
- 	{ CX2072X_PORTD_GAIN_RIGHT, 0x00000000 },
- 	{ CX2072X_PORTD_GAIN_LEFT, 0x00000000 },
--	{ CX2072X_PORTE_CONNECTION_SELECT_CTRL, 0x00000000 },
--	{ CX2072X_PORTE_POWER_STATE, 0x00000433 },
--	{ CX2072X_PORTE_PIN_CTRL, 0x00000040 },
--	{ CX2072X_PORTE_UNSOLICITED_RESPONSE, 0x00000000 },
--	{ CX2072X_PORTE_PIN_SENSE, 0x00000000 },
--	{ CX2072X_PORTE_EAPD_BTL, 0x00000002 },
--	{ CX2072X_PORTE_GAIN_RIGHT, 0x00000000 },
--	{ CX2072X_PORTE_GAIN_LEFT, 0x00000000 },
--	{ CX2072X_PORTF_POWER_STATE, 0x00000433 },
--	{ CX2072X_PORTF_PIN_CTRL, 0x00000000 },
--	{ CX2072X_PORTF_UNSOLICITED_RESPONSE, 0x00000000 },
--	{ CX2072X_PORTF_PIN_SENSE, 0x00000000 },
--	{ CX2072X_PORTF_GAIN_RIGHT, 0x00000000 },
--	{ CX2072X_PORTF_GAIN_LEFT, 0x00000000 },
--	{ CX2072X_PORTG_POWER_STATE, 0x00000433 },
--	{ CX2072X_PORTG_PIN_CTRL, 0x00000040 },
--	{ CX2072X_PORTG_CONNECTION_SELECT_CTRL, 0x00000000 },
--	{ CX2072X_PORTG_EAPD_BTL, 0x00000002 },
--	{ CX2072X_PORTM_POWER_STATE, 0x00000433 },
--	{ CX2072X_PORTM_PIN_CTRL, 0x00000000 },
--	{ CX2072X_PORTM_CONNECTION_SELECT_CTRL, 0x00000000 },
--	{ CX2072X_PORTM_EAPD_BTL, 0x00000002 },
--	{ CX2072X_MIXER_POWER_STATE, 0x00000433 },
--	{ CX2072X_MIXER_GAIN_RIGHT_0, 0x0000004a },
--	{ CX2072X_MIXER_GAIN_LEFT_0, 0x0000004a },
--	{ CX2072X_MIXER_GAIN_RIGHT_1, 0x0000004a },
--	{ CX2072X_MIXER_GAIN_LEFT_1, 0x0000004a },
-+	{ CX2072X_PORTC_POWER_STATE, 0x00000433 },
-+	{ CX2072X_PORTC_PIN_CTRL, 0x00000000 },
-+	{ CX2072X_PORTC_GAIN_RIGHT, 0x00000000 },
-+	{ CX2072X_PORTC_GAIN_LEFT, 0x00000000 },
- 	{ CX2072X_SPKR_DRC_ENABLE_STEP, 0x040065a4 },
- 	{ CX2072X_SPKR_DRC_CONTROL, 0x007b0024 },
- 	{ CX2072X_SPKR_DRC_TEST, 0x00000000 },
-@@ -195,12 +177,15 @@ static const struct reg_default cx2072x_reg_defaults[] = {
- 	{ CX2072X_I2SPCM_CONTROL3, 0x00000000 },
- 	{ CX2072X_I2SPCM_CONTROL4, 0x00000000 },
- 	{ CX2072X_I2SPCM_CONTROL5, 0x00000000 },
--	{ CX2072X_I2SPCM_CONTROL6, 0x00000000 },
- 	{ CX2072X_UM_INTERRUPT_CRTL_E, 0x00000000 },
-+	{ CX2072X_I2SPCM_CONTROL6, 0x00000000 },
-+	{ CX2072X_DIGITAL_TEST16, 0x00000021 },
-+	{ CX2072X_DIGITAL_TEST17, 0x00000018 },
-+	{ CX2072X_DIGITAL_TEST18, 0x00000024 },
-+	{ CX2072X_DIGITAL_TEST19, 0x00000001 },
-+	{ CX2072X_DIGITAL_TEST20, 0x00000002 },
- 	{ CX2072X_CODEC_TEST2, 0x00000000 },
- 	{ CX2072X_CODEC_TEST9, 0x00000004 },
--	{ CX2072X_CODEC_TEST20, 0x00000600 },
--	{ CX2072X_CODEC_TEST26, 0x00000208 },
- 	{ CX2072X_ANALOG_TEST4, 0x00000000 },
- 	{ CX2072X_ANALOG_TEST5, 0x00000000 },
- 	{ CX2072X_ANALOG_TEST6, 0x0000059a },
-@@ -215,11 +200,26 @@ static const struct reg_default cx2072x_reg_defaults[] = {
- 	{ CX2072X_DIGITAL_TEST11, 0x00000000 },
- 	{ CX2072X_DIGITAL_TEST12, 0x00000084 },
- 	{ CX2072X_DIGITAL_TEST15, 0x00000077 },
--	{ CX2072X_DIGITAL_TEST16, 0x00000021 },
--	{ CX2072X_DIGITAL_TEST17, 0x00000018 },
--	{ CX2072X_DIGITAL_TEST18, 0x00000024 },
--	{ CX2072X_DIGITAL_TEST19, 0x00000001 },
--	{ CX2072X_DIGITAL_TEST20, 0x00000002 },
-+	{ CX2072X_CODEC_TEST20, 0x00000600 },
-+	{ CX2072X_CODEC_TEST26, 0x00000208 },
-+	{ CX2072X_PORTE_CONNECTION_SELECT_CTRL, 0x00000000 },
-+	{ CX2072X_PORTE_POWER_STATE, 0x00000433 },
-+	{ CX2072X_PORTE_PIN_CTRL, 0x00000040 },
-+	{ CX2072X_PORTE_UNSOLICITED_RESPONSE, 0x00000000 },
-+	{ CX2072X_PORTE_PIN_SENSE, 0x00000000 },
-+	{ CX2072X_PORTE_EAPD_BTL, 0x00000002 },
-+	{ CX2072X_PORTE_GAIN_RIGHT, 0x00000000 },
-+	{ CX2072X_PORTE_GAIN_LEFT, 0x00000000 },
-+	{ CX2072X_PORTF_POWER_STATE, 0x00000433 },
-+	{ CX2072X_PORTF_PIN_CTRL, 0x00000000 },
-+	{ CX2072X_PORTF_UNSOLICITED_RESPONSE, 0x00000000 },
-+	{ CX2072X_PORTF_PIN_SENSE, 0x00000000 },
-+	{ CX2072X_PORTF_GAIN_RIGHT, 0x00000000 },
-+	{ CX2072X_PORTF_GAIN_LEFT, 0x00000000 },
-+	{ CX2072X_PORTM_CONNECTION_SELECT_CTRL, 0x00000000 },
-+	{ CX2072X_PORTM_POWER_STATE, 0x00000433 },
-+	{ CX2072X_PORTM_PIN_CTRL, 0x00000000 },
-+	{ CX2072X_PORTM_EAPD_BTL, 0x00000002 },
+diff --git a/sound/soc/codecs/max9860.c b/sound/soc/codecs/max9860.c
+index 0d7ac37850bb..20e288e38669 100644
+--- a/sound/soc/codecs/max9860.c
++++ b/sound/soc/codecs/max9860.c
+@@ -48,7 +48,6 @@ static int max9860_dvddio_event(struct notifier_block *nb,
+ }
+ 
+ static const struct reg_default max9860_reg_defaults[] = {
+-	{ MAX9860_PWRMAN,       0x00 },
+ 	{ MAX9860_INTEN,        0x00 },
+ 	{ MAX9860_SYSCLK,       0x00 },
+ 	{ MAX9860_AUDIOCLKHIGH, 0x00 },
+@@ -62,6 +61,7 @@ static const struct reg_default max9860_reg_defaults[] = {
+ 	{ MAX9860_MICGAIN,      0x00 },
+ 	{ MAX9860_MICADC,       0x00 },
+ 	{ MAX9860_NOISEGATE,    0x00 },
++	{ MAX9860_PWRMAN,       0x00 },
  };
  
- /*
+ static bool max9860_readable(struct device *dev, unsigned int reg)
 -- 
 2.55.0
 
