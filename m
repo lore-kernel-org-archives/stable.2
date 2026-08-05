@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103044519B2
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:00:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BA94519B8
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:00:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931246; cv=none; b=Ag8PasRPMxA+hETHHEYf1nFmdVcSUSYRln1w1Lzc43meTzNAoLh8jYS4i2ukSlrvzFIqcXQaTsLrcGzw1wh7Z17QAV26WysR+SzeOPcbHMYX6trzlDitCLVAnMx/Tc9wmFcsqva1VdLZ+y9WswNgzcnoy/6N+sxGLGflU6ukBnI=
+	t=1785931249; cv=none; b=tKM7qJmDms6jSRrXmBcqZuABdE8mnlq5S3Pd+yb+jmqYho3xiMW3ZH2RZyQyEDrtlHrj1G51EuT7sf9EvYSfX8cjNZJFcqPR+0dhgPy0Tpy8IZs/UCxuQ/N3pHx9XfWGlpTk9uDIUQ1/XnFYdSc5a4YC0w5CFcSi1AubEy64pwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931246; c=relaxed/simple;
-	bh=ANXRCCtHXtbRfX9JpJe4BpTvdmHJ+EYW6slp7vC/zKA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CYvvO6ZHqw3WF3OdQlDJdSlEV0KeO251ldr1US5e71qYzL6tGrznsP3ewMHSSgzq2634yvVANoGLEJiMbCQtZ6mNuaVNL607ybtE86U4c45ho85vCfiAVU3Q4zXJkYgSIeXM9oD81gvoLDNq98PZAyzBT86SYhhBqApWGjVvGHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cJIGI5T7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785931249; c=relaxed/simple;
+	bh=Th9fssSi0XhIWF1xLvfxZrYv5dLGWb6eFOPT8CtGx9g=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CWcum5jSHJyUVLBYfT7blo736RkIlpjkTpQfSkRuwJ9T6ZBOIUiX9WsHtw1iNYrDzHizK5cFnQIEeydPZoEDtZbsBvfEVepqfXF8ci7J2zt/b1kv9Q1cVrJoiExD20pXuKmqcCi0iE2jKAiPFUdl6XRQB1gxBK7rirS8jhpQxE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GWzW4h7U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cJIGI5T7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6742E1F00A3A;
-	Wed,  5 Aug 2026 12:00:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GWzW4h7U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48BF71F000E9;
+	Wed,  5 Aug 2026 12:00:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785931244;
-	bh=yaODGjfSKA+1hYBuza7v136GI4kvvoQ5IRPo+yFqFrw=;
+	s=korg; t=1785931247;
+	bh=CcYcMsvcUzZhe8i//uDqj1HQ8us4HHU4z/g0AAvpBt8=;
 	h=Subject:To:Cc:From:Date;
-	b=cJIGI5T7yAZ0N8gLZtZR3ptIl0pLeBIgk7beDhBKZpVQ1vpuUirhkNUZSEUILszWc
-	 iNvP1QKBfieJRlaXI9/YhQuXYOLVPLocSAFDuIUVyL6uTAhAdEW6EkgN6tJd9qcM0J
-	 qNuKIMtQwb47zUpWgiwy28I/uTjV/jnsrWhSXp9M=
-Subject: FAILED: patch "[PATCH] can: rcar_canfd: change the initializing flow for clocks and" failed to apply to 5.15-stable tree
-To: tu.nguyen.xg@renesas.com,biju.das.jz@bp.renesas.com,claudiu.beznea.uj@bp.renesas.com,geert+renesas@glider.be,mailhol@kernel.org,mkl@pengutronix.de
+	b=GWzW4h7UnL5HdmuUGUIcuEoMsDQXAiMtZ/JlfkKVqt495LyrBt2THG2zCFmORv7dO
+	 f5I5n1QG5uBUshtpxHz+E7sjGKTw20e8p9eNNg2t8Icf50bmc1UdK6tOgWnAqwA9+9
+	 L1xZCnknMww9waPMQ70pwtS8u3SvhVTk5HTQzbtQ=
+Subject: FAILED: patch "[PATCH] drm/dp: Read the PCON max FRL bandwidth only for HDMI DFPs" failed to apply to 5.15-stable tree
+To: alexander.kaplan@sms-medipool.de,ankit.k.nautiyal@intel.com,jani.nikula@intel.com,maarten.lankhorst@linux.intel.com,stable@vger.kernel.org,uma.shankar@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 13:55:05 +0200
-Message-ID: <2026080505-hazard-resale-b8c1@gregkh>
+Date: Wed, 05 Aug 2026 13:56:43 +0200
+Message-ID: <2026080543-come-antihero-dac2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x bef9004c5b91debfceaea2841855a4ebe81ff2b3
+git cherry-pick -x e40e20ac089e32f1d910636155dc82e61e61dcf3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080505-hazard-resale-b8c1@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080543-come-antihero-dac2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,114 +62,77 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From bef9004c5b91debfceaea2841855a4ebe81ff2b3 Mon Sep 17 00:00:00 2001
-From: Tu Nguyen <tu.nguyen.xg@renesas.com>
-Date: Thu, 25 Jun 2026 14:51:51 +0100
-Subject: [PATCH] can: rcar_canfd: change the initializing flow for clocks and
- resets
+From e40e20ac089e32f1d910636155dc82e61e61dcf3 Mon Sep 17 00:00:00 2001
+From: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+Date: Wed, 10 Jun 2026 21:38:25 +0200
+Subject: [PATCH] drm/dp: Read the PCON max FRL bandwidth only for HDMI DFPs
 
-Testing CANFD on RZ/G3E shows that many registers do not reset to their
-initial values with the current flow of deasserting resets first and then
-enabling clocks.
+The PCON max FRL bandwidth field lives in byte 2 of the DFP Detailed
+Capability Info (DPCD 0x82 for the first DFP).
+The DP standard defines the meaning of descriptor bytes 1-3 strictly
+per DFP type, and for a DisplayPort type DFP all of them are
+reserved, with "read all 0s" semantics (DP v2.0, section 2.12.3,
+Table 2-183).
+The FRL bandwidth field is an HDMI DFP extension added by the VESA
+DP-to-HDMI PCON specification.
+drm_dp_get_pcon_max_frl_bw() however parses the byte without checking
+the DFP type, the branch presence or DETAILED_CAP_INFO_AVAILABLE.
+Without the latter the port descriptors are one byte wide and
+port_cap[2] is not even the right register.
 
-Based on the HW manual, clocks should be supplied first and the
-resets deasserted afterward.
+All neighbouring helpers parsing the same descriptor are scoped by
+the DFP type already, see for instance drm_dp_downstream_max_bpc()
+reading the same byte and returning 0 for a DP type DFP.
+amdgpu's DC parses the field only for HDMI(/DP++) detailed types as
+well.
 
- section 7.4.3 Procedure for Activating Modules: RZ/G2L
- section 4.4.9.3 Procedure for Starting up Units: RZ/G3E
+This is not theoretical.
+A Synaptics VMM7100 based USB-C to HDMI adapter with a macOS targeted
+firmware advertises a DisplayPort type DFP with the type byte
+replicated across the whole descriptor (08 08 08 08).
+i915 decodes that as "PCON limited to 18 Gbps FRL" and prunes every
+mode above ~750 MHz dotclock, including all the 4k@100/120 modes the
+sink EDID offers, while macOS drives 4k@120 through the same adapter
+just fine via DP DSC (and amdgpu's type-scoped parser would ignore
+the bogus field as well).
 
-So, update the order of the initializing flow for resets and clocks
-to match the hardware manual, resetting all CANFD registers to their
-initial values. Also update rcar_canfd_global_deinit() to assert
-resets before disabling clocks, so the teardown path mirrors the new
-init ordering.
+Only parse the field for an HDMI DFP behind a DPCD 1.1+ branch
+device that reports detailed cap info, matching the type-scoped
+field layout of the spec and the rest of the helpers.
 
-Fixes: 76e9353a80e9 ("can: rcar_canfd: Add support for RZ/G2L family")
-Signed-off-by: Tu Nguyen <tu.nguyen.xg@renesas.com>
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-Tested-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
-Link: https://patch.msgid.link/20260625135216.130450-1-biju.das.jz@bp.renesas.com
-Cc: stable@kernel.org
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Fixes: ce32a6239de6 ("drm/dp_helper: Add Helpers for FRL Link Training support for DP-HDMI2.1 PCON")
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: Uma Shankar <uma.shankar@intel.com> (v2)
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v5.12+
+Signed-off-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Link: https://patch.msgid.link/20260610193825.2933-1-alexander.kaplan@sms-medipool.de
 
-diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rcar_canfd.c
-index eaf8cac78038..fcc37b73ed43 100644
---- a/drivers/net/can/rcar/rcar_canfd.c
-+++ b/drivers/net/can/rcar/rcar_canfd.c
-@@ -2003,20 +2003,12 @@ static int rcar_canfd_global_init(struct rcar_canfd_global *gpriv)
- 	u32 ch, sts;
- 	int err;
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 9c31e14cc413..e623ccb4c1d8 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -3686,6 +3686,18 @@ int drm_dp_get_pcon_max_frl_bw(const u8 dpcd[DP_RECEIVER_CAP_SIZE],
+ 	int bw;
+ 	u8 buf;
  
--	err = reset_control_reset(gpriv->rstc1);
--	if (err)
--		return err;
--
--	err = reset_control_reset(gpriv->rstc2);
--	if (err)
--		goto fail_reset1;
--
- 	/* Enable peripheral clock for register access */
- 	err = clk_prepare_enable(gpriv->clkp);
- 	if (err) {
- 		dev_err(dev, "failed to enable peripheral clock: %pe\n",
- 			ERR_PTR(err));
--		goto fail_reset2;
-+		return err;
- 	}
- 
- 	/* Enable RAM clock */
-@@ -2027,10 +2019,18 @@ static int rcar_canfd_global_init(struct rcar_canfd_global *gpriv)
- 		goto fail_clk;
- 	}
- 
-+	err = reset_control_reset(gpriv->rstc1);
-+	if (err)
-+		goto fail_ram_clk;
++	if (!drm_dp_is_branch(dpcd))
++		return 0;
 +
-+	err = reset_control_reset(gpriv->rstc2);
-+	if (err)
-+		goto fail_reset1;
++	if (dpcd[DP_DPCD_REV] < 0x11)
++		return 0;
 +
- 	err = rcar_canfd_reset_controller(gpriv);
- 	if (err) {
- 		dev_err(dev, "reset controller failed: %pe\n", ERR_PTR(err));
--		goto fail_ram_clk;
-+		goto fail_reset2;
- 	}
++	if ((dpcd[DP_DOWNSTREAMPORT_PRESENT] & DP_DETAILED_CAP_INFO_AVAILABLE) == 0)
++		return 0;
++
++	if ((port_cap[0] & DP_DS_PORT_TYPE_MASK) != DP_DS_PORT_TYPE_HDMI)
++		return 0;
++
+ 	buf = port_cap[2];
+ 	bw = buf & DP_PCON_MAX_FRL_BW;
  
- 	/* Controller in Global reset & Channel reset mode */
-@@ -2068,14 +2068,14 @@ static int rcar_canfd_global_init(struct rcar_canfd_global *gpriv)
- 
- fail_mode:
- 	rcar_canfd_disable_global_interrupts(gpriv);
--fail_ram_clk:
--	clk_disable_unprepare(gpriv->clk_ram);
--fail_clk:
--	clk_disable_unprepare(gpriv->clkp);
- fail_reset2:
- 	reset_control_assert(gpriv->rstc2);
- fail_reset1:
- 	reset_control_assert(gpriv->rstc1);
-+fail_ram_clk:
-+	clk_disable_unprepare(gpriv->clk_ram);
-+fail_clk:
-+	clk_disable_unprepare(gpriv->clkp);
- 	return err;
- }
- 
-@@ -2090,10 +2090,10 @@ static void rcar_canfd_global_deinit(struct rcar_canfd_global *gpriv, bool full)
- 		rcar_canfd_set_bit(gpriv->base, RCANFD_GCTR, RCANFD_GCTR_GSLPR);
- 	}
- 
--	clk_disable_unprepare(gpriv->clk_ram);
--	clk_disable_unprepare(gpriv->clkp);
- 	reset_control_assert(gpriv->rstc2);
- 	reset_control_assert(gpriv->rstc1);
-+	clk_disable_unprepare(gpriv->clk_ram);
-+	clk_disable_unprepare(gpriv->clkp);
- }
- 
- static int rcar_canfd_probe(struct platform_device *pdev)
 
