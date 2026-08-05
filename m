@@ -1,332 +1,248 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 559A840EB96
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:53:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFA84137A5
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:54:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785923622; cv=none; b=rgFjPryah6KqneagWNzdJcY8UL+yBu+QafEmo0IOoiCkiR898nt+FlYnnGXMTiIK7bODRaHXLAdAfjo2ziBZ0S6aYLnDo03tmRlqE1Y4u9u9MWAhF6iOJ2TCtN7oAYDOkmre3J1+g55lACic1rc8PbQgXD/B+fDQzT4fyChvYtw=
+	t=1785923671; cv=none; b=ubrcb76dcKxBjWLmjvdKq7ASwhHKERfL8i9Yi0TceQV3op/Ad6ql7glDanBbNmg4CWf5GdLrZhegBMdLncUrb7IU9/DS9oXRXWYjffNLpyXV1kQT3l9IuypUH+iNu0W7wZPmBsduVpNuccZMaalttjYaJM2cvWKRmHNBgkpreyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785923622; c=relaxed/simple;
-	bh=kMiOimVBAWf9uUOjQWAtga3JFxbHuwhz4Hc+QPnEPRw=;
+	s=arc-20240116; t=1785923671; c=relaxed/simple;
+	bh=JQ3oZVjLP87sHYjb40c9x7VGq7no8bJJrBM64eKvE7U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rcCDz0PUGwdkqCp6wKVFFoGER1SmSmxCkVPG33/iYUht+mUpFWHKJRrtknlwe/CaDseBT38AxQTBC//+P/53e+oNJtPjIclF7uM15NejFrlIqYuJaiaxdhyJw6GSX3HIt35YVgsm/5XKlOvv1qDKNChKoyJ026vE4w+HwnD7exQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eE2alzE8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=LOgd29uUiEOXIic8NPy8ExJadfrNt7OB/U4ApQLtUWbdPnPK0Ge/56lEYKMFmbpqzFTqAimyj08VJTNK4q6IyB0LZKbT6RAT1QrOKMhh9Qhj9iJ6SGuWE1G+FIMctBYpHBfSViMJn5zDm174ttLKFK0vkLStPOM0efIkdYapz9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=L6ICGwBK; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ML4uu4Lj; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=LoBlLnBk; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=70OBZuG+; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eE2alzE8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C1801F000E9;
-	Wed,  5 Aug 2026 09:53:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785923621;
-	bh=YrolkhV9rXn9LK2kY9eNRk2qQzBqsb8tLQDxItBSKKo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eE2alzE8E+jaqfmbu75Ge6evt57tPp6yYOKTlVM7K7QzERk/8WCh+Bc7tcKc1K6XT
-	 QhmiVsBweuyarqsE8rQ+Hk9jg7/VPJsIGPC2Y/eWBNJqN2L4kR9m3PJe//c24+vEgN
-	 QWuznqdhVCkLo+c439oSM/KiId8hbNm+NXDA6vep6b4ELngihEsbWJNddlVQTDxRG8
-	 FbC0qCXhVOv93KQmZi5c5gyigAFDQKheeEpD4SzMkwGaH8ZRC9Edgc85w4OmJWpSaf
-	 nCCM3W5Zi+gFmGMSvdJxz3bMGP2B6N9GROBEAFHcSeVcgUPi5V2xmpXSinh13Y6JKA
-	 /sNOBAEW9XOWQ==
-Date: Wed, 5 Aug 2026 10:53:24 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: =?utf-8?B?5p2O5L2R6bi/?= <dayou5941@163.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
-	akpm@linux-foundation.org, ziy@nvidia.com, linux-mm@kvack.org, 
-	liyouhong <liyouhong@kylinos.cn>, Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/memory-failure: fix concurrent access issue in
- min_order_for_split()
-Message-ID: <anMHc8GfhnWnjJ1-@lucifer>
-References: <20260805072625.2437636-1-dayou5941@163.com>
- <dbdb0f70-669b-4c68-a9cf-89d30c20f12f@kernel.org>
- <7dc76bc6.794a.19fd14ea780.Coremail.dayou5941@163.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="L6ICGwBK";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ML4uu4Lj";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="LoBlLnBk";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="70OBZuG+"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2BFA87FC19;
+	Wed,  5 Aug 2026 09:54:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785923663; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eeajFeVjPjUQuZaaEAEPZnfTLpVdRSKGZG/gV3HhPAM=;
+	b=L6ICGwBKfLu/3qQyzjGtJni6yfmjmvutjWtuuMohgnHIdkNQat/Qlz9bmzfLheIeFuJl/x
+	Lq6a3jdFe49c8BPQmO3qg5PBAmqmVtduE5ZzMCXiaFZ83ATKSLEnQoEidoMNA4T0T4wMJ3
+	hFanS7w2rll2ZsQQwhGV8BxOYmfWBBg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785923663;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eeajFeVjPjUQuZaaEAEPZnfTLpVdRSKGZG/gV3HhPAM=;
+	b=ML4uu4LjsgQZ4+LXXy4FonLcZ0xYgZHBjLXYThsfwRdt5xAQg9lxy5YfQGlKA4+vKjInww
+	L+hk81ICW8RUYYCA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1785923659; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eeajFeVjPjUQuZaaEAEPZnfTLpVdRSKGZG/gV3HhPAM=;
+	b=LoBlLnBkxJP0NsRwJrh5aBq7Y5DJ/k3c9GYIMBt3RyVO/NDQmDFqQzJ/D/yp9MiSF0p9Wt
+	4QI84DuL6rM/hWfuVkunjKHT14Cj8+h+SBO+vArkZlskXGwYfNgKLtxWzhsGqmx6wfKGZt
+	sjNrV9iI4y6eMAF92MNov2sB00phOew=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1785923659;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eeajFeVjPjUQuZaaEAEPZnfTLpVdRSKGZG/gV3HhPAM=;
+	b=70OBZuG+RZGRPxnQL6V4s24IINoHbVVa7QQZ8p4wPyMseQROTCsxqu5KAtkOs2ubAYaucl
+	77vqgzJ382nJ6bDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 17F6A779B6;
+	Wed,  5 Aug 2026 09:54:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id /t7TBUsIc2qQTQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 05 Aug 2026 09:54:19 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id B5ECBA13A7; Wed, 05 Aug 2026 11:54:14 +0200 (CEST)
+Date: Wed, 5 Aug 2026 11:54:14 +0200
+From: Jan Kara <jack@suse.cz>
+To: Youngjae Kwon <yjkwon0026@snu.ac.kr>
+Cc: jack@suse.cz, amir73il@gmail.com, linux-fsdevel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3] fsnotify: Fix stale object mask after concurrent mark
+ updates
+Message-ID: <gc2bqp2c3a6emhshpewjalti2j26a5zsrmd6s4gopzvmofklqw@xjnfn4tbaktb>
+References: <20260801055704.2663156-1-yjkwon0026@snu.ac.kr>
+ <20260802015801.2426818-1-yjkwon0026@snu.ac.kr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7dc76bc6.794a.19fd14ea780.Coremail.dayou5941@163.com>
+In-Reply-To: <20260802015801.2426818-1-yjkwon0026@snu.ac.kr>
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[suse.cz,gmail.com,vger.kernel.org];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email]
+X-Spam-Flag: NO
+X-Spam-Score: -3.80
+X-Spam-Level: 
 
-On Wed, Aug 05, 2026 at 05:43:40PM +0800, 李佑鸿  wrote:
->
->
->
->
->
->
->
->
->
->
->
->
->
->
->
->
->
-> At 2026-08-05 17:07:18, "David Hildenbrand (Arm)" <david@kernel.org> wrote:
-> >On 8/5/26 09:26, dayou5941@163.com wrote:
-> >> From: liyouhong <liyouhong@kylinos.cn>
-> >>
-> >> min_order_for_split() accesses folio->mapping without proper
-> >> synchronization. While the compiler typically caches the value
-> >> in a register making a NULL deref unlikely in practice, the
-> >> real issue is that the callers in memory-failure.c do not hold
-> >> the folio lock at the time of the call:
-> >>
-> >> - memory_failure() explicitly drops the folio lock before calling
-> >>   min_order_for_split().
-> >> - soft_offline_in_use_page() has not yet acquired the folio lock
-> >>   when calling min_order_for_split().
-> >>
-> >> This means the value of folio->mapping may be modified by a
-> >> truncate or invalidate operation while min_order_for_split() is
-> >> executing, leading to a torn read or use of a stale mapping value.
-> >
-> >I recall that a mapping can get freed after truncating the last folio.
-> >
-> >But Lorenzo had some cocnerns about the validity of the report, so I'll let him reply.
-> >
-> >>
-> >> Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
-> >> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> >> Closes: https://sashiko.dev/#/patchset/20260803060001.800638-1-dayou5941@163.com
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: liyouhong <liyouhong@kylinos.cn>
-> >> ---
-> >> v2:
-> >> - Dropped the approach of caching folio->mapping inside min_order_for_split() in favor of adding the folio lock at the callers.
-> >> - Added VM_WARN_ON_ONCE_FOLIO() in min_order_for_split().
-> >> - Updated the commit message to clarify that the real issue is the callers not holding the folio lock, rather than a TOCTOU race.
-> >> v1: https://lore.kernel.org/all/20260804035828.2684059-1-dayou5941@163.com/
-> >>
-> >> ---
-> >>  mm/huge_memory.c    |  2 ++
-> >>  mm/memory-failure.c | 12 ++++++++++--
-> >>  2 files changed, 12 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> >> index 58cabe6af33d..e3f16dadc1d4 100644
-> >> --- a/mm/huge_memory.c
-> >> +++ b/mm/huge_memory.c
-> >> @@ -4300,6 +4300,8 @@ int folio_split(struct folio *folio, unsigned int new_order,
-> >>   */
-> >>  unsigned int min_order_for_split(struct folio *folio)
-> >>  {
-> >> +	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-> >> +
-> >>  	if (folio_test_anon(folio))
-> >>  		return 0;
-> >>
-> >> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-> >> index 3b1e6946821b..7391524b5046 100644
-> >> --- a/mm/memory-failure.c
-> >> +++ b/mm/memory-failure.c
-> >> @@ -2437,12 +2437,17 @@ int memory_failure(unsigned long pfn, int flags)
-> >>  		res = -EOPNOTSUPP;
-> >>  		goto unlock_mutex;
-> >>  	}
-> >> +
-> >>  	folio_unlock(folio);
-> >>
-> >>  	if (folio_test_large(folio)) {
-> >> -		const int new_order = min_order_for_split(folio);
-> >> +		const int new_order;
-> >>  		int err;
-> >>
-> >> +		folio_lock(folio);
-> >> +		new_order = min_order_for_split(folio);
-> >> +		folio_unlock(folio);
-> >> +
-> >>  		/*
-> >>  		 * The flag must be set after the refcount is bumped
-> >>  		 * otherwise it may race with THP split.
-> >> @@ -2796,8 +2801,11 @@ static int soft_offline_in_use_page(struct page *page)
-> >>  	};
-> >>
-> >>  	if (!huge && folio_test_large(folio)) {
-> >> -		const int new_order = min_order_for_split(folio);
-> >> +		const int new_order;
-> >>
-> >> +		folio_lock(folio);
-> >> +		new_order = min_order_for_split(folio);
-> >> +		folio_unlock(folio);
-> >>  		/*
-> >>  		 * If new_order (target split order) is not 0, do not split the
-> >>  		 * folio at all to retain the still accessible large folio.
-> >
-> >We already grab the page lock in try_to_split_thp_page(). I think these
-> >needs a serious cleanup.
-> >
-> >While at it, we can fix the missing put_page() in case new_order != 0 in
-> >soft_offline_in_use_page() ...
-> >
-> >So i think we really should do the following:
-> >
-> >
-> >From 58c4ccbb04e13c4c14ef7a94f4b44f8901183081 Mon Sep 17 00:00:00 2001
-> >From: "David Hildenbrand (Arm)" <david@kernel.org>
-> >Date: Wed, 5 Aug 2026 11:01:46 +0200
-> >Subject: [PATCH] tmp
-> >
-> >Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> >---
-> > mm/memory-failure.c | 46 +++++++++++++++------------------------------
-> > 1 file changed, 15 insertions(+), 31 deletions(-)
-> >
-> >diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-> >index aaf14608b30e2..de97a7a36764d 100644
-> >--- a/mm/memory-failure.c
-> >+++ b/mm/memory-failure.c
-> >@@ -1705,26 +1705,6 @@ static int identify_page_state(unsigned long pfn, struct page *p,
-> > 	return page_action(ps, p, pfn);
-> > }
-> >
-> >-/*
-> >- * When 'release' is 'false', it means that if thp split has failed,
-> >- * there is still more to do, hence the page refcount we took earlier
-> >- * is still needed.
-> >- */
-> >-static int try_to_split_thp_page(struct page *page, unsigned int new_order,
-> >-		bool release)
-> >-{
-> >-	int ret;
-> >-
-> >-	lock_page(page);
-> >-	ret = split_huge_page_to_order(page, new_order);
-> >-	unlock_page(page);
-> >-
-> >-	if (ret && release)
-> >-		put_page(page);
-> >-
-> >-	return ret;
-> >-}
-> >-
-> > static void unmap_and_kill(struct list_head *to_kill, unsigned long pfn,
-> > 		struct address_space *mapping, pgoff_t index, int flags)
-> > {
-> >@@ -2509,7 +2489,6 @@ int memory_failure(unsigned long pfn, int flags)
-> > 	folio_unlock(folio);
-> >
-> > 	if (folio_test_large(folio)) {
-> >-		const int new_order = min_order_for_split(folio);
-> > 		int err;
-> >
-> > 		/*
-> >@@ -2526,24 +2505,24 @@ int memory_failure(unsigned long pfn, int flags)
-> > 		 * page is a valid handlable page.
-> > 		 */
-> > 		folio_set_has_hwpoisoned(folio);
-> >-		err = try_to_split_thp_page(p, new_order, /* release= */ false);
-> >+
-> >+		lock_page(p);
-> >+		err = split_huge_page_to_order(p, min_order_for_split(folio));
-> >+		unlock_page(p);
-> > 		/*
-> > 		 * If splitting a folio to order-0 fails, kill the process.
-> > 		 * Split the folio regardless to minimize unusable pages.
-> > 		 * Because the memory failure code cannot handle large
-> > 		 * folios, this split is always treated as if it failed.
-> > 		 */
-> >-		if (err || new_order) {
-> >-			/* get folio again in case the original one is split */
-> >-			folio = page_folio(p);
-> >+		folio = page_folio(p);
-> >+		if (folio_test_large(folio)) {
-> > 			res = -EHWPOISON;
-> > 			kill_procs_now(p, pfn, flags, folio);
-> > 			put_page(p);
-> > 			action_result(pfn, MF_MSG_UNSPLIT_THP, MF_FAILED);
-> > 			goto unlock_mutex;
-> > 		}
-> >-		VM_BUG_ON_PAGE(!page_count(p), p);
-> >-		folio = page_folio(p);
-> > 	}
-> >
-> > 	/*
-> >@@ -2862,8 +2841,7 @@ static int soft_offline_in_use_page(struct page *page)
-> > 	};
-> >
-> > 	if (!huge && folio_test_large(folio)) {
-> >-		const int new_order = min_order_for_split(folio);
-> >-
-> >+		lock_page(page);
-> > 		/*
-> > 		 * If new_order (target split order) is not 0, do not split the
-> > 		 * folio at all to retain the still accessible large folio.
-> >@@ -2871,8 +2849,14 @@ static int soft_offline_in_use_page(struct page *page)
-> > 		 * preferred, split it to non-zero new_order like it is done in
-> > 		 * memory_failure().
-> > 		 */
-> >-		if (new_order || try_to_split_thp_page(page, /* new_order= */ 0,
-> >-						       /* release= */ true)) {
-> >+		if (!min_order_for_split(folio))
-> >+			ret = split_huge_page_to_order(page, 0);
-> >+		else
-> >+			ret = -EBUSY;
-> >+		unlock_page(page);
-> >+
-> >+		if (ret) {
-> >+			put_page(page);
-> > 			pr_info("%#lx: thp split failed\n", pfn);
-> > 			return -EBUSY;
-> > 		}
-> >--
-> >2.43.0
-> >
-> >
-> >Likely some more cleanups on top are possible.
->
-> >
->
->
-> Thanks David and Lorenzo for the detailed feedback.
->
-> For v3 I plan to:
+On Sun 02-08-26 10:58:00, Youngjae Kwon wrote:
+> When a mark gets a new event bit, fanotify and inotify may avoid
+> recalculating the object mask if the cached aggregate already contains that
+> bit. This is racy with a recalculation triggered by a concurrent update to
+> another mark on the same connector.
+> 
+> The concurrent scan can read the mark before the new bit is added, while
+> the updater reads the old aggregate before that scan publishes its result.
+> The updater then skips recalculation and the scan publishes a mask without
+> the bit, leaving the object mask stale after both updates complete.
+> 
+> This can be reproduced with two fanotify groups watching the same inode:
+> one thread removes FAN_MODIFY from one existing mark while another thread
+> adds FAN_MODIFY to the other mark. After both fanotify_mark() calls return,
+> writes can fail to produce FAN_MODIFY for the group whose mark now contains
+> the bit. This was reproduced on an unmodified v6.12.95 kernel. The
+> equivalent inotify interleaving loses IN_MODIFY events.
+> 
+> For normal fanotify additions, recalculate whenever the raw mark mask
+> changes. The normal mask is not cleared asynchronously, so an unchanged
+> addition cannot introduce missing interest. Always recalculate ignore-mask
+> updates because FS_MODIFY handling may clear the ignore mask without taking
+> mark->lock, making snapshot comparisons unreliable.
+> 
+> Always recalculate after updating an existing inotify watch. Its replace
+> path temporarily sets mark->mask to zero, so a concurrent scan can observe
+> zero even when the old and final masks are equal. Assigning the replacement
+> mask directly would avoid the transient zero, but existing-watch updates
+> are infrequent, so unconditional recalculation is simpler.
+> 
+> Link: https://lore.kernel.org/all/CACwKKmCZdiZDoFuYm6LZhQ=XvHPk0fNKH=X3LmoXMqakYqJaNw@mail.gmail.com/
+> Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
+> Fixes: 912ee3946c5e ("fanotify: do not call fanotify_update_object_mask in fanotify_add_mark")
+> Cc: stable@vger.kernel.org # needs adjustments for <= 7.0
+> Suggested-by: Jan Kara <jack@suse.cz>
+> Suggested-by: Amir Goldstein <amir73il@gmail.com>
+> Signed-off-by: Youngjae Kwon <yjkwon0026@snu.ac.kr>
 
-v4 you mean :) you already sent a v3 way too quick.
+Thanks the patch looks good to me, I've added it to my tree. Amir, are you
+happy with the changes like this?
 
-Please send this tomorrow, not today.
+								Honza
 
->
-> 1. Take David's patch as the base, with his Signed-off-by preserved.
-
-That's only if you added a Co-developed-by, David can indicate what he wants.
-
-> 2. Add my VM_WARN_ON_ONCE_FOLIO() in min_order_for_split() as a
->    separate patch.
-
-Yup.
-
-> 3. Address Lorenzo's comment about returning ret directly in
->    soft_offline_in_use_page().
-
-You should respond to review inline.
-
-Just take take David's patch + the VM_WARN_ON_ONCE().
-
-> 4. Fold my earlier standalone put_page() fix into this series
->    and mark it as superseded.
->    link：https://lore.kernel.org/all/20260804035356.2615408-1-dayou5941@163.com/
-
-Not sure what folded means?
-
-Again as above, just take David's patch + the VM_WARN_ON_ONCE().
-
-> 5. Split the series logically if needed (e.g., one patch for
->    removing try_to_split_thp_page(), one for the lock fix, one
->    for the put_page() fix).
-
-No because you'll create bisection hazards. Just 1 patch please.
-
->
-> Please let me know if this plan looks reasonable or if you'd prefer
-> a different approach.
-
-As above.
-
---
-Cheers, Lorenzo
+> ---
+> Changes in v3:
+> - Preserve the normal fanotify duplicate-add fast path by recalculating
+>   only when the raw normal mask actually changes.
+> - Recalculate fanotify ignore-mask updates unconditionally because the
+>   ignore mask may be cleared concurrently without mark->lock.
+> - Keep v2's unconditional recalculation for existing inotify watch updates.
+> 
+> I will send backports for stable kernels through 7.0.y after this lands.
+> 
+>  fs/notify/fanotify/fanotify_user.c | 12 +++++++-----
+>  fs/notify/inotify/inotify_user.c   | 15 +--------------
+>  2 files changed, 8 insertions(+), 19 deletions(-)
+> 
+> diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fanotify_user.c
+> index 9ee373ff5..9c27db2b7 100644
+> --- a/fs/notify/fanotify/fanotify_user.c
+> +++ b/fs/notify/fanotify/fanotify_user.c
+> @@ -1321,16 +1321,18 @@ static bool fanotify_mark_update_flags(struct fsnotify_mark *fsn_mark,
+>  static bool fanotify_mark_add_to_mask(struct fsnotify_mark *fsn_mark,
+>  				      __u32 mask, unsigned int fan_flags)
+>  {
+> +	__u32 old_mask;
+>  	bool recalc;
+>  
+>  	spin_lock(&fsn_mark->lock);
+> -	if (!(fan_flags & FANOTIFY_MARK_IGNORE_BITS))
+> +	if (!(fan_flags & FANOTIFY_MARK_IGNORE_BITS)) {
+> +		old_mask = fsn_mark->mask;
+>  		fsn_mark->mask |= mask;
+> -	else
+> +		recalc = old_mask != fsn_mark->mask;
+> +	} else {
+>  		fsn_mark->ignore_mask |= mask;
+> -
+> -	recalc = fsnotify_calc_mask(fsn_mark) &
+> -		~fsnotify_conn_mask(fsn_mark->connector);
+> +		recalc = true;
+> +	}
+>  
+>  	recalc |= fanotify_mark_update_flags(fsn_mark, fan_flags);
+>  	spin_unlock(&fsn_mark->lock);
+> diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
+> index ed37491c1..5f19c24ec 100644
+> --- a/fs/notify/inotify/inotify_user.c
+> +++ b/fs/notify/inotify/inotify_user.c
+> @@ -539,7 +539,6 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
+>  {
+>  	struct fsnotify_mark *fsn_mark;
+>  	struct inotify_inode_mark *i_mark;
+> -	__u32 old_mask, new_mask;
+>  	int replace = !(arg & IN_MASK_ADD);
+>  	int create = (arg & IN_MASK_CREATE);
+>  	int ret;
+> @@ -555,27 +554,15 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
+>  	i_mark = container_of(fsn_mark, struct inotify_inode_mark, fsn_mark);
+>  
+>  	spin_lock(&fsn_mark->lock);
+> -	old_mask = fsn_mark->mask;
+>  	if (replace) {
+>  		fsn_mark->mask = 0;
+>  		fsn_mark->flags &= ~INOTIFY_MARK_FLAGS;
+>  	}
+>  	fsn_mark->mask |= inotify_arg_to_mask(inode, arg);
+>  	fsn_mark->flags |= inotify_arg_to_flags(arg);
+> -	new_mask = fsn_mark->mask;
+>  	spin_unlock(&fsn_mark->lock);
+>  
+> -	if (old_mask != new_mask) {
+> -		/* more bits in old than in new? */
+> -		int dropped = (old_mask & ~new_mask);
+> -		/* more bits in this fsn_mark than the inode's mask? */
+> -		int do_inode = (new_mask & ~READ_ONCE(inode->i_fsnotify_mask));
+> -
+> -		/* update the inode with this new fsn_mark */
+> -		if (dropped || do_inode)
+> -			fsnotify_recalc_mask(fsn_mark->connector);
+> -
+> -	}
+> +	fsnotify_recalc_mask(fsn_mark->connector);
+>  
+>  	/* return the wd */
+>  	ret = i_mark->wd;
+> -- 
+> 2.50.1
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
