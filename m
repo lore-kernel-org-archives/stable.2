@@ -1,111 +1,91 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741223B388E;
-	Thu,  6 Aug 2026 01:44:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC32E34041B;
+	Thu,  6 Aug 2026 01:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785980669; cv=none; b=dPXyMsJynqa6dKMXC0+BlW0I1QMk00u8G+BgSV/pBPakyGKZNvWZ3jdkaPhm/0VtBOLVaOUs6iV6sTwtt4nVPEuSVzmFOpdbd1c0pC3JUtKMb3ALZAKyj3IMYCCFT1S6TCw1x2bU2bgc6B6jUBUg1p2Xt3HU4Kg9SJJrkQKnxYs=
+	t=1785980931; cv=none; b=M1vMdFbuQu0zKsqmMtn96tWhrs4uNZrjbdPzaThWNn1wBMRBcEycqRjiNPZb4mHEGQ14cP3Z0ne7Ksjub0lb7ZXTDSWa4vMfSNhgv05Yp87eq+4hEF8J6d1koWQwhze7Ds9FSlInuYqPqF1MP8wMRRyp171oS8/6oPp/M2TrKaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785980669; c=relaxed/simple;
-	bh=pDaGWIotUHeRiXYu0XdKs+QqVC4kZvyDhZ5Jr9ZyZfY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U1xeDaz6x1KegIFowcLHBbZvNU3dhZpOW+D9JfAf5ZBuwRftpAtloRbpqPc7LOZCBk0ZRzAnltKeJJ6qOAa53j6CjeKBLBRxL93b7A1nY2fEETboBEK5cZl4u3ET2jO6Mh5zI4nJNp8jrICw/4TOBam1H70sTk1gzRe5FKUEp2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=tPmaKzje; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1785980931; c=relaxed/simple;
+	bh=GNuDAmRBJ2l7bMXWYdxZKDiaZ0Mm0RmGfagHjSJgRWg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=l1urzWoA7BuTTaFY6F1Ce1EZD4RiRb04NcVvxzjNCinvQa37rgx6ZDq9tbHaPVK4DS6hyCOS8bElLbpl9TIoRPxTy4lXBc7oZ9P2Brt+CnYRiiqCayEayGrfc6j1GUhQIOWPYAYNgk4r5XfCiL5U5EC+6f1NhVAwYLU/eldyCqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z5acj2Rg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="tPmaKzje"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=700hBB8fgPfgmlwOv52ySx8FJ3F1nBRAqSnKAZkhhtk=; b=tPmaKzjejjgGfLmDw0JXVoRZLC
-	X4/CpTOO73xqWvvd/Z7wPGg9nbL5kJtMnIDn0+GhzjJ1oofnsTrL8rfjfB7nEYU5o9OpNVdWvlZO0
-	YUyfV7ZgaG3D3Go2bGY49Ru9dHS8LSkvdfZa2pvFKYVjA9eVFC+u/UN2yGaILj3to7a1KA8Ry2AHX
-	plUEsKu+G9Y9QcotAWLEAg4mm2I0Nc4v2aRUsYXkVqQeLKk4CAD6T+vkd5yxGDeYgivkHno6I5vcb
-	08hoKa2obb1XPzwY8WvC+54mYJEMces1eYFaA/cCVuJ3wIYvAfy3/GEtj7PAbs1LTmlFhrpI49kus
-	a823YRTA==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wrn9W-00000005str-3Ftr;
-	Thu, 06 Aug 2026 01:44:10 +0000
-Date: Thu, 6 Aug 2026 02:44:10 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: =?iso-8859-1?Q?C=E9dric?= Le Goater <clg@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
-	Peter Xu <peterx@redhat.com>, David Hildenbrand <david@kernel.org>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Jason Gunthorpe <jgg@nvidia.com>, Zi Yan <ziy@nvidia.com>,
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/huge_memory: let special huge VMAs bypass the THP
- policy check
-Message-ID: <anPm6vGNeDxLFIkJ@casper.infradead.org>
-References: <20260805055544.1568534-1-clg@redhat.com>
- <anL-NZkNMSSxN0YN@lucifer>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z5acj2Rg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A3A1F000E9;
+	Thu,  6 Aug 2026 01:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785980930;
+	bh=JjCNpR5wIJzN+Np/56MKnt0+6NP9pHk24HaODcyqUZE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Z5acj2RghtST5uq2eKUfy4nDV1S1w09rDjIXMcZp9wmvaHA3hSX8sLet1KTA1guVg
+	 KBNyKXC2sc54yy2dnSTQ2z/1u/aHNgGhnnGRbMtNyMNm2A/bPJ6mv4xLzdjW2wy97i
+	 8gwCeWOx++win2VYez3RA3csLaDKui5mqLlJ4kmjtNLKuNdOQPcS/9djsRl0yALsI6
+	 KikZj3E/1MIlIfVUqKqxwM0SkQYLEHl0nk9gaP9FvI+iPcMI9hBRzvNvq3PF/rgaBU
+	 ySSJe5AKyk1S3AxQJ0h1mdPJHGndFTIkteR1M2rWIIU4ohzH9vWB3/1JcgxgAHcw14
+	 auIZ5tjHc2Okg==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, 
+ Lars-Peter Clausen <lars@metafoo.de>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: linux-sound@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260805122713.11376-1-peter.ujfalusi@linux.intel.com>
+References: <20260805122713.11376-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: adau1761: sort the register default table
+Message-Id: <178594803063.199927.11939365972739493390.b4-ty@b4>
+Date: Wed, 05 Aug 2026 17:40:30 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <anL-NZkNMSSxN0YN@lucifer>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1114; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=GNuDAmRBJ2l7bMXWYdxZKDiaZ0Mm0RmGfagHjSJgRWg=;
+ b=owEBbAGT/pANAwAKASTWi3JdVIfQAcsmYgBqc+gAEP95Jp5BgtcAyrSmpqzJsgPglg3qwReN0
+ rdkt9ENhuCJATIEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCanPoAAAKCRAk1otyXVSH
+ 0DHOB/d0aThHY1b81uZMZsZzwmzt+bR3CSH6k6YM+Az7LhaKtARkODaJfgrMdxFncxHps/RVlrM
+ eK+qinWaKUrX5EN6rqWwtbiGOUU9Cp9WBmOws4KGndPncvooOUldhQd6umGN7v7hxPcyHR/mQGR
+ elGhXl9km+sbjnUnAB6nGfLphjTqm+sOdo/9pJi70EAqnLcS0aQvD8cHwMs5zl+feMcVp9isshU
+ aZ2brlCtuI3Vt8TlAki5RwDUYzhgwJhPgSMaGUNK8qInvD2vYSmlfnarP8d3k/3x8P1WC/dJkTo
+ nvwPaOSTn7ptU+zB/qzdjUOuR5xhzCG6MEHmzJjewfex7SE=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, Aug 05, 2026 at 11:41:46AM +0100, Lorenzo Stoakes (ARM) wrote:
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index abc65d608c23..5fa01364f089 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -111,6 +111,34 @@ static bool vma_is_special_huge(const struct vm_area_struct *vma)
->  	return vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
->  }
-> 
-> +static bool should_obey_thp_file_tunables(const struct vm_area_struct *vma,
-> +					  bool forced_collapse)
-> +{
-> +	if (forced_collapse)
-> +		return false;
-> +	VM_WARN_ON_ONCE(vma_is_anonymous(vma));
-> +	/* Huge PFN mappings allocate no folios so the policy doesn't apply. */
-> +	if (vma_test(vma, VMA_PFNMAP_BIT) && vma->vm_ops->huge_fault)
-> +		return false;
-> +	return true;
-> +}
-> +
-> +static bool can_thp_collapse_file(const struct vm_area_struct *vma,
-> +		vm_flags_t vm_flags, bool forced_collapse)
-> +{
-> +	/* Override THP tunables? */
-> +	if (!should_obey_thp_file_tunables(vma, forced_collapse))
-> +		return true;
-> +	/* THP=always? */
-> +	if (hugepage_global_always())
-> +		return true;
-> +	/* THP=madvise? */
-> +	if (!hugepage_global_enabled())
-> +		return false;
-> +	/* Has VMA had madvise(..., MADV_HUGEPAGE) applied to it? */
-> +	return vm_flags & VM_HUGEPAGE;
-> +}
-> +
->  unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
->  					 vm_flags_t vm_flags,
->  					 enum tva_type type,
-> @@ -188,9 +216,7 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
->  		 * Enforce THP collapse requirements as necessary. Anonymous vmas
->  		 * were already handled in thp_vma_allowable_orders().
->  		 */
-> -		if (!forced_collapse &&
-> -		    (!hugepage_global_enabled() || (!(vm_flags & VM_HUGEPAGE) &&
-> -						    !hugepage_global_always())))
-> +		if (!can_thp_collapse_file(vma, vm_flags, forced_collapse))
->  			return 0;
-> 
->  		/*
+On Wed, 05 Aug 2026 15:27:13 +0300, Peter Ujfalusi wrote:
+> ASoC: adau1761: sort the register default table
 
-I think 'thp_' in all of this is confusing.  DAX isn't THPs.  PFNMAPs
-aren't THPa.  There's other reasons to implement huge_fault that aren't
-THPs.  Can we rename all of this to drop the 'thp_' string, starting
-with thp_vma_allowable_order()?
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
+
+Thanks!
+
+[1/1] ASoC: adau1761: sort the register default table
+      https://git.kernel.org/broonie/sound/c/cc606b6c2328
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
