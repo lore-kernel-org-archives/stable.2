@@ -1,60 +1,46 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BAF3DAADB
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 05:55:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E17326D4C3;
+	Wed,  5 Aug 2026 06:02:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785909361; cv=none; b=Hw+hKLDzsrDgQMaT5PhbTC6RH1Qjf3jSSTflusntOF7hFtU2s2P8scym3tKf++GgRNY9GuDPTD/VQpBD0NYOa8yB0pZagfOwB4DAtVPWzzqsdBNoxGpqTm2u3FX0glqGjUMznimBSGGndmAkwrMk+w1gI0A8FE+FLNf2vyASUyY=
+	t=1785909781; cv=none; b=OS5JRzpH7agugy25s8Kfif2Ostrex0wtL6VJmrzIpW9YiiHlrZDy5S3N+pqLK5Tmf23ad9f2oQH5MOzIp5hil4XTecWw6cl3mdFP4ZQBpo4G4+tB0yFeRjBtyUcBvq5bMcILIXIJiLqfGO+6pQ/kv2EqVAE07R1DVKrS10aR25g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785909361; c=relaxed/simple;
-	bh=/pLxtUKvZEHpiFlf2XOuqPBUAkNkK7MFBJPdWemmLB8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EGw/VL15rk4gQuA3BzP4ikdQxf22iRlEI49xgjTe1homl6rhIbPT8rH/mTurTo0eUGfxSiKjFSC+236H+PDUBMzByV51Yjm3GrnXgrs8IdzHz0mytmS1nK2BcFB0INjnHpRkjxjELWnrK8pQdL51XX4WEyHbMS2Yf84Fj23pmhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ishBI9Oa; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785909781; c=relaxed/simple;
+	bh=bqDx6vb2FXNsrrRRxni+b2maFJZgt6iCLkQbug5HZdc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fDiFNBBVWhHAkgz2hcs6AYdnysyXefflZEAAo86JhQ1tD7Z4nezpUgx84gQwvkqmqJebn1KoDh2Dd3/qS7t0vsv6PK4dkW5lfgwNRqoAVYzpic+c/fAiSJtAy7ukqkmwYSZ9ukrLt1UT461i7NAVlfcF5dCrN2QWPevqQ4VvGVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=ePaADWnz; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ishBI9Oa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785909358;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=myGrw8fGktwNQsvE5uYfJTAVudnST/W8PUvvhsvRQII=;
-	b=ishBI9OacS9wSEg7IEa3g4hg4M/s9AybYfXAGwFYG/HU1MdpaLsF1DFAT0TSYEwiF8LgF5
-	GHdor+kA6jVJ0aBcBHlVT8K2+UzJiqRBATsAu42aDI1SSfpV8Xz/tIPEUtXt1OONgyd6DN
-	e42+xcOjI6bGgLYBYeZZpckTwAC/QeQ=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-517-52WWm8eOPpWFxk_xvF0GUw-1; Wed,
- 05 Aug 2026 01:55:56 -0400
-X-MC-Unique: 52WWm8eOPpWFxk_xvF0GUw-1
-X-Mimecast-MFC-AGG-ID: 52WWm8eOPpWFxk_xvF0GUw_1785909355
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 51D9219560AE;
-	Wed,  5 Aug 2026 05:55:54 +0000 (UTC)
-Received: from corto.redhat.com (unknown [10.44.32.25])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5EAC41800348;
-	Wed,  5 Aug 2026 05:55:50 +0000 (UTC)
-From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@redhat.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org
-Cc: Peter Xu <peterx@redhat.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Zi Yan <ziy@nvidia.com>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Cedric Le Goater <clg@redhat.com>
-Subject: [PATCH] mm/huge_memory: let special huge VMAs bypass the THP policy check
-Date: Wed,  5 Aug 2026 07:55:40 +0200
-Message-ID: <20260805055544.1568534-1-clg@redhat.com>
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="ePaADWnz"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=s5W4gQo3cQPXmeaei8VzoJ+1QXcSNANQYpgANPza/WM=; b=ePaADWnzBKMvo8O9pm45qFsJh7
+	0xIBbonvzCDHguIdg2fpd6jg/g1dlXcnT+89b+PRJ9MyDJhw+P3u7fT5oIruQ2YRusjZac6wipg3/
+	0PMm18pK3KFgbdXWZJYtUc9OnLcfwoQsZbcfIjQUaAJhdP/UgjRY9Br1Km30AExiyWJxHKac7/N7c
+	uLlXXHm9LEqPdgQlt+nlSLvu/FCZxtyKk4ez63WWxymIQsNp2Y7gLccn3u/gClNv1LYCCP/oLcGae
+	zvFfC2BSdAv3+AIoQC1lv68yvZh0/k6VUyQjMEz8faPC4IH/ope7iWLlUxDpbReXL0+sLV1qCEf0g
+	TLCx98pg==;
+Received: from [151.115.150.205] (port=52256 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1wrUiR-0000000FZIP-0OFa;
+	Wed, 05 Aug 2026 08:02:57 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: bpf@vger.kernel.org
+Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 bpf] bpf: harden bloom filter sizing and indexing on 32-bit kernels
+Date: Wed,  5 Aug 2026 06:02:28 +0000
+Message-ID: <20260805060228.2703051-1-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,86 +49,132 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-scw-domain: oss.cyber.gouv.fr
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-From: Cedric Le Goater <clg@redhat.com>
+bloom_map_alloc() has two 32-bit-specific problems when the computed
+bitmap reaches the U32_MAX fallback case.
 
-The global THP sysfs policy (transparent_hugepage=never/madvise/always)
-gates the huge fault dispatch path in __thp_vma_allowable_orders() for
-all non-anonymous VMAs, including PFN-mapped device BARs (VM_PFNMAP).
+First, BITS_TO_BYTES(U32_MAX) is evaluated with 32-bit arithmetic. The
+addition performed by DIV_ROUND_UP wraps, so the map allocates only the
+fixed-size bloom filter object while keeping bitset_mask == U32_MAX.
+Subsequent updates can then write past the allocated object.
 
-DAX VMAs already bypass this check via an early return:
+Second, fixing only the allocation size is not sufficient. The bloom hash
+is a u32, but set_bit() takes a signed long bit number and x86 test_bit()
+eventually feeds the index to variable_test_bit(long, ...). On 32-bit
+kernels, hashes in [0x80000000, U32_MAX] therefore become negative bit
+offsets. x86 bt/bts with a memory operand interpret those offsets relative
+to the supplied base, so a map with bitset_mask == U32_MAX can read or
+write before bloom->bitset even after allocating the full 512 MiB bitmap.
 
-	if (vma_is_dax(vma))
-		return in_pf ? orders : 0;
+Keep the U32_MAX fallback, but split each hash into a word pointer and an
+in-word bit number before calling test_bit() or set_bit(). The bitops
+argument is then always in [0, BITS_PER_LONG - 1], while BIT_WORD(h) still
+selects the intended word in the full bitmap.
 
-But "special huge" VMAs -- identified by vma_is_special_huge() -- do not
-get this early return, even though they share the same fundamental
-property: they map physical addresses directly into page tables and
-involve no memory allocation, no compaction, no splitting, and no
-reclaim. The THP policy has no meaningful effect on them.
+Compute the bitset size from (u64)bitset_mask + 1 before passing the final
+size to bpf_map_area_alloc(). This fixes the original under-allocation and
+keeps the allocated storage consistent with the addressable bitset.
 
-This matters for VFIO PCI passthrough of large-BAR devices such as
-NVIDIA H200 NVL GPUs (256 GB BAR each). The VFIO driver registers a
-.huge_fault handler (vfio_pci_mmap_huge_fault) that dispatches to
-vmf_insert_pfn_pmd/pud, and QEMU's vfio_region_mmap() aligns the BAR
-mappings for huge page table entries. Both prerequisites are met, but
-with THP=never or THP=madvise, __thp_vma_allowable_orders() returns 0
-before reaching the "trust huge_fault handlers" code.
+Exploitation note: local privilege escalation is possible on a 32-bit x86
+kernel using the under-allocation bug from a binary with CAP_BPF.
 
-The result: each 256 GB BAR is mapped at 4 KiB granularity -- 67 million
-page faults per GPU instead of a few thousand PMD/PUD faults. On hosts
-with 8 GPUs (2 TB of BAR space), this causes VM boot times to degrade
-severely, with 99.98% of CPU time spent in the VFIO BAR mapping path.
-
-Configurations that trigger this:
-  - transparent_hugepage=never on the kernel command line
-  - The tuned cpu-partitioning profile (inherits network-latency, which
-    sets transparent_hugepages=never via sysfs)
-  - transparent_hugepage=madvise (the RHEL default), since VFIO VMAs
-    lack VM_HUGEPAGE and QEMU does not call madvise(MADV_HUGEPAGE) on
-    BAR mmap regions
-
-Extend the existing DAX early return to also cover vma_is_special_huge()
-VMAs. This is consistent with how vma_is_special_huge() is already
-treated for supported_orders (grouped with DAX). The mm/Kconfig TODO
-comment "Allow to be enabled without THP" also acknowledges this
-coupling is wrong.
-
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Alex Williamson <alex.williamson@redhat.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
+Fixes: 9330986c0300 ("bpf: Add bloom filter map implementation")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4
-Signed-off-by: Cedric Le Goater <clg@redhat.com>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Assisted-by: Codex:gpt-5
 ---
- mm/huge_memory.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+v1: https://lore.kernel.org/bpf/20260731204917.3845309-1-Jeremy.Jean@oss.cyber.gouv.fr/
+v2: https://lore.kernel.org/bpf/20260801083436.4014218-1-Jeremy.Jean@oss.cyber.gouv.fr/
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 58cabe6af33d031e48250e21db51506bc46c97b2..6dfef5500a054f09f9ece6df8bf7a0194624350f 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -139,8 +139,12 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
- 	if (thp_disabled_by_hw() || vma_thp_disabled(vma, vm_flags, forced_collapse))
- 		return 0;
+Changes in v3:
+- Address change request simplification from Andrii
+
+Changes in v2:
+- Address AI reviews.
+- Split full-width hashes into a word pointer and an in-word bit number
+  before calling bitops, so upper-half u32 hashes cannot become negative
+  offsets on 32-bit kernels.
+- Drop the redundant final u64 add-overflow check; bitset_bytes is bounded
+  at 512 MiB once it is computed from bitset_mask.
+
+ kernel/bpf/bloom_filter.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/kernel/bpf/bloom_filter.c b/kernel/bpf/bloom_filter.c
+index b73336c..b63839d 100644
+--- a/kernel/bpf/bloom_filter.c
++++ b/kernel/bpf/bloom_filter.c
+@@ -41,7 +41,8 @@ static long bloom_map_peek_elem(struct bpf_map *map, void *value)
  
--	/* khugepaged doesn't collapse DAX vma, but page fault is fine. */
--	if (vma_is_dax(vma))
+ 	for (i = 0; i < bloom->nr_hash_funcs; i++) {
+ 		h = hash(bloom, value, map->value_size, i);
+-		if (!test_bit(h, bloom->bitset))
++		if (!test_bit(h % BITS_PER_LONG,
++			      bloom->bitset + BIT_WORD(h)))
+ 			return -ENOENT;
+ 	}
+ 
+@@ -57,9 +58,13 @@ static long bloom_map_push_elem(struct bpf_map *map, void *value, u64 flags)
+ 	if (flags != BPF_ANY)
+ 		return -EINVAL;
+ 
 +	/*
-+	 * khugepaged doesn't collapse DAX or special huge VMAs, but page
-+	 * fault is fine. These map physical addresses directly — the THP
-+	 * policy is irrelevant for them.
++	 * On 32-bit architectures, hashes larger than INT_MAX would be
++	 * treated as negative by set_bit().
 +	 */
-+	if (vma_is_dax(vma) || vma_is_special_huge(vma))
- 		return in_pf ? orders : 0;
+ 	for (i = 0; i < bloom->nr_hash_funcs; i++) {
+ 		h = hash(bloom, value, map->value_size, i);
+-		set_bit(h, bloom->bitset);
++		set_bit(h % BITS_PER_LONG, bloom->bitset + BIT_WORD(h));
+ 	}
  
- 	/*
+ 	return 0;
+@@ -94,9 +99,10 @@ static int bloom_map_alloc_check(union bpf_attr *attr)
+ 
+ static struct bpf_map *bloom_map_alloc(union bpf_attr *attr)
+ {
+-	u32 bitset_bytes, bitset_mask, nr_hash_funcs, nr_bits;
++	u32 bitset_mask, nr_hash_funcs, nr_bits;
+ 	int numa_node = bpf_map_attr_numa_node(attr);
+ 	struct bpf_bloom_filter *bloom;
++	u64 bitset_bytes;
+ 
+ 	if (attr->key_size != 0 || attr->value_size == 0 ||
+ 	    attr->max_entries == 0 ||
+@@ -127,22 +133,16 @@ static struct bpf_map *bloom_map_alloc(union bpf_attr *attr)
+ 	if (check_mul_overflow(attr->max_entries, nr_hash_funcs, &nr_bits) ||
+ 	    check_mul_overflow(nr_bits / 5, (u32)7, &nr_bits) ||
+ 	    nr_bits > (1UL << 31)) {
+-		/* The bit array size is 2^32 bits but to avoid overflowing the
+-		 * u32, we use U32_MAX, which will round up to the equivalent
+-		 * number of bytes
+-		 */
+-		bitset_bytes = BITS_TO_BYTES(U32_MAX);
+ 		bitset_mask = U32_MAX;
+ 	} else {
+ 		if (nr_bits <= BITS_PER_LONG)
+ 			nr_bits = BITS_PER_LONG;
+ 		else
+ 			nr_bits = roundup_pow_of_two(nr_bits);
+-		bitset_bytes = BITS_TO_BYTES(nr_bits);
+ 		bitset_mask = nr_bits - 1;
+ 	}
+ 
+-	bitset_bytes = roundup(bitset_bytes, sizeof(unsigned long));
++	bitset_bytes = BITS_TO_LONGS((u64)bitset_mask + 1) * sizeof(unsigned long);
+ 	bloom = bpf_map_area_alloc(sizeof(*bloom) + bitset_bytes, numa_node);
+ 
+ 	if (!bloom)
 -- 
-2.55.0
-
+2.47.3
