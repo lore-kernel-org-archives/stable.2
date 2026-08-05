@@ -1,223 +1,233 @@
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7266E3ED5A6
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:16:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 44C3122FDE6
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:24:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785921400; cv=none; b=q1wbepaeKMTj+ZU1y/TETSGFY/Wc+cPMyHfszzoUnp4AhMjHhacT74/wiCseOCLnuXAm5avBTSmqTfjGwNHd/SOXnDpPil7winL9XxCb9nChuunyBaFwZJvW3nfDI8a4F+nxYh4nfvLwppGx7X498NxRf/DPTLG0hInYiQD9wxA=
+	t=1785921851; cv=none; b=W831vSiuwmFOv+2uYzoapPp8iP1iR/MEv9p5jBg+g9BIilVUmoK2KxKqwuSpiTvIen0FQZV3WBx0OSvXiLFzAXjp7i+YmJba9x6rNN4C0NY0ZuZdvZ92dsXMO0V68tRBRFDzJtb+Sz13GAUzxRAholrj6hWlRul1yrtbo/4f3LA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785921400; c=relaxed/simple;
-	bh=aO5V/oNRCstsWebSCGGxHjY3EskvWtBnWudc3GDtyiY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=lqrVxjbekiCGVfNz24c/kUjbnzNQ7F8zvKeB5RFihvlYV3ETMLIW8vOsyJAtxA6xm0nUSLCdpBmoSui2ByVBlAAsNkx6eMbJkPUFZYnH5V01CFn/fM9Q7J8DJB1JAfEomIsjO7zEanmsKh/MxcjBFym835MpHXHU+D07P61HNAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=D2U4GcmT; arc=none smtp.client-ip=54.207.22.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1785921851; c=relaxed/simple;
+	bh=5+i+m9WSJqQvin47phulhm8sOavejG6eTb3No4RAakM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nWnVzTIGknouYC96InbfrSQUi7uu1Hw2++fEsvssBaZHKyLRUUJeczirR6IUgo3FP0Z5zcI44Pk3IkhsCB25opj0KtCODGYYQhSXvE6o3HyGzfsbAS2jScjTwMLeLjPltRDAKxi0ji+xjVcuk5ziPDDUnAlRyqywDytcPlw/ozE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=eDff7BAR; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="D2U4GcmT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1785921330;
-	bh=aY+CRHV3CR9Ir2OubADc4Lu0ev8nDCeC8k0XH5poVtc=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=D2U4GcmTiHugzLmRKU1M/YlAm86BmQ2AL/M2QfsWRBe9He5Y6p9UHCvHuU36nDDxq
-	 llO8alnUfIZiE0V4CWscq7X3UgIII73lrbSWA6if/0zmDTJJbjeRzlz9qkKRh3hYkN
-	 DABopuO44k71MvPYD3V/1C+6XCQtziLWn+dKAYPM=
-X-QQ-mid: esmtpsz21t1785921310tbb058e1f
-X-QQ-Originating-IP: hA9EXJc6ThtoAYG1dpkQnH8gGaFeNL4V3WwyfNrDX+k=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 05 Aug 2026 17:15:00 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 3116561549633193712
-EX-QQ-RecipientCnt: 8
-From: Wentao Guan <guanwentao@uniontech.com>
-To: sashal@kernel.org
-Cc: stable@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	Chuck Lever <chuck.lever@oracle.com>,
-	Chris Mason <clm@meta.com>,
-	Hannes Reinecke <hare@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: [PATCH 6.18.y 4/5] net/handshake: hand off the pinned file reference to accept_doit
-Date: Wed,  5 Aug 2026 17:13:52 +0800
-Message-Id: <20260805091348.609325-5-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260805091348.609325-1-guanwentao@uniontech.com>
-References: <20260805091348.609325-1-guanwentao@uniontech.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="eDff7BAR"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A4602153B;
+	Wed,  5 Aug 2026 02:24:04 -0700 (PDT)
+Received: from [10.57.87.98] (unknown [10.57.87.98])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 110153F66F;
+	Wed,  5 Aug 2026 02:24:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1785921848; bh=5+i+m9WSJqQvin47phulhm8sOavejG6eTb3No4RAakM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=eDff7BARSdi7ra/VdL2bJTZukrenI2Tt4LT4fWY3+q70NkU3JCSd+PqI3aSfZHl5w
+	 jrlwfn37FLQWw1+Z2J542shyCC6COzZ2orte9z1AkShbf61cGe1r+RdM1EojbSfcf1
+	 kBIcp4VTByONOgeSJ0j+npDX1QaIOSNUf3Zfih/Q=
+Message-ID: <00a85d9a-8727-4b89-b33b-ce2d3358355c@arm.com>
+Date: Wed, 5 Aug 2026 10:24:04 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: Mg90GDIyb2xWyYs25PsVxIAtHZCTdCIQd3bwn/YbmWzzlgpRymE4qzoZ
-	Bd8pRSXPB76tUyTc1FLAiAf2dWq3EHkQ6WR9AcR7Fm1mQDtKD7KMEAzFuBAX5HnkLzk4Ery
-	biUj1on6gftyqpUlru/KX0/kqcsyn0j67XlK0dZ1U6Gjd5V3oQCrWSCWOEurRSF6DCU1Fk6
-	OCNT6zu1biSsrMoZbKmL4mwjx+QYAAWj8QBYWybryXNEPbGXdworZTodX3bCuoE9IDEcMct
-	l7IItBuIrUuDrc39JEphla0CkPaZQUPBmePM6iOqYsm64xBc1mjfaEzLHv0tWn9TZQ9vbnP
-	eUVeoKLyVp2/OaHWRVyF5u5o+DEvhOrTeF7PBILnvRiezdZN9eySNg1nIPcl5Gnx0HwKWYk
-	tghUU2AgC7e61Efz5IsoCoJxO7f2OZCeJWYdXp8FVfHgPHf/vlNs8Chpb2zKq8JWTJEu4Ay
-	mTLNIf7Rt9+vx7YqgDdvMcIvIhhpHITKqvOi+navS13lSSCfVbrTKBjRQxvVN0m53Y4E6TK
-	rzGoUVWaLkfrKiyyVp5sNNZxaipxfbOh4p6In3z0cGlelA6yKjMhxV1fgj+DiT0nwjJUBU5
-	8PSIjbLvxEl1iax5EJloX0kVyWUagswRLWtYMJ+TMMwjORMUSUkUzW0uA78Kb1+X/fGK7FJ
-	1MrI+h0mdtX5wS3FOLfvRtV1FKv2iQqRAvOCD2S08F8W8UZtJBXtBhybd6F3vHDM2N95Rao
-	ikfmEFygQM/wZ6vLeS/2GokAM5ajC1Z4IPBdga4pl/VBTy5ijGKkYhICCXL4XzUhtOh7Gg+
-	XVe1r9wxQkcfIZCeZFr4KEIxZCm5McIzXtIxgvtMvgOIDFLqgmq9CdAbWQeDb7yzhQ9b5GK
-	Yy5H926Vu1GRAOxlKCbZAECE2nWhJBHls6U3xmepPknJ7dD/Xv8TxcvDdP3j1MNJc27SI8t
-	3KNzXtvaT6lpp88ZJdqeMU3VJG+zuZ3GFiAZjb+BBVkfzoQpkwjhSmOfnrg/o12zUVh0hyT
-	e9GvXT4enPvo5isvcRLS0q8ShbpEzMootw+1JX8w+OBk/fM4Atu0gya9ENyfx15bOKd4vKZ
-	kAdqpZrfkv1Z2ynv69hZYBsooqIVe3jgsBW1at8qMIgMdcdhHhMzqY=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 14/20] arm64: percpu: Implement preemptible read/write
+ ops
+Content-Language: en-GB
+To: Mark Rutland <mark.rutland@arm.com>, linux-arm-kernel@lists.infradead.org
+Cc: ada.coupriediaz@arm.com, ardb@kernel.org, catalin.marinas@arm.com,
+ cl@gentwo.org, david@kernel.org, david.laight.linux@gmail.com,
+ james.morse@arm.com, ljs@kernel.org, maz@kernel.org, peterz@infradead.org,
+ ruanjinjie@huawei.com, stable@vger.kernel.org, vladimir.murzin@arm.com,
+ will@kernel.org, yang@os.amperecomputing.com
+References: <20260804170503.3513916-1-mark.rutland@arm.com>
+ <20260804170503.3513916-15-mark.rutland@arm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+In-Reply-To: <20260804170503.3513916-15-mark.rutland@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+On 04/08/2026 18:04, Mark Rutland wrote:
+> Use the PCPU GPR infrastructure to implement preemptible this_cpu_read()
+> and this_cpu_write().
+> 
+> This change means that this_cpu_read() will always use a plain LDR, even
+> in LTO configurations where READ_ONCE() will use LDA[P]R. Using plain
+> LDR is preferable, given that the rationale for using LDA[P]R in
+> READ_ONCE() was to retain address dependencies against values written by
+> other CPUs, which isn't expected usage for this_cpu_read(). Using plain
+> LDR will enforce fewer ordering constraints.
+> 
+> Test case:
+> 
+> | void outline_this_cpu_write_u64(u64 __percpu *p, u64 v)
+> | {
+> | 	this_cpu_write(*p, v);
+> | }
+> 
+> Generated code before this patch (v7.2-rc4):
+> 
+> | <outline_this_cpu_write_u64>:
+> |        paciasp
+> |        stp     x29, x30, [sp, #-16]!
+> |        mrs     x2, sp_el0
+> |        mov     x29, sp
+> |        ldr     w3, [x2, #8]
+> |        add     w3, w3, #0x1
+> |        str     w3, [x2, #8]
+> |        mrs     x3, tpidr_el1
+> |        str     x1, [x0, x3]
+> |        ldr     x0, [x2, #8]
+> |        sub     x0, x0, #0x1
+> |        str     w0, [x2, #8]
+> |        cbz     x0, 1f
+> |        ldr     x0, [x2, #8]
+> |        cbnz    x0, 2f
+> | 1:     bl      preempt_schedule_notrace
+> | 2:     ldp     x29, x30, [sp], #16
+> |        autiasp
+> |        ret
+> 
+> Generated code after this patch:
+> 
+> | <outline_this_cpu_write_u64>:
+> |        mrs     x2, sp_el0
+> |        mov     w3, #0x7c60
+> |        strh    w3, [x2, #20]
+> |        mrs     x3, tpidr_el1
+> |        str     x1, [x0, x3]
+> |        strh    wzr, [x2, #20]
+> |        ret
+> 
+> Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+> Cc: Ard Biesheuvel <ardb@kernel.org>
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: James Morse <james.morse@arm.com>
+> Cc: Jinjie Ruan <ruanjinjie@huawei.com>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Vladimir Murzin <vladimir.murzin@arm.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Yang Shi <yang@os.amperecomputing.com>
+> ---
+FYI I'm seeing build warnings caused by this patch (with ftrace enabled - based 
+on the warnings, I'm guessing that's the key bit), using:
 
-handshake_req_next() removes the request from the per-net
-pending list and drops hn_lock before handshake_nl_accept_doit()
-reads req->hr_sk->sk_socket and dereferences sock->file (once in
-FD_PREPARE() and again in get_file()).  In that window a
-consumer running tls_handshake_cancel() followed by sockfd_put()
-(svc_sock_free) or __fput_sync() (xs_reset_transport) releases
-sock->file.  sock_release() then runs sock_orphan(), zeroing
-sk_socket, and frees the struct socket.  The accept-side code
-either reads NULL through sk_socket or chases freed memory.
+aarch64-linux-gnu-gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-The submit-side sock_hold() does not prevent this.  sk_refcnt
-protects struct sock, but struct socket and sock->file are
-independently refcounted via the file descriptor the consumer
-owns.  Pinning sk leaves sock and sock->file unprotected.
+I haven't investigated the cause.
 
-Retarget the accept-side dereferences at req->hr_file, which was
-pinned at submit time, instead of req->hr_sk->sk_socket->file.
-Pinning on its own is not sufficient: a consumer that cancels
-between handshake_req_next() returning and accept_doit reaching
-FD_PREPARE() takes the !remove_pending() branch in
-handshake_req_cancel() and drops hr_file before the accept side
-takes its own reference.  Hand off an additional file reference
-inside handshake_req_next(), under hn_lock, so the accept side
-operates on a reference that no concurrent handshake_req_cancel()
-can revoke.  FD_PREPARE() consumes that handed-off reference,
-either by transferring it to the new fd in fd_publish() or by
-dropping it in the cleanup destructor on error; the explicit
-get_file() that previously balanced FD_PREPARE() is therefore
-redundant and goes away.
+Thanks,
+Ryan
 
-Update handshake_req_cancel_test2 and _test3 to simulate the
-FD_PREPARE() consumption with an fput() so the kunit file-count
-assertions stay balanced.
+---8<---
+In file included from linux/arch/arm64/include/asm/spectre.h:17,                                                                                                                                                                       
+                 from linux/arch/arm64/include/asm/processor.h:47,
+                 from linux/include/linux/sched.h:13,
+                 from linux/include/linux/ratelimit.h:6,
+                 from linux/include/linux/dev_printk.h:16,
+                 from linux/include/linux/device.h:15,
+                 from linux/include/linux/node.h:18,
+                 from linux/include/linux/cpu.h:17,
+                 from linux/include/linux/stop_machine.h:5,
+                 from linux/kernel/trace/ftrace.c:17:
+linux/kernel/trace/ftrace.c: In function 'ftrace_filter_pid_sched_switch_probe':
+linux/arch/arm64/include/asm/percpu.h:295:42: warning: conversion from 'long unsigned int' to 'u8' {aka 'unsigned char'} changes value from '18446744073709551615' to '255' [-Woverflow]                                               
+  295 |         _pcp_wrap(__percpu_write_8, pcp, (unsigned long)(val))
+      |                                          ^~~~~~~~~~~~~~~~~~~~
+linux/arch/arm64/include/asm/percpu.h:277:20: note: in definition of macro '_pcp_wrap'
+  277 |         op(&(pcp), __VA_ARGS__);                                        \
+      |                    ^~~~~~~~~~~
+linux/include/linux/percpu-defs.h:369:25: note: in expansion of macro 'this_cpu_write_1'
+  369 |                 case 1: stem##1(variable, __VA_ARGS__);break;           \
+      |                         ^~~~
+linux/include/linux/percpu-defs.h:500:41: note: in expansion of macro '__pcpu_size_call'
+  500 | #define this_cpu_write(pcp, val)        __pcpu_size_call(this_cpu_write_, pcp, val)
+      |                                         ^~~~~~~~~~~~~~~~
+linux/kernel/trace/ftrace.c:8628:17: note: in expansion of macro 'this_cpu_write'
+ 8628 |                 this_cpu_write(tr->array_buffer.data->ftrace_ignore_pid,
+      |                 ^~~~~~~~~~~~~~
+linux/arch/arm64/include/asm/percpu.h:297:43: warning: conversion from 'long unsigned int' to 'u16' {aka 'short unsigned int'} changes value from '18446744073709551615' to '65535' [-Woverflow]
+  297 |         _pcp_wrap(__percpu_write_16, pcp, (unsigned long)(val))
+      |                                           ^~~~~~~~~~~~~~~~~~~~
+linux/arch/arm64/include/asm/percpu.h:277:20: note: in definition of macro '_pcp_wrap'
+  277 |         op(&(pcp), __VA_ARGS__);                                        \
+      |                    ^~~~~~~~~~~
+linux/include/linux/percpu-defs.h:370:25: note: in expansion of macro 'this_cpu_write_2'
+  370 |                 case 2: stem##2(variable, __VA_ARGS__);break;           \
+      |                         ^~~~
+linux/include/linux/percpu-defs.h:500:41: note: in expansion of macro '__pcpu_size_call'
+  500 | #define this_cpu_write(pcp, val)        __pcpu_size_call(this_cpu_write_, pcp, val)
+      |                                         ^~~~~~~~~~~~~~~~
+linux/kernel/trace/ftrace.c:8628:17: note: in expansion of macro 'this_cpu_write'
+ 8628 |                 this_cpu_write(tr->array_buffer.data->ftrace_ignore_pid,
+      |                 ^~~~~~~~~~~~~~
+linux/arch/arm64/include/asm/percpu.h:299:43: warning: conversion from 'long unsigned int' to 'u32' {aka 'unsigned int'} changes value from '18446744073709551615' to '4294967295' [-Woverflow]
+  299 |         _pcp_wrap(__percpu_write_32, pcp, (unsigned long)(val))
+      |                                           ^~~~~~~~~~~~~~~~~~~~
+linux/arch/arm64/include/asm/percpu.h:277:20: note: in definition of macro '_pcp_wrap'
+  277 |         op(&(pcp), __VA_ARGS__);                                        \
+      |                    ^~~~~~~~~~~
+linux/include/linux/percpu-defs.h:371:25: note: in expansion of macro 'this_cpu_write_4'
+  371 |                 case 4: stem##4(variable, __VA_ARGS__);break;           \
+      |                         ^~~~
+linux/include/linux/percpu-defs.h:500:41: note: in expansion of macro '__pcpu_size_call'
+  500 | #define this_cpu_write(pcp, val)        __pcpu_size_call(this_cpu_write_, pcp, val)
+      |                                         ^~~~~~~~~~~~~~~~
+linux/kernel/trace/ftrace.c:8628:17: note: in expansion of macro 'this_cpu_write'
+ 8628 |                 this_cpu_write(tr->array_buffer.data->ftrace_ignore_pid,
+      |                 ^~~~~~~~~~~~~~
+linux/kernel/trace/ftrace.c: In function 'ignore_task_cpu':
+linux/arch/arm64/include/asm/percpu.h:295:42: warning: conversion from 'long unsigned int' to 'u8' {aka 'unsigned char'} changes value from '18446744073709551615' to '255' [-Woverflow]
+  295 |         _pcp_wrap(__percpu_write_8, pcp, (unsigned long)(val))
+      |                                          ^~~~~~~~~~~~~~~~~~~~
+linux/arch/arm64/include/asm/percpu.h:277:20: note: in definition of macro '_pcp_wrap'
+  277 |         op(&(pcp), __VA_ARGS__);                                        \
+      |                    ^~~~~~~~~~~
+linux/include/linux/percpu-defs.h:369:25: note: in expansion of macro 'this_cpu_write_1'
+  369 |                 case 1: stem##1(variable, __VA_ARGS__);break;           \
+      |                         ^~~~
+linux/include/linux/percpu-defs.h:500:41: note: in expansion of macro '__pcpu_size_call'
+  500 | #define this_cpu_write(pcp, val)        __pcpu_size_call(this_cpu_write_, pcp, val)
+      |                                         ^~~~~~~~~~~~~~~~
+linux/kernel/trace/ftrace.c:8898:17: note: in expansion of macro 'this_cpu_write'
+ 8898 |                 this_cpu_write(tr->array_buffer.data->ftrace_ignore_pid,
+      |                 ^~~~~~~~~~~~~~
+linux/arch/arm64/include/asm/percpu.h:297:43: warning: conversion from 'long unsigned int' to 'u16' {aka 'short unsigned int'} changes value from '18446744073709551615' to '65535' [-Woverflow]
+  297 |         _pcp_wrap(__percpu_write_16, pcp, (unsigned long)(val))
+      |                                           ^~~~~~~~~~~~~~~~~~~~
+linux/arch/arm64/include/asm/percpu.h:277:20: note: in definition of macro '_pcp_wrap'
+  277 |         op(&(pcp), __VA_ARGS__);                                        \
+      |                    ^~~~~~~~~~~
+linux/include/linux/percpu-defs.h:370:25: note: in expansion of macro 'this_cpu_write_2'
+  370 |                 case 2: stem##2(variable, __VA_ARGS__);break;           \
+      |                         ^~~~
+linux/include/linux/percpu-defs.h:500:41: note: in expansion of macro '__pcpu_size_call'
+  500 | #define this_cpu_write(pcp, val)        __pcpu_size_call(this_cpu_write_, pcp, val)
+      |                                         ^~~~~~~~~~~~~~~~
+linux/kernel/trace/ftrace.c:8898:17: note: in expansion of macro 'this_cpu_write'
+ 8898 |                 this_cpu_write(tr->array_buffer.data->ftrace_ignore_pid,
+      |                 ^~~~~~~~~~~~~~
+linux/arch/arm64/include/asm/percpu.h:299:43: warning: conversion from 'long unsigned int' to 'u32' {aka 'unsigned int'} changes value from '18446744073709551615' to '4294967295' [-Woverflow]
+  299 |         _pcp_wrap(__percpu_write_32, pcp, (unsigned long)(val))
+      |                                           ^~~~~~~~~~~~~~~~~~~~
+linux/arch/arm64/include/asm/percpu.h:277:20: note: in definition of macro '_pcp_wrap'
+  277 |         op(&(pcp), __VA_ARGS__);                                        \
+      |                    ^~~~~~~~~~~
+linux/include/linux/percpu-defs.h:371:25: note: in expansion of macro 'this_cpu_write_4'
+  371 |                 case 4: stem##4(variable, __VA_ARGS__);break;           \
+      |                         ^~~~
+linux/include/linux/percpu-defs.h:500:41: note: in expansion of macro '__pcpu_size_call'
+  500 | #define this_cpu_write(pcp, val)        __pcpu_size_call(this_cpu_write_, pcp, val)
+      |                                         ^~~~~~~~~~~~~~~~
+linux/kernel/trace/ftrace.c:8898:17: note: in expansion of macro 'this_cpu_write'
+ 8898 |                 this_cpu_write(tr->array_buffer.data->ftrace_ignore_pid,
+      |                 ^~~~~~~~~~~~~~
+---8<---
 
-Reported-by: Chris Mason <clm@meta.com>
-Fixes: 3b3009ea8abb ("net/handshake: Create a NETLINK service for handling handshake requests")
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Link: https://patch.msgid.link/20260525-handshake-file-pin-v3-5-66c616906ead@oracle.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-(cherry picked from commit f4251190e58b209999c1ba9e6d2976136a1be055)
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
----
- net/handshake/handshake-test.c |  8 ++++++++
- net/handshake/netlink.c        |  7 ++-----
- net/handshake/request.c        | 18 ++++++++++++++++++
- 3 files changed, 28 insertions(+), 5 deletions(-)
-
-diff --git a/net/handshake/handshake-test.c b/net/handshake/handshake-test.c
-index df3948e807a0f..9cc7a95f41207 100644
---- a/net/handshake/handshake-test.c
-+++ b/net/handshake/handshake-test.c
-@@ -375,6 +375,10 @@ static void handshake_req_cancel_test2(struct kunit *test)
- 	/* Pretend to accept this request */
- 	next = handshake_req_next(hn, HANDSHAKE_HANDLER_CLASS_TLSHD);
- 	KUNIT_ASSERT_PTR_EQ(test, req, next);
-+	/* Simulate FD_PREPARE() consuming the file reference handed
-+	 * off by handshake_req_next(); see handshake_nl_accept_doit().
-+	 */
-+	fput(filp);
- 
- 	/* Act */
- 	result = handshake_req_cancel(sock->sk);
-@@ -417,6 +421,10 @@ static void handshake_req_cancel_test3(struct kunit *test)
- 	/* Pretend to accept this request */
- 	next = handshake_req_next(hn, HANDSHAKE_HANDLER_CLASS_TLSHD);
- 	KUNIT_ASSERT_PTR_EQ(test, req, next);
-+	/* Simulate FD_PREPARE() consuming the file reference handed
-+	 * off by handshake_req_next(); see handshake_nl_accept_doit().
-+	 */
-+	fput(filp);
- 
- 	/* Pretend to complete this request */
- 	handshake_complete(next, -ETIMEDOUT, NULL);
-diff --git a/net/handshake/netlink.c b/net/handshake/netlink.c
-index fe4e22b87b3eb..67a78db7978aa 100644
---- a/net/handshake/netlink.c
-+++ b/net/handshake/netlink.c
-@@ -92,7 +92,6 @@ int handshake_nl_accept_doit(struct sk_buff *skb, struct genl_info *info)
- 	struct net *net = sock_net(skb->sk);
- 	struct handshake_net *hn = handshake_pernet(net);
- 	struct handshake_req *req = NULL;
--	struct socket *sock;
- 	int class, err;
- 
- 	err = -EOPNOTSUPP;
-@@ -107,15 +106,13 @@ int handshake_nl_accept_doit(struct sk_buff *skb, struct genl_info *info)
- 	err = -EAGAIN;
- 	req = handshake_req_next(hn, class);
- 	if (req) {
--		sock = req->hr_sk->sk_socket;
--
--		FD_PREPARE(fdf, O_CLOEXEC, sock->file);
-+		FD_PREPARE(fdf, O_CLOEXEC, req->hr_file);
- 		if (fdf.err) {
-+			fput(req->hr_file); /* drop ref from handshake_req_next() */
- 			err = fdf.err;
- 			goto out_complete;
- 		}
- 
--		get_file(sock->file); /* FD_PREPARE() consumes a reference. */
- 		err = req->hr_proto->hp_accept(req, info, fd_prepare_fd(fdf));
- 		if (err)
- 			goto out_complete; /* Automatic cleanup handles fput */
-diff --git a/net/handshake/request.c b/net/handshake/request.c
-index 35bc6290e1203..4bf98793491aa 100644
---- a/net/handshake/request.c
-+++ b/net/handshake/request.c
-@@ -178,6 +178,17 @@ static bool remove_pending(struct handshake_net *hn, struct handshake_req *req)
- 	return ret;
- }
- 
-+/**
-+ * handshake_req_next - Return the next queued handshake request
-+ * @hn: per-net handshake state
-+ * @class: handler class to match
-+ *
-+ * On a non-NULL return, the caller owns an extra reference
-+ * on @req->hr_file.  FD_PREPARE() consumes it on success; on
-+ * the FD_PREPARE() failure path the caller must fput() it.
-+ *
-+ * Return: pointer to a removed handshake_req, or NULL.
-+ */
- struct handshake_req *handshake_req_next(struct handshake_net *hn, int class)
- {
- 	struct handshake_req *req, *pos;
-@@ -188,6 +199,13 @@ struct handshake_req *handshake_req_next(struct handshake_net *hn, int class)
- 		if (pos->hr_proto->hp_handler_class != class)
- 			continue;
- 		__remove_pending_locked(hn, pos);
-+		/* Hand off a file reference to the accept side under
-+		 * hn_lock.  A concurrent handshake_req_cancel() can drop
-+		 * hr_file before accept reaches FD_PREPARE(); this extra
-+		 * reference keeps the file alive until FD_PREPARE() takes
-+		 * ownership.
-+		 */
-+		get_file(pos->hr_file);
- 		req = pos;
- 		break;
- 	}
--- 
-2.30.2
 
