@@ -1,173 +1,134 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8163FB7D5
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:34:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785922452; cv=pass; b=ILChcEKK6xk21Co1jR1lU/HARenGjX/OMgZsnjRfJqwJJTJRSfavYSdCgNgAztkX9NDVXTF37AU+4Gdhuj2XIoJNlXyiUtY0bcaUzvmLo32oVRo4eDlnlPCWDEMmrAjYtuagmm33aSASoVE2npfUZ+Es80kamI9BNMRlxWf7E00=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785922452; c=relaxed/simple;
-	bh=9L0j/pbQAIxYms5cegM0F3PFL7ya32kRw+S7PCbwuZA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZT5O53Mz2wEuU13nIzGlG+y3S3e0NLnxYv/CP3pWUnmftsjeQ41w8oYztZaueAU3bidwLfl2/k6lQXdeiU5gYA+DzC4T1VjyYQ/pbPBPK/gK0uhJJloqPY1XwCeGQfFxoJ+DEdaqscwshAwRV5nRmcplIEbclzQNrCh1O35ouL0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nxVB3W7T; arc=pass smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086A13EA977
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785922455; cv=none; b=KcMtSJQFgC6aOK01B6yabKyRuiDN2xZ4Xd2JeVXXAbucu25IgEZ5NheCqdQGpLKcerJRLkR3lVAUPsxB7wTtce82u9KLCIruu//u4rgqSoG4x5lFyrvsllvVQxkEpx6rOrcHczchsJr8wAkrBbqxnSf2eTDCypD1Y9d1Zscn2m4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785922455; c=relaxed/simple;
+	bh=fJzTTi7efhsWhVBZy4nUrxKM9jgwZ9jbw9AyyFteqQg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XfEixK00z51jaWjZoW/ReBA8eVddqhxBZDTE3fSb9V4zP758W96z+HKAiDgXkqQy6wJp7lbVmcu/Gh10l5ZrY148ACZoI2jLcaOqF0Yv9nRvr5QtXM6+2y1ilSdPSe9e3nptiYl4f6yQ06KRPUUD6BQtzWx5FakJB2J4NZg31XQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=spp7uTUH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nxVB3W7T"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a051904222so941759a12.2
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 02:34:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785922448; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ciwQSTBH1u305SxsbiUXGLhRDciWgPE1RsokeKGcuZiPFn3O3d3A1e19kWeUseoqXZ
-         PiayR28rGgKYF0Oxshn5tKvwTHJ4gkOWiADOsETSYj19YabcjlLIyO6tCacwjV9xvf2h
-         InONXD2q0wMbaKEPGohU7Qt6Z0WIgVWS4vXXppPsLe/lFin7Zl1dWdvHMRTFwga7ykJe
-         idovYR9YnHb2+OVj0EEKUgr/BWAoY3PFMCo7zLzb6AmwP37cjxEql1I/Gn/LvZSmFUvD
-         KYRPFQMWzZzgtM7Uy4vw2RnGr/dp/toLaFRxgskg6YYMZE24xiijdo5AnzIPU/kIBpjS
-         k7HQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UaGNs+E1Ex6iz5T9/0x/HPxcs/WYGeua7JSZh/+RxWI=;
-        fh=8xXBSce0LMQIQ1Ph1woYvjQd2wX0HUH7HuxAee7S0hs=;
-        b=oO80O2zTZvcLkwPiPRVq8tcJUNgOtdhgmA3QMdvQvY8x7Q1b8nvmfDZ5VKhJzpoaUg
-         XL40t3wFzcDdO0L+uxznIHulMoTMg8DvBzBIuToenveqWfN0EG8P/v/GEuDB204jWaeB
-         CGDWuh95zWTlH8Kuv2s5w5xGCTzR6xeO9m4/8Rg4zqkyBIj+1GNKhmoV5SQ6b6O3l2Kx
-         MySlqIhQay54K8p8p1fp/kQbfa+WkjvfOC61FgUiydbc0n7m21eTKRNrjsgEIiZqTKCV
-         5LPLvIcIXtMNRQiZ4bVJ1ymBlSYcD7Ofz+UWm9vzeUYaC0VjblVuK8EvtuCXjKuCnxBx
-         AMig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785922448; x=1786527248; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UaGNs+E1Ex6iz5T9/0x/HPxcs/WYGeua7JSZh/+RxWI=;
-        b=nxVB3W7T5PzcgNakBP1/wZviKPIr0w6SG7+6Y/KxlFc3c6UOvBeK+7YYF7i1akkkBM
-         7UwQGPufJfSULubwn0MN7WYeOwvjEV4fZBUhVbCk60xIcr+afqqGymIW35nRcAYrjm6p
-         mjB78uXJT85+sRLdga3nn+YEy1MF2kl+sa/Zst5m6qP4gBB3/bJgeWf93hsGIaWuBcXq
-         PbRCoAk/5wMGqFMOftie51sXZexfx+hIyBrnuRGXdsgp7Y/yrLlRxjA6pVZ1XvohGmNv
-         zH/GTjk09mzaU0IJ7EGxmI/Rk0KclqUwffzjzzfw4hwmgnM3+lYoVTALr10KCuz+iEM6
-         h4Hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785922448; x=1786527248;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UaGNs+E1Ex6iz5T9/0x/HPxcs/WYGeua7JSZh/+RxWI=;
-        b=f98LwyWgINTnm/MVeBpbElG37WpRJjJ/hbVKVjaIJv3LAh/rO5Dj98Uq+ghPejljlL
-         LWSAvV2v91G7RUrkWSIcOlWUDKZNg5JC9+VYohcF5dPkyiRgz7piMMkdaooVrqmkxcqf
-         zqG1cmRBPfpQ8XXBZ4/bmehr+6yeMInsIwNNfw7LVGQiRa7AA7lStafpIlNtZdQfEiPz
-         stXSpc8KpGWBQO55VwdQ48qzDr2DfoDASyiZrHxhzLoA338CGZxM0EcPU+z9KgqH58UB
-         y+as5Lr5qXZjthgH4hS3a0c4j5kdRbbnwyPf7AHLcgF9pJJ/FtoTlxM373TZaN96y+wP
-         eSkw==
-X-Forwarded-Encrypted: i=1; AHgh+RoRezFUvPaXUHsqzra0gV6NK/7br6Ga8+HuyosIqYtPJSmvy8/5M0W3JIIXrGrBPQC7OQQJNas=@vger.kernel.org
-X-Gm-Message-State: AOJu0YziiqcovnItTv2HIUJOMyipYlZnhj2vVw1YeUE3s9ELCnuyPgcb
-	zwqlh2EFr/6gIwBMhEFjGnGdQ9yCbTvZY3PP3DaLfbRpdxJaVso7OopuyHcdAuA1OG4xuetffew
-	wF2l4ywoAB5lCPALlfsS0bKUCDADuZ70=
-X-Gm-Gg: AR+sD132DTgkpsY97NPDOYsmytwrJwwN7BmjEBaItMD4muttjTRvgco6DnThjHOIY6C
-	lidT1vilndicZ54DYc6Mc6bxlbu3BcLvhTqIFH75w3WeWwRFBMTLNv7F6EdH6fByX31z+Ozk75U
-	iygq0QpzRLXjq4L6yiiA/t1Gefi0gaj3NagMiSOaonf03ObQYW1/kR1142EmgGxiJPsM2qbgbEf
-	1Yd90FMAqnvknnaD++iXWkt13YfV+0yswwP1HlAhxYelhr+hQJcgh3J1bxjYTFaBL6t4hCL4/6I
-	dS1qEQ5LLzKAcd6s3uLaR1NRHxEMZGc2FaDDRO0c/qm6yYZ7+Vtje+qYaF46x68yTfevOLsmvaI
-	db41lsG36RKOa8aVtXDPIcd9JRAIUzoU=
-X-Received: by 2002:a05:6402:1f08:b0:6a1:b0b:ba6 with SMTP id
- 4fb4d7f45d1cf-6a14f13e482mr2509895a12.15.1785922446933; Wed, 05 Aug 2026
- 02:34:06 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="spp7uTUH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18B471F000E9;
+	Wed,  5 Aug 2026 09:34:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785922453;
+	bh=Lt3S4r/p6fSeK1jaNSoBhgHnyj7MJ5ulDvEU9RBEJ+Q=;
+	h=Subject:To:Cc:From:Date;
+	b=spp7uTUHvgboE3Ok3rKiWxT1cmqwdampaidK7NUkL4EaK/8SSEmpvbh0dVSc74wEz
+	 BSeB9sAPqCeLsOf7df9QX3fF1Eglsv7VtCVv6zaDKpK0DG5HhZRLM5s5tKhHJTnpb+
+	 A+FhkBbrgT6NhqwQwYdQUtm4SfV3m+3+abloBF44=
+Subject: FAILED: patch "[PATCH] mm/vmstat: fold stranded per-cpu node stats when a node comes" failed to apply to 6.1-stable tree
+To: gourry@gourry.net,akpm@linux-foundation.org,hannes@cmpxchg.org,mgorman@techsingularity.net,rppt@kernel.org,stable@vger.kernel.org,vbabka@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 05 Aug 2026 11:33:56 +0200
+Message-ID: <2026080556-undermost-commerce-4a9a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260803-alpha-fp-exceptions-v1-0-c99d75608e60@gmail.com> <20260803-alpha-fp-exceptions-v1-2-c99d75608e60@gmail.com>
-In-Reply-To: <20260803-alpha-fp-exceptions-v1-2-c99d75608e60@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Wed, 5 Aug 2026 11:33:54 +0200
-X-Gm-Features: AUfX_mwnXqPqc_k9xGwWzJEiKBh4lXhngC_jeS43aqM9K90q-yJsxGFkXMu1yFY
-Message-ID: <CA+=Fv5Tgq7X6Tqt2s6OuoWUQirzYwwyrmwQR_tDXpHRrczK22A@mail.gmail.com>
-Subject: Re: [PATCH 2/3] alpha: don't leak hardware-fabricated FP exception
- bits to user space
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 4, 2026 at 1:40=E2=80=AFAM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> On EV6 and later the hardware records exception status bits in the FPCR
-> before delivering a software completion trap, and those bits can be wrong
-> for the instruction that trapped.  Converting a double that is exactly
-> representable as a subnormal float sets FPCR_UNF even though the result
-> is exact, and an underflow trap additionally sets FPCR_INE even when the
-> emulated operation turns out to be exact.
->
-> alpha_fp_emul() only wrote the FPCR when soft-fp raised an exception, so
-> whenever it determined that the instruction was exact the fabricated bits
-> stayed in the FPCR and were reported to user space by fetestexcept().
->
-> Pass the exception summary register down from do_entArith() so the
-> handler can tell which exceptions the hardware attributed to the trapping
-> instruction, and always write the FPCR.  Clear the exceptions that the
-> trap reported but that soft-fp did not raise.  EXC_SUM reports only the
-> underflow or overflow when the hardware also set INE, so treat INE as a
-> candidate in that case, and treat a trap with no reported exception as a
-> denormal operand trap, for which the hardware can fabricate INE and UNF
-> as well.  Bits that software has already confirmed in ieee_state belong
-> to this or an earlier instruction and are never cleared.
->
-> The imprecise path passes no summary.  There the trap was taken somewhere
-> in the trap shadow, so EXC_SUM is not attribution for the instruction
-> being re-executed -- and only EV6, which traps precisely and so never
-> takes that path, has fabricated bits to clear.  For the same reason the
-> clearing is guarded by implver(), matching swcr_update_status().
->
-> On an UP1500 (EV68) this takes the glibc math testsuite from 831 failures
-> to 28, the remainder being unrelated to exception status.
->
-> This belongs with the preceding fix to ieee_swcr_to_fpcr(), and should
-> not be backported without it -- nor it without this.  That fix stops
-> FPCR_DNOD being set unconditionally, so denormal operand traps start
-> firing again.  Those traps very often find an exact result, which is
-> precisely the case where the old code left the FPCR unwritten and the
-> fabricated bits visible.  Applied alone it would make spurious exception
-> flags more common, not less.
->
-> One case cannot be resolved here: an inexact instruction without the
-> software completion suffix never traps, so its INE reaches the FPCR
-> without being recorded anywhere else.  Such a bit is indistinguishable
-> from an INE the hardware fabricated for a trapping instruction, and is
-> lost if an underflow or overflow trap with an exact result follows it.
-> The FPCR is the only record of those instructions and it carries no
-> attribution.
->
-> The bug predates the git history, so there is no commit to reference in a
-> Fixes tag.
->
-> Cc: stable@vger.kernel.org # 5.15+
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  arch/alpha/kernel/traps.c  |  6 ++--
->  arch/alpha/math-emu/math.c | 88 ++++++++++++++++++++++++++++++++++++++++=
-------
->  2 files changed, 80 insertions(+), 14 deletions(-)
->
-Hi,
 
-Passing EXC_SUM to the precise emulation path and always writing the
-corrected FPCR state back looks correct to me.
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-I tested the complete series with CONFIG_MATHEMU=3Dy on the same machine
-and using the same glibc build. The kernel boots normally, and the
-glibc math testsuite improves from 48 to 28 failing test programs, with
-no new failing tests. Tested on Alphaserver ES40.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Reviewed-by: Magnus Lindholm linmag7@gmail.com
-Tested-by: Magnus Lindholm linmag7@gmail.com
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x ea3034b2b00fa50c8d2518d0804c9d427bbafa86
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080556-undermost-commerce-4a9a@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From ea3034b2b00fa50c8d2518d0804c9d427bbafa86 Mon Sep 17 00:00:00 2001
+From: Gregory Price <gourry@gourry.net>
+Date: Sat, 27 Jun 2026 16:22:43 -0400
+Subject: [PATCH] mm/vmstat: fold stranded per-cpu node stats when a node comes
+ online
+
+A per-node vmstat counter is pgdat->vm_stat[] plus per-cpu deltas.  A
+balanced counter can sit split as global=+N / per-cpu=-N.
+
+The folds reconciling the split only walk online nodes, so when
+try_offline_node() marks a node offline the per-cpu deltas are stranded.
+
+A subsequent online resets the per-cpu area but not pgdat->vm_stat[],
+orphaning the +N permanently.  All NR_VM_NODE_STAT_ITEMS are affected.
+
+The existing code zeroes the per-cpu counters and causes a permanent skew.
+Fold the stranded deltas instead, before the node rejoins the online set.
+The node is not online yet and the hotplug lock is held, so the remote
+access to per-cpu values is safe.
+
+Discovered when node compaction hung for a nearly empty node, as the math
+to determine throttling broke.  Reproduced by repeated memory
+hotplug/unplug cycles on a node under pressure: NR_ISOLATED_ANON ratchets
+up and never returns to zero.
+
+Link: https://lore.kernel.org/20260627202243.758289-1-gourry@gourry.net
+Fixes: 75ef71840539 ("mm, vmstat: add infrastructure for per-node vmstats")
+Signed-off-by: Gregory Price <gourry@gourry.net>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index 0f64909e8d20..498d62c4ece3 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -1540,7 +1540,7 @@ void __ref free_area_init_core_hotplug(struct pglist_data *pgdat)
+ {
+ 	int nid = pgdat->node_id;
+ 	enum zone_type z;
+-	int cpu;
++	int cpu, i;
+ 
+ 	pgdat_init_internals(pgdat);
+ 
+@@ -1558,10 +1558,17 @@ void __ref free_area_init_core_hotplug(struct pglist_data *pgdat)
+ 	pgdat->node_start_pfn = 0;
+ 	pgdat->node_present_pages = 0;
+ 
+-	for_each_online_cpu(cpu) {
+-		struct per_cpu_nodestat *p;
++	/*
++	 * Hot-unplug can leave per-cpu vmstat deltas unfolded (folders skip
++	 * offline nodes) - reconcile this at online. Foreign access to counters
++	 * is safe: the node is not online yet and we hold the hotplug lock.
++	 */
++	for_each_possible_cpu(cpu) {
++		struct per_cpu_nodestat *p = per_cpu_ptr(pgdat->per_cpu_nodestats, cpu);
+ 
+-		p = per_cpu_ptr(pgdat->per_cpu_nodestats, cpu);
++		for (i = 0; i < NR_VM_NODE_STAT_ITEMS; i++)
++			if (p->vm_node_stat_diff[i])
++				node_page_state_add(p->vm_node_stat_diff[i], pgdat, i);
+ 		memset(p, 0, sizeof(*p));
+ 	}
+ 
+
