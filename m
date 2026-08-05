@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 729333FCB3D
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:34:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7263EA977
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:34:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785922465; cv=none; b=Pe5Slg2HrD4HZuK1On26GhGn7381wgOay2jx3j9VDW0IP03uNWAG/1QJhP8H6HZ1XUkC5YT1GKuq/IG0kovkU9w1sUhYoYb0hZVlFsZINFjI1GWp3rS+dd6dt2sebRTcmDNHa1K3XGqRaz4xzTQ4RvoX2fr/+RaVsi/JBzaGNiE=
+	t=1785922466; cv=none; b=V9e05hf6HLZ7zwDypRE+tQNJOabQUuZFvBb7Fx/acGmsSFVn6Lk4CsMhHavWzw9bfV3Mp1F13VXY87Bopv2xSIkl090+QmqKnHZO2MRmXxcPyUjyMIhA1XwV0RE2/VDsD10xo3I+lk6yf2/B+LagiZb7XRgv+wwoW9oUEL+ayds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785922465; c=relaxed/simple;
-	bh=Bs6Yl3Qo6nVunGAqXROceG0gR+3D+jSX7FedyS0CsAo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RpJ9APSSV27rMhGeHQF46Nqvp12dWwH57RytUxSu2dMzugWYmrJGpEWi+wMaeBfaF0Olljf+daImdeDK0BPUtLGeiZEVkKV3f0L+vKZku+Q0ihMU+zkpeluopkV4YHkBZxMTgoXM5JvsOeh2yzVbpj66eDI/40crxqrKxKzKmZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Hd1nQYZM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785922466; c=relaxed/simple;
+	bh=Fjufvczlw2B9S9hklK6sUs0hrvM2k4YACtHNeZLwjBA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=EVXUTDmzqyYBC7AC4AWTJQ9Je0zf3unzjYLWeWZFNQ9DYi1FqlKdB1aGXH0xJwk2GLiM60eqKOCkcrwdTZBLTr1abVNxvzp4rHXlnXqzGQD2l/te2rY+2jHUdsjgPGvmrFjpy6o6OPkqssvUgeZdDcH5XWhVl1EFPCEvq6ELzvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yYcrZlny; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Hd1nQYZM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90A081F000E9;
-	Wed,  5 Aug 2026 09:34:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yYcrZlny"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57D6B1F00A3A;
+	Wed,  5 Aug 2026 09:34:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785922462;
-	bh=PzJjDbdxQquanN//Z/kTVKPlkG5zGz49tn33eImotqY=;
+	s=korg; t=1785922464;
+	bh=BZbc73oIYpWeRs6hM/jLf5LpmpjvkcIoiHa15Zam70M=;
 	h=Subject:To:Cc:From:Date;
-	b=Hd1nQYZMXHrX4xSRIiO5OXV5GcU3MTFQ/VN0SbjlTHWSiAbSfGhof2ilzonTM6Y9L
-	 FSqTFlCZgv94+By3K9CZ8gbaftyxC3idHXI2Hn7miPdNc8Udy2LxUFs+sf1fxvHJwH
-	 ON4gUX/92jmS3Cqq8PYIgWw83uOPEuj8qRAg18S8=
-Subject: FAILED: patch "[PATCH] mm/vmstat: fold stranded per-cpu node stats when a node comes" failed to apply to 5.10-stable tree
+	b=yYcrZlny3Yy6iepx4vHmIrZ49mCkeDgZLM9HL8XLHrNSNjNobKZe5gjy4vsCfzVTF
+	 Uc2fcPOXkhUfhlwdRQU8Xq12nEuLGSOF+if0IkWnzrW/HkBXVK7krHHg0QbV+h5/Ux
+	 jSyemMI9DBDIcruJEDMBre1J6Vxd0PdXwdTOZOCk=
+Subject: FAILED: patch "[PATCH] mm/vmstat: fold stranded per-cpu node stats when a node comes" failed to apply to 5.15-stable tree
 To: gourry@gourry.net,akpm@linux-foundation.org,hannes@cmpxchg.org,mgorman@techsingularity.net,rppt@kernel.org,stable@vger.kernel.org,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 05 Aug 2026 11:33:57 +0200
-Message-ID: <2026080557-petroleum-magma-09c9@gregkh>
+Message-ID: <2026080557-paper-magnetism-d165@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x ea3034b2b00fa50c8d2518d0804c9d427bbafa86
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080557-petroleum-magma-09c9@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080557-paper-magnetism-d165@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
