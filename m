@@ -1,73 +1,56 @@
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1C33D300F
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 20:47:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 840B847ECC8;
+	Wed,  5 Aug 2026 21:06:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785962866; cv=none; b=jtdwNNosA2etOzyRU5LBhMtPDunFQoanE5xwcqu68cWNE+RAuLUOGdyNhnDx3qXXRicuvCioG+T5XoLWptUb0oC4WlLJpCOnTDmIc7ZTbtb4OBnOLWZMBhbZEjkp8zVn6K38UiaI1VC2CTVJbpPNwHprQRVV7zWKhbQEj24kT/I=
+	t=1785963974; cv=none; b=V/pO10V6La2UKhWZKJj1fiIajnoWgpAbvBhr20wxBfFZ68suS/bL3I9flH/ok+0dEgDZx/v1keVnEtSgAemHkzI7D/bT51E6V0u2iL8czgrOgyVbtNz5T+ZR6s5nPf9ep9fnTONkKIu+rj+iGpFwr+vz+JsgKH7TtBZqRkQ4I5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785962866; c=relaxed/simple;
-	bh=vdHkCJ+/Glc8aGhWZ+9VZu6loJVEoLi2/QJJuukYIo0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NUszaOaA2wz0cjqUy740o+VcmpmBxch++fomzun+1+NNsQNWfOsHoBCwDoWIyZsEjALg9h1DwODpPTT87sPd2l5zdINSSp/1SRQGldwjLuDwo9WQ/yDtypPWpQprOizsNZ0ZzosypDIRBfE1r6aK1kGDsuHAtGhLSKKp9NoXbZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fZ/e7J4E; arc=none smtp.client-ip=209.85.160.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785963974; c=relaxed/simple;
+	bh=W87PURLsCUKnUlEcXXgZCM+qmQhX1yTxSPIEDk5nBD4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Qe0V3rB1s5veVuQk5P3kfuG+fQkfA9hMo2HFaD6ipj4WTMVsw7GSWGwLm8euLQojuSL6dszBmW2i5ZMmSqY4OEt3QEGHe48ebt+3yDlwHd41zY79sDwUQI71aokntrOZ/lgbC2udlmDL88B7R6fNL8UVEdgBdowR3w0bb/9kSyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=b8iyLogG; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fZ/e7J4E"
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5218927884fso14113091cf.3
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 13:47:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785962863; x=1786567663; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m5G3Bj9i5eLT/ujfBhOPRMiKzFS7D44Om03rFcmwrNc=;
-        b=fZ/e7J4ExYoGHTMXUsqRbsjywkjr28M6SawtF3XqwIBsCwc3nYFPODNekklWyAqsC7
-         BrmlnOmCUe/SoFk3/vWBflrmYYKQxqTWUuwy3RInbmnZVJJjvBilxW1UPwe8CnQxTi26
-         VavLCNOw8S282e/ozwj3JO7WHYLYhfbFg8qAwa1seA5BRSwFhCaoWnXqGMNFKPL2xZ9B
-         rB1tWUUu9kB7A3yzm5NzKDiq8QqWbQsCHZ82D3FtmERWuUpa5yEzGaRFuxfl5NJzv09E
-         kpFeQbOXAxL77VqOhurN8QK7j4YWqMHuxz7vJAFUtb5y8X+CHY+7gbKhtfyas7jZ+a8J
-         EFyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785962863; x=1786567663;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m5G3Bj9i5eLT/ujfBhOPRMiKzFS7D44Om03rFcmwrNc=;
-        b=MMmvLYeqzmnJE5R0jNJzaySYYpLbF7IrVzdZQQvjVEt+KZ/7CS74i9uw3Np/YCHg+1
-         rDvS+tJ/1KPYpW9Og7zO1AWPnv67GBBVX+I/NxKABoJQiQmrWWTEm96dClAcDSDQgZtR
-         YyYkqBgGLVA7BWaBFU/csqsTPl1qwXeJSMdB2SHdGuq8WRTmHhkUBFbRn2xf0/rx1w5M
-         DT6QWo9naeY8EGZVVoHaP9Gp1n5ee0oASTYsikezQGBCoYivGOgVzF/t4wM5lZh0Fjw5
-         xBPxHz87LR4H4MoQXHi5SL8Vjs6u27ul6eOsVcyjZpGF0V0gYPdkfqseIUgf6Ee3jSMa
-         4Gsg==
-X-Forwarded-Encrypted: i=1; AHgh+RojvgHPONTfQs3jNLYoG+xN+TC/+C5yPXgtwxhDb6K0QzlFEdo9wjHC0FRH8IpmoFKJTq6P+v0=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz9VbEqC868YCsXPiFQsaaWlvmcKwiivJpVbNXrLKp8yvy1JB3h
-	2EQ40h+1kvJL/03wfwlQe1lxHXxQ/jG0RKtOx4QFSkQRQZFarpl1I5nt
-X-Gm-Gg: AR+sD13wZ1/vpzHs8W2LQqzog9pij6yHaW7SWbTu1x3Wq1DidiB+W2/xR5phIIuge+l
-	NSWAIfJPBdI/RpIEABmkKEtNTWEf52Ln9AIIUDO7dOU/FICRtkj51++JAS7IyQMzWqWw56SI/Ek
-	T56yGlDEt0Sk9aNX7lx56ZgnLwa1LWf6KMg2v2bZezUjdBIPaZ/JPm0XYozyJ/1HuJMa38wisda
-	A1rvHJssokHrUJwmZwAY36rGhO42TkWNyXdyJiMkuDjpceIwf4757U/lrhST5ZTlwCgXK8P4fGW
-	K4rduC7iIKbSwxOs5kKGnmpyoxFVNNXiXNVivXcQ7a37/JXb8JHd90/aShbBYr4OH9nkomFHdqP
-	cgW/71d2ZmO+0vFq/QfhFXVx25eYawV7RqMoSwJf2nAyGxZrNhCcoM2HpLiFsWMhIxuCV6KlnDw
-	sBzgcaNKW3X48ux7RSoQNJ3ilAGtyHa4UtkFoWDrmTCA5MEi/vPmOBU93SZhJcKetQywMVUAnVI
-	W2zfTMxnWAjFDnrZQ==
-X-Received: by 2002:ac8:5747:0:b0:52b:4f1a:5fde with SMTP id d75a77b69052e-52ce6073bd3mr101761921cf.19.1785962863280;
-        Wed, 05 Aug 2026 13:47:43 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52ce87a9403sm27951871cf.2.2026.08.05.13.47.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 13:47:42 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hyunwoo Kim <v4bel@theori.io>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: dvb-core: Fix UAF in dvb_ca_en50221_io_release()
-Date: Wed,  5 Aug 2026 16:47:04 -0400
-Message-ID: <20260805204704.3789917-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="b8iyLogG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-Type:Content-ID:Content-Description;
+	bh=57pqVUBnNmX4cL7er9o4/zfu8e545pjnuaBSHsFeFDE=; b=b8iyLogGZWsewW/fwjv9PC7QQ1
+	K4q20HeVSAYmtkIesVcvUexqCSW3n98569Yc/t+a/acUUPw+brfYCuDNjkK6P9UhkLUFpkuRJGMhG
+	zrsY3vxhU774pTVDkESi40r+Ihz0VJYpyGfkSPBTAwT//WTu5prLiqkEfETryGeNY0r4v9yzWK5Ii
+	5Ez9efFZW14/UXRW3IQk2LX2ZuPHBnC1pIejfuapERWhujUB936JuzTbplSQRy2Ls5meXVfqpU1gu
+	OHIkVVE25WG3liME5CcoVyBxKaOFdttxO1+6S1hhTARTqizWZWcijiSMQfAjUzh4+IE/6CRnkTe2Z
+	8maT5eSg==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wrioJ-00000004h65-1IK8;
+	Wed, 05 Aug 2026 21:05:59 +0000
+From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Jane Chu <jane.chu@oracle.com>,
+	linux-mm@kvack.org
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	Christian Brauner <christian@brauner.io>,
+	Jiaqi Yan <jiaqiyan@google.com>,
+	stable@vger.kernel.org,
+	"Gregory Price (Meta)" <gourry@gourry.net>
+Subject: [PATCH v9 01/15] memory-failure: Fix hardware poison check in unpoison_memory() again
+Date: Wed,  5 Aug 2026 22:05:41 +0100
+Message-ID: <20260805210557.1118966-2-willy@infradead.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260805210557.1118966-1-willy@infradead.org>
+References: <20260805210557.1118966-1-willy@infradead.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,47 +59,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dvb_ca_en50221_io_release() drops the open file's reference to ca
-before testing ca->exit and unlocking ca->remove_mutex.
+The earlier patch (6c54312f9689) that attempted to fix unpoison_memory()
+was incorrect for hugetlb folios.  Before a6fddef49eef, we checked
+the head page for poison (which was correct for hugetlb and incorrect
+for THP).  We are currently incapable of unpoisoning pages (other than
+the first page) in a hugetlb folio.
 
-If dvb_ca_en50221_release() concurrently drops the initial
-reference, the close path's put can be the final one and free ca. The
-following ca->exit access and mutex_unlock() then operate on freed
-memory.
+Use is_page_hwpoison() which handles hugetlb pages sufficiently well for
+this purpose.  This is racy as we don't have a reference on the folio at
+this point, but fixing that properly requires deeper surgery and this
+is a CAP_SYS_ADMIN path only so this will do for the moment and can be
+easily backported.  It's no worse than the situation before a6fddef49eef.
 
-Keep the close path's reference until it has finished accessing ca
-and released remove_mutex. The reference also keeps ca->dvbdev alive
-while the wake-up condition is handled.
+The other bug in a6fddef49eef is that we currently clear the HWPoison
+flag on the precise page, which is wrong for hugetlb.  Fix that too.
 
-Fixes: 280a8ab81733 ("media: dvb-core: Fix use-after-free due to race condition at dvb_ca_en50221")
+Fixes: a6fddef49eef ("mm/memory-failure: convert unpoison_memory() to folios")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Miaohe Lin <linmiaohe@huawei.com>
+Reviewed-by: Jane Chu <jane.chu@oracle.com>
 ---
- drivers/media/dvb-core/dvb_ca_en50221.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ mm/memory-failure.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/dvb-core/dvb_ca_en50221.c b/drivers/media/dvb-core/dvb_ca_en50221.c
-index 1b91ebb8f667..86df28c4aa4b 100644
---- a/drivers/media/dvb-core/dvb_ca_en50221.c
-+++ b/drivers/media/dvb-core/dvb_ca_en50221.c
-@@ -1787,8 +1787,6 @@ static int dvb_ca_en50221_io_release(struct inode *inode, struct file *file)
- 
- 	module_put(ca->pub->owner);
- 
--	dvb_ca_private_put(ca);
--
- 	if (dvbdev->users == 1 && ca->exit == 1) {
- 		mutex_unlock(&ca->remove_mutex);
- 		wake_up(&dvbdev->wait_queue);
-@@ -1796,6 +1794,8 @@ static int dvb_ca_en50221_io_release(struct inode *inode, struct file *file)
- 		mutex_unlock(&ca->remove_mutex);
+diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+index 51508a55c405..944e6e1d4971 100644
+--- a/mm/memory-failure.c
++++ b/mm/memory-failure.c
+@@ -2695,8 +2695,8 @@ int unpoison_memory(unsigned long pfn)
+ 		goto unlock_mutex;
  	}
  
-+	dvb_ca_private_put(ca);
-+
- 	return err;
- }
+-	if (!PageHWPoison(p)) {
+-		unpoison_pr_info("%#lx: page was already unpoisoned\n",
++	if (!is_page_hwpoison(p)) {
++		unpoison_pr_info("%#lx: page is not poisoned\n",
+ 				 pfn, &unpoison_rs);
+ 		goto unlock_mutex;
+ 	}
+@@ -2748,6 +2748,7 @@ int unpoison_memory(unsigned long pfn)
+ 				folio_put(folio);
+ 				goto unlock_mutex;
+ 			}
++			p = &folio->page;
+ 		}
  
+ 		folio_put(folio);
 -- 
-2.43.0
+2.47.3
 
