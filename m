@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D12459AD0;
-	Wed,  5 Aug 2026 12:27:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7396245FFA0;
+	Wed,  5 Aug 2026 12:27:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785932859; cv=none; b=vDm/cSSk3cRnsY0nGMBLB9GFT/1XIrEtKVlaFDEnmJF6mnaWDlewHyc5EjO3madp4eVn+QDdrcRewl9YjSZrvOt+nHb43u7w/QWX9y/zajorq14yYQxY/soxH99bWM29W6bs92n9op07cBFrp/BwO5CwHapuo5CxyO/6ogcb1jU=
+	t=1785932860; cv=none; b=TFvyW/hljdWdi2g4rbUJfYQzUDqDfPdlqpO7D6JJo2V6XAptBuaRU099bJsyZYy2wte/CY2hN14yIJUUZl/CYllsL1+s2WFJKdAXcYr9i5Lu9MrRo0c/UgzK6lHPlyXWPbFROSEpVKgKn+gEswhHjmi/G8znmHiDMyWiUDFN5A4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785932859; c=relaxed/simple;
-	bh=/act6ID0cMO1CjVO2bvQ7S/ahRdEXxB1cKj+E394yzI=;
+	s=arc-20240116; t=1785932860; c=relaxed/simple;
+	bh=NUGNqifI2tWXrWLjYhI8L/MiSRc+OkzBMlhQ+a6LmIU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qWyOzDWKClgW59xhpvuaQ5XdIJllSJnSYi9mMOU7XhHaYjmFfsZmHioUfCWi7SbON00ePsJDm24F8CXv6zPxWm9+8ncS2m4Hz0ucPOH3ECix9mwjzopKHBtSXIFf6HmW0+AUTyY8zgNWA4fp1kUFq0j8AfUM63K0Ynbl/v5ho1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U/zOalGx; arc=none smtp.client-ip=192.198.163.11
+	 MIME-Version; b=RhNBeeNDhmhkw8wwKnY2ZEcxV/PxoDsonoFctxFGx9caTicBH8sGthk6qpzWiY62AULgkVB9zfjj+uuWulJ5GlgeHFfdky3Xn6l/sBUp8fq2MayabgtFErTVel7BDsPw7dfR7QI8O9AZOfLnFs8MJHWxWZKVlvAAcaeTUsYDiSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lLV4u/+F; arc=none smtp.client-ip=192.198.163.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U/zOalGx"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lLV4u/+F"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785932858; x=1817468858;
+  t=1785932859; x=1817468859;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=/act6ID0cMO1CjVO2bvQ7S/ahRdEXxB1cKj+E394yzI=;
-  b=U/zOalGx7LOWwumyoz4f1vpBk64a6gmvPGuzIsCuXbDS7lxADoU6yiQB
-   M54TvrQZKE2DxOCJJzDOFKPUGR+xLThudCZp4RETLpamzVmI27at1cw3D
-   0iOhYSVKINrIhvWKWhm/BGlNHTx+OLjC5sEfC+v29KlPVhZtiejfchVDI
-   lLxi6XFpaXVqfSRcty8fYWoVeMq/kSrLI7WGaecoDzBVHaUIbmH5skC3o
-   p3uvOB127dIQqYAMCy4AYHgvD6FH7uzNhDRBT2ODxlGX6v7YiWk0CMV/5
-   5eGamwC5dbAXYzYWzzfc6kbqIGRDqWto2juBwFh+yRDIclL13+LrfvMGo
-   A==;
-X-CSE-ConnectionGUID: PKDHDmJcS0aXFENQOkOYEg==
-X-CSE-MsgGUID: pCwerKU+SOy09pYWHVz6fw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="97098744"
+  bh=NUGNqifI2tWXrWLjYhI8L/MiSRc+OkzBMlhQ+a6LmIU=;
+  b=lLV4u/+FW4Hl6sZy670YlblY2laEGPC35frJ9LRfLXoUtcxnabVzr9r6
+   k/4EfvqjJlbsWbsrmRJndIip0+F6nXf6DA+c6HMids1Ilmu9rUBGeZJue
+   vkwJPTGwzcN43hfDFQIRxfKdMziYAljEvobWoJOv+3byReeScb+/raPut
+   UgRiF9rNxJZfe0bzEgjpgxK6wm0W3rX3xT128VaR3RiYkMcTwVan3L0zr
+   mlYA6gGemsCvKrARlynoZZMuM1aqTxLAzfs9C0kddKUGwi7SReXgASa32
+   WgNduMIzyHZXTSyThiC2pIpaR9XCN0+waJU3FAHbHC+IzgDfZ5fON90a6
+   w==;
+X-CSE-ConnectionGUID: CimSgEdtQkaIVEHNiaSMMg==
+X-CSE-MsgGUID: bYgewJiKSCi3JbhnLI+9Zw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="97098754"
 X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="97098744"
+   d="scan'208";a="97098754"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 05:27:19 -0700
-X-CSE-ConnectionGUID: 0E2S1auAT0CUlIjaoLuq/A==
-X-CSE-MsgGUID: 6QcRFmBcRaaVPS8DIm5kzQ==
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 05:27:20 -0700
+X-CSE-ConnectionGUID: fI6gurDPSg+C8MADTbId7A==
+X-CSE-MsgGUID: 08AauQcdSFO6dK3EM5ZBBw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="265296131"
+   d="scan'208";a="265296170"
 Received: from mkosciow-mobl1.ger.corp.intel.com (HELO pujfalus-desk.intel.com) ([10.245.246.218])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 05:27:16 -0700
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 05:27:18 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -51,9 +51,9 @@ To: Mark Brown <broonie@kernel.org>,
 	Sheetal <sheetal@nvidia.com>
 Cc: linux-sound@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/3] ASoC: tegra210_i2s: sort the Tegra264 register default table
-Date: Wed,  5 Aug 2026 15:27:47 +0300
-Message-ID: <20260805122748.13090-3-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 3/3] ASoC: tegra210_mixer: sort the register default table
+Date: Wed,  5 Aug 2026 15:27:48 +0300
+Message-ID: <20260805122748.13090-4-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260805122748.13090-1-peter.ujfalusi@linux.intel.com>
 References: <20260805122748.13090-1-peter.ujfalusi@linux.intel.com>
@@ -69,44 +69,37 @@ reg_defaults must be sorted by ascending register address, as
 regcache_lookup_reg() locates entries in it with bsearch().  See commit
 fd80df352ba1 ("regcache: Add support for sorting defaults arrays").
 
-TEGRA264_I2S_ENABLE (0x100), TEGRA264_I2S_RX_FIFO_WR_ACCESS_MODE (0x30)
-and TEGRA264_I2S_TX_FIFO_RD_ACCESS_MODE (0xb0) are listed at the end of
-the table, after TEGRA264_I2S_TIMING (0x130), which leaves 4 of the 9
-entries unreachable.  regcache_reg_needs_sync() then cannot compare them
-against their default and reports that a sync is needed, so they are
-written to the device on every regcache_sync() even when they were never
-touched.
+TEGRA210_MIXER_ENABLE (0x400) is the last entry of the table, after
+TEGRA210_MIXER_PEAKM_RAM_CTRL (0x434), which makes it unreachable.
+regcache_reg_needs_sync() then cannot compare it against its default and
+reports that a sync is needed, so it is written to the device on every
+regcache_sync() even when it was never touched.
 
 Sort the table by register address.
 
-Fixes: b3354438d898 ("ASoC: tegra: I2S: Add Tegra264 support")
+Fixes: 05bb3d5ec64a ("ASoC: tegra: Add Tegra210 based Mixer driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/tegra/tegra210_i2s.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/tegra/tegra210_mixer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/tegra/tegra210_i2s.c b/sound/soc/tegra/tegra210_i2s.c
-index fd49d2d6ee49..e4d11518ff01 100644
---- a/sound/soc/tegra/tegra210_i2s.c
-+++ b/sound/soc/tegra/tegra210_i2s.c
-@@ -38,13 +38,13 @@ static const struct reg_default tegra210_i2s_reg_defaults[] = {
- static const struct reg_default tegra264_i2s_reg_defaults[] = {
- 	{ TEGRA210_I2S_RX_INT_MASK, 0x00000003 },
- 	{ TEGRA210_I2S_RX_CIF_CTRL, 0x00003f00 },
-+	{ TEGRA264_I2S_RX_FIFO_WR_ACCESS_MODE, 0x1 },
- 	{ TEGRA264_I2S_TX_INT_MASK, 0x00000003 },
- 	{ TEGRA264_I2S_TX_CIF_CTRL, 0x00003f00 },
-+	{ TEGRA264_I2S_TX_FIFO_RD_ACCESS_MODE, 0x1 },
-+	{ TEGRA264_I2S_ENABLE, 0x1 },
- 	{ TEGRA264_I2S_CG, 0x1 },
- 	{ TEGRA264_I2S_TIMING, 0x0000001f },
--	{ TEGRA264_I2S_ENABLE, 0x1 },
--	{ TEGRA264_I2S_RX_FIFO_WR_ACCESS_MODE, 0x1 },
--	{ TEGRA264_I2S_TX_FIFO_RD_ACCESS_MODE, 0x1 },
+diff --git a/sound/soc/tegra/tegra210_mixer.c b/sound/soc/tegra/tegra210_mixer.c
+index a69774578d69..8eb4e54b954b 100644
+--- a/sound/soc/tegra/tegra210_mixer.c
++++ b/sound/soc/tegra/tegra210_mixer.c
+@@ -57,10 +57,10 @@ static const struct reg_default tegra210_mixer_reg_defaults[] = {
+ 	MIXER_TX_REG_DEFAULTS(3),
+ 	MIXER_TX_REG_DEFAULTS(4),
+ 
++	{ TEGRA210_MIXER_ENABLE, 0x1 },
+ 	{ TEGRA210_MIXER_CG, 0x00000001},
+ 	{ TEGRA210_MIXER_GAIN_CFG_RAM_CTRL, 0x00004000},
+ 	{ TEGRA210_MIXER_PEAKM_RAM_CTRL, 0x00004000},
+-	{ TEGRA210_MIXER_ENABLE, 0x1 },
  };
  
- static void tegra210_i2s_set_slot_ctrl(struct tegra210_i2s *i2s,
+ /* Default gain parameters */
 -- 
 2.55.0
 
