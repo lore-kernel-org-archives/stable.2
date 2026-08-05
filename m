@@ -1,149 +1,136 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB4B3E558A
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 08:49:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A27AC3E6DCA;
+	Wed,  5 Aug 2026 08:51:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785919768; cv=none; b=n8vvqE9OT+qf6u/Gw3TOyvMS6hwPYFFyMj3Ga7nXS8hqK/KxvYE6WWcTV8ry41zklD2IsNOQSpadtNoNdrtpwmsJDePrve2z9ZLB8uvKE5/ZumLB46PsAMTFyWTLQ43g4WK7o1v0xiKO0ebXfm2Xz3CS9IJGnRO3UayDYUUH5Pg=
+	t=1785919919; cv=none; b=EuznWKjm0MY8nIWd+wIku01bSULRPQ8qowbG3abBn5PiOmu6bB5feGxkQz5Bige127E5Gn83XPZ9z8jeTJOU7NO4Lt4cfN1+Sjd+X7/Wmg/OqenCnXnqCSPOCxC4HJdy6rG9QV5ulxIFPDKGExvZgqDfoU2/mwDCNq+wBUImwJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785919768; c=relaxed/simple;
-	bh=T4YE/eGnsv3t/rKH3kRrdoat5725qTujmUDheDsuNX0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m05VSPZMTUFszH5YGIFKy5YN+LLw3/ZFs7xcKl+54Q8h39g4MeNUWsmFbuXE0VTq61WmZtwu+LCL90f63iJ9s8/Jw6TKqRCltUTXyHZDvezG6NlJjQP2iM9wIjMHygp27cu6SQQ4Rzc8o2gfE0FKhPHY1KQlE7SkCjdoKpA1c4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=GVt7pAXY; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1785919919; c=relaxed/simple;
+	bh=P71HUfJrfRGSkXmaA9Xr2AdPFU/87wQn8Yd35RjDs0o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HkiHMUZ4Y7oB3/f1OSjmRxSNyKGrwvLIDdTOtZfpKwjaHeSlkAsZjYixAdlHjIoAslEUUfAEIpqZ4GUp2IlC9Qt6DIul6lT3Xo9eVbXgxVa/iU01gKHF+/Qjm9+UjWybeI0eKs3tyjSZF+W9k2VYEQCW72+nO8UotRfXtkcNoVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZuAGevii; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="GVt7pAXY"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47c2ae992beso48214f8f.2
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 01:49:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1785919766; x=1786524566; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EfjKHFvdiIekXPyIJtfsuWIiX/n/M+UVlVb3uUnbRMI=;
-        b=GVt7pAXYcVnALkngQCIxHoRtHMNxYpJ6w9+UsofZVNHZL4m3Drz1jTc+EyGUeV66w8
-         KZLRAbhoXcDh5z27JkfdxJRiIHApw/XsqJR/YbJHyZ8OrdEyoLkfP/IH3FUv2RHt1wrd
-         mER2qOyXoJMnhMgwo5QlynFtZm5LJn95dALW/bT1zDGjTbGyl9JpHiKNrLI4SszL6BVq
-         lRWEHX/a49iWk9uOtQXGTPvatXF1SXLMmeiqAuZwiwB+ONOo5ILpVYPAs9bWnwLuEtJx
-         8GffLULtKOo0SM4AI0pBh5R1UAZI419vAMj0Q5NJobw4Qx5pM1IWL7lpr25cJfOygxLo
-         cB9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785919766; x=1786524566;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EfjKHFvdiIekXPyIJtfsuWIiX/n/M+UVlVb3uUnbRMI=;
-        b=np4hzMlwEUrpmv1HLX4S0UVYkwak7yk9pTyRKa4h4heyudZXH3RPno8o4V4Il4oLpQ
-         lI6ODBb8GQtiha84C2BeCEkHIgjW1ByrmVeK15Vo9h4u7QfxE8acXttdXT7fvEtPcKwQ
-         W6JZK6FAKKPEsdzNIfJ2z+tOhGzxLcw/tFfOB6YEtSH1GfaZ/JhdrFzscL4fYFigTbO4
-         oYYxtcgVZqGHdPD8R6fKWb6q2vU8lsKig7poYMQ6NQcp8jWc9Xdo4KHluLTW8WvZa5bB
-         IMDd4A7pEjlkaE194eTJnqpsXsKpBLuuqPv1+LgGTAOZE8WoNWsqPKlasPiIDGyFA3FF
-         WfaQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrN2Jxjy6oiQrxIiz7PpEILONUZU4SPyummYm748UL1UMUAkwN9DiwXK55pXMvbGnRieQz8sxs=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx13WtQqGgq+e4g9uhO6Edq/V9D8OTRzDAhNvnUs68Zm64hYI/X
-	FTjtpl0y6ld6pvbd0+9hfvSE1dKntPkJekVSOqnBWdoRLomQbRExIeq02tu933QmMEQ=
-X-Gm-Gg: AR+sD13dt4F2xAq6vbV+HHexpvEAA03nBUQpdUQPF84dWtz1Il0Jc4F9B1axLbE/ug1
-	XyoA8dHc+eYdz1EZH5UiQHLVI+nxuH1HsiPqmdfqdlQ0ErFmIRAzTfDpsoutvgauAacXn3dx5Ik
-	6zMZwnIi8extMZwDJ6p3gX//6IYvkYtiGpcMGbfekDKhjaI/a3PQoXjIHKd+zAfpq+xWCIfVP6p
-	l9wR5vbzi5x7rKgaFva0HrllBQohrHIORDkMMvltGsuNztL6lj7vp8zIZuWZEWQQFJCBTdFgHRu
-	bnR7Gl2VtU8nA/1RmgggDVBi5srR3Oy+gd76QdxrG7aM6EhjPsznSPaYQh/MOC0M+MvVuSh/GzT
-	+iA5BCrN1GnzMzObTsAFu4UWj92uwT0NwgWLL8V1EDloXqBKBQ+ODFCnJ2sh9qCAMVAldeoQZ5A
-	giFKg1+TxNC+3F5uU0pETh6dbo9tBU4f02fKB4ay85jJKciwJZ7VGHaiI2ido=
-X-Received: by 2002:a05:600c:1550:b0:493:ad11:6d5c with SMTP id 5b1f17b1804b1-4994e7cf0dcmr26391075e9.4.1785919765638;
-        Wed, 05 Aug 2026 01:49:25 -0700 (PDT)
-Received: from localhost ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903f5fd0fesm1209890a91.2.2026.08.05.01.49.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 01:49:24 -0700 (PDT)
-Date: Wed, 5 Aug 2026 16:49:19 +0800
-From: Heming Zhao <heming.zhao@suse.com>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: ocfs2-devel@lists.linux.dev, mark@fasheh.com, jlbec@evilplan.org, 
-	joseph.qi@linux.alibaba.com, glass.su@suse.com, akpm@linux-foundation.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ocfs2: fix cached cluster count after suballocator
- reclaim
-Message-ID: <anL1pYKZK8UqYwsI@p15>
-References: <20260805070837.3390148-1-matthias.goergens@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZuAGevii"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785919918; x=1817455918;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=P71HUfJrfRGSkXmaA9Xr2AdPFU/87wQn8Yd35RjDs0o=;
+  b=ZuAGevii+SkKGUNw/IEcm3V66DpW/7dbFgwBNeBcDzEPMD0xMlKWwSR4
+   3vvkG/eVU9hcm8gGkP2HyohadNdPzIHmdzZJv0nOcNL1LuaIYS1bmjygT
+   l1h8cJIul3oXZ1tSsnQG+vh0QraxxBy4olHuPIhiHUwMdOfdKLiF8HOvs
+   XKbFj/+AvDQI1Igsj9fmqFY2VGZpnE3ZfxgjPFRpaKeMQbLPSmsWOOhJ5
+   gx0YihIifzioUKhcjZ8WxStC9PnRtrxiCqQEwJF8MB2tYVrAxKr7d8VKJ
+   4pc7m0DCeQM1UR7+vCB2bIP216eO9mn0wYm2sGo570SSNp4YYGDJGsWIx
+   Q==;
+X-CSE-ConnectionGUID: VrEH7xTNRLeNI1iVM7q7WA==
+X-CSE-MsgGUID: vWqyLzKJS8WjkGHTov5eNg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="109275439"
+X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
+   d="scan'208";a="109275439"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 01:51:57 -0700
+X-CSE-ConnectionGUID: 2NO5KUsDTGGDNf4XKgXWug==
+X-CSE-MsgGUID: XYsDiTi0SQuIsVB3/QJvrA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
+   d="scan'208";a="260477182"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.246.218]) ([10.245.246.218])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 01:51:54 -0700
+Message-ID: <7f7b5f6d-cead-4741-9b44-411ea56052f3@linux.intel.com>
+Date: Wed, 5 Aug 2026 11:52:32 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260805070837.3390148-1-matthias.goergens@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] ASoC: cs35l41/cs35l45/cs4265: sort the reg_defaults
+ tables
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Vlad Karpovich <vkarpovi@opensource.cirrus.com>,
+ Paul Handrigan <Paul.Handrigan@cirrus.com>, patches@opensource.cirrus.com,
+ linux-sound@vger.kernel.org, stable@vger.kernel.org
+References: <20260805082413.26174-1-peter.ujfalusi@linux.intel.com>
+ <c8aac762-c1a7-44ab-afff-72610cabe341@linux.dev>
+Content-Language: en-US
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <c8aac762-c1a7-44ab-afff-72610cabe341@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The code looks good to me. However, the commit log needs some revision.
 
-On Wed, Aug 05, 2026 at 03:08:37PM +0800, Matthias Goergens wrote:
-> When reclaiming a suballocator block group, first reduce the on-disk
-> cluster count by cl_cpg.  The current code then subtracts that new count
-> from the old cached count.
 
-The current code then sbtracts that new count (fe->i_clusters) from the old
-cached count (OCFS2_I(alloc_inode)->ip_clusters).
+On 05/08/2026 11:40, Pierre-Louis Bossart wrote:
 > 
-> For an allocator with N groups, that leaves the cache at
-
-For an allocator with N block groups, that leaves the cache at
+>> reg_defaults must be sorted by ascending register address as
+>> regcache_lookup_reg() locates the entries in it with bsearch(), see commit
+>> fd80df352ba1 ("regcache: Add support for sorting defaults arrays").
+>>
+>> These three tables have entries which are out of order, so the binary search
+>> does not find part of them.  For those registers regcache_reg_needs_sync()
+>> cannot compare the cached value against the default and reports that a sync
+>> is needed, so they are written to the device on every regcache_sync() even
+>> when they were never touched.
+>>
+>> The patches only reorder the existing entries, the text of every entry is
+>> kept verbatim and no default value is changed.  Each table was verified by
+>> evaluating the register addresses and replaying lib/bsearch.c on them.
+>>
+>> Entries not reachable by the binary search, per table:
+>>
+>>   cs35l41_reg           2 (of 47)
+>>   cs35l45_defaults     36 (of 73)
+>>   cs4265_reg_defaults   3 (of 16)
+>>
+>> For cs35l45 this is nearly half of the table: the DSP1_RX*_RATE and
+>> DSP1_TX*_RATE registers sit in the middle of it while their addresses are
+>> far above everything else, which cuts the search off from the whole
+>> 0x4c40 - 0xf010 range.
+>>
+>> Found by an audit of all reg_defaults tables under sound/, the SoundWire
+>> codec drivers are fixed by a separate series.
 > 
->     N * cl_cpg - (N - 1) * cl_cpg = cl_cpg
+> Wow. Would it make sense to have a regmap helper to double-check the
+> addresses are indeed in-order in those reg_default tables?
+> I am not sure how this requirement can be enforced by just inspection, a
+> warning would help detect this sort of issues on more platforms.
 
-     N * cl_cpg - (N * cl_cpg - cl_cpg) = cl_cpg
 
-     i.e.:
-      ->ip_clusters -= (fe->i_clusters - cl->cl_cgp)
-      => ->ip_clusters equal to cl_cpg
-> 
-> regardless of N.  This happens to be correct when reclaiming from two
-> groups, but undercounts the clusters from three groups onwards.  The
+I had this first:
+diff --git a/drivers/base/regmap/regcache.c b/drivers/base/regmap/regcache.c
+index be167ee6f57c..7d2f74494645 100644
+--- a/drivers/base/regmap/regcache.c
++++ b/drivers/base/regmap/regcache.c
+@@ -187,6 +187,9 @@ int regcache_init(struct regmap *map, const struct
+regmap_config *config)
+ 		if (!tmp_buf)
+ 			return -ENOMEM;
+ 		map->reg_defaults = tmp_buf;
++
++		/* regcache_lookup_reg() bsearch()es this array */
++		regcache_sort_defaults(tmp_buf, map->num_reg_defaults);
+ 	} else if (map->num_reg_defaults_raw) {
+ 		count = regcache_count_cacheable_registers(map);
+ 		if (!count)
 
-s/groups/block groups/
 
-> incorrect cache value is also used immediately to update i_blocks.
-> 
-> Assign the updated on-disk count to the cache, matching the allocation and
-> inode refresh paths.
-> 
-> In a QEMU test using a clean 256 MiB OCFS2 image and a 10,000-file
-> create/delete workload, the first buggy reclaim left the on-disk and cached
+But it would run for all regmap on boot and I think that would be a big
+hit on boot time.
+I guess, a debug kernel option could enable ordering check for defaults
+in regmap and warn if it finds such?
 
-create/delete workload, the first buggy reclaim left the on-disk (fe->i_cluster)
-and cached (->ip_clusters)
+-- 
+Péter
 
-Thanks,
-Heming
-
-> counts at 2048 and 512 clusters respectively; later reclaims underflowed
-> the cache.  With this change, the cache matched the on-disk count across
-> all four reclaims: 2048, 1536, 1024, and 512 clusters.
-> 
-> Fixes: 4a54331616b3 ("ocfs2: give ocfs2 the ability to reclaim suballocator free bg")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> ---
->  fs/ocfs2/suballoc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/ocfs2/suballoc.c b/fs/ocfs2/suballoc.c
-> index a4a2b87a45fe3..20c3aec6b9873 100644
-> --- a/fs/ocfs2/suballoc.c
-> +++ b/fs/ocfs2/suballoc.c
-> @@ -2759,7 +2759,7 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
->  	fe->i_clusters = cpu_to_le32(tmp_used - le16_to_cpu(cl->cl_cpg));
->  
->  	spin_lock(&OCFS2_I(alloc_inode)->ip_lock);
-> -	OCFS2_I(alloc_inode)->ip_clusters -= le32_to_cpu(fe->i_clusters);
-> +	OCFS2_I(alloc_inode)->ip_clusters = le32_to_cpu(fe->i_clusters);
->  	fe->i_size = cpu_to_le64(ocfs2_clusters_to_bytes(alloc_inode->i_sb,
->  					     le32_to_cpu(fe->i_clusters)));
->  	spin_unlock(&OCFS2_I(alloc_inode)->ip_lock);
-> -- 
-> 2.55.0
-> 
