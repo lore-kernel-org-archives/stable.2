@@ -1,73 +1,73 @@
 Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F8F40D590
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 13:43:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2D340D590
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 13:43:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785937434; cv=none; b=TCFqqXqbUCjBkOALiJ+rbfb2fbBsDwKH+jiVwVTt42j7t3PSrzphUuHZMWEUbUCR204Nblz+MIwc1a8bNSnBUHHMEdheVywiX+kF3gpzzLU4IPf30+AJCgXmTDreaDnJzVYttc2UEXYTQYakZtQ/AxdsyjBfHuxViPmr8ohnYnA=
+	t=1785937437; cv=none; b=dV9vWEDh3ddEl5x9PNh15nfzwwk5PWGG1HuBsy9CV2h3J4t0OVQZwroJ6sqExKppWh2rRtqrz/FK9/28ALwcdUvW+a8jg4S1DgEO3oEev2BC5pi6OE5KP0QLNH8IY/OzForSu9VgPiUk0I6YpkBRvRQV2pTEPyYZxNOBWuyBRPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785937434; c=relaxed/simple;
-	bh=0xmTlPsMG8HwTIBzsb8WyfEAk8CXKCUYUnskhAl5qBg=;
+	s=arc-20240116; t=1785937437; c=relaxed/simple;
+	bh=m3BWMPAV6leAvjuiffG77WgDEYhP5Yhegi3Y5PEWxv8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rEObjPYGnLA0H+1MvRkc7yxwWhd6vkIFKC5F+C5U7ulZynNw9ptPZECx1rmD8qTfVksg2vwN45yLH0Fb2K6oX62qQdYjMjgj6PMXI42Z5IkMBRL6uM/nF5aZb8jQWk3UdNSSeuyRpl2hgThGbvqL7DednjjJrl3wKu8LDRb7Va4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=UE8pkU1L; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=mOxaTQWQ; arc=none smtp.client-ip=202.12.124.159
+	 MIME-Version; b=ktfaupaLZYG48aq/Jm+7lxv71you6KdeFjAFwf6wZxCVTkwtTNttWsf5MEVJbjXq6DpN23va4XmdHaXCitMpEaXtg8gylbzYA5m1v5epaH/Km7Bf6V4+xG1Oq/F/b+laKDPgJ1uAQnneRVku4BFrVGCv7NdrEiPOGn5xL3FgAus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=DmlklAZX; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Q24wxh3q; arc=none smtp.client-ip=202.12.124.159
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="UE8pkU1L";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="mOxaTQWQ"
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="DmlklAZX";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Q24wxh3q"
 Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id C47E27A0152;
-	Wed,  5 Aug 2026 09:43:51 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Wed, 05 Aug 2026 09:43:52 -0400
+	by mailfhigh.stl.internal (Postfix) with ESMTP id CAE187A013F;
+	Wed,  5 Aug 2026 09:43:54 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Wed, 05 Aug 2026 09:43:55 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1785937431; x=
-	1786023831; bh=Mgfwv5z0Brlh3y6VSL8fs6pGUUOGwKT89l127VblliA=; b=U
-	E8pkU1LksAJYLJJlGEyRjGXR/Oi0AhA4go+y8Nfj0PEfRJCDwrT0K7u3rFTBs+ck
-	aHjvgTUqhohPO4r0B0DIz4lTYLBcnO+Jo1ubqpTjNd3WlSeCTh5aZgEg6f7lT48N
-	TzLw/65BphFLH09kQbazmmFmFhbSm8kvm0V2ezfGQIbD5vFhhv3XcpI+38Uz7mH/
-	J5ffZaqxaa5TTGf2uHD3yA6brz0aFvBhv4L1xXSen/anvrKqIyiwDohiI6coT/Vq
-	sD8WvZZI7f0d+xhFFL9h+QQI/OR4x2FDiH/ArWSM/qEpQOU2M24eTJ5oqio7bFOm
-	llOq6YUyQwNasVw8Paetg==
+	:reply-to:subject:subject:to:to; s=fm1; t=1785937434; x=
+	1786023834; bh=sjSr/u6EAIPKA/2hljOHFGZwEyedxk31Dr0PD3SQC8M=; b=D
+	mlklAZXOIOW/iBsFlKVo28xV3KaSN88zPAnUeE04JEqumP7fv5qFSSGMKtqJ6ZTs
+	XEidxo9HjEZv8Nj+s0k3ExDPYDpSbo4k52ea4EfmYfvolWTgMad79ihFgn4AXVQh
+	xO9J56NmnW8152CSvR+K6mjEWcvSPNewZaaXxK2fAGyi5bUod/UpoX3droP2GkXp
+	Fm+vNsWIPlSnxUXYiCZqODjbauCv21Dqt53c0dnismHK5+U6Wj6P8Gtv20pYTAH4
+	d0fMrDy9bwF6AwfDqKfPZ5T9e62AkzYzWUqwDojwIx90yivsS1W45DiTNrcAFO9X
+	s5kv3wmufhBQm37gqJSnQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1785937431; x=1786023831; bh=M
-	gfwv5z0Brlh3y6VSL8fs6pGUUOGwKT89l127VblliA=; b=mOxaTQWQ9rBVDkB34
-	w/+eAxYCpgZf48B9akOneGXUyDT5HvA+xUizOzpZpt7PkG17hI+pE2qvfLEBVIzQ
-	N4qH/HDGyD+wm7cxkn1btNRtxxUwTBZSgyMcdIBaXYePnNFSz+2vqkd/RVuzENl+
-	PUVQFR9D7Sc/AtUWlt1YAm74cFSHAj4R/YPligp5YxOUOaP5F3eipnfGlnvRgI3M
-	efMSYh5NX30VKKV2I+TRo+vZRAD58qN/v9Zd3e2e+HbG1K28dD1rjPnuq2z9Ok6y
-	FNsbrb3xlRnJdWxrEcogtsmIrxyEH/idDhMKdHt36fymQ98uDGVFnsAS0aU/11cN
-	E2NyA==
-X-ME-Sender: <xms:Fz5zauukv9UUeDNClGcRKId4rbe0v36UiJyhIhxC6q3yn3jDUisd_Q>
-    <xme:Fz5zav3ZSETwxHza4RMDzrguenJH9aMnE3TkAd8TcLGJVIIMldQpS_dqXWCd3CJuj
-    14_aZbopIMx3fPIOHsM4nZXNNMHVACnemVe4-dMiCN8NyOKhF13sqg>
-X-ME-Received: <xmr:Fz5zauOv1SRY5auDUKqg79Lw_-YVH224zBn0lkf0o5vVAcuA2lvE3HH9hjA>
-X-ME-Proxy-Cause: dmFkZTFu7qtgJ94GvBO56d5NB9i9RxY+vT76bN+VdHOM6ACSSVXkdli2AUWlJPI7ZTliqo
-    FWLlpbne/YuV75c2Pg4lxAIwDq3h/XuUMFDy93k0ybaA13N1rAGTiIejKH2yi7AMgsTcig
-    yjOghgxkIfoPHfnODZnYUz4SIt457YDBUylJ/L8S4LIC4ZlEO8rD74mEB908/JFQ/qmMdK
-    a4XkfXLOugWT9D0c9ZU6SrhUS6IkxhibSLhvvh2EDPJmlcPyLQqgnldRy6yjmeH/YZoej7
-    j50uCiMow1NHmic8I3ZiKr4oTGPaPszYtGSBMkqJ0aci5zth7LupxsFWer9WHpOb6u86e+
-    klAmIedPVOK8sC51kKg8LYjp48Jo91BPNhgZxccwk1OzlxcPOOfF/LKi4iluJA3VJ25QBc
-    +5reUMyNTcaaVBybfhjylgBpN5liyrqHnXCFE9uM27zOL+gtFEJZ2TyVll6Rdls4Byc1oV
-    tKwtELHWP4sBFyXJ5YrRSbxrC1PA/9ecAfnaFIyNIjL2ezpSOYyoUiyjywBF0D/LCbNVpz
-    uMRjtNQFoV8X7H8dyTIAVPUahHMuAH56YyBxHCmMtuLERZ4AASeKcXKGt+n5OxqjgeaiA3
-    fsre15F0RnNRIBObryGIwHIoQrOCLuvTBOoOpL015MiI1ag5VVqDp6bxvQTw
-X-ME-Proxy: <xmx:Fz5zanXqejG_5jqEHPoqHgP6cFSp2s58qbot3gV3uMjQUbcXATZuxw>
-    <xmx:Fz5zaraRncasvI9MgJ0izBdwLPcwyaNcZqM3meRvaJPz18ZlT0oNcg>
-    <xmx:Fz5zap2yL2UF8EQR95LU9Xk2GGjDsw6PjBX0q-l3-bYCykyZXUVrpg>
-    <xmx:Fz5zavAfr1IC25ZhbYSv3wiPUVYo8bQhqogW5RxvOHiBTqC2VbHc_Q>
-    <xmx:Fz5zalP4hx2EE5YZqx94aHeCQLFzL8jPPR_zYj30-zolxpKXo1Zi4SZ6>
+	:x-me-sender:x-sasl-enc; s=fm3; t=1785937434; x=1786023834; bh=s
+	jSr/u6EAIPKA/2hljOHFGZwEyedxk31Dr0PD3SQC8M=; b=Q24wxh3qiIioJyUCi
+	u3qacykwsG6hpO3gJ0KzKkg25HVXcAY2zazI9o82kncJZ/WJr87TynW8ZYNSltYY
+	BgijQT5AS8IvSYPP4yv7Z64nF2ZneQo+SyekEMUy0u8b0/ailHew+cbI25DDQxar
+	pisepDqJlIsSsHV8xQhPyCX+hvUwgU52HggO+ucCRL8aBYgHg4eIJBeW4uydpbny
+	hCbmh6o1LdP1mHcSJPd1CeiRR3TKwNN7EOmnZn1MyrT7Do6CQQ2ZEuZA+v8Y2R3L
+	4e0gqBaFGJO2SNTTxCP7m5Tz2DNHNDSSPZLeLQtBpUkS4s0U0yJXPSdbQhmZflud
+	Y82AA==
+X-ME-Sender: <xms:Gj5zahh_3y-rxsKrY9ttZpkt4MX-_pRa62-Tkwf41GQmlTnujmOQSA>
+    <xme:Gj5zaiYtWWlcdPmXx67ake0G6JnaBbN_QIA2l2eFGyRbrYx_1bLcttMO9EwetB6Wn
+    IPMq-edOslmrYi8_h9aIbd66M-ExNzasyI00hPr7PTuiga0k73g0rSR>
+X-ME-Received: <xmr:Gj5zaljuS89WYhWavA9W3DFnRRV0Et7-FO2oBOFQGiJj7po-C-Y8B3iNTvE>
+X-ME-Proxy-Cause: dmFkZTG3OLJt0p9WL4NppxfoxRH8UUnETj2iaMz3+UuH1tkyjRW4ikhVvQ2gyhqCEBC6Bc
+    sYWoSFljbpTgfkb+cAi9v0fLGHUtrMP2m7fRNyMV35Rd6xhBvI7CugOXDJ9vUmLcgE3t3S
+    aSikudwY093ezmGJ1A6l6wZEsskmQxsazbLRFB3rrKqTkf7NwxixVKnYkH9F8MGPVORjLx
+    6EyvDYKf/ylKz9vuSbjhDWhRhHLyPUGCeRPVaUeDs+0GeN1zpA6fmd4IE9I7H6C16JfKva
+    ujX7qyWCNRrpnHbQdQ2U4w/I147GlAeuhheBXLHyFUQ8n/mjPbokc7aU1ynPQ8Ri0w0PLh
+    XcGAjjVFoQZd/l5aYMTK/IwMekVHohcvtY8f1QjGTQ6BL2R5XuAt/diGWYpVMGMaHHwYZd
+    v3RihmAqKjJUPy6CNa/4ISBahloHwkneja9DidogB5s2F8IS0nyU+/6sHehtJCHfqYaB1w
+    J5X3Xczlq+fRpweW4wv7V6roowLu9TOWB44twSNajNydt9F3vhrH/fthl4trjSHKpbxzZ3
+    cciXKwSep5EfdBl8iaYC7VjZwMW3SHM25GYPJvyixqArb5bqQmoIWN0dlSTShU7kVG+0i7
+    HVkwFJQGjTIq4h3Ogi4UMbcF3iU7RlNK3bwzdpK56mQQQdvpz9RAEneOWdIQ
+X-ME-Proxy: <xmx:Gj5zakagzAtDTfHJiNVUaB1SJNARc4iI8qRNsshWa4Oc3jp_wf6A1A>
+    <xmx:Gj5zarPBbf8iCSnMGJwshvRWIgRBYucxjONVb9vxWuQWkkepFV5ZzA>
+    <xmx:Gj5zalZvLUT_XUiisFYj3JpzzKrArKEvaYSkPtInsF6whLSltz9ABw>
+    <xmx:Gj5zarWw0qTZrQdK2ZM_XygpPHVL-y8pAWT_PcIoWeABodFuX3TbMQ>
+    <xmx:Gj5zanvwaN7kB0g7F9lm5Fmxe2YWiW068L9Ko3-DsGeTii71eDRpeBhE>
 Feedback-ID: ie3994620:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 5 Aug 2026 09:43:50 -0400 (EDT)
+ 5 Aug 2026 09:43:54 -0400 (EDT)
 From: Kiryl Shutsemau <kirill@shutemov.name>
 To: stable@vger.kernel.org
 Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
@@ -84,12 +84,12 @@ Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
 	Suren Baghdasaryan <surenb@google.com>,
 	Vlastimil Babka <vbabka@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.12.y] fs/proc/task_mmu: fix PAGEMAP_SCAN written state for unpopulated ptes
-Date: Wed,  5 Aug 2026 14:43:49 +0100
-Message-ID: <20260805134349.2776535-1-kirill@shutemov.name>
+Subject: [PATCH 6.18.y] fs/proc/task_mmu: fix PAGEMAP_SCAN written state for unpopulated ptes
+Date: Wed,  5 Aug 2026 14:43:52 +0100
+Message-ID: <20260805134352.2776545-1-kirill@shutemov.name>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026080504-lagged-gutless-4701@gregkh>
-References: <2026080504-lagged-gutless-4701@gregkh>
+In-Reply-To: <2026080503-unpaired-outclass-9b75@gregkh>
+References: <2026080503-unpaired-outclass-9b75@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -145,7 +145,7 @@ Assisted-by: Claude:claude-fable-5
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 (cherry picked from commit 07b4377bdbe74a3ec0c8da5849d014f70e003384)
-[ kas: fix only; selftest hunk dropped (pagemap_ioctl.c differs on this tree) ]
+[ kas: fix only; selftest hunk dropped (pagemap_ioctl.c differs on this tree). Add the pte_none early-return before the pte_present branch ]
 
 Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
@@ -153,10 +153,10 @@ Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
  1 file changed, 13 insertions(+)
 
 diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index fb01a071b83d..a245330abebd 100644
+index 4c5adfd4fc1f..22cf6620133e 100644
 --- a/fs/proc/task_mmu.c
 +++ b/fs/proc/task_mmu.c
-@@ -2097,6 +2097,19 @@ static unsigned long pagemap_page_category(struct pagemap_scan_private *p,
+@@ -2326,6 +2326,19 @@ static unsigned long pagemap_page_category(struct pagemap_scan_private *p,
  {
  	unsigned long categories = 0;
  
