@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4F73F7886
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:36:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B658E3F86E2
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 09:38:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785922580; cv=none; b=SfAwmzyrq5doe//gPSXAcKBZrAmumJ0x8rik3B5jZU2Ut/RU2E6UG9XnLffaQEZJiebz+ImpnSY6PYcZdVOOybad+1eiIt2OzTUXUpC1M0PlDWxHDUwxmfxtmgb0RE16nMdq3RP9P1nAz1l6tlyYHb/NMn1BHqMnb+a7Ek5EFKA=
+	t=1785922699; cv=none; b=ubtlbBnnLvyRZJn1Vj75dUealV0p7XAySrcyBz5riHUedZLfhnJlNMZb4sFwIT7rODL19U2qEjMS+r8itBOySBtfFnrgPFyNcqqfJ/BwiE05DpfH/ZvTpldfTkpijSCpq0Xa5uwxlh5L1W7IB/WklMkWQVy64VvkN1JrwIfzwBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785922580; c=relaxed/simple;
-	bh=h/j3pr5SDhzi/DoUzK/UiaJ1uS3OXiS1pQOD3rnQH0U=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qBtaL3TzLZ9e8AnQ++KDFfaJTvAL7VIddG49gDlHnq3jd+ySNHRLyVxWaKGqkcPhlGPyKUUxl+SdXzUN5bqJs7d5Tv3CixPbQchYUSRfCDGMaP3sCMfQrf/VIjLoM8bwlmaEqDxlV2u/Dtz7aKHy568drkKGmqMXho8+kq0H7Bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BbjlVgTd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785922699; c=relaxed/simple;
+	bh=L+k2MfCRx5IfNdI8LSlCHs3+Xgbfnz315AnHLq3ur2g=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jGEuLPG7P7X2bzrTcoqy3ADL4cWSVjGB+5aqwGlScJsvpNNpo+AYljXeNtjiLrdHszinic7zFFWdMdOCH4X/uYX62OXhp+YvlECDkqYai73ThDYORv+uvRlUOULD/e5IUC+qZV88EvZMc72ZdgsB7Nt21UU/+epjBFvZ4+RNdjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=B3cOIzWV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BbjlVgTd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9FCD1F00A3A;
-	Wed,  5 Aug 2026 09:36:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="B3cOIzWV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 088F71F000E9;
+	Wed,  5 Aug 2026 09:38:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785922579;
-	bh=kPV4RG5h+H6b/VAJUcNXNSYThNu03CZhd5ldwx73wDo=;
+	s=korg; t=1785922697;
+	bh=klXRd+A6INvUESUZkpgisqU5v58HGyrBeNWeddvSwTk=;
 	h=Subject:To:Cc:From:Date;
-	b=BbjlVgTdt6BnwEToKon2tJclew7JrtqllkNLEhFoGc6Q1oyY56YdV4vXrcYrARKQS
-	 2IEn8U692eEXz+WN+rN1NYrNlbY/3DHnX5yd2urRis7KzCitMBWaRGFJPVW04wH2wK
-	 nfAyTkhwZlASpmUeSlGLcq6GFY/eLjNkI3aobjIQ=
-Subject: FAILED: patch "[PATCH] dibs: fix use-after-free of dmb_node in loopback" failed to apply to 6.12-stable tree
-To: hidayath@linux.ibm.com,kuba@kernel.org,rc@rexion.ai,wintera@linux.ibm.com
+	b=B3cOIzWV37bJjWG8Ap1Ty+W/BJuvkTsJsfPdh/5LJxWvo8So6ICdLqMciY0fWGWB8
+	 W4TrJOJ0UsokN9XSU9/hmV93t9q/JKa1tyyLrYI3yP0djUZZ8v4TNsPAR3eLjRHlmN
+	 UFKl4Ofy4cgPzbmUUmmPyOUd0/BmjQhgaal2fW/0=
+Subject: FAILED: patch "[PATCH] Bluetooth: hci_sync: Fix advertising data UAFs" failed to apply to 6.6-stable tree
+To: nicoyip.dev@gmail.com,luiz.dentz@gmail.com,luiz.von.dentz@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 11:36:02 +0200
-Message-ID: <2026080502-penny-cubbyhole-47d2@gregkh>
+Date: Wed, 05 Aug 2026 11:38:00 +0200
+Message-ID: <2026080500-repeater-crust-fca2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x a10ea943356b9d70c5616a0a06f6fa97cfdaccb1
+git cherry-pick -x cdc36db204ffd97b947d64374cf23a210dc74777
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080502-penny-cubbyhole-47d2@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080500-repeater-crust-fca2@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,179 +62,341 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From a10ea943356b9d70c5616a0a06f6fa97cfdaccb1 Mon Sep 17 00:00:00 2001
-From: Hidayath Khan <hidayath@linux.ibm.com>
-Date: Mon, 27 Jul 2026 11:35:30 +0200
-Subject: [PATCH] dibs: fix use-after-free of dmb_node in loopback
- attach/detach/unregister
+From cdc36db204ffd97b947d64374cf23a210dc74777 Mon Sep 17 00:00:00 2001
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Thu, 23 Jul 2026 23:34:40 +0800
+Subject: [PATCH] Bluetooth: hci_sync: Fix advertising data UAFs
 
-dibs_lo_attach_dmb(), dibs_lo_detach_dmb() and dibs_lo_unregister_dmb()
-look up the dmb_node under dmb_ht_lock, drop the lock and only then
-operate on the node's refcount. Nothing keeps the node alive across
-that window: __dibs_lo_unregister_dmb() removes the node from the hash
-table under the write lock and immediately frees it.
+hci_find_adv_instance() returns an adv_info pointer that is valid only
+while hdev->lock is held.  The advertising command-sync paths perform
+instance lookups without that lock and, in some cases, retain the pointer
+while waiting for a controller response.
 
-A concurrent final put can therefore free the node between the lookup
-and the refcount operation:
+An advertising termination event can therefore interleave as follows:
 
-CPU0 (attach)                     CPU1 (owner unregisters)
+  hci_cmd_sync_work                 hci_rx_work
+  hci_find_adv_instance()
+  __hci_cmd_sync_status()
+    wait for controller reply       hci_dev_lock()
+                                    hci_remove_adv_instance()
+                                      kfree(adv)
+  adv->scan_rsp_changed = false
 
-read_lock_bh(&dmb_ht_lock)
-find dmb_node (refcnt == 1)
-read_unlock_bh(&dmb_ht_lock)
-                                  refcount_dec_and_test() 1 -> 0
-                                  write_lock_bh(&dmb_ht_lock)
-                                  hash_del(&dmb_node->list)
-                                  write_unlock_bh(&dmb_ht_lock)
-                                  kfree(dmb_node)
-refcount_inc_not_zero(&dmb_node->refcnt)  <-- use-after-free
+KASAN reported:
 
-The same window exists for the refcount_dec_and_test() calls in the
-detach and unregister paths.
+  BUG: KASAN: slab-use-after-free in hci_set_ext_scan_rsp_data_sync+0x2e1/0x300
+  Write of size 1 at addr ffff88810a45d21d by task kworker/u17:0/88
+  Workqueue: hci0 hci_cmd_sync_work
+  Call Trace:
+   hci_set_ext_scan_rsp_data_sync+0x2e1/0x300
+   hci_schedule_adv_instance_sync+0x390/0x4c0
+   hci_cmd_sync_work+0x173/0x300
+  Allocated by task 87:
+   hci_add_adv_instance+0x538/0xac0
+   add_advertising+0x885/0x1160
+  Freed by task 89:
+   kfree+0x131/0x3c0
+   hci_remove_adv_instance+0x1d8/0x3b0
+   hci_le_ext_adv_term_evt+0x17b/0x730
 
-Close the race structurally by making hash table membership and the
-refcount transitions atomic with respect to each other:
+Protect the instance lookup and payload construction in the extended
+advertising, scan response, and periodic advertising data paths.  Snapshot
+the advertising parameters under hdev->lock, but release the lock before
+waiting for the controller.
 
-- Perform the final refcount_dec_and_test() and hash_del() in a single
-  dmb_ht_lock write-side critical section, in both the unregister and
-  the detach path. Freeing the node still happens after the lock is
-  dropped, which is safe because a node whose refcount reached zero has
-  left the hash table and can no longer be found.
+Clear advertising-data dirty bits before issuing their commands and
+restore them after a failure using a fresh lookup.  Likewise, update the
+reported transmit power through a fresh lookup after the parameter command
+completes.  No adv_info pointer then survives an HCI command wait.
 
-- This establishes the invariant that any node found in the hash table
-  holds at least one reference, and that the final reference can only
-  be dropped under the write lock. dibs_lo_attach_dmb() can thus take
-  its reference with a plain refcount_inc() while still holding the
-  read lock; refcount_inc_not_zero() is no longer needed.
-
-__dibs_lo_unregister_dmb() no longer touches the hash table and is
-renamed to dibs_lo_free_dmb() accordingly.
-
-Note: commit cc21191b584c ("dibs: Move data path to dibs layer") moved
-the code to its current location; the race was introduced earlier by
-commit c3a910f2380f ("net/smc: implement DMB-merged operations of
-loopback-ism").
-
-Tested SMC-D via ISM and dibs loopback.
-
+Fixes: cba6b758711c ("Bluetooth: hci_sync: Make use of hci_cmd_sync_queue set 2")
 Cc: stable@vger.kernel.org
-Fixes: c3a910f2380f ("net/smc: implement DMB-merged operations of loopback-ism")
-Reported-by: Rahul Chandelkar <rc@rexion.ai>
-Signed-off-by: Hidayath Khan <hidayath@linux.ibm.com>
-Reviewed-by: Alexandra Winter <wintera@linux.ibm.com>
-Link: https://patch.msgid.link/20260727093530.968834-1-hidayath@linux.ibm.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Suggested-by: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-diff --git a/drivers/dibs/dibs_loopback.c b/drivers/dibs/dibs_loopback.c
-index 0f2e09311152..fd5caf1e19a8 100644
---- a/drivers/dibs/dibs_loopback.c
-+++ b/drivers/dibs/dibs_loopback.c
-@@ -118,14 +118,9 @@ static int dibs_lo_register_dmb(struct dibs_dev *dibs, struct dibs_dmb *dmb,
- 	return rc;
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index c0b1fc293b49..aa3d53818812 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -1233,10 +1233,11 @@ static int hci_set_adv_set_random_addr_sync(struct hci_dev *hdev, u8 instance,
  }
  
--static void __dibs_lo_unregister_dmb(struct dibs_lo_dev *ldev,
--				     struct dibs_lo_dmb_node *dmb_node)
-+static void dibs_lo_free_dmb(struct dibs_lo_dev *ldev,
-+			     struct dibs_lo_dmb_node *dmb_node)
+ static int
+-hci_set_ext_adv_params_sync(struct hci_dev *hdev, struct adv_info *adv,
++hci_set_ext_adv_params_sync(struct hci_dev *hdev, u8 instance,
+ 			    const struct hci_cp_le_set_ext_adv_params *cp,
+ 			    struct hci_rp_le_set_ext_adv_params *rp)
  {
--	/* remove dmb from hash table */
--	write_lock_bh(&ldev->dmb_ht_lock);
--	hash_del(&dmb_node->list);
--	write_unlock_bh(&ldev->dmb_ht_lock);
--
- 	clear_bit(dmb_node->sba_idx, ldev->sba_idx_mask);
- 	folio_put(virt_to_folio(dmb_node->cpu_addr));
- 	kfree(dmb_node);
-@@ -139,27 +134,33 @@ static int dibs_lo_unregister_dmb(struct dibs_dev *dibs, struct dibs_dmb *dmb)
- 	struct dibs_lo_dmb_node *dmb_node = NULL, *tmp_node;
- 	struct dibs_lo_dev *ldev;
- 	unsigned long flags;
-+	bool last;
++	struct adv_info *adv;
+ 	struct sk_buff *skb;
  
- 	ldev = dibs->drv_priv;
+ 	skb = __hci_cmd_sync(hdev, HCI_OP_LE_SET_EXT_ADV_PARAMS, sizeof(*cp),
+@@ -1264,11 +1265,15 @@ hci_set_ext_adv_params_sync(struct hci_dev *hdev, struct adv_info *adv,
  
- 	/* find dmb from hash table */
--	read_lock_bh(&ldev->dmb_ht_lock);
-+	write_lock_bh(&ldev->dmb_ht_lock);
- 	hash_for_each_possible(ldev->dmb_ht, tmp_node, list, dmb->dmb_tok) {
- 		if (tmp_node->token == dmb->dmb_tok) {
- 			dmb_node = tmp_node;
- 			break;
+ 	if (!rp->status) {
+ 		hdev->adv_addr_type = cp->own_addr_type;
+-		if (!cp->handle) {
++		if (!instance) {
+ 			/* Store in hdev for instance 0 */
+ 			hdev->adv_tx_power = rp->tx_power;
+-		} else if (adv) {
+-			adv->tx_power = rp->tx_power;
++		} else {
++			hci_dev_lock(hdev);
++			adv = hci_find_adv_instance(hdev, instance);
++			if (adv)
++				adv->tx_power = rp->tx_power;
++			hci_dev_unlock(hdev);
  		}
  	}
--	read_unlock_bh(&ldev->dmb_ht_lock);
--	if (!dmb_node)
-+	if (!dmb_node) {
-+		write_unlock_bh(&ldev->dmb_ht_lock);
- 		return -EINVAL;
-+	}
-+	last = refcount_dec_and_test(&dmb_node->refcnt);
-+	if (last)
-+		hash_del(&dmb_node->list);
-+	write_unlock_bh(&ldev->dmb_ht_lock);
  
--	if (refcount_dec_and_test(&dmb_node->refcnt)) {
-+	if (last) {
- 		spin_lock_irqsave(&dibs->lock, flags);
- 		dibs->dmb_clientid_arr[dmb_node->sba_idx] = NO_DIBS_CLIENT;
- 		spin_unlock_irqrestore(&dibs->lock, flags);
+@@ -1284,9 +1289,13 @@ static int hci_set_ext_adv_data_sync(struct hci_dev *hdev, u8 instance)
+ 	int err;
  
--		__dibs_lo_unregister_dmb(ldev, dmb_node);
-+		dibs_lo_free_dmb(ldev, dmb_node);
- 	}
- 	return 0;
- }
-@@ -188,14 +189,9 @@ static int dibs_lo_attach_dmb(struct dibs_dev *dibs, struct dibs_dmb *dmb)
- 		read_unlock_bh(&ldev->dmb_ht_lock);
- 		return -EINVAL;
- 	}
-+	refcount_inc(&dmb_node->refcnt);
- 	read_unlock_bh(&ldev->dmb_ht_lock);
- 
--	if (!refcount_inc_not_zero(&dmb_node->refcnt))
--		/* the dmb is being unregistered, but has
--		 * not been removed from the hash table.
--		 */
--		return -EINVAL;
--
- 	/* provide dmb information */
- 	dmb->idx = dmb_node->sba_idx;
- 	dmb->dmb_tok = dmb_node->token;
-@@ -209,11 +205,12 @@ static int dibs_lo_detach_dmb(struct dibs_dev *dibs, u64 token)
- {
- 	struct dibs_lo_dmb_node *dmb_node = NULL, *tmp_node;
- 	struct dibs_lo_dev *ldev;
-+	bool last;
- 
- 	ldev = dibs->drv_priv;
- 
- 	/* find dmb_node according to dmb->dmb_tok */
--	read_lock_bh(&ldev->dmb_ht_lock);
-+	write_lock_bh(&ldev->dmb_ht_lock);
- 	hash_for_each_possible(ldev->dmb_ht, tmp_node, list, token) {
- 		if (tmp_node->token == token) {
- 			dmb_node = tmp_node;
-@@ -221,13 +218,17 @@ static int dibs_lo_detach_dmb(struct dibs_dev *dibs, u64 token)
- 		}
- 	}
- 	if (!dmb_node) {
--		read_unlock_bh(&ldev->dmb_ht_lock);
-+		write_unlock_bh(&ldev->dmb_ht_lock);
- 		return -EINVAL;
- 	}
--	read_unlock_bh(&ldev->dmb_ht_lock);
-+	last = refcount_dec_and_test(&dmb_node->refcnt);
-+	if (last)
-+		hash_del(&dmb_node->list);
-+	write_unlock_bh(&ldev->dmb_ht_lock);
+ 	if (instance) {
++		hci_dev_lock(hdev);
 +
-+	if (last)
-+		dibs_lo_free_dmb(ldev, dmb_node);
+ 		adv = hci_find_adv_instance(hdev, instance);
+-		if (!adv || !adv->adv_data_changed)
++		if (!adv || !adv->adv_data_changed) {
++			hci_dev_unlock(hdev);
+ 			return 0;
++		}
+ 	}
  
--	if (refcount_dec_and_test(&dmb_node->refcnt))
--		__dibs_lo_unregister_dmb(ldev, dmb_node);
- 	return 0;
- }
+ 	len = eir_create_adv_data(hdev, instance, pdu->data,
+@@ -1297,16 +1306,27 @@ static int hci_set_ext_adv_data_sync(struct hci_dev *hdev, u8 instance)
+ 	pdu->operation = LE_SET_ADV_DATA_OP_COMPLETE;
+ 	pdu->frag_pref = LE_SET_ADV_DATA_NO_FRAG;
+ 
++	if (adv) {
++		adv->adv_data_changed = false;
++		hci_dev_unlock(hdev);
++	}
++
+ 	err = __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_EXT_ADV_DATA,
+ 				    struct_size(pdu, data, len), pdu,
+ 				    HCI_CMD_TIMEOUT);
+-	if (err)
+-		return err;
++	if (err) {
++		if (instance) {
++			hci_dev_lock(hdev);
++			adv = hci_find_adv_instance(hdev, instance);
++			if (adv)
++				adv->adv_data_changed = true;
++			hci_dev_unlock(hdev);
++		}
+ 
+-	/* Update data if the command succeed */
+-	if (adv) {
+-		adv->adv_data_changed = false;
+-	} else {
++		return err;
++	}
++
++	if (!instance) {
+ 		memcpy(hdev->adv_data, pdu->data, len);
+ 		hdev->adv_data_len = len;
+ 	}
+@@ -1360,22 +1380,22 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
+ 	struct adv_info *adv;
+ 	bool secondary_adv;
+ 
+-	if (instance > 0) {
+-		adv = hci_find_adv_instance(hdev, instance);
+-		if (!adv)
+-			return -EINVAL;
+-	} else {
+-		adv = NULL;
+-	}
+-
+ 	/* Updating parameters of an active instance will return a
+-	 * Command Disallowed error, so we must first disable the
+-	 * instance if it is active.
++	 * Command Disallowed error, so disable it before taking a snapshot.
+ 	 */
+-	if (adv) {
++	if (instance > 0) {
+ 		err = hci_disable_ext_adv_instance_sync(hdev, instance);
+ 		if (err)
+ 			return err;
++
++		hci_dev_lock(hdev);
++		adv = hci_find_adv_instance(hdev, instance);
++		if (!adv) {
++			hci_dev_unlock(hdev);
++			return -EINVAL;
++		}
++	} else {
++		adv = NULL;
+ 	}
+ 
+ 	flags = hci_adv_instance_flags(hdev, instance);
+@@ -1386,8 +1406,11 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
+ 	connectable = (flags & MGMT_ADV_FLAG_CONNECTABLE) ||
+ 		      mgmt_get_connectable(hdev);
+ 
+-	if (!is_advertising_allowed(hdev, connectable))
++	if (!is_advertising_allowed(hdev, connectable)) {
++		if (instance)
++			hci_dev_unlock(hdev);
+ 		return -EPERM;
++	}
+ 
+ 	/* Set require_privacy to true only when non-connectable
+ 	 * advertising is used and it is not periodic.
+@@ -1398,8 +1421,11 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
+ 	err = hci_get_random_address(hdev, require_privacy,
+ 				     adv_use_rpa(hdev, flags), adv,
+ 				     &own_addr_type, &random_addr);
+-	if (err < 0)
++	if (err < 0) {
++		if (instance)
++			hci_dev_unlock(hdev);
+ 		return err;
++	}
+ 
+ 	memset(&cp, 0, sizeof(cp));
+ 
+@@ -1450,6 +1476,9 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
+ 	cp.channel_map = hdev->le_adv_channel_map;
+ 	cp.handle = adv ? adv->handle : instance;
+ 
++	if (instance)
++		hci_dev_unlock(hdev);
++
+ 	if (flags & MGMT_ADV_FLAG_SEC_2M) {
+ 		cp.primary_phy = HCI_ADV_PHY_1M;
+ 		cp.secondary_phy = HCI_ADV_PHY_2M;
+@@ -1462,12 +1491,12 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
+ 		cp.secondary_phy = HCI_ADV_PHY_1M;
+ 	}
+ 
+-	err = hci_set_ext_adv_params_sync(hdev, adv, &cp, &rp);
++	err = hci_set_ext_adv_params_sync(hdev, instance, &cp, &rp);
+ 	if (err)
+ 		return err;
+ 
+ 	/* Update adv data as tx power is known now */
+-	err = hci_set_ext_adv_data_sync(hdev, cp.handle);
++	err = hci_set_ext_adv_data_sync(hdev, instance);
+ 	if (err)
+ 		return err;
+ 
+@@ -1475,9 +1504,14 @@ int hci_setup_ext_adv_instance_sync(struct hci_dev *hdev, u8 instance)
+ 	     own_addr_type == ADDR_LE_DEV_RANDOM_RESOLVED) &&
+ 	    bacmp(&random_addr, BDADDR_ANY)) {
+ 		/* Check if random address need to be updated */
+-		if (adv) {
+-			if (!bacmp(&random_addr, &adv->random_addr))
++		if (instance) {
++			hci_dev_lock(hdev);
++			adv = hci_find_adv_instance(hdev, instance);
++			if (!adv || !bacmp(&random_addr, &adv->random_addr)) {
++				hci_dev_unlock(hdev);
+ 				return 0;
++			}
++			hci_dev_unlock(hdev);
+ 		} else {
+ 			if (!bacmp(&random_addr, &hdev->random_addr))
+ 				return 0;
+@@ -1499,9 +1533,13 @@ static int hci_set_ext_scan_rsp_data_sync(struct hci_dev *hdev, u8 instance)
+ 	int err;
+ 
+ 	if (instance) {
++		hci_dev_lock(hdev);
++
+ 		adv = hci_find_adv_instance(hdev, instance);
+-		if (!adv || !adv->scan_rsp_changed)
++		if (!adv || !adv->scan_rsp_changed) {
++			hci_dev_unlock(hdev);
+ 			return 0;
++		}
+ 	}
+ 
+ 	len = eir_create_scan_rsp(hdev, instance, pdu->data);
+@@ -1511,15 +1549,27 @@ static int hci_set_ext_scan_rsp_data_sync(struct hci_dev *hdev, u8 instance)
+ 	pdu->operation = LE_SET_ADV_DATA_OP_COMPLETE;
+ 	pdu->frag_pref = LE_SET_ADV_DATA_NO_FRAG;
+ 
++	if (adv) {
++		adv->scan_rsp_changed = false;
++		hci_dev_unlock(hdev);
++	}
++
+ 	err = __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_EXT_SCAN_RSP_DATA,
+ 				    struct_size(pdu, data, len), pdu,
+ 				    HCI_CMD_TIMEOUT);
+-	if (err)
+-		return err;
++	if (err) {
++		if (instance) {
++			hci_dev_lock(hdev);
++			adv = hci_find_adv_instance(hdev, instance);
++			if (adv)
++				adv->scan_rsp_changed = true;
++			hci_dev_unlock(hdev);
++		}
+ 
+-	if (adv) {
+-		adv->scan_rsp_changed = false;
+-	} else {
++		return err;
++	}
++
++	if (!instance) {
+ 		memcpy(hdev->scan_rsp_data, pdu->data, len);
+ 		hdev->scan_rsp_data_len = len;
+ 	}
+@@ -1534,8 +1584,14 @@ static int __hci_set_scan_rsp_data_sync(struct hci_dev *hdev, u8 instance)
+ 
+ 	memset(&cp, 0, sizeof(cp));
+ 
++	if (instance)
++		hci_dev_lock(hdev);
++
+ 	len = eir_create_scan_rsp(hdev, instance, cp.data);
+ 
++	if (instance)
++		hci_dev_unlock(hdev);
++
+ 	if (hdev->scan_rsp_data_len == len &&
+ 	    !memcmp(cp.data, hdev->scan_rsp_data, len))
+ 		return 0;
+@@ -1670,9 +1726,13 @@ static int hci_set_per_adv_data_sync(struct hci_dev *hdev, u8 instance)
+ 	struct adv_info *adv = NULL;
+ 
+ 	if (instance) {
++		hci_dev_lock(hdev);
++
+ 		adv = hci_find_adv_instance(hdev, instance);
+-		if (!adv || !adv->periodic)
++		if (!adv || !adv->periodic) {
++			hci_dev_unlock(hdev);
+ 			return 0;
++		}
+ 	}
+ 
+ 	len = eir_create_per_adv_data(hdev, instance, pdu->data);
+@@ -1681,6 +1741,9 @@ static int hci_set_per_adv_data_sync(struct hci_dev *hdev, u8 instance)
+ 	pdu->handle = adv ? adv->handle : instance;
+ 	pdu->operation = LE_SET_ADV_DATA_OP_COMPLETE;
+ 
++	if (adv)
++		hci_dev_unlock(hdev);
++
+ 	return __hci_cmd_sync_status(hdev, HCI_OP_LE_SET_PER_ADV_DATA,
+ 				     struct_size(pdu, data, len), pdu,
+ 				     HCI_CMD_TIMEOUT);
+@@ -6523,7 +6586,7 @@ static int hci_le_ext_directed_advertising_sync(struct hci_dev *hdev,
+ 	if (err)
+ 		return err;
+ 
+-	err = hci_set_ext_adv_params_sync(hdev, NULL, &cp, &rp);
++	err = hci_set_ext_adv_params_sync(hdev, 0, &cp, &rp);
+ 	if (err)
+ 		return err;
  
 
