@@ -1,156 +1,146 @@
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4005B3DDDA3
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 06:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785912517; cv=pass; b=TKRIIsdXVq/zaEO9i90/CCYP7/amYA02j9VrNr9+aFKHtbl8wcClCVpwyjBuijw104FBpfVWveYo69aF8/Ch9w7GAbg93kieierz57F6zndGU4LMkwJoJ+7FVwIfNR9fM9fhn4kt4T7tVZM797r31R3OhZDN7+PA+wpzlEuGofA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785912517; c=relaxed/simple;
-	bh=zX9W4WlSLffcK18o88Do8oN5udTcUrmnH3VmfZ2omYM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ccPVYh05eFM1tvXGcgRzlJ9+A6ZV+5Zpo8mgX6k5il04qqMclXszdDI4r/EMTSk2hqr1PR1AyjMtdorQOP5dgFgavkVwMPH1YjSnF5xeEXpNO9NHaI+chDC/YHh5q4YpH7MZDsM3dJN48IagVaFQ9ZWvMAJ4UFsTgyJcj+JO/Xc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q8+f4yQY; arc=pass smtp.client-ip=209.85.210.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2038F3DBD4E
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 06:59:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785913176; cv=none; b=AVnM1IUtISFxbyM0YgqNDmxIWNa7cTLmI6ZRrmImG8cuF+MFwHBAHRJga2lgU4RchNG7rh+yK3VgUdiexaLtZgz0uRYd8wB2+7gRTWoEm18ubDoGAwu29FcaOvGZlqCNcjRSOVFT+h/EZL0pEDhCsk5rekxRB8bDvWt50edyw7E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785913176; c=relaxed/simple;
+	bh=TgALdl+iEj9JSliTz8VrDMLm1WU+EhCs6+N4E75pEjQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ab3zfxZOifcPjXRaIDQZLAeqV1GMaoMWEGGL389QRwtiz+ulHSu8s/18aVs6f3Rk6WHRwS0KUMVJqqM1aiEcGYeBly1AuGVoIYvQmidkIp1EbItEniWdigD+koQ4Gb6XrFstGPIF7kHJucdcfdvoHOhmbBZAbz/YbCHuVCV1Yv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NxWw8qEY; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JeazDuot; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q8+f4yQY"
-Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7ee50eb2db4so516650a34.3
-        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 23:48:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785912512; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Dsxs1NwmCPLM84yhcVubHYaYcaUMpQa8l7DaKbTnOlcQGhOTvUJ/OEQvDqaPeykvX1
-         9HgsLy6bQv+Xp/3DUXuw4BNYj2QK7y7SxN6amdk8c0H5/wFB7xri3yJn72NTF2FSMFve
-         11Ouxlc1lEDHxd6D07X7T2sTyUEf8Vd0I9Q2XHIK8zW/uI0qMakACaeDfwnHSET4/m46
-         1GC1rxo48ZPndq0reAcGdz7UCa9L0NkkFCNGQo4VC2sM5ywMZb6ES8N2H2BhDBwWzApp
-         UA/ZqFNrYahO94zO54UkmwePDaMBiQMh1VFhLoiIwRatJIzY1h+O6ddFB+kJ5WBH8b4Z
-         Bkbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4Xv6Lh9Vxa7VZjoa3LMQUcV3QtVtWuQt/nGnygeIYR4=;
-        fh=ZwpE3SiG4TkZq2ngbgDRRf6BSaSz2YuI5ZSKM6XvQUU=;
-        b=qQiRaWV14SUIGfJpCcqVgn9QhHsUKMe56gT0X4PSQiyOO3WWILhckhobVIIVAkeUDY
-         8fgCOZmva0NR3pGxX/s+QBYVy7sKEWVwzuWIGvbhenMFsxeWoIzggwZ+pKCUz74/7M8w
-         8AQW5iz6ZjEXjCvEOP2Aqfx7t17b3hW6KTcaPB/C0/f37syMiKI4wzNsOcGUvPQMO+Hb
-         wFF8vQq52u4b5FjqhAgVzVA7zoRmvF4ysnLOmkIop8wNq/yec0HhAEVgsnjGEnnxBi4R
-         plNq6L0IWd5nE6Mm1U3JZx5zy56dVhGpTTSg8qZpo4bkvCyLMxfqSEUnfYsXXZEF7e33
-         /xIg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NxWw8qEY";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JeazDuot"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785913174;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lEhxxpwyE/rpJMtoGJj64x34mE0/II12LvK1GhW6WUk=;
+	b=NxWw8qEY1lf5Nbb1/UsoWr2PpehXEUCuVUo6uB+zIAZjbiWenAJPv2ORwHNv2iuK5vn3V8
+	/mCivdrh9Tr3okgu7zG09kDzp91kVjsOW33KKpdwG2kx76awoR7kShECBfMbd2OF/2b1XR
+	n4lfR3hYiYVIlO9OUk70dAX9iKd8KIk=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-250-m69-1YJrMv6DYgoTJeW0SA-1; Wed, 05 Aug 2026 02:59:32 -0400
+X-MC-Unique: m69-1YJrMv6DYgoTJeW0SA-1
+X-Mimecast-MFC-AGG-ID: m69-1YJrMv6DYgoTJeW0SA_1785913171
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-47fe85684b9so487423f8f.3
+        for <stable@vger.kernel.org>; Tue, 04 Aug 2026 23:59:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785912512; x=1786517312; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=redhat.com; s=google; t=1785913171; x=1786517971; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=4Xv6Lh9Vxa7VZjoa3LMQUcV3QtVtWuQt/nGnygeIYR4=;
-        b=q8+f4yQYNOVGCOuJYnVDIQaH/7HQZACPtQm+liespzmBCm+MDCxyGgbv49EcsdCoNu
-         OzsiDfxTw/fub6y3Unn6bPzysaKnEdvLmrae9J/an1wsAJVYfrrCowJ41R7fHrmh979h
-         NE7057qCQZnzkzUe8A9CmDa8NlZ2ngsrJGw9AGhmQbX3dNeYKbh6GEXUYZWAajKGqM8F
-         7qVF1XGaFMsG/HhjmRG5X0H3tVyV82PJ32Vxt/MoqaHGTpScw8CfQJxJV4J9Sqde672W
-         hsI5yu6U1z6vGiC94RpN7E+Qauu68zFCaGinfLGbFYzxm08cmZg9CdgsB8C7BJZtaA77
-         6S+Q==
+        bh=lEhxxpwyE/rpJMtoGJj64x34mE0/II12LvK1GhW6WUk=;
+        b=JeazDuotjyYx0NtfCm7GFKC/gOPshkzK7D6G/QY61xjPVdHICFA6dLuzIo6c87oBHI
+         /Y3NVlmG6sReBENXXorPvkFWhWjx2lOt0j2lI/MUU9uTPy7Zi2emCnMHfmWQxNlI4xLi
+         HOZXVlTXlywWUmCfGxq56mCY1gj5+2Q3XDN0ZGtV43pPoyopXoYtqJaTc/8cH8OVL7A5
+         UI+Me1gsAT5lKMX7XGKHT9BGAn0sPHT14MFNDN42DRp8G2EsEbZTYkce2hUUf+sHCg9b
+         9Skf/Ti2C0W9Hwi5+wOCZ9r/TWtDqpNWAuMvOcLqPEtY34Yjw54wCZDCDywbYYWmV10i
+         n9mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785912512; x=1786517312;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1785913171; x=1786517971;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4Xv6Lh9Vxa7VZjoa3LMQUcV3QtVtWuQt/nGnygeIYR4=;
-        b=rnLbRkuQlJ/E0qMwciVkgZnEWSzqNzrvZ9gSVEIwdxuhIWLwRrK8wx9+1zhh4YGhqx
-         3W6F/HrZnW2WIeYNQQfMPuoltfzfgvh/MvwSmRyzpyG18rFaGqSxYDQfp2uDE7aB8e7/
-         3NoNmP4PBXe1yOkmgwqoE9f4NDRGvHR3SdlKm3IdlyYDfCbakVQWGlDUt7T5TipwXyf7
-         pzcnOrVN6mnQ754oDxYgvNEMOZulnPbN4wFw7Y5Lx2DHQzUYvV9PG7DSaJNEZiTMECfD
-         EuidUkSTriFS7rV+nx1LPqBNZwYd7Pp458gQ+ecvQhm1g/bNiTuHVi23XmoN9AwYD8BC
-         ZhEw==
-X-Forwarded-Encrypted: i=1; AHgh+RrxdzQjz3jh9b+h8732YKykjzgEvsYwha32Cv35pX3yx/9xiA7SVoVhvFPUiOZ6jYdc9IMon+w=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzbP7Sn/rwphEtlyigvzZz2NlZaZlSajL4RQta1muJNKooi4EkO
-	p7FUSYPKGh8tVjLzzYNYvQ5Da90NsGi42V9HwDwL99D5mU2Xcz3LX7rj0lQv2DEX5KKyTPI28ka
-	9/H9GlLwKCLtG8LLXvmXMCAgzk41U5Vs=
-X-Gm-Gg: AR+sD10Oc1i/g7ywBlmT+z4cavUR8jZqvRujBx2pFF5AiWYZwTvSExbDJFARRTqmTPH
-	bMrk2QcpcumZj0sjdQVm+WLs82mesD4vdUzNS7pMckFwCESG1Kd588F/3KtPaPyeUCQLhpEK5iQ
-	4DJMGpwe/7QDU9tnFABBqU2r+NtR9gkkfVaUn8ybdSNOdnaoWz5Cff0WR5/Xct/xrk8hoyxszMT
-	IKgJereLoImq+qslICx8fY31oDW05r0gLK4WGGuj0PiTmLkDNUtuCzROBA4vOsOU2o5WokMNbAb
-	PFBCzv1UmBfQ31UnP5W4U0jqttMBudFczNBBGpmqei+aWp6yMNwpeOvJxJnsSZea/VQbKECABFJ
-	1AA==
-X-Received: by 2002:a05:6820:3095:b0:6ac:a5a3:460f with SMTP id
- 006d021491bc7-6ae96f1111dmr2536229eaf.25.1785912512358; Tue, 04 Aug 2026
- 23:48:32 -0700 (PDT)
+        bh=lEhxxpwyE/rpJMtoGJj64x34mE0/II12LvK1GhW6WUk=;
+        b=B+WICfjKBWKMHp4wK0VWFBCKcuvHqVaQpvm/6ZFc4IvHBmWoe1w+7oxmqgo78hiboq
+         lUH6OO5ADmg0sTC45E8XEc+foC4mAXYnamjqoCv4LOXTnRlcwJLc7+SPR5Qha4ZiUvyW
+         ajhmh9008WQvdwqxKVf2l6Sj0O13xwlfdUqDEKKC86Wzd60396nUWJHKUM9KUKAB4nJh
+         K3QB9BOFAQ9755NE7E5aTOGEmH0k1l6/YRd7Qv2PTL0jX/LD/ALcIgBFPX0gXJ4lrQsR
+         0exOkvN27R1DW1U7qH/Q8cRMSZKtvyPdTggfmhcgxd+f2HGjbDil2enMV1rNPnP7AE/N
+         V90Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpyDwpMSzrjas/+omTtBAXP7w55ESPUBLGxKMg0So1tvcR4j04LI/DKOqvwc65J5YlwrgdCMHk=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx5dtARhmDXyLMuglO9lUVD1Xc+EUmU2kViRSYOFWCwgItmcf12
+	1jDVZP7GE4+NUJQw2X6DHgOzM/CzM2a2BdMKQZ6fRBQdJ1ESX1zC6D+uJpJ8/NFr2dGonkSTqM9
+	fD6pCyM4B8D2UXr4PeQFR1MhN+LBdCPhkRDOeWWBNQA3azNJ5yeDgGIIDkQ==
+X-Gm-Gg: AR+sD13U3DcL9RHS40fH+Ins8TnCkzrnQLJxy4OYLwnRC99W+/5G7VJB2LcTK9S+9C0
+	+Ee7+5idsBRI41rsoNI0GQE2GncsRzHiuxYfFS/W9Wq5J3mCRQFeFsyVscj0P/WvP2vEgRw2WbC
+	WQ/Ykita4ejEJkZu9sZyg7HYKlhifa6FexeloBRx1097lao2/Id3ukD4KKexWwdbKdt98wC+3TU
+	Gc2wj1j6Cp3rwahhT8g6JdzKrUebzgL9gu/Wi3bSS6ZoNAfdPnoRP5O++HYMfVkP4Y9uKS9xhSF
+	eZJw/FprMT25Tj96oYSPCzn7+ujapa6tw1/jV7VQbF6wO6BbDTBQYkXQY0Ct6jQqLhp2JneJTBQ
+	COvpfdpJK2LH4QvczKl0k/w==
+X-Received: by 2002:a05:6000:4211:b0:47f:96e3:5309 with SMTP id ffacd0b85a97d-47fec50d87amr7251146f8f.9.1785913171408;
+        Tue, 04 Aug 2026 23:59:31 -0700 (PDT)
+X-Received: by 2002:a05:6000:4211:b0:47f:96e3:5309 with SMTP id ffacd0b85a97d-47fec50d87amr7251098f8f.9.1785913171014;
+        Tue, 04 Aug 2026 23:59:31 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-28-14.inter.net.il. [80.230.28.14])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47febfe5d7csm6573640f8f.15.2026.08.04.23.59.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 23:59:30 -0700 (PDT)
+Date: Wed, 5 Aug 2026 02:59:27 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Xiong Weimin <xiongweimin@kylinos.cn>
+Cc: virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Jason Wang <jasowangio@gmail.com>, Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] virtio_pci: do not mutate caller irq_affinity.pre_vectors
+Message-ID: <20260805025834-mutt-send-email-mst@kernel.org>
+References: <20260805032934.1606700-1-xiongweimin@kylinos.cn>
+ <20260805013203-mutt-send-email-mst@kernel.org>
+ <178591242683.1657366.2004019380773321385@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260720150207.1963786-1-charles.daoust@gmail.com> <20260805075429.08416607.michal.pecio@gmail.com>
-In-Reply-To: <20260805075429.08416607.michal.pecio@gmail.com>
-From: "Charles D'Aoust" <charles.daoust@gmail.com>
-Date: Wed, 5 Aug 2026 02:48:21 -0400
-X-Gm-Features: AUfX_myCbyWaGmHoIJb8Tebqi3WNBU8TWiYaZdPYl_JynhHI19QT4zP5Jqfjl3Y
-Message-ID: <CAAhWKQRBrK0Bu_wEPV6chU=p6Y=kXix9H2Ys2k=M+PxbAL3Wqg@mail.gmail.com>
-Subject: Re: [PATCH] usb: core: add USB_QUIRK_CONFIG_DESC_READ_255 for Razer
- BlackShark V3 Pro
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178591242683.1657366.2004019380773321385@kylinos.cn>
 
-It was indeed AI assisted. It's hard to tell if this is sloppy QA,
-obviously, but initially I thought it was an actual lockdown in the
-firmware to prevent non-Razer software from accessing the device.
-Turns out you're probably right.
----
-Charles D=E2=80=99Aoust
+On Wed, Aug 05, 2026 at 02:47:06PM +0800, Xiong Weimin wrote:
+> On Wed, Aug 05, 2026 at 01:37:01AM -0400, Michael S. Tsirkin wrote:
+> > "tmp" in what sense? if we can come up with a sensible name, just
+> > "affinity" will do.
+> >
+> > We do not need a comment arguing with previous version of the code.
+> >
+> > just assign to desc, instead?
+> 
+> Thanks, will do. I will post a fresh [PATCH v2] as a new standalone
+> mail (not threaded under this one) with:
+> - a local "affinity" copy
+> - that comment dropped
+> - desc = &affinity, and keep passing desc
+> 
+> On the virtio_input thread you also asked whether this is real or
+> theoretical for stable. For this virtio_pci patch: real when the caller
+> passes irq_affinity and MSI-X policy falls back.
+> 
+> vp_find_vqs() retries EACH -> SHARED_SLOW -> SHARED. A failed
+> vp_request_msix_vectors() currently does desc->pre_vectors++ in place,
+> so a later successful attempt sees a polluted pre_vectors and gets the
+> wrong affinity layout. That fallback path is unconditional in the
+> driver.
+> 
+> I have not collected a userspace failure log yet. Please let me know if
+> you still want Cc: stable on the v2.
+> 
+> Thanks,
+> Xiong
 
-On Wed, Aug 5, 2026 at 1:54=E2=80=AFAM Michal Pecio <michal.pecio@gmail.com=
-> wrote:
->
-> On Mon, 20 Jul 2026 11:01:26 -0400, Charles Daoust wrote:
-> > From: Charles D'Aoust <charles.daoust@gmail.com>
-> >
-> > The Razer BlackShark V3 Pro wireless headset dongle (1532:0577)
-> > fingerprints its host during the first enumeration after power-on: if
-> > the first GET_DESCRIPTOR(CONFIGURATION) request asks for 255 bytes, as
-> > Windows does, the dongle enables its vendor HID command channel; if it
-> > sees the 9-byte header-only read that Linux issues, it disables that
-> > channel for the rest of the power session.  Audio still works in that
-> > state, but battery reporting and all vendor commands are silently
-> > ignored, and nothing short of removing power recovers the device:
-> > resets, re-enumerations and byte-exact replays of complete Windows
-> > control sessions were all verified not to help.
-> >
-> > Both read lengths are spec-compliant (the device truncates the reply
-> > to wLength); the firmware was evidently only validated against the
-> > larger request.
->
-> Hmm, so is it fingerprinting of the host or sloppy QA? ;)
-> Out of curiosity, was this patch AI-generated?
->
-> >  The kernel already accommodates this class of
-> > firmware assumption during enumeration: hub_port_init() reads the
-> > device descriptor with a 64-byte request because that is what Windows
-> > does and what many devices expect.
-> >
-> > Add USB_QUIRK_CONFIG_DESC_READ_255, which makes usb_get_configuration()
-> > request 255 bytes for the initial configuration descriptor read rather
-> > than USB_DT_CONFIG_SIZE, apply it to 1532:0577, and expose it as
-> > runtime quirk letter 'r'.  Devices without the quirk are unaffected.
-> >
-> > The trigger was isolated by single-variable bisection on otherwise
-> > unmodified kernels: with only the widened initial read, the dongle's
-> > vendor channel comes up enabled on a cold plug with no interface
-> > drivers bound (bare enumeration only); without it, it never does.
-> >
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Charles D'Aoust <charles.daoust@gmail.com>
->
-> But anyway, FYI an equivalent quirk is now sitting in Greg KH's queue
-> of fixes for (presumably) the 7.2 release.
->
-> I suspect that Greg would accept one more patch to enable the quirk
-> by default on your device ID.
->
-> Regards,
-> Michal
+do not cc stable on theoretical issue.
+
+there is a bit of a language issue.
+
+if the issue is real describe it:
+
+"this was observed: ... "
+
+if theoretical say so
+
+-- 
+MST
+
