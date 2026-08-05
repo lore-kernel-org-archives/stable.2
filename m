@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832A8453A33
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:11:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3F046C836
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 12:12:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931912; cv=none; b=bKaCm1BtaDYKrT9u6cVWamlJYabNNZhGmXtUdZSTxgQ0BFYuFRZyRq3Gved1qog/cncDk352e8TOQk7UJ2DV7MHJOY0p1XoPSFSJ4TBw9lG0C4EmqYrUbmVqgeBuyd16TE6NNElqMtAyd/0cCRZ4ipnG4hxkN9wXKCP45d/YorU=
+	t=1785931926; cv=none; b=XuvNg7tdDGQE4ULwAIzSNPfkc3PPZzBsGjdvk3O3fSwIzGiWxwY8EyZNWtmmidlTQFfsPFyxiyP3nN6hcePk9zA2a0+Az9AwE9HSM4/DAvTY7H5sF+UIolv96NeciXEXX+UzRkq22tWMcvRw/+85+T+WW5qhZKXxLKcTOQn2orw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931912; c=relaxed/simple;
-	bh=bcgu6ufMoV6d5IC7S0otVxLHjqNtdn6cFKnkxvYgeeE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=g7QYPf05jnVEw0LmAy7m5dkTERS5ZZ65bn9CpABZejhMKY4rwu0eDXl4EiUzoqNrJVY2LcemyTW4bwimA2ER1GgeZEjYUA9P3PsNEodN4nyOjNfi1jC0isnqezzy8F9qdlOOg5gLk+cQ5cDKke9eStyrgsu8JQ+vXgk2O/pu1Q0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FX+W8Bj9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785931926; c=relaxed/simple;
+	bh=ZxUD5Dh0rhHKFhkqxlgdOItHvespUjm8IAZrFRa6gpo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YbZTQvGvclX8alWUw7S61e++J5PtfNsU/NOnbntu7xUaPeRwUtI9SSdubp8cyVAgdG9WgZwB2rHG60ygT/Zqniy4uOk8TWdZTi+9R8xtgPicRwkuuUMx2XbjyCfYb95d7gofZy69f2/Xixp6lgUN7lXE72Vfckee65jziVrVjvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=y5SOixiw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FX+W8Bj9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89D201F000E9;
-	Wed,  5 Aug 2026 12:11:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="y5SOixiw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366E11F00ACF;
+	Wed,  5 Aug 2026 12:12:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1785931911;
-	bh=3u9nv+ZSFZz3a9kctathI5bkNGmQlEDoiHF+CY2R71o=;
+	s=korg; t=1785931924;
+	bh=x4rXu5FAmqn9nPaIK1goScakMvXXSf1lnGrBlqoOhug=;
 	h=Subject:To:Cc:From:Date;
-	b=FX+W8Bj9my0X3TkCULvAt6mzSjBVwRwti0wN9Sp8JzlVObJQUmfbdXzM46iZ5RTnT
-	 fkH3uTe2kTam1PYH7OoiEWiMQYRgJfqhGjoyboZGXZBcMdFYRGmA448cs2k3WsOaWS
-	 yLzm3n3mWjQqGnzN/iwbGJPDlRiQQiaDqdEaWK8U=
-Subject: FAILED: patch "[PATCH] drm/amd/display: use proper context for logging" failed to apply to 5.15-stable tree
-To: jirislaby@kernel.org,Bhawanpreet.Lakha@amd.com,airlied@gmail.com,alexander.deucher@amd.com,bhawanpreet.lakha@amd.com,christian.koenig@amd.com,harry.wentland@amd.com,simona@ffwll.ch,siqueira@igalia.com,sunpeng.li@amd.com
+	b=y5SOixiwIos1AEYIoaXSOiOpf8cc0O60Vc8EFtfP6+g5NwwyFnwqAy7GdkfBNhLj5
+	 csqeUzXVODoAJe7WU8Ns1BLiIT2KaoGdpTa3EgqBbJL6YOXhtsBndvVp6ORo0xBgrt
+	 WKGmB2HoIQC3AXZ2N48eLbHYwx1ENlsJ7P4w4lIM=
+Subject: FAILED: patch "[PATCH] drm/amd/display: Exit idle optimizations before programming" failed to apply to 7.1-stable tree
+To: sunpeng.li@amd.com,alexander.deucher@amd.com,superm1@kernel.org,weber.aulendorf@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 14:11:21 +0200
-Message-ID: <2026080521-battle-unlawful-7a6f@gregkh>
+Date: Wed, 05 Aug 2026 14:11:47 +0200
+Message-ID: <2026080547-scoff-that-5ce1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 114b42507b6a23d9d24e24e4ef165233332c64d4
+git cherry-pick -x 8419331e64d92a8de5fc4feef0e305f201fb8b33
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080521-battle-unlawful-7a6f@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080547-scoff-that-5ce1@gregkh' --subject-prefix 'PATCH 7.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,173 +62,159 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 114b42507b6a23d9d24e24e4ef165233332c64d4 Mon Sep 17 00:00:00 2001
-From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-Date: Thu, 23 Jul 2026 06:25:48 +0200
-Subject: [PATCH] drm/amd/display: use proper context for logging
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 8419331e64d92a8de5fc4feef0e305f201fb8b33 Mon Sep 17 00:00:00 2001
+From: Leo Li <sunpeng.li@amd.com>
+Date: Tue, 28 Jul 2026 13:02:47 -0400
+Subject: [PATCH] drm/amd/display: Exit idle optimizations before programming
 
-The same as the rest of the code, get_ss_info_from_atombios() uses
-calc_pll_cs->ctx->logger for logging. But calc_pll_cs->ctx is
-initialized only later in calc_pll_max_vco_construct(). Therefore, any
-output using DC_LOG_SYNC() leads to a NULL pointer deference in
-get_ss_info_from_atombios().
+[Why]
 
-According to Sashiko, the very same problem exists in
-dce112_get_pix_clk_dividers() and dcn3_get_pix_clk_dividers() too.
+We need to exit PSR/IPS before programming. Before calling DC for
+programming in amdgpu_dm_commit_planes(), there's a
+vblank_control_workqueue flush. This waits for IPS and PSR exit. (See
+drm_vblank_on/off() > amdgpu_dm_crtc_set_vblank() --queue_work()->
+amdgpu_dm_crtc_vblank_control_worker())
 
-To avoid accessing the NULL context, use clk_src->base.ctx->logger
-everywhere. That context in base is initialized earlier in
-dce110_clk_src_construct() and dce112_clk_src_construct(). Before
-get_ss_info_from_atombios() or Sashiko's get_pix_clk_dividers functions
-above are actually called. This is done by redefining DC_LOGGER to
-CTX->logger.
+Prior to the tagged "Fixes:" change, drm_vblank_get() was called before
+the workqueue flush. This ordering ensures that PSR exit occurred before
+programming. After the "Fixes:" change, drm_vblank_get() is called after
+the workqueue flush, leading to programming while idle optimizations are
+still active. This can lead to incorrect flip_pending detection used by
+vblank event delivery.
 
-Before:
-dce110_clk_src_construct() did:
- -> sets clk_src->base.ctx = ctx;
- -> ss_info_from_atombios_create()
-   -> get_ss_info_from_atombios()   <- uses calc_pll_cs->ctx  # BOOM
- -> calc_pll_max_vco_construct()    <- sets calc_pll_cs->ctx
+[How]
 
-After:
-dce110_clk_src_construct() does:
- -> sets clk_src->base.ctx = ctx;
- -> ss_info_from_atombios_create()
-   -> get_ss_info_from_atombios()   <- uses clk_src->base.ctx
+Split the vblank_get() component of `dm_arm_vblank_event()` into
+`dm_arm_vblank_event_pre_programming()`, which is called before
+programming. Call it before the vblank_control_workqueue flush.
 
-Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271175
-Closes: https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528ae3c63a3@kernel.org/
-Fixes: 1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 6f16fcbb0c46a87e3d9685407e906573d60104b0)
+Includes a drive-by cleanup of prepare_flip_isr(): the only caller is
+dm_arm_vblank_event() and it's simple enough to roll-in.
+
+v2: Fix checkpatch formatting warning on
+    drm_arm_vblank_event_pre_programming() arg alignment.
+
+Fixes: 48ab86360af1 ("drm/amd/display: check GRPH_FLIP status before sending event")
 Cc: stable@vger.kernel.org
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/4141#note_3583205
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5527
+Assisted-by: Codex:gpt-5.6-sol
+Assisted-by: Claude:opus-5
+Suggested-by: David Weber <weber.aulendorf@gmail.com>
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 05984e29520a28c27f5a2388742c957a6a87ee7a)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-index ecb8493ec523..8e3862f6dac2 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -45,9 +45,7 @@
- 	clk_src->base.ctx
- 
- #define DC_LOGGER \
--	calc_pll_cs->ctx->logger
--#define DC_LOGGER_INIT() \
--	struct calc_pll_clock_source *calc_pll_cs = &clk_src->calc_pll
-+	CTX->logger
- 
- #undef FN
- #define FN(reg_name, field_name) \
-@@ -287,6 +285,7 @@ static bool calc_pll_dividers_in_range(
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index eaf19ec843e8..1820547b1dde 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9903,25 +9903,6 @@ static void remove_stream(struct amdgpu_device *adev,
+ 	acrtc->enabled = false;
  }
  
- static uint32_t calculate_pixel_clock_pll_dividers(
-+		struct dce110_clk_src *clk_src,
- 		struct calc_pll_clock_source *calc_pll_cs,
- 		struct pll_settings *pll_settings)
- {
-@@ -474,7 +473,7 @@ static uint32_t dce110_get_pix_clk_dividers_helper (
- {
- 	uint32_t field = 0;
- 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
--	DC_LOGGER_INIT();
-+
- 	/* Check if reference clock is external (not pcie/xtalin)
- 	* HW Dce80 spec:
- 	* 00 - PCIE_REFCLK, 01 - XTALIN,    02 - GENERICA,    03 - GENERICB
-@@ -517,12 +516,14 @@ static uint32_t dce110_get_pix_clk_dividers_helper (
- 		/*Calculate Dividers by HDMI object, no SS case or SS case */
- 		pll_calc_error =
- 			calculate_pixel_clock_pll_dividers(
-+				        clk_src,
- 					&clk_src->calc_pll_hdmi,
- 					pll_settings);
- 	else
- 		/*Calculate Dividers by default object, no SS case or SS case */
- 		pll_calc_error =
- 			calculate_pixel_clock_pll_dividers(
-+					clk_src,
- 					&clk_src->calc_pll,
- 					pll_settings);
- 
-@@ -568,7 +569,6 @@ static uint32_t dce110_get_pix_clk_dividers(
- {
- 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
- 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
--	DC_LOGGER_INIT();
- 
- 	if (pix_clk_params == NULL || pll_settings == NULL
- 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
-@@ -600,7 +600,6 @@ static uint32_t dce112_get_pix_clk_dividers(
- 		struct pll_settings *pll_settings)
- {
- 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
--	DC_LOGGER_INIT();
- 
- 	if (pix_clk_params == NULL || pll_settings == NULL
- 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
-@@ -1442,8 +1441,6 @@ static uint32_t dcn3_get_pix_clk_dividers(
- 	unsigned long long actual_pix_clk_100Hz = pix_clk_params ? pix_clk_params->requested_pix_clk_100hz : 0;
- 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
- 
--	DC_LOGGER_INIT();
+-static void prepare_flip_isr(struct amdgpu_crtc *acrtc)
+-{
 -
- 	if (pix_clk_params == NULL || pll_settings == NULL
- 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
- 		DC_LOG_ERROR(
-@@ -1513,7 +1510,6 @@ static const struct clock_source_funcs dce110_clk_src_funcs = {
- 	.get_dp_dto_frequency_100hz = get_dp_dto_frequency_100hz
- };
- 
+-	assert_spin_locked(&acrtc->base.dev->event_lock);
+-	WARN_ON(acrtc->event);
 -
- static void get_ss_info_from_atombios(
- 		struct dce110_clk_src *clk_src,
- 		enum as_signal_type as_signal,
-@@ -1526,7 +1522,7 @@ static void get_ss_info_from_atombios(
- 	struct spread_spectrum_info *ss_info_cur;
- 	struct spread_spectrum_data *ss_data_cur;
- 	uint32_t i;
--	DC_LOGGER_INIT();
+-	acrtc->event = acrtc->base.state->event;
+-
+-	/* Set the flip status */
+-	acrtc->pflip_status = AMDGPU_FLIP_SUBMITTED;
+-
+-	/* Mark this event as consumed */
+-	acrtc->base.state->event = NULL;
+-
+-	drm_dbg_state(acrtc->base.dev,
+-		      "crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
+-		      acrtc->crtc_id);
+-}
+-
+ static void update_freesync_state_on_stream(
+ 	struct amdgpu_display_manager *dm,
+ 	struct dm_crtc_state *new_crtc_state,
+@@ -10274,17 +10255,47 @@ static void dm_arm_vblank_event(struct amdgpu_crtc *acrtc,
+ 		return;
+ 
+ 	if (pflip_update) {
+-		drm_crtc_vblank_get(&acrtc->base);
+ 		WARN_ON(acrtc->pflip_status != AMDGPU_FLIP_NONE);
+-		/* Arm flip completion handling and event delivery after programming. */
+-		prepare_flip_isr(acrtc);
++		WARN_ON(acrtc->event);
 +
- 	if (ss_entries_num == NULL) {
- 		DC_LOG_SYNC(
- 			"Invalid entry !!!\n");
-@@ -1657,6 +1653,7 @@ static void ss_info_from_atombios_create(
- }
- 
- static bool calc_pll_max_vco_construct(
-+			struct dce110_clk_src *clk_src,
- 			struct calc_pll_clock_source *calc_pll_cs,
- 			struct calc_pll_clock_source_init_data *init_data)
- {
-@@ -1808,6 +1805,7 @@ bool dce110_clk_src_construct(
- 	ss_info_from_atombios_create(clk_src);
- 
- 	if (!calc_pll_max_vco_construct(
-+			clk_src,
- 			&clk_src->calc_pll,
- 			&calc_pll_cs_init_data)) {
- 		ASSERT_CRITICAL(false);
-@@ -1822,7 +1820,7 @@ bool dce110_clk_src_construct(
- 
- 
- 	if (!calc_pll_max_vco_construct(
--			&clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
-+			clk_src, &clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
- 		ASSERT_CRITICAL(false);
- 		goto unexpected_failure;
++		acrtc->pflip_status = AMDGPU_FLIP_SUBMITTED;
++		acrtc->event = acrtc->base.state->event;
++		acrtc->base.state->event = NULL;
++
++		drm_dbg_state(acrtc->base.dev,
++			      "crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
++			      acrtc->crtc_id);
+ 	} else if (cursor_update) {
+-		drm_crtc_vblank_get(&acrtc->base);
+ 		acrtc->event = acrtc->base.state->event;
+ 		acrtc->base.state->event = NULL;
  	}
+ }
+ 
++/**
++ * dm_arm_vblank_event_pre_programming - Prepare for programming
++ * @acrtc: The amdgpu CRTC to prepare
++ * @acrtc_state: The new CRTC state
++ * @pflip_update: Whether a page flip is being programmed
++ * @cursor_update: Whether a cursor update is being programmed
++ *
++ * Grab a reference on the vblank counter if a page flip or cursor update is to
++ * be programmed. Do this before programming so the HW is not in any
++ * idle-optimized state (such as PSR).
++ */
++static void dm_arm_vblank_event_pre_programming(struct amdgpu_crtc *acrtc,
++						struct dm_crtc_state *acrtc_state,
++						bool pflip_update,
++						bool cursor_update)
++{
++	assert_spin_locked(&acrtc->base.dev->event_lock);
++
++	if (!acrtc->base.state->event || acrtc_state->active_planes == 0)
++		return;
++
++	if (pflip_update || cursor_update)
++		drm_crtc_vblank_get(&acrtc->base);
++}
++
+ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 				    struct drm_device *dev,
+ 				    struct amdgpu_display_manager *dm,
+@@ -10550,16 +10561,19 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 		}
+ 	}
+ 
+-	/*
+-	 * DCE depends on a combination of GRPH_FLIP, VLINE0, and VUPDATE for
+-	 * event delivery. Only GRPH_FLIP handler can send pflip events, and it
+-	 * only fires if HW latched to the flip. Maintain legacy behavior by
+-	 * arming event before programming.
+-	 */
+-	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
+-		scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
++	scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
++		dm_arm_vblank_event_pre_programming(acrtc_attach, acrtc_state,
++						    pflip_present,
++						    cursor_update);
++		/*
++		 * DCE depends on a combination of GRPH_FLIP, VLINE0, and
++		 * VUPDATE for event delivery. Only GRPH_FLIP handler can send
++		 * pflip events, and it only fires if HW latched to the flip.
++		 * Maintain legacy behavior by arming event before programming.
++		 */
++		if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
+ 			dm_arm_vblank_event(acrtc_attach, acrtc_state,
+-					pflip_present, cursor_update);
++					    pflip_present, cursor_update);
+ 		}
+ 	}
+ 
 
