@@ -1,35 +1,39 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25B3F3043C8;
-	Wed,  5 Aug 2026 01:21:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B270C298CAB;
+	Wed,  5 Aug 2026 01:25:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785892864; cv=none; b=Q3LAcNT+m3bJ1TfXTSN24aL2RGuwAmcDwcuJM1ZW53mrMAQSNlaKbNhVdkgBRN451EEgKNUOW/Hu4buN/8236l+3k5ARDa9FFyEzFbfIlZWnFAzkPxHInfysZJrjgOxAOqXoDG6c2d1ALczFZNqmt95CdNRJWsb9Ty2FFhf7eA0=
+	t=1785893110; cv=none; b=Z28UGmJPQgqSQx4CBBMBllQr9IMl5imtT1zvpVONRZ9kRyYIaygy3crfg8xs6LGeE+UDqUYRdtvtQLWlGNHoFmWxW4PLKXpA674VeWlCDoZ21CqLgoRHb4sWgpI4Dy/tA76jo5K+VVsvlYVCd7uVMIEqzj1IPy1/WImUHfBnj2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785892864; c=relaxed/simple;
-	bh=KnhLNhpkigRhLM85NlCDq/2A7NPYV4eWZv3gQSKLySg=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=W0V1cpYynhXhDM/bPRZ3i2dgRjYLAC3V0KLt6qiW/mGHkzluhwV9Cors0wUZYRy+te1OnlilovfOd/RMwztiQN4h8rZ+Q9EsGGlkA5W5ams3ywVm3Au9p/ib1h3Q+YJJ/02vDr23IRYD08LiH/Qp49Kl1XKRJUETArfEWHT2OfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aQnWmplc; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aQnWmplc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9261D1F000E9;
-	Wed,  5 Aug 2026 01:21:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785892861;
-	bh=MwEqJjP6qpqAoyV5UkMA9yWLjup70ridbNsRQ1s0408=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=aQnWmplcN6wREYS2ZQmrQyrcLqRtNJ13jdzeqUWgDNpuP7FEzilSjwTeMD3Xw/vgJ
-	 fRaKcPmNaQES11ku3W37bAVI3S8+lfpM8iBiD7LZ98cf6Nh03X3PJMaOFGUhvl5SWd
-	 pqulPglq4nZzW2pKVGX7wJ4S9UXCyySGJGknZKxpDl7Ib+EDEgOF9rnrvEuuTT1oOP
-	 aHNzVn005c8SG0fms/lOE5Vxk7r6LDZqfQf/fXUphPR4Fm316rTVjCiwzWbiUvbO/b
-	 wICh5FFhpDqnV/y7XfzeDq2KvqeuiJIh6mWuSYjpEPmz/zRBfIM5Iq51lLqIxGE7x1
-	 /zdi0GvsHFMFQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 197DA3926666;
-	Wed,  5 Aug 2026 01:20:23 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=arc-20240116; t=1785893110; c=relaxed/simple;
+	bh=14LQz/KZg6vzOaF8oXJI/mmrnCTlYceRnqOmtBZOcrI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=gTV+MmlQ6b6R06XQGWHFyxYONBG5Hg92PkF3Q/iqdB4jXzsEKy1QdtrIMELnv6uuXEPoVoSJVhmSBCeeLu5s1rmR8cr4bfvYW5YVnF7ZpAE0v2cT/bHqHWA6Yeuk/IoiHC3ObhQUlzNj+OHwoA+YVGo/I9OpBADCpqfM29sPKT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCHgD_TkHJqLfhmAA--.15366S3;
+	Wed, 05 Aug 2026 09:24:35 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgCHUXXSkHJqqx32Aw--.31562S2;
+	Wed, 05 Aug 2026 09:24:34 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH net 2/2] fjes: cancel force_close_task in fjes_remove()
+Date: Wed,  5 Aug 2026 01:23:37 +0000
+Message-Id: <20260805012337.416908-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260805011410.414431-1-fanwu01@zju.edu.cn>
+References: <20260805011410.414431-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,46 +41,56 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v3 net] net: microchip: vcap api: Fix possible memory leak
- in
- vcap_decode_rule()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178589282164.3863162.1616529385793132402.git-patchwork-notify@kernel.org>
-Date: Wed, 05 Aug 2026 01:20:21 +0000
-References: <20260801055507.47534-1-nihaal@cse.iitm.ac.in>
-In-Reply-To: <20260801055507.47534-1-nihaal@cse.iitm.ac.in>
-To: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Cc: Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
- UNGLinuxDriver@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, nathan@kernel.org,
- ndesaulniers@google.com, morbo@google.com, justinstitt@google.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, joe@dama.to,
- horatiu.vultur@microchip.com, stable@vger.kernel.org
+X-CM-TRANSID:zS_KCgCHUXXSkHJqqx32Aw--.31562S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?+txdwQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WMiY2ZC40s8wkgCtw1ZMdQGncnuOq8iCpYYcFIjXTUu9ygJ
+	P4TahSWiUUq494bm6VWp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj9xXoW7XF1DAw4xuw45ZrWDtF43urX_yoWDZrX_C3
+	42qFs7Ww4DCay0gw1jkF47Zr1IkFn2qrn293W2kayrtasrAw1ayrnrZrsYqryUZ3sxAF9r
+	u3ZIgw1Yqa4xuosvyTuYvTs0mTUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbT8YFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7rcfUUUUU
 
-Hello:
+force_close_task runs on the system workqueue, which destroy_workqueue()
+does not drain, so it can run after free_netdev() and touch freed memory.
+Cancel it after destroying the workqueues, before free_netdev().
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+This issue was found by an in-house static analysis tool.
 
-On Sat,  1 Aug 2026 11:25:05 +0530 you wrote:
-> The memory allocated for struct vcap_rule_internal, keyfields and
-> actionfields inside vcap_dup_rule() are not freed in some of the error
-> paths in vcap_decode_rule(). Fix that by calling vcap_free_rule().
-> 
-> Compile tested only. Issue found using a prototype static analysis tool
-> built on top of the LLVM compiler infrastructure.
-> 
-> [...]
+Fixes: 658d439b2292 ("fjes: Introduce FUJITSU Extended Socket Network Device driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/net/fjes/fjes_main.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Here is the summary with links:
-  - [v3,net] net: microchip: vcap api: Fix possible memory leak in vcap_decode_rule()
-    https://git.kernel.org/netdev/net-next/c/30ce0cb576b6
-
-You are awesome, thank you!
+diff --git a/drivers/net/fjes/fjes_main.c b/drivers/net/fjes/fjes_main.c
+index cddabc965..a2c77ca0d 100644
+--- a/drivers/net/fjes/fjes_main.c
++++ b/drivers/net/fjes/fjes_main.c
+@@ -1402,6 +1402,8 @@ static void fjes_remove(struct platform_device *plat_dev)
+ 	if (adapter->txrx_wq)
+ 		destroy_workqueue(adapter->txrx_wq);
+ 
++	cancel_work_sync(&adapter->force_close_task);
++
+ 	fjes_hw_exit(hw);
+ 
+ 	netif_napi_del(&adapter->napi);
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.34.1
 
