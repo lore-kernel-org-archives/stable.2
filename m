@@ -1,73 +1,73 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07ECE41B8CD
-	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 10:01:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252B63FA5EF
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 10:01:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785924112; cv=none; b=ofHsZJy8f40icWzzSA8W2x25Fa8OyqlLgANCIcVXEgRAcyBi0j+uE/5VOao5PM7TyBtjsHSc7zk3TMvvOZEENwiyCGKNfrACb/MoU/TSEiF3VdqamMYM5dzGztr1KMZi3CMoBX30ALD4Ao4hAGydENA03/TnSFIzDoK3/N6kw+A=
+	t=1785924115; cv=none; b=MPQvqHQJ2yfV8go57VF1HeE1hhZTqVx6Ttr6KhLopYSvvKDalVplVTWEhlQw9BF0eb+Zt8szPh3UShkC9EjMBQjWSGi2zxKVgCgsX9ciUKKH1GhMlFg0r1bxOzjAIPJw2DoVvAmbj4TX1S7zi0TPg8ekqAQEKxBCXZEvblCFxEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785924112; c=relaxed/simple;
-	bh=RHsAW528LjpC1dNrxnr6Ql37IVBSqXQU/RP4Y8JOAjU=;
+	s=arc-20240116; t=1785924115; c=relaxed/simple;
+	bh=NBtOrpbopUFriHHzTeFilMe81NURVCzMvf4Gk5LjoaA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BgV3o4SwyeahvHH9beujXv/aIjXWmNzJ99+R6lu9CSNNH6qqmTL9sOpVEvWDSUwGzeJ47r+FDDzaOjNZR0hTC/Ti6BukCEe323Z1Bloz43YjCgrMmH2n0iJGLhWSsqas3uNgjHInJyI16S9AT0kHlnpdKkwoXXS6R3/QHzE4bqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tEXgqCE5; arc=none smtp.client-ip=209.85.128.41
+	 MIME-Version; b=XlylH485ehMVJuHpV7LnWQX4goHCTjhYy3dXozRPGy7Zlf/j1OA9oIDpt+BmHVdlATCJBDXGOlNkUpgeIG819jDFsTqDe0r17KdJkK95nXFArDOeVrGHDE3lx/LGtJRCeuoCYBMyN7KmIN5uvZei+w06c02Mz0kYnNA2apw/p5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g92xf8FF; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tEXgqCE5"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-495437bb891so7752215e9.1
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 03:01:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g92xf8FF"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47fe89fb333so458731f8f.3
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 03:01:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785924109; x=1786528909; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AqXp8qEaN1k4mqWF2/Jz3f2LFKv7ypr2RsFpqq7JTX8=;
-        b=tEXgqCE5tPnyYEUAgSvNfB4zdi+fsL64xl5tij+4/LcpKIBlQLAfu9P6bmPaNfVrKC
-         P8ysxUaA98f+1geBbIQbTaWulZNw6YiR5CHIvuuqw1qHPLDAjWhTRGf9GebCjTpCMUGK
-         gCKQ5koU915H1v6sunqQu3iwYjK2tpaEvLCcmIP9Z+besdZbh3ggQvHC3pmTOzDQuMBW
-         7j7uPeysKiKbKDyrgf/5wN70QtfJaGzvHiZyejCo2n8wbTmb6XfRnCyRQx8f2MCFcPWS
-         QJg5YimoxAkqH5Bfgr/urW0puI+VsuKtzLEDxjAoPxyEam1mRXBuCtudWEVy6VNFhCh0
-         jkGg==
+        d=gmail.com; s=20251104; t=1785924112; x=1786528912; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FpW9ahejzMAV7yB3Jv8UiH8Q3JA7f2h2Kt2WTy+0YGA=;
+        b=g92xf8FFVjC7P9uWO+cCk1ggBX2AyVOjMoCqBaQRs6RF8CF6k6AfODoAiC0zvEAzHV
+         in63OQGnvqdnOnRPQ6yKZ+cwPs0Njr5dqZEq0rKem8+r+goTgoRPBhAXcr1F+cNtVybi
+         wsL4EIQ2nEJIU9FJrvVzVHh9UzhHc2CSN+Sio0GtvpgIBX5heABY6mEkasWraQeP0yGL
+         v5P4XtfGLU6OaTYA7q8wenHRZ1rQSIT12gVdha6/CbMg26ucs7CS3Ev9QurvE1yVCoz9
+         efcuJZeKkFjXAi5rQ5+Bul5lhbLhTmeAzq1uFNuHeR2ZhivI/8gLvLfrsURY4G1Hcoln
+         6s9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785924109; x=1786528909;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AqXp8qEaN1k4mqWF2/Jz3f2LFKv7ypr2RsFpqq7JTX8=;
-        b=CcZ1GAKBu2cvo9sRJiHRzgn5lPrBgm9rGCzhuFj/HjTpEydRh1sM76q6OAdm1/2zrg
-         0InUMZz6fMYS4/S27ezbsa0d+WuwXKRJk6mUgPA8Wyf6pEY/uVpfzC4m35JepPLIupA1
-         5A7QaoT2Kig33TDhv8V5RiVa+oxk+crrsfTJiacUmPJuYYbGxcwtJ1TylfC2cI4Nl46q
-         6HUoGEHpDzCZl8sIObF7WrBXRHdonqUTtczta0uHVEG3DtJvUOVWpW4nC3Zvov2JW6Z1
-         VEsZKkFkgDnSEamzyVJfVaX1NWAo594qtTFwjUUC7qhNVxeE1KsQsP7C9Hf2biGEpbVC
-         tA2g==
-X-Gm-Message-State: AOJu0Yzunjf9MhTUPhd0QvixV+NQPwQQ//cKG1mz4YHkqP1lj7C1yExQ
-	mGbLF/W7TlERShtYOu3L5E3ytM3tJ8v8Lh3Sg/TUAwTy1Mo73LoCv/xBkd3gxccd
-X-Gm-Gg: AR+sD1394LFEVntP9PrsnRGqKzSZRWSIjUgGGeUeEILGYzdMXrWD8nGhHJRiRyD/JfH
-	UmLw08n5k/MrJWcEqgMbRCQKoKHsHA38uxWaYHAKaigzQSWLncTHD0RmgoR+hSw4rkqK/R8LLlI
-	q4BIbFLMLSHla4/RtfmHKhCysv91tmNoJHfDM0O2HXQOxvuCetS/AUnPUBFEPVFB089KiBhbNSw
-	tNyAv9S/ETvEmmnwSSaMTF/AaOhP2KRbFkydgHi14+4XwvEc1N8QMPM80YM37s+dR4Tllzg5xDu
-	gR7qfuuv3TeKFtgXZ3hYMChcUamZiyhRTM+zq3O7IzH5uJlTRNViXzLCHCycNvsG0DqDPj9/8PV
-	UQiNnh/xi7Ss4HyOdfaL45xigLya49ALDBK+UQS/3j2hyxLTuo9yAFFF8dJv33c+wuQCEoRWmTB
-	rQvsC6Sn/EH2ub4nXHVel7sQYz/Ikvl9EJho0tQkz0NkJqO+FRbJ1ao1L0epzQ6VCUM1A8cyPjD
-	H4h
-X-Received: by 2002:a05:600c:8218:b0:493:e543:1dd9 with SMTP id 5b1f17b1804b1-4994a110c98mr224357065e9.9.1785924109111;
-        Wed, 05 Aug 2026 03:01:49 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785924112; x=1786528912;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FpW9ahejzMAV7yB3Jv8UiH8Q3JA7f2h2Kt2WTy+0YGA=;
+        b=sWRVjx5H29GbV8ES8axCcpLcm06P9YZ7PNmOgE66ZrVZwWKlcvRDxjN2ngQ6IzAmGs
+         raTy6ubUD3FlQ4yrkj4kLIVYALHHwWN9l3buuSVhc/VgD+pGtPtTuWeOG3+OaTtkBZD1
+         EUflPsWamgKG51a+KilOy+lG51xF73iM9/QrQdLD17SKH0F9dazi9n5liA3CajkKD8Cx
+         HFVKulveIcBdJ2Uvw3qW0NF0VSaAZMV4Dt8RGUN2PyPYVfmioBtWoFgeQt8vi1PdhSE9
+         PmJNp2DaGjnkKq7aMpiBOwupa87n55eKYus5OLWo+ZewGgSK8b03LTQZ+U6KQTImcgHy
+         jV+A==
+X-Gm-Message-State: AOJu0YxSWcWAzvjgWudYk3chfO/jZyMX7yBWF1NA7AYV0mMgCsQwxeWi
+	eiHWneR8ZvY8+DWnRvt0RLqQ1YvVnXiv8gD8avYCV5Uo80K6GJes7EEm1arl9j/a
+X-Gm-Gg: AR+sD10xQppXu7f/ex6WJ91i0eR8x4emEfTaCB9ZodwcVAO+I5Q+qeSpiqSp+NGKECX
+	E18udTcETpmKoCrnMboanUnOcACB+oR4HB9ejGB8lI8OVVNaVGio9Hernzej1LBWZZW97hT4HW3
+	x1O2NCGHTp4LTnizj/0Ds6e4oBH62Pcek0JRQEtqQMosN/FkgpzC+RZ8FuYjneRNUOUG+6OBGHS
+	fd4r5wPk7lRloaBW/MVr/kVfokAowSFLAx+Lnssqlc4kLhAEkKTuYhuUVGN39X3zJLhKqbjZXAt
+	Rq4vgKydAK7GHisRmr1+Vk4bANYXkUc7O4rkzs7PJ6GL+bNyb6Yvgy2r+Z1A15qSxkU6/YxjetM
+	dyExLt2UQSk5nb0rQ4RZqrrsOsenm5OGPEaMEDr1Oys0GwCrH+D1wSu9hM30hTZEBqpAnwUVqO0
+	vuH8ZFqa/9KVgHZrLBqfup3usvzmuvjydj7SEB04qgZMODj3ymO5QtjVN+l+dcCe5YNA/ouC/CU
+	LZY
+X-Received: by 2002:a05:6000:1844:b0:47f:9c6f:8844 with SMTP id ffacd0b85a97d-47fec4f8017mr8223459f8f.9.1785924112223;
+        Wed, 05 Aug 2026 03:01:52 -0700 (PDT)
 Received: from arbab-X395.dbs.corp ([110.93.227.54])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fec249a5fsm7344776f8f.33.2026.08.05.03.01.46
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fec249a5fsm7344776f8f.33.2026.08.05.03.01.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 03:01:48 -0700 (PDT)
+        Wed, 05 Aug 2026 03:01:51 -0700 (PDT)
 From: Arbab Haider <arbabhaider649@gmail.com>
 To: stable@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH 7.0.y 3/5] net: macb: drop in-flight Tx SKBs on close
-Date: Wed,  5 Aug 2026 15:01:34 +0500
-Message-ID: <20260805100136.59101-3-arbabhaider649@gmail.com>
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 7.0.y 4/5] net: cpsw_new: unregister devlink on port registration failure
+Date: Wed,  5 Aug 2026 15:01:35 +0500
+Message-ID: <20260805100136.59101-4-arbabhaider649@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260805100136.59101-1-arbabhaider649@gmail.com>
 References: <20260805100136.59101-1-arbabhaider649@gmail.com>
@@ -77,63 +77,53 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Théo Lebrun <theo.lebrun@bootlin.com>
+From: Guangshuo Li <lgs201920130244@gmail.com>
 
-The MACB driver has since forever leaked the outgoing SKBs that
-have not yet been marked as completed. They live in queue->tx_skb
-which gets freed without remorse nor checking.
+cpsw_probe() registers devlink before registering the CPSW ports.
 
-macb_free_consistent() gets called in a few codepaths, but only close will
-trigger the added expressions. In macb_open() and macb_alloc_consistent()
-failure cases, queues' tx_skb just got allocated and are empty.
+If cpsw_register_ports() fails, the error path only unregisters the
+notifiers and then releases the lower level resources. It does not undo
+the successful cpsw_register_devlink() call, leaving the devlink instance
+and its parameters registered after probe has failed.
 
-Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
-Link: https://patch.msgid.link/20260702-macb-drop-tx-v4-1-1c833eebdbc8@bootlin.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ Upstream commit 27f575836cfebbf872dec020428742b10650a955 ]
+Add a devlink cleanup label for the path where devlink registration has
+already succeeded, and use it when port registration fails.
+
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Reviewed-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Link: https://patch.msgid.link/20260604043115.1409134-1-lgs201920130244@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Upstream commit b64f763b607426ac97e44b114f0b8844ac3b86dd ]
 
 ---
- drivers/net/ethernet/cadence/macb_main.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/ti/cpsw_new.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 99e7d5cf3786..68dae92205e0 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -2551,8 +2551,25 @@ static void macb_free_consistent(struct macb *bp)
- 	dma_free_coherent(dev, size, bp->queues[0].rx_ring, bp->queues[0].rx_ring_dma);
+diff --git a/drivers/net/ethernet/ti/cpsw_new.c b/drivers/net/ethernet/ti/cpsw_new.c
+index c5be359f3c66..b6e25a4658d1 100644
+--- a/drivers/net/ethernet/ti/cpsw_new.c
++++ b/drivers/net/ethernet/ti/cpsw_new.c
+@@ -2050,7 +2050,7 @@ static int cpsw_probe(struct platform_device *pdev)
  
- 	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
--		kfree(queue->tx_skb);
--		queue->tx_skb = NULL;
-+		if (queue->tx_skb) {
-+			unsigned int dropped = 0, tail;
-+
-+			for (tail = queue->tx_tail; tail != queue->tx_head;
-+			     tail++) {
-+				if (macb_tx_skb(queue, tail)->skb)
-+					dropped++;
-+				macb_tx_unmap(bp, macb_tx_skb(queue, tail), 0);
-+			}
-+
-+			queue->stats.tx_dropped += dropped;
-+			bp->dev->stats.tx_dropped += dropped;
-+
-+			kfree(queue->tx_skb);
-+			queue->tx_skb = NULL;
-+		}
-+
-+		queue->tx_head = 0;
-+		queue->tx_tail = 0;
- 		queue->tx_ring = NULL;
- 		queue->rx_ring = NULL;
- 	}
+ 	ret = cpsw_register_ports(cpsw);
+ 	if (ret)
+-		goto clean_unregister_notifiers;
++		goto clean_unregister_devlink;
+ 
+ 	dev_notice(dev, "initialized (regs %pa, pool size %d) hw_ver:%08X %d.%d (%d)\n",
+ 		   &ss_res->start, descs_pool_size,
+@@ -2062,6 +2062,8 @@ static int cpsw_probe(struct platform_device *pdev)
+ 
+ 	return 0;
+ 
++clean_unregister_devlink:
++	cpsw_unregister_devlink(cpsw);
+ clean_unregister_notifiers:
+ 	cpsw_unregister_notifiers(cpsw);
+ clean_cpts:
 -- 
 2.53.0
 
