@@ -1,156 +1,109 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB8547045E;
-	Wed,  5 Aug 2026 16:55:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE05D46EF99
+	for <stable@vger.kernel.org>; Wed,  5 Aug 2026 16:55:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785948938; cv=none; b=hKfZKeeKFg8K+PW3pbC5xn0MSkzL74MkRKDcgn+kIFj0ES81eugMCoL1x7MaNDSKH8T4rbjP7J0Jb0m6O0GUzbZ9O4LYES9P2h4fjoylbb1iwCKhFfIYhFZNszcK2/SFAfgBX8w7MAvoRoo2p6o0AL5mEVl4XHRRM9EXBKJbisc=
+	t=1785948940; cv=none; b=fg6jHm73XPugrhPbWrJ8S7wNg+kSXnmw3UJJJ1F1sNXE5na2ja/E/04+h0AG/Q8PeuqbzWuXafaQc3RqAF1703+uNtLc2+E501wX2WyyUzbz6EwP8zg78oKt08TiqKVz1+OMiWZgm7pvYe3Vyr4Zw20NAH7fs7L6Ot09SyOLTr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785948938; c=relaxed/simple;
-	bh=gKQYf74xPpytI8rbZnvPeewbN3H/KzF0nc088tK6OYs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FYiGJB2e/v8lR0LKwvD7o+n8rX62VsS47DSnHkEFSDKfMEMlBf24m4ClkzuoX6MpI1AYHjJ/p0R8MJcOOEEZVt1MyaspPYv/AbsZazHgOAvx5X7U6CfLg9RWsGa/VqsFV+b8ym7Jal1++MKhIYi4x1Ot/h1iqoTk++lkuAz2MKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=oZ8oAVrI; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1785948940; c=relaxed/simple;
+	bh=5VvtgsoTSQ1UX+dvf0GjlKbO76pRAIN1qH0779TMsgM=;
+	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
+	 References:In-Reply-To; b=Bkgo6J8t233Tj7WNAyN4v1SpR0yOE2OTjYxArOvzD+PVtAWPdG9uwmGPIgM6ZiKeprvOXMTG4ECdam5p3k6JdnKbG/jsdzvdVeVH2/nrO0DgGnNDvw3ZaP2tRAnDJENxxgnI2X3hCxDO0VKTmppfKTWaUxW46/jmsoTT52T5aYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=lvKk5cJN; arc=none smtp.client-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="oZ8oAVrI"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 675FldwX2397846;
-	Wed, 5 Aug 2026 16:55:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=q3mWEO+m7Q0z7JDH5
-	ZGSHJF5tisumNe9dB4cIXGURIs=; b=oZ8oAVrIrFfn/eImqsVg0VHQbO82iT8SR
-	XWlNlDPHRg3CIuHpF7EDyb3Z3BBgeJoODkJZ9gp6OFtxC5cSZ7G77tQ6l0kTvw9R
-	JEgx7Dtpd4yvHC7Mm9YHSvt3b82mVGqxhmrUs6F6M9qDUHcKEQdZo5xhPSB+Mlls
-	7/0R5KROV1q8WstJk/3URbxnJVYXTzSeBDF70ZLvF5ZCiX0zNDodEj64DAaW74rY
-	vtuE7uJu5JkFytZYFiTDhjTHkYAiHJI2ONUIPe3w1xCa+VojTlstfBVXD9cmJwKW
-	FymLYYKVTOrOcIT/zOc55pu84BbCzzDT8HTUTUPvjBVfuQ6B7TDGg==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8fqv1hp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 05 Aug 2026 16:55:29 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 675GfRtG014995;
-	Wed, 5 Aug 2026 16:55:28 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fswtyq6pg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 05 Aug 2026 16:55:28 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 675GtRBn60752262
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 5 Aug 2026 16:55:27 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0E5DD58043;
-	Wed,  5 Aug 2026 16:55:27 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F0EE458053;
-	Wed,  5 Aug 2026 16:55:25 +0000 (GMT)
-Received: from IBM-D32RQW3.ibm.com (unknown [9.61.241.193])
-	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  5 Aug 2026 16:55:25 +0000 (GMT)
-From: Farhan Ali <alifm@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pci@vger.kernel.org
-Cc: helgaas@kernel.org, alex@shazbot.org, alifm@linux.ibm.com,
-        schnelle@linux.ibm.com, mjrosato@linux.ibm.com, stable@vger.kernel.org,
-        Thomas Gleixner <tglx@kernel.org>
-Subject: [PATCH v23 5/5] PCI/MSI: Enable memory decoding before restoring MSI-X messages
-Date: Wed,  5 Aug 2026 09:55:18 -0700
-Message-ID: <20260805165518.794-6-alifm@linux.ibm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260805165518.794-1-alifm@linux.ibm.com>
-References: <20260805165518.794-1-alifm@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="lvKk5cJN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1785948885;
+	bh=5VvtgsoTSQ1UX+dvf0GjlKbO76pRAIN1qH0779TMsgM=;
+	h=From:To:Subject:Mime-Version:Date:Message-ID;
+	b=lvKk5cJNZzcnujBqz+gXDfnpFNVskyxzciqgu+92G3APy7pXIZ5qBRQUc9UM2E3Z9
+	 CrvsHGqdkXSQdG1rpV5T9LMNDzOjctqfgnGrQfqYJfnUq+hayxzOyGXLtZAHF+7a8K
+	 MLFwvkN3tSqtK/TbKCHl3b1zACIAFXRPscCWGVW4=
+EX-QQ-RecipientCnt: 3
+X-QQ-GoodBg: 1
+X-QQ-SSF: 00400000000000F0
+X-QQ-FEAT: D4aqtcRDiqRAVxdDoxBRm7UtD1tgRPVtQE3tHqLqX/E=
+X-QQ-BUSINESS-ORIGIN: 2
+X-QQ-Originating-IP: pQayqbEZM6fvJd8pYi725N6DVtyDyWX1Re0Vt/FoOAeIFp+fVWq+i9Bi+f1GxnQIzuB2sny986yw9+oeWxkXmQ==
+X-QQ-STYLE: 
+X-QQ-mid: lv3gz7b-6t1785948883t1d03ed46
+From: "=?utf-8?B?V2VudGFvIEd1YW4=?=" <guanwentao@uniontech.com>
+To: "=?utf-8?B?U2FzaGEgTGV2aW4=?=" <sashal@kernel.org>
+Cc: "=?utf-8?B?U2FzaGEgTGV2aW4=?=" <sashal@kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>, "=?utf-8?B?R3JlZyBLSA==?=" <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH 6.18.y 0/5] Backport fixes for handshake
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 7YHdNf-BmoHkdZzl1lDc47tngexues5m
-X-Proofpoint-ORIG-GUID: 7YHdNf-BmoHkdZzl1lDc47tngexues5m
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA1MDEzNyBTYWx0ZWRfX63aB1dHFPIyz
- Bwqxmy2B2wI7Fs5GCACykjnRNPZG9MueP1CpvGFB+dBVY8aVonFHu5oS7vgaFcudRWhPBqKDm9M
- bQLkX+WqDb5GHgqMsmV1YLgwxlgl4Dg=
-X-Authority-Analysis: v=2.4 cv=K8cS2SWI c=1 sm=1 tr=0 ts=6a736b01 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=di-imCqyroNM6h0WoG0A:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA1MDEzNyBTYWx0ZWRfXyc8zsJ3r0mvE
- iyWitw8NJaPir5V3bFnIeAasNpLC3J4ouCs1B8Vvv2U84Ax8vU3tmWg6x69k9SXRqn9/bAhnWNd
- VCipv3KVFcQffuF+9tZE7i8hHaQM2QA7LlWReLfBd2Vpoz8HlWvCZQtp0o+lo2lppKiuK8njW4/
- 2TVYSpiY4VmJ6k2e3WU3Yhv4z9IPRyTV23Vo+XYxVK7sbh8p//IIyx0K1XSbqlfJh/ZlIF083Gv
- BuY6YtsQ9sgmy9wJV5ZDp71OplHoJIgfUgyZ6Yf9RO8F204cjOSkfOG6MhzB7CRyP2Csjt4VWYB
- G30XybtbzSkCicVn9Qlkcd4fy3ZzsQ8CrbeTLc/LVygGLtugJPk9MsRxil/wOWrJVwfpJDG8afj
- tnxzPGQR4cCMq2KHKT35zu1j6YwbzFXAs4Iy2/JEm4UVFhQZ+EmwTDeVsfJuMO/g12KMSmX9cof
- j+/hWK6akK/2igoigjA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_05,2026-08-04_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
- lowpriorityscore=0 malwarescore=0 phishscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608050137
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Thu, 6 Aug 2026 00:54:42 +0800
+X-Priority: 3
+Message-ID: <tencent_17E63449525394B22CAE2867@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20260805091348.609325-1-guanwentao@uniontech.com>
+	<20260805164000.stable-0005@kernel.org>
+In-Reply-To: <20260805164000.stable-0005@kernel.org>
+X-QQ-ReplyHash: 2038353947
+X-BIZMAIL-ID: 15468566386234416369
+X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1])
+	by smtp.qq.com (ESMTP) with SMTP
+	id ; Thu, 06 Aug 2026 00:54:44 +0800 (CST)
+Feedback-ID: lv:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NSHxYNOPpzDbXaAvLsY462s5Lvmf0YX66/SgxU2jg4PZTfrkJtondlp5
+	WKCRCSLFRv6SLoy5dG5Si1Yd5X9Az8gDYrFyF7N+F+VZY4NDcI2B3XZkCDKXL8+xiYp594B
+	5Nt/G44qlvZRIB1Ez/dXmbbQE4TXudS9pDJNb9rAXT38xlEgOaNfpLOWKJGxSQHKFh8OHZB
+	EGG0LVpXXVCwo6OYBSYCq6ADgUTFH40VZKqwzVypFJnEj/AcsWgiK1ovEynB3a2R1E439Is
+	U8a8XwMa+2S4FWJRm4b2ejQqSEZs1EEGp3xuVGn0sL5a42yJ8tgQCAG96pr5YE9oaYTmULb
+	f0GN1Rlk2I0QCgMi9l0TvXxGQT9Q+WFIFjMoJESsr70xFKmEbzQGDZoSw8vV4pLmoGxitMP
+	u+GLPV9QcLGctsx1Ai8ZH6j8ViH+psA/hAgaYqcKARn3d+YqWVE0WQ+9Td232f08it/I/1q
+	gf/BbQX2YDWSRnZQLjmwn/Molfus+vqAyFuNfVC5p72QJaaXGcmmDpVifvSTF0r/dqaqf06
+	p3cV8dr+G4URSY7XCTRUDrI0W/2qSxs+XymGxEGYfiLIQC2n6NVqn3ep4UY4wh7aYMjcO+7
+	5NzJBR6JfCva/JmBz2REBScXQxdZKpMB/y/LeuqRWxCnxlsBTyUywCk8PsPKvLHfEczuQU6
+	d5Bkl3oYYU1oMoP8LiGfe9R5E73N+c9aWSfFZc79WTf4nBB5kdpvhAKxS4KvMcroM9MCuWH
+	6LNfOlNIP1GnvrQq32eK7x9o8ZW7Kvv5WUQiu7G0XEl8/vRwScZ3yK5L3myV9Ku97eU9/me
+	DOFpK7mkdUwcZwYXM89zgFZjxeKqbk6WsSCBAtfwX67ekCkQyEuEVLeWcYAmuT+Ks5gu9dJ
+	9CrbXQOuS/qK8fwLNcMoM1VgHjWsazlqimFu1koSmnG5qWmw3UD+zwV8pDZHRFfStmgVbKA
+	7aVUkBQBXhrkvlge5oyC+jpYDmwQ7K5ap1IFuEJegmvTcpLWxLCrelQfXEbHg5L8lqG+a5s
+	br34LJFO35vZLKjFCRfZ3/vQ5bXzllKVwmrBEmN3Qifj/6JJdDJihVSXdwcC/0NnBZlw4Va
+	7oJdLmtPWrT17QYwNFZ1xs=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-The current MSI-X restoration path assumes the Command register Memory bit
-is enabled when writing MSI-X messages. But it's possible the last saved
-and restored state of a device may not have the Memory bit enabled, even if
-a device driver later enables Memory bit and MSI-X. Attempting to access
-Memory space without Memory bit enabled can lead to Unsupported Request
-(UR) from the device. Fix this by enabling Memory bit and restore it
-afterwards.
-
-Fixes: 41017f0cac92 ("[PATCH] PCI: MSI(X) save/restore for suspend/resume")
-Cc: stable@vger.kernel.org
-Reviewed-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
----
- drivers/pci/msi/msi.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
-index 209373c92e9e..79c7e84d314b 100644
---- a/drivers/pci/msi/msi.c
-+++ b/drivers/pci/msi/msi.c
-@@ -870,6 +870,7 @@ void __pci_restore_msix_state(struct pci_dev *dev)
- {
- 	struct msi_desc *entry;
- 	bool write_msg;
-+	u16 cmd;
- 
- 	if (!dev->msix_enabled)
- 		return;
-@@ -879,6 +880,14 @@ void __pci_restore_msix_state(struct pci_dev *dev)
- 	pci_msix_clear_and_set_ctrl(dev, 0,
- 				PCI_MSIX_FLAGS_ENABLE | PCI_MSIX_FLAGS_MASKALL);
- 
-+	/*
-+	 * The restored device state may not have Memory decoding enabled
-+	 * in the Command register. Since the MSI-X was enabled for the
-+	 * device, enable Memory decoding before restoring MSI-X.
-+	 */
-+	pci_read_config_word(dev, PCI_COMMAND, &cmd);
-+	pci_write_config_word(dev, PCI_COMMAND, cmd | PCI_COMMAND_MEMORY);
-+
- 	write_msg = arch_restore_msi_irqs(dev);
- 
- 	scoped_guard (msi_descs_lock, &dev->dev) {
-@@ -889,6 +898,7 @@ void __pci_restore_msix_state(struct pci_dev *dev)
- 		}
- 	}
- 
-+	pci_write_config_word(dev, PCI_COMMAND, cmd);
- 	pci_msix_clear_and_set_ctrl(dev, PCI_MSIX_FLAGS_MASKALL, 0);
- }
- 
--- 
-2.43.0
+SGksDQoNCj4gT24gV2VkLCBBdWcgMDUsIDIwMjYgYXQgMDU6MTM6NDRQTSArMDgwMCwgV2Vu
+dGFvIEd1YW4gd3JvdGU6DQo+ID4gQ2hyaXN0aWFuIEJyYXVuZXIgKDIpOg0KPiA+ICAgZmls
+ZTogYWRkIEZEX3tBREQsUFJFUEFSRX0oKQ0KPiA+ICAgbmV0L2hhbmRzaGFrZTogY29udmVy
+dCBoYW5kc2hha2VfbmxfYWNjZXB0X2RvaXQoKSB0byBGRF9QUkVQQVJFKCkNCj4gPg0KPiA+
+IENodWNrIExldmVyICgzKToNCj4gPiAgIG5ldC9oYW5kc2hha2U6IFRha2UgYSBsb25nLWxp
+dmVkIGZpbGUgcmVmZXJlbmNlIGF0IHN1Ym1pdA0KPiA+ICAgbmV0L2hhbmRzaGFrZTogaGFu
+ZCBvZmYgdGhlIHBpbm5lZCBmaWxlIHJlZmVyZW5jZSB0byBhY2NlcHRfZG9pdA0KPiA+ICAg
+bmV0L2hhbmRzaGFrZTogQ2xvc2UgdGhlIHN1Ym1pdC1zaWRlIHNvY2tfaG9sZCByYWNlDQo+
+IA0KPiBUaGUgc2VyaWVzIGlzIG1pc3NpbmcgdHdvIGZvbGxvdy11cHMsIGFuZCB3aXRob3V0
+IHRoZW0gNi4xOCBlbmRzIHVwIHdvcnNlDQo+IG9mZiB0aGFuIGl0IGlzIHRvZGF5Og0KPiAN
+Cj4gLSBkYWJhYzUxYjgxMDIgKCJuZXQvaGFuZHNoYWtlOiBGaXggbnVsbC1wdHItZGVyZWYg
+aW4gaGFuZHNoYWtlX2NvbXBsZXRlKCkiKQ0KPiAgIGZpeGVzIGZlNjdiMDYzZjY4NyAoIm5l
+dC9oYW5kc2hha2U6IGNvbnZlcnQgaGFuZHNoYWtlX25sX2FjY2VwdF9kb2l0KCkgdG8NCj4g
+ICBGRF9QUkVQQVJFKCkiKSwgeW91ciAyLzUuIEFmdGVyIHRoYXQgY29udmVyc2lvbiB0aGUg
+b3JkaW5hcnkgIm5vIHBlbmRpbmcNCj4gICByZXF1ZXN0IiBBQ0NFUFQgcGF0aCBmYWxscyB0
+aHJvdWdoIHRvIGhhbmRzaGFrZV9jb21wbGV0ZShOVUxMLCAtRUlPLCBOVUxMKQ0KPiAgIGFu
+ZCBkZXJlZmVyZW5jZXMgcmVxLT5ocl9zay4NCj4gDQo+IC0gZDJlYTRkMjU0ZDA0ICgiZmls
+ZTogZW5zdXJlIGNsZWFudXAiKSBmaXhlcyAwMTE3MDNhOWFjZDcgKCJmaWxlOiBhZGQNCj4g
+ICBGRF97QURELFBSRVBBUkV9KCkiKSwgeW91ciAxLzUuIFdpdGhvdXQgaXQgdGhlIGltcG9y
+dGVkIGNsZWFudXAgZ3VhcmQgaXMNCj4gIGVyci1nYXRlZCBhbmQgbm8tb3BzIG9uIHRoZSBh
+Y2NlcHQtZmFpbHVyZSBwYXRoLCBsZWFraW5nIGFuIGZkIGFuZCBhDQo+ICBzdHJ1Y3QgZmls
+ZS4NCg0KPiBFaXRoZXIgd2F5LCBwbGVhc2UgZ2V0IGFuIGFjayBmcm9tIHRoZSBoYW5kc2hh
+a2UgbWFpbnRhaW5lcnMuDQpUaGFua3MgZm9yIHlvdXIgcmV2aWV3LCBmb3JnZXRpbmcgZG91
+YmxlIGNoZWNrIHRoZSBiYWNrcG9ydCBmaXhlcywNCkkgd2lsbCBmaXggdGhlbSBhbmQgc2Vu
+ZCB2Mi4NCg0KQlJzDQpXZW50YW8gR3Vhbg==
 
