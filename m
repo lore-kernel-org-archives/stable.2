@@ -1,115 +1,89 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8ADE384CFE
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 05:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43427384CFE
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 05:19:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785993469; cv=none; b=Amkw9UR6ZcvhIT9DUa8swgKEpaaAhNXbSVrGam/YkO+0wp98TqVXoZhCHL1b1ZX4Awv8d4kv5AyjH3oVeZSTrd1OAa5QiJfoWB4AMlHWGZ5qNbqrUAWXn8nRGCfq0KkYtPXX8Tas9cBXjpcxuQj9+o/eeON6wZ99wXvTaEnA/Bc=
+	t=1785993598; cv=none; b=RQ60Kuk+Vw1DYRg5a5kuEYxrZYIs3FeMfc/swpBYZNCU8f1kaG6f7+6PT8y1hRk2HEpmRZ9W52E7edFstrc/8jjcs5UmbI+1lD15Uj39gnyYw9CqgXmtZRe9zRs1bqKHqer0XrGrMfzVW9LNPo/cpoCejMG8+p0OkU1l9VcXK0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785993469; c=relaxed/simple;
-	bh=vjWx689qbeARwGGgPB+QjxwlJP29OTCCH11iiEAaiZM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k4koJK26bl4ucSSW+LheVvc/BFa1sqRKa9TvQ7Uxg2PsATh6gR41PEhnJ50eZHDGCSdFzBgRvBWbSLzK3WwlBINZIpSDpUtsmKrEPXSzNjikPIlDMZsnblD4JGloOC9QCM7spD90k8EiM1DNZMjYFtDnz6SLWT68RE7RjdhTgds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OT6ACGoG; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785993598; c=relaxed/simple;
+	bh=h3B0Vezh45bp+syJ6ykSwwSFwyswAprgVvK7vldvF7k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eLk57QBoNqJfFHg/VcatnSyA/evY0XP48BsFbylhklKGPSN0/t0PlALntpvBn+vvOGjy0EBF5UWsNoOwgrq9fF6RwppkrJ7iieRCJs0owlp5xSt5IyHU1iNZ01+nNQsyzZLv+/nzz8mrlyOzSQSJcr8s6Ugz7t0rYvD67obx0aQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CBis4whZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OT6ACGoG"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c9d1fff21edso1253512a12.1
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 22:17:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785993467; x=1786598267; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4zrnHL816rlceKPEH+b3G5bh9fGXwY6/iJzzWDpp3Fs=;
-        b=OT6ACGoGtQ/t+IIVWjlKUFdP8ojcfk3TAClXeniV2g7JDPUXUxUovnhPnMmIvRsNg8
-         NGWX8lEy9pWhLMaT+SIWmZaEnH7sKwqJYMZERGZMVGgWXDmzDDDrAHsIR+mZq/BU+e9F
-         ySKrxhBo3JpzoeZzreluId8/lW6NtC5Kiow7HTcj+/hYjvrd7MpKDnCy/Yp24HYW3Etg
-         Coe/IOfV4vTBn7b3ZpeszssKKJfFkTRkdIq+2mhBQgFgsNsdOBYJl94KKDZScnTNxEIc
-         1E597OVy0bEJfCPcCnOWugcQEwaEs8QDiERTqFkmFSEF9HPy+Gq+zPkxU6oJyEa9vfoY
-         xQKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785993467; x=1786598267;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4zrnHL816rlceKPEH+b3G5bh9fGXwY6/iJzzWDpp3Fs=;
-        b=ruVayMOX0ykdyCPl88f2rS/fs1z7rXgVeeSJsFIqxBHg/NVbEi0aJJs0xtBvsDuaG9
-         ZSPti4Ht844Beie1XIcvC6sdcqp7VZXl6O6JS6Uy17DtgDUIA5dMsCapP7O6x52gl4tK
-         BAf+s4AFMclaggf5wPckH6bFyW6pwBLMiLljG8+fvV2bnTBj34cA78jh9XxdEkqTq6/U
-         tulRm+1Yf08cxJUXzujTiBafvnEY4n+dzZvAKo+KQ69moKex+ShvYuhVWtFJQMspeCiv
-         Vv2B40TCSAi7YKxmkwbUtYRXVk1SUKw/PbaXIQkjDOgszUletv8/XvxEnsfxWUHnML6c
-         8c7Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqKz9dJJoIBs5prYXxD1m9faJx/aYP5CXqZoicY8uXgCcHUkYerNfwIUdTt0G8j/a+oTFraDS8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJybTkmANfYGGPgj8MbPscB8oDel3fKZCRQ/jsM49DLKtJDnOG
-	/ud/9BbLTcxehCQP/e7l12ddl+Z6ALwJbcONE+soqN2Ma1Gl8nFPk+vy
-X-Gm-Gg: AR+sD116JJ733+L2MyA0s9K5/q03L8ZFc5/Ylg/odzw+oXIbY6LTESOFH1d5QVuFRmy
-	8sktn4Vu97mV09A/7RAhUspPYretgpu11VIHYBs1iFFV/85ntekVvz6JEdx5xHZC+9emglXxclJ
-	HLEAi/iRI/VbmRqXXKqU5GvHK41hWI0EIIq5fknrEFiTBUwNp3W0GlsO+ozZNiLIYWePpWjycu2
-	VvGnKRbLrxSsVt9O4VOoxIW9w4T575fNsIQubVw4s6RNZcMEMdmpJdT1NMcX3Km+hmX3ZtDK/CK
-	QGNi//FcCoY8iOru+GBBpK+7/6EBLdG8JOyAilKk5mUNXP/xU4wCiyvw8574CnIyHVFOI9qmW/S
-	ahWTxmcvFvEmfZSM2WU+eM3NAHMZGxY0wqITvMJHpp5e6PiW9zZYlu1miA9AqS6996jmPKP4aa+
-	LX4owtiQJLmf0HsZ/Gh65nIdvq0L5Rwuwq+XMiX0kJiZD2I0ToNZ3bsm7rAcsLo6yV
-X-Received: by 2002:a05:6a20:6a03:b0:3cb:82de:b952 with SMTP id adf61e73a8af0-3cb85de816cmr11307613637.2.1785993467133;
-        Wed, 05 Aug 2026 22:17:47 -0700 (PDT)
-Received: from Default ([2409:40f4:1038:e01b:68d4:26a8:ff11:f316])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fca6482e7sm20485791c88.6.2026.08.05.22.17.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 22:17:46 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: linux-usb@vger.kernel.org
-Cc: valentina.manea.m@gmail.com,
-	shuah@kernel.org,
-	i@zenithal.me,
-	gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jeffin Philip <jeffinphilip14@gmail.com>,
-	syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com
-Subject: [PATCH] usbip: usbip_host: Fix null pointer dereference in rebind_store
-Date: Thu,  6 Aug 2026 10:47:26 +0530
-Message-ID: <20260806051726.24343-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CBis4whZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D46801F00AC4
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 05:19:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785993596;
+	bh=b8whuCMGhsKq/LH0NvSUcTIg3gAsgHMfunKkOmlEMio=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=CBis4whZds88XVH50UWb2WVKpzccj6Jzgnunw2rRr0IJoSstSosCXZ+PKMIwg6bhl
+	 sLa4pl7J61hNkNIZljmPdksrSULiWj5jagoFErkmvqRV1C93h++HchVa2X6fHmbIO9
+	 R8A7lBkxCyN2v+IGr6W4vjIiT03hSfcN4liKrEyYoJvyiWyKHD2H45LMvnxwwOQED0
+	 32mvUAUQexnzp4w0hGlJLWNqqpni5hf2C5slRRsK733nXDMSl/aLmJoCj0gkq7iBqS
+	 BCp5LlwTft6ty9hjvNaSQzD1LBVRqQNAOiOMACJTbzINuV6fWid7akyakIJfzo55zZ
+	 aMdH2/eRhcynA==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c1670dad7a8so264561766b.3
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 22:19:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrhgIswCh4vdaoGLoi0S7O8+x6x0aXClOJsqZcQehGRiOax3mb/bqioE00rKfii9MPcioc6218=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzY1no3WDiKOsCGtMSkjZAXN3JG5BdWI1GawRoxQK6o7Yq015/R
+	pXkYpOf/6CdsWtwuoElLKNGjq+xDxwpypqRKCQzDPU32UEqNK9B42uVyJdBaxC3D4qFhG95ORbZ
+	6WCZRJ8ZN0mDYxsjt2RFviI494C+zTSk=
+X-Received: by 2002:a17:907:9410:b0:c19:523f:5a0 with SMTP id
+ a640c23a62f3a-c2039b373b4mr556793766b.11.1785993595492; Wed, 05 Aug 2026
+ 22:19:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260806013903.8526-1-zenghongling@kylinos.cn> <6A73F3A9.7020608@126.com>
+In-Reply-To: <6A73F3A9.7020608@126.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 6 Aug 2026 14:19:43 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8xYZvB1N94+wPEcvGRVeBv77vfPXX2DKDbg0Rna8hRFw@mail.gmail.com>
+X-Gm-Features: AUfX_myQIAvDC1YdMzdLaqH2q-orUwM34tqAXVhglKPDiU_ekBatU-cCg0BE234
+Message-ID: <CAKYAXd8xYZvB1N94+wPEcvGRVeBv77vfPXX2DKDbg0Rna8hRFw@mail.gmail.com>
+Subject: Re: [PATCH v2] ntfs: fix name offset validation in ntfs_non_resident_attr_value_is_valid
+To: Hongling Zeng <zhongling0719@126.com>
+Cc: Hongling Zeng <zenghongling@kylinos.cn>, hyc.lee@gmail.com, 
+	alexandro.calo@nozominetworks.com, ntfs@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-rebind_store calls do_rebind which dereferences udev without
-checking if it is NULL. If busid is registered using match_busid
-but the device is not present in the first place, it triggers a
-null pointer dereference when we attempt to rebind the device.
-Fix this by checking explicitly for udev first and returning
--ENODEV if udev is NULL.
-
-Reported-by: syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=af76b01c9a0f0ab60fb0
-Fixes: 4bfb141bc013 ("usbip: usbip_host: fix to hold parent lock for device_attach() calls")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
----
- drivers/usb/usbip/stub_main.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/usb/usbip/stub_main.c b/drivers/usb/usbip/stub_main.c
-index 79110a69d697..dfaedecedb81 100644
---- a/drivers/usb/usbip/stub_main.c
-+++ b/drivers/usb/usbip/stub_main.c
-@@ -256,6 +256,11 @@ static ssize_t rebind_store(struct device_driver *dev, const char *buf,
- 	if (!bid)
- 		return -ENODEV;
- 
-+	if (!bid->udev) {
-+		put_busid_priv(bid);
-+		return -ENODEV;
-+	}
-+
- 	/* mark the device for deletion so probe ignores it during rescan */
- 	bid->status = STUB_BUSID_OTHER;
- 	/* release the busid lock */
--- 
-2.55.0
-
+On Thu, Aug 6, 2026 at 11:39=E2=80=AFAM Hongling Zeng <zhongling0719@126.co=
+m> wrote:
+>
+> Hi:
+>
+>   Thank you for the review. You're absolutely right on both points:
+>
+>    1. name_length is u8, not __le16 - my mistake.
+>
+>    2. Moving the check outside the if (name_length) block is better as
+>       it covers both named and unnamed attributes.
+>
+>    However, I have a concern about using ATTR_COMPRESSION_MASK here.
+>
+>    In ntfs_attr_update_meta() line 3610, the actual conversion check is:
+>
+>        if (sparse && !(a->flags & (ATTR_IS_SPARSE | ATTR_IS_COMPRESSED)))
+>
+>    This uses ATTR_IS_COMPRESSED (0x0001), not ATTR_COMPRESSION_MASK (0x00=
+ff).
+>
+>    If a malicious MFT record sets flags =3D 0x0002:
+>    - Your check would skip (0x0002 & 0x00ff is true)
+>    - But ntfs_attr_update_meta() would still do the forward shift
+>      (0x0002 & 0x0001 is false)
+>
+>    Should we use ATTR_IS_COMPRESSED instead to match the actual conversio=
+n
+>    predicate? Or is there another reason for the mask that I'm missing?
+You're right. Can you send v3 patch after updating it ?
+Thanks!
