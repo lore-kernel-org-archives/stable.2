@@ -1,155 +1,131 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9733E3451A7
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 03:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A42C2B2D7;
+	Thu,  6 Aug 2026 03:48:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785987843; cv=none; b=VCAZyxf0njdLZtAm538Z4P80Qz77kB1mSOKB7em4ZF2VBJHLE9Fn6JBmAn+d9cdfBKHziuBWN0Ot9AD6AaFU5euOS1hlFG7o4x+kpEFZc6d3RczrLt3xRG9eg6yTaFfJeS57C9XCUYFi/uFhVrgw7iwk58Kklg9yHwb5Do8Lziw=
+	t=1785988103; cv=none; b=j6ACs+JCu3e5Gr0pHiYZ16oc/3Gey1pEcLuH+iqjuf+/IUgtJHsCx/kJpa7jIev3WF3XitQGM/NmT9s0/NLe+MOPlQEHLWMNJgGTr3GbxIoJWhE+5YQ8r7ca5wYC+44h/mmX0r7vui8Ojq18dPhyZ4wRR8F1upsDqgI+9QOeJH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785987843; c=relaxed/simple;
-	bh=cJZ3Vje4HEZlfXNGmqPQTktLjIS1LHADU62OzHj5EHQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p0w6f1gdcKIYa1PlGreWic1oCNIjqG5FEQSBvFckpW5i2QuDC+0T01FmIubOrL0ETbGK8bme6ORi2l9PNm4ulVMYqCBog+HIqO4qsmBvdnDkQ0RVHogk2+/JMlxPxfzP9tthVvyhzAD20gqn1sCUMOHyVzAMcKGLjuxBjN3nT0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=IbzMC2b5; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xbow.com
+	s=arc-20240116; t=1785988103; c=relaxed/simple;
+	bh=17CY3PUmUbDY4206LrobRGj6cHDNUS+fi01DdzhC8EE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nb1d+i2+CTBYoF5ZxxOaiGp62PrmuIkeead/tInL8G3+kxAyV1v99v3l8LkGEHu5nr56rgLA11nupAnelWqi2gqxVy/XpP5ckDJUcc+v++Tl7/lu+el5aGm2WFyEsdPWJm7tb3NZ6/E5zu3Ev89MQMjlIuePoxZnuoraniNvOE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HuqqpGZo; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="IbzMC2b5"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so1441355a91.0
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 20:44:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=xbow.com; s=google; t=1785987842; x=1786592642; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2jLtToL3PwaTAhWfeLF+tyVqbdrghdAzA8d8sJ1FHuA=;
-        b=IbzMC2b5x7zpMtEEeqgKloJj0imYqdSMlgFYG29U9qB+L4FicVrCg8gzoRva+bvKbX
-         36fnpso4rLGlHlsXbhcrdL6trP4DCnkPQEgJDPUWyMsrJ4EkNpHegVdn34xAldtlvSQC
-         hE8u3oGzhZfB+DYqwK7m65xVQDOfBowYzzgWTq7seRB74vf7dqKmprRZ05Zg3bEkNRn4
-         Vd6hUP3LB2/dmgmnaG6p8JP3A8r3l3pOPV1WZ+0jLU24rV/awu2tqvPh5ECz3F2HLbWo
-         KdwnpP+ITuFdWCOMLaxA6A5wB60r2cyOgdhBX8CYv8QA6+GjVBTYH3BEkdALN8IUaJ/9
-         8J6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785987842; x=1786592642;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2jLtToL3PwaTAhWfeLF+tyVqbdrghdAzA8d8sJ1FHuA=;
-        b=f1mc8X4Lpwep6S1eRszvdKEYaUd60It1cWCZxU2L8KNoOMHFfqmatjzbKTSH5AaWV6
-         FjWX8qFkTGxGSVBNa/VGM6rJFYvFTVEm9NZiWRnR4Y3PQf2djZJGIIhQ4BvZ6nIlfOgi
-         xUkSt9/7LFkFOv9dZRia9PuscoEa/1BVJlM+OE1YCxmK0oD8i3T9WI6isx1jEl1zne34
-         +xr23vqbaYz7Lz/rL4giIPka3DW7M/i1S7n6m1XSsOQhgKiYR0ZWY9siWsQmn3k/s8d4
-         wwHSKezb4I/Vdy/ssL0gJ0TO88HPyGEiLWHWEHtmiIqETz9gf5bRmZvsuTCLPL+sBhQS
-         BwyA==
-X-Forwarded-Encrypted: i=1; AHgh+RomYCTDgZQtXhrRoR4umtYQYqsuaPXU/SBxF190L6Vf90YepND543U6O96CE0NATlhBykcnSWM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxFc/W1cswdL/o5Ye3ublkBs6acHW6VCTMZqxAX/DGYjQdgZ6KW
-	NztVpmODJOwDEFwpB9H/dftet3RgfHvKdHuPM7bAVPXvr6GmQHE06LAJC0E7rXCR9R8=
-X-Gm-Gg: AR+sD12l6dbn+UhiPfSJHeEib5VPMuy8eG26mFTlZMt9PCW4p5S7ahSLYFECDS+y12z
-	S4+/x9zbHR4kev+zSFQXhypQggH3dO633VbdQ/BoR4POIFXuUp48He/GYZkIWh/R5xeu0EL55HE
-	+YjgIXzyj0nrfF65he9erS4Abt/vG3TZEkR+pkY8DSyDpkLco2Q6PznLOYjSPrTqjSp6POvW53V
-	eiebUE3JMLEKnWYWtiuXDXSL5/yXnrc6RI3l5cY524fpPdkzVV5DIBXIW7w8MNiQAgDzCNhMdtn
-	9W/kZHby689YEidcnwkitOTbd88mciJ9Eq0aTA49FL4Lt691L+WQJiKbUJHecMP+zS+RasV3Xeo
-	cn0nQmzBGSnda9E4nnKya0EAhh6PL9b8S44BNCk6jDLKQxR2FZH38uHfEtJlu0IuSSiEtn2Ih35
-	ZfXN2/mQxUX91g+SFz2tyZRFwsQd7lywEUnAQckthyG41SDseX+S56dIp40bp9dYkxtouEYJMp6
-	mI1tHeX+aC90qcUaYME6nj2hhEO
-X-Received: by 2002:a17:90b:2d50:b0:38f:1f8:1fa with SMTP id 98e67ed59e1d1-3903c5ca8c2mr12349041a91.15.1785987841775;
-        Wed, 05 Aug 2026 20:44:01 -0700 (PDT)
-Received: from Mac.lan ([125.128.148.126])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39085f2c714sm569978a91.10.2026.08.05.20.43.58
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 05 Aug 2026 20:44:01 -0700 (PDT)
-From: Baul Lee <baul.lee@xbow.com>
-To: christian.koenig@amd.com,
-	ray.huang@amd.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Cc: matthew.auld@intel.com,
-	matthew.brost@intel.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	federico.kirschbaum@xbow.com,
-	stable@vger.kernel.org,
-	Baul Lee <baul.lee@xbow.com>
-Subject: [PATCH] drm/ttm: clamp the prefault window to the buffer object
-Date: Thu,  6 Aug 2026 12:43:56 +0900
-Message-ID: <20260806034356.43681-1-baul.lee@xbow.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HuqqpGZo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785988101; x=1817524101;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=17CY3PUmUbDY4206LrobRGj6cHDNUS+fi01DdzhC8EE=;
+  b=HuqqpGZoNauZ6X8UbT2nc9HMvDRxA0Y1a7M0wYGa1tWOIsBL5sW/sWot
+   P5mGJaHf1VlJ7E9uv5mBPFxs3rSBTFvNl5fDZafDT3RiimJMMNtLUJXJI
+   coxDOUns1ddlQIQjrc8Xhy8nRxX9BezG+5StIVComThYvaQLwU2MkH/Qu
+   TtiiP5YdpBiF/v41isLsJO3uGa+XdtKGqm7MaoFzW0ltFD8PhJ+LLd8KQ
+   N85n6sTxN6E21dnoLxPwUfAgeDCit0zoR4IdPWjXJvC0nzZ+v06LQrVXV
+   EFUiDSkqwfpkJndbvl/zvEYuLaQgyvRoPmKxtUxXlCpaL6nx9b5lKcLHL
+   Q==;
+X-CSE-ConnectionGUID: j6RpJCeUSd6FWN+OEt5EDA==
+X-CSE-MsgGUID: /pLn9okSQ7Wa8G730OpaaQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="90391110"
+X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; 
+   d="scan'208";a="90391110"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 20:48:20 -0700
+X-CSE-ConnectionGUID: 3rUXs0JSR+2YNmvlS1AgAw==
+X-CSE-MsgGUID: /GpNXoZ9SJ2duOVMTxtToA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; 
+   d="scan'208";a="286649429"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+  by fmviesa001.fm.intel.com with ESMTP; 05 Aug 2026 20:48:16 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wrp5a-00000000E3l-0KnC;
+	Thu, 06 Aug 2026 03:48:14 +0000
+Date: Thu, 6 Aug 2026 11:47:14 +0800
+From: kernel test robot <lkp@intel.com>
+To: Bert Karwatzki <spasswolf@web.de>, linux-kernel@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Bert Karwatzki <spasswolf@web.de>, linux-next@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+	"# = v7 . 1" <stable@vger.kernel.org>,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Rafal Ostrowski <rafal.ostrowski@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Thomas Gleixner <tglx@linutronix.de>
+Subject: Re: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,END} with
+ PREEMPT_RT
+Message-ID: <202608061154.QtrglsMo-lkp@intel.com>
+References: <20260801071724.12998-1-spasswolf@web.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260801071724.12998-1-spasswolf@web.de>
 
-ttm_bo_vm_fault_reserved() derives two page indices from the caller's
-mmap(2) arguments and bounds only one of them:
+Hi Bert,
 
-	page_offset = ((address - vma->vm_start) >> PAGE_SHIFT) +
-		vma->vm_pgoff - drm_vma_node_start(&bo->base.vma_node);
-	page_last = vma_pages(vma) + vma->vm_pgoff -
-		drm_vma_node_start(&bo->base.vma_node);
+kernel test robot noticed the following build errors:
 
-	if (unlikely(page_offset >= PFN_UP(bo->base.size)))
-		return VM_FAULT_SIGBUS;
+[auto build test ERROR on next-20260804]
+[cannot apply to drm-misc/drm-misc-next linus/master v7.2-rc6 v7.2-rc5 v7.2-rc4 v7.2-rc6]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-bo->base.size appears once in the function, bounding page_offset on
-entry.  page_last comes straight from vma_pages(vma) and is the loop
-terminator:
+url:    https://github.com/intel-lab-lkp/linux/commits/Bert-Karwatzki/drm-amd-display-fix-usage-of-DC_FPU_-BEGIN-END-with-PREEMPT_RT/20260805-170330
+base:   next-20260804
+patch link:    https://lore.kernel.org/r/20260801071724.12998-1-spasswolf%40web.de
+patch subject: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,END} with PREEMPT_RT
+config: loongarch-defconfig (https://download.01.org/0day-ci/archive/20260806/202608061154.QtrglsMo-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project bacfe2950f8218268fcc0a8765644ea0c15f0360)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260806/202608061154.QtrglsMo-lkp@intel.com/reproduce)
 
-	if (unlikely(++page_offset >= page_last))
-		break;
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608061154.QtrglsMo-lkp@intel.com/
 
-so the object size never bounds it.  For an object of N pages, a fault
-on the last in-object page passes the entry test with page_offset
-N - 1, and the prefault loop then walks N..N+14, reading
-ttm->pages[page_offset] or
-ttm_bo_io_mem_pfn(bo, page_offset) and installing each frame with
-vmf_insert_pfn_prot().
+All errors (new ones prefixed by >>):
 
-page_last exceeds the object whenever the VMA is longer than it.
-drm_gem_mmap_obj() rejects that on the DRM node, but the fbdev path
-reaches the object function through drm_gem_prime_mmap(), which does
-not.  It is also exceeded by a mapping no longer than the object taken
-at a nonzero file offset, so the handler needs its own bound.
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_surface.c:89:2: error: call to undeclared function 'DC_RUN_WITH_PREEMPTION_ENABLED'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+      89 |         DC_RUN_WITH_PREEMPTION_ENABLED(plane_state = kvzalloc_obj(*plane_state, GFP_ATOMIC));
+         |         ^
+   1 error generated.
 
-With a 128-page object mapped 192 pages long, one read fault at index
-N - 1 leaves the fifteen frames after the object readable through the
-mapping; on a fresh mapping, reading index N without first faulting
-N - 1 is SIGBUS.  For a system-memory placement the page array is
-over-read as well:
 
-  BUG: KASAN: slab-out-of-bounds in ttm_bo_vm_fault_reserved+0x248/0x57c
-  Read of size 8 at addr ffff0000078aac00 by task e1/219
-   __asan_load8+0x84/0xb0
-   ttm_bo_vm_fault_reserved+0x248/0x57c
-   ttm_bo_vm_fault+0xe4/0x140
-   __do_fault+0x6c/0x2f0
+vim +/DC_RUN_WITH_PREEMPTION_ENABLED +89 drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_surface.c
 
-Clamp page_last to the object.
+    82	
+    83	/*******************************************************************************
+    84	 * Public functions
+    85	 ******************************************************************************/
+    86	struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
+    87	{
+    88		struct dc_plane_state *plane_state;
+  > 89		DC_RUN_WITH_PREEMPTION_ENABLED(plane_state = kvzalloc_obj(*plane_state, GFP_ATOMIC));
+    90	
+    91		if (NULL == plane_state)
+    92			return NULL;
+    93	
+    94		kref_init(&plane_state->refcount);
+    95		dc_plane_construct(dc->ctx, plane_state);
+    96	
+    97		return plane_state;
+    98	}
+    99	
 
-Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
-
-Fixes: ba4e7d973dd0 ("drm: Add the TTM GPU memory manager subsystem.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Baul Lee <baul.lee@xbow.com>
----
- drivers/gpu/drm/ttm/ttm_bo_vm.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-index a80510489c45..14ebf6ee3c47 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-@@ -212,6 +212,7 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
- 		vma->vm_pgoff - drm_vma_node_start(&bo->base.vma_node);
- 	page_last = vma_pages(vma) + vma->vm_pgoff -
- 		drm_vma_node_start(&bo->base.vma_node);
-+	page_last = min_t(unsigned long, page_last, PFN_UP(bo->base.size));
- 
- 	if (unlikely(page_offset >= PFN_UP(bo->base.size)))
- 		return VM_FAULT_SIGBUS;
--- 
-2.50.1 (Apple Git-155)
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
