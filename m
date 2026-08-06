@@ -1,28 +1,28 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C99A3361656;
-	Thu,  6 Aug 2026 17:32:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B507848C3E9;
+	Thu,  6 Aug 2026 17:32:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786037574; cv=none; b=ADP7I50EKg+NfEkStKyHWPIZ62MCDRg8ZZvHBwXStXGK+4xzN1wRgEohMUi9M8JS1JbwO4Bsx0pgGogZq7t5DuG/QW+sVvklaGPh7hTrH+Exkgzc5Pnv7VszMKNng8Xr9qapJ29cnmd5Ninn9ibtFc07P7RZ/4jczxGCnx/ZdSQ=
+	t=1786037577; cv=none; b=H3ST+RJVy479IArxG6FKkCZ0ZrYM5/FjUKmqevd9Z+IeB7j1xKzw8pQP7l3tFZ7UlfLJYj6vHEJbB1GOwbgRMqzIs1hY1Jk5vJrgf7I8v5XG74F4r4ZS4FubyxnpmV/cba7oPqELi/58q0GF9IK+jgrGW6DyT8ITWPzAo3Oww8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786037574; c=relaxed/simple;
-	bh=NY8/vptaojac4R36asDU1B4noO4PwwzbYYm51631rFg=;
+	s=arc-20240116; t=1786037577; c=relaxed/simple;
+	bh=oAGCba/hf9M0tgKLlv2jHD5CUk1QA1kkAn2rfZQ2M/I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JrEkcFqGXLFx8WthZvZJmhbXMNQPqd9ffiFLSr1nJ33tTF+NU1YHQIFHYzzxKUQTbth+xVMVzPOOVKBVXEi0KNLbfiY9Yk9jN0QGbnS5UYM0SZykXF2HKeVpQskjeEW0Tys9omcEymxLHEddlZNamElIw1QV5mLMS1II6Ge8hyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=k1ObJfMT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=il7Jn2xwY4fc9ZIdMaE0dN4Z4gkzw1pSeZjZxzKp//A04UDAwD9xbVtXsbTyWJeZFCLRGIh2ezcMp7ARG7YeMlvNAbsY4JmqB+nMTEwT4yINJ8j6cFXLVGUXKAOmelqnIp1J82XtpbP+VGVZkrrPw5bSr1s7emvpe/phRWIha5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=G99mwRwF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="k1ObJfMT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F14901F000E9;
-	Thu,  6 Aug 2026 17:32:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="G99mwRwF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD66B1F00A3A;
+	Thu,  6 Aug 2026 17:32:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786037572;
-	bh=sZmu0zUFUHIaJQwyQIcNXPAkkelBgJOdTvNexIbbzhI=;
+	s=korg; t=1786037575;
+	bh=0SRMVeT8JXCdbWVx99WdhjFXEhY5IVUrbmGB09a2eZo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k1ObJfMTNdThDjRBINb9hI3sIeNXPFag5a8vAtyutrZZBrip5JLsr6gBQiuFv28Pe
-	 6uF1ioMRSXKs6ioY60px5iaTMogqvDebqYASGw6kNY2K3efFBvMRFTMICYFUrdyu/n
-	 cISi+97FD0GAfe+++EAsrs+LRuE43limucMgYluU=
+	b=G99mwRwFt3X7G5OFqk88nDWYKbYJKuajTPGvqwA85Xhv5ghZ6MBectXMPd4/Hz7pl
+	 ubV6V1lMx44tAf/cqeS96x8SNTimSbVshlCgWpFRk2gchB//VDVpWEzCfB57Vshyd8
+	 J4o0f+3JgWmIoV1swCnL3Lcc7R5q5xzE+aBZBy9s=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	akpm@linux-foundation.org,
@@ -31,12 +31,12 @@ To: linux-kernel@vger.kernel.org,
 Cc: lwn@lwn.net,
 	jslaby@suse.cz,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: Linux 6.18.43
-Date: Thu,  6 Aug 2026 19:32:26 +0200
-Message-ID: <2026080626-rethink-eastcoast-b16c@gregkh>
+Subject: Re: Linux 7.1.7
+Date: Thu,  6 Aug 2026 19:32:34 +0200
+Message-ID: <2026080634-rendition-labrador-5cee@gregkh>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026080626-leverage-humbling-deef@gregkh>
-References: <2026080626-leverage-humbling-deef@gregkh>
+In-Reply-To: <2026080634-nervy-batch-bdbe@gregkh>
+References: <2026080634-nervy-batch-bdbe@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,20 +46,20 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 diff --git a/Makefile b/Makefile
-index 05ccceb3a87c..5976ab6f0128 100644
+index 75e5c9573863..4643c9e03a20 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1,7 +1,7 @@
  # SPDX-License-Identifier: GPL-2.0
- VERSION = 6
- PATCHLEVEL = 18
--SUBLEVEL = 42
-+SUBLEVEL = 43
+ VERSION = 7
+ PATCHLEVEL = 1
+-SUBLEVEL = 6
++SUBLEVEL = 7
  EXTRAVERSION =
  NAME = Baby Opossum Posse
  
 diff --git a/arch/x86/entry/entry_64.S b/arch/x86/entry/entry_64.S
-index ed04a968cc7d..1bb73f4c26c2 100644
+index 42447b1e1dff..ace4ae0c4143 100644
 --- a/arch/x86/entry/entry_64.S
 +++ b/arch/x86/entry/entry_64.S
 @@ -937,6 +937,8 @@ SYM_CODE_START(paranoid_entry)
@@ -92,7 +92,7 @@ index ed04a968cc7d..1bb73f4c26c2 100644
  
  .Lbstep_iret:
 diff --git a/arch/x86/include/asm/nospec-branch.h b/arch/x86/include/asm/nospec-branch.h
-index 71e9861a16a8..e316cc994bf0 100644
+index b68892e6d58c..2ea6591bc7b9 100644
 --- a/arch/x86/include/asm/nospec-branch.h
 +++ b/arch/x86/include/asm/nospec-branch.h
 @@ -12,6 +12,7 @@
@@ -181,10 +181,10 @@ index 71e9861a16a8..e316cc994bf0 100644
  
  #endif /* _ASM_X86_NOSPEC_BRANCH_H_ */
 diff --git a/arch/x86/kernel/cpu/bugs.c b/arch/x86/kernel/cpu/bugs.c
-index fd0b7880cf7e..fbc465555e67 100644
+index d9af230c0512..82436b3534fa 100644
 --- a/arch/x86/kernel/cpu/bugs.c
 +++ b/arch/x86/kernel/cpu/bugs.c
-@@ -3829,3 +3829,42 @@ void __warn_thunk(void)
+@@ -3775,3 +3775,42 @@ void __warn_thunk(void)
  {
  	WARN_ONCE(1, "Unpatched return thunk in use. This should not happen!\n");
  }
