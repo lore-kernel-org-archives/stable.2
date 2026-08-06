@@ -1,251 +1,167 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010048.outbound.protection.outlook.com [40.93.198.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A69F3403FF
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 16:01:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA09262FC1;
+	Thu,  6 Aug 2026 16:03:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786032083; cv=fail; b=pBvJ3jTT+My5jXZeCJLnLwaDWQg76oNfUmpIhbHjKg0uTAUcjnO5f+Awt2hZXU65YPodGwx0dRJZxp6D3ItMwhcW3PoKmtn1jJ8QmGtf0klXlOstz2pcmuhesaoIQJZAX63rsD3A86th78ZsZ3dVzbxXBhTCttyYoAV3k15RR9U=
+	t=1786032193; cv=fail; b=ea/Kg7m9/ypvqpCnTNHP7sCAIib7LGc/8cQt++mnGwpG251Q7/l0wdWUEx2BxYLf8BN7ydU0TLxybMtvWdCvUceN085LqLsgX8qKTGLjSmQdNZGLZhpG3tNv2+8/mrlS4lGmPskW+IPmUH3iwAdGcwUcd3JiaEJUP8qeIqBxya4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786032083; c=relaxed/simple;
-	bh=uBn6LFvPVPBsuB4qRlzEzT5xhc61HjcK45AVet6CWMU=;
-	h=Message-ID:Date:Subject:From:To:CC:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=mAtdprndXxSrYOuuEafkHfoPf1nt2DBeHrYgnJZyJ6pNIn/4NASOvyMEEknD9yBE+W6nSxNGlpi2abEtrtnuKHugwgoOJ1QMW84jgKK8O7n8MbkCYTnZlUy+c4cmmGUudFK6wF7rX5J9x36FDKV4uN+J3BMpnLeVINhF+EOIQHI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=h3LvPB4b; arc=fail smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786032193; c=relaxed/simple;
+	bh=gQEbXGv7F+1DNfyis9Sy0cGsQPLrqk/UBJc850PHwKg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OcNp8olKLen/UYIhk3KPUTaN8P6UIkqcHj4xP9HVi/YlT5VmZoAXJNhJS1Gpbc/ahtzOfL5XJyIUVRJwVbH3dwRNidT4jSmwsbbV7gheuX0F3+miGi1GqCjzy+lH5cDxn0wuO7RzX3zAcomoJ1PxOLgGW65O10q90GeNjMrDEHI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=rajF8R8n; arc=fail smtp.client-ip=40.93.198.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="h3LvPB4b"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786032081; x=1817568081;
-  h=message-id:date:subject:from:to:cc:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=uBn6LFvPVPBsuB4qRlzEzT5xhc61HjcK45AVet6CWMU=;
-  b=h3LvPB4bmIncw8rkeFYReF8c+Gq2LcTfN3IcOVQnYxCgjNUN/4ztsZ3w
-   t/l7RI8iyM0Np7AgsIb3ja2TLhKf9KWLx4I9HP4NSrgor6h8uiPUBBK7z
-   iSgV/TuZoCFtEqGVH/jhqYipI1w3x/ldwx8+gXALJwP0ChzbdlWCVSUH6
-   TeeuR5zhJyXtemwr1F0O7wiNRQrBm9nwk8VvhGzZ+bZRI/tNY4+RLnS1e
-   0WBhFzat4taA138IbkyY8/lOBrYCvwkD2y/A18VLPHxpAzn3iOr7vunk1
-   WYBMLq05a80Bl3QzFipF1obJEU7xeXaUzNkx9qfKUOPhBUPnuFZ1eXpNH
-   A==;
-X-CSE-ConnectionGUID: 4/76gKFxRkCWh5drzQ2Mlw==
-X-CSE-MsgGUID: RIbIVUOsSpGSG7lwOXg43A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="89154521"
-X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; 
-   d="scan'208";a="89154521"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 09:01:20 -0700
-X-CSE-ConnectionGUID: w5N8xmrjRoG/2wq47KJzRg==
-X-CSE-MsgGUID: CE1JYV36SUCHokRMoZ1b3g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; 
-   d="scan'208";a="265988073"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 09:01:19 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 6 Aug 2026 09:01:19 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Thu, 6 Aug 2026 09:01:19 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.15) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 6 Aug 2026 09:01:18 -0700
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="rajF8R8n"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KTeKCaGhhYAZlrG9Bv17Nw0MNwR6NXMltb4Tx7aubDic1I2OBfpOs1n96GXzmJzKkNYmptXXuvI/DJ9xWmxUGPsZUyAYpjHoWXetkud9ZJMzWe7JpXKB2DJ+vBFSXoSCJ6mWBQtbEgyaPV5fNdUwo/SeJPLo0P2v8I1GxBQlv4Zxhfo0tmjL55/+ToqU2XBfip9kbQquZmZyP7F4lgdOximQ9wdQDuSspXspw8CCA3u+sfeBFf5E7pWD+Kihu7N2rXIpX3oX0oDiEbuvIvCKOEc3Czv2EJX5iQTDHCOo6LfoEOBYYnuMvr4gblhJ6dKMca71O29yd0F76w+6rFy05A==
+ b=mAQ2p/9AZuix1SLkLC4WFxxzIU5GbTPqGHXLz/qPfWlvlIqeNksmGoDiGtvQqg8SNOJzgko4QTyjpEDGcAm+IgyASeQ7agoi9FHgwsYl7EQ65KoeOK7YWA/izLjTYAlRs6oB+vihJEUx3dJ3irUVx2J2CipLbTwzGUdgiZV2Au+M9nVuR3W5jWslxJzwD2qWgYIvYu3jl8SbbFxOTpFypP+deKhI4XgdO80vftekL2+MPT3ldWCne/QQKLWmG3+1Bm/adVdvL8vpdBhTgDoy/dAxLd/DqPE6jPH8K2RcUTXpVqaVBU2PeVIooZpHTtAsDw1w8JCoSDnj+wxAa/5mag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qVeJMidxDf4kR9+qI2yhw1Oi/krxxP0U+hJZj9WliAo=;
- b=XqQVBww9FWAqWRQgGsA7XiOrx5RzsDedQ1hr//aA/p8pry9FqKdn6j/9LPAqJF1ZqH1/e2P6WeKfvTUFv9HKSWgNEai9+DoMRng99g+/TbYakeCojDsdN591KOFXNiQ++Y30zKUiRzM7rAsX8mZgqw2r52LirnfnClc8fOUXs8VZIOicu7Zxdz6WKXNWNpJzkbKQc/2c5rLx1TgVPWtw01nXBXS3jG3jRzadtkWvPTNiHtKRiw7B0NsVsobz8QqbBYLLulEiyM0EyfwlWYEAE+/LVuOEXMFGcCVcwXvD13IqblLZCB8/Mpl49wB98tNJqvyBl/UJVYI+J4Vkp+g2Vg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SA3PR11MB7554.namprd11.prod.outlook.com (2603:10b6:806:315::9)
- by SJ0PR11MB4880.namprd11.prod.outlook.com (2603:10b6:a03:2af::21) with
+ bh=lmfBYP95tokplULiarg6QmMLra3zMloJlSltyrhjlEk=;
+ b=KKwGcDfYxNNTV32ywzMju6h5JXnS7+4yLGPXqVVC6VYVl7Amj8iC8sYJRm+H72qFd3YuVKVHsOX3G4onlBcyZaxuvoLSCyc0XcwpQ/+WD4xtJ7Vs95mTwXRMsYrXv6bTfda+k8qtYbJlQFZWjjE9TtkNKEfbeX4c8Dhu+GU4ES6gBfC3v7osbrqTBdmpyfS1nF/QWOmui7HXN2arR/HDVEmJ2v9sxVfSt85APQ2E23OxG2I/S/cJhlKR2YFTwdMb6UPCSmjOIhelbUlHnkzArstp8thpGH91+gIA73BTE7jtBlX8hdHugBxINPJqMtS29W6ecg/SgVIjhw5qgW9RqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lmfBYP95tokplULiarg6QmMLra3zMloJlSltyrhjlEk=;
+ b=rajF8R8nKZJvYWOvQRDtna1VtFDVrZLKAMxvxyiaxNKtlJu2OlWIBcV10gmkBc1feUFqBidJLj5l14yuuTv0I9onqtz6Gza+uYikUiSHGcbzu9WwZzsc8oPnuhkUBOyKgA9Tr5Y3yr85NL2wVHNuwpmtbUEmNGhChBPsTo2t9Z0=
+Received: from BL1P221CA0035.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:5b5::8)
+ by PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
- 2026 16:01:15 +0000
-Received: from SA3PR11MB7554.namprd11.prod.outlook.com
- ([fe80::3ec0:2280:db82:d67b]) by SA3PR11MB7554.namprd11.prod.outlook.com
- ([fe80::3ec0:2280:db82:d67b%5]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
- 16:01:15 +0000
-Message-ID: <95cc059b-056e-4aa3-8431-1e497002f58d@intel.com>
-Date: Thu, 6 Aug 2026 21:31:09 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/i915/display: Limit max joined dotclock on pipes
- available
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>, <intel-gfx@lists.freedesktop.org>,
-	<intel-xe@lists.freedesktop.org>
-CC: <stable@vger.kernel.org>
-References: <20260806143738.2710312-1-jani.nikula@intel.com>
- <ca6f4f3b-9c94-4b24-a8e4-7c351e730429@intel.com>
- <788a51d6-4eca-4365-bad1-037d25f388d0@intel.com>
-Content-Language: en-US
-In-Reply-To: <788a51d6-4eca-4365-bad1-037d25f388d0@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA0PR01CA0117.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:11d::20) To SA3PR11MB7554.namprd11.prod.outlook.com
- (2603:10b6:806:315::9)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.20; Thu, 6 Aug
+ 2026 16:03:04 +0000
+Received: from BL02EPF0002992C.namprd02.prod.outlook.com
+ (2603:10b6:208:5b5:cafe::6d) by BL1P221CA0035.outlook.office365.com
+ (2603:10b6:208:5b5::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.21 via Frontend Transport; Thu, 6
+ Aug 2026 16:03:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0002992C.mail.protection.outlook.com (10.167.249.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Thu, 6 Aug 2026 16:03:01 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 6 Aug
+ 2026 11:02:49 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 6 Aug
+ 2026 11:02:06 -0500
+Received: from fedora.mshome.net (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 6 Aug 2026 11:02:05 -0500
+From: Jason Andryuk <jason.andryuk@amd.com>
+To: Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, "Mario
+ Limonciello" <mario.limonciello@amd.com>, Thomas Gleixner <tglx@kernel.org>,
+	<x86@kernel.org>, Yazen Ghannam <yazen.ghannam@amd.com>
+CC: Jason Andryuk <jason.andryuk@amd.com>, <linux-kernel@vger.kernel.org>,
+	Penny Zheng <penny.zheng@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH 1/2] x86/amd_node: Remove smn_exclusive
+Date: Thu, 6 Aug 2026 12:01:56 -0400
+Message-ID: <20260806160159.230453-2-jason.andryuk@amd.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260806160159.230453-1-jason.andryuk@amd.com>
+References: <20260806160159.230453-1-jason.andryuk@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR11MB7554:EE_|SJ0PR11MB4880:EE_
-X-MS-Office365-Filtering-Correlation-Id: e85e6110-2023-46c2-9e19-08def3d3f1d6
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992C:EE_|PH8PR12MB7110:EE_
+X-MS-Office365-Filtering-Correlation-Id: c68f2daa-891e-4f19-753a-08def3d43150
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|3023799007|18002099003|22082099003|11063799006|56012099006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info: XVaRoyY937vJ4eYYv/enVhSgsxAvTI+XQQ9GU0eiBfmEHyY6ux4lfOdiIYBKCnDCOTVC5EA0nsbB8ZNUxyddITtNEdyTSuxK4CMsNjF8jAIsB+hw2D6bz2FJzJWr9C4qiPDQ0yitxKL2M7NLpcYXmxI8yS6uKmOAr0R+Ic+smZWyD+pMYgMcQ2iQzd1tB2M5VqblBXljPdHCJZOZ5vE0cJW6NFe/cJfnN+JnQkHRCAuVOuc+gfHMQrKfqyK6F8PMbolKKsf7+J9BVPdjPxGWAIW5VwKPICHm2qh90kOOB1Cbx4jZ8BlJd9U6RioUkYD0LsAdoqoT8b4cekia5n9JpTgbrJaNeT/x+80MS3zbMu77je8G9JBAumLtrzSKxmmvdWTBPI9kLALg03GlCtV5gMqF6qhqkVXpAbZsKR40qgr6negJWK1ll5I9ykwW9Qke27/oEGTxUwfn8hCIKBe42eHi5MAsM1KvPVwJKTf+zDJ4tplsH3aUNwq92g1MEnb/wuAuJ+RIxmjEH7b4Mv2hM0SQXd6mEK3XmZRdmAItwEafFVwjegAnq/78uz75/jRwFauC2v+L4YSEydIwXPxa3vdkHCUXSGwYOzloi6aMS5h/6DFW7zbEWHvOqgP3g9iIldtMNtJq/IuMWE3FKoBTmhF6wFYxZAz4YMTRAi8qW6c=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR11MB7554.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(3023799007)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|23010399003|82310400026|376014|11063799006|56012099006|10067099003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Zl8xL3cRi5heZWHtywgmh0G5iZMqtPI1HBMbvqaFmzW6UdjKDf9697G/pJRf9jRFDstQ8puYiQtgyOIjI4d8Ls4ZAiSnsrGdSs/PfU2Otl3vmXN3XkeT8Yb0o2TUSdw4xkxHV45WTL6xSguwdAE/WtMzeKnM292CM4vKnu0a3/6V/H08IG4TmIvtzVx/z/4jvW27FHO2AeeyTP1S8ctws+eXo0iZHdZo7gS4jO102Y0TZaaYqso2wZVXZXyixwUW5evPMppJlstKiO21bl2YtWvAcqMGT88n85FHpZTNe+FGvLcjb9ZENgvMYTNJwQTXkJu+g+35GjTQrdkax/l1DvlYAUNxXnRMHi22+nfKH2S6+RnjY0QCtXdQNL8JE3BS33xLAwavd89WeVbJXu97XyYM8UcNmuGJnbzsEzE+LPSsLf7L/UWWth62t0UaxDkFSzFT/p06D3D8z92vKS0xz5VjGG1XgN7RDSe5lab0w1alI86vaYokKNPsVF9zPY7fSmcn82vIYrHhNSHUWvApUNk71O7VeBJxqnAv/AS7wXZIM4OzAHA2shEwUDd3qI+LpLDXvM15FuWEKIbYWpk9eMdLovlPEOo5n9HjCLjZJMk5XyRKJMZThSZpWhKN43duLkvpbnwHGBh1erdNtHzH7k3S0CxN37e+DeyvkkZhRwcP0+M9ZpU3HawtH+ShBRdRn59SoEXLpP+gfAuh7CcfvQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(23010399003)(82310400026)(376014)(11063799006)(56012099006)(10067099003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S01TOWEza2NseVRKL3lCNG9MT3hiSTZ2THlYTDFQeTFEY2dybGdSSHFoMm8z?=
- =?utf-8?B?TC9JU2UvbHQ5alYyZ0htRWZMSXp2Y3Jhb3doclkveTZVakNRNmFJOTR4emFH?=
- =?utf-8?B?WXdMclMvOUNWQVVQZ2NJZVo4MkZwZ2NiSldURjhmOUR3LzUxenNZQVc2M2th?=
- =?utf-8?B?RUJhVTB0dkxqNFNIK2UzdWdaaGdPQm11NkQ1K2pzdFFveVhVOW1ZMVZnblhP?=
- =?utf-8?B?clZJcm9jY2NzOWFvSzhBYmxxeWxoKzBkMytwN3FSeWFIRm5maVkySFVPQVIz?=
- =?utf-8?B?amJyaWd0bVhrNHhrMndTOHhiczhFQm85b0pmU3ErRnBKakZJSXBhOVFDS2h5?=
- =?utf-8?B?RlRUSE14bjl4MUp5dTFxeWpTaFYwU1pKL25RakdOU0tYK0o4SElJNmFlcDhI?=
- =?utf-8?B?TFpZSGlRN0VjT0FpaTEyVklhK00vTXdDcWFCdGJleGVZMnpEMGdDYnJxcGp4?=
- =?utf-8?B?Z0pVNGxQQkxybjJOTjdESnR4QTdGY1lUYU5uenZsZk10SDFyRkxxNDE3MWhr?=
- =?utf-8?B?SkQrZnpnWUFPOUNBUWRzUjBnODk2bkZhbUkvTWtZN1dSVkh1RkpNcU02b05I?=
- =?utf-8?B?Y2xJS0dZc3hVaFZxRDVvVGlpMlZ1OEduMFFvMU1tMWdLY1hNVitVRzAzbHRJ?=
- =?utf-8?B?ZHE1VkJOSldqQnhXUUhqOXRDZXQ5NXZLYlpyUzVYMzV1SWNMWmZYc01jYmZ4?=
- =?utf-8?B?QXNodlprYkZIbVJTNitDeURlcmMvOWtIaG10QzZwMlBHRHZqZCtoNHZGbEVF?=
- =?utf-8?B?bjRjN1lUOWtWTUtrZDVPaWU5bzFWREQvOGl3aXdrM0V1aGdOOEVxdzJLdzJz?=
- =?utf-8?B?SVZFUy90TFFreEZEMzd4WGlTZ2FHZEorNks2Yk9IODVKYnpsL2QxUk1ySzJD?=
- =?utf-8?B?cy9Rd3Q1eS9MbUdKUExScmJ6Ky9hVnBmWEo3TDI3ZGlrYlgwV1JmRTVnajFo?=
- =?utf-8?B?SzQxUVVwcnVJWXRNNnA0MnI4SWVCdm1YU0tETlV5OFBvMk9Gb3ZPdm1BQjUv?=
- =?utf-8?B?NlhvMys1Nk84OXJDVllsYXZlUFE1T1dUU2JqQ1hlK1JPUTJlZERETlc3bFFS?=
- =?utf-8?B?Y2g1WG4wMjRBN0VNNmZ4ODE5UkhFRFlOUUVmZmZ1elVwcXBzZjJXUjNHM213?=
- =?utf-8?B?cmN4MWZKMUViL3JGSVFuTkpKbHJhZGhPQ2doM2QrRVNudlpIWjl2T0dCV2l1?=
- =?utf-8?B?cnpzWnBzbjUvQVBoVEczMVdtNEpvM1M1emhQTFIwRnJZVk9reEtKeGxqaHZx?=
- =?utf-8?B?RHJiaG0xRDE0SGVTTzZRUjYyWEZjeTRaaFdqMmI5L3BUZWIzZ2FYU3lPbUcr?=
- =?utf-8?B?R0dvbUdobEJ2L1BuV3IrMjZDVnpYRFVLanoyZXFrbGsrcDFpMUNjTVgwYTFS?=
- =?utf-8?B?VzgxZTBZRzJQYXJIRDF5ZmRrS1MrRjdhaVc2di8xKzU1RmFUL0xMUEtjMUZL?=
- =?utf-8?B?ZnordmpIOHZML2lWTElrZ0w4Wm5mU3FlVGtxUVNCMkZOaExHVUZucTRhdzY1?=
- =?utf-8?B?Zmk0TUNUU1BqTDRzWW5HTGFNWXBCMndaQmlzOENFVjJkOExTejA4Ynd4WnJH?=
- =?utf-8?B?L05VeEsvbkhXZlVxQjFqaFdIRXhNcGh6UUFDcXBQUEJtTzMzcEpiMUhvZ0ph?=
- =?utf-8?B?cXdDL2JPcTYrZnVQQ3BvSC9zSVYwdHFXMklhMmxIb3d0elNiNVFGOGtqeXl5?=
- =?utf-8?B?dmZMS21RQ0tjWWRCV29kVVRHaVB5L3QzTS9xVXZhUUJrb2FEbnhLNWlnYXhR?=
- =?utf-8?B?RCtHU01kYWM2bW9FN3ZOU0E1MGZmV1BIZExubU8xaHU5ZGIzNFpwcmppV20w?=
- =?utf-8?B?L0ljTEUzVGN6MVZ0MHEvM0dPMkloU0pnTWpPV1B5dDV1M05iblk2d1pZemN3?=
- =?utf-8?B?ZE1yVGpRd3ZLMmIzcUhsKzM3SUtrRGl0VkhSb3BjdkVMWG1kUjNaY3B6MHV2?=
- =?utf-8?B?TDJHaHN2N0V2cFV4a2tXcm1zMEdmcEduVzduOFREMU1vb1llV3ArRU1lWEZu?=
- =?utf-8?B?MFo4bjNzakJGSTVKcHgrYXRURGF2MWlTU1pLNG9IS3VYWHV3cmEwQXA3RmRY?=
- =?utf-8?B?ZXJhVDVVREhZcDdxbERueGNEWU9FTGx3N1lscHl2U2dUVG5xYVdFVFk4YzVJ?=
- =?utf-8?B?ZTBPek03V0lueUU0RlBDbWpqOVBSbDZlalAyN29vTXcyWEJWaDFicE54a3J6?=
- =?utf-8?B?Z3dZN3VKT1JWN05YREl3MHM5dmxmRFoyYlUwdWJzWDg3SldVTVBwYlQreHpu?=
- =?utf-8?B?OS9Hd0JIbDZTamdiS3JsNkJHdFJCSE1QdllXeVNhTnJHVkZUeVBmRE44bTRi?=
- =?utf-8?B?TW13VzlFYlF3ZHFBa0ZQbjU1NGgzVm5lc3ArbWR0TGZKSjNWa1J3OTgxNHJ3?=
- =?utf-8?Q?zzNQZ5JxKiSrrl9w=3D?=
-X-Exchange-RoutingPolicyChecked: kjG5ttnHnT0HjRtoy2d9ffx43sXn7xAc+U+xYh3gNHV9E9ppgGqlOgoGji8P5Q/jQgYiZJet+OpIa+ERrZKpOw8uen0POydTtsP3eBvFj3/PXwSLXzYZ3tCxO18wSk4arAYNztmiODWt/+b/Gp2HpgcvwW5aQirTWp8KHq8++Xr9+Kkite8FgZePIZqHXnksk/M6v7OXGmNmWJfoGb4PH6q1lxP2FSw4uUfqT8nNiKID+81Zyyi2FDZHbBtT2nW6Q3PUEWN0jqnjJiS3WH4oHSbrU08apGe3XbPvxg8sgUpXK25VnEgsXSBnu7LNdZkFE4W1FQBDEeUlBQMHWfqnxw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: e85e6110-2023-46c2-9e19-08def3d3f1d6
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR11MB7554.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 16:01:15.7658
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ddIISs/sEv7OkHAzDzBxTa0TjmAi48xFFxcmlS0OmXuccrrttYGUB+xQcMYSSWRhTu8e0AxwDTa0i1LO5QuLZ9gcWaHS1Yfq9zJX7FA66SjqLJ9tKWKaM6NcCI1n79JLAYYNSufuraB/bu/icEpn/Rf5G+NPHFRHLTVsZvaEHZzn+DjR0OTPXnyDaic9p2NdQUm7tUDPheTSdRjUizRfe3lF6hALrL+XRsyF/89tylN5FTwDmUgPqhxLr0kWjoDBUbR4e4YAUPBbnUsJWVwJ8ILMgnKh4tfdgweOra0r1Ke4h6Vv4E30y8xUcw5NaSvsYrlBag+7ldRHo0O/DAliRxblGShFZkenk/WTIRgyXSRHffr0uy6av33Mq0vqEjzeZO3tjkonyeFi9ld0YzTVb3UgATGuodD0rCABJK7kPHzbVy2fHavWPNmxeAOyZQe1
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 16:03:01.8705
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pYgtD0qjVQvKk/WKaAHsETJOhnSYZvdOz/teOhbVp8/+ndgKGN3FMWbPEHXZqOMI4bxCQXkDpeht6GAoIImWV7sUbODpp9bJk87DAAPH9/8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB4880
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c68f2daa-891e-4f19-753a-08def3d43150
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0002992C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7110
 
+amd_smn_read/write() are exported functions around __amd_smn_rw(), so
+they are always available even if amd_smn_init() fails.  smn_exclusive
+would prevent access __amd_smn_rw(), but it is placed too late.  If
+amd_smn_init() failed, amd_roots is NULL and __amd_smn_rw() will fault
+over it.  Replace smn_exclusive with directly checking amd_roots to
+avoid the NULL pointer dereference.
 
-On 8/6/2026 9:19 PM, Nautiyal, Ankit K wrote:
->
-> On 8/6/2026 9:15 PM, Nautiyal, Ankit K wrote:
->>
->> On 8/6/2026 8:07 PM, Jani Nikula wrote:
->>> Multiplying the max dotclock based on joiner availability on the
->>> platform alone does not take into account the actual number of pipes
->>> (possibly with some fused) available.
->>>
->>> Limit the max joined dotclock based on the actual number of pipes
->>> available.
->>>
->>> This is still too optimistic due to other constraints on actual pipes,
->>> but it reduces some of the false hopes at mode enumeration.
->>>
->>> Fixes: f4f8f0eaaafc ("drm/i915/display: Consider ultrajoiner for 
->>> computing maxdotclock")
->>> Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
->>> Cc: <stable@vger.kernel.org> # v6.13+
->>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->>> ---
->>>   drivers/gpu/drm/i915/display/intel_display.c | 5 +++--
->>>   1 file changed, 3 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/i915/display/intel_display.c 
->>> b/drivers/gpu/drm/i915/display/intel_display.c
->>> index 829d7a411dcc..44c5d1dde255 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_display.c
->>> +++ b/drivers/gpu/drm/i915/display/intel_display.c
->>> @@ -8113,9 +8113,10 @@ static int max_dotclock(struct intel_display 
->>> *display)
->>>   {
->>>       int max_dotclock = display->cdclk.max_dotclk_freq;
->>>   -    if (HAS_ULTRAJOINER(display))
->>> +    if (HAS_ULTRAJOINER(display) && INTEL_NUM_PIPES(display) >= 4)
->>>           max_dotclock *= 4;
->>> -    else if (HAS_UNCOMPRESSED_JOINER(display) || 
->>> HAS_BIGJOINER(display))
->>> +    else if ((HAS_UNCOMPRESSED_JOINER(display) || 
->>> HAS_BIGJOINER(display)) &&
->>> +         INTEL_NUM_PIPES(display) >= 2)
->>
->> If fused pipes are AC or BD this will still give us 2. Perhaps should 
->> have a check for atleast 2 consecutive pipes from 
->> DISPLAY_RUNTIME_INFO(display)->pipe_mask
->
->
-> ^I meant :  if fused pipes are B or D, resulting in A,C and B,D 
-> respectively, as available pipes...
+Fixes: 77466b798d59 ("x86/amd_node: Remove dependency on AMD_NB")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+---
+Fixes is the introduction of amd_roots
+---
+ arch/x86/kernel/amd_node.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
+diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
+index 0be01725a2a4..ea553267e5fa 100644
+--- a/arch/x86/kernel/amd_node.c
++++ b/arch/x86/kernel/amd_node.c
+@@ -38,7 +38,6 @@ static struct pci_dev **amd_roots;
+ 
+ /* Protect the PCI config register pairs used for SMN. */
+ static DEFINE_MUTEX(smn_mutex);
+-static bool smn_exclusive;
+ 
+ #define SMN_INDEX_OFFSET	0x60
+ #define SMN_DATA_OFFSET		0x64
+@@ -91,11 +90,11 @@ static int __amd_smn_rw(u8 i_off, u8 d_off, u16 node, u32 address, u32 *value, b
+ 	if (node >= amd_num_nodes())
+ 		return err;
+ 
+-	root = amd_roots[node];
+-	if (!root)
++	if (!amd_roots)
+ 		return err;
+ 
+-	if (!smn_exclusive)
++	root = amd_roots[node];
++	if (!root)
+ 		return err;
+ 
+ 	guard(mutex)(&smn_mutex);
+@@ -308,8 +307,6 @@ static int __init amd_smn_init(void)
+ 		debugfs_create_file("value",	0600, debugfs_dir, NULL, &smn_value_fops);
+ 	}
+ 
+-	smn_exclusive = true;
+-
+ 	return 0;
+ }
+ 
+-- 
+2.55.0
 
-Correction (typo'd twice (facepalm)): I meant if the available pipes are 
-non-consecutive, like {A,C} or {B,D}  the count is still 2, but 
-bigjoiner needs 2 consecutive pipes.
-
-So we should check pipe_mask for a consecutive pair.
-
-And I should probably wrap up for the day...
-
-
->
->
->>
->> On the other hand we can have the consecutive pipe check in 
->> mode_valid() path after for_each_joiner_candidate() is called, which 
->> will check whether there exists any consecutive pair that can support 
->> joiner.
->>
->> As discussed offline, in any case, we need to fix the 
->> compute_config() path for SST and MST where we are using the 
->> for_each_joiner_candidate() to check for a given primary, there exist 
->> sufficient consecutive pipes to support the joiner candidate.
->>
->> Regards,
->>
->> Ankit
->>
->>
->>
->> Regards,
->>
->> Ankit
->>
->>>           max_dotclock *= 2;
->>>         return max_dotclock;
