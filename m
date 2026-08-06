@@ -1,252 +1,146 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC313A1681;
-	Thu,  6 Aug 2026 14:03:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F9A3EAC61
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 14:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786025033; cv=none; b=DyTiCQ3MO/BN22RRvBOuR9MlrOJ3Kz9Hc4H30nC0ZYFPcAoifnm2ixkjINQYujJSUiTqTaqvGQLC2WGY0VaHnng78nIMLhNpA5/LJxSVUE6r3+vfwc3gUJr4Hl/VDvRoWnLCDGfCzlwpwSPnpqc8UAyM9vJlsD7a/RSzWUa6XG8=
+	t=1786025135; cv=none; b=Hh/EUQy224W5vlhcQ31M0GzOvwTFzNPpEIo9i2TcIurCxvzPaYw9dTaDBj5fe4X590mE8zsJwdal0b3K71vV3KfUHhu61TNa4ZDXrO7gngF4vXeNCzrynZf/orjemxGdzS/VMm8GRk7fL3aPkTOe9Fj9B/EfOXhXu9EsDrn/I6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786025033; c=relaxed/simple;
-	bh=AEsNW+NBYPMBEfy8fUmKwiFCnf52pOVGTH7UhHvKcK8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fDuQwZaP7YfwVmg/HbnkdszlaP0ssA8Tu2PABbRY6tXRTS/lnXrty/kDHZbeigiS1BQIl2pY8ctdVjo+qG8xn35eyVvJTiMT+ebDZ7w1FaIgwnKhTrfB+EwHzqXyv08bN+ubyUNZUVeSNqU0F6gczgvFf+/RITTWSs6yQf9L2Io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=VxpbSYIf; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1786025135; c=relaxed/simple;
+	bh=lSgP0UGzBQHa9Rl+uSN5kmGOX9y1uiZ/mbFBiQKwALk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nrGRJX61tjO8Bpdg5cV5FQmPzb7cdtSs4PmJupIHO89QdmXwCCbmVBDGEthF9K+WQKzufpWng99PigDig3RuZFKfezQt5trO3h8XmWgfX/BX84SZ2zudZxUsLEkR4cjKr20+8f+qrSyltOna5xUd/egwCVlfctKbZHyw2lG3AHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KuwO2TPA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="VxpbSYIf"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 675NmB5E3404367;
-	Thu, 6 Aug 2026 14:03:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=a5unDbdIng8tDwr7ncJJHzm+/8KeIBDABaZxAuNRN
-	XI=; b=VxpbSYIfvYjurJexHioYyGRywxp6rC8POmNxkMETwbWFnMbbnEaJFRYfG
-	fQcvB1bvcHk6YLpN4YTQGgnf1b+VxtAOqsJdTAVvBDcytvyrXfD+OwtHW+gK2ak6
-	nrg3p4OblKb5tyzsLmYErKbXGH8WErhUjmdTUpdl/vkk68pdMSh4vDDMGSwx3b4/
-	ABu9X6c7DzmXUnRFDW+haZI2Uvs5kHxCEJP/WawuoD9wghOcear4iaAbTTfKCH60
-	qJH+L42UqRljI7zNDkMj3vE8vNDi5Q7hBUROJlP0F7IAMmd22q/jvW8CaABMMSa9
-	qntC8hTIwlAietz9dG16TytLG6e2Q==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8fr0gc8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 06 Aug 2026 14:03:47 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 676DuG8G028447;
-	Thu, 6 Aug 2026 14:03:46 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fsvmhkc25-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 06 Aug 2026 14:03:46 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 676E3ifg28574286
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 6 Aug 2026 14:03:44 GMT
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 56EB058064;
-	Thu,  6 Aug 2026 14:03:44 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EF0315805F;
-	Thu,  6 Aug 2026 14:03:42 +0000 (GMT)
-Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.92.156])
-	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  6 Aug 2026 14:03:42 +0000 (GMT)
-From: Anthony Krowiak <akrowiak@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
-        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
-        hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
-        stable@vger.kernel.org
-Subject: [PATCH v4] s390/vfio-ap: fix stale pqap_hook pointer on error in vfio_ap_mdev_set_kvm()
-Date: Thu,  6 Aug 2026 10:03:42 -0400
-Message-ID: <20260806140342.611294-1-akrowiak@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KuwO2TPA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C00D1F00A3E
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 14:05:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786025126;
+	bh=eZq3ulrLZdSDUMbHHMPbThDdfAeQLBt2+TRPSLNiUzs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=KuwO2TPAvYSD6K/y0kngMsOa1MVNafxDcLFqBlrA5sFr/d5eIUlgUwayVNtFnoKJd
+	 mwGop1Da6o6+jFu/pWBXeP7pQyEgJcVWQpkMlebWeuao8TZMLXWbSxmcLgiEELyKW5
+	 HCErYOB+q5/I8K/WESEEUebuv/Aohxfg1k7k6PmsBL88Cg2uChcb4mg2twQJaDkQyl
+	 wRmOhryzYOEwaQlQHl2xm1aTZQQBXyGS2+pDtv37jXDRzxoVYhUVbLHNd6pCnAxUYb
+	 K+iflGQyUj0h+P1yRw3HY1Atszjca8UYy4RyAj7n+0TI07/Xg5C4/ae0CMCDtYII20
+	 Tq4oKTKHolpvg==
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b2a3166398so2179138e87.3
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 07:05:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpWqinz3szUtnYfU4cFUrXg4ur8lYRlTTKY0Ub2U63dxu5FGGX6kiHT039EQjfLWbI9mG2Nuyk=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyf/ERNslNjU0+3Xc/fs4r0K/sevmkghh3FglTgU1svq1qJmWuX
+	0laLRItwa5TAosA4xjZfJqGlZpVB6+Obzgl2mXufC0doisyvzEXbu+R/JvtJhR4/riK72UbagtD
+	+3eJKtT5sQgZ3vGE+6qRdszugOK9Okmc=
+X-Received: by 2002:a05:6512:2243:b0:5ae:b5ec:62de with SMTP id
+ 2adb3069b0e04-5b303b383bcmr345000e87.11.1786025124858; Thu, 06 Aug 2026
+ 07:05:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: IH0OnD3wdfP14lTx9xKdrG0e-WYs8uVK
-X-Proofpoint-ORIG-GUID: IH0OnD3wdfP14lTx9xKdrG0e-WYs8uVK
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDEwOCBTYWx0ZWRfXx/bordy/sASm
- uQuKOTIa+oCdivOpnquKCvBmrH+v7ry5gKIexk+L1QShesv45QUtz87BjT2BTKDbogY3jFGAv3g
- EFP3XL7xWDTYRbJjkev2ZVG4KS+pIo8=
-X-Authority-Analysis: v=2.4 cv=K8cS2SWI c=1 sm=1 tr=0 ts=6a749443 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=fnNIMH4mEDlqOEiJ55YA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDEwOCBTYWx0ZWRfXzTXiYUkLhxCo
- A/+R3w7E0li4fututo8wE4CMyZJzq7mn/XQMeP9Ox5+zjohlWVaOr9TUUSj+3Qm38YuPcPM+hMp
- 6ex9IHVfvBeTtOIw7WDgg6EMeX/ARwRpA72bY9zT23gYb2lhmxxv42pN8Wgff+/xn2106qTk7P4
- z6BYypkDq81Z3EFzpS9ukvCvtkmY15fPCyQwJqL7xN7eeVPt1+/b0w1qEqAeH7UhXZXGvU17Rn2
- fr0bQxYp9eXKEaQWucAQSuXG2iR9SVIGULhHw1pKT3pU2W9NffvhXF6B9ZBSpuoVvEgeeAuKmLb
- Hh0DYXHq4QAAzatKNcq4mlJW0Lmd5VKDsvYk0Wf7LpZMVY1q54rahevS/7RsehsvZSeyuz5UiKD
- JhO5SqoI8blZY8c99p2j+GVNc8ktz3QDK3GLNU8okblUnd0wudWMJGyDNHtjFiav5odBXNNdcoe
- jgLILwOi4xus1i7H8gw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
- lowpriorityscore=0 malwarescore=0 phishscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060108
+References: <19fd74e46a8.25f5bfd941182.5953196137231825269@a0rg.com>
+In-Reply-To: <19fd74e46a8.25f5bfd941182.5953196137231825269@a0rg.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 6 Aug 2026 16:05:12 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0juEQMUPmGyo4R6LGK01fTR4DHz3YrSH+7YFFFogiudhQ@mail.gmail.com>
+X-Gm-Features: AUfX_mwz0cY0tGrkn94c273ROxdxYZQuad7wtn53Mzh1tJTuq9dHdGs-Lz2n1ns
+Message-ID: <CAJZ5v0juEQMUPmGyo4R6LGK01fTR4DHz3YrSH+7YFFFogiudhQ@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: pfr_update: fix stack buffer overflow in query_capability()
+To: Anirudh Prasad <icarus@a0rg.com>
+Cc: linux-acpi <linux-acpi@vger.kernel.org>, rafaeljwysocki <rafael.j.wysocki@intel.com>, 
+	linux-kernel <linux-kernel@vger.kernel.org>, stable <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In vfio_ap_mdev_set_kvm(), kvm->arch.crypto.pqap_hook is set to
-&matrix_mdev->pqap_hook before the update locks are acquired and the
-mdev list is checked for a conflicting assignment. If another mdev is
-already attached to the same KVM instance, the function returns -EPERM
-without restoring the hook pointer, leaving kvm->arch.crypto.pqap_hook
-pointing at the failing matrix_mdev instead of the mdev that legitimately
-owns the KVM.
+On Thu, Aug 6, 2026 at 3:41=E2=80=AFPM Anirudh Prasad <icarus@a0rg.com> wro=
+te:
+>
+> query_capability() copies four ACPI buffer objects returned by the
+> firmware _DSM into fixed-size u8[16] fields in struct
+> pfru_update_cap_info using memcpy with the firmware-supplied length:
+>
+>   memcpy(&cap_hdr->code_type,
+>          elements[CAP_CODE_TYPE_IDX].buffer.pointer,
+>          elements[CAP_CODE_TYPE_IDX].buffer.length);
+>
+> The same pattern repeats for drv_type, platform_id, and oem_id.
+> If the firmware returns buffer.length > 16 for any of these fields,
+> memcpy writes past the destination array.
+>
+> struct pfru_update_cap_info is stack-allocated in pfru_ioctl().
+> Confirmed with KASAN on 7.2-rc6: three stack-out-of-bounds reports
+> are generated when a DSM returns 64-byte buffers, with writes reaching
+> 44 bytes past the end of cap_hdr's [64, 156) frame window into
+> adjacent stack redzones.
+>
+> Fix by clamping each memcpy length to the size of its destination
+> field with min_t(u32, buffer.length, sizeof(cap_hdr->field)).
+>
+> Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update de=
+vice driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Anirudh Prasad <icarus@a0rg.com>
 
-Since matrix_mdev->kvm is never set on this error path,
-vfio_ap_mdev_unset_kvm() will not clean up the hook when matrix_mdev
-is later closed. If matrix_mdev is subsequently freed, any PQAP
-instruction executed by the guest will dereference the stale pointer
-through pqap_hook_rwsem, resulting in a use-after-free.
+If the firmware wants the kernel to copy more data than the latter has
+room for, the operation should fail instead of pretending to succeed.
 
-Since kvm->arch.crypto.pqap_hook is only set in the vfio_ap_mdev_set_kvm()
-function and is cleared in the vfio_ap_mdev_unset_kvm() function, a check
-for 'kvm->arch.crypto.pqap_hook != NULL' is all that is needed to determine
-whether it belongs to another mdev. This will alleviate the need to iterate
-the matrix_dev->mdev_list list to see if the kvm object is assigned to
-another mdev.This was introduced in v3 to alleviate the need to take the
-mdevs_lock while iterating the list; however, this did not prevent a
-potential race condition.
-
-The pqap_hook_rwsem(write) is now performed inside
-get_update_locks_for_kvm(), which is updated to acquire
-pqap_hook_rwsem(write) between kvm->lock and mdevs_lock. This ordering
-is consistent with the PQAP intercept path, which acquires pqap_hook_rwsem
-in read mode while srcu is held under vcpu->mutex, establishing the
-dependency: kvm->lock -> vcpu->mutex -> srcu -> pqap_hook_rwsem(read).
-
-The pqap_hook_rwsem is now released inside the
-release_update_locks_for_kvm(), which is updated to release
-pqap_hook_rwsem(write) between mdevs_lock and kvm->lock.
-
-Additionally, kvm_put_kvm() in vfio_ap_mdev_unset_kvm() is moved
-after release_update_locks_for_kvm(). Previously it was called while
-kvm->lock was held; if it were ever the last reference, kvm_destroy_vm()
-would run under kvm->lock, which would deadlock.
-
-Fixes: 86956e70761b3 ("s390/vfio-ap: replace open coded locks for VFIO_GROUP_NOTIFY_SET_KVM notification")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
-Signed-off-by: Matthew Rosato <mjrosato@linux.ibm.com>
----
- drivers/s390/crypto/vfio_ap_ops.c | 45 ++++++++++++++-----------------
- 1 file changed, 20 insertions(+), 25 deletions(-)
-
-diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
-index 44b3a1dcc1b3..99a0efd999ef 100644
---- a/drivers/s390/crypto/vfio_ap_ops.c
-+++ b/drivers/s390/crypto/vfio_ap_ops.c
-@@ -48,15 +48,19 @@ static void vfio_ap_mdev_reset_queue(struct vfio_ap_queue *q);
-  * 1. matrix_dev->guests_lock: required to use the KVM pointer to update a KVM
-  *			       guest's APCB.
-  * 2. kvm->lock:	       required to update a guest's APCB
-- * 3. matrix_dev->mdevs_lock:  required to access data stored in a matrix_mdev
-+ * 3. kvm->arch.crypto.pqap_hook_rwsem: required to update pqap_hook and
-+ *					serialize against PQAP intercepts
-+ * 4. matrix_dev->mdevs_lock:  required to access data stored in a matrix_mdev
-  *
-- * Note: If @kvm is NULL, the KVM lock will not be taken.
-+ * Note: If @kvm is NULL, the KVM lock and pqap_hook_rwsem will not be taken.
-  */
- static inline void get_update_locks_for_kvm(struct kvm *kvm)
- {
- 	mutex_lock(&matrix_dev->guests_lock);
--	if (kvm)
-+	if (kvm) {
- 		mutex_lock(&kvm->lock);
-+		down_write(&kvm->arch.crypto.pqap_hook_rwsem);
-+	}
- 	mutex_lock(&matrix_dev->mdevs_lock);
- }
- 
-@@ -68,16 +72,19 @@ static inline void get_update_locks_for_kvm(struct kvm *kvm)
-  *
-  * The proper unlocking order is:
-  * 1. matrix_dev->mdevs_lock
-- * 2. kvm->lock
-- * 3. matrix_dev->guests_lock
-+ * 2. kvm->arch.crypto.pqap_hook_rwsem
-+ * 3. kvm->lock
-+ * 4. matrix_dev->guests_lock
-  *
-- * Note: If @kvm is NULL, the KVM lock will not be released.
-+ * Note: If @kvm is NULL, the KVM lock and pqap_hook_rwsem will not be released.
-  */
- static inline void release_update_locks_for_kvm(struct kvm *kvm)
- {
- 	mutex_unlock(&matrix_dev->mdevs_lock);
--	if (kvm)
-+	if (kvm) {
-+		up_write(&kvm->arch.crypto.pqap_hook_rwsem);
- 		mutex_unlock(&kvm->lock);
-+	}
- 	mutex_unlock(&matrix_dev->guests_lock);
- }
- 
-@@ -1821,26 +1828,17 @@ static const struct attribute_group *vfio_ap_mdev_attr_groups[] = {
- static int vfio_ap_mdev_set_kvm(struct ap_matrix_mdev *matrix_mdev,
- 				struct kvm *kvm)
- {
--	struct ap_matrix_mdev *m;
--
- 	if (kvm->arch.crypto.crycbd) {
--		down_write(&kvm->arch.crypto.pqap_hook_rwsem);
--		kvm->arch.crypto.pqap_hook = &matrix_mdev->pqap_hook;
--		up_write(&kvm->arch.crypto.pqap_hook_rwsem);
--
- 		get_update_locks_for_kvm(kvm);
--
--		list_for_each_entry(m, &matrix_dev->mdev_list, node) {
--			if (m != matrix_mdev && m->kvm == kvm) {
--				release_update_locks_for_kvm(kvm);
--				return -EPERM;
--			}
-+		if (kvm->arch.crypto.pqap_hook) {
-+			release_update_locks_for_kvm(kvm);
-+			return -EPERM;
- 		}
-+		kvm->arch.crypto.pqap_hook = &matrix_mdev->pqap_hook;
- 
- 		kvm_get_kvm(kvm);
- 		matrix_mdev->kvm = kvm;
- 		vfio_ap_mdev_update_guest_apcb(matrix_mdev);
--
- 		release_update_locks_for_kvm(kvm);
- 	}
- 
-@@ -1883,18 +1881,15 @@ static void vfio_ap_mdev_unset_kvm(struct ap_matrix_mdev *matrix_mdev)
- 	struct kvm *kvm = matrix_mdev->kvm;
- 
- 	if (kvm && kvm->arch.crypto.crycbd) {
--		down_write(&kvm->arch.crypto.pqap_hook_rwsem);
--		kvm->arch.crypto.pqap_hook = NULL;
--		up_write(&kvm->arch.crypto.pqap_hook_rwsem);
--
- 		get_update_locks_for_kvm(kvm);
-+		kvm->arch.crypto.pqap_hook = NULL;
- 
- 		kvm_arch_crypto_clear_masks(kvm);
- 		vfio_ap_mdev_reset_queues(matrix_mdev);
--		kvm_put_kvm(kvm);
- 		matrix_mdev->kvm = NULL;
- 
- 		release_update_locks_for_kvm(kvm);
-+		kvm_put_kvm(kvm);
- 	}
- }
- 
--- 
-2.53.0
-
+> ---
+>  drivers/acpi/pfr_update.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
+> index 6283105bb0e8..0219347cd78f 100644
+> --- a/drivers/acpi/pfr_update.c
+> +++ b/drivers/acpi/pfr_update.c
+> @@ -161,24 +161,28 @@ static int query_capability(struct pfru_update_cap_=
+info *cap_hdr,
+>         cap_hdr->update_cap =3D out_obj->package.elements[CAP_UPDATE_IDX]=
+.integer.value;
+>         memcpy(&cap_hdr->code_type,
+>                out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.pointe=
+r,
+> -              out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length=
+);
+> +              min_t(u32, out_obj->package.elements[CAP_CODE_TYPE_IDX].bu=
+ffer.length,
+> +                    sizeof(cap_hdr->code_type)));
+>         cap_hdr->fw_version =3D
+>                 out_obj->package.elements[CAP_FW_VER_IDX].integer.value;
+>         cap_hdr->code_rt_version =3D
+>                 out_obj->package.elements[CAP_CODE_RT_VER_IDX].integer.va=
+lue;
+>         memcpy(&cap_hdr->drv_type,
+>                out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.pointer=
+,
+> -              out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length)=
+;
+> +              min_t(u32, out_obj->package.elements[CAP_DRV_TYPE_IDX].buf=
+fer.length,
+> +                    sizeof(cap_hdr->drv_type)));
+>         cap_hdr->drv_rt_version =3D
+>                 out_obj->package.elements[CAP_DRV_RT_VER_IDX].integer.val=
+ue;
+>         cap_hdr->drv_svn =3D
+>                 out_obj->package.elements[CAP_DRV_SVN_IDX].integer.value;
+>         memcpy(&cap_hdr->platform_id,
+>                out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.pointer,
+> -              out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length);
+> +              min_t(u32, out_obj->package.elements[CAP_PLAT_ID_IDX].buff=
+er.length,
+> +                    sizeof(cap_hdr->platform_id)));
+>         memcpy(&cap_hdr->oem_id,
+>                out_obj->package.elements[CAP_OEM_ID_IDX].buffer.pointer,
+> -              out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length);
+> +              min_t(u32, out_obj->package.elements[CAP_OEM_ID_IDX].buffe=
+r.length,
+> +                    sizeof(cap_hdr->oem_id)));
+>         cap_hdr->oem_info_len =3D
+>                 out_obj->package.elements[CAP_OEM_INFO_IDX].buffer.length=
+;
+>
+> --
+> 2.55.0
+>
