@@ -1,56 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71FE46DFF8
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 11:36:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C570846EC77;
+	Thu,  6 Aug 2026 11:36:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786016199; cv=none; b=ZkzkhwwBQ7jv2PABoW03wkvmUv8nyVz/sM/kqx7u62RoHQ97/OlfFsrZaHzWcFv0xpYFZHEp9WhEVmzRyB/WAtIfFyq9x+/djAra5JGpLC6Oe1F4eweK0yF4GeQlG+5k/HL2JEm7kxoXbKLSuDKcCnZKvasvswlqdTPGPglWeGw=
+	t=1786016203; cv=none; b=TQ6z4zaur/UrlBXEiIkZ10N6Qd45YwQRjun5dEq/K/d+sjqISFSvV7V8o87phl4yl/yq36cabPQJb0N5F+Tt9kXesSY4MY86M0Owg8emt3IWLx2PLgB+Wr3qJWqxL04RXaGC5gUeNEYmcaL/kZdanDo1mWxKzIW3W2Cgzo5LYfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786016199; c=relaxed/simple;
-	bh=EeWXJXr7NmGcjLcMmPPyrq8g1UBzBZYCCNCfMFXbP+U=;
+	s=arc-20240116; t=1786016203; c=relaxed/simple;
+	bh=hYvaPa2tQSCdBpgqkoZCtwoNxRg/PBwGokRV0EyNMRg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o0yLZBaHHBp6yQmIw6scptCCo/Ik8X+I/Cxtkf1kC/prFxxaVB7ckF7O5nKWXtPJUQekB3cWQ93REdxaWwlRo+dPifa7BRFGxwVvt9Tfu8xKICCeInHPw5fGzVbu54ELeHHG8I0l3U5DVSXeEmMxaGZEl/Gurbj6q9VYvx8Sdgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RdBefCIo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BLctneK8uIOHRfVuNUJYxQhbBk1hSLWUTgRu9Bjsn9kLX96XCO8yQ2/a8St5JrTu3ONs0SjmKrXxqKGGZKx+AyDrxR9f1VFmzPsXAwobs1tq1lZ2ykRH9J3VlF4IrP8nBhd6QszeCGgrkPDCt8AZGR33/48XxdiJG+Ny2HSDNZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QeYR2JlI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RdBefCIo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C4A1F00ACA;
-	Thu,  6 Aug 2026 11:36:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QeYR2JlI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E83441F00A3A;
+	Thu,  6 Aug 2026 11:36:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786016194;
-	bh=RzSMjCE5aKICZ0hRoRsgDQ3CLTTMJoVJpdIzQTO4YHY=;
+	s=k20260515; t=1786016197;
+	bh=HUTB42mNeKZ7vs+zuZuQhQPjj0Re647kTqJtAh0wki0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RdBefCIogOv5InhWk+2dvU72salo3odOcZPX/lLPzwaWDRNSxuCp8eTukRUaGagIv
-	 MOqDAzgzdsfICsN4M+cdKHI4Hlgo3SLfZIj8k79A9l+NqRAbvUlg7wFBL6wxG+tcWt
-	 aF7YVVY9l0FSi0wdpxDXLJiw4x4ulF51jla0kMdOkAU5nDybxqQ+3wS9FCJp+wBiLS
-	 mN0V0nL44ckdpK1/cZPAuKRSyYQ+GolTK482isFAHV3uMMbNMZu4/d3Rn2/cFU9ptr
-	 FTy3RYzCCGGXa1PrSlt0UXlnRt1o49AQ9murKj+80m6EPZnudxcTnCoK9NZnxtSudR
-	 QMQljvbpvW/Qw==
+	b=QeYR2JlIQAlk/dPgQoT5Q3zytxo7mrf2eFCfYl0L12gNNWCBt3fwRyVftFV2ASXOr
+	 C182MCa9OlwIVzj8KZkWtBb28JrFmEmWPvmxmM+xEX1OhfHGTmvfUCaiP/IudWx9ox
+	 RMluFbQ/FEA2BMfqnTs26gAS9oLYFtzoCU6hK3V2VFPat7TyfPuYu+3DLZkwXuTMH1
+	 /hoPm3zZxXkTe9nNbdYoVHvBK5cFUO4LeqTvviuzaO9X+CEyqPE/AuNA/KMgphXjN3
+	 vbTEIi8lxaf5ba5WWb8ExxnqzCn1AkNcgnv2yaEpyr5ei45CJ9+cyJJaknnRMWlU/6
+	 ncKWhLAuaK9YA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Hao Zhang <zhanghao1@kylinos.cn>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Barry Song <baohua@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Nico Pache <npache@redhat.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kiryl Shutsemau <kirill@shutemov.name>
-Subject: Re: [PATCH 5.10.y] mm/huge_memory: unlock i_mmap_rwsem before releasing after-split folios
-Date: Thu,  6 Aug 2026 07:36:05 -0400
-Message-ID: <20260806021809.0012-sashal@kernel.org>
+	kernel-team@android.com,
+	Lee Jones <lee@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Johan Hedberg <johan.hedberg@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	linux-bluetooth@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	syzbot+4c0d0c4cde787116d465@syzkaller.appspotmail.com,
+	Xiangyu Chen <xiangyu.chen@windriver.com>,
+	He Zhe <zhe.he@windriver.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Todd Kjos <tkjos@google.com>
+Subject: Re: [PATCH v2 1/2 5.10.y] Bluetooth: SCO: Fix UAF on sco_sock_timeout
+Date: Thu,  6 Aug 2026 07:36:07 -0400
+Message-ID: <20260806021809.0014-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260805134507.2776820-1-kirill@shutemov.name>
-References: <20260805134507.2776820-1-kirill@shutemov.name>
+In-Reply-To: <20260805212435.48618-1-tkjos@google.com>
+References: <20260805212435.48618-1-tkjos@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,13 +57,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 05, 2026 at 02:45:07PM +0100, Kiryl Shutsemau wrote:
-> Do every mapping dereference while @folio still pins the inode: drop
-> i_mmap_rwsem right after remap_page(), before the loop that unlocks and
-> frees the after-split folios, and clear @mapping so the exit path does not
-> unlock it again.
+On Wed, Aug 05, 2026 at 09:24:34PM +0000, Todd Kjos wrote:
+> Changes in v2:
+> - Removed redundant reference on struct sock
+> - Removed Change-Id tags
 
-Queued for 5.10, thanks.
+Queued the series for 5.10, thanks.
 
 -- 
 Thanks,
