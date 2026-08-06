@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F6948665E;
-	Thu,  6 Aug 2026 17:20:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662EC486E58;
+	Thu,  6 Aug 2026 17:20:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786036840; cv=none; b=dBmVigDvEJ8dalvjfxQokooV957WBgJqdW0aU01SdJMsO+fXqLUaA3ZC+BwItvsdwx4sejMQchba82rKSpeeYb296Rnhc51PL4Fg4Xf7NqASMQUMUl9hYwHRcG0OdeaiTFVJVFTcR4UDCuiB+emmydZsSOk3lUsXW15ddlrmg9E=
+	t=1786036842; cv=none; b=u50cp2GSVhJ66p2PvYIDPVZk79mWNSD8clzCn8QZBexlGCPGqjA+d17bc2XMFf/kORrq6U6l2jN1rzOiG78D1QMfoAp9HvFLdKQE9/0ysT/t9qnu/0Cf7O59kGannO+dUWUD22EE5zOsy34JMwNv8bqBg2AlI7nlvlBfaRUY3lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786036840; c=relaxed/simple;
-	bh=HN/d1phmX3vGdaiAIseinb5iU4fSLsA6dFNKBgYMBVY=;
+	s=arc-20240116; t=1786036842; c=relaxed/simple;
+	bh=uTg/YDzD+Zv20GWed/bOW+I27TbgbWx7SGnXXnr7zow=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AtklT+x9pOPP3p6A8+6UqTKAbcpbYQUmPxN0NwYaR1hXwJfvJBCSYzL7BOlayKeBG74p125nSYGY7pUFeL0whf+hR6hqgE9pmbyyZXLP7zL0GtCHFPnq/M7JZVYzVsGoOQOJjnEnwSZWCWhtanuU4sRQYeNOkycCdNPVxAl9+5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EhL9cNcV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=r0u0VzzFh7aOtfR0667rIIB+eBz5ymRnzlYxi7NGM9w3eChloUtoxumqvWiK33fdz1aPBTKSTAcZmRLt55551+FCk50ZjIWU6EBSRQlYkE8eVohclWTQSL+cVYSn4YFtxVruI6/jvzMZZcCzL9hcRq97BUfNO6Ju5p4Eb+v9nMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AFzMr8sR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EhL9cNcV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0121E1F00A3A;
-	Thu,  6 Aug 2026 17:20:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AFzMr8sR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F95D1F000E9;
+	Thu,  6 Aug 2026 17:20:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786036839;
-	bh=0wl9vbPG1RuJkFuqGApRJfA2tlKQR8LLabN7xom5/SE=;
+	s=k20260515; t=1786036841;
+	bh=sW9pF5MWGI5Lotmi5AEwvYHsIFPAXaS2C+raSxzqWYw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EhL9cNcVeC0HqnRaF5GhiGPkOxhR9aqWHZHNFeKYh1aMZc1kQH/O1o72g6+CL7UhU
-	 mWhpH3KQWQ3kmq6xJqfJRxQVHzjBVfuEjSbrmh7s3CkBvG4cf41sVwjHSv28TOvR+i
-	 OKo0c386ZMqXAdcqvICmoeoemdorfUpsGDnR4+s473sfQxC4WEbcJ4pI3M7x6p/tqU
-	 YdtnQ+ETDSFoMOYC9wIe10Ce62OKWBan4IrYOCdYirxqP9KaKx0dxxrUrxj3BU1gwY
-	 mq3GGSSUX5ge2Yflqei6jHju7lOlTThDuvF0Gtef/edfiu1leiE5R1EKIFiNmHk0VA
-	 /8skwbZu9jSiw==
+	b=AFzMr8sRZZFj7rkzNoP6AOCOl12gpwk/NlfweZX1jnmzntx0aROu+tlI2hAgpXuav
+	 x1adT80nB/wy9ks6rkPS5tk5HmtksSba+bfiyosdrb4NMiCc2tV/ayPT015juntS9t
+	 t8HQM5oAxYlsQgDh1RwSNRKpM1Mb6QNALEPS5COovfwfERbVx/u37sbEVE8vFQtuUZ
+	 ocXG5MygDIz7QJyQgfGB9MOfF3A+t/SMUs+VOUDNVwTwLJUvY4xbxMKl1WBMLu8m82
+	 3IyN+i+RWwt/Puzv7HHjKDiXRABHPE7ZBnGdgyZArTHnSI7QyMUP9JhpkJ+0S3nN14
+	 W7ykoByq+T0dQ==
 From: Jakub Kicinski <kuba@kernel.org>
 To: anthony.l.nguyen@intel.com
 Cc: Jakub Kicinski <kuba@kernel.org>,
@@ -42,12 +42,12 @@ Cc: Jakub Kicinski <kuba@kernel.org>,
 	stable@vger.kernel.org,
 	aleksandr.loktionov@intel.com,
 	marcin.szycik@linux.intel.com
-Subject: Re: [PATCH net 06/10] ice: fix stats array overflow via proper realloc
-Date: Thu,  6 Aug 2026 10:20:37 -0700
-Message-ID: <20260806172037.2935748-1-kuba@kernel.org>
+Subject: Re: [PATCH net 07/10] ice: eswitch: fix use-after-free of metadata_dst in repr release
+Date: Thu,  6 Aug 2026 10:20:39 -0700
+Message-ID: <20260806172039.2935855-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260804222205.1580328-7-anthony.l.nguyen@intel.com>
-References: <20260804222205.1580328-7-anthony.l.nguyen@intel.com>
+In-Reply-To: <20260804222205.1580328-8-anthony.l.nguyen@intel.com>
+References: <20260804222205.1580328-8-anthony.l.nguyen@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,153 +59,119 @@ Content-Transfer-Encoding: 8bit
 This is an AI-generated review of your patch. The human sending this
 email has considered the AI review valid, or at least plausible.
 ---
-ice: fix stats array overflow via proper realloc
+ice: eswitch: fix use-after-free of metadata_dst in repr release
 
-This drops ice_vsi_alloc_stat_arrays() and makes
-ice_vsi_realloc_stat_arrays() handle the initial allocation as well, so
-ice_vsi_cfg_def() now goes through the realloc path.  The array sizes are
-tracked in two new fields, tx_ring_stats_len and rx_ring_stats_len, which
-the free path uses instead of vsi->alloc_txq/alloc_rxq.
+This replaces metadata_dst_free() with dst_release() in
+ice_eswitch_release_repr() so that the port representor metadata_dst is
+freed only after the last dst_entry reference goes away, instead of being
+kfree()d while in-flight skbs may still reference it.
 
-Closes: https://redhat.atlassian.net/browse/RHEL-164321
+(No Link: tags present in the commit header.)
 
-> diff --git a/drivers/net/ethernet/intel/ice/ice.h b/drivers/net/ethernet/intel/ice/ice.h
-> index fc91b6665f905..83da5ba6eeb17 100644
-> --- a/drivers/net/ethernet/intel/ice/ice.h
-> +++ b/drivers/net/ethernet/intel/ice/ice.h
-> @@ -328,6 +328,8 @@ enum ice_vsi_state {
->  struct ice_vsi_stats {
->  	struct ice_ring_stats **tx_ring_stats;  /* Tx ring stats array */
->  	struct ice_ring_stats **rx_ring_stats;  /* Rx ring stats array */
-> +	u16 tx_ring_stats_len;
-> +	u16 rx_ring_stats_len;
->  };
+> diff --git a/drivers/net/ethernet/intel/ice/ice_eswitch.c b/drivers/net/ethernet/intel/ice/ice_eswitch.c
+> index b069e6c514fb1..6e7bba4738989 100644
+> --- a/drivers/net/ethernet/intel/ice/ice_eswitch.c
+> +++ b/drivers/net/ethernet/intel/ice/ice_eswitch.c
+> @@ -95,7 +95,7 @@ ice_eswitch_release_repr(struct ice_pf *pf, struct ice_repr *repr)
+>  		return;
 >  
->  /* struct that defines a VSI, associated with a dev */
-
-> diff --git a/drivers/net/ethernet/intel/ice/ice_lib.c b/drivers/net/ethernet/intel/ice/ice_lib.c
-> index e48ee5940f173..c71849119d04e 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_lib.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_lib.c
-
-[ ... ]
-
-> @@ -513,51 +512,6 @@ static irqreturn_t ice_msix_clean_rings(int __always_unused irq, void *data)
-
-[ ... ]
-
-> -	vsi_stat->tx_ring_stats =
-> -		kzalloc_objs(*vsi_stat->tx_ring_stats, vsi->alloc_txq);
-> -	if (!vsi_stat->tx_ring_stats)
-> -		goto err_alloc_tx;
-> -
-> -	vsi_stat->rx_ring_stats =
-> -		kzalloc_objs(*vsi_stat->rx_ring_stats, vsi->alloc_rxq);
-> -	if (!vsi_stat->rx_ring_stats)
-> -		goto err_alloc_rx;
-
-[ ... ]
-
-> @@ -2316,11 +2270,19 @@ static int ice_vsi_realloc_stat_arrays(struct ice_vsi *vsi)
->  	struct ice_ring_stats **rx_ring_stats;
->  	struct ice_vsi_stats *vsi_stat;
->  	struct ice_pf *pf = vsi->back;
-> -	u16 prev_txq = vsi->alloc_txq;
-> -	u16 prev_rxq = vsi->alloc_rxq;
-> +	u16 prev_txq, prev_rxq;
-> +
-> +	if (vsi->type == ICE_VSI_CHNL)
-> +		return 0;
->  
->  	vsi_stat = pf->vsi_stats[vsi->idx];
-> +	if (!vsi_stat) {
-> +		vsi_stat = kzalloc_obj(*vsi_stat);
-> +		if (!vsi_stat)
-> +			return -ENOMEM;
-> +	}
->  
-> +	prev_txq = vsi_stat->tx_ring_stats_len;
->  	if (req_txq < prev_txq) {
->  		for (int i = req_txq; i < prev_txq; i++) {
->  			if (vsi_stat->tx_ring_stats[i]) {
+>  	ice_vsi_update_security(vsi, ice_vsi_ctx_set_antispoof);
+> -	metadata_dst_free(repr->dst);
+> +	dst_release(&repr->dst->dst);
+>  	repr->dst = NULL;
+>  	ice_fltr_add_mac_and_broadcast(vsi, repr->parent_mac,
+>  				       ICE_FWD_TO_VSI);
 
 [Severity: High]
 
-This isn't a bug introduced by this patch, but can the array still end up
-smaller than what the consumers iterate for a VF VSI?  The replaced
-ice_vsi_alloc_stat_arrays() sized the arrays from vsi->alloc_txq /
-vsi->alloc_rxq, while ice_vsi_realloc_stat_arrays() sizes them from the
-req_* values:
+This isn't a bug introduced by this patch, but with the put side now fixed,
+is the get side of repr->dst still unsynchronized?
 
-drivers/net/ethernet/intel/ice/ice_lib.c:ice_vsi_realloc_stat_arrays() {
-	u16 req_txq = vsi->req_txq ? vsi->req_txq : vsi->alloc_txq;
-	u16 req_rxq = vsi->req_rxq ? vsi->req_rxq : vsi->alloc_rxq;
-	...
-}
+ice_eswitch_port_start_xmit() does three separate plain loads of repr->dst
+with no lock, no RCU section and no READ_ONCE():
 
-For ICE_VSI_VF, ice_vsi_set_num_qs() does not consult vsi->req_txq /
-vsi->req_rxq at all:
+	skb_dst_drop(skb);
+	dst_hold((struct dst_entry *)repr->dst);
+	skb_dst_set(skb, (struct dst_entry *)repr->dst);
+	skb->dev = repr->dst->u.port_info.lower_dev;
 
-	case ICE_VSI_VF:
-		if (vf->num_req_qs)
-			vf->num_vf_qs = vf->num_req_qs;
-		vsi->alloc_txq = vf->num_vf_qs;
-		vsi->alloc_rxq = vf->num_vf_qs;
+while ice_eswitch_release_repr() drops the last reference and then stores
+the NULL:
 
-So the two counts have independent writers.  vsi->req_txq / vsi->req_rxq
-are set on a VF VSI only by ice_sriov_set_msix_vec_count() (the
-sriov_vf_msix_count sysfs write) and I could not find anything that clears
-them again for a VF VSI -- neither ice_vsi_decfg() nor ice_vsi_alloc_def()
-touches them, and the only vsi->req_txq = 0 is on the PF mqprio path in
-ice_main.c.
+	dst_release(&repr->dst->dst);
+	repr->dst = NULL;
 
-Given that, does this sequence still overflow tx_ring_stats[] /
-rx_ring_stats[]?
+In the normal teardown path the ordering appears to save this, because
+ice_eswitch_detach() calls repr->ops.rem() (unregister_netdev(), which
+quiesces the representor's ndo_start_xmit) before
+ice_eswitch_release_repr().
 
-1) host writes sriov_vf_msix_count, so ice_sriov_set_msix_vec_count() sets
-   vsi->req_txq = vsi->req_rxq = 2 and they stay at 2
-2) the guest sends VIRTCHNL_OP_REQUEST_QUEUES for 16 queues;
-   ice_vc_request_qs_msg() bounds it only by ICE_MAX_RSS_QS_PER_VF and the
-   free queue count, sets vf->num_req_qs and calls ice_reset_vf()
-3) ice_reset_vf() -> ice_vf_reconfig_vsi() -> ice_vsi_cfg() ->
-   ice_vsi_cfg_def(); ice_vsi_alloc_def() -> ice_vsi_set_num_qs() sets
-   alloc_txq = alloc_rxq = 16
-4) ice_vsi_realloc_stat_arrays() then shrinks to req_txq = 2 and records
-   tx_ring_stats_len = 2
+The attach error path has the opposite order:
 
-ice_vsi_alloc_ring_stats() still walks 0..alloc_txq-1 with no bound check
-against the new length fields:
+	err_xa_alloc:
+		ice_eswitch_release_repr(pf, repr);
+	err_setup_repr:
+		repr->ops.rem(repr);
 
-drivers/net/ethernet/intel/ice/ice_lib.c:ice_vsi_alloc_ring_stats() {
-	ice_for_each_alloc_txq(vsi, i) {
-		...
-		ring_stats = tx_ring_stats[i];
-		if (!ring_stats) {
-			...
-			WRITE_ONCE(tx_ring_stats[i], ring_stats);
-		}
-		ring->ring_stats = ring_stats;
-	}
-}
+At err_xa_alloc the representor netdev is already registered, since
+repr->ops.add() runs ice_repr_add_vf()/ice_repr_add_sf() ->
+ice_repr_reg_netdev() -> register_netdev(), and the attach path holds
+devl_lock but not RTNL, so userspace can open the interface and transmit.
 
-That is both an out-of-bounds read and an out-of-bounds pointer store for
-i >= 2, which looks like the same slab-out-of-bounds signature quoted in
-the commit message.  ice_qp_reset_stats() in ice_base.c indexes
-vsi_stat->tx_ring_stats[q_idx] / rx_ring_stats[q_idx] the same way without
-consulting the new lengths.
+Two outcomes seem possible in that window:
 
-Would using the freshly computed vsi->alloc_txq / vsi->alloc_rxq (or
-max(req_*, alloc_*)) for the sizing close this?  The req_* preference looks
-only meaningful for the pre-ice_vsi_cfg_def() call in ice_vsi_rebuild(),
-where alloc_* is still stale.
+  - the xmit CPU loaded a non-NULL repr->dst just before dst_release()
+    drove the rcuref to zero, so dst_hold() hits its
+    WARN_ON(!rcuref_get(&dst->__rcuref)), takes no reference, and the skb
+    carries a metadata_dst that dst_destroy_rcu() frees after the grace
+    period, which then gets read by ice_eswitch_set_target_vsi() or by the
+    skb free path;
 
->  
-> @@ -2379,7 +2353,7 @@ static int ice_vsi_cfg_def(struct ice_vsi *vsi)
->  		return ret;
->  
->  	/* allocate memory for Tx/Rx ring stat pointers */
-> -	ret = ice_vsi_alloc_stat_arrays(vsi);
-> +	ret = ice_vsi_realloc_stat_arrays(vsi);
->  	if (ret)
->  		goto unroll_vsi_alloc;
->
+  - the xmit CPU loads repr->dst after the NULL store, giving dst_hold(NULL)
+    and a NULL dereference inside rcuref_get().
+
+Would swapping the two error labels so repr->ops.rem() runs before
+ice_eswitch_release_repr(), or clearing repr->dst followed by
+synchronize_net() before dst_release(), close this window? Also, since
+err_setup_repr is reached when metadata_dst_alloc() fails, does that path
+leave a registered netdev whose repr->dst is NULL until repr->ops.rem()
+runs?
+
+[Severity: High]
+
+This is a pre-existing issue as well, and not something this patch changes,
+but does the deferred free help the LAG path at all?
+
+ice_lag_config_eswitch() writes through repr->dst with no NULL check:
+
+	xa_for_each(&lag->pf->eswitch.reprs, id, repr)
+		repr->dst->u.port_info.lower_dev = netdev;
+
+xa_for_each() expands to xa_find()/xa_find_after(), which take and drop
+rcu_read_lock() internally, so repr is used outside any RCU read-side
+section.
+
+The caller ice_lag_process_event() is a work item and holds only
+pf->lag_mutex, while the teardown side (ice_free_vfs() ->
+ice_eswitch_detach_vf(), and the ice_reset_all_vfs() path) holds
+vf->cfg_lock and devl_lock, so the locksets do not intersect.
+
+That seems to allow:
+
+	LAG work				detach thread
+	repr = xa_find(...)
+						xa_erase(...)
+						ice_eswitch_release_repr()
+						  repr->dst = NULL;
+						ice_repr_destroy()
+						  kfree(repr);
+	repr->dst->u.port_info.lower_dev = netdev;
+
+which is either a store through NULL or a store into freed memory, since
+ice_repr_destroy() does a plain kfree(repr) with no grace period.
+
+The change from metadata_dst_free() to dst_release() only defers freeing the
+metadata_dst; the repr->dst = NULL store and the kfree(repr) are still
+immediate. Should this path be serialized against the eswitch teardown, or
+at least keep the repr lookup inside an RCU read-side section with an
+RCU-deferred repr free?
