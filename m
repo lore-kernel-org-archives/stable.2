@@ -1,243 +1,197 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010017.outbound.protection.outlook.com [52.101.56.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3433290B9;
-	Wed,  5 Aug 2026 23:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785972651; cv=fail; b=YZ3819EnadJN97drQOwUebzv9X/99gIEVbslU9iLLtl/rVNlFX4u6Jow1nXPtZfu+nmjqwlL8sk/1diWNHS1r/9i0P4U8zqMhi8S/l6gory+pztn++Xhh/1xblYA5QMOBd3PsNNDZxSTaF4dEvFmk5xNWdiiAiPDl6FihGqMvgc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785972651; c=relaxed/simple;
-	bh=ZP37tGo3RPQ24baPB1z/eLBEoDgU9TLv1pN6XY42/Tg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ikYyw21jn8HxCSDJMap9QmFcQNMR+Wy0k3EFzF8NcJFyy/61Pqvu0fNB1UYY3phrqD0G/daq2CpISLOAghoczrpDsfIZVbr6RfmMeXcAZQzQWOEsk45KBNp+/rLkg/C7Dxku2RFeJtABWP/kca4ucYJs81XkkAiBFLnc5cM3CHY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=aeLh2LTR; arc=fail smtp.client-ip=52.101.56.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286511DC985
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 00:02:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785974547; cv=none; b=DGVY8fi51vamVOQMxFwyh459t+MIRquM6hqphirYujWKoAuuiIS6IGh6CUIZSLcPFTL6lAE9/ZHTAv0PMU1IVuA2MDs4W8Fb42vCjIlGTREAcCRkJXnzFQe05N/5JC61fxUvf8lWRVlfD9ycqiaGWJDJ+vA8jeBp8cDwrg0QQ7Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785974547; c=relaxed/simple;
+	bh=OYt1NcAB8ZvbK7dcVxHMwgHBezL+06d25+6wCfka1TU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UKYOP5bOZ+n4/Z+qElUiyRA8Xa5LSgXTedtfbMvt+dvCQazvrI6FH+li5NRdHlNifBa90fmqmTmKstRU+ECYBoiASKgoiQn+jmWSlnrW0BhkKluNyLz9hMKJJ4TXkOTCrB4EW2q0eukVr50AIFvoeB7Du4rS4b7lLUCZ5x9U3NM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bourg.net; spf=pass smtp.mailfrom=bourg.net; dkim=pass (1024-bit key) header.d=bourg.net header.i=@bourg.net header.b=jIS6fk45; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bourg.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bourg.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="aeLh2LTR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=osMQr3432q9GLGMfX9LLJvtnAcf4c8MI4vBg69dSmSvCTgFHBzEDZy/oKvKnFpoQnbNyWJl0hDOkCQrkrZzJRnhPiZdXLCkE8r6ljjEpv27piTWQt5K/bFeEYwzJqfuXYaTb6pLM43hmDmTwEWKsc0nY01ObA43HEQI8LRVdoYnSKSCL3ntW/UTr0YK3Ajd2q/s8aEFi0/t1q0zp8xMg19DaPno1isWdgOpeh/s94i5DFjb/4p+x4ntgb/o9ydqaSRw6Ht59b5bxnzzEpduRqN4qOz/mUOUqP4Nm/1x/wQWB5Vwd6AXS8tv6SLQ6i5vpZ/HIb1kxfv7K7zIhk9DE8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9Vnb3mDPGhiqAz5H2pGl3XQDYS5tAoP/c+MTxiTwzjc=;
- b=W62A0OQIxmGgKLs5NVYBAv5SZl6lDBzyQTuYemjOtPA238IAouagRYiZ5speTxuGqklxKy1pANWBgCANR6AA5kvvt7xdXJdZqNcH9RjqIUeLYb+6njvJE5eIukOwA4SURc/jz4c4WCXfoMHn0NCxP0w/FYNiHGi7w5l0quQh8COVOFz8G4Khn1ULJn6NRyGHYW0T6mLvuoRcwMkAPWZ9b3xvMFaVUdQfOzUQ7bS1OcT9/tzsu1hOgBOzHySFQVNqBSK4zlzyHN3agBt3RPHnIHA3z6ZcmJ+65te2lP+h6RY5dnHGMAkWpamSJ4SOACRXhcs6CO09pT6R6owY+4o+xA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9Vnb3mDPGhiqAz5H2pGl3XQDYS5tAoP/c+MTxiTwzjc=;
- b=aeLh2LTR4pYLfrRhhoqEqUetqw1l+X6ucZU/KSEw5DOATnM0R1GLTmDgpMRFbwBf7gA2VtvOBy2gLf3mgTWqiAq/Qi1MTDof2bz//TNbffHnycb7mAfW7ofwxdxOMF87m4eOB8YZehark711hCQIHfIPpb9O0zVTlukZZMeDTy2duXyBEnLpDdDvum1+cyyhz450P5Tnnos3fDygJ6m5qbVc8wfa/5SNHqL3z/xGfzm3tsp/0INS5ZOzsSNgPqSNZYBeHv9URPOwc7magv9VyMeQL5/I+xDmPKZe82WnwpeWy61S3ltkrTlEt2ugAUVc4MXCWBFzcRFfgupytV68XQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB5001.namprd12.prod.outlook.com (2603:10b6:610:61::18)
- by CH2PR12MB9460.namprd12.prod.outlook.com (2603:10b6:610:27f::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.16; Wed, 5 Aug
- 2026 23:30:37 +0000
-Received: from CH2PR12MB5001.namprd12.prod.outlook.com
- ([fe80::89e3:6df0:de90:8dfe]) by CH2PR12MB5001.namprd12.prod.outlook.com
- ([fe80::89e3:6df0:de90:8dfe%3]) with mapi id 15.21.0292.018; Wed, 5 Aug 2026
- 23:29:32 +0000
-Message-ID: <9d0dd5ab-8d30-45f7-a523-90d3df8dd5bd@nvidia.com>
-Date: Thu, 6 Aug 2026 09:29:19 +1000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] mm/migrate_device: Do not write past the end of
- the src_pfns array
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Cc: Sashiko <sashiko-bot@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Francois Dugast <francois.dugast@intel.com>, stable@vger.kernel.org
-References: <20260805231041.3791771-1-matthew.brost@intel.com>
- <20260805231041.3791771-3-matthew.brost@intel.com>
-Content-Language: en-US
-From: Balbir Singh <balbirs@nvidia.com>
-In-Reply-To: <20260805231041.3791771-3-matthew.brost@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MEWPR01CA0091.ausprd01.prod.outlook.com
- (2603:10c6:220:1ce::16) To CH2PR12MB5001.namprd12.prod.outlook.com
- (2603:10b6:610:61::18)
+	dkim=pass (1024-bit key) header.d=bourg.net header.i=@bourg.net header.b="jIS6fk45"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8485ef63b68so2315703b3a.1
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 17:02:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bourg.net; s=google; t=1785974537; x=1786579337; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C+ndS92zXPqAJ+cNcpLuaSmLaftIm1AvtWGzzi2M09w=;
+        b=jIS6fk45PsAM7cHCJu2vGwYJwpRiNDbUpIDR3Wzirds2wnGT99f2D6G82oOS3ItSDs
+         vTP4Q8/LyUSCd/JyIjt56DFOmhXDUJpr1CP4RZr1jTNKfWH5SG24WZncpaS4Ds4Onvmz
+         Fu8k6b5HvVnkzpl3Ypydop1oJ/V/bWWbph3d0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785974537; x=1786579337;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C+ndS92zXPqAJ+cNcpLuaSmLaftIm1AvtWGzzi2M09w=;
+        b=S2jlO1lKAiOeq/KPY8CotDX2kXyjFR6ZKaoCUD+p55hxpwkwBN+IB28097EpfxEqp6
+         tSrnQuGlZpZu2CSHc/uuKW+jO2VbCfPgyT8qilP4cCaR5blaRKpwjX48oSuT4NIomzAc
+         1zpzCrTrMpDCDc9mBbhldLm33LMfSKmzKzWSMms7nwKp/lPJpfBhKXR90Z32TfMfS6y6
+         ZiNWihIewGQy8VMrsw/t+qqIKY7g4yv069T7W54a33M5ob6Z39B/ol0DwRv5nbo7kI8H
+         5WFJqISoDe9US8Bm+YMBdEkOSdGptbfZYcee6S+6xeGN8ukYMBRaIyYycJg1CiF51jSB
+         XOeg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr2OmlQGMOuI3EIYwO+DlmLIQs7n3NqhZ0zzZiNpJ6Pg5vO+KrgK7QNL8Crmj4exHlcMOclqbY=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7H10FZ1EvrYZ+bItHALe4wy1aPkbTipnBBZEzC0nscrGZmILY
+	weJsQP/DuzYIO5jND1f4bhu1M2n080fsmpSeC9XsXhoF1ThnTcaRKVjGJHjx/BlSD30=
+X-Gm-Gg: AR+sD10cfIcydc4ovwlDnXWJ6F/M+Aj+zlU4d8FmDEOXUz/TbtAw8vMHQ8MubvQb23p
+	jgQv475dMRyK+9rgzfI8TiK8smui0RtHbxZyQ17FHqmlozqXnktq737lDoVguBQrO6Qk78MPubQ
+	/zW8bPJXh7RCkXnzIDJ+CickbGSM6bZels+EgKasjr48qFO1mPYm9ESgq123vAa1SjRzLXwE7EV
+	8/l7xv2V5BBUXr5UsTpDF2iusmBIfUroU4P4rgg36gjS3qnOuo0ucbF6PE4RDjOwyxKwdXpcAFy
+	kNPWJy9153yoeH/vdY7eLu75kQEU3f3zjDLaGoZ3aH6kbKO0URSDotWyiK+oIJ7b57GR2hWhoNm
+	N2ugpFPye0nAUUct4JoDkE8dTG7DCoFM5kzA/zzuX2CVZkEenyraQaWPWEmnaRZt3q5aBHNyzfn
+	ewEm3nR9Z9ezvYcGWQoYfGxgHz8XHcTCH9pfYuMOgEywyuUunja+W3N0U7KOxslRsErD564X+d6
+	X4HVMdZN6eFdUZ7f/xE4LH/uZNfbSp8Bwrkijsei/pHiks3
+X-Received: by 2002:a05:6a00:8d81:b0:847:7f3c:b5f5 with SMTP id d2e1a72fcca58-84f2dfc8f83mr13807202b3a.11.1785974537350;
+        Wed, 05 Aug 2026 17:02:17 -0700 (PDT)
+Received: from deskstar (syn-024-216-245-233.biz.spectrum.com. [24.216.245.233])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f4538bb3bsm180478b3a.12.2026.08.05.17.02.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 17:02:15 -0700 (PDT)
+From: gus bourg <gus@bourg.net>
+To: ardb@kernel.org
+Cc: catalin.marinas@arm.com,
+	will@kernel.org,
+	ilias.apalodimas@linaro.org,
+	linux-efi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Gus Bourg <gus@bourg.net>
+Subject: [PATCH] arm64/efi: Do not call EFI runtime services preemptibly under SW PAN
+Date: Wed,  5 Aug 2026 17:01:44 -0700
+Message-ID: <20260806000144.3388823-1-gus@bourg.net>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB5001:EE_|CH2PR12MB9460:EE_
-X-MS-Office365-Filtering-Correlation-Id: c60498c0-c280-4cb6-d06e-08def34966ca
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|23010399003|376014|18002099003|22082099003|56012099006|4143699003|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	Xr8EBQiox+wqyJH7Udv9Ja2NFezwTYovpCCe6Q8DzdcBtCHRUyHi80/mWvd+laPg15EvJJx6mcyAlOChO1kDFGyP1RxknbtmF89DmES85awqdZx7G2mRDRCdFWoAcVGO0Pp+3r1TMF1ibClLP232NP9/BD6T0XyQmI13VfvU9P2P9A8iiPweC2LJK2x06QioXXAoYoW+u/6yK8Xwqqfx1ROgDZlsXj5dtQDwumSKdyba/tXu2Pm8B/y5J8+xBOvhUayRAPk7qBXVeauKwDmCszlKI4GWDg/HuKmrIrPhzy5se/LZ4v9f5/gWSdK8+bYmodXbQqkj1sHjBx1IN7GfCyBxFdDfBL8LafG8Hk6u/2Kv8RQLEMzdiU4/2GFHa/YC3l7TpHy/aYn0WXA8YTn7QcC21aOagg9FLfxDXSExsgFADACzZhWLc5YEO3PNLgn+p+AaK81b8W2gjNmE1r17t5orxs+X3piTSgLdO24PWHJ8iIsJt8COFmHkYkaxpDLBGdDY4JDY2NJHprbunn24BZdhe9HCBlryE8p3STUnSS6TCSOlFvgxO5dMk9nSgF39bOb4KtpwkDM4OJAEnADuEjJja3waoyq33BsL+wbZp0WbsyDGc7N1vv644AfnsqX6cG0ccJDohNoygyQuL6kA9JQ7HPWCFL6zHlgWt7KBxi8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB5001.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dXJLQnpDMjJFTWFUQS9kdXpnSGdvNlNPOVdHNWRMVVNNcnJmN2Z3YytCck5B?=
- =?utf-8?B?SStoNDdOVk9aME1XODh6RGVtSFJJU3pQdzl0NWtDL1FZaHY1MUFXT0s4THVZ?=
- =?utf-8?B?Yk8rdFNzdEJWaEozalZyNjF3ZXZuSkFXWk1vNUMxSzd1MHFDNDJKZ01KVW50?=
- =?utf-8?B?SWVmZlhkd1JMelFYWkcrSkFqSHlTVWdWdnRNWkhDb1IwSk5hQTlCeHg4Z29E?=
- =?utf-8?B?ME54YXRNS0M5L2ZYNjE1dzZaUE9IQkluS2d1aWZwWXFKZDZUNGtnRDBQelM2?=
- =?utf-8?B?U1luUkZOclpKUitsVEZHWWY3ajRBTzNJQ0prL3UrczNYQmlqWGt0UC95WUkr?=
- =?utf-8?B?OThLblJXTE5lVWVvQjNzVDZmaWFBK1FjV2ZhSkw2bktVajB3SS96YnlTUi8r?=
- =?utf-8?B?cUVOb3lxdUhXRklaZTBweUtlQnRIWnR3eHpoS2NZVmpvU2FyZk83cGZ6bUlt?=
- =?utf-8?B?dlpTQ2ZWZnFHcis5V3FBb1dPUkE3czNOVHBsNGp2WW5TMzVQcmp5L0piSktG?=
- =?utf-8?B?SkgvUUlOeW1xRHNiSTFVTUozY3lLL1drUnZoWHZwd3o5ZlY1UGpUdmlxZ3lH?=
- =?utf-8?B?T3hGREtoSllpQnFjRHVKMlpja2J1YStLaFM2UDdUVnBZd3RBOXpOUWFOMHR1?=
- =?utf-8?B?bjU3QjdxVHNJWDh4LzIxMk1CeW4xaVg3cjJqeU9LV0NVcjVKZGFRd1lGTE5Z?=
- =?utf-8?B?T0FaeFpWTEtURkpmV1RkVDU2L3VJTlM2RzB1bXkxTHJ4K2MveTNzaUx5emw1?=
- =?utf-8?B?bE51OGt4dVlOS2wvTGdscWFWTDFYKzAzOHpXdHBocjBVVGxPWXZ5bmFHUU1E?=
- =?utf-8?B?QXkrc3dONVdxV2xhVDdwb3VKSzZEMDBZNENjZjZHNWN2YlRHWnhqTXB4Vmdh?=
- =?utf-8?B?VklQRmZIaThMWW1YQTNpOHdMOTMvSEhMeTFoU0ppLytxanhsVnRvckJHWXZG?=
- =?utf-8?B?a2xNa3lXUWRJT3FNK2dPZDNNeGRFeEhGSi84dmhuWGh5dnU4UDJzSEYwMnBE?=
- =?utf-8?B?amltUXFKTHJGRnJZVUxsU1c0bVJtS21JSytYVjVaRGc3SXBEVE1RK2VoSXU1?=
- =?utf-8?B?SmhnN0RLQXI1T0l6ZFJnYUpFWThlUktiZzlpanZxRjNMZnNSNzlycHlQSWFM?=
- =?utf-8?B?NjhlWG9JcERlbXZMODRYbmNDZmZmRlI4S1NHTEJuMk9uc0p6OEdnMmJ2WXNZ?=
- =?utf-8?B?VG9LaXMrL09RVmt0aXdGMXJuTUwzN2IvSTJDd2VpNzJCNkZnZ2hmZURPMlBZ?=
- =?utf-8?B?OHFqdGdxb3BhdnFwOEtLcGRJRTlQM0RmODluMmZtajU1eDE5TlY1eWdNdzc0?=
- =?utf-8?B?MmcrSDRjQXBBYTBpMTh1d1JBM3M4Q2x2S2tiVi9ER3ZBM0k1MWxrQnR3RVBy?=
- =?utf-8?B?VC9oeDJOaFpTaWRzbUJSQTZqdkt4UUFBTEdjYzVWLy9QQjlwWE16VVF1UlB2?=
- =?utf-8?B?SWQ5d0VnZk9CV0RZay9vNlcvWS9PQzJMeXJPSjFGTm1kS2lSd3V4S1FrM1M5?=
- =?utf-8?B?T3dvT0h1M0ZIc3VSVHF2UWk5UWJDbWk3MDU0eFJ1UFMxUkhGc3dnYnhFb3lS?=
- =?utf-8?B?a3NsWDY1dkZyQnAxNFk0TUVMSjVzUlhkbGRSK1FOdGpyRnJIcVZFOXk5cUxP?=
- =?utf-8?B?ZVRnZzdUZ0ZGMUxVTDR1ZGdQYjFqU2NVa0F3QytYRXI4em82WkwzRDErL1h5?=
- =?utf-8?B?Tm53bFBIVVNJSHZqMkR4UzBxN2pURFNVWElubTEwOG9BWUhUQVlVcXRJaFRp?=
- =?utf-8?B?NkFwT05HazJJWkp5OFpNeTRzVmNHSVBlRStEWmJXbTlEMUFBc29zK3JjWnVq?=
- =?utf-8?B?dDM1VUwzWkZ4T3dBazVoem9UTE1OYm4xN1VUVmpjRHZ1S0pva2FOaFlsN2Ey?=
- =?utf-8?B?N2l5b08xOGhLYlBtd3cxSWxWYlRTZ2dBckRkQTRicElxU1Q4MGY4Tno5Mk5P?=
- =?utf-8?B?bktTQUNvK0FwYXdick5lb2tndXZNZE5GL3pDa0VoakhhTXBBd0cvL2NOT3Uv?=
- =?utf-8?B?MEhTaU1za21IakJHa0Y1QUo5N1h2bzBtdytDM0E3MkgwVEdPQVNOdlRjb0gw?=
- =?utf-8?B?V0xhcFNaNU5EVmlwQkY4M0czaDdSbXZjUEhaRmpXeWx2cHZWZTkzM0RCVTlC?=
- =?utf-8?B?YWcrN3VEM1h0WThTc29xVGxxK2s1cU9jNWhWaEJ5N1NpWTJEL3lURjdkQzdw?=
- =?utf-8?B?OEo2dTBYZWE5bTliM1RscGNEby9tWDRKNUhVYksvL1doYXJCZjVER1ozaFdy?=
- =?utf-8?B?cUpqSnI5Nlhla0tTTGlhb2hLNy9QOFdDa1NnQVN5R0Y0bHlKQzZaejBYQVhV?=
- =?utf-8?B?SHhQTmxMZ3VQc251RHkrcm5SbTlIYnNtTWUrUlJDNSs3dE1OZHQ3UT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c60498c0-c280-4cb6-d06e-08def34966ca
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB5001.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 23:29:31.9423
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FZY2MxpiBh+ZqMQ3I1IH5IDUUOu+l6ogQ5k3nZbP9YEgktBGtHUISGZCcYGBXoDhlF0ryKR+67BEUUrCN+GpfQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9460
+Content-Transfer-Encoding: 8bit
 
-On 8/6/26 9:10 AM, Matthew Brost wrote:
-> migrate_device_range() and migrate_device_pfns() zero the tail entries
-> of a large folio without checking them against @npages:
-> 
-> 	for (j = 1; j < nr; j++)
-> 		src_pfns[i+j] = 0;
-> 
-> @nr comes from the folio, not from the array, so a folio that extends
-> past the end of the range being migrated writes beyond src_pfns[].
-> Callers size that array for @npages entries, so this corrupts whatever
-> follows it.
-> 
-> Bound the loop by @npages. The subsequent "i += j - 1" still terminates
-> the outer loop correctly: on a bounded exit j is @npages - i, leaving i
-> at @npages after the increment.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Lorenzo Stoakes <ljs@kernel.org>
-> Cc: Zi Yan <ziy@nvidia.com>
-> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Cc: Liam R. Howlett <liam@infradead.org>
-> Cc: Nico Pache <nico.pache@linux.dev>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: Dev Jain <dev.jain@arm.com>
-> Cc: Barry Song <baohua@kernel.org>
-> Cc: Lance Yang <lance.yang@linux.dev>
-> Cc: Usama Arif <usama.arif@linux.dev>
-> Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-> Cc: Rakie Kim <rakie.kim@sk.com>
-> Cc: Byungchul Park <byungchul@sk.com>
-> Cc: Gregory Price <gourry@gourry.net>
-> Cc: Ying Huang <ying.huang@linux.alibaba.com>
-> Cc: Alistair Popple <apopple@nvidia.com>
-> Cc: Balbir Singh <balbirs@nvidia.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Francois Dugast <francois.dugast@intel.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-mm@kvack.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: stable@vger.kernel.org
-> Assisted-by: GitHub_Copilot:claude-opus-5
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> ---
->  mm/migrate_device.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-> index 162d29b2807a..ae9027421b80 100644
-> --- a/mm/migrate_device.c
-> +++ b/mm/migrate_device.c
-> @@ -1415,7 +1415,7 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
->  		nr = folio_nr_pages(folio);
->  		if (nr > 1) {
->  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
-> -			for (j = 1; j < nr; j++)
-> +			for (j = 1; j < nr && (i + j) < npages; j++)
->  				src_pfns[i+j] = 0;
+From: Gus Bourg <gus@bourg.net>
 
-I have a similar patch lined up in my clean ups (that I am yet to send out), but
-the patch was more along the lines of
+When PAN is emulated by switching TTBR0_EL1, arch_efi_call_virt_setup()
+installs the EFI mm into TTBR0_EL1 via uaccess_ttbr0_enable(), and only a
+return from exception ever puts it back: check_and_switch_context() skips
+the register write by design ("Defer TTBR0_EL1 setting for user threads to
+uaccess_enable() when emulating PAN"), and __switch_to() does not touch it
+either. switch_mm() updates only thread_info->ttbr0.
 
-  		nr = folio_nr_pages(folio);
-+		if (nr > npages - i) {
-+			migrate_device_folio_unlock(folio);
-+			src_pfns[i] = 0;
-+			continue;
-+		}
+Since commit a5baf582f4c0 ("arm64/efi: Call EFI runtime services without
+disabling preemption") the runtime call is preemptible, so the EFI worker
+can now be scheduled out inside that window. An involuntary preemption is
+harmless, because __swpan_entry_el1()/__swpan_exit_el1() save and restore
+the state around the exception. A voluntary reschedule is not: it performs
+no return from exception, so the worker resumes with another task's
+TTBR0_EL1 - or reserved_pg_dir - and the next efi_mm access takes a level 0
+translation fault.
+
+There is such a preemption point in arch_efi_call_virt_setup() itself,
+immediately after the TTBR0 install: __efi_fpsimd_begin() ->
+kernel_neon_begin() -> put_cpu_fpsimd_context() -> local_bh_enable() ->
+preempt_check_resched().
+
+On a Khadas VIM3 (Cortex-A73/A53, no FEAT_PAN, so CONFIG_ARM64_SW_TTBR0_PAN
+is in use) this reproduces as:
+
+  Unable to handle kernel access to user memory outside uaccess routines
+    at virtual address 00000000f322ff30
+  Mem abort info:
+    ESR = 0x0000000096000004
+    FSC = 0x04: level 0 translation fault
+  Internal error: Oops: 0000000096000004 [#1]  SMP
+  Workqueue: efi_rts_wq efi_call_rts
+  pstate: 80400005 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+  pc : efi_call_rts+0xd8/0x288
+  Call trace:
+   efi_call_rts+0xd8/0x288 (P)
+   process_one_work+0x178/0x4f8
+   worker_thread+0x194/0x328
+
+The faulting instruction is the kernel's own load of efi.runtime->get_time;
+firmware is never entered, so efi_runtime_fixup_exception() declines it
+(the PC is kernel text) and the result is a full oops rather than
+EFI_ABORTED. The EFI runtime path is then wedged for the rest of the boot:
+efi_rts_work.efi_rts_comp is never completed and the runtime lock is never
+released, so every subsequent caller blocks in uninterruptible sleep, and
+poweroff hangs because EFI_RUNTIME_SERVICES is still set.
+
+The failing window was identified with ftrace, tracing efi_call_rts,
+arch_efi_call_virt_setup, kthread_use_mm, __efi_fpsimd_begin,
+kernel_neon_begin and arch_efi_call_virt_teardown together with
+sched_switch. Of four preemptions observed inside the window over 12726
+calls, the two that landed before the TTBR0 install (in kthread_use_mm)
+were harmless and the two that landed in kernel_neon_begin were not; one
+of those faulted.
+
+Keep configurations that emulate PAN on the non-preemptible path, which is
+what they used before a5baf582f4c0. Systems with FEAT_PAN are unaffected:
+system_uses_ttbr0_pan() is false there, uaccess_ttbr0_enable() is a no-op,
+and check_and_switch_context() installs TTBR0_EL1 on every switch.
+
+Fixes: a5baf582f4c0 ("arm64/efi: Call EFI runtime services without disabling preemption")
+Cc: <stable@vger.kernel.org> # v6.19+
+Assisted-by: Claude:claude-opus-5 ftrace
+Signed-off-by: gus bourg <gus@bourg.net>
+---
+ arch/arm64/kernel/efi.c | 25 +++++++++++++++++++++++--
+ 1 file changed, 23 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/kernel/efi.c b/arch/arm64/kernel/efi.c
+index 30cd7f804398..1b666ca79758 100644
+--- a/arch/arm64/kernel/efi.c
++++ b/arch/arm64/kernel/efi.c
+@@ -166,11 +166,32 @@ asmlinkage efi_status_t efi_handle_corrupted_x18(efi_status_t s, const char *f)
+ 	return s;
+ }
+ 
++/*
++ * Whether an EFI runtime service call may run preemptibly.
++ *
++ * When PAN is emulated by switching TTBR0_EL1, the EFI mm is installed into
++ * the register by uaccess_ttbr0_enable() below, and only a return from
++ * exception ever puts it back: check_and_switch_context() deliberately skips
++ * the write ("Defer TTBR0_EL1 setting for user threads to uaccess_enable()
++ * when emulating PAN"), and __switch_to() never touches it. A voluntary
++ * reschedule performs no return from exception, so a preemptible runtime call
++ * can be scheduled back in holding another task's TTBR0_EL1 and take a level 0
++ * translation fault on its next efi_mm access. Keep those configurations on
++ * the non-preemptible path, which is what they used before commit
++ * a5baf582f4c0 ("arm64/efi: Call EFI runtime services without disabling
++ * preemption").
++ */
++static bool efi_runtime_preemptible(void)
++{
++	return !system_uses_ttbr0_pan() && preemptible() &&
++	       (current->flags & PF_KTHREAD);
++}
 +
+ void arch_efi_call_virt_setup(void)
+ {
+ 	efi_runtime_assert_lock_held();
+ 
+-	if (preemptible() && (current->flags & PF_KTHREAD)) {
++	if (efi_runtime_preemptible()) {
+ 		/*
+ 		 * Disable migration to ensure that a preempted EFI runtime
+ 		 * service call will be resumed on the same CPU. This avoids
+@@ -207,7 +228,7 @@ void arch_efi_call_virt_teardown(void)
+ 	 */
+ 	uaccess_ttbr0_disable();
+ 
+-	if (preemptible() && (current->flags & PF_KTHREAD)) {
++	if (efi_runtime_preemptible()) {
+ 		kthread_unuse_mm(&efi_mm);
+ 		migrate_enable();
+ 	} else {
+-- 
+2.53.0
 
-This prevents partial selection, migrate_device_unmap() does take npages as an
-argument. We could change the increment of i here to skip past the entire folio.
-
-I am OK with this change as well
-
->  			i += j - 1;
->  			pfn += j - 1;
-> @@ -1449,7 +1449,7 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
->  		nr = folio_nr_pages(folio);
->  		if (nr > 1) {
->  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
-> -			for (j = 1; j < nr; j++)
-> +			for (j = 1; j < nr && (i + j) < npages; j++)
->  				src_pfns[i+j] = 0;
->  			i += j - 1;
->  		}
-
-Reviewed-by: Balbir Singh <balbirs@nvidia.com>
