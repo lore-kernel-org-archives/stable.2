@@ -1,152 +1,71 @@
-Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42E1F43B3F4;
-	Thu,  6 Aug 2026 11:19:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.181.215.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2D3309EF9;
+	Thu,  6 Aug 2026 11:21:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786015172; cv=none; b=O6qsbgE2Cz86AiBLzZU99zyx6Q3aYAvZSndCpIgFtIBw+0++FZhHg+iWn6vEY/F+CX5j/8I7tBRHMriesK4cUPT8hVzT7n2Jfor28SW6Ay3vGpexbSZu0lVD4pfGeo3PeH272JmFAtyDOYqT8JCZLjvm5FFfTeo6+uDHpakckKg=
+	t=1786015294; cv=none; b=fIU0SM+r/yAsWwJ9XmCynChIOZnRCSlNtNOGGnVr0XusA4klRREbqUML8iOW0FGNaARGWxcPe9K4tUVbr8c2g2LfqgrW0jfqh2hkp9v112u9REHDSV4AHbf9rohoT3dguBjj2eXBh+jsHdLYSPPhRHGrvGTVwOmerhx5wgNUEu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786015172; c=relaxed/simple;
-	bh=VZJLBZnRyPxnCLoEjoQyTL2E3KhxDtuYstjmKXmloU4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HjSTfDx7ZhDCiTMU2RCGh99hBYn1hHiFxPRcwjYV/0ZfDA5mGgD9lFj65uj2nE/J9vfB/iMhOCv5DL1q6vfsvkhG6zfsebGYg3wU7vEHivo6H1Fdfn6cAqvXJDMHG54vY/9Ej9MgRW4aAzw+xHtDXPMDmVMh8/31X3UBx8lRtEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz; spf=pass smtp.mailfrom=xff.cz; dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b=t+gQlB1V; arc=none smtp.client-ip=195.181.215.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xff.cz
+	s=arc-20240116; t=1786015294; c=relaxed/simple;
+	bh=m3/7icIUkkjefJKMyaCGyY6EgbjwLzr5A9TE/pe3m0c=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=gsm4c48YIhp7EUda/SgTbxGOVjgbueqRu2/Vr+0M/aBCLZCwqZ5mp4pwxjtgNecn9fz/aYi/x8LHfPbpRy9jZSX7IuAjnA0PL1iEu96GFayqPzaRw3VN9K1JvGCHvfShLcnT9sf53RVka6YwI1538GQC4hopN6wOyUfWSf6vODw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L8ztNNvN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b="t+gQlB1V"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xff.cz; s=mail;
-	t=1786015158; bh=VZJLBZnRyPxnCLoEjoQyTL2E3KhxDtuYstjmKXmloU4=;
-	h=Date:From:To:Cc:Subject:X-My-GPG-KeyId:References:From;
-	b=t+gQlB1V0eTdunNlGu7Efvhp5s23euUhKrq6r0mCrUKAP+ZyJPCZcjD5rWEJV0a8G
-	 +do9zHUtckn+wcm2J/HtiEghohNvu6748gAEhWdbxh6GdmWctUq/1GcJqgWQeAKKSH
-	 Xk/5pR+QEFiuQthNPkjj66Ko3Zv2jBQJIpVixhp0=
-Date: Thu, 6 Aug 2026 13:19:18 +0200
-From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>
-To: David Heidelberg <david@ixit.cz>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Olivier Benjamin <olivier.benjamin@bootlin.com>, 
-	Manuel Traut <manut@mecka.net>, Alexander Warnecke <awarnecke002@hotmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Shawn Guo <shawnguo@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, phone-devel@vger.kernel.org, 
-	imx@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH 2/4] arm64: dts: rockchip: rk3399-pinephone-pro: DW9714
- coil requires higher voltage
-Message-ID: <galrq4ug3hhny2ivpylqwuztwv7vnqvm6sdhlu6pucxk6qy2mz@zxw4ckkxj2sh>
-Mail-Followup-To: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>, 
-	David Heidelberg <david@ixit.cz>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Olivier Benjamin <olivier.benjamin@bootlin.com>, 
-	Manuel Traut <manut@mecka.net>, Alexander Warnecke <awarnecke002@hotmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Shawn Guo <shawnguo@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, phone-devel@vger.kernel.org, 
-	imx@lists.linux.dev, stable@vger.kernel.org
-X-My-GPG-KeyId: EBFBDDE11FB918D44D1F56C1F9F0A873BE9777ED
- <https://xff.cz/key.txt>
-References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
- <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
- <2j7ogeqj565sftp5wzqvtzi2id76fof623bifbmyu6ckhf6vm6@ya7h4tp5i4qf>
- <7d55eaba-967c-4de6-8021-6b2d17670b1f@ixit.cz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L8ztNNvN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72D341F000E9;
+	Thu,  6 Aug 2026 11:21:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786015293;
+	bh=ZDD6+0XKZi6JtuAwqphhZ6DltogrCIG8xScZAcqMxYA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=L8ztNNvNHjLLTJ0IN+6Lryxb7Y8A6Zc7NGTIo57/dKaw0Bj08JULZdbfzSwEI3UM6
+	 p8ay+4suBy52TbGAzZpxnJSE6dbZl8fljtBQW1++8QxOE2I10IC0NrogMSRc2cUVzx
+	 M1JAGDBUntZsnUJOnh05tNEEEI7+jCDF5+2nJiOfAjGhMB7OGq5xKNWrE7mV+hwARx
+	 n8gPb0/gJYBmg4WIOfMKRPaLmRGh7qTB4ulIMQA7JKerul9/ggi686qRdUozWLHN5e
+	 ihGVFzQis1C6ps93hO0KSXIy71Ulml3uDSFczKn1iDl/9qo/t5PAFjIJ4Sc5ihb9C+
+	 0w1iUbtbbKAZg==
+From: Leon Romanovsky <leon@kernel.org>
+To: jgg@ziepe.ca, Abhijit Gangurde <abhijit.gangurde@amd.com>
+Cc: allen.hubbe@amd.com, nikhil.agarwal@amd.com, linux-rdma@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Brett Creeley <brett.creeley@amd.com>
+In-Reply-To: <20260805053254.4023262-1-abhijit.gangurde@amd.com>
+References: <20260805053254.4023262-1-abhijit.gangurde@amd.com>
+Subject: Re: [PATCH 1/2] RDMA/ionic: Cap eq_count to the eth driver's
+ interrupt vector budget
+Message-Id: <178601529016.517601.9699220032266009457.b4-ty@kernel.org>
+Date: Thu, 06 Aug 2026 07:21:30 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7d55eaba-967c-4de6-8021-6b2d17670b1f@ixit.cz>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-Hi,
 
-On Tue, Aug 04, 2026 at 11:12:21AM +0200, David Heidelberg wrote:
-> On 04/08/2026 09:39, Ondřej Jirman wrote:
-> > Hi,
-> > 
-> > On Sat, Aug 01, 2026 at 02:35:21AM +0200, David Heidelberg via B4 Relay wrote:
-> > > From: David Heidelberg <david@ixit.cz>
-> > > 
-> > > By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
-> > > Usually it's around 2.8 V. Here it matches the avdd2v8_dvp.
-> > > 
-> > > Fixes: 9336eb829a18 ("arm64: dts: rockchip: describe I2c Bus 1 and IMX258 world camera on PinePhone Pro")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: David Heidelberg <david@ixit.cz>
-> > > ---
-> > >   arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts | 2 +-
-> > >   1 file changed, 1 insertion(+), 1 deletion(-)
-> > > 
-> > > diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-> > > index d46cdfe3f7849..bde35d9b2263e 100644
-> > > --- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-> > > +++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-> > > @@ -473,17 +473,17 @@ wcam_out: endpoint {
-> > >   			};
-> > >   		};
-> > >   	};
-> > >   	wcam_lens: camera-lens@c {
-> > >   		compatible = "dongwoon,dw9714";
-> > >   		reg = <0x0c>;
-> > >   		/* Same I2c bus as both cameras, depends on vcca1v8_codec for power. */
-> > > -		vcc-supply = <&vcc1v8_dvp>;
-> > > +		vcc-supply = <&avdd2v8_dvp>;
-> > 
-> > This does not match reality, schematic says it's VCC2V8_DVP:
-> > 
-> > 	https://xff.cz/dl/tmp/6253a0465329df41.png
+On Wed, 05 Aug 2026 11:02:53 +0530, Abhijit Gangurde wrote:
+> ionic_fill_lif_cfg() reads eq_count from firmware uncapped, but the
+> eth driver only reserves ionic->neqs_per_lif MSI-X vectors for RDMA
+> event queues. Since ionic_rdma probes via the auxiliary bus before
+> the netdev is brought up, it can exhaust the shared interrupt bitmap,
+> causing ionic_open() to fail with -ENOSPC when allocating rx/tx
+> interrupts.
 > 
-> Ahoj,
-> 
-> thanks for spotting this, since I know you have the device, would be too
-> much to ask you to send standalone fix for PP Pro?
-> 
-> I would drop the change from the series.
+> [...]
 
-Ok. Just for the reference, vcc1v8_dvp here feeds an enable pin for VCC2V8_DVP
-LDO regulator (which is supplied from VCC3V3_SYS and not described in DT, yet).
-So in practice enabling vcc1v8_dvp enables both VCC2V8_DVP and AVDD2V8_DVP and
-while DT does not describe the HW in detail, it describes the only regulator
-that is actually controllable and enables all needed power rails for the camera
-modules all by itself in proper order/timing.
+Applied, thanks!
 
-Not sure what's the DT maintainers idea here about whether DT has to describe
-every detail of power rails routing, or just what's pragmatic.
+[1/2] RDMA/ionic: Cap eq_count to the eth driver's interrupt vector budget
+      https://git.kernel.org/rdma/rdma/c/1d0f877d593438
+[2/2] RDMA/ionic: Embed counter driver data in rdma_counter allocation
+      https://git.kernel.org/rdma/rdma/c/cf3ebd89e75401
 
 Best regards,
-	o.j.
+-- 
+Leon Romanovsky <leon@kernel.org>
 
-> David
-> 
-> P.S. I noticed I didn't mark this series RFC. Too late.
-> 
-> > 
-> > regards,
-> > 	o.
-> > 
-> > >   	};
-> > >   	ucam: camera@36 {
-> > >   		compatible = "ovti,ov8858";
-> > >   		reg = <0x36>;
-> > >   		clocks = <&cru SCLK_CIF_OUT>; /* MIPI_MCLK1, derived from CIF_CLK0 */
-> > >   		clock-names = "xvclk";
-> > >   		dovdd-supply = <&vcc1v8_dvp>;
-> > > 
-> > > -- 
-> > > 2.53.0
-> > > 
-> > > 
-> 
-> -- 
-> David Heidelberg
-> 
