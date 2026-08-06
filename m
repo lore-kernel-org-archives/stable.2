@@ -1,183 +1,294 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C38D3806DA;
-	Thu,  6 Aug 2026 14:26:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1AF2F7F04;
+	Thu,  6 Aug 2026 14:26:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786026386; cv=none; b=bblk+0Vkfztd2vIQTxLcB1zP4OJJWjFL/aqL/IoauyIwjfi7R9lOPqvqREwaMDFKivInprEUpNj+psD1iabGOLvBco7REqOnAXxDcDwJLJu69OdoJ2tLSy7Zf2zAjO22kA6gFm8fhlojYpS3wJTp8liHvsBClQKffONSFfP64A8=
+	t=1786026397; cv=none; b=gq7RvBttfSURXIU0Zo8NYHlq4Yce+M6SsM4GbdlUI4HL4kNrHAfNaeutUHOYwiu4b3rykaPwHLx0u/ahWB4uyvuKm1G8G/e8EpmAzfOgVsF+xMAYveinjoEtqNenn6yEjoAmVo3czssqD/qMoz/3YmZwuWkSPXgGiuIHb3eYikA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786026386; c=relaxed/simple;
-	bh=5JPG/IE7MpyRCHKDB0v2afsVTjAV0GARn0zF5Z5f7z8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VoMS9IYKgXgf03+DwOmfAUyB2ux4gNUg9F/qdRWMccwEdt5fLzmV1+OO4CK4/aU1OGI93y44DzfprSnxAq5SlmKPO4BU5hAbQkZK5mQSkyQfCAtiVdN4uzCkeajiET9Ndoa2pfrLN61pzm8poR+hV4ymzeaVb2n+nbZofuiciNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnJsh9bV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786026397; c=relaxed/simple;
+	bh=2iAMt/GUrF7SBhiuKcwF3ZrURycu86rFZKFulRL3jL8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=feYHJ7Yf0Gk9/GTTbZartbIfl6vGVzXoFiMZbK3Qe/2RUUzlV7QEBlukeXocezkvnoNOONhuvnpCUOQskSHJDSriY/yajjfpCCJRQLlRDXYYL2fXrhurqse7rFFlcGDbnvkaVzrzA67Q9qTml/LsJI3hT9I+HnEhnAF7B8ermIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VpD4TNWN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnJsh9bV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F73A1F00A3A;
-	Thu,  6 Aug 2026 14:26:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VpD4TNWN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B3351F00A3A;
+	Thu,  6 Aug 2026 14:26:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786026385;
-	bh=pm44+rjMaMmNzpedN1v7slJ59DpJ7j6EBTW26pHYJik=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SnJsh9bVghFGUQLo4q7FXusg8tdyw+GFmZER/SFNErq+VKGkpCkBXtO4LmjNxfrwp
-	 KGaYM8zUJrkf/xjHudJpOhdLWh3Hqlun6SpUenj2lTuHNcuK96NMP0sFE9iBP3VVZf
-	 s/HR7Ojx4kpqnuHcYoLx7kjOfy5H4HUAG1/qCBlXwcmVjBTYo4GdDRIDYS4PrsXca0
-	 FPtqnEuiLdwnnJy6GQ42kn8wTd7nJYSqYGHsydTcuBTwFqB5M1wB5veqG3bS1tWGN+
-	 2HKMlDAowRAggRJLYKE/Sdj/Ux7BBjXYc4n8rRZXkNOaHKxueZ/qUD2r5pT0aAVzdV
-	 dyGnrv1hn3a/Q==
-Message-ID: <0e52d0b4-064d-4602-8e7b-5744b05f24ea@kernel.org>
-Date: Thu, 6 Aug 2026 16:26:20 +0200
+	s=k20260515; t=1786026395;
+	bh=fZ2eDYGSj2XtYyLf86x9P+NytbC9JWawDjK2akJlovE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VpD4TNWN59KnyLiJVal2vHb04rgodpNvBpCOIAWYXFVetxYPhmV2HUsdaIMM182at
+	 eyhJLeqf/AUdoYxSTO1Be4wjykrqpSHPIORgCpKaDFR4rirr3ugm7l5eSoQixTcVHZ
+	 koWFUAmfd/j7KVGFu4oeA5q7QzjPutCp2IeDaqJOwfGD1Kvw5DQE27bZYtT3oFdgpv
+	 MjPJFMvL1pjys9z9KbqsOyeahKWYSuAze9F+uU+8u92dtPCs5ggxoPGz9o3+k6XTLi
+	 blcsJr3ljTqGWg8QaxSiEi9XGwyIxL6Oyw6kxPhmEx2AKMAks1vDYvaQNl2nfxha1/
+	 yU4qYnbq7Ppxg==
+Date: Thu, 6 Aug 2026 15:26:16 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Wei Yang <richard.weiyang@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>, 
+	Li Youhong <liyouhong@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/memory-failure: fix folio refcount leak and
+ min_order_for_split() locking
+Message-ID: <anSZbWcdK_xBJ8Pk@lucifer>
+References: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
+ <anRv8ngsyOjkgOHM@lucifer>
+ <d6e665cd-08a3-4598-8a4f-1af21eea4132@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: let special huge VMAs bypass the THP
- policy check
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org
-Cc: Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
- Alex Williamson <alex.williamson@redhat.com>,
- Jason Gunthorpe <jgg@nvidia.com>, Zi Yan <ziy@nvidia.com>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260805055544.1568534-1-clg@redhat.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260805055544.1568534-1-clg@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d6e665cd-08a3-4598-8a4f-1af21eea4132@kernel.org>
 
-On 8/5/26 07:55, Cédric Le Goater wrote:
-> From: Cedric Le Goater <clg@redhat.com>
-> 
-> The global THP sysfs policy (transparent_hugepage=never/madvise/always)
-> gates the huge fault dispatch path in __thp_vma_allowable_orders() for
-> all non-anonymous VMAs, including PFN-mapped device BARs (VM_PFNMAP).
-> 
-> DAX VMAs already bypass this check via an early return:
-> 
-> 	if (vma_is_dax(vma))
-> 		return in_pf ? orders : 0;
-> 
-> But "special huge" VMAs -- identified by vma_is_special_huge() -- do not
-> get this early return, even though they share the same fundamental
-> property: they map physical addresses directly into page tables and
-> involve no memory allocation, no compaction, no splitting, and no
-> reclaim. The THP policy has no meaningful effect on them.
-> 
-> This matters for VFIO PCI passthrough of large-BAR devices such as
-> NVIDIA H200 NVL GPUs (256 GB BAR each). The VFIO driver registers a
-> .huge_fault handler (vfio_pci_mmap_huge_fault) that dispatches to
-> vmf_insert_pfn_pmd/pud, and QEMU's vfio_region_mmap() aligns the BAR
-> mappings for huge page table entries. Both prerequisites are met, but
-> with THP=never or THP=madvise, __thp_vma_allowable_orders() returns 0
-> before reaching the "trust huge_fault handlers" code.
-> 
-> The result: each 256 GB BAR is mapped at 4 KiB granularity -- 67 million
-> page faults per GPU instead of a few thousand PMD/PUD faults. On hosts
-> with 8 GPUs (2 TB of BAR space), this causes VM boot times to degrade
-> severely, with 99.98% of CPU time spent in the VFIO BAR mapping path.
-> 
-> Configurations that trigger this:
->   - transparent_hugepage=never on the kernel command line
->   - The tuned cpu-partitioning profile (inherits network-latency, which
->     sets transparent_hugepages=never via sysfs)
->   - transparent_hugepage=madvise (the RHEL default), since VFIO VMAs
->     lack VM_HUGEPAGE and QEMU does not call madvise(MADV_HUGEPAGE) on
->     BAR mmap regions
-> 
-> Extend the existing DAX early return to also cover vma_is_special_huge()
-> VMAs. This is consistent with how vma_is_special_huge() is already
-> treated for supported_orders (grouped with DAX). The mm/Kconfig TODO
-> comment "Allow to be enabled without THP" also acknowledges this
-> coupling is wrong.
-> 
-> Cc: Peter Xu <peterx@redhat.com>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Lorenzo Stoakes <ljs@kernel.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Alex Williamson <alex.williamson@redhat.com>
-> Cc: Jason Gunthorpe <jgg@nvidia.com>
-> Cc: Zi Yan <ziy@nvidia.com>
-> Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4
-> Signed-off-by: Cedric Le Goater <clg@redhat.com>
-> ---
->  mm/huge_memory.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 58cabe6af33d031e48250e21db51506bc46c97b2..6dfef5500a054f09f9ece6df8bf7a0194624350f 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -139,8 +139,12 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
->  	if (thp_disabled_by_hw() || vma_thp_disabled(vma, vm_flags, forced_collapse))
->  		return 0;
->  
-> -	/* khugepaged doesn't collapse DAX vma, but page fault is fine. */
-> -	if (vma_is_dax(vma))
-> +	/*
-> +	 * khugepaged doesn't collapse DAX or special huge VMAs, but page
-> +	 * fault is fine. These map physical addresses directly — the THP
-> +	 * policy is irrelevant for them.
+On Thu, Aug 06, 2026 at 04:17:21PM +0200, David Hildenbrand (Arm) wrote:
+> On 8/6/26 16:03, Lorenzo Stoakes (ARM) wrote:
+> > On Thu, Aug 06, 2026 at 01:14:38PM +0200, David Hildenbrand (Arm) wrote:
+> >> hwpoison code can end up calling min_order_for_split() without holding
+> >> the folio lock. There isn't really something that would prevent
+> >> concurrent folio split. Consequently folio->mapping can get set to
+> >> NULL after checking for "!folio->mapping", and if the compiler
+> >> reloads folio->mapping, mapping_min_folio_order() would try to
+> >> dereference NULL.
+> >>
+> >> While very unlikely to happen in practice, let's just enforce that
+> >> min_order_for_split() is called with the folio lock held. We can
+> >> significantly cleanup the calling hwpoison code, and just get rid
+> >> of try_to_split_thp_page() to hold the folio lock for a bit longer.
+> >>
+> >> Just work on folios now, which further cleans up the code. We just
+> >> have to be careful about doing the page_folio() after splitting, which
+> >> we have to do already either way. Do not change the way we split for
+> >> now, this needs more thought and should be done separately.
+> >>
+> >> Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
+> >> would currently have leaked a folio reference.
+> >
+> > Yikes...
+> >
+> >>
+> >> In folio_split(), document and assert that we need the folio lock.
+> >
+> > You mean min_order_for_split()?
+>
+> Very right :)
+>
+> >
+> >> Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
+> >>
+> >> The folio->mapping problem was identified by Sashiko, and Li Youhong
+> >> reported it by sending a proposal fix.
+> >>
+> >> This likely does not really warrant CCing stable, but I expect little
+> >> conflicts when doing the backport, so let's just CC stable because of
+> >> the refcount leak.
+> >>
+> >> Reported-by: Li Youhong <liyouhong@kylinos.cn>
+> >> Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
+> >> Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> >
+> > A typo above and a nit below about a comment but otherwise LGTM so:
+> >
+> > Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> >
+> >> ---
+> >> v4 of the last fixing attempts:
+> >>
+> >> https://lore.kernel.org/r/20260806031958.677935-1-dayou5941@163.com
+> >> ---
+> >>  mm/huge_memory.c    |  4 ++++
+> >>  mm/memory-failure.c | 56 ++++++++++++++++++-----------------------------------
+> >>  2 files changed, 23 insertions(+), 37 deletions(-)
+> >>
+> >> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> >> index 9b1f3b24f7e0d..a00df56a68b57 100644
+> >> --- a/mm/huge_memory.c
+> >> +++ b/mm/huge_memory.c
+> >> @@ -4362,10 +4362,14 @@ int folio_split(struct folio *folio, unsigned int new_order,
+> >>   * If a file-backed folio is truncated, 0 will be returned. Any subsequent
+> >>   * split attempt should get -EBUSY from split checking code.
+> >>   *
+> >> + * Context: @folio must be locked.
+> >> + *
+> >>   * Return: @folio's minimum order for split
+> >>   */
+> >>  unsigned int min_order_for_split(struct folio *folio)
+> >>  {
+> >> +	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
+> >> +
+> >>  	if (folio_test_anon(folio))
+> >>  		return 0;
+> >>
+> >> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+> >> index aaf14608b30e2..f4f3f1fc9eaff 100644
+> >> --- a/mm/memory-failure.c
+> >> +++ b/mm/memory-failure.c
+> >> @@ -1705,26 +1705,6 @@ static int identify_page_state(unsigned long pfn, struct page *p,
+> >>  	return page_action(ps, p, pfn);
+> >>  }
+> >>
+> >> -/*
+> >> - * When 'release' is 'false', it means that if thp split has failed,
+> >> - * there is still more to do, hence the page refcount we took earlier
+> >> - * is still needed.
+> >> - */
+> >> -static int try_to_split_thp_page(struct page *page, unsigned int new_order,
+> >> -		bool release)
+> >> -{
+> >> -	int ret;
+> >> -
+> >> -	lock_page(page);
+> >> -	ret = split_huge_page_to_order(page, new_order);
+> >> -	unlock_page(page);
+> >> -
+> >> -	if (ret && release)
+> >> -		put_page(page);
+> >> -
+> >> -	return ret;
+> >> -}
+> >> -
+> >>  static void unmap_and_kill(struct list_head *to_kill, unsigned long pfn,
+> >>  		struct address_space *mapping, pgoff_t index, int flags)
+> >>  {
+> >> @@ -2509,9 +2489,6 @@ int memory_failure(unsigned long pfn, int flags)
+> >>  	folio_unlock(folio);
+> >>
+> >>  	if (folio_test_large(folio)) {
+> >> -		const int new_order = min_order_for_split(folio);
+> >> -		int err;
+> >> -
+> >>  		/*
+> >>  		 * The flag must be set after the refcount is bumped
+> >>  		 * otherwise it may race with THP split.
+> >> @@ -2526,24 +2503,25 @@ int memory_failure(unsigned long pfn, int flags)
+> >>  		 * page is a valid handlable page.
+> >>  		 */
+> >>  		folio_set_has_hwpoisoned(folio);
+> >> -		err = try_to_split_thp_page(p, new_order, /* release= */ false);
+> >> +
+> >> +		folio_lock(folio);
+> >> +		split_huge_page_to_order(p, min_order_for_split(folio));
+> >> +		folio = page_folio(p);
+> >> +		folio_unlock(folio);
+> >> +
+> >>  		/*
+> >>  		 * If splitting a folio to order-0 fails, kill the process.
+> >>  		 * Split the folio regardless to minimize unusable pages.
+> >>  		 * Because the memory failure code cannot handle large
+> >>  		 * folios, this split is always treated as if it failed.
+> >>  		 */
+> >> -		if (err || new_order) {
+> >> -			/* get folio again in case the original one is split */
+> >> -			folio = page_folio(p);
+> >> +		if (folio_test_large(folio)) {
+> >>  			res = -EHWPOISON;
+> >>  			kill_procs_now(p, pfn, flags, folio);
+> >> -			put_page(p);
+> >> +			folio_put(folio);
+> >>  			action_result(pfn, MF_MSG_UNSPLIT_THP, MF_FAILED);
+> >>  			goto unlock_mutex;
+> >>  		}
+> >> -		VM_BUG_ON_PAGE(!page_count(p), p);
+> >> -		folio = page_folio(p);
+> >>  	}
+> >>
+> >>  	/*
+> >> @@ -2861,9 +2839,8 @@ static int soft_offline_in_use_page(struct page *page)
+> >>  		.reason = MR_MEMORY_FAILURE,
+> >>  	};
+> >>
+> >> +	folio_lock(folio);
+> >>  	if (!huge && folio_test_large(folio)) {
+> >> -		const int new_order = min_order_for_split(folio);
+> >> -
+> >>  		/*
+> >>  		 * If new_order (target split order) is not 0, do not split the
+> >>  		 * folio at all to retain the still accessible large folio.
+> >> @@ -2871,15 +2848,20 @@ static int soft_offline_in_use_page(struct page *page)
+> >>  		 * preferred, split it to non-zero new_order like it is done in
+> >>  		 * memory_failure().
+> >>  		 */
+> >
+> > This comment is:
+> >
+> > 		/*
+> > 		 * If new_order (target split order) is not 0, do not split the
+> > 		 * folio at all to retain the still accessible large folio.
+> > 		 * NOTE: if minimizing the number of soft offline pages is
+> > 		 * preferred, split it to non-zero new_order like it is done in
+> > 		 * memory_failure().
+> > 		 */
+> >
+> > Which references 'new_order' twice - probably need to update this.
+>
+> Agreed, thanks!
+>
+> While at it, I'll just drop the NOTE that is not of any value, really?
 
-emdash in a code comment?
+Yeah rip that out.
 
-Then I spot
+>
+>
+> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+> index f4f3f1fc9eaff..9f1e547e7b472 100644
+> --- a/mm/memory-failure.c
+> +++ b/mm/memory-failure.c
+> @@ -2842,11 +2842,8 @@ static int soft_offline_in_use_page(struct page *page)
+>         folio_lock(folio);
+>         if (!huge && folio_test_large(folio)) {
+>                 /*
+> -                * If new_order (target split order) is not 0, do not split the
+> -                * folio at all to retain the still accessible large folio.
+> -                * NOTE: if minimizing the number of soft offline pages is
+> -                * preferred, split it to non-zero new_order like it is done in
+> -                * memory_failure().
+> +                * If we cannot split to order-0, do not split the folio at all
+> +                * to retain the still accessible large folio.
+>                  */
+>                 if (!min_order_for_split(folio))
+>                         ret = split_huge_page_to_order(page, 0) ? -EBUSY : 0;
+>
+> >
+> >> -		if (new_order || try_to_split_thp_page(page, /* new_order= */ 0,
+> >> -						       /* release= */ true)) {
+> >> +		if (!min_order_for_split(folio))
+> >> +			ret = split_huge_page_to_order(page, 0) ? -EBUSY : 0;
+> >> +		else
+> >> +			ret = -EBUSY;
+> >> +		folio = page_folio(page);
+> >> +
+> >> +		if (ret) {
+> >> +			folio_unlock(folio);
+> >> +			folio_put(folio);
+> >
+> > Wow, incredible that we had a refcount leak here for ages and didn't know. Ugh
+> > what a mess this hw posion crap is!
+>
+> I mean, soft-offline handling is not what runs on ... everyone's box. And the
+> memory will effectively be dead soon either way (hardware tells us that this
+> memory is likely going to get hwpoison soon) in most cases ... :)
 
-	Assisted-by: Claude:claude-opus-4
+Good. I think we should burn the whole thing down tbh.
 
-and really have to shake my head.
+>
+> --
+> Cheers,
+>
+> David
 
--- 
-Cheers,
-
-David
+--
+Cheers, Lorenzo
