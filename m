@@ -1,348 +1,272 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E23D3A1A22
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 14:01:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F056396D25;
+	Thu,  6 Aug 2026 14:03:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786024904; cv=none; b=bKfE4Zu4xyFzkB4kKlqo05P91aHDEbgDqtnTBA5DSiFT6mXSd9ESu6+JMyk6VolzTGbnqqoC/6Ezxf9i//zs/ceIw5Fofltl9n1XBT11IVS5oWSRVsuvDVEcYLC7JnHICtnGiHTNZyu2Ic+GUgRqE//XCkRfZd4EeoSHirYiJWA=
+	t=1786025004; cv=none; b=EAId/sNb8ML/R0Qg5qy2WUYdDmo9qA9evN0tloBYQnZbXzABjqKRY3rCBdFEmC+fiSBTmiZryeF0oYJtc1WFiVTocwyF7Nxiw+wjpF30vCmNHZt5oqCds1QeE3z7ZoDU4wGFWmZr9LIAKYfZ53tkFNEwd+6yfPrSuabT+u9iq3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786024904; c=relaxed/simple;
-	bh=9646sT0IfE1/lhqZmWo5wNvhCIALGTRHjFSZt3WP9uY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cmyw95i1ruMa/rv0B3fUSp5ip8oaO+ohJVti9lNiVAlJH3zoioDQJg5QzVLMRUWTiQXHNhF1FV9RCKBZFtp1h9FFgdAmSXeo0KIEhKz9gETlSJAryRMg+4J15OLJ2Xnq2MaBq8VZ5LWTt7681bfmp+JiriNb9UXjuOv9Hn66Oq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZM5Odh3Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786025004; c=relaxed/simple;
+	bh=rzUFh7PWiGTwF83COgIGLdhlwLhhYtW0gw3EUnRkSqQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i4dHZY9CGhKPakXor7s1YHnRqsDhKhFBUB0CBWXChzjyUAL978iUCFRVZryZqmliHbwyslYSxBH1rY+1vbKVOPR4Xp0SCYtwYSJlENVYyuTfTemya8cPP0aPL450hBsmtAdSZsf6LqCpALF9O4z4vRkrwrhX1E9oFzoS66AWOBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eLyCODtq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZM5Odh3Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6DB1F000E9;
-	Thu,  6 Aug 2026 14:01:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eLyCODtq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CD901F000E9;
+	Thu,  6 Aug 2026 14:03:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786024902;
-	bh=PCE5748Wif0mBrbExv9Rh4I87PMqJcZECNjELIo/QsQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZM5Odh3Y/JoPJ5Fxlqp8Ch8x6zQp1/h4+zgrQ++u9iclcSyZZ6qFftRMCE/i2txPZ
-	 /l6zgBzH9mK8sDGBGG7rcYtNuvacsvEVXxjB18okryp/M58B+ZTZbV1dHQ/+1nCt7c
-	 n0991u7HwoAK0h0O8AyJ/XYKXlo22PjHea3KYhjkF8j1r/rDK+mepyFV8R0bCJFe/z
-	 bJXLMpGFqp4GaOoN8QLs7IeqQJH95vLPy+k3SnTcB0BUzf+Kj/fO2avO/VIxC2wrFJ
-	 hC6mHfqOFEHoczeRi0CkYb8VtoReQc+l3PqEueVz76HklBbVjeZ5+f0HgX6V//Ay3D
-	 RN3A69cYv/gvw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] wifi: brcmfmac: drain bus_reset work on device removal
-Date: Thu,  6 Aug 2026 10:01:39 -0400
-Message-ID: <20260806140139.635428-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072953-donated-polar-df0c@gregkh>
-References: <2026072953-donated-polar-df0c@gregkh>
+	s=k20260515; t=1786025000;
+	bh=AcbUps+PJOKEs9ZAZx9T9otuJttHDUts9Bt8Cges3S8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eLyCODtqlzXwrcAeO8d9T/YueAUfY2dFDeHy2nYTsKalnVBNyZlAI7UN3H8sf49E+
+	 AlMgYpq6Y0tUuTaS/lxnhW8ds0NU8wmIfEn/NNGcpGLtT4Uf/I1ebeQa2i0hijhMQC
+	 gilaCdqouNEsxYRVNRsU7of55JH6z2RFJm4XcCH7AzuIwmPDZQeSXJZGly7V2Db3WR
+	 PUGymMQsPMFwBvnklDGWQMitYiqW0aP98GFO14OCJ5yrDBzjqgltbdyj6JK3WYwEuK
+	 OIsVSKJkxjMo8OrGRa35s0+vdtdfNuZUgS0KH7BzJrwRewjw8ER1W3DTEQ+pIaZrcQ
+	 R+uAM4Ek/EGfg==
+Date: Thu, 6 Aug 2026 15:03:01 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Wei Yang <richard.weiyang@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>, 
+	Li Youhong <liyouhong@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/memory-failure: fix folio refcount leak and
+ min_order_for_split() locking
+Message-ID: <anRv8ngsyOjkgOHM@lucifer>
+References: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+On Thu, Aug 06, 2026 at 01:14:38PM +0200, David Hildenbrand (Arm) wrote:
+> hwpoison code can end up calling min_order_for_split() without holding
+> the folio lock. There isn't really something that would prevent
+> concurrent folio split. Consequently folio->mapping can get set to
+> NULL after checking for "!folio->mapping", and if the compiler
+> reloads folio->mapping, mapping_min_folio_order() would try to
+> dereference NULL.
+>
+> While very unlikely to happen in practice, let's just enforce that
+> min_order_for_split() is called with the folio lock held. We can
+> significantly cleanup the calling hwpoison code, and just get rid
+> of try_to_split_thp_page() to hold the folio lock for a bit longer.
+>
+> Just work on folios now, which further cleans up the code. We just
+> have to be careful about doing the page_folio() after splitting, which
+> we have to do already either way. Do not change the way we split for
+> now, this needs more thought and should be done separately.
+>
+> Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
+> would currently have leaked a folio reference.
 
-[ Upstream commit 43b25879f004c98defa2776bedc6ca4763c51945 ]
+Yikes...
 
-brcmf_fw_crashed() and the debugfs "reset" entry both schedule
-drvr->bus_reset, whose callback recovers drvr through container_of()
-and dereferences it.  The removal path frees drvr (brcmf_free ->
-wiphy_free) without draining the work, so a bus_reset callback pending
-or running during removal can outlive drvr.
+>
+> In folio_split(), document and assert that we need the folio lock.
 
-Cancellation cannot live in brcmf_detach() or brcmf_free(): the work
-callback reaches teardown through the bus .reset op (PCIe
-brcmf_pcie_reset -> brcmf_detach; SDIO brcmf_sdio_bus_reset ->
-brcmf_sdiod_remove -> brcmf_free), so cancelling there would wait for
-the running work and deadlock.
+You mean min_order_for_split()?
 
-Add a per-bus mutex (bus_reset_lock) and route all arming through
-brcmf_bus_schedule_reset(), which under the lock skips when the bus is
-marked removing.  Each bus remove entry calls
-brcmf_bus_cancel_reset_work(), which under the same lock sets removing
-and cancels the work.  Holding the mutex across cancel_work_sync() makes
-the set-removing + drain step atomic.  Every producer reaches the arming
-path from process context -- the PCIe firmware-halt notification runs in
-the threaded IRQ handler (brcmf_pcie_isr_thread) and the SDIO hostmail
-path runs from the data workqueue -- so the mutex is taken only in
-sleepable contexts.  Where applicable the remove entry first stops the
-firmware-crash producer: on PCIe mask the mailbox and synchronize_irq;
-on SDIO unregister the bus interrupt and cancel the data worker, which
-also reports firmware halts through brcmf_fw_crashed().  The mutex is
-initialized at bus allocation.  The SDIO suspend power-off path frees
-drvr through the same brcmf_sdiod_remove() and takes the same lock;
-resume re-allows the work only on a successful re-probe.
+> Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
+>
+> The folio->mapping problem was identified by Sashiko, and Li Youhong
+> reported it by sending a proposal fix.
+>
+> This likely does not really warrant CCing stable, but I expect little
+> conflicts when doing the backport, so let's just CC stable because of
+> the refcount leak.
+>
+> Reported-by: Li Youhong <liyouhong@kylinos.cn>
+> Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
+> Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Also guard brcmf_fw_crashed() against a NULL bus_if/drvr: it can fire
-before brcmf_attach() wires up drvr, and it dereferences drvr
-(bphy_err/brcmf_dev_coredump) before reaching the arming gate.
+A typo above and a nit below about a comment but otherwise LGTM so:
 
-The bus_reset work is shared across buses, so the drain is applied to
-every remove path: PCIe (the .reset op introduced by the Fixes commit),
-SDIO (arms the same work through brcmf_fw_crashed()), and USB (via the
-debugfs "reset" entry).  cancel_work_sync() drains a running or pending
-bus_reset work item before removal frees drvr, and patch 1/2 makes the
-scratch-buffer release safe when reset teardown has already released
-those DMA buffers.
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-This patch fixes the lifetime of the bus_reset work item itself.  It does
-not attempt to address the separate, pre-existing lifetime of the
-asynchronous firmware completion started by the PCIe reset path.  That
-callback needs its own lifetime/ownership protocol and is being tracked
-separately.
+> ---
+> v4 of the last fixing attempts:
+>
+> https://lore.kernel.org/r/20260806031958.677935-1-dayou5941@163.com
+> ---
+>  mm/huge_memory.c    |  4 ++++
+>  mm/memory-failure.c | 56 ++++++++++++++++++-----------------------------------
+>  2 files changed, 23 insertions(+), 37 deletions(-)
+>
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 9b1f3b24f7e0d..a00df56a68b57 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -4362,10 +4362,14 @@ int folio_split(struct folio *folio, unsigned int new_order,
+>   * If a file-backed folio is truncated, 0 will be returned. Any subsequent
+>   * split attempt should get -EBUSY from split checking code.
+>   *
+> + * Context: @folio must be locked.
+> + *
+>   * Return: @folio's minimum order for split
+>   */
+>  unsigned int min_order_for_split(struct folio *folio)
+>  {
+> +	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
+> +
+>  	if (folio_test_anon(folio))
+>  		return 0;
+>
+> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+> index aaf14608b30e2..f4f3f1fc9eaff 100644
+> --- a/mm/memory-failure.c
+> +++ b/mm/memory-failure.c
+> @@ -1705,26 +1705,6 @@ static int identify_page_state(unsigned long pfn, struct page *p,
+>  	return page_action(ps, p, pfn);
+>  }
+>
+> -/*
+> - * When 'release' is 'false', it means that if thp split has failed,
+> - * there is still more to do, hence the page refcount we took earlier
+> - * is still needed.
+> - */
+> -static int try_to_split_thp_page(struct page *page, unsigned int new_order,
+> -		bool release)
+> -{
+> -	int ret;
+> -
+> -	lock_page(page);
+> -	ret = split_huge_page_to_order(page, new_order);
+> -	unlock_page(page);
+> -
+> -	if (ret && release)
+> -		put_page(page);
+> -
+> -	return ret;
+> -}
+> -
+>  static void unmap_and_kill(struct list_head *to_kill, unsigned long pfn,
+>  		struct address_space *mapping, pgoff_t index, int flags)
+>  {
+> @@ -2509,9 +2489,6 @@ int memory_failure(unsigned long pfn, int flags)
+>  	folio_unlock(folio);
+>
+>  	if (folio_test_large(folio)) {
+> -		const int new_order = min_order_for_split(folio);
+> -		int err;
+> -
+>  		/*
+>  		 * The flag must be set after the refcount is bumped
+>  		 * otherwise it may race with THP split.
+> @@ -2526,24 +2503,25 @@ int memory_failure(unsigned long pfn, int flags)
+>  		 * page is a valid handlable page.
+>  		 */
+>  		folio_set_has_hwpoisoned(folio);
+> -		err = try_to_split_thp_page(p, new_order, /* release= */ false);
+> +
+> +		folio_lock(folio);
+> +		split_huge_page_to_order(p, min_order_for_split(folio));
+> +		folio = page_folio(p);
+> +		folio_unlock(folio);
+> +
+>  		/*
+>  		 * If splitting a folio to order-0 fails, kill the process.
+>  		 * Split the folio regardless to minimize unusable pages.
+>  		 * Because the memory failure code cannot handle large
+>  		 * folios, this split is always treated as if it failed.
+>  		 */
+> -		if (err || new_order) {
+> -			/* get folio again in case the original one is split */
+> -			folio = page_folio(p);
+> +		if (folio_test_large(folio)) {
+>  			res = -EHWPOISON;
+>  			kill_procs_now(p, pfn, flags, folio);
+> -			put_page(p);
+> +			folio_put(folio);
+>  			action_result(pfn, MF_MSG_UNSPLIT_THP, MF_FAILED);
+>  			goto unlock_mutex;
+>  		}
+> -		VM_BUG_ON_PAGE(!page_count(p), p);
+> -		folio = page_folio(p);
+>  	}
+>
+>  	/*
+> @@ -2861,9 +2839,8 @@ static int soft_offline_in_use_page(struct page *page)
+>  		.reason = MR_MEMORY_FAILURE,
+>  	};
+>
+> +	folio_lock(folio);
+>  	if (!huge && folio_test_large(folio)) {
+> -		const int new_order = min_order_for_split(folio);
+> -
+>  		/*
+>  		 * If new_order (target split order) is not 0, do not split the
+>  		 * folio at all to retain the still accessible large folio.
+> @@ -2871,15 +2848,20 @@ static int soft_offline_in_use_page(struct page *page)
+>  		 * preferred, split it to non-zero new_order like it is done in
+>  		 * memory_failure().
+>  		 */
 
-This issue was found by an in-house static analysis tool.
+This comment is:
 
-Fixes: 4684997d9eea ("brcmfmac: reset PCIe bus on a firmware crash")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Assisted-by: Codex:gpt-5.6
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
-Link: https://patch.msgid.link/20260718024353.3147201-3-fanwu01@zju.edu.cn
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../broadcom/brcm80211/brcmfmac/bcmsdh.c      | 13 ++++++
- .../broadcom/brcm80211/brcmfmac/bus.h         |  6 +++
- .../broadcom/brcm80211/brcmfmac/core.c        | 46 +++++++++++++++++--
- .../broadcom/brcm80211/brcmfmac/pcie.c        |  6 +++
- .../broadcom/brcm80211/brcmfmac/sdio.c        |  6 +++
- .../broadcom/brcm80211/brcmfmac/sdio.h        |  1 +
- .../broadcom/brcm80211/brcmfmac/usb.c         |  3 ++
- 7 files changed, 77 insertions(+), 4 deletions(-)
+		/*
+		 * If new_order (target split order) is not 0, do not split the
+		 * folio at all to retain the still accessible large folio.
+		 * NOTE: if minimizing the number of soft offline pages is
+		 * preferred, split it to non-zero new_order like it is done in
+		 * memory_failure().
+		 */
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-index 14f3c4900f56c..ad49a306914a0 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-@@ -1064,6 +1064,7 @@ static int brcmf_ops_sdio_probe(struct sdio_func *func,
- 	bus_if = kzalloc(sizeof(struct brcmf_bus), GFP_KERNEL);
- 	if (!bus_if)
- 		return -ENOMEM;
-+	mutex_init(&bus_if->bus_reset_lock);
- 	sdiodev = kzalloc(sizeof(struct brcmf_sdio_dev), GFP_KERNEL);
- 	if (!sdiodev) {
- 		kfree(bus_if);
-@@ -1125,6 +1126,14 @@ static void brcmf_ops_sdio_remove(struct sdio_func *func)
- 		if (func->num != 1)
- 			return;
- 
-+		/* Drain bus_reset before the shared brcmf_sdiod_remove()
-+		 * teardown, which the SDIO reset callback also reaches.  The
-+		 * data worker can arm bus_reset via brcmf_fw_crashed(); cancel
-+		 * it first.
-+		 */
-+		brcmf_sdio_cancel_datawork(sdiodev->bus);
-+		brcmf_bus_cancel_reset_work(bus_if);
-+
- 		/* only proceed with rest of cleanup if func 1 */
- 		brcmf_sdiod_remove(sdiodev);
- 
-@@ -1199,6 +1208,8 @@ static int brcmf_ops_sdio_suspend(struct device *dev)
- 	} else {
- 		/* power will be cut so remove device, probe again in resume */
- 		brcmf_sdiod_intr_unregister(sdiodev);
-+		brcmf_sdio_cancel_datawork(sdiodev->bus);
-+		brcmf_bus_cancel_reset_work(bus_if);
- 		ret = brcmf_sdiod_remove(sdiodev);
- 		if (ret)
- 			brcmf_err("Failed to remove device on suspend\n");
-@@ -1224,6 +1235,8 @@ static int brcmf_ops_sdio_resume(struct device *dev)
- 		ret = brcmf_sdiod_probe(sdiodev);
- 		if (ret)
- 			brcmf_err("Failed to probe device on resume\n");
-+		else
-+			brcmf_bus_allow_reset_work(bus_if);
- 	} else {
- 		if (sdiodev->wowl_enabled && sdiodev->settings->bus.sdio.oob_irq_supported)
- 			disable_irq_wake(sdiodev->settings->bus.sdio.oob_irq_nr);
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h
-index fe31051a9e11b..9371c1489948c 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h
-@@ -9,6 +9,7 @@
- #include <linux/kernel.h>
- #include <linux/firmware.h>
- #include <linux/device.h>
-+#include <linux/mutex.h>
- #include "debug.h"
- 
- /* IDs of the 6 default common rings of msgbuf protocol */
-@@ -179,6 +180,8 @@ struct brcmf_bus {
- 	enum brcmf_fwvendor fwvid;
- 	bool always_use_fws_queue;
- 	bool wowl_supported;
-+	bool removing;		/* device removal in progress; quiesce async work */
-+	struct mutex bus_reset_lock;
- 
- 	const struct brcmf_bus_ops *ops;
- 	struct brcmf_bus_msgbuf *msgbuf;
-@@ -186,6 +189,9 @@ struct brcmf_bus {
- 	struct list_head list;
- };
- 
-+void brcmf_bus_cancel_reset_work(struct brcmf_bus *bus_if);
-+void brcmf_bus_allow_reset_work(struct brcmf_bus *bus_if);
-+
- /*
-  * callback wrappers
-  */
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-index 96f607f35490d..fff7a3ace5c45 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-@@ -1162,6 +1162,35 @@ static int brcmf_revinfo_read(struct seq_file *s, void *data)
- 	return 0;
- }
- 
-+/*
-+ * Serialize arming from debugfs reset and brcmf_fw_crashed() against
-+ * teardown.  The remove path sets ->removing and drains the work while
-+ * holding bus_reset_lock, so a racing armer is either drained or skips it.
-+ */
-+static void brcmf_bus_schedule_reset(struct brcmf_bus *bus_if)
-+{
-+	mutex_lock(&bus_if->bus_reset_lock);
-+	if (bus_if->drvr && bus_if->drvr->bus_reset.func && !bus_if->removing)
-+		schedule_work(&bus_if->drvr->bus_reset);
-+	mutex_unlock(&bus_if->bus_reset_lock);
-+}
-+
-+void brcmf_bus_cancel_reset_work(struct brcmf_bus *bus_if)
-+{
-+	mutex_lock(&bus_if->bus_reset_lock);
-+	bus_if->removing = true;
-+	if (bus_if->drvr)
-+		cancel_work_sync(&bus_if->drvr->bus_reset);
-+	mutex_unlock(&bus_if->bus_reset_lock);
-+}
-+
-+void brcmf_bus_allow_reset_work(struct brcmf_bus *bus_if)
-+{
-+	mutex_lock(&bus_if->bus_reset_lock);
-+	bus_if->removing = false;
-+	mutex_unlock(&bus_if->bus_reset_lock);
-+}
-+
- static void brcmf_core_bus_reset(struct work_struct *work)
- {
- 	struct brcmf_pub *drvr = container_of(work, struct brcmf_pub,
-@@ -1182,7 +1211,7 @@ static ssize_t bus_reset_write(struct file *file, const char __user *user_buf,
- 	if (value != 1)
- 		return -EINVAL;
- 
--	schedule_work(&drvr->bus_reset);
-+	brcmf_bus_schedule_reset(drvr->bus_if);
- 
- 	return count;
- }
-@@ -1407,14 +1436,23 @@ void brcmf_dev_coredump(struct device *dev)
- void brcmf_fw_crashed(struct device *dev)
- {
- 	struct brcmf_bus *bus_if = dev_get_drvdata(dev);
--	struct brcmf_pub *drvr = bus_if->drvr;
-+	struct brcmf_pub *drvr;
-+
-+	/* May fire before brcmf_attach() wires up drvr, or after removal
-+	 * has cleared it; guard the derefs below (and the arming gate in
-+	 * brcmf_bus_schedule_reset() already checks drvr/->removing).
-+	 */
-+	if (!bus_if)
-+		return;
-+	drvr = bus_if->drvr;
-+	if (!drvr)
-+		return;
- 
- 	bphy_err(drvr, "Firmware has halted or crashed\n");
- 
- 	brcmf_dev_coredump(dev);
- 
--	if (drvr->bus_reset.func)
--		schedule_work(&drvr->bus_reset);
-+	brcmf_bus_schedule_reset(bus_if);
- }
- 
- void brcmf_detach(struct device *dev)
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-index cbb6d512c43b4..0939ddb5559af 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-@@ -2467,6 +2467,7 @@ brcmf_pcie_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		ret = -ENOMEM;
- 		goto fail;
- 	}
-+	mutex_init(&bus->bus_reset_lock);
- 	bus->msgbuf = kzalloc(sizeof(*bus->msgbuf), GFP_KERNEL);
- 	if (!bus->msgbuf) {
- 		ret = -ENOMEM;
-@@ -2552,6 +2553,11 @@ brcmf_pcie_remove(struct pci_dev *pdev)
- 	if (devinfo->ci)
- 		brcmf_pcie_intr_disable(devinfo);
- 
-+	if (devinfo->irq_allocated)
-+		synchronize_irq(pdev->irq);
-+
-+	brcmf_bus_cancel_reset_work(bus);
-+
- 	brcmf_detach(&pdev->dev);
- 	brcmf_free(&pdev->dev);
- 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-index 1ab0f501017bc..13fe44ff5853b 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-@@ -4550,6 +4550,12 @@ struct brcmf_sdio *brcmf_sdio_probe(struct brcmf_sdio_dev *sdiodev)
- 	return NULL;
- }
- 
-+void brcmf_sdio_cancel_datawork(struct brcmf_sdio *bus)
-+{
-+	if (bus)
-+		cancel_work_sync(&bus->datawork);
-+}
-+
- /* Detach and free everything */
- void brcmf_sdio_remove(struct brcmf_sdio *bus)
- {
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h
-index 0d18ed15b4032..927fb82dec9ca 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h
-@@ -361,6 +361,7 @@ int brcmf_sdiod_remove(struct brcmf_sdio_dev *sdiodev);
- struct brcmf_sdio *brcmf_sdio_probe(struct brcmf_sdio_dev *sdiodev);
- void brcmf_sdio_remove(struct brcmf_sdio *bus);
- void brcmf_sdio_isr(struct brcmf_sdio *bus, bool in_isr);
-+void brcmf_sdio_cancel_datawork(struct brcmf_sdio *bus);
- 
- void brcmf_sdio_wd_timer(struct brcmf_sdio *bus, bool active);
- void brcmf_sdio_wowl_config(struct device *dev, bool enabled);
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
-index 6f64a05debd2c..906591bae5382 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
-@@ -1261,6 +1261,7 @@ static int brcmf_usb_probe_cb(struct brcmf_usbdev_info *devinfo,
- 		ret = -ENOMEM;
- 		goto fail;
- 	}
-+	mutex_init(&bus->bus_reset_lock);
- 
- 	bus->dev = dev;
- 	bus_pub->bus = bus;
-@@ -1327,6 +1328,8 @@ brcmf_usb_disconnect_cb(struct brcmf_usbdev_info *devinfo)
- 		return;
- 	brcmf_dbg(USB, "Enter, bus_pub %p\n", devinfo);
- 
-+	brcmf_bus_cancel_reset_work(devinfo->bus_pub.bus);
-+
- 	brcmf_detach(devinfo->dev);
- 	brcmf_free(devinfo->dev);
- 	kfree(devinfo->bus_pub.bus);
--- 
-2.53.0
+Which references 'new_order' twice - probably need to update this.
 
+> -		if (new_order || try_to_split_thp_page(page, /* new_order= */ 0,
+> -						       /* release= */ true)) {
+> +		if (!min_order_for_split(folio))
+> +			ret = split_huge_page_to_order(page, 0) ? -EBUSY : 0;
+> +		else
+> +			ret = -EBUSY;
+> +		folio = page_folio(page);
+> +
+> +		if (ret) {
+> +			folio_unlock(folio);
+> +			folio_put(folio);
+
+Wow, incredible that we had a refcount leak here for ages and didn't know. Ugh
+what a mess this hw posion crap is!
+
+>  			pr_info("%#lx: thp split failed\n", pfn);
+> -			return -EBUSY;
+> +			return ret;
+>  		}
+> -		folio = page_folio(page);
+>  	}
+>
+> -	folio_lock(folio);
+>  	if (!huge)
+>  		folio_wait_writeback(folio);
+>  	if (PageHWPoison(page)) {
+>
+> ---
+>
+> base-commit: e5492213654050379e78ec6f9acfd6c9fe00f334
+>
+> change-id: 20260806-try_to_split_thp_page-a359f4d8c90f
+>
+> --
+>
+> Cheers,
+>
+> David
+>
+
+--
+Cheers, Lorenzo
