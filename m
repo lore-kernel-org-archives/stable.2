@@ -1,246 +1,215 @@
-Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FAFB3E9C32;
-	Thu,  6 Aug 2026 08:04:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=68.232.141.245
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786003454; cv=fail; b=DVleOxxcjCtK7FXRsBqI4vVH8hFn0KOE9GsD8H9e6phXcNCEMy81A+q3kNv9yKqhPaENcNJqXmWkm/hohL1byufwnVwaplGOzUqgEaCYAOUsTr7NuQf8d5qZS3vmHMKg+3xfxB3RLglZDtONtvVMQuoHqkXdlXMtUwsQZiyqB+4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786003454; c=relaxed/simple;
-	bh=ROrfI40do/rrpwwUrHiC2mSnMA7SNmEC/glvTY3iMQg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=AJCUBGzwTEkn8+DiaWUVvxfJTxOV1suOmWImfQ1oVyeCI0H4f1OSUoAPZRfJuLUd39nwB2U8Z/Z2c24bO35x7FXjHtWZWvqjRmqs2SW6JSUmiBb+MEgmFtuxzsNgz2wo2jGQXTPiSIWzuJzgUfzRu7QmcEq4aDD/JldKumlJ08M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wdc.com; spf=pass smtp.mailfrom=wdc.com; dkim=pass (2048-bit key) header.d=wdc.com header.i=@wdc.com header.b=RenxTttm; dkim=pass (1024-bit key) header.d=sharedspace.onmicrosoft.com header.i=@sharedspace.onmicrosoft.com header.b=RHXqy2vp; arc=fail smtp.client-ip=68.232.141.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wdc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wdc.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82D523E33D
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 08:06:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786003594; cv=none; b=cMAiQJcaEJ7QU6345/QIONAdBI7q9M6E0RWAF3MvdWF5HUBNZgBW+nq9HsSnC18Lpt7uvcAhmVODBKxS7MXNWhvYgvPjsUy54QIr8EXpx7JXmJSHk04EgCIVrsgSXjXGfTSH6V20VuWPbAo7BBZUfaQwl6mVbRgKp2KwzzGjRu8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786003594; c=relaxed/simple;
+	bh=74zUSXIOku8e7Nz/XuVtzzTRb6HSIQ9smWHZiwEhVoQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hSX7R5lxzaDWMxpo7NKvMeFTuzfza+nBEBPljPlnaYn3/zofftwzgNI1sYprKIx52PaHICClrx+Z+5JQA6W3nzVktIwOEgnTd+gITHDqrbbKljcPUaw03NcUvVqXWIpwdsyqQ1Awql0OiuzFFgxvS4otQUYtP3db/Bu84MrNzM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=Jci44kHp; arc=none smtp.client-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wdc.com header.i=@wdc.com header.b="RenxTttm";
-	dkim=pass (1024-bit key) header.d=sharedspace.onmicrosoft.com header.i=@sharedspace.onmicrosoft.com header.b="RHXqy2vp"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
-  t=1786003450; x=1817539450;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=ROrfI40do/rrpwwUrHiC2mSnMA7SNmEC/glvTY3iMQg=;
-  b=RenxTttmHWI9o9s2hsUqMN3A1i/rzIqncev9o3NvBFH6yz569v0ak8tr
-   4qrgQJjuL8eyXoLrL+tLN1HSIbNFBJVi8NGfskyyLPf4NPScfhunOPDXj
-   gzpMf77+6qRLPHYqu+HKTymPvg0JwRWhH6CwYWjQ6YpbJKjSX5pE6BAv1
-   FL7HFc4l1GZFCw5rDhECNLao1PxrU8FojD5OIWLzpmplafSJ+Iz7sOYNV
-   C6HYG1n0Z7ekwfTl9yeSeWFUmd9W12gqaJU1f6T6q4zB7d+giKus88TMb
-   v2H5j26lGfrjpcGgU9ruc7X8BDG/793sGdQZk5SHkmsM/2Lcnocbq7rMI
-   Q==;
-X-CSE-ConnectionGUID: rOVhungaQwmZ4J8EA9GtfA==
-X-CSE-MsgGUID: cHL7qiz0RyG67bSRD+BFxA==
-X-IronPort-AV: E=Sophos;i="6.25,208,1779120000"; 
-   d="scan'208";a="152316259"
-Received: from mail-centralusazon11011003.outbound.protection.outlook.com (HELO DM5PR21CU001.outbound.protection.outlook.com) ([52.101.62.3])
-  by ob1.hgst.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 06 Aug 2026 16:04:03 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ckvI1irpB1bmJqmM6iyyRX817uv9U2EdxVoBVGbuASk8xCWaX1Egz4cZlfUISvMMH+q2ovkAVtHeKOSa/BuLJGUz3s6BjjUsTQum9O4JoqAEp64AbcynPi0bQ4dYuIHWhGDYP/bnRIlGICUANdV1SDzwqlkjrvQ9olZ+LQLpS4f493/X1/Z261kK/DP9uZax4RvX7EOGgbUvsDTIKRxS7yt3OGwzjqYzU9tXysW9/5ucmbtPyDtJ/8KkxtRfvEX5zs6FTUn4rgvwnikFRIxvsyZZCIEg2fommEX7e7uutDMkCcCvH1SOFm4s/I9HR5lCalJ3yVyHHWNKoENjjtpsbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gkp1WrvtPYfyewV3GMAWyLZq7ubfwBxr1VMdOV5B7y4=;
- b=bqE/2AC+A8k1ifWc2hClzGZVyeh00prAZKDcALgSEyryIdiXPJUKmL7yq8AJyzLSa/e5lZyrNPU+3fsFnLi7AjJsL0m9yAH+PDMTO6yKdhQkllt2vdDuHBEeVDXb+ezu0/R/u2jdIHd3+/UXm+Po9C2tt9qp9eF8v1+WL6SnjenwH4BPuopYTJrvwcyvmHnVD1wx86yUrVlFL+1BhAYVtW0G2hbghsMcRL2G1sE4P2CFB4yoEmivCdGTT/SjxTPQpbwyBsSJ2mEcT1azlQFyDjaDy49RGK9ZnsExnpoiEEIEsAyafvtQ1TC3pGKFu9dYcLR8DSvLLe09beSkaIWNPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=wdc.com; dmarc=pass action=none header.from=wdc.com; dkim=pass
- header.d=wdc.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sharedspace.onmicrosoft.com; s=selector2-sharedspace-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gkp1WrvtPYfyewV3GMAWyLZq7ubfwBxr1VMdOV5B7y4=;
- b=RHXqy2vpEd9QFaV367OTsOmCFN3k0vpvxd7ffQcJ+cArmeOS/2YYAKe2ltGvKt9oesxBpWlGOeL5ldnNMlhC7qsRqcti/roLCmNrU3yTbx0etJdQJtxS0PvgtSRbpR7MIoqZupiA+TYk+cD6O9Ki7KPcGeSRgrRP7Y+CfUVaRPE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=wdc.com;
-Received: from SA1PR04MB10065.namprd04.prod.outlook.com
- (2603:10b6:806:4dd::14) by DS1PR04MB9096.namprd04.prod.outlook.com
- (2603:10b6:8:1df::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.20; Thu, 6 Aug
- 2026 08:04:00 +0000
-Received: from SA1PR04MB10065.namprd04.prod.outlook.com
- ([fe80::9b98:bf8a:b0b1:ef85]) by SA1PR04MB10065.namprd04.prod.outlook.com
- ([fe80::9b98:bf8a:b0b1:ef85%4]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
- 08:04:00 +0000
-Date: Thu, 6 Aug 2026 17:03:53 +0900
-From: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
-To: Keith Busch <kbusch@meta.com>
-Cc: linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	dm-devel@lists.linux.dev, hch@lst.de, axboe@kernel.dk, brauner@kernel.org, 
-	djwong@kernel.org, viro@zeniv.linux.org.uk, Keith Busch <kbusch@kernel.org>, 
-	stable@vger.kernel.org, Hannes Reinecke <hare@kernel.org>, 0wnerD1ed <l7z@0b1t.tech>
-Subject: Re: [PATCH RESEND 5/5] block: validate user space vectors during
- extraction
-Message-ID: <anQ-28nxOqBmQjxu@shinmob>
-References: <20260720201057.1862857-1-kbusch@meta.com>
- <20260720201057.1862857-6-kbusch@meta.com>
- <anMscoGkR5BYjSGy@shinmob>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <anMscoGkR5BYjSGy@shinmob>
-X-ClientProxiedBy: TYCP286CA0170.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c6::11) To SA1PR04MB10065.namprd04.prod.outlook.com
- (2603:10b6:806:4dd::14)
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="Jci44kHp"
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 9C4273FBF5
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 08:06:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1786003588;
+	bh=NG2Eh4pZXn9QqZgh2gMs+/otPaFgkRYCIXrVumNaCtk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type;
+	b=Jci44kHpSx69i0yXjQ2p3zKP7QH3f4mFJaetPQ7CHd7XVLDsY5EYlJLBelr/aLM+t
+	 sx/hzSo1fmUCbcotRsCCBojTP/UgffR1SXK1jq19RWkHk717i6uQSXos2pRaFLNRCV
+	 NvQQchLenxpmrx4ONx0OW+1Q5gUnPh9m502JcbO/hiLdCad0aNFU8RfhAkQUFHiju4
+	 Hr2ix9sWhbX0YoZi825+vxxPYAWZAecMKKxADULi1PzL7dhDCguY78cqkrfc+sfAC7
+	 Blr5tAciAVpG9v+pLhgEGphjEDeHu+m5PWN+IlAQRcDqaabxPS1AxtoYe9rmINiJGa
+	 szGvbaBbHN8zajSGZuKoWtkaMnaBRqqgmn00zjfJRV8MLhApJyq9aGsG4sSW7X7eRV
+	 a9BVkFVeQ88X81SVvT09Znddl34P94LdLC0vS1xbwAF9IancxuXQedYTMucUgWGkCs
+	 HVNjBTnG4Xn3Rr8B9o2V6TmpD26+jk4JOr6oqT7ScFNYpuMM707vqhlos1mU+sf+pr
+	 xUexuBgFeCoZK/IChEM8gSlE4Zt5dz2WU1Sw++8cmMkIIIDeeLl+kO3Z/7HtwlfKA6
+	 DWPkS+4HNNhfe2YQEf9hPWkqIWv5lTBOpIrDgpU8rY14myW6R/hOlCes0n/eze0zit
+	 jnJYeJf+zuEU70nnzhQEe4s4=
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84865f326efso2371700b3a.0
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 01:06:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786003587; x=1786608387;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:from:content-language:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NG2Eh4pZXn9QqZgh2gMs+/otPaFgkRYCIXrVumNaCtk=;
+        b=M9uIyKD+UqqHbbL8q/Ye1PA5zJLvEqvwSJHTRdz1O86ma2EzHU+28fMQjl6QiJJAsz
+         E2pnaOu5mjw5axDAHoLKgkAokH8/8Ducxd3a31Uy7M0AdTtUlSS084Ho0IZM8aR98cY5
+         5qtNzA2KVVWf4pPXdWcytuqk244eG1EAkz1Y7c42n4NJ/NOGnGC6HhuxF1/fLiZCYdxu
+         3yjcWCVr66ga/H6QQ7a9cXywlCL+NqjSfY01MjmethZvuVfkHopNeHPSniGOjpRWXOoF
+         T+cBls/FhWc1Z/y/YfrOcHCsd1JYVcuSUyGOyfu8wXY2hssHeqqZT1MLOxgECvKjNl8J
+         QBwg==
+X-Forwarded-Encrypted: i=1; AHgh+RrY1WJS6KQJYtzx1TfpkulhfKIcwQN4yFeyecdIwjiLAGWdNDSg71+XFEPBlUNOIjg0TvcAHxo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzFFLV2u3ZIrWZwQpxQVPTKjM8bo0AkiSc1N3buckirjT/t/OcN
+	pY6giev1C6O0Vn5lK34oythT1fsVw/+UUGNgwMb00bkkaJBpL3/XPUWNpSoevS0tapFYxeyUpzL
+	qt6DxhAMt3580f5p5Vk9fdRBZ9mlinfFNJEVScl7DHOfbm+UeWzTBQOmMN1tFHG/z+fEsfkylqD
+	Qdgp8PtQ==
+X-Gm-Gg: AR+sD1232xL3Kq55xnDG3W5SGtR1anZDU8zyCB39ot9HEDIrm5ATTc/sEvpylHjG055
+	2C2uIlyJKNKui62BghGUZPz1r0zLAMaediJBaST9akoi4zcDqEg84pUrwrnMjtXmFEsAp2AmiaH
+	tLMp7erP9IOK58rtVeHgOekv9nOjsleds/duKDzep+up7G4UFnbUtLoFGt06qy5JAoonqo2B+pv
+	VoOY3t1CnRx7HE0q2BrZOJTkjkeW6P0JniPg1NTDA6fd2EwyZCGyvxHrx37S8ZQFvABcgh5HzSg
+	KsC35J2NWIKKh1+CKEbBHzdMqEss7DjAsSmQUqxu6gWvotJGUfARSwG1foTyVxHIY9o1J3vyZlU
+	2+J/ZW1TuIPdgv8A=
+X-Received: by 2002:a05:6a00:3012:b0:848:3dae:66e2 with SMTP id d2e1a72fcca58-84f2e05d01emr15540387b3a.26.1786003586777;
+        Thu, 06 Aug 2026 01:06:26 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3012:b0:848:3dae:66e2 with SMTP id d2e1a72fcca58-84f2e05d01emr15540337b3a.26.1786003586352;
+        Thu, 06 Aug 2026 01:06:26 -0700 (PDT)
+Received: from [192.168.192.71] ([50.47.147.90])
+        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-84f45ab011bsm872023b3a.41.2026.08.06.01.06.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 06 Aug 2026 01:06:25 -0700 (PDT)
+Message-ID: <00168bff-3d44-4701-9931-1e02105410ed@canonical.com>
+Date: Thu, 6 Aug 2026 01:06:24 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR04MB10065:EE_|DS1PR04MB9096:EE_
-X-MS-Office365-Filtering-Correlation-Id: d3f48aa6-8830-46c0-8e10-08def39145e6
-WDCIPOUTBOUND: EOP-TRUE
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|366016|376014|7416014|1800799024|6133799003|56012099006|11063799006|10067099003|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	P/N2HL9w28hfKbS799/iVv3npUMdWEnGC3w40uIwJTinsvWDxyCzK+7RhCvCIR+x8ehlsCSPvLl/d/Sadr+PwzeP8L8SMCTaLGg+GNixY55u51ccKWLluJZWQsudkxivSD6UVkUP2N2Nch5OQ6EwrOYatYODee9GZkGby4oalJwZ/NiRvcvkPgOX9xR6bs5LpnTR72VKShafH0pX3PoPzeLRtGAmVpwCf2JR6bJjBImQ8kqdS8DwlXqS22H5Nbl2mzBCrM+xKYItsE7EH/NrUy2MqoS8boLNqVnqYtfsMEInpuEb9KDmMPSrvWO1josQsaKhJnYVZb9dOP3Mfe8pW1dKTOQ2d+DkM5hFMKhh3+cV7ME+HIBjZPkknGpzpCVHYCs2/QRKRCzInXWIFqrhXBauP1jV/wgKzwKSrCL340vEvLBfZFzxR2MIl8yRj9A0pXpAZ58rwGDdx8g11enJIMA2yjPoW+h4/fj+dqXNdUioiUeqRd5YlwTmu+TeMjqgxu38en7GdJg/hOvFdpw40+pFD1JZWtGibfb4I5isWzyeWnTjazXO141vhze1pRHwF4k3mQla3NuSJbKtQk1IRihmh2n92JK0NAlANfDjzEeg/u9qoKtmChfGUzfxO3mssHJffJHS1/Cs2bhkCsn8ireKigTTYjey3xBXU+ZF00A=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR04MB10065.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(376014)(7416014)(1800799024)(6133799003)(56012099006)(11063799006)(10067099003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?HHU6ZI7vAUMuWWk5GMqZBM0Jw9CjjnDBJ1pVA9Hb0qpbvlu2xJOlvHnmQ+CL?=
- =?us-ascii?Q?NMl+LL72DV7XpMXS5TKq2d0Zf0SRf19C09da6wP/+XHjknyqvnislj86NeYY?=
- =?us-ascii?Q?c1biMSGyOtuM2wipa4ERBaCrHGTZ2ePl+iwYUMSSkt8DVV9pccN/OpJEWHrb?=
- =?us-ascii?Q?HcCd0IyVIj7OnkQ6lH00B85eznj4MjHiZqFQjTx0aAtwrqUZrEsylPnUaJej?=
- =?us-ascii?Q?hRxR8hpOug+Zdpdbngx1aeN9YLsug+2oSQ8OXZEQ7opHO7pXrlHQOi2WiWdf?=
- =?us-ascii?Q?pc9KXKOHHi7qtMw1dWTaP0viyRhjAubANx8XrO+uMI5axskzKFnRXnTZjcPr?=
- =?us-ascii?Q?rfp6+repVBYIBuRTFzGIg4H80JBoSaKSBz135yXfyatnGHZpJsfqICyI1xoB?=
- =?us-ascii?Q?cOvIceggmx7bvQ1gmMtGu6vjfgVA/AFVPPK8Xo/Pg8VceBWwQrjsK6D+92Ob?=
- =?us-ascii?Q?U01D0YQCYsNuPz7tGTbAnCR19rEkpSiqBIsBxNwnoxW2WWn0fnfMiQ5C8YQj?=
- =?us-ascii?Q?V0U4stxXhir+u15B9a7/STzbkiKgKKirXGO0puhEK24MaoLX2vonySPoK4wo?=
- =?us-ascii?Q?I6ajchebZjIIW9YktneVScycC+36CX0Be39d2+BueC6uEUwe2R2+q0ExGJaD?=
- =?us-ascii?Q?TiS2nFX8KLP76jFEEUwA8sYHvIwsa3Zfto68CPM1d6lU5XAJ1xXoE5PgBXKw?=
- =?us-ascii?Q?rG2PJNJvnVr/tkkRsXVb4FtnogeyqmYCZKha5UixaB4KQ+vUpxv3x+V1stzn?=
- =?us-ascii?Q?Dmb9fRv/uOQeT0GyMDUyypY/rAfdenfiYJkI8nbOe6qCStU45wxPHIgakS0H?=
- =?us-ascii?Q?Y2RsLJe649zqtvanBej0MNM+ULgjSJIyu9dwt+XG1cfx5GINoLqSjniGf1n8?=
- =?us-ascii?Q?k7QvnJ5y5w0irwlL4VO5ofBObyKG4zccXmoKvrChnuPL8naKfuINntLD4ggS?=
- =?us-ascii?Q?3AzxJc78HF8SmyPRYJSthbm9ETYpP9wS6Qj5bKuk0r+9JxU9f5Mvo3yIKlfh?=
- =?us-ascii?Q?6AnhDCT0gUQC+je9QW7s3FzIZSMb+9kN/PhB/tWewa9zNiuuXPi5H1LHSLOW?=
- =?us-ascii?Q?nhxBca/QXfX7AxXXWCzVudGgps3714nRU0feUaGp4k3Zprl+ofZ+9eyrr1Un?=
- =?us-ascii?Q?d4IEM+JH4CSsnM3KaQQM62thGqyXvX0GU+PDWndgc/0ZKh0XMt5JtHLV9EjH?=
- =?us-ascii?Q?x4bth+OFUuT1xRcGaAgphIZS/nlzQtvEO8gr0cJvXscSTGHp1gdyxF+ZRiUn?=
- =?us-ascii?Q?mgTwdUOgZtVNk2WHNMZHdXHstWY7QeKdpcYsL3OzLZIEhsS6j4Er8IewlvcR?=
- =?us-ascii?Q?RDYg2S1cQnvPouawWo4GIdAUt13lBmVGoE577VAAbAu1592UE2QTwT78cKqA?=
- =?us-ascii?Q?16IUbX2tA/wd+aKHTnI9onTgmuHihPbtHta93DXRp1KODNqtw3ahPYDy7YiC?=
- =?us-ascii?Q?5vYapnFvEqgziJEan4FK+hS5HykUlo/QlK4Azju+6EQpYJEM5UQ/F6RNdyzx?=
- =?us-ascii?Q?fUUn0fFFlmwykgUiOa0f1+T8HCHheel+sXvQjt4dq2dHM34fyOFHMixGX1og?=
- =?us-ascii?Q?HhUKcmAiaNZJB351eiUeWRNBIVQ7xEbFEdJNme4K2uiTjO9pMRaul8EEOkTy?=
- =?us-ascii?Q?bTft0jkoagIwgKxCzHCFbcYGlsmyChHmP4vbbvJLS77ds7zCs+55QT05BfnO?=
- =?us-ascii?Q?VgRDr8/jjJc0YA5xR2k7p6YDydBeKdZiaFBCmvlb8J/M4NYdkKnbDwh22m7z?=
- =?us-ascii?Q?fGKG5RgjyZHrDFndjrCf4eOt1+QiWMw=3D?=
-X-Exchange-RoutingPolicyChecked:
-	O7ZAzqV6Jq3106eNKe5mGTAUv1ou+/kp3hSdQiMjPnWi3Q17eJkH314iV9Bg3PnmXbvxs5TspaaiKBlH+JQX3gJnwpj9LJvIzecexm0CS93+zueOYC51uoByLG3aw/8TPtBV8VLHg+UERcolBhWK6a3joUgiEP1dC8a4Rn4uLUXrI3RRa0kUYJ4iAnxp5bxoIBIw6j2JAJUMnweWhxWKdopl4VSziQnZtEQLwrUmvtuAULz1My/NbcO35NmfiMHvrkBRPlqprhoGT8Gu2QlRykbx7zcgaLWKNiAsqpJW7YCiGgTT1NWQxB7BqaK1/OIl28RSoKPBJ3VIvfH6C7Nhiw==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	lraHDGijr08mm6EXYiB1yFwWbhknxVqquarq9N3MnNgEolLxrusw97nzUSrdAK43IsDnVNbxFpQULyLqIdTPzOiCgun5BkTzTwiM4ORoFOVab6BOdzt2MlihpW3GdTv2XESYK1jL8416Dw3dvmTzf1fJF1+4EK5wockkGIdp/W4QIoPiXUHwoMn9ebyevnVvgj6F0+4aVkQJhi1qHKNGoOJbPbrUyrVhYLhmr+jaeSthfocZUwHQf2i5O4wOFYz9Fc66sRwdjjo6/bxpaqy2qMV4Dtt51swnrSlqN20zT7T0HmwszVPOBt4wJ+KYXQr3Qj6sPrz5jte5l6D3uTi+ZeryB+1RIpn8UzEPLVUX5VqB64zWM4a1QN7sNsCpy58g6E8b8j/1+WBfrJqr2HVO5QMcM3+pPNKCb487JlKzYPCvplIp0e2QRXIbyDGYwe2sdoxdEk1ke8YvXQ0Vcm1Tr3RZGjdJkxRMha0PUYqLn6hEda1Ac1HINCLLvzqWLj1q4Jq7cqZkrMgftu1iePFl2f9zyXbOoAeLVhinbBgE7UY+h9mKht/gAp+s54ikYwadkJ23Jv83mOntduw1xbzj+wBcwutUYIahstOK9B/SJdTaWk0GEnI5WLzsii/umusL
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3f48aa6-8830-46c0-8e10-08def39145e6
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR04MB10065.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 08:04:00.3948
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nwxZtXyW550yTRFwO390nnbtnp6yyp8q+basO1WOa6C0AV+p2FYJTflbQeJ9KmHwWdoBjw5eQn5MZk1IjcN9dgalfN5mo5OOlFbIq6RS/so=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS1PR04MB9096
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] apparmor: fix cred UAF caused by
+ begin_current_label_crit_section()
+To: Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>
+Cc: John Johansen <john@apparmor.net>,
+ Georgia Garcia <georgia.garcia@canonical.com>, apparmor@lists.ubuntu.com,
+ Paul Moore <paul@paul-moore.com>, "Serge E. Hallyn" <serge@hallyn.com>,
+ James Morris <jmorris@namei.org>, Christian Brauner <brauner@kernel.org>,
+ Al Viro <viro@zeniv.linux.org.uk>,
+ linux-security-module <linux-security-module@vger.kernel.org>,
+ kernel list <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+References: <20260714-fix-apparmor-cred-uaf-v1-1-be40e8c83b90@google.com>
+ <20260806073244.GM49951@noisy.programming.kicks-ass.net>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <20260806073244.GM49951@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Aug 05, 2026 / 21:46, Shin'ichiro Kawasaki wrote:
-> Cc+: 0wnerD1ed
+On 8/6/26 00:32, Peter Zijlstra wrote:
+> On Tue, Jul 14, 2026 at 05:38:07PM +0200, Jann Horn wrote:
 > 
-> On Jul 20, 2026 / 13:10, Keith Busch wrote:
-> > From: Keith Busch <kbusch@kernel.org>
-> > 
-> > The bio-based drivers don't necessarily check the alignment split, and
-> > stacking block drivers don't always handle a misalignment detected after
-> > submitting the bio. Validate user vectors against the device's
-> > dma_alignment as the bio is built from the iov_iter, rejecting
-> > misaligned early with -EINVAL.
+>> diff --git a/include/linux/task_work.h b/include/linux/task_work.h
+>> index 0646804860ff..ce19fc14060c 100644
+>> --- a/include/linux/task_work.h
+>> +++ b/include/linux/task_work.h
+>> @@ -33,6 +33,7 @@ struct callback_head *task_work_cancel_match(struct task_struct *task,
+>>   	bool (*match)(struct callback_head *, void *data), void *data);
+>>   struct callback_head *task_work_cancel_func(struct task_struct *, task_work_func_t);
+>>   bool task_work_cancel(struct task_struct *task, struct callback_head *cb);
+>> +bool task_work_has_func(struct task_struct *task, task_work_func_t func);
+>>   void task_work_run(void);
+>>   
+>>   static inline void exit_task_work(struct task_struct *task)
+>> diff --git a/kernel/task_work.c b/kernel/task_work.c
+>> index 0f7519f8e7c9..f83d1528e0bc 100644
+>> --- a/kernel/task_work.c
+>> +++ b/kernel/task_work.c
+>> @@ -189,6 +189,20 @@ bool task_work_cancel(struct task_struct *task, struct callback_head *cb)
+>>   	return ret == cb;
+>>   }
+>>   
+>> +bool task_work_has_func(struct task_struct *task, task_work_func_t func)
+>> +{
+>> +	struct callback_head *work;
+>> +
+>> +	if (!task_work_pending(task))
+>> +		return false;
+>> +	guard(raw_spinlock_irqsave)(&task->pi_lock);
+>> +	for (work = READ_ONCE(task->task_works); work; work = READ_ONCE(work->next)) {
+>> +		if (work->func == func)
+>> +			return true;
+>> +	}
+>> +	return false;
+>> +}
+>> +
+>>   /**
+>>    * task_work_run - execute the works added by task_work_add()
+>>    *
 > 
-> Recently, the new test case block/045 was added to blkests through a GitHub PR
-> [1]. The test case passes with the Linux master branch tags v7.2-rcX. Today, I
-> found that it fails with block/for-next branch tip [2]. I bisected and found
-> that this patch triggers the failure.
+> This thing is quite terrible. And AFAICT the only purpose is to
+> determine if said task already has said function enqueued. Why not add a
+> single bit to struct task_struct for this? I'm sure we have a spare bit
+> somewhere.
 > 
-> 0wnerDied, Keith, may I ask your help to resolve the failure? I'm guessing
-> the test case needs to care device's dma alignment, but not so sure.
 
-I took a closer look. I modified the test case to respect the dma alignment [*],
-and now the test case passes. This approach looks working. Will post the change
-as a formal patch for review.
+single bit wouldn't work generically to represent the different functions
+that could be enqueued but we could stick a flag in the apparmor task
+security blob, so we could just check if apparmor has enqueued its
+function.
 
-[*] fix trial patch for blktests
+The trade-off is you don't get an admittedly ugly generic fn that someone
+else could use.
 
-diff --git a/src/bio-full-trim.c b/src/bio-full-trim.c
-index e304b2c..7cea3f9 100644
---- a/src/bio-full-trim.c
-+++ b/src/bio-full-trim.c
-@@ -12,20 +12,38 @@
- #include <sys/mman.h>
- #include <unistd.h>
- 
-+int msb(unsigned int v)
-+{
-+	unsigned int b = 0;
-+
-+	while (v >>= 1)
-+		b++;
-+
-+	return b;
-+}
-+
- int main(int argc, char **argv)
- {
- 	unsigned int block_size;
- 	unsigned char *p;
- 	long page_size;
-+	unsigned int dma_alignment;
-+	unsigned int dma_aligned_offset;
- 	ssize_t ret;
- 	int fd;
- 
--	if (argc != 2)
-+	if (argc != 3)
- 		return EXIT_FAILURE;
-+
- 	page_size = sysconf(_SC_PAGESIZE);
- 	if (page_size <= 0)
- 		errx(EXIT_FAILURE, "invalid page size");
- 
-+	dma_alignment = atoi(argv[2]);
-+	dma_aligned_offset = 1 << (msb(dma_alignment) + 1);
-+	if (dma_aligned_offset >= page_size)
-+		err(EXIT_FAILURE, "unexpected dma_alignment");
-+
- 	fd = open(argv[1], O_RDONLY | O_DIRECT);
- 	if (fd < 0)
- 		err(EXIT_FAILURE, "open %s", argv[1]);
-@@ -40,7 +58,7 @@ int main(int argc, char **argv)
- 		err(EXIT_FAILURE, "mprotect");
- 
- 	errno = 0;
--	ret = pread(fd, p + page_size - 1, block_size, 0);
-+	ret = pread(fd, p + page_size - dma_aligned_offset, block_size, 0);
- 	if (ret == -1 && errno == EFAULT)
- 		return EXIT_SUCCESS;
- 	errx(EXIT_FAILURE, "pread returned %zd (errno %d)", ret, errno);
-diff --git a/tests/block/045 b/tests/block/045
-index 65bfcb9..6e112b6 100755
---- a/tests/block/045
-+++ b/tests/block/045
-@@ -25,7 +25,8 @@ test() {
- 		return 1
- 	fi
- 
--	if ! src/bio-full-trim /dev/nullb1; then
-+	if ! src/bio-full-trim /dev/nullb1 \
-+	     $(< /sys/block/nullb1/queue/dma_alignment); then
- 		echo "bio-full-trim helper failed"
- 	fi
- 
--- 
-2.55.0
+>> +/* replace the current task's stale label on syscall return */
+>> +void aa_schedule_stale_label_replacement(void)
+>> +{
+>> +	struct callback_head *tw;
+>> +
+>> +	if (task_work_has_func(current, aa_replace_stale_label_tw_func))
+>> +		return;
+>> +	tw = kmalloc_obj(struct callback_head);
+>> +	if (!tw)
+>> +		return;
+>> +	init_task_work(tw, aa_replace_stale_label_tw_func);
+>> +	if (task_work_add(current, tw, TWA_RESUME))
+>> +		kfree(tw);
+>> +}
+> 
 
