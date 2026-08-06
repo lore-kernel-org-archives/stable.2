@@ -1,163 +1,127 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-op-o14.zoho.in (sender-op-o14.zoho.in [103.117.158.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683E933A9F8
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 13:38:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786023528; cv=none; b=TS4xBAePBi8Jpd+tZDq8QPaLaq5Z/jbRz4A2vdgITtCBNAENtTigB4/1MUw9MFymCjEGume+4VKgZthUig/BzFHVrC67BYn8v98CCFAlEPUjJptwAKTeT10T+HmuRZAmY74mWImYNRMsEsCUDfA+B9JU0P02zhrHa0lCphnc0Ek=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786023528; c=relaxed/simple;
-	bh=SJ0CQsymO4jcDTqokRj2XeROVTcXNVQ5WcS9OVMXblk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cJqoybC8YXNRGA4tPBHe2yIygdnIrurCmPPhGIZnDzHod4GrpS/plOUe1qei3A2kqYSdBsJxEpX6hBeWOw2Oyy8ZAE5T8IuJbmnNK2PiEma3cvwv13+KUWYDao5I4CW/NgoLsaSn7FX9vfO4tH/x3Ihk6fPGunb7LyYXptU6VtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T6TMgMmH; arc=none smtp.client-ip=209.85.210.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E96736894B
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 13:41:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=103.117.158.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786023690; cv=pass; b=bKotKbnCjfCclprXgr1sZZt7psmOJnnB8JxO09bXq6QFQj+J46Z5tSAMuPjSi+1zsjBV+W0nX3YNa97O9X08QcRKZs+Bm99VNO92oMzsyczBrY8YBOjPcTrlOZc83i08Rw54cBARxHi/ScihXr/cbVeRfFMkNyOuGq2xKBRlzCs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786023690; c=relaxed/simple;
+	bh=AJ+U+u8Uv9hQcQnkdYn24MvKrMfdDEjLM+I+luzS3E0=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:Subject:MIME-Version:
+	 Content-Type; b=hufgwFVZpUYoqsU9F6PtPVfAzPov761YDpFY/ZGB4/vGyyFkrGPto6cEDH2yKNXaGIkWYpigzr1kKGVze7MfMVU9ofyPtEe5ytgMA5BN5L0AU9YO+j3YBtb431ztVSOfBYzNua4x1Iea/IkgF8vlQGcA79huIfoOyxwoimqlmG8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=a0rg.com; spf=pass smtp.mailfrom=a0rg.com; dkim=pass (1024-bit key) header.d=a0rg.com header.i=icarus@a0rg.com header.b=J9Oy3mNV; arc=pass smtp.client-ip=103.117.158.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=a0rg.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=a0rg.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T6TMgMmH"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-848743155bcso1115636b3a.0
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 06:38:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786023526; x=1786628326; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n8znQjoP1MnTnyeT/KthZOHx57cQrDSiKl3hZQXMu3I=;
-        b=T6TMgMmHyyD8gZvlgw4sAdYgo2aZk5GWe/Uuw5WBOZYDlskC4OlTN78QcGvFdhaCyf
-         4o/qpqW13FPKhTCa/WCcZE+lqo5iiHOtZPFdxxeBMVrSeFPLZVp/nmPSE1xlj8dAsY7S
-         yPzbVl7kOmvfZQnXBYa9MW01NKn6CyPkuCm3fTpQQU0p3VWmtLm+IC7vMl6VlJLtRlTJ
-         PBhKkcKfjrf0UA7AA9LQ12xkVrDNWZVKP2TthMQQxQ8p1cOB4ufUjd6tK3qme7Jy60Ut
-         g4jwQ+4/TAl99UrY1C3eTJjtjsQjSrwav7g5Qbs/ipFWn6Ukx3lJ4nA0dT1md5yToBCw
-         jh+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786023526; x=1786628326;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n8znQjoP1MnTnyeT/KthZOHx57cQrDSiKl3hZQXMu3I=;
-        b=kbZClZq51ivOBnmIx8zb+uAfk73lF5ukIxZGmGUnbLc3e7zAhbGkDjJIrkyRQD4Pvn
-         xNbwHTWcyJmdQfjiaZLuhQZD8XKzeldhl/CFThVpNFnliuJorC1z1VY8XTszhMpY2yLG
-         iMQ3cjzbXvfxe5pRZLRqAMcqO07q5+Hb/neCKueJP7snsnrR5kmR+Fyx3FE46K97Csl4
-         iQL97wspKqmg2bprWO0qUoJzlr4bpMw5fXDRyv4OTO/Fhu3PDDn9NJ4jOAO99ETIMIjR
-         G8kKeIpjEQSLme24wlpXFTdu2EBfdiJexl2a7ULlISyKey7bbXQtx8trmiYU/dCZbwgz
-         dMDg==
-X-Forwarded-Encrypted: i=1; AHgh+RoSVNWHGAnZFKacW8X94Da8MsHk7LUOte91OU3QYLxNx1K593hJeLdvMje2h559vCMLMEZT8uo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwqL8Wc+xGiohdFwNO9okJeHHO1Ev+zqCdFt1p9ntLWGG56NBxh
-	PWfLOknQA5U5ySoNr9BaOAhaOrbGPMw1scE4t/wg3bIH6kwYtt+segA0
-X-Gm-Gg: AR+sD13CWXLnt+PgttIbUS4UxIorNr/RiGQVldFwc/mnG4mseUKc/NxV5ED0ewpp2+I
-	mMLi2qL/fHWFATby5anmgH8rgPuVoybs6ranBjgIsVlA1ovk7nk8JM1cVEJK9+9vvlAbATDabvR
-	+o3oA+nfyTdvqo7qdjs2d3HvXRUrzhtB44MxjONZUcJlcRvDJdDwRijctUC5s2M/rfXNr28W6aU
-	8jPzHm7h8Xd851w6oWl8utDaKSFrTvwRxcU+eB1fdx0BubnwEtAeBmFaLnqBs0pDI5FI7sUgO5+
-	9AQYePyPAZEte8GIRlWX6/iENYy7QS8owPoggHiLa+QeH723XdzfR9Fl3gdyYcb8OJbqriKBGEh
-	ssQvq+BsuXd1TJM5tyVndxRSJrynFI9cErE4PizBmobK0gYoDSY1bU007hNkQ9pIfCG1TQ6wOMn
-	oGQtWHPePfgePvax/l/gppl8AmODtb1vivg/K0CYCUWmbHytAnapX+/GjrMAXVZEWBhz9XSB6PR
-	W6R4Qotj6iH5216OO2Pfmq6OL4dUr0ZLgMJEtcw8gehWUD798bJGg==
-X-Received: by 2002:a05:6a00:8019:b0:848:4a48:9f9f with SMTP id d2e1a72fcca58-84f4fee000fmr1925189b3a.34.1786023525452;
-        Thu, 06 Aug 2026 06:38:45 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f453b0cfbsm1463682b3a.19.2026.08.06.06.38.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 06:38:44 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Even Xu <even.xu@intel.com>,
-	Xinpeng Sun <xinpeng.sun@intel.com>
-Cc: Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>,
-	Sashiko AI <sashiko-bot@kernel.org>
-Subject: [PATCH] HID: intel-thc-hid: intel-quickspi: bound GET_REPORT response to the caller buffer
-Date: Thu,  6 Aug 2026 22:38:38 +0900
-Message-ID: <20260806133838.3378362-1-sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=a0rg.com header.i=icarus@a0rg.com header.b="J9Oy3mNV"
+ARC-Seal: i=1; a=rsa-sha256; t=1786023660; cv=none; 
+	d=zohomail.in; s=zohoarc; 
+	b=ANs6EIpMMwOUEWuhx1bhPh4ULB/hfcdnTftymzpw1TTiIy1iQ8SsLPd2N6QXhiAAfPjP0i8yElOIzXoIWgJBMLNdFfb4Qlbtp/kzZ62ucuEwa+76sqAg2jOhNsCG8EYhUFRnR3mmtrzQmE6ZsdzZ/DsYpIrXiy+BEKwfM1W6kaE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
+	t=1786023660; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=RNrf8XA0aLcTC5gGLRtcrxtQybjxP214KmJXq6p0+iw=; 
+	b=VdUBA8TT3EsJSJ7QPjpK8efINR2T4EhoJNtk6/ULt0Z4IX/quhCjEL655TkYRIJqvI7+zrv6QOOcLyTIhHsaZp3ZRWLCJZN6JG0yVqvdQ/DUPmznVqFn9KZ2Kn8cjjruOiF7UO6k86C407Q09sTGEEY0fjTO282TydgLqZi6OEc=
+ARC-Authentication-Results: i=1; mx.zohomail.in;
+	dkim=pass  header.i=a0rg.com;
+	spf=pass  smtp.mailfrom=icarus@a0rg.com;
+	dmarc=pass header.from=<icarus@a0rg.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786023660;
+	s=zmail; d=a0rg.com; i=icarus@a0rg.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=RNrf8XA0aLcTC5gGLRtcrxtQybjxP214KmJXq6p0+iw=;
+	b=J9Oy3mNVvB0LbaiG8jDymqMh0q6yMVUvTPopQOZW6uI9Jba889guX6ZS+RxHOUZA
+	/L/L+EZMQFITawRxDicsVFDLxiu5jA+5EBn/6wp0bL54yzFqw/x3kzGlHEu9L3b+uBE
+	mZkL9wQmBYU6ZXsYK1NwmyQUy10xXbG1AH5rwX2U=
+Received: from mail.zoho.in by mx.zoho.in
+	with SMTP id 1786023659188155.00129407899828; Thu, 6 Aug 2026 19:10:59 +0530 (IST)
+Date: Thu, 06 Aug 2026 19:10:59 +0530
+From: Anirudh Prasad <icarus@a0rg.com>
+To: "linux-acpi" <linux-acpi@vger.kernel.org>
+Cc: "rafaeljwysocki" <rafael.j.wysocki@intel.com>,
+	"linux-kernel" <linux-kernel@vger.kernel.org>,
+	"stable" <stable@vger.kernel.org>
+Message-ID: <19fd74e46a8.25f5bfd941182.5953196137231825269@a0rg.com>
+In-Reply-To: 
+Subject: [PATCH] ACPI: pfr_update: fix stack buffer overflow in
+ query_capability()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 
-quickspi_hid_raw_request() receives the caller's buffer length in len, but
-quickspi_get_report() never sees it and copies the whole device-supplied
-response into buf regardless:
+query_capability() copies four ACPI buffer objects returned by the
+firmware _DSM into fixed-size u8[16] fields in struct
+pfru_update_cap_info using memcpy with the firmware-supplied length:
 
-    memcpy(buf, qsdev->report_buf, qsdev->report_len);
+  memcpy(&cap_hdr->code_type,
+         elements[CAP_CODE_TYPE_IDX].buffer.pointer,
+         elements[CAP_CODE_TYPE_IDX].buffer.length);
 
-qsdev->report_len comes from the input report the touch controller returns,
-while buf is sized to whatever the caller asked hidraw for through
-HIDIOCGFEATURE or HIDIOCGINPUT.  A response larger than that overflows buf
-with device-controlled content.
+The same pattern repeats for drv_type, platform_id, and oem_id.
+If the firmware returns buffer.length > 16 for any of these fields,
+memcpy writes past the destination array.
 
-The intel-quicki2c sibling already passes the caller length down to
-quicki2c_get_report() and validates the response against it before the
-copy.  Do the same here.
+struct pfru_update_cap_info is stack-allocated in pfru_ioctl().
+Confirmed with KASAN on 7.2-rc6: three stack-out-of-bounds reports
+are generated when a DSM returns 64-byte buffers, with writes reaching
+44 bytes past the end of cap_hdr's [64, 156) frame window into
+adjacent stack redzones.
 
-Fixes: 4138f21115ae ("HID: intel-thc-hid: intel-quickspi: Complete THC QuickSPI driver")
-Suggested-by: Sashiko AI <sashiko-bot@kernel.org>
+Fix by clamping each memcpy length to the size of its destination
+field with min_t(u32, buffer.length, sizeof(cap_hdr->field)).
+
+Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update device driver")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Signed-off-by: Anirudh Prasad <icarus@a0rg.com>
 ---
- drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c  | 2 +-
- .../hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c | 9 ++++++++-
- .../hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h | 2 +-
- 3 files changed, 10 insertions(+), 3 deletions(-)
+ drivers/acpi/pfr_update.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
-index 91d5807b4a83..a60a0a7f16aa 100644
---- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
-+++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
-@@ -61,7 +61,7 @@ static int quickspi_hid_raw_request(struct hid_device *hid,
+diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
+index 6283105bb0e8..0219347cd78f 100644
+--- a/drivers/acpi/pfr_update.c
++++ b/drivers/acpi/pfr_update.c
+@@ -161,24 +161,28 @@ static int query_capability(struct pfru_update_cap_info *cap_hdr,
+ 	cap_hdr->update_cap = out_obj->package.elements[CAP_UPDATE_IDX].integer.value;
+ 	memcpy(&cap_hdr->code_type,
+ 	       out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.pointer,
+-	       out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length);
++	       min_t(u32, out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length,
++		     sizeof(cap_hdr->code_type)));
+ 	cap_hdr->fw_version =
+ 		out_obj->package.elements[CAP_FW_VER_IDX].integer.value;
+ 	cap_hdr->code_rt_version =
+ 		out_obj->package.elements[CAP_CODE_RT_VER_IDX].integer.value;
+ 	memcpy(&cap_hdr->drv_type,
+ 	       out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.pointer,
+-	       out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length);
++	       min_t(u32, out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length,
++		     sizeof(cap_hdr->drv_type)));
+ 	cap_hdr->drv_rt_version =
+ 		out_obj->package.elements[CAP_DRV_RT_VER_IDX].integer.value;
+ 	cap_hdr->drv_svn =
+ 		out_obj->package.elements[CAP_DRV_SVN_IDX].integer.value;
+ 	memcpy(&cap_hdr->platform_id,
+ 	       out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.pointer,
+-	       out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length);
++	       min_t(u32, out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length,
++		     sizeof(cap_hdr->platform_id)));
+ 	memcpy(&cap_hdr->oem_id,
+ 	       out_obj->package.elements[CAP_OEM_ID_IDX].buffer.pointer,
+-	       out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length);
++	       min_t(u32, out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length,
++		     sizeof(cap_hdr->oem_id)));
+ 	cap_hdr->oem_info_len =
+ 		out_obj->package.elements[CAP_OEM_INFO_IDX].buffer.length;
  
- 	switch (reqtype) {
- 	case HID_REQ_GET_REPORT:
--		ret = quickspi_get_report(qsdev, rtype, reportnum, buf);
-+		ret = quickspi_get_report(qsdev, rtype, reportnum, buf, len);
- 		break;
- 	case HID_REQ_SET_REPORT:
- 		ret = quickspi_set_report(qsdev, rtype, reportnum, buf, len);
-diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-index cb19057f1191..9c4fce09729d 100644
---- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-+++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-@@ -342,7 +342,8 @@ int reset_tic(struct quickspi_device *qsdev)
- }
- 
- int quickspi_get_report(struct quickspi_device *qsdev,
--			u8 report_type, unsigned int report_id, void *buf)
-+			u8 report_type, unsigned int report_id, void *buf,
-+			u32 buf_len)
- {
- 	int rep_type;
- 	int ret;
-@@ -372,6 +373,12 @@ int quickspi_get_report(struct quickspi_device *qsdev,
- 	}
- 	qsdev->get_report_cmpl = false;
- 
-+	if (qsdev->report_len > buf_len) {
-+		dev_err_once(qsdev->dev, "Get report response too big, %u vs %u\n",
-+			     qsdev->report_len, buf_len);
-+		return -EINVAL;
-+	}
-+
- 	memcpy(buf, qsdev->report_buf, qsdev->report_len);
- 
- 	return qsdev->report_len;
-diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h
-index 775e29c1ed13..8a2338bee808 100644
---- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h
-+++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h
-@@ -12,7 +12,7 @@ struct quickspi_device;
- 
- void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len);
- int quickspi_get_report(struct quickspi_device *qsdev, u8 report_type,
--			unsigned int report_id, void *buf);
-+			unsigned int report_id, void *buf, u32 buf_len);
- int quickspi_set_report(struct quickspi_device *qsdev, u8 report_type,
- 			unsigned int report_id, void *buf, u32 buf_len);
- int quickspi_get_report_descriptor(struct quickspi_device *qsdev);
 -- 
-2.43.0
-
+2.55.0
