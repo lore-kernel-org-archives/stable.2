@@ -1,232 +1,162 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BCF025B09D
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 02:21:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8906236F41C
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 02:26:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785982889; cv=none; b=ODtNfdxbdkQ6nyd8a83RZW8L1CDnf66iLzJgkZPaMbA/gknJbQiQbaRkJpUnTqzxW/Ws9Nrhbby4X3PBywcw6QtsFuFAjoruibig4JJ63S/QObKgP56aHgNHehnRJU1Xhr6i6YlTh3W20R4++CH5Hs1AW/+J4x5zzarjhEzZBgE=
+	t=1785983171; cv=none; b=l87yjTiYUjbYO3zq7Ou0IydKwxJN7rSVYW2CLqGav9zolYm3CZhAe2EnrJlKx4QcUa0DSmG6LCtdbT3kmwZkXp6q706P7wf7Z5V4ErEXp0innl5HcgF0phVo4k8ujw5l0xoD5FB3PiZpXhoICC6HZc6yWwof5YJtvrueMiB0Mk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785982889; c=relaxed/simple;
-	bh=y/+vnKDrXgFHJzhGoLbaQM23qYbXB8gD2q22EFCKllk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u7CNS+lPTAOuFZWvjKS49N12iLVycRGhu1IwM6+0baMofotdBjZPkN+KrRi83iEs9WHNEsWwQPifNEWgR4i7+8ChyeHe7ikb1Df0VoHzy2/WgMCRaRv/C0tSLM1FUZy08LuyvrLbd6ZscFvCANmP3X/Zh+9D8jOvxahJQg2xHxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Kz90dG4F; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1785983171; c=relaxed/simple;
+	bh=YzAh+YD6lKilHoBSKwXJcgZGR1dmvSIzVdLvGSf3MxA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DL14oIldAi1znDgC5Z3SxFO/66EXBLTZ/c4WKTSgUgyYQrHWZIfFZGpXwbkSRZx1OX/Y/Xe/eN0dWxZIh7iT5VdVpDVBG/8QtAO4Hzu/B39mNrS2ueY17JQE/MEf9suNWdTQh/EPKbAYI/EWMgnKZCG6BmopzSW3oxUXrg8amls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QqQbXZx1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Kz90dG4F"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785982888; x=1817518888;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=y/+vnKDrXgFHJzhGoLbaQM23qYbXB8gD2q22EFCKllk=;
-  b=Kz90dG4FoYhsOLDqkK35TEAdB8RTBxPZzt31oo3DwxYFKBwZJfqvLXMM
-   O3SQ9zFbGk3KmQJE8/V+xf5ExO2JD5Vgql5KgVvsS8tdcj95/+Yd6iVep
-   jmzaydfrpyPPHl2RVD6hT1KweACvfX/7dS8whrykAGj9ILk+vNoLFb+ye
-   xPAahpuEx2j8OxwRQL3sEUv8UeD6zfsf9XRnBMUZmcHxT4YvsQEZFEHgm
-   1yx7U+sxJvwCfkd5H6gG2W3NXi247oflKDgc7DtA12v79t1L2q+u6g9CJ
-   tJsYQJIonGULAIuQknxvREYEzEoiYJg21tBvEFDyvEljYohiZoNQNLWXh
-   g==;
-X-CSE-ConnectionGUID: eolTZDUrTZe6pcgEFeT6xQ==
-X-CSE-MsgGUID: X3LE9hsGQOiFXb3D5NJnhw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="112121619"
-X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; 
-   d="scan'208";a="112121619"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 19:21:27 -0700
-X-CSE-ConnectionGUID: Ld+bS1mPS1+kttn9C55Ggw==
-X-CSE-MsgGUID: KLfS0gCRT5mGyKpHv4xXTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; 
-   d="scan'208";a="255717678"
-Received: from junjie-desk-dev.bj.intel.com (HELO junjie-desk-dev.tail2c02c1.ts.net) ([10.238.152.71])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 19:21:26 -0700
-From: Junjie Cao <junjie.cao@intel.com>
-To: stable@vger.kernel.org
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH 6.12.y] gpio: pch: use raw_spinlock_t for the register lock
-Date: Thu,  6 Aug 2026 10:20:31 +0800
-Message-ID: <20260806022031.3226009-1-junjie.cao@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026080539-hurry-caption-f45e@gregkh>
-References: <2026080539-hurry-caption-f45e@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QqQbXZx1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BC841F00A3D
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 02:26:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785983170;
+	bh=pvK42fe7+pMj95jx5RODOjowEvyVswQOGNdHwCji0RA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=QqQbXZx16OGMtrBT7e2sUwtzjbkV/G4EL99dtIvRvSNiPI3mLTIr54AOZaaWZAN2N
+	 LKXDablw47up7glqU+yVp9RQkNgO1zolUKXLGyh8uFsMksvHbe2Kand9bV/aG58Gwk
+	 +w85BtPnPOSDGROeRsuXcdiirY2xDJb+2osgaEbMJyIbkkYCVaqjda7QxLMEdrj2q6
+	 caA4r0p/iwiTbTN77uDuuUamCQ+zhbYnfmx7XZ9HFhy6daQH6S65wYgxVhWEdlSshi
+	 HMkSSkC/eP/WFPS4Iq/uj1JwrDDcaoziLNx1XEuQujjmwGixxEpJ0dVcO2ySFvmYiP
+	 zKOWvbryYvXkw==
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c1c4db7ca93so215585466b.2
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 19:26:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqfdCTD/1oHnO8IK9OU8K9iG8l6+WYqa1AQ/9Px2kRWqSV3dha878Xj6cqPz3Yq9Qs+fR0I7OQ=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzTOMKA1tNmvPq/z55caQUgc66vLfdeYfltEiyuAafn0wCgVlwc
+	lehYeMLw7nywGFWps3tHh/H2xi1ekTkF2EfmbpFMyHHVIOXJIBIfLW5LYLL3AU/TApzGbTaySC3
+	taYUATs7vA556HuUCFEB8YNEgGi1FoWw=
+X-Received: by 2002:a17:907:ea8c:b0:c20:34dd:5ee3 with SMTP id
+ a640c23a62f3a-c2039cad20dmr605911766b.17.1785983168889; Wed, 05 Aug 2026
+ 19:26:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260805092908.77549-1-zenghongling@kylinos.cn>
+In-Reply-To: <20260805092908.77549-1-zenghongling@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 6 Aug 2026 11:25:55 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-sWh22TaDHJ-8cphDqC0rNY9=JoB4GioXT7CNGDcA2ZQ@mail.gmail.com>
+X-Gm-Features: AUfX_mw7n3-aeWtyWIKht-UXFcL5J-3pv0aWiQ6YOtB43ehFhItyetOFp4YM9gA
+Message-ID: <CAKYAXd-sWh22TaDHJ-8cphDqC0rNY9=JoB4GioXT7CNGDcA2ZQ@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: fix name offset validation in ntfs_non_resident_attr_value_is_valid
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: hyc.lee@gmail.com, alexandro.calo@nozominetworks.com, ntfs@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: multipart/mixed; boundary="0000000000005b82420658579c74"
 
-pch_irq_type() is registered as the irq_chip .irq_set_type callback and
-takes chip->spinlock with spin_lock_irqsave().  This callback is reached
-from __setup_irq() -> __irq_set_trigger() -> chip->irq_set_type() while
-the caller holds desc->lock, a raw_spinlock_t, with hardirqs disabled.
-That context is not sleepable, but on PREEMPT_RT a regular spinlock_t is
-an rtmutex-backed sleeping lock, so acquiring it there is invalid.
+--0000000000005b82420658579c74
+Content-Type: text/plain; charset="UTF-8"
 
-This was confirmed on a PREEMPT_RT kernel with lockdep
-(PROVE_RAW_LOCK_NESTING and DEBUG_ATOMIC_SLEEP).  A grounded PoC mirrored
-pch_irq_type()'s locking and drove it through the real genirq carrier
-irq_set_irq_type() -> __irq_set_trigger() -> chip->irq_set_type(), i.e.
-the same __irq_set_trigger() edge that __setup_irq() takes for a
-requested IRQ.  With the original spin_lock_irqsave() edge lockdep
-reported an invalid wait context, immediately followed by:
+> @@ -706,7 +709,35 @@ static bool ntfs_non_resident_attr_value_is_valid(const struct attr_record *a)
+>                 return false;
+>
+>         mp_offset = le16_to_cpu(a->data.non_resident.mapping_pairs_offset);
+> -       return mp_offset >= min_len && mp_offset <= attr_len;
+> +       if (mp_offset < min_len || mp_offset > attr_len)
+> +               return false;
+> +
+> +       /*
+> +        * Validate name_offset for named attributes.
+> +        * Unnamed attributes have name_length = 0 and name_offset may be 0.
+> +        */
+> +       name_len = le16_to_cpu(a->name_length);
+name_length is a u8, not a __le16 field, so it must not be passed to
+le16_to_cpu().
 
-  BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
-  in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 95, name: insmod
-  hardirqs last disabled at (3784): _raw_spin_lock_irqsave+0x4f/0x60
-   rt_spin_lock+0x3a/0x1c0
-   repro_irq_set_type+0x64/0xa0 [pch_repro]
-   __irq_set_trigger+0x69/0x140
-   irq_set_irq_type+0x78/0xd0
++               /*
++                * For non-sparse -> sparse conversion, name shifts forward
++                * by 8 bytes. Ensure there's room for the shift.
++                */
++               if (!(a->flags & ATTR_IS_SPARSE) &&
++                    name_end + 8 > attr_len)
++                       return false;
+This check should not depend on name_length. Unnamed attributes also
+need eight bytes of room when converting from non-sparse to sparse,
+because compressed_size is added and mapping_pairs_offset is advanced
+by eight bytes. Also, compressed attributes do not go through this
+conversion, so the condition should exclude both sparse and compressed
+attributes. how about adding the following check outside the if
+(a->name_length) block?
 
-Switching the mirrored lock to raw_spinlock_t made both splats go away.
+                   if (!(a->flags & (ATTR_IS_SPARSE | ATTR_COMPRESSION_MASK)) &&
+                          attr_len - mp_offset <
+                                 sizeof(a->data.non_resident.compressed_size))
+                          return false;
+Please check the attached patch.
+Thanks.
 
-Convert the register lock to raw_spinlock_t.  The same lock also
-serializes the GPIO direction/value callbacks and the suspend/resume
-register save/restore, but all of those critical sections only perform
-MMIO register accesses (ioread32()/iowrite32()) and
-irq_set_handler_locked(); none of them contain sleepable operations.
-Keeping this register lock non-sleeping is therefore appropriate for the
-irqchip callbacks and does not change the GPIO-side locking contract.
+--0000000000005b82420658579c74
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-ntfs-validate-non-resident-attribute-offsets.patch"
+Content-Disposition: attachment; 
+	filename="0001-ntfs-validate-non-resident-attribute-offsets.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_msgvmnpt0>
+X-Attachment-Id: f_msgvmnpt0
 
-This is the same class of issue and fix as recently addressed for other
-GPIO controllers, e.g. commit 286533cb14a3 ("gpio: sch: use raw_spinlock_t
-in the irq startup path") and commit 90f0109019e6 ("gpio: eic-sprd: use
-raw_spinlock_t in the irq startup path").
-
-Fixes: 38eb18a6f92d ("gpio-pch: Support interrupt function")
-Cc: stable@vger.kernel.org
-Signed-off-by: Junjie Cao <junjie.cao@intel.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Link: https://patch.msgid.link/20260723014129.1129730-1-junjie.cao@intel.com
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-(cherry picked from commit a02b8950d619123da64f69b70fe1dadef217dfe4)
----
- drivers/gpio/gpio-pch.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/gpio/gpio-pch.c b/drivers/gpio/gpio-pch.c
-index 63f25c72eac2..75dd65957e4a 100644
---- a/drivers/gpio/gpio-pch.c
-+++ b/drivers/gpio/gpio-pch.c
-@@ -96,7 +96,7 @@ struct pch_gpio {
- 	struct pch_gpio_reg_data pch_gpio_reg;
- 	int irq_base;
- 	enum pch_type_t ioh;
--	spinlock_t spinlock;
-+	raw_spinlock_t spinlock;
- };
- 
- static void pch_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
-@@ -105,7 +105,7 @@ static void pch_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
- 	struct pch_gpio *chip =	gpiochip_get_data(gpio);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	reg_val = ioread32(&chip->reg->po);
- 	if (val)
- 		reg_val |= BIT(nr);
-@@ -113,7 +113,7 @@ static void pch_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
- 		reg_val &= ~BIT(nr);
- 
- 	iowrite32(reg_val, &chip->reg->po);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- }
- 
- static int pch_gpio_get(struct gpio_chip *gpio, unsigned int nr)
-@@ -131,7 +131,7 @@ static int pch_gpio_direction_output(struct gpio_chip *gpio, unsigned int nr,
- 	u32 reg_val;
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 
- 	reg_val = ioread32(&chip->reg->po);
- 	if (val)
-@@ -145,7 +145,7 @@ static int pch_gpio_direction_output(struct gpio_chip *gpio, unsigned int nr,
- 	pm |= BIT(nr);
- 	iowrite32(pm, &chip->reg->pm);
- 
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -156,12 +156,12 @@ static int pch_gpio_direction_input(struct gpio_chip *gpio, unsigned int nr)
- 	u32 pm;
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	pm = ioread32(&chip->reg->pm);
- 	pm &= BIT(gpio_pins[chip->ioh]) - 1;
- 	pm &= ~BIT(nr);
- 	iowrite32(pm, &chip->reg->pm);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -263,7 +263,7 @@ static int pch_irq_type(struct irq_data *d, unsigned int type)
- 		return 0;
- 	}
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 
- 	/* Set interrupt mode */
- 	im = ioread32(im_reg) & ~(PCH_IM_MASK << (im_pos * 4));
-@@ -275,7 +275,7 @@ static int pch_irq_type(struct irq_data *d, unsigned int type)
- 	else if (type & IRQ_TYPE_EDGE_BOTH)
- 		irq_set_handler_locked(d, handle_edge_irq);
- 
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 	return 0;
- }
- 
-@@ -372,7 +372,7 @@ static int pch_gpio_probe(struct pci_dev *pdev,
- 	chip->ioh = id->driver_data;
- 	chip->reg = chip->base;
- 	pci_set_drvdata(pdev, chip);
--	spin_lock_init(&chip->spinlock);
-+	raw_spin_lock_init(&chip->spinlock);
- 	pch_gpio_setup(chip);
- 
- 	ret = devm_gpiochip_add_data(dev, &chip->gpio, chip);
-@@ -405,9 +405,9 @@ static int __maybe_unused pch_gpio_suspend(struct device *dev)
- 	struct pch_gpio *chip = dev_get_drvdata(dev);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	pch_gpio_save_reg_conf(chip);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -417,11 +417,11 @@ static int __maybe_unused pch_gpio_resume(struct device *dev)
- 	struct pch_gpio *chip = dev_get_drvdata(dev);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	iowrite32(0x01, &chip->reg->reset);
- 	iowrite32(0x00, &chip->reg->reset);
- 	pch_gpio_restore_reg_conf(chip);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
--- 
-2.43.0
-
+RnJvbSA0MTgyZTExMmE3MzMyNjllZDIwOTE0ZDVjNDI2Y2FjMWMwZTIwMmVhIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBIb25nbGluZyBaZW5nIDx6ZW5naG9uZ2xpbmdAa3lsaW5vcy5j
+bj4KRGF0ZTogVGh1LCA2IEF1ZyAyMDI2IDEwOjU4OjMwICswOTAwClN1YmplY3Q6IFtQQVRDSF0g
+bnRmczogdmFsaWRhdGUgbm9uLXJlc2lkZW50IGF0dHJpYnV0ZSBvZmZzZXRzCgpudGZzX2F0dHJf
+dXBkYXRlX21ldGEoKSBzaGlmdHMgdGhlIGF0dHJpYnV0ZSBuYW1lIHdoZW4gY29udmVydGluZyBi
+ZXR3ZWVuCm5vbi1zcGFyc2UgYW5kIHNwYXJzZSBhdHRyaWJ1dGVzLiBDb252ZXJ0aW5nIHRvIHNw
+YXJzZSBhbHNvIGFkZHMgdGhlCmNvbXByZXNzZWRfc2l6ZSBmaWVsZCBiZWZvcmUgdGhlIG5hbWUg
+YW5kIG1hcHBpbmcgcGFpcnMsIHJlcXVpcmluZyBlaWdodAphZGRpdGlvbmFsIGJ5dGVzIGluIHRo
+ZSBhdHRyaWJ1dGUgcmVjb3JkLgoKSG93ZXZlciwgdGhlIHZhbGlkYXRvciBkb2VzIG5vdCBjaGVj
+ayB0aGF0IG5hbWVfb2Zmc2V0IGlzIHdpdGhpbiBzYWZlCmJvdW5kYXJpZXMgZm9yIHRoZXNlIG9w
+ZXJhdGlvbnMgb3IgdGhhdCB0aGUgYWRkaXRpb25hbCBzcGFjZSBpcyBhdmFpbGFibGUuCkEgbWFs
+aWNpb3VzIE1GVCByZWNvcmQgY291bGQgc2V0IG5hbWVfb2Zmc2V0IHN1Y2ggdGhhdDoKCjEuIFRo
+ZSBuYW1lIGlzIHBvc2l0aW9uZWQgYXQgdGhlIHZlcnkgZW5kIG9mIGEgbm9uLXNwYXJzZSBhdHRy
+aWJ1dGUuCiAgIENvbnZlcnRpbmcgdG8gc3BhcnNlIHdvdWxkIHNoaWZ0IHRoZSBuYW1lIGZvcndh
+cmQgYnkgOCBieXRlcywKICAgd3JpdGluZyBiZXlvbmQgdGhlIGF0dHJpYnV0ZSBib3VuZGFyeS4K
+CjIuIFRoZSBuYW1lIG92ZXJsYXBzIHdpdGggdGhlIG1hcHBpbmcgcGFpcnMsIGNhdXNpbmcgY29y
+cnVwdGlvbiBkdXJpbmcKICAgY29udmVyc2lvbi4KCkFkZCB2YWxpZGF0aW9uIHRvIGVuc3VyZToK
+LSBGb3IgbmFtZWQgYXR0cmlidXRlcywgbmFtZV9vZmZzZXQgaXMgd2l0aGluIHZhbGlkIGJvdW5k
+cwotIE5hbWUgZG9lcyBub3QgZXh0ZW5kIGJleW9uZCB0aGUgYXR0cmlidXRlIG9yIG92ZXJsYXAg
+d2l0aCBtYXBwaW5nIHBhaXJzCi0gRm9yIG5vbi1zcGFyc2UsIG5vbi1jb21wcmVzc2VkIGF0dHJp
+YnV0ZXMsIGVpZ2h0IGJ5dGVzIGFyZSBhdmFpbGFibGUKICBhZnRlciBtYXBwaW5nX3BhaXJzX29m
+ZnNldCBmb3IgdGhlIGNvbXByZXNzZWRfc2l6ZSBmaWVsZAoKVGhlIHNwYWNlIGNoZWNrIGFsc28g
+Y292ZXJzIHVubmFtZWQgYXR0cmlidXRlcywgZm9yIHdoaWNoIG5hbWVfb2Zmc2V0ID0gMAppcyB2
+YWxpZCBhbmQgbm8gbmFtZSByYW5nZSBuZWVkcyB0byBiZSBjaGVja2VkLgoKRml4ZXM6IDdlMmEx
+YzU1NGJjNCAoIm50ZnM6IEZpeCBtaW5fbGVuIGZvciBjb21wcmVzc2VkL3NwYXJzZSBhdHRyaWJ1
+dGVzIGluIG50ZnNfbm9uX3Jlc2lkZW50X2F0dHJfdmFsdWVfaXNfdmFsaWQoKSIpCkNjOiBzdGFi
+bGVAdmdlci5rZXJuZWwub3JnClNpZ25lZC1vZmYtYnk6IEhvbmdsaW5nIFplbmcgPHplbmdob25n
+bGluZ0BreWxpbm9zLmNuPgpDby1kZXZlbG9wZWQtYnk6IE5hbWphZSBKZW9uIDxsaW5raW5qZW9u
+QGtlcm5lbC5vcmc+ClNpZ25lZC1vZmYtYnk6IE5hbWphZSBKZW9uIDxsaW5raW5qZW9uQGtlcm5l
+bC5vcmc+Ci0tLQogZnMvbnRmcy9hdHRyaWIuYyB8IDI0ICsrKysrKysrKysrKysrKysrKysrKysr
+LQogMSBmaWxlIGNoYW5nZWQsIDIzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYg
+LS1naXQgYS9mcy9udGZzL2F0dHJpYi5jIGIvZnMvbnRmcy9hdHRyaWIuYwppbmRleCBkZDZhZGUy
+OTc5ODguLjkwYzNmNjg4NjZlZiAxMDA2NDQKLS0tIGEvZnMvbnRmcy9hdHRyaWIuYworKysgYi9m
+cy9udGZzL2F0dHJpYi5jCkBAIC02OTMsNiArNjkzLDggQEAgc3RhdGljIGJvb2wgbnRmc19ub25f
+cmVzaWRlbnRfYXR0cl92YWx1ZV9pc192YWxpZChjb25zdCBzdHJ1Y3QgYXR0cl9yZWNvcmQgKmEp
+CiAJdTMyIGF0dHJfbGVuOwogCXUzMiBtaW5fbGVuOwogCXUxNiBtcF9vZmZzZXQ7CisJdTE2IG5h
+bWVfb2Zmc2V0OworCXUzMiBuYW1lX2VuZDsKIAogCWF0dHJfbGVuID0gbGUzMl90b19jcHUoYS0+
+bGVuZ3RoKTsKIAltaW5fbGVuID0gb2Zmc2V0b2Yoc3RydWN0IGF0dHJfcmVjb3JkLCBkYXRhLm5v
+bl9yZXNpZGVudC5pbml0aWFsaXplZF9zaXplKSArCkBAIC03MDYsNyArNzA4LDI3IEBAIHN0YXRp
+YyBib29sIG50ZnNfbm9uX3Jlc2lkZW50X2F0dHJfdmFsdWVfaXNfdmFsaWQoY29uc3Qgc3RydWN0
+IGF0dHJfcmVjb3JkICphKQogCQlyZXR1cm4gZmFsc2U7CiAKIAltcF9vZmZzZXQgPSBsZTE2X3Rv
+X2NwdShhLT5kYXRhLm5vbl9yZXNpZGVudC5tYXBwaW5nX3BhaXJzX29mZnNldCk7Ci0JcmV0dXJu
+IG1wX29mZnNldCA+PSBtaW5fbGVuICYmIG1wX29mZnNldCA8PSBhdHRyX2xlbjsKKwlpZiAobXBf
+b2Zmc2V0IDwgbWluX2xlbiB8fCBtcF9vZmZzZXQgPiBhdHRyX2xlbikKKwkJcmV0dXJuIGZhbHNl
+OworCisJaWYgKGEtPm5hbWVfbGVuZ3RoKSB7CisJCW5hbWVfb2Zmc2V0ID0gbGUxNl90b19jcHUo
+YS0+bmFtZV9vZmZzZXQpOworCisJCWlmIChuYW1lX29mZnNldCA8IG1pbl9sZW4gfHwgbmFtZV9v
+ZmZzZXQgPj0gYXR0cl9sZW4pCisJCQlyZXR1cm4gZmFsc2U7CisKKwkJbmFtZV9lbmQgPSBuYW1l
+X29mZnNldCArIGEtPm5hbWVfbGVuZ3RoICogc2l6ZW9mKF9fbGUxNik7CisJCWlmIChuYW1lX2Vu
+ZCA+IGF0dHJfbGVuIHx8IG5hbWVfZW5kID4gbXBfb2Zmc2V0KQorCQkJcmV0dXJuIGZhbHNlOwor
+CX0KKworCS8qIEVuc3VyZSB0aGVyZSdzIHJvb20gZm9yIHRoZSBjb21wcmVzc2VkX3NpemUgZmll
+bGQgaWYgbmVlZGVkLiAqLworCWlmICghKGEtPmZsYWdzICYgKEFUVFJfSVNfU1BBUlNFIHwgQVRU
+Ul9DT01QUkVTU0lPTl9NQVNLKSkgJiYKKwkgICAgYXR0cl9sZW4gLSBtcF9vZmZzZXQgPAorCQkJ
+c2l6ZW9mKGEtPmRhdGEubm9uX3Jlc2lkZW50LmNvbXByZXNzZWRfc2l6ZSkpCisJCXJldHVybiBm
+YWxzZTsKKworCXJldHVybiB0cnVlOwogfQogCiBzdGF0aWMgYm9vbCBudGZzX2F0dHJfdmFsdWVf
+aXNfdmFsaWQoc3RydWN0IG50ZnNfdm9sdW1lICp2b2wsCi0tIAoyLjM0LjEKCg==
+--0000000000005b82420658579c74--
