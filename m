@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68280480975;
-	Thu,  6 Aug 2026 17:20:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3227485CEF;
+	Thu,  6 Aug 2026 17:20:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786036852; cv=none; b=dsvnOfQOE+EWsjRM83zuXYGKTFaWMWbr7qARg/BPV+M+92EPsq8qcchzuj9mBq3P92hu0I0eWmXxFvDeYywciNZTpkm+iSdmJfasCHCvl34coas5KVNudC+LMkD14Jr6b/a1CNJB9awzbBBpCkZcYNC6XHhg/h4CM94aDm5q8iw=
+	t=1786036854; cv=none; b=ptpFoARPQDYAQvkfmfyIHlvHIFE9E0Pwm9NIW697cSwErUkd78+Gth8nTlBj3CxXyXdowvt/li5y1iavs5ZZSWVZ+mzQxIc+ILEHdsUG8kOlTl5t8H42WepycQMreAvQipM3xACuygphW2qgwXLp4uOEH3KGW+zadjGfRg6BF1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786036852; c=relaxed/simple;
-	bh=7StifURND+oD07WD3k/Qx/nNZEDqvgwKvWYyp6JhpVM=;
+	s=arc-20240116; t=1786036854; c=relaxed/simple;
+	bh=9Dc9mzcppt92C/0mZ2usn7BBlMmhyEf9LSfHIniwo2k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r1SsW3fH8xfELBa1Jigpy6IpZzD9BIck6l0GH4DpBDj2qSDEYNo6/0y9kx4jhbqzHBr6FVWav1oLxP8ZavrT+lRaKo2a8+O2Fi+8fjuxLvB96/Qkf7DIRnHiNoz06SlQ8acbnHL8k76AVoEM1Fnzh+z93orO5YvCCt1EcZB1a3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZZWzEFh9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TPdd587xJ1s8vhlrMOOR42+Kn4A+YoydpO1MM50klqRZbws+WC1DIMbjJAp9xFaFi0r/lrGursOOIz4//pPaUh5ia0NhnYDZdb9CEBofjeqZZStPYrBBtB8TELV7jS/G9balxx3G6JE0jObfKvsjZ5H2zS9zG2i72tdu7vVjYiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WOXTYYnI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZZWzEFh9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4231F000E9;
-	Thu,  6 Aug 2026 17:20:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WOXTYYnI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07B5A1F00A3A;
+	Thu,  6 Aug 2026 17:20:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786036851;
-	bh=t/PTNCWC/5CSohY8+HOUvOf+ql5Jy3uxtVrk/EDTTaA=;
+	s=k20260515; t=1786036852;
+	bh=LkwrYsJ8pCJmIXlHV+xEoHUyE6w2MTLsuuD6Xk1D0Uo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZZWzEFh9dCju8FiSU6+rAIiQ1ipzyOryN/88AIfmWAlQ2AkPMyh5AF7IP42i0K1Qa
-	 KA5hNS6p+bWOUbdDuAoKrv/QR95vcFYvrH4BrdRy2ZZxzZ0a+8GuC6vU8dVIRm9lkO
-	 JUVp5M3C7Z0MIV2Iiubn3+RRX0zYYMjosw/0HSfOsn+MFPODUFYw7Q8Is54FMFAqsL
-	 7o8iIpv4R9qOgiwU9iV/b6tkIse4xdi3vEWr0tpsGOakc6xm/4IMsNfXIixspCVkZO
-	 tRbCYPTjJ9E9/Q9mg0MkpDs/eZCqssF0ro0n/02e7oZ/5h0iZHJTu1bHD0HZbwrmhA
-	 Osv6xZHbB+hdw==
+	b=WOXTYYnIgSrKudHAI85OzgjS08eDaQVbQ4464+/1ZcfULOAMX4gBrnhGf4b3Gws+2
+	 5tu0ww1k40LAjZ91zxpzMjW0122v41I/E6sw2Oey+2CMfFmXMZhs9X0zRKffTTqnDB
+	 zK8ix5U/5yyzyjS96bH5F1KGZMZ1D879Gac78hqv7AX9Oce9iS9ZHyaSMChKMU/Mmw
+	 NWbgznbAfStPRZhB6GV/eCdmKXdQAcXntBoYsuzEB8xqhYzkwXoOdkvtflZWKO97U6
+	 VX5pRYp5yvwWc6YMVHn527FsyA3ZjGv+IanFdyhV9EvbOr2OlINzZQ2pQxM0jKvBH2
+	 ZXh2MVHVOol5Q==
 From: Jakub Kicinski <kuba@kernel.org>
 To: anthony.l.nguyen@intel.com
 Cc: Jakub Kicinski <kuba@kernel.org>,
@@ -42,12 +42,12 @@ Cc: Jakub Kicinski <kuba@kernel.org>,
 	stable@vger.kernel.org,
 	aleksandr.loktionov@intel.com,
 	marcin.szycik@linux.intel.com
-Subject: Re: [PATCH net 08/10] i40e: fix memcmp of pointer in i40e_hw_set_dcb_config()
-Date: Thu,  6 Aug 2026 10:20:41 -0700
-Message-ID: <20260806172041.2935963-1-kuba@kernel.org>
+Subject: Re: [PATCH net 09/10] i40e: fix netdev leak in i40e_vsi_setup() error paths
+Date: Thu,  6 Aug 2026 10:20:51 -0700
+Message-ID: <20260806172051.2936459-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260804222205.1580328-9-anthony.l.nguyen@intel.com>
-References: <20260804222205.1580328-9-anthony.l.nguyen@intel.com>
+In-Reply-To: <20260804222205.1580328-10-anthony.l.nguyen@intel.com>
+References: <20260804222205.1580328-10-anthony.l.nguyen@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,107 +59,131 @@ Content-Transfer-Encoding: 8bit
 This is an AI-generated review of your patch. The human sending this
 email has considered the AI review valid, or at least plausible.
 ---
-i40e: fix memcmp of pointer in i40e_hw_set_dcb_config()
+i40e: fix netdev leak in i40e_vsi_setup() error paths
 
-The patch changes the "need reconfiguration" check in
-i40e_hw_set_dcb_config() so that memcmp() compares the two
-struct i40e_dcbx_config objects instead of the two pointer variables on
-the stack. With the old code the compare could never succeed, so the
-early return was never taken.
+This moves the free_netdev() call out of the netdev_registered block at
+err_msix and into a new unconditional block at err_netdev, so that the
+netdev allocated by i40e_config_netdev() is released when
+i40e_netif_set_realnum_tx_rx_queues(), i40e_devlink_create_port() or
+register_netdev() fail.
 
 > diff --git a/drivers/net/ethernet/intel/i40e/i40e_main.c b/drivers/net/ethernet/intel/i40e/i40e_main.c
-> index a04683004a567..0ac1be6289f6b 100644
+> index 0ac1be6289f6b..4f0f7626605ba 100644
 > --- a/drivers/net/ethernet/intel/i40e/i40e_main.c
 > +++ b/drivers/net/ethernet/intel/i40e/i40e_main.c
-> @@ -6907,7 +6907,7 @@ static int i40e_hw_set_dcb_config(struct i40e_pf *pf,
->  	int ret;
->  
->  	/* Check if need reconfiguration */
-> -	if (!memcmp(&new_cfg, &old_cfg, sizeof(new_cfg))) {
-> +	if (!memcmp(new_cfg, old_cfg, sizeof(*new_cfg))) {
->  		dev_dbg(&pf->pdev->dev, "No Change in DCB Config required.\n");
->  		return 0;
+> @@ -14494,13 +14494,15 @@ struct i40e_vsi *i40e_vsi_setup(struct i40e_pf *pf, u8 type,
+>  	if (vsi->netdev_registered) {
+>  		vsi->netdev_registered = false;
+>  		unregister_netdev(vsi->netdev);
+> -		free_netdev(vsi->netdev);
+> -		vsi->netdev = NULL;
 >  	}
+>  err_dl_port:
+>  	if (vsi->type == I40E_VSI_MAIN)
+>  		i40e_devlink_destroy_port(pf);
+>  err_netdev:
+> +	if (vsi->netdev) {
+> +		free_netdev(vsi->netdev);
+> +		vsi->netdev = NULL;
+> +	}
 
-[Severity: High]
-Does this compare now always report "no change" when the function is
-reached from the tail of i40e_hw_dcb_config()?
+[Severity: Medium]
+On the newly covered paths the netdev was never registered, but the VSI
+is already published in pf->vsi[vsi->idx] by i40e_vsi_mem_alloc(), and
+i40e_config_netdev() has already run i40e_add_mac_filter() for the
+unicast and broadcast addresses, which does:
 
-i40e_hw_set_dcb_config() takes its old side straight from the PF:
-
-	struct i40e_dcbx_config *old_cfg = &pf->hw.local_dcbx_config;
-
-but i40e_hw_dcb_config() has already published the new configuration into
-that same object before making the call:
-
-i40e_main.c:i40e_hw_dcb_config() {
+drivers/net/ethernet/intel/i40e/i40e_main.c:i40e_add_filter() {
 	...
-	old_cfg = &hw->local_dcbx_config;
+	vsi->flags |= I40E_VSI_FLAG_FILTER_CHANGED;
+	set_bit(__I40E_MACVLAN_SYNC_PENDING, vsi->back->state);
 	...
-	/* Update the port DCBx configuration */
-	*old_cfg = *new_cfg;
-
-	/* Changes in configuration update VEB/VSI */
-	i40e_dcb_reconfigure(pf);
-out:
-	...
-		/* registers are set, lets apply */
-		if (test_bit(I40E_HW_CAP_USE_SET_LLDP_MIB, pf->hw.caps))
-			ret = i40e_hw_set_dcb_config(pf, new_cfg);
 }
 
-So new_cfg and pf->hw.local_dcbx_config are byte-identical at that point,
-memcmp() returns 0, and the callee logs "No Change in DCB Config required."
-and returns 0.
+The service work item then walks pf->vsi[] with no lock:
 
-Does that make the "registers are set, lets apply" step dead code for this
-caller? Everything after the early return is skipped, including the etsrec
-normalization and the only code that pushes the configuration to firmware:
+i40e_sync_filters_subtask() {
+	i40e_pf_for_each_vsi(pf, v, vsi) {
+		if ((vsi->flags & I40E_VSI_FLAG_FILTER_CHANGED) &&
+		    !test_bit(__I40E_VSI_RELEASING, vsi->state)) {
+			int ret = i40e_sync_vsi_filters(vsi);
+	...
+}
 
-	*old_cfg = *new_cfg;
-	old_cfg->etsrec = old_cfg->etscfg;
-	ret = i40e_set_dcb_config(&pf->hw);
+and i40e_sync_vsi_filters() dereferences the netdev:
 
-i40e_dcb.c:i40e_set_dcb_config() is the sole path that builds an LLDPDU via
-i40e_dcb_config_to_lldp() from hw->local_dcbx_config and issues
-i40e_aq_set_lldp_mib() for the local MIB. With the early return taken, the
-DCB registers, packet buffer and PFC state plus the cached
-local_dcbx_config carry the new values while the firmware's local DCBX MIB
-still holds the previous one.
+i40e_sync_vsi_filters() {
+	...
+	if (vsi->netdev) {
+		changed_flags = vsi->current_netdev_flags ^ vsi->netdev->flags;
+		vsi->current_netdev_flags = vsi->netdev->flags;
+	}
+	...
+}
 
-Which callers does this affect? The DCBNL entry points in i40e_dcb_nl.c
-(i40e_dcbnl_ieee_setets(), i40e_dcbnl_ieee_setpfc(), i40e_dcbnl_ieee_setapp(),
-i40e_dcbnl_ieee_delapp() and the CEE i40e_dcbnl_cee_set_all()) all copy
-*old_cfg into pf->tmp_cfg and then call i40e_hw_dcb_config(pf, &pf->tmp_cfg),
-so on parts with I40E_HW_CAP_USE_SET_LLDP_MIB the AQC is no longer sent for
-those changes.
+Can the service task load vsi->netdev, pass the NULL test, and then
+dereference it after this free_netdev()?  The error path does not set
+__I40E_VSI_RELEASING first, which is the ordering i40e_vsi_release()
+uses before its own free_netdev(), and the vsi->netdev = NULL store
+carries no lock or barrier.
 
-Is the resulting behaviour also inverted? On the error paths of
-i40e_hw_dcb_config() (the goto out after i40e_aq_config_switch_comp_ets() or
-i40e_aq_dcb_updated() fails) the "*old_cfg = *new_cfg" assignment is skipped,
-the two structs still differ, and the full quiesce / Set LLDP MIB /
-reconfigure sequence does run. That would mean the AQC is now issued only
-when the earlier register programming failed.
+This is reachable at runtime for I40E_VSI_VMDQ2 VSIs created from
+debugfs, where i40e_dbg_command_write() calls
+i40e_vsi_setup(pf, I40E_VSI_VMDQ2, vsi_seid, 0) while the service work
+item is live.  Would setting __I40E_VSI_RELEASING (or clearing
+I40E_VSI_FLAG_FILTER_CHANGED / unpublishing pf->vsi[idx] under
+pf->switch_mutex) before dropping the netdev close this window, mirroring
+i40e_vsi_release()?
 
-The i40e_dcb_sw_default_config() call site looks unaffected, since its
-freshly memset pf->tmp_cfg differs from a previously cached
-local_dcbx_config (etsrec in particular), so the compare still fails there.
+The exposure window is short, since the following i40e_vsi_clear() also
+kfree()s the still-published struct i40e_vsi on these same paths, which
+is a pre-existing unsynchronised teardown.
 
-Would moving the comparison ahead of the caller's "*old_cfg = *new_cfg", or
-not pre-publishing the config in the caller, be a safer shape for a fix that
-is tagged for stable?
+[Severity: High]
+This isn't a bug introduced by this patch, but the other in-tree caller of
+i40e_config_netdev() does not follow the ownership rule this hunk
+codifies.  In i40e_init_recovery_mode() the netdev is never released:
 
-The commit message says:
+	err = i40e_config_netdev(vsi);
+	if (err)
+		goto err_switch_setup;
+	err = register_netdev(vsi->netdev);
+	if (err)
+		goto err_switch_setup;
+	vsi->netdev_registered = true;
+	i40e_dbg_pf_init(pf);
 
-    As a result, the memcmp never compares the actual configuration data,
-    meaning the "no change needed" early return never fires. Every call to
-    this function performs a full DCB reconfiguration (quiescing all VSIs,
-    reprogramming via "Set LLDP MIB" AQC, and reconfiguring VEB/VSIs) even
-    when the configuration has not changed.
+	err = i40e_setup_misc_vector_for_recovery_mode(pf);
+	if (err)
+		goto err_switch_setup;
 
-Given the i40e_hw_dcb_config() call site above, is it accurate to describe
-the only effect as a redundant reconfiguration? For that caller the old
-comparison was load-bearing: comparing &pf->tmp_cfg against
-&pf->hw.local_dcbx_config could never match, which is what kept the
-Set Local LLDP MIB programming running. Could the changelog cover what
-happens at that call site after the fix?
+If register_netdev() fails, is the net_device allocated by
+alloc_etherdev_mq() inside i40e_config_netdev() leaked?  i40e_probe()
+does "return i40e_init_recovery_mode(pf, hw);", so i40e_remove() never
+runs for the failed probe and nothing later frees it.
+
+The case where register_netdev() succeeded and
+i40e_setup_misc_vector_for_recovery_mode() then fails looks worse, since
+err_switch_setup never calls unregister_netdev():
+
+err_switch_setup:
+	i40e_reset_interrupt_capability(pf);
+	timer_shutdown_sync(&pf->service_timer);
+	i40e_shutdown_adminq(hw);
+	iounmap(hw->hw_addr);
+	pci_release_mem_regions(pf->pdev);
+	pci_disable_device(pf->pdev);
+	i40e_free_pf(pf);
+
+	return err;
+
+i40e_free_pf() is devlink_free() on the devlink whose priv is the struct
+i40e_pf, so the netdev stays registered in the netns while its
+netdev_priv()->vsi->back has been freed and hw->hw_addr has been
+iounmapped.  Can a later "ip link set <dev> up" on the leftover interface
+reach i40e_open() and touch the freed pf and the unmapped register
+window?  The debugfs directory created by i40e_dbg_pf_init(pf) is left in
+place pointing at the freed pf as well.
+
+Would it make sense to fix that call site in the same series, so both
+users of i40e_config_netdev() release the netdev consistently?
