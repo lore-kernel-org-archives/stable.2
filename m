@@ -1,36 +1,36 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6A33FE644;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5963DB630;
 	Thu,  6 Aug 2026 09:10:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786007437; cv=none; b=W9P7Mriyh85p8TqG9eJHahKJFFX8FomKEgcDFa66SYEQFF+4TH7KWZNHPMo/eQwjZSr9E2+92A5DNFqXWLVUpdRElZxXwaR9yTasdIF1FtPgBCCto/VhC9EwMsjZvS+WR1PZkgrk5grJwUVgpYr1cb6GeFUx/GNu5pOZvFYdXZA=
+	t=1786007437; cv=none; b=T39W05oSeNASD/7ETlCRL0+5RpZ8wWONpwqQujUxYiecFrp+9M1m1fyBzhKx+5CrFE7ROEK1IS6AuynJFRIUuhbel18Mqf2hflS/kiiHugBZAz/wgAuYGGS8mSQWhpHUwSpfa6kRM497fLHWSf1zUGl0nKkM5qEtYPL11nbn3Qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786007437; c=relaxed/simple;
-	bh=pVvzqVxyTZtg42Lo7Cz9FmGfS6UPpR4HRakIkXk2sYc=;
+	bh=LeCHOn/2Zp6cXW6Gp1GeENW3Pk3Qm/nrH3BtXvUM1nM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mccEHs1ILUfkmiVMElcytXrgeAwjr6pTSUzaiMCekHmTG0sO5q2Q652COsMU6ZAHd4nJegLRl2ISW2/RpMz4CyVYJSd7ZNYJGGtgrbMWSuubCrA/eFlrJvSK94+0Of7fEnYTTbpWt1rhGRTFlPukDYlMd5AO4gmt4uks6JOj8F4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NfUy+FU2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=YmIAoOPpxHQ2mbKf8cfFt+BH+py92VhORf8176CN6lJoSDcueBgmoymlL2RCszul7r2BzfdTN9qyCxlNNsTk94VCk4eh57Og+F+9tUhV1cdt723rm9z2oXtJ0dwn1G0xGtm4G8YW4MnQcRvnXLXOK7ZiHkWJQrsA/3cuzKwM+3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KFC7fD/Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NfUy+FU2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F07481F00ADB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KFC7fD/Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9C1D1F00A3F;
 	Thu,  6 Aug 2026 09:10:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786007435;
-	bh=PYmsZN1mEJc1s26rxNv68w2Qd9AxfNAhcy0pmx5D2is=;
+	s=k20260515; t=1786007434;
+	bh=ysq1Of4ffXNIE2ctqACKSbrDmA9C1+pcfxCS9T6+5iY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NfUy+FU2vQ7K6s1Gyd2T5GiI2aNzBxCE4jOM7S23hI5jNNT16tcfskxVcKT4o8/0a
-	 1Te+kyidaebRTW5nkulPP7tSFIY9UalPympE0VSGcbIn147fpYwIDhxhJJ8FiIUbRo
-	 D4Gs0SdosJMm6bJcR2juo7HPNa6qH8WBO9oiXNOhW7FOexh+zEhB+06GzSQ5pNW3fC
-	 4oKQsd0JWv9dXYtSVR8N55AdooNnQCZri+V8Wl+i+QMxNCK9qozKjsgeYJ7hfWk9Ez
-	 dds112kgaEI20srGEyEh0kvQdxkpCXk+qxakBdNuQWUMPSqJXMLQoPLQ4JQx2/MJy1
-	 wvWc8Xz6AiEhg==
+	b=KFC7fD/Z7PNyMzCgfYDnsSCPAdDhoFeXkuC2+wYQ11DA35hCdDn9BkjfQGgoeox2Q
+	 PcGKOryNNi7PaBoFDUr8TNX9tRHOzUC0zIt6i4N5NYiFDp6J3+FJLvqmhc8Zp7pTSl
+	 tbfoLSw0YlVVcF2/YTRGG21XakpMHlFnP//HkL/ehjS0El0ptMfG5GVKR8pVoQVieB
+	 b55K4EBHN+AMcGIxhfMmrBWFUayyfudICQQ/v05BBxNDqUtPCO89li2VGREodCPUH3
+	 77VxYj+xhtOwy+GSH/rysNz0bPcw0ygpuscjfEqMUSi1JzFbS/jqRDtpYxHR+3mjZO
+	 jixoQYa8tz94w==
 Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
 	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.98.2)
 	(envelope-from <maz@kernel.org>)
-	id 1wru7V-0000000CtHi-13kg;
+	id 1wru7U-0000000CtHi-44tJ;
 	Thu, 06 Aug 2026 09:10:33 +0000
 From: Marc Zyngier <maz@kernel.org>
 To: kvmarm@lists.linux.dev,
@@ -47,9 +47,9 @@ Cc: Steffen Eiden <seiden@linux.ibm.com>,
 	ljs@kernel.org,
 	sashiko-bot@kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 6/8] KVM: arm64: Sign-extend VA for range-based TLBI invalidation
-Date: Thu,  6 Aug 2026 10:10:24 +0100
-Message-ID: <20260806091026.620700-7-maz@kernel.org>
+Subject: [PATCH v2 5/8] KVM: arm64: Handle VNCR TLB invalidation race with vcpu_put() VNCR unmapping
+Date: Thu,  6 Aug 2026 10:10:23 +0100
+Message-ID: <20260806091026.620700-6-maz@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260806091026.620700-1-maz@kernel.org>
 References: <20260806091026.620700-1-maz@kernel.org>
@@ -65,69 +65,130 @@ X-SA-Exim-Rcpt-To: kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-arm-kernel
 X-SA-Exim-Mail-From: maz@kernel.org
 X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-When the decode_range_tlbi() helper was moved to be used for S1 TLBIs,
-the required sign extension was omitted. Add it.
+While VNCR TLB invalidation always occurs under the MMU lock,
+vcpu_put() doesn't, while it unmaps the VNCR page.
 
-As a result, special care must be taken to not overflow PA bits when
-this is used for S2 invalidation.
+The problem is that the invalidation evaluates vncr_tlb::cpu to
+decide whether an unmapping needs to take place (cpu != -1) before
+performing it. On the other hand, this_cpu_reset_vncr_fixmap()
+unconditionally unmaps if L1_VNCR_MAPPED is set.
 
-Fixes: 85bba00425ae0 ("KVM: arm64: nv: Move TLBI range decoding to a helper")
+These two obviously can race, with a TOCTOU pattern on the TLBI
+path, and a BUG_ON() on the vcpu_put() path. And the two can end-up
+calling vncr_fixmap(-1), with extra lethal effects.
+
+Move the reset of vncr_tlb::cpu to -1 to a common function, and make
+this update atomic so that only a single thread can reset the field
+and perform the corresponding unmap. The vcpu_put() still need to
+unconditionally unmap the current VNCR to close another ugly race.
+
+Finally, the assignment of vncr_tlb::cpu is moved to be kept in sync
+with the actual mapping, similar to L1_VNCR_MAPPED being set.
+
+Fixes: 7270cc9157f47 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU notifiers")
 Reported-by: sashiko-bot@kernel.org
-Link: https://lore.kernel.org/r/20260801130337.EB2BA1F00AC4@smtp.kernel.org
+Link: https://lore.kernel.org/r/20260801130237.0FD8F1F00ACA@smtp.kernel.org
 Signed-off-by: Marc Zyngier <maz@kernel.org>
 Cc: stable@vger.kernel.org
 ---
- arch/arm64/include/asm/kvm_nested.h |  7 +++++++
- arch/arm64/kvm/sys_regs.c           | 11 +++++++++++
- 2 files changed, 18 insertions(+)
+ arch/arm64/kvm/nested.c | 42 +++++++++++++++++++++++++++++++----------
+ 1 file changed, 32 insertions(+), 10 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-index bfed664d823bd..c83be6d0e79ac 100644
---- a/arch/arm64/include/asm/kvm_nested.h
-+++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -291,6 +291,13 @@ static inline u64 decode_range_tlbi(u64 val, u64 *range, u16 *asid)
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index 8a602d074dbb4..cf0d45059edbd 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -27,7 +27,7 @@ struct vncr_tlb {
+ 	bool			hpa_writable;
  
- 	base	= (val & GENMASK(36, 0)) << shift;
+ 	/* -1 when not mapped on a CPU */
+-	int			cpu;
++	atomic_t		cpu;
  
-+	/*
-+	 * We only deal with at most 48bit VA/IPA, so 48 is where we
-+	 * sign-extend from. Should we support FEAT_L{VP}A* at some point,
-+	 * this will need to be revisited.
-+	 */
-+	base	= (u64)sign_extend64(base, 48);
+ 	/*
+ 	 * true if the TLB is valid. Can only be changed with the
+@@ -894,16 +894,40 @@ void kvm_vcpu_load_hw_mmu(struct kvm_vcpu *vcpu)
+ 	}
+ }
+ 
++/*
++ * Unmapping an L1 VNCR can happen concurrently without the mmu lock being
++ * effective (vcpu_put() vs TLBI handling). The atomic_xchg below ensures
++ * that only one CPU sets it to -1 while getting a valid CPU number back.
++ */
++static int unmap_l1_vncr(struct vncr_tlb *vt)
++{
++	int cpu = atomic_xchg_relaxed(&vt->cpu, -1);
 +
- 	if (asid)
- 		*asid = FIELD_GET(TLBIR_ASID_MASK, val);
++	if (cpu != -1)
++		clear_fixmap(vncr_fixmap(cpu));
++
++	return cpu;
++}
++
+ static void this_cpu_reset_vncr_fixmap(struct kvm_vcpu *vcpu)
+ {
+ 	if (!host_data_test_flag(L1_VNCR_MAPPED))
+ 		return;
  
-diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index 5d5c579d45790..797e888bf9394 100644
---- a/arch/arm64/kvm/sys_regs.c
-+++ b/arch/arm64/kvm/sys_regs.c
-@@ -4057,6 +4057,7 @@ static bool handle_ripas2e1is(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
- 	u32 sys_encoding = sys_insn(p->Op0, p->Op1, p->CRn, p->CRm, p->Op2);
- 	u64 vttbr = vcpu_read_sys_reg(vcpu, VTTBR_EL2);
- 	u64 base, range;
-+	int pa_bits;
+-	BUG_ON(vcpu->arch.vncr_tlb->cpu != smp_processor_id());
+ 	BUG_ON(is_hyp_ctxt(vcpu));
  
- 	if (!kvm_supported_tlbi_ipas2_op(vcpu, sys_encoding))
- 		return undef_access(vcpu, p, r);
-@@ -4068,6 +4069,16 @@ static bool handle_ripas2e1is(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+-	clear_fixmap(vncr_fixmap(vcpu->arch.vncr_tlb->cpu));
+-	vcpu->arch.vncr_tlb->cpu = -1;
++	/*
++	 * Unconditionally unmap the local VNCR if we have lost the race
++	 * against a concurrent TLBI. Otherwise we could end-up running
++	 * another vcpu with VNCR still mapped if the TLBI thread is
++	 * preempted between the exchange and the clear_fixmap().
++	 *
++	 * Note that we do not care about the TLBI nuking the fixmap behind
++	 * the back of an running vcpu. This will only generate a fault and
++	 * possibly a retranslation.
++	 */
++	if (unmap_l1_vncr(vcpu->arch.vncr_tlb) == -1)
++		clear_fixmap(vncr_fixmap(smp_processor_id()));
+ 	host_data_clear_flag(L1_VNCR_MAPPED);
+ }
+ 
+@@ -995,8 +1019,7 @@ u16 get_asid_by_regime(struct kvm_vcpu *vcpu, enum trans_regime regime)
+ static void invalidate_vncr(struct vncr_tlb *vt)
+ {
+ 	vt->valid = false;
+-	if (vt->cpu != -1)
+-		clear_fixmap(vncr_fixmap(vt->cpu));
++	unmap_l1_vncr(vt);
+ }
+ 
+ static bool vncr_tlb_intersects(struct vncr_tlb *vt, u64 addr,
+@@ -1452,7 +1475,7 @@ static int kvm_translate_vncr(struct kvm_vcpu *vcpu, bool *is_gmem)
+ 		vt->hpa = pfn << PAGE_SHIFT;
+ 		vt->hpa_writable = writable;
+ 		vt->valid = true;
+-		vt->cpu = -1;
++		atomic_set(&vt->cpu, -1);
+ 
+ 		kvm_make_request(KVM_REQ_MAP_L1_VNCR_EL2, vcpu);
+ 		kvm_release_faultin_page(vcpu->kvm, page, false, vt->wr.pw && vt->hpa_writable);
+@@ -1583,8 +1606,6 @@ static void kvm_map_l1_vncr(struct kvm_vcpu *vcpu)
+ 	if (vt->wr.nG && get_asid_by_regime(vcpu, TR_EL20) != vt->wr.asid)
+ 		return;
+ 
+-	vt->cpu = smp_processor_id();
+-
+ 	if (vt->hpa_writable && vt->wr.pw && vt->wr.pr)
+ 		prot = PAGE_KERNEL;
+ 	else if (vt->wr.pr)
+@@ -1599,7 +1620,8 @@ static void kvm_map_l1_vncr(struct kvm_vcpu *vcpu)
+ 	 * FIXME: WO doesn't work at all, need POE support in the kernel.
  	 */
- 	base = decode_range_tlbi(p->regval, &range, NULL);
- 
-+	/*
-+	 * Ignore TLBIs that start out of PA_bits range, and cap the
-+	 * invalidation to the [base:bit(PA_bits)] interval.
-+	 */
-+	pa_bits = kvm_get_pa_bits(vcpu->kvm);
-+	if (fls64(base) > pa_bits)
-+		return true;
-+
-+	range = min(range, BIT_ULL(pa_bits) - base);
-+
- 	kvm_s2_mmu_iterate_by_vmid(vcpu->kvm, get_vmid(vttbr),
- 				   &(union tlbi_info) {
- 					   .range = {
+ 	if (pgprot_val(prot) != pgprot_val(PAGE_NONE)) {
+-		__set_fixmap(vncr_fixmap(vt->cpu), vt->hpa, prot);
++		atomic_set(&vt->cpu, smp_processor_id());
++		__set_fixmap(vncr_fixmap(atomic_read(&vt->cpu)), vt->hpa, prot);
+ 		host_data_set_flag(L1_VNCR_MAPPED);
+ 	}
+ }
 -- 
 2.47.3
 
