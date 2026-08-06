@@ -1,140 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95412DC783
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 12:56:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 613C02EEE86;
+	Thu,  6 Aug 2026 13:02:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786021002; cv=none; b=RqqJGzJL1O7g/uDK1o/PSio/8kamBK9/r1+SDRBhehT1RL7tQS44hg8ccqT8zEHttWLRpJvoLC/r0vqL/nS+i6TLSWTIX4D2nR+p4cZtC8fl2jCdWLcxNA8sVGdqG3ygJ63Ga0ziMRyQzieYn1e3y9RfUwoS7JBF9IZJ8sMDeH8=
+	t=1786021353; cv=none; b=IWu+Z0Bhm7nfbPzzNzPESCGftbJr6CTzxZh74jYy8wIE8ZQ5/zMoRbZXLQfYuKl5I1L987lW8KkEwd7f1Nq1FynQJIWBX0iydbelV431b/WD0Xxbw+An2jHN6z4CyE0+1LA5z509qvDy1SqxTSuV5nLVnQ7vhX3nCbwlLgct3YY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786021002; c=relaxed/simple;
-	bh=QCQe6V7fsK9rYzZ1ujueP23Ip5K9q3t050Z97x+nXKI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fvUOhEmBu5m402TbihH1AixWVicHyP5o3PkNKyfJgZMNtVrq7CmWynl7gd6Axs1Bi+hKOdSPvZVGZv/4l0nOx1f5rNliAsBQ/4zNOR+rlPcMNYydi0oGEvQ9jMHfjcG6kGz7Yxwd7AA7l25i0IMZ1W+Dr0dCd1g+WExpoDVlQnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dxbnSI16; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dxbnSI16"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D18A1F00ACF
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 12:56:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786021001;
-	bh=4hboTcTVAq68vsN4PT4ENqfM/2qs0WVFAG1Tw3ymRrc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dxbnSI16rtMEeAsf7Kef/HfGw2OsKmS3n7FzzsOa8KiOec9QGXOulcBL7RnQT4Zhx
-	 9adMQdtC3yNIp6SaABIt+9CSpaWVCzntuPQw0HIVcBAkbBcF5ns9jloXyFBjJBHV6p
-	 Ilfhg6DzhozsbfJ6GMmE00cN4McHP1zgj8CJX9UR1ic3vGdtEV9S3rqN5qB3XrJC4I
-	 gBce7jMqB3q4dY/f7XvwBwQiugDJodSQDhM55N42VMDLeoTGT5Q+UQpUP2U1Khcula
-	 bFmVw3OUyjLc4j+Y7C8uv+xgbs8Obv71qvLCCoyG89BrRTAUnmcQqhUgxay7mhY4dS
-	 If1pO/qZty89Q==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b2a22c52c1so2238467e87.3
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 05:56:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rp83/wHTwhBMCVrP2xWcEwB+HU3YOOr5F3wmaYMaX4pOaZ7cA6Pp5EINIR2SO1i+Gu84qVL+wY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmwN9BlLCO8og9yXWXOW4j+//Szm+mVa9HxD5X5Ddv8+AXQLAE
-	TkxKIxdtasXS0g7ZUIKUd6wjo0SHH52vAbTh7qH+mEbiQeW8Yg85b/NwL4yu0hPt7L4yacoYjuq
-	Sryh4PO/+ODh4nJsRQy4VJahlXIGzFZg=
-X-Received: by 2002:a05:6512:258b:b0:5ae:a93c:a993 with SMTP id
- 2adb3069b0e04-5b2f4ccc8e5mr1957621e87.52.1786020999929; Thu, 06 Aug 2026
- 05:56:39 -0700 (PDT)
+	s=arc-20240116; t=1786021353; c=relaxed/simple;
+	bh=EwC3i8duz2QjK8+gnxoASkVQgHT0bc26zqGvRL3TU3c=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RhTHEKk/1uRcrH6ZCqFa2093zg2+ry5OLaMs8BtcV616ilx4Xc5yIcYGL7AI+BjGCiC+HQWbmhsZz+J2+WdgsApYawRjSUVlubKuj9v4mJgSNyfLHJUkqAb1ANK/7zZ+s1M0m5agzyrDOVpj55wkIAsElp6orD8RSfLjCdYEM0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wBHQH_ghXRqEDZuAA--.4850S3;
+	Thu, 06 Aug 2026 21:02:25 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgAnl8zghXRqKF+cAw--.10149S2;
+	Thu, 06 Aug 2026 21:02:24 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-rdma@vger.kernel.org
+Cc: bharat@chelsio.com,
+	larrystevenwise@gmail.com,
+	jgg@ziepe.ca,
+	leon@kernel.org,
+	dledford@redhat.com,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] RDMA/cxgb4: Cancel reg_work before freeing device on remove
+Date: Thu,  6 Aug 2026 13:01:27 +0000
+Message-Id: <20260806130128.465460-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260806072656.1386351-1-sh_def@163.com>
-In-Reply-To: <20260806072656.1386351-1-sh_def@163.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 6 Aug 2026 14:56:28 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0iKPxKqEsd7MD_d2FcQmb7PrGVNkC4PHH0Psswyf-ZKsg@mail.gmail.com>
-X-Gm-Features: AUfX_mww1yVSsM0DViczYUTnhyrlCJ_TCjmcAT04zb5jUN5MhtopY9dVE2SYKiU
-Message-ID: <CAJZ5v0iKPxKqEsd7MD_d2FcQmb7PrGVNkC4PHH0Psswyf-ZKsg@mail.gmail.com>
-Subject: Re: [PATCH v2] cpufreq: schedutil: Fix rate limit overflow
-To: Hui Su <sh_def@163.com>
-Cc: rafael@kernel.org, viresh.kumar@linaro.org, linux-pm@vger.kernel.org, 
-	mingo@redhat.com, peterz@infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, zhongqiu.han@oss.qualcomm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgAnl8zghXRqKF+cAw--.10149S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?5/PxEwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI30aW1F0YWGPFmewFYDlPVQtbkHEl+rH9gfyjgGr/KEhoVN
+	9gjUrjLiOiK1yQO4/+16Vgm8kPMNCmb0liPq5gw6
+X-Coremail-Antispam: 1Uk129KBj93XoW7Kw45ur1kJF15Zw4fKw45urX_yoW8GF4xpw
+	1rGa43KrW5Xa12ka1IvayxAFy5Gw4xXa13uryqg3sFgrs8ZryakryDKFWUuFWkAFWkCFyU
+	AF45trZ5urW8CabCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU818BUUUUUU==
 
-On Thu, Aug 6, 2026 at 9:28=E2=80=AFAM Hui Su <sh_def@163.com> wrote:
->
-> rate_limit_us is an unsigned int, while NSEC_PER_USEC is defined as
-> 1000L. On 32-bit systems, the multiplication is therefore performed
-> using 32-bit unsigned arithmetic before the result is assigned to
-> freq_update_delay_ns.
->
-> For example, writing 4294968 to rate_limit_us wraps the delay from
-> 4294968000 ns to 704 ns. This makes schedutil update far more often
-> than configured.
->
-> Add sugov_update_rate_limit_us() to widen rate_limit_us to s64 before
-> converting it to nanoseconds. Use the helper when updating the tunable
-> through sysfs and when starting the governor, so both paths perform the
-> conversion without overflow.
->
-> Fixes: 9bdcb44e391d ("cpufreq: schedutil: New governor based on scheduler=
- utilization data")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hui Su <sh_def@163.com>
-> Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Clarify why the multiplication uses 32-bit unsigned arithmetic on
->   32-bit systems.
-> - Cast rate_limit_us to s64 to match freq_update_delay_ns.
-> - Add Zhongqiu's Reviewed-by tag.
->
-> v1: https://lore.kernel.org/r/20260805143942.805176-1-sh_def@163.com
->
->  kernel/sched/cpufreq_schedutil.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_sche=
-dutil.c
-> index dff4ee04694c..51910b30c8da 100644
-> --- a/kernel/sched/cpufreq_schedutil.c
-> +++ b/kernel/sched/cpufreq_schedutil.c
-> @@ -61,6 +61,12 @@ static DEFINE_PER_CPU(struct sugov_cpu, sugov_cpu);
->
->  /************************ Governor internals ***********************/
->
-> +static void sugov_update_rate_limit_us(struct sugov_policy *sg_policy)
-> +{
+c4iw_uld_state_change() queues reg_work to register the RDMA device.
+c4iw_remove() can free ctx->dev while this work is pending or running,
+leaving c4iw_register_device() accessing the freed device.
 
-Please add a comment here to explain why the direct type cast is
-necessary or people will be sending patches to remove it.
+Cancel reg_work before removing the device.  The registration work can
+tear down ctx->dev when registration fails, so do not unregister or
+deallocate it again in that case.
 
-> +       sg_policy->freq_update_delay_ns =3D
-> +               (s64)sg_policy->tunables->rate_limit_us * NSEC_PER_USEC;
-> +}
-> +
->  static bool sugov_should_update_freq(struct sugov_policy *sg_policy, u64=
- time)
->  {
->         s64 delta_ns;
-> @@ -606,7 +612,7 @@ rate_limit_us_store(struct gov_attr_set *attr_set, co=
-nst char *buf, size_t count
->         tunables->rate_limit_us =3D rate_limit_us;
->
->         list_for_each_entry(sg_policy, &attr_set->policy_list, tunables_h=
-ook)
-> -               sg_policy->freq_update_delay_ns =3D rate_limit_us * NSEC_=
-PER_USEC;
-> +               sugov_update_rate_limit_us(sg_policy);
->
->         return count;
->  }
-> @@ -848,7 +854,7 @@ static int sugov_start(struct cpufreq_policy *policy)
->         void (*uu)(struct update_util_data *data, u64 time, unsigned int =
-flags);
->         unsigned int cpu;
->
-> -       sg_policy->freq_update_delay_ns =3D sg_policy->tunables->rate_lim=
-it_us * NSEC_PER_USEC;
-> +       sugov_update_rate_limit_us(sg_policy);
->         sg_policy->last_freq_update_time        =3D 0;
->         sg_policy->next_freq                    =3D 0;
->         sg_policy->work_in_progress             =3D false;
-> --
-> 2.43.0
->
+This issue was found by an in-house static analysis tool.
+
+Fixes: 1c8f1da5d851 ("iw_cxgb4: Fix possible circular dependency locking warning")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/infiniband/hw/cxgb4/device.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/infiniband/hw/cxgb4/device.c b/drivers/infiniband/hw/cxgb4/device.c
+index 102c5646b..c1815972a 100644
+--- a/drivers/infiniband/hw/cxgb4/device.c
++++ b/drivers/infiniband/hw/cxgb4/device.c
+@@ -951,6 +951,12 @@ void c4iw_dealloc(struct uld_ctx *ctx)
+ static void c4iw_remove(struct uld_ctx *ctx)
+ {
+ 	pr_debug("c4iw_dev %p\n", ctx->dev);
++
++	/* c4iw_register_device() may still be using ctx->dev. */
++	cancel_work_sync(&ctx->reg_work);
++	if (!ctx->dev)
++		return;
++
+ 	debugfs_remove_recursive(ctx->dev->debugfs_root);
+ 	c4iw_unregister_device(ctx->dev);
+ 	c4iw_dealloc(ctx);
+-- 
+2.34.1
+
