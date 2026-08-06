@@ -1,125 +1,88 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5053DDAEB
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 07:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C819E3DDB0D;
+	Thu,  6 Aug 2026 07:54:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786002866; cv=none; b=Tcvzm8o8hj/s8aTiVBQmhtmH1rjKVoOuhzc+zuQcohN2DYnXvW5+v3ziOMbLZgoSPPlMBfD7RfBySpagHDT21t7AoMzP+riTwwKwA56vof7Gq0fH08lxOGGYo9NNLc++IT1E7elZ5zw5SDdSksDirQZMuH0QBtRwK/Gnuf/bWDM=
+	t=1786002898; cv=none; b=oXne/4ZHCoMx6gMLd9YkDuhmMEYtt0UVZvUBcP2ckpDkuouo7/3IgkRPIA8toUgr1jU6zIuUh+x+sC6lygLVGd2FHbrifdc1+orTyM2ezyln8ONdxxuooJSL7P7n3UfGq2oy+JYfvxsGwqub+rug6Iyy1/aAslLA2YiL+EkQ4gE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786002866; c=relaxed/simple;
-	bh=TiE5jS6xdQ0bA0I02w8JwxsgjymilDhoV3zVSyA8Yx0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KgkQ5NtyHkelJF60yPSAzhLsR+wGfVX4qrJV2lNlXa18jtu+IS0Nh8EYJge7XcV9SASfHvrIrCsEMVWPQEuLNwNdqQwtBAwpHeXvaqsLT/o//b9eNXwaCIZkL0AWHbIM9wRfuuLJ376Sv84vhhllMDPyAQ8ipnprj07TIi9DtoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=AgBayDkl; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1786002898; c=relaxed/simple;
+	bh=oOuj2XexbD7aYvAbKD9gS8BWwHEtqAxYWGMOzC1w7Nk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Vhppx8OUyM3wx0a2JNy1jVGw/6Up136lG4GlP7eEkJ3M7lSEUUf9MKiNCU9kBZOi5K/Fgda6PTrMBdCsXxIMisNIsWw5NeDCx+fma1k9F93YkH27AY4wdyxsCg+ShreSo4XuixM7Np87FCMjaqTW2FZdbc/ZJdu/J585rsHql5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fsdl1UiQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="AgBayDkl"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-495757ccbc1so19477735e9.2
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 00:54:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1786002862; x=1786607662; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VLXG2deAu9vjEHqLkwP3KT44g0q17SGCldo/DWmdJG0=;
-        b=AgBayDklbzLgSbYpFLwhYK+XLH7TQzsy0eSSSHuQMlQZ4KJoqMBHGNWEOh2qfrJXkb
-         lOudg2ji8AMjuAZbvk661DcYOBOPkJsw3yFlUGKMZIJsczj1wnORoSOQnGzM/Y9zCCp3
-         rFYUTeEoB4IjF1ab0xdqp8mgWDMxPBHxOWbdw7RBApxsApb5Yr4FSX+TORJk2X65MdIN
-         rTT+xpMP0EobH496r7HvtHcqmlhkFKJDS5JQOagmna+t4DkmZ/MNuUpJiPk23+iCkrPx
-         I4rxgGFsmpWtP4hDRJ+iPnhoJ0K3lyBggL92o6syPdnWkeM1BFWgbnfXO4w/dXG4WGAi
-         v1xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786002862; x=1786607662;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VLXG2deAu9vjEHqLkwP3KT44g0q17SGCldo/DWmdJG0=;
-        b=GrvTIZtAttQKvuNGKDUu03D+P9ncDJmKS5UoYI4d/OVaXlKME+o9hwIFjzspnNlrFM
-         dAl6OR7Re0Lhz7BXdCb01foTjJOsqeUKLqsX1hN4AkTbOD9KkL6lMMBJh5oaRWyAZM0e
-         rf1Zg/S2FjsZgN2ys1U7KFVE+ILXN6XzbCDHebKcrFVitiwf4XHmBohEke44vQ0M7LPv
-         OiMjQZoJjwj7xw+y2DVz8reNOye89v5r8VgN5Xe7gYvnTjrr5qOUnRnECyfjShZHtzDL
-         Pi7vOh8rmFjFFdpejjEOClFdA8ABabike1JiZB4SR0Lv1CnrWoFEyDd7q4mP5eOWa3bn
-         YWbg==
-X-Forwarded-Encrypted: i=1; AHgh+RoQ9MSbsjpoPOsA9AGJTC4mGEVLeHkVNwjpugrqXlS/GxqTjrsp56/H9ABRkgimuHJTILOi7d8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzhkKRcKSD4FotT6bnDo0Pu5OulTDnYlcgxQgNtkCrTfo73jtr6
-	a99/fgNcRjvOA7dhycx/veeXlAIOnz6AMRW9fRmvJ3INNEModkYKPCAiE2Z/DEyhbWw=
-X-Gm-Gg: AR+sD13WNYwQbQ4dxd5ivE0CfVJ6+0pID1Wj7132JOK4WcBE/G0+LlMhjUQLps+x4v+
-	LNOyMdlkHK9Fa3KT+GdIJ2Xtp5wtoHqmmqBq/cXVxHljvx08CCNeJgWkcvGtHKSMYPITdDLqceu
-	6j2BBdJxYUL1rEocn7gyC9a9jyyuYA99/QGFxPBvjCDLvbuiqwdBK9ueAOgXdm+IywnKRVZAwbc
-	ADZcQguJBdZp20K1PJQSsxcfCvuhuABIkU3RM9To2O60oK4ndg+ohcHsUQFskBwGtNms7/4uDiw
-	6AkOK2xtzRFnlCtADXfgFpOq/UAiFBDvOH3qdeFsH7Cgchs7taZbIBOyR7Vpf88wVlpACF2wRCP
-	nXYyVsQAQiooukbauHxs0uynI2pCLGnO4FHrh6KR2pEFTrYGavrgmjONYEn56gdDmXD9lCEC/4R
-	2wh/ZRKp7Gjvg8kIgsLDoL1IihEeQztTPkTbt4GhLfsPfGDuIiSR/IrQnbzS8qqpdJCLdIYbPZt
-	Q==
-X-Received: by 2002:a05:600c:4514:b0:496:bbce:f3 with SMTP id 5b1f17b1804b1-4994e71ed7bmr160522385e9.6.1786002862433;
-        Thu, 06 Aug 2026 00:54:22 -0700 (PDT)
-Received: from [192.168.0.101] ([109.76.115.165])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499542135cesm43926455e9.4.2026.08.06.00.54.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Aug 2026 00:54:21 -0700 (PDT)
-Message-ID: <d6ffacaf-7f83-42be-a3cf-40ce00810ca9@linaro.org>
-Date: Thu, 6 Aug 2026 08:54:19 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fsdl1UiQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D90CC1F00A3A;
+	Thu,  6 Aug 2026 07:54:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786002896;
+	bh=CRYSMgJq4CXjTVjH5DRBnaKyazyDlpfdN0O7vqJN46A=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=fsdl1UiQuv2jjNFuuO/luG73N1n5/9L6v2ZrEyzBuXlPsnR0snmiuqLTcZqIyAUtN
+	 Kic9a1VTpC5bCUJxAgNDbqnjKCaHUB1fiUd7zZdDboXfNtYM2YcVTOxo7H5VPAYYz/
+	 JwsF06pxdjnvJlxQFO/tkFzgZQEv5hGlU1VqEc9pZLF96u+L+NxtBG8ZseMWkz8+9d
+	 lN+aGwXy80T35Jp0gACPmD/0+9seSRzUK7zomoyd96fIFR2NoiFGta4uliIfeRSgPD
+	 8wjBxAXZUdTdmCCprQQG1LxDwYTUQYVO7QBgxF2O5Gfg8lYWRP7bc3Tq0ivKAXsMU7
+	 DUGofP43Zy3rw==
+Date: Thu, 6 Aug 2026 09:54:53 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Hongyan Xu <getshell@seu.edu.cn>
+cc: David Sterba <dsterba@suse.com>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, Ben Martel <benm@symmetric.co.nz>, 
+    Stephen Blackheath <stephen@symmetric.co.nz>, linux-kernel@vger.kernel.org, 
+    linux-serial@vger.kernel.org, stable@vger.kernel.org, 
+    jianhao.xu@seu.edu.cn
+Subject: Re: [PATCH] tty: ipwireless: shut down setup timer before freeing
+ hardware
+In-Reply-To: <20260806060741.714-1-getshell@seu.edu.cn>
+Message-ID: <0o798512-1s28-4s72-op84-r943s56020s5@xreary.bet>
+References: <20260806060741.714-1-getshell@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
- subnodes to common schema
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
- Daniel J Blueman <daniel@quora.org>
-References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <futJwsC0VjGSkjrB5PP9T0jBOVgWADaDAYyRRp-OZifaKPNtjcnnA59QJaQTdqYTeayZk9jY6e1jOfun71Yp5Q==@protonmail.internalid>
- <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
- <689580d1-8169-41cf-a954-927e10135700@kernel.org>
- <d0983bf7-a708-46ff-9f86-f94fb6a92ba7@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <d0983bf7-a708-46ff-9f86-f94fb6a92ba7@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 06/08/2026 06:21, Vikash Garodia wrote:
+On Thu, 6 Aug 2026, Hongyan Xu wrote:
+
+> ipwireless_stop_interrupts() uses timer_delete() for a timer whose callback
+> can rearm itself. timer_delete() neither waits for a running callback nor
+> prevents that callback from rearming the timer. The callback can therefore
+> continue to access struct ipw_hardware after ipwireless_hardware_free() has
+> freed it.
 > 
-> On 8/1/2026 3:36 PM, Bryan O'Donoghue wrote:
->> On 31/07/2026 19:22, Vikash Garodia wrote:
->>> Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
->>> Cc:stable@vger.kernel.org
->>> Tested-by: Daniel J Blueman<daniel@quora.org>
->>> Signed-off-by: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
->>
->> What about venus ?
+> Use timer_shutdown_sync() so teardown waits for the callback and prevents
+> any further rearming.
 > 
-> Plan is to get the reviews for IRIS3 family SOCs, once we have a go 
-> ahead from binding/DT maintainers, i can either bring in few series for 
-> remaining venus and iris SOC family OR do all of them in one single 
-> series. My preference would be to add in multiple series.
+> Fixes: 099dc4fb6265 ("ipwireless: driver for PC Card 3G/UMTS modem")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+> ---
+>  drivers/tty/ipwireless/hardware.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/tty/ipwireless/hardware.c b/drivers/tty/ipwireless/hardware.c
+> index 0bfcbca6e2df..fb3554a6e04b 100644
+> --- a/drivers/tty/ipwireless/hardware.c
+> +++ b/drivers/tty/ipwireless/hardware.c
+> @@ -1721,7 +1721,7 @@ void ipwireless_stop_interrupts(struct ipw_hardware *hw)
+>  	if (!hw->shutting_down) {
+>  		/* Tell everyone we are going down. */
+>  		hw->shutting_down = 1;
+> -		timer_delete(&hw->setup_timer);
+> +		timer_shutdown_sync(&hw->setup_timer);
+>  
+>  		/* Prevent the hardware from sending any more interrupts */
+>  		do_close_hardware(hw);
 
-I still don't see why we can't just set
+The driver is queued for removal.
 
-minItems: 1 for the memory nodes - implement a fix for stable and then 
-iterate around this new way at leisure.
+-- 
+Jiri Kosina
+SUSE Labs
 
-There is a festering - system resetting bug.
-
----
-bod
