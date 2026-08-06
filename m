@@ -1,63 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E29138F935;
-	Thu,  6 Aug 2026 13:53:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CAE3B4E8F
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 13:58:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786024404; cv=none; b=QUV5TchacwTiWuwY/ED2CDfCSeetw1nj5vYN46dlxr0ZhxScIkaZmPym6TsCgfUoOOncL1C33nxur85MOytqG1gKhhKemsyFbdNqOEC3MbyTnCdzIXCMUi8okUqLhh2cQVrH6rGzTWbQjrbJVhkdOeNyz/KPqRYMkVrniMOmd5M=
+	t=1786024684; cv=none; b=gZ78MPfGevLaKC65STqbtUpbh+Cy7U6nYS1Okx53Me79BtOARM1ceTyqjldRPClJEMCKTmcRP6Yns1Db2JephmHEs3NB2E9Axrs15gixV+6O/SrC+vh0nfZaKst6/rt+9lewTYnKk+JNv3S2GRMeQhqlt7puldukZkjA1TFEp2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786024404; c=relaxed/simple;
-	bh=CO1nekQ96Zo5yBUy9L+L/CcDmHipw3KUTjZ/59r0Ymc=;
+	s=arc-20240116; t=1786024684; c=relaxed/simple;
+	bh=VfXgDWJ+ttG/b+1+TCCVlo2fL63Ne8WQTfb2oBqvFJ8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SkbULHPjrAWaveNr2+gzeyoTJ84F4/6loxPyONebU/c6PvlilN5kRtwcKAts77NILAiNhcNvQm/y7wLzVr2unFLbFAO3slyIMG/I/YI3XryGIwV8pt3xuBxicwcJL0j6cUTaP2Eoe1ZtU4+pTA6Mt9AHOQHO9IGHD+DjZWaVoJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e+BWU4WI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QvXjuUO9Av87rRIK7UO89piZ5TAhTOdCPi+N1E7RX3/SefJdXuaTw7UgbkxZOeDeSBkEKGzGMQTotJMlzHvmWNWuVO1DvDWdSQaaFr6SXtFUtyv+56ZZn6zvSeLkz6eQmDNAyK1VzZQYfaP0qcURhERm3rT2Do7HtGZAmuNbRxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R7OhHByc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e+BWU4WI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB3E11F000E9;
-	Thu,  6 Aug 2026 13:53:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R7OhHByc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35DB31F00A3A;
+	Thu,  6 Aug 2026 13:58:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786024402;
-	bh=7DTQ07GJKnfbpZQI4eZNwIceuMVDGsiSmnyh13hn3T4=;
+	s=k20260515; t=1786024680;
+	bh=svBj8wiXwlCDoNH9lLqVuXSXnPEurWi14ovaWa1y8qA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e+BWU4WIQSW3J6P4C5TRKyo/AXNNQHs35lrkU1rCrq12MFCQqUAJcnTiEAfwgaA0K
-	 QGpIWb/krRM7CI3msRzsZATYaZVO6J6jwU3uVBzd5atQj8NQnB4TrtZW2RnaYIl/X0
-	 h9H+f7VOsjjpg5yQLjx1OHOhoDb/HWkPWnN9W3WbAv5WTrb5lNa04cljWr/zdgBWDn
-	 795UkbpZDwZubWpMnseP/14Fn24rJ6H6nUzSmB7OVGPMRYoDOhLbwM7wIIrnSleikD
-	 zlF4xMB6eMteV9aDqgoJ3lE94Ja/GJfwMQRSXr/WOq8orxYhvIcQlRTWDcdHmvunSA
-	 S/VSKMKP43H6w==
-From: Puranjay Mohan <puranjay@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: Puranjay Mohan <puranjay@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Usama Arif <usama.arif@linux.dev>,
-	Will Deacon <will@kernel.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Ravi Bangoria <ravi.bangoria@amd.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	x86@kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v6 2/3] perf/core: Run sched_task() for PMUs with only CPU-wide events
-Date: Thu,  6 Aug 2026 06:52:22 -0700
-Message-ID: <20260806135224.3267890-3-puranjay@kernel.org>
+	b=R7OhHByccu6oEsWOPtKhw3CvmoDKrpyPEpXWVyKZ6tZNnUtlgU6uNUtyIlj3zpAyC
+	 kQv0HCpEu0FItXJYSOkHqWWD7UePJkZLtXmkJF+wc3fe0BbvEB9wKhm4kJdOrnaGUU
+	 2x/BoPaeCcS6mjJb0qGaP1/Fb0v/m8zXc0Ffle5GoElhg4ldKLO/ZW/w74WQcHS8tr
+	 GnXJ70spz+TOwjL8Paunbcx9jd7jbxH6TUmcpLPNtsVUrxlnm3AivH6He3riBncFDJ
+	 1l1M5EJ4B711uMy3qk7cQWbJw3qXIOfm95nsfGH+1zB7BDJOfpK9Q5zBUlTCUV+Qgu
+	 a+wHY/SSYmV4g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: LiangCheng Wang <zaq14760@gmail.com>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] wifi: brcmfmac: set F2 blocksize to 256 for BCM43752
+Date: Thu,  6 Aug 2026 09:57:57 -0400
+Message-ID: <20260806135757.628201-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260806135224.3267890-1-puranjay@kernel.org>
-References: <20260806135224.3267890-1-puranjay@kernel.org>
+In-Reply-To: <20260806135757.628201-1-sashal@kernel.org>
+References: <2026072949-theorize-monogamy-e1ff@gregkh>
+ <20260806135757.628201-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -66,79 +47,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-perf_pmu_sched_task() returns early when cpuctx->task_ctx is set and
-leaves the work to perf_ctx_sched_task_cb(). That one only walks
-ctx->pmu_ctx_list, so a PMU whose events are all CPU-wide is never
-visited and its sched_task() callback does not run. With
+From: LiangCheng Wang <zaq14760@gmail.com>
 
-  perf record -b -e cycles -a -- ls
+[ Upstream commit 29ab31f3f27157648f2f7e6d5e1fd9792fdf0614 ]
 
-armv8pmu_sched_task() is skipped on every switch to a task that has a
-perf event of its own, and BRBE records leak across the task boundary.
-intel_pmu_lbr_add() calls perf_sched_cb_inc() unconditionally as well,
-so LBR records leak the same way on x86.
+The BCM43752 is not reliable with the default 512-byte SDIO function 2
+block size: on an i.MX8MP board with an AMPAK AP6275S module at
+SDR104 / 200 MHz, an iperf TX stress test kills WLAN within seconds:
 
-Drop the early return and instead skip the individual CPCs that
-perf_ctx_sched_task_cb() already handles.
+  mmc_submit_one: CMD53 sg block write failed -84
+  brcmf_sdio_dpc: failed backplane access over SDIO, halting operation
 
-That requires the two to agree on which CPC belongs to which path, and
-they do not. perf_ctx_sched_task_cb() gates on cpc->sched_cb_usage,
-which perf_sched_cb_inc() sets per CPU for every branch stack user,
-while the new gate uses cpc->task_epc, which __link_epc() sets only on
-the CPU the task context is scheduled in on. A task with an event for
-that PMU pinned to another CPU has an epc on ctx->pmu_ctx_list while
-cpc->task_epc is NULL, so both paths would run and sched_task() would be
-called twice per context switch. On x86 the second
-__intel_pmu_lbr_restore() finds lbr_stack_state == LBR_NONE and calls
-intel_pmu_lbr_reset(), throwing away the callstack the first one
-restored. So gate perf_ctx_sched_task_cb() on cpc->task_epc too.
+Commit d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
+set up the 43752 like the 4373 for the F2 watermark but missed the F2
+block size, which the 4373 limits to 256 bytes. The vendor driver
+(bcmdhd) also programs a 256-byte F2 block size for this chip and runs
+the same hardware without errors.
 
-For the CPCs that perf_pmu_sched_task() now handles, the callback no
-longer runs inside the perf_ctx_disable() and perf_ctx_enable() pair in
-perf_event_context_sched_in(). __perf_pmu_sched_task() disables the PMU
-around the call itself, so the callback still runs with it disabled.
+Group the 43752 with the 4373, matching the F2 watermark handling.
+With this change a 10-minute bidirectional iperf3 soak completes with
+zero SDIO errors at ~270 Mbit/s in each direction.
 
-Fixes: bd2756811766 ("perf: Rewrite core context handling")
-Cc: stable@vger.kernel.org
-Acked-by: Usama Arif <usama.arif@linux.dev>
-Signed-off-by: Puranjay Mohan <puranjay@kernel.org>
+Backporting note: kernels before v6.18 name this id
+SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752, so on those trees the case
+label added by this patch must be adjusted to that name. Cherry-picking
+the rename commit 74e2ef72bd4b ("wifi: brcmfmac: fix 43752 SDIO FWVID
+incorrectly labelled as Cypress (CYW)") first is not a clean
+alternative: on trees before v6.17 its context collides with the 43751
+additions, and trees before v6.2 lack the FWVID framework it touches.
+
+Fixes: d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
+Cc: stable@vger.kernel.org # see patch description, needs adjustments for <= 6.17
+Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
+Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+Link: https://patch.msgid.link/20260715-b43752-f2-blksz-v2-1-f9be49856050@gmail.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/events/core.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 9815894b67e77..675dd05935f35 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -3757,6 +3757,9 @@ static void perf_ctx_sched_task_cb(struct perf_event_context *ctx,
- 	list_for_each_entry(pmu_ctx, &ctx->pmu_ctx_list, pmu_ctx_entry) {
- 		cpc = this_cpc(pmu_ctx->pmu);
- 
-+		if (cpc->task_epc != pmu_ctx)
-+			continue;
-+
- 		if (cpc->sched_cb_usage && pmu_ctx->pmu->sched_task)
- 			pmu_ctx->pmu->sched_task(pmu_ctx, task, sched_in);
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
+index e76d993026565..8865c94156ab3 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
+@@ -906,6 +906,7 @@ int brcmf_sdiod_probe(struct brcmf_sdio_dev *sdiodev)
+ 		return ret;
  	}
-@@ -3921,12 +3924,15 @@ static void perf_pmu_sched_task(struct task_struct *prev,
- 	struct perf_cpu_context *cpuctx = this_cpu_ptr(&perf_cpu_context);
- 	struct perf_cpu_pmu_context *cpc;
- 
--	/* cpuctx->task_ctx will be handled in perf_event_context_sched_in/out */
--	if (prev == next || cpuctx->task_ctx)
-+	if (prev == next)
- 		return;
- 
--	list_for_each_entry(cpc, this_cpu_ptr(&sched_cb_list), sched_cb_entry)
-+	list_for_each_entry(cpc, this_cpu_ptr(&sched_cb_list), sched_cb_entry) {
-+		if (cpuctx->task_ctx && cpc->task_epc)
-+			continue;
-+
- 		__perf_pmu_sched_task(cpc, sched_in ? next : prev, sched_in);
-+	}
- }
- 
- static void perf_event_switch(struct task_struct *task,
+ 	switch (sdiodev->func2->device) {
++	case SDIO_DEVICE_ID_BROADCOM_43752:
+ 	case SDIO_DEVICE_ID_BROADCOM_CYPRESS_4373:
+ 		f2_blksz = SDIO_4373_FUNC2_BLOCKSIZE;
+ 		break;
 -- 
-2.53.0-Meta
+2.53.0
 
