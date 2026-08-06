@@ -1,86 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D4E53A5438;
-	Thu,  6 Aug 2026 19:03:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3D8448BA1
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 19:22:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786043019; cv=none; b=NFyh4uRmTUtyCsZeW/RNSgjV+MEuyGa/XTpXhIQpKxXmII7ASIi1OKzb2S6JdmXXmeFFjgVqyaNhJ5/InxeMgVVpQkyS5UCwla0z5AE4upYAvvClrQIHfWrwNBZtGPzjtwYW0ZGKYSkHOrbumSuqvDpur8N9ru3LrrWayGaXZbM=
+	t=1786044183; cv=none; b=eyuIGyTN0GMgd6b1S3wqjzcw6TETFay5VceVIdzYYZUm8Wm1FSNBitgHDdi5Hy7RQb0MjSIlDSpexUIVTCEhFVK3vayc2fsUtoW2ZWne3DnoUrgd+q5qf9Ylp9KIhtncNq3mUev9aacSF/6pVmxh7EM2TZs5nFxAaxhcBGYFxMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786043019; c=relaxed/simple;
-	bh=rWIN3CAoTOmn/dHplE3EM/vqreNCuPNk0XcMox2UW4M=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=EYAtHGbMJFBLVATPNzfvFcaEiXwKeRfSBPR80eomPV90E+ZQDK1V4DDCI5DkqrV6mUMy7x9dyJ/3aAny/FFTnr0wb7MqJtg3zfVgR/vqHAFjyhqtI1Q2j353loKTRRmXGXQI+DTUTQui7Q+flU+1K1OKGl++pfoHOhTG4D1gg+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=S6HabWo4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786044183; c=relaxed/simple;
+	bh=ME7CCmjQSMxbxa8R/0a230jAQXzXTBvmZaSkqnRSTRs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VbQG1V+MTSdWdU9u3IMwCXeE93oJLAzfj5lZq10iLVg8tXQH0LM6xfEylbVUQr9UCdpjeT+C116mni48uh4fEDG5vNJtyir8av5t0ylVxxz5hrQbZ84NqrKDxfmGZ+bUDFOz/UjApPuiN3H/A3aiduISDmq+v0ic1JglNvHcz7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=nq4ZPLbm; arc=none smtp.client-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="S6HabWo4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 869D21F000E9;
-	Thu,  6 Aug 2026 19:03:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="nq4ZPLbm"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-8ef1dc934d1so10326636d6.0
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 12:22:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1786043017;
-	bh=dRt0s7vfM2bnz3NqZRZ9IExdeacv27vJYYUrCTtxIiI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=S6HabWo4OztTo/PiObEDh6luKFIDnwMqPcGG/RkJg9S5pUwEXj8utnavmqMb/S1+t
-	 YdwJzCVygJOtG352PEat3qf+0bzmGKHiWhmRT1DC19OPC6j8ZyjN9m3mXkBKdw0Cxn
-	 Kwru4dhgGBMyzpD3DN/wJTzu2U6z1fu54kScQfIA=
-Date: Thu, 6 Aug 2026 12:03:37 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Hugh Dickins <hughd@google.com>, Jason Gunthorpe <jgg@ziepe.ca>, John
- Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Kiryl
- Shutsemau <kas@kernel.org>, Ackerley Tng <ackerleytng@google.com>, Frank
- van der Linden <fvdl@google.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/gup: fix always draining LRU caches in
- collect_longterm_unpinnable_folios()
-Message-Id: <20260806120337.2c7d65fd7f9d534bf4ffed1b@linux-foundation.org>
-In-Reply-To: <564e64b2-1b71-4d8e-a29e-dc98e8deb006@kernel.org>
-References: <20260731-check_and_migrate_movable_folios-v1-1-e0002d7b791e@kernel.org>
-	<f616e9fc-339d-4430-43ea-0ec8810c5f3b@google.com>
-	<20260801122040.7230a8eb0dc846ce357fba67@linux-foundation.org>
-	<564e64b2-1b71-4d8e-a29e-dc98e8deb006@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=cmpxchg.org; s=google; t=1786044172; x=1786648972; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ed/LSBroZxO0PfqLTAzd0hHdaL+KK4UGWxAVAlrHj6I=;
+        b=nq4ZPLbmS95ANh0DLp/PNHeV0PsEKwswoBK7SaMtY/pGormBLk5+i/JeFCGtkBdRf2
+         PczvFwzLgGQBETd4n3wb9LqZm72B+Ucf4LOIbtDZfHQMBjkOPih4hlduWLIH6kLWrGHy
+         4R1yYbIh9Hd0/Lsy3hK02LR2W4STMMBmexQGMeq/vo7yAffMI7d3/nEMi18F3vUXiVEV
+         X4WT9lQh6xJW5RRb+vQKXEONRruDp6D7cGRv5nNM4OZMh53AydJYwT2g6Sei+/Zx3UI9
+         PSXACM73PUlhG1UYS6QmelBoqR9qnsswfoGCmDAsnOA5B2dSXMpGz7v4+47xBK+3A9cf
+         cA8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786044172; x=1786648972;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ed/LSBroZxO0PfqLTAzd0hHdaL+KK4UGWxAVAlrHj6I=;
+        b=ZxEG5itebxznUKaV9t7t29Db4rrtnmp9rAw+lhX/lFGBzPiUpjrGdgUPRQEFiInA4Z
+         F8iSG6g0l+kWRipQ14L2Mf5TDp7KivtI5Z8ZFNfMRgws7O0QdPcTKsS5vokee+dP6uuK
+         3hPRlFytQ0cYAsHcZ0CpVNo3xFVAxiJo27pgRYKCCraTDBexv6DWaJgf3IJgLdUQ0VE4
+         4Jp6UwbyfUy1uaqJqjboVDyl7NTyJYjAW/lEQ0aTycF3hit+X+qpltOV1QKhbw2gi1gF
+         ZaoLAyc/UJr8KHencFuA5AmESVNylVAWvmIqFsOYPnY67dYvAOD47gi+VwgnL9WG/Qcj
+         puLA==
+X-Forwarded-Encrypted: i=1; AHgh+RpGo6C2VS5VFcZ2F0B2sShQdxRFzWwto3RC6v/op6rvp9RqhVBqYejooS2jGqXr+bSJNFzIjZo=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8C9PloKq+JIWb41K7rHVmfR1dKmfvVRokCou64fvF7OL3sLHr
+	SAf6owB4JI2Zj5Zebp/33bBYr0kigmmaw2+fNzwqlLKvxkbsIVNyIgTZjL+1ov7ESsU=
+X-Gm-Gg: AR+sD10OuL5bkIhJ8Y1DRs/5KPUXLQNAGwT1c/J2OH9E6INaOh+ec6Oo4YT5qBf3ZUT
+	K/krvJJi03O1UOEwN1fGtixYEimzl6er23uZ9PqALXYST2hN3c4TjP3MdR+pYgcD2w356YdjKpm
+	zJU0gOV9fq5JCwfF6qwFmzqFwW2NO/QFAlL6c4mm80YaIJ9u8x+znAVminldtjPME1JH9RlEMuN
+	r2TPTLV4wUmrT2lqW4aU4LCABpua3dZAcEPNEwbA4lulC5gN8KRoxmvrxQ3O3JskEMkj2fatiLO
+	OGQXZdA83QGV4L/m20BlktFwxW9Kxu7BL+9eQL11zHsqS4a1D7shokz2SXK6RqwR4zCdNaw2MEr
+	gxGt1Xb9aZr2pf9kqD6YgcURJ6Ylva8rVzZbJ5+CXZa+Jqlx7mmUngwmqeZzAYeCF4L7T13jFei
+	j/1ms8iVUUghJbXKKn4dx8YuyAght/PhJ0N4vQOqBXA9StF2qMJVZgSeXQmTU=
+X-Received: by 2002:a05:6214:3210:b0:8ee:756a:bc32 with SMTP id 6a1803df08f44-90893232a46mr86763646d6.15.1786044172481;
+        Thu, 06 Aug 2026 12:22:52 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-908800cabedsm58786346d6.46.2026.08.06.12.22.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 12:22:51 -0700 (PDT)
+Date: Thu, 6 Aug 2026 15:22:50 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
+	Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org,
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Karl Erik Hofseth <karl.e.hofseth@opoint.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] memcg: keep folio's objcg same as its node
+Message-ID: <anTfChWlK998-7sY@cmpxchg.org>
+References: <20260806165813.2526415-1-shakeel.butt@linux.dev>
+ <anTPPr5hVV4aQLRD@cmpxchg.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <anTPPr5hVV4aQLRD@cmpxchg.org>
 
-On Thu, 6 Aug 2026 18:29:39 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+Hm, it's still not quite right.
 
-> On 8/1/26 21:20, Andrew Morton wrote:
-> > On Sat, 1 Aug 2026 11:49:39 -0700 (PDT) Hugh Dickins <hughd@google.com> wrote:
-> > 
-> >>> Found by code inspection. If someone has a testcase that can easily
-> >>> trigger this and result in migration problems, please test! But this
-> >>> change seems to be "obvious the right thing to do".
-> >>
-> >> Sorry, I don't (as perhaps is too obvious). And I'm a wee bit afraid
-> >> that some of the problems which those changes happened to succeed in
-> >> fixing, might now reappear once the drains are finely targeted.
-> >>
-> >> Am I arguing for a delay before advancing to stable?  Perhaps, but
-> >> I think not: it's probably best to get that working as intended,
-> >> then deal with any fallout if it arises: just be on guard.
-> > 
-> > This patch is in mm-new, so it's still some months away from -stable
-> > eligibility.
-> 
-> I hope you meant weeks :)
+When there is a root mismatch, we cannot fall back to committing the
+old objcg. That would reintroduce Karl's issue. Not as broadly as
+before, but can still happen if the memcg tree died up to the root.
 
-I was unclear.  The patch is (now) in mm-unstable, aimed at 7.3-rc1. 
-But I don't expect it to be released in -stable kernels for some time
-after we've added it to 7.3-rc1.
+So we have to commit to the new objcg, always.
 
-I don't know what the latency is, really.  Seems to take a week or
-three for Greg to grab these things, but how much longer it takes for
-it to get into the 7.2.x and earlier kernels is probably quite
-variable.
+What obj_cgroup_is_root() then comes down to is whether uncharge will
+balance the page counters or not.
 
-> Can we get that into 7.3-rc1, though? There is quite the overlap with
-> guest_memfd work, and I'll send another patch that depends on this.
+mem_cgroup_replace_folio() gets a new charge for the new page. We can
+just conditionalize that right away on whether the new objcg will
+actually uncharge.
 
-Yep.  In the second-week-of-merge-window batch.
+mem_cgroup_migrate() currently trades the charge, but that won't work
+if the new objcg is root and won't uncharge. So we have to settle it
+right then and there.
+
+This?
+
+@@ -5319,6 +5319,46 @@ void __mem_cgroup_uncharge_folios(struct folio_batch *folios)
+ 		uncharge_batch(&ug);
+ }
+ 
++/*
++ * An LRU folio must hold the objcg belonging to its own node.
++ *
++ * memcg_reparent_objcgs() reparents a dying cgroup one node at a time:
++ * the folios on that node's LRU lists move to the parent and that
++ * node's objcg is redirected to the parent, atomically under the
++ * node's lru_lock. folio_lruvec_lock() relies on this to provide a
++ * stable folio<->lruvec binding. If a folio holds another node's
++ * objcg, its list membership and its lruvec resolution change in
++ * separate lock sections, and an LRU operation in between can re-add
++ * the folio to, and strand it on, the LRU list of a dead memcg.
++ *
++ * So when migration transfers the memcg state to a folio on another
++ * node, re-derive the objcg for the destination node. If the memcg is
++ * dying and the destination node has already been reparented, the
++ * lookup walks up to the nearest live ancestor - which is also where
++ * that node's LRU lists went.
++ *
++ * Returns the objcg to commit to @new, with a reference for the caller.
++ */
++static struct obj_cgroup *get_migration_objcg(struct folio *old, struct folio *new)
++{
++	struct obj_cgroup *old_objcg, *new_objcg;
++	int new_nid = folio_nid(new);
++
++	old_objcg = get_obj_cgroup_from_folio(old);
++
++	if (folio_nid(old) == new_nid)
++		return old_objcg;
++
++	rcu_read_lock();
++	new_objcg = __get_obj_cgroup_from_memcg(obj_cgroup_memcg(old_objcg),
++						new_nid);
++	rcu_read_unlock();
++
++	obj_cgroup_put(old_objcg);
++
++	return new_objcg;
++}
++
+ /**
+  * mem_cgroup_replace_folio - Charge a folio's replacement.
+  * @old: Currently circulating folio.
+@@ -5347,21 +5387,27 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
+ 	if (folio_memcg_charged(new))
+ 		return;
+ 
+-	objcg = folio_objcg(old);
+-	VM_WARN_ON_ONCE_FOLIO(!objcg, old);
+-	if (!objcg)
++	VM_WARN_ON_ONCE_FOLIO(!folio_objcg(old), old);
++	if (!folio_objcg(old))
+ 		return;
+ 
++	objcg = get_migration_objcg(old, new);
++
+ 	rcu_read_lock();
+ 	memcg = obj_cgroup_memcg(objcg);
+-	/* Force-charge the new page. The old one will be freed soon */
++	/*
++	 * Force-charge the new page. The old one will be freed soon.
++	 *
++	 * The rootness of the committed objcg decides whether the final
++	 * uncharge of @new goes through the page counters (see
++	 * uncharge_folio()); charge them only if the uncharge will.
++	 */
+ 	if (!obj_cgroup_is_root(objcg)) {
+ 		page_counter_charge(&memcg->memory, nr_pages);
+ 		if (do_memsw_account())
+ 			page_counter_charge(&memcg->memsw, nr_pages);
+ 	}
+ 
+-	obj_cgroup_get(objcg);
+ 	commit_charge(new, objcg);
+ 	memcg1_commit_charge(new, memcg);
+ 	rcu_read_unlock();
+@@ -5373,14 +5419,15 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
+  * @new: Replacement folio.
+  *
+  * Transfer the memcg data from the old folio to the new folio for migration.
+- * The old folio's data info will be cleared. Note that the memory counters
+- * will remain unchanged throughout the process.
++ * The old folio's data info will be cleared. The memory counters remain
++ * unchanged, unless the charge moves out of a fully reparented ancestry
++ * and has to be settled (see below).
+  *
+  * Both folios must be locked, @new->mapping must be set up.
+  */
+ void mem_cgroup_migrate(struct folio *old, struct folio *new)
+ {
+-	struct obj_cgroup *objcg;
++	struct obj_cgroup *objcg, *new_objcg;
+ 
+ 	VM_BUG_ON_FOLIO(!folio_test_locked(old), old);
+ 	VM_BUG_ON_FOLIO(!folio_test_locked(new), new);
+@@ -5401,12 +5448,30 @@ void mem_cgroup_migrate(struct folio *old, struct folio *new)
+ 	if (!objcg)
+ 		return;
+ 
+-	/* Transfer the charge and the objcg ref */
+-	commit_charge(new, objcg);
++	new_objcg = get_migration_objcg(old, new);
++
++	/*
++	 * @old was charged through a non-root objcg, so its charge is in
++	 * the page counters. If the re-derivation walked up to the root
++	 * objcg - @old's entire ancestry is dying and already reparented
++	 * - the final uncharge of @new will skip the page counters (see
++	 * uncharge_folio()). Settle them now: this is @old's eventual
++	 * uncharge, moved up to the point where its charge record ends.
++	 */
++	if (obj_cgroup_is_root(new_objcg) && !obj_cgroup_is_root(objcg)) {
++		rcu_read_lock();
++		memcg_uncharge(obj_cgroup_memcg(objcg), folio_nr_pages(old));
++		rcu_read_unlock();
++	}
++
++	commit_charge(new, new_objcg);
+ 
+ 	/* Warning should never happen, so don't worry about refcount non-0 */
+ 	WARN_ON_ONCE(folio_unqueue_deferred_split(old));
+ 	old->memcg_data = 0;
++
++	/* @new holds its own reference now, drop @old's */
++	obj_cgroup_put(objcg);
+ }
+ 
+ DEFINE_STATIC_KEY_FALSE(memcg_sockets_enabled_key);
