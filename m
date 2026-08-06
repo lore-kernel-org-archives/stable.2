@@ -1,204 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66BC6499F17;
-	Thu,  6 Aug 2026 22:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A711499F04
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 22:14:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786054279; cv=none; b=eVlbY0+9t3PO48m53ljwjQqfJP9zw7thSvYo+9hTJrgxMrlBfGI3jClk2aHpNhDhLs8lruVvJS8GhLDjilD4l5TnLXQwvLBPcER4+MR2tt5/gyn7rQgjvDvVIWYft9io7IIf+7zhrRj05AAQJThIMHTxDE301krJA3kGb+NfihI=
+	t=1786054448; cv=none; b=k8nVxDzGkLf7A0nyjkSOmcsMU0bNGdkPQQ5F8lXjgEE9KmWkIRsS0Xfd/iErBfzJpFCRgZgKFKfeh5mXrROCOXLjFWdPpVEkPw8yPiL5rnhWAkO23Qh5JEpXXzu7kyrROlsDZh26ZnKTld/LNtBjsU8hULzzk0Lu4p+QQYlDqeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786054279; c=relaxed/simple;
-	bh=ggaa+gmfFIkkiVFF/Ob2FccLorGTeOk5Ry8DwgzH8zQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mKPIg/MVxcZNGb4ZcQHJyFZxwp68o8tVEBWbnb7podZd94aYHSpNhQ1cfo2Gkq1RSTXaXG3xJycicXh5V5sKg5LynEfmIWETvtHkvBBibGnNDCQxK0nI47wIb0sHRdZDNtaRd8pLEAMw/75l8nJcKAXNdcPmjwp2+XJ5QaqLNiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HZnkpvn1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786054448; c=relaxed/simple;
+	bh=+o9QGjIip+mB0zT5m8VqWQBgDa+DKcbyBA/hKPuZl1s=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Bmtaa5GpEz22lSPbF1A/tx7uvy0zFZvCwSJs97sw3L0NkQucBxO0Gk+Vt/HXRtnqoTEp4chrDZmQwEZ3jsXg1sRKBf5c2rQvfgJhENiX6dmrZI0M/DOOPxgR4msWsRTOezb/z96zxhggO4NV+kyEH2mvsm99wM3HRsr1dlPofTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tkjos.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RdRb2Nx1; arc=none smtp.client-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tkjos.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HZnkpvn1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B176A1F00AC4;
-	Thu,  6 Aug 2026 22:11:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786054278;
-	bh=yVWHI8/1skgVJ+ec3VtXE3a9tnGijqupyiNVrxJ5Ktc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HZnkpvn1X+qHxyThxrT/hCl2xVOfGsW4qmXXMGptuyE/AxJjzpUgj76i8VP+wzB0z
-	 nXumiFq0ofUB9MyuvAY1Y1aizHcNpfhLXuXChs+SzFNq9KNdmVwWn8/Vtnr0Tdq0LU
-	 MAOddrsRNYV/StfTjNx2UzR37UsjXEc9L/zdo2Tiw/2oGPnFUM5GBExVFhdT9ZLYxY
-	 u0Yq1QJyn0wwfKmklFKf04t+64x1yyeEEJIeNf+KtNvY5b1p2tPh1rQijX1ze1N+SY
-	 JhgJbi9ie21Ir098or+VjcDv2eKVUYmlUt3ltidFWMs8x3ceOt3ihrrABZjodaYY+6
-	 +KOg6rnbMhhUA==
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-block@vger.kernel.org
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Hao Li <hao.li@linux.dev>,
-	Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Eric Biggers <ebiggers@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] blk-crypto-fallback: Fix deadlock when encrypting large bio in dm layer
-Date: Thu,  6 Aug 2026 15:10:31 -0700
-Message-ID: <20260806221031.79050-4-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260806221031.79050-1-ebiggers@kernel.org>
-References: <20260806221031.79050-1-ebiggers@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RdRb2Nx1"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-848474825ffso2035139b3a.0
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 15:14:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1786054447; x=1786659247; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vP2d7oDvPp3Hc8fnAHJj8Oo/Gn81Eu0dp5TtGDR52bc=;
+        b=RdRb2Nx1jGmclz9ycpv33svE6NPRXEhUZbOW/4teJ7hJhe9HS1flBfTGYsLSl7j+BO
+         JjoI8hGs9uBD3RCkqYO4M+8sZqXZbD+Q4962IeYGKQ1NXPND6gr3Vw89Y8igfTFtugdp
+         Wv2y/0TZGeouJ17GYit+6ovMngMdKEP2/POphxlF80fR1JiA0sCagaY/99WOUIshCMyx
+         umLF19vCYqJikD+GGLWIdOjtKolrKOuh71FSOmMnbyF9UB/eUtXDzrasRJWqqSllMON+
+         PGRgUSBg7s2LJkn9CBOUQrK78VGuZ3nZ7yBRpCPmql8nHBGbKHCogZMWoZw3Sx0wbgg8
+         Qf3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786054447; x=1786659247;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vP2d7oDvPp3Hc8fnAHJj8Oo/Gn81Eu0dp5TtGDR52bc=;
+        b=V/xDdY0glIioUzrC7ZkUIt89Gk4DPz/mWdRQxWcN3aVHxM/Jp9yFVTEqpA6RReo0Ih
+         4bhNB79Piu0lQRbJIzNbxYyC4nNp1EqRVNHJVO4OdZLjnWVPgdHZBpiPKBSaFmgRt0kX
+         35U3wlxOhw7OkrVFRspb2lGASr672CTYNYDQugv/h1AC3inaWC2opbo3J2eSNcU/YfBW
+         1Dd/K4D04uWLkT2jYv8CBOLe3KgOjGPux8XLrVxxQyAKjnrPeudoV52x+pHRBjba0TR5
+         YCOMkPYDNFD/sr44m01utJ2RFopwPlELZJPwnbUsGei4XCr5r3qk67CYCNPwvES7HfMx
+         fEug==
+X-Gm-Message-State: AOJu0Yxy0magCKjIAEjezQDgVszJY+bLkskyZjBiW/ZjnsXvQpsAx1SE
+	N8tmuGtJ68w1ChMkMgjdXBmUXH6mCFkgoqSAcaa/kc4v8v2kscXoomVRCDtRJu4YuvmbH7pub1j
+	PBwzgfSU4PNHBwc0XB9llAYB0P1dWBBhdCTymorE1TBSORzrwNvUXuHvsOtdULQjCJNRMy1hZwh
+	anMvNjfd4z/b7lrScQIB4OUKhSrFbhJa0=
+X-Received: from pfbfh7.prod.google.com ([2002:a05:6a00:3907:b0:84f:28b:cf2b])
+ (user=tkjos job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:3692:b0:845:cad1:d691
+ with SMTP id d2e1a72fcca58-84f41cc1448mr11499249b3a.5.1786054446312; Thu, 06
+ Aug 2026 15:14:06 -0700 (PDT)
+Date: Thu,  6 Aug 2026 22:14:04 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.654.g21b8a5bc05-goog
+Message-ID: <20260806221404.1172661-1-tkjos@google.com>
+Subject: [PATCH 6.1.y] Bluetooth: hci_conn: fix potential UAF in create_big_sync
+From: Todd Kjos <tkjos@google.com>
+To: stable@vger.kernel.org
+Cc: kernel-team@android.com, Lee Jones <lee@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, Sasha Levin <sashal@kernel.org>, 
+	David Carlier <devnexen@gmail.com>, Todd Kjos <tkjos@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Encrypting a large bio with more than BIO_MAX_VECS pages can still
-deadlock, even after it was attempted to be fixed by
-commit b37fbce460ad ("blk-crypto: optimize bio splitting in
-blk_crypto_fallback_encrypt_bio") and commit 3d939695e682 ("blk-crypto:
-use mempool_alloc_bulk for encrypted bio page allocation").
+[ Upstream commit 0beddb0c380bed5f5b8e61ddbe14635bb73d0b41 ]
 
-This is because __blk_crypto_fallback_encrypt_bio() assumes that the
-bounce bios that it submits will eventually complete, unblocking it from
-allocating additional bounce bios and pages.  However, dm-inlinecrypt.c
-calls __blk_crypto_submit_bio() from within submit_bio() itself.  In
-this case, the recursive submit_bio() simply adds the bounce bio to
-current->bio_list without actually submitting it yet.  That breaks the
-guarantee that forward progress is being made.
+Add hci_conn_valid() check in create_big_sync() to detect stale
+connections before proceeding with BIG creation. Handle the
+resulting -ECANCELED in create_big_complete() and re-validate the
+connection under hci_dev_lock() before dereferencing, matching the
+pattern used by create_le_conn_complete() and create_pa_complete().
 
-To fix this, allocate the bio and bounce pages with GFP_NOWAIT if
-current->bio_list is set.  If it fails, punt the encryption of the
-remaining part of the bio to a kworker.
+Keep the hci_conn object alive across the async boundary by taking
+a reference via hci_conn_get() when queueing create_big_sync(), and
+dropping it in the completion callback. The refcount and the lock
+are complementary: the refcount keeps the object allocated, while
+hci_dev_lock() serializes hci_conn_hash_del()'s list_del_rcu() on
+hdev->conn_hash, as required by hci_conn_del().
 
-Fixes: 488f6682c832 ("block: blk-crypto-fallback for Inline Encryption")
+hci_conn_put() is called outside hci_dev_unlock() so the final put
+(which resolves to kfree() via bt_link_release) does not run under
+hdev->lock, though the release path would be safe either way.
+
+Without this, create_big_complete() would unconditionally
+dereference the conn pointer on error, causing a use-after-free
+via hci_connect_cfm() and hci_conn_del().
+
+Fixes: eca0ae4aea66 ("Bluetooth: Add initial implementation of BIS connections")
 Cc: stable@vger.kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Co-developed-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: David Carlier <devnexen@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ kept stable's `qos->bcast.out.phy == 0x02` context line instead of upstream's renamed `qos->bcast.out.phys == BIT(1)` ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ Backported to 6.1.y: included inline helper hci_conn_valid() in
+  include/net/bluetooth/hci_core.h from upstream commit 881559af5f5c ]
+Signed-off-by: Todd Kjos <tkjos@google.com>
 ---
- block/blk-crypto-fallback.c | 70 ++++++++++++++++++++++++++++++++++---
- 1 file changed, 65 insertions(+), 5 deletions(-)
+ include/net/bluetooth/hci_core.h | 18 ++++++++++++++++++
+ net/bluetooth/hci_conn.c         | 19 ++++++++++++++++++-
+ 2 files changed, 36 insertions(+), 1 deletion(-)
 
-diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
-index bda913c39381..973399011d5a 100644
---- a/block/blk-crypto-fallback.c
-+++ b/block/blk-crypto-fallback.c
-@@ -83,6 +83,10 @@ static struct workqueue_struct *blk_crypto_wq;
- static mempool_t *blk_crypto_bounce_page_pool;
- static struct bio_set enc_bio_set;
- 
-+static DEFINE_SPINLOCK(enc_rescue_list_lock);
-+static struct bio_list enc_rescue_list;
-+static struct work_struct enc_rescue_work;
-+
- /*
-  * This is the key we set when evicting a keyslot. This *should* be the all 0's
-  * key, but AES-XTS rejects that key, so we use some random bytes instead.
-@@ -175,9 +179,23 @@ static struct bio *blk_crypto_alloc_enc_bio(struct bio *bio_src,
- 	unsigned int nr_allocated;
- 	struct page **pages;
- 	struct bio *bio;
-+	gfp_t gfp_mask;
-+
-+	/*
-+	 * During recursive bio submission (current->bio_list != NULL) any
-+	 * submitted bounce bios just get added to current->bio_list; they
-+	 * cannot complete and release resources yet.  Therefore, to avoid
-+	 * deadlocks, don't wait indefinitely for additional resources.
-+	 */
-+	if (current->bio_list)
-+		gfp_mask = GFP_NOWAIT;
-+	else
-+		gfp_mask = GFP_NOIO;
- 
- 	bio = bio_alloc_bioset(bio_src->bi_bdev, nr_segs, bio_src->bi_opf,
--			GFP_NOIO, &enc_bio_set);
-+			       gfp_mask, &enc_bio_set);
-+	if (unlikely(!bio))
-+		return NULL;
- 	if (bio_flagged(bio_src, BIO_REMAPPED))
- 		bio_set_flag(bio, BIO_REMAPPED);
- 	bio->bi_private		= bio_src;
-@@ -205,11 +223,15 @@ static struct bio *blk_crypto_alloc_enc_bio(struct bio *bio_src,
- 	 * any non-zero slot already contains a valid allocation.
- 	 */
- 	memset(pages, 0, sizeof(struct page *) * nr_segs);
--	nr_allocated = alloc_pages_bulk(GFP_NOIO, nr_segs, pages);
--	if (nr_allocated < nr_segs)
--		mempool_alloc_bulk(blk_crypto_bounce_page_pool,
-+	nr_allocated = alloc_pages_bulk(gfp_mask, nr_segs, pages);
-+	if (unlikely(nr_allocated < nr_segs) &&
-+	    !mempool_alloc_bulk(blk_crypto_bounce_page_pool,
- 				(void **)pages + nr_allocated,
--				nr_segs - nr_allocated, GFP_NOIO);
-+				nr_segs - nr_allocated, gfp_mask)) {
-+		free_pages_bulk(pages, nr_allocated);
-+		bio_put(bio);
-+		return NULL;
-+	}
- 	*pages_ret = pages;
- 	return bio;
- }
-@@ -237,6 +259,25 @@ static void blk_crypto_dun_to_iv(const u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE],
- 		iv->dun[i] = cpu_to_le64(dun[i]);
+diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
+index e67b1e5e0d2c8fb3c49696dd73e5fd6753412155..76764d399b23eff885e307148391c9cba5c6a4d0 100644
+--- a/include/net/bluetooth/hci_core.h
++++ b/include/net/bluetooth/hci_core.h
+@@ -1069,6 +1069,24 @@ static inline unsigned int hci_conn_count(struct hci_dev *hdev)
+ 	return c->acl_num + c->amp_num + c->sco_num + c->le_num + c->iso_num;
  }
  
-+static void blk_crypto_fallback_encrypt_bio(struct bio *src_bio);
-+
-+/* Encrypt a list of bios whose encryption was punted to a kworker. */
-+static void blk_crypto_fallback_encrypt_work_fn(struct work_struct *work)
++static inline bool hci_conn_valid(struct hci_dev *hdev, struct hci_conn *conn)
 +{
-+	struct bio_list list;
-+	struct bio *src_bio;
++	struct hci_conn_hash *h = &hdev->conn_hash;
++	struct hci_conn  *c;
 +
-+	WARN_ON_ONCE(current->bio_list);
++	rcu_read_lock();
 +
-+	spin_lock(&enc_rescue_list_lock);
-+	list = enc_rescue_list;
-+	bio_list_init(&enc_rescue_list);
-+	spin_unlock(&enc_rescue_list_lock);
++	list_for_each_entry_rcu(c, &h->list, list) {
++		if (c == conn) {
++			rcu_read_unlock();
++			return true;
++		}
++	}
++	rcu_read_unlock();
 +
-+	while ((src_bio = bio_list_pop(&list)))
-+		blk_crypto_fallback_encrypt_bio(src_bio);
++	return false;
 +}
 +
- static void __blk_crypto_fallback_encrypt_bio(struct bio *src_bio,
- 		struct crypto_sync_skcipher *tfm)
+ static inline __u8 hci_conn_lookup_type(struct hci_dev *hdev, __u16 handle)
  {
-@@ -271,6 +312,23 @@ static void __blk_crypto_fallback_encrypt_bio(struct bio *src_bio,
- new_bio:
- 	nr_enc_pages = min(bio_segments(src_bio), BIO_MAX_VECS);
- 	enc_bio = blk_crypto_alloc_enc_bio(src_bio, nr_enc_pages, &enc_pages);
-+	if (unlikely(!enc_bio)) {
-+		/*
-+		 * Failed to allocate a bounce bio during recursive bio
-+		 * submission.  We might be blocked on bios in current->bio_list
-+		 * holding mempool elements.  To enable forward progress, punt
-+		 * the remaining encryption work for src_bio to a kworker.
-+		 *
-+		 * The DUN may have been advanced, so make sure to update it.
-+		 */
-+		WARN_ON_ONCE(!current->bio_list);
-+		memcpy(bc->bc_dun, curr_dun, sizeof(curr_dun));
-+		spin_lock(&enc_rescue_list_lock);
-+		bio_list_add(&enc_rescue_list, src_bio);
-+		spin_unlock(&enc_rescue_list_lock);
-+		queue_work(blk_crypto_wq, &enc_rescue_work);
-+		return;
-+	}
- 	enc_idx = 0;
- 	for (;;) {
- 		struct bio_vec src_bv =
-@@ -589,6 +647,8 @@ static int blk_crypto_fallback_init(void)
- 	if (!bio_fallback_crypt_ctx_pool)
- 		goto fail_free_crypt_ctx_cache;
+ 	struct hci_conn_hash *h = &hdev->conn_hash;
+diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
+index 54cfcab7636380a2ced55986a81b0240e9d48d87..aa5404412cbd34320f00954bda71dce65910793c 100644
+--- a/net/bluetooth/hci_conn.c
++++ b/net/bluetooth/hci_conn.c
+@@ -2088,6 +2088,9 @@ static int create_big_sync(struct hci_dev *hdev, void *data)
+ 	u32 flags = 0;
+ 	int err;
  
-+	INIT_WORK(&enc_rescue_work, blk_crypto_fallback_encrypt_work_fn);
++	if (!hci_conn_valid(hdev, conn))
++		return -ECANCELED;
 +
- 	blk_crypto_fallback_inited = true;
+ 	if (qos->out.phy == 0x02)
+ 		flags |= MGMT_ADV_FLAG_SEC_2M;
  
- 	return 0;
+@@ -2194,11 +2197,24 @@ static void create_big_complete(struct hci_dev *hdev, void *data, int err)
+ 
+ 	bt_dev_dbg(hdev, "conn %p", conn);
+ 
++	if (err == -ECANCELED)
++		goto done;
++
++	hci_dev_lock(hdev);
++
++	if (!hci_conn_valid(hdev, conn))
++		goto unlock;
++
+ 	if (err) {
+ 		bt_dev_err(hdev, "Unable to create BIG: %d", err);
+ 		hci_connect_cfm(conn, err);
+ 		hci_conn_del(conn);
+ 	}
++
++unlock:
++	hci_dev_unlock(hdev);
++done:
++	hci_conn_put(conn);
+ }
+ 
+ struct hci_conn *hci_connect_bis(struct hci_dev *hdev, bdaddr_t *dst,
+@@ -2223,10 +2239,11 @@ struct hci_conn *hci_connect_bis(struct hci_dev *hdev, bdaddr_t *dst,
+ 	}
+ 
+ 	/* Queue start periodic advertising and create BIG */
+-	err = hci_cmd_sync_queue(hdev, create_big_sync, conn,
++	err = hci_cmd_sync_queue(hdev, create_big_sync, hci_conn_get(conn),
+ 				 create_big_complete);
+ 	if (err < 0) {
+ 		hci_conn_drop(conn);
++		hci_conn_put(conn);
+ 		return ERR_PTR(err);
+ 	}
+ 
 -- 
-2.55.0
+2.55.0.654.g21b8a5bc05-goog
 
