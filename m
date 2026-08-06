@@ -1,134 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85533FE644;
-	Thu,  6 Aug 2026 09:14:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E787C431A2B;
+	Thu,  6 Aug 2026 09:20:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786007643; cv=none; b=aZKViIcxB8NgTkSpm9bh356p4PZrkQhIELhMS7JvpylgrH3JXFpLnKTMVm33YbRuVtq9yyX3/TLjEdwY4Gtdvm8dDyO9V9XkMt4PS9gI5NTpmZr28RV4Y6fwKqiDfxZKUyDH/N6iNPi61HzKUDAONBloSTHuIzZIPUo6CdIG+ZE=
+	t=1786008021; cv=none; b=KdHgYsavuMcRzx99ZHigzhEeogDa+Ujxh/IXCMOEgRn7YeEYOgbhbcZGRdnLb8cDADP4GD1UKLjM30KrkXSWJIZb3bMTNoxK4atdNyGW6Ph/YO1x1UcUuiCHrV6DQACK1rk6rfG5SL2yQgBZo4a9RP5u7wP5DJxDINgOnv2wheo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786007643; c=relaxed/simple;
-	bh=Db5J2hXeGzziUGBmrzt1Yskw9fUJx9AQMW8Yt81mv4o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fyjPY1+a949+wHK9GaLc0Qx673mwwt5Ardc2CS2dkbRgzS6AMdb6Q9KHUeKgQNfV+aPvv9/7797yzcYll0yc+4/dOZnduTll1L57deyyKxKR+6i6tHZAkuWRCiCaksRWUpRfillbluj4WSaSepJDcrkCkmotqTCFwm9V08oaP8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ahR/JYAq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786008021; c=relaxed/simple;
+	bh=jud4DCF3dznJD9IVUp/NPwI1SiYzOcqCdgmq3NM7IpM=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=eFT68enxj/9c3JgqFGGRiU8pr4J0ouI/3gSXZSCPMeSnfhkR4Dx3E1j5PD5ynHrrK6AhuG+6ncnMlhv6vbaRCM3jlCWk58A1hXortdBhmtvXfPHU4aQOsQsRVAzYp6HObD+flqD1PNIpWnB1HLSm0bSAzNJ0wXSDX/cj0YUJ4tU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/lejn03; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ahR/JYAq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 536751F000E9;
-	Thu,  6 Aug 2026 09:14:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/lejn03"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D7A71F000E9;
+	Thu,  6 Aug 2026 09:20:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786007642;
-	bh=gbQN0P9juxp84awMvUOVeJt+czRmTpTGzHczqTVhmjI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ahR/JYAqTsxKULko6tkqNQ2E6tQsxzilFd5mbjlkZ9bCe9jMcvJQBbCax+ukFjdiS
-	 FHVNUg/BJYrZ1+athIOIJmRHfasgwhnA08NCjXSHnmeaDeHNfD5KqGgxTQTgcUVpUm
-	 AcTVDSwbd7caomvwKfFNoLVCX9bodE0PhtB7ntzEKKsmxShK56Tj0ztIW8HyK5Jvsc
-	 b0K/4HSRiW4Z90lQ72x4tVgP3IYh3+OhYmNhjkMMLqyyX8dTw1Wev1zlP6LbLnk0vS
-	 t323NiEnfZaa6k0UyLGirhUSeGkRHSNderfEJ0Ye/k3hdThIUIt6FFaV7MvG4P6c4f
-	 Vsb7fwccSjcdg==
-Date: Thu, 6 Aug 2026 10:13:45 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yunhui Cui <cuiyunhui@bytedance.com>, akpm@linux-foundation.org, 
-	liam@infradead.org, vbabka@kernel.org, jannh@google.com, 
-	00moses.alexander00@gmail.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/madvise: avoid skipping pages after splitting
- large folios
-Message-ID: <anRPzJiraQUnsHa5@lucifer>
-References: <20260806055501.56761-1-cuiyunhui@bytedance.com>
- <699fc1b0-7af8-42ac-9882-c01225379586@kernel.org>
+	s=k20260515; t=1786008019;
+	bh=iGxek032oK2fSaxH+Kzf0mPcVIk2FAv6elrIDa8hzJ0=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=g/lejn03Ul/ylviBdhxYK8cnWQtzz78zo8Nb6v3Pfjb5QLxpcqgPJQsIElpQOxWVH
+	 rmrJGB/y1U+67692/RhvrBa3QeEgMCEYxwtm0CazkypyQiCLbV46BeSi1pU3hDS6Nu
+	 qqoN6IG6kvtbQT37DfVBJbbYgDJ8WbhWq51zeDuY+2ELq1MYXnSTbmHILiST+uSBW1
+	 /XKlqDIyaTGBoefRm7B7Gf7ifgh0kvkZfeIlWQUF9W9HDMl4QXWm6/6QsC+91YmjOI
+	 VrcDigJxD2q6YXwHvt8sfp3ANwDfKfSSjiRs86xueZOkN5iMYYupwJyMxE9aicTPKO
+	 9ylG3IlEfiRuA==
+Message-ID: <0f6c0803-1f87-4c2f-97c9-89b0546a95b3@kernel.org>
+Date: Thu, 6 Aug 2026 11:20:09 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <699fc1b0-7af8-42ac-9882-c01225379586@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
+ subnodes to common schema
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Stephan Gerhold <stephan.gerhold@linaro.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
+ Daniel J Blueman <daniel@quora.org>
+References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
+ <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
+ <20260805-dark-voracious-jacamar-6aae4c@quoll>
+ <7a546bc6-a2b4-457d-ac27-05fc1cfe17f5@kernel.org>
+ <m4rccl6zsdzmkzntc3njv3uczcppva3passjr5ukmru5q6rylx@wlwha7ydttfp>
+ <163c24ba-6b78-44bb-afe9-3dcbb4d47475@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <163c24ba-6b78-44bb-afe9-3dcbb4d47475@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 06, 2026 at 10:41:06AM +0200, David Hildenbrand (Arm) wrote:
-> On 8/6/26 07:55, Yunhui Cui wrote:
-> > madvise_inject_error() advances through the requested range using the
-> > size of the page returned by get_user_pages_fast(). Saving the size
-> > before error injection is required for hugetlb pages because successful
-> > soft offlining can dissolve the source huge page.
-> >
-> > That stride is incorrect for non-hugetlb large folios in system memory.
-> > The memory failure handlers split such a folio and handle only the base
-> > page for the supplied PFN. Advancing by the pre-split folio size then
-> > skips the remaining pages in the requested range while madvise() still
-> > reports success.
-> >
-> > Advance by PAGE_SIZE for non-hugetlb folios in system memory. Retain
-> > folio_size() for hugetlb and ZONE_DEVICE folios, as compound Device DAX
-> > folios are handled as a whole.
-> >
-> > Fixes: 19bfbe22f59a ("mm, hugetlb, soft_offline: save compound page order before page migration")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
-> > ---
-> >  mm/madvise.c | 13 +++++++++----
-> >  1 file changed, 9 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/mm/madvise.c b/mm/madvise.c
-> > index 5a09cc24f04a0..e9d4c3bbc5290 100644
-> > --- a/mm/madvise.c
-> > +++ b/mm/madvise.c
-> > @@ -1455,20 +1455,25 @@ static int madvise_inject_error(struct madvise_behavior *madv_behavior)
-> >
-> >  	for (; start < end; start += size) {
-> >  		unsigned long pfn;
-> > +		struct folio *folio;
-> >  		struct page *page;
-> >  		int ret;
-> >
-> >  		ret = get_user_pages_fast(start, 1, 0, &page);
-> >  		if (ret != 1)
-> >  			return ret;
-> > +		folio = page_folio(page);
-> >  		pfn = page_to_pfn(page);
-> >
-> >  		/*
-> > -		 * When soft offlining hugepages, after migrating the page
-> > -		 * we dissolve it, therefore in the second loop "page" will
-> > -		 * no longer be a compound page.
-> > +		 * Non-hugetlb large folios in system memory are split and only
-> > +		 * the addressed base page is handled. Hugetlb folios may be
-> > +		 * dissolved and ZONE_DEVICE folios may be handled as a whole,
-> > +		 * so save their size before error injection.
-> >  		 */
-> > -		size = page_size(compound_head(page));
-> > +		size = PAGE_SIZE;
-> > +		if (folio_test_hugetlb(folio) || folio_is_zone_device(folio))
-> > +			size = folio_size(folio);
->
->
-> We should never ever try deferring "how much has been mapped" from a single PTE.
+On 06/08/2026 11:11, Krzysztof Kozlowski wrote:
+> On 06/08/2026 10:46, Dmitry Baryshkov wrote:
+>>
+>>> dma-ranges tell how this bus - so venus/iris - performs DMA translation
+>>> in respective to parent. Address/size-cells are obviously also needed if
+>>> this is a bus with addressing.
+>>>
+>>> But there are no children with addressing, thus what sort of bus would
+>>> it be?
+>>>
+>>> It looks to me that having here both:
+>>> 1. dma-ranges + address/size-cells
+>>> 2. children without bus addressing
+>>> is some sort of abuse of the DT syntax. It is allowed, but does not
+>>> really represent hardware.
+>>>
+>>> IOW, dma-ranges alone feels okay, although unusual, and it states proper
+>>> DMA translation for this bus. If you add address/size-cells, it means
+>>> this bus HAS addressing and thus YOU MUST use addressing.
+>>>
+>>> If my understanding is correct, then solution would be to add addressing
+>>> to the children (so unit address and "reg" property) or drop
+>>> address/size-cells as Rob pointed out. [1]
+>>
+>> Doesn't dma-ranges require address/size cells? In the end, how can you
+> 
+> I think it does not require, at least how I understood the DT spec,
 
-Inferring? :)
+'dtc' disagrees with me on this matter and treats 'dma-ranges' exactly
+the same as 'ranges' property, thus requires address/size cells. So
+maybe my below interpretation is not right and the schema is fine... Rob
+commented earlier on a case which had address/size-cells but no dma-ranges.
 
->
-> While this currently works for hugetlb, it's just an anti-pattern to throw
-> hugetlb checks and similar around.
->
-> So this is not the way to fix it.
+https://lore.kernel.org/all/20260716165434.GA290489-robh@kernel.org/
 
-All of this code is disgusting. Also what about an address range that is
-partially inside a folio...? Then presumably the whole folio is discarded? Or
-does it figure it out somehow and does the split for the rest of the range?
+> unless you provide actual addresses to the property.
+> 
+> IOW, this requires address/size-cells:
+> 	dma-ranges = <0 0 0 0 0x10 0>;
+> 
+>> specify the DMA address if the device doesn't have addressing at all (or
+>> MMIO-style addressing)?
+> 
+> Yeah, that's why having here children without bus addressing is
+> confusing. I would interpret it that, children are not on MMIO bus, thus
+> the venus/iris is some sort of proprietary bus with no mapping between
+> parent MMIO and children nodes.
+> 
+> If there is no mapping, then we do not have 'ranges' property. But I
+> could imagine that such no-mapping bus still provides access to system RAM?
+> 
+> Actually this feels like a huge stretch, so I tend to think that the
+> only reasonable option is to have children with MMIO, which would make
+> it explicit: Venus/iris is a bus which provides translation of both MMIO
+> and DMA addresses to the parent.
 
-And what if end < the end of the hugetlb size?
 
-Ugh god I hate all of this, it's so so bad. And hugetlb being the special
-snowflake is the cherry on the s*** cake...
 
->
-> --
-> Cheers,
->
-> David
 
---
-Cheers, Lorenzo
+Best regards,
+Krzysztof
