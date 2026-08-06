@@ -1,87 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D21372630;
-	Thu,  6 Aug 2026 16:26:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8FD23E325;
+	Thu,  6 Aug 2026 16:29:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786033583; cv=none; b=E8E1mlmyf2jnbu2Mh1NGdyM6l8aWicHBB8RGuLpIbfUvqjd7jwvZVXLlfPmjUpP4MmCXCGBCUfwWxIUqFYXM/lhn11VfMiIpr0aIpwUGddL2j7Vk8aTEPS9Sno35gNh1kn5SiLiabWN9Ko9L+GOBfq64Tg7u4Izg8e/wM5J9YBs=
+	t=1786033786; cv=none; b=Lrf4COsIqjnYgvUleLRNip33piq4PMVhhSBTBJu3yLzalpSJlJw123CpRuNJgAe9eqsF9YBtg/Jy/z+nbZTN4QGylaKF7CAz4hwYQfXRaOmIl3WPd3jrrK/XIJSbKJ1mXjFmRc+q/10CQOl+89Nq0tpSNEd9lm8mOvoFTATVZBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786033583; c=relaxed/simple;
-	bh=71b6YNmp66lLVgh61Y9Ckha0QEZ3/x+A+zoIyexzidk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=MyXEw6ePZ9O2PQ8ENslGU6EXS4Og1T2BvuE1VAtR7pRRxZT0AclrklMF1UczN7t+nlLHjqLZ99kLD5e+HtkIYzJJNL/lKSjhgWoEkk7RR744Ld3iOHv/iu7ZORGDy23C860KkvPwWexwYxmdLGWFhITPz1H46btOcAJuIcIlPbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RCI2qc4E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786033786; c=relaxed/simple;
+	bh=98h9c//xSSv960Ms9PB1VwBOELwx9RNtSz7coiPAkIE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gZDig5nHSQXvf8t4dPkLlXiLEys1ekbXIxLJCgJZhTpAGvGjLLy066pjnZspNUM/OOl0zkz4KWtDGkS4fOQqQmTc44T9sgbaiTWm1BKPNGTau4mdM4BQgeTdjkQHDLFslPMnFOxA0S6SF24wgWZyX9gkrqztna88b7s6JyTHuKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1T6nSa7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RCI2qc4E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4572D1F000E9;
-	Thu,  6 Aug 2026 16:26:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1T6nSa7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B12C61F000E9;
+	Thu,  6 Aug 2026 16:29:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786033582;
-	bh=Jg/NzKtGUicQWYfSzQGG+OdidfzVR9+xwhvbX8IlS8E=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=RCI2qc4E7HelIbD+i/JZbV5at6mCpJjahlktbvQkfbRJpNdXwsOoqJeZLa6gbG0j5
-	 JOydWYADGn/69AphEUC4zJQI2ZEokL9xVVeKYvy2atuFWt7is3PCmat/TnspVVlPps
-	 fMnL+P09IBYhccuCp2IcoadHHft4MhuwRjXo1uNz0kOzIYdnvdky4CLdWqVbFMMfAS
-	 69z7dwN4ORxQdPKO82RqOKsxJ+dovsmN2SneARRlezt22akS3CnJGrqwmZUV/IUbqQ
-	 Di413xABZy9eqjoRvUQo3n+SvMRY3nUwzlEDVQzJ3lq1fOE2JsQc8yrq2qGSgNvngN
-	 eZy7hmH52RCSw==
-From: Vinod Koul <vkoul@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Jun Li <jun.li@nxp.com>, 
- Xu Yang <xu.yang_2@oss.nxp.com>
-Cc: linux-phy@lists.infradead.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Felix Gu <ustc.gu@gmail.com>, stable@vger.kernel.org, 
- Xu Yang <xu.yang_2@nxp.com>
-In-Reply-To: <20260731-imx8mp-usb-phy-improvement-v8-0-2ec8d6b3854d@nxp.com>
-References: <20260731-imx8mp-usb-phy-improvement-v8-0-2ec8d6b3854d@nxp.com>
-Subject: Re: [PATCH v8 0/6] phy: fsl-imx8mq-usb: few improvements
-Message-Id: <178603357786.674490.1895923542917045365.b4-ty@kernel.org>
-Date: Thu, 06 Aug 2026 21:56:17 +0530
+	s=k20260515; t=1786033785;
+	bh=OL5sBD5AHeLDVn25oNMEpQDloi1YNoxgi5Bau+T+ONY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=P1T6nSa7/6J9hjdPqziiNCkSj9cxGRjrNBfL7hCxLGEVIVMpxfzyDSfj0jiQ8kFIY
+	 Jbkn5sNU9wEds87zC6/V+k1vgwytFpiN8es5VBo/B1Vd+jQKNkNnsdrLCxxN2KhOCZ
+	 0LEmLyBkfU0puG1BSGHl/nnFxvaBS9dyZwN2JAFtSVx7DuMx83b70wg7H7K96LDVUO
+	 1hn0AdoRt3U85VO9MUGxVrDyW7bSpGUqctGqY//Cp7pIwb0r1bMSM3e3sIf2QhoAI+
+	 yWDAPyttO/vpRVrcG2unviRW5SbAxpiTF1otf/t4wMI+AqUlby+JU4AJOOwNcEOiUP
+	 FGNeuatkmw3LA==
+Message-ID: <564e64b2-1b71-4d8e-a29e-dc98e8deb006@kernel.org>
+Date: Thu, 6 Aug 2026 18:29:39 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/gup: fix always draining LRU caches in
+ collect_longterm_unpinnable_folios()
+To: Andrew Morton <akpm@linux-foundation.org>, Hugh Dickins <hughd@google.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Ackerley Tng <ackerleytng@google.com>, Frank van der Linden
+ <fvdl@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260731-check_and_migrate_movable_folios-v1-1-e0002d7b791e@kernel.org>
+ <f616e9fc-339d-4430-43ea-0ec8810c5f3b@google.com>
+ <20260801122040.7230a8eb0dc846ce357fba67@linux-foundation.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260801122040.7230a8eb0dc846ce357fba67@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13.0
 
-
-On Fri, 31 Jul 2026 16:11:18 +0800, Xu Yang wrote:
-> Patch #1 fix Type-C switch resource leak if probe() fails.
-> Patch #3 add runtime PM support to avoid register access issue if the
->       USB controller enters into runtime suspended state, in this state
->       accessing USB PHY register may lack some resources. This will also
->       avoid regulator leak if power_on() fails.
-> Patch #4 add debug control register regmap
-> Patch #5 add imx8mq_usb_phy_drvdata drvdata for better extension
-> Patch #6 correct i.MX8MP USB runtime wakeup issue after introduce runtime
->       PM support.
+On 8/1/26 21:20, Andrew Morton wrote:
+> On Sat, 1 Aug 2026 11:49:39 -0700 (PDT) Hugh Dickins <hughd@google.com> wrote:
 > 
-> [...]
+>>> Found by code inspection. If someone has a testcase that can easily
+>>> trigger this and result in migration problems, please test! But this
+>>> change seems to be "obvious the right thing to do".
+>>
+>> Sorry, I don't (as perhaps is too obvious). And I'm a wee bit afraid
+>> that some of the problems which those changes happened to succeed in
+>> fixing, might now reappear once the drains are finely targeted.
+>>
+>> Am I arguing for a delay before advancing to stable?  Perhaps, but
+>> I think not: it's probably best to get that working as intended,
+>> then deal with any fallout if it arises: just be on guard.
+> 
+> This patch is in mm-new, so it's still some months away from -stable
+> eligibility.
 
-Applied, thanks!
+I hope you meant weeks :)
 
-[1/6] phy: fsl-imx8mq-usb: fix typec switch leak on probe error path
-      commit: 87a1805b1c346b092c34f96f3806f207792910e1
-[2/6] phy: fsl-imx8mq-usb: set usb phy to be wakeup capable
-      commit: 2602012b8c625e63493647356d7290ee7c8fef2b
-[3/6] phy: fsl-imx8mq-usb: add runtime PM support
-      commit: 56eec5d9665cebe580d41cdf2ea7abb52d23e122
-[4/6] phy: fsl-imx8mq-usb: add control register regmap
-      commit: 01e9e84a43a1b4e9f67b5bd36be3d127d773a223
-[5/6] phy: fsl-imx8mq-usb: introduce per-variant driver data structure
-      commit: 2d9dcffd5d3995ba04feeeebe800cbf1c0d4bbbe
-[6/6] phy: fsl-imx8mq-usb: keep PHY power domain runtime always-on for i.MX8MP
-      commit: ee9e2b39ea4890f804b0c75c8a40a0f68ecd8d0a
+Can we get that into 7.3-rc1, though? There is quite the overlap with
+guest_memfd work, and I'll send another patch that depends on this.
 
-Best regards,
 -- 
-~Vinod
+Cheers,
 
-
+David
