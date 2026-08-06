@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E0F446AF27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299A346E01C
 	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 11:36:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786016208; cv=none; b=uYSSPmvMA/v4t6py02pDu9PYmQAciuOszd0AZyCPclRTtMHpahDmsOTbG4KyyBiNy9n/9FnWZZ91rHjZqYfQbOU2Do8mShS8ALTCBWtxfkHFmCtFI6aQ5+5x+EaxSdxUix5dOdYRKxGBkQXf/9bDAvvugQr3koidWved1G0rvt0=
+	t=1786016206; cv=none; b=hFo71lBmSXjYKB59mDb+7MyazVs8cHEwDAhMuyuq9YYEAK6mUCaAgjvYc7jPr2SGRKJfQzH5SXqZVgJKFknUt2oSj/p+a1VFuJUYQzQd4EoKwqW9EKs60KquERwlo17sGabLVmi2XNw2yTPWFLx23JaUfbajF6XLUxBsgGOn1XM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786016208; c=relaxed/simple;
-	bh=pedzRgUZ7XYSNdXd4lbnen2aNlP7qoMFku8/iUjyoJc=;
+	s=arc-20240116; t=1786016206; c=relaxed/simple;
+	bh=YLAqWdyxvsFqzD0JuU58c2v9kEulKJVZWj3NRf/VKhM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HD6jwmfqT49Hz75EYm6SmK6FS/CWpRDRxP82K8J5XwuWXKBK4d1kbiiTIs1s62TB69RpSOsPG9/8He+pr3GuwOuJDvAKgi7twKXhoiyRBoO6wznXeuVE8QxIglmuhBWV0YjL464PX1+q8aRh3nEBeFjjHb40Ma3+VjCUQSs8uGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bTtvlf40; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=F+Af34FMUcUvFMYL1EGk7Fxo5Kwz1To1zQu2cl3aKBlZxrWpnSvP8vrXHr5KbnD040vDvBvTTNxAPkkt5YpfaoXkLv9NErJ7u7zFlwRAl0moUGPMoRf1V8rCgr+bYIBJqz5V1/SJ0w95AS4uP4Henwe1BSl1S7RSnsFoxmhquxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OzFSOqOJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bTtvlf40"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AED521F00ACF;
-	Thu,  6 Aug 2026 11:36:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OzFSOqOJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F4501F00A3D;
+	Thu,  6 Aug 2026 11:36:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786016198;
-	bh=v6UEuLU5LgZz8dAZm+xcNq0KiwT4V5WKi756BlckYmc=;
+	s=k20260515; t=1786016200;
+	bh=rTWlNMnfjcgRSkGXoHhOIEmR/Vx7n8khf6XxsW8I9X4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bTtvlf40uD60RuihPde7lr/w7/iXbT/Ev8v97UhUCnqJPr5Nr2JLO6Q8MCPDwYg1A
-	 953XqDDqas/GhUhQjofg8qy2fOtIo8M3WTNk3eodZmZ/99xQsAoGwR18HYxCZ8Qxt7
-	 ckL4e/fFJ8T0U3Ujc9nRB8JZKdS9NFmvGzKn6vj7HM/GWL0pchidZd+xE0bF1riA5I
-	 0JNidorGo3mJt3wyzL3brH2p4lvcyORFiGldYDbUKdYVRkGq/3w+O5dSmDJ/MvHN8f
-	 T96oIUAO7dajhOOjMFJBQbqsZMiSMSvqXSF+LBU6/bkylrPiEsr5mDF/HrdZejmUQ/
-	 U0ycuZj58MYQA==
+	b=OzFSOqOJ4zd+hqoRa7pHExtvmxG7J+NTzJPWh4rN3xOMyK52C7UFi7rmhwy6J9wOA
+	 dwrWHAWUFA+TPIjItendv0E2Vuyo59SLEbKcFeYavL+SRFL7GFwsyo/a1KGgfGwgfa
+	 zMdt9npUVzDdc1TSHaFOhl64kbOc1QpFntDSTn2maiRMmcULWo4RyLvAURbx1OMdr8
+	 ou7WgdhXfMmZ7zRcLFmBWlbjWxff5nb3zy08w0T5/hWCNGo28iEMiax+nXRkpaFS8g
+	 n6mJ6G+0tCsj6TQWFbta1bpRCVCyipU8lm8kc//7fgcjEPIi2heoSl9038QUVt9qkF
+	 oe7odT6xFHrRA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Ilya Maximets <i.maximets@ovn.org>,
 	Aaron Conole <aconole@redhat.com>,
 	Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [PATCH 6.1.y] net: openvswitch: fix skb leak on flow key update failure during recirculation
-Date: Thu,  6 Aug 2026 07:36:08 -0400
-Message-ID: <20260806021809.0015-sashal@kernel.org>
+Subject: Re: [PATCH 5.10.y] net: openvswitch: fix skb leak on flow key update failure during recirculation
+Date: Thu,  6 Aug 2026 07:36:10 -0400
+Message-ID: <20260806021809.0017-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260805221920.2820141-1-i.maximets@ovn.org>
-References: <20260805221920.2820141-1-i.maximets@ovn.org>
+In-Reply-To: <20260805222104.2820621-1-i.maximets@ovn.org>
+References: <20260805222104.2820621-1-i.maximets@ovn.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,10 +46,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 06, 2026 at 12:19:18AM +0200, Ilya Maximets wrote:
-> [OVS drop reasons are not available in 6.1, hence plain kfree_skb()]
+On Thu, Aug 06, 2026 at 12:21:01AM +0200, Ilya Maximets wrote:
+> [OVS drop reasons are not available in 5.10, hence plain kfree_skb()]
 
-Queued for 6.1, thanks.
+Queued for 5.10, thanks.
 
 -- 
 Thanks,
