@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4B7429CF6
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 11:32:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1124E46AF27;
+	Thu,  6 Aug 2026 11:35:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786015981; cv=none; b=BUIdJl9UgJq+AJl/GbJP/+fgxXUy0Eg67SdEV+bkuM9HaL0ybMgc7tjuqL3rX5LRQ538oPaRGsJoSkqMstsMz4bSOwz5cojtJVMGdQprVOLvrhnCJLTkYKgKXcT/n0Zl0bR1UXd9msm2JZesdUq0gloBQRkVMw3/OsuqjcZO70I=
+	t=1786016141; cv=none; b=QEusgwmaQhv6437cye9WT91Sl6A+3rwYuyieSW+0J+YVFEOdGXDz5DZn3/Ox/QlMF4kUFzHa+ysE0Nujv+0bkC89UmvWgrC275Cv2EjWUrTEF87xFROsCKWGLhdT2wmZmloETGN5Q1zudzddf0sMnfrtQQeG6uuqBx7iHctXWIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786015981; c=relaxed/simple;
-	bh=+8us7sxC13SZweCihr3mLJ/i3HYER+faVnuVHFxKTtw=;
+	s=arc-20240116; t=1786016141; c=relaxed/simple;
+	bh=4moVM7TQhgOEnxVOW8ZNheGwST9mR6QX6NpMP15Z5WY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jmu0faaIDvX2dyJqwNVSG98TGKeamvwd1QEBYSrE0nqOey94f+juFLfeZPZiNjBvv2b9YDiRbCT4eIEA9k0rkwqlZaHJJTCfMws3Amev54fHNJYEw+ZGc2LL8wA25795aMzyB5yOBeCO37W6pOwIvqptuMJy7PfcTAgNWr8ZPlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f49lgbja; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=CXyxpgH0K39Ty5uYh+dXf/jUSVyEEHijeqYVa5pFhV2kiO/VMSl7vxSYRWFSl3DbNuNYn9+ameSBrNpFUBYzkdxEmZlS5+8noUcv/zD06b1/rMZ3ZVk2MFUUdg1x5/oHnHeEQJa53aawOPFukL8lk9fWPMieS6CWopFyyQVOlfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+6XGZ/h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f49lgbja"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11AB31F000E9;
-	Thu,  6 Aug 2026 11:32:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+6XGZ/h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03C2F1F000E9;
+	Thu,  6 Aug 2026 11:35:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786015979;
-	bh=+S0bDK+HE9AO9ibYQli3H7LOxEbXjfqhKnBpSyOmk/0=;
+	s=k20260515; t=1786016136;
+	bh=o+F0RzuVtNz+eojtGhM+HYo6D1XEZrIxjfPHKREvRLU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=f49lgbjapFRD5GZZMPWTnzs8d3DMejNvT97gj5JUnHRi52bp/NbdDMX6dZaNiS4yX
-	 LQiVL6smmaYTSk7EDK64BiPr/HVUQJVU7pi/Zf61w2BMY8MgUGDwI2KotpFtYrCZVL
-	 Co1H9/ptgiVOuwCEeOxssl0b4IY84Wmgb0hmmWWYHWqO7u7twyhhzepWdm1hSFaWw5
-	 HRGQwh8/hrcNrGPc1/BVFYvmRLqmeeEfezsaDJxMpWuQz8MDVjFotjYU7w4EeLx9gF
-	 QGVqKRYMJKjq5KUUHRTVB5YWwViu2YFFX6QAPG8CsEiOvXw+tHLLrjsgJ90VSX8U8L
-	 mRL/CSZbxmu7A==
-Message-ID: <9c3feb9d-3111-4f37-90f7-3ad3c2e094c7@kernel.org>
-Date: Thu, 6 Aug 2026 13:32:52 +0200
+	b=D+6XGZ/hqaszvFrMxClhmjIejkkpunmP+HkRtEn60r2qHNOn4GxTSTJYAf8YvKHR1
+	 vK977umQqmd7c8GlZ0HK/6iH3wE3LmJTmMT6Uj/bwQBP2DiR13DZa1DbGbpUAqWnIg
+	 QQ6UG9rweFFW91srrvAHYUb50WMc3T+Nk37Xum6iSVtJgUzhsVphsgerdZLAJ2ny77
+	 P2iEmLyn9VfaMo5XS3Te6PZLeWZP2PGQ8idcqQNRVKPrbUFMuybFPzH+cpsWn5pdy+
+	 ALHhFRgeg4Hf1uO+g/hpk+vE+vNFx8h8kvGmxYGdAnNyLZJr/1FmC/cMAYZsg7D0C8
+	 /E6VIrHqwRr8Q==
+Message-ID: <919b804b-6f1d-417e-9c0c-d06f50d765d8@kernel.org>
+Date: Thu, 6 Aug 2026 13:35:30 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,20 +35,15 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/20] arm64: percpu: Add infrastructure for
- preemptible this_cpu_*() ops
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, ada.coupriediaz@arm.com,
- ardb@kernel.org, catalin.marinas@arm.com, cl@gentwo.org,
- david.laight.linux@gmail.com, james.morse@arm.com, ljs@kernel.org,
- maz@kernel.org, peterz@infradead.org, ruanjinjie@huawei.com,
- ryan.roberts@arm.com, stable@vger.kernel.org, vladimir.murzin@arm.com,
- will@kernel.org, yang@os.amperecomputing.com
-References: <20260804170503.3513916-1-mark.rutland@arm.com>
- <20260804170503.3513916-14-mark.rutland@arm.com>
- <7df18d5e-886e-43d1-b53d-52a1d08aba49@kernel.org>
- <d600d0db-5109-4386-9a49-955be74cc432@kernel.org>
- <anRuT1Psmar9mW5L@J2N7QTR9R3>
+Subject: Re: [PATCH v2] mm/madvise: avoid skipping pages after splitting large
+ folios
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Yunhui Cui <cuiyunhui@bytedance.com>
+Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org,
+ jannh@google.com, 00moses.alexander00@gmail.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260806055501.56761-1-cuiyunhui@bytedance.com>
+ <anQyoZgi5Urnvvjw@lucifer>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -95,47 +90,37 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <anRuT1Psmar9mW5L@J2N7QTR9R3>
+In-Reply-To: <anQyoZgi5Urnvvjw@lucifer>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 8/6/26 13:21, Mark Rutland wrote:
-> On Wed, Aug 05, 2026 at 08:47:08AM +0200, David Hildenbrand (Arm) wrote:
->> On 8/5/26 08:45, David Hildenbrand (Arm) wrote:
->>>
->>> FWIW, in a recent discussion on some prototype hacking [1] we saw some overhead
->>> in micro-benchmarks that would really hammer on a path that would now do a
->>> preempt_disable()+preempt_enable().
->>>
->>> Switching from preempt_disable() to preempt_enable_no_resched() made it turn to
->>> noise. Of course, that has other undesirable impacts, and I am not sure if we
->>> are in the territory of code layout changes affecting the numbers.
->>>
->>> Just mentioning it as some data point.
->>
->> [1] https://lore.kernel.org/linux-mm/20260630174852-mutt-send-email-mst@kernel.org/
 > 
-> Thanks for the pointer.
+> Let's at least split out the folio check into a helper to make things
+> clearer:
 > 
-> IIUC in those cases you're using preempt_disable() .. preempt_enable()
-> directly, not this_cpu_*(), right?
+> static bool poison_splits_folio(const struct folio *folio)
+> {
+> 	/* Hugetlb is, as always, a world unto itself. */
+> 	if (folio_test_hugetlb(folio))
+> 		return false;
+> 	/* Soft-offline errors out, hwpoison traverse DAX intact. */
+> 	if (folio_is_zone_device(folio))
+> 		return false;
+> 	return true;
+> }
+> 
+> Then for your patch:
+> 
+> -		size = PAGE_SIZE;
+> -		if (folio_test_hugetlb(folio) || folio_is_zone_device(folio))
+> -			size = folio_size(folio);
+> +		size = poison_splits_folio(folio) ? PAGE_SIZE : folio_size(folio);
+> 
+> I tried writing something that was neater and nicer but AI kept pointing
+> out how it was totally broken and I really really hate this code (not your
+> fault :).
 
-It was purely preempt_disable/preempt_enable experiments without any percpu stuff.
-
-> 
-> If so, patches 5 and 6 of this series [2,3] might have an impact, but I
-> wouldn't expect a significant change unless you're calling
-> preempt_enable a lot.
-> 
-> Please beware that it's not safe to use preempt_enable_no_resched()
-> UNLESS it is immediately followed by a call to schedule(). That's not
-> documented today (and I couldn't find a good reference), so more folk
-> are likely to be tempted to use it...
-Yes, that's also why we abandoned that (including for various other reasons :) ).
-
-preempt_enable_no_resched() helped to identify that the preempt_enable() was
-really causing the noticeable overhead, not the other minor stuff we added on
-some hot paths.
+No, I don't think any such special casing on folios is the right way to handle it.
 
 -- 
 Cheers,
