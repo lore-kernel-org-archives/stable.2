@@ -1,50 +1,36 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B871A3859CB;
-	Thu,  6 Aug 2026 05:57:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42E7B392C2C;
+	Thu,  6 Aug 2026 06:07:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785995848; cv=none; b=Tlmymt29v3ZPR8MlgXLSY2tkOQHZuoqcjudPuArBssZC690l75LKjH2opJ30dzM1/3IrW/5+7Dv1rVo0LQyPKzcsh7gnUEiN0WjdDiZNa2DkCdC5afqrJhtfSGIWXG08T8Pi4Krw5QoX2oOpdrjkOgBo1RV55km60/EA7s6xTZU=
+	t=1785996440; cv=none; b=JQz8OYQMz3wM6we7DgRASQK5Jw7Oz7HmExZhytkR0Nqf48rcxpLb4vd3qIKQRZAoAlKmoYOAQ6QTLkfugu7AX1m4AuLO7sbB2oha3F+bgC5cJp5IEH9mW49viOlFXncv+75PzuuOc03MCUXdyqKzAp5fho9lXvCDJyN4anJrCYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785995848; c=relaxed/simple;
-	bh=5KJgH9AWCbt6lJK02XsPTUdL7Gj+2UvDSOCD8IIlqVM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iqvPrLYvHcux5ueU247w0q9+CS/6QJPxrPq7juuVK8uPTRIvGi0mYgkLIuk/gesMGiTNly6h/qQSELuaeIns7h6Hhy63xy61DKnGKlS4fGado4W5U1FKswkDP/m8oBspHMom9aP0ZdhloyXRTkLSezwm37yQoqWwIbphOQzWv0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: ae46fc4c915b11f1aa26b74ffac11d73-20260806
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:e80ebe31-7e75-436b-a9b2-718e96e03f41,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:bcd1cdca5728b022bf1d1261a3132ab2,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
-	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
-	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ae46fc4c915b11f1aa26b74ffac11d73-20260806
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1186344515; Thu, 06 Aug 2026 13:57:17 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com,
-	alexandro.calo@nozominetworks.com
-Cc: ntfs@lists.linux.dev,
+	s=arc-20240116; t=1785996440; c=relaxed/simple;
+	bh=hyPQtiHro7wxbRPeXTXPYqRSLQbn+uE3ClaCeaHtJVs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qua7OzKHZGWYj9YgFfVS7BOs99kN8sn8a5tdud2HeANrX2vxglQ5HuJRwGU9ZcrsAhUTZ84xn+tfNY1fUjK96CSbP0hT2WaKoDBN2+E0ikbvltB9TaUwdtfYwhv28dHH+YI+33wMw/zENIRNGsClGHtwoKocmKBqbqhzrUzvCLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=WElJtQBL; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="WElJtQBL"
+Received: from LAPTOP-99KJFSET (unknown [36.153.54.46])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 48fb94a39;
+	Thu, 6 Aug 2026 14:07:11 +0800 (GMT+08:00)
+From: Hongyan Xu <getshell@seu.edu.cn>
+To: Hannes Reinecke <hare@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] ntfs: validate non-resident attribute offsets
-Date: Thu,  6 Aug 2026 13:57:13 +0800
-Message-Id: <20260806055713.42067-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	stable@vger.kernel.org,
+	jianhao.xu@seu.edu.cn,
+	Hongyan Xu <getshell@seu.edu.cn>
+Subject: [PATCH] scsi: myrb: quiesce the SCSI host before controller teardown
+Date: Thu,  6 Aug 2026 14:06:58 +0800
+Message-ID: <20260806060659.1852-1-getshell@seu.edu.cn>
+X-Mailer: git-send-email 2.50.1.windows.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,89 +38,50 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9fd5aec11603a1kunm3e92b3632893b2
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTU1DVhodHhlOGUMdSEJISlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKTkhVTk9VT01ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=WElJtQBLEE5tROFTnnmLCg3zCvFHBs53a+T0SWpHsG226lHeIIYKzgBJqQwARPks/SxapFWs3U71NTKSMveo1+psYegbWs7WGvN/or+G6ScxB6UegMC2XOHzHOQWLJTd5wl5nKY3toa82lrqBRgtSAAxtw9vUJCyv3MZlcanPIk=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=wjjPyxuElG9dN2jTOZKl+YpGlEq6FiIH3VlGJADeS44=;
+	h=date:mime-version:subject:message-id:from;
 
-ntfs_attr_update_meta() shifts the attribute name when converting between
-non-sparse and sparse attributes. Converting to sparse also adds the
-compressed_size field before the name and mapping pairs, requiring eight
-additional bytes in the attribute record.
+myrb_remove() tears down the controller resources and drops the host
+reference without first removing the SCSI host. The registered host can
+therefore continue to dispatch queuecommand callbacks that use the
+controller MMIO mappings and DMA pools after teardown. The monitor work is
+also canceled only after the MMIO mappings have been released.
 
-However, the validator does not check that name_offset is within safe
-boundaries for these operations or that the additional space is available.
-A malicious MFT record could set name_offset such that:
+Remove the SCSI host before issuing the final controller command. Then stop
+the monitor and destroy its pools before unmapping the hardware and
+dropping the host reference.
 
-1. The name is positioned at the very end of a non-sparse attribute.
-   Converting to sparse would shift the name forward by 8 bytes,
-   writing beyond the attribute boundary.
-
-2. The name overlaps with the mapping pairs, causing corruption during
-   conversion.
-
-Add validation to ensure:
-- For named attributes, name_offset is within valid bounds
-- Name does not extend beyond the attribute or overlap with mapping pairs
-- For non-sparse, non-compressed attributes, eight bytes are available
-  after mapping_pairs_offset for the compressed_size field
-
-The space check also covers unnamed attributes, for which name_offset = 0
-is valid and no name range needs to be checked.
-
-Fixes: 7e2a1c554bc4 ("ntfs: Fix min_len for compressed/sparse attributes in ntfs_non_resident_attr_value_is_valid()")
+Fixes: 081ff398c56c ("scsi: myrb: Add Mylex RAID controller (block interface)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-Suggested-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
 ---
-Changes in v3:
-- Move the sparse conversion space check outside the if (name_length)
-  block to cover both named and unnamed attributes.
-- Use attr_len - mp_offset < sizeof(compressed_size) to check for
-  sufficient room, as suggested by reviewer.
----
- fs/ntfs/attrib.c | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+ drivers/scsi/myrb.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index d354c3b0fae1..edea3d822b57 100644
---- a/fs/ntfs/attrib.c
-+++ b/fs/ntfs/attrib.c
-@@ -693,6 +693,8 @@ static bool ntfs_non_resident_attr_value_is_valid(const struct attr_record *a)
- 	u32 attr_len;
- 	u32 min_len;
- 	u16 mp_offset;
-+	u16 name_offset;
-+	u32 name_end;
+diff --git a/drivers/scsi/myrb.c b/drivers/scsi/myrb.c
+index 3678b66310ed..adb2fadf9146 100644
+--- a/drivers/scsi/myrb.c
++++ b/drivers/scsi/myrb.c
+@@ -3496,9 +3496,10 @@ static void myrb_remove(struct pci_dev *pdev)
+ 	struct myrb_hba *cb = pci_get_drvdata(pdev);
  
- 	attr_len = le32_to_cpu(a->length);
- 	min_len = offsetof(struct attr_record, data.non_resident.initialized_size) +
-@@ -706,7 +708,28 @@ static bool ntfs_non_resident_attr_value_is_valid(const struct attr_record *a)
- 		return false;
- 
- 	mp_offset = le16_to_cpu(a->data.non_resident.mapping_pairs_offset);
--	return mp_offset >= min_len && mp_offset <= attr_len;
-+	if (mp_offset < min_len || mp_offset > attr_len)
-+		return false;
-+
-+	if (a->name_length) {
-+		name_offset = le16_to_cpu(a->name_offset);
-+
-+		if (name_offset < min_len || name_offset >= attr_len)
-+			return false;
-+
-+		name_end = name_offset + a->name_length * sizeof(__le16);
-+		if (name_end > attr_len || name_end > mp_offset)
-+			return false;
-+	}
-+
-+	/* Ensure there's room for the compressed_size field if needed. */
-+	if (!(a->flags & ATTR_IS_SPARSE) &&
-+	    !(a->flags & ATTR_IS_COMPRESSED) &&
-+	    attr_len - mp_offset < sizeof(a->data.non_resident.compressed_size))
-+		return false;
-+
-+	return true;
-+
+ 	shost_printk(KERN_NOTICE, cb->host, "Flushing Cache...");
++	scsi_remove_host(cb->host);
+ 	myrb_exec_type3(cb, MYRB_CMD_FLUSH, 0);
+-	myrb_cleanup(cb);
+ 	myrb_destroy_mempools(cb);
++	myrb_cleanup(cb);
  }
  
- static bool ntfs_attr_value_is_valid(struct ntfs_volume *vol,
+ 
 -- 
-2.25.1
+2.50.1.windows.1
 
