@@ -1,145 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5DA3DC4D8;
-	Thu,  6 Aug 2026 11:19:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42E1F43B3F4;
+	Thu,  6 Aug 2026 11:19:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.181.215.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786015158; cv=none; b=aT2F5ZUhPsyk19s8yOA0FZCAyr68ernLJceES27ISEV/acF/cWsNV1dEG2tUXx5SPKfvJldVqaC7iRLx9Vpx8Y4/nAw2MF+XNIy+h5tcVVOzKmJFsnVbCKwr+ZecarBdFgRcTVoq8iIVMMKVr7OJND/ISPQx2DhPxPU6I5c6zE8=
+	t=1786015172; cv=none; b=O6qsbgE2Cz86AiBLzZU99zyx6Q3aYAvZSndCpIgFtIBw+0++FZhHg+iWn6vEY/F+CX5j/8I7tBRHMriesK4cUPT8hVzT7n2Jfor28SW6Ay3vGpexbSZu0lVD4pfGeo3PeH272JmFAtyDOYqT8JCZLjvm5FFfTeo6+uDHpakckKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786015158; c=relaxed/simple;
-	bh=mDO4DalRgsQkqWN2w6pV1oB+QslpcIOYgWzKEmV7hMw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XMLsf5snCyqwLM7WNHYc3WtRWRrdJNPtr8lKmN+X8uRW+IVGYGljoO9HWDlE0NSrC6UrxREyrS0NWSBY8MSGPaswplYHjWf/WC4K2xjQrh6w18sg/TN79kNQ4IrIoAdShZfbzB8E6UAiUOziMC6Kr47C6g3sRDQwv5p+uDZ7YLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MgkR27ut; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786015172; c=relaxed/simple;
+	bh=VZJLBZnRyPxnCLoEjoQyTL2E3KhxDtuYstjmKXmloU4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HjSTfDx7ZhDCiTMU2RCGh99hBYn1hHiFxPRcwjYV/0ZfDA5mGgD9lFj65uj2nE/J9vfB/iMhOCv5DL1q6vfsvkhG6zfsebGYg3wU7vEHivo6H1Fdfn6cAqvXJDMHG54vY/9Ej9MgRW4aAzw+xHtDXPMDmVMh8/31X3UBx8lRtEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz; spf=pass smtp.mailfrom=xff.cz; dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b=t+gQlB1V; arc=none smtp.client-ip=195.181.215.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xff.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MgkR27ut"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31BE11F000E9;
-	Thu,  6 Aug 2026 11:19:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786015157;
-	bh=cUva6G3vVuhnHaubIaPynbfg/2K8F3xgGh6baho7SjM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MgkR27ut9/+rIl+XjUyw0MyvLh8SCFdkUrQW1+sQErOwca1C1ViVkrFmfVGm6B0DE
-	 rNRrFXIs12K+7fLIlSmK240bvu+4o4CPTJbcBvgPPTHgQT6OqtBe3DMJTIUvNxLoJz
-	 qu/PqOvcUk8K5LeDF8Da1/wQ01WMBXK5IL8RT6TN9diwjoQuQlVLCXsTt4gJvoXYbf
-	 /mKQvYCg+RyjYty44lbRNtdmydxXLBh8KtFA2myeIAR4MwtHHXx0Nal42J2cAChPjE
-	 dVEgacoYbVqE8zKeh7M2aQobrvcbc1lnF2tIzQJASw/4RJ+f7HrbGwUzB5twG/7lPG
-	 PGdPc8Zfw8RUQ==
-Message-ID: <d3c03fde-3845-4c1c-9ac5-0eb1ebe92a4b@kernel.org>
-Date: Thu, 6 Aug 2026 12:19:11 +0100
+	dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b="t+gQlB1V"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xff.cz; s=mail;
+	t=1786015158; bh=VZJLBZnRyPxnCLoEjoQyTL2E3KhxDtuYstjmKXmloU4=;
+	h=Date:From:To:Cc:Subject:X-My-GPG-KeyId:References:From;
+	b=t+gQlB1V0eTdunNlGu7Efvhp5s23euUhKrq6r0mCrUKAP+ZyJPCZcjD5rWEJV0a8G
+	 +do9zHUtckn+wcm2J/HtiEghohNvu6748gAEhWdbxh6GdmWctUq/1GcJqgWQeAKKSH
+	 Xk/5pR+QEFiuQthNPkjj66Ko3Zv2jBQJIpVixhp0=
+Date: Thu, 6 Aug 2026 13:19:18 +0200
+From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>
+To: David Heidelberg <david@ixit.cz>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Olivier Benjamin <olivier.benjamin@bootlin.com>, 
+	Manuel Traut <manut@mecka.net>, Alexander Warnecke <awarnecke002@hotmail.com>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Shawn Guo <shawnguo@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, phone-devel@vger.kernel.org, 
+	imx@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH 2/4] arm64: dts: rockchip: rk3399-pinephone-pro: DW9714
+ coil requires higher voltage
+Message-ID: <galrq4ug3hhny2ivpylqwuztwv7vnqvm6sdhlu6pucxk6qy2mz@zxw4ckkxj2sh>
+Mail-Followup-To: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>, 
+	David Heidelberg <david@ixit.cz>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Olivier Benjamin <olivier.benjamin@bootlin.com>, 
+	Manuel Traut <manut@mecka.net>, Alexander Warnecke <awarnecke002@hotmail.com>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Shawn Guo <shawnguo@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, phone-devel@vger.kernel.org, 
+	imx@lists.linux.dev, stable@vger.kernel.org
+X-My-GPG-KeyId: EBFBDDE11FB918D44D1F56C1F9F0A873BE9777ED
+ <https://xff.cz/key.txt>
+References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
+ <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
+ <2j7ogeqj565sftp5wzqvtzi2id76fof623bifbmyu6ckhf6vm6@ya7h4tp5i4qf>
+ <7d55eaba-967c-4de6-8021-6b2d17670b1f@ixit.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
- subnodes to common schema
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Stephan Gerhold <stephan.gerhold@linaro.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
- Daniel J Blueman <daniel@quora.org>
-References: <d6ffacaf-7f83-42be-a3cf-40ce00810ca9@linaro.org>
- <Ia82wa4IJDPkQZpTCt4MDMqtq1VGZ7DqIaJFNvV0MjaT3jjWrbD_iBs8RU7pqrIz-ZTMSK2irncUv7-PZ-fvkg==@protonmail.internalid>
- <8130900b-c9f2-4f5a-80f1-1e8567ee1b72@oss.qualcomm.com>
- <f252d83f-e0e7-4061-8da8-d2650f1beadf@kernel.org>
- <ea0f1777-4615-415c-86d2-2a792ea42b3e@linaro.org>
- <41163185-09e8-47b5-9ece-c6503cb48920@kernel.org>
- <72b267c5-6490-453a-9900-b196d1cfc5f8@linaro.org>
- <2tWmEJ8s0nm8efbgvq24Zwo1vkuH4Na_gC6stCr9_O1A9k9JcA2-TFN5qziPoORYrCKyDgjscvGyO64HI6qVqQ==@protonmail.internalid>
- <72b4edc0-dc80-484d-a2b0-88ea11ae001e@kernel.org>
- <995779b4-925a-48a1-9288-930e0a10b7c5@kernel.org>
- <HfY0TY7OxKdtqTVTIv6Ddtts65Zd-8uHN9Cm6BzE35GXl5WrabORHo7bS99-jJ9NEvnBuaVWo3BtAaBcKQ_iRQ==@protonmail.internalid>
- <nht5phhqatbc35rh4l4r5lbf5bytgb2zmesv433zjscs5ye7rs@6y4bczl23nao>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <nht5phhqatbc35rh4l4r5lbf5bytgb2zmesv433zjscs5ye7rs@6y4bczl23nao>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7d55eaba-967c-4de6-8021-6b2d17670b1f@ixit.cz>
 
-On 06/08/2026 12:14, Dmitry Baryshkov wrote:
->> I'm all in favour of rolling out Daniel's fix.
-> The biggest problem with it is that it looks like a hotfix or a hack
-> rather than a proper description / solution. From this PoV we will land
-> the fixes for all the boards in mainline and then fix the same issue
-> _again_.
+Hi,
 
-The split would remain in the binding but - so what ?
+On Tue, Aug 04, 2026 at 11:12:21AM +0200, David Heidelberg wrote:
+> On 04/08/2026 09:39, Ondřej Jirman wrote:
+> > Hi,
+> > 
+> > On Sat, Aug 01, 2026 at 02:35:21AM +0200, David Heidelberg via B4 Relay wrote:
+> > > From: David Heidelberg <david@ixit.cz>
+> > > 
+> > > By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
+> > > Usually it's around 2.8 V. Here it matches the avdd2v8_dvp.
+> > > 
+> > > Fixes: 9336eb829a18 ("arm64: dts: rockchip: describe I2c Bus 1 and IMX258 world camera on PinePhone Pro")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: David Heidelberg <david@ixit.cz>
+> > > ---
+> > >   arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts | 2 +-
+> > >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > > 
+> > > diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> > > index d46cdfe3f7849..bde35d9b2263e 100644
+> > > --- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> > > +++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> > > @@ -473,17 +473,17 @@ wcam_out: endpoint {
+> > >   			};
+> > >   		};
+> > >   	};
+> > >   	wcam_lens: camera-lens@c {
+> > >   		compatible = "dongwoon,dw9714";
+> > >   		reg = <0x0c>;
+> > >   		/* Same I2c bus as both cameras, depends on vcca1v8_codec for power. */
+> > > -		vcc-supply = <&vcc1v8_dvp>;
+> > > +		vcc-supply = <&avdd2v8_dvp>;
+> > 
+> > This does not match reality, schematic says it's VCC2V8_DVP:
+> > 
+> > 	https://xff.cz/dl/tmp/6253a0465329df41.png
+> 
+> Ahoj,
+> 
+> thanks for spotting this, since I know you have the device, would be too
+> much to ask you to send standalone fix for PP Pro?
+> 
+> I would drop the change from the series.
 
-Sub-nodes could be added progressively and once done the DT with the 
-sub-nodes can drop the additional firmware-memory.
+Ok. Just for the reference, vcc1v8_dvp here feeds an enable pin for VCC2V8_DVP
+LDO regulator (which is supplied from VCC3V3_SYS and not described in DT, yet).
+So in practice enabling vcc1v8_dvp enables both VCC2V8_DVP and AVDD2V8_DVP and
+while DT does not describe the HW in detail, it describes the only regulator
+that is actually controllable and enables all needed power rails for the camera
+modules all by itself in proper order/timing.
 
-firmware-memory minItems:1 achieves this - while still letting sub-nodes 
-happen.
+Not sure what's the DT maintainers idea here about whether DT has to describe
+every detail of power rails routing, or just what's pragmatic.
 
-TBH its up to vidc people to decide this - or get something mergable soon.
->> I don't want to propose BROKEN but at the same time the timeline on this
->> demands action:
-> I think this might be a solution, which everybody dislikes, but in the
-> end it is true (for both drivers).
+Best regards,
+	o.j.
 
-I mean I really don't want this but > 6 months plus an "imperfect" but 
-functional patch which stops the reset not applied.
-
-A halt needs to be called and a resolution arrived at.
-
----
-bod
+> David
+> 
+> P.S. I noticed I didn't mark this series RFC. Too late.
+> 
+> > 
+> > regards,
+> > 	o.
+> > 
+> > >   	};
+> > >   	ucam: camera@36 {
+> > >   		compatible = "ovti,ov8858";
+> > >   		reg = <0x36>;
+> > >   		clocks = <&cru SCLK_CIF_OUT>; /* MIPI_MCLK1, derived from CIF_CLK0 */
+> > >   		clock-names = "xvclk";
+> > >   		dovdd-supply = <&vcc1v8_dvp>;
+> > > 
+> > > -- 
+> > > 2.53.0
+> > > 
+> > > 
+> 
+> -- 
+> David Heidelberg
+> 
