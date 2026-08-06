@@ -1,396 +1,240 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C8AD238F935;
-	Thu,  6 Aug 2026 14:49:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FCD53B8406
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 14:51:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786027794; cv=none; b=jit+YmjFI3epigV5SDArHup/s/a1YYs586WML84rzvzJswAY3nPlP4g3JfVYvofUyuPvSGtXyRJpDlZ41K8BLWq8UBS0U3Kj846qMLMv4mY9+kRokbBH7KVBaDhw3nr/ZVvSJTlNf/MbkpX8eYpS2VAog7KMXcJdppsWOviYmaI=
+	t=1786027883; cv=none; b=jfOqS2CuixDpOdyiw2QS3yDLVVmbouj1ZvrV5RIN3bVQbqzC0s4B9U6WfmKLOMiMkwFja3IoekVXfoSlKsqNd0/FRu2m60SEGf0mqbubulxE8l6sC3VF+p4aO46az8bWLQPyj1xm66uWwxGs4pMQqFcDCEp5ed9EfBOx7Q2iHts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786027794; c=relaxed/simple;
-	bh=whU/Y/37THjNQy2P9DoinwMd2gLyTKHPVo7+cZedDj4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gr9aK4WF5klD4LPo18os4Oc2MyzfJoCDE/ZUrU/7lTtlegLu4Qqpd5oF7fgNALkJB/rV5SBt9px5UidX10FFG/mlJmdHqlgK1T7LbcqPGy7qAeOkvmr1uHE6H/nKBbMnbpJ7SPZSPaJ4fJ8OU5pf57pBmJGeotr5Izj22QemXws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=I51RI839; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1786027883; c=relaxed/simple;
+	bh=JTn9s6gM2szvKxoPm3/ZyZ77FIqrcsDh6La/UymsTEY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jpZYsjpmE2XdwnePGrHlVfqOqp2DwYj1yHBizEC6eQ2IGNDgqSQ4xCY1DUlfZ2lYa0YZ770moqR0Vgxe3ExtJsxM/WxhU7g8mz1dG6cVuXRF/6/qNJiK8rcObRG7V9pzZOa+pag6156GyBKHjELYDpYnu/vcITiSlu4D3cgv/2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=i9jVNOxj; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=qoAviZB6; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="I51RI839"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BA4CC153B;
-	Thu,  6 Aug 2026 07:49:44 -0700 (PDT)
-Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4FFAF3F9A2;
-	Thu,  6 Aug 2026 07:49:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1786027788; bh=whU/Y/37THjNQy2P9DoinwMd2gLyTKHPVo7+cZedDj4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=I51RI839TCVmePxxyZg7wIRaJYT55sVfFl9wSIgieSb8gBJ5PJFqE8hFmS8A7k9ZT
-	 pUB1WgOpUi+iFc+VdCS/OwGQ/u1mFlKF4/aoY12/i21B9dkQU3ZZi6y1q8g97CQQ0P
-	 3w8/4wo7tYMoK9JDYxdl9rFPiNXp9+7DEdFajInc=
-Date: Thu, 6 Aug 2026 15:49:35 +0100
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>, 
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>
-Cc: Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, grayhat@foxmail.com
-Subject: Re: [PATCH v2] KVM: arm64: nv: Keep the shadow S2 MMUs at fixed
- addresses
-Message-ID: <vhpuadbpqligv2pfol6wsxtwpdkdeorlq2k5ifurwgry5pbh5x@jdm5jqm57sp3>
-References: <20260806062352.93489-1-kmehltretter@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="i9jVNOxj";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="qoAviZB6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1786027880;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=9UBsUkDYuwCc8pkolF5HK4/LrXTfhHoQ32/qQ5yuXRI=;
+	b=i9jVNOxjJDZQ+UuRoAtOHo3WZESVVVmupSDrIKwKmcYe4qLcvjN8wO4ColH7XHiBL+0BGL
+	cFhoXNknEa699a3JxExb6SnyrvHGw2a3jS8H6jIwsM0vvAYAVFhgjYqWsodBLnBJ1HYorz
+	rsFs0bmjLEH19nkia7rN4HyilmZG4E8=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-599-L7LkszUgO6CIbdbtPv29OQ-1; Thu, 06 Aug 2026 10:51:19 -0400
+X-MC-Unique: L7LkszUgO6CIbdbtPv29OQ-1
+X-Mimecast-MFC-AGG-ID: L7LkszUgO6CIbdbtPv29OQ_1786027878
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-47fe9444eceso1538580f8f.2
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 07:51:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1786027878; x=1786632678; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9UBsUkDYuwCc8pkolF5HK4/LrXTfhHoQ32/qQ5yuXRI=;
+        b=qoAviZB63SiKNh32AsTrBK30RProA97/S5XuhvPGgWwsvADzdadOQBPln79l7tBCKt
+         Uk8CThE3iRWIxsGVYuoL3m8j5WOtwjspgTfITb4oUM8Z0IqCjvW1NOcFvo/QU1/tVWrG
+         vjik7pEB7nvvqJw6BchaxLRxCwd41trWGXPRhXoIe7XsVXG35lB+f68JU6JRAx4I8tuj
+         559MhpasJvpa/AbKLgtZjEXY8gbezHh/x1jkHKiBSOG2BXx3yJv4HrqiKaLKn8w2/14F
+         6qwOelGv8gwwztEX2L9gPNSxQh3ftj0QOokOg4SMuZd71k+2G/GEKeLTV+lOn9vfaHiV
+         vgWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786027878; x=1786632678;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9UBsUkDYuwCc8pkolF5HK4/LrXTfhHoQ32/qQ5yuXRI=;
+        b=R3wH9WzFEcW7UiMVq7k0Lw66iNoEm7KyuXge/rcL6wuoQUoX5YbMQIwmERLIiSL7W2
+         ng1yJSKgqHCqDjzsLDfEbqHCXLTaPVzDylTxSMO/H+XwxmpP2ySeOdALvIZ3D90fyRGb
+         1jGPT+vmBh9zkCS1LlpcGxzD5l+jQLTyd9N3+djR33gbVVdKF3tdA46QJSCDxBd4SOIC
+         hTbQDm5ATfUS9LUkhwW0DfmIlPygVHHGzwR+0YxyafSNw8CyM57FITp64E4OB7Z6GIQq
+         LJq5aKMzYm9hxc6o7Y1Bad7+hf16IHl69g1HEIYLVphGpKlL6YE5vDJatAG+ORfldqT/
+         rx0Q==
+X-Forwarded-Encrypted: i=1; AHgh+RoDkHnCuZUKDVQMajqqPC+EJxkIKarg8WITp5FajxBhnLzQE70uHkmq0UMEBR4xJCyBzP3AHzo=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxa5bXztYrS65pqyycQek1BCJ5TOk4iTrjtnt4r4vuJXj4pPCmg
+	qCwY0mxSPy3FGbK/coRdqLD6BvWeQn8IW7oEFUIzuKaX/vlHkPmI6qmbRRZgyna5jh+0UEMlRp9
+	FEQeNQx1TFY1AfXgSO+AkWl0+TtpWqVtIppoF4L446xAPcajiekMJWYCWdw==
+X-Gm-Gg: AR+sD1055Y9QAqC3vSbgTACqr7OO8/hketMQ27Kgp0uk3ah8DBA4C6MBg8877QWUUCa
+	ILjUkdAjOShqFgBSAZQEN6NGJD1QK5W6R8ETuAkc5AU1dWg/fK9MiaucHRTCmayTagET+QEc1X5
+	OGXT5XrTexdwsXUG9PzUFPP1dvDA2xL7VPASBPm3xIvehOFrW+IKB9lmUekr2plQHd8z0GugG/+
+	/bqtPRkVuW81JSDu/pnF49lHJinWB3nQPbvV9GkSMCuD+Hr8DKzrl81DbZPdGoLqqLnZwyYzrMP
+	mnoo2zPcze0P/9YuCCadNaGCuDGImR3uEkZfsVLs+d9fR3APbLT9ekvXvqX0fm3YGfC2VHtq+1z
+	VIdXdW8EgsjbVVw78U4m7fefnDpw/yjf4rHiQxUu6vN9Tz7UGbuedN0fwjVdoQstlRDGDxO+tfv
+	m4wYY=
+X-Received: by 2002:a05:6000:60f:b0:47f:80d1:be0a with SMTP id ffacd0b85a97d-47fec634bbcmr24302550f8f.14.1786027878096;
+        Thu, 06 Aug 2026 07:51:18 -0700 (PDT)
+X-Received: by 2002:a05:6000:60f:b0:47f:80d1:be0a with SMTP id ffacd0b85a97d-47fec634bbcmr24302435f8f.14.1786027877611;
+        Thu, 06 Aug 2026 07:51:17 -0700 (PDT)
+Received: from [192.168.10.48] ([151.95.34.92])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47ff7b28729sm7648431f8f.32.2026.08.06.07.51.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 07:51:17 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: seanjc@google.com,
+	pgonda@google.com,
+	thomas.lendacky@amd.com,
+	stable@vger.kernel.org,
+	Shen Yongchao <grayhat@foxmail.com>
+Subject: [PATCH] KVM: SVM: Serialize accesses to the owner and mirror list with separate lock
+Date: Thu,  6 Aug 2026 16:51:15 +0200
+Message-ID: <20260806145115.2441519-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806062352.93489-1-kmehltretter@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Interaction between KVM_CAP_VM_MOVE_ENC_CONTEXT_FROM and
+KVM_CAP_VM_COPY_ENC_CONTEXT_FROM can cause two separate issues:
 
-Just some nits:
+- in sev_migrate_from(), when the destination KVM is a mirror, the mirror
+  entry is moved from the source's list to the owner's mirror_vms list,
+  without holding the owner's lock unlike other writers of the owner's
+  mirror list (sev_vm_copy_enc_context_from(), sev_vm_destroy()).
+  A concurrent COPY or destroy can race with sev_migrate_from() and
+  corrupt the list.
 
-On Thu, Aug 06, 2026 at 08:23:52AM +0200, Karl Mehltretter wrote:
-> vcpu->arch.hw_mmu caches the S2 MMU the vCPU currently runs on; outside
-> of a hyp context, that is one of the shadow S2 MMUs.
-> kvm_vcpu_init_nested() can grow kvm->arch.nested_mmus while initialising
-> another vCPU: it copies the MMUs, publishes the new allocation, and frees
-> the old one.  It updates pgt->mmu back-pointers, but not hw_mmu, leaving
-> already-running vCPUs with pointers to freed memory.  hw_mmu cannot be
-> fixed up the same way: a running vCPU reads it without holding mmu_lock.
-> 
-> The reallocation similarly leaves the nested S2 ptdump file's debugfs
-> private data pointing into the freed array, and the copied refcounts stay
-> elevated forever as running vCPUs drop their references to the old entries.
-> 
-> KASAN reports the cached hw_mmu access as a slab-use-after-free in
-> kvm_handle_guest_abort().
-> 
-> Turn nested_mmus into a pointer table allocated once for the maximum
-> number of vCPUs during VM creation.  Allocate the MMUs separately as
-> vCPUs are initialised and append their pointers to that table.  The MMU
-> objects never move, so cached hw_mmu pointers, pgt->mmu back-pointers,
-> ptdump private data, and refcounts remain valid.
-> 
-> Operations that inspect nested_mmus on a live VM hold mmu_lock and
-> iterate only up to nested_mmus_size, so entries above it are invisible
-> and updating nested_mmus_size under the lock is the only publication
-> that needs ordering.
-> 
-> The old failure path passed uninitialised entries to kvm_free_stage2_pgd(),
-> which derives the kvm pointer from mmu->arch; free only the MMUs that were
-> fully initialised.
+- In sev_vm_destroy(), the *owner* is still active and could receive
+  concurrently a KVM_CAP_VM_MOVE_ENC_CONTEXT_FROM that causes
+  sev->enc_context_owner to change.  In this case the incorrect VM
+  receives kvm_put_kvm().
 
-I felt the commit message needs to be tightened a bit, so I restructured
-it slightly and removed some information I found unneeded. Here is my
-attempt, feel free to use it if you find it better or further improve it:
+The second issue needs particular care because the owner could disappear
+altogether (even though the race window is impossibly small) between
+reading it and locking it.  There is thus no way to perform the checks
+under the owner lock without putting struct kvm under SLAB_TYPESAFE_BY_RCU
+(which would allow kvm_get_kvm_safe() under RCU critical section).
 
-kvm_vcpu_init_nested() can grow kvm->arch.nested_mmus while initialising
-another vCPU: it copies the MMUs, publishes the new allocation, and frees
-the old one.  It updates pgt->mmu back-pointers, but not hw_mmu, leaving
-already-running vCPUs with pointers to freed memory.  hw_mmu cannot be
-fixed up the same way: a running vCPU reads it without holding mmu_lock.
-The nested S2 ptdump file's debugfs private data is also affected as it
-points to the freed array.
+It is much simpler to just use a global lock, since the critical
+sections are so small and the new lock is always a leaf lock.
 
-KASAN reports a freed hw_mmu access as a slab-use-after-free in
-kvm_handle_guest_abort().
+Fixes: b2125513dfc0 ("KVM: SEV: Allow SEV intra-host migration of VM with mirrors")
+Cc: stable@vger.kernel.org
+Reported-by: Shen Yongchao <grayhat@foxmail.com>
+Link: https://lore.kernel.org/kvm/tencent_625C0F42824E542C72B34733392AF2C49709@qq.com/
+Link: https://lore.kernel.org/kvm/tencent_DDC4E4352EC91CAC05A9A8F4E55E8C96730A@qq.com/
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ arch/x86/kvm/svm/sev.c | 34 +++++++++++++++++++++++++---------
+ arch/x86/kvm/svm/svm.h |  1 +
+ 2 files changed, 26 insertions(+), 9 deletions(-)
 
-Turn nested_mmus into a pointer table allocated once for the maximum
-number of vCPUs during VM creation.  Allocate the MMUs separately as
-vCPUs are initialised and append their pointers to that table.  The MMU
-objects never move, so cached hw_mmu pointers, pgt->mmu back-pointers,
-ptdump private data.
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index 944aaea6501f..0f0ea7896af5 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -97,6 +97,8 @@ static u64 sev_supported_vmsa_features __ro_after_init;
+ static u8 sev_enc_bit;
+ static DECLARE_RWSEM(sev_deactivate_lock);
+ static DEFINE_MUTEX(sev_bitmap_lock);
++/* Protects kvm_sev_info's enc_context_owner, mirror_vms and mirror_entry.  */
++static DEFINE_MUTEX(sev_mirror_lock);
+ unsigned int max_sev_asid;
+ static unsigned int min_sev_asid;
+ static unsigned int max_sev_es_asid;
+@@ -2018,7 +2020,6 @@ static void sev_migrate_from(struct kvm *dst_kvm, struct kvm *src_kvm)
+ 	dst->asid = src->asid;
+ 	dst->handle = src->handle;
+ 	dst->pages_locked = src->pages_locked;
+-	dst->enc_context_owner = src->enc_context_owner;
+ 	dst->es_active = src->es_active;
+ 	dst->vmsa_features = src->vmsa_features;
+ 
+@@ -2026,11 +2027,12 @@ static void sev_migrate_from(struct kvm *dst_kvm, struct kvm *src_kvm)
+ 	src->active = false;
+ 	src->handle = 0;
+ 	src->pages_locked = 0;
+-	src->enc_context_owner = NULL;
+ 	src->es_active = false;
+ 
+ 	list_cut_before(&dst->regions_list, &src->regions_list, &src->regions_list);
+ 
++	mutex_lock(&sev_mirror_lock);
++
+ 	/*
+ 	 * If this VM has mirrors, "transfer" each mirror's refcount of the
+ 	 * source to the destination (this KVM).  The caller holds a reference
+@@ -2047,12 +2049,15 @@ static void sev_migrate_from(struct kvm *dst_kvm, struct kvm *src_kvm)
+ 	 * If this VM is a mirror, remove the old mirror from the owners list
+ 	 * and add the new mirror to the list.
+ 	 */
+-	if (is_mirroring_enc_context(dst_kvm)) {
+-		struct kvm_sev_info *owner_sev_info = to_kvm_sev_info(dst->enc_context_owner);
++	if (is_mirroring_enc_context(src_kvm)) {
++		struct kvm_sev_info *owner_sev_info = to_kvm_sev_info(src->enc_context_owner);
+ 
++		dst->enc_context_owner = src->enc_context_owner;
++		src->enc_context_owner = NULL;
+ 		list_del(&src->mirror_entry);
+ 		list_add_tail(&dst->mirror_entry, &owner_sev_info->mirror_vms);
+ 	}
++	mutex_unlock(&sev_mirror_lock);
+ 
+ 	kvm_for_each_vcpu(i, dst_vcpu, dst_kvm) {
+ 		dst_svm = to_svm(dst_vcpu);
+@@ -2871,11 +2876,14 @@ int sev_vm_copy_enc_context_from(struct kvm *kvm, unsigned int source_fd)
+ 	 * disappear until we're done with it
+ 	 */
+ 	source_sev = to_kvm_sev_info(source_kvm);
+-	kvm_get_kvm(source_kvm);
+-	list_add_tail(&mirror_sev->mirror_entry, &source_sev->mirror_vms);
+ 
+ 	/* Set enc_context_owner and copy its encryption context over */
++	mutex_lock(&sev_mirror_lock);
++	kvm_get_kvm(source_kvm);
++	list_add_tail(&mirror_sev->mirror_entry, &source_sev->mirror_vms);
+ 	mirror_sev->enc_context_owner = source_kvm;
++	mutex_unlock(&sev_mirror_lock);
++
+ 	mirror_sev->active = true;
+ 	mirror_sev->asid = source_sev->asid;
+ 	mirror_sev->fd = source_sev->fd;
+@@ -2963,11 +2971,19 @@ void sev_vm_destroy(struct kvm *kvm)
+ 	 * Note, mirror VMs don't support registering encrypted regions.
+ 	 */
+ 	if (is_mirroring_enc_context(kvm)) {
+-		struct kvm *owner_kvm = sev->enc_context_owner;
++		struct kvm *owner_kvm;
+ 
+-		mutex_lock(&owner_kvm->lock);
++		mutex_lock(&sev_mirror_lock);
++		owner_kvm = sev->enc_context_owner;
+ 		list_del(&sev->mirror_entry);
+-		mutex_unlock(&owner_kvm->lock);
++		sev->enc_context_owner = NULL;
++
++		/*
++		 * The reference to owner_kvm cannot move after sev_mirror_lock is
++		 * released.  Release it before kvm_put_kvm() so that owner_kvm is
++		 * never destroyed inside sev_mirror_lock.
++		 */
++		mutex_unlock(&sev_mirror_lock);
+ 		kvm_put_kvm(owner_kvm);
+ 		return;
+ 	}
+diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+index 716be21fba33..d63e5878988a 100644
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -109,6 +109,7 @@ struct kvm_sev_info {
+ 	u64 ap_jump_table;	/* SEV-ES AP Jump Table address */
+ 	u64 vmsa_features;
+ 	u16 ghcb_version;	/* Highest guest GHCB protocol version allowed */
++	/* The three fields below are protected by sev_mirror_lock */
+ 	struct kvm *enc_context_owner; /* Owner of copied encryption context */
+ 	struct list_head mirror_vms; /* List of VMs mirroring */
+ 	struct list_head mirror_entry; /* Use as a list entry of mirrors */
+-- 
+2.55.0
 
-Two issues in the old implementation are also fixed:
- - The old failure path passed uninitialised mmus to
-   kvm_free_stage2_pgd(), which doesn't expect it, leading to NULL
-   dereferences. Here we only call kvm_free_stage2_pgd() with initialised
-   mmus.
- - Previously the initialization of the new mmus were not ordered
-   before the publication of the new nested_mmus_size. Fix this by
-   taking the mmu_lock when increasing nested_mmus_size.
-
-> 
-> Fixes: 4f128f8e1aaa ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Marc Zyngier <maz@kernel.org>
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->  arch/arm64/include/asm/kvm_host.h   |  6 +-
->  arch/arm64/include/asm/kvm_nested.h |  2 +-
->  arch/arm64/kvm/arm.c                |  7 ++-
->  arch/arm64/kvm/nested.c             | 90 +++++++++++++++++------------
->  4 files changed, 61 insertions(+), 44 deletions(-)
-> 
-> Changes in v2:
-> - Allocate the fixed pointer table during VM creation, as suggested by Marc.
-> - Allocate the MMUs individually and simplify the error and teardown paths.
-> - Drop the selftest patch that triggered KASAN.
->   It is not a good fit for the existing suite.
-> 
-> v1: https://lore.kernel.org/r/20260803224405.41468-1-kmehltretter@gmail.com/
-> 
-> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> index bae2c4f92ef5..59d1d77ee116 100644
-> --- a/arch/arm64/include/asm/kvm_host.h
-> +++ b/arch/arm64/include/asm/kvm_host.h
-> @@ -319,10 +319,10 @@ struct kvm_arch {
->  	u64 fgu[__NR_FGT_GROUP_IDS__];
->  
->  	/*
-> -	 * Stage 2 paging state for VMs with nested S2 using a virtual
-> -	 * VMID.
-> +	 * Stage 2 paging state for VMs with nested S2 using a virtual VMID.
-> +	 * MMUs are allocated separately to keep their addresses stable.
->  	 */
-> -	struct kvm_s2_mmu *nested_mmus;
-> +	struct kvm_s2_mmu **nested_mmus;
->  	size_t nested_mmus_size;
->  	int nested_mmus_next;
->  
-> diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-> index 012d711034d1..d21be647ac57 100644
-> --- a/arch/arm64/include/asm/kvm_nested.h
-> +++ b/arch/arm64/include/asm/kvm_nested.h
-> @@ -66,7 +66,7 @@ static inline u64 translate_ttbr0_el2_to_ttbr0_el1(u64 ttbr0)
->  
->  extern bool forward_smc_trap(struct kvm_vcpu *vcpu);
->  extern bool forward_debug_exception(struct kvm_vcpu *vcpu);
-> -extern void kvm_init_nested(struct kvm *kvm);
-> +extern int kvm_init_nested(struct kvm *kvm);
->  extern int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu);
->  extern void kvm_init_nested_s2_mmu(struct kvm_s2_mmu *mmu);
->  extern struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu);
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index 50adfff75be8..e883e45382fb 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -223,8 +223,6 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
->  	mutex_unlock(&kvm->lock);
->  #endif
->  
-> -	kvm_init_nested(kvm);
-> -
->  	ret = kvm_share_hyp(kvm, kvm + 1);
->  	if (ret)
->  		return ret;
-> @@ -239,6 +237,10 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
->  	if (ret)
->  		goto err_free_cpumask;
->  
-> +	ret = kvm_init_nested(kvm);
-> +	if (ret)
-> +		goto err_uninit_mmu;
-> +
->  	if (is_protected_kvm_enabled()) {
->  		/*
->  		 * If any failures occur after this is successful, make sure to
-> @@ -267,6 +269,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
->  
->  err_uninit_mmu:
->  	kvm_uninit_stage2_mmu(kvm);
-> +	kvfree(kvm->arch.nested_mmus);
->  err_free_cpumask:
->  	free_cpumask_var(kvm->arch.supported_cpus);
->  err_unshare_kvm:
-> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> index dfb96edbdc43..90bb17a819a1 100644
-> --- a/arch/arm64/kvm/nested.c
-> +++ b/arch/arm64/kvm/nested.c
-> @@ -44,11 +44,19 @@ struct vncr_tlb {
->   */
->  #define S2_MMU_PER_VCPU		2
->  
-> -void kvm_init_nested(struct kvm *kvm)
-> +int kvm_init_nested(struct kvm *kvm)
->  {
-> -	kvm->arch.nested_mmus = NULL;
-> +	/* Allocate the fixed-size pointer table once per VM. */
-
-This comment seems a bit redundant.
-
-> +	kvm->arch.nested_mmus = kvcalloc(KVM_MAX_VCPUS * S2_MMU_PER_VCPU,
-> +					 sizeof(*kvm->arch.nested_mmus),
-> +					 GFP_KERNEL_ACCOUNT);
-> +	if (!kvm->arch.nested_mmus)
-> +		return -ENOMEM;
-> +
->  	kvm->arch.nested_mmus_size = 0;
->  	atomic_set(&kvm->arch.vncr_map_count, 0);
-> +
-> +	return 0;
->  }
->  
->  static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
-> @@ -66,11 +74,17 @@ static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
->  	return kvm_init_stage2_mmu(kvm, mmu, kvm_get_pa_bits(kvm));
->  }
->  
-> +static void free_nested_s2_mmu(struct kvm_s2_mmu *mmu)
-> +{
-> +	kvm_free_stage2_pgd(mmu);
-> +	kfree(mmu);
-> +}
-> +
->  int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
->  {
->  	struct kvm *kvm = vcpu->kvm;
-> -	struct kvm_s2_mmu *tmp;
-> -	int num_mmus, ret = 0;
-> +	struct kvm_s2_mmu *mmu;
-> +	int num_mmus, ret, i;
->  
->  	if (test_bit(KVM_ARM_VCPU_HAS_EL2_E2H0, kvm->arch.vcpu_features) &&
->  	    !cpus_have_final_cap(ARM64_HAS_HCR_NV1))
-> @@ -91,44 +105,44 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
->  	 */
->  	num_mmus = atomic_read(&kvm->online_vcpus) * S2_MMU_PER_VCPU;
->  
-> -	if (num_mmus > kvm->arch.nested_mmus_size) {
-> -		tmp = kvcalloc(num_mmus, sizeof(*tmp), GFP_KERNEL_ACCOUNT);
-> -		if (!tmp)
-> -			return -ENOMEM;
-> -
-> -		write_lock(&kvm->mmu_lock);
-> +	if (num_mmus <= kvm->arch.nested_mmus_size)
-> +		return 0;
->  
-> -		if (kvm->arch.nested_mmus_size) {
-> -			memcpy(tmp, kvm->arch.nested_mmus,
-> -			       size_mul(sizeof(*tmp), kvm->arch.nested_mmus_size));
-> +	lockdep_assert_held(&kvm->arch.config_lock);
->  
-> -			for (int i = 0; i < kvm->arch.nested_mmus_size; i++)
-> -				tmp[i].pgt->mmu = &tmp[i];
-> +	for (i = 0; i < S2_MMU_PER_VCPU; i++) {
-> +		mmu = kzalloc_obj(*mmu, GFP_KERNEL_ACCOUNT);
-> +		if (!mmu) {
-> +			ret = -ENOMEM;
-> +			goto err_free_mmus;
->  		}
->  
-> -		swap(kvm->arch.nested_mmus, tmp);
-> -
-> -		write_unlock(&kvm->mmu_lock);
-> +		ret = init_nested_s2_mmu(kvm, mmu);
-> +		if (ret) {
-> +			kfree(mmu);
-> +			goto err_free_vncr;
-> +		}
->  
-> -		kvfree(tmp);
-> +		kvm->arch.nested_mmus[kvm->arch.nested_mmus_size + i] = mmu;
->  	}
->  
-> -	for (int i = kvm->arch.nested_mmus_size; !ret && i < num_mmus; i++)
-> -		ret = init_nested_s2_mmu(kvm, &kvm->arch.nested_mmus[i]);
-> +	write_lock(&kvm->mmu_lock);
-
-Opportunity to use guard() or scoped_guard() here.
-
-Thanks,
-Wei-Lin Chang
-
->  
-> -	if (ret) {
-> -		for (int i = kvm->arch.nested_mmus_size; i < num_mmus; i++)
-> -			kvm_free_stage2_pgd(&kvm->arch.nested_mmus[i]);
-> +	kvm->arch.nested_mmus_size += S2_MMU_PER_VCPU;
->  
-> -		free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
-> -		vcpu->arch.ctxt.vncr_array = NULL;
-> +	write_unlock(&kvm->mmu_lock);
->  
-> -		return ret;
-> -	}
-> +	return 0;
->  
-> -	kvm->arch.nested_mmus_size = num_mmus;
-> +err_free_vncr:
-> +	free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
-> +	vcpu->arch.ctxt.vncr_array = NULL;
->  
-> -	return 0;
-> +err_free_mmus:
-> +	while (i--)
-> +		free_nested_s2_mmu(kvm->arch.nested_mmus[kvm->arch.nested_mmus_size + i]);
-> +
-> +	return ret;
->  }
->  
->  struct s2_walk_info {
-> @@ -725,7 +739,7 @@ void kvm_s2_mmu_iterate_by_vmid(struct kvm *kvm, u16 vmid,
->  	write_lock(&kvm->mmu_lock);
->  
->  	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
-> -		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-> +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
->  
->  		if (!kvm_s2_mmu_valid(mmu))
->  			continue;
-> @@ -767,7 +781,7 @@ struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu)
->  	 *   if S2 translation is disabled.
->  	 */
->  	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
-> -		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-> +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
->  
->  		if (!kvm_s2_mmu_valid(mmu))
->  			continue;
-> @@ -806,7 +820,7 @@ static struct kvm_s2_mmu *get_s2_mmu_nested(struct kvm_vcpu *vcpu)
->  	for (i = kvm->arch.nested_mmus_next;
->  	     i < (kvm->arch.nested_mmus_size + kvm->arch.nested_mmus_next);
->  	     i++) {
-> -		s2_mmu = &kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
-> +		s2_mmu = kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
->  
->  		if (atomic_read(&s2_mmu->refcnt) == 0)
->  			break;
-> @@ -1223,7 +1237,7 @@ void kvm_nested_s2_wp(struct kvm *kvm)
->  		return;
->  
->  	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
-> -		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-> +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
->  
->  		if (kvm_s2_mmu_valid(mmu))
->  			kvm_stage2_wp_range(mmu, 0, kvm_phys_size(mmu));
-> @@ -1242,7 +1256,7 @@ void kvm_nested_s2_unmap(struct kvm *kvm, bool may_block)
->  		return;
->  
->  	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
-> -		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-> +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
->  
->  		if (kvm_s2_mmu_valid(mmu))
->  			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
-> @@ -1261,7 +1275,7 @@ void kvm_nested_s2_flush(struct kvm *kvm)
->  		return;
->  
->  	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
-> -		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-> +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
->  
->  		if (kvm_s2_mmu_valid(mmu))
->  			kvm_stage2_flush_range(mmu, 0, kvm_phys_size(mmu));
-> @@ -1273,10 +1287,10 @@ void kvm_arch_flush_shadow_all(struct kvm *kvm)
->  	int i;
->  
->  	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
-> -		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-> +		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
->  
->  		if (!WARN_ON(atomic_read(&mmu->refcnt)))
-> -			kvm_free_stage2_pgd(mmu);
-> +			free_nested_s2_mmu(mmu);
->  	}
->  	kvfree(kvm->arch.nested_mmus);
->  	kvm->arch.nested_mmus = NULL;
-> -- 
-> 2.39.5 (Apple Git-154)
-> 
