@@ -1,181 +1,179 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010018.outbound.protection.outlook.com [52.101.201.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1939438475
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 10:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786011907; cv=fail; b=adMlViYVf3KPgi41WJ83Sq8x40nSq1ir8E/n7C+vxEyTrB+Ms298H1K3WpfAeiQF7h3em3xvzYGiDL4Pujvd7z2eNh30cgFKLZrEfH5hS83dyRP33onxJt1BKFmS9rPT9ge5qJNrNEPoT/yQ/b0ynQR2c/IU2QuzY2XVYh3grVA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786011907; c=relaxed/simple;
-	bh=ai2GO8erxhNP73tVY2AYpy0Wa/fUYBn3JwrUxrQgSsY=;
-	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=FeChg1r/IAGxed/83j+iIg6C6o7N+Qr5SCvdaGVihJZTa0z9095Rq3wXW0RbZ6BMo72d0p3l7AvETk0rTGN66R+slZoZUA8Z56LR6GW3vM7ZV5LjIanzSp27pd8wfIQdj75TI3ixzjk0vtguGf3QgOrO68pK5xq6+ssbIq2OstQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=bSarkqM3; arc=fail smtp.client-ip=52.101.201.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027D843802B;
+	Thu,  6 Aug 2026 10:32:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786012346; cv=none; b=IpJTEcRYxQ9k4lE8u6jVA3GjiU2I0YrxMgYlL5EFTcW+qevQ5pJO4sIKRPjdYEF8gjFreGEOK3YVdEbemMIYmIlupJhF+lFJq1Yy+8QZS/7bQa9CFI+e70w1oqXR5Q/Kn4xus+yU5WErNDVChpvqlSJqfzilMebUeuDC0kjDDuU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786012346; c=relaxed/simple;
+	bh=MnGMaq6Ue5chmVxIQ6GIQxRm28ruK3c0+tljdxLkMwY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tmIxEVm/acPygt3uXJ7yLBX/j1PbAI92mpE9bcicQuhu7GHmXrg+jLF2tdzKWYGA66NWvjUE3rCklzwlIro9ulTn7jWv9kM0Ebe8OSn8qNLqBBM1BvGGREECVgSgLcKVUaS8duH38LHg9Hfzhjehli4Ar1s6uEY3M09oCDoBUGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hhTBIoOY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="bSarkqM3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R+7E/6wyeCccWIMHQhNv8DFwqpJwrPUl+7MONXNtjc4o3icUorRPcF513AlZzW4uMpT7+fZYNSxab6e+CLwoK80Ue1x+1eag3/iWG+nUNLMKd4Xx16byECW52Nf9G5DejhC7wg5vwvSNenuG0IvFHhzrbjuxzi8QkW2e3FV+09FTHkVfBpBRPodRHBNARPA1n1zUzekp8GKHDcbzaBShQ/Y91+jY4kK9G/p6ojJvFkUHRhoMiF5zrJSn3KxGNsbzyiP3qRLSN5Kx5AYdQmFxkhje9PV8S5nJJVpBWpaJlJsYSz+uGbKuloH4FNZCxRwYzmpT2ZwkVwIynLOusgfqRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1hu4raOUjfGwoIrMPYYDPzGbsbw/RXEAmkZM5/Jl94I=;
- b=Xi//w1e3ZFt9bRGd6Vi6oEOpwBpsCnlyQEknmq/8wYqICTkkSzvS8A2IyqGm/DsP5czeAfbKtfAPd3cPZz2np/ueFk4PHgI1WND/sG2AZNj0PHfQwKs1as2RwmP09UqRCs34gAwOGdLmhm21W3qImZXqdLnDFzXHeUcBjlJbkN92ic2HHABs/rfrAKBdeRB0qxbm0jJd3wIdemW44AiUqIQTi1z34/6bkCGYbxdDjSKNnFs8Z5tVsxVo1ZtXw+KeARPw5EIckLwBFdyUL5CnOe4ZU2Wf72/P2XuFCU+Ck/5YbTDl87CkfZpIr7cYyZILnnWhtjmv1/6RtAqw7sWjfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1hu4raOUjfGwoIrMPYYDPzGbsbw/RXEAmkZM5/Jl94I=;
- b=bSarkqM3LnNbv5TyRnFmvXddoH086u2AUri4HWC5BjrtRtEgFBcJbWi/DWBh6X7Upgfvf5p5ujvDnAS2rWSBcQ/Ego6AyyC0cEZhsk46qqzlNu8vlvsX3eid4V35QlRVl4hMT5ce8zo7Zd9Nv04xUrLcf3Yh73zIdxx6oneSbxd/w5nx9XOYK453wEzqxGZqmB4bK3wWhg6y0GkKi6vGluspXPbuMY+WbH4GVjI6xVAXL0gmKjIw6YnV4VcB1pRFJuEvyY4djECfua+OR7S/GKgONCGBelvFdaqetPvCSpBmRm1CUcOYqVO8z/si2bZgTzZJHN3+t428jHkA/JdmvQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
- by SA3PR03MB7319.namprd03.prod.outlook.com (2603:10b6:806:394::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
- 2026 10:25:03 +0000
-Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
- ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
- ([fe80::53a0:bf93:6b6b:de01%5]) with mapi id 15.21.0292.019; Thu, 6 Aug 2026
- 10:25:01 +0000
-From: tze.yee.ng@altera.com
-To: stable@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6] firmware: stratix10-svc: fix memory leaks and list corruption bugs
-Date: Thu,  6 Aug 2026 03:24:58 -0700
-Message-ID: <0aa42c4df344a1300c13638c023d37983687b21e.1786011787.git.tze.yee.ng@altera.com>
-X-Mailer: git-send-email 2.43.7
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0232.namprd03.prod.outlook.com
- (2603:10b6:a03:39f::27) To SJ0PR03MB5950.namprd03.prod.outlook.com
- (2603:10b6:a03:2d3::20)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hhTBIoOY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F4C1F000E9;
+	Thu,  6 Aug 2026 10:32:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786012344;
+	bh=8KVB/OE5aXLzeXYtmK6B33POypwC3TOogXkefXrs9VE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hhTBIoOYFdICLoOt1NDL73PMid4aHFuQisgIgQJGI5gfz/8WAlF5/LEEW3s9/+XCk
+	 VVT1mA4GwA5Msd7OtorEtUNIchTMytZL7nMdpeHaxRxbYFpeiZ6RIann9mIVoUdG4J
+	 ECcPVXmDNxul3LOPTxPrhdKXlD/bmCN5mN7kUKYiWeJ9xVVWAMhwHNlpU1YcT72xvY
+	 egKs0nm6AWhILxFfXWDYvWfipEYS0sbs6N61btzzDn4nzCsrF9ZlS62xRlGPUNbGQC
+	 U6jW1qm2QlnG1Lq6vBsajaEd/RTtx1hrghWVi+Cd5om+9EKUcViC6tN4xg9Ju2eJff
+	 kQ2nyPliSBPrA==
+Message-ID: <72b4edc0-dc80-484d-a2b0-88ea11ae001e@kernel.org>
+Date: Thu, 6 Aug 2026 12:32:14 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|SA3PR03MB7319:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ec7b696-bdb2-469b-698c-08def3a4f88f
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|11063799006|10067099003|56012099006|18002099003|55112099003;
-X-Microsoft-Antispam-Message-Info:
-	2BIe5Snyv2JSFPGX/EFnjUvbJlcjE9nb6KFTrbCJarOszSiW7NcvLy87jtNW3HPlKqDnCPTICtGK73V6nh/fZdAfkZ1XnJTflecT/SbMZteIh36c7V0vcujJunAO8nhpHu1LuxZ0pDaAsCinA1tVei4vTqIo9EFmK/G0TvM1BZKCyIOs9E7mjJlY/VDIq3zgM/tVlFU7oGI1RzHpK8sU28ILm1lkSl1XKcYcgoldY5v5umQBut6HGOqPPcQmZSVh434b73qThgfksLqj+FjVzFQSUjgCkwKzdXhfo1w7n/LiHiLzK0jG1bfLW7ZEzeyp0+vk90RG6yMiCvRxaG+89ia+tqzJEJeVdwykW9Z2fobEwCKji/yu4Gn/zRJDg8PV7Sv7rq3AcnGrezyqSMm27VLvE6FhxYtKFef/mpYtlv7aU0tjPR0wZQ/H2GBHQhHcBYkni79h81lqk1pelFRR+qky5XXhTk9oQvJbDRX9RVY4gCnP5mU5h3ci6slrZDvcgE5z9LDi3EALB3rgnOl0oH1x7KmbZHskEw/3wfJw0aIOV4lCIeNwFNdkdcY9Av84eHR62flk+Uo/IGBN+2mtNtIKC8cjGv9G3wgNzT9iiUR6XdGV5XYXRo9j1mfpA6/+6ieCTUHe1GVGeBRhR3vCw7dxutlwagRvr8HzefLT1MY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(11063799006)(10067099003)(56012099006)(18002099003)(55112099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?MU3VBnyWqbH+akyoGkU0m+bkrLNhrh11pWaFK56PfCADuAAnCz3rSgRGd2kC?=
- =?us-ascii?Q?hLV5lVXuoWjO/NFgQAAUvZYJvA7xCb4ZACt8mxpN2SjuqqOe54OQIaFlXc3Z?=
- =?us-ascii?Q?b/pYArOxuHCExvTTE44Hzd1DqlcEyfft7infa7fSFE9yTEdC6njJmrcSfeu4?=
- =?us-ascii?Q?CH4G3YoBYtjsdcsgdkCHMYkktvnv3NlHslT2pLtiIt7+nrhLtWnYaK0B0yTB?=
- =?us-ascii?Q?g14O2bnDDwcmW1CsuNAoutyaJ0quh+eVNwIMU+2nbCg20AaHSzAEOF/aq08T?=
- =?us-ascii?Q?WsxHFISOdnnUPvslVaLEo50ILJmMg2yKM4CH+vfVz3wXQGf6Oy9E/9F22g1P?=
- =?us-ascii?Q?jgvURVUOonGsHaFdUucQJzGaFjty4q5J9IcBwPGi5hxhsezlQ2HNW1SC4lJp?=
- =?us-ascii?Q?8/ygfiouoKPMzeXiTzmXdp2FQmUAaxcaTPb6FWA3O6G0y6e4EVT4cX+/mL4F?=
- =?us-ascii?Q?CVcu+1+NRbkycF0UwrM/52gzQ4p2uCZcOVUnxOVL27d3hgUe7lXi3/mhxLab?=
- =?us-ascii?Q?SNJT8zJFqsV/NXHlqay5hZTock8y1DdMK/KNasp66tOxR2SE/xKCFaciPRWA?=
- =?us-ascii?Q?0HCoGBvGrabvRUu5wZu3fKv6Lu+fXgUmvrNmEj1bqQ8dw7QOfowOlPh0mTW3?=
- =?us-ascii?Q?KlkY8Y8tRFko1kLt7p2NCoQkCwfM3rhHRuWK7rahjIs9TSwLVRPUBgJAbirP?=
- =?us-ascii?Q?xbqJaqUA8WJfDa5i45lKVr8QmgwLdn3UkPGtvWCBqiL6Dwm1GzjzpYvD1t00?=
- =?us-ascii?Q?2Ia8RVqbSmJP9cNU1EwTGzo5NLYpMRTuqOF87OCdNaLcev4/2Vs3WTCWzMD6?=
- =?us-ascii?Q?tluoFAtIaN+CwpjoHyARauqYfzKo1Q8HhfarpwUghhL5yc+ae9v4R8gMPdKu?=
- =?us-ascii?Q?FoKp4foxAYJkJ08QBqGqukOx9sqY4Bx/L8dAIR6yp2TbMonobEmk6a6XaAHC?=
- =?us-ascii?Q?7gkX+f4D2OPfT+fHdzyWgz9zfqpQJUyOgVqeGl37MpOOPliejraOTRQtDp+N?=
- =?us-ascii?Q?UyNdNALzkw9HrK6CJpCbm+nv/2TsAbyPPdBzL0fvjinciEx11mQruoa512gN?=
- =?us-ascii?Q?poXSXMGG5NhuEg/+aB6E8WrBHjGjb9Q3Wmc11tLJv40XYfkQCzPdwWhXdqvj?=
- =?us-ascii?Q?wjuHoHcOpjpLN4+b+eGrf+OidFIr85rzUTLKi0m06N9R4YtXEbzEb2rq4Xl/?=
- =?us-ascii?Q?nqVN49vu4ZdlPk7zTldhvmp9GSXx1Z+H7V8zM9UmcxpuHD+cvtFR5/Jb+g5y?=
- =?us-ascii?Q?sfGM4iNJ8eDggY3LdHy14tk7jYjaW9XxV9luv4H9AzdDpmRTxisLL3TjVkP9?=
- =?us-ascii?Q?HFSIDesmaqzEX5hPdI+QE1Otuf+cNMJKq0/1eM61lftq0o5tVdhvpnl/AWc0?=
- =?us-ascii?Q?OPtdsKxTDDMHdliXtSkPumwZzW6G2e3gmfkP0AN6Qr/FaVq3O4qEefEhiex2?=
- =?us-ascii?Q?tgawTZFLUvtELfVo37FEseUuuyH2sfL1hDedCG9JivcRxJ80YEoIKHLwI/7R?=
- =?us-ascii?Q?wEobM31OQqruu9sxpUC+ShmkRCERios5D13WpaOeSD5Wk7esQHrLaaO4nTQz?=
- =?us-ascii?Q?e/l9y6oKIor/U9spNX0d9IuAIADQqcMG1qtZYsFWbwIACRX0SFlXmd+9QRhC?=
- =?us-ascii?Q?UX0P/FbEG7Z6lAGp2iNvII750Tox7bGzpH1MKHO8FWsDa5WEtVwainLu3nIK?=
- =?us-ascii?Q?okc2/glLfjVrvo9Kb8jhWaqedAQrcW18I1Gq31tuR8bsPowLhyi/eaLs1J6k?=
- =?us-ascii?Q?kpWrEAMMQg=3D=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ec7b696-bdb2-469b-698c-08def3a4f88f
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 10:25:00.9641
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tgGqxyeWK18F86gIKd3eJhxV+86w0Jbkgl4PaG7SUBiMOHETu5AlBKrzstgIaQSbfN4O/Ows/TV4tay4cfCw+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR03MB7319
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
+ subnodes to common schema
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
+ Daniel J Blueman <daniel@quora.org>
+References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
+ <futJwsC0VjGSkjrB5PP9T0jBOVgWADaDAYyRRp-OZifaKPNtjcnnA59QJaQTdqYTeayZk9jY6e1jOfun71Yp5Q==@protonmail.internalid>
+ <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
+ <689580d1-8169-41cf-a954-927e10135700@kernel.org>
+ <d0983bf7-a708-46ff-9f86-f94fb6a92ba7@oss.qualcomm.com>
+ <d6ffacaf-7f83-42be-a3cf-40ce00810ca9@linaro.org>
+ <Ia82wa4IJDPkQZpTCt4MDMqtq1VGZ7DqIaJFNvV0MjaT3jjWrbD_iBs8RU7pqrIz-ZTMSK2irncUv7-PZ-fvkg==@protonmail.internalid>
+ <8130900b-c9f2-4f5a-80f1-1e8567ee1b72@oss.qualcomm.com>
+ <f252d83f-e0e7-4061-8da8-d2650f1beadf@kernel.org>
+ <ea0f1777-4615-415c-86d2-2a792ea42b3e@linaro.org>
+ <41163185-09e8-47b5-9ece-c6503cb48920@kernel.org>
+ <72b267c5-6490-453a-9900-b196d1cfc5f8@linaro.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <72b267c5-6490-453a-9900-b196d1cfc5f8@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Tze Yee Ng <tze.yee.ng@altera.com>
+On 06/08/2026 12:24, Bryan O'Donoghue wrote:
+> On 06/08/2026 11:14, Krzysztof Kozlowski wrote:
+>> On 06/08/2026 12:07, Bryan O'Donoghue wrote:
+>>> I tend to think - absent an obvious an immediately applicable fix these
+>>> two drivers must be marked BROKEN, the alternative is to apply Daniel's
+>>> fix and then live with the results for the bindings.
+>>>
+>>> Since the DT schema change is still under debate - what alternative is
+>>> there ?
+>>>
+>>> I'm not far off sending that patch now myself because I'm not seeing
+>>> urgency on fixing this and TBH that's pissing me off.
+>>>
+>>> As a user of a system, I expect resonsible and honest behaviour wrt to
+>>> bugs, not architecture astronauty while my system can still reset
+>>> despite perfectly functional fixes being available.
+>>>
+>>> Great you want to do sub-nodes in DT. Not great, that's not agreed yet,
+>>> even more not great - the venus stuff isn't even on the list.
+>>>
+>>> Please indicate what should be done for -stable this week else both of
+>>> these drivers need to be marked BROKEN.
+>>
+>> Nothing should be done for stable. Or rather: you can do whatever you
+>> wish for the stable, because we discuss here mainline, not stable kernel.
+>>
+>> There is no problem here "devices running stable kernel are affected"
+>> which we are solving.
+>>
+>> The only problem we are solving is "devices running mainline kernel are
+>> affected". Fix this one and stable will follow.
+>>
+>> Best regards,
+>> Krzysztof
+> 
+> Yes -master.
+> 
+> My issue is how long this will take. Several kernel cycles and the 
+> debate is ongoing.
+> 
+> Daneil's fix has not been applied which means the replicable system bug 
+> is out there in the wild, not addressed.
+> 
+> Daniel's fix could have been applied and rolled out to all users in 
+> mainline and consequently stable.
+> 
+> Instead another architectural level fix is still under discussion, which 
+> is of no value to end users whose systems can reset in the meantime.
+> 
+> Its just not responsible behaviour. So I feel both of these drivers need 
+> to be marked as BROKEN unless/until a fix lands.
+> 
+> I'm hoping the vidc team will come up with something else.
 
-Fix a memory leak when gen_pool_alloc() fails by freeing pmem on the error
-path. Switch pmem allocation from devm_kzalloc() to kzalloc() with
-explicit kfree() in the free path to match its list-managed lifetime.
-Remove the erroneous list_del(&svc_data_mem) which corrupted the list head
-on failed lookups.
+I did not object taking a known fix for the problem for the mainline
+kernel, regardless if the fix is optimal or not. I only objected the
+reason of taking patches because of something in stable kernels or
+making backports easier or whatever other semi-expressed reason, which
+is not the mainline-kernel reason.
 
-Fixes: 7ca5ce896524 ("firmware: add Intel Stratix10 service layer driver")
-Cc: stable@vger.kernel.org#5.0+
-Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
-Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
-(cherry picked from commit 9119ceb76e987c2ec2b549ea100e3268ce3a1c7c)
----
- drivers/firmware/stratix10-svc.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix10-svc.c
-index 2f263d1a6bd1..f723869c5b2d 100644
---- a/drivers/firmware/stratix10-svc.c
-+++ b/drivers/firmware/stratix10-svc.c
-@@ -1083,14 +1083,16 @@ void *stratix10_svc_allocate_memory(struct stratix10_svc_chan *chan,
- 	struct gen_pool *genpool = chan->ctrl->genpool;
- 	size_t s = roundup(size, 1 << genpool->min_alloc_order);
- 
--	pmem = devm_kzalloc(chan->ctrl->dev, sizeof(*pmem), GFP_KERNEL);
-+	pmem = kzalloc(sizeof(*pmem), GFP_KERNEL);
- 	if (!pmem)
- 		return ERR_PTR(-ENOMEM);
- 
- 	guard(mutex)(&svc_mem_lock);
- 	va = gen_pool_alloc(genpool, s);
--	if (!va)
-+	if (!va) {
-+		kfree(pmem);
- 		return ERR_PTR(-ENOMEM);
-+	}
- 
- 	memset((void *)va, 0, s);
- 	pa = gen_pool_virt_to_phys(genpool, va);
-@@ -1116,6 +1118,7 @@ EXPORT_SYMBOL_GPL(stratix10_svc_allocate_memory);
- void stratix10_svc_free_memory(struct stratix10_svc_chan *chan, void *kaddr)
- {
- 	struct stratix10_svc_data_mem *pmem;
-+
- 	guard(mutex)(&svc_mem_lock);
- 
- 	list_for_each_entry(pmem, &svc_data_mem, node)
-@@ -1124,10 +1127,9 @@ void stratix10_svc_free_memory(struct stratix10_svc_chan *chan, void *kaddr)
- 				       (unsigned long)kaddr, pmem->size);
- 			pmem->vaddr = NULL;
- 			list_del(&pmem->node);
-+			kfree(pmem);
- 			return;
- 		}
--
--	list_del(&svc_data_mem);
- }
- EXPORT_SYMBOL_GPL(stratix10_svc_free_memory);
- 
--- 
-2.43.7
-
+Best regards,
+Krzysztof
