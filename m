@@ -1,272 +1,252 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F056396D25;
-	Thu,  6 Aug 2026 14:03:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC313A1681;
+	Thu,  6 Aug 2026 14:03:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786025004; cv=none; b=EAId/sNb8ML/R0Qg5qy2WUYdDmo9qA9evN0tloBYQnZbXzABjqKRY3rCBdFEmC+fiSBTmiZryeF0oYJtc1WFiVTocwyF7Nxiw+wjpF30vCmNHZt5oqCds1QeE3z7ZoDU4wGFWmZr9LIAKYfZ53tkFNEwd+6yfPrSuabT+u9iq3g=
+	t=1786025033; cv=none; b=DyTiCQ3MO/BN22RRvBOuR9MlrOJ3Kz9Hc4H30nC0ZYFPcAoifnm2ixkjINQYujJSUiTqTaqvGQLC2WGY0VaHnng78nIMLhNpA5/LJxSVUE6r3+vfwc3gUJr4Hl/VDvRoWnLCDGfCzlwpwSPnpqc8UAyM9vJlsD7a/RSzWUa6XG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786025004; c=relaxed/simple;
-	bh=rzUFh7PWiGTwF83COgIGLdhlwLhhYtW0gw3EUnRkSqQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i4dHZY9CGhKPakXor7s1YHnRqsDhKhFBUB0CBWXChzjyUAL978iUCFRVZryZqmliHbwyslYSxBH1rY+1vbKVOPR4Xp0SCYtwYSJlENVYyuTfTemya8cPP0aPL450hBsmtAdSZsf6LqCpALF9O4z4vRkrwrhX1E9oFzoS66AWOBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eLyCODtq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786025033; c=relaxed/simple;
+	bh=AEsNW+NBYPMBEfy8fUmKwiFCnf52pOVGTH7UhHvKcK8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fDuQwZaP7YfwVmg/HbnkdszlaP0ssA8Tu2PABbRY6tXRTS/lnXrty/kDHZbeigiS1BQIl2pY8ctdVjo+qG8xn35eyVvJTiMT+ebDZ7w1FaIgwnKhTrfB+EwHzqXyv08bN+ubyUNZUVeSNqU0F6gczgvFf+/RITTWSs6yQf9L2Io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=VxpbSYIf; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eLyCODtq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CD901F000E9;
-	Thu,  6 Aug 2026 14:03:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786025000;
-	bh=AcbUps+PJOKEs9ZAZx9T9otuJttHDUts9Bt8Cges3S8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eLyCODtqlzXwrcAeO8d9T/YueAUfY2dFDeHy2nYTsKalnVBNyZlAI7UN3H8sf49E+
-	 AlMgYpq6Y0tUuTaS/lxnhW8ds0NU8wmIfEn/NNGcpGLtT4Uf/I1ebeQa2i0hijhMQC
-	 gilaCdqouNEsxYRVNRsU7of55JH6z2RFJm4XcCH7AzuIwmPDZQeSXJZGly7V2Db3WR
-	 PUGymMQsPMFwBvnklDGWQMitYiqW0aP98GFO14OCJ5yrDBzjqgltbdyj6JK3WYwEuK
-	 OIsVSKJkxjMo8OrGRa35s0+vdtdfNuZUgS0KH7BzJrwRewjw8ER1W3DTEQ+pIaZrcQ
-	 R+uAM4Ek/EGfg==
-Date: Thu, 6 Aug 2026 15:03:01 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Wei Yang <richard.weiyang@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>, 
-	Li Youhong <liyouhong@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/memory-failure: fix folio refcount leak and
- min_order_for_split() locking
-Message-ID: <anRv8ngsyOjkgOHM@lucifer>
-References: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="VxpbSYIf"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 675NmB5E3404367;
+	Thu, 6 Aug 2026 14:03:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=a5unDbdIng8tDwr7ncJJHzm+/8KeIBDABaZxAuNRN
+	XI=; b=VxpbSYIfvYjurJexHioYyGRywxp6rC8POmNxkMETwbWFnMbbnEaJFRYfG
+	fQcvB1bvcHk6YLpN4YTQGgnf1b+VxtAOqsJdTAVvBDcytvyrXfD+OwtHW+gK2ak6
+	nrg3p4OblKb5tyzsLmYErKbXGH8WErhUjmdTUpdl/vkk68pdMSh4vDDMGSwx3b4/
+	ABu9X6c7DzmXUnRFDW+haZI2Uvs5kHxCEJP/WawuoD9wghOcear4iaAbTTfKCH60
+	qJH+L42UqRljI7zNDkMj3vE8vNDi5Q7hBUROJlP0F7IAMmd22q/jvW8CaABMMSa9
+	qntC8hTIwlAietz9dG16TytLG6e2Q==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8fr0gc8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 06 Aug 2026 14:03:47 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 676DuG8G028447;
+	Thu, 6 Aug 2026 14:03:46 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fsvmhkc25-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 06 Aug 2026 14:03:46 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 676E3ifg28574286
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 6 Aug 2026 14:03:44 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 56EB058064;
+	Thu,  6 Aug 2026 14:03:44 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EF0315805F;
+	Thu,  6 Aug 2026 14:03:42 +0000 (GMT)
+Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.92.156])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  6 Aug 2026 14:03:42 +0000 (GMT)
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
+        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
+        hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        stable@vger.kernel.org
+Subject: [PATCH v4] s390/vfio-ap: fix stale pqap_hook pointer on error in vfio_ap_mdev_set_kvm()
+Date: Thu,  6 Aug 2026 10:03:42 -0400
+Message-ID: <20260806140342.611294-1-akrowiak@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: IH0OnD3wdfP14lTx9xKdrG0e-WYs8uVK
+X-Proofpoint-ORIG-GUID: IH0OnD3wdfP14lTx9xKdrG0e-WYs8uVK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDEwOCBTYWx0ZWRfXx/bordy/sASm
+ uQuKOTIa+oCdivOpnquKCvBmrH+v7ry5gKIexk+L1QShesv45QUtz87BjT2BTKDbogY3jFGAv3g
+ EFP3XL7xWDTYRbJjkev2ZVG4KS+pIo8=
+X-Authority-Analysis: v=2.4 cv=K8cS2SWI c=1 sm=1 tr=0 ts=6a749443 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=fnNIMH4mEDlqOEiJ55YA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDEwOCBTYWx0ZWRfXzTXiYUkLhxCo
+ A/+R3w7E0li4fututo8wE4CMyZJzq7mn/XQMeP9Ox5+zjohlWVaOr9TUUSj+3Qm38YuPcPM+hMp
+ 6ex9IHVfvBeTtOIw7WDgg6EMeX/ARwRpA72bY9zT23gYb2lhmxxv42pN8Wgff+/xn2106qTk7P4
+ z6BYypkDq81Z3EFzpS9ukvCvtkmY15fPCyQwJqL7xN7eeVPt1+/b0w1qEqAeH7UhXZXGvU17Rn2
+ fr0bQxYp9eXKEaQWucAQSuXG2iR9SVIGULhHw1pKT3pU2W9NffvhXF6B9ZBSpuoVvEgeeAuKmLb
+ Hh0DYXHq4QAAzatKNcq4mlJW0Lmd5VKDsvYk0Wf7LpZMVY1q54rahevS/7RsehsvZSeyuz5UiKD
+ JhO5SqoI8blZY8c99p2j+GVNc8ktz3QDK3GLNU8okblUnd0wudWMJGyDNHtjFiav5odBXNNdcoe
+ jgLILwOi4xus1i7H8gw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 malwarescore=0 phishscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060108
 
-On Thu, Aug 06, 2026 at 01:14:38PM +0200, David Hildenbrand (Arm) wrote:
-> hwpoison code can end up calling min_order_for_split() without holding
-> the folio lock. There isn't really something that would prevent
-> concurrent folio split. Consequently folio->mapping can get set to
-> NULL after checking for "!folio->mapping", and if the compiler
-> reloads folio->mapping, mapping_min_folio_order() would try to
-> dereference NULL.
->
-> While very unlikely to happen in practice, let's just enforce that
-> min_order_for_split() is called with the folio lock held. We can
-> significantly cleanup the calling hwpoison code, and just get rid
-> of try_to_split_thp_page() to hold the folio lock for a bit longer.
->
-> Just work on folios now, which further cleans up the code. We just
-> have to be careful about doing the page_folio() after splitting, which
-> we have to do already either way. Do not change the way we split for
-> now, this needs more thought and should be done separately.
->
-> Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
-> would currently have leaked a folio reference.
+In vfio_ap_mdev_set_kvm(), kvm->arch.crypto.pqap_hook is set to
+&matrix_mdev->pqap_hook before the update locks are acquired and the
+mdev list is checked for a conflicting assignment. If another mdev is
+already attached to the same KVM instance, the function returns -EPERM
+without restoring the hook pointer, leaving kvm->arch.crypto.pqap_hook
+pointing at the failing matrix_mdev instead of the mdev that legitimately
+owns the KVM.
 
-Yikes...
+Since matrix_mdev->kvm is never set on this error path,
+vfio_ap_mdev_unset_kvm() will not clean up the hook when matrix_mdev
+is later closed. If matrix_mdev is subsequently freed, any PQAP
+instruction executed by the guest will dereference the stale pointer
+through pqap_hook_rwsem, resulting in a use-after-free.
 
->
-> In folio_split(), document and assert that we need the folio lock.
+Since kvm->arch.crypto.pqap_hook is only set in the vfio_ap_mdev_set_kvm()
+function and is cleared in the vfio_ap_mdev_unset_kvm() function, a check
+for 'kvm->arch.crypto.pqap_hook != NULL' is all that is needed to determine
+whether it belongs to another mdev. This will alleviate the need to iterate
+the matrix_dev->mdev_list list to see if the kvm object is assigned to
+another mdev.This was introduced in v3 to alleviate the need to take the
+mdevs_lock while iterating the list; however, this did not prevent a
+potential race condition.
 
-You mean min_order_for_split()?
+The pqap_hook_rwsem(write) is now performed inside
+get_update_locks_for_kvm(), which is updated to acquire
+pqap_hook_rwsem(write) between kvm->lock and mdevs_lock. This ordering
+is consistent with the PQAP intercept path, which acquires pqap_hook_rwsem
+in read mode while srcu is held under vcpu->mutex, establishing the
+dependency: kvm->lock -> vcpu->mutex -> srcu -> pqap_hook_rwsem(read).
 
-> Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
->
-> The folio->mapping problem was identified by Sashiko, and Li Youhong
-> reported it by sending a proposal fix.
->
-> This likely does not really warrant CCing stable, but I expect little
-> conflicts when doing the backport, so let's just CC stable because of
-> the refcount leak.
->
-> Reported-by: Li Youhong <liyouhong@kylinos.cn>
-> Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
-> Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+The pqap_hook_rwsem is now released inside the
+release_update_locks_for_kvm(), which is updated to release
+pqap_hook_rwsem(write) between mdevs_lock and kvm->lock.
 
-A typo above and a nit below about a comment but otherwise LGTM so:
+Additionally, kvm_put_kvm() in vfio_ap_mdev_unset_kvm() is moved
+after release_update_locks_for_kvm(). Previously it was called while
+kvm->lock was held; if it were ever the last reference, kvm_destroy_vm()
+would run under kvm->lock, which would deadlock.
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: 86956e70761b3 ("s390/vfio-ap: replace open coded locks for VFIO_GROUP_NOTIFY_SET_KVM notification")
+Cc: stable@vger.kernel.org
+Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+Signed-off-by: Matthew Rosato <mjrosato@linux.ibm.com>
+---
+ drivers/s390/crypto/vfio_ap_ops.c | 45 ++++++++++++++-----------------
+ 1 file changed, 20 insertions(+), 25 deletions(-)
 
-> ---
-> v4 of the last fixing attempts:
->
-> https://lore.kernel.org/r/20260806031958.677935-1-dayou5941@163.com
-> ---
->  mm/huge_memory.c    |  4 ++++
->  mm/memory-failure.c | 56 ++++++++++++++++++-----------------------------------
->  2 files changed, 23 insertions(+), 37 deletions(-)
->
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 9b1f3b24f7e0d..a00df56a68b57 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -4362,10 +4362,14 @@ int folio_split(struct folio *folio, unsigned int new_order,
->   * If a file-backed folio is truncated, 0 will be returned. Any subsequent
->   * split attempt should get -EBUSY from split checking code.
->   *
-> + * Context: @folio must be locked.
-> + *
->   * Return: @folio's minimum order for split
->   */
->  unsigned int min_order_for_split(struct folio *folio)
->  {
-> +	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-> +
->  	if (folio_test_anon(folio))
->  		return 0;
->
-> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-> index aaf14608b30e2..f4f3f1fc9eaff 100644
-> --- a/mm/memory-failure.c
-> +++ b/mm/memory-failure.c
-> @@ -1705,26 +1705,6 @@ static int identify_page_state(unsigned long pfn, struct page *p,
->  	return page_action(ps, p, pfn);
->  }
->
-> -/*
-> - * When 'release' is 'false', it means that if thp split has failed,
-> - * there is still more to do, hence the page refcount we took earlier
-> - * is still needed.
-> - */
-> -static int try_to_split_thp_page(struct page *page, unsigned int new_order,
-> -		bool release)
-> -{
-> -	int ret;
-> -
-> -	lock_page(page);
-> -	ret = split_huge_page_to_order(page, new_order);
-> -	unlock_page(page);
-> -
-> -	if (ret && release)
-> -		put_page(page);
-> -
-> -	return ret;
-> -}
-> -
->  static void unmap_and_kill(struct list_head *to_kill, unsigned long pfn,
->  		struct address_space *mapping, pgoff_t index, int flags)
->  {
-> @@ -2509,9 +2489,6 @@ int memory_failure(unsigned long pfn, int flags)
->  	folio_unlock(folio);
->
->  	if (folio_test_large(folio)) {
-> -		const int new_order = min_order_for_split(folio);
-> -		int err;
-> -
->  		/*
->  		 * The flag must be set after the refcount is bumped
->  		 * otherwise it may race with THP split.
-> @@ -2526,24 +2503,25 @@ int memory_failure(unsigned long pfn, int flags)
->  		 * page is a valid handlable page.
->  		 */
->  		folio_set_has_hwpoisoned(folio);
-> -		err = try_to_split_thp_page(p, new_order, /* release= */ false);
-> +
-> +		folio_lock(folio);
-> +		split_huge_page_to_order(p, min_order_for_split(folio));
-> +		folio = page_folio(p);
-> +		folio_unlock(folio);
-> +
->  		/*
->  		 * If splitting a folio to order-0 fails, kill the process.
->  		 * Split the folio regardless to minimize unusable pages.
->  		 * Because the memory failure code cannot handle large
->  		 * folios, this split is always treated as if it failed.
->  		 */
-> -		if (err || new_order) {
-> -			/* get folio again in case the original one is split */
-> -			folio = page_folio(p);
-> +		if (folio_test_large(folio)) {
->  			res = -EHWPOISON;
->  			kill_procs_now(p, pfn, flags, folio);
-> -			put_page(p);
-> +			folio_put(folio);
->  			action_result(pfn, MF_MSG_UNSPLIT_THP, MF_FAILED);
->  			goto unlock_mutex;
->  		}
-> -		VM_BUG_ON_PAGE(!page_count(p), p);
-> -		folio = page_folio(p);
->  	}
->
->  	/*
-> @@ -2861,9 +2839,8 @@ static int soft_offline_in_use_page(struct page *page)
->  		.reason = MR_MEMORY_FAILURE,
->  	};
->
-> +	folio_lock(folio);
->  	if (!huge && folio_test_large(folio)) {
-> -		const int new_order = min_order_for_split(folio);
-> -
->  		/*
->  		 * If new_order (target split order) is not 0, do not split the
->  		 * folio at all to retain the still accessible large folio.
-> @@ -2871,15 +2848,20 @@ static int soft_offline_in_use_page(struct page *page)
->  		 * preferred, split it to non-zero new_order like it is done in
->  		 * memory_failure().
->  		 */
+diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+index 44b3a1dcc1b3..99a0efd999ef 100644
+--- a/drivers/s390/crypto/vfio_ap_ops.c
++++ b/drivers/s390/crypto/vfio_ap_ops.c
+@@ -48,15 +48,19 @@ static void vfio_ap_mdev_reset_queue(struct vfio_ap_queue *q);
+  * 1. matrix_dev->guests_lock: required to use the KVM pointer to update a KVM
+  *			       guest's APCB.
+  * 2. kvm->lock:	       required to update a guest's APCB
+- * 3. matrix_dev->mdevs_lock:  required to access data stored in a matrix_mdev
++ * 3. kvm->arch.crypto.pqap_hook_rwsem: required to update pqap_hook and
++ *					serialize against PQAP intercepts
++ * 4. matrix_dev->mdevs_lock:  required to access data stored in a matrix_mdev
+  *
+- * Note: If @kvm is NULL, the KVM lock will not be taken.
++ * Note: If @kvm is NULL, the KVM lock and pqap_hook_rwsem will not be taken.
+  */
+ static inline void get_update_locks_for_kvm(struct kvm *kvm)
+ {
+ 	mutex_lock(&matrix_dev->guests_lock);
+-	if (kvm)
++	if (kvm) {
+ 		mutex_lock(&kvm->lock);
++		down_write(&kvm->arch.crypto.pqap_hook_rwsem);
++	}
+ 	mutex_lock(&matrix_dev->mdevs_lock);
+ }
+ 
+@@ -68,16 +72,19 @@ static inline void get_update_locks_for_kvm(struct kvm *kvm)
+  *
+  * The proper unlocking order is:
+  * 1. matrix_dev->mdevs_lock
+- * 2. kvm->lock
+- * 3. matrix_dev->guests_lock
++ * 2. kvm->arch.crypto.pqap_hook_rwsem
++ * 3. kvm->lock
++ * 4. matrix_dev->guests_lock
+  *
+- * Note: If @kvm is NULL, the KVM lock will not be released.
++ * Note: If @kvm is NULL, the KVM lock and pqap_hook_rwsem will not be released.
+  */
+ static inline void release_update_locks_for_kvm(struct kvm *kvm)
+ {
+ 	mutex_unlock(&matrix_dev->mdevs_lock);
+-	if (kvm)
++	if (kvm) {
++		up_write(&kvm->arch.crypto.pqap_hook_rwsem);
+ 		mutex_unlock(&kvm->lock);
++	}
+ 	mutex_unlock(&matrix_dev->guests_lock);
+ }
+ 
+@@ -1821,26 +1828,17 @@ static const struct attribute_group *vfio_ap_mdev_attr_groups[] = {
+ static int vfio_ap_mdev_set_kvm(struct ap_matrix_mdev *matrix_mdev,
+ 				struct kvm *kvm)
+ {
+-	struct ap_matrix_mdev *m;
+-
+ 	if (kvm->arch.crypto.crycbd) {
+-		down_write(&kvm->arch.crypto.pqap_hook_rwsem);
+-		kvm->arch.crypto.pqap_hook = &matrix_mdev->pqap_hook;
+-		up_write(&kvm->arch.crypto.pqap_hook_rwsem);
+-
+ 		get_update_locks_for_kvm(kvm);
+-
+-		list_for_each_entry(m, &matrix_dev->mdev_list, node) {
+-			if (m != matrix_mdev && m->kvm == kvm) {
+-				release_update_locks_for_kvm(kvm);
+-				return -EPERM;
+-			}
++		if (kvm->arch.crypto.pqap_hook) {
++			release_update_locks_for_kvm(kvm);
++			return -EPERM;
+ 		}
++		kvm->arch.crypto.pqap_hook = &matrix_mdev->pqap_hook;
+ 
+ 		kvm_get_kvm(kvm);
+ 		matrix_mdev->kvm = kvm;
+ 		vfio_ap_mdev_update_guest_apcb(matrix_mdev);
+-
+ 		release_update_locks_for_kvm(kvm);
+ 	}
+ 
+@@ -1883,18 +1881,15 @@ static void vfio_ap_mdev_unset_kvm(struct ap_matrix_mdev *matrix_mdev)
+ 	struct kvm *kvm = matrix_mdev->kvm;
+ 
+ 	if (kvm && kvm->arch.crypto.crycbd) {
+-		down_write(&kvm->arch.crypto.pqap_hook_rwsem);
+-		kvm->arch.crypto.pqap_hook = NULL;
+-		up_write(&kvm->arch.crypto.pqap_hook_rwsem);
+-
+ 		get_update_locks_for_kvm(kvm);
++		kvm->arch.crypto.pqap_hook = NULL;
+ 
+ 		kvm_arch_crypto_clear_masks(kvm);
+ 		vfio_ap_mdev_reset_queues(matrix_mdev);
+-		kvm_put_kvm(kvm);
+ 		matrix_mdev->kvm = NULL;
+ 
+ 		release_update_locks_for_kvm(kvm);
++		kvm_put_kvm(kvm);
+ 	}
+ }
+ 
+-- 
+2.53.0
 
-This comment is:
-
-		/*
-		 * If new_order (target split order) is not 0, do not split the
-		 * folio at all to retain the still accessible large folio.
-		 * NOTE: if minimizing the number of soft offline pages is
-		 * preferred, split it to non-zero new_order like it is done in
-		 * memory_failure().
-		 */
-
-Which references 'new_order' twice - probably need to update this.
-
-> -		if (new_order || try_to_split_thp_page(page, /* new_order= */ 0,
-> -						       /* release= */ true)) {
-> +		if (!min_order_for_split(folio))
-> +			ret = split_huge_page_to_order(page, 0) ? -EBUSY : 0;
-> +		else
-> +			ret = -EBUSY;
-> +		folio = page_folio(page);
-> +
-> +		if (ret) {
-> +			folio_unlock(folio);
-> +			folio_put(folio);
-
-Wow, incredible that we had a refcount leak here for ages and didn't know. Ugh
-what a mess this hw posion crap is!
-
->  			pr_info("%#lx: thp split failed\n", pfn);
-> -			return -EBUSY;
-> +			return ret;
->  		}
-> -		folio = page_folio(page);
->  	}
->
-> -	folio_lock(folio);
->  	if (!huge)
->  		folio_wait_writeback(folio);
->  	if (PageHWPoison(page)) {
->
-> ---
->
-> base-commit: e5492213654050379e78ec6f9acfd6c9fe00f334
->
-> change-id: 20260806-try_to_split_thp_page-a359f4d8c90f
->
-> --
->
-> Cheers,
->
-> David
->
-
---
-Cheers, Lorenzo
