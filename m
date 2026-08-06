@@ -1,184 +1,192 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011016.outbound.protection.outlook.com [52.101.52.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45372F30;
-	Thu,  6 Aug 2026 14:55:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786028116; cv=fail; b=gbkH6IB3tORJ0rs3pR5TcdojeSsEqknypyVtEhM/N8Smqi4FY0Inj1FgmSNjo9IlVh0KsJJG5sZnU55BczoXOd+UHo8eannDkoakYTCp7AaPEXX4uB0R+tRRek1lsRUxzj3c3BOJfalhacQWYOUNJOfkzeT/QmJL++Fg5/mUPE8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786028116; c=relaxed/simple;
-	bh=Nfb6mwDAo2Vwa7mOO4xuZtj4any3sqtsY7EdoMwkcFk=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11EC3914E9
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 14:56:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786028195; cv=none; b=OQfkQtC+pbTAkwwyu3u7KiU7ZykI6stNXcq/QqF6RM5406I+Ja/pQsDxXJp75aOL0rgpCjyUzfXdo9eel3DKvbbUx53MEZXZnF0dZShbjoEqpzpeo38lpPAPGzTwudJUoBdQOvSSnZjoa/46e159B32pfqe9hh0PNCOsZ1PsDx8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786028195; c=relaxed/simple;
+	bh=r/Vkb1+BMlYNY1tJcqhwNh3VEVI3USzDIKSso9O7Uts=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=HXpV5oQ0aDZq8iGBOdAyNc8EGBFlJG1stDnU9s+v/11NUFwEiILkVmTTAHgn210+c8pgCvheKL5jGcI5InksiIhgXZQoi4hL2xAKmaV2dWsWWSnluNTrqYGsc5rLaQm3srKUtH1M7K3RjUIkpR/9MBf0ZXM2HevRsDFDnM14SxA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BUi+e4WW; arc=fail smtp.client-ip=52.101.52.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	 MIME-Version; b=hHc2ILyVtOTFX9J2NqoKxWx06VKBbfIVjvkVtd1LhKnIG/sSapVOMVAO7C/tpaCTGqC26HyHqEHYtOtO7YN/mU26bCYSdvR7ey4NuZoFyYJjK2kOFDrzGbtNpaR2ylRO9cpMuzqgpRQeHuSg276sQN6cZYg6DpvNXNHWrgStTi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V7eOxczH; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BUi+e4WW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=APcFvH7NABm8o2B5FN+e8nkff0afgphfQo4fd6JR7Pfh4rWj08wIJWalF5QnPca0T9R3Xb2gs00V8epjCfSd6yxGpI7BoJBYipKf4RteDHb0Hd0D1LN7BQLmX1hDDJuH4TDrhG36JXHDiwYdBrZ9rb3na4ejgGG0lYWq2FcUhFPzfqaqrE0wQ4qaACUgZBPz0+98hVw7D1ukaOls6FHzcYHweXnwNf9vx3R4L4rNdjbolAQ5p9mtQ0kcRMeR3zShHviyk2zhaWiUvzLAK4kzbeMU+T46zRWqPUND0x0q4y9hIorD7hC/qgxRmqBn5VK0jOr0ZxhHLGq3W9TSmJM78w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5qH+54KpMuI8gMEhZ4VbLhmp6MTMn1voHbqQUqp5Ojg=;
- b=IjpspZl0CJioME+zig87ScWWWDxxbPlxDTFPMZMRoJpNuaDzW4F1stGtQw8G4q61UWStZWs0pqK/7NhSsZqUHOa5LbHIgZULv9u6/d3IwdeLDI0L89DTyYvl1i15g8NgVOhmaANbxy46oPbm2/Bz9FNsvWd6sqmig2gtPxsPZ5nqpH6IurXQz2E50VMYUsO4S631Crlgxq4WDMeDNv3pVWWmMiYZ52DWx9iQmcDkRLj/hqUBDNkmMutDEMjXYEW0LRIB/ferAXy/xanyt26bVcDg8J8Y2vEQa5l5UaWt7hO/DcVpgLrV8LFAKjalM2I1/gV7Y6skiR9stN+C+jDd9Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5qH+54KpMuI8gMEhZ4VbLhmp6MTMn1voHbqQUqp5Ojg=;
- b=BUi+e4WWxVxNAlFpMydRxGPA4EhF6ZQd8unJGeKsdjp+8Updcc9I5C95qrTkMuqLjPcnjzScWbfwcpUbezAliEyl4llEbkSGg5Eqaq08KtTNAw+r5TRV+bw1ISkIS9G5vgw8nWSFnhS3uuh/aB+cQMg2QMSvXb2J4Dqko4ppBGUfP36KNht8t/BIvE3MamGxvwUyoye1pz2lgXMNmarO9AuKxdKVDxvC//aFbYKzPaO1J1P70uOm1pzOAcpgCjt4CmTfTF5nf/BP6qvFL+OaTE7FCqXcWkISISqDZ4W8942J27wukKbD3P9+5U/83wEeqIYjOsrO4RFD6tbpk/FQPA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by CH2PR12MB4056.namprd12.prod.outlook.com (2603:10b6:610:a5::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
- 2026 14:55:05 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
- 14:55:05 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Wei Yang <richard.weiyang@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>,
- Li Youhong <liyouhong@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/memory-failure: fix folio refcount leak and
- min_order_for_split() locking
-Date: Thu, 06 Aug 2026 10:55:03 -0400
-X-Mailer: MailMate (3.0r7024)
-Message-ID: <923FAF8F-93B0-473D-8DC9-C48FA1EED190@nvidia.com>
-In-Reply-To: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
-References: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BLAPR03CA0085.namprd03.prod.outlook.com
- (2603:10b6:208:329::30) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V7eOxczH"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso2041332a91.3
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 07:56:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786028192; x=1786632992; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RnK5eS+Q5x9auDCqli6J0bfpL+fgyXWFA73Li6vz2dc=;
+        b=V7eOxczHA2s8KSscwV+JGqXuxLnlwH5Le0ehkTRTXS8vwIxLfMrQXYexRJIni50CWv
+         2/kVIk9ht+GkXBnQKvpa1IAQw8FEIIZk6VSkB347QMbvSksC4VmdkI5xsfoKtWygtHQr
+         WCwvAmtAz7m5OhAQBsuW8DUdBYRlmtSM9iAzV71HTTd5OLXNqW8mHaKTT7dGOOT/H8PC
+         +TBlIOr9CkT/110X2XkBsuD8QJoNC0mo0pfUoomXqlqmXafz93TZg3bOWe9wfYBsTM+H
+         lUc8CFp1V6px+6nToEOiPaDoEnbPiKJTytp9jmJmYnDWcR5fpA0wek36HTqEKj8wYWaT
+         s5/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786028192; x=1786632992;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RnK5eS+Q5x9auDCqli6J0bfpL+fgyXWFA73Li6vz2dc=;
+        b=rmtCss0/8X4w3JBmGlbiGQegGs4jHC/Y8O8oLbs3TI+gE2dixgY1OBZcvUGRXqj6TD
+         iG2LEAo6ps9xaqK3pwz7UGFJmjjwdHcjHg+HsTk1wgdhHmf+Oe3E+WGLr8KeCNeCky+J
+         3ag6Oa84cYrhE32I5wxv5gNMG7PHJCbloY2G8/CwmDyj6XUA9NCbHJdLVizHVp3rBGHS
+         gGWecmYhx+epqRi9AuF1oUjXoIo7YVWN6t3+efKdV8xbDA8ZXKk99h0TWKJVpuHDK/GS
+         GLjnu3dkUTqQiO9/TaO3+q1j1GElPup92fz+H6g7M3xWcWEYExi1dv9niH/bGAF4sq3Q
+         gRpg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr3drQ92drHQX+kg9o9SANRbcY486A+6godpw+4a85eiv6WxqFIIOBKJ6Voe3hWUk2ARWf9KvY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwjkXOwMVVLeErZJz1KsLwyMBsZc6Na7FpUnAHh+5EEKXLnN/v6
+	IQa4h+tpzwae36kG9t5Njnxsc8Etl22cA0rXz3tEtVG/tpZXOFNSYgDww9LDyFeI
+X-Gm-Gg: AR+sD10Lh5qa/GZBrTDRoPdHt+iELYPzpFb17Pp6ChaufmtwWLVXHXN5W/zRH9rMa69
+	3f63Xuc+hSb9Hpdc1AmCcSmXawvRxKY2fjIZ2xU/Xa+vbAirva+w1kcUA93aNQHCWbc8WCb1YQ7
+	ipEGjlMEQvA+v3DG6bt3Z5lBCfbl9e2xdejguScwa9/MFrdmSeSmZMWnusos136PvG1FQZjPYuo
+	RuKzeI7EJ2urab/5qlvPaf2itX6yjqsHDyf671WNn+HNPZk+pTWYK2bZxOJFR3ofCLFznVBZIuz
+	qn6aJ/EnQecAsE63Hfr7g7VdICVlEdX6CHGfCR+5NHBc4KJ5fRdbNVCF3Q2jZJWuTgPQF5GWBVL
+	5Xv+MOA6u2CiLlsM0LxuEQSk4LijcGoRsMGhUFRYX1tXg01E3UN24cyCbQe53JvrMzqpD0x8jw7
+	FhI9OvRxopseo8XzJVnerajFZ5IbAyB898QDQomeKWVhkWqkmHsjzXLlgR5rn0fIjVVnZrfkZA1
+	SkJZ/yBFTeOxYL8w7HrSYabXI7+xpKPV+djBYQfGiGOqBqsr8hdaAKPwe3G+QhI
+X-Received: by 2002:a17:90a:c106:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-3909d8d5993mr2367502a91.16.1786028192196;
+        Thu, 06 Aug 2026 07:56:32 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903d183e66sm3069178a91.0.2026.08.06.07.56.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 07:56:31 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Even Xu <even.xu@intel.com>,
+	Xinpeng Sun <xinpeng.sun@intel.com>
+Cc: Benjamin Tissoires <bentiss@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>,
+	Sashiko AI <sashiko-bot@kernel.org>
+Subject: [PATCH v3] HID: intel-thc-hid: intel-quickspi: bound GET_REPORT response to the caller buffer
+Date: Thu,  6 Aug 2026 23:56:19 +0900
+Message-ID: <20260806145619.3386809-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260806142321.3383353-1-sammiee5311@gmail.com>
+References: <20260806142321.3383353-1-sammiee5311@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH2PR12MB4056:EE_
-X-MS-Office365-Filtering-Correlation-Id: edf05de7-3935-41d5-e2fe-08def3cab356
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	sQDpAOQ82M8ThQ9Lr699i4DmutM74BwmTu9avNf2uEJ78SFIWrNGLZlO39MNU9Wz6HsCc3cOacPlYoYc0vDe3w7GboifIGAT9CoHI7MqgCpLUejpAJhiZ8oaaP/nFKxEl4QaJrTw1F/rbvKIxVW1/N/78IWT75witZERdDXWBBuVSvkMUi5pHLKTQp1KRclc4numRqdle81PUnHsJIdb2O+ijEGF79MK0P3QUQRjalMs61U0HwysDHprV3wM11BgnfrKeK+lff42hWjkQC1XbT+cTbT9OHqCikOxLocAqlbnVtXYlUyi12rhs+FezWEUlxsNv34obIAl0D7snuZRCpex6MUVvrWoKO/0YSU9U972AXz8mkBeK3ZsjlsYl5yC/nP/PY7qRWdwTluC514MsnFnVgrl9IA7UyqbHBaaxJP31cesL7TRK2Myzk9Y5D3nUThM1M94q7qBzbBHKxfiD4/Jw3hU3InV3mFE/fHBRTW8+1K7c8qWFiGXwwtMewY734lpONF+ugdHml8G7WeEpZ3hj/Q9dvm1zcOyLL76FlGclICofzCKTXRac+5Qz4Qy0QzVhLoznMxk9mn3f78DSlaQjPgX5Oii94FS/qGfjAOvYvMpcz+lgScFqdyqPHpLP9AAA2BQWTaProTnStf/bxCYmbyiSbEuPleAi66es1Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?VaEiitxoNweSIEYa6G6XHug3i95+iMlCCGx8f5f0OCEDV7c44TjWFuO/2mpM?=
- =?us-ascii?Q?yb3kFSjpsRqSlRGfre+MnW0Y5o2GEYEqBE+dt5a7uM7CHXHoxnBrNvaZ0TK7?=
- =?us-ascii?Q?zWLpbskNtJHhFvorayGiUculJMuNvbpIDu+lXpEbdLRqF2TmRVUmX0tO6NGP?=
- =?us-ascii?Q?AleD0PlBtS1DkBQP+OCwN4Ld8DXU8RpMgozhBav4cLV5c+xfT4fKs28jrGyW?=
- =?us-ascii?Q?uYlvMDRhJCOFayi2HRBCFRpan8calXc7g+QTPeezant1gcaGuTVmVThoCum8?=
- =?us-ascii?Q?viiMf+iP9F8627EgZX4p7p/IYEJLbF/XxhH6eoLWIktNOHC+22hsO3t7P7Xz?=
- =?us-ascii?Q?E35bBGCjCw9Z6t1L26aetVIdZpAMnlyMuUiab5DcG4+ZUqv9dm4JGmwyvJwL?=
- =?us-ascii?Q?vaIgFo2+aJ2rnEb/7hBpCu/gYEesE9gwYyIclPfBYtmk90UfdMdOfEW1UnD4?=
- =?us-ascii?Q?htNqBY5vT+iwqD6M0QD9DVJrpEUqps3dhiMLtgCHA+1QZIFjfkYW5BuKzoKE?=
- =?us-ascii?Q?WCdw8/a71KIgFl6DrrXn7KL/EiBW8OfTDv/hS8hCGGtAZcjSyCgDWHJ2XzYT?=
- =?us-ascii?Q?WZGIY/5azksaqfhDy/vf4bBgWMobX/qqjTT1yH4GDsgYsSm1vvcxnaGgya4G?=
- =?us-ascii?Q?lMAnYIu+dntsBSeCukyQsW2Y0e2e0SE8fbmzSvg1OGDsvD6SdEfp3ge1ZsCV?=
- =?us-ascii?Q?BaoqpeEK/7gAnyZ/nd6BlMMU3Tc+OUPFk9TULW2n316C09vDzK6jT37g1FVB?=
- =?us-ascii?Q?zvy9O1RN0kjazbpXduKRN4+ScUsLQnNob58ACHQOdhZzR3H3mugu/bFhCz9b?=
- =?us-ascii?Q?G6qd8AN2Q+IiqxHNpoxAqA0Kf9BVlOCtxISQWzz6+SrVmRGoMpD9vM8gXBHJ?=
- =?us-ascii?Q?RtbtdRKkJcixUaY7s3xLYDk3O6mi/uxgfN92juFbwjfKWRaAt64kIUtzZxdC?=
- =?us-ascii?Q?cTp6ocrxdglh1Cv8QQNTnXvyT6OgOnO63zfCPLll9G57GTnTXn1bRpgiSkiV?=
- =?us-ascii?Q?ukCmZ8txIMWQRegOgPZC78j3CMDOVzLPWnYc6aDzUQAQjCnho1ZrhfNXkZUu?=
- =?us-ascii?Q?W+9bb2fBOHgtWszn4UPkjgtNSjfYhsDZyyRab78MtcJ+dqnDjC8A2QG4SDE0?=
- =?us-ascii?Q?AVjwqYgYp1qAloDLvny5w/7hVgxrO8V90/bomiX/6Qja9BVgXk1yAP9KxAcX?=
- =?us-ascii?Q?R8cErIWNg/c0vQTUwxEvsiHh+fBOnG+ySMYzjiQmMnN1bI7IL38htCiTSJnf?=
- =?us-ascii?Q?bJ5arRYa/xbE9W4J0DIRvpmEWIuKN8NhyXKCwFx5K238M/2yRKVbRWfKqvtA?=
- =?us-ascii?Q?GnV0VOUTT/sH6aHkI6be2jjL9uwHyHtdmWrrls+7tm41WH+HE0S5gnA9/1Nn?=
- =?us-ascii?Q?S9Brbg8tHzCyoGy4EmWO05Y/+qFSTwVZ5u+wW1neCiMiIconKGN+YLd73fW1?=
- =?us-ascii?Q?MeRIkAgTlfUVKoNd1l1OYwEbyoHF7RRPCUR6nGsWWC/b5R+ZZRwC2doCvOaF?=
- =?us-ascii?Q?22ihv68Rjbcb370XgR0/GUjnaM2tPsLH/JIFQu+QZjqiIB34so7dF0/C8h3/?=
- =?us-ascii?Q?RDbZSvfDcr0ExjzbBuZGT5cSm+aKfap0toSjHPh/bSojVOz4xDPslolFtzos?=
- =?us-ascii?Q?ZF2Z2+7TSXeDPUxHFGa34OCy3TDOjldoAAKSLy8yd9zL4cennLsU2pdfnigX?=
- =?us-ascii?Q?PpVkbDclxfmLmt/pCn7HCu9UNMYKidokPEj35TVPhKFjaoGnS1cXNJRlqVEi?=
- =?us-ascii?Q?bMTpb4Vx5Q=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: edf05de7-3935-41d5-e2fe-08def3cab356
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 14:55:05.2459
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y9lzXDtheH3jN7/cHy9XF0CjbKdd3dfyzoZXbDd+oDnNP2ELQfy/BFqrHBqIdsGr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4056
+Content-Transfer-Encoding: 8bit
 
-On 6 Aug 2026, at 7:14, David Hildenbrand (Arm) wrote:
+quickspi_hid_raw_request() receives the caller's buffer length in len, but
+quickspi_get_report() never sees it and copies the whole device-supplied
+response into buf regardless:
 
-> hwpoison code can end up calling min_order_for_split() without holding
-> the folio lock. There isn't really something that would prevent
-> concurrent folio split. Consequently folio->mapping can get set to
-> NULL after checking for "!folio->mapping", and if the compiler
-> reloads folio->mapping, mapping_min_folio_order() would try to
-> dereference NULL.
->
-> While very unlikely to happen in practice, let's just enforce that
-> min_order_for_split() is called with the folio lock held. We can
-> significantly cleanup the calling hwpoison code, and just get rid
-> of try_to_split_thp_page() to hold the folio lock for a bit longer.
->
-> Just work on folios now, which further cleans up the code. We just
-> have to be careful about doing the page_folio() after splitting, which
-> we have to do already either way. Do not change the way we split for
-> now, this needs more thought and should be done separately.
->
-> Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
-> would currently have leaked a folio reference.
->
-> In folio_split(), document and assert that we need the folio lock.
-> Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
->
-> The folio->mapping problem was identified by Sashiko, and Li Youhong
-> reported it by sending a proposal fix.
->
-> This likely does not really warrant CCing stable, but I expect little
-> conflicts when doing the backport, so let's just CC stable because of
-> the refcount leak.
->
-> Reported-by: Li Youhong <liyouhong@kylinos.cn>
-> Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
-> Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
-> v4 of the last fixing attempts:
->
-> https://lore.kernel.org/r/20260806031958.677935-1-dayou5941@163.com
-> ---
->  mm/huge_memory.c    |  4 ++++
->  mm/memory-failure.c | 56 ++++++++++++++++++-----------------------------------
->  2 files changed, 23 insertions(+), 37 deletions(-)
->
+    memcpy(buf, qsdev->report_buf, qsdev->report_len);
 
-Changes look good to me. Removing NOTE part from soft offline looks good
-to me too. Thanks for cleaning it up.
+qsdev->report_len comes from the input report the touch controller returns,
+while buf is sized to whatever the caller asked hidraw for through
+HIDIOCGFEATURE or HIDIOCGINPUT.  A response larger than that overflows buf
+with device-controlled content.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+The intel-quicki2c sibling already passes the caller length down to
+quicki2c_get_report() and validates the response against it before the
+copy.  Do the same here.
 
-Best Regards,
-Yan, Zi
+Fixes: 4138f21115ae ("HID: intel-thc-hid: intel-quickspi: Complete THC QuickSPI driver")
+Suggested-by: Sashiko AI <sashiko-bot@kernel.org>
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+---
+v3: added READ_ONCE() around the qsdev->report_len read the v2 bound uses -
+    quickspi_handle_input_data() writes this field from IRQ context with no
+    locking, so per kernel convention for a lockless shared read it needs
+    READ_ONCE() regardless of how many times the value is used afterward.
+    Raised by the Sashiko AI review of v2.  No other change.
+
+v2: fixed a Time-of-Check-to-Time-of-Use race the Sashiko AI review of v1
+    pointed out - the new bound read qsdev->report_len once for the check
+    and again for the memcpy, so a concurrent update between the two could
+    have overflowed buf with the checked-against-a-smaller-value length.
+    Read it once into a local and use that for both.
+
+v1: https://lore.kernel.org/all/20260806133838.3378362-1-sammiee5311@gmail.com/
+
+ .../intel-thc-hid/intel-quickspi/quickspi-hid.c  |  2 +-
+ .../intel-quickspi/quickspi-protocol.c           | 16 +++++++++++++---
+ .../intel-quickspi/quickspi-protocol.h           |  2 +-
+ 3 files changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
+index 91d5807b4a83..a60a0a7f16aa 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
+@@ -61,7 +61,7 @@ static int quickspi_hid_raw_request(struct hid_device *hid,
+ 
+ 	switch (reqtype) {
+ 	case HID_REQ_GET_REPORT:
+-		ret = quickspi_get_report(qsdev, rtype, reportnum, buf);
++		ret = quickspi_get_report(qsdev, rtype, reportnum, buf, len);
+ 		break;
+ 	case HID_REQ_SET_REPORT:
+ 		ret = quickspi_set_report(qsdev, rtype, reportnum, buf, len);
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
+index cb19057f1191..9dacfdf7aff6 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
+@@ -342,10 +342,12 @@ int reset_tic(struct quickspi_device *qsdev)
+ }
+ 
+ int quickspi_get_report(struct quickspi_device *qsdev,
+-			u8 report_type, unsigned int report_id, void *buf)
++			u8 report_type, unsigned int report_id, void *buf,
++			u32 buf_len)
+ {
+ 	int rep_type;
+ 	int ret;
++	u32 report_len;
+ 
+ 	if (report_type == HID_INPUT_REPORT) {
+ 		rep_type = GET_INPUT_REPORT;
+@@ -372,9 +374,17 @@ int quickspi_get_report(struct quickspi_device *qsdev,
+ 	}
+ 	qsdev->get_report_cmpl = false;
+ 
+-	memcpy(buf, qsdev->report_buf, qsdev->report_len);
++	/* quickspi_handle_input_data() updates this from IRQ context. */
++	report_len = READ_ONCE(qsdev->report_len);
++	if (report_len > buf_len) {
++		dev_err_once(qsdev->dev, "Get report response too big, %u vs %u\n",
++			     report_len, buf_len);
++		return -EINVAL;
++	}
++
++	memcpy(buf, qsdev->report_buf, report_len);
+ 
+-	return qsdev->report_len;
++	return report_len;
+ }
+ 
+ int quickspi_set_report(struct quickspi_device *qsdev,
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h
+index 775e29c1ed13..8a2338bee808 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h
+@@ -12,7 +12,7 @@ struct quickspi_device;
+ 
+ void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len);
+ int quickspi_get_report(struct quickspi_device *qsdev, u8 report_type,
+-			unsigned int report_id, void *buf);
++			unsigned int report_id, void *buf, u32 buf_len);
+ int quickspi_set_report(struct quickspi_device *qsdev, u8 report_type,
+ 			unsigned int report_id, void *buf, u32 buf_len);
+ int quickspi_get_report_descriptor(struct quickspi_device *qsdev);
+-- 
+2.43.0
+
