@@ -1,161 +1,71 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCFC43B4B2
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 10:24:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C7443B4B2;
+	Thu,  6 Aug 2026 10:24:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786011881; cv=none; b=tJW38O4uLrlUvf41rDk1g0hoeZiI8Z4m38nXDQXwN3fu2IbM1gpb0GQcT9PPKGtcHPu+i8g2sbi6oLkRLXX46pBd04IXL6Y6hMqMI4GwfOWvKVtmNQQMIgTo7uBr1dqnffetuEMXjR/8xE44JZZQTreyzokKFDP09v9vjVC/QrA=
+	t=1786011884; cv=none; b=iA6vSf4uFS3rtiQ1hLuTInfhmosiT6UUiGZBEh6hrVfOY0Zi56TEi6+tOKhdbwN1vEv2MxYqz28qeAweVyjKkwMNZbGCeiAM6RU4XStnETOelkIRReQ8w3HUKy+ByogNIi5UN6dpY3S6+p3EB98ottzRlcQz8RN5I9Ir6fBUP50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786011881; c=relaxed/simple;
-	bh=Y/BfzcHBW1+/hTfe8NWTi/nlFyz3lih/XK9O4ky6nXQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TJ0DvKDPbAXu8aB6qg/yK1c4t1ArSaGntD1+bA+Bc/zPkYpgZfTdD2CTjgVUO1B+zt6lGEjhe674+LH1eRC6jWZaNxgsOK9RCJ3zgbDAAi4IK4bB01BW3fJAg0LQpdd0sVmxmNNzrXIh47mE0c2/dhuTa+Qg2r2LMzJp+oOJf+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vJX5unF+; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1786011884; c=relaxed/simple;
+	bh=wOfK16VtHmGO2b4hQGM3XnK0RcwzxAl0hvUtf3P2sIw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=spK1JDR7V6BBTPHJQNKCMCiLhnsUmfG/YedjogMB7ZSF7Fvjm5tc793YaALD7Ly0RR9RfAxWhj7ASYtv510Rv9Tz6/KmPrV1x3DaITkb7F1RztckgPcfWsowpaZwY7xXHzOhVDMtyt9MWrOr5GuKXn/uYAS4UWwFQElKJfAjELs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KtIVcGfM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vJX5unF+"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-472326ca506so1369952f8f.2
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 03:24:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1786011878; x=1786616678; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ufo/CJ3ncCi7FHgGFSyE4mS7SJGms4hMqbby60EAfSo=;
-        b=vJX5unF+o+L9Usnc99MdKQh4Zsp+lQ4ru1UyOoK98FsV0FqMmqf5gFqv5h+bYV5F2K
-         GDVnM2uu7CPu9Dlx8iBfbun2T3G3Y8sBWdifVWM+bics8QewLZ16Hgyg1G11sSdzi9QF
-         ZxVsyQ3Cqbs29GuftgkjO3PC+ZaqhvztBrWhw8LC5drldcQzE06EBWktd2lGKlrQfp7E
-         hWhuNtRBB3eP0dahzW7VgdGNFpkGW8f/2b6dOMlXqnjYWdpvJzCSiFBw3n99xnc9mxB5
-         ZQZv8z/HDFJVWoS2hxL9r1w2dyj7yf3M1heYh1rYPfEjoJBmQIFmAfq4OPkw9M3V5v4s
-         scEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786011878; x=1786616678;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ufo/CJ3ncCi7FHgGFSyE4mS7SJGms4hMqbby60EAfSo=;
-        b=QftJk84A81dsbFrLyeckywq3MKClbSGnVBnkL0G/Fp2bTsg3oYM7V1ey+uhPMPWFV7
-         I8RSzPH44WFx0bZUIHoJVlbgN6WKZpOx0YO7/l1E2papdvu/gFvXR18DObaXUxCgYxFB
-         vXKTYyZYGghjuAtX93f1tUUOedGwaZ3Uh08AfymEOZfbYjWon/MkGQPT6pWGF3FnWhQ8
-         moGIhffVf6ijJEHbHVUZ3nj5rgD//uvM6lIoEeC4MS04BGFRGgOl6VbSVZ1HA9GqciDk
-         EsegBKIzAJdarBrj8pCTgqzfMC/g+02a8pNaXCH/GFq1djRKnRR6mVsLeRcFy+s9Cqvs
-         e9+A==
-X-Forwarded-Encrypted: i=1; AHgh+RqYMgrSkonHcMH+dwVRr7k4nJGmOKtSD0oTxgoYI1ETZeRu68FpimMmZ3k8VnGAcvY6E7de1Wk=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywdxs/tqpCglX1X+cYN0b1z2kTXCC0PLtEKLpbn+j5a+eXSMKhJ
-	0UWt/nBowE86oQtbHTRhL/ahNhPrI0+o6rLcpiS5g4mFd2biiDOp4171+/g2AhyB+8o=
-X-Gm-Gg: AR+sD10/cJ6aAYFo6gOummSdid/L0N4y52Hep7x8inqAn/jJpJQg6S0CkIvjENmDWuS
-	QDP9yVGrcVEtmQ94nlpmUKFIAM1JhTkEqRg0Us2sucmNU0oiOpxQ5yV9bMZXHspxpMsk/K04KDx
-	rtKIVfW/+8hcMXqCLdIRxGe+yIwzKLXEht2hI4PttZIkKUX2Xsnsn74Kah3ixh4ipEeLl8FzsFA
-	NLA4OkUSaust+5lq7Jf6WvvDhp7w0FYX/IUnDL8XB6/VmsXnPjmuwCul+xvLs5/JNfKNjBP6USY
-	c2bxxyvbCDu2W+AxyNazCjzGDjwo52YqA5mioy0BOckz3tRtH/HMwtBwGaiBx5VtUgGzssnH5Mu
-	mv79gJcEmHAgUXHOZsC9zMmkp+nCraz7NwRmXRDCPrK1Zu5WUyxGf0QF1CB2dWPo9y9LE5LwnJy
-	BHsL/2FnRBxVVdmlfBK5MNc3I69yV37+dJOvDHkJce8Nc5wIa2O89bkOLL56be28WVfyl1swdbQ
-	g==
-X-Received: by 2002:a5d:6a4e:0:b0:47f:8fc9:6eaa with SMTP id ffacd0b85a97d-47fec4edc2amr17986324f8f.8.1786011878436;
-        Thu, 06 Aug 2026 03:24:38 -0700 (PDT)
-Received: from [192.168.0.101] ([109.76.115.165])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47ff7b250cfsm5060906f8f.28.2026.08.06.03.24.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Aug 2026 03:24:38 -0700 (PDT)
-Message-ID: <72b267c5-6490-453a-9900-b196d1cfc5f8@linaro.org>
-Date: Thu, 6 Aug 2026 11:24:36 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KtIVcGfM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366FC1F000E9;
+	Thu,  6 Aug 2026 10:24:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786011882;
+	bh=ee3OPAxNvfSG3egrLD1yO0zsgTfaeFFrMbSVzalHE2I=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=KtIVcGfMPGroL0rLNcCJarHPjVb5QosF7EVTTokOHzNAv+tWro7QHA1nn0NWt74f9
+	 ii5gobkf6G6meHnYQfaekFsAjci3cCshhS1UebvslQ4SJw4do/GZTBeqotda5MXNbd
+	 Jy3nNUKGot9v5voLh2LknKIPfHtQHZpErAsY0IxD0dkXqgmFuVQjNvWJuuGzE51egJ
+	 DczV9jWTS9wLRHHHUaL4vGiEmw5zuk3doyMfIjZclyddLtiXmkuc+IUvSXA2YojT9Y
+	 btoTX0qktznEfdWc4jL3uJiqS+FlkClzsuvhO5OKNjljy1AGzAzvQ77RsnhniTRl2m
+	 PonaOo27mAlqg==
+From: Leon Romanovsky <leon@kernel.org>
+To: sagi@grimberg.me, jgg@ziepe.ca, Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: michael.christie@oracle.com, martin.petersen@oracle.com, 
+ linux-rdma@vger.kernel.org, target-devel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260731041212.1733364-1-yhlee@isslab.korea.ac.kr>
+References: <20260731041212.1733364-1-yhlee@isslab.korea.ac.kr>
+Subject: Re: [PATCH v4 1/2] IB/isert: delay the final Login Response until
+ the session is registered
+Message-Id: <178601187994.512025.4260188111386087376.b4-ty@kernel.org>
+Date: Thu, 06 Aug 2026 06:24:39 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
- subnodes to common schema
-To: Krzysztof Kozlowski <krzk@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
- Daniel J Blueman <daniel@quora.org>
-References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <futJwsC0VjGSkjrB5PP9T0jBOVgWADaDAYyRRp-OZifaKPNtjcnnA59QJaQTdqYTeayZk9jY6e1jOfun71Yp5Q==@protonmail.internalid>
- <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
- <689580d1-8169-41cf-a954-927e10135700@kernel.org>
- <d0983bf7-a708-46ff-9f86-f94fb6a92ba7@oss.qualcomm.com>
- <d6ffacaf-7f83-42be-a3cf-40ce00810ca9@linaro.org>
- <Ia82wa4IJDPkQZpTCt4MDMqtq1VGZ7DqIaJFNvV0MjaT3jjWrbD_iBs8RU7pqrIz-ZTMSK2irncUv7-PZ-fvkg==@protonmail.internalid>
- <8130900b-c9f2-4f5a-80f1-1e8567ee1b72@oss.qualcomm.com>
- <f252d83f-e0e7-4061-8da8-d2650f1beadf@kernel.org>
- <ea0f1777-4615-415c-86d2-2a792ea42b3e@linaro.org>
- <41163185-09e8-47b5-9ece-c6503cb48920@kernel.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <41163185-09e8-47b5-9ece-c6503cb48920@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-On 06/08/2026 11:14, Krzysztof Kozlowski wrote:
-> On 06/08/2026 12:07, Bryan O'Donoghue wrote:
->> I tend to think - absent an obvious an immediately applicable fix these
->> two drivers must be marked BROKEN, the alternative is to apply Daniel's
->> fix and then live with the results for the bindings.
->>
->> Since the DT schema change is still under debate - what alternative is
->> there ?
->>
->> I'm not far off sending that patch now myself because I'm not seeing
->> urgency on fixing this and TBH that's pissing me off.
->>
->> As a user of a system, I expect resonsible and honest behaviour wrt to
->> bugs, not architecture astronauty while my system can still reset
->> despite perfectly functional fixes being available.
->>
->> Great you want to do sub-nodes in DT. Not great, that's not agreed yet,
->> even more not great - the venus stuff isn't even on the list.
->>
->> Please indicate what should be done for -stable this week else both of
->> these drivers need to be marked BROKEN.
+
+On Fri, 31 Jul 2026 13:12:11 +0900, Yehyeong Lee wrote:
+> isert_put_login_tx() puts the final Login Response on the wire before
+> __transport_register_session(), which iscsi_post_login_handler() reaches
+> only after iscsi_target_do_login() returns.  An initiator that issues a
+> SCSI command as soon as it sees that response can have it executed against
+> an se_session whose se_tpg is still NULL, and the ib-comp-wq worker oopses
+> on the NULL dereference.
 > 
-> Nothing should be done for stable. Or rather: you can do whatever you
-> wish for the stable, because we discuss here mainline, not stable kernel.
-> 
-> There is no problem here "devices running stable kernel are affected"
-> which we are solving.
-> 
-> The only problem we are solving is "devices running mainline kernel are
-> affected". Fix this one and stable will follow.
-> 
-> Best regards,
-> Krzysztof
+> [...]
 
-Yes -master.
+Applied, thanks!
 
-My issue is how long this will take. Several kernel cycles and the 
-debate is ongoing.
+[1/2] IB/isert: delay the final Login Response until the session is registered
+      https://git.kernel.org/rdma/rdma/c/464f5afa92d071
+[2/2] IB/isert: post the full-feature receive buffers after session registration
+      https://git.kernel.org/rdma/rdma/c/5247dde9daac7e
 
-Daneil's fix has not been applied which means the replicable system bug 
-is out there in the wild, not addressed.
+Best regards,
+-- 
+Leon Romanovsky <leon@kernel.org>
 
-Daniel's fix could have been applied and rolled out to all users in 
-mainline and consequently stable.
-
-Instead another architectural level fix is still under discussion, which 
-is of no value to end users whose systems can reset in the meantime.
-
-Its just not responsible behaviour. So I feel both of these drivers need 
-to be marked as BROKEN unless/until a fix lands.
-
-I'm hoping the vidc team will come up with something else.
-
----
-bod
