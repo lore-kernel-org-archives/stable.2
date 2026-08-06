@@ -1,143 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A763F825A
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 15:26:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E07B47AF5C
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 15:26:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786030012; cv=none; b=Tc6fSd9KBFRXnBhtDjNvLygbkglP67GSZH9MCD+xW448JlKsQ5IAAQiy+DlfWwYQxyUbTNjWIcXjAF8O8RyBJeplpMUbvvz74Id9LcpcG10tscfdRg10WOdKohh1IlzeVv2PE24K55pZ8le3b6iPEXem79gjJyGiJWbAde2dkYo=
+	t=1786030021; cv=none; b=e2zOqtc+BgKat96kxIluhUOZazUwcugh83lMDt63mubv8X4aL/Bro45824cnt1ecw3nB3ktBiYO7s8NvUjaYH+C4A+PHqYVrwAYQy+ugCujLkPOaaqCjAUWPZcJ3Os6k8GxYQouY0FGlzutYCHBMWSY2z1WGT6X5P9Gvb+ctR0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786030012; c=relaxed/simple;
-	bh=itnzEYrQrOo+c19LpFOEJuVhdKnxsMTsS3Ok8euGdXg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YplpZ4UkHSGCLq+ioXxvOeZXTNzEhUPG+5MqAH7KYAB/3yWIfBSPrHDKl08T0bCwu7HWQEbiA+7SwMvI2At4TPKOS7ZR/tLuYeWr7gvfZBHOL1wRADqvAlPJdWyIgqh4/q/9b72X+vMu9HuFsSQTQooa/qcx6D2lqMKbjz4zWxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RwR85ODN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786030021; c=relaxed/simple;
+	bh=R1E/w+AxsfP4UPOWvTWTrQQ9pq/bK7zQxikSG96an4o=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Y8SR++0uS1k1tFqb65cMmYlV1N/N4l2vthB+XI3HbxqDmJ7NQOgV5+iwFbQWCNw3BcbQE7doxGlnfsy8pzVcMQL697MAtDOvImVEwiU5uGwS47Acewh+x7Huym7zLeamuTDe2DSSOwuDWK4Rbm5lo9wDAqhVebndJCrOzK0mvwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--nogikh.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YXb3cw0p; arc=none smtp.client-ip=209.85.221.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nogikh.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RwR85ODN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D9931F00A3D;
-	Thu,  6 Aug 2026 15:26:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786030011;
-	bh=1evaVOy906OoxDD1wURPMAKEK01HnJMsyFxKOStJvk8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RwR85ODNBlYt7Y/KMm9LeBOV6zxgjga08ncZrqSO9dzaZtenQQ54+uM2QJCACbPUm
-	 LEhC5Av42SEE5G3Cx2lo31eD80rb84gUmm2vDvnezzVot258YDNxMx3VSKAcm9VrOB
-	 9XhEyf0xtu01+ivAPe0jO48sHPvrwCMD8WWrKvGWpwFEkTI+FcLIqd1dZbXP8RCMLb
-	 iYT5rpilsWJ7V3ftQAl7KThd3CtqKYcFcC2/CcYKodm3Crhk01W9lYehWqgsRlpz37
-	 3uAnIVtcUMBjUrDJAbEDbVQFOlYh3bRN3rSbG0dkV5nhq3Ztn4u3qzUg2grpH75ZEV
-	 3DJIyNBtaDScg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Mirela Rabulea <mirela.rabulea@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] media: v4l2-fwnode: Fix subdev owner overwritten in v4l2_async_register_subdev_sensor()
-Date: Thu,  6 Aug 2026 11:26:48 -0400
-Message-ID: <20260806152648.913828-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260806152648.913828-1-sashal@kernel.org>
-References: <2026072929-fresh-parsley-3ec6@gregkh>
- <20260806152648.913828-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YXb3cw0p"
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-473ac08a6a4so1625590f8f.0
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 08:26:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1786030016; x=1786634816; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K+S1QP0FhvyNfqeqWumDjuFSyxYhfuXzC6OVTs+0PE4=;
+        b=YXb3cw0piNylFShcrGbbnBgmuQTPKplvpK8YodMBiBryZWrwdfY8vEFcCy80SjbWtE
+         /SlJTXpxCWcDtof77lmZl5F5E3B+fGXbg73pSQGcxStMD1BIgqTe9r3hyaLfhW/bs1t/
+         oCfqy3zi+OIgJAOFiGg6RbrimUinkmCFu8YbiAoozqW1MEmrKHANjbwxh4+eMredOSG5
+         Ko92h0RqKqZDBb7YbyxKp6gZZokjZw40Ox8yOQn9tZl/H3plYgE5i0yYKqZu9yL/DKOq
+         /QDwvWj+Jv2DETV5lymbFCXp5FiwfT0+IH8wE+xt+npr/L934ctguH6NpluGOEwTewod
+         ySjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786030016; x=1786634816;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K+S1QP0FhvyNfqeqWumDjuFSyxYhfuXzC6OVTs+0PE4=;
+        b=aQStX7N0cOjQwv+t8L5ws3t4UHtzWA81YXLERZKUheNKbZgezZD7zxrYeEYJqFwyv9
+         RrJy6v6Y5zfi311r6WbvGNen5WK/CS4qqhPJuCfjWPFlEtWqNCC2XaFtHgTqrc9JLRka
+         /cORdWN5USAXRw1rMRVwjqJuSmeIPj23PhHrs9p6BLDCRPejfdrDoQF7SsTX4XZu0ICa
+         8w3VffLndGxRQ51Or1DZ4VbUWwRprerxhtSE0j2hFFihuSDYpNp29OOtyD8Mrc8z63Om
+         P2IfPDoHyI8+IngtqXPVGgbGcuUPXVQtkhXSD7Sk7+nFOUWCl9vvvHbot8/iJigWOBS5
+         CYYg==
+X-Forwarded-Encrypted: i=1; AHgh+Rqy4wF+66V5/QCs2/z/wwYSP58cgcqagwe5/3UcanzRfA6UyaoRPJsmMt8wHAn/VkpFaNocC3E=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyg5b1vCwnGaN/tet/BIRfPZTvjN77qaisrkCYFUd3UUElZ88na
+	32WC1w0xwXH6jEix3ikjY60f4EJpw9bwbIWlb2UE5qLBEGif9zI7wL1c1rZPWEiJcVFgaIVoH5e
+	ygxyFbA==
+X-Received: from wrmj16.prod.google.com ([2002:adf:e510:0:b0:45e:9abb:86db])
+ (user=nogikh job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6000:4021:b0:47f:f828:9f35
+ with SMTP id ffacd0b85a97d-47ff828a369mr8592226f8f.17.1786030016055; Thu, 06
+ Aug 2026 08:26:56 -0700 (PDT)
+Date: Thu,  6 Aug 2026 15:26:51 +0000
+In-Reply-To: <2026080322-obsessed-daringly-e6df@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <2026080322-obsessed-daringly-e6df@gregkh>
+X-Mailer: git-send-email 2.55.0.654.g21b8a5bc05-goog
+Message-ID: <20260806152651.2370795-1-nogikh@google.com>
+Subject: [PATCH v3] usb: usbtest: disable dynamic ID support
+From: Aleksandr Nogikh <nogikh@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Kees Cook <kees@kernel.org>, syzbot@lists.linux.dev, 
+	syzbot+7e1e5911f9eac50bedc7@syzkaller.appspotmail.com, 
+	Aleksandr Nogikh <nogikh@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Mirela Rabulea <mirela.rabulea@nxp.com>
+The usbtest driver relies on the driver_info field of struct usb_device_id
+to point to a valid struct usbtest_info descriptor. This structure contains
+essential test configurations, such as endpoint addresses and test modes,
+which are required during probe.
 
-[ Upstream commit 06cb687a5132fcffe624c0070576ab852ac6b568 ]
+When a user dynamically adds a new device ID via the sysfs new_id
+interface without specifying a reference device, the USB core initializes
+driver_info to 0 (NULL). When a matching device is subsequently probed,
+usbtest_probe() unconditionally casts driver_info to a struct usbtest_info
+pointer and dereferences it, leading to a NULL pointer dereference crash:
 
-The v4l2 helper v4l2_async_register_subdev_sensor() calls
-v4l2_async_register_subdev(), which is a macro that expands to
-__v4l2_async_register_subdev(sd,THIS_MODULE). Since the macro is expanded
-inside v4l2-fwnode.c, THIS_MODULE resolves to the v4l2-fwnode module
-rather than the sensor driver module that originally set sd->owner. When
-v4l2-fwnode is built-in, THIS_MODULE evaluates to NULL, which then
-overwrites the sensor driver's owner with NULL.
+  Oops: general protection fault, probably for non-canonical address
+  0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+  RIP: 0010:usbtest_probe+0x3b9/0x1280 drivers/usb/misc/usbtest.c:2822
 
-This causes the problem that the sensor module's reference count is never
-incremented during async registration, so the module can be removed while
-the subdevice is still in use by a notifier (e.g., a CSI-2 receiver
-bridge driver).
+Because usbtest strictly requires pre-defined usbtest_info descriptors
+to function, dynamic ID binding via sysfs is fundamentally unsupported
+for this driver.
 
-Fix this by renaming v4l2_async_register_subdev_sensor() to
-__v4l2_async_register_subdev_sensor() with an added explicit module
-argument and introducing a wrapper macro:
-    #define v4l2_async_register_subdev_sensor(sd) \
-        __v4l2_async_register_subdev_sensor(sd, THIS_MODULE)
+Fix this by setting .no_dynamic_id = 1 on usbtest_driver. This instructs
+the USB core to skip creating the new_id and remove_id sysfs interfaces
+for usbtest, preventing invalid dynamic ID entries from being created.
 
-This ensures the sensor driver module is properly referenced even when
-the sensor driver does not init the owner field before calling
-v4l2_async_register_subdev_sensor() and prevents premature module removal.
-
-Fixes: aef69d54755d ("media: v4l: fwnode: Add a convenience function for registering sensors")
 Cc: stable@vger.kernel.org
-Suggested-by: Frank Li <Frank.Li@nxp.com>
-Link: https://lore.kernel.org/linux-media/20240315073125.275501-2-sakari.ailus@linux.intel.com/
-Signed-off-by: Mirela Rabulea <mirela.rabulea@nxp.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: syzbot+7e1e5911f9eac50bedc7@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=7e1e5911f9eac50bedc7
+Signed-off-by: Aleksandr Nogikh <nogikh@google.com>
 ---
- drivers/media/v4l2-core/v4l2-fwnode.c | 7 ++++---
- include/media/v4l2-async.h            | 5 ++++-
- 2 files changed, 8 insertions(+), 4 deletions(-)
+Changes in v3:
+- Cc stable.
+- Link to v2: https://lore.kernel.org/r/20260806142511.2337081-1-nogikh@google.com
 
-diff --git a/drivers/media/v4l2-core/v4l2-fwnode.c b/drivers/media/v4l2-core/v4l2-fwnode.c
-index 1977ce0195fee..754ee332f6894 100644
---- a/drivers/media/v4l2-core/v4l2-fwnode.c
-+++ b/drivers/media/v4l2-core/v4l2-fwnode.c
-@@ -1337,7 +1337,8 @@ int v4l2_async_notifier_parse_fwnode_sensor_common(struct device *dev,
- }
- EXPORT_SYMBOL_GPL(v4l2_async_notifier_parse_fwnode_sensor_common);
+Changes in v2:
+- Disable dynamic IDs via .no_dynamic_id = 1 instead of adding a runtime NULL
+  check in probe().
+- Link to v1: https://lore.kernel.org/r/2650cf0f-26f9-48b5-b198-e4cb67c59cf0@mail.kernel.org
+
+ drivers/usb/misc/usbtest.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/usb/misc/usbtest.c b/drivers/usb/misc/usbtest.c
+index 98071b25ac076..8759df49be287 100644
+--- a/drivers/usb/misc/usbtest.c
++++ b/drivers/usb/misc/usbtest.c
+@@ -3054,6 +3054,7 @@ static struct usb_driver usbtest_driver = {
+ 	.disconnect =	usbtest_disconnect,
+ 	.suspend =	usbtest_suspend,
+ 	.resume =	usbtest_resume,
++	.no_dynamic_id = 1,
+ };
  
--int v4l2_async_register_subdev_sensor_common(struct v4l2_subdev *sd)
-+int __v4l2_async_register_subdev_sensor_common(struct v4l2_subdev *sd,
-+					       struct module *module)
- {
- 	struct v4l2_async_notifier *notifier;
- 	int ret;
-@@ -1360,7 +1361,7 @@ int v4l2_async_register_subdev_sensor_common(struct v4l2_subdev *sd)
- 	if (ret < 0)
- 		goto out_cleanup;
- 
--	ret = v4l2_async_register_subdev(sd);
-+	ret = __v4l2_async_register_subdev(sd, module);
- 	if (ret < 0)
- 		goto out_unregister;
- 
-@@ -1377,7 +1378,7 @@ int v4l2_async_register_subdev_sensor_common(struct v4l2_subdev *sd)
- 
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(v4l2_async_register_subdev_sensor_common);
-+EXPORT_SYMBOL_GPL(__v4l2_async_register_subdev_sensor_common);
- 
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Sakari Ailus <sakari.ailus@linux.intel.com>");
-diff --git a/include/media/v4l2-async.h b/include/media/v4l2-async.h
-index 9f474d4e277a1..4174a7ea3f1e3 100644
---- a/include/media/v4l2-async.h
-+++ b/include/media/v4l2-async.h
-@@ -321,8 +321,11 @@ int __v4l2_async_register_subdev(struct v4l2_subdev *sd, struct module *module);
-  * An error is returned if the module is no longer loaded on any attempts
-  * to register it.
-  */
-+#define v4l2_async_register_subdev_sensor_common(sd) \
-+	__v4l2_async_register_subdev_sensor_common(sd, THIS_MODULE)
- int __must_check
--v4l2_async_register_subdev_sensor_common(struct v4l2_subdev *sd);
-+__v4l2_async_register_subdev_sensor_common(struct v4l2_subdev *sd,
-+					   struct module *module);
- 
- /**
-  * v4l2_async_unregister_subdev - unregisters a sub-device to the asynchronous
+ /*-------------------------------------------------------------------------*/
 -- 
-2.53.0
-
+base-commit: 48a5a7ab8d6ab7090564339e039c421f315de912
+-- 
+2.55.0.654.g21b8a5bc05-goog
