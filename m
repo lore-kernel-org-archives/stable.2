@@ -1,161 +1,116 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5FB3DDAF9
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 07:10:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB82261B70;
+	Thu,  6 Aug 2026 07:22:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786000212; cv=none; b=URL0C76EkRd7iUyNBVeoCZAsHUhTUTznoSq8k14qmUSC579gv6bDlvQMStlczHArsW1hT5Pk3+1oXteBAopo4R7y3u/R67Bk81uAbK5PVB3nWAO522TMhOSoHxUh/f42tv73ckYU7Xdc1bO7MBeaBEruJV0UiMa0Lk1y4QprmGo=
+	t=1786000950; cv=none; b=qvMkpxrXsRdpOJrPuQT8O+2MghjhyMaLw9ItiHK3AXB+ulmeQLrL0NQXjJddq30DeatNumJIUY9FgB4SRov77rhhA/oJKmijkYjaCCpkAPae95EPRBtv+r+qSlCiif7iXptjxKoTY+YMheIh7HToeh6qRrJIV1yCG50Ilr41IGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786000212; c=relaxed/simple;
-	bh=D9JmoKMI2Pmwotp5SEfjJj5F1SbchS7Q2k32kDMtCD0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=brrK3IhXNPdiL/OWvRPrLe4cWQejsghH0ihFNNcdD8nqZKMxDZISU3pi+qkyfP/0G/dsBmlQqn3aF1zCYDaC2fTwz2A/Lw7gzu5nXwxSmkIitRHv46Yv7k7Tc9ql7wM4nIQy/iVrumBvwFJWlnlX+CcyrK92RKfKslijjGJeOHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oLfAZVMY; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786000950; c=relaxed/simple;
+	bh=tMS1lHTJwD4nIfOZ6zEcCV6UsC8udIMq7Fpqn8A/txU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PJMdCqhqlN0XJ3bFe7BauiOcQUf235fKQsqQk42SO4HCriuslmv6MbnpUAUJNI0RiU6KOrXbzx04mqmd7A7BDYqZY/44GlRGWg04HPAdZPRBv4lanC1MDQG6SJf82Ef2nMEOu5fFnl4RAP9dmh+XOXfTZWGRE1eaNVQzaXmZ438=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=IFDzEvgr; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oLfAZVMY"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-84862b0d5aeso2233357b3a.2
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 00:10:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786000210; x=1786605010; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pxkf9l/6VRKPUFdY+I+2JUrRfOgcQ7nzG7Tljs67NVc=;
-        b=oLfAZVMYsURcvMNnJJX66I4qn/Eu34GjnRthIb3aVjz1X4yl1U4Xwnvxd7Z6k7g6oz
-         6sgY6SrNdxmMAtTNetV8vbMkeOgMHy9ZUVhP3Cgctpc93YMimDBjI1vElbih091gWM01
-         xNtwUFmgf8dQVu6ykVNa3KN6sexx9VRHb81ZB6/Okyin4mtp6BU5sjY+1imMR8/ikqYq
-         I47oIiUArbuFY4SQmWSyD/I/hahDY3q2rDmKdVI0v9w/rzppQ/Ayz25ynKRzyEUdYv38
-         1LWqLQgI0LygiZTARKT0OEG0D9bYBUDo45R+li0EIIZPtEvv2sjy5K25cMU1Po822vDH
-         pQkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786000210; x=1786605010;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pxkf9l/6VRKPUFdY+I+2JUrRfOgcQ7nzG7Tljs67NVc=;
-        b=FzpueTlXRbYLqC+HblrVrk6xBEqYV44UGDyyOd2CvMA0oYlFRTTk4huvvfltKXrIfG
-         VKIvsIMXFPfBFxEA/CpnVqJijDWY+T7TKpM8xvn3q360DA+AmwF34LD6aK1Hqz6dlSSb
-         Z2F1ZJP6jdCmwhrN/fCCVpfvjaPJ9LNbu5tkhT0LXWsfRLm5qIWw23GQpSSNpbsivITT
-         oQHdd8e5i2ruNO3Qn4ERO+Y44Gdk+KtBWsgOABW3/KOiUkdoSAkOn6jSurxTDUUduTyb
-         hUhuAWFDnwbFhVNuUsDKP3EV39g5SZyJlYp4a5OUSedlOD82EF1jHiV0pzz7nnKsJg5b
-         gHtg==
-X-Forwarded-Encrypted: i=1; AHgh+RqZUY3H8kGKTI5YQD18GNzYppl80EiLutBzf3QCF6jaK3MHqEzaCD31INtnWFlYyrdkq22WBWk=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxL7jiIM/RFAqKxn48rqCFUBOgSU93MMeD9x+dm966P/S7YenIx
-	tw9SIq4apW+EgFCwxzPRmbniopJJ+bxZMxPYhfm52O95vapPrf0I4R3V
-X-Gm-Gg: AR+sD12jfa0I/kG3fucz+QTnvhPxow4jSFxBy7ngGIILN797N8l153xWXYlpRXnJub+
-	sKI/eBi+APYaGibAeuv8i447uk+UmYruFYjBx5dDIxhXbKy/rOXFdLvMNDbZv4mou2vA1uG4EHn
-	9ZFZCmM+rRTRhdmAv7WJkLKwKmCT8kcTGdd1wMar7cmWJOtp+1VYQmYoaIfST2oX6B4MEEhaijH
-	Ks0p/aVRAA6cgB95knpFSuY1+FIadT40ACfED4tsUpLpi/JTfZzYhWkRoHzR0Pf510TqpdiUAiB
-	nuZZsqbDiRYGoB8TrjUjRvEe9nxwNTuh7mxFvCO3kkglA1qQGA3QYT6o4FqqHPJ0ktuPUCwLRF+
-	KkS1RrrhCJ9D8k/4LbMb4y4POk3pEmaarUuYXRZ7EW1UcqSeKl1LxhATYYZQ7Ub+p6dpm9J61qX
-	8QDXxiieFdkJxwOzJvBgsxw58QnI7MGpFYj9hd7q1akkMhWsZGP0iaFcWmqXUc3krytycLdnP3W
-	voh/M2Cdu1d/XRW
-X-Received: by 2002:a05:6a00:4218:b0:845:ce5f:c926 with SMTP id d2e1a72fcca58-84f2e210308mr14993193b3a.1.1786000210573;
-        Thu, 06 Aug 2026 00:10:10 -0700 (PDT)
-Received: from localhost.localdomain ([210.184.73.204])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f45bc9cffsm760154b3a.59.2026.08.06.00.10.02
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 06 Aug 2026 00:10:10 -0700 (PDT)
-From: Hao Jia <jiahao.kernel@gmail.com>
-To: akpm@linux-foundation.org,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	shakeel.butt@linux.dev,
-	mhocko@kernel.org,
-	yosry@kernel.org,
-	mkoutny@suse.com,
-	nphamcs@gmail.com,
-	chengming.zhou@linux.dev,
-	muchun.song@linux.dev,
-	roman.gushchin@linux.dev
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Hao Jia <jiahao1@lixiang.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 1/2] mm/zswap: Fix global shrinker when memory cgroup is disabled
-Date: Thu,  6 Aug 2026 15:09:42 +0800
-Message-Id: <20260806070943.95542-2-jiahao.kernel@gmail.com>
-X-Mailer: git-send-email 2.39.2 (Apple Git-143)
-In-Reply-To: <20260806070943.95542-1-jiahao.kernel@gmail.com>
-References: <20260806070943.95542-1-jiahao.kernel@gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="IFDzEvgr"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=eqgJPcvmoGZCRUrrFBeKrp5WqdRAbRD8x/auNjcOY1I=; b=IFDzEvgrpG/IfSGlZAXLmjMLcv
+	nNd3Ij7wosdirpMfU3ksBSufX99QRW3kp35ep4rx0r38pROavSGps0gENpC2iUNCWETUFXjk6poNA
+	o+GwDo3K/cR2XPf4ZpFV4BaSnLU5tt4yXSFVybywY9J/9wqOC5jyOBXN/8GZft+WXYb3klPGG4cbI
+	3Xbs6eNwjqwjN0JwsO7iwojTkJaoFj6mYjJaHc0ZmcnbUuEBELG3c1lwUBI7WJuYq45OrMce/7FkA
+	GN1Hrxm0djjlnkXATv4W/gltrvz4ZBYzxojy44JeY7gjEszaz7BZFWjLk293qV5tcfKSOBFBWG1aA
+	qWTzgpNQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1wrsQl-0000000BHq7-1JIN;
+	Thu, 06 Aug 2026 07:22:19 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 019C6300CC0; Thu, 06 Aug 2026 09:22:18 +0200 (CEST)
+Date: Thu, 6 Aug 2026 09:22:17 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Krystian Slowik <me@krystianslowik.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] sched/core: Don't pin the idle task in
+ migrate_disable_switch()
+Message-ID: <20260806072217.GL49951@noisy.programming.kicks-ass.net>
+References: <20260806071740.83931-1-me@krystianslowik.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806071740.83931-1-me@krystianslowik.com>
 
-From: Hao Jia <jiahao1@lixiang.com>
+On Thu, Aug 06, 2026 at 09:17:40AM +0200, Krystian Slowik wrote:
+> Since commit 650952d3fb38 ("sched: Make __do_set_cpus_allowed() use the
+> sched_change pattern"), do_set_cpus_allowed() dequeues and re-enqueues
+> the target task through the sched_change guard whenever it is queued.
+> 
+> The idle task counts as queued: init_idle() sets
+> idle->on_rq = TASK_ON_RQ_QUEUED. But the idle sched class implements no
+> real dequeue_task() (only the "bad: scheduling from the idle thread!"
+> debug stub, which even drops and re-takes the rq lock in the middle of
+> the guarded section) and no enqueue_task() at all, so running the guard
+> on the idle task jumps through a NULL pointer in sched_change_end():
+> 
+>   bad: scheduling from the idle thread!
+>   CPU: 3 UID: 0 PID: 0 Comm: swapper/3 Kdump: loaded Not tainted 7.0.0-28-generic #28-Ubuntu PREEMPT(lazy)
+>   Call Trace:
+>    dequeue_task_idle+0x29/0x50
+>    dequeue_task+0xfb/0x300
+>    sched_change_begin+0x1ff/0x240
+>    migrate_disable_switch.isra.0+0xf8/0x190
+>    __schedule+0xdd/0x650
+>    schedule_idle+0x22/0x40
+>   BUG: kernel NULL pointer dereference, address: 0000000000000000
+>   #PF: supervisor instruction fetch in kernel mode
+>   RIP: 0010:0x0
+>   Call Trace:
+>    enqueue_task+0x89/0x1d0
+>    sched_change_end+0x18e/0x1d0
+>    migrate_disable_switch.isra.0+0x11e/0x190
+>    __schedule+0xdd/0x650
+>    schedule_idle+0x22/0x40
+>    do_idle+0xb6/0xf0
+>    cpu_startup_entry+0x29/0x30
+>    start_secondary+0x125/0x180
+> 
+> The path is reachable since commit 942b8db96500 ("sched: Fix
+> migrate_disable_switch() locking") moved migrate_disable_switch() to
+> the top of __schedule(), where it runs on every schedule out of the
+> idle loop rather than only on an actual context switch: any
+> migrate_disable() taken in the idle loop (e.g. from a tracing or BPF
+> callback) that is still held when the idle task schedules triggers the
+> pinning path.
+> 
+> Pinning the idle task is meaningless to begin with: it is a per-CPU
+> task that can never migrate. Skip it. This also keeps
+> ___migrate_enable() unreachable for the idle task, since its cpus_ptr
+> is never repointed.
+> 
+> The check uses p == rq->idle rather than is_idle_task(), because the
+> latter also matches idle-injection threads (PF_IDLE), which are
+> ordinary queueable tasks.
+> 
+> Observed in production on two separate x86-64 machines running the
+> Ubuntu 7.0.0-28 kernel, both panicking from the idle loop with the
+> oops above.
 
-Zswap writeback when the global pool limit is hit fails when memory
-cgroup is disabled. The pool remains full until it is organically
-drained by swapins or memory freeing, leading to zswap store failures
-and pages bypassing getting written directly to the backing swap device,
-causing LRU inversion (hotter pages with higher fault latency).
-
-This happens because mem_cgroup_iter() always returns NULL when
-memory cgroups are disabled. As a result, the global shrinker
-shrink_worker() repeatedly takes empty walks. After MAX_RECLAIM_RETRIES
-failed attempts, the worker gives up without writing back any pages.
-
-Therefore, when memory cgroup is disabled, fall through with the !memcg
-branch and shrink the root memcg directly.
-
-With memcg disabled, shrink_memcg() only returns -ENOENT when the root
-LRU is empty, which means the total pages are already below thr. In the
-absence of heavy concurrent zswap stores, the loop then safely bails out
-via the zswap_total_pages() <= thr check; otherwise, it will resume
-shrinking the memcg after processing the reschedule check. For any other
-return value from shrink_memcg(), the loop is guaranteed to terminate,
-either after MAX_RECLAIM_RETRIES failures or once the threshold is met.
-
-Fixes: a65b0e7607cc ("zswap: make shrinking memcg-aware")
-Cc: stable@vger.kernel.org
-Suggested-by: Nhat Pham <nphamcs@gmail.com>
-Acked-by: Nhat Pham <nphamcs@gmail.com>
-Acked-by: Yosry Ahmed <yosry@kernel.org>
-Reported-by: Yosry Ahmed <yosry@kernel.org>
-Signed-off-by: Hao Jia <jiahao1@lixiang.com>
----
- mm/zswap.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
-
-diff --git a/mm/zswap.c b/mm/zswap.c
-index b5a17ea20237..48fc7b575e24 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -1356,11 +1356,12 @@ static void shrink_worker(struct work_struct *w)
- 		} while (memcg && !mem_cgroup_tryget_online(memcg));
- 		spin_unlock(&zswap_shrink_lock);
- 
--		if (!memcg) {
--			/*
--			 * Continue shrinking without incrementing failures if
--			 * we found candidate memcgs in the last tree walk.
--			 */
-+		/*
-+		 * A NULL memcg ends a full hierarchy pass (except when memcg is
-+		 * disabled, where it is always NULL: fall through to the root LRU).
-+		 * Count a failure only if the last pass found no candidates.
-+		 */
-+		if (!memcg && !mem_cgroup_disabled()) {
- 			if (!attempts && ++failures == MAX_RECLAIM_RETRIES)
- 				break;
- 
-@@ -1379,7 +1380,7 @@ static void shrink_worker(struct work_struct *w)
- 		 * and failures.
- 		 */
- 		if (ret == -ENOENT)
--			continue;
-+			goto resched;
- 		++attempts;
- 
- 		if (ret && ++failures == MAX_RECLAIM_RETRIES)
--- 
-2.34.1
-
+What is actually doing migrate_disable() here? Why would the idle thread
+ever hit this...
