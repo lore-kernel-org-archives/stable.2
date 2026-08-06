@@ -1,126 +1,283 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD9E3A9D9C
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 17:03:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FFD44E677;
+	Thu,  6 Aug 2026 17:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786035809; cv=none; b=MM0FUeMaaAs7uu9VobSOSfA3FDm1aZebPd8rU/00kvmF7oiUpcxVthCI+PPgknU6JO+rX0EKQWEdbKafhNoVLGku5A7LYdzvYFo1x8gJCd9hIYMqrKNk5ZQLwVEFxPFWd6b7Hh79QcYV089HvVBzH9bUx5fgI2IjmejDAamPx/k=
+	t=1786036544; cv=none; b=rQbZB9sgAkYEIhEdavO6ZmjMV7dL1s5ObPN7gW0+X2kA8ymh92omC/rtLZ7v2ywnZfkcc5F+RFVys6EkhdmKc7JEOVKBjvEbMdvN47uzUe4GGtdgRMgEFS5oA8Z4Kdfjy5vZl7aET1eUVRKIaZfgjWsBXvU5C//C8OGttENnLTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786035809; c=relaxed/simple;
-	bh=wH2Z/7SStNPXHVKuBAna047dlnh8OKumWppmtohqDBg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JsJXKgd8Jt/YyuobpmRtwN1+h5u5hLoyrMHDlsBjyz/cie8A4OrpfEddUA+KsV5f+PfwaPVMMUoEqepwe0q15mdENTIeBjBermKAh2x+wQimiPuqb6Kyx2e6/z3l9h+nxWvwEtaOqcbeKYP6SXj+f1REjWrMLAUNUf1hZiXBuY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=VrqJHNGR; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1786036544; c=relaxed/simple;
+	bh=ha5QBk1yWOiy4lWNRVG9FJv6MtwNkRHwOydFUNFwKXU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l/4sfLYEi25d07p5NIqc/sNFmbB4NtaLNan5TwdDz+Ogot73REmEMf3IRToPzwbqtfMg5hS0N5zPa9cCHMFe7BRJEDEmvVguuTnokoyMnUgo3Ow/0CoihzE//sGMG4th7O9EsbEI/G0gNnnQOXgUlfHICuvIhcpbyZLlcEnTHQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=EQrGpcce; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="VrqJHNGR"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8486672f03cso3034432b3a.0
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 10:03:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1786035806; x=1786640606; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jTcIYdDJrbFYM8SM/eR5/FInV0ODp6bCP4uR1qvvuCk=;
-        b=VrqJHNGRRUoP/msyVxM5mpPdeQqY8og/M7kLPYkdcG45zy74Hyo001nabIAtdc7oJw
-         6vnl1+Kgrblow4hzFefbVXqdy3K9PS/Vtp9Uh/sQUWDxiBYU337hp3YeqE3uoafhsyXh
-         P7feEkHaE1EWfbTSdedW6ODLSYsdSfgAinn7KkDDQJ8s9XdwQVybCzAye985P45C/3dG
-         p1m0CmzVnpuDUmlH+oqW9iKpj0+fuNQalecoj0d+WMUelnq66jjLAYU/ke1iV/SKKeKP
-         vVHR/Ara/zOrRjqpRlJWhrhRAmU8qPjZ3a0AKu/IWGb3H7k9bKC2U+tWqaFT0vLHwGQC
-         6coA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786035806; x=1786640606;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jTcIYdDJrbFYM8SM/eR5/FInV0ODp6bCP4uR1qvvuCk=;
-        b=bsKiGsDGwsspUSz2nbL9Ds1zFgQLrhEuoLyDBza8dixCcBLjRpgttqNAtFEIODK9AZ
-         V4Rn+UpM4vr17fBEqOO9sQOiYSS0aViaJLG4pAIxtnyJblZkoYxQNCru57tBCEQCcVlq
-         KB6tcJKMAbpjOkt/UijodWw2Z5OTL/w4u18Bs4+mmeXe9zgvJch6tFkDXANS/AhfAloJ
-         EM4LSrsHnkF9OIXPaIm80VOKCM6PvdXT6EkvyhqXnEBFhVM7iz46IiukZQClY1dalI9q
-         AqrQLm6bOMyXDHPRC5qA6kmgSrcay1MOlLvCxXOIxUpayIkyCh+eyZSGff1h1EDSDWJX
-         tA5Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrdGoz2pH7jrz5kkM821LdGES5fD8PRq82J+RbeWKQfgkOoTY6pZqe9pPArNtS7iC9Yen5fGwc=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxg8MCBeYtTqpOUIUu7XsPAboNyvP2r5X2miNhEpVkoMZ7VWywK
-	wjKrJjEBhESpGKQIb0Yz0DZAdb3RAAN+CO7D91K7yFhpyhcrOTZSWUYd72+Ggd1pmS0=
-X-Gm-Gg: AR+sD11toudSoujbuU250Zk2j5EUAAK65wXyPBhxDISwsy7ECHK3DCm+hhTK63DZ7pJ
-	hxnrdpUl6FAfr5xQ7br0HKq82KY/XxGiPVUrBM8Btdc/6+js9xcut3MWzfeb2nTK1Y7n8v0GRmL
-	azkgxTCav7GXtjTt/8UfddzVtOeWJC6nENgvYtPWWNRwM+6PvosKk0BWHrVdtYzc2fGJxZ0UPtZ
-	nYBzoqf82p+1AsQ/6cJN8SOjpmAkaN/XoacA6jWZSGxULeMxw+bBRFChbdUrTeWlEvLkdh691+z
-	Emp9LKaZbwH2q7zEw3sSCRFz8Zad6LpMhq5D13BLOVfQkSO0+BEcAM3LY3DLeEzhwM5iMMGOo4H
-	AMbYUvIxkwXsyovAz85uxpn1DSIsphLvKQTbbTYzk/2M9eIqDCeLWuRf81s9vFFYFQDD/IOvn/1
-	aw6tE26m6NVGU/R1cGfgik/hnMdoIdZNvGJFgM8aLtM7uVtfoIzEBtVLf/bL9m1Cwj
-X-Received: by 2002:a05:6a00:2ea8:b0:848:4c0c:9482 with SMTP id d2e1a72fcca58-84f2e0cc746mr17400031b3a.35.1786035804907;
-        Thu, 06 Aug 2026 10:03:24 -0700 (PDT)
-Received: from fedora ([2607:fb91:201f:cebc:3a68:390a:144e:1b87])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f453bb24csm1745790b3a.24.2026.08.06.10.03.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 10:03:24 -0700 (PDT)
-Date: Thu, 6 Aug 2026 12:03:19 -0500
-From: Gregory Price <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: linux-mm@kvack.org, damon@lists.linux.dev, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com, sj@kernel.org, akpm@linux-foundation.org,
-	david@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
-	liam@infradead.org, npache@redhat.com, ryan.roberts@arm.com,
-	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev,
-	usama.arif@linux.dev, vbabka@kernel.org, jannh@google.com,
-	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
-	byungchul@sk.com, ying.huang@linux.alibaba.com, apopple@nvidia.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/4] mm/huge_memory: skip zone device folios in
- madvise_free_huge_pmd()
-Message-ID: <anS-V-k61246FkkS@fedora>
-References: <20260728194714.3713735-1-gourry@gourry.net>
- <20260728194714.3713735-3-gourry@gourry.net>
- <anSOvqN1_Hs190xi@lucifer>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="EQrGpcce"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 676End5Y2866541;
+	Thu, 6 Aug 2026 17:15:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=1alqfZ
+	1jTe2JAaWwmSa1hG3KVu9zh4ggV1HcL7tjo8o=; b=EQrGpccenRbHLJyuD2SZcB
+	AH0poMT2CghXuHj0HzzG7mCAu7p5SEEHlGTXt3qOihqsB0jBXYNKQ3pdUcIlEu+y
+	k2p0kz8A/2gcbzSZ+qIGsSRRzGgIxLMysoQjf9DdBPjx+hcjOnOkCC4WqX8bi+68
+	px0D27gQPDxfVhk9RwU0D7R9kUrkE8/hdL91cdSAHaVvtoYoTVjlFJ/3z33A/HcE
+	U4tn9ch4fvnrh/GKfgX3TrQRNPZmHsX8xX6yTuNjHrxvMzra5BNZovfQZSHNTVY0
+	ixdy6dYCQk3HSh7TspNT0qjollgT2uaCh5b065/wpIiKo3wBDtu3hMq7g2aS4/uA
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs77gh06b-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 06 Aug 2026 17:15:21 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 676HBFjQ027429;
+	Thu, 6 Aug 2026 17:15:20 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fsugwc869-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 06 Aug 2026 17:15:20 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 676HFGCt22413980
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 6 Aug 2026 17:15:16 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 366FE2004D;
+	Thu,  6 Aug 2026 17:15:16 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5031420040;
+	Thu,  6 Aug 2026 17:15:13 +0000 (GMT)
+Received: from [9.124.215.184] (unknown [9.124.215.184])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  6 Aug 2026 17:15:13 +0000 (GMT)
+Message-ID: <47182652-a719-4be8-a7a7-6e864fde2bbc@linux.ibm.com>
+Date: Thu, 6 Aug 2026 22:45:11 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <anSOvqN1_Hs190xi@lucifer>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 1/8] powerpc/bpf: fix alignment of long branch
+ trampoline address
+To: Saket Kumar Bhaskar <skb99@linux.ibm.com>, bpf@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+Cc: maddy@linux.ibm.com, ast@kernel.org, andrii@kernel.org,
+        daniel@iogearbox.net, shuah@kernel.org,
+        linux-kselftest@vger.kernel.org, stable@vger.kernel.org,
+        venkat88@linux.ibm.com, yeswanth@linux.ibm.com
+References: <cover.1785906979.git.skb99@linux.ibm.com>
+ <26e8e6fa5d0279ec92281d5324678f00294e2cb7.1785906979.git.skb99@linux.ibm.com>
+Content-Language: en-US
+From: Hari Bathini <hbathini@linux.ibm.com>
+In-Reply-To: <26e8e6fa5d0279ec92281d5324678f00294e2cb7.1785906979.git.skb99@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDEzMSBTYWx0ZWRfX0XEBMogXoNPA
+ oWj0hI9Iq7BoDNYqQuMmge1+Y69yUdAKf1KHidLQosuNG4VQ0JoD8CwbUJmTe0zl2P3V+MiCJW8
+ QiTEIrMaX+mVG52Tc0iohlwxfDpVNsE+8PoOdMXwQv4NP0xk5sX15LJYyIJuX1PO6h5XXpoUhsF
+ 4RJi4lmrLdHJGid2JugKWy01Xdgp/bJx3B3iaEyTuIiq+cf7PlIJzI1cwjGhRu3U964jdWaMuJ2
+ AZaAkkU98NDuaT9HLDgNuFaydNZfcst7VugOlWKa+l+7YBIkmD6zZrDbvGshiM8OjYfDyzbinwW
+ 5GjBpN/qPr5RiDZchrA7QjPRFotoyzq/CQbtTS/KX0rOp1euQ6TLyANiqSX5xRryvbiKrhaQuPw
+ 7Q46XZ2eqBQS1dTynXUiOMpU2c9bN+PJ1CfIn78BljdNAjMEWPqdZdl7Mfur/5aUUVEhb+ECI61
+ e/EbGwt/nkBv+M62jog==
+X-Authority-Analysis: v=2.4 cv=WIFPmHsR c=1 sm=1 tr=0 ts=6a74c129 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=VwQbUJbxAAAA:8 a=kQundSBVMOOzkBbW8r0A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 8xqp97YAn34uLoj_m-KsiFF1TVYMAhPk
+X-Proofpoint-ORIG-GUID: 8xqp97YAn34uLoj_m-KsiFF1TVYMAhPk
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDEzMSBTYWx0ZWRfXzRJoBamWP5RR
+ kazw5V+o3CNCI9suQCqHnbNpAz5A/VFVgq0/7MUZ4yug5JIiFRTolZiV98WwupUR4p8LCQigI6I
+ 3uE9Ikp+KYKvrML7RUkFm5RTfvv4cr8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-06_01,2026-08-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 malwarescore=0
+ suspectscore=0 clxscore=1011 impostorscore=0 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060131
 
-On Thu, Aug 06, 2026 at 02:59:22PM +0100, Lorenzo Stoakes (ARM) wrote:
-> I kinda wish he had some generalised folio handler like:
-> 
-> 	struct folio_ops {
-> 		int (*handle_empty_entry)(void *priv);
-> 		int (*handle_normal_folio)(void *priv, struct folio *folio);
-> 		int (*handle_softleaf_pte_entry)(void *priv, const pte_t *ptep);
-> 		int (*handle_zone_folio)(void *priv, struct folio *folio);
-> 		...
-> 	};
-> 
-> Or I don't know an equivalent type of thing, as we keep having these same
-> patterns emerge in mm that are duplicated in a million places with slight
-> variations... :)
-> 
-> I wonder if C is expressive enough to get us to something sane though.
-> 
 
-This is functionally folio->pgmap except it's not generalized and it
-causes us pain :[
 
-I briefly took a forray into moving pgmap to be node-scope, and that
-works decently, but first i'm just trying to clena up what i can for
-zone device.
-
-Anyway, i get what you're getting at here, and that would be nice.
-
-> > Fixes: 368076f52ebe ("mm/huge_memory: add device-private THP support to PMD operations")
-> > Cc: <stable@vger.kernel.org>
-> > Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+On 05/08/26 11:36 am, Saket Kumar Bhaskar wrote:
+> From: Abhishek Dubey <adubey@linux.ibm.com>
 > 
-> Anyway LGTM so:
-> 
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
+> Ensure the dummy trampoline address field present between the OOL stub
+> and the long branch stub is 8-byte aligned, for memory compatibility
+> when content loaded to a register.
 
-many thanks :]
+This fix is not complete. With 2/8 it looks complete. Some part
+of it needs to be in this patch instead..
+
+> 
+> Reported-by: Hari Bathini <hbathini@linux.ibm.com>
+> Fixes: d243b62b7bd3 ("powerpc64/bpf: Add support for bpf trampolines")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
+> Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
+> Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
+> ---
+>   arch/powerpc/net/bpf_jit.h        |  4 ++--
+>   arch/powerpc/net/bpf_jit_comp.c   | 39 +++++++++++++++++++++++++++----
+>   arch/powerpc/net/bpf_jit_comp32.c |  4 ++--
+>   arch/powerpc/net/bpf_jit_comp64.c |  4 ++--
+>   4 files changed, 40 insertions(+), 11 deletions(-)
+> 
+> diff --git a/arch/powerpc/net/bpf_jit.h b/arch/powerpc/net/bpf_jit.h
+> index f32de8704d4d..71e6e7d01057 100644
+> --- a/arch/powerpc/net/bpf_jit.h
+> +++ b/arch/powerpc/net/bpf_jit.h
+> @@ -214,8 +214,8 @@ int bpf_jit_emit_func_call_rel(u32 *image, u32 *fimage, struct codegen_context *
+>   int bpf_jit_build_body(struct bpf_prog *fp, u32 *image, u32 *fimage, struct codegen_context *ctx,
+>   		       u32 *addrs, int pass, bool extra_pass);
+>   void bpf_jit_build_prologue(u32 *image, struct codegen_context *ctx);
+> -void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx);
+> -void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx);
+> +void bpf_jit_build_epilogue(u32 *image, u32 *fimage, struct codegen_context *ctx);
+> +void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context *ctx);
+>   void bpf_jit_realloc_regs(struct codegen_context *ctx);
+>   int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr);
+>   void prepare_for_fsession_fentry(u32 *image, struct codegen_context *ctx, int cookie_cnt,
+> diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
+> index 7b07b43575f1..42046f73c279 100644
+> --- a/arch/powerpc/net/bpf_jit_comp.c
+> +++ b/arch/powerpc/net/bpf_jit_comp.c
+> @@ -49,11 +49,39 @@ asm (
+>   "	.popsection				;"
+>   );
+>   
+> -void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+> +void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context *ctx)
+>   {
+>   	int ool_stub_idx, long_branch_stub_idx;
+> +	int ool_stub_sz;
+>   
+>   	/*
+> +	 * In the final pass, align the mis-aligned dummy_tramp_addr field
+> +	 * in the fimage. The alignment NOP must appear before OOL stub,
+> +	 * to make ool_stub_idx & long_branch_stub_idx constant from end.
+> +	 *
+> +	 * dummy_tramp_addr must be 8-byte aligned for load-register
+> +	 * compatibility. The fimage can be non 8-byte aligned, so final
+> +	 * alignment depends on start of fimage and the stub's instruction
+> +	 * count offset. The OOL stub size is 4 instructions (with
+> +	 * CONFIG_PPC_FTRACE_OUT_OF_LINE) or 3 instructions (without)
+> +	 * before dummy_tramp_addr.
+> +	 *
+> +	 * Emit a NOP here if (ctx->idx + ool_stub_sz) is odd, so that
+> +	 * dummy_tramp_addr lands at an even instruction offset (== 8-byte
+> +	 * aligned from an 8-byte aligned base).
+> +	 *
+> +	 * In pass=0 when image==NULL, conservatively account for space
+> +	 * required to accommodate alignment NOP. In case final pass skips
+> +	 * emitting alignment NOP, the image buffer have 4 spare bytes and
+> +	 * jited_len signifies correct program size.
+> +	 */
+> +
+> +	ool_stub_sz = IS_ENABLED(CONFIG_PPC_FTRACE_OUT_OF_LINE) ? 16 : 12;
+> +	if (!image || !IS_ALIGNED((unsigned long)fimage + ctx->idx*4 + ool_stub_sz, SZL))
+> +		EMIT(PPC_RAW_NOP());
+> +
+> +	/*
+> +	 *      nop     // optional, for alignment of dummy_tramp_addr
+>   	 * Out-of-line stub:
+>   	 *	mflr	r0
+>   	 *	[b|bl]	tramp
+> @@ -70,7 +98,7 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+>   
+>   	/*
+>   	 * Long branch stub:
+> -	 *	.long	<dummy_tramp_addr>
+> +	 *	.long	<dummy_tramp_addr>  // 8-byte aligned
+>   	 *	mflr	r11
+>   	 *	bcl	20,31,$+4
+>   	 *	mflr	r12
+> @@ -81,6 +109,7 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+>   	 */
+>   	if (image)
+>   		*((unsigned long *)&image[ctx->idx]) = (unsigned long)dummy_tramp;
+> +
+>   	ctx->idx += SZL / 4;
+>   	long_branch_stub_idx = ctx->idx;
+>   	EMIT(PPC_RAW_MFLR(_R11));
+> @@ -107,7 +136,7 @@ int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg,
+>   		PPC_JMP(ctx->alt_exit_addr);
+>   	} else {
+>   		ctx->alt_exit_addr = ctx->idx * 4;
+> -		bpf_jit_build_epilogue(image, ctx);
+> +		bpf_jit_build_epilogue(image, NULL, ctx);
+>   	}
+>   
+>   	return 0;
+> @@ -286,7 +315,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
+>   	 */
+>   	bpf_jit_build_prologue(NULL, &cgctx);
+>   	addrs[fp->len] = cgctx.idx * 4;
+> -	bpf_jit_build_epilogue(NULL, &cgctx);
+> +	bpf_jit_build_epilogue(NULL, NULL, &cgctx);
+>   
+>   	fixup_len = fp->aux->num_exentries * BPF_FIXUP_LEN * 4;
+>   	extable_len = fp->aux->num_exentries * sizeof(struct exception_table_entry);
+> @@ -318,7 +347,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
+>   			bpf_jit_binary_pack_free(fhdr, hdr);
+>   			goto out_err;
+>   		}
+> -		bpf_jit_build_epilogue(code_base, &cgctx);
+> +		bpf_jit_build_epilogue(code_base, fcode_base, &cgctx);
+>   
+>   		if (bpf_jit_enable > 1)
+>   			pr_info("Pass %d: shrink = %d, seen = 0x%x\n", pass,
+> diff --git a/arch/powerpc/net/bpf_jit_comp32.c b/arch/powerpc/net/bpf_jit_comp32.c
+> index bfdc50740da8..95bda0dee925 100644
+> --- a/arch/powerpc/net/bpf_jit_comp32.c
+> +++ b/arch/powerpc/net/bpf_jit_comp32.c
+> @@ -229,7 +229,7 @@ static void bpf_jit_emit_common_epilogue(u32 *image, struct codegen_context *ctx
+>   
+>   }
+>   
+> -void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
+> +void bpf_jit_build_epilogue(u32 *image, u32 *fimage, struct codegen_context *ctx)
+>   {
+>   	EMIT(PPC_RAW_MR(_R3, bpf_to_ppc(BPF_REG_0)));
+>   
+> @@ -237,7 +237,7 @@ void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
+>   
+>   	EMIT(PPC_RAW_BLR());
+>   
+> -	bpf_jit_build_fentry_stubs(image, ctx);
+> +	bpf_jit_build_fentry_stubs(image, fimage, ctx);
+>   }
+>   
+>   /* Relative offset needs to be calculated based on final image location */
+> diff --git a/arch/powerpc/net/bpf_jit_comp64.c b/arch/powerpc/net/bpf_jit_comp64.c
+> index dab106cae22b..ed78992f4dac 100644
+> --- a/arch/powerpc/net/bpf_jit_comp64.c
+> +++ b/arch/powerpc/net/bpf_jit_comp64.c
+> @@ -398,7 +398,7 @@ static void bpf_jit_emit_common_epilogue(u32 *image, struct codegen_context *ctx
+>   	}
+>   }
+>   
+> -void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
+> +void bpf_jit_build_epilogue(u32 *image, u32 *fimage, struct codegen_context *ctx)
+>   {
+>   	bpf_jit_emit_common_epilogue(image, ctx);
+>   
+> @@ -407,7 +407,7 @@ void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
+>   
+>   	EMIT(PPC_RAW_BLR());
+>   
+> -	bpf_jit_build_fentry_stubs(image, ctx);
+> +	bpf_jit_build_fentry_stubs(image, fimage, ctx);
+>   }
+>   
+>   /*
+
+- Hari
