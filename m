@@ -1,119 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21CC48BD57
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 18:17:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786040257; cv=none; b=hY/HFkz31UKRhgCCoAuNARrw00dxY5l9RALs+csUgvWhld0wbfwpzMogx4CT1wbbuLvQG5rhK0aFNPbMVBmTVxd7h5xN8oisNEWBORigJPIws6kJbUP1f4/Wsr+Rw32jhxgRqaz7Bu+r0lnAnKRTjqstFzehMJXk1GtLars3P2s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786040257; c=relaxed/simple;
-	bh=vHDZw7jqs4tHbk+G7gYmRfpf2LnHN5sjV6zrjJMeOfY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LE/dgicqlbckoagLqJSVbSVqCJkAsI8D0ihf9/D2GkdMGOak8VdHvBQ0JlYdoLVdcGn/5I9o3qtn3M3D/EBym1kRGhYT3zoGad2+7XnllA5VfAja7zjmLJwp2lrLQQmV+QcNIN/TAZHSte0URwYj6TEKFA739sL2sn7iXg7h9yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PIgEsTeJ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3053D2E7631
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 18:31:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786041075; cv=pass; b=Y6YxIiXlRO20/418NAHxX3UA0xUSBnN+bGgJyh9kEky8a3W2mgZpTN/ySu14/aNH763AThBflwjewEepjRGEYDaWbTxAEAE8RklqP9SSyonp+szxeWmZkN9q5Bj3JFmsGRjO4WUQaeGpwddlabDqB+P95vEbvV+aSStbURMO7aI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786041075; c=relaxed/simple;
+	bh=bPY2/askpzxhwcWequ+nC5hFKm3khS0/ibmKIfQhbU0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EH0hDHYrndgyfOyx84+t1bFYDLwVJnVBd44g2wyQjDmpZjrHNl+hL1KYaar4nxb9C/P8UatBfZnxzh+lGNYZ9ymKTZPV/T+XDo5rEtbv1ZDNG3yrYyDPjmpQgrSpmQ3jpHg9+D6PT7pSZ5raWrN0Bf0woTC6CGgN0XgqqXkroj4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ciR2roxd; arc=pass smtp.client-ip=209.85.208.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PIgEsTeJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2BEC1F000E9;
-	Thu,  6 Aug 2026 18:17:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786040255;
-	bh=smRVb0VqFGoFfnM6jYpAjBYlcsB3MHtPKK3o1xQAX14=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PIgEsTeJAJJNvBMNh3hAfULoIlpRH9NXQraqmCN/OAMEXi//eTfsJ6qZp2eopM8Hk
-	 JaZBYl7SuXwsPvJViK1qwXLwPszRg2lJHkgUkyg71y5SHxQzsoCxz2LXySzn4RB/Ql
-	 JGuS/7QlGfN7ixpSgZlCsM3ASSmJxtMRUUPpnFrGY88JY0l+Iab/Lc1uoDpXw9fD5L
-	 GBTm5B2QezhzwvBBUofAcSs2YXfFw4glqPryih9mkAUZuyvBIQu4j4tpxdpP6LR6xe
-	 u9fsejdlVKAwVm/02Ao7MVXY+4QfmB9WKl2t8xHOXwovAgBUWsmDoQOACO7ysz+MEZ
-	 x3bHKgEZSuo5A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Alexander Usyskin <alexander.usyskin@intel.com>,
-	stable <stable@kernel.org>,
-	Menachem Adin <menachem.adin@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mei: bus: access mei_device under device_lock on cleanup
-Date: Thu,  6 Aug 2026 14:17:32 -0400
-Message-ID: <20260806181732.1423282-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072943-hamlet-onion-0655@gregkh>
-References: <2026072943-hamlet-onion-0655@gregkh>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ciR2roxd"
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39faf9e2c62so16390061fa.3
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 11:31:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786041072; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m1pMfjJjy/KIknrLB/uV0FthnB+IRTPGg6Or7b01cOp4dUNLDVYPCiIq/T5gThITS8
+         pEiG6BEXTw/t0OUdJ4Gy5HV3UcSpNjHK3/RySrKiGb5fR+Gfsnf2ixPzEMK0Q+okt8PG
+         HwKJALDfuLeDyoU3FMG8K6LvHfJ3jVsN5AjiLtGuGhXGh5TRf6eNAdDNxdOHY/FSHz3n
+         2BPkJN7/sYZCArVwd9ZIOccxg00Jf2474ndjxan+OTrR07DsT5lv86a7p6OJbtOVcgEh
+         vu7ypeDXziSCEsDmSpLqsDfNu03f/naKPEcyeNl/de7Oi6zdqeA8sc0oobOGxEqEFMmh
+         yU6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bPY2/askpzxhwcWequ+nC5hFKm3khS0/ibmKIfQhbU0=;
+        fh=kedfbrCWU9FuzR9Pa8OidO2RRrGltVbk9tEP68Q51lo=;
+        b=CkrpCJ9Ra1MsQUD2jFKT0Hv6kdX3mrxBUYsFfSTNI7sEr/0kMzhIgXEUb3W50r0vnE
+         KMpBkYuuDYcNpkBZv6cHFFNMqrDqqi4vke0cNLdUfNkjYC/41bqzJ04MTO2Zt8J+kMea
+         9nW9PU6he46phEJ5uuYg9P5yPjNuepRt96vsDwd3m+Ue9bwIIt0sCPgtYN/jGghgyoVp
+         i5R12V/d/WBQpLfyB/jIPhL3z1ZYMSikPTyEnIfwdJUWD1NUVjN3/g2wvUx/AT1qS45Z
+         tUXvw0mS0RVqw3Dx7FQi5lhphbS7qN1whREUn9qYL9P0y606GDgMcv0EeovAKp8TRFLU
+         r5fQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1786041072; x=1786645872; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bPY2/askpzxhwcWequ+nC5hFKm3khS0/ibmKIfQhbU0=;
+        b=ciR2roxdKQ3FICSYRVgOs8+D6vpeuZDCD4M0krgd64Pj5VV449wqq6Q2CElGIPSiOY
+         QZi/zcfhE/J6NjVjJ5axRMTvTmuyL5lAfSU87IIbqEW/r2MMgojMyq3fzKe+oAja7CPE
+         K0wgcM7QvgKWJ7y+QQEsiDnYZijyy1LAZ1eY7IkPwqOjTdfK0fDAm5WBccyE0k5aHI5B
+         ZJAtfl7m167BYKj96DaSbj39T/BHacGVKRGNcQCD1kkNd5FIiUtFe3x/bGMpnpQfQVEZ
+         t1v4GOCKfycsIOhjR1S1kGJqjpG1D3fRmRPw68b43DxyOyBv706/pJrziTdzexb2qoMc
+         8aYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786041072; x=1786645872;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bPY2/askpzxhwcWequ+nC5hFKm3khS0/ibmKIfQhbU0=;
+        b=QKBpmnu0L2XSpIT3bvyw0w04uxAxSRaX7raQwMZgoeYUOTx4eoqxxSFYo/3IMIQJgM
+         bW77KUnZrhTMUfITcZKGYaAohTC+79CgmNVj3aoycaBCih+o9/FU6+Pg2yhZ0F3GQfKL
+         GXmdwTx0Jx4dFaEGZE6pOGmrJGn26B5Vf7G6CT+EWkWVNM+W7AgFgDg+ozMa71P8r8ZS
+         DiI2DeAxpyKVdv130blz/TKgX+GBg6WZJZPwEOxCOhM+/zkwssmVaZA8vMglWKQE0BL/
+         ng/9Z2zfBcU5oxH2ygrI1cvFPzyZbpHE8CkB4nonBBI4etsBgCf+LxUWqs7npfpozzCr
+         cxzQ==
+X-Gm-Message-State: AOJu0YwL45eltO2CHsoqUeZhGLbVYQGexOEVLxatYQbDQr0gfgEK9NnO
+	JnE+FFvUVTsta4jG+Xw/p3Umw7Bk2aiV/1vmRSsV4JSYrIofZeOlWCKwZT4eb26tZWmCpQ4ew5C
+	uvp6cOD3XfKD6iOZusPX1GpdKp0QeVsN8iD3kVJIj
+X-Gm-Gg: AR+sD137Ji8xNT7XvtMv+ihRGgtVTtJPznGM/uEcsDHUgVclAWY174grl1RdgCMSBE7
+	KLJHnyGnnK1uSdrx7724pQzSUs45ApQkk9wcPH20JptSvtUTyHvRaS/DAuHJdll4rktjelhG6nE
+	xsfwcg9xQGs0VU1tTy7ZHX6uuz1L0gqfaet+dK+2ZwltUF8iCEYQrY8Myi77uDGmxVpbspEQMhp
+	TYNSfjDitWeVcyOsUthHaqqnoj2CAvvjPgdbkj87RHDQmwERH/YxjOWY21OjTyyH6UpbM98p8UC
+	K4Epn/dCeGC2xjkz1uOLm/AWD1TYw22D4P9yQsRSn4p/i+ZpImh/zTZkC8R4enFqdbbI4zzOszm
+	n7JAX5bxvwXudRXfZ7n/ak8uoK32V68YLgfMB0rXPGg1mtL+SoWl/m/QQmlRJR6NLvhUaIg7D5f
+	I8rIuQQhtfSKaDXjhs
+X-Received: by 2002:a05:651c:43da:10b0:39b:a75:e8da with SMTP id
+ 38308e7fff4ca-39fbb0666a5mr16162941fa.3.1786041071636; Thu, 06 Aug 2026
+ 11:31:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260806005214.179730-1-tkjos@google.com> <20260806131000.stable-0001@kernel.org>
+In-Reply-To: <20260806131000.stable-0001@kernel.org>
+From: Todd Kjos <tkjos@google.com>
+Date: Thu, 6 Aug 2026 11:30:59 -0700
+X-Gm-Features: AUfX_mxZKJpjGEy2IyljhveaDknK6Gy6g6yRrviQgzrdeRt3NBEeRL05w2q7y8k
+Message-ID: <CAHRSSEx+gmOQr74PzoMZK+VEnFTj_pE4zDbqv2SAz+VR47okWQ@mail.gmail.com>
+Subject: Re: [PATCH 6.1.y] Bluetooth: L2CAP: Fix UAF in channel timeout by
+ holding conn ref
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, kernel-team@android.com, 
+	Lee Jones <lee@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Siwei Zhang <oss@fourdim.xyz>, Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, 
+	Marco Elver <elver@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Alexander Usyskin <alexander.usyskin@intel.com>
+On Thu, Aug 6, 2026 at 10:49=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
+te:
+>
+> On Thu, Aug 06, 2026 at 12:52:14AM +0000, Todd Kjos wrote:
+> > [ Upstream commit b66774b48dd98f07254951f74ea6f513efe7ff8b ]
+> >
+> > l2cap_chan_timeout() runs asynchronously and accesses chan->conn. If
+> > the connection is torn down while the timer is running or pending,
+> > chan->conn can be freed, leading to a use-after-free when the timer
+> > worker attempts to lock conn->lock:
+>
+> Looks good. And I can also queue up d38eaf611839 ("Bluetooth: 6lowpan: Fi=
+x
+> using chan->conn as indication to no remote netdev") after the backport, =
+but
+> your S-O-B is missing on the backport so we'll need it first :)
 
-[ Upstream commit f112ea910e554d58b4b39a4492b7d302f0f4204f ]
+Oh, sorry about that. Here it is:
 
-Fix couple of problems in mei_cl_bus_dev_release():
+Signed-off-by: Todd Kjos <tkjos@google.com>
 
-mei_cl_flush_queues() is running without lock.
-bus->file_list access after mei_dev_bus_put(bus) can become a
-use-after-free if this was the last reference to bus.
+Is that sufficient or do you want a full v2 with the SOF added?
 
-Protect queues cleanup and WARN traversal by device lock there
-to avoid the concurrent access problems.
-Move WARN traversal before mei_dev_bus_put(bus).
-
-This file uses bus variable name for mei_device, adjust
-code of mei_cl_bus_dev_release() to use bus variable too.
-
-Cc: stable <stable@kernel.org>
-Fixes: 35e8a426b16a ("mei: bus: Check for still connected devices in mei_cl_bus_dev_release()")
-Reviewed-by: Menachem Adin <menachem.adin@intel.com>
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
-Link: https://patch.msgid.link/20260705151259.3054795-1-alexander.usyskin@intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/misc/mei/bus.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/misc/mei/bus.c b/drivers/misc/mei/bus.c
-index 19bc1e9eeb7f0..1997ecd4ed4ff 100644
---- a/drivers/misc/mei/bus.c
-+++ b/drivers/misc/mei/bus.c
-@@ -4,6 +4,7 @@
-  * Intel Management Engine Interface (Intel MEI) Linux driver
-  */
- 
-+#include <linux/cleanup.h>
- #include <linux/module.h>
- #include <linux/device.h>
- #include <linux/kernel.h>
-@@ -1113,18 +1114,19 @@ static void mei_dev_bus_put(struct mei_device *bus)
- static void mei_cl_bus_dev_release(struct device *dev)
- {
- 	struct mei_cl_device *cldev = to_mei_cl_device(dev);
--	struct mei_device *mdev = cldev->cl->dev;
-+	struct mei_device *bus = cldev->bus;
- 	struct mei_cl *cl;
- 
- 	if (!cldev)
- 		return;
- 
--	mei_cl_flush_queues(cldev->cl, NULL);
--	mei_me_cl_put(cldev->me_cl);
--	mei_dev_bus_put(cldev->bus);
--
--	list_for_each_entry(cl, &mdev->file_list, link)
--		WARN_ON(cl == cldev->cl);
-+	scoped_guard(mutex, &bus->device_lock) {
-+		mei_cl_flush_queues(cldev->cl, NULL);
-+		mei_me_cl_put(cldev->me_cl);
-+		list_for_each_entry(cl, &bus->file_list, link)
-+			WARN_ON(cl == cldev->cl);
-+	}
-+	mei_dev_bus_put(bus);
- 
- 	kfree(cldev->cl);
- 	kfree(cldev);
--- 
-2.53.0
-
+>
+> --
+> Thanks,
+> Sasha
