@@ -1,141 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-182.mta1.migadu.com (mta1.migadu.com [37.59.57.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C93B38332F
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 13:36:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEEB27FB0E
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 13:38:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.59.57.117
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786023392; cv=none; b=McAGL76wILf7k+OpuEXgSTa+nSbB8R+Ps9aN37/C+OKuAAh6ziSF8pdQ/y4rsW8KJcDlDypmAVowAHthmZVhnoSL2745V5g8tgkUAG/S3AIf7YArK3rRn36lCls1Bp7L0xHyZAE9qI9BkLZQ5/QwK/gB8yYza9JPIcPtwVl9dCo=
+	t=1786023492; cv=none; b=olamcH0+On+yh71RLSUahwqdLIcfZsKXQIHEjuieEZIqQMHYEG2CbtcFBnrY6zL5PbKToQg6Q1MQnoiwH0fAql+eX4BmJgFony8nt0J7rDo5t2IrNcrmh5XCsjz47jz2O4dlugCZvZPZ0JCQU0Vonb7gl7JZ8KT0TDS86Hu75qQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786023392; c=relaxed/simple;
-	bh=pXRiURNp3pOxogdfWIDpcXeZaAMF3QHk2BWZ2Aan4hg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IiL90oxxdOsqiaN4PFuKa93YW+lvuV7M7UkzGYijQd1PhKy9YxO+bTinB7A5HNNCSAWtVqDjOCsxV6TZxujh4FL+XoSttbTtTvGtc7PPnZgvFO2dC2lLkiXVlBe7u24c62PEBI1YUGkg7t/eYZoFBazAF/5AdIafZU5hEthxF4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NEfNil1I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786023492; c=relaxed/simple;
+	bh=Iuj8eEALz44CQqthTbjR76qCcfOgWSdYKv4kWbeBxAM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dcbsDOOj3FplTBqqpqjRcAV3rG2eRc6jJCmmZLC2psK9sUH6eWLnRt0xdwUs5NwG2kTGgmzATMh0Fi6hywAl2PFfjnz8Y5qqhzhKOLmTx3GfsjJzEOAJT1TcqRRdec4hymbPL7dDR5VJdMBgbuguwCgzaNUP4I8DsPx9lls2SVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rq4yHfjK; arc=none smtp.client-ip=37.59.57.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NEfNil1I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5107A1F00A3E;
-	Thu,  6 Aug 2026 13:36:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786023379;
-	bh=5DRFnebXYRDdb6Ooc2SGOVKnWROPhl74+E5/qJpTW/Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NEfNil1IPH2XWP9lBH/lbkSH8QsDy9lkUDaFMfj0hol8CLtU083Q/ls9U9eLUrz2W
-	 vWuYbLL0lEHNJLmPMn3hGQWXm2vYX6StpkCymjsPDG+a5dMsWDUTipl5Mnji4ypYrv
-	 U2y4rOQLY49uuMsvXKWQlX7t/p8zxtzO2av4XNVl4B8cgwnU0O7b30kZxodH602CN1
-	 3krCBsmjrlpRiq8RfpqDLpWJZ4Um7Z4EyEU2ldz/QUL3L7cVDqdLy/qkMkyZa8JsgV
-	 NtGEspT8Lszs/gM4mBdrppVni82srXulanAj+oGs9EyN3tHBLG4pvCVNbb6EVursIb
-	 Tzl4lXxwJlQ1w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Mirela Rabulea <mirela.rabulea@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] media: v4l2-fwnode: Fix subdev owner overwritten in v4l2_async_register_subdev_sensor()
-Date: Thu,  6 Aug 2026 09:36:15 -0400
-Message-ID: <20260806133615.470300-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260806133615.470300-1-sashal@kernel.org>
-References: <2026072936-heroism-pelican-745d@gregkh>
- <20260806133615.470300-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rq4yHfjK"
+Message-ID: <fa89cba0-e9e5-49af-beb9-13b2fa94ca19@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1786023477;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VqUxzqGOpPJdwXbsyUGY1DU6gotHKjUskbv5j+h3a64=;
+	b=rq4yHfjKRCJcj47tsl1w/fqvuc4Kiv9cg2v5m5FC+1+JigamKewQaFzq10TOPCiKi03ihE
+	rTdfmuRqbS0U3sL4oWua2eYFKz0wM9XpA3zFhlMZuoseavh51o8VmgCHEkO97A1pyLYmEd
+	iOcuUrBDrFwkqbWVWQ/TrP7ErM1XCzA=
+Date: Thu, 6 Aug 2026 14:37:32 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v3 1/2] net: ravb: handle unavailable PTP clock
+To: xuanqiang.luo@linux.dev, linux-renesas-soc@vger.kernel.org,
+ netdev@vger.kernel.org, niklas.soderlund@ragnatech.se, kuba@kernel.org
+Cc: paul@pbarker.dev, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, richardcochran@gmail.com,
+ masaru.nagai.vx@renesas.com, sergei.shtylyov@cogentembedded.com,
+ luoxuanqiang@kylinos.cn, stable@vger.kernel.org
+References: <20260806095126.57803-1-xuanqiang.luo@linux.dev>
+ <20260806095126.57803-2-xuanqiang.luo@linux.dev>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <20260806095126.57803-2-xuanqiang.luo@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-From: Mirela Rabulea <mirela.rabulea@nxp.com>
+On 06/08/2026 10:51, xuanqiang.luo@linux.dev wrote:
+> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> 
+> The PTP clock is registered by ravb_open(), not ravb_probe(). Therefore,
+> priv->ptp.clock is NULL between register_netdev() and the first open, and
+> ethtool -T triggers a NULL dereference in ptp_clock_index().
+> 
+> ptp_clock_register() may also return an error pointer, which can reach
+> ptp_clock_index() or ptp_clock_unregister().
+> 
+> Normalize registration errors to NULL and only query or unregister the
+> clock when it is present. Leave phc_index at -1 when no PHC is registered,
+> while preserving the static hardware timestamping capabilities.
+> 
+> Fixes: a0d2f20650e8 ("Renesas Ethernet AVB PTP clock driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> ---
+>   drivers/net/ethernet/renesas/ravb_main.c |  3 ++-
+>   drivers/net/ethernet/renesas/ravb_ptp.c  | 12 ++++++++++--
+>   2 files changed, 12 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
+> index 5f88733094d0f..3a9d9f8718216 100644
+> --- a/drivers/net/ethernet/renesas/ravb_main.c
+> +++ b/drivers/net/ethernet/renesas/ravb_main.c
+> @@ -1779,7 +1779,8 @@ static int ravb_get_ts_info(struct net_device *ndev,
+>   			(1 << HWTSTAMP_FILTER_NONE) |
+>   			(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
+>   			(1 << HWTSTAMP_FILTER_ALL);
+> -		info->phc_index = ptp_clock_index(priv->ptp.clock);
+> +		if (priv->ptp.clock)
+> +			info->phc_index = ptp_clock_index(priv->ptp.clock);
+>   	}
+>   
+>   	return 0;
+> diff --git a/drivers/net/ethernet/renesas/ravb_ptp.c b/drivers/net/ethernet/renesas/ravb_ptp.c
+> index 226c6c0ab945b..eaf07cb8eadfa 100644
+> --- a/drivers/net/ethernet/renesas/ravb_ptp.c
+> +++ b/drivers/net/ethernet/renesas/ravb_ptp.c
+> @@ -315,6 +315,7 @@ void ravb_ptp_interrupt(struct net_device *ndev)
+>   void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
+>   {
+>   	struct ravb_private *priv = netdev_priv(ndev);
+> +	struct ptp_clock *clock;
+>   	unsigned long flags;
+>   
+>   	priv->ptp.info = ravb_ptp_info;
+> @@ -327,7 +328,13 @@ void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
+>   	ravb_modify(ndev, GCCR, GCCR_TCSS, GCCR_TCSS_ADJGPTP);
+>   	spin_unlock_irqrestore(&priv->lock, flags);
+>   
+> -	priv->ptp.clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
+> +	clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
+> +	if (IS_ERR(clock)) {
+> +		netdev_err(ndev, "failed to register PTP clock: %pe\n", clock);
+> +		clock = NULL;
+> +	}
+> +
+> +	priv->ptp.clock = clock;
+>   }
+>   
+>   void ravb_ptp_stop(struct net_device *ndev)
+> @@ -337,5 +344,6 @@ void ravb_ptp_stop(struct net_device *ndev)
+>   	ravb_write(ndev, 0, GIC);
+>   	ravb_write(ndev, 0, GIS);
+>   
+> -	ptp_clock_unregister(priv->ptp.clock);
+> +	if (priv->ptp.clock)
+> +		ptp_clock_unregister(priv->ptp.clock);
+>   }
 
-[ Upstream commit 06cb687a5132fcffe624c0070576ab852ac6b568 ]
-
-The v4l2 helper v4l2_async_register_subdev_sensor() calls
-v4l2_async_register_subdev(), which is a macro that expands to
-__v4l2_async_register_subdev(sd,THIS_MODULE). Since the macro is expanded
-inside v4l2-fwnode.c, THIS_MODULE resolves to the v4l2-fwnode module
-rather than the sensor driver module that originally set sd->owner. When
-v4l2-fwnode is built-in, THIS_MODULE evaluates to NULL, which then
-overwrites the sensor driver's owner with NULL.
-
-This causes the problem that the sensor module's reference count is never
-incremented during async registration, so the module can be removed while
-the subdevice is still in use by a notifier (e.g., a CSI-2 receiver
-bridge driver).
-
-Fix this by renaming v4l2_async_register_subdev_sensor() to
-__v4l2_async_register_subdev_sensor() with an added explicit module
-argument and introducing a wrapper macro:
-    #define v4l2_async_register_subdev_sensor(sd) \
-        __v4l2_async_register_subdev_sensor(sd, THIS_MODULE)
-
-This ensures the sensor driver module is properly referenced even when
-the sensor driver does not init the owner field before calling
-v4l2_async_register_subdev_sensor() and prevents premature module removal.
-
-Fixes: aef69d54755d ("media: v4l: fwnode: Add a convenience function for registering sensors")
-Cc: stable@vger.kernel.org
-Suggested-by: Frank Li <Frank.Li@nxp.com>
-Link: https://lore.kernel.org/linux-media/20240315073125.275501-2-sakari.ailus@linux.intel.com/
-Signed-off-by: Mirela Rabulea <mirela.rabulea@nxp.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/media/v4l2-core/v4l2-fwnode.c | 6 +++---
- include/media/v4l2-async.h            | 4 +++-
- 2 files changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/v4l2-core/v4l2-fwnode.c b/drivers/media/v4l2-core/v4l2-fwnode.c
-index 7f181fbbb1407..519eaad0af5fc 100644
---- a/drivers/media/v4l2-core/v4l2-fwnode.c
-+++ b/drivers/media/v4l2-core/v4l2-fwnode.c
-@@ -1203,7 +1203,7 @@ v4l2_async_nf_parse_fwnode_sensor(struct device *dev,
- 	return 0;
- }
- 
--int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
-+int __v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *module)
- {
- 	struct v4l2_async_notifier *notifier;
- 	int ret;
-@@ -1229,7 +1229,7 @@ int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
- 	if (ret < 0)
- 		goto out_cleanup;
- 
--	ret = v4l2_async_register_subdev(sd);
-+	ret = __v4l2_async_register_subdev(sd, module);
- 	if (ret < 0)
- 		goto out_unregister;
- 
-@@ -1247,7 +1247,7 @@ int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
- 
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(v4l2_async_register_subdev_sensor);
-+EXPORT_SYMBOL_GPL(__v4l2_async_register_subdev_sensor);
- 
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Sakari Ailus <sakari.ailus@linux.intel.com>");
-diff --git a/include/media/v4l2-async.h b/include/media/v4l2-async.h
-index f26c323e9c963..54a2d9620ed5b 100644
---- a/include/media/v4l2-async.h
-+++ b/include/media/v4l2-async.h
-@@ -333,8 +333,10 @@ int __v4l2_async_register_subdev(struct v4l2_subdev *sd, struct module *module);
-  * An error is returned if the module is no longer loaded on any attempts
-  * to register it.
-  */
-+#define v4l2_async_register_subdev_sensor(sd) \
-+	__v4l2_async_register_subdev_sensor(sd, THIS_MODULE)
- int __must_check
--v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd);
-+__v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *module);
- 
- /**
-  * v4l2_async_unregister_subdev - unregisters a sub-device to the asynchronous
--- 
-2.53.0
-
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
