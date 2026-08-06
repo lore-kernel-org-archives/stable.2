@@ -1,199 +1,79 @@
-Received: from sender-op-o14.zoho.in (sender-op-o14.zoho.in [103.117.158.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F85230E0D6;
-	Thu,  6 Aug 2026 15:17:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=103.117.158.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786029436; cv=pass; b=Oq/n5uBp/h0DhNIgyt9di6yRjp//c5SLVhXILcaSXw2/eRFrexGQ7iAbKJgjZqbfoXcebCd+IuIzjMoS/BABhhVKbcBY+VR+LX19fLJn8/PDd7A+tHQe28q221bTn3uHxUJ1fzebZvaU4xIDAYhK9XN55SXeOjLdSQzOHyJx/eA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786029436; c=relaxed/simple;
-	bh=Qhzyq3vBVbDH9v7Ok0XmtdGUCaOHCrmPbFFZYOP+VQQ=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=Q20OPBBB1CXhugxMHuGoxdzdicOpJ5udKBySSAKZw3TviaFrEnqICI4/l4owwI8bJt6zOLto0+tViyNko1REa5K8d8JkYFPeWyAi4NTU2YF+Ig5d6MCjneSEh/nnFZs2ZygkEnsaKnbUyadZBWYutHocyn9+eY/vxOg3dip2bMU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=a0rg.com; spf=pass smtp.mailfrom=a0rg.com; dkim=pass (1024-bit key) header.d=a0rg.com header.i=icarus@a0rg.com header.b=eGXk90Xs; arc=pass smtp.client-ip=103.117.158.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=a0rg.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=a0rg.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAAC7390CA6;
+	Thu,  6 Aug 2026 15:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786029651; cv=none; b=X9N78wV7gK4nHkEeE2Al25lWOFJsPv3tQWUVZf/k9uCbIHJ90CJqoEKNxYmsBnvkVY5bCxoalWnjR1z/EXVOl2AY/OtiCWZ+iRbMSA2NgCUtOQZe1eixMHpWC5jQJSDPzkenyb/ng0IueP/NaqUptkYKWd/XUmAEqrDTmcUBLIk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786029651; c=relaxed/simple;
+	bh=1lVLDNftL+PCshr/bKIyiUq9UjY2dnZNkhFEmDSSruY=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=Kgc7+UE8nF0IsftbbIin4HRCRIO3WruVqr3Jp4DOrVbUotfVLUuQAE7zdnvn50IeSTqnGFSHNh/evzpgv/UHDv5qlnLyrlM+i63EUbM6k+4kZGTOag+SjDNPnJuD6M9DOD2HlZt9RvJoXhHa7vG3dUUt0AqOd+kzZI59r2t3/iU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fLANLCd7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=a0rg.com header.i=icarus@a0rg.com header.b="eGXk90Xs"
-ARC-Seal: i=1; a=rsa-sha256; t=1786029428; cv=none; 
-	d=zohomail.in; s=zohoarc; 
-	b=LFzw7p81Cxt1KPXLpgdTgq1ml2SXIell2md/KvCX+Is4ZG+CWSxRlfVJl4SN/JtMytu8FGV/nCwSzj33qKK/Qx0TNfYYZR1g3KS/NYpT+Km5BJ0hwxtYv0J2GhO4Qe9RK2jU8y0tEfjLDPGjfznnI65g/zOvatE0ZiFi2xJgeJ4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
-	t=1786029428; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=HBtRMe4r3wyhrvEPAawnN/a45MhtYc0r0R5r3Qi96sA=; 
-	b=ehNStz2krUc++7XJs7F/dV8LiJZygiVLbb7HqrZ5ofR1rEEbo3OLoNmG8P6JFJojW5I4AdkW6lYjCCaqUiza2ZIyILO7zQOiXiPDeIdsD5IMZ3gV/6pN+7m0c5Wsto9nuhJBqMY3RlBvo76TBl2eJiF5jv5QyIJ+sZMtqQG+sMA=
-ARC-Authentication-Results: i=1; mx.zohomail.in;
-	dkim=pass  header.i=a0rg.com;
-	spf=pass  smtp.mailfrom=icarus@a0rg.com;
-	dmarc=pass header.from=<icarus@a0rg.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786029428;
-	s=zmail; d=a0rg.com; i=icarus@a0rg.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=HBtRMe4r3wyhrvEPAawnN/a45MhtYc0r0R5r3Qi96sA=;
-	b=eGXk90Xs+L94PpgZ+BACRSZNqSvnwBU8gd8VSCwGqbkUINam31kIh5rJorYV9PRk
-	0yRScngOGi5wHqPaJjlP/FeSmgtFTo3jFYJFUMj79/qfKQpwKXCtBbo+jzvNkSuZVpc
-	981NizHCrsgu9KZvTgD9+GKE4deUWzDhddg2HQdc=
-Received: from mail.zoho.in by mx.zoho.in
-	with SMTP id 1786029426639815.3097152056939; Thu, 6 Aug 2026 20:47:06 +0530 (IST)
-Date: Thu, 06 Aug 2026 20:47:06 +0530
-From: Anirudh Prasad <icarus@a0rg.com>
-To: "linux-acpi" <linux-acpi@vger.kernel.org>
-Cc: "rafaeljwysocki" <rafael.j.wysocki@intel.com>,
-	"linux-kernel" <linux-kernel@vger.kernel.org>,
-	"stable" <stable@vger.kernel.org>
-Message-ID: <19fd7a647c3.1059430542637.572965728630481984@a0rg.com>
-In-Reply-To: <19fd74e46a8.25f5bfd941182.5953196137231825269@a0rg.com>
-References: <19fd74e46a8.25f5bfd941182.5953196137231825269@a0rg.com>
-Subject: Re: [PATCH] ACPI: pfr_update: fix stack buffer overflow in
- query_capability()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fLANLCd7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 493D61F000E9;
+	Thu,  6 Aug 2026 15:20:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786029650;
+	bh=dugqSMkZOoszMrAgVZwnKFek9N80adddweUaTY/KKJo=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=fLANLCd71KXRS2qi6Z+uFPdGcjl3gtsIJnG+lrv1vffQSir8Q18me1UxpeF53MVyg
+	 klZebbicRsVgRmzih0uLHj2sKK5img56pSEZNGPEHZ41cDwfMZWNdhPibBioAAv4TA
+	 WTwWtj9nk74zyjVwVXgj3h7IwX++RJK+RGr5+YEixS2YoA9CSt9jgrA7TsP63dNqci
+	 GccMbAdG2aKuRlHiEep/sMd2hT+goRL4Y8QMBVAtYc7y4GoYPjjloxdFPj7KJvtj3W
+	 6s/hyuuvaAz5O4i1i+GQL/eMnPkyGEpT48PxRunSpHgICFWkloY+mAvxw1Xpghlspb
+	 Gg1FbgXiOmvJw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A15380820D;
+	Thu,  6 Aug 2026 15:20:10 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] ptp: fc3: register PTP clock after initialization
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178602960938.1333975.3024284810821390320.git-patchwork-notify@kernel.org>
+Date: Thu, 06 Aug 2026 15:20:09 +0000
+References: <20260803135942.48383-1-mhun512@gmail.com>
+In-Reply-To: <20260803135942.48383-1-mhun512@gmail.com>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: richardcochran@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ ae878000@gmail.com
 
-> If the firmware wants the kernel to copy more data than the latter has
-> room for, the operation should fail instead of pretending to succeed.
+Hello:
 
-Agreed. v2 validates all four buffer lengths upfront and returns
--EINVAL if any exceeds its destination field size.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
----
+On Mon,  3 Aug 2026 22:59:42 +0900 you wrote:
+> ptp_clock_register() exposes the clock to userspace. If either following
+> initialization operation fails, probe returns and devres frees idtfc3 while
+> the registered clock still refers to the clock information embedded in it.
+> 
+> Complete the fallible initialization before registering the clock. Schedule
+> the worker after registration because it requires the registered clock.
+> This removes post-registration failures and avoids exposing a partially
+> initialized clock.
+> 
+> [...]
 
-query_capability() copies four ACPI buffer objects returned by the
-firmware _DSM into fixed-size u8[16] fields in struct
-pfru_update_cap_info using memcpy with the firmware-supplied length:
+Here is the summary with links:
+  - [net,v2] ptp: fc3: register PTP clock after initialization
+    https://git.kernel.org/netdev/net-next/c/762137ff748f
 
-  memcpy(&cap_hdr->code_type,
-         elements[CAP_CODE_TYPE_IDX].buffer.pointer,
-         elements[CAP_CODE_TYPE_IDX].buffer.length);
-
-The same pattern repeats for drv_type, platform_id, and oem_id.
-If the firmware returns buffer.length > 16 for any of these fields,
-memcpy writes past the destination array.
-
-struct pfru_update_cap_info is stack-allocated in pfru_ioctl().
-Confirmed with KASAN on 7.2-rc6: three stack-out-of-bounds reports
-are generated when a DSM returns 64-byte buffers, with writes reaching
-44 bytes past the end of cap_hdr's [64, 156) frame window into
-adjacent stack redzones.
-
-Fix by validating each buffer length against its destination field
-size before copying, and returning -EINVAL if the firmware supplies
-an oversized buffer.
-
-Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update device driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anirudh Prasad <icarus@a0rg.com>
----
- drivers/acpi/pfr_update.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
-index 6283105bb0e8..e14e053cea44 100644
---- a/drivers/acpi/pfr_update.c
-+++ b/drivers/acpi/pfr_update.c
-@@ -158,6 +158,14 @@ static int query_capability(struct pfru_update_cap_info *cap_hdr,
- 		goto free_acpi_buffer;
- 	}
- 
-+	if (out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length > sizeof(cap_hdr->code_type) ||
-+	    out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length > sizeof(cap_hdr->drv_type) ||
-+	    out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length > sizeof(cap_hdr->platform_id) ||
-+	    out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length > sizeof(cap_hdr->oem_id)) {
-+		ret = -EINVAL;
-+		goto free_acpi_buffer;
-+	}
-+
- 	cap_hdr->update_cap = out_obj->package.elements[CAP_UPDATE_IDX].integer.value;
- 	memcpy(&cap_hdr->code_type,
- 	       out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.pointer,
+You are awesome, thank you!
 -- 
-2.55.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-
-
-
-
-From: Anirudh Prasad <icarus@a0rg.com>
-To: "linux-acpi"<linux-acpi@vger.kernel.org>
-Cc: "rafaeljwysocki"<rafael.j.wysocki@intel.com>, "linux-kernel"<linux-kernel@vger.kernel.org>, "stable"<stable@vger.kernel.org>
-Date: Thu, 06 Aug 2026 19:10:59 +0530
-Subject: [PATCH] ACPI: pfr_update: fix stack buffer overflow in query_capability()
-
- > query_capability() copies four ACPI buffer objects returned by the 
- > firmware _DSM into fixed-size u8[16] fields in struct 
- > pfru_update_cap_info using memcpy with the firmware-supplied length: 
- >  
- >  memcpy(&cap_hdr->code_type, 
- >  elements[CAP_CODE_TYPE_IDX].buffer.pointer, 
- >  elements[CAP_CODE_TYPE_IDX].buffer.length); 
- >  
- > The same pattern repeats for drv_type, platform_id, and oem_id. 
- > If the firmware returns buffer.length > 16 for any of these fields, 
- > memcpy writes past the destination array. 
- >  
- > struct pfru_update_cap_info is stack-allocated in pfru_ioctl(). 
- > Confirmed with KASAN on 7.2-rc6: three stack-out-of-bounds reports 
- > are generated when a DSM returns 64-byte buffers, with writes reaching 
- > 44 bytes past the end of cap_hdr's [64, 156) frame window into 
- > adjacent stack redzones. 
- >  
- > Fix by clamping each memcpy length to the size of its destination 
- > field with min_t(u32, buffer.length, sizeof(cap_hdr->field)). 
- >  
- > Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update device driver") 
- > Cc: stable@vger.kernel.org 
- > Signed-off-by: Anirudh Prasad <icarus@a0rg.com> 
- > --- 
- >  drivers/acpi/pfr_update.c | 12 ++++++++---- 
- >  1 file changed, 8 insertions(+), 4 deletions(-) 
- >  
- > diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c 
- > index 6283105bb0e8..0219347cd78f 100644 
- > --- a/drivers/acpi/pfr_update.c 
- > +++ b/drivers/acpi/pfr_update.c 
- > @@ -161,24 +161,28 @@ static int query_capability(struct pfru_update_cap_info *cap_hdr, 
- >      cap_hdr->update_cap = out_obj->package.elements[CAP_UPDATE_IDX].integer.value; 
- >      memcpy(&cap_hdr->code_type, 
- >             out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.pointer, 
- > -           out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length); 
- > +           min_t(u32, out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length, 
- > +             sizeof(cap_hdr->code_type))); 
- >      cap_hdr->fw_version = 
- >          out_obj->package.elements[CAP_FW_VER_IDX].integer.value; 
- >      cap_hdr->code_rt_version = 
- >          out_obj->package.elements[CAP_CODE_RT_VER_IDX].integer.value; 
- >      memcpy(&cap_hdr->drv_type, 
- >             out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.pointer, 
- > -           out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length); 
- > +           min_t(u32, out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length, 
- > +             sizeof(cap_hdr->drv_type))); 
- >      cap_hdr->drv_rt_version = 
- >          out_obj->package.elements[CAP_DRV_RT_VER_IDX].integer.value; 
- >      cap_hdr->drv_svn = 
- >          out_obj->package.elements[CAP_DRV_SVN_IDX].integer.value; 
- >      memcpy(&cap_hdr->platform_id, 
- >             out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.pointer, 
- > -           out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length); 
- > +           min_t(u32, out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length, 
- > +             sizeof(cap_hdr->platform_id))); 
- >      memcpy(&cap_hdr->oem_id, 
- >             out_obj->package.elements[CAP_OEM_ID_IDX].buffer.pointer, 
- > -           out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length); 
- > +           min_t(u32, out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length, 
- > +             sizeof(cap_hdr->oem_id))); 
- >      cap_hdr->oem_info_len = 
- >          out_obj->package.elements[CAP_OEM_INFO_IDX].buffer.length; 
- >  
- > -- 
- > 2.55.0 
- > 
 
