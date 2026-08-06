@@ -1,214 +1,179 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A1B3F58C4
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 23:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9E34483AB
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 23:40:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786059161; cv=none; b=CCdKZElGnZWspvdnc0ImuVVP45Rffl8sgFP4Uu1FqveNAN4aUU4i5v3LlixSJfwAe+zI7ZnjPvDz5Jwq1NYGypAIInezBy6SbWP7xnu9jXxZks7ewwGR3mbPEP565qIczNN0gjHAN/mUg4X1Hu/WFC5gycV/lb//7F00gpg8uBU=
+	t=1786059642; cv=none; b=ZNtlBVaLyAEzMHCMHgjuew+CGUhv56g+oxO4XP4EFQPAUn8aO7W54o9s7aG/HuIEbheXQI4xpilXnFaBOMEzH6Fx/+oI2+3A1+6dskPgOLiEYnJ52BzZvfYf6z/kU8M8ra2m2CIR5kQqreHmcT8M4IiX5wPWjrqqG7uQk1IMWM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786059161; c=relaxed/simple;
-	bh=1EEc9DXazDAkqWyOTVLtE2IybOrjkcWooeu2y5oJv+Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A9idgzC+n6F6iylD1nnBYcvgOA8xHgM2fQjaKrnh70kRsRzdddQq+wO/0cjHPulLPtQLBOhhwffwrluHKZh/Wa0tM/2ja6YLimqLNBGGrtByxTf3u0VUl0GIvB7JKlh6IG0r+Y3uqUCYaqFG5ct7uGXNUqmrl62hDE1p1ffYVdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eNAP8KNa; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=WYXHfURV; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1786059642; c=relaxed/simple;
+	bh=JAA81vpRRaPvbn8Qk7Q5/2AalrGhpihpY8nPbY+98GI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=plfMWjvcwtCp9t0trvQ0rkHwMzhQ3EVFoORc72bsN4lOnyZLdiQyFd9OGZebh5GA2+o5o+8Kak9ph0pC8n7LO1PODovXCkuPx3NclcRZ0OdXwZIeZE8TDVkfK1IkWMZouOSkQbHdS1HOMhQ7+cbznw5mbpCIuPasew53LPE6ERs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=izyhhPLs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kLipEE87; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eNAP8KNa";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="WYXHfURV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1786059159;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x1PY9KJIb1qTfXyzcPT+pdmLvTO8tSJ3NAtvLbML8yo=;
-	b=eNAP8KNa58goi9beZIbcJMsWCr/PZ8T8SpDpBkuJwFIDv5V5xCTo1whiXCy+j82jc13d+n
-	OIlcZU2DC5GtbCc8LJqqRgR/KMT/W1w96YTCCyK3QO0jK03EGaY/rHzPXnTQjHRQrTIv8b
-	AWtfVDHf/YXHqugn73of2OABShKYyH0=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-299-cvmdfxWwP_Cu-9zzNlmnvQ-1; Thu, 06 Aug 2026 19:32:37 -0400
-X-MC-Unique: cvmdfxWwP_Cu-9zzNlmnvQ-1
-X-Mimecast-MFC-AGG-ID: cvmdfxWwP_Cu-9zzNlmnvQ_1786059157
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5283fa0656dso18841131cf.1
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 16:32:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="izyhhPLs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kLipEE87"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 676L8Fw03164022
+	for <stable@vger.kernel.org>; Thu, 6 Aug 2026 23:40:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jWXQckph0JnQMI/BG6hZ4k90rdSFUNrjopRCJIVR11Q=; b=izyhhPLsHcfPViZG
+	z0TxDFnXixDKXjtLH7PQPSvXVuGXM0+Vz6lEVnxz0og3cmYbvioCXE0jW1oKPBcg
+	txjdr9yAzm/tXQxQkNWnkJ/EVH8XqME9nW2B3VhHrQqXgt2PHt3m7oUabeyqHxWs
+	fEPj/Uh9JM2MZ7bfqYEmwFEkdc/a/3x1uq1J2ohuAaNM2IT7fcUYNm0/f3ytYn4s
+	QzowcxqoiXhaiJ6oSRPQGcQSF0iWkL/ZD0kCmn5FfHiWSu3HaTua0q7FQwgXveOA
+	dYokDfOR4nnDVsjlwLDRLagMFcgmxyVD9YmYdWEbuAtjyymsnovZ36gCYL+Xp40k
+	caNimA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvy6js84s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 06 Aug 2026 23:40:38 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dbe39ce62so1398175a91.0
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 16:40:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1786059157; x=1786663957; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1786059638; x=1786664438; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=x1PY9KJIb1qTfXyzcPT+pdmLvTO8tSJ3NAtvLbML8yo=;
-        b=WYXHfURVAoykH1tH+TgahTEScVCiVPTZ1eFiubpXWxWiQPHVGFvAv1gU8YBlXRHiPZ
-         r+l5u6DDdb8axzseYxH0B00FpIaYqcj7v2hOwkg/je3w75+mlbYNmhcJoYUHYRfXdwOK
-         HtXOZoe0HDhLqIHGjqTS1q0ycOpcP8jmtIisp1LG6BkGh6GN7LYsyV7PkM7j+jNYdIlW
-         TTrmn82Fg5A89o2IO4JjGQ1GFRbwOL01I+dD/lZCldonX4pFZOlIFdPsvC46vtqSne6w
-         CFLsxq6/wFI7bLcyJrL42pAXtOrlhc1tLA3yKrIakz/R7AtwrkT8xSxHFZgpYGVlw/18
-         z9bA==
+        bh=jWXQckph0JnQMI/BG6hZ4k90rdSFUNrjopRCJIVR11Q=;
+        b=kLipEE87pVLzQYOr4dyBdMeYEJLblmkdsvPTTy8BBW2FQQHvQZlfT/h2bsLGV+c1fu
+         wpBWdSVeoVop9ohFjzQEBXPnwwwCU8lG/Dfwf2FEjtw1bA7K892QSbVPHGsSyvOtrbYO
+         6ysXNkYsoFoJ6dnRr2onB7a0jYM/hNTVmLWonQ1qVumv7d44h9Vt8I5fe13VFvOph8mx
+         /y30+jGUHanR/cMjX7iQnGHJkonp7S+yIqxy0kClxIC08uy81uE7F2xucw5DLHEa+AGS
+         Rec+sYvPpFBdJ/ijAwlLJmxdmsMRgLe5WhcUnVNghG3gqd8sojTnMTloZWNYNLHclO5w
+         4BQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786059157; x=1786663957;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1786059638; x=1786664438;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=x1PY9KJIb1qTfXyzcPT+pdmLvTO8tSJ3NAtvLbML8yo=;
-        b=c4mvp+HhSk6Alv1yEKkNZdOuuty5Xx0ApHZA6Ph5ieMM9lk8dHrT7AdfA+NiNcWT2y
-         B9svPwjV/0dPRC7HfGZV7/zrB1rR3/aIHlbbA5CW918kIpK5MxRuAf7eBtoCUyWQk/vQ
-         VyC7T/swVBRpQmLUcLW9DGKqvnMMyuNOQ9MqQf8zoKwP6gaxzYOEvJPtK2LbjtjD2Y/E
-         XyPuslwvZ3nzpz+fQ9HELFdWsrq741ib2u/rMGy79iXJ8uj55PkJIJ8/Z5wgxaUJDccf
-         9xOveE3KmWav5VUu6hRpChxSvF5sWkxtkf2MP0gLmN1a2bXkOjrSyJHYfFhHF5ntgoys
-         d9DA==
-X-Forwarded-Encrypted: i=1; AHgh+RpKdxZFXsjJG4QvCEMpWZznc0lArl7rXY20KbPOV6Q93rZq7cg1+HGe/Kpiw7kDMjuTHYBw83g=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy6MGm/l0Ht5a9UhdUDvBPF+bce09Pp+uSaKVKUiPjKWJZDaNbl
-	nkNsZSAxAFunK1jDuGbqpMs+5scoK9SQsBuegVxb1/uRjDL8ZSM8vOEReQqS+Ayb6F1eNi/R3VG
-	rzaY5uTVP82RbTcJhML3SR6immDWwZokRb7iCLOz22+2WQuf2eStWV8Yveg==
-X-Gm-Gg: AR+sD12i9BAGu2jcapz6Y6UZXznjaU9T6n8balvVQBRQFNwemyctBeQbTfGNFysk+q6
-	kd71vOyLZUm8knfzjHGLYdklZj8208PCwYZ6zIfxkKyCG7NGOFKsbuOmyA4RPsLWUFIKOtiGYHr
-	B6TLR1NDRRWBBAWcXjdvdo+dLZthrY2VeOsfzCKOJGm/WTaFVW6AvpJxiasNgU2lNBdpXRpCRGq
-	rm4hQFQ/eSs+FWvaXVTIFuHzU9NnQcbCTCyjl+zmv++wKo1cEKLE08exUuadUtorcqTcedVZ7sd
-	2o/C3chK+z4nwcjxXqPE9h+7E2yFR23QZj3jtoWtbI8VXLT6xpU4QKL9ezfvzUtXjTDu
-X-Received: by 2002:ac8:6f19:0:b0:50e:635b:5562 with SMTP id d75a77b69052e-52d00498b36mr95353211cf.22.1786059156645;
-        Thu, 06 Aug 2026 16:32:36 -0700 (PDT)
-X-Received: by 2002:ac8:6f19:0:b0:50e:635b:5562 with SMTP id d75a77b69052e-52d00498b36mr95352631cf.22.1786059156155;
-        Thu, 06 Aug 2026 16:32:36 -0700 (PDT)
-Received: from x1.local ([174.91.117.74])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52d16335bb4sm273151cf.2.2026.08.06.16.32.33
+        bh=jWXQckph0JnQMI/BG6hZ4k90rdSFUNrjopRCJIVR11Q=;
+        b=ozWDUR6sWpfmhcdP1F0lX8f8qjH5RAwY2U1NobAlBbIRAjpNNZvlM6Bbe9ML1qSLuC
+         w9915GvU8FhEud//7L/RxThkuyYyD+SBxXxjlOgsVQgWhXNPmJ065IZrZePvF3yxEJFb
+         ZgQZzVSyiyV2f5ejWwnhBXjsC2W46i8fEgwxoQ285dLb/oijUVmBFNZQ1XML2xLiyq9V
+         cAY3o0xe3aqO326Fuffvdkus3snsTlOucSCD5a26bUTp03RphbfgcEMdOAv9zOveASLi
+         PvHCQFcaTjkM+UViIy+Drq1tbiomeDb7NXYxOIERzVmuRQtnhhuC+nSZmGAtK9IkDBua
+         AErw==
+X-Forwarded-Encrypted: i=1; AHgh+RoyGnbNAVFQ9EOF2LvfpTtrXTQy05bfHJFQqS0xwVsb6GnRA2uIKsM6t5K8ghVQl36WfV6Vi4g=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyb0iKPnwuwmhxnuq0uiBOe6iNf4LhzIohCArlNQN0vL3hECRiP
+	XoefUBg1XRE6gWs8eE1NLoQik3UIsIa+0QCQFL9YGtQsBTE9R68qVBryE6kDKVYBYPmr0gLnmz7
+	LHENWkouTbis0+iDtT+9fsnr86uPurF/kalrgRzPVHwabv68/MDtJs7rUVp7Yiyra40M=
+X-Gm-Gg: AR+sD10fuPdqSyZpiE1N8mEJF2EH7zVs5YRMg7G19Z8XGuy8TWQRq55vs5Ii9Yq3L+9
+	JngcV323STC72/ChocpFu8mesyyLBJ5cp+t2nJLCk8DcAFH6f4Qf+lXsT1mw0lX8WZPJJsaGT6r
+	+aLAeA9Cbs8tnMwSoz4vpdgY/oP1dQmIzcb5Dz+6SKfTBxeL6IvmZcWAMRlmZGU7g8SHmM0GMjt
+	ZR6Q3Etpvs9DzLqP9sZItfyvKruLhH7TkVkp1NvzK4TZi/E7+tRsmKIldwfDNcvNg42HpKdjHwQ
+	c9jKVuKc44Gsy02HAZPcFq9R6nmmxoupf9FU5s0rTMDExWKobgSmhzK4g9hmn1fkIoJXmCssgpo
+	z9BMVtKKvtYoTZqKZrByNQ9AIQhWekpnpyJSbZsTyw1WI9omaqC4XQA==
+X-Received: by 2002:a17:90b:3fc5:b0:37e:1620:dabc with SMTP id 98e67ed59e1d1-39083780f1emr5705974a91.0.1786059638039;
+        Thu, 06 Aug 2026 16:40:38 -0700 (PDT)
+X-Received: by 2002:a17:90b:3fc5:b0:37e:1620:dabc with SMTP id 98e67ed59e1d1-39083780f1emr5705929a91.0.1786059637460;
+        Thu, 06 Aug 2026 16:40:37 -0700 (PDT)
+Received: from hu-eserrao-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315beb877b4sm154694eec.19.2026.08.06.16.40.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 16:32:35 -0700 (PDT)
-Date: Thu, 6 Aug 2026 19:32:22 -0400
-From: Peter Xu <peterx@redhat.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	Alex Williamson <alex@shazbot.org>,
-	bcm-kernel-feedback-list@broadcom.com,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Christian Koenig <christian.koenig@amd.com>,
-	David Hildenbrand <david@kernel.org>,
-	dri-devel@lists.freedesktop.org, Fei Li <fei1.li@intel.com>,
-	Huang Rui <ray.huang@amd.com>, linux-mm@kvack.org,
-	linux-s390@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
-	Sergio Lopez <slp@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 3/6] drm/ttm, drm/vmwgfx: directly create writable
- PTEs when mkwrite is in use
-Message-ID: <anUZhiwas8pN_No8@x1.local>
-References: <20260804120529.1730187-1-pbonzini@redhat.com>
- <20260804120529.1730187-4-pbonzini@redhat.com>
+        Thu, 06 Aug 2026 16:40:36 -0700 (PDT)
+From: Elson Serrao <elson.serrao@oss.qualcomm.com>
+To: Thinh.Nguyen@synopsys.com, gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: [PATCH 1/1] usb: dwc3: gadget: add version check for setting ForceRM
+Date: Thu,  6 Aug 2026 16:40:35 -0700
+Message-Id: <20260806234035.1078704-2-elson.serrao@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260806234035.1078704-1-elson.serrao@oss.qualcomm.com>
+References: <20260806234035.1078704-1-elson.serrao@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260804120529.1730187-4-pbonzini@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=Rt/16imK c=1 sm=1 tr=0 ts=6a751b76 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=LUm-8c6oXeeW0rykISsA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDE4NSBTYWx0ZWRfX7RFjmLYKULJb
+ zGHJ4ekdRpheQXL+uQ9VWxEBfiNuO9sCp0PkKgXiAZoamEzRZ9XRajdC6/hd8zwooDKkGkxG3RU
+ M8CqcF+9kfOvWV8JJpvtOHXn9xvbYAwZgOvI61q2FZG0g//tGruoUm0PpZc/p/c82XTY8oGmJz1
+ sUISPL4dWKCQ9ErWjluoRVonjC9Z0AYfXxSWg0CsZx07eGmNbFlpM9lglySOzovv5Cw2HbvY+lw
+ fSQWzb6tHpzzHoLmc+VOsqNL0SSY87K7YAq9rMY7O7qd229PzLBc5hYk1uwb9ZXyVRKimQbrSbh
+ qbnEQaS4r86BQCv9a+OLuxTAJuM4JsjK1zzFnvNqOuZ6gT8P52WZyTqPX+mqnw+i33JmRRl5PV+
+ lo9xj1Uwd6MxLzgNN9rkM9kGt81tppZuBgrn80KAzaFQZg++Qb966kEyFPTiZJjgyE3ixf+/1sr
+ bm7iOV8j0Qi0a9dZzOA==
+X-Proofpoint-GUID: P6CHxV45iXfdCMigtU_fXD_Ajvg5PmOx
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDE4NSBTYWx0ZWRfXwL0PiAKMY5vk
+ RTe7zZ6X9MIG9EzdXSbNSF/wO7YuBzSZi/1ftyiybFInHnJqOtYtSdy/sy6PHS4TETPuZidCdMn
+ vuRT4wdcl6idsHvO5PKX/h+5viqHpOY=
+X-Proofpoint-ORIG-GUID: P6CHxV45iXfdCMigtU_fXD_Ajvg5PmOx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-06_03,2026-08-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 impostorscore=0 lowpriorityscore=0
+ malwarescore=0 spamscore=0 phishscore=0 clxscore=1011 adultscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608060185
 
-On Tue, Aug 04, 2026 at 02:05:25PM +0200, Paolo Bonzini wrote:
-> This ensures that fixup_user_fault() users see a writable PTE when
-> they request one.  The flip side is that vmw_bo_vm_fault() now has
-> to record by hand the write fault, because .pfn_mkwrite() is
-> not invoked.
-> 
-> Prefaulting works as before because only the first entry comes
-> out writable, while the following ones still end up executing
-> the .pfn_mkwrite() callback.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+The ForceRM bit of the DEPCMD register controls the behavior of the
+EndTransfer command used to stop an active transfer. For DWC_usb31
+controllers prior to version 2.00a, the programming guide specified
+ForceRM=1. Starting with version 2.00a, the programming guide
+(section 3.2.2.7) specifies ForceRM=0 when issuing an EndTransfer
+command.
+ 
+With ForceRM=1 on DWC_usb31 v2.00a and v2.10a controllers, an aborted
+transfer through the ep_dequeue path was observed to remain active after
+EndTransfer completion. A subsequent StartTransfer issued on the same
+endpoint triggered writes associated with the aborted transfer. This
+resulted in an SMMU fault because the transfer buffer had already been
+unmapped during EndTransfer command-completion cleanup.
+ 
+Using ForceRM=0 eliminates the issue and aligns driver behavior with
+the programming guide requirements for DWC_usb31 2.00a and newer
+revisions. Add version-based checks to select the appropriate ForceRM
+setting based on the controller revision.
 
-Only some quick thoughts while reading through this, as below.. even if
-some of it may make sense, I think that may be more suitable as follow up.
+Fixes: 1e43c86d84fb ("usb: dwc3: core: Add DWC31 version 2.00a controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
+---
+ drivers/usb/dwc3/gadget.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-This looks like a good fix for a regression already to me.
-
-> ---
->  drivers/gpu/drm/ttm/ttm_bo_vm.c            |  7 ++--
->  drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c | 42 ++++++++++++----------
->  2 files changed, 29 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> index a80510489c45..3ebde936ce60 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-> @@ -191,6 +191,7 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
->  	unsigned long pfn;
->  	struct ttm_tt *ttm = NULL;
->  	struct page *page;
-> +	bool mkwrite;
->  	int err;
->  	pgoff_t i;
->  	vm_fault_t ret = VM_FAULT_NOPAGE;
-> @@ -242,6 +243,7 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
->  	 * Speculatively prefault a number of pages. Only error on
->  	 * first page.
->  	 */
-> +	mkwrite = !!(vmf->flags & FAULT_FLAG_WRITE);
->  	for (i = 0; i < num_prefault; ++i) {
->  		if (bo->resource->bus.is_iomem) {
->  			pfn = ttm_bo_io_mem_pfn(bo, page_offset);
-> @@ -263,9 +265,10 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
->  		 * at arbitrary times while the data is mmap'ed.
->  		 * See vmf_insert_pfn_prot() for a discussion.
->  		 */
-> -		ret = vmf_insert_pfn_prot(vma, address, pfn, prot);
-> +		ret = vmf_insert_pfn_prot_mkwrite(vma, address, pfn, prot, mkwrite);
->  
-> -		/* Never error on prefaulted PTEs */
-> +		/* Never error on prefaulted PTEs and never map them writable */
-
-I got confused when reading 1st time, but I got it then noticing the mark
-dirty was done by the caller.
-
-Two small things I thought about here:
-
-- Comparing to the time before introducing pfn_mkwrite(), this will cause
-  previously one fault (with prefaults marking all follow up ptes writable)
-  to be 1 writable plus N-1 read-only. May not be the most ideal if we
-  consider the 2nd WP faults on the rest N-1 later as slight overheads,
-
-- Split the "mark WRITABLE" and "mark DIRTY" in code might be slightly
-  error prone, especially if this is a common function used by multiple
-  drivers, while there's only one driver that does the "mark DIRTY".
-
-IIUC the other idea can be, do not reset @mkwrite here but instead move the
-set dirty here, invoking whatever the vma's .pfn_mkwrite() is. So that we
-stick two things together; maybe slightly less error prone and less dup
-code when other drivers opt-in for pfn_mkwrite().
-
-Not sure if it's a good idea, but just to raise it in case useful.  Again,
-I still think this is a solid fix to the problem already.
-
-Other than that, FWIW the whole approach looks reasonable at least to me.
-I agree in the fault processing we should best resolve the fault in one
-shot if possible.  In this context, FAULT_FLAG_WRITE is the flag showing
-that a 2nd fault is required, then IMHO it's indeed better to resolve the
-fault in one go, as proposed in this series.
-
-Another thing I came to mind that may not really be relevant to this
-regression alone, but maybe matters for the future to at least keep in
-mnind: I wonder if there can be races happen while fixup_user_fault() is
-resolving faults, causing the 2nd pfnmap follow code to fail once more,
-say, some other thread modified the pgtable again (e.g. wr-protect with
-write bit removed right after set).
-
-So maybe pfnmap lookup and fixup_user_fault() should be done in a loop
-until any of them hit real errors.. if any of such race may become a real
-problem some day.
-
-Looks like low possibility that threads will mess up with PFN maps.. but
-just to raise this idea.
-
-I believe currently our mm fault handler should be working like that with
-handle_mm_fault(), hence neutral with such races (it'll loop a few more
-rounds until race disappear).  I recall there used to have thoughts adding
-some n_retry_max counts to the fault handler, but we didn't really do that,
-and it runs all fine over the years.
-
-Thanks,
-
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+index fa0f16ffafef..4b7bcad75d90 100644
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -1760,10 +1760,17 @@ static int __dwc3_gadget_get_frame(struct dwc3 *dwc)
+  */
+ static int __dwc3_stop_active_transfer(struct dwc3_ep *dep, bool force, bool interrupt)
+ {
++	struct dwc3 *dwc = dep->dwc;
+ 	struct dwc3_gadget_ep_cmd_params params;
+ 	u32 cmd;
+ 	int ret;
+ 
++	/*
++	 * Per the DWC_usb31 programming guide (section 3.2.2.7), EndTransfer
++	 * must be issued with ForceRM cleared starting from version 2.00a.
++	 */
++	force = force && (!DWC3_IP_IS(DWC31) || DWC3_VER_IS_PRIOR(DWC31, 200A));
++
+ 	cmd = DWC3_DEPCMD_ENDTRANSFER;
+ 	cmd |= force ? DWC3_DEPCMD_HIPRI_FORCERM : 0;
+ 	cmd |= interrupt ? DWC3_DEPCMD_CMDIOC : 0;
 -- 
-Peter Xu
+2.34.1
 
