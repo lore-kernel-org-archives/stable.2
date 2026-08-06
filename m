@@ -1,212 +1,187 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010027.outbound.protection.outlook.com [40.93.198.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1E246D0B5;
-	Thu,  6 Aug 2026 11:49:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786016960; cv=none; b=j886KSTrulHkx6IR6AutvVVDenSyRm6lEaPfHJdNg7TZYvh/3Pzyls9oTgivZSIoDgbiD5YHLirQRGQOjW7prNTUagtw69UWaTWqKQvA5ryw8WwQARclxnPwjvx6tpgsNU15S0BbUdgrc8fb07IQvf9x97VLz+smFx6lGVpO80w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786016960; c=relaxed/simple;
-	bh=wUd6BTz910GINwkFJ3oxFnudhEev1Ed6wapoS493qi8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Ms/UcNMfFQj2/GIZVrLGq6VAXTVcRvjRrMRUlRr/Qp5ZMzjvVzrpYbfgZ1wGdSPDVNS4YhPp6nJMOuhV0Pea9O5dvs79okMO6tIhBVyYkcWubSgRqDYGXdk9YIuuxcGF7hImEQ5BFEcRkVQ2eQfgNQJlrGp7qToLR4PtZsM415A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=HPOQ2qS4; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C543353A6B;
+	Thu,  6 Aug 2026 11:54:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786017255; cv=fail; b=iCafO5dd93TH79vHrotdGDwTtg2q/5fiZtcYsO1qZ7kqewGPgvdnXysy5OCw/0v9dQX31W+tTzJIOAZ9mlmgQG+O2jC2aOdBEy1i3zdNjM6h7AV2MprEgdATLvbys135iZhkdIZzGLiw4IzdN+Qw79L6Ln2yzeo4UDRb7ldTIKM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786017255; c=relaxed/simple;
+	bh=FyhBRlzY6Y2LcImkU51W7zSzVCAIdLRyWZXYCo9/Sn0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=uAJGx+fdwbSBVUuoOI/RZvCGqHUpYVhjY5rdRIFtzQBEoJRlgM82zuLgA/iIMm6GpC8/a0d+hfayO9ayjB17SNPg3LTKIAA5rJBHqiSfyGhGzi0hOMB8or88Nd9Bgu0hEyrkGAMgo0FJSP5i5aU0bDQryV4b6DwX64eiwmtSJko=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=WrqVQ+Vi; arc=fail smtp.client-ip=40.93.198.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="HPOQ2qS4"
-Received: from [10.13.80.162] (unknown [176.101.149.185])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id DB5DA5340316;
-	Thu, 06 Aug 2026 13:49:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1786016949;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=/s3rnEvEi/wr4ErGlkJ4G8TE/5xsRmeGjRMpGNrPM6s=;
-	b=HPOQ2qS4tGHpMgL/fTwnEaea3KkRxWEnFwBh3/BGjpBGUi9zdkyGcQ/BGa6bd9cyAtm7i2
-	DbIYy2/B/wMoYO6y6Y/g6lg+N14jZ+aqO97FyG+aSDGwwg0RRiwetEdUYud2mHzS/Y7iDL
-	5vDIq5SNL/Wt9IiP0QU9VQuO3ae2kjw=
-Message-ID: <dd2f19ac-a65e-4e53-aa2f-6f76c949366e@ixit.cz>
-Date: Thu, 6 Aug 2026 13:49:07 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="WrqVQ+Vi"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RQC4ZYIYCvDbACz+uSoOZUfc4wNr1y8Hlp4G5hwrdTKysERPAvJ+Yrgw/cY8okRg67fuIjFe6ZRyB+j0o7D8lTmGEVSqcclNOr6uee4YDJHXHMqzEQPmP/K+emBOS0eYPj/vch0loLQ0F8H9ocXqM27j6sWtymDBy44sZoVV2moJ3RYEkjJxMry5aq7iebA6vaeyG9Gu+1IDw30asO5ZG7JnHMkXZ9NDZukvz3MEGXsT4KVYBq40mB4fRJf90PudTS3fDht4tB2kbq9LTXvKDZ69IfF+Frru7WRzabIoMvu7w14AKso1GKEQernEVzwNyyhYt5gZd0KuZAxCLGJVjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y45Ys6nPV2j0HQ14V0u7WJ7PGhxOT/geZn5XFtLwH+0=;
+ b=UQYElj3+13EKBUEGvmzQEO8re6W2rK/y5iiexs9QIGUOlq93bfdai0K/+mUSatRbN9rmWk+Pt7zML6jhYW9oZ1+iDfMJ66546mv1vpgxlxW8K2gdP9or3U/vX/huLXCMx2pTEq3SXbEwSRBmV0ZSz36OGkINw3yOMecOmHUE6wefadIQo/p383w/hhIVdpC9XdZvkc3mwwEyxGUF76GOvhS7/X+pKauEWbzzy6U8N+tL4MmA7/MG56Pelh8qApGB7ZERRyWD4t0kLp9XvXNWACJexGlAlu0W9gEGRyJP0rDdXbMN3jMbdFr+DYsupvaoMASJ/XmMQjo8/X88bFIX2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y45Ys6nPV2j0HQ14V0u7WJ7PGhxOT/geZn5XFtLwH+0=;
+ b=WrqVQ+VimpRhBLbl8s0f+7bISACkf6jnNs1NNOz0F9b6SZnngftgE5KlTGMs7IFn+E6hMUVzH7ugO99NGOUUM56eCIJESUCeN9gFOk52/4XTDvDbWtpdPvOHL3GGxKMIGrPDbFrvhfss0kC1upF8tq7Zjm6e8R0/e07z4ogQgKw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA1PR12MB6602.namprd12.prod.outlook.com (2603:10b6:208:3a2::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.21; Thu, 6 Aug
+ 2026 11:54:10 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.021; Thu, 6 Aug 2026
+ 11:54:09 +0000
+Message-ID: <75a5fe30-4ae4-450b-8053-2a4633c5115f@amd.com>
+Date: Thu, 6 Aug 2026 13:54:04 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/amdgpu: disallow multiple FENCE chunks in one
+ submit
+To: moonafterrain@outlook.com, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jammy Zhou <Jammy.Zhou@amd.com>, Madhav Chauhan <madhav.chauhan@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>,
+ stable@vger.kernel.org
+References: <20260806-amdgpu-fixes-v1-0-ce247012d4da@outlook.com>
+ <20260806-amdgpu-fixes-v1-1-ce247012d4da@outlook.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260806-amdgpu-fixes-v1-1-ce247012d4da@outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0080.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9a::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] arm64: dts: rockchip: rk3399-pinephone-pro: DW9714
- coil requires higher voltage
-To: =?UTF-8?Q?Ond=C5=99ej_Jirman?= <megi@xff.cz>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Olivier Benjamin <olivier.benjamin@bootlin.com>,
- Manuel Traut <manut@mecka.net>, Alexander Warnecke
- <awarnecke002@hotmail.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- phone-devel@vger.kernel.org, imx@lists.linux.dev, stable@vger.kernel.org
-References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
- <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
- <2j7ogeqj565sftp5wzqvtzi2id76fof623bifbmyu6ckhf6vm6@ya7h4tp5i4qf>
- <7d55eaba-967c-4de6-8021-6b2d17670b1f@ixit.cz>
- <galrq4ug3hhny2ivpylqwuztwv7vnqvm6sdhlu6pucxk6qy2mz@zxw4ckkxj2sh>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <galrq4ug3hhny2ivpylqwuztwv7vnqvm6sdhlu6pucxk6qy2mz@zxw4ckkxj2sh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB6602:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7b3ed95-f5fa-430a-6842-08def3b16ce9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|6133799003|56012099006|11063799006|10067099003|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	nWLrgde+8oLFCg08nKnqeMTj43m0DNKueWTjhSfTRclxDxZ94lqEagCnZI/O9k1mD52navU8EFnXIqCs3HD9pmRTf1kBtpPlW25JSZD6SkR9XFOvwIH718+0wbbJi0twjH5gqLqK/RVeBq3Gu/Yzzc+jWAvI6s0G78OSfNdcW4lOvZDCrQkL52bC4lbn3qlsDwcbJ/vRxykDrt1psxshThGsz2GepWX6Y3BNRtO2iwP7gjk5c9MFOCeREYTWLVM2NH9DxfB3WfxXPGUdEqnVOC74mD2K2NytLvlzUWzPo9d1u1+SQ/CvK4ZWCZGYm7XFcdMM6UOr9OulpniHkpZ6gH9QAV/ndX0GgYrW/KtL32tQpwDBAiF6MgXw4wx5bBfu7eXJ7shcMIXPJ1elr6gCBTIVJbttcLAoB/3nS43nCK4PAmWfSTLY59/xC/TT1LhSHIGLd/8u96U3ihCGxi7CCOEYv3z2Xgmu7sjNAKWqoFdkA+O2aul4WEWfUXgXRWDXBu9/97g+5Xd0sjHVNDe0tORkLQkBBP1MjLVN1NGCCtgGvxxFrfZMIae7fD1O+aXhE3xYRg15sWY6mNQW78FEqDblYigiQxbkQ0iPmO78cdCovPkl5L74O3a/SfDG/3sNLhdQuwlptLSRSJRF0IardHIqSFtEfJD9By5k51dG1qk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(6133799003)(56012099006)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RGlqc3p4OVhacWhFNGdtSDZ3UERNRHFWZy9JZkE4Y2dGMWJkS2V5aWtnOGJt?=
+ =?utf-8?B?aW4rRlJBYkIzc0NBanB6ZldtZTJ0VnhRc1ZJYjJKOUt0WVlEbC84YnIzUmpQ?=
+ =?utf-8?B?YmRKeTFweHhiU09Ccmtyak9VU0l4QUhpbnhiZ0pab2NLeTVKbWxWZ0dZMEtN?=
+ =?utf-8?B?MkZseGFaQThoUGNxd3B0U0xCanNBbndpL1hleGlOelo2Z3N3UUQ0cm9LUkkz?=
+ =?utf-8?B?bmtoUGdOKzg1SzFhVzZoVW01VHRuRGhrY25jWUxQVm1wNVMrMDBCdkZvVy8r?=
+ =?utf-8?B?YkgwdnFtZnc4QTI2ZnR1NUtEbEFYZUVCVXkvNGJsb3pvUHROMzlGbHVVdmJ3?=
+ =?utf-8?B?bW1OdzZkSENidFlPdVRoN25LMlVsM1Q5N2wvSm1KMW5qUVhIWUpYVktDTWRm?=
+ =?utf-8?B?VW9nbXU1ODZLSVhwZ054Vld2c0kxS05RSWFVZzBVOTltSit0aUZSVDlBTlRI?=
+ =?utf-8?B?Q1JhcTc3eUZ1bEdkM2FwNWsrU1A2ODBUdkZYZlo4WENPRXNHbGtMVk84OXRj?=
+ =?utf-8?B?RzNVSmVmMnA0OWN0bGZlUEwxcTJ0QjhOb2NlVUVtQWlpeFB6UEJUK2ZCUXhQ?=
+ =?utf-8?B?VDltZU5jZXJSSXpLb0xyV1pneUwwRTg0dHNRSWgyK2ZWNm5DZmRqUXlwaTVH?=
+ =?utf-8?B?VllIc2JLTUVxWHVXMzVCdTREQU5FenNVcFNvNkMvYXlxQU1ZRXJ4S2Ezb2Vz?=
+ =?utf-8?B?eVRWTWFRTnpmZm02SlBvZEk3aFduM05ETURzVGJZbG9TRXhNcGNVeldsN0ND?=
+ =?utf-8?B?ZkprYmZJbFFSQTlrVVJPYWRydytKQW1zTHdHUGJlZ0ZBOXkxdVJUU25tL2lN?=
+ =?utf-8?B?d2Jsa2EzSmp6emZha1JKU1RWdkpFcGh2eW1jUWJVanhRRjBQNm50dmgvUG5y?=
+ =?utf-8?B?RXdlMlFyUjFzZ0wyUFFnSllWRk1rbTY3aGp5UXA2OElpV1c1ZDBwQVNGekJL?=
+ =?utf-8?B?ME9hV2lBbi8xcGR2YXVzUEF6YWorMnJINmFMRXBva1pBaVNTVVY4MVpaaU82?=
+ =?utf-8?B?U3paQ2pXMVU5SFA5Tzl2RDhiT0FORmxhVEQxUnNmSmRNNnJqWmNOOEZ6dHdD?=
+ =?utf-8?B?d0pvRU5jL3lTMmxsTVoreUJkeGRxU2Q4VVMwTDZmc0tjK1hBNFZ5cDVwdkVs?=
+ =?utf-8?B?bERXRVRNZlNveHllNnJUMVFpV2Q1K3I4d0F6bEtldzZjZFY5UlpWVFY5Y3hz?=
+ =?utf-8?B?SVFnYnZ0T0FNL3JabGNOamVST2RLMzA4Z21sc2E3NENTUmlONHBac2h5MTdz?=
+ =?utf-8?B?c3dkQ3Jkb0lZdjMvV05nQnlDSUVYSTd3SkVvYkQveGVMUVJBcWlTOVl1V2Vw?=
+ =?utf-8?B?RVErMDJkR09hK1dHQUI0cHkveEhlbzcycVU5QUludW5zNWVaVFR2blNNWUhq?=
+ =?utf-8?B?dXNSVDRCUFBFUG9wajJMN0J4TTJ6YkNxZ0xTZW03bUZxdnhHMlZCMXpZSEVJ?=
+ =?utf-8?B?OUhaKzdnc0ZaMnY2M3pWU25JYkJqS1lHMlA4dVQrOWpxRGhVeTR2S1QwZFBI?=
+ =?utf-8?B?K2NxSmZSSE11RjFUcXZZb0UzcEJDaDYvUDBlNWc5eXgwRzYvU2Jnd2ZRaXpx?=
+ =?utf-8?B?YzZLaGFjVEtnMzE1Nk15NThMd1dlZmRpMmpQZnlFNlZwcWtVT0ptTmREUXNF?=
+ =?utf-8?B?SmlkVjVrUTVDSmNJbFpqUlFqME05b0p0Um1vN2lRSTZCaFhCU3pEUjkzeSsw?=
+ =?utf-8?B?NklBWCthOWZDUjNZZ0hFSXlsaUpnV0tSMGpRWTJFTzZyVGJEcXQyRXpiZHNM?=
+ =?utf-8?B?bW9OUWNUVWxBQUtNWGJYZkdFWVEzYlJaQVR4LzNtQUtTdkpYMXZNTWdrZ0c4?=
+ =?utf-8?B?S2JaZDhkcUYzZVg5WWdsd0lOOFdKcG9iNUMvd3BXYXI2ZTJTTjUxUWdpd3Vo?=
+ =?utf-8?B?K3ZiZW9DMWEzUGt0ZnVtSWVjalo0N0E1SHdDaEtudThuZUxJVGFHdklxeFFQ?=
+ =?utf-8?B?OEtxZGF5Z3JVWjV5OERnSFZaVmxPaG9ZQVhMSWtaK3RNK0lybTNuQzFncFky?=
+ =?utf-8?B?UDFNcGFuN1BEOGdtVmc4S0pCaHJRKzd0QkQrR2MzZDR5bGcrWThUOEVVQWJR?=
+ =?utf-8?B?RVR5QXk5WUpGajJNRStKdFIrNHlsWnVmamlaQVlLa1UwMWRzanBFL1J5OTBy?=
+ =?utf-8?B?cW9TTmN1bWNyekFwTjZJS1RZVTJTOXpqOHVBV3VOZXlQdnMySG16ckdpdEpi?=
+ =?utf-8?B?b250cDJuT1ZIVWdsbXB3VVlRV0RsY0k3MFBuWHNHR2hBQWtRQW1PVzdSVGl5?=
+ =?utf-8?B?ZlZTVUNHb015RTdvelM2TlprNEhqZ08xYU9MNUl2NHVDT3cvM21yai8yYUVM?=
+ =?utf-8?Q?YBkvl2r1DYqdvWmbna?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7b3ed95-f5fa-430a-6842-08def3b16ce9
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 11:54:09.8332
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8hH7u0NfIuRIU28QmTV8lFcgoZ5W7mc0A7FT8qyQhh2FmfjBIXhMQtwYziUYRJMh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6602
 
-On 06/08/2026 13:19, Ondřej Jirman wrote:
-> Hi,
+On 8/6/26 06:45, Junrui Luo via B4 Relay wrote:
+> amdgpu_cs_pass1() dispatches on chunk_id once per chunk without
+> rejecting repeated ids. p->uf_bo is a single-slot field, so a
+> submission carrying two AMDGPU_CHUNK_ID_FENCE chunks runs
+> amdgpu_cs_p1_user_fence() twice, and the second run overwrites
+> p->uf_bo with a freshly referenced BO without dropping the reference
+> taken by the first.
 > 
-> On Tue, Aug 04, 2026 at 11:12:21AM +0200, David Heidelberg wrote:
->> On 04/08/2026 09:39, Ondřej Jirman wrote:
->>> Hi,
->>>
->>> On Sat, Aug 01, 2026 at 02:35:21AM +0200, David Heidelberg via B4 Relay wrote:
->>>> From: David Heidelberg <david@ixit.cz>
->>>>
->>>> By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
->>>> Usually it's around 2.8 V. Here it matches the avdd2v8_dvp.
->>>>
->>>> Fixes: 9336eb829a18 ("arm64: dts: rockchip: describe I2c Bus 1 and IMX258 world camera on PinePhone Pro")
->>>> Cc: stable@vger.kernel.org
->>>> Signed-off-by: David Heidelberg <david@ixit.cz>
->>>> ---
->>>>    arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts | 2 +-
->>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
->>>> index d46cdfe3f7849..bde35d9b2263e 100644
->>>> --- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
->>>> +++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
->>>> @@ -473,17 +473,17 @@ wcam_out: endpoint {
->>>>    			};
->>>>    		};
->>>>    	};
->>>>    	wcam_lens: camera-lens@c {
->>>>    		compatible = "dongwoon,dw9714";
->>>>    		reg = <0x0c>;
->>>>    		/* Same I2c bus as both cameras, depends on vcca1v8_codec for power. */
->>>> -		vcc-supply = <&vcc1v8_dvp>;
->>>> +		vcc-supply = <&avdd2v8_dvp>;
->>>
->>> This does not match reality, schematic says it's VCC2V8_DVP:
->>>
->>> 	https://xff.cz/dl/tmp/6253a0465329df41.png
->>
->> Ahoj,
->>
->> thanks for spotting this, since I know you have the device, would be too
->> much to ask you to send standalone fix for PP Pro?
->>
->> I would drop the change from the series.
+> amdgpu_cs_parser_fini() only unrefs the final p->uf_bo, so every FENCE
+> chunk but the last leaks a BO reference. The leaked BO outlives handle
+> close and process exit.
 > 
-> Ok. Just for the reference, vcc1v8_dvp here feeds an enable pin for VCC2V8_DVP
-> LDO regulator (which is supplied from VCC3V3_SYS and not described in DT, yet).
-> So in practice enabling vcc1v8_dvp enables both VCC2V8_DVP and AVDD2V8_DVP and
-> while DT does not describe the HW in detail, it describes the only regulator
-> that is actually controllable and enables all needed power rails for the camera
-> modules all by itself in proper order/timing.
+> Reject duplicate FENCE chunks the same way commit fec5f8e8c6bc
+> ("drm/amdgpu: disallow multiple BO_HANDLES chunks in one submit") did
+> for p->bo_list.
 > 
-> Not sure what's the DT maintainers idea here about whether DT has to describe
-> every detail of power rails routing, or just what's pragmatic.
+> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 
-My perception is that DT syntax should describe everything, except passive 
-components.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-No additional GPIO is needed to enable VCC and AVDD?
+Thanks,
+Christian.
 
-Here, it seems to me that explanation like this in DT could cover it. But I'm no 
-authority here :)
-
-David
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-> Best regards,
-> 	o.j.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index 5445f75741b5..9c514cb01096 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -228,6 +228,10 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+>                         if (size < sizeof(struct drm_amdgpu_cs_chunk_fence))
+>                                 goto free_partial_kdata;
 > 
->> David
->>
->> P.S. I noticed I didn't mark this series RFC. Too late.
->>
->>>
->>> regards,
->>> 	o.
->>>
->>>>    	};
->>>>    	ucam: camera@36 {
->>>>    		compatible = "ovti,ov8858";
->>>>    		reg = <0x36>;
->>>>    		clocks = <&cru SCLK_CIF_OUT>; /* MIPI_MCLK1, derived from CIF_CLK0 */
->>>>    		clock-names = "xvclk";
->>>>    		dovdd-supply = <&vcc1v8_dvp>;
->>>>
->>>> -- 
->>>> 2.53.0
->>>>
->>>>
->>
->> -- 
->> David Heidelberg
->>
-
--- 
-David Heidelberg
+> +                       /* Only a single user fence is allowed to simplify handling. */
+> +                       if (p->uf_bo)
+> +                               goto free_partial_kdata;
+> +
+>                         ret = amdgpu_cs_p1_user_fence(p, p->chunks[i].kdata,
+>                                                       &uf_offset);
+>                         if (ret)
+> 
+> --
+> 2.51.2
+> 
+> 
 
