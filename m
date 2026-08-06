@@ -1,91 +1,91 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE04386575;
-	Thu,  6 Aug 2026 01:26:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0EAE13ACF17;
+	Thu,  6 Aug 2026 01:30:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785979627; cv=none; b=hC+UJuZhXJKdkFT8nDahKoO/10ywJQuatl6FO5hZEV30bBt4rGuIEKR11nh+k7OEp1dtJCwWdJ4Gb2jCBkFxWqNl9O4u6Vdac71xhNaltAvOYe3rxjFsrRJEu1CS2hEoJ+Cv2s0RcnfOWiT9WdXOEoFqsarPw4nTi7/SA0fxzds=
+	t=1785979865; cv=none; b=tT0BaFiw0Zr99a/JUGCXj4lhOG3bx32Px+E5SYM2g+4o9v3Fsiygxlup9xK4LOLhYJ7/VblHQ/tu6F5jEl+J22GZBMtKEh/ec1J5YJY9QlZtlZMvNvD5RwqhRzQd72L8NsuxntUHcGvHm8UV8YIdndFgpWlkBY0zXOlHalxGUyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785979627; c=relaxed/simple;
-	bh=lFHOYy5PcGSuFEFXM5bvl3jLf0Rziveb7WBZ1JRmUZY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EPRBUc208wImZU+bczpZz1d1Og4zboSnzWWzIfDoXAr0WNWtb684NFywxm/IhQRoXRnuO0S9DeL8FJzyVNwWVt1H4NsXBwuCyyRFeXJyScRXaXgRY1hEKIVu1rn47NSnPV7xh6z1C7rQNxpe4r/aWi/HuBsmu/j/kuW3X4kw12c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=AsWtMOmb; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1785979865; c=relaxed/simple;
+	bh=Gm133SdNSU5loWI6t0dGujNfsaLWX6SzhkSafhy/m2U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M7BYRWkYsCuDe/G1wu3LSEkta+WQlPqrwernH7omB1tzBtsOpzFzNNQvsBjKelP44lkRzkdM1vthUZ0LVXCHVLfFZFzhqmkJPgBcBhmbcgKvroZ6zxqdqojyQ1uNTVMmDDNrsZFYOscrOgJdeHaaHIoJk9SQ7/ZfmMlKZZYSK1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=7F8WrUdF reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="AsWtMOmb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1785979609;
-	bh=lFHOYy5PcGSuFEFXM5bvl3jLf0Rziveb7WBZ1JRmUZY=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=AsWtMOmbHIuHAqYSmNkXn0ZdB6EzrscAadbkyNwCf2yGvgIkfKetRzKZmTX6AsyvE
-	 Yg3c3/bVJsNKU8F4cFsbYMQ5gmHhdPLgHag3XMWj0vEOU7hnmVS2bJwccS5JGYRgsd
-	 Fxl37PnL/03kULDVC82B2DqRGDD/fhwPjT0ghvqE=
-X-QQ-mid: esmtpsz20t1785979604t96977780
-X-QQ-Originating-IP: k6g5g4NXYwcsC5MCZL7Z4cZm9klDP4Ie1GK+y6oxtsU=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 06 Aug 2026 09:26:42 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 9630465270380063703
-EX-QQ-RecipientCnt: 6
-From: raoxu <raoxu@uniontech.com>
-To: rafael@kernel.org
-Cc: lenb@kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ACPI: TAD: report expired alarm status through RTC
-Date: Thu,  6 Aug 2026 09:26:42 +0800
-Message-ID: <87DB8AE5DFB2EC08+20260806012642.1194869-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <CAJZ5v0iTbz=BMfbeVVDyjmcv_u1x8Sqn3b4sn6x5qCGU=KYqFg@mail.gmail.com>
-References: <CAJZ5v0iTbz=BMfbeVVDyjmcv_u1x8Sqn3b4sn6x5qCGU=KYqFg@mail.gmail.com>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="7F8WrUdF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:Message-ID:Date:
+	MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	In-Reply-To:Content-Type:Content-Transfer-Encoding; bh=Gm133SdNS
+	U5loWI6t0dGujNfsaLWX6SzhkSafhy/m2U=; b=7F8WrUdF6bA8aLKbfX98fHgjh
+	LHg18AmHuZKEFRyyJCTlAFY46hWCp+GDaO8N6LYzleDqRefDbOzzPNWnqod17Xuo
+	Wx9qe7MpSSjBSnXtug1L0pY73XLjOYHh6xaDAlkMXzR8Wlu+dRoWYI/cY+j14qpi
+	FSfVa/zRFEiHdjNzL8=
+Received: from [192.168.1.110] (unknown [115.53.185.89])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with SMTP id BbQMCkD2Xde+43Nq0xnqAQ--.40654S3;
+	Thu, 06 Aug 2026 09:30:38 +0800 (CST)
+Message-ID: <cb04f43b-c86f-44f2-ba13-d172d7e03783@stu.xidian.edu.cn>
+Date: Thu, 6 Aug 2026 09:30:38 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MIiZxjTKFdex2OBA/eSs7jq5P6ZZ+sJ6i9HMU/DwhYkeFGCWTGUO8ufz
-	NXKQhrNn4sr5fQINXcicRQlOTUfMKtG9ZGV5Ud0lpI4ukHjsGfyQamp6mjn7+yCflOkw5eF
-	OuzeuBpID6QMohSrwNe5Rr/ws3M5/UtSO13TPtLvGS6w2do17XfIAiLuxRQAeXdtnWQP8ky
-	D5eyRpwhABV+NzDpUzaCi8fptnZnacf3PexmF0uUhfHQOfYizYMaJBK341OzDs11rwt3aDs
-	5DDJhWR9zRdmPWXjowSLx5FgWZVafLiKreFdsuMuRl4b7jxf+DCII7SnB8wqYlyEHhqFgDb
-	kjqZkcbYc+8T7mEGsB8+Rs7MM0dc76/wKNWxPrWC23BlxzoeeVbcSm8TfpnUU27cGmqvXfu
-	d1BprKaFbujK8t7Dr0OCldB0x1cAU0EtNCTFIaN1JY/DfnuAL6ibQHM//E8HzEpimBQdMpD
-	RZwAtJzpVtxH5PxTShAHVI1hXYt3bAu1IckUWzmv7joCC1XWn9Eccu8b0bJKwJ+LD9xKxl1
-	HINOvVxZGILy+qe1+fq4VuEUJADQ4PCaFvscG2eDF5v7frdNj8CSYmjAzUuziaWV9nbu+Dc
-	6S5R25W18RMrwaXnVPxKHFxVDeqHDzfF16uGPvmqI7eP9ZhUSa+IyBS3pwMiYM40OuTOBrq
-	aLMmHiNc17L6ulQQ9/dO06kop/g4x8d7ApK7yFjUeO1BOhKe76lgwn9jXyU+fDb053GJM5R
-	i8YVvgYxq93thk+2RvNpD3PO38i6X+dFQR6ITtaHLUTIlZtW11CIa+SLWkRsbwRW+3jyTaS
-	ZggG082OaiXURT82xW2NPLjbUjrz5vPPHAIPwi905UQ/mHCOGwGghXc6Ca15QXby9WuyfpS
-	CTDGsAgDZAXTJ+OoPCdQcK+fL/PufCiprMNGE/fyMtjV5FsORTkHM4jQkVSiGaVWkCWxy47
-	li65IAJaBw76elsYIATcepOZDlj8NHAK36u9F59bEbHmyNYsmHDUY6iiJGVdMQ3mcv9mrhM
-	U5zjaIIU0bSXhOITz23+lCcGZzFD7zi5sg6HD5pA==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] module: fix UAF and GPF in idempotent_init_module via
+ heap allocation
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Johan Hovold <johan@kernel.org>, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260717082601.81704-1-25181214217@stu.xidian.edu.cn>
+ <8d507b50-b5a2-48a8-a4bb-f196ac28b5e4@suse.com>
+ <f79bc014-a606-4ab5-adfd-1b56dbdc30ba@stu.xidian.edu.cn>
+ <1951733c-0d8f-4d1d-9da1-fd71d23781de@suse.com>
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+In-Reply-To: <1951733c-0d8f-4d1d-9da1-fd71d23781de@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:BbQMCkD2Xde+43Nq0xnqAQ--.40654S3
+X-Coremail-Antispam: 1UD129KBjvdXoW7XFyxXr48Gw18uFy5tr1xuFg_yoW3Zrg_ur
+	WUKryxKw17Kaya9w43Gr1fWFs7Ka9YkryDXay0qFZxC3s3ZFs8AryDt3yfWr43Wa95Krn8
+	Jrs8J3yfZ34j9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb3xYjsxI4VWDJwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z2
+	80aVCY1x0267AKxVW8JVW8Jr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
+	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx
+	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x02
+	62kKe7AKxVWUtVW8ZwCY02Avz4vE14v_KwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvf
+	C2KfnxnUUI43ZEXa7IU8a0P3UUUUU==
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUPEWpwsH2dlgADsG
 
-On Thu, Aug 6, 2026 at 1:36 AM Rafael J. Wysocki <rafael@kernel.org> wrote:
+> An oopsed task can leave behind various kernel structures in an
+> inconsistent state, such as unreleased locks, incorrect reference counts
+> and leaked objects. It is expected that the kernel may behave strangely
+> afterward and this can result in subsequent problems, such as deadlocks
+> or crashes.
 >
-> Well, "pending" doesn't mean "expired".
->
-> ACPI_TAD_WAKE_STATUS_EXPIRED doesn't actually mean a "pending interrupt".
+> Loading a module is a heavyweight operation that injects new code and
+> data into the kernel. If it ends in an oops, I think it is fair that no
+> additional modules can be inserted. I don't see that the module loader
+> is doing anything wrong or behaving differently from other kernel
+> components in this regard.
 
-You are right.
+Makes sense. Hardening the module loader against a post-oops state is
 
-_GWS bit 0 reports the timer-expired status, including cases where the
-timer expiration did not generate a pending alarm interrupt.
-rtc_wkalrm::pending is not meant to report that state.
+indeed unnecessary. I'll drop this and go after the driver bugs instead.
 
-So mapping the _GWS expired bit to rtc_wkalrm::pending is incorrect. I
-will drop this patch.
+Thanks for the review.
 
-Thanks for the clarification.
+Cheers,
+Mingyu
+
