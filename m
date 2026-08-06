@@ -1,156 +1,166 @@
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE56D3DDAE6
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 08:19:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786004381; cv=pass; b=SfqggY8R8EZsXyV49q8Jg0+ktRUzNvJyJbZtCJW+3WM/HB0nsfzv0c4vTHM3yhdO/PWog2wuGmERlPrZz2SOI1QnyaU7mS6XRaVBCcl9i7KK1+FSiVyhZNAb25iB6xSrymWiGZv3XnvokYuAGnxBBjcl/fZyWq4XW9Rvdwo/HPI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786004381; c=relaxed/simple;
-	bh=MEvHivamILUPErJ+2YlMch6p8MF3vQZaLr0qsybG0Pg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bCGTkfsO/88Vnq6SvNqwMiG7iXtH8fGN8Z6OfWwMZp07OtOOpRIMsdrE2jlXr1fPxkLieHZBAEvgZnusSgVLjverO+N+eh2gsXIJfSa8OZ22gmSt/14GCfK3uuuKlgsjR52Ks3OVLPkEWAUy2+0XPS/2zVnVVnoexVn++L7ygDQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=jB5hz1Vc; arc=pass smtp.client-ip=209.85.160.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B096F3EFFCE
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 08:28:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786004906; cv=none; b=dWT7wJURnJB5mk9uUCQYzISORgBFXfRKaXe4OOi839gOS7EltyvRBwG26HhF5fUAOe63WUtlmTM7yW+LLQGmVOUFFZkLUyCc6gv1N2iPD7LKxd3ZuHszR6vIDkMXPCCsOMOMF3BZ3KjVnUtSPg2s/KOcKA1PqAZi4qVXPMuepZY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786004906; c=relaxed/simple;
+	bh=yg838gto5IOJaMTAetelvsOdRzNE1BbR63FNwtft4zI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ASmITXwMic39Snj9xCfuaXmy1v2XP0MgkIWX1cacxy9BAHPCkfFdHRcVz9Xp5986QQz777x7RlDPtARvLW19vLjUeD/fAPFeubPnZhs+iGgmVBscxL8hRwXhtux3gFfzgJDSCP1dskpFwVPZOH9fRwJNesJIeRuO6s2R5J3DRmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QYM1n773; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="jB5hz1Vc"
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4569e871502so597041fac.1
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 01:19:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786004378; cv=none;
-        d=google.com; s=arc-20260327;
-        b=O3yfhvrl9FYmRiSp27AfliRcy+VJ+g+w9EqD+uDXtRQCY6JtA3OWs/n30N4/a5TvJ4
-         R1gf8yakICf+UslUX7cIYL/z4zD5vyUxXHb4MSaABOBioLzqEOkcUkdmo6MY9pCn+HCJ
-         lZp2Rx28DFqCq9ik07hbh378ZHWr8d2NMcYQQsKHGkDp9aAAvPx3XrrSeRIoVB7wkQbd
-         zmA8pO/Hjm8xNl0S0Q2L7K3yn509vebcTLRV6+ocTSsj6K65mA5RyfjFFGwg0mKWjH3F
-         JXldtjZqV2hRWoHkH4xKvYVRU1Y2aWoAKmePsPmYw8jFMu5yLoNxo/EeEszpZthm/4H+
-         u8FQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hy39CtWoc0zoje5YFx3qF8VnAfrlLSpF/ux3KEcnob8=;
-        fh=cgzm/P71RSEBYad2mdFaQ+m9Q6z4qNM4idEy1v67+PI=;
-        b=Udq1p92TZVb+utSdkRVt0JCtoyNoGnNoa0SpzLZ6l/+i0m4CixSiDaftKezPVYbCfO
-         rx8Ar8S/VxB9AqekzqSw8i43EnerW3qTAmHQIq+Fa4uQTmM49yoyJTNTT8GDK74F6lq3
-         9FfLGZbTG6U5NJ1MEKgIa+OBs3YmK7UjRnjIO1P6+t+kp7rISd7YrHI7xxEfjVbq2PA4
-         4ofssNZpK5VtjLSsDkb0TcmZz3GQtcrmG6LSc3sD1yzGOrI1wFapoaQGNgL+fln1h6NO
-         6nTFI6IEfUOG4YBUnp3bXjPFK0qLSgJAcK/a0BkqPbus99+9zyYHKScyjss9cA4zdVh0
-         TAtA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QYM1n773"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4954d29264cso9660815e9.2
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 01:28:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1786004378; x=1786609178; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1786004900; x=1786609700; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=hy39CtWoc0zoje5YFx3qF8VnAfrlLSpF/ux3KEcnob8=;
-        b=jB5hz1VcHs/cc/iyN/s+CEMBOC0ymP8Qzy7FWJf4RWENNHO51p47Cor4ByriT4W868
-         CVsW+o00/oiikV85CImAl4r1tMpMLYrrO4huss/HUTdZRMxdg6SDMWHM/QDa48vUf9Ra
-         1/blyoPLJZze3JMx1Woz+XAY+KZe0SmDIdgDD8+Ig/tX4JA9ypnjWIm732PKxadyEM3L
-         1MVzEt/tiPfvL3OBf+/JcAI2sw/dO6mNFocOZoyvybXdECPjUjKDA8nzwOVZfdEW77JU
-         rkzTI3mGqrMKZ/AGE+BjUw7NXYNZqGIvNhj/R4ahGsalG0T4CckRAR/+635PjSivGbbV
-         wGnQ==
+        bh=COVKnxaXbvkMkEzzbEMC1ENd8eyx/4BNqddLa1MlqMg=;
+        b=QYM1n773hCMSUs5SfDCKXoUhVFW2L+yA4zgILPBpMk1p+Mz8LonuM0IKFGi2UGZlzT
+         z0TA1rBovjQTADD0tMmR7lZcOoqVst2ibKK/GKryAlvZCeAmTIWEIZoPtWllmheXhfdQ
+         VG8gZEJYaqb/IWVDxY9eAniajvnU0i+OtrdMdnVDMDdrEbEVf23UGKbzEj4tvQjBBkgo
+         r70swgjxUUQS60LeahsZFFeDDaZrVPJHoQCvs+QehQHLzcf1iKhVVfkht4Umm5hJzBcn
+         zRgsUWPXnOdPYB5tsovZEakAQ1/MHyOFFXrAnAPbyohrElOgaIrwc8kAH5v+zcClCtmM
+         nE/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786004378; x=1786609178;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1786004900; x=1786609700;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hy39CtWoc0zoje5YFx3qF8VnAfrlLSpF/ux3KEcnob8=;
-        b=nzChfe1l5FFKbpCJ1kJaj3Ipz5lugIt7aWc+t7rk2g66pUcHklJDvX6vRuR7ETjPOq
-         j5XUQ4kPqcaCGMXCt3My/gM5E04Cs5B71uu8iKd2srweFHVPN3ioqo2HTa8QmJuBAR8P
-         Ki0XITJZ9BOIXwbyJ5P9xFckC+d+ZvrDINM+M5OCTpwfQO0uwSCUUIHHn/WulvVsoqzp
-         RzQUSsYAIAH4jvNCE0/nmPURZ5NGyhKpaiwu0TB9gd/djhUrgqvL67iGr3lhMv3U3H/d
-         GUI4Pr5mDW+sGSdWoZ3LAgMnz+johSGF76Z2SAvjt0AwLtovWSaKoLqhPgNxNIUiltHW
-         bcAg==
-X-Forwarded-Encrypted: i=1; AHgh+RryVn4eLzPS/qZpGCyji74rmhSHbim7gW+FeCI1BskTJZvP75CQySlhKICdwyuj6H8Uc5ubG8M=@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywl28Ro0QWYezFa1GBwJJIAxftTptGajQhxe5aKig9t1Ny9ubFz
-	x+vgzJtHzPn2bBsBdPVAPaeegOXsJq4jTbyh/s7raQIgZAO//AuajQ44DA6Xho2nf162GeOjq8o
-	RuIg/SRcR6PjvYjqapWZRXAv1ghjqIe2NQQU8x0V/+w==
-X-Gm-Gg: AR+sD11a8H4N5yv3pWwtE+YYifhP9VC9hkFVjNq/YN0sxGGHA3dL9J2/bagNi8IMjZJ
-	/DBlpNU4rfUTEHoN5eWlqbZ5MMXdUHrzV3hRgJkgpXepSM4CL1d4u6TEHnM/Rru+XGFTLD6sQ7P
-	pJL6cJnW0VSvbu3US/KBr+XVywNqo+Emqg2gE8PlP0XjSaUdVHOCgr8s+odX8sbGPUriO0LZ25S
-	feg4QTFtNmwjhxK0sEFSWJJ2ScDrQgoHNewsrNro7chRyWRmjt0OpX8aQzcHyhDFedmRYXIB4a9
-	hjCv6jWYHN965oYi3qIRU8KtsmZtlrDfpQY+9OW7PVlvP3Q=
-X-Received: by 2002:a05:6870:7196:b0:456:cdf2:ae66 with SMTP id
- 586e51a60fabf-4599f106966mr6769705fac.20.1786004378386; Thu, 06 Aug 2026
- 01:19:38 -0700 (PDT)
+        bh=COVKnxaXbvkMkEzzbEMC1ENd8eyx/4BNqddLa1MlqMg=;
+        b=lOQN2Buj071gsMdk9v2Akz4CEkJjyBKkheqIO2QBTbOmiLl7qBWWUoUD0t+xmkxCIP
+         rWC31mopri3TUsXzopH2DAkYscv8erK4Y0uJx4enLYKX/91y0kW2sUxVWnpFJJytrsvI
+         ijjFTFjOZ3NEGcaDAH9ml9dKqkc/BDF2DXZNlmjyEOk+96AtDG3SepwoMO9UkPmmL5r+
+         En3FtsLVCS4zzUPO6b2n5Vqm/flnVj01RVmOurR8JivplQnKLc7osrT49QqNt4qOjnOl
+         Xkm9X95OCZSPX4uKC70R1Bb7pYfnVrwo7U5Qy6cE40TwgkuBZvL4fO+hiG/m/NEeGwVy
+         jisQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqtesoQCLGefDG53q7hMKi/hn7tePAwN7Ya2Bfh4E1hSfV6R27ESw1RdN5JSXdN0DJdKJ5erc4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyyV0zTENoP1008aYOGafYXkq+1uk/l7tGbTyltuvF+fNBBTWsT
+	35iVUd8xGPbPqn9pDoezT/PfMCb0upMWLrtlI2VXG8WMgIqz0msn26A1
+X-Gm-Gg: AR+sD118imKjIK0nbzPDCCaMvhluBgvqti+Cwtq19y+owBZoPjY2kHt0IL0Tjh69tdW
+	MTSX6iQbcVw20I40FVY9jPPPYHnOG85LIP6StN7M99cSmqsLkcG9xh3jYVRxyHfK4AidQNfNjjS
+	mKHBjZzk85WXYqEFpzy4ymYHd9J0mmUZV8g8H9rPs5k4YwBPAGd1yaNNVwH8JJVijh+kEUHm6jl
+	7HiJwPIbsZD4jGK6HmFc8nwvFSiwRUeR8Uc0d46Iw1T9mWlYrcS7Fn7denTcQRFH7V0vezj8LNI
+	V05A5XcWOSAIk6MFIa/GGBF3YIxZGn6xPCcT8O2xHGAkXIB4PPu2Lvxw2XwvBkFX0GnFXfYwhzl
+	nRrw3o+pN/VOf/MsorMHkBV0PtFiu7retUN8TQk9ITQM1WJEy2sBUhnPfkJIzj1D8MMcgeh/qC5
+	LLBdkFpWtsZydvQoF86NHtCEcAGdBPZEMnFDe5qLVWbH2kda7Zxzc0Uso5aJN4Rxhuwuxxp8Z6z
+	ACOhEAGBwePGMYk6gONOVwjI2sLApfJhAl0bA==
+X-Received: by 2002:a05:600c:35c8:b0:499:593b:a15b with SMTP id 5b1f17b1804b1-499593ba192mr6111495e9.1.1786004899623;
+        Thu, 06 Aug 2026 01:28:19 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47ff7b250e5sm4410098f8f.27.2026.08.06.01.28.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 01:28:19 -0700 (PDT)
+Date: Thu, 6 Aug 2026 09:28:15 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Mark Rutland <mark.rutland@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, ada.coupriediaz@arm.com,
+ ardb@kernel.org, catalin.marinas@arm.com, cl@gentwo.org, david@kernel.org,
+ james.morse@arm.com, ljs@kernel.org, maz@kernel.org, peterz@infradead.org,
+ ruanjinjie@huawei.com, ryan.roberts@arm.com, stable@vger.kernel.org,
+ vladimir.murzin@arm.com, will@kernel.org, yang@os.amperecomputing.com
+Subject: Re: [PATCH v2 02/20] arm64: percpu: Fix this_cpu_and() mask
+ generation
+Message-ID: <20260806092815.082c6b2a@pumpkin>
+In-Reply-To: <anM0S1jVmwO0mqEt@J2N7QTR9R3>
+References: <20260804170503.3513916-1-mark.rutland@arm.com>
+	<20260804170503.3513916-3-mark.rutland@arm.com>
+	<20260805101416.454a49b6@pumpkin>
+	<anM0S1jVmwO0mqEt@J2N7QTR9R3>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260806055501.56761-1-cuiyunhui@bytedance.com> <20260805232941.e89e96269472ce5106967bda@linux-foundation.org>
-In-Reply-To: <20260805232941.e89e96269472ce5106967bda@linux-foundation.org>
-From: yunhui cui <cuiyunhui@bytedance.com>
-Date: Thu, 6 Aug 2026 16:19:26 +0800
-X-Gm-Features: AUfX_mwGgNJoKFTBh_OuUz7py1XbYGaSQo8O6U35_XIAe-5lSBoXE9Jh7Dvpc8Y
-Message-ID: <CAEEQ3wngAf7Wse8=zfByvzuuZvvy3kD7gD+HJZjvHTOf1UBiiw@mail.gmail.com>
-Subject: Re: [External] Re: [PATCH v2] mm/madvise: avoid skipping pages after
- splitting large folios
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: liam@infradead.org, ljs@kernel.org, david@kernel.org, vbabka@kernel.org, 
-	jannh@google.com, 00moses.alexander00@gmail.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Andrew,
+On Wed, 5 Aug 2026 14:02:03 +0100
+Mark Rutland <mark.rutland@arm.com> wrote:
 
-On Thu, Aug 6, 2026 at 2:29=E2=80=AFPM Andrew Morton <akpm@linux-foundation=
-.org> wrote:
->
-> On Thu,  6 Aug 2026 13:55:01 +0800 Yunhui Cui <cuiyunhui@bytedance.com> w=
-rote:
->
-> > madvise_inject_error() advances through the requested range using the
-> > size of the page returned by get_user_pages_fast(). Saving the size
-> > before error injection is required for hugetlb pages because successful
-> > soft offlining can dissolve the source huge page.
-> >
-> > That stride is incorrect for non-hugetlb large folios in system memory.
-> > The memory failure handlers split such a folio and handle only the base
-> > page for the supplied PFN. Advancing by the pre-split folio size then
-> > skips the remaining pages in the requested range while madvise() still
-> > reports success.
-> >
-> > Advance by PAGE_SIZE for non-hugetlb folios in system memory. Retain
-> > folio_size() for hugetlb and ZONE_DEVICE folios, as compound Device DAX
-> > folios are handled as a whole.
->
-> Thanks.
->
-> > Fixes: 19bfbe22f59a ("mm, hugetlb, soft_offline: save compound page ord=
-er before page migration")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
->
-> Should there be an Assisted-by: here?
->
-> When fixing a bug, please always describe the userspace-visible runtime
-> effects of that bug.  Especially when proposing a -stable backport.
->
->
-> I asked Gemini this question and then pasted in your email.  It told me
-> stuff, but I don't know if it's correct.  In this case it would be good
-> to hear that description in your own words, please.
->
-> And perhaps a means of reproducing the bug - clearly our selftests/
-> coverage here is poor.
+> On Wed, Aug 05, 2026 at 10:14:16AM +0100, David Laight wrote:
+> > On Tue,  4 Aug 2026 18:04:45 +0100
+> > Mark Rutland <mark.rutland@arm.com> wrote:
+> >   
+> > > The arm64 implementation of this_cpu_and(pcp, val) is built in terms of
+> > > ANDNOT operations, which requires the 'val' argument to be bitwise
+> > > negated. The bitwise negation is not implemented correctly, with two
+> > > bugs described below.
+> > > 
+> > > (1) The bitwise negation is performed as '~val' rather than '~(val)'.
+> > >     This won't always generate the expected value when 'val' is an
+> > >     expression.
+> > > 
+> > >     For example, for this_cpu_and(pcp, 1 - 1):
+> > > 
+> > >     * 'val'    is  '1 - 1'   ===> (int) 0x00000000
+> > >     * '~val'   is '~1 - 1'   ===> (int) 0xfffffffd
+> > >     * '~(val)' is '~(1 - 1)' ===> (int) 0xffffffff
+> > > 
+> > >     ... and thus bit[1] of 'pcp' would be preserved unexpectedly by the
+> > >     ANDNOT operation.
+> > > 
+> > > (2) The bitwise negation is performed on 'val' before it has been cast
+> > >     to (at least) the width of 'pcp'. This won't always generate the
+> > >     expected value for the upper bits.
+> > > 
+> > >     For example, for this_cpu_and(pcp, zero), where 'pcp' is a u64 and
+> > >     'zero' is a u32:
+> > > 
+> > >     * 'zero'           ===> (u32) 0x00000000
+> > >     * '~(zero)'        ===> (u32) 0xffffffff
+> > >     * '(u64)~(zero)'   ===> (u64) 0x00000000ffffffff
+> > >     * '~((u64)(zero))' ===> (u64) 0xffffffffffffffff
+> > > 
+> > >     ... and thus bits[63:32] of 'pcp' would be preserved unexpectedly by
+> > >     the ANDNOT operation.
+> > > 
+> > > Fix these issues by adding brackets around 'val', and by casting 'val'
+> > > to an appropriately-sized type before bitwise negation.  
+...
+> > >  #define this_cpu_and_8(pcp, val)	\
+> > > -	_pcp_protect(__percpu_andnot_case_64, pcp, ~val)
+> > > +	_pcp_protect(__percpu_andnot_case_64, pcp, ~(u64)(val))  
+> > 
+> > This one still isn't right.
+> > If val is a signed int with a negative value then it is sign extended
+> > before being inverted.
+> > 	val             (int)0x80000000
+> > 	(u64)(val)   0xffffffff80000000
+> > 	~(u64)(val)  0x000000007fffffff
+> > Something like ~(u64)((val) + 0u) will DTRT.  
+> 
+> As above, where have you got that idea from?
+> 
+> AFAICT, a smaller signed type *should* be sign extended, and that must
+> happen before bitwise negation, since that bitwise negation is to cancel
+> out the NOT part of the ANDNOT operation.
+>  
+> Think:
+> 
+>     'pcp'                    is (u64) 0x0123456789abcdef
+>     'val'                    is (int) 0x800000000
+>     '(u64)(val)'             is (u64) 0xffffffff80000000
+>     'pcp & (u64)(val)'       is (u64) 0x0123456780000000
+> 
+>     '~(u64)(val)'            is (u64) 0x000000007fffffff
+>     'pcp ANDNOT ~(u64)(val)' is (u64) 0x0123456780000000
 
-The issue can be reproduced with the softoffline helper from
-avocado-misc-tests. With 64K mTHP enabled:
-./softoffline -m private -n 50
-the test consistently failed with:
-pfn matches, softoffline failed at 10
+The problem tends to arise with (u8)128 << 24 which is signed even
+though that is never intended.
 
-After temporarily disabling 64K mTHP:
-echo never > /sys/kernel/mm/transparent_hugepage/hugepages-64kB/enabled
-./softoffline -m private -n 50
-the test passed in five consecutive runs:
-Softoffline succeeded!
+To my mind sign extension prior to and/or operations is almost
+certainly unexpected.
 
-Thanks,
-Yunhui
+	David
