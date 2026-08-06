@@ -1,345 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011016.outbound.protection.outlook.com [52.101.52.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 183E434EEF7
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 14:53:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786028012; cv=none; b=mPsqqfdWEBIsiLQISRV4Vn5vtGdYJX1SydaaARmMbdK360msCmOiVegx6jnBSFpwdXg4EdckdoCBug+fnEVtGKb8f675dKXVLHkuDccU6B3mki8vLGAeg8X4AHlqApyxhkqZoN/XwCCP9o0SfHUTA56aafUSwwCX4v5ehQas+pk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786028012; c=relaxed/simple;
-	bh=PpCiwpXSXt5qXd4wfxKoc9lgEEGILy3Hlr5groDuZ7s=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45372F30;
+	Thu,  6 Aug 2026 14:55:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786028116; cv=fail; b=gbkH6IB3tORJ0rs3pR5TcdojeSsEqknypyVtEhM/N8Smqi4FY0Inj1FgmSNjo9IlVh0KsJJG5sZnU55BczoXOd+UHo8eannDkoakYTCp7AaPEXX4uB0R+tRRek1lsRUxzj3c3BOJfalhacQWYOUNJOfkzeT/QmJL++Fg5/mUPE8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786028116; c=relaxed/simple;
+	bh=Nfb6mwDAo2Vwa7mOO4xuZtj4any3sqtsY7EdoMwkcFk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ghfPbm7dh7bkzx8ZuYGXIbR+orjY+VnJEesPI903cnRAB1Z/XgkCd4ID3d+mrlNl2ilFQCjqRXCtSDgTDlHyXUSDQ0ziOpnIx51EQjY22Rz6Skb/k2tMNNc9pqv7aOQsZSH4TTzxqh5L8vHzmLCPaeZoEcyLQ31OaNi6LNcwk/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=anEjisIg; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=HXpV5oQ0aDZq8iGBOdAyNc8EGBFlJG1stDnU9s+v/11NUFwEiILkVmTTAHgn210+c8pgCvheKL5jGcI5InksiIhgXZQoi4hL2xAKmaV2dWsWWSnluNTrqYGsc5rLaQm3srKUtH1M7K3RjUIkpR/9MBf0ZXM2HevRsDFDnM14SxA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BUi+e4WW; arc=fail smtp.client-ip=52.101.52.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="anEjisIg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246091F00A3A;
-	Thu,  6 Aug 2026 14:53:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786028009;
-	bh=01IBTSGYUjXCCrw8TsrjVcNYwThXp9c0yzerOX1gQlA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=anEjisIgkUVK1tp76RXzf0EbJb3wlpMbms5wyAv5Tpl2gc+X0E72Ik3to7ZBBAsRO
-	 kTOlvzTEgbMLASlQ6dNq5DVQ6LIGGQkGY6I+Ss5KocUdQRlZ8J+nSv9hiObFu/VFDx
-	 S2rr39gQzrpJ/4uHF0TWoxIJdrxZkvWE7+/JJ/xSMkp/InpBFsTieo8bBMFGA6WKdi
-	 Fl0y+t8csDx8dkyH+u36F4uO3sdWILsq/oPI/sxqj5yajHiI3kGRDRWaTTSAZ9d+2F
-	 /qwap9Bka9nQXuCgq+AugEEqUQM88MbvuXcF5dyBs1q/KdmLXFBlPEH65Ggtf0tsmE
-	 2zgtHVm2ZT6SQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] wifi: brcmfmac: drain bus_reset work on device removal
-Date: Thu,  6 Aug 2026 10:53:27 -0400
-Message-ID: <20260806145327.815050-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072954-vagueness-untrue-f5f1@gregkh>
-References: <2026072954-vagueness-untrue-f5f1@gregkh>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BUi+e4WW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=APcFvH7NABm8o2B5FN+e8nkff0afgphfQo4fd6JR7Pfh4rWj08wIJWalF5QnPca0T9R3Xb2gs00V8epjCfSd6yxGpI7BoJBYipKf4RteDHb0Hd0D1LN7BQLmX1hDDJuH4TDrhG36JXHDiwYdBrZ9rb3na4ejgGG0lYWq2FcUhFPzfqaqrE0wQ4qaACUgZBPz0+98hVw7D1ukaOls6FHzcYHweXnwNf9vx3R4L4rNdjbolAQ5p9mtQ0kcRMeR3zShHviyk2zhaWiUvzLAK4kzbeMU+T46zRWqPUND0x0q4y9hIorD7hC/qgxRmqBn5VK0jOr0ZxhHLGq3W9TSmJM78w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5qH+54KpMuI8gMEhZ4VbLhmp6MTMn1voHbqQUqp5Ojg=;
+ b=IjpspZl0CJioME+zig87ScWWWDxxbPlxDTFPMZMRoJpNuaDzW4F1stGtQw8G4q61UWStZWs0pqK/7NhSsZqUHOa5LbHIgZULv9u6/d3IwdeLDI0L89DTyYvl1i15g8NgVOhmaANbxy46oPbm2/Bz9FNsvWd6sqmig2gtPxsPZ5nqpH6IurXQz2E50VMYUsO4S631Crlgxq4WDMeDNv3pVWWmMiYZ52DWx9iQmcDkRLj/hqUBDNkmMutDEMjXYEW0LRIB/ferAXy/xanyt26bVcDg8J8Y2vEQa5l5UaWt7hO/DcVpgLrV8LFAKjalM2I1/gV7Y6skiR9stN+C+jDd9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5qH+54KpMuI8gMEhZ4VbLhmp6MTMn1voHbqQUqp5Ojg=;
+ b=BUi+e4WWxVxNAlFpMydRxGPA4EhF6ZQd8unJGeKsdjp+8Updcc9I5C95qrTkMuqLjPcnjzScWbfwcpUbezAliEyl4llEbkSGg5Eqaq08KtTNAw+r5TRV+bw1ISkIS9G5vgw8nWSFnhS3uuh/aB+cQMg2QMSvXb2J4Dqko4ppBGUfP36KNht8t/BIvE3MamGxvwUyoye1pz2lgXMNmarO9AuKxdKVDxvC//aFbYKzPaO1J1P70uOm1pzOAcpgCjt4CmTfTF5nf/BP6qvFL+OaTE7FCqXcWkISISqDZ4W8942J27wukKbD3P9+5U/83wEeqIYjOsrO4RFD6tbpk/FQPA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CH2PR12MB4056.namprd12.prod.outlook.com (2603:10b6:610:a5::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
+ 2026 14:55:05 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
+ 14:55:05 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Wei Yang <richard.weiyang@gmail.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>,
+ Li Youhong <liyouhong@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/memory-failure: fix folio refcount leak and
+ min_order_for_split() locking
+Date: Thu, 06 Aug 2026 10:55:03 -0400
+X-Mailer: MailMate (3.0r7024)
+Message-ID: <923FAF8F-93B0-473D-8DC9-C48FA1EED190@nvidia.com>
+In-Reply-To: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
+References: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BLAPR03CA0085.namprd03.prod.outlook.com
+ (2603:10b6:208:329::30) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH2PR12MB4056:EE_
+X-MS-Office365-Filtering-Correlation-Id: edf05de7-3935-41d5-e2fe-08def3cab356
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	sQDpAOQ82M8ThQ9Lr699i4DmutM74BwmTu9avNf2uEJ78SFIWrNGLZlO39MNU9Wz6HsCc3cOacPlYoYc0vDe3w7GboifIGAT9CoHI7MqgCpLUejpAJhiZ8oaaP/nFKxEl4QaJrTw1F/rbvKIxVW1/N/78IWT75witZERdDXWBBuVSvkMUi5pHLKTQp1KRclc4numRqdle81PUnHsJIdb2O+ijEGF79MK0P3QUQRjalMs61U0HwysDHprV3wM11BgnfrKeK+lff42hWjkQC1XbT+cTbT9OHqCikOxLocAqlbnVtXYlUyi12rhs+FezWEUlxsNv34obIAl0D7snuZRCpex6MUVvrWoKO/0YSU9U972AXz8mkBeK3ZsjlsYl5yC/nP/PY7qRWdwTluC514MsnFnVgrl9IA7UyqbHBaaxJP31cesL7TRK2Myzk9Y5D3nUThM1M94q7qBzbBHKxfiD4/Jw3hU3InV3mFE/fHBRTW8+1K7c8qWFiGXwwtMewY734lpONF+ugdHml8G7WeEpZ3hj/Q9dvm1zcOyLL76FlGclICofzCKTXRac+5Qz4Qy0QzVhLoznMxk9mn3f78DSlaQjPgX5Oii94FS/qGfjAOvYvMpcz+lgScFqdyqPHpLP9AAA2BQWTaProTnStf/bxCYmbyiSbEuPleAi66es1Y=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?VaEiitxoNweSIEYa6G6XHug3i95+iMlCCGx8f5f0OCEDV7c44TjWFuO/2mpM?=
+ =?us-ascii?Q?yb3kFSjpsRqSlRGfre+MnW0Y5o2GEYEqBE+dt5a7uM7CHXHoxnBrNvaZ0TK7?=
+ =?us-ascii?Q?zWLpbskNtJHhFvorayGiUculJMuNvbpIDu+lXpEbdLRqF2TmRVUmX0tO6NGP?=
+ =?us-ascii?Q?AleD0PlBtS1DkBQP+OCwN4Ld8DXU8RpMgozhBav4cLV5c+xfT4fKs28jrGyW?=
+ =?us-ascii?Q?uYlvMDRhJCOFayi2HRBCFRpan8calXc7g+QTPeezant1gcaGuTVmVThoCum8?=
+ =?us-ascii?Q?viiMf+iP9F8627EgZX4p7p/IYEJLbF/XxhH6eoLWIktNOHC+22hsO3t7P7Xz?=
+ =?us-ascii?Q?E35bBGCjCw9Z6t1L26aetVIdZpAMnlyMuUiab5DcG4+ZUqv9dm4JGmwyvJwL?=
+ =?us-ascii?Q?vaIgFo2+aJ2rnEb/7hBpCu/gYEesE9gwYyIclPfBYtmk90UfdMdOfEW1UnD4?=
+ =?us-ascii?Q?htNqBY5vT+iwqD6M0QD9DVJrpEUqps3dhiMLtgCHA+1QZIFjfkYW5BuKzoKE?=
+ =?us-ascii?Q?WCdw8/a71KIgFl6DrrXn7KL/EiBW8OfTDv/hS8hCGGtAZcjSyCgDWHJ2XzYT?=
+ =?us-ascii?Q?WZGIY/5azksaqfhDy/vf4bBgWMobX/qqjTT1yH4GDsgYsSm1vvcxnaGgya4G?=
+ =?us-ascii?Q?lMAnYIu+dntsBSeCukyQsW2Y0e2e0SE8fbmzSvg1OGDsvD6SdEfp3ge1ZsCV?=
+ =?us-ascii?Q?BaoqpeEK/7gAnyZ/nd6BlMMU3Tc+OUPFk9TULW2n316C09vDzK6jT37g1FVB?=
+ =?us-ascii?Q?zvy9O1RN0kjazbpXduKRN4+ScUsLQnNob58ACHQOdhZzR3H3mugu/bFhCz9b?=
+ =?us-ascii?Q?G6qd8AN2Q+IiqxHNpoxAqA0Kf9BVlOCtxISQWzz6+SrVmRGoMpD9vM8gXBHJ?=
+ =?us-ascii?Q?RtbtdRKkJcixUaY7s3xLYDk3O6mi/uxgfN92juFbwjfKWRaAt64kIUtzZxdC?=
+ =?us-ascii?Q?cTp6ocrxdglh1Cv8QQNTnXvyT6OgOnO63zfCPLll9G57GTnTXn1bRpgiSkiV?=
+ =?us-ascii?Q?ukCmZ8txIMWQRegOgPZC78j3CMDOVzLPWnYc6aDzUQAQjCnho1ZrhfNXkZUu?=
+ =?us-ascii?Q?W+9bb2fBOHgtWszn4UPkjgtNSjfYhsDZyyRab78MtcJ+dqnDjC8A2QG4SDE0?=
+ =?us-ascii?Q?AVjwqYgYp1qAloDLvny5w/7hVgxrO8V90/bomiX/6Qja9BVgXk1yAP9KxAcX?=
+ =?us-ascii?Q?R8cErIWNg/c0vQTUwxEvsiHh+fBOnG+ySMYzjiQmMnN1bI7IL38htCiTSJnf?=
+ =?us-ascii?Q?bJ5arRYa/xbE9W4J0DIRvpmEWIuKN8NhyXKCwFx5K238M/2yRKVbRWfKqvtA?=
+ =?us-ascii?Q?GnV0VOUTT/sH6aHkI6be2jjL9uwHyHtdmWrrls+7tm41WH+HE0S5gnA9/1Nn?=
+ =?us-ascii?Q?S9Brbg8tHzCyoGy4EmWO05Y/+qFSTwVZ5u+wW1neCiMiIconKGN+YLd73fW1?=
+ =?us-ascii?Q?MeRIkAgTlfUVKoNd1l1OYwEbyoHF7RRPCUR6nGsWWC/b5R+ZZRwC2doCvOaF?=
+ =?us-ascii?Q?22ihv68Rjbcb370XgR0/GUjnaM2tPsLH/JIFQu+QZjqiIB34so7dF0/C8h3/?=
+ =?us-ascii?Q?RDbZSvfDcr0ExjzbBuZGT5cSm+aKfap0toSjHPh/bSojVOz4xDPslolFtzos?=
+ =?us-ascii?Q?ZF2Z2+7TSXeDPUxHFGa34OCy3TDOjldoAAKSLy8yd9zL4cennLsU2pdfnigX?=
+ =?us-ascii?Q?PpVkbDclxfmLmt/pCn7HCu9UNMYKidokPEj35TVPhKFjaoGnS1cXNJRlqVEi?=
+ =?us-ascii?Q?bMTpb4Vx5Q=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: edf05de7-3935-41d5-e2fe-08def3cab356
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 14:55:05.2459
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y9lzXDtheH3jN7/cHy9XF0CjbKdd3dfyzoZXbDd+oDnNP2ELQfy/BFqrHBqIdsGr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4056
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+On 6 Aug 2026, at 7:14, David Hildenbrand (Arm) wrote:
 
-[ Upstream commit 43b25879f004c98defa2776bedc6ca4763c51945 ]
+> hwpoison code can end up calling min_order_for_split() without holding
+> the folio lock. There isn't really something that would prevent
+> concurrent folio split. Consequently folio->mapping can get set to
+> NULL after checking for "!folio->mapping", and if the compiler
+> reloads folio->mapping, mapping_min_folio_order() would try to
+> dereference NULL.
+>
+> While very unlikely to happen in practice, let's just enforce that
+> min_order_for_split() is called with the folio lock held. We can
+> significantly cleanup the calling hwpoison code, and just get rid
+> of try_to_split_thp_page() to hold the folio lock for a bit longer.
+>
+> Just work on folios now, which further cleans up the code. We just
+> have to be careful about doing the page_folio() after splitting, which
+> we have to do already either way. Do not change the way we split for
+> now, this needs more thought and should be done separately.
+>
+> Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
+> would currently have leaked a folio reference.
+>
+> In folio_split(), document and assert that we need the folio lock.
+> Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
+>
+> The folio->mapping problem was identified by Sashiko, and Li Youhong
+> reported it by sending a proposal fix.
+>
+> This likely does not really warrant CCing stable, but I expect little
+> conflicts when doing the backport, so let's just CC stable because of
+> the refcount leak.
+>
+> Reported-by: Li Youhong <liyouhong@kylinos.cn>
+> Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
+> Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+> v4 of the last fixing attempts:
+>
+> https://lore.kernel.org/r/20260806031958.677935-1-dayou5941@163.com
+> ---
+>  mm/huge_memory.c    |  4 ++++
+>  mm/memory-failure.c | 56 ++++++++++++++++++-----------------------------------
+>  2 files changed, 23 insertions(+), 37 deletions(-)
+>
 
-brcmf_fw_crashed() and the debugfs "reset" entry both schedule
-drvr->bus_reset, whose callback recovers drvr through container_of()
-and dereferences it.  The removal path frees drvr (brcmf_free ->
-wiphy_free) without draining the work, so a bus_reset callback pending
-or running during removal can outlive drvr.
+Changes look good to me. Removing NOTE part from soft offline looks good
+to me too. Thanks for cleaning it up.
 
-Cancellation cannot live in brcmf_detach() or brcmf_free(): the work
-callback reaches teardown through the bus .reset op (PCIe
-brcmf_pcie_reset -> brcmf_detach; SDIO brcmf_sdio_bus_reset ->
-brcmf_sdiod_remove -> brcmf_free), so cancelling there would wait for
-the running work and deadlock.
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-Add a per-bus mutex (bus_reset_lock) and route all arming through
-brcmf_bus_schedule_reset(), which under the lock skips when the bus is
-marked removing.  Each bus remove entry calls
-brcmf_bus_cancel_reset_work(), which under the same lock sets removing
-and cancels the work.  Holding the mutex across cancel_work_sync() makes
-the set-removing + drain step atomic.  Every producer reaches the arming
-path from process context -- the PCIe firmware-halt notification runs in
-the threaded IRQ handler (brcmf_pcie_isr_thread) and the SDIO hostmail
-path runs from the data workqueue -- so the mutex is taken only in
-sleepable contexts.  Where applicable the remove entry first stops the
-firmware-crash producer: on PCIe mask the mailbox and synchronize_irq;
-on SDIO unregister the bus interrupt and cancel the data worker, which
-also reports firmware halts through brcmf_fw_crashed().  The mutex is
-initialized at bus allocation.  The SDIO suspend power-off path frees
-drvr through the same brcmf_sdiod_remove() and takes the same lock;
-resume re-allows the work only on a successful re-probe.
-
-Also guard brcmf_fw_crashed() against a NULL bus_if/drvr: it can fire
-before brcmf_attach() wires up drvr, and it dereferences drvr
-(bphy_err/brcmf_dev_coredump) before reaching the arming gate.
-
-The bus_reset work is shared across buses, so the drain is applied to
-every remove path: PCIe (the .reset op introduced by the Fixes commit),
-SDIO (arms the same work through brcmf_fw_crashed()), and USB (via the
-debugfs "reset" entry).  cancel_work_sync() drains a running or pending
-bus_reset work item before removal frees drvr, and patch 1/2 makes the
-scratch-buffer release safe when reset teardown has already released
-those DMA buffers.
-
-This patch fixes the lifetime of the bus_reset work item itself.  It does
-not attempt to address the separate, pre-existing lifetime of the
-asynchronous firmware completion started by the PCIe reset path.  That
-callback needs its own lifetime/ownership protocol and is being tracked
-separately.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 4684997d9eea ("brcmfmac: reset PCIe bus on a firmware crash")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Assisted-by: Codex:gpt-5.6
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
-Link: https://patch.msgid.link/20260718024353.3147201-3-fanwu01@zju.edu.cn
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../broadcom/brcm80211/brcmfmac/bcmsdh.c      | 13 ++++++
- .../broadcom/brcm80211/brcmfmac/bus.h         |  6 +++
- .../broadcom/brcm80211/brcmfmac/core.c        | 45 +++++++++++++++++--
- .../broadcom/brcm80211/brcmfmac/pcie.c        |  6 +++
- .../broadcom/brcm80211/brcmfmac/sdio.c        |  6 +++
- .../broadcom/brcm80211/brcmfmac/sdio.h        |  1 +
- .../broadcom/brcm80211/brcmfmac/usb.c         |  3 ++
- 7 files changed, 77 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-index 7cd8ec6f515a4..eec386d51a871 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-@@ -1049,6 +1049,7 @@ static int brcmf_ops_sdio_probe(struct sdio_func *func,
- 	bus_if = kzalloc(sizeof(struct brcmf_bus), GFP_KERNEL);
- 	if (!bus_if)
- 		return -ENOMEM;
-+	mutex_init(&bus_if->bus_reset_lock);
- 	sdiodev = kzalloc(sizeof(struct brcmf_sdio_dev), GFP_KERNEL);
- 	if (!sdiodev) {
- 		kfree(bus_if);
-@@ -1109,6 +1110,14 @@ static void brcmf_ops_sdio_remove(struct sdio_func *func)
- 		if (func->num != 1)
- 			return;
- 
-+		/* Drain bus_reset before the shared brcmf_sdiod_remove()
-+		 * teardown, which the SDIO reset callback also reaches.  The
-+		 * data worker can arm bus_reset via brcmf_fw_crashed(); cancel
-+		 * it first.
-+		 */
-+		brcmf_sdio_cancel_datawork(sdiodev->bus);
-+		brcmf_bus_cancel_reset_work(bus_if);
-+
- 		/* only proceed with rest of cleanup if func 1 */
- 		brcmf_sdiod_remove(sdiodev);
- 
-@@ -1183,6 +1192,8 @@ static int brcmf_ops_sdio_suspend(struct device *dev)
- 	} else {
- 		/* power will be cut so remove device, probe again in resume */
- 		brcmf_sdiod_intr_unregister(sdiodev);
-+		brcmf_sdio_cancel_datawork(sdiodev->bus);
-+		brcmf_bus_cancel_reset_work(bus_if);
- 		ret = brcmf_sdiod_remove(sdiodev);
- 		if (ret)
- 			brcmf_err("Failed to remove device on suspend\n");
-@@ -1208,6 +1219,8 @@ static int brcmf_ops_sdio_resume(struct device *dev)
- 		ret = brcmf_sdiod_probe(sdiodev);
- 		if (ret)
- 			brcmf_err("Failed to probe device on resume\n");
-+		else
-+			brcmf_bus_allow_reset_work(bus_if);
- 	} else {
- 		if (sdiodev->wowl_enabled && sdiodev->settings->bus.sdio.oob_irq_supported)
- 			disable_irq_wake(sdiodev->settings->bus.sdio.oob_irq_nr);
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h
-index 2208ab3aa7959..d55899cb8d9ff 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h
-@@ -8,6 +8,7 @@
- 
- #include <linux/kernel.h>
- #include <linux/firmware.h>
-+#include <linux/mutex.h>
- #include "debug.h"
- 
- /* IDs of the 6 default common rings of msgbuf protocol */
-@@ -156,11 +157,16 @@ struct brcmf_bus {
- 	u32 chiprev;
- 	bool always_use_fws_queue;
- 	bool wowl_supported;
-+	bool removing;		/* device removal in progress; quiesce async work */
-+	struct mutex bus_reset_lock;
- 
- 	const struct brcmf_bus_ops *ops;
- 	struct brcmf_bus_msgbuf *msgbuf;
- };
- 
-+void brcmf_bus_cancel_reset_work(struct brcmf_bus *bus_if);
-+void brcmf_bus_allow_reset_work(struct brcmf_bus *bus_if);
-+
- /*
-  * callback wrappers
-  */
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-index a7882a50232c0..7b8104d171c51 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-@@ -1160,6 +1160,35 @@ static int brcmf_revinfo_read(struct seq_file *s, void *data)
- 	return 0;
- }
- 
-+/*
-+ * Serialize arming from debugfs reset and brcmf_fw_crashed() against
-+ * teardown.  The remove path sets ->removing and drains the work while
-+ * holding bus_reset_lock, so a racing armer is either drained or skips it.
-+ */
-+static void brcmf_bus_schedule_reset(struct brcmf_bus *bus_if)
-+{
-+	mutex_lock(&bus_if->bus_reset_lock);
-+	if (bus_if->drvr && bus_if->drvr->bus_reset.func && !bus_if->removing)
-+		schedule_work(&bus_if->drvr->bus_reset);
-+	mutex_unlock(&bus_if->bus_reset_lock);
-+}
-+
-+void brcmf_bus_cancel_reset_work(struct brcmf_bus *bus_if)
-+{
-+	mutex_lock(&bus_if->bus_reset_lock);
-+	bus_if->removing = true;
-+	if (bus_if->drvr)
-+		cancel_work_sync(&bus_if->drvr->bus_reset);
-+	mutex_unlock(&bus_if->bus_reset_lock);
-+}
-+
-+void brcmf_bus_allow_reset_work(struct brcmf_bus *bus_if)
-+{
-+	mutex_lock(&bus_if->bus_reset_lock);
-+	bus_if->removing = false;
-+	mutex_unlock(&bus_if->bus_reset_lock);
-+}
-+
- static void brcmf_core_bus_reset(struct work_struct *work)
- {
- 	struct brcmf_pub *drvr = container_of(work, struct brcmf_pub,
-@@ -1180,7 +1209,7 @@ static ssize_t bus_reset_write(struct file *file, const char __user *user_buf,
- 	if (value != 1)
- 		return -EINVAL;
- 
--	schedule_work(&drvr->bus_reset);
-+	brcmf_bus_schedule_reset(drvr->bus_if);
- 
- 	return count;
- }
-@@ -1399,13 +1428,23 @@ void brcmf_dev_coredump(struct device *dev)
- void brcmf_fw_crashed(struct device *dev)
- {
- 	struct brcmf_bus *bus_if = dev_get_drvdata(dev);
--	struct brcmf_pub *drvr = bus_if->drvr;
-+	struct brcmf_pub *drvr;
-+
-+	/* May fire before brcmf_attach() wires up drvr, or after removal
-+	 * has cleared it; guard the derefs below (and the arming gate in
-+	 * brcmf_bus_schedule_reset() already checks drvr/->removing).
-+	 */
-+	if (!bus_if)
-+		return;
-+	drvr = bus_if->drvr;
-+	if (!drvr)
-+		return;
- 
- 	bphy_err(drvr, "Firmware has halted or crashed\n");
- 
- 	brcmf_dev_coredump(dev);
- 
--	schedule_work(&drvr->bus_reset);
-+	brcmf_bus_schedule_reset(bus_if);
- }
- 
- void brcmf_detach(struct device *dev)
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-index 99cc41135473a..8d5fae386bef1 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-@@ -2291,6 +2291,7 @@ brcmf_pcie_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		ret = -ENOMEM;
- 		goto fail;
- 	}
-+	mutex_init(&bus->bus_reset_lock);
- 	bus->msgbuf = kzalloc(sizeof(*bus->msgbuf), GFP_KERNEL);
- 	if (!bus->msgbuf) {
- 		ret = -ENOMEM;
-@@ -2369,6 +2370,11 @@ brcmf_pcie_remove(struct pci_dev *pdev)
- 	if (devinfo->ci)
- 		brcmf_pcie_intr_disable(devinfo);
- 
-+	if (devinfo->irq_allocated)
-+		synchronize_irq(pdev->irq);
-+
-+	brcmf_bus_cancel_reset_work(bus);
-+
- 	brcmf_detach(&pdev->dev);
- 	brcmf_free(&pdev->dev);
- 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-index 5f6c0afe22d49..64626be8e2b0f 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-@@ -4543,6 +4543,12 @@ struct brcmf_sdio *brcmf_sdio_probe(struct brcmf_sdio_dev *sdiodev)
- 	return NULL;
- }
- 
-+void brcmf_sdio_cancel_datawork(struct brcmf_sdio *bus)
-+{
-+	if (bus)
-+		cancel_work_sync(&bus->datawork);
-+}
-+
- /* Detach and free everything */
- void brcmf_sdio_remove(struct brcmf_sdio *bus)
- {
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h
-index 0d18ed15b4032..927fb82dec9ca 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h
-@@ -361,6 +361,7 @@ int brcmf_sdiod_remove(struct brcmf_sdio_dev *sdiodev);
- struct brcmf_sdio *brcmf_sdio_probe(struct brcmf_sdio_dev *sdiodev);
- void brcmf_sdio_remove(struct brcmf_sdio *bus);
- void brcmf_sdio_isr(struct brcmf_sdio *bus, bool in_isr);
-+void brcmf_sdio_cancel_datawork(struct brcmf_sdio *bus);
- 
- void brcmf_sdio_wd_timer(struct brcmf_sdio *bus, bool active);
- void brcmf_sdio_wowl_config(struct device *dev, bool enabled);
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
-index 92b0839970c2f..3e6f9f4db8780 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
-@@ -1260,6 +1260,7 @@ static int brcmf_usb_probe_cb(struct brcmf_usbdev_info *devinfo)
- 		ret = -ENOMEM;
- 		goto fail;
- 	}
-+	mutex_init(&bus->bus_reset_lock);
- 
- 	bus->dev = dev;
- 	bus_pub->bus = bus;
-@@ -1325,6 +1326,8 @@ brcmf_usb_disconnect_cb(struct brcmf_usbdev_info *devinfo)
- 		return;
- 	brcmf_dbg(USB, "Enter, bus_pub %p\n", devinfo);
- 
-+	brcmf_bus_cancel_reset_work(devinfo->bus_pub.bus);
-+
- 	brcmf_detach(devinfo->dev);
- 	brcmf_free(devinfo->dev);
- 	kfree(devinfo->bus_pub.bus);
--- 
-2.53.0
-
+Best Regards,
+Yan, Zi
