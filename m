@@ -1,57 +1,58 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90083472539;
-	Thu,  6 Aug 2026 14:21:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A74347A0D8;
+	Thu,  6 Aug 2026 14:21:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786026113; cv=none; b=tEJP/GFZ2WAHkgLlJbLJwHol6AKPPNDC6JFPJWnDSUWTHCPh//fDAwTQB8XW/BdUNNzGeoiYW0J+euA05NjOxvoDMuA2Xoy9f6iXAkdRICUiR47WdgGmEC0uisYcb3fK4cYcHlF8mp4/uHjkMLBpPzuyGS3Vb0Pbl4S1M6mYp3Y=
+	t=1786026118; cv=none; b=VM7JE9MzuqGGaC2rRbiZTpuZYNIRh/SHrjF1zU7EK63T8tFYJS+MCFASyn8WzX2RIOfC4Yu+TmcHdkCjToEcwHPbWtmfDjnRaazZ9ArnvdidU2YLmcT/SdOlbP0QX09TjbE1MPhTxaqgkycxEb7uHZrwiL6teI5iqawAHUQ9kKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786026113; c=relaxed/simple;
-	bh=yAIwoAbrGT8jNg3TKEYoUEzHO7UYHARcWgRFuKbfK6E=;
+	s=arc-20240116; t=1786026118; c=relaxed/simple;
+	bh=Q1VASIO5zSSEvFAhF2xH5XnFr0Wfl5tGD985rlSG9qA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=beXKQ/IZeuLAWW21vom//DTus/tkVCy6tmM4iRaA0NDWlyeT3IxqQg7A+n0m3aUtg/Ax8k6AM0Lp0PY82HhH2zR/sq0ieuuAZ9szX4w2DXTSxi6G04NyipaeWrys5i/PMLNgEYB6n3dymX1fbYRgAKFHbwmF/mIfDYypnfo6Mx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I1hBCZGU; arc=none smtp.client-ip=192.198.163.9
+	 MIME-Version; b=UcrEYZYC5q3SPKuE/dJaEKowf93kv7zmbZjUPofAR3Qs47/1QkNJdAjtVYcLqoG8xC5YSiq4bZNtL6yYvKkWiQ0ywhinUMb5phv+vayz3G2xLZ8eUqqEIDiPoKSF5mL6ALlxxeDUBi0at+oEMQBjDTPrV9UnTNbIxlmPgcoCqrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f9sqY+OV; arc=none smtp.client-ip=192.198.163.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I1hBCZGU"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f9sqY+OV"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786026112; x=1817562112;
+  t=1786026114; x=1817562114;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=yAIwoAbrGT8jNg3TKEYoUEzHO7UYHARcWgRFuKbfK6E=;
-  b=I1hBCZGURn3kNRcUYjs+7jd6/rEkyhKK3/bs9ZLX7iHHKCa6KWcxS6g4
-   iJwUG86jnDjwex3pni6Gfwm7ScNJvsfEWOokEje7hVRNhPzxMz9uipzma
-   vAK6Z42T6ogHcMaRw8N9MHuY8e32+3A8u+tS9UvVc6Fd14RbS3izxlzH6
-   9JB5Sl5gIWuuwgrjklLOrX0YfA7xxbyVys0EKwuv0R0eJOac3n/+9QZ1w
-   Xyr4ApsVExXLsz6xYh6oTXNLwAWNTMrdn1blxLQhX3UXuHhbpFlVRl7lV
-   8onYRHz7WVoANc9zcDqPLhlPRLLTYI7UVJGC8PH8J1ZFzYo8jGZQDNKiG
+  bh=Q1VASIO5zSSEvFAhF2xH5XnFr0Wfl5tGD985rlSG9qA=;
+  b=f9sqY+OV8EPLrQ0pfMkBhZCpzIFVpeJd7hBV5LNidf214hXNwFA1lPf1
+   xXF/TeSCvC56Ga9HDFgJ31nLStIDQ8J3WlN8tlo1X3FH6dAKvz55zSRJF
+   /7zbnRJA+fiaN+HpyvDtTOJlWmQkjyNwW2ROkrVlsqkdV/YkAnCjch/2z
+   pAV7nKCWiAfqS77yEq7WMAfyoGzQj+0vzrZJPKG1KK1pcB20qKKCIu5l0
+   CbUC7vf6l9E6DqmjY/kBY+P0SVJkIQOJ57s9os3w1uZ24kPtVFjE9gmQV
+   /ZTdr5NsAYnZbXbnD9qT2sC0AA3QGX+rhtOguOyO5R+AjylWINe3Dh3VB
    g==;
-X-CSE-ConnectionGUID: PYtfanvSR0y4AxOhD/yVfw==
-X-CSE-MsgGUID: gc5W4jFxS4i4lbDJXfOybg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="97268211"
+X-CSE-ConnectionGUID: 3LMDWBdHSrGNvrFR2/WA5g==
+X-CSE-MsgGUID: 6qeTACHjQdyZMpagThcmcw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="97268216"
 X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; 
-   d="scan'208";a="97268211"
+   d="scan'208";a="97268216"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 07:21:52 -0700
-X-CSE-ConnectionGUID: 1hnODkh3TkqwoGH2ZM1cMg==
-X-CSE-MsgGUID: bI+qpOZRTai1eSquAzY+Sw==
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 07:21:54 -0700
+X-CSE-ConnectionGUID: gL6DpXnvSYylDOon08B1gw==
+X-CSE-MsgGUID: VB+GwbkIQU2oB6kOZbIdhQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; 
-   d="scan'208";a="285500526"
+   d="scan'208";a="285500530"
 Received: from amilburn-desk.amilburn-desk (HELO mnyman-desk.home) ([10.245.244.235])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 07:21:51 -0700
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 07:21:52 -0700
 From: Mathias Nyman <mathias.nyman@linux.intel.com>
 To: <gregkh@linuxfoundation.org>
 Cc: <linux-usb@vger.kernel.org>,
-	Semih Baskan <strst.gs@gmail.com>,
-	stable@vger.kernel.org,
-	Mathias Nyman <mathias.nyman@linux.intel.com>
-Subject: [PATCH 16/17] usb: xhci: Handle USB3 port events when there is one roothub
-Date: Thu,  6 Aug 2026 17:21:12 +0300
-Message-ID: <20260806142113.2436238-17-mathias.nyman@linux.intel.com>
+	Michal Pecio <michal.pecio@gmail.com>,
+	Bart Nagel <bart@tremby.net>,
+	Mathias Nyman <mathias.nyman@linux.intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 17/17] usb: xhci: Handle bogus TRB pointers in Missed Service Error events
+Date: Thu,  6 Aug 2026 17:21:13 +0300
+Message-ID: <20260806142113.2436238-18-mathias.nyman@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260806142113.2436238-1-mathias.nyman@linux.intel.com>
 References: <20260806142113.2436238-1-mathias.nyman@linux.intel.com>
@@ -63,56 +64,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Semih Baskan <strst.gs@gmail.com>
+From: Michal Pecio <michal.pecio@gmail.com>
 
-handle_port_status() drops every USB3 port event when xhci->shared_hcd is
-NULL. The check dates from a time when xhci-plat always created a shared
-hcd, so a NULL one could only mean the hcd had been removed.
+xHCI 1.0 allowed these pointers to be zero. Some Intel chipsets from the
+era usually set it to zero, but sometimes (apparently) to the next TRB
+after the one referenced by the previous transfer event on the endpoint.
 
-Since commit 4736ebd7fcaf ("usb: host: xhci-plat: omit shared hcd if
-either root hub has no ports") that is no longer true. A controller whose
-USB2 root hub has no ports gets a single roothub, the USB3 rhub is served
-by the main hcd, and shared_hcd stays NULL for the lifetime of the device.
-Every SuperSpeed port event is then thrown away as bogus behind a debug
-message, so devices never enumerate even though the port sees the device
-and its change bits stay set:
+Usually that's indeed the missed TD, but it may also be the last TRB of
+a two-TRB TD already completed with Short Packet on its first TRB. Then
+the driver skips all pending TDs, failing to find a match.
 
-  0x006a1203 Powered Connected Enabled Link:U0 PortSpeed:4
-  Change: CSC WRC PRC PLC
+When handling Missed Service Error, scan TD list twice and only really
+skip TDs in the second pass if the first pass found a match. This won't
+catch bogus pointers to wrong TDs, but such a bug would be practically
+impossible to detect automatically and isn't known to exist.
 
-Broadcom Northstar is such a controller. USB3 works there up to 5.15 and
-stops working from 5.19 onwards.
-
-Ask xhci_get_usb3_hcd() instead. It returns the shared hcd when there is
-one, the main hcd when the USB2 root hub has no ports, and NULL once the
-shared hcd is gone, which keeps the original meaning of the check.
-
-Tested on an Asus RT-N18U (BCM47081), which has a single roothub. Before
-the change nothing enumerates on the USB3 port; after it SuperSpeed
-devices enumerate normally over repeated connect and disconnect cycles,
-the change bits shown above clear, and USB2 is unaffected on both ports.
-
-Fixes: 4736ebd7fcaf ("usb: host: xhci-plat: omit shared hcd if either root hub has no ports")
+Reported-by: Bart Nagel <bart@tremby.net>
+Closes: https://lore.kernel.org/linux-usb/al_hchyOdPoPWKEo@spiral/
+Suggested-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Fixes: d0b619599e52 ("usb: xhci: Expedite skipping missed isoch TDs on modern HCs")
 Cc: stable@vger.kernel.org
-Signed-off-by: Semih Baskan <strst.gs@gmail.com>
+Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
 Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
 ---
- drivers/usb/host/xhci-ring.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/usb/host/xhci-ring.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index 6e60959e3faa..69bd582c7e2b 100644
+index 69bd582c7e2b..97a1b53c18ef 100644
 --- a/drivers/usb/host/xhci-ring.c
 +++ b/drivers/usb/host/xhci-ring.c
-@@ -2019,7 +2019,7 @@ static void handle_port_status(struct xhci_hcd *xhci, union xhci_trb *event)
- 		vdev = xhci->devs[port->slot_id];
+@@ -2597,6 +2597,17 @@ static bool xhci_spurious_success_tx_event(struct xhci_hcd *xhci,
+ 	}
+ }
  
- 	/* We might get interrupts after shared_hcd is removed */
--	if (port->rhub == &xhci->usb3_rhub && xhci->shared_hcd == NULL) {
-+	if (port->rhub == &xhci->usb3_rhub && xhci_get_usb3_hcd(xhci) == NULL) {
- 		xhci_dbg(xhci, "ignore port event for removed USB3 hcd\n");
- 		bogus_port_status = true;
- 		goto cleanup;
++static struct xhci_td *find_td_by_dma(struct xhci_ring *ep_ring, dma_addr_t dma)
++{
++	struct xhci_td *td;
++
++	if (dma)
++		list_for_each_entry(td, &ep_ring->td_list, td_list)
++			if (trb_in_td(td, dma))
++				return td;
++	return NULL;
++}
++
+ /*
+  * If this function returns an error condition, it means it got a Transfer
+  * event with a corrupted Slot ID, Endpoint ID, or TRB DMA address.
+@@ -2791,8 +2802,11 @@ static int handle_tx_event(struct xhci_hcd *xhci,
+ 		xhci_dequeue_td(xhci, td, ep_ring, td->status);
+ 	}
+ 
+-	/* If the TRB pointer is NULL, missed TDs will be skipped on the next event */
+-	if (trb_comp_code == COMP_MISSED_SERVICE_ERROR && !ep_trb_dma)
++	/*
++	 * We don't know how many TDs were missed when ep_trb_dma is zero (as permitted by
++	 * xHCI 1.0) or bogus. Bail out leaving ep->skip set, next event will sort it out.
++	 */
++	if (trb_comp_code == COMP_MISSED_SERVICE_ERROR && !find_td_by_dma(ep_ring, ep_trb_dma))
+ 		return 0;
+ 
+ 	if (list_empty(&ep_ring->td_list)) {
 -- 
 2.43.0
 
