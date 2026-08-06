@@ -1,127 +1,127 @@
-Received: from sender-op-o14.zoho.in (sender-op-o14.zoho.in [103.117.158.14])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011004.outbound.protection.outlook.com [40.93.194.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E96736894B
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 13:41:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=103.117.158.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A2A30216D
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 13:42:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.4
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786023690; cv=pass; b=bKotKbnCjfCclprXgr1sZZt7psmOJnnB8JxO09bXq6QFQj+J46Z5tSAMuPjSi+1zsjBV+W0nX3YNa97O9X08QcRKZs+Bm99VNO92oMzsyczBrY8YBOjPcTrlOZc83i08Rw54cBARxHi/ScihXr/cbVeRfFMkNyOuGq2xKBRlzCs=
+	t=1786023769; cv=fail; b=eZtpxOsXuqxIzzR+zqKakVbpdww9w+YmHWaAusf14qdZ+Mjc4smzaomIIMxKm3DQXhVKzPI//isdntM9YL7ype05ORryMovnU0yEscued8CuQHCXZINkHYLIUazVXKbc/yVpsvtKafi75KegVSwE7jekcHjFF8icUPWuj5Pi8b0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786023690; c=relaxed/simple;
-	bh=AJ+U+u8Uv9hQcQnkdYn24MvKrMfdDEjLM+I+luzS3E0=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:Subject:MIME-Version:
-	 Content-Type; b=hufgwFVZpUYoqsU9F6PtPVfAzPov761YDpFY/ZGB4/vGyyFkrGPto6cEDH2yKNXaGIkWYpigzr1kKGVze7MfMVU9ofyPtEe5ytgMA5BN5L0AU9YO+j3YBtb431ztVSOfBYzNua4x1Iea/IkgF8vlQGcA79huIfoOyxwoimqlmG8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=a0rg.com; spf=pass smtp.mailfrom=a0rg.com; dkim=pass (1024-bit key) header.d=a0rg.com header.i=icarus@a0rg.com header.b=J9Oy3mNV; arc=pass smtp.client-ip=103.117.158.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=a0rg.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=a0rg.com
+	s=arc-20240116; t=1786023769; c=relaxed/simple;
+	bh=tWRBls0J0wvRTTuEwGTblzrFTvgCXCD9FdSBGsSWbd0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=aMT033M+1Nz82FmAZ+S2JxVkAgnCglVJNb8Hxfzsg5eHk3pPB9w24ygxHm1UNrkiUSrrGNiJriaKVH7+D7vRymo5ywdFK/3ASrG61W8xJ8bdu75g9vgnWLM6MWCJGXDutfanbxhnuHVqbMwx+xdpPVxveQruNqBFP/+NhsbGWl4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=B6Z/rppI; arc=fail smtp.client-ip=40.93.194.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=a0rg.com header.i=icarus@a0rg.com header.b="J9Oy3mNV"
-ARC-Seal: i=1; a=rsa-sha256; t=1786023660; cv=none; 
-	d=zohomail.in; s=zohoarc; 
-	b=ANs6EIpMMwOUEWuhx1bhPh4ULB/hfcdnTftymzpw1TTiIy1iQ8SsLPd2N6QXhiAAfPjP0i8yElOIzXoIWgJBMLNdFfb4Qlbtp/kzZ62ucuEwa+76sqAg2jOhNsCG8EYhUFRnR3mmtrzQmE6ZsdzZ/DsYpIrXiy+BEKwfM1W6kaE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
-	t=1786023660; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=RNrf8XA0aLcTC5gGLRtcrxtQybjxP214KmJXq6p0+iw=; 
-	b=VdUBA8TT3EsJSJ7QPjpK8efINR2T4EhoJNtk6/ULt0Z4IX/quhCjEL655TkYRIJqvI7+zrv6QOOcLyTIhHsaZp3ZRWLCJZN6JG0yVqvdQ/DUPmznVqFn9KZ2Kn8cjjruOiF7UO6k86C407Q09sTGEEY0fjTO282TydgLqZi6OEc=
-ARC-Authentication-Results: i=1; mx.zohomail.in;
-	dkim=pass  header.i=a0rg.com;
-	spf=pass  smtp.mailfrom=icarus@a0rg.com;
-	dmarc=pass header.from=<icarus@a0rg.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786023660;
-	s=zmail; d=a0rg.com; i=icarus@a0rg.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=RNrf8XA0aLcTC5gGLRtcrxtQybjxP214KmJXq6p0+iw=;
-	b=J9Oy3mNVvB0LbaiG8jDymqMh0q6yMVUvTPopQOZW6uI9Jba889guX6ZS+RxHOUZA
-	/L/L+EZMQFITawRxDicsVFDLxiu5jA+5EBn/6wp0bL54yzFqw/x3kzGlHEu9L3b+uBE
-	mZkL9wQmBYU6ZXsYK1NwmyQUy10xXbG1AH5rwX2U=
-Received: from mail.zoho.in by mx.zoho.in
-	with SMTP id 1786023659188155.00129407899828; Thu, 6 Aug 2026 19:10:59 +0530 (IST)
-Date: Thu, 06 Aug 2026 19:10:59 +0530
-From: Anirudh Prasad <icarus@a0rg.com>
-To: "linux-acpi" <linux-acpi@vger.kernel.org>
-Cc: "rafaeljwysocki" <rafael.j.wysocki@intel.com>,
-	"linux-kernel" <linux-kernel@vger.kernel.org>,
-	"stable" <stable@vger.kernel.org>
-Message-ID: <19fd74e46a8.25f5bfd941182.5953196137231825269@a0rg.com>
-In-Reply-To: 
-Subject: [PATCH] ACPI: pfr_update: fix stack buffer overflow in
- query_capability()
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="B6Z/rppI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K6H2L6dNAagiAy8W3R9QEjJsJ4K5IVHh9DM9qFI05+rIJKmlAZmVcWuqPUt64vKxlxDuFwohPtQg84LeHfc6X4XlCfpLeK3mNimotPFSOdetcW2cNPdIgagwly8ISyYxgaHG6kXdFcKu/Dq9kVVHTqYpafg2GT8iletpWK1ZDiRDJsosZWhQWfoDKmkpoLgUZA5Iw3VSTmVKWvNbk1Aas2p9x3fcYd0JKFLFIA4fbw3vNC+kfEYe+yNJyns53i4HFYeofnJOPKBd/6w8U/uiw8OAe66v5IIhmidQM0mRElL5hlii7e9QlGuOy0hWCthvSfNlTCg7ShJSCTkklBguTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lhd8ZVq0XJUU6b3rE1k0F6Vbn18g1cygPAvEh67mRSM=;
+ b=Obj1QPwkLyWRrvA/JEIExXQ+8nd32UaWkVywu1+bDiFgmVcTfPTRy2VHofp/Tl/mOu9Kmsq/slrMKTfYfuBba/h5AGPHJP+G64lHofSWSKLPG+L4Pv3QgjLMD/wjPPCv19OweoIfYaMbgauQthy6zjMF1qQvVaf8dgtSZLhPIkYy+Nm92Rkv19gNZT6aolQuixiFxBz6XDeuL98L3AJBnaVwjQfBI+m5O/iNWMreLy/wym1b7c5DEvqfTaEpG/H0qz0M0M9Bm+OWfFLrxdPofpAhM+Re/Zo+EqHN6tp3Tdj1Rr2Ciyhb54BEe12T5N7/SFlLAcUvMo5/YjxyFye/Ew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lhd8ZVq0XJUU6b3rE1k0F6Vbn18g1cygPAvEh67mRSM=;
+ b=B6Z/rppIlON9ZTEhz2B7UA1/n20Xy/HpZz5ow28n7vDaqgScCMHfVP4cdnZZq5yB7opcCJzzH0QeYzXANCzfRQwGIgUBcBkCwNoXj3ajwa+ienE5odIIDoFGu+oW7SmlFof4S3dgzpatspII6n5sv8hqSihJKqScrq9nv8MBeBs=
+Received: from CH3P221CA0014.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1e7::34)
+ by SAWPR12MB999117.namprd12.prod.outlook.com (2603:10b6:806:4e3::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
+ 2026 13:42:44 +0000
+Received: from CH2PEPF0000009B.namprd02.prod.outlook.com
+ (2603:10b6:610:1e7:cafe::7a) by CH3P221CA0014.outlook.office365.com
+ (2603:10b6:610:1e7::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.21 via Frontend Transport; Thu, 6
+ Aug 2026 13:42:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF0000009B.mail.protection.outlook.com (10.167.244.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Thu, 6 Aug 2026 13:42:44 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 6 Aug
+ 2026 08:42:43 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 6 Aug
+ 2026 08:42:43 -0500
+Received: from [10.254.93.123] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 6 Aug 2026 08:42:43 -0500
+Message-ID: <ac4c0e75-fbaf-4264-8794-d3f86eebb014@amd.com>
+Date: Thu, 6 Aug 2026 09:42:42 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1.y] drm/amd/display: Exit idle optimizations before
+ programming
+To: Sasha Levin <sashal@kernel.org>, <stable@vger.kernel.org>
+CC: <amd-gfx@lists.freedesktop.org>, David Weber <weber.aulendorf@gmail.com>,
+	"Mario Limonciello (AMD)" <superm1@kernel.org>, Alex Deucher
+	<alexander.deucher@amd.com>
+References: <20260805163314.214623-1-sunpeng.li@amd.com>
+ <20260806021809.0021-sashal@kernel.org>
+Content-Language: en-US
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <20260806021809.0021-sashal@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009B:EE_|SAWPR12MB999117:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5af3f4c-a1fe-41cc-5977-08def3c097fe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|23010399003|376014|42112799006|82310400026|18002099003|22082099003|11063799006|56012099006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	U9hkoa7O2pSBMMFdQGUsFTz0ZvZp6f8hkBax7XGJU/i5ayiJKnqOCuYE/CcML0vppeFMwXhWwgP5tPXmUC+1uote9nYyEL54nuVSqRrpzwF0jFAtEd2C65jTZGcFRwAVzv1TsgxTn9xQadP1E3nlRIZh8bP+BgQQBfjQlvfGQIBej5ZPZIw3MuN+J4G2aby17KbNT0fRADhtuyI526xn5KSXMDPXucTq6Z+lv2Mw9NfjKT8Z6TXK/vcpa1EYXLN4HxnQTMCO+kKxS4zVoQResnIW3sPhNQQ+ooTe6fMZSigub3KjGF4XXdUiQaBefO5ayE8VqvAHOSMO6TYrL1edOFT0TY7+l3R4AZaK5WXnheyGe0U0zNQi5VkSN88tU39NNK+uqZcnwa/IghSjsKFWkCIHBTssJ+Yy73DpPE6e7+gqwNtdyeyJNzjDxHu0hGtO6CIM1rWCKs6jv9JWhVeU9TRDJLnnkzzK5MCEiRjzY/EKf+tAMXxuuOpICcdU3YeVAlbofdhtBjMkTLza3j/NjlSKrazo2nSUtm7tAXAl4wnKg/0MOykjzVrCfB/5qn6wGyLxPHuC8WOop+grSdk/9Pv7O1dUFdmaAj4DlE4hKqN0+ErvsI1ZM7TIN6ZK4emYt7vizOcaewni55l36+iI1DnFM0E3Na9Wwnd6U6RLi9Xi84Hoq06xgeBpg9//APKeJf89BGe10fRN0bnQAvxRug==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(23010399003)(376014)(42112799006)(82310400026)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	0ps2U9VfegPlPxCpDEUB6UmbkclGVkLWZ890RDD8eHy44LllfhyqAb3ib9cOJ+31Oz/Hh8uQznuHf/pWbF6UCy/M3znmWN/ID7bIkm/SWuycdS1yukoQc3svsS16gWQWaIr/5tMLu0oYsvUkYVxc8mzExKX8pQjKmv1H9Lqpthf8wRTxjaOlcOgzZAU4Vf252B8nXqDpw26LjNVNEE9+xJ5olNbZDLK4cExaPa4AObyUGpnJ7F/BmzFI9hfVBNmUvE6g1hh5mxfH2XfzUqcGctmRnFdBKK8ltJJXikbpBYpJX2zfjqMCaDG3JHGvTsScHdAr+6SjzwE2gPHGNpxdzKE2PbGhAUgApSarecYm5/xN0FBGgN1feCUNoFQ8oCWZKQE7rxOn9zCQTpQ05SJ5jTQzjE0BIj7S/sibsZY8aGaWCrSf3WTL+1kg92l/9bPh
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 13:42:44.1841
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5af3f4c-a1fe-41cc-5977-08def3c097fe
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF0000009B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999117
 
-query_capability() copies four ACPI buffer objects returned by the
-firmware _DSM into fixed-size u8[16] fields in struct
-pfru_update_cap_info using memcpy with the firmware-supplied length:
 
-  memcpy(&cap_hdr->code_type,
-         elements[CAP_CODE_TYPE_IDX].buffer.pointer,
-         elements[CAP_CODE_TYPE_IDX].buffer.length);
 
-The same pattern repeats for drv_type, platform_id, and oem_id.
-If the firmware returns buffer.length > 16 for any of these fields,
-memcpy writes past the destination array.
+On 2026-08-06 07:36, Sasha Levin wrote:
+> This doesn't apply cleanly to 7.1?
+> 
 
-struct pfru_update_cap_info is stack-allocated in pfru_ioctl().
-Confirmed with KASAN on 7.2-rc6: three stack-out-of-bounds reports
-are generated when a DSM returns 64-byte buffers, with writes reaching
-44 bytes past the end of cap_hdr's [64, 156) frame window into
-adjacent stack redzones.
+Hi Sasha,
 
-Fix by clamping each memcpy length to the size of its destination
-field with min_t(u32, buffer.length, sizeof(cap_hdr->field)).
+Looks like the tagged "Fixes:" hasn't landed in 7.1 yet. This patch depends on it.
+See the 7.1 backport of it here: https://lore.kernel.org/stable/3956c589-2fbb-49af-b0bb-8aeff0cd56db@amd.com/
 
-Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update device driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anirudh Prasad <icarus@a0rg.com>
----
- drivers/acpi/pfr_update.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+Thanks,
+Leo
 
-diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
-index 6283105bb0e8..0219347cd78f 100644
---- a/drivers/acpi/pfr_update.c
-+++ b/drivers/acpi/pfr_update.c
-@@ -161,24 +161,28 @@ static int query_capability(struct pfru_update_cap_info *cap_hdr,
- 	cap_hdr->update_cap = out_obj->package.elements[CAP_UPDATE_IDX].integer.value;
- 	memcpy(&cap_hdr->code_type,
- 	       out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.pointer,
--	       out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length);
-+	       min_t(u32, out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length,
-+		     sizeof(cap_hdr->code_type)));
- 	cap_hdr->fw_version =
- 		out_obj->package.elements[CAP_FW_VER_IDX].integer.value;
- 	cap_hdr->code_rt_version =
- 		out_obj->package.elements[CAP_CODE_RT_VER_IDX].integer.value;
- 	memcpy(&cap_hdr->drv_type,
- 	       out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.pointer,
--	       out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length);
-+	       min_t(u32, out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length,
-+		     sizeof(cap_hdr->drv_type)));
- 	cap_hdr->drv_rt_version =
- 		out_obj->package.elements[CAP_DRV_RT_VER_IDX].integer.value;
- 	cap_hdr->drv_svn =
- 		out_obj->package.elements[CAP_DRV_SVN_IDX].integer.value;
- 	memcpy(&cap_hdr->platform_id,
- 	       out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.pointer,
--	       out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length);
-+	       min_t(u32, out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length,
-+		     sizeof(cap_hdr->platform_id)));
- 	memcpy(&cap_hdr->oem_id,
- 	       out_obj->package.elements[CAP_OEM_ID_IDX].buffer.pointer,
--	       out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length);
-+	       min_t(u32, out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length,
-+		     sizeof(cap_hdr->oem_id)));
- 	cap_hdr->oem_info_len =
- 		out_obj->package.elements[CAP_OEM_INFO_IDX].buffer.length;
- 
--- 
-2.55.0
