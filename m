@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92365480952
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 17:02:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E16480DE3
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 17:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786035732; cv=none; b=ZRYXnWx8l6E8WRnCOmRcduvY0NWswhwCC5yaWqdrC+aBJG09Ih8SjYqEREmnOInpFvisRgPOJYWdpdNDuFr46kHCoRKEtOr39eTXZGkesARwE/MkgiBy+VDJHZAuQoU6eHazriaExM+5gsbaoMSbJtsdlRYQDqxyFjKBUl/NEzI=
+	t=1786035736; cv=none; b=joHTekBagrC6iQ8HS7gbbrSO6J30cu+O0PkMNF1SCbrxJgKNl4oy2pMwFN+bIH55h//c0PV18jxuv1nS+To0vw+jPmFMjHqwjwvZEUo2HXXoETnux868oyLXKYjTiGhS+EczlOCsWF39Flkwgcycg41JwxeybiQI9ppHi+7Qzew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786035732; c=relaxed/simple;
-	bh=pDQbzT/kuRiDdC3LLinl70dngsIC++ajEAivawDg3mk=;
+	s=arc-20240116; t=1786035736; c=relaxed/simple;
+	bh=yNaUoKDGyXzl9mgowEdfKv6A1m3F80195aPxugJrWFM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hftp5oLc0cDS8t7kQwtC/OWlVZmcANQNs/MH5All6Fbwc3zwtxKyPbtsKr1ZXSxg+zNlcuMdEGDMyfc8tW+fG1f7Vn13VaWmCmJrMQxBoJ5jqQh09qvozMXd5JSW/u6j3+9sO8qvt6MSLmffYhPSuF9DeCoteDpi58NEPO7+KFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+bK+31z; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kl/RG7Xjje5E01k1kzW8MRVOkofoDPvKEYfSBr0CAazecITKziIRwVN5MIRMByk3KRkwhcbItDY2ZqiHuArzQJacnwjL/VRPAxAU5JovRAltNNu1Yj/R667ObAgq3/cMdgKirwmK9vI1DV3hsIlNKSm+oKYQVp88mJugjFlwrW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jijHk2Z2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+bK+31z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548801F00A3A;
-	Thu,  6 Aug 2026 17:02:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jijHk2Z2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E4491F000E9;
+	Thu,  6 Aug 2026 17:02:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786035727;
-	bh=zbwL/0DGZUUKtAlOSP89PWO+LdUtMOQNskKcGU3oA4w=;
+	s=k20260515; t=1786035732;
+	bh=q73N1bIrOfpjjIFtsnHudkNUeQks8pZ1anqeFY0e3Yw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D+bK+31z9SpsVzJHMpyYPiNm37QzTAsneaD6GEZ17Y0L9H6tano2lqtjKIwRGGZCd
-	 Y3gpGsVsGeZoN4EkJh+c7/9W71PT+F7bODuSXPCHYQa7keBPPl0lArRC0EaDEauqEW
-	 /+JJC7YZ/iODoM3Qo85/Bf4tU5Wc5Z4Eh1j6A3ppyo0ISGf0NDcpzLOI0QrhALH3o/
-	 N2gJHTZ3bclE+/2E1YemocQewiPDE6AgyIncKsEOimB9eFVSI3RzHCygUBAVc680tw
-	 wHTLcMO+VV8Bu79gNPvcO34Kc2VfjLbrq2oRimsWQ1uK14nNa59aHkz9qXEtYatgvC
-	 hseOOxeFw3c/A==
+	b=jijHk2Z2qECiJdLM+nP7usi0iSIRgsuGGGajQN1qxyMIOdgQ+2oIQowJi02XBNNWk
+	 r9kMRxq7BZclZowlm7i0kkUzSXIwpVEHnYdH3eIYxUkw4kjQBh0SnFE8Yvqws2Gllc
+	 n7MinZ3Z/AOJ2lMOEpKUjB4R//YDFkYVxQcpHJJJBDGf6eadMr5NikY2q5mzMx9duE
+	 MrKNFKyFL6ZKPz+66aQT+UDwnE6b+fwh8KAreH1gbDmmtG6nBPJA1lnT4zyLDhALaV
+	 bboKY1Mzg2GBJvGDfNaxMjU3cA1U9UX9l2TGHMKWwSG9sSqr9qpM0RBrwgNiPDKXtd
+	 1hkYomeZclz5g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
+Cc: Gokul Sivakumar <gokulkumar.sivakumar@infineon.com>,
 	Arend van Spriel <arend.vanspriel@broadcom.com>,
 	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] wifi: brcmfmac: drain bus_reset work on device removal
-Date: Thu,  6 Aug 2026 13:02:05 -0400
-Message-ID: <20260806170205.1186233-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] wifi: brcmfmac: fix 43752 SDIO FWVID incorrectly labelled as Cypress (CYW)
+Date: Thu,  6 Aug 2026 13:02:08 -0400
+Message-ID: <20260806170209.1187447-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072955-groin-goldfish-e8e0@gregkh>
-References: <2026072955-groin-goldfish-e8e0@gregkh>
+In-Reply-To: <2026072950-scribing-blooming-1fda@gregkh>
+References: <2026072950-scribing-blooming-1fda@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,300 +46,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Gokul Sivakumar <gokulkumar.sivakumar@infineon.com>
 
-[ Upstream commit 43b25879f004c98defa2776bedc6ca4763c51945 ]
+[ Upstream commit 74e2ef72bd4b25ce21c8f309d4f5b91b5df9ff5b ]
 
-brcmf_fw_crashed() and the debugfs "reset" entry both schedule
-drvr->bus_reset, whose callback recovers drvr through container_of()
-and dereferences it.  The removal path frees drvr (brcmf_free ->
-wiphy_free) without draining the work, so a bus_reset callback pending
-or running during removal can outlive drvr.
+Cypress(Infineon) is not the vendor for this 43752 SDIO WLAN chip, and so
+has not officially released any firmware binary for it. It is incorrect to
+maintain this WLAN chip with firmware vendor ID as "CYW". So relabel the
+chip's firmware Vendor ID as "WCC" as suggested by the maintainer.
 
-Cancellation cannot live in brcmf_detach() or brcmf_free(): the work
-callback reaches teardown through the bus .reset op (PCIe
-brcmf_pcie_reset -> brcmf_detach; SDIO brcmf_sdio_bus_reset ->
-brcmf_sdiod_remove -> brcmf_free), so cancelling there would wait for
-the running work and deadlock.
-
-Add a per-bus mutex (bus_reset_lock) and route all arming through
-brcmf_bus_schedule_reset(), which under the lock skips when the bus is
-marked removing.  Each bus remove entry calls
-brcmf_bus_cancel_reset_work(), which under the same lock sets removing
-and cancels the work.  Holding the mutex across cancel_work_sync() makes
-the set-removing + drain step atomic.  Every producer reaches the arming
-path from process context -- the PCIe firmware-halt notification runs in
-the threaded IRQ handler (brcmf_pcie_isr_thread) and the SDIO hostmail
-path runs from the data workqueue -- so the mutex is taken only in
-sleepable contexts.  Where applicable the remove entry first stops the
-firmware-crash producer: on PCIe mask the mailbox and synchronize_irq;
-on SDIO unregister the bus interrupt and cancel the data worker, which
-also reports firmware halts through brcmf_fw_crashed().  The mutex is
-initialized at bus allocation.  The SDIO suspend power-off path frees
-drvr through the same brcmf_sdiod_remove() and takes the same lock;
-resume re-allows the work only on a successful re-probe.
-
-Also guard brcmf_fw_crashed() against a NULL bus_if/drvr: it can fire
-before brcmf_attach() wires up drvr, and it dereferences drvr
-(bphy_err/brcmf_dev_coredump) before reaching the arming gate.
-
-The bus_reset work is shared across buses, so the drain is applied to
-every remove path: PCIe (the .reset op introduced by the Fixes commit),
-SDIO (arms the same work through brcmf_fw_crashed()), and USB (via the
-debugfs "reset" entry).  cancel_work_sync() drains a running or pending
-bus_reset work item before removal frees drvr, and patch 1/2 makes the
-scratch-buffer release safe when reset teardown has already released
-those DMA buffers.
-
-This patch fixes the lifetime of the bus_reset work item itself.  It does
-not attempt to address the separate, pre-existing lifetime of the
-asynchronous firmware completion started by the PCIe reset path.  That
-callback needs its own lifetime/ownership protocol and is being tracked
-separately.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 4684997d9eea ("brcmfmac: reset PCIe bus on a firmware crash")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Assisted-by: Codex:gpt-5.6
+Fixes: d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
+Fixes: f74f1ec22dc2 ("wifi: brcmfmac: add support for Cypress firmware api")
+Signed-off-by: Gokul Sivakumar <gokulkumar.sivakumar@infineon.com>
 Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
-Link: https://patch.msgid.link/20260718024353.3147201-3-fanwu01@zju.edu.cn
+Link: https://patch.msgid.link/20250724101136.6691-1-gokulkumar.sivakumar@infineon.com
 Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Stable-dep-of: 29ab31f3f271 ("wifi: brcmfmac: set F2 blocksize to 256 for BCM43752")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../broadcom/brcm80211/brcmfmac/bcmsdh.c      | 13 ++++++
- .../broadcom/brcm80211/brcmfmac/bus.h         |  6 +++
- .../broadcom/brcm80211/brcmfmac/core.c        | 45 +++++++++++++++++--
- .../broadcom/brcm80211/brcmfmac/pcie.c        |  6 +++
- .../broadcom/brcm80211/brcmfmac/sdio.c        |  6 +++
- .../broadcom/brcm80211/brcmfmac/sdio.h        |  1 +
- .../broadcom/brcm80211/brcmfmac/usb.c         |  3 ++
- 7 files changed, 77 insertions(+), 3 deletions(-)
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c | 2 +-
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c   | 2 +-
+ include/linux/mmc/sdio_ids.h                              | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-index 106804b93f1a4..f7c18304a0e86 100644
+index 7cd8ec6f515a4..252160f7ffd2b 100644
 --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
 +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-@@ -1042,6 +1042,7 @@ static int brcmf_ops_sdio_probe(struct sdio_func *func,
- 	bus_if = kzalloc(sizeof(struct brcmf_bus), GFP_KERNEL);
- 	if (!bus_if)
- 		return -ENOMEM;
-+	mutex_init(&bus_if->bus_reset_lock);
- 	sdiodev = kzalloc(sizeof(struct brcmf_sdio_dev), GFP_KERNEL);
- 	if (!sdiodev) {
- 		kfree(bus_if);
-@@ -1101,6 +1102,14 @@ static void brcmf_ops_sdio_remove(struct sdio_func *func)
- 		if (func->num != 1)
- 			return;
- 
-+		/* Drain bus_reset before the shared brcmf_sdiod_remove()
-+		 * teardown, which the SDIO reset callback also reaches.  The
-+		 * data worker can arm bus_reset via brcmf_fw_crashed(); cancel
-+		 * it first.
-+		 */
-+		brcmf_sdio_cancel_datawork(sdiodev->bus);
-+		brcmf_bus_cancel_reset_work(bus_if);
-+
- 		/* only proceed with rest of cleanup if func 1 */
- 		brcmf_sdiod_remove(sdiodev);
- 
-@@ -1162,6 +1171,8 @@ static int brcmf_ops_sdio_suspend(struct device *dev)
- 	} else {
- 		/* power will be cut so remove device, probe again in resume */
- 		brcmf_sdiod_intr_unregister(sdiodev);
-+		brcmf_sdio_cancel_datawork(sdiodev->bus);
-+		brcmf_bus_cancel_reset_work(bus_if);
- 		ret = brcmf_sdiod_remove(sdiodev);
- 		if (ret)
- 			brcmf_err("Failed to remove device on suspend\n");
-@@ -1187,6 +1198,8 @@ static int brcmf_ops_sdio_resume(struct device *dev)
- 		ret = brcmf_sdiod_probe(sdiodev);
- 		if (ret)
- 			brcmf_err("Failed to probe device on resume\n");
-+		else
-+			brcmf_bus_allow_reset_work(bus_if);
- 	} else {
- 		if (sdiodev->wowl_enabled &&
- 		    sdiodev->settings->bus.sdio.oob_irq_supported)
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h
-index 3f5da3bb6aa59..b606094af2a3f 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bus.h
-@@ -6,6 +6,7 @@
- #ifndef BRCMFMAC_BUS_H
- #define BRCMFMAC_BUS_H
- 
-+#include <linux/mutex.h>
- #include "debug.h"
- 
- /* IDs of the 6 default common rings of msgbuf protocol */
-@@ -149,11 +150,16 @@ struct brcmf_bus {
- 	u32 chiprev;
- 	bool always_use_fws_queue;
- 	bool wowl_supported;
-+	bool removing;		/* device removal in progress; quiesce async work */
-+	struct mutex bus_reset_lock;
- 
- 	const struct brcmf_bus_ops *ops;
- 	struct brcmf_bus_msgbuf *msgbuf;
+@@ -981,10 +981,10 @@ static const struct sdio_device_id brcmf_sdmmc_ids[] = {
+ 	BRCMF_SDIO_DEVICE(SDIO_DEVICE_ID_BROADCOM_4354),
+ 	BRCMF_SDIO_DEVICE(SDIO_DEVICE_ID_BROADCOM_4356),
+ 	BRCMF_SDIO_DEVICE(SDIO_DEVICE_ID_BROADCOM_4359),
++	BRCMF_SDIO_DEVICE(SDIO_DEVICE_ID_BROADCOM_43752),
+ 	BRCMF_SDIO_DEVICE(SDIO_DEVICE_ID_BROADCOM_CYPRESS_4373),
+ 	BRCMF_SDIO_DEVICE(SDIO_DEVICE_ID_BROADCOM_CYPRESS_43012),
+ 	BRCMF_SDIO_DEVICE(SDIO_DEVICE_ID_BROADCOM_CYPRESS_43439),
+-	BRCMF_SDIO_DEVICE(SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752),
+ 	BRCMF_SDIO_DEVICE(SDIO_DEVICE_ID_BROADCOM_CYPRESS_89359),
+ 	{ /* end: all zeroes */ }
  };
- 
-+void brcmf_bus_cancel_reset_work(struct brcmf_bus *bus_if);
-+void brcmf_bus_allow_reset_work(struct brcmf_bus *bus_if);
-+
- /*
-  * callback wrappers
-  */
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-index 35dd99dd7dfd1..e33f9edceb5f0 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
-@@ -1166,6 +1166,35 @@ static int brcmf_revinfo_read(struct seq_file *s, void *data)
- 	return 0;
- }
- 
-+/*
-+ * Serialize arming from debugfs reset and brcmf_fw_crashed() against
-+ * teardown.  The remove path sets ->removing and drains the work while
-+ * holding bus_reset_lock, so a racing armer is either drained or skips it.
-+ */
-+static void brcmf_bus_schedule_reset(struct brcmf_bus *bus_if)
-+{
-+	mutex_lock(&bus_if->bus_reset_lock);
-+	if (bus_if->drvr && bus_if->drvr->bus_reset.func && !bus_if->removing)
-+		schedule_work(&bus_if->drvr->bus_reset);
-+	mutex_unlock(&bus_if->bus_reset_lock);
-+}
-+
-+void brcmf_bus_cancel_reset_work(struct brcmf_bus *bus_if)
-+{
-+	mutex_lock(&bus_if->bus_reset_lock);
-+	bus_if->removing = true;
-+	if (bus_if->drvr)
-+		cancel_work_sync(&bus_if->drvr->bus_reset);
-+	mutex_unlock(&bus_if->bus_reset_lock);
-+}
-+
-+void brcmf_bus_allow_reset_work(struct brcmf_bus *bus_if)
-+{
-+	mutex_lock(&bus_if->bus_reset_lock);
-+	bus_if->removing = false;
-+	mutex_unlock(&bus_if->bus_reset_lock);
-+}
-+
- static void brcmf_core_bus_reset(struct work_struct *work)
- {
- 	struct brcmf_pub *drvr = container_of(work, struct brcmf_pub,
-@@ -1186,7 +1215,7 @@ static ssize_t bus_reset_write(struct file *file, const char __user *user_buf,
- 	if (value != 1)
- 		return -EINVAL;
- 
--	schedule_work(&drvr->bus_reset);
-+	brcmf_bus_schedule_reset(drvr->bus_if);
- 
- 	return count;
- }
-@@ -1404,13 +1433,23 @@ void brcmf_dev_coredump(struct device *dev)
- void brcmf_fw_crashed(struct device *dev)
- {
- 	struct brcmf_bus *bus_if = dev_get_drvdata(dev);
--	struct brcmf_pub *drvr = bus_if->drvr;
-+	struct brcmf_pub *drvr;
-+
-+	/* May fire before brcmf_attach() wires up drvr, or after removal
-+	 * has cleared it; guard the derefs below (and the arming gate in
-+	 * brcmf_bus_schedule_reset() already checks drvr/->removing).
-+	 */
-+	if (!bus_if)
-+		return;
-+	drvr = bus_if->drvr;
-+	if (!drvr)
-+		return;
- 
- 	bphy_err(drvr, "Firmware has halted or crashed\n");
- 
- 	brcmf_dev_coredump(dev);
- 
--	schedule_work(&drvr->bus_reset);
-+	brcmf_bus_schedule_reset(bus_if);
- }
- 
- void brcmf_detach(struct device *dev)
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-index 0f5431e4ac208..8c9cde0c73411 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-@@ -1888,6 +1888,7 @@ brcmf_pcie_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		ret = -ENOMEM;
- 		goto fail;
- 	}
-+	mutex_init(&bus->bus_reset_lock);
- 	bus->msgbuf = kzalloc(sizeof(*bus->msgbuf), GFP_KERNEL);
- 	if (!bus->msgbuf) {
- 		ret = -ENOMEM;
-@@ -1959,6 +1960,11 @@ brcmf_pcie_remove(struct pci_dev *pdev)
- 	if (devinfo->ci)
- 		brcmf_pcie_intr_disable(devinfo);
- 
-+	if (devinfo->irq_allocated)
-+		synchronize_irq(pdev->irq);
-+
-+	brcmf_bus_cancel_reset_work(bus);
-+
- 	brcmf_detach(&pdev->dev);
- 	brcmf_free(&pdev->dev);
- 
 diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-index 6ac2132c30647..5f06954589e55 100644
+index 5f6c0afe22d49..caac171175a67 100644
 --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
 +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-@@ -4530,6 +4530,12 @@ struct brcmf_sdio *brcmf_sdio_probe(struct brcmf_sdio_dev *sdiodev)
- 	return NULL;
- }
+@@ -4267,8 +4267,8 @@ static void brcmf_sdio_firmware_callback(struct device *dev, int err,
+ 				   bus->hostintmask, NULL);
  
-+void brcmf_sdio_cancel_datawork(struct brcmf_sdio *bus)
-+{
-+	if (bus)
-+		cancel_work_sync(&bus->datawork);
-+}
-+
- /* Detach and free everything */
- void brcmf_sdio_remove(struct brcmf_sdio *bus)
- {
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h
-index 15d2c02fa3ec8..3c68ebf8efaa8 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.h
-@@ -373,6 +373,7 @@ int brcmf_sdiod_remove(struct brcmf_sdio_dev *sdiodev);
- struct brcmf_sdio *brcmf_sdio_probe(struct brcmf_sdio_dev *sdiodev);
- void brcmf_sdio_remove(struct brcmf_sdio *bus);
- void brcmf_sdio_isr(struct brcmf_sdio *bus, bool in_isr);
-+void brcmf_sdio_cancel_datawork(struct brcmf_sdio *bus);
+ 		switch (sdiod->func1->device) {
++		case SDIO_DEVICE_ID_BROADCOM_43752:
+ 		case SDIO_DEVICE_ID_BROADCOM_CYPRESS_4373:
+-		case SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752:
+ 			brcmf_dbg(INFO, "set F2 watermark to 0x%x*4 bytes\n",
+ 				  CY_4373_F2_WATERMARK);
+ 			brcmf_sdiod_writeb(sdiod, SBSDIO_WATERMARK,
+diff --git a/include/linux/mmc/sdio_ids.h b/include/linux/mmc/sdio_ids.h
+index 0e4ef9c5127ad..3628f89f04894 100644
+--- a/include/linux/mmc/sdio_ids.h
++++ b/include/linux/mmc/sdio_ids.h
+@@ -76,7 +76,7 @@
+ #define SDIO_DEVICE_ID_BROADCOM_43430		0xa9a6
+ #define SDIO_DEVICE_ID_BROADCOM_CYPRESS_43439	0xa9af
+ #define SDIO_DEVICE_ID_BROADCOM_43455		0xa9bf
+-#define SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752	0xaae8
++#define SDIO_DEVICE_ID_BROADCOM_43752		0xaae8
  
- void brcmf_sdio_wd_timer(struct brcmf_sdio *bus, bool active);
- void brcmf_sdio_wowl_config(struct device *dev, bool enabled);
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
-index 8c12aaffe7191..29824caa9d4d6 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/usb.c
-@@ -1273,6 +1273,7 @@ static int brcmf_usb_probe_cb(struct brcmf_usbdev_info *devinfo)
- 		ret = -ENOMEM;
- 		goto fail;
- 	}
-+	mutex_init(&bus->bus_reset_lock);
- 
- 	bus->dev = dev;
- 	bus_pub->bus = bus;
-@@ -1338,6 +1339,8 @@ brcmf_usb_disconnect_cb(struct brcmf_usbdev_info *devinfo)
- 		return;
- 	brcmf_dbg(USB, "Enter, bus_pub %p\n", devinfo);
- 
-+	brcmf_bus_cancel_reset_work(devinfo->bus_pub.bus);
-+
- 	brcmf_detach(devinfo->dev);
- 	brcmf_free(devinfo->dev);
- 	kfree(devinfo->bus_pub.bus);
+ #define SDIO_VENDOR_ID_MARVELL			0x02df
+ #define SDIO_DEVICE_ID_MARVELL_LIBERTAS		0x9103
 -- 
 2.53.0
 
