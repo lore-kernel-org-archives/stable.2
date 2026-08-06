@@ -1,83 +1,79 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E804D2EE4
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 19:25:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3344C9579
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 19:32:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786044312; cv=none; b=pQdXq2B78D14HBDdfVxB5VwWKU1vB8ICohyoC92/GdcGwAxxcTbyh4LxOgoW2wSGj7zQr2C4pxuHyEjvwtMRZVJqI1TP8e7TKe9k9abpyOxch2gKbS4kHW381KDuX38HEyqURlYB2lo3leTohxYRTULumq3nKxIPlEZpObH/isM=
+	t=1786044770; cv=none; b=aWESraImaLuabf07hz48niYMFYUK78Id+ev4qh7Yei9stZkkMDxTEH+sf08TxJ2ShUUP1altkMgtSfiHbCsk5plCPR6XVSAStbUmpQjLCts8L9hrBERwOIySyzJ+wo9NcpuvAFb5xqigPuOf6HAkPFNXJmPyL2GAj4uglNJwK+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786044312; c=relaxed/simple;
-	bh=eOpTOOtsSiH93bf4Pk+e4HZeJ9yZohnQhzBcJPSS5Y0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=V6YVJKueFXlONUUpv1691YgnsAF/4JyEKasI3sQYXH+Vr+qI18cocIhTFyY3X8spGjQ9MxxwWUbixux9dNBuLq/sqNZMIx/bUlOSxCWfnV93pJvElDd3uHgqSTQ41IIw3BCn1GgJW8+lPKeGyW3OI1QZaE0gFv6lGP6S49zVQT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sszNEkcf; arc=none smtp.client-ip=209.85.221.46
+	s=arc-20240116; t=1786044770; c=relaxed/simple;
+	bh=NNxzFXI7pN1Y/78YNlfVXVgkFP6QpAm2AZETnXcEq4g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kZliGtakW3r5C/JgwZvReTNQA1/XC0SVFAjcwXKG5zkjqFPYyeRim0Vi2oBMwrCze0tSkQQUw/AqFMqBWM06Mq16qiNPTNWx2xSq6BjEej9cF4B6eVjihVW3ebRoCmh5qYcV3CQ5go3Jy21p0illGFmPgHdR8oPses4ptzxFF2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z8sGdIHN; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sszNEkcf"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47f93b2fe4cso1690335f8f.0
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 12:25:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z8sGdIHN"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47f93b2fe4cso1693389f8f.0
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 12:32:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786044299; x=1786649099; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786044767; x=1786649567; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VJntHgxC09/3/XGghh26P3Kedsxi46TFVYMjNf12sL4=;
-        b=sszNEkcf0hodniT1/LUAjrhzvn2lbAEk+9kRg6vP+tOf6LykAd0NCxtUOyfWt5gkaR
-         FrOGsw3aO0XrV3EHY5l9yWO7FDhI42wqQ/pM4oO4Yzq03UilVhOagkL7imOHdgEB3JsQ
-         UpGrQx2uzD0dwDCmgHGBat4aLA2PCDFlsnULKNFGtFGzQk4TitTYedQfcyGyj5RfTLQK
-         GF+UQdrVp7/sgf9PIrxYDwGXFX5NN+8z+e5mOU9nSm7ZqfqoYLFQGXWf5WOHXT7U3kYA
-         W4OMLRFik9KX51AnTWsKOdhGxgn+idAHd9ZDG9pNFsXteWd3nkXVg27aAaIsxGzlF29b
-         zykQ==
+        bh=4TlLU3iudfDSh37R1MgKEhJzdbfc94lN89q/rnC4V6M=;
+        b=Z8sGdIHNXu/swaImZVfasvHchMwfFf1q6+nguTmRuEOfMSJg4rurSDBx8zW8ug/CdS
+         AjX6Gpv07XhE9GQvjFAssOYMImCgdpOzwFkaLe8KcvO/qCAbPd88aP68pYVdfSzbNHiK
+         kCcAn7PQ/sQLq8miXT4VO0U6Vqmp9nZYSDoj/O9KjGQDWbnqTlroY+bAokwwVzPxPPR9
+         tji4654imjtFqNNVRallg3boa/NpPKDyLVd8mZMUV4fwp9Y5CTXr4uDnkRmDBumd1CAW
+         5/l8oSOLJDuCAbLRyj5qGiwau4NQbdnVmAaywuHV+M9vwAY78tVCaRQaawD/SY4vnlpN
+         R03A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786044299; x=1786649099;
+        d=1e100.net; s=20251104; t=1786044767; x=1786649567;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VJntHgxC09/3/XGghh26P3Kedsxi46TFVYMjNf12sL4=;
-        b=ehs3++AJREHFBHsba6GkPIKwi9zAfqGTrI4m9aidFsBxloKttF4iYu+DYuaEGTSDLX
-         1VSIzEjK6gdtCbXNQu2ptFa4h8njT65EwwRWDqKjqkWIu/2lyHY+Ff59ywHzSmcOGIul
-         6/f66uBoqs0Cvc7pkf/NHyWoCgtFwnTAg7AcPm/ZyUXfvKqX9SeFwZyl/o3++zfh2x8U
-         jZZ9FBgT5TrR8+UgWxqA3+dyDTSYyzO7Jujg0sBHTG2EITZTseoW1C3OW9mtuZD/Mwru
-         SuzCt13gW/TcjZwRe0Z3bA6dR7CJGQ+gNDwwbIkOA4Hy6UgZVrdqeFLNIxZQ+mqsXK3O
-         HYsA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp59TG7Xt70HACczTSjPvW1KQqJk7oQEJnL3+adSNYo6HCWK72esW5yyzoUH4km2WV+SFPrhfU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxXHiHV+UMoc+b/cRieubryG55Gj/UeRI+3ZvcovGyuK2W4oEd+
-	rLhoQP30wklWoKK9eHJMLiWYGb3HQVXhrF8qF+Zc/MIhDyvLEv9VhsWq
-X-Gm-Gg: AR+sD12AGb/ux61qPgNkg3tkWnHhGDgGEoj4AecpA8rvHLWVP+79MVBQmx25nXZUGLm
-	Arm/+oRPzrjJ7XkItrJNLUMVdHJ5MNf2dBjMqVBXf+SOnD7LPNpbk+F6gQR1yzmReO5r4zfO9X2
-	XxmHXa1eN34hXRX6zsyNlrwQPVM6do2TtXCPU3N/YIC13IT90UKXSQrb+5X4dhw0mTrVYAgMqVR
-	5IvWOBFzIR1uE3xchMUg7nqifDuHJmQXh2SxWpukuwWmt0VrtvuZ0YkWmoolT+XVtG/7iY5sMjk
-	9euxGDUTtkolZloSEOwGebcA43eBD5cm0i/AKmcZp3ZxVTtbQwjxWQMp6Mxnom5XwD5Qk2L2kLz
-	tQEUVjJ1yvValZJQ2xfiijH3yYLXTJ9MQfdf3dt9fXD9kEukSlUcT91nvb6C6+OlPrJ84sOUIsv
-	gNiOLpX3Sd6VTgAUfrUyGwk2Vej25VJLJtMOi38tTnbIun/vWjApoFBMgVEym30gTyYqsswCj+5
-	49/jdVaggvxmmjzc5h8N4jnVwpMFlnE1KvU2OnEQNsmy3w+vYc3QY+YAHvrrPxhtWQsWc6FMyRP
-	TEtl/I1m7phM6U3qbn9yulK/hj9jsfL+iP1b+XpFH7B6PMPL4Tk69pOLDh3LcSEHTPCSuJUp7Q=
+        bh=4TlLU3iudfDSh37R1MgKEhJzdbfc94lN89q/rnC4V6M=;
+        b=iY1d5FMzoYz0kZI0Sx6RJ/wgwUR/6zI8bTCpoNIqXWvhkH9ZxrA2axjSQG7XVBbJMA
+         0v1d6zm/+jpNzZcQWLH0j44Yd0kHfno9zreq0X1gqYOdyOTZRnFL8LoHepIu06Cgt6eb
+         RGOEUiBjLsh2eQn2SbaCNSdp0bmwBMac+bly3MOWHNHMiM4jfQK85LPkk/crvk4Q0R3s
+         jVxNW/kYJC4u/uTsFg3NxKrBS8qiToztdvVJ9/xCJX1RZ4LuQ+CF8QIvZMCkYvomaiGv
+         SnBuXW1LTMdmYToixSLJYyjmnDdVRA9xL28F4UPw7xzjjrPmx/Sb2WhlBBcw1o8tk0Bc
+         fCcQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpvIYzZGOKl3cEZE7FH6wedNTNycDrZ883VuRNFmLl/1CaAqm5CmSVyyZ+8fon41zQP8srov1c=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzOSJg6fsA9fcekkHaWU0UgKiKUBWOq4RZeVKTacLq6IP+8Nzbs
+	dySZ//6qlOv1IfmPa82Q0gyaSKERDK/SiLglZFDA6fNY3wAkR3wro/9s
+X-Gm-Gg: AR+sD13G5Tw8pc2S8654PrC2cVLM0zLlJFQQIFcaG347tm9eds8mDvG5+9B5qGQN2Os
+	Z151h6jXH7Kq2dGRxIRVYjt8itahjAK4ImXbZ60sYKMw5JWmPo9JXHlQRITjZWNBkIq/mvJHiEG
+	3ML2nDp+phSGJxrDzkn0tg8EMmhhgDfrWPZQnCC4CbcPjRqhjTNf9oiEWg7cqZjPgnqrmjeDb5T
+	0IpdSjGmKNozDAnKAbvwsv4iaRIlrRUIofubIJwWNRs99q83Q289FUUrk9G/xmTe5yFY0GtEYs7
+	sL6r0WFv+RW2zVMgQlZyTe7XKFWgxHQgso/etGowapZbnD1bFWzgE2TNqDgOQCfZGVJGufzkKtt
+	RCnud2D2q/pnuJvY6SyLCCq3oMppNFcNSJYhtwsEhFtbMrV4/jx5mZ6SFi0h7L3Y46I6KYzNZo8
+	bHEEuvidS6seFaQiCr5y6VOi9Kvaj/v+PyiJRxZRtbpXLeU8e4SiLWck+Gw3fI3EdinbuIElF5n
+	zua+Qp8qMCg3mKGayD4duvBBxe/y0lZBU/00I5iZovfHgumiTe7hTxPqFjobZh1mxnfyX0ZbibI
+	emLs5T4hbgjAbdu1dCbRjpWNUAlak9m+obBhlfUMGfvQrEAM0it9JDo4I80gzJQp0ik6FWbKig=
 	=
-X-Received: by 2002:adf:f4cf:0:b0:47f:776f:3838 with SMTP id ffacd0b85a97d-47fec5030e5mr23574023f8f.6.1786044298253;
-        Thu, 06 Aug 2026 12:24:58 -0700 (PDT)
+X-Received: by 2002:a5d:67cc:0:b0:47f:6dcb:3737 with SMTP id ffacd0b85a97d-47fec64be03mr19894812f8f.29.1786044766987;
+        Thu, 06 Aug 2026 12:32:46 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-adf9-2301-8c14-6be6-a9e6-a2d4.310.pool.telefonica.de. [2a02:3100:adf9:2301:8c14:6be6:a9e6:a2d4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47ff79a718bsm9164173f8f.5.2026.08.06.12.24.57
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47ff7b250cfsm8782322f8f.28.2026.08.06.12.32.46
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 06 Aug 2026 12:24:57 -0700 (PDT)
+        Thu, 06 Aug 2026 12:32:46 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Fuad Tabba <tabba@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Andy Chiu <tchiu@tenstorrent.com>,
+	Yong-Xuan Wang <yongxuan.wang@sifive.com>,
+	Greentime Hu <greentime.hu@sifive.com>,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	grayhat@foxmail.com
-Subject: [PATCH v3] KVM: arm64: nv: Keep the shadow S2 MMUs at fixed addresses
-Date: Thu,  6 Aug 2026 21:24:51 +0200
-Message-Id: <20260806192451.10169-1-kmehltretter@gmail.com>
+	stable@vger.kernel.org
+Subject: [PATCH] riscv: vector: preserve state when scheduling at nonzero depth
+Date: Thu,  6 Aug 2026 21:32:41 +0200
+Message-Id: <20260806193241.10552-1-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -87,300 +83,246 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kvm_vcpu_init_nested() can grow kvm->arch.nested_mmus while initialising
-another vCPU: it copies the MMUs, publishes the new allocation, and frees
-the old one. It updates pgt->mmu back-pointers, but not hw_mmu, leaving
-already-running vCPUs with pointers to freed memory. hw_mmu cannot be
-fixed up the same way: a running vCPU reads it without holding mmu_lock.
-The nested S2 ptdump file's debugfs private data is also affected, as it
-points into the freed array.
+The IN_SCHEDULE shortcut lets __switch_to_vector() discard Vector state at
+a voluntary schedule point, where Vector registers are caller-saved.
+Switch-in can then enable Vector without restoring state.
 
-KASAN reports an access through the stale hw_mmu pointer as a
-slab-use-after-free in kvm_handle_guest_abort().
+An interrupt or fault can also schedule at nonzero Vector nesting depth.
+This triggers:
 
-Turn nested_mmus into a pointer table allocated once for the maximum
-number of vCPUs during VM creation. Allocate the MMUs separately as
-vCPUs are initialised and append their pointers to that table. The MMU
-objects never move, so cached hw_mmu pointers, pgt->mmu back-pointers,
-and ptdump private data remain valid.
+  WARNING: arch/riscv/include/asm/vector.h:376 at __schedule+0xfbc/0x10b4
 
-Two issues in the old implementation are also fixed:
+The shortcut is then also taken on switch-in, so it skips NEED_RESTORE and
+riscv_v_context_nesting_end() resumes with stale Vector registers. In the
+vector usercopy loop, an interrupt between vsetvli and vle8.v/vse8.v can
+therefore resume with another task's vl, vtype and vector registers. The
+scalar loop state survives, so the copy can use the wrong vector length and
+silently corrupt user data. A sleeping page fault in vectorized usercopy
+can reach the same switch without CONFIG_PREEMPTION.
 
-- The old failure path passed uninitialised MMUs to
-  kvm_free_stage2_pgd(), which derives kvm from mmu->arch and can
-  therefore dereference an invalid pointer. Only call
-  kvm_free_stage2_pgd() for initialised MMUs.
-- Previously, initialisation of the new MMUs was not ordered before
-  publication of nested_mmus_size. Fix this by taking mmu_lock when
-  increasing nested_mmus_size.
+Use the shortcut only at depth zero. Nonzero-depth switches retain the
+existing save and NEED_RESTORE protocol.
 
-Fixes: 4f128f8e1aaa ("KVM: arm64: nv: Support multiple nested Stage-2 mmu structures")
+Fixes: d1049fc0de81 ("riscv: vector: Support calling schedule() for preemptible Vector")
 Cc: stable@vger.kernel.org
-Suggested-by: Marc Zyngier <maz@kernel.org>
-Assisted-by: Claude:claude-fable-5
+Assisted-by: Codex:gpt-5.6-luna
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- arch/arm64/include/asm/kvm_host.h   |  6 +--
- arch/arm64/include/asm/kvm_nested.h |  2 +-
- arch/arm64/kvm/arm.c                |  7 ++-
- arch/arm64/kvm/nested.c             | 81 ++++++++++++++++-------------
- 4 files changed, 54 insertions(+), 42 deletions(-)
+Reproducer:
 
-Changes in v3:
-- Tighten the commit message (Wei-Lin Chang).
-- The code diff changes only arch/arm64/kvm/nested.c compared to v2:
-  - Drop the redundant pointer-table allocation comment and use
-    guard(write_lock) when publishing nested_mmus_size (Wei-Lin Chang).
-  - Rewrite the error handling without gotos.
+Originally caught by syzkaller fuzzing:
 
-v2: https://lore.kernel.org/r/20260806062352.93489-1-kmehltretter@gmail.com/
+  [   75.067010] ------------[ cut here ]------------
+  [   75.069361] WARNING: arch/riscv/include/asm/vector.h:376 at __schedule+0xfbc/0x10b4, CPU#1: syz.4.788/3533
+  [   75.072830] CPU: 1 UID: 0 PID: 3533 Comm: syz.4.788 Not tainted 7.2.0-rc5-g11f985de3fef #3 PREEMPTLAZY
+  [   75.075177] [<ffffffff810cb124>] __schedule+0xfbc/0x10b4
+  [   75.075572] [<ffffffff810cb41c>] preempt_schedule_irq+0x2a/0x76
+  [   75.075753] [<ffffffff810c6a06>] irqentry_exit+0x260/0xd48
+  [   75.075911] [<ffffffff810c666a>] do_irq+0x34/0x48
+  [   75.076076] [<ffffffff810d4f82>] handle_exception+0x146/0x174
+  [   75.076380] [<ffffffff810c5654>] loop+0x4/0x26
+  [   75.076505] [<ffffffff80749838>] copy_folio_from_iter_atomic+0x2d4/0xd64
+  [   75.078599] ---[ end trace 0000000000000000 ]---
 
-Changes in v2:
-- Allocate the fixed pointer table during VM creation, as suggested by Marc.
-- Allocate the MMUs individually and simplify the error and teardown paths.
-- Drop the selftest patch that triggered KASAN.
-  It is not a good fit for the existing suite.
+The following standalone workload exercises the same vectorized usercopy
+path. Build vector-stress.c into the initramfs and mount debugfs before
+running it. The kernel used CONFIG_PREEMPT_LAZY=y,
+CONFIG_RISCV_ISA_V_PREEMPTIVE=y and CONFIG_KCOV=y. Run it under QEMU TCG
+with:
 
-v1: https://lore.kernel.org/r/20260803224405.41468-1-kmehltretter@gmail.com/
+  qemu-system-riscv64 -machine virt -cpu max -smp 1 -nographic \
+    -kernel arch/riscv/boot/Image -initrd vector-diag-small-memcheck.cpio.gz \
+    -append 'console=ttyS0 earlycon=sbi rdinit=/init'
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index bae2c4f92ef5..59d1d77ee116 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -319,10 +319,10 @@ struct kvm_arch {
- 	u64 fgu[__NR_FGT_GROUP_IDS__];
+The stress program checks every byte read back from the pipe. With this
+patch, the workload completed with failures=0 and no Vector warning.
+
+Testing:
+  checkpatch.pl --strict, git diff --check, Image builds with
+  CONFIG_RISCV_ISA_V_PREEMPTIVE=y and CONFIG_RISCV_ISA_V_PREEMPTIVE=n, and
+  QEMU TCG one-vCPU stress runs. The patched workload completed with
+  failures=0 and no warning.
+
+No conflict with Andy Chiu's pending "riscv: optimize Vector context restore
+on syscall" series; both apply independently.
+
+vector-stress.c:
+
+#define _GNU_SOURCE
+
+#include <errno.h>
+#include <fcntl.h>
+#include <linux/kcov.h>
+#include <pthread.h>
+#include <sched.h>
+#include <stdatomic.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#define WORKERS 4
+#define ITERATIONS 2000
+#define CHUNK (16 * 1024)
+#define KCOV_ENTRIES (1 << 16)
+#define KCOV_BYTES (KCOV_ENTRIES * sizeof(unsigned long))
+
+static pthread_barrier_t start_barrier;
+static atomic_int failures;
+
+static int kcov_start(unsigned long **area, int *fd, int id)
+{
+	unsigned long *map;
+	int kfd, saved_errno;
+
+	kfd = open("/sys/kernel/debug/kcov", O_RDWR);
+	if (kfd < 0) {
+		dprintf(STDERR_FILENO, "worker %d: KCOV open: %s\n", id,
+			strerror(errno));
+		return -1;
+	}
+	if (ioctl(kfd, KCOV_INIT_TRACE, KCOV_ENTRIES) < 0) {
+		dprintf(STDERR_FILENO, "worker %d: KCOV init: %s\n", id,
+			strerror(errno));
+		goto fail_close;
+	}
+	map = mmap(NULL, KCOV_BYTES,
+			PROT_READ | PROT_WRITE, MAP_SHARED, kfd, 0);
+	if (map == MAP_FAILED) {
+		dprintf(STDERR_FILENO, "worker %d: KCOV mmap: %s\n", id,
+			strerror(errno));
+		goto fail_close;
+	}
+	if (ioctl(kfd, KCOV_ENABLE, KCOV_TRACE_PC) < 0) {
+		dprintf(STDERR_FILENO, "worker %d: KCOV enable: %s\n", id,
+			strerror(errno));
+		saved_errno = errno;
+		munmap(map, KCOV_BYTES);
+		errno = saved_errno;
+		goto fail_close;
+	}
+	*area = map;
+	*fd = kfd;
+	return 0;
+
+fail_close:
+	saved_errno = errno;
+	close(kfd);
+	errno = saved_errno;
+	return -1;
+}
+
+static void *worker(void *arg)
+{
+	unsigned long *area;
+	unsigned char *buffer;
+	int pipefd[2], kfd, id = (int)(uintptr_t)arg;
+
+	if (kcov_start(&area, &kfd, id) < 0) {
+		atomic_fetch_add(&failures, 1);
+		return NULL;
+	}
+	if (pipe2(pipefd, O_CLOEXEC) < 0) {
+		dprintf(STDERR_FILENO, "worker %d: pipe failed: %s\n", id,
+			strerror(errno));
+		atomic_fetch_add(&failures, 1);
+		goto out_kcov;
+	}
+	buffer = aligned_alloc(64, CHUNK);
+	if (!buffer) {
+		dprintf(STDERR_FILENO, "worker %d: allocation failed: %s\n", id,
+			strerror(errno));
+		atomic_fetch_add(&failures, 1);
+		goto out_pipe;
+	}
+	memset(buffer, 0x30 + id, CHUNK);
+	pthread_barrier_wait(&start_barrier);
+
+	for (int i = 0; i < ITERATIONS; i++) {
+		size_t done = 0;
+
+		while (done < CHUNK) {
+			ssize_t n = write(pipefd[1], buffer + done, CHUNK - done);
+			if (n < 0 && errno == EINTR)
+				continue;
+			if (n <= 0) {
+				atomic_fetch_add(&failures, 1);
+				goto out_buffer;
+			}
+			done += n;
+		}
+		done = 0;
+		while (done < CHUNK) {
+			ssize_t n = read(pipefd[0], buffer + done, CHUNK - done);
+			if (n < 0 && errno == EINTR)
+				continue;
+			if (n <= 0) {
+				atomic_fetch_add(&failures, 1);
+				goto out_buffer;
+			}
+			done += n;
+		}
+		for (size_t j = 0; j < CHUNK; j++) {
+			if (buffer[j] != (unsigned char)(0x30 + id)) {
+				dprintf(STDERR_FILENO,
+					"worker %d: data mismatch at %zu\n", id, j);
+				atomic_fetch_add(&failures, 1);
+				goto out_buffer;
+			}
+		}
+		if ((i & 7) == 0)
+			sched_yield();
+	}
+
+out_buffer:
+	free(buffer);
+out_pipe:
+	close(pipefd[0]);
+	close(pipefd[1]);
+out_kcov:
+	ioctl(kfd, KCOV_DISABLE, 0);
+	munmap(area, KCOV_BYTES);
+	close(kfd);
+	return NULL;
+}
+
+int main(void)
+{
+	pthread_t threads[WORKERS];
+
+	pthread_barrier_init(&start_barrier, NULL, WORKERS);
+	for (int i = 0; i < WORKERS; i++)
+		if (pthread_create(&threads[i], NULL, worker, (void *)(uintptr_t)i))
+			atomic_fetch_add(&failures, 1);
+	for (int i = 0; i < WORKERS; i++)
+		pthread_join(threads[i], NULL);
+	pthread_barrier_destroy(&start_barrier);
+
+	printf("vector-stress complete failures=%d\n", atomic_load(&failures));
+	return atomic_load(&failures) ? 1 : 0;
+}
+
+ arch/riscv/include/asm/vector.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/riscv/include/asm/vector.h b/arch/riscv/include/asm/vector.h
+index 00cb9c0982b1a..1766bb7494d3b 100644
+--- a/arch/riscv/include/asm/vector.h
++++ b/arch/riscv/include/asm/vector.h
+@@ -372,8 +372,8 @@ static inline void __switch_to_vector(struct task_struct *prev,
+ 	struct pt_regs *regs;
  
- 	/*
--	 * Stage 2 paging state for VMs with nested S2 using a virtual
--	 * VMID.
-+	 * Stage 2 paging state for VMs with nested S2 using a virtual VMID.
-+	 * MMUs are allocated separately to keep their addresses stable.
- 	 */
--	struct kvm_s2_mmu *nested_mmus;
-+	struct kvm_s2_mmu **nested_mmus;
- 	size_t nested_mmus_size;
- 	int nested_mmus_next;
- 
-diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-index 012d711034d1..d21be647ac57 100644
---- a/arch/arm64/include/asm/kvm_nested.h
-+++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -66,7 +66,7 @@ static inline u64 translate_ttbr0_el2_to_ttbr0_el1(u64 ttbr0)
- 
- extern bool forward_smc_trap(struct kvm_vcpu *vcpu);
- extern bool forward_debug_exception(struct kvm_vcpu *vcpu);
--extern void kvm_init_nested(struct kvm *kvm);
-+extern int kvm_init_nested(struct kvm *kvm);
- extern int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu);
- extern void kvm_init_nested_s2_mmu(struct kvm_s2_mmu *mmu);
- extern struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu);
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 50adfff75be8..e883e45382fb 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -223,8 +223,6 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 	mutex_unlock(&kvm->lock);
- #endif
- 
--	kvm_init_nested(kvm);
--
- 	ret = kvm_share_hyp(kvm, kvm + 1);
- 	if (ret)
- 		return ret;
-@@ -239,6 +237,10 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 	if (ret)
- 		goto err_free_cpumask;
- 
-+	ret = kvm_init_nested(kvm);
-+	if (ret)
-+		goto err_uninit_mmu;
-+
- 	if (is_protected_kvm_enabled()) {
- 		/*
- 		 * If any failures occur after this is successful, make sure to
-@@ -267,6 +269,7 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 
- err_uninit_mmu:
- 	kvm_uninit_stage2_mmu(kvm);
-+	kvfree(kvm->arch.nested_mmus);
- err_free_cpumask:
- 	free_cpumask_var(kvm->arch.supported_cpus);
- err_unshare_kvm:
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index dfb96edbdc43..7dedb9f8ee86 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -44,11 +44,18 @@ struct vncr_tlb {
-  */
- #define S2_MMU_PER_VCPU		2
- 
--void kvm_init_nested(struct kvm *kvm)
-+int kvm_init_nested(struct kvm *kvm)
- {
--	kvm->arch.nested_mmus = NULL;
-+	kvm->arch.nested_mmus = kvcalloc(KVM_MAX_VCPUS * S2_MMU_PER_VCPU,
-+					 sizeof(*kvm->arch.nested_mmus),
-+					 GFP_KERNEL_ACCOUNT);
-+	if (!kvm->arch.nested_mmus)
-+		return -ENOMEM;
-+
- 	kvm->arch.nested_mmus_size = 0;
- 	atomic_set(&kvm->arch.vncr_map_count, 0);
-+
-+	return 0;
- }
- 
- static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
-@@ -66,11 +73,17 @@ static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
- 	return kvm_init_stage2_mmu(kvm, mmu, kvm_get_pa_bits(kvm));
- }
- 
-+static void free_nested_s2_mmu(struct kvm_s2_mmu *mmu)
-+{
-+	kvm_free_stage2_pgd(mmu);
-+	kfree(mmu);
-+}
-+
- int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
- {
- 	struct kvm *kvm = vcpu->kvm;
--	struct kvm_s2_mmu *tmp;
--	int num_mmus, ret = 0;
-+	struct kvm_s2_mmu *mmu;
-+	int num_mmus, ret = 0, i;
- 
- 	if (test_bit(KVM_ARM_VCPU_HAS_EL2_E2H0, kvm->arch.vcpu_features) &&
- 	    !cpus_have_final_cap(ARM64_HAS_HCR_NV1))
-@@ -91,42 +104,38 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
- 	 */
- 	num_mmus = atomic_read(&kvm->online_vcpus) * S2_MMU_PER_VCPU;
- 
--	if (num_mmus > kvm->arch.nested_mmus_size) {
--		tmp = kvcalloc(num_mmus, sizeof(*tmp), GFP_KERNEL_ACCOUNT);
--		if (!tmp)
--			return -ENOMEM;
--
--		write_lock(&kvm->mmu_lock);
-+	if (num_mmus <= kvm->arch.nested_mmus_size)
-+		return 0;
- 
--		if (kvm->arch.nested_mmus_size) {
--			memcpy(tmp, kvm->arch.nested_mmus,
--			       size_mul(sizeof(*tmp), kvm->arch.nested_mmus_size));
-+	lockdep_assert_held(&kvm->arch.config_lock);
- 
--			for (int i = 0; i < kvm->arch.nested_mmus_size; i++)
--				tmp[i].pgt->mmu = &tmp[i];
-+	for (i = 0; i < S2_MMU_PER_VCPU; i++) {
-+		mmu = kzalloc_obj(*mmu, GFP_KERNEL_ACCOUNT);
-+		if (!mmu) {
-+			ret = -ENOMEM;
-+			break;
+ 	if (riscv_preempt_v_started(prev)) {
+-		if (riscv_v_is_on()) {
+-			WARN_ON(prev->thread.riscv_v_flags & RISCV_V_CTX_DEPTH_MASK);
++		if (riscv_v_is_on() &&
++		    !(prev->thread.riscv_v_flags & RISCV_V_CTX_DEPTH_MASK)) {
+ 			riscv_v_disable();
+ 			prev->thread.riscv_v_flags |= RISCV_PREEMPT_V_IN_SCHEDULE;
  		}
- 
--		swap(kvm->arch.nested_mmus, tmp);
--
--		write_unlock(&kvm->mmu_lock);
-+		ret = init_nested_s2_mmu(kvm, mmu);
-+		if (ret) {
-+			kfree(mmu);
-+			free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
-+			vcpu->arch.ctxt.vncr_array = NULL;
-+			break;
-+		}
- 
--		kvfree(tmp);
-+		kvm->arch.nested_mmus[kvm->arch.nested_mmus_size + i] = mmu;
- 	}
- 
--	for (int i = kvm->arch.nested_mmus_size; !ret && i < num_mmus; i++)
--		ret = init_nested_s2_mmu(kvm, &kvm->arch.nested_mmus[i]);
--
- 	if (ret) {
--		for (int i = kvm->arch.nested_mmus_size; i < num_mmus; i++)
--			kvm_free_stage2_pgd(&kvm->arch.nested_mmus[i]);
--
--		free_page((unsigned long)vcpu->arch.ctxt.vncr_array);
--		vcpu->arch.ctxt.vncr_array = NULL;
-+		while (i--)
-+			free_nested_s2_mmu(kvm->arch.nested_mmus[kvm->arch.nested_mmus_size + i]);
- 
- 		return ret;
- 	}
- 
--	kvm->arch.nested_mmus_size = num_mmus;
-+	guard(write_lock)(&kvm->mmu_lock);
-+	kvm->arch.nested_mmus_size += S2_MMU_PER_VCPU;
- 
- 	return 0;
- }
-@@ -725,7 +734,7 @@ void kvm_s2_mmu_iterate_by_vmid(struct kvm *kvm, u16 vmid,
- 	write_lock(&kvm->mmu_lock);
- 
- 	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (!kvm_s2_mmu_valid(mmu))
- 			continue;
-@@ -767,7 +776,7 @@ struct kvm_s2_mmu *lookup_s2_mmu(struct kvm_vcpu *vcpu)
- 	 *   if S2 translation is disabled.
- 	 */
- 	for (int i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (!kvm_s2_mmu_valid(mmu))
- 			continue;
-@@ -806,7 +815,7 @@ static struct kvm_s2_mmu *get_s2_mmu_nested(struct kvm_vcpu *vcpu)
- 	for (i = kvm->arch.nested_mmus_next;
- 	     i < (kvm->arch.nested_mmus_size + kvm->arch.nested_mmus_next);
- 	     i++) {
--		s2_mmu = &kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
-+		s2_mmu = kvm->arch.nested_mmus[i % kvm->arch.nested_mmus_size];
- 
- 		if (atomic_read(&s2_mmu->refcnt) == 0)
- 			break;
-@@ -1223,7 +1232,7 @@ void kvm_nested_s2_wp(struct kvm *kvm)
- 		return;
- 
- 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_wp_range(mmu, 0, kvm_phys_size(mmu));
-@@ -1242,7 +1251,7 @@ void kvm_nested_s2_unmap(struct kvm *kvm, bool may_block)
- 		return;
- 
- 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
-@@ -1261,7 +1270,7 @@ void kvm_nested_s2_flush(struct kvm *kvm)
- 		return;
- 
- 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (kvm_s2_mmu_valid(mmu))
- 			kvm_stage2_flush_range(mmu, 0, kvm_phys_size(mmu));
-@@ -1273,10 +1282,10 @@ void kvm_arch_flush_shadow_all(struct kvm *kvm)
- 	int i;
- 
- 	for (i = 0; i < kvm->arch.nested_mmus_size; i++) {
--		struct kvm_s2_mmu *mmu = &kvm->arch.nested_mmus[i];
-+		struct kvm_s2_mmu *mmu = kvm->arch.nested_mmus[i];
- 
- 		if (!WARN_ON(atomic_read(&mmu->refcnt)))
--			kvm_free_stage2_pgd(mmu);
-+			free_nested_s2_mmu(mmu);
- 	}
- 	kvfree(kvm->arch.nested_mmus);
- 	kvm->arch.nested_mmus = NULL;
 -- 
-2.39.5 (Apple Git-154)
-
+2.53.0
