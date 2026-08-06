@@ -1,196 +1,247 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B38E841A92C
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 10:08:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152AC424D57
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 10:12:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786010920; cv=none; b=p0jQ2yS7L4irtiMQjwf9Fkr9ycQ1VzrJE7H6YPtVwDqsS4Dfm3ut+B/s71jPiAMqJYNnp4KyybrYpUpRPfVXlVWVkmdLBtnzdLngVaeVir13yL6NBgWD72wxFQFHmI0ZESA+H8YGdNAgN2mI5DhErPDQlVt2Bkx5KTfocF6yBYI=
+	t=1786011168; cv=none; b=KvxoPYyMLEWwPTWzYgA4TeNALPh4Glhwx7VHz2tlQzG/oxN3g9qA8OyyOaDrPFrJRPUW2tkRYjUakTvjYqjfADyCVg+Yb0Wd/DQ3I29tTyl0Ht84bMSVcJdQQJITYAKz3VYexAplnfJJ34PsjD8lX1X0xLPhz2QeMfbStQ5npnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786010920; c=relaxed/simple;
-	bh=xCxUMghW2Xyi8faCH5QpwDEU1W4G+MMm2rfwWySl39Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aEJ33jAJhSpz0smh+qT5Ka16lFunyq4F0HimAWQo3wr/2+uhvwrKX8avHGNmsi0NcwJp1evcJozi/RrM/tVz2Jio+mzSFaFTFMiuOQioEauFMbM+BravvvsJ4bMHtcWHwip/voW5wMhpwcPEOy0n8MYRx6O+oOfCCooXvVZlx74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Uw0BfDb3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iq2jFpH/; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786011168; c=relaxed/simple;
+	bh=tJZkQVtwb2qjjFvyr3KVCnCJ7+UJG/qi4Xu2JXjyjgU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eqrWnOUH2wZun3oY/eTi6yQiZEmnbjTNWcCh0h2fObYQOvx5XfJILj4DvU8aGystkih9MjeVS3de8/z1xKgQKpeT1dPfiDBT4Y6Ru5FdstLiPFVdZivwpBEdypDm6GS7O3YpiXKlfUr2o29yoLY2BC91J2dlArQvwRoAuAMAsNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MREQxzRY; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Uw0BfDb3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iq2jFpH/"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6769nteu1626143
-	for <stable@vger.kernel.org>; Thu, 6 Aug 2026 10:08:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	iyOUQx3uVZC2rm7J8gJxSev+lJA8+WSrUOAuZsrWWxg=; b=Uw0BfDb3WPVliKgP
-	JCWmPWixkfJdB0Ste3TtPH0VXlkVC41xuBL49//2EweTIOuqqEahmsE0FH+XIzjm
-	+LTB7/wQxHv286yx/L6TwXq1Xg7PP7xqlMPt4kKSCHDdLmqhjgeKqElzLogUiTdG
-	lztSsFVqQBSMQ5bng9x54SgDeg44CIcPPF7sgBnmBdiWg0dbhh7ZLXJakC7JJyUb
-	FYPJ6C2EmyJ5dGPc7Z1x4xi6hT+k0JwVK6KbmXPNgHHy+38Z/njaot4+kLm30IF0
-	Ru4HK4kBhpAeKQmc7ZbzvLMh7b5JfSjDyzK+gBOLDJ/q67WkG/sNK3rIeHAH75nM
-	NgnDJw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvntngp9p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 06 Aug 2026 10:08:30 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e667368f0so3340574a91.2
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 03:08:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MREQxzRY"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84847482584so581400b3a.0
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 03:12:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786010909; x=1786615709; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iyOUQx3uVZC2rm7J8gJxSev+lJA8+WSrUOAuZsrWWxg=;
-        b=iq2jFpH/HW6WmIn8igySZCc6RaSS6Ofivxv9kxoqzI+Ad+SArYeOHCOBgaTRdJbPFw
-         Q1rqNc4R+UzR/5lirWBn1f5syHq38YhdCXl2aibAZw68QVXxI7U+a1/Iy4jcGFLexSk1
-         rN3ts2Q1yoAqbicq6S5Gujz34UCkD47g+08N5lKSKxrOBPOmKd8nTw+W57STStDuUlCJ
-         R/omUjhgnom3euZ/9NJF78dd9gQghds2v1R90kciKoCBi4+Z+OShUFcznCuKLh0NEuCo
-         HXGDG8e13uXM9k7eFCU3gBnHolofFEKQsFQRt4QxzR0kQBktqQdji3IGpLl8g4slwO6n
-         LxUw==
+        d=gmail.com; s=20251104; t=1786011166; x=1786615966; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Uyan3HYAysDdmSD1Jx4k3XmyCNsWmK9jFSOoc7MH43M=;
+        b=MREQxzRY8v4WXkMZMbD1JzwklBY7hxvRGecGLm+nG654XrNM3nkoGtrxSbQQk/IhPR
+         /pr1Up4S2UQ6p95kSGJD2+CnjlptWJRL1iFGVA5TB8uzYhdy6oTyxAjXwyCvxR//MqML
+         EH+UdszWRAiXLzj0c/FjjQqpIpUqB3GRfYk4Rf6V9/k+ZPT2j7KIpqQLlpxeHucbBdvK
+         ELryKOGM9JR9rOKgZ7/oEDmKMxhPDTCv79tOHv1JRRgNkBznSmPgINEfPlScINwf6eEF
+         m9wz/7bxoDykhp4VERekbCaILosNeIfWzi8zs5trVNtH3jgWlFWGV4/8NyK1bDSRZRhV
+         MBQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786010909; x=1786615709;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1786011166; x=1786615966;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iyOUQx3uVZC2rm7J8gJxSev+lJA8+WSrUOAuZsrWWxg=;
-        b=UyYqIHou0WG72224sNIhkT+2sd5jbFDqXLZR6tqeYSCXBQ8AtrgXokjSRWOOwBp1mG
-         ne6qIPWxQF+DTZtp5y3Ub+A+FdrHmXWQYWkrvo9WrpAJ0dT7DCNM/cRKlhSgUWOA1q1N
-         FplN6bNeChhNn/0VZGFFc+UUyYvE8RyNfg/wPnxnf91C+oa7HQh/JX2mmRFz2G66RLVa
-         QYQ6Ei72+dUSO07OkdFjRFqy0xulPMB+Vh0BE24M+C2M/2rUojcRDg4FGG2spBU5gZfp
-         VAtubvkZJw2ldzzxd9ENs0RQvmrMKZ9wVQrwgHmDOu6BIvrbCyJiv2D6JUqXc3Q76DF3
-         HMXQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpEPsWbmi0c9yRzbofyjZFKmRDIKtw8IO5tgID3qon9hyeO3cv8TEtgv6TtTpFZAOpgArgEjJ8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxaV4ERKnucr4A1P6NDIECqDoq4KCaCfwOxvdSuM+38LC4IIheV
-	y8DPI7J4d2kLskNLSjn3U04ENM6zheKoAdRLzsahdCCvqLVgg9SAJCNbmOiCAVR3C6+AK66acXa
-	M6GvaZJ31eJOYiF87g3vybjisVtn52hxbXcAwxvzTW4TIhBTkO4KSwd3fhtM=
-X-Gm-Gg: AR+sD13i7FCGZOBk1M8DZOyzgI3Vyu64Zfjdii66IBuYpfOHdzPCipumNrR3r/rvVgk
-	mLPhqGTlJSF2CdJz39yQ9M0/7ZpYlfSvpbA1x6KdWWrCDj96Fna9fiSVrL135bhhR8jQMfg+aYH
-	+OZ6HMnMHF/HN9pGQsSSJTQ7DJ1tBLJvjQslFqQDmk2DfOHfLwyF2zQfQfdZMSjFhJMcXi9K9ew
-	iaFHPuNRv5vXvY7O2GXPMn4o/IiI9p73cz4S/Sf2ykXTaGMUuLhhuDfoiRL8mp/som+XpAEF3W8
-	dbJS4qS17k8uTTsqZwtiWNVwcwGCIDffUSU9UG+BauWhF0KYh6MqYswkvUMDp1c7O9aVQZ5QX3/
-	3shEzsW4QamHnMXxkP/uGnjRSoxANaxbtxmQ=
-X-Received: by 2002:a17:90b:5203:b0:37d:f206:a2ac with SMTP id 98e67ed59e1d1-3903c598ce5mr14953587a91.7.1786010909504;
-        Thu, 06 Aug 2026 03:08:29 -0700 (PDT)
-X-Received: by 2002:a17:90b:5203:b0:37d:f206:a2ac with SMTP id 98e67ed59e1d1-3903c598ce5mr14953531a91.7.1786010909098;
-        Thu, 06 Aug 2026 03:08:29 -0700 (PDT)
-Received: from [192.168.0.173] ([183.83.142.146])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315863b761asm38533481eec.1.2026.08.06.03.08.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Aug 2026 03:08:28 -0700 (PDT)
-Message-ID: <36b53e0d-82e2-4fbb-a2b6-3fd7b9c98663@oss.qualcomm.com>
-Date: Thu, 6 Aug 2026 15:38:20 +0530
+        bh=Uyan3HYAysDdmSD1Jx4k3XmyCNsWmK9jFSOoc7MH43M=;
+        b=J/az7roKeC5LmkFp7WUF/EIi2jJ/C5moOO9dpyy5O/451aWMF/VDZkIKag5aBPsyUu
+         WcTh6WdCguhe+PEIJOL0T/8+KOkg5aNnuNCdibpn5jkVS/OLI42Xhg/kSr38yJWPPeF/
+         NTAXUJvtd5AgPruAyPUmfuaRLiO5PXwWtkT0KZJX7dLKS0U8j6KS9LrP6DMVz+etkrJa
+         VoDJYiaQd/MeD1nkqrtc/dZie6zZsacMhM7y+TYSCgAm4C9hTiG1ucRw/ULwaqQ3b7uo
+         QhT8AgkQjZt58LQeSWmy5m+xGbpYHz902B3Y3/VlGRzJcmMeXctJNqx3GL8GlJtSMymt
+         SYTA==
+X-Forwarded-Encrypted: i=1; AHgh+RpD1G3x8Emb4XIjcrAUjPluQsFPyTvkxH6xm/X7RCE5WW8wHx7pWRUDU4kJtvFGjhu9M8P2dyA=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzmtjVeu+ActTRyDd2flNeTviCEOc8UcNtD+iWI+CihtoFKrYKD
+	e4Pd7ugL/wvakgcuw07I4CX7I8q3CO9VwW1qDArIXWZzHmzGjvAw1sJG3EiCoRc9EAU=
+X-Gm-Gg: AR+sD13iWzYzcPVqi8LTS4xOCRuC/Is2VuX2y4Wjj+kmMlXCBXqOkrCrpJS3r5gYgcD
+	f8aqIvY9SA+ejZ0ja/IYcio+pnswBH71KMBiczDwC+8QKnPH51F2rDj/vJQk7ntEtpnnPNVYXSy
+	Bdzu7NKg4WcVfucSwiuEiSfSu3r7lvePdT8+tWOEszuFgeWE+mCB4+En+NeQoVa85DYCrISx6f2
+	7YiIs0sj1G4PXjRQuOqRmAm11gHKE2ba/YZbxvook2MXO+LwqPrq46CvRmgJ057azlbiwSHag95
+	cxE0n+jxHieBAPKglzh3cNdMuUaUfUEoEm/bVYYRpXTq0mx+Cb0B/0/k53fO/Bz6dcE9xHpccSY
+	XQjJwrmrOHP6dECGqGGo4c/Phy/r1uks/MIi39iHeK1WNTh9/2Mj0MbE0iqmi3lRuGanF/39bJL
+	YJ82im4FyNPoAbR53/GIfCDpkPaF0gl8s7jeWPy7P2wnS3PUbXZGbZjtQ9tDyoX7hszlLAPF+hn
+	JoHUX7fx6Ue1vU9tNzcd+Rc0zuQFttUJFgPDmM=
+X-Received: by 2002:a05:6a00:2e14:b0:842:446a:4cb5 with SMTP id d2e1a72fcca58-84f418a3e81mr6318346b3a.0.1786011166071;
+        Thu, 06 Aug 2026 03:12:46 -0700 (PDT)
+Received: from BOOK-P74QMIQ7E8.localdomain ([220.73.18.179])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f45bc9cffsm1090371b3a.59.2026.08.06.03.12.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 03:12:45 -0700 (PDT)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Tao Liu <taoliu828@163.com>
+Cc: netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 1/2] net/sched: act_ct: fix sk_buff leak when the header checks reject a packet
+Date: Thu,  6 Aug 2026 19:12:34 +0900
+Message-Id: <20260806101235.809370-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/12] media: iris: Add helper to create a context bank
- device
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>,
-        stable@vger.kernel.org, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Daniel J Blueman <daniel@quora.org>
-References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <20260731-vpu_iommu_iova_handling-v2-4-da52b5228dbd@oss.qualcomm.com>
- <o6s5kezlsbe6z53jbsezeixp2wfrmwmvwda67t6chf57jnbm3x@ta5hktzs7mdf>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <o6s5kezlsbe6z53jbsezeixp2wfrmwmvwda67t6chf57jnbm3x@ta5hktzs7mdf>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA3OSBTYWx0ZWRfX32vqnsnx1HnM
- /xeitmhboUc1XvmwcGmF6ZPqBjeVeA2HBihkFoDd6C2c2RgG65olhCj1YPbNg9WWb+1//ESZuao
- 3VpUUmYcWmDd7qdOP1LIaKWE6/8Zol0mmYc5QiZ/tnTxy/gPSktIXtaZNn9S9m/EZHn0gQPFjpw
- GV7d5VMUhUSUgyXyGoWvLsJtMoWYj2Q5oNwGiFSMORKbv/PToKABib9LwRyLcSuQKJh5tEZ7oUM
- Oqvsja/pAeVhzH7sI+V1aiIcFL14uzTllmpwZtZ9ZgvdB9BCyY6WXhUhdxqti9wDcgvi+Tm/p4b
- 3TPqjmqzKiug/gTG1KDiTnyAwjwQqkU1RPtrWCYfQwLUYDxWDPfOCSChMz1EZshBmJS1l6i801X
- 0a7qjc2qNUgBn9Vl7pXoA9An6dNTujlRoggLxBVgu8jA1E0CUweEg8swHj8Sq1hUFUvQXiiGcHs
- DY7H9nGfgy70sQDK7MA==
-X-Proofpoint-ORIG-GUID: ynOHiOKmQPg-82a4jHk9hZzibxEb4q3I
-X-Proofpoint-GUID: ynOHiOKmQPg-82a4jHk9hZzibxEb4q3I
-X-Authority-Analysis: v=2.4 cv=LpKiDHdc c=1 sm=1 tr=0 ts=6a745d1e cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=eVbXwf39F0J6/s7D6zfB/A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=t9ty7G3lAAAA:8 a=4qxhn-3g-SBwpGBp1HsA:9
- a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22 a=CsAS6f0m0zARWR-uHzm3:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA3OSBTYWx0ZWRfX8dQPMhBWVx5h
- uWi2sw8/wsAOeayy1MDjGATiJPPStBtfvU86Q+GrwYFr67EZf3SaE9bShOzD7s/9BSIC3/LbHaV
- 9POuTEZyPLgxfLYaXyO4SarZ9oiK26I=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 bulkscore=0 spamscore=0
- phishscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060079
+Content-Transfer-Encoding: 8bit
 
+tcf_ct_handle_fragments() runs its header sanity checks before handing
+anything to the defragmentation engine:
 
+	if (family == NFPROTO_IPV4)
+		err = tcf_ct_ipv4_is_fragment(skb, &frag);
+	else
+		err = tcf_ct_ipv6_is_fragment(skb, &frag);
+	if (err || !frag)
+		return err;
 
-On 8/6/2026 2:27 PM, Dmitry Baryshkov wrote:
-> On Fri, Jul 31, 2026 at 11:52:19PM +0530, Vikash Garodia wrote:
->> The VPU issues DMA through several SMMU streams, and the hardware does
->> not give every stream the same addressable range. The non-pixel stream
->> is restricted to use 0-600MB of IOVA space, while the pixel stream can
->> address the full range. A stream can only be confined to its range if it
->> has an IOMMU domain of its own, and the IOMMU core attaches a domain per
->> struct device, so each stream needs its own device.
->> Add iris_create_cb_dev(), which looks up a named child of the iris node
->> and registers it as a platform device parented to the iris core. The
->> child's fwnode is handed to platform_device_register_full() so the OF
->> core applies that subnode's "iommus" property and the new device gets
->> its own IOMMU domain. The DMA mask comes from platform data, and the
->> segment size and boundary are capped at 32 bits to match the addressing
->> the VPU performs.
->> Return NULL when the named child is absent, so callers can treat a
->> device tree without context bank subnodes as a supported configuration
->> rather than an error.
->> Backports are intended since the first DTS of 8550 binding schema.
-> 
-> What does this mean in the commit message?
-> 
->>
->> Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
-> 
-> How can driver fix the DT?
-> 
+tcf_ct_ipv4_is_fragment() returns -EINVAL or -ENOMEM;
+tcf_ct_ipv6_is_fragment() adds -EPROTO when ipv6_find_hdr() fails. None of
+them frees or queues the skb, so on that path the caller still owns it.
 
-The idea is to backport the driver fixes till the kernels when the first 
-DTS landed. Ideally the fixes tags the commit which introduced the bug, 
-while in this case, was thinking to keep it for DTS.
+tcf_ct_act() however funnels every non-zero return into the
+ownership-transfer exit:
 
->> Cc: stable@vger.kernel.org
->> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
->> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
->> Tested-by: Daniel J Blueman <daniel@quora.org>
->> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
->> ---
->>   drivers/media/platform/qcom/iris/iris_resources.c | 28 +++++++++++++++++++++++
->>   drivers/media/platform/qcom/iris/iris_resources.h |  1 +
->>   2 files changed, 29 insertions(+)
->>
-> 
+	err = tcf_ct_handle_fragments(net, skb, family, p->zone, &defrag);
+	if (err)
+		goto out_frag;
+	...
+out_frag:
+	if (err != -EINPROGRESS)
+		tcf_action_inc_drop_qstats(&c->common);
+	return TC_ACT_CONSUMED;
 
+TC_ACT_CONSUMED means the action took ownership of the skb, so no caller
+frees it - sch_handle_ingress(), sch_handle_egress() and
+tcf_qevent_handle() all deliberately skip the free for that verdict. The
+skb is therefore orphaned: one sk_buff plus its data buffer is leaked per
+malformed packet, unbounded. Note the drop counter is already incremented
+for these errors, so the statistics claim a drop that never happens.
+
+Three different ownership states reach out_frag: today - the skb may be
+queued by the defrag engine (-EINPROGRESS), already freed by
+nf_ct_handle_fragments(), or still owned by us. Tell the caller which of
+those it is, and free the packet ourselves in the last case, which
+restores the TC_ACT_SHOT behaviour that predated the Fixes: commit.
+
+Reproduced on v7.2-rc6 with a 54-byte frame carrying a 40-byte IPv6
+header with nexthdr = 0 (hop-by-hop) and nothing after it, on a
+clsact ingress chain with "action ct". kmemleak reports one leaked
+232-byte skbuff_head_cache object plus its 704-byte data buffer per
+packet; with this patch it reports none.
+
+Fixes: 3f14b377d01d ("net/sched: act_ct: fix skb leak and crash on ooo frags")
+Cc: stable@vger.kernel.org # v6.8+
+Assisted-by: Anthropic-Claude-Code:Claude-Opus-5
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ net/sched/act_ct.c | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
+
+v2:
+ - add a tdc selftest (patch 2/2), as requested by Jamal
+ - add Assisted-by: tag
+ - no functional change to the fix itself
+v1: https://lore.kernel.org/netdev/20260805095539.204356-1-hj351016@gmail.com/
+
+Reproducer needs CONFIG_NET_ACT_CT, plus CONFIG_DEBUG_KMEMLEAK and
+kmemleak=on to observe it:
+
+  ip link add veth0 type veth peer name veth1
+  ip link set veth0 up; ip link set veth1 up
+  tc qdisc add dev veth0 clsact
+  tc filter add dev veth0 ingress matchall action ct
+
+then inject at veth1 a 54-byte frame: ethertype 0x86DD, a 40-byte IPv6
+header with nexthdr = 0 (hop-by-hop) and nothing after it, so
+ipv6_find_hdr() fails with -EBADMSG and tcf_ct_ipv6_is_fragment()
+returns -EPROTO.
+
+Before, one sk_buff plus its data buffer per packet:
+
+  kmemleak: 50 new suspected memory leaks
+  unreferenced object 0xffff888103ed13c0 (size 232):
+    kmem_cache_alloc_node_noprof+0x2f1/0x3e0
+    __alloc_skb+0xe5/0x860
+    alloc_skb_with_frags+0x82/0x750
+    sock_alloc_send_pskb+0x658/0x7e0
+    packet_sendmsg+0x1833/0x4860
+    __x64_sys_sendto+0xe0/0x1c0
+    do_syscall_64+0x102/0x5a0
+
+After: kmemleak reports no unreferenced objects.
+
+Note /proc/slabinfo is not a usable check here on a KASAN build -
+skbuff_head_cache active_objs still grows because the quarantine holds
+the freed objects. kmemleak is the reliable signal.
+
+Patch 2/2 turns the same case into a tdc test, using the clsact drop
+counter as the discriminator: before the fix act_ct returns
+TC_ACT_CONSUMED, so tc_run() never reaches its TC_ACT_SHOT arm and the
+counter stays at zero while the skbs leak.
+
+diff --git a/net/sched/act_ct.c b/net/sched/act_ct.c
+index be535a261fa0..e250969c84ac 100644
+--- a/net/sched/act_ct.c
++++ b/net/sched/act_ct.c
+@@ -840,8 +840,15 @@ static int tcf_ct_ipv6_is_fragment(struct sk_buff *skb, bool *frag)
+ 	return 0;
+ }
+ 
++/* On error, tells the caller whether it still owns @skb and must free it
++ * itself.  @skb is ours only when the header checks below reject the packet
++ * before it is handed to the defragmentation engine; once nf_ct_handle_
++ * fragments() has been called the skb is either queued (-EINPROGRESS) or has
++ * already been freed by it.
++ */
+ static int tcf_ct_handle_fragments(struct net *net, struct sk_buff *skb,
+-				   u8 family, u16 zone, bool *defrag)
++				   u8 family, u16 zone, bool *defrag,
++				   bool *skb_is_ours)
+ {
+ 	enum ip_conntrack_info ctinfo;
+ 	struct tc_skb_cb cb;
+@@ -859,8 +866,12 @@ static int tcf_ct_handle_fragments(struct net *net, struct sk_buff *skb,
+ 		err = tcf_ct_ipv4_is_fragment(skb, &frag);
+ 	else
+ 		err = tcf_ct_ipv6_is_fragment(skb, &frag);
+-	if (err || !frag)
++	if (err) {
++		*skb_is_ours = true;
+ 		return err;
++	}
++	if (!frag)
++		return 0;
+ 
+ 	cb = *tc_skb_cb(skb);
+ 	err = nf_ct_handle_fragments(net, skb, zone, family, &proto, &cb.mru);
+@@ -977,6 +988,7 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
+ 	int nh_ofs, err, retval;
+ 	struct tcf_ct_params *p;
+ 	bool add_helper = false;
++	bool skb_is_ours = false;
+ 	bool skip_add = false;
+ 	bool defrag = false;
+ 	struct nf_conn *ct;
+@@ -1012,9 +1024,18 @@ TC_INDIRECT_SCOPE int tcf_ct_act(struct sk_buff *skb, const struct tc_action *a,
+ 	 */
+ 	nh_ofs = skb_network_offset(skb);
+ 	skb_pull_rcsum(skb, nh_ofs);
+-	err = tcf_ct_handle_fragments(net, skb, family, p->zone, &defrag);
+-	if (err)
++	err = tcf_ct_handle_fragments(net, skb, family, p->zone, &defrag,
++				      &skb_is_ours);
++	if (err) {
++		/* The skb is still ours only when the header checks rejected
++		 * it; returning TC_ACT_CONSUMED for such a packet would leak
++		 * it, since no caller frees an skb it was told it no longer
++		 * owns.
++		 */
++		if (skb_is_ours)
++			goto drop;
+ 		goto out_frag;
++	}
+ 
+ 	err = nf_ct_skb_network_trim(skb, family);
+ 	if (err)
+--
+2.43.0
