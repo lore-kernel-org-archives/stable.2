@@ -1,223 +1,122 @@
-Received: from va-2-45.ptr.blmpb.com (va-2-45.ptr.blmpb.com [209.127.231.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FD13D567E
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 07:22:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3704E3D567E;
+	Thu,  6 Aug 2026 07:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786000964; cv=none; b=dEX8DmCGbe9SHXGc8mubU5ueEnyrSYMN8trsK7lpOUEBEZjofvPwD7FlkO0dSXykYSaJ8H9ReI73Y8fpaupP/PvZZz34Foo+lhI8U3uDyJnCkUeMISAOc/Vz/BwB2dTt2nGZREXtfzlQGCD3lRXmB2ledcqliAVSGdJb3Pg/obw=
+	t=1786001312; cv=none; b=IhXHT5E7ZItvMuLm10an2MnTV+BIbGCTV4dWjJ7G5Jg5TXrjVZvKcLuD6AYe3brz41T021yU9S+52h0yH8ZqsMVUoPP+5g72jc2qNRhLgRP8y/UnKAVfkjbG4s1PW+ArrjQS8WgjHMVHzRt9oNrc+RoUHnRa8erZSCOUXSCkz1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786000964; c=relaxed/simple;
-	bh=ZADYxEHgY31ANtKR20Ns8KMjFX6OJPTaHjT95ujZpn4=;
-	h=Mime-Version:Content-Type:To:Cc:From:Date:Message-Id:References:
-	 Content-Disposition:In-Reply-To:Subject; b=Hq/22LJhmPZSwrdLF2EsMZrdm0hsMHyd8Gns3YiBK7HHFl2gcvuwtjECqVnWtNp8sDUPRaSVTlUOY3jBFyiIkTgHdotAbgHFV50yYAgnWdvgCz03qOAsp4vhOGsvcBd2fuRmBVFyNa69rrxXSRvrJ6KP4Twag3ZQX0wDykTPaBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=E6VD3DQy; arc=none smtp.client-ip=209.127.231.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1786001312; c=relaxed/simple;
+	bh=0ho9WJRC+azqwWSgJ82Ldgo0yZn9VWLw1zSayaxUa78=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DJ3SjOPeLZ/O53AW2QhueDwflbCQQV4kMjF+knHS9evm5wUdxH2gf/CiHbsoD8SZKOd9NRhFSSz1EASvuW9X2zUMJ20KdZLVITIWZWfcpSbePuyiIk3nlIMm8BH258zOQCWW+ZOwDm8mVvj1XJoCZDDqgOWhILP/N5rZ9M67oCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SZVrV3Yr; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="E6VD3DQy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1786000949;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=sPD70un3PjIGrmRayhxfejfWv+8T4Nu+q/5HU8PUOUg=;
- b=E6VD3DQyIGJ6XuIdLEfmS3Q3AFr1fbjBtHvtNi6M6ht03hnFf6/DdEJrTro1zFBoj8AsOU
- t/0+Jt7buutUbcM2xtsA0skEMhe9Ex5oVg+K5hc+uc6pZcNvbzlHObt8mYO/5DRwd8FwfM
- Fh4VA8ls2rCGQbWEo1FvqRKqGWkrZtjyohEIljwTzhYywi9sLIdv9WlOSl0Wk93Udd2cNy
- HtLGp29ceh5s5BmskzOz6+vswpbQBCwzrz+RRTgqaNiOsGQl8d+D6o38fdbQivudM28kn8
- FBDNDl7XjpV7Mrc7TJpMEmNR91kOmRN7fnODEPUvhKy+rfmM9XX43M8LjTvflg==
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SZVrV3Yr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=32
+	hPE4s9FxkFRc/nrSoP2PIQsD8ssRPOOkOEYXu240o=; b=SZVrV3YrI6IXvEzsx/
+	GxxfRWdWPGena4BgaV8ujsrpAQZiy90+MQ8mY70ktP7yxvTjXkcYiBxHqdE8zRf1
+	yncB+NTjb3j/MdaG18bfMvNi5mSL0xNElRxF9z9P+cqrP53IHbcmK+aLEZXaYDEM
+	gvZptfF7OkNEwOdKhhQMAcJk8=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wA3oJJjN3RquJoEMg--.8293S2;
+	Thu, 06 Aug 2026 15:27:31 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: rafael@kernel.org,
+	viresh.kumar@linaro.org
+Cc: linux-pm@vger.kernel.org,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	zhongqiu.han@oss.qualcomm.com,
+	Hui Su <sh_def@163.com>
+Subject: [PATCH v2] cpufreq: schedutil: Fix rate limit overflow
+Date: Thu,  6 Aug 2026 15:26:56 +0800
+Message-ID: <20260806072656.1386351-1-sh_def@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26a743634+f78ee9+vger.kernel.org+colyli@fygo.io>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-To: "Ramesh Adhikari" <adhikari.resume@gmail.com>
-Cc: <axboe@kernel.dk>, <gregkh@linuxfoundation.org>, 
-	<linux-block@vger.kernel.org>, <stable@vger.kernel.org>
-From: "Coly Li" <colyli@fygo.io>
-Date: Thu, 6 Aug 2026 15:22:25 +0800
-Message-Id: <anQdWeHd2EDZtkzp@studio.local>
-References: <20260709131904.596684-3-adhikari.resume@gmail.com> <20260721164027.637078-1-adhikari.resume@gmail.com> <20260721164027.637078-3-adhikari.resume@gmail.com>
-Content-Disposition: inline
-In-Reply-To: <20260721164027.637078-3-adhikari.resume@gmail.com>
-Subject: Re: [PATCH v7 2/2] badblocks: validate sector range and shift before rounding
-Received: from studio.local ([120.245.64.97]) by smtp.larksuite.com with ESMTPS; Thu, 06 Aug 2026 07:22:27 +0000
-X-Original-From: Coly Li <colyli@fygo.io>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wA3oJJjN3RquJoEMg--.8293S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZw4xXFykWFyUXrWUGFy8Krg_yoW5Xw1UpF
+	Wakay0yr40qF1Utr4Sk3Wkua15uF1UA39rKryfCa1kAwnxtw1Fg34xtrs0qay7CFn0kr1f
+	A3WYqay5ur18A37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piH7KxUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwgWe-Wp0N2XJ8gAA3T
 
-On Tue, Jul 21, 2026 at 10:10:24PM +0800, Ramesh Adhikari wrote:
-> _badblocks_set(), _badblocks_clear() and badblocks_check() round
-> the caller-supplied [s, s+sectors) range to the current bb->shift
-> block size before touching the bad block table. That rounding
-> was not defensive against a few cases:
-> 
-> - s + sectors can overflow sector_t (u64), wrapping the range
->   end before it is ever compared against s.
-> 
-> - bb->shift is a plain 'int' field, populated in one case
->   (drivers/md/md.c, from the on-disk superblock's bblog_shift)
->   straight from an unvalidated byte with no upper bound. Shifting
->   by an amount >= the width of the shifted type is undefined
->   behaviour in C; "1 << bb->shift" was shifting an int literal,
->   so this was already undefined for bb->shift >= 32, let alone
->   the full 0-255 range bblog_shift allows.
-> 
-> - round_up()/round_down() rounding a value near ULLONG_MAX can
->   itself wrap back to a small value, so even with a valid shift
->   the rounded end of the range could end up smaller than the
->   rounded start, silently turning a small range into a huge one
->   (in _badblocks_clear()/badblocks_check(), which round the end
->   up) or losing the range entirely.
-> 
-> Add an explicit s+sectors overflow check and cast the shift
-> operand to sector_t so the shift itself is never performed on a
-> 32-bit int, and detect post-rounding wrap by comparing the
-> rounded result back against the pre-rounding value.
-> 
-> badblocks.c does not itself bound bb->shift: every caller except
-> drivers/md/md.c always leaves it at 0, so the one caller that
-> populates it from untrusted on-disk data is responsible for
-> bounding it before assigning it, per struct badblocks's shift
-> field documentation in include/linux/badblocks.h. That md.c-side
-> bound is being sent as a separate patch.
-> 
-> badblocks_check() returns 0 rather than -EINVAL on the wrap case,
-> matching its existing "0: no known bad blocks in the range"
-> return convention instead of introducing a new error path callers
-> don't expect.
-> 
-> Suggested-by: Coly Li <colyli@fygo.io>
-> Fixes: aa511ff8218b ("badblocks: switch to the improved badblock handling code")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ramesh Adhikari <adhikari.resume@gmail.com>
+rate_limit_us is an unsigned int, while NSEC_PER_USEC is defined as
+1000L. On 32-bit systems, the multiplication is therefore performed
+using 32-bit unsigned arithmetic before the result is assigned to
+freq_update_delay_ns.
 
-The patch looks good to me, thanks.
+For example, writing 4294968 to rate_limit_us wraps the delay from
+4294968000 ns to 704 ns. This makes schedutil update far more often
+than configured.
 
-Reviewed-by: Coly Li <colyli@fygo.io>
+Add sugov_update_rate_limit_us() to widen rate_limit_us to s64 before
+converting it to nanoseconds. Use the helper when updating the tunable
+through sysfs and when starting the governor, so both paths perform the
+conversion without overflow.
 
-BTW, the shift overflow checking in md raid code is accepted by
-md maintainer, so you may submit these 2 patches with my Reviewed-by
-to Jens. That's enough.
+Fixes: 9bdcb44e391d ("cpufreq: schedutil: New governor based on scheduler utilization data")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hui Su <sh_def@163.com>
+Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+---
+Changes in v2:
+- Clarify why the multiplication uses 32-bit unsigned arithmetic on
+  32-bit systems.
+- Cast rate_limit_us to s64 to match freq_update_delay_ns.
+- Add Zhongqiu's Reviewed-by tag.
 
-Coly Li
+v1: https://lore.kernel.org/r/20260805143942.805176-1-sh_def@163.com
 
-> ---
-> Changes in v7 (per Coly Li's review of v6):
->  - Simplify the overflow check in all three call sites from
->    "s > ULLONG_MAX - sectors" to "(s + sectors) < s".
->  - Drop the "bb->shift >= BITS_PER_LONG_LONG" guards in badblocks.c.
->    Only drivers/md/md.c ever sets a nonzero bb->shift, so the bound
->    belongs where bblog_shift is read off the on-disk superblock, not
->    scattered through the badblocks API. Documented the caller
->    requirement on struct badblocks.shift in badblocks.h instead; the
->    md.c-side bound follows as a separate patch.
->  - badblocks_check() now returns 0 instead of -EINVAL on the wrap
->    case, consistent with its existing return convention.
-> 
->  block/badblocks.c         | 40 ++++++++++++++++++++++++++++++++-------
->  include/linux/badblocks.h |  6 +++++-
->  2 files changed, 38 insertions(+), 8 deletions(-)
-> 
-> diff --git a/block/badblocks.c b/block/badblocks.c
-> index 1f786b193fb..728b59a1a5d 100644
-> --- a/block/badblocks.c
-> +++ b/block/badblocks.c
-> @@ -853,12 +853,19 @@ static bool _badblocks_set(struct badblocks *bb, sector_t s, sector_t sectors,
->  		/* Invalid sectors number */
->  		return false;
->  
-> +	if ((s + sectors) < s)
-> +		/* Range wraps past the end of sector_t */
-> +		return false;
-> +
->  	if (bb->shift) {
->  		/* round the start down, and the end up */
->  		sector_t next = s + sectors;
->  
-> -		s = round_down(s, 1 << bb->shift);
-> -		next = round_up(next, 1 << bb->shift);
-> +		s = round_down(s, (sector_t)1 << bb->shift);
-> +		next = round_up(next, (sector_t)1 << bb->shift);
-> +		if (next <= s)
-> +			/* Rounding wrapped past the end of sector_t */
-> +			return false;
->  		sectors = next - s;
->  	}
->  
-> @@ -1061,7 +1068,12 @@ static bool _badblocks_clear(struct badblocks *bb, sector_t s, sector_t sectors)
->  		/* Invalid sectors number */
->  		return false;
->  
-> +	if ((s + sectors) < s)
-> +		/* Range wraps past the end of sector_t */
-> +		return false;
-> +
->  	if (bb->shift) {
-> +		sector_t orig_s = s;
->  		sector_t target;
->  
->  		/* When clearing we round the start up and the end down.
-> @@ -1071,9 +1083,16 @@ static bool _badblocks_clear(struct badblocks *bb, sector_t s, sector_t sectors)
->  		 * isn't than to think a block is not bad when it is.
->  		 */
->  		target = s + sectors;
-> -		s = round_up(s, 1 << bb->shift);
-> -		target = round_down(target, 1 << bb->shift);
-> -		sectors = target - s;
-> +		s = round_up(s, (sector_t)1 << bb->shift);
-> +		target = round_down(target, (sector_t)1 << bb->shift);
-> +		if (s < orig_s || target < s)
-> +			/* Rounding wrapped, or range collapsed */
-> +			sectors = 0;
-> +		else
-> +			sectors = target - s;
-> +
-> +		if (sectors == 0)
-> +			return false;
->  	}
->  
->  	write_seqlock_irq(&bb->lock);
-> @@ -1303,12 +1322,19 @@ int badblocks_check(struct badblocks *bb, sector_t s, sector_t sectors,
->  
->  	WARN_ON(bb->shift < 0 || sectors == 0);
->  
-> +	if ((s + sectors) < s)
-> +		/* Range wraps past the end of sector_t */
-> +		return 0;
-> +
->  	if (bb->shift > 0) {
->  		/* round the start down, and the end up */
->  		sector_t target = s + sectors;
->  
-> -		s = round_down(s, 1 << bb->shift);
-> -		target = round_up(target, 1 << bb->shift);
-> +		s = round_down(s, (sector_t)1 << bb->shift);
-> +		target = round_up(target, (sector_t)1 << bb->shift);
-> +		if (target <= s)
-> +			/* Rounding wrapped past the end of sector_t */
-> +			return 0;
->  		sectors = target - s;
->  	}
->  
-> diff --git a/include/linux/badblocks.h b/include/linux/badblocks.h
-> index 996493917f3..5d88992b55a 100644
-> --- a/include/linux/badblocks.h
-> +++ b/include/linux/badblocks.h
-> @@ -34,7 +34,11 @@ struct badblocks {
->  				 */
->  	int shift;		/* shift from sectors to block size
->  				 * a -ve shift means badblocks are
-> -				 * disabled.*/
-> +				 * disabled. Callers that set this from
-> +				 * untrusted/on-disk data are responsible
-> +				 * for bounding it so 1 << shift does not
-> +				 * overflow a sector_t.
-> +				 */
->  	u64 *page;		/* badblock list */
->  	int changed;
->  	seqlock_t lock;
-> -- 
-> 2.43.0
+ kernel/sched/cpufreq_schedutil.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
+index dff4ee04694c..51910b30c8da 100644
+--- a/kernel/sched/cpufreq_schedutil.c
++++ b/kernel/sched/cpufreq_schedutil.c
+@@ -61,6 +61,12 @@ static DEFINE_PER_CPU(struct sugov_cpu, sugov_cpu);
+ 
+ /************************ Governor internals ***********************/
+ 
++static void sugov_update_rate_limit_us(struct sugov_policy *sg_policy)
++{
++	sg_policy->freq_update_delay_ns =
++		(s64)sg_policy->tunables->rate_limit_us * NSEC_PER_USEC;
++}
++
+ static bool sugov_should_update_freq(struct sugov_policy *sg_policy, u64 time)
+ {
+ 	s64 delta_ns;
+@@ -606,7 +612,7 @@ rate_limit_us_store(struct gov_attr_set *attr_set, const char *buf, size_t count
+ 	tunables->rate_limit_us = rate_limit_us;
+ 
+ 	list_for_each_entry(sg_policy, &attr_set->policy_list, tunables_hook)
+-		sg_policy->freq_update_delay_ns = rate_limit_us * NSEC_PER_USEC;
++		sugov_update_rate_limit_us(sg_policy);
+ 
+ 	return count;
+ }
+@@ -848,7 +854,7 @@ static int sugov_start(struct cpufreq_policy *policy)
+ 	void (*uu)(struct update_util_data *data, u64 time, unsigned int flags);
+ 	unsigned int cpu;
+ 
+-	sg_policy->freq_update_delay_ns	= sg_policy->tunables->rate_limit_us * NSEC_PER_USEC;
++	sugov_update_rate_limit_us(sg_policy);
+ 	sg_policy->last_freq_update_time	= 0;
+ 	sg_policy->next_freq			= 0;
+ 	sg_policy->work_in_progress		= false;
+-- 
+2.43.0
+
