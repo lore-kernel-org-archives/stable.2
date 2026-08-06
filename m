@@ -1,98 +1,183 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [4.193.249.245])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FE413A1681;
-	Thu,  6 Aug 2026 14:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=4.193.249.245
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C38D3806DA;
+	Thu,  6 Aug 2026 14:26:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786026371; cv=none; b=Ar8k902WeisyOrD4lsrC2gdJC0vKOkBZXasVVmuD3Rde7LYmhFGuTDCuP2tLgj9qHQuSzQOMHVgi+nT6ia6o4xZuGkTTwHZgbHc23U67NBuDAhiUBzj79DD2B9CyIrPjiYvN2jA3R3EfRu8xARoJ+FVcESH3nx3NrA4o5+ujEJs=
+	t=1786026386; cv=none; b=bblk+0Vkfztd2vIQTxLcB1zP4OJJWjFL/aqL/IoauyIwjfi7R9lOPqvqREwaMDFKivInprEUpNj+psD1iabGOLvBco7REqOnAXxDcDwJLJu69OdoJ2tLSy7Zf2zAjO22kA6gFm8fhlojYpS3wJTp8liHvsBClQKffONSFfP64A8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786026371; c=relaxed/simple;
-	bh=vsnQGrCtSQHrmNe/dDqEW8tEKy71s9aGW1grYIAMuMI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gLNLpxXg0IYZpUxTZGToCGzXNDA977ILCPeMPdEHnQiLenEo676wpwF/BXMOVTNf2NYqRUMeyFll0Y2bEgA4suNS+F0XjY24OKwB31XHkXse8NUFNYYAVRVVbxJbpSCKY2WlUlgvxdBrpAW7KuViQgeZgn1m+xN7Ewu2SRiuWvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=4.193.249.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wA3ITd1mXRqIHRuAA--.29787S3;
-	Thu, 06 Aug 2026 22:25:59 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgAH7DR1mXRq4Z30Ag--.63343S2;
-	Thu, 06 Aug 2026 22:25:57 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: jic23@kernel.org
-Cc: linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] iio: trigger: cancel reenable_work before freeing trigger
-Date: Thu,  6 Aug 2026 14:25:02 +0000
-Message-Id: <20260806142502.475394-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1786026386; c=relaxed/simple;
+	bh=5JPG/IE7MpyRCHKDB0v2afsVTjAV0GARn0zF5Z5f7z8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VoMS9IYKgXgf03+DwOmfAUyB2ux4gNUg9F/qdRWMccwEdt5fLzmV1+OO4CK4/aU1OGI93y44DzfprSnxAq5SlmKPO4BU5hAbQkZK5mQSkyQfCAtiVdN4uzCkeajiET9Ndoa2pfrLN61pzm8poR+hV4ymzeaVb2n+nbZofuiciNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnJsh9bV; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnJsh9bV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F73A1F00A3A;
+	Thu,  6 Aug 2026 14:26:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786026385;
+	bh=pm44+rjMaMmNzpedN1v7slJ59DpJ7j6EBTW26pHYJik=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SnJsh9bVghFGUQLo4q7FXusg8tdyw+GFmZER/SFNErq+VKGkpCkBXtO4LmjNxfrwp
+	 KGaYM8zUJrkf/xjHudJpOhdLWh3Hqlun6SpUenj2lTuHNcuK96NMP0sFE9iBP3VVZf
+	 s/HR7Ojx4kpqnuHcYoLx7kjOfy5H4HUAG1/qCBlXwcmVjBTYo4GdDRIDYS4PrsXca0
+	 FPtqnEuiLdwnnJy6GQ42kn8wTd7nJYSqYGHsydTcuBTwFqB5M1wB5veqG3bS1tWGN+
+	 2HKMlDAowRAggRJLYKE/Sdj/Ux7BBjXYc4n8rRZXkNOaHKxueZ/qUD2r5pT0aAVzdV
+	 dyGnrv1hn3a/Q==
+Message-ID: <0e52d0b4-064d-4602-8e7b-5744b05f24ea@kernel.org>
+Date: Thu, 6 Aug 2026 16:26:20 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/huge_memory: let special huge VMAs bypass the THP
+ policy check
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org
+Cc: Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260805055544.1568534-1-clg@redhat.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260805055544.1568534-1-clg@redhat.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgAH7DR1mXRq4Z30Ag--.63343S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?kQrq7AXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZwp5qb4W9IdGa10RfZ4Bq7yZAdnnwQ712zH62S7o6QEEw56
-	yZzxATIQDkFVcObaW+yp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7tFy3GrWUuFW5KFW7WF1ktFc_yoW8GFWxpF
-	sakrWDKFWDXa1xta17uw18WFyfJan8t3yUKrW093sFg390ya48K34Ivr4UX348Jr4UXF4a
-	vFZrXFs8KFsrZagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU86c_DUUUUU==
 
-iio_trigger_notify_done_atomic() defers ->reenable() into
-trig->reenable_work on the system workqueue, and the worker dereferences
-the owning trigger through container_of().  Nothing cancels this work
-before iio_trig_release() frees the trigger, so a worker armed by the
-last in-flight IRQ can outlive the free and touch freed memory.
+On 8/5/26 07:55, Cédric Le Goater wrote:
+> From: Cedric Le Goater <clg@redhat.com>
+> 
+> The global THP sysfs policy (transparent_hugepage=never/madvise/always)
+> gates the huge fault dispatch path in __thp_vma_allowable_orders() for
+> all non-anonymous VMAs, including PFN-mapped device BARs (VM_PFNMAP).
+> 
+> DAX VMAs already bypass this check via an early return:
+> 
+> 	if (vma_is_dax(vma))
+> 		return in_pf ? orders : 0;
+> 
+> But "special huge" VMAs -- identified by vma_is_special_huge() -- do not
+> get this early return, even though they share the same fundamental
+> property: they map physical addresses directly into page tables and
+> involve no memory allocation, no compaction, no splitting, and no
+> reclaim. The THP policy has no meaningful effect on them.
+> 
+> This matters for VFIO PCI passthrough of large-BAR devices such as
+> NVIDIA H200 NVL GPUs (256 GB BAR each). The VFIO driver registers a
+> .huge_fault handler (vfio_pci_mmap_huge_fault) that dispatches to
+> vmf_insert_pfn_pmd/pud, and QEMU's vfio_region_mmap() aligns the BAR
+> mappings for huge page table entries. Both prerequisites are met, but
+> with THP=never or THP=madvise, __thp_vma_allowable_orders() returns 0
+> before reaching the "trust huge_fault handlers" code.
+> 
+> The result: each 256 GB BAR is mapped at 4 KiB granularity -- 67 million
+> page faults per GPU instead of a few thousand PMD/PUD faults. On hosts
+> with 8 GPUs (2 TB of BAR space), this causes VM boot times to degrade
+> severely, with 99.98% of CPU time spent in the VFIO BAR mapping path.
+> 
+> Configurations that trigger this:
+>   - transparent_hugepage=never on the kernel command line
+>   - The tuned cpu-partitioning profile (inherits network-latency, which
+>     sets transparent_hugepages=never via sysfs)
+>   - transparent_hugepage=madvise (the RHEL default), since VFIO VMAs
+>     lack VM_HUGEPAGE and QEMU does not call madvise(MADV_HUGEPAGE) on
+>     BAR mmap regions
+> 
+> Extend the existing DAX early return to also cover vma_is_special_huge()
+> VMAs. This is consistent with how vma_is_special_huge() is already
+> treated for supported_orders (grouped with DAX). The mm/Kconfig TODO
+> comment "Allow to be enabled without THP" also acknowledges this
+> coupling is wrong.
+> 
+> Cc: Peter Xu <peterx@redhat.com>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Alex Williamson <alex.williamson@redhat.com>
+> Cc: Jason Gunthorpe <jgg@nvidia.com>
+> Cc: Zi Yan <ziy@nvidia.com>
+> Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4
+> Signed-off-by: Cedric Le Goater <clg@redhat.com>
+> ---
+>  mm/huge_memory.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 58cabe6af33d031e48250e21db51506bc46c97b2..6dfef5500a054f09f9ece6df8bf7a0194624350f 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -139,8 +139,12 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+>  	if (thp_disabled_by_hw() || vma_thp_disabled(vma, vm_flags, forced_collapse))
+>  		return 0;
+>  
+> -	/* khugepaged doesn't collapse DAX vma, but page fault is fine. */
+> -	if (vma_is_dax(vma))
+> +	/*
+> +	 * khugepaged doesn't collapse DAX or special huge VMAs, but page
+> +	 * fault is fine. These map physical addresses directly — the THP
+> +	 * policy is irrelevant for them.
 
-Cancel it at the top of iio_trig_release(), which every free path
-reaches through the device core's final put_device().
+emdash in a code comment?
 
-Found by an in-house static analysis tool.
+Then I spot
 
-Fixes: 9020ef659885 ("iio: trigger: Fix a scheduling whilst atomic issue seen on tsc2046")
-Cc: stable@vger.kernel.org
-Cc: Jonathan Cameron <jic23@kernel.org>
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/iio/industrialio-trigger.c | 2 ++
- 1 file changed, 2 insertions(+)
+	Assisted-by: Claude:claude-opus-4
 
-diff --git a/drivers/iio/industrialio-trigger.c b/drivers/iio/industrialio-trigger.c
-index 54416a384232..68e92eac2b77 100644
---- a/drivers/iio/industrialio-trigger.c
-+++ b/drivers/iio/industrialio-trigger.c
-@@ -509,6 +509,8 @@ static void iio_trig_release(struct device *device)
- 	struct iio_trigger *trig = to_iio_trigger(device);
- 	int i;
- 
-+	cancel_work_sync(&trig->reenable_work);
-+
- 	if (trig->subirq_base) {
- 		for (i = 0; i < CONFIG_IIO_CONSUMERS_PER_TRIGGER; i++) {
- 			irq_modify_status(trig->subirq_base + i,
+and really have to shake my head.
+
 -- 
-2.34.1
+Cheers,
 
+David
