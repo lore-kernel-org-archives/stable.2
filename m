@@ -1,40 +1,75 @@
-Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3AB1434CFD0;
-	Thu,  6 Aug 2026 05:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8ADE384CFE
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 05:17:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785992747; cv=none; b=eQTVJ/HZTS+G7cO6ZBret6ltsGwGNU8vuH0vcp7PaxRv33r9ZQ5Vdn3KzQFnteqe9txST0x/wiIs0x5tgSEtzVaEgQ8xQfzxclSts5qCHV+nmkOiPqTJO+eBweyUPGvk1SAZjR1H1AYbf/Wk6IXTGlhQlCGCTwP84hWbjbsm3Rc=
+	t=1785993469; cv=none; b=Amkw9UR6ZcvhIT9DUa8swgKEpaaAhNXbSVrGam/YkO+0wp98TqVXoZhCHL1b1ZX4Awv8d4kv5AyjH3oVeZSTrd1OAa5QiJfoWB4AMlHWGZ5qNbqrUAWXn8nRGCfq0KkYtPXX8Tas9cBXjpcxuQj9+o/eeON6wZ99wXvTaEnA/Bc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785992747; c=relaxed/simple;
-	bh=mEj63TRaST/oKqFY1pmIZ6Sri3W/nvqY7ej7DXbr/ZI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=K58GOQEloQ8zGZsYVXPCd/ClTPpt6X3K+lkd7ce1TfPZo8axDjR3mlaULp4hUa8UJwbCJ3mDQ3nJi2gy4CX7SSuA+F4K2gbczU1MrHMHZbtcVFA9I64C6ZAnf7JFL+1KBb+Ak2TNW3N2YDUtnIqhf5fT6GMdUHKh6t4hB3SdSic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.79.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wDnv_wOFnRqf5lsAA--.30629S3;
-	Thu, 06 Aug 2026 13:05:19 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgBXyKENFnRqQGiSAw--.12767S2;
-	Thu, 06 Aug 2026 13:05:17 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-wpan@vger.kernel.org
-Cc: Stefan Schmidt <stefan@datenfreihafen.org>,
-	Alexander Aring <alex.aring@gmail.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Varka Bhadram <varkab@cdac.in>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
+	s=arc-20240116; t=1785993469; c=relaxed/simple;
+	bh=vjWx689qbeARwGGgPB+QjxwlJP29OTCCH11iiEAaiZM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k4koJK26bl4ucSSW+LheVvc/BFa1sqRKa9TvQ7Uxg2PsATh6gR41PEhnJ50eZHDGCSdFzBgRvBWbSLzK3WwlBINZIpSDpUtsmKrEPXSzNjikPIlDMZsnblD4JGloOC9QCM7spD90k8EiM1DNZMjYFtDnz6SLWT68RE7RjdhTgds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OT6ACGoG; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OT6ACGoG"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c9d1fff21edso1253512a12.1
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 22:17:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785993467; x=1786598267; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4zrnHL816rlceKPEH+b3G5bh9fGXwY6/iJzzWDpp3Fs=;
+        b=OT6ACGoGtQ/t+IIVWjlKUFdP8ojcfk3TAClXeniV2g7JDPUXUxUovnhPnMmIvRsNg8
+         NGWX8lEy9pWhLMaT+SIWmZaEnH7sKwqJYMZERGZMVGgWXDmzDDDrAHsIR+mZq/BU+e9F
+         ySKrxhBo3JpzoeZzreluId8/lW6NtC5Kiow7HTcj+/hYjvrd7MpKDnCy/Yp24HYW3Etg
+         Coe/IOfV4vTBn7b3ZpeszssKKJfFkTRkdIq+2mhBQgFgsNsdOBYJl94KKDZScnTNxEIc
+         1E597OVy0bEJfCPcCnOWugcQEwaEs8QDiERTqFkmFSEF9HPy+Gq+zPkxU6oJyEa9vfoY
+         xQKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785993467; x=1786598267;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4zrnHL816rlceKPEH+b3G5bh9fGXwY6/iJzzWDpp3Fs=;
+        b=ruVayMOX0ykdyCPl88f2rS/fs1z7rXgVeeSJsFIqxBHg/NVbEi0aJJs0xtBvsDuaG9
+         ZSPti4Ht844Beie1XIcvC6sdcqp7VZXl6O6JS6Uy17DtgDUIA5dMsCapP7O6x52gl4tK
+         BAf+s4AFMclaggf5wPckH6bFyW6pwBLMiLljG8+fvV2bnTBj34cA78jh9XxdEkqTq6/U
+         tulRm+1Yf08cxJUXzujTiBafvnEY4n+dzZvAKo+KQ69moKex+ShvYuhVWtFJQMspeCiv
+         Vv2B40TCSAi7YKxmkwbUtYRXVk1SUKw/PbaXIQkjDOgszUletv8/XvxEnsfxWUHnML6c
+         8c7Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqKz9dJJoIBs5prYXxD1m9faJx/aYP5CXqZoicY8uXgCcHUkYerNfwIUdTt0G8j/a+oTFraDS8=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJybTkmANfYGGPgj8MbPscB8oDel3fKZCRQ/jsM49DLKtJDnOG
+	/ud/9BbLTcxehCQP/e7l12ddl+Z6ALwJbcONE+soqN2Ma1Gl8nFPk+vy
+X-Gm-Gg: AR+sD116JJ733+L2MyA0s9K5/q03L8ZFc5/Ylg/odzw+oXIbY6LTESOFH1d5QVuFRmy
+	8sktn4Vu97mV09A/7RAhUspPYretgpu11VIHYBs1iFFV/85ntekVvz6JEdx5xHZC+9emglXxclJ
+	HLEAi/iRI/VbmRqXXKqU5GvHK41hWI0EIIq5fknrEFiTBUwNp3W0GlsO+ozZNiLIYWePpWjycu2
+	VvGnKRbLrxSsVt9O4VOoxIW9w4T575fNsIQubVw4s6RNZcMEMdmpJdT1NMcX3Km+hmX3ZtDK/CK
+	QGNi//FcCoY8iOru+GBBpK+7/6EBLdG8JOyAilKk5mUNXP/xU4wCiyvw8574CnIyHVFOI9qmW/S
+	ahWTxmcvFvEmfZSM2WU+eM3NAHMZGxY0wqITvMJHpp5e6PiW9zZYlu1miA9AqS6996jmPKP4aa+
+	LX4owtiQJLmf0HsZ/Gh65nIdvq0L5Rwuwq+XMiX0kJiZD2I0ToNZ3bsm7rAcsLo6yV
+X-Received: by 2002:a05:6a20:6a03:b0:3cb:82de:b952 with SMTP id adf61e73a8af0-3cb85de816cmr11307613637.2.1785993467133;
+        Wed, 05 Aug 2026 22:17:47 -0700 (PDT)
+Received: from Default ([2409:40f4:1038:e01b:68d4:26a8:ff11:f316])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fca6482e7sm20485791c88.6.2026.08.05.22.17.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 22:17:46 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: linux-usb@vger.kernel.org
+Cc: valentina.manea.m@gmail.com,
+	shuah@kernel.org,
+	i@zenithal.me,
+	gregkh@linuxfoundation.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ieee802154: cc2520: fix FIFOP work use-after-free
-Date: Thu,  6 Aug 2026 05:03:28 +0000
-Message-Id: <20260806050328.422480-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	stable@vger.kernel.org,
+	Jeffin Philip <jeffinphilip14@gmail.com>,
+	syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com
+Subject: [PATCH] usbip: usbip_host: Fix null pointer dereference in rebind_store
+Date: Thu,  6 Aug 2026 10:47:26 +0530
+Message-ID: <20260806051726.24343-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,157 +77,39 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgBXyKENFnRqQGiSAw--.12767S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?zD6DNgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBHzRKAK4G0UH2H3fB4lQ+lr007xFaOoG+XTwS7zUjcLREga
-	4iWHFLcsO4Je6co+FqOp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxCw4UJw1fXw15Gw4rCFWUWrX_yoWrCF47pa
-	nxWa93Kry0qw40k39xJF18WFn5Ca18Kay8Ca4xGas7AwnxAr90qr1SyFy0vFWrJFyvvayS
-	9rs8Jr45uan8AFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
-	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-The FIFOP interrupt handler queues cc2520_fifop_irqwork.  On
-removal, cc2520_remove() only flushes the work.  The devm-managed
-FIFOP IRQ remains active until after ->remove() returns and can queue
-the work again after that flush, allowing it to run after the private
-data is released.
+rebind_store calls do_rebind which dereferences udev without
+checking if it is NULL. If busid is registered using match_busid
+but the device is not present in the first place, it triggers a
+null pointer dereference when we attempt to rebind the device.
+Fix this by checking explicitly for udev first and returning
+-ENODEV if udev is NULL.
 
-Release the FIFOP IRQ and cancel the work before unregistering and
-freeing the hardware.  Keep the SFD IRQ active while
-ieee802154_unregister_hw() flushes the mac802154 workqueue: synchronous
-TX waits in cc2520_tx() for the completion signalled by the SFD handler.
-Release the SFD IRQ afterwards.  Destroy buffer_mutex last, since
-unregistering can invoke the driver's stop callback, which uses it.
-
-Install the SFD IRQ before cc2520_register(), so it is available when
-the netdev becomes visible.  Install the FIFOP IRQ afterwards, so a
-registration failure cannot schedule RX work while its hardware is
-being released.  Move ieee802154_free_hw() to the probe cleanup.
-
-Found by an in-house static analysis tool.
-
-Fixes: 0da6bc8cc341 ("ieee802154: cc2520: adds driver for TI CC2520 radio")
+Reported-by: syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=af76b01c9a0f0ab60fb0
+Fixes: 4bfb141bc013 ("usbip: usbip_host: fix to hold parent lock for device_attach() calls")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
 ---
- drivers/net/ieee802154/cc2520.c | 51 ++++++++++++++++++++++++-----------------
- 1 file changed, 30 insertions(+), 21 deletions(-)
+ drivers/usb/usbip/stub_main.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/net/ieee802154/cc2520.c b/drivers/net/ieee802154/cc2520.c
-index 2b7034193..464e896e3 100644
---- a/drivers/net/ieee802154/cc2520.c
-+++ b/drivers/net/ieee802154/cc2520.c
-@@ -206,6 +206,8 @@ struct cc2520_private {
- 	bool is_tx;			/* Flag for sync b/w Tx and Rx */
- 	bool amplified;			/* Flag for CC2591 */
- 	struct gpio_desc *fifo_pin;	/* FIFO GPIO pin number */
-+	int fifop_irq;
-+	int sfd_irq;
- 	struct work_struct fifop_irqwork;/* Workqueue for FIFOP */
- 	spinlock_t lock;		/* Lock for is_tx*/
- 	struct completion tx_complete;	/* Work completion for Tx */
-@@ -857,12 +859,10 @@ static int cc2520_register(struct cc2520_private *priv)
- 	dev_vdbg(&priv->spi->dev, "registered cc2520\n");
- 	ret = ieee802154_register_hw(priv->hw);
- 	if (ret)
--		goto err_free_device;
-+		goto err_ret;
+diff --git a/drivers/usb/usbip/stub_main.c b/drivers/usb/usbip/stub_main.c
+index 79110a69d697..dfaedecedb81 100644
+--- a/drivers/usb/usbip/stub_main.c
++++ b/drivers/usb/usbip/stub_main.c
+@@ -256,6 +256,11 @@ static ssize_t rebind_store(struct device_driver *dev, const char *buf,
+ 	if (!bid)
+ 		return -ENODEV;
  
- 	return 0;
- 
--err_free_device:
--	ieee802154_free_hw(priv->hw);
- err_ret:
- 	return ret;
- }
-@@ -1116,21 +1116,10 @@ static int cc2520_probe(struct spi_device *spi)
- 	if (ret)
- 		goto err_hw_init;
- 
--	/* Set up fifop interrupt */
-+	/* SFD completes synchronous TX; install before cc2520_register(). */
-+	priv->sfd_irq = gpiod_to_irq(sfd);
- 	ret = devm_request_irq(&spi->dev,
--			       gpiod_to_irq(fifop),
--			       cc2520_fifop_isr,
--			       IRQF_TRIGGER_RISING,
--			       dev_name(&spi->dev),
--			       priv);
--	if (ret) {
--		dev_err(&spi->dev, "could not get fifop irq\n");
--		goto err_hw_init;
--	}
--
--	/* Set up sfd interrupt */
--	ret = devm_request_irq(&spi->dev,
--			       gpiod_to_irq(sfd),
-+			       priv->sfd_irq,
- 			       cc2520_sfd_isr,
- 			       IRQF_TRIGGER_FALLING,
- 			       dev_name(&spi->dev),
-@@ -1142,13 +1131,31 @@ static int cc2520_probe(struct spi_device *spi)
- 
- 	ret = cc2520_register(priv);
- 	if (ret)
--		goto err_hw_init;
-+		goto err_free_sfd;
-+
-+	/* FIFOP arms the RX work; install after cc2520_register(). */
-+	priv->fifop_irq = gpiod_to_irq(fifop);
-+	ret = devm_request_irq(&spi->dev,
-+			       priv->fifop_irq,
-+			       cc2520_fifop_isr,
-+			       IRQF_TRIGGER_RISING,
-+			       dev_name(&spi->dev),
-+			       priv);
-+	if (ret) {
-+		dev_err(&spi->dev, "could not get fifop irq\n");
-+		goto err_unregister;
++	if (!bid->udev) {
++		put_busid_priv(bid);
++		return -ENODEV;
 +	}
- 
- 	return 0;
- 
-+err_unregister:
-+	ieee802154_unregister_hw(priv->hw);
-+err_free_sfd:
-+	devm_free_irq(&spi->dev, priv->sfd_irq, priv);
-+	if (priv->hw)
-+		ieee802154_free_hw(priv->hw);
- err_hw_init:
- 	mutex_destroy(&priv->buffer_mutex);
--	flush_work(&priv->fifop_irqwork);
- 	return ret;
- }
- 
-@@ -1156,11 +1163,13 @@ static void cc2520_remove(struct spi_device *spi)
- {
- 	struct cc2520_private *priv = spi_get_drvdata(spi);
- 
--	mutex_destroy(&priv->buffer_mutex);
--	flush_work(&priv->fifop_irqwork);
-+	devm_free_irq(&spi->dev, priv->fifop_irq, priv);
-+	cancel_work_sync(&priv->fifop_irqwork);
- 
- 	ieee802154_unregister_hw(priv->hw);
-+	devm_free_irq(&spi->dev, priv->sfd_irq, priv);
- 	ieee802154_free_hw(priv->hw);
-+	mutex_destroy(&priv->buffer_mutex);
- }
- 
- static const struct spi_device_id cc2520_ids[] = {
++
+ 	/* mark the device for deletion so probe ignores it during rescan */
+ 	bid->status = STUB_BUSID_OTHER;
+ 	/* release the busid lock */
+-- 
+2.55.0
 
