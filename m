@@ -1,35 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAAC7390CA6;
-	Thu,  6 Aug 2026 15:20:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 330BB3CF678;
+	Thu,  6 Aug 2026 15:21:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786029651; cv=none; b=X9N78wV7gK4nHkEeE2Al25lWOFJsPv3tQWUVZf/k9uCbIHJ90CJqoEKNxYmsBnvkVY5bCxoalWnjR1z/EXVOl2AY/OtiCWZ+iRbMSA2NgCUtOQZe1eixMHpWC5jQJSDPzkenyb/ng0IueP/NaqUptkYKWd/XUmAEqrDTmcUBLIk=
+	t=1786029668; cv=none; b=NR5KCVwKHVF1GaNWqlzU79jgwubM59dL2GkQEUGM8XjToIM2IBovf9CnEEnDoLjdrmSvQm5CYgOtUQwJ7XZkZpF3J3p7iDwPn/bloqXGv9Zy+oPwGA97rxxH0fobrXKnUN1y72OPvohPJrGNJBLEjT4XJHPG5aDgbBYjCk6XGRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786029651; c=relaxed/simple;
-	bh=1lVLDNftL+PCshr/bKIyiUq9UjY2dnZNkhFEmDSSruY=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=Kgc7+UE8nF0IsftbbIin4HRCRIO3WruVqr3Jp4DOrVbUotfVLUuQAE7zdnvn50IeSTqnGFSHNh/evzpgv/UHDv5qlnLyrlM+i63EUbM6k+4kZGTOag+SjDNPnJuD6M9DOD2HlZt9RvJoXhHa7vG3dUUt0AqOd+kzZI59r2t3/iU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fLANLCd7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786029668; c=relaxed/simple;
+	bh=Sb1NY9V01dgoEXrZxpCG9/auJnmA5P6O6bfCDLm4UnA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=R3g27WpCmDRspSQ0LMRHdX8VHbWk2UFC7bZjRMjUjCvmbdpwaUnJz4F7sE1wguKO8sJh9dQayezMU0obBv988syDNufASZ3PsGQM5oZ3AnZH/jHP0KmlhZfFZ8QODNbJH3YtUdtU8RFcEX3j1gjzUdKbGYgIt1tTIUKNmGq9ZMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=GnxfxLTu; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fLANLCd7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 493D61F000E9;
-	Thu,  6 Aug 2026 15:20:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786029650;
-	bh=dugqSMkZOoszMrAgVZwnKFek9N80adddweUaTY/KKJo=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=fLANLCd71KXRS2qi6Z+uFPdGcjl3gtsIJnG+lrv1vffQSir8Q18me1UxpeF53MVyg
-	 klZebbicRsVgRmzih0uLHj2sKK5img56pSEZNGPEHZ41cDwfMZWNdhPibBioAAv4TA
-	 WTwWtj9nk74zyjVwVXgj3h7IwX++RJK+RGr5+YEixS2YoA9CSt9jgrA7TsP63dNqci
-	 GccMbAdG2aKuRlHiEep/sMd2hT+goRL4Y8QMBVAtYc7y4GoYPjjloxdFPj7KJvtj3W
-	 6s/hyuuvaAz5O4i1i+GQL/eMnPkyGEpT48PxRunSpHgICFWkloY+mAvxw1Xpghlspb
-	 Gg1FbgXiOmvJw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A15380820D;
-	Thu,  6 Aug 2026 15:20:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="GnxfxLTu"
+Received: from LAPTOP-99KJFSET (unknown [36.153.54.46])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 490cb5b5b;
+	Thu, 6 Aug 2026 23:20:37 +0800 (GMT+08:00)
+From: Hongyan Xu <getshell@seu.edu.cn>
+To: Support Opensource <support.opensource@diasemi.com>,
+	Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	jianhao.xu@seu.edu.cn,
+	Hongyan Xu <getshell@seu.edu.cn>
+Subject: [PATCH v2] mfd: da903x: cancel IRQ work during teardown
+Date: Thu,  6 Aug 2026 23:20:31 +0800
+Message-ID: <20260806152032.894-1-getshell@seu.edu.cn>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <20260728065557.1517-1-getshell@seu.edu.cn>
+References: <20260728065557.1517-1-getshell@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,43 +38,87 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] ptp: fc3: register PTP clock after initialization
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178602960938.1333975.3024284810821390320.git-patchwork-notify@kernel.org>
-Date: Thu, 06 Aug 2026 15:20:09 +0000
-References: <20260803135942.48383-1-mhun512@gmail.com>
-In-Reply-To: <20260803135942.48383-1-mhun512@gmail.com>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: richardcochran@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- ae878000@gmail.com
+X-HM-Tid: 0a9fd7a97c0103a1kunm1104d3071001
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSh1LVktIGh5IQhkYTxlCTFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKTkhVTk9VT01ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=GnxfxLTu9VYID1N5Sawlup+KC0o5E/QXcr587+/u/qPiz9Zx6YblxalOq0rrU4PeZUQmspJuf3EX75BjoLbPlnQTnG6x57/p3uzcbSscCw+uQqwbrddonNzFW0Zl2CDZVVqbr6+pX4msPsAik0cJY6qS5xX+fNGjXvaWEmjzvI4=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=9RiJcmxpWB5jybv13xnn/ti2B+Zn7/fJmDEx4MBtReE=;
+	h=date:mime-version:subject:message-id:from;
 
-Hello:
+The IRQ handler disables the IRQ and schedules irq_work. Releasing the
+IRQ does not drain that work, which can continue to use the devm-allocated
+chip and notifier state.
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Add a devm action after requesting the IRQ. The action disables the IRQ
+and cancels the work before automatic IRQ release. Run the same action
+before removing child devices on normal detach.
 
-On Mon,  3 Aug 2026 22:59:42 +0900 you wrote:
-> ptp_clock_register() exposes the clock to userspace. If either following
-> initialization operation fails, probe returns and devres frees idtfc3 while
-> the registered clock still refers to the clock information embedded in it.
-> 
-> Complete the fallible initialization before registering the clock. Schedule
-> the worker after registration because it requires the registered clock.
-> This removes post-registration failures and avoids exposing a partially
-> initialized clock.
-> 
-> [...]
+If da903x_add_subdevs() fails, it removes already-created child devices
+before returning from probe. Release the action explicitly before that
+cleanup so the work is stopped before child-device teardown.
 
-Here is the summary with links:
-  - [net,v2] ptp: fc3: register PTP clock after initialization
-    https://git.kernel.org/netdev/net-next/c/762137ff748f
+This issue was found by the author's in-house static analysis tool.
+The patch was reviewed by the author against the latest mainline tree.
 
-You are awesome, thank you!
+Fixes: 26b8f5e1e2d1 ("mfd: add base support for Dialog DA9030/DA9034 PMICs")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+---
+ drivers/mfd/da903x.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/drivers/mfd/da903x.c b/drivers/mfd/da903x.c
+index e86b39de3303..f3e983bd21b0 100644
+--- a/drivers/mfd/da903x.c
++++ b/drivers/mfd/da903x.c
+@@ -421,6 +421,14 @@ static irqreturn_t da903x_irq_handler(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
+ 
++static void da903x_cancel_irq_work(void *data)
++{
++	struct da903x_chip *chip = data;
++
++	disable_irq(chip->client->irq);
++	cancel_work_sync(&chip->irq_work);
++}
++
+ static const struct da903x_chip_ops da903x_ops[] = {
+ 	[0] = {
+ 		.init_chip	= da9030_init_chip,
+@@ -484,6 +492,7 @@ static int da903x_add_subdevs(struct da903x_chip *chip,
+ 	return 0;
+ 
+ failed:
++	devm_release_action(chip->dev, da903x_cancel_irq_work, chip);
+ 	da903x_remove_subdevs(chip);
+ 	return ret;
+ }
+@@ -529,6 +538,11 @@ static int da903x_probe(struct i2c_client *client)
+ 		return ret;
+ 	}
+ 
++	ret = devm_add_action_or_reset(&client->dev, da903x_cancel_irq_work,
++				       chip);
++	if (ret)
++		return ret;
++
+ 	return da903x_add_subdevs(chip, pdata);
+ }
+ 
+@@ -536,6 +550,7 @@ static void da903x_remove(struct i2c_client *client)
+ {
+ 	struct da903x_chip *chip = i2c_get_clientdata(client);
+ 
++	devm_release_action(&client->dev, da903x_cancel_irq_work, chip);
+ 	da903x_remove_subdevs(chip);
+ }
+ 
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.50.1.windows.1
 
