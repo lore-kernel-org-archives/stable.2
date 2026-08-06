@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247C1382373;
-	Thu,  6 Aug 2026 16:51:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32AF37F33F;
+	Thu,  6 Aug 2026 16:51:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786035085; cv=none; b=idAfL2Oap6CczfMAqTTVd07HcdiVBFEtNeXdcH36TQDybG8okuBigwQrvfZIlFZEAH1Tw3mWHxE3EYoBNjdR7Zh2gSMOo7Vj6uMT5qCsxTj6QrlY7LVPf9C3FeAfHMm54rbMC8Lga4Fp5BaQi/nO54i08BzbLHyd6sJcBBWTc9E=
+	t=1786035090; cv=none; b=HnZEQdi+zq0F3Lx8fG2cNbd+nTbBBKJG/aQ9cEluEdDHVlYs1rFSwREP2plBEz5dw9D8DPs8fdku3/Be7iu3wSYJr3o34DpwkkIYSa6HTdl4JuBHjrGn1HuHbCacUzQ73p9mwDSajQpVtQ6nHt6LWqVBhIulvQvH6stWD5K+w+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786035085; c=relaxed/simple;
-	bh=X+NP6XH/WHMjJl1Vw83zFSPKe5U0fCG0e0j3F4pBMl8=;
+	s=arc-20240116; t=1786035090; c=relaxed/simple;
+	bh=45NAAedD7g5YQOH7dpDDYjiipzqsZkcyr1oeZGTxmM0=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=sM+jtXTfT0CJR9vad9Sr2lixy6eMUj5JUInilw7jQd2BDOZoelTRdbgDAAM4AKhAIsuyQ8DYeERK8tWo8aCRpuDVorQSX+bI4pOmaVjuPC4vxOTiw4RmIHTf4TjIyOZefUqB6FQKzyqMRU8bnX1FurlOeSPsSTLgP5bUglgKCnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hbjmk6fO; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=Uo4rzgET/s3tDQBNYASlZAq7/WE/3OxMOZtzFDRuAhPFRoLqyA6zysXTWJlNYpH98Y/7A6MYBEVuyXb6QLfEOF9d3f4gHZPSTB7TouPtnoRXYpeAiTmEc9H4/0aQ/lw/0Pzd0VWOEiE+HJxzydL3gqI9E/cAhNfpOpLyI8AhFLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FisnvbAe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hbjmk6fO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 141211F000E9;
-	Thu,  6 Aug 2026 16:51:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FisnvbAe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 155821F00A3A;
+	Thu,  6 Aug 2026 16:51:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786035063;
-	bh=pSFVI4nEQI4pmMpifR/iQZafl+JEc6XAcH5XUNZIEZU=;
+	s=k20260515; t=1786035079;
+	bh=V0d9CVOXxDdjEJr3P6dHA3Zp9kfbflA+jBu+F9nto8E=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Hbjmk6fOuFAM4SDLly0QwZpufCSbYgEZLBLyPYWLTn55nw5pEo+7Y41V24I51sTBa
-	 SlDzMNlIxz7mTitvkwy/6it0o7tYpx9OflLFEppIKoDx1zvGMXaXlLwRXNUHT8EsA9
-	 TgBAVcSHw0Wowph7op579VEonw4dBTyrUrLeElViMPlpQ6SXelgtC4QeLho+h1mf+L
-	 8LsDuWn5VyldfzjS2HPc8OFsNRPLeH80sKZeDQsiRYeY/CZbc3ibSnT2TVEPlp1XO8
-	 XgmJQupDp+Kb6ppb54blNfGko+e7h4vA5AP3UZOqM1/1YGAtUtUdD42JEMqV06PKqq
-	 Isd86sT8u3dHw==
+	b=FisnvbAePHDRcw+b0+qIYZ/gdnEKt7uRu4uEwv2x9qMZDPhTpT/oxxZDdHIQeTxjb
+	 T1cS8Jem6Bp4rZpT7dPtCa+5k5n4IRLgTg+dOuOpcEg146ed44RrdDyXvF/F8gbzkY
+	 5+D+3kt/enzieBb8dAqNHjVCgnuq+PNoBuuKyWxRq4tncuC4W3dZ5xWug13V9IjMnV
+	 WCw+nZVXryyjx0PpouSGyuaQAdh+ty5NZ42WSzNTRqEpPzmM419aA8iUY+AGcW2nRe
+	 QRNlbGiOCwD+oRo9ueQAwkaLahwcPRm1+tNeqA9TnT5ILDLPr3ODsjUYwl9+b0FW7R
+	 YHJyUTwr9cmGg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 939CA380820D;
-	Thu,  6 Aug 2026 16:50:23 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 939E4380820D;
+	Thu,  6 Aug 2026 16:50:39 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,43 +37,41 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v6 0/3] net: fix hard_header_len races in packet send
- paths
+Subject: Re: [PATCH net 1/2] fjes: unregister the netdev before destroying the
+ workqueues
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <178603502213.1375455.2088843819224139687.git-patchwork-notify@kernel.org>
-Date: Thu, 06 Aug 2026 16:50:22 +0000
-References: <20260805125729.19220-1-q.h.hack.winter@gmail.com>
-In-Reply-To: <20260805125729.19220-1-q.h.hack.winter@gmail.com>
-To: Qihang <q.h.hack.winter@gmail.com>
-Cc: netdev@vger.kernel.org, willemdebruijn.kernel@gmail.com,
- willemb@google.com, daniel.zahka@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- stable@vger.kernel.org
+ <178603503813.1375455.12729853575409508362.git-patchwork-notify@kernel.org>
+Date: Thu, 06 Aug 2026 16:50:38 +0000
+References: <20260805011410.414431-1-fanwu01@zju.edu.cn>
+In-Reply-To: <20260805011410.414431-1-fanwu01@zju.edu.cn>
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
+ edumazet@google.com, pabeni@redhat.com, andrew+netdev@lunn.ch,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
 Hello:
 
-This series was applied to netdev/net.git (main)
+This series was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Wed,  5 Aug 2026 20:57:26 +0800 you wrote:
-> From: Qihang Tang <q.h.hack.winter@gmail.com>
+On Wed,  5 Aug 2026 01:14:09 +0000 you wrote:
+> fjes_remove() destroys the driver workqueues before unregistering the
+> netdev. The interrupt handler queues work on them, but the IRQ is only
+> freed from fjes_close() under unregister_netdev(), so an interrupt in that
+> window can queue work once the workqueues are gone.
 > 
-> The packet socket TX paths read dev->hard_header_len independently for
-> skb allocation and header construction. Concurrent netdevice
-> reconfiguration (e.g. bonding device type changes) can change this value
-> in between, leading to mismatched headroom and copy length, and in the
-> SOCK_RAW case to out-of-bounds writes.
+> Unregister the netdev first so fjes_close() frees the IRQ and cancels the
+> workers before the workqueues are destroyed. force_close_task, which the
+> workers arm on the system workqueue, is handled in the next patch.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net,v6,1/3] net: remove CAP_SYS_RAWIO zero-padding in dev_validate_header
-    https://git.kernel.org/netdev/net/c/3b9a324e646d
-  - [net,v6,2/3] packet: use consistent hard_header_len in non-ring send paths
-    https://git.kernel.org/netdev/net/c/03390aa32e66
-  - [net,v6,3/3] packet: use consistent hard_header_len in TX_RING send path
-    https://git.kernel.org/netdev/net/c/21b5953e7494
+  - [net,1/2] fjes: unregister the netdev before destroying the workqueues
+    https://git.kernel.org/netdev/net-next/c/f2473fbfc3fd
+  - [net,2/2] fjes: cancel force_close_task in fjes_remove()
+    https://git.kernel.org/netdev/net-next/c/c206fc0705d1
 
 You are awesome, thank you!
 -- 
