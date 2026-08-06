@@ -1,159 +1,203 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785A03F1ADA;
-	Thu,  6 Aug 2026 09:11:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5029A42B725;
+	Thu,  6 Aug 2026 09:11:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786007482; cv=none; b=Xf4cRwYlrG/2bkbM+fr1rUUcgwXj1SN2dKutcZIFjty47CseqfZ57HP10t3dHMETQfMVKiqd1LfTUfYuKuGcvkhOzX44FgqME3xO7X12wJHW3F1x51ChevvUSp7qR7SInnOZ15DjGYCzezUTpATsjcdBV8pGhTB0sKvcsl/G0WY=
+	t=1786007496; cv=none; b=kXnMYn20IanvP8Ey4NGz3KEGw8IKzoLiArSuPgISfmD9NFzXqhnAiwXCzuzwjnTT8Nr7mkuZaLGQvpcMliaHglnJL/2w4ODp1eUB9dTKKxJ212CSfudlkaGbEGNtCcCOXa0SYpiGo0l+hkXYI0MBp7crNW/y0S0SafN8klueaZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786007482; c=relaxed/simple;
-	bh=5e9QuQ+zLqaCJ7/aMvkLwPRnnnXvYV0dZngRxxy/tKw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pA4aT64TfZaZlkdayXN+E7XLfozv7h48/kYkF/4kzDlIoMwznfnkdUr/lCIsedC4kOOjX8Ifrh6jGz67C/yirGT+DRQPY5MkOCDdusZZFZGnM9sb70iZubEckVrRzbZOwqB3bF+CqWSTdOr26fjpFnKfhLsVRa79whBcBuTlxm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j+bXCehl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786007496; c=relaxed/simple;
+	bh=HyC95j+iC6JRdSkBVf0x1rT0mxmIMJ/SHoyhxy2QTTs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XMrSJol3DNQ3APFd8/tag3Xcol860Q89eWuBnwwvjlAhi32xzdm4FoRbvaNC32yxLQxAPHrud+dxqwXX0i+HnL2tgS32Va6ZswWLXLET5JZFYkd4+ek7u24EDlwqAUbitoQ4ctIg+OpJyQgMcIXCyEzlBwbv0bpkkEC/+CcE740=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DyLZ3Zh3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j+bXCehl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 128C31F000E9;
-	Thu,  6 Aug 2026 09:11:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DyLZ3Zh3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DB891F000E9;
+	Thu,  6 Aug 2026 09:11:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786007479;
-	bh=ffzSoAaEsj0Mhz4niPLNZqO+oPL8aXxnAY4x9hVr9sI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=j+bXCehlFvKik1VcOXj8X2NEhYD+1KEJ99SroNadbNH1tD8qtL3wzek6wfQyEpJ8C
-	 eJERPjWlt/9rZmx/kXweC0IiKgZanDdB7l8RujpAerFj5Jo2KjRHwvohiPUrhkMFwT
-	 kvF30pN+wHLWhS3vCTDaTiwJblQgJ6bw7T2GyXbAmgZEfUOHpKc1v5NU3nEYURTvNA
-	 gM6gk3nNCnwAhJXyKz2CyoD9vdE/5UZIuLtCVF8B/h7kntChAv8FvX8dZ6r3XLaEzy
-	 LpD0hqlwe8b9L4SK2dhOfWX0Iv81oBJy/BezMZQS9rWotkLhzANaFTXovD4B1Lf/sl
-	 XPtTGMu2YK2wQ==
-Message-ID: <163c24ba-6b78-44bb-afe9-3dcbb4d47475@kernel.org>
-Date: Thu, 6 Aug 2026 11:11:09 +0200
+	s=k20260515; t=1786007494;
+	bh=in93mgYbw0F04Zxk1y2Zn0DH94LyJQ4nBw9npqUTqbE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DyLZ3Zh31dW5z00axg0BKCzVlVa7D7QuO9L9lSSWy/WGXglK73KJqRoOBLZFyFxZi
+	 zmRJwFsNtTbD+WCrIz2DACQ5RloEdH0v6wKvmoGdHmFcBVEK3x1agC+PfXfRYVDDGg
+	 6Bwmehy15falLfdD4IzxdAmEbOTOC6LdnDZyNYNyPTq2Iob4nt4rUwO6IJwn3CxYBy
+	 eQ7iVcNziIRujMXenBGqPiO+QwBPColW6sNa67PoYU/WtE+OX6XJNSNiOAicQeq2Ca
+	 Xn9o1cehGIA+Kb4v7gzBMzQa9jS3CZcCB14KG7y/GP3zTPgjmCwipqVgURhOUU8FGg
+	 hSfJLoFIDBntg==
+Date: Thu, 6 Aug 2026 10:11:17 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Yunhui Cui <cuiyunhui@bytedance.com>
+Cc: akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, 
+	vbabka@kernel.org, jannh@google.com, 00moses.alexander00@gmail.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/madvise: avoid skipping pages after splitting
+ large folios
+Message-ID: <anQyoZgi5Urnvvjw@lucifer>
+References: <20260806055501.56761-1-cuiyunhui@bytedance.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
- subnodes to common schema
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Stephan Gerhold <stephan.gerhold@linaro.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
- Daniel J Blueman <daniel@quora.org>
-References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
- <20260805-dark-voracious-jacamar-6aae4c@quoll>
- <7a546bc6-a2b4-457d-ac27-05fc1cfe17f5@kernel.org>
- <m4rccl6zsdzmkzntc3njv3uczcppva3passjr5ukmru5q6rylx@wlwha7ydttfp>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <m4rccl6zsdzmkzntc3njv3uczcppva3passjr5ukmru5q6rylx@wlwha7ydttfp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806055501.56761-1-cuiyunhui@bytedance.com>
 
-On 06/08/2026 10:46, Dmitry Baryshkov wrote:
-> 
->> dma-ranges tell how this bus - so venus/iris - performs DMA translation
->> in respective to parent. Address/size-cells are obviously also needed if
->> this is a bus with addressing.
->>
->> But there are no children with addressing, thus what sort of bus would
->> it be?
->>
->> It looks to me that having here both:
->> 1. dma-ranges + address/size-cells
->> 2. children without bus addressing
->> is some sort of abuse of the DT syntax. It is allowed, but does not
->> really represent hardware.
->>
->> IOW, dma-ranges alone feels okay, although unusual, and it states proper
->> DMA translation for this bus. If you add address/size-cells, it means
->> this bus HAS addressing and thus YOU MUST use addressing.
->>
->> If my understanding is correct, then solution would be to add addressing
->> to the children (so unit address and "reg" property) or drop
->> address/size-cells as Rob pointed out. [1]
-> 
-> Doesn't dma-ranges require address/size cells? In the end, how can you
+As a newer contributor to mm please wait for feedback on a v1 from reviewers
+before respinning, thanks :)
 
-I think it does not require, at least how I understood the DT spec,
-unless you provide actual addresses to the property.
+On Thu, Aug 06, 2026 at 01:55:01PM +0800, Yunhui Cui wrote:
+> madvise_inject_error() advances through the requested range using the
+> size of the page returned by get_user_pages_fast(). Saving the size
+> before error injection is required for hugetlb pages because successful
+> soft offlining can dissolve the source huge page.
 
-IOW, this requires address/size-cells:
-	dma-ranges = <0 0 0 0 0x10 0>;
+But you're also changing the behaviour for MADV_HWPOISON not only
+MADV_SOFT_OFFLINE? Explain?
 
-> specify the DMA address if the device doesn't have addressing at all (or
-> MMIO-style addressing)?
+Also mention the specific madvise flags...
 
-Yeah, that's why having here children without bus addressing is
-confusing. I would interpret it that, children are not on MMIO bus, thus
-the venus/iris is some sort of proprietary bus with no mapping between
-parent MMIO and children nodes.
+>
+> That stride is incorrect for non-hugetlb large folios in system memory.
+> The memory failure handlers split such a folio and handle only the base
+> page for the supplied PFN. Advancing by the pre-split folio size then
+> skips the remaining pages in the requested range while madvise() still
+> reports success.
 
-If there is no mapping, then we do not have 'ranges' property. But I
-could imagine that such no-mapping bus still provides access to system RAM?
+As Andrew also asks:
 
-Actually this feels like a huge stretch, so I tend to think that the
-only reasonable option is to have children with MMIO, which would make
-it explicit: Venus/iris is a bus which provides translation of both MMIO
-and DMA addresses to the parent.
+How did you find out about this? Is this a theoretical issue?
 
+Why? What? Who?...
 
-Best regards,
-Krzysztof
+>
+> Advance by PAGE_SIZE for non-hugetlb folios in system memory. Retain
+> folio_size() for hugetlb and ZONE_DEVICE folios, as compound Device DAX
+> folios are handled as a whole.
+
+You get a folio to check to see if it's DAX when you have the VMA that you can
+check for DAX?...
+
+>
+> Fixes: 19bfbe22f59a ("mm, hugetlb, soft_offline: save compound page order before page migration")
+
+4.14...!
+
+> Cc: stable@vger.kernel.org
+
+Stuff that touches folio and soft offline-adjacent THP is going to be tricky to
+backport correctly.
+
+And in madvise(2):
+
+              This feature is intended for testing of memory error-
+              handling code; it is available only if the kernel was
+              configured with CONFIG_MEMORY_FAILURE.
+
+For both MADV_SOFT_OFFLINE and MADV_HWPOISON.
+
+So I don't see why this should be backported. You might accidentally not quite
+offline/poison everything you intended in a test but that isn't a bug?
+
+Given nobody's complained in nearly a decade I don't think this matters.
+
+Also you're suggesting backporting to pre-folio ancient times which is going to
+make this horrid and tricky there too.
+
+> Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+
+This could really do with a test to reproduce the issue. Mm selftests already
+has memory failure stuff.
+
+Please provide one to demonstrate the issue.
+
+> ---
+>  mm/madvise.c | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
+>
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index 5a09cc24f04a0..e9d4c3bbc5290 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -1455,20 +1455,25 @@ static int madvise_inject_error(struct madvise_behavior *madv_behavior)
+>
+>  	for (; start < end; start += size) {
+>  		unsigned long pfn;
+> +		struct folio *folio;
+>  		struct page *page;
+>  		int ret;
+>
+>  		ret = get_user_pages_fast(start, 1, 0, &page);
+>  		if (ret != 1)
+>  			return ret;
+> +		folio = page_folio(page);
+>  		pfn = page_to_pfn(page);
+>
+>  		/*
+> -		 * When soft offlining hugepages, after migrating the page
+> -		 * we dissolve it, therefore in the second loop "page" will
+> -		 * no longer be a compound page.
+> +		 * Non-hugetlb large folios in system memory are split and only
+
+'non-hugetlb large folios' is horrid. Large folios. And 'system memory' is
+redundant.
+
+> +		 * the addressed base page is handled. Hugetlb folios may be
+> +		 * dissolved and ZONE_DEVICE folios may be handled as a whole,
+> +		 * so save their size before error injection.
+>  		 */
+
+You're discarding the whole thing of the page no longer being the head. But I
+guess with folios we don't need to mention that.
+
+This whole thing can made more succinct like:
+
+		/* DAX and hugetlb are consumed in folio chunks, everything else is split. */
+
+> -		size = page_size(compound_head(page));
+
+Yuck at this existing code.
+
+> +		size = PAGE_SIZE;
+> +		if (folio_test_hugetlb(folio) || folio_is_zone_device(folio))
+> +			size = folio_size(folio);
+
+It's really disgusting that hugetlb is treated differently with everything else
+treated page-at-a-time.
+
+Honestly I'd prefer to see a folio helper so the main loop can just assume
+folio size stride.
+
+But you can enter midway through a bloody folio. Ugh. So maybe that doesn't
+work.
+
+Let's at least split out the folio check into a helper to make things
+clearer:
+
+static bool poison_splits_folio(const struct folio *folio)
+{
+	/* Hugetlb is, as always, a world unto itself. */
+	if (folio_test_hugetlb(folio))
+		return false;
+	/* Soft-offline errors out, hwpoison traverse DAX intact. */
+	if (folio_is_zone_device(folio))
+		return false;
+	return true;
+}
+
+Then for your patch:
+
+-		size = PAGE_SIZE;
+-		if (folio_test_hugetlb(folio) || folio_is_zone_device(folio))
+-			size = folio_size(folio);
++		size = poison_splits_folio(folio) ? PAGE_SIZE : folio_size(folio);
+
+I tried writing something that was neater and nicer but AI kept pointing
+out how it was totally broken and I really really hate this code (not your
+fault :).
+
+--
+Cheers, Lorenzo
