@@ -1,141 +1,156 @@
-Received: from jowisz.hostline.pl (jowisz.hostline.pl [46.248.187.185])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895893EDACB;
-	Thu,  6 Aug 2026 08:17:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.248.187.185
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786004254; cv=none; b=OlcbezNkbthS+J5uHsh1hRv2D7l2fzYihTVaWicfImKzeEO/z04Yv5JgEMwpxreQWSW5uxFuqMz8OewgfwPohIlUfT9tySyfXjtdmOgVbAH+nVKm9OWKOipyGq3it7KICDgDsEYf8FpXJEIkQU7NJMATI6TJQd92knRlq4SjdfM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786004254; c=relaxed/simple;
-	bh=uL4xgBFenzMYKHAWZp3NGEbqHXryahR/V5uZ9wh29Q4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PLsVDZEXvK/QNZBP9aPU8NJe4GoPjqwHywatLz5Gs0E8do376PWWzETfbZGMR/8LqWThkfwoPSYHhsigrclTfr50s0p9gKhKbRTZucQOqa0Y28nSJEtK5RlrxM/OCjfBL7fS7w1cggMpDjxPdnTTu5mvtKeS5N8Lz1tnGDd8qXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krystianslowik.com; spf=pass smtp.mailfrom=krystianslowik.com; dkim=pass (2048-bit key) header.d=krystianslowik.com header.i=@krystianslowik.com header.b=2OU7ShNz; arc=none smtp.client-ip=46.248.187.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=krystianslowik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=krystianslowik.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE56D3DDAE6
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 08:19:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786004381; cv=pass; b=SfqggY8R8EZsXyV49q8Jg0+ktRUzNvJyJbZtCJW+3WM/HB0nsfzv0c4vTHM3yhdO/PWog2wuGmERlPrZz2SOI1QnyaU7mS6XRaVBCcl9i7KK1+FSiVyhZNAb25iB6xSrymWiGZv3XnvokYuAGnxBBjcl/fZyWq4XW9Rvdwo/HPI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786004381; c=relaxed/simple;
+	bh=MEvHivamILUPErJ+2YlMch6p8MF3vQZaLr0qsybG0Pg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bCGTkfsO/88Vnq6SvNqwMiG7iXtH8fGN8Z6OfWwMZp07OtOOpRIMsdrE2jlXr1fPxkLieHZBAEvgZnusSgVLjverO+N+eh2gsXIJfSa8OZ22gmSt/14GCfK3uuuKlgsjR52Ks3OVLPkEWAUy2+0XPS/2zVnVVnoexVn++L7ygDQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=jB5hz1Vc; arc=pass smtp.client-ip=209.85.160.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=krystianslowik.com header.i=@krystianslowik.com header.b="2OU7ShNz"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=krystianslowik.com; s=x; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=q3WkrCVD/31rgbvcNaWg0ZfXr+nKp6uv7jHQHoe89XM=; b=2OU7ShNzhot+JbbAWR2HtbdcGe
-	J/xAB5doBTU7dZSdsmt4EioCpMgiqogzF3RFpNR3Gq5+9nB1vmrRU6XTRC7cMfAzYkkSLM/szrr+C
-	SOt+xH/lwhXYv6DNxjuDMzINMXbKFcwdJ2GHdgp2w6VvJMWvcQ1Qu39qOo5c8kynWvZ0eFSx0Hjn3
-	BVYEORY5VZLoDjN+stgzL7kp3iGI01zYttBSD5X117oLafJJRWDy35/EmzPoxJPGNwNI7c512I6K3
-	7CGA1vyIgFqy1HRRYDfoE45QKJ5pHcsZ4lHO3BU1onp5DQt1rowaGL+kqndyOKWu7f0HO6tO5pxWk
-	BzuxiQNw==;
-Received: from dynamic-002-214-159-214.2.214.pool.telefonica.de ([2.214.159.214] helo=localhost.localdomain)
-	by jowisz.hostline.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <me@krystianslowik.com>)
-	id 1wrsMo-0000000DqNt-2FzD;
-	Thu, 06 Aug 2026 09:18:13 +0200
-From: Krystian Slowik <me@krystianslowik.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	linux-kernel@vger.kernel.org,
-	Krystian Slowik <me@krystianslowik.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] sched/core: Don't pin the idle task in migrate_disable_switch()
-Date: Thu,  6 Aug 2026 09:17:40 +0200
-Message-ID: <20260806071740.83931-1-me@krystianslowik.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="jB5hz1Vc"
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4569e871502so597041fac.1
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 01:19:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786004378; cv=none;
+        d=google.com; s=arc-20260327;
+        b=O3yfhvrl9FYmRiSp27AfliRcy+VJ+g+w9EqD+uDXtRQCY6JtA3OWs/n30N4/a5TvJ4
+         R1gf8yakICf+UslUX7cIYL/z4zD5vyUxXHb4MSaABOBioLzqEOkcUkdmo6MY9pCn+HCJ
+         lZp2Rx28DFqCq9ik07hbh378ZHWr8d2NMcYQQsKHGkDp9aAAvPx3XrrSeRIoVB7wkQbd
+         zmA8pO/Hjm8xNl0S0Q2L7K3yn509vebcTLRV6+ocTSsj6K65mA5RyfjFFGwg0mKWjH3F
+         JXldtjZqV2hRWoHkH4xKvYVRU1Y2aWoAKmePsPmYw8jFMu5yLoNxo/EeEszpZthm/4H+
+         u8FQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hy39CtWoc0zoje5YFx3qF8VnAfrlLSpF/ux3KEcnob8=;
+        fh=cgzm/P71RSEBYad2mdFaQ+m9Q6z4qNM4idEy1v67+PI=;
+        b=Udq1p92TZVb+utSdkRVt0JCtoyNoGnNoa0SpzLZ6l/+i0m4CixSiDaftKezPVYbCfO
+         rx8Ar8S/VxB9AqekzqSw8i43EnerW3qTAmHQIq+Fa4uQTmM49yoyJTNTT8GDK74F6lq3
+         9FfLGZbTG6U5NJ1MEKgIa+OBs3YmK7UjRnjIO1P6+t+kp7rISd7YrHI7xxEfjVbq2PA4
+         4ofssNZpK5VtjLSsDkb0TcmZz3GQtcrmG6LSc3sD1yzGOrI1wFapoaQGNgL+fln1h6NO
+         6nTFI6IEfUOG4YBUnp3bXjPFK0qLSgJAcK/a0BkqPbus99+9zyYHKScyjss9cA4zdVh0
+         TAtA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1786004378; x=1786609178; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hy39CtWoc0zoje5YFx3qF8VnAfrlLSpF/ux3KEcnob8=;
+        b=jB5hz1VcHs/cc/iyN/s+CEMBOC0ymP8Qzy7FWJf4RWENNHO51p47Cor4ByriT4W868
+         CVsW+o00/oiikV85CImAl4r1tMpMLYrrO4huss/HUTdZRMxdg6SDMWHM/QDa48vUf9Ra
+         1/blyoPLJZze3JMx1Woz+XAY+KZe0SmDIdgDD8+Ig/tX4JA9ypnjWIm732PKxadyEM3L
+         1MVzEt/tiPfvL3OBf+/JcAI2sw/dO6mNFocOZoyvybXdECPjUjKDA8nzwOVZfdEW77JU
+         rkzTI3mGqrMKZ/AGE+BjUw7NXYNZqGIvNhj/R4ahGsalG0T4CckRAR/+635PjSivGbbV
+         wGnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786004378; x=1786609178;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hy39CtWoc0zoje5YFx3qF8VnAfrlLSpF/ux3KEcnob8=;
+        b=nzChfe1l5FFKbpCJ1kJaj3Ipz5lugIt7aWc+t7rk2g66pUcHklJDvX6vRuR7ETjPOq
+         j5XUQ4kPqcaCGMXCt3My/gM5E04Cs5B71uu8iKd2srweFHVPN3ioqo2HTa8QmJuBAR8P
+         Ki0XITJZ9BOIXwbyJ5P9xFckC+d+ZvrDINM+M5OCTpwfQO0uwSCUUIHHn/WulvVsoqzp
+         RzQUSsYAIAH4jvNCE0/nmPURZ5NGyhKpaiwu0TB9gd/djhUrgqvL67iGr3lhMv3U3H/d
+         GUI4Pr5mDW+sGSdWoZ3LAgMnz+johSGF76Z2SAvjt0AwLtovWSaKoLqhPgNxNIUiltHW
+         bcAg==
+X-Forwarded-Encrypted: i=1; AHgh+RryVn4eLzPS/qZpGCyji74rmhSHbim7gW+FeCI1BskTJZvP75CQySlhKICdwyuj6H8Uc5ubG8M=@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywl28Ro0QWYezFa1GBwJJIAxftTptGajQhxe5aKig9t1Ny9ubFz
+	x+vgzJtHzPn2bBsBdPVAPaeegOXsJq4jTbyh/s7raQIgZAO//AuajQ44DA6Xho2nf162GeOjq8o
+	RuIg/SRcR6PjvYjqapWZRXAv1ghjqIe2NQQU8x0V/+w==
+X-Gm-Gg: AR+sD11a8H4N5yv3pWwtE+YYifhP9VC9hkFVjNq/YN0sxGGHA3dL9J2/bagNi8IMjZJ
+	/DBlpNU4rfUTEHoN5eWlqbZ5MMXdUHrzV3hRgJkgpXepSM4CL1d4u6TEHnM/Rru+XGFTLD6sQ7P
+	pJL6cJnW0VSvbu3US/KBr+XVywNqo+Emqg2gE8PlP0XjSaUdVHOCgr8s+odX8sbGPUriO0LZ25S
+	feg4QTFtNmwjhxK0sEFSWJJ2ScDrQgoHNewsrNro7chRyWRmjt0OpX8aQzcHyhDFedmRYXIB4a9
+	hjCv6jWYHN965oYi3qIRU8KtsmZtlrDfpQY+9OW7PVlvP3Q=
+X-Received: by 2002:a05:6870:7196:b0:456:cdf2:ae66 with SMTP id
+ 586e51a60fabf-4599f106966mr6769705fac.20.1786004378386; Thu, 06 Aug 2026
+ 01:19:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authenticated-Id: me@krystianslowik.com
+References: <20260806055501.56761-1-cuiyunhui@bytedance.com> <20260805232941.e89e96269472ce5106967bda@linux-foundation.org>
+In-Reply-To: <20260805232941.e89e96269472ce5106967bda@linux-foundation.org>
+From: yunhui cui <cuiyunhui@bytedance.com>
+Date: Thu, 6 Aug 2026 16:19:26 +0800
+X-Gm-Features: AUfX_mwGgNJoKFTBh_OuUz7py1XbYGaSQo8O6U35_XIAe-5lSBoXE9Jh7Dvpc8Y
+Message-ID: <CAEEQ3wngAf7Wse8=zfByvzuuZvvy3kD7gD+HJZjvHTOf1UBiiw@mail.gmail.com>
+Subject: Re: [External] Re: [PATCH v2] mm/madvise: avoid skipping pages after
+ splitting large folios
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: liam@infradead.org, ljs@kernel.org, david@kernel.org, vbabka@kernel.org, 
+	jannh@google.com, 00moses.alexander00@gmail.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Since commit 650952d3fb38 ("sched: Make __do_set_cpus_allowed() use the
-sched_change pattern"), do_set_cpus_allowed() dequeues and re-enqueues
-the target task through the sched_change guard whenever it is queued.
+Hi Andrew,
 
-The idle task counts as queued: init_idle() sets
-idle->on_rq = TASK_ON_RQ_QUEUED. But the idle sched class implements no
-real dequeue_task() (only the "bad: scheduling from the idle thread!"
-debug stub, which even drops and re-takes the rq lock in the middle of
-the guarded section) and no enqueue_task() at all, so running the guard
-on the idle task jumps through a NULL pointer in sched_change_end():
+On Thu, Aug 6, 2026 at 2:29=E2=80=AFPM Andrew Morton <akpm@linux-foundation=
+.org> wrote:
+>
+> On Thu,  6 Aug 2026 13:55:01 +0800 Yunhui Cui <cuiyunhui@bytedance.com> w=
+rote:
+>
+> > madvise_inject_error() advances through the requested range using the
+> > size of the page returned by get_user_pages_fast(). Saving the size
+> > before error injection is required for hugetlb pages because successful
+> > soft offlining can dissolve the source huge page.
+> >
+> > That stride is incorrect for non-hugetlb large folios in system memory.
+> > The memory failure handlers split such a folio and handle only the base
+> > page for the supplied PFN. Advancing by the pre-split folio size then
+> > skips the remaining pages in the requested range while madvise() still
+> > reports success.
+> >
+> > Advance by PAGE_SIZE for non-hugetlb folios in system memory. Retain
+> > folio_size() for hugetlb and ZONE_DEVICE folios, as compound Device DAX
+> > folios are handled as a whole.
+>
+> Thanks.
+>
+> > Fixes: 19bfbe22f59a ("mm, hugetlb, soft_offline: save compound page ord=
+er before page migration")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+>
+> Should there be an Assisted-by: here?
+>
+> When fixing a bug, please always describe the userspace-visible runtime
+> effects of that bug.  Especially when proposing a -stable backport.
+>
+>
+> I asked Gemini this question and then pasted in your email.  It told me
+> stuff, but I don't know if it's correct.  In this case it would be good
+> to hear that description in your own words, please.
+>
+> And perhaps a means of reproducing the bug - clearly our selftests/
+> coverage here is poor.
 
-  bad: scheduling from the idle thread!
-  CPU: 3 UID: 0 PID: 0 Comm: swapper/3 Kdump: loaded Not tainted 7.0.0-28-generic #28-Ubuntu PREEMPT(lazy)
-  Call Trace:
-   dequeue_task_idle+0x29/0x50
-   dequeue_task+0xfb/0x300
-   sched_change_begin+0x1ff/0x240
-   migrate_disable_switch.isra.0+0xf8/0x190
-   __schedule+0xdd/0x650
-   schedule_idle+0x22/0x40
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  #PF: supervisor instruction fetch in kernel mode
-  RIP: 0010:0x0
-  Call Trace:
-   enqueue_task+0x89/0x1d0
-   sched_change_end+0x18e/0x1d0
-   migrate_disable_switch.isra.0+0x11e/0x190
-   __schedule+0xdd/0x650
-   schedule_idle+0x22/0x40
-   do_idle+0xb6/0xf0
-   cpu_startup_entry+0x29/0x30
-   start_secondary+0x125/0x180
+The issue can be reproduced with the softoffline helper from
+avocado-misc-tests. With 64K mTHP enabled:
+./softoffline -m private -n 50
+the test consistently failed with:
+pfn matches, softoffline failed at 10
 
-The path is reachable since commit 942b8db96500 ("sched: Fix
-migrate_disable_switch() locking") moved migrate_disable_switch() to
-the top of __schedule(), where it runs on every schedule out of the
-idle loop rather than only on an actual context switch: any
-migrate_disable() taken in the idle loop (e.g. from a tracing or BPF
-callback) that is still held when the idle task schedules triggers the
-pinning path.
+After temporarily disabling 64K mTHP:
+echo never > /sys/kernel/mm/transparent_hugepage/hugepages-64kB/enabled
+./softoffline -m private -n 50
+the test passed in five consecutive runs:
+Softoffline succeeded!
 
-Pinning the idle task is meaningless to begin with: it is a per-CPU
-task that can never migrate. Skip it. This also keeps
-___migrate_enable() unreachable for the idle task, since its cpus_ptr
-is never repointed.
-
-The check uses p == rq->idle rather than is_idle_task(), because the
-latter also matches idle-injection threads (PF_IDLE), which are
-ordinary queueable tasks.
-
-Observed in production on two separate x86-64 machines running the
-Ubuntu 7.0.0-28 kernel, both panicking from the idle loop with the
-oops above.
-
-Fixes: 650952d3fb38 ("sched: Make __do_set_cpus_allowed() use the sched_change pattern")
-Cc: <stable@vger.kernel.org> # v7.0+
-Signed-off-by: Krystian Slowik <me@krystianslowik.com>
----
- kernel/sched/core.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 9622670..823af64 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -2461,6 +2461,10 @@ static void migrate_disable_switch(struct rq *rq, struct task_struct *p)
- 	if (p->cpus_ptr != &p->cpus_mask)
- 		return;
- 
-+	/* The per-CPU idle task never migrates, there is nothing to pin. */
-+	if (p == rq->idle)
-+		return;
-+
- 	scoped_guard (task_rq_lock, p)
- 		do_set_cpus_allowed(p, &ac);
- }
--- 
-2.54.0
-
+Thanks,
+Yunhui
