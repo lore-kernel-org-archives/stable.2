@@ -1,46 +1,43 @@
-Received: from out-186.mta1.migadu.com (mta1.migadu.com [37.59.57.117])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82DFE3B388E
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 16:59:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.59.57.117
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48513195FD
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 17:02:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786035557; cv=none; b=Rp+CtpNTTewdX39YF/dH9LC4XYheikcLvl0ONT5YHH+CmyOaZtoKoSYRfqeevW9h5jRVQ4Bk2g1pIJ3MZhKxzGo1z/z6TQOYDo3tI4U/F6uAQCAjlpoNe00ZH/B7K1W0UP4IX3pn83FtaXLFQCoMuyHhAyUMWZ9fb5lK4yqSSxw=
+	t=1786035730; cv=none; b=h/iZbNFCLeuKGtjYSpGIkWy6mwxbx1HiEqcJyYYS0KFjU52vFJmC/GI+fF9p57Ul5dEArkC5Tafdwzp5rg29u8tscEj8LCW7wmHdiUPzVlQRLCdCZtMMrQCUSDOCHUI7rNfUWthI+N0qhx+TnyziPuPVs4C8Of5C3R1z7rVkOK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786035557; c=relaxed/simple;
-	bh=LI7jXuDlS9I2l9Y3bcbJtvnFavQiyaOfDRTGs+++u3M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a3fwQM3xZ/WAj7b0qsq5S6PWYL0fNDWNIl2DYJZdgsqPADciTCPiHlwPihxs6nFv95ntNB5k735LOPPIlu5QXCy1B5hPbQmpwCXekWe2IQ58/BH8Kob0hmHvo1FIj1X9PsGXXcyaFWQxR/lB7UmmAK3rpryt0TJ5M9s1jrNKdzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=br+Np0f+; arc=none smtp.client-ip=37.59.57.117
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786035730; c=relaxed/simple;
+	bh=x12mvSL52o8Q8VcgymvHbgzZhEx6/Luy96hLe/GyRAs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jMVBUvxU3s99pZsC5fwdoxbM3G47T1A6NM7RCvjx7tGtxV8BNUhpQhuiOGkSZ/mJvGUK4+r42xyLEvPXv09IRJGhvpK0SYmFAgPRooMe9xSNCxatnTseXezEtQn2SgampCxotzpGT9uUO7rE1OT6kwHaRMscXgf8ZddKhb27P+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OXfP/g/X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="br+Np0f+"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1786035542;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ZtOGW7nC7mx1grvKmtWDM3R0MQff7Um4ZczGlYey6rE=;
-	b=br+Np0f+FL/MC8TKGp6CdTkZaPKFSEz2++ttU26O0ZmvkwbA1QvrRG/1/V2CL7NuCELe3l
-	eviC41E71Z22E4O5jfGnvJ+amz1airMhKRYnhVmofdGWaEweVVRK/DI5VKCbU8jx2eIUVl
-	EdC2vapu0DTc0Z6oBpBhbTgnIylKkA8=
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Karl Erik Hofseth <karl.e.hofseth@opoint.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] memcg: keep folio's objcg same as its node
-Date: Thu,  6 Aug 2026 09:58:13 -0700
-Message-ID: <20260806165813.2526415-1-shakeel.butt@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OXfP/g/X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B8BE1F000E9;
+	Thu,  6 Aug 2026 17:02:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786035725;
+	bh=SdjPp/u95F6Zuc4H2fL5FqXV7IAILmd7RI0uNmqU99c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OXfP/g/XA9EvxswW8IPjYVE9gVYiizTv2ycR/AKKViftm86Tf1Wq5v6y+76MRKQgc
+	 upU2Jh60/hM+LuS/dLKFo2w45NuOWq8rLrOMmiDl5zNFcccoM4bZP0hafNu+RuoFtq
+	 FJe8xAyL3aDDxqH5bMUnk7OZ4prTMx7VzR18WG9ajP7a38ZNshEaPZbojvDAyKeQtU
+	 xTvFczMeQ8aq2Hka4Te4s9XfY7ex1/qKsrmNF8FNDyysFKrNwZ8f3MeKeQzup5arEt
+	 9kGJdTJf86SRSxLLtmuGrZIguFwTBC0dmjcRF3VFP6GEXVtZSSmOqrOst72SyTP50q
+	 5TaAcaU5AlQ2Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Alexander Kaplan <alexander.kaplan@sms-medipool.de>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] ALSA: hda: codecs: hdmi: disable keep-alive before audio format change
+Date: Thu,  6 Aug 2026 13:02:03 -0400
+Message-ID: <20260806170203.1185340-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072952-henna-smolder-cd89@gregkh>
+References: <2026072952-henna-smolder-cd89@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,186 +45,130 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 
-memcg_reparent_objcgs() has an inherent assumption that a folio's objcg
-is the objcg of the folio's node.  Folio migration across nodes breaks
-that assumption: the new folio simply inherits the old folio's objcg
-while living on a different node.
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-Once the assumption is broken, the reparenting of the folio's objcg and
-the reparenting of the folio's LRU list are no longer atomic.
-memcg_reparent_objcgs() handles one node per iteration and drops all the
-locks in between, so the objcg gets reparented in the iteration for the
-objcg's node while the LRU list gets spliced in the iteration for the
-folio's node.  Any LRU operation on that folio in between resolves its
-lruvec through the objcg, and thus takes the lru_lock of the wrong
-memcg, not the lru_lock of the list the folio is actually on.
+[ Upstream commit a3d6d3cedfe87bbd5a677d52b22ac20d28e59cf8 ]
 
-Fix this by selecting the objcg by folio_nid() at charge time, and by
-re-deriving it for the destination node in mem_cgroup_migrate() and
-mem_cgroup_replace_folio().
+When a keep-alive (KAE) silent stream is active on an Intel HDMI/DP
+codec, opening a real PCM stream reprograms the converter format and the
+audio infoframe in snd_hda_hdmi_generic_pcm_prepare(). Part of that
+reprogramming - the converter channel count and the channel mapping in
+snd_hda_hdmi_setup_audio_infoframe() - is not safe to do while a
+keep-alive stream is active. This is most visible when switching to a
+multichannel PCM configuration, where the active channel count actually
+changes. In that case the newly opened PCM stream plays no sound.
 
-Reported-by: Karl Erik Hofseth <karl.e.hofseth@opoint.com>
-Closes: https://lore.kernel.org/all/anMmd1ADrDVwMO6v@work/
-Fixes: f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying memory cgroup for LRU folios")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Add an optional hdmi_ops .prepare hook, called at the start of the
+PCM prepare sequence (before the format and infoframe are touched), and
+implement it for HSW+ to release keep-alive. Keep-alive is then
+re-enabled as before once the new stream has been set up, in the
+setup_stream op.
+
+Fixes: 15175a4f2bbb ("ALSA: hda/hdmi: add keep-alive support for ADL-P and DG2")
+Reported-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8412
+Tested-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Link: https://patch.msgid.link/20260715180610.1371243-1-kai.vehmanen@linux.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ adapted three hunks from the post-6.12 split files (hdmi.c/hdmi_local.h/intelhdmi.c) back into the monolithic sound/pci/hda/patch_hdmi.c, with the prepare hook un-indented one level since 6.12 uses plain mutex_lock() instead of scoped_guard() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ sound/pci/hda/patch_hdmi.c | 48 +++++++++++++++++++++++++++++++++-----
+ 1 file changed, 42 insertions(+), 6 deletions(-)
 
-Changes since v1: http://lore.kernel.org/20260806061830.3294679-1-shakeel.butt@linux.dev
-
-- In mem_cgroup_migrate, do obj_cgroup_put at the end (Sashiko)
-- Handle scenario where destination node has been reparented to the root but the
-  source node's objcg has not yet (Sashiko)
-- Add comment explaining the race between migration and reparenting (Johannes)
-
- mm/memcontrol.c | 66 ++++++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 54 insertions(+), 12 deletions(-)
-
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 3057396dda53..02c108cdd0f5 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -2966,10 +2966,9 @@ struct mem_cgroup *mem_cgroup_from_virt(void *p)
- 	return folio_memcg_check(virt_to_folio(p));
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 763c92a848d4b..c2b00b6768ac5 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -111,6 +111,15 @@ struct hdmi_ops {
+ 			    hda_nid_t pin_nid, int dev_id, u32 stream_tag,
+ 			    int format);
+ 
++	/*
++	 * Optional hook invoked at the beginning of the PCM prepare
++	 * sequence, before the audio infoframe and stream format are
++	 * (re)programmed. Used to disable keep-alive / silent stream so
++	 * that the format change is not done while keep-alive is active.
++	 */
++	void (*prepare)(struct hda_codec *codec,
++			struct hdmi_spec_per_pin *per_pin);
++
+ 	void (*pin_cvt_fixup)(struct hda_codec *codec,
+ 			      struct hdmi_spec_per_pin *per_pin,
+ 			      hda_nid_t cvt_nid);
+@@ -2134,6 +2143,9 @@ static int generic_hdmi_playback_pcm_prepare(struct hda_pcm_stream *hinfo,
+ 	per_pin->channels = substream->runtime->channels;
+ 	per_pin->setup = true;
+ 
++	if (spec->ops.prepare)
++		spec->ops.prepare(codec, per_pin);
++
+ 	if (get_wcaps(codec, cvt_nid) & AC_WCAP_STRIPE) {
+ 		stripe = snd_hdac_get_stream_stripe_ctl(&codec->bus->core,
+ 							substream);
+@@ -2905,6 +2917,28 @@ static void register_i915_notifier(struct hda_codec *codec)
+ 	codec->relaxed_resume = 1;
  }
  
--static struct obj_cgroup *__get_obj_cgroup_from_memcg(struct mem_cgroup *memcg)
-+static struct obj_cgroup *__get_obj_cgroup_from_memcg(struct mem_cgroup *memcg,
-+						      int nid)
- {
--	int nid = numa_node_id();
--
- 	for (; memcg; memcg = parent_mem_cgroup(memcg)) {
- 		struct obj_cgroup *objcg = rcu_dereference(memcg->nodeinfo[nid]->objcg);
- 
-@@ -2980,12 +2979,13 @@ static struct obj_cgroup *__get_obj_cgroup_from_memcg(struct mem_cgroup *memcg)
- 	return NULL;
- }
- 
--static inline struct obj_cgroup *get_obj_cgroup_from_memcg(struct mem_cgroup *memcg)
-+static inline struct obj_cgroup *get_obj_cgroup_from_memcg(struct mem_cgroup *memcg,
-+							   int nid)
- {
- 	struct obj_cgroup *objcg;
- 
- 	rcu_read_lock();
--	objcg = __get_obj_cgroup_from_memcg(memcg);
-+	objcg = __get_obj_cgroup_from_memcg(memcg, nid);
- 	rcu_read_unlock();
- 
- 	return objcg;
-@@ -3029,7 +3029,7 @@ static struct obj_cgroup *current_objcg_update(void)
- 
- 		rcu_read_lock();
- 		memcg = mem_cgroup_from_task(current);
--		objcg = __get_obj_cgroup_from_memcg(memcg);
-+		objcg = __get_obj_cgroup_from_memcg(memcg, numa_node_id());
- 		rcu_read_unlock();
- 
- 		/*
-@@ -5197,7 +5197,7 @@ static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
- 	int ret = 0;
- 	struct obj_cgroup *objcg;
- 
--	objcg = get_obj_cgroup_from_memcg(memcg);
-+	objcg = get_obj_cgroup_from_memcg(memcg, folio_nid(folio));
- 	/* Do not account at the root objcg level. */
- 	if (!obj_cgroup_is_root(objcg))
- 		ret = try_charge_memcg(memcg, gfp, folio_nr_pages(folio));
-@@ -5408,8 +5408,8 @@ void __mem_cgroup_uncharge_folios(struct folio_batch *folios)
-  */
- void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
- {
-+	struct obj_cgroup *objcg, *new_objcg = NULL;
- 	struct mem_cgroup *memcg;
--	struct obj_cgroup *objcg;
- 	long nr_pages = folio_nr_pages(new);
- 
- 	VM_BUG_ON_FOLIO(!folio_test_locked(old), old);
-@@ -5431,6 +5431,7 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
- 
- 	rcu_read_lock();
- 	memcg = obj_cgroup_memcg(objcg);
++/*
++ * prepare ops override for HSW+
++ *
++ * Disable keep-alive before the converter format and audio infoframe are
++ * reprogrammed by the PCM prepare sequence. Changing the audio format (e.g.
++ * the channel count when switching to multichannel PCM) while a keep-alive
++ * stream is active is not safe, so release keep-alive here, early in the
++ * sequence. It is re-enabled once the new stream has been set up, in
++ * i915_hsw_setup_stream().
++ */
++static void i915_hsw_prepare(struct hda_codec *codec,
++			     struct hdmi_spec_per_pin *per_pin)
++{
++	struct hdmi_spec *spec = codec->spec;
 +
- 	/* Force-charge the new page. The old one will be freed soon */
- 	if (!obj_cgroup_is_root(objcg)) {
- 		page_counter_charge(&memcg->memory, nr_pages);
-@@ -5438,7 +5439,31 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
- 			page_counter_charge(&memcg->memsw, nr_pages);
- 	}
- 
--	obj_cgroup_get(objcg);
-+	/*
-+	 * memcg_reparent_objcgs() reparents a node's objcgs and its LRU lists
-+	 * together, under that node's lru_locks. If a folio's objcg is on a
-+	 * different node, the two happen in separate iterations with the locks
-+	 * dropped in between, and an LRU operation in that window takes the
-+	 * lru_lock of the wrong memcg. Keep the objcg on the folio's node.
-+	 */
-+	if (folio_nid(old) != folio_nid(new))
-+		new_objcg = __get_obj_cgroup_from_memcg(memcg, folio_nid(new));
-+
-+	/*
-+	 * LRU folios are not accounted at the root level: swapping a non-root
-+	 * objcg for the root one would skip the uncharge and leak the charge.
-+	 * Keep the old one, the root memcg never reparents. No put needed,
-+	 * tryget takes no reference on the root objcg.
-+	 */
-+	if (new_objcg && obj_cgroup_is_root(new_objcg) &&
-+	    !obj_cgroup_is_root(objcg))
-+		new_objcg = NULL;
-+
-+	if (new_objcg)
-+		objcg = new_objcg;
-+	else
-+		obj_cgroup_get(objcg);
-+
- 	commit_charge(new, objcg);
- 	memcg1_commit_charge(new, memcg);
- 	rcu_read_unlock();
-@@ -5457,7 +5482,7 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
-  */
- void mem_cgroup_migrate(struct folio *old, struct folio *new)
- {
--	struct obj_cgroup *objcg;
-+	struct obj_cgroup *objcg, *new_objcg = NULL;
- 
- 	VM_BUG_ON_FOLIO(!folio_test_locked(old), old);
- 	VM_BUG_ON_FOLIO(!folio_test_locked(new), new);
-@@ -5478,12 +5503,29 @@ void mem_cgroup_migrate(struct folio *old, struct folio *new)
- 	if (!objcg)
- 		return;
- 
--	/* Transfer the charge and the objcg ref */
--	commit_charge(new, objcg);
-+	/* Keep the objcg on the folio's node, see mem_cgroup_replace_folio() */
-+	if (folio_nid(old) != folio_nid(new)) {
-+		rcu_read_lock();
-+		new_objcg = __get_obj_cgroup_from_memcg(obj_cgroup_memcg(objcg),
-+							folio_nid(new));
-+		rcu_read_unlock();
-+
-+		/* No root swap, see mem_cgroup_replace_folio(). */
-+		if (new_objcg && obj_cgroup_is_root(new_objcg) &&
-+		    !obj_cgroup_is_root(objcg))
-+			new_objcg = NULL;
++	if (spec->silent_stream_type == SILENT_STREAM_KAE && per_pin->silent_stream) {
++		silent_stream_set_kae(codec, per_pin, false);
++		/* wait for pending transfers in codec to clear */
++		usleep_range(100, 200);
 +	}
++}
 +
-+	/* Transfer the charge and, unless it was swapped, the objcg ref */
-+	commit_charge(new, new_objcg ? : objcg);
+ /* setup_stream ops override for HSW+ */
+ static int i915_hsw_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
+ 				 hda_nid_t pin_nid, int dev_id, u32 stream_tag,
+@@ -2922,15 +2956,16 @@ static int i915_hsw_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
  
- 	/* Warning should never happen, so don't worry about refcount non-0 */
- 	WARN_ON_ONCE(folio_unqueue_deferred_split(old));
- 	old->memcg_data = 0;
-+
-+	/* @new took its own reference, drop @old's. */
-+	if (new_objcg)
-+		obj_cgroup_put(objcg);
- }
+ 	haswell_verify_D0(codec, cvt_nid, pin_nid);
  
- DEFINE_STATIC_KEY_FALSE(memcg_sockets_enabled_key);
+-	if (spec->silent_stream_type == SILENT_STREAM_KAE && per_pin && per_pin->silent_stream) {
+-		silent_stream_set_kae(codec, per_pin, false);
+-		/* wait for pending transfers in codec to clear */
+-		usleep_range(100, 200);
+-	}
+-
+ 	res = hdmi_setup_stream(codec, cvt_nid, pin_nid, dev_id,
+ 				stream_tag, format);
+ 
++	/*
++	 * Keep-alive was disabled in i915_hsw_prepare(), re-enable it now.
++	 * The pin lookup above resolves to the same per_pin that prepare
++	 * used (pin_nid comes from that per_pin), so this stays balanced; a
++	 * NULL per_pin only occurs on a lookup failure that also implies no
++	 * active keep-alive stream to restore.
++	 */
+ 	if (spec->silent_stream_type == SILENT_STREAM_KAE && per_pin && per_pin->silent_stream) {
+ 		usleep_range(100, 200);
+ 		silent_stream_set_kae(codec, per_pin, true);
+@@ -3106,6 +3141,7 @@ static int intel_hsw_common_init(struct hda_codec *codec, hda_nid_t vendor_nid,
+ 	codec->depop_delay = 0;
+ 	codec->auto_runtime_pm = 1;
+ 
++	spec->ops.prepare = i915_hsw_prepare;
+ 	spec->ops.setup_stream = i915_hsw_setup_stream;
+ 	spec->ops.pin_cvt_fixup = i915_pin_cvt_fixup;
+ 
 -- 
-2.53.0-Meta
+2.53.0
 
