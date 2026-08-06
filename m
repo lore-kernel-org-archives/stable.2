@@ -1,115 +1,355 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [40.65.178.148])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 617AB36C597;
-	Thu,  6 Aug 2026 17:16:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=40.65.178.148
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77442480DCC;
+	Thu,  6 Aug 2026 17:18:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786036600; cv=none; b=Lz0EPRSsRztBfdkZvwo0QQlHy0er8MTfkjZfPkyraKzTeml+vKU55CZy1eiY/bu6CTb1uecnF1EWaC0v43DyBOjmMf5xCN5JPpu1FfU50kGGLzUs1n8uc8cymIEOu2QIKhF2UtQxu/hARqt1sqdPLyy/6hFbKcRTmlNknLPtT5g=
+	t=1786036741; cv=none; b=u4TyddWpTEsJFpxTfrrpbPvkNOdpS+qDI5GBCFBBNimBnKs14YFRzbfVSx5z0WYo4S+AXwVKmaUBmCZKnU7ViMIPq0/yAa9zxKUn25+A1QUfXF69WtGs7IwXRmAEXuTGyq67207koK6mnKXkkcUxRBkgsZwCfsN47G17BtDt1Ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786036600; c=relaxed/simple;
-	bh=CwuWe3oIk4AzuGunWz+SP2Hs726ScsZkq/Uf4Lf1ouI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iDt2/57NGEeMkW4+uMPPlHpotiK1F7SLt7/CfEov1NXgu3QktCIoDSjkwU15DBjuhNUR++dKppdgXidRUQMWeBG7/oBisFDx24ncnMbYL+ykuTH74z+bQBWh99bd2QwtC9VNJ/ounp6dXcvQ9qwQpgf/JDc9QHTsAuD66DAt5/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=OwszU2L3; arc=none smtp.client-ip=40.65.178.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	s=arc-20240116; t=1786036741; c=relaxed/simple;
+	bh=b33qqGwdWhYEZtt/sw0/LQRf/rFWnSbFH/xr1yyFypc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=c/tnSk/6coyzNdbTbDGCXJF332VJP3zYOEbcetlTXh7qKgsZVrvRGKr/AV/VcgNloxqXuu/C1FxUCvdxYuIwNDi/AgSnTEgQ3rJWjfgoINiHcCUeltfvwz2Lrf/zeQ/7ob1GJtrv5L1FKPBiOeyb0WAamrYbWzO2UeQyM/4Sn7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=QrqgelF9; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="OwszU2L3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-Id:MIME-Version:Content-Transfer-Encoding; bh=8Ptg1
-	mK2PwCN7Sdld8TRmpv3xMzurCdFmlSv2qo+IKs=; b=OwszU2L3q7fYOa6pQObbA
-	XHZp1hbKXDlAclWDXfLXFrzNpttuUurzVObzcfdQWCdb0qILDPdhA4prUFDWbSDD
-	n4KG8snUhlM1kj5BQxIvRTtY3tA3dSW6r+l2XAuWV8raQnp8Wl7NXB8w/8uTcH86
-	OOwqTI8WqSepdkrygyVb7c=
-Received: from gpu-server-2.tailcd67b0.ts.net (unknown [101.52.241.91])
-	by web1 (Coremail) with SMTP id yAQGZQCXO8tfwXRqRwFEAQ--.57940S2;
-	Fri, 07 Aug 2026 01:16:16 +0800 (CST)
-From: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-To: linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: marcelo.leitner@gmail.com,
-	lucien.xin@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	stable@vger.kernel.org,
-	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>,
-	Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>,
-	Ke Xu <xuke@tsinghua.edu.cn>,
-	yyxroy22@gmail.com
-Subject: [PATCH net] sctp: fix use-after-free of cached ASCONF chunk
-Date: Fri,  7 Aug 2026 01:16:14 +0800
-Message-Id: <20260806171614.945331-1-yangyx22@mails.tsinghua.edu.cn>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="QrqgelF9"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 676HHn0s3290733;
+	Thu, 6 Aug 2026 17:18:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=MaSlou
+	2/XRMj37NXZYcvcDQJJ2umHVmob2IJMVUbOdc=; b=QrqgelF9epV/a+/xsjbKPC
+	ZyYFh97u+hK+HWAu/RQb20efoWVzt9WvU11NAJHMfchnQZ5ANdbJhCetqu8gpzfV
+	vYYd7KYKmaTN2CBbnODfMQZllXEk3XWum+KowCw+aAQ4KXxsykf8DoglQZFhT+5e
+	Jg9YO2vO4fa+6vNSg886CERyzk1dmap8bFGA9R0v1UIAFCo1GAxahVjynwy5UpTH
+	BgubZire+TfvQbnBuEl0lMnnxhfm6xXH5rvmXCypc3A9pZCUd84od01ZFlrtZ4kb
+	85oWu05t+SRI7oTVuA2gM50Ff1rK9rVPnQ0LH7/LNhdir7OWxsT8A9Kqr3slcZSA
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8h59jdk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 06 Aug 2026 17:18:38 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 676HBF6V014096;
+	Thu, 6 Aug 2026 17:18:37 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fsu4qv9fe-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 06 Aug 2026 17:18:36 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 676HIXZw36831506
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 6 Aug 2026 17:18:33 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0DDF520043;
+	Thu,  6 Aug 2026 17:18:33 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1AF7C20040;
+	Thu,  6 Aug 2026 17:18:30 +0000 (GMT)
+Received: from [9.124.215.184] (unknown [9.124.215.184])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  6 Aug 2026 17:18:29 +0000 (GMT)
+Message-ID: <401c45c9-c37d-4151-8aa9-70fc6d09ea25@linux.ibm.com>
+Date: Thu, 6 Aug 2026 22:48:28 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yAQGZQCXO8tfwXRqRwFEAQ--.57940S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cr15JFyUGF4UZFy7AF1DJrb_yoW8WFy8p3
-	98Zr4rtryUGr18ArZ3JFn0ga1Ikws3J39xKryqyw4fZFs8Xr1Yk347K3WUtr40kF4kAayS
-	grW3tF4UXF1qyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9C1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l8cAvFVAK
-	0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4
-	x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4U
-	JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I
-	0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VCjz48v1sIE
-	Y20_GrWkJr1UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjI
-	I2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r4a6rW5
-	MxkIecxEwVAFwVW8MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_GrWkJr1UJw
-	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
-	14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
-	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxK
-	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI
-	0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUyE__UUUUU=
-X-CM-SenderInfo: 51dqw5r0ssqzpdlo2hxwvl0wxkxdhvlgxou0/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 2/8] powerpc/bpf: Move out dummy_tramp_addr after Long
+ branch stub
+To: Saket Kumar Bhaskar <skb99@linux.ibm.com>, bpf@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+Cc: maddy@linux.ibm.com, ast@kernel.org, andrii@kernel.org,
+        daniel@iogearbox.net, shuah@kernel.org,
+        linux-kselftest@vger.kernel.org, stable@vger.kernel.org,
+        venkat88@linux.ibm.com, yeswanth@linux.ibm.com
+References: <cover.1785906979.git.skb99@linux.ibm.com>
+ <f658973fb3fb47e19084c2ef394a9f8366737241.1785906979.git.skb99@linux.ibm.com>
+Content-Language: en-US
+From: Hari Bathini <hbathini@linux.ibm.com>
+In-Reply-To: <f658973fb3fb47e19084c2ef394a9f8366737241.1785906979.git.skb99@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDEzNSBTYWx0ZWRfXxFHV2YK2bqLg
+ BupiEsiRFMUYiN9SK8UyeJexxIqp95SXGE8vWRiMwyTI9K3EkGL6oyVytaqJjC+r6/hyB8fQTZB
+ Wltc140nQA/CsiQ4Av3auv4KfT8dZKE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDEzNSBTYWx0ZWRfX3QSLug0S9agk
+ eazWX3OBpJX/aqWYJgz0tNJAAuBHx53oUv8qx9InDIf8+xiJaTkYJDA9YixuZ5Jcbi4+n9WlEgy
+ oTy2jKF3oTflZNbIM4rwinX2NnSdRTmh60MRcQJJB6eYG402ziyU05jDCVkj8w98Z//Vu7T41Da
+ SBwR38B620HBB4b40JLGQxRj5O9CNqEoUBg3FkfFY5tdnnT8HA1BJaXxeJxWebxGQlfo0FF1Riv
+ 2nhTtJebEJj/YkXR8RGi7ftfzly0wx/j3EoB+CulYAcIdHJl0eDPGj2s6C7tqPXgeXowMv7hZmm
+ 0NvFYoBCNQAxrpX8NLzoXj3UIPCMkgKiPiSosm9+B/wiUXmU0upogoYlCnKG16ti2MfMv/xOec+
+ BUvP/vnjwkP2THmZvHC8T7HscEmMmy/+BKbaAsCS2k9liENWurWYJyUqZFgK7Nqhc2QawIT45wq
+ IraEx4rlqG5kVHFquJQ==
+X-Authority-Analysis: v=2.4 cv=SI1ykuvH c=1 sm=1 tr=0 ts=6a74c1ee cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=PG8nOvWyLKg_aLjP1-sA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: YBoWjp8NYG8pbjCUyw_VP3VTSZVaawTr
+X-Proofpoint-GUID: YBoWjp8NYG8pbjCUyw_VP3VTSZVaawTr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-06_01,2026-08-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 bulkscore=0 suspectscore=0 impostorscore=0 spamscore=0
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608060135
 
-addip_last_asconf caches the outstanding outbound ASCONF chunk. The normal
-ASCONF-ACK completion path releases the chunk and clears the pointer.
 
-However, sctp_asconf_queue_teardown() releases the cached chunk without
-clearing addip_last_asconf. During peer restart handling,
-sctp_sf_do_dupcook_a() queues SCTP_CMD_PURGE_ASCONF_QUEUE, which invokes
-sctp_asconf_queue_teardown() while the association remains alive and leaves
-the pointer dangling.
 
-A delayed authenticated ASCONF-ACK can then reach sctp_sf_do_asconf_ack(),
-which accesses the stale chunk and passes it to sctp_process_asconf_ack(),
-causing a use-after-free and a second release.
+On 05/08/26 11:36 am, Saket Kumar Bhaskar wrote:
+> From: Abhishek Dubey <adubey@linux.ibm.com>
+> 
+> Move the long branch address field to the bottom of the long
+> branch stub. This allows uninterrupted disassembly until the
 
-Clear addip_last_asconf after releasing the cached chunk. This restores the
-invariant that a non-NULL pointer always references a live chunk.
+> last 8 bytes. The last bytes exclusion is logically necessary to
 
-Fixes: a000c01e60e4 ("sctp: stop pending timers and purge queues when peer restart asoc")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude-Code:GLM-5.2
-Signed-off-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
----
- net/sctp/associola.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Instead of "last 8 bytes", should be "last 4/8 bytes"
 
-diff --git a/net/sctp/associola.c b/net/sctp/associola.c
-index b6ac096..cf3e807 100644
---- a/net/sctp/associola.c
-+++ b/net/sctp/associola.c
-@@ -1709,6 +1709,8 @@ void sctp_asconf_queue_teardown(struct sctp_association *asoc)
- 	sctp_assoc_free_asconf_queue(asoc);
- 
- 	/* Free any cached ASCONF chunk. */
--	if (asoc->addip_last_asconf)
-+	if (asoc->addip_last_asconf) {
- 		sctp_chunk_free(asoc->addip_last_asconf);
-+		asoc->addip_last_asconf = NULL;
-+	}
- }
--- 
-2.25.1
+> prevent disassembly failure, otherwise the actual program layout
+> is never altered. Hence no effect on overall program size.
+> Also, align dummy_tramp_addr field with 8-byte boundary.
+> 
+> Following is disassembler output for test program with moved down
+> dummy_tramp_addr field:
+> .....
+> .....
+> pc:68    left:44     a6 03 08 7c  :  mtlr 0
+> pc:72    left:40     bc ff ff 4b  :  b .-68
+> pc:76    left:36     a6 02 68 7d  :  mflr 11
+> pc:80    left:32     05 00 9f 42  :  bcl 20, 31, .+4
+> pc:84    left:28     a6 02 88 7d  :  mflr 12
+> pc:88    left:24     14 00 8c e9  :  ld 12, 20(12)
+> pc:92    left:20     a6 03 89 7d  :  mtctr 12
+> pc:96    left:16     a6 03 68 7d  :  mtlr 11
+> pc:100   left:12     20 04 80 4e  :  bctr
+> pc:104   left:8      c0 34 1d 00  :
+> 
+> Failure log:
+> Can't disasm instruction at offset 104: c0 34 1d 00 00 00 00 c0
+> Disassembly logic can truncate at 104, ignoring last 8 bytes.
+> 
+> Update the dummy_tramp_addr field offset calculation from the end
+> of the program to reflect its new location, for bpf_arch_text_poke()
+> to update the actual trampoline's address in this field.
+> 
+> All BPF trampoline selftests continue to pass with this patch applied.
+> 
+> Fixes: d243b62b7bd3 ("powerpc64/bpf: Add support for bpf trampolines")
+> Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
+> Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
+> Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
+> ---
+>   arch/powerpc/net/bpf_jit.h        |  3 +-
+>   arch/powerpc/net/bpf_jit_comp.c   | 51 ++++++++++++++++---------------
+>   arch/powerpc/net/bpf_jit_comp32.c |  3 +-
+>   arch/powerpc/net/bpf_jit_comp64.c |  3 +-
+>   4 files changed, 33 insertions(+), 27 deletions(-)
+> 
+> diff --git a/arch/powerpc/net/bpf_jit.h b/arch/powerpc/net/bpf_jit.h
+> index 71e6e7d01057..6632de9871dd 100644
+> --- a/arch/powerpc/net/bpf_jit.h
+> +++ b/arch/powerpc/net/bpf_jit.h
+> @@ -217,7 +217,8 @@ void bpf_jit_build_prologue(u32 *image, struct codegen_context *ctx);
+>   void bpf_jit_build_epilogue(u32 *image, u32 *fimage, struct codegen_context *ctx);
+>   void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context *ctx);
+>   void bpf_jit_realloc_regs(struct codegen_context *ctx);
 
+> -int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr);
+> +int bpf_jit_emit_exit_insn(u32 *image, u32 *fimage, struct codegen_context *ctx, int tmp_reg,
+> +										long exit_addr);
+
+This function prototype change, the corresponding call site updates
+& the second parameter update in bpf_jit_build_epilogue() call
+inside bpf_jit_emit_exit_insn() function belong in the previous patch...
+
+>   void prepare_for_fsession_fentry(u32 *image, struct codegen_context *ctx, int cookie_cnt,
+>   								int cookie_off, int retval_off);
+>   void store_func_meta(u32 *image, struct codegen_context *ctx, u64 func_meta, int func_meta_off);
+> diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
+> index 42046f73c279..5d559d613f3a 100644
+> --- a/arch/powerpc/net/bpf_jit_comp.c
+> +++ b/arch/powerpc/net/bpf_jit_comp.c
+> @@ -52,9 +52,10 @@ asm (
+>   void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context *ctx)
+>   {
+>   	int ool_stub_idx, long_branch_stub_idx;
+> -	int ool_stub_sz;
+> +	int stub_sz;
+>   
+>   	/*
+> +	 * The dummy_tramp_addr field is placed at bottom of Long branch stub.
+>   	 * In the final pass, align the mis-aligned dummy_tramp_addr field
+>   	 * in the fimage. The alignment NOP must appear before OOL stub,
+>   	 * to make ool_stub_idx & long_branch_stub_idx constant from end.
+> @@ -62,13 +63,10 @@ void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context
+>   	 * dummy_tramp_addr must be 8-byte aligned for load-register
+>   	 * compatibility. The fimage can be non 8-byte aligned, so final
+>   	 * alignment depends on start of fimage and the stub's instruction
+> -	 * count offset. The OOL stub size is 4 instructions (with
+> -	 * CONFIG_PPC_FTRACE_OUT_OF_LINE) or 3 instructions (without)
+> -	 * before dummy_tramp_addr.
+> -	 *
+> -	 * Emit a NOP here if (ctx->idx + ool_stub_sz) is odd, so that
+> -	 * dummy_tramp_addr lands at an even instruction offset (== 8-byte
+> -	 * aligned from an 8-byte aligned base).
+> +	 * count. The stubs block has 11 instructions (with
+> +	 * CONFIG_PPC_FTRACE_OUT_OF_LINE) or 10 instructions (without)
+> +	 * before dummy_tramp_addr field. Emit a NOP if the address of
+> +	 * dummy_tramp_addr is non aligned.
+>   	 *
+>   	 * In pass=0 when image==NULL, conservatively account for space
+>   	 * required to accommodate alignment NOP. In case final pass skips
+> @@ -76,8 +74,8 @@ void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context
+>   	 * jited_len signifies correct program size.
+>   	 */
+>   
+> -	ool_stub_sz = IS_ENABLED(CONFIG_PPC_FTRACE_OUT_OF_LINE) ? 16 : 12;
+> -	if (!image || !IS_ALIGNED((unsigned long)fimage + ctx->idx*4 + ool_stub_sz, SZL))
+> +	stub_sz = IS_ENABLED(CONFIG_PPC_FTRACE_OUT_OF_LINE) ? 44 : 40;
+> +	if (!image || !IS_ALIGNED((unsigned long)fimage + ctx->idx*4 + stub_sz, SZL))
+>   		EMIT(PPC_RAW_NOP());
+>   
+>   	/*
+> @@ -98,35 +96,37 @@ void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context
+>   
+>   	/*
+>   	 * Long branch stub:
+> -	 *	.long	<dummy_tramp_addr>  // 8-byte aligned
+>   	 *	mflr	r11
+>   	 *	bcl	20,31,$+4
+> -	 *	mflr	r12
+> -	 *	ld	r12, -8-SZL(r12)
+> +	 *	mflr	r12	// lr/r12 stores pc of current(this) inst.
+> +	 *	ld	r12, 20(r12) // offset(dummy_tramp_addr) from prev inst. is 20
+>   	 *	mtctr	r12
+> -	 *	mtlr	r11 // needed to retain ftrace ABI
+> +	 *	mtlr	r11	// needed to retain ftrace ABI
+>   	 *	bctr
+
+> +	 *	.long	<dummy_tramp_addr>  // 8-byte aligned
+
+Likewise, the comment should be:
+"SZL bytes aligned"
+>   	 */
+> -	if (image)
+> -		*((unsigned long *)&image[ctx->idx]) = (unsigned long)dummy_tramp;
+> -
+> -	ctx->idx += SZL / 4;
+>   	long_branch_stub_idx = ctx->idx;
+>   	EMIT(PPC_RAW_MFLR(_R11));
+>   	EMIT(PPC_RAW_BCL4());
+>   	EMIT(PPC_RAW_MFLR(_R12));
+> -	EMIT(PPC_RAW_LL(_R12, _R12, -8-SZL));
+> +	EMIT(PPC_RAW_LL(_R12, _R12, 20));
+>   	EMIT(PPC_RAW_MTCTR(_R12));
+>   	EMIT(PPC_RAW_MTLR(_R11));
+>   	EMIT(PPC_RAW_BCTR());
+>   
+> +	if (image)
+> +		*((unsigned long *)&image[ctx->idx]) = (unsigned long)dummy_tramp;
+> +
+> +	ctx->idx += SZL / 4;
+> +
+>   	if (!bpf_jit_ool_stub) {
+>   		bpf_jit_ool_stub = (ctx->idx - ool_stub_idx) * 4;
+>   		bpf_jit_long_branch_stub = (ctx->idx - long_branch_stub_idx) * 4;
+>   	}
+>   }
+>   
+> -int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr)
+> +int bpf_jit_emit_exit_insn(u32 *image, u32 *fimage, struct codegen_context *ctx,
+> +							int tmp_reg, long exit_addr)
+>   {
+>   	if (!exit_addr || is_offset_in_branch_range(exit_addr - (ctx->idx * 4))) {
+>   		PPC_JMP(exit_addr);
+> @@ -136,7 +136,7 @@ int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg,
+>   		PPC_JMP(ctx->alt_exit_addr);
+>   	} else {
+>   		ctx->alt_exit_addr = ctx->idx * 4;
+> -		bpf_jit_build_epilogue(image, NULL, ctx);
+> +		bpf_jit_build_epilogue(image, fimage, ctx);
+>   	}
+>   
+>   	return 0;
+> @@ -1294,6 +1294,7 @@ static void do_isync(void *info __maybe_unused)
+>    * bpf_func:
+>    *	[nop|b]	ool_stub
+>    * 2. Out-of-line stub:
+> + *	nop	// optional nop for alignment
+>    * ool_stub:
+>    *	mflr	r0
+>    *	[b|bl]	<bpf_prog>/<long_branch_stub>
+> @@ -1301,14 +1302,14 @@ static void do_isync(void *info __maybe_unused)
+>    *	b	bpf_func + 4
+>    * 3. Long branch stub:
+>    * long_branch_stub:
+> - *	.long	<branch_addr>/<dummy_tramp>
+>    *	mflr	r11
+>    *	bcl	20,31,$+4
+>    *	mflr	r12
+> - *	ld	r12, -16(r12)
+> + *	ld	r12, 20(r12)
+>    *	mtctr	r12
+>    *	mtlr	r11 // needed to retain ftrace ABI
+>    *	bctr
+> + *	.long	<branch_addr>/<dummy_tramp>
+>    *
+>    * dummy_tramp is used to reduce synchronization requirements.
+>    *
+> @@ -1410,10 +1411,12 @@ int bpf_arch_text_poke(void *ip, enum bpf_text_poke_type old_t,
+>   	 * 1. Update the address in the long branch stub:
+>   	 * If new_addr is out of range, we will have to use the long branch stub, so patch new_addr
+>   	 * here. Otherwise, revert to dummy_tramp, but only if we had patched old_addr here.
+> +	 *
+> +	 * dummy_tramp_addr moved to bottom of long branch stub.
+>   	 */
+>   	if ((new_addr && !is_offset_in_branch_range(new_addr - ip)) ||
+>   	    (old_addr && !is_offset_in_branch_range(old_addr - ip)))
+> -		ret = patch_ulong((void *)(bpf_func_end - bpf_jit_long_branch_stub - SZL),
+> +		ret = patch_ulong((void *)(bpf_func_end - SZL), /* SZL: dummy_tramp_addr offset */
+>   				  (new_addr && !is_offset_in_branch_range(new_addr - ip)) ?
+>   				  (unsigned long)new_addr : (unsigned long)dummy_tramp);
+>   	if (ret)
+> diff --git a/arch/powerpc/net/bpf_jit_comp32.c b/arch/powerpc/net/bpf_jit_comp32.c
+> index 95bda0dee925..f5b9441cf46a 100644
+> --- a/arch/powerpc/net/bpf_jit_comp32.c
+> +++ b/arch/powerpc/net/bpf_jit_comp32.c
+> @@ -1149,7 +1149,8 @@ int bpf_jit_build_body(struct bpf_prog *fp, u32 *image, u32 *fimage, struct code
+>   			 * we'll just fall through to the epilogue.
+>   			 */
+>   			if (i != flen - 1) {
+> -				ret = bpf_jit_emit_exit_insn(image, ctx, _R0, exit_addr);
+> +				ret = bpf_jit_emit_exit_insn(image, fimage,
+> +								ctx, _R0, exit_addr);
+>   				if (ret)
+>   					return ret;
+>   			}
+> diff --git a/arch/powerpc/net/bpf_jit_comp64.c b/arch/powerpc/net/bpf_jit_comp64.c
+> index ed78992f4dac..951eb10ca1f6 100644
+> --- a/arch/powerpc/net/bpf_jit_comp64.c
+> +++ b/arch/powerpc/net/bpf_jit_comp64.c
+> @@ -1737,7 +1737,8 @@ int bpf_jit_build_body(struct bpf_prog *fp, u32 *image, u32 *fimage, struct code
+>   			 * we'll just fall through to the epilogue.
+>   			 */
+>   			if (i != flen - 1) {
+> -				ret = bpf_jit_emit_exit_insn(image, ctx, tmp1_reg, exit_addr);
+> +				ret = bpf_jit_emit_exit_insn(image, fimage, ctx,
+> +								tmp1_reg, exit_addr);
+>   				if (ret)
+>   					return ret;
+>   			}
+
+- Hari
