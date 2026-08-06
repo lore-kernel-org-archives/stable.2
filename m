@@ -1,245 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3542D42D75B;
-	Thu,  6 Aug 2026 11:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4139D442B15;
+	Thu,  6 Aug 2026 11:18:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786014895; cv=none; b=mKyDSC6y7v+TwL7xO6Wm/FfLlUTCtLWhsjaoQvIBjC1Vss9rvjETDSsKM9c9kUKZjrP0QFLOV/I5BZd4/4r3HZILPo6XTUzfoyHAjE2siFAhyuWEmSzWUWW4/BFYzYuucOR4hkVDa6SDysfLiNunYWPrFqhdnL5ct90BSSWizek=
+	t=1786015130; cv=none; b=XpS3rf9rj6Bd1UMwoK8AfCiLW+U7qTPgaNjb/soXiGuwJsz2LqQVkOeBkqTadSfr/SKEMgG490mXAQv3rlrsdiKHw54/6ld9VsvDQfFV4N6MyggCGACVPWn7s5FUt88AGjFehsAZdX1U7XUnn8Fd87XHKPX3vzVdJDqtXL4+dUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786014895; c=relaxed/simple;
-	bh=B4/b7b8S9qJ14rwl6p4b1XXiYRI7PB0EXUs4rVO8sZk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YvLk49FBJ2f+6FfZZyDQiPMw99ASGQ7tOmSoq6p3AOKssuH8SZFOnSVtVskEG8jdf0rlERCROLZVxSP4g7sMNYFqyP3cDe6onvqjKB74p/cdgCVeye+8zkqRelb4fqFgDRnqYp4PoOlKOXoFmNPEj7cHSV+KMplJt1U8Ylg9hkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jQyMWSPd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786015130; c=relaxed/simple;
+	bh=zew8gWZJiSm87xDe3gmKMiiYWY8aeEKTxjWd2gGwSqc=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=swQWgHiR6LjOA57g63FwwATygRygd/awKfDEwu+lPBdWbL0nALGOAFGlM+tRIHUN0O8cNXoqYhJZ+7zcPeJlzIQQQ3PRQCA5R1e9a+fks4bOJjLfaYB1keVx2fxGhN7uy1eR6LF+fxmvlwW9qGumtjyYKll+qBr7hNj5AUwa0n4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=NiLWDPkC; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jQyMWSPd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33B461F000E9;
-	Thu,  6 Aug 2026 11:14:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786014893;
-	bh=/ReBsEWVSG7DT1p1R8bGGZpfItCvJ0rC/y80hPOREMk=;
-	h=From:Date:Subject:To:Cc;
-	b=jQyMWSPdN8zYU//8DYxtWuBisX9smWBUzKzW2ArdiF57JwZmkgdajyinpngwNbGCN
-	 kBzl/1rNf5fL0HuBdB/E+gpSHpomi2VtuR8Srncm3SRN6O0XA10Uk5SjU2bCHVget6
-	 zv3qL9F0Wd50bATdZzeyXmWgIq9or8l0z09utQmu9iybj9wtrqP6vOD0t+h5nQy2O5
-	 cPAhy20joWxhJZaCnkUNB0CT60qc6a3r5ALz3PJ6PbWjzU2jIwPy0yWdJrc47sueX1
-	 os0Ns96+7TmhI61rSctiEaeGOHwZ+ePOoKuIwYV4CT0A1N50i9Tt8VZvVulTe68OYM
-	 ytnyxEnZKbcAw==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 06 Aug 2026 13:14:38 +0200
-Subject: [PATCH] mm/memory-failure: fix folio refcount leak and
- min_order_for_split() locking
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="NiLWDPkC"
+Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 488BCEA1;
+	Thu,  6 Aug 2026 13:17:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1786015053;
+	bh=zew8gWZJiSm87xDe3gmKMiiYWY8aeEKTxjWd2gGwSqc=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=NiLWDPkCH9dTWRCcBj+g8A4nHs6evhohSeSUTBtd3KDl7ENK8rtclZgy1ynFUqNP8
+	 d5SxebdwvXKhVrSm96YbzGOTjmK554P5SfuQIML1jMf7EuJzi/9X32efdqkw6tEXul
+	 RkLJrJEfZbF7qYm2l/8uDilDt4I23rCJGU57bUMA=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAJ5sdGoC/yXMUQqDMBBF0a3IfFdIrYq6lSIhxolOEQ2ZsSji3
- pvq54H37gGMgZChSQ4I+CWmZY54PhKwo5kHTKmPhkxlpapUmUrYtSya/USiZfTamzgyr6J2eV/
- ZWjmIXx/Q0XZ13+1tXrsPWvnH4Dx/wlbVQnkAAAA=
-X-Change-ID: 20260806-try_to_split_thp_page-a359f4d8c90f
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Wei Yang <richard.weiyang@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Luis Chamberlain <mcgrof@kernel.org>, Li Youhong <liyouhong@kylinos.cn>, 
- stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <anRauS-k_PTOdrZa@kekkonen.localdomain>
+References: <20260806061804.1359700-1-serin.yeh@intel.com> <178600597076.2317790.15882507123821898906@ping.linuxembedded.co.uk> <anRauS-k_PTOdrZa@kekkonen.localdomain>
+Subject: Re: [PATCH v4 1/2] media: i2c: ov8856 : remove ACPI node bypass mechanism
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Serin Yeh <serin.yeh@intel.com>, linux-media@vger.kernel.org, jimmy.su@intel.com, sarang.sapre@intel.com, bod@kernel.org, stable@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Date: Thu, 06 Aug 2026 12:18:41 +0100
+Message-ID: <178601512188.30573.7636551351503669599@ping.linuxembedded.co.uk>
+User-Agent: alot/0.9.1
 
-hwpoison code can end up calling min_order_for_split() without holding
-the folio lock. There isn't really something that would prevent
-concurrent folio split. Consequently folio->mapping can get set to
-NULL after checking for "!folio->mapping", and if the compiler
-reloads folio->mapping, mapping_min_folio_order() would try to
-dereference NULL.
+Quoting Sakari Ailus (2026-08-06 10:58:17)
+> Hi Kieran,
+>=20
+> On Thu, Aug 06, 2026 at 09:46:10AM +0100, Kieran Bingham wrote:
+> > Quoting Serin Yeh (2026-08-06 07:18:04)
+> > > On Intel platforms the sensor is enumerated via ACPI, and an INT3472
+> > > "discrete" companion device (the power-logic-control driver under
+> > > drivers/platform/x86/intel/int3472) registers the sensor's
+> > > reset/powerdown GPIOs and the regulator supply. These resources are
+> > > therefore discoverable and usable through the standard gpiod/regulator
+> > > lookups at probe time.
+> > >=20
+> > > However, the driver guarded both the GPIO/regulator acquisition in
+> > > ov8856_get_hwcfg() and the whole power-on/off sequence with
+> > > is_acpi_node() and skipped them on ACPI. As a result the sensor was
+> > > never powered or reset by the driver, and probe failed when reading t=
+he
+> > > chip ID in ov8856_identify_module().
+> > >=20
+> > > Remove the is_acpi_node() checks so the GPIO/regulator resources are
+> > > acquired and the full power sequence runs regardless of the firmware
+> > > interface. The driver now behaves consistently across DT and ACPI
+> > > platforms and initialises the hardware correctly.
+> >=20
+> > The calls to get GPIO resources is 'optional' but regulators aren't I
+> > don't think. Is this still ok ?
+> >=20
+> > I think it is - and we can't run a device without the regulators - but I
+> > don't know how it works in ACPI land.
+> >=20
+> >=20
+> > Sakari, could this cause any regression ? I think it's ok - I just have
+> > a niggle of worry here in case there's something I'm not seeing.
+>=20
+> There should be no need for explicit regulator control on ACPI systems,
+> however the reality isn't always aligned with how things should be. So on
+> some systems you do have to control regulators, even on ACPI.
+>=20
+> >=20
+> >=20
+> > > Tested on Intel platforms with kernel 6.17 and 7.0.
+> > >=20
+> > > Fixes: d2fa1134a48b ("media: i2c: ov8856: Use V4L2 legacy sensor cloc=
+k helper")
+> >=20
+> > Is this accurate though? I don't think that commit caused or added the
+> > ACPI checks. Was this just the first line that matched a git blame ?
+> >=20
+> > I suspect the blame might lie further back.
+> >=20
+> > devm_gpiod_get_optional was still guarded by
+> >  "if (!is_acpi_node(fwnode))"
+> >=20
+> > before d2fa1134a48b, it was just a bit higher before
+> > devm_v4l2_sensor_clk_get().
+>=20
+> I think Fixes: could be dropped altogether: the patch is simply adding
+> support for systems where you do need to control regulators on ACPI.
 
-While very unlikely to happen in practice, let's just enforce that
-min_order_for_split() is called with the folio lock held. We can
-significantly cleanup the calling hwpoison code, and just get rid
-of try_to_split_thp_page() to hold the folio lock for a bit longer.
+Ack.
 
-Just work on folios now, which further cleans up the code. We just
-have to be careful about doing the page_folio() after splitting, which
-we have to do already either way. Do not change the way we split for
-now, this needs more thought and should be done separately.
 
-Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
-would currently have leaked a folio reference.
+Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
 
-In folio_split(), document and assert that we need the folio lock.
-Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
-
-The folio->mapping problem was identified by Sashiko, and Li Youhong
-reported it by sending a proposal fix.
-
-This likely does not really warrant CCing stable, but I expect little
-conflicts when doing the backport, so let's just CC stable because of
-the refcount leak.
-
-Reported-by: Li Youhong <liyouhong@kylinos.cn>
-Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
-Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
-v4 of the last fixing attempts:
-
-https://lore.kernel.org/r/20260806031958.677935-1-dayou5941@163.com
----
- mm/huge_memory.c    |  4 ++++
- mm/memory-failure.c | 56 ++++++++++++++++++-----------------------------------
- 2 files changed, 23 insertions(+), 37 deletions(-)
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 9b1f3b24f7e0d..a00df56a68b57 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4362,10 +4362,14 @@ int folio_split(struct folio *folio, unsigned int new_order,
-  * If a file-backed folio is truncated, 0 will be returned. Any subsequent
-  * split attempt should get -EBUSY from split checking code.
-  *
-+ * Context: @folio must be locked.
-+ *
-  * Return: @folio's minimum order for split
-  */
- unsigned int min_order_for_split(struct folio *folio)
- {
-+	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-+
- 	if (folio_test_anon(folio))
- 		return 0;
- 
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index aaf14608b30e2..f4f3f1fc9eaff 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -1705,26 +1705,6 @@ static int identify_page_state(unsigned long pfn, struct page *p,
- 	return page_action(ps, p, pfn);
- }
- 
--/*
-- * When 'release' is 'false', it means that if thp split has failed,
-- * there is still more to do, hence the page refcount we took earlier
-- * is still needed.
-- */
--static int try_to_split_thp_page(struct page *page, unsigned int new_order,
--		bool release)
--{
--	int ret;
--
--	lock_page(page);
--	ret = split_huge_page_to_order(page, new_order);
--	unlock_page(page);
--
--	if (ret && release)
--		put_page(page);
--
--	return ret;
--}
--
- static void unmap_and_kill(struct list_head *to_kill, unsigned long pfn,
- 		struct address_space *mapping, pgoff_t index, int flags)
- {
-@@ -2509,9 +2489,6 @@ int memory_failure(unsigned long pfn, int flags)
- 	folio_unlock(folio);
- 
- 	if (folio_test_large(folio)) {
--		const int new_order = min_order_for_split(folio);
--		int err;
--
- 		/*
- 		 * The flag must be set after the refcount is bumped
- 		 * otherwise it may race with THP split.
-@@ -2526,24 +2503,25 @@ int memory_failure(unsigned long pfn, int flags)
- 		 * page is a valid handlable page.
- 		 */
- 		folio_set_has_hwpoisoned(folio);
--		err = try_to_split_thp_page(p, new_order, /* release= */ false);
-+
-+		folio_lock(folio);
-+		split_huge_page_to_order(p, min_order_for_split(folio));
-+		folio = page_folio(p);
-+		folio_unlock(folio);
-+
- 		/*
- 		 * If splitting a folio to order-0 fails, kill the process.
- 		 * Split the folio regardless to minimize unusable pages.
- 		 * Because the memory failure code cannot handle large
- 		 * folios, this split is always treated as if it failed.
- 		 */
--		if (err || new_order) {
--			/* get folio again in case the original one is split */
--			folio = page_folio(p);
-+		if (folio_test_large(folio)) {
- 			res = -EHWPOISON;
- 			kill_procs_now(p, pfn, flags, folio);
--			put_page(p);
-+			folio_put(folio);
- 			action_result(pfn, MF_MSG_UNSPLIT_THP, MF_FAILED);
- 			goto unlock_mutex;
- 		}
--		VM_BUG_ON_PAGE(!page_count(p), p);
--		folio = page_folio(p);
- 	}
- 
- 	/*
-@@ -2861,9 +2839,8 @@ static int soft_offline_in_use_page(struct page *page)
- 		.reason = MR_MEMORY_FAILURE,
- 	};
- 
-+	folio_lock(folio);
- 	if (!huge && folio_test_large(folio)) {
--		const int new_order = min_order_for_split(folio);
--
- 		/*
- 		 * If new_order (target split order) is not 0, do not split the
- 		 * folio at all to retain the still accessible large folio.
-@@ -2871,15 +2848,20 @@ static int soft_offline_in_use_page(struct page *page)
- 		 * preferred, split it to non-zero new_order like it is done in
- 		 * memory_failure().
- 		 */
--		if (new_order || try_to_split_thp_page(page, /* new_order= */ 0,
--						       /* release= */ true)) {
-+		if (!min_order_for_split(folio))
-+			ret = split_huge_page_to_order(page, 0) ? -EBUSY : 0;
-+		else
-+			ret = -EBUSY;
-+		folio = page_folio(page);
-+
-+		if (ret) {
-+			folio_unlock(folio);
-+			folio_put(folio);
- 			pr_info("%#lx: thp split failed\n", pfn);
--			return -EBUSY;
-+			return ret;
- 		}
--		folio = page_folio(page);
- 	}
- 
--	folio_lock(folio);
- 	if (!huge)
- 		folio_wait_writeback(folio);
- 	if (PageHWPoison(page)) {
-
----
-
-base-commit: e5492213654050379e78ec6f9acfd6c9fe00f334
-
-change-id: 20260806-try_to_split_thp_page-a359f4d8c90f
-
---
-
-Cheers,
-
-David
-
+>=20
+> --=20
+> Regards,
+>=20
+> Sakari Ailus
