@@ -1,197 +1,364 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286511DC985
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 00:02:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28B719CC14
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 00:02:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785974547; cv=none; b=DGVY8fi51vamVOQMxFwyh459t+MIRquM6hqphirYujWKoAuuiIS6IGh6CUIZSLcPFTL6lAE9/ZHTAv0PMU1IVuA2MDs4W8Fb42vCjIlGTREAcCRkJXnzFQe05N/5JC61fxUvf8lWRVlfD9ycqiaGWJDJ+vA8jeBp8cDwrg0QQ7Y=
+	t=1785974576; cv=none; b=Iaj18TZE6Jzy9s2q8n8Lmj+jMPM/vkIKKK6gjXY+xTWmtp+F3Ckovusk2G7wYcsdj9XQcKIz7MiLlAxPg3A7vREifnLveIgQBJVPStY+gVQmAgvGai+df3i/4mPPHEalLlKUpgcGldjKWcMZQhwvEriWulFqb+JLA37VgDS0Eks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785974547; c=relaxed/simple;
-	bh=OYt1NcAB8ZvbK7dcVxHMwgHBezL+06d25+6wCfka1TU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UKYOP5bOZ+n4/Z+qElUiyRA8Xa5LSgXTedtfbMvt+dvCQazvrI6FH+li5NRdHlNifBa90fmqmTmKstRU+ECYBoiASKgoiQn+jmWSlnrW0BhkKluNyLz9hMKJJ4TXkOTCrB4EW2q0eukVr50AIFvoeB7Du4rS4b7lLUCZ5x9U3NM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bourg.net; spf=pass smtp.mailfrom=bourg.net; dkim=pass (1024-bit key) header.d=bourg.net header.i=@bourg.net header.b=jIS6fk45; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bourg.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bourg.net
+	s=arc-20240116; t=1785974576; c=relaxed/simple;
+	bh=32nR9CD3NsD6bY/SW6+OnpnOjqk8Bk5XtdNO924d7NA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Qj0OwXSq4Otqd7lDZNEu2A3gvbqyVH1TRThQASmgXKa9AaeQHEr5q+ko+dOzd0ikTyVuvJB5b8pkrnqX/WS7ck4D/mpgHlbaSEfOwPVJ904ARiL7UCD88TkU/L9TqX1C1NhYEvO47RDc4V3KsCMptLELHI90lmBPqLsUCkBPVco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=CiG+dD51; arc=none smtp.client-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bourg.net header.i=@bourg.net header.b="jIS6fk45"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8485ef63b68so2315703b3a.1
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 17:02:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bourg.net; s=google; t=1785974537; x=1786579337; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C+ndS92zXPqAJ+cNcpLuaSmLaftIm1AvtWGzzi2M09w=;
-        b=jIS6fk45PsAM7cHCJu2vGwYJwpRiNDbUpIDR3Wzirds2wnGT99f2D6G82oOS3ItSDs
-         vTP4Q8/LyUSCd/JyIjt56DFOmhXDUJpr1CP4RZr1jTNKfWH5SG24WZncpaS4Ds4Onvmz
-         Fu8k6b5HvVnkzpl3Ypydop1oJ/V/bWWbph3d0=
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="CiG+dD51"
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 4F8093FBF7
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 00:02:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1785974560;
+	bh=uV4/trZsrpkGEepaTlfIF0yIo2zjcaruWrpND/CzTIE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type;
+	b=CiG+dD51gVY2T+NWx/xcJo7bT+aUARIF0a1343v18my2RRwGQqWnU8N1AKg6DmSXg
+	 IQG+QQPRm2RfbxY4NUdD4Xt3omyG1aRlzm9CKatq9QeO2iVP8zh+pWfOXev9UC2Vwa
+	 JdOBlVOVkIgIPkdqmwvg66lcCukkyGmZ70lRSWC2yfK9o/88zTY3qL6E0rNY/kqPEb
+	 qZJNGFCeVj830z7QkugLE7TS27wkOWTP7i2vLWq6R9XnrCoa3KOQ9LLaF02T48Tpaz
+	 S2ifdN1PanGFszEQLaAJsnDnfGTAF6QdZaQCdiP72ccrMpdm6SBQ2QbB7kjVA2pMiX
+	 gAbPeAz7TpgOzfbEy0WMgyuyfJaPQtrFNntTwgsUG3SuGMzg9LXsNA9QD4y0H3gfFH
+	 YzDBPJcGpcfteKPaNk9XEjwfNLvV4XCtRYlr68dnKd3TONyxbr8jeR1IX3Wy9oVAFZ
+	 1or6AcF/YDodvdatT7+//nz+Dw7v/eMJBRdCHN1X4eqKnumQyZuIa1MOT6g6MtaLvv
+	 U7zi+PHbm27WvsNabHISoKMiRQ73U+N5nenBjKmPThF5nCD5hbSOs4jhFnDhwCphA7
+	 qQvThd6N/qdGTMEbezNh+k83bqwF7uQSxz/ulwuzv8Bt97vMn7xQyHQ8mxpeY8OnBy
+	 +6d0n9ZbPYK/ubTUGxcKR7pg=
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb74d5db64eso1679603a12.2
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 17:02:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785974537; x=1786579337;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C+ndS92zXPqAJ+cNcpLuaSmLaftIm1AvtWGzzi2M09w=;
-        b=S2jlO1lKAiOeq/KPY8CotDX2kXyjFR6ZKaoCUD+p55hxpwkwBN+IB28097EpfxEqp6
-         tSrnQuGlZpZu2CSHc/uuKW+jO2VbCfPgyT8qilP4cCaR5blaRKpwjX48oSuT4NIomzAc
-         1zpzCrTrMpDCDc9mBbhldLm33LMfSKmzKzWSMms7nwKp/lPJpfBhKXR90Z32TfMfS6y6
-         ZiNWihIewGQy8VMrsw/t+qqIKY7g4yv069T7W54a33M5ob6Z39B/ol0DwRv5nbo7kI8H
-         5WFJqISoDe9US8Bm+YMBdEkOSdGptbfZYcee6S+6xeGN8ukYMBRaIyYycJg1CiF51jSB
-         XOeg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr2OmlQGMOuI3EIYwO+DlmLIQs7n3NqhZ0zzZiNpJ6Pg5vO+KrgK7QNL8Crmj4exHlcMOclqbY=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz7H10FZ1EvrYZ+bItHALe4wy1aPkbTipnBBZEzC0nscrGZmILY
-	weJsQP/DuzYIO5jND1f4bhu1M2n080fsmpSeC9XsXhoF1ThnTcaRKVjGJHjx/BlSD30=
-X-Gm-Gg: AR+sD10cfIcydc4ovwlDnXWJ6F/M+Aj+zlU4d8FmDEOXUz/TbtAw8vMHQ8MubvQb23p
-	jgQv475dMRyK+9rgzfI8TiK8smui0RtHbxZyQ17FHqmlozqXnktq737lDoVguBQrO6Qk78MPubQ
-	/zW8bPJXh7RCkXnzIDJ+CickbGSM6bZels+EgKasjr48qFO1mPYm9ESgq123vAa1SjRzLXwE7EV
-	8/l7xv2V5BBUXr5UsTpDF2iusmBIfUroU4P4rgg36gjS3qnOuo0ucbF6PE4RDjOwyxKwdXpcAFy
-	kNPWJy9153yoeH/vdY7eLu75kQEU3f3zjDLaGoZ3aH6kbKO0URSDotWyiK+oIJ7b57GR2hWhoNm
-	N2ugpFPye0nAUUct4JoDkE8dTG7DCoFM5kzA/zzuX2CVZkEenyraQaWPWEmnaRZt3q5aBHNyzfn
-	ewEm3nR9Z9ezvYcGWQoYfGxgHz8XHcTCH9pfYuMOgEywyuUunja+W3N0U7KOxslRsErD564X+d6
-	X4HVMdZN6eFdUZ7f/xE4LH/uZNfbSp8Bwrkijsei/pHiks3
-X-Received: by 2002:a05:6a00:8d81:b0:847:7f3c:b5f5 with SMTP id d2e1a72fcca58-84f2dfc8f83mr13807202b3a.11.1785974537350;
-        Wed, 05 Aug 2026 17:02:17 -0700 (PDT)
-Received: from deskstar (syn-024-216-245-233.biz.spectrum.com. [24.216.245.233])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f4538bb3bsm180478b3a.12.2026.08.05.17.02.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 17:02:15 -0700 (PDT)
-From: gus bourg <gus@bourg.net>
-To: ardb@kernel.org
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	ilias.apalodimas@linaro.org,
-	linux-efi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Gus Bourg <gus@bourg.net>
-Subject: [PATCH] arm64/efi: Do not call EFI runtime services preemptibly under SW PAN
-Date: Wed,  5 Aug 2026 17:01:44 -0700
-Message-ID: <20260806000144.3388823-1-gus@bourg.net>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1785974559; x=1786579359;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:from:content-language:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uV4/trZsrpkGEepaTlfIF0yIo2zjcaruWrpND/CzTIE=;
+        b=ari4IkeCPYQSt0uTjbBTXteytxrP+g5HVwhtm4qP/KjRZ46lCeaHDMkB94YVo+AT4z
+         wPC8zXKPWgGoIdHhO6YzM20jAZFMyY7Bk7+GJw2epZeOjaHJurD3BuX2rCo2zREnkRJX
+         VkTPZtGmrmC8npd3K8/hQk0xf8Z1MC6qvOjWO62lapzrBPjE+lPKXd6efzntCibi2uO9
+         WGXPxr4r0lJRe79lWoT/VbowUMrheaio2AW+PN0O8q828jrHWGJNfOMgjvtjvtDhE5X0
+         nzGLZsmihcYh2gZH49FIjqdbZir+ry73MKsyUdxzuaIx1iUteT5N293qYo9gD/8f2fJo
+         CsvQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpX2d9qri/gnAQXQFtJEKGcj4BqJK/szjP2AVVfkCyo4JWo2XJ7pFXA9N6hSSKjUCPZ5CWJ8tI=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwbSm15tBPIVv72qngcH7iyat/jEoOkja4AHWZ7zO1cVHUjdeqh
+	E4vI3Ykp/BR0vL4dMnMCoeM95yH38IHhs7FocQkVLw5jgq35ognuReXfJGdfS4kmG8gCtxS/s+L
+	jBrizVZ7XgWlQop19GJ5SP++a7scE761YrHGn6asKfCThhAqymHvRzYSlowJM42HkwxK1yyb+mA
+	==
+X-Gm-Gg: AR+sD13lu765Wfvxds9xRv1YWyPEPbaQ9rCyU974TRl/sHySY+SaVDhjt797q+v9xgp
+	sVG89U3mp01H2k890eYZC5pxOeh7pNOJBxw++JcSCWQFBhJtE65kjugPqHsJkz8Psbs7XhM2bml
+	EdC9phLB2HSOUHceu+whmJzCmcAK4eV8U+mA0SXlVyOrEAIkzcTmAa4+76AttB4GoyKh0xcGx5j
+	JLN6ClSgMTT6SyEhue4zV9CUpNeY5BGWIxcM0p+8kBiHG2mCfV9yGXcTmGcVBBO11dYDESH9vPr
+	fEc97pJPABOVBqB3XcclXawGyDSdJOpzVyZIt/jvwprxi9vyvTS2PazEHhiABuf/FN5qTTTPU+v
+	a85r3wyamive16WY=
+X-Received: by 2002:a17:90b:4c45:b0:38f:dec8:f7e9 with SMTP id 98e67ed59e1d1-3903c5a79f7mr11062688a91.12.1785974558470;
+        Wed, 05 Aug 2026 17:02:38 -0700 (PDT)
+X-Received: by 2002:a17:90b:4c45:b0:38f:dec8:f7e9 with SMTP id 98e67ed59e1d1-3903c5a79f7mr11062651a91.12.1785974557977;
+        Wed, 05 Aug 2026 17:02:37 -0700 (PDT)
+Received: from [192.168.192.71] ([50.47.147.90])
+        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-39085dbf82csm362966a91.1.2026.08.05.17.02.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 05 Aug 2026 17:02:37 -0700 (PDT)
+Message-ID: <f13d94b4-2bd3-4737-b25f-bd5371189e62@canonical.com>
+Date: Wed, 5 Aug 2026 17:02:36 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] apparmor: fix cred UAF caused by
+ begin_current_label_crit_section()
+To: Jann Horn <jannh@google.com>, John Johansen <john@apparmor.net>,
+ Georgia Garcia <georgia.garcia@canonical.com>, apparmor@lists.ubuntu.com,
+ Paul Moore <paul@paul-moore.com>, "Serge E. Hallyn" <serge@hallyn.com>
+Cc: James Morris <jmorris@namei.org>, Christian Brauner <brauner@kernel.org>,
+ Al Viro <viro@zeniv.linux.org.uk>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ linux-security-module <linux-security-module@vger.kernel.org>,
+ kernel list <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+References: <20260714-fix-apparmor-cred-uaf-v1-1-be40e8c83b90@google.com>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <20260714-fix-apparmor-cred-uaf-v1-1-be40e8c83b90@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Gus Bourg <gus@bourg.net>
+On 7/14/26 08:38, Jann Horn wrote:
+> AppArmor's begin_current_label_crit_section() is a scary function called
 
-When PAN is emulated by switching TTBR0_EL1, arch_efi_call_virt_setup()
-installs the EFI mm into TTBR0_EL1 via uaccess_ttbr0_enable(), and only a
-return from exception ever puts it back: check_and_switch_context() skips
-the register write by design ("Defer TTBR0_EL1 setting for user threads to
-uaccess_enable() when emulating PAN"), and __switch_to() does not touch it
-either. switch_mm() updates only thread_info->ttbr0.
+yep
 
-Since commit a5baf582f4c0 ("arm64/efi: Call EFI runtime services without
-disabling preemption") the runtime call is preemptible, so the EFI worker
-can now be scheduled out inside that window. An involuntary preemption is
-harmless, because __swpan_entry_el1()/__swpan_exit_el1() save and restore
-the state around the exception. A voluntary reschedule is not: it performs
-no return from exception, so the worker resumes with another task's
-TTBR0_EL1 - or reserved_pg_dir - and the next efi_mm access takes a level 0
-translation fault.
+> from lots of LSM hooks (in particular VFS/socket-related ones) that checks
+> if the label referenced by the current creds is marked FLAG_STALE, and if
+> so, attempts to use aa_replace_current_label() to replace the creds with an
+> updated version that uses a new label.
+> 
+> The first problem with this is that it would directly lead to UAF of
+> `struct cred` if anything in the kernel takes a pointer to the current
+> creds and accesses these past a security hook invocation that replaces
+> creds, like so:
+> ```
+> const struct cred *cred = current_cred();
+> alloc_file_pseudo(...);
+> uid_t uid = cred->euid;
+> ```
+> I don't know if anything in the kernel actually does this, but I think it
+> is very surprising that this pattern could lead to UAF.
+> 
+> The second problem is that things go wrong when aa_replace_current_label()
+> runs with overridden credentials. aa_replace_current_label() bails out if
+> `current_cred() != current_real_cred()` (mirroring the check in
+> proc_pid_attr_write()), but this check can't actually reliably detect
+> overridden credentials because the overridden creds can be the same as the
+> objective creds.
+> 
+> So in approximately the following scenario, things go wrong:
+> 
+> 1. task begins with <creds A> (as both objective and subjective creds),
+>     with refcount=2
+> 2. task grabs an extra reference on <creds A> for overriding
+> 3. task calls override_creds(<creds A>), which returns a pointer to the old
+>     subjective creds (<creds A>)
+> 4. task enters AppArmor LSM hook
+> 5. AppArmor checks that objective/subjective creds are equal
+> 6. AppArmor replaces both cred pointers with <creds B> and drops 2 refs on
+>     <creds A>
+> 7. task leaves AppArmor LSM hook
+> 8. task calls revert_creds(<creds A>)
+> 9. now task->cred is <creds A> while task->real_cred is <creds B>, but the
+>     task_struct logically holds two references to <creds B>
+> 10. another task drops the extra reference on <creds A> that was used for
+>      overriding, refcount drops to 0
+> 11. now task->real_cred points to freed creds
+> 
+> At this point, any access to current_cred() will be UAF.
+> 
+> I have a test case where I run aa-disable on a profile while a process
+> using that profile is blocked on splice() from a FUSE passthrough file into
+> a full pipe; after the profile update, the pipe becomes empty, splice()
+> resumes, the credentials go out of sync, and a subsequent getuid() syscall
+> results in a KASAN UAF splat.
+> 
+> To fix this, instead of directly replacing creds, do it via task_work that
+> will run at the end of the current syscall. (The point in time at which the
+> cred replacement happens should have no correctness impact; it is just a
+> performance optimization to avoid unnecessarily touching the refcount of
+> the new label.)
 
-There is such a preemption point in arch_efi_call_virt_setup() itself,
-immediately after the TTBR0 install: __efi_fpsimd_begin() ->
-kernel_neon_begin() -> put_cpu_fpsimd_context() -> local_bh_enable() ->
-preempt_check_resched().
+right, we could even be a little looser in the update timing as we don't
+make guarantees around the update timing.> 
+> Note that AppArmor still performs direct cred replacements in the
+> sb_pivotroot LSM hook after this change, and that direct cred replacements
+> can still happen in VFS ->write() callbacks via proc_pid_attr_write().
+> 
+yep, I can take a stab at those
 
-On a Khadas VIM3 (Cortex-A73/A53, no FEAT_PAN, so CONFIG_ARM64_SW_TTBR0_PAN
-is in use) this reproduces as:
+> Cc: stable@vger.kernel.org
+> Fixes: c75afcd153f6 ("AppArmor: contexts used in attaching policy to system objects")
+> Signed-off-by: Jann Horn <jannh@google.com>
 
-  Unable to handle kernel access to user memory outside uaccess routines
-    at virtual address 00000000f322ff30
-  Mem abort info:
-    ESR = 0x0000000096000004
-    FSC = 0x04: level 0 translation fault
-  Internal error: Oops: 0000000096000004 [#1]  SMP
-  Workqueue: efi_rts_wq efi_call_rts
-  pstate: 80400005 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-  pc : efi_call_rts+0xd8/0x288
-  Call trace:
-   efi_call_rts+0xd8/0x288 (P)
-   process_one_work+0x178/0x4f8
-   worker_thread+0x194/0x328
+this looks good to me, compiles, and has passed an abbreviated round of
+testing.
 
-The faulting instruction is the kernel's own load of efi.runtime->get_time;
-firmware is never entered, so efi_runtime_fixup_exception() declines it
-(the PC is kernel text) and the result is a full oops rather than
-EFI_ABORTED. The EFI runtime path is then wedged for the rest of the boot:
-efi_rts_work.efi_rts_comp is never completed and the runtime lock is never
-released, so every subsequent caller blocks in uninterruptible sleep, and
-poweroff hangs because EFI_RUNTIME_SERVICES is still set.
+Q. What do you think about making the callback_head part of the apparmor
+security task blob. It would increase its size, but allow us to drop
+the alloc/free. Generally profile is generally something that is relatively
+rare, but when it does happen, its is quite common to have all the profiles
+being updated, so a thunder herd type problem.
 
-The failing window was identified with ftrace, tracing efi_call_rts,
-arch_efi_call_virt_setup, kthread_use_mm, __efi_fpsimd_begin,
-kernel_neon_begin and arch_efi_call_virt_teardown together with
-sched_switch. Of four preemptions observed inside the window over 12726
-calls, the two that landed before the TTBR0 install (in kthread_use_mm)
-were harmless and the two that landed in kernel_neon_begin were not; one
-of those faulted.
+Unless someone else has a reason to carry this, I will pull it into
+apparmor-next today, so we can get some testing in linux-next
 
-Keep configurations that emulate PAN on the non-preemptible path, which is
-what they used before a5baf582f4c0. Systems with FEAT_PAN are unaffected:
-system_uses_ttbr0_pan() is false there, uaccess_ttbr0_enable() is a no-op,
-and check_and_switch_context() installs TTBR0_EL1 on every switch.
+Acked-by: John Johansen <john.johansen@canonical.com>
 
-Fixes: a5baf582f4c0 ("arm64/efi: Call EFI runtime services without disabling preemption")
-Cc: <stable@vger.kernel.org> # v6.19+
-Assisted-by: Claude:claude-opus-5 ftrace
-Signed-off-by: gus bourg <gus@bourg.net>
----
- arch/arm64/kernel/efi.c | 25 +++++++++++++++++++++++--
- 1 file changed, 23 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/kernel/efi.c b/arch/arm64/kernel/efi.c
-index 30cd7f804398..1b666ca79758 100644
---- a/arch/arm64/kernel/efi.c
-+++ b/arch/arm64/kernel/efi.c
-@@ -166,11 +166,32 @@ asmlinkage efi_status_t efi_handle_corrupted_x18(efi_status_t s, const char *f)
- 	return s;
- }
- 
-+/*
-+ * Whether an EFI runtime service call may run preemptibly.
-+ *
-+ * When PAN is emulated by switching TTBR0_EL1, the EFI mm is installed into
-+ * the register by uaccess_ttbr0_enable() below, and only a return from
-+ * exception ever puts it back: check_and_switch_context() deliberately skips
-+ * the write ("Defer TTBR0_EL1 setting for user threads to uaccess_enable()
-+ * when emulating PAN"), and __switch_to() never touches it. A voluntary
-+ * reschedule performs no return from exception, so a preemptible runtime call
-+ * can be scheduled back in holding another task's TTBR0_EL1 and take a level 0
-+ * translation fault on its next efi_mm access. Keep those configurations on
-+ * the non-preemptible path, which is what they used before commit
-+ * a5baf582f4c0 ("arm64/efi: Call EFI runtime services without disabling
-+ * preemption").
-+ */
-+static bool efi_runtime_preemptible(void)
-+{
-+	return !system_uses_ttbr0_pan() && preemptible() &&
-+	       (current->flags & PF_KTHREAD);
-+}
-+
- void arch_efi_call_virt_setup(void)
- {
- 	efi_runtime_assert_lock_held();
- 
--	if (preemptible() && (current->flags & PF_KTHREAD)) {
-+	if (efi_runtime_preemptible()) {
- 		/*
- 		 * Disable migration to ensure that a preempted EFI runtime
- 		 * service call will be resumed on the same CPU. This avoids
-@@ -207,7 +228,7 @@ void arch_efi_call_virt_teardown(void)
- 	 */
- 	uaccess_ttbr0_disable();
- 
--	if (preemptible() && (current->flags & PF_KTHREAD)) {
-+	if (efi_runtime_preemptible()) {
- 		kthread_unuse_mm(&efi_mm);
- 		migrate_enable();
- 	} else {
--- 
-2.53.0
+> ---
+>   include/linux/task_work.h        |  1 +
+>   kernel/task_work.c               | 14 ++++++++++++++
+>   security/apparmor/include/cred.h |  6 +-----
+>   security/apparmor/include/task.h |  1 +
+>   security/apparmor/task.c         | 29 +++++++++++++++++++++++++++++
+>   5 files changed, 46 insertions(+), 5 deletions(-)
+> 
+> diff --git a/include/linux/task_work.h b/include/linux/task_work.h
+> index 0646804860ff..ce19fc14060c 100644
+> --- a/include/linux/task_work.h
+> +++ b/include/linux/task_work.h
+> @@ -33,6 +33,7 @@ struct callback_head *task_work_cancel_match(struct task_struct *task,
+>   	bool (*match)(struct callback_head *, void *data), void *data);
+>   struct callback_head *task_work_cancel_func(struct task_struct *, task_work_func_t);
+>   bool task_work_cancel(struct task_struct *task, struct callback_head *cb);
+> +bool task_work_has_func(struct task_struct *task, task_work_func_t func);
+>   void task_work_run(void);
+>   
+>   static inline void exit_task_work(struct task_struct *task)
+> diff --git a/kernel/task_work.c b/kernel/task_work.c
+> index 0f7519f8e7c9..f83d1528e0bc 100644
+> --- a/kernel/task_work.c
+> +++ b/kernel/task_work.c
+> @@ -189,6 +189,20 @@ bool task_work_cancel(struct task_struct *task, struct callback_head *cb)
+>   	return ret == cb;
+>   }
+>   
+> +bool task_work_has_func(struct task_struct *task, task_work_func_t func)
+> +{
+> +	struct callback_head *work;
+> +
+> +	if (!task_work_pending(task))
+> +		return false;
+> +	guard(raw_spinlock_irqsave)(&task->pi_lock);
+> +	for (work = READ_ONCE(task->task_works); work; work = READ_ONCE(work->next)) {
+> +		if (work->func == func)
+> +			return true;
+> +	}
+> +	return false;
+> +}
+> +
+>   /**
+>    * task_work_run - execute the works added by task_work_add()
+>    *
+> diff --git a/security/apparmor/include/cred.h b/security/apparmor/include/cred.h
+> index 2b6098149b15..0e8b67159f56 100644
+> --- a/security/apparmor/include/cred.h
+> +++ b/security/apparmor/include/cred.h
+> @@ -222,13 +222,9 @@ static inline struct aa_label *begin_current_label_crit_section(void)
+>   {
+>   	struct aa_label *label = aa_current_raw_label();
+>   
+> -	might_sleep();
+> -
+>   	if (label_is_stale(label)) {
+>   		label = aa_get_newest_label(label);
+> -		if (aa_replace_current_label(label) == 0)
+> -			/* task cred will keep the reference */
+> -			aa_put_label(label);
+> +		aa_schedule_stale_label_replacement();
+>   	}
+>   
+>   	return label;
+> diff --git a/security/apparmor/include/task.h b/security/apparmor/include/task.h
+> index b1aaaf60fa8b..4e49a4142777 100644
+> --- a/security/apparmor/include/task.h
+> +++ b/security/apparmor/include/task.h
+> @@ -30,6 +30,7 @@ struct aa_task_ctx {
+>   };
+>   
+>   int aa_replace_current_label(struct aa_label *label);
+> +void aa_schedule_stale_label_replacement(void);
+>   void aa_set_current_onexec(struct aa_label *label, bool stack);
+>   int aa_set_current_hat(struct aa_label *label, u64 token);
+>   int aa_restore_previous_label(u64 cookie);
+> diff --git a/security/apparmor/task.c b/security/apparmor/task.c
+> index b9fb3738124e..8e368f6278f5 100644
+> --- a/security/apparmor/task.c
+> +++ b/security/apparmor/task.c
+> @@ -14,6 +14,7 @@
+>   
+>   #include <linux/gfp.h>
+>   #include <linux/ptrace.h>
+> +#include <linux/task_work.h>
+>   
+>   #include "include/path.h"
+>   #include "include/audit.h"
+> @@ -89,6 +90,34 @@ int aa_replace_current_label(struct aa_label *label)
+>   	return 0;
+>   }
+>   
+> +static void aa_replace_stale_label_tw_func(struct callback_head *tw)
+> +{
+> +	struct aa_label *label;
+> +
+> +	kfree(tw);
+> +	label = aa_current_raw_label();
+> +	if (!label_is_stale(label))
+> +		return;
+> +	label = aa_get_newest_label(label);
+> +	aa_replace_current_label(label);
+> +	aa_put_label(label);
+> +}
+> +
+> +/* replace the current task's stale label on syscall return */
+> +void aa_schedule_stale_label_replacement(void)
+> +{
+> +	struct callback_head *tw;
+> +
+> +	if (task_work_has_func(current, aa_replace_stale_label_tw_func))
+> +		return;
+> +	tw = kmalloc_obj(struct callback_head);
+> +	if (!tw)
+> +		return;
+> +	init_task_work(tw, aa_replace_stale_label_tw_func);
+> +	if (task_work_add(current, tw, TWA_RESUME))
+> +		kfree(tw);
+> +}
+> +
+>   
+>   /**
+>    * aa_set_current_onexec - set the tasks change_profile to happen onexec
+> 
+> ---
+> base-commit: 3b029c035b34bbc693405ddf759f0e9b920c27f1
+> change-id: 20260714-fix-apparmor-cred-uaf-cc38ec2b38b7
+> 
+> Best regards,
+> --
+> Jann Horn <jannh@google.com>
+> 
 
