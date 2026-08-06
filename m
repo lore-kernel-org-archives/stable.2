@@ -1,45 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46BD13B5E19
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 14:22:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24AD13EEAC2
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 14:23:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786026159; cv=none; b=r8tbjjWfQKW10aVDJ7b4zHXxhtFwgmEmW5thUn2MpWQ29BU5/zIP3QvunzPMk0TpVeZCNSsF8q9o3nxglUsilNgMsLhgODS795QFbbzwO1ADWzT8n75riEcc0Ufjksa1vQG5ZT0b6uvvu4OBHGqkrgy2ALlzcxYeDuK5h23+Ao8=
+	t=1786026210; cv=none; b=MitX9dxVCcKkz6Bpfv+IvfqyQkR7loFTxduWbQ+wz/fL5f+IfiMkLvhCObGfJpBXJDZ0WrxTvpl95MyLR7hHZyLNMDxP/qXEhA1ieGy1ETmSOkyOQHvAM6FypHZqJcFo85RhqbH0snfqGTG2nsUPaZ61r90I8LCfuF3tto5NmuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786026159; c=relaxed/simple;
-	bh=0+goeThpA2AV/JpijTCyxuRuAQtfj9KXaDoeE9gYA6U=;
+	s=arc-20240116; t=1786026210; c=relaxed/simple;
+	bh=8o/bKbNbg3kyTVTxvgFZt8Eu1oXXlEt3s5TdGxrHtN0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=axABDok1MCkIPWFC34xUx6u0WYf54uNwQKF3aTb5JqFwpe6IUtM2QlCUrPm8sxzg+mOs1+BQnPV5S/YXgrPA9f4uHNstanDHL43OIFh7wq/iIQrpGGZ+7W59XHDe6m9uOYo2be6sOozO5kPT3p4ysfKtbYYJaU5pu+eqQArUqd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NBrHEPUO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IZBoHH0wEo/hhY3M+yWXBMLLuGNzjefUtXQmP5M/cLP8W8RTuojZ+OCayY31CJBka17ElkWWBrvTg1lcFbXp4Hp8sg5OQsn16e/teMseXuuSVLkDydkUP2wKGhujD3TPeVRAqyq4EDW9y1k9AT5mQgKkK093kYeFhoIOLv93hDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tqy8MWok; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NBrHEPUO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4FD1F00A3D;
-	Thu,  6 Aug 2026 14:22:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786026158;
-	bh=DIpuMmxcoDOYM5jr+QjEyjojw8EmAmaZ9jzXXBErDi8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NBrHEPUOjIm+FEqvc3AnkU7tijN8Y9tgJGgNbNQkCBAu05dD9thuXwy2vle6UhBAF
-	 wymZiErWSbgq0PZyrqSvUcIWcL4hdbDASyFyGO46cws2CzdIqh47T3BS1QjbgJUqlS
-	 0HTvx0CANPmuL4OPXSROD4crrqvk8BY+0+TwNMVIqsjDIBtF4XXtU1hvFF3x18r3FS
-	 DOyuSxKJIeIPkZdKK/DdpipVcYNBBGDjWGv/HhS/iyTcQbMCxLY+V/I21I5E6XWGs5
-	 dHJ51MD/BHjF2PVH5QiekDY7vnWw/36sTfJ8NNK6dkrCQDklUeAIN3c/SBEkQxD5zH
-	 8KZscKqD22XRw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Mirela Rabulea <mirela.rabulea@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] media: v4l2-fwnode: Fix subdev owner overwritten in v4l2_async_register_subdev_sensor()
-Date: Thu,  6 Aug 2026 10:22:34 -0400
-Message-ID: <20260806142234.786485-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260806142234.786485-1-sashal@kernel.org>
-References: <2026072937-overbill-reflector-662e@gregkh>
- <20260806142234.786485-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tqy8MWok"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ce98cb8165so12680415ad.1
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 07:23:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786026208; x=1786631008; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LyITTJEhy3jveR4MLbliv+w4yGr3YmCW2vDF26WQwj8=;
+        b=Tqy8MWokDKEaIsY3vHv1HSDSUNwy5XtECQQUJrfpQAQrBgRwShIICXJL1qOHWJqSDt
+         beZXEjL05yojgauQhg4CH2DT7KW3uebPPIGZ1OGjO+UfurY0HbsRayK0FF5PSkud1H9o
+         uTwS0EYDDn432TeAXJDWU0GZfcO/nMmYr8mx1+pBUBGLIYRx8UqAe9nwi2/V5ny1977X
+         Q4/lfUAGsxJHpA1rMgLd7U14fLCvbhIT5bvplzRmxRTGvdRRLWM3I3LeN3qtlCc1JUTu
+         //oYKNGDMy5CDE6g1hO3thrPPmdjHy9ayZ3OWK2HOLZBUCG+a7uXAs4LbrqqDLJMeblE
+         Db4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786026208; x=1786631008;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LyITTJEhy3jveR4MLbliv+w4yGr3YmCW2vDF26WQwj8=;
+        b=anXa+A/PHWG7rJoCXNfwE9uL/5xz+J0gpjl+AInlEllRlCEsGcHll9xCTX8at0CQxQ
+         z72+wEetF2SmkmmRtE7D82hqS1Pef9KpuITPTagv8lPQqgcizipQmgkggHKh6UiaxDxQ
+         IcY2ZtdkQqTuPb9o71u07VFp+WlPWojffR+Ymmbq0Bs7LV85Mo/RU7Qsj18eNppUT41z
+         gGtniTd263r1Wt3y2sPh+mm7pI9Qd/21spSmhj/Q8hn75H8nrj6jIgr1ZlghwQf0jwjM
+         HADZwA0fvlC3LPtViXeoYQgDLzq0UTbAgbwoq7Qf/HE84TRoQpNYjv2H3C3zLJcX/lzy
+         ZnLA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7Y1dM/UhtXQuomCxDgYg7KbGMRPq/TY9f/V6jKu74vcq4ZNN48MPQmnXSP9isO9uChQjaW30=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyl2KmCTUjo3B1uJGbAx56bRfm7o9/IyV+woPZMUOP1U6lTWi7e
+	vXMp5wdQh4qjA4vCxKdMd0ephGMQAmT5zTr5uNbAbcqa0VS02OPHk9XB
+X-Gm-Gg: AR+sD12axmUfGqhEzBNqE9nGKwelvwemjcMCvZ20lsvtbmpykkGEuZcqQp2rASN+Hn+
+	FpemeUQY/+LMwId7pJN9Wpn7v4STl4wz7tbvLErPZwUNbTGI8EWcxOMunYsEK2zXYlU++cWhJob
+	N8xjwYlpfdBVj1nQsMqXy2zr9Kn8wHrCmOKye5MCKYredtMy3pKlN/DbALrfau2B62XRoLGS3RZ
+	v2mkaxsbokzgRisZA1YiEZnSHthXdoGj1XXLJ2JaRWf6WHzb1VJfVuhEOMhShRF0kj4xaoHcuOl
+	oRkEQY0X97GYH2cmzxn0lJcQ7bC6SfRcYCDxHLmOKPOe/7lAtO1B27MTSzMEuqF2H9UFj/6O42w
+	5L9DtfdUK8Z2AJgBBZVfNxf2LFtqtqQs5kGHD2l+sRPmoZ7BqOGbgToVQk6Cz8Bh4WXaHOBwjwC
+	CiGqx+YhRO8SEZ+Ods+nJ7+KIv1ogOPI3a3wmms588mpndYAH21OgznPZV45wOn02OwnQiQ050b
+	SQqrm57D32skobxE0dlGF6BDJXjfvWUl+UHzXXZQciCAW2f8msiNQ==
+X-Received: by 2002:a17:903:1a0c:b0:2c6:8d95:fd7e with SMTP id d9443c01a7336-2d0f1a4000fmr86726805ad.6.1786026208223;
+        Thu, 06 Aug 2026 07:23:28 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0aa0268b3sm32325195ad.37.2026.08.06.07.23.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 07:23:27 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Even Xu <even.xu@intel.com>,
+	Xinpeng Sun <xinpeng.sun@intel.com>
+Cc: Benjamin Tissoires <bentiss@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>,
+	Sashiko AI <sashiko-bot@kernel.org>
+Subject: [PATCH v2] HID: intel-thc-hid: intel-quickspi: bound GET_REPORT response to the caller buffer
+Date: Thu,  6 Aug 2026 23:23:21 +0900
+Message-ID: <20260806142321.3383353-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260806133838.3378362-1-sammiee5311@gmail.com>
+References: <20260806133838.3378362-1-sammiee5311@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,94 +83,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mirela Rabulea <mirela.rabulea@nxp.com>
+quickspi_hid_raw_request() receives the caller's buffer length in len, but
+quickspi_get_report() never sees it and copies the whole device-supplied
+response into buf regardless:
 
-[ Upstream commit 06cb687a5132fcffe624c0070576ab852ac6b568 ]
+    memcpy(buf, qsdev->report_buf, qsdev->report_len);
 
-The v4l2 helper v4l2_async_register_subdev_sensor() calls
-v4l2_async_register_subdev(), which is a macro that expands to
-__v4l2_async_register_subdev(sd,THIS_MODULE). Since the macro is expanded
-inside v4l2-fwnode.c, THIS_MODULE resolves to the v4l2-fwnode module
-rather than the sensor driver module that originally set sd->owner. When
-v4l2-fwnode is built-in, THIS_MODULE evaluates to NULL, which then
-overwrites the sensor driver's owner with NULL.
+qsdev->report_len comes from the input report the touch controller returns,
+while buf is sized to whatever the caller asked hidraw for through
+HIDIOCGFEATURE or HIDIOCGINPUT.  A response larger than that overflows buf
+with device-controlled content.
 
-This causes the problem that the sensor module's reference count is never
-incremented during async registration, so the module can be removed while
-the subdevice is still in use by a notifier (e.g., a CSI-2 receiver
-bridge driver).
+The intel-quicki2c sibling already passes the caller length down to
+quicki2c_get_report() and validates the response against it before the
+copy.  Do the same here.
 
-Fix this by renaming v4l2_async_register_subdev_sensor() to
-__v4l2_async_register_subdev_sensor() with an added explicit module
-argument and introducing a wrapper macro:
-    #define v4l2_async_register_subdev_sensor(sd) \
-        __v4l2_async_register_subdev_sensor(sd, THIS_MODULE)
-
-This ensures the sensor driver module is properly referenced even when
-the sensor driver does not init the owner field before calling
-v4l2_async_register_subdev_sensor() and prevents premature module removal.
-
-Fixes: aef69d54755d ("media: v4l: fwnode: Add a convenience function for registering sensors")
+Fixes: 4138f21115ae ("HID: intel-thc-hid: intel-quickspi: Complete THC QuickSPI driver")
+Suggested-by: Sashiko AI <sashiko-bot@kernel.org>
 Cc: stable@vger.kernel.org
-Suggested-by: Frank Li <Frank.Li@nxp.com>
-Link: https://lore.kernel.org/linux-media/20240315073125.275501-2-sakari.ailus@linux.intel.com/
-Signed-off-by: Mirela Rabulea <mirela.rabulea@nxp.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
 ---
- drivers/media/v4l2-core/v4l2-fwnode.c | 6 +++---
- include/media/v4l2-async.h            | 4 +++-
- 2 files changed, 6 insertions(+), 4 deletions(-)
+v2: fixed a Time-of-Check-to-Time-of-Use race the Sashiko AI review of v1
+    pointed out - the new bound read qsdev->report_len once for the check
+    and again for the memcpy, so a concurrent update between the two could
+    have overflowed buf with the checked-against-a-smaller-value length.
+    Read it once into a local and use that for both.  No other change.
 
-diff --git a/drivers/media/v4l2-core/v4l2-fwnode.c b/drivers/media/v4l2-core/v4l2-fwnode.c
-index 5d2eaad1fa684..93dbc00bf37a8 100644
---- a/drivers/media/v4l2-core/v4l2-fwnode.c
-+++ b/drivers/media/v4l2-core/v4l2-fwnode.c
-@@ -1318,7 +1318,7 @@ v4l2_async_notifier_parse_fwnode_sensor(struct device *dev,
- 	return 0;
+v1: https://lore.kernel.org/all/20260806133838.3378362-1-sammiee5311@gmail.com/
+
+ .../intel-thc-hid/intel-quickspi/quickspi-hid.c   |  2 +-
+ .../intel-quickspi/quickspi-protocol.c            | 15 ++++++++++++---
+ .../intel-quickspi/quickspi-protocol.h            |  2 +-
+ 3 files changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
+index 91d5807b4a83..a60a0a7f16aa 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
+@@ -61,7 +61,7 @@ static int quickspi_hid_raw_request(struct hid_device *hid,
+ 
+ 	switch (reqtype) {
+ 	case HID_REQ_GET_REPORT:
+-		ret = quickspi_get_report(qsdev, rtype, reportnum, buf);
++		ret = quickspi_get_report(qsdev, rtype, reportnum, buf, len);
+ 		break;
+ 	case HID_REQ_SET_REPORT:
+ 		ret = quickspi_set_report(qsdev, rtype, reportnum, buf, len);
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
+index cb19057f1191..10b06dea3961 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
+@@ -342,10 +342,12 @@ int reset_tic(struct quickspi_device *qsdev)
  }
  
--int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
-+int __v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *module)
+ int quickspi_get_report(struct quickspi_device *qsdev,
+-			u8 report_type, unsigned int report_id, void *buf)
++			u8 report_type, unsigned int report_id, void *buf,
++			u32 buf_len)
  {
- 	struct v4l2_async_notifier *notifier;
+ 	int rep_type;
  	int ret;
-@@ -1340,7 +1340,7 @@ int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
- 	if (ret < 0)
- 		goto out_cleanup;
++	u32 report_len;
  
--	ret = v4l2_async_register_subdev(sd);
-+	ret = __v4l2_async_register_subdev(sd, module);
- 	if (ret < 0)
- 		goto out_unregister;
+ 	if (report_type == HID_INPUT_REPORT) {
+ 		rep_type = GET_INPUT_REPORT;
+@@ -372,9 +374,16 @@ int quickspi_get_report(struct quickspi_device *qsdev,
+ 	}
+ 	qsdev->get_report_cmpl = false;
  
-@@ -1357,7 +1357,7 @@ int v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd)
+-	memcpy(buf, qsdev->report_buf, qsdev->report_len);
++	report_len = qsdev->report_len;
++	if (report_len > buf_len) {
++		dev_err_once(qsdev->dev, "Get report response too big, %u vs %u\n",
++			     report_len, buf_len);
++		return -EINVAL;
++	}
++
++	memcpy(buf, qsdev->report_buf, report_len);
  
- 	return ret;
+-	return qsdev->report_len;
++	return report_len;
  }
--EXPORT_SYMBOL_GPL(v4l2_async_register_subdev_sensor);
-+EXPORT_SYMBOL_GPL(__v4l2_async_register_subdev_sensor);
  
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Sakari Ailus <sakari.ailus@linux.intel.com>");
-diff --git a/include/media/v4l2-async.h b/include/media/v4l2-async.h
-index dd8203632f314..dd0d347be07b0 100644
---- a/include/media/v4l2-async.h
-+++ b/include/media/v4l2-async.h
-@@ -306,8 +306,10 @@ int __v4l2_async_register_subdev(struct v4l2_subdev *sd, struct module *module);
-  * An error is returned if the module is no longer loaded on any attempts
-  * to register it.
-  */
-+#define v4l2_async_register_subdev_sensor(sd) \
-+	__v4l2_async_register_subdev_sensor(sd, THIS_MODULE)
- int __must_check
--v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd);
-+__v4l2_async_register_subdev_sensor(struct v4l2_subdev *sd, struct module *module);
+ int quickspi_set_report(struct quickspi_device *qsdev,
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h
+index 775e29c1ed13..8a2338bee808 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h
+@@ -12,7 +12,7 @@ struct quickspi_device;
  
- /**
-  * v4l2_async_unregister_subdev - unregisters a sub-device to the asynchronous
+ void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len);
+ int quickspi_get_report(struct quickspi_device *qsdev, u8 report_type,
+-			unsigned int report_id, void *buf);
++			unsigned int report_id, void *buf, u32 buf_len);
+ int quickspi_set_report(struct quickspi_device *qsdev, u8 report_type,
+ 			unsigned int report_id, void *buf, u32 buf_len);
+ int quickspi_get_report_descriptor(struct quickspi_device *qsdev);
 -- 
-2.53.0
+2.43.0
 
