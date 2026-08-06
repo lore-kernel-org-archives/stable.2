@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D82426D2B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CC9424D5A;
 	Thu,  6 Aug 2026 09:10:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786007436; cv=none; b=bfKMLw2WiH+F9TQiUqpEK+GRgZVOrrDBgiOwRyyLwRK5/002CtHJ5LLYPn1qjnmhFNmQX5ZRuggZZ5NxnryiGmfrz1vpzbMpWoByzx0yLv3D1S42wez0j1/fOYQ5rZxRdLAGN0A8iAnKMWTpG93BFTyE4PoKiZcy/lK5TfIS0EI=
+	t=1786007436; cv=none; b=mhITGA+Ic3DigT/5UrrM9kgl4ldB9isTEbcNUFF6buE5/JjMnUHUPExLE8QemFgQq1nJp7vGY31WhjIvXFS/UmixjAjqZy2e503MlQlfLKUfgBuFQ9Ph3/RvdctrB3PYDRPGWDye1apqtiY3VHVwPJ59LXE6ikU/wljCl2ayQyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786007436; c=relaxed/simple;
-	bh=LVxSrLcmibxTDOocmCmefmDSWm1SnKPQqmqJhJ4ro64=;
+	bh=nb4muK+yCDKrWh203XvhZCndIZ4Brk2s35UjW6bF+vw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PZILRoMZ8DBQCWywWoOTRCgiQHJaLJsOAO3oycPDJYkUGdF4+xjSKCRiAo/z+tDzkS221oe/ANryEUI9EXqd57gTSFYwZ9bjXHe3tCghshadES7Cy/07Caa9DD/Bjl8N2YpwNpZtA6m2pyPe4i03B4d6s8tL3NlwTjkJHXFIBo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dEkDf0tr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OGL/8K2jhcBx+aqbyD4RnsLxQdXC/zlOQTc61L0sZV/6dGftr2EMQJTb0zYcuDKTDUazyt/BnXsraVvajxRducRsrRo7q3cCFJbygvtq1T8y42IwnhNqsEYJP0wauw7HV8NWtjmpIW0ANQWAm6m8W9ILFta0jfuE4f7b1wRqz1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F2xTVHF+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dEkDf0tr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 438501F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F2xTVHF+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47DDE1F00A3D;
 	Thu,  6 Aug 2026 09:10:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1786007434;
-	bh=ZngfS6XyoIrIFTVgyICodmyNErU2ZSctmQqK8DYlMcw=;
+	bh=GHCSHflXhVlLm5RFxN/ZdQsm2IC8U/hNfit+tq/GzoA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dEkDf0triHDSk3hXuzQatD30NmuMWZxYC6NG/gTOw5G46putGfE8gpbV4knJ0/Zon
-	 sG4zJFbtJJVjwWpAp4TMOqRUWgp4vroUC6TBvACrPb4aSLrc9pM4XzO6uijF4TGu6G
-	 PWmxwwflkW4NpK6sUbyeTXwN1RzQkaEap8CBqswKMV5c4RG+3/KWkNaRYC18S4RrEf
-	 GmJ1GZdJ1oRyQjHGyoha7iUo89c4jqMSb0J+qZ1sISegu6JudZ/KWN9b1kBQrhUlkA
-	 QxstLWMTtukVcEJw8OYgzQa/npvais7tUpkJrBb/gbvjsQv/f6nseAG9A/klZJvMmd
-	 0d3ACfL34HBDw==
+	b=F2xTVHF+d62+QARwlyvbIPVQHgVacoGfgIYzYYyV82B0sFTJJpWuNPrxzMBFZyInK
+	 gDFFIFwKOYjyzQaFunttXOXALYGKOXrycJzm1NDRBCeM2YHiD7wso1IymHjnMwcUr4
+	 185+7EbmllwgxxRNAfd+W6eVnwsBthnaivoFvkuSHT/EWSkqtyWwy5zqRmduGjAeYQ
+	 gbX/+XcORI/o5mbqCubHF/Nl4GHs5RAlIIxPyHoP5eJnCgmxYENtxZVp16d1BPfNjI
+	 rpPgpSVoF3PaK9RVi8bYOT6jAvD+eKTVfOz3MljlFTy7fVMqbkfrcrCjD2Gtb73a8M
+	 h1y8m1BtDgAHA==
 Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
 	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.98.2)
 	(envelope-from <maz@kernel.org>)
-	id 1wru7U-0000000CtHi-0cm6;
-	Thu, 06 Aug 2026 09:10:32 +0000
+	id 1wru7T-0000000CtHi-3gZi;
+	Thu, 06 Aug 2026 09:10:31 +0000
 From: Marc Zyngier <maz@kernel.org>
 To: kvmarm@lists.linux.dev,
 	kvm@vger.kernel.org,
@@ -46,9 +46,9 @@ Cc: Steffen Eiden <seiden@linux.ibm.com>,
 	Yao Yuan <yaoyuan@linux.alibaba.com>,
 	ljs@kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 2/8] KVM: arm64: Handle negative S1 walk levels in VNCR TLB size evaluation
-Date: Thu,  6 Aug 2026 10:10:20 +0100
-Message-ID: <20260806091026.620700-3-maz@kernel.org>
+Subject: [PATCH v2 1/8] KVM: arm64: Remove VM-wide VNCR mapping counter
+Date: Thu,  6 Aug 2026 10:10:19 +0100
+Message-ID: <20260806091026.620700-2-maz@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260806091026.620700-1-maz@kernel.org>
 References: <20260806091026.620700-1-maz@kernel.org>
@@ -64,105 +64,92 @@ X-SA-Exim-Rcpt-To: kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-arm-kernel
 X-SA-Exim-Mail-From: maz@kernel.org
 X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Computing the effects of a TLB invalidation involves looking at
-the size of the mapping cached by the TLB. For S1 mappings such as
-VNCR, this is deducted from the combination of the base granule size
-and the mapping level.
+The global VNCR mapping counter is used to decide whether an L1
+provided VNCR page is mapped in L0 on any CPU at the point of
+dealing with a TLB invalidation. It is incremented when a mapping
+is made in the fixmap, and decremented when unmapped.
 
-However, this implies that the S1 MMU is *on*. When the MMU is off,
-we indicate this with the level being set to a "creative" value of
--127 (S1_MMU_DISABLED).
+As it turns out, this tracking has several flaws:
 
-This ends-up being misinterpreted by pgshift_level_to_ttl() as it
-doesn't handle negative levels at all (the level is immediately cast
-to a u8 and only the bottom two bits considered), leading to an
-invalidation size of 0. Not helpful.
+- we are trying to invalidate TLBs, and the mapping is only an
+  opportunistic consequence of the TLB. Checking this counter to
+  decide whether a TLB needs to be invalidated may result in missed
+  invalidations.
 
-Tidy-up pgshift_level_to_ttl() to handle these negative levels, and
-ttl_to_size() to always return SZ_1G when no valid TTL is present.
-This allows the removal of open-coded checks for similar situations.
+- an L1 vcpu invalidating its own TLB (a very likely case) will not
+  succeed in invalidating the VNCR pseudo TLB because that page is
+  not mapped in L0 at this stage.
 
-Note that the check for a negative value not explicitely checking for
-S1_MMU_DISABLED is deliberate, so that actual negative levels introduced
-with LVA2 and D128 can take the same path if we ever support them.
+Given that this tracking fails at delivering the minimum guarantees
+that are required and is only a performance optimisation, remove it
+completely.
 
-Fixes: 7270cc9157f47 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU notifiers")
-Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-Link: https://lore.kernel.org/r/ameGoxbn2wzBq2kL@v4bel
+Fixes: 4ffa72ad8f37e ("KVM: arm64: nv: Add S1 TLB invalidation primitive for VNCR_EL2")
+Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
 Signed-off-by: Marc Zyngier <maz@kernel.org>
 Cc: stable@vger.kernel.org
 ---
- arch/arm64/kvm/nested.c | 26 +++++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
+ arch/arm64/include/asm/kvm_host.h | 3 ---
+ arch/arm64/kvm/hyp/vhe/switch.c   | 3 +--
+ arch/arm64/kvm/nested.c           | 3 ---
+ 3 files changed, 1 insertion(+), 8 deletions(-)
 
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index bae2c4f92ef5c..ac16f96c878d6 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -411,9 +411,6 @@ struct kvm_arch {
+ 	/* Masks for VNCR-backed and general EL2 sysregs */
+ 	struct kvm_sysreg_masks	*sysreg_masks;
+ 
+-	/* Count the number of VNCR_EL2 currently mapped */
+-	atomic_t vncr_map_count;
+-
+ 	/*
+ 	 * For an untrusted host VM, 'pkvm.handle' is used to lookup
+ 	 * the associated pKVM instance in the hypervisor.
+diff --git a/arch/arm64/kvm/hyp/vhe/switch.c b/arch/arm64/kvm/hyp/vhe/switch.c
+index bbe9cebd3d9d5..c09b1d411c584 100644
+--- a/arch/arm64/kvm/hyp/vhe/switch.c
++++ b/arch/arm64/kvm/hyp/vhe/switch.c
+@@ -427,8 +427,7 @@ static bool kvm_hyp_handle_tlbi_el2(struct kvm_vcpu *vcpu, u64 *exit_code)
+ 	 * If we have to check for any VNCR mapping being invalidated,
+ 	 * go back to the slow path for further processing.
+ 	 */
+-	if (vcpu_el2_e2h_is_set(vcpu) && vcpu_el2_tge_is_set(vcpu) &&
+-	    atomic_read(&vcpu->kvm->arch.vncr_map_count))
++	if (vcpu_el2_e2h_is_set(vcpu) && vcpu_el2_tge_is_set(vcpu))
+ 		return false;
+ 
+ 	__kvm_skip_instr(vcpu);
 diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index f3c75954cf36c..035cda256e2a5 100644
+index dfb96edbdc43c..f3c75954cf36c 100644
 --- a/arch/arm64/kvm/nested.c
 +++ b/arch/arm64/kvm/nested.c
-@@ -505,7 +505,7 @@ int kvm_walk_nested_s2(struct kvm_vcpu *vcpu, phys_addr_t gipa,
- 	return ret;
+@@ -48,7 +48,6 @@ void kvm_init_nested(struct kvm *kvm)
+ {
+ 	kvm->arch.nested_mmus = NULL;
+ 	kvm->arch.nested_mmus_size = 0;
+-	atomic_set(&kvm->arch.vncr_map_count, 0);
  }
  
--static unsigned int ttl_to_size(u8 ttl)
-+static unsigned int __ttl_to_size(u8 ttl)
- {
- 	int level = ttl & 3;
- 	int gran = (ttl >> 2) & 3;
-@@ -561,10 +561,22 @@ static unsigned int ttl_to_size(u8 ttl)
- 	return max_size;
+ static int init_nested_s2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu)
+@@ -890,7 +889,6 @@ static void this_cpu_reset_vncr_fixmap(struct kvm_vcpu *vcpu)
+ 	clear_fixmap(vncr_fixmap(vcpu->arch.vncr_tlb->cpu));
+ 	vcpu->arch.vncr_tlb->cpu = -1;
+ 	host_data_clear_flag(L1_VNCR_MAPPED);
+-	atomic_dec(&vcpu->kvm->arch.vncr_map_count);
  }
  
--static u8 pgshift_level_to_ttl(u16 shift, u8 level)
-+static unsigned int ttl_to_size(u8 ttl)
-+{
-+	return __ttl_to_size(ttl) ?: SZ_1G;
-+}
-+
-+static u8 pgshift_level_to_ttl(u16 shift, s8 level)
- {
- 	u8 ttl;
- 
-+	/*
-+	 * If we don't have a proper level, fallback to the maximum
-+	 * size.
-+	 */
-+	if (level < 0)
-+		return 0;
-+
- 	switch(shift) {
- 	case 12:
- 		ttl = TLBI_TTL_TG_4K;
-@@ -675,7 +687,11 @@ unsigned long compute_tlb_inval_range(struct kvm_s2_mmu *mmu, u64 val)
- 		ttl = get_guest_mapping_ttl(mmu, addr);
+ void kvm_vcpu_put_hw_mmu(struct kvm_vcpu *vcpu)
+@@ -1592,7 +1590,6 @@ static void kvm_map_l1_vncr(struct kvm_vcpu *vcpu)
+ 	if (pgprot_val(prot) != pgprot_val(PAGE_NONE)) {
+ 		__set_fixmap(vncr_fixmap(vt->cpu), vt->hpa, prot);
+ 		host_data_set_flag(L1_VNCR_MAPPED);
+-		atomic_inc(&vcpu->kvm->arch.vncr_map_count);
  	}
+ }
  
--	max_size = ttl_to_size(ttl);
-+	/*
-+	 * Don't use the default 1GB fallback, as we can adapt to the
-+	 * max mapping size we allow at S2.
-+	 */
-+	max_size = __ttl_to_size(ttl);
- 
- 	if (!max_size) {
- 		/* Compute the maximum extent of the invalidation */
-@@ -1124,8 +1140,6 @@ static void compute_s1_tlbi_range(struct kvm_vcpu *vcpu, u32 inst, u64 val,
- 	case OP_TLBI_VALE1OSNXS:
- 		scope->type = TLBI_VA;
- 		scope->size = ttl_to_size(FIELD_GET(TLBI_TTL_MASK, val));
--		if (!scope->size)
--			scope->size = SZ_1G;
- 		scope->va = tlbi_va_s1_to_va(val) & ~(scope->size - 1);
- 		scope->asid = FIELD_GET(TLBIR_ASID_MASK, val);
- 		break;
-@@ -1152,8 +1166,6 @@ static void compute_s1_tlbi_range(struct kvm_vcpu *vcpu, u32 inst, u64 val,
- 	case OP_TLBI_VAALE1OSNXS:
- 		scope->type = TLBI_VAA;
- 		scope->size = ttl_to_size(FIELD_GET(TLBI_TTL_MASK, val));
--		if (!scope->size)
--			scope->size = SZ_1G;
- 		scope->va = tlbi_va_s1_to_va(val) & ~(scope->size - 1);
- 		break;
- 	case OP_TLBI_RVAE2:
 -- 
 2.47.3
 
