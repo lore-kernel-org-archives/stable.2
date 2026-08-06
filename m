@@ -1,131 +1,189 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A74347A0D8;
-	Thu,  6 Aug 2026 14:21:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B5541A933;
+	Thu,  6 Aug 2026 14:22:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786026118; cv=none; b=VM7JE9MzuqGGaC2rRbiZTpuZYNIRh/SHrjF1zU7EK63T8tFYJS+MCFASyn8WzX2RIOfC4Yu+TmcHdkCjToEcwHPbWtmfDjnRaazZ9ArnvdidU2YLmcT/SdOlbP0QX09TjbE1MPhTxaqgkycxEb7uHZrwiL6teI5iqawAHUQ9kKU=
+	t=1786026135; cv=none; b=glNfXMWUzMKDmpOCI9v1yIBENugOv9wMI6D/Lf17EjLWv5/JT62/3p5xMD2Qn0SdQq4IYvu8L8SIxI7iQcxnw9BJJQQ0IltO0z8EFtT8GfYW/pZysx5eqZYM1Aa2w7rf9ARliub7Y8rFyVtT6sKMLbrUmSDG9v3XxpCAhVeDtDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786026118; c=relaxed/simple;
-	bh=Q1VASIO5zSSEvFAhF2xH5XnFr0Wfl5tGD985rlSG9qA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UcrEYZYC5q3SPKuE/dJaEKowf93kv7zmbZjUPofAR3Qs47/1QkNJdAjtVYcLqoG8xC5YSiq4bZNtL6yYvKkWiQ0ywhinUMb5phv+vayz3G2xLZ8eUqqEIDiPoKSF5mL6ALlxxeDUBi0at+oEMQBjDTPrV9UnTNbIxlmPgcoCqrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f9sqY+OV; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1786026135; c=relaxed/simple;
+	bh=NTE0gQPp841HJZ7ZGXtEj3QFHsDZuWuGfmet1LQrV0s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tEL83//rMJ2PwK3v+wXcwBmxmHfSgTxCS/ZXQ28ZxuNqk5EbYzFD9F1ux1azwyDP5brv2IPmLZafeisDGUElbqj9QZNJQF0BGMbMyKnyyO4MciO0Ag7Gjk2iK7tZcz6oX5Q3AZV+PHRJOCwxVztLRVeDGGE0+KP6YD6k5rwzx6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RRANwmsv; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f9sqY+OV"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RRANwmsv"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786026114; x=1817562114;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Q1VASIO5zSSEvFAhF2xH5XnFr0Wfl5tGD985rlSG9qA=;
-  b=f9sqY+OV8EPLrQ0pfMkBhZCpzIFVpeJd7hBV5LNidf214hXNwFA1lPf1
-   xXF/TeSCvC56Ga9HDFgJ31nLStIDQ8J3WlN8tlo1X3FH6dAKvz55zSRJF
-   /7zbnRJA+fiaN+HpyvDtTOJlWmQkjyNwW2ROkrVlsqkdV/YkAnCjch/2z
-   pAV7nKCWiAfqS77yEq7WMAfyoGzQj+0vzrZJPKG1KK1pcB20qKKCIu5l0
-   CbUC7vf6l9E6DqmjY/kBY+P0SVJkIQOJ57s9os3w1uZ24kPtVFjE9gmQV
-   /ZTdr5NsAYnZbXbnD9qT2sC0AA3QGX+rhtOguOyO5R+AjylWINe3Dh3VB
-   g==;
-X-CSE-ConnectionGUID: 3LMDWBdHSrGNvrFR2/WA5g==
-X-CSE-MsgGUID: 6qeTACHjQdyZMpagThcmcw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="97268216"
+  t=1786026133; x=1817562133;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NTE0gQPp841HJZ7ZGXtEj3QFHsDZuWuGfmet1LQrV0s=;
+  b=RRANwmsvhAyXeNd9ZqLDYiV9oTG6dzS7YW0jNCcf6xgvOrKE0Bopowwd
+   huyNDBLUJfzSTjUawJpIEdRL61BKkO51wnOf6hu8tIJ845gpgnCGldwZ+
+   W1FSOFBR0oH5uihkCZ9LzWqJauFPUyWFz1hS7H2g3n1ImAlhmsJ6eODQa
+   cObfVAgiYIO7Cy7+YIfH7kqLzxmdNMv7hAAuowcAKxBYBOWPbFM6wDBtZ
+   A8B246Rvk/Zv+qeYrkefoqUxtTks7Ds4lwykoSy8Col+I6W/9bJIZwxbN
+   XC7CufoTstCJ5FqjTZ6dDMoNy2ZQhNNhE49fBa0lBnIF8arrBMQ36ZJA6
+   w==;
+X-CSE-ConnectionGUID: UhHm8n1MRyKQoD+9updnkg==
+X-CSE-MsgGUID: LhW/7pCNQp+VBu/RcjTt9A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="90439940"
 X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; 
-   d="scan'208";a="97268216"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 07:21:54 -0700
-X-CSE-ConnectionGUID: gL6DpXnvSYylDOon08B1gw==
-X-CSE-MsgGUID: VB+GwbkIQU2oB6kOZbIdhQ==
+   d="scan'208";a="90439940"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 07:22:10 -0700
+X-CSE-ConnectionGUID: lrDeZggjSKWosppqomCv7A==
+X-CSE-MsgGUID: 25J0DZsGSsqGVLp4wDV+nQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; 
-   d="scan'208";a="285500530"
-Received: from amilburn-desk.amilburn-desk (HELO mnyman-desk.home) ([10.245.244.235])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 07:21:52 -0700
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-To: <gregkh@linuxfoundation.org>
-Cc: <linux-usb@vger.kernel.org>,
-	Michal Pecio <michal.pecio@gmail.com>,
-	Bart Nagel <bart@tremby.net>,
-	Mathias Nyman <mathias.nyman@linux.intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 17/17] usb: xhci: Handle bogus TRB pointers in Missed Service Error events
-Date: Thu,  6 Aug 2026 17:21:13 +0300
-Message-ID: <20260806142113.2436238-18-mathias.nyman@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260806142113.2436238-1-mathias.nyman@linux.intel.com>
-References: <20260806142113.2436238-1-mathias.nyman@linux.intel.com>
+   d="scan'208";a="262196547"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+  by orviesa007.jf.intel.com with ESMTP; 06 Aug 2026 07:22:09 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wryyz-00000000FI1-2ZLn;
+	Thu, 06 Aug 2026 14:22:05 +0000
+Date: Thu, 6 Aug 2026 22:21:16 +0800
+From: kernel test robot <lkp@intel.com>
+To: WenTao Liang <vulab@iscas.ac.cn>, Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
+	linux-ntb@googlegroups.com
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>
+Subject: Re: [PATCH] fix: ntb: perf_copy_chunk: fix tx descriptor and unmap
+ kref leak on   dmaengine_submit failure
+Message-ID: <202608062211.ndlKUG0U-lkp@intel.com>
+References: <20260626153917.53128-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260626153917.53128-1-vulab@iscas.ac.cn>
 
-From: Michal Pecio <michal.pecio@gmail.com>
+Hi WenTao,
 
-xHCI 1.0 allowed these pointers to be zero. Some Intel chipsets from the
-era usually set it to zero, but sometimes (apparently) to the next TRB
-after the one referenced by the previous transfer event on the endpoint.
+kernel test robot noticed the following build errors:
 
-Usually that's indeed the missed TD, but it may also be the last TRB of
-a two-TRB TD already completed with Short Packet on its first TRB. Then
-the driver skips all pending TDs, failing to find a match.
+[auto build test ERROR on jonmason-ntb/ntb-next]
+[also build test ERROR on linus/master v7.2-rc6]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-When handling Missed Service Error, scan TD list twice and only really
-skip TDs in the second pass if the first pass found a match. This won't
-catch bogus pointers to wrong TDs, but such a bug would be practically
-impossible to detect automatically and isn't known to exist.
+url:    https://github.com/intel-lab-lkp/linux/commits/WenTao-Liang/fix-ntb-perf_copy_chunk-fix-tx-descriptor-and-unmap-kref-leak-on-dmaengine_submit-failure/20260806-074331
+base:   https://github.com/jonmason/ntb ntb-next
+patch link:    https://lore.kernel.org/r/20260626153917.53128-1-vulab%40iscas.ac.cn
+patch subject: [PATCH] fix: ntb: perf_copy_chunk: fix tx descriptor and unmap kref leak on   dmaengine_submit failure
+config: x86_64-buildonly-randconfig-004-20260806 (https://download.01.org/0day-ci/archive/20260806/202608062211.ndlKUG0U-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260806/202608062211.ndlKUG0U-lkp@intel.com/reproduce)
 
-Reported-by: Bart Nagel <bart@tremby.net>
-Closes: https://lore.kernel.org/linux-usb/al_hchyOdPoPWKEo@spiral/
-Suggested-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Fixes: d0b619599e52 ("usb: xhci: Expedite skipping missed isoch TDs on modern HCs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
-Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
----
- drivers/usb/host/xhci-ring.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608062211.ndlKUG0U-lkp@intel.com/
 
-diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index 69bd582c7e2b..97a1b53c18ef 100644
---- a/drivers/usb/host/xhci-ring.c
-+++ b/drivers/usb/host/xhci-ring.c
-@@ -2597,6 +2597,17 @@ static bool xhci_spurious_success_tx_event(struct xhci_hcd *xhci,
- 	}
- }
- 
-+static struct xhci_td *find_td_by_dma(struct xhci_ring *ep_ring, dma_addr_t dma)
-+{
-+	struct xhci_td *td;
-+
-+	if (dma)
-+		list_for_each_entry(td, &ep_ring->td_list, td_list)
-+			if (trb_in_td(td, dma))
-+				return td;
-+	return NULL;
-+}
-+
- /*
-  * If this function returns an error condition, it means it got a Transfer
-  * event with a corrupted Slot ID, Endpoint ID, or TRB DMA address.
-@@ -2791,8 +2802,11 @@ static int handle_tx_event(struct xhci_hcd *xhci,
- 		xhci_dequeue_td(xhci, td, ep_ring, td->status);
- 	}
- 
--	/* If the TRB pointer is NULL, missed TDs will be skipped on the next event */
--	if (trb_comp_code == COMP_MISSED_SERVICE_ERROR && !ep_trb_dma)
-+	/*
-+	 * We don't know how many TDs were missed when ep_trb_dma is zero (as permitted by
-+	 * xHCI 1.0) or bogus. Bail out leaving ep->skip set, next event will sort it out.
-+	 */
-+	if (trb_comp_code == COMP_MISSED_SERVICE_ERROR && !find_td_by_dma(ep_ring, ep_trb_dma))
- 		return 0;
- 
- 	if (list_empty(&ep_ring->td_list)) {
--- 
-2.43.0
+All errors (new ones prefixed by >>):
 
+>> drivers/ntb/test/ntb_perf.c:854:2: error: call to undeclared function 'dmaengine_desc_put'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     854 |         dmaengine_desc_put(tx);
+         |         ^
+   drivers/ntb/test/ntb_perf.c:854:2: note: did you mean 'dmaengine_desc_free'?
+   include/linux/dmaengine.h:1607:19: note: 'dmaengine_desc_free' declared here
+    1607 | static inline int dmaengine_desc_free(struct dma_async_tx_descriptor *desc)
+         |                   ^
+   1 error generated.
+
+
+vim +/dmaengine_desc_put +854 drivers/ntb/test/ntb_perf.c
+
+   784	
+   785	static int perf_copy_chunk(struct perf_thread *pthr,
+   786				   void __iomem *dst, void *src, size_t len)
+   787	{
+   788		struct dma_async_tx_descriptor *tx;
+   789		struct dmaengine_unmap_data *unmap;
+   790		struct device *dma_dev;
+   791		int try = 0, ret = 0;
+   792		struct perf_peer *peer = pthr->perf->test_peer;
+   793		void __iomem *vbase;
+   794		void __iomem *dst_vaddr;
+   795		dma_addr_t dst_dma_addr;
+   796	
+   797		if (!use_dma) {
+   798			memcpy_toio(dst, src, len);
+   799			goto ret_check_tsync;
+   800		}
+   801	
+   802		dma_dev = pthr->dma_chan->device->dev;
+   803	
+   804		if (!is_dma_copy_aligned(pthr->dma_chan->device, offset_in_page(src),
+   805					 offset_in_page(dst), len))
+   806			return -EIO;
+   807	
+   808		vbase = peer->outbuf;
+   809		dst_vaddr = dst;
+   810		dst_dma_addr = peer->dma_dst_addr + (dst_vaddr - vbase);
+   811	
+   812		unmap = dmaengine_get_unmap_data(dma_dev, 1, GFP_NOWAIT);
+   813		if (!unmap)
+   814			return -ENOMEM;
+   815	
+   816		unmap->len = len;
+   817		unmap->addr[0] = dma_map_page(dma_dev, virt_to_page(src),
+   818			offset_in_page(src), len, DMA_TO_DEVICE);
+   819		if (dma_mapping_error(dma_dev, unmap->addr[0])) {
+   820			ret = -EIO;
+   821			goto err_free_resource;
+   822		}
+   823		unmap->to_cnt = 1;
+   824	
+   825		do {
+   826			tx = dmaengine_prep_dma_memcpy(pthr->dma_chan, dst_dma_addr,
+   827				unmap->addr[0], len, DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
+   828			if (!tx)
+   829				msleep(DMA_MDELAY);
+   830		} while (!tx && (try++ < DMA_TRIES));
+   831	
+   832		if (!tx) {
+   833			ret = -EIO;
+   834			goto err_free_resource;
+   835		}
+   836	
+   837		tx->callback = perf_dma_copy_callback;
+   838		tx->callback_param = pthr;
+   839		dma_set_unmap(tx, unmap);
+   840	
+   841		ret = dma_submit_error(dmaengine_submit(tx));
+   842		if (ret)
+   843			goto err_free_resource;
+   844	
+   845		dmaengine_unmap_put(unmap);
+   846	
+   847		atomic_inc(&pthr->dma_sync);
+   848		dma_async_issue_pending(pthr->dma_chan);
+   849	
+   850	ret_check_tsync:
+   851		return likely(atomic_read(&pthr->perf->tsync) > 0) ? 0 : -EINTR;
+   852	
+   853	err_free_resource:
+ > 854		dmaengine_desc_put(tx);
+   855		dmaengine_unmap_put(unmap);
+   856	
+   857		return ret;
+   858	}
+   859	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
