@@ -1,194 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E6C1A9FA8;
-	Thu,  6 Aug 2026 06:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685A938F649
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 06:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785997939; cv=none; b=t8J07UFWJkO1Te93tvHwaQrAgp2nAQftVaGSx/pigHfmOYb+nK0r+J48V7ATo3CAWGeRQMXMIJ19jBTTTuKViY84BGX0r3Nxjh93BPs30/TjEpp5rHyWXjx7eDkxoZ3DgTXEaDbIDbTvUPSH/5iEEue4qhHD61DPQMsJnoUmYNU=
+	t=1785999302; cv=none; b=hu4t7zRcLvxg021+tmS2+SNI2FTIRCBAN/QqxZnppwP5JYfihKkEo/Z8S3AK5C3/E1QEDPoJpd3yA8Q80iQ7Oz6kcQzSiXS97NMXePwum41PQb8Hi8OLHe6ngaqvYaQrRrgOzBw60JV7PmnQmbbvD+4LfMRavmYg7dNgKrAtPqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785997939; c=relaxed/simple;
-	bh=mpg5gA/An9DPLEuz+rX//6RHDkWXkSQPFIuq6rlCsDA=;
-	h=Date:To:From:Subject:Message-Id; b=OGPkAW1jvjlFcLP6hLlV9PnPXrA881DJR0QR02n3fxYGfwnFMnzV+GumprrLLZcEGoL27tijTvTU2ZiIzS2Sq2RSiPb2RX+KiWH+sVuzuPvi2Ju70Y0s/qbo4MWDSQAb9jVkffgxg7LQkUOt+xk+swH6cLp57FDXfMd3nPLt31s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ZIduuewC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785999302; c=relaxed/simple;
+	bh=zgGxT3SSOQ24bRUL2XXVVhCBJgNk6SJsnyd9GJ0KTEk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OE6sfOt8IU5ekLwoCdBrj/GBWSXA3lPefocVtIY1pBMOKNbjZEGQ+gJTK33Mce8q5L45rtbwxNF+KzrwU99ZMqKUrLC5ainp8Ht8Bvdlai1ouMBelRP5TMhhRWMR12O352U7l9RX1v6nS4/TKv0wy1lKxQglrr/N8lUxAyl3HVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YJxQImRG; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ZIduuewC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A7BA1F000E9;
-	Thu,  6 Aug 2026 06:32:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YJxQImRG"
+Received: by mail-pj2-f11.google.com with SMTP id d9443c01a7336-2cf02ecb572so20200605ad.1
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 23:55:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1785997938;
-	bh=BC4lGM7WjSYaSvhZDnq1CfRcStOmg1JBDWIPv2voXgk=;
-	h=Date:To:From:Subject;
-	b=ZIduuewCq/k6PT17qFCQm1ZCTr1mP2aKEOJ95gcpzVd6lW/HCcd6+HWPKANHNiwSI
-	 M/lKWRMcIti2nzsRQbpNCLSLHSGGYwhVIeCQ0rqRBetTnltMwZZvc8mJLkfWZkQqZI
-	 V7zu2FOd/QuXCjpSQdM3+88d+p13o4XmbrWeB5rI=
-Date: Wed, 05 Aug 2026 23:32:17 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@suse.com,karl.e.hofseth@opoint.com,hannes@cmpxchg.org,shakeel.butt@linux.dev,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + memcg-keep-folios-objcg-same-as-its-node.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260806063218.2A7BA1F000E9@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1785999301; x=1786604101; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LHiVelN5mh9CVmWnGQoTnlP7xVCZ+d8Y4Ey2Z8wrXTE=;
+        b=YJxQImRGhd8aRCFHmTM1Qdgy5q0grduSRh+S3B83EhfHkidCooiTf4LNzdudEJLkze
+         ZCj43wXBpsSrYXXS/vPd+tXDEQ1/8tPDeBUfo2UPl5JhHWGXZjRFlGBnmITTc0tqPSlo
+         ywNfUiY59QsipPcSdTC6mhje17n1p+m7FSU/rzATkPGP+zWY+TCDL2pmBqMIvEUNKYeT
+         NhlpTjaYvBFOTyysE8jQNlGlW+xZ1xtk+OigwnP1IPtjDeKg5Lqusgd/dg2bJpxPAGTH
+         S/hmzOQxggJlKKQvjHsRfU/RellxFt7FZ7dNEiSs6MVCz5Erm+gjMiEW23R91ZiR6rON
+         mibg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785999301; x=1786604101;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LHiVelN5mh9CVmWnGQoTnlP7xVCZ+d8Y4Ey2Z8wrXTE=;
+        b=Oo1GdKpXKT4dOEAnYcpErpJSxRxBX3R/3gM0cpu4UcP/35MVxonTwfRAI9SQewvL7M
+         dJEmZRmT6cRAO/+9ffBkMHMIw4oUmmflIfXrpGT/hzBR9eYzAQyl0aBauqG4KCUZOyP3
+         In9Kx1+iD96E7/5n3WniupsDGDNYVjsssH1gzXPHOj1vFIuP5CtT/xtLziftBc6OTL3t
+         hZT3NXRWETKgjdwEozxvquCCeiHOuhORxufWr+wecbfEosJUWkjFcSTyIc6XXuQTwanN
+         FFU/TBlma9K4W9DN5gT1yTh2mNUqsR7U4Jn0ffS0WoRm35buf0Z/piQ58D4K9fAddajT
+         8qmg==
+X-Forwarded-Encrypted: i=1; AHgh+RqWcONjQh/WEZhZ3FfTRsXlV7AoUGsQq+/EfFbj4yn4x54JlRoTeQTtVZmuKydCdlSDlNqnjCM=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz39LiFP3d9dHw41vh2Pd/ex/bW1Q4cWEPSztN4t/ZmdXNFA4k1
+	5jsF2DwK8McfU79yjXoJMlVe0Wwk3+adaYcHTGckqBLZi5K6zIaGc/1eVxENeQboJ2sna+jQ5JE
+	=
+X-Gm-Gg: AR+sD10gfp6UVLGob6ecqI47i6AK87BJvCnLyEZ22mpGuP3wldq+3a87qKWvXjDOivh
+	pdzcbzFxXuKVc/u+vFL3+QRevCrzOT42fOJPXgla54svt9YmRnaxovI9mr18qKmJHL4/MTg5nzs
+	dXkwGmWVNIiZJWtPF+S/qWyoXahddzIE0tJcdZofretjyl0h2FFnDy4d7EZrxkYFHOdFjsAzcRM
+	ZgtPJPxFmiXmC3bot57H4ocv1iIVNmDOzFcUO9JopSCu3QG9jp1G9rdgNoJZcxSjV8V8Ck4hlVs
+	RZkE+nBI9ipj3zuiq6pMgGJKdweb4a9FDhkz8kUN8ccy/P98NFwZwWD6vNpXhluvnWwWOHAIgaW
+	gn3Je0cNwgMoolImRjD82W2Qbkb7n820KxjNqrLtffCDDmN/fdI5QOns9WSks82OEQqF0xlD9m2
+	YeRKQZU0R35JQ7XlsRl1jNJ0YY5AcDWijIMDBdXugXGJGXLSqo9pn55iPo11kVum7/+GvnBD6jN
+	8vas+xPMynai4Dw1X7ZuDtGYHVv
+X-Received: by 2002:a17:903:2392:b0:2d0:cc92:f7a3 with SMTP id d9443c01a7336-2d0cc930281mr137694955ad.2.1785999300646;
+        Wed, 05 Aug 2026 23:55:00 -0700 (PDT)
+Received: from yde24-ubuntu ([39.155.246.150])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0a9f93657sm26417645ad.17.2026.08.05.23.54.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 23:55:00 -0700 (PDT)
+From: Haiyang Huang <huanghaiyang83@gmail.com>
+To: xiang@kernel.org,
+	chao@kernel.org
+Cc: linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Haiyang Huang <huanghaiyang83@gmail.com>
+Subject: [PATCH] erofs: fix out-of-bounds read in INTERLACED pi computation
+Date: Thu,  6 Aug 2026 14:52:52 +0800
+Message-ID: <20260806065253.1083865-1-huanghaiyang83@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+In z_erofs_transform_plain(), the page offset `pi` for the INTERLACED
+initial tail copy is computed using the unclamped value of `cur`:
 
-The patch titled
-     Subject: memcg: keep folio's objcg same as its node
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     memcg-keep-folios-objcg-same-as-its-node.patch
+    cur = bs - (rq->pageofs_out & (bs - 1));
+    pi = (rq->pageofs_in + rq->inputsize - cur) & ~PAGE_MASK;
+    cur = min(cur, rq->outputsize);
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/memcg-keep-folios-objcg-same-as-its-node.patch
+When cur > pageofs_in + inputsize (which is the common case for
+ztailpacking pclusters since pageofs_in + inputsize <= bs), the
+subtraction underflows in unsigned arithmetic. The subsequent
+& ~PAGE_MASK extracts a bogus intra-page offset, and the memcpy/
+memmove reads up to inputsize bytes from past the kmap'd page boundary.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Fix this by clamping cur before computing pi, so the subtraction uses
+the actual copy size rather than the raw block-alignment distance.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Shakeel Butt <shakeel.butt@linux.dev>
-Subject: memcg: keep folio's objcg same as its node
-Date: Wed, 5 Aug 2026 23:18:30 -0700
-
-memcg_reparent_objcgs() has an inherent assumption that a folio's objcg is
-the objcg of the folio's node.  Folio migration across nodes breaks that
-assumption: the new folio simply inherits the old folio's objcg while
-living on a different node.
-
-Once the assumption is broken, the reparenting of the folio's objcg and
-the reparenting of the folio's LRU list are no longer atomic. 
-memcg_reparent_objcgs() handles one node per iteration and drops all the
-locks in between, so the objcg gets reparented in the iteration for the
-objcg's node while the LRU list gets spliced in the iteration for the
-folio's node.  Any LRU operation on that folio in between resolves its
-lruvec through the objcg, and thus takes the lru_lock of the wrong memcg,
-not the lru_lock of the list the folio is actually on.
-
-Fix this by selecting the objcg by folio_nid() at charge time, and by
-re-deriving it for the destination node in mem_cgroup_migrate() and
-mem_cgroup_replace_folio().
-
-Link: https://lore.kernel.org/20260806061830.3294679-1-shakeel.butt@linux.dev
-Reported-by: Karl Erik Hofseth <karl.e.hofseth@opoint.com>
-Closes: https://lore.kernel.org/all/anMmd1ADrDVwMO6v@work/
-Fixes: f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying memory cgroup for LRU folios")
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 1ca01520148a ("erofs: refine z_erofs_transform_plain() for sub-page block support")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-6
+Signed-off-by: Haiyang Huang <huanghaiyang83@gmail.com>
 ---
+ fs/erofs/decompressor.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- mm/memcontrol.c |   33 +++++++++++++++++++++++++--------
- 1 file changed, 25 insertions(+), 8 deletions(-)
-
---- a/mm/memcontrol.c~memcg-keep-folios-objcg-same-as-its-node
-+++ a/mm/memcontrol.c
-@@ -2907,10 +2907,9 @@ struct mem_cgroup *mem_cgroup_from_virt(
- 	return folio_memcg_check(virt_to_folio(p));
- }
- 
--static struct obj_cgroup *__get_obj_cgroup_from_memcg(struct mem_cgroup *memcg)
-+static struct obj_cgroup *__get_obj_cgroup_from_memcg(struct mem_cgroup *memcg,
-+						      int nid)
- {
--	int nid = numa_node_id();
--
- 	for (; memcg; memcg = parent_mem_cgroup(memcg)) {
- 		struct obj_cgroup *objcg = rcu_dereference(memcg->nodeinfo[nid]->objcg);
- 
-@@ -2921,12 +2920,13 @@ static struct obj_cgroup *__get_obj_cgro
- 	return NULL;
- }
- 
--static inline struct obj_cgroup *get_obj_cgroup_from_memcg(struct mem_cgroup *memcg)
-+static inline struct obj_cgroup *get_obj_cgroup_from_memcg(struct mem_cgroup *memcg,
-+							   int nid)
- {
- 	struct obj_cgroup *objcg;
- 
- 	rcu_read_lock();
--	objcg = __get_obj_cgroup_from_memcg(memcg);
-+	objcg = __get_obj_cgroup_from_memcg(memcg, nid);
- 	rcu_read_unlock();
- 
- 	return objcg;
-@@ -2970,7 +2970,7 @@ static struct obj_cgroup *current_objcg_
- 
- 		rcu_read_lock();
- 		memcg = mem_cgroup_from_task(current);
--		objcg = __get_obj_cgroup_from_memcg(memcg);
-+		objcg = __get_obj_cgroup_from_memcg(memcg, numa_node_id());
- 		rcu_read_unlock();
- 
- 		/*
-@@ -5120,7 +5120,7 @@ static int charge_memcg(struct folio *fo
- 	int ret = 0;
- 	struct obj_cgroup *objcg;
- 
--	objcg = get_obj_cgroup_from_memcg(memcg);
-+	objcg = get_obj_cgroup_from_memcg(memcg, folio_nid(folio));
- 	/* Do not account at the root objcg level. */
- 	if (!obj_cgroup_is_root(objcg))
- 		ret = try_charge_memcg(memcg, gfp, folio_nr_pages(folio));
-@@ -5354,6 +5354,7 @@ void mem_cgroup_replace_folio(struct fol
- 
- 	rcu_read_lock();
- 	memcg = obj_cgroup_memcg(objcg);
-+
- 	/* Force-charge the new page. The old one will be freed soon */
- 	if (!obj_cgroup_is_root(objcg)) {
- 		page_counter_charge(&memcg->memory, nr_pages);
-@@ -5361,7 +5362,12 @@ void mem_cgroup_replace_folio(struct fol
- 			page_counter_charge(&memcg->memsw, nr_pages);
- 	}
- 
--	obj_cgroup_get(objcg);
-+	/* If replacing folio of different node, get objcg of that node. */
-+	if (folio_nid(old) != folio_nid(new))
-+		objcg = __get_obj_cgroup_from_memcg(memcg, folio_nid(new));
-+	else
-+		obj_cgroup_get(objcg);
-+
- 	commit_charge(new, objcg);
- 	memcg1_commit_charge(new, memcg);
- 	rcu_read_unlock();
-@@ -5401,6 +5407,17 @@ void mem_cgroup_migrate(struct folio *ol
- 	if (!objcg)
- 		return;
- 
-+	/* If migrating to different node, get objcg of that node. */
-+	if (folio_nid(old) != folio_nid(new)) {
-+		struct obj_cgroup *old_objcg = objcg;
-+
-+		rcu_read_lock();
-+		objcg = __get_obj_cgroup_from_memcg(obj_cgroup_memcg(old_objcg),
-+						    folio_nid(new));
-+		rcu_read_unlock();
-+		obj_cgroup_put(old_objcg);
-+	}
-+
- 	/* Transfer the charge and the objcg ref */
- 	commit_charge(new, objcg);
- 
-_
-
-Patches currently in -mm which might be from shakeel.butt@linux.dev are
-
-memcg-keep-folios-objcg-same-as-its-node.patch
-memcg-bypass-the-reclaim-and-oom-killer-for-dying-tasks-once-oom_reaper-is-done.patch
+diff --git a/fs/erofs/decompressor.c b/fs/erofs/decompressor.c
+index 3c54e95964c9..9c65364ed002 100644
+--- a/fs/erofs/decompressor.c
++++ b/fs/erofs/decompressor.c
+@@ -299,8 +299,8 @@ static const char *z_erofs_transform_plain(struct z_erofs_decompress_req *rq,
+ 		return ERR_PTR(-EOPNOTSUPP);
+ 	if (rq->alg == Z_EROFS_COMPRESSION_INTERLACED) {
+ 		cur = bs - (rq->pageofs_out & (bs - 1));
+-		pi = (rq->pageofs_in + rq->inputsize - cur) & ~PAGE_MASK;
+ 		cur = min(cur, rq->outputsize);
++		pi = (rq->pageofs_in + rq->inputsize - cur) & ~PAGE_MASK;
+ 		if (cur && rq->out[0]) {
+ 			kin = kmap_local_page(rq->in[nrpages_in - 1]);
+ 			if (rq->out[0] == rq->in[nrpages_in - 1])
+-- 
+2.53.0
 
