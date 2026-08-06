@@ -1,130 +1,221 @@
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F23D033936A
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 03:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD9FD1B87C0
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 03:20:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785985648; cv=none; b=JjaSuiRGH0FyKN+ldom2aHMtdyL69Pi87po9TyBNEfy40ogJup75rwz4MVq/wQV43VANoiLp/Ttf/igF6vvE2vtCakN+qU1MuwKZw5bacgO3kOpRUpFg66BqE95KlUzDMp21f1vtcVo1uGQBaGalVspB+MuXpNwkWNjzx4JB3Fc=
+	t=1785986447; cv=none; b=O8+llipM6eTr+50cMKMpGoMj8svhJi7qREleMLOJuy0Vy8oQkjNgyHZayH3j9jjbvkK3bS+ddsfi9Z4HZjeXwk/9wpFQOzvxMAAhCBhj0nUue1OzaHblpB2smRkgDd3kMFQCdYL9rg+3HNAFpz+i5ySrxHYNK1h8xlNPjYGZm4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785985648; c=relaxed/simple;
-	bh=jQ6UuDW3zdfjblRiMKM4NFMGx1Urp/cvyxzY1qFKYq4=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 Mime-Version:Content-Type; b=uU2yMlhhCV3THS1rRhnAY1DAr/H+C6/xPQf62IG8r56IbJ7qwB477JGaFDkDXqDO9/X/R2ZelWsi99JGV3jM+olTONWNaiosJCN+LbDQmzgtaaRW+Xe1K8NRZT/uMoZZ8iMFhW+OSQYZts+dQRBx7twsPviD0XRKiwv6QY3u7qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pcdy3gBB; arc=none smtp.client-ip=209.85.128.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785986447; c=relaxed/simple;
+	bh=BGubs82lXdw6XGaSnUEyvVowZLrwm8NUyrBkuJHUhm8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tzY+5TytBl3dAYvdhW/KN4R6wYCnFjxa9476YHAV9EvX5k9GmN1chaP0d0DPOfSmZp02LVUkJxVxvSoJTLWhm4TbnnIKPeZlSGzNGweijjcGBwgpjWDY6Aqi8MxO+bt+PvMhD5yvt1gNBAOgLoDXC9Kp53A6LIPFMkrrFvFg1yI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=hMe8ULBo; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pcdy3gBB"
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-81eaf3709b4so25676847b3.0
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 20:07:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785985645; x=1786590445; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=T2GVAE2mW6LqPKME0VIKnwNjy75x7t54slf/z118zbI=;
-        b=pcdy3gBBtBZcLujDutEYR6YlF71/ugU5HC/RLjx0W4jsZ2nBVLYCzKrh6gW/FwAYJU
-         fSs2hssRQ1CKGJpaiX0UU5rOl0Eija9xna2UNIkbds7G9+pfTP8s5o6yNIPxlvQ/WSf/
-         WRjUDuGFXFiG/6N35QN8A+96lFQJrTiT06vvGGdE/mArAzqExLu7lXx45t8ZXeRT3hGc
-         khCk/X78GxeljYHxhyqp484BQZ2UqpkBx3ixbXIw1RStABmWBxyW6nDU04WAIFtJ6/j2
-         IxJKTGqFqotdXiGe+A/fO3qIjYjMkfqJkCPYcdvM92GV0kz+92Wxlg7JA40IfjP4D0IH
-         cvLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785985645; x=1786590445;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T2GVAE2mW6LqPKME0VIKnwNjy75x7t54slf/z118zbI=;
-        b=ouIDzXD0hGAytg1vLILG4gHjdlRskZgez0J/9bxlRw/HmuWJOO8Au+D+MxSC+VzT4T
-         wTOJ1dB9l0+ZzvaFHG8pUjSY95ql6GdyITrdwk3QCyhQfwi9ivdoweFr+y58xO9SpD+d
-         Ydbinu+heIZIYu9moq8nBUvMNnUK5Kc+U+BzwK5LqSyDSSfzIrWNs7nvKQPGBBbL0mQ+
-         +5GcGLwaqAFUky/OJmxk17hXsWgrBhxcXoY9drTSXQoMD3B/5XrIrIsBTHQ4PwisRRBO
-         IcC6SEyaYZNpJgulDp7M8dLpCnGw3TSnGFqdgwI8pbDTz++7+TVwQxn4m9q2s3gpCkJa
-         iHjQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrCtp+MDufSsS619O6pnRgE9jm00cOEUOAClnTbuby69BiSNDfyvSwdwoGLFp7yzO4B8zuke/8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyO1oJ5OzQTdQxFqrtcUOO1KyfK16V41fKwiJPkco516dJlSk/J
-	CYF5JX8HGYnVDp2Qz7uzUGFuQzyhwPwjpdt1eBjCz7HutGmSWo9JEwTw
-X-Gm-Gg: AR+sD13JuwAVUkcbnkd5d1QjN2PgiNcdy96g9bhyiWYrKtLHZxMUZ97Idr3TcBzT/zv
-	hKXMnGbNPgzjqrP9Xiy+icvYjlTFLEwRxXSMybUY3q/gnyNjisYhbpQJ7035kuyCeDem54trUhx
-	TjZbpP3oVzvzqCs02E5MVgVzdJ2piz3jZNBFuLfheLHSZFlK4DgcSCFashj3M3yHQFDlN/wMf0u
-	lmqXe99KlSu/VkNt3m//RrfmF/Qon0K/Oh79LW8TZvk73rvqGmvo3w+e/tZTCKb4syumWJWHvc5
-	I1essNXFrVLWc/rdEm7W/4Pwe6LgokhfRZpa9CGvTDcc2/vuK6OGTcuVjM9CFF9YIfOywtdRWyo
-	Dwaj5J7ExbbAUTTd/HITz1lRA4McICrLOrVo/vK5Cm92UlSWuXdeEXM1YUIO0vQIlg1+R0sRw+J
-	R0MOuQnlwjT0hpsTUC4w/od+CAUkV/OCBh2KfTH6Lmo63q/eA3985tbjOWZsst4j0aymG4qa360
-	cqfvElktwQ40OhPt+hDVCf16cltZAkeTX95
-X-Received: by 2002:a05:690c:3a0:b0:81e:5f38:b20e with SMTP id 00721157ae682-8201f0bd386mr75511517b3.6.1785985645185;
-        Wed, 05 Aug 2026 20:07:25 -0700 (PDT)
-Received: from gmail.com (250.4.48.34.bc.googleusercontent.com. [34.48.4.250])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-820134ccc5csm32130237b3.43.2026.08.05.20.07.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 20:07:23 -0700 (PDT)
-Date: Wed, 05 Aug 2026 23:07:22 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Qihang <q.h.hack.winter@gmail.com>, 
- netdev@vger.kernel.org
-Cc: willemdebruijn.kernel@gmail.com, 
- willemb@google.com, 
- daniel.zahka@gmail.com, 
- davem@davemloft.net, 
- edumazet@google.com, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- stable@vger.kernel.org, 
- Qihang Tang <q.h.hack.winter@gmail.com>
-Message-ID: <willemdebruijn.kernel.3923b42779f45@gmail.com>
-In-Reply-To: <20260805125729.19220-2-q.h.hack.winter@gmail.com>
-References: <20260805125729.19220-1-q.h.hack.winter@gmail.com>
- <20260805125729.19220-2-q.h.hack.winter@gmail.com>
-Subject: Re: [PATCH net v6 1/3] net: remove CAP_SYS_RAWIO zero-padding in
- dev_validate_header
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="hMe8ULBo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=+t
+	N2nQUKNMtF9bMzyMSoWC1FoDapFVFMZi642VWa5xg=; b=hMe8ULBo7+63iS+sbD
+	YiiIeEqznGM0bgesEtH87S8G0FAnHO7fhNTHGwdL3TcqYmlhZEDBwmxJmp2U5WBZ
+	S0Bu4r+tuLIUa9tHjG375D0GkBSfcX6QUcO+p+0p38nDD9mx5GIYLhn8wlPeKhrr
+	TfaovKDJUcoa4aPPA3yTntNtk=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgA33Shf_XNqkg3FKw--.36393S2;
+	Thu, 06 Aug 2026 11:20:00 +0800 (CST)
+From: dayou5941@163.com
+To: akpm@linux-foundation.org,
+	linmiaohe@huawei.com,
+	david@kernel.org,
+	ljs@kernel.org
+Cc: nao.horiguchi@gmail.com,
+	linux-mm@kvack.org,
+	ziy@nvidia.com,
+	Li Youhong <liyouhong@kylinos.cn>,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v4] mm/memory-failure: fix folio refcount leak and locking in soft/hard offline
+Date: Thu,  6 Aug 2026 11:19:58 +0800
+Message-Id: <20260806031958.677935-1-dayou5941@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgA33Shf_XNqkg3FKw--.36393S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Gw4DZrW3KrW3Cw47urW3ZFb_yoWxJF15pF
+	W3KwnxArWvqrnI9r47Zw4vyr1Yy398Way5Ca43Jw1fZ3ZIy3WjkFWIqw4rZFW5Gry8AF4x
+	Xa1UXF1jgan8JaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jn3kZUUUUU=
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC3QIPvWpz-WJsyQAA3O
 
-Qihang wrote:
-> From: Qihang Tang <q.h.hack.winter@gmail.com>
-> 
-> dev_validate_header() reads dev->hard_header_len directly when
-> zero-padding short link layer headers for CAP_SYS_RAWIO holders:
-> 
->     if (capable(CAP_SYS_RAWIO)) {
->         memset(ll_header + len, 0, dev->hard_header_len - len);
->         return true;
->     }
-> 
-> Packet send paths call dev_validate_header() on skbs whose headroom was
-> allocated from an earlier hard_header_len read. If the device is
-> reconfigured so that dev->hard_header_len increases before validation,
-> the memset writes past the reserved buffer, an out-of-bounds write.
-> 
-> This out-of-bounds write is masked in some SOCK_RAW paths today because
-> the same concurrent increase can first make skb_push() exceed the
-> reserved headroom and trigger skb_under_panic(). Remove the zero-padding
-> branch before making those hard_header_len reads consistent, so the
-> snapshot fixes do not turn a loud panic into a silent overwrite.
-> 
-> This path is only reached for variable length L2 protocols, where
-> len < hard_header_len but len >= min_header_len. No remaining in-tree
-> variable length L2 protocol implements header_ops->validate, and the
-> CAP_SYS_RAWIO bypass that zero-pads and accepts short headers has no
-> real value beyond allowing testing of intentionally malformed input.
-> 
-> Drop the CAP_SYS_RAWIO branch. The remaining reads of
-> dev->hard_header_len in dev_validate_header() are comparisons only and
-> have no memory safety impact.
-> 
-> Suggested-by: Willem de Bruijn <willemb@google.com>
-> Fixes: 2793a23aacbd ("net: validate variable length ll headers")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qihang Tang <q.h.hack.winter@gmail.com>
+From: Li Youhong <liyouhong@kylinos.cn>
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
+The min_order_for_split() function accesses folio->mapping without proper
+synchronization. In memory_failure(), the folio lock is dropped before the
+call, and in soft_offline_in_use_page(), the lock is not held at all. This
+means that while min_order_for_split() is executing, the value of
+folio->mapping may be modified by a truncate or invalidate operation,
+leading to a torn read or use of a stale mapping value.
+
+Additionally, the soft_offline_in_use_page() path fails to release the
+folio reference taken by get_hwpoison_page() when new_order != 0, causing a
+reference leak.
+
+Fix these issues by:
+- Moving the split operation logic into the callers and holding the folio
+  lock around min_order_for_split() and split_huge_page_to_order().
+- Removing the try_to_split_thp_page() helper to simplify refcount
+  handling.
+- Ensuring the folio reference is always dropped before returning on the
+  soft-offline error path.
+
+This refactors the code to be more maintainable, fixes the locking issue
+reported by Sashiko, and also addresses the folio reference leak on the
+soft-offline error path.
+
+Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260803060001.800638-1-dayou5941@163.com
+Cc: stable@vger.kernel.org
+Co-developed-by: David Hildenbrand <david@kernel.org>
+Signed-off-by: David Hildenbrand <david@kernel.org>
+Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
+---
+v2:
+- Dropped the approach of caching folio->mapping inside min_order_for_split() in favor of adding the folio lock at the callers.
+- Added VM_WARN_ON_ONCE_FOLIO() in min_order_for_split().
+- Updated the commit message to clarify that the real issue is the callers not holding the folio lock, rather than a TOCTOU race.
+  v1: https://lore.kernel.org/all/20260804035828.2684059-1-dayou5941@163.com/
+
+v3:
+- Fix author name and Signed-off-by format as requested by Greg.
+  v2: https://lore.kernel.org/all/20260805072625.2437636-1-dayou5941@163.com/
+
+v4:
+- Rebased on David Hildenbrand's refactoring patch.
+- Added Co-developed-by for David Hildenbrand.
+- Supersedes the standalone refcount fix:
+  link: https://lore.kernel.org/all/20260804035356.2615408-1-dayou5941@163.com/
+- The VM_WARN_ON_ONCE_FOLIO() check in min_order_for_split() will be sent
+  as a separate follow-up patch.
+  v3: https://lore.kernel.org/all/20260805084224.2597547-1-dayou5941@163.com/
+
+---
+ mm/memory-failure.c | 49 +++++++++++++++++----------------------------
+ 1 file changed, 18 insertions(+), 31 deletions(-)
+
+diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+index 51508a55c405..665f5b444fb7 100644
+--- a/mm/memory-failure.c
++++ b/mm/memory-failure.c
+@@ -1649,26 +1649,6 @@ static int identify_page_state(unsigned long pfn, struct page *p,
+ 	return page_action(ps, p, pfn);
+ }
+ 
+-/*
+- * When 'release' is 'false', it means that if thp split has failed,
+- * there is still more to do, hence the page refcount we took earlier
+- * is still needed.
+- */
+-static int try_to_split_thp_page(struct page *page, unsigned int new_order,
+-		bool release)
+-{
+-	int ret;
+-
+-	lock_page(page);
+-	ret = split_huge_page_to_order(page, new_order);
+-	unlock_page(page);
+-
+-	if (ret && release)
+-		put_page(page);
+-
+-	return ret;
+-}
+-
+ static void unmap_and_kill(struct list_head *to_kill, unsigned long pfn,
+ 		struct address_space *mapping, pgoff_t index, int flags)
+ {
+@@ -2440,7 +2420,6 @@ int memory_failure(unsigned long pfn, int flags)
+ 	folio_unlock(folio);
+ 
+ 	if (folio_test_large(folio)) {
+-		const int new_order = min_order_for_split(folio);
+ 		int err;
+ 
+ 		/*
+@@ -2457,24 +2436,24 @@ int memory_failure(unsigned long pfn, int flags)
+ 		 * page is a valid handlable page.
+ 		 */
+ 		folio_set_has_hwpoisoned(folio);
+-		err = try_to_split_thp_page(p, new_order, /* release= */ false);
++
++		lock_page(p);
++		err = split_huge_page_to_order(p, min_order_for_split(folio));
++		unlock_page(p);
+ 		/*
+ 		 * If splitting a folio to order-0 fails, kill the process.
+ 		 * Split the folio regardless to minimize unusable pages.
+ 		 * Because the memory failure code cannot handle large
+ 		 * folios, this split is always treated as if it failed.
+ 		 */
+-		if (err || new_order) {
+-			/* get folio again in case the original one is split */
+-			folio = page_folio(p);
++		folio = page_folio(p);
++		if (folio_test_large(folio)) {
+ 			res = -EHWPOISON;
+ 			kill_procs_now(p, pfn, flags, folio);
+ 			put_page(p);
+ 			action_result(pfn, MF_MSG_UNSPLIT_THP, MF_FAILED);
+ 			goto unlock_mutex;
+ 		}
+-		VM_BUG_ON_PAGE(!page_count(p), p);
+-		folio = page_folio(p);
+ 	}
+ 
+ 	/*
+@@ -2776,6 +2755,9 @@ EXPORT_SYMBOL(unpoison_memory);
+  * soft_offline_in_use_page handles hugetlb-pages and non-hugetlb pages.
+  * If the page is a non-dirty unmapped page-cache page, it simply invalidates.
+  * If the page is mapped, it migrates the contents over.
++ *
++ * The folio refcount has been incremented before entering this function.
++ * This folio reference must be released before the function returns on all paths.
+  */
+ static int soft_offline_in_use_page(struct page *page)
+ {
+@@ -2793,8 +2775,7 @@ static int soft_offline_in_use_page(struct page *page)
+ 	};
+ 
+ 	if (!huge && folio_test_large(folio)) {
+-		const int new_order = min_order_for_split(folio);
+-
++		lock_page(page);
+ 		/*
+ 		 * If new_order (target split order) is not 0, do not split the
+ 		 * folio at all to retain the still accessible large folio.
+@@ -2802,8 +2783,14 @@ static int soft_offline_in_use_page(struct page *page)
+ 		 * preferred, split it to non-zero new_order like it is done in
+ 		 * memory_failure().
+ 		 */
+-		if (new_order || try_to_split_thp_page(page, /* new_order= */ 0,
+-						       /* release= */ true)) {
++		if (!min_order_for_split(folio))
++			ret = split_huge_page_to_order(page, 0);
++		else
++			ret = -EBUSY;
++		unlock_page(page);
++
++		if (ret) {
++			put_page(page);
+ 			pr_info("%#lx: thp split failed\n", pfn);
+ 			return -EBUSY;
+ 		}
+-- 
+2.25.1
+
