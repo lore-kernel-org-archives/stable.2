@@ -1,263 +1,278 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013024.outbound.protection.outlook.com [40.93.196.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304A022689C
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 14:42:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786027352; cv=none; b=QZApNs036V0inZlgbfa8PFggdg0UP8cksBHOkfQjsmsZyqIljWWEm7PxgiwHt5Yx+zkPHOKnpp6LAm1DJEgoa9973a7WO9UKBvYjou+zV4AfgrKkn3D/DXGZH2gqpU2uNPcvj7wF/9aMUIKf3MwOQ1H+U1SxrLFbb0JPTnWRQvs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786027352; c=relaxed/simple;
-	bh=AiKZOoqsdhscH3X5tTSOs7l/4l41JC6Fbu7L1hSJE/4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WGScemHV0meVrlr44mvLi2Hy38gQEtjJqiUn1ymxVuJhrMDoe+kN4d4E7nTKYDHAnS5pNaB7w7W9ownjMJtkwAxZTZ+KU7SkrugMUkBaK0BECNoR3tuwGrLZPkpWG0CtLR0ONmtss/zxRdgyFvZJsluuh/xgH5n4gQQy6lrnwsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=K6wFlEz7; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=IkuNVtRc; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C4022689C;
+	Thu,  6 Aug 2026 14:42:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786027362; cv=fail; b=MJZWtOOTrgQ+MI4/TIGjuGPaad2sMHaQMAtrYEM6RD3WlE9uoGMcFoeKH8lPebdO/r899KV5FyfG35bNLXD37t07X9LyqhUn/usdQntu6srtVpDBV+7VVaUD2A3Gk5YJm9ktYXEFu79gBli9tkq7IQ1DMKICnAQ8at4VRmLRFMU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786027362; c=relaxed/simple;
+	bh=L6OlYV9eBMJTx6EGwyGKDGG3ycFzokacADpfQoWUA1g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=hwdbt6SXm/HHZNPcsUC0iYeQOk15/BuWS0+GQBCyACKOAFBN+kcSul79Le5JEmty/UggPBcTJ22ozixBm7FFp4C20JjPZG30onQW7VEXeSBDZYAYSfBJDiGvIE3JBsosf6qtCH4rUDSEUgYFlYN/aoBcy0VbLxdPqI4yyRW1c6I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=cSnyKOjb; arc=fail smtp.client-ip=40.93.196.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="K6wFlEz7";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="IkuNVtRc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1786027350;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Y8GfkU9TTPckwMBwt43hPKDhEB5BQFXtyP1DfYP8FF4=;
-	b=K6wFlEz7STk1/cLfFKnA6JsVnWol0PJiaFedMnzifmn483wCxzwSsbL/hpRkbnUBOU42Cf
-	NpLy7IQ+BBTa6r7XlAdlbu6nmfJWeHoTzlHbSKtL4zxpukx0AwetNpnltY2HxYGBui6CrY
-	AvpRDNzomZ+0FmaFHp1T4iekQzOfLeQ=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-682-zSQk6oJ1N6STS4OvCCkqRg-1; Thu, 06 Aug 2026 10:42:22 -0400
-X-MC-Unique: zSQk6oJ1N6STS4OvCCkqRg-1
-X-Mimecast-MFC-AGG-ID: zSQk6oJ1N6STS4OvCCkqRg_1786027341
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c15c6a68406so158352666b.3
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 07:42:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1786027341; x=1786632141; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Y8GfkU9TTPckwMBwt43hPKDhEB5BQFXtyP1DfYP8FF4=;
-        b=IkuNVtRcgcvEMxhC+7f/uCs/CWTyaTD9qPPc+nJaYwpNq6xaiHlOzT1EVBJEIC/oFi
-         R+nB9CY7i07JQb6wWPSoNUTORXFIqriZtr03UWnF4Sz2rlyVQLIApWyvTDUhQaJLxWoA
-         GTNlEJqhPutmF1rA0VR7dGwuj5FLMYRwi2pvjExp5NkK4n9RVEdrvuBOQIBvo2bFlSoR
-         ySq2Qc2J1sxKEaAh2+dsHL4tuM6Uj/iMk4uCOI9HyiO+ILH9gOSIDDZu2P73f+sbPrXS
-         BkvzKvmT5aKc4sf26RRlx8krP/R78un594x4BgICnXoEJJ3RzQQ+U2I2YftVO0VVn8kj
-         t/RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786027341; x=1786632141;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Y8GfkU9TTPckwMBwt43hPKDhEB5BQFXtyP1DfYP8FF4=;
-        b=lweHmPo8lqY45OnWf1gxh79crk9fLMr7AsmCxkNkIKp1khycXZDrtnkrLnPggG0E7e
-         WDXpJLbMehd0ndsVX1XPUG4dasOhMU2OGT2V8voe257Od73pfs9AiBUKwKp0yUuXmgbR
-         XZIXo/TF41Viw4ZUpVU359nUd9yFFyP5TXaRZjO6eiSVWmVpPsjMNWZtHXIkLSyGNtZg
-         xbTFesqHPIgzzTWTEoHAho3W3K7Tu+YZAgl9Qg4shdmKVJy78wAkZ/v66gBl/wubU3pZ
-         o4r1v9YzSsYEHs0c3H7HL5rf9rBYoHoKJQQR0ExZdT+RveJFy+eXNk3zTSc9JCmTOLX2
-         dajg==
-X-Forwarded-Encrypted: i=1; AHgh+RqDsafi2i5whUuZsSsIWvv01NSOzUAPjyfUsPW1F8pUfnR66JNxmVJKUmyn3duLZ9lwPv5DflM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YypK1e97wvGItBw0tNsP0mWIYUfCoddhp7lohFJuWznyDfGRxLl
-	gpsEehBXimaqwU2BtFH304Y9t2xnUR5aG7uW9NGEnnbiUCbYEQRl16Jsq2vXXPy/TRAtTLsVLw2
-	/K4D3XHd8VhT6RP0nvMrtjM8U1xa70brkfjP4uqcpAT2c3pRZAkJMO6XJ7A==
-X-Gm-Gg: AR+sD13XDaLZpYz1TFvhbijbVlAcdT7mEYgfk+JgpjEITKP8BF47hS02zusc2BOEjkK
-	/bujugpZvShY6kIGYVvAmhfgVLYxphmw18P8ECrELlTCfYh9vL+5Q1joEUotVD5jggBMyiqlPSF
-	SaruEYUemzHiiRzcBtvbd4WX782R4/J2htTIfMNamE2by/wlgaHy3Cyx0e4Kywg5brWu7DjTpmV
-	o0WHcmUHFhB3eWtEuIwgiG0taHovb4eumZLISQzCy1GuexT2mhEVZt605A0Cf6UU6qMcFSOW0nM
-	XgA787tA7bIEUGPEWgFX1aksCB5wendenttp7rSUFFUwd/AXSajU69UKnfm+UWlvFVHZUWgxqGP
-	r0IfR+m0cBv0QHLb8KDWe9pk2ctxodN3o5jXVBb0=
-X-Received: by 2002:a17:906:d181:b0:c16:1a00:3feb with SMTP id a640c23a62f3a-c2073365229mr81915266b.15.1786027340798;
-        Thu, 06 Aug 2026 07:42:20 -0700 (PDT)
-X-Received: by 2002:a17:906:d181:b0:c16:1a00:3feb with SMTP id a640c23a62f3a-c2073365229mr81911266b.15.1786027340246;
-        Thu, 06 Aug 2026 07:42:20 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:280:24f0:576b:abc6:6396:ed4a? ([2a01:e0a:280:24f0:576b:abc6:6396:ed4a])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c20361312eesm272059666b.4.2026.08.06.07.42.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Aug 2026 07:42:19 -0700 (PDT)
-Message-ID: <5b7e84f5-2007-458c-910f-7a6e1e3d3eab@redhat.com>
-Date: Thu, 6 Aug 2026 16:42:18 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="cSnyKOjb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lWRPBT58d7xe5uQlo4zfV5UrxcAVCV/+Bnq8FP/p7W4qAmGVX7ENIc1XPRBn29z4rbgeAHQwa254vgAHXOXkD08IJpBc24hI53ufEour14dILj+5ImbP6PyKxUdDxOwOCgEe7YXvtd1l/x3SJEg1dwFgCKOLR+3PwRPAH0ryME01NbIE2BkqbqCWMI7F/0eUIOn7oeGm7/754lGEm9HAdM7uWm2sZ8rvJrtdT9YJskw2PtbcYYJFlqj5jSCCFBSBBlRW0IvPfaKihUd2K7XeoltMQ+O+QUcdRwpWRtXM9buXt8hqaE4f08KDeD8LIXPevzhCuMj1NoB2JMJQICQ6nQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1Sl9BQMXNGoAvVE/FIiKHIyypHZDF701muGUxSaI1ec=;
+ b=XOLfqCHPDwjDuVYxKCwXNRb5smUrrwGfSCR600vxkVRzPtRkBSPlGDiXl3Z8RECN50TKb9kl4S4/AZdsENSyi3V6g5DLXkUL2Kcf1LMzvRktnwvWokhgmXLW+KQZqRUaePoI438rCeeYbZSjMyCbQDVjo/T6vR8ZxAx+OzXCaRAqiBIhGkJCn5iyEj1z7DLoo06uqOFLcBIzFYIfWkSiytM+3LsVTLJIMRu7fGCfUdkxh7howVn/QDC9Lu8LaY4yQ9/09P3hIUUX6GSqmuB0KOHvPPINUpWfuv0RPVG8GMm3gsPt7TSL3501BqwsdI6KVMXnrTVobAZnDmVC9q9kHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1Sl9BQMXNGoAvVE/FIiKHIyypHZDF701muGUxSaI1ec=;
+ b=cSnyKOjbn4KVTgP3O8U1SOGqSO0wzXKGb3Ll1GubkbbZNLgPnRqpSw6X+Svmf2nbFuwr/TG4TGakVFKc4uLqZZaLX98T3ukHAKu/FZLaTyyQaz0Gnh4sUyXYON12NTvfLluheisfPXedgtdL1Q24TTWWWNMtEX2tMBI/mBLvs/s2YPWjasNa/74YeoLNvVPi5OpBoOLdf7G6tBy/zIfJG5WUEaMCF2zVAWQpo0A9aKz4HiokewH0s8llRTj2Vra3ce3r04qXD8HIEdThYBTKIqlAtarJP84JjegaOKKDo/uSZ1JoJY2zQKeBSQm8kouxKsCVfpvgsSRyzkRq/9RueA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB7901.namprd12.prod.outlook.com (2603:10b6:806:306::12)
+ by MN2PR12MB4469.namprd12.prod.outlook.com (2603:10b6:208:268::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
+ 2026 14:42:37 +0000
+Received: from SA3PR12MB7901.namprd12.prod.outlook.com
+ ([fe80::6f7f:5844:f0f7:acc2]) by SA3PR12MB7901.namprd12.prod.outlook.com
+ ([fe80::6f7f:5844:f0f7:acc2%5]) with mapi id 15.21.0292.019; Thu, 6 Aug 2026
+ 14:42:36 +0000
+Date: Thu, 6 Aug 2026 17:42:25 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: David Ahern <dsahern@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Stefano Brivio <sbrivio@redhat.com>,
+	Sabrina Dubroca <sd@queasysnail.net>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] ipv4: fix use-after-free in fib_nhc_update_mtu()
+Message-ID: <20260806144225.GA1940054@shredder>
+References: <20260806133309.731709-1-nicoyip.dev@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806133309.731709-1-nicoyip.dev@gmail.com>
+X-ClientProxiedBy: FR0P281CA0095.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a9::12) To SA3PR12MB7901.namprd12.prod.outlook.com
+ (2603:10b6:806:306::12)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: let special huge VMAs bypass the THP
- policy check
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
- Peter Xu <peterx@redhat.com>, Alex Williamson <alex.williamson@redhat.com>,
- Jason Gunthorpe <jgg@nvidia.com>, Zi Yan <ziy@nvidia.com>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260805055544.1568534-1-clg@redhat.com>
- <0e52d0b4-064d-4602-8e7b-5744b05f24ea@kernel.org> <anSZpAjt84Pn7O_b@lucifer>
-From: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>
-Content-Language: en-US, fr
-Autocrypt: addr=clg@redhat.com; keydata=
- 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
- uVKe8BVz4atMOoktmt0GWTOC8P4=
-In-Reply-To: <anSZpAjt84Pn7O_b@lucifer>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB7901:EE_|MN2PR12MB4469:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86c99633-0c99-4cce-efff-08def3c8f4c7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|22082099003|18002099003|11063799006|6133799003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	a2Qe4riOoyKIH2kAM8uRcP4JGJgsdoc47IXqV1O1n6b4/0mZt6kMaQDdZ+brPfRTYP+bOHLwB6as+v9lXBPnIjD3K1jjsOZwVa5dLOshKPlz68TXtw+60Z/emtTtnxpGNSfnwxaOLd83CL8DXdOVu3kKMymt02kQnXiA14rivoAOxjEI9iyx+co+kL/cSQ5HJhHo4j5wiAzVPAzoxQ2uZ4vFvWpMAx4ceoGZA67jagIh3xHJKQvoqrTv0oe2+hF4lL0OIOkTIR6MGHcNZV3NKC1n8aA1tZPSLmqSsQVT9CHIcLRhqKyl3G85JIemPTUDuk7xXTZEQPgIDsf9B6dIUvaRXUG2209+UJLHK8ir0ZS7kjc6v6iQYps8MPM2LJz1McGMfaM/ae4UY6Wuc03jolcgIRF+zZOJv17Rr/uq2X01WbQwwyA4+GhBAwyxva7PoWfW9sanflDrMt2/vuohh0qEtTMn3GgVplRYgRQskjl5cqwKN9fdqyFK11OXwU5gJjHNIsNQHzshmIIoMJpOALgCqKUR6OoxmPZ6/ND2+qcFJXt+Qyv1fPVcgHGUcfTL4IqhILuoiFfgRHKbkXeohOG7NUxEanQb4GzpGrw7HPIL1vvaM5lFVZ32w8GtdJqecoaCalDRbJWy/Srz9NplClpbi7nxFQDRVO6/EI+rl48=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR12MB7901.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(22082099003)(18002099003)(11063799006)(6133799003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?FMI3GF4eLuhAVvWnSlwGY6vPuKU73/++kR1wNufY+/foANinjXxVZpNeTKOw?=
+ =?us-ascii?Q?v0MdbCH/0S+ZHKtkFSezMhWCCIS6s09omU75iz3xe6WKQNfnvBT50/ADuYgg?=
+ =?us-ascii?Q?L88gljffHg37Z5LYs7329Jl46/Tm+yFnC8/FVd2wzw0VIZE7qIHS4pQDNKgH?=
+ =?us-ascii?Q?wPfqDFTJ6Smc2xBnkAqvrKnaEB1xG0A39EtHENORp0IWplHUK18Y7S/suhbr?=
+ =?us-ascii?Q?bloj5irpfDHUvGppjnTwnVUwHJCN6udqwPqB4z8DDJ6w6QtbtjMKNdAiFrky?=
+ =?us-ascii?Q?rFreuQFnrNoDaP78umarm0+9tNX/qYwDAcxV1RVI8ZbZ+pgtzS0aqfDZfWN8?=
+ =?us-ascii?Q?N8meKKKIvVKgnG1YjXbDNtCtWZoOXqbhmwN5TqVmeI5eP1d/R4pNLJcmdAH5?=
+ =?us-ascii?Q?4Wt9OosrbBrWzDDHLpkTCv3NEArCfSz1gNWbPrBXeaQMQqgT10azGwdxEq1P?=
+ =?us-ascii?Q?hbQACuvAyukzs+uST7u8KQz9f/cHXj3iZDUbCGGh+Z5A8JSpUkhOVPghvPet?=
+ =?us-ascii?Q?bxcd3GIT25Lapy24lXkn7Tfzk4uqp4/vUIavjhmIra765q/Z4QK+jyvF21y1?=
+ =?us-ascii?Q?KFyvi2flV5pfPJFvk4zpC83yLiddp7U2QPDhKgbi40QhszJysow4T3cU9X6K?=
+ =?us-ascii?Q?8Fg3HXznLayLyICvSjpjfgt7/8Pn10Pnl9xmzKSogT4gdPzbWsFVjqKeGvTV?=
+ =?us-ascii?Q?eNUflDfb4oEwtojyIaAHada5m5aCSDVcnIk+QAgx0Gy5UdsFfppU7wQ4eksg?=
+ =?us-ascii?Q?WLZyYMG6DrVj36ccRU1zFtFw0rR/QN7wHNQilQ5FYtrBIU3vRZ+C53KyvZzh?=
+ =?us-ascii?Q?RTG0nZ3TGkW4aLdqmtLSw6dYFq7ZUChP9n6l253JSI7r/LpBbfvq4pHnOHsI?=
+ =?us-ascii?Q?EAcQb0ubZJMKw3+oLN7sDVf3OzLWWScD9e/rMch2fw5WSKMOt2tUIqlwz8zQ?=
+ =?us-ascii?Q?xdGuXNmIINGHXqbBTgAZksyEQVlU06/FUDfGzMnBDXaHUJOn85h8lR0puc2W?=
+ =?us-ascii?Q?7VTeddJARvJupvWMhZDvP7/xD94MpPAIkUKSsfc4MusRcATbD+QrH9LziD1L?=
+ =?us-ascii?Q?cgC4VLuzMAwszGy8A58LVC0M+taTxEYOl6lOguJ31hD9gEMS/8gqAkrDWEpO?=
+ =?us-ascii?Q?XHuoyGgpz9LZx6oCimOVwPGNDvw7q4t3z8B4fI16aC2vdigd36hHGyHhrQPY?=
+ =?us-ascii?Q?K2kO79ujDzHcBaasg3lsazxg24speQ7JMev8Dht9KrH06Hs3uu+XcOjNdB84?=
+ =?us-ascii?Q?KJMcL8eQEd+mMkqCsIdDzPVG4VYn2bANCidQEJEh+DMxFC53dRHToDzuUt+H?=
+ =?us-ascii?Q?hefOPccj/bOP3eQ2Nn91jGDhDnAatlj9D/Ua5xaVX3oCtK3PQloKUwR+8lpE?=
+ =?us-ascii?Q?91vGK/FUiDRZtqsv6ROZSsVq1ahZfHDi2+iWznx+eMsD66DJ+2AkeEWm3kaM?=
+ =?us-ascii?Q?A+Cq2BJN3C6pR24hoO45FHv2ZmPWa4yk49/+is6/Zy6IKJB/XyQIiJb3wh1L?=
+ =?us-ascii?Q?cPqCsvIxjlMsfR9eFukOCH2K03WIBoH6+/3GbLSZaUaBzYHT/42q58Rmhtex?=
+ =?us-ascii?Q?ij0aETtDDuCmrLdNjfII7fJgA/6i8VxIUduZ5Qq9zOmnQ9feCadGSwe3gemg?=
+ =?us-ascii?Q?tGsIdkMWPnZshxmPlYNwbPIKuifja0yD6nUZmCzeMBBU4s4qvcTeB2siHifL?=
+ =?us-ascii?Q?6lfLZZlDk2qGbTVhkyuzH68nLYV4bcAaF/ZqeY2fASublw3pLPevJWyvQmD3?=
+ =?us-ascii?Q?0hlDI4zBKA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86c99633-0c99-4cce-efff-08def3c8f4c7
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB7901.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 14:42:36.0904
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7+BVYluFeeQBXdc/TJ+/FqwzJituoE+rZdvc6bvyvJLM3/e4zStJLM0KsQ7stO6rB6Zu7k6OcmiclUcv9QcEEg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4469
 
-On 8/6/26 16:28, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Aug 06, 2026 at 04:26:20PM +0200, David Hildenbrand (Arm) wrote:
->> On 8/5/26 07:55, Cédric Le Goater wrote:
->>> From: Cedric Le Goater <clg@redhat.com>
->>>
->>> The global THP sysfs policy (transparent_hugepage=never/madvise/always)
->>> gates the huge fault dispatch path in __thp_vma_allowable_orders() for
->>> all non-anonymous VMAs, including PFN-mapped device BARs (VM_PFNMAP).
->>>
->>> DAX VMAs already bypass this check via an early return:
->>>
->>> 	if (vma_is_dax(vma))
->>> 		return in_pf ? orders : 0;
->>>
->>> But "special huge" VMAs -- identified by vma_is_special_huge() -- do not
->>> get this early return, even though they share the same fundamental
->>> property: they map physical addresses directly into page tables and
->>> involve no memory allocation, no compaction, no splitting, and no
->>> reclaim. The THP policy has no meaningful effect on them.
->>>
->>> This matters for VFIO PCI passthrough of large-BAR devices such as
->>> NVIDIA H200 NVL GPUs (256 GB BAR each). The VFIO driver registers a
->>> .huge_fault handler (vfio_pci_mmap_huge_fault) that dispatches to
->>> vmf_insert_pfn_pmd/pud, and QEMU's vfio_region_mmap() aligns the BAR
->>> mappings for huge page table entries. Both prerequisites are met, but
->>> with THP=never or THP=madvise, __thp_vma_allowable_orders() returns 0
->>> before reaching the "trust huge_fault handlers" code.
->>>
->>> The result: each 256 GB BAR is mapped at 4 KiB granularity -- 67 million
->>> page faults per GPU instead of a few thousand PMD/PUD faults. On hosts
->>> with 8 GPUs (2 TB of BAR space), this causes VM boot times to degrade
->>> severely, with 99.98% of CPU time spent in the VFIO BAR mapping path.
->>>
->>> Configurations that trigger this:
->>>    - transparent_hugepage=never on the kernel command line
->>>    - The tuned cpu-partitioning profile (inherits network-latency, which
->>>      sets transparent_hugepages=never via sysfs)
->>>    - transparent_hugepage=madvise (the RHEL default), since VFIO VMAs
->>>      lack VM_HUGEPAGE and QEMU does not call madvise(MADV_HUGEPAGE) on
->>>      BAR mmap regions
->>>
->>> Extend the existing DAX early return to also cover vma_is_special_huge()
->>> VMAs. This is consistent with how vma_is_special_huge() is already
->>> treated for supported_orders (grouped with DAX). The mm/Kconfig TODO
->>> comment "Allow to be enabled without THP" also acknowledges this
->>> coupling is wrong.
->>>
->>> Cc: Peter Xu <peterx@redhat.com>
->>> Cc: Andrew Morton <akpm@linux-foundation.org>
->>> Cc: Lorenzo Stoakes <ljs@kernel.org>
->>> Cc: David Hildenbrand <david@kernel.org>
->>> Cc: Alex Williamson <alex.williamson@redhat.com>
->>> Cc: Jason Gunthorpe <jgg@nvidia.com>
->>> Cc: Zi Yan <ziy@nvidia.com>
->>> Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
->>> Cc: stable@vger.kernel.org
->>> Assisted-by: Claude:claude-opus-4
->>> Signed-off-by: Cedric Le Goater <clg@redhat.com>
->>> ---
->>>   mm/huge_memory.c | 8 ++++++--
->>>   1 file changed, 6 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
->>> index 58cabe6af33d031e48250e21db51506bc46c97b2..6dfef5500a054f09f9ece6df8bf7a0194624350f 100644
->>> --- a/mm/huge_memory.c
->>> +++ b/mm/huge_memory.c
->>> @@ -139,8 +139,12 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
->>>   	if (thp_disabled_by_hw() || vma_thp_disabled(vma, vm_flags, forced_collapse))
->>>   		return 0;
->>>
->>> -	/* khugepaged doesn't collapse DAX vma, but page fault is fine. */
->>> -	if (vma_is_dax(vma))
->>> +	/*
->>> +	 * khugepaged doesn't collapse DAX or special huge VMAs, but page
->>> +	 * fault is fine. These map physical addresses directly — the THP
->>> +	 * policy is irrelevant for them.
->>
->> emdash in a code comment?
-
-There are quite a few of these in the code in fact.
-
->> Then I spot
->>
->> 	Assisted-by: Claude:claude-opus-4
->>
->> and really have to shake my head.
-
-It's a one liner. Good enough to raise the discussion no ?
-
-> Ha, I missed that!
-
-Me too. But, you have more to add to it anyway. It should be dropped.
-
-> Well all the more reason for me to take over this patch... :)
+On Thu, Aug 06, 2026 at 09:33:09PM +0800, Chengfeng Ye wrote:
+> fib_nhc_update_mtu() walks the nexthop exception table under RTNL, but
+> RTNL does not serialize this walk with PMTU exception updates. The walk
+> uses rcu_dereference_protected() with a constant true condition without
+> holding fnhe_lock.
 > 
-> At least the AI is acked here (appreciate that at least Cedric).
+> The following interleaving can therefore occur:
+> 
+>   CPU 0                              CPU 1
+>   fib_nhc_update_mtu()               update_or_create_fnhe()
+>     load fnhe                          spin_lock_bh(&fnhe_lock)
+>                                        fnhe_remove_oldest()
+>                                          unlink fnhe
+>                                          kfree_rcu(fnhe, rcu)
+>     <quiescent state>
+>     access fnhe after grace period
 
-Yeah. Let's be honest. Even if I understand what is going on, Claude was
-faster at digging through the code and connecting the dots than I would
-have been on my own.
+[...]
 
-The AI behemoth dropped my accent though. Cédric it should have been.
-I wonder why.
+> The same walk updates fnhe_pmtu and fnhe_mtu_locked. These fields form a
+> pair and other writers serialize them with fnhe_lock. RCU alone would
+> prevent reclamation, but would still allow concurrent writers to leave a
+> mixed pair.
+> 
+> Expose fnhe_lock to fib_semantics.c and hold it across the exception-table
+> walk. This prevents entries from being unlinked while they are visited and
+> serializes the paired PMTU state updates with all other writers.
 
-> I think the _actual issue_ is valid at least. The huge pfn stuff did seem to
-> completely miss this aspect of things.
+Looks correct, but can't we use RCU for the traversal and only acquire
+the global lock when updating an entry? Otherwise, whenever a device MTU
+changes, we acquire the global lock (and disable softIRQs) across a scan
+of 2048 buckets and we do that for each nexthop using this device.
 
-It's a real problem indeed and to cover mix of workloads, it it difficult
-to address without a kernel patch.
+How about something like [1] (vibe coded, compile-tested only)?
 
-Cheers,
+It also avoids exporting the global lock.
 
-C.
+Please wait at least 24h before posting v3.
 
+Thanks
+
+[1]
+diff --git a/include/net/route.h b/include/net/route.h
+index f90106f383c5..45290177a33c 100644
+--- a/include/net/route.h
++++ b/include/net/route.h
+@@ -276,6 +276,8 @@ int fib_dump_info_fnhe(struct sk_buff *skb, struct netlink_callback *cb,
+ 		       u32 table_id, struct fib_info *fi,
+ 		       int *fa_index, int fa_start, unsigned int flags);
+ 
++void fnhe_update_pmtu(struct fib_nh_exception *fnhe, u32 new, u32 orig);
++
+ static inline void ip_rt_put(struct rtable *rt)
+ {
+ 	/* dst_release() accepts a NULL parameter.
+diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
+index 4f3c0740dde9..61286948c5d9 100644
+--- a/net/ipv4/fib_semantics.c
++++ b/net/ipv4/fib_semantics.c
+@@ -1864,42 +1864,30 @@ static int call_fib_nh_notifiers(struct fib_nh *nh,
+ 	return NOTIFY_DONE;
+ }
+ 
+-/* Update the PMTU of exceptions when:
+- * - the new MTU of the first hop becomes smaller than the PMTU
+- * - the old MTU was the same as the PMTU, and it limited discovery of
+- *   larger MTUs on the path. With that limit raised, we can now
+- *   discover larger MTUs
+- * A special case is locked exceptions, for which the PMTU is smaller
+- * than the minimal accepted PMTU:
+- * - if the new MTU is greater than the PMTU, don't make any change
+- * - otherwise, unlock and set PMTU
++/* Walk the exceptions of a nexthop after its first hop MTU changed.  The
++ * chain is only RCU protected here, fnhe_update_pmtu() takes fnhe_lock for
++ * the update of each entry.
+  */
+ void fib_nhc_update_mtu(struct fib_nh_common *nhc, u32 new, u32 orig)
+ {
+ 	struct fnhe_hash_bucket *bucket;
+ 	int i;
+ 
+-	bucket = rcu_dereference_protected(nhc->nhc_exceptions, 1);
++	rcu_read_lock();
++	bucket = rcu_dereference(nhc->nhc_exceptions);
+ 	if (!bucket)
+-		return;
++		goto out;
+ 
+ 	for (i = 0; i < FNHE_HASH_SIZE; i++) {
+ 		struct fib_nh_exception *fnhe;
+ 
+-		for (fnhe = rcu_dereference_protected(bucket[i].chain, 1);
++		for (fnhe = rcu_dereference(bucket[i].chain);
+ 		     fnhe;
+-		     fnhe = rcu_dereference_protected(fnhe->fnhe_next, 1)) {
+-			if (fnhe->fnhe_mtu_locked) {
+-				if (new <= fnhe->fnhe_pmtu) {
+-					fnhe->fnhe_pmtu = new;
+-					fnhe->fnhe_mtu_locked = false;
+-				}
+-			} else if (new < fnhe->fnhe_pmtu ||
+-				   orig == fnhe->fnhe_pmtu) {
+-				fnhe->fnhe_pmtu = new;
+-			}
+-		}
++		     fnhe = rcu_dereference(fnhe->fnhe_next))
++			fnhe_update_pmtu(fnhe, new, orig);
+ 	}
++out:
++	rcu_read_unlock();
+ }
+ 
+ void fib_sync_mtu(struct net_device *dev, u32 orig_mtu)
+diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+index fd688e1f879f..604cc51dfd9b 100644
+--- a/net/ipv4/route.c
++++ b/net/ipv4/route.c
+@@ -741,6 +741,35 @@ static void update_or_create_fnhe(struct fib_nh_common *nhc, __be32 daddr,
+ 	spin_unlock_bh(&fnhe_lock);
+ }
+ 
++/* Update the PMTU of an exception when:
++ * - the new MTU of the first hop becomes smaller than the PMTU
++ * - the old MTU was the same as the PMTU, and it limited discovery of
++ *   larger MTUs on the path. With that limit raised, we can now
++ *   discover larger MTUs
++ * A special case is locked exceptions, for which the PMTU is smaller
++ * than the minimal accepted PMTU:
++ * - if the new MTU is greater than the PMTU, don't make any change
++ * - otherwise, unlock and set PMTU
++ *
++ * fnhe_lock keeps fnhe_pmtu and fnhe_mtu_locked consistent against
++ * update_or_create_fnhe(), which sets both under the same lock.
++ */
++void fnhe_update_pmtu(struct fib_nh_exception *fnhe, u32 new, u32 orig)
++{
++	spin_lock_bh(&fnhe_lock);
++
++	if (fnhe->fnhe_mtu_locked) {
++		if (new <= fnhe->fnhe_pmtu) {
++			fnhe->fnhe_pmtu = new;
++			fnhe->fnhe_mtu_locked = false;
++		}
++	} else if (new < fnhe->fnhe_pmtu || orig == fnhe->fnhe_pmtu) {
++		fnhe->fnhe_pmtu = new;
++	}
++
++	spin_unlock_bh(&fnhe_lock);
++}
++
+ static void __ip_do_redirect(struct rtable *rt, struct sk_buff *skb, struct flowi4 *fl4,
+ 			     bool kill_route)
+ {
