@@ -1,41 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA8D3955FA
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 13:50:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB5C3A3E67
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 13:50:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786024210; cv=none; b=tgia8T4OthKkpSGhrQ5LgZUlRWaJBgIEQyyTqp68BEmOtD6asTMrA6xasFwt1/P80FbhbUHQVfugpOjPEfUlY1BEtyKr0H8X1IpwQHcaTzi+ot5R3MtWNh2SAh+qMg76uftgf1Xf4q5CXtgFFQ+UGMk2xlTYwL1gUCrn1cAusYQ=
+	t=1786024211; cv=none; b=g0Hxq2ihPkAnox7VFCLot6F1L3FxIjC31bf4GCe7ht0KFACjxfn91EjP7Wz+GKVhhrfWRcIZepulgNFfeCFF3Ix4DUwQnjIPGaTSTP0o+aidrH2FAdLJU69mCYcULFV/FNtXa39QH54BDNU5mnNr+DZXEfnEfzfrcWQvoHKjIig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786024210; c=relaxed/simple;
-	bh=hClngEFlybEmLMy2Ae9GmSIxu7+Qy/xi0LyUqVrCpdI=;
+	s=arc-20240116; t=1786024211; c=relaxed/simple;
+	bh=YlAUfZiR8RD1+x10bGwIFJxOcZv/k1AHvj013XplKz4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GhnowMtgEe/dyTfD5uNr2xK8B3V8resOJO16bCsxJ7xC38dlTE4sMCTNgOjqU0OvMWIlYLO5NdlNvKAmssLDaSYtCVrv0L+JxFV4/7F2G5/on16UseP7R7MrLCdaNEeQnTmvZEKs2mm37NZp78eyl0B2G3YQyBxaUY97on5E17k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NZiHnWAh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ASCRtjLTTNn+XnJA62j1aQd+UUf0/t07Q8SJRIqt3vq7Oc8l61Xs+EOj8783FKP7JW767U5NGPOn6cuf98kxUT8/9fRFKq0v82d6yOD+1rsvRRCAT02EOrumZF5j5N+cZk4lX6o7KmHecolCPrOlhjRNogbdknEehZ5Pgxl7Z4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=obi29OPb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NZiHnWAh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 483051F00A3E;
-	Thu,  6 Aug 2026 13:50:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="obi29OPb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 374E91F00A3F;
+	Thu,  6 Aug 2026 13:50:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786024208;
-	bh=wv94dfAgEaKYCdKPgEztgO4cVHAJVBUS43YJ1r7rJCU=;
+	s=k20260515; t=1786024210;
+	bh=O4vEaqiv7XWjzov3kN/+GCQtyq+iAGk6iufh1UICzqs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NZiHnWAhayi25rlxUkndN+tZzurkga4G7+/COm4Ln51ezl7Am1TZXMxGS5Lrs2PeY
-	 LxRSAmd8nfIjcTB6/pCvmvQIyv7hHXYioz1BKMvmZp+F6xyfV/BBvyRyOyIc6tOQbi
-	 5hg/tGIrF6ktq5288nHZsCVzSR0oX/7VkrKKqcCy/wtKZYl3ZIRrESRRPGjqg/6KvN
-	 bIeu5wVpoLvWJ8vKX2fOTFD6j2PCrpv0UybMyIWHvLU5IP+m0VCro/O8XGWYfvDHSm
-	 0bgSOGZkDjFLrWN/TnT1dW9EYNnRLYNRcqT9yxnHiAMuU/s4KzsEwA2jPod3/aos8r
-	 L5HmhrHgQ3pyw==
+	b=obi29OPboPCN6obbSY2z3D58Z7+renmcCW5Eyr02MgwkSOkDjbX1tk0MR2bW7U512
+	 dYmYI04TciXd3BRLx01K7fGTPcbWMEMaxKTFQ9c/nfhIXP7njvf9t0CHWE5K4Tvd8N
+	 U3n8CpylpGymY5AQlPYL8hOC7+HufpObnBwQXhCnmQ4RCDkQSIiTFNm281twbOTddM
+	 v+ta//qh4rQEY0epKCnvnTfKeoTU3rIitpYuqiNG2ZGIhVHlmT0lAfwbxw1l4NPquK
+	 +Gr7h7u5GNcPzkPdjB6w7sFK/5GmOIXYVojDBRfPIujcm4lUKfBwknWk/FxdxK3mPh
+	 +a/CEMw5dPXgQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: David Howells <dhowells@redhat.com>,
+	Jeffrey Altman <jaltman@auristor.com>,
 	Marc Dionne <marc.dionne@auristor.com>,
+	"Junvyyang, Tencent Zhuque Lab" <zhuque@tencent.com>,
+	LePremierHomme <kwqcheii@proton.me>,
+	Simon Horman <horms@kernel.org>,
 	linux-afs@lists.infradead.org,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/5] rxrpc: Manage RTT per-call rather than per-peer
-Date: Thu,  6 Aug 2026 09:50:02 -0400
-Message-ID: <20260806135003.602726-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y 5/5] rxrpc: Fix irq-disabled in local_bh_enable()
+Date: Thu,  6 Aug 2026 09:50:03 -0400
+Message-ID: <20260806135003.602726-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260806135003.602726-1-sashal@kernel.org>
 References: <2026073013-sanding-unlined-9b91@gregkh>
@@ -50,562 +54,148 @@ Content-Transfer-Encoding: 8bit
 
 From: David Howells <dhowells@redhat.com>
 
-[ Upstream commit b40ef2b85a7d117dd323b5910e504899e0a3e7dc ]
+[ Upstream commit e4d2878369d590bf8455e3678a644e503172eafa ]
 
-Manage the determination of RTT on a per-call (ie. per-RPC op) basis rather
-than on a per-peer basis, averaging across all calls going to that peer.
-The problem is that the RTT measurements from the initial packets on a call
-may be off because the server may do some setting up (such as getting a
-lock on a file) before accepting the rest of the data in the RPC and,
-further, the RTT may be affected by server-side file operations, for
-instance if a large amount of data is being written or read.
+The rxrpc_assess_MTU_size() function calls down into the IP layer to find
+out the MTU size for a route.  When accepting an incoming call, this is
+called from rxrpc_new_incoming_call() which holds interrupts disabled
+across the code that calls down to it.  Unfortunately, the IP layer uses
+local_bh_enable() which, config dependent, throws a warning if IRQs are
+enabled:
 
-Note: When handling the FS.StoreData-type RPCs, for example, the server
-uses the userStatus field in the header of ACK packets as supplementary
-flow control to aid in managing this.  AF_RXRPC does not yet support this,
-but it should be added.
+WARNING: CPU: 1 PID: 5544 at kernel/softirq.c:387 __local_bh_enable_ip+0x43/0xd0
+...
+RIP: 0010:__local_bh_enable_ip+0x43/0xd0
+...
+Call Trace:
+ <TASK>
+ rt_cache_route+0x7e/0xa0
+ rt_set_nexthop.isra.0+0x3b3/0x3f0
+ __mkroute_output+0x43a/0x460
+ ip_route_output_key_hash+0xf7/0x140
+ ip_route_output_flow+0x1b/0x90
+ rxrpc_assess_MTU_size.isra.0+0x2a0/0x590
+ rxrpc_new_incoming_peer+0x46/0x120
+ rxrpc_alloc_incoming_call+0x1b1/0x400
+ rxrpc_new_incoming_call+0x1da/0x5e0
+ rxrpc_input_packet+0x827/0x900
+ rxrpc_io_thread+0x403/0xb60
+ kthread+0x2f7/0x310
+ ret_from_fork+0x2a/0x230
+ ret_from_fork_asm+0x1a/0x30
+...
+hardirqs last  enabled at (23): _raw_spin_unlock_irq+0x24/0x50
+hardirqs last disabled at (24): _raw_read_lock_irq+0x17/0x70
+softirqs last  enabled at (0): copy_process+0xc61/0x2730
+softirqs last disabled at (25): rt_add_uncached_list+0x3c/0x90
 
+Fix this by moving the call to rxrpc_assess_MTU_size() out of
+rxrpc_init_peer() and further up the stack where it can be done without
+interrupts disabled.
+
+It shouldn't be a problem for rxrpc_new_incoming_call() to do it after the
+locks are dropped as pmtud is going to be performed by the I/O thread - and
+we're in the I/O thread at this point.
+
+Fixes: a2ea9a907260 ("rxrpc: Use irq-disabling spinlocks between app and I/O thread")
 Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Jeffrey Altman <jaltman@auristor.com>
 cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Junvyyang, Tencent Zhuque Lab <zhuque@tencent.com>
+cc: LePremierHomme <kwqcheii@proton.me>
+cc: Simon Horman <horms@kernel.org>
 cc: linux-afs@lists.infradead.org
+Link: https://patch.msgid.link/20250717074350.3767366-2-dhowells@redhat.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: e4d2878369d5 ("rxrpc: Fix irq-disabled in local_bh_enable()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/trace/events/rxrpc.h |  2 +-
- net/rxrpc/ar-internal.h      | 39 ++++++++-------
- net/rxrpc/call_event.c       | 18 +++----
- net/rxrpc/call_object.c      |  2 +
- net/rxrpc/input.c            |  8 ++--
- net/rxrpc/output.c           | 14 +++---
- net/rxrpc/peer_object.c      |  8 +---
- net/rxrpc/proc.c             |  6 +--
- net/rxrpc/rtt.c              | 93 ++++++++++++++++++------------------
- net/rxrpc/sendmsg.c          |  2 +-
- 10 files changed, 97 insertions(+), 95 deletions(-)
+ net/rxrpc/ar-internal.h |  1 +
+ net/rxrpc/call_accept.c |  1 +
+ net/rxrpc/peer_object.c | 12 +++++++-----
+ 3 files changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/include/trace/events/rxrpc.h b/include/trace/events/rxrpc.h
-index c398897052a2a..8c4d791507f18 100644
---- a/include/trace/events/rxrpc.h
-+++ b/include/trace/events/rxrpc.h
-@@ -1333,7 +1333,7 @@ TRACE_EVENT(rxrpc_rtt_rx,
- 		    __entry->rtt = rtt;
- 		    __entry->srtt = srtt;
- 		    __entry->rto = rto;
--		    __entry->min_rtt = minmax_get(&call->peer->min_rtt)
-+		    __entry->min_rtt = minmax_get(&call->min_rtt)
- 			   ),
- 
- 	    TP_printk("c=%08x [%d] %s sr=%08x rr=%08x rtt=%u srtt=%u rto=%u min=%u",
 diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
-index f7ef2790f07af..a3afe7413e771 100644
+index a3afe7413e771..48202528a2438 100644
 --- a/net/rxrpc/ar-internal.h
 +++ b/net/rxrpc/ar-internal.h
-@@ -344,20 +344,9 @@ struct rxrpc_peer {
- 	int			debug_id;	/* debug ID for printks */
- 	struct sockaddr_rxrpc	srx;		/* remote address */
+@@ -1183,6 +1183,7 @@ struct rxrpc_peer *rxrpc_lookup_peer_rcu(struct rxrpc_local *,
+ 					 const struct sockaddr_rxrpc *);
+ struct rxrpc_peer *rxrpc_lookup_peer(struct rxrpc_local *local,
+ 				     struct sockaddr_rxrpc *srx, gfp_t gfp);
++void rxrpc_assess_MTU_size(struct rxrpc_local *local, struct rxrpc_peer *peer);
+ struct rxrpc_peer *rxrpc_alloc_peer(struct rxrpc_local *, gfp_t,
+ 				    enum rxrpc_peer_trace);
+ void rxrpc_new_incoming_peer(struct rxrpc_local *local, struct rxrpc_peer *peer);
+diff --git a/net/rxrpc/call_accept.c b/net/rxrpc/call_accept.c
+index 15e63b1ae7134..82766feb34e51 100644
+--- a/net/rxrpc/call_accept.c
++++ b/net/rxrpc/call_accept.c
+@@ -407,6 +407,7 @@ bool rxrpc_new_incoming_call(struct rxrpc_local *local,
  
--	/* calculated RTT cache */
--#define RXRPC_RTT_CACHE_SIZE 32
--	spinlock_t		rtt_input_lock;	/* RTT lock for input routine */
--	ktime_t			rtt_last_req;	/* Time of last RTT request */
--	unsigned int		rtt_count;	/* Number of samples we've got */
--	unsigned int		rtt_taken;	/* Number of samples taken (wrapping) */
--	struct minmax		min_rtt;	/* Estimated minimum RTT */
--
--	u32			srtt_us;	/* smoothed round trip time << 3 in usecs */
--	u32			mdev_us;	/* medium deviation			*/
--	u32			mdev_max_us;	/* maximal mdev for the last rtt period	*/
--	u32			rttvar_us;	/* smoothed mdev_max			*/
--	u32			rto_us;		/* Retransmission timeout in usec */
--	u8			backoff;	/* Backoff timeout (as shift) */
-+	/* Calculated RTT cache */
-+	unsigned int		recent_srtt_us;
-+	unsigned int		recent_rto_us;
+ 	spin_unlock(&rx->incoming_lock);
+ 	read_unlock_irq(&local->services_lock);
++	rxrpc_assess_MTU_size(local, call->peer);
  
- 	u8			cong_ssthresh;	/* Congestion slow-start threshold */
- };
-@@ -742,6 +731,18 @@ struct rxrpc_call {
- 	rxrpc_seq_t		acks_hard_ack;	/* Latest hard-ack point */
- 	rxrpc_seq_t		acks_lowest_nak; /* Lowest NACK in the buffer (or ==tx_hard_ack) */
- 	rxrpc_serial_t		acks_highest_serial; /* Highest serial number ACK'd */
-+
-+	/* Calculated RTT cache */
-+	ktime_t			rtt_last_req;	/* Time of last RTT request */
-+	unsigned int		rtt_count;	/* Number of samples we've got */
-+	unsigned int		rtt_taken;	/* Number of samples taken (wrapping) */
-+	struct minmax		min_rtt;	/* Estimated minimum RTT */
-+	u32			srtt_us;	/* smoothed round trip time << 3 in usecs */
-+	u32			mdev_us;	/* medium deviation			*/
-+	u32			mdev_max_us;	/* maximal mdev for the last rtt period	*/
-+	u32			rttvar_us;	/* smoothed mdev_max			*/
-+	u32			rto_us;		/* Retransmission timeout in usec */
-+	u8			backoff;	/* Backoff timeout (as shift) */
- };
- 
- /*
-@@ -1222,10 +1223,12 @@ static inline int rxrpc_abort_eproto(struct rxrpc_call *call,
- /*
-  * rtt.c
-  */
--void rxrpc_peer_add_rtt(struct rxrpc_call *, enum rxrpc_rtt_rx_trace, int,
--			rxrpc_serial_t, rxrpc_serial_t, ktime_t, ktime_t);
--ktime_t rxrpc_get_rto_backoff(struct rxrpc_peer *peer, bool retrans);
--void rxrpc_peer_init_rtt(struct rxrpc_peer *);
-+void rxrpc_call_add_rtt(struct rxrpc_call *call, enum rxrpc_rtt_rx_trace why,
-+			int rtt_slot,
-+			rxrpc_serial_t send_serial, rxrpc_serial_t resp_serial,
-+			ktime_t send_time, ktime_t resp_time);
-+ktime_t rxrpc_get_rto_backoff(struct rxrpc_call *call, bool retrans);
-+void rxrpc_call_init_rtt(struct rxrpc_call *call);
- 
- /*
-  * rxkad.c
-diff --git a/net/rxrpc/call_event.c b/net/rxrpc/call_event.c
-index c85e89b371b2a..3425e778d24f1 100644
---- a/net/rxrpc/call_event.c
-+++ b/net/rxrpc/call_event.c
-@@ -44,8 +44,8 @@ void rxrpc_propose_delay_ACK(struct rxrpc_call *call, rxrpc_serial_t serial,
- 
- 	trace_rxrpc_propose_ack(call, why, RXRPC_ACK_DELAY, serial);
- 
--	if (call->peer->srtt_us)
--		delay = (call->peer->srtt_us >> 3) * NSEC_PER_USEC;
-+	if (call->srtt_us)
-+		delay = (call->srtt_us >> 3) * NSEC_PER_USEC;
- 	else
- 		delay = ms_to_ktime(READ_ONCE(rxrpc_soft_ack_delay));
- 	ktime_add_ms(delay, call->tx_backoff);
-@@ -72,7 +72,7 @@ void rxrpc_resend(struct rxrpc_call *call, struct sk_buff *ack_skb)
- 	struct rxrpc_txbuf *txb;
- 	rxrpc_seq_t transmitted = call->tx_transmitted;
- 	ktime_t next_resend = KTIME_MAX;
--	ktime_t rto = rxrpc_get_rto_backoff(call->peer, false);
-+	ktime_t rto = rxrpc_get_rto_backoff(call, false);
- 	ktime_t resend_at = KTIME_MAX, now, delay;
- 	bool unacked = false, did_send = false;
- 	unsigned int i;
-@@ -174,7 +174,7 @@ void rxrpc_resend(struct rxrpc_call *call, struct sk_buff *ack_skb)
- no_further_resend:
- no_resend:
- 	if (resend_at < KTIME_MAX) {
--		delay = rxrpc_get_rto_backoff(call->peer, did_send);
-+		delay = rxrpc_get_rto_backoff(call, did_send);
- 		resend_at = ktime_add(resend_at, delay);
- 		trace_rxrpc_timer_set(call, resend_at - now, rxrpc_timer_trace_resend_reset);
- 	}
-@@ -189,7 +189,7 @@ void rxrpc_resend(struct rxrpc_call *call, struct sk_buff *ack_skb)
- 	 */
- 	if (!did_send) {
- 		ktime_t next_ping = ktime_add_us(call->acks_latest_ts,
--						 call->peer->srtt_us >> 3);
-+						 call->srtt_us >> 3);
- 
- 		if (ktime_sub(next_ping, now) <= 0)
- 			rxrpc_send_ACK(call, RXRPC_ACK_PING, 0,
-@@ -306,8 +306,8 @@ static void rxrpc_transmit_some_data(struct rxrpc_call *call)
-  */
- static void rxrpc_send_initial_ping(struct rxrpc_call *call)
- {
--	if (call->peer->rtt_count < 3 ||
--	    ktime_before(ktime_add_ms(call->peer->rtt_last_req, 1000),
-+	if (call->rtt_count < 3 ||
-+	    ktime_before(ktime_add_ms(call->rtt_last_req, 1000),
- 			 ktime_get_real()))
- 		rxrpc_send_ACK(call, RXRPC_ACK_PING, 0,
- 			       rxrpc_propose_ack_ping_for_params);
-@@ -438,10 +438,10 @@ bool rxrpc_input_call_event(struct rxrpc_call *call)
- 			       rxrpc_propose_ack_rx_idle);
- 
- 	if (call->ackr_nr_unacked > 2) {
--		if (call->peer->rtt_count < 3)
-+		if (call->rtt_count < 3)
- 			rxrpc_send_ACK(call, RXRPC_ACK_PING, 0,
- 				       rxrpc_propose_ack_ping_for_rtt);
--		else if (ktime_before(ktime_add_ms(call->peer->rtt_last_req, 1000),
-+		else if (ktime_before(ktime_add_ms(call->rtt_last_req, 1000),
- 				      ktime_get_real()))
- 			rxrpc_send_ACK(call, RXRPC_ACK_PING, 0,
- 				       rxrpc_propose_ack_ping_for_old_rtt);
-diff --git a/net/rxrpc/call_object.c b/net/rxrpc/call_object.c
-index 6e011a1e8e713..485c481481fc9 100644
---- a/net/rxrpc/call_object.c
-+++ b/net/rxrpc/call_object.c
-@@ -178,6 +178,8 @@ struct rxrpc_call *rxrpc_alloc_call(struct rxrpc_sock *rx, gfp_t gfp,
- 	call->cong_cwnd = RXRPC_MIN_CWND;
- 	call->cong_ssthresh = RXRPC_TX_MAX_WINDOW;
- 
-+	rxrpc_call_init_rtt(call);
-+
- 	call->rxnet = rxnet;
- 	call->rtt_avail = RXRPC_CALL_RTT_AVAIL_MASK;
- 	atomic_inc(&rxnet->nr_calls);
-diff --git a/net/rxrpc/input.c b/net/rxrpc/input.c
-index 501a049b42f86..d312feb4aaf45 100644
---- a/net/rxrpc/input.c
-+++ b/net/rxrpc/input.c
-@@ -83,11 +83,11 @@ static void rxrpc_congestion_management(struct rxrpc_call *call,
- 		/* We analyse the number of packets that get ACK'd per RTT
- 		 * period and increase the window if we managed to fill it.
- 		 */
--		if (call->peer->rtt_count == 0)
-+		if (call->rtt_count == 0)
- 			goto out;
- 		if (ktime_before(skb->tstamp,
- 				 ktime_add_us(call->cong_tstamp,
--					      call->peer->srtt_us >> 3)))
-+					      call->srtt_us >> 3)))
- 			goto out_no_clear_ca;
- 		change = rxrpc_cong_rtt_window_end;
- 		call->cong_tstamp = skb->tstamp;
-@@ -197,7 +197,7 @@ void rxrpc_congestion_degrade(struct rxrpc_call *call)
- 	if (__rxrpc_call_state(call) == RXRPC_CALL_CLIENT_AWAIT_REPLY)
- 		return;
- 
--	rtt = ns_to_ktime(call->peer->srtt_us * (1000 / 8));
-+	rtt = ns_to_ktime(call->srtt_us * (NSEC_PER_USEC / 8));
- 	now = ktime_get_real();
- 	if (!ktime_before(ktime_add(call->tx_last_sent, rtt), now))
- 		return;
-@@ -664,7 +664,7 @@ static void rxrpc_complete_rtt_probe(struct rxrpc_call *call,
- 			clear_bit(i + RXRPC_CALL_RTT_PEND_SHIFT, &call->rtt_avail);
- 			smp_mb(); /* Read data before setting avail bit */
- 			set_bit(i, &call->rtt_avail);
--			rxrpc_peer_add_rtt(call, type, i, acked_serial, ack_serial,
-+			rxrpc_call_add_rtt(call, type, i, acked_serial, ack_serial,
- 					   sent_at, resp_time);
- 			matched = true;
- 		}
-diff --git a/net/rxrpc/output.c b/net/rxrpc/output.c
-index ad7e61066d2b5..20085175471ff 100644
---- a/net/rxrpc/output.c
-+++ b/net/rxrpc/output.c
-@@ -220,7 +220,7 @@ static void rxrpc_send_ack_packet(struct rxrpc_call *call, struct rxrpc_txbuf *t
- 		if (ack->reason == RXRPC_ACK_PING)
- 			rxrpc_begin_rtt_probe(call, txb->serial, now, rxrpc_rtt_tx_ping);
- 		if (txb->flags & RXRPC_REQUEST_ACK)
--			call->peer->rtt_last_req = now;
-+			call->rtt_last_req = now;
- 		rxrpc_set_keepalive(call, now);
- 	}
- 	rxrpc_tx_backoff(call, ret);
-@@ -358,9 +358,9 @@ static void rxrpc_prepare_data_subpacket(struct rxrpc_call *call, struct rxrpc_t
- 		why = rxrpc_reqack_slow_start;
- 	else if (call->tx_winsize <= 2)
- 		why = rxrpc_reqack_small_txwin;
--	else if (call->peer->rtt_count < 3 && txb->seq & 1)
-+	else if (call->rtt_count < 3)
- 		why = rxrpc_reqack_more_rtt;
--	else if (ktime_before(ktime_add_ms(call->peer->rtt_last_req, 1000), ktime_get_real()))
-+	else if (ktime_before(ktime_add_ms(call->rtt_last_req, 1000), ktime_get_real()))
- 		why = rxrpc_reqack_old_rtt;
- 	else
- 		goto dont_set_request_ack;
-@@ -407,9 +407,9 @@ static void rxrpc_tstamp_data_packets(struct rxrpc_call *call, struct rxrpc_txbu
- 	if (ack_requested) {
- 		rxrpc_begin_rtt_probe(call, txb->serial, now, rxrpc_rtt_tx_data);
- 
--		call->peer->rtt_last_req = now;
--		if (call->peer->rtt_count > 1) {
--			ktime_t delay = rxrpc_get_rto_backoff(call->peer, false);
-+		call->rtt_last_req = now;
-+		if (call->rtt_count > 1) {
-+			ktime_t delay = rxrpc_get_rto_backoff(call, false);
- 
- 			call->ack_lost_at = ktime_add(now, delay);
- 			trace_rxrpc_timer_set(call, delay, rxrpc_timer_trace_lost_ack);
-@@ -727,7 +727,7 @@ void rxrpc_transmit_one(struct rxrpc_call *call, struct rxrpc_txbuf *txb)
- 			rxrpc_instant_resend(call, txb);
- 		}
- 	} else {
--		ktime_t delay = ns_to_ktime(call->peer->rto_us * NSEC_PER_USEC);
-+		ktime_t delay = ns_to_ktime(call->rto_us * NSEC_PER_USEC);
- 
- 		call->resend_at = ktime_add(ktime_get_real(), delay);
- 		trace_rxrpc_timer_set(call, delay, rxrpc_timer_trace_resend_tx);
+ 	if (hlist_unhashed(&call->error_link)) {
+ 		spin_lock_irq(&call->peer->lock);
 diff --git a/net/rxrpc/peer_object.c b/net/rxrpc/peer_object.c
-index a09b8aaf9bcdf..45d5f25db40b2 100644
+index 45d5f25db40b2..3af39fc67d34b 100644
 --- a/net/rxrpc/peer_object.c
 +++ b/net/rxrpc/peer_object.c
-@@ -222,11 +222,8 @@ struct rxrpc_peer *rxrpc_alloc_peer(struct rxrpc_local *local, gfp_t gfp,
- 		peer->service_conns = RB_ROOT;
- 		seqlock_init(&peer->service_conn_lock);
- 		spin_lock_init(&peer->lock);
--		spin_lock_init(&peer->rtt_input_lock);
- 		peer->debug_id = atomic_inc_return(&rxrpc_debug_id);
--
--		rxrpc_peer_init_rtt(peer);
--
-+		peer->recent_srtt_us = UINT_MAX;
- 		peer->cong_ssthresh = RXRPC_TX_MAX_WINDOW;
- 		trace_rxrpc_peer(peer->debug_id, 1, why);
- 	}
-@@ -244,7 +241,6 @@ static void rxrpc_init_peer(struct rxrpc_local *local, struct rxrpc_peer *peer,
+@@ -149,8 +149,7 @@ struct rxrpc_peer *rxrpc_lookup_peer_rcu(struct rxrpc_local *local,
+  * assess the MTU size for the network interface through which this peer is
+  * reached
+  */
+-static void rxrpc_assess_MTU_size(struct rxrpc_local *local,
+-				  struct rxrpc_peer *peer)
++void rxrpc_assess_MTU_size(struct rxrpc_local *local, struct rxrpc_peer *peer)
+ {
+ 	struct net *net = local->net;
+ 	struct dst_entry *dst;
+@@ -162,6 +161,8 @@ static void rxrpc_assess_MTU_size(struct rxrpc_local *local,
+ #endif
+ 
+ 	peer->if_mtu = 1500;
++	peer->mtu = peer->if_mtu;
++	peer->maxdata = peer->mtu - peer->hdrsize;
+ 
+ 	memset(&fl, 0, sizeof(fl));
+ 	switch (peer->srx.transport.family) {
+@@ -201,6 +202,9 @@ static void rxrpc_assess_MTU_size(struct rxrpc_local *local,
+ 	peer->if_mtu = dst_mtu(dst);
+ 	dst_release(dst);
+ 
++	peer->mtu = peer->if_mtu;
++	peer->maxdata = peer->mtu - peer->hdrsize;
++
+ 	_leave(" [if_mtu %u]", peer->if_mtu);
+ }
+ 
+@@ -239,8 +243,6 @@ static void rxrpc_init_peer(struct rxrpc_local *local, struct rxrpc_peer *peer,
+ 			    unsigned long hash_key)
+ {
  	peer->hash_key = hash_key;
- 	rxrpc_assess_MTU_size(local, peer);
- 	peer->mtu = peer->if_mtu;
--	peer->rtt_last_req = ktime_get_real();
+-	rxrpc_assess_MTU_size(local, peer);
+-	peer->mtu = peer->if_mtu;
  
  	switch (peer->srx.transport.family) {
  	case AF_INET:
-@@ -480,7 +476,7 @@ EXPORT_SYMBOL(rxrpc_kernel_get_call_peer);
-  */
- unsigned int rxrpc_kernel_get_srtt(const struct rxrpc_peer *peer)
- {
--	return peer->rtt_count > 0 ? peer->srtt_us >> 3 : UINT_MAX;
-+	return READ_ONCE(peer->recent_srtt_us);
- }
- EXPORT_SYMBOL(rxrpc_kernel_get_srtt);
- 
-diff --git a/net/rxrpc/proc.c b/net/rxrpc/proc.c
-index ca85ac764f82b..2dd9567cb1cfd 100644
---- a/net/rxrpc/proc.c
-+++ b/net/rxrpc/proc.c
-@@ -299,15 +299,15 @@ static int rxrpc_peer_seq_show(struct seq_file *seq, void *v)
- 	now = ktime_get_seconds();
- 	seq_printf(seq,
- 		   "UDP   %-47.47s %-47.47s %3u"
--		   " %3u %5u %6ds %8u %8u\n",
-+		   " %3u %5u %6ds %8d %8d\n",
- 		   lbuff,
- 		   rbuff,
- 		   refcount_read(&peer->ref),
- 		   peer->cong_ssthresh,
- 		   peer->mtu,
- 		   (s32)now - (s32)READ_ONCE(peer->last_tx_at),
--		   peer->srtt_us >> 3,
--		   peer->rto_us);
-+		   READ_ONCE(peer->recent_srtt_us),
-+		   READ_ONCE(peer->recent_rto_us));
- 
- 	return 0;
- }
-diff --git a/net/rxrpc/rtt.c b/net/rxrpc/rtt.c
-index b5615401fc944..7474f88d7b180 100644
---- a/net/rxrpc/rtt.c
-+++ b/net/rxrpc/rtt.c
-@@ -12,17 +12,17 @@
- #include "ar-internal.h"
- 
- #define RXRPC_RTO_MAX	(120 * USEC_PER_SEC)
--#define RXRPC_TIMEOUT_INIT ((unsigned int)(1 * MSEC_PER_SEC)) /* RFC6298 2.1 initial RTO value */
-+#define RXRPC_TIMEOUT_INIT ((unsigned int)(1 * USEC_PER_SEC)) /* RFC6298 2.1 initial RTO value */
- #define rxrpc_jiffies32 ((u32)jiffies)		/* As rxrpc_jiffies32 */
- 
--static u32 rxrpc_rto_min_us(struct rxrpc_peer *peer)
-+static u32 rxrpc_rto_min_us(struct rxrpc_call *call)
- {
- 	return 200;
- }
- 
--static u32 __rxrpc_set_rto(const struct rxrpc_peer *peer)
-+static u32 __rxrpc_set_rto(const struct rxrpc_call *call)
- {
--	return (peer->srtt_us >> 3) + peer->rttvar_us;
-+	return (call->srtt_us >> 3) + call->rttvar_us;
- }
- 
- static u32 rxrpc_bound_rto(u32 rto)
-@@ -40,10 +40,10 @@ static u32 rxrpc_bound_rto(u32 rto)
-  * To save cycles in the RFC 1323 implementation it was better to break
-  * it up into three procedures. -- erics
-  */
--static void rxrpc_rtt_estimator(struct rxrpc_peer *peer, long sample_rtt_us)
-+static void rxrpc_rtt_estimator(struct rxrpc_call *call, long sample_rtt_us)
- {
- 	long m = sample_rtt_us; /* RTT */
--	u32 srtt = peer->srtt_us;
-+	u32 srtt = call->srtt_us;
- 
- 	/*	The following amusing code comes from Jacobson's
- 	 *	article in SIGCOMM '88.  Note that rtt and mdev
-@@ -66,7 +66,7 @@ static void rxrpc_rtt_estimator(struct rxrpc_peer *peer, long sample_rtt_us)
- 		srtt += m;		/* rtt = 7/8 rtt + 1/8 new */
- 		if (m < 0) {
- 			m = -m;		/* m is now abs(error) */
--			m -= (peer->mdev_us >> 2);   /* similar update on mdev */
-+			m -= (call->mdev_us >> 2);   /* similar update on mdev */
- 			/* This is similar to one of Eifel findings.
- 			 * Eifel blocks mdev updates when rtt decreases.
- 			 * This solution is a bit different: we use finer gain
-@@ -78,31 +78,31 @@ static void rxrpc_rtt_estimator(struct rxrpc_peer *peer, long sample_rtt_us)
- 			if (m > 0)
- 				m >>= 3;
- 		} else {
--			m -= (peer->mdev_us >> 2);   /* similar update on mdev */
-+			m -= (call->mdev_us >> 2);   /* similar update on mdev */
- 		}
- 
--		peer->mdev_us += m;		/* mdev = 3/4 mdev + 1/4 new */
--		if (peer->mdev_us > peer->mdev_max_us) {
--			peer->mdev_max_us = peer->mdev_us;
--			if (peer->mdev_max_us > peer->rttvar_us)
--				peer->rttvar_us = peer->mdev_max_us;
-+		call->mdev_us += m;		/* mdev = 3/4 mdev + 1/4 new */
-+		if (call->mdev_us > call->mdev_max_us) {
-+			call->mdev_max_us = call->mdev_us;
-+			if (call->mdev_max_us > call->rttvar_us)
-+				call->rttvar_us = call->mdev_max_us;
- 		}
- 	} else {
- 		/* no previous measure. */
- 		srtt = m << 3;		/* take the measured time to be rtt */
--		peer->mdev_us = m << 1;	/* make sure rto = 3*rtt */
--		peer->rttvar_us = max(peer->mdev_us, rxrpc_rto_min_us(peer));
--		peer->mdev_max_us = peer->rttvar_us;
-+		call->mdev_us = m << 1;	/* make sure rto = 3*rtt */
-+		call->rttvar_us = umax(call->mdev_us, rxrpc_rto_min_us(call));
-+		call->mdev_max_us = call->rttvar_us;
+@@ -264,7 +266,6 @@ static void rxrpc_init_peer(struct rxrpc_local *local, struct rxrpc_peer *peer,
  	}
  
--	peer->srtt_us = max(1U, srtt);
-+	call->srtt_us = umax(srtt, 1);
+ 	peer->hdrsize += sizeof(struct rxrpc_wire_header);
+-	peer->maxdata = peer->mtu - peer->hdrsize;
  }
  
  /*
-  * Calculate rto without backoff.  This is the second half of Van Jacobson's
-  * routine referred to above.
-  */
--static void rxrpc_set_rto(struct rxrpc_peer *peer)
-+static void rxrpc_set_rto(struct rxrpc_call *call)
- {
- 	u32 rto;
+@@ -283,6 +284,7 @@ static struct rxrpc_peer *rxrpc_create_peer(struct rxrpc_local *local,
+ 	if (peer) {
+ 		memcpy(&peer->srx, srx, sizeof(*srx));
+ 		rxrpc_init_peer(local, peer, hash_key);
++		rxrpc_assess_MTU_size(local, peer);
+ 	}
  
-@@ -113,7 +113,7 @@ static void rxrpc_set_rto(struct rxrpc_peer *peer)
- 	 *    is invisible. Actually, Linux-2.4 also generates erratic
- 	 *    ACKs in some circumstances.
- 	 */
--	rto = __rxrpc_set_rto(peer);
-+	rto = __rxrpc_set_rto(call);
- 
- 	/* 2. Fixups made earlier cannot be right.
- 	 *    If we do not estimate RTO correctly without them,
-@@ -124,73 +124,73 @@ static void rxrpc_set_rto(struct rxrpc_peer *peer)
- 	/* NOTE: clamping at RXRPC_RTO_MIN is not required, current algo
- 	 * guarantees that rto is higher.
- 	 */
--	peer->rto_us = rxrpc_bound_rto(rto);
-+	call->rto_us = rxrpc_bound_rto(rto);
- }
- 
--static void rxrpc_update_rtt_min(struct rxrpc_peer *peer, ktime_t resp_time, long rtt_us)
-+static void rxrpc_update_rtt_min(struct rxrpc_call *call, ktime_t resp_time, long rtt_us)
- {
- 	/* Window size 5mins in approx usec (ipv4.sysctl_tcp_min_rtt_wlen) */
- 	u32 wlen_us = 5ULL * NSEC_PER_SEC / 1024;
- 
--	minmax_running_min(&peer->min_rtt, wlen_us, resp_time / 1024,
-+	minmax_running_min(&call->min_rtt, wlen_us, resp_time / 1024,
- 			   (u32)rtt_us ? : jiffies_to_usecs(1));
- }
- 
--static void rxrpc_ack_update_rtt(struct rxrpc_peer *peer, ktime_t resp_time, long rtt_us)
-+static void rxrpc_ack_update_rtt(struct rxrpc_call *call, ktime_t resp_time, long rtt_us)
- {
- 	if (rtt_us < 0)
- 		return;
- 
- 	/* Update RACK min RTT [RFC8985 6.1 Step 1]. */
--	rxrpc_update_rtt_min(peer, resp_time, rtt_us);
-+	rxrpc_update_rtt_min(call, resp_time, rtt_us);
- 
--	rxrpc_rtt_estimator(peer, rtt_us);
--	rxrpc_set_rto(peer);
-+	rxrpc_rtt_estimator(call, rtt_us);
-+	rxrpc_set_rto(call);
- 
- 	/* Only reset backoff on valid RTT measurement [RFC6298]. */
--	peer->backoff = 0;
-+	call->backoff = 0;
- }
- 
- /*
-  * Add RTT information to cache.  This is called in softirq mode and has
-- * exclusive access to the peer RTT data.
-+ * exclusive access to the call RTT data.
-  */
--void rxrpc_peer_add_rtt(struct rxrpc_call *call, enum rxrpc_rtt_rx_trace why,
-+void rxrpc_call_add_rtt(struct rxrpc_call *call, enum rxrpc_rtt_rx_trace why,
- 			int rtt_slot,
- 			rxrpc_serial_t send_serial, rxrpc_serial_t resp_serial,
- 			ktime_t send_time, ktime_t resp_time)
- {
--	struct rxrpc_peer *peer = call->peer;
- 	s64 rtt_us;
- 
- 	rtt_us = ktime_to_us(ktime_sub(resp_time, send_time));
- 	if (rtt_us < 0)
- 		return;
- 
--	spin_lock(&peer->rtt_input_lock);
--	rxrpc_ack_update_rtt(peer, resp_time, rtt_us);
--	if (peer->rtt_count < 3)
--		peer->rtt_count++;
--	peer->rtt_taken++;
--	spin_unlock(&peer->rtt_input_lock);
-+	rxrpc_ack_update_rtt(call, resp_time, rtt_us);
-+	if (call->rtt_count < 3)
-+		call->rtt_count++;
-+	call->rtt_taken++;
-+
-+	WRITE_ONCE(call->peer->recent_srtt_us, call->srtt_us / 8);
-+	WRITE_ONCE(call->peer->recent_rto_us, call->rto_us);
- 
- 	trace_rxrpc_rtt_rx(call, why, rtt_slot, send_serial, resp_serial,
--			   rtt_us, peer->srtt_us, peer->rto_us);
-+			   rtt_us, call->srtt_us, call->rto_us);
- }
- 
- /*
-  * Get the retransmission timeout to set in nanoseconds, backing it off each
-  * time we retransmit.
-  */
--ktime_t rxrpc_get_rto_backoff(struct rxrpc_peer *peer, bool retrans)
-+ktime_t rxrpc_get_rto_backoff(struct rxrpc_call *call, bool retrans)
- {
- 	u64 timo_us;
--	u32 backoff = READ_ONCE(peer->backoff);
-+	u32 backoff = READ_ONCE(call->backoff);
- 
--	timo_us = peer->rto_us;
-+	timo_us = call->rto_us;
- 	timo_us <<= backoff;
- 	if (retrans && timo_us * 2 <= RXRPC_RTO_MAX)
--		WRITE_ONCE(peer->backoff, backoff + 1);
-+		WRITE_ONCE(call->backoff, backoff + 1);
- 
- 	if (timo_us < 1)
- 		timo_us = 1;
-@@ -198,10 +198,11 @@ ktime_t rxrpc_get_rto_backoff(struct rxrpc_peer *peer, bool retrans)
- 	return ns_to_ktime(timo_us * NSEC_PER_USEC);
- }
- 
--void rxrpc_peer_init_rtt(struct rxrpc_peer *peer)
-+void rxrpc_call_init_rtt(struct rxrpc_call *call)
- {
--	peer->rto_us	= RXRPC_TIMEOUT_INIT;
--	peer->mdev_us	= RXRPC_TIMEOUT_INIT;
--	peer->backoff	= 0;
--	//minmax_reset(&peer->rtt_min, rxrpc_jiffies32, ~0U);
-+	call->rtt_last_req = KTIME_MIN;
-+	call->rto_us	= RXRPC_TIMEOUT_INIT;
-+	call->mdev_us	= RXRPC_TIMEOUT_INIT;
-+	call->backoff	= 0;
-+	//minmax_reset(&call->rtt_min, rxrpc_jiffies32, ~0U);
- }
-diff --git a/net/rxrpc/sendmsg.c b/net/rxrpc/sendmsg.c
-index dc43bf8cbac95..1d8065468e90a 100644
---- a/net/rxrpc/sendmsg.c
-+++ b/net/rxrpc/sendmsg.c
-@@ -133,7 +133,7 @@ static int rxrpc_wait_for_tx_window_waitall(struct rxrpc_sock *rx,
- 	rxrpc_seq_t tx_start, tx_win;
- 	signed long rtt, timeout;
- 
--	rtt = READ_ONCE(call->peer->srtt_us) >> 3;
-+	rtt = READ_ONCE(call->srtt_us) >> 3;
- 	rtt = usecs_to_jiffies(rtt) * 2;
- 	if (rtt < 2)
- 		rtt = 2;
+ 	_leave(" = %p", peer);
 -- 
 2.53.0
 
