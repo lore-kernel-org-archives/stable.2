@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD963B5E19;
-	Thu,  6 Aug 2026 14:46:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3544570DC;
+	Thu,  6 Aug 2026 14:47:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786027577; cv=none; b=HX//Jelqkcctf5G4XwMSyeSjQgAF1v/ti0au6/2x1qOySr++31w7Zmn9N5qQ/2ItDObjbU+95UV4Pe9yR26w5NLJ4cAYh7Bdjh9Y0oQM/PiWUXdExKmlkvwpJY0LZNdm1lx4z5bcqaULNmzj2WCh6dbgHekO0ZIebVtqrbXFrCM=
+	t=1786027633; cv=none; b=LjdQ2i+01er0DS0ICwIZkVVwmpDq2/1pTHpeQiBg8nCQvYwViW99HRNF0yRnqmxRN5NHKGUhNx7AwNlhm7IKY/GqEhvrVYvUrq6nhpFxh96lohHBjwsbjqZBjD02pqPUFDhVghib+xWT38EMZ+5u5nTFGZsXaf5PrZufDi0wqk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786027577; c=relaxed/simple;
-	bh=YiWRvriqBAwprbyF+M/bEP8YIJ201iH2QJ894+f3T5o=;
+	s=arc-20240116; t=1786027633; c=relaxed/simple;
+	bh=cAD1nkFAQEn2OUM5Cn0H0f+Pqe6RRSZLumARvmuM1qQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DNQH1Rv7j4nyuHLG+5YGN4DmlHh3d7R6D+ZRX2nhXpvY9o5fi0gq9B9kyGAxVnOgFDaCJsLPk+aVEnahdGuI9vCsb1AZsTxGe7jvcODVMTmSEPScpX6vD7mjGtrTe1RcszgPEv5uWl7VtugxXGXAjSlFgIgJcK3X8wLD9obzqXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fG40pG16; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=e9I1WtNOGTYkjUojgn6CJXBW0X81dA++ZgZA4ezFnwQ20xF9xooi4w0p9mbNAsokuyvT61ffvqVnG7prZWw5FbPfb/BdduOqHuCV5LUtvMP98dRPHa3nW9zod4wbkCyuJS0DCe6n30vtUcNR01rkyPjR4Bmr9ccw3Aomid11zjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jUn7gNa2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fG40pG16"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52CFB1F000E9;
-	Thu,  6 Aug 2026 14:46:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jUn7gNa2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561321F000E9;
+	Thu,  6 Aug 2026 14:47:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786027575;
-	bh=zVVXlaTnBYF/ekwzgsDSJAn7TZ61QOuIyfdPBNwKdCI=;
+	s=k20260515; t=1786027632;
+	bh=kOipabmyvNTMqPBvfoX1N52hzAoVLAtO+PKIsE1s51w=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fG40pG166OM8jzPPkb2ZK/w/cpvQptOPzm2T8h1CtxrBlwfy5njAlCU5Dvi8roCzc
-	 a0sdv2cow5GvaZUpGBmg65PMv7QobLhKyo1wlkZj1HYVKdmhVKDSwPfa3TcDjBbMD3
-	 62Ao1eNcbpP2K3Obd/1NQ6ZpskaeIeY1nl17fDpVBFJyMCdKjaBHQmJuQ8jpHgKCIk
-	 j7jM4v5FAmpZ3Uu+b1SggTu/VIK0YmN4g9+4xYeOQE8Q2nZjXmpJtwbgcG2Bz8sVOr
-	 zhKh72Gniu3K+OVNLbiGbOyRhy7zwB1tAhq9pifFtHR6DskP9c3lDY1UYvtuLyt7rT
-	 X5lo+9FxqBNOw==
-Message-ID: <a6a9e0cc-e6cf-4f83-b6be-7d64058b8fa6@kernel.org>
-Date: Thu, 6 Aug 2026 16:46:10 +0200
+	b=jUn7gNa23CMy6PY38ldzkLlP3tn0aSu5sVwdGZWL1dAGCNZ9Lu9IQS84xltRc9vHS
+	 K2KSIQlxQej60mP1wcWx5g8+k/ATu/v72J8toE/SC3TuPm3Zs9ayZ/fQgxwORIf3le
+	 bVdgz0jTZh7rGseoCGeVidk/5kgkV5153XnMuWOdGQLqA31k1z7cMzJnslS6EyqPds
+	 xRnFU8/xzKdy/7BYH8uT43BAFYGwqHqRt9GK9FnL2CZB5DKdJWJhYqsYMc4bWKHRsW
+	 4ibOSz2Qj/F50G3//ORWnlEIhVfTVMsXVp9NKM93h/8RkadmCLnokr30WJtGk+/7zn
+	 WRiEVv+Q5DNxw==
+Message-ID: <cf533fc1-db58-4c6b-a206-a8dac3fff391@kernel.org>
+Date: Thu, 6 Aug 2026 16:47:07 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,16 +35,17 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/madvise: avoid skipping pages after splitting large
- folios
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Yunhui Cui <cuiyunhui@bytedance.com>, akpm@linux-foundation.org,
- liam@infradead.org, vbabka@kernel.org, jannh@google.com,
- 00moses.alexander00@gmail.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260806055501.56761-1-cuiyunhui@bytedance.com>
- <anQyoZgi5Urnvvjw@lucifer> <919b804b-6f1d-417e-9c0c-d06f50d765d8@kernel.org>
- <anSar_i8UjniSbML@lucifer>
+Subject: Re: [PATCH] mm/huge_memory: let special huge VMAs bypass the THP
+ policy check
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ Peter Xu <peterx@redhat.com>, Alex Williamson <alex.williamson@redhat.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260805055544.1568534-1-clg@redhat.com>
+ <0e52d0b4-064d-4602-8e7b-5744b05f24ea@kernel.org> <anSZpAjt84Pn7O_b@lucifer>
+ <5b7e84f5-2007-458c-910f-7a6e1e3d3eab@redhat.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -91,56 +92,27 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <anSar_i8UjniSbML@lucifer>
+In-Reply-To: <5b7e84f5-2007-458c-910f-7a6e1e3d3eab@redhat.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/6/26 16:34, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Aug 06, 2026 at 01:35:30PM +0200, David Hildenbrand (Arm) wrote:
+On 8/6/26 16:42, Cédric Le Goater wrote:
+> On 8/6/26 16:28, Lorenzo Stoakes (ARM) wrote:
+>> On Thu, Aug 06, 2026 at 04:26:20PM +0200, David Hildenbrand (Arm) wrote:
 >>>
->>> Let's at least split out the folio check into a helper to make things
->>> clearer:
->>>
->>> static bool poison_splits_folio(const struct folio *folio)
->>> {
->>> 	/* Hugetlb is, as always, a world unto itself. */
->>> 	if (folio_test_hugetlb(folio))
->>> 		return false;
->>> 	/* Soft-offline errors out, hwpoison traverse DAX intact. */
->>> 	if (folio_is_zone_device(folio))
->>> 		return false;
->>> 	return true;
->>> }
->>>
->>> Then for your patch:
->>>
->>> -		size = PAGE_SIZE;
->>> -		if (folio_test_hugetlb(folio) || folio_is_zone_device(folio))
->>> -			size = folio_size(folio);
->>> +		size = poison_splits_folio(folio) ? PAGE_SIZE : folio_size(folio);
->>>
->>> I tried writing something that was neater and nicer but AI kept pointing
->>> out how it was totally broken and I really really hate this code (not your
->>> fault :).
->>
->> No, I don't think any such special casing on folios is the right way to handle it.
+>>> emdash in a code comment?
 > 
-> I mean the issue here is the stride varies depending on whether the thing is
-> hugetlb or not (and some weird DAX thing), and the poisoning causes a split
-> otherwise so if you want to poison a range you have to account for that.
+> There are quite a few of these in the code in fact.
+> 
+>>> Then I spot
+>>>
+>>>     Assisted-by: Claude:claude-opus-4
+>>>
+>>> and really have to shake my head.
+> 
+> It's a one liner. Good enough to raise the discussion no ?
 
-We GUP'ed a single page and now try to be smart about which other pages we'd GUP
-next.
-
-That's just wrong, and hugetlb special-casing is just ugly.
-
-The problem here is that, if we GUP'ed a page and poisoned it, the GUP'ing the
-next page might fail and we'd return an error.
-
-But maybe that error can simply be handled? We have FOLL_HWPOISON.
-
-So maybe we can just use FOLL_HWPOISON and skip over the entries that already
-return -EHWPOISON?
+Just to be clear: Unchecked AI slop in any form is making my life worse every day.
 
 -- 
 Cheers,
