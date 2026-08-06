@@ -1,122 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD48747276C
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 17:02:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD9E3A9D9C
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 17:03:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786035738; cv=none; b=BG0GiKA773S4MkYMmHyqc07ncblivHFpO6UHJB7RM8STddOrHLuubf0NQly9Mb1OdHvK3BBN9nVme850G8IdmZOxfAVoSkGTVdpWOFExA9S7xt+K2Z0KWuZGWjK88/LcR2g6MVaXf1zJBvs9KEhQ0ASSLw0JKVorRoTVK9Gvm90=
+	t=1786035809; cv=none; b=MM0FUeMaaAs7uu9VobSOSfA3FDm1aZebPd8rU/00kvmF7oiUpcxVthCI+PPgknU6JO+rX0EKQWEdbKafhNoVLGku5A7LYdzvYFo1x8gJCd9hIYMqrKNk5ZQLwVEFxPFWd6b7Hh79QcYV089HvVBzH9bUx5fgI2IjmejDAamPx/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786035738; c=relaxed/simple;
-	bh=qGghBUlf3V3g6LO2dcL44ianiMpWfunKtANgbBixqtg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i6vsQDsMO85uXVwFR7uGyWFPqQwT0WqCTju5a7eE94KawhSgwvND3jevNUvW0In3r0UuiPlVh/J3k/iJNsNsXOcTpALrSHg7Q1ZEII+uFB0T1YI50p75s5ICf0cnHGH8sBcJdsWkNcPbXRaIezkI0aMUjQLxi0QQOmgCtipptsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AQtWAJry; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786035809; c=relaxed/simple;
+	bh=wH2Z/7SStNPXHVKuBAna047dlnh8OKumWppmtohqDBg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JsJXKgd8Jt/YyuobpmRtwN1+h5u5hLoyrMHDlsBjyz/cie8A4OrpfEddUA+KsV5f+PfwaPVMMUoEqepwe0q15mdENTIeBjBermKAh2x+wQimiPuqb6Kyx2e6/z3l9h+nxWvwEtaOqcbeKYP6SXj+f1REjWrMLAUNUf1hZiXBuY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=VrqJHNGR; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AQtWAJry"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAE901F00A3A;
-	Thu,  6 Aug 2026 17:02:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786035734;
-	bh=EiYhcwLfSe3koQcVjnccpB4WhUyGDHIlPhWm7KA4BDg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AQtWAJry2IrLn1AnjgJDSU7zSf2ZvDIqt6qDRwaMdopD7fRYNe5moIEEJrAIkhLQM
-	 mF1dFA5ptC0dxSbfJ9YU8F9eS8+UQpEdZMa+bsM7a0Smp3JvtOdd8HhdveWB9By3Yd
-	 firi95IUJI0JDkeVnKX8S48ExUgzGa3fZ4gTRjO61iQKmEaVVkZrLfgJWtN2RRbxHF
-	 1p/AjgNVAH1gk61Qu0p0WCdflUFVqbjt4csVGfBmUhXtJ7VbLLmphXitcxQbjUyIgS
-	 9sGbl4fyife7TDzVsvsGlRR9EOx1KXAGme5gn5Qzp3iw2hrEhtqR6pIzLCSXtO9KCy
-	 8fNag0VHEqyfQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Norbert Szetei <norbert@doyensec.com>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ALSA: seq: close a re-opened queue timer in the destructor
-Date: Thu,  6 Aug 2026 13:02:12 -0400
-Message-ID: <20260806170212.1188109-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072946-underdone-mule-5e1d@gregkh>
-References: <2026072946-underdone-mule-5e1d@gregkh>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="VrqJHNGR"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8486672f03cso3034432b3a.0
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 10:03:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1786035806; x=1786640606; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jTcIYdDJrbFYM8SM/eR5/FInV0ODp6bCP4uR1qvvuCk=;
+        b=VrqJHNGRRUoP/msyVxM5mpPdeQqY8og/M7kLPYkdcG45zy74Hyo001nabIAtdc7oJw
+         6vnl1+Kgrblow4hzFefbVXqdy3K9PS/Vtp9Uh/sQUWDxiBYU337hp3YeqE3uoafhsyXh
+         P7feEkHaE1EWfbTSdedW6ODLSYsdSfgAinn7KkDDQJ8s9XdwQVybCzAye985P45C/3dG
+         p1m0CmzVnpuDUmlH+oqW9iKpj0+fuNQalecoj0d+WMUelnq66jjLAYU/ke1iV/SKKeKP
+         vVHR/Ara/zOrRjqpRlJWhrhRAmU8qPjZ3a0AKu/IWGb3H7k9bKC2U+tWqaFT0vLHwGQC
+         6coA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786035806; x=1786640606;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jTcIYdDJrbFYM8SM/eR5/FInV0ODp6bCP4uR1qvvuCk=;
+        b=bsKiGsDGwsspUSz2nbL9Ds1zFgQLrhEuoLyDBza8dixCcBLjRpgttqNAtFEIODK9AZ
+         V4Rn+UpM4vr17fBEqOO9sQOiYSS0aViaJLG4pAIxtnyJblZkoYxQNCru57tBCEQCcVlq
+         KB6tcJKMAbpjOkt/UijodWw2Z5OTL/w4u18Bs4+mmeXe9zgvJch6tFkDXANS/AhfAloJ
+         EM4LSrsHnkF9OIXPaIm80VOKCM6PvdXT6EkvyhqXnEBFhVM7iz46IiukZQClY1dalI9q
+         AqrQLm6bOMyXDHPRC5qA6kmgSrcay1MOlLvCxXOIxUpayIkyCh+eyZSGff1h1EDSDWJX
+         tA5Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrdGoz2pH7jrz5kkM821LdGES5fD8PRq82J+RbeWKQfgkOoTY6pZqe9pPArNtS7iC9Yen5fGwc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxg8MCBeYtTqpOUIUu7XsPAboNyvP2r5X2miNhEpVkoMZ7VWywK
+	wjKrJjEBhESpGKQIb0Yz0DZAdb3RAAN+CO7D91K7yFhpyhcrOTZSWUYd72+Ggd1pmS0=
+X-Gm-Gg: AR+sD11toudSoujbuU250Zk2j5EUAAK65wXyPBhxDISwsy7ECHK3DCm+hhTK63DZ7pJ
+	hxnrdpUl6FAfr5xQ7br0HKq82KY/XxGiPVUrBM8Btdc/6+js9xcut3MWzfeb2nTK1Y7n8v0GRmL
+	azkgxTCav7GXtjTt/8UfddzVtOeWJC6nENgvYtPWWNRwM+6PvosKk0BWHrVdtYzc2fGJxZ0UPtZ
+	nYBzoqf82p+1AsQ/6cJN8SOjpmAkaN/XoacA6jWZSGxULeMxw+bBRFChbdUrTeWlEvLkdh691+z
+	Emp9LKaZbwH2q7zEw3sSCRFz8Zad6LpMhq5D13BLOVfQkSO0+BEcAM3LY3DLeEzhwM5iMMGOo4H
+	AMbYUvIxkwXsyovAz85uxpn1DSIsphLvKQTbbTYzk/2M9eIqDCeLWuRf81s9vFFYFQDD/IOvn/1
+	aw6tE26m6NVGU/R1cGfgik/hnMdoIdZNvGJFgM8aLtM7uVtfoIzEBtVLf/bL9m1Cwj
+X-Received: by 2002:a05:6a00:2ea8:b0:848:4c0c:9482 with SMTP id d2e1a72fcca58-84f2e0cc746mr17400031b3a.35.1786035804907;
+        Thu, 06 Aug 2026 10:03:24 -0700 (PDT)
+Received: from fedora ([2607:fb91:201f:cebc:3a68:390a:144e:1b87])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f453bb24csm1745790b3a.24.2026.08.06.10.03.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 10:03:24 -0700 (PDT)
+Date: Thu, 6 Aug 2026 12:03:19 -0500
+From: Gregory Price <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: linux-mm@kvack.org, damon@lists.linux.dev, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com, sj@kernel.org, akpm@linux-foundation.org,
+	david@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
+	liam@infradead.org, npache@redhat.com, ryan.roberts@arm.com,
+	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev,
+	usama.arif@linux.dev, vbabka@kernel.org, jannh@google.com,
+	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+	byungchul@sk.com, ying.huang@linux.alibaba.com, apopple@nvidia.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/4] mm/huge_memory: skip zone device folios in
+ madvise_free_huge_pmd()
+Message-ID: <anS-V-k61246FkkS@fedora>
+References: <20260728194714.3713735-1-gourry@gourry.net>
+ <20260728194714.3713735-3-gourry@gourry.net>
+ <anSOvqN1_Hs190xi@lucifer>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <anSOvqN1_Hs190xi@lucifer>
 
-From: Norbert Szetei <norbert@doyensec.com>
+On Thu, Aug 06, 2026 at 02:59:22PM +0100, Lorenzo Stoakes (ARM) wrote:
+> I kinda wish he had some generalised folio handler like:
+> 
+> 	struct folio_ops {
+> 		int (*handle_empty_entry)(void *priv);
+> 		int (*handle_normal_folio)(void *priv, struct folio *folio);
+> 		int (*handle_softleaf_pte_entry)(void *priv, const pte_t *ptep);
+> 		int (*handle_zone_folio)(void *priv, struct folio *folio);
+> 		...
+> 	};
+> 
+> Or I don't know an equivalent type of thing, as we keep having these same
+> patterns emerge in mm that are duplicated in a million places with slight
+> variations... :)
+> 
+> I wonder if C is expressive enough to get us to something sane though.
+> 
 
-[ Upstream commit 2c4dc0ed50b05cd847a4b34b8cebf0775f19aeb9 ]
+This is functionally folio->pgmap except it's not generalized and it
+causes us pain :[
 
-queue_delete() closes the queue timer, then frees it. snd_seq_timer_close()
-clears q->timer->timeri. snd_use_lock_sync() then drains borrowers, and
-snd_seq_timer_delete() frees q->timer.
+I briefly took a forray into moving pgmap to be node-scope, and that
+works decently, but first i'm just trying to clena up what i can for
+zone device.
 
-A borrower can re-open the timer inside that window. A SET_QUEUE_CLIENT
-that took a queueptr() use_lock reference before the queue was unlinked
-runs snd_seq_timer_open() after the close. Open refuses re-open only while
-timeri is set, and the close just cleared it, so it re-opens timeri.
+Anyway, i get what you're getting at here, and that would be nice.
 
-snd_seq_timer_delete() does not close that instance. Its snd_seq_timer_stop()
-is a no-op, because running was cleared first. So it frees q->timer with the
-instance still live. The queue is freed next.
+> > Fixes: 368076f52ebe ("mm/huge_memory: add device-private THP support to PMD operations")
+> > Cc: <stable@vger.kernel.org>
+> > Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> 
+> Anyway LGTM so:
+> 
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>
 
-The instance stays on the global timer with callback_data pointing at the
-freed queue. A non-owner START on the unlocked queue arms it. The next tick
-derefs the freed queue in snd_seq_timer_interrupt().
-
-Reachable by an unprivileged user with access to /dev/snd/seq. No CAP and
-no queue ownership required.
-
-Close any lingering instance in the destructor. There, ->timeri can no
-longer change: the queue is unlinked and all use_lock borrowers have
-drained, so no snd_seq_queue_use() can re-open it. Close it before clearing
-q->timer. snd_timer_close() waits for any in-flight snd_seq_timer_interrupt()
-to finish, and that callback still reads q->timer (via snd_seq_check_queue()),
-so q->timer must stay valid until it drains.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Norbert Szetei <norbert@doyensec.com>
-Link: https://patch.msgid.link/422FDB81-2A68-47C7-A22D-2D3301E2E86D@doyensec.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ replaced scoped_guard(spinlock_irq, &t->lock) with explicit spin_lock_irq()/spin_unlock_irq() pair since gnu89-compiled 5.15 rejects the macro's for-loop declarations ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/core/seq/seq_timer.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/sound/core/seq/seq_timer.c b/sound/core/seq/seq_timer.c
-index 9863be6fd43e1..50581120f2822 100644
---- a/sound/core/seq/seq_timer.c
-+++ b/sound/core/seq/seq_timer.c
-@@ -58,12 +58,23 @@ struct snd_seq_timer *snd_seq_timer_new(void)
- void snd_seq_timer_delete(struct snd_seq_timer **tmr)
- {
- 	struct snd_seq_timer *t = *tmr;
--	*tmr = NULL;
-+	struct snd_timer_instance *ti;
- 
- 	if (t == NULL) {
- 		pr_debug("ALSA: seq: snd_seq_timer_delete() called with NULL timer\n");
- 		return;
- 	}
-+
-+	spin_lock_irq(&t->lock);
-+	ti = t->timeri;
-+	t->timeri = NULL;
-+	spin_unlock_irq(&t->lock);
-+	if (ti) {
-+		snd_timer_close(ti);
-+		snd_timer_instance_free(ti);
-+	}
-+
-+	*tmr = NULL;
- 	t->running = 0;
- 
- 	/* reset time */
--- 
-2.53.0
-
+many thanks :]
