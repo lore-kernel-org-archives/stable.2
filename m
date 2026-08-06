@@ -1,79 +1,50 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEE53859CB
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 05:55:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B871A3859CB;
+	Thu,  6 Aug 2026 05:57:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785995722; cv=none; b=hPaKK2huXDwdCtHosNgXHaIDQtIEL3GPcWzSVvYWs2XfIUQi8A06d6UR5dGZPl3yhBYBRxrFO8OB7RlumrBJ6nfLv05f2K7HHyQO4dt3QO1cHyXZeGrsf+bTT4E+W7PiG+HDf7D/aiixFWchdljMH3NDoPf4uMjWWucGXF1NtEc=
+	t=1785995848; cv=none; b=Tlmymt29v3ZPR8MlgXLSY2tkOQHZuoqcjudPuArBssZC690l75LKjH2opJ30dzM1/3IrW/5+7Dv1rVo0LQyPKzcsh7gnUEiN0WjdDiZNa2DkCdC5afqrJhtfSGIWXG08T8Pi4Krw5QoX2oOpdrjkOgBo1RV55km60/EA7s6xTZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785995722; c=relaxed/simple;
-	bh=DxfQm9W4krPzpEfAtVVVWIinLMUehnOesKs+H9lg9S4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AXNmry8nm1kbrqKqFp//RZ21W28ZBC0vXUj+47dk3s3Hje3juaMAOzuhLazVgUo35+OFllYk6/LPmlzbDMz3DVJlGstJxHcqH9C9r2mYisoFcxBY1Gkn5bkYxnevUZ3oTzjeSJyRNhIomO+jx7JZEYqZ0i4ZUoPoENPqUs8XL5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=f7ey23pR; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="f7ey23pR"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c966b9ee9cbso1206409a12.1
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 22:55:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1785995720; x=1786600520; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dGhdRgIgIMHfR7vy1rI13brOXOjVKrzvUJgGFI1i9XI=;
-        b=f7ey23pRqiD7Hcc55I48Q8HZazhZ/uJkAXQ+HPgUUnLblc3Qv9TBBDTqXc24tM6CUk
-         ZbCB/9/eq6X3Wd5QMsDgFMgKEaJeV+Yn62onww1z848qWikdwRi2jAPPqL0i5G1ILMdL
-         pRCq8rUuWNT9YgfmMcGtXYtZ84Mb+hhUrfeo/cM0xGWM4oZn7G6mrBGJu5dHnwvELVDY
-         355u7KKrEEecW1VdxD0cyd/HAZR8pUp3ZdOOt4qnpK+Jf5m9NVYBgtAJ1nOCvPaekFXc
-         yFM4s4IcJoOJ2TwaIf90+0HHmFWHdd4UxmE0mjYlHlSpJUinH1LH8W+/KwU1g1e8cHh0
-         N4uQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785995720; x=1786600520;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dGhdRgIgIMHfR7vy1rI13brOXOjVKrzvUJgGFI1i9XI=;
-        b=gJG7tpYKvteTzlgLF1cDs3QYJzec0X92hKrC7iX10T2VmrxAcgD9cY4j6mqQyHMsQs
-         1vRwzGh1MV97bYZN6KeROkOEIKAy458EbrZaCt+CXVuBgJMOU6f/d+1Q6bdR365uvjFM
-         3fMRhEDr3XdE6ymtiLqKAK6tCu234yH+hLYbP23hcr9gxAyTb0Kpk8d+F6+NZdL/fTZF
-         B/k6trxg0s7s8/DfCo9COkDTrAshoZJgmX5Z8tiF0iF2HxBsxfs2hbCg4bUlehhcpeQ7
-         ZUhhDXl8YEJzJ7xMYmTxRaNdFNN2u4kuBeCHmF96RffBRJU1ukW1/679Wt7lKTugkhOU
-         oLdg==
-X-Forwarded-Encrypted: i=1; AHgh+RqLAlIHlzvRILHTGjHXZYlhTFxwkNXjvpfRDw+IkMyAvZod2+TqyfYGGQs605ooW5cwHhhC/Wo=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz7rq0vpN8rnPdY7Cu3v+U0k8vkgEmmZIW3XZ8U6we/jqkFnq4Z
-	9trn0rglSG/1UFHt/Os+tpHLSiFU1XFUq+3wbmKrMxV5W0ZBs47ieWjgD8nBC7dNCrBJGHbCiO1
-	6V+gRV/Y=
-X-Gm-Gg: AR+sD13HHdr2yiyC8Gq4H+JJSU1EH/eZMnOQ2qrUKL9BoERgpVB/dlicEVCrEpPp9CB
-	/4v5JPhEimESWJuKyw5aayofkteAmLj+uOYOgcqxWsHbTS1QvrfH1iWiV5xJx3yKN30RfGV7j2j
-	vJyVFNI3ExO5bIUoobdlKaTVEyo+mUYtxNfvbfn44ThNP9ije7DiubzpDhqdCHbMY3teBhCcYYq
-	ImX4q9U4F7/ryvPqOjEJyHZMUYR0MgziXJPKQiKaMhPVY5sKKPlrGBwZmx7eV63ssuq+ejxTIiO
-	yFEny56XmaTIVIFmQpVj2hoBC8M/jSNaJWV4FmMJ6DBLnBVZA/hfZLtmY2TY5Bi/BNliZHba8gA
-	ekQPZRCWg0h/yMKW2bt0p6FcCGH2YWja/5mqX8CK6q+yE4KOuK4oabedlp4ldmK27L621zXAKUb
-	J15MTDzdENsIwXrFnNDSrU+Zsxg6wx07jxKa+vhHmU4ZGZL72mNyo8WQaoR2Knt5lsFG5l0/ge2
-	oVzIOJSu2sct9iOtfmjb8Ew6i07gb7m/CsJoA==
-X-Received: by 2002:a05:6a20:43a9:b0:3c3:8651:b302 with SMTP id adf61e73a8af0-3cb85f60443mr15100884637.28.1785995719569;
-        Wed, 05 Aug 2026 22:55:19 -0700 (PDT)
-Received: from FR9WL0RHKY.bytedance.net ([139.177.225.225])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3158644a195sm21906471eec.13.2026.08.05.22.55.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 05 Aug 2026 22:55:19 -0700 (PDT)
-From: Yunhui Cui <cuiyunhui@bytedance.com>
-To: akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	david@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	00moses.alexander00@gmail.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Yunhui Cui <cuiyunhui@bytedance.com>,
+	s=arc-20240116; t=1785995848; c=relaxed/simple;
+	bh=5KJgH9AWCbt6lJK02XsPTUdL7Gj+2UvDSOCD8IIlqVM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iqvPrLYvHcux5ueU247w0q9+CS/6QJPxrPq7juuVK8uPTRIvGi0mYgkLIuk/gesMGiTNly6h/qQSELuaeIns7h6Hhy63xy61DKnGKlS4fGado4W5U1FKswkDP/m8oBspHMom9aP0ZdhloyXRTkLSezwm37yQoqWwIbphOQzWv0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: ae46fc4c915b11f1aa26b74ffac11d73-20260806
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:e80ebe31-7e75-436b-a9b2-718e96e03f41,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:bcd1cdca5728b022bf1d1261a3132ab2,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
+	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
+	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: ae46fc4c915b11f1aa26b74ffac11d73-20260806
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1186344515; Thu, 06 Aug 2026 13:57:17 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com,
+	alexandro.calo@nozominetworks.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] mm/madvise: avoid skipping pages after splitting large folios
-Date: Thu,  6 Aug 2026 13:55:01 +0800
-Message-Id: <20260806055501.56761-1-cuiyunhui@bytedance.com>
-X-Mailer: git-send-email 2.39.2 (Apple Git-143)
+Subject: [PATCH v3] ntfs: validate non-resident attribute offsets
+Date: Thu,  6 Aug 2026 13:57:13 +0800
+Message-Id: <20260806055713.42067-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,62 +53,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-madvise_inject_error() advances through the requested range using the
-size of the page returned by get_user_pages_fast(). Saving the size
-before error injection is required for hugetlb pages because successful
-soft offlining can dissolve the source huge page.
+ntfs_attr_update_meta() shifts the attribute name when converting between
+non-sparse and sparse attributes. Converting to sparse also adds the
+compressed_size field before the name and mapping pairs, requiring eight
+additional bytes in the attribute record.
 
-That stride is incorrect for non-hugetlb large folios in system memory.
-The memory failure handlers split such a folio and handle only the base
-page for the supplied PFN. Advancing by the pre-split folio size then
-skips the remaining pages in the requested range while madvise() still
-reports success.
+However, the validator does not check that name_offset is within safe
+boundaries for these operations or that the additional space is available.
+A malicious MFT record could set name_offset such that:
 
-Advance by PAGE_SIZE for non-hugetlb folios in system memory. Retain
-folio_size() for hugetlb and ZONE_DEVICE folios, as compound Device DAX
-folios are handled as a whole.
+1. The name is positioned at the very end of a non-sparse attribute.
+   Converting to sparse would shift the name forward by 8 bytes,
+   writing beyond the attribute boundary.
 
-Fixes: 19bfbe22f59a ("mm, hugetlb, soft_offline: save compound page order before page migration")
+2. The name overlaps with the mapping pairs, causing corruption during
+   conversion.
+
+Add validation to ensure:
+- For named attributes, name_offset is within valid bounds
+- Name does not extend beyond the attribute or overlap with mapping pairs
+- For non-sparse, non-compressed attributes, eight bytes are available
+  after mapping_pairs_offset for the compressed_size field
+
+The space check also covers unnamed attributes, for which name_offset = 0
+is valid and no name range needs to be checked.
+
+Fixes: 7e2a1c554bc4 ("ntfs: Fix min_len for compressed/sparse attributes in ntfs_non_resident_attr_value_is_valid()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Suggested-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
- mm/madvise.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+Changes in v3:
+- Move the sparse conversion space check outside the if (name_length)
+  block to cover both named and unnamed attributes.
+- Use attr_len - mp_offset < sizeof(compressed_size) to check for
+  sufficient room, as suggested by reviewer.
+---
+ fs/ntfs/attrib.c | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 5a09cc24f04a0..e9d4c3bbc5290 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -1455,20 +1455,25 @@ static int madvise_inject_error(struct madvise_behavior *madv_behavior)
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index d354c3b0fae1..edea3d822b57 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -693,6 +693,8 @@ static bool ntfs_non_resident_attr_value_is_valid(const struct attr_record *a)
+ 	u32 attr_len;
+ 	u32 min_len;
+ 	u16 mp_offset;
++	u16 name_offset;
++	u32 name_end;
  
- 	for (; start < end; start += size) {
- 		unsigned long pfn;
-+		struct folio *folio;
- 		struct page *page;
- 		int ret;
+ 	attr_len = le32_to_cpu(a->length);
+ 	min_len = offsetof(struct attr_record, data.non_resident.initialized_size) +
+@@ -706,7 +708,28 @@ static bool ntfs_non_resident_attr_value_is_valid(const struct attr_record *a)
+ 		return false;
  
- 		ret = get_user_pages_fast(start, 1, 0, &page);
- 		if (ret != 1)
- 			return ret;
-+		folio = page_folio(page);
- 		pfn = page_to_pfn(page);
+ 	mp_offset = le16_to_cpu(a->data.non_resident.mapping_pairs_offset);
+-	return mp_offset >= min_len && mp_offset <= attr_len;
++	if (mp_offset < min_len || mp_offset > attr_len)
++		return false;
++
++	if (a->name_length) {
++		name_offset = le16_to_cpu(a->name_offset);
++
++		if (name_offset < min_len || name_offset >= attr_len)
++			return false;
++
++		name_end = name_offset + a->name_length * sizeof(__le16);
++		if (name_end > attr_len || name_end > mp_offset)
++			return false;
++	}
++
++	/* Ensure there's room for the compressed_size field if needed. */
++	if (!(a->flags & ATTR_IS_SPARSE) &&
++	    !(a->flags & ATTR_IS_COMPRESSED) &&
++	    attr_len - mp_offset < sizeof(a->data.non_resident.compressed_size))
++		return false;
++
++	return true;
++
+ }
  
- 		/*
--		 * When soft offlining hugepages, after migrating the page
--		 * we dissolve it, therefore in the second loop "page" will
--		 * no longer be a compound page.
-+		 * Non-hugetlb large folios in system memory are split and only
-+		 * the addressed base page is handled. Hugetlb folios may be
-+		 * dissolved and ZONE_DEVICE folios may be handled as a whole,
-+		 * so save their size before error injection.
- 		 */
--		size = page_size(compound_head(page));
-+		size = PAGE_SIZE;
-+		if (folio_test_hugetlb(folio) || folio_is_zone_device(folio))
-+			size = folio_size(folio);
- 
- 		if (madv_behavior->behavior == MADV_SOFT_OFFLINE) {
- 			pr_info("Soft offlining pfn %#lx at process virtual address %#lx\n",
+ static bool ntfs_attr_value_is_valid(struct ntfs_volume *vol,
 -- 
-2.39.5
+2.25.1
 
