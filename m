@@ -1,101 +1,184 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586F63112B2
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 13:06:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD15B3128B8
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 13:06:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786021621; cv=none; b=lgV+oO1cvCI/OhsXhdQ0Ocy5/8CPWd7luLHXMA6w6SMr8UaEiTS6olvGaiFqgdYpSCXHtXpqHgdfMOGK4KaGtu2RwimVSOK2+/pydpDnriohlBKTlwpZLXTtaEvQtRXtV7YhnDV0yWeceTDEohy87cMPUTZ7iitg9hH0DgTvMd8=
+	t=1786021619; cv=none; b=EhzsHgOJjdSlpIfL1jN9rKzUejr9ZRRyA6RuAPBWWeaEF2X/esV69/LYqTnXy4GX5st5qgMx65j/s/OvT5HeYZH9O75xhk5yKb9SnFpGDABvrD8OoT4pkNr0naVMhMeszcqp89cTT4VEYWr+7Z+FyqSd9iodR2sonX3h6GzGdyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786021621; c=relaxed/simple;
-	bh=bAC0Hfs+LU9pXNUrD6rcBbnCSgCe9398FQeV/+hmUQw=;
+	s=arc-20240116; t=1786021619; c=relaxed/simple;
+	bh=yVRR7HQWDAtDxhP8EEL0+cb90kUT+O0wmfNEC/haeMI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r5Lj16b7PtfIiv6HIkMxtNiv+t3A5nZKp+93puSCCF0qwCe3YlMFFt+8knlZl8Af1LBMDL/hjNgnSjDcGEQvMGWUti74WBUOPKVySVwIu2fLyUqKMGAFFEje0rC0QHGl7clYmON6Avv32Xtv5xzZuQ6nwH4K9eEKvP17FAOqbME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=beSlVSmz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=U1hlNJWGSnD7DXOE+44ugNG9E9JBsh/iEcxKlwNOyNELhNwvx7L0nH6X3t1CTbybVa+sAXD0BCnz+fKFp2mvcNT5vpSO1e8E39fZfGobE+xUCkhe58aGxA8eqBYY50EYTi4N5pELnfLks0/Xn/NZ7mcTttCBZf9z/DcWsN69oiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ec90Vrae; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="beSlVSmz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 885291F00A3A;
-	Thu,  6 Aug 2026 13:06:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ec90Vrae"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21F751F000E9;
+	Thu,  6 Aug 2026 13:06:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786021617;
-	bh=u2cb5lbDynrOhmZv8+Y/vEPVNjblxpYXCX3czSxlToI=;
+	s=k20260515; t=1786021614;
+	bh=VHIyHLcGIKl2hS4qx83hploHDLwQTVKKgU7p4LLlVWk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=beSlVSmzCdiSi3kz6/QyzuNHYAF8kDkteZAGsviYJZCA9AoreEgBXqkXbWC7r1KPF
-	 EcB0i+H7LRI+157TgW1XwsoI4PVf/Beh1JNlAqr4rOAy3TwDGHvbiyDPwQj+Lz/48Y
-	 LnRYBqY9onm2aOdvZNGgIylvZFtAACP/m1foM6G98geAKljz6ainPEZoZTrKtRa3wD
-	 DVSw3rBquK5EcrBHt0HlWfludsHcn7zV+59e92vo3Q0bQ7aaPcdhRRT9hgOlvf/KIk
-	 q6h9BDLbOFCvxAarWjaLAZ7lJMqnEPeay4wxiSyu8WzecuOpFCQX6YQw8ZQk6iIRyH
-	 HtVHCw298PmYg==
+	b=ec90Vraeqnu4LLJOCgJ0zgL7A6/RgwLA52D/zzM6KC+szqGW0WQXdQ/1wrH/rKTYD
+	 jIYxfZ/JmHqMqzRXrMmRGHaCN+fJutiH9IrTkTrnpixRfHVxlajJTHTFpSJUagoGRd
+	 ubc4JNAvsPVZb+Tby3w75Jm/IM7VO8KC/LqdeYtClqvvpkPNov3oljaOXu2CrAcsvx
+	 3x8WsQXWeNr53ZPsejOSHuIWkWQuyhelt0lnU2iqVh6ZGEDjFNzRw8zQrU8SKHFFrG
+	 o36++hO1K+7WkXNlJuctXW3obUen7qf1EKXObrsshITr1l9wNZbxRJAcjLoIEYwmpr
+	 H2aA6arnBjZIQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
+	syzbot+4924a0edc148e8b4b342@syzkaller.appspotmail.com,
+	Florian Westphal <fw@strlen.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] media: uapi: rkisp: Correct name version enum
-Date: Thu,  6 Aug 2026 09:06:55 -0400
-Message-ID: <20260806130655.335225-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] netfilter: nf_tables: clone set on flush only
+Date: Thu,  6 Aug 2026 09:06:52 -0400
+Message-ID: <20260806130652.335098-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072953-hamburger-filter-279e@gregkh>
-References: <2026072953-hamburger-filter-279e@gregkh>
+In-Reply-To: <2026073005-coerce-divisibly-805e@gregkh>
+References: <2026073005-coerce-divisibly-805e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+From: Pablo Neira Ayuso <pablo@netfilter.org>
 
-[ Upstream commit c4c01c4fd4a3916ffdfb35ad9f511c48e289f51c ]
+[ Upstream commit fb7fb4016300ac622c964069e286dc83166a5d52 ]
 
-The name of the enum to hold the mapping of parameter buffer versions
-have a typo in the name, correct it. While this is a uAPI header the
-impact should be minimal as the enum is only used as a collection for
-the one version number supported.
+Syzbot with fault injection triggered a failing memory allocation with
+GFP_KERNEL which results in a WARN splat:
 
-Fixes: e9d05e9d5db1 ("media: uapi: rkisp1-config: Add extensible params format")
-Cc: stable@vger.kernel.org
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Link: https://patch.msgid.link/20260501190339.3449193-1-niklas.soderlund+renesas@ragnatech.se
-Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ Adjusted context to keep the tree's `RKISP1_EXT_PARAM_BUFFER_V1 = 1` initializer instead of upstream's `V4L2_ISP_PARAMS_VERSION_V1`, which does not exist in this tree. ]
+iter.err
+WARNING: net/netfilter/nf_tables_api.c:845 at nft_map_deactivate+0x34e/0x3c0 net/netfilter/nf_tables_api.c:845, CPU#0: syz.0.17/5992
+Modules linked in:
+CPU: 0 UID: 0 PID: 5992 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full)
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 02/12/2026
+RIP: 0010:nft_map_deactivate+0x34e/0x3c0 net/netfilter/nf_tables_api.c:845
+Code: 8b 05 86 5a 4e 09 48 3b 84 24 a0 00 00 00 75 62 48 8d 65 d8 5b 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc cc e8 63 6d fa f7 90 <0f> 0b 90 43
++80 7c 35 00 00 0f 85 23 fe ff ff e9 26 fe ff ff 89 d9
+RSP: 0018:ffffc900045af780 EFLAGS: 00010293
+RAX: ffffffff89ca45bd RBX: 00000000fffffff4 RCX: ffff888028111e40
+RDX: 0000000000000000 RSI: 00000000fffffff4 RDI: 0000000000000000
+RBP: ffffc900045af870 R08: 0000000000400dc0 R09: 00000000ffffffff
+R10: dffffc0000000000 R11: fffffbfff1d141db R12: ffffc900045af7e0
+R13: 1ffff920008b5f24 R14: dffffc0000000000 R15: ffffc900045af920
+FS:  000055557a6a5500(0000) GS:ffff888125496000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fb5ea271fc0 CR3: 000000003269e000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __nft_release_table+0xceb/0x11f0 net/netfilter/nf_tables_api.c:12115
+ nft_rcv_nl_event+0xc25/0xdb0 net/netfilter/nf_tables_api.c:12187
+ notifier_call_chain+0x19d/0x3a0 kernel/notifier.c:85
+ blocking_notifier_call_chain+0x6a/0x90 kernel/notifier.c:380
+ netlink_release+0x123b/0x1ad0 net/netlink/af_netlink.c:761
+ __sock_release net/socket.c:662 [inline]
+ sock_close+0xc3/0x240 net/socket.c:1455
+
+Restrict set clone to the flush set command in the preparation phase.
+Add NFT_ITER_UPDATE_CLONE and use it for this purpose, update the rbtree
+and pipapo backends to only clone the set when this iteration type is
+used.
+
+As for the existing NFT_ITER_UPDATE type, update the pipapo backend to
+use the existing set clone if available, otherwise use the existing set
+representation. After this update, there is no need to clone a set that
+is being deleted, this includes bound anonymous set.
+
+An alternative approach to NFT_ITER_UPDATE_CLONE is to add a .clone
+interface and call it from the flush set path.
+
+Reported-by: syzbot+4924a0edc148e8b4b342@syzkaller.appspotmail.com
+Fixes: 3f1d886cc7c3 ("netfilter: nft_set_pipapo: move cloning of match info to insert/removal path")
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Signed-off-by: Florian Westphal <fw@strlen.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/uapi/linux/rkisp1-config.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ include/net/netfilter/nf_tables.h |  2 ++
+ net/netfilter/nf_tables_api.c     | 10 +++++++++-
+ net/netfilter/nft_set_pipapo.c    | 11 +++++++++--
+ 3 files changed, 20 insertions(+), 3 deletions(-)
 
-diff --git a/include/uapi/linux/rkisp1-config.h b/include/uapi/linux/rkisp1-config.h
-index 2d995f3c1ca37..963c7a0550159 100644
---- a/include/uapi/linux/rkisp1-config.h
-+++ b/include/uapi/linux/rkisp1-config.h
-@@ -1487,11 +1487,11 @@ struct rkisp1_ext_params_compand_curve_config {
- 	sizeof(struct rkisp1_ext_params_compand_curve_config))
- 
- /**
-- * enum rksip1_ext_param_buffer_version - RkISP1 extensible parameters version
-+ * enum rkisp1_ext_param_buffer_version - RkISP1 extensible parameters version
+diff --git a/include/net/netfilter/nf_tables.h b/include/net/netfilter/nf_tables.h
+index aac4e1c543008..4056d22724873 100644
+--- a/include/net/netfilter/nf_tables.h
++++ b/include/net/netfilter/nf_tables.h
+@@ -302,11 +302,13 @@ struct nft_set_elem {
   *
-  * @RKISP1_EXT_PARAM_BUFFER_V1: First version of RkISP1 extensible parameters
+  * @NFT_ITER_READ: read-only iteration over set elements
+  * @NFT_ITER_UPDATE: iteration under mutex to update set element state
++ * @NFT_ITER_UPDATE_CLONE: clone set before iteration under mutex to update element
   */
--enum rksip1_ext_param_buffer_version {
-+enum rkisp1_ext_param_buffer_version {
- 	RKISP1_EXT_PARAM_BUFFER_V1 = 1,
+ enum nft_iter_type {
+ 	NFT_ITER_UNSPEC,
+ 	NFT_ITER_READ,
+ 	NFT_ITER_UPDATE,
++	NFT_ITER_UPDATE_CLONE,
  };
  
-@@ -1563,7 +1563,7 @@ enum rksip1_ext_param_buffer_version {
-  *	+---------------------------------------------------------------------+
-  *
-  * @version: The RkISP1 extensible parameters buffer version, see
-- *	     :c:type:`rksip1_ext_param_buffer_version`
-+ *	     :c:type:`rkisp1_ext_param_buffer_version`
-  * @data_size: The RkISP1 configuration data effective size, excluding this
-  *	       header
-  * @data: The RkISP1 extensible configuration data blocks
+ struct nft_set;
+diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+index fb469623f9cf6..2c894a7d8a401 100644
+--- a/net/netfilter/nf_tables_api.c
++++ b/net/netfilter/nf_tables_api.c
+@@ -655,6 +655,11 @@ static void nft_map_catchall_deactivate(const struct nft_ctx *ctx,
+ 	}
+ }
+ 
++/* Use NFT_ITER_UPDATE iterator even if this may be called from the preparation
++ * phase, the set clone might already exist from a previous command, or it might
++ * be a set that is going away and does not require a clone. The netns and
++ * netlink release paths also need to work on the live set.
++ */
+ static void nft_map_deactivate(const struct nft_ctx *ctx, struct nft_set *set)
+ {
+ 	struct nft_set_iter iter = {
+@@ -7396,9 +7401,12 @@ static int nft_set_catchall_flush(const struct nft_ctx *ctx,
+ 
+ static int nft_set_flush(struct nft_ctx *ctx, struct nft_set *set, u8 genmask)
+ {
++	/* The set backend might need to clone the set, do it now from the
++	 * preparation phase, use NFT_ITER_UPDATE_CLONE iterator type.
++	 */
+ 	struct nft_set_iter iter = {
+ 		.genmask	= genmask,
+-		.type		= NFT_ITER_UPDATE,
++		.type		= NFT_ITER_UPDATE_CLONE,
+ 		.fn		= nft_setelem_flush,
+ 	};
+ 
+diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
+index 4a6561ba6061c..7c8d28a031ad5 100644
+--- a/net/netfilter/nft_set_pipapo.c
++++ b/net/netfilter/nft_set_pipapo.c
+@@ -2199,13 +2199,20 @@ static void nft_pipapo_walk(const struct nft_ctx *ctx, struct nft_set *set,
+ 	const struct nft_pipapo_match *m;
+ 
+ 	switch (iter->type) {
+-	case NFT_ITER_UPDATE:
++	case NFT_ITER_UPDATE_CLONE:
+ 		m = pipapo_maybe_clone(set);
+ 		if (!m) {
+ 			iter->err = -ENOMEM;
+ 			return;
+ 		}
+-
++		nft_pipapo_do_walk(ctx, set, m, iter);
++		break;
++	case NFT_ITER_UPDATE:
++		if (priv->clone)
++			m = priv->clone;
++		else
++			m = rcu_dereference_protected(priv->match,
++						      nft_pipapo_transaction_mutex_held(set));
+ 		nft_pipapo_do_walk(ctx, set, m, iter);
+ 		break;
+ 	case NFT_ITER_READ:
 -- 
 2.53.0
 
