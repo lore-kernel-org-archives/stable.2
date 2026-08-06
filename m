@@ -1,192 +1,122 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11EC3914E9
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 14:56:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471613A83B1;
+	Thu,  6 Aug 2026 14:59:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786028195; cv=none; b=OQfkQtC+pbTAkwwyu3u7KiU7ZykI6stNXcq/QqF6RM5406I+Ja/pQsDxXJp75aOL0rgpCjyUzfXdo9eel3DKvbbUx53MEZXZnF0dZShbjoEqpzpeo38lpPAPGzTwudJUoBdQOvSSnZjoa/46e159B32pfqe9hh0PNCOsZ1PsDx8=
+	t=1786028378; cv=none; b=TkLYArzu7Q6G6ODGKJfm/oWR/x47oj+5st1h205l6qoRvBlB5YmikTZr1YWPYRYJItbJAOavN0Fn7AphKu89W94bTFAtVeKnQomqV3HFqdn0jXaISPdSxQPhU1jRjKISo1YojB5XMESyDaOTd+T2V10Ga2zKpIkiaF8EvBRISK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786028195; c=relaxed/simple;
-	bh=r/Vkb1+BMlYNY1tJcqhwNh3VEVI3USzDIKSso9O7Uts=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hHc2ILyVtOTFX9J2NqoKxWx06VKBbfIVjvkVtd1LhKnIG/sSapVOMVAO7C/tpaCTGqC26HyHqEHYtOtO7YN/mU26bCYSdvR7ey4NuZoFyYJjK2kOFDrzGbtNpaR2ylRO9cpMuzqgpRQeHuSg276sQN6cZYg6DpvNXNHWrgStTi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V7eOxczH; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786028378; c=relaxed/simple;
+	bh=HMJ+Xnv63UTERQ1bM497zM2GJC6AY20Q8TYOOZqTvNU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LCNa71C8VwmRk+NuZeufrPmW9FZfDIDCZStYds5iJVQ1Dn8ZRxq7BuBjQCNz1C2m1prghfD8n/pzWXf6oKFdfhud78TOOLel75Cvhy2uewvnPMzgw+dVHGy9YNCLY48ltQt1cqc63dSJBNan18wN6+ebq3rS+LFcAG63zJhBxUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UdH/8crR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V7eOxczH"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso2041332a91.3
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 07:56:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786028192; x=1786632992; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RnK5eS+Q5x9auDCqli6J0bfpL+fgyXWFA73Li6vz2dc=;
-        b=V7eOxczHA2s8KSscwV+JGqXuxLnlwH5Le0ehkTRTXS8vwIxLfMrQXYexRJIni50CWv
-         2/kVIk9ht+GkXBnQKvpa1IAQw8FEIIZk6VSkB347QMbvSksC4VmdkI5xsfoKtWygtHQr
-         WCwvAmtAz7m5OhAQBsuW8DUdBYRlmtSM9iAzV71HTTd5OLXNqW8mHaKTT7dGOOT/H8PC
-         +TBlIOr9CkT/110X2XkBsuD8QJoNC0mo0pfUoomXqlqmXafz93TZg3bOWe9wfYBsTM+H
-         lUc8CFp1V6px+6nToEOiPaDoEnbPiKJTytp9jmJmYnDWcR5fpA0wek36HTqEKj8wYWaT
-         s5/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786028192; x=1786632992;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RnK5eS+Q5x9auDCqli6J0bfpL+fgyXWFA73Li6vz2dc=;
-        b=rmtCss0/8X4w3JBmGlbiGQegGs4jHC/Y8O8oLbs3TI+gE2dixgY1OBZcvUGRXqj6TD
-         iG2LEAo6ps9xaqK3pwz7UGFJmjjwdHcjHg+HsTk1wgdhHmf+Oe3E+WGLr8KeCNeCky+J
-         3ag6Oa84cYrhE32I5wxv5gNMG7PHJCbloY2G8/CwmDyj6XUA9NCbHJdLVizHVp3rBGHS
-         gGWecmYhx+epqRi9AuF1oUjXoIo7YVWN6t3+efKdV8xbDA8ZXKk99h0TWKJVpuHDK/GS
-         GLjnu3dkUTqQiO9/TaO3+q1j1GElPup92fz+H6g7M3xWcWEYExi1dv9niH/bGAF4sq3Q
-         gRpg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr3drQ92drHQX+kg9o9SANRbcY486A+6godpw+4a85eiv6WxqFIIOBKJ6Voe3hWUk2ARWf9KvY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjkXOwMVVLeErZJz1KsLwyMBsZc6Na7FpUnAHh+5EEKXLnN/v6
-	IQa4h+tpzwae36kG9t5Njnxsc8Etl22cA0rXz3tEtVG/tpZXOFNSYgDww9LDyFeI
-X-Gm-Gg: AR+sD10Lh5qa/GZBrTDRoPdHt+iELYPzpFb17Pp6ChaufmtwWLVXHXN5W/zRH9rMa69
-	3f63Xuc+hSb9Hpdc1AmCcSmXawvRxKY2fjIZ2xU/Xa+vbAirva+w1kcUA93aNQHCWbc8WCb1YQ7
-	ipEGjlMEQvA+v3DG6bt3Z5lBCfbl9e2xdejguScwa9/MFrdmSeSmZMWnusos136PvG1FQZjPYuo
-	RuKzeI7EJ2urab/5qlvPaf2itX6yjqsHDyf671WNn+HNPZk+pTWYK2bZxOJFR3ofCLFznVBZIuz
-	qn6aJ/EnQecAsE63Hfr7g7VdICVlEdX6CHGfCR+5NHBc4KJ5fRdbNVCF3Q2jZJWuTgPQF5GWBVL
-	5Xv+MOA6u2CiLlsM0LxuEQSk4LijcGoRsMGhUFRYX1tXg01E3UN24cyCbQe53JvrMzqpD0x8jw7
-	FhI9OvRxopseo8XzJVnerajFZ5IbAyB898QDQomeKWVhkWqkmHsjzXLlgR5rn0fIjVVnZrfkZA1
-	SkJZ/yBFTeOxYL8w7HrSYabXI7+xpKPV+djBYQfGiGOqBqsr8hdaAKPwe3G+QhI
-X-Received: by 2002:a17:90a:c106:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-3909d8d5993mr2367502a91.16.1786028192196;
-        Thu, 06 Aug 2026 07:56:32 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903d183e66sm3069178a91.0.2026.08.06.07.56.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 07:56:31 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Even Xu <even.xu@intel.com>,
-	Xinpeng Sun <xinpeng.sun@intel.com>
-Cc: Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>,
-	Sashiko AI <sashiko-bot@kernel.org>
-Subject: [PATCH v3] HID: intel-thc-hid: intel-quickspi: bound GET_REPORT response to the caller buffer
-Date: Thu,  6 Aug 2026 23:56:19 +0900
-Message-ID: <20260806145619.3386809-1-sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260806142321.3383353-1-sammiee5311@gmail.com>
-References: <20260806142321.3383353-1-sammiee5311@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UdH/8crR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E05E21F000E9;
+	Thu,  6 Aug 2026 14:59:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786028376;
+	bh=HAc/ixc4pB4rU1LFa+/tJWEikmUaJ8YfmcAssahKdXY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UdH/8crR1zBkgdsKKbbyWfRIr93uQyaJXMfnN+YS5odvmmolZqutHTLd4lWy1mIwr
+	 iHHT7PDxB4iAxe3D6/SP9hhVOJtxT4vv/P2bq/dbEyaWoNQlmDcfOwq+8LKMxA/aCW
+	 6jEkn60LOxae7VFAQI9NsIemji1q8UKxK4OP2yrQQDRP51NYRms5yec9m/6iO6xJ8t
+	 gsLQ4xrjJPcGwgI0tYeFeuhlnc4lj5Y3sSXF2SR7xuJo9fMwLjsAFeQY+x5jv4CpEO
+	 nhM4VZzFJ0tBJ9ysQnPDuZiy3lIcX9d98s/2O7g2lkm0YFxDElGe3Y+0YGwDVoHeEG
+	 X8BMUraYAFiaA==
+Message-ID: <35bead51-e724-41ee-bea3-cb930c11869d@kernel.org>
+Date: Thu, 6 Aug 2026 16:59:32 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/huge_memory: let special huge VMAs bypass the THP
+ policy check
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@redhat.com>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ Peter Xu <peterx@redhat.com>, Alex Williamson <alex.williamson@redhat.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260805055544.1568534-1-clg@redhat.com>
+ <0e52d0b4-064d-4602-8e7b-5744b05f24ea@kernel.org> <anSZpAjt84Pn7O_b@lucifer>
+ <5b7e84f5-2007-458c-910f-7a6e1e3d3eab@redhat.com>
+ <cf533fc1-db58-4c6b-a206-a8dac3fff391@kernel.org>
+ <363d24da-7324-4ea6-addc-453ef468f1bb@redhat.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <363d24da-7324-4ea6-addc-453ef468f1bb@redhat.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-quickspi_hid_raw_request() receives the caller's buffer length in len, but
-quickspi_get_report() never sees it and copies the whole device-supplied
-response into buf regardless:
+On 8/6/26 16:53, Cédric Le Goater wrote:
+> On 8/6/26 16:47, David Hildenbrand (Arm) wrote:
+>> On 8/6/26 16:42, Cédric Le Goater wrote:
+>>>
+>>> There are quite a few of these in the code in fact.
+>>>
+>>>
+>>> It's a one liner. Good enough to raise the discussion no ?
+>>
+>> Just to be clear: Unchecked AI slop in any form is making my life worse every
+>> day.
+>>
+> 
+> Point taken. This is not the case here. There is quite a lot of work
+> behind this from several people on the analysis.
+The problem is that any sign of slop makes one assume that possibly everything
+is slop and you don't know what to even believe anymore. :)
 
-    memcpy(buf, qsdev->report_buf, qsdev->report_len);
-
-qsdev->report_len comes from the input report the touch controller returns,
-while buf is sized to whatever the caller asked hidraw for through
-HIDIOCGFEATURE or HIDIOCGINPUT.  A response larger than that overflows buf
-with device-controlled content.
-
-The intel-quicki2c sibling already passes the caller length down to
-quicki2c_get_report() and validates the response against it before the
-copy.  Do the same here.
-
-Fixes: 4138f21115ae ("HID: intel-thc-hid: intel-quickspi: Complete THC QuickSPI driver")
-Suggested-by: Sashiko AI <sashiko-bot@kernel.org>
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
----
-v3: added READ_ONCE() around the qsdev->report_len read the v2 bound uses -
-    quickspi_handle_input_data() writes this field from IRQ context with no
-    locking, so per kernel convention for a lockless shared read it needs
-    READ_ONCE() regardless of how many times the value is used afterward.
-    Raised by the Sashiko AI review of v2.  No other change.
-
-v2: fixed a Time-of-Check-to-Time-of-Use race the Sashiko AI review of v1
-    pointed out - the new bound read qsdev->report_len once for the check
-    and again for the memcpy, so a concurrent update between the two could
-    have overflowed buf with the checked-against-a-smaller-value length.
-    Read it once into a local and use that for both.
-
-v1: https://lore.kernel.org/all/20260806133838.3378362-1-sammiee5311@gmail.com/
-
- .../intel-thc-hid/intel-quickspi/quickspi-hid.c  |  2 +-
- .../intel-quickspi/quickspi-protocol.c           | 16 +++++++++++++---
- .../intel-quickspi/quickspi-protocol.h           |  2 +-
- 3 files changed, 15 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
-index 91d5807b4a83..a60a0a7f16aa 100644
---- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
-+++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-hid.c
-@@ -61,7 +61,7 @@ static int quickspi_hid_raw_request(struct hid_device *hid,
- 
- 	switch (reqtype) {
- 	case HID_REQ_GET_REPORT:
--		ret = quickspi_get_report(qsdev, rtype, reportnum, buf);
-+		ret = quickspi_get_report(qsdev, rtype, reportnum, buf, len);
- 		break;
- 	case HID_REQ_SET_REPORT:
- 		ret = quickspi_set_report(qsdev, rtype, reportnum, buf, len);
-diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-index cb19057f1191..9dacfdf7aff6 100644
---- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-+++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-@@ -342,10 +342,12 @@ int reset_tic(struct quickspi_device *qsdev)
- }
- 
- int quickspi_get_report(struct quickspi_device *qsdev,
--			u8 report_type, unsigned int report_id, void *buf)
-+			u8 report_type, unsigned int report_id, void *buf,
-+			u32 buf_len)
- {
- 	int rep_type;
- 	int ret;
-+	u32 report_len;
- 
- 	if (report_type == HID_INPUT_REPORT) {
- 		rep_type = GET_INPUT_REPORT;
-@@ -372,9 +374,17 @@ int quickspi_get_report(struct quickspi_device *qsdev,
- 	}
- 	qsdev->get_report_cmpl = false;
- 
--	memcpy(buf, qsdev->report_buf, qsdev->report_len);
-+	/* quickspi_handle_input_data() updates this from IRQ context. */
-+	report_len = READ_ONCE(qsdev->report_len);
-+	if (report_len > buf_len) {
-+		dev_err_once(qsdev->dev, "Get report response too big, %u vs %u\n",
-+			     report_len, buf_len);
-+		return -EINVAL;
-+	}
-+
-+	memcpy(buf, qsdev->report_buf, report_len);
- 
--	return qsdev->report_len;
-+	return report_len;
- }
- 
- int quickspi_set_report(struct quickspi_device *qsdev,
-diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h
-index 775e29c1ed13..8a2338bee808 100644
---- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h
-+++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.h
-@@ -12,7 +12,7 @@ struct quickspi_device;
- 
- void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len);
- int quickspi_get_report(struct quickspi_device *qsdev, u8 report_type,
--			unsigned int report_id, void *buf);
-+			unsigned int report_id, void *buf, u32 buf_len);
- int quickspi_set_report(struct quickspi_device *qsdev, u8 report_type,
- 			unsigned int report_id, void *buf, u32 buf_len);
- int quickspi_get_report_descriptor(struct quickspi_device *qsdev);
 -- 
-2.43.0
+Cheers,
 
+David
