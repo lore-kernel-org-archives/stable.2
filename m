@@ -1,51 +1,40 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73CF377A92;
-	Thu,  6 Aug 2026 04:52:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3AB1434CFD0;
+	Thu,  6 Aug 2026 05:05:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785991963; cv=none; b=skxW6KAPvdLAusVf8YZaH1W3egPV2AlGfQShCyY6JPVwHPmRAkI66TkondMAuKZXM5kPYCET4PwiTTDpS4rfWbQ2Io8NW8j+jEHs9ToWATdV+0jESywP9nYQveAQhGjRTEtyKL6y0ylqsndiBWAzPA5JszyQVvCtglxlngYUZPE=
+	t=1785992747; cv=none; b=eQTVJ/HZTS+G7cO6ZBret6ltsGwGNU8vuH0vcp7PaxRv33r9ZQ5Vdn3KzQFnteqe9txST0x/wiIs0x5tgSEtzVaEgQ8xQfzxclSts5qCHV+nmkOiPqTJO+eBweyUPGvk1SAZjR1H1AYbf/Wk6IXTGlhQlCGCTwP84hWbjbsm3Rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785991963; c=relaxed/simple;
-	bh=TiJfNb66mP2MyjcByDXsllYoqfRCX/7hRV+xTd9aXfs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Uvp70+ShbYphD6maNZjfNG3qmruStL+I00bdsFfrFTEIIgOAqNv3X7JuOKmV50yH4et34ByZq1AiAIin22VQuh9Oz4RTiuDWlrT3PpMN/BaUsfgdSV1xM7DqJnXDCemMepj35NwGw5neMrVvOq9d4EK7qeoUBIAa/+e/5RkBKug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=lNDcclMi; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="lNDcclMi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1785991897;
-	bh=pPf+IRtN+qJnqFd947Y1uPTqZ/TpQ1LSJUGm4TIevt0=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=lNDcclMiwdaWHTCS4znPKlqlZnynG976pKISN6UHK2hO2i07tTk/Me71xCzrzCnWl
-	 GL4NXYGYu9cAjNK/qkbq4mYlMFITSZ8d31kEReSzhpWCRp+EXcAzwDMHX9CZ05dwdQ
-	 oXkUwjnPL5HHVIJbGTLtaN8im0CHKprqA18ybPzI=
-X-QQ-mid: esmtpgz15t1785991889tc3be0055
-X-QQ-Originating-IP: gcAnknkBjeW/oTv++sm6mM2age806mXOFveq9vNK/a0=
-Received: from hepeiyang-vm.wu.lxd ( [218.94.142.72])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 06 Aug 2026 12:51:27 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 7100674086777323356
-EX-QQ-RecipientCnt: 10
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-To: kevin.tian@intel.com,
-	jgg@ziepe.ca,
-	joro@8bytes.org,
-	will@kernel.org,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: robin.murphy@arm.com,
-	steven.sistare@oracle.com,
-	stable@vger.kernel.org,
-	Peiyang He <peiyang_he@smail.nju.edu.cn>
-Subject: [PATCH] iommu/iommufd: Fix NULL pointer deref in iommufd_ioas_change_process when racing with iopt_map_file_pages
-Date: Thu,  6 Aug 2026 12:50:59 +0800
-Message-ID: <7344B7A7B9957A65+20260806045059.1884737-1-peiyang_he@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1785992747; c=relaxed/simple;
+	bh=mEj63TRaST/oKqFY1pmIZ6Sri3W/nvqY7ej7DXbr/ZI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=K58GOQEloQ8zGZsYVXPCd/ClTPpt6X3K+lkd7ce1TfPZo8axDjR3mlaULp4hUa8UJwbCJ3mDQ3nJi2gy4CX7SSuA+F4K2gbczU1MrHMHZbtcVFA9I64C6ZAnf7JFL+1KBb+Ak2TNW3N2YDUtnIqhf5fT6GMdUHKh6t4hB3SdSic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDnv_wOFnRqf5lsAA--.30629S3;
+	Thu, 06 Aug 2026 13:05:19 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgBXyKENFnRqQGiSAw--.12767S2;
+	Thu, 06 Aug 2026 13:05:17 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-wpan@vger.kernel.org
+Cc: Stefan Schmidt <stefan@datenfreihafen.org>,
+	Alexander Aring <alex.aring@gmail.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Varka Bhadram <varkab@cdac.in>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ieee802154: cc2520: fix FIFOP work use-after-free
+Date: Thu,  6 Aug 2026 05:03:28 +0000
+Message-Id: <20260806050328.422480-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,135 +42,157 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: MxQ7rY5OAZZvd9yc5E5OHCVkUPvYeIJsDcrtIRgZ9PU52gP53VTyqdXu
-	deZyoDZRmQT59/FkbLX9L2l2xUU37bnc1X8MzQUeJvCADOehPMjuMtQj3hclxZv9W+yK7i2
-	LgmwaN2j10s84JkaZK2zc9lyt5ye3kocP5Y6HIKKq9iv3VessYCCkQtOmX24DPoXb8LNM1x
-	mznFso6uGmF18wCj9BlakA3WMK8qV/fcWHRfPFw5gGWokfLAF2pstJnIy8BHu9GCfGFOSBS
-	jjkdFfL6tJLapQRsZdup4QfpKodwRZ96+1UqW/GTD9m7m6Sd6HE6AiOWf9BkhynGyox5/np
-	ov1gD/gUOWuNaU+euy4Ro7ABk8WATvtT0u8JsT94rvo3EVHLtGxQngznQ1oeEbXQZeRMEUT
-	KhBKHiTuD+XRaSSd3B4glggPXS2dzr4yD+uFGbK1Yua61v7dSQ9i/DgTwARcobSTXcN0zdc
-	yFFPJ5k1DmFZXKDzEsM7z9H2JnxiAsf77Ip9VwJjBY+qtzsCIe/b8aLEYwftlgQ8ATTNvLC
-	W+7cfQWDrW28A7LtIJyHwZObBIXrdEmoAjiD4NGb8JCBQXupLwhmrvTxEAJ61d4ITe9Cny8
-	mnpJZYlw4n1cIx5gG2E9wrxhU9JU92ccNvZ9PcfCJvMKq5AKJZNgzrYmM69KgqVWnaBY1ok
-	DD5Zx5w8vEeR86xN9VvwB0GZHeudFdjexcbO+wqsr2GuUyHNcEa1UFpJUSz0MNFjmggBZH4
-	fJGSnH5Y1HEe5+iptfVpLmSBxqQqH8wF/U5EHFwYbz8k1Bcg3tElQ8Jhk0JMbK/lRcT8PXK
-	TdNHzFL/fAd8YhjQvvq2zhuHVH0e5Ks6YjM2ah/cNIKcW4pBEjXpxTmwMzp88D8hU3iprli
-	Z16KIrLyt5E6bDUs3ZSAh2xk1+Vs3qty/ky+wmEDB4XSmKu3DHLIgWCIvcTjfrZgmu1yqa5
-	5+QUe1fAN9+5RjkguNr8VzHBlurZM8sERPtxlu5djXEH9c4yMjDAHaTF6V3AqLo/DcpjF1K
-	nI/T20UYDZ1kspxO/1qYfjTPBhFgiydf1h16J9o9NYe83vxoVrRVJ8SiG1HvM=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+X-CM-TRANSID:yy_KCgBXyKENFnRqQGiSAw--.12767S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?zD6DNgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBHzRKAK4G0UH2H3fB4lQ+lr007xFaOoG+XTwS7zUjcLREga
+	4iWHFLcsO4Je6co+FqOp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxCw4UJw1fXw15Gw4rCFWUWrX_yoWrCF47pa
+	nxWa93Kry0qw40k39xJF18WFn5Ca18Kay8Ca4xGas7AwnxAr90qr1SyFy0vFWrJFyvvayS
+	9rs8Jr45uan8AFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-iommufd_ioas_change_process() iterates every IOAS area while only
-holding every IOAS iova_rwsem, so it assumes every area has a non-NULL
-pages pointer. That assumption can be false when it runs concurrently
-with iopt_map_file_pages().
+The FIFOP interrupt handler queues cc2520_fifop_irqwork.  On
+removal, cc2520_remove() only flushes the work.  The devm-managed
+FIFOP IRQ remains active until after ->remove() returns and can queue
+the work again after that flush, allowing it to run after the private
+data is released.
 
-iopt_map_pages() executes in two phases. It first creates the area and
-inserts it into the interval tree under iova_rwsem, with area->pages
-still NULL. It then drops iova_rwsem and later fills area->pages
-under domains_rwsem. This leaves a window between area creation and
-area->pages fill where a concurrent iommufd_ioas_change_process()
-can observe the area and dereference a NULL area->pages pointer,
-leading to a NULL pointer dereference:
+Release the FIFOP IRQ and cancel the work before unregistering and
+freeing the hardware.  Keep the SFD IRQ active while
+ieee802154_unregister_hw() flushes the mac802154 workqueue: synchronous
+TX waits in cc2520_tx() for the completion signalled by the SFD handler.
+Release the SFD IRQ afterwards.  Destroy buffer_mutex last, since
+unregistering can invoke the driver's stop callback, which uses it.
 
-BUG: kernel NULL pointer dereference, address: 00000000000000c0
-#PF: supervisor read access in kernel mode
-#PF: error_code(0x0000) - not-present page
-PGD 4b655067 P4D 4b655067 PUD 0 
-Oops: Oops: 0000 [#1] SMP NOPTI
-CPU: 0 UID: 0 PID: 11841 Comm: syz.1.628 Not tainted 7.1.0 #3 PREEMPT(full) 
-Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:iommufd_ioas_change_process+0x419/0xd50 drivers/iommu/iommufd/ioas.c:538
-Code: 48 89 c3 48 85 c0 0f 84 cc 00 00 00 e8 10 f5 cb fd 48 8d 7b 68 e8 a7 b5 eb fd 48 8b 6b 68 48 8d bd c0 00 00 00 e8 17 b2 eb fd <8b> ad c0 00 00 00 bf 01 00 00 00 89 ee e8 85 ef cb fd 83 fd 01 74
-RSP: 0018:ffffc90015c17d28 EFLAGS: 00010246
-RAX: ffff8880186d5328 RBX: ffff88801d25e240 RCX: 0000000080000000
-RDX: 00000000000002d7 RSI: ffffffff83ba9e10 RDI: 00000000000000c0
-RBP: 0000000000000000 R08: ffffffff8e781eb8 R09: 0000000000000000
-R10: 00000000000000c0 R11: ffffffff83ba9e29 R12: ffff88802e216008
-R13: ffff88802e216000 R14: 0000000000000001 R15: 0000000000000000
-FS:  00007f4aea3f66c0(0000) GS:ffff8880b1fa1000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00000000000000c0 CR3: 000000004b75c000 CR4: 0000000000350ef0
-Call Trace:
- <TASK>
- iommufd_fops_ioctl+0x287/0x400 drivers/iommu/iommufd/main.c:533
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x120/0x170 fs/ioctl.c:583
- x64_sys_call+0x1092/0x1fb0 arch/x86/include/generated/asm/syscalls_64.h:17
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x10a/0x680 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f4aec1a82bd
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f4aea3f6018 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f4aec436090 RCX: 00007f4aec1a82bd
-RDX: 0000200000000180 RSI: 0000000000003b92 RDI: 0000000000000003
-RBP: 00007f4aec250295 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f4aec436128 R14: 00007f4aec436090 R15: 00007ffd04ef23e0
- </TASK>
-Modules linked in:
-CR2: 00000000000000c0
----[ end trace 0000000000000000 ]---
-RIP: 0010:iommufd_ioas_change_process+0x419/0xd50 drivers/iommu/iommufd/ioas.c:538
-Code: 48 89 c3 48 85 c0 0f 84 cc 00 00 00 e8 10 f5 cb fd 48 8d 7b 68 e8 a7 b5 eb fd 48 8b 6b 68 48 8d bd c0 00 00 00 e8 17 b2 eb fd <8b> ad c0 00 00 00 bf 01 00 00 00 89 ee e8 85 ef cb fd 83 fd 01 74
-RSP: 0018:ffffc90015c17d28 EFLAGS: 00010246
-RAX: ffff8880186d5328 RBX: ffff88801d25e240 RCX: 0000000080000000
-RDX: 00000000000002d7 RSI: ffffffff83ba9e10 RDI: 00000000000000c0
-RBP: 0000000000000000 R08: ffffffff8e781eb8 R09: 0000000000000000
-R10: 00000000000000c0 R11: ffffffff83ba9e29 R12: ffff88802e216008
-R13: ffff88802e216000 R14: 0000000000000001 R15: 0000000000000000
-FS:  00007f4aea3f66c0(0000) GS:ffff8880b1fa1000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00000000000000c0 CR3: 000000004b75c000 CR4: 0000000000350ef0
-----------------
-Code disassembly (best guess):
-   0:	48 89 c3             	mov    %rax,%rbx
-   3:	48 85 c0             	test   %rax,%rax
-   6:	0f 84 cc 00 00 00    	je     0xd8
-   c:	e8 10 f5 cb fd       	call   0xfdcbf521
-  11:	48 8d 7b 68          	lea    0x68(%rbx),%rdi
-  15:	e8 a7 b5 eb fd       	call   0xfdebb5c1
-  1a:	48 8b 6b 68          	mov    0x68(%rbx),%rbp
-  1e:	48 8d bd c0 00 00 00 	lea    0xc0(%rbp),%rdi
-  25:	e8 17 b2 eb fd       	call   0xfdebb241
-* 2a:	8b ad c0 00 00 00    	mov    0xc0(%rbp),%ebp <-- trapping instruction
-  30:	bf 01 00 00 00       	mov    $0x1,%edi
-  35:	89 ee                	mov    %ebp,%esi
-  37:	e8 85 ef cb fd       	call   0xfdcbefc1
-  3c:	83 fd 01             	cmp    $0x1,%ebp
-  3f:	74                   	.byte 0x74
+Install the SFD IRQ before cc2520_register(), so it is available when
+the netdev becomes visible.  Install the FIFOP IRQ afterwards, so a
+registration failure cannot schedule RX work while its hardware is
+being released.  Move ieee802154_free_hw() to the probe cleanup.
 
-Fix by mirroring the handling logic in iopt_unmap_iova_range(),
-i.e. return -EBUSY if area->pages is NULL.
+Found by an in-house static analysis tool.
 
-Fixes: 829ed626499c ("iommufd: Add IOMMU_IOAS_CHANGE_PROCESS")
+Fixes: 0da6bc8cc341 ("ieee802154: cc2520: adds driver for TI CC2520 radio")
 Cc: stable@vger.kernel.org
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- drivers/iommu/iommufd/ioas.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/net/ieee802154/cc2520.c | 51 ++++++++++++++++++++++++-----------------
+ 1 file changed, 30 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/iommu/iommufd/ioas.c b/drivers/iommu/iommufd/ioas.c
-index fed06c2b728e..71bffece84b5 100644
---- a/drivers/iommu/iommufd/ioas.c
-+++ b/drivers/iommu/iommufd/ioas.c
-@@ -535,6 +535,10 @@ int iommufd_ioas_change_process(struct iommufd_ucmd *ucmd)
- 		return rc;
+diff --git a/drivers/net/ieee802154/cc2520.c b/drivers/net/ieee802154/cc2520.c
+index 2b7034193..464e896e3 100644
+--- a/drivers/net/ieee802154/cc2520.c
++++ b/drivers/net/ieee802154/cc2520.c
+@@ -206,6 +206,8 @@ struct cc2520_private {
+ 	bool is_tx;			/* Flag for sync b/w Tx and Rx */
+ 	bool amplified;			/* Flag for CC2591 */
+ 	struct gpio_desc *fifo_pin;	/* FIFO GPIO pin number */
++	int fifop_irq;
++	int sfd_irq;
+ 	struct work_struct fifop_irqwork;/* Workqueue for FIFOP */
+ 	spinlock_t lock;		/* Lock for is_tx*/
+ 	struct completion tx_complete;	/* Work completion for Tx */
+@@ -857,12 +859,10 @@ static int cc2520_register(struct cc2520_private *priv)
+ 	dev_vdbg(&priv->spi->dev, "registered cc2520\n");
+ 	ret = ieee802154_register_hw(priv->hw);
+ 	if (ret)
+-		goto err_free_device;
++		goto err_ret;
  
- 	for_each_ioas_area(&ioas_list, index, ioas, area)  {
-+		if (!area->pages) {
-+			rc = -EBUSY;
-+			goto out;
-+		}
- 		if (area->pages->type != IOPT_ADDRESS_FILE) {
- 			rc = -EINVAL;
- 			goto out;
--- 
-2.43.0
+ 	return 0;
+ 
+-err_free_device:
+-	ieee802154_free_hw(priv->hw);
+ err_ret:
+ 	return ret;
+ }
+@@ -1116,21 +1116,10 @@ static int cc2520_probe(struct spi_device *spi)
+ 	if (ret)
+ 		goto err_hw_init;
+ 
+-	/* Set up fifop interrupt */
++	/* SFD completes synchronous TX; install before cc2520_register(). */
++	priv->sfd_irq = gpiod_to_irq(sfd);
+ 	ret = devm_request_irq(&spi->dev,
+-			       gpiod_to_irq(fifop),
+-			       cc2520_fifop_isr,
+-			       IRQF_TRIGGER_RISING,
+-			       dev_name(&spi->dev),
+-			       priv);
+-	if (ret) {
+-		dev_err(&spi->dev, "could not get fifop irq\n");
+-		goto err_hw_init;
+-	}
+-
+-	/* Set up sfd interrupt */
+-	ret = devm_request_irq(&spi->dev,
+-			       gpiod_to_irq(sfd),
++			       priv->sfd_irq,
+ 			       cc2520_sfd_isr,
+ 			       IRQF_TRIGGER_FALLING,
+ 			       dev_name(&spi->dev),
+@@ -1142,13 +1131,31 @@ static int cc2520_probe(struct spi_device *spi)
+ 
+ 	ret = cc2520_register(priv);
+ 	if (ret)
+-		goto err_hw_init;
++		goto err_free_sfd;
++
++	/* FIFOP arms the RX work; install after cc2520_register(). */
++	priv->fifop_irq = gpiod_to_irq(fifop);
++	ret = devm_request_irq(&spi->dev,
++			       priv->fifop_irq,
++			       cc2520_fifop_isr,
++			       IRQF_TRIGGER_RISING,
++			       dev_name(&spi->dev),
++			       priv);
++	if (ret) {
++		dev_err(&spi->dev, "could not get fifop irq\n");
++		goto err_unregister;
++	}
+ 
+ 	return 0;
+ 
++err_unregister:
++	ieee802154_unregister_hw(priv->hw);
++err_free_sfd:
++	devm_free_irq(&spi->dev, priv->sfd_irq, priv);
++	if (priv->hw)
++		ieee802154_free_hw(priv->hw);
+ err_hw_init:
+ 	mutex_destroy(&priv->buffer_mutex);
+-	flush_work(&priv->fifop_irqwork);
+ 	return ret;
+ }
+ 
+@@ -1156,11 +1163,13 @@ static void cc2520_remove(struct spi_device *spi)
+ {
+ 	struct cc2520_private *priv = spi_get_drvdata(spi);
+ 
+-	mutex_destroy(&priv->buffer_mutex);
+-	flush_work(&priv->fifop_irqwork);
++	devm_free_irq(&spi->dev, priv->fifop_irq, priv);
++	cancel_work_sync(&priv->fifop_irqwork);
+ 
+ 	ieee802154_unregister_hw(priv->hw);
++	devm_free_irq(&spi->dev, priv->sfd_irq, priv);
+ 	ieee802154_free_hw(priv->hw);
++	mutex_destroy(&priv->buffer_mutex);
+ }
+ 
+ static const struct spi_device_id cc2520_ids[] = {
 
