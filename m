@@ -1,292 +1,313 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89F311A683D
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 18:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7B3375F82
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 18:15:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786040035; cv=none; b=DHqfVvi2j1sPMG7r0F4bWFu1M7Ir7MulSIIiUUh6E2KBjiyLfnaHgdH10mJP7DSrQU9jwXGh79mQCzseR/uhZm3NTHmoskdVEb9N1H9L3k8wao/z32allqXlTRgvdlGiu1HUcBT6UqDUAITY4Zo36JXQdiNJ5TTl+W+ARwvjroA=
+	t=1786040135; cv=none; b=bm8GA6kfbPh7RtF72VzrXW6gNJng7eC0NUIiJhTrFYLNtttDOAQ4pDvCCRo+gHRuBFscPKqzOUQPZobPHV5UzpzJ6fGeol1RRoxM6HvhpIca3tqb9M+71rhP8neihFenaGqrFtmfT30/USvAytnKplfr3ZpJUAI0zw1JYZGUOHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786040035; c=relaxed/simple;
-	bh=MHQfaL1M2IKM3awQeLVb9os2j7/ojAX8zIZKXoQuB1g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ddM6c53lzbr6Vbs09parW/gYnM9L6DkMoH7tkuatITnUmFxOWEHedm+OGbBI+p0yKTjTDWJ1dD2TecgdphpdqhPeXQDvXm/JwysGNKFpS9FIlkaiJN4ftJZmMKBJwB0pmuDc27rttqA32VWz1n11/c4XapmuR4F+hX/RkItK8m8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Z+/9cu7t; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1786040135; c=relaxed/simple;
+	bh=Gxw0g0RRGV2WWXZn24VepuWr1o3Em88MOlPRHCcqBKg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TiDrlMgnH2Lq7dVTZJ8Rl5qk8Q0t/gEKE5rzh0adZSnp4rGTc4zhGN+c6RTsNFy+tClVy7fWHBNMzcOTj6Vp2WC25nMmzY4cuVH504dtSnNMZtOiEnJKiAVNgOz/PAD0Wn7Txv77rH3iP6zrxcrYMpHrJu3N7wwJ56cKSLjIiWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=pI/LcN2C; arc=none smtp.client-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Z+/9cu7t"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 676Hlmoa3355319;
-	Thu, 6 Aug 2026 18:13:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=fjOinF
-	4B5R06Aaza/+rfmG8y3ygy1sRWXvjr4ahcXUI=; b=Z+/9cu7tkudN6gIhPBamtI
-	w9ftsq52KCDxaX+AgnH9qe9hjyqZdTmZbhKsq+49hYB663bkTPtpcYYQOkxBe7F4
-	Gp4kCX05SbExHJcJOQnay4SydbyKj/kzTtKa2ldlv8vGLPhYIs4kfZEVR+iy+e7w
-	xsghhJpodiaBa62QJFVPX9aaxhKAFmIwySIOQOSBj9n0NqxP357G4EvaYaYyw0b9
-	hzdyBy83N8a/45RjgGAJKRfted0IbZsQmxqAkc4LjopQQbtUZJkqoK05svoOHEzf
-	WOZHDkGK35BKZU//Gg2WT9Lq5Khw4EuQdJqOfIleLCVROqzL1LcdacwYIKb6Nu6Q
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fvxyyr44g-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 06 Aug 2026 18:13:51 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 676HuJgV013134;
-	Thu, 6 Aug 2026 18:13:50 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fswtyv5sa-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 06 Aug 2026 18:13:50 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (smtpav04.dal12v.mail.ibm.com [10.241.53.103])
-	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 676IDnZ964094690
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 6 Aug 2026 18:13:49 GMT
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E6F355805E;
-	Thu,  6 Aug 2026 18:13:48 +0000 (GMT)
-Received: from smtpav04.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 82DEB5805A;
-	Thu,  6 Aug 2026 18:13:48 +0000 (GMT)
-Received: from [9.61.245.150] (unknown [9.61.245.150])
-	by smtpav04.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  6 Aug 2026 18:13:48 +0000 (GMT)
-Message-ID: <cc046eb2-6308-4a3d-96a9-74b8787a44cb@linux.ibm.com>
-Date: Thu, 6 Aug 2026 11:13:48 -0700
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="pI/LcN2C"
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-51bfe810293so13253981cf.1
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 11:15:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1786040130; x=1786644930; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=k5UoSi/kRUvJ5D9A+qAnQzZgG/DBYzn7/rZxUaSi0lw=;
+        b=pI/LcN2ChUPnhQc0qPXQLPv2eYAKoB+VKWN1uVaWkAmwaJMUVoljWQJeIBoWBsQ+bO
+         ljrXDLi2/m+uIAeqUqJb5/rOb/rvGhBjg9yItEq9j8QubKviMOt1tH8h4fRep2r2eGJb
+         UlL7gBxuqjJCBMVnm/gEijOGG/QgrZThiccYtE/fU+mFb1ERywGvaPSbInnyP0kp4q3O
+         nK5zCxylnWWhR39EQdLLmhBM/Fipjm5Kooae9iy9isDlYEpt084nONbe4GMOxfSXXKmP
+         Bax/sGHGxpAef+92bzEjLY9RRyIMvUN/oISA/lE5OqCUTSSP19Xz9fXEwJ2eKZtnS2IC
+         q2ZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786040130; x=1786644930;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k5UoSi/kRUvJ5D9A+qAnQzZgG/DBYzn7/rZxUaSi0lw=;
+        b=SyZkCV+L9ICtxHnCfWckg2zY+gS3oMeCaUrNyPRw9W60Q9jLHREegXWDcEv5leAqOo
+         8twBuljAP39Z7dZ9x1sTpnwo3SZ8oXfv25OzHhPaQ2ytskK2UbBBGy47DM4qHuHMwFlT
+         +tP6x83pI1J/bnK1l44rOAH9dGX2nsGOBjSfZdtBM59VQKBDunnixyjdXMa54nOmVgBh
+         pmwcKdss+nqB06dwwgvzfR7bwhKRDpPRAmKu3fhpX2EaxFpPzoA+gqfvt3NXPD9ar8Iw
+         C5FMPcPZixDNtM4RqxK/RC+IKvpV75a5xFJXo33Yvprm4C3C8A+G3huujLUwgxiNaj3X
+         keng==
+X-Forwarded-Encrypted: i=1; AHgh+RrvnxRyux3fN+ioXtbDYDDQ3oI654nLTcuNbqdLGFq88Esy1SFFDB65sPSYtcRuP7N9UKLBBVc=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yymyi53G9ldPIdaE42qrG81BFPj7/6VcBsSmR6e5HA5XVXB6Gci
+	e/IHlw7VTOEQJHY2/OJGPXtfnJ/QFPn0WgEg7Gzc4qsdLWeE6cNRE0qy7hk4mh53yGA=
+X-Gm-Gg: AR+sD13+y9ThKWlRk51iRmkZQ1yJssgixMokDyga84onhpLr7EThEPJZQtBFrwoU36x
+	YzP1ZyiWrk/8zzgd70d2PtY3S/ZsKOuCtFzjSxqXGWkt2gpDH86M6+qY5ynWXTxl6rWx6Pu3ynj
+	iGF4B/ZcYxEceBlD7tJx+brUcJYKYTYxGdW7DNW/DFtbu6kqP2S/eWVx5UNQax8rhgzDbxUP+Wp
+	6DV6q76MLpGg5BVTEbEwzkMkrDf2X6+Lj6WLlKXbqPf3jlri1YuBO53kVRuJOPtHjwNfAX+pIrt
+	W+rDY2OvrhZt6LXr/gOwex+kkbXSqj64ZOpNPUUuCK/BIwqAQCYitfO+1vGHVVc6zfcgnlqFDD7
+	cwQikabPrKEIGM6bK/2GwNA5oqLJBlJdFjzks2YctWthr9tXKHZ0o6+fCaxbhTyfN5MQo2PiNwH
+	n6izP9hQyqt0m4SCsK2SeN6lkdDPKkJa6VSTO9dxNuXGuOhoPeJdW7E063lp8=
+X-Received: by 2002:ac8:5d16:0:b0:51c:92a0:b2ca with SMTP id d75a77b69052e-52ce617f426mr167955401cf.34.1786040130400;
+        Thu, 06 Aug 2026 11:15:30 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-908800cb14csm57278926d6.48.2026.08.06.11.15.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 11:15:29 -0700 (PDT)
+Date: Thu, 6 Aug 2026 14:15:26 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
+	Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org,
+	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Karl Erik Hofseth <karl.e.hofseth@opoint.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] memcg: keep folio's objcg same as its node
+Message-ID: <anTPPr5hVV4aQLRD@cmpxchg.org>
+References: <20260806165813.2526415-1-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: FAILED: patch "[PATCH] KVM: s390: pci: Fix memory accounting for
- pinned/unpinned" failed to apply to 6.12-stable tree
-To: gregkh@linuxfoundation.org, borntraeger@linux.ibm.com,
-        mjrosato@linux.ibm.com, alifm@linux.ibm.com
-Cc: stable@vger.kernel.org
-References: <2026080507-senior-manpower-f5ab@gregkh>
-Content-Language: en-US
-From: Farhan Ali <alifm@linux.ibm.com>
-In-Reply-To: <2026080507-senior-manpower-f5ab@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=SYrHsPRu c=1 sm=1 tr=0 ts=6a74cedf cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=ag1SF4gXAAAA:8 a=VnNF1IyMAAAA:8 a=EdsDdA-cVeZSgVbA-U4A:9 a=QEXdDO2ut3YA:10
- a=Yupwre4RP9_Eg_Bd0iYG:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDEzOSBTYWx0ZWRfXxsOxAy6pEYiI
- YtB0/zKMYlX9IqoR5nPQY/veVF6OdQ4sKRI6W4Cm16ts76CZwbq7ihqjK4DNvL0Q/o3WXGf9q1X
- qLQyWLrKdNipQWqQwNjTUhi5ePjD+nY=
-X-Proofpoint-ORIG-GUID: uB6FdaRIEin8N5sTYOumwcIRl9ymnZpN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDEzOSBTYWx0ZWRfX3jHa2iwMkcks
- fkdZacxJVD5Y7231rIkmvBt4kHd8fY/oMJi9qDBsq9IDXVVR+9wPylZKGdZYP7T+Cigo/v0nL8R
- lWU2mSv4HCH6K7XuAxjBvBpx+NZuR/ea7lCtz9nNfE1lywYNUt1bF0wpTulfYdqBBv9rYLAlz57
- IEk4bPY0VSBbh3a+Mpq5oco79pDzTsK3gdqVx1qluhLdSLWI/n8UKs9QvK7ZB0GfV80pBMyUs9s
- TkfI/brDNi5KCNz0hQa/q21WumZ1tfxMsMdUwNPp9LsLuReX9BZqCzTUEe3SCYcSqapY/XXg9u+
- 6C16fFOrLM2yZjqi/Fvk6d0PHM2nX4BM0pjk8Tc3DtToEFKckC0q+q3rcWMJp/H8nbWqlZB4Jxo
- LkGwOaEqdMIn7DlD0jHjn1pneRir4lfsKQufziV20mzuyVtFyrsiiWSEOj0b3kiI5mVilXO9Ypj
- QKL0KOfbZ5JVXMT9pYA==
-X-Proofpoint-GUID: uB6FdaRIEin8N5sTYOumwcIRl9ymnZpN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-06_01,2026-08-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608060139
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806165813.2526415-1-shakeel.butt@linux.dev>
 
-Hi Greg,
-
-This patch has a dependency on the following commit from Linus's tree:
-
-5618c53d96d1 ("KVM: s390: Use try_cmpxchg() instead of cmpxchg() loops")
-
-Applying this dependency patch and then cherry-picking should resolve 
-the conflict. It's the same issue for failing to apply 36f6999ecde3 
-("KVM: s390: pci: Fix memory accounting for pinned/unpinned pages") in 
-stable version 6.1, 6.6. Is it possible to apply the dependency patch 
-and try again?
-
-Also there were multiple fixes that we wanted to backport, but I think 
-only 3 of the patches were attempted across (6.1, 6.6, 6.12 and 6.18). 
-The entire backport would be:
-
-868d32ac72cb KVM: s390: pci: Validate AIBV and AISB before pinning guest 
-pages
-5580c9858f1e KVM: s390: pci: Fix resource leak on IRQ registration failure
-8bf09b9b7d32 KVM: s390: pci: Fix NULL dereference on AIBV allocation 
-failure
-f86842e4d6c4 KVM: s390: pci: Fix missing error codes and memory 
-unaccounting
-36f6999ecde3 KVM: s390: pci: Fix memory accounting for pinned/unpinned 
-pages
-8fa01be5a614 KVM: s390: pci: Reject adapter interrupt forwarding if 
-already enabled
-5618c53d96d1 KVM: s390: Use try_cmpxchg() instead of cmpxchg() loops
-
-Would appreciate any guidance on how we can proceed with this.
-
-Thanks
-
-Farhan
-
-
-On 8/5/2026 2:35 AM, gregkh@linuxfoundation.org wrote:
-> The patch below does not apply to the 6.12-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
->
-> To reproduce the conflict and resubmit, you may use the following commands:
->
-> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-> git checkout FETCH_HEAD
-> git cherry-pick -x 36f6999ecde3976731a8bfc0b8e667da6f593069
-> # <resolve conflicts, build, test, etc.>
-> git commit -s
-> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026080507-senior-manpower-f5ab@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
->
-> Possible dependencies:
->
->
->
-> thanks,
->
-> greg k-h
->
-> ------------------ original commit in Linus's tree ------------------
->
->  From 36f6999ecde3976731a8bfc0b8e667da6f593069 Mon Sep 17 00:00:00 2001
-> From: Farhan Ali <alifm@linux.ibm.com>
-> Date: Thu, 23 Jul 2026 15:14:05 -0700
-> Subject: [PATCH] KVM: s390: pci: Fix memory accounting for pinned/unpinned
->   pages
->
-> The account_mem() and unaccount_mem() functions call get_uid() which
-> increments the reference count of struct user_struct on every invocation.
-> But we don't decrement the count by calling free_uid(). It also
-> accounted/unaccounted the pages against the current->mm. But its possible
-> the unaccount_mem() can be called from a different process context than the
-> one that originally pinned the pages.
->
-> Let's fix this by storing the pinning process user_struct and mm_struct
-> when accounting for pinned pages, and subsequently free these resources
-> when the pages are unpinned.
->
-> Fixes: 3c5a1b6f0a18 ("KVM: s390: pci: provide routines for enabling/disabling interrupt forwarding")
+On Thu, Aug 06, 2026 at 09:58:13AM -0700, Shakeel Butt wrote:
+> memcg_reparent_objcgs() has an inherent assumption that a folio's objcg
+> is the objcg of the folio's node.  Folio migration across nodes breaks
+> that assumption: the new folio simply inherits the old folio's objcg
+> while living on a different node.
+> 
+> Once the assumption is broken, the reparenting of the folio's objcg and
+> the reparenting of the folio's LRU list are no longer atomic.
+> memcg_reparent_objcgs() handles one node per iteration and drops all the
+> locks in between, so the objcg gets reparented in the iteration for the
+> objcg's node while the LRU list gets spliced in the iteration for the
+> folio's node.  Any LRU operation on that folio in between resolves its
+> lruvec through the objcg, and thus takes the lru_lock of the wrong
+> memcg, not the lru_lock of the list the folio is actually on.
+> 
+> Fix this by selecting the objcg by folio_nid() at charge time, and by
+> re-deriving it for the destination node in mem_cgroup_migrate() and
+> mem_cgroup_replace_folio().
+> 
+> Reported-by: Karl Erik Hofseth <karl.e.hofseth@opoint.com>
+> Closes: https://lore.kernel.org/all/anMmd1ADrDVwMO6v@work/
+> Fixes: f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying memory cgroup for LRU folios")
 > Cc: stable@vger.kernel.org
-> Reviewed-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-> Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
-> Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
-> Tested-by: Matthew Rosato <mjrosato@linux.ibm.com>
-> [borntraeger@linux.ibm.com: Fixed whitespace]
-> Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
->
-> diff --git a/arch/s390/kvm/pci.c b/arch/s390/kvm/pci.c
-> index d2a11cdf6941..0741aed442bc 100644
-> --- a/arch/s390/kvm/pci.c
-> +++ b/arch/s390/kvm/pci.c
-> @@ -190,33 +190,54 @@ static int kvm_zpci_clear_airq(struct zpci_dev *zdev)
->   	return cc ? -EIO : 0;
->   }
->   
-> -static inline void unaccount_mem(unsigned long nr_pages)
-> +static inline void unaccount_mem(struct kvm_zdev *kzdev, unsigned long nr_pages)
->   {
-> -	struct user_struct *user = get_uid(current_user());
-> +	struct user_struct *user = kzdev->user_account;
-> +	struct mm_struct *mm_account = kzdev->mm_account;
->   
-> -	if (user)
-> +	if (user) {
->   		atomic_long_sub(nr_pages, &user->locked_vm);
-> -	if (current->mm)
-> -		atomic64_sub(nr_pages, &current->mm->pinned_vm);
-> +		free_uid(user);
-> +		kzdev->user_account = NULL;
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> ---
+> 
+> Changes since v1: http://lore.kernel.org/20260806061830.3294679-1-shakeel.butt@linux.dev
+> 
+> - In mem_cgroup_migrate, do obj_cgroup_put at the end (Sashiko)
+> - Handle scenario where destination node has been reparented to the root but the
+>   source node's objcg has not yet (Sashiko)
+> - Add comment explaining the race between migration and reparenting (Johannes)
+> 
+>  mm/memcontrol.c | 66 ++++++++++++++++++++++++++++++++++++++++---------
+>  1 file changed, 54 insertions(+), 12 deletions(-)
+> 
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 3057396dda53..02c108cdd0f5 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -2966,10 +2966,9 @@ struct mem_cgroup *mem_cgroup_from_virt(void *p)
+>  	return folio_memcg_check(virt_to_folio(p));
+>  }
+>  
+> -static struct obj_cgroup *__get_obj_cgroup_from_memcg(struct mem_cgroup *memcg)
+> +static struct obj_cgroup *__get_obj_cgroup_from_memcg(struct mem_cgroup *memcg,
+> +						      int nid)
+>  {
+> -	int nid = numa_node_id();
+> -
+>  	for (; memcg; memcg = parent_mem_cgroup(memcg)) {
+>  		struct obj_cgroup *objcg = rcu_dereference(memcg->nodeinfo[nid]->objcg);
+>  
+> @@ -2980,12 +2979,13 @@ static struct obj_cgroup *__get_obj_cgroup_from_memcg(struct mem_cgroup *memcg)
+>  	return NULL;
+>  }
+>  
+> -static inline struct obj_cgroup *get_obj_cgroup_from_memcg(struct mem_cgroup *memcg)
+> +static inline struct obj_cgroup *get_obj_cgroup_from_memcg(struct mem_cgroup *memcg,
+> +							   int nid)
+>  {
+>  	struct obj_cgroup *objcg;
+>  
+>  	rcu_read_lock();
+> -	objcg = __get_obj_cgroup_from_memcg(memcg);
+> +	objcg = __get_obj_cgroup_from_memcg(memcg, nid);
+>  	rcu_read_unlock();
+>  
+>  	return objcg;
+> @@ -3029,7 +3029,7 @@ static struct obj_cgroup *current_objcg_update(void)
+>  
+>  		rcu_read_lock();
+>  		memcg = mem_cgroup_from_task(current);
+> -		objcg = __get_obj_cgroup_from_memcg(memcg);
+> +		objcg = __get_obj_cgroup_from_memcg(memcg, numa_node_id());
+>  		rcu_read_unlock();
+>  
+>  		/*
+> @@ -5197,7 +5197,7 @@ static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
+>  	int ret = 0;
+>  	struct obj_cgroup *objcg;
+>  
+> -	objcg = get_obj_cgroup_from_memcg(memcg);
+> +	objcg = get_obj_cgroup_from_memcg(memcg, folio_nid(folio));
+>  	/* Do not account at the root objcg level. */
+>  	if (!obj_cgroup_is_root(objcg))
+>  		ret = try_charge_memcg(memcg, gfp, folio_nr_pages(folio));
+> @@ -5408,8 +5408,8 @@ void __mem_cgroup_uncharge_folios(struct folio_batch *folios)
+>   */
+>  void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
+>  {
+> +	struct obj_cgroup *objcg, *new_objcg = NULL;
+>  	struct mem_cgroup *memcg;
+> -	struct obj_cgroup *objcg;
+>  	long nr_pages = folio_nr_pages(new);
+>  
+>  	VM_BUG_ON_FOLIO(!folio_test_locked(old), old);
+> @@ -5431,6 +5431,7 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
+>  
+>  	rcu_read_lock();
+>  	memcg = obj_cgroup_memcg(objcg);
+> +
+>  	/* Force-charge the new page. The old one will be freed soon */
+>  	if (!obj_cgroup_is_root(objcg)) {
+>  		page_counter_charge(&memcg->memory, nr_pages);
+> @@ -5438,7 +5439,31 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
+>  			page_counter_charge(&memcg->memsw, nr_pages);
+>  	}
+>  
+> -	obj_cgroup_get(objcg);
+> +	/*
+> +	 * memcg_reparent_objcgs() reparents a node's objcgs and its LRU lists
+> +	 * together, under that node's lru_locks. If a folio's objcg is on a
+> +	 * different node, the two happen in separate iterations with the locks
+> +	 * dropped in between, and an LRU operation in that window takes the
+> +	 * lru_lock of the wrong memcg. Keep the objcg on the folio's node.
+> +	 */
+> +	if (folio_nid(old) != folio_nid(new))
+> +		new_objcg = __get_obj_cgroup_from_memcg(memcg, folio_nid(new));
+> +
+> +	/*
+> +	 * LRU folios are not accounted at the root level: swapping a non-root
+> +	 * objcg for the root one would skip the uncharge and leak the charge.
+> +	 * Keep the old one, the root memcg never reparents. No put needed,
+> +	 * tryget takes no reference on the root objcg.
+> +	 */
+> +	if (new_objcg && obj_cgroup_is_root(new_objcg) &&
+> +	    !obj_cgroup_is_root(objcg))
+> +		new_objcg = NULL;
+
+The two versions have quite some overlap. The refcounting is
+different, but IMO that part is also hard to square.
+
+How about a helper that always returns a referenced objcg?
+
+static struct obj_cgroup *get_migration_objcg(struct folio *old, struct folio *new)
+{
+	struct obj_cgroup *old_objcg, *new_objcg;
+	int new_nid = folio_nid(new);
+	struct mem_cgroup *memcg;
+
+	old_objcg = get_obj_cgroup_from_folio(old);
+
+	if (folio_nid(old) == new_nid)
+		return old_objcg;
+
+	memcg = obj_cgroup_memcg(old_objcg);
+	new_objcg = __get_obj_cgroup_from_memcg(memcg, new_nid);
+
+	if (new_objcg && obj_cgroup_is_root(new_objcg) &&
+	    !obj_cgroup_is_root(old_objcg))
+		return old_objcg;
+
+	obj_cgroup_put(old_objcg);
+
+	return new_objcg;
+}
+
+In mem_cgroup_replace_folio(), this becomes:
+
+	rcu_read_lock();
+
+	... page counter update ...
+
+	objcg = get_migration_objcg(old, new);
+	commit_charge(new, objcg);
+	memcg1_commit_charge(new, memcg);
+
+	rcu_read_unlock();
+
+> +
+> +	if (new_objcg)
+> +		objcg = new_objcg;
+> +	else
+> +		obj_cgroup_get(objcg);
+> +
+>  	commit_charge(new, objcg);
+>  	memcg1_commit_charge(new, memcg);
+>  	rcu_read_unlock();
+> @@ -5457,7 +5482,7 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
+>   */
+>  void mem_cgroup_migrate(struct folio *old, struct folio *new)
+>  {
+> -	struct obj_cgroup *objcg;
+> +	struct obj_cgroup *objcg, *new_objcg = NULL;
+>  
+>  	VM_BUG_ON_FOLIO(!folio_test_locked(old), old);
+>  	VM_BUG_ON_FOLIO(!folio_test_locked(new), new);
+> @@ -5478,12 +5503,29 @@ void mem_cgroup_migrate(struct folio *old, struct folio *new)
+>  	if (!objcg)
+>  		return;
+>  
+> -	/* Transfer the charge and the objcg ref */
+> -	commit_charge(new, objcg);
+> +	/* Keep the objcg on the folio's node, see mem_cgroup_replace_folio() */
+> +	if (folio_nid(old) != folio_nid(new)) {
+> +		rcu_read_lock();
+> +		new_objcg = __get_obj_cgroup_from_memcg(obj_cgroup_memcg(objcg),
+> +							folio_nid(new));
+> +		rcu_read_unlock();
+> +
+> +		/* No root swap, see mem_cgroup_replace_folio(). */
+> +		if (new_objcg && obj_cgroup_is_root(new_objcg) &&
+> +		    !obj_cgroup_is_root(objcg))
+> +			new_objcg = NULL;
 > +	}
 > +
-> +	if (mm_account) {
-> +		atomic64_sub(nr_pages, &mm_account->pinned_vm);
-> +		mmdrop(mm_account);
-> +		kzdev->mm_account = NULL;
-> +	}
->   }
->   
-> -static inline int account_mem(unsigned long nr_pages)
-> +static inline int account_mem(struct kvm_zdev *kzdev, unsigned long nr_pages)
->   {
->   	struct user_struct *user = get_uid(current_user());
->   	unsigned long page_limit, cur_pages, new_pages;
-> +	int rc = 0;
->   
->   	page_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
->   
->   	cur_pages = atomic_long_read(&user->locked_vm);
->   	do {
->   		new_pages = cur_pages + nr_pages;
-> -		if (new_pages > page_limit)
-> -			return -ENOMEM;
-> +		if (new_pages > page_limit) {
-> +			rc = -ENOMEM;
-> +			goto out;
-> +		}
->   	} while (!atomic_long_try_cmpxchg(&user->locked_vm, &cur_pages, new_pages));
->   
-> -	atomic64_add(nr_pages, &current->mm->pinned_vm);
-> +	if (current->mm) {
-> +		mmgrab(current->mm);
-> +		atomic64_add(nr_pages, &current->mm->pinned_vm);
-> +	}
+> +	/* Transfer the charge and, unless it was swapped, the objcg ref */
+> +	commit_charge(new, new_objcg ? : objcg);
+>  
+>  	/* Warning should never happen, so don't worry about refcount non-0 */
+>  	WARN_ON_ONCE(folio_unqueue_deferred_split(old));
+>  	old->memcg_data = 0;
 > +
-> +	kzdev->user_account = user;
-> +	kzdev->mm_account = current->mm;
->   
->   	return 0;
-> +
-> +out:
-> +	free_uid(user);
-> +	return rc;
->   }
->   
->   static int kvm_s390_pci_aif_enable(struct zpci_dev *zdev, struct zpci_fib *fib,
-> @@ -279,7 +300,7 @@ static int kvm_s390_pci_aif_enable(struct zpci_dev *zdev, struct zpci_fib *fib,
->   	}
->   
->   	/* Account for pinned pages, roll back on failure */
-> -	if (account_mem(pcount))
-> +	if (account_mem(zdev->kzdev, pcount))
->   		goto unpin2;
->   
->   	/* AISB must be allocated before we can fill in GAITE */
-> @@ -400,7 +421,7 @@ static int kvm_s390_pci_aif_disable(struct zpci_dev *zdev, bool force)
->   		pcount++;
->   	}
->   	if (pcount > 0)
-> -		unaccount_mem(pcount);
-> +		unaccount_mem(kzdev, pcount);
->   out:
->   	mutex_unlock(&aift->aift_lock);
->   
-> diff --git a/arch/s390/kvm/pci.h b/arch/s390/kvm/pci.h
-> index ff0972dd5e71..fdf8c7bf4ed0 100644
-> --- a/arch/s390/kvm/pci.h
-> +++ b/arch/s390/kvm/pci.h
-> @@ -22,6 +22,8 @@ struct kvm_zdev {
->   	struct kvm *kvm;
->   	struct zpci_fib fib;
->   	struct list_head entry;
-> +	struct user_struct *user_account;
-> +	struct mm_struct *mm_account;
->   };
->   
->   struct zpci_gaite {
->
+> +	/* @new took its own reference, drop @old's. */
+> +	if (new_objcg)
+> +		obj_cgroup_put(objcg);
+
+And here it becomes:
+
+	rcu_read_lock();
+	objcg = get_migration_objcg(old, new);
+	rcu_read_unlock();
+	commit_charge(new, objcg);
+
+	objcg = folio_objcg(old);
+	old->memcg_data = 0;
+	obj_cgroup_put(objcg);
