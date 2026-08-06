@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDB237104C
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 17:02:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD48747276C
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 17:02:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786035737; cv=none; b=lZ/sUgO+gZDnSkPcx0M14e40bL1waodtvdi5IS6t7hoE/nG+etfQf9L1MnhexX50jyZ2/Gk0lBJX9Yt2HngLUUVsJB5h05ERB7xh2gsWld/iYG6bh1v/lB6vebpL+ThiiOMzjSgX9kiJg4SEBL0dxrNcIyQ9g1t9ulidP6g8KyE=
+	t=1786035738; cv=none; b=BG0GiKA773S4MkYMmHyqc07ncblivHFpO6UHJB7RM8STddOrHLuubf0NQly9Mb1OdHvK3BBN9nVme850G8IdmZOxfAVoSkGTVdpWOFExA9S7xt+K2Z0KWuZGWjK88/LcR2g6MVaXf1zJBvs9KEhQ0ASSLw0JKVorRoTVK9Gvm90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786035737; c=relaxed/simple;
-	bh=9HbRMkysQNOaDwJQkyF5VXC7GB96KE/62zx0XdhtrAw=;
+	s=arc-20240116; t=1786035738; c=relaxed/simple;
+	bh=qGghBUlf3V3g6LO2dcL44ianiMpWfunKtANgbBixqtg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ej5WM8ARecCyNvz1qUKgDmCDtv2BmR7M6ONUMple9TceHcFgRlf1aVVOCD6OzsAY8ej/qC8NWUMr3EJRmFT8KN5ygVuKDGHXTiTnc0XkT3Sd1EsHOdlAxaB18umu9u7dQmuKDrDVKvRYzTgCRHUXKuOQ8q2z+lozM60zCpGbjPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e9WVKsaE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=i6vsQDsMO85uXVwFR7uGyWFPqQwT0WqCTju5a7eE94KawhSgwvND3jevNUvW0In3r0UuiPlVh/J3k/iJNsNsXOcTpALrSHg7Q1ZEII+uFB0T1YI50p75s5ICf0cnHGH8sBcJdsWkNcPbXRaIezkI0aMUjQLxi0QQOmgCtipptsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AQtWAJry; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e9WVKsaE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 444E21F00A3D;
-	Thu,  6 Aug 2026 17:02:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AQtWAJry"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAE901F00A3A;
+	Thu,  6 Aug 2026 17:02:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786035732;
-	bh=Cju4Co2QQCT+VGxp3tcgJoh0bdAa0L5d4mYyKkfHnd8=;
+	s=k20260515; t=1786035734;
+	bh=EiYhcwLfSe3koQcVjnccpB4WhUyGDHIlPhWm7KA4BDg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e9WVKsaEIQtJBhLhTw1925V++F0p9bHYXZ3ichirKr6paeES156yX8y0Ot4N11imx
-	 H3O22heecdhhQOdrdJJ/TERZfvBO9X8QMEzv/8iCaAT+Xy5xcvrzTOGb/SJRM/40et
-	 /LCjXPtTkGBRkEr4OrcRD2LGYYbCQ926kBrNjmOGIUmD9OtP8TczZdGuOyA4K57eV2
-	 UHXUCEjKSoVJgpPF6w7Ar1+uJ/1w1MIewKxXzd+6lOKtNOVxN0S4UNV7zYwPC+zWGW
-	 wEqK5YAE3AfTFnlOrUNR25G84X352lq6mKZSiXOGgIc8M5raVYAzDyvtyIK4PEVWrU
-	 P09bF/e7Z1M4w==
+	b=AQtWAJry2IrLn1AnjgJDSU7zSf2ZvDIqt6qDRwaMdopD7fRYNe5moIEEJrAIkhLQM
+	 mF1dFA5ptC0dxSbfJ9YU8F9eS8+UQpEdZMa+bsM7a0Smp3JvtOdd8HhdveWB9By3Yd
+	 firi95IUJI0JDkeVnKX8S48ExUgzGa3fZ4gTRjO61iQKmEaVVkZrLfgJWtN2RRbxHF
+	 1p/AjgNVAH1gk61Qu0p0WCdflUFVqbjt4csVGfBmUhXtJ7VbLLmphXitcxQbjUyIgS
+	 9sGbl4fyife7TDzVsvsGlRR9EOx1KXAGme5gn5Qzp3iw2hrEhtqR6pIzLCSXtO9KCy
+	 8fNag0VHEqyfQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: LiangCheng Wang <zaq14760@gmail.com>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: Norbert Szetei <norbert@doyensec.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] wifi: brcmfmac: set F2 blocksize to 256 for BCM43752
-Date: Thu,  6 Aug 2026 13:02:09 -0400
-Message-ID: <20260806170209.1187447-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ALSA: seq: close a re-opened queue timer in the destructor
+Date: Thu,  6 Aug 2026 13:02:12 -0400
+Message-ID: <20260806170212.1188109-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260806170209.1187447-1-sashal@kernel.org>
-References: <2026072950-scribing-blooming-1fda@gregkh>
- <20260806170209.1187447-1-sashal@kernel.org>
+In-Reply-To: <2026072946-underdone-mule-5e1d@gregkh>
+References: <2026072946-underdone-mule-5e1d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,58 +45,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: LiangCheng Wang <zaq14760@gmail.com>
+From: Norbert Szetei <norbert@doyensec.com>
 
-[ Upstream commit 29ab31f3f27157648f2f7e6d5e1fd9792fdf0614 ]
+[ Upstream commit 2c4dc0ed50b05cd847a4b34b8cebf0775f19aeb9 ]
 
-The BCM43752 is not reliable with the default 512-byte SDIO function 2
-block size: on an i.MX8MP board with an AMPAK AP6275S module at
-SDR104 / 200 MHz, an iperf TX stress test kills WLAN within seconds:
+queue_delete() closes the queue timer, then frees it. snd_seq_timer_close()
+clears q->timer->timeri. snd_use_lock_sync() then drains borrowers, and
+snd_seq_timer_delete() frees q->timer.
 
-  mmc_submit_one: CMD53 sg block write failed -84
-  brcmf_sdio_dpc: failed backplane access over SDIO, halting operation
+A borrower can re-open the timer inside that window. A SET_QUEUE_CLIENT
+that took a queueptr() use_lock reference before the queue was unlinked
+runs snd_seq_timer_open() after the close. Open refuses re-open only while
+timeri is set, and the close just cleared it, so it re-opens timeri.
 
-Commit d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
-set up the 43752 like the 4373 for the F2 watermark but missed the F2
-block size, which the 4373 limits to 256 bytes. The vendor driver
-(bcmdhd) also programs a 256-byte F2 block size for this chip and runs
-the same hardware without errors.
+snd_seq_timer_delete() does not close that instance. Its snd_seq_timer_stop()
+is a no-op, because running was cleared first. So it frees q->timer with the
+instance still live. The queue is freed next.
 
-Group the 43752 with the 4373, matching the F2 watermark handling.
-With this change a 10-minute bidirectional iperf3 soak completes with
-zero SDIO errors at ~270 Mbit/s in each direction.
+The instance stays on the global timer with callback_data pointing at the
+freed queue. A non-owner START on the unlocked queue arms it. The next tick
+derefs the freed queue in snd_seq_timer_interrupt().
 
-Backporting note: kernels before v6.18 name this id
-SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752, so on those trees the case
-label added by this patch must be adjusted to that name. Cherry-picking
-the rename commit 74e2ef72bd4b ("wifi: brcmfmac: fix 43752 SDIO FWVID
-incorrectly labelled as Cypress (CYW)") first is not a clean
-alternative: on trees before v6.17 its context collides with the 43751
-additions, and trees before v6.2 lack the FWVID framework it touches.
+Reachable by an unprivileged user with access to /dev/snd/seq. No CAP and
+no queue ownership required.
 
-Fixes: d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
-Cc: stable@vger.kernel.org # see patch description, needs adjustments for <= 6.17
-Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
-Link: https://patch.msgid.link/20260715-b43752-f2-blksz-v2-1-f9be49856050@gmail.com
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Close any lingering instance in the destructor. There, ->timeri can no
+longer change: the queue is unlinked and all use_lock borrowers have
+drained, so no snd_seq_queue_use() can re-open it. Close it before clearing
+q->timer. snd_timer_close() waits for any in-flight snd_seq_timer_interrupt()
+to finish, and that callback still reads q->timer (via snd_seq_check_queue()),
+so q->timer must stay valid until it drains.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+Link: https://patch.msgid.link/422FDB81-2A68-47C7-A22D-2D3301E2E86D@doyensec.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ replaced scoped_guard(spinlock_irq, &t->lock) with explicit spin_lock_irq()/spin_unlock_irq() pair since gnu89-compiled 5.15 rejects the macro's for-loop declarations ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/core/seq/seq_timer.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-index 252160f7ffd2b..207be0b9001a0 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
-@@ -906,6 +906,7 @@ int brcmf_sdiod_probe(struct brcmf_sdio_dev *sdiodev)
- 		return ret;
+diff --git a/sound/core/seq/seq_timer.c b/sound/core/seq/seq_timer.c
+index 9863be6fd43e1..50581120f2822 100644
+--- a/sound/core/seq/seq_timer.c
++++ b/sound/core/seq/seq_timer.c
+@@ -58,12 +58,23 @@ struct snd_seq_timer *snd_seq_timer_new(void)
+ void snd_seq_timer_delete(struct snd_seq_timer **tmr)
+ {
+ 	struct snd_seq_timer *t = *tmr;
+-	*tmr = NULL;
++	struct snd_timer_instance *ti;
+ 
+ 	if (t == NULL) {
+ 		pr_debug("ALSA: seq: snd_seq_timer_delete() called with NULL timer\n");
+ 		return;
  	}
- 	switch (sdiodev->func2->device) {
-+	case SDIO_DEVICE_ID_BROADCOM_43752:
- 	case SDIO_DEVICE_ID_BROADCOM_CYPRESS_4373:
- 		f2_blksz = SDIO_4373_FUNC2_BLOCKSIZE;
- 		break;
++
++	spin_lock_irq(&t->lock);
++	ti = t->timeri;
++	t->timeri = NULL;
++	spin_unlock_irq(&t->lock);
++	if (ti) {
++		snd_timer_close(ti);
++		snd_timer_instance_free(ti);
++	}
++
++	*tmr = NULL;
+ 	t->running = 0;
+ 
+ 	/* reset time */
 -- 
 2.53.0
 
