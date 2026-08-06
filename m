@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662EC486E58;
-	Thu,  6 Aug 2026 17:20:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68280480975;
+	Thu,  6 Aug 2026 17:20:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786036842; cv=none; b=u50cp2GSVhJ66p2PvYIDPVZk79mWNSD8clzCn8QZBexlGCPGqjA+d17bc2XMFf/kORrq6U6l2jN1rzOiG78D1QMfoAp9HvFLdKQE9/0ysT/t9qnu/0Cf7O59kGannO+dUWUD22EE5zOsy34JMwNv8bqBg2AlI7nlvlBfaRUY3lo=
+	t=1786036852; cv=none; b=dsvnOfQOE+EWsjRM83zuXYGKTFaWMWbr7qARg/BPV+M+92EPsq8qcchzuj9mBq3P92hu0I0eWmXxFvDeYywciNZTpkm+iSdmJfasCHCvl34coas5KVNudC+LMkD14Jr6b/a1CNJB9awzbBBpCkZcYNC6XHhg/h4CM94aDm5q8iw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786036842; c=relaxed/simple;
-	bh=uTg/YDzD+Zv20GWed/bOW+I27TbgbWx7SGnXXnr7zow=;
+	s=arc-20240116; t=1786036852; c=relaxed/simple;
+	bh=7StifURND+oD07WD3k/Qx/nNZEDqvgwKvWYyp6JhpVM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r0u0VzzFh7aOtfR0667rIIB+eBz5ymRnzlYxi7NGM9w3eChloUtoxumqvWiK33fdz1aPBTKSTAcZmRLt55551+FCk50ZjIWU6EBSRQlYkE8eVohclWTQSL+cVYSn4YFtxVruI6/jvzMZZcCzL9hcRq97BUfNO6Ju5p4Eb+v9nMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AFzMr8sR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=r1SsW3fH8xfELBa1Jigpy6IpZzD9BIck6l0GH4DpBDj2qSDEYNo6/0y9kx4jhbqzHBr6FVWav1oLxP8ZavrT+lRaKo2a8+O2Fi+8fjuxLvB96/Qkf7DIRnHiNoz06SlQ8acbnHL8k76AVoEM1Fnzh+z93orO5YvCCt1EcZB1a3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZZWzEFh9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AFzMr8sR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F95D1F000E9;
-	Thu,  6 Aug 2026 17:20:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZZWzEFh9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4231F000E9;
+	Thu,  6 Aug 2026 17:20:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786036841;
-	bh=sW9pF5MWGI5Lotmi5AEwvYHsIFPAXaS2C+raSxzqWYw=;
+	s=k20260515; t=1786036851;
+	bh=t/PTNCWC/5CSohY8+HOUvOf+ql5Jy3uxtVrk/EDTTaA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AFzMr8sRZZFj7rkzNoP6AOCOl12gpwk/NlfweZX1jnmzntx0aROu+tlI2hAgpXuav
-	 x1adT80nB/wy9ks6rkPS5tk5HmtksSba+bfiyosdrb4NMiCc2tV/ayPT015juntS9t
-	 t8HQM5oAxYlsQgDh1RwSNRKpM1Mb6QNALEPS5COovfwfERbVx/u37sbEVE8vFQtuUZ
-	 ocXG5MygDIz7QJyQgfGB9MOfF3A+t/SMUs+VOUDNVwTwLJUvY4xbxMKl1WBMLu8m82
-	 3IyN+i+RWwt/Puzv7HHjKDiXRABHPE7ZBnGdgyZArTHnSI7QyMUP9JhpkJ+0S3nN14
-	 W7ykoByq+T0dQ==
+	b=ZZWzEFh9dCju8FiSU6+rAIiQ1ipzyOryN/88AIfmWAlQ2AkPMyh5AF7IP42i0K1Qa
+	 KA5hNS6p+bWOUbdDuAoKrv/QR95vcFYvrH4BrdRy2ZZxzZ0a+8GuC6vU8dVIRm9lkO
+	 JUVp5M3C7Z0MIV2Iiubn3+RRX0zYYMjosw/0HSfOsn+MFPODUFYw7Q8Is54FMFAqsL
+	 7o8iIpv4R9qOgiwU9iV/b6tkIse4xdi3vEWr0tpsGOakc6xm/4IMsNfXIixspCVkZO
+	 tRbCYPTjJ9E9/Q9mg0MkpDs/eZCqssF0ro0n/02e7oZ/5h0iZHJTu1bHD0HZbwrmhA
+	 Osv6xZHbB+hdw==
 From: Jakub Kicinski <kuba@kernel.org>
 To: anthony.l.nguyen@intel.com
 Cc: Jakub Kicinski <kuba@kernel.org>,
@@ -42,12 +42,12 @@ Cc: Jakub Kicinski <kuba@kernel.org>,
 	stable@vger.kernel.org,
 	aleksandr.loktionov@intel.com,
 	marcin.szycik@linux.intel.com
-Subject: Re: [PATCH net 07/10] ice: eswitch: fix use-after-free of metadata_dst in repr release
-Date: Thu,  6 Aug 2026 10:20:39 -0700
-Message-ID: <20260806172039.2935855-1-kuba@kernel.org>
+Subject: Re: [PATCH net 08/10] i40e: fix memcmp of pointer in i40e_hw_set_dcb_config()
+Date: Thu,  6 Aug 2026 10:20:41 -0700
+Message-ID: <20260806172041.2935963-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260804222205.1580328-8-anthony.l.nguyen@intel.com>
-References: <20260804222205.1580328-8-anthony.l.nguyen@intel.com>
+In-Reply-To: <20260804222205.1580328-9-anthony.l.nguyen@intel.com>
+References: <20260804222205.1580328-9-anthony.l.nguyen@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,119 +59,107 @@ Content-Transfer-Encoding: 8bit
 This is an AI-generated review of your patch. The human sending this
 email has considered the AI review valid, or at least plausible.
 ---
-ice: eswitch: fix use-after-free of metadata_dst in repr release
+i40e: fix memcmp of pointer in i40e_hw_set_dcb_config()
 
-This replaces metadata_dst_free() with dst_release() in
-ice_eswitch_release_repr() so that the port representor metadata_dst is
-freed only after the last dst_entry reference goes away, instead of being
-kfree()d while in-flight skbs may still reference it.
+The patch changes the "need reconfiguration" check in
+i40e_hw_set_dcb_config() so that memcmp() compares the two
+struct i40e_dcbx_config objects instead of the two pointer variables on
+the stack. With the old code the compare could never succeed, so the
+early return was never taken.
 
-(No Link: tags present in the commit header.)
-
-> diff --git a/drivers/net/ethernet/intel/ice/ice_eswitch.c b/drivers/net/ethernet/intel/ice/ice_eswitch.c
-> index b069e6c514fb1..6e7bba4738989 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_eswitch.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_eswitch.c
-> @@ -95,7 +95,7 @@ ice_eswitch_release_repr(struct ice_pf *pf, struct ice_repr *repr)
->  		return;
+> diff --git a/drivers/net/ethernet/intel/i40e/i40e_main.c b/drivers/net/ethernet/intel/i40e/i40e_main.c
+> index a04683004a567..0ac1be6289f6b 100644
+> --- a/drivers/net/ethernet/intel/i40e/i40e_main.c
+> +++ b/drivers/net/ethernet/intel/i40e/i40e_main.c
+> @@ -6907,7 +6907,7 @@ static int i40e_hw_set_dcb_config(struct i40e_pf *pf,
+>  	int ret;
 >  
->  	ice_vsi_update_security(vsi, ice_vsi_ctx_set_antispoof);
-> -	metadata_dst_free(repr->dst);
-> +	dst_release(&repr->dst->dst);
->  	repr->dst = NULL;
->  	ice_fltr_add_mac_and_broadcast(vsi, repr->parent_mac,
->  				       ICE_FWD_TO_VSI);
+>  	/* Check if need reconfiguration */
+> -	if (!memcmp(&new_cfg, &old_cfg, sizeof(new_cfg))) {
+> +	if (!memcmp(new_cfg, old_cfg, sizeof(*new_cfg))) {
+>  		dev_dbg(&pf->pdev->dev, "No Change in DCB Config required.\n");
+>  		return 0;
+>  	}
 
 [Severity: High]
+Does this compare now always report "no change" when the function is
+reached from the tail of i40e_hw_dcb_config()?
 
-This isn't a bug introduced by this patch, but with the put side now fixed,
-is the get side of repr->dst still unsynchronized?
+i40e_hw_set_dcb_config() takes its old side straight from the PF:
 
-ice_eswitch_port_start_xmit() does three separate plain loads of repr->dst
-with no lock, no RCU section and no READ_ONCE():
+	struct i40e_dcbx_config *old_cfg = &pf->hw.local_dcbx_config;
 
-	skb_dst_drop(skb);
-	dst_hold((struct dst_entry *)repr->dst);
-	skb_dst_set(skb, (struct dst_entry *)repr->dst);
-	skb->dev = repr->dst->u.port_info.lower_dev;
+but i40e_hw_dcb_config() has already published the new configuration into
+that same object before making the call:
 
-while ice_eswitch_release_repr() drops the last reference and then stores
-the NULL:
+i40e_main.c:i40e_hw_dcb_config() {
+	...
+	old_cfg = &hw->local_dcbx_config;
+	...
+	/* Update the port DCBx configuration */
+	*old_cfg = *new_cfg;
 
-	dst_release(&repr->dst->dst);
-	repr->dst = NULL;
+	/* Changes in configuration update VEB/VSI */
+	i40e_dcb_reconfigure(pf);
+out:
+	...
+		/* registers are set, lets apply */
+		if (test_bit(I40E_HW_CAP_USE_SET_LLDP_MIB, pf->hw.caps))
+			ret = i40e_hw_set_dcb_config(pf, new_cfg);
+}
 
-In the normal teardown path the ordering appears to save this, because
-ice_eswitch_detach() calls repr->ops.rem() (unregister_netdev(), which
-quiesces the representor's ndo_start_xmit) before
-ice_eswitch_release_repr().
+So new_cfg and pf->hw.local_dcbx_config are byte-identical at that point,
+memcmp() returns 0, and the callee logs "No Change in DCB Config required."
+and returns 0.
 
-The attach error path has the opposite order:
+Does that make the "registers are set, lets apply" step dead code for this
+caller? Everything after the early return is skipped, including the etsrec
+normalization and the only code that pushes the configuration to firmware:
 
-	err_xa_alloc:
-		ice_eswitch_release_repr(pf, repr);
-	err_setup_repr:
-		repr->ops.rem(repr);
+	*old_cfg = *new_cfg;
+	old_cfg->etsrec = old_cfg->etscfg;
+	ret = i40e_set_dcb_config(&pf->hw);
 
-At err_xa_alloc the representor netdev is already registered, since
-repr->ops.add() runs ice_repr_add_vf()/ice_repr_add_sf() ->
-ice_repr_reg_netdev() -> register_netdev(), and the attach path holds
-devl_lock but not RTNL, so userspace can open the interface and transmit.
+i40e_dcb.c:i40e_set_dcb_config() is the sole path that builds an LLDPDU via
+i40e_dcb_config_to_lldp() from hw->local_dcbx_config and issues
+i40e_aq_set_lldp_mib() for the local MIB. With the early return taken, the
+DCB registers, packet buffer and PFC state plus the cached
+local_dcbx_config carry the new values while the firmware's local DCBX MIB
+still holds the previous one.
 
-Two outcomes seem possible in that window:
+Which callers does this affect? The DCBNL entry points in i40e_dcb_nl.c
+(i40e_dcbnl_ieee_setets(), i40e_dcbnl_ieee_setpfc(), i40e_dcbnl_ieee_setapp(),
+i40e_dcbnl_ieee_delapp() and the CEE i40e_dcbnl_cee_set_all()) all copy
+*old_cfg into pf->tmp_cfg and then call i40e_hw_dcb_config(pf, &pf->tmp_cfg),
+so on parts with I40E_HW_CAP_USE_SET_LLDP_MIB the AQC is no longer sent for
+those changes.
 
-  - the xmit CPU loaded a non-NULL repr->dst just before dst_release()
-    drove the rcuref to zero, so dst_hold() hits its
-    WARN_ON(!rcuref_get(&dst->__rcuref)), takes no reference, and the skb
-    carries a metadata_dst that dst_destroy_rcu() frees after the grace
-    period, which then gets read by ice_eswitch_set_target_vsi() or by the
-    skb free path;
+Is the resulting behaviour also inverted? On the error paths of
+i40e_hw_dcb_config() (the goto out after i40e_aq_config_switch_comp_ets() or
+i40e_aq_dcb_updated() fails) the "*old_cfg = *new_cfg" assignment is skipped,
+the two structs still differ, and the full quiesce / Set LLDP MIB /
+reconfigure sequence does run. That would mean the AQC is now issued only
+when the earlier register programming failed.
 
-  - the xmit CPU loads repr->dst after the NULL store, giving dst_hold(NULL)
-    and a NULL dereference inside rcuref_get().
+The i40e_dcb_sw_default_config() call site looks unaffected, since its
+freshly memset pf->tmp_cfg differs from a previously cached
+local_dcbx_config (etsrec in particular), so the compare still fails there.
 
-Would swapping the two error labels so repr->ops.rem() runs before
-ice_eswitch_release_repr(), or clearing repr->dst followed by
-synchronize_net() before dst_release(), close this window? Also, since
-err_setup_repr is reached when metadata_dst_alloc() fails, does that path
-leave a registered netdev whose repr->dst is NULL until repr->ops.rem()
-runs?
+Would moving the comparison ahead of the caller's "*old_cfg = *new_cfg", or
+not pre-publishing the config in the caller, be a safer shape for a fix that
+is tagged for stable?
 
-[Severity: High]
+The commit message says:
 
-This is a pre-existing issue as well, and not something this patch changes,
-but does the deferred free help the LAG path at all?
+    As a result, the memcmp never compares the actual configuration data,
+    meaning the "no change needed" early return never fires. Every call to
+    this function performs a full DCB reconfiguration (quiescing all VSIs,
+    reprogramming via "Set LLDP MIB" AQC, and reconfiguring VEB/VSIs) even
+    when the configuration has not changed.
 
-ice_lag_config_eswitch() writes through repr->dst with no NULL check:
-
-	xa_for_each(&lag->pf->eswitch.reprs, id, repr)
-		repr->dst->u.port_info.lower_dev = netdev;
-
-xa_for_each() expands to xa_find()/xa_find_after(), which take and drop
-rcu_read_lock() internally, so repr is used outside any RCU read-side
-section.
-
-The caller ice_lag_process_event() is a work item and holds only
-pf->lag_mutex, while the teardown side (ice_free_vfs() ->
-ice_eswitch_detach_vf(), and the ice_reset_all_vfs() path) holds
-vf->cfg_lock and devl_lock, so the locksets do not intersect.
-
-That seems to allow:
-
-	LAG work				detach thread
-	repr = xa_find(...)
-						xa_erase(...)
-						ice_eswitch_release_repr()
-						  repr->dst = NULL;
-						ice_repr_destroy()
-						  kfree(repr);
-	repr->dst->u.port_info.lower_dev = netdev;
-
-which is either a store through NULL or a store into freed memory, since
-ice_repr_destroy() does a plain kfree(repr) with no grace period.
-
-The change from metadata_dst_free() to dst_release() only defers freeing the
-metadata_dst; the repr->dst = NULL store and the kfree(repr) are still
-immediate. Should this path be serialized against the eswitch teardown, or
-at least keep the repr lookup inside an RCU read-side section with an
-RCU-deferred repr free?
+Given the i40e_hw_dcb_config() call site above, is it accurate to describe
+the only effect as a redundant reconfiguration? For that caller the old
+comparison was load-bearing: comparing &pf->tmp_cfg against
+&pf->hw.local_dcbx_config could never match, which is what kept the
+Set Local LLDP MIB programming running. Could the changelog cover what
+happens at that call site after the fix?
