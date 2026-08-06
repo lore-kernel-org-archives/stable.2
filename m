@@ -1,150 +1,111 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CEC3A3E8C;
-	Thu,  6 Aug 2026 01:39:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741223B388E;
+	Thu,  6 Aug 2026 01:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785980364; cv=none; b=UxA44NdmZs4eXJ//RFJ6wiXZZqFiuFYUZzu2EDV9m+CzUS67Q81yQFd0zXOtMTpcUr1Vsq2h2u++dK+K6LveTwbDTPuA+tMSd+dO90zRNGP79wU4Rrs7rFDEHskTEdqVRgcErnyTbpsqqkdfsqRs0qby0mVBABJeS14AF8I6JMM=
+	t=1785980669; cv=none; b=dPXyMsJynqa6dKMXC0+BlW0I1QMk00u8G+BgSV/pBPakyGKZNvWZ3jdkaPhm/0VtBOLVaOUs6iV6sTwtt4nVPEuSVzmFOpdbd1c0pC3JUtKMb3ALZAKyj3IMYCCFT1S6TCw1x2bU2bgc6B6jUBUg1p2Xt3HU4Kg9SJJrkQKnxYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785980364; c=relaxed/simple;
-	bh=TjqPnAU/Pt5O1nUz79TpUwdCD+jdKwW4O13a7b32MjY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ktXjRxLhg7fca4wUbray6y0/pK12A0IpCD0KU01gBNiX2DeKtwa7vzNukBUtRiFAxt09LHNvPfVV8fqGduROdnmC/xvZQJHW7xFvZ/vVKnHE3DYEPHv7H8SmXvuPr80zFJ+LS8o+c+ROL5SnprZFoXXe2C2erAbpLoC/Sy6z7lY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 9d995f9e913711f1aa26b74ffac11d73-20260806
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:ab964d6b-8eb4-48a2-a5d2-ee410b13b3e3,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:e7bac3a,CLOUDID:51e2d7b99f8e0ebe579273d1060236cc,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
-	DM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
-	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 9d995f9e913711f1aa26b74ffac11d73-20260806
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1767105865; Thu, 06 Aug 2026 09:39:07 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com,
-	alexandro.calo@nozominetworks.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ntfs: fix name offset validation in ntfs_non_resident_attr_value_is_valid
-Date: Thu,  6 Aug 2026 09:39:03 +0800
-Message-Id: <20260806013903.8526-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1785980669; c=relaxed/simple;
+	bh=pDaGWIotUHeRiXYu0XdKs+QqVC4kZvyDhZ5Jr9ZyZfY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U1xeDaz6x1KegIFowcLHBbZvNU3dhZpOW+D9JfAf5ZBuwRftpAtloRbpqPc7LOZCBk0ZRzAnltKeJJ6qOAa53j6CjeKBLBRxL93b7A1nY2fEETboBEK5cZl4u3ET2jO6Mh5zI4nJNp8jrICw/4TOBam1H70sTk1gzRe5FKUEp2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=tPmaKzje; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="tPmaKzje"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=700hBB8fgPfgmlwOv52ySx8FJ3F1nBRAqSnKAZkhhtk=; b=tPmaKzjejjgGfLmDw0JXVoRZLC
+	X4/CpTOO73xqWvvd/Z7wPGg9nbL5kJtMnIDn0+GhzjJ1oofnsTrL8rfjfB7nEYU5o9OpNVdWvlZO0
+	YUyfV7ZgaG3D3Go2bGY49Ru9dHS8LSkvdfZa2pvFKYVjA9eVFC+u/UN2yGaILj3to7a1KA8Ry2AHX
+	plUEsKu+G9Y9QcotAWLEAg4mm2I0Nc4v2aRUsYXkVqQeLKk4CAD6T+vkd5yxGDeYgivkHno6I5vcb
+	08hoKa2obb1XPzwY8WvC+54mYJEMces1eYFaA/cCVuJ3wIYvAfy3/GEtj7PAbs1LTmlFhrpI49kus
+	a823YRTA==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wrn9W-00000005str-3Ftr;
+	Thu, 06 Aug 2026 01:44:10 +0000
+Date: Thu, 6 Aug 2026 02:44:10 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: =?iso-8859-1?Q?C=E9dric?= Le Goater <clg@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	Peter Xu <peterx@redhat.com>, David Hildenbrand <david@kernel.org>,
+	Alex Williamson <alex.williamson@redhat.com>,
+	Jason Gunthorpe <jgg@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/huge_memory: let special huge VMAs bypass the THP
+ policy check
+Message-ID: <anPm6vGNeDxLFIkJ@casper.infradead.org>
+References: <20260805055544.1568534-1-clg@redhat.com>
+ <anL-NZkNMSSxN0YN@lucifer>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <anL-NZkNMSSxN0YN@lucifer>
 
-ntfs_attr_update_meta() performs memmove operations on attribute names
-when converting between sparse and non-sparse attributes:
+On Wed, Aug 05, 2026 at 11:41:46AM +0100, Lorenzo Stoakes (ARM) wrote:
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index abc65d608c23..5fa01364f089 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -111,6 +111,34 @@ static bool vma_is_special_huge(const struct vm_area_struct *vma)
+>  	return vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
+>  }
+> 
+> +static bool should_obey_thp_file_tunables(const struct vm_area_struct *vma,
+> +					  bool forced_collapse)
+> +{
+> +	if (forced_collapse)
+> +		return false;
+> +	VM_WARN_ON_ONCE(vma_is_anonymous(vma));
+> +	/* Huge PFN mappings allocate no folios so the policy doesn't apply. */
+> +	if (vma_test(vma, VMA_PFNMAP_BIT) && vma->vm_ops->huge_fault)
+> +		return false;
+> +	return true;
+> +}
+> +
+> +static bool can_thp_collapse_file(const struct vm_area_struct *vma,
+> +		vm_flags_t vm_flags, bool forced_collapse)
+> +{
+> +	/* Override THP tunables? */
+> +	if (!should_obey_thp_file_tunables(vma, forced_collapse))
+> +		return true;
+> +	/* THP=always? */
+> +	if (hugepage_global_always())
+> +		return true;
+> +	/* THP=madvise? */
+> +	if (!hugepage_global_enabled())
+> +		return false;
+> +	/* Has VMA had madvise(..., MADV_HUGEPAGE) applied to it? */
+> +	return vm_flags & VM_HUGEPAGE;
+> +}
+> +
+>  unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+>  					 vm_flags_t vm_flags,
+>  					 enum tva_type type,
+> @@ -188,9 +216,7 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+>  		 * Enforce THP collapse requirements as necessary. Anonymous vmas
+>  		 * were already handled in thp_vma_allowable_orders().
+>  		 */
+> -		if (!forced_collapse &&
+> -		    (!hugepage_global_enabled() || (!(vm_flags & VM_HUGEPAGE) &&
+> -						    !hugepage_global_always())))
+> +		if (!can_thp_collapse_file(vma, vm_flags, forced_collapse))
+>  			return 0;
+> 
+>  		/*
 
-- Converting to sparse shifts the name forward by 8 bytes
-  (name_offset + 8)
-- Converting from sparse shifts the name backward by 8 bytes
-  (name_offset - 8)
-
-However, the validator does not check that name_offset is within safe
-boundaries for these operations. A malicious MFT record could set
-name_offset such that:
-
-1. The name is positioned at the very end of a non-sparse attribute.
-   Converting to sparse would shift the name forward by 8 bytes,
-   writing beyond the attribute boundary.
-
-2. The name overlaps with the mapping pairs, causing corruption during
-   conversion.
-
-Add validation to ensure:
-- For named attributes, name_offset is within valid bounds
-- Name does not extend beyond the attribute or overlap with mapping pairs
-- For non-sparse attributes, name_end + 8 fits within attr_len to allow
-  room for the forward shift when becoming sparse
-
-Note: name_offset validation only applies when name_length != 0, as
-unnamed attributes use name_offset = 0 which is valid.
-
-Fixes: 7e2a1c554bc4 ("ntfs: Fix min_len for compressed/sparse attributes in ntfs_non_resident_attr_value_is_valid()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
-Changes in v2:
-- Read name_length directly as an 8-bit field instead of using
-  le16_to_cpu().
-- Restrict the name forward-shift bounds check to the same attribute
-  types that can actually be converted by ntfs_attr_update_meta().
----
- fs/ntfs/attrib.c | 33 ++++++++++++++++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index d354c3b0fae1..ffd08633970a 100644
---- a/fs/ntfs/attrib.c
-+++ b/fs/ntfs/attrib.c
-@@ -693,6 +693,9 @@ static bool ntfs_non_resident_attr_value_is_valid(const struct attr_record *a)
- 	u32 attr_len;
- 	u32 min_len;
- 	u16 mp_offset;
-+	u16 name_offset;
-+	u8 name_len;
-+	u32 name_end;
- 
- 	attr_len = le32_to_cpu(a->length);
- 	min_len = offsetof(struct attr_record, data.non_resident.initialized_size) +
-@@ -706,7 +709,35 @@ static bool ntfs_non_resident_attr_value_is_valid(const struct attr_record *a)
- 		return false;
- 
- 	mp_offset = le16_to_cpu(a->data.non_resident.mapping_pairs_offset);
--	return mp_offset >= min_len && mp_offset <= attr_len;
-+	if (mp_offset < min_len || mp_offset > attr_len)
-+		return false;
-+
-+	/*
-+	 * Validate name_offset for named attributes.
-+	 * may be zero for unnamed attributes.
-+	 */
-+	name_len = a->name_length;
-+	if (name_len) {
-+		name_offset = le16_to_cpu(a->name_offset);
-+
-+		if (name_offset < min_len || name_offset >= attr_len)
-+			return false;
-+
-+		name_end = name_offset + name_len * sizeof(__le16);
-+		if (name_end > attr_len || name_end > mp_offset)
-+			return false;
-+
-+		/*
-+		 * A normal non-resident attribute moves its name forward when
-+		 * it is converted to a sparse attribute.
-+		 */
-+		if (!(a->flags & (ATTR_IS_SPARSE | ATTR_COMPRESSION_MASK)) &&
-+		     name_end + 8 > attr_len)
-+			return false;
-+	}
-+
-+	return true;
-+
- }
- 
- static bool ntfs_attr_value_is_valid(struct ntfs_volume *vol,
--- 
-2.25.1
-
+I think 'thp_' in all of this is confusing.  DAX isn't THPs.  PFNMAPs
+aren't THPa.  There's other reasons to implement huge_fault that aren't
+THPs.  Can we rename all of this to drop the 'thp_' string, starting
+with thp_vma_allowable_order()?
