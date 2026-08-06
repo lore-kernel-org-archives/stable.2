@@ -1,294 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1AF2F7F04;
-	Thu,  6 Aug 2026 14:26:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28AD44E673;
+	Thu,  6 Aug 2026 14:28:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786026397; cv=none; b=gq7RvBttfSURXIU0Zo8NYHlq4Yce+M6SsM4GbdlUI4HL4kNrHAfNaeutUHOYwiu4b3rykaPwHLx0u/ahWB4uyvuKm1G8G/e8EpmAzfOgVsF+xMAYveinjoEtqNenn6yEjoAmVo3czssqD/qMoz/3YmZwuWkSPXgGiuIHb3eYikA=
+	t=1786026495; cv=none; b=WhKoa++9NvYA7Sb3admgZKB01syKT560Ex4rwPsLG7SqNoSWJNEz5FqUhO5OZwx80YLZoMlKfuiQ7lCLz7omKTmouG93lwwZ7NQe2zhl1u8S24cLsBkx4gyDcQGzkKIqZNQGfziK8YsOzq0HABsw+9MBJ5ckyMrLnUyxnwHEJKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786026397; c=relaxed/simple;
-	bh=2iAMt/GUrF7SBhiuKcwF3ZrURycu86rFZKFulRL3jL8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=feYHJ7Yf0Gk9/GTTbZartbIfl6vGVzXoFiMZbK3Qe/2RUUzlV7QEBlukeXocezkvnoNOONhuvnpCUOQskSHJDSriY/yajjfpCCJRQLlRDXYYL2fXrhurqse7rFFlcGDbnvkaVzrzA67Q9qTml/LsJI3hT9I+HnEhnAF7B8ermIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VpD4TNWN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786026495; c=relaxed/simple;
+	bh=xT+5TYkiAumq+s0rgR2EHzJ++Fp87+V/F5njyp43bD8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DpED1X0FmF6FAzjulTrpYbuw879Nk4VkUqmUDs8rcW8Fsscq3vV47R78KXcj6vvGtXgb7WOR9472G+5zulOURo/slyLpA8SDpPA3bOAhLWjmiAwmkpyDZ/Kj5mKnVtQx8wzghF45xeAZpvJM9fdUHsarRXFHTJO9MeL1XdYVTkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=PiDE6Gc2; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VpD4TNWN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B3351F00A3A;
-	Thu,  6 Aug 2026 14:26:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786026395;
-	bh=fZ2eDYGSj2XtYyLf86x9P+NytbC9JWawDjK2akJlovE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VpD4TNWN59KnyLiJVal2vHb04rgodpNvBpCOIAWYXFVetxYPhmV2HUsdaIMM182at
-	 eyhJLeqf/AUdoYxSTO1Be4wjykrqpSHPIORgCpKaDFR4rirr3ugm7l5eSoQixTcVHZ
-	 koWFUAmfd/j7KVGFu4oeA5q7QzjPutCp2IeDaqJOwfGD1Kvw5DQE27bZYtT3oFdgpv
-	 MjPJFMvL1pjys9z9KbqsOyeahKWYSuAze9F+uU+8u92dtPCs5ggxoPGz9o3+k6XTLi
-	 blcsJr3ljTqGWg8QaxSiEi9XGwyIxL6Oyw6kxPhmEx2AKMAks1vDYvaQNl2nfxha1/
-	 yU4qYnbq7Ppxg==
-Date: Thu, 6 Aug 2026 15:26:16 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Wei Yang <richard.weiyang@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>, 
-	Li Youhong <liyouhong@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/memory-failure: fix folio refcount leak and
- min_order_for_split() locking
-Message-ID: <anSZbWcdK_xBJ8Pk@lucifer>
-References: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
- <anRv8ngsyOjkgOHM@lucifer>
- <d6e665cd-08a3-4598-8a4f-1af21eea4132@kernel.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="PiDE6Gc2"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 676DGNdI1071337;
+	Thu, 6 Aug 2026 14:28:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=XYD9OR
+	lJcfIhmnnxbWJKu03KGdjyvPU0kIn3Hu/iQIA=; b=PiDE6Gc2uAjio5ckJ/XZGI
+	hJK2RZfOn0iblKbpPBdQKpwSSk+OyfXmBrRhNxc4iMBKjVM8T3NFtzxKU7xDSX2U
+	V1HdoMwqp6kMnrhi1xigAn7+/bzCx9hGfjgNNz0lutgMB+zVj55t7t8glzc62jTq
+	htRsMgxixcKhwEzDU2YHO7wbKeckn2Om0tI7Ly5kvklbW0Xeew5GITFqouA+MR52
+	G/ewo5XPQmSnswj3YHbfmM+/lSomdq4DrUxmHenVXnxgmGT7PeGjy0gpjrmYq25z
+	v9eIce6i+k6CubZtJ9J0R8xcUbJf14zzOuicDgghkAxBzCb2aCkf+X8xePMzSZpw
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8a48pv8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 06 Aug 2026 14:28:08 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 676EQXdb010955;
+	Thu, 6 Aug 2026 14:28:07 GMT
+Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fsu4qunqj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 06 Aug 2026 14:28:07 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 676ERRIH59310574
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 6 Aug 2026 14:27:28 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 556755805D;
+	Thu,  6 Aug 2026 14:28:05 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 734B258057;
+	Thu,  6 Aug 2026 14:28:04 +0000 (GMT)
+Received: from [9.61.23.247] (unknown [9.61.23.247])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  6 Aug 2026 14:28:04 +0000 (GMT)
+Message-ID: <2926f8e5-9762-4197-bb67-1ab214d4864b@linux.ibm.com>
+Date: Thu, 6 Aug 2026 10:28:04 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d6e665cd-08a3-4598-8a4f-1af21eea4132@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] s390/vfio-ap: fix stale pqap_hook pointer on error in
+ vfio_ap_mdev_set_kvm()
+To: Anthony Krowiak <akrowiak@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, pasic@linux.ibm.com,
+        alex@shazbot.org, kwankhede@nvidia.com, hca@linux.ibm.com,
+        gor@linux.ibm.com, agordeev@linux.ibm.com, stable@vger.kernel.org
+References: <20260806140342.611294-1-akrowiak@linux.ibm.com>
+Content-Language: en-US
+From: Matthew Rosato <mjrosato@linux.ibm.com>
+In-Reply-To: <20260806140342.611294-1-akrowiak@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=E6P9Y6dl c=1 sm=1 tr=0 ts=6a7499f8 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=rFaDrkc5NCzgIuy8vgoA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: AlRSAbgekApLo-oYt3WPMRYAMW8xzShw
+X-Proofpoint-GUID: AlRSAbgekApLo-oYt3WPMRYAMW8xzShw
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDExMiBTYWx0ZWRfX0kws0p4QlvCo
+ VCib0d5RjBRRqoix7U4150t1ptt2pHM33Sqy/lW5qB/nu+VoqcuZqzVsMrxnHK3B1GYpIOLPVRk
+ 6+n+8e7yBmD50ymJjfN8ZtxZpT5Ogqw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDExMiBTYWx0ZWRfX87Mj5jrCClAO
+ 8A3LRtdnKMyGZZomRtttXRiuE3DeShshgQg1SInv4byyYaEXWFIApwPqUxeSr8AykEHLRIoVw6D
+ 66R0P4+1P9TcWz2DVQHf6+9GmxHTGByaJ4mJ2WoxNFVDzxeS3Nfzb6MUQp0Bb3fdT2lb/H9KsjR
+ ji+TpLNzrv4jlEUZEL6GT71oyxjWNd4483LKHCrYalnmweWxhJs2kykjdTeq6fcjX5HEsA4rYRh
+ Z91aUBscPr0sKWOyv56EWJZpSeIi6B1RBhq+NX6cdjv0em4KKFmRMtPLHReJN4Of8rQd7fOh60F
+ OFsgJEXKGY9WuiTjTTElrr1f59fhDNcKQS/7DqXy6yj+so8g+MkhufT232IY8JRvL6PGmQiF7T+
+ kOraay31UOUk3dTtADIuykqKlhDJ2yctla0D3QJNAqku1YNrhVaER4p5+egKj845N0iQSm9o1Na
+ Uo1pHmrLZcomrJoe/2g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1011 lowpriorityscore=0 priorityscore=1501
+ suspectscore=0 adultscore=0 spamscore=0 malwarescore=0 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608060112
 
-On Thu, Aug 06, 2026 at 04:17:21PM +0200, David Hildenbrand (Arm) wrote:
-> On 8/6/26 16:03, Lorenzo Stoakes (ARM) wrote:
-> > On Thu, Aug 06, 2026 at 01:14:38PM +0200, David Hildenbrand (Arm) wrote:
-> >> hwpoison code can end up calling min_order_for_split() without holding
-> >> the folio lock. There isn't really something that would prevent
-> >> concurrent folio split. Consequently folio->mapping can get set to
-> >> NULL after checking for "!folio->mapping", and if the compiler
-> >> reloads folio->mapping, mapping_min_folio_order() would try to
-> >> dereference NULL.
-> >>
-> >> While very unlikely to happen in practice, let's just enforce that
-> >> min_order_for_split() is called with the folio lock held. We can
-> >> significantly cleanup the calling hwpoison code, and just get rid
-> >> of try_to_split_thp_page() to hold the folio lock for a bit longer.
-> >>
-> >> Just work on folios now, which further cleans up the code. We just
-> >> have to be careful about doing the page_folio() after splitting, which
-> >> we have to do already either way. Do not change the way we split for
-> >> now, this needs more thought and should be done separately.
-> >>
-> >> Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
-> >> would currently have leaked a folio reference.
-> >
-> > Yikes...
-> >
-> >>
-> >> In folio_split(), document and assert that we need the folio lock.
-> >
-> > You mean min_order_for_split()?
->
-> Very right :)
->
-> >
-> >> Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
-> >>
-> >> The folio->mapping problem was identified by Sashiko, and Li Youhong
-> >> reported it by sending a proposal fix.
-> >>
-> >> This likely does not really warrant CCing stable, but I expect little
-> >> conflicts when doing the backport, so let's just CC stable because of
-> >> the refcount leak.
-> >>
-> >> Reported-by: Li Youhong <liyouhong@kylinos.cn>
-> >> Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
-> >> Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> >
-> > A typo above and a nit below about a comment but otherwise LGTM so:
-> >
-> > Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> >
-> >> ---
-> >> v4 of the last fixing attempts:
-> >>
-> >> https://lore.kernel.org/r/20260806031958.677935-1-dayou5941@163.com
-> >> ---
-> >>  mm/huge_memory.c    |  4 ++++
-> >>  mm/memory-failure.c | 56 ++++++++++++++++++-----------------------------------
-> >>  2 files changed, 23 insertions(+), 37 deletions(-)
-> >>
-> >> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> >> index 9b1f3b24f7e0d..a00df56a68b57 100644
-> >> --- a/mm/huge_memory.c
-> >> +++ b/mm/huge_memory.c
-> >> @@ -4362,10 +4362,14 @@ int folio_split(struct folio *folio, unsigned int new_order,
-> >>   * If a file-backed folio is truncated, 0 will be returned. Any subsequent
-> >>   * split attempt should get -EBUSY from split checking code.
-> >>   *
-> >> + * Context: @folio must be locked.
-> >> + *
-> >>   * Return: @folio's minimum order for split
-> >>   */
-> >>  unsigned int min_order_for_split(struct folio *folio)
-> >>  {
-> >> +	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-> >> +
-> >>  	if (folio_test_anon(folio))
-> >>  		return 0;
-> >>
-> >> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-> >> index aaf14608b30e2..f4f3f1fc9eaff 100644
-> >> --- a/mm/memory-failure.c
-> >> +++ b/mm/memory-failure.c
-> >> @@ -1705,26 +1705,6 @@ static int identify_page_state(unsigned long pfn, struct page *p,
-> >>  	return page_action(ps, p, pfn);
-> >>  }
-> >>
-> >> -/*
-> >> - * When 'release' is 'false', it means that if thp split has failed,
-> >> - * there is still more to do, hence the page refcount we took earlier
-> >> - * is still needed.
-> >> - */
-> >> -static int try_to_split_thp_page(struct page *page, unsigned int new_order,
-> >> -		bool release)
-> >> -{
-> >> -	int ret;
-> >> -
-> >> -	lock_page(page);
-> >> -	ret = split_huge_page_to_order(page, new_order);
-> >> -	unlock_page(page);
-> >> -
-> >> -	if (ret && release)
-> >> -		put_page(page);
-> >> -
-> >> -	return ret;
-> >> -}
-> >> -
-> >>  static void unmap_and_kill(struct list_head *to_kill, unsigned long pfn,
-> >>  		struct address_space *mapping, pgoff_t index, int flags)
-> >>  {
-> >> @@ -2509,9 +2489,6 @@ int memory_failure(unsigned long pfn, int flags)
-> >>  	folio_unlock(folio);
-> >>
-> >>  	if (folio_test_large(folio)) {
-> >> -		const int new_order = min_order_for_split(folio);
-> >> -		int err;
-> >> -
-> >>  		/*
-> >>  		 * The flag must be set after the refcount is bumped
-> >>  		 * otherwise it may race with THP split.
-> >> @@ -2526,24 +2503,25 @@ int memory_failure(unsigned long pfn, int flags)
-> >>  		 * page is a valid handlable page.
-> >>  		 */
-> >>  		folio_set_has_hwpoisoned(folio);
-> >> -		err = try_to_split_thp_page(p, new_order, /* release= */ false);
-> >> +
-> >> +		folio_lock(folio);
-> >> +		split_huge_page_to_order(p, min_order_for_split(folio));
-> >> +		folio = page_folio(p);
-> >> +		folio_unlock(folio);
-> >> +
-> >>  		/*
-> >>  		 * If splitting a folio to order-0 fails, kill the process.
-> >>  		 * Split the folio regardless to minimize unusable pages.
-> >>  		 * Because the memory failure code cannot handle large
-> >>  		 * folios, this split is always treated as if it failed.
-> >>  		 */
-> >> -		if (err || new_order) {
-> >> -			/* get folio again in case the original one is split */
-> >> -			folio = page_folio(p);
-> >> +		if (folio_test_large(folio)) {
-> >>  			res = -EHWPOISON;
-> >>  			kill_procs_now(p, pfn, flags, folio);
-> >> -			put_page(p);
-> >> +			folio_put(folio);
-> >>  			action_result(pfn, MF_MSG_UNSPLIT_THP, MF_FAILED);
-> >>  			goto unlock_mutex;
-> >>  		}
-> >> -		VM_BUG_ON_PAGE(!page_count(p), p);
-> >> -		folio = page_folio(p);
-> >>  	}
-> >>
-> >>  	/*
-> >> @@ -2861,9 +2839,8 @@ static int soft_offline_in_use_page(struct page *page)
-> >>  		.reason = MR_MEMORY_FAILURE,
-> >>  	};
-> >>
-> >> +	folio_lock(folio);
-> >>  	if (!huge && folio_test_large(folio)) {
-> >> -		const int new_order = min_order_for_split(folio);
-> >> -
-> >>  		/*
-> >>  		 * If new_order (target split order) is not 0, do not split the
-> >>  		 * folio at all to retain the still accessible large folio.
-> >> @@ -2871,15 +2848,20 @@ static int soft_offline_in_use_page(struct page *page)
-> >>  		 * preferred, split it to non-zero new_order like it is done in
-> >>  		 * memory_failure().
-> >>  		 */
-> >
-> > This comment is:
-> >
-> > 		/*
-> > 		 * If new_order (target split order) is not 0, do not split the
-> > 		 * folio at all to retain the still accessible large folio.
-> > 		 * NOTE: if minimizing the number of soft offline pages is
-> > 		 * preferred, split it to non-zero new_order like it is done in
-> > 		 * memory_failure().
-> > 		 */
-> >
-> > Which references 'new_order' twice - probably need to update this.
->
-> Agreed, thanks!
->
-> While at it, I'll just drop the NOTE that is not of any value, really?
 
-Yeah rip that out.
+> 
+> Fixes: 86956e70761b3 ("s390/vfio-ap: replace open coded locks for VFIO_GROUP_NOTIFY_SET_KVM notification")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+> Signed-off-by: Matthew Rosato <mjrosato@linux.ibm.com>
 
->
->
-> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-> index f4f3f1fc9eaff..9f1e547e7b472 100644
-> --- a/mm/memory-failure.c
-> +++ b/mm/memory-failure.c
-> @@ -2842,11 +2842,8 @@ static int soft_offline_in_use_page(struct page *page)
->         folio_lock(folio);
->         if (!huge && folio_test_large(folio)) {
->                 /*
-> -                * If new_order (target split order) is not 0, do not split the
-> -                * folio at all to retain the still accessible large folio.
-> -                * NOTE: if minimizing the number of soft offline pages is
-> -                * preferred, split it to non-zero new_order like it is done in
-> -                * memory_failure().
-> +                * If we cannot split to order-0, do not split the folio at all
-> +                * to retain the still accessible large folio.
->                  */
->                 if (!min_order_for_split(folio))
->                         ret = split_huge_page_to_order(page, 0) ? -EBUSY : 0;
->
-> >
-> >> -		if (new_order || try_to_split_thp_page(page, /* new_order= */ 0,
-> >> -						       /* release= */ true)) {
-> >> +		if (!min_order_for_split(folio))
-> >> +			ret = split_huge_page_to_order(page, 0) ? -EBUSY : 0;
-> >> +		else
-> >> +			ret = -EBUSY;
-> >> +		folio = page_folio(page);
-> >> +
-> >> +		if (ret) {
-> >> +			folio_unlock(folio);
-> >> +			folio_put(folio);
-> >
-> > Wow, incredible that we had a refcount leak here for ages and didn't know. Ugh
-> > what a mess this hw posion crap is!
->
-> I mean, soft-offline handling is not what runs on ... everyone's box. And the
-> memory will effectively be dead soon either way (hardware tells us that this
-> memory is likely going to get hwpoison soon) in most cases ... :)
+I think you need to re-arrange the SoB tags based on :
 
-Good. I think we should burn the whole thing down tbh.
+https://docs.kernel.org/process/submitting-patches.html#when-to-use-acked-by-cc-and-co-developed-by
 
->
-> --
-> Cheers,
->
-> David
+Co-developed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+Signed-off-by: Matthew Rosato <mjrosato@linux.ibm.com>
+Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
 
---
-Cheers, Lorenzo
