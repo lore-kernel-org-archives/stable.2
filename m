@@ -1,205 +1,186 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB223CF1F2
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 07:56:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786002973; cv=pass; b=R+ZAmTVjCBJ04AzBBAniNvS+v3nRRK1moL7CUhawnesFO9VgJOclaqxkcvxrvlq0nPgG5FLKs2Uh8TQsfCtMNLab9noDAl1SFUZKYEze0HlTVoJC7kzoHf1btl4TQcOskGUgZzQlxQkaq61MZUmWhdD9UBsetAKwv3+25+F+qSo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786002973; c=relaxed/simple;
-	bh=mZA2+co8JyR8AhVnXKsyn8qV/VAQ25/BehkWnTRIakA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MQTrEnKR+2q0FYOLn+BgZbhMLw7H4A6lr6Xu4WaONtSXFhTNqlU7rDpdk6+w/g/ksGO20pjRKQ99BQ1ANizFadiEm9YesZr41mQ44Ysn+z6JeVaT9GG6CSAHFFumPjxcBTR5stdsdBOAqT39dSj10thjO//Kdyif+5QacMpg/m8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=olmFMEAa; arc=pass smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF5F381EBA
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 07:58:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786003088; cv=none; b=bKp5KreqB3uoE67I3gUzGiiz567fwCJauBAi/Dvzeds3B2ib3gzNRLR1UfB5BNX5gngvQdPbP1fMCwpcpeR6aNA+vUYztCLZqqbOILWcaPV5WoceatDjZTvJ4Bi6mQ1ROlqcDtrcvGeIvns9zfnzu6JQ2aNaZBvYGDa6Gi8B2ks=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786003088; c=relaxed/simple;
+	bh=tI+N0a0wfxMdNBRKZGb2ZGPqHO4OtAB40aOT08pkdww=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ozIKoNtew8/RPkz8mmId0wOiwPNWB+PkDsYJlipPSGEoKaDscZs9sAG0BQE6DMeXXEMYfFqqz6UwN3SQm7kDAw5RMbf9qv5vdZXPoRxSkVPxgk3h+FklQlIMrhSBY1sxThqVHs05Ol9T504cndmxZdOBLf8EX1S3dYIy3kTEa30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ipS8Rkui; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YbiaunKH; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="olmFMEAa"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c1c50c1e29bso273603066b.3
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 00:56:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786002970; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GlHDFcpMAmeIeXLZSLsRiOJmp6UO/0bOwOG+eT6oOmBgCrsZfp3wPVDd2hIrRtv/66
-         EdaDLegST0Gwt0j4eu52e3cg5BdTChvm1Hns2siulUQRS0VWLoqxUUobUD291/9wjOSe
-         frRsMQ08ybN5rt2R8xDefeLqq/4o+c60ctSmp0scqgCF2Yz4IS0YH2mYgj8vxG5M2J4F
-         74dpCesC+hzn2FUA+EBY6O2YkMNmY8kbvkRu2FtLJD+bGr9qfyPNiU2I/VQFeYO4yUt0
-         eh7mGBELYQCVGApuN35dyEsowp1TYFoPUh6eImL9gnJC5PR4UL6vBCEYWPdVsGM/5Ic2
-         62+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=alVwMbl9VBoTW/xDEpAPX7cYZNzoRuTYckTUnVBoUW8=;
-        fh=48emAzz9wI5q/bnlV9g6XiyBVXGav3HyDQF2+Ok0xdw=;
-        b=AFaeP3tBsy2zcfPGlS+0wluvKOzAwzwBmr39TV9JgHILO+IPqHkVKrY8AF4yWw5y29
-         hoMWo1cL/FhFL91V20PcN+WGFn0nAVdzG0kX8gp7OfsKC0M6VeNdLyd1bRoqZTmGl90A
-         JoljJXWSg9Ibg/1asOcCxLqsL28dRMIK35x/HOBGTPA+ku/jAUL1yKbu1kgbwcCqKBWs
-         SWiTMc4CXmz0KP/g5+fFswkenLblkXNoXY9Nk3gBlRiIV01cgpeR/iZ07JMH3hDAaGDO
-         +l5MYD62WBYjrO8BueIwN/GvTQbaIvIiw9eSY6Hn3ByJvqCM7Vrfw53wC+muB5uFgB32
-         oqlw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ipS8Rkui";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YbiaunKH"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6767MJrq1286936
+	for <stable@vger.kernel.org>; Thu, 6 Aug 2026 07:58:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	2ldzWFN9pHQYJUN2j5inoFoN/0RcHqULrphDDtK0FC0=; b=ipS8RkuioOY9xwWH
+	4sFrahfgboYEzxphcn8IxtOyCNNIWKj0qjabRUqPp4kn7UJT3wva/aaPUhKk/yVN
+	zOVBMz8WY1sUnO7WGG7NUbbc5eQ2JqBguLg5xztTc6iyvLFSmy4QFXEf+yBXXe76
+	6is3FjIs4VRZHhAvpsfEjEnzgV6dDPwRFaVDID3L1JhR00/vShaHyGjrTsruZCvi
+	V6kXiiMRkqPeDa4A6nAVAJmN9Q+8tusm07afZjpCBgXsoMEBMUm+hEKtg04bmewV
+	g0CCo5SOkr8+C32/DeK53Ai8k9lIWj0hV+GRyrxHdvUG5cXNpLkzB4AfDGEDnmga
+	rzEdQg==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvntng4e4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 06 Aug 2026 07:58:06 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb74d5db64eso2103929a12.2
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 00:58:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786002970; x=1786607770; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=alVwMbl9VBoTW/xDEpAPX7cYZNzoRuTYckTUnVBoUW8=;
-        b=olmFMEAaARzUlmr490urLlICIm6xWmI+Pq9v/JsHwcQ52kLzcNqboZ1X1ubrMzCDHw
-         jQVERf4JnDc/nj3i/+svlxtHlihWuqLG/j3boYD1V28+Kxa2XwvC8BYZgfnX5t3hKXYp
-         h2oWA/FPNQYmmYSODucJ+8ZjzhxbDCYqRRPBklv3DEjlWLwMDF1Jl1L6bF878Cxoj6+q
-         VP4EYbLLfqNvbiZNX/cKPORKTBYcgOiNJu0AAJmSjyoC0D3dhacibLuJI5JhVSfaruHx
-         MHz/omPpuuYIZPfKobVx/x1oImQ/pQFeRd5N2kfUUyuDRmgjIe9Xddb2iXeoj/mRNZlw
-         /DHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786002970; x=1786607770;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1786003086; x=1786607886; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=alVwMbl9VBoTW/xDEpAPX7cYZNzoRuTYckTUnVBoUW8=;
-        b=W9TpoOKuqDDMsJsCjgIxknfMSyBxBCo/ZDF5K6WApMUsTpp7noTrjn1p4h9lwhSAnM
-         AO3Jmr9OlUi9BT6msfjW7nDDj1rUxD2Rs+uFMH47/KDugTRJ1XJ4a8x0SwJei4BOkCAx
-         JcYWKfusGuI/46SudY+213o6NDarR7E50+Gnz1Ijx/0S/m7TIhGjybZPPgyC7HfrA+a/
-         ic/CPTgEKctx7yMTdbvI4I7/GHQKCmh/jU1Mw1q4wiewUYj+XSOe5JqjzpmxFpnYch29
-         nZpzLyomyxB5erodZrELz583hUMPvDirtlykqPqdzyd38VxadpFIl2ktgNe8jEAfV7va
-         +/+w==
-X-Forwarded-Encrypted: i=1; AHgh+RozTe56iR/JAzrHiNGdxuJGnaTRqiM8ca44QEgTVghjsYhqu8gcoqcQ4ya3e0QQbdGLReRbjdM=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxIfDv/SkB8QOQD4JKBCEQqmRvueY0rf5JjwRcKPAqQ+AgCnIIN
-	g8OpC/vzuE8XJi8ipRzBYMj/q64z0TbBFfNldUZXav/KtgepkGpn2FqhtiNOjdOj02peyVMCZhA
-	SzZLXyFdxuKWYZQQcFyIPk6APVainuns=
-X-Gm-Gg: AR+sD12rdpV0jAjqRW1bKfUb3TGYmPbgCq3BB8Zf6ZIoRm963btxmDBdMDf8FyfJtCI
-	2wuutaYJxwpAJo74wWwRLm5QMhHjPM/qs62DitEfoFl+U97TJh6cdr2p/volUQiiDdXHS0Hj/HQ
-	J9FrMTwbBgJsAG4QilPdTb+fwQHh9boRuWhS1dpVUcEntdocOSpPbVAdRuApsjWvCsQU+0gADZt
-	89psi0DbADvHh+vfme/hRjT5IhD0Vrn36MTl6cTUaYm5EEVh0WTd4iqnAQ6qkWPgLj1EKcON8ko
-	rrGzhD+WrZqKdRthosW2awTJaI8sUJ+D6vx/p5JuVY0Sn/i5OotH4T0JVw==
-X-Received: by 2002:a17:907:8995:b0:c12:525b:4e84 with SMTP id
- a640c23a62f3a-c2039b07297mr596013266b.9.1786002969976; Thu, 06 Aug 2026
- 00:56:09 -0700 (PDT)
+        bh=2ldzWFN9pHQYJUN2j5inoFoN/0RcHqULrphDDtK0FC0=;
+        b=YbiaunKHBk6D5cTu9ZcJjZOI5djRxM10Lg6w7iQsNfcPjpFVzJ6PMfwc7+vCpdmF3i
+         nKUmwcZChG1EwZXXHEzzfc1lk21NNs7buc3SWGW4YbdNtoWvCTXu018ZkCZ7XXLErdFM
+         YrZAHhZzE7Fznk1YTUYP6P55AJLap3JLW/KriqjE0BdTapCuxuZ/o4P00u+NvHq+z8QH
+         Wl6DNm76tmWD4oRnNtcMS3PQo2bLj/5EJ2+8H04wwFMpnXhDrxp+zxkjnIYITvxEybCT
+         jw45yzw3Vu8hst9WSYpsGsZmIRYPl92J+hvuqUu7+Op7GsrUWAAkttEAnY5qxO/xUzxI
+         8zhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786003086; x=1786607886;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2ldzWFN9pHQYJUN2j5inoFoN/0RcHqULrphDDtK0FC0=;
+        b=X1OjXRqCQMbQW3GVulRjVp/tKKI7/li1yo1vYG0k4epG+2c4h2/q7sDDhN96DDkJ7c
+         CfCh+ELB65irCY8yYXwIpnmXQaPVENKZrmdOf2y4qDjoY7wxU9mNlJ7f8Md2xw8d6Eda
+         kzuQ3bAq3xHLBKKs9K1Et/vVNeGZ5i1LL+br9cIVbtuvlvNjktD9WZfemUqPkzXYkEIF
+         81ajn81hDEQQc0mviWJTnhjQNbxyXcM1EJtd69cMxgygdBvfusPRrSf3dX9AgcOed2st
+         wh/FPZnv4atyJXePxqZbqWCrymbl5H7ZMMx394Id2Un29Um9QPsDKGdIjYbV5uaexSVc
+         a3nQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpwU1zVk1jU1P1ZpQJgqy2RHlJmHOoowuKOt32b7NgOibcSKOh51Sr2ywtjegl2VqwkDyErX4I=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx5XYJu6aHyWGKRtMZ666Pz65AxCcAWE7OF1d0w1KqVDlG1P4XT
+	EsKjGHHxRBO2eNQrq+v8yBteFJjhnh4SvWoWi1B5Bj3mfs3RQWxl5FXFT0YisS7Md6gIwGKbWJC
+	TBxN4qLOzbYQCXYa+1u7hTqkPOfsrXfHKzjwDxxe+WkGgvVm/n0dJdI74WlQ=
+X-Gm-Gg: AR+sD13KSkdkwM3ZqdKM9ZNv50n4n/AEtgrNqAWLkLMOyehxW6D2XOoPU4Yn7Un7+rH
+	bOjmY5vPg9hCv7yTK0vmVjC04/4xki2Clh60fmjy+HoV2j/0ua2JIewQ0t3qxFeehs8plFWgdEu
+	kMJVX2e6LxleBuy6VZF7K3PhaugqDxci8nRKA0VaOVEUgu6gAnQQXUA478DZEXRmz8R8dSLIWDm
+	DZq2YPL1zws/OIrWLJKXDPrZmXH+lqHH5c9Ga8wwBmF95OGKJkCa+xG89un4gIxjznc0IsWuzNx
+	NMLbfLWG38d+PbVN4x0htseedP3CjTEL66yac4U+s7X8/JUqtYbl3mjnre8pUBY5RvuYueG1p06
+	/SLJCB/siVUYguKZkMjsFZienrUw3qXZpNA==
+X-Received: by 2002:a05:6a21:687:b0:3cb:7b9d:9869 with SMTP id adf61e73a8af0-3cb85f4a600mr16700021637.35.1786003085830;
+        Thu, 06 Aug 2026 00:58:05 -0700 (PDT)
+X-Received: by 2002:a05:6a21:687:b0:3cb:7b9d:9869 with SMTP id adf61e73a8af0-3cb85f4a600mr16699976637.35.1786003085420;
+        Thu, 06 Aug 2026 00:58:05 -0700 (PDT)
+Received: from [192.168.0.173] ([183.83.140.67])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fca660e66sm21728887c88.8.2026.08.06.00.57.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 06 Aug 2026 00:58:05 -0700 (PDT)
+Message-ID: <8130900b-c9f2-4f5a-80f1-1e8567ee1b72@oss.qualcomm.com>
+Date: Thu, 6 Aug 2026 13:27:56 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <74871a78-5243-4898-8e63-92e918912980@redhat.com>
- <20260706180003.2124317-1-r772577952@gmail.com> <CANypQFZTFMxk5W4d3GViW6T1Nkxua3nVk3RNx0fie-26fpmXSg@mail.gmail.com>
-In-Reply-To: <CANypQFZTFMxk5W4d3GViW6T1Nkxua3nVk3RNx0fie-26fpmXSg@mail.gmail.com>
-From: Jiaming Zhang <r772577952@gmail.com>
-Date: Thu, 6 Aug 2026 15:55:28 +0800
-X-Gm-Features: AUfX_mxtNC4c7CPA0o1izUT8H_DyX4nTJyNBaErx8W8Ejd3wshynsUlDa_fGDSU
-Message-ID: <CANypQFaqi25O5jh16KfLxeA7QJZwEKaEgq-t-hw-ErxS8a34jg@mail.gmail.com>
-Subject: Re: [PATCH v2] gfs2: reject oversized dinode sizes before i_size_write
-To: anprice@redhat.com, agruenba@redhat.com, gfs2@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	syzkaller@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
+ subnodes to common schema
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
+        Daniel J Blueman <daniel@quora.org>
+References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
+ <futJwsC0VjGSkjrB5PP9T0jBOVgWADaDAYyRRp-OZifaKPNtjcnnA59QJaQTdqYTeayZk9jY6e1jOfun71Yp5Q==@protonmail.internalid>
+ <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
+ <689580d1-8169-41cf-a954-927e10135700@kernel.org>
+ <d0983bf7-a708-46ff-9f86-f94fb6a92ba7@oss.qualcomm.com>
+ <d6ffacaf-7f83-42be-a3cf-40ce00810ca9@linaro.org>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <d6ffacaf-7f83-42be-a3cf-40ce00810ca9@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA2MCBTYWx0ZWRfX3UMJdYHO3lZe
+ c42SSSyZuwFoOx1A5F+n/t/6MSPlzbkKuaTCB88665x5mzBVxUv2Kw+yS0PLI3X7KLWo/msYnD4
+ joC9RkOPrnyUK8lxu3Tfj/mgFcNjKGQ8Qnlp0qCAo94/6EJK3bfm7nMf2nf+aJcOiM/TsuQRiHZ
+ DSVBsGPM915BokrYPC6MEN30zzQBAKiZnHH/hz4/xYNCX1JNeaB7OQBoiZtrbOsQOYLMSmpIHiL
+ Jt2zPtDnBWbyHFcWJO1Vlfetg/pDm0rL54uk/7H+9jDUGJaKwwV8ReCUY4lp1PTIQ2QpNODLuqg
+ iqIEiAScQFJII657+23hxuGNp3CO1LKla2P/hvOW1rLgFAV7gg2wGiNElCgDqcopWhTyyLXH5Sr
+ rhzpa1rwhE4fNXKUCDmuVRC1zGl15gc4BdlbO5wgk0hdunOrniRILL7YYoe/4fsrYbnYSkrV9Ab
+ mFj9xX0JZhDj7EV/xkg==
+X-Proofpoint-ORIG-GUID: 1jph9PFUSRjajeJq0N8clgCHN_CZmN2J
+X-Proofpoint-GUID: 1jph9PFUSRjajeJq0N8clgCHN_CZmN2J
+X-Authority-Analysis: v=2.4 cv=LpKiDHdc c=1 sm=1 tr=0 ts=6a743e8e cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=kGzeRs6aa4G/VYrSuZk26Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=t9ty7G3lAAAA:8 a=EUspDBNiAAAA:8 a=KDX8qB4gCLF3aDKb5rsA:9
+ a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22 a=CsAS6f0m0zARWR-uHzm3:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA2MCBTYWx0ZWRfX8CnFRDiQMCTR
+ 3jH8SUExDtx9qHOe/pE+/yJ2Ml5gfSSekSy1OQ4O7KjvpNoqfx/fGYFhUyhjtmiPiQAzSw43BfN
+ Dui5TRh0iZbql6MLtljM47mPmXAX34c=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 adultscore=0 bulkscore=0 spamscore=0
+ phishscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060060
 
-Jiaming Zhang <r772577952@gmail.com> =E4=BA=8E2026=E5=B9=B47=E6=9C=8823=E6=
-=97=A5=E5=91=A8=E5=9B=9B 15:10=E5=86=99=E9=81=93=EF=BC=9A
->
-> Jiaming Zhang <r772577952@gmail.com> =E4=BA=8E2026=E5=B9=B47=E6=9C=887=E6=
-=97=A5=E5=91=A8=E4=BA=8C 02:00=E5=86=99=E9=81=93=EF=BC=9A
->
-> Hi,
->
-> >
-> > A corrupted GFS2 image can store a dinode size that is larger than what=
- VFS
-> > i_size can represent. gfs2_dinode_in() reads the on-disk di_size as a u=
-64 and
-> > writes it directly into inode->i_size. If the value is larger than S64_=
-MAX, the
-> > incore i_size becomes negative. That negative value can bypass the exis=
-ting
-> > stuffed inode size check:
-> >
-> > inode->i_size > gfs2_max_stuffed_size(ip)
-> >
-> > Later, gfs2_quotad may try to sync the quota file and unstuff the quota=
- inode.
-> > gfs2_unstuffer_folio() reads the negative i_size into an unsigned lengt=
-h and
-> > passes it to memcpy(), turning it into a huge copy size and triggering =
-a
-> > out-of-bound issue.
-> >
-> > Reject dinodes whose size exceeds sb->s_maxbytes before storing the val=
-ue in
-> > inode->i_size. Also make the stuffed inode check use the raw on-disk si=
-ze while
-> > it is still unsigned.
-> >
-> > Fixes: 70376c7ff312 ("gfs2: Always check inode size of inline inodes")
-> > Closes: https://lore.kernel.org/lkml/CANypQFaF6bvORKKbRALvEL0k_epFaneFi=
-OQqco4gjdmKVbdURg@mail.gmail.com/
-> > Assisted-by: Codex:gpt-5.5-xhigh
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
-> > ---
-> > Changes in v2:
-> > - Drop the defensive unstuffing changes in bmap.c.
-> >
-> >  fs/gfs2/glops.c | 9 +++++++--
-> >  1 file changed, 7 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-> > index 28f32424ee64..8c5d257451d5 100644
-> > --- a/fs/gfs2/glops.c
-> > +++ b/fs/gfs2/glops.c
-> > @@ -393,11 +393,16 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, =
-const void *buf)
-> >         umode_t mode =3D be32_to_cpu(str->di_mode);
-> >         struct inode *inode =3D &ip->i_inode;
-> >         bool is_new =3D inode_state_read_once(inode) & I_NEW;
-> > +       u64 size =3D be64_to_cpu(str->di_size);
-> >
-> >         if (unlikely(ip->i_no_addr !=3D be64_to_cpu(str->di_num.no_addr=
-))) {
-> >                 gfs2_consist_inode(ip);
-> >                 return -EIO;
-> >         }
-> > +       if (unlikely(size > (u64)inode->i_sb->s_maxbytes)) {
-> > +               gfs2_consist_inode(ip);
-> > +               return -EIO;
-> > +       }
-> >         if (unlikely(!is_new && inode_wrong_type(inode, mode))) {
-> >                 gfs2_consist_inode(ip);
-> >                 return -EIO;
-> > @@ -418,7 +423,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, co=
-nst void *buf)
-> >         i_uid_write(inode, be32_to_cpu(str->di_uid));
-> >         i_gid_write(inode, be32_to_cpu(str->di_gid));
-> >         set_nlink(inode, be32_to_cpu(str->di_nlink));
-> > -       i_size_write(inode, be64_to_cpu(str->di_size));
-> > +       i_size_write(inode, size);
-> >         gfs2_set_inode_blocks(inode, be64_to_cpu(str->di_blocks));
-> >         atime.tv_sec =3D be64_to_cpu(str->di_atime);
-> >         atime.tv_nsec =3D be32_to_cpu(str->di_atime_nsec);
-> > @@ -462,7 +467,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, co=
-nst void *buf)
-> >                 return -EIO;
-> >         }
-> >
-> > -       if (gfs2_is_stuffed(ip) && inode->i_size > gfs2_max_stuffed_siz=
-e(ip)) {
-> > +       if (gfs2_is_stuffed(ip) && size > gfs2_max_stuffed_size(ip)) {
-> >                 gfs2_consist_inode(ip);
-> >                 return -EIO;
-> >         }
-> > --
-> > 2.43.0
-> >
->
-> Friendly ping. Please let me know if there's anything you'd like me to ch=
-ange.
->
-> Best Regards,
-> Jiaming Zhang
 
-Friendly ping. Please let me know if there's anything you'd like me to chan=
-ge.
+On 8/6/2026 1:24 PM, Bryan O'Donoghue wrote:
+> On 06/08/2026 06:21, Vikash Garodia wrote:
+>>
+>> On 8/1/2026 3:36 PM, Bryan O'Donoghue wrote:
+>>> On 31/07/2026 19:22, Vikash Garodia wrote:
+>>>> Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
+>>>> Cc:stable@vger.kernel.org
+>>>> Tested-by: Daniel J Blueman<daniel@quora.org>
+>>>> Signed-off-by: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
+>>>
+>>> What about venus ?
+>>
+>> Plan is to get the reviews for IRIS3 family SOCs, once we have a go 
+>> ahead from binding/DT maintainers, i can either bring in few series 
+>> for remaining venus and iris SOC family OR do all of them in one 
+>> single series. My preference would be to add in multiple series.
+> 
+> I still don't see why we can't just set
+> 
+> minItems: 1 for the memory nodes - implement a fix for stable and then 
+> iterate around this new way at leisure.
 
-Best Regards,
-Jiaming Zhang
+you can follow the guidance from binding maintainer [1] and continue to 
+discuss in the same thread if you have any question.
+
+[1] 
+https://lore.kernel.org/linux-media/2b0ea2a2-c3ef-4147-801b-af41733fba7b@kernel.org/
+
+> 
+> There is a festering - system resetting bug.
+> 
+> ---
+> bod
+
