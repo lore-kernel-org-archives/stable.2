@@ -1,122 +1,121 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3704E3D567E;
-	Thu,  6 Aug 2026 07:28:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8566338E8C7;
+	Thu,  6 Aug 2026 07:32:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786001312; cv=none; b=IhXHT5E7ZItvMuLm10an2MnTV+BIbGCTV4dWjJ7G5Jg5TXrjVZvKcLuD6AYe3brz41T021yU9S+52h0yH8ZqsMVUoPP+5g72jc2qNRhLgRP8y/UnKAVfkjbG4s1PW+ArrjQS8WgjHMVHzRt9oNrc+RoUHnRa8erZSCOUXSCkz1k=
+	t=1786001576; cv=none; b=u8eCuxrfBgbTQ1ICWxg/wkA8Y70DgX4+nJn55P47f6E6dpfNN6ECVJv2aqQqZs4DbGsXmiFwAEXfIZKEWPwKM4l4LgqaS2iQ1Lfubpg9NmBZHjpCvWp+rXsUPB54iIIEOiknClUlz9gKxPszU+VVV5aQf1/FvyIQH0ugAWtE8dw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786001312; c=relaxed/simple;
-	bh=0ho9WJRC+azqwWSgJ82Ldgo0yZn9VWLw1zSayaxUa78=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DJ3SjOPeLZ/O53AW2QhueDwflbCQQV4kMjF+knHS9evm5wUdxH2gf/CiHbsoD8SZKOd9NRhFSSz1EASvuW9X2zUMJ20KdZLVITIWZWfcpSbePuyiIk3nlIMm8BH258zOQCWW+ZOwDm8mVvj1XJoCZDDqgOWhILP/N5rZ9M67oCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SZVrV3Yr; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1786001576; c=relaxed/simple;
+	bh=G555qcSTABNjTGl5WJmuY4hJyTDyo/R9g//LjIH7osY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UkweSULJFygPqVBn9uPN4aXDF0ranq2pQpOy6FM7quUQjXIoLhvcShOVYGIJSD7wXBSZI9cWaJASccjXmLtn29YBUN5amt9AqUobSgeBe4+87yGLURTRIyA7XwmBqVW22Dv90MglluPm/yx2GH+ksdKueT0LPJCQnpmD/9EmcII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=oVLfE200; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SZVrV3Yr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=32
-	hPE4s9FxkFRc/nrSoP2PIQsD8ssRPOOkOEYXu240o=; b=SZVrV3YrI6IXvEzsx/
-	GxxfRWdWPGena4BgaV8ujsrpAQZiy90+MQ8mY70ktP7yxvTjXkcYiBxHqdE8zRf1
-	yncB+NTjb3j/MdaG18bfMvNi5mSL0xNElRxF9z9P+cqrP53IHbcmK+aLEZXaYDEM
-	gvZptfF7OkNEwOdKhhQMAcJk8=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wA3oJJjN3RquJoEMg--.8293S2;
-	Thu, 06 Aug 2026 15:27:31 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: rafael@kernel.org,
-	viresh.kumar@linaro.org
-Cc: linux-pm@vger.kernel.org,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	zhongqiu.han@oss.qualcomm.com,
-	Hui Su <sh_def@163.com>
-Subject: [PATCH v2] cpufreq: schedutil: Fix rate limit overflow
-Date: Thu,  6 Aug 2026 15:26:56 +0800
-Message-ID: <20260806072656.1386351-1-sh_def@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="oVLfE200"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=iky40uyxfSucD4SrN1FwgoAHOq3IOpXgMvFnUdxhBGw=; b=oVLfE20026jMBQejgucwqsOTBN
+	q82ZZgTwbpFAV+n0f0MUEcR6iLB3aBWOVDTsdbyUnskafAMMfySTWjmBrqlPdYBwy3NwiUINkGFix
+	8wK214bo/nQVetj9lZVpO+sljlgh0ujDgTzCuTKeRLpWNpP/sC6mEUyFzRDidwo5cMtxyBDG+X4Vo
+	w/j+UuiG6vydtpnXLafGtg2RNLMLF9ujE0/55P0no8szRcySMYe7noBETNEkPaHuK1Q9N+iaU4XRL
+	e/gUqSNqM3ihSZ1SonoJsDCKOUzOB+FV1y8nd2xTiNL29LqOFQSqpdAkLS65iYUI26k/wI2Hygn68
+	MxKJww5A==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wrsaq-00000008gO0-43ll;
+	Thu, 06 Aug 2026 07:32:45 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 6CC69301519; Thu, 06 Aug 2026 09:32:44 +0200 (CEST)
+Date: Thu, 6 Aug 2026 09:32:44 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Jann Horn <jannh@google.com>
+Cc: John Johansen <john.johansen@canonical.com>,
+	John Johansen <john@apparmor.net>,
+	Georgia Garcia <georgia.garcia@canonical.com>,
+	apparmor@lists.ubuntu.com, Paul Moore <paul@paul-moore.com>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	James Morris <jmorris@namei.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	linux-security-module <linux-security-module@vger.kernel.org>,
+	kernel list <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] apparmor: fix cred UAF caused by
+ begin_current_label_crit_section()
+Message-ID: <20260806073244.GM49951@noisy.programming.kicks-ass.net>
+References: <20260714-fix-apparmor-cred-uaf-v1-1-be40e8c83b90@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wA3oJJjN3RquJoEMg--.8293S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZw4xXFykWFyUXrWUGFy8Krg_yoW5Xw1UpF
-	Wakay0yr40qF1Utr4Sk3Wkua15uF1UA39rKryfCa1kAwnxtw1Fg34xtrs0qay7CFn0kr1f
-	A3WYqay5ur18A37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piH7KxUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwgWe-Wp0N2XJ8gAA3T
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714-fix-apparmor-cred-uaf-v1-1-be40e8c83b90@google.com>
 
-rate_limit_us is an unsigned int, while NSEC_PER_USEC is defined as
-1000L. On 32-bit systems, the multiplication is therefore performed
-using 32-bit unsigned arithmetic before the result is assigned to
-freq_update_delay_ns.
+On Tue, Jul 14, 2026 at 05:38:07PM +0200, Jann Horn wrote:
 
-For example, writing 4294968 to rate_limit_us wraps the delay from
-4294968000 ns to 704 ns. This makes schedutil update far more often
-than configured.
+> diff --git a/include/linux/task_work.h b/include/linux/task_work.h
+> index 0646804860ff..ce19fc14060c 100644
+> --- a/include/linux/task_work.h
+> +++ b/include/linux/task_work.h
+> @@ -33,6 +33,7 @@ struct callback_head *task_work_cancel_match(struct task_struct *task,
+>  	bool (*match)(struct callback_head *, void *data), void *data);
+>  struct callback_head *task_work_cancel_func(struct task_struct *, task_work_func_t);
+>  bool task_work_cancel(struct task_struct *task, struct callback_head *cb);
+> +bool task_work_has_func(struct task_struct *task, task_work_func_t func);
+>  void task_work_run(void);
+>  
+>  static inline void exit_task_work(struct task_struct *task)
+> diff --git a/kernel/task_work.c b/kernel/task_work.c
+> index 0f7519f8e7c9..f83d1528e0bc 100644
+> --- a/kernel/task_work.c
+> +++ b/kernel/task_work.c
+> @@ -189,6 +189,20 @@ bool task_work_cancel(struct task_struct *task, struct callback_head *cb)
+>  	return ret == cb;
+>  }
+>  
+> +bool task_work_has_func(struct task_struct *task, task_work_func_t func)
+> +{
+> +	struct callback_head *work;
+> +
+> +	if (!task_work_pending(task))
+> +		return false;
+> +	guard(raw_spinlock_irqsave)(&task->pi_lock);
+> +	for (work = READ_ONCE(task->task_works); work; work = READ_ONCE(work->next)) {
+> +		if (work->func == func)
+> +			return true;
+> +	}
+> +	return false;
+> +}
+> +
+>  /**
+>   * task_work_run - execute the works added by task_work_add()
+>   *
 
-Add sugov_update_rate_limit_us() to widen rate_limit_us to s64 before
-converting it to nanoseconds. Use the helper when updating the tunable
-through sysfs and when starting the governor, so both paths perform the
-conversion without overflow.
+This thing is quite terrible. And AFAICT the only purpose is to
+determine if said task already has said function enqueued. Why not add a
+single bit to struct task_struct for this? I'm sure we have a spare bit
+somewhere.
 
-Fixes: 9bdcb44e391d ("cpufreq: schedutil: New governor based on scheduler utilization data")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hui Su <sh_def@163.com>
-Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
----
-Changes in v2:
-- Clarify why the multiplication uses 32-bit unsigned arithmetic on
-  32-bit systems.
-- Cast rate_limit_us to s64 to match freq_update_delay_ns.
-- Add Zhongqiu's Reviewed-by tag.
-
-v1: https://lore.kernel.org/r/20260805143942.805176-1-sh_def@163.com
-
- kernel/sched/cpufreq_schedutil.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
-index dff4ee04694c..51910b30c8da 100644
---- a/kernel/sched/cpufreq_schedutil.c
-+++ b/kernel/sched/cpufreq_schedutil.c
-@@ -61,6 +61,12 @@ static DEFINE_PER_CPU(struct sugov_cpu, sugov_cpu);
- 
- /************************ Governor internals ***********************/
- 
-+static void sugov_update_rate_limit_us(struct sugov_policy *sg_policy)
-+{
-+	sg_policy->freq_update_delay_ns =
-+		(s64)sg_policy->tunables->rate_limit_us * NSEC_PER_USEC;
-+}
-+
- static bool sugov_should_update_freq(struct sugov_policy *sg_policy, u64 time)
- {
- 	s64 delta_ns;
-@@ -606,7 +612,7 @@ rate_limit_us_store(struct gov_attr_set *attr_set, const char *buf, size_t count
- 	tunables->rate_limit_us = rate_limit_us;
- 
- 	list_for_each_entry(sg_policy, &attr_set->policy_list, tunables_hook)
--		sg_policy->freq_update_delay_ns = rate_limit_us * NSEC_PER_USEC;
-+		sugov_update_rate_limit_us(sg_policy);
- 
- 	return count;
- }
-@@ -848,7 +854,7 @@ static int sugov_start(struct cpufreq_policy *policy)
- 	void (*uu)(struct update_util_data *data, u64 time, unsigned int flags);
- 	unsigned int cpu;
- 
--	sg_policy->freq_update_delay_ns	= sg_policy->tunables->rate_limit_us * NSEC_PER_USEC;
-+	sugov_update_rate_limit_us(sg_policy);
- 	sg_policy->last_freq_update_time	= 0;
- 	sg_policy->next_freq			= 0;
- 	sg_policy->work_in_progress		= false;
--- 
-2.43.0
+> +/* replace the current task's stale label on syscall return */
+> +void aa_schedule_stale_label_replacement(void)
+> +{
+> +	struct callback_head *tw;
+> +
+> +	if (task_work_has_func(current, aa_replace_stale_label_tw_func))
+> +		return;
+> +	tw = kmalloc_obj(struct callback_head);
+> +	if (!tw)
+> +		return;
+> +	init_task_work(tw, aa_replace_stale_label_tw_func);
+> +	if (task_work_add(current, tw, TWA_RESUME))
+> +		kfree(tw);
+> +}
 
