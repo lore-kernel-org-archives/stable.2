@@ -1,122 +1,131 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0FF37E5F1;
-	Thu,  6 Aug 2026 04:17:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4CC381E9A;
+	Thu,  6 Aug 2026 04:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785989845; cv=none; b=Rw3T3ZzClbNSrI48qI0VfHeNPH+cYVDfARfGn27rwn0gqd5J3dA4ek92uHZ3xypwawgmKy+BoRP+J2CMa7NrO50PjFVWwYTkcnquJHlFfhkLWfaebvxpZWw/V+lpiMp71UjwmgLnBM1Y0CYbb2pZEwskpf/yZnRIZWvJ40M5SYQ=
+	t=1785990584; cv=none; b=Kcf5UfbOcpIl9hd4X3ec3Hd5ZD37qvNk8ukNF9zUgRmU9fievgVHhWAR7CkEIbHLq5fRuU8odApGOsK4nMuuCuxShFzre4Lxnb3c3lvhd48MLTBRocHeFvOCVJBL6npPkRgLq0QFY+4++AE/0WrypCLzXgjTGGsRypVKez5Yd0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785989845; c=relaxed/simple;
-	bh=UJNN0zMBMODzscybLgnfShli4inyPSqWKMxUBWBw/tQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gwRIZ8l0SU8Mq5LvkpwWHWJjgAI+deYc0hZB4R/cMmsJojGCnlBBYGywGLgiGGKsnSyoGFHUazKpkqPpbGsMVFdBEXi+FMMoYksCo0IKtJ66L8jkT52TtYKwU3pOx6Fqp4iuZ/u91ZX2eGs78cKtc2cmJ03FBwVjGLhBaT+6vFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cNBowQI6; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1785990584; c=relaxed/simple;
+	bh=7CW8Mojz4tTHJtxhvNY+//zqS7ohbSQ0PPY1CWQ9nuM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rOBVyToL0WFBCRNxjsx1Dqrl9bY4Zj5n9nZ+q02i7Y0xQS0eeLw95+up8VZ8sWbBu1cxQ6G/Og0QOXezmSGKF7khIbyZZhHsVf6NG8Yx5duy58mzIE4sW1pr1TdjzuW65scw5528j3SApUNxJneYdvpEbmaI5N1H4uWdg0ClqIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eU2U0F9G; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cNBowQI6"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 675NlhQx3403131;
-	Thu, 6 Aug 2026 04:16:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=sszeY5
-	T8kdjTI3h5ZiATF3+wdFCDT7FEX/8SRrV9FDc=; b=cNBowQI6WUqhJJQ9Fs84Fy
-	7ZuLl51EBO4dQIpmer+gKU4m6y+pa5FhQ712PTzsvUpaJIF795OOmG08p23/FbqF
-	TDbS+02gAzbQRTP0atgT0R0DnXFkPa7ExZZQZz+EN+sU54FKN34jdaofEdOJr/5m
-	oyhlS+KmFm1ueD2HBzygD0M4kJxEosNUFCbwJ5keqEk+ldf0MtIJDNtHRy8ba9UF
-	scFRFXg2YqKMujMc+qSUoR22dbHPgfvpnMHSJnzWr3wEznW995JSxCjKIyiv5Xgq
-	r1h0YhIWoNRkUVi9RLNNgNvpauRhhqzOngqpexFpu4pdxcNn2cRB4tuP9tVnxALQ
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8fqx70k-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 06 Aug 2026 04:16:50 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6764BI1v014627;
-	Thu, 6 Aug 2026 04:16:49 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fswtysc5u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 06 Aug 2026 04:16:49 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6764Gl5d48562628
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 6 Aug 2026 04:16:47 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C1D7F20049;
-	Thu,  6 Aug 2026 04:16:47 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 326A920040;
-	Thu,  6 Aug 2026 04:16:44 +0000 (GMT)
-Received: from Linuxdev.j9d-in.ibm.com (unknown [9.123.86.85])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu,  6 Aug 2026 04:16:43 +0000 (GMT)
-From: Madhavan Srinivasan <maddy@linux.ibm.com>
-To: harshpb@linux.ibm.com, zhaotianrui@loongson.cn, maobibo@loongson.cn,
-        chenhuacai@kernel.org, npiggin@gmail.com,
-        sashiko-reviews@lists.linux.dev, seanjc@google.com,
-        pbonzini@redhat.com, Yanfei Xu <yanfei.xu@bytedance.com>
-Cc: kvm@vger.kernel.org, stable@vger.kernel.org, loongarch@lists.linux.dev,
-        linuxppc-dev@lists.ozlabs.org, caixiangfeng@bytedance.com,
-        fangying.tommy@bytedance.com, isyanfei.xu@gmail.com
-Subject: Re: (subset) [v2 0/2] KVM: Validate irqchip index in routing entries
-Date: Thu,  6 Aug 2026 09:46:43 +0530
-Message-ID: <178598971883.942627.14864231076983027112.b4-ty@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260531135326.2238555-1-yanfei.xu@bytedance.com>
-References: <20260531135326.2238555-1-yanfei.xu@bytedance.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eU2U0F9G"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785990582; x=1817526582;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7CW8Mojz4tTHJtxhvNY+//zqS7ohbSQ0PPY1CWQ9nuM=;
+  b=eU2U0F9GJYZY8d8wEFlkC/8UqNst6f/8uJ8NO2A2cj2awtdv0lW5Fii2
+   y/aITJaTQ1emYWn0ZYg7is+S3gl6J+voBu2Cbsa2T20zv0iaAIk10KSW+
+   4aRaU52SrH10+ynVrmKLOklQ46AMD0p8i5p49O9qwzFZ8ZhmNZNrsumPO
+   Mf4sxxmHb/aKcd5ZDK9KrPIPJD3eETRWnxw4fL6WEpN4xyY0LLGEnIFHy
+   Im5Lj5EX5nU/EZmhjtfWo7NFKIY9vaheKeCEW1Y1Uc6LG9+RVKbcQjxo5
+   3KwnNle2+q629LXL0ZQUQMsd615emfJNlz/OhcTm4pfNWjd5OrPb1OZlM
+   Q==;
+X-CSE-ConnectionGUID: Ztqu2XFvS+Cjx066c+HX0w==
+X-CSE-MsgGUID: pG+IMVNsRmSTK/OjauHdAg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="85700023"
+X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; 
+   d="scan'208";a="85700023"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 21:29:42 -0700
+X-CSE-ConnectionGUID: mLQTR0OkQ/2wCOMWalBDJQ==
+X-CSE-MsgGUID: rBVBeQQARBiEmx1VFZ4j5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; 
+   d="scan'208";a="257693647"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+  by fmviesa006.fm.intel.com with ESMTP; 05 Aug 2026 21:29:39 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wrpjc-00000000E8v-0vnM;
+	Thu, 06 Aug 2026 04:29:36 +0000
+Date: Thu, 6 Aug 2026 12:29:05 +0800
+From: kernel test robot <lkp@intel.com>
+To: Bert Karwatzki <spasswolf@web.de>, linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Bert Karwatzki <spasswolf@web.de>,
+	linux-next@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	amd-gfx@lists.freedesktop.org,
+	"# = v7 . 1" <stable@vger.kernel.org>,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Rafal Ostrowski <rafal.ostrowski@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Thomas Gleixner <tglx@linutronix.de>
+Subject: Re: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,END} with
+ PREEMPT_RT
+Message-ID: <202608061233.eufnR5Qm-lkp@intel.com>
+References: <20260801071724.12998-1-spasswolf@web.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: 9XIrn19liHt_Gp35TI6FU0lszKKCE0M-
-X-Proofpoint-ORIG-GUID: ZrcnJp2922SmvrODV1LGkczb6OrRWGnT
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDAyNSBTYWx0ZWRfX87taHarZcbbK
- qrDRHczbdO398Rb71hhfyEUYsWWE+Wmg7lcOU2RQw7gFL6oj1Seyx9KWKQpzqlcFU3GsPKBUEf6
- GrldeJGEPQPB+HkOW9rLreC6KaImCwk=
-X-Authority-Analysis: v=2.4 cv=K8cS2SWI c=1 sm=1 tr=0 ts=6a740ab3 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=4sZtcsWrhcTQ-q4STQgA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDAyNSBTYWx0ZWRfX8/SwQGbft3ST
- v5BFqbRjmEOCDVCQOhxrCwJK+YMEQHJdc1NYx53TngRpMsAed09kCqyI4eLvg2zgb+pqqkVthQ4
- JDOxb/NC2yXu0QZHFcCnnXYMKqZchcYDyLVtRyPucY1jFwEdpKg0O2tAe/9tfboFbZqyxY5V5T/
- 2240Wl0//jvzYLnMAbzIcCQItMC4XXJCBHF8XTi7J3V0kJ00/lHusCd0C6kIf4gwOWV8j0Q5VRq
- tdux4zoXsn+HhYk0CsB/dBwnZn1KndyLaANnKFHqBcbL8Q+P1LQzcwyhzIslOFFuanySdnvD+1g
- E+R1QqLWhiG42mb13lhLSEBJOEH3StemHUhegCXSpkVAxsoPZ+okI6j3RJgNcoT/hIXdN6onnBe
- dNAmUxRVMsQNHsEtknE3pAbY4g6d9hLJzvYESuDbZjP7qiQbb8SXDdts19J5TSXutHqnFdB4X31
- jk+dzPHLWXr+Y2aEMuw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
- lowpriorityscore=0 malwarescore=0 phishscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060025
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260801071724.12998-1-spasswolf@web.de>
 
-On Sun, 31 May 2026 21:53:24 +0800, Yanfei Xu wrote:
-> Validate irqchip indexes for LoongArch and PowerPC irq routing entries
-> to reject out-of-range values before indexing the irqchip array.
-> 
-> v1->v2:
-> - Split the patch into two by architecture (Sean)
-> - Pick up Reviewed-by
-> 
-> [...]
+Hi Bert,
 
-Applied to powerpc/next.
+kernel test robot noticed the following build errors:
 
-[2/2] KVM: PPC: Validate irqchip index in MPIC routing
-      https://git.kernel.org/powerpc/c/5458b50b5291390ce0af2872a1baa51cc58e8f08
+[auto build test ERROR on next-20260804]
+[cannot apply to drm-misc/drm-misc-next linus/master v7.2-rc6 v7.2-rc5 v7.2-rc4 v7.2-rc6]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-cheers
+url:    https://github.com/intel-lab-lkp/linux/commits/Bert-Karwatzki/drm-amd-display-fix-usage-of-DC_FPU_-BEGIN-END-with-PREEMPT_RT/20260805-170330
+base:   next-20260804
+patch link:    https://lore.kernel.org/r/20260801071724.12998-1-spasswolf%40web.de
+patch subject: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,END} with PREEMPT_RT
+config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20260806/202608061233.eufnR5Qm-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260806/202608061233.eufnR5Qm-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608061233.eufnR5Qm-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_surface.c: In function 'dc_create_plane_state':
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_surface.c:89:9: error: implicit declaration of function 'DC_RUN_WITH_PREEMPTION_ENABLED' [-Wimplicit-function-declaration]
+      89 |         DC_RUN_WITH_PREEMPTION_ENABLED(plane_state = kvzalloc_obj(*plane_state, GFP_ATOMIC));
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+vim +/DC_RUN_WITH_PREEMPTION_ENABLED +89 drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_surface.c
+
+    82	
+    83	/*******************************************************************************
+    84	 * Public functions
+    85	 ******************************************************************************/
+    86	struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
+    87	{
+    88		struct dc_plane_state *plane_state;
+  > 89		DC_RUN_WITH_PREEMPTION_ENABLED(plane_state = kvzalloc_obj(*plane_state, GFP_ATOMIC));
+    90	
+    91		if (NULL == plane_state)
+    92			return NULL;
+    93	
+    94		kref_init(&plane_state->refcount);
+    95		dc_plane_construct(dc->ctx, plane_state);
+    96	
+    97		return plane_state;
+    98	}
+    99	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
