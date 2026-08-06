@@ -1,77 +1,80 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A94634388F
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 03:43:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9733E3451A7
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 03:44:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785987830; cv=none; b=pVtRwG20o0jyQs+SZK/OSh+BxQfHvb3U6O9lHSQFP6bch0Apr6oYt+jX2epQczGCbgQTTIaxmh5O5/KJzjHmNUPNSQ4AAbnymls3BxVZcU+KxAh2mWr1wCWd6f+heI9JFe/Th3VykMB6GkYGAT5Id88zFiANgU925Bbn/6e8ZMc=
+	t=1785987843; cv=none; b=VCAZyxf0njdLZtAm538Z4P80Qz77kB1mSOKB7em4ZF2VBJHLE9Fn6JBmAn+d9cdfBKHziuBWN0Ot9AD6AaFU5euOS1hlFG7o4x+kpEFZc6d3RczrLt3xRG9eg6yTaFfJeS57C9XCUYFi/uFhVrgw7iwk58Kklg9yHwb5Do8Lziw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785987830; c=relaxed/simple;
-	bh=fchfvWlsIct0g9r2ClTetOkTbO2pVjS6YDYc7Pca2ns=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oY357NklCcR6YdoAb4yYlzKcOQPhWc2EdwgZ5C+muTd91i6yUTH/H/GFFiJhgx65mok5nkG2x0FhCiwohBnmjwpieJ0rGRcAy0ohBIgJF1d/AntgMV7PoX7Kvxy2+D1AGbACMskyYQJilie+sSp/h7mNnG8Z5KATRtzPvZB+3tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=i6E7RNMD; arc=none smtp.client-ip=209.85.214.179
+	s=arc-20240116; t=1785987843; c=relaxed/simple;
+	bh=cJZ3Vje4HEZlfXNGmqPQTktLjIS1LHADU62OzHj5EHQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p0w6f1gdcKIYa1PlGreWic1oCNIjqG5FEQSBvFckpW5i2QuDC+0T01FmIubOrL0ETbGK8bme6ORi2l9PNm4ulVMYqCBog+HIqO4qsmBvdnDkQ0RVHogk2+/JMlxPxfzP9tthVvyhzAD20gqn1sCUMOHyVzAMcKGLjuxBjN3nT0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com; spf=pass smtp.mailfrom=xbow.com; dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b=IbzMC2b5; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xbow.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xbow.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="i6E7RNMD"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2cf50c6f235so21555195ad.0
-        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 20:43:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=xbow.com header.i=@xbow.com header.b="IbzMC2b5"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so1441355a91.0
+        for <stable@vger.kernel.org>; Wed, 05 Aug 2026 20:44:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=xbow.com; s=google; t=1785987829; x=1786592629; darn=vger.kernel.org;
+        d=xbow.com; s=google; t=1785987842; x=1786592642; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lB3t5AM9S8rNfa8MkksIa6QuMH30IsZNuofW0zacyos=;
-        b=i6E7RNMDkh+XfN0jEtx0WjXjx7y+1Hu5h6gPr03mjOWbuhJr0XNQdtvy6/OLUGAHHK
-         vEjzqOonq+HD4tmetzMfR3rlITp5QMhxFHfNR7zhsbBUbgu6Z1O2j69PNJzs0EbxWM04
-         U+3YaIy2ngdKsI+hZBnHF3JUZr/fgc0B/DuDNoXwBTW0cUI4ZzhBzSBqaOyIZaC0czRz
-         NiFzHRLvgWTB8O73PdtkoAIewPfBb9C7IcxLlu1c7u2GlDk5B2p7Binf5IQzRfzaBPKH
-         rrIB+QrH59H4LhMbFdWcr34Tiwe5V+9q64lBvhhbEXQ80xrjCoeY4T4I83nZddiIr8x1
-         u7xQ==
+        bh=2jLtToL3PwaTAhWfeLF+tyVqbdrghdAzA8d8sJ1FHuA=;
+        b=IbzMC2b5x7zpMtEEeqgKloJj0imYqdSMlgFYG29U9qB+L4FicVrCg8gzoRva+bvKbX
+         36fnpso4rLGlHlsXbhcrdL6trP4DCnkPQEgJDPUWyMsrJ4EkNpHegVdn34xAldtlvSQC
+         hE8u3oGzhZfB+DYqwK7m65xVQDOfBowYzzgWTq7seRB74vf7dqKmprRZ05Zg3bEkNRn4
+         Vd6hUP3LB2/dmgmnaG6p8JP3A8r3l3pOPV1WZ+0jLU24rV/awu2tqvPh5ECz3F2HLbWo
+         KdwnpP+ITuFdWCOMLaxA6A5wB60r2cyOgdhBX8CYv8QA6+GjVBTYH3BEkdALN8IUaJ/9
+         8J6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785987829; x=1786592629;
+        d=1e100.net; s=20251104; t=1785987842; x=1786592642;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lB3t5AM9S8rNfa8MkksIa6QuMH30IsZNuofW0zacyos=;
-        b=jCuGoXSNN97oLjJT4wsgQHCMFKFB4itqMyLC68EzjqDK8Vh3Msy5w+H9kep73qRBzo
-         PAsXQz60e/lARt4Yze1W5GFFtvGi1tpWslBopEZp+6hU/IPEBUS4vUWVc4KY4A0MA32U
-         NcfQuxM0U2GTUDL8EPIOWAB5vE+Ew9nO9BPSKQvCaJAY6CQuaMYpYRmqNqAd5deYPq1h
-         ohiifu+cqvmrDiXqJJsB8DDm9hP7Jj4rJAQanrcC+Pg/fICYmwLKJJSRLhDafXuyw59O
-         dM49qlF5j+XIhk89OETAN4EDNiDJ9eJOdT+tkXyBoIigT+ssv2uDeqlWL/86vY/uiqD2
-         lEpA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp1bk6bnrNugqBVzgW2qJ0wPlN6N+ckxRAYCSPADIdQR7eeVTvakpIQ4dc8W6rXt5dYvMQDFXc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzT0OMo2mVOjBqmbO9uVl3pL0A7Wtwd2jWvrcG+L6HFRSgH1lZS
-	xwcLN/jONYq3gg9/SoLrvF5ZnkbVOo45OUcrRNB48i34n5Zu0fQ5GcycDxcBD9OGDa4=
-X-Gm-Gg: AR+sD10ldgxu+YTGp2R8n1hQzSAjaOz4lx8o07+B9B40u1FMbeMLkkwJmXlqIFbm1oL
-	qBU/s9Mw2Bxi115xO3z4HXEVlN9SESBA9kR2ypsp5w/EQ9ZMYSaqaLDhmY7In39kz/hJUlMpXpm
-	kchMdT+R8ZnwDI/3/hwY4NjDqvzLoU371Gx6lpozbouZqGPxPD4p6nnX7TZcrAB4InlbpFdsiWy
-	A60P2VoJk6zsJVIHeZnnW+fh3FGStSSCe2RYM+TlWcD2he5rjEDGU6qla5i1X0XsaTPZym2/YZc
-	RVFLIeBMjhbkvSL5itMcJlorFJGFiUoaxjlPK3kQnTUC7viZRnc14veMe6Nsh7gZqIUEzdIUv3r
-	LgCEi7p5fg4n/9dyT2QA10mMxRbqWAUb2EoKpbytE9/RD3MtO8kR5lZA5RAacTO188G/vNPCLwy
-	CgGRLDeVG/NTvvRxvQNyLHjGBj5JrUcvA1DU0ZK2H4RnfRBAyxc6bVPI862o4fUMW/ZCb8HeeIL
-	U5GuWjnEJcRjwkPWOTuEgGrRO5k
-X-Received: by 2002:a17:902:e94c:b0:2c8:4c29:afeb with SMTP id d9443c01a7336-2d0ca7b5520mr151674245ad.8.1785987828619;
-        Wed, 05 Aug 2026 20:43:48 -0700 (PDT)
+        bh=2jLtToL3PwaTAhWfeLF+tyVqbdrghdAzA8d8sJ1FHuA=;
+        b=f1mc8X4Lpwep6S1eRszvdKEYaUd60It1cWCZxU2L8KNoOMHFfqmatjzbKTSH5AaWV6
+         FjWX8qFkTGxGSVBNa/VGM6rJFYvFTVEm9NZiWRnR4Y3PQf2djZJGIIhQ4BvZ6nIlfOgi
+         xUkSt9/7LFkFOv9dZRia9PuscoEa/1BVJlM+OE1YCxmK0oD8i3T9WI6isx1jEl1zne34
+         +xr23vqbaYz7Lz/rL4giIPka3DW7M/i1S7n6m1XSsOQhgKiYR0ZWY9siWsQmn3k/s8d4
+         wwHSKezb4I/Vdy/ssL0gJ0TO88HPyGEiLWHWEHtmiIqETz9gf5bRmZvsuTCLPL+sBhQS
+         BwyA==
+X-Forwarded-Encrypted: i=1; AHgh+RomYCTDgZQtXhrRoR4umtYQYqsuaPXU/SBxF190L6Vf90YepND543U6O96CE0NATlhBykcnSWM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFc/W1cswdL/o5Ye3ublkBs6acHW6VCTMZqxAX/DGYjQdgZ6KW
+	NztVpmODJOwDEFwpB9H/dftet3RgfHvKdHuPM7bAVPXvr6GmQHE06LAJC0E7rXCR9R8=
+X-Gm-Gg: AR+sD12l6dbn+UhiPfSJHeEib5VPMuy8eG26mFTlZMt9PCW4p5S7ahSLYFECDS+y12z
+	S4+/x9zbHR4kev+zSFQXhypQggH3dO633VbdQ/BoR4POIFXuUp48He/GYZkIWh/R5xeu0EL55HE
+	+YjgIXzyj0nrfF65he9erS4Abt/vG3TZEkR+pkY8DSyDpkLco2Q6PznLOYjSPrTqjSp6POvW53V
+	eiebUE3JMLEKnWYWtiuXDXSL5/yXnrc6RI3l5cY524fpPdkzVV5DIBXIW7w8MNiQAgDzCNhMdtn
+	9W/kZHby689YEidcnwkitOTbd88mciJ9Eq0aTA49FL4Lt691L+WQJiKbUJHecMP+zS+RasV3Xeo
+	cn0nQmzBGSnda9E4nnKya0EAhh6PL9b8S44BNCk6jDLKQxR2FZH38uHfEtJlu0IuSSiEtn2Ih35
+	ZfXN2/mQxUX91g+SFz2tyZRFwsQd7lywEUnAQckthyG41SDseX+S56dIp40bp9dYkxtouEYJMp6
+	mI1tHeX+aC90qcUaYME6nj2hhEO
+X-Received: by 2002:a17:90b:2d50:b0:38f:1f8:1fa with SMTP id 98e67ed59e1d1-3903c5ca8c2mr12349041a91.15.1785987841775;
+        Wed, 05 Aug 2026 20:44:01 -0700 (PDT)
 Received: from Mac.lan ([125.128.148.126])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0aa4c911esm23899715ad.66.2026.08.05.20.43.45
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39085f2c714sm569978a91.10.2026.08.05.20.43.58
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 05 Aug 2026 20:43:48 -0700 (PDT)
+        Wed, 05 Aug 2026 20:44:01 -0700 (PDT)
 From: Baul Lee <baul.lee@xbow.com>
-To: patrik.r.jakobsson@gmail.com,
+To: christian.koenig@amd.com,
+	ray.huang@amd.com,
 	maarten.lankhorst@linux.intel.com,
 	mripard@kernel.org,
 	tzimmermann@suse.de,
 	airlied@gmail.com,
 	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
+Cc: matthew.auld@intel.com,
+	matthew.brost@intel.com,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	federico.kirschbaum@xbow.com,
 	stable@vger.kernel.org,
 	Baul Lee <baul.lee@xbow.com>
-Subject: [PATCH] drm/gma500: bound the fbdev fault loop to the framebuffer
-Date: Thu,  6 Aug 2026 12:43:43 +0900
-Message-ID: <20260806034343.43629-1-baul.lee@xbow.com>
+Subject: [PATCH] drm/ttm: clamp the prefault window to the buffer object
+Date: Thu,  6 Aug 2026 12:43:56 +0900
+Message-ID: <20260806034356.43681-1-baul.lee@xbow.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -81,63 +84,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-psb_fbdev_vm_fault() maps as many frames as the caller asked for:
+ttm_bo_vm_fault_reserved() derives two page indices from the caller's
+mmap(2) arguments and bounds only one of them:
 
-	unsigned long pfn = info->fix.smem_start >> PAGE_SHIFT;
-	unsigned long page_num = vma_pages(vma);
+	page_offset = ((address - vma->vm_start) >> PAGE_SHIFT) +
+		vma->vm_pgoff - drm_vma_node_start(&bo->base.vma_node);
+	page_last = vma_pages(vma) + vma->vm_pgoff -
+		drm_vma_node_start(&bo->base.vma_node);
 
-	for (i = 0; i < page_num; ++i) {
-		err = vmf_insert_mixed(vma, address, pfn);
-		...
-		address += PAGE_SIZE;
-		++pfn;
-	}
+	if (unlikely(page_offset >= PFN_UP(bo->base.size)))
+		return VM_FAULT_SIGBUS;
 
-The trip count is the VMA length and the pfn walks up from the
-framebuffer base.  info->fix.smem_len, the extent of the framebuffer, is
-not read anywhere in the handler, so a mapping longer than the
-framebuffer installs present PTEs for the physical frames above it.
+bo->base.size appears once in the function, bounding page_offset on
+entry.  page_last comes straight from vma_pages(vma) and is the loop
+terminator:
 
-Nothing else on the path bounds the length.  psb_fbdev_fb_mmap() only
-requires vm_pgoff to be zero, and fb_mmap() passes the length through.
+	if (unlikely(++page_offset >= page_last))
+		break;
 
-On x86_64 an unprivileged process in group video mapped 4800 pages of a
-600-page framebuffer; every page was present and writable, and the 4200
-past the object were the frames above it in physical memory.  Nothing is
-logged: the kernel installs valid PTEs and every access through them
-comes from userspace.
+so the object size never bounds it.  For an object of N pages, a fault
+on the last in-object page passes the entry test with page_offset
+N - 1, and the prefault loop then walks N..N+14, reading
+ttm->pages[page_offset] or
+ttm_bo_io_mem_pfn(bo, page_offset) and installing each frame with
+vmf_insert_pfn_prot().
 
-Reject a fault whose page offset is already past the framebuffer and
-clamp the loop to the frames the framebuffer owns.
+page_last exceeds the object whenever the VMA is longer than it.
+drm_gem_mmap_obj() rejects that on the DRM node, but the fbdev path
+reaches the object function through drm_gem_prime_mmap(), which does
+not.  It is also exceeded by a mapping no longer than the object taken
+at a nonzero file offset, so the handler needs its own bound.
+
+With a 128-page object mapped 192 pages long, one read fault at index
+N - 1 leaves the fifteen frames after the object readable through the
+mapping; on a fresh mapping, reading index N without first faulting
+N - 1 is SIGBUS.  For a system-memory placement the page array is
+over-read as well:
+
+  BUG: KASAN: slab-out-of-bounds in ttm_bo_vm_fault_reserved+0x248/0x57c
+  Read of size 8 at addr ffff0000078aac00 by task e1/219
+   __asan_load8+0x84/0xb0
+   ttm_bo_vm_fault_reserved+0x248/0x57c
+   ttm_bo_vm_fault+0xe4/0x140
+   __do_fault+0x6c/0x2f0
+
+Clamp page_last to the object.
 
 Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
 
-Fixes: 0867b42113ec ("staging: gma500: Intel GMA500 staging driver")
+Fixes: ba4e7d973dd0 ("drm: Add the TTM GPU memory manager subsystem.")
 Cc: stable@vger.kernel.org
 Signed-off-by: Baul Lee <baul.lee@xbow.com>
 ---
- drivers/gpu/drm/gma500/fbdev.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/ttm/ttm_bo_vm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/gma500/fbdev.c b/drivers/gpu/drm/gma500/fbdev.c
-index d1e93588234f..393a939a0c37 100644
---- a/drivers/gpu/drm/gma500/fbdev.c
-+++ b/drivers/gpu/drm/gma500/fbdev.c
-@@ -26,9 +26,15 @@ static vm_fault_t psb_fbdev_vm_fault(struct vm_fault *vmf)
- 	unsigned long address = vmf->address - (vmf->pgoff << PAGE_SHIFT);
- 	unsigned long pfn = info->fix.smem_start >> PAGE_SHIFT;
- 	vm_fault_t err = VM_FAULT_SIGBUS;
-+	unsigned long obj_pages = info->fix.smem_len >> PAGE_SHIFT;
- 	unsigned long page_num = vma_pages(vma);
- 	unsigned long i;
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+index a80510489c45..14ebf6ee3c47 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+@@ -212,6 +212,7 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+ 		vma->vm_pgoff - drm_vma_node_start(&bo->base.vma_node);
+ 	page_last = vma_pages(vma) + vma->vm_pgoff -
+ 		drm_vma_node_start(&bo->base.vma_node);
++	page_last = min_t(unsigned long, page_last, PFN_UP(bo->base.size));
  
-+	if (vmf->pgoff >= obj_pages)
-+		return VM_FAULT_SIGBUS;
-+	if (page_num > obj_pages)
-+		page_num = obj_pages;
-+
- 	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
- 
- 	for (i = 0; i < page_num; ++i) {
+ 	if (unlikely(page_offset >= PFN_UP(bo->base.size)))
+ 		return VM_FAULT_SIGBUS;
 -- 
 2.50.1 (Apple Git-155)
