@@ -1,113 +1,120 @@
-Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768BF423E99;
-	Thu,  6 Aug 2026 08:49:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613E741F5D5
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 08:51:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786006200; cv=none; b=RnIS0EnHVABetRR67nf1LTM2vX30vSAb64dW+ab2xvBWbWmTcD9VEZVLl1StbkGC/psfnCY6MlD1eK05n8MbDcXunC++DnAUZqMa0MkBH4wFNXcOlTMn25XLrxebYa+xRg4F0R0qurlt5YXTt2g0csPI6p7jt7+teTDRTFqR8Iw=
+	t=1786006296; cv=none; b=MPDMXdj6MS4EbazsYGVf2J8R6fsmvIgxeFwb4jLPejbJEp5xGbmjRY4BXupkfpWkTeVfvKmJvzWbv5/V4b6fOvfcy/t5p4GG4prsooJhke9dblOgzpqDhfBTBoQTGs74OaBZEYvILsKjdK+mjYbwSNdF+Kg265McsCHDuqGcpFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786006200; c=relaxed/simple;
-	bh=aZroyt9K0iuG8zVuxckOiH3jEZBLfNmurCBEyRHSmT4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TNxMkZ/UJplF4aeDzIm7cAtLU26661cFxvi5fo16fcAZ7t5DeQFMB5mJLxmKpE4Nd6t0wZ9rlHl5auXF/E+NLWlIQBFsLTHfzTHWFy3lOxqhFMQaaU9ynQzcTVy7oQwqX8h+lXbvR4G34/JV8CCJvf+PJ0RLMUSmHLXxa4vEtBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=F10jUFN0; arc=none smtp.client-ip=18.132.163.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1786006296; c=relaxed/simple;
+	bh=kx3GDDhRCcqWA044IjCzY0ET3bv50L3D8Y/3xTAPE9I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qf8nMW8hjmTY2O/vbdai8bk5QoDhnjbokbNKLibmhGxt318V2NQ0GT8YbWvhguJYgVqTUerXhffJlIQU+nPQ7jasVnttjm+AQxMq+q0awwnJQxw5s+ImPcObLXhzg3mMtdHE9H/yDow0ijrY82eYa8IKYQ35knJN4EI2zwrv5LU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=sHGMWXyw; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="F10jUFN0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1786006172;
-	bh=wjPmTnSArAPqCoUtaY9wMsdppF2oEATIChgQ90sT7xU=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=F10jUFN0pyhhBhPmRIBhE4mgE9Hy4K3uIRHIzVx55DrlvPVSrvx7aexqfaVP1VxyH
-	 9h5/KO08MC8H4dddwqqpuwQzWTjIJ+ZdI7tnPSufPfdfXYA0/j2cMrp3onbpG1GVHr
-	 8N1IzRx8BNVphSj7uCcXWv8IDqYou3x2LO04PVsg=
-X-QQ-mid: esmtpsz18t1786006156t841e7935
-X-QQ-Originating-IP: dVuuawglrlJ5/dbW5ikVyiSPd51urYURz5h7S9TZhFs=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 06 Aug 2026 16:49:14 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 11157330722287486695
-EX-QQ-RecipientCnt: 6
-From: raoxu <raoxu@uniontech.com>
-To: mathias.nyman@intel.com
-Cc: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: xhci: disable the correct slot on alloc_dev failure
-Date: Thu,  6 Aug 2026 16:49:09 +0800
-Message-ID: <6C94F1F35FF16E76+20260806084909.2959131-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="sHGMWXyw"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 675NmJDJ994808;
+	Thu, 6 Aug 2026 08:51:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=N/Z+3z
+	r6tK6CJAjQ2XZeZmS3VDBPlitHaSTyVuaBsaM=; b=sHGMWXywMktYe0Sx90UUH2
+	vC/ynSIayaidujxKAN5yQklv3E+0CSDb4/BFwmXfXSiK05jTnkMJuaauiC3/s/7m
+	GwnlhIEWDTVmfPtqOC/IAArwXCzfuZqtrRe5cQavJIT50ZrsNtkiftqRS+lF9e7V
+	crikwtmfDdtYvLk5VcFtxBZbWaBDVlOwReNT+YKqUuVv1gOZT3nJSOh6xhBOZCgE
+	8HwKtuPxtTxkXBFC3AEt1mNdNGMbueBWDWOVDnkN2KBhg4C6ehX/fTM95lvPp7E6
+	FVrmkmuFSCcBpR7KMz4gFG3UhEnqPZ2nrno+4kz1eWdt2NyT+vkXkyMsK0Uij9ow
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs67hxyv8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 06 Aug 2026 08:51:21 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6768faEG002578;
+	Thu, 6 Aug 2026 08:51:20 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fswtyt708-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 06 Aug 2026 08:51:20 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6768pI3F34275594
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 6 Aug 2026 08:51:18 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AF6912004E;
+	Thu,  6 Aug 2026 08:51:18 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 91D972004B;
+	Thu,  6 Aug 2026 08:51:18 +0000 (GMT)
+Received: from [9.224.91.49] (unknown [9.224.91.49])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu,  6 Aug 2026 08:51:18 +0000 (GMT)
+Message-ID: <1a90e77d-4302-45a0-8fb4-65f614261ce3@linux.ibm.com>
+Date: Thu, 6 Aug 2026 10:51:18 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NYG9n5uPxz1WZy1JF5j+GS9/KGS0qhT7YPi1DFhOOFEx0ek13FqKgYmn
-	GP04WTMu7xqm5FgYDv+OzOMBBmne+LpKKLqdLaw9n0lc+FXUdqZ+NWv2QgcqhYOxajDj4WU
-	0i91lYvDESfpyrU4CpIIr8VO2M28SCE4CmPSrhi5RwTFCZYiw/ziAbBzrcQtqS2AsdSJyql
-	PWD2hzzO0b5sdmk/nxnBlxJPAJp5y1EpHUa1/AXBFswx5uIPzxHbH2jBDdL33aL8x32gi3Y
-	3xwYfLL8sFsKZ+ktR+DF6MB5D425cWZVxLK4+UK4+FtCEblV+GvWgE5mLRvYdtL6xD8hbZz
-	eheg2yBTMwOZSdLrHFMjdp+1BxmniSgmmkKvRrZMxdB2IgHxGuvWMvG6Wee487e6Evsi7oL
-	ZveBM5nYoKO9Y794alRbakrWNcjNY+Ceg9CLa34sk3f6Hofl2sJpyGDtcfMrZzvX2dgBHj1
-	8w7NOTZhGxEkW5CgvobhqupGPXPsP37/in9E0acC839CkS6e+o1uCn83Mk0L0LmDRXrI0tM
-	Nj/3LFwC6KLd06C9qpf6AgbanpkAYbQ8dZDSbNfOHIFIsv9XvMxRNPT92s7oD3CTo8VrstS
-	nvzWfehOIQjW4eP5p5ig4RM6XdN7uSuZy5L2kwn3li6idKkf6uSTOc2wYJ+f5+B4W1M8xwb
-	mjB8Puh5QNTip3RsjcfsTkelXNnm8TPqAYFHQbVLMktMK3ypDwCdW8/oXpqGt/t1NzjDJEW
-	pJQ8enSwFejKwxzHH+S8XevmWZWM0hgA621cvjmO+dTY95Jnpy0A/+dqDpAdV3HcEjw5bb9
-	vEgTgYEVZiPt3KpWRxBlk/dWThAO1dbU2FMMrW/eX19qnAnRdLXX812v8Cif5zAZixy1tBC
-	DqwZGWg/AVqKhFZ/nQde0Il8P0eFevmfDA/P5m/p/aetKxaA06oDMyXVlmCvLm4thAAdEL8
-	Y1q4Y57mUWyk0YPu+LLLMlknWA6OwWruKh1IgaYGdEUE+jZLsKIPitDH/ewwbYpd5/QkzvZ
-	P3KtjlZxIL/9d60NXFgFFZSQeSHmf4YQv8dZha1aYRMyXGYIY7uAt6SfRr4FSlKMyTiebDY
-	nAzStU/A6LS4cxGJ/vpEWw=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
-
-From: Xu Rao <raoxu@uniontech.com>
-
-xhci_alloc_dev() stores the Slot ID returned by the Enable Slot command
-in the local slot_id variable.  udev->slot_id is updated only after
-xhci_alloc_virt_device() succeeds.
-
-If endpoint resource reservation or virtual device allocation fails
-before that update, the error path passes udev->slot_id to
-xhci_disable_and_free_slot().  During initial enumeration this is slot 0.
-When reallocating a device whose virtual device is missing or belongs to
-another usb_device, udev->slot_id may contain a stale Slot ID.
-The newly enabled slot can therefore remain active, or the wrong slot can
-be disabled.
-
-Pass slot_id, which identifies the slot enabled by this invocation.
-xhci_disable_and_free_slot() already handles a missing xhci->devs entry.
-
-Fixes: 3ffbba9511b4 ("USB: xhci: Allocate and address USB devices")
+User-Agent: Mozilla Thunderbird
+Subject: Re: FAILED: patch "[PATCH] dibs: fix use-after-free of dmb_node in
+ loopback" failed to apply to 6.12-stable tree
+To: gregkh@linuxfoundation.org, hidayath@linux.ibm.com, kuba@kernel.org,
+        rc@rexion.ai
 Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/usb/host/xhci.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+References: <2026080502-penny-cubbyhole-47d2@gregkh>
+Content-Language: en-US
+From: Alexandra Winter <wintera@linux.ibm.com>
+In-Reply-To: <2026080502-penny-cubbyhole-47d2@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA2OCBTYWx0ZWRfXzFyq+hSt5clT
+ +EIyad8cKu42A+Pcb+Y/TeAVyaAQlDJ0QtaZIfiJE9gOsdMvw1Jq0Esqc7BCHFY5KcbjmF0fQtu
+ hJO2D5Ip5A8nE0Lif4DIZQ1tLQbGdkQ=
+X-Authority-Analysis: v=2.4 cv=I7VVgtgg c=1 sm=1 tr=0 ts=6a744b09 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=ag1SF4gXAAAA:8
+ a=VwQbUJbxAAAA:8 a=_uJhNAyd7QPUcH-DVqwA:9 a=QEXdDO2ut3YA:10
+ a=Yupwre4RP9_Eg_Bd0iYG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA2OCBTYWx0ZWRfX06jgZGy2ecUd
+ 69Vzz+g798xPSXqScSrxYQmJ+JyXb4TFTo78pmdgkPuaBR3gSc2lsoXuT6xQLD7vwaaCwWywb59
+ QOO6I+xq5UQELEJxPlO0VIkGPicekzbIAJAvwHt8BKQbxhvwzU/kmKkpXJEzqnvc01Kh+tzDoio
+ XzVwnf9/ALSLMmX7veZillL+3e6jNJgVYLQth13ndk1xnxtTwMzHLu2GsCPj4+3tusNViGkYH9P
+ Sx77yxtA8E3bF/q5bVovadl+Pyz7TP+5RHXnzTBZhiA58N5avmj1gzE0NcHklF1+Zcki26lnp6h
+ 6tdfd1gsWsPWd28IaxJSOkuRGHAmze2P6G6lsgtGaDK9m7unaNNmqqaP4VsGvhQL4JbCdw664Nt
+ OiyhQZDX3ZtOdqNWQVJO3VbAy/jL3NuBuM7jnu2JDVlSyXU7/B90ccXgVAcQl28prW+QF3s21s7
+ iVrSbTNXGVUNYwKa4aQ==
+X-Proofpoint-ORIG-GUID: im35vLWCwuY1dD8PPOK6YARoDShJyyOT
+X-Proofpoint-GUID: im35vLWCwuY1dD8PPOK6YARoDShJyyOT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ malwarescore=0 adultscore=0 lowpriorityscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060068
 
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index 091c82ca8ee2..dd8c12380e0c 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -4298,7 +4298,7 @@ int xhci_alloc_dev(struct usb_hcd *hcd, struct usb_device *udev)
- 	return 1;
 
- disable_slot:
--	xhci_disable_and_free_slot(xhci, udev->slot_id);
-+	xhci_disable_and_free_slot(xhci, slot_id);
 
- 	return 0;
- }
---
-2.50.1
+On 05.08.26 11:36, gregkh@linuxfoundation.org wrote:
+> 
+> The patch below does not apply to the 6.12-stable tree.
+> If someone wants it applied there, or to any other stable or longterm
+> tree, then please email the backport, including the original git commit
+> id to <stable@vger.kernel.org>.
+> 
+
+For the records:
+Deeper analysis showed that there is no path in the SMC code that can lead to such
+a race. SMC currently is the only user of dibs_loopback and was the only user
+of loopback-ism.
+So the stable tag was not really necessary. Sorry for the noise.
 
