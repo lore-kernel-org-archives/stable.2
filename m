@@ -1,331 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11020141.outbound.protection.outlook.com [52.101.61.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DA03B71B5;
-	Thu,  6 Aug 2026 14:17:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786025850; cv=none; b=j1ZdEP3R4kbo1U6iBDh+yxsSncPtDgFzxyMbbwY5UrQ79XFIuxhjna0YZ6fDbyMAxH3XnOZRMPd8sQ13LJTV+e+RZNhbrS8xiBYs/e5EKDmWf8mZSHrngGVPPbDb04Zl+CGCiSP8tZc7EzHCgE1RkZzOsIfqPx9smtlyoZclNaY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786025850; c=relaxed/simple;
-	bh=PMdLGo64ZyH63NOBDZEKHbWZRkYqF5eByrB22gz8Arc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bbjHtUzWjN75eRq8pN7lIKCo78VvUAeVOo/dTfcP6EcoHqfUEEYQl3glOr1iCkJl/N1tsQHoqjePo1Ti/BsGeyv9H7XpBVxmAFQFNiZywYXNWzoQr6N70TH5CzxeV0rhCaKJprxNQoqCu9sEV8Az6PyyL06v7z5xjfDsNDDzBms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jdYnerw0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98436442FCC;
+	Thu,  6 Aug 2026 14:17:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786025856; cv=fail; b=Tyu+89SA73qFjqlDhBml6x6YKUiMpIO3G0ROSXPOI3UvXCEZyMkuDC8H+xQBNmj9pSasUlmZY7CQ/vD4TQMycbvJ/UAIDawv53l7p0a7dmMJIurqLQ/DnaO1AwVIaOHE9aN9aZGftn3I7VUHZ4E5FUx3vFQjef5l43TR+Xpi3eM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786025856; c=relaxed/simple;
+	bh=VG7YaCdc7YsCUewZY3CzeUqQoap2zqDmZwswATXyHRU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=HS0BKAGbpA0EcqNYNxIMba96fFjEIvHo3FEp7ilGXy+5+svN/1vp0SMqNiQM6FwtAXN1XzVGns1KW1LxigZShGSOlOxSM32naZGU9gYOOC04zSHrSbX52FH2iPV3OUAdYXhzjUMYVTFHjOSE6vg892zR5+XTWtHqFoaa4thDZxE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=microsoft.com; dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com header.b=XNiIV0pu; arc=fail smtp.client-ip=52.101.61.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jdYnerw0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F12301F000E9;
-	Thu,  6 Aug 2026 14:17:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786025848;
-	bh=t1GD69MNdL2Krccft9/mtd7QqmRzRsRy1YD00dFIkeg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jdYnerw0CkZ1v8zKbVpb8lg+5/Cu1a1C5J3KMKf49jA+sxF/FJvIdIzTRESCyxc0V
-	 MXkf/75wJEeSvUna6C9cfzeeZSNEBuMZyHjYVLfqLDjW29FxtbWbU1EOEVu8M7yQVA
-	 X4+vAFhC1RC8SlukZaR9CGXkWRDqXQjQomb1TNKjJy6VVx4FLjRSXZH9SXENf7YEJF
-	 bvi50poZcSv2lQse2elreq+SY6wtqm5HEl21Ymx0ntPAqUaw4wS9zyH7p4avONeLb5
-	 ejoFwMT6DC3aUWj59ojbFR5JCjsE5eBzTnpOE9lAaV5U6F7gVLqF4XNSRKVeCk5bIE
-	 yimQY/TKgtjRg==
-Message-ID: <d6e665cd-08a3-4598-8a4f-1af21eea4132@kernel.org>
-Date: Thu, 6 Aug 2026 16:17:21 +0200
+	dkim=pass (1024-bit key) header.d=microsoft.com header.i=@microsoft.com header.b="XNiIV0pu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tOEtgNIW5PBnTmRYu40K9PVHnV8+SGiTjwAiMj99I6+dHW3VlSFoJu8kJpYnlcbAVQGuAnZMgalJK2ea1NHRTK918n0JkclZ1xMTBm4xpUGr8IIn2gh4oBTePlcqB3/gFtkbYUuQy9oKJK7eZ19yFK48fnTyj3oj7soAd6nqladwnhEa/UL2aW0tbEA5NXByzlbyaD5xdC7PBmDOZ8VqGojHSkFkGP1MUFABZrnuZhmhP2LZ3p2kA32mZSeGIzTqnZ6XFNTHFW7CwN2TEIiyOSemwqr/zXla5M6lwjAelU5TH5NbXnoo9U8QXk/dxuq2Ccqpeja1g6YC1QdAAXfIiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HXZZKcB7D4UQic7+jNhaPgkQ1Q+MGQl5uTEz1ITLx30=;
+ b=mXvtKX2rgXbwHAYNiMfaieGbXuy9bC9OVJkGHcTm7/hQFMVfEYKlS7dCri8UTypXneThuFVANxXvBWYZraEM34WyCJRnsllUD92tNKGGNlOq9SgVyNd4S9EbS+Etesjkj3bJFGPESFEp1IRVQBmTTABcuCwfhBLcc0DrXaC4lH31rJNiFYGKhwUO68uaQEUPBD1FCKHjxZNzYR/5iCrZLOEJK4B1NkDIvFZCVUsnD/NmsnHJiGCGNMR3u2iED63SFQHT0jzgVAiAIABbjOED21z3lgRM7UQmYTHH97V8b52otYAMbd3FLIPVwomW3WeCL5ysPpSYgGltgivYuChjeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HXZZKcB7D4UQic7+jNhaPgkQ1Q+MGQl5uTEz1ITLx30=;
+ b=XNiIV0puhpkNdiPDs7AXshZcJ1ZkwT5Qh78/9FEwyiE49xLP37sjber2ojQtW88FcaEbaSYpP20+la2dznI4LMxQ+eFYKgN0iAYfwMhAkztEbu94TRokbVDPYn+IpO1of1YM3ngQfH9cOkkGkDaf8ZeGJ+lnrfpeGxOpPq2KKgc=
+Received: from LV5PR21MB4704.namprd21.prod.outlook.com (2603:10b6:408:307::7)
+ by LV9PR21MB5382.namprd21.prod.outlook.com (2603:10b6:408:2e9::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.3; Thu, 6 Aug 2026
+ 14:17:31 +0000
+Received: from LV5PR21MB4704.namprd21.prod.outlook.com
+ ([fe80::144b:98da:1262:2ebb]) by LV5PR21MB4704.namprd21.prod.outlook.com
+ ([fe80::144b:98da:1262:2ebb%6]) with mapi id 15.21.0315.001; Thu, 6 Aug 2026
+ 14:17:31 +0000
+From: Haiyang Zhang <haiyangz@microsoft.com>
+To: Fan Wu <fanwu01@zju.edu.cn>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, Dipayaan Roy <dipayanroy@microsoft.com>, Sahil
+ Chandna <sahilchandna@microsoft.com>
+CC: KY Srinivasan <kys@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan
+ Cui <DECUI@microsoft.com>, Long Li <longli@microsoft.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, "linux-hyperv@vger.kernel.org"
+	<linux-hyperv@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [EXTERNAL] [PATCH net] net: mana: fix reset work race with device
+ removal
+Thread-Topic: [EXTERNAL] [PATCH net] net: mana: fix reset work race with
+ device removal
+Thread-Index: AQHdJOg2mtcqzdMGRU+fPvslDaSma7aREewA
+Date: Thu, 6 Aug 2026 14:17:31 +0000
+Message-ID:
+ <LV5PR21MB470447ECF9B18154AE2F2D66CAD22@LV5PR21MB4704.namprd21.prod.outlook.com>
+References: <20260805143812.220509-1-fanwu01@zju.edu.cn>
+In-Reply-To: <20260805143812.220509-1-fanwu01@zju.edu.cn>
+Accept-Language: en-US
+Content-Language: en-US
+X-Mentions: dipayanroy@microsoft.com,sahilchandna@microsoft.com
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=d3e2481a-0724-4161-9fe7-b061c267c8d6;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-08-06T14:14:18Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10,
+ 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV5PR21MB4704:EE_|LV9PR21MB5382:EE_
+x-ms-office365-filtering-correlation-id: 646848bd-8484-4c7c-b33c-08def3c573f6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|38070700021|56012099006|11063799006|7146999003|10067099003|22082099003|18002099003|7053199004;
+x-microsoft-antispam-message-info:
+ 24yhdiL3oXACK0KpufXRdYnga3DLra3JhiCxu4riPFPcxZWSfGHwPCFaWmv2wFpEbdqtEnYdS7/oivi7/eWyIgn6ceAfJqH6QNKD9J6s59gRNTYFdYujRor4CfRgPbjFndUHGwaLPUg2iHXTCg7p/mtZEZiupa40nLBj0M/EGCZZlVuczM6X9bIbt9LNHQQfqRV3ULuD9v2CuTiEsIQ11L6xhKTYE3GE9d60omxKr58mY5M1VQRxJmQSJCCNEcZlM7gGhwuyNDa6liEMex0DcSJ6gH+AZNsjTxN0SAYCk/XAzaP60V6ebl3X2DQFlBihCOgcXVvpkTqlfvAG5vv20pXsZP/Xg1dXMHt5uOQxtWxO8AYdLctC1/MKeIsrpVEmDVqYtiBT6O6cFNGpxLjwCnBfxp/yUW5vBVRRhkjl0lr+XDX1/QHS2vcV3FxoKphfnecU6Son460akenoa1stB3sUaReDyQDInfTMjJQ6/ndjyFI6A7J/f1/yHnzDvsPLxUoiB8gZlktrMWyTroTBBy00OeEeXu7i4kkuWkpBn1X2N05svNG+3hFbdd4suvLEpD9qqtVJa1W77tAHlx+sD4acwIzor9ufu5p6YTvzp7KAU07dSVI08zBXiaoCP7RRvGdIg3Mcu3CFcaNVFOoUm8Zfj2XSvO0Kbw2i7RYUkRvn8Arv2U4orqJxyAEuH3fXxuAEyYVGb40uZfmblGWjV+6yNE3JxY1ShJhd6NcH/k4=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV5PR21MB4704.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(38070700021)(56012099006)(11063799006)(7146999003)(10067099003)(22082099003)(18002099003)(7053199004);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?5r4s+hc8CpHSVWqmiJdbDB60Y5qe2awrbYATOIe8UE4/h7cII47GQeZemzth?=
+ =?us-ascii?Q?8TCi2oiWRRMAd7222DidJ0bECMxs2NXrccGuW2J6KBqMIJMEzijX/yB8p+6I?=
+ =?us-ascii?Q?9m7GSpnTBdqq+X1UovZi7nyi37OR+++Qz1weGOo4hSr8N7iLlMnvKICheyT7?=
+ =?us-ascii?Q?dC4gJKvdzYelsKpU7SDGnc79Kc5dtO1w6tU5Ag5Zl6i69TOx8acJjngbZX15?=
+ =?us-ascii?Q?Ej7lSOlEoo0MIldJY2iX4B7gqDUnCVsba2zVqxg8n9zMvVRW8LzXifpmjg7n?=
+ =?us-ascii?Q?P6YEUtom/qoV0NOHG6s4DjDoVVDrXFSs0EuqYvrL5u2QTXLXxx07ht772/sE?=
+ =?us-ascii?Q?nRE2W75mAF2egGIGvLyjIi/sSzWd7HA5qwk3356bT4yf+TUOh5fiFSV4GOay?=
+ =?us-ascii?Q?7dS9gZSpLzcqvR3etswwtAGWyqKLF64+obrNd9XbcVxkkhDc6IL70i+5SBM2?=
+ =?us-ascii?Q?rJg3irhB0RUa9SWDw8kCB4xPNVR8h//XAx5D/cmQKA/0g1eJq0y1I+NH/Pgb?=
+ =?us-ascii?Q?lX9s/Ob7rEjkN41SgIXZM7CnkzcDPUS3/bsNqaWUnNkbyrPWx7Ra0AzcWTtK?=
+ =?us-ascii?Q?+kAIzB71t/fUL/G9FRtREBV5TRxhk8Hct4TpQu+QBnQGxLLD/b6jlfqCocwF?=
+ =?us-ascii?Q?oXOwVox5qY66ZuYjkb4Fv7c08r4tVxiPNj7WhJ1YH/x81TY24nMf0P+03smK?=
+ =?us-ascii?Q?V5K4cE45iDiNPsifAkrnc+Iu3LQgM0Q+m0iPYTCTezcRb4/4IskADHP/vAAF?=
+ =?us-ascii?Q?gG58W9EXWQWLNMXsH9OLA2v9a4kIwmM6nqTw3vogLuM9VleGZ85O55rkJaOL?=
+ =?us-ascii?Q?eo0yzQ3JhkTtuyvrDtYkWn/ghB8AoXk2XKSSByqsejJUCdf3Anl5XkZtRiu2?=
+ =?us-ascii?Q?15HZlhjM/ccrw8HoE4lCdycg7Y1e5Ljvp2azfHabRxaleYTPE/rzbbIWwqY7?=
+ =?us-ascii?Q?6eXxHkv+XGB387MRyIFKYmv8LgYXIZEg3xgphv01DxniA+0i52KWsrPKnI9h?=
+ =?us-ascii?Q?tttqvCoWcWKoCPHYS5FWDMJ3aeDdm3LhmJBOq/C7OG9Djl08XqgNlo2Z1vXl?=
+ =?us-ascii?Q?HryWJkMwvXYb+OuQNKFvRObA6jeoR6+lPxUEcVt/gc3hOoDzxF9jd4nZRuaH?=
+ =?us-ascii?Q?t1+7XSLboyD3GmgOn7zxY3WWV1s4uirMGoY4FN9th/rnuxvM0OM9rIxab198?=
+ =?us-ascii?Q?JrUozalBidjRId2uFVMWYsn10dc1KvSIP+rATfUmc7+Yg3sgo7zn8sR9t0DE?=
+ =?us-ascii?Q?7UZEdctDGwW2ZPOFaDv2hoLZPUkixrubMCWJR4bwl5fg+Ks3hJH1JDr9/RP+?=
+ =?us-ascii?Q?mHAGoPVZbgYh8rZbpEFjq+bdJbcI2wrw/jzhxaEzXoDKp9Ihe6hTfS1VEhiQ?=
+ =?us-ascii?Q?5fQmZ1cwHbJGwcC84kBuZBUGItE8ITOgFBLvH4n/fckh19TlQX3AmcN4e3b6?=
+ =?us-ascii?Q?+hbCojGI7BooTD7KKQHYPIt3zCJfl+v5WALC6eE4fECp9vtqTRHsfTz8kX0s?=
+ =?us-ascii?Q?QhatVebmZfV2AqVhwTnv8T1vc3jtHLzFs7yQeyg7/6d+hj3Ur6H2M+vAYsto?=
+ =?us-ascii?Q?6OevnBgOevWvRnf6lr1+2alZs2/f8i3x9mrw5jwPZb2/JYhXbtw8jMz4v8ke?=
+ =?us-ascii?Q?1Aij5wvKMKjUaTg5kATZa6GwytyIdmq+/U8rKC4T7TbaAWCqZHTHRtOyDfaO?=
+ =?us-ascii?Q?gi6f6W3Ao4/C/YReTZvQLrrfnsD6XGRTEWt9XejZbHATrvSaFI0EjzSoQwMF?=
+ =?us-ascii?Q?jNb5g9kDAA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/memory-failure: fix folio refcount leak and
- min_order_for_split() locking
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Wei Yang <richard.weiyang@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>,
- Li Youhong <liyouhong@kylinos.cn>, stable@vger.kernel.org
-References: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
- <anRv8ngsyOjkgOHM@lucifer>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <anRv8ngsyOjkgOHM@lucifer>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 8/6/26 16:03, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Aug 06, 2026 at 01:14:38PM +0200, David Hildenbrand (Arm) wrote:
->> hwpoison code can end up calling min_order_for_split() without holding
->> the folio lock. There isn't really something that would prevent
->> concurrent folio split. Consequently folio->mapping can get set to
->> NULL after checking for "!folio->mapping", and if the compiler
->> reloads folio->mapping, mapping_min_folio_order() would try to
->> dereference NULL.
->>
->> While very unlikely to happen in practice, let's just enforce that
->> min_order_for_split() is called with the folio lock held. We can
->> significantly cleanup the calling hwpoison code, and just get rid
->> of try_to_split_thp_page() to hold the folio lock for a bit longer.
->>
->> Just work on folios now, which further cleans up the code. We just
->> have to be careful about doing the page_folio() after splitting, which
->> we have to do already either way. Do not change the way we split for
->> now, this needs more thought and should be done separately.
->>
->> Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
->> would currently have leaked a folio reference.
-> 
-> Yikes...
-> 
->>
->> In folio_split(), document and assert that we need the folio lock.
-> 
-> You mean min_order_for_split()?
-
-Very right :)
-
-> 
->> Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
->>
->> The folio->mapping problem was identified by Sashiko, and Li Youhong
->> reported it by sending a proposal fix.
->>
->> This likely does not really warrant CCing stable, but I expect little
->> conflicts when doing the backport, so let's just CC stable because of
->> the refcount leak.
->>
->> Reported-by: Li Youhong <liyouhong@kylinos.cn>
->> Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
->> Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
-> A typo above and a nit below about a comment but otherwise LGTM so:
-> 
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> 
->> ---
->> v4 of the last fixing attempts:
->>
->> https://lore.kernel.org/r/20260806031958.677935-1-dayou5941@163.com
->> ---
->>  mm/huge_memory.c    |  4 ++++
->>  mm/memory-failure.c | 56 ++++++++++++++++++-----------------------------------
->>  2 files changed, 23 insertions(+), 37 deletions(-)
->>
->> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
->> index 9b1f3b24f7e0d..a00df56a68b57 100644
->> --- a/mm/huge_memory.c
->> +++ b/mm/huge_memory.c
->> @@ -4362,10 +4362,14 @@ int folio_split(struct folio *folio, unsigned int new_order,
->>   * If a file-backed folio is truncated, 0 will be returned. Any subsequent
->>   * split attempt should get -EBUSY from split checking code.
->>   *
->> + * Context: @folio must be locked.
->> + *
->>   * Return: @folio's minimum order for split
->>   */
->>  unsigned int min_order_for_split(struct folio *folio)
->>  {
->> +	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
->> +
->>  	if (folio_test_anon(folio))
->>  		return 0;
->>
->> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
->> index aaf14608b30e2..f4f3f1fc9eaff 100644
->> --- a/mm/memory-failure.c
->> +++ b/mm/memory-failure.c
->> @@ -1705,26 +1705,6 @@ static int identify_page_state(unsigned long pfn, struct page *p,
->>  	return page_action(ps, p, pfn);
->>  }
->>
->> -/*
->> - * When 'release' is 'false', it means that if thp split has failed,
->> - * there is still more to do, hence the page refcount we took earlier
->> - * is still needed.
->> - */
->> -static int try_to_split_thp_page(struct page *page, unsigned int new_order,
->> -		bool release)
->> -{
->> -	int ret;
->> -
->> -	lock_page(page);
->> -	ret = split_huge_page_to_order(page, new_order);
->> -	unlock_page(page);
->> -
->> -	if (ret && release)
->> -		put_page(page);
->> -
->> -	return ret;
->> -}
->> -
->>  static void unmap_and_kill(struct list_head *to_kill, unsigned long pfn,
->>  		struct address_space *mapping, pgoff_t index, int flags)
->>  {
->> @@ -2509,9 +2489,6 @@ int memory_failure(unsigned long pfn, int flags)
->>  	folio_unlock(folio);
->>
->>  	if (folio_test_large(folio)) {
->> -		const int new_order = min_order_for_split(folio);
->> -		int err;
->> -
->>  		/*
->>  		 * The flag must be set after the refcount is bumped
->>  		 * otherwise it may race with THP split.
->> @@ -2526,24 +2503,25 @@ int memory_failure(unsigned long pfn, int flags)
->>  		 * page is a valid handlable page.
->>  		 */
->>  		folio_set_has_hwpoisoned(folio);
->> -		err = try_to_split_thp_page(p, new_order, /* release= */ false);
->> +
->> +		folio_lock(folio);
->> +		split_huge_page_to_order(p, min_order_for_split(folio));
->> +		folio = page_folio(p);
->> +		folio_unlock(folio);
->> +
->>  		/*
->>  		 * If splitting a folio to order-0 fails, kill the process.
->>  		 * Split the folio regardless to minimize unusable pages.
->>  		 * Because the memory failure code cannot handle large
->>  		 * folios, this split is always treated as if it failed.
->>  		 */
->> -		if (err || new_order) {
->> -			/* get folio again in case the original one is split */
->> -			folio = page_folio(p);
->> +		if (folio_test_large(folio)) {
->>  			res = -EHWPOISON;
->>  			kill_procs_now(p, pfn, flags, folio);
->> -			put_page(p);
->> +			folio_put(folio);
->>  			action_result(pfn, MF_MSG_UNSPLIT_THP, MF_FAILED);
->>  			goto unlock_mutex;
->>  		}
->> -		VM_BUG_ON_PAGE(!page_count(p), p);
->> -		folio = page_folio(p);
->>  	}
->>
->>  	/*
->> @@ -2861,9 +2839,8 @@ static int soft_offline_in_use_page(struct page *page)
->>  		.reason = MR_MEMORY_FAILURE,
->>  	};
->>
->> +	folio_lock(folio);
->>  	if (!huge && folio_test_large(folio)) {
->> -		const int new_order = min_order_for_split(folio);
->> -
->>  		/*
->>  		 * If new_order (target split order) is not 0, do not split the
->>  		 * folio at all to retain the still accessible large folio.
->> @@ -2871,15 +2848,20 @@ static int soft_offline_in_use_page(struct page *page)
->>  		 * preferred, split it to non-zero new_order like it is done in
->>  		 * memory_failure().
->>  		 */
-> 
-> This comment is:
-> 
-> 		/*
-> 		 * If new_order (target split order) is not 0, do not split the
-> 		 * folio at all to retain the still accessible large folio.
-> 		 * NOTE: if minimizing the number of soft offline pages is
-> 		 * preferred, split it to non-zero new_order like it is done in
-> 		 * memory_failure().
-> 		 */
-> 
-> Which references 'new_order' twice - probably need to update this.
-
-Agreed, thanks!
-
-While at it, I'll just drop the NOTE that is not of any value, really?
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LV5PR21MB4704.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 646848bd-8484-4c7c-b33c-08def3c573f6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Aug 2026 14:17:31.2234
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7sR1TL9sYawchxHOGhFuhQdMwq+dzdW9Vnr2hoVP7P2+317osZcYLFMHbazpMmidW3eQI8B0ya6a1UZ6AL0FMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR21MB5382
 
 
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index f4f3f1fc9eaff..9f1e547e7b472 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -2842,11 +2842,8 @@ static int soft_offline_in_use_page(struct page *page)
-        folio_lock(folio);
-        if (!huge && folio_test_large(folio)) {
-                /*
--                * If new_order (target split order) is not 0, do not split the
--                * folio at all to retain the still accessible large folio.
--                * NOTE: if minimizing the number of soft offline pages is
--                * preferred, split it to non-zero new_order like it is done in
--                * memory_failure().
-+                * If we cannot split to order-0, do not split the folio at all
-+                * to retain the still accessible large folio.
-                 */
-                if (!min_order_for_split(folio))
-                        ret = split_huge_page_to_order(page, 0) ? -EBUSY : 0;
 
-> 
->> -		if (new_order || try_to_split_thp_page(page, /* new_order= */ 0,
->> -						       /* release= */ true)) {
->> +		if (!min_order_for_split(folio))
->> +			ret = split_huge_page_to_order(page, 0) ? -EBUSY : 0;
->> +		else
->> +			ret = -EBUSY;
->> +		folio = page_folio(page);
->> +
->> +		if (ret) {
->> +			folio_unlock(folio);
->> +			folio_put(folio);
-> 
-> Wow, incredible that we had a refcount leak here for ages and didn't know. Ugh
-> what a mess this hw posion crap is!
+> -----Original Message-----
+> From: Fan Wu <fanwu01@zju.edu.cn>
+> Sent: Wednesday, August 5, 2026 10:38 AM
+> To: netdev@vger.kernel.org
+> Cc: KY Srinivasan <kys@microsoft.com>; Haiyang Zhang
+> <haiyangz@microsoft.com>; Wei Liu <wei.liu@kernel.org>; Dexuan Cui
+> <DECUI@microsoft.com>; Long Li <longli@microsoft.com>; Andrew Lunn
+> <andrew+netdev@lunn.ch>; David S . Miller <davem@davemloft.net>; Eric
+> Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo
+> Abeni <pabeni@redhat.com>; linux-hyperv@vger.kernel.org; linux-
+> kernel@vger.kernel.org; stable@vger.kernel.org
+> Subject: [EXTERNAL] [PATCH net] net: mana: fix reset work race with devic=
+e
+> removal
+>=20
+> [Some people who received this message don't often get email from
+> fanwu01@zju.edu.cn. Learn why this is important at
+> https://aka.ms/LearnAboutSenderIdentification ]
+>=20
+> The reset service work runs on the system workqueue and obtains the
+> GDMA context through PCI drvdata.  It can race with device removal
+> (mana_gd_remove()), which frees the context.  A reset work that runs
+> after removal can therefore dereference the freed context.
+>=20
+> Serialize mana_serv_reset() with device removal by taking the PCI
+> device lock across its drvdata access and reset sequence.  The driver
+> core holds the same lock while invoking the remove callback, so remove
+> waits for an in-progress reset.  Work that runs after remove observes
+> the drvdata cleared before the context is freed.
+>=20
+> Drop the lock before rescanning, since the rescan path may remove the
+> device and acquire the device lock again.  Also clear GC_IN_SERVICE
+> before rescanning after a failed resume, so this exit follows the same
+> service-state cleanup as the other reset exits.
+>=20
+> This issue was found by an in-house static analysis tool.
+>=20
+> Fixes: fbe346ce9d62 ("net: mana: Handle Reset Request from MANA NIC")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
+>  drivers/net/ethernet/microsoft/mana/gdma_main.c | 18 +++++++++++++-----
+>  1 file changed, 13 insertions(+), 5 deletions(-)
 
-I mean, soft-offline handling is not what runs on ... everyone's box. And the
-memory will effectively be dead soon either way (hardware tells us that this
-memory is likely going to get hwpoison soon) in most cases ... :)
+Adding some of my teammates: @Dipayaan Roy @Sahil Chandna
 
--- 
-Cheers,
-
-David
+- Haiyang
