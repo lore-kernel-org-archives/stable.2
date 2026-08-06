@@ -1,36 +1,42 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 330BB3CF678;
-	Thu,  6 Aug 2026 15:21:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0926456DF9
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 15:26:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786029668; cv=none; b=NR5KCVwKHVF1GaNWqlzU79jgwubM59dL2GkQEUGM8XjToIM2IBovf9CnEEnDoLjdrmSvQm5CYgOtUQwJ7XZkZpF3J3p7iDwPn/bloqXGv9Zy+oPwGA97rxxH0fobrXKnUN1y72OPvohPJrGNJBLEjT4XJHPG5aDgbBYjCk6XGRo=
+	t=1786030012; cv=none; b=NyxOBhHPaX6lMClC/Mz1w7qxaFRI9tmgrL6JhXnIQpNTGp6U5BCnfDJYQtHYxA4eG2HUNqdtCPtOLM7DWep/9EzdETAw4DSK3qnJAFxTXGRf5ztV7oUUsksvialdZrpeZ/aIviicXzdE7myPEhn1dLivEeYb0++zS+sQ/Z2LLI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786029668; c=relaxed/simple;
-	bh=Sb1NY9V01dgoEXrZxpCG9/auJnmA5P6O6bfCDLm4UnA=;
+	s=arc-20240116; t=1786030012; c=relaxed/simple;
+	bh=rEKbF591oxpYluV1Rb9cPJoVO7RLz34iR6wASlguTEk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R3g27WpCmDRspSQ0LMRHdX8VHbWk2UFC7bZjRMjUjCvmbdpwaUnJz4F7sE1wguKO8sJh9dQayezMU0obBv988syDNufASZ3PsGQM5oZ3AnZH/jHP0KmlhZfFZ8QODNbJH3YtUdtU8RFcEX3j1gjzUdKbGYgIt1tTIUKNmGq9ZMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=GnxfxLTu; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	 MIME-Version; b=OeOx28nPi7/OxPO+6+pa2U6jnA3+Q6UegF72Mt9+PQjKEf2PfwRKHWeWh546CtFVhQYUDSpAGBs893EcOWwBIYApWeztWO1OU538IW6itGKeyJgsBAJMZD7jzg4QLLn8GkgENo6RDe/CzIIUbx5zVlZhGzobF9oiTWRtppqHb0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DYTCftCO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="GnxfxLTu"
-Received: from LAPTOP-99KJFSET (unknown [36.153.54.46])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 490cb5b5b;
-	Thu, 6 Aug 2026 23:20:37 +0800 (GMT+08:00)
-From: Hongyan Xu <getshell@seu.edu.cn>
-To: Support Opensource <support.opensource@diasemi.com>,
-	Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	jianhao.xu@seu.edu.cn,
-	Hongyan Xu <getshell@seu.edu.cn>
-Subject: [PATCH v2] mfd: da903x: cancel IRQ work during teardown
-Date: Thu,  6 Aug 2026 23:20:31 +0800
-Message-ID: <20260806152032.894-1-getshell@seu.edu.cn>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <20260728065557.1517-1-getshell@seu.edu.cn>
-References: <20260728065557.1517-1-getshell@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DYTCftCO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD3D1F000E9;
+	Thu,  6 Aug 2026 15:26:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786030010;
+	bh=T2DjkZWfoGohKa9+r4hNqj+y/nzZV0XH9XfY24aU/cQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DYTCftCOvpUpcE+A7ux4Jx09q4C+tkhCF+GHh1ooh9UVYFHYqJ9P7OVmStyBOGgKP
+	 rB71nPCH3Yp/ZfSiPwPDxrPr6HWZglX+bnCD0MV8FCUtZrZ0PCGKW5tADvrlL+WHJM
+	 87UGNNwqMCsreWyE43AHHtjNpDJAjh0Ynd9OP/62k0ETEWQ87aJvPnAhpciib0Kr5D
+	 fUFL07OjeTuvz3QRuYFlgXOo4l4uEmXz+CE2rzhgjYFqOTUbzErVCfFvul5n31fRSd
+	 8sGjBdTtpXSQr3Q/1lRwrknWaZRbm4fZbLtxYoKy+TB8pWpd6KicYW/zz0wUC5QYHi
+	 k6louWIwVoouQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] media: v4l: async: Set owner for async sub-devices
+Date: Thu,  6 Aug 2026 11:26:47 -0400
+Message-ID: <20260806152648.913828-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072929-fresh-parsley-3ec6@gregkh>
+References: <2026072929-fresh-parsley-3ec6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,87 +44,73 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9fd7a97c0103a1kunm1104d3071001
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSh1LVktIGh5IQhkYTxlCTFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKTkhVTk9VT01ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=GnxfxLTu9VYID1N5Sawlup+KC0o5E/QXcr587+/u/qPiz9Zx6YblxalOq0rrU4PeZUQmspJuf3EX75BjoLbPlnQTnG6x57/p3uzcbSscCw+uQqwbrddonNzFW0Zl2CDZVVqbr6+pX4msPsAik0cJY6qS5xX+fNGjXvaWEmjzvI4=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=9RiJcmxpWB5jybv13xnn/ti2B+Zn7/fJmDEx4MBtReE=;
-	h=date:mime-version:subject:message-id:from;
 
-The IRQ handler disables the IRQ and schedules irq_work. Releasing the
-IRQ does not drain that work, which can continue to use the devm-allocated
-chip and notifier state.
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-Add a devm action after requesting the IRQ. The action disables the IRQ
-and cancels the work before automatic IRQ release. Run the same action
-before removing child devices on normal detach.
+[ Upstream commit 8a718752f5c339137c5b05e54f116cd26d5a4143 ]
 
-If da903x_add_subdevs() fails, it removes already-created child devices
-before returning from probe. Release the action explicitly before that
-cleanup so the work is stopped before child-device teardown.
+Set the owner field of the async sub-devices by making
+v4l2_async_register_subdev() a macro and obtaining THIS_MODULE that way.
 
-This issue was found by the author's in-house static analysis tool.
-The patch was reviewed by the author against the latest mainline tree.
-
-Fixes: 26b8f5e1e2d1 ("mfd: add base support for Dialog DA9030/DA9034 PMICs")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+Stable-dep-of: 06cb687a5132 ("media: v4l2-fwnode: Fix subdev owner overwritten in v4l2_async_register_subdev_sensor()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mfd/da903x.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/media/v4l2-core/v4l2-async.c | 8 ++++++--
+ include/media/v4l2-async.h           | 4 +++-
+ 2 files changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/mfd/da903x.c b/drivers/mfd/da903x.c
-index e86b39de3303..f3e983bd21b0 100644
---- a/drivers/mfd/da903x.c
-+++ b/drivers/mfd/da903x.c
-@@ -421,6 +421,14 @@ static irqreturn_t da903x_irq_handler(int irq, void *data)
- 	return IRQ_HANDLED;
+diff --git a/drivers/media/v4l2-core/v4l2-async.c b/drivers/media/v4l2-core/v4l2-async.c
+index 33babe6e8b3a2..fc741182f2d9b 100644
+--- a/drivers/media/v4l2-core/v4l2-async.c
++++ b/drivers/media/v4l2-core/v4l2-async.c
+@@ -747,7 +747,7 @@ v4l2_async_notifier_add_devname_subdev(struct v4l2_async_notifier *notifier,
  }
+ EXPORT_SYMBOL_GPL(v4l2_async_notifier_add_devname_subdev);
  
-+static void da903x_cancel_irq_work(void *data)
-+{
-+	struct da903x_chip *chip = data;
-+
-+	disable_irq(chip->client->irq);
-+	cancel_work_sync(&chip->irq_work);
-+}
-+
- static const struct da903x_chip_ops da903x_ops[] = {
- 	[0] = {
- 		.init_chip	= da9030_init_chip,
-@@ -484,6 +492,7 @@ static int da903x_add_subdevs(struct da903x_chip *chip,
- 	return 0;
+-int v4l2_async_register_subdev(struct v4l2_subdev *sd)
++int __v4l2_async_register_subdev(struct v4l2_subdev *sd, struct module *module)
+ {
+ 	struct v4l2_async_notifier *subdev_notifier;
+ 	struct v4l2_async_notifier *notifier;
+@@ -761,6 +761,8 @@ int v4l2_async_register_subdev(struct v4l2_subdev *sd)
+ 	if (!sd->fwnode && sd->dev)
+ 		sd->fwnode = dev_fwnode(sd->dev);
  
- failed:
-+	devm_release_action(chip->dev, da903x_cancel_irq_work, chip);
- 	da903x_remove_subdevs(chip);
++	sd->owner = module;
++
+ 	mutex_lock(&list_lock);
+ 
+ 	INIT_LIST_HEAD(&sd->async_list);
+@@ -811,9 +813,11 @@ int v4l2_async_register_subdev(struct v4l2_subdev *sd)
+ 
+ 	mutex_unlock(&list_lock);
+ 
++	sd->owner = NULL;
++
  	return ret;
  }
-@@ -529,6 +538,11 @@ static int da903x_probe(struct i2c_client *client)
- 		return ret;
- 	}
+-EXPORT_SYMBOL(v4l2_async_register_subdev);
++EXPORT_SYMBOL(__v4l2_async_register_subdev);
  
-+	ret = devm_add_action_or_reset(&client->dev, da903x_cancel_irq_work,
-+				       chip);
-+	if (ret)
-+		return ret;
-+
- 	return da903x_add_subdevs(chip, pdata);
- }
- 
-@@ -536,6 +550,7 @@ static void da903x_remove(struct i2c_client *client)
+ void v4l2_async_unregister_subdev(struct v4l2_subdev *sd)
  {
- 	struct da903x_chip *chip = i2c_get_clientdata(client);
+diff --git a/include/media/v4l2-async.h b/include/media/v4l2-async.h
+index 92cd9f038fed8..9f474d4e277a1 100644
+--- a/include/media/v4l2-async.h
++++ b/include/media/v4l2-async.h
+@@ -298,7 +298,9 @@ void v4l2_async_notifier_cleanup(struct v4l2_async_notifier *notifier);
+  *
+  * @sd: pointer to &struct v4l2_subdev
+  */
+-int v4l2_async_register_subdev(struct v4l2_subdev *sd);
++#define v4l2_async_register_subdev(sd) \
++	__v4l2_async_register_subdev(sd, THIS_MODULE)
++int __v4l2_async_register_subdev(struct v4l2_subdev *sd, struct module *module);
  
-+	devm_release_action(&client->dev, da903x_cancel_irq_work, chip);
- 	da903x_remove_subdevs(chip);
- }
- 
+ /**
+  * v4l2_async_register_subdev_sensor_common - registers a sensor sub-device to
 -- 
-2.50.1.windows.1
+2.53.0
 
