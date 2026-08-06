@@ -1,177 +1,201 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D033A345CAE
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 09:43:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1634D429031;
+	Thu,  6 Aug 2026 09:49:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786009419; cv=none; b=aSyonfgV/1IiaAgD5eD+i+ybLxjpVZTo/keM2IYl+4TUcpdwa6zNidfDEqygMJfyr1Su0HoC+NzmG9Dpgn1Jpkmiixg9DYo4LOT67G27e3d9nn9IRuItZn6w1GpCLL2N78EKqISG/92n0r8PkYasGHU4iAGRxej648f6uXE9Hdc=
+	t=1786009791; cv=none; b=OsjsTUn2XDj9vu7ZnBRmTlDRTFygIECoPg6i8+InTtDLWiCtmaHNGpPEKV2CS4O1Wnf55oL7K3aNO3LiaM7xkj+R1RLMn1T3YvTXowS+rdBcbkUixQF1gF5BnElNWYea5tNQL7QfegXZ14+DU9aKdqEiHt8EP2m6ZhNk7f8oHig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786009419; c=relaxed/simple;
-	bh=WVi85fuC71r0jKgAHBS0YIyZtQl9l/ZOYkxrtk/VwBg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Uv8oFzMH0UDHc/24+OUk+ZVpAHqagB98fDFm+GXzxp+PUzrtq/y2DbTmvlDe7VPw3UL7W97yUCGoAGzs71muC3PYhsVLTv7X3qh4bTof24XOKg1pclwYL+M+0aYl783+7fnGIdu4R6fq6xlVFmVyS/uhlUuneZkC7sSdMND2odE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=openvpn.net; spf=pass smtp.mailfrom=openvpn.com; dkim=pass (2048-bit key) header.d=openvpn.net header.i=@openvpn.net header.b=baQhfcta; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=openvpn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openvpn.com
+	s=arc-20240116; t=1786009791; c=relaxed/simple;
+	bh=PyyR5u0EwuW47gTLnNkcMk78neRvuMUXDXEXfBD8Y0g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O6Qztlp755h3xkD7sqck2Lju6j60Es2Pk0zyBkkhHVM1i4J0htuunS6FPXcizoDEfUSMOUCVRz2VuXURFQ2/5JPjG1ui2+SyeVIGsenrP1FuDKeWMaG0usE4qTAkTWL9+N4+71yvZzOeGCEQ/sPtPZR/AnOie6MKmsyjpqSHzQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=vMEJTmnk; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=5bhgTQsY; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=qZMkqYPW; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=m8Ox6hDw; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=openvpn.net header.i=@openvpn.net header.b="baQhfcta"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f93b2fe4cso1313681f8f.0
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 02:43:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openvpn.net; s=google; t=1786009416; x=1786614216; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=YCF0Jz2r7gKU8D2KAM2NRAKBbkkVR2iG2fITg02HPl4=;
-        b=baQhfctahSmAlIjDc42GhX2oYjet1MaYUpTpid5Gall2u5PHfeL5qHnCfoWmSl1Hel
-         Gji0d22FBiV4SXPIn6btWrE+xViWVbFh8VbbaCpOE+8bjwBXgMFvy/XYQkR+/2kkouMc
-         5VrwTDHcovymh3DGzKOqF54wP/8hzzJJOhKm2RPAhgG6DWbEwpjrcv4vwAE0j8bVdx5t
-         qwv0/5+T6IlWITgcj186FwFA0G9m4LyaHDNVlxwDe6DSkMgwKKPWioWD6EE8rNIwAvg/
-         zgSC24VrZQAa6EhuySIQBbpVfeusWx6yxnj5RyOGhZIGoPChqu20Ba7tY5xYkmi3LsQ7
-         ADxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786009416; x=1786614216;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YCF0Jz2r7gKU8D2KAM2NRAKBbkkVR2iG2fITg02HPl4=;
-        b=AjFh7jtFpW/niZkxAUB4n7o9Vxjk/OvS83tNhKVMg8ODuFwyhBTw/slxUd3JGDBHHL
-         Dku0BAZwsH9DpnuwICXKvoGMPTeU/auBjR8HvTzlX0bLT6S8niQP3HbFTc4n0B4++5rm
-         Vc7zSGwXR4NSN9yuLIOU2fbE0QUAx9CKrTR2m7XkseY4a9cGuZ5u0Du9N33XcT//p51C
-         mDDGtSNcSAiorDd6fmSeoptVF6/2t0Bn8RBMr5seY94gI7LudhgwfviwG5SjJu8Mh613
-         NlEgBRpz/e8dwYl3d2Nl6inveo4qdgab7GiC4651eavI5LYPUVh9MwtjJtF6k/ijLBHR
-         yK7Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrjqxvAlyvEq+8tVysHRDEEfTvB8aCybzFRPHEqft3xeH7YRxN1GfL+VsUKVl4WVJnKZRiGSMo=@vger.kernel.org
-X-Gm-Message-State: AOJu0YztcUByTLCo9nIyiaZC08W/CkMHoBEku8c5RrPip8iSXV4aY5WD
-	7ovRAY1oIfWphjJqOXHgmtdqESb4zti3XYzZcwy4cHoGY/vcUkxiynoP5HW6Fc3Bda2DaIeeRDM
-	4RoRTemrFU1nSUb9MVunlyi4A6+DKpB0DLWct8diNtKWETcBLu4k=
-X-Gm-Gg: AR+sD11EiS5twHYuDOdVmyZs61v26OzMxNAcW+nUrTedo0aJ1S4NoKuYoZcGvdnAJLg
-	O9eEJUE+orfMyNYsYzxE21llmKzSG4R2wNcnq37mT0E1h6O7OhWUKhhiaGbUndBorKwJNtThiht
-	RbGtz2bF+709SW0bAUA021pUGNHGeOf8Gh+QThUGFi+jSxAhIjY5tTtgqTNp6zJr18x2vP0OEYX
-	f1NIwjVYboxVftsSjXpfjZctQMyZQcgduivcXG5oL1Nn3aq9z0PnZR9P+9W68n/fOH80zxVZHG8
-	Bgam81bBfJj2Ha1fALupywZ1myOm+ZSCUA4XMcq46ABpY46cA7wuioEevXJpnicrIsg5wTW3GSr
-	gKkAyXSnvVbW1BLtkQrUsil9oXJPcF0guRjzEmKMBuCV3zEaBBVP0kCCe/r8t4fv/HAmOeBpPw1
-	t7GrPGkHp3SoW80Npxf9Lf4RE4gAqBSt6wtYDXZeJTc4Im+3Li9dxcM3lCMLpT28tUcFuXGwXfS
-	m/w2Z4=
-X-Received: by 2002:adf:e005:0:10b0:47f:8b9e:f44e with SMTP id ffacd0b85a97d-47fec52828bmr18038588f8f.12.1786009416105;
-        Thu, 06 Aug 2026 02:43:36 -0700 (PDT)
-Received: from [192.168.182.19] ([185.242.181.115])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47ff79a718bsm5269469f8f.5.2026.08.06.02.43.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Aug 2026 02:43:35 -0700 (PDT)
-Message-ID: <351ceff4-658f-45b1-a46c-2c1b3ff142c0@openvpn.net>
-Date: Thu, 6 Aug 2026 11:43:32 +0200
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="vMEJTmnk";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="5bhgTQsY";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="qZMkqYPW";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="m8Ox6hDw"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E6EA37FF7E;
+	Thu,  6 Aug 2026 09:49:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1786009784; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zA/GI9E1r/G2Vxu4AUDo+MgvMEhwayxaYlFyHlnEBPg=;
+	b=vMEJTmnkBN1paRd8FHiK0iLFXlsafaMqzlP9MvEWRlENhr5Bl1DOg0ERrTDz4aJw7JK5mU
+	9ebZxWqDJLTp1WEg+Ls+1HWX4Va1SmgFe7x9AbkuI6fOXPumVnnB4xxh5KbtU2sNJj6LDU
+	39ZyOLsatVi4+pGu3MolfrfmKJ7mf68=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1786009784;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zA/GI9E1r/G2Vxu4AUDo+MgvMEhwayxaYlFyHlnEBPg=;
+	b=5bhgTQsYFRB2PdwSfxp09LNiLQ3SMBRHdKWkkNh1i5uFKtmHFO3imvB8dYmtF9pkanNiqj
+	+jK+H5RiZxzJ7vBQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1786009779; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zA/GI9E1r/G2Vxu4AUDo+MgvMEhwayxaYlFyHlnEBPg=;
+	b=qZMkqYPWY1LWkYz6IjTs+xFfKSlaH7Ot9q3pFfZY1WrV3PUGg0qAm1Xwf73HziSOVPYy1R
+	P6In0yRlU596GsmbfMuKjOYNowjO5pdqmL0C2vQElZfrlq8ILWZ01pEolDgElqcsecNTcu
+	5yOqQaF34IqQ8fxvChuzU+uGndf2hKI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1786009779;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zA/GI9E1r/G2Vxu4AUDo+MgvMEhwayxaYlFyHlnEBPg=;
+	b=m8Ox6hDwOQ0m1VhpEEqw1o89dApl0UlW9A+gEXghE5La8D7GLoIwRa+eveGZ7EHpz7g2Jh
+	In+7XDxrJDE7iPDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DD50C779BF;
+	Thu,  6 Aug 2026 09:49:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id dTUCNrNYdGrvPwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 06 Aug 2026 09:49:39 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 8CABAA13B1; Thu, 06 Aug 2026 11:49:31 +0200 (CEST)
+Date: Thu, 6 Aug 2026 11:49:31 +0200
+From: Jan Kara <jack@suse.cz>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: Theodore Ts'o <tytso@mit.edu>, 
+	Andreas Dilger <adilger.kernel@dilger.ca>, Joseph Qi <joseph.qi@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
+	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+	Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, Mark Fasheh <mark@fasheh.com>, 
+	Joel Becker <jlbec@evilplan.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	linux-ext4@vger.kernel.org, ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	zhanxusheng@xiaomi.com, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] ext4: fix readdir position truncation on 32-bit
+ kernels
+Message-ID: <jodqssdetawej6xytscjgfia72awx4exvjhdorksgiimrpfilw@nddk3kvjipn4>
+References: <20260806022044.167962-1-zhanxusheng@xiaomi.com>
+ <20260806022044.167962-2-zhanxusheng@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 1/2] ovpn: don't deref NULL key slot in
- ovpn_crypto_kill_key()
-To: moonafterrain@outlook.com, Sabrina Dubroca <sd@queasysnail.net>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
-References: <20260805-ovpn-fixes-v1-0-763f8c237fb9@outlook.com>
- <20260805-ovpn-fixes-v1-1-763f8c237fb9@outlook.com>
-Content-Language: en-US
-From: Antonio Quartulli <antonio@openvpn.net>
-Autocrypt: addr=antonio@openvpn.net; keydata=
- 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
- ifS0+hzvnPVD9wXa9kdjO+0H
-Organization: OpenVPN Inc.
-In-Reply-To: <20260805-ovpn-fixes-v1-1-763f8c237fb9@outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806022044.167962-2-zhanxusheng@xiaomi.com>
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	URIBL_BLOCKED(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo,suse.com:email,xiaomi.com:email];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,fasheh.com,evilplan.org,linux-foundation.org,vger.kernel.org,lists.linux.dev,xiaomi.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email,xiaomi.com:email]
 
-Hi Junrui,
-
-On 05/08/2026 15:29, Junrui Luo via B4 Relay wrote:
-> From: Junrui Luo <moonafterrain@outlook.com>
+On Thu 06-08-26 10:20:43, Zhan Xusheng wrote:
+> In ext4_readdir(), the directory cookie position is rebuilt with
 > 
-> ovpn_crypto_kill_key() is reached from ovpn_encrypt_post() when the
-> packet ID space of the key in use has been exhausted and
-> ovpn_pktid_xmit_next() returns -ERANGE. It locates the slot holding the
-> given key ID by reading cs->slots[0] and cs->slots[1] and comparing
-> ->key_id, but it dereferences both pointers without first checking them
-> for NULL.
+> 	ctx->pos = (ctx->pos & ~(sb->s_blocksize - 1)) | offset;
 > 
-> An empty key slot is a perfectly normal state. Both
-> ovpn_crypto_key_slot_delete() and ovpn_crypto_state_release() install
-> NULL, and the ordinary rekeying sequence - install a new key in the
-> secondary slot, swap, then delete the retired one - leaves primary_idx
-> at 1 with slots[0] empty. In that state the very first comparison
-> dereferences NULL. key_id sits at offset 0 of struct
-> ovpn_crypto_key_slot, so this faults on a read of address 0.
+> `ctx->pos` is loff_t (signed 64-bit), while `sb->s_blocksize` is
+> unsigned long.  On 32-bit kernels unsigned long is 32-bit, so the mask
 > 
-> Every other slot accessor in this file already guards the pointer before
-> touching it, e.g. ovpn_crypto_key_id_to_slot():
+> 	~(sb->s_blocksize - 1)
 > 
-> 	ks = rcu_dereference(cs->slots[idx]);
-> 	if (ks && ks->key_id == key_id)
+> is computed as a 32-bit unsigned value (e.g. 0xfffff000 for a 4 KiB
+> block size).  In the AND expression with the 64-bit `ctx->pos`, that
+> unsigned operand is zero-extended to 64 bits per the usual arithmetic
+> conversions, yielding 0x00000000fffff000.  The high 32 bits of
+> `ctx->pos` are silently cleared, even though directory size is
+> allowed to exceed 4 GiB on 32-bit (s_maxbytes for ext4 is many TiB).
 > 
-> Use the same NULL-safe form here.
+> When readdir() crosses the 4 GiB boundary on a 32-bit kernel the
+> position is reset back into the first 4 GiB block, making the
+> re-validation path re-enumerate already-returned dirents indefinitely.
 > 
-> Fixes: 89d3c0e4612a ("ovpn: kill key and notify userspace in case of IV exhaustion")
-> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-> Assisted-by: Claude:claude-opus-5
+> ext4_readdir() reaches this linear path for non-indexed directories, and
+> as the fallback after ext4_dx_readdir() returns ERR_BAD_DX_DIR, so a
+> directory large enough to cross 4 GiB can hit it.
+> 
+> This is the same class of bug that commit 3dce5bb82c97 ("exfat: Fix
+> bitwise operation having different size") fixed in exfat.  Cast the
+> operand to loff_t so the mask is 64-bit before the AND:
+> 
+> 	ctx->pos = (ctx->pos & ~((loff_t)sb->s_blocksize - 1)) | offset;
+> 
+> 64-bit kernels are unaffected (unsigned long is 64-bit there, no
+> truncation occurs).
+> 
+> The truncation was confirmed with a freestanding 32-bit test program
+> mirroring the kernel expression: input ctx->pos = 0x100000100 produces
+> output 0x100 with the unfixed expression and 0x100000100 with the
+> cast.
+> 
+> Fixes: ac27a0ec112a ("[PATCH] ext4: initial copy of files from ext3")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-A patch fixing this issue was already sent over the openvpn-devel 
-mailing list:
+I'll note this is a very theoretical issue. I don't think your life it long
+enough to create a 4GB non-indexed directory in ext4 :) (due to quadratic
+complexity of the adding of directory entry). But the fix is right so feel
+free to add:
 
-https://patchwork.openvpn.net/project/ovpn/patch/da59b0f39ad7eb59174bd1ffdc2b5ab5e2499e08.1785318038.git.ralf@mandelbit.com/
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-and it will be sent to net soonish.
+								Honza
 
-Feel Free to test/review that patch if you want.
-
-Thanks!
-
-
-
+> ---
+>  fs/ext4/dir.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
+> index 17edd678fa87..8113f43d4989 100644
+> --- a/fs/ext4/dir.c
+> +++ b/fs/ext4/dir.c
+> @@ -252,7 +252,7 @@ static int ext4_readdir(struct file *file, struct dir_context *ctx)
+>  							    sb->s_blocksize);
+>  			}
+>  			offset = i;
+> -			ctx->pos = (ctx->pos & ~(sb->s_blocksize - 1))
+> +			ctx->pos = (ctx->pos & ~((loff_t)sb->s_blocksize - 1))
+>  				| offset;
+>  			info->cookie = inode_query_iversion(inode);
+>  		}
+> -- 
+> 2.43.0
+> 
 -- 
-Antonio Quartulli
-OpenVPN Inc.
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
