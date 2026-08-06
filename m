@@ -1,170 +1,120 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98331305688
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 13:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B2E244692
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 13:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.176
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786021939; cv=pass; b=YZY93zL4yAiOSK8q5MyFS/lfH1HiXelXC7kCYEk2L7m5yvu0mTwz7gNINH4Hrf42waoGobor0GsGLB8kB0hHeC0pYGtHmBm4anR8DmKafoZT4XMpf5sswxtidBNw+ZRlmClqCxMuzYHS/v+MCVZX6TLWFjfFHF46Ego5iPcgAoE=
+	t=1786022133; cv=pass; b=NwZAORoBmRzBjD1KX56Ctbu1MbQ1u2CpAjugUQADegl1eUt+URfOgTCDF6XYpRtZ948Fa6SLWHK9/QHwZWazPbAt9qHFYmAjSIxpFffvojx2mOClUWaTP8gONtqdSlLSrAFeFp2Oq/zPyqTvCk/UK4V2Iy7WuUOrxMNKp473wbY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786021939; c=relaxed/simple;
-	bh=gTOx7EH1voNp8N7JYu+h59hbOKIzl4POlomWmUZTuaE=;
+	s=arc-20240116; t=1786022133; c=relaxed/simple;
+	bh=qcRoa7wxcm+4U6CerRrkNKXv+MRezWBibcEtDT467Jk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mbj+aOnA+i1PlfEk4W3NAC6GhSYaPxhg3WSXQG39iYjBDvXivfhbGec5mKURRaUnDODevD9OViuMvOa/xYnFv1vRoWdAS6q5NMfbv2QRW2LBGE10nsz/3s3x8K1Qz4M58mtqVPP/4ppTOVL2Qm+yK16aLOLVpYbQP6XWDmjRAao=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mV4iDkzb; arc=pass smtp.client-ip=209.85.214.178
+	 To:Cc:Content-Type; b=Ano5L5bqqvCzZcQbWTqhHW2jtWfJeObmfaY6qCXfI1XEeSsWiwwQAgOkkV27/eKIoU11fEke2zDGnmfjoa/CFXY2D9yp4EGhHXRjqsvgVq3zY+3xATCBH6x/LIgIQrahSLfDgrROQMomzGk+8JYF0kBtGEhhbxizpXsAxjn9cSo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LR51s+h8; arc=pass smtp.client-ip=209.85.214.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mV4iDkzb"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cede6375caso105955ad.0
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 06:12:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786021934; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LR51s+h8"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cab97c86bdso115845ad.1
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 06:15:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786022130; cv=none;
         d=google.com; s=arc-20260327;
-        b=rHjiSYIh+YN7adNlk9rI5xNY0Y5w6IWN0l+tp+u2LPkOgsrGKkiTQQKXC8W9OozdB9
-         LRhsu5ascsEn4IItwAW2xe0nN12byQlTclUGAiJBVvpb0Z2DOezhTnhE/Xi93ra7az0Y
-         TSOk7A1wHXHjg3hx+v/4zrT/Wn10PuzOi9CkFz/R3SQS2lcHYZjcMskLuinfxVfheD/h
-         wkoonQMr87ZUensFy4HdS9KG9zS93dBr1Z7zupirUt2NcFiEva1i1dMU/SN+9rmbCLxk
-         QKy2RCfPUmA1bauWmEOgr3ETpvoQp4UCcax/OdMf5okzk1QtpR9JeE31rwmFbQ/3IMkt
-         IgMg==
+        b=XSnewcQoe2DEBXwWEp+td7inVlYSdXhIRd9xkSeLY6yltsVvY3nkzt51g46m3ZAveh
+         Di6qulfHX91RPjDAe2CXuARcK5ACsN0YNkVMXBLYDjnZ/ft/BflGp76yl65b526cr1nx
+         fAGkD+FfSdOOdvLKfBotaJvENAR97UwXe7LvgywDkkcUvW0cBJQWDwI80q7WPCnJ35o2
+         UUkYKG8B+aATqzEvkIbd9egyM2zm7FrkaWxw8pjsZTmcK0FMR/uy1qt3qthzpGwQmli1
+         3bha5RAcrnIXL/ZJLYKEaXSIQBJ6VDrfDVKA2CzFsv8t2H9bRJilyvKFwU3Ndmunq7HO
+         qFYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=P9/jShmwIMCeTZRK1H99Se78DZXEHSSBV12Fe1ATBL0=;
-        fh=Zh+99yERGpx1DW162rC0KcpQBIk1jRgjSqBhZLz9ovo=;
-        b=blOsHf2AIft0w5Eo48atganIRrNPY1Tu9TwnWwF3q08SjBE7wX5PWrWZv6BvelpSlj
-         O7DVFgrmF9mNSobvqJYa/Zkfs+SA+gdCIZSXBTCILitWzw5uIGCSTnQRd0KjARdoiYzm
-         wLz+7wEqxkFlXJ6+iLpUvO1ArGUir3D+VaClrsyndjMNrvhPbPFpXbLcfyeA065v8Y1U
-         dXEY+LMgPT4ZnwlepNlNZ28qnqMj2xp1kjxbBuzGh6U66Z5maO2InSAeCfSv30LDaraB
-         kafOKWfYS2je2/MZ6v9LC4BkEur1enXomImtbS4h2aqOJSF6K9hSVwH2ndHOPSPKpesM
-         0EVA==;
+        bh=qcRoa7wxcm+4U6CerRrkNKXv+MRezWBibcEtDT467Jk=;
+        fh=f9+MTxoD91HDfQEl0I0cxiOmbLq25u8NMXKtt7Ek0NI=;
+        b=GnIwk7ya2oPxN4DFd4WRjNy0VNwc30JoPibfvpNjr1Wyf+/xWufrszkPt895sghG61
+         b6W9z9J6geup3CZxYvE1igKEBCm7fKaUVQ4kLISU7Tw6uMWIA0eAip+85EBs4+LlwIhW
+         dP5ROMnb+Wfzlm6xmekz1t9lEopQepFjwNeG+esHi/Cxz5LW0/k7v2fXBFoe65l7xqVH
+         88Cq8dHmeCPJMHm9MeV58sO64EcilNdIU5PSznUcZCkrHuSdm0qeE/Nxj2NOcM/cHGoJ
+         PwB7etwFi+U45JmsPXsEPV0zKaTywZr+x/W9RJDWh7qeEGyPs0LL7bZO6PRtYUZdLgdt
+         JBIw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786021934; x=1786626734; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1786022130; x=1786626930; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=P9/jShmwIMCeTZRK1H99Se78DZXEHSSBV12Fe1ATBL0=;
-        b=mV4iDkzbg8jIFwoK2W7fjfRIKSpuVpyDrL4qrv2A2N+KVQyTcOzs4hyNMNR072rCdn
-         I13UBVucdxyLx8KPc5stdwL3RQgykvahqjmr3tVLI+x809VOOgsRk0gmWpmKxXd5KiZw
-         WXxT+7wwjtXrlojwu4zQ+NvjfFn6UQOEMt/a01XZFn4tekZaMAv6EEJs6c8Y/B05oIVW
-         MwSHsWWep7jBYV03ZNxFo3cTDEJIX8Tj2JjKsLFTfobGLXUWUlHDa2idVyI0ZtU/1R4+
-         wub/+vK1EMyz2m4O7E7iKZlOYNGVHZ2Ih8eW5lMpwmu23Rl+LVe994G7iTBFCgZ3Zrpt
-         xvrg==
+        bh=qcRoa7wxcm+4U6CerRrkNKXv+MRezWBibcEtDT467Jk=;
+        b=LR51s+h8/FKsUNHG6QycNXv/ZSVzMYJlkD37XrMoI9dTsZ5A6Nl2oHCDwWFPxNPCVN
+         N0pC/AwK05TJuep8iiXpMLaB3cFQgXQ/EY5oaaNgyZBVOcg5xwGTlbhcHQ3QkhoMiVVq
+         LZLJG/HbXFwdNZE/TEwZJaDtMQmxqTZiVgyswBkUZJgvCgqP3miAmfvZuXQRjA4R3LzL
+         KHXkF7TWoRJcNa/CtIGF1lVBTBYfRlGbRvUmim0cnyLZqdxUOnahae53iXwt+bR0zyyL
+         VlfUjhOMTl5pUn7cLAldctM6YqGqcCdwBE/yxaFUZiTS8LOUijByFpblAKapZYfMBkht
+         tOHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786021934; x=1786626734;
+        d=1e100.net; s=20251104; t=1786022130; x=1786626930;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=P9/jShmwIMCeTZRK1H99Se78DZXEHSSBV12Fe1ATBL0=;
-        b=Y8ZPzyez9oN+HhvbLQJn7zLEsQGKUYkjrjBSvlnmQDwlG/ddVm/YRtJwULgp0n1Gdi
-         Mg5GYyFMVnG5T/PeHEWNNYR7g48yfPcOLQFO53Sg5AFJzeVZaUpVDBAnYDXJWVzyPRPt
-         hwQ+pDBIdashSlbf88f2DMO3eUIKxkPlpnzL59tQ0fsmq4LN4lccV2TNhGQppcF1eHOT
-         a42tAinwB2kIMcOvHFvqnPzVn9cw3H2LvVbfucq9O4Q7y+k7jZkoZ9pFsmBjrnVatK6l
-         v5spA0LpXLc4UELF9aAxdGevPE6QdjK1IyqfiawGZ6XmM7b51JopmrYDm8rWVMJ1n4y2
-         UhNg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro5udC7MITMBivpBr+YMRRXxcUtu2lIh6WGss5nTHT2LJpP7zthhFAV9vj+RDbwPmF4u/sQvFc=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzf0KFYMA0WCxNlIaNLEO516A3Ly88rxUkaeAFd4DAshDy2fNBl
-	27zOeQPB5/S61OJQpnXvyPTSgzPTeO96Np9ohaeOSrAh4Iyi4sfHa3aRQU76qYVOoPr2rlVuTpe
-	c0H9nwK7yWUev1+KhHwP976JHM2CUVD1LMTsYx4K5
-X-Gm-Gg: AR+sD13U27a+bOKC+68rH5fUvTAKch9xunI9y/AgbPpDXpDsEVfOJhWsACim22iUleR
-	G+M6eHegndTwlDBcs813D32M467gYn1rxfNyggMCEKTR/noRxlXYoBMeT2qpg2TfwEoeW3it4e3
-	+6c6G/xI3NEBTqZUJAHb6F9n9nncocPf13vjUktw+htK/S4f7W4bVk+4gzUv2PVlWe7p07ZHpRX
-	TpMalceU8BV6WWg27LI0npiXI6kBrQJ1XCKuvwVX2LQ1izli0rJxiLGzWf/eFuEso+0TyCzrpEV
-	OL6DnsAR/St3Z3F24BwI0W39UDb/qpSTRXCLvrh2saI1aUMF7Fq+6XrdFfM9NbY0utk4gplpMVx
-	hcKArIVWX8Fa+A0nHXVTRXX+nHT5gMHQ=
-X-Received: by 2002:a17:902:ce90:b0:2c9:bd54:cf with SMTP id
- d9443c01a7336-2d0f2a1ac97mr7375425ad.4.1786021933682; Thu, 06 Aug 2026
- 06:12:13 -0700 (PDT)
+        bh=qcRoa7wxcm+4U6CerRrkNKXv+MRezWBibcEtDT467Jk=;
+        b=prNpKeJz3/ffqAo2qy4lrO4N2lQUQh8xEX8fU8M1l9VkXUdQMIgQo17keJMWpSOIuh
+         ppem/wsovgtgcecBCto1R3zUxZIeNlfuo74n9Xk9YRl2UyI8MKG1sKa7gVxusYqQbVPx
+         s/D2jxNh1DztAGvnU2cNGoQK/rI3PLERLPpgR87BCw7zpLfPucfCgkRsHPGzB5o5TpRF
+         MhnTMZI0a50oQEQQ8I5GRARos7bTU7SxizINlk0Rx05hEMewxi/V42Y9VtdyEEyMXV3Y
+         R1YCG0Y0b3oGS6+homeDOKIJ99eVFeqLM0DVwor+Etji/VfGqw/bXQNHSuuy//v1KXtg
+         TGTw==
+X-Forwarded-Encrypted: i=1; AHgh+RpXl8sSbSBfQtSRCcgoHNn07jv/u04gDsgw5ZQZ1P85TVVFQEtQQX/GBATeLzpEozd5TN7cY5o=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzf9y9JMkgoWwEUp8Ya4iwjh35yZuAgZysXA58IcRAeJmZ7v1qp
+	340NwH3HDlNoLEzZzBf/dUtVQbALfCtoZ8a+4DDXTtEelmwD1F5oUqANJgYMaOt858DM522MaJS
+	KEIhCZji9X8ofJEZSrjTgD7ykYsB33xgCVltZpMDY
+X-Gm-Gg: AR+sD10dLLs6lurAWzFEvYrL6KKhH7NnpwTnTRQ/b9IFJlhq4JME3plviiTqCZJyPHU
+	OEMnei6cc8pfxuzkNLwjzHYaHrDzdQpVK3iPJvJgGKGRqXiHbLUVC5fvU/pXx4/uNJWmt8AHWNd
+	l7lk95FCjAKOW6hHfFC8R+/sufF9jGpKPNWIQIOwfJsoIdluXi8y9luAcIS/G5nAQhNlBWb3tEB
+	nZ+MRdLnSsaRcEipZDj4jwdhdLk8kNmONmku/s9tfjYBBZj7aE005ZMVPcH86L8KRRWooY6Hr5b
+	n9GB92S0SuI2QiP74DR6F2YIORhZ3dG6+VOk6kHByMq9AG/zwXAKUp+oDlM6W3e0HqzvpCQ8Q47
+	fA20ozunD+u6Ah6zZmXvahy1D5ATmX+uItL0gHwc4/w==
+X-Received: by 2002:a17:903:1a0d:b0:2c7:f0cc:dafa with SMTP id
+ d9443c01a7336-2d0f55cf869mr6202385ad.5.1786022129037; Thu, 06 Aug 2026
+ 06:15:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260714-fix-apparmor-cred-uaf-v1-1-be40e8c83b90@google.com>
- <20260806073244.GM49951@noisy.programming.kicks-ass.net> <00168bff-3d44-4701-9931-1e02105410ed@canonical.com>
-In-Reply-To: <00168bff-3d44-4701-9931-1e02105410ed@canonical.com>
+References: <20260714-fix-apparmor-cred-uaf-v1-1-be40e8c83b90@google.com> <f13d94b4-2bd3-4737-b25f-bd5371189e62@canonical.com>
+In-Reply-To: <f13d94b4-2bd3-4737-b25f-bd5371189e62@canonical.com>
 From: Jann Horn <jannh@google.com>
-Date: Thu, 6 Aug 2026 15:11:36 +0200
-X-Gm-Features: AUfX_mwaMKvH8autja6WPUiF9yY0qYb3sB5ZSNxQ5smDHdnj5Wwh-lN0MJH4-ys
-Message-ID: <CAG48ez25v6=GZzK2iNQepDeKpgAEWBPrkovJqzjSiJsOCLNSeQ@mail.gmail.com>
+Date: Thu, 6 Aug 2026 15:14:52 +0200
+X-Gm-Features: AUfX_mxjHccwhlBK-ZEwcRdt09EaFA_3UXxZXnpQMajQPSs8iZsc_fBXfIGTlTg
+Message-ID: <CAG48ez3QfBZAQNG6K-rVmbkEtfJ9HtRs7MTrmNsKaoJLDVbnxg@mail.gmail.com>
 Subject: Re: [PATCH] apparmor: fix cred UAF caused by begin_current_label_crit_section()
-To: John Johansen <john.johansen@canonical.com>, Peter Zijlstra <peterz@infradead.org>
+To: John Johansen <john.johansen@canonical.com>
 Cc: John Johansen <john@apparmor.net>, Georgia Garcia <georgia.garcia@canonical.com>, 
 	apparmor@lists.ubuntu.com, Paul Moore <paul@paul-moore.com>, 
 	"Serge E. Hallyn" <serge@hallyn.com>, James Morris <jmorris@namei.org>, 
 	Christian Brauner <brauner@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>, 
 	linux-security-module <linux-security-module@vger.kernel.org>, 
 	kernel list <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 6, 2026 at 10:06=E2=80=AFAM John Johansen
+On Thu, Aug 6, 2026 at 2:02=E2=80=AFAM John Johansen
 <john.johansen@canonical.com> wrote:
-> On 8/6/26 00:32, Peter Zijlstra wrote:
-> > On Tue, Jul 14, 2026 at 05:38:07PM +0200, Jann Horn wrote:
-> >
-> >> diff --git a/include/linux/task_work.h b/include/linux/task_work.h
-> >> index 0646804860ff..ce19fc14060c 100644
-> >> --- a/include/linux/task_work.h
-> >> +++ b/include/linux/task_work.h
-> >> @@ -33,6 +33,7 @@ struct callback_head *task_work_cancel_match(struct =
-task_struct *task,
-> >>      bool (*match)(struct callback_head *, void *data), void *data);
-> >>   struct callback_head *task_work_cancel_func(struct task_struct *, ta=
-sk_work_func_t);
-> >>   bool task_work_cancel(struct task_struct *task, struct callback_head=
- *cb);
-> >> +bool task_work_has_func(struct task_struct *task, task_work_func_t fu=
-nc);
-> >>   void task_work_run(void);
-> >>
-> >>   static inline void exit_task_work(struct task_struct *task)
-> >> diff --git a/kernel/task_work.c b/kernel/task_work.c
-> >> index 0f7519f8e7c9..f83d1528e0bc 100644
-> >> --- a/kernel/task_work.c
-> >> +++ b/kernel/task_work.c
-> >> @@ -189,6 +189,20 @@ bool task_work_cancel(struct task_struct *task, s=
-truct callback_head *cb)
-> >>      return ret =3D=3D cb;
-> >>   }
-> >>
-> >> +bool task_work_has_func(struct task_struct *task, task_work_func_t fu=
-nc)
-> >> +{
-> >> +    struct callback_head *work;
-> >> +
-> >> +    if (!task_work_pending(task))
-> >> +            return false;
-> >> +    guard(raw_spinlock_irqsave)(&task->pi_lock);
-> >> +    for (work =3D READ_ONCE(task->task_works); work; work =3D READ_ON=
-CE(work->next)) {
-> >> +            if (work->func =3D=3D func)
-> >> +                    return true;
-> >> +    }
-> >> +    return false;
-> >> +}
-> >> +
-> >>   /**
-> >>    * task_work_run - execute the works added by task_work_add()
-> >>    *
-> >
-> > This thing is quite terrible. And AFAICT the only purpose is to
-> > determine if said task already has said function enqueued. Why not add =
-a
-> > single bit to struct task_struct for this? I'm sure we have a spare bit
-> > somewhere.
-> >
->
-> single bit wouldn't work generically to represent the different functions
-> that could be enqueued but we could stick a flag in the apparmor task
-> security blob, so we could just check if apparmor has enqueued its
-> function.
->
-> The trade-off is you don't get an admittedly ugly generic fn that someone
-> else could use.
+> Q. What do you think about making the callback_head part of the apparmor
+> security task blob. It would increase its size, but allow us to drop
+> the alloc/free. Generally profile is generally something that is relative=
+ly
+> rare, but when it does happen, its is quite common to have all the profil=
+es
+> being updated, so a thunder herd type problem.
 
-Yeah, makes sense, I'll rework this to not touch task_work.c and
-instead do something with the apparmor task blob.
+It would waste a little bit of memory, and I'm not convinced that the
+thundering herd would be an issue since allocation would only happen
+when a task is running, and the allocation would go away at the end of
+the syscall...
+
+But yeah, I think that would make things simpler and avoid touching
+task_work infrastructure, so I'll rework this.
