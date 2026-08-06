@@ -1,42 +1,42 @@
-Received: from mx0b-00206402.pphosted.com (mx0b-00206402.pphosted.com [148.163.152.16])
+Received: from mx0a-00206402.pphosted.com (mx0a-00206402.pphosted.com [148.163.148.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4C747CC6B;
-	Thu,  6 Aug 2026 15:30:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.152.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52D33E1205;
+	Thu,  6 Aug 2026 15:30:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.148.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786030236; cv=none; b=YzKgFtOmUksBtzVWjDdtVMvfKVOdzF1fM5icrhnfnsKD/7B1g2H1bKGZEX8wVD5vdyzRzqOxbpjwjeaBiYCleAjRqeT9v5LNm/f7oV3AyOavRfbyl8i8XK6KWwVF/WaQmqW+DyfP5s4zmPjljiQsP400Rl647RNiPvXyCtsvjmk=
+	t=1786030237; cv=none; b=BNGwKlDKG3gxCZ4TFpJd1c27HimTZVuF3hEdTS78HKWh2QzbV0Bwf7GE0v/paUFEyWJgXlXOsJWZhpPzX2gMCLeADSiyZEo3P7BCgL7IE/8vl9bRp+p45cqhYIx1X59na22jE5xnlF4XwZ5IwqDAIJHL/6ZuxdFLVOt1vpFKOqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786030236; c=relaxed/simple;
-	bh=ZtIq6/5bAhllRQcM6dw+CmERgXnw6MpXcKHxDfb5F7s=;
+	s=arc-20240116; t=1786030237; c=relaxed/simple;
+	bh=0PsiP6XLNgx1B8qCAtOy9TctaqYgvjMsLtdZ+zDu22M=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Xbuvmi1XmqSozkxvGX2wFt8AdJzt2h1/N2ZKPLB2nCyOd1Nu3K6Ckz1VpqwkWv9LlHbZoDmyZpeSANxEQMky78YnaGOALjPcFQtbxqn5eY/uXJtZtTYB+E/d46S4XFvyG6y40XQO5z1goL9V6TdyRKlxeO5udcCWNX/jg3yuH80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=aDasLJhI; arc=none smtp.client-ip=148.163.152.16
+	 MIME-Version:Content-Type; b=WzAK4hrq7YBnNlb2mAATYH5A7uX0hNcqom1JPtTkhKrraStPjJGqkosGhfBuQRhpQp+WikiI6TfvbOtL1T6KLmahAabibjt37+zdIQVfZ+twG1g+uuLz91GQv8pL7HNCLNgZ09AtaGpe3na/nOYLmVukH6dXG6AnuWtvEyCKPAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com; spf=pass smtp.mailfrom=crowdstrike.com; dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b=coSF3ov/; arc=none smtp.client-ip=148.163.148.77
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="aDasLJhI"
-Received: from pps.filterd (m0354653.ppops.net [127.0.0.1])
-	by mx0b-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 676F84Gn1695370;
-	Thu, 6 Aug 2026 15:30:04 GMT
+	dkim=pass (2048-bit key) header.d=crowdstrike.com header.i=@crowdstrike.com header.b="coSF3ov/"
+Received: from pps.filterd (m0354652.ppops.net [127.0.0.1])
+	by mx0a-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 676EK9Ab791541;
+	Thu, 6 Aug 2026 15:30:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
 	 h=cc:content-transfer-encoding:content-type:date:from
 	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	default; bh=LlzcFzO05CbeOTXkpW4o6fZ5jrxdT7zClT10VI4GfzU=; b=aDas
-	LJhIfzbq1OJxwlx6mHf8kTXS5Gk5pXftpAp12BeICD0zmS1LZuJrTg6FeFQTjxk9
-	htWTakG7RWmWC2GIOpcTU+cWw7GfDVvUY5fkgdqYiHKpzjd4QxHIb1/3dkBlDc5l
-	wl1iCc4lViGyFHhGusTjpVPC1XdqIsLXZxSQ4gRPMPYUEGePR5FUkQlRL6OqNyyh
-	N1s/TVWDYOwthix6qT6x8X/AowIz1pJTN2zFv1OmTn/0jScglMMRnU9YhM+0ort0
-	TAJodgYcWmut/DHHdXNlAcv0qtkzTQWQ2gmTDz9t5RwJFCBIR4ynHFfPx1r5jAt9
-	jN9NosnHS7eQrCo55Q==
+	default; bh=4R0Q2D3S9SSDGj3zQrCGa1KW0JTFH+rYYGs3A9AbRLE=; b=coSF
+	3ov/pgcqP1l8eBxpFH/LBNnjZvELa1KQdE7nZZccSfYC+vUtWQSlx0BU92EHU2tI
+	3fHBHMG/1BnJizo56wCT/8PDl9BiTU18m3QiqRjuaeMcv//Zxf86sj1sCZ1InZyt
+	9clzlj1/vzm5LNnnHzgShqZWAHtjDaO6rkf8Huj2IdB5AaIe5bso1q2GpGvyg1iL
+	sHRVhybVshmcUqD9Ii3TWQN/sFu8aLR2yKtPQcQmWdHsjEA84ZX6bNR8cn7R+LOf
+	8CmdQFVt9zlKgznI7EcQXQ6vqWN8JvXpVxS3Pv6f33VZdn0RrtBekpq2Etwr6Czt
+	EV1MfF8rALLBWOE6AQ==
 Received: from mail.crowdstrike.com (dragosx.crowdstrike.com [208.42.231.60] (may be forged))
-	by mx0b-00206402.pphosted.com (PPS) with ESMTPS id 4fvs8vs75y-2
+	by mx0a-00206402.pphosted.com (PPS) with ESMTPS id 4fv69t6j3t-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 06 Aug 2026 15:30:04 +0000 (GMT)
+	Thu, 06 Aug 2026 15:30:05 +0000 (GMT)
 Received: from LL-DJCZ134.crowdstrike.sys (10.100.11.122) by
  04WPEXCH006.crowdstrike.sys (10.100.11.70) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 6 Aug 2026 15:30:02 +0000
+ 15.2.2562.43; Thu, 6 Aug 2026 15:30:03 +0000
 From: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
 To: <bpf@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
         <live-patching@vger.kernel.org>, <rostedt@goodmis.org>,
@@ -44,9 +44,9 @@ To: <bpf@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
 CC: <jolsa@kernel.org>, <mhiramat@kernel.org>, <jpoimboe@kernel.org>,
         <joe.lawrence@redhat.com>, <mark.rutland@arm.com>, <corbet@lwn.net>,
         <stable@vger.kernel.org>, <linux-open-source@crowdstrike.com>
-Subject: [RFC PATCH bpf-next v3 1/2] ftrace: deprecate disabling via ftrace_enabled sysctl
-Date: Thu, 6 Aug 2026 11:29:59 -0400
-Message-ID: <20260806153000.4184871-2-andrey.grodzovsky@crowdstrike.com>
+Subject: [RFC PATCH bpf-next v3 2/2] selftests/livepatch: update test-ftrace.sh for deprecated ftrace_enabled
+Date: Thu, 6 Aug 2026 11:30:00 -0400
+Message-ID: <20260806153000.4184871-3-andrey.grodzovsky@crowdstrike.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260806153000.4184871-1-andrey.grodzovsky@crowdstrike.com>
 References: <20260806153000.4184871-1-andrey.grodzovsky@crowdstrike.com>
@@ -60,129 +60,143 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: 04WPEXCH014.crowdstrike.sys (10.100.11.87) To
  04WPEXCH006.crowdstrike.sys (10.100.11.70)
-X-Proofpoint-GUID: eiX1hENDWMuUNbHPAjyfAyxKV5sLht3U
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDEyMCBTYWx0ZWRfX9OqOavE7Lf+2
- yi/aJe/SDiWNwERK/HWjkkrxIwx0OedetXWNiqkqARfqAb8IXV+F6LOKN0Qo7YPa9cPDgYmSnZs
- BI2VaiuHgMb8MZHeos/rimx9EjWyezxc2WTlhGJX1dSMiLJRXJ+b
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDEyMCBTYWx0ZWRfX4u+JVSE2aOY+
- DQqTX3+KKFe2Z5G9FVrZiXyl2K9eenJmEfYYIADGdTphHft6vRQDcZKsIvNSK5+xLHLijYoLXpC
- YdfzfaFy04maTw6x5FcboGsYEezdwB6VFcaG0D21e+OJZ68b4kZCwMBl7KYV5FR010PQiME+Pyb
- c4yiR2HBE7zvJlqRUu9XhPRqvHXfmaaP8IyGG/MHjtKYt30pcuLl6GWUnYhVZ3YIR8jFeaEdVWX
- NtZ6jMRCOvqqIr6u9YCwV9lWXQpOHPTblGeXVXFweCDi3upHwPanW4yV1IYFdOobJtiRVpn8+8I
- eJo8C1xET14aJ3TudxYjTF+ZxVFXUY4TJnchoYxuxbxUfUvkznhAb2iU/kmgSC/du+zH0OH6n7D
- pmQxdyqUm1ObavzKG8V47AkY/L7pCkXKXBHvmPkW+1xZyjR+HeaOGqm2hFYT/2RKHGO5xJNGyxm
- 5nU4yjIBZXeULCDqVgA==
-X-Authority-Analysis: v=2.4 cv=VvsTxe2n c=1 sm=1 tr=0 ts=6a74a87c cx=c_pps
+X-Authority-Analysis: v=2.4 cv=QYJWeMbv c=1 sm=1 tr=0 ts=6a74a87d cx=c_pps
  a=1d8vc5iZWYKGYgMGCdbIRA==:117 a=1d8vc5iZWYKGYgMGCdbIRA==:17
  a=EjBHVkixTFsA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=T2KQ53IYiC3MXPrxx8bB:22 a=GCXdLZfFv8EKBZhKOxZ5:22 a=meVymXHHAAAA:8
- a=pl6vuDidAAAA:8 a=7442PqFpXPzSHI4nqToA:9 a=2JgSa4NbpEOStq-L5dxp:22
-X-Proofpoint-ORIG-GUID: eiX1hENDWMuUNbHPAjyfAyxKV5sLht3U
+ a=T2KQ53IYiC3MXPrxx8bB:22 a=2KvRFfd_T_-xjmS8C1aD:22 a=meVymXHHAAAA:8
+ a=20KFwNOVAAAA:8 a=pl6vuDidAAAA:8 a=Ku0EqlnfZouDhdiH90EA:9
+ a=2JgSa4NbpEOStq-L5dxp:22
+X-Proofpoint-GUID: ygi1jIpO-HAUXQ5MwlzBSrde2wi5TObq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDEyMCBTYWx0ZWRfX4uwjFTraZZ/3
+ LGUWi9ptsuXCHup8vMnpN+s1kpsgDpr/1w3meGTFD1D5ivdyINWfBi2qycxepqvqc4lIoyXt10F
+ uB9TPwrs0Zbi8wGXpcrYWrwGq5+vHYfzl52c9URx5aSMrFvZ78hPXI04aLiJDvF7JD2Kxu9Rd65
+ bR+g6S0Dk1nJiDYcNJGdDEqTXta4fZhoUnVZZd6K+SQvYdHxIGegG2mu6mBm9pBR6I4XMhyQNwx
+ j94SAlNWUzi0OLKXBcIXzry8Upe5mziiof2wkMRNtpJhQLva3oxjZw2IPQXqOZjMpgrYAlPGzgb
+ t1eiti2jJuNLbfEfVtLnxMyo784TGlrsX2CUz+i5awb7RXdErA8jt+yKaADbs5++cVycLMwRGir
+ sL8t+2LZEqrf6cMHg4vpbDrwxZtD/Wrurwwi1YskxbtA3+g7WjX1dL7x0WS4dcqKfqYZtFzqjht
+ FzJhZFL1i8ntGIG2enA==
+X-Proofpoint-ORIG-GUID: ygi1jIpO-HAUXQ5MwlzBSrde2wi5TObq
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDEyMCBTYWx0ZWRfXzjAy8E4A7zuV
+ /Sgk5FygepscEqUAkwy+sFS1LPS+FVRTkEtD2WZk/+MfaqVsA1pvNCw+nbSvC9FfwHiROZNW22L
+ ehj4cVTs5qzIsKt5HI8REp6FsO65+713srhxzf76jwU+3ILiMDff
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11867
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 impostorscore=0
- phishscore=0 spamscore=0 clxscore=1011 priorityscore=1501 malwarescore=0
+ impostorscore=0 phishscore=0 adultscore=0 priorityscore=1501 spamscore=0
+ bulkscore=0 clxscore=1015 suspectscore=0 malwarescore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060120
 
-Writing 0 to kernel.ftrace_enabled has not reliably disabled ftrace
-for years (FTRACE_OPS_FL_PERMANENT users already block it, and more
-callers rely on ftrace always being on). Refuse the write instead of
-leaving it in an inconsistent "disables some, not all" state: return
--EOPNOTSUPP and log a message. Reads and enabling (writing 1) are
-unaffected.
-
-Update the docs to note the deprecation up front.
+kernel.ftrace_enabled=0 is now refused on kernels that deprecate the
+knob, so the old disable/reload flow no longer applies there. Probe
+for this with ftrace_disable_supported() and keep the full original
+scenario (disable, fail to load a livepatch, re-enable, load, confirm
+disable is refused while loaded) on kernels where it still works;
+otherwise just confirm the write is refused.
 
 Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+Suggested-by: Joe Lawrence <joe.lawrence@redhat.com>
+Assisted-by: Claude:claude-sonnet-5
 Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
 ---
- Documentation/trace/ftrace.rst |  5 ++++
- kernel/trace/ftrace.c          | 43 +++++-----------------------------
- 2 files changed, 11 insertions(+), 37 deletions(-)
+ .../testing/selftests/livepatch/functions.sh  | 14 ++++++
+ .../selftests/livepatch/test-ftrace.sh        | 45 ++++++++++++-------
+ 2 files changed, 42 insertions(+), 17 deletions(-)
 
-diff --git a/Documentation/trace/ftrace.rst b/Documentation/trace/ftrace.rst
-index 84f06bf0da9b..7261f25f8b4b 100644
---- a/Documentation/trace/ftrace.rst
-+++ b/Documentation/trace/ftrace.rst
-@@ -3313,6 +3313,11 @@ this special filter via::
- ftrace_enabled
- --------------
- 
-+.. note::
-+   Disabling ftrace via this switch is deprecated. Writing 0 is refused
-+   with -EOPNOTSUPP and logs a warning; writing 1 and reading the value
-+   are unaffected.
-+
- Note, the proc sysctl ftrace_enable is a big on/off switch for the
- function tracer. By default it is enabled (when function tracing is
- enabled in the kernel). If it is disabled, all function tracing is
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index f93e34dd2328..3c0231ad6473 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -9357,38 +9357,10 @@ static void ftrace_startup_sysctl(void)
- 	}
+diff --git a/tools/testing/selftests/livepatch/functions.sh b/tools/testing/selftests/livepatch/functions.sh
+index 30dc677b2f45..a65b7b1ac8ad 100644
+--- a/tools/testing/selftests/livepatch/functions.sh
++++ b/tools/testing/selftests/livepatch/functions.sh
+@@ -126,6 +126,20 @@ function set_ftrace_enabled() {
+ 	echo "livepatch: kernel.ftrace_enabled = $result" > /dev/kmsg
  }
  
--static void ftrace_shutdown_sysctl(void)
--{
--	int command;
--
--	if (unlikely(ftrace_disabled))
--		return;
--
--	/* ftrace_start_up is true if ftrace is running */
--	if (ftrace_start_up) {
--		command = FTRACE_DISABLE_CALLS;
--		if (ftrace_graph_active)
--			command |= FTRACE_STOP_FUNC_RET;
--		ftrace_run_update_code(command);
--	}
--}
- #else
- # define ftrace_startup_sysctl()       do { } while (0)
--# define ftrace_shutdown_sysctl()      do { } while (0)
- #endif /* CONFIG_DYNAMIC_FTRACE */
++# ftrace_disable_supported() - probe whether kernel.ftrace_enabled=0
++#	can still disable ftrace on this kernel. Newer kernels deprecate
++#	the knob and always refuse the write with -EOPNOTSUPP.
++function ftrace_disable_supported() {
++	local orig result
++
++	orig=$(sysctl --values kernel.ftrace_enabled)
++	sysctl -q kernel.ftrace_enabled=0 &> /dev/null
++	result=$(sysctl --values kernel.ftrace_enabled)
++	sysctl -q "kernel.ftrace_enabled=$orig" &> /dev/null
++
++	[[ "$result" == "0" ]]
++}
++
+ function cleanup() {
+ 	pop_config
+ }
+diff --git a/tools/testing/selftests/livepatch/test-ftrace.sh b/tools/testing/selftests/livepatch/test-ftrace.sh
+index d2c3dea63104..cd27148510f8 100755
+--- a/tools/testing/selftests/livepatch/test-ftrace.sh
++++ b/tools/testing/selftests/livepatch/test-ftrace.sh
+@@ -12,29 +12,32 @@ setup_config
+ # - turn ftrace_enabled OFF and verify livepatches can't load
+ # - turn ftrace_enabled ON and verify livepatch can load
+ # - verify that ftrace_enabled can't be turned OFF while a livepatch is loaded
++# (skipped on kernels where the sysctl is deprecated and always refuses 0)
  
--static bool is_permanent_ops_registered(void)
--{
--	struct ftrace_ops *op;
--
--	do_for_each_ftrace_op(op, ftrace_ops_list) {
--		if (op->flags & FTRACE_OPS_FL_PERMANENT)
--			return true;
--	} while_for_each_ftrace_op(op);
--
--	return false;
--}
--
- static int
- ftrace_enable_sysctl(const struct ctl_table *table, int write,
- 		     void *buffer, size_t *lenp, loff_t *ppos)
-@@ -9415,15 +9387,12 @@ ftrace_enable_sysctl(const struct ctl_table *table, int write,
- 		ftrace_startup_sysctl();
+ start_test "livepatch interaction with ftrace_enabled sysctl"
  
- 	} else {
--		if (is_permanent_ops_registered()) {
--			ftrace_enabled = true;
--			return -EBUSY;
--		}
--
--		/* stopping ftrace calls (just send to ftrace_stub) */
--		ftrace_trace_function = ftrace_stub;
--
--		ftrace_shutdown_sysctl();
-+		/*
-+		 * Disabling ftrace at runtime via this knob is deprecated.
-+		 */
-+		ftrace_enabled = true;
-+		pr_warn_once("The ftrace_enabled file is deprecated and no longer disables ftrace\n");
-+		return -EOPNOTSUPP;
- 	}
+-set_ftrace_enabled 0
+-load_failing_mod $MOD_LIVEPATCH
++if ftrace_disable_supported; then
  
- 	last_ftrace_enabled = !!ftrace_enabled;
+-set_ftrace_enabled 1
+-load_lp $MOD_LIVEPATCH
+-if [[ "$(cat /proc/cmdline)" != "$MOD_LIVEPATCH: this has been live patched" ]] ; then
+-	echo -e "FAIL\n\n"
+-	die "livepatch kselftest(s) failed"
+-fi
++	set_ftrace_enabled 0
++	load_failing_mod $MOD_LIVEPATCH
+ 
+-# Check that ftrace could not get disabled when a livepatch is enabled
+-set_ftrace_enabled --fail 0
+-if [[ "$(cat /proc/cmdline)" != "$MOD_LIVEPATCH: this has been live patched" ]] ; then
+-	echo -e "FAIL\n\n"
+-	die "livepatch kselftest(s) failed"
+-fi
+-disable_lp $MOD_LIVEPATCH
+-unload_lp $MOD_LIVEPATCH
++	set_ftrace_enabled 1
++	load_lp $MOD_LIVEPATCH
++	if [[ "$(cat /proc/cmdline)" != "$MOD_LIVEPATCH: this has been live patched" ]] ; then
++		echo -e "FAIL\n\n"
++		die "livepatch kselftest(s) failed"
++	fi
+ 
+-check_result "livepatch: kernel.ftrace_enabled = 0
++	# Check that ftrace could not get disabled when a livepatch is enabled
++	set_ftrace_enabled --fail 0
++	if [[ "$(cat /proc/cmdline)" != "$MOD_LIVEPATCH: this has been live patched" ]] ; then
++		echo -e "FAIL\n\n"
++		die "livepatch kselftest(s) failed"
++	fi
++	disable_lp $MOD_LIVEPATCH
++	unload_lp $MOD_LIVEPATCH
++
++	check_result "livepatch: kernel.ftrace_enabled = 0
+ % insmod test_modules/$MOD_LIVEPATCH.ko
+ livepatch: enabling patch '$MOD_LIVEPATCH'
+ livepatch: '$MOD_LIVEPATCH': initializing patching transition
+@@ -60,6 +63,14 @@ livepatch: '$MOD_LIVEPATCH': completing unpatching transition
+ livepatch: '$MOD_LIVEPATCH': unpatching complete
+ % rmmod $MOD_LIVEPATCH"
+ 
++else
++
++	set_ftrace_enabled --fail 0
++	check_result "livepatch: sysctl: setting key \"kernel.ftrace_enabled\": \
++Operation not supported"
++
++fi
++
+ 
+ # - verify livepatch can load
+ # - check if traces have a patched function
 -- 
 2.34.1
 
