@@ -1,293 +1,251 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9827F48124C
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 15:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786031758; cv=none; b=gYljt2QppwonrAZ6f6X2kJzTWmiKXyG6yrBzeFM+qlaQBWA1bsEMcNhkToPf5NYzanVEPIVo57PpHyZrDWXMLI2aDtounO/WBNuMQGDDROf43x698KHj7nG04r9sYLbVvwGPS1I7PjhbQuIfuDe7j2t0PQ3p2v/DTV6W91rCviw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786031758; c=relaxed/simple;
-	bh=ZDuUGkz7RnbWw31QUKbnyXoDpCqI35NY7cyDpWBx69E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bUJsPK7qqiDGiB9v7ug4lnuKYA/BezcdbSUe3Yuqy48W4Yo0HVnhke8/P3MXsiRqTCj1E7yLsENqRmIlfJQbpbQ+XsC7zmMV+/hYi0vNaJ8eueEflDaDDxQL+m583Sgc4xiqiJNr7Pol7PIffe+QaIkww+he4P8RfBgUGPpaQYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GryqQXhG; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A69F3403FF
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 16:01:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786032083; cv=fail; b=pBvJ3jTT+My5jXZeCJLnLwaDWQg76oNfUmpIhbHjKg0uTAUcjnO5f+Awt2hZXU65YPodGwx0dRJZxp6D3ItMwhcW3PoKmtn1jJ8QmGtf0klXlOstz2pcmuhesaoIQJZAX63rsD3A86th78ZsZ3dVzbxXBhTCttyYoAV3k15RR9U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786032083; c=relaxed/simple;
+	bh=uBn6LFvPVPBsuB4qRlzEzT5xhc61HjcK45AVet6CWMU=;
+	h=Message-ID:Date:Subject:From:To:CC:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=mAtdprndXxSrYOuuEafkHfoPf1nt2DBeHrYgnJZyJ6pNIn/4NASOvyMEEknD9yBE+W6nSxNGlpi2abEtrtnuKHugwgoOJ1QMW84jgKK8O7n8MbkCYTnZlUy+c4cmmGUudFK6wF7rX5J9x36FDKV4uN+J3BMpnLeVINhF+EOIQHI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=h3LvPB4b; arc=fail smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GryqQXhG"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4994d67d260so53635e9.1
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 08:55:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786031750; x=1786636550; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lDlgtW2trdnh09mcfFbn0UwWMngZd56Xe1DYBp5hQ+E=;
-        b=GryqQXhGnY/QBxFeKxk00ftZLUlbI0t7kyoFctwP+vZfrQanL8s7U9REX5Tmgabtbf
-         tATLqZ7hxEiWyuoQTFZThS0OcB26ah6UnmUQR/MMcuVbrAr0vi1uXhYgLgfn08spOjYq
-         mPxz0/lProQJwql6G90EayxasrtyTwlEzwdtesdbPo9a52T3U3ptooB47xu18A3DxI9f
-         JVG4N2OJ/SdOxs4m1Bb+Cn93If/JCaeuRYfzy2GTsORxj237+TU0C72bbSsVb/O88x+H
-         RYpujTYaKB0U8F8I6+N5HAo4116e6KTAVxOImhdHjw8Tn8KZ9DUDiMBF8EUWtLrrqm5a
-         ygNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786031750; x=1786636550;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=lDlgtW2trdnh09mcfFbn0UwWMngZd56Xe1DYBp5hQ+E=;
-        b=MsbkxAG99au6GndWE362KRGku6dD2VRLbqR/k5bw1hKDFEYZTLu98SoPfDvBxx+yy7
-         hAfmC3KdfW09vyHTmZ9stn0gj5+fkG3Q62fAd6vjm2SlT+O7bgwEzkEB2ZXDbaEUBIPL
-         ympp2x6ARlEt140GJ3AnvD1p9m+uWPDchzJWvtil3nHUdOHMeZiI/Hg54flJIv3Oh9BH
-         KgtQmz45fT6ntTRnEEWoHElof6kiazxKe7Nmh8pgINO2GI0TsGkWqbLdELDmyJVOrQMo
-         UtjwdF+3md5vYLwRMk8HahFIc7dGajRYdjciIapjvOZ/6SS8+0B20Mx/5HPadQO889dT
-         3Nhg==
-X-Forwarded-Encrypted: i=1; AHgh+RpPhVQAZTPOlKiDMoUBM0wyQ1nfl5L5M5daKdKyKVLlCvIYsljfR6YXEp60hMfuxfmy0XHWBgg=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzLV1z4rYcXzeodO7cm9hZqGXPfV7kjVY4j6qpWYClCC6wsZxGT
-	+IrjI/Joz/k4Ih0QFTxMhhji0urSfMlo671tODwwJurlsfER9jynnWlVOt0okv0pYA==
-X-Gm-Gg: AR+sD10F+7/1YQKHLDp8HbFeei0u1QZnWkSauWMVbSTIUc6cRrmj97pKJZ9LOdCd+lb
-	xmY0Kq90H6kYsw5f9jSlT54QcQEc0NVndCso9t18KP+p4QpMp5UVJ/z/g//cc4AZm1bqBFYvbjp
-	Ypb/tbrpAW66fJDLsHbgMOGh56m/yiT0hRoalh06QAA2Tc6jMyzgsUld8upo1NAbjgiwatjzabj
-	3bgXDMdWtnxAEmf1pJmM2rZo8heRlrfkQaIZBAT7GgxogHuC43a+QxHwOgGIGRX5BTyfrYAHgTT
-	4DH0mCUWrvbDruEv8ZT0UQ35l9AAkzh7Ya03NxDiEcNOkBpm8/iPMIIPA5DspZ21hBQNIQMUcLj
-	XL1hmbUbO5fCvq8z6vXdWjCkXlG2P6ZDiq4BCyj5VnFIDqFckXlIvT7MigCuTy0P+B+mnF3HKrT
-	5rvYW4kqf8N/448ag8OsvvsP5toRaXe6SDabePk5J5L3HeyOZkKHVwI76+LkEKuzaxx43SDZn+P
-	W9cdr/gIQ1CzkYLYwAwMZ4SkweAo9rF9ahDX4/EJO4irW27
-X-Received: by 2002:a05:600c:c4aa:b0:495:4069:b0de with SMTP id 5b1f17b1804b1-49954bfcd70mr1333695e9.9.1786031749721;
-        Thu, 06 Aug 2026 08:55:49 -0700 (PDT)
-Received: from localhost ([2a00:79e0:288a:8:8b80:1ac5:3668:4014])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49954206d7fsm89037205e9.3.2026.08.06.08.55.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 08:55:48 -0700 (PDT)
-From: Jann Horn <jannh@google.com>
-Date: Thu, 06 Aug 2026 17:55:02 +0200
-Subject: [PATCH v2] apparmor: fix cred UAF caused by
- begin_current_label_crit_section()
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="h3LvPB4b"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786032081; x=1817568081;
+  h=message-id:date:subject:from:to:cc:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=uBn6LFvPVPBsuB4qRlzEzT5xhc61HjcK45AVet6CWMU=;
+  b=h3LvPB4bmIncw8rkeFYReF8c+Gq2LcTfN3IcOVQnYxCgjNUN/4ztsZ3w
+   t/l7RI8iyM0Np7AgsIb3ja2TLhKf9KWLx4I9HP4NSrgor6h8uiPUBBK7z
+   iSgV/TuZoCFtEqGVH/jhqYipI1w3x/ldwx8+gXALJwP0ChzbdlWCVSUH6
+   TeeuR5zhJyXtemwr1F0O7wiNRQrBm9nwk8VvhGzZ+bZRI/tNY4+RLnS1e
+   0WBhFzat4taA138IbkyY8/lOBrYCvwkD2y/A18VLPHxpAzn3iOr7vunk1
+   WYBMLq05a80Bl3QzFipF1obJEU7xeXaUzNkx9qfKUOPhBUPnuFZ1eXpNH
+   A==;
+X-CSE-ConnectionGUID: 4/76gKFxRkCWh5drzQ2Mlw==
+X-CSE-MsgGUID: RIbIVUOsSpGSG7lwOXg43A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="89154521"
+X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; 
+   d="scan'208";a="89154521"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 09:01:20 -0700
+X-CSE-ConnectionGUID: w5N8xmrjRoG/2wq47KJzRg==
+X-CSE-MsgGUID: CE1JYV36SUCHokRMoZ1b3g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; 
+   d="scan'208";a="265988073"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 09:01:19 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 6 Aug 2026 09:01:19 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Thu, 6 Aug 2026 09:01:19 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.15) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 6 Aug 2026 09:01:18 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KTeKCaGhhYAZlrG9Bv17Nw0MNwR6NXMltb4Tx7aubDic1I2OBfpOs1n96GXzmJzKkNYmptXXuvI/DJ9xWmxUGPsZUyAYpjHoWXetkud9ZJMzWe7JpXKB2DJ+vBFSXoSCJ6mWBQtbEgyaPV5fNdUwo/SeJPLo0P2v8I1GxBQlv4Zxhfo0tmjL55/+ToqU2XBfip9kbQquZmZyP7F4lgdOximQ9wdQDuSspXspw8CCA3u+sfeBFf5E7pWD+Kihu7N2rXIpX3oX0oDiEbuvIvCKOEc3Czv2EJX5iQTDHCOo6LfoEOBYYnuMvr4gblhJ6dKMca71O29yd0F76w+6rFy05A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qVeJMidxDf4kR9+qI2yhw1Oi/krxxP0U+hJZj9WliAo=;
+ b=XqQVBww9FWAqWRQgGsA7XiOrx5RzsDedQ1hr//aA/p8pry9FqKdn6j/9LPAqJF1ZqH1/e2P6WeKfvTUFv9HKSWgNEai9+DoMRng99g+/TbYakeCojDsdN591KOFXNiQ++Y30zKUiRzM7rAsX8mZgqw2r52LirnfnClc8fOUXs8VZIOicu7Zxdz6WKXNWNpJzkbKQc/2c5rLx1TgVPWtw01nXBXS3jG3jRzadtkWvPTNiHtKRiw7B0NsVsobz8QqbBYLLulEiyM0EyfwlWYEAE+/LVuOEXMFGcCVcwXvD13IqblLZCB8/Mpl49wB98tNJqvyBl/UJVYI+J4Vkp+g2Vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SA3PR11MB7554.namprd11.prod.outlook.com (2603:10b6:806:315::9)
+ by SJ0PR11MB4880.namprd11.prod.outlook.com (2603:10b6:a03:2af::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
+ 2026 16:01:15 +0000
+Received: from SA3PR11MB7554.namprd11.prod.outlook.com
+ ([fe80::3ec0:2280:db82:d67b]) by SA3PR11MB7554.namprd11.prod.outlook.com
+ ([fe80::3ec0:2280:db82:d67b%5]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
+ 16:01:15 +0000
+Message-ID: <95cc059b-056e-4aa3-8431-1e497002f58d@intel.com>
+Date: Thu, 6 Aug 2026 21:31:09 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/i915/display: Limit max joined dotclock on pipes
+ available
+From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>, <intel-gfx@lists.freedesktop.org>,
+	<intel-xe@lists.freedesktop.org>
+CC: <stable@vger.kernel.org>
+References: <20260806143738.2710312-1-jani.nikula@intel.com>
+ <ca6f4f3b-9c94-4b24-a8e4-7c351e730429@intel.com>
+ <788a51d6-4eca-4365-bad1-037d25f388d0@intel.com>
+Content-Language: en-US
+In-Reply-To: <788a51d6-4eca-4365-bad1-037d25f388d0@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA0PR01CA0117.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:11d::20) To SA3PR11MB7554.namprd11.prod.outlook.com
+ (2603:10b6:806:315::9)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-fix-apparmor-cred-uaf-v2-1-c3bbb9f87a9e@google.com>
-X-B4-Tracking: v=1; b=H4sIAFWudGoC/4WNQQ6CMBBFr0Jm7Zi2EKmuvIdh0Q4D1AglLRAN4
- e4WPIDLl7z//gqRg+MIt2yFwIuLzg8J1CkD6szQMro6MSihLqKUBTbujWYcTeh9QApc42waJMo
- 1k7K5tiWk7Rg4iUf3Uf04zvbJNO2x3ehcnHz4HMeL3L1/H4tEiZYLwZp0bq/i3nrfvvhMvodq2
- 7Yv0FXojs0AAAA=
-X-Change-ID: 20260714-fix-apparmor-cred-uaf-cc38ec2b38b7
-To: John Johansen <john.johansen@canonical.com>, 
- John Johansen <john@apparmor.net>, 
- Georgia Garcia <georgia.garcia@canonical.com>, apparmor@lists.ubuntu.com, 
- Paul Moore <paul@paul-moore.com>, "Serge E. Hallyn" <serge@hallyn.com>
-Cc: James Morris <jmorris@namei.org>, 
- Christian Brauner <brauner@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- linux-security-module <linux-security-module@vger.kernel.org>, 
- kernel list <linux-kernel@vger.kernel.org>, stable@vger.kernel.org, 
- Jann Horn <jannh@google.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786031705; l=7754;
- i=jannh@google.com; s=20240730; h=from:subject:message-id;
- bh=ZDuUGkz7RnbWw31QUKbnyXoDpCqI35NY7cyDpWBx69E=;
- b=NWxgU7wkZZNfh6E9QE7gSBKig8cz5uehGR/tOHgkCM9P73dtdU+IK4KeGiYeFf32gi4aVoYcS
- l6mfqyv5m1DDkyvEooBKrIeeBSoOgNEpyug67lBsy3FE3zgYlnJnCWn
-X-Developer-Key: i=jannh@google.com; a=ed25519;
- pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR11MB7554:EE_|SJ0PR11MB4880:EE_
+X-MS-Office365-Filtering-Correlation-Id: e85e6110-2023-46c2-9e19-08def3d3f1d6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|3023799007|18002099003|22082099003|11063799006|56012099006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info: XVaRoyY937vJ4eYYv/enVhSgsxAvTI+XQQ9GU0eiBfmEHyY6ux4lfOdiIYBKCnDCOTVC5EA0nsbB8ZNUxyddITtNEdyTSuxK4CMsNjF8jAIsB+hw2D6bz2FJzJWr9C4qiPDQ0yitxKL2M7NLpcYXmxI8yS6uKmOAr0R+Ic+smZWyD+pMYgMcQ2iQzd1tB2M5VqblBXljPdHCJZOZ5vE0cJW6NFe/cJfnN+JnQkHRCAuVOuc+gfHMQrKfqyK6F8PMbolKKsf7+J9BVPdjPxGWAIW5VwKPICHm2qh90kOOB1Cbx4jZ8BlJd9U6RioUkYD0LsAdoqoT8b4cekia5n9JpTgbrJaNeT/x+80MS3zbMu77je8G9JBAumLtrzSKxmmvdWTBPI9kLALg03GlCtV5gMqF6qhqkVXpAbZsKR40qgr6negJWK1ll5I9ykwW9Qke27/oEGTxUwfn8hCIKBe42eHi5MAsM1KvPVwJKTf+zDJ4tplsH3aUNwq92g1MEnb/wuAuJ+RIxmjEH7b4Mv2hM0SQXd6mEK3XmZRdmAItwEafFVwjegAnq/78uz75/jRwFauC2v+L4YSEydIwXPxa3vdkHCUXSGwYOzloi6aMS5h/6DFW7zbEWHvOqgP3g9iIldtMNtJq/IuMWE3FKoBTmhF6wFYxZAz4YMTRAi8qW6c=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR11MB7554.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(3023799007)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S01TOWEza2NseVRKL3lCNG9MT3hiSTZ2THlYTDFQeTFEY2dybGdSSHFoMm8z?=
+ =?utf-8?B?TC9JU2UvbHQ5alYyZ0htRWZMSXp2Y3Jhb3doclkveTZVakNRNmFJOTR4emFH?=
+ =?utf-8?B?WXdMclMvOUNWQVVQZ2NJZVo4MkZwZ2NiSldURjhmOUR3LzUxenNZQVc2M2th?=
+ =?utf-8?B?RUJhVTB0dkxqNFNIK2UzdWdaaGdPQm11NkQ1K2pzdFFveVhVOW1ZMVZnblhP?=
+ =?utf-8?B?clZJcm9jY2NzOWFvSzhBYmxxeWxoKzBkMytwN3FSeWFIRm5maVkySFVPQVIz?=
+ =?utf-8?B?amJyaWd0bVhrNHhrMndTOHhiczhFQm85b0pmU3ErRnBKakZJSXBhOVFDS2h5?=
+ =?utf-8?B?RlRUSE14bjl4MUp5dTFxeWpTaFYwU1pKL25RakdOU0tYK0o4SElJNmFlcDhI?=
+ =?utf-8?B?TFpZSGlRN0VjT0FpaTEyVklhK00vTXdDcWFCdGJleGVZMnpEMGdDYnJxcGp4?=
+ =?utf-8?B?Z0pVNGxQQkxybjJOTjdESnR4QTdGY1lUYU5uenZsZk10SDFyRkxxNDE3MWhr?=
+ =?utf-8?B?SkQrZnpnWUFPOUNBUWRzUjBnODk2bkZhbUkvTWtZN1dSVkh1RkpNcU02b05I?=
+ =?utf-8?B?Y2xJS0dZc3hVaFZxRDVvVGlpMlZ1OEduMFFvMU1tMWdLY1hNVitVRzAzbHRJ?=
+ =?utf-8?B?ZHE1VkJOSldqQnhXUUhqOXRDZXQ5NXZLYlpyUzVYMzV1SWNMWmZYc01jYmZ4?=
+ =?utf-8?B?QXNodlprYkZIbVJTNitDeURlcmMvOWtIaG10QzZwMlBHRHZqZCtoNHZGbEVF?=
+ =?utf-8?B?bjRjN1lUOWtWTUtrZDVPaWU5bzFWREQvOGl3aXdrM0V1aGdOOEVxdzJLdzJz?=
+ =?utf-8?B?SVZFUy90TFFreEZEMzd4WGlTZ2FHZEorNks2Yk9IODVKYnpsL2QxUk1ySzJD?=
+ =?utf-8?B?cy9Rd3Q1eS9MbUdKUExScmJ6Ky9hVnBmWEo3TDI3ZGlrYlgwV1JmRTVnajFo?=
+ =?utf-8?B?SzQxUVVwcnVJWXRNNnA0MnI4SWVCdm1YU0tETlV5OFBvMk9Gb3ZPdm1BQjUv?=
+ =?utf-8?B?NlhvMys1Nk84OXJDVllsYXZlUFE1T1dUU2JqQ1hlK1JPUTJlZERETlc3bFFS?=
+ =?utf-8?B?Y2g1WG4wMjRBN0VNNmZ4ODE5UkhFRFlOUUVmZmZ1elVwcXBzZjJXUjNHM213?=
+ =?utf-8?B?cmN4MWZKMUViL3JGSVFuTkpKbHJhZGhPQ2doM2QrRVNudlpIWjl2T0dCV2l1?=
+ =?utf-8?B?cnpzWnBzbjUvQVBoVEczMVdtNEpvM1M1emhQTFIwRnJZVk9reEtKeGxqaHZx?=
+ =?utf-8?B?RHJiaG0xRDE0SGVTTzZRUjYyWEZjeTRaaFdqMmI5L3BUZWIzZ2FYU3lPbUcr?=
+ =?utf-8?B?R0dvbUdobEJ2L1BuV3IrMjZDVnpYRFVLanoyZXFrbGsrcDFpMUNjTVgwYTFS?=
+ =?utf-8?B?VzgxZTBZRzJQYXJIRDF5ZmRrS1MrRjdhaVc2di8xKzU1RmFUL0xMUEtjMUZL?=
+ =?utf-8?B?ZnordmpIOHZML2lWTElrZ0w4Wm5mU3FlVGtxUVNCMkZOaExHVUZucTRhdzY1?=
+ =?utf-8?B?Zmk0TUNUU1BqTDRzWW5HTGFNWXBCMndaQmlzOENFVjJkOExTejA4Ynd4WnJH?=
+ =?utf-8?B?L05VeEsvbkhXZlVxQjFqaFdIRXhNcGh6UUFDcXBQUEJtTzMzcEpiMUhvZ0ph?=
+ =?utf-8?B?cXdDL2JPcTYrZnVQQ3BvSC9zSVYwdHFXMklhMmxIb3d0elNiNVFGOGtqeXl5?=
+ =?utf-8?B?dmZMS21RQ0tjWWRCV29kVVRHaVB5L3QzTS9xVXZhUUJrb2FEbnhLNWlnYXhR?=
+ =?utf-8?B?RCtHU01kYWM2bW9FN3ZOU0E1MGZmV1BIZExubU8xaHU5ZGIzNFpwcmppV20w?=
+ =?utf-8?B?L0ljTEUzVGN6MVZ0MHEvM0dPMkloU0pnTWpPV1B5dDV1M05iblk2d1pZemN3?=
+ =?utf-8?B?ZE1yVGpRd3ZLMmIzcUhsKzM3SUtrRGl0VkhSb3BjdkVMWG1kUjNaY3B6MHV2?=
+ =?utf-8?B?TDJHaHN2N0V2cFV4a2tXcm1zMEdmcEduVzduOFREMU1vb1llV3ArRU1lWEZu?=
+ =?utf-8?B?MFo4bjNzakJGSTVKcHgrYXRURGF2MWlTU1pLNG9IS3VYWHV3cmEwQXA3RmRY?=
+ =?utf-8?B?ZXJhVDVVREhZcDdxbERueGNEWU9FTGx3N1lscHl2U2dUVG5xYVdFVFk4YzVJ?=
+ =?utf-8?B?ZTBPek03V0lueUU0RlBDbWpqOVBSbDZlalAyN29vTXcyWEJWaDFicE54a3J6?=
+ =?utf-8?B?Z3dZN3VKT1JWN05YREl3MHM5dmxmRFoyYlUwdWJzWDg3SldVTVBwYlQreHpu?=
+ =?utf-8?B?OS9Hd0JIbDZTamdiS3JsNkJHdFJCSE1QdllXeVNhTnJHVkZUeVBmRE44bTRi?=
+ =?utf-8?B?TW13VzlFYlF3ZHFBa0ZQbjU1NGgzVm5lc3ArbWR0TGZKSjNWa1J3OTgxNHJ3?=
+ =?utf-8?Q?zzNQZ5JxKiSrrl9w=3D?=
+X-Exchange-RoutingPolicyChecked: kjG5ttnHnT0HjRtoy2d9ffx43sXn7xAc+U+xYh3gNHV9E9ppgGqlOgoGji8P5Q/jQgYiZJet+OpIa+ERrZKpOw8uen0POydTtsP3eBvFj3/PXwSLXzYZ3tCxO18wSk4arAYNztmiODWt/+b/Gp2HpgcvwW5aQirTWp8KHq8++Xr9+Kkite8FgZePIZqHXnksk/M6v7OXGmNmWJfoGb4PH6q1lxP2FSw4uUfqT8nNiKID+81Zyyi2FDZHbBtT2nW6Q3PUEWN0jqnjJiS3WH4oHSbrU08apGe3XbPvxg8sgUpXK25VnEgsXSBnu7LNdZkFE4W1FQBDEeUlBQMHWfqnxw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: e85e6110-2023-46c2-9e19-08def3d3f1d6
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR11MB7554.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 16:01:15.7658
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pYgtD0qjVQvKk/WKaAHsETJOhnSYZvdOz/teOhbVp8/+ndgKGN3FMWbPEHXZqOMI4bxCQXkDpeht6GAoIImWV7sUbODpp9bJk87DAAPH9/8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB4880
+X-OriginatorOrg: intel.com
 
-AppArmor's begin_current_label_crit_section() is a scary function called
-from lots of LSM hooks (in particular VFS/socket-related ones) that checks
-if the label referenced by the current creds is marked FLAG_STALE, and if
-so, attempts to use aa_replace_current_label() to replace the creds with an
-updated version that uses a new label.
 
-The first problem with this is that it would directly lead to UAF of
-`struct cred` if anything in the kernel takes a pointer to the current
-creds and accesses these past a security hook invocation that replaces
-creds, like so:
-```
-const struct cred *cred = current_cred();
-alloc_file_pseudo(...);
-uid_t uid = cred->euid;
-```
-I don't know if anything in the kernel actually does this, but I think it
-is very surprising that this pattern could lead to UAF.
+On 8/6/2026 9:19 PM, Nautiyal, Ankit K wrote:
+>
+> On 8/6/2026 9:15 PM, Nautiyal, Ankit K wrote:
+>>
+>> On 8/6/2026 8:07 PM, Jani Nikula wrote:
+>>> Multiplying the max dotclock based on joiner availability on the
+>>> platform alone does not take into account the actual number of pipes
+>>> (possibly with some fused) available.
+>>>
+>>> Limit the max joined dotclock based on the actual number of pipes
+>>> available.
+>>>
+>>> This is still too optimistic due to other constraints on actual pipes,
+>>> but it reduces some of the false hopes at mode enumeration.
+>>>
+>>> Fixes: f4f8f0eaaafc ("drm/i915/display: Consider ultrajoiner for 
+>>> computing maxdotclock")
+>>> Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+>>> Cc: <stable@vger.kernel.org> # v6.13+
+>>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>>> ---
+>>>   drivers/gpu/drm/i915/display/intel_display.c | 5 +++--
+>>>   1 file changed, 3 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/i915/display/intel_display.c 
+>>> b/drivers/gpu/drm/i915/display/intel_display.c
+>>> index 829d7a411dcc..44c5d1dde255 100644
+>>> --- a/drivers/gpu/drm/i915/display/intel_display.c
+>>> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+>>> @@ -8113,9 +8113,10 @@ static int max_dotclock(struct intel_display 
+>>> *display)
+>>>   {
+>>>       int max_dotclock = display->cdclk.max_dotclk_freq;
+>>>   -    if (HAS_ULTRAJOINER(display))
+>>> +    if (HAS_ULTRAJOINER(display) && INTEL_NUM_PIPES(display) >= 4)
+>>>           max_dotclock *= 4;
+>>> -    else if (HAS_UNCOMPRESSED_JOINER(display) || 
+>>> HAS_BIGJOINER(display))
+>>> +    else if ((HAS_UNCOMPRESSED_JOINER(display) || 
+>>> HAS_BIGJOINER(display)) &&
+>>> +         INTEL_NUM_PIPES(display) >= 2)
+>>
+>> If fused pipes are AC or BD this will still give us 2. Perhaps should 
+>> have a check for atleast 2 consecutive pipes from 
+>> DISPLAY_RUNTIME_INFO(display)->pipe_mask
+>
+>
+> ^I meant :  if fused pipes are B or D, resulting in A,C and B,D 
+> respectively, as available pipes...
 
-The second problem is that things go wrong when aa_replace_current_label()
-runs with overridden credentials. aa_replace_current_label() bails out if
-`current_cred() != current_real_cred()` (mirroring the check in
-proc_pid_attr_write()), but this check can't actually reliably detect
-overridden credentials because the overridden creds can be the same as the
-objective creds.
 
-So in approximately the following scenario, things go wrong:
+Correction (typo'd twice (facepalm)): I meant if the available pipes are 
+non-consecutive, like {A,C} or {B,D}  the count is still 2, but 
+bigjoiner needs 2 consecutive pipes.
 
-1. task begins with <creds A> (as both objective and subjective creds),
-   with refcount=2
-2. task grabs an extra reference on <creds A> for overriding
-3. task calls override_creds(<creds A>), which returns a pointer to the old
-   subjective creds (<creds A>)
-4. task enters AppArmor LSM hook
-5. AppArmor checks that objective/subjective creds are equal
-6. AppArmor replaces both cred pointers with <creds B> and drops 2 refs on
-   <creds A>
-7. task leaves AppArmor LSM hook
-8. task calls revert_creds(<creds A>)
-9. now task->cred is <creds A> while task->real_cred is <creds B>, but the
-   task_struct logically holds two references to <creds B>
-10. another task drops the extra reference on <creds A> that was used for
-    overriding, refcount drops to 0
-11. now task->real_cred points to freed creds
+So we should check pipe_mask for a consecutive pair.
 
-At this point, any access to current_cred() will be UAF.
+And I should probably wrap up for the day...
 
-I have a test case where I run aa-disable on a profile while a process
-using that profile is blocked on splice() from a FUSE passthrough file into
-a full pipe; after the profile update, the pipe becomes empty, splice()
-resumes, the credentials go out of sync, and a subsequent getuid() syscall
-results in a KASAN UAF splat.
 
-To fix this, instead of directly replacing creds, do it via task_work that
-will run at the end of the current syscall. (The point in time at which the
-cred replacement happens should have no correctness impact; it is just a
-performance optimization to avoid unnecessarily touching the refcount of
-the new label.)
-
-Note that AppArmor still performs direct cred replacements in the
-sb_pivotroot LSM hook after this change, and that direct cred replacements
-can still happen in VFS ->write() callbacks via proc_pid_attr_write().
-
-There are two options for what to do with aa_dup_task_ctx(): Either
-explicitly reset new->label_replacement_pending after the entire
-aa_task_ctx has been copied, or switch to manually copying members over.
-I am switching to manually copying members over because that should make
-bugs more obvious.
-
-Cc: stable@vger.kernel.org
-Fixes: c75afcd153f6 ("AppArmor: contexts used in attaching policy to system objects")
-Signed-off-by: Jann Horn <jannh@google.com>
----
-Changes in v2:
-- store task work in task security blob to simplify things
-- remove cc to peterz, I'm no longer changing task_work implementation
-- Link to v1: https://patch.msgid.link/20260714-fix-apparmor-cred-uaf-v1-1-be40e8c83b90@google.com
----
- security/apparmor/include/cred.h |  6 +-----
- security/apparmor/include/task.h | 15 +++++++++++----
- security/apparmor/task.c         | 27 +++++++++++++++++++++++++++
- 3 files changed, 39 insertions(+), 9 deletions(-)
-
-diff --git a/security/apparmor/include/cred.h b/security/apparmor/include/cred.h
-index 2b6098149b15..0e8b67159f56 100644
---- a/security/apparmor/include/cred.h
-+++ b/security/apparmor/include/cred.h
-@@ -222,13 +222,9 @@ static inline struct aa_label *begin_current_label_crit_section(void)
- {
- 	struct aa_label *label = aa_current_raw_label();
- 
--	might_sleep();
--
- 	if (label_is_stale(label)) {
- 		label = aa_get_newest_label(label);
--		if (aa_replace_current_label(label) == 0)
--			/* task cred will keep the reference */
--			aa_put_label(label);
-+		aa_schedule_stale_label_replacement();
- 	}
- 
- 	return label;
-diff --git a/security/apparmor/include/task.h b/security/apparmor/include/task.h
-index b1aaaf60fa8b..6f26758ca10f 100644
---- a/security/apparmor/include/task.h
-+++ b/security/apparmor/include/task.h
-@@ -21,15 +21,22 @@ static inline struct aa_task_ctx *task_ctx(struct task_struct *task)
-  * @onexec: profile to transition to on next exec  (MAY BE NULL)
-  * @previous: profile the task may return to     (MAY BE NULL)
-  * @token: magic value the task must know for returning to @previous_profile
-+ * @label_replacement_tw: for aa_schedule_stale_label_replacement()
-+ * @label_replacement_pending: is @label_replacement_tw pending?
-+ *
-+ * When changing this, check if aa_dup_task_ctx() needs to be updated.
-  */
- struct aa_task_ctx {
- 	struct aa_label *nnp;
- 	struct aa_label *onexec;
- 	struct aa_label *previous;
- 	u64 token;
-+	struct callback_head label_replacement_tw;
-+	bool label_replacement_pending;
- };
- 
- int aa_replace_current_label(struct aa_label *label);
-+void aa_schedule_stale_label_replacement(void);
- void aa_set_current_onexec(struct aa_label *label, bool stack);
- int aa_set_current_hat(struct aa_label *label, u64 token);
- int aa_restore_previous_label(u64 cookie);
-@@ -56,10 +63,10 @@ static inline void aa_free_task_ctx(struct aa_task_ctx *ctx)
- static inline void aa_dup_task_ctx(struct aa_task_ctx *new,
- 				   const struct aa_task_ctx *old)
- {
--	*new = *old;
--	aa_get_label(new->nnp);
--	aa_get_label(new->previous);
--	aa_get_label(new->onexec);
-+	new->nnp = aa_get_label(old->nnp);
-+	new->onexec = aa_get_label(old->onexec);
-+	new->previous = aa_get_label(old->previous);
-+	new->token = old->token;
- }
- 
- /**
-diff --git a/security/apparmor/task.c b/security/apparmor/task.c
-index b9fb3738124e..e16ff4130bc2 100644
---- a/security/apparmor/task.c
-+++ b/security/apparmor/task.c
-@@ -14,6 +14,7 @@
- 
- #include <linux/gfp.h>
- #include <linux/ptrace.h>
-+#include <linux/task_work.h>
- 
- #include "include/path.h"
- #include "include/audit.h"
-@@ -89,6 +90,32 @@ int aa_replace_current_label(struct aa_label *label)
- 	return 0;
- }
- 
-+static void aa_replace_stale_label_tw_func(struct callback_head *tw)
-+{
-+	struct aa_task_ctx *ctx = task_ctx(current);
-+	struct aa_label *label;
-+
-+	ctx->label_replacement_pending = false;
-+	label = aa_current_raw_label();
-+	if (!label_is_stale(label))
-+		return;
-+	label = aa_get_newest_label(label);
-+	aa_replace_current_label(label);
-+	aa_put_label(label);
-+}
-+
-+/* replace the current task's stale label on syscall return */
-+void aa_schedule_stale_label_replacement(void)
-+{
-+	struct aa_task_ctx *ctx = task_ctx(current);
-+
-+	if (ctx->label_replacement_pending)
-+		return;
-+	init_task_work(&ctx->label_replacement_tw, aa_replace_stale_label_tw_func);
-+	if (task_work_add(current, &ctx->label_replacement_tw, TWA_RESUME) == 0)
-+		ctx->label_replacement_pending = true;
-+}
-+
- 
- /**
-  * aa_set_current_onexec - set the tasks change_profile to happen onexec
-
----
-base-commit: 0d839570765118029aa8bf4a95444c6a11aacf85
-change-id: 20260714-fix-apparmor-cred-uaf-cc38ec2b38b7
-
-Best regards,
---  
-Jann Horn <jannh@google.com>
-
+>
+>
+>>
+>> On the other hand we can have the consecutive pipe check in 
+>> mode_valid() path after for_each_joiner_candidate() is called, which 
+>> will check whether there exists any consecutive pair that can support 
+>> joiner.
+>>
+>> As discussed offline, in any case, we need to fix the 
+>> compute_config() path for SST and MST where we are using the 
+>> for_each_joiner_candidate() to check for a given primary, there exist 
+>> sufficient consecutive pipes to support the joiner candidate.
+>>
+>> Regards,
+>>
+>> Ankit
+>>
+>>
+>>
+>> Regards,
+>>
+>> Ankit
+>>
+>>>           max_dotclock *= 2;
+>>>         return max_dotclock;
