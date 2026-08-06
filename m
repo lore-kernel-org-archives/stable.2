@@ -1,121 +1,266 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4A8FC471277
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 12:03:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E21025B09E
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 12:07:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786017784; cv=none; b=sDP2XNGLPbK08OFUQwLKDwWYZSHDx7nZUaLW9VtmcCzXxwaDxBBna1YIfH1An5lXrO2zZ1qavC1azpJIBZhtotS+cZkQsNF7ihIa0zouFQwDwNSKzfpunwssipWIAYv+9iPmTRwL7BVUH1w2JjQj8ZCsBeDobS53lLl9WxtQYk4=
+	t=1786018060; cv=none; b=jIKkCEcJhAH1aCVVQVhtQAxDUvRWPmKtr/Jey8hFMmRh2Iv+pKRBylp1mLArwdI7omsS00K2e0gTZvdOer059xzDwoXhy6B18Bb8DqQZ0wLhu47pORS7AMbWhaaFTkHzYe5RvYyk+w0DxGbt8me6zSPPKt83cT/Kd4kWoL6QJG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786017784; c=relaxed/simple;
-	bh=Pes57n+6v17ZygtCGqVVA3yl7WFgtBkWoGseT7Oe42U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JS8+5/NuwU6S91b+fPQKM2orhHL+wJ1AA7gNH5aBBgmF/ijXuQWY6QaiKfAnamHy/cNeQlE2Fp5TBXKLFfIbnWu56KDgBkj10pMFiI2ll7o2EbD4zGKO/PD3qKP8vYGIJLE+XNiEp+lIxeGbMUQIENRPVjdzIgkrrmvGYNuy4RM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=MV3n4NTg; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1786018060; c=relaxed/simple;
+	bh=hl5shP1aOZeCCn+W6zkZbVOs5dHOCEP4sYq+vHAgHGo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XRqJyDayMPCVoxSk6kEdKvlwrrgK2O5yYQwt9X7FPodxG/HxQPZ36sB8Hnuv8LyAPuRwsvwSCP0mJXuzJk5M7ftE245whvn3KINAJm7rQ2Jma6p48voymGqOF0+KM4Yd6N3FcAPwsWX1ShdBXRZtVB9zXS62NyAL3e+XU5FjHmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Q887c7pa; arc=none smtp.client-ip=91.218.175.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="MV3n4NTg"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 06C4F153B;
-	Thu,  6 Aug 2026 05:02:57 -0700 (PDT)
-Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 89CED3F66F;
-	Thu,  6 Aug 2026 05:02:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1786017781; bh=Pes57n+6v17ZygtCGqVVA3yl7WFgtBkWoGseT7Oe42U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MV3n4NTgx9HTigR5cVdXwcPNeiaG+1rdIG24BewFcVMlSAIwTKvL6D0DQFZunbBCH
-	 UXWI9N/29GOOa8TfR+8Ze7pmZGsLupvdF9pOOT+7mq5XM8spEqflVAp/4biOhhTwsc
-	 u7z9MuA9JMEXH6pB8m4Y7hbneTmB42rsQ0LyWjCA=
-Date: Thu, 6 Aug 2026 13:02:56 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, ada.coupriediaz@arm.com,
-	ardb@kernel.org, catalin.marinas@arm.com, cl@gentwo.org,
-	david.laight.linux@gmail.com, james.morse@arm.com, ljs@kernel.org,
-	maz@kernel.org, peterz@infradead.org, ruanjinjie@huawei.com,
-	ryan.roberts@arm.com, stable@vger.kernel.org,
-	vladimir.murzin@arm.com, will@kernel.org,
-	yang@os.amperecomputing.com
-Subject: Re: [PATCH v2 13/20] arm64: percpu: Add infrastructure for
- preemptible this_cpu_*() ops
-Message-ID: <anR38C1uTmU4WYhr@J2N7QTR9R3>
-References: <20260804170503.3513916-1-mark.rutland@arm.com>
- <20260804170503.3513916-14-mark.rutland@arm.com>
- <7df18d5e-886e-43d1-b53d-52a1d08aba49@kernel.org>
- <d600d0db-5109-4386-9a49-955be74cc432@kernel.org>
- <anRuT1Psmar9mW5L@J2N7QTR9R3>
- <9c3feb9d-3111-4f37-90f7-3ad3c2e094c7@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Q887c7pa"
+Message-ID: <563848c7-f9eb-45c6-af25-facf0fdc9b4b@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1786018046;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=49BApBT44VNf2oHdmYMv0Gennxw3e9jZQmU5d15l048=;
+	b=Q887c7paPBj+KusvSUNvM7sGK5rvi0S9in+Bbs+WZ12U2p/zKpimsZ81hiKXjkDAjwTslV
+	QAfWevIcAwaPfUzSNVYbI1blcEFfWZh8Pju0hVKHeTwONRUbYaJp2UxEPF6mufz+YRYh7e
+	64xhxmayFMud07+IDss37p9a17avry8=
+Date: Thu, 6 Aug 2026 13:06:00 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9c3feb9d-3111-4f37-90f7-3ad3c2e094c7@kernel.org>
+Subject: Re: [PATCH] mm/memory-failure: fix folio refcount leak and
+ min_order_for_split() locking
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
+ <nao.horiguchi@gmail.com>, Wei Yang <richard.weiyang@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Luis Chamberlain <mcgrof@kernel.org>, Li Youhong <liyouhong@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-On Thu, Aug 06, 2026 at 01:32:52PM +0200, David Hildenbrand (Arm) wrote:
-> On 8/6/26 13:21, Mark Rutland wrote:
-> > On Wed, Aug 05, 2026 at 08:47:08AM +0200, David Hildenbrand (Arm) wrote:
-> >> On 8/5/26 08:45, David Hildenbrand (Arm) wrote:
-> >>>
-> >>> FWIW, in a recent discussion on some prototype hacking [1] we saw some overhead
-> >>> in micro-benchmarks that would really hammer on a path that would now do a
-> >>> preempt_disable()+preempt_enable().
-> >>>
-> >>> Switching from preempt_disable() to preempt_enable_no_resched() made it turn to
-> >>> noise. Of course, that has other undesirable impacts, and I am not sure if we
-> >>> are in the territory of code layout changes affecting the numbers.
-> >>>
-> >>> Just mentioning it as some data point.
-> >>
-> >> [1] https://lore.kernel.org/linux-mm/20260630174852-mutt-send-email-mst@kernel.org/
-> > 
-> > Thanks for the pointer.
-> > 
-> > IIUC in those cases you're using preempt_disable() .. preempt_enable()
-> > directly, not this_cpu_*(), right?
+
+
+On 06/08/2026 12:14, David Hildenbrand (Arm) wrote:
+> hwpoison code can end up calling min_order_for_split() without holding
+> the folio lock. There isn't really something that would prevent
+> concurrent folio split. Consequently folio->mapping can get set to
+> NULL after checking for "!folio->mapping", and if the compiler
+> reloads folio->mapping, mapping_min_folio_order() would try to
+> dereference NULL.
 > 
-> It was purely preempt_disable/preempt_enable experiments without any percpu stuff.
+> While very unlikely to happen in practice, let's just enforce that
+> min_order_for_split() is called with the folio lock held. We can
+> significantly cleanup the calling hwpoison code, and just get rid
+> of try_to_split_thp_page() to hold the folio lock for a bit longer.
 > 
-> > If so, patches 5 and 6 of this series [2,3] might have an impact, but I
-> > wouldn't expect a significant change unless you're calling
-> > preempt_enable a lot.
-> > 
-> > Please beware that it's not safe to use preempt_enable_no_resched()
-> > UNLESS it is immediately followed by a call to schedule(). That's not
-> > documented today (and I couldn't find a good reference), so more folk
-> > are likely to be tempted to use it...
-> Yes, that's also why we abandoned that (including for various other reasons :) ).
+> Just work on folios now, which further cleans up the code. We just
+> have to be careful about doing the page_folio() after splitting, which
+> we have to do already either way. Do not change the way we split for
+> now, this needs more thought and should be done separately.
+> 
+> Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
+> would currently have leaked a folio reference.
+> 
+> In folio_split(), document and assert that we need the folio lock.
+> Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
+> 
+> The folio->mapping problem was identified by Sashiko, and Li Youhong
+> reported it by sending a proposal fix.
+> 
+> This likely does not really warrant CCing stable, but I expect little
+> conflicts when doing the backport, so let's just CC stable because of
+> the refcount leak.
+> 
+> Reported-by: Li Youhong <liyouhong@kylinos.cn>
+> Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
+> Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+> v4 of the last fixing attempts:
+> 
+> https://lore.kernel.org/r/20260806031958.677935-1-dayou5941@163.com
+> ---
+>  mm/huge_memory.c    |  4 ++++
+>  mm/memory-failure.c | 56 ++++++++++++++++++-----------------------------------
+>  2 files changed, 23 insertions(+), 37 deletions(-)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 9b1f3b24f7e0d..a00df56a68b57 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -4362,10 +4362,14 @@ int folio_split(struct folio *folio, unsigned int new_order,
+>   * If a file-backed folio is truncated, 0 will be returned. Any subsequent
+>   * split attempt should get -EBUSY from split checking code.
+>   *
+> + * Context: @folio must be locked.
+> + *
+>   * Return: @folio's minimum order for split
+>   */
+>  unsigned int min_order_for_split(struct folio *folio)
+>  {
+> +	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
+> +
 
-:)
+Makes sense here, folio->mapping can become NULL after the `if (!folio->mapping)`
+check if folio_lock() is not held.
 
-> preempt_enable_no_resched() helped to identify that the preempt_enable() was
-> really causing the noticeable overhead, not the other minor stuff we added on
-> some hot paths.
 
-Understood!
-	
-If we seeeing particularly noticeable overhead from preempt_enable() in
-some workloads, there are some options we could investigate to reduce
-that impact (e.g. using __preserve_most or a trampoline like x86's
-preempt_schedule_thunk to reduce necessary spills and register
-pressure).
+>  	if (folio_test_anon(folio))
+>  		return 0;
+>  
+> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+> index aaf14608b30e2..f4f3f1fc9eaff 100644
+> --- a/mm/memory-failure.c
+> +++ b/mm/memory-failure.c
+> @@ -1705,26 +1705,6 @@ static int identify_page_state(unsigned long pfn, struct page *p,
+>  	return page_action(ps, p, pfn);
+>  }
+>  
+> -/*
+> - * When 'release' is 'false', it means that if thp split has failed,
+> - * there is still more to do, hence the page refcount we took earlier
+> - * is still needed.
+> - */
+> -static int try_to_split_thp_page(struct page *page, unsigned int new_order,
+> -		bool release)
+> -{
+> -	int ret;
+> -
+> -	lock_page(page);
+> -	ret = split_huge_page_to_order(page, new_order);
+> -	unlock_page(page);
+> -
+> -	if (ret && release)
+> -		put_page(page);
+> -
+> -	return ret;
+> -}
+> -
+>  static void unmap_and_kill(struct list_head *to_kill, unsigned long pfn,
+>  		struct address_space *mapping, pgoff_t index, int flags)
+>  {
+> @@ -2509,9 +2489,6 @@ int memory_failure(unsigned long pfn, int flags)
+>  	folio_unlock(folio);
+>  
+>  	if (folio_test_large(folio)) {
+> -		const int new_order = min_order_for_split(folio);
+> -		int err;
+> -
+>  		/*
+>  		 * The flag must be set after the refcount is bumped
+>  		 * otherwise it may race with THP split.
+> @@ -2526,24 +2503,25 @@ int memory_failure(unsigned long pfn, int flags)
+>  		 * page is a valid handlable page.
+>  		 */
+>  		folio_set_has_hwpoisoned(folio);
+> -		err = try_to_split_thp_page(p, new_order, /* release= */ false);
+> +
+> +		folio_lock(folio);
+> +		split_huge_page_to_order(p, min_order_for_split(folio));
+> +		folio = page_folio(p);
+> +		folio_unlock(folio);
+> +
+>  		/*
+>  		 * If splitting a folio to order-0 fails, kill the process.
+>  		 * Split the folio regardless to minimize unusable pages.
+>  		 * Because the memory failure code cannot handle large
+>  		 * folios, this split is always treated as if it failed.
+>  		 */
+> -		if (err || new_order) {
+> -			/* get folio again in case the original one is split */
+> -			folio = page_folio(p);
+> +		if (folio_test_large(folio)) {
+>  			res = -EHWPOISON;
+>  			kill_procs_now(p, pfn, flags, folio);
+> -			put_page(p);
+> +			folio_put(folio);
+>  			action_result(pfn, MF_MSG_UNSPLIT_THP, MF_FAILED);
+>  			goto unlock_mutex;
+>  		}
+> -		VM_BUG_ON_PAGE(!page_count(p), p);
+> -		folio = page_folio(p);
+>  	}
+>
 
-Please let me know if you see anything that stands out, as any examples
-would be useful for investigation. We'd want to figure out how much of
-the overhead comes from register pressure, and how much of it comes from
-the conditional call itself.
+Looks cleaner and preserves existing policy where with successful split to order 0,
+you continue handling the individual page, but onl split failure, folio remains large and
+you report the failure.
 
-If you're testing with PREEMPT_DYNAMIC=y, on some architectures
-(including arm64) you might see overhead reduced by:
+  
+>  	/*
+> @@ -2861,9 +2839,8 @@ static int soft_offline_in_use_page(struct page *page)
+>  		.reason = MR_MEMORY_FAILURE,
+>  	};
+>  
+> +	folio_lock(folio);
+>  	if (!huge && folio_test_large(folio)) {
+> -		const int new_order = min_order_for_split(folio);
+> -
+>  		/*
+>  		 * If new_order (target split order) is not 0, do not split the
+>  		 * folio at all to retain the still accessible large folio.
+> @@ -2871,15 +2848,20 @@ static int soft_offline_in_use_page(struct page *page)
+>  		 * preferred, split it to non-zero new_order like it is done in
+>  		 * memory_failure().
+>  		 */
+> -		if (new_order || try_to_split_thp_page(page, /* new_order= */ 0,
+> -						       /* release= */ true)) {
+> +		if (!min_order_for_split(folio))
+> +			ret = split_huge_page_to_order(page, 0) ? -EBUSY : 0;
+> +		else
+> +			ret = -EBUSY;
+> +		folio = page_folio(page);
+> +
+> +		if (ret) {
+> +			folio_unlock(folio);
+> +			folio_put(folio);
+>  			pr_info("%#lx: thp split failed\n", pfn);
+> -			return -EBUSY;
+> +			return ret;
+>  		}
+> -		folio = page_folio(page);
+>  	}
+>  
+> -	folio_lock(folio);
+>  	if (!huge)
+>  		folio_wait_writeback(folio);
+>  	if (PageHWPoison(page)) {
 
-  https://lore.kernel.org/lkml/20260803191731.3244294-1-mark.rutland@arm.com/
 
-... but IIUC on x86 that won't change the cost of
-preempt_enable[_notrace](). Today that makes a static call to
-preempt_schedule[_notrace]_thunk, and a plain call will be the same
-cost.
+LGTM
 
-Mark.
+Acked-by: Usama Arif <usama.arif@linux.dev>
+
+> 
+> ---
+> 
+> base-commit: e5492213654050379e78ec6f9acfd6c9fe00f334
+> 
+> change-id: 20260806-try_to_split_thp_page-a359f4d8c90f
+> 
+> --
+> 
+> Cheers,
+> 
+> David
+> 
+
