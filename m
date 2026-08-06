@@ -1,116 +1,223 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-45.ptr.blmpb.com (va-2-45.ptr.blmpb.com [209.127.231.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB82261B70;
-	Thu,  6 Aug 2026 07:22:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FD13D567E
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 07:22:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786000950; cv=none; b=qvMkpxrXsRdpOJrPuQT8O+2MghjhyMaLw9ItiHK3AXB+ulmeQLrL0NQXjJddq30DeatNumJIUY9FgB4SRov77rhhA/oJKmijkYjaCCpkAPae95EPRBtv+r+qSlCiif7iXptjxKoTY+YMheIh7HToeh6qRrJIV1yCG50Ilr41IGE=
+	t=1786000964; cv=none; b=dEX8DmCGbe9SHXGc8mubU5ueEnyrSYMN8trsK7lpOUEBEZjofvPwD7FlkO0dSXykYSaJ8H9ReI73Y8fpaupP/PvZZz34Foo+lhI8U3uDyJnCkUeMISAOc/Vz/BwB2dTt2nGZREXtfzlQGCD3lRXmB2ledcqliAVSGdJb3Pg/obw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786000950; c=relaxed/simple;
-	bh=tMS1lHTJwD4nIfOZ6zEcCV6UsC8udIMq7Fpqn8A/txU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PJMdCqhqlN0XJ3bFe7BauiOcQUf235fKQsqQk42SO4HCriuslmv6MbnpUAUJNI0RiU6KOrXbzx04mqmd7A7BDYqZY/44GlRGWg04HPAdZPRBv4lanC1MDQG6SJf82Ef2nMEOu5fFnl4RAP9dmh+XOXfTZWGRE1eaNVQzaXmZ438=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=IFDzEvgr; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1786000964; c=relaxed/simple;
+	bh=ZADYxEHgY31ANtKR20Ns8KMjFX6OJPTaHjT95ujZpn4=;
+	h=Mime-Version:Content-Type:To:Cc:From:Date:Message-Id:References:
+	 Content-Disposition:In-Reply-To:Subject; b=Hq/22LJhmPZSwrdLF2EsMZrdm0hsMHyd8Gns3YiBK7HHFl2gcvuwtjECqVnWtNp8sDUPRaSVTlUOY3jBFyiIkTgHdotAbgHFV50yYAgnWdvgCz03qOAsp4vhOGsvcBd2fuRmBVFyNa69rrxXSRvrJ6KP4Twag3ZQX0wDykTPaBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=E6VD3DQy; arc=none smtp.client-ip=209.127.231.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="IFDzEvgr"
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="E6VD3DQy"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=eqgJPcvmoGZCRUrrFBeKrp5WqdRAbRD8x/auNjcOY1I=; b=IFDzEvgrpG/IfSGlZAXLmjMLcv
-	nNd3Ij7wosdirpMfU3ksBSufX99QRW3kp35ep4rx0r38pROavSGps0gENpC2iUNCWETUFXjk6poNA
-	o+GwDo3K/cR2XPf4ZpFV4BaSnLU5tt4yXSFVybywY9J/9wqOC5jyOBXN/8GZft+WXYb3klPGG4cbI
-	3Xbs6eNwjqwjN0JwsO7iwojTkJaoFj6mYjJaHc0ZmcnbUuEBELG3c1lwUBI7WJuYq45OrMce/7FkA
-	GN1Hrxm0djjlnkXATv4W/gltrvz4ZBYzxojy44JeY7gjEszaz7BZFWjLk293qV5tcfKSOBFBWG1aA
-	qWTzgpNQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1wrsQl-0000000BHq7-1JIN;
-	Thu, 06 Aug 2026 07:22:19 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 019C6300CC0; Thu, 06 Aug 2026 09:22:18 +0200 (CEST)
-Date: Thu, 6 Aug 2026 09:22:17 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Krystian Slowik <me@krystianslowik.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] sched/core: Don't pin the idle task in
- migrate_disable_switch()
-Message-ID: <20260806072217.GL49951@noisy.programming.kicks-ass.net>
-References: <20260806071740.83931-1-me@krystianslowik.com>
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1786000949;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=sPD70un3PjIGrmRayhxfejfWv+8T4Nu+q/5HU8PUOUg=;
+ b=E6VD3DQyIGJ6XuIdLEfmS3Q3AFr1fbjBtHvtNi6M6ht03hnFf6/DdEJrTro1zFBoj8AsOU
+ t/0+Jt7buutUbcM2xtsA0skEMhe9Ex5oVg+K5hc+uc6pZcNvbzlHObt8mYO/5DRwd8FwfM
+ Fh4VA8ls2rCGQbWEo1FvqRKqGWkrZtjyohEIljwTzhYywi9sLIdv9WlOSl0Wk93Udd2cNy
+ HtLGp29ceh5s5BmskzOz6+vswpbQBCwzrz+RRTgqaNiOsGQl8d+D6o38fdbQivudM28kn8
+ FBDNDl7XjpV7Mrc7TJpMEmNR91kOmRN7fnODEPUvhKy+rfmM9XX43M8LjTvflg==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26a743634+f78ee9+vger.kernel.org+colyli@fygo.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+To: "Ramesh Adhikari" <adhikari.resume@gmail.com>
+Cc: <axboe@kernel.dk>, <gregkh@linuxfoundation.org>, 
+	<linux-block@vger.kernel.org>, <stable@vger.kernel.org>
+From: "Coly Li" <colyli@fygo.io>
+Date: Thu, 6 Aug 2026 15:22:25 +0800
+Message-Id: <anQdWeHd2EDZtkzp@studio.local>
+References: <20260709131904.596684-3-adhikari.resume@gmail.com> <20260721164027.637078-1-adhikari.resume@gmail.com> <20260721164027.637078-3-adhikari.resume@gmail.com>
 Content-Disposition: inline
-In-Reply-To: <20260806071740.83931-1-me@krystianslowik.com>
+In-Reply-To: <20260721164027.637078-3-adhikari.resume@gmail.com>
+Subject: Re: [PATCH v7 2/2] badblocks: validate sector range and shift before rounding
+Received: from studio.local ([120.245.64.97]) by smtp.larksuite.com with ESMTPS; Thu, 06 Aug 2026 07:22:27 +0000
+X-Original-From: Coly Li <colyli@fygo.io>
 
-On Thu, Aug 06, 2026 at 09:17:40AM +0200, Krystian Slowik wrote:
-> Since commit 650952d3fb38 ("sched: Make __do_set_cpus_allowed() use the
-> sched_change pattern"), do_set_cpus_allowed() dequeues and re-enqueues
-> the target task through the sched_change guard whenever it is queued.
+On Tue, Jul 21, 2026 at 10:10:24PM +0800, Ramesh Adhikari wrote:
+> _badblocks_set(), _badblocks_clear() and badblocks_check() round
+> the caller-supplied [s, s+sectors) range to the current bb->shift
+> block size before touching the bad block table. That rounding
+> was not defensive against a few cases:
 > 
-> The idle task counts as queued: init_idle() sets
-> idle->on_rq = TASK_ON_RQ_QUEUED. But the idle sched class implements no
-> real dequeue_task() (only the "bad: scheduling from the idle thread!"
-> debug stub, which even drops and re-takes the rq lock in the middle of
-> the guarded section) and no enqueue_task() at all, so running the guard
-> on the idle task jumps through a NULL pointer in sched_change_end():
+> - s + sectors can overflow sector_t (u64), wrapping the range
+>   end before it is ever compared against s.
 > 
->   bad: scheduling from the idle thread!
->   CPU: 3 UID: 0 PID: 0 Comm: swapper/3 Kdump: loaded Not tainted 7.0.0-28-generic #28-Ubuntu PREEMPT(lazy)
->   Call Trace:
->    dequeue_task_idle+0x29/0x50
->    dequeue_task+0xfb/0x300
->    sched_change_begin+0x1ff/0x240
->    migrate_disable_switch.isra.0+0xf8/0x190
->    __schedule+0xdd/0x650
->    schedule_idle+0x22/0x40
->   BUG: kernel NULL pointer dereference, address: 0000000000000000
->   #PF: supervisor instruction fetch in kernel mode
->   RIP: 0010:0x0
->   Call Trace:
->    enqueue_task+0x89/0x1d0
->    sched_change_end+0x18e/0x1d0
->    migrate_disable_switch.isra.0+0x11e/0x190
->    __schedule+0xdd/0x650
->    schedule_idle+0x22/0x40
->    do_idle+0xb6/0xf0
->    cpu_startup_entry+0x29/0x30
->    start_secondary+0x125/0x180
+> - bb->shift is a plain 'int' field, populated in one case
+>   (drivers/md/md.c, from the on-disk superblock's bblog_shift)
+>   straight from an unvalidated byte with no upper bound. Shifting
+>   by an amount >= the width of the shifted type is undefined
+>   behaviour in C; "1 << bb->shift" was shifting an int literal,
+>   so this was already undefined for bb->shift >= 32, let alone
+>   the full 0-255 range bblog_shift allows.
 > 
-> The path is reachable since commit 942b8db96500 ("sched: Fix
-> migrate_disable_switch() locking") moved migrate_disable_switch() to
-> the top of __schedule(), where it runs on every schedule out of the
-> idle loop rather than only on an actual context switch: any
-> migrate_disable() taken in the idle loop (e.g. from a tracing or BPF
-> callback) that is still held when the idle task schedules triggers the
-> pinning path.
+> - round_up()/round_down() rounding a value near ULLONG_MAX can
+>   itself wrap back to a small value, so even with a valid shift
+>   the rounded end of the range could end up smaller than the
+>   rounded start, silently turning a small range into a huge one
+>   (in _badblocks_clear()/badblocks_check(), which round the end
+>   up) or losing the range entirely.
 > 
-> Pinning the idle task is meaningless to begin with: it is a per-CPU
-> task that can never migrate. Skip it. This also keeps
-> ___migrate_enable() unreachable for the idle task, since its cpus_ptr
-> is never repointed.
+> Add an explicit s+sectors overflow check and cast the shift
+> operand to sector_t so the shift itself is never performed on a
+> 32-bit int, and detect post-rounding wrap by comparing the
+> rounded result back against the pre-rounding value.
 > 
-> The check uses p == rq->idle rather than is_idle_task(), because the
-> latter also matches idle-injection threads (PF_IDLE), which are
-> ordinary queueable tasks.
+> badblocks.c does not itself bound bb->shift: every caller except
+> drivers/md/md.c always leaves it at 0, so the one caller that
+> populates it from untrusted on-disk data is responsible for
+> bounding it before assigning it, per struct badblocks's shift
+> field documentation in include/linux/badblocks.h. That md.c-side
+> bound is being sent as a separate patch.
 > 
-> Observed in production on two separate x86-64 machines running the
-> Ubuntu 7.0.0-28 kernel, both panicking from the idle loop with the
-> oops above.
+> badblocks_check() returns 0 rather than -EINVAL on the wrap case,
+> matching its existing "0: no known bad blocks in the range"
+> return convention instead of introducing a new error path callers
+> don't expect.
+> 
+> Suggested-by: Coly Li <colyli@fygo.io>
+> Fixes: aa511ff8218b ("badblocks: switch to the improved badblock handling code")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ramesh Adhikari <adhikari.resume@gmail.com>
 
-What is actually doing migrate_disable() here? Why would the idle thread
-ever hit this...
+The patch looks good to me, thanks.
+
+Reviewed-by: Coly Li <colyli@fygo.io>
+
+BTW, the shift overflow checking in md raid code is accepted by
+md maintainer, so you may submit these 2 patches with my Reviewed-by
+to Jens. That's enough.
+
+Coly Li
+
+> ---
+> Changes in v7 (per Coly Li's review of v6):
+>  - Simplify the overflow check in all three call sites from
+>    "s > ULLONG_MAX - sectors" to "(s + sectors) < s".
+>  - Drop the "bb->shift >= BITS_PER_LONG_LONG" guards in badblocks.c.
+>    Only drivers/md/md.c ever sets a nonzero bb->shift, so the bound
+>    belongs where bblog_shift is read off the on-disk superblock, not
+>    scattered through the badblocks API. Documented the caller
+>    requirement on struct badblocks.shift in badblocks.h instead; the
+>    md.c-side bound follows as a separate patch.
+>  - badblocks_check() now returns 0 instead of -EINVAL on the wrap
+>    case, consistent with its existing return convention.
+> 
+>  block/badblocks.c         | 40 ++++++++++++++++++++++++++++++++-------
+>  include/linux/badblocks.h |  6 +++++-
+>  2 files changed, 38 insertions(+), 8 deletions(-)
+> 
+> diff --git a/block/badblocks.c b/block/badblocks.c
+> index 1f786b193fb..728b59a1a5d 100644
+> --- a/block/badblocks.c
+> +++ b/block/badblocks.c
+> @@ -853,12 +853,19 @@ static bool _badblocks_set(struct badblocks *bb, sector_t s, sector_t sectors,
+>  		/* Invalid sectors number */
+>  		return false;
+>  
+> +	if ((s + sectors) < s)
+> +		/* Range wraps past the end of sector_t */
+> +		return false;
+> +
+>  	if (bb->shift) {
+>  		/* round the start down, and the end up */
+>  		sector_t next = s + sectors;
+>  
+> -		s = round_down(s, 1 << bb->shift);
+> -		next = round_up(next, 1 << bb->shift);
+> +		s = round_down(s, (sector_t)1 << bb->shift);
+> +		next = round_up(next, (sector_t)1 << bb->shift);
+> +		if (next <= s)
+> +			/* Rounding wrapped past the end of sector_t */
+> +			return false;
+>  		sectors = next - s;
+>  	}
+>  
+> @@ -1061,7 +1068,12 @@ static bool _badblocks_clear(struct badblocks *bb, sector_t s, sector_t sectors)
+>  		/* Invalid sectors number */
+>  		return false;
+>  
+> +	if ((s + sectors) < s)
+> +		/* Range wraps past the end of sector_t */
+> +		return false;
+> +
+>  	if (bb->shift) {
+> +		sector_t orig_s = s;
+>  		sector_t target;
+>  
+>  		/* When clearing we round the start up and the end down.
+> @@ -1071,9 +1083,16 @@ static bool _badblocks_clear(struct badblocks *bb, sector_t s, sector_t sectors)
+>  		 * isn't than to think a block is not bad when it is.
+>  		 */
+>  		target = s + sectors;
+> -		s = round_up(s, 1 << bb->shift);
+> -		target = round_down(target, 1 << bb->shift);
+> -		sectors = target - s;
+> +		s = round_up(s, (sector_t)1 << bb->shift);
+> +		target = round_down(target, (sector_t)1 << bb->shift);
+> +		if (s < orig_s || target < s)
+> +			/* Rounding wrapped, or range collapsed */
+> +			sectors = 0;
+> +		else
+> +			sectors = target - s;
+> +
+> +		if (sectors == 0)
+> +			return false;
+>  	}
+>  
+>  	write_seqlock_irq(&bb->lock);
+> @@ -1303,12 +1322,19 @@ int badblocks_check(struct badblocks *bb, sector_t s, sector_t sectors,
+>  
+>  	WARN_ON(bb->shift < 0 || sectors == 0);
+>  
+> +	if ((s + sectors) < s)
+> +		/* Range wraps past the end of sector_t */
+> +		return 0;
+> +
+>  	if (bb->shift > 0) {
+>  		/* round the start down, and the end up */
+>  		sector_t target = s + sectors;
+>  
+> -		s = round_down(s, 1 << bb->shift);
+> -		target = round_up(target, 1 << bb->shift);
+> +		s = round_down(s, (sector_t)1 << bb->shift);
+> +		target = round_up(target, (sector_t)1 << bb->shift);
+> +		if (target <= s)
+> +			/* Rounding wrapped past the end of sector_t */
+> +			return 0;
+>  		sectors = target - s;
+>  	}
+>  
+> diff --git a/include/linux/badblocks.h b/include/linux/badblocks.h
+> index 996493917f3..5d88992b55a 100644
+> --- a/include/linux/badblocks.h
+> +++ b/include/linux/badblocks.h
+> @@ -34,7 +34,11 @@ struct badblocks {
+>  				 */
+>  	int shift;		/* shift from sectors to block size
+>  				 * a -ve shift means badblocks are
+> -				 * disabled.*/
+> +				 * disabled. Callers that set this from
+> +				 * untrusted/on-disk data are responsible
+> +				 * for bounding it so 1 << shift does not
+> +				 * overflow a sector_t.
+> +				 */
+>  	u64 *page;		/* badblock list */
+>  	int changed;
+>  	seqlock_t lock;
+> -- 
+> 2.43.0
