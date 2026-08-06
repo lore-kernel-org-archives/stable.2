@@ -1,167 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3501D420889;
-	Thu,  6 Aug 2026 22:43:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786056190; cv=none; b=mbmrm5IZzj7ZowSjbZbEjM7w0sem6ApdMIURLHYqjvDJGFCq3Y/mUa+sc2HrGbiIAiEL64CO5a/ubk6zOmXFfA7Mk3Fxd/o5bEbbhxJJ+NjIyNJPc5DFHUdujW4CF2oe+TL/bEeoJ9cAO3gAS5IfgGF6bAiSninL3h0nME/7K2w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786056190; c=relaxed/simple;
-	bh=9tEhRiAjdRbipUZL9sofqsAybtr1VmWdTQ3JE2pFvB0=;
-	h=Date:To:From:Subject:Message-Id; b=S0vaUxNtoeV+NYi+oY/w03pVoYMFUs0OYKyxQWobfTuUj6nNcBo55vkpxCpv4eP1Cca1V+OBoiV/+KOTljIA5Ig/3cCgT2JfoGzmSZwpSNc9c10ElcAZZNPaJiXkDpVAQSMCNuvOo1N+OAHistHEP95TpSLP/Qrn7jaIuw3BgE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=SfpoXNcu; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADB5411F91
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 22:45:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786056338; cv=pass; b=G7rhkfq5vIYgEHgoHhiQowV5nTuZvgRCFtFXWpBORomcG8vzyDfqCf/MP+XCh6firounvqnWyAfsqRgbm8yVtpeGddlXFEKHIjJ+etMudC5R53Hz9jPQXKZANenEtHs8ba4ZbuN9nhRx7NYtncuPgL/239C8HsPIGeA9KYkLW00=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786056338; c=relaxed/simple;
+	bh=t6JgVqkbmtz5NpnUIHvX9HoVnvdw6c/HMcKh98oiDnA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YNLkgGM5WIry7+6GT4m1rnlLHHjbfZWlTWOtc5R1e69T/QOJk3yfh02VlXc26nZHS2Wwa+tjTXX7XHLHq79ELcuvvLSfFXk0pmwujwV2li6NOzE3GxI54MPWGOoZlGxKN0TXyecNQ4m6FF+/YLco1G5Bf2ZQQbGjNRuOPoatQoQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OJ/MepbY; arc=pass smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="SfpoXNcu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E8A81F000E9;
-	Thu,  6 Aug 2026 22:43:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OJ/MepbY"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-51c01c79467so94011cf.0
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 15:45:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786056336; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YlJC3yrnX60yC0MQMUGBnJCjOEpftwsWs+WnKt+XVEe0SME+C/KAFJz2WMxelq4CJI
+         hgVcJ+YhUlY2TlVVR0nI5YO7ruRTT51Z1qaPMwoig/fzszJ9vtzZAZyU1Be/K6P+lVdN
+         +hONymApTjNLULotiVkRPAvgyaZQGryY592mPbuPqotIw+4YtOL9QE5cofVN9q6mjQ0X
+         Vy8hr5yCideggRLxh8y+PMYQXdk6+lla6EQDvoC+fOKvXdHcsEHwEbXQ4z+g3MHAH1VE
+         V+juqc3ZUllVcp+Ub9ZuVW0NSnSPd/Lmen5ZK54uWTUrGCXnwDdvpY9wDwp8RuSpmYr1
+         61lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=t6JgVqkbmtz5NpnUIHvX9HoVnvdw6c/HMcKh98oiDnA=;
+        fh=FfSJmzI5ibIIHKtZAaey2o56F5reLMdEvkCCt8EYCBE=;
+        b=eCiJTBW0DJmjYp8x1EvfAfoN0N+fxysUmI2CYE7wurRp4sB4VbnwEtjBcOsizNpWmf
+         CrfRMkkFuugqa9jCAk2AsxqwTmDRL7VkN3D9/i88TFwaftYgW0eIZU6jvAE+/Kk7OCaA
+         449cA9n4HZ2ZzZNj1AtpkINwZsprp38WDXpI0wYpk+0GEOKYxQ3DrK8lkg1pW/pZzE5I
+         C/gLfzxUtIlJRgSYIbXHOKrd6niF6BiciJStmFckLCNyFj+FWk3sRrh2lX+5cYuExQ35
+         8as9x1sOH98OBnmhrV2/mJgk/cMNgr5G5JFZ1kNF4ju+2gSP/AOPMIJ/jcUX07S7Fd4R
+         RPXQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1786056188;
-	bh=uE00ujWZAnH6Qh3BrN/zNWA3KeH4aiq9E1S5RXwug7k=;
-	h=Date:To:From:Subject;
-	b=SfpoXNcuFYTG35V5H1LkjLje9bdHBwixXgmaUyV68d1Hpahj//zQTN5d0xxSlGiGp
-	 N+nu4R8hxfA6g46Z8Fa228d+FTWs+X6cQnyHBFn67EDWl6HgYl2aUOwI0y6uHI7BXa
-	 N/4xhTFxkArVrfPGEX3MsYupaHIXH4vaxk66AUn8=
-Date: Thu, 06 Aug 2026 15:43:08 -0700
-To: mm-commits@vger.kernel.org,yosry@kernel.org,tj@kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,nphamcs@gmail.com,muchun.song@linux.dev,mkoutny@suse.com,mhocko@kernel.org,hannes@cmpxchg.org,chengming.zhou@linux.dev,jiahao1@lixiang.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-zswap-fix-global-shrinker-when-memory-cgroup-is-disabled.patch added to mm-new branch
-Message-Id: <20260806224308.9E8A81F000E9@smtp.kernel.org>
+        d=google.com; s=20251104; t=1786056336; x=1786661136; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t6JgVqkbmtz5NpnUIHvX9HoVnvdw6c/HMcKh98oiDnA=;
+        b=OJ/MepbYZkMHaEoM8GmEMNqjhGV7WYqfkvTktR/c1wFhAxsdOALhPOffpkLm90tLnc
+         vQHjdhMDbgYSwd6tvwdXmD4gJs2qoCBMBwezRcAmSymEavSLMLYf1ecVrODOEkh7RiJ8
+         QLQVeiDP7V0yg/s09R1d9cWbRZ7plxOOQpYNVFPIYSy3XJQ5bVqOBeb/VMrV2SL/Lcm+
+         2eSrrjfnivMAQJyWv57zPzMmXQLzI4L/p3CsWkcwDo7P6SiCEaigiNrRo3TvntbOLcYo
+         pkqTjSy/Tj/fKcdRWKB6hQRNe8JVNVksAHIcE95wawzzNi9zaIHQwHBNYr7nRxyfLbsS
+         XKEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786056336; x=1786661136;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t6JgVqkbmtz5NpnUIHvX9HoVnvdw6c/HMcKh98oiDnA=;
+        b=EWRAcxJvgi4C4czfshmQrsKFrectJV2Fv/0crlX3FDDUH3OaVaU1KgAQJ/8EXEUYbA
+         +EVlRDcYe7xXvBACp398t6XxrVNCUwOGSI5J2z7DTvHlfUb390HvgyIdPVCB3plpMeqs
+         525iGoR+fHxstexTjtxiC08G+lPWAmzmX1V1u+7P7+/gV+roYdNmRY8kFqUclj7Ng0vm
+         nhzYnofw7YSxj0dIEImfYy8q5hQWmjjCHqzmgcf6CGKjEbKy5/hjMcGA6hSPMOgEEBfS
+         Rcw5YiCc8QnPMJzhBo4H32YlAbBMSsQHIYr0K6Bd76t5l2//DnwgARPyDhK+s/aWp36M
+         gUoA==
+X-Forwarded-Encrypted: i=1; AHgh+RpaURgVfC8H+9g9XTPcSaAylV5EDeEi03zfLUVufeTjjTnmMOSn3QVM8X9Jz+kGKoX1EHGnANo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzVxd6q2XTiPniuqAhHRTHFJ3LEoLnYFtGXdB83n9RP87vsNFo6
+	kpC670whBT+HggySi5z5DR/zHatZXsbftohPMdwuOZbIJwXlaADiaK5JSnHJYfd1pfafG7ZTdn8
+	zFTiilW7Eyr7bKsS2HU9JeLl1HoT8W+Zfo7kvd9Ls
+X-Gm-Gg: AR+sD107MvoV0EYWI+wzkSQQgdBgHob3DOJvX8ejwZub4ohquAz2jckJSBhk/xycD8D
+	lHNxNkvxds4qm70Zgfu8vkX3zP8Pnjvu2sCmIULD/fdJ9Gsxjsxc9oFx8YIo6Py0HL8AsJPcOnx
+	YuP8Ltshmh1WFbFzXcXGCLLryaZtdC6xiCqtgHGz4oJzz0qcwH++tao3ETAjAARcufv19weOutO
+	2BnrdP52y9mbcL+DN0jk/5CaEza6xl/OBl1bRIoBPyJrl9N593Tus4AcpJ/xY0/Lqc68OvQiHLe
+	2TsFQjIhJ5PKU1ZU4tz1blDztn3AWXg0wB6PyssISCUxbpoxxEv+TNbKqfibVj6qe+naOGeFqyc
+	=
+X-Received: by 2002:ac8:5893:0:b0:51c:104c:100c with SMTP id
+ d75a77b69052e-52d106def12mr5018131cf.2.1786056335879; Thu, 06 Aug 2026
+ 15:45:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260724014605.3377283-1-linkl@google.com> <CALUx4KQfyRgG3ewQZMuU4+AMCyrh8+rH=-MOZLBv29PbPcnhYA@mail.gmail.com>
+In-Reply-To: <CALUx4KQfyRgG3ewQZMuU4+AMCyrh8+rH=-MOZLBv29PbPcnhYA@mail.gmail.com>
+From: Link Lin <linkl@google.com>
+Date: Thu, 6 Aug 2026 15:45:25 -0700
+X-Gm-Features: AUfX_myMFV1qJfbDkK0lr2_rAcEPde0PqT3TobQKcsNUoc9XJsFqir-koEVr8yU
+Message-ID: <CALUx4KS-xRf7m3jPDN5BKfFrpbojp9+0czRp5-siFed-Jj1G1A@mail.gmail.com>
+Subject: Re: [RFC PATCH] virtio_balloon: add VIRTIO_BALLOON_F_REPORTING_PM_SAFE
+ feature bit
+To: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, virtualization@lists.linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, prasin@google.com, rientjes@google.com, 
+	duenwen@google.com, jiaqiyan@google.com, ahwilkins@google.com, 
+	Greg Thelen <gthelen@google.com>, Alexander Duyck <alexander.duyck@gmail.com>, jthoughton@google.com, 
+	stable@vger.kernel.org, Cory Maccarrone <maccarro@google.com>, 
+	Taylor Scanlon <tayy@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi all,
+
+Following up on this RFC to see if anyone has had a chance to look it over.
+
+We'd appreciate any high-level feedback on whether using a dedicated featur=
+e
+bit (or a similar protocol-level handshake) is a viable path forward for
+safe hypervisor deployment, or if there is an alternative approach the
+maintainers would prefer.
+
+Thanks,
+Link
 
 
-The patch titled
-     Subject: mm/zswap: fix global shrinker when memory cgroup is disabled
-has been added to the -mm mm-new branch.  Its filename is
-     mm-zswap-fix-global-shrinker-when-memory-cgroup-is-disabled.patch
-
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-zswap-fix-global-shrinker-when-memory-cgroup-is-disabled.patch
-
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Hao Jia <jiahao1@lixiang.com>
-Subject: mm/zswap: fix global shrinker when memory cgroup is disabled
-Date: Thu, 6 Aug 2026 15:09:42 +0800
-
-Patch series "mm/zswap: Fixes and improves the zswap shrink", v4.
-
-This series fixes and improves the zswap global shrinker
-(shrink_worker()): Patch 1: Fix missing global shrinker when memory cgroup
-is disabled.  Patch 2: Extend shrink_memcg() to support batch writeback
-and thereby improving the writeback efficiency in the shrink_worker() and
-zswap_store() paths.  
-
-
-This patch (of 2):
-
-Zswap writeback when the global pool limit is hit fails when memory cgroup
-is disabled.  The pool remains full until it is organically drained by
-swapins or memory freeing, leading to zswap store failures and pages
-bypassing getting written directly to the backing swap device, causing LRU
-inversion (hotter pages with higher fault latency).
-
-This happens because mem_cgroup_iter() always returns NULL when memory
-cgroups are disabled.  As a result, the global shrinker shrink_worker()
-repeatedly takes empty walks.  After MAX_RECLAIM_RETRIES failed attempts,
-the worker gives up without writing back any pages.
-
-Therefore, when memory cgroup is disabled, fall through with the !memcg
-branch and shrink the root memcg directly.
-
-With memcg disabled, shrink_memcg() only returns -ENOENT when the root LRU
-is empty, which means the total pages are already below thr.  In the
-absence of heavy concurrent zswap stores, the loop then safely bails out
-via the zswap_total_pages() <= thr check; otherwise, it will resume
-shrinking the memcg after processing the reschedule check.  For any other
-return value from shrink_memcg(), the loop is guaranteed to terminate,
-either after MAX_RECLAIM_RETRIES failures or once the threshold is met.
-
-Link: https://lore.kernel.org/20260806070943.95542-1-jiahao.kernel@gmail.com
-Link: https://lore.kernel.org/20260806070943.95542-2-jiahao.kernel@gmail.com
-Fixes: a65b0e7607cc ("zswap: make shrinking memcg-aware")
-Signed-off-by: Hao Jia <jiahao1@lixiang.com>
-Suggested-by: Nhat Pham <nphamcs@gmail.com>
-Acked-by: Nhat Pham <nphamcs@gmail.com>
-Acked-by: Yosry Ahmed <yosry@kernel.org>
-Reported-by: Yosry Ahmed <yosry@kernel.org>
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Michal Koutný <mkoutny@suse.com>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/zswap.c |   13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
-
---- a/mm/zswap.c~mm-zswap-fix-global-shrinker-when-memory-cgroup-is-disabled
-+++ a/mm/zswap.c
-@@ -1358,11 +1358,12 @@ static void shrink_worker(struct work_st
- 		} while (memcg && !mem_cgroup_tryget_online(memcg));
- 		spin_unlock(&zswap_shrink_lock);
- 
--		if (!memcg) {
--			/*
--			 * Continue shrinking without incrementing failures if
--			 * we found candidate memcgs in the last tree walk.
--			 */
-+		/*
-+		 * A NULL memcg ends a full hierarchy pass (except when memcg is
-+		 * disabled, where it is always NULL: fall through to the root LRU).
-+		 * Count a failure only if the last pass found no candidates.
-+		 */
-+		if (!memcg && !mem_cgroup_disabled()) {
- 			if (!attempts && ++failures == MAX_RECLAIM_RETRIES)
- 				break;
- 
-@@ -1381,7 +1382,7 @@ static void shrink_worker(struct work_st
- 		 * and failures.
- 		 */
- 		if (ret == -ENOENT)
--			continue;
-+			goto resched;
- 		++attempts;
- 
- 		if (ret && ++failures == MAX_RECLAIM_RETRIES)
-_
-
-Patches currently in -mm which might be from jiahao1@lixiang.com are
-
-mm-zswap-fix-global-shrinker-when-memory-cgroup-is-disabled.patch
-mm-zswap-support-batch-writeback-in-shrink_memcg.patch
-
+On Wed, Jul 29, 2026 at 7:52=E2=80=AFPM Link Lin <linkl@google.com> wrote:
+>
+> Hi all,
+>
+> Friendly ping on this RFC.
+>
+> We'd love your feedback on whether using a new feature bit
+> (VIRTIO_BALLOON_F_REPORTING_PM_SAFE) to negotiate PM suspend safety is
+> acceptable, or if you have concerns about protocol-level handshakes for
+> kernel PM fix states.
+>
+> If you prefer an alternative approach for safe fleet deployment, please l=
+et
+> us know. Thank you!
+>
+> Sincerely,
+> Link
