@@ -1,120 +1,201 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 484EA23393E;
-	Thu,  6 Aug 2026 12:35:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92BE51DC198
+	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 12:46:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786019734; cv=none; b=JMYVVGVjcrqLljuK6ibpEc1op/5Ea/9LlymwUKeH7k1GAV/A6mbcD4TSASYdg8KHnInKexaKkOkmB+pEHIB2ODtyZG9atBGUvuCBRJ78zIu+DAt6cAXWw1LL8fky/WefcoSA0xvLOJZfn43PXb2NUb/bfiCEqw8E7VbbbGCnGUk=
+	t=1786020379; cv=none; b=tUwUEQTJ1X8uRMpcpL9O5Z7jA38DDiEuwM4dat9Kk402qf0sEukyHA6bXPybPwNvX0mKLPhRmMO7n2rcyGcP8GiNqgO5TO/31Ky8CDNMXgZbsjjx4L10RMDXBQts/LpbBFbZEsmP6rfSJ1fyUG/8TX1EzF17pQTdFNft2JIzuIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786019734; c=relaxed/simple;
-	bh=22f/ORFy9xHXyp3amJMw/b8KiBFLeSRgzjCPwC7cs2s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mgtRazL4o81SOBKrC5+9O117Ku0aSS1qP9zwMJlUYCa3lYMjWn1kBwRkSq+j2IPC8h24Q7E99uPtWBKnZwgw9FXK5UfECP9LlpCpC43sGKru5iwWGrDGQnwg2LehxzOhTVZA5aAfIVpNCVD0MG09QOJLRALWEx/g6eH4GPGAE9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cABUQWk8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786020379; c=relaxed/simple;
+	bh=SIxtB0yiL4lXvpUMZPIbrjRD4zAiRybsSg/xPGfsvBY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=exrivRSfp8OjMjQ5eseYYPBcIjL6JfWVzDfIRjVCom2nPRKri5RAJck4K+fJwbLwAIqg8firDK8cUU2H+Qy/mcO0zfdPLev4j1Tf8F1MG6zOVRWvo6A3Z1jHM1GoNTE4WfXguZLS+3H6OeYdvYu/cwzGc13tnuPLo84WPF2ldTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nUYcPp3y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cABUQWk8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 620EC1F000E9;
-	Thu,  6 Aug 2026 12:35:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nUYcPp3y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705031F000E9;
+	Thu,  6 Aug 2026 12:46:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786019732;
-	bh=7HN6AZZ4wJc8929yZyjEuwHE1pPCwfY73BVphBRGBWQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cABUQWk8e+JYhNZ9tstdj2vCf1N4c82POmA2d9yFmgKjf4Cyw6FiAkJ7t4fAOKuCQ
-	 SWEvHnOAiYtoefTnhOhae+zHqS77jL++3ys7y5RaKoasrIJKtVUlxyUWGiJazeylBC
-	 oYhRWWBl/1gO0L7UdQ62ot/qLJct83E9BgN70mWdOI3Ns/XAz4m+dXNrugvmHoxi/O
-	 pGnPIveTL47PodCjw0+qt9pp8At8DvkYos3nKKhuc14iiJQFvfPW2I+gn508qWzKTT
-	 BLaJhbV3LG/ffWQydL0c9v6jRjGHxqcMPbyj8250wLuwH+/TDrfVMZgxFB5xorTXKN
-	 jp8X9lJUAEF6A==
-Date: Thu, 6 Aug 2026 14:35:30 +0200
-From: Antoine Tenart <atenart@kernel.org>
-To: moonafterrain@outlook.com
-Cc: Sabrina Dubroca <sd@queasysnail.net>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, "Radu Pirea (NXP OSS)" <radu-nicolae.pirea@oss.nxp.com>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] macsec: check offload ops before inserting TX tag
-Message-ID: <anR9qnWz4-_hbUf5@kwain>
-References: <20260805-macsec-fixes-v1-1-634d7679a030@outlook.com>
+	s=k20260515; t=1786020376;
+	bh=TPqIJ0O3WHrvL/CUmVsbxdi1I5J/dlgOjguQew7+wQk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nUYcPp3ynzEWIBwP54t+ceJYE40SIhA0dpYdMA5VctQK3I1htUSLPZv3YUGKFCe6l
+	 9GlkSm/nBuJmwfaL2jU5si/WNpYeQhl64oip+4XoJ9j1Ig1YREWVF3K4m1Z0PHbXat
+	 EtXhp8+7y7ZKwJT1FKODCnTzZ69brsprYpdTaNwsYFHDD1d03mes9DT/Hj/5v+P+eX
+	 +kPgAa1Ogfn7Ndn04ZVQDgyTJUzpp9iDNCcZV5rg1FJ+c2NLlpNB1UBQfJtT6+7z78
+	 EWHNj22LHk30Q6e+5QshMXzNrVbqdRhkUWeaWkTtf5HIwIip37V8FaU6/FxqUZCxop
+	 gVveieP7M0JWw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Jeffrey Altman <jaltman@auristor.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	"Junvyyang, Tencent Zhuque Lab" <zhuque@tencent.com>,
+	LePremierHomme <kwqcheii@proton.me>,
+	Simon Horman <horms@kernel.org>,
+	linux-afs@lists.infradead.org,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] rxrpc: Fix irq-disabled in local_bh_enable()
+Date: Thu,  6 Aug 2026 08:46:13 -0400
+Message-ID: <20260806124613.299390-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026073004-doodle-trickery-d104@gregkh>
+References: <2026073004-doodle-trickery-d104@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260805-macsec-fixes-v1-1-634d7679a030@outlook.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 05, 2026 at 12:52:10PM +0800, Junrui Luo via B4 Relay wrote:
-> From: Junrui Luo <moonafterrain@outlook.com>
-> 
-> macsec_insert_tx_tag() takes the ops pointer returned by
-> macsec_get_ops() and dereferences it straight away:
-> 
-> 	ops = macsec_get_ops(macsec, &ctx);
-> 	skb_final_len = skb->len - ETH_HLEN + ops->needed_headroom +
-> 		ops->needed_tailroom;
+From: David Howells <dhowells@redhat.com>
 
-phydev is read again later in macsec_insert_tx_tag, that probably needs
-a check too (I don't think it is used in practice).
+[ Upstream commit e4d2878369d590bf8455e3678a644e503172eafa ]
 
-> macsec_get_ops() returns NULL whenever the offload is no longer live:
-> for MACSEC_OFFLOAD_PHY, macsec_check_offload() requires
-> real_dev->phydev to still be attached.
+The rxrpc_assess_MTU_size() function calls down into the IP layer to find
+out the MTU size for a route.  When accepting an incoming call, this is
+called from rxrpc_new_incoming_call() which holds interrupts disabled
+across the code that calls down to it.  Unfortunately, the IP layer uses
+local_bh_enable() which, config dependent, throws a warning if IRQs are
+enabled:
 
-From what I can tell the same issue could happen within
-macsec_check_offload and __macsec_get_ops too (and so macsec_get_ops).
+WARNING: CPU: 1 PID: 5544 at kernel/softirq.c:387 __local_bh_enable_ip+0x43/0xd0
+...
+RIP: 0010:__local_bh_enable_ip+0x43/0xd0
+...
+Call Trace:
+ <TASK>
+ rt_cache_route+0x7e/0xa0
+ rt_set_nexthop.isra.0+0x3b3/0x3f0
+ __mkroute_output+0x43a/0x460
+ ip_route_output_key_hash+0xf7/0x140
+ ip_route_output_flow+0x1b/0x90
+ rxrpc_assess_MTU_size.isra.0+0x2a0/0x590
+ rxrpc_new_incoming_peer+0x46/0x120
+ rxrpc_alloc_incoming_call+0x1b1/0x400
+ rxrpc_new_incoming_call+0x1da/0x5e0
+ rxrpc_input_packet+0x827/0x900
+ rxrpc_io_thread+0x403/0xb60
+ kthread+0x2f7/0x310
+ ret_from_fork+0x2a/0x230
+ ret_from_fork_asm+0x1a/0x30
+...
+hardirqs last  enabled at (23): _raw_spin_unlock_irq+0x24/0x50
+hardirqs last disabled at (24): _raw_read_lock_irq+0x17/0x70
+softirqs last  enabled at (0): copy_process+0xc61/0x2730
+softirqs last disabled at (25): rt_add_uncached_list+0x3c/0x90
 
-Also looks like handle_not_macsec has a similar construction, does it
-need a check?
+Fix this by moving the call to rxrpc_assess_MTU_size() out of
+rxrpc_init_peer() and further up the stack where it can be done without
+interrupts disabled.
 
-> phy_detach() clears real_dev->phydev, e.g. when the lower device is
-> brought down and its driver calls phy_disconnect() from ndo_stop(),
-> when the PHY driver is unbound, or when an SFP module is removed under
-> phylink. A frame sent after that point reaches macsec_insert_tx_tag()
-> with ops == NULL and oopses.
-> 
-> Check the pointer, as every other macsec_get_ops() caller already
-> does, and drop the frame through the existing cleanup path.
+It shouldn't be a problem for rxrpc_new_incoming_call() to do it after the
+locks are dropped as pmtud is going to be performed by the I/O thread - and
+we're in the I/O thread at this point.
 
-Looking at phy_detach, could the PHY device also get freed? If so things
-could get wild, but that is probably out of scope here.
+Fixes: a2ea9a907260 ("rxrpc: Use irq-disabling spinlocks between app and I/O thread")
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Jeffrey Altman <jaltman@auristor.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Junvyyang, Tencent Zhuque Lab <zhuque@tencent.com>
+cc: LePremierHomme <kwqcheii@proton.me>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+Link: https://patch.msgid.link/20250717074350.3767366-2-dhowells@redhat.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ moved `peer->mtu`/`peer->maxdata` derivation into `rxrpc_assess_MTU_size()` at both exits since 6.12 predates the `max_data` rework ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/rxrpc/ar-internal.h |  1 +
+ net/rxrpc/call_accept.c |  1 +
+ net/rxrpc/peer_object.c | 12 +++++++-----
+ 3 files changed, 9 insertions(+), 5 deletions(-)
 
-> Fixes: a73d8779d61a ("net: macsec: introduce mdo_insert_tx_tag")
-> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-> Assisted-by: Claude:claude-opus-5
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-> ---
->  drivers/net/macsec.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
-> index ee0e2eb7dbc6..86c8009dcfa9 100644
-> --- a/drivers/net/macsec.c
-> +++ b/drivers/net/macsec.c
-> @@ -3436,6 +3436,11 @@ static struct sk_buff *macsec_insert_tx_tag(struct sk_buff *skb,
->  	int err;
->  
->  	ops = macsec_get_ops(macsec, &ctx);
-> +	if (unlikely(!ops)) {
-> +		err = -EOPNOTSUPP;
-> +		goto cleanup;
-> +	}
-> +
->  	skb_final_len = skb->len - ETH_HLEN + ops->needed_headroom +
->  		ops->needed_tailroom;
->  	if (unlikely(skb_final_len > macsec->real_dev->mtu)) {
-> 
-> ---
-> base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-> change-id: 20260805-macsec-fixes-d280baf70552
-> 
-> Best regards,
-> -- 
-> Junrui Luo <moonafterrain@outlook.com>
-> 
-> 
+diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
+index 5f5421680b2eb..494a87be3d854 100644
+--- a/net/rxrpc/ar-internal.h
++++ b/net/rxrpc/ar-internal.h
+@@ -1188,6 +1188,7 @@ struct rxrpc_peer *rxrpc_lookup_peer_rcu(struct rxrpc_local *,
+ 					 const struct sockaddr_rxrpc *);
+ struct rxrpc_peer *rxrpc_lookup_peer(struct rxrpc_local *local,
+ 				     struct sockaddr_rxrpc *srx, gfp_t gfp);
++void rxrpc_assess_MTU_size(struct rxrpc_local *local, struct rxrpc_peer *peer);
+ struct rxrpc_peer *rxrpc_alloc_peer(struct rxrpc_local *, gfp_t,
+ 				    enum rxrpc_peer_trace);
+ void rxrpc_new_incoming_peer(struct rxrpc_local *local, struct rxrpc_peer *peer);
+diff --git a/net/rxrpc/call_accept.c b/net/rxrpc/call_accept.c
+index cbf6187d68edf..66994e3698efb 100644
+--- a/net/rxrpc/call_accept.c
++++ b/net/rxrpc/call_accept.c
+@@ -407,6 +407,7 @@ bool rxrpc_new_incoming_call(struct rxrpc_local *local,
+ 
+ 	spin_unlock(&rx->incoming_lock);
+ 	read_unlock_irq(&local->services_lock);
++	rxrpc_assess_MTU_size(local, call->peer);
+ 
+ 	if (hlist_unhashed(&call->error_link)) {
+ 		spin_lock_irq(&call->peer->lock);
+diff --git a/net/rxrpc/peer_object.c b/net/rxrpc/peer_object.c
+index 3a4cf95ecddfc..7826081410290 100644
+--- a/net/rxrpc/peer_object.c
++++ b/net/rxrpc/peer_object.c
+@@ -147,8 +147,7 @@ struct rxrpc_peer *rxrpc_lookup_peer_rcu(struct rxrpc_local *local,
+  * assess the MTU size for the network interface through which this peer is
+  * reached
+  */
+-static void rxrpc_assess_MTU_size(struct rxrpc_local *local,
+-				  struct rxrpc_peer *peer)
++void rxrpc_assess_MTU_size(struct rxrpc_local *local, struct rxrpc_peer *peer)
+ {
+ 	struct net *net = local->net;
+ 	struct dst_entry *dst;
+@@ -160,6 +159,8 @@ static void rxrpc_assess_MTU_size(struct rxrpc_local *local,
+ #endif
+ 
+ 	peer->if_mtu = 1500;
++	peer->mtu = peer->if_mtu;
++	peer->maxdata = peer->mtu - peer->hdrsize;
+ 
+ 	memset(&fl, 0, sizeof(fl));
+ 	switch (peer->srx.transport.family) {
+@@ -199,6 +200,9 @@ static void rxrpc_assess_MTU_size(struct rxrpc_local *local,
+ 	peer->if_mtu = dst_mtu(dst);
+ 	dst_release(dst);
+ 
++	peer->mtu = peer->if_mtu;
++	peer->maxdata = peer->mtu - peer->hdrsize;
++
+ 	_leave(" [if_mtu %u]", peer->if_mtu);
+ }
+ 
+@@ -240,8 +244,6 @@ static void rxrpc_init_peer(struct rxrpc_local *local, struct rxrpc_peer *peer,
+ 			    unsigned long hash_key)
+ {
+ 	peer->hash_key = hash_key;
+-	rxrpc_assess_MTU_size(local, peer);
+-	peer->mtu = peer->if_mtu;
+ 	peer->rtt_last_req = ktime_get_real();
+ 
+ 	switch (peer->srx.transport.family) {
+@@ -266,7 +268,6 @@ static void rxrpc_init_peer(struct rxrpc_local *local, struct rxrpc_peer *peer,
+ 	}
+ 
+ 	peer->hdrsize += sizeof(struct rxrpc_wire_header);
+-	peer->maxdata = peer->mtu - peer->hdrsize;
+ }
+ 
+ /*
+@@ -285,6 +286,7 @@ static struct rxrpc_peer *rxrpc_create_peer(struct rxrpc_local *local,
+ 	if (peer) {
+ 		memcpy(&peer->srx, srx, sizeof(*srx));
+ 		rxrpc_init_peer(local, peer, hash_key);
++		rxrpc_assess_MTU_size(local, peer);
+ 	}
+ 
+ 	_leave(" = %p", peer);
+-- 
+2.53.0
+
