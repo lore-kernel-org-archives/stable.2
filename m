@@ -1,71 +1,43 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C822444E652
-	for <stable@vger.kernel.org>; Thu,  6 Aug 2026 14:23:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261A22F30;
+	Thu,  6 Aug 2026 14:24:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786026210; cv=none; b=pAwZxAkSnpwfp/A75OqskkM4wvzBmdEs36t2bAjJBCZZib/1yUTSm0zcBqRZgSWc2YwS7Mlc6SAc9POWycCvHP01ahUH0JFSQWTvX0LhqV8W47p+9QdPd41/lm5ru6VFmLxG5AY48aMN+oVp9+9Yxp8IN6PzgFCUjexUYFHAg68=
+	t=1786026263; cv=none; b=VrOZ96I6MqlFkMvanKridLxhjQriH1d7W0syxopaXH26o5t02KxuvsyYG94Nb3SEa2X4LaXzxlQ4+9CehvjaruSoRSD9iShQRsLozL8JqOcGzVa+g8693AltaawRaxKI6eaizvVUU5FhD8a0r8y6VDHJjKJFurUW7dI6PJZ56Rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786026210; c=relaxed/simple;
-	bh=k6Nbpz+tkyn8G2OUgeBANjIKnd+uEj0n5Dn9A2bSHRA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Jyn7DYt+NSKiczHwMHt5shzUkvQzEORdHU6ZPnMT81cmKtACqTQ6tYEfxyGPJwHTY6yxROazlTC95tHYjG0mHZph4dURsZadc80LAD72hWqgw6s5p21rISn6luJeT0wbRtc8FnIR1OstIPj3WgzNXsPQXTyhgpMrdjqg7VDLA+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E50r/nVx; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786026263; c=relaxed/simple;
+	bh=rPzBobGjahlQxhs2KnLi8bN9L5wDTX2pwajw9BaYypA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rli0Ef9MyhSjKSVyu4vyfpS0gF+6cOyxI94qaBXCMlYdykXQfOw3f2p79HDSMqlmTR+U9cot8UskEtos9vP7FYODIhHxM/oU1tF7CScz55yFwVAw0Hys6n+quamuyCSFsoKTolSAOBpMUisrTIQK83emIXW2VlHrT7u6OetJcwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jq7HXznk; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E50r/nVx"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cf49dc28ccso3190435ad.0
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 07:23:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786026209; x=1786631009; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FWMhwyAXz7pGiBpWWssd19qM5EphdkdSgXA6cinir5w=;
-        b=E50r/nVxHXU6hdqtB/PVj2l1ta//QqYgxzW6QTQLbPr6+KoJUkMmi4xMNxaQi3s9ST
-         3dy0eOFu1fRka1j/hvFKa5auxFs0RF6tqBNgE+tdTu5QJ2Fsm94wgcohIfIvkrMC2aDm
-         NonVBMpYO9iXE1YS4LZzU0WAh97Ax/lDwyTr7X4SId7zIr7rLJuXtlDJBR4r7Aq2LhgQ
-         CabgJY7mMDBkoUiPo8l1XEk7J8hhwTetjrJfPc8LUcskSR1PyTofcN8fH3DgF5ny/cMn
-         FSbsg2yqa0u7H+YfTrY0fBMdhbe5ShOsDlQDqSTP3dNKbvNyraH/oW/HbJSHBhlt2Gfa
-         Jv4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786026209; x=1786631009;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FWMhwyAXz7pGiBpWWssd19qM5EphdkdSgXA6cinir5w=;
-        b=UleM9b/uP8t3O0yw8Q+XfUTPhzdGkuNG+EPUV4DNUl9fiKHPzJ9GVNmqw/YIBiY1Re
-         OespycD+od5zoIav/mHumE34zdS+s0oQa1KVlXfLdtxkWeW4FGj345c+ekqeGGXJv4Sa
-         6ujWKnP7rSOEPSXViGEAIl7HsTzGaEGQob5ycn+vwcNOdJmFNt5bzJ/hGlbOgkRwEFqS
-         uLrMMkVjLKq7UQ3VVTH84UrNMGPPf/2FVqWa0Ff7+xWp/Kgun148hRbwoiv9of9O2eww
-         HwORPzemZU/RW+c6RhxdR/tCjmLlEUO3XXyD91/fr1SRhM+r6+xDgLb4f9TK3QTnMQ/R
-         YT8Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrpUPFpMIP5R8aNYBQepx/ESuzxDrTtWmYSwfoVwVySUzOxZdxa+QJeLe5egJpCToT3WtJlnpE=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxEEabf/kjG0181q5+JY0B/ZBLho/XbXqsJwDM2l2x+uzUw2s9S
-	LvIMN00mF0/JJY2Hey0fqqggKU6UlTaphB2Aviugcq2g4jPeq4n3i7fW
-X-Gm-Gg: AR+sD127D3W8cXi5+XPgNYv8TkqmoZiJ+CngJgdK0mMbe/YwCQzO+6HOQs2Oi8cxeB+
-	mvQsgE236ReRVmcoTunmhNOygVhxHHVeRep2mgK8Wr+L7t68AF2kp4rRu/I4LtzYqWYbOq91Sz2
-	BX2Y+n2w/z0JePNcr6Wft8gcAep5vgNI+SsYYjroFiSDE0WGEdhGoUVXXrlS1iaBgiPwRcbLo7V
-	lqI8ygD0SLTFSEXQjHvz+7zgYGbqjzKZ0H7782MZJnJYIlzpNaBJz7v9/2dBGbABRZXl0UD52wH
-	UlWhrVkHplPuW1uFPErOPMhTJjeHautG32h58pBGLK9bMjRP+eodkZ9n1Fk4/q8gQrGqmLwHGsK
-	xtkILmOyIIuUdEFb4sclgBgIIE/5DzlJo8LOfbAOE8QY8yE2GrJfEqwRL3cdWmMYaIwmK/ggBIi
-	Tq30yAGwDgV1q0q9a9h3cpn1aPN1DrRwgUd4xCjBMsV8cQ4sfzRyyUYIY=
-X-Received: by 2002:a17:903:26cb:b0:2ca:de3:15eb with SMTP id d9443c01a7336-2d0ca35c5a9mr123845245ad.0.1786026209216;
-        Thu, 06 Aug 2026 07:23:29 -0700 (PDT)
-Received: from archlinux ([138.199.21.246])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0a9f936edsm32685745ad.3.2026.08.06.07.23.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 07:23:28 -0700 (PDT)
-From: Chen Xiaokun <shinnkka1@gmail.com>
-To: axboe@kernel.dk,
-	gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jq7HXznk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=hk
+	Tg6mHF8DBpPRWMwU8ltRJwRzU0JFRz4+Z+nAy7ZO4=; b=jq7HXznkoRpRdNVNKA
+	8A5pgKG3zrruf1Hf3/FpPVEYZh6owK8cFhblL+/DK6IKWLN1SDiCrtyButfOxwa2
+	qk9pcC+GGBj+nZ3Jw57pqwGxn4ryks5YOZJ6v02zVioo/9bXdAN9v/cplkrJ+v3z
+	i9U0ORpcYj37valxSc2AtnBpY=
+Received: from localhost (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgDX0+jSmHRqis_NKw--.47030S2;
+	Thu, 06 Aug 2026 22:23:15 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: rafael@kernel.org,
+	viresh.kumar@linaro.org
+Cc: linux-pm@vger.kernel.org,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Chen Xiaokun <shinnkka1@gmail.com>
-Subject: [PATCH 6.1.y] Fix memory leak in io_wq_create() on success path
-Date: Thu,  6 Aug 2026 22:23:14 +0800
-Message-ID: <20260806142314.557312-1-shinnkka1@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	zhongqiu.han@oss.qualcomm.com,
+	Hui Su <sh_def@163.com>
+Subject: [PATCH v3] cpufreq: schedutil: Fix rate limit overflow
+Date: Thu,  6 Aug 2026 22:23:04 +0800
+Message-ID: <20260806142304.1761454-1-sh_def@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,29 +45,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgDX0+jSmHRqis_NKw--.47030S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZw4xXFy5urWUAF1DtF15XFb_yoW5Zr45pF
+	ZIk3y0yr40qry7trs3C3ZruF15uF48J39rKryfCa1vywn8Kw1Fg34Iyrs0ga47AF9Ykr4f
+	A3WYqFW5ur18A37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piHq2tUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwRQTcmp0mNSmLQAA3t
 
-The commit 657ca82526d0 introduced a temporary allowed_mask cpumask in
-io_wq_create(), which was freed only on the error path.  This caused a
-memory leak of cpumask_size() bytes on every successful io_wq_create().
+rate_limit_us is an unsigned int, while NSEC_PER_USEC is defined as
+1000L. On 32-bit systems, the multiplication is therefore performed
+using 32-bit unsigned arithmetic before the result is assigned to
+freq_update_delay_ns.
 
-Fixes: 657ca82526d0 ("io_uring/io-wq: inherit cpuset of cgroup in io worker")
-Signed-off-by: Chen Xiaokun <shinnkka1@gmail.com>
+For example, writing 4294968 to rate_limit_us wraps the delay from
+4294968000 ns to 704 ns. This makes schedutil update far more often
+than configured.
+
+Add sugov_update_rate_limit_us() to widen rate_limit_us to s64 before
+converting it to nanoseconds. Use the helper when updating the tunable
+through sysfs and when starting the governor, so both paths perform the
+conversion without overflow.
+
+Fixes: 9bdcb44e391d ("cpufreq: schedutil: New governor based on scheduler utilization data")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hui Su <sh_def@163.com>
+Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
 ---
- io_uring/io-wq.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v3:
+- Add a comment explaining why rate_limit_us must be cast before
+  multiplication.
 
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index 66fdd69fd6cb..34a1a9067cc2 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -1218,6 +1218,7 @@ struct io_wq *io_wq_create(unsigned bounded, struct io_wq_data *data)
- 	wq->task = get_task_struct(data->task);
- 	atomic_set(&wq->worker_refs, 1);
- 	init_completion(&wq->worker_done);
-+	free_cpumask_var(allowed_mask);
- 	return wq;
- err:
- 	io_wq_put_hash(data->hash);
+v2: https://lore.kernel.org/r/20260806072656.1386351-1-sh_def@163.com
+
+Changes in v2:
+- Clarify why the multiplication uses 32-bit unsigned arithmetic on
+  32-bit systems.
+- Cast rate_limit_us to s64 to match freq_update_delay_ns.
+- Add Zhongqiu's Reviewed-by tag.
+
+v1: https://lore.kernel.org/r/20260805143942.805176-1-sh_def@163.com
+
+ kernel/sched/cpufreq_schedutil.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
+index dff4ee04694c..614ff0d33c01 100644
+--- a/kernel/sched/cpufreq_schedutil.c
++++ b/kernel/sched/cpufreq_schedutil.c
+@@ -61,6 +61,17 @@ static DEFINE_PER_CPU(struct sugov_cpu, sugov_cpu);
+ 
+ /************************ Governor internals ***********************/
+ 
++static void sugov_update_rate_limit_us(struct sugov_policy *sg_policy)
++{
++	/*
++	 * Cast rate_limit_us before multiplication to force 64-bit arithmetic.
++	 * Otherwise, on 32-bit platforms, both operands are converted to
++	 * 32-bit unsigned long and the multiplication may overflow.
++	 */
++	sg_policy->freq_update_delay_ns =
++		(s64)sg_policy->tunables->rate_limit_us * NSEC_PER_USEC;
++}
++
+ static bool sugov_should_update_freq(struct sugov_policy *sg_policy, u64 time)
+ {
+ 	s64 delta_ns;
+@@ -606,7 +617,7 @@ rate_limit_us_store(struct gov_attr_set *attr_set, const char *buf, size_t count
+ 	tunables->rate_limit_us = rate_limit_us;
+ 
+ 	list_for_each_entry(sg_policy, &attr_set->policy_list, tunables_hook)
+-		sg_policy->freq_update_delay_ns = rate_limit_us * NSEC_PER_USEC;
++		sugov_update_rate_limit_us(sg_policy);
+ 
+ 	return count;
+ }
+@@ -848,7 +859,7 @@ static int sugov_start(struct cpufreq_policy *policy)
+ 	void (*uu)(struct update_util_data *data, u64 time, unsigned int flags);
+ 	unsigned int cpu;
+ 
+-	sg_policy->freq_update_delay_ns	= sg_policy->tunables->rate_limit_us * NSEC_PER_USEC;
++	sugov_update_rate_limit_us(sg_policy);
+ 	sg_policy->last_freq_update_time	= 0;
+ 	sg_policy->next_freq			= 0;
+ 	sg_policy->work_in_progress		= false;
 -- 
-2.55.0
+2.43.0
 
