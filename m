@@ -1,109 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4DDC34751B;
-	Fri,  7 Aug 2026 20:38:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76E337C93F;
+	Fri,  7 Aug 2026 21:02:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786135123; cv=none; b=eX0LWzvhR/8U0czdSoavD8aneUFiamwuQxoGDJNR1VRhBudsFW8ltLjqWfWoFlA0sQcLiTMg86KuaVv7gD3LM+n39iYDbvkUowNTbCdBbzq3ERUdbLG0uHjOg8cqGLhYkhPEZ3gmOCZLN3bK9dVcrD5URW8u9FVCIPJFr3zY5sc=
+	t=1786136545; cv=none; b=mUpmG9O0BfR6WWirhUJyv1QheLQeCTtKF2J8YMUrSBB8mb844jNTAufb8ve3H48WuHCUNLDHvMdIpp4UqwIfKufmYqbs9bKbwhXwMrgw8pZssp9KCzRZqsNxd0SBt0fQLvhs6ZsQwJT4TolOajTr0e/gZRRwj1wPQXjhkencJFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786135123; c=relaxed/simple;
-	bh=LnQS2cf8VJdhgssIEL8Pnnh71G3MprD//oaYHNkevkg=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=OJrwSLp7yYXG49v92/4cfRZsv9fzXoJ2ffRkEpMkklGiogRYTVhhcp+CKPi1OEvU1Kr5cNIYZuXv3mLEiEpH2Dyf7XLgmd+yExyP2BZfzkA74jgeAqIS/FkvzthByq8BgcuWPaKTxgU+sTWdJ5ZLh17wScxQMl6VgeUXk2QVI58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=0E0fc+Yl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786136545; c=relaxed/simple;
+	bh=7gnbitBv+8D29/VHYRV4KX3pT6K08KKOPPYRNi46mIo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KDXMpSSiX8cTY+UvVJkc4Idl4kG6P1JuW9Rm28i6vzbtRkhz4RIeWzK8RCg6vZY2ckXj055VW1AsBLkpuND5mUfPt2uofL1eJJC8idHaJ9gebjuReCJ6JI3o4N2SRj/ZqvtXmiH0pC1IWZ6W0nRNCUov6b6WBgj11GbcHUKNJ44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YtqbV5DR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="0E0fc+Yl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B0931F000E9;
-	Fri,  7 Aug 2026 20:38:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1786135121;
-	bh=gdI9Rh9kOJ1DGa3Qe6c3xPmH/zYwnik4MVDgOOD7fEg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=0E0fc+YlE6wwPYljOOCjLRHeETTBhMxnZIXQdPYgbcvzox10g246YI78AlU7pBokw
-	 8axxgwoe+V+TneD1d4XKMtlxqdmQvxaKlYGr5Wfb/9pnPNh0D/UDt/L734HdUH6NRG
-	 m4f/dFWCAZ5+prZyp2L03n+Q/5LkOlaX9SeY0WnY=
-Date: Fri, 7 Aug 2026 13:38:40 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Vishal Badole <Vishal.Badole@amd.com>
-Cc: <tglx@kernel.org>, <linux-kernel@vger.kernel.org>, <bp@alien8.de>,
- <wangyang.guo@intel.com>, <tianyou.li@intel.com>,
- <tim.c.chen@linux.intel.com>, <dan.liang@intel.com>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH] lib/group_cpus: Snapshot cluster masks to keep grouping
- hotplug invariant
-Message-Id: <20260807133840.31a194a9cd04d4a2b6d817c1@linux-foundation.org>
-In-Reply-To: <20260807073612.3711269-1-Vishal.Badole@amd.com>
-References: <20260807073612.3711269-1-Vishal.Badole@amd.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YtqbV5DR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41E7F1F00A3A;
+	Fri,  7 Aug 2026 21:02:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786136543;
+	bh=v8SAuY6hVsOZeGwaD7MPATne1cZ+yypvaqtDlAFCieI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YtqbV5DRF0cA0iQD1zBd2QT8e60FltvTq5ijSH3GOKwRFtj0sLHYePJ3npRpAQccr
+	 TftUga/kWHnEK69TwqHHNMB8IZUQi5hGxFLaXZy/D0fIRmXtIusJqjnOXcd2IWuzyS
+	 LIdzW2Wzo5DWdI08hMEa9tsZ8YNbR85Ym/7/KhJtwuOEE9eeMnKCWwaGavWMXdbwxb
+	 QUIAzR+Q47oQxum7K21P+P1e2XYCl1yruKvwi5lVqWjqDJwRCk49e7Zzxp2t9jxCDM
+	 2rhL/zF87qUxPHHYNQuBGoNVYQuqfYRrNsJr2Kjg4FisjtnLKVmAhVBl224VIHxVV8
+	 45xbgRola/lMQ==
+From: Tejun Heo <tj@kernel.org>
+To: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	sched-ext@lists.linux.dev
+Cc: Emil Tsalapatis <emil@etsalapatis.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	ElXreno <elxreno@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/6] sched/core: Handle pick_task() releasing the rq lock
+Date: Fri,  7 Aug 2026 11:02:16 -1000
+Message-ID: <20260807210221.232543-2-tj@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260807210221.232543-1-tj@kernel.org>
+References: <20260807210221.232543-1-tj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 7 Aug 2026 13:06:12 +0530 Vishal Badole <Vishal.Badole@amd.com> wrote:
+Core scheduling's pick_next_task() breaks when a ->pick_task()
+implementation can release the rq lock. The selection state derived on entry
+is only valid while the lock is held continuously. Once a pick can drop the
+lock, an interleaving selection can invalidate all of it: the single-CPU
+fast path can commit an uncookied pick although the core went cookied during
+the release, and forceidle committed by the interleaving selection skews the
+restarted pass's accounting.
 
-> group_cpus_evenly() builds the managed-IRQ affinity spread used by
-> multi-queue devices such as NVMe. That spread is meant to be a property
-> of the static CPU topology: it walks cpu_present_mask and then
-> cpu_possible_mask so every hardware queue owns a fixed set of CPUs,
-> including CPUs that are offline at the time. A driver depends on that
-> partition staying stable across re-computation - the CPUs a queue is
-> given at probe must still describe the same queue after the device is
-> later reset and its affinity recomputed.
-> 
-> On an AMD system that stability breaks across an s2idle cycle. With CPUs
-> 3-11 offlined and only CPUs 0-2 left online, the machine is suspended to
-> s2idle and resumed. The NVMe controller uses the simple-suspend quirk, so
-> resume fully re-initialises it and recomputes the affinity spread. The
-> system then hangs for roughly two minutes and stays sluggish afterwards,
-> the controller only making progress through its command-timeout poll:
-> 
->   nvme nvme0: I/O tag 898 (3382) QID 9 timeout, completion polled
->   nvme nvme0: I/O tag 398 (618e) QID 11 timeout, completion polled
-> 
-> QID 9 and QID 11 are the queues whose CPUs were offline when the spread
-> was recomputed. "completion polled" means the commands did finish in
-> hardware, but their interrupts were never delivered to a CPU that was
-> watching the queue, so nothing reaped them until the timeout fired.
-> 
-> It happens because commit 89802ca36c96 ("lib/group_cpus: make group CPU
-> cluster aware") derives the cluster groups from topology_cluster_cpumask(),
-> which lists only the cluster siblings that are online when it is called.
-> The resulting partition therefore depends on the transient online mask
-> rather than on the topology alone. Recomputed on resume while the non-boot
-> CPUs are still offline, it no longer matches the boot-time partition, and a
-> queue is left with an affinity that does not cover the CPU it is meant to
-> serve once that CPU comes back online. The dependence is on the online
-> mask, not on any AMD-specific behaviour, so the same stall is reproducible
-> on Intel platforms as well.
+Fix it by restarting the whole selection when a pick returns RETRY_TASK
+after releasing the lock: a single restart point above the state derivation
+replaces the per-loop restart labels, so a retry picks up state committed by
+interleaving selections and accounts and resets forceidle like a fresh
+selection would.
 
-Thanks for the careful description of what is wrong.  It helps.
+need_sync and fi_before latch across retries. Clock validity can't be
+re-derived - there is no program-ordered way to tell whether the own and
+core rq clocks are still updated after the lock was released, as other
+lockers' pin cycles may or may not have invalidated them. When restarting,
+clear core_clock_updated so that the sibling loop re-updates the core rq,
+and update the own rq clock if invalidated.
 
-And things do sounds very wrong.  Could people@intel please prioritize
-their review and testing of this fix?
+Fixes: 4c95380701f5 ("sched/ext: Fold balance_scx() into pick_task_scx()")
+Cc: stable@vger.kernel.org # v6.19+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+---
+ kernel/sched/core.c | 27 +++++++++++++++++++--------
+ 1 file changed, 19 insertions(+), 8 deletions(-)
 
-> Make the cluster grouping depend on the complete cluster topology rather
-> than on whichever CPUs happen to be online. Snapshot the cluster masks
-> once while every CPU is online and reuse that view for every later spread.
-> A fully-online view is the complete cluster membership, so the partition
-> derived from it is identical no matter which CPUs are online when the
-> controller is reset, which is exactly the invariance the callers already
-> assume.
-> 
-> ...
->
-> +	/*
-> +	 * Only a fully-online view is the complete cluster membership; if any
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 3cc6fb1d2054..84ef83316562 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -6217,7 +6217,7 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 	unsigned long cookie;
+ 	int i, cpu, occ = 0;
+ 	struct rq *rq_i;
+-	bool need_sync;
++	bool need_sync = false;
+ 
+ 	if (!sched_core_enabled(rq))
+ 		return __pick_next_task(rq, rf);
+@@ -6260,7 +6260,9 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 	prev_balance(rq, rf);
+ 
+ 	smt_mask = cpu_smt_mask(cpu);
+-	need_sync = !!rq->core->core_cookie;
++
++restart:
++	need_sync |= !!rq->core->core_cookie;
+ 
+ 	/* reset state */
+ 	rq->core->core_cookie = 0UL;
+@@ -6295,10 +6297,15 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 	 * and there are no cookied tasks running on siblings.
+ 	 */
+ 	if (!need_sync) {
+-restart_single:
+ 		next = pick_task(rq, rf);
+-		if (unlikely(next == RETRY_TASK))
+-			goto restart_single;
++		if (unlikely(next == RETRY_TASK)) {
++			/* rq lock may have been dropped, clocks invalidated */
++			core_clock_updated = false;
++			if (!(rq->clock_update_flags & RQCF_UPDATED))
++				update_rq_clock(rq);
++			goto restart;
++		}
++
+ 		if (!next->core_cookie) {
+ 			rq->core_pick = NULL;
+ 			rq->core_dl_server = NULL;
+@@ -6318,7 +6325,6 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 	 *
+ 	 * Tie-break prio towards the current CPU
+ 	 */
+-restart_multi:
+ 	max = NULL;
+ 	for_each_cpu_wrap(i, smt_mask, cpu) {
+ 		rq_i = cpu_rq(i);
+@@ -6332,8 +6338,13 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 			update_rq_clock(rq_i);
+ 
+ 		p = pick_task(rq_i, rf);
+-		if (unlikely(p == RETRY_TASK))
+-			goto restart_multi;
++		if (unlikely(p == RETRY_TASK)) {
++			/* rq lock may have been dropped, clocks invalidated */
++			core_clock_updated = false;
++			if (!(rq->clock_update_flags & RQCF_UPDATED))
++				update_rq_clock(rq);
++			goto restart;
++		}
+ 
+ 		rq_i->core_pick = p;
+ 		rq_i->core_dl_server = rq_i->dl_server;
+-- 
+2.55.0
 
-minor: the above sentence is hard to understand.
-
-> +	if (!data_race(cpumask_equal(cpu_possible_mask, cpu_online_mask)))
-
-AI review suggests using cpu_present_mask here:
-
-	https://sashiko.dev/#/patchset/20260807073612.3711269-1-Vishal.Badole@amd.com
