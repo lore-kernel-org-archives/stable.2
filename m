@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2A535B631
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 15:19:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B43535CB60;
+	Fri,  7 Aug 2026 15:19:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786115966; cv=none; b=N58ZPQGrt5g1rNBx2WOyIfR1v8nSO6bkupIm42jAXUdducIThl2SQKCLPgI9lDykVTtPq8HlXe/jyx54f683FL30asEs370ImoNujrhe/5Ht2h18illQp6qGRtifJxL0Z2BcbnH0krPOavalwRDCXpH8PhcmoZYIrHAUpLBT0i8=
+	t=1786115967; cv=none; b=LcYk04PogP6XDvNXGok+Vf4deH+08PwT8vdJ3HFSJ6knq1AQhH+IMwNUV/v3OIiOaRjXW4cFcwiu8ZFF0VWnUi6Ne0Z4FMKOJfVxBgqcMpZhPyQGJaPfmSXnDILARF41I4IktbZFN3m+qQEc1siuZsDlDiwpQw/CNtFHEMlnZIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786115966; c=relaxed/simple;
-	bh=ANwgCYCc5qDlZcU9YkHDoe8FpAHEREnVqKWEPo9ZNYY=;
+	s=arc-20240116; t=1786115967; c=relaxed/simple;
+	bh=wY3uqxZb9+hYjlSVY3hu9AANkqnFIc9uZPIl0i2jZoA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ddv7m5R244w4I7rf01x4PAXuuxq/EXRQW65ydXSOAfHhOLwTrMgHbX6Dfo0Kw59dsIp+hilixGnzO3BNaajvxZptYs1+43Zao7u9iiptWIAbBRMNfEeywyDPAQG4TnhZIhDJ5TKWFTC6dsRa2+CdAe/Wux4UU+rWfuQqrZN2JvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nvmmcNdr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=I7lTUkancb7rgE/HrUGcRnre/Z/4zIQbTTKbfd10eAfTvYPW4zbnCq686t1gTX2g6VIt5F1kI5/NFjHKf0MOKI9H8sjDD3sJ4SS+Fkqnm5R3reeFoWkCIXV3yQnuH1QCe/KeugysPxe8Mw4tcY9Kx23epiYdZZ78SpxY593SSDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=F/i4QmHY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nvmmcNdr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0789C1F000E9;
-	Fri,  7 Aug 2026 15:19:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786115964;
-	bh=X6TTvgcnoZ03l2Z/wze5YrjE5cIzlE+Nl1GbosWkHv8=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="F/i4QmHY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 877F51F00A3A;
+	Fri,  7 Aug 2026 15:19:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786115966;
+	bh=FrNFU1h7TURcC3PwAF8X8iE3ZLXmsTpuWFymzPWkP9U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nvmmcNdrFXCZkzvAk2f31ccpHUXfHUdnn3wnflJ3uH1/KxdPl/TKkywP5xU69OdxA
-	 3APIyOXvSBu4BIbuJWT3mMckVx2bvB19+pDJ5IfCTpJBdGS8raKEcllJbB8F0MvJES
-	 jZkEVOXGFiDKGWwep/puv1z9GbgwqKdjRm8HwMrs+SBQb5gn3GU3AGCsdYIrIiPtPy
-	 xGZ4qB7VpsH0+tnAxstf3FST+fmemNOZR2FXZqEC3Xl5ehOyiQeutMdyv6S0T6aoF0
-	 WoxbOiPsxOpkW24vVkDVPi2nCRkxEi5MS+LUY4ox8SSraMXiKNbMYz38tkhe8eDuFF
-	 3VscVH5vi8mFw==
-From: Sasha Levin <sashal@kernel.org>
+	b=F/i4QmHYjbjDaMmrmGWKt7ga8m1dtbnFRA/sH69AK+xztjX7Iosim+0zWgg42BCPk
+	 82IkMsVHCtrUziiPY1dAprPvOt+Q3ok06bx94YX8JEcearujF+yKJOcfbShBijd0gF
+	 IC99EiSS26s5wrMyTad/Dx2esptrQCrVcNQw/qXs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Max Kellermann <max.kellermann@ionos.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	Xiubo Li <xiubo.li@clyso.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Pauli Virtanen <pav@iki.fi>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y] ceph: avoid fs reclaim while using current->journal_info
-Date: Fri,  7 Aug 2026 11:19:22 -0400
-Message-ID: <20260807151922.2226824-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072956-reviving-jockey-23cc@gregkh>
-References: <2026072956-reviving-jockey-23cc@gregkh>
+Subject: [PATCH 6.6 063/261] Bluetooth: ISO: clear iso_data always when detaching conn from hcon
+Date: Fri,  7 Aug 2026 16:37:00 +0200
+Message-ID: <20260807143416.743472609@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260807143415.358597922@linuxfoundation.org>
+References: <20260807143415.358597922@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,115 +47,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Max Kellermann <max.kellermann@ionos.com>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 5b602344a49e039e792ce5a8923bcc61412ee134 ]
+------------------
 
-handle_reply() stores a `ceph_mds_request` pointer in
-`current->journal_info` while filling the inode and dentry cache from
-an MDS reply.
+From: Pauli Virtanen <pav@iki.fi>
 
-An allocation in this section can enter direct reclaim and prune
-dentries from another filesystem.  If this dirties an ext4 inode, ext4
-starts a JBD2 transaction.  JBD2 interprets the Ceph request in
-`current->journal_info` as a journal handle and dereferences the
-request's `r_tid` as `h_transaction`, causing a kernel crash, e.g.:
+[ Upstream commit d57e506f6a1e3929611340fae87c1e4823f4d85c ]
 
- Unable to handle kernel paging request at virtual address 00000000077b4818
- [...]
- Internal error: Oops: 0000000096000004 [#1]  SMP
- Modules linked in:
- CPU: 6 UID: 0 PID: 2699135 Comm: kworker/6:3 Tainted: G        W           6.18.38-i3 #1113 NONE
- [...]
- Workqueue: ceph-msgr ceph_con_workfn
- pstate: 80400009 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
- pc : jbd2__journal_start+0x2c/0x208
- lr : __ext4_journal_start_sb+0x100/0x178
- [...]
- Call trace:
-  jbd2__journal_start+0x2c/0x208 (P)
-  __ext4_journal_start_sb+0x100/0x178
-  ext4_dirty_inode+0x3c/0x90
-  __mark_inode_dirty+0x58/0x400
-  iput.part.0+0x2b0/0x370
-  iput+0x18/0x30
-  dentry_unlink_inode+0xc0/0x158
-  __dentry_kill+0x80/0x250
-  shrink_dentry_list+0x90/0x130
-  prune_dcache_sb+0x60/0x98
-  super_cache_scan+0xe8/0x190
-  do_shrink_slab+0x174/0x388
-  shrink_slab+0xd8/0x4c0
-  shrink_node+0x31c/0x908
-  do_try_to_free_pages+0xd0/0x508
-  try_to_free_pages+0x11c/0x238
-  __alloc_frozen_pages_noprof+0x4d0/0xdd0
-  __folio_alloc_noprof+0x18/0x70
-  __filemap_get_folio+0x248/0x440
-  ceph_readdir_prepopulate+0x570/0x9e8
-  mds_dispatch+0x1424/0x1ba0
-  ceph_con_process_message+0x74/0xa0
-  ceph_con_v1_try_read+0x3a0/0x1510
-  ceph_con_workfn+0x260/0x460
+When setting conn->hcon = NULL, also conn->hcon->iso_data = NULL is
+necessary, otherwise later iso_conn_free() will UAF.
 
-Enter a scoped NOFS allocation context and leave it after clearing
-`journal_info`.  This prevents filesystem reclaim from recursing into
-another filesystem while the field contains Ceph-private data.
+Fix clearing of iso_data in iso_sock_disconn()
 
-Cc: stable@vger.kernel.org
-Fixes: 315f24088048 ("ceph: fix security xattr deadlock")
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+Fixes KASAN: slab-use-after-free in iso_conn_hold_unless_zero on
+iso_sock_release() followed by hci_abort_conn_sync().
+
+Fixes: fbdc4bc47268 ("Bluetooth: ISO: Use defer setup to separate PA sync and BIG sync")
+Signed-off-by: Pauli Virtanen <pav@iki.fi>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ceph/mds_client.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ net/bluetooth/iso.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index ed17e0023705e..fd19028317870 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -6,6 +6,7 @@
- #include <linux/slab.h>
- #include <linux/gfp.h>
- #include <linux/sched.h>
-+#include <linux/sched/mm.h>
- #include <linux/debugfs.h>
- #include <linux/seq_file.h>
- #include <linux/ratelimit.h>
-@@ -3903,6 +3904,7 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
- 	struct ceph_mds_reply_head *head = msg->front.iov_base;
- 	struct ceph_mds_reply_info_parsed *rinfo;  /* parsed reply info */
- 	struct ceph_snap_realm *realm;
-+	unsigned int nofs_flags;
- 	u64 tid;
- 	int err, result;
- 	int mds = session->s_mds;
-@@ -4046,6 +4048,14 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
- 
- 	/* insert trace into our cache */
- 	mutex_lock(&req->r_fill_mutex);
-+
-+	/* disable fs reclaim while we are using current->journal_info
-+	 * for our own purposes, or else shrinkers of other
-+	 * filesystems might dereference this pointer as a different
-+	 * type
-+	 */
-+	nofs_flags = memalloc_nofs_save();
-+
- 	current->journal_info = req;
- 	err = ceph_fill_trace(mdsc->fsc->sb, req);
- 	if (err == 0) {
-@@ -4054,6 +4064,7 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
- 			err = ceph_readdir_prepopulate(req, req->r_session);
- 	}
- 	current->journal_info = NULL;
-+	memalloc_nofs_restore(nofs_flags);
- 	mutex_unlock(&req->r_fill_mutex);
- 
- 	up_read(&mdsc->snap_rwsem);
+diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
+index 189b719669924..51d0065f058c1 100644
+--- a/net/bluetooth/iso.c
++++ b/net/bluetooth/iso.c
+@@ -767,6 +767,7 @@ static void iso_sock_disconn(struct sock *sk)
+ 	iso_sock_set_timer(sk, ISO_DISCONN_TIMEOUT);
+ 	iso_conn_lock(iso_pi(sk)->conn);
+ 	hci_conn_drop(iso_pi(sk)->conn->hcon);
++	iso_pi(sk)->conn->hcon->iso_data = NULL;
+ 	iso_pi(sk)->conn->hcon = NULL;
+ 	iso_conn_unlock(iso_pi(sk)->conn);
+ }
 -- 
 2.53.0
+
+
 
