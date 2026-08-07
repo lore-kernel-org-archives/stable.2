@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A72A47278D
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 11:48:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0AB305057
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 11:48:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786103308; cv=none; b=UV72avJZuvGWGhf2YDzll1QJBwUrKK1JWl0HO4saCBsUOgBCbuZ3MPB2VsvXPjLym1U5LkWCnpy3FHcwUx/wFN/IDoVn2PEIvJSElrhFsWDE3ZofG/y17m0oM7ydT/nsB8aQwhceZD5z83pQUYixa/J3hD3p7yVovO+Cdy3WZT4=
+	t=1786103309; cv=none; b=pAPotrlDqfr+6KXkOU+7n/SKUAysSoIfFVk3uc8EstWwSqQnzBCZ2NKqtrY62xJLKAVTB5yxsuEhvGUtJ46mAqf6q2C3MigrOlJ4+bbLIjUJcdICvguUlzOYNGD8WXyWK5T+xE3v+2xSTaAHEPsDv9cGV1H8oJVzaH0AhysKTAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786103308; c=relaxed/simple;
-	bh=gk1cL/Wi5UXWqyABBvm1IjE6GW5Rosmr8RyG75Ap9IY=;
+	s=arc-20240116; t=1786103309; c=relaxed/simple;
+	bh=MwRddDfmX0dUSfuVnP/kW6RNiydf3KVEIHpLh4PyWPI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KwOX141nu3QwExxI5xPQ3catKYHLCEoN5LN2+RIga/2xEohHMYUOGMsTuRYK6cdV4LHDm6uDtDWHU5nAvDDFQPlVTa6mwqmaUKwQ+Wjz/RzmwQGfGEaRZlRgx363jzEb5vsHiPf1iS2Ijj/fvN6dziEr4D+Bn1M9inc9PGGp2Yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E2K2ihsB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TXBriBNe2r7mwt8CBMpQUnnXGa8DnfIFvqK1B5wAl0JOaGahlp6/19a8n5e6cy6zJpkrhIqEq85WgcuNpCtEynsGqOVTXpjAwjmfbm21R6jZ9ME6mfRdPrQwwtjZr89b7ILHkGlbWJ09pR4v0SnsNV2vE2CZD7N4C8H62uG8uAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e/GC+Fiv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E2K2ihsB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C84A91F00ACF;
-	Fri,  7 Aug 2026 11:48:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e/GC+Fiv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BA541F000E9;
+	Fri,  7 Aug 2026 11:48:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786103298;
-	bh=uUMMNCnf8i33mVUUzW0WHXlFPPT8nMCxi6orsl5f4Vo=;
+	s=k20260515; t=1786103300;
+	bh=DoeEK2v1SSp6PGvWlNmHPdeoF/k1ynw+6V31CSLH5hQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E2K2ihsBuxLGSgKGUL+RFJWYrdeJqJJaqknGUOv88La2x/mjd77kpboi1elWLHTQS
-	 3H0/qIE+vbruX62mzF1WX5+qlx0CWUDgvH9WnVZrCRSLQlr4VX2QLiWQA0rG++M0kd
-	 XgSScmNoEIi5bhlY/FuoZhd4sX8nr2oJFFP11CvbpAQA1zfwSp3xqLuxRVrsHvxr7b
-	 A48O/APOkDFZfUg1dfyeKdnT5vpu07nR5Gb4/sOGmmRqzxDIeZLokaDbYGL6dQ90cb
-	 XDfl8OO2oOrnJlfPv4nzkx1yp8MhmCKfU7n8zIoIt5Bp25SVKQqh3K7bL65spr8YYy
-	 x5hG7EQxQZn2A==
+	b=e/GC+FivZ8x9CsltY0C1hP8K+fnJ0zM3j37m7zh1KU+eZFzHA9aPo5UDU+uwNgi3V
+	 gbVPU2eDMC9LKmNd10cIUtyVujj2fWYZFZBIR4p5MAMFVCU3K/9dl9fLQh3om0F9/A
+	 i0FdtCixTG9R37H6/02cnWX0nYIWXhQco3C2FVQeQc2Elo+TXIL0ITHxJKoNMMcYuk
+	 cHnIQcafR22xWoCv3KHDtqxoKfafGbWZ7txqt8K8y9diSRMrdsYuRYaycVaUOx1+9y
+	 QsDjAmNeCtBhYJWlX3N+7qSfGW038ABSajhuQVKy6Ax4fkh0dznRrelwDMIn/GaiC6
+	 TZoedMwfmprQg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Geliang Tang <tanggeliang@kylinos.cn>,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
+Cc: Chenguang Zhao <zhaochenguang@kylinos.cn>,
 	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/4] mptcp: pm: userspace: fix use-after-free in get_local_id
-Date: Fri,  7 Aug 2026 07:48:13 -0400
-Message-ID: <20260807114813.2056374-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] mptcp: decrement subflows counter on failed passive join
+Date: Fri,  7 Aug 2026 07:48:17 -0400
+Message-ID: <20260807114817.2056504-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260807114813.2056374-1-sashal@kernel.org>
-References: <2026072920-budding-prescribe-9ea0@gregkh>
- <20260807114813.2056374-1-sashal@kernel.org>
+In-Reply-To: <20260807114817.2056504-1-sashal@kernel.org>
+References: <2026072945-unsalted-ozone-c2bf@gregkh>
+ <20260807114817.2056504-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,92 +47,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Geliang Tang <tanggeliang@kylinos.cn>
+From: Chenguang Zhao <zhaochenguang@kylinos.cn>
 
-[ Upstream commit 9bc6d5e4ca9f3cbb41d43400b3a31cb0403796c9 ]
+[ Upstream commit f3ca0ee2cc308e33896536789cbc5f3a12ca7b30 ]
 
-In mptcp_pm_userspace_get_local_id(), the address entry is looked up under
-spinlock, but its id is read after dropping the lock. A concurrent deletion
-can free the entry between the unlock and the read, leading to UAF.
+mptcp_pm_allow_new_subflow() increments extra_subflows before
+__mptcp_finish_join() on the passive MP_JOIN path.
 
-The race window is narrow. It was reproduced only with a locally
-constructed stress test that repeatedly overlaps an MP_JOIN SYN with a
-MPTCP_PM_CMD_SUBFLOW_DESTROY request.
+In case of race conditions, the subflow is dropped without calling
+mptcp_close_ssk(), so the counter is not rolled back.
 
-However, the KASAN report below confirms that the race is reachable:
+Call mptcp_pm_close_subflow() when the join completion fails to
+decrement the subflows counter.
 
-  [  666.319376] BUG: KASAN: slab-use-after-free in mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
-  [  666.319386] Read of size 1 at addr ffff888124845610 by task swapper/0/0
-  ...
-  [  666.319401] Call Trace:
-  [  666.319405]  <IRQ>
-  [  666.319408]  dump_stack_lvl+0x53/0x70
-  [  666.319412]  print_address_description.constprop.0+0x2c/0x3b0
-  [  666.319418]  print_report+0xbe/0x2b0
-  [  666.319421]  ? mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
-  [  666.319423]  kasan_report+0xce/0x100
-  [  666.319426]  ? mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
-  [  666.319429]  mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
-  [  666.319433]  mptcp_pm_get_local_id+0x371/0x440
-  ...
-  [  666.319821] Allocated by task 45539:
-  [  666.319844]  kasan_save_stack+0x33/0x60
-  [  666.319855]  kasan_save_track+0x14/0x30
-  [  666.319858]  __kasan_kmalloc+0x8f/0xa0
-  [  666.319863]  __kmalloc_noprof+0x1e7/0x520
-  [  666.319867]  sock_kmalloc+0xdf/0x130
-  [  666.319885]  sock_kmemdup+0x1b/0x40
-  [  666.319888]  mptcp_userspace_pm_append_new_local_addr+0x261/0x500
-  [  666.319910]  mptcp_pm_nl_announce_doit+0x16a/0x610
-  ...
-  [  666.319967] Freed by task 45560:
-  [  666.319988]  kasan_save_stack+0x33/0x60
-  [  666.319991]  kasan_save_track+0x14/0x30
-  [  666.319994]  kasan_save_free_info+0x3b/0x60
-  [  666.319998]  __kasan_slab_free+0x43/0x70
-  [  666.320000]  kfree+0x166/0x440
-  [  666.320003]  sock_kfree_s+0x1d/0x50
-  [  666.320007]  mptcp_userspace_pm_delete_local_addr.isra.0+0x157/0x200
-  [  666.320011]  mptcp_pm_nl_subflow_destroy_doit+0x51d/0xea0
-
-Fix by copying the id into a local variable while still holding the lock,
-and use -1 as a "not found" sentinel.
-
-Fixes: f012d796a6de ("mptcp: check addrs list in userspace_pm_get_local_id")
+Fixes: 10f6d46c943d ("mptcp: fix race between MP_JOIN and close")
 Cc: stable@vger.kernel.org
-Signed-off-by: Geliang Tang <tanggeliang@kylinos.cn>
-Tested-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Signed-off-by: Chenguang Zhao <zhaochenguang@kylinos.cn>
 Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260722-net-mptcp-misc-fixes-7-2-rc5-v1-2-6fb595bc86ef@kernel.org
+Link: https://patch.msgid.link/20260722-net-mptcp-misc-fixes-7-2-rc5-v1-1-6fb595bc86ef@kernel.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/pm_userspace.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ net/mptcp/protocol.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
-index 31d45b1db3903..ded7a4d416919 100644
---- a/net/mptcp/pm_userspace.c
-+++ b/net/mptcp/pm_userspace.c
-@@ -153,12 +153,15 @@ int mptcp_userspace_pm_get_local_id(struct mptcp_sock *msk,
- 	__be16 msk_sport =  ((struct inet_sock *)
- 			     inet_sk((struct sock *)msk))->inet_sport;
- 	struct mptcp_pm_addr_entry *entry;
-+	int id;
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index a9595eb2b5fee..2c6aef813473f 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -2663,8 +2663,10 @@ bool mptcp_finish_join(struct sock *sk)
+ 	if (ret && !WARN_ON_ONCE(!list_empty(&subflow->node)))
+ 		list_add_tail(&subflow->node, &msk->join_list);
+ 	spin_unlock_bh(&msk->join_list_lock);
+-	if (!ret)
++	if (!ret) {
++		mptcp_pm_close_subflow(msk);
+ 		return false;
++	}
  
- 	spin_lock_bh(&msk->pm.lock);
- 	entry = mptcp_userspace_pm_lookup_addr(msk, &skc->addr);
-+	id = entry ? entry->addr.id : -1;
- 	spin_unlock_bh(&msk->pm.lock);
--	if (entry)
--		return entry->addr.id;
-+
-+	if (id != -1)
-+		return id;
- 
- 	if (skc->addr.port == msk_sport)
- 		skc->addr.port = 0;
+ 	/* attach to msk socket only after we are sure he will deal with us
+ 	 * at close time
 -- 
 2.53.0
 
