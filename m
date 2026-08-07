@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94FD0272E6D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1EE722579E
 	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 02:36:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786070164; cv=none; b=awk5ePzaR8u1CL+R3eLtFqe8oUc4Fl0aekGE2ZkMPCXGe+znHsowJWAoq2vujttLjYy7Z9U+CKD8cqR7kgy6EU54hS0911zn3745nz7pZoGwu9DDSSjvXN1bSf8cDn0N1II6cxcAotBOTqHyjsRXva53/Wr2DPgpidky3RcDrrQ=
+	t=1786070165; cv=none; b=M/RnN4j06Cv1mn1rRwME4DMFPhpaD8qOdPjmCR9Nwb1WhI6yLXbfaIGJbXNXsH5KuFu/EG+vsgRqBc+1cbsnGT/gvZ78gK/6pWX0zgTW++zxK5g9xdtU8t//ZIW2bXewDaDmQQAQ97F4BUf3/YAUEd9SA26O4yob6v/uGm17RNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786070164; c=relaxed/simple;
-	bh=IwudT8EHDXM/D0/NQokzrmmdvnlftk6K8zM0f1BbKl0=;
+	s=arc-20240116; t=1786070165; c=relaxed/simple;
+	bh=HlLCCqGCwlypcfekbqivJJo5hpJU/1cqkV6/edupeo8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g5GiPXtEbED0cNHWxckqjwDNk6UZveS+WHqKT2uNHaWfArTzfri9ie7iXlUMHLayBPV2Gp7VhK5Q/Q79jkLAgY2+niP7jPI3zvl9pxnQp8dTnLjIxxsIJw66sD2KD756Fgot18lfNCg1r69Vzv8hhtmedGQw7hsVhPfiEwRpQv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cHbbFBNc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=bllfYOFCZYJPyeIOnSD3UhrkfgMWCNm++NcHcg3b5G6frnlbs6QUUwvbh5h3LQ8AQg0KC5XO63sAmNn/XQLfbqTVpcvROEPDW0evN0wJghQhG0oezu03nH4lnpQv413lohigk6ayXGyRPOC4Mw+FQKY5Ibg8zo00Cg7tsiXZmXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lPX14UkC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cHbbFBNc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A388F1F000E9;
-	Fri,  7 Aug 2026 02:36:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lPX14UkC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65F611F00A3D;
+	Fri,  7 Aug 2026 02:36:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1786070163;
-	bh=oOHmDkDSxNJqFc3HAc1Jk6FtZrliQsXQLb64+E1KTzo=;
+	bh=cUjASWec9NmVbNnfrsE08aLvjH4igHYcOPq5n1vd2BE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cHbbFBNc0hUvphs8T2lJMvhBLX+qxsbQMAMQgkCwhfJn/+bYm/DcwuQYnuiodHgTc
-	 F4WuaJjKrSZ8fGruh9pekCOptkO/X9ywIki1mKio7c1O8HKK4xfYB/zItTNW5P9QRf
-	 kRmGa9gUuHqZWjUG00/dsmswhBUZE9aObRpm5jJ59uCOkwofizmyCj7SVrYgV60Css
-	 yZDltDWQDiC0lMJJ+ITNx3e7VlFuXmszFr5RcE3i7MSGhsa4jJqLy8tPgpK/4qXD68
-	 KCsRU/vpezqc+o86vfMJTLtKfc8stpwYsnsLxBJNHsiZRHrkZ64sdJvswLgVvPI6X3
-	 TgARc/K2nnOog==
+	b=lPX14UkC0tpQVBAIDfh5UENJ5u4lBN/QMBbLIyvD2RmWzvbUobTosMjbtoNXsr6iH
+	 iPsr2pzaigItIg6674IX82pTH/DIoIKN+KvJB9HjKWr9qIegzpMfGwANcsE8vz/e1r
+	 auu4yncojVyvSzzQK3m8VQaoJ0A9AHdSicCakFApGXuEAqiNUDFpvANvxCe9pzcq+G
+	 p19ERgHjvZwbDn3FQID32Bj70fayxrFmcUCSsIgOKjvIR48z2TBVpi/AfElu2uZbBA
+	 MvqyEM/ckaZy/XdFoTUXP//0ZJre7mWt4dfJKF9GaTFUQwpyT0yKrgtHqIpYSfzX+v
+	 HuWyGmJPtPvKA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Tomasz=20Mo=C5=84?= <tomasz.mon@camlingroup.com>,
+Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/5] sc16is7xx: Properly resume TX after stop
-Date: Thu,  6 Aug 2026 22:35:57 -0400
-Message-ID: <20260807023601.1683108-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/5] serial: sc16is7xx: Fill in rs485_supported
+Date: Thu,  6 Aug 2026 22:35:58 -0400
+Message-ID: <20260807023601.1683108-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072914-stainless-finishing-0e3c@gregkh>
+In-Reply-To: <20260807023601.1683108-1-sashal@kernel.org>
 References: <2026072914-stainless-finishing-0e3c@gregkh>
+ <20260807023601.1683108-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,154 +47,54 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Tomasz Moń <tomasz.mon@camlingroup.com>
+From: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
-[ Upstream commit cc4c1d05eb10c3ad4c6315f1897bc56b1e7429aa ]
+[ Upstream commit 267913ecf73745ca3e8fc8282671b0b4f24df5fe ]
 
-sc16is7xx_stop_tx() clears THRI bit and thus disables THRI interrupt.
-This makes it possible for transmission to cease indefinitely when more
-than 64 characters are being sent.
+Add information on supported serial_rs485 features.
 
-The sc16is7xx_handle_tx() call executed by sc16is7xx_tx_proc() can send
-up to FIFO length (64) characters. If more characters are written to the
-output buffer, then the THRI interrupt is needed.
+This driver does not support delay_rts_after_send but the pre-existing
+behavior is to return -EINVAL if delay_rts_after_send is non-zero. In
+contrast, other drivers that do not support delay_rts_after_send either
+zero delay_rts_after_send or do not care (leave the inaccurate value).
+As changing this would cause userspace visible impact, the change is
+not attempted here. But perhaps it should be still tried (maybe nobody
+finds that kind of API oddity significant)?
 
-Solve the issue by enabling THRI interrupt in sc16is7xx_tx_proc().
-
-Signed-off-by: Tomasz Moń <tomasz.mon@camlingroup.com>
-Link: https://lore.kernel.org/r/20220301060332.2561851-2-tomasz.mon@camlingroup.com
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Link: https://lore.kernel.org/r/20220606100433.13793-21-ilpo.jarvinen@linux.intel.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Stable-dep-of: af071d9e07e5 ("serial: sc16is7xx: implement gpio get_direction() callback")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/sc16is7xx.c | 47 +++++++++++++++++++++++++++++-----
- 1 file changed, 41 insertions(+), 6 deletions(-)
+ drivers/tty/serial/sc16is7xx.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
-index 3623d3167950d..46aa2073b992e 100644
+index 46aa2073b992e..81407e1c1f015 100644
 --- a/drivers/tty/serial/sc16is7xx.c
 +++ b/drivers/tty/serial/sc16is7xx.c
-@@ -307,7 +307,8 @@ struct sc16is7xx_devtype {
- 
- struct sc16is7xx_one_config {
- 	unsigned int			flags;
--	u8				ier_clear;
-+	u8				ier_mask;
-+	u8				ier_val;
- };
- 
- struct sc16is7xx_one {
-@@ -341,6 +342,9 @@ static struct uart_driver sc16is7xx_uart = {
- 	.nr		= SC16IS7XX_MAX_DEVS,
- };
- 
-+static void sc16is7xx_ier_set(struct uart_port *port, u8 bit);
-+static void sc16is7xx_stop_tx(struct uart_port *port);
-+
- #define to_sc16is7xx_port(p,e)	((container_of((p), struct sc16is7xx_port, e)))
- #define to_sc16is7xx_one(p,e)	((container_of((p), struct sc16is7xx_one, e)))
- 
-@@ -650,6 +654,7 @@ static void sc16is7xx_handle_tx(struct uart_port *port)
- 	struct sc16is7xx_port *s = dev_get_drvdata(port->dev);
- 	struct circ_buf *xmit = &port->state->xmit;
- 	unsigned int txlen, to_send, i;
-+	unsigned long flags;
- 
- 	if (unlikely(port->x_char)) {
- 		sc16is7xx_port_write(port, SC16IS7XX_THR_REG, port->x_char);
-@@ -658,8 +663,12 @@ static void sc16is7xx_handle_tx(struct uart_port *port)
- 		return;
- 	}
- 
--	if (uart_circ_empty(xmit) || uart_tx_stopped(port))
-+	if (uart_circ_empty(xmit) || uart_tx_stopped(port)) {
-+		spin_lock_irqsave(&port->lock, flags);
-+		sc16is7xx_stop_tx(port);
-+		spin_unlock_irqrestore(&port->lock, flags);
- 		return;
-+	}
- 
- 	/* Get length of data pending in circular buffer */
- 	to_send = uart_circ_chars_pending(xmit);
-@@ -686,8 +695,13 @@ static void sc16is7xx_handle_tx(struct uart_port *port)
- 		sc16is7xx_fifo_write(port, to_send);
- 	}
- 
-+	spin_lock_irqsave(&port->lock, flags);
- 	if (uart_circ_chars_pending(xmit) < WAKEUP_CHARS)
- 		uart_write_wakeup(port);
-+
-+	if (uart_circ_empty(xmit))
-+		sc16is7xx_stop_tx(port);
-+	spin_unlock_irqrestore(&port->lock, flags);
+@@ -1239,6 +1239,12 @@ static int sc16is7xx_gpio_direction_output(struct gpio_chip *chip,
  }
+ #endif
  
- static bool sc16is7xx_port_irq(struct sc16is7xx_port *s, int portno)
-@@ -762,6 +776,7 @@ static void sc16is7xx_tx_proc(struct kthread_work *ws)
- {
- 	struct uart_port *port = &(to_sc16is7xx_one(ws, tx_work)->port);
- 	struct sc16is7xx_port *s = dev_get_drvdata(port->dev);
-+	unsigned long flags;
- 
- 	if ((port->rs485.flags & SER_RS485_ENABLED) &&
- 	    (port->rs485.delay_rts_before_send > 0))
-@@ -770,6 +785,10 @@ static void sc16is7xx_tx_proc(struct kthread_work *ws)
- 	mutex_lock(&s->efr_lock);
- 	sc16is7xx_handle_tx(port);
- 	mutex_unlock(&s->efr_lock);
++static const struct serial_rs485 sc16is7xx_rs485_supported = {
++	.flags = SER_RS485_ENABLED | SER_RS485_RTS_AFTER_SEND,
++	.delay_rts_before_send = 1,
++	.delay_rts_after_send = 1,	/* Not supported but keep returning -EINVAL */
++};
 +
-+	spin_lock_irqsave(&port->lock, flags);
-+	sc16is7xx_ier_set(port, SC16IS7XX_IER_THRI_BIT);
-+	spin_unlock_irqrestore(&port->lock, flags);
- }
- 
- static void sc16is7xx_reconf_rs485(struct uart_port *port)
-@@ -819,7 +838,7 @@ static void sc16is7xx_reg_proc(struct kthread_work *ws)
- 	}
- 	if (config.flags & SC16IS7XX_RECONF_IER)
- 		sc16is7xx_port_update(&one->port, SC16IS7XX_IER_REG,
--				      config.ier_clear, 0);
-+				      config.ier_mask, config.ier_val);
- 
- 	if (config.flags & SC16IS7XX_RECONF_RS485)
- 		sc16is7xx_reconf_rs485(&one->port);
-@@ -830,8 +849,24 @@ static void sc16is7xx_ier_clear(struct uart_port *port, u8 bit)
- 	struct sc16is7xx_port *s = dev_get_drvdata(port->dev);
- 	struct sc16is7xx_one *one = to_sc16is7xx_one(port, port);
- 
-+	lockdep_assert_held_once(&port->lock);
-+
-+	one->config.flags |= SC16IS7XX_RECONF_IER;
-+	one->config.ier_mask |= bit;
-+	one->config.ier_val &= ~bit;
-+	kthread_queue_work(&s->kworker, &one->reg_work);
-+}
-+
-+static void sc16is7xx_ier_set(struct uart_port *port, u8 bit)
-+{
-+	struct sc16is7xx_port *s = dev_get_drvdata(port->dev);
-+	struct sc16is7xx_one *one = to_sc16is7xx_one(port, port);
-+
-+	lockdep_assert_held_once(&port->lock);
-+
- 	one->config.flags |= SC16IS7XX_RECONF_IER;
--	one->config.ier_clear |= bit;
-+	one->config.ier_mask |= bit;
-+	one->config.ier_val |= bit;
- 	kthread_queue_work(&s->kworker, &one->reg_work);
- }
- 
-@@ -1059,8 +1094,8 @@ static int sc16is7xx_startup(struct uart_port *port)
- 			      SC16IS7XX_EFCR_TXDISABLE_BIT,
- 			      0);
- 
--	/* Enable RX, TX interrupts */
--	val = SC16IS7XX_IER_RDI_BIT | SC16IS7XX_IER_THRI_BIT;
-+	/* Enable RX interrupt */
-+	val = SC16IS7XX_IER_RDI_BIT;
- 	sc16is7xx_port_write(port, SC16IS7XX_IER_REG, val);
- 
- 	return 0;
+ static int sc16is7xx_probe(struct device *dev,
+ 			   const struct sc16is7xx_devtype *devtype,
+ 			   struct regmap *regmap, int irq)
+@@ -1328,6 +1334,7 @@ static int sc16is7xx_probe(struct device *dev,
+ 		s->p[i].port.iotype	= UPIO_PORT;
+ 		s->p[i].port.uartclk	= freq;
+ 		s->p[i].port.rs485_config = sc16is7xx_config_rs485;
++		s->p[i].port.rs485_supported = &sc16is7xx_rs485_supported;
+ 		s->p[i].port.ops	= &sc16is7xx_ops;
+ 		s->p[i].port.line	= sc16is7xx_alloc_line();
+ 		if (s->p[i].port.line >= SC16IS7XX_MAX_DEVS) {
 -- 
 2.53.0
 
