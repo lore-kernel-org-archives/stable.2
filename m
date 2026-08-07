@@ -1,106 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB91A38552C;
-	Fri,  7 Aug 2026 22:13:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038DF38552C;
+	Fri,  7 Aug 2026 22:14:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786140796; cv=none; b=mck2Lta4r8qxMCpO7K4aZTgmiePPJ6NGDNhbugm+BKaz/JWwR4siU3bELEdMJB9l0HAb/Gd+Vtaz7t+TDkrkBiGYqOOxa+/puMKp8D1pbHlpqjtciw2jxwzsz7re+rKh2MzM4QVaL8elZ3vv6ztjAyvcnW0j3EpHL2qjNwaQLOA=
+	t=1786140882; cv=none; b=jZ6gUDcRLvv1zc0ty4B7RUq2TIO3jiAkO2IMS1wTp+irBWJR4HD/bHTG3HDY1cayocflBpUjPMJLzeG5ivdJTBCYQdY7qmJafSiOdRxHZJiKRQTJu6Z8e8FcgVmI+qnWuzOg9FpmoPS9R1eVRt1bIOoWBSG2Ge2dL76vuGclgwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786140796; c=relaxed/simple;
-	bh=+oSrYbPbKyMdUdetv9DS9qXZGQ0mtGst6ZKwGxFCwtU=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=Pk+g1HSko+4ztgkIEEwrVrZXgfORMbS+d3gy3aLSsPzF0fwEG/7s8AmtiJx0YbJzNE0P5G5JrHGt68PJxdLaojgv20tNOygK/ECQk6U6KvqScDYu91vC0JMnIdUD2QPwjzxJksw5DY3Cf8YMMeAGdDr4A8sY6unENRWlDWD0gfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T0LWkvR8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786140882; c=relaxed/simple;
+	bh=1ZzlIvNpc8okggRlMNuOSYeEQuksrWKHdkMicIsD3Qw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sCUbmsoMQkvZIsSqM8jFrrrXazhhw9KXD/hVK2cE/aWKrx57pq9Wyh7PGhGK0PRIF2sdSqYtA5KseGTQwkAa8MYYf1fj0pO6y25UPcKb4bu+ooq0akcJbIhtSUXfD86DrIJAvCU57PrVPpegeBA9PUlSTdW0ieL4YQpr9cZ990c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q9HEd20v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T0LWkvR8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48E681F000E9;
-	Fri,  7 Aug 2026 22:13:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q9HEd20v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 193981F000E9;
+	Fri,  7 Aug 2026 22:14:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786140794;
-	bh=XXLEQ0xzIolCM04SBA4M1mLB6GwOWoMbRzDt/sZu7so=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=T0LWkvR8f88uCqxlSOraRQip5DLUqtcJNwW+4EfAHz1HIoRKMzFLw/pi9w8u9nQ3x
-	 frn5gutpVc1G3esAJ9+VlC16ruNIAIHQZG/FQGdt08tAHGvMdszRsN/ieTE1I54VwN
-	 C4zI7zJyNTgQMuj1k9u6XSIv8CpuC08VcSgjlcC5tY4pIJsO4lfOVyU/js8w8NRAbQ
-	 s1pKYGkFGSldz/0rqkkFEwz4XXPK2GLhhh6EuB7v6AuJpb4footAEnjzLMmq4jR5wl
-	 Ujr0SRbGHMTN+LNLtoaB8N33U4Rn+g+v4OFHVbzHiqeH3TWBeGIgB7f03ipqukB1GM
-	 rAyFfZ0l91gFQ==
-Date: Sat, 8 Aug 2026 07:13:11 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] eventfs: Fix use-after-free in eventfs_remove_rec()
-Message-Id: <20260808071311.c069dd27dc49e5cb68eed731@kernel.org>
-In-Reply-To: <20260806022719.375354-1-shuangpeng.kernel@gmail.com>
-References: <20260806022719.375354-1-shuangpeng.kernel@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=k20260515; t=1786140880;
+	bh=fTBBp/gNut3PNIaiIMKAtMdux5qfIbqgE4sHisRqcBA=;
+	h=From:To:Cc:Subject:Date;
+	b=Q9HEd20vmC6B7tE6GWWGc/regbVKdRgKtew6QPAE46eqklmJhR8R4TorjdsI/LiDR
+	 0e9cldaGfdL/2laVsmkEoD55us3nn2mhX2H4Ef09Xk+CYH0cwX7F48rO3PyiFNCRg4
+	 uEgmBMbFdgGYS2VaZP22ZSg6yXArJIBjUHoEMZvdO6ZcemWzbcXi0+iw2YP3MTSpWv
+	 QyFic0TGkC6AsPpkKscfhcpg1550TvAV9NqvU85VaNhK0QkneIDpeKmfP7+/cdyPmw
+	 h1qxrYCTgVLM+Wm/zJAvnNqf0kSzFoApUIL/wjmoXiuH6LC60XDxg8mx4fMBld5IsT
+	 RYlqDJfJFmRxA==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Huacai Chen <chenhuacai@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	rust-for-linux@vger.kernel.org,
+	Drew Fustini <fustini@kernel.org>,
+	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers),
+	soc@lists.linux.dev,
+	WANG Xuerui <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH] rust: bug: fix `dead_code` warning in `warn_on!`
+Date: Sat,  8 Aug 2026 00:14:29 +0200
+Message-ID: <20260807221429.155946-1-ojeda@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed,  5 Aug 2026 22:27:19 -0400
-Shuangpeng Bai <shuangpeng.kernel@gmail.com> wrote:
+On arm and loongarch64, or under `CONFIG_BUG=n`, the upcoming SRCU
+abstractions from commit
 
-> eventfs_remove_rec() recursively removes the child at the current loop
-> position. After the recursive call returns, list_for_each_entry() advances
-> by reading list.next from the removed child.
-> 
-> If free_ei() drops the final reference, release_ei() reuses the list/rcu
-> union to queue an SRCU callback. The child may be freed before that read.
-> The eventfs_mutex serializes list updates, but it does not keep the removed
-> child alive or prevent the SRCU callback from running.
-> 
-> Use list_for_each_entry_safe() to save the next sibling before recursively
-> removing the current child.
-> 
+  59cf3a5bda61 ("rust: sync: add SRCU abstraction")
 
-Looks good to me.
+use `warn_on!`, which in turn warns:
 
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+    error: constant `WARN_ON_FLAGS` is never used
+       --> rust/kernel/bug.rs:126:19
+        |
+    126 |               const WARN_ON_FLAGS: u32 = $crate::bug::bugflag_taint($crate::bindings::TAINT_WARN);
+        |                     ^^^^^^^^^^^^^
+        |
+       ::: rust/kernel/sync/srcu.rs:106:12
+        |
+    106 |           if crate::warn_on!(
+        |  ____________-
+    107 | |             // SAFETY: By the type invariants, `self` contains a valid and pinned `struct srcu_struct`
+    108 | |             // and `srcu_readers_active()` only checks the active reader count.
+    109 | |             unsafe { bindings::srcu_readers_active(ptr) }
+    110 | |         ) {
+        | |_________- in this macro invocation
+        |
+        = note: `-D dead-code` implied by `-D warnings`
+        = help: to override `-D warnings` add `#[allow(dead_code)]`
+        = note: this error originates in the macro `crate::warn_on` (in Nightly builds, run with -Z macro-backtrace for more info)
 
-Thanks,
+The reason is that `warn_flags!` discards both arguments in those cases,
+and so the `const` becomes unused. And since it is a macro, it went
+unnoticed so far.
 
-> Fixes: 43aa6f97c2d0 ("eventfs: Get rid of dentry pointers without refcounts")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-> ---
->  fs/tracefs/event_inode.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/tracefs/event_inode.c b/fs/tracefs/event_inode.c
-> index 39c7a34531e8..93bc4f83b73e 100644
-> --- a/fs/tracefs/event_inode.c
-> +++ b/fs/tracefs/event_inode.c
-> @@ -822,7 +822,7 @@ struct eventfs_inode *eventfs_create_events_dir(const char *name, struct dentry
->   */
->  static void eventfs_remove_rec(struct eventfs_inode *ei, int level)
->  {
-> -	struct eventfs_inode *ei_child;
-> +	struct eventfs_inode *ei_child, *tmp;
->  
->  	/*
->  	 * Check recursion depth. It should never be greater than 3:
-> @@ -835,7 +835,7 @@ static void eventfs_remove_rec(struct eventfs_inode *ei, int level)
->  		return;
->  
->  	/* search for nested folders or files */
-> -	list_for_each_entry(ei_child, &ei->children, list)
-> +	list_for_each_entry_safe(ei_child, tmp, &ei->children, list)
->  		eventfs_remove_rec(ei_child, level + 1);
->  
->  	list_del_rcu(&ei->list);
-> -- 
-> 2.43.0
-> 
+Thus fix it by simplifying by removing the `const`.
 
+Cc: stable@vger.kernel.org
+Fixes: dff64b072708 ("rust: Add warn_on macro")
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+---
+Either this or adding an underscore.
 
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+ rust/kernel/bug.rs | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/rust/kernel/bug.rs b/rust/kernel/bug.rs
+index ed943960f851..874adb93cdfe 100644
+--- a/rust/kernel/bug.rs
++++ b/rust/kernel/bug.rs
+@@ -123,9 +123,10 @@ macro_rules! warn_on {
+         const _COND_STR: &str = file!();
+
+         if cond {
+-            const WARN_ON_FLAGS: u32 = $crate::bug::bugflag_taint($crate::bindings::TAINT_WARN);
+-
+-            $crate::warn_flags!(_COND_STR, WARN_ON_FLAGS);
++            $crate::warn_flags!(
++                _COND_STR,
++                $crate::bug::bugflag_taint($crate::bindings::TAINT_WARN)
++            );
+         }
+         cond
+     }};
+
+base-commit: dc01dfb37b34beeefcfe1c3055364d41a4070c7e
+--
+2.55.0
