@@ -1,39 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C89233DEF7;
-	Fri,  7 Aug 2026 14:55:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14C933C1AD;
+	Fri,  7 Aug 2026 14:55:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786114522; cv=none; b=irDKymrQ/FJUZdFiJ2iWWDnEyFC2f8MnVEO+NH+/9ehziGUuo6kWfIPTKHpPeXO9I128vZil9zilQ4cyvT+/qkO0GYsDzVatNW1Cx0Gy0bTYgVhI5LYlhhCHmG4uoyYtq6XS3C0RCmJYTyHpAJEVVv1hTr88QA514H+Rc6ETjLc=
+	t=1786114523; cv=none; b=FpIQbAnuiYSPTxAXwT/QIgSu/V8/dKOj+jxf/5jFoKyPpCFF/h+QoltwtHMdxA3iGQ6gwXUQMt+HHw2pTIH7mbj4OTWLIuQSLP1kMoLLLIT8+3QW3Q716fgvrFfbHgnldgwNHpiIYPadOhAFospgL9IuGOUaOZS4RziZUZAzxbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786114522; c=relaxed/simple;
-	bh=T3/hiHpz1qZ9uVAWFa4zdLsBgVAyJOV4uO4HG6TNmJE=;
+	s=arc-20240116; t=1786114523; c=relaxed/simple;
+	bh=kM+rIFW3kCYibZEk3Gsyvh+HwrIv4OrGZTHHhLKSzdo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eZ3aMNIGlV9SSEXIJkPzQjG9IOZ2bo4q9jj/uYO/vlYyBLy9dIBteEkQe6bKooYj3mqqHpwd5YyNTqJd5Jtv18U49FDsVvJk/6/qgpEuIYAJZhZ/ZBgFUpJ5W+oR2YzQUSFlowe8HUJkzfykt78TWTJpr/qn/K1wCqVIivMrFoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=u3hLs2bB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CvZIaYC2EGravuz8a80JTVKNHET4TrJXDAx6cdB5pg6QUeSDoWwjPMpDWGS1yw7Ay41hGSKZpJs2Q/N1GpvwPgWtEfcsvbPhrDEQSNv9O4KYqKKB0CBTKe/lcYdwDEtwVpnVZ0iwOk12efyvcd86emsAZ2Z8fSdF7+uuZW2SL+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hN6NbZti; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="u3hLs2bB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE6461F00A3D;
-	Fri,  7 Aug 2026 14:55:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hN6NbZti"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C93D71F000E9;
+	Fri,  7 Aug 2026 14:55:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786114513;
-	bh=k851tAI2+QLTJZfanOud2SjV0krEVXKuDGXRk2VVLUk=;
+	s=korg; t=1786114510;
+	bh=JidP54RBTvoIqvVP5rfidaGr0zqULh1hsjVKo1Fhf+Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=u3hLs2bBIj+mMhenYn2FXemIqhceVBrmqnJMLH+6B8q+ayGfWM7vex9V5ZENQ2cXm
-	 w+DSrajFxBhXCA0hDxDGp12aOE4/q3QySfSh1WZ2lMFZZ3ej8Zxo7UfI4Gvc1xUSUq
-	 j9/dT8/CHY3YcXHgRjgeQVNKBoFnDCmOzjkabk7E=
+	b=hN6NbZti0dIKaXVEeCN1eNoOgffDUZqUTVK1Kp7BoZMcclhXwdjaqOFEQJ+v+r+Wk
+	 qxh2efwWR0iPAlEkCMSjF6AyCcT/7Ws/bAJYSxjwm9OxSIuB7uFum+g12eyeTrCJom
+	 hzR91M4rlpiYqmo1qOCZt6Z8WAwxJjDWbw6xerdE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Junjie Cao <junjie.cao@intel.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Danielle Costantino <dcostantino@meta.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	"Harry Yoo (Oracle)" <harry@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 290/337] gpio: pch: use raw_spinlock_t for the register lock
-Date: Fri,  7 Aug 2026 16:38:13 +0200
-Message-ID: <20260807143424.818543599@linuxfoundation.org>
+Subject: [PATCH 6.12 289/337] mm/slab: prevent unbounded recursion in free path with new kmalloc type
+Date: Fri,  7 Aug 2026 16:38:12 +0200
+Message-ID: <20260807143424.797445703@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
 References: <20260807143418.516897842@linuxfoundation.org>
@@ -52,174 +54,330 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Junjie Cao <junjie.cao@intel.com>
+From: Harry Yoo (Oracle) <harry@kernel.org>
 
-[ Upstream commit a02b8950d619123da64f69b70fe1dadef217dfe4 ]
+commit d9e6a7623938968e3752b67e37eaff097e559a54 upstream.
 
-pch_irq_type() is registered as the irq_chip .irq_set_type callback and
-takes chip->spinlock with spin_lock_irqsave().  This callback is reached
-from __setup_irq() -> __irq_set_trigger() -> chip->irq_set_type() while
-the caller holds desc->lock, a raw_spinlock_t, with hardirqs disabled.
-That context is not sleepable, but on PREEMPT_RT a regular spinlock_t is
-an rtmutex-backed sleeping lock, so acquiring it there is invalid.
+Commit 280ea9c3154b ("mm/slab: avoid allocating slabobj_ext array from
+its own slab") avoided recursive allocation of obj_exts from kmalloc
+caches of the same size, by bumping the obj_exts array's allocation
+size whenever the array size equals the size of the object being
+allocated.
 
-This was confirmed on a PREEMPT_RT kernel with lockdep
-(PROVE_RAW_LOCK_NESTING and DEBUG_ATOMIC_SLEEP).  A grounded PoC mirrored
-pch_irq_type()'s locking and drove it through the real genirq carrier
-irq_set_irq_type() -> __irq_set_trigger() -> chip->irq_set_type(), i.e.
-the same __irq_set_trigger() edge that __setup_irq() takes for a
-requested IRQ.  With the original spin_lock_irqsave() edge lockdep
-reported an invalid wait context, immediately followed by:
+However, as reported by Danielle Costantino and Shakeel Butt,
+even slabs from kmalloc caches of different sizes can form a cycle
+by allocating obj_exts arrays from each other [1]:
 
-  BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
-  in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 95, name: insmod
-  hardirqs last disabled at (3784): _raw_spin_lock_irqsave+0x4f/0x60
-   rt_spin_lock+0x3a/0x1c0
-   repro_irq_set_type+0x64/0xa0 [pch_repro]
-   __irq_set_trigger+0x69/0x140
-   irq_set_irq_type+0x78/0xd0
+  What happened: a KMALLOC_NORMAL slab's obj_exts array (used by
+  allocation profiling / memcg accounting) is itself kmalloc()'d from a
+  KMALLOC_NORMAL cache, so the "slab holds another slab's obj_exts array"
+  relation can form cycles. With sizeof(struct slabobj_ext) == 16 and
+  the host's geometry:
 
-Switching the mirrored lock to raw_spinlock_t made both splats go away.
+  - kmalloc-512 has 64 objects/slab -> array is 64*16 == 1024 bytes,
+    served from kmalloc-1k;
+  - kmalloc-1k  has 32 objects/slab -> array is 32*16 ==  512 bytes,
+    served from kmalloc-512.
 
-Convert the register lock to raw_spinlock_t.  The same lock also
-serializes the GPIO direction/value callbacks and the suspend/resume
-register save/restore, but all of those critical sections only perform
-MMIO register accesses (ioread32()/iowrite32()) and
-irq_set_handler_locked(); none of them contain sleepable operations.
-Keeping this register lock non-sleeping is therefore appropriate for the
-irqchip callbacks and does not change the GPIO-side locking contract.
+  A kmalloc-512 slab and a kmalloc-1k slab therefore hold each other's
+  obj_exts array.  Discarding one frees the other's array, which empties
+  and discards that slab, which frees the first's array, and so on:
+  __free_slab() -> free_slab_obj_exts() -> kfree() -> discard_slab() ->
+  __free_slab() recurses along the cycle until the stack is exhausted.
 
-This is the same class of issue and fix as recently addressed for other
-GPIO controllers, e.g. commit 286533cb14a3 ("gpio: sch: use raw_spinlock_t
-in the irq startup path") and commit 90f0109019e6 ("gpio: eic-sprd: use
-raw_spinlock_t in the irq startup path").
+With memory allocation profiling, this allows unbounded recursion
+in the free path and led to a stack overflow on a production host in
+the Meta fleet [1]:
 
-Fixes: 38eb18a6f92d ("gpio-pch: Support interrupt function")
+  BUG: TASK stack guard page was hit
+  Oops: stack guard page
+  RIP: 0010:kfree+0x8/0x5d0
+  Call Trace:
+   __free_slab+0x66/0xc0
+   kfree+0x3f0/0x5d0
+   ... ( ~125x __free_slab <-> kfree ) ...
+   <kernel driver freeing a resource>
+   do_syscall_64
+
+It is proposed [1] to resolve this issue by always serving the obj_exts
+array allocation from kmalloc caches (or large kmalloc) of sizes larger
+than the object size. However, as pointed out by Vlastimil Babka [2],
+this can waste an excessive amount of memory as slabs from large
+kmalloc sizes (e.g. kmalloc-8k) generally need obj_exts arrays much
+smaller than the object size.
+
+Therefore, rather than bumping the size, let us take a different
+approach; disallow formation of cycles between kmalloc types when
+allocating obj_exts arrays. Currently, all obj_exts arrays are served
+from normal kmalloc caches. Cycles cannot be created if obj_exts arrays
+of normal kmalloc caches are served from a special kmalloc type that can
+never have obj_exts arrays.
+
+To achieve this, create a new kmalloc type called KMALLOC_NO_OBJ_EXT.
+KMALLOC_NO_OBJ_EXT caches are created with SLAB_NO_OBJ_EXT flag when
+either 1) memory allocation profiling is not permanently disabled,
+or 2) kmalloc types with a priority higher than KMALLOC_CGROUP are
+aliased with KMALLOC_NORMAL.
+
+Sheaf bootstrapping for KMALLOC_NO_OBJ_EXT caches now must be deferred
+because allocation of a barn can trigger obj_exts array allocation of
+normal kmalloc caches when the KMALLOC_NO_OBJ_EXT cache for that size
+is not ready yet. For simplicity, perform bootstrapping of sheaves for
+all kmalloc caches later.
+
+Introduce a new slab alloc flag, SLAB_ALLOC_NO_OBJ_EXT, to prevent
+allocation of obj_exts arrays, and let kmalloc_slab() override the type
+to KMALLOC_NO_OBJ_EXT when specified. Note that kmalloc_type() remains
+unchanged because kmalloc_flags() bypasses the kmalloc fastpath.
+
+Do not pass SLAB_ALLOC_NO_RECURSE to kmalloc_flags() in
+alloc_slab_obj_exts() and instead use SLAB_ALLOC_NO_OBJ_EXT only when
+the objects are allocated from normal kmalloc caches. While this
+prevents unbounded recursive allocation of obj_exts, it allows
+KMALLOC_NO_OBJ_EXT caches to have sheaves.
+
+Since sheaf allocations specify SLAB_ALLOC_NO_RECURSE that prevents
+allocation of both sheaves and obj_exts arrays, the recursion depth
+is bounded.
+
+obj_exts arrays for non-kmalloc-normal caches can now have a valid tag.
+Do not call mark_obj_codetag_empty() when freeing an obj_exts array to
+avoid false warnings. KMALLOC_NO_OBJ_EXT don't need this as they never
+allocate those arrays.
+
+Reported-by: Danielle Costantino <dcostantino@meta.com>
+Reported-by: Shakeel Butt <shakeel.butt@linux.dev>
+Closes: https://lore.kernel.org/linux-mm/20260625230029.703750-1-shakeel.butt@linux.dev [1]
+Fixes: 4b8736964640 ("mm/slab: add allocation accounting into slab allocation and free paths")
 Cc: stable@vger.kernel.org
-Signed-off-by: Junjie Cao <junjie.cao@intel.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Link: https://patch.msgid.link/20260723014129.1129730-1-junjie.cao@intel.com
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-(cherry picked from commit a02b8950d619123da64f69b70fe1dadef217dfe4)
+Link: https://lore.kernel.org/linux-mm/c5c4208d-a6f0-413e-bad9-49be12f12d55@kernel.org [2]
+Signed-off-by: Harry Yoo (Oracle) <harry@kernel.org>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Link: https://patch.msgid.link/20260713-kmalloc-no-objext-v3-4-47c7bd138de7@kernel.org
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+[harry@kernel.org: Backport notes:
+ - Fix a minor conflict due to missing partitioned
+   kmalloc caches in 6.12.
+
+ - Use __GFP_NO_OBJ_EXT instead of SLAB_ALLOC_NO_OBJ_EXT
+   since slab's internal alloc_flags do not exist in 6.12.
+
+ - Deferring sheaf bootstrapping for kmalloc caches is not applied
+   as 6.12 doesn't have sheaves.
+
+ - Adjust the comment for SLAB_NO_OBJ_EXT, like in the commit
+   982e31382d9a ("mm/slab: decouple SLAB_NO_SHEAVES from
+   SLAB_NO_OBJ_EXT"). The rest of that commit is a no-op in 6.12 as
+   sheaves are not supported. Thus only adjust the comment.
+
+ - Resolve conflicts due to missing kmalloc_nolock() support in 6.12.
+
+ - Mark need_kmalloc_no_objext() __always_inline to make sure
+   the compiler does not generate a out-of-line function that could
+   access mem_profiling_support (which is marked __init) ]
+Signed-off-by: Harry Yoo <harry@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpio/gpio-pch.c |   28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ include/linux/slab.h |  8 +++++++-
+ mm/slab.h            | 28 ++++++++++++++++++++++++++--
+ mm/slab_common.c     | 13 +++++++++++++
+ mm/slub.c            | 34 +++++++++++++++++++++++-----------
+ 4 files changed, 69 insertions(+), 14 deletions(-)
 
---- a/drivers/gpio/gpio-pch.c
-+++ b/drivers/gpio/gpio-pch.c
-@@ -96,7 +96,7 @@ struct pch_gpio {
- 	struct pch_gpio_reg_data pch_gpio_reg;
- 	int irq_base;
- 	enum pch_type_t ioh;
--	spinlock_t spinlock;
-+	raw_spinlock_t spinlock;
+diff --git a/include/linux/slab.h b/include/linux/slab.h
+index 773843a71960d..28eba6cbb7670 100644
+--- a/include/linux/slab.h
++++ b/include/linux/slab.h
+@@ -206,7 +206,7 @@ enum _slab_flag_bits {
+ #endif
+ #define SLAB_TEMPORARY		SLAB_RECLAIM_ACCOUNT	/* Objects are short-lived */
+ 
+-/* Slab created using create_boot_cache */
++/* Slab caches without obj_exts array */
+ #ifdef CONFIG_SLAB_OBJ_EXT
+ #define SLAB_NO_OBJ_EXT		__SLAB_FLAG_BIT(_SLAB_NO_OBJ_EXT)
+ #else
+@@ -578,6 +578,9 @@ enum kmalloc_cache_type {
+ #endif
+ #ifndef CONFIG_MEMCG
+ 	KMALLOC_CGROUP = KMALLOC_NORMAL,
++#endif
++#ifndef CONFIG_SLAB_OBJ_EXT
++	KMALLOC_NO_OBJ_EXT = KMALLOC_NORMAL,
+ #endif
+ 	KMALLOC_RANDOM_START = KMALLOC_NORMAL,
+ 	KMALLOC_RANDOM_END = KMALLOC_RANDOM_START + RANDOM_KMALLOC_CACHES_NR,
+@@ -591,6 +594,9 @@ enum kmalloc_cache_type {
+ #endif
+ #ifdef CONFIG_MEMCG
+ 	KMALLOC_CGROUP,
++#endif
++#ifdef CONFIG_SLAB_OBJ_EXT
++	KMALLOC_NO_OBJ_EXT,
+ #endif
+ 	NR_KMALLOC_TYPES
  };
+diff --git a/mm/slab.h b/mm/slab.h
+index b65d2462b3fdb..34a3d65b4ef5f 100644
+--- a/mm/slab.h
++++ b/mm/slab.h
+@@ -413,9 +413,13 @@ static inline struct kmem_cache *
+ kmalloc_slab(size_t size, kmem_buckets *b, gfp_t flags, unsigned long caller)
+ {
+ 	unsigned int index;
++	enum kmalloc_cache_type type = kmalloc_type(flags, caller);
++
++	if (flags & __GFP_NO_OBJ_EXT)
++		type = KMALLOC_NO_OBJ_EXT;
  
- static void pch_gpio_set(struct gpio_chip *gpio, unsigned int nr, int val)
-@@ -105,7 +105,7 @@ static void pch_gpio_set(struct gpio_chi
- 	struct pch_gpio *chip =	gpiochip_get_data(gpio);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	reg_val = ioread32(&chip->reg->po);
- 	if (val)
- 		reg_val |= BIT(nr);
-@@ -113,7 +113,7 @@ static void pch_gpio_set(struct gpio_chi
- 		reg_val &= ~BIT(nr);
- 
- 	iowrite32(reg_val, &chip->reg->po);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+ 	if (!b)
+-		b = &kmalloc_caches[kmalloc_type(flags, caller)];
++		b = &kmalloc_caches[type];
+ 	if (size <= 192)
+ 		index = kmalloc_size_index[size_index_elem(size)];
+ 	else
+@@ -454,7 +458,8 @@ static inline bool is_kmalloc_normal(struct kmem_cache *s)
+ {
+ 	if (!is_kmalloc_cache(s))
+ 		return false;
+-	return !(s->flags & (SLAB_CACHE_DMA|SLAB_ACCOUNT|SLAB_RECLAIM_ACCOUNT));
++
++	return !(s->flags & (SLAB_CACHE_DMA|SLAB_ACCOUNT|SLAB_RECLAIM_ACCOUNT|SLAB_NO_OBJ_EXT));
  }
  
- static int pch_gpio_get(struct gpio_chip *gpio, unsigned int nr)
-@@ -131,7 +131,7 @@ static int pch_gpio_direction_output(str
- 	u32 reg_val;
- 	unsigned long flags;
+ /* Legal flag mask for kmem_cache_create(), for various configurations */
+@@ -557,6 +562,25 @@ bool slab_in_kunit_test(void);
+ static inline bool slab_in_kunit_test(void) { return false; }
+ #endif
  
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
++/*
++ * Return true if KMALLOC_NORMAL caches may need obj_exts arrays.
++ *
++ * Memory allocation profiling requires obj_exts for all caches.
++ * Memcg usually doesn't need them for normal kmalloc caches, but kmalloc types
++ * with a priority higher than KMALLOC_CGROUP can be aliased with KMALLOC_NORMAL.
++ */
++static __always_inline inline bool need_kmalloc_no_objext(void)
++{
++	if (!mem_alloc_profiling_permanently_disabled())
++		return true;
++
++	if (!mem_cgroup_kmem_disabled() &&
++			(KMALLOC_NORMAL == KMALLOC_RECLAIM))
++		return true;
++
++	return false;
++}
++
+ #ifdef CONFIG_SLAB_OBJ_EXT
  
- 	reg_val = ioread32(&chip->reg->po);
- 	if (val)
-@@ -145,7 +145,7 @@ static int pch_gpio_direction_output(str
- 	pm |= BIT(nr);
- 	iowrite32(pm, &chip->reg->pm);
+ /*
+diff --git a/mm/slab_common.c b/mm/slab_common.c
+index 477fa471da185..4cc96c3ea18e0 100644
+--- a/mm/slab_common.c
++++ b/mm/slab_common.c
+@@ -793,6 +793,12 @@ EXPORT_SYMBOL(kmalloc_size_roundup);
+ #define KMALLOC_RANDOM_NAME(N, sz)
+ #endif
  
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
++#ifdef CONFIG_SLAB_OBJ_EXT
++#define KMALLOC_NO_OBJ_EXT_NAME(sz) .name[KMALLOC_NO_OBJ_EXT] = "kmalloc-no-objext-" #sz,
++#else
++#define KMALLOC_NO_OBJ_EXT_NAME(sz)
++#endif
++
+ #define INIT_KMALLOC_INFO(__size, __short_size)			\
+ {								\
+ 	.name[KMALLOC_NORMAL]  = "kmalloc-" #__short_size,	\
+@@ -800,6 +806,7 @@ EXPORT_SYMBOL(kmalloc_size_roundup);
+ 	KMALLOC_CGROUP_NAME(__short_size)			\
+ 	KMALLOC_DMA_NAME(__short_size)				\
+ 	KMALLOC_RANDOM_NAME(RANDOM_KMALLOC_CACHES_NR, __short_size)	\
++	KMALLOC_NO_OBJ_EXT_NAME(__short_size)			\
+ 	.size = __size,						\
  }
-@@ -156,12 +156,12 @@ static int pch_gpio_direction_input(stru
- 	u32 pm;
- 	unsigned long flags;
  
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	pm = ioread32(&chip->reg->pm);
- 	pm &= BIT(gpio_pins[chip->ioh]) - 1;
- 	pm &= ~BIT(nr);
- 	iowrite32(pm, &chip->reg->pm);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
+@@ -907,6 +914,12 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
+ 			return;
+ 		}
+ 		flags |= SLAB_ACCOUNT;
++	} else if (IS_ENABLED(CONFIG_SLAB_OBJ_EXT) && type == KMALLOC_NO_OBJ_EXT) {
++		if (!need_kmalloc_no_objext()) {
++			kmalloc_caches[type][idx] = kmalloc_caches[KMALLOC_NORMAL][idx];
++			return;
++		}
++		flags |= SLAB_NO_OBJ_EXT | SLAB_NO_MERGE;
+ 	} else if (IS_ENABLED(CONFIG_ZONE_DMA) && (type == KMALLOC_DMA)) {
+ 		flags |= SLAB_CACHE_DMA;
+ 	}
+diff --git a/mm/slub.c b/mm/slub.c
+index cf678f4617258..b61225c3503bf 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -1997,8 +1997,13 @@ int alloc_slab_obj_exts(struct slab *slab, struct kmem_cache *s,
+ 	struct slabobj_ext *vec;
  
- 	return 0;
- }
-@@ -263,7 +263,7 @@ static int pch_irq_type(struct irq_data
- 		return 0;
+ 	gfp &= ~OBJCGS_CLEAR_MASK;
+-	/* Prevent recursive extension vector allocation */
+-	gfp |= __GFP_NO_OBJ_EXT;
++	/*
++	 * In most cases, obj_exts arrays are allocated from normal kmalloc.
++	 * However, normal kmalloc caches must allocate them from
++	 * KMALLOC_NO_OBJ_EXT caches to prevent recursion.
++	 */
++	if (is_kmalloc_normal(s))
++		gfp |= __GFP_NO_OBJ_EXT;
+ 	vec = kcalloc_node(objects, sizeof(struct slabobj_ext), gfp,
+ 			   slab_nid(slab));
+ 	if (!vec) {
+@@ -2014,6 +2019,22 @@ int alloc_slab_obj_exts(struct slab *slab, struct kmem_cache *s,
+ 		return -ENOMEM;
  	}
  
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
++	if (IS_ENABLED(CONFIG_DEBUG_VM)) {
++		struct kmem_cache *exts_cache;
++		struct slab *exts_slab;
++
++		exts_slab = virt_to_slab(vec);
++		if (exts_slab) {
++			/*
++			 * The vector must be allocated from either normal or
++			 * KMALLOC_NO_OBJ_EXT kmalloc caches to avoid cycles.
++			 */
++			exts_cache = exts_slab->slab_cache;
++			WARN_ON_ONCE(!is_kmalloc_normal(exts_cache) &&
++					!(exts_cache->flags & SLAB_NO_OBJ_EXT));
++		}
++	}
++
+ 	new_exts = (unsigned long)vec;
+ #ifdef CONFIG_MEMCG
+ 	new_exts |= MEMCG_DATA_OBJEXTS;
+@@ -2034,7 +2055,6 @@ int alloc_slab_obj_exts(struct slab *slab, struct kmem_cache *s,
+ 		 * assign slabobj_exts in parallel. In this case the existing
+ 		 * objcg vector should be reused.
+ 		 */
+-		mark_objexts_empty(vec);
+ 		kfree(vec);
+ 		return 0;
+ 	} else if (cmpxchg(&slab->obj_exts, old_exts, new_exts) != old_exts) {
+@@ -2061,14 +2081,6 @@ static inline void free_slab_obj_exts(struct slab *slab)
+ 		return;
+ 	}
  
- 	/* Set interrupt mode */
- 	im = ioread32(im_reg) & ~(PCH_IM_MASK << (im_pos * 4));
-@@ -275,7 +275,7 @@ static int pch_irq_type(struct irq_data
- 	else if (type & IRQ_TYPE_EDGE_BOTH)
- 		irq_set_handler_locked(d, handle_edge_irq);
- 
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 	return 0;
+-	/*
+-	 * obj_exts was created with __GFP_NO_OBJ_EXT flag, therefore its
+-	 * corresponding extension will be NULL. alloc_tag_sub() will throw a
+-	 * warning if slab has extensions but the extension of an object is
+-	 * NULL, therefore replace NULL with CODETAG_EMPTY to indicate that
+-	 * the extension for obj_exts is expected to be NULL.
+-	 */
+-	mark_objexts_empty(obj_exts);
+ 	kfree(obj_exts);
+ 	slab->obj_exts = 0;
  }
- 
-@@ -372,7 +372,7 @@ static int pch_gpio_probe(struct pci_dev
- 	chip->ioh = id->driver_data;
- 	chip->reg = chip->base;
- 	pci_set_drvdata(pdev, chip);
--	spin_lock_init(&chip->spinlock);
-+	raw_spin_lock_init(&chip->spinlock);
- 	pch_gpio_setup(chip);
- 
- 	ret = devm_gpiochip_add_data(dev, &chip->gpio, chip);
-@@ -405,9 +405,9 @@ static int __maybe_unused pch_gpio_suspe
- 	struct pch_gpio *chip = dev_get_drvdata(dev);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	pch_gpio_save_reg_conf(chip);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
-@@ -417,11 +417,11 @@ static int __maybe_unused pch_gpio_resum
- 	struct pch_gpio *chip = dev_get_drvdata(dev);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&chip->spinlock, flags);
-+	raw_spin_lock_irqsave(&chip->spinlock, flags);
- 	iowrite32(0x01, &chip->reg->reset);
- 	iowrite32(0x00, &chip->reg->reset);
- 	pch_gpio_restore_reg_conf(chip);
--	spin_unlock_irqrestore(&chip->spinlock, flags);
-+	raw_spin_unlock_irqrestore(&chip->spinlock, flags);
- 
- 	return 0;
- }
+-- 
+2.53.0
+
 
 
