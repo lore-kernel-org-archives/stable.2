@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED34E38E8B8;
-	Fri,  7 Aug 2026 02:01:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF7A3B5F63;
+	Fri,  7 Aug 2026 02:01:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786068095; cv=none; b=lAO7890r1rHYS0BXRq6qCV8+JIOybVKB4GtPcj77JQy/V31YdXz+DuMYn+MM/IJe9Ru7//gimgeSIZsjxFSTTPEhouoCqAlNcrutejBoaPWeLXNChokehtXEcTwXkW3zOkc3Kavfjtssx0OcxSZoTbWFNYtHOgi2UDzJdB7mzWc=
+	t=1786068095; cv=none; b=J2zcVtvAjDj83Uq00Ej8lCp7kH72LmtnSLIIJZgjhWaNFse5iYkuyvZrmQGf/C3kDyuQUEPesihCQySymAwc3eRYlcbW0wbXcmohGjiDLI/yEjYNFzAlW2w1aAx4659O0AXvqzX1JzPtPhMg004JG8ArcfjeyMSY6tdq5L17nS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786068095; c=relaxed/simple;
-	bh=nphmidJDXxVgBGgWwdZKYNbIh8jbU6ov7HFkWBOXf4s=;
-	h=Date:To:From:Subject:Message-Id; b=FVmstRRlnmevKe8fOu3znem4sJ90v4iFA9eA/qm91ouswcgvsO57C+sWs/5FjFJ1oKacJiXTEYiQCQks8NXww/YegZxZ+IZBPqZU8nsjHOnhRXxri0fmW3xCM7kZJbNYnw/cnNbuLR90e9rUFKvUaXAQgT6PN3/owCX2bRb++xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=QPha8rFt; arc=none smtp.client-ip=100.103.45.18
+	bh=DCjYREOveDBoE3Dq3n4GGd+qzrEPH90KO6I5zO+AhHk=;
+	h=Date:To:From:Subject:Message-Id; b=Uj5JxGa8GswfWC0wx1j2s1xoEOm9wMAlBiPuojJazqQ6EPlaDaQQXBOX7gG23qmbfEeh+Wtl6CAJL2M5hdvTc72oTgXVPo5XDovbRCDOvvDG9koVDY0FIQ1RKF9vyzOllgcpbTAp2Cw63dbiCnw1Bqo04aj0Rja7AX3M3P5eFdc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Kc03GHwf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="QPha8rFt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C411F1F000E9;
-	Fri,  7 Aug 2026 02:01:26 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Kc03GHwf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867C81F00A3D;
+	Fri,  7 Aug 2026 02:01:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1786068086;
-	bh=4v8vRAw4x8AwT/fz6p44tTbg73ENQvgCJro7Rlt6JeU=;
+	d=linux-foundation.org; s=korg; t=1786068085;
+	bh=3yeDW5WxAaH4SQWXRv0MFoBb6me4MUV1nC8wcDmUY7g=;
 	h=Date:To:From:Subject;
-	b=QPha8rFtoH6MPMUI4Cd3CnkaBAT//BuV/LdA9asiR+VRHwW8TzpGPq/qNSgQi2JD2
-	 kDWReUVHWckPapLTYpp9VY81Bqm/EaA8eEgza+yjwkFz8n5hYaP09zE53XvW7UJ81L
-	 KO3G/STowk2HZIP280pviZlRuNAlNRozvpJJ3d+M=
-Date: Thu, 06 Aug 2026 19:01:26 -0700
+	b=Kc03GHwfvBkIVl++va5MkJ86xTL1cb/Gr0GJdL5Wt/fM4UgoIgAB+u7cQpSoFOErk
+	 gidq5loXoAkWgscX0JKtGxKxoq0ZEPlbiHAsPdw62M0OwNBotdoglxkekFKxU2Ff7T
+	 3mJyu/pFqyfI/z+DCKVvjZpravqxsX6hnSF7lrJk=
+Date: Thu, 06 Aug 2026 19:01:25 -0700
 To: mm-commits@vger.kernel.org,ziy@nvidia.com,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,rostedt@goodmis.org,mhocko@suse.com,harry@kernel.org,hannes@cmpxchg.org,brendan.jackman@linux.dev,bigeasy@linutronix.de,ast@kernel.org,jackmanb@google.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-page_alloc-dont-spin_trylock-when-disallowed-in-free_one_page.patch removed from -mm tree
-Message-Id: <20260807020126.C411F1F000E9@smtp.kernel.org>
+Subject: [merged mm-stable] mm-page_alloc-dont-spin_trylock-in-nmi-on-up.patch removed from -mm tree
+Message-Id: <20260807020125.867C81F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,33 +35,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/page_alloc: don't spin_trylock() when disallowed in free_one_page()
+     Subject: mm/page_alloc: don't spin_trylock() in NMI on UP
 has been removed from the -mm tree.  Its filename was
-     mm-page_alloc-dont-spin_trylock-when-disallowed-in-free_one_page.patch
+     mm-page_alloc-dont-spin_trylock-in-nmi-on-up.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
 From: Brendan Jackman <jackmanb@google.com>
-Subject: mm/page_alloc: don't spin_trylock() when disallowed in free_one_page()
-Date: Wed, 15 Jul 2026 09:03:59 +0000
+Subject: mm/page_alloc: don't spin_trylock() in NMI on UP
+Date: Wed, 15 Jul 2026 09:03:58 +0000
 
-__free_frozen_pages() checks can_spin_trylock() before entering into the
-main free_frozen_page_commit()/free_one_page() path, but before this it
-can get to free_one_page() via the !pcp_allowed_order() and
-MIGRATE_ISOLATE paths.
+Patch series "mm/page_alloc: fixes for free_pages_nolock() on RT/UP".
 
-The !pcp_allowed_order() path depends on usage by callers so might not be
-possible in practice.  The MIGRATE_ISOLATE path probably means kernel
-crashes and privilege escalation if anyone ever did memory hotplug and BPF
-tracing on a PREEMPT_RT or !SMP build.
+Pre-existing bugs found by Sashiko during review of this other series:
+https://lore.kernel.org/all/20260703-alloc-trylock-v5-0-c87b714e19d3@google.com/
 
-Link: https://lore.kernel.org/20260715-alloc-nolock-fixes-v1-2-fadc49952dda@google.com
-Signed-off-by: Brendan Jackman <jackmanb@google.com>
+I have not reproduced these bugs, and I suspect there is no real-world
+user that is affected by them.
+
+
+This patch (of 2):
+
+As noted in can_spin_trylock(), using this is unsafe in this context. 
+commit 620b46ed6ae17 ("mm/page_alloc: return NULL early from
+alloc_frozen_pages_nolock() in NMI on UP") fixed this on the alloc side
+but missed the free side.
+
+Impact: If BPF programs using these features in NMI (probably tracing) are
+present on non-SMP builds this might crash the kernel and is probably
+exploitable by local attackers for privilege escalation.
+
+Link: https://lore.kernel.org/20260715-alloc-nolock-fixes-v1-0-fadc49952dda@google.com
+Link: https://lore.kernel.org/20260715-alloc-nolock-fixes-v1-1-fadc49952dda@google.com
 Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
+Signed-off-by: Brendan Jackman <jackmanb@google.com>
 Reported-by: sashiko-bot@kernel.org
-Closes: https://sashiko.dev/#/patchset/20260710-spin-trylock-followup-v1-0-affb5fe5ed00%40google.com?part=2
+Closes: https://sashiko.dev/#/patchset/20260703-alloc-trylock-v5-0-c87b714e19d3%40google.com?part=18
 Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
 Cc: Brendan Jackman <brendan.jackman@linux.dev>
@@ -77,20 +88,21 @@ Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- mm/page_alloc.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/page_alloc.c |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
---- a/mm/page_alloc.c~mm-page_alloc-dont-spin_trylock-when-disallowed-in-free_one_page
+--- a/mm/page_alloc.c~mm-page_alloc-dont-spin_trylock-in-nmi-on-up
 +++ a/mm/page_alloc.c
-@@ -1559,7 +1559,7 @@ static void free_one_page(struct zone *z
- 	unsigned long flags;
+@@ -2979,8 +2979,7 @@ static void __free_frozen_pages(struct p
+ 		migratetype = MIGRATE_MOVABLE;
+ 	}
  
- 	if (unlikely(fpi_flags & FPI_TRYLOCK)) {
--		if (!spin_trylock_irqsave(&zone->lock, flags)) {
-+		if (!can_spin_trylock() || !spin_trylock_irqsave(&zone->lock, flags)) {
- 			add_page_to_zone_llist(zone, page, order);
- 			return;
- 		}
+-	if (unlikely((fpi_flags & FPI_TRYLOCK) && IS_ENABLED(CONFIG_PREEMPT_RT)
+-		     && (in_nmi() || in_hardirq()))) {
++	if (unlikely((fpi_flags & FPI_TRYLOCK) && !can_spin_trylock())) {
+ 		add_page_to_zone_llist(zone, page, order);
+ 		return;
+ 	}
 _
 
 Patches currently in -mm which might be from jackmanb@google.com are
