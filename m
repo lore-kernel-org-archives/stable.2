@@ -1,162 +1,230 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A724E4772AE;
-	Fri,  7 Aug 2026 15:39:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E8FE4772A2
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 15:39:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786117153; cv=none; b=VgGs3BoLerIwFtgv7pe6ZDxbjr9qzBagKTvCj9xZr8a9E5o+SR0yn/FR5VXKrCopHAZpGRiMlwHL5R6T36IJSiceWakcVzH/cbuihqMw/izJ0tNaq1bq9WIhINXNNB86NBj7zKiG6y8zB+cDKvJYqeEXbvx2hgyT8JhTf/xqejM=
+	t=1786117153; cv=none; b=TDvGPYzSR/ECA9HafAOvvxZvD3f0dG9QhqQ4k9+QnSKcGpy9VavA3V/kBApiphcHm+fv1S1qpgtwUYF1edAlMsgYsiazdM1EMO8RuFQO08G3Gl77eE77SPPAJM2/uFt7a5QzmpMAfyXcf7jTgjp4SXoHxp4S2F5NksYRHJgpIl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786117153; c=relaxed/simple;
-	bh=2coP8Sfji6lltrAYMc+I2BujGOg6rp3UrnOnu4R6yzU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qTXp4VsLwdocMoZpZYkZLS4/ca9i9IoUfRCT+OwIiQvZ6OBi9YVeUTGepbMok8o9QhMiCeCllJkj4KCmDyyRZgF8OXw0uJpXfv3KnRoPVZhJM/UatXDU01aaJDtz+OSAESitbALv9oVxcbADRf8OFpkxT6hVgO5BmbQvO7xmDlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XUpZAaji; arc=none smtp.client-ip=100.103.45.18
+	bh=2FMplYOhzsgtvnRdbTNiLAZSTZm3+8XCX5VqoyndQro=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=BjNDX3icJ/zRioslORoyF9QbOaBYZ4VFmKdGFLFX3luUoF1LmaM3b+vf2TRFLFcd+jXpnO2LFKvrBc7//MIzycUhrFReNhKuu/Z1SUFVabNS6Cc+ik6AwmvWNqjlYvM6wuudB0CFpBiuNNXKVcL0Te7xyOdTmk3rrF/NVkh1Wew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TYsAo0WF; arc=none smtp.client-ip=209.85.167.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XUpZAaji"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E112B1F00A3D;
-	Fri,  7 Aug 2026 15:39:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786117151;
-	bh=Sz+Ko/fbNgo4BgS+9m3WX+/j1bdrPCB1YJHj88ees5o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XUpZAajimLddGK5jr41Gz9tFWHO8EVNgZeUoug6ooQM0/d42NSw1hIMshuuyr/wqT
-	 UoowQJi2U/ZF5JD5FDC7ayNxhkJmLfKwWpYXcLJvxeiVDqEUYjjzC3vCE/dAoMUqWs
-	 LEfZeBeG5PfoGxpXtQRjyFcnr2gq2OVJfR7gBsfc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Sashiko AI review <sashiko-bot@kernel.org>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Peter Xu <peterx@redhat.com>,
-	Jann Horn <jannh@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Shuah Khan <shuah@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Zenghui Yu <zenghui.yu@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 7.1 219/438] fs/proc/task_mmu: fix PAGEMAP_SCAN written state for PMD holes
-Date: Fri,  7 Aug 2026 16:36:55 +0200
-Message-ID: <20260807143432.677732082@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260807143428.008222056@linuxfoundation.org>
-References: <20260807143428.008222056@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TYsAo0WF"
+Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-4a4836dc117so697513b6e.1
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 08:39:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786117150; x=1786721950; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BH5d83nxZVwUU/yrlx0wCDcJDqfJzuP8B2aoypwvUDg=;
+        b=TYsAo0WF4rgNIM3xkrifkoocrIvOTnY3gOZjLWzeQR+FAxXShKksb0DEu2BJAMmBh1
+         3EkN6CK+bA9m/HSOGeo+oISjfistHhjNYH0gYwVSEPOF+Y3tE2ZsH8V5JumJKHhC0zAs
+         dEzNSZgSTDKrVu2f2rwcZQB7e78vc0Eyo23USyAmSULRz553ej9cv1n+SJsfkgVWa0Zu
+         8Jq7ujLI/+2pwqfyyZnexKE/G/VqlAIGGNiEoD8Ej+lFCXwUvTnpvAEV3/crtLq3S2+Z
+         ljA+gM9PnZ4FS7tahuBtrOeE4M15VzpgOS1uv9Xcucvzg9yIUlTrA7J/M/dM/79vaEVN
+         nZDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786117150; x=1786721950;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BH5d83nxZVwUU/yrlx0wCDcJDqfJzuP8B2aoypwvUDg=;
+        b=rT+NDQACG0KIArgdGwAT+6L6xC1FN0CtSRwFQWEbqbHqU0Oio36pMyzawC/3K/S2mg
+         stjwyo7/697VQOxQAf/BqLg3yJ6rZ8OXn5OESKyL7KuX9DKsvk4JbSreI/0bgsq4w/wh
+         cr9XyRC7t21gRbnGTArLV+dLda/WvBiEbUa3PScO08z3bpGYX/gaK/bKlc0Ukd/oLaAU
+         zBnYAOLlPclS9Uy2F3D+20hznCTCpvyeit3bKtE2t8RqC9zzBhcGbWby6a9QnQPgEwr6
+         BnbgqhgaZGA00h/aJ+BGRTraULx/xRXprZDNpnF8NgByTavEXq0fxE5NpErhb3ugNGnT
+         GOgQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rrwk7FDymgcpfxxRBVrxJr1F4trpQE717GZl+tQyLMZ2jKNQ4dUXaLWHJay2AVJcXotGzG7XM4=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxq3dvL2ek2dSEzYQQ+ZdBm89plnmpS0kTiQrud+ClRwlCfXEwM
+	DakBk9i7hZVzzc9hJrCW247LlB0SBV171d76H5pMgjD2BWDWVqh+tRPNrS0ryaX+
+X-Gm-Gg: AR+sD12r4fA7A6OkhcQ8GEPGgmnqPKKSpNWynqku5nM2uAbdU++ZL/AfrYdG9BQdMms
+	MHhfckVxIHGIsVyYD3PYSy0kqs+kLa73yR0FE2LKxJLojsYsDo/X/ocmWiNW2Nq5C6XpXGzCTkM
+	YuIZFhpyYhx/ijNFZSq0RFHgnjI/hzqv51Jua2CJBDisZVbRnnRXSwM1Jq8cp+SPIRtTNv0yNhk
+	ufHjdWroxWFCEDW69P9ZQ2i7QlgCE0vlAmX9dkEc0+byYCbHAb9jtb7cAnwKDsG/3oqMkv2jbSn
+	m9nksOQWib3Jy32e/3tLSjdH2Y9dObaGvK5ZapIo1bvsjn/wcEhM+R1tuQVq/WmWfOVPGEA04OO
+	OQHPdo++DKkZOPTYusJDXLLSWTYUbQ5BCQXy5+ssJJAIEvJpCZzYIytw64wkrBNMGE+2QUTxieQ
+	F0ptqsRoFPtKPKHrZu+SwHo22PKOrf62dqrXaY2+iaPf/INEzlTOqTeau7wE7zb63h0gnyEoqMt
+	NJ2qvkwpCy2jLE1sM8xs3e0v0yRbUChtFSLFKG96x46u0O/NQHDUbeMW6AktPqo3TqQW+affy1l
+	wwNkW61g1SfzxNYawdT64v6pdl5JBPqwYHtLfuR5ZxB5VggS7XU1E854GTHD/XHut1yRFzBXcOQ
+	AWVqEo6tosTcFhDnM
+X-Received: by 2002:a05:6808:ec3:b0:4a4:a693:9d87 with SMTP id 5614622812f47-4afadf0e523mr11310972b6e.5.1786117150060;
+        Fri, 07 Aug 2026 08:39:10 -0700 (PDT)
+Received: from [127.0.1.1] (184-96-154-59.hlrn.qwest.net. [184.96.154.59])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4afae706cd5sm7353485b6e.11.2026.08.07.08.39.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 07 Aug 2026 08:39:09 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 07 Aug 2026 09:38:59 -0600
+Subject: [PATCH v3 1/3] mtd: rawnand: sunxi: group controller delay tables
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260807-submit-sunxi-nand-h6-h616-timings-v3-1-91287b543f41@gmail.com>
+References: <20260807-submit-sunxi-nand-h6-h616-timings-v3-0-91287b543f41@gmail.com>
+In-Reply-To: <20260807-submit-sunxi-nand-h6-h616-timings-v3-0-91287b543f41@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Richard Genoud <richard.genoud@bootlin.com>
+Cc: linux-mtd@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+The tWB and tRHW timing field encodings are controller properties, but
+they currently live in standalone lookup tables.
 
-------------------
+Group them in a timing descriptor selected through the controller
+capability data. Point every existing controller at the legacy values so
+this is a pure preparation change.
 
-From: Kiryl Shutsemau (Meta) <kas@kernel.org>
-
-commit 40de8160ca7f67d14619ee0351ce5d68fc4a237a upstream.
-
-PAGEMAP_SCAN reports an unpopulated PTE in a uffd-wp VMA as written, but a
-range with no page table at all -- a PMD hole -- is skipped:
-pagemap_scan_pte_hole() tests p->cur_vma_category, which never carries
-PAGE_IS_WRITTEN, so the hole is neither reported nor (under
-PM_SCAN_WP_MATCHING) armed.
-
-In a uffd-wp VMA, WP_UNPOPULATED installs uffd-wp markers when protecting
-a range, allocating page tables as needed, so an unpopulated slot is
-treated as written -- see the pte_none() handling in
-pagemap_page_category().  A missing marker therefore means the range was
-zapped, e.g.  via MADV_DONTNEED.  This applies to anon and shmem VMAs.
-
-An anonymous THP is write-protected in place as a huge PMD, so a full-PMD
-MADV_DONTNEED clears it to pmd_none -- a hole with no page table -- and
-pagemap_scan_pte_hole() misses it.  For a MAP_PRIVATE|MAP_ANON mapping
-MADV_DONTNEED has fill-with-zeros semantics, so a write-tracking
-checkpoint/migration tool (e.g.  CRIU) treats the range as unchanged and
-keeps its previous contents; after restore or live migration the process
-reads stale data instead of zeroes -- data corruption.
-
-Report a hole in a non-hugetlb uffd-wp VMA as written, matching the
-pte_none handling in pagemap_page_category(); the existing
-PM_SCAN_WP_MATCHING path then arms it via uffd_wp_range().
-
-hugetlb is excluded: pagemap_hugetlb_category() reports an empty hugetlb
-entry (huge_pte_none) as not-written, unlike pagemap_page_category(),
-which reports pte_none as written.  pagemap_scan_pte_hole() fires for a
-hugetlb slot only when it has no page table; keeping that not-written
-matches how an allocated-but-empty hugetlb entry reads, so the hole and
-the empty-entry cases agree within the VMA.
-
-Link: https://lore.kernel.org/20260715144234.442721-2-kirill@shutemov.name
-Fixes: 2bad466cc9d9 ("mm/uffd: UFFD_FEATURE_WP_UNPOPULATED")
-Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260707151349.92143-1-kirill@shutemov.name
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Zenghui Yu <zenghui.yu@linux.dev>
-Assisted-by: Claude:claude-fable-5
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 88fd4e4deae8 ("mtd: rawnand: sunxi: Add support for H616 nand controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- fs/proc/task_mmu.c |   20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ drivers/mtd/nand/raw/sunxi_nand.c | 36 ++++++++++++++++++++++++++++--------
+ 1 file changed, 28 insertions(+), 8 deletions(-)
 
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -2962,12 +2962,28 @@ static int pagemap_scan_pte_hole(unsigne
+diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
+index 02647565c8ba..9885248c9b85 100644
+--- a/drivers/mtd/nand/raw/sunxi_nand.c
++++ b/drivers/mtd/nand/raw/sunxi_nand.c
+@@ -237,6 +237,14 @@ struct sunxi_nand_hw_ecc {
+ 	u32 ecc_ctl;
+ };
+ 
++#define SUNXI_NFC_TIMING_STEPS	4
++
++/* Delay arrays contain internal NDFC clock cycles for field values 0 to 3. */
++struct sunxi_nfc_timings {
++	s32 tWB[SUNXI_NFC_TIMING_STEPS];
++	s32 tRHW[SUNXI_NFC_TIMING_STEPS];
++};
++
+ /**
+  * struct sunxi_nand_chip - stores NAND chip device related information
+  *
+@@ -301,6 +309,7 @@ static inline struct sunxi_nand_chip *to_sunxi_nand(struct nand_chip *nand)
+  *			bytes to write
+  * @nuser_data_tab:	Size of @user_data_len_tab
+  * @sram_size:		Size of the NAND controller SRAM
++ * @timings:		Controller timing characteristics
+  */
+ struct sunxi_nfc_caps {
+ 	bool has_mdma;
+@@ -327,6 +336,7 @@ struct sunxi_nfc_caps {
+ 	unsigned int nuser_data_tab;
+ 	unsigned int max_ecc_steps;
+ 	int sram_size;
++	const struct sunxi_nfc_timings *timings;
+ };
+ 
+ /**
+@@ -1667,8 +1677,10 @@ static int sunxi_nfc_hw_ecc_write_oob(struct nand_chip *nand, int page)
+ 	return nand_prog_page_end_op(nand);
+ }
+ 
+-static const s32 tWB_lut[] = {6, 12, 16, 20};
+-static const s32 tRHW_lut[] = {4, 8, 12, 20};
++static const struct sunxi_nfc_timings sun4i_a10_nfc_timings = {
++	.tWB = { 6, 12, 16, 20 },
++	.tRHW = { 4, 8, 12, 20 },
++};
+ 
+ static int _sunxi_nand_lookup_timing(const s32 *lut, int lut_size, u32 duration,
+ 		u32 clk_period)
+@@ -1693,6 +1705,7 @@ static int sunxi_nfc_setup_interface(struct nand_chip *nand, int csline,
  {
- 	struct pagemap_scan_private *p = walk->private;
- 	struct vm_area_struct *vma = walk->vma;
-+	unsigned long categories;
- 	int ret, err;
+ 	struct sunxi_nand_chip *sunxi_nand = to_sunxi_nand(nand);
+ 	struct sunxi_nfc *nfc = to_sunxi_nfc(sunxi_nand->nand.controller);
++	const struct sunxi_nfc_timings *nfc_timings = nfc->caps->timings;
+ 	const struct nand_sdr_timings *timings;
+ 	u32 min_clk_period = 0;
+ 	s32 tWB, tADL, tWHR, tRHW, tCAD;
+@@ -1763,8 +1776,10 @@ static int sunxi_nfc_setup_interface(struct nand_chip *nand, int csline,
+ 		min_clk_period = DIV_ROUND_UP(timings->tWC_min, 2);
  
--	if (!vma || !pagemap_scan_is_interesting_page(p->cur_vma_category, p))
-+	if (!vma)
- 		return 0;
+ 	/* T16 - T19 + tCAD */
+-	if (timings->tWB_max > (min_clk_period * 20))
+-		min_clk_period = DIV_ROUND_UP(timings->tWB_max, 20);
++	if (timings->tWB_max >
++	    (min_clk_period * nfc_timings->tWB[SUNXI_NFC_TIMING_STEPS - 1]))
++		min_clk_period = DIV_ROUND_UP(timings->tWB_max,
++					      nfc_timings->tWB[SUNXI_NFC_TIMING_STEPS - 1]);
  
--	ret = pagemap_scan_output(p->cur_vma_category, p, addr, &end);
-+	/*
-+	 * In a uffd-wp VMA an unpopulated range is treated as written:
-+	 * uffd-wp registration populates page tables and installs markers
-+	 * with WP_UNPOPULATED, so a missing marker means the range was
-+	 * zapped. See the pte_none() handling in pagemap_page_category().
-+	 *
-+	 * hugetlb differs, see pagemap_hugetlb_category().
-+	 */
-+	categories = p->cur_vma_category;
-+	if (userfaultfd_wp(vma) && !is_vm_hugetlb_page(vma))
-+		categories |= PAGE_IS_WRITTEN;
-+
-+	if (!pagemap_scan_is_interesting_page(categories, p))
-+		return 0;
-+
-+	ret = pagemap_scan_output(categories, p, addr, &end);
- 	if (addr == end)
- 		return ret;
+ 	if (timings->tADL_min > (min_clk_period * 32))
+ 		min_clk_period = DIV_ROUND_UP(timings->tADL_min, 32);
+@@ -1772,8 +1787,10 @@ static int sunxi_nfc_setup_interface(struct nand_chip *nand, int csline,
+ 	if (timings->tWHR_min > (min_clk_period * 32))
+ 		min_clk_period = DIV_ROUND_UP(timings->tWHR_min, 32);
  
+-	if (timings->tRHW_min > (min_clk_period * 20))
+-		min_clk_period = DIV_ROUND_UP(timings->tRHW_min, 20);
++	if (timings->tRHW_min >
++	    (min_clk_period * nfc_timings->tRHW[SUNXI_NFC_TIMING_STEPS - 1]))
++		min_clk_period = DIV_ROUND_UP(timings->tRHW_min,
++					      nfc_timings->tRHW[SUNXI_NFC_TIMING_STEPS - 1]);
+ 
+ 	/*
+ 	 * In non-EDO, tREA should be less than tRP to guarantee that the
+@@ -1789,7 +1806,7 @@ static int sunxi_nfc_setup_interface(struct nand_chip *nand, int csline,
+ 	if (timings->tREA_max > min_clk_period && !timings->tRLOH_min)
+ 		min_clk_period = timings->tREA_max;
+ 
+-	tWB  = sunxi_nand_lookup_timing(tWB_lut, timings->tWB_max,
++	tWB  = sunxi_nand_lookup_timing(nfc_timings->tWB, timings->tWB_max,
+ 					min_clk_period);
+ 	if (tWB < 0) {
+ 		dev_err(nfc->dev, "unsupported tWB\n");
+@@ -1808,7 +1825,7 @@ static int sunxi_nfc_setup_interface(struct nand_chip *nand, int csline,
+ 		return -EINVAL;
+ 	}
+ 
+-	tRHW = sunxi_nand_lookup_timing(tRHW_lut, timings->tRHW_min,
++	tRHW = sunxi_nand_lookup_timing(nfc_timings->tRHW, timings->tRHW_min,
+ 					min_clk_period);
+ 	if (tRHW < 0) {
+ 		dev_err(nfc->dev, "unsupported tRHW\n");
+@@ -2595,6 +2612,7 @@ static const struct sunxi_nfc_caps sunxi_nfc_a10_caps = {
+ 	.nstrengths = ARRAY_SIZE(sunxi_ecc_strengths_a10),
+ 	.max_ecc_steps = 16,
+ 	.sram_size = 1024,
++	.timings = &sun4i_a10_nfc_timings,
+ };
+ 
+ static const struct sunxi_nfc_caps sunxi_nfc_a23_caps = {
+@@ -2617,6 +2635,7 @@ static const struct sunxi_nfc_caps sunxi_nfc_a23_caps = {
+ 	.nstrengths = ARRAY_SIZE(sunxi_ecc_strengths_a10),
+ 	.max_ecc_steps = 16,
+ 	.sram_size = 1024,
++	.timings = &sun4i_a10_nfc_timings,
+ };
+ 
+ static const struct sunxi_nfc_caps sunxi_nfc_h616_caps = {
+@@ -2641,6 +2660,7 @@ static const struct sunxi_nfc_caps sunxi_nfc_h616_caps = {
+ 	.nuser_data_tab = ARRAY_SIZE(sunxi_user_data_len_h6),
+ 	.max_ecc_steps = 32,
+ 	.sram_size = 8192,
++	.timings = &sun4i_a10_nfc_timings,
+ };
+ 
+ static const struct of_device_id sunxi_nfc_ids[] = {
 
+-- 
+2.53.0
 
