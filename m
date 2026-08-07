@@ -1,78 +1,45 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D782D3A3E68
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:40:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655523876A0;
+	Fri,  7 Aug 2026 14:41:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786113656; cv=none; b=MqS+9Hh1VYXOtaDTL8w5XorkGWXt0dkcqFwYqptcLycEoRjxd+Nx3aygjiqBMcKvjuavXCsKteGnYxBNgp2SE3RA03mI8I0eVpQ/02tU4v6j+mIZTNWZKaHEKkjdTXaWbufxOipiMbjceu/3DD/hiMx9em0GfS5jlUCUZWY9NQU=
+	t=1786113733; cv=none; b=WpaWku654E5rQChQSzFEreFQwm8JWHG14Wc5SPclrKFHkdDWLYxQPY0V8zRIreLf9o/cpRC2bWjWnpAOKfJDURSrrkYPts5lRIjJzJJHeOmoZN63ppwxUPZiTwWMLitVkxYrB7NAi6Z0HqPi8aZKwUK6chJmPN/xXRtFHXy7Qac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786113656; c=relaxed/simple;
-	bh=oI0oe6VrTB67fmNgGEWtYeo5Q1VrP79oiuVCB75VHIc=;
+	s=arc-20240116; t=1786113733; c=relaxed/simple;
+	bh=E6gOszvadKL4FIHOYglxn3c+a86zMjJummVwmi+0yzE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rB1ZYVPRmFm7gvTn6ETx/D8teOzZ6tT/zY33Q/D4+w32LdDUQkSUOoIn+C5gJSFKOhc/p75KMJfizrR2COhkLifE+xkrBdS7XgHmbfsf/r7AFd3xS0UOBOpVpyhXuJYp0iRCYgHSWxgUjuCNRd686i4LsOvGO1lX9VqlYhW1xR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X7mJkZjd; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=dZwy7dFbJbVS+DlMPs5BakMKopvw9kzo0v7X4mVmtURNK8K/l/rLwFkHUI8ytr5+9xGiYj8vzzbA9p79SdZ+6bL4OM1Qrl7VNE0pwAzzuRQWRsnYBEdKZmyqkNbwYqgXri1jaw1aYQ1anHJjNTlbEyWUbTu+e801pDb1iA+hA6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=I4b6d9XO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X7mJkZjd"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso2969335a91.3
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 07:40:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786113645; x=1786718445; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LShjbJeEqOu9xhr0m6OP6Zlw5WppQjCW7XffJzXc/YM=;
-        b=X7mJkZjdQFpfgvNH6bIAxBKFmj4utiRNfINNGRbt3eXpVJeNaN7BhS/CmoVPHD0/qF
-         tE6+tRnqN+LA70+t7H/Cq2rFq5dBYENBmJykcFj2sy7jdNAagx3GZ81XS3l+3KFG0ioq
-         AFbCJ8y57lYhf7/f5BUFmLlRLmJofZIq3e2MjxmjGjh4uOHv2rmbZqgjB1eXUwiYmal8
-         iI1VhK0Kzqh/TLoJqowoRSgyj4cpajxso1+r+1sXdoBpJt8qvH5eS5s9JVkHm4vRefD6
-         vY1NJ+A3IOkQShFvzEFzeOrkeEp//QT0KZIWb7ch2AlwpTwvDWdB1RFlhyfJxl92rCx6
-         uZHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786113645; x=1786718445;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LShjbJeEqOu9xhr0m6OP6Zlw5WppQjCW7XffJzXc/YM=;
-        b=BC8kfxV2rMKa0b7pu+fpx/ioIiSz94fezzn0XgomorehiRmp+djuRCaGdqkXd/1diI
-         zq2IsbFVHRXvrn4e0BbqcaG9VOK/Cj6JYFxw5LTkoyGfUteyD8aaS9DHOW3ahUmSUt9T
-         IdrAQNOb/YmqABiUzixX3BcgY+bcaBVZHx5R7Rm/zFU2OZWwqRIVDGNfvEp6PjmIgydn
-         YGRziRz6W0h0n4bpM/hdINU6QNMHmkZpscvdoyRelCqraeMIn7BHFhZg5HZNhgom6Rjz
-         zH0/wWlkQDgEilEUhWX/LsYJYyC6GPaX2rt6gvigCo6SnBESl2HpV6cM/AUilALjsh45
-         a/1g==
-X-Forwarded-Encrypted: i=1; AHgh+RpI2rB8NRi7Haa0g+hjk6bvF29hs6+p0bMP0ki+5INz0zMAPkeab8iZ+BQXaU4z87/c52KOOCc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyMq+BgQAoAL0aHPIcN81fLZXLPfV5xGUvj//HbqCEHuFoFyd1p
-	HxgSouj8OMl3hbN/67fXxj6+Im9PKdldZnxlDTwnWEnS1e7EeZukbmJbdnjkCNr5
-X-Gm-Gg: AR+sD13JZCSoJRxAcjvXC+7hxpPLmCEu+FLXd3tOC6SumndFq5aZ+RTOWHgg/Zs9BFL
-	pXtALgr8XFM4597rl/XbRNZkYHeYvmpWrY3lqrELFFiqipQirp9iriIVviCSDfxgHxHtw7rlNTN
-	MjDX5mz3UU/h15IjJ2wE16AXLsboXnLrgmlVKWLUTZkOGr1NPHvTX8/h4Yccre5jt34t+rUzN0P
-	M/MSQ1d6BcJS7pTla+INMP6ppmr0fzWK1gYcP7+azUigNpBRzJGYPcNu7dmUkX5fbCbX3d+vTA9
-	mQglQ/KTb486zAUj/hEm2K2YOx5OM2oZEpbkNCKaw63/pau2EvO3Yj+iQxnrAj/BKILK8ptR22p
-	1HV6/agc397QLjKVHvP6cIpqutjnA8mw/lDZcB7IiGfmANXcD0uFZcxcBgM7ZEqiOwdWoeWvXti
-	GI2Bn1Qn3I/aBDTHTVVJI3X0nLeNxCGE50uftpFOfS+cwAUOyEEuHEFnpVQYtn6dIemxhxMU+wv
-	j1grrYQZDa4Rb8f4NyeMqJV5uzGXbdEy2FXtC/A9P0oyjPTrdYCQA==
-X-Received: by 2002:a17:90b:2e42:b0:382:1a6f:ba3b with SMTP id 98e67ed59e1d1-3909d7d2f85mr11461420a91.5.1786113644715;
-        Fri, 07 Aug 2026 07:40:44 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3925ff24b91sm2917026a91.9.2026.08.07.07.40.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 07:40:44 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH 2/2] platform/x86: ISST: Validate level in perf mask ioctls
-Date: Fri,  7 Aug 2026 23:40:03 +0900
-Message-ID: <20260807144003.3498972-3-sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260807144003.3498972-1-sammiee5311@gmail.com>
-References: <20260807144003.3498972-1-sammiee5311@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="I4b6d9XO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 965DE1F00A3A;
+	Fri,  7 Aug 2026 14:41:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786113717;
+	bh=3ANzbbyljjtYPGWXNVcGTO7vt08DwGFFNIvuesBBhGw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=I4b6d9XO51cIRa4dNkFcXRb4pPiiCqV05MvYvNWJITCwC45bvZpa4gT8hOSClFqWi
+	 0QeCzuhutUv/zEhHDufgjlegyeyvsvVRdXoQ56JT9IO99k3sR81ySvfXgLnXWIXXhy
+	 4XxdFNxT0ZQOBjSc+8U5MoUiyws4FD7QIVh5lFuA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Ido Schimmel <idosch@nvidia.com>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 011/337] netfilter: br_netfilter: Reallocate headroom if necessary in neigh_hh_bridge()
+Date: Fri,  7 Aug 2026 16:33:34 +0200
+Message-ID: <20260807143418.766456223@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
+References: <20260807143418.516897842@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,55 +48,145 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-isst_if_get_perf_level_mask() and isst_if_get_base_freq_mask() use the
-user-provided level as an index into perf_levels[] via
-_read_pp_level_info() and _read_bf_level_info(), but neither helper
-validates it first.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-The adjacent level-info helpers reject levels above max_level before
-reading the same per-level register block. Add the same bounds checks to
-the mask helpers, and reject disabled SST-PP levels in
-isst_if_get_perf_level_mask() to match isst_if_get_perf_level_info().
+------------------
 
-This prevents out-of-bounds reads from the per-level offset table on
-invalid ioctl input.
+From: Lorenzo Bianconi <lorenzo@kernel.org>
 
-Fixes: ea009e4769fa3 ("platform/x86: ISST: Add SST-PP support via TPMI")
-Fixes: 06a61df83209 ("platform/x86: ISST: Add SST-BF support via TPMI")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+[ Upstream commit b2870fc21601db9133bc70c48c603b487614fa3b ]
+
+neigh_hh_bridge() assumes the skb always has sufficient headroom to copy
+the aligned  L2 header. This assumption can trigger the crash reported
+below using the following netfilter setup:
+
+$modprobe br_netfilter
+$sysctl -w net.bridge.bridge-nf-call-iptables=1
+
+$root@OpenWrt:~# nft list ruleset
+table ip nat {
+        chain prerouting {
+                type nat hook prerouting priority dstnat; policy accept;
+                ip daddr 192.168.83.123 dnat to 192.168.83.120
+        }
+}
+
+- iperf3 client (192.168.83.119) --> bridge (192.168.83.118) --> iperf3 server (192.168.83.120)
+
+the iperf3 client is sending packet for 192.168.83.123 to the bridge device.
+
+[ 1579.036575] Unable to handle kernel write to read-only memory at virtual address ffffff8004d76ffe
+[ 1579.045482] Mem abort info:
+[ 1579.048273]   ESR = 0x000000009600004f
+[ 1579.052024]   EC = 0x25: DABT (current EL), IL = 32 bits
+[ 1579.057363]   SET = 0, FnV = 0
+[ 1579.060417]   EA = 0, S1PTW = 0
+[ 1579.063550]   FSC = 0x0f: level 3 permission fault
+[ 1579.068345] Data abort info:
+[ 1579.071224]   ISV = 0, ISS = 0x0000004f, ISS2 = 0x00000000
+[ 1579.076720]   CM = 0, WnR = 1, TnD = 0, TagAccess = 0
+[ 1579.081770]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
+[ 1579.087092] swapper pgtable: 4k pages, 39-bit VAs, pgdp=0000000080dc4000
+[ 1579.093794] [ffffff8004d76ffe] pgd=180000009ffff003, p4d=180000009ffff003, pud=180000009ffff003, pmd=180000009ffe3003, pte=0060000084d76787
+[ 1579.106343] Internal error: Oops: 000000009600004f [#1] SMP
+[ 1579.193824] CPU: 0 UID: 0 PID: 235 Comm: napi/qdma_eth-3 Tainted: G           O       6.12.57 #0
+[ 1579.202614] Tainted: [O]=OOT_MODULE
+[ 1579.206102] Hardware name: Airoha AN7581 Evaluation Board (DT)
+[ 1579.211929] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[ 1579.218889] pc : br_nf_pre_routing_finish_bridge+0x1ac/0xcc8 [br_netfilter]
+[ 1579.225859] lr : br_nf_pre_routing_finish_bridge+0x18c/0xcc8 [br_netfilter]
+[ 1579.232822] sp : ffffffc0817cba20
+[ 1579.236128] x29: ffffffc0817cba20 x28: 0000000000000000 x27: ffffff8002b89000
+[ 1579.243273] x26: ffffff8004d7700e x25: 0000000000000008 x24: 0000000000000000
+[ 1579.250416] x23: ffffffc08179d4c0 x22: 0000000000000000 x21: ffffffc08179d4c0
+[ 1579.257561] x20: ffffff8004d9b800 x19: ffffff8015010000 x18: 0000000000000014
+[ 1579.264704] x17: ffffffbf9e930000 x16: ffffffc0817c8000 x15: 0000000000000070
+[ 1579.271848] x14: 0000000000000080 x13: 0000000000000001 x12: 0000000000000000
+[ 1579.278993] x11: ffffffc0798caae0 x10: ffffff8014db6fd8 x9 : 0000000000000000
+[ 1579.286136] x8 : 0000000000000003 x7 : ffffffc08171f628 x6 : 000000001a3b83d3
+[ 1579.293281] x5 : 0000000000000000 x4 : 1beb76f22fee0000 x3 : ffffff8004d7700e
+[ 1579.300425] x2 : 0000000000000000 x1 : ffffff8004d9b8bc x0 : ffffff80026ed000
+[ 1579.307570] Call trace:
+[ 1579.310018]  br_nf_pre_routing_finish_bridge+0x1ac/0xcc8 [br_netfilter]
+[ 1579.316632]  br_nf_hook_thresh+0xd4/0x14bc [br_netfilter]
+[ 1579.322032]  br_nf_hook_thresh+0x250/0x14bc [br_netfilter]
+[ 1579.327517]  br_nf_hook_thresh+0x76c/0x14bc [br_netfilter]
+[ 1579.333003]  br_handle_frame+0x180/0x480
+[ 1579.336935]  __netif_receive_skb_core.constprop.0+0x540/0xf40
+[ 1579.342682]  __netif_receive_skb_one_core+0x28/0x50
+[ 1579.347561]  process_backlog+0x98/0x1e0
+[ 1579.351398]  __napi_poll+0x34/0x1c4
+[ 1579.354887]  net_rx_action+0x178/0x330
+[ 1579.358638]  handle_softirqs+0x108/0x2d4
+[ 1579.362560]  __do_softirq+0x10/0x18
+[ 1579.366051]  ____do_softirq+0xc/0x20
+[ 1579.369627]  call_on_irq_stack+0x30/0x4c
+[ 1579.373550]  do_softirq_own_stack+0x18/0x20
+[ 1579.377734]  do_softirq+0x4c/0x60
+[ 1579.381050]  __local_bh_enable_ip+0x88/0x98
+[ 1579.385234]  napi_threaded_poll_loop+0x188/0x21c
+[ 1579.389853]  napi_threaded_poll+0x70/0x80
+[ 1579.393863]  kthread+0xd8/0xdc
+[ 1579.396918]  ret_from_fork+0x10/0x20
+[ 1579.400499] Code: 88dffc22 3707ffc2 f9406663 f9406684 (f81f0064)
+[ 1579.406589] ---[ end trace 0000000000000000 ]---
+[ 1579.411209] Kernel panic - not syncing: Oops: Fatal exception in interrupt
+[ 1579.418083] SMP: stopping secondary CPUs
+[ 1579.422012] Kernel Offset: disabled
+
+Fix the issue reallocating the skb headroom if necessary in neigh_hh_bridge routine.
+
+Fixes: e179e6322ac33 ("netfilter: bridge-netfilter: Fix MAC header handling with IP DNAT")
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../platform/x86/intel/speed_select_if/isst_tpmi_core.c  | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ include/net/neighbour.h         | 8 ++++++--
+ net/bridge/br_netfilter_hooks.c | 6 +++++-
+ 2 files changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-index b2965baeaa36..f1b6109521c5 100644
---- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-+++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-@@ -1263,6 +1263,12 @@ static int isst_if_get_perf_level_mask(void __user *argp)
- 	if (!power_domain_info)
- 		return -EINVAL;
+diff --git a/include/net/neighbour.h b/include/net/neighbour.h
+index cb5f835a5d61..0272d0f0e89d 100644
+--- a/include/net/neighbour.h
++++ b/include/net/neighbour.h
+@@ -476,11 +476,15 @@ static inline int neigh_event_send(struct neighbour *neigh, struct sk_buff *skb)
+ #if IS_ENABLED(CONFIG_BRIDGE_NETFILTER)
+ static inline int neigh_hh_bridge(struct hh_cache *hh, struct sk_buff *skb)
+ {
+-	unsigned int seq, hh_alen;
++	unsigned int seq, hh_alen = HH_DATA_ALIGN(ETH_HLEN);
++	int err;
++
++	err = skb_cow_head(skb, hh_alen);
++	if (err)
++		return err;
  
-+	if (cpumask.level > power_domain_info->max_level)
-+		return -EINVAL;
-+
-+	if (!(power_domain_info->pp_header.level_en_mask & BIT(cpumask.level)))
-+		return -EINVAL;
-+
- 	_read_pp_level_info("mask", mask, cpumask.level, SST_PP_INFO_2_OFFSET,
- 			    SST_PP_RSLVD_CORE_MASK_START, SST_PP_RSLVD_CORE_MASK_WIDTH,
- 			    SST_MUL_FACTOR_NONE)
-@@ -1344,6 +1350,9 @@ static int isst_if_get_base_freq_mask(void __user *argp)
- 	if (!power_domain_info)
- 		return -EINVAL;
+ 	do {
+ 		seq = read_seqbegin(&hh->hh_lock);
+-		hh_alen = HH_DATA_ALIGN(ETH_HLEN);
+ 		memcpy(skb->data - hh_alen, hh->hh_data, ETH_ALEN + hh_alen - ETH_HLEN);
+ 	} while (read_seqretry(&hh->hh_lock, seq));
+ 	return 0;
+diff --git a/net/bridge/br_netfilter_hooks.c b/net/bridge/br_netfilter_hooks.c
+index 5ad3f3ef4ca7..c550907b92dd 100644
+--- a/net/bridge/br_netfilter_hooks.c
++++ b/net/bridge/br_netfilter_hooks.c
+@@ -296,7 +296,11 @@ int br_nf_pre_routing_finish_bridge(struct net *net, struct sock *sk, struct sk_
+ 				goto free_skb;
+ 			}
  
-+	if (cpumask.level > power_domain_info->max_level)
-+		return -EINVAL;
+-			neigh_hh_bridge(&neigh->hh, skb);
++			if (neigh_hh_bridge(&neigh->hh, skb)) {
++				neigh_release(neigh);
++				goto free_skb;
++			}
 +
- 	_read_bf_level_info("BF-cpumask", mask, cpumask.level, SST_BF_INFO_1_OFFSET,
- 			    P1_HI_CORE_MASK_START, P1_HI_CORE_MASK_WIDTH,
- 			    SST_MUL_FACTOR_NONE)
+ 			skb->dev = br_indev;
+ 
+ 			ret = br_handle_frame_finish(net, sk, skb);
 -- 
-2.43.0
+2.53.0
+
+
 
