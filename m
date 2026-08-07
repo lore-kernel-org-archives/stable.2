@@ -1,99 +1,132 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 883DE263F44;
-	Fri,  7 Aug 2026 03:36:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0764395AE6
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 03:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786073787; cv=none; b=fgNuV3qk+X0gIPZjPOe1z304YodeI2UG5I2QKuTXrTaywHBSwxNiY19ytAeKhcuczaFFXXmuRwXWXDUOdUHebszpRcQhAtpGXqris9OGLcZ7ubrHQfeoOz/55oPX2CXdpBw70HIu27Ny4JammyshWUAv6/F6cUGz9TfEiS+Vu3c=
+	t=1786073849; cv=none; b=Dko2p0doG+5Cf+DyjNrHjt+UbQqCqMU1IKEgdgugNDBZPswI9iDgJsCAy72Qf/ZZNCqt1Dl7GTVpCdBimFe+Rg2ffwtj8d2xg4spDoSgW9cOMCmW3HxBS917XNXU3ut/RhVbZLOkSP0k6UIT9tLCHbPbypLpRjYoHU7UOjyPJLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786073787; c=relaxed/simple;
-	bh=MNRvP6qn2uQWLuqkPH1ENweAZY/IbhBI3i9U6zQiwi0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gewfv9FHx8DHggy+YnEh1CYmukYbWFZtmzgGwp3HvzWXObnHLxGoyb/rbK3+daXUua5aIaP4qVl2AC/LruXfRV6rVjN4SfUi3iPVZol2Koj5B2N1LZqmQt3QYeHcoa0zfgg+BBquIHzaUzaHTGjXULPk4yAUwxoSJSx8hWtkywk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCHnnywUnVqWgRxAA--.757S3;
-	Fri, 07 Aug 2026 11:36:16 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgB3fDawUnVqY774Ag--.61218S2;
-	Fri, 07 Aug 2026 11:36:16 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: sre@kernel.org
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] power: supply: lp8727: fix use-after-free in lp8727_release_irq()
-Date: Fri,  7 Aug 2026 03:35:20 +0000
-Message-Id: <20260807033520.8551-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1786073849; c=relaxed/simple;
+	bh=jtexLRd0LMEvWjSqgopV5i9TmNSBRk6qk2dv0E078/0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nK4u9H7fNDTw9LQJ0d1hxnhpes+tvt2pGE1rHWnPd7nMp7sV7+Lq+cH8hCKuwJ001eMOn1KBhCVHYyxY+yYQlfxHXUagEhrmQc8VO4SfJzbVpTGyKLPbM/bg49WO6G+itNIMhzJ6updyQLSMn4Jzd3vaJVahNdafo2wZa97BB0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lgNfjCxw; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lgNfjCxw"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84e04df8c46so3270147b3a.2
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 20:37:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786073845; x=1786678645; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=q+fTOtPno7yWUV/SDfx7o6rMybrKsJN3GZDuyA1kW44=;
+        b=lgNfjCxwz6BA6r8khcLhKKnd+YOUSYJDMOaGG+0DFZezRR/VhjhtmuE7M6TngxKiBP
+         /roAPCFWT0lKzKE19iQKeT3ZYGOzdUoZdFxrlUmguLy1j5kdCus3LWtUUOTyTBDMU1Tu
+         ciKqoy+DV27jOqroCdVsIQVWK3EWo5+fHMDbMxfxiAkv+n8sXGFsB/1kawNe+vH4O1nN
+         mG7tahrV68GChoNF7ahiupLXxo4ZhaChArJr7VldS3AA5yysqWVtwU7YAhKIqK3QzQ2L
+         rqq7vVBsYcIuesXUJrprgSmxwn6ZV+kw2Xd68dJ4WPUegQgiLHg+saFuuf1h491qV100
+         KAJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786073845; x=1786678645;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q+fTOtPno7yWUV/SDfx7o6rMybrKsJN3GZDuyA1kW44=;
+        b=e0f62pNr6K0rCxLO4Sf1Niw0G6NuJkQe0Wp5RVcC2Kw2uDqUd1ZZH5wzaGyqHgnEHy
+         lrANGMojRIz5fDdbuYjciJY8xjWZiX/mq/0MsCR7taW4lOt6wm1pnWzDKYOcS/naIP/a
+         +P7dxJYR7m7oTsnObmweylRKzJZ1bAHKlYjK8oWN1BzHI/dJJS+I8bKJLmUwaCUgATFj
+         7uUo0NZZdea21zt2f+nSTaS8zCqLC4nsbCavAkGqfHnZlqfPvada72uc8tXlTh8voKvM
+         6bOO8y6yNhYUGn0juq2/K2f5llA5vynpdibCt0O56MXB7ghQBaQuYSIaCj9zQEglYaf5
+         kHCg==
+X-Forwarded-Encrypted: i=1; AHgh+RrWrU5mW69ybvZ3LhE7HQz5cTsg/R5mNUbY9afhNi7hXwm1zhhJoE2ZDpCPfPNiScwgKtF097E=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx2EVzs/ubGeFivkvlBVOiC6QfyJygYVIgPyDmj5UcIY3bbljE4
+	ru4QNrK/Rfe9OH1OYTOMUe1Sh4Cl7V3q7e4QG+bm+RgFy2fqAROFjlYC
+X-Gm-Gg: AR+sD13NkfgMo3/00uQYOQOE02BdWAE5eNQTGqMZvsSj7Sd29IUqBnjQ36wwhjDi8rs
+	LzQuDTXpjnlGy2im4SMQRg/ZJBdorBpnoK64fcX4+39s/k2oTaoD2kMBkHKKS9i5w4RVBnSwgq3
+	d5bOYgqNqrK9S5mk7ah0OTupyB8UE1GP+ahxXHiVTRkWj7ENS16dtsmk7J7kfLU7G3HAvHKSymc
+	XAObmjdOyfQiI26g36gGjDydDyYXZM2rHcxJwkXuK8URrF32vgQ+GjDmLWPOUoUKB1iIKY7tRlP
+	Qti+CQfP2QC2Ld25w/P8FXD/Jmy9Xf5DA7Hy76hcVn+u42ieyNZxNvm2xhPQMhmQkjicpJAXe57
+	CIrq1g+rP0qWyNOzKYXfxwmYG/uPX7xW4zUpN4GeJEMyzjNW+oTPJq1Whi+a2Ir03bC0GqVkOzr
+	5Np6IcBwFyKSerxrZcPyU6YlScqAvbP3sX19w/ugo8hW4j3PHh8GUoyg7y8sZWLDn7XmNhDyxwx
+	eE/NuaCbHdh2CBs8bM1
+X-Received: by 2002:a05:6a00:1895:b0:842:6004:3fda with SMTP id d2e1a72fcca58-84f5e0685a6mr685783b3a.25.1786073844634;
+        Thu, 06 Aug 2026 20:37:24 -0700 (PDT)
+Received: from [192.168.255.10] ([43.132.141.21])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f5a3cade6sm285307b3a.21.2026.08.06.20.37.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 06 Aug 2026 20:37:24 -0700 (PDT)
+Message-ID: <c8c6f8ea-3aba-4dbb-ab16-4f696441033c@gmail.com>
+Date: Fri, 7 Aug 2026 11:37:20 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net/sched: cls_api: fix tp_created race losing
+ existing tcf_proto
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, corvus@tencent.com, henrymei@tencent.com,
+ stable@vger.kernel.org
+References: <20260805093012.95155-1-henrymei@tencent.com>
+ <CAM0EoMmZGXhHL2v=AyjR9xSs8-s9EfkA9FkpULqtFBEOUxHQQA@mail.gmail.com>
+ <aabdf499-20ad-4667-b289-626c09a56c0a@gmail.com>
+ <CAM0EoMmM-7cphQGmfZa+H3p5HjQ71gJ=8J6-HhhRwzAv--74AA@mail.gmail.com>
+From: Lin Jiapeng <ljp1205831794@gmail.com>
+In-Reply-To: <CAM0EoMmM-7cphQGmfZa+H3p5HjQ71gJ=8J6-HhhRwzAv--74AA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgB3fDawUnVqY774Ag--.61218S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?zF189QXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZwTBuZ9Xr0BnyP0TluZkNXp9hrpjqB4/anm/ED4m6oMY5Ct
-	lkZxRgqngEeZ/cMkGeap9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7uF13tryDKr1DGrWftFy7urX_yoW8XF13p3
-	9xGr90kF1jqF4Ut3ZrZanFgFy5GFsIyFy5CrW8Aw13Z3W3tw4Utw15WFWagFy7Ar92vFWS
-	9r9IqFn2vF15GrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8I_M3UUUUU==
 
-lp8727_isr_func(), the threaded IRQ handler, is the only caller that arms
-pchg->work via schedule_delayed_work().  lp8727_release_irq() currently
-cancels the work before freeing the IRQ, so an IRQ delivered in between
-can re-arm the work through the threaded handler.  After .remove returns
-the devm layer frees pchg while lp8727_delayed_func() may still run and
-dereference it.
 
-Free the IRQ first so the threaded handler is quiesced and can no longer
-queue work, then cancel the delayed work to drain the final generation.
 
-This issue was found by an in-house static analysis tool.
+在 2026/8/7 02:38, Jamal Hadi Salim 写道:
+> Thanks. Please respond to that patch and add a tested-by tag
+> 
+>> BTW, "TencentOS Corvus AI" found this bug; and the patch was mannualy
+> 
+> Also add a reported-by tag to the patch response
+> 
+>> written and validated, so no `assisted-by` tag here. Noted for future
+>> submissions.
+> 
+> It does look like there was some human touch to it (other than the
+> verbose comment) - and is a reasonable patch except you missed one
+> spot.
+> I am wondering how you tested it. We had to craft printks to see the issue.
+> 
+> I was kind of suprised how quickly you found the issue. Victor had
+> something already based on what Sashiko said but i said to wait until
+> the first patch made it in.
+> Does Corvus AI watch what Sashiko comments on?
+> 
+> cheers,
+> jamal
+Thanks for the review! Glad to share our testing approach.
 
-Fixes: d71fda016102 ("lp8727_charger: Clean up the interrupt handler")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/power/supply/lp8727_charger.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+For this bug we placed kprobes on tcf_chain_tp_delete_empty, 
+tcf_proto_destroy and the classifiers' change() callbacks, capturing the 
+tp pointer arguments ($argN) and return values. Matching tp pointers 
+across the traced PIDs shows the losing thread calling delete_empty on a 
+tp owned by the other racing thread — right after destroying its own 
+tp_new, which is exactly the signature of tp_created not being reset. On 
+an unpatched kernel we observed 927 such wrongful deletions in 3000 
+rounds; with this patch applied, zero, and normal filter 
+creation/deletion is unaffected.
 
-diff --git a/drivers/power/supply/lp8727_charger.c b/drivers/power/supply/lp8727_charger.c
-index 4186fcd37512..e81bb393340c 100644
---- a/drivers/power/supply/lp8727_charger.c
-+++ b/drivers/power/supply/lp8727_charger.c
-@@ -280,10 +280,10 @@ static int lp8727_setup_irq(struct lp8727_chg *pchg)
+As for how we found it so quickly: Corvus AI continuously explores bugs 
+and security issues in the Linux kernel and generates reports. Each 
+report ships with a PoC and a QEMU-based reproduction procedure, 
+covering both static audit and dynamic verification; a human then 
+reviews the report and reproduces the result before we post and patch 
+the bugs.
 
- static void lp8727_release_irq(struct lp8727_chg *pchg)
- {
--	cancel_delayed_work_sync(&pchg->work);
--
- 	if (pchg->irq)
- 		free_irq(pchg->irq, pchg);
-+
-+	cancel_delayed_work_sync(&pchg->work);
- }
-
- static enum power_supply_property lp8727_charger_prop[] = {
---
-2.34.1
-
+cheers,
+Aohan Mei
