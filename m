@@ -1,40 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F6E3A5E77;
-	Fri,  7 Aug 2026 14:44:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5B23438A7;
+	Fri,  7 Aug 2026 14:44:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786113859; cv=none; b=Luii1FtFi1hDtbST/EKuRgpj99bw70M5WuT8jO60SDnHaPguI/8DSj/fwW/P4suFINTKIFPXqjdUn+RDwu3n8RGTos8TGmri0XawyydKOkwrY9viCpftudZQ755HNWLBe9GrflbydHdNS/xxgX1wV2K4aIqCejC+0MvaV4OfDS8=
+	t=1786113860; cv=none; b=nXuVzBvYMlBYzu82Tt/q8jT6dJrwyiXUyFskohBGo3DN3q/3y6+Zlbd5OvrvH9My50tqH1FzWBZSO5uTi8kiTwJqlZoy4ZqhUoj0jydpEaRRvdsiH1GKhcsxXyWzPS7iAbtJGlQu2Fii9jmItEC9ZwE6kVEvnnGtXKc/0pgKOVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786113859; c=relaxed/simple;
-	bh=kW8RNYlb52Ig2G/+LkGPq4dw9qS0ZsSckxD6tOAj63E=;
+	s=arc-20240116; t=1786113860; c=relaxed/simple;
+	bh=MHYkqy1vudahybG/p6hrN5DVvxFBkz/oKC/grK5LWZA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nIhXvqyMTB0Rgpss2AduWt03wyBAUBxeRq61TamEObHFWgt44wYtKkr4oHA/EpPNrOwtYFJe62/pdw3iTUxlrEdbJxSJDntDxqS7RGDCA6ItZ0ashEpCZrG2Mcyf5YT8qNFEz6YboAXHumqlJQk5XTZMjlsgizjPeyKdQzLc9xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=k/Qycos7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ezchzEPvZZsM2op1wNG7VIb27zJPVoeVrnttiqNm0wmyFATpcJzqFL5irhBMIQKSYHjn7lXmcRVYSqpIY0e8f9eHbXcWIgiCSG+1rUsoCwTYyef0CaVNyHFwfuZ1V7tutZ55yHN6azrTW3qluW9Kd58rrAk7NT9qfRVJzIg0Jjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VD5euQUP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="k/Qycos7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5681F000E9;
-	Fri,  7 Aug 2026 14:44:02 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VD5euQUP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8CA91F00A3E;
+	Fri,  7 Aug 2026 14:44:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786113842;
-	bh=hiPsPaoVHLWDK9N4R0OhmvjOLedkBdi+/PeSgDnEgIw=;
+	s=korg; t=1786113851;
+	bh=7/xx9LVxGyGayeTrLpC1H3CxxvMhXA0G9Pzx1pB5Xhw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k/Qycos7lH4atedGXwhFytabjf8Duich9LkSBzUHdpCKqS5DQ5ytco2mChDiPFXuD
-	 DWwu2t7TCX1gN6YO+NpeHrchTvK08WItY48mrqke2Hn9bftvQs2mcB8QRLFnRXaK0J
-	 SEh64mwvMT/YSlORRLAygE7Pw72lrY8BUTOmFhbg=
+	b=VD5euQUPEGscCnArkPlpKpKx2KGOg6P9dWgbpbLQmpQQchXu3qbJpIy3j0PbDr93U
+	 FF33tVk+8Fj5cUuVLoDOAXdAXbPMKB43MyQ+FRmLN+UHI7k8mApfkQ0TC+QhtmlJJs
+	 flJOlt4EalZNRH4UN/i9W8M914ENSrNQ770SHM7w=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Sashiko AI <sashiko-bot@kernel.org>,
-	HyeongJun An <sammiee5311@gmail.com>,
-	Chris Leech <cleech@redhat.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Uday Khare <udaykhare77@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 054/337] scsi: libiscsi: Fix stale-data leak into the SCSI sense buffer
-Date: Fri,  7 Aug 2026 16:34:17 +0200
-Message-ID: <20260807143419.685920696@linuxfoundation.org>
+Subject: [PATCH 6.12 030/337] ASoC: max98090: fix missing IS_ERR() before PTR_ERR() on mclk lookup
+Date: Fri,  7 Aug 2026 16:33:53 +0200
+Message-ID: <20260807143419.172414019@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
 References: <20260807143418.516897842@linuxfoundation.org>
@@ -53,54 +51,59 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: HyeongJun An <sammiee5311@gmail.com>
+From: Uday Khare <udaykhare77@gmail.com>
 
-[ Upstream commit 98b87885de4b7f605533a2860685f5689fce8e82 ]
+[ Upstream commit a792ce0fad61a70793ec565743f11d6ca534de59 ]
 
-iscsi_scsi_cmd_rsp() copies the sense data of a SCSI Response from the
-target-supplied data segment.  The segment carries a 2-byte sense length
-followed by the sense bytes, so it must hold 2 + senselen bytes, but the
-bounds check only requires datalen >= senselen:
+In max98090_probe(), the -EPROBE_DEFER check after devm_clk_get() is
+broken due to a missing IS_ERR() guard.
 
-	senselen = get_unaligned_be16(data);
-	if (datalen < senselen)
-		goto invalid_datalen;
-	memcpy(sc->sense_buffer, data + 2,
-	       min_t(uint16_t, senselen, SCSI_SENSE_BUFFERSIZE));
+The code intends to return -EPROBE_DEFER only when the clock lookup
+fails with that specific error.  However, without IS_ERR() the check:
 
-A target that returns a SCSI Response whose datalen equals senselen
-(with senselen <= SCSI_SENSE_BUFFERSIZE) makes the memcpy() from data +
-2 read up to two bytes past the received data.  Those bytes are stale
-conn->data contents and end up in the command's sense buffer, which is
-returned to userspace.
+    if (PTR_ERR(max98090->mclk) == -EPROBE_DEFER)
 
-Account for the 2-byte sense length prefix in the check.
+is called unconditionally, including when devm_clk_get() succeeds and
+returns a valid pointer.  Calling PTR_ERR() on a valid pointer
+reinterprets its address as a signed long; the result is arbitrary
+and is almost never equal to -EPROBE_DEFER, so the check silently
+does nothing in the success case.  When devm_clk_get() fails with
+any error other than -EPROBE_DEFER the check is also skipped, leaving
+max98090->mclk holding an error pointer with no indication to the caller.
 
-Fixes: 7996a778ff8c ("[SCSI] iscsi: add libiscsi")
-Suggested-by: Sashiko AI <sashiko-bot@kernel.org>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-Acked-by: Chris Leech <cleech@redhat.com>
-Link: https://patch.msgid.link/20260714104934.1404423-1-sammiee5311@gmail.com
-Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+This means a deferred probe will never actually be triggered for this
+device, and any non-EPROBE_DEFER clock error is silently swallowed with
+the error pointer left in the mclk field.
+
+Fix this by adding the missing IS_ERR() guard around the PTR_ERR() call,
+matching the pattern already used in the sibling max98088 and wm8960
+drivers.
+
+Fixes: b10ab7b838bd ("ASoC: max98090: Add master clock handling")
+Signed-off-by: Uday Khare <udaykhare77@gmail.com>
+Link: https://patch.msgid.link/20260720104254.14948-1-udaykhare77@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/libiscsi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/max98090.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/scsi/libiscsi.c b/drivers/scsi/libiscsi.c
-index 29af3722ea220..0f169f243475f 100644
---- a/drivers/scsi/libiscsi.c
-+++ b/drivers/scsi/libiscsi.c
-@@ -918,7 +918,7 @@ static void iscsi_scsi_cmd_rsp(struct iscsi_conn *conn, struct iscsi_hdr *hdr,
- 		}
+diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+index 4023b88e7bc13..9253707bccde9 100644
+--- a/sound/soc/codecs/max98090.c
++++ b/sound/soc/codecs/max98090.c
+@@ -2388,8 +2388,9 @@ static int max98090_probe(struct snd_soc_component *component)
+ 	dev_dbg(component->dev, "max98090_probe\n");
  
- 		senselen = get_unaligned_be16(data);
--		if (datalen < senselen)
-+		if (datalen < senselen + 2)
- 			goto invalid_datalen;
+ 	max98090->mclk = devm_clk_get(component->dev, "mclk");
+-	if (PTR_ERR(max98090->mclk) == -EPROBE_DEFER)
+-		return -EPROBE_DEFER;
++	if (IS_ERR(max98090->mclk))
++		if (PTR_ERR(max98090->mclk) == -EPROBE_DEFER)
++			return -EPROBE_DEFER;
  
- 		memcpy(sc->sense_buffer, data + 2,
+ 	max98090->component = component;
+ 
 -- 
 2.53.0
 
