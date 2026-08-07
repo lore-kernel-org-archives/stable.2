@@ -1,110 +1,86 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18FB91684BE
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 04:22:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2985F4B0499;
+	Fri,  7 Aug 2026 04:30:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786076576; cv=none; b=IRSotWM13nESnjWkyxNqZJuPngpIV/Txy9vFTpu1k44Npb6zebZHRruO2jC8IY+J0F6eu/Q6CYAKH2prk0DqfFJMuV58OtrSOOMyheCuQkiHhnWIrFpa7l9ESxuG3aRCSNyVj84IJQmZsX+y6RAUayenfmtuOBwJzXASsebVoNM=
+	t=1786077057; cv=none; b=rt4FQYnI8wrfKusIHpPggvd8NIFg47tjwzKrj+0B/NQsJr/yRwKQtNaCsXFI/Lq+0eY/mW0ngPFG5pQqEQ0ElUUfMs04AWiNtmAj0taIvEILoxNmc0lf4dsFF27XW3nlPwyJbcgWTU4MVTGqpQ+78plIWwIlISbdq1xp61OoAB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786076576; c=relaxed/simple;
-	bh=iFF1Ii4BbRtvgCuTzJ+dT2gNzke1lY9L5cq82zA0A+E=;
+	s=arc-20240116; t=1786077057; c=relaxed/simple;
+	bh=9FSbAsM322O/ViSZTusv+kTtNYPGMN4k5ojoKo3T6YE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NlnQHRNV2Dhpv+TG581ofvW/NKLa+g62gn5R2N/MglJ0v5bZwHH37JKgOH92zSx0HUHLJLUgsN+qXe1cV4mGMhuoBxU6LpPqsA2TCGz8tmVCrC2r6rMNn+J/mK+1wZ2Wjy+FsplG8UQdMSK2He2PJR4TlmxuzmS8CapNNaiVa8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HiTXdcfG; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=nOpoSWwgaqm1torD3Do0UF927tcH324tc+aObp4NNYgCgt0b5Q7IIOuQHDZEzSg1JamTdhXL5hGiOPloZJGo+O72Si5h6PjeMVfR7JU/l5Yyseh2MOP/HJHhnskek/kFFR1JNH1wmS2B1cABy6qjqDR/MNiCMvA/ogH9H7D47Os=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=U6V+lDxV; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HiTXdcfG"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47f703a9e5dso1483150f8f.0
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 21:22:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786076573; x=1786681373; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GwROwkmiHrpoWilT8NKMPgQZsuspf+l7q9+MCcf4wEo=;
-        b=HiTXdcfGDz7onJuRKB6A2B2omxntwVrToqPHW4OPyjR3VE1BcA5nDUHnVE1OzJBA+j
-         Q5KbcleSjs9YWgMFjVDrlbLA7HJUKmzYYxbwsaIMY/thpI6kOiD/SFwSG35ANcvnSc1c
-         rO7Mf+WPQpkDp7OSPTragg0CrO7bhJttHKEPr1pdZy2cdKZeLcTOedIpwkxB8NpepVy0
-         YkSDMhrknS+nBvXXYtWtTZ4TzARdReOVcIf4MqvDOG3c9Rh+gAEEVyXKuHvqwmWdH92/
-         DUiKcCIzzSxcLvBzPAfgUMBvuhVi7dc+pQNkEJi+hHx35kEuLWVIp0OMHFV6fN6lsxd3
-         i/Fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786076573; x=1786681373;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GwROwkmiHrpoWilT8NKMPgQZsuspf+l7q9+MCcf4wEo=;
-        b=jWbwrxMefOlYp5zyMJRqdaO0RAjd8Uo8aNkcUlNzcVZpMCy5Nm+KOVHY3iXrnAydn7
-         GFk49NlXyV/J4sIgjE7+CF8WeoaFwq0i13agt9YwPLUyR2y5Um1aoABWuNtmWWdrvCO1
-         N/0VrtY2wh3Ytca05OSfxBXul56sPG9Adr4sCsCOe+OgACgzQm1khEG3JlLHwrNKDyWT
-         ZRAKRWTpon3ZOLzwgmt/pB5e8D+sFSWqUkfiWKPoNyonNzKh54jwFhUnSCydicMVZT/z
-         3zUdaEvxKCMC34EqVbKgLJR1ZgLP9WvQ+O/lmK3yYAW2xWGPq0Gd4mgAzMNOLgZiHMMb
-         nCeQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrOyb50GuHbNSJ/oZbcxAE6RkkFgsoENJQzScRF7nYhk+12VZD1Og7cEhIUXuQ0A8EQ0goz7UU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwoHltbqP4Diw46bfhB6emDBoClb1hL4rEFxx0ZcXruhqb1bJSJ
-	ypT6cassRd7wUtrbp3/Nnl9y2bFb4NnYzH42dI0q9hQL1bkqsH9/j90E
-X-Gm-Gg: AR+sD12bjhH6J+fx+MhxK7/I+qXxy3NKZIwW7HDpjGEclJ2yu0jaC1NjWHg8/oQBTwH
-	0EemIrLlA5RTnpIQ2MVBkiAieeaFgn3UdoJnBJcNKquwUlZ9FSkj5UEwHXBus5JyVb6n8WuS1KA
-	awnJeVQqrJFuQ+xvcyeUrgBRZHjIuo3tQA3PG5gXbOrMqkHvB33An9eXzVDVOZ37GAphfHZz+CK
-	MC8qqSboxO09Tfl6j8IkhwDyq7CmlrRu/ptMoMtwD0M5luHGXvfdEY62tjxcKy7ljQEouxGxFut
-	PEwTQJK/beED+E2Asf37AfHscS83pBDcfC7k6S089gZb1p8IcaeDnruePvu23+xhdNWGXRo3QWQ
-	FSu9zSGHssIE0MHXtTYTles7Ln98QPQrf0KXB0TGvgpQV15+ZC8OOE68fN0zvpxIuzI21PrdBE3
-	oi73m9S3soXTIMQfFiPX/SNymWl8IHPVjG+7vizjsuwvrxx01qnVIppAhWzQDEp82+eOiqJEskJ
-	T8FCRhv7NUCMSyYPN09+OpA
-X-Received: by 2002:a5d:624a:0:b0:47f:9750:26cc with SMTP id ffacd0b85a97d-47fec630b5cmr24277446f8f.23.1786076573196;
-        Thu, 06 Aug 2026 21:22:53 -0700 (PDT)
-Received: from eldamar.lan (c-82-192-247-196.customer.ggaweb.ch. [82.192.247.196])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021e902dsm1786284f8f.21.2026.08.06.21.22.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 21:22:51 -0700 (PDT)
-Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
-Received: by eldamar.lan (Postfix, from userid 1000)
-	id 41479BE2DE0; Fri, 07 Aug 2026 06:22:50 +0200 (CEST)
-Date: Fri, 7 Aug 2026 06:22:50 +0200
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Borislav Petkov <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="U6V+lDxV"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id D4AF440E016E;
+	Fri,  7 Aug 2026 04:30:51 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id TSGH0n6bqdN5; Fri,  7 Aug 2026 04:30:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1786077041; bh=drjOgN4pqw+092DvcFRWvHPLSWtuwbmehxootEv2qAg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=U6V+lDxV3SkmFgrEYOdP5DykoItlSYApYomZdqGe2NKjVgpe7IiDRwBqfHBkYattF
+	 uUZW+VGHZ6537NjqvUjyk6AM2BYDMhSgwnrNhq82g9rAAqwbRu4iXLdf9aMJGTrZvk
+	 BruQFl4CzzFSY1b+qoO5zn0jCsadhU3hfOxWjETDVB4bh2qhLpiQi5fyrXrFNc0QO6
+	 SUIrYcd1T+5Uw7hKeoXevz9pUl8EeGRH/h43qAE5MT3MPrjOeaVQKGJoEoS5jU4FQz
+	 rJ7adVqdTTDNrs5rtNqqZuw+N1ImxuxlGiXLRlBBneP/bo2G/1Phs4FRjayGzXtOzV
+	 t0t1QFbgd/e1Smshz5audJj0RE/GpGv3aLJQ0WqhsXWnNeIpj4hnFUVe0eBEhiOpU3
+	 3tREAKwQb5X+jntMYU94RmzWAOe5fe7aQxEUN8QtbfV3F08m7Hh4iCQufpbnaJVWu2
+	 VML6a5qRNWfUaq9gXybKbI3eJ50vEb3VBshgHz6VjUhsQYSymehsSSZyt+3R1Mxrlv
+	 5HEqIj7dnhsZwXVlsbwwea1/sf/mYn40rPR/jtDVD1HMKZYnCwUFuBtv/HF2TZ+BaD
+	 qjfgiGQJEGwunWru7vMpCXS4UqlhsFI+kQigCOcUbaici3PkDEBNzvPvdNKSjH9fUG
+	 7jIaRwiFDTk4cdRsvlWUU8a8=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::b])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 59C4D40E00C3;
+	Fri,  7 Aug 2026 04:30:36 +0000 (UTC)
+Date: Thu, 6 Aug 2026 21:30:32 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Salvatore Bonaccorso <carnil@debian.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
 	David Kaplan <David.Kaplan@amd.com>
-Subject: CVE-2026-68480 mitigations for older stable series (was: Re: Linux
- 6.6.149)
-Message-ID: <anVdmsj0Ko294nBP@eldamar.lan>
+Subject: Re: CVE-2026-68480 mitigations for older stable series (was: Re:
+ Linux 6.6.149)
+Message-ID: <20260807043032.GGanVfaF37dKFTb7PG@fat_crate.local>
 References: <2026080618-mulch-nullify-723f@gregkh>
+ <anVdmsj0Ko294nBP@eldamar.lan>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <2026080618-mulch-nullify-723f@gregkh>
+In-Reply-To: <anVdmsj0Ko294nBP@eldamar.lan>
 
-Hi Greg, hi Borislav,
+Hi,
 
-On Thu, Aug 06, 2026 at 07:32:17PM +0200, Greg Kroah-Hartman wrote:
-> I'm announcing the release of the 6.6.149 kernel.
-> 
-> All users of the 6.6 kernel series must upgrade.
-> 
-> The updated 6.6.y git tree can be found at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git linux-6.6.y
-> and can be browsed at the normal kernel.org git web browser:
-> 	https://git.kernel.org/?p=linux/kernel/git/stable/linux-stable.git;a=summary
+On Fri, Aug 07, 2026 at 06:22:50AM +0200, Salvatore Bonaccorso wrote:
+> In fact at least they depend on CONFIG_MITIGATION_SRSO, which only was
+> renamed in a033eec9a06c ("x86/bugs: Rename CONFIG_CPU_SRSO
+> => CONFIG_MITIGATION_SRSO") v6.9-rc1, correct?
 
-It got mentioned outside of the stable list that the backports of
-7e7f81cf6f5c ("x86/bugs: Make Safe-RET robust against interrupt
-injection") to address CVE-2026-68480 will not work. So raising the
-problem here.
+Yeah, I'm very sorry about that.
 
-In fact at least they depend on CONFIG_MITIGATION_SRSO, which only was
-renamed in a033eec9a06c ("x86/bugs: Rename CONFIG_CPU_SRSO
-=> CONFIG_MITIGATION_SRSO") v6.9-rc1, correct?
+> Borislav, can you have a look for the older backports?
 
-Borislav, can you have a look for the older backports?
+Already sent fixed versions to Greg, waiting for him to wake up.
 
-Regards,
-Salvatore
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
