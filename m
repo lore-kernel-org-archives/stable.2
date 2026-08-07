@@ -1,222 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7503B331200
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:14:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786112074; cv=none; b=O/uu/armgvmimbFbm01QamNEwS9ErqN2DYTdSVpmpra5qtJpi2556Sfy9Mh789TmWpmvNVo6pqbRVLbnoDBwu6ZqCNWsptXF29fb2DVbS/w9QkYO2c1jxmnqxD9dWhwPp9UKAizPx+7BKuXq3DNxE2bjEXCs0U21EXdWkBR7lAI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786112074; c=relaxed/simple;
-	bh=9glZgDhJsCoSG9bSfFFi+1mXs7svligfcqnbVMyG/TQ=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5686238553F
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786112152; cv=pass; b=RA/cka40ZHzXlMo5QjBw8PWdXkUV/KSakzs0GGOmPoHfmO51C4fO/Hc4NfRVKKQ57lODCJiKXAWz7S5ljzlbDxb5Wt2GD9U9zGNY7lMOPieYCykd+u7inEtg9R9sMBIsGYk78/TunyGymTEQw6kqMVJGrAKjCKzQy/496hiM8EU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786112152; c=relaxed/simple;
+	bh=8nIgFryYz2DrargIZD0GNMzp+E0YqW98PtHpUo3w5m4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qU1JnrY+c95Lf7Yc4UwEOIvcs7vzJc2RvJnGazmkl5M6oTKQLcLd5M5aCPp28+uIVQMs1hGBdXHVPg7L3Zz8n9MTNxM25YClb3WMxj/PsSVqz1/vURqFOO+9rKqJwCk9N6Dn6E/4hGUXnnHRR9q1cUSFeRG/SDjNrwzvAQM9wtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GTL8X3lu; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=UHsXU0z2aVvbzCzBJUZ3FhNCeqRiPcpZJi25OJ+Y9F2zhVdkH/l3b1VAVLsZ1T95bOIDJKBnwrPSdhcMI9DhDi70VQp6x1TrxWXFSx9ngln/kkDMrzHdzFUXgLodfZ31ifxJWF4GXuwbV4Q+bNeKXNy2Q2yUVXMtw8PKAAWlTw8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vxqrp1H3; arc=pass smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GTL8X3lu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8191F00A3F
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:14:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786112068;
-	bh=QSBQq1iZ4TIttTi7WtPUV0Lctn3BW8e48z0P6hPV+rg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GTL8X3luoJo8ojA2eygaPsq8zHijMD3dU2i3jNschrAb4qHvxO6Qg0PNKHhwUIYVz
-	 dya9F9p5gBS2dUNqPlMl3c8Bxu9LOdv3ZjCOirsjUFJ6OfmlTU8xlj25ZupahK6k5h
-	 IxC3+uR5g9KaxbxFXWUcuXokH5hODYhyV0h33eR51O1sLHBj80GfwnpYk72o43T/6K
-	 icxbshYswHl6bpwk1rBlm+vDBJE0Vt0u5cPrIFFRoyWZwHpBQZ9u9hoMa+2XQxWIDu
-	 f3wtGQMWDXahGUsA97LIDvFpX+IrdFyAM7HYT+6dfwkWWV0sCnDgNslcLgS9L4YoCX
-	 +nJEcX7GEwc1A==
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-39f91ba1ef7so23014801fa.3
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 07:14:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqKuLLkTl6f1GUpxHnLocl/hddbSBd6aY38VbOLW24+ZAPkKW1YzOMLLmK+2m+4NEm5a/w5nZs=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwBlrxDz2Zh35DRIkrV1pt8JCB65sPD9OCdLyzi0xLCL82lfBV5
-	aJaue0Po2XN2X2sbmPevZ68OUoWVQ2VOvA4Pc2OhJatvEgpPTp/eCD2Nws3kKGxPAy1G/+zn6KE
-	/0U9v7SEW8qVc78PW/f/t/hsfuP774ys=
-X-Received: by 2002:a05:651c:a394:20b0:39b:695:32a3 with SMTP id
- 38308e7fff4ca-39fe56d06bemr804331fa.13.1786112066901; Fri, 07 Aug 2026
- 07:14:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vxqrp1H3"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c1600d040e4so298791066b.1
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 07:15:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786112135; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iwsszZTng1WwcmNFzEZlhiI6JU43MKUVVbc1CMa/HZUIQVutLbX60xfNgQuxd89fYA
+         3JOE2N8SIXv3CVTPW+IMvrBKa5CTcvPP750v5Ye4oMWeXgiJnFIjjzmnHBI36z5me73V
+         ERoOPbCHtcaViYzAZvbJrbbSflEJbv+sXK8UOmd/zsJbDlwDftUhNnqulATJQ+Glnm6f
+         Lw1ay2rTAehWQ0lDxfxTqRcT7z2aXWPiR5OECrkggpHOIQ1tU5NrV91ReJzDuhCuWZ/p
+         zcccNuhzjxiFehuBX9cx6qztScVa4UStenjVHYzhyB7WedHIS3/0tdI2l+srbO+uQKkP
+         hvuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MzS5XFrgTuiPjNnu38gbVxPmnnD5h/HbpvqKJVfoMMI=;
+        fh=VMmv2VoRWvhaAwwvHx4SQlDH497BkKgv7ZcgWZYFNNI=;
+        b=UBe/BgFJ3yzMGHgxjDFaX/8PnnDLk6WehPxtsNUFsG+5YJSX4SxBZlgReB8tDQGYID
+         ZK9KOLXRe6APWt6tEgLbh83R2J24zLGXYWbWJCfm+veEXmuvTHhi3sVcNrtVUni57Esu
+         28i35rVx0cJqKrJLUicnkHXpkPAHvdRTO8o1RHR1JfxMJVo0qsTDkvoU0DG1UxAzvBXT
+         EX/p1hFfFTKpSn+G6cMO40ZSDqVAknkqC48EY6Uh7hFvXD+GJz7SFhMemDHsbSflp9EO
+         Yg9YJIs6gfZNmYJuYZEO8H1aX4ARiPPV7fFR217WgMbaNv8Mz4QTIn6W2uYJF997NlPq
+         HElw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786112135; x=1786716935; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MzS5XFrgTuiPjNnu38gbVxPmnnD5h/HbpvqKJVfoMMI=;
+        b=Vxqrp1H3W7lDss+3/JdOl8YpDjax42CqChmA8tp84UAvP5jrpNRTVzvrdklCi3hlq9
+         aqdkIGC0jMlPRwyEWktr1QlsqhR7bbCnQ3XGjsHSuJ77RKohnyUc9ObKajFp2lfPCsw7
+         YuhAhTDZ8TE6CljHcBlNLz32EgW2YC0Tl1hnYSNy1rN++3RbYydMCWbirw6ljPTyKZJV
+         t8ypbtuzfC9mvLl4fIhCi26bmqcrgfeBVNqhPzLsNDMQ/cO1klvovGlN5OuGenmtJanj
+         Jm32TEx1fxBT5u3Ow7EGRB023C+B//BkstwuClXXIZHCZ/H4RMJJw1dZ7CfPdxRizZIV
+         LAHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786112135; x=1786716935;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MzS5XFrgTuiPjNnu38gbVxPmnnD5h/HbpvqKJVfoMMI=;
+        b=MvJWgwx/X6a7Sp5NgC5tBhwTSAzCXeVjYNFhIKKDBZR+fo8KhX6MRM4ayafixcq6Ag
+         9HgnBJbiP2TovnEMB/dX/Ywpt0V7MZetxlaOcxLQA58k3H12mGQ6wgWyS8tAGIlzHoYP
+         yPUcI6vvI/1pVHdQ1iHwWMiHT9ljp0rGn4aZOC1YTdirDJNBmUWFIoKoplRuz6bqbelS
+         dUtEL9MLOtHq/heUltByzEKe/F/Ufe1QYSnmxjTC3XzB8E65+2x40YCqJTHSiZwv+xwv
+         3wNJxFUhSK6nMonaGDFz9lULbFC/et0EvKYS5dlnGWkkoCfAIqfYlPI9r1RdW15JVV0B
+         0mDQ==
+X-Forwarded-Encrypted: i=1; AHgh+RquhiLAKPtO2lS+zUulmSfV37kdrir3l4IYSv3EWfkP1CIrxKcw1a9T6dXWYs25SnNLH2vn/vI=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4wMizAgAG3hlIt3MLqEVc3B62/177jkp7JplUqF0SrR8lHshk
+	yj+hO5dEaN527qF3ibaFhONqGolwKVUc1Of/WonOZeaDCQq6g4tTh21QfQCQIl3zaZg5+Wa5LkV
+	PQf2AMIRGWhiVue4FHjqWGCxYTUKTizI=
+X-Gm-Gg: AR+sD11xP5FpBimdK7/mo1q45XuHAp9JIExGY4XWQfNCs2uGGtLdalgKVLlTCKpMN/T
+	B3im29lsEDoGnOwGV6kprN0XWCkCRLtsNTxC0lne99OQk8FR2X5gjbp0f+J+nw8mAREsdhja409
+	VRFGaK4q8KgIX2iVj/W7ShhxlyBwulnV1ydeuRWdCEiJ3skg/ZkSPVFahfJ+sGQ/OFniku8qIXx
+	SYe7/OPPT40Ps1cAoq3v3id6UmUr0mB9vwWKVyeHEpml/FOOASuTdDj0zX7lZkwUlN4GyFK8z40
+	JDk6S2pIdqGVvpy7YtlDhlFNdkOrSViy+WYal/BsvzJO7++NwYWPxPCKUaXS
+X-Received: by 2002:a17:907:a606:b0:c1f:df40:1d83 with SMTP id
+ a640c23a62f3a-c2057e093demr807232966b.5.1786112134646; Fri, 07 Aug 2026
+ 07:15:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <19fd74e46a8.25f5bfd941182.5953196137231825269@a0rg.com> <19fd7a647c3.1059430542637.572965728630481984@a0rg.com>
-In-Reply-To: <19fd7a647c3.1059430542637.572965728630481984@a0rg.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 7 Aug 2026 16:14:14 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0j5N-=yzvUF3wqsJCCnqeT50d8NECqpnWDPkfp7HCpUBg@mail.gmail.com>
-X-Gm-Features: AUfX_myJ24AZX--Dy6aql1rCvYDOlICOhVSQ7k5e-kcqZNrAIq9efsEhhXqmyMs
-Message-ID: <CAJZ5v0j5N-=yzvUF3wqsJCCnqeT50d8NECqpnWDPkfp7HCpUBg@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: pfr_update: fix stack buffer overflow in query_capability()
-To: Anirudh Prasad <icarus@a0rg.com>
-Cc: linux-acpi <linux-acpi@vger.kernel.org>, rafaeljwysocki <rafael.j.wysocki@intel.com>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, stable <stable@vger.kernel.org>
+References: <20260806135224.3267890-1-puranjay@kernel.org> <20260806135224.3267890-2-puranjay@kernel.org>
+ <20260807093951.GS776954@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260807093951.GS776954@noisy.programming.kicks-ass.net>
+From: Puranjay Mohan <puranjay12@gmail.com>
+Date: Fri, 7 Aug 2026 15:15:21 +0100
+X-Gm-Features: AUfX_mwZEiydqK_HU1_ia3MF27eq51puWHtYC7ZlluNhh2_0hfgI6nV6cPYk91Q
+Message-ID: <CANk7y0hq3w+bRNmuT1PWvhZb=ob=6Y5keN7-25vRSbx5nxakNA@mail.gmail.com>
+Subject: Re: [PATCH v6 1/3] perf/core: Fix NULL pmu_ctx passed to pmu->sched_task()
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Usama Arif <usama.arif@linux.dev>, 
+	Will Deacon <will@kernel.org>, Anshuman Khandual <anshuman.khandual@arm.com>, 
+	Ravi Bangoria <ravi.bangoria@amd.com>, Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org, 
+	linux-perf-users@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 6, 2026 at 5:17=E2=80=AFPM Anirudh Prasad <icarus@a0rg.com> wro=
-te:
+On Fri, Aug 7, 2026 at 10:40=E2=80=AFAM Peter Zijlstra <peterz@infradead.or=
+g> wrote:
 >
-> > If the firmware wants the kernel to copy more data than the latter has
-> > room for, the operation should fail instead of pretending to succeed.
+> On Thu, Aug 06, 2026 at 06:52:21AM -0700, Puranjay Mohan wrote:
+> > perf_pmu_sched_task() returns early when cpuctx->task_ctx is set, and
+> > cpc->task_epc is only non-NULL while a task context is scheduled in on
+> > this CPU. __perf_pmu_sched_task() therefore always passes NULL:
+> >
+> >   Unable to handle kernel NULL pointer dereference at virtual address 0=
+0
+> >   pc : armv8pmu_sched_task+0x14/0x50
+> >   Call trace:
+> >    armv8pmu_sched_task+0x14/0x50 (P)
+> >    perf_pmu_sched_task+0xac/0x108
+> >    __perf_event_task_sched_out+0x6c/0xe0
+> >
+> > Pass &cpc->epc instead. __perf_init_event_pmu_context() sets its ->pmu
+> > when the PMU is registered; ->ctx stays NULL until a CPU-wide event
+> > attaches. That is enough here because armv8pmu_sched_task() is the only
+> > in-tree implementation that dereferences the argument at all, and it
+> > only reads ->pmu. The oops therefore needs BRBE, which arrived in v6.17=
+.
+> >
+> > Fixes: bd2756811766 ("perf: Rewrite core context handling")
+> > Cc: stable@vger.kernel.org
+> > Acked-by: Usama Arif <usama.arif@linux.dev>
+> > Signed-off-by: Puranjay Mohan <puranjay@kernel.org>
+> > ---
+> >  kernel/events/core.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/kernel/events/core.c b/kernel/events/core.c
+> > index b282de3e7d7ca..9815894b67e77 100644
+> > --- a/kernel/events/core.c
+> > +++ b/kernel/events/core.c
+> > @@ -3907,7 +3907,8 @@ static void __perf_pmu_sched_task(struct perf_cpu=
+_pmu_context *cpc,
+> >       perf_ctx_lock(cpuctx, cpuctx->task_ctx);
+> >       perf_pmu_disable(pmu);
+> >
+> > -     pmu->sched_task(cpc->task_epc, task, sched_in);
+> > +     pmu->sched_task(cpc->task_epc ? cpc->task_epc : &cpc->epc,
+> > +                     task, sched_in);
 >
-> Agreed. v2 validates all four buffer lengths upfront and returns
-> -EINVAL if any exceeds its destination field size.
+> This can be written like: cpc->task_epc ?: &cpc->epc.
+>
+> However, if cpc-task_epc is always NULL, then this all seems like an
+> overly complicated way of writing: &cpc->epc. What gives?
 
-Can you please resend this afresh with proper versioning?
+Nothing, you're right, it should just be &cpc->epc.
 
-> ---
->
-> query_capability() copies four ACPI buffer objects returned by the
-> firmware _DSM into fixed-size u8[16] fields in struct
-> pfru_update_cap_info using memcpy with the firmware-supplied length:
->
->   memcpy(&cap_hdr->code_type,
->          elements[CAP_CODE_TYPE_IDX].buffer.pointer,
->          elements[CAP_CODE_TYPE_IDX].buffer.length);
->
-> The same pattern repeats for drv_type, platform_id, and oem_id.
-> If the firmware returns buffer.length > 16 for any of these fields,
-> memcpy writes past the destination array.
->
-> struct pfru_update_cap_info is stack-allocated in pfru_ioctl().
-> Confirmed with KASAN on 7.2-rc6: three stack-out-of-bounds reports
-> are generated when a DSM returns 64-byte buffers, with writes reaching
-> 44 bytes past the end of cap_hdr's [64, 156) frame window into
-> adjacent stack redzones.
->
-> Fix by validating each buffer length against its destination field
-> size before copying, and returning -EINVAL if the firmware supplies
-> an oversized buffer.
->
-> Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update de=
-vice driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Anirudh Prasad <icarus@a0rg.com>
-> ---
->  drivers/acpi/pfr_update.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
-> index 6283105bb0e8..e14e053cea44 100644
-> --- a/drivers/acpi/pfr_update.c
-> +++ b/drivers/acpi/pfr_update.c
-> @@ -158,6 +158,14 @@ static int query_capability(struct pfru_update_cap_i=
-nfo *cap_hdr,
->                 goto free_acpi_buffer;
->         }
->
-> +       if (out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length > =
-sizeof(cap_hdr->code_type) ||
-> +           out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length > s=
-izeof(cap_hdr->drv_type) ||
-> +           out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length > si=
-zeof(cap_hdr->platform_id) ||
-> +           out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length > siz=
-eof(cap_hdr->oem_id)) {
-> +               ret =3D -EINVAL;
-> +               goto free_acpi_buffer;
-> +       }
-> +
->         cap_hdr->update_cap =3D out_obj->package.elements[CAP_UPDATE_IDX]=
-.integer.value;
->         memcpy(&cap_hdr->code_type,
->                out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.pointe=
-r,
-> --
-> 2.55.0
->
->
->
->
->
-> From: Anirudh Prasad <icarus@a0rg.com>
-> To: "linux-acpi"<linux-acpi@vger.kernel.org>
-> Cc: "rafaeljwysocki"<rafael.j.wysocki@intel.com>, "linux-kernel"<linux-ke=
-rnel@vger.kernel.org>, "stable"<stable@vger.kernel.org>
-> Date: Thu, 06 Aug 2026 19:10:59 +0530
-> Subject: [PATCH] ACPI: pfr_update: fix stack buffer overflow in query_cap=
-ability()
->
->  > query_capability() copies four ACPI buffer objects returned by the
->  > firmware _DSM into fixed-size u8[16] fields in struct
->  > pfru_update_cap_info using memcpy with the firmware-supplied length:
->  >
->  >  memcpy(&cap_hdr->code_type,
->  >  elements[CAP_CODE_TYPE_IDX].buffer.pointer,
->  >  elements[CAP_CODE_TYPE_IDX].buffer.length);
->  >
->  > The same pattern repeats for drv_type, platform_id, and oem_id.
->  > If the firmware returns buffer.length > 16 for any of these fields,
->  > memcpy writes past the destination array.
->  >
->  > struct pfru_update_cap_info is stack-allocated in pfru_ioctl().
->  > Confirmed with KASAN on 7.2-rc6: three stack-out-of-bounds reports
->  > are generated when a DSM returns 64-byte buffers, with writes reaching
->  > 44 bytes past the end of cap_hdr's [64, 156) frame window into
->  > adjacent stack redzones.
->  >
->  > Fix by clamping each memcpy length to the size of its destination
->  > field with min_t(u32, buffer.length, sizeof(cap_hdr->field)).
->  >
->  > Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update=
- device driver")
->  > Cc: stable@vger.kernel.org
->  > Signed-off-by: Anirudh Prasad <icarus@a0rg.com>
->  > ---
->  >  drivers/acpi/pfr_update.c | 12 ++++++++----
->  >  1 file changed, 8 insertions(+), 4 deletions(-)
->  >
->  > diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
->  > index 6283105bb0e8..0219347cd78f 100644
->  > --- a/drivers/acpi/pfr_update.c
->  > +++ b/drivers/acpi/pfr_update.c
->  > @@ -161,24 +161,28 @@ static int query_capability(struct pfru_update_c=
-ap_info *cap_hdr,
->  >      cap_hdr->update_cap =3D out_obj->package.elements[CAP_UPDATE_IDX]=
-.integer.value;
->  >      memcpy(&cap_hdr->code_type,
->  >             out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.pointe=
-r,
->  > -           out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length=
-);
->  > +           min_t(u32, out_obj->package.elements[CAP_CODE_TYPE_IDX].bu=
-ffer.length,
->  > +             sizeof(cap_hdr->code_type)));
->  >      cap_hdr->fw_version =3D
->  >          out_obj->package.elements[CAP_FW_VER_IDX].integer.value;
->  >      cap_hdr->code_rt_version =3D
->  >          out_obj->package.elements[CAP_CODE_RT_VER_IDX].integer.value;
->  >      memcpy(&cap_hdr->drv_type,
->  >             out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.pointer=
-,
->  > -           out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length)=
-;
->  > +           min_t(u32, out_obj->package.elements[CAP_DRV_TYPE_IDX].buf=
-fer.length,
->  > +             sizeof(cap_hdr->drv_type)));
->  >      cap_hdr->drv_rt_version =3D
->  >          out_obj->package.elements[CAP_DRV_RT_VER_IDX].integer.value;
->  >      cap_hdr->drv_svn =3D
->  >          out_obj->package.elements[CAP_DRV_SVN_IDX].integer.value;
->  >      memcpy(&cap_hdr->platform_id,
->  >             out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.pointer,
->  > -           out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length);
->  > +           min_t(u32, out_obj->package.elements[CAP_PLAT_ID_IDX].buff=
-er.length,
->  > +             sizeof(cap_hdr->platform_id)));
->  >      memcpy(&cap_hdr->oem_id,
->  >             out_obj->package.elements[CAP_OEM_ID_IDX].buffer.pointer,
->  > -           out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length);
->  > +           min_t(u32, out_obj->package.elements[CAP_OEM_ID_IDX].buffe=
-r.length,
->  > +             sizeof(cap_hdr->oem_id)));
->  >      cap_hdr->oem_info_len =3D
->  >          out_obj->package.elements[CAP_OEM_INFO_IDX].buffer.length;
->  >
->  > --
->  > 2.55.0
->  >
->
->
+I wrote the ternary expecting patch 2 to make cpc->task_epc reachable
+here, but it does not.
+
+Will fix it in v7.
+
+Thanks,
+Puranjay
