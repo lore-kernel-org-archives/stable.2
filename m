@@ -1,132 +1,222 @@
-Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 723BF3E3C49;
-	Fri,  7 Aug 2026 05:36:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
+Received: from out-184.mta0.migadu.com (out-184.mta0.migadu.com [91.218.175.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2589442FB4
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 05:45:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786081028; cv=none; b=kzV8MVT2iBsuFRpHg2T+4xLVce4G7e3dgg0HOWdm/W3BsFSrvWlG+2HTaBARXiMIMArTyG+ErQhxv8LrhbJYTOm7yugc0p5j0IZSYH6FT3tXCXMl3ZsdHacqXgs8s9tCUaJAFnBy2IdKevi2R2JcEsNMuj6DCiilK1v8sB0pobU=
+	t=1786081554; cv=none; b=f0ueknfbn2Ct2iYuu4cq00I9La6B/mnxg0CKLHAXPj61iI7NcWHCSvISZjzTYV8KF4drPcTVQxmBcNgYTks3EqMe2IMmduNwTs1Bs/pUtVHbcZrEkf1yyvW2N715PhM0NfUYxc4IaN9htm81mP1/m2+OB9WgFMl3xT8MIOZ/vtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786081028; c=relaxed/simple;
-	bh=/K6izZ5PgDKQTnv9KGEprhpAf4ann2qt0BiqtY+Azn0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=R+CNsy4bklpdnAG0OGhrNFem/iIEpEwZ/a02FO+Hmk7BRX/ptys2eYJ/wflatzsl2HFfogi1ATRWEzI7CC2ApJ/axhWniPV4CcsHlctWPDp3aj1+mH7EVyrNvLkh31ILQbK6kyAhGQZ7F5+5Dg/M0HZ+yB8wTRDg/qnQ5k7Elv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.79.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wD3wX3xbnVql2FxAA--.8047S3;
-	Fri, 07 Aug 2026 13:36:50 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgAXiKHwbnVqhimbAw--.58860S2;
-	Fri, 07 Aug 2026 13:36:48 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-media@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] media: marvell: mcam: stop DMA and cancel s_bh_work before freeing DMA buffers
-Date: Fri,  7 Aug 2026 05:35:53 +0000
-Message-Id: <20260807053553.11852-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1786081554; c=relaxed/simple;
+	bh=W9jBapHwuzybF+UIBobVx1XEj4xvv8xR6gvxnb6hTPs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W9UdG69kZZIY2AlfAQ+uYR19+nVSLdi7C2jNo8sZP30P1exbkl/ighsq2NLZwa8zXpMxDG06XaPqX8gem1dcfvi2u2lNS0n/25lToXxmEzqCWzxRlLKxEUoaLbU5Em5QJowBTR+9TQQS36o+VomefG/LThlfUTrIzFM3XCARHY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HuH/OQiU; arc=none smtp.client-ip=91.218.175.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HuH/OQiU"
+Message-ID: <9067a389-2e1b-4352-bb88-7a78a3fe6a19@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1786081539;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vtSZIt9dlXMvAfyTzKVr5n3mZ8wTK92TvaHA6/Pp7GE=;
+	b=HuH/OQiUliANUoiJzpe5x9lpfc5e4uli8SYz6eIvlroKyZCgQlBTalKdLHwzK38mhxeFNd
+	43r7cBZx1HzLb4ZwfRG8tFeE/NlMtwW8JBWogImG4jkqODtz9mdH4pNcOC+mjbP6/iqLwV
+	hJNEsh4IkUwQWUt/z77xri3pEkgNY4g=
+Date: Fri, 7 Aug 2026 13:45:23 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Subject: Re: [PATCH v3] alloc_tag: fix undetected compressed tag overflow when
+ profiling is disabled
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Abhishek Bapat <abhishekbapat@google.com>, stable@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>
+References: <20260805090633.141001-1-hao.ge@linux.dev>
+ <20260805095505.1c2cbc150441cb20a74ba9bb@linux-foundation.org>
+ <CAJuCfpG_XX-Hwy=TCrJ+g6yiMxGXLB=LvnPN_WLP3WQktNZMbA@mail.gmail.com>
+ <e96d8a13-8f9a-49f4-ae4c-a14c6de5ae66@linux.dev>
+ <CAJuCfpFyTaqLnyi11PtAj-ouJiLcfxZoYDRUUKSZbW3RfDFOUw@mail.gmail.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <CAJuCfpFyTaqLnyi11PtAj-ouJiLcfxZoYDRUUKSZbW3RfDFOUw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgAXiKHwbnVqhimbAw--.58860S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?dH8fcQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBFOvP35EUcvsoCh9qYhheWc2ZdBHpwUqP4Fnw1jJqKBwBKt
-	zEnUJH5e804bTkf/Ceqp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxCr1rZFWDtr4UZFW8Jr1UJwc_yoW5Wr1Dpr
-	Z0grZxCrWqqF4qvryDJw1xXFW5ArZ5Ja1xGF17A3WS9FnxJFWYvr129Fy8WF98GrWkZa1Y
-	qF4vgFy3ZFWDJrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8I_M3UUUUU==
+X-Migadu-Flow: FLOW_OUT
 
-In vmalloc mode the frame-completion IRQ queues mcam_frame_work() on
-cam->s_bh_work, which memcpy()s from the dma_bufs[] that
-mcam_free_dma_bufs() frees with dma_free_coherent().  mccic_shutdown()
-frees those buffers without stopping the controller, so while streaming
-a late frame IRQ can re-arm the work after the buffers are gone, causing a
-use-after-free.
+Hi Suren
 
-Stop the controller in mccic_shutdown() when streaming is still active
-(gated on an open fd, which holds a runtime-PM reference, so the device
-is powered), cancel s_bh_work in mcam_free_dma_bufs(), and move
-INIT_WORK() into mccic_register() before the device can be published.
 
-Fixes: 67a8dbbc4e04 ("[media] marvell-cam: Basic working MMP camera driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/media/platform/marvell/mcam-core.c | 14 ++++++++++++--
- 1 file changed, 13 insertions(+), 1 deletion(-)
+On 2026/8/7 09:08, Suren Baghdasaryan wrote:
+> On Thu, Aug 6, 2026 at 1:36 AM Hao Ge <hao.ge@linux.dev> wrote:
+>>
+>> Hi Suren
+>>
+>>
+>> On 2026/8/6 01:47, Suren Baghdasaryan wrote:
+>>> On Wed, Aug 5, 2026 at 9:55 AM Andrew Morton <akpm@linux-foundation.org> wrote:
+>>>>
+>>>> On Wed,  5 Aug 2026 17:06:33 +0800 Hao Ge <hao.ge@linux.dev> wrote:
+>>>>
+>>>>> In reserve_module_tags(), the tag overflow check is gated on
+>>>>> mem_alloc_profiling_enabled():
+>>>>>
+>>>>>       if (mem_alloc_profiling_enabled() && !tags_addressable())
+>>>>>
+>>>>> If profiling is toggled off at runtime and a module is loaded whose
+>>>>> tags exceed the compressed-mode limit, shutdown_mem_profiling() is
+>>>>> skipped. vm_module_tags_populate() still maps memory for the tags and
+>>>>> the module loads successfully, but the total tag count now exceeds what
+>>>>> NR_UNUSED_PAGEFLAG_BITS can address.
+>>>>>
+>>>>> Once profiling is re-enabled, ref_to_idx() computes each tag's index
+>>>>> as its position in the alloc_tag array. update_page_tag_ref() masks
+>>>>> it to alloc_tag_ref_mask before storing in page->flags. Indices
+>>>>> beyond the mask are truncated and idx_to_ref() resolves them to wrong
+>>>>> tags.
+>>>>>
+>>>>> This silently corrupts /proc/allocinfo: allocated pages get attributed
+>>>>> to the wrong call sites, so the statistics it reports are wrong.
+>>>>>
+>>>>> mem_alloc_profiling_enabled() and mem_profiling_compressed are
+>>>>> independent. Once compressed mode is established at boot, it stays
+>>>>> active regardless of runtime toggles of mem_profiling.
+>>>>>
+>>>>> Remove the mem_alloc_profiling_enabled() guard. Also return an error
+>>>>> after shutdown_mem_profiling() to skip vm_module_tags_populate(), as
+>>>>> the mapped pages would never be reused - shutdown_mem_profiling() sets
+>>>>> mem_profiling_support to false, so no future module load enters the
+>>>>> codetag path.
+>>>>
+>>>> Thanks.
+>>>>
+>>>> AI review points at a cpuple of possible things, one pre-existing:
+>>>>           https://sashiko.dev/#/patchset/20260805090633.141001-1-hao.ge@linux.dev
+>>>
+>>> Yes, pre-existing issue can be handled separately, it's not directly
+>>> related to this change.
+>>>
+>>>>
+>>>> "Does this unintentionally result in a denial of service for module
+>>>> loading, preventing critical drivers from loading when they otherwise
+>>>> could have just disabled profiling and gracefully continued?" sounds
+>>>> pretty obscure and I doubt if we care?
+>>>
+>>> Hmm, I think Hao considered that in his previous version
+>>
+>> Yes, I did look into this.
+>>
+>> but now I'm
+>>> thinking we might be able to handle this more gracefully and not fail
+>>> the module loading. When profiling is disabled
+>>> codetag_needs_module_section() returns false here:
+>>> https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L2822,
+>>> so if we had to disable profiling, we could return NULL instead of
+>>> ENOMEM and change the condition here:
+>>> https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L2825
+>>> to act as if codetag_needs_module_section() was false from the
+>>> beginning. IOW code at
+>>> https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L2822
+>>> becomes:
+>>>
+>>> if (codetag_needs_module_section(mod, sname, shdr->sh_size) &&
+>>>       (dest = codetag_alloc_module_section(mod, sname, shdr->sh_size,
+>>>         arch_mod_section_prepend(mod, i), shdr->sh_addralign)) != NULL) {
+>>> ...
+>>
+>> The primary blocker is __layout_sections.
+>>
+>> https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L1730
+>>
+>> This is because __layout_sections controls whether we reserve space for
+>> the codetag section inside EXECMEM_MODULE_DATA, the same way we handle
+>> regular sections.
+>>
+>> When codetag_needs_module_section() returns true during layout,
+>> module_get_offset_and_type() is skipped, so sh_entsize only gets the
+>> type bits with offset = 0 - no space is reserved.
+>>
+>> If we bail out with NULL when compressed tags overflow and add a dest !=
+>> NULL check here, we'll end up hitting the later else block.
+>>
+>> if (codetag_needs_module_section(mod, sname, shdr->sh_size) &&
+>>       (dest = codetag_alloc_module_section(mod, sname, shdr->sh_size,
+>> arch_mod_section_prepend(mod, i), shdr->sh_addralign)) != NULL) {
+>>          ......
+>> } else {
+>>          enum mod_mem_type type = shdr->sh_entsize  >> SH_ENTSIZE_TYPE_SHIFT;
+>>          unsigned long offset = shdr->sh_entsize  & SH_ENTSIZE_OFFSET_MASK;
+>>          dest = mod->mem[type].base + offset;
+>> }
+>>
+>> That'll cause the following memcpy to clobber the leading data.
+> 
+> Ah, ok, now I remember how the areas are reserved there. Yes, my
+> suggestion would not work.
+> 
+>>
+>> If we really need to fix this, we can use dest's return value, with a
+>> check like:
+>> if (codetag_needs_module_section(mod, sname, shdr->sh_size)) {
+>>          dest = codetag_alloc_module_section(mod, sname, shdr->sh_size,
+>>                  arch_mod_section_prepend(mod, i), shdr->sh_addralign);
+>>          if ( dest == sentinel_val )
+>>                  continue;
+> 
+> You can't simply continue here because during the next iteration
+> codetag_needs_module_section() will return false (since we called
+> shutdown_mem_profiling() and set mem_profiling_support to false) and
+> will take the "else" branch you pointed out earlier, which will
+> clobber the leading data.
+> 
 
-diff --git a/drivers/media/platform/marvell/mcam-core.c b/drivers/media/platform/marvell/mcam-core.c
-index b8360d37000a..c9605317e8a7 100644
---- a/drivers/media/platform/marvell/mcam-core.c
-+++ b/drivers/media/platform/marvell/mcam-core.c
-@@ -406,6 +406,8 @@ static void mcam_free_dma_bufs(struct mcam_camera *cam)
- {
- 	int i;
+Ah, right.
 
-+	cancel_work_sync(&cam->s_bh_work);
-+
- 	for (i = 0; i < cam->nbufs; i++) {
- 		dma_free_coherent(cam->dev, cam->dma_buf_size,
- 				cam->dma_bufs[i], cam->dma_handles[i]);
-@@ -1306,7 +1308,6 @@ static int mcam_setup_vb2(struct mcam_camera *cam)
- 		break;
- 	case B_vmalloc:
- #ifdef MCAM_MODE_VMALLOC
--		INIT_WORK(&cam->s_bh_work, mcam_frame_work);
- 		vq->ops = &mcam_vb2_ops;
- 		vq->mem_ops = &vb2_vmalloc_memops;
- 		cam->dma_setup = mcam_ctlr_dma_vmalloc;
-@@ -1864,6 +1865,12 @@ int mccic_register(struct mcam_camera *cam)
- 		goto out;
- 	}
+>>
+>> But that would also mean extra work on our end - for instance, we’d need
+>> to stop the per-cpu allocations inside codetag_load_module.
+>>
+>> https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L3571
+>>
+>> Could there be a simpler solution for this?
+> 
+> Hmm. What if we return something like -EAGAIN and propagate it up to
+> load_module(). load_module() will check for that error and retry
+> calling layout_and_allocate() but since now
+> mem_profiling_support=false, both layout_sections() and move_module()
+> will work as if profiling is disabled. We need to make sure
+> codetag_module_replaced() and codetag_load_module() do nothing when
+> mem_profiling_support=false but that should be easy. WDYT?
+> 
 
-+#ifdef MCAM_MODE_VMALLOC
-+	/* Init before sensor bind: armed by IRQ, cancelled on probe-error paths. */
-+	if (cam->buffer_mode == B_vmalloc)
-+		INIT_WORK(&cam->s_bh_work, mcam_frame_work);
-+#endif
-+
- 	mutex_init(&cam->s_mutex);
- 	cam->state = S_NOTREADY;
- 	mcam_set_config_needed(cam, 1);
-@@ -1922,10 +1929,15 @@ void mccic_shutdown(struct mcam_camera *cam)
- 	 * take it down again will wedge the machine, which is frowned
- 	 * upon.
- 	 */
-+	mutex_lock(&cam->s_mutex);
- 	if (!list_empty(&cam->vdev.fh_list)) {
- 		cam_warn(cam, "Removing a device with users!\n");
-+		/* Stop so the IRQ can't re-arm s_bh_work after the buffers are freed. */
-+		if (cam->state == S_STREAMING)
-+			mcam_ctlr_stop_dma(cam);
- 		sensor_call(cam, core, s_power, 0);
- 	}
-+	mutex_unlock(&cam->s_mutex);
- 	if (cam->buffer_mode == B_vmalloc)
- 		mcam_free_dma_bufs(cam);
- 	v4l2_ctrl_handler_free(&cam->ctrl_handler);
--- 
-2.34.1
+Good point, I'll look into this approach.
 
+Thanks
+Best Regards
+Hao
+
+>>
+>> Thanks
+>> Best Regards
+>>
+>> Hao
+>>
+>>>
+>>> I think this would result in a better handling of this situation: if
+>>> we can't fit the tags anymore, we issue a warning, disable profiling
+>>> but continue loading the module. Hao, WDYT?
+>>
+>>
+>>
+>>
+>>
+>>
