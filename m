@@ -1,187 +1,199 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55AE272E6D
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 02:36:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94FD0272E6D
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 02:36:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786070162; cv=none; b=KqzqaLVP7QVX5zWmcLjlaGFYJrD+H7BTyj2rlQXy5J24rMiJ6l5n+Kor1oO7ElBkg/1vZMraAikf4ftCyWYVj6i6Ba7+0pmycyR7A+T5qHxKmjZYYyCdbAk1lkx6unKByLwK3eChkhW/pJF/3Kaa7RB5pYwmOvtAtB/kfkWMBNs=
+	t=1786070164; cv=none; b=awk5ePzaR8u1CL+R3eLtFqe8oUc4Fl0aekGE2ZkMPCXGe+znHsowJWAoq2vujttLjYy7Z9U+CKD8cqR7kgy6EU54hS0911zn3745nz7pZoGwu9DDSSjvXN1bSf8cDn0N1II6cxcAotBOTqHyjsRXva53/Wr2DPgpidky3RcDrrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786070162; c=relaxed/simple;
-	bh=8pyCo+kNUqKoo+ekgpiqrlS5HDPCeYXj8MOrSCDx7Gw=;
+	s=arc-20240116; t=1786070164; c=relaxed/simple;
+	bh=IwudT8EHDXM/D0/NQokzrmmdvnlftk6K8zM0f1BbKl0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EV0vCjm/JdG5grmnsSZgbab31h17DaQn+j8tLl8ZF+2V+B0DcmJ7daAQpy5VTRBB7qZl+yvc8Lkvqy2DwPE7KQUOi6maPt1tFdFsLvjUCn+yHJ2K3VE2U8olLjsWDBtt2A4xe+7lAEDYZXm/DY/YfgEezIBflwHga20uq5hjIBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mhTEDi1+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=g5GiPXtEbED0cNHWxckqjwDNk6UZveS+WHqKT2uNHaWfArTzfri9ie7iXlUMHLayBPV2Gp7VhK5Q/Q79jkLAgY2+niP7jPI3zvl9pxnQp8dTnLjIxxsIJw66sD2KD756Fgot18lfNCg1r69Vzv8hhtmedGQw7hsVhPfiEwRpQv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cHbbFBNc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mhTEDi1+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CBB51F00A3D;
-	Fri,  7 Aug 2026 02:35:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cHbbFBNc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A388F1F000E9;
+	Fri,  7 Aug 2026 02:36:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786070160;
-	bh=Ogy3kUPwTv3L9ThQ560hv5HUinFEZldPNStsz/HTlUk=;
+	s=k20260515; t=1786070163;
+	bh=oOHmDkDSxNJqFc3HAc1Jk6FtZrliQsXQLb64+E1KTzo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mhTEDi1+OjFRqomJmzdE2CSoK7PbH5oq3dN0VB9wvZpxo6CCwwwQolZ34HlvKY1BD
-	 YBiG18kkEERLITkJE5PMdRNem3v/t8W367Po2vJ8cWMreA6h53pt5OB0fNNbk+8hc8
-	 U4nmSH9Cw05bvAeopumug2MTybdKx5t7Jt8bSfS/9fhbr5Az1plZLXcqcMLTxBJIgH
-	 LG7igF3gI0s22iXbUHGhWVSAS1JBokY4ERP6iSQelVpv43NMPWOeCwzojrIPPIu+zM
-	 l1KCAe8AAEAptY0Od+9+bWfzhosnCCSUEnqeqGuMV/EiTmAmI4UFKYtJL7fXbaVEDc
-	 rAFk2N9xh6JxA==
+	b=cHbbFBNc0hUvphs8T2lJMvhBLX+qxsbQMAMQgkCwhfJn/+bYm/DcwuQYnuiodHgTc
+	 F4WuaJjKrSZ8fGruh9pekCOptkO/X9ywIki1mKio7c1O8HKK4xfYB/zItTNW5P9QRf
+	 kRmGa9gUuHqZWjUG00/dsmswhBUZE9aObRpm5jJ59uCOkwofizmyCj7SVrYgV60Css
+	 yZDltDWQDiC0lMJJ+ITNx3e7VlFuXmszFr5RcE3i7MSGhsa4jJqLy8tPgpK/4qXD68
+	 KCsRU/vpezqc+o86vfMJTLtKfc8stpwYsnsLxBJNHsiZRHrkZ64sdJvswLgVvPI6X3
+	 TgARc/K2nnOog==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiling Zou <roxy520tt@gmail.com>,
-	Yuan Tan <yuantan098@gmail.com>,
-	Yifan Wu <yifanwucs@gmail.com>,
-	Juefei Pu <tomapufckgml@gmail.com>,
-	Xin Liu <bird@lzu.edu.cn>,
-	Qi Tang <tpluszz77@gmail.com>,
-	Ren Wei <n05ec@lzu.edu.cn>,
-	Xin Long <lucien.xin@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: =?UTF-8?q?Tomasz=20Mo=C5=84?= <tomasz.mon@camlingroup.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] sctp: avoid auth_enable sysctl UAF during netns teardown
-Date: Thu,  6 Aug 2026 22:35:56 -0400
-Message-ID: <20260807023556.1682974-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/5] sc16is7xx: Properly resume TX after stop
+Date: Thu,  6 Aug 2026 22:35:57 -0400
+Message-ID: <20260807023601.1683108-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260807023556.1682974-1-sashal@kernel.org>
-References: <2026072933-repent-chapped-0492@gregkh>
- <20260807023556.1682974-1-sashal@kernel.org>
+In-Reply-To: <2026072914-stainless-finishing-0e3c@gregkh>
+References: <2026072914-stainless-finishing-0e3c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <roxy520tt@gmail.com>
+From: Tomasz Moń <tomasz.mon@camlingroup.com>
 
-[ Upstream commit f8d5e7846025f4ab15a461235f8ebae9094a361a ]
+[ Upstream commit cc4c1d05eb10c3ad4c6315f1897bc56b1e7429aa ]
 
-proc_sctp_do_auth() updates the SCTP control socket after changing
-net.sctp.auth_enable. The handler gets the per-net SCTP state from
-ctl->data, so an already opened sysctl file can still target a network
-namespace while that namespace is being torn down.
+sc16is7xx_stop_tx() clears THRI bit and thus disables THRI interrupt.
+This makes it possible for transmission to cease indefinitely when more
+than 64 characters are being sent.
 
-SCTP previously registered its per-net sysctls from sctp_defaults_init(),
-while the control socket is created later from sctp_ctrlsock_init(). This
-exposed a window during initialization where auth_enable was writable
-before net->sctp.ctl_sock existed, and a teardown window where auth_enable
-stayed writable after inet_ctl_sock_destroy() had released the control
-socket.
+The sc16is7xx_handle_tx() call executed by sc16is7xx_tx_proc() can send
+up to FIFO length (64) characters. If more characters are written to the
+output buffer, then the THRI interrupt is needed.
 
-Move the per-net SCTP sysctl registration into sctp_ctrlsock_init() after
-sctp_ctl_sock_init() succeeds, and unregister the sysctl table before
-destroying the control socket in sctp_ctrlsock_exit(). If sysctl
-registration fails after the control socket was created, destroy the
-control socket in the same init path.
+Solve the issue by enabling THRI interrupt in sc16is7xx_tx_proc().
 
-Make sctp_sysctl_net_unregister() tolerate a missing header and clear the
-saved pointer so init-error and exit paths can safely share the unregister
-helper.
-
-Fixes: 15649fd5415e ("sctp: sysctl: auth_enable: avoid using current->nsproxy")
-Cc: stable@vger.kernel.org
-Reported-by: Yuan Tan <yuantan098@gmail.com>
-Reported-by: Yifan Wu <yifanwucs@gmail.com>
-Reported-by: Juefei Pu <tomapufckgml@gmail.com>
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Co-developed-by: Qi Tang <tpluszz77@gmail.com>
-Signed-off-by: Qi Tang <tpluszz77@gmail.com>
-Signed-off-by: Zhiling Zou <roxy520tt@gmail.com>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-Acked-by: Xin Long <lucien.xin@gmail.com>
-Link: https://patch.msgid.link/390cd5e91ed60eea27b0b64d0468301a9e73b808.1784033357.git.roxy520tt@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Tomasz Moń <tomasz.mon@camlingroup.com>
+Link: https://lore.kernel.org/r/20220301060332.2561851-2-tomasz.mon@camlingroup.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: af071d9e07e5 ("serial: sc16is7xx: implement gpio get_direction() callback")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sctp/protocol.c | 20 ++++++++++++--------
- net/sctp/sysctl.c   |  9 +++++++--
- 2 files changed, 19 insertions(+), 10 deletions(-)
+ drivers/tty/serial/sc16is7xx.c | 47 +++++++++++++++++++++++++++++-----
+ 1 file changed, 41 insertions(+), 6 deletions(-)
 
-diff --git a/net/sctp/protocol.c b/net/sctp/protocol.c
-index 2185f44198deb..bc1bd3a454ab3 100644
---- a/net/sctp/protocol.c
-+++ b/net/sctp/protocol.c
-@@ -1394,10 +1394,6 @@ static int __net_init sctp_defaults_init(struct net *net)
- 	net->sctp.l3mdev_accept = 1;
- #endif
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index 3623d3167950d..46aa2073b992e 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -307,7 +307,8 @@ struct sc16is7xx_devtype {
  
--	status = sctp_sysctl_net_register(net);
--	if (status)
--		goto err_sysctl_register;
--
- 	/* Allocate and initialise sctp mibs.  */
- 	status = init_sctp_mibs(net);
- 	if (status)
-@@ -1431,8 +1427,6 @@ static int __net_init sctp_defaults_init(struct net *net)
- 	cleanup_sctp_mibs(net);
- #endif
- err_init_mibs:
--	sctp_sysctl_net_unregister(net);
--err_sysctl_register:
- 	return status;
- }
+ struct sc16is7xx_one_config {
+ 	unsigned int			flags;
+-	u8				ier_clear;
++	u8				ier_mask;
++	u8				ier_val;
+ };
  
-@@ -1447,7 +1441,6 @@ static void __net_exit sctp_defaults_exit(struct net *net)
- 	net->sctp.proc_net_sctp = NULL;
- #endif
- 	cleanup_sctp_mibs(net);
--	sctp_sysctl_net_unregister(net);
- }
+ struct sc16is7xx_one {
+@@ -341,6 +342,9 @@ static struct uart_driver sc16is7xx_uart = {
+ 	.nr		= SC16IS7XX_MAX_DEVS,
+ };
  
- static struct pernet_operations sctp_defaults_ops = {
-@@ -1461,16 +1454,27 @@ static int __net_init sctp_ctrlsock_init(struct net *net)
- 
- 	/* Initialize the control inode/socket for handling OOTB packets.  */
- 	status = sctp_ctl_sock_init(net);
--	if (status)
-+	if (status) {
- 		pr_err("Failed to initialize the SCTP control sock\n");
-+		return status;
-+	}
++static void sc16is7xx_ier_set(struct uart_port *port, u8 bit);
++static void sc16is7xx_stop_tx(struct uart_port *port);
 +
-+	status = sctp_sysctl_net_register(net);
-+	if (status) {
-+		inet_ctl_sock_destroy(net->sctp.ctl_sock);
-+		net->sctp.ctl_sock = NULL;
+ #define to_sc16is7xx_port(p,e)	((container_of((p), struct sc16is7xx_port, e)))
+ #define to_sc16is7xx_one(p,e)	((container_of((p), struct sc16is7xx_one, e)))
+ 
+@@ -650,6 +654,7 @@ static void sc16is7xx_handle_tx(struct uart_port *port)
+ 	struct sc16is7xx_port *s = dev_get_drvdata(port->dev);
+ 	struct circ_buf *xmit = &port->state->xmit;
+ 	unsigned int txlen, to_send, i;
++	unsigned long flags;
+ 
+ 	if (unlikely(port->x_char)) {
+ 		sc16is7xx_port_write(port, SC16IS7XX_THR_REG, port->x_char);
+@@ -658,8 +663,12 @@ static void sc16is7xx_handle_tx(struct uart_port *port)
+ 		return;
+ 	}
+ 
+-	if (uart_circ_empty(xmit) || uart_tx_stopped(port))
++	if (uart_circ_empty(xmit) || uart_tx_stopped(port)) {
++		spin_lock_irqsave(&port->lock, flags);
++		sc16is7xx_stop_tx(port);
++		spin_unlock_irqrestore(&port->lock, flags);
+ 		return;
 +	}
  
- 	return status;
- }
+ 	/* Get length of data pending in circular buffer */
+ 	to_send = uart_circ_chars_pending(xmit);
+@@ -686,8 +695,13 @@ static void sc16is7xx_handle_tx(struct uart_port *port)
+ 		sc16is7xx_fifo_write(port, to_send);
+ 	}
  
- static void __net_exit sctp_ctrlsock_exit(struct net *net)
- {
-+	sctp_sysctl_net_unregister(net);
++	spin_lock_irqsave(&port->lock, flags);
+ 	if (uart_circ_chars_pending(xmit) < WAKEUP_CHARS)
+ 		uart_write_wakeup(port);
 +
- 	/* Free the control endpoint.  */
- 	inet_ctl_sock_destroy(net->sctp.ctl_sock);
-+	net->sctp.ctl_sock = NULL;
++	if (uart_circ_empty(xmit))
++		sc16is7xx_stop_tx(port);
++	spin_unlock_irqrestore(&port->lock, flags);
  }
  
- static struct pernet_operations sctp_ctrlsock_ops = {
-diff --git a/net/sctp/sysctl.c b/net/sctp/sysctl.c
-index 9c55a70f2b64b..ac9cbc4bf8c55 100644
---- a/net/sctp/sysctl.c
-+++ b/net/sctp/sysctl.c
-@@ -630,11 +630,16 @@ int sctp_sysctl_net_register(struct net *net)
- 
- void sctp_sysctl_net_unregister(struct net *net)
+ static bool sc16is7xx_port_irq(struct sc16is7xx_port *s, int portno)
+@@ -762,6 +776,7 @@ static void sc16is7xx_tx_proc(struct kthread_work *ws)
  {
-+	struct ctl_table_header *header = net->sctp.sysctl_header;
- 	const struct ctl_table *table;
+ 	struct uart_port *port = &(to_sc16is7xx_one(ws, tx_work)->port);
+ 	struct sc16is7xx_port *s = dev_get_drvdata(port->dev);
++	unsigned long flags;
  
--	table = net->sctp.sysctl_header->ctl_table_arg;
--	unregister_net_sysctl_table(net->sctp.sysctl_header);
-+	if (!header)
-+		return;
+ 	if ((port->rs485.flags & SER_RS485_ENABLED) &&
+ 	    (port->rs485.delay_rts_before_send > 0))
+@@ -770,6 +785,10 @@ static void sc16is7xx_tx_proc(struct kthread_work *ws)
+ 	mutex_lock(&s->efr_lock);
+ 	sc16is7xx_handle_tx(port);
+ 	mutex_unlock(&s->efr_lock);
 +
-+	table = header->ctl_table_arg;
-+	unregister_net_sysctl_table(header);
- 	kfree(table);
-+	net->sctp.sysctl_header = NULL;
++	spin_lock_irqsave(&port->lock, flags);
++	sc16is7xx_ier_set(port, SC16IS7XX_IER_THRI_BIT);
++	spin_unlock_irqrestore(&port->lock, flags);
  }
  
- static struct ctl_table_header *sctp_sysctl_header;
+ static void sc16is7xx_reconf_rs485(struct uart_port *port)
+@@ -819,7 +838,7 @@ static void sc16is7xx_reg_proc(struct kthread_work *ws)
+ 	}
+ 	if (config.flags & SC16IS7XX_RECONF_IER)
+ 		sc16is7xx_port_update(&one->port, SC16IS7XX_IER_REG,
+-				      config.ier_clear, 0);
++				      config.ier_mask, config.ier_val);
+ 
+ 	if (config.flags & SC16IS7XX_RECONF_RS485)
+ 		sc16is7xx_reconf_rs485(&one->port);
+@@ -830,8 +849,24 @@ static void sc16is7xx_ier_clear(struct uart_port *port, u8 bit)
+ 	struct sc16is7xx_port *s = dev_get_drvdata(port->dev);
+ 	struct sc16is7xx_one *one = to_sc16is7xx_one(port, port);
+ 
++	lockdep_assert_held_once(&port->lock);
++
++	one->config.flags |= SC16IS7XX_RECONF_IER;
++	one->config.ier_mask |= bit;
++	one->config.ier_val &= ~bit;
++	kthread_queue_work(&s->kworker, &one->reg_work);
++}
++
++static void sc16is7xx_ier_set(struct uart_port *port, u8 bit)
++{
++	struct sc16is7xx_port *s = dev_get_drvdata(port->dev);
++	struct sc16is7xx_one *one = to_sc16is7xx_one(port, port);
++
++	lockdep_assert_held_once(&port->lock);
++
+ 	one->config.flags |= SC16IS7XX_RECONF_IER;
+-	one->config.ier_clear |= bit;
++	one->config.ier_mask |= bit;
++	one->config.ier_val |= bit;
+ 	kthread_queue_work(&s->kworker, &one->reg_work);
+ }
+ 
+@@ -1059,8 +1094,8 @@ static int sc16is7xx_startup(struct uart_port *port)
+ 			      SC16IS7XX_EFCR_TXDISABLE_BIT,
+ 			      0);
+ 
+-	/* Enable RX, TX interrupts */
+-	val = SC16IS7XX_IER_RDI_BIT | SC16IS7XX_IER_THRI_BIT;
++	/* Enable RX interrupt */
++	val = SC16IS7XX_IER_RDI_BIT;
+ 	sc16is7xx_port_write(port, SC16IS7XX_IER_REG, val);
+ 
+ 	return 0;
 -- 
 2.53.0
 
