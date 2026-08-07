@@ -1,118 +1,109 @@
-Received: from mail1.fiberby.net (mail1.fiberby.net [193.104.135.124])
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BB33F4845;
-	Fri,  7 Aug 2026 23:29:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.104.135.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0EA3B2AA;
+	Fri,  7 Aug 2026 23:57:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786145361; cv=none; b=aoYu3tY1lzZctrR0JafT1WWJ8X1DwRJI07mgemTQHuon5+qlAG8mdsNYPvEeybi9l0WqODvmA66yn8QPvV4wec5kKhqWcyujsSucuMd/8Ffbui750IXMEM7HFGDr89ayqMMWqVFrun2RybS6EPUGiewChcIW+ghE2xL6xw7+KyU=
+	t=1786147066; cv=none; b=Qs63C6iPwsly/hoGB00Oinkh5fW8e3gV4or6Cs30Rw1b0oAeZD2dkuOOrEbHASEb3CrZkn2VmY32Yg8qHx9qU8EoOr0dy2gOgPP1zbku+5lF5/Kg/GcGsd5oMJZZvp6CxzL52tovdTaz8xRtKYs1y2i6hFCQiy+bD1n3bOBfU4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786145361; c=relaxed/simple;
-	bh=1U9D00chGx9eu21TOd7HaIlO5ndkNBfGJHeZDUxpt/Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YHVzNu6PEqV8K6yvSl4ztL72s80T+Fjubw0V0c8JkwCg34GfLQVT2/f/9XrQVOtZPzyfgpoItd3tPhF04172R/D5levmL1eeWWBql4LB/10J0jdMOsSRzwOGDIqZAZG898PXlCGSoN7SFZ/HMXgbAJpmWYSSuf8+dfLav6Ukcgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net; spf=pass smtp.mailfrom=fiberby.net; dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b=Lg25hY9D; arc=none smtp.client-ip=193.104.135.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fiberby.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiberby.net
+	s=arc-20240116; t=1786147066; c=relaxed/simple;
+	bh=fztLXNkLwDRldFAmG1aPaLQNpdq3egGVMw7zm4MYGdY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=UKQ195i9fgZwbed8JSfZm0CjZXNbDGQzIFyokjoylCrrAd6QbiX9QtFsaJtyD6P2B5gNZ/ZwomzgbiEL01PJe0J187Yis+Mf0jqkOjlvrEKaOCI61/MDniTZOvzmRdVzQBpSAsLYdc09vA+PGRot8RaGpaw7+VBx4uMPqCOoNFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=LydSozzF; arc=none smtp.client-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fiberby.net header.i=@fiberby.net header.b="Lg25hY9D"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fiberby.net;
-	s=202008; t=1786145355;
-	bh=1U9D00chGx9eu21TOd7HaIlO5ndkNBfGJHeZDUxpt/Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Lg25hY9DdWPYXNnD9gMYhRdndoPbND4FhuX/PxTKVVr/2DosXyXb1MXicDr0GY4za
-	 8AF3BQcHrKqxJ7GsABwsBww7/s/mqQlweifETpDZv4057DKmb2cEF9NGkCPs/ELZmW
-	 jX0n+WXaa+kZVA5m24WMwKs4D3em+O4CsvHycOIkVVItIoN0X7SpratoKJDttbVtBE
-	 /QPr9Nj8/mDXxjrrZrCoM8ZYbX7YcLwwip5uh7EoCSrJzHbtAauA7zAMHTGwTTlkH5
-	 19TFQTLA8m6zZR17pA0sUHWINWJI9ZxBs3gyrsbFi8/eF9Ly13voLEv6vVBB3r/pZN
-	 IlnLuB+JVbnig==
-Received: from x201s (193-104-135-243.ip4.fiberby.net [193.104.135.243])
-	by mail1.fiberby.net (Postfix) with ESMTPSA id 171E9600C1;
-	Fri,  7 Aug 2026 23:29:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	by x201s (Postfix) with ESMTP id 40112200F79;
-	Fri, 07 Aug 2026 23:27:15 +0000 (UTC)
-Message-ID: <dcb59215-35f3-4518-91d6-ca265be5d9c8@fiberby.net>
-Date: Fri, 7 Aug 2026 23:27:13 +0000
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="LydSozzF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1786146982;
+	bh=7zzHoUy+XXElensoWWqn+e+95Nf92DyhIWN8zVXtZu0=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=LydSozzF9HL1GL1es9+Z0WxLT+0WRz8dbOx2EzfWdM7A4vAmk0h0Ud7aeAJn6rY/h
+	 oRyaCs0mWxv8L6peo66YkkRl3BXNLbseSqKllylzS8jlBYpjWbSrffk6SrILukorJu
+	 XSwbIw/1pXDavKekCiTbmgwtIHM3YdH8GZzyNRLg=
+X-QQ-mid: zesmtpsz8t1786146976tea63db26
+X-QQ-Originating-IP: /nekMsCsHimHHSWq6nbJ1SfFEIeAR7lPuL7J+lhqhvI=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sat, 08 Aug 2026 07:56:12 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 3036720188150160835
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.18 000/396] 6.18.44-rc1 review
+Date: Sat,  8 Aug 2026 07:52:08 +0800
+Message-Id: <20260807235208.910225-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260807143424.272339768@linuxfoundation.org>
+References: <20260807143424.272339768@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] tcp: reset late connection after listening socket
- close
-To: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: Eric Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Al Viro <viro@zeniv.linux.org.uk>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Kristian Nielsen <knielsen@knielsen-hq.org>,
- stable@vger.kernel.org
-References: <20260807194513.1263310-1-ast@fiberby.net>
- <CAAVpQUD9RTxs742Ty-UQXJJwTbN2wrnFGQDffKN0eZL4udq3Ng@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Asbj=C3=B8rn_Sloth_T=C3=B8nnesen?= <ast@fiberby.net>
-In-Reply-To: <CAAVpQUD9RTxs742Ty-UQXJJwTbN2wrnFGQDffKN0eZL4udq3Ng@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: Nn0cKypYUfjdAuFw5qvlFTt/cS7HnOKx7Z7INCGALxhPB+yTda/6sRyo
+	DGDK6ZFoNKh7hK7T50uUxtz3cr/k47EmBwePyjHLpMrLq5++dl0J1Z6Lu4/u4nU8ywdZewl
+	bfYwGSMF+qYafQGq6xsKmXb/bsmNQjERmP0BU594D4sd3174muaMjOiAej+7aswFOA2TBjd
+	XRZYmEHCqWrXK4W3u4exTmXmn4UcUWU1YTdiyeklGqpZzSrc7imSto6W/ry3drT036ClgBi
+	QGzpOhqYfgx69Ypi4VN/C/yiRpRdtM/ECC8+zjgoxtw0nCI0qrNpaFg1rAE7egp5KYLIdVc
+	C2WfwmtOXjerXZ3MJqzrMTOMwTKN2uWGFGwCoabx+tiuxIjyLeUn1zRiCjR7RnMGrdKHvpl
+	ylhJUVbJirZN//Cgd9CjDJJz52FTUhQkFXU5PvjvjlnLu9c31zEX/8yOpPT21X2VuTrJ3aq
+	DCz+EJK8jSEeSTk6ONVoywd0ngjVP9hnU47FtKzEk8oMdVFdQkM8Q4F16M3RL14mpNKD35N
+	JzEo7bYZS/lyKBKrnpYF2+MSRSIV+N3eI14X1xmTzO9+qcoLa4H9USOkhqGWDC1NuQumzgN
+	rmh6r/pQj3Prpu1eCa6ywi2XFdoBezGe6P4w2klpHcu4Q0DYZ8WjxAajpHKnVrU7rrJYSQO
+	06+LWLlobhLum//yr0PYF/Vo1aCHEUfP6oADDDgtd6nnKCvrmO65esY3QqKYXri/Dm8jknp
+	k/x6NG6wo4LF23YFBaXfrgeOQfxHooAcIjBoeer6Iwf7Bq6nXI15mGIpiNHuxgEcrQwF9Xh
+	wnwVYTxowTqJ2jmmBPgOYn558dEVuYkblT5TQCWhC1cWLfzUgNkDt0puu2F8ivxYdd3p4JA
+	I8QNvrXkJLYpr0KfoVaHDfl4aYjwh7M07EyA0Yy9Aiv4u4UGMJKzJzS4FWcQwRXNdj3Zzw1
+	gS4wpCKJXadw8sPyt/LLEgL1wI5HF67OMSIqA+B1KPVcdwHGnute+lNe/1K6aF4+WAqcOMR
+	lUVvrW0vYeE1TZIbGw2wxJGIown8fdmIMJgf9F35CqxPMn+vd99O0w9jnFeGY=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-Thank you for your review.
+Hello,
 
-On 8/7/26 9:05 PM, Kuniyuki Iwashima wrote:
-> On Fri, Aug 7, 2026 at 12:47 PM Asbjørn Sloth Tønnesen <ast@fiberby.net> wrote:
->> In commit c82199061009 ("task_work: remove fifo ordering guarantee")
->> Eric removed the ordering guarantee, thereby changing it from a
->> guaranteed FIFO to currently LIFO ordering, in an effort to reduce
->> jitter.
-> 
-> Could you elaborate a bit more on how c82199061009 introduced the issue?
-> 
-> I didn't quite see the connection between the first and second paragraphs.
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-Sorry, I didn't elaborate more, it was already getting quite long.  I had also
-hoped that the bisection had yielded a stronger and clearer connection, or that
-this commit had been blamed before.
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-My understanding is that due to the LIFO (Last In First Out) ordering, the order
-and thereby timing sequence is reversed. I haven't looked too deeply into the
-specifics here, like which items have been scheduled together etc., as I don't
-suggest reverting the blamed commit.  I have rather focused on fixing this TCP
-quirk, and make it work with LIFO ordering, and not restoring the FIFO ordering.
-I have mainly used netstat counters to debug the path taken by the affected
-connections, and identify where and why the connections died.
+Best Regards
+Wentao Guan
 
-I was also skeptical of the bisection result.  Did my reproducer have a false
-negative?  However by reverting the commit, and thereby re-adding the order
-reversal logic I have reliably proved that the blamed commit is deeply connected
-to the experienced symptom, on everything I have tested post-v4.3 (the revert has
-a trivial conflict on v5.10, but can then cleanly be cherry-picked on the current
-net tree).  I have tested with my reproducer on v4.3, v4.4, v5.10.y and net, both
-that my reproducer detects the issue in the tagged release, and that the issue is
-gone with the revert.  I tested v5.10.y as the original report was against v5.10.
+Log:
+Linux version 6.18.44-rc1-gd06c9b57c3bd (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
+Linux version 6.18.44-rc1-gd06c9b57c3bd (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Sat Aug  8 07:05:57 CST 2026
+Linux version 6.18.44-rc1-gd06c9b57c3bd (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
+Linux version 6.18.44-rc1-gd06c9b57c3bd (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Sat Aug  8 07:24:23 CST 2026
+Linux version 6.18.44-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT 
+Linux version 6.18.44-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Sat Aug  8 07:42:00 CST 2026
+Linux version 6.18.44-rc1-gd06c9b57c3bd (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC 
+Linux version 6.18.44-rc1-gd06c9b57c3bd (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin15) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Sat Aug  8 06:45:23 CST 2026
 
-
-> The listener's state could change at any time on SMP.
-
-True, but it won't schedule work items, and execute them in reverse order, which
-IMHO makes this race condition a lot easier to hit with LIFO ordering.
-
-
->> This allows for a TCP handshake to complete, after the listening socket
->> has been closed, and after inet_csk_listen_stop() has been run.
->>
->> In that case the client sees the connection as ESTABLISHED, however in
->> tcp_v{4,6}_syn_recv_sock() the call to __inet_inherit_port() returns
->> -ENOENT, and the new connection is dropped silently by put_and_exit.
-> 
-> Note that if __inet_inherit_port() passes, inet_csk_reqsk_queue_add()
-> calls inet_child_forget().
-
-__inet_inherit_port() consistently exits early with -ENOENT, because
-inet_csk(sk)->icsk_bind_hash is NULL for these ill timed connections.
-
-inet_csk(sk)->icsk_bind_hash is NULL, because inet_put_port() has been
-called.
-
-inet_put_port() has been called by tcp_set_state(TCP_CLOSE).
