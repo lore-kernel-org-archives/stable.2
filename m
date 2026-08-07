@@ -1,80 +1,70 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012013.outbound.protection.outlook.com [52.101.43.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E391F32B133
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 18:17:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786126652; cv=none; b=OLz7mlgCcIdSsF6zPTB0K+bpyiNovxXV7WJ3ZJNgdY6JMcAg7Xuqy+Nm04nj3i0i6PtvaFlu9fB/nOO00+P6mftqf3oxCj5qS9yHlEEWWv3yx5Flfscv92QEtF+P8aulE3Z/RRVa9dfdWw0Y0aRlnSxbqzUfknSrNVCMUygntVI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786126652; c=relaxed/simple;
-	bh=iHqdeXDvyAh8OuI3xDZM2Mg8lwsinPA8tT43LXr/qDo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jviIuU8ObjtmAKzApGoe5xBNnVANXRXE3VaqbkJcBqeoQPTEGSosWCo+pqEHZgh1tYcDnhQFBP6i330QDjk06G25ZZ6POt/g5aEclsvprnwH5lO/f5uQfozHPPwIRC3ON+cMXc5US+ieQP/FaBLgyUf1C1vHWC59ux7UDWsteZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RkOWBv+z; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E346B285CAA;
+	Fri,  7 Aug 2026 18:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786127013; cv=fail; b=sAFns7AoeUqKQqhMO4qR98L+JpTt55IQsvnFK8KPLw0KZm5299wj4znoWNRopXl0e7RstOdMWZC40Oac2S9j/PWMHEtnrGHkOeZRfnDLRV6VHd5swAf+mexiSoCTyuAt0frSH6EFRQ1aBhFoxYmGBL9+wMsFpuyxNgfe+bO2zrQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786127013; c=relaxed/simple;
+	bh=+FScmWliC8LlU38d6yBT1pHehQuVXN6DvhkwfmKe3Do=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=J9ufby/wYRQDR9zZEKdPe5GrdDEAPdqX67kC1Tvi/Unyzfzdgzy7DKu557ZNLv+PObzT3bShfJlE4hwsZTCRCbxoJdPltRX5vjzTLh8ntwjkw5EdEcGgbs/eKCr1x8+/bwdZqtICCn/EWpgMejqawsme+NkxjW8SodG9fe9WVhw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=5pddWDzY; arc=fail smtp.client-ip=52.101.43.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RkOWBv+z"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cf4c37dbe6so3770475ad.2
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 11:17:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786126650; x=1786731450; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8YehZV8pGgThZgWk/4T4DcEH08k8INHztawGZMSNBxg=;
-        b=RkOWBv+zoJSKKl3WaJQqSc0AGch/Bt253cNcGlUplcaHkPc/Mk1HoyVkfOm0EX6PuR
-         iXHnT0xHm2d4JR0TiszLzCg4MIu7zCw8EVW3A4abxbo+ZTUbMSX1Tre6qXlZ+dXllOnz
-         f79Zc4DlyQ/Cl+fA/WltE4rJqaZ9SpnTVsRkeB8K5QFn9cUlGxjO+yVsLMGZF9rhcC/r
-         4ZuDpGIfTD1oLIW8tJavTa4TwWFQgoxDxSPTvgrC8SpYl+EWMblNywcm6+g+Lwm0/iC2
-         AvJmCSNTtXVRfgfl5rh9gYrnLfCcTn+AC0DURlRBuFT4i+yOpT3/pyCFJ1f4JCOXoSZT
-         g/fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786126650; x=1786731450;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8YehZV8pGgThZgWk/4T4DcEH08k8INHztawGZMSNBxg=;
-        b=PYRAPOYL+KMxW9vaopfNoFP6nsY5uhlw3EU/D3zWv72wK7bfdho0C+UGlZ3vTYaAzF
-         U/g9RCYTxfOr0iCvG4LFxb/BO8qjUDRBuVR+XpaxKNRwHCc/9S8/RH/tT2rKs5mS//Bh
-         6a5ohYrLrnUXh0kIljJDCoVi4lPuZzrLMFauGoJ7RyuSe/Dr4z6f3muY4cC4k1r+TXgx
-         eqNf78CRausKKIYMtxNYcFqJ8lr8DhQyCkKay2u6gfZK39rk4R6Ny1riklc/1M0Kg69y
-         HXfjrLFnLBFvixxH5ZEqJzUxIwb0Xau8JnIlC1O1mEoTwCv7TZ1yLZSgoL0L73t7ULda
-         kwFA==
-X-Forwarded-Encrypted: i=1; AHgh+RoOihiZpHTZ95CvV1BL5uahd5+TIFR3ArL28uvVt2DaziF+YTTegkwibI+rLdN2nnG1NmNXC8I=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzKyxnKMzYvQmJ/Y+IHWKoVCoX4L5P2fJtgTD866uZkLH9ZCf4B
-	O4OJb84DDCN36RbgLyvpPr6DQWSyOwFblfBfAjIMYR/If41F/ffS2/X4
-X-Gm-Gg: AR+sD112SLOHzwabld/ZKAWvhIY7zZs8ZH2v7RjO1JWpo+RNnHpl1oDWId5vBr5t+Br
-	EnKXoH9wISGJTz0s9/2v72DJouS6X7EOMxJiVR/3T4znT5iPnSXIp+gLdpGWAiFmoKvJQSaPSKm
-	WNSaLk/fvfxGYFeO1jEMuU0/3DObhkqHB4aNAOJn9+II6fGc+HSEZ6exShcT6PVvGCU37Wc52Q7
-	03lozL+r2E3V2Quu16ikVDEKm8gWJ8/jdvmdSUOy855wWFn3UQSeqB7JLfQ1FAT/KGxMAmF+Rul
-	f3iEcYUSQvCPeHMZakFMQTFc6xKFVHx9UIShk+2/hVNW8qzTuJ2Kx+Kkz9O8g9x9w/Vho/z+6C7
-	cuyblMBgSAjLrm+M6hSbvq5oV/hs+6+oADzMAlxk9UiEjCvSFoHu39Xo3Sa6jyNQBcLMArCadPy
-	QDMOEmNKL0BpTBMGsgu2OFG8xMApRQ/aZhs7U8WJX0nBUYLvIbVTtap3W6L3dbITItAeZ5SGp5E
-	xH50yd70Qn7DhtETtaA1kQazaOAUe1Pcg==
-X-Received: by 2002:a17:903:1b2b:b0:2ca:ecf6:9115 with SMTP id d9443c01a7336-2d0caa9bb8bmr211590575ad.2.1786126650048;
-        Fri, 07 Aug 2026 11:17:30 -0700 (PDT)
-Received: from localhost.localdomain ([14.216.81.160])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d14dbeaaa0sm12947345ad.50.2026.08.07.11.17.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 11:17:29 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Stefano Brivio <sbrivio@redhat.com>,
-	Sabrina Dubroca <sd@queasysnail.net>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v3] ipv4: fix use-after-free in fib_nhc_update_mtu()
-Date: Sat,  8 Aug 2026 02:17:10 +0800
-Message-ID: <20260807181710.1178747-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="5pddWDzY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eb/jWydlL/EOa2YnlBkRyZ640ih7MUQ7mkmFb2K2IxAJtZnTEDG8TtR4B/ulWchenAloePtyNTqiB3j8zXeWPEI/7hiDEHqyPUpBNH/3WfJE4bgjVI+9B/qfexy4uW/v9XaWhJu0LHV/37M4ui77BXxuuDQhnFxT/2Oy2UQdPwS4pV6wAPoDAwlaGH85MosDrP9Q6IH6oySABuhjB5MRnNc4j7EZREal2hixAdwucDkZb7awWNg7fhZBc0zR/siWV7Ay9SELuiWr5ETkYzMZJF1TjY79gZG2iGYp5umPX07YJVpfqrD/iHTqRWOgiyEcYNVioUK5TXlzsLLY1i9Oew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KHB2Armig0HCvseXkKRl5ZOjKFZwNhil1y/2w2oM/MY=;
+ b=K9vNYKXeDt45tImXZ3T1ckv9bnHWdNBu3k05IWowKIcqvyB5eF3fZw1MCVI2/9FFoJGFhXK5iROHRYJnIeVv4eC2bTL3yPln+XJfbTbgg1Tii1T9PZurkmOmLat+vXoYyUW5QjvQ6xVLUjBtYk9O4pr/NMR9wgixc5Vp3S8PuVsSOWKHGDFg03DgsSW0DVBVbGnSPXfIq7ubUy/FZPI1qdCoGk29D8vNp/gpnfYeOBTIxmR11uJiRZKFZjuKW5d0ZAQNmpMWiUdTGhD6ZrVhGlIYos7MM+0TuextKAlTzvfbixlv9yd6e1VNn4tf6+FdeJ1iuaBa9OtgHZ18JEkbdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=synopsys.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KHB2Armig0HCvseXkKRl5ZOjKFZwNhil1y/2w2oM/MY=;
+ b=5pddWDzYY8AgaSTth74LMgBy3t05uIjDk0umJwQOccMbpR4HAz+kffUfRB9r7ismqFDOs1T99UV66g/I5oLUbP/bs7/RRHKxD7m0dhq5LPWpGTfuP0SqpT7LJfCI+oE0ZudhJF9ymlKxTJeaF0rKm/WwrkvfgIWrQNP0P1j2c9A=
+Received: from BL1PR13CA0229.namprd13.prod.outlook.com (2603:10b6:208:2bf::24)
+ by SJ2PR12MB9210.namprd12.prod.outlook.com (2603:10b6:a03:561::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.21; Fri, 7 Aug
+ 2026 18:23:26 +0000
+Received: from BL02EPF0002992B.namprd02.prod.outlook.com
+ (2603:10b6:208:2bf:cafe::51) by BL1PR13CA0229.outlook.office365.com
+ (2603:10b6:208:2bf::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.8 via Frontend Transport; Fri, 7
+ Aug 2026 18:23:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL02EPF0002992B.mail.protection.outlook.com (10.167.249.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Fri, 7 Aug 2026 18:23:25 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 7 Aug
+ 2026 13:23:24 -0500
+Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 7 Aug 2026 13:23:23 -0500
+From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+To: <Thinh.Nguyen@synopsys.com>, <gregkh@linuxfoundation.org>
+CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Radhey Shyam
+ Pandey" <radhey.shyam.pandey@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH] usb: dwc3: gadget: cancel NoStream work before endpoint teardown
+Date: Fri, 7 Aug 2026 23:53:18 +0530
+Message-ID: <20260807182318.3736662-1-radhey.shyam.pandey@amd.com>
+X-Mailer: git-send-email 2.44.4
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,174 +72,73 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992B:EE_|SJ2PR12MB9210:EE_
+X-MS-Office365-Filtering-Correlation-Id: 712f6fc7-0d2f-4e57-c72a-08def4b0f86a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|6133799003|56012099006|11063799006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	McQmASH+BjHxnKHNiGBMvKUkdXF3e2V5LzqkDunQZ5Tl9WdXrdh5VRhVhErZ+QtMfHb6SXpTSQ+3DQ20XzR5t2QKKo1pe5hwOk9h/DStNFlBKf/iIsTiDZ/uiGwn9X1ETW0YIQXkzBaAbt/vIw8LLcIB/DarH8PUQ0pRGJjfhRuPelBI1j86Hcu7ZU0w3A/nGiV/KDSPMJ4Ur0awIgYDlZRCIcegZ2WprRYnKi3pKuK2s9aShZvZIaAEV9sEKTBq5PnK8HJ0jwwiTT1WZQv0hD7tQP4FzB+zAfZnwGuGUYS2okWFWMFnfRitPF1D2eq2hJTpSWwDm3Xs7P0JVykGgCIO4gEA/5YsE0QkZiPdeQ7+HlpdkDCSc8aERGCTau6GgIdKhSvKySmLSjr2X38gOo7vOcxP6SLJOxenLUr2bZRnLZpehvgM0ZmM8ZaIIDrxJwhbo+vjVmPBCz3E8paNl5llIGbpsnm1KzuJvfkYBXE0EiYPacDNfqDd9pTUOdAqu48mGC3wAlq/rN5Q/RQn4nNXoChQK+qatz/znnyiwzGN9RQY8WgIZFuTrrzbJqOEYSxlvN+EJ/h3lmninGvLCjjtw8mrhB0uVaIpC1iCMQGatQ4c36swEdnV6EukhXIQtxdBxsVOkhCVNlJ4JP8SVd5nkfAhp3OGU4oOjG3/na7E5NFwTTk8opaYqABC+JC7nfhpPoAmJot1clvnGebdEg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	dUdfHvy4vt05Jek+2B+UbU71F7uQLNHUWXutRouDh523UPFRFyKqe6hNYfeNVfj5w/Jx9Fa0OMr0BKwt9tNdETmtsV0UKHVCNS+2BHOnla9CkGDZXNw1jtIQdrwIonDeICe3Fi9zkwMUiJW86P7VrJLrJRTVpnzi2VSUOXcY7EuWyFgBFfTiq1AjYKtC4K3JvAlophAi7hUF3jjFlrNwjdUDvvZKomlyNXdIWRPAZKMy1QDwZwLyB/nFStZBQnpnWA3bwGXeMmtLK1pp8l/2aWZn5k1aJXsPHlPgiOIvHjA0eed11bLR4jYChM4xagA+zlWOBvjQZNJnHzHiuaSrfzJLRFiI2IP8/2o95Yip6SEcPTvEWkx0xaX6CGXQKNv+W+3kdw+xi6QJrOdkaJCK951A9FXhEJ9pBBJ30FdAZxxXPkmF05h4v2LvEscwAibC
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 18:23:25.1903
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 712f6fc7-0d2f-4e57-c72a-08def4b0f86a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0002992B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9210
 
-fib_nhc_update_mtu() walks the nexthop exception table under RTNL, but
-RTNL does not serialize this walk with PMTU exception updates. The walk
-uses rcu_dereference_protected() with a constant true condition without
-holding fnhe_lock.
+DEPEVT_STREAM_NOSTREAM schedules dwc3_nostream_work() with a 100 ms delay.
+Neither dwc3_gadget_ep_disable() nor dwc3_gadget_free_endpoints() cancel
+this work before freeing struct dwc3_ep, so the handler may run after
+kfree(dep) during DRD/OTG role switch teardown.
 
-The following interleaving can therefore occur:
+To fix it cancel the delayed work synchronously in both paths before
+disable or free the endpoint.
 
-  CPU 0                              CPU 1
-  fib_nhc_update_mtu()               update_or_create_fnhe()
-    load fnhe                          spin_lock_bh(&fnhe_lock)
-                                       fnhe_remove_oldest()
-                                         unlink fnhe
-                                         kfree_rcu(fnhe, rcu)
-    <quiescent state>
-    access fnhe after grace period
-
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in fib_nhc_update_mtu+0x3df/0x410
-  Read of size 8 at addr ffff888107d49000 by task poc/90
-  Call Trace:
-   fib_nhc_update_mtu+0x3df/0x410
-   fib_sync_mtu+0x7a/0xd0
-   fib_netdev_event+0x229/0x3f0
-   netif_set_mtu_ext+0x33a/0x570
-   dev_set_mtu+0x88/0x120
-
-The same walk updates fnhe_pmtu and fnhe_mtu_locked. These fields form a
-pair and other writers serialize them with fnhe_lock. RCU alone prevents
-reclamation, but would still allow concurrent writers to leave a mixed
-pair.
-
-Walk the table under RCU and acquire fnhe_lock only while updating each
-exception. RCU keeps the current entry alive while the short critical
-section serializes its paired PMTU fields. This avoids holding the global
-lock while scanning all 2048 buckets for every nexthop.
-
-Fixes: af7d6cce5369 ("net: ipv4: update fnhe_pmtu when first hop's MTU changes")
+Assisted-by: claude-mythos-preview-high
+Fixes: dcfe437492e2 ("usb: dwc3: gadget: Reinitiate stream for all host NoStream behavior")
 Cc: stable@vger.kernel.org
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-
+Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
 ---
-Changes in v3:
-- Walk the exception table under RCU.
-- Move the PMTU update into route.c and take fnhe_lock around each entry
-  update instead of exporting and holding it across the full table scan.
+ drivers/usb/dwc3/gadget.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Link: https://lore.kernel.org/netdev/20260806133309.731709-1-nicoyip.dev@gmail.com/ [v2]
-Link: https://lore.kernel.org/netdev/20260731162938.3388534-1-nicoyip.dev@gmail.com/ [v1]
----
- include/net/route.h      |  2 ++
- net/ipv4/fib_semantics.c | 34 +++++++++++-----------------------
- net/ipv4/route.c         | 29 +++++++++++++++++++++++++++++
- 3 files changed, 42 insertions(+), 23 deletions(-)
-
-diff --git a/include/net/route.h b/include/net/route.h
-index f90106f383c5..45290177a33c 100644
---- a/include/net/route.h
-+++ b/include/net/route.h
-@@ -276,6 +276,8 @@ int fib_dump_info_fnhe(struct sk_buff *skb, struct netlink_callback *cb,
- 		       u32 table_id, struct fib_info *fi,
- 		       int *fa_index, int fa_start, unsigned int flags);
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+index fa0f16ffafef..ddf1e262e2aa 100644
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -1175,6 +1175,8 @@ static int dwc3_gadget_ep_disable(struct usb_ep *ep)
+ 					dep->name))
+ 		return 0;
  
-+void fnhe_update_pmtu(struct fib_nh_exception *fnhe, u32 new, u32 orig);
++	cancel_delayed_work_sync(&dep->nostream_work);
 +
- static inline void ip_rt_put(struct rtable *rt)
- {
- 	/* dst_release() accepts a NULL parameter.
-diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
-index 78f84ae3ee12..0483519b7fb0 100644
---- a/net/ipv4/fib_semantics.c
-+++ b/net/ipv4/fib_semantics.c
-@@ -1895,42 +1895,30 @@ static int call_fib_nh_notifiers(struct fib_nh *nh,
- 	return NOTIFY_DONE;
- }
+ 	spin_lock_irqsave(&dwc->lock, flags);
+ 	ret = __dwc3_gadget_ep_disable(dep);
+ 	spin_unlock_irqrestore(&dwc->lock, flags);
+@@ -3508,6 +3510,7 @@ static void dwc3_gadget_free_endpoints(struct dwc3 *dwc)
+ 		}
  
--/* Update the PMTU of exceptions when:
-- * - the new MTU of the first hop becomes smaller than the PMTU
-- * - the old MTU was the same as the PMTU, and it limited discovery of
-- *   larger MTUs on the path. With that limit raised, we can now
-- *   discover larger MTUs
-- * A special case is locked exceptions, for which the PMTU is smaller
-- * than the minimal accepted PMTU:
-- * - if the new MTU is greater than the PMTU, don't make any change
-- * - otherwise, unlock and set PMTU
-+/* Walk the exceptions of a nexthop after its first hop MTU changed. The
-+ * chain is RCU protected here, while fnhe_update_pmtu() takes fnhe_lock
-+ * for the update of each entry.
-  */
- void fib_nhc_update_mtu(struct fib_nh_common *nhc, u32 new, u32 orig)
- {
- 	struct fnhe_hash_bucket *bucket;
- 	int i;
- 
--	bucket = rcu_dereference_protected(nhc->nhc_exceptions, 1);
-+	rcu_read_lock();
-+	bucket = rcu_dereference(nhc->nhc_exceptions);
- 	if (!bucket)
--		return;
-+		goto out;
- 
- 	for (i = 0; i < FNHE_HASH_SIZE; i++) {
- 		struct fib_nh_exception *fnhe;
- 
--		for (fnhe = rcu_dereference_protected(bucket[i].chain, 1);
-+		for (fnhe = rcu_dereference(bucket[i].chain);
- 		     fnhe;
--		     fnhe = rcu_dereference_protected(fnhe->fnhe_next, 1)) {
--			if (fnhe->fnhe_mtu_locked) {
--				if (new <= fnhe->fnhe_pmtu) {
--					fnhe->fnhe_pmtu = new;
--					fnhe->fnhe_mtu_locked = false;
--				}
--			} else if (new < fnhe->fnhe_pmtu ||
--				   orig == fnhe->fnhe_pmtu) {
--				fnhe->fnhe_pmtu = new;
--			}
--		}
-+		     fnhe = rcu_dereference(fnhe->fnhe_next))
-+			fnhe_update_pmtu(fnhe, new, orig);
+ 		dwc3_debugfs_remove_endpoint_dir(dep);
++		cancel_delayed_work_sync(&dep->nostream_work);
+ 		kfree(dep);
  	}
-+out:
-+	rcu_read_unlock();
  }
- 
- void fib_sync_mtu(struct net_device *dev, u32 orig_mtu)
-diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-index 152d8cb28f65..b82401a6baed 100644
---- a/net/ipv4/route.c
-+++ b/net/ipv4/route.c
-@@ -741,6 +741,35 @@ static void update_or_create_fnhe(struct fib_nh_common *nhc, __be32 daddr,
- 	spin_unlock_bh(&fnhe_lock);
- }
- 
-+/* Update the PMTU of an exception when:
-+ * - the new MTU of the first hop becomes smaller than the PMTU
-+ * - the old MTU was the same as the PMTU, and it limited discovery of
-+ *   larger MTUs on the path. With that limit raised, we can now
-+ *   discover larger MTUs
-+ * A special case is locked exceptions, for which the PMTU is smaller
-+ * than the minimal accepted PMTU:
-+ * - if the new MTU is greater than the PMTU, don't make any change
-+ * - otherwise, unlock and set PMTU
-+ *
-+ * fnhe_lock keeps fnhe_pmtu and fnhe_mtu_locked consistent against
-+ * update_or_create_fnhe(), which sets both under the same lock.
-+ */
-+void fnhe_update_pmtu(struct fib_nh_exception *fnhe, u32 new, u32 orig)
-+{
-+	spin_lock_bh(&fnhe_lock);
-+
-+	if (fnhe->fnhe_mtu_locked) {
-+		if (new <= fnhe->fnhe_pmtu) {
-+			fnhe->fnhe_pmtu = new;
-+			fnhe->fnhe_mtu_locked = false;
-+		}
-+	} else if (new < fnhe->fnhe_pmtu || orig == fnhe->fnhe_pmtu) {
-+		fnhe->fnhe_pmtu = new;
-+	}
-+
-+	spin_unlock_bh(&fnhe_lock);
-+}
-+
- static void __ip_do_redirect(struct rtable *rt, struct sk_buff *skb, struct flowi4 *fl4,
- 			     bool kill_route)
- {
+
+base-commit: 6b8c8af514d739d0335f5579b585e02babe8a727
 -- 
-2.43.0
+2.44.4
 
