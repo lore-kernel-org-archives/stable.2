@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652D337BE84;
-	Fri,  7 Aug 2026 14:55:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A5D368276;
+	Fri,  7 Aug 2026 14:55:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786114530; cv=none; b=PIH5Jt+yH08PqoGgKnlrCq/GrDb0Z2vpu0d1BAX9t/PZ1tz96ynN4r3+CauykF5iPr5N3sWCXv4hM4s8kKSwG6o0RohZJjsm3CG4fgU7A2cyHKWvYJMdxqJWoAoc0fF9ny0ug2qGovI9r8EzNVTKGY1bvICR0t+hqQ54XHXrTFc=
+	t=1786114533; cv=none; b=Z/0QfqvjxRw6zDYWa2ZGoyhitbmrk1CMeqj9FVyo3LVFxwZ9MOkj9e3y5/eR1XhOUmzx5VManknEc3W8Km4fiaYOmTjeMDh5zOMV1F1Uysuq6XDFpC4FolKpKhXxhM2w4OHzLSfk41x3thH6FvVWjT7wmkvfi3UACk5brBv7J9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786114530; c=relaxed/simple;
-	bh=LfhsGf0zPcQxVnMg83F4ev+n5Pbi/BjtrEubSZHRh7E=;
+	s=arc-20240116; t=1786114533; c=relaxed/simple;
+	bh=70D3Wpu2e3yivbDsnPweyqachAbyCxT5m5Nbl3AqjLI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DlNKxm1ABcRwqZIlU2M718jc7SjMzn9qb6Gde8o07mLT3sQIgSug8LTpnPgIrASjq1+YBmq+eRMEsbWrEv1l95i+/5pgJNrtyxS7PNdksGrTXSd/UbCNhj5edRnzkxJ/s9+6HH3KpuxC1GF+7tb4JK7NhCnjcLZIr6YxzaSPbx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OJhXsYHK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bsIECSjcqeSuWaF+e2sOHnGIKSWvUbDwTbpPgcuwfN6p+nlpV7fGnNOl0LpMui8RpVQ9ZSPV9K69Q8BYpl/ZecUxFUtUi368iJd7P6c3TKD44QeXpGW+GCLJF9Eb5DQOci/CT8WvRuRzkP2UBvHTSGJiVrHmRaLlF6L3C1e/R5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z1Xx8bS0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OJhXsYHK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5280C1F000E9;
-	Fri,  7 Aug 2026 14:55:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z1Xx8bS0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E75701F00A3D;
+	Fri,  7 Aug 2026 14:55:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786114524;
-	bh=9rXgqcK/IDDNP7NKvhy2FSpN1vr+JlS4MwO5tR8PkVc=;
+	s=korg; t=1786114530;
+	bh=7nEUCaTuS+KSS71NRQx0IRY3W7JAhISZD8KyhcUh2Vo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OJhXsYHKZ2M5KgMhLvDz0xv+dOjhfAmw/v8N+xCUcjkf3JMn/j2MZqvEmcMUmHYW2
-	 pp5KxkrGkElAhPFr5EBVsSVGQwyVIkiAlY0Gg/r917FQfgpXTgq5hR+qektp3KishE
-	 DNTo5RYXRJ6+r7EHx8ADta3E3XPnSzkzfGlI2CKM=
+	b=Z1Xx8bS0ifxQ+hMABRr+/BZZ8rciUEDTSD9hoKN1liMRwsVT9ey1R8fgVEw9m3n47
+	 hqmbj1eUc9Jvju0nj7J1Oy9aA2wn5y8Mho+it6Cgp08i8WKfP3MkkfWgRTChBRoZ0r
+	 xA/Z5Xj2DYnVVaXC2ovC6n9ABElY1H6KnwO0Xwow=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>,
-	Jun Guo <jun.guo@cixtech.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 6.12 267/337] spi: spi-cadence: enable SPI_CONTROLLER_MUST_TX
-Date: Fri,  7 Aug 2026 16:37:50 +0200
-Message-ID: <20260807143424.331011714@linuxfoundation.org>
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 295/337] media: imx219: Fix maximum frame length in lines
+Date: Fri,  7 Aug 2026 16:38:18 +0200
+Message-ID: <20260807143424.922340172@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
 References: <20260807143418.516897842@linuxfoundation.org>
@@ -51,35 +52,34 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Jun Guo <jun.guo@cixtech.com>
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-commit f6b625639e39bc384a7bddbf134a698d40258b3b upstream.
+[ Upstream commit 2c4f1ba7354312ad2d6e34e70a518a51a9344715 ]
 
-During an SPI read operation, even if the xspi->txbuf passed to the
-cdns_spi_writerinterface is empty, it is still necessary to call
-cdns_spi_write(xspi, CDNS_SPI_TXD, txw); otherwise, the read operation
-will fail to obtain data correctly due to a lack of clocks.
+The driver used the maximum frame length in lines value of 0xffff, but the
+maximum appears to be 0xfffe instead. Fix it.
 
-Fixes: 4e00135b2dd1 ("spi: spi-cadence: supports transmission with bits_per_word of 16 and 32")
-Reported-by: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Closes: https://lore.kernel.org/all/lbijvnnwsnddonmm5pveqzap6iibxhl4maneq43x4j6w64dev6@u75qhm5cwiob/
-Signed-off-by: Jun Guo <jun.guo@cixtech.com>
-Link: https://patch.msgid.link/20260115091924.844179-1-jun.guo@cixtech.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: 1283b3b8f82b ("media: i2c: Add driver for Sony IMX219 sensor")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/spi/spi-cadence.c |    1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/i2c/imx219.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/drivers/spi/spi-cadence.c
-+++ b/drivers/spi/spi-cadence.c
-@@ -735,6 +735,7 @@ static int cdns_spi_probe(struct platfor
- 	ctlr->unprepare_transfer_hardware = cdns_unprepare_transfer_hardware;
- 	ctlr->mode_bits = SPI_CPOL | SPI_CPHA;
- 	ctlr->bits_per_word_mask = SPI_BPW_MASK(8);
-+	ctlr->flags = SPI_CONTROLLER_MUST_TX;
+--- a/drivers/media/i2c/imx219.c
++++ b/drivers/media/i2c/imx219.c
+@@ -72,7 +72,7 @@
  
- 	if (of_device_is_compatible(pdev->dev.of_node, "cix,sky1-spi-r1p6"))
- 		ctlr->bits_per_word_mask |= SPI_BPW_MASK(16) | SPI_BPW_MASK(32);
+ /* V_TIMING internal */
+ #define IMX219_REG_FRM_LENGTH_A		CCI_REG16(0x0160)
+-#define IMX219_FLL_MAX			0xffff
++#define IMX219_FLL_MAX			0xfffe
+ #define IMX219_VBLANK_MIN		32
+ 
+ /* HBLANK control - read only */
 
 
