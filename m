@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF7A3B5F63;
-	Fri,  7 Aug 2026 02:01:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE373B19A3;
+	Fri,  7 Aug 2026 02:01:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786068095; cv=none; b=J2zcVtvAjDj83Uq00Ej8lCp7kH72LmtnSLIIJZgjhWaNFse5iYkuyvZrmQGf/C3kDyuQUEPesihCQySymAwc3eRYlcbW0wbXcmohGjiDLI/yEjYNFzAlW2w1aAx4659O0AXvqzX1JzPtPhMg004JG8ArcfjeyMSY6tdq5L17nS8=
+	t=1786068117; cv=none; b=YQvEPi7G524ozaYEFULM1wJ7/toKHCiAqXxK/xT6IYx6y9YuxlHkM4T42LidQB9/DA5q+AzihOa494vUkGdmk3a/VLVC/BZsmAwbiOr8gj/ZNft5kC7h99/u4/eylAuQ1J68R5YoNZigFfr0GFnvELQlXiINZzU2+3zdn+PcpC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786068095; c=relaxed/simple;
-	bh=DCjYREOveDBoE3Dq3n4GGd+qzrEPH90KO6I5zO+AhHk=;
-	h=Date:To:From:Subject:Message-Id; b=Uj5JxGa8GswfWC0wx1j2s1xoEOm9wMAlBiPuojJazqQ6EPlaDaQQXBOX7gG23qmbfEeh+Wtl6CAJL2M5hdvTc72oTgXVPo5XDovbRCDOvvDG9koVDY0FIQ1RKF9vyzOllgcpbTAp2Cw63dbiCnw1Bqo04aj0Rja7AX3M3P5eFdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Kc03GHwf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786068117; c=relaxed/simple;
+	bh=hL+XuBtewfc769Pvn7RUDj6sz1uM0NcRQ72zDXZ1Ax4=;
+	h=Date:To:From:Subject:Message-Id; b=BG+dMZ39i6uBKb0sytVCBTfDXQW/EzadOXhannvH2qWaBmTd2tfy55XBw7CBYXTIu1Ljwl6I83peiwULX+GuvTz8j0N3g862LlLjiedrwdzaZfU4wLpVu24QzfjpX+YhjlfA22vDXXQzo+YUedddrSEzH/vB9mMC5tz6cnPow/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=S8Q2dQQH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Kc03GHwf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867C81F00A3D;
-	Fri,  7 Aug 2026 02:01:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="S8Q2dQQH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DD701F00A3A;
+	Fri,  7 Aug 2026 02:01:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1786068085;
-	bh=3yeDW5WxAaH4SQWXRv0MFoBb6me4MUV1nC8wcDmUY7g=;
+	d=linux-foundation.org; s=korg; t=1786068116;
+	bh=dCAsGmoGtS4yzywPAzGqL35JAaxRzz5ZetFhX0J//vE=;
 	h=Date:To:From:Subject;
-	b=Kc03GHwfvBkIVl++va5MkJ86xTL1cb/Gr0GJdL5Wt/fM4UgoIgAB+u7cQpSoFOErk
-	 gidq5loXoAkWgscX0JKtGxKxoq0ZEPlbiHAsPdw62M0OwNBotdoglxkekFKxU2Ff7T
-	 3mJyu/pFqyfI/z+DCKVvjZpravqxsX6hnSF7lrJk=
-Date: Thu, 06 Aug 2026 19:01:25 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,rostedt@goodmis.org,mhocko@suse.com,harry@kernel.org,hannes@cmpxchg.org,brendan.jackman@linux.dev,bigeasy@linutronix.de,ast@kernel.org,jackmanb@google.com,akpm@linux-foundation.org
+	b=S8Q2dQQH72RAJyCfO2dq8Ok00s8jrguUfUho+No0QRs0RSvnPlqw7wcsvyhjRs9Ng
+	 v0kZ5Qt7XLuFhCAQ7L+TFzgBOZmhElmypKTzjz9hgFVutvDtUu0/tDpOqirNRsQT+d
+	 VuEyxD6/DRsA9QzzmzNL4qegtFwQpA6JtQj10IS4=
+Date: Thu, 06 Aug 2026 19:01:55 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,brendan.higgins@linux.dev,sj@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-page_alloc-dont-spin_trylock-in-nmi-on-up.patch removed from -mm tree
-Message-Id: <20260807020125.867C81F00A3D@smtp.kernel.org>
+Subject: [merged mm-stable] mm-damon-core-initialize-damos-last_applied.patch removed from -mm tree
+Message-Id: <20260807020156.1DD701F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,76 +35,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/page_alloc: don't spin_trylock() in NMI on UP
+     Subject: mm/damon/core: initialize damos->last_applied
 has been removed from the -mm tree.  Its filename was
-     mm-page_alloc-dont-spin_trylock-in-nmi-on-up.patch
+     mm-damon-core-initialize-damos-last_applied.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Brendan Jackman <jackmanb@google.com>
-Subject: mm/page_alloc: don't spin_trylock() in NMI on UP
-Date: Wed, 15 Jul 2026 09:03:58 +0000
+From: SJ Park <sj@kernel.org>
+Subject: mm/damon/core: initialize damos->last_applied
+Date: Fri, 17 Jul 2026 17:14:35 -0700
 
-Patch series "mm/page_alloc: fixes for free_pages_nolock() on RT/UP".
+Patch series "mm/damon: fix uninitialized DAMOS field and kunit exec
+expectation bugs".
 
-Pre-existing bugs found by Sashiko during review of this other series:
-https://lore.kernel.org/all/20260703-alloc-trylock-v5-0-c87b714e19d3@google.com/
+Fix a few Sashiko-found unurgent bugs.  Patch 1 fixes use of uninitialized
+damos->last_applied field.  Patches 2-7 fix DAMON kunit tests that do
+invalid memory access under test failures.
 
-I have not reproduced these bugs, and I suspect there is no real-world
-user that is affected by them.
+The bugs are better to be fixed and eventually merged into stable@ kernel.
+That said, the fixes are arguably not urgent.  Patch 1 only introduces
+negligible DAMOS efficiency degradation in occasional cases.  Kunit fixes
+could introduce quite bad consequences but those are test code that affect
+only test run setups.
 
 
-This patch (of 2):
+This patch (of 7):
 
-As noted in can_spin_trylock(), using this is unsafe in this context. 
-commit 620b46ed6ae17 ("mm/page_alloc: return NULL early from
-alloc_frozen_pages_nolock() in NMI on UP") fixed this on the alloc side
-but missed the free side.
+Multiple DAMON regions could exist across a folio.  If they fulfill the
+condition to apply a DAMOS scheme, the scheme could be applied multiple
+times to the folio.  To avoid this, each DAMOS scheme stores the folio
+that the scheme was applied to last time in the damos->last_applied field
+and skips repeatedly applying the same scheme to the same folio.
 
-Impact: If BPF programs using these features in NMI (probably tracing) are
-present on non-SMP builds this might crash the kernel and is probably
-exploitable by local attackers for privilege escalation.
+The field is being used without initialization, though.  Hence, the
+mechanism could wrongly skip applying a scheme to a folio at the very
+first time of DAMOS run.
 
-Link: https://lore.kernel.org/20260715-alloc-nolock-fixes-v1-0-fadc49952dda@google.com
-Link: https://lore.kernel.org/20260715-alloc-nolock-fixes-v1-1-fadc49952dda@google.com
-Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
-Signed-off-by: Brendan Jackman <jackmanb@google.com>
-Reported-by: sashiko-bot@kernel.org
-Closes: https://sashiko.dev/#/patchset/20260703-alloc-trylock-v5-0-c87b714e19d3%40google.com?part=18
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Alexei Starovoitov <ast@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
+The user impact is trivial.  DAMON might unexpectedly skip applying DAMOS
+action for one folio for the first time per scheme.  In the DAMON's
+best-effort world, this is never a real problem.  No critical consequences
+such as kernel panic or memory corruption happen.
+
+It is a clear bug, though, and the fix is straightforward.  Fix the issue
+by initializing the field in DAMOS scheme creation function,
+damon_new_scheme().
+
+The issue was discovered [1] by Sashiko.
+
+Link: https://lore.kernel.org/20260718001442.87129-1-sj@kernel.org
+Link: https://lore.kernel.org/20260718001442.87129-2-sj@kernel.org
+Link: https://lore.kernel.org/20260714055436.120034-1-sj@kernel.org [1]
+Fixes: 94ba17adaba0 ("mm/damon: avoid applying DAMOS action to same entity multiple times")
+Signed-off-by: SJ Park <sj@kernel.org>
+Cc: Brendan Higgins <brendan.higgins@linux.dev>
+Cc: <stable@vger.kernel.org> # 6.15.x
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- mm/page_alloc.c |    3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ mm/damon/core.c |    1 +
+ 1 file changed, 1 insertion(+)
 
---- a/mm/page_alloc.c~mm-page_alloc-dont-spin_trylock-in-nmi-on-up
-+++ a/mm/page_alloc.c
-@@ -2979,8 +2979,7 @@ static void __free_frozen_pages(struct p
- 		migratetype = MIGRATE_MOVABLE;
- 	}
+--- a/mm/damon/core.c~mm-damon-core-initialize-damos-last_applied
++++ a/mm/damon/core.c
+@@ -705,6 +705,7 @@ struct damos *damon_new_scheme(struct da
+ 	INIT_LIST_HEAD(&scheme->ops_filters);
+ 	scheme->stat = (struct damos_stat){};
+ 	scheme->max_nr_snapshots = 0;
++	scheme->last_applied = NULL;
+ 	INIT_LIST_HEAD(&scheme->list);
  
--	if (unlikely((fpi_flags & FPI_TRYLOCK) && IS_ENABLED(CONFIG_PREEMPT_RT)
--		     && (in_nmi() || in_hardirq()))) {
-+	if (unlikely((fpi_flags & FPI_TRYLOCK) && !can_spin_trylock())) {
- 		add_page_to_zone_llist(zone, page, order);
- 		return;
- 	}
+ 	scheme->quota = *(damos_quota_init(quota));
 _
 
-Patches currently in -mm which might be from jackmanb@google.com are
+Patches currently in -mm which might be from sj@kernel.org are
 
 
