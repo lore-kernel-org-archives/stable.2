@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3267305665;
-	Fri,  7 Aug 2026 14:44:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 158663A3E68;
+	Fri,  7 Aug 2026 14:44:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786113882; cv=none; b=WzPeZ5UBexErE7ZIhffhFCVcyA7adM4E0YSUFHeKla5Blvx47MXhYkNeUtJUdwPNDip474nTIlXSeJeG39FkeeNTTT1SyoEHl24V05ry9JkckZCeTWUi1cU8N1jEqN+M/w0hYQnA83d1nK38peQpSjaXdPrk8hXge2jNfzekwYI=
+	t=1786113880; cv=none; b=uVVcY5VZW6ah3pO27OzTjrj9VZy8bdizhC1w2blSl8+AV7Tb2JV2LdY6XtIy66kz/+wh8QFKq5gEpzuAd7qJgcquI6U6d0ZC/IFljDCb+DqqLNvG1BaIqnpppiWsDrMWdyjwtWzhn9X3U5Ih8ERDgZlxoCI6REvAoAvbQTymAto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786113882; c=relaxed/simple;
-	bh=PyqOvE0Hym8oPfsniUUgAOaB6XPsAdfbTJhLHtLZoZw=;
+	s=arc-20240116; t=1786113880; c=relaxed/simple;
+	bh=p/Dgd1tLB8cy5XFqrNOgtVH5U4/LqDzGv6WbHfyPA/o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qHhyqefWrhydpF148HWJjdS0WVz44rpsJ+A1GUGFc8jVlmVdSlqEOs9Q0XHTVJP5KULTGUPL9O9PbTqKiPElLXsQmq2cgi3Rs5n1852ztg51JXave3f4TvnJx/kmH2mOLExP90G/JcQqdiYfpepnsIwlLxsmMfi6xwOLhMlwzSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mYAAERkj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Y8yhT4F8JIFSLkFJbmsqIyiWQ+GEV+zO/wbtwU6SBj5VmPaAtJ4xF/xX7PP94PYyNezHrokyCCeEbdt1215LBZx4k/Jknqzr5e79yydq6G0ZECMP57YXZKzP8338mrkisHIaMSuch8aC6MAu1SXWi+M1nB8FG71Bgi480+Uh5Y4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ADi1mRwf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mYAAERkj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D63C81F00A3F;
-	Fri,  7 Aug 2026 14:44:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ADi1mRwf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BF0F1F000E9;
+	Fri,  7 Aug 2026 14:44:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786113871;
-	bh=BCPOU1Czp4YHT3aUV7rVLglir6JfGBPEUdKDWXcMRSg=;
+	s=korg; t=1786113862;
+	bh=Hn++1ifhU/jJKObVDo6cn3d5fGQx83cGV6S2Qql1u3w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mYAAERkjUt8mdUzBlI7DFByzX91Gv1oX9RsxXszyt/F7fcfci9TqhQdlrrtZ/xRkS
-	 2UZ+heKLDMI09gPXaV7R1Xym7uoU7k0Kf+T/assVUITylTFLYRVmCDPDFvQy+DQtNI
-	 cOSqqDUenOlkzCMfxQrf7ZyEBn3IXptlecajq/6c=
+	b=ADi1mRwfSg+CnS3YWyp5JeyIspzmg2sYI5jHef6CGdoWQqmIA8nHxKEmqJtbZbhKk
+	 JE4M4KRGdYUqne9FlfMM5r6aVq+eml66D4LdrWIHqw/IJK0NvgpDLHpyE/KE0Tje5I
+	 g67Acz412bHRhinkANxYhP3Ht55qH+TRoZxfIjIs=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Wenliang Yan <wenliang202407@163.com>,
+	Florian Bezdeka <florian.bezdeka@siemens.com>,
+	=?UTF-8?q?Bj=C3=B6rn=20Gerhart?= <gerhart@posteo.de>,
 	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 063/337] hwmon: (ina226) Add support for SY24655
-Date: Fri,  7 Aug 2026 16:34:26 +0200
-Message-ID: <20260807143419.877504547@linuxfoundation.org>
+Subject: [PATCH 6.12 060/337] hwmon: (nct6775-core) Fix number of temperature registers for NCT6116
+Date: Fri,  7 Aug 2026 16:34:23 +0200
+Message-ID: <20260807143419.813310307@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
 References: <20260807143418.516897842@linuxfoundation.org>
@@ -45,330 +46,92 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.12-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Wenliang Yan <wenliang202407@163.com>
+From: Guenter Roeck <linux@roeck-us.net>
 
-[ Upstream commit 52172ad87a22ed6e687ca678da21d3c949bc89a1 ]
+[ Upstream commit b0e8adb2ccb43009796897ced09f91636685c9d3 ]
 
-SY24655: Support for current and voltage detection as well as
-power calculation.
+Unlike NCT6106, NCT6116 only has three temperature registers, and with
+it only three temperature source and temperature source configuration
+registers. The register addresses match those of NCT6106 and can be
+re-used.
 
-Signed-off-by: Wenliang Yan <wenliang202407@163.com>
-Message-ID: <20241106150547.2538-1-wenliang202407@163.com>
-[groeck: Changed order of compatible entries;
- dropped spurious extra return statement in is_visible();
- fixed code problems]
+The code used a separate array to list the temperature source registers
+for NCT6116, but used the size of the NCT6106 register array to set
+the number of registers. The NCT6106 register array provides six addresses,
+while the temperature source register array for NCT6116 only provides three
+addresses. This causes a KASAN report.
+
+BUG: KASAN: global-out-of-bounds in nct6775_probe+0x936/0x46f0 [nct6775]
+Read of size 2 at addr ffffffffc19561a6 by task modprobe/954
+...
+Call Trace:
+ dump_stack+0x7d/0xa7
+ print_address_description.constprop.0+0x1c/0x220
+ ? __kasan_kmalloc.constprop.0+0xc9/0xd0
+ ? __kmalloc_node_track_caller+0x194/0x5b0
+ ? nct6775_probe+0x936/0x46f0 [nct6775]
+ ? nct6775_probe+0x936/0x46f0 [nct6775]
+...
+
+Fix the problem by hard-coding the number of temperature and temperature
+configuration registers to three for NCT6116. Drop the unnecessary
+NCT6116_REG_TEMP_SOURCE array and re-use NCT6106_REG_TEMP_SOURCE.
+
+Reported-by: Florian Bezdeka <florian.bezdeka@siemens.com>
+Closes: https://lore.kernel.org/linux-hwmon/57cfc3fa-d4e9-4c10-8aa7-4ad0af7ebebe@roeck-us.net/T/#t
+Fixes: 29c7cb485b32 ("hwmon: (nct6775) Integrate new model nct6116")
+Cc: Björn Gerhart <gerhart@posteo.de>
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-Stable-dep-of: e6c80061ca23 ("hwmon: (ina2xx) Fix various overflow issues")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/hwmon/ina2xx.rst | 27 +++++++++-
- drivers/hwmon/Kconfig          |  2 +-
- drivers/hwmon/ina2xx.c         | 94 ++++++++++++++++++++++++++++++++--
- 3 files changed, 116 insertions(+), 7 deletions(-)
+ drivers/hwmon/nct6775-core.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/hwmon/ina2xx.rst b/Documentation/hwmon/ina2xx.rst
-index 1ce161e6c0bf0..a3860aae444c0 100644
---- a/Documentation/hwmon/ina2xx.rst
-+++ b/Documentation/hwmon/ina2xx.rst
-@@ -63,6 +63,17 @@ Supported chips:
+diff --git a/drivers/hwmon/nct6775-core.c b/drivers/hwmon/nct6775-core.c
+index 79bc67ffb9986..506d57025c3bd 100644
+--- a/drivers/hwmon/nct6775-core.c
++++ b/drivers/hwmon/nct6775-core.c
+@@ -846,8 +846,6 @@ static const u16 NCT6116_FAN_PULSE_SHIFT[] = { 0, 2, 4, 6, 6 };
+ static const u16 NCT6116_REG_PWM[] = { 0x119, 0x129, 0x139, 0x199, 0x1a9 };
+ static const u16 NCT6116_REG_FAN_MODE[] = { 0x113, 0x123, 0x133, 0x193, 0x1a3 };
+ static const u16 NCT6116_REG_TEMP_SEL[] = { 0x110, 0x120, 0x130, 0x190, 0x1a0 };
+-static const u16 NCT6116_REG_TEMP_SOURCE[] = {
+-	0xb0, 0xb1, 0xb2 };
  
- 	       https://www.ti.com/
+ static const u16 NCT6116_REG_CRITICAL_TEMP[] = {
+ 	0x11a, 0x12a, 0x13a, 0x19a, 0x1aa };
+@@ -3650,7 +3648,7 @@ int nct6775_probe(struct device *dev, struct nct6775_data *data,
+ 		  = NCT6106_CRITICAL_PWM_ENABLE_MASK;
+ 		data->REG_CRITICAL_PWM = NCT6116_REG_CRITICAL_PWM;
+ 		data->REG_TEMP_OFFSET = NCT6106_REG_TEMP_OFFSET;
+-		data->REG_TEMP_SOURCE = NCT6116_REG_TEMP_SOURCE;
++		data->REG_TEMP_SOURCE = NCT6106_REG_TEMP_SOURCE;
+ 		data->REG_TEMP_SEL = NCT6116_REG_TEMP_SEL;
+ 		data->REG_WEIGHT_TEMP_SEL = NCT6106_REG_WEIGHT_TEMP_SEL;
+ 		data->REG_WEIGHT_TEMP[0] = NCT6106_REG_WEIGHT_TEMP_STEP;
+@@ -3664,13 +3662,13 @@ int nct6775_probe(struct device *dev, struct nct6775_data *data,
  
-+  * Silergy SY24655
-+
-+    Prefix: 'sy24655'
-+
-+    Addresses: I2C 0x40 - 0x4f
-+
-+    Datasheet: Publicly available at the Silergy website
-+
-+	       https://us1.silergy.com/
-+
-+
- Author: Lothar Felten <lothar.felten@gmail.com>
- 
- Description
-@@ -85,6 +96,11 @@ bus supply voltage.
- INA260 is a high or low side current and power monitor with integrated shunt
- resistor.
- 
-+The SY24655 is a high- and low-side current shunt and power monitor with an I2C
-+interface. The SY24655 supports both shunt drop and supply voltage, with
-+programmable calibration value and conversion times. The SY24655 can also
-+calculate average power for use in energy conversion.
-+
- The shunt value in micro-ohms can be set via platform data or device tree at
- compile-time or via the shunt_resistor attribute in sysfs at run-time. Please
- refer to the Documentation/devicetree/bindings/hwmon/ti,ina2xx.yaml for bindings
-@@ -108,8 +124,8 @@ power1_input		Power(uW) measurement channel
- shunt_resistor		Shunt resistance(uOhm) channel (not for ina260)
- ======================= ===============================================
- 
--Additional sysfs entries for ina226, ina230, ina231, and ina260
-----------------------------------------------------------------
-+Additional sysfs entries for ina226, ina230, ina231, ina260, and sy24655
-+------------------------------------------------------------------------
- 
- ======================= ====================================================
- curr1_lcrit		Critical low current
-@@ -130,6 +146,13 @@ update_interval		data conversion time; affects number of samples used
- 			to average results for shunt and bus voltages.
- ======================= ====================================================
- 
-+Sysfs entries for sy24655 only
-+------------------------------
-+
-+======================= ====================================================
-+power1_average		average power from last reading to the present.
-+======================= ====================================================
-+
- .. note::
- 
-    - Configure `shunt_resistor` before configure `power1_crit`, because power
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index 681722626bc48..195c7b505a853 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -2170,7 +2170,7 @@ config SENSORS_INA2XX
- 	select REGMAP_I2C
- 	help
- 	  If you say yes here you get support for INA219, INA220, INA226,
--	  INA230, INA231, and INA260 power monitor chips.
-+	  INA230, INA231, INA260, and SY24655 power monitor chips.
- 
- 	  The INA2xx driver is configured for the default configuration of
- 	  the part as described in the datasheet.
-diff --git a/drivers/hwmon/ina2xx.c b/drivers/hwmon/ina2xx.c
-index cecc80a41a974..345fe7db9de94 100644
---- a/drivers/hwmon/ina2xx.c
-+++ b/drivers/hwmon/ina2xx.c
-@@ -51,12 +51,19 @@
- #define INA226_ALERT_LIMIT		0x07
- #define INA226_DIE_ID			0xFF
- 
--#define INA2XX_MAX_REGISTERS		8
-+/* SY24655 register definitions */
-+#define SY24655_EIN				0x0A
-+#define SY24655_ACCUM_CONFIG	0x0D
-+#define INA2XX_MAX_REGISTERS		0x0D
- 
- /* settings - depend on use case */
- #define INA219_CONFIG_DEFAULT		0x399F	/* PGA=8 */
- #define INA226_CONFIG_DEFAULT		0x4527	/* averages=16 */
- #define INA260_CONFIG_DEFAULT		0x6527	/* averages=16 */
-+#define SY24655_CONFIG_DEFAULT		0x4527	/* averages=16 */
-+
-+/* (only for sy24655) */
-+#define SY24655_ACCUM_CONFIG_DEFAULT	0x044C	/* continuous mode, clear after read*/
- 
- /* worst case is 68.10 ms (~14.6Hz, ina219) */
- #define INA2XX_CONVERSION_RATE		15
-@@ -97,6 +104,7 @@ static bool ina2xx_writeable_reg(struct device *dev, unsigned int reg)
- 	case INA2XX_CALIBRATION:
- 	case INA226_MASK_ENABLE:
- 	case INA226_ALERT_LIMIT:
-+	case SY24655_ACCUM_CONFIG:
- 		return true;
- 	default:
- 		return false;
-@@ -127,12 +135,13 @@ static const struct regmap_config ina2xx_regmap_config = {
- 	.writeable_reg = ina2xx_writeable_reg,
- };
- 
--enum ina2xx_ids { ina219, ina226, ina260 };
-+enum ina2xx_ids { ina219, ina226, ina260, sy24655 };
- 
- struct ina2xx_config {
- 	u16 config_default;
- 	bool has_alerts;	/* chip supports alerts and limits */
- 	bool has_ishunt;	/* chip has internal shunt resistor */
-+	bool has_power_average;	/* chip has internal shunt resistor */
- 	int calibration_value;
- 	int shunt_div;
- 	int bus_voltage_shift;
-@@ -149,6 +158,7 @@ struct ina2xx_data {
- 	long power_lsb_uW;
- 	struct mutex config_lock;
- 	struct regmap *regmap;
-+	struct i2c_client *client;
- };
- 
- static const struct ina2xx_config ina2xx_config[] = {
-@@ -161,6 +171,7 @@ static const struct ina2xx_config ina2xx_config[] = {
- 		.power_lsb_factor = 20,
- 		.has_alerts = false,
- 		.has_ishunt = false,
-+		.has_power_average = false,
- 	},
- 	[ina226] = {
- 		.config_default = INA226_CONFIG_DEFAULT,
-@@ -171,6 +182,7 @@ static const struct ina2xx_config ina2xx_config[] = {
- 		.power_lsb_factor = 25,
- 		.has_alerts = true,
- 		.has_ishunt = false,
-+		.has_power_average = false,
- 	},
- 	[ina260] = {
- 		.config_default = INA260_CONFIG_DEFAULT,
-@@ -180,6 +192,18 @@ static const struct ina2xx_config ina2xx_config[] = {
- 		.power_lsb_factor = 8,
- 		.has_alerts = true,
- 		.has_ishunt = true,
-+		.has_power_average = false,
-+	},
-+	[sy24655] = {
-+		.config_default = SY24655_CONFIG_DEFAULT,
-+		.calibration_value = 4096,
-+		.shunt_div = 400,
-+		.bus_voltage_shift = 0,
-+		.bus_voltage_lsb = 1250,
-+		.power_lsb_factor = 25,
-+		.has_alerts = true,
-+		.has_ishunt = false,
-+		.has_power_average = true,
- 	},
- };
- 
-@@ -485,6 +509,41 @@ static int ina2xx_in_read(struct device *dev, u32 attr, int channel, long *val)
- 	return 0;
- }
- 
-+/*
-+ * Configuring the READ_EIN (bit 10) of the ACCUM_CONFIG register to 1
-+ * can clear accumulator and sample_count after reading the EIN register.
-+ * This way, the average power between the last read and the current
-+ * read can be obtained. By combining with accurate time data from
-+ * outside, the energy consumption during that period can be calculated.
-+ */
-+static int sy24655_average_power_read(struct ina2xx_data *data, u8 reg, long *val)
-+{
-+	u8 template[6];
-+	int ret;
-+	long accumulator_24, sample_count;
-+
-+	/* 48-bit register read */
-+	ret = i2c_smbus_read_i2c_block_data(data->client, reg, 6, template);
-+	if (ret < 0)
-+		return ret;
-+	if (ret != 6)
-+		return -EIO;
-+	accumulator_24 = ((template[3] << 16) |
-+				(template[4] << 8) |
-+				template[5]);
-+	sample_count = ((template[0] << 16) |
-+				(template[1] << 8) |
-+				template[2]);
-+	if (sample_count <= 0) {
-+		*val = 0;
-+		return 0;
-+	}
-+
-+	*val = DIV_ROUND_CLOSEST(accumulator_24, sample_count) * data->power_lsb_uW;
-+
-+	return 0;
-+}
-+
- static int ina2xx_power_read(struct device *dev, u32 attr, long *val)
- {
- 	struct ina2xx_data *data = dev_get_drvdata(dev);
-@@ -492,6 +551,8 @@ static int ina2xx_power_read(struct device *dev, u32 attr, long *val)
- 	switch (attr) {
- 	case hwmon_power_input:
- 		return ina2xx_read_init(dev, INA2XX_POWER, val);
-+	case hwmon_power_average:
-+		return sy24655_average_power_read(data, SY24655_EIN, val);
- 	case hwmon_power_crit:
- 		return ina226_alert_limit_read(data, INA226_POWER_OVER_LIMIT_MASK,
- 					       INA2XX_POWER, val);
-@@ -651,6 +712,7 @@ static umode_t ina2xx_is_visible(const void *_data, enum hwmon_sensor_types type
- {
- 	const struct ina2xx_data *data = _data;
- 	bool has_alerts = data->config->has_alerts;
-+	bool has_power_average = data->config->has_power_average;
- 	enum ina2xx_ids chip = data->chip;
- 
- 	switch (type) {
-@@ -702,6 +764,10 @@ static umode_t ina2xx_is_visible(const void *_data, enum hwmon_sensor_types type
- 			if (has_alerts)
- 				return 0444;
- 			break;
-+		case hwmon_power_average:
-+			if (has_power_average)
-+				return 0444;
-+			break;
- 		default:
- 			break;
- 		}
-@@ -734,7 +800,8 @@ static const struct hwmon_channel_info * const ina2xx_info[] = {
- 	HWMON_CHANNEL_INFO(curr, HWMON_C_INPUT | HWMON_C_CRIT | HWMON_C_CRIT_ALARM |
- 			   HWMON_C_LCRIT | HWMON_C_LCRIT_ALARM),
- 	HWMON_CHANNEL_INFO(power,
--			   HWMON_P_INPUT | HWMON_P_CRIT | HWMON_P_CRIT_ALARM),
-+			   HWMON_P_INPUT | HWMON_P_CRIT | HWMON_P_CRIT_ALARM |
-+			   HWMON_P_AVERAGE),
- 	NULL
- };
- 
-@@ -839,6 +906,19 @@ static int ina2xx_init(struct device *dev, struct ina2xx_data *data)
- 				   INA226_ALERT_LATCH_ENABLE |
- 						FIELD_PREP(INA226_ALERT_POLARITY, active_high));
- 	}
-+	if (data->config->has_power_average) {
-+		if (data->chip == sy24655) {
-+			/*
-+			 * Initialize the power accumulation method to continuous
-+			 * mode and clear the EIN register after each read of the
-+			 * EIN register
-+			 */
-+			ret = regmap_write(regmap, SY24655_ACCUM_CONFIG,
-+					   SY24655_ACCUM_CONFIG_DEFAULT);
-+			if (ret < 0)
-+				return ret;
-+		}
-+	}
- 
- 	if (data->config->has_ishunt)
- 		return 0;
-@@ -868,6 +948,7 @@ static int ina2xx_probe(struct i2c_client *client)
- 		return -ENOMEM;
- 
- 	/* set the device type */
-+	data->client = client;
- 	data->config = &ina2xx_config[chip];
- 	data->chip = chip;
- 	mutex_init(&data->config_lock);
-@@ -906,11 +987,16 @@ static const struct i2c_device_id ina2xx_id[] = {
- 	{ "ina230", ina226 },
- 	{ "ina231", ina226 },
- 	{ "ina260", ina260 },
-+	{ "sy24655", sy24655 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ina2xx_id);
- 
- static const struct of_device_id __maybe_unused ina2xx_of_match[] = {
-+	{
-+		.compatible = "silergy,sy24655",
-+		.data = (void *)sy24655
-+	},
- 	{
- 		.compatible = "ti,ina219",
- 		.data = (void *)ina219
-@@ -935,7 +1021,7 @@ static const struct of_device_id __maybe_unused ina2xx_of_match[] = {
- 		.compatible = "ti,ina260",
- 		.data = (void *)ina260
- 	},
--	{ },
-+	{ }
- };
- MODULE_DEVICE_TABLE(of, ina2xx_of_match);
- 
+ 		reg_temp = NCT6106_REG_TEMP;
+ 		reg_temp_mon = NCT6106_REG_TEMP_MON;
+-		num_reg_temp = ARRAY_SIZE(NCT6106_REG_TEMP);
++		num_reg_temp = 3;
+ 		num_reg_temp_mon = ARRAY_SIZE(NCT6106_REG_TEMP_MON);
+ 		num_reg_tsi_temp = ARRAY_SIZE(NCT6116_REG_TSI_TEMP);
+ 		reg_temp_over = NCT6106_REG_TEMP_OVER;
+ 		reg_temp_hyst = NCT6106_REG_TEMP_HYST;
+ 		reg_temp_config = NCT6106_REG_TEMP_CONFIG;
+-		num_reg_temp_config = ARRAY_SIZE(NCT6106_REG_TEMP_CONFIG);
++		num_reg_temp_config = 3;
+ 		reg_temp_alternate = NCT6106_REG_TEMP_ALTERNATE;
+ 		reg_temp_crit = NCT6106_REG_TEMP_CRIT;
+ 		reg_temp_crit_l = NCT6106_REG_TEMP_CRIT_L;
 -- 
 2.53.0
 
