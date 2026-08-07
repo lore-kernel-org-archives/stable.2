@@ -1,128 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender-of-o58.zoho.eu (sender-of-o58.zoho.eu [136.143.169.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334B03B6363;
-	Fri,  7 Aug 2026 02:02:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786068160; cv=none; b=cS7w63opahKGXBw5hyeIo57FNDR4peOakkDmyUGVzCBc9T4UeEzspxzOjDuDPhQtDfBT7fqliLktYtI5a+uPVwv0Lsg+bAzUzrshMy3u+angqxc04HI2pIbggQ5p+au73sOj2yaKSWDXQujxCXH0WVToCZ8d5GX5hxhQLOOfApI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786068160; c=relaxed/simple;
-	bh=Cm1fgpX/FgQsKNuimrEd+KcUHPiLTq7ilR6NhLRqNd4=;
-	h=Date:To:From:Subject:Message-Id; b=cNt5o9BSh63SznNtC9NC2wuC36ed6KNmnkW8rFpbe0gWYTx4JMj8KSPDXIhPQLl2FEjvimEgkP/du6+myaX+qGA498Bph9d1XsCBI2lCQ9CAO6KmOdL5FgO77Xf1h1Mt5gjUybVsrhncwnRJj9aLpKBjy9TZSCn4WhStfcTmmEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=T8yeeIQ1; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4A33C1D4F;
+	Fri,  7 Aug 2026 02:04:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786068245; cv=pass; b=fG6S77Ty1pT73G1EfWFwXSMiqjESN2cDhY0lYNqh1LfPaYu8E2G/DyOP12cDMj38flEJSq5yLPXSYEbuKjY2dITgZ1tj2SD4OuaqmYxA29iTQh6eZ4Vp5yhZ5laPtNZfLFYIQaG8BjULFe1vSX7SjFv8Yf8nM8GxBZZss/1N9Yk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786068245; c=relaxed/simple;
+	bh=oZml56gj2jBKNO7ThWS41H4lB8QwbYwH0VSbflecyo0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DZj4pE3SYEVg66Z1JBfeQhnOAwuZBI4w50W4NsVsXvtq8ObSEb8NC+c4Sh1BMsaTHpUHz1f6ZiOpYDU63aR/lG/+pXLOzPW0bD0BOI/aQZDBFdS/M9PXY1oR3RzAG8zxajaB4wS+wIDuH5xSaLQnDnOxIe87dianNY6HrGm4+yk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com; spf=pass smtp.mailfrom=iusegentoo.com; dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b=gmIXf5w5; arc=pass smtp.client-ip=136.143.169.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iusegentoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iusegentoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="T8yeeIQ1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A0011F000E9;
-	Fri,  7 Aug 2026 02:02:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1786068159;
-	bh=TJmCCmOzIWlgogVXxHeJhUY/6PkXKezdrdCMnkLbI8E=;
-	h=Date:To:From:Subject;
-	b=T8yeeIQ1s+ytZm8X1lVlnMHdKUKHs3DBvjiI0iEDIRE7KizVXKY0jcLOopG6uUWba
-	 vx911mVdTU6Y59aqAlFSohRFxzlCYJIMyghwwASS9bolzijtdnqnoatUxND9Y/7zUA
-	 arRTeDOn1+MlV2i25XRCi69cG4Kj2SsxuyPIhKfs=
-Date: Thu, 06 Aug 2026 19:02:38 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,stable@vger.kernel.org,rakie.kim@sk.com,paulmck@kernel.org,matthew.brost@intel.com,joshua.hahnjy@gmail.com,gourry@gourry.net,david@kernel.org,byungchul@sk.com,apopple@nvidia.com,leitao@debian.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-migrate-report-rcu-tasks-quiescent-states-in-migrate_pages_batch.patch removed from -mm tree
-Message-Id: <20260807020239.0A0011F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=iusegentoo.com header.i=ali@iusegentoo.com header.b="gmIXf5w5"
+ARC-Seal: i=1; a=rsa-sha256; t=1786068238; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=JgPCqpBlVYERkKzB4la8o2lqFgwF25EFS6Ma5R7dGzuqNoZjOXOhp7XIKKcLLPUmOhMUGzwPzJYnpgbZz2kHcqJEaKKMyiKYu0Y7Pxj+ZPCCuf4qwBpyFSolYAvdOhWO73zIy9hHLYw9VjVG38FxbtXSPV44OcHl1lQ5wPMAaKk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1786068238; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=qqLOH80rK4BG2aPXV3oGpbTkAHPUIWxCtrZaZX63BUg=; 
+	b=hgJ3hqbycK6VTvpz88oumBl76CGxBLQcG5CRyKYTsUNMHM9GqC9bHKgel7AkhQhbFuBV1yfJmde6BlQvJhnl5Yp9NdGw3I4VCUXbIaBfs9WIoT9wC7aHCA1d+iCDsgY920t8Axh6yclIS4CsZjfHRFE24hZbuhB2LIEOCTAcaQc=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iusegentoo.com;
+	spf=pass  smtp.mailfrom=ali@iusegentoo.com;
+	dmarc=pass header.from=<ali@iusegentoo.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786068238;
+	s=zmail; d=iusegentoo.com; i=ali@iusegentoo.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=qqLOH80rK4BG2aPXV3oGpbTkAHPUIWxCtrZaZX63BUg=;
+	b=gmIXf5w5vZCZ6XDvg+SrKmeA2eP12JP8U9f09sXjsnZly21WCVRDf8rzQnSujHwf
+	A3UI8exKlgz9tq+MRDOJwqBPMRWynRVzVDNgby3goVyy82nP+U64XDs8PTAPSkWuec8
+	5o2Xx8IHpdLiIDeo0AouVPcquOal5haKZtO7V/7g=
+Received: by mx.zoho.eu with SMTPS id 1786068236394936.9346439661545;
+	Fri, 7 Aug 2026 04:03:56 +0200 (CEST)
+From: Ali Ahmet Memis <ali@iusegentoo.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: RFCOMM: take rfcomm_mutex for the deferred setup accept
+Date: Fri,  7 Aug 2026 02:03:44 +0000
+Message-ID: <20260807020345.111346-1-ali@iusegentoo.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
+rfcomm_sock_recvmsg() completes a deferred setup by calling
+rfcomm_dlc_accept() without holding any RFCOMM lock:
 
-The quilt patch titled
-     Subject: mm/migrate: report RCU-tasks quiescent states in migrate_pages_batch()
-has been removed from the -mm tree.  Its filename was
-     mm-migrate-report-rcu-tasks-quiescent-states-in-migrate_pages_batch.patch
+	if (test_and_clear_bit(RFCOMM_DEFER_SETUP, &d->flags)) {
+		rfcomm_dlc_accept(d);
+		return 0;
+	}
 
-This patch was dropped because it was merged into the mm-stable branch
-of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and rfcomm_dlc_accept() dereferences the session on its first line:
 
-------------------------------------------------------
-From: Breno Leitao <leitao@debian.org>
-Subject: mm/migrate: report RCU-tasks quiescent states in migrate_pages_batch()
-Date: Mon, 27 Jul 2026 06:50:19 -0700
+	struct sock *sk = d->session->sock->sk;
 
-migrate_pages_batch() unmaps each folio before moving it, and every
-unmap runs the mmu_notifier invalidate callbacks.  On KVM hosts
-try_to_migrate() ends up in kvm_mmu_notifier_invalidate_range_start() ->
-tdp_mmu_zap_leafs(), which is expensive, so unmapping a large batch keeps
-the CPU busy for a long time.
+Every other path that touches d->session runs under rfcomm_mutex:
+rfcomm_dlc_open(), rfcomm_dlc_close(), rfcomm_dlc_exists(),
+rfcomm_dlc_send_rpn(), and the RFCOMM thread through
+rfcomm_process_sessions(). rfcomm_connect_ind() is even documented as
+"called under rfcomm_lock()". This call site is the only one that skips
+it.
 
-The loop already calls cond_resched(), but on PREEMPTION kernels that is
-a no-op, and involuntary preemption is not a Tasks-RCU quiescent state.
+The RFCOMM_DEFER_SETUP bit looks like it serialises the accept against
+teardown, since __rfcomm_dlc_close() returns early when it wins the
+test_and_clear. But rfcomm_recv_disc() forces the state first:
 
-A long batch therefore never reports a quiescent state, and the
-migrating task (e.g. kcompactd) becomes a Tasks-RCU holdout, stalling the
-Tasks-RCU grace period for minutes, which is common at Meta fleet:
+	d->state = BT_CLOSED;
+	__rfcomm_dlc_close(d, err);
 
-  INFO: rcu_tasks detected stalls on tasks:
-  0000000055349ecc: .. nvcsw: 1157401/1157401 holdout: 1 idle_cpu: -1/56 task:kcompactd0      state:R  running task
+and the early return only covers BT_CONNECT, BT_CONFIG, BT_OPEN and
+BT_CONNECT2. With the state already BT_CLOSED that switch does not
+match, the bit is never consulted, and __rfcomm_dlc_close() falls
+through to rfcomm_dlc_unlink(), which sets d->session = NULL.
+
+So a remote DISC on a deferred dlc clears the session while leaving
+RFCOMM_DEFER_SETUP set. The next recvmsg() then passes the
+test_and_clear and dereferences a NULL session. No timing window is
+needed: once the DISC has been processed, the dereference is
+unconditional.
+
+Give rfcomm_dlc_accept() the same shape as rfcomm_dlc_open() and
+rfcomm_dlc_close(): an exported wrapper that takes rfcomm_mutex and
+re-checks the session, around a __rfcomm_dlc_accept() that the two
+in-core callers, which already hold the mutex, keep using.
+
+Reproduced on a KASAN + PROVE_LOCKING kernel with a BR/EDR peer emulated
+over /dev/vhci: the peer brings up an ACL link, opens L2CAP on the
+RFCOMM PSM, starts a session, opens a dlc on a channel bound with
+BT_DEFER_SETUP, and sends DISC after the socket is accepted. recv() on
+the accepted socket then hits:
+
+  Oops: general protection fault
+  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+  RIP: 0010:rfcomm_dlc_accept+0x54/0x350
   Call Trace:
-   tdp_mmu_zap_leafs
-   tdp_mmu_next_root
-   gfn_to_pfn_cache_invalidate_start
-   kvm_mmu_notifier_invalidate_range_start
-   __mmu_notifier_invalidate_range_start
-   try_to_migrate_one
-   try_to_migrate
-   migrate_pages_batch
-   migrate_pages
-   compact_zone
-   compact_node
-   kcompactd
-   kthread
+    rfcomm_sock_recvmsg+0x1cd/0x230
+    sock_recvmsg+0x166/0x1c0
+    __sys_recvfrom+0x20d/0x300
 
-Use cond_resched_tasks_rcu_qs() so a quiescent state is reported even
-when cond_resched() does nothing.
+0x10 is the offset of sock in struct rfcomm_session. With this patch the
+same run completes with recv() returning 0 and no report, and lockdep
+stays quiet, confirming rfcomm_mutex is still taken before lock_sock on
+this path as it is on the thread side.
 
-This has also been discussed at [1]
-
-Link: https://lore.kernel.org/20260727-kcompact-v1-1-bdfefddd6874@debian.org
-Link: https://lore.kernel.org/all/amdWVTs0WKOxguxP@gmail.com/ [1]
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Gregory Price <gourry@gourry.net>
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: bb23c0ab8246 ("Bluetooth: Add support for deferring RFCOMM connection setup")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
 ---
+ net/bluetooth/rfcomm/core.c | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
 
- mm/migrate.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/mm/migrate.c~mm-migrate-report-rcu-tasks-quiescent-states-in-migrate_pages_batch
-+++ a/mm/migrate.c
-@@ -1841,7 +1841,7 @@ static int migrate_pages_batch(struct li
- 			is_thp = folio_test_pmd_mappable(folio);
- 			nr_pages = folio_nr_pages(folio);
+diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
+index 2e8c080b4d9e..9cdfea666a2c 100644
+--- a/net/bluetooth/rfcomm/core.c
++++ b/net/bluetooth/rfcomm/core.c
+@@ -1331,7 +1331,10 @@ static struct rfcomm_session *rfcomm_recv_disc(struct rfcomm_session *s,
+ 	return s;
+ }
  
--			cond_resched();
-+			cond_resched_tasks_rcu_qs();
+-void rfcomm_dlc_accept(struct rfcomm_dlc *d)
++/* Must be called with rfcomm_mutex held, so that the session cannot be
++ * unlinked from under us.
++ */
++static void __rfcomm_dlc_accept(struct rfcomm_dlc *d)
+ {
+ 	struct sock *sk = d->session->sock->sk;
+ 	struct l2cap_conn *conn = l2cap_pi(sk)->chan->conn;
+@@ -1353,6 +1356,21 @@ void rfcomm_dlc_accept(struct rfcomm_dlc *d)
+ 	rfcomm_send_msc(d->session, 1, d->dlci, d->v24_sig);
+ }
  
- 			/*
- 			 * The rare folio on the deferred split list should
-_
-
-Patches currently in -mm which might be from leitao@debian.org are
-
-mm-kmemleak-report-leaks-only-after-n-consecutive-unreferenced-scans.patch
-mm-kmemleak-factor-leak-confirmation-into-a-helper.patch
-selftests-mm-test-kmemleaks-n-consecutive-scan-leak-confirmation.patch
-radix-tree-fix-kmemleak-false-positives-on-tree-head-reassignment.patch
-mm-kmemleak-report-rcu-tasks-quiescent-states-during-the-scan.patch
-mm-kmemleak-default-min_unref_scans-to-2-for-verbose-auto-scan.patch
-documentation-kmemleak-document-the-conditional-min_unref_scans-default.patch
-selftests-mm-kmemleak-drop-stale-min_unref_scans-default-from-comments.patch
++void rfcomm_dlc_accept(struct rfcomm_dlc *d)
++{
++	rfcomm_lock();
++
++	/* rfcomm_recv_disc() sets the dlc state to BT_CLOSED before calling
++	 * __rfcomm_dlc_close(), so the RFCOMM_DEFER_SETUP handshake there is
++	 * skipped and the session can already be unlinked by the time the
++	 * deferred accept runs from rfcomm_sock_recvmsg().
++	 */
++	if (d->session)
++		__rfcomm_dlc_accept(d);
++
++	rfcomm_unlock();
++}
++
+ static void rfcomm_check_accept(struct rfcomm_dlc *d)
+ {
+ 	if (rfcomm_check_security(d)) {
+@@ -1365,7 +1383,7 @@ static void rfcomm_check_accept(struct rfcomm_dlc *d)
+ 			d->state_change(d, 0);
+ 			rfcomm_dlc_unlock(d);
+ 		} else
+-			rfcomm_dlc_accept(d);
++			__rfcomm_dlc_accept(d);
+ 	} else {
+ 		set_bit(RFCOMM_AUTH_PENDING, &d->flags);
+ 		rfcomm_dlc_set_timer(d, RFCOMM_AUTH_TIMEOUT);
+@@ -1958,7 +1976,7 @@ static void rfcomm_process_dlcs(struct rfcomm_session *s)
+ 					d->state_change(d, 0);
+ 					rfcomm_dlc_unlock(d);
+ 				} else
+-					rfcomm_dlc_accept(d);
++					__rfcomm_dlc_accept(d);
+ 			}
+ 			continue;
+ 		} else if (test_and_clear_bit(RFCOMM_AUTH_REJECT, &d->flags)) {
+-- 
+2.55.0
 
