@@ -1,103 +1,97 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E097F282F3A;
-	Fri,  7 Aug 2026 22:53:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB423E764C
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 23:06:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786143203; cv=none; b=OYMUPBZ54xqkRLP6zli7i5WZFHUBIKaC2MzTLWo8Em0ZOfutHEiDFIXXhu50gCUcEsG9Azj+julMigJfarcCFMVNdtRO45HiNO5HPCY+bbhq2s8X8mFbXvQbV/MMNJmqzwz/q+CJr0ROBtVdugNbn0nnhHw0aneAbkYRRBxqc8Y=
+	t=1786143976; cv=none; b=VQcbE013FsK5Zb8IhkECi4Tkno4n0wbKMjmTeLXID4G+WNETHy0VQN7IEm/7poAnkLb9v8zrXu02brSukp5I7WIMeSEAd479sPYvhypNsZ5+dTPWey1WM6hg05jGqYeH/5pksxTRAvzGY1l4CdbJcI0840bI5G3O/ZI+zyyBbrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786143203; c=relaxed/simple;
-	bh=TgnFiOgYHcZHOf9TdbtGtK+PYfcwH7tmRAPJA9Tw/6w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MRrQ22jifLBOzjOfQEMoUfiqskk5AxhtFZe/GKVMikCWHZ4SxuzwfDntq4LjbNQxxc0B8DolMqSEr9wzH6QlNn9p1x+wr3KS4LQ4XBZTGCvWxKKs1i9VxFSmnsCitwSS7SfJjQlq0QMpCAJT7iLrYAS49C4olPY8/ZDBmE0mTac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=hIsY8nF9; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1786143976; c=relaxed/simple;
+	bh=Ah7os4dPUnM7PXOAVjFiX82IffndnNTATTNU1WZd0JA=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=J96vO/xrs7+bmGJYsxHsshpl5YRMz7qWsHQw4rUCgdZ+3QvsgZ9lIZq60QWXF6yNmns8/1gzsoCCDe8FWish30XJo3lHkrn2NWevZAHSXLJfl+TrM+bQNrLZ/dwQGVOTrnKoF2WNBodmwTAC+/RfyAKXkGP9N5KReHHA0iRjxzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NdWgIA23; arc=none smtp.client-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="hIsY8nF9"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id B8AAB40E019E;
-	Fri,  7 Aug 2026 22:53:10 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id v-aCRvLEUesg; Fri,  7 Aug 2026 22:53:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1786143180; bh=Qr8nSDsQdPdjpZCT7E2xBH6BYx3h24usuz6hApN8yD8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hIsY8nF9CcS2DHulD9hh2AxxxscOe/ItW9tZcRsuBXcHJXX6KzkU2HeCS81tbGDIo
-	 GqNRvxy4TvXpTiPtpCpA3BKO+LQgaSiarntU3ysCXwCD2GpDXYz3nCLlJBCkecK3FM
-	 A5/5+gCgT1GzAzmx8CBHlA+dx/jOUgZPReMc2S/+etET498MKgJQAWND074OiWb5tp
-	 sCpDx7M+neSe+MvGB7pODV5ymXbRCC69UnldBEso/BIJESdht8WBsDp23QideKJYRd
-	 hsYC/lRL2jVZiUzL9BlpWJrOZb1gFvb20ZGkbs6GJPO9h0YWGM75dfpP/nZ67C+9W4
-	 /WDq45ugvJu4zZXXz7jTgAoaPJewYSNq4uYjWmDjqPQPjyMk7/e6ma0hsXppDQ9JPU
-	 wK2HUXagC1MQfPrZgYbee4oxQGyHWPIRD5A8tTE43To+7gxjoytJNigBHTXlxm4yTv
-	 BJzVxShV92hk7lBouz1olWFtbWyE7HOjH8tgTXyl2DEern3Uakgfs3WWiyjRZfMXEd
-	 vN9E9lYLhmUg2VvgY1seCjS8rPVnPDRe+dLN1g3berIzD6vkvTwNd095lQNwHiLnhm
-	 N/zOX1SqUfWx6zvcukNw8SPmjiSKo8VL+iPrvU0ehbXfl3u50YHPEXreHjAiot5kLq
-	 Sb2YR9ASa5C2XVKMQPHKdBHM=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::b])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 1C71A40E0171;
-	Fri,  7 Aug 2026 22:52:45 +0000 (UTC)
-Date: Fri, 7 Aug 2026 15:52:41 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Jasjeet Rangi <jrangi@purestorage.com>
-Cc: x86@kernel.org, tony.luck@intel.com, tglx@kernel.org, mingo@redhat.com,
-	dave.hansen@linux.intel.com, hpa@zytor.com,
-	linux-edac@vger.kernel.org, stable@vger.kernel.org,
-	Smita.KoralahalliChannabasappa@amd.com, yazen.ghannam@amd.com,
-	avadhut.naik@amd.com, msaggi@purestorage.com,
-	rjethwani@purestorage.com, rhan@purestorage.com
-Subject: Re: [PATCH] x86/mce/amd: Fix inverted interrupt enablement during
- storm handling
-Message-ID: <20260807225241.GAanZhufwGMzonqHUZ@fat_crate.local>
-References: <20260807222721.2795123-1-jrangi@purestorage.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NdWgIA23"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84f0d3ab2f4so51675b3a.1
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 16:06:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1786143975; x=1786748775; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Yi54ty/2uOVISFFIV8GBz7xZ1AQ64miqFpO9VtjCRnI=;
+        b=NdWgIA23pPjmpFYaabmXPdmBBIxw9entcOfgxkivCioLxg368CCj7L2zmlzf0lS4DT
+         eKqXt3LybU7ydoCkk/PCO/xb8oMeUCeX8R4siORlESDdwYYUxKVP8GnL+fXWrtqjhcjx
+         fQTONbt2NwhjEMrfVsvMS/WYRAz0hYUROcq/FZbC/RpHaFOypVf9q1YDgpbC/UujOf2x
+         R4Ho2/VhrK8y50QZoYWVJV0fhivcYWVEx1+W/vxLuylb84tVIl7TEi8hz1+J8iYJbsy7
+         Mom+mL/4P8P4+71GRZfz65FyfaHFHO+XiRSVpPnvspIANWkRLhocEtm5aF6idsE3Rorh
+         jO8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786143975; x=1786748775;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Yi54ty/2uOVISFFIV8GBz7xZ1AQ64miqFpO9VtjCRnI=;
+        b=A/V6kVYdjGLt9AAKoPtZ1WOgqgRRXuh+Io05z4utx5kgIW/FlkhPXiKsDUu/MTZJqH
+         m+NQ7ExJMH/uk04Whlw4rdIHLSiIns4379obv318oSL3EhHnGAzHlxnn4mqXK7PojPAZ
+         bQJlKzP2xPd09uhJPCKfM5K1nTwUt1vw81iybsZ2DzoN3HwVuMtTzpSGvYKWdwx70R2K
+         mskF3BIqYWnnp6KeDFPyvqpGpcbwZhXgeJJ0x1qnBbD0uEv4tbZyWcqAysce9jQkNXUU
+         M8ZuUB83h9HPCPsJbvQZsYRZn0oFTHV+vAieVxeF/xhpG4gsSl5RMaAu/2RN9tmshEux
+         ERJA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5vjQsIdszoYfkdBJDY68YV/LLuVditwBwo+PD8oebdje9z4BTJfuPlLlNRNIHhnTkk08j8nU=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxd1GjqfaRsFs+fv3UyR+ex/ySL3t9NR8hRqqePM4yrbMsGfrqn
+	Te0NNS576McmSkRTcH8fQIGsExErvXbmR2iC+u8KOz0yYXoAW6Miz3DXTnnu4l/Q7af0WiuzCNb
+	jyMCLlQ==
+X-Received: from pfbfr12.prod.google.com ([2002:a05:6a00:810c:b0:848:40f5:a538])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4b02:b0:847:8acd:747c
+ with SMTP id d2e1a72fcca58-84f2e022980mr28214031b3a.13.1786143974654; Fri, 07
+ Aug 2026 16:06:14 -0700 (PDT)
+Date: Fri, 7 Aug 2026 16:06:14 -0700
+In-Reply-To: <6bb4252cf3c41de5e58cce5c5de02660d8350f47.camel@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260807222721.2795123-1-jrangi@purestorage.com>
+Mime-Version: 1.0
+References: <20260807071934.786879-1-zeng_chi911@163.com> <anXnmvp2_Rj62huS@google.com>
+ <6bb4252cf3c41de5e58cce5c5de02660d8350f47.camel@intel.com>
+Message-ID: <anZk5hTf6-8HWHBu@google.com>
+Subject: Re: [PATCH] KVM: Remove the kvm debugfs directory if kvm_init() fails
+From: Sean Christopherson <seanjc@google.com>
+To: Kai Huang <kai.huang@intel.com>
+Cc: "zeng_chi911@163.com" <zeng_chi911@163.com>, "zengchi@kylinos.cn" <zengchi@kylinos.cn>, 
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "pbonzini@redhat.com" <pbonzini@redhat.com>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
-On Fri, Aug 07, 2026 at 04:26:59PM -0600, Jasjeet Rangi wrote:
-> mce_amd_handle_storm() currently does the opposite of what storm
-> handling needs: it enables threshold interrupts when a storm is detected
-> and disables them when the storm subsides.
+On Fri, Aug 07, 2026, Kai Huang wrote:
+> > > 
+> > > The stale /sys/kernel/debug/kvm directory isn't just cosmetic: a
+> > > subsequent attempt to load KVM makes debugfs_create_dir() fail with
+> > > -EEXIST, after which kvm_debugfs_dir holds an ERR_PTR and all stat
+> > > files are silently never created again.  Worse, the leaked stat files
+> > > reference file_operations and stat data that live in the KVM module; if
+> > > the module is unloaded after the failed initialization, reading the
+> > > stale files is a use-after-free.
+> > > 
+> > > 
+> 
+> [...]
+> 
+> > 
+> > Already posted (twice) and applied:
+> > 
+> > https://lore.kernel.org/all/20260706095910.39798-1-leixiang@kylinos.cn
+> 
+> Do we need to "Cc: stable"?  The one in your tree (commit db3a46e200df2) doesn't
+> have that.
 
-the subside path:
-
-printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm subsided\n", smp_processor_id(), mce->bank);
-mce_handle_storm(mce->bank, false);
-|->mce_amd_handle_storm(bank, on)
-|-> threshold_restart_bank(bank, on);
-|-> tr.b->interrupt_enable = false;
-
-while that commit Fixes: 5c4663ed1eac ("x86/mce: Handle AMD threshold
-interrupt storms") says:
-
-    Rather, disable the interrupt on the corresponding CPU and bank.
-    Re-enable back the interrupts if enough consecutive polls of the bank show no
-    corrected errors (30, as programmed by Intel).
-
-Yap, I see it.
-
-I'm not sure about your approach to change the bool meaning - "on" is fine at
-a first glance and this fix should be minimal so that it is more easily
-backportable to stable - but yap, looks like we're doing it wrong.
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+I was thinking "no", as I don't think it's likely to be problematic outside of
+fuzzers and error injection, but I also wouldn't object if someone feels strongly
+that it should be sent to LTS kernels.
