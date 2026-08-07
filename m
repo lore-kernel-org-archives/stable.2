@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10BF22579E
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 02:36:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA53227A916
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 02:36:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786070175; cv=none; b=QE+ekmb596OApNgGJRzuR+zq0F1YAgRzmEOniKbu+95lc9TjvsWGSay87awKuKgz4tmy35Ms7G+e5BODYlVMxqLIfMWc1UO4zCtLb8OQm2j9xLOoWkBa+3JKxi8ZC2L3vNfDjv5L8NpljSCmUp5VV+vfK8y+pNMl3aPMuNjPTx8=
+	t=1786070175; cv=none; b=kCFakeQUTCE+54a7zZIOpnRegN/nCiaudOcYJAnonum0bwS/6VyAZswvcUTIEt8cRGZdtHuTDKD9k7g8e29yGG5u6vrhv/D8PAdxHNjerYu2qW5b0gX4JAFavrjcAC4E/B10hQVxI1M+DuTBDLclZH6/wypB3tStMZueCQbQ94Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786070175; c=relaxed/simple;
-	bh=vigE+XiK7pquyOS6UBsaaqYWjHOnnV63+0Tq1eGpK5o=;
+	bh=QV2Bqql/vb72j5y9pqEHBLDSPKxC0erevo+QGCD4RqI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nbD/qYGIA+sdORcnMFIw5g4cT3uEugapuVdamEfxgC0Df8qwoJw2iX51rCrw1tRhpGKzYakXGCeTFshWVbr2I+GR2710koNHdfncKdS6i8Oow1LQ7/TU9fSzwBSnUhcJoXJQDFPFNK4TEUZAK4JbEQKTPjPDccJlqBTcaxbbgJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=COaU7qsd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LnyS8OG+KbeqCXRfQbZPiAJF5v29YZuX601NSCNBcOVJ8AZtJQgoVeqYEiAmJYOq8ijGUx1X2z4t1tTxe3SOyB0znv1NzHdHW66ANR7up1JppPwLrGVnEVWQ50lhnPWCUi/Kg1KDOcsFV8t+PUR+dseSuNJWACzPGssyA031d3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F7jxAC7N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="COaU7qsd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1D861F00A3D;
-	Fri,  7 Aug 2026 02:36:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F7jxAC7N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C25AF1F00A3A;
+	Fri,  7 Aug 2026 02:36:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786070173;
-	bh=ukCTtVbXG/4Yawb/WHiNRkcb3N2WJJB5UacqM59phkk=;
+	s=k20260515; t=1786070174;
+	bh=R+vXnDxL7YNm63Go5yD7xSg7KYgqvofkWGzIKCNW8Bo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=COaU7qsdm69ppcWqHkTNOYraTSfJF/ksYJPf/4gWMvitAjb2wFENa59B4hdVR8RLP
-	 S4tTJQ1EAm7NIJ5kzN2kNw0tlkuk7y1baoxR6ovFdLcbLVOc6+bGI300nI26kk9gCI
-	 +tQAMoxHDPoGgD957t9hjzhj103upw2dW1iZBnapcaBCetuUtVGhgl9rlpGnFTkPfg
-	 eStlHgzswNn1d8+3ZHm9m5EawqIXcxwhfulvsxbn1oMkpyDDOiQ+fFPygRJQ/fOhzW
-	 psZ1VDwop4IxfDqJDpSXFF14sd5X2I1Q1dQvmwA8TPohrB/PMOtfVZQxAPmRB/HjdK
-	 ftlXXFSRySrwg==
+	b=F7jxAC7NZ48QDBGLJcD468QQY66eJ4i232glQuhcCVT3TbWTwg3m3wfm0prYSPZhF
+	 869GzbFouVGyaeUzQuFmQUCGYSjBQH5DcXdEWe51E+P9E8gEQlVRZft7wVcERU8Snr
+	 7YRzZ08GJPmCSaMTluNkRfs5IKH8kw+HCHhAlv5gqliGKP4uAxRnNLyrFUZel4MWy9
+	 NDfc32OmYfCVz4OMSYvwUiQ98Pjv9H2xxlpwLdmvCCbNneWSwtNhsepuH2A0N41I+k
+	 oGaN5kcrgivWdP1NSs04sPZQaffHR9UB0aAMCSX/PFOpBmTfFdl3Tl+FYYiFvNOf8v
+	 ZlYReQsYTYKFw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paolo Abeni <pabeni@redhat.com>,
-	Mat Martineau <mathew.j.martineau@linux.intel.com>,
+Cc: Chenguang Zhao <zhaochenguang@kylinos.cn>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/3] mptcp: fix subflow accounting on close
-Date: Thu,  6 Aug 2026 22:36:09 -0400
-Message-ID: <20260807023610.1683763-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 3/3] mptcp: decrement subflows counter on failed passive join
+Date: Thu,  6 Aug 2026 22:36:10 -0400
+Message-ID: <20260807023610.1683763-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260807023610.1683763-1-sashal@kernel.org>
 References: <2026072945-judge-corset-9953@gregkh>
@@ -47,94 +47,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paolo Abeni <pabeni@redhat.com>
+From: Chenguang Zhao <zhaochenguang@kylinos.cn>
 
-[ Upstream commit 95d686517884a403412b000361cee2b08b2ed1e6 ]
+[ Upstream commit f3ca0ee2cc308e33896536789cbc5f3a12ca7b30 ]
 
-If the PM closes a fully established MPJ subflow or the subflow
-creation errors out in it's early stage the subflows counter is
-not bumped accordingly.
+mptcp_pm_allow_new_subflow() increments extra_subflows before
+__mptcp_finish_join() on the passive MP_JOIN path.
 
-This change adds the missing accounting, additionally taking care
-of updating accordingly the 'accept_subflow' flag.
+In case of race conditions, the subflow is dropped without calling
+mptcp_close_ssk(), so the counter is not rolled back.
 
-Fixes: a88c9e496937 ("mptcp: do not block subflows creation on errors")
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Mat Martineau <mathew.j.martineau@linux.intel.com>
+Call mptcp_pm_close_subflow() when the join completion fails to
+decrement the subflows counter.
+
+Fixes: 10f6d46c943d ("mptcp: fix race between MP_JOIN and close")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chenguang Zhao <zhaochenguang@kylinos.cn>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20260722-net-mptcp-misc-fixes-7-2-rc5-v1-1-6fb595bc86ef@kernel.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: f3ca0ee2cc30 ("mptcp: decrement subflows counter on failed passive join")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/protocol.h | 14 ++++++++++++++
- net/mptcp/subflow.c  | 12 +++++++++---
- 2 files changed, 23 insertions(+), 3 deletions(-)
+ net/mptcp/protocol.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index 77350a0a0c704..4767b5ea29df4 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -839,6 +839,20 @@ unsigned int mptcp_pm_get_add_addr_accept_max(const struct mptcp_sock *msk);
- unsigned int mptcp_pm_get_subflows_max(const struct mptcp_sock *msk);
- unsigned int mptcp_pm_get_local_addr_max(const struct mptcp_sock *msk);
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index 4e1a5f10fba0a..522d8740a0f3a 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -3361,6 +3361,7 @@ bool mptcp_finish_join(struct sock *ssk)
+ 	mptcp_data_unlock(parent);
  
-+/* called under PM lock */
-+static inline void __mptcp_pm_close_subflow(struct mptcp_sock *msk)
-+{
-+	if (--msk->pm.subflows < mptcp_pm_get_subflows_max(msk))
-+		WRITE_ONCE(msk->pm.accept_subflow, true);
-+}
-+
-+static inline void mptcp_pm_close_subflow(struct mptcp_sock *msk)
-+{
-+	spin_lock_bh(&msk->pm.lock);
-+	__mptcp_pm_close_subflow(msk);
-+	spin_unlock_bh(&msk->pm.lock);
-+}
-+
- static inline bool mptcp_pm_add_addr_c_flag_case(struct mptcp_sock *msk)
- {
- 	return READ_ONCE(msk->pm.remote_deny_join_id0) &&
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index b1679c5949906..2ec22660ba7a2 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -1434,20 +1434,20 @@ int __mptcp_subflow_connect(struct sock *sk, const struct mptcp_addr_info *loc,
- 	struct sockaddr_storage addr;
- 	int remote_id = remote->id;
- 	int local_id = loc->id;
-+	int err = -ENOTCONN;
- 	struct socket *sf;
- 	struct sock *ssk;
- 	u32 remote_token;
- 	int addrlen;
- 	int ifindex;
- 	u8 flags;
--	int err;
- 
- 	if (!mptcp_is_fully_established(sk))
--		return -ENOTCONN;
-+		goto err_out;
- 
- 	err = mptcp_subflow_create_socket(sk, &sf);
- 	if (err)
--		return err;
-+		goto err_out;
- 
- 	ssk = sf->sk;
- 	subflow = mptcp_subflow_ctx(ssk);
-@@ -1510,6 +1510,12 @@ int __mptcp_subflow_connect(struct sock *sk, const struct mptcp_addr_info *loc,
- failed:
- 	subflow->disposable = 1;
- 	sock_release(sf);
-+
-+err_out:
-+	/* we account subflows before the creation, and this failures will not
-+	 * be caught by sk_state_change()
-+	 */
-+	mptcp_pm_close_subflow(msk);
- 	return err;
- }
- 
+ 	if (!ret) {
++		mptcp_pm_close_subflow(msk);
+ err_prohibited:
+ 		subflow->reset_reason = MPTCP_RST_EPROHIBIT;
+ 		return false;
 -- 
 2.53.0
 
