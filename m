@@ -1,112 +1,132 @@
-Received: from sender-op-o12.zoho.in (sender-op-o12.zoho.in [103.117.158.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66794397958
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:40:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=103.117.158.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786113643; cv=pass; b=qfs6CFKFPRyEkFgaQ612Z3jcE5o0ybItfUm162tbcrVgSjPQlo4v4Vt238kqeSOg4DLGRbm8AcZ4BCski9BGYO+P8iPdBaydvauGvOjeTlH7ravRmlZQQpTTAQFJwZre9c5hR4+MVgyistbbydusZJwmQVqjsoZJQNyQ3hixETw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786113643; c=relaxed/simple;
-	bh=Kpi+UXt/mVaJSt3kdXa3E43AhBUvbW4u9EIi7Br0syk=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:Subject:MIME-Version:
-	 Content-Type; b=isj0QBxdqULVhgZT8S+JscNOV3udDa2UoZOLeFmz9QgQVHha+Qvv1adVTQ2eFpvX4CD76vqpXgQEPHiOcPC72AYStJ7ZjEHyYuksycNQr4W9+q94c+QrJo6h+kJdTGjOla/vt/HCToCjiKNO4SoLiQxFkAfuJCob0wrWsWG/Pnk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=a0rg.com; spf=pass smtp.mailfrom=a0rg.com; dkim=pass (1024-bit key) header.d=a0rg.com header.i=icarus@a0rg.com header.b=YODa0nr2; arc=pass smtp.client-ip=103.117.158.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=a0rg.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=a0rg.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0959F38F626
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:40:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786113656; cv=none; b=WqBof9FyD9dKZry4tyruklZnQ6m8vBQnIUxEMIYouFkyki/1aDlTHTWRCs2ndHhiFE8gZwPpNXV8K5LziMLDiIea9pQCKDXiFpB6eVN+INtAPq66wMp/MDi4frNvpgbb/+7b/K+6dEQMs0usetZWFqDPNFRY1/iwc8T9UPjvP9o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786113656; c=relaxed/simple;
+	bh=1BKnXr1/MB/NkXRWCaUFR9AAMwMUPnEGjKZQWbfUj4g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jSE8sqOx1gNHTO+JCcXZ8HrBI+iCnBpVzG7H0DP/3QcTPQTMPnCzv9h9M8bhgyIzIoRhsjshYQflWkAoqivpS/lmLDxiQPgR3ExhiUeN6D3UI5M9TWkOEimNwf2fYh8xAhdDUsotoaFRWdCAVTt4Cb4Wx2s6H/pcRe0M66fVank=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SFcjkl1q; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=a0rg.com header.i=icarus@a0rg.com header.b="YODa0nr2"
-ARC-Seal: i=1; a=rsa-sha256; t=1786113571; cv=none; 
-	d=zohomail.in; s=zohoarc; 
-	b=bEMxvV8QnZDsivTPulioGVAtRhEFhgGXduhYcCVt0RX+ARroEg3Q5BsWc5Oaj0Ll9zbwLnAmIYHyknrl8wz2Fpv1cz0R1dJYsbSmMTK/aeyFcBHwzPuaZLZD5Ph7u868jqoAWSbBZvWsj8c9eDM7QOGKzsBCxTv7qTvKNRrJKMw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
-	t=1786113571; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=QFyW7em+a6TgHJzmuWJ2E8pdf7m8X3qSXLj5q/I1U5s=; 
-	b=ZXgY3XubV0FLLwVcRYiL4+ZGIfUU52uKb3SAcsQuRfOf/gJC1G8vHdU2BiFOvxFx2/qgUdYtHaflj1e4yewtcu2t+Nwt38JLaHJL4gd/A2Q+vZ4SZfjl5nJH+jP5AeZUETrC7u5cKakAWij3ExgUvSbkBYEkY3a8VKSdHZWm/MY=
-ARC-Authentication-Results: i=1; mx.zohomail.in;
-	dkim=pass  header.i=a0rg.com;
-	spf=pass  smtp.mailfrom=icarus@a0rg.com;
-	dmarc=pass header.from=<icarus@a0rg.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786113571;
-	s=zmail; d=a0rg.com; i=icarus@a0rg.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=QFyW7em+a6TgHJzmuWJ2E8pdf7m8X3qSXLj5q/I1U5s=;
-	b=YODa0nr2hJJIUnyyBCYDEG3lvbUX+2r1ftpY/ZYxBQZg0Ooxou2JdVSzLHDrkTQ5
-	YYp5/zuJ10GJ7iWcRY7VYB4zQBwt/hhDhSeM0lF5QQpIHDrtHcmurfx9viB0D46K3/z
-	XSfIoumjqfpGrqLXX3v/S09bjKh7hYcuDcZUVh48=
-Received: from mail.zoho.in by mx.zoho.in
-	with SMTP id 1786113568825928.4737957537083; Fri, 7 Aug 2026 20:09:28 +0530 (IST)
-Date: Fri, 07 Aug 2026 20:09:28 +0530
-From: Anirudh Prasad <icarus@a0rg.com>
-To: "linux-acpi" <linux-acpi@vger.kernel.org>
-Cc: "rafaeljwysocki" <rafael.j.wysocki@intel.com>,
-	"linux-kernel" <linux-kernel@vger.kernel.org>,
-	"stable" <stable@vger.kernel.org>
-Message-ID: <19fdcaa3013.263bb5511124041.2034910216820799254@a0rg.com>
-In-Reply-To: 
-Subject: [PATCH v2] ACPI: pfr_update: fix stack buffer overflow in
- query_capability()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SFcjkl1q"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d049069377so36559085ad.0
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 07:40:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786113636; x=1786718436; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CcJguZmeHN+kiaiUR9y3o5cAga+xVBYwoL/bbx1DrYw=;
+        b=SFcjkl1qgfOns3w0nr+/XbYj03NBnXnnsbuQEGg6rYrgUTtuyORcmUTV3aX3XoTiuT
+         +fDhJewSSZaBNyh9G0pohSQEIA19st6qd2lh6UMJthxyQ7Cc4nne0qWrNxpAEEeYpY4H
+         6rgdU2iLGxKBvxIyuRs4816CtRm5GbVmSSXkZo6nc6BaPTS5Q6FZbnBdYlaB8naetxKy
+         iIls3nsoYkoAUJ4JIfQXtHkAiF62odW/l/BEc4zzOBklmOk0GNkytsBzahuxJC3t0aBU
+         nLuvZpJ6tcQ8ummmY3oicRJvQDPpCjBDzp03cf5YVMCCXhgB7wb7H7oWJ+v3Yof2+/EX
+         JyTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786113636; x=1786718436;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CcJguZmeHN+kiaiUR9y3o5cAga+xVBYwoL/bbx1DrYw=;
+        b=JgOpkxIqaeMmcX3vIM1GEcqb6kcScK77iZA8yquaFO5Cn00SHhl4C15rSv+7y4kVOk
+         T39RleJ20uG9Mz6DK9bQjq6Z9YvSFBNh0hSaG4NkjmF5DpWfh2Mc5cVEAeb+l6j+8tP4
+         3NmPJGpS6Cr2/qzy+ia8fHiFaDfY7uOvb5jCQiiVTflZTtUszIwUOYDIxTI6NXfpCy8q
+         glYzDY2c3a/rlLNQE1Gx/wVLspoMbjLkfNSUVw7wjEQ4p5pXwIcVH+RGPHuyIwFp8DqB
+         QA4oLxdVsbXYYk0DYouc2OIEzN1Dc5TL6BvRr2P5vI/kDPQq4b/xbwxR3dK6vI0BYgpN
+         HbSg==
+X-Forwarded-Encrypted: i=1; AHgh+Rok7GrWcStPEMvEpiJkG/2JVwM4s6Q/oiUekhufMsfOx1PHHwRBnDBcsZD1o/5mXyX/AnSkK0s=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw8kzZHv8auDjWcVxKf3EE67vB2ibRho7GNUioC90Fjby8WDDik
+	cEkMpcPbRYHto2CJI0tk7IqtU1+arjIknCHH3xry/dRCAecRAyWfcrvj
+X-Gm-Gg: AR+sD10gaWx2KxZQyMZ8pQ4MEIK7hKjlIHT2pYCnmzgrSz5LyHwyakTNv5pwyaoerq6
+	uMdjKO08YL6r84TSqrwlI+vSsRDEAWOWRatKqyQuJ+wy+45vhIpvCqR0N1MWP6t/lfuIOy6N4po
+	r5IGNLWDWE9EjFJ/6f798L3JYzQedrcwXo+BpUAnqqW9DiOcSEorQxk6irErLvFkIowNokX+SQI
+	7YGVQFfTB6f+OaYTyvT6FSQbCXPwV4UdtjGgNXlc681wec+n+vZ+g64RkMxwWOLHNdkOFKB8H4B
+	9r9ntiOTP4YzQ1rhPmGbXytWka2kolu6IAxCZhvgs6ZbmGzfLd5GuLvGgZuoEueGvliAwzk24s6
+	syepQfODeDAt+qJjcPHlK19Rzu9JffhZNr6a/LVLva49AiraPru60zURii2whhYTybQXk/kaLjo
+	psgs0KOMdxVED3eR7yVVMwcJUxkzBNwlyiI2Rq3vec/ijfWbBYy+YfUUKFPGiQaiASA7jBo4PMf
+	Lq+bsWj49w5mIT0CppurHvmAoSaWECR5pHDfNYOea7PfLD4gzwn8A==
+X-Received: by 2002:a17:90a:ec85:b0:380:f85c:94b4 with SMTP id 98e67ed59e1d1-3909d8075eamr10896910a91.7.1786113636367;
+        Fri, 07 Aug 2026 07:40:36 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3925ff24b91sm2917026a91.9.2026.08.07.07.40.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 07 Aug 2026 07:40:35 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>
+Subject: [PATCH 1/2] platform/x86: ISST: Validate socket ID in clos_assoc ioctl
+Date: Fri,  7 Aug 2026 23:40:02 +0900
+Message-ID: <20260807144003.3498972-2-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260807144003.3498972-1-sammiee5311@gmail.com>
+References: <20260807144003.3498972-1-sammiee5311@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+Content-Transfer-Encoding: 8bit
 
-query_capability() copies four ACPI buffer objects returned by the
-firmware _DSM into fixed-size u8[16] fields in struct
-pfru_update_cap_info using memcpy with the firmware-supplied length:
+isst_if_clos_assoc() validates the user-supplied socket_id with
+'socket_id > topology_max_packages()', but isst_common.sst_inst[] is
+allocated with topology_max_packages() entries, so the valid index range
+is [0, topology_max_packages()).  The '>' comparison lets
+socket_id == topology_max_packages() pass and index one entry past the
+array.
 
-  memcpy(&cap_hdr->code_type,
-         elements[CAP_CODE_TYPE_IDX].buffer.pointer,
-         elements[CAP_CODE_TYPE_IDX].buffer.length);
+In addition, isst_common.sst_inst[socket_id] is NULL for an in-range
+package that has no bound TPMI SST instance, and the pointer is used
+without a NULL check.  Both the out-of-bounds entry and the NULL pointer
+are then dereferenced by map_partition_power_domain_id() and the
+following power_domain_info access.
 
-The same pattern repeats for drv_type, platform_id, and oem_id.
-If the firmware returns buffer.length > 16 for any of these fields,
-memcpy writes past the destination array.
+Reject socket_id >= topology_max_packages() and a NULL sst_inst, matching
+the checks already performed by get_instance().
 
-struct pfru_update_cap_info is stack-allocated in pfru_ioctl().
-Confirmed with KASAN on 7.2-rc6: three stack-out-of-bounds reports
-are generated when a DSM returns 64-byte buffers, with writes reaching
-44 bytes past the end of cap_hdr's [64, 156) frame window into
-adjacent stack redzones.
-
-Fix by validating each buffer length against its destination field
-size before copying, and returning -EINVAL if the firmware supplies
-an oversized buffer.
-
-Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update device driver")
+Fixes: 12a7d2cb811d ("platform/x86: ISST: Add SST-CP support via TPMI")
 Cc: stable@vger.kernel.org
-Signed-off-by: Anirudh Prasad <icarus@a0rg.com>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
 ---
- drivers/acpi/pfr_update.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
-index 6283105bb0e8..e14e053cea44 100644
---- a/drivers/acpi/pfr_update.c
-+++ b/drivers/acpi/pfr_update.c
-@@ -158,6 +158,14 @@ static int query_capability(struct pfru_update_cap_info *cap_hdr,
- 		goto free_acpi_buffer;
- 	}
+diff --git a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
+index 24334ae70d82..b2965baeaa36 100644
+--- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
++++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
+@@ -729,7 +729,7 @@ static long isst_if_clos_assoc(void __user *argp)
+ 		if (copy_from_user(&clos_assoc, ptr, sizeof(clos_assoc)))
+ 			return -EFAULT;
  
-+	if (out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length > sizeof(cap_hdr->code_type) ||
-+	    out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length > sizeof(cap_hdr->drv_type) ||
-+	    out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length > sizeof(cap_hdr->platform_id) ||
-+	    out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length > sizeof(cap_hdr->oem_id)) {
-+		ret = -EINVAL;
-+		goto free_acpi_buffer;
-+	}
-+
- 	cap_hdr->update_cap = out_obj->package.elements[CAP_UPDATE_IDX].integer.value;
- 	memcpy(&cap_hdr->code_type,
- 	       out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.pointer,
+-		if (clos_assoc.socket_id > topology_max_packages())
++		if (clos_assoc.socket_id >= topology_max_packages())
+ 			return -EINVAL;
+ 
+ 		cpu = clos_assoc.logical_cpu;
+@@ -747,6 +747,8 @@ static long isst_if_clos_assoc(void __user *argp)
+ 		pkg_id = clos_assoc.socket_id;
+ 
+ 		sst_inst = isst_common.sst_inst[pkg_id];
++		if (!sst_inst)
++			return -EINVAL;
+ 
+ 		punit_id = map_partition_power_domain_id(sst_inst, punit_id, &part);
+ 		if (punit_id < 0)
 -- 
-2.55.0
-
+2.43.0
 
