@@ -1,67 +1,40 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0764395AE6
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 03:37:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D14B23C4F3
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 04:00:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786073849; cv=none; b=Dko2p0doG+5Cf+DyjNrHjt+UbQqCqMU1IKEgdgugNDBZPswI9iDgJsCAy72Qf/ZZNCqt1Dl7GTVpCdBimFe+Rg2ffwtj8d2xg4spDoSgW9cOMCmW3HxBS917XNXU3ut/RhVbZLOkSP0k6UIT9tLCHbPbypLpRjYoHU7UOjyPJLA=
+	t=1786075236; cv=none; b=TVwh4bg7bOgaUJu6RhZVZvrxTa2YVr4YdU+IGR5T2s7ybNKtioJzBYN2C8Q0KGQMDPyOG+wRtHol3uIiCQzxITsSQAFEyhPPHJgXpclsYmWxjzpHZFffQrEZym1nxQm/3B7FViJdAlhXQqQ5XWaXPmPbi01DtSokP4CwDQhXyK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786073849; c=relaxed/simple;
-	bh=jtexLRd0LMEvWjSqgopV5i9TmNSBRk6qk2dv0E078/0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nK4u9H7fNDTw9LQJ0d1hxnhpes+tvt2pGE1rHWnPd7nMp7sV7+Lq+cH8hCKuwJ001eMOn1KBhCVHYyxY+yYQlfxHXUagEhrmQc8VO4SfJzbVpTGyKLPbM/bg49WO6G+itNIMhzJ6updyQLSMn4Jzd3vaJVahNdafo2wZa97BB0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lgNfjCxw; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786075236; c=relaxed/simple;
+	bh=hmZuclTFZzpwPanYMBMzflpA2nQmvtKusjc96jxp2FE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=fQq0r95jfzwo1/d6dfs2yMqxixaEte4ExPnBlYxQxiiOlqb02VdnifI5YNMg3qsVIvb1j0ljh3KjXfGFoRLfIYix2GSH6gpey2kJ39UmZkIHQl/o0b9asL24GHE8OUuQ+pk8yR3TUA/Db6cvxjI39t7blih7NSGrgViDXss25OE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ri2HG5CG; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lgNfjCxw"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84e04df8c46so3270147b3a.2
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 20:37:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786073845; x=1786678645; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=q+fTOtPno7yWUV/SDfx7o6rMybrKsJN3GZDuyA1kW44=;
-        b=lgNfjCxwz6BA6r8khcLhKKnd+YOUSYJDMOaGG+0DFZezRR/VhjhtmuE7M6TngxKiBP
-         /roAPCFWT0lKzKE19iQKeT3ZYGOzdUoZdFxrlUmguLy1j5kdCus3LWtUUOTyTBDMU1Tu
-         ciKqoy+DV27jOqroCdVsIQVWK3EWo5+fHMDbMxfxiAkv+n8sXGFsB/1kawNe+vH4O1nN
-         mG7tahrV68GChoNF7ahiupLXxo4ZhaChArJr7VldS3AA5yysqWVtwU7YAhKIqK3QzQ2L
-         rqq7vVBsYcIuesXUJrprgSmxwn6ZV+kw2Xd68dJ4WPUegQgiLHg+saFuuf1h491qV100
-         KAJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786073845; x=1786678645;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q+fTOtPno7yWUV/SDfx7o6rMybrKsJN3GZDuyA1kW44=;
-        b=e0f62pNr6K0rCxLO4Sf1Niw0G6NuJkQe0Wp5RVcC2Kw2uDqUd1ZZH5wzaGyqHgnEHy
-         lrANGMojRIz5fDdbuYjciJY8xjWZiX/mq/0MsCR7taW4lOt6wm1pnWzDKYOcS/naIP/a
-         +P7dxJYR7m7oTsnObmweylRKzJZ1bAHKlYjK8oWN1BzHI/dJJS+I8bKJLmUwaCUgATFj
-         7uUo0NZZdea21zt2f+nSTaS8zCqLC4nsbCavAkGqfHnZlqfPvada72uc8tXlTh8voKvM
-         6bOO8y6yNhYUGn0juq2/K2f5llA5vynpdibCt0O56MXB7ghQBaQuYSIaCj9zQEglYaf5
-         kHCg==
-X-Forwarded-Encrypted: i=1; AHgh+RrWrU5mW69ybvZ3LhE7HQz5cTsg/R5mNUbY9afhNi7hXwm1zhhJoE2ZDpCPfPNiScwgKtF097E=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx2EVzs/ubGeFivkvlBVOiC6QfyJygYVIgPyDmj5UcIY3bbljE4
-	ru4QNrK/Rfe9OH1OYTOMUe1Sh4Cl7V3q7e4QG+bm+RgFy2fqAROFjlYC
-X-Gm-Gg: AR+sD13NkfgMo3/00uQYOQOE02BdWAE5eNQTGqMZvsSj7Sd29IUqBnjQ36wwhjDi8rs
-	LzQuDTXpjnlGy2im4SMQRg/ZJBdorBpnoK64fcX4+39s/k2oTaoD2kMBkHKKS9i5w4RVBnSwgq3
-	d5bOYgqNqrK9S5mk7ah0OTupyB8UE1GP+ahxXHiVTRkWj7ENS16dtsmk7J7kfLU7G3HAvHKSymc
-	XAObmjdOyfQiI26g36gGjDydDyYXZM2rHcxJwkXuK8URrF32vgQ+GjDmLWPOUoUKB1iIKY7tRlP
-	Qti+CQfP2QC2Ld25w/P8FXD/Jmy9Xf5DA7Hy76hcVn+u42ieyNZxNvm2xhPQMhmQkjicpJAXe57
-	CIrq1g+rP0qWyNOzKYXfxwmYG/uPX7xW4zUpN4GeJEMyzjNW+oTPJq1Whi+a2Ir03bC0GqVkOzr
-	5Np6IcBwFyKSerxrZcPyU6YlScqAvbP3sX19w/ugo8hW4j3PHh8GUoyg7y8sZWLDn7XmNhDyxwx
-	eE/NuaCbHdh2CBs8bM1
-X-Received: by 2002:a05:6a00:1895:b0:842:6004:3fda with SMTP id d2e1a72fcca58-84f5e0685a6mr685783b3a.25.1786073844634;
-        Thu, 06 Aug 2026 20:37:24 -0700 (PDT)
-Received: from [192.168.255.10] ([43.132.141.21])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f5a3cade6sm285307b3a.21.2026.08.06.20.37.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Aug 2026 20:37:24 -0700 (PDT)
-Message-ID: <c8c6f8ea-3aba-4dbb-ab16-4f696441033c@gmail.com>
-Date: Fri, 7 Aug 2026 11:37:20 +0800
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ri2HG5CG"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=5R1g/lTULmE0cpizN2C7xpl0sqIGETJfyPJS85LVXWU=;
+	b=ri2HG5CGFuk8tcKqZxbnIsBGwNt20PeeMCJijON/OfdinYe905qjRB0sO4Cy98idpAIDEziJ3
+	e24qjH5bZG6rPeJWQUrHhKAzcqicTHkv79R+XE0f1dnir/ew7dfwwgmbH6PJl2JHZYDPgRmciG6
+	dZTEGT/7G0nUwHRL9Wv3d8M=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hGVYH6cTNzpSvB;
+	Fri,  7 Aug 2026 11:50:43 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id C03864057F;
+	Fri,  7 Aug 2026 12:00:16 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Fri, 7 Aug 2026 12:00:15 +0800
+Message-ID: <2b96cf93-ddf2-4700-91d2-a0587343c3ff@huawei.com>
+Date: Fri, 7 Aug 2026 12:00:14 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,64 +42,173 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net/sched: cls_api: fix tp_created race losing
- existing tcf_proto
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, corvus@tencent.com, henrymei@tencent.com,
- stable@vger.kernel.org
-References: <20260805093012.95155-1-henrymei@tencent.com>
- <CAM0EoMmZGXhHL2v=AyjR9xSs8-s9EfkA9FkpULqtFBEOUxHQQA@mail.gmail.com>
- <aabdf499-20ad-4667-b289-626c09a56c0a@gmail.com>
- <CAM0EoMmM-7cphQGmfZa+H3p5HjQ71gJ=8J6-HhhRwzAv--74AA@mail.gmail.com>
-From: Lin Jiapeng <ljp1205831794@gmail.com>
-In-Reply-To: <CAM0EoMmM-7cphQGmfZa+H3p5HjQ71gJ=8J6-HhhRwzAv--74AA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v2 01/20] arm64: percpu: Fix this_cpu_write() casting
+To: Mark Rutland <mark.rutland@arm.com>,
+	<linux-arm-kernel@lists.infradead.org>
+CC: <ada.coupriediaz@arm.com>, <ardb@kernel.org>, <catalin.marinas@arm.com>,
+	<cl@gentwo.org>, <david@kernel.org>, <david.laight.linux@gmail.com>,
+	<james.morse@arm.com>, <ljs@kernel.org>, <maz@kernel.org>,
+	<peterz@infradead.org>, <ryan.roberts@arm.com>, <stable@vger.kernel.org>,
+	<vladimir.murzin@arm.com>, <will@kernel.org>, <yang@os.amperecomputing.com>
+References: <20260804170503.3513916-1-mark.rutland@arm.com>
+ <20260804170503.3513916-2-mark.rutland@arm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260804170503.3513916-2-mark.rutland@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
 
 
-在 2026/8/7 02:38, Jamal Hadi Salim 写道:
-> Thanks. Please respond to that patch and add a tested-by tag
+在 2026/8/5 1:04, Mark Rutland 写道:
+> The arm64 implementation of this_cpu_write() casts 'val' to unsigned
+> long. This is necessary to handle cases where 'val' is a pointer type,
+> and to avoid spurious compiler warnings for the (unreachable!) cases
+> where the pointer type would be cast to a smaller integer type.
 > 
->> BTW, "TencentOS Corvus AI" found this bug; and the patch was mannualy
+> Unfortunately, the cast is applied to 'val' rather than '(val)', which
+> won't always generate the expected value when 'val' is an expression.
 > 
-> Also add a reported-by tag to the patch response
+> For example, for this_cpu_write(pcp, zero - 1), where 'pcp' is a u64 and
+> 'zero' is a u32:
 > 
->> written and validated, so no `assisted-by` tag here. Noted for future
->> submissions.
-> 
-> It does look like there was some human touch to it (other than the
-> verbose comment) - and is a reasonable patch except you missed one
-> spot.
-> I am wondering how you tested it. We had to craft printks to see the issue.
-> 
-> I was kind of suprised how quickly you found the issue. Victor had
-> something already based on what Sashiko said but i said to wait until
-> the first patch made it in.
-> Does Corvus AI watch what Sashiko comments on?
-> 
-> cheers,
-> jamal
-Thanks for the review! Glad to share our testing approach.
+> * 'zero'                      ===> (u32) 0x00000000
+> * 'zero - 1'                  ===> (u32) 0xffffffff
+> * '(unsigned long)zero - 1'   ===> (u64) 0xffffffffffffffff
+> * '(unsigned long)(zero - 1)' ===> (u64) 0x00000000ffffffff
 
-For this bug we placed kprobes on tcf_chain_tp_delete_empty, 
-tcf_proto_destroy and the classifiers' change() callbacks, capturing the 
-tp pointer arguments ($argN) and return values. Matching tp pointers 
-across the traced PIDs shows the losing thread calling delete_empty on a 
-tp owned by the other racing thread — right after destroying its own 
-tp_new, which is exactly the signature of tp_created not being reset. On 
-an unpatched kernel we observed 927 such wrongful deletions in 3000 
-rounds; with this patch applied, zero, and normal filter 
-creation/deletion is unaffected.
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-As for how we found it so quickly: Corvus AI continuously explores bugs 
-and security issues in the Linux kernel and generates reports. Each 
-report ships with a PoC and a QEMU-based reproduction procedure, 
-covering both static audit and dynamic verification; a human then 
-reviews the report and reproduces the result before we post and patch 
-the bugs.
+> 
+> Fix this by adding brackets around 'val'
+> 
+> The bug described above can be seen from the disassembly of the
+> following test code:
+> 
+> | void this_cpu_write_zero_minus_1(u64 __percpu *pcp)
+> | {
+> | 	u32 zero = 0;
+> | 	this_cpu_write(*pcp, zero - 1);
+> | }
+> |
+> | void this_cpu_write_zero_minus_1_brackets(u64 __percpu *pcp)
+> | {
+> | 	u32 zero = 0;
+> | 	this_cpu_write(*pcp, (zero - 1));
+> | }
+> 
+> Generated code before this patch:
+> 
+> | <this_cpu_write_zero_minus_1>:
+> |        paciasp
+> |        stp     x29, x30, [sp, #-16]!
+> |        mrs     x1, sp_el0
+> |        mov     x29, sp
+> |        ldr     w2, [x1, #8]
+> |        add     w2, w2, #0x1
+> |        str     w2, [x1, #8]
+> |        mov     x3, #0xffffffffffffffff
+> |        mrs     x2, tpidr_el1
+> |        str     x3, [x0, x2]
+> |        ldr     x0, [x1, #8]
+> |        add     x0, x0, x3
+> |        str     w0, [x1, #8]
+> |        cbz     x0, 1f
+> |        ldr     x0, [x1, #8]
+> |        cbnz    x0, 2f
+> | 1:     bl      preempt_schedule_notrace
+> | 2:     ldp     x29, x30, [sp], #16
+> |        autiasp
+> |        ret
+> |
+> | <this_cpu_write_zero_minus_1_brackets>:
+> |        paciasp
+> |        stp     x29, x30, [sp, #-16]!
+> |        mrs     x1, sp_el0
+> |        mov     x29, sp
+> |        ldr     w2, [x1, #8]
+> |        add     w2, w2, #0x1
+> |        str     w2, [x1, #8]
+> |        mov     x3, #0xffffffff
+> |        mrs     x2, tpidr_el1
+> |        str     x3, [x0, x2]
+> |        ldr     x0, [x1, #8]
+> |        sub     x0, x0, #0x1
+> |        str     w0, [x1, #8]
+> |        cbz     x0, 1f
+> |        ldr     x0, [x1, #8]
+> |        cbnz    x0, 2f
+> | 1:     bl      preempt_schedule_notrace
+> | 2:     ldp     x29, x30, [sp], #16
+> |        autiasp
+> |        ret
+> 
+> Generated code after this patch:
+> 
+> | <this_cpu_write_zero_minus_1>:
+> |        paciasp
+> |        stp     x29, x30, [sp, #-16]!
+> |        mrs     x1, sp_el0
+> |        mov     x29, sp
+> |        ldr     w2, [x1, #8]
+> |        add     w2, w2, #0x1
+> |        str     w2, [x1, #8]
+> |        mov     x3, #0xffffffff
+> |        mrs     x2, tpidr_el1
+> |        str     x3, [x0, x2]
+> |        ldr     x0, [x1, #8]
+> |        sub     x0, x0, #0x1
+> |        str     w0, [x1, #8]
+> |        cbz     x0, 1f
+> |        ldr     x0, [x1, #8]
+> |        cbnz    x0, 2f
+> | 1:     bl      preempt_schedule_notrace
+> | 2:     ldp     x29, x30, [sp], #16
+> |        autiasp
+> |        ret
+> |
+> | <this_cpu_write_zero_minus_1_brackets>:
+> |        b       this_cpu_write_zero_minus_1
+> 
+> Fixes: 959bf2fd03b5 ("arm64: percpu: Rewrite per-cpu ops to allow use of LSE atomics")
+> Reported-by: David Laight <david.laight.linux@gmail.com>
+> Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+> Cc: Ard Biesheuvel <ardb@kernel.org>
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: James Morse <james.morse@arm.com>
+> Cc: Jinjie Ruan <ruanjinjie@huawei.com>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Vladimir Murzin <vladimir.murzin@arm.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Yang Shi <yang@os.amperecomputing.com>
+> Cc: stable@vger.kernel.org
+> ---
+>  arch/arm64/include/asm/percpu.h | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
+> index b57b2bb009677..63bbfd4944a37 100644
+> --- a/arch/arm64/include/asm/percpu.h
+> +++ b/arch/arm64/include/asm/percpu.h
+> @@ -179,13 +179,13 @@ PERCPU_RET_OP(add, add, ldadd)
+>  	_pcp_protect_return(__percpu_read_64, pcp)
+>  
+>  #define this_cpu_write_1(pcp, val)	\
+> -	_pcp_protect(__percpu_write_8, pcp, (unsigned long)val)
+> +	_pcp_protect(__percpu_write_8, pcp, (unsigned long)(val))
+>  #define this_cpu_write_2(pcp, val)	\
+> -	_pcp_protect(__percpu_write_16, pcp, (unsigned long)val)
+> +	_pcp_protect(__percpu_write_16, pcp, (unsigned long)(val))
+>  #define this_cpu_write_4(pcp, val)	\
+> -	_pcp_protect(__percpu_write_32, pcp, (unsigned long)val)
+> +	_pcp_protect(__percpu_write_32, pcp, (unsigned long)(val))
+>  #define this_cpu_write_8(pcp, val)	\
+> -	_pcp_protect(__percpu_write_64, pcp, (unsigned long)val)
+> +	_pcp_protect(__percpu_write_64, pcp, (unsigned long)(val))
+>  
+>  #define this_cpu_add_1(pcp, val)	\
+>  	_pcp_protect(__percpu_add_case_8, pcp, val)
 
-cheers,
-Aohan Mei
