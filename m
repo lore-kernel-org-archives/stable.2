@@ -1,74 +1,91 @@
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 180C9397958;
-	Fri,  7 Aug 2026 15:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582B747278C;
+	Fri,  7 Aug 2026 15:34:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786116859; cv=none; b=FOaicftNp2Q4khz5oOkkjYzX1f+3QrOSa/k8Nbam+dNWNvlq6+qbv+TW6orgidLFUUOS2/FPurmB3KgI+p+7z/o0/5/umyvKD5tDu0JzF2w2mjxCxmxStRWSC9Zdr2z2jB6uPIKJzyDhldw7C8w8rKFQbgJcd5f4/r1TLvoJTZ8=
+	t=1786116861; cv=none; b=BjklXStMoJN7GP1WlN+cxb2tuxEW6UlyLwTdpLvh3YEQvnYxB/ObivZSkCm0KFbzbrZGVtHqPTEZraEHQuVPMaTCsUuzcS0l8QuVvnv5XMRu+WTz9gOst0smNy2W9txwi3hM1Xmz2DUpWC3REIGnUYkcWAq3IGQzHKcCoPMCWHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786116859; c=relaxed/simple;
-	bh=o6criyFXz5XNJXKePGEh6FY3/c1PQF3YBAZ6SGKj1gw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FGPTRhAlGhOkz8DQzkrL3Wl+XqBwMHkaIFuzEwOFe+6dnO1breVpmS2RWSwn6ecL754WEreavq7srnawnfneN3Qi7vsaQLahxfkAuD7cZZecGjEn3umtlnPetOcnPwuyFn+FiAkos3Xm92xhJSubeXaONKurWqrVLZvsD3+F9Gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=Ff93ZCqK; arc=none smtp.client-ip=199.89.1.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1786116861; c=relaxed/simple;
+	bh=t160CjPKutJ7ysGYEmR8XvAwk+idUppjKX+qz0nBk6E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=csJuXrbKHqL8TnA21lNEJsaXyPyjNHb6qmXobA9dGCWhmXt5k8P7ar67hrfNukqVUBeia76QT1hzC9qWoKcVORUVlomGUD7J8CFZ2Tlyt46Z7lDV1bNaVOfJfUyRSleRlDzoxvfpiJMzs83tdDI/vxWRiNmU8RZSf87EZjh5ilc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ywh8kxll; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="Ff93ZCqK"
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hGp953PhPzlfpLt;
-	Fri,  7 Aug 2026 15:34:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1786116853; x=1788708854; bh=hZ3qF3FjrIBLYa4HiSl8Imx6
-	G+Rc9bHPb9+hoVsyquA=; b=Ff93ZCqKuPGA7uuAp+45nitP0TlB6Z11nztoGrZ4
-	SUaPCpq2qzpwyoUTI7d8DpUxPTwK5t9jVpeNHCq0CEzuQdSGytbIkPuJVcm4DuNJ
-	eEjWHwAOdWFVKiC7c88Im+YCUB6ajM8rn6LxvXUfFLHBtS+G5jASQ91JYsJU7KiB
-	icgVfh0aLIVFgYXoy6SqioZV/iiGaywsB3zW6K0hU+kokqdKGetALNCfluAuSq6R
-	7kFib24TExMOxbsHTpGPaktrRznj7a6LzeUQmOalW+G24Z91LdNqRzRHBFqrsTY/
-	2APdNsMnTfXCkQubTt9MFAxlyy1wzCfKK+wbn/b6d2XfUg==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id G78Nacv49Vz1; Fri,  7 Aug 2026 15:34:13 +0000 (UTC)
-Received: from [100.119.48.131] (unknown [104.135.180.219])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hGp8y5ZBLzlfwgT;
-	Fri,  7 Aug 2026 15:34:10 +0000 (UTC)
-Message-ID: <cf1f02ad-3706-4e90-9f17-94a873be0bef@acm.org>
-Date: Fri, 7 Aug 2026 08:34:09 -0700
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ywh8kxll"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 779BC1F00A3A;
+	Fri,  7 Aug 2026 15:34:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786116860;
+	bh=wloUCSkIiMLfeitwhg5BQdZUysVJAIigpxs7URRtHvY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ywh8kxll3H9/JCKgw8jAfJ5f4QDLSFP5LsNrmqv6WFSuTa8cDOaHI5WBJItJZUwov
+	 yuPGXNGzoPsLypPjc3QKioWVKL6h6/ySlnR+0OoT3lPo9F3Bsfse06+zrAnFpNI3+e
+	 rUgJGkztrTuKwQd8eVqnqSC78OxoiNKcGdzMjd1Y=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	John Ericson <mail@johnericson.me>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.1 071/438] af_unix: fix listen() succeeding on sockets in the wrong state
+Date: Fri,  7 Aug 2026 16:34:27 +0200
+Message-ID: <20260807143429.501248788@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260807143428.008222056@linuxfoundation.org>
+References: <20260807143428.008222056@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] scsi: fill in DMA padding bytes in scsi_alloc_sgtables
-To: Petr Vaganov <p.vaganov@ideco.ru>, stable@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Jens Axboe <axboe@kernel.dk>, Tejun Heo <htejun@gmail.com>,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org
-References: <20260628185229.37957-1-p.vaganov@ideco.ru>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20260628185229.37957-1-p.vaganov@ideco.ru>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 6/28/26 11:52 AM, Petr Vaganov wrote:
-> Extend last_sg->length by pad_len first, then use sg_zero_buffer() to
-> zero those pad_len bytes.  sg_zero_buffer() uses sg_miter internally,
-> which correctly handles sg entries spanning multiple pages and padding
-> that crosses a page boundary.
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+------------------
+
+From: John Ericson <mail@johnericson.me>
+
+[ Upstream commit f0d9c3ffc2b5fc2ffacb56b3036155ce7a940a12 ]
+
+Commit fd0a109a0f6b ("net, pidfs: prepare for handing out pidfds for
+reaped sk->sk_peer_pid") inserted a prepare_peercred() call between err
+= -EINVAL and the socket-state check in unix_listen(). Since
+prepare_peercred() leaves err at 0 on success, listen() on an AF_UNIX
+socket that is not in TCP_CLOSE or TCP_LISTEN state (e.g. one that is
+already connected) now silently returns success without doing anything,
+instead of failing with EINVAL as it did before.
+
+Fixes: fd0a109a0f6b ("net, pidfs: prepare for handing out pidfds for reaped sk->sk_peer_pid")
+Signed-off-by: John Ericson <mail@johnericson.me>
+Link: https://patch.msgid.link/20260718182903.2295560-1-John.Ericson@Obsidian.Systems
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/unix/af_unix.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+index 0d9cd977c7b78..bb01d5371dc85 100644
+--- a/net/unix/af_unix.c
++++ b/net/unix/af_unix.c
+@@ -823,6 +823,7 @@ static int unix_listen(struct socket *sock, int backlog)
+ 	if (err)
+ 		goto out;
+ 	unix_state_lock(sk);
++	err = -EINVAL;
+ 	if (sk->sk_state != TCP_CLOSE && sk->sk_state != TCP_LISTEN)
+ 		goto out_unlock;
+ 	if (backlog > sk->sk_max_ack_backlog)
+-- 
+2.53.0
+
+
+
