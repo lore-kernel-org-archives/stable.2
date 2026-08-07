@@ -1,80 +1,80 @@
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.160])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3021379C48
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 07:51:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.160
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482D4463B8E
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 07:52:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786089096; cv=pass; b=Pux7h63x5a2I+bbdYHl5YFsV+X9dVoZZNKIWRrFHtCuAubLC0pIeYrx7UClxb/TNtk9PS+zcmjCBuxHaoMEw8BHX5jF/9IWwGO+dnTvv8cYE7Qt9RcO7wkO93TgbxyYEb0L681GPTebXjBizAXOdKDin+XuSAM03/99aMPcrbgE=
+	t=1786089152; cv=pass; b=b7uLYMgodG8v1nPOYIfrg8FlugY0aIaS4oAY6dpsdEhQcs/GpmCSBNG2RTxE7W4Owpqt2dNQkETOW3ov1m02U2EHnrG3OXYVYbGdTccGmPEX+GK2AvUOIGrpTfeOvhAe32ZTxIpxJn9yBRKpFNe0/J8MY9mOM+q1eGPqNvUP4Z4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786089096; c=relaxed/simple;
-	bh=AzvRCDS0qL8EdPkepR8MDsctxy/yXgCVoZ/a8DA4Wsw=;
+	s=arc-20240116; t=1786089152; c=relaxed/simple;
+	bh=bGhnzJIuibg23XVDf0mBpFpKvV300LF18ajGyx+kKe4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YgdWDvNPEZk+3X7bDz3rVQwQ+SxHjlbtgru1bZ8+MHsy6Y3Micf1hnijnIGUwTxOE3r5SRo5acadKXAI/DzRrVfEnJQqfFCt1CBO986KVJdwOK2LkH6KzbqrW0JGlCe4HiDH4QMtCAUnyEh95cS3nucIMcSInAedVkyj2hsF0wk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=hCmPsRgi; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=bXzDjv7B; arc=pass smtp.client-ip=81.169.146.160
+	 MIME-Version:Content-Type; b=GGCbYsxjJcBDIl1SpSrTvNoN2R1nOl1h3C/xSdg9xw4Eg+n0fbUGszJmYcOcxMRLC8tESKRCSn5MaEhz6deWZ2nvGN74vlNzvPD1K9gKAW1YqIW0936ReyCxuIJeCcqGa0FVRWSFlF/oyMkLdwTgX9sw2pidxFfDogF8Ib7v9e4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=CRKuve37; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=EqV5JxLb; arc=pass smtp.client-ip=85.215.255.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="hCmPsRgi";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="bXzDjv7B"
-ARC-Seal: i=1; a=rsa-sha256; t=1786088900; cv=none;
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="CRKuve37";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="EqV5JxLb"
+ARC-Seal: i=1; a=rsa-sha256; t=1786089140; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=OMkwW30b/frL6a2B8Q2VFofXs1oagZLuGPYhIot4ssc6p26Preg1kn4ZVC6tspAKCs
-    3sCykKJcRQKObKWmdP/tPpl3HjzosmYnbAUVhyvuWAUVn6bzjgG9EIaqfbiPhXI4ZRgL
-    sSlQJLHsyVzjwrNJOItflCuzzLVom34VpoDZVGSbMOXcPltT45hWgNXaF1en4c+exuu5
-    goP6b0hDz388aHPVcG1ZfGaT25cEpOoVuV0h75Y96AQTkisUFIA4ZyDegsAQsbBnK+Uf
-    f7DpYjFG3CQ3C4QiufBfuZdVLsywBGNQaFJvTONb/6qR2UONyHAHqt8KK7uLL4aslEJ8
-    oMnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1786088900;
+    b=m80LXMPEbuJ9sgUON40eS3NNW13LN82wkxFpJAwHkd7JTE4/TZBFKtrp2eT0wI33ry
+    JQ0I2xlREq1sPQCA5ZTBfBItSNc/fibjQjEErOOWyh+VxgGd4cFUamgDfl1X4d2Rp3d8
+    2vPu8TBUiI4y15TJqYQHLNkvcTzqNJ9l8Wzs6CZlu4hNvJwaazXnrBYmPD+Bg7BxaRJb
+    N/VbQJYah3hsh53uSn+48dAtia5/6SHw6HhW8amfULHnEmAlWFBrpOrxykpTJKXCBYDY
+    HXhb7SHwQk/1yQKDxFJxxvCOgoSo9paUwk8x72ENW+2WIg2fKX1A/dnnOUVhY14GTH+4
+    8xOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1786089140;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=cQAqcSvhecfTWSY0aPENc66Zz1Y0ElGWeWqIVgZ6w2U=;
-    b=pZZ+5F/NCzBHuvBHBWjeI3Dm2R5ItHh/mLFxnnMTlSeFhc0E9W1YZfo4iWuKhEZvgj
-    b/XRXhcUsUcoWAuP7WWHA5llj/vCxzf4Ts63gVVIl36h2zycWoP0h/B96xIk3c9u+N4K
-    dNfSxu659+sKroy6ull1EO/Z6Aqtbbc3HrvqRbl2j4KdsdTd27IQtRzR+whNwhjQ5WQq
-    lktGEs+UtjzzCDw0aBK6+/JgtqMfdyFsBQ79JHroA84l4Rxa1/p4NHZwKMt/5AyqUIzW
-    /ewb1ptQ/FMCO/Yd6il0mPAWmftktshiU4tCa8lRrorGxK4kPWdxJ69nplnMPO4G81GC
-    SkKg==
+    bh=WkOubjviqdcAcDpPAtQm+tWziqnRZozDDWAW26oSnp4=;
+    b=AwFdltPf6bdaRKBTFPvoKE708KnKnOd9PRgRW/PqOHbra9n7tYcrwI4o9Pdst8tUbw
+    mZX01JO4GsAa+9uy3dgQPMZ/AcDNQZUg3ChwQ4aCK15NcRRBNJyZNViwT49anRwIO+ez
+    MoeuuCmafMJeo6+p8CPQk+hwTbplxLczH2rJytocCA7367aK4NsvuF+RVL0hVuz3lv65
+    vZKIZhYQDviRCzCwqzq6LMBPWuIjvbe1cZt1GSABl1xrLwj4IYY+7/dzBGuXKES5Kunh
+    HBvtlgFNfdHEkqssuOK3TPZ+ow/BUrRs8uWw1I+4CjcLYAiwGqYuIufDIx6tAPEmeVxh
+    BxEg==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1786088900;
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1786089140;
     s=strato-dkim-0002; d=hartkopp.net;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=cQAqcSvhecfTWSY0aPENc66Zz1Y0ElGWeWqIVgZ6w2U=;
-    b=hCmPsRgiTODVxlXoPiuCyRCmfObZiYXJZRZqqpNqnPNwE2LSe/qu5SMa4Hc8eFhEHg
-    CMqpRaOw/OX+pixb79TrjuXgJqtNVqf1MXenbpmjdsjShHW3ZUzOeYmhTt5Ut6YKOJg4
-    UH5oWG8Syd9X5PfN+KE9+wo4R8W5mRITaFvrLNYXjYwENvlr6UNuOodesxFXXfyoMabq
-    LXs4uwd18grOXA6mnrtZ67OYaqLA4uhdP6KBia8jbx/KBm9BQDThcZe4bVq5VDjAiHPw
-    SBjBKKZANSl7EDyw/JVAMM8PePNAKcMbFd1QQurlbFLre27OvJoOFy7VkJVFmvxoEvxz
-    rArQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1786088900;
+    bh=WkOubjviqdcAcDpPAtQm+tWziqnRZozDDWAW26oSnp4=;
+    b=CRKuve37vKmewVen9e3A6jxKudnDfdmwQPTR1rfT0NTgUyUfbtoA5/uKvg8+vp5gt8
+    ReltQs43U3Wh+TBWXBtETtMFiJLckCeMc55s5RZDoZJzA6FMBS1Q0RsRlNTiuQI96hLY
+    jnn0lppLho1ZRmNqmlxADeHmLFWFVteiDbne6B1gVgibeUcwaYSgJ3SRdWmxwwC/17vP
+    OBT4X/MiDKE9SlCMunGUUmbPjxgPIspiGauKhHq3vTrusgfQffRe7Pn+pdSqHBJUCFSs
+    +IpwZjq+uEN8F1qPRSUiwzVsfi2jvlZ0MIFIRNLP82hTdfA/pv+1hqbGznC6Q67GuB94
+    bxiA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1786089140;
     s=strato-dkim-0003; d=hartkopp.net;
     h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=cQAqcSvhecfTWSY0aPENc66Zz1Y0ElGWeWqIVgZ6w2U=;
-    b=bXzDjv7B9v2+XCDI2XtPAaOkA0GWnr7rZHDBZr6JSOZ5EaU/KDnMC5CWkHqOu18/sD
-    QKHEW6oOA4fxTuzhH6Bg==
+    bh=WkOubjviqdcAcDpPAtQm+tWziqnRZozDDWAW26oSnp4=;
+    b=EqV5JxLb8kfclX2/YgRWx8mgWluOWiUXdZ9rVb1PNN/yQfcTgSXvAzve7BOrQ91FQi
+    VIIfhG+T9uSuK1jRJpCQ==
 X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
 Received: from vivo.lan
     by smtp.strato.de (RZmta 55.5.6 DYNA|AUTH)
-    with ESMTPSA id K528192777mKFW1
+    with ESMTPSA id K528192777qKFbv
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
 	(Client did not present a certificate);
-    Fri, 7 Aug 2026 09:48:20 +0200 (CEST)
+    Fri, 7 Aug 2026 09:52:20 +0200 (CEST)
 From: Oliver Hartkopp <socketcan@hartkopp.net>
 To: stable@vger.kernel.org
 Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH 6.6.y v2 1/2] can: use skb hash instead of private variable in headroom
-Date: Fri,  7 Aug 2026 09:47:56 +0200
-Message-ID: <20260807074757.104211-1-socketcan@hartkopp.net>
+Subject: [PATCH 6.18.y v2 1/2] can: use skb hash instead of private variable in headroom
+Date: Fri,  7 Aug 2026 09:52:10 +0200
+Message-ID: <20260807075211.104571-1-socketcan@hartkopp.net>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026080520-carload-spotting-5cab@gregkh>
-References: <2026080520-carload-spotting-5cab@gregkh>
+In-Reply-To: <2026080551-roundworm-petite-bf48@gregkh>
+References: <2026080551-roundworm-petite-bf48@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -175,10 +175,10 @@ index 1abc25a8d144..869ea574a40a 100644
  
  static inline struct can_skb_priv *can_skb_prv(struct sk_buff *skb)
 diff --git a/net/can/af_can.c b/net/can/af_can.c
-index e0ad55b9af64..54877f06cd78 100644
+index a624c04ed5c6..7a026f3a70a0 100644
 --- a/net/can/af_can.c
 +++ b/net/can/af_can.c
-@@ -637,10 +637,20 @@ static int can_rcv_filter(struct can_dev_rcv_lists *dev_rcv_lists, struct sk_buf
+@@ -639,10 +639,20 @@ static int can_rcv_filter(struct can_dev_rcv_lists *dev_rcv_lists, struct sk_buf
  	}
  
  	return matches;
@@ -199,7 +199,7 @@ index e0ad55b9af64..54877f06cd78 100644
  	struct can_dev_rcv_lists *dev_rcv_lists;
  	struct net *net = dev_net(dev);
  	struct can_pkg_stats *pkg_stats = net->can.pkg_stats;
-@@ -648,13 +658,11 @@ static void can_receive(struct sk_buff *skb, struct net_device *dev)
+@@ -650,13 +660,11 @@ static void can_receive(struct sk_buff *skb, struct net_device *dev)
  
  	/* update statistics */
  	atomic_long_inc(&pkg_stats->rx_frames);
@@ -215,10 +215,10 @@ index e0ad55b9af64..54877f06cd78 100644
  	/* deliver the packet to sockets listening on all devices */
  	matches = can_rcv_filter(net->can.rx_alldev_list, skb);
 diff --git a/net/can/bcm.c b/net/can/bcm.c
-index fcd923c223f4..491495803167 100644
+index 76bc7f727425..a819872fddef 100644
 --- a/net/can/bcm.c
 +++ b/net/can/bcm.c
-@@ -336,11 +336,10 @@ static void bcm_can_tx(struct bcm_op *op, struct canfd_frame *cf)
+@@ -348,11 +348,10 @@ static void bcm_can_tx(struct bcm_op *op, struct canfd_frame *cf)
  	if (!skb)
  		goto out;
  
@@ -230,7 +230,7 @@ index fcd923c223f4..491495803167 100644
  
  	/* send with loopback */
  	skb->dev = dev;
-@@ -1580,11 +1579,10 @@ static int bcm_tx_send(struct msghdr *msg, int ifindex, struct sock *sk,
+@@ -1619,11 +1618,10 @@ static int bcm_tx_send(struct msghdr *msg, int ifindex, struct sock *sk,
  		kfree_skb(skb);
  		return -ENODEV;
  	}
@@ -243,10 +243,10 @@ index fcd923c223f4..491495803167 100644
  	dev_put(dev);
  
 diff --git a/net/can/isotp.c b/net/can/isotp.c
-index efc5eeac7c88..01ba0d3831fd 100644
+index c21d816a5274..0f635680848f 100644
 --- a/net/can/isotp.c
 +++ b/net/can/isotp.c
-@@ -229,11 +229,10 @@ static int isotp_send_fc(struct sock *sk, int ae, u8 flowstatus)
+@@ -231,11 +231,10 @@ static int isotp_send_fc(struct sock *sk, int ae, u8 flowstatus)
  		return 1;
  	}
  
@@ -258,7 +258,7 @@ index efc5eeac7c88..01ba0d3831fd 100644
  	can_skb_set_owner(nskb, sk);
  	ncf = (struct canfd_frame *)nskb->data;
  	skb_put_zero(nskb, so->ll.mtu);
-@@ -794,11 +793,10 @@ static void isotp_send_cframe(struct isotp_sock *so)
+@@ -798,11 +797,10 @@ static void isotp_send_cframe(struct isotp_sock *so)
  		return;
  	}
  
@@ -270,7 +270,7 @@ index efc5eeac7c88..01ba0d3831fd 100644
  	skb_put_zero(skb, so->ll.mtu);
  
  	/* create consecutive frame */
-@@ -1100,11 +1098,10 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+@@ -1104,11 +1102,10 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
  		goto err_out_drop;
  	}
  
@@ -283,10 +283,10 @@ index efc5eeac7c88..01ba0d3831fd 100644
  
  	cf = (struct canfd_frame *)skb->data;
 diff --git a/net/can/j1939/socket.c b/net/can/j1939/socket.c
-index 7bf4d4fb9673..4a76f7434e1e 100644
+index e3ba2e9fc0e9..e56d8134938e 100644
 --- a/net/can/j1939/socket.c
 +++ b/net/can/j1939/socket.c
-@@ -887,11 +887,10 @@ static struct sk_buff *j1939_sk_alloc_skb(struct net_device *ndev,
+@@ -895,11 +895,10 @@ static struct sk_buff *j1939_sk_alloc_skb(struct net_device *ndev,
  	if (!skb)
  		goto failure;
  
@@ -299,7 +299,7 @@ index 7bf4d4fb9673..4a76f7434e1e 100644
  	if (ret < 0)
  		goto free_skb;
 diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
-index d8dada03b3cd..ea0d6fdd1889 100644
+index 9ec929bc0c0d..cadb3d3756ec 100644
 --- a/net/can/j1939/transport.c
 +++ b/net/can/j1939/transport.c
 @@ -610,11 +610,10 @@ sk_buff *j1939_tp_tx_dat_new(struct j1939_priv *priv,
@@ -314,7 +314,7 @@ index d8dada03b3cd..ea0d6fdd1889 100644
  
  	/* skb->cb must be large enough to hold a j1939_sk_buff_cb structure */
  	BUILD_BUG_ON(sizeof(skb->cb) < sizeof(*re_skcb));
-@@ -1549,11 +1548,10 @@ j1939_session *j1939_session_fresh_new(struct j1939_priv *priv,
+@@ -1545,11 +1544,10 @@ j1939_session *j1939_session_fresh_new(struct j1939_priv *priv,
  		return NULL;
  
  	skb->dev = priv->ndev;
@@ -327,26 +327,25 @@ index d8dada03b3cd..ea0d6fdd1889 100644
  	session = j1939_session_new(priv, skb, size);
  	if (!session) {
 diff --git a/net/can/raw.c b/net/can/raw.c
-index 939d11bd4562..ad4b16476743 100644
+index 365559d19dc3..c397071bfa8b 100644
 --- a/net/can/raw.c
 +++ b/net/can/raw.c
-@@ -73,12 +73,12 @@ MODULE_ALIAS("can-proto-1");
-  * list containing only one item.  This common case is optimized by
+@@ -74,11 +74,11 @@ MODULE_ALIAS("can-proto-1");
   * storing the single filter in dfilter, to avoid using dynamic memory.
   */
  
  struct uniqframe {
--	int skbcnt;
  	const struct sk_buff *skb;
+-	int skbcnt;
 +	u32 hash;
  	unsigned int join_rx_count;
  };
  
  struct raw_sock {
  	struct sock sk;
-@@ -138,21 +138,21 @@ static void raw_rcv(struct sk_buff *oskb, void *data)
- 	    (!ro->xl_frames && can_is_canxl_skb(oskb)))
- 		return;
+@@ -162,21 +162,21 @@ static void raw_rcv(struct sk_buff *oskb, void *data)
+ 		}
+ 	}
  
  	/* eliminate multiple filter matches for the same skb */
  	if (this_cpu_ptr(ro->uniq)->skb == oskb &&
@@ -368,7 +367,7 @@ index 939d11bd4562..ad4b16476743 100644
  		if (ro->join_filters && ro->count > 1)
  			return;
  	}
-@@ -869,11 +869,10 @@ static int raw_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+@@ -952,11 +952,10 @@ static int raw_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
  	if (!skb)
  		goto put_dev;
  
