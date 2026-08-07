@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5272446D2BC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA97D3DB332
 	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 22:10:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786140613; cv=none; b=nuMZXG0SjHizZMvD+VQL5GcxQd5dlAjz9JdqoYquz1n1PNmWz5/ZBn4p9faUDuzrngV620Y1zwmbBC8XUnC57PeXM4VqfsmexnFSm+yEG1OBAQySRi8PypLoqY7JvTwttZDfE3I2117ToMBmJWGtUSMVHdSyDHnMHhzI6rREBr8=
+	t=1786140613; cv=none; b=LrhnW0J8aCS7Js8H0nNmrOU25/DGDrl4urNhJRL+rFg/vHanY3FtvaGD8Jx0Wv0J+WrTUfbMqqGX6buEbLuccoZG2PZj1k4rKJ5gIHJ5ZluRvgWSY6mrep0a/d1hCCQcPNNcH+AEQtnlHUFXjY2FADXqwE4I0YpF7q6++A7TpGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786140613; c=relaxed/simple;
-	bh=Ju4+o3nV7l5nkAeRlBbvCyGvdNKrlsZ2RV6sGuCu/pg=;
+	bh=oaSfu4g+64f/htyw90bffqPuKvWNvs8lHtyFdi4MG30=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JcwDGY+Mg9tTEnnp8osK/iAkegSfEtbbBDY5wHF+fyk2oIylJhdFcuWf/NBqE4eNlm8C4HArs/p5WxqdwEp9hi8WMCDrTfnEWvgCn60RfpDz2TKbaTtdlnUlr5Jf+7B3nAxQyeur5gyWYvCKTxOcTpFeTBbZIevXW9o8xPgNBFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BObl/lfQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=F6ymDJWjtVhPCnkb8Zo5IfMZPCUJ6qijfE1RsMeBhclGwvjZfMxP6NBx1wag/6M7uw+NbZyPM1AEhEQVxjYemUXyxwJesYRYSLazlz/8LFEjWQ8y6CIZzPBD8Hc4m+/Mb4kRi+SFFBAqKDmtQYhovBO67LxBlHcxoGhRrSc16bU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nZd5Xabg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BObl/lfQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50C2F1F000E9;
-	Fri,  7 Aug 2026 22:10:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nZd5Xabg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26F241F00A3A;
+	Fri,  7 Aug 2026 22:10:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786140610;
-	bh=S4sfD4EdqvkjcaCHWhTkgAaWSLCxzzYcqfKsLTbcrSI=;
+	s=k20260515; t=1786140611;
+	bh=fF+gUEbMvWwaX2BnKLzxoRoANODK7dBSZZiQIHZ8DZ0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BObl/lfQq2KUDl3NTAs/yMNjmktItxcN03iaEBURVKKQ72Ja+QAC7gShhpFRE91wM
-	 TGF5brG26dRXrkhYfr5rAelMxOdn20LVeYdxdgA+ewtAd38RnbDydmv9GXP3PtkvQA
-	 yAzxiraNVsdUESV2EJj8v5yDPw9fPkeaT4hnsKE+1mbLjlZC9XOy/irup9EFtcpLWA
-	 J5om/FskDLS9D/+e0oOuasSo59yFU99yOJ7Mm24JwxGy4gIDzAoJsmcDqtD5BuH0Ul
-	 QZfJuVO4G8BFW5/PmSdscX1i5aYpGzgDQEX2+x+MHZ9smGRoRiYeAMLusu782Qrum5
-	 AjdnRj+dpWqDQ==
+	b=nZd5XabghEHmEVJ0ohzG+KtsDTZ/sLnim/gZQmYoSIc5GjAlqdliOAmf+96D0zXg+
+	 aAcu2Cyw0OeAncw5I8ayJkJ23j/9W2rAgW0F8+xwoZyi5zx9Ni+MfwjNZZz7HQ9kfQ
+	 x3Xlkrk5ceXVnmeYsl7LYinSt3h2uLIDOn3vhZcuPka358QZFpMuIvqzkA8tq26JAL
+	 VqrQ5ET9YeyZ/tZYfezj54EHCEB3hJLtp74TDp05gyTOcimEIjEvX5HHl+iYNHLaE2
+	 LnC2pjXzxIYPfcPfbNwGnP0t0xE69DJicNObcjIaGJvyK1NISS8n3eW6AP+j8lOFEr
+	 CA7J9JlJq3f/g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
 	Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
 	Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/5] ceph: Remove ceph_writepage()
-Date: Fri,  7 Aug 2026 18:10:04 -0400
-Message-ID: <20260807221008.3785418-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/5] ceph: Use a folio in ceph_page_mkwrite()
+Date: Fri,  7 Aug 2026 18:10:05 -0400
+Message-ID: <20260807221008.3785418-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072947-gulp-passivism-4b27@gregkh>
+In-Reply-To: <20260807221008.3785418-1-sashal@kernel.org>
 References: <2026072947-gulp-passivism-4b27@gregkh>
+ <20260807221008.3785418-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,79 +49,92 @@ Content-Transfer-Encoding: 8bit
 
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-[ Upstream commit 19a288110435408fcf2cb274823f2a17d03caf9b ]
+[ Upstream commit 88a59bda3f3786107694a3f5fd7f9df421752c21 ]
 
-Ceph already has a writepages operation which is preferred over writepage
-in all situations except for page migration.  By adding a migrate_folio
-operation, there will be no situations in which ->writepage should
-be called.  filemap_migrate_folio() is an appropriate operation to use
-because the ceph data stored in folio->private does not contain any
-reference to the memory address of the folio.
+Convert the passed page to a folio and use it
+throughout ceph_page_mkwrite().  Removes the last call to
+page_mkwrite_check_truncate(), the last call to offset_in_thp() and one
+of the last calls to thp_size().  Saves a few calls to compound_head().
 
 Signed-off-by: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Link: https://lore.kernel.org/r/20250217185119.430193-2-willy@infradead.org
+Link: https://lore.kernel.org/r/20250217185119.430193-3-willy@infradead.org
 Tested-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
 Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
 Signed-off-by: Christian Brauner <brauner@kernel.org>
 Stable-dep-of: cbf59617cd71 ("ceph: fix writeback_count leak in write_folio_nounlock()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ceph/addr.c | 28 +---------------------------
- 1 file changed, 1 insertion(+), 27 deletions(-)
+ fs/ceph/addr.c | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
 diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index db4d11604e9d5..603adf1d590e3 100644
+index 603adf1d590e3..95b3e6b1c11aa 100644
 --- a/fs/ceph/addr.c
 +++ b/fs/ceph/addr.c
-@@ -799,32 +799,6 @@ static int writepage_nounlock(struct page *page, struct writeback_control *wbc)
- 	return err;
- }
+@@ -1659,8 +1659,8 @@ static vm_fault_t ceph_page_mkwrite(struct vm_fault *vmf)
+ 	struct ceph_inode_info *ci = ceph_inode(inode);
+ 	struct ceph_file_info *fi = vma->vm_file->private_data;
+ 	struct ceph_cap_flush *prealloc_cf;
+-	struct page *page = vmf->page;
+-	loff_t off = page_offset(page);
++	struct folio *folio = page_folio(vmf->page);
++	loff_t off = folio_pos(folio);
+ 	loff_t size = i_size_read(inode);
+ 	size_t len;
+ 	int want, got, err;
+@@ -1677,10 +1677,10 @@ static vm_fault_t ceph_page_mkwrite(struct vm_fault *vmf)
+ 	sb_start_pagefault(inode->i_sb);
+ 	ceph_block_sigs(&oldset);
  
--static int ceph_writepage(struct page *page, struct writeback_control *wbc)
--{
--	int err;
--	struct inode *inode = page->mapping->host;
--	BUG_ON(!inode);
--	ihold(inode);
--
--	if (wbc->sync_mode == WB_SYNC_NONE &&
--	    ceph_inode_to_fs_client(inode)->write_congested) {
--		redirty_page_for_writepage(wbc, page);
--		return AOP_WRITEPAGE_ACTIVATE;
--	}
--
--	wait_on_page_fscache(page);
--
--	err = writepage_nounlock(page, wbc);
--	if (err == -ERESTARTSYS) {
--		/* direct memory reclaimer was killed by SIGKILL. return 0
--		 * to prevent caller from setting mapping/page error */
--		err = 0;
--	}
--	unlock_page(page);
--	iput(inode);
--	return err;
--}
--
- /*
-  * async writeback completion handler.
-  *
-@@ -1563,7 +1537,6 @@ static int ceph_write_end(struct file *file, struct address_space *mapping,
- const struct address_space_operations ceph_aops = {
- 	.read_folio = netfs_read_folio,
- 	.readahead = netfs_readahead,
--	.writepage = ceph_writepage,
- 	.writepages = ceph_writepages_start,
- 	.write_begin = ceph_write_begin,
- 	.write_end = ceph_write_end,
-@@ -1571,6 +1544,7 @@ const struct address_space_operations ceph_aops = {
- 	.invalidate_folio = ceph_invalidate_folio,
- 	.release_folio = ceph_release_folio,
- 	.direct_IO = noop_direct_IO,
-+	.migrate_folio = filemap_migrate_folio,
- };
+-	if (off + thp_size(page) <= size)
+-		len = thp_size(page);
++	if (off + folio_size(folio) <= size)
++		len = folio_size(folio);
+ 	else
+-		len = offset_in_thp(page, size);
++		len = offset_in_folio(folio, size);
  
- static void ceph_block_sigs(sigset_t *oldset)
+ 	dout("page_mkwrite %p %llx.%llx %llu~%zd getting caps i_size %llu\n",
+ 	     inode, ceph_vinop(inode), off, len, size);
+@@ -1697,30 +1697,30 @@ static vm_fault_t ceph_page_mkwrite(struct vm_fault *vmf)
+ 	dout("page_mkwrite %p %llu~%zd got cap refs on %s\n",
+ 	     inode, off, len, ceph_cap_string(got));
+ 
+-	/* Update time before taking page lock */
++	/* Update time before taking folio lock */
+ 	file_update_time(vma->vm_file);
+ 	inode_inc_iversion_raw(inode);
+ 
+ 	do {
+ 		struct ceph_snap_context *snapc;
+ 
+-		lock_page(page);
++		folio_lock(folio);
+ 
+-		if (page_mkwrite_check_truncate(page, inode) < 0) {
+-			unlock_page(page);
++		if (folio_mkwrite_check_truncate(folio, inode) < 0) {
++			folio_unlock(folio);
+ 			ret = VM_FAULT_NOPAGE;
+ 			break;
+ 		}
+ 
+-		snapc = ceph_find_incompatible(page);
++		snapc = ceph_find_incompatible(&folio->page);
+ 		if (!snapc) {
+-			/* success.  we'll keep the page locked. */
+-			set_page_dirty(page);
++			/* success.  we'll keep the folio locked. */
++			folio_mark_dirty(folio);
+ 			ret = VM_FAULT_LOCKED;
+ 			break;
+ 		}
+ 
+-		unlock_page(page);
++		folio_unlock(folio);
+ 
+ 		if (IS_ERR(snapc)) {
+ 			ret = VM_FAULT_SIGBUS;
 -- 
 2.53.0
 
