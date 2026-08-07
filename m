@@ -1,22 +1,22 @@
-Received: from mx-relay50-hz3-if1.hornetsecurity.com (mx-relay50-hz3-if1.hornetsecurity.com [94.100.134.220])
+Received: from mx-relay21-hz2-if1.hornetsecurity.com (mx-relay21-hz2-if1.hornetsecurity.com [94.100.137.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E2D2EEE9E
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 09:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=94.100.134.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FABD3D092E
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 09:50:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=94.100.137.31
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786096087; cv=pass; b=SPZW3ImY7ge1O5WaU/eE1ojbQ/FBx0p7G3ONBMiJ0isS7YrziJwUZWhkvwIf09FcWc9KOYPkyGWxrP+XRFCt1Q/Aw4+CXqlas3dhh12uR/r4MEUzpRWcJpJNJ+0d6syiHMzmLUuaLF4amrTLHtqwaTRQCmxJ8ilfFseHxnM2K/Y=
+	t=1786096207; cv=pass; b=SVer1cgSb0UxtpKZ+6A8Cn9/GAwoyhJ9pgykOshxxSrzTm9B85PONRgDVaFyv2WFz9M97zOBrgb5ETbi61Awq1KJaZxf2YWQm/MCUc91WBtdmiY79VoruhT0YwA99YARBfogwSZzIgIgrboeHsNVY99ruOFe7xF3lPlSFA1Oi6Q=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786096087; c=relaxed/simple;
+	s=arc-20240116; t=1786096207; c=relaxed/simple;
 	bh=vAo8ynbmCgPLK6IHfXeGXdNTFJprZCvDd2VGQT+wO1o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Cb/tM2L9bvCXYTcm75DIqgP+qaLLTLaYrhFYnxaHHQ+OtOu5GArnS/OwQEAv4Kbc0FKy3g7IvgjnI9+HDY3LmdAewfdAmOgWspazbcX4OUK2z65/8cQ3GmyAWRYKibd0WVFvJEj++ysq0EfSVwSETZW+TJjeWbFXSYp0uTj0ru8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=marcant.net; spf=pass smtp.mailfrom=marcant.net; dkim=pass (1024-bit key) header.d=marcant.net header.i=@marcant.net header.b=YASFOPpy; dkim=pass (2048-bit key) header.d=marcant.net header.i=@marcant.net header.b=DG9BISQ7; arc=pass smtp.client-ip=94.100.134.220
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fCOhZGgV3JpukgtElEBkzddsStGohdMyVVKI8cLCsaKGZruA6VeFh6bYaXRus3byGUw5PuuQje9pMH3Rlz2A/AR1/L/SaNJW1oyrBkkFDTicfCoTg3A9W8EzGyRfhFu5BSMFUfp/zX/zIb5dJmaRvP8Yk0bmZfr0HI6+qXXUllc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=marcant.net; spf=pass smtp.mailfrom=marcant.net; dkim=pass (1024-bit key) header.d=marcant.net header.i=@marcant.net header.b=AC0bk6mn; dkim=pass (2048-bit key) header.d=marcant.net header.i=@marcant.net header.b=Zb3J4Kg/; arc=pass smtp.client-ip=94.100.137.31
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=marcant.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marcant.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=marcant.net header.i=@marcant.net header.b="YASFOPpy";
-	dkim=pass (2048-bit key) header.d=marcant.net header.i=@marcant.net header.b="DG9BISQ7"
-ARC-Authentication-Results: i=1; mx-gate50-hz3.hornetsecurity.com 1; spf=pass
+	dkim=pass (1024-bit key) header.d=marcant.net header.i=@marcant.net header.b="AC0bk6mn";
+	dkim=pass (2048-bit key) header.d=marcant.net header.i=@marcant.net header.b="Zb3J4Kg/"
+ARC-Authentication-Results: i=1; mx-gate21-hz2.hornetsecurity.com 1; spf=pass
  reason=mailfrom (ip=217.14.160.69, headerfrom=marcant.net)
  smtp.mailfrom=marcant.net smtp.helo=rossini.marcant.net; dkim=pass
  header.d=marcant.net header.s=gandalf header.a=rsa-sha256; dmarc=pass
@@ -24,39 +24,43 @@ ARC-Authentication-Results: i=1; mx-gate50-hz3.hornetsecurity.com 1; spf=pass
 ARC-Message-Signature: a=rsa-sha256;
  bh=RDpUyEwEJ0kzf8chyqH2Jx2Y1T40GKQkvwbA8Z0ps60=; c=relaxed/relaxed;
  d=hornetsecurity.com; h=from:to:date:subject:mime-version:; i=1; s=hse1;
- t=1786096050;
- b=MjpTBj1gOO+ixOsRQoNRGJHYSCR4pjGHFzOg+pKSFrZtxvHkkGwf9oRTAQNG6qBOr/r2at1T
- EkQ+j6FvfQrwgQekaTIMVs4R9W9MUojke3XU+7MMqGg50vAGG0tOagq0lk77Rz4zUw/GNzZYUJ3
- Zi1EMlk1xRC6CuxnNS8RG5lRHdvAPfFpV/vFzn1vfn5lORefL8MTQd9sSyafnmAoTHxKvgAnhXu
- X/ltdrxqpBbl44XA/FYxhejk8a6LlYN4DTLyzWnBt2NAYxeKkReuNOzDPgeSML//EXMlTZx/SEF
- 43mgNBczqso85xyOUwH73W3JSkPsKJvyWtg1FKG95o9VQ==
+ t=1786096151;
+ b=SET79kiB7e6KudujYqpT5ECHOGL1bXjBQYtk395U+GKCrsRS+fVbbLxpo3wrDNzL28D88ft5
+ 4F7HoQsPr9bdcRi4dK0GDBMObistE0P58h9LIH9+GPztu1vBJ44R3J6hiXeDba0yg/5eT6xid+v
+ Q1AGhvzz9XuTc5qBE+K7SPQVKDbX9jxRawqqCHKXYA+hWGOjJWBjdquvZwMvTrE0SkDVzJ/x6Tu
+ b9aiTIrVMU5mQiYotvIyFIQNsBMTQdZTebbgV2YowmSxkxOexCHLS/vlg7zFPnbyYnhM7QmNai6
+ T6cKyHTcJI/kQ43R1+NJWSKe0bdiKGrZVxeUf0Ni7EiLA==
 ARC-Seal: a=rsa-sha256; cv=none; d=hornetsecurity.com; i=1; s=hse1;
- t=1786096050;
- b=Xu8lxuZxfaJLx3/UMHYshTyZu3pOw7ZFffsK/LymJnqIB17MmuBN9EljOrYJP2Hnfx6KOhCC
- WQ1SSnJjJk5sG31BEfu/iZKWPzelS2mKhixg3D1+CpsSB6V98pQ6YfbF5j1xOljjtAHDT2CXgC1
- epfDqKbn0dJNeUKNnsvJOu+bbpT7wB29rewp/Ey5m1NR8u8XrcLbeVamN3lN+sg/cXe3v9RFiLx
- jfh5kDlFYM8hxAuw6/3ZNe4OxxdJao3zj5aYUvurE9Y9nA/P/dYbWHhYt24NYFJ+5SO/T//fGua
- xw3jaRbIuleKMXKwB4Lv23IgVQsaNZypZk39C1NDsnGEA==
-Received: from rossini.marcant.net ([217.14.160.69]) by mx-gate50-hz3;
- Fri, 07 Aug 2026 11:47:30 +0200
+ t=1786096151;
+ b=nKga3UabmZC+KjLp99U7DOqAyevpkEh5IGsSJpfLCS7obBRULq/onO2SPQIhWpXW7buPxgPE
+ 6upLKLVg74rKR7Tmk0+DUdI7OWfCsnOXyNd15z4juWC4z4h5ZlTxMyWM4NZj+Y/sjvFDMIlHDOH
+ /sCnfKA6be7vChMU7JvkevQPJAuOw+HQuIGglUC69r7xtozHJvNdGy5t2D2uL635sx9JwsqR66o
+ 80gr1RvX82roFf6eniQCm1RcYl+8dj9cBbVTjV+xoKjgtJNQAvq1I1c5oo+hGWVEk6RGFZzO3Dm
+ geCVcszq8s6DEiYE3W2Sxk8y08KlOk/C/uBfD59BX3b1w==
+Received: from rossini.marcant.net ([217.14.160.69]) by mx-gate21-hz2;
+ Fri, 07 Aug 2026 11:49:11 +0200
 Received: from futile.kalnet.hooya.de (unknown [192.168.203.16])
-	by rossini.marcant.net (Postfix) with ESMTP id D8B02960146;
-	Fri,  7 Aug 2026 11:47:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 rossini.marcant.net D8B02960146
+	by rossini.marcant.net (Postfix) with ESMTP id 7A6E5960146;
+	Fri,  7 Aug 2026 11:49:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 rossini.marcant.net 7A6E5960146
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marcant.net;
-	s=gandalf; t=1786096045;
+	s=gandalf; t=1786096142;
 	bh=RDpUyEwEJ0kzf8chyqH2Jx2Y1T40GKQkvwbA8Z0ps60=;
 	h=From:To:Cc:Subject:Date:From;
-	b=YASFOPpyrSfHEtvgPk8VMIqNm5X3E+BZXfjYhHLNny1mrcjOOUZs+pb8QHpT+Lem1
-	 DOd5ex4hXx0qObGv0sTjdM8BJZ7dTEtwl6umMB0qJxU7lfUUxUVnPshaYU45nG4ZA5
-	 ZFWzA8ALeJqpks3d2ihQLATPNvS6Gu7Lr1Vz/IK0=
+	b=AC0bk6mnUCQ51txc2loIvXwTZrP8IjdtgCgMflA+o9+RP+0/uQnlJHBMHfpr4xuIx
+	 QdFRymlKVMJ3Zd7OzmZah3W2O/03DA9kGY9/fdwoZGCsFJpGsbqdxj3kXUOCHe3PnH
+	 XbQdPMP1V6ISHDNEs3ceDdXStQRUjgDVA7wfl9tc=
 From: =?UTF-8?q?Andr=C3=A9=20Valentin?= <avalentin@marcant.net>
-To: avalentin@marcant.net
-Cc: stable@vger.kernel.org,
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: avalentin@marcant.net,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	Kalle Valo <kvalo@kernel.org>,
+	stable@vger.kernel.org,
 	Manikanta Pubbisetty <quic_mpubbise@quicinc.com>
 Subject: [PATCH] wifi: ath11k: run ahb shutdown() teardown only on WCN6750
-Date: Fri,  7 Aug 2026 11:47:23 +0200
-Message-ID: <20260807094723.1546780-1-avalentin@marcant.net>
+Date: Fri,  7 Aug 2026 11:48:58 +0200
+Message-ID: <20260807094858.1548216-1-avalentin@marcant.net>
 X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -71,19 +75,19 @@ X-cloud-security-recipient:stable@vger.kernel.org
 X-cloud-security-Mailarchiv: E-Mail archived for: avalentin@marcant.net
 X-cloud-security-Mailarchivtype:outbound
 X-cloud-security-Virusscan:CLEAN
-X-cloud-security-disclaimer: This E-Mail was scanned by E-Mailservice on mx-gate50-hz3 with 4hGfSt15T6z2nGsf
+X-cloud-security-disclaimer: This E-Mail was scanned by E-Mailservice on mx-gate21-hz2 with 4hGfVk6d1nz17HPR
 X-cloud-security-connect: rossini.marcant.net[217.14.160.69], TLS=1, IP=217.14.160.69
 X-cloud-security-Digest:4b0cb592f54d16cce5fa190591264bf2
-X-cloud-security:scantime:1.192
+X-cloud-security:scantime:1.148
 DKIM-Signature: a=rsa-sha256;
  bh=RDpUyEwEJ0kzf8chyqH2Jx2Y1T40GKQkvwbA8Z0ps60=; c=relaxed/relaxed;
  d=marcant.net; h=content-type:mime-version:subject:from:to:message-id:date;
- s=hse1; t=1786096049; v=1;
- b=DG9BISQ7eDDpNSKfZsbBf6WTckfCVQoXBHq4tJD39mlffWY3PLZLM8q7/N2y0ke/fVR1WvFt
- SpAA5x0l9pK4QiQnXIYmccuIHc8nbF70ZQJtXWGixxnfqj5JoNkrA3mYXDiMq7UoccaSQZFvFSN
- Ncv9EUO1s0hLpd822b5ydQ7Np+F8OeeW8iTcQtF/WmglM6v5Yn8AcTuSKi3NM4ljpZM2qlMiI+Y
- /zHwb1f3uFqgpKr6ChRl2dI5fRUfB8AmF+qcEEwj+nuv9xi9fa2d4gLQEsSXglTS0qCLEaCRsfC
- sWd6sUPH7QUzkF8UqYCCOrocnpCj3Ho+8Io+FyKb4FLoQ==
+ s=hse1; t=1786096150; v=1;
+ b=Zb3J4Kg//Qnp9lYBlrnKMlyygCEQsqYQ6GILgQFfiq4w21HSaO6Hqr/Vva1U2vTJNqFrztBX
+ rrZ0n6g03Ww04pmyDgCjpmYoDdD6fWB/Ybsx3grLbdgLGrWUggu0bEtLzRTw/Dn4bF8whJxB7ay
+ /CL7ohBoqrNKw2/PJKVYPhgVTt5jBBNjmLkZH+UUbEG0bgZiRn4B6OYGzTKrPbHeUDdgykt8GPx
+ GI1h0V8ivt8WvhDbt8bEO6NXOYuDURQMJ9in4dmQ8fTK6VzrQ358MWHWguHGX5xSp2AmfPf38Nv
+ X3g3j8EGhWcU+6B/wOLTWkB2owfcmNdPJdF892chfZX1w==
 
 The AHB shutdown() callback was introduced solely for WCN6750, which has
 to stop DMA before the SMMU is torn down at system reboot/shutdown. It
