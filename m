@@ -1,86 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1965399372
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 18:58:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D9E3B14C8
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 19:06:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786129102; cv=none; b=MAbRek+GUL4EfxaL3ZCjhAzW826YCNv8BU9irVlWI5yLiXvGfq2HwHZIq+mp+2nChbFTR1StKYMPV4pXZ9NVgOf6RdoTfudaS5i5hX002jyXhQu4IKDS77LVTd9HgZN3hcr1VSMXRsrNLFDPk6whgajGgH9bUbSCd1Hcbq5tB2Q=
+	t=1786129565; cv=none; b=mTWwEYALGV0YVQMfifOtqR/+46kgWOYmvdZscxtklifjpFJAGt9akAFhHCjYM5sC64ZLLL6ZE4hqoInZDsrUBYywb2inKSkE5pnNerI+rbjg+oA2+eErNFusM8hPduhZZldVtajj59RGnXvKjhiJoZNLRv3awA9MIih/npfqZ1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786129102; c=relaxed/simple;
-	bh=aGtkDqO7e+54jvf08NyJuzEW1eC5g/ECUadimlOEYqI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N4RCZLjhmi7yXdne7nEyKP0oHBn6P4pOpOpextmmD+QEyc2UUDK/OEdo0mT907uG3Q4OkIqOiBJ5wNQVLRTsf+8ZYJZeIt8vTFAn1Vff3D6/rCOWBCQRDrQn3Vz3o631FiAD9W+cG0Z9XSnSGkyxNHA7eUYo+ZhJW36ivRjDwHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K+rwtId/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786129565; c=relaxed/simple;
+	bh=hsST2Uymvd+H+wwXBLGix8l6UdAemhJiyT/ECq9AZ8o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Y2PVWtgxJXQDMbHMy6DGnHXRxxuAbPS9soz8earRTvmGB8ZJwU87pSM7M6DRVs1SOndQ5EII9cjEfnnjFjMvScnzq6poOKE3v4ybc7T+JDgdT1kE7nkf1F+OKBgaU74ZYMihFagknDuxcO1Dmd6KtWAeW7UvaHdKjXB217wNJjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fH5nlJSm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K+rwtId/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65A9B1F000E9
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 18:58:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fH5nlJSm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A3B81F000E9;
+	Fri,  7 Aug 2026 19:06:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786129100;
-	bh=aGtkDqO7e+54jvf08NyJuzEW1eC5g/ECUadimlOEYqI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=K+rwtId/JJsp7Aw67BwNtSGYf8oTs1k/80tLy67f64WjE1mqJ8p1o4Wd3tmwUWnuJ
-	 tnf/u4evB0eUq6ooOVQrjOPtN6jugH4GZ5D85jBSHJ6roCaZEODa6tMpbLm2K1Z8GN
-	 JFHUKYWP96fsCpQSxhAEIqv9Hbn8SfkWo/PX2cHT2H4cyc0GTxfDus55p2j5ElsOsf
-	 jmtgMZ2I67s0sufDbX+plFa8jKOJ+oMFIFV21qe5ZbAhqNQ2rkea9lZaRguYyAZWGH
-	 pcW86LQlgrZ7BTvj515EypQKPRn4h7LtbS4I332NzX8GdB0F901/lS/f72L1H57kpn
-	 8XgFLp8exC9/Q==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-39ca300db70so33060551fa.2
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 11:58:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rp+m2sSIbCoVi8BpgKCIm9XBGdHiIrIiVFvnEsxArWKNkSseKVz/v+URK7Kt3oJJl6nIfRobVY=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUrQEYZCY3zJtl1W0vuQJQDdFB8Uz7YJBDxueL6fPzhpPPyfHe
-	qgl2ISQEVp0wZ3nBHreYHSdEfgXmrCP5f3A3+fyUDLWxceuoWBhvEz5u1pnjRBNBI3lENhgk4bS
-	CkI/ChP8+BrHnpT/mWAtL732yjjDGbY4=
-X-Received: by 2002:a05:651c:a38d:10b0:39b:3adc:70f9 with SMTP id
- 38308e7fff4ca-39fbb0668b1mr21822891fa.1.1786129099241; Fri, 07 Aug 2026
- 11:58:19 -0700 (PDT)
+	s=k20260515; t=1786129564;
+	bh=EygjdvsmNrxyr3T5o7HjUWupsJmCsD2O0s6EcHT9Zjc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fH5nlJSm8NQOvvSln/Lu0FHChH7iVmmftIHqE19vEA5qG3swHzfgIo6tfESIJ5zPR
+	 cITo039FZWjQGIuEcVcqCCrbPUsYWo3CwaIcoDENZvAGbNzB4UBK2ygnOFqI9OlfML
+	 BlarqlLAcQUlji8nPN8sS0TuspZn6JbsYdI1aVTClEldU7LF6ga2R7I4aRus8e+kRJ
+	 VTEbWl0Gzh6orlZZUdzcVbFBdlllNU5qRi1LNGU7H+khWQsPiBTaEnWNZJ/y3oVi26
+	 6ljKgOK/gkrp2ZOOGNV726+h5MdE/2ZujkbJY7KkICnWFRxHwG5bFtvqEfvljpGd/t
+	 8bed4yPp83o2Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	kernel-team@android.com,
+	Lee Jones <lee@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	David Carlier <devnexen@gmail.com>,
+	Todd Kjos <tkjos@google.com>
+Subject: Re: [PATCH 6.1.y] Bluetooth: hci_conn: fix potential UAF in create_big_sync
+Date: Fri,  7 Aug 2026 15:05:59 -0400
+Message-ID: <20260807182230.stable-0001-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260806221404.1172661-1-tkjos@google.com>
+References: <20260806221404.1172661-1-tkjos@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260805084143.3901-1-ansuelsmth@gmail.com>
-In-Reply-To: <20260805084143.3901-1-ansuelsmth@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 7 Aug 2026 20:58:06 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=LLyod-me-wXKznKLhjjGFTmp7x5uF1nCUL7fMTBpONg@mail.gmail.com>
-X-Gm-Features: AUfX_myFt8OXaBF6dymdCU5o-coQ8gVrYgo4gR7tMibyT7NV-8nbLtvGnaWMtag
-Message-ID: <CAD++jL=LLyod-me-wXKznKLhjjGFTmp7x5uF1nCUL7fMTBpONg@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: airoha: fix wrong value for PCIe reset pin
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Lorenzo Bianconi <lorenzo@kernel.org>, Benjamin Larsson <benjamin.larsson@genexis.eu>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Christian,
-
-On Wed, Aug 5, 2026 at 10:41=E2=80=AFAM Christian Marangi <ansuelsmth@gmail=
-.com> wrote:
-
-> The PCIe reset pin actually require the bit to be set as 0 to work as PCI=
-e
-> reset pin. When the bit is set as 1, then the PCIe reset pin act as a GPI=
-O
-> for GPIO44, GPIO45 and GPIO46.
+On Thu, Aug 06, 2026 at 10:14:04PM +0000, Todd Kjos wrote:
+> [ Upstream commit 0beddb0c380bed5f5b8e61ddbe14635bb73d0b41 ]
 >
-> Cc: stable@vger.kernel.org
-> Fixes: 1c8ace2d0725 ("pinctrl: airoha: Add support for EN7581 SoC")
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> Add hci_conn_valid() check in create_big_sync() to detect stale
+> connections before proceeding with BIG creation. Handle the
+> resulting -ECANCELED in create_big_complete() and re-validate the
+> connection under hci_dev_lock() before dereferencing, matching the
+> pattern used by create_le_conn_complete() and create_pa_complete().
 
-Is this already fixed in the big Airoha patch set from Mikhail
-that I just applied?
+Queued for 6.1, thanks.
 
-If this is *not* fixed in what is currently in my tree I need
-a rebased version of this for mainline.
-
-If it *is* fixed in what is currently in my tree, this can be
-sent separately to the stable tree as a backport once
-Torvalds has pulled my changes.
-
-Yours,
-Linus Walleij
+-- 
+Thanks,
+Sasha
