@@ -1,142 +1,132 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 280843115AF
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 17:16:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786123005; cv=pass; b=RZheHPTSYBKxr4j1n9+DB9KLVKmiN8vOnnU3jFqHvuydaQwdFMoRbRfD+39suHSUI5cEHayfhQ/6FKHf1wEg6q6NCqWBDrFxiTTSgQgonOPJNsv6jzjdn+se8MbIVtN2XApfZzbbWDEWFIQK7S857tHkJXeSJLk16HILYU/007Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786123005; c=relaxed/simple;
-	bh=Rtx8ZmZNm5nMH0poOJXM5HHavD/fWSB/wPvaR1ec6bI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bYL7NkVwqObDtev7BxtnSANbGckb2oKwkTIWaxkh58FUAPVIR9DkuWweowzDzFQQV4ydNZDgg+pmyVp9BMvEJAYdjftaCas6f3+fXefsk1kC3C+XZlEXtLCJU4FjYtKjUf+LD49go0wLYkoYIgC1hbH4KzWLNPhwoykla4eApXY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oR3mxwnA; arc=pass smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B67306498
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 17:17:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786123053; cv=none; b=ZJmwVpWZyZnWnU0uwi6tyBgm63go458AzHQUQByEvP+fI/OU2J8ZM22FG97mnFenKVi2UkLq3/03IsuTEh+GhahKMfJRkf5SYG6z7Rns2Oc8jrIeZSW6zeDC1zKXLDkutwQjib0bx7N/dZkaGH+E50lL04BXqUmChEbiPvFgZVg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786123053; c=relaxed/simple;
+	bh=utPtG9QR5HF6vRWJ22fYPBYfKIDFp7t1P0czkkxfnho=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Etimqq16grrZk7Fi4JUye5Te4m0jl/+iLx0Weii3LSJM9M92LI3mU175iS3i6XO9jQh04W9NrJy1PyzrV8jIbNNQ7rzuakCNW5tCdqbpUrCqTAIwC/LYdzAH1Uws5KmPXeO7mlVJGdsJQ9YB2O+sABktq32qErKVNKlb69CA2Dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kmO1CSDt; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oR3mxwnA"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c15e62c695cso35780466b.1
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 10:16:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786123002; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OmoZPARkGajOaI0G2DtSLPhOvo3ItOTEntDByxV2XRDOmFbhqZh2qo3plhfASohx4d
-         /Ddru2Ru+IbJW0Npiq29tJ7E9sP72EFqV8l8GDQpsoRgq5jxL5jrxE9V3EGcevrAiTTw
-         wQHnQSQTml/ujqf242MDGSnHf35k4C3OWptOlsZP4LB4ndlF5dSex0/+uSs9o7VIKi5W
-         lnnB6jyIwCmHx77T+dd3bQrsknl8tyhSGTTSjJie7yKLt0HVlMo3mMFCx6O/yGauWW+r
-         uu9+GiFaNht3Zv5ILCd4PDyVwTQIrIcpmu9KjZ4+yQVm4rEDOPVtQUCRkVXF2f+VSs/h
-         jfpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Rtx8ZmZNm5nMH0poOJXM5HHavD/fWSB/wPvaR1ec6bI=;
-        fh=8XdCdSsYum/EI4uP0LPQZ7Uhacp8D7eTy3xFPYLpRmU=;
-        b=f5DCy1DebAQxAN7NI7o6AwV1CNkdtIirB0O3raISRqWbMoQjoFzL1XPw8/2/dbgAlR
-         LGj3NS2QdWM8EE8INAQ/sZD5fFLZE8ux1EADjEoa6f5gx5B7kIMOUpZYarFrS/1vA2WF
-         /pfXms+AKWUAai5ElRdNER/2Eo59tgQLNb6SLqD/CTUXz8g4434RVyv88kKcRqsLz1Ws
-         b5k/6YHXRTI9EymQXwekMT0xFrG6DUWiQo26hyZsBqJdZyQi3YEM1Fu3wh8NCb98NmCx
-         smZw0LJzTn5O7FQGCKfRy17cmLd9sgzzqViK+Wox0ymkZYVqfB/Hflc+jEFxEUrSziYk
-         r+Rg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786123002; x=1786727802; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Rtx8ZmZNm5nMH0poOJXM5HHavD/fWSB/wPvaR1ec6bI=;
-        b=oR3mxwnA+tkTMgtqEhW1tsb85qlAwqf+87YN/egDgBM1uOGGAtbYi2ecWJPtp6HGnS
-         tHPAn+aCvBhZHli6ewZ8HVWkOiEFsiC0oMWRkjaYIZ+JSIV1W8m07C7VEunEpFJ53yQT
-         bV6doIG7teD7Hu7heSMQzU3KznmrPTbTwKc6XSA7J67UFkDL6j9tuRsIphHAuNk/vt4k
-         D6Gl8QNooAzaa+DERYyp0muSa8nPuVyhSXz8vth/HOfM9Bvippi46V5/Aoj3y8UESDik
-         BZBGCd/bJpuxGkxz545ieDiPMEPrv9u6lba+zMNqxe/WUfXWQ4FkKg5bxIzmdsQr9Y9w
-         aoZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786123002; x=1786727802;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Rtx8ZmZNm5nMH0poOJXM5HHavD/fWSB/wPvaR1ec6bI=;
-        b=RBtJgpnl+zNvZAOvPraMJ5Ytluz6YKi79vxwg+6y/cVZywfVGGM3dVPzFV/eA3qoEG
-         4r0iir0zFcB4L6ZKpd7R8xCTqJUiTlZ7AoFETGd35hMsE9SJQ7i1SHrVPVpNGC8U7IWm
-         8lijFdRFKto9U/ODygSG9NQzmfBNmNQYvuBocQaS05qMLhNXV6XqZlBqaGnetKkCq5eo
-         eECUcfl4+Qq0ljcOti6+0qk4ExYKNiOYQEfk6seqVgqoYpU0NmzfFgpzPGo0sMBI+972
-         Sk/yNbzXvwOEFbkQ7UxmtuQ5xrvLTYwIvKR7s8xes0T0l9vEPKzNFMqzFWz4x3ZnyzbJ
-         TQ8w==
-X-Forwarded-Encrypted: i=1; AHgh+RrLNN1qq3XSMEb3eYwFn71hHP92+vtBlae0pFjhpFP6nRXl0TIFVViylNR6P/js0eTXfegHVKI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyMStQiU713Sdqwm5Pz08w+ayQDPcbVCGc727BlkSEnKHnIfjEt
-	tMw+JOcXWjb85/LbQod8yrO7VYtuQxr0Hv455Ui4JrIKcJFAZHRusDRmZb0NmtkfY+Hc528dSkt
-	zuwl6jYFPw2gFN5uQN/eNcY8hMQUpwO4=
-X-Gm-Gg: AR+sD12IobNbCkDGC095QaRRSk+queni8Icyk7UGbnPQsJcsNkhXFTdCAI9sWNGfBBy
-	Kho213mwpaRMnAdzfoodjHyWCyCkWyG+z0XOikip9U2OfVGTJoXREflPa2ZVBLqZZTgpeSoY6ya
-	d8ETEbBoDVO/pkl8vd0GrFbl7zrk3OtJuK5KeAkYbBg0XBvqEcbx6lkhFNJzFpfGzYNrYRS/snj
-	UMaCwXzuxDcDYfe1r2bH3Ib54EQGMIeRXZxR4KjFAoXttdYhBlAeh5zqMYRmnbXcHr8ytl9R1Is
-	qQW0kN6pB0GiRDQ39Hx9Ib21iGiJ8X603mpGCuL+uuKm8/s3MTun1pAiMeMUQZyYwlRD9bG8ER6
-	f0aSy5wjS6/btoV/BAtrpsPrCMi0/Demjd9bLSeoHhfs=
-X-Received: by 2002:a05:6402:1e8e:b0:6a0:a4f4:bca4 with SMTP id
- 4fb4d7f45d1cf-6a14f07c8e2mr6612492a12.1.1786123002218; Fri, 07 Aug 2026
- 10:16:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kmO1CSDt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786123050; x=1817659050;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=utPtG9QR5HF6vRWJ22fYPBYfKIDFp7t1P0czkkxfnho=;
+  b=kmO1CSDt7FRafOKJ0ZLKOx8iyCOMWhUsR2cIZv9r7abkChKqI4LJ+ogK
+   5SJ5FXNLPqYb9ApjhpVn8KZjPULkWOznslh64AMUnfw+6n+MrP9yTNdIX
+   1XOD/Dv1dV0kkSuLGq0WIP22Zuj/MR2LCSbcR5195Bf7NRNEyuDNYSWCC
+   tGlaNcVf4qWZg1W224vNAUCZA4SkxA9c7a21f4z/rslu4RCM2CW9HAfUP
+   7S778CXftAZBIXUtYR3zITRxxEiNrJbLLLILhsgjnRtjx8yX5PKLhgV3l
+   SH2AbQFGAWL79mwci/nEbJfkeYlfDN3Cw+97srF6QHbGBFrJ2pQzh4wmY
+   g==;
+X-CSE-ConnectionGUID: L+O5GGh2TSSLB4PO8YgNNQ==
+X-CSE-MsgGUID: A7DdkliHS2WxMxLpMMz2/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11868"; a="97088140"
+X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
+   d="scan'208";a="97088140"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 10:17:29 -0700
+X-CSE-ConnectionGUID: 3KdmniPKTsG1LkD3ZRim3w==
+X-CSE-MsgGUID: cm1SZcrNQcOcEZjKUkUJUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
+   d="scan'208";a="258150245"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 10:17:29 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] drm/xe: Order ring writes before ring tail updates
+Date: Fri,  7 Aug 2026 10:17:16 -0700
+Message-Id: <20260807171716.140475-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260807163418.487508-1-bogdan.nicolae@gmail.com> <19fdd238f38.2873.9b12b7fc0a3841636cfb5e919b41b954@broadcom.com>
-In-Reply-To: <19fdd238f38.2873.9b12b7fc0a3841636cfb5e919b41b954@broadcom.com>
-From: Bogdan Nicolae <bogdan.nicolae@gmail.com>
-Date: Fri, 7 Aug 2026 12:12:48 -0500
-X-Gm-Features: AUfX_myiUNyTJjYFkszlm8txJvLhnyde7l5fcWYkuiyDB5Q-vCiwqt1JvwI0dCg
-Message-ID: <CA+ORkNRRZ_qES77+12=Cx2rs_ntVqmOB0vzUtTOJddabpMvAyg@mail.gmail.com>
-Subject: Re: [PATCH v6] wifi: brcmfmac: cyw: pass PMKID to firmware if present
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
-	brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Sure!
+The ring buffer and the LRC context image are both mapped WC, so the ring
+tail update can become visible to the device before the ring contents it
+is meant to publish.
 
-Best,
-Bogdan
+The GuC CT send does contain an xe_device_wmb(), so sending the H2G would
+flush the ring contents. The problem is that it comes too late:
+xe_lrc_set_ring_tail() publishes the tail before the H2G is sent, and the
+device samples the tail from the context image independently of it, either
+at context switch-in or while the context is already resident. A submitter
+which is interrupted between updating the tail and sending its H2G
+therefore leaves the device free to observe the new tail while the ring
+contents behind it are not yet visible:
 
-On Fri, Aug 7, 2026 at 11:52=E2=80=AFAM Arend van Spriel
-<arend.vanspriel@broadcom.com> wrote:
->
-> Op 7 augustus 2026 18:37:48 schreef Bogdan Nicolae <bogdan.nicolae@gmail.=
-com>:
->
-> > Zero out auth_status on initialization. Otherwise, garbage will
-> > leak from the stack to the firmware (when ssid is less than 32 bytes
-> > and/or when params->pmkid is set). Then, pass the params->pmkid to the
-> > firmware (without it, the firmware caches a garbage PMKID on successful
-> > authentication and denies a subsequent association request that include=
-s
-> > the PMKID).
-> >
-> > Fixes: 66f909308a7c ("wifi: brcmfmac: cyw: support external SAE
-> > authentication in station mode")
-> > Signed-off-by: Bogdan Nicolae <bogdan.nicolae@gmail.com>
-> > Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
->
-> Hi Bogdan,
->
-> Looks good so my Acked-by: still stands. Thanks for going with the flow.
->
-> Regards,
-> Arend
->
-> > ---
-> > v6: Fixed diff line number
-> > v5: Fixed line length > 80 chars
-> > v4: Fixed indentation
-> > v3: Added Fixes, Cc: stable, and Acked-by tags
-> > v2: Split into a separate patch
-> >
-> > drivers/net/wireless/broadcom/brcm80211/brcmfmac/cyw/core.c | 4 +++-
-> > 1 file changed, 3 insertions(+), 1 deletion(-)
->
->
->
+  1. Thread A emits a job into the ring, sets the tail to T_A and sends
+     the H2G, which flushes A's ring contents. The GuC starts scheduling
+     the context in, but it is not executing yet.
+  2. Thread B emits a job into ring[T_A..T_B]. Those writes are not yet
+     visible to the device.
+  3. Thread B updates the ring tail to T_B. That write targets a
+     different page and becomes visible first.
+  4. Thread B is interrupted before it sends its H2G, so the flush which
+     would have published ring[T_A..T_B] has not happened yet.
+  5. The context is switched in and samples the ring tail from the
+     context image, picking up T_B rather than T_A.
+  6. The GPU executes A's job, advances HEAD to T_A, and continues on to
+     ring[T_A..T_B], which still holds the previous wrap's contents, so
+     the CS parses stale commands.
+
+The result is command stream corruption, which typically manifests as a
+hang or a spurious pagefault rather than anything that points back at the
+submission path.
+
+Kernel jobs are by far the most likely to hit this. Kernel queues such as
+the migration queue are shared and can be driven by many threads
+concurrently, producing back-to-back submissions on an LRC which is
+already executing. User queues are typically tied to a single submitting
+thread, so the same interleaving is much harder to produce.
+
+Add an xe_device_wmb() at the end of xe_lrc_write_ring() so that it covers
+every ring tail publication site, and so the invariant is local: once
+xe_lrc_write_ring() returns, the ring contents are visible to the device.
+
+Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8651
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7810
+Cc: stable@vger.kernel.org
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Assisted-by: GitHub_Copilot:claude-opus-5
+---
+ drivers/gpu/drm/xe/xe_lrc.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/gpu/drm/xe/xe_lrc.c b/drivers/gpu/drm/xe/xe_lrc.c
+index 01d087e82205..a332c11420fd 100644
+--- a/drivers/gpu/drm/xe/xe_lrc.c
++++ b/drivers/gpu/drm/xe/xe_lrc.c
+@@ -1851,6 +1851,13 @@ void xe_lrc_write_ring(struct xe_lrc *lrc, const void *data, size_t size)
+ 
+ 		__xe_lrc_write_ring(lrc, ring, &noop, sizeof(noop));
+ 	}
++
++	/*
++	 * The ring and the LRC context image are both WC, so the ring tail
++	 * update which publishes these writes can become visible to the device
++	 * first. Ensure the ring contents are visible before returning.
++	 */
++	xe_device_wmb(xe);
+ }
+ 
+ u64 xe_lrc_descriptor(struct xe_lrc *lrc)
+-- 
+2.34.1
+
