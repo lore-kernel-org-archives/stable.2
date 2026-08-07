@@ -1,91 +1,105 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB0533C1AD
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:01:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F17315D5D
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786111298; cv=none; b=hax4OSSqJ9HZrk+n06LRRiNU8HlqbRTNn1ugT7wswEqa3mZ3Y5cSc/azPherwAPiXaHC/N9I+Rb1jJVNUGeyok+7rQGmqLibHwXARnBspIT9upBxEd1fsK/a8a/51UP5l7QYMyhXoFrDEtCtMnfQW46AGUl1YgKSFX4+IN8qiC8=
+	t=1786111546; cv=none; b=O9lsWAVgriWPK7amH+Y0i/T5X8jzrGMooyBx6K+MixxQzV8R5AJ9zf9wALXbWR1GvOWOLRoD3W+JHLk7w8ZTWhutL+2iLtXh/D6r2lq/q8DOnZBHoK9aw2AJNiqJFeeXJJS2jhQ0naKkS34aF5SF7S0pmpyD3fdXiyXOEHRF/Ik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786111298; c=relaxed/simple;
-	bh=8RffSfqXyqSVxqzscXTkTjqd76AQPP3M+wo2+zNYwfo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=AH1CNCVkH2+aAbKpzFA0jHjJmQKMpN5KMv5ZeNWJDps/ZHqZKYSU4flNaXwZMRAA0+bGQsiPDTOao1zMPv0qfJFhjnTzl+PZM1ZxnaFgwJdGnQTIhgMfrwxHwUSuctoflDQkLsyvRzZviO6DD6UGqwK1ip6qut/CcCE1fCtLrfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=byG7ApHX; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1786111546; c=relaxed/simple;
+	bh=jOE25a+w9wYKvrhCgqchsJBaX3amaUvnxDiUcBBLTQI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=E8OJ/CPKAen9x+QaDQtMfga5Mg58QQctY4uGMVKL+VYblAzJHfUS4Mne9lLx8NfjzXeZ2WPlS66cUH/5c4auDZ4CfDp+lN3kF1rXg6t1tRonzbrGN8H9nmFqCrQI8zqMhbXbvW/c00W3/527J6Oyo1YtiVg5sds02MDZ10DHAH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WlbVTkD+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="byG7ApHX"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id A16941A14AF;
-	Fri,  7 Aug 2026 14:01:24 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7596D603F0;
-	Fri,  7 Aug 2026 14:01:24 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E49A911C3795D;
-	Fri,  7 Aug 2026 16:01:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1786111279; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=8RffSfqXyqSVxqzscXTkTjqd76AQPP3M+wo2+zNYwfo=;
-	b=byG7ApHXk4jnf4WYK3tg1LylDfclX/KCeVEJJ9QumgdmrxMonwP7doNFwZiVJM0V+jZk9q
-	S4/q+a/sbGQypLZyn7uP/9zHeXzpoTmY31yPXS7Ghb3AHWPKw9i62pylxhx5QT/AHPj/0x
-	vmKZPh7oD2EruiBylijKdnylSIeibQ835DM/6A7jcdKx4XaUcNyWt5FiDeW6Qu3qX3TRtk
-	f2fcflSmcEA3FJrTtOW+tmKrqtFISbFoSteXYEyh1fqp9aC+XXB61e+9B9LokE7ERO3OCt
-	INnQApxc9+TDvnfJtQegWvOg5bwI1apQn9sb1TLyr8r2NcKxh/mhYzlDTZYYIw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Bastien Curutchet <bastien.curutchet@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  Michal Simek <michal.simek@amd.com>,  Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>,  linux-mtd@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH 0/4] rawnand: pl35x: Implement mixed ECC
-In-Reply-To: <20260723-mix-ecc-v1-0-7361c3baeb07@bootlin.com> (Bastien
-	Curutchet's message of "Thu, 23 Jul 2026 15:41:00 +0200")
-References: <20260723-mix-ecc-v1-0-7361c3baeb07@bootlin.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 07 Aug 2026 16:01:17 +0200
-Message-ID: <87cxvuav2q.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WlbVTkD+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 053601F00A3D
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:05:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786111545;
+	bh=lBAaiV71VWDTlmRQ0ipKm1krl3BhYMW9W1U2aVPf4zc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WlbVTkD+vMu9ayRu57eBmwyu2JLtYw8F0nqyghfMFxc/JVL9rM03RiuRRFCtpqYZ7
+	 MJXWHJFNZ3agQa1huX2EDFG96xLTp98j9eRXYC3/sZ+tiKpFezu8H0JdsxUtUu3JzZ
+	 vRrkpzmQNnZLerGpvq8m6sbGJ3EUdBClnyAuDZqZpky42r/m67nuMbO4TW/g5Fi7zI
+	 8Ng8tzQpzbX98km5ZK+afFI6PmeDwd6Ih8Whd7BwJ2WfU3tdKRSXnxQKpwwgz4ad+s
+	 IUuPfNtILUOt2IHrFSB5sxqX0vOJujho+vt6hih+7/FKMmAthmihV8r/MGIw2vFSho
+	 0+l9tDXKEXW/Q==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39c74722e27so26987381fa.0
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 07:05:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RokqeTnFOsx1ekTaTM0q7D4p/9Xufsj5FQRnmUJeaUqioeLxFgbof9pP3QRxsCZ4xJNUu25RVg=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwkTrF6LXfpprJLOGW0hpBHm5hmYGlJ7ShS7Gr0OVK+Vkx1xadK
+	M0Z4qXzCafJ2o9sZj3xqDUUh5/Q+pTfn/Ykq4tuet/+xH1IJ+6ALanF4iOV+VyIvpZQGFP6tWcY
+	NUnpdqAAZ/96m4RRLaYAiKibQ0A2M/nQ=
+X-Received: by 2002:a2e:be1d:0:b0:39a:c1dd:5399 with SMTP id
+ 38308e7fff4ca-39fe672a836mr276691fa.7.1786111543476; Fri, 07 Aug 2026
+ 07:05:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260806010944.32384-1-kensanya@163.com>
+In-Reply-To: <20260806010944.32384-1-kensanya@163.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 7 Aug 2026 16:05:31 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0hi7q6cO09qrqtJXExs5pv2r24BbZF4geC2mACddxLL8g@mail.gmail.com>
+X-Gm-Features: AUfX_mz9uCWGwnJCrQFO102VGbvQ4VSAjyNt12qFXZDBT56UWQZrpRj4TawiZ84
+Message-ID: <CAJZ5v0hi7q6cO09qrqtJXExs5pv2r24BbZF4geC2mACddxLL8g@mail.gmail.com>
+Subject: Re: [PATCH v2] ACPI: APEI: GHES: fix ARM section length accounting
+ after header
+To: kensanya@163.com
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+	Borislav Petkov <bp@alien8.de>, Hanjun Guo <guohanjun@huawei.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Shuai Xue <xueshuai@linux.alibaba.com>, 
+	Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	TanZheng <tanzheng@kylinos.cn>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hello Bastien,
-
-On 23/07/2026 at 15:41:00 +02, Bastien Curutchet <bastien.curutchet@bootlin=
-.com> wrote:
-
-> Hi all,
+On Thu, Aug 6, 2026 at 3:10=E2=80=AFAM <kensanya@163.com> wrote:
 >
-> This series addresses the PL353 errata "SLC ECC misses single error to
-> bit0 byte0 and fails to detect some double error cases" (see 721059 in
-> [1]).
+> From: TanZheng <tanzheng@kylinos.cn>
 >
-> The ECC HW engine is known to be broken on this chip, it fails to detect
-> some bitflips on reads.
+> In ghes_handle_arm_hw_error(), after skipping the cper_sec_proc_arm
+> header with (err + 1), the remaining length was reduced by sizeof(err)
+> (pointer size) instead of sizeof(*err) (structure size).
 >
-> This series implements a mixed-ECC where the HW engine is used on writes
-> and reads are done by software. To make it work, the software ECC has to
-> use the same layout for the ECC bits than the HW engine. Patches 1 & 2
-> add the PL35x ordering to the available orderings for soft ECC. Patches
-> 3 & 4 make use of this ordering to implement the mixed-ECC for the PL353
-> controller.
+> That overestimates the bytes left for cper_arm_err_info records and can
+> let the parser read past the CPER section when err_info_num is large
+> enough relative to error_data_length.
 >
-> Note that this series is based on top of nand/next.
+> Use sizeof(*err) so the length accounting matches the pointer advance
+> and the earlier sizeof(*err) size check.
 >
-> [1]: https://developer.arm.com/documentation/rlnc000227/a
->
-> Signed-off-by: Bastien Curutchet <bastien.curutchet@bootlin.com>
+> Fixes: 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past alloc=
+ated memory")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: TanZheng <tanzheng@kylinos.cn>
+> Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
 > ---
+> v2:
+> - add Cc: stable@vger.kernel.org
+>
+>  drivers/acpi/apei/ghes.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+> index 3236a3ce79d6..e6362da72d15 100644
+> --- a/drivers/acpi/apei/ghes.c
+> +++ b/drivers/acpi/apei/ghes.c
+> @@ -576,7 +576,7 @@ static bool ghes_handle_arm_hw_error(struct acpi_hest=
+_generic_data *gdata,
+>                 return false;
+>
+>         p =3D (char *)(err + 1);
+> -       length -=3D sizeof(err);
+> +       length -=3D sizeof(*err);
+>
+>         for (i =3D 0; i < err->err_info_num; i++) {
+>                 struct cper_arm_err_info *err_info;
+> --
 
-There are several interesting Sashiko findings for this series, can you
-please have a look?
-
-Thanks!
-Miqu=C3=A8l
+Applied as 7.3 material, thanks!
