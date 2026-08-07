@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9920935F5ED;
-	Fri,  7 Aug 2026 14:50:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05DB37E2E9;
+	Fri,  7 Aug 2026 14:50:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786114255; cv=none; b=nhvQOBbmrFx352B9651RWeFcMk1xc70ACt/1nqJzVpRjWf9i3HAn2XSenp8ScjLT9nuJz9DnYXF36Ik843E6svSY56ltzTB2eSpow3QGZ7KpAcQN4L2ZKyPBo9Mm+BFOtqjjuLEd7wEwwHror1NF+yTMmLT6PkcBJ9lgmuN8gx4=
+	t=1786114262; cv=none; b=tTEdL9pDCZkE/phNHlZ8lWPekJRsUb5iLk7FALsOYKhS6/OFlqR+lK/AwWiISnoAAAO97VwSpbGTtHSz6GWX1JtxStlBvJytehk8BMD2K/42198/mOcMpcNt5D8Yp34ZVTDte05Zy7ywUOn7cVIGa39VT2yg5qXj9lijH3LmjaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786114255; c=relaxed/simple;
-	bh=VNGT16qwCBGEDZq0womCi9F8+/6iiNpAVmoz5de+R0U=;
+	s=arc-20240116; t=1786114262; c=relaxed/simple;
+	bh=DSBX5vpEx2I4Y2mV2l40oNT1jVIw+TLtM1b8MzPQDIc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Lfley44zUSp+ffoNOvDD94AYa+V1duuNajfmyOb8ejsOeuh3B5nSuRt9VZCmssRVzigQRXueAYXES8jUFxQxf1KcHunC+GnOvzSH42V3klfmEiQiC0M7lMjIBuNLiiO1rzqPEeJpLGR9EXsMRrQA+QECSbyFPAmstJxjw2b+pAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GkF7RQIm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=e3/oh/9JBFCMiRiHqXmv9zfno8jdy0BUoDCIV4u+PXePdI4SHRJd1pdZ3ZHT3bkb2KdP+auAtrWhh//9r7h1tJlcHtuXt9reU6bo6vVbUV4o/k2L681vN4p1t9vHR3dn1Jo6THk30niTNKiGmm2pxt7pjYeTK+PxrZ/E0Z4HPmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MbusODVv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GkF7RQIm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A69161F00A3D;
-	Fri,  7 Aug 2026 14:50:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MbusODVv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 723371F00A3A;
+	Fri,  7 Aug 2026 14:50:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786114252;
-	bh=yF6eRYCRxZ6OTJdZqclXgF4xdPivYC4zcUcKDnLPf3U=;
+	s=korg; t=1786114255;
+	bh=PNkytX3tYO3CKZScBuNK/6AocV+0781E2KaVu/F4R8M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GkF7RQIm0XeWfYIJjQZNViIrgWbeFfMA9rkEHAMwHVJ2c2u2maRiiv6Q0NLJmBOZ8
-	 zN6ZQqAskAUK/Itcg5zCa7KSfayb0vGzrSRB138hDa69/qis39zFjrrLZ0rQECWD3e
-	 ZmuB1zL2ZDZbSTn7bbf1nY2zQpAvg7zcU/OzjzG4=
+	b=MbusODVvF5OUv1x7VC5sh533RMifCFwp/E6HB0vfLIQZ5vje9pVxtDNQ3wpkNuV+A
+	 NOWKEo5TuC5Ktbl5pBYspGX2h+Ea5CE3oeWZ2ni8HdlLIIjDpX+qcYIvcst5i6d1tR
+	 s3eVj/CXAh55DzCeeNq/wOITJzk4rwc3pbcocd7Y=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Xin Long <lucien.xin@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.12 198/337] sctp: reject stale cookies with mismatched verification tags
-Date: Fri,  7 Aug 2026 16:36:41 +0200
-Message-ID: <20260807143422.845752363@linuxfoundation.org>
+	Matt Vollrath <tactii@gmail.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>
+Subject: [PATCH 6.12 172/337] igbvf: Fix leak in TX DMA error cleanup
+Date: Fri,  7 Aug 2026 16:36:15 +0200
+Message-ID: <20260807143422.287937244@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
 References: <20260807143418.516897842@linuxfoundation.org>
@@ -51,65 +50,42 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+From: Matt Vollrath <tactii@gmail.com>
 
-commit 9d8da8e0a9bce4a340af60dd0446bc7eb8d07587 upstream.
+commit 0565052b7e2f436b7f1541f4849da96dc0aa7a0e upstream.
 
-sctp_unpack_cookie() skips cookie expiration checks whenever an
-association already exists.  This is broader than the exception in
-RFC 9260 Section 5.2.4.
+If an error is encountered while mapping TX buffers, the driver should
+unmap any buffers already mapped for that skb.
 
-For an existing association, Section 5.2.4 permits an expired State
-Cookie only when both Verification Tags in the cookie match the current
-association.  Otherwise, the packet SHOULD be discarded and a Stale
-Cookie ERROR MUST be sent.
+Because count is incremented before each frag mapping, it will always
+match the correct number of unmappings needed when dma_error is reached.
+Decrementing count before the while loop in dma_error causes an
+off-by-one error. If any mapping was successful before an unsuccessful
+mapping, exactly one DMA mapping (the head) would leak.
 
-The broad check lets an expired Action A restart cookie reach
-sctp_sf_do_dupcook_a().  In a runtime test with the default 60 second
-cookie lifetime, replaying such a cookie after 65 seconds returned a
-COOKIE-ACK and restarted the association.
+This bug was introduced by a 2010 fix for an endless loop in dma_error.
+All other affected drivers have already been fixed.
 
-Check cookie expiration unless both Verification Tags match.  This
-preserves the Action D exception for a lost COOKIE ACK while rejecting
-expired cookies in all other cases.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: c1fa347f20f1 ("e1000/e1000e/igb/igbvf/ixgb/ixgbe: Fix tests of unsigned in *_tx_map()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Acked-by: Xin Long <lucien.xin@gmail.com>
-Link: https://patch.msgid.link/20260723225623.2658868-1-yangyx22@mails.tsinghua.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Assisted-by: Claude:claude-4-7-opus
+Signed-off-by: Matt Vollrath <tactii@gmail.com>
+Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- net/sctp/sm_make_chunk.c |   11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/intel/igbvf/netdev.c |    2 --
+ 1 file changed, 2 deletions(-)
 
---- a/net/sctp/sm_make_chunk.c
-+++ b/net/sctp/sm_make_chunk.c
-@@ -1821,9 +1821,9 @@ no_hmac:
- 		goto fail;
- 	}
+--- a/drivers/net/ethernet/intel/igbvf/netdev.c
++++ b/drivers/net/ethernet/intel/igbvf/netdev.c
+@@ -2201,8 +2201,6 @@ dma_error:
+ 	buffer_info->time_stamp = 0;
+ 	buffer_info->length = 0;
+ 	buffer_info->mapped_as_page = false;
+-	if (count)
+-		count--;
  
--	/* Check to see if the cookie is stale.  If there is already
--	 * an association, there is no need to check cookie's expiration
--	 * for init collision case of lost COOKIE ACK.
-+	/* Check to see if the cookie is stale.  RFC 9260 Section 5.2.4
-+	 * exempts an expired cookie only when both Verification Tags match
-+	 * the current association.
- 	 * If skb has been timestamped, then use the stamp, otherwise
- 	 * use current time.  This introduces a small possibility that
- 	 * a cookie may be considered expired, but this would only slow
-@@ -1834,7 +1834,10 @@ no_hmac:
- 	else
- 		kt = ktime_get_real();
- 
--	if (!asoc && ktime_before(bear_cookie->expiration, kt)) {
-+	if ((!asoc ||
-+	     asoc->c.my_vtag != bear_cookie->my_vtag ||
-+	     asoc->c.peer_vtag != bear_cookie->peer_vtag) &&
-+	    ktime_before(bear_cookie->expiration, kt)) {
- 		suseconds_t usecs = ktime_to_us(ktime_sub(kt, bear_cookie->expiration));
- 		__be32 n = htonl(usecs);
- 
+ 	/* clear timestamp and dma mappings for remaining portion of packet */
+ 	while (count--) {
 
 
