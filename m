@@ -1,67 +1,44 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0AD29D27A;
-	Fri,  7 Aug 2026 14:54:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B5A33DEF9;
+	Fri,  7 Aug 2026 14:54:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786114472; cv=none; b=IEtaXEq67sqfcgs6D/98Ox333dA38O/+OSd2duI8LZRNZE6sbMFOeOxVbgU8ztl8yRH7mkTkISH+zZBoCxNBYlxGtNwONTh1DIG2tbL6RXR06j2/ymS5zgHLlL9GL+2ikt3Kv7rE03MCZIxhwCkxwtvCTXhLBRtJITwnmjY7MEE=
+	t=1786114474; cv=none; b=s9hAuk4nk0a1+8pmbrHIxAjXlkSeNqkS+dNJCpXsG9ZmuQBMwSNbUSDI0TtoOIWRKAhgMv09PvaLkGrka2Eme2pLJJwEo4In52uhJC8rXdMVmmoNWfxZMe+aLDTq7SNp/MCIHhHFYru5VEpwiwOfl3hwgBDJesRYVJaV/c8DP/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786114472; c=relaxed/simple;
-	bh=NViB+Xf/KxxpiRQ016xOzrNeoGRbkfgfnqFl7bB+2Kg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jOgnQzGfy4njWarYcCuX/w2/xxyAGX7FQ3gEuBfUDDy72qNs/jLT9FlYdPmCuCzbCHtvS7hsJqABxSANZ2s7MhmCZgdPGOkp/H5jO+nLDg32DRk2r9+O1hRUpxb3FmqkVyuZBg9/gPYT0Vs73ggbAdtGDB4kMjROsljKIL1usyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iSo08dDE; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1786114474; c=relaxed/simple;
+	bh=3+M2US+hrY6BIYZIPYc4uvm6vLAQYVYxGObihIiL2+4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cAniWsfhfFA0jLtF4M93qFYYiv8zqU2v9wqXNznBFk4k4t8BQSCBW9AZUFFj1IO4py6XHVZMDOqMRMIA5zthGdrHn4NmN3S7gPMaK3JXRxBlo+EMUeK0Uqw19bpFmKg9AeDkQ/1mq1rUv7uRK2VNZ1hKLobh9P+MuuP8WTZLAn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YqH2Tp9S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iSo08dDE"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 677Clh5m3829277;
-	Fri, 7 Aug 2026 14:54:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=X2l8Ti6vIQv+KTQZF19VgCYrX2zol3jyxFA3gEqW0
-	K8=; b=iSo08dDEH76stfaHTB9mXi6uPwXt25QmOrzd+JLzLuspck+2kn8e11Nzc
-	V1kl6zyR0jafwU+xtN8c+F9GyiPxVRIjRFkNKqbjtyJGdmrfJ3T40VbX9137fiTT
-	ahbY+L8aSla9V67UUFVXhzfAHNExR9FRGy4JhVSMrmEvIZ1SHCRGzhFSqdsBNaCJ
-	5l5evs6b0pfW2se9JRBGObkU2XOJqTeukDFO90BFA6mr0qiL81S0AiNw3D5QrEI7
-	p5BDz5WTfgZ44wSpNotcYvRpjWhbnicLL6pYbh3XrhJseUh/0Sf9c1wj39tzJl+4
-	P+ErAOC/DpQj/74hfPjyR40sdar3w==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fvy01md2y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 07 Aug 2026 14:54:20 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 677EfHVP010701;
-	Fri, 7 Aug 2026 14:54:19 GMT
-Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fsvmhr140-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 07 Aug 2026 14:54:19 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
-	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 677EsIFu25559560
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 7 Aug 2026 14:54:18 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 42FAB5805D;
-	Fri,  7 Aug 2026 14:54:18 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C0DDB58043;
-	Fri,  7 Aug 2026 14:54:16 +0000 (GMT)
-Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.52.19])
-	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  7 Aug 2026 14:54:16 +0000 (GMT)
-From: Anthony Krowiak <akrowiak@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
-        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
-        hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
-        stable@vger.kernel.org
-Subject: [PATCH] s390/vfio-ap: Fix dereference matrix_mdev->kvm without checking for NULL
-Date: Fri,  7 Aug 2026 10:54:15 -0400
-Message-ID: <20260807145416.322916-1-akrowiak@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YqH2Tp9S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 128581F00A3A;
+	Fri,  7 Aug 2026 14:54:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786114467;
+	bh=uAN41R8gcLtAeHWbAaCk3szfsJRbittz2a2p/tXv+00=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YqH2Tp9S5lyezIRRPzWNfd9F9JmT9UUdQ0R3Hg5wuZiQC3ab3hVCYc8nnAxUJmkql
+	 +OIhEI3Yuc1pKA3YkwmuCGB0AFNajAnqLUtzu8+d07anuCvDX8rWojnde/sfFohKpD
+	 R1CVDi62xI1N5vvqVGX+YiBsH3bEruAxuRJg4qv8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Matt Roper <matthew.d.roper@intel.com>,
+	Lucas De Marchi <lucas.demarchi@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 275/337] drm/xe: Apply whitelist to engine save-restore
+Date: Fri,  7 Aug 2026 16:37:58 +0200
+Message-ID: <20260807143424.498564739@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
+References: <20260807143418.516897842@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,185 +46,225 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 61_rwG6uLRCjBKFgQtNg7OY6Ay0wCaIs
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDExNiBTYWx0ZWRfX9CRPg0AVbF/e
- 7/ZAOPQCvAo8FruT3lQPQYZaEViRdkaiwKrQn6ps1u3f+L+bVm2acHuo+0NEJwypCfnMpL/cJqe
- zNcdcvphob+ikz0PedP8olw6z3Pp+nQ=
-X-Proofpoint-ORIG-GUID: 61_rwG6uLRCjBKFgQtNg7OY6Ay0wCaIs
-X-Authority-Analysis: v=2.4 cv=afNRWxot c=1 sm=1 tr=0 ts=6a75f19c cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=7-PX2TBNVYp1iSTFOFgA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDExNiBTYWx0ZWRfXwjquQ+spsadP
- n+t0+328xOj/Qo7JA2jBdWNxE0Q/gSxI/I99Z/N2/HTfLfRjhoDg/LkOkpkWg8q0D7EAeNOPtg3
- 5iXhp1n+nBpYtZjTzeJ9lBwgneRz/e+mf9YcODXr6bAW+Q6gDvf2uGtk5GPTAmkIdKKAJxklUaW
- bpQ3yWdp90m6Sg4x8rt4MArIN+TSjQn98wmq6aVJ3rVZxSs9OAHBOSEewxDYiE/9P5J2IVRBzmA
- kApupp9vbNo92nRhuqD7Slol9uJNZ07CoTwHkbZJaltaotwibg3Ku4sfZxA9KPyyZ9dJYVCHX1e
- DfiJZRFlUNCCI8IrDBphEK0OuhUqxdzW5or2BxxgiFmR5akk4vFhdbjg/C9+/JcU0pC7qixx2QD
- IpGJw6dSvhVBiyN1DBaNrANxPj+1N/UgNfOQ0kp/gKLNDS8Aq2vJgXAGBdXIuINv1GZ3I24vEWT
- DpugPzOwdmsFsU28t2g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-07_02,2026-08-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 adultscore=0
- suspectscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608070116
 
-The ap_driver structure has two fields which are function pointers to
-callbacks:
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-* .on_config_changed: called at the start of the AP bus scan function to
-                      notify the device driver that the host AP
-                      configuration has changed and the associated AP
-                      devices will be added or removed accordingly. This
-                      gives the implementor a chance to evaluate the
-                      configuration changes and respond to them before
-                      the associated devices are added or removed.
+------------------
 
-* .on_scan_complete:  Called at the end of the AP bus scan function to
-                      notify the device driver that the host AP
-                      configuration has changed and the AP devices have
-                      been added or removed accordingly. This gives the
-                      implementor the opportunity to respond to the
-                      changes after the associated devices are added or
-                      removed.
+From: Lucas De Marchi <lucas.demarchi@intel.com>
 
-These two callbacks are implemented in the vfio_ap device driver via the
-vfio_ap_on_cfg_changed and vfio_ap_on_scan_complete functions respectively.
+[ Upstream commit 3fcf68d7393fd622b96cd45124ccb1eddf77684c ]
 
-Within the call stack of these two callback functions the
-matrix_mdev->kvm->lock mutex is taken without checking whether
-matrix_mdev->kvm is NULL or not. If matrix_mdev->kvm has never been set,
-trying to take the lock will trigger a NULL pointer dereference. This patch
-adds checks for matrix_mdev->kvm == NULL before taking the
-matrix_mdev->kvm->lock mutex.
+Changes in xe_guc_ads.c in the above commit are not needed for linux-6.12.y.
 
-It is important to make note of the following:
-1. The matrix_dev->guests_lock is acquired at the start of both callback
-   functions. This ensures that matrix_mdev will not be removed via the
-   vfio_ap_mdev_remove function because it too takes matrix_dev_guests_lock
-   before removing the object; so, matrix_mdev will be available for the
-   duration of the callback functions.
+Instead of handling the whitelist directly in the GuC ADS
+initialization, make it follow the same logic as other engine registers
+that are save-restored. Main benefit is that then the SW tracking then
+shows it in debugfs and there's no risk of an engine workaround to write
+to the same nopriv register that is being passed directly to GuC.
 
-2. The matrix_dev->mdevs_lock mutex must be taken in order to access
-   fields within the matrix_mdev structure
+This means that xe_reg_whitelist_process_engine() only has to process
+the RTP and convert them to entries for the hwe.  With that all the
+registers should be covered by xe_reg_sr_apply_mmio() to write to the HW
+and there's no special handling in GuC ADS to also add these registers
+to the list of registers that is passed to GuC.
 
-3. matrix_mdev->kvm->lock mutex must be taken before the
-   matrix_dev->mdevs_lock to prevent a lockdep splat.
+Example for DG2:
 
-4: The kvm->lock must be held while plugging the guest's AP configuration
-   into its SIE state description via the vfio_ap_mdev_update_guest_apcb
-   function.
+	# cat  /sys/kernel/debug/dri/0000\:03\:00.0/gt0/register-save-restore
+	...
+	Engine
+	rcs0
+		...
+		REG[0x24d0] clr=0xffffffff set=0x1000dafc masked=no mcr=no
+		REG[0x24d4] clr=0xffffffff set=0x1000db01 masked=no mcr=no
+		REG[0x24d8] clr=0xffffffff set=0x0000db1c masked=no mcr=no
+	...
+	Whitelist
+	rcs0
+		REG[0xdafc-0xdaff]: allow read access
+		REG[0xdb00-0xdb1f]: allow read access
+		REG[0xdb1c-0xdb1f]: allow rw access
 
-5. The vfio_ap_mdev_update_guest_apcb checks matrix_mdev->kvm to verify it
-   is not NULL before doing the hot plug of the guest's AP configuration.
+v2:
+  - Use ~0u for clr bits so it's just a write (Matt Roper)
+  - Simplify helpers now that unused slots are not written
 
-Fixes: eeb386aeb5b7c ("s390/vfio-ap: handle config changed and scan complete notification")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20241209232739.147417-6-lucas.demarchi@intel.com
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/s390/crypto/vfio_ap_ops.c | 33 ++++++++++++++++++++++---------
- 1 file changed, 24 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/xe/xe_gt.c            |  4 +-
+ drivers/gpu/drm/xe/xe_hw_engine.c     |  1 -
+ drivers/gpu/drm/xe/xe_reg_sr.c        | 53 ---------------------------
+ drivers/gpu/drm/xe/xe_reg_whitelist.c | 37 +++++++++++++++++++
+ 4 files changed, 38 insertions(+), 57 deletions(-)
 
-diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
-index 44b3a1dcc1b3..a0b7c37fee28 100644
---- a/drivers/s390/crypto/vfio_ap_ops.c
-+++ b/drivers/s390/crypto/vfio_ap_ops.c
-@@ -2606,7 +2606,15 @@ static void vfio_ap_mdev_cfg_remove(unsigned long *ap_remove,
- 	int do_remove = 0;
+diff --git a/drivers/gpu/drm/xe/xe_gt.c b/drivers/gpu/drm/xe/xe_gt.c
+index 292947e44a8a8..e2ac1589dfbf6 100644
+--- a/drivers/gpu/drm/xe/xe_gt.c
++++ b/drivers/gpu/drm/xe/xe_gt.c
+@@ -722,10 +722,8 @@ static int do_gt_restart(struct xe_gt *gt)
  
- 	list_for_each_entry(matrix_mdev, &matrix_dev->mdev_list, node) {
--		mutex_lock(&matrix_mdev->kvm->lock);
-+		/*
-+		 * If the mdev is attached to a KVM guest, we will need to
-+		 * hold the KVM lock in order to update the guest's AP
-+		 * configuration if any adapters, domains or control domains
-+		 * have been removed.
-+		 */
-+		if (matrix_mdev->kvm)
-+			mutex_lock(&matrix_mdev->kvm->lock);
-+
- 		mutex_lock(&matrix_dev->mdevs_lock);
+ 	xe_mocs_init(gt);
  
- 		do_remove |= bitmap_and(aprem, ap_remove,
-@@ -2624,7 +2632,8 @@ static void vfio_ap_mdev_cfg_remove(unsigned long *ap_remove,
- 						    cdrem);
+-	for_each_hw_engine(hwe, gt, id) {
++	for_each_hw_engine(hwe, gt, id)
+ 		xe_reg_sr_apply_mmio(&hwe->reg_sr, gt);
+-		xe_reg_sr_apply_whitelist(hwe);
+-	}
  
- 		mutex_unlock(&matrix_dev->mdevs_lock);
--		mutex_unlock(&matrix_mdev->kvm->lock);
-+		if (matrix_mdev->kvm)
-+			mutex_unlock(&matrix_mdev->kvm->lock);
- 	}
+ 	/* Get CCS mode in sync between sw/hw */
+ 	xe_gt_apply_ccs_mode(gt);
+diff --git a/drivers/gpu/drm/xe/xe_hw_engine.c b/drivers/gpu/drm/xe/xe_hw_engine.c
+index 45d0ae074e652..ca4c2dee276bc 100644
+--- a/drivers/gpu/drm/xe/xe_hw_engine.c
++++ b/drivers/gpu/drm/xe/xe_hw_engine.c
+@@ -546,7 +546,6 @@ static int hw_engine_init(struct xe_gt *gt, struct xe_hw_engine *hwe,
+ 	xe_gt_assert(gt, gt->info.engine_mask & BIT(id));
+ 
+ 	xe_reg_sr_apply_mmio(&hwe->reg_sr, gt);
+-	xe_reg_sr_apply_whitelist(hwe);
+ 
+ 	hwe->hwsp = xe_managed_bo_create_pin_map(xe, tile, SZ_4K,
+ 						 XE_BO_FLAG_VRAM_IF_DGFX(tile) |
+diff --git a/drivers/gpu/drm/xe/xe_reg_sr.c b/drivers/gpu/drm/xe/xe_reg_sr.c
+index ae9e6df2f4e12..01ee54d53531b 100644
+--- a/drivers/gpu/drm/xe/xe_reg_sr.c
++++ b/drivers/gpu/drm/xe/xe_reg_sr.c
+@@ -24,7 +24,6 @@
+ #include "xe_hw_engine_types.h"
+ #include "xe_macros.h"
+ #include "xe_mmio.h"
+-#include "xe_reg_whitelist.h"
+ #include "xe_rtp_types.h"
+ 
+ static void reg_sr_fini(struct drm_device *drm, void *arg)
+@@ -194,58 +193,6 @@ void xe_reg_sr_apply_mmio(struct xe_reg_sr *sr, struct xe_gt *gt)
+ 	xe_gt_err(gt, "Failed to apply, err=%d\n", err);
  }
  
-@@ -2748,6 +2757,7 @@ static void vfio_ap_mdev_cfg_add(unsigned long *apm_add, unsigned long *aqm_add,
+-void xe_reg_sr_apply_whitelist(struct xe_hw_engine *hwe)
+-{
+-	struct xe_reg_sr *sr = &hwe->reg_whitelist;
+-	struct xe_gt *gt = hwe->gt;
+-	struct xe_device *xe = gt_to_xe(gt);
+-	struct xe_reg_sr_entry *entry;
+-	struct drm_printer p;
+-	u32 mmio_base = hwe->mmio_base;
+-	unsigned long reg;
+-	unsigned int slot = 0;
+-	int err;
+-
+-	if (xa_empty(&sr->xa))
+-		return;
+-
+-	drm_dbg(&xe->drm, "Whitelisting %s registers\n", sr->name);
+-
+-	err = xe_force_wake_get(gt_to_fw(gt), XE_FORCEWAKE_ALL);
+-	if (err)
+-		goto err_force_wake;
+-
+-	p = drm_dbg_printer(&xe->drm, DRM_UT_DRIVER, NULL);
+-	xa_for_each(&sr->xa, reg, entry) {
+-		if (slot == RING_MAX_NONPRIV_SLOTS) {
+-			xe_gt_err(gt,
+-				  "hwe %s: maximum register whitelist slots (%d) reached, refusing to add more\n",
+-				  hwe->name, RING_MAX_NONPRIV_SLOTS);
+-			break;
+-		}
+-
+-		xe_reg_whitelist_print_entry(&p, 0, reg, entry);
+-		xe_mmio_write32(gt, RING_FORCE_TO_NONPRIV(mmio_base, slot),
+-				reg | entry->set_bits);
+-		slot++;
+-	}
+-
+-	/* And clear the rest just in case of garbage */
+-	for (; slot < RING_MAX_NONPRIV_SLOTS; slot++) {
+-		u32 addr = RING_NOPID(mmio_base).addr;
+-
+-		xe_mmio_write32(gt, RING_FORCE_TO_NONPRIV(mmio_base, slot), addr);
+-	}
+-
+-	err = xe_force_wake_put(gt_to_fw(gt), XE_FORCEWAKE_ALL);
+-	XE_WARN_ON(err);
+-
+-	return;
+-
+-err_force_wake:
+-	drm_err(&xe->drm, "Failed to apply, err=%d\n", err);
+-}
+-
+ /**
+  * xe_reg_sr_dump - print all save/restore entries
+  * @sr: Save/restore entries
+diff --git a/drivers/gpu/drm/xe/xe_reg_whitelist.c b/drivers/gpu/drm/xe/xe_reg_whitelist.c
+index d88261921ae46..ef1bb1b47af09 100644
+--- a/drivers/gpu/drm/xe/xe_reg_whitelist.c
++++ b/drivers/gpu/drm/xe/xe_reg_whitelist.c
+@@ -10,7 +10,9 @@
+ #include "regs/xe_oa_regs.h"
+ #include "regs/xe_regs.h"
+ #include "xe_gt_types.h"
++#include "xe_gt_printk.h"
+ #include "xe_platform_types.h"
++#include "xe_reg_sr.h"
+ #include "xe_rtp.h"
+ #include "xe_step.h"
  
- 	vfio_ap_filter_apid_by_qtype(apm_add, aqm_add);
+@@ -86,6 +88,40 @@ static const struct xe_rtp_entry_sr register_whitelist[] = {
+ 	{}
+ };
  
-+	mutex_lock(&matrix_dev->mdevs_lock);
- 	list_for_each_entry(matrix_mdev, &matrix_dev->mdev_list, node) {
- 		bitmap_and(matrix_mdev->apm_add,
- 			   matrix_mdev->matrix.apm, apm_add, AP_DEVICES);
-@@ -2756,6 +2766,7 @@ static void vfio_ap_mdev_cfg_add(unsigned long *apm_add, unsigned long *aqm_add,
- 		bitmap_and(matrix_mdev->adm_add,
- 			   matrix_mdev->matrix.adm, adm_add, AP_DEVICES);
- 	}
-+	mutex_unlock(&matrix_dev->mdevs_lock);
++static void whitelist_apply_to_hwe(struct xe_hw_engine *hwe)
++{
++	struct xe_reg_sr *sr = &hwe->reg_whitelist;
++	struct xe_reg_sr_entry *entry;
++	struct drm_printer p;
++	unsigned long reg;
++	unsigned int slot;
++
++	xe_gt_dbg(hwe->gt, "Add %s whitelist to engine\n", sr->name);
++	p = xe_gt_dbg_printer(hwe->gt);
++
++	slot = 0;
++	xa_for_each(&sr->xa, reg, entry) {
++		struct xe_reg_sr_entry hwe_entry = {
++			.reg = RING_FORCE_TO_NONPRIV(hwe->mmio_base, slot),
++			.set_bits = entry->reg.addr | entry->set_bits,
++			.clr_bits = ~0u,
++			.read_mask = entry->read_mask,
++		};
++
++		if (slot == RING_MAX_NONPRIV_SLOTS) {
++			xe_gt_err(hwe->gt,
++				  "hwe %s: maximum register whitelist slots (%d) reached, refusing to add more\n",
++				  hwe->name, RING_MAX_NONPRIV_SLOTS);
++			break;
++		}
++
++		xe_reg_whitelist_print_entry(&p, 0, reg, entry);
++		xe_reg_sr_add(&hwe->reg_sr, &hwe_entry, hwe->gt);
++
++		slot++;
++	}
++}
++
+ /**
+  * xe_reg_whitelist_process_engine - process table of registers to whitelist
+  * @hwe: engine instance to process whitelist for
+@@ -99,6 +135,7 @@ void xe_reg_whitelist_process_engine(struct xe_hw_engine *hwe)
+ 	struct xe_rtp_process_ctx ctx = XE_RTP_PROCESS_CTX_INITIALIZER(hwe);
+ 
+ 	xe_rtp_process_to_sr(&ctx, register_whitelist, &hwe->reg_whitelist);
++	whitelist_apply_to_hwe(hwe);
  }
  
  /**
-@@ -2821,9 +2832,6 @@ static void vfio_ap_mdev_hot_plug_cfg(struct ap_matrix_mdev *matrix_mdev)
- 	DECLARE_BITMAP(apm_filtered, AP_DEVICES);
- 	bool filter_domains, filter_adapters, filter_cdoms, do_hotplug = false;
- 
--	mutex_lock(&matrix_mdev->kvm->lock);
--	mutex_lock(&matrix_dev->mdevs_lock);
--
- 	filter_adapters = bitmap_intersects(matrix_mdev->matrix.apm,
- 					    matrix_mdev->apm_add, AP_DEVICES);
- 	filter_domains = bitmap_intersects(matrix_mdev->matrix.aqm,
-@@ -2841,9 +2849,6 @@ static void vfio_ap_mdev_hot_plug_cfg(struct ap_matrix_mdev *matrix_mdev)
- 		vfio_ap_mdev_update_guest_apcb(matrix_mdev);
- 
- 	reset_queues_for_apids(matrix_mdev, apm_filtered);
--
--	mutex_unlock(&matrix_dev->mdevs_lock);
--	mutex_unlock(&matrix_mdev->kvm->lock);
- }
- 
- void vfio_ap_on_scan_complete(struct ap_config_info *new_config_info,
-@@ -2854,15 +2859,25 @@ void vfio_ap_on_scan_complete(struct ap_config_info *new_config_info,
- 	mutex_lock(&matrix_dev->guests_lock);
- 
- 	list_for_each_entry(matrix_mdev, &matrix_dev->mdev_list, node) {
-+		if (matrix_mdev->kvm)
-+			mutex_lock(&matrix_mdev->kvm->lock);
-+
-+		mutex_lock(&matrix_dev->mdevs_lock);
-+
- 		if (bitmap_empty(matrix_mdev->apm_add, AP_DEVICES) &&
- 		    bitmap_empty(matrix_mdev->aqm_add, AP_DOMAINS) &&
- 		    bitmap_empty(matrix_mdev->adm_add, AP_DOMAINS))
--			continue;
-+			goto unlock;
- 
- 		vfio_ap_mdev_hot_plug_cfg(matrix_mdev);
- 		bitmap_clear(matrix_mdev->apm_add, 0, AP_DEVICES);
- 		bitmap_clear(matrix_mdev->aqm_add, 0, AP_DOMAINS);
- 		bitmap_clear(matrix_mdev->adm_add, 0, AP_DOMAINS);
-+
-+unlock:
-+		mutex_unlock(&matrix_dev->mdevs_lock);
-+		if (matrix_mdev->kvm)
-+			mutex_unlock(&matrix_mdev->kvm->lock);
- 	}
- 
- 	mutex_unlock(&matrix_dev->guests_lock);
 -- 
 2.53.0
+
+
 
