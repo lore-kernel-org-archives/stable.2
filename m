@@ -1,146 +1,162 @@
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F70477295
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 15:39:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A724E4772AE;
+	Fri,  7 Aug 2026 15:39:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786117153; cv=none; b=NandMucxNXZchGJN9k08uAW3k/ui805BtW565jIk49wgSSEGxhZg6+Suy7iiaYxzynVCuyyjnt9s8VYNqAkVFCrIsMt/cXrSLy2TOspfgVQ4hjHNtI/Q/QFxUaaYGf+wjPRMwLEPd0o8p8pc0SZeN6fM4TDRXC+snlCnLj0UJQM=
+	t=1786117153; cv=none; b=VgGs3BoLerIwFtgv7pe6ZDxbjr9qzBagKTvCj9xZr8a9E5o+SR0yn/FR5VXKrCopHAZpGRiMlwHL5R6T36IJSiceWakcVzH/cbuihqMw/izJ0tNaq1bq9WIhINXNNB86NBj7zKiG6y8zB+cDKvJYqeEXbvx2hgyT8JhTf/xqejM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786117153; c=relaxed/simple;
-	bh=g99+9R86yENKOxMWC/+p9emmD/F2G0i/FdzRfr3/FAs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rCxnnrZCtl3MlU/gUlSQJDCBYfqzV5BQsDqKimuAXnaZQrVYzllgCAUk2UvQgVVU1alRTfL57K6na9IJT6SMUQA+TzY8L2g9urxMrcTXNIu1NaDKbHRrtQ9jktFZDI+utUDOvPRNndHRscTHR/9CcPSQIQZYzxXRu0mJev/H2L8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ea7pAlmX; arc=none smtp.client-ip=209.85.167.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=2coP8Sfji6lltrAYMc+I2BujGOg6rp3UrnOnu4R6yzU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qTXp4VsLwdocMoZpZYkZLS4/ca9i9IoUfRCT+OwIiQvZ6OBi9YVeUTGepbMok8o9QhMiCeCllJkj4KCmDyyRZgF8OXw0uJpXfv3KnRoPVZhJM/UatXDU01aaJDtz+OSAESitbALv9oVxcbADRf8OFpkxT6hVgO5BmbQvO7xmDlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XUpZAaji; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ea7pAlmX"
-Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4a40bcc8d69so2244341b6e.3
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 08:39:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786117149; x=1786721949; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=VbFL1A0jNYqmUoipY6MPyQje52bmNUS3I6T9M1FZoRI=;
-        b=Ea7pAlmXbsFbYg7rZqE8nx1ixNVYc/JMURnjhgNYqginGJ9DtdsZqJYxhal+oqde4/
-         7KTH3j7zWZ6GwXXW4pcNP/HlZQ7VODNZMXpXMOqB/lTSW/EEVuNXzLrDV/oRv/vWD3cK
-         5ck1+fgh6QSiZbhVL7qUmZ9vUePD0mrSP7wbFQHUuklMNRiJgoO9eges695RkUEwPsOF
-         JPo4L9t9e1un1Zxh21exp41YAI8EQPFS5/+5kzvgS2QjHz2I5UebvNEeNCICirCe517l
-         TD+tWDxrnGYVwWh9qhhdovq07Y1WZappgAMZc/3tgB6DBJFrCpGtLAmWjO84dr2XKWVS
-         aUfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786117149; x=1786721949;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VbFL1A0jNYqmUoipY6MPyQje52bmNUS3I6T9M1FZoRI=;
-        b=p7SQt6Eujz+K0w1rb0sKWw1cyZipH4NfEdvqr7RgGPjRsqIPzNKQlYUb6xQCTBe1JJ
-         J2rs9GMUBLwkHd6kQ2Hk2I2lwGfBRmPLyHgQC8YP69LI2I7XlvKu3ySjtPfyO1fLvDjb
-         76R8+63jOLBvxKHJkTnA/8j97c1KNOqdhl7nUUNbY85Wg604QWeG3m60uXrv6pGIW7GL
-         RNybsCV7YLbTQYek6rGN4BqaO3VXfIEqiNqLVeJ+6z0VyPCPY8G8OTWdTyuDMunWBVcS
-         gLy2aFZrKLfFVCuhntBriUHIh5icxemhJzCYu1o72HIY/27Fu77uJtyJ0BK3R9TdOVmL
-         t0hg==
-X-Forwarded-Encrypted: i=1; AHgh+RrNMoYP97enObLVDrBJ5txIKRt20qK5xMfY8F1uu9/VEZU1IK/Jonadgl93VhpP31Pfoh/2vNI=@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPdTDNpUtoFhiicgvYeum5fcby1Aj8glCuLr3acBzZxKZd2MlV
-	MJbimSloLXRG6bBZjNiTjXRjq+z2HwkmplJgim3CTnjhMtvXJ7vPKCRG
-X-Gm-Gg: AR+sD13mEl5Gv9sNsc1GzOtAJ5tusuTqU/hJIK/zKAPZid48GwTsqVklMX1MFsDyu8P
-	DLvJKjkmVyA0VR9JCjHhZATFbkXwgEDejJuLZt4ArKoFwXbTlIgbzzu6yZ4Y7SZIOs4Rr3+w1Zk
-	huXA6zBKqJpsjeR5WmwZEyGFHwIQzBDmoMhnr1g4jlhzvzxqtZBWZ7FLDN8ejHOU+c5Cf9jB3mw
-	RB2MyqSAIBHdFbHvJGJkOH+chuhgCwMMNdZ58QaOUHYM9oHA0XDi/Gg0iIKtoTwddbu+soZ4HK1
-	BzCDFE08lxpZS/Tm7Rv84gkPfbUQYe8mjPIekLhl/r9w5sKQDVItG+1mzJDZcqLgQLjoRHewA/0
-	B6OqkVk+8Ms9A8usLqBpadJrqLUKWLtwjUHTNCJ/GHAKYxPrGFbuSQd+q0Nnjzjgy/MItJaSrRc
-	9jKyQftvCOQW6eLEamvS0q2cz3nFL+xzMs+vs0uaRjKMCzFx/du+SsuPrU5QF5ukMuHAu59+dqJ
-	G/XYmlDVv0lVoS5NEB4KPeVQ6KXQ7KgKBRM1l3UuAnmufbyoiTfquExiIfu7Gd2evfs4uszPzUm
-	qVRueykb2yG0i6llXPs21VAGxGAE0wy9u1ug0ZL3ZIHQF1MF+kPZzr/gyJKnMeTSvjv47QY8S+i
-	/rBy3DEl6gofYdofG
-X-Received: by 2002:a05:6808:1910:b0:495:f519:70f0 with SMTP id 5614622812f47-4afae01bf6emr13779508b6e.19.1786117149136;
-        Fri, 07 Aug 2026 08:39:09 -0700 (PDT)
-Received: from [127.0.1.1] (184-96-154-59.hlrn.qwest.net. [184.96.154.59])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4afae706cd5sm7353485b6e.11.2026.08.07.08.39.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 08:39:08 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH v3 0/3] mtd: rawnand: sunxi: fix H6/H616 controller timings
-Date: Fri, 07 Aug 2026 09:38:58 -0600
-Message-Id: <20260807-submit-sunxi-nand-h6-h616-timings-v3-0-91287b543f41@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XUpZAaji"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E112B1F00A3D;
+	Fri,  7 Aug 2026 15:39:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786117151;
+	bh=Sz+Ko/fbNgo4BgS+9m3WX+/j1bdrPCB1YJHj88ees5o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XUpZAajimLddGK5jr41Gz9tFWHO8EVNgZeUoug6ooQM0/d42NSw1hIMshuuyr/wqT
+	 UoowQJi2U/ZF5JD5FDC7ayNxhkJmLfKwWpYXcLJvxeiVDqEUYjjzC3vCE/dAoMUqWs
+	 LEfZeBeG5PfoGxpXtQRjyFcnr2gq2OVJfR7gBsfc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Sashiko AI review <sashiko-bot@kernel.org>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Peter Xu <peterx@redhat.com>,
+	Jann Horn <jannh@google.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Shuah Khan <shuah@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Zenghui Yu <zenghui.yu@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 7.1 219/438] fs/proc/task_mmu: fix PAGEMAP_SCAN written state for PMD holes
+Date: Fri,  7 Aug 2026 16:36:55 +0200
+Message-ID: <20260807143432.677732082@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260807143428.008222056@linuxfoundation.org>
+References: <20260807143428.008222056@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOQQqDMBBFryKz7pRkqgl21XsUF6mmOqWJJUnFI
- t690Z6gMPB58Hl/Fog2sI1wLhYIduLIo89wOhTQDsb3FrnLDCRICS01xvfNccrhZ0ZvfIeDyic
- VJnbs+4i6Lg3VdUlKd5A9r2DvPO8b1+bHWfKwbdrEW2PgmMbw2Z+YaOv9szcRCiSqKllJoVUpL
- r0z/Dy2o4NmXdcvhh8QOuQAAAA=
-X-Change-ID: 20260717-submit-sunxi-nand-h6-h616-timings-794a2994267d
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Richard Genoud <richard.genoud@bootlin.com>
-Cc: linux-mtd@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-The sunxi NAND timing solver currently applies the original A10 NDFC
-timing characteristics to every supported controller. The H6/H616 NDFC
-uses two internal cycles for several setup and hold intervals and has
-different delay-field encodings, so the resulting clock and timing
-register values do not match the hardware.
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-Prepare for per-controller timing data in two behaviorally focused
-patches, then add and select the H616 characteristics in the final fix.
-Legacy controllers retain their existing setup-cycle behavior and delay
-encodings.
+------------------
 
-Tested on an H616 board with Toshiba TC58NVG1S3H NAND.
+From: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+commit 40de8160ca7f67d14619ee0351ce5d68fc4a237a upstream.
+
+PAGEMAP_SCAN reports an unpopulated PTE in a uffd-wp VMA as written, but a
+range with no page table at all -- a PMD hole -- is skipped:
+pagemap_scan_pte_hole() tests p->cur_vma_category, which never carries
+PAGE_IS_WRITTEN, so the hole is neither reported nor (under
+PM_SCAN_WP_MATCHING) armed.
+
+In a uffd-wp VMA, WP_UNPOPULATED installs uffd-wp markers when protecting
+a range, allocating page tables as needed, so an unpopulated slot is
+treated as written -- see the pte_none() handling in
+pagemap_page_category().  A missing marker therefore means the range was
+zapped, e.g.  via MADV_DONTNEED.  This applies to anon and shmem VMAs.
+
+An anonymous THP is write-protected in place as a huge PMD, so a full-PMD
+MADV_DONTNEED clears it to pmd_none -- a hole with no page table -- and
+pagemap_scan_pte_hole() misses it.  For a MAP_PRIVATE|MAP_ANON mapping
+MADV_DONTNEED has fill-with-zeros semantics, so a write-tracking
+checkpoint/migration tool (e.g.  CRIU) treats the range as unchanged and
+keeps its previous contents; after restore or live migration the process
+reads stale data instead of zeroes -- data corruption.
+
+Report a hole in a non-hugetlb uffd-wp VMA as written, matching the
+pte_none handling in pagemap_page_category(); the existing
+PM_SCAN_WP_MATCHING path then arms it via uffd_wp_range().
+
+hugetlb is excluded: pagemap_hugetlb_category() reports an empty hugetlb
+entry (huge_pte_none) as not-written, unlike pagemap_page_category(),
+which reports pte_none as written.  pagemap_scan_pte_hole() fires for a
+hugetlb slot only when it has no page table; keeping that not-written
+matches how an allocated-but-empty hugetlb entry reads, so the hole and
+the empty-entry cases agree within the VMA.
+
+Link: https://lore.kernel.org/20260715144234.442721-2-kirill@shutemov.name
+Fixes: 2bad466cc9d9 ("mm/uffd: UFFD_FEATURE_WP_UNPOPULATED")
+Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
+Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260707151349.92143-1-kirill@shutemov.name
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Zenghui Yu <zenghui.yu@linux.dev>
+Assisted-by: Claude:claude-fable-5
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-Changes v1 -> v2:
-  - Split legacy timing setup from the H616 fix  (suggested by Miquel)
-  - Move tADL/tWHR encodings to a separate patch  (suggested by Miquel)
-  - Keep the timing lookup helper unchanged  (suggested by Miquel)
-  - Drop the minimum-period helper  (suggested by Miquel)
-  - Align H616 timing-data and capability names  (suggested by Miquel)
-  - Add Cc: stable to all three patches  (suggested by Miquel)
+ fs/proc/task_mmu.c |   20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-Changes v2 -> v3:
-  - Rebase onto current nand/next
-  - Fix strict checkpatch diagnostics  (suggested by Miquel)
-  - Add Fixes tags to the two stable preparatory patches
-- Link to v2: https://patch.msgid.link/20260717-submit-sunxi-nand-h6-h616-timings-v2-0-225515107640@gmail.com
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -2962,12 +2962,28 @@ static int pagemap_scan_pte_hole(unsigne
+ {
+ 	struct pagemap_scan_private *p = walk->private;
+ 	struct vm_area_struct *vma = walk->vma;
++	unsigned long categories;
+ 	int ret, err;
+ 
+-	if (!vma || !pagemap_scan_is_interesting_page(p->cur_vma_category, p))
++	if (!vma)
+ 		return 0;
+ 
+-	ret = pagemap_scan_output(p->cur_vma_category, p, addr, &end);
++	/*
++	 * In a uffd-wp VMA an unpopulated range is treated as written:
++	 * uffd-wp registration populates page tables and installs markers
++	 * with WP_UNPOPULATED, so a missing marker means the range was
++	 * zapped. See the pte_none() handling in pagemap_page_category().
++	 *
++	 * hugetlb differs, see pagemap_hugetlb_category().
++	 */
++	categories = p->cur_vma_category;
++	if (userfaultfd_wp(vma) && !is_vm_hugetlb_page(vma))
++		categories |= PAGE_IS_WRITTEN;
++
++	if (!pagemap_scan_is_interesting_page(categories, p))
++		return 0;
++
++	ret = pagemap_scan_output(categories, p, addr, &end);
+ 	if (addr == end)
+ 		return ret;
+ 
 
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Richard Weinberger <richard@nod.at>
-To: Vignesh Raghavendra <vigneshr@ti.com>
-To: Chen-Yu Tsai <wens@kernel.org>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Samuel Holland <samuel@sholland.org>
-To: Richard Genoud <richard.genoud@bootlin.com>
-Cc: linux-mtd@lists.infradead.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-sunxi@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org
-
----
-James Hilliard (3):
-      mtd: rawnand: sunxi: group controller delay tables
-      mtd: rawnand: sunxi: describe tADL and tWHR delays
-      mtd: rawnand: sunxi: fix H6/H616 controller timings
-
- drivers/mtd/nand/raw/sunxi_nand.c | 119 +++++++++++++++++++++++++++-----------
- 1 file changed, 86 insertions(+), 33 deletions(-)
----
-base-commit: f97bdc8ec1dc7b33781a702eeba55326c206be56
-change-id: 20260717-submit-sunxi-nand-h6-h616-timings-794a2994267d
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
 
