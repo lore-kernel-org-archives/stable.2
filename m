@@ -1,75 +1,34 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F0E330B32
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 04:38:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D86D137EFF8;
+	Fri,  7 Aug 2026 05:24:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786077501; cv=none; b=jwCUnAxPDvV8TV5/fDMVsd5IYBhc1VObz5dsyMnQb54R88kej7kmrDm0XeQDMT3bhhb0HGh+OKPyxXTxEaLA37vYwdNRfEsusEFF2udu9sbDB+eVsl7TTw/CpzwuP+8aZQCnwy74I/9+ugz1XcAaaPkS1E50aka1wcTaEOIof/o=
+	t=1786080306; cv=none; b=ULvraDJhUNgdArZFls90Fu1EW0iuAHrlRSNdpJQrN1IuEmBgQywkA6KqCLEbnSQxtnQFWox0Xb8eVRZW7UjndoqBXe94/KUly6u+oeJctRTeBHilQQsz3IRLIq0wzJ+ibpy6rWXm2iFrSySSqNWfvgFGLOUiGUiKb9stYJv2nDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786077501; c=relaxed/simple;
-	bh=c2eJmS6Fidv7OQwOFciceAX1dEuewckWJWc+sV7tPN0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DHFEHvfDjEDkr4MU3mfo/+9ESQWQnIhpFNdhmUvgzscXy+jHNdKesrKocExM95Xh6KOttdMxF3Fc5+8yiCH/O73wZziBm3kcKHL9tsXqEzw4u5a/xyOhmDZxBIS67Ec9JupYKbeL7rXEwOVMz/zfNfqW7UVMmf8R0/g/Q7c/GtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DriXPxRR; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DriXPxRR"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cf52d15d88so27968805ad.2
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 21:38:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786077499; x=1786682299; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OApPi/aBpyIH8HD0zKAoJ3Rb4TUBRhQUqTZcuTXFIYw=;
-        b=DriXPxRR25QIAiZxJUvKBtEBiG9Viz8SAvEWMVyc4WvX3wptR2w6KynyU9cmlDaVHp
-         dxjMsermDzK1US/Uca5lkvgj5PuiNyqgS/7bsbbgH+WQKiAhduT51eueELDYCMIMmZeN
-         owX/bIVpn8HMvieMc2kfmiqbbsE7E193QTwCScSXybFulRDcl7nAQQ/GJHj/12RMw6Tb
-         JSEOXRgPi1Vsdtw20TLXUa7RNuQanPF+SMf6yCHFqLMTxMvsLLmhHRj2gy6LdfRNP8Wc
-         v67jteEzlRzpx5vQoNlJDKm6EtXyu+NW7F5i23+qUvpqBX2n1L4J9d8cGDBYvWNlFNg2
-         mlAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786077499; x=1786682299;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OApPi/aBpyIH8HD0zKAoJ3Rb4TUBRhQUqTZcuTXFIYw=;
-        b=AfSpppu6qmyV7gGGM2uaDdBymV5vt1Qb9fx9gM8vT4/1bWRpbPngW7u2mtWuOTeV9v
-         v4cqVsv68XxarCh7ik5AIxr6qnBr2j3FpN4lv78cFMd8foQiAM/rVDNCqJSaPa3WeBIH
-         gU3II18Icr5L+a376JgEDVU+Xri7GF3HJuTi2P/cKXevaZC0aeSG4tLMMZ+/amYizZNB
-         57iz9i+cvxuawmFOYufjOf+10MORiIfoYfNiG/PtdLGRLgIVQ1IvF3h7fy4OIRNP63+Z
-         4WTDdsxqLUMR4QOGg11ZRfXLiTIP8btzdL///NrymAixqEI/JVewK8VC3DxG6S6Zw01r
-         gUIw==
-X-Forwarded-Encrypted: i=1; AHgh+RrWWcVBXeH5BF6xg905gAMi8Ma9hdQW1UbVlT0xU5Nu5/WYhX57F498DpxjZxP/YMjn9NZdcdA=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzylvace9OEr4MuZEApwKdLIig6w6blnYexlOImI9kcybneWDn5
-	fztC3D1WvutOnpeEPIzcW3bUNAFjdl37cYgPjvyMHLXvHFCUW1jNr70+eXdOxA==
-X-Gm-Gg: AR+sD13yCUy2VGo8Iu4nE354ariKqIlOTJIYUFcQeHga1lMdQLxFCJ0r62rAKT/SnU5
-	d7Guwy9ad4VIqpeec4NsnErZk3ym8xq5vLvHrf3tdjQEXm/LbdSCglZIArijVvzWuF7ZJG+61EQ
-	9AD9rNBn2+zKndFxE+he+FUB/DZ/Pv2xfKqBFqmJW2G0bYswoKFpiwPltCFGpD0rFMxHzR6h4MW
-	N+bdK4ZDEMZPRqm8UhG1UypLPNBBv0XC64LjXNyjYvmZ3rhqTy7rqaGOMHA5AhxZ9AelRXgzhSz
-	1l/cZOt2YULEZd3m10LiWGuNzO+t/X/rIUB0vPplx2SL2jHnbe12nRWWgrK65yyxHW9fZcUnmij
-	scKSCek/4GdZRk96UlmoPqkiiw7H1ywGlaqWloxWiATSeqwnjlGXK3g5J1JktGO41e9cKBXwACT
-	3cx64lVmz6Ak0AnsGUU+WLA8E+ggBSMLvEJEAEho5+/d+laqiygWMtXAB2Mbzhtwd8eg==
-X-Received: by 2002:a17:90b:520a:b0:38f:efed:5445 with SMTP id 98e67ed59e1d1-3903c54adafmr20909787a91.4.1786077498756;
-        Thu, 06 Aug 2026 21:38:18 -0700 (PDT)
-Received: from Default ([2409:40f4:102d:3eaf:6f2d:c1cd:a882:e082])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315bec2ec20sm2749192eec.28.2026.08.06.21.38.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 21:38:18 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: linux-usb@vger.kernel.org
-Cc: valentina.manea.m@gmail.com,
-	shuah@kernel.org,
-	i@zenithal.me,
-	gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org,
+	s=arc-20240116; t=1786080306; c=relaxed/simple;
+	bh=UCPPa0M1nBQrqutfvKs9QKDkUq7cUuqPgXGCoK1GKYI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=j0V+Da+2tnOMCI2T8yWJwhOlV/27REFN9F5OZhvIYAmLCtU+g7RAgXSvvJuf9uqlYoS4dbMOMOjJCgjHQWHvrffGjl7PCWrhdUExRd0oJqBCWwgH7BZFE7bYO3xleBPn8t9mEw+tRsyaCcmZS5nqufwiKVJsJpZxFXZk+mOKtq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.237.72.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wBnQX4bbHVqYldxAA--.1314S3;
+	Fri, 07 Aug 2026 13:24:44 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgCXgncabHVqURIOBA--.51109S2;
+	Fri, 07 Aug 2026 13:24:42 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: jikos@kernel.org,
+	bentiss@kernel.org,
+	linux-input@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
 	stable@vger.kernel.org,
-	syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com,
-	Jeffin Philip <jeffinphilip14@gmail.com>
-Subject: [PATCH v2] usbip: usbip_host: fix null pointer dereference in
-Date: Fri,  7 Aug 2026 10:07:59 +0530
-Message-ID: <20260807043759.12218-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	Pascal Giard <pascal.giard@etsmtl.ca>
+Subject: [PATCH] HID: sony: fix use-after-free when removing GHL devices
+Date: Fri,  7 Aug 2026 05:23:28 +0000
+Message-Id: <20260807052328.11404-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,58 +36,68 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgCXgncabHVqURIOBA--.51109S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?Ce+Y2AXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WNdqH/uLH5WfyK0WVr6WicCUSwDHfwhYn+Nx/FPKYE5orky
+	efaELHOLEhIUz0Kwmkyp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7tr4DGFy5Ww1ftF4DCr45Arc_yoW8Ar18pa
+	97G3sxKryUXr4Ik3WagFn7WFy5A393JrW7uFyxC3y5ZwsxAr17Jay5tr17WFW7Jayqv39x
+	AF40q3y3GF9akacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-rebind_store calls do_rebind which dereferences udev without
-checking if it is NULL. If busid is registered using match_busid
-but the device is never bound to the driver or it is never present
-in the first place, it triggers a null pointer dereference when we
-attempt to rebind the device. Fix this by checking explicitly for
-udev first and returning -ENODEV if udev is NULL. Add usb_get_dev
-in addition to the null check to get a reference to udev to prevent
-udev from becoming NULL after the check. Drop the reference after
-using it in do_rebind().
+The GHL poke timer and its control URB re-arm each other: the timer
+callback submits the URB, and the URB completion re-arms the timer.
 
-Reported-by: syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=af76b01c9a0f0ab60fb0
-Fixes: 4bfb141bc013 ("usbip: usbip_host: fix to hold parent lock for device_attach() calls")
+sony_remove() only called timer_delete_sync(), which waits for a running
+callback but does not stop a URB the callback already submitted and does
+not stop the completion from re-arming the timer.  The sony_sc structure
+is devm-allocated and freed after sony_remove() returns, so on removal
+the completion or the re-armed timer can run on freed memory.
+
+Use timer_shutdown_sync() instead, which also detaches the callback so
+the completion can no longer re-arm the timer, and add usb_kill_urb()
+before usb_free_urb() to drain any URB the callback submitted.  The URB
+is driver-private and not anchored, so hid_hw_stop() does not touch it.
+
+Found by a static analysis tool.
+
+Fixes: fb1a79a6b6e1 ("HID: sony: fix freeze when inserting ghlive ps3/wii dongles")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
+Cc: Pascal Giard <pascal.giard@etsmtl.ca>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
-Changes in v2:
- - Addressed concerns raised by the maintainer in v1 discussion
-   - Added usb_get_dev() to get a reference to udev preventing
-     it from becoming null after the null check. Drop the reference
-     after using it in do_rebind()
----
- drivers/usb/usbip/stub_main.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/hid/hid-sony.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/usb/usbip/stub_main.c b/drivers/usb/usbip/stub_main.c
-index 79110a69d697..c911626427dc 100644
---- a/drivers/usb/usbip/stub_main.c
-+++ b/drivers/usb/usbip/stub_main.c
-@@ -256,12 +256,21 @@ static ssize_t rebind_store(struct device_driver *dev, const char *buf,
- 	if (!bid)
- 		return -ENODEV;
+diff --git a/drivers/hid/hid-sony.c b/drivers/hid/hid-sony.c
+index b966e4044238..bbd95adfbed6 100644
+--- a/drivers/hid/hid-sony.c
++++ b/drivers/hid/hid-sony.c
+@@ -2164,7 +2164,8 @@ static void sony_remove(struct hid_device *hdev)
+ 	struct sony_sc *sc = hid_get_drvdata(hdev);
  
-+	if (!bid->udev) {
-+		put_busid_priv(bid);
-+		return -ENODEV;
-+	}
-+
-+	/* get a reference to udev to prevent it from becoming NULL */
-+	usb_get_dev(bid->udev);
- 	/* mark the device for deletion so probe ignores it during rescan */
- 	bid->status = STUB_BUSID_OTHER;
- 	/* release the busid lock */
- 	put_busid_priv(bid);
- 
- 	ret = do_rebind((char *) buf, bid);
-+	/* we finished using udev and don't need the reference anymore, drop it */
-+	usb_put_dev(bid->udev);
- 	if (ret < 0)
- 		return ret;
+ 	if (sc->quirks & (GHL_GUITAR_PS3WIIU | GHL_GUITAR_PS4)) {
+-		timer_delete_sync(&sc->ghl_poke_timer);
++		timer_shutdown_sync(&sc->ghl_poke_timer);
++		usb_kill_urb(sc->ghl_urb);
+ 		usb_free_urb(sc->ghl_urb);
+ 	}
  
 -- 
-2.55.0
+2.34.1
 
