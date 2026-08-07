@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9546F44470C;
-	Fri,  7 Aug 2026 21:02:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619F5446072;
+	Fri,  7 Aug 2026 21:02:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786136548; cv=none; b=uF/XLmWsd8UB2VMtiBhJdPs6Yl4ocuKnqxQ+p52MZrizSrmEgHiSYoZd/Lbs+us9E5oUXbtRmmr6xcUlBu730dH1Az+eIZNt9SR1870kGubGYHaQxz/CYXO2jltp+Hff1UuUHWdGMRcH4G2xniWY9DcTahhxF4cB3Moejp+LiwY=
+	t=1786136549; cv=none; b=P+nPjtiAMb+SqBDg1rZCIEdEG9k29/2XA34F30xyH9ROyqFNgXeHUMF6qzPkzIDZM30EMj2dOgjXU90pdUfufOmzGOTKOOsIw8t9Fr1Bclvbf33RNjjcvUnmEJoQYrov5lv7qUTxAAoDQrfDdS082BTAKj4BW/kU71xnWicy7Xs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786136548; c=relaxed/simple;
-	bh=8bzleXVoElEB80Urtr1buOOlt/wVXC6fs2rYR3dOEXE=;
+	s=arc-20240116; t=1786136549; c=relaxed/simple;
+	bh=wbNfJqhrEmJg8ob0ZbA8fhLFNQPDe4xy/9vNaLykJJc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g415MTBrLxZYckHl+wVYYa/B3TG86cgfkqhImDdzodQmbioJu5B78tB0AnCUbO3J476YGGfjdJcRism+XeJGwVuVVOMcJFp0h1DXjcAbFbYtvW+yZSL3hHQr0KucjwbHF8UdhRTEN1/F+A5zAzJ3UbuMEUTBuTBfFowgtWPAx3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A3YCQMeG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=L4/QS+9chSg6ul/EC1HqRvW95/B8xEVyb3F3I+R83oFCM90BXPaNZgo/MNRMx8TPQoDUKD5xduiqS/tehAKrEYePzbh0xAsU+2/NXKH+m0xXLRQ5Y2v7OXnU+XAffD0/ZRVQj0qKIA2pXq6XDsDJliiCkFhfYj4EZsJe/81pVUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bb1ZxVma; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A3YCQMeG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28C091F00A3A;
-	Fri,  7 Aug 2026 21:02:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bb1ZxVma"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2062A1F000E9;
+	Fri,  7 Aug 2026 21:02:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786136546;
-	bh=5SSwLEP362C2XHIyYmt182W2S7IG8MPTSZQTn8/mu/0=;
+	s=k20260515; t=1786136547;
+	bh=qZoxePgmExDjMC3i8NgvPc01WU/ymB6jgrZoa1clzWc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A3YCQMeGk7Erq3Hi0jgrG3f+5t0Tpnm+qIqNrYf9k2FYp0jt6NMxPNAHL3YeQtwzp
-	 N+9qd/qA+XzQv2L5cDA6LKJG9fegkauTgOMLCH74PQyiGcjaduHN/jzzSxeAq6QmQT
-	 tWfW9fym0jE/7LTgIrIq498w97cjFRMXpc01oeH2/eXlHo1mjEyysY9Xih1e0VaMeZ
-	 mMOAkenucLcrLI1ooJLLnKEo814Tz2r8yqTpyd6KXZNPUJ45b4N4OKAxhnAJB9zDcC
-	 kB9jNNibRxKgtf4fdgZRr4/pufulLlu7luaJJ0nYBH6doz1/UK8FLU7kOpE4x5x12V
-	 QOb7xp60YX96Q==
+	b=Bb1ZxVmalsXPtjNDr6FXaBiOCk3fedZtfaJOHVC9+4MUIcpSGs9T+j0SWlwPWuGJn
+	 FXx4l+YhrwtmVC4OSP0Q+mBS4KqkXgUchoChX1Dwb7Unm/CyOEodbIM9nQ6cW2HpJ4
+	 ZgDRXl7QlIVded2TZtuBq85ggF1SX2EjuvWGjjh4TvCD+6PHevQOHCqY2QBzbet0dk
+	 ch02jNXoLWrsZ5y+bQRP7xfPmZEASre6XSA4l8vvkal2mmtxujKayIwkQ/uhCpTFgN
+	 OuYLH8wvlsPmD0BqP6xIeVuoyqN04SdqfcIoWsvREVYrcPx1nk9/cUVAZA7HxeTgvk
+	 cFGNaXjz4L1+g==
 From: Tejun Heo <tj@kernel.org>
 To: David Vernet <void@manifault.com>,
 	Andrea Righi <arighi@nvidia.com>,
@@ -37,9 +37,9 @@ Cc: Emil Tsalapatis <emil@etsalapatis.com>,
 	linux-kernel@vger.kernel.org,
 	Tejun Heo <tj@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH 4/6] sched_ext: Fix this_rq() assumptions in dispatch kfuncs
-Date: Fri,  7 Aug 2026 11:02:19 -1000
-Message-ID: <20260807210221.232543-5-tj@kernel.org>
+Subject: [PATCH 5/6] sched_ext: Count rq lock releases in rq->scx.lock_drop_seq
+Date: Fri,  7 Aug 2026 11:02:20 -1000
+Message-ID: <20260807210221.232543-6-tj@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260807210221.232543-1-tj@kernel.org>
 References: <20260807210221.232543-1-tj@kernel.org>
@@ -51,194 +51,207 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Under core scheduling, dispatch runs from within the core-wide pick and can
-target a sibling rq, so ops.dispatch() may execute on a CPU different from
-the dispatched rq's. Several kfunc paths assumed the two always coincide:
-
-- scx_dsq_move() decided whether an rq lock is held by testing this_rq()'s
-  rq flags and lock-danced accordingly. A dispatch for a sibling took the
-  unlocked-context branch and acquired the source rq lock on top of the
-  already held dispatched rq lock which could deadlock.
-
-- scx_bpf_sub_dispatch() dispatched this_rq() with its stashed
-  sub_dispatch_prev, which is NULL when dispatching for a sibling.
-
-- finish_dispatch(), scx_bpf_dsq_reenq() and scx_bpf_dsq_nr_queued()
-  resolved SCX_DSQ_LOCAL to this CPU's local DSQ rather than the dispatched
-  rq's. The latter two are callable from other rq-locked operations too,
-  where SCX_DSQ_LOCAL now likewise resolves to the op's rq. This changes
-  behavior also without core scheduling, e.g. for ops.enqueue() running a
-  remote wakeup on the waking CPU, and is intended: which CPU happens to
-  execute an operation is incidental, the op's rq is what it is operating
-  on, and the resolution now matches the insert side where SCX_DSQ_LOCAL
-  dispatches land on the task's rq.
-
-Use the rq tracked by scx_locked_rq(), which is set to the dispatched rq
-around ops invocations and NULL in unlocked contexts.
+Under core scheduling, pick_next_task() selects for all SMT siblings under
+one continuous hold of the shared core-wide rq lock, and sched_ext's
+dispatch can release that lock from inside the pick. In preparation for
+making the core-sched pick detect the releases and retry, add
+rq->scx.lock_drop_seq and bump it at every site that can release an rq lock
+while a dispatch may be in flight. The counter is only maintained while core
+scheduling is enabled. No functional changes.
 
 Fixes: 4c95380701f5 ("sched/ext: Fold balance_scx() into pick_task_scx()")
 Cc: stable@vger.kernel.org # v6.19+
 Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- kernel/sched/ext/ext.c | 58 +++++++++++++++++++++++++-----------------
- 1 file changed, 35 insertions(+), 23 deletions(-)
+ kernel/sched/ext/ext.c | 38 ++++++++++++++++++++++++++++++++++++--
+ kernel/sched/sched.h   |  3 +++
+ 2 files changed, 39 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index ffbe4f7edc99..84ec71d28b61 100644
+index 84ec71d28b61..ebe40953acf0 100644
 --- a/kernel/sched/ext/ext.c
 +++ b/kernel/sched/ext/ext.c
-@@ -2737,7 +2737,7 @@ static void finish_dispatch(struct scx_sched *sch, struct rq *rq,
+@@ -479,12 +479,27 @@ static bool rq_is_open(struct rq *rq, u64 enq_flags)
+  */
+ DEFINE_PER_CPU(struct rq *, scx_locked_rq_state);
  
- 	BUG_ON(!(p->scx.flags & SCX_TASK_QUEUED));
- 
--	dsq = find_dsq_for_dispatch(sch, this_rq(), dsq_id, task_cpu(p));
-+	dsq = find_dsq_for_dispatch(sch, rq, dsq_id, task_cpu(p));
- 
- 	if (dsq->id == SCX_DSQ_LOCAL)
- 		dispatch_to_local_dsq(sch, rq, dsq, p, enq_flags);
-@@ -8887,9 +8887,8 @@ static bool scx_dsq_move(struct bpf_iter_scx_dsq_kern *kit,
- {
- 	struct scx_dispatch_q *src_dsq = kit->dsq, *dst_dsq;
- 	struct scx_sched *sch;
--	struct rq *this_rq, *src_rq, *locked_rq;
-+	struct rq *p_rq, *src_rq, *locked_rq;
- 	bool dispatched = false;
--	bool in_balance;
- 	unsigned long flags;
- 
- 	/*
-@@ -8919,24 +8918,28 @@ static bool scx_dsq_move(struct bpf_iter_scx_dsq_kern *kit,
- 	}
- 
- 	/*
--	 * Can be called from either ops.dispatch() locking this_rq() or any
--	 * context where no rq lock is held. If latter, lock @p's task_rq which
--	 * we'll likely need anyway.
-+	 * Can be called from either ops.dispatch() holding the dispatched rq's
-+	 * lock or any context where no rq lock is held. If latter, lock @p's
-+	 * task_rq which we'll likely need anyway.
- 	 */
- 	src_rq = task_rq(p);
- 
- 	local_irq_save(flags);
--	this_rq = this_rq();
--	in_balance = this_rq->scx.flags & SCX_RQ_IN_BALANCE;
- 
--	if (in_balance) {
--		if (this_rq != src_rq)
--			switch_rq_lock(this_rq, src_rq);
-+	/*
-+	 * Under core scheduling, dispatch can run for a sibling rq, so the
-+	 * locked rq is not necessarily this CPU's.
-+	 */
-+	locked_rq = scx_locked_rq();
++/*
++ * Under core scheduling, a pick that releases the rq lock invalidates the
++ * core-wide selection it is part of. Count the releases so that the core-sched
++ * pick can tell whether one happened across dispatch.
++ */
++static void scx_rq_lock_drop(struct rq *rq)
++{
++	lockdep_assert_rq_held(rq);
++#ifdef CONFIG_SCHED_CORE
++	if (sched_core_enabled(rq))
++		rq->scx.lock_drop_seq++;
++#endif
++}
 +
-+	if (locked_rq) {
-+		if (locked_rq != src_rq)
-+			switch_rq_lock(locked_rq, src_rq);
- 	} else {
- 		raw_spin_rq_lock(src_rq);
- 	}
- 
--	locked_rq = src_rq;
-+	p_rq = src_rq;
- 	raw_spin_lock(&src_dsq->lock);
- 
- 	/* did someone else get to it while we dropped the locks? */
-@@ -8946,7 +8949,7 @@ static bool scx_dsq_move(struct bpf_iter_scx_dsq_kern *kit,
- 	}
- 
- 	/* @p is still on $src_dsq and stable, determine the destination */
--	dst_dsq = find_dsq_for_dispatch(sch, this_rq, dsq_id, task_cpu(p));
-+	dst_dsq = find_dsq_for_dispatch(sch, locked_rq ?: this_rq(), dsq_id, task_cpu(p));
- 
- 	/*
- 	 * Apply vtime and slice updates before moving so that the new time is
-@@ -8959,14 +8962,14 @@ static bool scx_dsq_move(struct bpf_iter_scx_dsq_kern *kit,
- 		p->scx.slice = kit->slice;
- 
- 	/* execute move */
--	locked_rq = move_task_between_dsqs(sch, p, enq_flags, src_dsq, dst_dsq);
-+	p_rq = move_task_between_dsqs(sch, p, enq_flags, src_dsq, dst_dsq);
- 	dispatched = true;
- out:
--	if (in_balance) {
--		if (this_rq != locked_rq)
--			switch_rq_lock(locked_rq, this_rq);
-+	if (locked_rq) {
-+		if (locked_rq != p_rq)
-+			switch_rq_lock(p_rq, locked_rq);
- 	} else {
--		raw_spin_rq_unlock_irqrestore(locked_rq, flags);
-+		raw_spin_rq_unlock_irqrestore(p_rq, flags);
- 	}
- 
- 	kit->cursor.flags &= ~(__SCX_DSQ_ITER_HAS_SLICE |
-@@ -9204,7 +9207,7 @@ __bpf_kfunc bool scx_bpf_dsq_move_vtime(struct bpf_iter_scx_dsq *it__iter,
-  */
- __bpf_kfunc bool scx_bpf_sub_dispatch(u64 cgroup_id, const struct bpf_prog_aux *aux)
+ static void switch_rq_lock(struct rq *from, struct rq *to)
  {
--	struct rq *this_rq = this_rq();
-+	struct rq *rq = scx_locked_rq();
- 	struct scx_sched *parent, *child;
+ 	bool tracked = scx_locked_rq() == from;
  
- 	guard(rcu)();
-@@ -9223,7 +9226,7 @@ __bpf_kfunc bool scx_bpf_sub_dispatch(u64 cgroup_id, const struct bpf_prog_aux *
+ 	if (tracked)
+ 		update_locked_rq(NULL);
++	scx_rq_lock_drop(from);
+ 	raw_spin_rq_unlock(from);
+ 	raw_spin_rq_lock(to);
+ 	if (tracked)
+@@ -1133,6 +1148,7 @@ static void deferred_irq_workfn(struct irq_work *irq_work)
+ 
+ 	raw_spin_rq_lock(rq);
+ 	run_deferred(rq);
++	scx_rq_lock_drop(rq);
+ 	raw_spin_rq_unlock(rq);
+ }
+ 
+@@ -2430,12 +2446,14 @@ static bool consume_remote_task(struct rq *this_rq,
+ 				struct task_struct *p, u64 enq_flags,
+ 				struct scx_dispatch_q *dsq, struct rq *src_rq)
+ {
++	scx_rq_lock_drop(this_rq);
+ 	raw_spin_rq_unlock(this_rq);
+ 
+ 	if (unlink_dsq_and_lock_src_rq(p, dsq, src_rq)) {
+ 		move_remote_task_to_local_dsq(p, enq_flags, src_rq, this_rq);
+ 		return true;
+ 	} else {
++		scx_rq_lock_drop(src_rq);
+ 		raw_spin_rq_unlock(src_rq);
+ 		raw_spin_rq_lock(this_rq);
  		return false;
+@@ -3171,6 +3189,7 @@ static void kick_sync_wait_bal_cb(struct rq *rq)
+ 			continue;
+ 		}
+ 
++		scx_rq_lock_drop(rq);
+ 		raw_spin_rq_unlock_irq(rq);
+ 		while (READ_ONCE(cpu_rq(cpu)->scx.kick_sync) == ksyncs[cpu]) {
+ 			smp_store_release(&rq->scx.kick_sync, rq->scx.kick_sync + 1);
+@@ -4280,8 +4299,10 @@ static void reenq_user(struct rq *rq, struct scx_dispatch_q *dsq, u64 reenq_flag
+ 		task_rq = task_rq(p);
+ 
+ 		if (locked_rq != task_rq) {
+-			if (locked_rq)
++			if (locked_rq) {
++				scx_rq_lock_drop(locked_rq);
+ 				raw_spin_rq_unlock(locked_rq);
++			}
+ 			if (unlikely(!raw_spin_rq_trylock(task_rq))) {
+ 				raw_spin_unlock(&dsq->lock);
+ 				raw_spin_rq_lock(task_rq);
+@@ -4307,6 +4328,7 @@ static void reenq_user(struct rq *rq, struct scx_dispatch_q *dsq, u64 reenq_flag
+ 		p->scx.flags &= ~SCX_TASK_REENQ_REASON_MASK;
+ 
+ 		if (!(++nr_enqueued % SCX_TASK_ITER_BATCH)) {
++			scx_rq_lock_drop(locked_rq);
+ 			raw_spin_rq_unlock(locked_rq);
+ 			locked_rq = NULL;
+ 			cpu_relax();
+@@ -4319,8 +4341,10 @@ static void reenq_user(struct rq *rq, struct scx_dispatch_q *dsq, u64 reenq_flag
+ 	raw_spin_unlock(&dsq->lock);
+ 
+ 	if (locked_rq != rq) {
+-		if (locked_rq)
++		if (locked_rq) {
++			scx_rq_lock_drop(locked_rq);
+ 			raw_spin_rq_unlock(locked_rq);
++		}
+ 		raw_spin_rq_lock(rq);
+ 	}
+ }
+@@ -5372,6 +5396,7 @@ static u32 bypass_lb_cpu(struct scx_sched *sch, s32 donor,
+ 		if (!(nr_balanced % SCX_BYPASS_LB_BATCH) && n) {
+ 			list_move_tail(&cursor.node, &n->scx.dsq_list.node);
+ 			raw_spin_unlock(&donor_dsq->lock);
++			scx_rq_lock_drop(donor_rq);
+ 			raw_spin_rq_unlock_irq(donor_rq);
+ 			cpu_relax();
+ 			raw_spin_rq_lock_irq(donor_rq);
+@@ -5382,6 +5407,7 @@ static u32 bypass_lb_cpu(struct scx_sched *sch, s32 donor,
+ 
+ 	list_del_init(&cursor.node);
+ 	raw_spin_unlock(&donor_dsq->lock);
++	scx_rq_lock_drop(donor_rq);
+ 	raw_spin_rq_unlock_irq(donor_rq);
+ 
+ 	return nr_balanced;
+@@ -5672,6 +5698,7 @@ static void scx_bypass(struct scx_sched *sch, bool bypass)
+ 		 * sees scx_bypassing() before moving tasks to SCX.
+ 		 */
+ 		if (!scx_enabled()) {
++			scx_rq_lock_drop(rq);
+ 			raw_spin_rq_unlock(rq);
+ 			continue;
+ 		}
+@@ -5698,6 +5725,7 @@ static void scx_bypass(struct scx_sched *sch, bool bypass)
+ 		if (cpu_online(cpu) || cpu == smp_processor_id())
+ 			resched_curr(rq);
+ 
++		scx_rq_lock_drop(rq);
+ 		raw_spin_rq_unlock(rq);
  	}
  
--	return scx_dispatch_sched(child, this_rq, this_rq->scx.sub_dispatch_prev, true) !=
-+	return scx_dispatch_sched(child, rq, rq->scx.sub_dispatch_prev, true) !=
- 		SCX_DSP_NONE;
- }
- #endif	/* CONFIG_EXT_SUB_SCHED */
-@@ -9518,6 +9521,10 @@ __bpf_kfunc s32 scx_bpf_kick_cid(s32 cid, u64 flags, const struct bpf_prog_aux *
-  *
-  * Return the number of tasks in the DSQ matching @dsq_id. If not found,
-  * -%ENOENT is returned.
-+ *
-+ * %SCX_DSQ_LOCAL resolves to the local DSQ of the rq the current scheduler
-+ * operation is locked to - e.g. the rq being dispatched for in ops.dispatch() -
-+ * or the calling CPU's when no rq is locked.
-  */
- __bpf_kfunc s32 scx_bpf_dsq_nr_queued(u64 dsq_id, const struct bpf_prog_aux *aux)
- {
-@@ -9534,7 +9541,7 @@ __bpf_kfunc s32 scx_bpf_dsq_nr_queued(u64 dsq_id, const struct bpf_prog_aux *aux
+@@ -8425,6 +8453,7 @@ static bool kick_one_cpu(s32 cpu, struct rq *this_rq, unsigned long *ksyncs)
+ 		cpumask_clear_cpu(cpu, this_scx->cpus_to_wait);
  	}
  
- 	if (dsq_id == SCX_DSQ_LOCAL) {
--		ret = READ_ONCE(this_rq()->scx.local_dsq.nr);
-+		ret = READ_ONCE((scx_locked_rq() ?: this_rq())->scx.local_dsq.nr);
- 		goto out;
- 	} else if ((dsq_id & SCX_DSQ_LOCAL_ON) == SCX_DSQ_LOCAL_ON) {
- 		s32 cpu = scx_cpu_ret(sch, dsq_id & SCX_DSQ_LOCAL_CPU_MASK);
-@@ -9713,10 +9720,15 @@ __bpf_kfunc struct task_struct *scx_bpf_dsq_peek(u64 dsq_id,
-  * - User DSQs
-  *
-  * Re-enqueues are performed asynchronously. Can be called from anywhere.
-+ *
-+ * %SCX_DSQ_LOCAL resolves to the local DSQ of the rq the current scheduler
-+ * operation is locked to - e.g. the rq being dispatched for in ops.dispatch() -
-+ * or the calling CPU's when no rq is locked.
-  */
- __bpf_kfunc void scx_bpf_dsq_reenq(u64 dsq_id, u64 reenq_flags,
- 				   const struct bpf_prog_aux *aux)
- {
-+	struct rq *locked_rq = scx_locked_rq();
- 	struct scx_sched *sch;
- 	struct scx_dispatch_q *dsq;
++	scx_rq_lock_drop(rq);
+ 	raw_spin_rq_unlock_irqrestore(rq, flags);
  
-@@ -9735,8 +9747,8 @@ __bpf_kfunc void scx_bpf_dsq_reenq(u64 dsq_id, u64 reenq_flags,
- 	if (!(reenq_flags & __SCX_REENQ_FILTER_MASK))
- 		reenq_flags |= SCX_REENQ_ANY;
+ 	return should_wait;
+@@ -8441,6 +8470,7 @@ static void kick_one_cpu_if_idle(s32 cpu, struct rq *this_rq)
+ 	    (cpu_online(cpu) || cpu == cpu_of(this_rq)))
+ 		resched_curr(rq);
  
--	dsq = find_dsq_for_dispatch(sch, this_rq(), dsq_id, smp_processor_id());
--	schedule_dsq_reenq(sch, dsq, reenq_flags, scx_locked_rq());
-+	dsq = find_dsq_for_dispatch(sch, locked_rq ?: this_rq(), dsq_id, smp_processor_id());
-+	schedule_dsq_reenq(sch, dsq, reenq_flags, locked_rq);
++	scx_rq_lock_drop(rq);
+ 	raw_spin_rq_unlock_irqrestore(rq, flags);
  }
  
- /**
+@@ -8478,6 +8508,7 @@ static void kick_cpus_irq_workfn(struct irq_work *irq_work)
+ 		raw_spin_rq_lock(this_rq);
+ 		this_scx->kick_sync_pending = true;
+ 		resched_curr(this_rq);
++		scx_rq_lock_drop(this_rq);
+ 		raw_spin_rq_unlock(this_rq);
+ 	}
+ }
+@@ -8969,6 +9000,7 @@ static bool scx_dsq_move(struct bpf_iter_scx_dsq_kern *kit,
+ 		if (locked_rq != p_rq)
+ 			switch_rq_lock(p_rq, locked_rq);
+ 	} else {
++		scx_rq_lock_drop(p_rq);
+ 		raw_spin_rq_unlock_irqrestore(p_rq, flags);
+ 	}
+ 
+@@ -9448,9 +9480,11 @@ static void scx_kick_cpu(struct scx_sched *sch, s32 cpu, u64 flags)
+ 
+ 		if (raw_spin_rq_trylock(target_rq)) {
+ 			if (can_skip_idle_kick(target_rq)) {
++				scx_rq_lock_drop(target_rq);
+ 				raw_spin_rq_unlock(target_rq);
+ 				goto out;
+ 			}
++			scx_rq_lock_drop(target_rq);
+ 			raw_spin_rq_unlock(target_rq);
+ 		}
+ 		cpumask_set_cpu(cpu, this_rq->scx.cpus_to_kick_if_idle);
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 14c2df6fd9af..f76e6f7f4a01 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -803,6 +803,9 @@ struct scx_rq {
+ 	bool			cpu_released;
+ 	u32			flags;
+ 	u32			nr_immed;		/* ENQ_IMMED tasks on local_dsq */
++#ifdef CONFIG_SCHED_CORE
++	u32			lock_drop_seq;	/* nr dispatch lock releases */
++#endif
+ 	u64			clock;			/* current per-rq clock -- see scx_bpf_now() */
+ 	cpumask_var_t		cpus_to_kick;
+ 	cpumask_var_t		cpus_to_kick_if_idle;
 -- 
 2.55.0
 
