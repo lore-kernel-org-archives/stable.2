@@ -1,99 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332D746982F;
-	Fri,  7 Aug 2026 07:52:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1524457C1;
+	Fri,  7 Aug 2026 07:56:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786089167; cv=none; b=S3viOebPqF7v5Eh6Xd7bOJEV6HHbSOnyyJXsqftY1Jenu+sZX4MRnI6FqZL2oAscQFVJ8tGoEdtTrTRQ7p9HHGTnRl+XwaVy3dwe81Pa+Om9KK2V1t/1ubEDNOz7G5GwU33ChLhsBzda3kQJDdyRFGzxk4ku8slLsC4y/ShrQ6k=
+	t=1786089386; cv=none; b=OuhP872pWTuZXoUZG9Ff6E4WO5rxsMFBvlButtCwFUBf4I4Ujb3VJWC8ejFDNHs03dDS8DFDH6LVVGe/FTV8Epeiebq4hFUsiakLjRWcgQ8UG459aPdhy5jvpUfCMDgwANHoIjHzBpglItmP/wpgB6Gc1S6qFsIN9xDHTeUTgtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786089167; c=relaxed/simple;
-	bh=WVTLT0aTEA2e65hAJgZRewaHW7EUiv0iDKGlVdq1Aco=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GHkagXSiqPGrmUJ6Sa0C9jLbFETQ+LRDvSHRYhHiWgnBhCqfgIOi2Y2KYWb6Lnn0B+JkPrd0wwbLVUcN4eaOWMEVH10snZ4UR/yIGJyoq9mehyJayCK5srFrc+kUJTde+CizIXaxQW6Fm2F8TxC+F9DsSyQ2vzEJx+wXRgiwYLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HKc2WmEi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786089386; c=relaxed/simple;
+	bh=oyVRhR1TNBr0DW6tX+1TFPm1LvfPdRg6gJ0vayk/f6g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oLZGJ4N6o3xds8MC7gGzp/mOOQqbYW9GRdvO/FrSNrVFwhds2PaYutQtOTEnFfPxd9csjBDa3hT0C5LrlzH7hBg7bd206KGNyLfB860/FDzTMap+zGXrvl7mVE2UHEzSWLLncmg3JBUUMW2DDTJb75S3oDe6THCPaV5h1KtRNnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WFXQZd0H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HKc2WmEi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACE901F000E9;
-	Fri,  7 Aug 2026 07:52:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WFXQZd0H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EAEF1F000E9;
+	Fri,  7 Aug 2026 07:56:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786089160;
-	bh=yXFQ17/5vxQYbI6hCw4WkGerRL2hME9nwzyNjht/Jxw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HKc2WmEiJRYPt+f8hjvNGAH2udR3CX41BRB79GhPArfMarWI3wVnexY8Fo4gppf7Z
-	 otjNi2Ik7/q9U1X4hVYz4ldmJFkesN8Lo0MpUzDE3zPNWmSVrpO3vl3nPdDqNjWquo
-	 HiTkHRUTJYnrXlxAEKan9C7aC9XGFX8H4VHQYZDMNuB+3NkWypA9azVFvItl2zrCzB
-	 bEwTogzIXBGYVrzbls39fnDHqWOxoH/JO4BYkzNjcaTapZKLXZznX4Gb1a3rcazUdt
-	 m1lp4WaVNR1DMdnvM8453xLD2Am3fT5nTbp5NhD/7v3whhpFP0rO6+WFKLkVof3czV
-	 vVvkORkFvNHPw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wsFNe-0000000DFws-2Fsb;
-	Fri, 07 Aug 2026 07:52:38 +0000
-Date: Fri, 07 Aug 2026 08:52:37 +0100
-Message-ID: <864ih6bc56.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Qihang <q.h.hack.winter@gmail.com>
-Cc: oupton@kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] KVM: arm64: vgic-v3: take an LPI reference in vgic_v3_save_pending_tables
-In-Reply-To: <20260807025534.34125-1-q.h.hack.winter@gmail.com>
-References: <20260807025534.34125-1-q.h.hack.winter@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1786089381;
+	bh=DuTbhGDESxW5SYdiKxOKeo8YSHlG74hc713ySFoLcFo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WFXQZd0H/P4+IrzmV6PaAKS6CyT5AJQfsoz4uiCaF3x+xvt4bVJECwmT1N0lb3Vdl
+	 RwIEZt35x273RjdXUJmkj+LDrJjBSxoslF0pePvwk8eU0Ax9grn44Nkdgj20t46Euf
+	 yy49NXGwW5uvAqj/+y+lGf+fepncckkzq2BGIc25GUTbzK4BanJE+CMucR902Znlsd
+	 WKuCHDexYjoOh/xA57MISforYypGuEK50fStw3ZNFK0PIXaPRhjYpKbPCxA6qQ4W0g
+	 8srIHFw6Zm9HJnL6wtUoLhaw8MkR1cqZlTOLMq4Km0mLe6VtBjN0fcUFlSFyhifrl3
+	 d0wy8LHaIQpgw==
+Date: Fri, 7 Aug 2026 08:56:00 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: sparkhuang <huangshaobo3@xiaomi.com>
+Cc: akpm@linux-foundation.org, bsegall@google.com, david@kernel.org, 
+	dietmar.eggemann@arm.com, juri.lelli@redhat.com, kees@kernel.org, kprateek.nayak@amd.com, 
+	liam@infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	mgorman@suse.de, mhocko@suse.com, mingo@redhat.com, peterz@infradead.org, 
+	rostedt@goodmis.org, rppt@kernel.org, ryabinin.a.a@gmail.com, stable@vger.kernel.org, 
+	surenb@google.com, vbabka@kernel.org, vincent.guittot@linaro.org, 
+	vschneid@redhat.com
+Subject: Re: [PATCH] fork: reset pointer tag of vmapped thread stack before
+ vfree
+Message-ID: <anWPTt4DE-Q8PKry@lucifer>
+References: <anSVlVpUXrA8ra_z@lucifer>
+ <20260807065351.93659-1-huangshaobo3@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: q.h.hack.winter@gmail.com, oupton@kernel.org, catalin.marinas@arm.com, will@kernel.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260807065351.93659-1-huangshaobo3@xiaomi.com>
 
-On Fri, 07 Aug 2026 03:55:34 +0100,
-Qihang <q.h.hack.winter@gmail.com> wrote:
-> 
-> vgic_v3_save_pending_tables() iterates dist->lpi_xa using xa_for_each()
-> and dereferences the returned struct vgic_irq in the loop body without
-> holding a reference on the LPI.
-> 
-> The xarray iterator only provides temporary RCU coverage while looking up
-> the current entry. That is not sufficient for this loop body, which reads
-> fields from struct vgic_irq and performs guest memory accesses before the
-> iteration completes.
-> 
-> A concurrent path can trigger this race: the irqfd cached injection path
-> (vgic_its_inject_cached_translation) obtains a transient LPI reference
-> via vgic_its_check_cache() without holding kvm->lock, vcpu->mutex,
-> config_lock, or its_lock. If guest ITS DISCARD then drops the cache and
-> ITE references under its_lock, the transient inject reference may become
-> the final one. When vgic_put_irq() drops it, the LPI is erased from
-> lpi_xa and freed via kfree_rcu(). Meanwhile, vgic_v3_save_pending_tables()
-> may still hold a stale pointer obtained from the xarray iterator and
-> dereference it after the RCU grace period completes.
-> 
-> Fix this by re-fetching each iterated LPI via vgic_get_irq(), which takes
-> a stable reference, and dropping it with vgic_put_irq() on all paths.
-> This matches the pattern already used by other lpi_xa iterators in the
-> vgic ITS code.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
+I'm sorry that whole reply is more AI slop and I'm not reading it.
 
-Reviewed-by: Marc Zyngier <maz@kernel.org>
+I have zero interest in chatting to an LLM via a middle man.
 
-	M.
+On Fri, Aug 07, 2026 at 02:53:51PM +0800, sparkhuang wrote:
+> Hi Lorenzo,
+>
+> Thanks for the review. You're right on the process points ??? I'll fold
+> those into a v2 (real name, Assisted-by: tag, drop Cc: stable, trim the
+> comment, correct the Fixes: target). I won't re-spin it just yet though,
+> for the reason below.
+>
+> I want to be upfront about where the analysis actually stands, because
+> I'd rather not push a fix whose rationale I can't fully back up.
+>
+> The one-line change itself is sound and follows existing precedent:
+> c08e6a1206e6 already resets tsk->stack to 0xFF, and 528a4ab45300 does
+> the same in scs_free(). A 0xFF-tagged pointer bypasses the KASAN tag
+> check, so vfree_atomic()'s llist_add write to the freed region stops
+> faulting regardless of what the memory tag currently holds. That makes
+> the reported false positive go away ??? that part I'm confident in.
+>
+> What I have *not* nailed down is why "memory tag: [ff]" shows up in the
+> report in the first place. On the 6.18 android-common tree:
+>
+>   - At allocation __kasan_unpoison_vmalloc() tags vm_area->addr with a
+>     random tag (0xc2 here) and sets the backing memory tag to the same
+>     0xc2, so they match at that point ??? the report is not from the
+>     alloc path.
+>   - c08e6a1206e6 resets tsk->stack to 0xFF (SP can't be tagged); its
+>     commit message explicitly notes the stack *memory* still gets tagged.
+>   - The only caller of kasan_unpoison_task_stack() ??? which would write a
+>     0xFF tag into the backing memory ??? is the idle-task path in
+>     kernel/cpu.c. It is not called for normal task stacks, so my earlier
+>     commit-message attribution to that function was wrong.
+>   - page_kasan_tag_reset() only touches page->flags metadata, not the
+>     physical memory tag, so that's not the source either.
+>
+> So what flips the memory tag from 0xc2 to 0xFF between allocation and
+> the RCU callback remains an open question. My suspicion is the async
+> vfree_atomic / delayed_vfree + page-reuse interplay during the reboot
+> SIGTERM storm (the trace also shows page flags kasantag=0x55, a third
+> value inconsistent with both), but I haven't proven a specific path.
+>
+> Accordingly I don't have a deterministic reproducer. The report is
+> reproducible only in the sense that it shows up during reboot with heavy
+> thread churn; I haven't been able to trigger it on demand.
+>
+> Given that, I'd like to hold v2 until the 0xFF source is understood
+> rather than ship a commit message that hand-waves the root cause. If you
+> or the KASAN folks have a view on whether the reset_tag fix is acceptable
+> as a "stops the false positive, mirrors existing precedent" change
+> without a fully root-caused explanation ??? versus waiting ??? I'd
+> appreciate the steer.
+>
+> Best,
+> Shaobo
 
--- 
-Without deviation from the norm, progress is not possible.
+--
+Cheers, Lorenzo
