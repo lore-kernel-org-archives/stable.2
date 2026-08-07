@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C2B2609FD
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 22:25:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5B0456DED
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 22:25:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786141548; cv=none; b=V0zNbUwXjqf+rG4LM77azlzlrcMp/92ZwOh2kVT56YlJauxy4cGvEJg+NX/qEEh0QvkkoWaQ15Zb4MdAJ/S5tFOpKj9awarsz7RHj9gv8DVGB3fPWUmgSCyc9UIKQ9G8UFt25jbtWPJkObWAp2k7VaBIB/pVHIe3dF+EnGy7s9I=
+	t=1786141549; cv=none; b=JdhPLcl/R99y78hYQ44jH9BA3a6g9fm8RaNHoUl+e3WrNOcaJxAhPlwnNhN4cAVTDuq3x6QUSz/iB9zvt8XjRbYwaIz3Id4XJFjeOvaKh/50YPnFCPkQ8/XizfgYRuxQw8BuL8RdgwGLfZTP7m9b68yZOaAa6fkRv58p707TPZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786141548; c=relaxed/simple;
-	bh=Ng5mgxrp6z0RsLnfS/sFjxzYUHHAj1ruvkr+jG9fj5k=;
+	s=arc-20240116; t=1786141549; c=relaxed/simple;
+	bh=bYVYkOiUDDOQ0Twa65Gq3M2PY3pLQA9mzF++p/Xn2bs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CQFAnPy8fktvREEVxqsXxfRfR5lap9TcWeLSeFp114oj1yccmN/cwp481EaIo0K9aKpy/ialnkHS9GleeGDOD7CmTv4pO5+McQUa1f9Z4rIZGFJPwUqqayd/GWvvWRjy2Kw/3jN3waokNImyYrEoCFDLBtuTMGnoCv5n4VVohjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FW3hHeoT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=L6445RVP3p+VOBvvxDFWdSD6HbXUYoSQD30Zk065wuV6Y+42vFJH4l0tM/VcPMzJUN7z/ierEyUV/vTFWbs4LoBSnI3twX+8XdZ1S5TGT5xctk411HUCbqNzeMhrPu6Xf9jhENmvXnScxaLPvHI2xHIZrxmrIKhTNRtSxFfmAC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CsjgvuF8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FW3hHeoT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B33081F00A3A;
-	Fri,  7 Aug 2026 22:25:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CsjgvuF8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF8361F00A3D;
+	Fri,  7 Aug 2026 22:25:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786141547;
-	bh=GgW9UjzJFRHoAVZ23eP8oyaRj0nXLdMW+susY0Atbh0=;
+	s=k20260515; t=1786141548;
+	bh=gci009eTNyBv+32lLJCrSi4C8Z5yHfAUSVsFSIbffHE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FW3hHeoTR5woGpzCLiCIMoErao5pqHSBvQUtbAvp+qrQMy70fxPoOeEkg1dxGlJSL
-	 5FOSH1IdjQGnsncgcPx9mAdSO7oy+J9RChO3dtuL/CEJC6WGlPYH21rA7SwrE+espm
-	 9otkZR/cy4tI4Q8xM/UD+U7pedrLYPh+K5jL32yG7dKNJuajXd7CvcFXzwchVpvOQs
-	 0x0bmgGKmA01O3hCjfERo8QuEk8u518J6SHF+/21Vb6xfuy61rz5FyCVo8muNxleTZ
-	 /VpVG9Cl33wW7x9Gw0f5MFhGmZtLaGoE++872UqCTG0qfqWOxHzUCaGU7tMJ9vpNa3
-	 PjIZ1GTrk4pBg==
+	b=CsjgvuF8xoQ7KvQh4bCbNs4XsnLyMp0X5AsYj/skWd4bBKFL/SgJZJFmotZVMKCZ5
+	 6sisL/TVnQjBD27ofkr6L4EE3NxhvlZl8SQtUhI/i6kFjOLNLObxUfYHJmJKKOhri1
+	 58zXb7/HqJB39QQM4pMVQsM09QibmlYVLmIPCwN9qgpQi2V8qxCFde9kp2a2qHOIhy
+	 /ZmhAlLZywyk0AMbpV3YyDeuFbn5bBz/bZdwaVby5JQ8b0kgVd/zZnekoubEeDo7Sk
+	 eIjwtwcGiOAzgt4XJ7F1buqKdVCXUIU8yLERKB/snS7PbdpunXAbM6q+KnwJnNbA0b
+	 t6Wpy7esDEWAw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	Alex Markuze <amarkuze@redhat.com>,
+Cc: Max Kellermann <max.kellermann@ionos.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>,
+	Xiubo Li <xiubo.li@clyso.com>,
 	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] libceph: bound pg_{temp,upmap,upmap_items} length to CEPH_PG_MAX_SIZE
-Date: Fri,  7 Aug 2026 18:25:41 -0400
-Message-ID: <20260807222541.3839701-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ceph: avoid fs reclaim while using current->journal_info
+Date: Fri,  7 Aug 2026 18:25:46 -0400
+Message-ID: <20260807222546.3839999-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260807222541.3839701-1-sashal@kernel.org>
-References: <2026072928-spindle-pessimism-d1f4@gregkh>
- <20260807222541.3839701-1-sashal@kernel.org>
+In-Reply-To: <2026072958-petite-satisfy-fd3e@gregkh>
+References: <2026072958-petite-satisfy-fd3e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,71 +47,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xiang Mei <xmei5@asu.edu>
+From: Max Kellermann <max.kellermann@ionos.com>
 
-[ Upstream commit 9f00f9cf2be293efe899db67dc5272e3a9c62717 ]
+[ Upstream commit 5b602344a49e039e792ce5a8923bcc61412ee134 ]
 
-__decode_pg_temp() decodes an user-controlled length but only rejects
-values large enough to overflow the allocation; it does not bound it to
-CEPH_PG_MAX_SIZE. The helper backs both pg_temp and pg_upmap decoding, and
-apply_upmap()/get_temp_osds() later copy the decoded list into the fixed-size
-on-stack array struct ceph_osds.osds[CEPH_PG_MAX_SIZE]. A monitor that sends
-an OSDMap with a pg_temp/pg_upmap entry longer than 32 thus causes a stack
-out-of-bounds write.
+handle_reply() stores a `ceph_mds_request` pointer in
+`current->journal_info` while filling the inode and dentry cache from
+an MDS reply.
 
-An OSD set for a single PG can never exceed CEPH_PG_MAX_SIZE, so reject longer
-entries at decode time. The bound is well below the old overflow threshold, so
-it also covers the allocation-size overflow the previous check guarded against.
+An allocation in this section can enter direct reclaim and prune
+dentries from another filesystem.  If this dirties an ext4 inode, ext4
+starts a JBD2 transaction.  JBD2 interprets the Ceph request in
+`current->journal_info` as a journal handle and dereferences the
+request's `r_tid` as `h_transaction`, causing a kernel crash, e.g.:
 
-  BUG: KASAN: stack-out-of-bounds in ceph_pg_to_up_acting_osds
-  Write of size 4 ... by task exploit
-   kasan_report (mm/kasan/report.c:595)
-   ceph_pg_to_up_acting_osds (net/ceph/osdmap.c:2617 net/ceph/osdmap.c:2833)
-   calc_target (net/ceph/osd_client.c:1638)
-   __submit_request (net/ceph/osd_client.c:2394)
-   ceph_osdc_start_request (net/ceph/osd_client.c:2490)
-   ceph_osdc_call (net/ceph/osd_client.c:5164)
-   rbd_dev_image_probe (drivers/block/rbd.c:6899)
-   do_rbd_add (drivers/block/rbd.c:7138)
-   ...
-  kernel BUG at net/ceph/osdmap.c:2670!
+ Unable to handle kernel paging request at virtual address 00000000077b4818
+ [...]
+ Internal error: Oops: 0000000096000004 [#1]  SMP
+ Modules linked in:
+ CPU: 6 UID: 0 PID: 2699135 Comm: kworker/6:3 Tainted: G        W           6.18.38-i3 #1113 NONE
+ [...]
+ Workqueue: ceph-msgr ceph_con_workfn
+ pstate: 80400009 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+ pc : jbd2__journal_start+0x2c/0x208
+ lr : __ext4_journal_start_sb+0x100/0x178
+ [...]
+ Call trace:
+  jbd2__journal_start+0x2c/0x208 (P)
+  __ext4_journal_start_sb+0x100/0x178
+  ext4_dirty_inode+0x3c/0x90
+  __mark_inode_dirty+0x58/0x400
+  iput.part.0+0x2b0/0x370
+  iput+0x18/0x30
+  dentry_unlink_inode+0xc0/0x158
+  __dentry_kill+0x80/0x250
+  shrink_dentry_list+0x90/0x130
+  prune_dcache_sb+0x60/0x98
+  super_cache_scan+0xe8/0x190
+  do_shrink_slab+0x174/0x388
+  shrink_slab+0xd8/0x4c0
+  shrink_node+0x31c/0x908
+  do_try_to_free_pages+0xd0/0x508
+  try_to_free_pages+0x11c/0x238
+  __alloc_frozen_pages_noprof+0x4d0/0xdd0
+  __folio_alloc_noprof+0x18/0x70
+  __filemap_get_folio+0x248/0x440
+  ceph_readdir_prepopulate+0x570/0x9e8
+  mds_dispatch+0x1424/0x1ba0
+  ceph_con_process_message+0x74/0xa0
+  ceph_con_v1_try_read+0x3a0/0x1510
+  ceph_con_workfn+0x260/0x460
 
-[ idryomov: do the same in __decode_pg_upmap_items() ]
+Enter a scoped NOFS allocation context and leave it after clearing
+`journal_info`.  This prevents filesystem reclaim from recursing into
+another filesystem while the field contains Ceph-private data.
 
 Cc: stable@vger.kernel.org
-Fixes: a303bb0e5834 ("libceph: introduce and switch to decode_pg_mapping()")
-Reported-by: Weiming Shi <bestswngs@gmail.com>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Fixes: 315f24088048 ("ceph: fix security xattr deadlock")
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ceph/osdmap.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/ceph/mds_client.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/net/ceph/osdmap.c b/net/ceph/osdmap.c
-index d8dd8c1cf362e..9ec8bbb625384 100644
---- a/net/ceph/osdmap.c
-+++ b/net/ceph/osdmap.c
-@@ -1440,7 +1440,7 @@ static struct ceph_pg_mapping *__decode_pg_temp(void **p, void *end,
- 	ceph_decode_32_safe(p, end, len, e_inval);
- 	if (len == 0 && incremental)
- 		return NULL;	/* new_pg_temp: [] to remove */
--	if ((size_t)len > (SIZE_MAX - sizeof(*pg)) / sizeof(u32))
-+	if (len > CEPH_PG_MAX_SIZE)
- 		return ERR_PTR(-EINVAL);
+diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+index 8236980957b6a..7c47ce276a993 100644
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -6,6 +6,7 @@
+ #include <linux/slab.h>
+ #include <linux/gfp.h>
+ #include <linux/sched.h>
++#include <linux/sched/mm.h>
+ #include <linux/debugfs.h>
+ #include <linux/seq_file.h>
+ #include <linux/ratelimit.h>
+@@ -3158,6 +3159,7 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
+ 	struct ceph_mds_reply_head *head = msg->front.iov_base;
+ 	struct ceph_mds_reply_info_parsed *rinfo;  /* parsed reply info */
+ 	struct ceph_snap_realm *realm;
++	unsigned int nofs_flags;
+ 	u64 tid;
+ 	int err, result;
+ 	int mds = session->s_mds;
+@@ -3307,6 +3309,14 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
  
- 	ceph_decode_need(p, end, len * sizeof(u32), e_inval);
-@@ -1621,7 +1621,7 @@ static struct ceph_pg_mapping *__decode_pg_upmap_items(void **p, void *end,
- 	u32 len, i;
+ 	/* insert trace into our cache */
+ 	mutex_lock(&req->r_fill_mutex);
++
++	/* disable fs reclaim while we are using current->journal_info
++	 * for our own purposes, or else shrinkers of other
++	 * filesystems might dereference this pointer as a different
++	 * type
++	 */
++	nofs_flags = memalloc_nofs_save();
++
+ 	current->journal_info = req;
+ 	err = ceph_fill_trace(mdsc->fsc->sb, req);
+ 	if (err == 0) {
+@@ -3315,6 +3325,7 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
+ 			ceph_readdir_prepopulate(req, req->r_session);
+ 	}
+ 	current->journal_info = NULL;
++	memalloc_nofs_restore(nofs_flags);
+ 	mutex_unlock(&req->r_fill_mutex);
  
- 	ceph_decode_32_safe(p, end, len, e_inval);
--	if ((size_t)len > (SIZE_MAX - sizeof(*pg)) / (2 * sizeof(u32)))
-+	if (len > CEPH_PG_MAX_SIZE)
- 		return ERR_PTR(-EINVAL);
- 
- 	ceph_decode_need(p, end, 2 * len * sizeof(u32), e_inval);
+ 	up_read(&mdsc->snap_rwsem);
 -- 
 2.53.0
 
