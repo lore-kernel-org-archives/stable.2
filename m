@@ -1,184 +1,254 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F324742CAFC;
-	Fri,  7 Aug 2026 10:52:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786099977; cv=none; b=s97jP0b4MvLVCNDkuXF+v5y4+8PcJHVQlFJy5sKzagj+g4U/7wY/IVfAZ+b4gGXPrR2/caMnpiI8DQkh/Z8Gkbm/lRKDgnAy5o7T2k6BHa+jcVk6iBfBy7iTMY/mErs1H+Xb8QsB6B1hwQVuW3aMuJ2TPqKP8A2DAPDJjZdIt+Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786099977; c=relaxed/simple;
-	bh=Hci5B3HoXZYM1gVfIlAaPk+u9hbcO8AFAEieO41GUvQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Sk30lT7ZA62CgFnJEx34n8bU19l2iS+hKG8MgEAhEF1HQW5j9OtXmNc5TbSj2svkjSlsxZ5fkP+kdgAo1LNnwFwn38OkXYQTMq0ct/FJ6PXyAV5mSDsPgo3ioosNwPxZpD9bQw0Ghy4QCOnDrd4x4ESOalOalO6c2GXFrEbjEjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=q/hkMmgu; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F7A0353A7F
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 11:04:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786100662; cv=pass; b=b7iRmBJZwmwxNA6mMZxMPcqJneiwcGXyo3hhguWypPJ6tl+Fv3UVvrtEZiZlOIRCmpXKOYzBJa4hG80r40DrllL93LFulN12XIOhxFz/ZOp4MHjF2tIjcwzNrBYAqXFMXtLtkFCKqKSd72yNHMu50F0qWz3TPq/wePM0hSUPQhg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786100662; c=relaxed/simple;
+	bh=Mq9+PVNWt/+na3H6D7b4kjk7D65ADp0RgMESxzP+hR0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Mb83ppDg7EwJlNL4wDUDk7je89KDZ972sHXblYQoqSUXNlFYflegXc6rqTBYKjC9+fhDJVnDs0h6kgzABhsr43/9bzOGuckzSbHSiC9rCg1Bvr3ISMegLtcGR1z5svM/atV1CvUdS3R8n4icVWa8MpIHLXQgD1mnh/gcn3ierrU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mXbC/K/L; arc=pass smtp.client-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="q/hkMmgu"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 353B44E41089;
-	Fri,  7 Aug 2026 10:52:53 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id F310D603F0;
-	Fri,  7 Aug 2026 10:52:52 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id ED3D411C375E6;
-	Fri,  7 Aug 2026 12:52:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1786099968; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=udsIZByR6nXrBMYeuDGR7VhqRs+/z5Z8JQt5P+St6UM=;
-	b=q/hkMmgublUw0TZYsw8Ko4mhUC4l005Ze0dg0njiYvqXrdLcNHmc52ikR7xnDZP/qoUe2L
-	dt95Zf/2ayi4lKWhRHKoBM/Z5CtGDaw/hhM906YqifV+uFMVBwoY37lHTVaCAlVI5Vwjaj
-	lVtYgPkjxd+1eRiZEXXg7JuEzLC+DpMnuoTMaYa5IWSrlEsBmdCvG7P0Pf2aSojMA7iwpj
-	qzc42rn/x+dpRf/ogMpRRPIvphqeFAXB2IyPbRiViV4BHEj3lylMUFbgWxUeNY7bWvluao
-	VRjHKS+bgt3r3oo/SXttfMgFP15trG2dvV9+GwNG2WYFsYpX+O3ltAipCAAd+A==
-Message-ID: <fe783935-3759-4dc3-87bb-59681d24e087@bootlin.com>
-Date: Fri, 7 Aug 2026 12:52:44 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mXbC/K/L"
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-934974844ffso214084185a.0
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 04:04:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786100660; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kdmGROg7anZiaUcfKTxZfUItZ6CDJPnV585q9uBH/HiinBuRZD3Ne1Ixi6paJfAcJk
+         FIZUg63ulvE/l/aweipoqShPwgk+kFbuabvVMGBPzBepZGHSSqWIRbxv/pWEt3YJgUw8
+         ef+vAuA620/rN8gxNCJYHzwpA+NlYxNu7Z24OQygRr3GvhNMzv7ySW2ONVx5DJJ9z/Ya
+         ShVp4iuMp+we+c0SiHSxqt5IIttky/jQRDrtCapeC/rUNhfQjgu2TE4IefCx3o8sCAJ5
+         9RFKAcbkMlHnTblvQ+XsGKAVw1tBEP7JYWYAoXkL8W/XzOYcjCf9dVSZPiwv0DJbTjKF
+         yPlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iyW2HpH/DdM5xgprQWFQavuhoygNcJG+sMU3tsOczNk=;
+        fh=fa5gXQMKy4mcwDkNBejy0S7T1FGIpMLBdWYNjab4rSU=;
+        b=gqr1I99i5plJQ3UCEYo2+NU9bWoJmTJxbg+h8rGV4at4JCL9/PcZfQmtmUHdtnxUcS
+         VIh6gcdN6PP0aJo+OU8JXpQIqLjkVAiEJqtTN8nZHIeO2phg0BvfM4fD2coVaExqdh41
+         iY6tYO0OWpymYAxoM84TtHyIo90nSYxMmpYYz1Q3MY2+tycRd8H/DWgIupK7+Z9uMsF2
+         3gkGGsMT1xahSCekIpogfUuAPe09b8jGJdpgAzrFpznTJ4Zglp6Qv7hCuJrmSZCemIz0
+         WEff0ezXfTsZ07RcWw7m46FaVeUMwY7w6jGSYXGcrKd7fGCS6oMweUDlPj0lbNHKtzKi
+         2ewQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786100660; x=1786705460; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iyW2HpH/DdM5xgprQWFQavuhoygNcJG+sMU3tsOczNk=;
+        b=mXbC/K/Lmi4JHpJkCu5N4Ncnw9jvS+K3XeFwkpCfZ94XHI/YmIHJkgdCagpp1lSlTz
+         R5l9hNqHt8zARpSJP3P2ilPMlLaAf9r+FsHus804TyMYyQvXLFvkaEzcOsQl0i8pN4ys
+         Yxb3AoSi677MHAjuoBI7FNi9Wwm7+M2Uk9sryBa2XgL//KN+Uts5C9nyFlAbD1eyeC0I
+         8C+XaAzsV3KTGOfEBJMnxD8E2HljSu7J1WOD7cbakR6aHEXa5En7Qrj5ucIJeuvnfDph
+         /erWp5Xta+s8UWjlPVeRRKLW3trvKuqXwhP+zfRbBadgk3k/bdBPJxl/zNcbQJvYnHmO
+         IPzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786100660; x=1786705460;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iyW2HpH/DdM5xgprQWFQavuhoygNcJG+sMU3tsOczNk=;
+        b=AckY7eowscBGY5TsV/pkzWNrtGJA3/2yJfmoKDNvBLUo6Z2aen35kwGgsiGP26djq/
+         8tpA4EKJ3hdkpxS+sbOYQUxS8mgHH+kIO27kU5ZdidyIIC6PYL3qiXg1oLtPd6PaiFir
+         LQqvlDJQhE1xiqSS+dvaBzdoBy0CaXQ9n/FWR58WMTku6DdTc33iDz/U54NnMjS45u7m
+         g+U3SnG6/vUlMGujrDeVZ6NFqn3le5H2Yoa6qVWxDBjh42KjdWMFSqnn9sgEyk667I2D
+         VjnTT7fpSU3SYNAUKHXDqtGhOcAEq/maetZwUeyKs9ZFDoVoCW4Vzk8X2qN6Fd/oLHNd
+         rTSg==
+X-Forwarded-Encrypted: i=1; AHgh+RpE1IMezv6eR7hEtE91Qb9I0QbdZ1/aW2WVlz3dCGlKDj0gPFIqV+S5cFMus4u4Mlom33MIzY4=@vger.kernel.org
+X-Gm-Message-State: AOJu0YzTbVyJE5Vx4wUGkMOvQc4ksUHYPfFTOmnGsjncpofgP3tlYHBM
+	/rYAMdnvitEF9njmbR7spKeMxwqeV2pAmZzwq4Wjz2M/qirpiQ3Z5oAbcPsLbMcUvYTTpU7YUzU
+	L28++FnhjehE4vG3C5o2DYncmmivopNc=
+X-Gm-Gg: AR+sD11SInV2rmFSyv69KsnSUyhZ8XIFsetwkaCrgiscfCY3gVE/ItNRkNuuBOZQJ8R
+	O38W7nxDgDPR8zRsO37juoE3bKCZOWoS668SoATsDAAeMYH9WeACNG55xMMfNILid3kxTHpnjqU
+	n/7uWG6aw4wwRamKjmp8JZ0Z6+a9MoaO5EOdnJLfgD67g/drjQ+yTyqZzd4RDzB+Q/49I9LDWPi
+	G/E5+JTIN6NSOYZh8qkexvqnLFJUjZUpTWUUVF99bcESmx2qF3X2+4p2KUZIxruVe4Vn5a8GxRQ
+	9V/MLvZy4cpM3CL42R8+e7sMTVySg90NNwXovwbZb/J6jLl0yyZqtxoNvMpuonrDIg+iN2kvpGf
+	I9Bu0rWs/kvAkOImWIAnqtrfW
+X-Received: by 2002:a05:622a:349:b0:51a:8f3a:13b9 with SMTP id
+ d75a77b69052e-52ce5ff26f6mr212757801cf.16.1786100660041; Fri, 07 Aug 2026
+ 04:04:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] mmc: sdhci_am654: Fallback to DT-provided itap
- delay on DDR50 tuning failure
-To: Adrian Hunter <adrian.hunter@intel.com>, "Mendez, Judith" <jm@ti.com>,
- Ulf Hansson <ulfh@kernel.org>, Faiz Abbas <faiz_abbas@ti.com>
-Cc: linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Pascal EBERHARD <pascal.eberhard@se.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, stable@vger.kernel.org
-References: <20260803-am654-sdhci-v2-0-a5ee5be86133@bootlin.com>
- <20260803-am654-sdhci-v2-4-a5ee5be86133@bootlin.com>
- <4721675e-e3ae-4e81-89db-eb0f7f419d1e@ti.com>
- <6fc6216a-5e57-4df5-9033-d3573409ed78@bootlin.com>
- <9cdf448b-436c-404f-bf72-b946204629a8@ti.com>
- <fe3c58b1-5b34-444c-8149-e9a836f0a303@intel.com>
-Content-Language: en-US
-From: Diogo Ivo <diogo.ivo@bootlin.com>
-In-Reply-To: <fe3c58b1-5b34-444c-8149-e9a836f0a303@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260727094015.5101-1-liujiazi@amazon.com> <202608061759.sIcC6h4C-lkp@intel.com>
+In-Reply-To: <202608061759.sIcC6h4C-lkp@intel.com>
+From: Liu Jiazi <jiazi.liu1984@gmail.com>
+Date: Fri, 7 Aug 2026 19:04:08 +0800
+X-Gm-Features: AUfX_mwHqqQim5HcoeZF3oHWeAellpfuaxz6QwczLOHEkPer3vdbXBT3-1o9tOU
+Message-ID: <CAAcjFgibrFJYKYp1Q-ig6hHE_WCg5KSSZV2Fvv0zawswEdHZEQ@mail.gmail.com>
+Subject: Re: [PATCH 1/1] usb: dwc3: gadget: fix IRQ storm on invalid event
+ buffer count
+To: kernel test robot <lkp@intel.com>
+Cc: Thinh.Nguyen@synopsys.com, oe-kbuild-all@lists.linux.dev, 
+	gregkh@linuxfoundation.org, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Jiazi Liu <liujiazi@amazon.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Adrian,
+Hi @Thinh.Nguyen@synopsys.com
 
-On 8/7/26 8:35 AM, Adrian Hunter wrote:
-> On 06/08/2026 02:13, Mendez, Judith wrote:
->> Hi Diogo,
->>
->> On 8/4/2026 3:45 AM, Diogo Ivo wrote:
->>> Hi Judith,
->>>
->>> Thanks for the review!
->>>
->>> On 8/3/26 9:59 PM, Mendez, Judith wrote:
->>>> Hi Diogo,
->>>>
->>>> Thanks for your patch, couple of doubts below.
->>>>
->>>> On 8/3/2026 8:47 AM, Diogo Ivo (Schneider Electric) wrote:
->>>>> DDR50 mode is not required to support the tuning command CMD19, meaning
->>>>> that calibration may fail on cards that do not implement it, in which
->>>>> case a known-good itap delay value should be programmed into the host
->>>>> controller.
->>>>>
->>>>> Do this by reading the (already defined) itap delay DT property for DDR50
->>>>> and, if tuning fails for this mode, fall back to the DT-provided itap delay
->>>>> value. If the DT does not provide a value for DDR50 fallback then this
->>>>> simply disables using itapdly.
->>>>>
->>>>> Fixes: 901d16e46296 ("mmc: sdhci_am654: Add retry tuning")
->>>>
->>>> Should this commit be the one to blame or should it be the commit that
->>>> introduces DDR50 support?
->>>
->>> I'm not sure I follow you here, as I wasn't able to pinpoint a commit
->>> that specifically introduced support for DDR50. Could you please clarify?
->>>
->>> Taking a look at the git log of the driver I see a0a62497f6aa, where
->>> reading itapdly from DT was added but without reading the DDR50 value
->>> and 13ebeae68ac9, the commit where tuning was originally added, but the
->>> "responsibility" seems split between the two.
->>
->> Yea I think because each of the three commits in question are adding
->> support for something else. This bug fix that you are sending was never
->> really discovered or debugged before. IMO (: Not sure if this requires
->> a fixes tag then.
->>
->> I will let Adrian or someone else decide what to do here. ^.^
-> 
-> The Fixes tag tells people whether they might need to backport the
-> patch.  It says "if you need Fixes commit then you need this commit too".
-> 
-> It should be the first commit where DDR50 could fail because of this issue.
+Thanks for the review suggestions. I've updated the patch accordingly.
+On thing I'd like to discuss: in dwc3_err_recovery_work(), after
+soft_disconnect succeeds, should we attempt soft_connect to
+recover the controller, or just leave it disconnected and let the
+upper layer (e.g. function driver like ADB) handle reconnection
+on its own?
 
-Sounds good. In that case commit 901d16e46296 ("mmc: sdhci_am654: Add retry
-tuning") is the correct commit, since before it the code was writing itap=0
-in the case where tuning failed. I have also tested the driver before and
-after 901d16e46296 and it is indeed the commit that breaks I/O. I will
-send a v3 with the debug print suggested by Judith.
+In my testing, calling soft_connect after soft_disconnect triggers an
+RCU stall. Simply doing soft_disconnect and notifying the
+gadget driver via dwc3_disconnect_gadget_sleepable() is sufficient =E2=80=
+=94
+ADB recovers on its own after that.
+What's your recommendation here?
 
-Best regards,
-Diogo
+Brs
+Jiazi
 
->>
->> ~ Judith
->>
->>>
->>>>> Cc: <stable@vger.kernel.org>
->>>>> Signed-off-by: Diogo Ivo (Schneider Electric) <diogo.ivo@bootlin.com>
->>>>> ---
->>>>> Changes in v2:
->>>>>    - As suggested by Sashiko save values read from DT for DDR50 in separate
->>>>>      variables in order to keep them across multiple tuning cycles without
->>>>>      overwriting them.
->>>>> ---
->>>>>    drivers/mmc/host/sdhci_am654.c | 25 ++++++++++++++++++++-----
->>>>>    1 file changed, 20 insertions(+), 5 deletions(-)
->>>>>
->>>>> diff --git a/drivers/mmc/host/sdhci_am654.c b/drivers/mmc/host/ sdhci_am654.c
->>>>> index 8ce10422bba0..27ef79420eba 100644
->>>>> --- a/drivers/mmc/host/sdhci_am654.c
->>>>> +++ b/drivers/mmc/host/sdhci_am654.c
->>>>> @@ -126,7 +126,7 @@ static const struct timing_data td[] = {
->>>>>                       NULL,
->>>>>                       MMC_CAP_UHS_SDR104},
->>>>>        [MMC_TIMING_UHS_DDR50]    = {"ti,otap-del-sel-ddr50",
->>>>> -                   NULL,
->>>>> +                   "ti,itap-del-sel-ddr50",
->>>>>                       MMC_CAP_UHS_DDR50},
->>>>>        [MMC_TIMING_MMC_DDR52]    = {"ti,otap-del-sel-ddr52",
->>>>>                       "ti,itap-del-sel-ddr52",
->>>>> @@ -144,6 +144,8 @@ struct sdhci_am654_data {
->>>>>        u32 otap_del_sel[ARRAY_SIZE(td)];
->>>>>        u32 itap_del_sel[ARRAY_SIZE(td)];
->>>>>        u32 itap_del_ena[ARRAY_SIZE(td)];
->>>>> +    u32 itap_del_sel_dt_ddr50;
->>>>> +    u32 itap_del_ena_dt_ddr50;
->>>>>        int clkbuf_sel;
->>>>>        int trm_icp;
->>>>>        int drv_strength;
->>>>> @@ -579,10 +581,18 @@ static int sdhci_am654_platform_execute_tuning(struct sdhci_host *host,
->>>>>        } while (++tuning_loop < RETRY_TUNING_MAX);
->>>>>        if (itapdly < 0) {
->>>>> -        dev_err(dev, "Failed to find itapdly, fail tuning\n");
->>>>> -        sdhci_am654_write_itapdly(sdhci_am654, 0, 0);
->>>>> -        sdhci_am654->itap_del_ena[timing] = 0;
->>>>> -        sdhci_am654->itap_del_sel[timing] = 0;
->>>>> +        if (timing == MMC_TIMING_UHS_DDR50) {
->>>>
->>>> Should dev_dbg be added here to let the user know that tuning failed but
->>>> DT defaults were set?
->>>
->>> That sounds useful, I'll add a print here.
->>>
->>>> ~ Judith
->>>>
->>>
->>> Best regards,
->>> Diogo
->>
-> 
+kernel test robot <lkp@intel.com> =E4=BA=8E2026=E5=B9=B48=E6=9C=886=E6=97=
+=A5=E5=91=A8=E5=9B=9B 17:03=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Hi Jiazi,
+>
+> kernel test robot noticed the following build warnings:
+>
+> [auto build test WARNING on usb/usb-testing]
+> [also build test WARNING on usb/usb-next usb/usb-linus linus/master v7.2-=
+rc6 next-20260805]
+> [If your patch is applied to the wrong git tree, kindly drop us a note.
+> And when submitting patch, we suggest to use '--base' as documented in
+> https://git-scm.com/docs/git-format-patch#_base_tree_information]
+>
+> url:    https://github.com/intel-lab-lkp/linux/commits/Jiazi-Liu/usb-dwc3=
+-gadget-fix-IRQ-storm-on-invalid-event-buffer-count/20260806-005046
+> base:   https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git us=
+b-testing
+> patch link:    https://lore.kernel.org/r/20260727094015.5101-1-liujiazi%4=
+0amazon.com
+> patch subject: [PATCH 1/1] usb: dwc3: gadget: fix IRQ storm on invalid ev=
+ent buffer count
+> config: i386-randconfig-r132-20260806 (https://download.01.org/0day-ci/ar=
+chive/20260806/202608061759.sIcC6h4C-lkp@intel.com/config)
+> compiler: gcc-13 (Debian 13.3.0-16) 13.3.0
+> sparse: v0.6.5-rc1
+> reproduce (this is a W=3D1 build): (https://download.01.org/0day-ci/archi=
+ve/20260806/202608061759.sIcC6h4C-lkp@intel.com/reproduce)
+>
+> If you fix the issue in a separate patch/commit (i.e. not just a new vers=
+ion of
+> the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202608061759.sIcC6h4C-lkp=
+@intel.com/
+>
+> sparse warnings: (new ones prefixed by >>)
+> >> drivers/usb/dwc3/gadget.c:4681:32: sparse: sparse: incorrect type in a=
+rgument 1 (different address spaces) @@     expected struct dwc3 *dwc @@   =
+  got void [noderef] __iomem *regs @@
+>    drivers/usb/dwc3/gadget.c:4681:32: sparse:     expected struct dwc3 *d=
+wc
+>    drivers/usb/dwc3/gadget.c:4681:32: sparse:     got void [noderef] __io=
+mem *regs
+>
+> vim +4681 drivers/usb/dwc3/gadget.c
+>
+>   4636
+>   4637  static irqreturn_t dwc3_check_event_buf(struct dwc3_event_buffer =
+*evt)
+>   4638  {
+>   4639          struct dwc3 *dwc =3D evt->dwc;
+>   4640          u32 amount;
+>   4641          u32 count;
+>   4642
+>   4643          if (pm_runtime_suspended(dwc->dev)) {
+>   4644                  dwc->pending_events =3D true;
+>   4645                  /*
+>   4646                   * Trigger runtime resume. The get() function wil=
+l be balanced
+>   4647                   * after processing the pending events in dwc3_pr=
+ocess_pending
+>   4648                   * events().
+>   4649                   */
+>   4650                  pm_runtime_get(dwc->dev);
+>   4651                  disable_irq_nosync(dwc->irq_gadget);
+>   4652                  return IRQ_HANDLED;
+>   4653          }
+>   4654
+>   4655          /*
+>   4656           * With PCIe legacy interrupt, test shows that top-half i=
+rq handler can
+>   4657           * be called again after HW interrupt deassertion. Check =
+if bottom-half
+>   4658           * irq event handler completes before caching new event t=
+o prevent
+>   4659           * losing events.
+>   4660           */
+>   4661          if (evt->flags & DWC3_EVENT_PENDING)
+>   4662                  return IRQ_HANDLED;
+>   4663
+>   4664          count =3D dwc3_readl(dwc, DWC3_GEVNTCOUNT(0));
+>   4665          count &=3D DWC3_GEVNTCOUNT_MASK;
+>   4666          if (!count)
+>   4667                  return IRQ_NONE;
+>   4668
+>   4669          if (count > evt->length) {
+>   4670                  dev_err_ratelimited(dwc->dev, "invalid count(%u) =
+> evt->length(%u)\n",
+>   4671                          count, evt->length);
+>   4672                  /*
+>   4673                   * The DWC3 interrupt is level-triggered. Returni=
+ng IRQ_NONE
+>   4674                   * without clearing the IRQ source leaves the lin=
+e asserted,
+>   4675                   * causing a tight IRQ storm that triggers spurio=
+us.c:184 BUG.
+>   4676                   * Write the bogus count back to GEVNTCOUNT to cl=
+ear the source,
+>   4677                   * consistent with the stale event clearing in
+>   4678                   * dwc3_event_buffers_setup(), then schedule a so=
+ft disconnect
+>   4679                   * to recover the controller state.
+>   4680                   */
+> > 4681                  dwc3_writel(dwc->regs, DWC3_GEVNTCOUNT(0), count)=
+;
+>   4682                  schedule_work(&dwc->softcon_work);
+>   4683                  return IRQ_HANDLED;
+>   4684          }
+>   4685
+>   4686          evt->count =3D count;
+>   4687          evt->flags |=3D DWC3_EVENT_PENDING;
+>   4688
+>   4689          /* Mask interrupt */
+>   4690          dwc3_writel(dwc, DWC3_GEVNTSIZ(0),
+>   4691                      DWC3_GEVNTSIZ_INTMASK | DWC3_GEVNTSIZ_SIZE(ev=
+t->length));
+>   4692
+>   4693          amount =3D min(count, evt->length - evt->lpos);
+>   4694          memcpy(evt->cache + evt->lpos, evt->buf + evt->lpos, amou=
+nt);
+>   4695
+>   4696          if (amount < count)
+>   4697                  memcpy(evt->cache, evt->buf, count - amount);
+>   4698
+>   4699          dwc3_writel(dwc, DWC3_GEVNTCOUNT(0), count);
+>   4700
+>   4701          return IRQ_WAKE_THREAD;
+>   4702  }
+>   4703
+>
+> --
+> 0-DAY CI Kernel Test Service
+> https://github.com/intel/lkp-tests/wiki
