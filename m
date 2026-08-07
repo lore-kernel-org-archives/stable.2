@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B324846AF2A
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 11:48:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A72A47278D
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 11:48:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786103303; cv=none; b=fSFYwUjUPA1LfVMUNDgeZnvSq4nZDQnqehqBdSVq4YHcXqBp32dlHe7ARuV7aT2riKI5M1hN4cEXvEX4CHm/u/1H6xRmQ+orTiE+02y7lsaM5yNfUYr4cRmoE+9+CUbGFkjF7jLzcqUjjZPu8KN3wDRV+L5eBDRT4F7m00ZNnY0=
+	t=1786103308; cv=none; b=UV72avJZuvGWGhf2YDzll1QJBwUrKK1JWl0HO4saCBsUOgBCbuZ3MPB2VsvXPjLym1U5LkWCnpy3FHcwUx/wFN/IDoVn2PEIvJSElrhFsWDE3ZofG/y17m0oM7ydT/nsB8aQwhceZD5z83pQUYixa/J3hD3p7yVovO+Cdy3WZT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786103303; c=relaxed/simple;
-	bh=cS8QlEGWiSh0RNllWjqmYzD53RIhSVTRjuFEA88DPE0=;
+	s=arc-20240116; t=1786103308; c=relaxed/simple;
+	bh=gk1cL/Wi5UXWqyABBvm1IjE6GW5Rosmr8RyG75Ap9IY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OgN6fYOFCVwLLKWbjY3iCKBE8vru0/J2Uf55DBRuTiL10W+RPkpumz4rRrVZWxD6e6WSG/SljECUENBQbmPUMUKcEojz8CzBVbJqTH+JUR4VJQBiO5QUSAmtPmm3iGMOq4TFRMrI76BzwsB7mRflJo8lkedN2spvI6UiLCeWCCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oQ9u6mfk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KwOX141nu3QwExxI5xPQ3catKYHLCEoN5LN2+RIga/2xEohHMYUOGMsTuRYK6cdV4LHDm6uDtDWHU5nAvDDFQPlVTa6mwqmaUKwQ+Wjz/RzmwQGfGEaRZlRgx363jzEb5vsHiPf1iS2Ijj/fvN6dziEr4D+Bn1M9inc9PGGp2Yo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E2K2ihsB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oQ9u6mfk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 567221F00A3E;
-	Fri,  7 Aug 2026 11:48:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E2K2ihsB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C84A91F00ACF;
+	Fri,  7 Aug 2026 11:48:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786103295;
-	bh=lW1wj5gnOCcmmX0IRpEe/AvHanQQT2gDlE+9HzGvyZc=;
+	s=k20260515; t=1786103298;
+	bh=uUMMNCnf8i33mVUUzW0WHXlFPPT8nMCxi6orsl5f4Vo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oQ9u6mfkUrxxNPZSClUfjOCxRT9UYHJO2qPONAr+LsYHjQJCewkOohexXE3rw782V
-	 WHi9EYbeT15wt9uUmg+bof8G4e6GVsxfqRTJVuWF5YT76i+8yFewI+0UP2qk0tq0GP
-	 Hj5LEn24lyqxYKEOijeK4OGotIIp+ZzO9EpUB5BBcsksDhQMHgXQ9MN+l3le6ZyoG6
-	 AyPGu18zGsOhum+rhPV7f3K2KFvvTp7hl5N8oEAuQUU6FYgrBUUFmWtbTra9OQyatt
-	 Wd75nJqI5sUVWewIitaoZRilczb148NWEP/lnePuI1E+oHHkgLTfWCAMK1tKqXnO1u
-	 qjnI9ov/m5q2g==
+	b=E2K2ihsBuxLGSgKGUL+RFJWYrdeJqJJaqknGUOv88La2x/mjd77kpboi1elWLHTQS
+	 3H0/qIE+vbruX62mzF1WX5+qlx0CWUDgvH9WnVZrCRSLQlr4VX2QLiWQA0rG++M0kd
+	 XgSScmNoEIi5bhlY/FuoZhd4sX8nr2oJFFP11CvbpAQA1zfwSp3xqLuxRVrsHvxr7b
+	 A48O/APOkDFZfUg1dfyeKdnT5vpu07nR5Gb4/sOGmmRqzxDIeZLokaDbYGL6dQ90cb
+	 XDfl8OO2oOrnJlfPv4nzkx1yp8MhmCKfU7n8zIoIt5Bp25SVKQqh3K7bL65spr8YYy
+	 x5hG7EQxQZn2A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Geliang Tang <tanggeliang@kylinos.cn>,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
 	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/4] mptcp: pm: avoid code duplication to lookup endp
-Date: Fri,  7 Aug 2026 07:48:10 -0400
-Message-ID: <20260807114813.2056374-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/4] mptcp: pm: userspace: fix use-after-free in get_local_id
+Date: Fri,  7 Aug 2026 07:48:13 -0400
+Message-ID: <20260807114813.2056374-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072920-budding-prescribe-9ea0@gregkh>
+In-Reply-To: <20260807114813.2056374-1-sashal@kernel.org>
 References: <2026072920-budding-prescribe-9ea0@gregkh>
+ <20260807114813.2056374-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,68 +50,90 @@ Content-Transfer-Encoding: 8bit
 
 From: Geliang Tang <tanggeliang@kylinos.cn>
 
-[ Upstream commit 1d7fa6ceb91fddbe38cae3521d5d1075bce6a00e ]
+[ Upstream commit 9bc6d5e4ca9f3cbb41d43400b3a31cb0403796c9 ]
 
-The helper __lookup_addr() can be used in mptcp_pm_nl_get_local_id()
-and mptcp_pm_nl_is_backup() to simplify the code, and avoid code
-duplication.
+In mptcp_pm_userspace_get_local_id(), the address entry is looked up under
+spinlock, but its id is read after dropping the lock. A concurrent deletion
+can free the entry between the unlock and the read, leading to UAF.
 
-Co-developed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+The race window is narrow. It was reproduced only with a locally
+constructed stress test that repeatedly overlaps an MP_JOIN SYN with a
+MPTCP_PM_CMD_SUBFLOW_DESTROY request.
+
+However, the KASAN report below confirms that the race is reachable:
+
+  [  666.319376] BUG: KASAN: slab-use-after-free in mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
+  [  666.319386] Read of size 1 at addr ffff888124845610 by task swapper/0/0
+  ...
+  [  666.319401] Call Trace:
+  [  666.319405]  <IRQ>
+  [  666.319408]  dump_stack_lvl+0x53/0x70
+  [  666.319412]  print_address_description.constprop.0+0x2c/0x3b0
+  [  666.319418]  print_report+0xbe/0x2b0
+  [  666.319421]  ? mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
+  [  666.319423]  kasan_report+0xce/0x100
+  [  666.319426]  ? mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
+  [  666.319429]  mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
+  [  666.319433]  mptcp_pm_get_local_id+0x371/0x440
+  ...
+  [  666.319821] Allocated by task 45539:
+  [  666.319844]  kasan_save_stack+0x33/0x60
+  [  666.319855]  kasan_save_track+0x14/0x30
+  [  666.319858]  __kasan_kmalloc+0x8f/0xa0
+  [  666.319863]  __kmalloc_noprof+0x1e7/0x520
+  [  666.319867]  sock_kmalloc+0xdf/0x130
+  [  666.319885]  sock_kmemdup+0x1b/0x40
+  [  666.319888]  mptcp_userspace_pm_append_new_local_addr+0x261/0x500
+  [  666.319910]  mptcp_pm_nl_announce_doit+0x16a/0x610
+  ...
+  [  666.319967] Freed by task 45560:
+  [  666.319988]  kasan_save_stack+0x33/0x60
+  [  666.319991]  kasan_save_track+0x14/0x30
+  [  666.319994]  kasan_save_free_info+0x3b/0x60
+  [  666.319998]  __kasan_slab_free+0x43/0x70
+  [  666.320000]  kfree+0x166/0x440
+  [  666.320003]  sock_kfree_s+0x1d/0x50
+  [  666.320007]  mptcp_userspace_pm_delete_local_addr.isra.0+0x157/0x200
+  [  666.320011]  mptcp_pm_nl_subflow_destroy_doit+0x51d/0xea0
+
+Fix by copying the id into a local variable while still holding the lock,
+and use -1 as a "not found" sentinel.
+
+Fixes: f012d796a6de ("mptcp: check addrs list in userspace_pm_get_local_id")
+Cc: stable@vger.kernel.org
 Signed-off-by: Geliang Tang <tanggeliang@kylinos.cn>
+Tested-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20241115-net-next-mptcp-pm-lockless-dump-v1-2-f4a1bcb4ca2c@kernel.org
+Link: https://patch.msgid.link/20260722-net-mptcp-misc-fixes-7-2-rc5-v1-2-6fb595bc86ef@kernel.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 9bc6d5e4ca9f ("mptcp: pm: userspace: fix use-after-free in get_local_id")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/pm_netlink.c | 20 ++++++--------------
- 1 file changed, 6 insertions(+), 14 deletions(-)
+ net/mptcp/pm_userspace.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/net/mptcp/pm_netlink.c b/net/mptcp/pm_netlink.c
-index 74ec7ecf4e8ff..2de42055b78f9 100644
---- a/net/mptcp/pm_netlink.c
-+++ b/net/mptcp/pm_netlink.c
-@@ -1281,17 +1281,13 @@ int mptcp_pm_nl_get_local_id(struct mptcp_sock *msk, struct mptcp_addr_info *skc
- {
+diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
+index 31d45b1db3903..ded7a4d416919 100644
+--- a/net/mptcp/pm_userspace.c
++++ b/net/mptcp/pm_userspace.c
+@@ -153,12 +153,15 @@ int mptcp_userspace_pm_get_local_id(struct mptcp_sock *msk,
+ 	__be16 msk_sport =  ((struct inet_sock *)
+ 			     inet_sk((struct sock *)msk))->inet_sport;
  	struct mptcp_pm_addr_entry *entry;
- 	struct pm_nl_pernet *pernet;
--	int ret = -1;
-+	int ret;
++	int id;
  
- 	pernet = pm_nl_get_pernet_from_msk(msk);
+ 	spin_lock_bh(&msk->pm.lock);
+ 	entry = mptcp_userspace_pm_lookup_addr(msk, &skc->addr);
++	id = entry ? entry->addr.id : -1;
+ 	spin_unlock_bh(&msk->pm.lock);
+-	if (entry)
+-		return entry->addr.id;
++
++	if (id != -1)
++		return id;
  
- 	rcu_read_lock();
--	list_for_each_entry_rcu(entry, &pernet->local_addr_list, list) {
--		if (mptcp_addresses_equal(&entry->addr, skc, entry->addr.port)) {
--			ret = entry->addr.id;
--			break;
--		}
--	}
-+	entry = __lookup_addr(pernet, skc);
-+	ret = entry ? entry->addr.id : -1;
- 	rcu_read_unlock();
- 	if (ret >= 0)
- 		return ret;
-@@ -1318,15 +1314,11 @@ bool mptcp_pm_nl_is_backup(struct mptcp_sock *msk, struct mptcp_addr_info *skc)
- {
- 	struct pm_nl_pernet *pernet = pm_nl_get_pernet_from_msk(msk);
- 	struct mptcp_pm_addr_entry *entry;
--	bool backup = false;
-+	bool backup;
- 
- 	rcu_read_lock();
--	list_for_each_entry_rcu(entry, &pernet->local_addr_list, list) {
--		if (mptcp_addresses_equal(&entry->addr, skc, entry->addr.port)) {
--			backup = !!(entry->flags & MPTCP_PM_ADDR_FLAG_BACKUP);
--			break;
--		}
--	}
-+	entry = __lookup_addr(pernet, skc);
-+	backup = entry && !!(entry->flags & MPTCP_PM_ADDR_FLAG_BACKUP);
- 	rcu_read_unlock();
- 
- 	return backup;
+ 	if (skc->addr.port == msk_sport)
+ 		skc->addr.port = 0;
 -- 
 2.53.0
 
