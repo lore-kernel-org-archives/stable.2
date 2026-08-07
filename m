@@ -1,45 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CD74772A1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22F0477295;
 	Fri,  7 Aug 2026 15:43:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786117411; cv=none; b=Eg5XV/fXmq7d/dDMAlxKBpsfN3R2zBvj/hQ8yWn7sJPBdexSLAjAAYW3Leshr3lGdJNDD4yfM+7CFsGTySt+hE5MCWb616L/3KeQJTX1IAxpC9rVC/POmYfcJdniaurXyjREep1EUvTGrusIsomXc5PGzz7idfk9NEwnG2Mfn0k=
+	t=1786117412; cv=none; b=Ac5UAK4hlsE1hn6KHUOkQQ/T4BMHMrcqVwWB/vZmsx1gAAdEotutZ6ASITYnaqLzB7PnbnXRiSUJPPqmVGNeQYod45ltUDxHWAflXfMjjnwb45jm4Zi2fhKRe33nyfftThu2wcYFrhVzhC9TXU+JmRHUIrXJ8lV1ga9WSe4JHpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786117411; c=relaxed/simple;
-	bh=0hZRBxxLjB9haV3hlSWlvw/WqZ8bKLkKeIACl0l2Iy8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SOER5lef2hODhKOi3Cx6KkeKd/GraA+smwcvdIaI8ppQyXv3izsm9Ndh2BdZ4c1CIsf6apURvTnkCA6zgqCSjZWEa8fQqcl0XUCrZ1RjvLc6hMw8ep63ews6CqBfjOd8ZDLoO6OvqjD/hWrM7GL7AbmdHxxZPMM/mzZtAKLH2Jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=muk1zcie; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786117412; c=relaxed/simple;
+	bh=TO0kvB1OAPSKiaZLH18B9ea4rcw+T+bBVp4XMedX6XI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lXMWyRxVUrlfEtMYzHCLJwu2Po6Ug9IsZcT2lI8dNLdIUDQPHPObx7pPpUhLab9HHdzRFgyfGFPkbO6kGsdZVnyBtHitgTGzTTJ/+wZSH0Xv5jrsJaImY6FbCrC9bPeOmrHGeHY40pHUzD8kMRKMbZVD4A4O18evZbkTniKIWvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a363P9dq; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="muk1zcie"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 653951F000E9;
-	Fri,  7 Aug 2026 15:43:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786117409;
-	bh=u+AnPan6Tnrrvowsnyz6UgVeWBZxyVO0agY5q08w2p0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=muk1zcieDpWphD1b9Q2G/++r/C7Bz9oH9dejEoPZGwkIzEnQbqXkaBOXwcES1Ixl5
-	 p32hRbFnzv/zi/1Ao2Uq0MHFmU3HzLlmEAXcqvs/t9xepflI37EoEmILu2LWOT34Ob
-	 LsXikCSFdUeYTa6PHJHM0b9SI+Dzk8LDh7a/fTcg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Igor Pylypiv <ipylypiv@google.com>,
-	Niklas Cassel <cassel@kernel.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>
-Subject: [PATCH 7.1 265/438] ata: libata-scsi: terminate deferred commands on time out
-Date: Fri,  7 Aug 2026 16:37:41 +0200
-Message-ID: <20260807143433.641109533@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260807143428.008222056@linuxfoundation.org>
-References: <20260807143428.008222056@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a363P9dq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786117411; x=1817653411;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=TO0kvB1OAPSKiaZLH18B9ea4rcw+T+bBVp4XMedX6XI=;
+  b=a363P9dqVBejDwEpEP/2Ud52gcGBLjnoAE6nRAuAcroE8whDgJOGG5KE
+   /9PWcM+Qmx3WlNt89vbx4qxXaYOQeD8tdQFsBFvdxo/S2dlcAlj0Gquw1
+   TvrtIE3183sNiyCcbMBetz1zUdzrVCau1b1FNz1RDTP6g/uoG+Hw0fOgH
+   e52qbTfDF+gJYR8GMfSE1cthX0bFwqd4JxxbGpz3Sp89miHu3FJ2rBzkB
+   bb7N8Iz6Ipn9XC4kkXKiqUeimczrHwiwHyLct6iJ14zVtf+cOrgRhO0nK
+   aCyEGsAIZZH6wWKQp1c40L2Q/y9ZRCsQM+RMYqd0cBU5aEOy7CcUFuPAy
+   w==;
+X-CSE-ConnectionGUID: 5dew9daVSwiZ3rrUi93P5Q==
+X-CSE-MsgGUID: nucQwhfWTrKOI1ChKerdFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11868"; a="109520475"
+X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
+   d="scan'208";a="109520475"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 08:43:30 -0700
+X-CSE-ConnectionGUID: aRRHcWwMQl+7t03s1BppJw==
+X-CSE-MsgGUID: Jgcnn8/sSdqiMvD/j+wp0A==
+X-Ironport-Invalid-End-Of-Message: True
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
+   d="scan'208";a="287100890"
+Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
+  by fmviesa001.fm.intel.com with ESMTP; 07 Aug 2026 08:43:29 -0700
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+To: linux-kernel@vger.kernel.org
+Cc: x86@kernel.org,
+	rust-for-linux@vger.kernel.org,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	ojeda@kernel.org,
+	nathan@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	chang.seok.bae@intel.com,
+	Omar Avelar <omar.avelar@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] x86/build/64: Prevent native builds from generating APX instructions
+Date: Fri,  7 Aug 2026 15:17:15 +0000
+Message-ID: <20260807151715.7247-1-chang.seok.bae@intel.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,302 +81,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+Omar reported this broad concern to me, when resolving a separate issue
+with his custom module. CONFIG_X86_NATIVE_CPU=y allows builds to
+opportunistically emit APX instructions when the build host supports APX
+since the commit.
 
-------------------
+But the kernel is not yet prepared to use APX internally. For example,
+there is no context-switch support for general in-kernel use of the
+extended GPRs.
 
-From: Damien Le Moal <dlemoal@kernel.org>
+Explicitly disable APX when building with -march=native.
 
-commit 2e1d2e65e773d67dab163127f11a47dab0fbca9f upstream.
+For C, GCC 14 and Clang 18 both support disabling APX with -mno-apxf,
+whose availability can be detected via cc-option.
 
-If a command times out while we have deferred non-NCQ commands waiting to
-be issued, the SCSI EH task is not immediately woken up as the waiting
-deferred commands are never issued nor completed, thus leaving the SCSI
-host in a busy state (shost->host_failed != scsi_host_busy(shost)) which
-prevents the SCSI EH task from being woken up. Eventually, when the
-deferred commands also time out, the SCSI EH task is woken up and the
-timeout processing occurs.
+For Rust, APX must be explicitly disabled because any backend supporting
+APX may otherwise emit APX instructions with target-cpu=native. Pass
+features=-apxf through the generated JSON to avoid unstable-feature
+warnings.
 
-Avoid this unnecessary SCSI EH task wake-up additional time by scheduling
-a retry of all waiting deferred QCs, using the eh_timed_out SCSI host
-template operation. The function ata_scsi_eh_timed_out() is introduced to
-implement this operation.
+Support for this gating also depends on the Rust/LLVM combination. Rust
+1.88 introduced the `apxf` feature option, but versions prior to 1.93 may
+emit an `apxf` attribute which LLVM 23 or later can interpret. Restrict
+native Rust builds accordingly.
 
-However, terminating deferred commands with DID_REQUEUE to force a retry
-by calling the function ata_scsi_requeue_deferred_qc() may still keep the
-SCSI host in a busy state because the block layer may immediately re-issue
-these commands. The solution to this is to schedule libata EH for the
-port which suffered the command timeout to prevent accepting any new
-command. ata_scsi_requeue_deferred_qc() is modified to add a call to
-ata_port_schedule_eh() for this purpose.
-
-In addition to this change, ata_scsi_requeue_deferred_qc() is also
-modified to take a new timedout_scmd scsi command argument which indicates
-the SCSI command that timed out. With this additional argument,
-ata_scsi_requeue_deferred_qc() can now also terminate with DID_TIME_OUT
-any timed out deferred qc, which simplifies ata_scsi_cmd_error_handler().
-In this case, ata_scsi_requeue_deferred_qc() returns SCSI_EH_DONE, with
-this return value propagated back to the ata_scsi_eh_timed_out() operation
-to indicate to scsi_timeout() that the timed out command was handled and
-no further processing is needed.
-
-For non-timed out deferred qc that need to be retried,
-ata_scsi_requeue_deferred_qc() returns SCSI_EH_NOT_HANDLED, thus
-indicating to scsi_timeout() that the timed out command needs to go
-through the SCSI EH (and libata EH) processing by adding it to the EH work
-queue with scsi_eh_scmd_add().
-
-One side effect of these changes is that the function atapi_qc_complete()
-needs to be modified to ensure that a deferred ATAPI command that needs
-to be retried is completed with DID_REQUEUE instead of the default
-SAM_STAT_GOOD status, and a command that timed out is completed with
-DID_TIME_OUT instead of SAM_STAT_CHECK_CONDITION.
-
-Fixes: 0ea84089dbf6 ("ata: libata-scsi: avoid Non-NCQ command starvation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
-Reviewed-by: Igor Pylypiv <ipylypiv@google.com>
-Tested-by: Igor Pylypiv <ipylypiv@google.com>
-Reviewed-by: Niklas Cassel <cassel@kernel.org>
-Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
+Reported-by: Omar Avelar <omar.avelar@intel.com>
+Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+Cc: <stable@vger.kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>
 ---
- drivers/ata/libata-eh.c   |   29 ++---------
- drivers/ata/libata-scsi.c |  112 +++++++++++++++++++++++++++++++++++++++++-----
- drivers/ata/libata.h      |    3 -
- include/linux/libata.h    |    2 
- 4 files changed, 111 insertions(+), 35 deletions(-)
+V1 -> V2:
+ * Use the JSON generator, and specify Rust/LLVM versions (Miguel Ojeda)
+ * Lean into cc-option simply, and add a review tag (Nathan Chancellor)
+ * I also ended up adding Fixes: just for easy backporting.
+---
+ arch/x86/Kconfig.cpu            | 11 +++++++++++
+ arch/x86/Makefile               |  5 +++++
+ scripts/generate_rust_target.rs |  5 +++++
+ 3 files changed, 21 insertions(+)
 
---- a/drivers/ata/libata-eh.c
-+++ b/drivers/ata/libata-eh.c
-@@ -656,29 +656,12 @@ int ata_scsi_cmd_error_handler(struct Sc
- 		set_host_byte(scmd, DID_OK);
+diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
+index e4654388d794..6e7a366f0798 100644
+--- a/arch/x86/Kconfig.cpu
++++ b/arch/x86/Kconfig.cpu
+@@ -204,10 +204,21 @@ config CC_HAS_MARCH_NATIVE
+ 	# usage warnings that only appear wth '-march=native'.
+ 	depends on CC_IS_GCC || CLANG_VERSION >= 190100
  
- 		ata_qc_for_each_raw(ap, qc, i) {
--			if (qc->scsicmd != scmd)
--				continue;
--			if ((qc->flags & ATA_QCFLAG_ACTIVE) ||
--			    qc == qc->dev->link->deferred_qc)
-+			if (qc->scsicmd == scmd &&
-+			    qc->flags & ATA_QCFLAG_ACTIVE)
- 				break;
- 		}
- 
--		if (i < ATA_MAX_QUEUE && qc == qc->dev->link->deferred_qc) {
--			/*
--			 * This is a deferred command that timed out while
--			 * waiting for the command queue to drain. Since the qc
--			 * is not active yet (deferred_qc is still set, so the
--			 * deferred qc work has not issued the command yet),
--			 * simply signal the timeout by finishing the SCSI
--			 * command and clear the deferred qc to prevent the
--			 * deferred qc work from issuing this qc.
--			 */
--			WARN_ON_ONCE(qc->flags & ATA_QCFLAG_ACTIVE);
--			qc->dev->link->deferred_qc = NULL;
--			cancel_work(&qc->dev->link->deferred_qc_work);
--			set_host_byte(scmd, DID_TIME_OUT);
--			scsi_eh_finish_cmd(scmd, &ap->eh_done_q);
--		} else if (i < ATA_MAX_QUEUE) {
-+		if (i < ATA_MAX_QUEUE) {
- 			/* the scmd has an associated qc */
- 			if (!(qc->flags & ATA_QCFLAG_EH)) {
- 				/* which hasn't failed yet, timeout */
-@@ -954,10 +937,10 @@ static void ata_eh_set_pending(struct at
- 	ap->pflags |= ATA_PFLAG_EH_PENDING;
- 
- 	/*
--	 * If we have a deferred qc, requeue it so that it is retried once EH
--	 * completes.
-+	 * If we have deferred QCs, requeue them so that the SCSI EH task can
-+	 * run.
- 	 */
--	ata_scsi_requeue_deferred_qc(ap);
-+	ata_scsi_requeue_deferred_qc(ap, NULL);
- 
- 	if (!fastdrain)
- 		return;
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -1685,26 +1685,80 @@ void ata_scsi_deferred_qc_work(struct wo
- 	spin_unlock_irqrestore(ap->lock, flags);
- }
- 
--void ata_scsi_requeue_deferred_qc(struct ata_port *ap)
-+enum scsi_timeout_action ata_scsi_requeue_deferred_qc(struct ata_port *ap,
-+					struct scsi_cmnd *timedout_scmd)
- {
-+	enum scsi_timeout_action action = SCSI_EH_NOT_HANDLED;
-+	struct ata_queued_cmd *qc;
- 	struct ata_link *link;
-+	u32 host_byte;
- 
- 	lockdep_assert_held(ap->lock);
- 
- 	/*
--	 * If we have a deferred qc when a reset occurs or NCQ commands fail,
--	 * do not try to be smart about what to do with this deferred command
--	 * and simply requeue it by completing it with DID_REQUEUE.
-+	 * If we have deferred QCs when a reset, a timeout or an NCQ command
-+	 * fails, do not try to be smart about what to do with the deferred
-+	 * commands and simply terminate them and let the SCSI layer decide
-+	 * what to do.
- 	 */
- 	ata_for_each_link(link, ap, PMP_FIRST) {
--		struct ata_queued_cmd *qc = link->deferred_qc;
-+		qc = link->deferred_qc;
-+		if (!qc)
-+			continue;
++config RUSTC_HAS_APXF
++	# The kernel isn't ready for in-kernel APX instructions. Without
++	# explicit frontend gating of APX, the backend may emit those
++	# instructions in native builds.
++	#
++	# Rust 1.88 added the `apxf` feature option, but versions before 1.93
++	# emit an `apxf` target attribute that only LLVM 23+ can interpret.
++	def_bool (RUSTC_VERSION >= 108800 && RUSTC_LLVM_MAJOR_VERSION >= 23) || \
++		 RUSTC_VERSION >= 109300
 +
-+		/*
-+		 * Clear the deferred QC so that the deferred work does not try
-+		 * to issue it.
-+		 */
-+		link->deferred_qc = NULL;
-+		cancel_work(&link->deferred_qc_work);
-+
-+		/*
-+		 * We are going to complete some scsi command, either with
-+		 * DID_TIME_OUT if the command timed out while waiting for being
-+		 * issued, or with DID_REQUEUE if another command timed out or
-+		 * we had a failed command. However, the block layer may re-issue
-+		 * these commands immediately, keeping the scsi host busy and
-+		 * thus preventing the SCSI EH task from running.
-+		 * So schedule EH on the port to prevent accepting new commands
-+		 * until everything is sorted out with the error or timeout that
-+		 * got us here in the first place. Note that we set EH pending
-+		 * on the port before calling ata_port_schedule_eh() so that we
-+		 * do not reenter this function from ata_eh_set_pending() with
-+		 * timedout_scmd being NULL and erroneously retry deferred QCs
-+		 * that have timed out on other links.
-+		 */
-+		if (!ata_port_eh_scheduled(ap)) {
-+			ap->pflags |= ATA_PFLAG_EH_PENDING;
-+			ata_port_schedule_eh(ap);
-+		}
+ config X86_NATIVE_CPU
+ 	bool "Build and optimize for local/native CPU"
+ 	depends on X86_64
+ 	depends on CC_HAS_MARCH_NATIVE
++	depends on !RUST || RUSTC_HAS_APXF
+ 	help
+ 	  Optimize for the current CPU used to compile the kernel.
+ 	  Use this option if you intend to build the kernel for your
+diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+index 598f178102ee..866912ed2ec7 100644
+--- a/arch/x86/Makefile
++++ b/arch/x86/Makefile
+@@ -161,6 +161,11 @@ else
  
--		if (qc) {
--			link->deferred_qc = NULL;
--			cancel_work(&link->deferred_qc_work);
--			ata_scsi_qc_done(qc, true, DID_REQUEUE << 16);
-+		/*
-+		 * If we are being called from scsi_timeout(), then we have a
-+		 * non-NULL timedout_scmd. If the timed out command is for a
-+		 * deferred QC, terminate that deferred QC with DID_TIME_OUT and
-+		 * requeue all other deferred QCs. In this case we need to
-+		 * return SCSI_EH_DONE, because the timed out command was
-+		 * handled.
-+		 * If the timed out command is not for a deferred QC, we need to
-+		 * requeue all deferred QCs, and return SCSI_EH_NOT_HANDLED so
-+		 * that the timed out command gets added to the EH work queue
-+		 * with scsi_eh_scmd_add(), for later handling with libata EH
-+		 * ata_scsi_cmd_error_handler().
-+		 * If timedout_scmd is NULL, we simply need to requeue all
-+		 * deferred QCs and the return value does not matter as we were
-+		 * not called from scsi_timeout().
-+		 */
-+		if (timedout_scmd && qc->scsicmd == timedout_scmd) {
-+			host_byte = DID_TIME_OUT;
-+			action = SCSI_EH_DONE;
-+		} else {
-+			host_byte = DID_REQUEUE;
- 		}
-+		ata_scsi_qc_done(qc, true, host_byte << 16);
- 	}
+ ifdef CONFIG_X86_NATIVE_CPU
+         KBUILD_CFLAGS += -march=native
++        # Prevent the compiler from generating APX instructions. The kernel is
++        # not yet prepared for general in-kernel APX use.
++        KBUILD_CFLAGS += $(call cc-option,-mno-apxf)
 +
-+	return action;
- }
- 
- static void ata_scsi_schedule_deferred_qc(struct ata_link *link)
-@@ -1723,13 +1777,41 @@ static void ata_scsi_schedule_deferred_q
- 		return;
- 
- 	if (ata_port_eh_scheduled(ap)) {
--		ata_scsi_requeue_deferred_qc(ap);
-+		ata_scsi_requeue_deferred_qc(ap, NULL);
- 		return;
- 	}
- 	if (!ap->ops->qc_defer(qc))
- 		queue_work(system_highpri_wq, &link->deferred_qc_work);
- }
- 
-+static enum scsi_timeout_action
-+ata_scsi_retry_deferred_qc(struct ata_port *ap, struct scsi_cmnd *scmd)
-+{
-+	enum scsi_timeout_action action;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(ap->lock, flags);
-+	action = ata_scsi_requeue_deferred_qc(ap, scmd);
-+	spin_unlock_irqrestore(ap->lock, flags);
-+
-+	return action;
-+}
-+
-+enum scsi_timeout_action ata_scsi_eh_timed_out(struct scsi_cmnd *scmd)
-+{
-+	struct ata_port *ap = ata_shost_to_port(scmd->device->host);
-+
-+	/*
-+	 * ata_scsi_cmd_error_handler() takes care of commands that timed out
-+	 * while executing. However, if we have deferred QCs while a timeout
-+	 * triggers, we must requeue these commands for retry so that we do not
-+	 * unnecessarily delay starting the SCSI EH task until these deferred
-+	 * commands also time out.
-+	 */
-+	return ata_scsi_retry_deferred_qc(ap, scmd);
-+}
-+EXPORT_SYMBOL_GPL(ata_scsi_eh_timed_out);
-+
- static void ata_scsi_qc_complete(struct ata_queued_cmd *qc)
- {
- 	struct ata_link *link = qc->dev->link;
-@@ -2934,7 +3016,15 @@ static void atapi_qc_complete(struct ata
- 		if (qc->cdb[0] == ALLOW_MEDIUM_REMOVAL && qc->dev->sdev)
- 			qc->dev->sdev->locked = 0;
- 
--		ata_scsi_qc_done(qc, true, SAM_STAT_CHECK_CONDITION);
-+		if (cmd->result)
-+			ata_scsi_qc_done(qc, false, 0);
-+		else
-+			ata_scsi_qc_done(qc, true, SAM_STAT_CHECK_CONDITION);
-+		return;
-+	}
-+
-+	if (cmd->result) {
-+		ata_scsi_qc_done(qc, false, 0);
- 		return;
- 	}
- 
---- a/drivers/ata/libata.h
-+++ b/drivers/ata/libata.h
-@@ -177,7 +177,8 @@ int ata_scsi_dev_config(struct scsi_devi
- enum scsi_qc_status __ata_scsi_queuecmd(struct scsi_cmnd *scmd,
- 					struct ata_device *dev);
- void ata_scsi_deferred_qc_work(struct work_struct *work);
--void ata_scsi_requeue_deferred_qc(struct ata_port *ap);
-+enum scsi_timeout_action ata_scsi_requeue_deferred_qc(struct ata_port *ap,
-+						      struct scsi_cmnd *scmd);
- 
- /* libata-eh.c */
- extern unsigned int ata_internal_cmd_timeout(struct ata_device *dev, u8 cmd);
---- a/include/linux/libata.h
-+++ b/include/linux/libata.h
-@@ -1152,6 +1152,7 @@ extern int ata_scsi_ioctl(struct scsi_de
- #endif
- extern enum scsi_qc_status ata_scsi_queuecmd(struct Scsi_Host *h,
- 					     struct scsi_cmnd *cmd);
-+enum scsi_timeout_action ata_scsi_eh_timed_out(struct scsi_cmnd *cmd);
- #if IS_REACHABLE(CONFIG_ATA)
- bool ata_scsi_dma_need_drain(struct request *rq);
- #else
-@@ -1461,6 +1462,7 @@ extern const struct attribute_group *ata
- 	.ioctl			= ata_scsi_ioctl,		\
- 	ATA_SCSI_COMPAT_IOCTL					\
- 	.queuecommand		= ata_scsi_queuecmd,		\
-+	.eh_timed_out		= ata_scsi_eh_timed_out,	\
- 	.dma_need_drain		= ata_scsi_dma_need_drain,	\
- 	.this_id		= ATA_SHT_THIS_ID,		\
- 	.emulated		= ATA_SHT_EMULATED,		\
-
++        # generate_rust_target.rs handles Rust APX gating
+         KBUILD_RUSTFLAGS += -Ctarget-cpu=native
+ else
+         KBUILD_CFLAGS += -march=x86-64 -mtune=generic
+diff --git a/scripts/generate_rust_target.rs b/scripts/generate_rust_target.rs
+index 3bf296581a88..e0f9714ebdea 100644
+--- a/scripts/generate_rust_target.rs
++++ b/scripts/generate_rust_target.rs
+@@ -224,6 +224,11 @@ fn main() {
+             features += ",+harden-sls-ijmp";
+             features += ",+harden-sls-ret";
+         }
++        if cfg.has("X86_NATIVE_CPU") {
++            // Prevent the backend from generating APX instructions. The kernel is not yet prepared
++            // for general in-kernel APX use.
++            features += ",-apxf";
++        }
+         ts.push("features", features);
+         ts.push("llvm-target", "x86_64-linux-gnu");
+         ts.push("supported-sanitizers", ["kcfi", "kernel-address"]);
+-- 
+2.53.0
 
