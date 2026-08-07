@@ -1,68 +1,33 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978742E8DEA
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 08:46:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2393EC812;
+	Fri,  7 Aug 2026 08:51:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786092405; cv=none; b=JTh86pqVv8QGylial1iKQQ7gQCaE8vaSxDXQoPisRTzClRCCSIG4aAk9FcALOvPpp8PQ3jbUxVAeZPFn/WGu0//G8bc2aGq4GZvJA3IvbSG2piSiRf3mBbbziimwrdq42Q4WoOPNoFHFmjhm2k25zAXKk3ePtebRC6tiw2Ozumc=
+	t=1786092693; cv=none; b=u8owloOm0Uv1h/mD4WIx3hK1i7YH/gYgTIzUQvEwB11GL6ogSusXSJW5CdWvXMia312hk7epTDiPf5F9sDpw+9jAimWG7evJnWfew+uwA+5qSN7Wueik8WI9cQKBLq8H9hrK1VdwIcs/+p0LVcd4FfNwxxilc/SKKqveloVVCiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786092405; c=relaxed/simple;
-	bh=YwNlK7A55qB8396L/ayxXzR2FuOJIAlbmtaKLe06wEQ=;
+	s=arc-20240116; t=1786092693; c=relaxed/simple;
+	bh=I+Eiz7/0JxWIupKwIb0quAT+zL2qYcarKFqPL59HulI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dtCR++X5nP0UtoRzCblYzZf+DyvLOLs2E1ZD+CfTB/PTRc+0XXorKhvTKZ+QpO2TnPzSgPyYPrH50VMgRKwUbRAVIqE2MHal12JtO7FGA7OAHPhXgRNlPZHzZW0KmBUJ+U4lWFvJU6tKFhlMtzb+yksXqn46xPS1IiRwtnevt0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iTqQQnqs; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=AJNYZPrFzdCapCOdkjJ5FHZjBc5kq5nZm9TxZGHamvJHCMVApOu9TsM86Syc/HMpP6gSqYikZ7THsk40HUJhAYWpCLrIoB7CdpGx0OBiwoYWXAPTt3vkv4iNzXJHYEVJIyaZxB0+wMdHfSByJel1XYziOPhBz2h/ePPk35/Nu/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XsS2dPal; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iTqQQnqs"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f92e3c14bso2721110f8f.0
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 01:46:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786092402; x=1786697202; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xUSIPfG/BB3jKwKy9WpPCVr/+aiChLfo3itvMt00IKg=;
-        b=iTqQQnqssJBaQhrmuBNttvYiA4M7bhMTfEOsYQ7juTuyPADDg/9Z3w1sca+gafFPzw
-         d4Q7pc9FKVOLjo48gRxQZ6Ix4XZ1hYXy/tyecrWnDj6d7dgzSi9YpnWj78Va1rIeG3B6
-         gDQKsUc0Xn4+JGmlu1lGqNs41wE1QzLYamCyE1GXtmQSGYhsK78YNudmKeEBBl1NjuLI
-         GrzmOWpC75tXFivUFzaZblMDgEdQKg553ABfI8/j6es8YP/X0Tbb6AONRPQKyvg9i7iX
-         qfvzCO9vMmNB5+eb9cN1xqjjJW8W2CDhHGQXuLQih8FL6sgYskFrxtuwS+ZXP3bC4ec6
-         qx5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786092402; x=1786697202;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xUSIPfG/BB3jKwKy9WpPCVr/+aiChLfo3itvMt00IKg=;
-        b=XxAxl+8kIcb1PjnoeLsWbhC+4iMzHsris3T/YVXjCfE07vvyhffaf6INp+jhnGEfUk
-         1nm9I36ElTCh196YApDDXXc9Zn+lMKbdB6O4tPO/Cn4Bxw///DT/SB/3w0QykQQ+wvJx
-         i1VIFdpPU9cG2R2fr0DYVLDms0g//ZfFinqoBgHibgcz+G9FQ8wyoPY+0HRn+GLC4xSQ
-         Op9fueP0NwRiHYsire2JsNOmGeS4uPg+C3tURZeSR/X/nXeYx/qbmUXwwvf36knXFgAg
-         ldjU3yKIhkU1egWaC9n1G2wsPpuvOnDhqAcbxK4mdxjKVZ+/D55dW/Y2L9bYWjUeMph5
-         3uqw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr/RfU3YuCFfUs3TrSBTgtLe4ZgEqlOvOS+QH+0T7CFUAV1l7YllNwbLib4B/7LNoN+2vbZiEU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxtXqLOLjgQ4FLeT78gBOo6MM762Y0iI2FQ7OHsMTwXTyoT5ypo
-	L3IQ61quEfHIHMBs70Pvn64HH07lbBN5KkCDu6y0u1Eq2qcJhlITsmxB
-X-Gm-Gg: AR+sD10IiemqQi0rY5N2tqev/FdZGD70K0ZBcOkXrGHy6HAd2P16Wlnyn2BdZb0sXr+
-	M9wRJGJgjGpx8pOxONw6a+MrPQcQw9MclgOZtZCKj5UEsLRa5WmruGv+EURSyu/lY+cMC88dLWG
-	VHhSCe4PJyFGLysPnzUVPSkHwoDcrfFxU5nmZ1RHXdypHE6EcYTq8tDLFEFfAvVf7oVlixq9fjW
-	MjEOY9LnxtOg2KCXKfo/LEZg0d/vaERgb5Oz/vaBoMla1pJQSqb8+NlYu1gAkBm0rUxLub49qap
-	KIa+xkMbcKPgXVLRoepj1TBTzKyWTEl2N3G5IlBrgNr11Whg/QzkK1gfxePEyd5FsglZ/RUHKBx
-	dfsvcg2Hk1XkjQlYagA6Y4LAHzTZ0wPqZmYAD+3uQiFngYiglLi2mSZhOhslX8ku3GoC6Vr3gA6
-	L9CRREMo9i4XHb/A7tgMQ1gs7b2UIpiToke1DQYQ+B1QkP2PJXgVLQoy5FnjCefntLi3cBwK+dC
-	oVrRQ3IS21UM4FHIlB+ZWD+S70ToqtA7C5ncQJ7WusdnU9D9WpeWa7df4z8BsQHWA==
-X-Received: by 2002:a05:6000:613:b0:47f:9176:da23 with SMTP id ffacd0b85a97d-47fec48270fmr31695999f8f.0.1786092401641;
-        Fri, 07 Aug 2026 01:46:41 -0700 (PDT)
-Received: from [192.168.178.24] (cgn-195-14-217-60.nc.de. [195.14.217.60])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021506desm3865582f8f.10.2026.08.07.01.46.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Aug 2026 01:46:41 -0700 (PDT)
-Message-ID: <576fd334-3482-4ada-9b35-2e67a024e306@gmail.com>
-Date: Fri, 7 Aug 2026 10:46:40 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XsS2dPal"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971211F00A3A;
+	Fri,  7 Aug 2026 08:51:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786092692;
+	bh=w/L0R+LFU9mVfCT45k6ZWYiIBiaxXWLtIQdg41M+M7w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=XsS2dPal+tdOeRAz5nhXFzo9g2PTb3JBHHY010D9D4Pcdj9at/G3aJD6aNSbT20Br
+	 AtCtkDIeP6SU8xIvwe1iFasCqi6YpTICMrtM4KOt/Wcmd6Kzr7kr2r1xPIBbRzPy+u
+	 2HBt+l7igCAgzSaK5vyyjmR4OmNVqt7HQWVb5D4M45ZCHv1fzWyh19450Pu4A+3qAD
+	 ZksM1GmBozKWyr6bZ6YaJchUqTgXgFK2GUjAAiwsL27jI3CuXYlEdQkEQSDcZNfApE
+	 LHaVeHljMTOq+AY05rSvtOefS1oOjvQHfdNXkR4ZzRgbsWzSlt6IlMg43Rdx5EB5rQ
+	 0x2/DOEGfEQIA==
+Message-ID: <0b2c4f55-8e61-472e-92d0-05493f552c85@kernel.org>
+Date: Fri, 7 Aug 2026 09:51:22 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,79 +35,129 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: dw2102: fix OOB read on firmware size not a
- multiple of 64
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Igor M Liplianin <liplianin@me.by>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, syzbot+f408eac9faa61d5a1927@syzkaller.appspotmail.com
-References: <20260806-dvb-v1-1-a750f8e5b2ea@gmail.com>
-Content-Language: en-US
-From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-In-Reply-To: <20260806-dvb-v1-1-a750f8e5b2ea@gmail.com>
+Subject: Re: [PATCH 00/22] media: iris: Restrict lower IOVA range for Venus
+ and Iris VPUs
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Stephan Gerhold <stephan.gerhold@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Johan Hovold <johan+linaro@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+ Mansur Alisha Shaik <mansur@codeaurora.org>,
+ Andy Gross <andy.gross@linaro.org>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Stephen Boyd <sboyd@codeaurora.org>,
+ Yassine Oudjana <y.oudjana@protonmail.com>,
+ Pierre-Hugues Husson <phhusson@freebox.fr>,
+ Marc Gonzalez <mgonzalez@freebox.fr>, cros-qcom-dts-watchers@chromium.org,
+ Matthias Kaehlcke <mka@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Aniket Masule <amasule@codeaurora.org>,
+ Malathi Gottam <quic_mgottam@quicinc.com>,
+ Rajendra Nayak <quic_rjendra@quicinc.com>, Jonathan Marek
+ <jonathan@marek.ca>, Dikshita Agarwal <dikshita@qti.qualcomm.com>,
+ Renjiang Han <quic_renjiang@quicinc.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ stable@vger.kernel.org, Daniel J Blueman <daniel@quora.org>
+References: <5BXSXMNl656WiJPJAMmHvb3I2NzYMshRZuGuub3CxEXvdCUlIDKYbnv5jUq-pa6P1NibBLkO3njnKGxi7Al3jQ==@protonmail.internalid>
+ <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
+On 07/08/2026 09:24, Vikash Garodia wrote:
+> Qualcomm venus and iris VPUs reserve IOVA addresses below 0x25800000
+> (600MB) for non-pixel stream ID in secure mode. When the kernel
+> allocates DMA mappings from this restricted range, the VPU generate
+> unhandled SMMU page faults, leading to video failures and, in some
+> cases, spontaneous system reboots.
+> 
+> The issue is readily reproducible on affected platforms by running
+> multiple concurrent video decode workloads, such as opening several
+> browser tabs containing video streams.
+> 
+> To prevent allocations in the restricted region, this series introduces
+> support for an IOMMU IOVA reserve memory-region in the Venus and Iris
+> bindings and updates all affected device trees to reserve the low IOVA
+> range [0, 0x25800000]. The memory-region is referenced by the video codec
+> node, allowing the IOMMU layer to keep DMA allocations above the reserved
+> boundary.
+> 
+> The series consists of:
+> 
+>    * Binding updates for Venus and Iris schemas to permit an additional
+>      memory-region phandle describing the IOVA reservation.
+>    * DTS updates for all affected Venus platforms.
+>    * DTS updates for all affected Iris platforms.
+> 
+> This ensures that DMA allocations do not overlap restricted IOVA
+> mappings for non-pixel stream IDs and prevents the resulting SMMU
+> faults.
+LGTM
 
-On 8/6/26 7:47 PM, Vasileios Almpanis wrote:
-> dw2102_load_firmware() copies the firmware into a buffer of exactly
-> fw->size bytes, then walks it in 0x40-byte steps while always passing
-> 0x40 as the transfer length. When fw->size is not a multiple of 64 the
-> last chunk reads past the end of the allocation producing the following
-> splat:
->
->    dvb-usb: downloading firmware from file 'dvb-usb-dw3101.fw'
->    dw2102: start downloading DW210X firmware
->    ==================================================================
->    BUG: KASAN: slab-out-of-bounds in dw210x_op_rw+0xb6/0x180 drivers/media/usb/dvb-usb/dw2102.c:102
->    Read of size 64 at addr ffff88802bcf2ba0 by task kworker/1:2/803
->    Call Trace:
->     <TASK>
->     kasan_report+0x117/0x150 mm/kasan/report.c:595
->     check_region_inline mm/kasan/generic.c:-1 [inline]
->     kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
->     __asan_memcpy+0x29/0x70 mm/kasan/shadow.c:105
->     dw210x_op_rw+0xb6/0x180 drivers/media/usb/dvb-usb/dw2102.c:102
->     dw2102_load_firmware+0x2b4/0x970 drivers/media/usb/dvb-usb/dw2102.c:1906
->
-> Fix this by clamping the last chunk to the remaining bytes;
-I sent this patch to syzbot for testing and it reported success.
-https://syzkaller.appspot.com/bug?extid=f408eac9faa61d5a1927
+For the series.
 
-Tested-by: syzbot+f408eac9faa61d5a1927@syzkaller.appspotmail.com
-> Cc: stable@vger.kernel.org
-> Reported-by: syzbot+f408eac9faa61d5a1927@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=f408eac9faa61d5a1927
-> Fixes: 7fd4828f6cc5 ("V4L/DVB (8421): Adds support for Dvbworld DVB-S 2102 USB card")
-> Signed-off-by: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-> ---
->   drivers/media/usb/dvb-usb/dw2102.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/media/usb/dvb-usb/dw2102.c b/drivers/media/usb/dvb-usb/dw2102.c
-> index 4fecf2f965e9..4e26e1776977 100644
-> --- a/drivers/media/usb/dvb-usb/dw2102.c
-> +++ b/drivers/media/usb/dvb-usb/dw2102.c
-> @@ -1902,9 +1902,11 @@ static int dw2102_load_firmware(struct usb_device *dev,
->   	if (p) {
->   		memcpy(p, fw->data, fw->size);
->   		for (i = 0; i < fw->size; i += 0x40) {
-> +			int len = min_t(size_t, fw->size - i, 0x40);
-> +
->   			b = (u8 *)p + i;
-> -			if (dw210x_op_rw(dev, 0xa0, i, 0, b, 0x40,
-> -					 DW210X_WRITE_MSG) != 0x40) {
-> +			if (dw210x_op_rw(dev, 0xa0, i, 0, b, len,
-> +					 DW210X_WRITE_MSG) != len) {
->   				err("error while transferring firmware");
->   				ret = -EINVAL;
->   				break;
->
-> ---
-> base-commit: fcaeecb8b0cd44f77d03b28de0671258d4db18f8
-> change-id: 20260806-dvb-307714ff6225
->
-> Best regards,
-> --
-> Vasileios Almpanis <vasilisalmpanis@gmail.com>
->
+Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
+
+---
+bod
