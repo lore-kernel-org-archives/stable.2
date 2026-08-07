@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561673C585C;
-	Fri,  7 Aug 2026 02:01:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED34E38E8B8;
+	Fri,  7 Aug 2026 02:01:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786068083; cv=none; b=BuAd1rtyhp8hoRe9HrGyGT4NuceSI29Gj/AuFSwaV+YFj9jqJaDkBp48OWhjH865FZyYcfjmx9+IUg/F8Z0pK6Eeg/Z36DRUALm1a7VsKinMW3ouUCZS+k1uhCdFP6MhGusd74/yrfYmhjFzcSC2ftQaV1jIxWrPQVe9g6cK1u4=
+	t=1786068095; cv=none; b=lAO7890r1rHYS0BXRq6qCV8+JIOybVKB4GtPcj77JQy/V31YdXz+DuMYn+MM/IJe9Ru7//gimgeSIZsjxFSTTPEhouoCqAlNcrutejBoaPWeLXNChokehtXEcTwXkW3zOkc3Kavfjtssx0OcxSZoTbWFNYtHOgi2UDzJdB7mzWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786068083; c=relaxed/simple;
-	bh=DUjyitusKjrwHbwx7st2hxBxT80cQiI9N1yDn/UgBU4=;
-	h=Date:To:From:Subject:Message-Id; b=fn36gODfVFGhSEs+Kgy52ST7Mgg7UthwLXusogRofjWNjqoSaXNLKz91jSqXmgvj1gHANYWVriAsBDN5Y4fAPQKECHMxXmaXfCBhEmjAGXQn/Mvqs2mtxbL5qcmyvorME6bYQbo0RE9WMioLU1EHTdCMbj0ebyxoz+24VMGSn0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=l2KeO4Mq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786068095; c=relaxed/simple;
+	bh=nphmidJDXxVgBGgWwdZKYNbIh8jbU6ov7HFkWBOXf4s=;
+	h=Date:To:From:Subject:Message-Id; b=FVmstRRlnmevKe8fOu3znem4sJ90v4iFA9eA/qm91ouswcgvsO57C+sWs/5FjFJ1oKacJiXTEYiQCQks8NXww/YegZxZ+IZBPqZU8nsjHOnhRXxri0fmW3xCM7kZJbNYnw/cnNbuLR90e9rUFKvUaXAQgT6PN3/owCX2bRb++xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=QPha8rFt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="l2KeO4Mq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ADA71F000E9;
-	Fri,  7 Aug 2026 02:01:20 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="QPha8rFt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C411F1F000E9;
+	Fri,  7 Aug 2026 02:01:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1786068080;
-	bh=hMyuloR6ZunhlHXO2bkv/Td+9zGSOw4jky+84o5oGyk=;
+	d=linux-foundation.org; s=korg; t=1786068086;
+	bh=4v8vRAw4x8AwT/fz6p44tTbg73ENQvgCJro7Rlt6JeU=;
 	h=Date:To:From:Subject;
-	b=l2KeO4MqpWwjAfkEwmSjqL8S99rWvDchmhCy0fs2ytbboJmv0+l9CxCq72qNcD1cO
-	 sDCEU2B7ZbLvsMTLJvHFUrro3S8lTGizdYYFXtYP7SwJptSA009umnibE/wtYD/9H3
-	 E2C5tEpfhTykxe3qDulr8x1LjAith/cBhHr8QObU=
-Date: Thu, 06 Aug 2026 19:01:19 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
+	b=QPha8rFtoH6MPMUI4Cd3CnkaBAT//BuV/LdA9asiR+VRHwW8TzpGPq/qNSgQi2JD2
+	 kDWReUVHWckPapLTYpp9VY81Bqm/EaA8eEgza+yjwkFz8n5hYaP09zE53XvW7UJ81L
+	 KO3G/STowk2HZIP280pviZlRuNAlNRozvpJJ3d+M=
+Date: Thu, 06 Aug 2026 19:01:26 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,rostedt@goodmis.org,mhocko@suse.com,harry@kernel.org,hannes@cmpxchg.org,brendan.jackman@linux.dev,bigeasy@linutronix.de,ast@kernel.org,jackmanb@google.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs.patch removed from -mm tree
-Message-Id: <20260807020120.2ADA71F000E9@smtp.kernel.org>
+Subject: [merged mm-stable] mm-page_alloc-dont-spin_trylock-when-disallowed-in-free_one_page.patch removed from -mm tree
+Message-Id: <20260807020126.C411F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,65 +35,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/damon/sysfs: read ops_id only once in damon_sysfs_apply_inputs()
+     Subject: mm/page_alloc: don't spin_trylock() when disallowed in free_one_page()
 has been removed from the -mm tree.  Its filename was
-     mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs.patch
+     mm-page_alloc-dont-spin_trylock-when-disallowed-in-free_one_page.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/sysfs: read ops_id only once in damon_sysfs_apply_inputs()
-Date: Tue, 14 Jul 2026 20:10:01 -0700
+From: Brendan Jackman <jackmanb@google.com>
+Subject: mm/page_alloc: don't spin_trylock() when disallowed in free_one_page()
+Date: Wed, 15 Jul 2026 09:03:59 +0000
 
-damon_sysfs_apply_inputs() reads ops_id twice.  It could race with
-ops_id_store().  As a result, the min_region_sz could wrongly be set up. 
-Read it once.
+__free_frozen_pages() checks can_spin_trylock() before entering into the
+main free_frozen_page_commit()/free_one_page() path, but before this it
+can get to free_one_page() via the !pcp_allowed_order() and
+MIGRATE_ISOLATE paths.
 
-The user impact is trivial.  Sane users ain't update the parameter in
-parallel.  Even if it happens, the DAMON core layer handles the wrong
-min_region_sz (!is_power_of_2()).  Even if somehow the race ended up
-making a min_region_sz that is different from the user's intention but
-still valid, only monitoring itself runs differently than expected.  No
-critical consequences like kernel panic or memory corruption happen
+The !pcp_allowed_order() path depends on usage by callers so might not be
+possible in practice.  The MIGRATE_ISOLATE path probably means kernel
+crashes and privilege escalation if anyone ever did memory hotplug and BPF
+tracing on a PREEMPT_RT or !SMP build.
 
-The issue was discovered [1] by Sashiko.
-
-Link: https://lore.kernel.org/20260715031002.108504-7-sj@kernel.org
-Link: https://lore.kernel.org/20260703172417.95426-1-sj@kernel.org [1]
-Fixes: 8d009da32f13 ("mm/damon/sysfs: set damon_ctx->min_sz_region only for paddr use case")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 6.18.x
+Link: https://lore.kernel.org/20260715-alloc-nolock-fixes-v1-2-fadc49952dda@google.com
+Signed-off-by: Brendan Jackman <jackmanb@google.com>
+Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://sashiko.dev/#/patchset/20260710-spin-trylock-followup-v1-0-affb5fe5ed00%40google.com?part=2
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: Alexei Starovoitov <ast@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- mm/damon/sysfs.c |    6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ mm/page_alloc.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/mm/damon/sysfs.c~mm-damon-sysfs-read-ops_id-only-once-in-damon_sysfs_apply_inputs
-+++ a/mm/damon/sysfs.c
-@@ -2094,14 +2094,16 @@ static inline bool damon_sysfs_kdamond_r
- static int damon_sysfs_apply_inputs(struct damon_ctx *ctx,
- 		struct damon_sysfs_context *sys_ctx)
- {
-+	enum damon_ops_id ops_id;
- 	int err;
+--- a/mm/page_alloc.c~mm-page_alloc-dont-spin_trylock-when-disallowed-in-free_one_page
++++ a/mm/page_alloc.c
+@@ -1559,7 +1559,7 @@ static void free_one_page(struct zone *z
+ 	unsigned long flags;
  
--	err = damon_select_ops(ctx, sys_ctx->ops_id);
-+	ops_id = READ_ONCE(sys_ctx->ops_id);
-+	err = damon_select_ops(ctx, ops_id);
- 	if (err)
- 		return err;
- 	ctx->addr_unit = READ_ONCE(sys_ctx->addr_unit);
- 	/* addr_unit is respected by only DAMON_OPS_PADDR */
--	if (sys_ctx->ops_id == DAMON_OPS_PADDR)
-+	if (ops_id == DAMON_OPS_PADDR)
- 		ctx->min_region_sz = max(
- 				DAMON_MIN_REGION_SZ / ctx->addr_unit, 1);
- 	ctx->pause = sys_ctx->pause;
+ 	if (unlikely(fpi_flags & FPI_TRYLOCK)) {
+-		if (!spin_trylock_irqsave(&zone->lock, flags)) {
++		if (!can_spin_trylock() || !spin_trylock_irqsave(&zone->lock, flags)) {
+ 			add_page_to_zone_llist(zone, page, order);
+ 			return;
+ 		}
 _
 
-Patches currently in -mm which might be from sj@kernel.org are
+Patches currently in -mm which might be from jackmanb@google.com are
 
 
