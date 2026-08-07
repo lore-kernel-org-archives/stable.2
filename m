@@ -1,39 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37FC378D70;
-	Fri,  7 Aug 2026 14:50:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B20242FCB7;
+	Fri,  7 Aug 2026 14:50:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786114222; cv=none; b=GXcfv4RKm8vY624nw4qBDvzN8h+P0I6gAa3OfoBkI4VtE5Zj87Q4yHFxoXVqkC7xQaxSzExfqxlF+GfoCzZAP93/vJ43FwT3hWfyXisaLfhAXlJFRA1S2J51dy934lWu2J7JXlP3nubSS9XK5baVp8SKn2Aa+nHmsMuILNIIuWE=
+	t=1786114226; cv=none; b=Mn67H5Ppb0Sx+B+JFkvAiUKo+ttjG2Lg3rGNHIyC/Frk6rghJEAleKWpFLdOeWlpUO4Dzvpa8nJHwvMPIitB7kOBFUkakFzfEfsBlzsN5NLayUv8j5syC5N4r5MwDoQBxNwcSCzn7+KouiSLboicqQTk+Y68yds5qcR++1BNDi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786114222; c=relaxed/simple;
-	bh=ZOTZPxRqLbOtaf+cXRgZgw0lrcmYHOLUXdu+3O3oVeY=;
+	s=arc-20240116; t=1786114226; c=relaxed/simple;
+	bh=2GV+EbTwn39fEWO/hDohPXQivf/fQH79crAo1sPmcfA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lflII5ks8TH7NADwB6EEdCEDjqr+mJi8cUer4pjjwH3DJfNgjTN6+vEyhbxgJG58ZH503sDwQCj6BKO9Exj/UiDncZxqBgqfhlHfw2rcM7IJu3EVlGbNg4PMoFBGpfQWUzDGL2gAOfj2wmOM/61IgcvKQMVaj2HKI2Z4t7H9FdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZgAJWkvU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MojAMGLRbbRc21WgV0n0itzG1VDQaEjKFFmtR2Jt2gz1r8QajOGq5QMUIORlAKRqSfIBnn/d+LbtQa9+DcJK2/IUz3AW1xTU0/77Uz3JEW67l8Wd3MBlmH9AirlVz4IY/9nKWXKEq4GHEKs2dVKrAAXBkVK7OQqfo7Qekh9WhVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=R6Is0zdS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZgAJWkvU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E40551F000E9;
-	Fri,  7 Aug 2026 14:50:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R6Is0zdS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8950C1F00A3A;
+	Fri,  7 Aug 2026 14:50:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786114215;
-	bh=i7KmfJetjdoF7HK8NjkJBQkFnojNNIlXDqbn59/LKA4=;
+	s=korg; t=1786114221;
+	bh=QqcxGiRUtq9voVv9TJncuk2Ae8b76pNBWF/wWlzKmC0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZgAJWkvUJ9/5HZfL3Jc7pE/AWrnlsOz7qRYenclI6yw3hnDJ3BBFsyngxGHN0dLkn
-	 5ZJzHJJ9PIgEMO1BE26ss9856v7By9ZigB3PB98UedXtlOoOxsx7GGNz0UEcUKtZjq
-	 ghkDPb1vyQPsKVw0NdTCP67FER+f//yAZqqc2ZnA=
+	b=R6Is0zdSR3UCj6IaRhTq9VLB2W7L8tsk5S/cFvt9XxB9FVJexeF2Fkjt2D9spI3ku
+	 Wc7HIrPStUdHnvf7eY4YW0umqw2o6/is3LUCDTjynr5JyQv6yCFFCb7cpANKPGok4Q
+	 tmTuLUN27yDX733jCeJP6pG0DRQvMBmb4mvLhklM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Matt Fleming <mfleming@cloudflare.com>,
-	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.12 186/337] veth: convert frag_list skbs before running XDP
-Date: Fri,  7 Aug 2026 16:36:29 +0200
-Message-ID: <20260807143422.589384908@linuxfoundation.org>
+Subject: [PATCH 6.12 188/337] vxlan: unclone skb head before modifying eth header in route_shortcircuit()
+Date: Fri,  7 Aug 2026 16:36:31 +0200
+Message-ID: <20260807143422.631341102@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
 References: <20260807143418.516897842@linuxfoundation.org>
@@ -46,100 +44,51 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.12-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Matt Fleming <mfleming@cloudflare.com>
+From: Eric Dumazet <edumazet@google.com>
 
-commit d0d6415963040c401e7a7e4e482a698ba52448cb upstream.
+commit 760d36e737f2b3867762f42af36c663f55babcc4 upstream.
 
-A frag_list skb can reach veth with data_len set but nr_frags zero.
-veth_convert_skb_to_xdp_buff() only converts skbs that are shared,
-locked, have frags[], or do not have enough headroom. It later uses
-skb_is_nonlinear() to decide whether to set XDP_FLAGS_HAS_FRAGS and
-xdp_frags_size.
+When route_shortcircuit() performs L3 short-circuit routing, it modifies
+the Ethernet header of the skb in-place:
+    memcpy(eth_hdr(skb)->h_source, eth_hdr(skb)->h_dest, dev->addr_len);
+    memcpy(eth_hdr(skb)->h_dest, n->ha, dev->addr_len);
 
-That exposes frag_list data to XDP as if it were stored in frags[], but
-frags[] is empty. AF_XDP copy mode can then trust the bogus XDP fragment
-metadata, walk an empty fragment entry, and crash in memcpy() from
-__xsk_rcv().
+If the incoming skb is cloned (for example by packet sockets, tcpdump, or
+dev_queue_xmit), modifying the Ethernet header without uncloning can corrupt
+the packet header for other readers holding a reference to the cloned skb.
 
-Route non-linear skbs through skb_pp_cow_data() before exposing them to
-XDP, and only advertise XDP frags when the resulting skb has frags[].
-skb_copy_bits() already handles frag_list input, and skb_pp_cow_data()
-builds frags[] output with skb_add_rx_frag(), which is the
-representation XDP multi-buffer expects.
+Ensure the skb header is writable and unshared by calling skb_cow_head(skb, 0)
+prior to updating the Ethernet header. If skb_cow_head() fails, abort short-circuiting
+and return false to allow standard packet processing fallback.
 
-Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept non-linear skb")
+Fixes: e4f67addf158 ("add DOVE extensions for VXLAN")
 Cc: stable@vger.kernel.org
-Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
-Reviewed-by: Toke Høiland-Jørgensen <toke@toke.dk>
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
-Link: https://patch.msgid.link/20260722191925.2192070-1-matt@readmodwrite.com
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260723144249.759100-3-edumazet@google.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/net/veth.c |    4 ++--
- net/core/skbuff.c  |   18 ++++++++++++------
- 2 files changed, 14 insertions(+), 8 deletions(-)
+ drivers/net/vxlan/vxlan_core.c |    4 ++++
+ 1 file changed, 4 insertions(+)
 
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -756,7 +756,7 @@ static int veth_convert_skb_to_xdp_buff(
- 	u32 frame_sz;
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -2190,6 +2190,10 @@ static bool route_shortcircuit(struct ne
  
- 	if (skb_shared(skb) || skb_head_is_locked(skb) ||
--	    skb_shinfo(skb)->nr_frags ||
-+	    skb_is_nonlinear(skb) ||
- 	    skb_headroom(skb) < XDP_PACKET_HEADROOM) {
- 		if (skb_pp_cow_data(rq->page_pool, pskb, XDP_PACKET_HEADROOM))
- 			goto drop;
-@@ -771,7 +771,7 @@ static int veth_convert_skb_to_xdp_buff(
- 	xdp_prepare_buff(xdp, skb->head, skb_headroom(skb),
- 			 skb_headlen(skb), true);
- 
--	if (skb_is_nonlinear(skb)) {
-+	if (skb_shinfo(skb)->nr_frags) {
- 		skb_shinfo(skb)->xdp_frags_size = skb->data_len;
- 		xdp_buff_set_frags_flag(xdp);
- 	} else {
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -925,6 +925,18 @@ static void skb_clone_fraglist(struct sk
- 		skb_get(list);
- }
- 
-+/**
-+ * skb_pp_cow_data() - copy skb data into page-pool backed storage
-+ * @pool: page pool to allocate from
-+ * @pskb: pointer to skb pointer, replaced with the copied skb on success
-+ * @headroom: headroom to reserve in the copied skb
-+ *
-+ * skb_copy_bits() handles both frags[] and frag_list input. If the copied
-+ * skb remains non-linear, it uses frags[], which is the representation used
-+ * by XDP multi-buffer.
-+ *
-+ * Return: 0 on success or a negative errno on failure.
-+ */
- int skb_pp_cow_data(struct page_pool *pool, struct sk_buff **pskb,
- 		    unsigned int headroom)
- {
-@@ -934,12 +946,6 @@ int skb_pp_cow_data(struct page_pool *po
- 	int err, i, head_off;
- 	void *data;
- 
--	/* XDP does not support fraglist so we need to linearize
--	 * the skb.
--	 */
--	if (skb_has_frag_list(skb))
--		return -EOPNOTSUPP;
--
- 	max_head_size = SKB_WITH_OVERHEAD(PAGE_SIZE - headroom);
- 	if (skb->len > max_head_size + MAX_SKB_FRAGS * PAGE_SIZE)
- 		return -ENOMEM;
+ 		diff = !ether_addr_equal(eth_hdr(skb)->h_dest, n->ha);
+ 		if (diff) {
++			if (skb_cow_head(skb, 0)) {
++				neigh_release(n);
++				return false;
++			}
+ 			memcpy(eth_hdr(skb)->h_source, eth_hdr(skb)->h_dest,
+ 				dev->addr_len);
+ 			memcpy(eth_hdr(skb)->h_dest, n->ha, dev->addr_len);
 
 
