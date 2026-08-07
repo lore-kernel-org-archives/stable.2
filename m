@@ -1,51 +1,32 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF17263F44
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 03:35:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 883DE263F44;
+	Fri,  7 Aug 2026 03:36:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786073706; cv=none; b=tFnXiQBQl8l7eXtcCYhL0vldiZ5S2fYUJIP6gua6ZKNilmmI4T7i8wYyFu17kZu2YAFm4thWvL2/YLgpNKxDfuDI0eBK3wvSN+upkPEmoQr6ZXMhLprfl3jhZt8tZMiyw4F5nojlmVOBRnqWjdEFsGVv8JzMLbFCUF9bwHv6GM4=
+	t=1786073787; cv=none; b=fgNuV3qk+X0gIPZjPOe1z304YodeI2UG5I2QKuTXrTaywHBSwxNiY19ytAeKhcuczaFFXXmuRwXWXDUOdUHebszpRcQhAtpGXqris9OGLcZ7ubrHQfeoOz/55oPX2CXdpBw70HIu27Ny4JammyshWUAv6/F6cUGz9TfEiS+Vu3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786073706; c=relaxed/simple;
-	bh=IPcNEwmdmIL6shZkb6brbIxhS8abR99WN46J58FMS7k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iLKksjy9qzHV8v09Pr9kvJN5kfchS5+vHOkCvt1zdqTIdFHPo/aomAc4BaJrBuq5Eir5+ZCnnFbRGi1GdYcz0zj8GVJYND/tuzSnFPGUaLIKAppzAnTwlJulGPqpIP/tlzYu0Vap6BcGDjgv5rk8IsqZiCqUNmGGCgaLI5H4p8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FRVz93U6; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FRVz93U6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 771E01F000E9;
-	Fri,  7 Aug 2026 03:35:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786073702;
-	bh=OVfBD+11YJq18BTWABGGlwvlZc0kzsonAmLIpfHCnTE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FRVz93U6pzZUlKlV0XaGkifjs0J9by02mejeJ3rcWkr1+3U1ml/xTYE6PT7z8b3/b
-	 Bw41n/lMVU527PQiyoYl96OrNM9dOLIRvHyDdiExUo43k4V8jBeJdT+j1f07dq9X98
-	 pUzCJudYqx2cl/YRRXFNp7hRI629ebHnHNai2v959ExfNux/8Z/PkXf1I+goXi7GCD
-	 SYxt/olPyGcde5SXsMIl6QaWW2XP6Vs41QQKw66FDtN33I4scRDs1yPxYOJSlukCwH
-	 CDFAcIgv/AtkYQOWJa1MWSBgzGtiAY0xDdGyyxUrTvgr1bspmYC/b9TYZaENtfU83j
-	 9ZpKNU7TjbgEA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	vova tokarev <vladimirelitokarev@gmail.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Linus Torvalds <torvalds@linuxfoundation.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Peter Xu <peterx@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] userfaultfd: prevent registration of special VMAs
-Date: Thu,  6 Aug 2026 23:34:59 -0400
-Message-ID: <20260807033459.1725973-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072906-estranged-sinless-b8ff@gregkh>
-References: <2026072906-estranged-sinless-b8ff@gregkh>
+	s=arc-20240116; t=1786073787; c=relaxed/simple;
+	bh=MNRvP6qn2uQWLuqkPH1ENweAZY/IbhBI3i9U6zQiwi0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gewfv9FHx8DHggy+YnEh1CYmukYbWFZtmzgGwp3HvzWXObnHLxGoyb/rbK3+daXUua5aIaP4qVl2AC/LruXfRV6rVjN4SfUi3iPVZol2Koj5B2N1LZqmQt3QYeHcoa0zfgg+BBquIHzaUzaHTGjXULPk4yAUwxoSJSx8hWtkywk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCHnnywUnVqWgRxAA--.757S3;
+	Fri, 07 Aug 2026 11:36:16 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app4 (Coremail) with SMTP id zi_KCgB3fDawUnVqY774Ag--.61218S2;
+	Fri, 07 Aug 2026 11:36:16 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: sre@kernel.org
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] power: supply: lp8727: fix use-after-free in lp8727_release_irq()
+Date: Fri,  7 Aug 2026 03:35:20 +0000
+Message-Id: <20260807033520.8551-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,62 +34,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zi_KCgB3fDawUnVqY774Ag--.61218S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?zF189QXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnXz+g1OQfMo27QHy5TwQyZwTBuZ9Xr0BnyP0TluZkNXp9hrpjqB4/anm/ED4m6oMY5Ct
+	lkZxRgqngEeZ/cMkGeap9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7uF13tryDKr1DGrWftFy7urX_yoW8XF13p3
+	9xGr90kF1jqF4Ut3ZrZanFgFy5GFsIyFy5CrW8Aw13Z3W3tw4Utw15WFWagFy7Ar92vFWS
+	9r9IqFn2vF15GrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8I_M3UUUUU==
 
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+lp8727_isr_func(), the threaded IRQ handler, is the only caller that arms
+pchg->work via schedule_delayed_work().  lp8727_release_irq() currently
+cancels the work before freeing the IRQ, so an IRQ delivered in between
+can re-arm the work through the threaded handler.  After .remove returns
+the devm layer frees pchg while lp8727_delayed_func() may still run and
+dereference it.
 
-[ Upstream commit 3c58f641e813c3c71039f8fd4d4e2a3aab713288 ]
+Free the IRQ first so the threaded handler is quiesced and can no longer
+queue work, then cancel the delayed work to drain the final generation.
 
-Vova Tokarev says:
+This issue was found by an in-house static analysis tool.
 
-  userfaultfd allows registration on shadow stack VMAs.  With userfaultfd
-  access, you can register on the shadow stack, discard a page ... and
-  inject a page with chosen return addresses via UFFDIO_COPY.
-
-Update vma_can_userfault() to reject VM_SHADOW_STACK.
-
-While on it, also reject VM_SPECIAL so that if a driver would implement
-vm_uffd_ops, it wouldn't be possible to register special VMAs with
-userfaultfd.
-
-Since VM_SPECIAL includes VM_DONTEXPAND which is set but hugetlb, exclude
-hugetlb VMAs from the check for VM_SPECIAL.
-
-Link: https://lore.kernel.org/20260618095017.2553004-1-rppt@kernel.org
-Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reported-by: vova tokarev <vladimirelitokarev@gmail.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>
-Cc: Linus Torvalds <torvalds@linuxfoundation.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Oleg Nesterov <oleg@redhat.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: d71fda016102 ("lp8727_charger: Clean up the interrupt handler")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- include/linux/userfaultfd_k.h | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/power/supply/lp8727_charger.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-index c0e716aec26aa..796a380664bd8 100644
---- a/include/linux/userfaultfd_k.h
-+++ b/include/linux/userfaultfd_k.h
-@@ -214,7 +214,10 @@ static inline bool vma_can_userfault(struct vm_area_struct *vma,
+diff --git a/drivers/power/supply/lp8727_charger.c b/drivers/power/supply/lp8727_charger.c
+index 4186fcd37512..e81bb393340c 100644
+--- a/drivers/power/supply/lp8727_charger.c
++++ b/drivers/power/supply/lp8727_charger.c
+@@ -280,10 +280,10 @@ static int lp8727_setup_irq(struct lp8727_chg *pchg)
+
+ static void lp8727_release_irq(struct lp8727_chg *pchg)
  {
- 	vm_flags &= __VM_UFFD_FLAGS;
- 
--	if (vma->vm_flags & VM_DROPPABLE)
-+	if (vma->vm_flags & (VM_DROPPABLE | VM_SHADOW_STACK))
-+		return false;
+-	cancel_delayed_work_sync(&pchg->work);
+-
+ 	if (pchg->irq)
+ 		free_irq(pchg->irq, pchg);
 +
-+	if (!is_vm_hugetlb_page(vma) && (vma->vm_flags & VM_SPECIAL))
- 		return false;
- 
- 	if ((vm_flags & VM_UFFD_MINOR) &&
--- 
-2.53.0
++	cancel_delayed_work_sync(&pchg->work);
+ }
+
+ static enum power_supply_property lp8727_charger_prop[] = {
+--
+2.34.1
 
