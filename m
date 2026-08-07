@@ -1,237 +1,215 @@
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CA546D0B0
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 15:15:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786115720; cv=pass; b=rG0UvLvbqsaycZeRHpLQ8sAEElcVbwuw1ByuPoHfMt857ka025/BCx9brctRJI9UmVpTp6bH5azrVkCXkO481a2F17qyd03EaVlHWqF0S14zhxg8rh5flNl5Cca/cnsiq6aOWw5WOg8J5EwX68wRwWd2IuljVABNwJCRgKzRSh4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786115720; c=relaxed/simple;
-	bh=EWhTHTn+OWnuuhEcJdKbNbsbpxHkgQ+m//GuxSpgv8A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BkTyV+u1uBCqg/JXL+N9awSOK9z8DGKuV0H3HWCLAzmOEEuJnmfSaD9PZETZQ9cfjzH/H4KBYXOlujyg2dUzJQ2LcCQsnyqbkp8zgggrnMO4d+Ncv0X2qXVcVMkmwt4aDTLGgeDUdR7CnXe0wmhBtTeO5nNdMNX9/T9X1H+u+q8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y5MsnAJc; arc=pass smtp.client-ip=209.85.221.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C7A047124D;
+	Fri,  7 Aug 2026 15:15:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786115722; cv=none; b=W54LJhwkXYulR5bH2hJ3FOroPLbBn7y6v245tEDgHAOLmJOVdn0vYcGuwQhqK4SNB50UQoCha0WSrLm3znibe4DeIWew9pV1P5egZ8ytUp5Drgyokqz9nqM7rGH+nYiT+pRbpddrT35xmdnHPUWbeULARDP3exDfc1dsgt3vL44=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786115722; c=relaxed/simple;
+	bh=uwQfh6GXFNpVEXljtWu2odtS5XxKvNp7zoBvpHpYB4k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tbOva66hiT3JqV9Y1IIOC6EV7N2k0BRoM4+vweSeh7G8x9iiqszBfBhaC6u7VdB4iCa2XXmSiKYYkGS9ACGHknu2DN0jpL234pixUfYDs6bav5TlPQvq6XSlbC9rR4+wr77to5pthbCSAr81mHbbZiM82Do60cwQUUDPiB0aQ/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AxYk49tF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y5MsnAJc"
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5c2b6d3f2f6so199126e0c.0
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 08:15:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786115718; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PVbd44JnwGA6rh0kmqvw8OreDb8ngC05CvDBAfmerubYIVBJ0GOEVAUnE2utdfeOsi
-         5ZYx+VkDlpqWg6q8Lv94IwjTPXgvL0SAIKCyKSESODCL998W3/rUuFsp0Ee8FX7hTi2a
-         xZk63pmyJZTw7aVm/3vhesyTKYQ1IROmMwjDm4FcfCzjRLPfp4fy6jbEvAorTJJXHGGV
-         5WkU2JFH3X8+M92/jyHhgyS/4Xsd9iFM7bc/p4QUN5CxqU5I1gHl45sHrhjFHnc30EQc
-         UFYt6T3U38Sn4hwcslyHPBqbxPAalkDUnXTnbLmloIdfcGSS5yvRca6zbHZS6okz3JnL
-         kr6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ov2CxRqHcHYMqrGtlXjkHs8CQ1d5Y7HjTsBViF9OA6M=;
-        fh=pxfR76eBOTcmo227b4YJgCJgr+IQJRVPp3SLShHZCBg=;
-        b=sY0rY9oPUuaV+V1YOa+ukAloPz2QY1QL8pOO3h+Nn7nahLXYZva4w4ddM2ucv/Xvcm
-         I0M7m/CFsdZ2U3Zdb7iWAdd2CHvpiLm+gBtcZknRc7MmPsbAg9YNNpNI8gCwg3zxLWVT
-         bUA4J5YM5t8KSYHY8/upo6KTo1H7P3ZauqUkc+4j39fVCHA1fTTj1XaOEIHwJ2zEkt0t
-         9hIOqgkzZi1fZjMCpRM4DPbG3Ll5Q/kgS6g9RSlVTjbi+ZI/sKl4giVjr5VJuwL8Cd3a
-         8ceboNSlP0ao+vGuWCZc1dg9PhD0sKWH2n/oq9vIayw9UH9+ZHYgzZwADC3p4RWY+bLX
-         amLw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786115718; x=1786720518; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ov2CxRqHcHYMqrGtlXjkHs8CQ1d5Y7HjTsBViF9OA6M=;
-        b=Y5MsnAJcJHMREJlNOjyaprOEYhqx7srP0wqYmH6aOUd9CkRmb0pKe8ixxjmmgSPNiG
-         5Zblea7n6dee5sMEYqs8HF+ntkX02xASVEu/bMtfsNlFy2os2BHWnxELZ/x11VGEHXqF
-         OcEp0PUMHCCDARHNhgm7mOcdqbxqfM/zQDVOr1NKZLNe1oy6eZfhNm0M+gayOKT5G8x4
-         hWt7bVR1m5sa5nE5eqCPzz1N+9qtaqJSnp9iivuL5Kl451GbpsTf3q4dxhhlcU/oP3fp
-         43M2m0nKXNNQq+bCdpgx6Nj423xnCmSSOKl1NzTjy/PYZZteTrKL+8k3SoRmVkIIliWg
-         JZXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786115718; x=1786720518;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ov2CxRqHcHYMqrGtlXjkHs8CQ1d5Y7HjTsBViF9OA6M=;
-        b=eXad6aHepsUnjE2RPraaey1f5NR2PAKXHQdncOSY3NIhOlPHZd2dh5fuKhTH8nl0kv
-         8XdW+mRglvSEqJX5tS7JROcNLVu+tHwHZBGM16xrpbImVB9Yz6qb5uojTw8Y8dEqXAlE
-         itDhz/hw1+tXKUoE/mZAu0ofRoJE1pBkAiWq2l+ixTgi/nEGTo6+eivFmlkhPFwfjRef
-         UiHycS/pA7QFB/2khBD7iQQITLsmre2wS2Qx1UEQe+OVrIAbbePiuc4PkhJ3vUNclNNu
-         ltecpAOvimowUZjluZP7FcxQmD766hKky0NyyUUC7wN5+CtbgDckB4QnDiJsxwO1H5if
-         y/Qw==
-X-Forwarded-Encrypted: i=1; AHgh+RpUmAUZWAUR99KFXGX6dvIYgy5C+NveFP85RY0x80sxfymfIb1rICNrkmy4IaarQ7eINgg66mU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxFY1RyPnUyUhtFj7nQjv2aNKJorQ56hpSJwa6pDXubVXuGNB66
-	pn1vk4iHhEY2OYrCmaR2FaXqm1g7w+bZSl9R4dW5ftwLYBGEu26iUZ7bw1jASZrPfFXvh26oGNA
-	udpA4Usu1HimKUyfQGMlAp4JJInCThlg=
-X-Gm-Gg: AR+sD12HqMs9ESWhzy8dn9zQgspLtdcfEx7VO0NE/ByWENcAqNlqIwEQs6GGzEEVBjy
-	LCW4m/6DvG/1X80+F2SC/+Jpp7mEhJT/sCouz+Q2h/TVfFScWf+2mXS6AcpSvENn1XGw4aOKzWR
-	MHZeHgj/SV+u4oS4ga7ubA/AKuygVlo9TBvBaGA5Ejlu0YFwafnCBHHZUTF4hEEkGtAloZAgLsN
-	WWfb8BIwoP4L26yewowI3G3IjrWV/t6KxPoncbe0H1whhNcRrKnwlztEO3nfRfZoUUNQXe5tWiF
-	vgScLabcEuHvrWiQ/Z/kkkBJ3SmY1EJbsoSo4swVZ/VS0UYpGTyp3w3Q62g34VvjbYaRFOGEQ32
-	X
-X-Received: by 2002:a05:6122:8601:b0:5bd:ae1c:afcf with SMTP id
- 71dfb90a1353d-5c3d929878emr2744936e0c.3.1786115717916; Fri, 07 Aug 2026
- 08:15:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AxYk49tF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72151F000E9;
+	Fri,  7 Aug 2026 15:15:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786115721;
+	bh=7XcLhhRyY4ndJkKBf6x4Hj3Jz59NTW+c+2lvMmZ2/Sg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AxYk49tFhU9bHNpetbtlv5lwMoTfLefGkGJSnRzSikJL3TeOCL+IT08jNKjRVWC+Y
+	 5IPSqgf5jdJmOBvjb8RWRPAOaQnaCDzRtEg9aDjnbHz+DupIgWCAHR5TtMiKh+oQKH
+	 Puqos4gOHhF2MKivyY8SCqo6UdSxthV9qFqW6Ho0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Chengming Gui <Jack.Gui@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 374/396] drm/amdgpu: Fix context pstate override handling
+Date: Fri,  7 Aug 2026 16:38:54 +0200
+Message-ID: <20260807143432.349746842@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260807143424.272339768@linuxfoundation.org>
+References: <20260807143424.272339768@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <581a303fac01d2854bc32cf2afff928990026aa0.camel@ibm.com> <20260602050219.1043295-1-jhapavitra98@gmail.com>
-In-Reply-To: <20260602050219.1043295-1-jhapavitra98@gmail.com>
-From: Pavitra Jha <jhapavitra98@gmail.com>
-Date: Fri, 7 Aug 2026 20:45:04 +0530
-X-Gm-Features: AUfX_myxafkyN0hVSCzstxaKWa__jBsslsO_MS3wRG1SKpTXNyfO6JGnm_mHxHg
-Message-ID: <CALFbBicS9nhcGbJDbiiwExxaTXPMVUq4OVgd1Md2xu3azO68DA@mail.gmail.com>
-Subject: Re: [PATCH v3] ceph: fix multiple unsafe decodes in decode_locker()
-To: idryomov@gmail.com, Slava.Dubeyko@ibm.com
-Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Ilya,
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-This has been Reviewed-by'd by Slava since Jun 2 (v3), no outstanding
-comments or NACKs on this one. It's been quiet for two months now.
-Any blocker to applying, or should I rebase and resend?
+------------------
 
-thanks,
-Pavitra
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-On Tue, 2 Jun 2026 at 10:32, Pavitra Jha <jhapavitra98@gmail.com> wrote:
->
-> decode_locker() in cls_lock_client.c contains three unsafe decode
-> operations that allow a malicious or compromised OSD to trigger
-> slab-out-of-bounds reads:
->
-> 1. ceph_decode_copy() at the locker_id_t name field has no preceding
->    bounds check. With p == end after ceph_start_decoding() accepts
->    struct_len=0, this reads sizeof(ceph_entity_name) = 9 bytes past
->    the validated buffer boundary.
->
-> 2. *p += sizeof(struct ceph_timespec) after the locker_info_t header
->    is an unchecked pointer advance. A malicious OSD can position p
->    past end, causing all subsequent _safe checks to pass against a
->    bogus boundary.
->
-> 3. len = ceph_decode_32(p) has no preceding bounds check, and the
->    immediately following *p += len is uncapped. A malicious OSD can
->    send len=0xffffffff, advancing p gigabytes past end and escaping
->    the decode window entirely.
->
-> Fix all three by replacing bare operations with their safe variants:
->   ceph_decode_copy   -> ceph_decode_copy_safe
->   *p += sizeof(...)  -> ceph_decode_skip_n
->   ceph_decode_32(p)  -> ceph_decode_32_safe
->   *p += len          -> ceph_decode_skip_n
->
-> A new out_bad: label is added to return -EINVAL on any bounds
-> violation. -EINVAL is appropriate here: the data received from the OSD
-> is structurally malformed, which is an invalid argument to the decode
-> contract regardless of whether the caller or the wire is at fault.
->
-> KASAN report (kernel 7.0.0-rc7, QEMU/x86_64, KASLR disabled):
->
->   [   26.183969] ceph_oob4_poc: buf=ffff888009e31000 end=ffff888009e31fa0
->   [   26.186087] ceph_oob4_poc: struct_v=1 struct_len=0 p==end: 1
->   [   26.186738] ceph_oob4_poc: triggering bare ceph_decode_32 past slab boundary...
->   [   26.187679] ==================================================================
->   [   26.188236] BUG: KASAN: slab-out-of-bounds in ceph_oob4_init+0x22b/0xff0 [ceph_oob4_poc]
->   [   26.188236] Read of size 4 at addr ffff888009e31fa0 by task insmod/59
->   [   26.188236] CPU: 0 UID: 0 PID: 59 Comm: insmod Tainted: G           O        7.0.0-rc7-g9c2abf69da83-dirty #15 PREEMPT(lazy)
->   [   26.188236] Tainted: [O]=OOT_MODULE
->   [   26.188236] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
->   [   26.188236] Call Trace:
->   [   26.188236]  <TASK>
->   [   26.188236]  dump_stack_lvl+0x4d/0x70
->   [   26.188236]  print_report+0x170/0x4f3
->   [   26.188236]  kasan_report+0xda/0x110
->   [   26.188236]  ceph_oob4_init+0x22b/0xff0 [ceph_oob4_poc]
->   [   26.188236]  do_one_initcall+0x9a/0x3a0
->   [   26.188236]  do_init_module+0x27c/0x790
->   [   26.188236]  load_module+0x4a9a/0x6350
->   [   26.188236]  init_module_from_file+0x15c/0x180
->   [   26.188236]  idempotent_init_module+0x21f/0x750
->   [   26.188236]  __x64_sys_finit_module+0xba/0x120
->   [   26.188236]  do_syscall_64+0xe2/0x570
->   [   26.188236]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
->   [   26.188236]  </TASK>
->   [   26.188236] The buggy address belongs to the object at ffff888009e31000
->   [   26.188236]  which belongs to the cache kmalloc-4k of size 4096
->   [   26.188236] The buggy address is located 0 bytes to the right of
->   [   26.188236]  allocated 4000-byte region [ffff888009e31000, ffff888009e31fa0)
->   [   26.188236]  ffff888009e31f80: 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc fc
->   [   26.188236]                                ^
->   [   26.188236]  ffff888009e32000: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->   [   26.188236] ==================================================================
->   [   26.255513] ceph_oob4_poc: len=0xcccccccc (OOB garbage from KASAN redzone)
->
->   0xCCCCCCCC is KASAN redzone poison, confirming the read landed in
->   the slab redzone immediately past the 4000-byte allocation.
->
-> Attacker model: a malicious or compromised OSD in a multi-tenant Ceph
-> deployment can trigger this against any kernel client that issues the
-> lock.get_info class method (e.g. during RBD exclusive lock acquisition)
-> without any further privileges beyond OSD session establishment.
->
-> Fixes: d4ed4a530562 ("libceph: support for lock.lock_info")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Pavitra Jha <jhapavitra98@gmail.com>
-> ---
-> v3: Split ceph_decode_copy_safe call to fit 80-column limit,
->     per Viacheslav Dubeyko's review of v2.
-> v2: Move inline comments above ceph_decode_skip_n calls, rename
->     label bad -> out_bad, per Viacheslav Dubeyko's review.
-> ---
->  net/ceph/cls_lock_client.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
->
-> diff --git a/net/ceph/cls_lock_client.c b/net/ceph/cls_lock_client.c
-> index 4e6a6d3e4..79a449897 100644
-> --- a/net/ceph/cls_lock_client.c
-> +++ b/net/ceph/cls_lock_client.c
-> @@ -259,7 +259,8 @@ static int decode_locker(void **p, void *end, struct ceph_locker *locker)
->         if (ret)
->                 return ret;
->
-> -       ceph_decode_copy(p, &locker->id.name, sizeof(locker->id.name));
-> +       ceph_decode_copy_safe(p, end, &locker->id.name,
-> +                             sizeof(locker->id.name), out_bad);
->         s = ceph_extract_encoded_string(p, end, NULL, GFP_NOIO);
->         if (IS_ERR(s))
->                 return PTR_ERR(s);
-> @@ -270,19 +271,23 @@ static int decode_locker(void **p, void *end, struct ceph_locker *locker)
->         if (ret)
->                 return ret;
->
-> -       *p += sizeof(struct ceph_timespec); /* skip expiration */
-> +       /* skip expiration */
-> +       ceph_decode_skip_n(p, end, sizeof(struct ceph_timespec), out_bad);
->
->         ret = ceph_decode_entity_addr(p, end, &locker->info.addr);
->         if (ret)
->                 return ret;
->
-> -       len = ceph_decode_32(p);
-> -       *p += len; /* skip description */
-> +       ceph_decode_32_safe(p, end, len, out_bad);
-> +       /* skip description */
-> +       ceph_decode_skip_n(p, end, len, out_bad);
->
->         dout("%s %s%llu cookie %s addr %s\n", __func__,
->              ENTITY_NAME(locker->id.name), locker->id.cookie,
->              ceph_pr_addr(&locker->info.addr));
->         return 0;
-> +out_bad:
-> +       return -EINVAL;
->  }
->
->  static int decode_lockers(void **p, void *end, u8 *type, char **tag,
-> --
-> 2.53.0
->
+[ Upstream commit c1dc4ccb82c9e56325d8e7514ca4c90bd1efb351 ]
+
+There are several problems in the context pstate handling code.
+
+The most serious ones are potential use-after-free and NULL pointer
+dereferences at context initialization time. Both are due
+amdgpu_ctx_init() not holding the adev->pm.stable_pstate_ctx_lock, which
+is otherwise used from both sysfs and the context code itself for
+modifying and clearing the stored context pointer.
+
+Second issue is that context fini can trample over the pstate
+configuration set via sysfs. This is due the restore state
+(ctx->stable_pstate) being saved at context init time, and not if, or when
+the context actually changes the pstate. As the context exits it will
+therefore incorrectly restore to what was set before the sysfs override
+was requested.
+
+The simplest fix is to drastically simplify how the state is tracked, by
+clearly defining the points at which pstate ownership is taken and
+released, and to handle all transitions under the correct lock.
+
+Instead of at context init time, the previous state is saved only at the
+point the context overrides the current state, and is restored on context
+exit only if the context is still the owner of the current override state.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Fixes: 79610d304133 ("drm/amdgpu: fix pstate setting issue")
+Cc: Chengming Gui <Jack.Gui@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 1b5e413713c0a93bc1818394d0ce49aaad21bd27)
+Cc: <stable@vger.kernel.org> # v6.1+
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c |   71 ++++++++++++++++++--------------
+ 1 file changed, 42 insertions(+), 29 deletions(-)
+
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -321,7 +321,6 @@ static int amdgpu_ctx_init(struct amdgpu
+ 			   struct drm_file *filp, struct amdgpu_ctx *ctx)
+ {
+ 	struct amdgpu_fpriv *fpriv = filp->driver_priv;
+-	u32 current_stable_pstate;
+ 	int r;
+ 
+ 	r = amdgpu_ctx_priority_permit(filp, priority);
+@@ -339,37 +338,22 @@ static int amdgpu_ctx_init(struct amdgpu
+ 	ctx->generation = amdgpu_vm_generation(mgr->adev, &fpriv->vm);
+ 	ctx->init_priority = priority;
+ 	ctx->override_priority = AMDGPU_CTX_PRIORITY_UNSET;
+-
+-	r = amdgpu_ctx_get_stable_pstate(ctx, &current_stable_pstate);
+-	if (r)
+-		return r;
+-
+-	if (mgr->adev->pm.stable_pstate_ctx)
+-		ctx->stable_pstate = mgr->adev->pm.stable_pstate_ctx->stable_pstate;
+-	else
+-		ctx->stable_pstate = current_stable_pstate;
++	ctx->stable_pstate = AMDGPU_CTX_STABLE_PSTATE_NONE;
+ 
+ 	ctx->ctx_mgr = &(fpriv->ctx_mgr);
+ 	return 0;
+ }
+ 
+-static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
+-					u32 stable_pstate)
++static int __amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
++					  u32 stable_pstate)
+ {
+ 	struct amdgpu_device *adev = ctx->mgr->adev;
+ 	enum amd_dpm_forced_level level;
++	struct amdgpu_ctx *current_ctx;
+ 	u32 current_stable_pstate;
+-	int r;
+-
+-	mutex_lock(&adev->pm.stable_pstate_ctx_lock);
+-	if (adev->pm.stable_pstate_ctx && adev->pm.stable_pstate_ctx != ctx) {
+-		r = -EBUSY;
+-		goto done;
+-	}
++	int r = 0;
+ 
+-	r = amdgpu_ctx_get_stable_pstate(ctx, &current_stable_pstate);
+-	if (r || (stable_pstate == current_stable_pstate))
+-		goto done;
++	lockdep_assert_held(&adev->pm.stable_pstate_ctx_lock);
+ 
+ 	switch (stable_pstate) {
+ 	case AMDGPU_CTX_STABLE_PSTATE_NONE:
+@@ -388,17 +372,41 @@ static int amdgpu_ctx_set_stable_pstate(
+ 		level = AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
+ 		break;
+ 	default:
+-		r = -EINVAL;
+-		goto done;
++		return -EINVAL;
+ 	}
+ 
++	current_ctx = adev->pm.stable_pstate_ctx;
++	if (current_ctx && current_ctx != ctx)
++		return -EBUSY;
++
++	r = amdgpu_ctx_get_stable_pstate(ctx, &current_stable_pstate);
++	if (r || current_stable_pstate == stable_pstate)
++		return r;
++
+ 	r = amdgpu_dpm_force_performance_level(adev, level);
++	if (r)
++		return r;
+ 
+-	if (level == AMD_DPM_FORCED_LEVEL_AUTO)
+-		adev->pm.stable_pstate_ctx = NULL;
+-	else
++	if (!current_ctx) {
+ 		adev->pm.stable_pstate_ctx = ctx;
+-done:
++		/*
++		 * Serialized by context taking ownership for the first time
++		 * while holding adev->pm.stable_pstate_ctx_lock).
++		 */
++		WRITE_ONCE(ctx->stable_pstate, current_stable_pstate);
++	}
++
++	return 0;
++}
++
++static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
++					u32 stable_pstate)
++{
++	struct amdgpu_device *adev = ctx->mgr->adev;
++	int r;
++
++	mutex_lock(&adev->pm.stable_pstate_ctx_lock);
++	r = __amdgpu_ctx_set_stable_pstate(ctx, stable_pstate);
+ 	mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
+ 
+ 	return r;
+@@ -424,7 +432,12 @@ static void amdgpu_ctx_fini(struct kref
+ 	}
+ 
+ 	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+-		amdgpu_ctx_set_stable_pstate(ctx, ctx->stable_pstate);
++		mutex_lock(&adev->pm.stable_pstate_ctx_lock);
++		if (adev->pm.stable_pstate_ctx == ctx) {
++			__amdgpu_ctx_set_stable_pstate(ctx, ctx->stable_pstate);
++			adev->pm.stable_pstate_ctx = NULL;
++		}
++		mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
+ 		drm_dev_exit(idx);
+ 	}
+ 
+
+
