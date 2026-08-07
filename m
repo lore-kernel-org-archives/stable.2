@@ -1,288 +1,163 @@
-Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608A837266E
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1C7383987
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:27:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786112679; cv=none; b=Ey132OyCuIS2ten78x4zPNWqswgjwyVecVCkPDwaKNV9yfAf5uXiChO9AoJ0E+6qPNvMoFhk5Pz6YQ4wEBZiljVNvpDHJzojprTxVLaTHdXpIXGD4S+U+hoh/1zoEp+muHbZ5v5+rBUIQkDvgN+npNEm5YR61qz1JdRuRYy2lk8=
+	t=1786112853; cv=none; b=YASxqA01oE92P4np2C4m1yNbOBEXysVf/cQtrQzygni1I2WaJAFpeJiMh4734zDBOZkkvWQrRpAwIKQMz1AbvoJQXDo2Wo9RYLrxvfc3TWTNDQRl+e1QyvTdKQImi0VqZQFNEUcg4SnqL0o84fNgZpVqA+jo4yQpJCsno6QXPoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786112679; c=relaxed/simple;
-	bh=hSbOOdxeh2c4aoqi8moa7i9RrmOM1aCgGf8VDLl4KeA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pS4fvyOHKQFuGEgI99MaTW+5WJcuHtvUTewHrmB5e5HMjxAXrwV8QxEKh283Q2MbcDxnFcn5kd0nXnR3ECIFDgHukWvKh8GYNXvoh8pWcImmqGaOm1xJWE2fv032MR0l5VlUbBELx2DJc5/kqoedvYXRGXGmloepgY5+3jg+pXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=r+npiZUa; arc=none smtp.client-ip=91.218.175.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786112853; c=relaxed/simple;
+	bh=tJ6YIoKNUDojeg86gqnCuw1WTPa7k4m9/MpBN2CPG+0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Doj4zaZSY61W7ky7dy7/2tC5eyybhjLz0MhRjQYX+tX94HY3jYQStjMyCQ80kLl5RZHQZKwTpwlP8+aZPgREiD5XQmUzCoBY5cg5ZModF/asVHAsL1xaFv6IuwElL+WcgL/v0n7z9ywnLM0siHNwBhEyNGxKc0hWLprzBdb0Vn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BQbqc2jZ; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="r+npiZUa"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1786112674;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=S04di+PU+lv41Su7yR6P9olfkoO2azm7hS2v5N1fSOs=;
-	b=r+npiZUaeM6FZHODkg/p10zCEgVTxdiHOpcEv//SMiYw6+98pojPyGy0NSWiaZDZxjW4sz
-	A/4jJf3I+QCQGVks/R1KycB4MquoAO1yAFAjErMJdFU52yEwOVnPP8YDdRef5kUGHCapfc
-	0O/1nCbZLFqV5rSt5cX0ofHGtMS37aE=
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Karl Erik Hofseth <karl.e.hofseth@opoint.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] memcg: keep folio's objcg same as its node
-Date: Fri,  7 Aug 2026 07:24:05 -0700
-Message-ID: <20260807142406.443516-1-shakeel.butt@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BQbqc2jZ"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cbb7926836eso2590389a12.3
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 07:27:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786112850; x=1786717650; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dY6T8KLKe7c50VCzbw04TgHR78SFTtnFy4T2vHFIKTs=;
+        b=BQbqc2jZvfZL+tgjDrZGUNXRoSQDjlvLCKTmrNYmIPTIzs7SEuIxMINYi/dNAPagrh
+         qwP5jS/UsbQyPCf6ocQ6TtTEwHQDo+YGagEJxvO6r0vy+UWHBFxoLG1ivYmkMOL69wXo
+         BUsr6yrzdc5VPdDxtzYOf9jwcep9cNibfMw26Z6U0ypmMcbvI/FTk7RVRIdQOafX9CMD
+         g5iiiPTU5xtz+cwbQ69oC+sW9lXMmingA94DguRfi0Um5YH12uQxu2wFNhX4ZUilWUzE
+         QK+aNFtgkqifGFgd/TMmJnanV/km9nDQmJeb7Bg3ZMJU/dpyrr2U+VeqRzyvwhBbzEgb
+         gFzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786112850; x=1786717650;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dY6T8KLKe7c50VCzbw04TgHR78SFTtnFy4T2vHFIKTs=;
+        b=FTDBNLYKT35S764NcXJY+3tkDvdNno+pfuMvEWK+I/JTf94fTA2x33wPulKZB2bwEv
+         ZyczkqouFQAdqO+z6DcXMkRaWrtb/lXfJTQeziE2iCQfoSfodl3PBkyzZ8X/5xj58en7
+         hW9x6zMm6MJq9ED/42AgtMrvUzP2UL5UU+asWWcvZtBGkHnBVKV4AmmHk3n5nnPUtYuT
+         +xQ+9w7cF3r41SQs/QaBE1O8VBjuP7qF86esHpsQPi0PH17svaxx3vKkoqCNYNEhxQsO
+         N3H2do3iHVTfyftuJD1D7crpJB86o/AHP9dDYtcKkdEKw3SYwqNw/4yT50tnnGEwB1My
+         r2Nw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro3JKDd2DAhZcDzy1wlY1ygQ5O6Ww9VOuqwKDzU3hXEl56hNrP1DDEhcPLBz08VY6M1jabWVLM=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyEQyDPNV9ObkrY3TYeKvASL7dqMjQLuvXDbtjbQOuCKQd9jjuS
+	CidUaF4IkQxIDFOakJIfR1Cst4pmQAyNlhNvzICZjT2Um1BrZGdowWR0
+X-Gm-Gg: AR+sD12QbSGel3HEu/K+2WCD5qe/nGQcsqKwzJNV4RvJlM2LxnJO/fI9ic8d9S1IF4k
+	qDDcoBF7fW8VsOk3/ZRGUWanRGFyPEAc/eYI8uP8IzT0POe2KUP802h4B/OSHDsmFH4wpOZbgyZ
+	/g2orIR2DFUzllcOT7K5Z97d940GTuT4NqcOelQA1IcjxEWn1COULrx/+EkXGldgmRXiRVsF52T
+	tUfjTE+KZWRiAgnNUkyG3ZowHkTXgve75tY3ctJKDVrpAh6xkCuMoA9Dr0UC/GqePp/zd6/lPCh
+	Y/Bho7VYGwd3GFVUrBK1gh/HcwpqM6HOboXOaLE0kOQPpIkM91AgDsmWyS/XTIUiaafNHECRr4B
+	/vfU0tAL0DBsPnLm0kSZ6eC6zNmFAliq8jZ/LQADUMqMFEliaymcokvqomxsutUYuPbXH3ZNRti
+	roHfRvstdNDoWsKjKGW8EOXH//1OCM8Humc6uMl8lU4ipdDmBJKeGicBo=
+X-Received: by 2002:a05:6a00:1705:b0:82f:38df:681c with SMTP id d2e1a72fcca58-84f2e0228e1mr21662231b3a.6.1786112849746;
+        Fri, 07 Aug 2026 07:27:29 -0700 (PDT)
+Received: from fedora ([203.175.12.242])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f5a553071sm1125866b3a.43.2026.08.07.07.27.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 07 Aug 2026 07:27:28 -0700 (PDT)
+Date: Fri, 7 Aug 2026 22:27:19 +0800
+From: Hangbin Liu <liuhangbin@gmail.com>
+To: Xin Xie <xiexinet@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
+	kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
+	fmaurer@redhat.com, luka.gejak@linux.dev, bigeasy@linutronix.de,
+	xiaoliang.yang_1@nxp.com, skhawaja@google.com,
+	stable@vger.kernel.org, sdf.kernel@gmail.com
+Subject: Re: [PATCH net v4 2/4] net: hsr: shrink seqnr_lock to sequence
+ counter updates
+Message-ID: <anXrR6-2UVYF1iZa@fedora>
+References: <20260803222211.877-1-xiexinet@gmail.com>
+ <20260803222211.877-3-xiexinet@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260803222211.877-3-xiexinet@gmail.com>
 
-memcg_reparent_objcgs() has an inherent assumption that a folio's objcg
-is the objcg of the folio's node.  Folio migration across nodes breaks
-that assumption: the new folio simply inherits the old folio's objcg
-while living on a different node.
+Hi Xie Xin,
+On Tue, Aug 04, 2026 at 12:22:09AM +0200, Xin Xie wrote:
+> hsr->seqnr_lock is currently held across entire hsr_forward_skb()
+> calls: master TX (hsr_dev_xmit()), interlink RX (hsr_handle_frame()),
+> and both supervision frame builders hold it while frames are built,
+> classified, duplicated and forwarded on every port. The only state
+> that actually needs the lock is the sequence counters themselves
+> (hsr->sequence_nr / hsr->sup_sequence_nr).
+> 
+> Shrink the locking to the individual counter updates:
+> handle_std_frame() now takes the lock around its sequence number
+> allocation (replacing the lockdep assertion), the master TX and
+> interlink RX paths drop their outer lock, and the supervision
+> builders release the lock right after updating their counter instead
+> of holding it across frame construction and forwarding.
+> 
+> Statistics: the outer seqnr_lock also incidentally serialized the
+> tx_packets/tx_bytes/tx_dropped updates in hsr_forward_skb(), which are
+> reachable from the concurrently callable master-TX, supervision and
+> interlink-RX paths. Those updates now use DEV_STATS_INC()/
+> DEV_STATS_ADD(), the atomic legacy-stat helpers, so narrowing the lock
+> does not turn them into lossy plain read-modify-writes.
+> 
+> Ordering: with IFF_NO_QUEUE and dev->lltx, hsr_dev_xmit() is
+> concurrently callable, and this change removes the old
+> allocation-through-forward ordering guarantee there: master-TX frames
+> may now be emitted out of sequence-allocation order. On the current
+> tree this is safe because duplicate discard tracks individual
+> sequence numbers in sparse bitmaps (commit aae9d6b616b5 ("hsr:
+> Implement more robust duplicate discard for HSR") and
+> commit 415e6367512b ("hsr: Implement more robust duplicate discard
+> for PRP")) rather than requiring monotonic arrival. Sequence numbers
+> remain unique and monotonically allocated per counter.
+> 
+> This is a latency/critical-section prerequisite for unfolding GSO
+> super-packets at the forward entry (not a functional prerequisite):
+> the segmentation work should not extend the global sequence lock's
+> critical section. Patch 3 depends on this change; their automatic
+> stable selection is limited to 7.0 and newer, where sparse-bitmap
+> duplicate discard accepts out-of-order arrival. Older stable branches
+> require an adapted backport.
+> 
+> History of the lock being narrowed: it was introduced by
+> commit 06afd2c31d33 ("hsr: Synchronize sending frames to have always
+> incremented outgoing seq nr.") and briefly removed by
+> commit b3c9e65eb227 ("net: hsr: remove seqnr_lock") in net. Merge
+> commit 46ae4d0a4897 ("Merge git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net")
+> reverted that removal because
+> commit 430d67bdcb04 ("net: hsr: Use the seqnr lock for frames
+> received via interlink port.") in net-next had already superseded it
+> by adding locking for the interlink RX path. All sequence counter
+> updates remain protected; only the forwarding work moves out of the
+> critical section.
+> 
+> Cc: <stable@vger.kernel.org> # 7.0.x
+> Signed-off-by: Xin Xie <xiexinet@gmail.com>
 
-Once the assumption is broken, the reparenting of the folio's objcg and
-the reparenting of the folio's LRU list are no longer atomic.
-memcg_reparent_objcgs() handles one node per iteration and drops all the
-locks in between, so the objcg gets reparented in the iteration for the
-objcg's node while the LRU list gets spliced in the iteration for the
-folio's node.  Any LRU operation on that folio in between resolves its
-lruvec through the objcg, and thus takes the lru_lock of the wrong
-memcg, not the lru_lock of the list the folio is actually on.
+Maybe use a shorter commit description.
 
-Fix this by selecting the objcg by folio_nid() at charge time, and by
-re-deriving it for the destination node in mem_cgroup_migrate() and
-mem_cgroup_replace_folio().
+[ ... ]
+> @@ -746,8 +747,8 @@ void hsr_forward_skb(struct sk_buff *skb, struct hsr_port *port)
+>  	 * So check and increment stats for master port only here.
+>  	 */
+>  	if (port->type == HSR_PT_MASTER || port->type == HSR_PT_INTERLINK) {
+> -		port->dev->stats.tx_packets++;
+> -		port->dev->stats.tx_bytes += skb->len;
+> +		DEV_STATS_INC(port->dev, tx_packets);
+> +		DEV_STATS_ADD(port->dev, tx_bytes, skb->len);
 
-Reported-by: Karl Erik Hofseth <karl.e.hofseth@opoint.com>
-Closes: https://lore.kernel.org/all/anMmd1ADrDVwMO6v@work/
-Fixes: f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying memory cgroup for LRU folios")
-Cc: stable@vger.kernel.org
-Co-developed-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
----
+Note: Avoid these macros in fast path, prefer per-cpu or per-queue counters.
 
-Changes since v2:
-http://lore.kernel.org/20260806165813.2526415-1-shakeel.butt@linux.dev
+And the counters in hsr_deliver_master() also need to protected. Especially
+multicast.
 
-- Refactor common code between mem_cgroup_replace_folio and mem_cgroup_migrate
-  (Johannes)
-- Always commit the destination node's objcg. (Johannes)
-- In mem_cgroup_replace_folio, force charge based on committed objcg (Johannes)
-- In mem_cgroup_migrate, if destination node's objcg is root, uncharge the
-  source node's objcg. (Johannes)
-
-
-Changes since v1:
-http://lore.kernel.org/20260806061830.3294679-1-shakeel.butt@linux.dev
-
-- In mem_cgroup_migrate, do obj_cgroup_put at the end (Sashiko)
-- Handle scenario where destination node has been reparented to the root but the
-  source node's objcg has not yet (Sashiko)
-- Add comment explaining the race between migration and reparenting (Johannes)
-
- mm/memcontrol.c | 100 ++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 83 insertions(+), 17 deletions(-)
-
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 3057396dda53..7248e7aa4069 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -2966,10 +2966,9 @@ struct mem_cgroup *mem_cgroup_from_virt(void *p)
- 	return folio_memcg_check(virt_to_folio(p));
- }
- 
--static struct obj_cgroup *__get_obj_cgroup_from_memcg(struct mem_cgroup *memcg)
-+static struct obj_cgroup *__get_obj_cgroup_from_memcg(struct mem_cgroup *memcg,
-+						      int nid)
- {
--	int nid = numa_node_id();
--
- 	for (; memcg; memcg = parent_mem_cgroup(memcg)) {
- 		struct obj_cgroup *objcg = rcu_dereference(memcg->nodeinfo[nid]->objcg);
- 
-@@ -2980,12 +2979,13 @@ static struct obj_cgroup *__get_obj_cgroup_from_memcg(struct mem_cgroup *memcg)
- 	return NULL;
- }
- 
--static inline struct obj_cgroup *get_obj_cgroup_from_memcg(struct mem_cgroup *memcg)
-+static inline struct obj_cgroup *get_obj_cgroup_from_memcg(struct mem_cgroup *memcg,
-+							   int nid)
- {
- 	struct obj_cgroup *objcg;
- 
- 	rcu_read_lock();
--	objcg = __get_obj_cgroup_from_memcg(memcg);
-+	objcg = __get_obj_cgroup_from_memcg(memcg, nid);
- 	rcu_read_unlock();
- 
- 	return objcg;
-@@ -3029,7 +3029,7 @@ static struct obj_cgroup *current_objcg_update(void)
- 
- 		rcu_read_lock();
- 		memcg = mem_cgroup_from_task(current);
--		objcg = __get_obj_cgroup_from_memcg(memcg);
-+		objcg = __get_obj_cgroup_from_memcg(memcg, numa_node_id());
- 		rcu_read_unlock();
- 
- 		/*
-@@ -5197,7 +5197,7 @@ static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
- 	int ret = 0;
- 	struct obj_cgroup *objcg;
- 
--	objcg = get_obj_cgroup_from_memcg(memcg);
-+	objcg = get_obj_cgroup_from_memcg(memcg, folio_nid(folio));
- 	/* Do not account at the root objcg level. */
- 	if (!obj_cgroup_is_root(objcg))
- 		ret = try_charge_memcg(memcg, gfp, folio_nr_pages(folio));
-@@ -5396,6 +5396,46 @@ void __mem_cgroup_uncharge_folios(struct folio_batch *folios)
- 		uncharge_batch(&ug);
- }
- 
-+/*
-+ * An LRU folio must hold the objcg belonging to its own node.
-+ *
-+ * memcg_reparent_objcgs() reparents a dying cgroup one node at a time: the
-+ * folios on that node's LRU lists move to the parent and that node's objcg is
-+ * redirected to the parent, atomically under the node's lru_lock.
-+ * folio_lruvec_lock() relies on this to provide a stable folio<->lruvec
-+ * binding. If a folio holds another node's objcg, its list membership and its
-+ * lruvec resolution change in separate lock sections, and an LRU operation in
-+ * between can re-add the folio to, and strand it on, the LRU list of a dead
-+ * memcg.
-+ *
-+ * So when migration transfers the memcg state to a folio on another node,
-+ * re-derive the objcg for the destination node. If the memcg is dying and the
-+ * destination node has already been reparented, the lookup walks up to the
-+ * nearest live ancestor - which is also where that node's LRU lists went.
-+ *
-+ * Returns the objcg to commit to @new, with a reference for the caller.
-+ */
-+static struct obj_cgroup *get_migration_objcg(struct folio *old,
-+					      struct folio *new)
-+{
-+	struct obj_cgroup *old_objcg, *new_objcg;
-+	int new_nid = folio_nid(new);
-+
-+	old_objcg = get_obj_cgroup_from_folio(old);
-+
-+	if (folio_nid(old) == new_nid)
-+		return old_objcg;
-+
-+	rcu_read_lock();
-+	new_objcg = __get_obj_cgroup_from_memcg(obj_cgroup_memcg(old_objcg),
-+						new_nid);
-+	rcu_read_unlock();
-+
-+	obj_cgroup_put(old_objcg);
-+
-+	return new_objcg;
-+}
-+
- /**
-  * mem_cgroup_replace_folio - Charge a folio's replacement.
-  * @old: Currently circulating folio.
-@@ -5424,21 +5464,28 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
- 	if (folio_memcg_charged(new))
- 		return;
- 
--	objcg = folio_objcg(old);
--	VM_WARN_ON_ONCE_FOLIO(!objcg, old);
--	if (!objcg)
-+	VM_WARN_ON_ONCE_FOLIO(!folio_objcg(old), old);
-+	if (!folio_objcg(old))
- 		return;
- 
-+	objcg = get_migration_objcg(old, new);
-+
- 	rcu_read_lock();
- 	memcg = obj_cgroup_memcg(objcg);
--	/* Force-charge the new page. The old one will be freed soon */
-+
-+	/*
-+	 * Force-charge the new page. The old one will be freed soon.
-+	 *
-+	 * The rootness of the committed objcg decides whether the final
-+	 * uncharge of @new goes through the page counters (see
-+	 * uncharge_folio()); charge them only if the uncharge will.
-+	 */
- 	if (!obj_cgroup_is_root(objcg)) {
- 		page_counter_charge(&memcg->memory, nr_pages);
- 		if (do_memsw_account())
- 			page_counter_charge(&memcg->memsw, nr_pages);
- 	}
- 
--	obj_cgroup_get(objcg);
- 	commit_charge(new, objcg);
- 	memcg1_commit_charge(new, memcg);
- 	rcu_read_unlock();
-@@ -5450,14 +5497,15 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
-  * @new: Replacement folio.
-  *
-  * Transfer the memcg data from the old folio to the new folio for migration.
-- * The old folio's data info will be cleared. Note that the memory counters
-- * will remain unchanged throughout the process.
-+ * The old folio's data info will be cleared. The memory counters remain
-+ * unchanged, unless the charge moves out of a fully reparented ancestry
-+ * and has to be settled (see below).
-  *
-  * Both folios must be locked, @new->mapping must be set up.
-  */
- void mem_cgroup_migrate(struct folio *old, struct folio *new)
- {
--	struct obj_cgroup *objcg;
-+	struct obj_cgroup *objcg, *new_objcg;
- 
- 	VM_BUG_ON_FOLIO(!folio_test_locked(old), old);
- 	VM_BUG_ON_FOLIO(!folio_test_locked(new), new);
-@@ -5478,12 +5526,30 @@ void mem_cgroup_migrate(struct folio *old, struct folio *new)
- 	if (!objcg)
- 		return;
- 
--	/* Transfer the charge and the objcg ref */
--	commit_charge(new, objcg);
-+	new_objcg = get_migration_objcg(old, new);
-+
-+	/*
-+	 * @old was charged through a non-root objcg, so its charge is in the
-+	 * page counters. If the re-derivation walked up to the root objcg -
-+	 * @old's entire ancestry is dying and already reparented - the final
-+	 * uncharge of @new will skip the page counters (see uncharge_folio()).
-+	 * Settle them now: this is @old's eventual uncharge, moved up to the
-+	 * point where its charge record ends.
-+	 */
-+	if (obj_cgroup_is_root(new_objcg) && !obj_cgroup_is_root(objcg)) {
-+		rcu_read_lock();
-+		memcg_uncharge(obj_cgroup_memcg(objcg), folio_nr_pages(old));
-+		rcu_read_unlock();
-+	}
-+
-+	commit_charge(new, new_objcg);
- 
- 	/* Warning should never happen, so don't worry about refcount non-0 */
- 	WARN_ON_ONCE(folio_unqueue_deferred_split(old));
- 	old->memcg_data = 0;
-+
-+	/* @new holds its own reference now, drop @old's */
-+	obj_cgroup_put(objcg);
- }
- 
- DEFINE_STATIC_KEY_FALSE(memcg_sockets_enabled_key);
--- 
-2.53.0-Meta
-
+Thanks
+Hangbin
