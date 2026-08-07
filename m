@@ -1,266 +1,349 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6559F4B0485
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 01:09:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786064956; cv=pass; b=TiUoCPQkrPcbuYst5qQ7nIq9FJYClGB2w4Pb2aiJiDDOBcZhjPwuz8XJPWwehJtLo36BXcndcivxr5LcCExkkYWqjIAisHAuJqkeumjciztfIiKggS+FOdegE6418d4m+uuWZgpXBQaTSTp41KGrHQwBpq6ODZSiWd/fwR9byUU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786064956; c=relaxed/simple;
-	bh=jD0GUq8Tj6+YkU3YTw+0FfIy35cl663L1H2tBWQH1GA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hk8SZ1rubXgOHCmUevaAUjQSGvv2RsnermmT9PfAIMvljLYCRB7RyD5AupKGIAcoKvomECdaclcCuKoeZFVIxAg34/DU9GPhQoRPdBakWWHPdJTkvQBmU2YxRyhV4LgwoepCbTvduyXyVHL0zaFSZopGWvPGewG3Js9UIJmma5I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HderQwTv; arc=pass smtp.client-ip=209.85.160.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D11262D0B
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 01:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786065089; cv=none; b=kTCdAFgrhofpUhxfABaO7xBLsOsybPRodW5ZK1bfSH2b52/jORWR00E0OlyPZynoDmXXpfc/HZIbGH537DXPvboo/ITh2ho9QXQ9Esgpk6uLXSqR4O1p8/Scv5gxVohgTTxrFMbXe+8gQyzcTxcMqkYWYTo10aGA1x6+4zCELas=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786065089; c=relaxed/simple;
+	bh=DWmsYwvXlNcS0nafhmAN8vonDANQ0KtQSTrMivl4Ii8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DLxG+qJzzCbut3wjVmUb0WjjPnZ+Hd8LxbPTU0cKbia41WjPDGmPsZSnhd8hj9+DgIwh51LULnTUX5WWVOysDvcClXgDYh0Z4ks3LP5Kt0h16Fw4IYHTqgoYOZDJ4f5cVhXN5IqGndlsFbxRthiyvfy4wmtrikDZ8KjxacBzHJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=ONrNjKXi; arc=none smtp.client-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HderQwTv"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-51c15a5b265so133371cf.0
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 18:09:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786064949; cv=none;
-        d=google.com; s=arc-20260327;
-        b=c2XRhujIQsL4KX6mccZI2kwFzBp5JtrkHSNdu0Jbzc+NHcpOly0C9ZrwVtH1YMJgx0
-         WS0KWrb+6qvOzruTsPZl3KRMri0ZUjEa/6pnZYU4ki+mjJjoEqPv0Hp/KxrbiDD057qk
-         9AvaPB4kF7RaAIRsrqW28QFAnubelRONq8pL5GoKL2iQur+TxttGFAJabRmF3By63lit
-         JpLxlbmDPGUgXUuwfB9OB88LcSvkhRN/cGkyd+6eA1owjbdGUCPp9AEBiHsh54vxSYUu
-         2swlII/iCsNN5F40ka6HUGkzfBwcYwHAWSCa7wkFk43xBfj3dFGRwyBPQJ3Rp1lTx7/J
-         eSmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=SFWYXxn5mX3aRAqaZUoImbgrzlPlEe06IR2UE0VpByE=;
-        fh=mCKRJCScrp/EKVvjKRmiPJLyIVlJ8H3e/3iQHxtUAPg=;
-        b=PuH86mqaNO7kOLXUOeLaZUm5ksTtiNegx2YbeecqGxxud6HuhbWiefNYK0NsXjdMLa
-         j4yvg4VAN9/XWZ1sJWjWflgelkdv0xTAfpatUI491/hMwueF5y/lIIuohneSKQUgIpWq
-         INMqwQFceqJYqr0ouYu9qOO9YJ/iv6uI9BfPVM61t+OvRyZj3kUIs4T/zYl/yEazTgOH
-         IyarZvzxBUsMXkjvOkIL9d8pL9O/1ZQbW9WWLd9RrVrgZWwTOdp0+mME7S6qDGHar59a
-         /dpzRCxjA5K5gmlDNzNR7kInavlu4cQDZNJ6rp/DUY+VDUl/QFM+CO/VUlaM/5ri8luA
-         aYuw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786064949; x=1786669749; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SFWYXxn5mX3aRAqaZUoImbgrzlPlEe06IR2UE0VpByE=;
-        b=HderQwTvstAOz3fUx9qFXTjlx6tBX6CC3yPj8FVq6nKp6hDL/3MBrU6m7hoGG+dMk4
-         tB4BdEH7WvGQzKl2W2O99WS51PMqrsGXagg5qRsphdLCCNYtYjYUkDWTWxrkTKbGI4XJ
-         bzTSQl6patQfdim2DmItETGHaqb/zDtS6H+2EVmIpL5vORv7D2VaZR2dEhY1ADb1U1dg
-         seba0SYyFLu+WbjaaWPtnvlLwhjno+l4XlnkSCF+vnyBcErmTuz5oJtP34axHZZNRkuj
-         mRr8gbv1mMgcR7Purg+QnsGj+y1f59QA3/YE2jkI2ZzFnIAcq5VcqGXDAs1IdqQyLaWa
-         +UNg==
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="ONrNjKXi"
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 273293F9C4
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 01:11:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1786065082;
+	bh=eseWD7+QIvTlT0URhL2f19vXeeOZAqjSdrcbsi5dv+Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type;
+	b=ONrNjKXiW8wltujzE4aj+fKBbse4V8+uSgwe83us2ZMmS4Lr3F/Wb8vHTaVc7Boid
+	 DGgBQJn9/4b0xltPTJkXbCS8gfb5CCfNcnlukydu2uuaqgX+bU1jz8QA8gTvJ1gwDT
+	 YS4w7ivReXymkowE+8gsm4iKBtRMaFxe+J3Q7C0iFZPaIBsBCuTOj2o7QdNpIpljsr
+	 DUtIYVx7Ho4zq+oa5UknH26qCUu/TlKnISPJkp/lDE7FTvEr9v4U0WyFHQwZZTe3gg
+	 UhhchL1r8WGRyo1aSDg+1ilyK8RA0FMpv9rDXj5oGsDwWh5pJNnEHYzJwymsjDJTof
+	 /vHTI1ennGiDgu6k6dhs6hh0hl0HSeuZzCO+zbvp1gIgWnaL8GSxjTBiOLbzmPKB6U
+	 rGYB652S3WOVv5jP+NV8FQxNpAveczC3rVwGqSKdG03DCHsd343HQ0RwWLN7BbpAQR
+	 7BUgk+u8ezcQSZxyppM/OrhXk/KFxGRI2oT7Lnit48DuaTe+r/k5QapYSpy4b4FrIv
+	 SJaXizkpxTtRKvB6UMgCPyA5LPGj3S+kp3mmxgyZQ4FLuyI+aLg2rSy8JMqyvxymqS
+	 yFVomkH2sY5HQ2BtI2/KTViiJIegqJtFZbDJBaTIJAZWjok7Z2ScbWvZs9Iz03OcIZ
+	 Cwr74G1SWczFLcLs3+hwc9mI=
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8488ac68185so6841836b3a.2
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 18:11:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786064949; x=1786669749;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SFWYXxn5mX3aRAqaZUoImbgrzlPlEe06IR2UE0VpByE=;
-        b=Xpr3IY/MKKkaI28mO+hCm2vd+2a/rwvHzfLFNbZGln0+LL5FOiF0TpwGB4vYzD9iPa
-         DoCuMX+hthBH/+egJ0dqaAOplFYg0IHN41Hz9Pu/ZdRms28W9YrryqzxG5RcI2kLVBTv
-         l0eAEa2CFSA/2+oAhDJGVmXCJNCo+G/hl60xEIod45ukRsz+rD5Lb1zpILDowt0xRR/f
-         89iRWBxFvF1fB5unHnD/AZxJdtEWOnfZFeSbwy48HcWzB8pE4lGaDZqNPf/cjxJAGN0q
-         EfEy7icFt8EmELcqOMxTaLpiHfR/sZ61UsooxZt8Wx8TQ8YEnnJdUm+1KQHaI18zix+A
-         cvWQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqohawJJbHj8qtHz2UpCjfFl3zJdNWzpWBM8ujvSmHcndvVCGpQloQVAWuNAy14r6IgEYs7w98=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTYeuFLa9mEajn8Ko0+AwuVJQylMnEUzcERe6WzLjGd6VuLJJO
-	7zR5GKu1ERZFDPXUqTzsW2zVL+izVFGuEZ7Rhx/WRGmH4dTQYe4egV4KfJcBmN8FV7qL32n4/na
-	Ut48VTazjm9DJW8oVNV9EkHHlvPe11X1+KLA3oJST
-X-Gm-Gg: AR+sD11eeiSKcKZbc2gVlfkLZ8xKc2DxQRC331IYE3X/ZLVA1ordv0u/g8UXMGS0vr7
-	NMPM8kF7WA3N3Lwy+uurzPyU56AQ1wk1/41LwupcOgsDJfggESO+/A+yBtS50c4aQu4P+MI26G/
-	s8SgeFw0r2qI/mdd3BgiafXLY7aSIbETHWBCLRxbGviO48noyIbNrhRbFRAXfXvmT5Ymiyioyr4
-	G3vT7F4SCyLW+F5gpCaKAON5KWPUbxPSMeFpV4N+3Za/roUfdYGRG/si6VHN8cLP1inG3lCexpb
-	KTJDmqOdwo1yt+eP1DWAYHcfCxWInANu+NC6KhH2qqI=
-X-Received: by 2002:a05:622a:2b0a:b0:517:5d71:84e5 with SMTP id
- d75a77b69052e-52d1537b77amr4672671cf.5.1786064948220; Thu, 06 Aug 2026
- 18:09:08 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786065080; x=1786669880;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:from:content-language:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eseWD7+QIvTlT0URhL2f19vXeeOZAqjSdrcbsi5dv+Q=;
+        b=IYcSCCZvSFTE/EpcintLR/L4+fH1w7xRjSXrdV6GpLBq5VIaYZvG0Q2tjQ3t8PVfwd
+         Dp2Fn5Jn3hLM1TlYErrganPr/lmz++zUNBJFwuuAh5ZFSepi5vUZQ/RqbkYHHPDwcSrc
+         jKN2qYXBZLzQDU8StxJWLQjHBEQmxWKEMaHgOp3yzZpK62d+Q67AUkou4pz+lzmeexs2
+         IQxJyPnTSfjFfX33M270drPeIL6Ysmaxx+y6U3szvOkWqtN2LLWFbfasi9+Io8y+xP1c
+         OZf18zOMUc8/mi42ROosVpAZ52Mr6VdiTgquTbuRqc5Y6RXcdT9oG10CYgUCj5jACggn
+         Lftw==
+X-Forwarded-Encrypted: i=1; AHgh+RqyUARYjoZIg+ddfy1h2wjO61uuTMM2A4Gi2acCI9Qrzql/X6ZxkyxsFI5oABtvmPx12sTi6jY=@vger.kernel.org
+X-Gm-Message-State: AOJu0YyiOBxEnBgpOgq3Ox160ad0Jxh+YIs9VCx+H/vv3WUAjjr5/PNP
+	SxBrEHeaPN9Pj1mq6Qyncyxjz1KUhU5hJvJEOGsOJjw2vNxyh5gnQXNWntR2MMimC8Ci1wDHvZr
+	Jl4fXNLd3fe0t8G3kHQ6+X8iLTtn6Auz6Wzu3xQBm6kmY31L0/UtH2FlSF2X+f9MqBt2lPIa1vQ
+	==
+X-Gm-Gg: AR+sD12umntyF08z70rdFnDyf98DKdrzBV9bxRq5uMzsLfyf0pSwqpcg69tMd8S8/CH
+	EKgsXclTQRntPK32YPM0eLLc1So8N5FYQjXWhiKaQx8FbzUHDnQNUMuNZvVrkQKSw8pt0Z6c0Rg
+	wEzsdRXUpu348H/AzOpjtRfYGJo6g+tra5cGvFpN+Gw/M/No3LHSx1qnhY4dT+wgRrgm5ezUidO
+	N2qh+RBR/wE38PTmdCiXtcJ2817r+K4g7d7L9y26sNdEbFg2oEytD4FPIYAjmXV+QpuvY88ncuU
+	1wHKsLJWa0VyPO4mPDt/iywWmweY4Xd/VGH9cTnfhb+t1An8fyVt3EeTAjw7ctna8oVZx5JmPSz
+	NVouQDCC8kkm2rb0=
+X-Received: by 2002:a05:6a00:32c3:b0:848:47d3:47ec with SMTP id d2e1a72fcca58-84f2e0826afmr23698461b3a.31.1786065080131;
+        Thu, 06 Aug 2026 18:11:20 -0700 (PDT)
+X-Received: by 2002:a05:6a00:32c3:b0:848:47d3:47ec with SMTP id d2e1a72fcca58-84f2e0826afmr23698395b3a.31.1786065079592;
+        Thu, 06 Aug 2026 18:11:19 -0700 (PDT)
+Received: from [192.168.192.71] ([50.47.147.90])
+        by smtp.googlemail.com with ESMTPSA id 41be03b00d2f7-cbe8bb42e01sm76311a12.10.2026.08.06.18.11.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 06 Aug 2026 18:11:19 -0700 (PDT)
+Message-ID: <f6cb1659-b5e7-416d-a0a0-e23c9e4281ba@canonical.com>
+Date: Thu, 6 Aug 2026 18:11:17 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260805090633.141001-1-hao.ge@linux.dev> <20260805095505.1c2cbc150441cb20a74ba9bb@linux-foundation.org>
- <CAJuCfpG_XX-Hwy=TCrJ+g6yiMxGXLB=LvnPN_WLP3WQktNZMbA@mail.gmail.com> <e96d8a13-8f9a-49f4-ae4c-a14c6de5ae66@linux.dev>
-In-Reply-To: <e96d8a13-8f9a-49f4-ae4c-a14c6de5ae66@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Thu, 6 Aug 2026 18:08:56 -0700
-X-Gm-Features: AUfX_mxBaPBw0NNhQsaxZ_CDj1g6HM-fQ6St7Kg8vy0drI_vqZEKxUNI36LMIc0
-Message-ID: <CAJuCfpFyTaqLnyi11PtAj-ouJiLcfxZoYDRUUKSZbW3RfDFOUw@mail.gmail.com>
-Subject: Re: [PATCH v3] alloc_tag: fix undetected compressed tag overflow when
- profiling is disabled
-To: Hao Ge <hao.ge@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Abhishek Bapat <abhishekbapat@google.com>, stable@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] apparmor: fix cred UAF caused by
+ begin_current_label_crit_section()
+To: Jann Horn <jannh@google.com>, John Johansen <john@apparmor.net>,
+ Georgia Garcia <georgia.garcia@canonical.com>, apparmor@lists.ubuntu.com,
+ Paul Moore <paul@paul-moore.com>, "Serge E. Hallyn" <serge@hallyn.com>
+Cc: James Morris <jmorris@namei.org>, Christian Brauner <brauner@kernel.org>,
+ Al Viro <viro@zeniv.linux.org.uk>,
+ linux-security-module <linux-security-module@vger.kernel.org>,
+ kernel list <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+References: <20260806-fix-apparmor-cred-uaf-v2-1-c3bbb9f87a9e@google.com>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <20260806-fix-apparmor-cred-uaf-v2-1-c3bbb9f87a9e@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 6, 2026 at 1:36=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
->
-> Hi Suren
->
->
-> On 2026/8/6 01:47, Suren Baghdasaryan wrote:
-> > On Wed, Aug 5, 2026 at 9:55=E2=80=AFAM Andrew Morton <akpm@linux-founda=
-tion.org> wrote:
-> >>
-> >> On Wed,  5 Aug 2026 17:06:33 +0800 Hao Ge <hao.ge@linux.dev> wrote:
-> >>
-> >>> In reserve_module_tags(), the tag overflow check is gated on
-> >>> mem_alloc_profiling_enabled():
-> >>>
-> >>>      if (mem_alloc_profiling_enabled() && !tags_addressable())
-> >>>
-> >>> If profiling is toggled off at runtime and a module is loaded whose
-> >>> tags exceed the compressed-mode limit, shutdown_mem_profiling() is
-> >>> skipped. vm_module_tags_populate() still maps memory for the tags and
-> >>> the module loads successfully, but the total tag count now exceeds wh=
-at
-> >>> NR_UNUSED_PAGEFLAG_BITS can address.
-> >>>
-> >>> Once profiling is re-enabled, ref_to_idx() computes each tag's index
-> >>> as its position in the alloc_tag array. update_page_tag_ref() masks
-> >>> it to alloc_tag_ref_mask before storing in page->flags. Indices
-> >>> beyond the mask are truncated and idx_to_ref() resolves them to wrong
-> >>> tags.
-> >>>
-> >>> This silently corrupts /proc/allocinfo: allocated pages get attribute=
-d
-> >>> to the wrong call sites, so the statistics it reports are wrong.
-> >>>
-> >>> mem_alloc_profiling_enabled() and mem_profiling_compressed are
-> >>> independent. Once compressed mode is established at boot, it stays
-> >>> active regardless of runtime toggles of mem_profiling.
-> >>>
-> >>> Remove the mem_alloc_profiling_enabled() guard. Also return an error
-> >>> after shutdown_mem_profiling() to skip vm_module_tags_populate(), as
-> >>> the mapped pages would never be reused - shutdown_mem_profiling() set=
-s
-> >>> mem_profiling_support to false, so no future module load enters the
-> >>> codetag path.
-> >>
-> >> Thanks.
-> >>
-> >> AI review points at a cpuple of possible things, one pre-existing:
-> >>          https://sashiko.dev/#/patchset/20260805090633.141001-1-hao.ge=
-@linux.dev
-> >
-> > Yes, pre-existing issue can be handled separately, it's not directly
-> > related to this change.
-> >
-> >>
-> >> "Does this unintentionally result in a denial of service for module
-> >> loading, preventing critical drivers from loading when they otherwise
-> >> could have just disabled profiling and gracefully continued?" sounds
-> >> pretty obscure and I doubt if we care?
-> >
-> > Hmm, I think Hao considered that in his previous version
->
-> Yes, I did look into this.
->
-> but now I'm
-> > thinking we might be able to handle this more gracefully and not fail
-> > the module loading. When profiling is disabled
-> > codetag_needs_module_section() returns false here:
-> > https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L28=
-22,
-> > so if we had to disable profiling, we could return NULL instead of
-> > ENOMEM and change the condition here:
-> > https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L28=
-25
-> > to act as if codetag_needs_module_section() was false from the
-> > beginning. IOW code at
-> > https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L28=
-22
-> > becomes:
-> >
-> > if (codetag_needs_module_section(mod, sname, shdr->sh_size) &&
-> >      (dest =3D codetag_alloc_module_section(mod, sname, shdr->sh_size,
-> >        arch_mod_section_prepend(mod, i), shdr->sh_addralign)) !=3D NULL=
-) {
-> > ...
->
-> The primary blocker is __layout_sections.
->
-> https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L1730
->
-> This is because __layout_sections controls whether we reserve space for
-> the codetag section inside EXECMEM_MODULE_DATA, the same way we handle
-> regular sections.
->
-> When codetag_needs_module_section() returns true during layout,
-> module_get_offset_and_type() is skipped, so sh_entsize only gets the
-> type bits with offset =3D 0 - no space is reserved.
->
-> If we bail out with NULL when compressed tags overflow and add a dest !=
-=3D
-> NULL check here, we'll end up hitting the later else block.
->
-> if (codetag_needs_module_section(mod, sname, shdr->sh_size) &&
->      (dest =3D codetag_alloc_module_section(mod, sname, shdr->sh_size,
-> arch_mod_section_prepend(mod, i), shdr->sh_addralign)) !=3D NULL) {
->         ......
-> } else {
->         enum mod_mem_type type =3D shdr->sh_entsize  >> SH_ENTSIZE_TYPE_S=
-HIFT;
->         unsigned long offset =3D shdr->sh_entsize  & SH_ENTSIZE_OFFSET_MA=
-SK;
->         dest =3D mod->mem[type].base + offset;
-> }
->
-> That'll cause the following memcpy to clobber the leading data.
+On 8/6/26 08:55, Jann Horn wrote:
+> AppArmor's begin_current_label_crit_section() is a scary function called
+> from lots of LSM hooks (in particular VFS/socket-related ones) that checks
+> if the label referenced by the current creds is marked FLAG_STALE, and if
+> so, attempts to use aa_replace_current_label() to replace the creds with an
+> updated version that uses a new label.
+> 
+> The first problem with this is that it would directly lead to UAF of
+> `struct cred` if anything in the kernel takes a pointer to the current
+> creds and accesses these past a security hook invocation that replaces
+> creds, like so:
+> ```
+> const struct cred *cred = current_cred();
+> alloc_file_pseudo(...);
+> uid_t uid = cred->euid;
+> ```
+> I don't know if anything in the kernel actually does this, but I think it
+> is very surprising that this pattern could lead to UAF.
+> 
+> The second problem is that things go wrong when aa_replace_current_label()
+> runs with overridden credentials. aa_replace_current_label() bails out if
+> `current_cred() != current_real_cred()` (mirroring the check in
+> proc_pid_attr_write()), but this check can't actually reliably detect
+> overridden credentials because the overridden creds can be the same as the
+> objective creds.
+> 
+> So in approximately the following scenario, things go wrong:
+> 
+> 1. task begins with <creds A> (as both objective and subjective creds),
+>     with refcount=2
+> 2. task grabs an extra reference on <creds A> for overriding
+> 3. task calls override_creds(<creds A>), which returns a pointer to the old
+>     subjective creds (<creds A>)
+> 4. task enters AppArmor LSM hook
+> 5. AppArmor checks that objective/subjective creds are equal
+> 6. AppArmor replaces both cred pointers with <creds B> and drops 2 refs on
+>     <creds A>
+> 7. task leaves AppArmor LSM hook
+> 8. task calls revert_creds(<creds A>)
+> 9. now task->cred is <creds A> while task->real_cred is <creds B>, but the
+>     task_struct logically holds two references to <creds B>
+> 10. another task drops the extra reference on <creds A> that was used for
+>      overriding, refcount drops to 0
+> 11. now task->real_cred points to freed creds
+> 
+> At this point, any access to current_cred() will be UAF.
+> 
+> I have a test case where I run aa-disable on a profile while a process
+> using that profile is blocked on splice() from a FUSE passthrough file into
+> a full pipe; after the profile update, the pipe becomes empty, splice()
+> resumes, the credentials go out of sync, and a subsequent getuid() syscall
+> results in a KASAN UAF splat.
+> 
+> To fix this, instead of directly replacing creds, do it via task_work that
+> will run at the end of the current syscall. (The point in time at which the
+> cred replacement happens should have no correctness impact; it is just a
+> performance optimization to avoid unnecessarily touching the refcount of
+> the new label.)
+> 
+> Note that AppArmor still performs direct cred replacements in the
+> sb_pivotroot LSM hook after this change, and that direct cred replacements
+> can still happen in VFS ->write() callbacks via proc_pid_attr_write().
+> 
+> There are two options for what to do with aa_dup_task_ctx(): Either
+> explicitly reset new->label_replacement_pending after the entire
+> aa_task_ctx has been copied, or switch to manually copying members over.
+> I am switching to manually copying members over because that should make
+> bugs more obvious.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: c75afcd153f6 ("AppArmor: contexts used in attaching policy to system objects")
+> Signed-off-by: Jann Horn <jannh@google.com>
 
-Ah, ok, now I remember how the areas are reserved there. Yes, my
-suggestion would not work.
+lgtm, and I have done some light testing. I have pushed this to apparmor-next
+and will kick a more thorough set of testing
 
->
-> If we really need to fix this, we can use dest's return value, with a
-> check like:
-> if (codetag_needs_module_section(mod, sname, shdr->sh_size)) {
->         dest =3D codetag_alloc_module_section(mod, sname, shdr->sh_size,
->                 arch_mod_section_prepend(mod, i), shdr->sh_addralign);
->         if ( dest =3D=3D sentinel_val )
->                 continue;
+Acked-by: John Johansen <john.johansen@canonical.com>
 
-You can't simply continue here because during the next iteration
-codetag_needs_module_section() will return false (since we called
-shutdown_mem_profiling() and set mem_profiling_support to false) and
-will take the "else" branch you pointed out earlier, which will
-clobber the leading data.
 
->
-> But that would also mean extra work on our end - for instance, we=E2=80=
-=99d need
-> to stop the per-cpu allocations inside codetag_load_module.
->
-> https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L3571
->
-> Could there be a simpler solution for this?
 
-Hmm. What if we return something like -EAGAIN and propagate it up to
-load_module(). load_module() will check for that error and retry
-calling layout_and_allocate() but since now
-mem_profiling_support=3Dfalse, both layout_sections() and move_module()
-will work as if profiling is disabled. We need to make sure
-codetag_module_replaced() and codetag_load_module() do nothing when
-mem_profiling_support=3Dfalse but that should be easy. WDYT?
+> ---
+> Changes in v2:
+> - store task work in task security blob to simplify things
+> - remove cc to peterz, I'm no longer changing task_work implementation
+> - Link to v1: https://patch.msgid.link/20260714-fix-apparmor-cred-uaf-v1-1-be40e8c83b90@google.com
+> ---
+>   security/apparmor/include/cred.h |  6 +-----
+>   security/apparmor/include/task.h | 15 +++++++++++----
+>   security/apparmor/task.c         | 27 +++++++++++++++++++++++++++
+>   3 files changed, 39 insertions(+), 9 deletions(-)
+> 
+> diff --git a/security/apparmor/include/cred.h b/security/apparmor/include/cred.h
+> index 2b6098149b15..0e8b67159f56 100644
+> --- a/security/apparmor/include/cred.h
+> +++ b/security/apparmor/include/cred.h
+> @@ -222,13 +222,9 @@ static inline struct aa_label *begin_current_label_crit_section(void)
+>   {
+>   	struct aa_label *label = aa_current_raw_label();
+>   
+> -	might_sleep();
+> -
+>   	if (label_is_stale(label)) {
+>   		label = aa_get_newest_label(label);
+> -		if (aa_replace_current_label(label) == 0)
+> -			/* task cred will keep the reference */
+> -			aa_put_label(label);
+> +		aa_schedule_stale_label_replacement();
+>   	}
+>   
+>   	return label;
+> diff --git a/security/apparmor/include/task.h b/security/apparmor/include/task.h
+> index b1aaaf60fa8b..6f26758ca10f 100644
+> --- a/security/apparmor/include/task.h
+> +++ b/security/apparmor/include/task.h
+> @@ -21,15 +21,22 @@ static inline struct aa_task_ctx *task_ctx(struct task_struct *task)
+>    * @onexec: profile to transition to on next exec  (MAY BE NULL)
+>    * @previous: profile the task may return to     (MAY BE NULL)
+>    * @token: magic value the task must know for returning to @previous_profile
+> + * @label_replacement_tw: for aa_schedule_stale_label_replacement()
+> + * @label_replacement_pending: is @label_replacement_tw pending?
+> + *
+> + * When changing this, check if aa_dup_task_ctx() needs to be updated.
+>    */
+>   struct aa_task_ctx {
+>   	struct aa_label *nnp;
+>   	struct aa_label *onexec;
+>   	struct aa_label *previous;
+>   	u64 token;
+> +	struct callback_head label_replacement_tw;
+> +	bool label_replacement_pending;
+>   };
+>   
+>   int aa_replace_current_label(struct aa_label *label);
+> +void aa_schedule_stale_label_replacement(void);
+>   void aa_set_current_onexec(struct aa_label *label, bool stack);
+>   int aa_set_current_hat(struct aa_label *label, u64 token);
+>   int aa_restore_previous_label(u64 cookie);
+> @@ -56,10 +63,10 @@ static inline void aa_free_task_ctx(struct aa_task_ctx *ctx)
+>   static inline void aa_dup_task_ctx(struct aa_task_ctx *new,
+>   				   const struct aa_task_ctx *old)
+>   {
+> -	*new = *old;
+> -	aa_get_label(new->nnp);
+> -	aa_get_label(new->previous);
+> -	aa_get_label(new->onexec);
+> +	new->nnp = aa_get_label(old->nnp);
+> +	new->onexec = aa_get_label(old->onexec);
+> +	new->previous = aa_get_label(old->previous);
+> +	new->token = old->token;
+>   }
+>   
+>   /**
+> diff --git a/security/apparmor/task.c b/security/apparmor/task.c
+> index b9fb3738124e..e16ff4130bc2 100644
+> --- a/security/apparmor/task.c
+> +++ b/security/apparmor/task.c
+> @@ -14,6 +14,7 @@
+>   
+>   #include <linux/gfp.h>
+>   #include <linux/ptrace.h>
+> +#include <linux/task_work.h>
+>   
+>   #include "include/path.h"
+>   #include "include/audit.h"
+> @@ -89,6 +90,32 @@ int aa_replace_current_label(struct aa_label *label)
+>   	return 0;
+>   }
+>   
+> +static void aa_replace_stale_label_tw_func(struct callback_head *tw)
+> +{
+> +	struct aa_task_ctx *ctx = task_ctx(current);
+> +	struct aa_label *label;
+> +
+> +	ctx->label_replacement_pending = false;
+> +	label = aa_current_raw_label();
+> +	if (!label_is_stale(label))
+> +		return;
+> +	label = aa_get_newest_label(label);
+> +	aa_replace_current_label(label);
+> +	aa_put_label(label);
+> +}
+> +
+> +/* replace the current task's stale label on syscall return */
+> +void aa_schedule_stale_label_replacement(void)
+> +{
+> +	struct aa_task_ctx *ctx = task_ctx(current);
+> +
+> +	if (ctx->label_replacement_pending)
+> +		return;
+> +	init_task_work(&ctx->label_replacement_tw, aa_replace_stale_label_tw_func);
+> +	if (task_work_add(current, &ctx->label_replacement_tw, TWA_RESUME) == 0)
+> +		ctx->label_replacement_pending = true;
+> +}
+> +
+>   
+>   /**
+>    * aa_set_current_onexec - set the tasks change_profile to happen onexec
+> 
+> ---
+> base-commit: 0d839570765118029aa8bf4a95444c6a11aacf85
+> change-id: 20260714-fix-apparmor-cred-uaf-cc38ec2b38b7
+> 
+> Best regards,
+> --
+> Jann Horn <jannh@google.com>
+> 
 
->
-> Thanks
-> Best Regards
->
-> Hao
->
-> >
-> > I think this would result in a better handling of this situation: if
-> > we can't fit the tags anymore, we issue a warning, disable profiling
-> > but continue loading the module. Hao, WDYT?
->
->
->
->
->
->
