@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0532D1A681E;
-	Fri,  7 Aug 2026 15:19:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3215331327A
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 15:19:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786115970; cv=none; b=eBUJEGL44jIIzWye1hpGhwDRXeA+EfVD8LsPzj1GA3r047/3u1k4EdgZcyL/Don4e1/fm2yC4uAHPlI3b+3sNlR3VkK7Aa/VoFhz03ykkKbFEUikhPTiSlKhr5Q/ve2zcevfQJJVrxseoVjwNwUnHMMb96mB31PZm3tHt3YEG5U=
+	t=1786115970; cv=none; b=PTmQQdjk7DfymcjSA9UoxcS0PFZee8qnf4xrLBcOvStZJOU6bqVMuPtzkWYpuWEc7pK0l5iSywVB9LrvD0aGtAu7cHs2vaJ5fccX0aUXG53/eOL5uAUsHjY/vDS4Cqjv50Rc7lV3zRpRmyZNQVBSI1SyiN2XSrFkjyq4u2gmzRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786115970; c=relaxed/simple;
-	bh=poP9nOq3qHsGoKUwk5ashHlmSx1LsAr3LjwIbrzJhbQ=;
+	bh=21sYVdMTS8iQ12JkBhOVaHoN1T0p36zpx+jNJf5WPmA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=csnxGrrj6LLcsx/l78vkvtgoMoZm0kz1UMQmpfe/oox1X38hMAqLZcMkCHne07ZXKotzpHoHU33YTEt4oi5OuRtT1o1G9dA8jOsWSrp+QYYTA9V5XuR7O62VNaprteLr2Jp8Dx+D44M4M0GgoqpW1uF6DQjFb+mkX9Ke34KMRmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KE9WT6Jb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OnU1kI+OeXdE/sHeGSTEgA8m8u6CU0KkliAC89uMcLWKNgrze92q/a0uFPPCR6mE7gouoZJzmadWfAl4Ju26V5wrhP3H1vmCoeQK0smgcNhKq9xRdivz4z0mnvhHM+2Df9eqnJ9Lhn7csVyERsfMh83xtfcISS+o5cAOy9wL9AM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HeIfAEjU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KE9WT6Jb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ED571F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HeIfAEjU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CD8C1F00A3A;
 	Fri,  7 Aug 2026 15:19:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786115968;
-	bh=jTaXOBlwtsC6ajlbxPRkNbRzo9PXIzyPkxERc+xyhb4=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786115969;
+	bh=WT/k8/ylr0r94nqNEQjisFzeSyhRLN5/05VvcwRVaXQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KE9WT6Jb5F0m40tMGUW195Gb+mpXLfeLzh3HmlZsAnMGIi4kpsM5IQKdYB+ESE1Qn
-	 uxcTbamPply7dy5uQaMP0EOx+XWJx3z+T3cp/ixxSQE3Pwe/gUyW1r2GQ6YYVl7l1v
-	 IQJi7kMNTuSrUrk+cX5VR9i0SUGKAuoGeDuF4V1I=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=HeIfAEjUu+ZS2fhtcbyyda8FVtxhFo22iVs9mVvRGIuxtvVljCHiICJe49rRQx4k1
+	 QJrF7pF13TncTRJLaKfGTB4thRpUlAswn0cN+Nso0/Qb5ZEw0kTQf+konXbV3b0SY3
+	 b6PwyD13nC/Aq9Sqx4h6eiHF3SnxafJnpWGnONoggNRdSDkwKuXLJeAVqYGY442Xaw
+	 xx6A5lKmJP+N3BA0Pdcg0SLwPbc0YnwHKnkNfOF/BNODrzTz1IAaomJZYrMbj+i3FJ
+	 uD4aMR3qTQTEfdSWQCdvNGLMEd+0+WM4YmIwYzRsU2j8E8WHd5Dau47+9VC7Ugl862
+	 9Ygq6EVje2XcQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Jiale Yao <yaojiale02@163.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+	Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 064/261] Bluetooth: L2CAP: fix UAF in l2cap_le_connect_rsp
-Date: Fri,  7 Aug 2026 16:37:01 +0200
-Message-ID: <20260807143416.764884637@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260807143415.358597922@linuxfoundation.org>
-References: <20260807143415.358597922@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y 1/5] ceph: Remove ceph_writepage()
+Date: Fri,  7 Aug 2026 11:19:22 -0400
+Message-ID: <20260807151926.2227006-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072946-idiom-facelift-7c9f@gregkh>
+References: <2026072946-idiom-facelift-7c9f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,64 +46,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-------------------
+[ Upstream commit 19a288110435408fcf2cb274823f2a17d03caf9b ]
 
-From: Jiale Yao <yaojiale02@163.com>
+Ceph already has a writepages operation which is preferred over writepage
+in all situations except for page migration.  By adding a migrate_folio
+operation, there will be no situations in which ->writepage should
+be called.  filemap_migrate_folio() is an appropriate operation to use
+because the ceph data stored in folio->private does not contain any
+reference to the memory address of the folio.
 
-[ Upstream commit c4740e7f23ff9a8210198d8b4703259e21b9f69d ]
-
-l2cap_le_connect_rsp() obtains a channel via
-__l2cap_get_chan_by_ident() but neither holds a reference nor uses
-l2cap_chan_hold_unless_zero() before locking and operating on it.
-A concurrent l2cap_chan_del() triggered by a remote disconnect can
-free the channel between the lookup and l2cap_chan_lock(), causing
-a use-after-free.
-
-The BR/EDR counterpart l2cap_connect_rsp() and the sibling handler
-l2cap_le_command_rej() already use l2cap_chan_hold_unless_zero()
-to safely hold a reference, but l2cap_le_connect_rsp() was left
-unprotected.
-
-Fix by adding l2cap_chan_hold_unless_zero() after the ident lookup
-and l2cap_chan_put() on the exit path, consistent with other L2CAP
-response handlers.
-
-Fixes: f1496dee9cbd ("Bluetooth: Add initial code for LE L2CAP Connect Request")
-Assisted-by: Claude:deepseek-v4-pro
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Link: https://lore.kernel.org/r/20250217185119.430193-2-willy@infradead.org
+Tested-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
+Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Stable-dep-of: cbf59617cd71 ("ceph: fix writeback_count leak in write_folio_nounlock()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bluetooth/l2cap_core.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ fs/ceph/addr.c | 28 +---------------------------
+ 1 file changed, 1 insertion(+), 27 deletions(-)
 
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 792974eef47c0..9643a8aacb96b 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -4779,6 +4779,10 @@ static int l2cap_le_connect_rsp(struct l2cap_conn *conn,
- 	if (!chan)
- 		return -EBADSLT;
- 
-+	chan = l2cap_chan_hold_unless_zero(chan);
-+	if (!chan)
-+		return -EBADSLT;
-+
- 	err = 0;
- 
- 	l2cap_chan_lock(chan);
-@@ -4824,6 +4828,7 @@ static int l2cap_le_connect_rsp(struct l2cap_conn *conn,
- 	}
- 
- 	l2cap_chan_unlock(chan);
-+	l2cap_chan_put(chan);
- 
+diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
+index 8d1a646e229a5..9441344bdced4 100644
+--- a/fs/ceph/addr.c
++++ b/fs/ceph/addr.c
+@@ -824,32 +824,6 @@ static int writepage_nounlock(struct page *page, struct writeback_control *wbc)
  	return err;
  }
+ 
+-static int ceph_writepage(struct page *page, struct writeback_control *wbc)
+-{
+-	int err;
+-	struct inode *inode = page->mapping->host;
+-	BUG_ON(!inode);
+-	ihold(inode);
+-
+-	if (wbc->sync_mode == WB_SYNC_NONE &&
+-	    ceph_inode_to_fs_client(inode)->write_congested) {
+-		redirty_page_for_writepage(wbc, page);
+-		return AOP_WRITEPAGE_ACTIVATE;
+-	}
+-
+-	folio_wait_private_2(page_folio(page)); /* [DEPRECATED] */
+-
+-	err = writepage_nounlock(page, wbc);
+-	if (err == -ERESTARTSYS) {
+-		/* direct memory reclaimer was killed by SIGKILL. return 0
+-		 * to prevent caller from setting mapping/page error */
+-		err = 0;
+-	}
+-	unlock_page(page);
+-	iput(inode);
+-	return err;
+-}
+-
+ /*
+  * async writeback completion handler.
+  *
+@@ -1598,7 +1572,6 @@ static int ceph_write_end(struct file *file, struct address_space *mapping,
+ const struct address_space_operations ceph_aops = {
+ 	.read_folio = netfs_read_folio,
+ 	.readahead = netfs_readahead,
+-	.writepage = ceph_writepage,
+ 	.writepages = ceph_writepages_start,
+ 	.write_begin = ceph_write_begin,
+ 	.write_end = ceph_write_end,
+@@ -1606,6 +1579,7 @@ const struct address_space_operations ceph_aops = {
+ 	.invalidate_folio = ceph_invalidate_folio,
+ 	.release_folio = netfs_release_folio,
+ 	.direct_IO = noop_direct_IO,
++	.migrate_folio = filemap_migrate_folio,
+ };
+ 
+ static void ceph_block_sigs(sigset_t *oldset)
 -- 
 2.53.0
-
-
 
