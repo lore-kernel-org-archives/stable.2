@@ -1,222 +1,97 @@
-Received: from out-184.mta0.migadu.com (out-184.mta0.migadu.com [91.218.175.184])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2589442FB4
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 05:45:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F44446844;
+	Fri,  7 Aug 2026 06:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786081554; cv=none; b=f0ueknfbn2Ct2iYuu4cq00I9La6B/mnxg0CKLHAXPj61iI7NcWHCSvISZjzTYV8KF4drPcTVQxmBcNgYTks3EqMe2IMmduNwTs1Bs/pUtVHbcZrEkf1yyvW2N715PhM0NfUYxc4IaN9htm81mP1/m2+OB9WgFMl3xT8MIOZ/vtM=
+	t=1786082451; cv=none; b=B2VuKXi0gr+O49671jFSCl5hihwg8P4HcnadGVSkf9jmZXgcU7q9TWntKqW3vkETqvBvI1WUvqVuEQ7ICfcVazgODSUI8/t+0f2TXuppPpzCv2YK9d8uPzf8KsacldMBq9kol+/a4j6fa7zQjuujj+8hH9GtdZczVnIGmZds+Tw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786081554; c=relaxed/simple;
-	bh=W9jBapHwuzybF+UIBobVx1XEj4xvv8xR6gvxnb6hTPs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W9UdG69kZZIY2AlfAQ+uYR19+nVSLdi7C2jNo8sZP30P1exbkl/ighsq2NLZwa8zXpMxDG06XaPqX8gem1dcfvi2u2lNS0n/25lToXxmEzqCWzxRlLKxEUoaLbU5Em5QJowBTR+9TQQS36o+VomefG/LThlfUTrIzFM3XCARHY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HuH/OQiU; arc=none smtp.client-ip=91.218.175.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786082451; c=relaxed/simple;
+	bh=mTyJvuHtgA5D9He5ZWUPsg6jTMY3vexGtgAr7yvVBHY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bHee14D5HQNz44PJNxWeDVwha6y1S7qUDJ/syg5EML403xi5iTkztRQLQ7gdoTJYIyMhdlTPFMl6t26Hn7iY5+S2mFnQ3vEJnV/4NLi1Az4tO8Nncmjkx0G0Slu1r+Y05YpQ71xhfZ2GRyxxMd+2qpxqito6LkJEAGuBGWt+iJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EErDr1TA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HuH/OQiU"
-Message-ID: <9067a389-2e1b-4352-bb88-7a78a3fe6a19@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1786081539;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vtSZIt9dlXMvAfyTzKVr5n3mZ8wTK92TvaHA6/Pp7GE=;
-	b=HuH/OQiUliANUoiJzpe5x9lpfc5e4uli8SYz6eIvlroKyZCgQlBTalKdLHwzK38mhxeFNd
-	43r7cBZx1HzLb4ZwfRG8tFeE/NlMtwW8JBWogImG4jkqODtz9mdH4pNcOC+mjbP6/iqLwV
-	hJNEsh4IkUwQWUt/z77xri3pEkgNY4g=
-Date: Fri, 7 Aug 2026 13:45:23 +0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EErDr1TA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 544AF1F000E9;
+	Fri,  7 Aug 2026 06:00:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786082449;
+	bh=LAJ39TwcMAdgtD0Y82iVU3GahasJe2+Axv14/P8Kbp8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EErDr1TAVCfKL2gg67Lm2NwTVV4smsx9HiBSCX6ilW6UEBrC0OQzqyuBOOCeHOei/
+	 mMJJKsWXX037jB94St23ymcIn7+sPiU/rI4h8dIou5Kj03MSuF33RaCkie3+3t4O/r
+	 ltwi0h9EwbVDpBfVvFJbopMEEjYRvSZWNO3dYrz0=
+Date: Fri, 7 Aug 2026 08:00:31 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Jeffin Philip <jeffinphilip14@gmail.com>
+Cc: linux-usb@vger.kernel.org, valentina.manea.m@gmail.com,
+	shuah@kernel.org, i@zenithal.me, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com
+Subject: Re: [PATCH v2] usbip: usbip_host: fix null pointer dereference in
+Message-ID: <2026080734-carnage-pointless-9781@gregkh>
+References: <20260807043759.12218-1-jeffinphilip14@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v3] alloc_tag: fix undetected compressed tag overflow when
- profiling is disabled
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Abhishek Bapat <abhishekbapat@google.com>, stable@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>
-References: <20260805090633.141001-1-hao.ge@linux.dev>
- <20260805095505.1c2cbc150441cb20a74ba9bb@linux-foundation.org>
- <CAJuCfpG_XX-Hwy=TCrJ+g6yiMxGXLB=LvnPN_WLP3WQktNZMbA@mail.gmail.com>
- <e96d8a13-8f9a-49f4-ae4c-a14c6de5ae66@linux.dev>
- <CAJuCfpFyTaqLnyi11PtAj-ouJiLcfxZoYDRUUKSZbW3RfDFOUw@mail.gmail.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <CAJuCfpFyTaqLnyi11PtAj-ouJiLcfxZoYDRUUKSZbW3RfDFOUw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260807043759.12218-1-jeffinphilip14@gmail.com>
 
-Hi Suren
-
-
-On 2026/8/7 09:08, Suren Baghdasaryan wrote:
-> On Thu, Aug 6, 2026 at 1:36 AM Hao Ge <hao.ge@linux.dev> wrote:
->>
->> Hi Suren
->>
->>
->> On 2026/8/6 01:47, Suren Baghdasaryan wrote:
->>> On Wed, Aug 5, 2026 at 9:55 AM Andrew Morton <akpm@linux-foundation.org> wrote:
->>>>
->>>> On Wed,  5 Aug 2026 17:06:33 +0800 Hao Ge <hao.ge@linux.dev> wrote:
->>>>
->>>>> In reserve_module_tags(), the tag overflow check is gated on
->>>>> mem_alloc_profiling_enabled():
->>>>>
->>>>>       if (mem_alloc_profiling_enabled() && !tags_addressable())
->>>>>
->>>>> If profiling is toggled off at runtime and a module is loaded whose
->>>>> tags exceed the compressed-mode limit, shutdown_mem_profiling() is
->>>>> skipped. vm_module_tags_populate() still maps memory for the tags and
->>>>> the module loads successfully, but the total tag count now exceeds what
->>>>> NR_UNUSED_PAGEFLAG_BITS can address.
->>>>>
->>>>> Once profiling is re-enabled, ref_to_idx() computes each tag's index
->>>>> as its position in the alloc_tag array. update_page_tag_ref() masks
->>>>> it to alloc_tag_ref_mask before storing in page->flags. Indices
->>>>> beyond the mask are truncated and idx_to_ref() resolves them to wrong
->>>>> tags.
->>>>>
->>>>> This silently corrupts /proc/allocinfo: allocated pages get attributed
->>>>> to the wrong call sites, so the statistics it reports are wrong.
->>>>>
->>>>> mem_alloc_profiling_enabled() and mem_profiling_compressed are
->>>>> independent. Once compressed mode is established at boot, it stays
->>>>> active regardless of runtime toggles of mem_profiling.
->>>>>
->>>>> Remove the mem_alloc_profiling_enabled() guard. Also return an error
->>>>> after shutdown_mem_profiling() to skip vm_module_tags_populate(), as
->>>>> the mapped pages would never be reused - shutdown_mem_profiling() sets
->>>>> mem_profiling_support to false, so no future module load enters the
->>>>> codetag path.
->>>>
->>>> Thanks.
->>>>
->>>> AI review points at a cpuple of possible things, one pre-existing:
->>>>           https://sashiko.dev/#/patchset/20260805090633.141001-1-hao.ge@linux.dev
->>>
->>> Yes, pre-existing issue can be handled separately, it's not directly
->>> related to this change.
->>>
->>>>
->>>> "Does this unintentionally result in a denial of service for module
->>>> loading, preventing critical drivers from loading when they otherwise
->>>> could have just disabled profiling and gracefully continued?" sounds
->>>> pretty obscure and I doubt if we care?
->>>
->>> Hmm, I think Hao considered that in his previous version
->>
->> Yes, I did look into this.
->>
->> but now I'm
->>> thinking we might be able to handle this more gracefully and not fail
->>> the module loading. When profiling is disabled
->>> codetag_needs_module_section() returns false here:
->>> https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L2822,
->>> so if we had to disable profiling, we could return NULL instead of
->>> ENOMEM and change the condition here:
->>> https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L2825
->>> to act as if codetag_needs_module_section() was false from the
->>> beginning. IOW code at
->>> https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L2822
->>> becomes:
->>>
->>> if (codetag_needs_module_section(mod, sname, shdr->sh_size) &&
->>>       (dest = codetag_alloc_module_section(mod, sname, shdr->sh_size,
->>>         arch_mod_section_prepend(mod, i), shdr->sh_addralign)) != NULL) {
->>> ...
->>
->> The primary blocker is __layout_sections.
->>
->> https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L1730
->>
->> This is because __layout_sections controls whether we reserve space for
->> the codetag section inside EXECMEM_MODULE_DATA, the same way we handle
->> regular sections.
->>
->> When codetag_needs_module_section() returns true during layout,
->> module_get_offset_and_type() is skipped, so sh_entsize only gets the
->> type bits with offset = 0 - no space is reserved.
->>
->> If we bail out with NULL when compressed tags overflow and add a dest !=
->> NULL check here, we'll end up hitting the later else block.
->>
->> if (codetag_needs_module_section(mod, sname, shdr->sh_size) &&
->>       (dest = codetag_alloc_module_section(mod, sname, shdr->sh_size,
->> arch_mod_section_prepend(mod, i), shdr->sh_addralign)) != NULL) {
->>          ......
->> } else {
->>          enum mod_mem_type type = shdr->sh_entsize  >> SH_ENTSIZE_TYPE_SHIFT;
->>          unsigned long offset = shdr->sh_entsize  & SH_ENTSIZE_OFFSET_MASK;
->>          dest = mod->mem[type].base + offset;
->> }
->>
->> That'll cause the following memcpy to clobber the leading data.
+On Fri, Aug 07, 2026 at 10:07:59AM +0530, Jeffin Philip wrote:
+> rebind_store calls do_rebind which dereferences udev without
+> checking if it is NULL. If busid is registered using match_busid
+> but the device is never bound to the driver or it is never present
+> in the first place, it triggers a null pointer dereference when we
+> attempt to rebind the device. Fix this by checking explicitly for
+> udev first and returning -ENODEV if udev is NULL. Add usb_get_dev
+> in addition to the null check to get a reference to udev to prevent
+> udev from becoming NULL after the check. Drop the reference after
+> using it in do_rebind().
 > 
-> Ah, ok, now I remember how the areas are reserved there. Yes, my
-> suggestion would not work.
+> Reported-by: syzbot+af76b01c9a0f0ab60fb0@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=af76b01c9a0f0ab60fb0
+> Fixes: 4bfb141bc013 ("usbip: usbip_host: fix to hold parent lock for device_attach() calls")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
+> ---
+> Changes in v2:
+>  - Addressed concerns raised by the maintainer in v1 discussion
+>    - Added usb_get_dev() to get a reference to udev preventing
+>      it from becoming null after the null check. Drop the reference
+>      after using it in do_rebind()
+> ---
+>  drivers/usb/usbip/stub_main.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
 > 
->>
->> If we really need to fix this, we can use dest's return value, with a
->> check like:
->> if (codetag_needs_module_section(mod, sname, shdr->sh_size)) {
->>          dest = codetag_alloc_module_section(mod, sname, shdr->sh_size,
->>                  arch_mod_section_prepend(mod, i), shdr->sh_addralign);
->>          if ( dest == sentinel_val )
->>                  continue;
-> 
-> You can't simply continue here because during the next iteration
-> codetag_needs_module_section() will return false (since we called
-> shutdown_mem_profiling() and set mem_profiling_support to false) and
-> will take the "else" branch you pointed out earlier, which will
-> clobber the leading data.
-> 
+> diff --git a/drivers/usb/usbip/stub_main.c b/drivers/usb/usbip/stub_main.c
+> index 79110a69d697..c911626427dc 100644
+> --- a/drivers/usb/usbip/stub_main.c
+> +++ b/drivers/usb/usbip/stub_main.c
+> @@ -256,12 +256,21 @@ static ssize_t rebind_store(struct device_driver *dev, const char *buf,
+>  	if (!bid)
+>  		return -ENODEV;
+>  
+> +	if (!bid->udev) {
+> +		put_busid_priv(bid);
+> +		return -ENODEV;
+> +	}
+> +
+> +	/* get a reference to udev to prevent it from becoming NULL */
+> +	usb_get_dev(bid->udev);
 
-Ah, right.
+So what happens if udev becomes NULL after checking it and before
+grabbing the reference?
 
->>
->> But that would also mean extra work on our end - for instance, we’d need
->> to stop the per-cpu allocations inside codetag_load_module.
->>
->> https://elixir.bootlin.com/linux/v7.1.5/source/kernel/module/main.c#L3571
->>
->> Could there be a simpler solution for this?
-> 
-> Hmm. What if we return something like -EAGAIN and propagate it up to
-> load_module(). load_module() will check for that error and retry
-> calling layout_and_allocate() but since now
-> mem_profiling_support=false, both layout_sections() and move_module()
-> will work as if profiling is disabled. We need to make sure
-> codetag_module_replaced() and codetag_load_module() do nothing when
-> mem_profiling_support=false but that should be easy. WDYT?
-> 
+This is not how to handle this at all.  Please step back and look at the
+root problem here and address that.  This is just papering over the
+issue.
 
-Good point, I'll look into this approach.
+thanks,
 
-Thanks
-Best Regards
-Hao
-
->>
->> Thanks
->> Best Regards
->>
->> Hao
->>
->>>
->>> I think this would result in a better handling of this situation: if
->>> we can't fit the tags anymore, we issue a warning, disable profiling
->>> but continue loading the module. Hao, WDYT?
->>
->>
->>
->>
->>
->>
+greg k-h
