@@ -1,69 +1,96 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2118D3AFCF2;
-	Fri,  7 Aug 2026 07:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D22873B8D76;
+	Fri,  7 Aug 2026 07:20:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786087072; cv=none; b=m7PZZl/2MomQ0u6LbhbqFU1a1vSrKjG1q4AApfv0UZ4gH43dQ1MREe8SJ0nINKCGBriAq6TEnF84Fgc+ORZsWTe4WCXkqDu9ZZeXvHjkqct0eIKHMN9Ki7yLgVf0GBNXgPfTmju+BHHSSPBkowZMvVEBkzdMClM+3YnkUxb5+ok=
+	t=1786087211; cv=none; b=nYlfLxMPxjV2ANrKhpZ6AUBIeElg4IMQlrOZb/fdoIZPSw3u+1DE31thPddpqLUcKg+EEn66SXoEPsKWAFHU2kk0JDnGypStn2uuAbmrKXJQX8VDV4VoXM6EU6srzHlsYY7JugDqVUyzuC2Tz7FP8bpdskv+pAWReVrfxjpsNJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786087072; c=relaxed/simple;
-	bh=kGLaynbVs0max8n25l5hHvF3hSwFmzk6hhHHal/wTLw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QVmBwzgd+Tcy1N7RvUNPIhNm4wTlWJHc9KTl2rMeh1OnyLjKtlDjGMDLSvqgYa1umHLVBvZRQoj6wGRm64Wwy0xuSU3hFT2J6Bmi3tUCwHjPh8XnQndgDTHeHMNfH9dN5oYutPlw+rl9/B39QQZCgbxcV3uNjBnMLURF2KllYYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=g3jqUiMz; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1786087211; c=relaxed/simple;
+	bh=09FxRqYvAJ+jCowdoPG6nKLl0vJVRvMT3zYvdMBxi70=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tKsyP+wT8mDlN+XyBWzXbyt27Qn34gncpA46QAWHVo7IkV1efL2UoW3uZBh5cuMfDViobCEkkalE+yPtfV+ID+Ty2ldkF/lq+fFhrqE3jHWjnytNOg74vcsiVfntCzxNRElX1wgq0RJsSbDBGX0gJHUaTo23158Q+U1HCCH3JBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AVBKHKkX; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="g3jqUiMz"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=kGLaynbVs0max8n25l5hHvF3hSwFmzk6hhHHal/wTLw=;
-	t=1786087068; x=1787296668; b=g3jqUiMzAEpoCtkDo1EL3IAGnXq/bZNSiJNBMdxFFPczHd0
-	IPjqzKBQ9FiIQdFDvHHDiD0QMkEy5Ou9WCWhQj/Po6nkpEAaDcUZsbh8yRxmap2b2g8q/67nyC69r
-	mVr2pkSME3AayazRGU2CaTon6+qjeDMKOAD8jUJBpnI8xZguuMBBDU7QqB72rL86S8onGLs919e3F
-	Yb9J9T3DQl3C6jREPUxfqt4lW+AoydFZ/pP8MVXxoPIP+Hvg8Xc5jll+fnX5ZU9ctDoDv6qMn1qkc
-	AbwPQkryyDEf7jxfFBBTMJrbjCdThDWou+wi9NwKWJygFPr1f1EMNx2SVpUqBcAg==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1wsEpr-0000000GxLq-0VQi;
-	Fri, 07 Aug 2026 09:17:43 +0200
-Message-ID: <ec0e5426914e9a10466f870f464cab349ca9b6e0.camel@sipsolutions.net>
-Subject: Re: [PATCH v5] wifi: brcmfmac: cyw: pass PMKID to firmware if
- present
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>, Bogdan Nicolae
-	 <bogdan.nicolae@gmail.com>
-Cc: linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
-	brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org, 
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AVBKHKkX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=4k
+	4eYf9bOPqnAHVpQmp8wdukJyoXQOWZpKAZndTwb5Q=; b=AVBKHKkXtcruXVqvLY
+	ySP4TgDZZv1v9G6o47UerlbIFDdM+UUCYTDgo+uQEImEqPE0kZumpaJiz0e72AlJ
+	V9OpNDcpOTX+p1lmsDs3fH2PtfqPJ3YCNrPJOtcCkt0Ejpz6/rL6b8guPyTqoK9F
+	GKxI0K+zDDRuj6Hf+qFS4lh0A=
+Received: from zengchi (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wBncb0Ih3VqqOGZOQ--.50948S2;
+	Fri, 07 Aug 2026 15:19:37 +0800 (CST)
+From: Zeng Chi <zeng_chi911@163.com>
+To: pbonzini@redhat.com,
+	seanjc@google.com
+Cc: kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zengchi@kylinos.cn,
 	stable@vger.kernel.org
-Date: Fri, 07 Aug 2026 09:17:42 +0200
-In-Reply-To: <ca791519-5967-4d30-919b-146158432990@broadcom.com> (sfid-20260807_084714_855076_FDABF219)
-References: <20260807032209.447044-1-bogdan.nicolae@gmail.com>
-	 <ca791519-5967-4d30-919b-146158432990@broadcom.com>
-	 (sfid-20260807_084714_855076_FDABF219)
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+Subject: [PATCH] KVM: Remove the kvm debugfs directory if kvm_init() fails
+Date: Fri,  7 Aug 2026 15:19:34 +0800
+Message-Id: <20260807071934.786879-1-zeng_chi911@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBncb0Ih3VqqOGZOQ--.50948S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Cr1ktFW3Jw1rAr18Cr4xCrg_yoW8Ww48pa
+	n8Grs5KrZYyr42ya4vkFn5ur18GrZ7Ga1fX3W8Zr15JryDKrsYvry0qrWY9FWDWF4kt3WY
+	vFy0qFyUAw1DJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnZ23UUUUU=
+X-CM-SenderInfo: 52hqws5fklmiqr6rljoofrz/xtbCwAnbl2p1hwlMMQAA3p
 
-On Fri, 2026-08-07 at 08:47 +0200, Arend van Spriel wrote:
->=20
-> It looks like you hand edited the patch but now the number of line is 9=
-=20
-> and not 8. Not sure if Johannes wants to hand edit that, but it does=20
-> apply once fixed.
+From: zengchi <zengchi@kylinos.cn>
 
-Nope. Please send patches that apply, that way also the nipa bot can
-compile test them etc.
+kvm_init_debug() creates the "kvm" debugfs directory along with all of
+the VM/vCPU stat files, but none of kvm_init()'s error paths removes it.
+If kvm_vfio_ops_init(), kvm_gmem_init(), kvm_init_virtualization() or
+misc_register() fails, the directory is leaked, and none of kvm_init()'s
+callers invokes kvm_exit() on failure, i.e. nothing papers over the
+leak.
 
-johannes
+The stale /sys/kernel/debug/kvm directory isn't just cosmetic: a
+subsequent attempt to load KVM makes debugfs_create_dir() fail with
+-EEXIST, after which kvm_debugfs_dir holds an ERR_PTR and all stat
+files are silently never created again.  Worse, the leaked stat files
+reference file_operations and stat data that live in the KVM module; if
+the module is unloaded after the failed initialization, reading the
+stale files is a use-after-free.
+
+Remove the debugfs directory in the error path, mirroring kvm_exit().
+
+Fixes: 2b0128127373 ("KVM: Register /dev/kvm as the _very_ last thing during initialization")
+Cc: stable@vger.kernel.org
+Signed-off-by: zengchi <zengchi@kylinos.cn>
+---
+ virt/kvm/kvm_main.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 45e784462ec6..8a503ac1adbd 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -6553,6 +6553,7 @@ int kvm_init(unsigned vcpu_size, unsigned vcpu_align, struct module *module)
+ err_gmem:
+ 	kvm_vfio_ops_exit();
+ err_vfio:
++	debugfs_remove_recursive(kvm_debugfs_dir);
+ 	kvm_async_pf_deinit();
+ err_async_pf:
+ 	kvm_irqfd_exit();
+-- 
+2.25.1
+
+
+No virus found
+		Checked by Hillstone Network AntiVirus
+
