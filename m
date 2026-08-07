@@ -1,38 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3529F41837A;
-	Fri,  7 Aug 2026 14:56:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A4A418372;
+	Fri,  7 Aug 2026 14:56:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786114611; cv=none; b=am03v3v/YJ+QYeBfKGlrvG7Hm9xCyecrYXgkMdE6tfqFcAJ9pwzhS/9ujCKtil90FWnDDKB9ofw45UTgxpqLKeXnKB3i+1Ii65hkuEh8rpNq0hgm3WQAOZT+XmSBLdyDNC78mpZtpYO0b797bwciw99izRavgXVCugya0MbDxno=
+	t=1786114613; cv=none; b=LaBXgq2/3ogfs+IJc6ejyKKZC/dwPgo3bMHQMWW5Kc2ro292RRYSHAaCQ5M/g7s/ucv59nraFm34yWw3XZ076JoPVSlQEMmcsVKCy1U8nm97gNNuKrKB6eATbcDRDxrEAH6HA015us7EtLZktswyekLyefxSclkcgMCYoa+G98A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786114611; c=relaxed/simple;
-	bh=0JRUygIWrJyymD7ZIhSMeqcr2E8tSNgyh5hO2JpVzzs=;
+	s=arc-20240116; t=1786114613; c=relaxed/simple;
+	bh=neaO/ul91aR7iOz3fPFIGFIs4Bjnf+iRqoEfe7xwMZk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XuexqzWYJ/pgjjJedwcBI8M9h5FJ1Y3tdTbUtljsf8iKcBQ0Wj71dsBy9vstQo3L9JQaZVzLHgB52OZDLeOJX2ZYRb4klYah+Xjg7AAwsqXybD2UtbjMfcAl0BxoBccojchc7TqFlMtDGutnSja0gCHr1m+0oJJ2fBSAlMPlcuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=V6IrbULR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rQIznYEZ38S5cOpgUuJumFoWEj3cdq7/g/wQcchFKxyaXFNUy8kxVF9mTLmgiqBZuRWOoi32Dj8bhTpEyg/ug6pEDEebyQo4SXhumKM25VddVR9+DHiJNxZrnu271/58ub1IRvbcv/J04JhbZjfkGG6Sc8hxU1+NRa4rp6H7KpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nukFkviD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="V6IrbULR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7974D1F000E9;
-	Fri,  7 Aug 2026 14:56:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nukFkviD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 406881F00A3A;
+	Fri,  7 Aug 2026 14:56:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786114608;
-	bh=KMTrSUVfry6Xu8xhUbKClJFBYvA7yFlt0rzQZ4ZXvVY=;
+	s=korg; t=1786114610;
+	bh=Y41e+evg6o97u7MW9Sysg3+IWCfaDZfPoz5J0BLZy8w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V6IrbULRGVQcqA0uOY6KV3xhUmKtJ8DOkNb8JInCOGWtSQHi7IxIY9kRS657wsZRm
-	 tqi/pnCIVTUXXviaI7pw4X0JFq+1C+UotLHuzcGEj4992JqSzphlPF6xWbnQkqTnz5
-	 f/JjC/dQpg3Ir09bQka9gkA0Kl7mlyamSGGfyatU=
+	b=nukFkviD+1RoJRYs/8ZdvD5AdURBEllKuISL+0kIteEmVIJfQbiKEiEwqEJYKzF6q
+	 8LNkIsownHqQxBuMFjr0pegQk7amoylK2CbXA64CZs5/TNj/BFT27ib4opBsMX3SKn
+	 XlALPgFMhYwV+bDWNmsAG1yHnZ53lmm17LOAzGYk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
+	Martin Hodo <martin.hodo@intel.com>,
+	Anshuman Gupta <anshuman.gupta@intel.com>,
 	Suraj Kandpal <suraj.kandpal@intel.com>,
-	Santhosh Reddy Guddati <santhosh.reddy.guddati@intel.com>,
+	Jani Nikula <jani.nikula@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 324/337] drm/i915/hdcp: Skip inactive MST connectors when building stream list
-Date: Fri,  7 Aug 2026 16:38:47 +0200
-Message-ID: <20260807143425.561506875@linuxfoundation.org>
+Subject: [PATCH 6.12 325/337] drm/i915/hdcp: check streams[] bounds before overflow
+Date: Fri,  7 Aug 2026 16:38:48 +0200
+Message-ID: <20260807143425.584452053@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
 References: <20260807143418.516897842@linuxfoundation.org>
@@ -51,60 +54,56 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Suraj Kandpal <suraj.kandpal@intel.com>
+From: Jani Nikula <jani.nikula@intel.com>
 
-[ Upstream commit 0161e2c2016337a2f22ef79dff0aee43c0841bce ]
+[ Upstream commit bbb15a6b042d02e5508a02b4847e02d2579ee7bc ]
 
-intel_hdcp_required_content_stream() walks every connector on the
-digital port to populate hdcp_port_data->streams[]. The only filter is
-connector_status_disconnected, which reflects physical presence on the
-MST topology, not whether the connector currently drives a stream.
-On a multi-sink MST setup where only a subset of sinks are modeset,
-the loop can pick a sibling MST connector that is connected but has
-no active CRTC / VC payload. intel_conn_to_vcpi() then logs "MST
-Payload not present" and returns 0, and the bogus StreamID=0 is
-written to the repeater in RepeaterAuth_Stream_Manage (DPCD 0x693F0).
-Authentication completes, but the repeater shortly raises
-LINK_INTEGRITY_FAILURE (RxStatus 0x69493 bit4) because the StreamID
-does not match any stream on its input. The HDCP check work then
-tears the link down, the Content Protection property drops back to
-DESIRED, and userspace observes a spurious HDCP enable failure.
-Filter the connector iteration to only those with a CRTC assigned in
-the new atomic state, so intel_conn_to_vcpi() is called for the
-connector actually being enabled and reads its real VCPI from the MST
-topology state.
+The data->streams[] overflow check is done after the buffer overflow has
+already happened. Move the overflow check before the write.
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Santhosh Reddy Guddati <santhosh.reddy.guddati@intel.com>
-Link: https://patch.msgid.link/20260505094022.4064256-1-suraj.kandpal@intel.com
-Stable-dep-of: bbb15a6b042d ("drm/i915/hdcp: check streams[] bounds before overflow")
+Side note, emitting a warning splat with a backtrace might be overkill
+here, but prefer not changing the behaviour other than not doing the
+overrun.
+
+Discovered using AI-assisted static analysis confirmed by Intel Product
+Security.
+
+Reported-by: Martin Hodo <martin.hodo@intel.com>
+Fixes: e03187e12cae ("drm/i915/hdcp: MST streams support in hdcp port_data")
+Cc: stable@vger.kernel.org # v5.12+
+Cc: Anshuman Gupta <anshuman.gupta@intel.com>
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Link: https://patch.msgid.link/20260625170304.1104723-1-jani.nikula@intel.com
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+(cherry picked from commit 9284ab3b6e776c315883ac2611283d263c9460fd)
+Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/i915/display/intel_hdcp.c |    6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/i915/display/intel_hdcp.c |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 --- a/drivers/gpu/drm/i915/display/intel_hdcp.c
 +++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -97,6 +97,7 @@ intel_hdcp_required_content_stream(struc
- {
- 	struct intel_display *display = to_intel_display(state);
- 	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector_state *new_conn_state;
- 	struct intel_digital_port *conn_dig_port;
- 	struct intel_connector *connector;
- 	struct hdcp_port_data *data = &dig_port->hdcp_port_data;
-@@ -123,6 +124,11 @@ intel_hdcp_required_content_stream(struc
- 		if (conn_dig_port != dig_port)
+@@ -129,6 +129,9 @@ intel_hdcp_required_content_stream(struc
+ 		if (!new_conn_state || !new_conn_state->crtc)
  			continue;
  
-+		new_conn_state = drm_atomic_get_new_connector_state(&state->base,
-+								    &connector->base);
-+		if (!new_conn_state || !new_conn_state->crtc)
-+			continue;
++		if (drm_WARN_ON(display->drm, data->k >= INTEL_NUM_PIPES(display)))
++			return -EINVAL;
 +
  		data->streams[data->k].stream_id =
  			intel_conn_to_vcpi(state, connector);
  		data->k++;
+@@ -139,7 +142,7 @@ intel_hdcp_required_content_stream(struc
+ 	}
+ 	drm_connector_list_iter_end(&conn_iter);
+ 
+-	if (drm_WARN_ON(display->drm, data->k > INTEL_NUM_PIPES(display) || data->k == 0))
++	if (drm_WARN_ON(display->drm, !data->k))
+ 		return -EINVAL;
+ 
+ 	/*
 
 
