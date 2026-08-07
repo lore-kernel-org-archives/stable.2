@@ -1,114 +1,98 @@
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934F53DDAFA;
-	Fri,  7 Aug 2026 12:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895EF4756D7
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 12:45:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786106603; cv=none; b=iM+iLc2sKyfmOi8VFUgJ9Y62WOK/z/LAQFSaW3UiFvmY4UTs3FJ5z5AKVlQx6jB+mOUtgQJHaYOWZ+P5cV2FYM2/FhLdDBGVWCTFWo4gU+nm5qjgfISHbzTeJz75YX18b7F2mLS3smTd7CFcp03XFNLgFoEJ+UkwepHkDC8ei80=
+	t=1786106764; cv=none; b=Gb2otODPxae2E5IloGmtlLKkbjwosjk31kZlU+kY0jjtv43daugF1W+8kf582kCs3YE/Y2oJysgGtwSmHInx8iL5VibUjU3y+seilYNhLCg0NS1/PkW6OqZQOlA2+zgLLS1FgnJbYe7/Mzs4kg7U93vYXdMswiZS7LbkNJui8MA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786106603; c=relaxed/simple;
-	bh=Z2tpQELTJkv3OPU11PMOnQB1hQoYBuVGrBkTMIQ995Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=khmYm5X7mKGwwksv7MC0o9xC+1N8HXQKvNW+TG5B/p5FNTAlxBTJve9z32JC1WWi0bab+TKXE4hHKjqnGfZcKNQ+MyD3//Ee7lwC9iD+wDe9FQdERUnM4gNCCZ0ipCPY1pRNrHnGPqIEvZLfpt8SspPQw8TECPXqIZIsybRfT1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; arc=none smtp.client-ip=216.40.44.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay05.hostedemail.com (Postfix) with ESMTP id 4B9714033D;
-	Fri,  7 Aug 2026 12:43:03 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 455FB2002D;
-	Fri,  7 Aug 2026 12:43:00 +0000 (UTC)
-Date: Fri, 7 Aug 2026 08:42:57 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Song Liu <song@kernel.org>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
- bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- live-patching@vger.kernel.org, mbenes@suse.cz, jolsa@kernel.org,
- mhiramat@kernel.org, jpoimboe@kernel.org, joe.lawrence@redhat.com,
- mark.rutland@arm.com, corbet@lwn.net, stable@vger.kernel.org,
- linux-open-source@crowdstrike.com
-Subject: Re: [RFC PATCH bpf-next v3 2/2] selftests/livepatch: update
- test-ftrace.sh for deprecated ftrace_enabled
-Message-ID: <20260807084257.56a5984e@gandalf.local.home>
-In-Reply-To: <CAPhsuW7vPwX-BGWmtMhA8dYwDOQYQLVXOUddZPbTvoazMpaKgA@mail.gmail.com>
-References: <20260806153000.4184871-1-andrey.grodzovsky@crowdstrike.com>
-	<20260806153000.4184871-3-andrey.grodzovsky@crowdstrike.com>
-	<CAPhsuW7gOs2Opo5DRm+YKxBxwU+ncBmEAKHYO5jPjzxM9S8i5w@mail.gmail.com>
-	<CAOu3gNi8i9m7nEuKF28G8cYqJULvE4W6CuDeYVFk58z1xSbBoQ@mail.gmail.com>
-	<20260806205144.743c45e6@gandalf.local.home>
-	<CAPhsuW7vPwX-BGWmtMhA8dYwDOQYQLVXOUddZPbTvoazMpaKgA@mail.gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1786106764; c=relaxed/simple;
+	bh=lJBJIWfnlJuBrmy0UBwJ59rfYvxzSekY2abk4IjTU/4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=iQ2PC/+KS0coA2f5AK9HGO7/loSBUGVJG/kgY9XSZDdg7x62R7/2M5eJkuZ/3D22usrKqxAWAAlORXLoF8E62GgmSk5oKoRIgMerZeQo1UoRWqkrlscfoDmp2YAYIkd0fq6+bEM1uoq780ASZf+RI7PkGRMdnXgOMLSvHcpxwnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bv7c9pVE; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bv7c9pVE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786106758; x=1817642758;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version:content-transfer-encoding;
+  bh=lJBJIWfnlJuBrmy0UBwJ59rfYvxzSekY2abk4IjTU/4=;
+  b=bv7c9pVEkCH5/Q6zUFfI6BkR11CdCINP765YatEuGhFk+TPDA2ekW/VD
+   HZ9BAdociVOsAw0PA25joIXn+B/X1eAJQf3+2mZOW9w2htBRK//IOzoPQ
+   LRz6gqaXOHHF1A9388y9T7abxjlqlqHJAjVFlao0GbgdxZE+N7VEbY2YD
+   AAlhkS0B9yZM2k3fIPVerFVq4wpogz6LNMOIVB44WgOxrW8MHvgsSumlo
+   wv1a3A3XrkOEcgCyr/xubgLgpEGSRoL1tBEIjeuobp/WQGfhjThZ3IvPy
+   Gqxh3n7JarFJmcGKN0tOt4+MFuJ2RaZ47yrlePnsNvzdLhrhKobpwe0Gh
+   w==;
+X-CSE-ConnectionGUID: tTav609eTbieSJXix4QmTA==
+X-CSE-MsgGUID: tABrWE4NT92DqbU2x/YNJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="85683577"
+X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
+   d="scan'208";a="85683577"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 05:45:52 -0700
+X-CSE-ConnectionGUID: eZDgOUZgSIOAEME3x7UdNA==
+X-CSE-MsgGUID: JtUTtpvMRH6WFFyuV9CSiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
+   d="scan'208";a="263019122"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.152])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 05:45:50 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: stable@vger.kernel.org
+Subject: Re: [PATCH] drm/i915/display: Limit max joined dotclock on pipes
+ available
+In-Reply-To: <95cc059b-056e-4aa3-8431-1e497002f58d@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260806143738.2710312-1-jani.nikula@intel.com>
+ <ca6f4f3b-9c94-4b24-a8e4-7c351e730429@intel.com>
+ <788a51d6-4eca-4365-bad1-037d25f388d0@intel.com>
+ <95cc059b-056e-4aa3-8431-1e497002f58d@intel.com>
+Date: Fri, 07 Aug 2026 15:45:46 +0300
+Message-ID: <65d9cdfb093f5e1e048738aaf1b20131f18ed16b@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 455FB2002D
-X-Stat-Signature: i9ecsa7xz9i37xuy954zjoktkfq9ms3u
-X-Rspamd-Server: rspamout07
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+HubzqSoruDjDW3Q7qpDXcMyS3FS+UntU=
-X-HE-Tag: 1786106580-345906
-X-HE-Meta: U2FsdGVkX19vRGycf/vqMn7wZTxDwKkkJj+Jup2KS11ylAAcCBlJftUi/wKsCTprU5Qq122tD50/kFLDXbtb1gK2Tq0Lx+GXMa9niEaA1X63KGy3gsmIW2FITre6sTyUi+x3gIV3Gfvr1jPfm1jSzbwkts+Me0CQQwjJgwctv2TajrI+j0rni+aZ2XHciJxvXBZIE/3hZvT25YajD86/VUmLR2+C7xnwzBDXm3GHe9TumbGvjm0AjxFGdFBavL/jGO/JPdvAAklxXrZGPivR1hV9Ct59MbLcgsJHebdPWKdR3w3FyVivjzAd0R3YvIBXfASNvNfS3MKtvD0icvQnPFXZGt0RodqS
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 7 Aug 2026 00:17:27 -0700
-Song Liu <song@kernel.org> wrote:
+On Thu, 06 Aug 2026, "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com> wrote:
+> On 8/6/2026 9:19 PM, Nautiyal, Ankit K wrote:
+>> On 8/6/2026 9:15 PM, Nautiyal, Ankit K wrote:
+>>> If fused pipes are AC or BD this will still give us 2. Perhaps should=20
+>>> have a check for atleast 2 consecutive pipes from=20
+>>> DISPLAY_RUNTIME_INFO(display)->pipe_mask
+>>
+>>
+>> ^I meant :=C2=A0 if fused pipes are B or D, resulting in A,C and B,D=20
+>> respectively, as available pipes...
+>
+>
+> Correction (typo'd twice (facepalm)): I meant if the available pipes are=
+=20
+> non-consecutive, like {A,C} or {B,D}=C2=A0 the count is still 2, but=20
+> bigjoiner needs 2 consecutive pipes.
+>
+> So we should check pipe_mask for a consecutive pair.
+
+Agreed. The more complete approach at [1].
+
+Thanks,
+Jani.
+
+[1] https://lore.kernel.org/r/20260806143738.2710312-1-jani.nikula@intel.com
 
 
-> 
-> However, requiring compatibility in selftests has its own issues:
-> 
-> 1) It makes writing and/or maintaining selftests harder. For example,
->    shall the selftest for a new feature fail or skip on older kernels.
-
-Skip. It's a feature of our test suite.
-
->    Either way, some extra work is required to handle this, e.g.,
->    someone need to remember that this kernel-test combination is
->    expected to fail, and it is OK.
-
-We explicitly require that new features are detectable (sometimes by just
-updating /sys/kernel/tracing/README). The ftracetests has a way to see the
-dependencies to know if a test should be run or not.
-
-We have a "requires:" field at the top of every test case. For example, in
-test.d/filter/event-filter-function.tc:
-
-  #!/bin/sh
-  # SPDX-License-Identifier: GPL-2.0
-  # description: event filter function - test event filtering on functions
-  # requires: set_event events/kmem/kmem_cache_free/filter
-  # flags: instance
-
-If "set_event" or "events/kmem/kmem_cache_free/filter" does not exist, the
-test will be skipped.
-
-> 2) It delays the actual deprecation of a feature. IOW, the feature will
->    somehow stays in the selftests for much longer time.
-
-We do not deprecate features. tracefs code is user API. We do not break
-user space. The ftrace_enabled is something that is being removed because
-it is broken to begin with. In fact, if we find out that anything depends
-on ftrace_enabled, we need to revert the change that disabled it.
-
-The removal of ftrace_enabled is the exception and not the rule.
-
-> 
-> Overall, I think requiring backward compatibility appears to be
-> attractive when we go from "having very little selftests" to
-> "having some selftest coverage". However, not requiring backward
-> compatibility will help us achieve better test coverage in the long run.
-
-The ftrace selftest requirements are different than the BPF requirements.
-We have been supporting this since 2014 without issue. And have actually
-found making things backward compatible helpful. We are not going to change
-that.
-
-I hope that makes sense.
-
--- Steve
-
+--=20
+Jani Nikula, Intel
