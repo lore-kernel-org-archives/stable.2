@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5644E3876A0;
-	Fri,  7 Aug 2026 14:42:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E543E0732;
+	Fri,  7 Aug 2026 14:42:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786113771; cv=none; b=Xyon4OevOd9W1frebBa5oNKcC0fhmBGJ89fjZty/vdRQDg5/A/fvSRqLTUUiCX5iElDLx1CeMAMUsiVQbYDT4/UB7RzKr/EyKL4epzMne4RkT6QnT5MI39BmN526OrILdDfNiEaVBD4iN/JTkbx1OyejO5/Al2hbBnOf0koNt04=
+	t=1786113771; cv=none; b=We11u4xhAJ63oLWAQmco96UmH6N9WPsHGnZXLdJdNpqVUn5QR81cBOhwafpJXJ2Szu/URRu5WQw2LY/iGJ68wrvHTzBJLAzl2hjueeNwmQ6p0+EVkYcFtzW2n9mBLPWDNkP+0SLvJZAH2BFY+6v1/N2HM9DaekY5XJDt7UZJDWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786113771; c=relaxed/simple;
-	bh=swBjMgN8rFBm9MLLQWn12IbETLKLXCJ92ZpZlwCucX4=;
+	bh=/8TfETz8Fw8gwNz3LS91RNwKqIsBNNlq1aQRBhZepnM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UuldIoEElabe6qzcuLSiDQiORMpPQh1E+x0zVf+qX995GIkhE6Sn6Vg685YgIQ/IwAeGKJTZcOJHTKjiFF9GvojRhFLTXH9MHznYOiccDLE/ttbP6leN0pP4UofqYngTlsAT8cRzYfsmE9TFLXGhJf51YAHeNYWdA2udiEAwa/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=soS9MRCP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fflTjc2TADWKYndm39gOK911XV0zIPGKwQVBSBHTZZ92ziPtOnk98AHUwj4lIDS8kzrdGNJjEDTg9E/uQylMWJNOOZlc80TpYsp0osXpwR+7PhVTFlDgr9mYOgDC+B3q6nisgBdJZMIIld4gOVVOv5CTwMaM/LxJTivfvfx0tWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ig7lOvob; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="soS9MRCP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EA211F00ADF;
-	Fri,  7 Aug 2026 14:42:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ig7lOvob"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C53BA1F00ACA;
+	Fri,  7 Aug 2026 14:42:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786113756;
-	bh=ZUGjHX6dMgAUsTDUyeU6JPsH3aEP1KFv9XT79TUIUuw=;
+	s=korg; t=1786113728;
+	bh=u6w8FzQJ6TOK/keEUm5zYq7vMj5RmphAfe9zBL9/Zbs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=soS9MRCPDXgw3KB9IH2DKWAvfAov+eGbPTSCxXn61Cb0dLdUSAlDLeRmTGuGSZQEK
-	 hti0xm2mk9Fl8r8XbEL66HrQPlhxIPHq6lvoVyn8C6v3TDRWAYl3DMwy5/kMp2WRp+
-	 ZRq8KdnhZP+l+PFO/kwtZUaoc/JvtoPzgsSs5zdk=
+	b=Ig7lOvobzcVs6iKQZELuu+km7siLD+eAKohUSqTCkL+pXxoQsGZ7gxATf+5g/oyn3
+	 AqCO7aZQUNrTIHycU4XjCxvlej8CRK0xbVxpLx55jwmgfVuMYy+IJ+LUz7TbCyJfD4
+	 6zi4fB2JhbIkAqSoSraBnGt6XFqqJHNx99ahDsLw=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Abdun Nihaal <nihaal@cse.iitm.ac.in>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Lee Jones <lee@kernel.org>,
+	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 024/337] gpio: sloppy-logic-analyzer: Fix memory leak in gpio_la_poll_probe()
-Date: Fri,  7 Aug 2026 16:33:47 +0200
-Message-ID: <20260807143419.041992130@linuxfoundation.org>
+Subject: [PATCH 6.12 015/337] HID: logitech-dj: Prevent REPORT_ID_DJ_SHORT related user initiated OOB write
+Date: Fri,  7 Aug 2026 16:33:38 +0200
+Message-ID: <20260807143418.849473617@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
 References: <20260807143418.516897842@linuxfoundation.org>
@@ -52,53 +51,53 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+From: Lee Jones <lee@kernel.org>
 
-[ Upstream commit 7a7baebd9f23ba4f24796775472b2fd00dcd95d9 ]
+[ Upstream commit b6a57912854e7ea36f3b270032661140cc4209cd ]
 
-The memory allocated for priv->blob.data is not freed in the error paths
-that follow the fops_buf_size_set() call in gpio_la_poll_probe(), as
-well as in the remove function. Fix that by using device managed action
-to free the memory on remove.
+logi_dj_recv_send_report() assumes that all incoming REPORT_ID_DJ_SHORT
+reports are 14 Bytes (DJREPORT_SHORT_LENGTH - 1) long.  It uses that
+assumption to load the associated field's 'value' array with 14 Bytes of
+data.  However, if a malicious user only sends say 1 Byte of data,
+'report_count' will be 1 and only 1 Byte of memory will be allocated to
+the 'value' Byte array.  When we come to populate 'value[1-13]' we will
+experience an OOB write.
 
-Fixes: 7828b7bbbf20 ("gpio: add sloppy logic analyzer using polling")
-Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Link: https://patch.msgid.link/20260715075311.527753-1-nihaal@cse.iitm.ac.in
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpio/gpio-sloppy-logic-analyzer.c | 10 ++++++++++
+ drivers/hid/hid-logitech-dj.c | 10 ++++++++++
  1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpio/gpio-sloppy-logic-analyzer.c b/drivers/gpio/gpio-sloppy-logic-analyzer.c
-index 59a8f3a5c4e48..9c526aeadeba5 100644
---- a/drivers/gpio/gpio-sloppy-logic-analyzer.c
-+++ b/drivers/gpio/gpio-sloppy-logic-analyzer.c
-@@ -161,6 +161,13 @@ static int fops_buf_size_get(void *data, u64 *val)
- 	return 0;
- }
- 
-+static void fops_buf_release(void *data)
-+{
-+	struct gpio_la_poll_priv *priv = data;
-+
-+	vfree(priv->blob.data);
-+}
-+
- static int fops_buf_size_set(void *data, u64 val)
+diff --git a/drivers/hid/hid-logitech-dj.c b/drivers/hid/hid-logitech-dj.c
+index d6fb7015f0d77..3a37d61616293 100644
+--- a/drivers/hid/hid-logitech-dj.c
++++ b/drivers/hid/hid-logitech-dj.c
+@@ -1750,6 +1750,7 @@ static int logi_dj_probe(struct hid_device *hdev,
+ 			 const struct hid_device_id *id)
  {
- 	struct gpio_la_poll_priv *priv = data;
-@@ -239,6 +246,9 @@ static int gpio_la_poll_probe(struct platform_device *pdev)
- 		return ret;
+ 	struct hid_report_enum *input_report_enum;
++	struct hid_report_enum *output_report_enum;
+ 	struct hid_report *rep;
+ 	struct dj_receiver_dev *djrcv_dev;
+ 	struct usb_interface *intf;
+@@ -1793,6 +1794,15 @@ static int logi_dj_probe(struct hid_device *hdev,
+ 		}
+ 	}
  
- 	fops_buf_size_set(priv, GPIO_LA_DEFAULT_BUF_SIZE);
-+	ret = devm_add_action_or_reset(dev, fops_buf_release, priv);
-+	if (ret)
-+		return ret;
++	output_report_enum = &hdev->report_enum[HID_OUTPUT_REPORT];
++	rep = output_report_enum->report_id_hash[REPORT_ID_DJ_SHORT];
++
++	if (rep->maxfield < 1 || rep->field[0]->report_count != DJREPORT_SHORT_LENGTH - 1) {
++		hid_err(hdev, "Expected size of DJ short report is %d, but got %d",
++			DJREPORT_SHORT_LENGTH - 1, rep->field[0]->report_count);
++		return -EINVAL;
++	}
++
+ 	input_report_enum = &hdev->report_enum[HID_INPUT_REPORT];
  
- 	priv->descs = devm_gpiod_get_array(dev, "probe", GPIOD_IN);
- 	if (IS_ERR(priv->descs))
+ 	/* no input reports, bail out */
 -- 
 2.53.0
 
