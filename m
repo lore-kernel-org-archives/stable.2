@@ -1,146 +1,139 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9132481A85
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 13:05:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4A944A3F0
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 13:05:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786107944; cv=none; b=Cbjazx/+DTMGXXk29TWtDndRty8DZL9zMmXj09DEVDbptAMeWJHx6D5oVai/lF/6ZJL0A0XJp/eFClghHeK/cqDAEzLKNJDEIQDnZhC7Tiv/LXn2monbL9QQJu+dtRN7AQJbksQ724quZesS7z9e3O7HUP37gzyJG5wQzTpgg4w=
+	t=1786107963; cv=none; b=dsmopjQ5/lLgpF+/dWVmk7kM8+PcJbWFa8G/ESJrqFq4O+jvRjdfmdVHs6kqHv6SrcsBW3V5fWEoOeftVXi0e9F6JlVH8DCENUJAAlxeWZ+szcRvt+EhZamTdGzq8NhxBxe0pIJQbg+M5XPvpz4jFNQ3bxgmqDVPFjhF0QObWFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786107944; c=relaxed/simple;
-	bh=HYxymFoJm6RTuaDqJ7cRBG+V1mDHMjPSgSeI7t5ZWK4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C0VwOkcNxJdU8UevGaUT31Ul5xx03vN44BgCyOxstjDNFEVDb18Vory7ZDa1Eqf/bQ0PN3tO+/vMXcOjIgXACr99Oay8pswP+AI6xFDBTB6lxSF1sv1DDvx3a4a9UrZoaNoN2p6+0hxk7yJueRWhqvS5ej5kce2OcqxnBcaJzsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Gv9eNFme; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gzNc3zst; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786107963; c=relaxed/simple;
+	bh=4NHqOE4i7Vp+ixg6i+m/LNNVMaUSOE2/EOKMdEnM4EQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uXuXrf/D32eKgykNxEH1QtNfSmaRUt9qtGWGKJR0Xfh3Zxh5X00n51hxfoVXZkb9TUqRQwHmc8VEUynbXEEntMLFSW460keIat2TOinh92K4xVkecATWhWl1V/8AFIFqK/+YRvNrMZeEUbtFpgBkudkoIrUO0gtCi/R+pbnIMhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MBQoCXVM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gv9eNFme";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gzNc3zst"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 677CgcQg1004540
-	for <stable@vger.kernel.org>; Fri, 7 Aug 2026 13:05:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zPSj/US9YmoirR4APoqZkFkgfkruTVQ3Bn0PlYTwpLo=; b=Gv9eNFme9NRtsz64
-	WtQXMjIWbpJKt2IURqnywaVa1kqIKm8HVzxpy9TIH3+XxGH2rb9gYjT4onAqPnTh
-	BkYxZrKZXJG7aLH7w8qhyyYki3/4kGRnjiVfgdZo2AwEKdazFKGKT9PIbc96zMGL
-	uYet+/wowckoYnQluPWFzeCnXCduzT//yRMTczEBeaejfSg9PkzXxOq23c0Haxcr
-	u1Dz9FJTFtX/I7eoJn25l8CFNKgfU59I7PyLjRys92HxhB9sqD1ecAZCkozaIxOG
-	OnKGAuXsVwAdz4UILFnGaV0nntXBVQ15MEkl+E/AJXagzfN855hwmrYGih3+RnSX
-	adpABQ==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvy6fv42h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 07 Aug 2026 13:05:30 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c110ad1b2fso568674e0c.2
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 06:05:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786107929; x=1786712729; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zPSj/US9YmoirR4APoqZkFkgfkruTVQ3Bn0PlYTwpLo=;
-        b=gzNc3zstz+vE6hgheZny7F/f55fcqggkyW/aIjhmtCEIStj5h+nQgwSvzK7+eLoCUv
-         ZQd1k8gI0vplzlss/5mqhzfx6gC6mR+y9thawd548kAEbOZHOK668p1gjbixPe7yjlKL
-         mpsyDjrakOeFF6cs5riw6sVztMi13Omy9MlkJdObKY39Y/gsIgbAB0/cMo9pwjBBnvDD
-         A1sMhBhcULEsCkCPHOgKXbQiqpu8HPQnYKpg4a3Y8XSb4p59OvrOXqxdvMhjZhA9zcWu
-         KJMyiLkWJjQdsh8MCFrh06nlhFAlGGe0/vakb5lV7V3AXbCCitM75MgkKSKToyfguzrv
-         +aiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786107929; x=1786712729;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zPSj/US9YmoirR4APoqZkFkgfkruTVQ3Bn0PlYTwpLo=;
-        b=CDG14KzszixhCVluwGZ33L/UyJaMgJ74m6xxfJU0A3eDgCub6gcDE7YAAWzhuRlmkO
-         Co0xoDgvfUwVel/+6Qsmghmo0as/arzO68ZbIjytH+1xis0dJYhJVbdj4zwDOdQmxnjm
-         QbtEAykWDkAmZXzKLrqhVxIIkQB6M6oE/xJRlD0buX+3Z4b2G64g0fN4XIJc17mpiAf+
-         AEcBQzIInuheksAx13yQ7VrdiRKZwq/PxO9BrmwIK6ISzWEdXz2hf2fQ6wxsTV4bk5sc
-         FPd5NZ2JXl+8gifhXioejw6cnldwKLDwXvdabQxQoPozVod9KmO9wE3JwfTjgxhFEMf/
-         qIHQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro07MF5AF0cxDAEzFSiVDkztIFpjv/p/R2Hm9I28HAEdcvy3Z1wpeWzLhyrzG34ivQIVM/w7qc=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwRitLoTKbn0YMeSktwH92hi8Pgj/j9CzjmRYvTlTYOkLrI8987
-	gG9m/AwuHrVfnMTT1q8Lqlq8gVZxC9ZB2SBu3yJ1NiGorVthAv6fSRDqVu3rAUPSERzyWDWnsz9
-	57WO/T1ot3UReNVFJNeKI7sM5lnue/Zap1YHvJk5ivfLyG4+H2Vp4xYba+fU=
-X-Gm-Gg: AR+sD12Rx1/0PQ20zUlDmsh8zSOqN7FB288lMA7Iv679u233Mzm9RsGQtABXusmLmp+
-	GndoXTVmCIfUALJNMoTwpdmT1+rRHhsbRmp2y9QYejOvxpj+aBIY3fPJgj5wG9UhmGBY6ITau23
-	S2pNDoC7ZLELV/0WTH0x+w6rOZveBUjTzOh8zlDh0ZAN9vg0p4dk250vlwbqpmoAf3tsU37LgCe
-	S2qOC19/C4Z3fVsnK6Jk4qDI0hML4MFet55Sg7VzrJaZEB+b3qCWDzCrqudInToA5AnBKXX2OBZ
-	QXD4zPpvk2LVV6d5rJSfnWiwi8ukrDXWtd7ossG4Q2LGWNIaACQ4ntkIEpW7lBloZGOJxuex/OB
-	CWhKzg2Iy5MUkpI3aAuLV0/298lbXaTSRPYxzgjUei6TtQQ==
-X-Received: by 2002:a05:6122:6609:b0:5a0:370:f12c with SMTP id 71dfb90a1353d-5c409440bf1mr405011e0c.11.1786107929346;
-        Fri, 07 Aug 2026 06:05:29 -0700 (PDT)
-X-Received: by 2002:a05:6122:6609:b0:5a0:370:f12c with SMTP id 71dfb90a1353d-5c409440bf1mr404933e0c.11.1786107928770;
-        Fri, 07 Aug 2026 06:05:28 -0700 (PDT)
-Received: from [192.168.2.1] (146725694.box.freepro.com. [130.180.211.218])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48002145971sm5546657f8f.8.2026.08.07.06.05.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Aug 2026 06:05:27 -0700 (PDT)
-Message-ID: <d490d92c-01eb-4cc1-8b03-fe39ca087412@oss.qualcomm.com>
-Date: Fri, 7 Aug 2026 15:05:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MBQoCXVM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117791F00ACA;
+	Fri,  7 Aug 2026 13:05:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786107954;
+	bh=DI738h+I7vPosl3HPmx7+UiksLivMvqh7dEK9vNkqM4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MBQoCXVM9mB6MBZcmiZYLr58Ut83i6OMi6JAdMeGW1ADHQTBcXhChMCiHtPL0+3rp
+	 vfmVUjD3lUDkJhoQdyH5Akpz0c+2JCtPcR5Yzf4kNOZFuyFxYbSnPKFC2TEGA19PdR
+	 H/HGdmxgymxVFQ1vICSAq0UaBmsC+S23H9422GZ3NETZrN09F52sU81PC11xn9wFNb
+	 QrkVSIMmSbvg3w8pZ0CzgHJ5Cy6oUcml5k1km/cbm1/OaqTDOnDBPTrUBtYVTjJaX5
+	 tZ2DDy1Tm2OtGApfsEbVsamgLA1RvMVgd9CtNNsxAx8RzBpoookDvi1VQLX1uSyuIM
+	 Q/94hsfEVSHWw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Geliang Tang <tanggeliang@kylinos.cn>,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 4/4] mptcp: pm: userspace: fix use-after-free in get_local_id
+Date: Fri,  7 Aug 2026 09:05:49 -0400
+Message-ID: <20260807130550.2153435-4-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260807130550.2153435-1-sashal@kernel.org>
+References: <2026072920-retread-pastrami-b8d9@gregkh>
+ <20260807130550.2153435-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] thermal/drivers/qoriq: Disable clock on resume failure
-To: Can Peng <pengcan@kylinos.cn>, rafael@kernel.org,
-        daniel.lezcano@kernel.org
-Cc: rui.zhang@intel.com, lukasz.luba@arm.com, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260722075625.452684-1-pengcan@kylinos.cn>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20260722075625.452684-1-pengcan@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDEwMiBTYWx0ZWRfX6G7i9rnphH7M
- VibWkMMNlJ81LcNCQjgKfcoSzL3F8a5WEefmW0ZEi3wJ/yyAthGfLINBCynDP4qn6xAQzjX6vKc
- I/I7hLi5pv+fF5bc/Ol993+CqEN5D87utSaDiSVFbOC227LvCJXjJ1SYQm23tKaI71B1WVAmtKL
- jGHR0RONKAGDWo41FS2uuuVVPxIY2gvyP6S8pbQRg2z5wG1AadtV3DzUwlW2TX2u4ISXoAwk1a3
- 6O7uvODsJsI4b9qvyl8yk5uezF2saLv6qwJvP2/rnlbq/T2BpRIc0AR9rw8+vBX1j0nbphxeEVl
- ugIO4EpsELBjHqz/KAnoXcPSYtlzyA9eZjQutLXgcA16ethTM9dg36AGTFr3ngnqAGaikYgX1vv
- aZMS8NE4TDhttSrUTv2ms/WJ+3dQMf2GbETkfc30nG1cKOE1TPavpIraBCvxeWMXGTLgxwocDpv
- /LGNwgA/CbHiV36ukVQ==
-X-Authority-Analysis: v=2.4 cv=DvhmPm/+ c=1 sm=1 tr=0 ts=6a75d81a cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=uw/3876vWhRnNVL35W6mqQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=DKkMA6O2ID4Q9JsdpvQA:9 a=QEXdDO2ut3YA:10
- a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-ORIG-GUID: JmspF_0xb5Rrb6By592IIp0EnnJzHiu_
-X-Proofpoint-GUID: JmspF_0xb5Rrb6By592IIp0EnnJzHiu_
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDEwMiBTYWx0ZWRfXxAMGRPePl07F
- O5prFw4UQCCqT7ecv0ESWzZwjbg6NAxUvR3nUUbjXvuJ+U+35YWX8kHR5m1d5+zGK5Qc6Z0IUJm
- dA31YIsMQg3wW3A6YcEjJZSyC8+XVxA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-07_02,2026-08-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 clxscore=1015 spamscore=0 malwarescore=0
- suspectscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608070102
+Content-Transfer-Encoding: 8bit
 
-On 7/22/26 09:56, Can Peng wrote:
-> qoriq_tmu_resume() enables the TMU clock before clearing the
-> power-down bit and enabling monitoring.
-> 
-> If either register update fails, the function returns with the clock
-> still enabled. This leaves the clock enable count unbalanced after a
-> failed resume.
-> 
-> Disable the clock on those failure paths before returning the error.
-> 
-> Fixes: 51904045d4aa ("thermal: qoriq: Add clock operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Can Peng <pengcan@kylinos.cn>
-> ---
+From: Geliang Tang <tanggeliang@kylinos.cn>
 
-Applied, thanks
+[ Upstream commit 9bc6d5e4ca9f3cbb41d43400b3a31cb0403796c9 ]
+
+In mptcp_pm_userspace_get_local_id(), the address entry is looked up under
+spinlock, but its id is read after dropping the lock. A concurrent deletion
+can free the entry between the unlock and the read, leading to UAF.
+
+The race window is narrow. It was reproduced only with a locally
+constructed stress test that repeatedly overlaps an MP_JOIN SYN with a
+MPTCP_PM_CMD_SUBFLOW_DESTROY request.
+
+However, the KASAN report below confirms that the race is reachable:
+
+  [  666.319376] BUG: KASAN: slab-use-after-free in mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
+  [  666.319386] Read of size 1 at addr ffff888124845610 by task swapper/0/0
+  ...
+  [  666.319401] Call Trace:
+  [  666.319405]  <IRQ>
+  [  666.319408]  dump_stack_lvl+0x53/0x70
+  [  666.319412]  print_address_description.constprop.0+0x2c/0x3b0
+  [  666.319418]  print_report+0xbe/0x2b0
+  [  666.319421]  ? mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
+  [  666.319423]  kasan_report+0xce/0x100
+  [  666.319426]  ? mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
+  [  666.319429]  mptcp_userspace_pm_get_local_id+0x1dc/0x1f0
+  [  666.319433]  mptcp_pm_get_local_id+0x371/0x440
+  ...
+  [  666.319821] Allocated by task 45539:
+  [  666.319844]  kasan_save_stack+0x33/0x60
+  [  666.319855]  kasan_save_track+0x14/0x30
+  [  666.319858]  __kasan_kmalloc+0x8f/0xa0
+  [  666.319863]  __kmalloc_noprof+0x1e7/0x520
+  [  666.319867]  sock_kmalloc+0xdf/0x130
+  [  666.319885]  sock_kmemdup+0x1b/0x40
+  [  666.319888]  mptcp_userspace_pm_append_new_local_addr+0x261/0x500
+  [  666.319910]  mptcp_pm_nl_announce_doit+0x16a/0x610
+  ...
+  [  666.319967] Freed by task 45560:
+  [  666.319988]  kasan_save_stack+0x33/0x60
+  [  666.319991]  kasan_save_track+0x14/0x30
+  [  666.319994]  kasan_save_free_info+0x3b/0x60
+  [  666.319998]  __kasan_slab_free+0x43/0x70
+  [  666.320000]  kfree+0x166/0x440
+  [  666.320003]  sock_kfree_s+0x1d/0x50
+  [  666.320007]  mptcp_userspace_pm_delete_local_addr.isra.0+0x157/0x200
+  [  666.320011]  mptcp_pm_nl_subflow_destroy_doit+0x51d/0xea0
+
+Fix by copying the id into a local variable while still holding the lock,
+and use -1 as a "not found" sentinel.
+
+Fixes: f012d796a6de ("mptcp: check addrs list in userspace_pm_get_local_id")
+Cc: stable@vger.kernel.org
+Signed-off-by: Geliang Tang <tanggeliang@kylinos.cn>
+Tested-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20260722-net-mptcp-misc-fixes-7-2-rc5-v1-2-6fb595bc86ef@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/mptcp/pm_userspace.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
+index b1aad4de17901..42f46e92780c2 100644
+--- a/net/mptcp/pm_userspace.c
++++ b/net/mptcp/pm_userspace.c
+@@ -155,12 +155,15 @@ int mptcp_userspace_pm_get_local_id(struct mptcp_sock *msk,
+ 	__be16 msk_sport =  ((struct inet_sock *)
+ 			     inet_sk((struct sock *)msk))->inet_sport;
+ 	struct mptcp_pm_addr_entry *entry;
++	int id;
+ 
+ 	spin_lock_bh(&msk->pm.lock);
+ 	entry = mptcp_userspace_pm_lookup_addr(msk, &skc->addr);
++	id = entry ? entry->addr.id : -1;
+ 	spin_unlock_bh(&msk->pm.lock);
+-	if (entry)
+-		return entry->addr.id;
++
++	if (id != -1)
++		return id;
+ 
+ 	if (skc->addr.port == msk_sport)
+ 		skc->addr.port = 0;
+-- 
+2.53.0
+
