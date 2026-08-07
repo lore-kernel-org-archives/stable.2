@@ -1,150 +1,177 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040BD22F767
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 02:46:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A244C154458
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 02:55:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786070768; cv=none; b=llhZjkkHtiqnL+kZgNngX3xGinCoRdQX1OrcZ4WlrP4+VTOUxtEZKITA23ixCYXPOA5WuTuCyeHv3PqN+PLoSKBS0bCSH5J9ZrCFMeyfvpqldmgH5Ba5kOYaomG/+7XGk6fw8Eol2OtQPmxiFqMBlIKx8s5t+pBJJNUXA3+xRpI=
+	t=1786071349; cv=none; b=GCCBQGx2e7uYFVgpt34TLukn7bHrAzG5xTolAA6X6bXu85+sdfcaBmV5sN15nt2oFrVuS1np1NuAadTVKxnSzWJjoIDdHXUBv7RJGuB4Qkrcnt4B4A5fAq32fo0XJqtOJ6X1uAOgRJQtu2adYR7PL9eYZbWAE2r/aq9Jxp00BZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786070768; c=relaxed/simple;
-	bh=E+A10ZgAwOIZaanu4gdLK500K83DKg11qbbqlN/20P4=;
-	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=bbQtqEcEXacYKhzaPxDsveGuDzauhyEihR8Otn3/Pw9Cdar9WmfIsu+MDuTacoTTD9472fZ+48uRawBPY7Hvp5viCDJmEIFvpI1MqUd9xNQ/ckNUrGcY4XhIb7sSgE96zzxvhvStDj0aCufVdQw3JIzYL2ZxLKHfPOlOOMSU6l4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=APFiuaEC; arc=none smtp.client-ip=209.85.214.173
+	s=arc-20240116; t=1786071349; c=relaxed/simple;
+	bh=ehfupAjiBlPbXzgN3KQshK2fO0ZqW1VYU2bmsKIMqxU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dQaBEbmR0D4Igtq5hV8I4XDexUc6UUdsyrm7i3qjKNrEtqLKvyVy1HpHFnyVNyTTC6dp01Z9f8O6go90DvD/cUU6cd8VIPSbv1lPBy7XBtScYVrhXM5pQtzHAGIc9U/kbAqDsRr8M9oqd2s8o6aYXrKz+MWUVEcsymEuLHGAwCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XioJjH09; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="APFiuaEC"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2caea3f742bso39919555ad.0
-        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 19:46:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XioJjH09"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84e252fbb7bso462441b3a.2
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 19:55:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786070766; x=1786675566; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=cGAigAv9qTLUUJepoIiK8+xQUGcQy/mbHbtZRpAl3rg=;
-        b=APFiuaECgWsaN7Q0O5CYyMPXqqC6kCqhwbhubg12G88KbDf1BwZnPBZNrcp4Ryqcez
-         /d2td9pbi9rxO5c1qSdKhJcdmvSjKLEVTXKGBoeNhs/OCfV1ZvkCfgox5+UyJBuZ9pM3
-         XIA5BpAWJ9k2a2MOvK3wvo8hXSmD7zO8jpxg46XU0cOM3wGb0p3hxdPJT1mZ9Sz0qsCV
-         2MeqK7LQ+4ILUjYIm1WQi5/V3HxhuFBUX1E8uTLdt+w0sJ3gGilyxgqpJKCnUmtNghh0
-         OysPadK96I8K8SFKdksFH6a/N+tJAh6v2ANl5KRPsIJcmVeayERtlC4IOcdivxcHawdT
-         00+w==
+        d=gmail.com; s=20251104; t=1786071348; x=1786676148; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pIGWzVgFBhi3QS++pGVJA0SUneFjy47jOKVOvjRMiOA=;
+        b=XioJjH09zN590ZaYVtlWpRkzwrTZpP/xG2quAqqDWWtswCc7Q8I7YpNyUM323H3U8/
+         QVBn/iGx58VJeGyLuVzKcKIlCIVYzbeRuml/Bs0dUH++hvbneGEWp2a4Y308mNIp0xhk
+         GnCZauaVpgRCS+u8npq4wSdg/hK5HMFCbdOAVfwSKUGgNSxDIuutqzg6IvBSyf25foNw
+         PJYDXv9DKiRO9xx+/i2X5tqpIdH5i1tLgt41zVULVHVWk8ao7o0CypfEorhHcKaNly5S
+         QLUxlUU/2WpR1NDsmZq6iUwBU1oWYEUSNpnmsN5uPRU2/P31Lg/X58o1jLkRs1V4X+ab
+         rXRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786070766; x=1786675566;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cGAigAv9qTLUUJepoIiK8+xQUGcQy/mbHbtZRpAl3rg=;
-        b=YajpaNB0TdaFsykyRmOooejH8kI4YWZxchVVCPQPmAxFg3XiScesiN2EkaUdj4H059
-         yheEwteTEJW05tZ2rXWLuVBYJBZkCwkSM18tFC9KZXWpB0y5sk6VMMoOZqA/JBqsLh1D
-         XjMCeAx5vB3YI/lECrOvwhN0lxPZMkFRAQZ2CE5Ee60pRobawQaFdaxOi45qBZ1tOQJA
-         Cq+iw4f6dPYG7N6PedyGCMXqRmkA9IFWPzG1+mhRtaZZUuRbo/iYUsYep8LJmhoc61te
-         X2ytNLZMxpih/25kanPeevxPYshbEllAALh5AglxwIVnvq315HVzaDWzhdpuk3zdgr1I
-         ziVg==
-X-Forwarded-Encrypted: i=1; AHgh+RojEErAOpvxsfzuk2kWte8ImPHkDj0p9IFPUrJE65pbenMGKqbPaNWiI6/AE1CSw7pHbu/FMKQ=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlJggKqJSL109ZTUIcMG8jL8N0Z2hkeahGC2IS6FQs9bKbOJG/
-	Z+fx3I8Owrood8ErLiLcXUWZ5/zrMMnkCiITr9h/AiRk28ls3LxMeqTX
-X-Gm-Gg: AR+sD10W0wbOb+WUNB/h1Apg+zl5+RwV+0gwMieji0Mn05VNXbQrU1GqMQF8h6XF9QZ
-	yNDP8RIYcWAOroAyar0WiELbfx50REJ+IcEXoBPHAOY53Yz5xewpv6BERfAQh92ak0DEyu+jbFt
-	Bqez8DfAezLAa1qW73oaYl3Dy4spUSC+L5AOhudbcdCWbvoLq2yfvnDy4Qqm8XxMs6Hxiyh2U98
-	rhA4gXfzQULrr9P5pqNJ1kIBNGyxJhvDFwFZgIFKZpy8UF27uTX6m5xP76ccCtDJySaLxvWyrVU
-	yF8pLZ/lzyr0FFlbxAgafCHR6oeVRJo33poPLeBQsz5LVCOQI5Twv03ligQawm5dleybn0pQeFi
-	6Nl5C9WR5HRyEtcK7gx6zjrmBL3gOVBFrRUZjXzZX0huL1XzV862rzD51AVnlVYiceQ7CPOHSep
-	B0S44xiXiRZFObxy8+yucQTlC6yD95NTBehZcsYdCJ9CKfn/cCAvAjpDLp8PSD
-X-Received: by 2002:a17:902:c952:b0:2ca:619f:9733 with SMTP id d9443c01a7336-2d0ca9620bfmr211897085ad.17.1786070766256;
-        Thu, 06 Aug 2026 19:46:06 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315bebde2e6sm1462086eec.21.2026.08.06.19.46.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 19:46:05 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Gaurav Batra <gbatra@linux.ibm.com>, maddy@linux.ibm.com
-Cc: sbhat@linux.ibm.com, vaibhav@linux.ibm.com, harshpb@linux.ibm.com, npiggin@gmail.com, Gaurav Batra <gbatra@linux.ibm.com>, stable@vger.kernel.org, linuxppc-dev@lists.ozlabs.org 
-Subject: Re: [PATCH v2] powerpc/pseries/iommu: switch to Default DMA window during kdump
-In-Reply-To: <20260803224029.60538-1-gbatra@linux.ibm.com>
-Date: Fri, 07 Aug 2026 08:08:32 +0530
-Message-ID: <jyq2lknr.ritesh.list@gmail.com>
-References: <20260803224029.60538-1-gbatra@linux.ibm.com>
+        d=1e100.net; s=20251104; t=1786071348; x=1786676148;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pIGWzVgFBhi3QS++pGVJA0SUneFjy47jOKVOvjRMiOA=;
+        b=ivuPRHXu1/yrwnqZ4zvieAbycP6hp8Hmimr4HRoPJXMiEkpofY+2w38zom2AGmZI5n
+         NDodie97tS+/wmZMVQXLz2coDY9xRTykO9H8QgkiCrhT410FTM4m6tC/2RLGKY/ALo8N
+         OCtxNhhse4tYcmYbknXMtmvQJ2sbd2Y31IfAxBNtSE/YWrwDhYAIuhcALOd19G5Z2Rrt
+         3Esn7LEM7r9ml9FWWc15Q3wbkdQtENdWtsJNpJl3RJWOhVdGNq2RpM0dCjgBqqnl1+Ba
+         3XjOEtTaf+JMFZTIaCLwl5YLaRLqcbvDqfMo66cLLP0O1KcMXY22PIyajchF/MtPyaF8
+         FnAg==
+X-Forwarded-Encrypted: i=1; AHgh+RrCvruxsdt5kxw6YACEUrmGKZHpwEcuXGDsI3fXnLa6naOxpP8IIXPaoh9nGtQM9FnPHRr1I18=@vger.kernel.org
+X-Gm-Message-State: AOJu0YycbkSCy7LOcSbA98hy9fk8EYyHOXjhNo8TilJDh2NLms+VXxee
+	ezzdD9TPttT4MxcXLSapUJ++GYYk/hFZwUk+KlRitecOU1l5oBUl64yg
+X-Gm-Gg: AR+sD10/g0UhSO9rLwkIyIqTiAWMhEC/LJ0KqaEmlf7YaxuonGQkU4n9UBMwRzgFRt/
+	nwvod3Ka03a1DbJq7TCEAmm4L4gEfyn00N4Wo1mOvu8hVR7Y1PcM39FyPZu+BbAFmG997aHYlR7
+	rKi//oZVvC0gyszVFU6bLGO2Qlz9Fsko8MxidULiGgY4zgRWXxMVzgbyDDbTCwbo5UMNYEAH59B
+	8qF+/hDBYW3TDIKZ1+oTp3ABzz9BjwmTf1lNUqY85XYGKjF066ZfDE5MeGs/QO/fH3v8FlPdMIq
+	Q/OLR0KEFEieMBoyrqbtZ0HOwLenLVXYUo0hde6jmRdhFlW0iB6voDBwJFIeMyPxYPJS/QBsQk2
+	7Mt9t4Wfmd5e360irX55kECpn1Mu+wRIGbuxnsVhVBhA3vx3EVFIQV9awQMxq2o54TY7ZXiLcbc
+	z9+DM9pEh4khEa2PUxY8DZCmtwk7JIpdFaKcI7DAgMFGISo743oBusSkSoVRbsi02k6NJX0fRZ3
+	pNsPx+XW2qxnIq4Ary3bXM+UiKxyOW3ijBa0F6WLSB4HtBBc+U=
+X-Received: by 2002:a05:6300:648f:b0:3c6:61b9:9162 with SMTP id adf61e73a8af0-3cb863e0633mr15912712637.3.1786071347910;
+        Thu, 06 Aug 2026 19:55:47 -0700 (PDT)
+Received: from localhost.localdomain ([139.159.170.90])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbe8bbfc330sm143385a12.27.2026.08.06.19.55.44
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 06 Aug 2026 19:55:47 -0700 (PDT)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: maz@kernel.org,
+	oupton@kernel.org
+Cc: catalin.marinas@arm.com,
+	will@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Qihang <q.h.hack.winter@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] KVM: arm64: vgic-v3: take an LPI reference in vgic_v3_save_pending_tables
+Date: Fri,  7 Aug 2026 10:55:34 +0800
+Message-ID: <20260807025534.34125-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Gaurav Batra <gbatra@linux.ibm.com> writes:
+vgic_v3_save_pending_tables() iterates dist->lpi_xa using xa_for_each()
+and dereferences the returned struct vgic_irq in the loop body without
+holding a reference on the LPI.
 
-> In PowerPC (pseries) a non-virtualized adapter will have 2 DMA windows -
-> 2GB default and a larger Dynamic DMA Window (DDW). DDW is large enough to
-> map total RAM to a device.
->
-> During normal functioning of OS, since RAM is pre-mapped, 2GB default
-> window is not used. The only scenario it might get used is when buffers in
-> pmemory are mapped to the device for DMA.
->
-> As of today, during kdump, during early device discovery, pci_dma_find()
-> finds that the device has 2 DMA windows. It selects to use DDW. This is a
-> kdump path and DMA window is needed for IO to the device.
->
-> Although commit 09a3c1e46142 ("powerpc/pseries/iommu: IOMMU table is not
-> initialized for kdump over SR-IOV") fixed an issue during kdump with SR-IOV
-> case, but this also made the kdump prefer DDW over the default DMA window
-> when both are present (dedicated adapter case). Since the DDW is fully
-> mapped by the previous kernel, iommu_table_clear() can free only
-> KDUMP_MIN_TCE_ENTRIES (2048) TCEs for use by kdump kernel.
->
-> This is not enough when the dump device is NVMe over Fibre Channel.
-> Because nvme-fc driver DMA-maps the cmds and resp IUs of every
-> pre-allocated request and each such mapping consumes roughly:
->
->     32 (IO queues, one per cpus = nr_cpus) *
->     64 (queue_depth, blk-mq kdump limit) *
->     2 (cmd+resp) = 4096
->
-> This is already double of what we have without counting admin queues and
-> lpfc driver's own allocations / mapping requirement. Hence this results
-> into iommu_alloc failures like -
->
-> lpfc 0153:70:00.0: iommu_alloc failed,
-> tbl 0000000034ebcf5e vaddr 00000000d814df0b npages 1
-> lpfc 0153:70:00.0: FCP Op failed - cmdiu dma mapping failed.
-> lpfc 0153:70:00.0: iommu_alloc failed,
-> tbl 0000000034ebcf5e vaddr 000000009779e4d2 npages 1
-> lpfc 0153:70:00.0: FCP Op failed - cmdiu dma mapping failed.
->
-> iommu_map_phys+0x1c4/0x1f0 (unreliable)
-> dma_iommu_map_phys+0x54/0xa0
-> dma_map_phys+0x3f8/0x590
-> __nvme_fc_init_request+0x110/0x300 [nvme_fc]
-> nvme_fc_init_request+0x60/0xb8 [nvme_fc]
-> blk_mq_alloc_map_and_rqs+0x388/0x510
-> blk_mq_alloc_tag_set+0x2a4/0x5f0
-> nvme_alloc_io_tag_set+0xe0/0x1e0 [nvme_core]
-> nvme_fc_connect_ctrl_work+0x85c/0xdac [nvme_fc]
-> process_one_work+0x1e4/0x5a0
-> worker_thread+0x1ec/0x3e0
->
-> Increasing the number of free TCE entries in iommu_table_clear() will
-> increase the probability of hitting EEH since there could still be some
-> active IOs from the previous life of the kernel.
->
-> Hence this patch partially reverts the previous fixes commit and
-> switches the kdump's default back to 2GB default DMA window instead of
-> DDW window. This window will mostly be empty. Or, could be slightly used
-> if buffers in pmemory were mapped for IO.
+The xarray iterator only provides temporary RCU coverage while looking up
+the current entry. That is not sufficient for this loop body, which reads
+fields from struct vgic_irq and performs guest memory accesses before the
+iteration completes.
 
-BTW w/o this fix the only TCE window that kdump & kexec uses is DDW
-which won't work for 32-bit capable DMA devices correct? So I think this
-should also fix the kexec & kdump case where we have a 32-bit DMA device
-- which otherwise will fail to function after kexec with the following
-error:
+A concurrent path can trigger this race: the irqfd cached injection path
+(vgic_its_inject_cached_translation) obtains a transient LPI reference
+via vgic_its_check_cache() without holding kvm->lock, vcpu->mutex,
+config_lock, or its_lock. If guest ITS DISCARD then drops the cache and
+ITE references under its_lock, the transient inject reference may become
+the final one. When vgic_put_irq() drops it, the LPI is erased from
+lpi_xa and freed via kfree_rcu(). Meanwhile, vgic_v3_save_pending_tables()
+may still hold a stale pointer obtained from the xarray iterator and
+dereference it after the RCU grace period completes.
 
-"Warning: IOMMU offset too big for device mask"
-"mask: 0xffffffff, table offset: 0x800000000000000"
+Fix this by re-fetching each iterated LPI via vgic_get_irq(), which takes
+a stable reference, and dropping it with vgic_put_irq() on all paths.
+This matches the pattern already used by other lpi_xa iterators in the
+vgic ITS code.
 
-Thoughts?
+Cc: stable@vger.kernel.org
+Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
+---
+ arch/arm64/kvm/vgic/vgic-v3.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
->
-> Fixes: 09a3c1e46142 ("powerpc/pseries/iommu: IOMMU table is not initialized for kdump over SR-IOV")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gaurav Batra <gbatra@linux.ibm.com>
-> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+v2:
+- Add Cc: stable@vger.kernel.org as requested by Marc Zyngier
 
+diff --git a/arch/arm64/kvm/vgic/vgic-v3.c b/arch/arm64/kvm/vgic/vgic-v3.c
+index 9e841e7afd4a..c3a5e2f1d09a 100644
+--- a/arch/arm64/kvm/vgic/vgic-v3.c
++++ b/arch/arm64/kvm/vgic/vgic-v3.c
+@@ -605,47 +605,53 @@ int vgic_v3_save_pending_tables(struct kvm *kvm)
+ 	}
+ 
+ 	xa_for_each(&dist->lpi_xa, index, irq) {
+ 		int byte_offset, bit_nr;
+ 		struct kvm_vcpu *vcpu;
+ 		gpa_t pendbase, ptr;
+ 		bool is_pending;
+ 		bool stored;
+ 
++		irq = vgic_get_irq(kvm, index);
++		if (!irq)
++			continue;
++
+ 		vcpu = irq->target_vcpu;
+ 		if (!vcpu)
+-			continue;
++			goto put_irq;
+ 
+ 		pendbase = GICR_PENDBASER_ADDRESS(vcpu->arch.vgic_cpu.pendbaser);
+ 
+ 		byte_offset = irq->intid / BITS_PER_BYTE;
+ 		bit_nr = irq->intid % BITS_PER_BYTE;
+ 		ptr = pendbase + byte_offset;
+ 
+ 		if (ptr != last_ptr) {
+ 			ret = kvm_read_guest_lock(kvm, ptr, &val, 1);
+ 			if (ret)
+-				goto out;
++				goto put_irq;
+ 			last_ptr = ptr;
+ 		}
+ 
+ 		stored = val & (1U << bit_nr);
+ 
+ 		is_pending = irq->pending_latch;
+ 
+ 		if (irq->hw && vlpi_avail)
+ 			vgic_v4_get_vlpi_state(irq, &is_pending);
+ 
+ 		if (stored == is_pending)
+-			continue;
++			goto put_irq;
+ 
+ 		if (is_pending)
+ 			val |= 1 << bit_nr;
+ 		else
+ 			val &= ~(1 << bit_nr);
+ 
+ 		ret = vgic_write_guest_lock(kvm, ptr, &val, 1);
++put_irq:
++		vgic_put_irq(kvm, irq);
+ 		if (ret)
+ 			goto out;
+ 	}
+ 
+ out:
+-- 
+2.50.1 (Apple Git-155)
