@@ -1,153 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2E242882B;
-	Fri,  7 Aug 2026 16:24:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 000C547012A;
+	Fri,  7 Aug 2026 16:30:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786119848; cv=none; b=WVz1+U7mJybuydHue8vI5vdSTDK9sYAv5b5uNa+TvauAqziNC57wKsc9VHkn5R+L7Kv+WS9NupL296hyaE+ukVwIy0OvMrFgSQuD3GuTTKipnxUcoeCtOa4CffKNVfYT2Tov8l7uijJxIxYn7pqJtmhAhCcHTDMupuLXAyTQ+QQ=
+	t=1786120253; cv=none; b=Tx30MAU0ei5yYYl2H8z8RbIILT4KSqmxfLlVRUmm2YdRpLZ0CkOsjra3A3gF4HxdyQx3Ya8+U69VmHZCZu15hPXtIrmUvgJ9CQz31SHq1mDGqpvkkq9DtUTdoT1/DV0dFLHhmClWijmEaG5QA7Bo+4+0CrqkuBr/lxMybWMVP2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786119848; c=relaxed/simple;
-	bh=HJmelZBkGJ3fs60a9AFTN5SU/MTv4T95mVU514g09d4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EQvYiAnGHzNoPLML93QTOR5difhsA7h6bdEwOEN34ZEWVBwytRioOgH/QTLnERksAJGgI62j+VhO3FC73+1luFvx9VHEjAfgQd/yG1JwuwhTwotYFLWOo8IQ4LhtuA+UT7wcZ0zr6P7WuWAx3tND/fI2UKw8Qa77LKd8rC1rWrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LukuwJoB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786120253; c=relaxed/simple;
+	bh=rQ9g7WlfTq23NRrsutVgiQvCoPvLQxPLDgKCGGCgT3o=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=L2ennJcLoZIM+ownfNL0F9ekIMumj3syfLGWWiaAw2grqAShD9hooA8a3u9siGfPh1bwBYb2WCXmQqU0hbbvZ+4PQPMDw8Yarxz6sbjWnn8VayjMwgVkYqThhjv2lPyaZEY/R5hn2gjDC9bbi2SwzFyfLE4Ztvas0vheUpINp1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RQA4QYqs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LukuwJoB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12E011F000E9;
-	Fri,  7 Aug 2026 16:24:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RQA4QYqs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4A11F000E9;
+	Fri,  7 Aug 2026 16:30:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786119846;
-	bh=JpK2GRoQzXcryb8G9EYVZqijm6DNJokoOliHq07rgC8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LukuwJoBKFNiyI/39Ka9P3qQM1VQJHQlTb0dvdfRUJtLNMU2EFD87WyQY058kY5t6
-	 5cfijZWM1VxIpsZSpX/5OU03Zfz59FRfbgwjr43sOuJybafMDWkVh8zkffT8y4mBGh
-	 UCWLBg5e+DV7qaiqCdMhBbArItG30ozebJeuaYY7oc1Lw5mj/Sw/5C3rMMHzvatQ9d
-	 Lpcv8GrM0RQxFCod2/QuFp6/hpi/PnrHNXyKH98Hgn1GttfdT7ImIPDNkvCUuq6oLK
-	 JE8ZpgpQunNOsKHT13IViOgHd7nT1gX1Sxqk7n6Xwe9+Bx5OP1FS7Sbch05EwOz6zp
-	 lFRUOXou+0HxA==
-Date: Fri, 7 Aug 2026 11:24:05 -0500
-From: Rob Herring <robh@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Stephan Gerhold <stephan.gerhold@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Johan Hovold <johan+linaro@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-	Mansur Alisha Shaik <mansur@codeaurora.org>,
-	Andy Gross <andy.gross@linaro.org>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Stephen Boyd <sboyd@codeaurora.org>,
-	Yassine Oudjana <y.oudjana@protonmail.com>,
-	Pierre-Hugues Husson <phhusson@freebox.fr>,
-	Marc Gonzalez <mgonzalez@freebox.fr>,
-	cros-qcom-dts-watchers@chromium.org,
-	Matthias Kaehlcke <mka@chromium.org>,
-	Douglas Anderson <dianders@chromium.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Aniket Masule <amasule@codeaurora.org>,
-	Malathi Gottam <quic_mgottam@quicinc.com>,
-	Rajendra Nayak <quic_rjendra@quicinc.com>,
-	Jonathan Marek <jonathan@marek.ca>,
-	Dikshita Agarwal <dikshita@qti.qualcomm.com>,
-	Renjiang Han <quic_renjiang@quicinc.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range
- for Iris
-Message-ID: <20260807162405.GA896590-robh@kernel.org>
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
- <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
- <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
+	s=k20260515; t=1786120251;
+	bh=C4FQjZYTE//llKVhlhKFfqhrGlATGa8jtNdKQWtWEpA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=RQA4QYqszNYnl8R7ruigrx21hZLPF9ZkAzQFnqsMctv4/zr0bM1332VVVQyh/wug5
+	 M/O+f1mVEoSLfFk14FfK8f/FTg4GEGsW35OyQVjk7Jh1XRa7IKDivOyr5Z3FFg8TiC
+	 8DlOoLQWuMc2XvS1+2PRMeZpnxInKdDLmYZJq3OlXD0Gu0mi7dKLkqKyMVQea44Jt9
+	 D9SBKES14YTXsHsKhe6joRhUh3LClEP6C9eXIhCgy/oVjC4VwUxarfQSpO9mS4mA0F
+	 dmo9aFaAtGBuNjRB1RSKCWvOuCaPA/byWTifQnOFfryTz6B8w4W0gk5dPZSzi+L6B/
+	 gcQXsmIYvttww==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93958380CEE3;
+	Fri,  7 Aug 2026 16:30:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] Bluetooth: RFCOMM: take rfcomm_mutex for the deferred
+ setup
+ accept
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <178612021013.1887768.3117085684534014518.git-patchwork-notify@kernel.org>
+Date: Fri, 07 Aug 2026 16:30:10 +0000
+References: <20260807020345.111346-1-ali@iusegentoo.com>
+In-Reply-To: <20260807020345.111346-1-ali@iusegentoo.com>
+To: Ali Ahmet Memis <ali@iusegentoo.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 
-On Fri, Aug 07, 2026 at 12:03:50PM +0300, Dmitry Baryshkov wrote:
-> On Fri, Aug 07, 2026 at 01:54:48PM +0530, Vikash Garodia wrote:
-> > From: Daniel J Blueman <daniel@quora.org>
-> > 
-> > On X1-family hamoa platforms, the Iris VPU reserves IOVA addresses
-> > below 0x25800000 (600MB), primarily for secure non-pixel buffers. DMA
-> > into that range, from any other stream id would triggers unhandled SMMU
-> > page faults that cause spontaneous device reboots. This is readily
-> > reproduced with one or more browser tabs driving multiple concurrent
-> > video decode streams.
-> > 
-> > Add a reserved-memory IOVA reservation node covering [0, 0x25800000]
-> > and reference it from the Iris node so the IOMMU layer keeps DMA
-> > allocations above that boundary.
-> > 
-> > Link: https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
-> > Fixes: 9065340ac04d ("arm64: dts: qcom: x1e80100: Add IRIS video codec")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Daniel J Blueman <daniel@quora.org>
-> > Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> > ---
-> >  arch/arm64/boot/dts/qcom/hamoa.dtsi | 13 ++++++++++++-
-> >  1 file changed, 12 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> > index 8a96ea1bdb9c4c409b2af997680d8c13fed0643e..87f424765d513c97b06303bceb75ca9f176d2ace 100644
-> > --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> > +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> > @@ -666,6 +666,17 @@ smem_mem: smem@ffe00000 {
-> >  			hwlocks = <&tcsr_mutex 3>;
-> >  			no-map;
-> >  		};
-> > +
-> > +		/*
-> > +		 * The Iris VPU reserves IOVA below 0x25800000 (600MB),
-> > +		 * primarily for non-pixel buffers using different Stream IDs.
-> > +		 * DMA into that range triggers unhandled SMMU faults and
-> > +		 * spontaneous reboots, so reserve it to keep IOMMU
-> > +		 * allocations above this boundary.
-> > +		 */
-> > +		iris_iova: iris-iova {
-> > +			iommu-addresses = <&iris 0x0 0x0 0x0 0x25800000>;
-> > +		};
-> >  	};
-> >  
-> >  	qup_opp_table_100mhz: opp-table-qup100mhz {
-> > @@ -5439,7 +5450,7 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
-> >  			interconnect-names = "cpu-cfg",
-> >  					     "video-mem";
-> >  
-> > -			memory-region = <&video_mem>;
-> > +			memory-region = <&video_mem>, <&iris_iova>;
+Hello:
+
+This patch was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+
+On Fri,  7 Aug 2026 02:03:44 +0000 you wrote:
+> rfcomm_sock_recvmsg() completes a deferred setup by calling
+> rfcomm_dlc_accept() without holding any RFCOMM lock:
 > 
-> I don't like the idea of this series, because it _again_ doesn't tell us
-> the truth about the hardware. This typicall ends up with bigger problems
-> later on, when it starts to affect other bits and pieces.
+> 	if (test_and_clear_bit(RFCOMM_DEFER_SETUP, &d->flags)) {
+> 		rfcomm_dlc_accept(d);
+> 		return 0;
+> 	}
 > 
-> I don't want to NAK it, but I'd strongly ask to reconsider it.
+> [...]
 
-I think this is an abuse of /reserved-memory. reserved-memory is 
-reserved *physical* memory. Reserved IOVA is a property on top of that. 
-I'm surprised this passes validation. If it does, I may go fix that.
+Here is the summary with links:
+  - Bluetooth: RFCOMM: take rfcomm_mutex for the deferred setup accept
+    https://git.kernel.org/bluetooth/bluetooth-next/c/813afbffcb80
 
-Rob
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
