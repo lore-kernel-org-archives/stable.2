@@ -1,137 +1,154 @@
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558C137BE84
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 16:57:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786121855; cv=pass; b=t+lHq7O2u5VsTms43P7ch6EwIodipF2WI0IItMrWjloHRWCv6Qb0z0+FHVkq58sYWHyLi5aMDxcZbHW5jZc/7+eIoZDk1xVe6rf4+FRenWcsXSYn+sHpUWlgFBAz8VjT9qiSs5ZCEC+L3lW2ohCsrnO3cXZzEndDwL4wT6PKw1o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786121855; c=relaxed/simple;
-	bh=Hq8X/4Xg0Ta1JBUv3CIgDq4vQ920HdWsgV3I1NkcJTQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TFeUD5tNQZQBO5EAB49gK6f7OzDEEQFuCJE4w5XkOD6t0iAsuZGfzBcSTCbJiNc1w8rNgXmjCEEdzKA0M6ZqRGGxo0MDS9FQ/4ys1gJZ2m5l2YBmfkNaBuF49k6K3AlAuQgoIXcAn5wIyxJWGNUdMpZiKDXrLdla3k0zABVwA4o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZK9yS6oP; arc=pass smtp.client-ip=209.85.222.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F45392C34
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 16:57:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786121875; cv=none; b=AcSVXExIRWMAr4K/0BTqQ2qfjj+zkEaRJmxTS9CgEYEus4ZoZ2CxzWcS7vXd80FV4N78Apf3W01te7csFFKtm1snWEInATAGOAnD0d5U7LiU700tx72VRmCNfuupXqdzMYS3fpfBveaoCvuyy/bi55JjD8IibesDput3nzlOKY0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786121875; c=relaxed/simple;
+	bh=BwNym7S379Vdi8jIvSKLykzyD9Z2UKmbgrjHI0zl40U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qLYUpg25ZY9fLGOsrTYrHoWLvI+uvvM6rYSyvTQU/9ti6jdLvMXlKIIHlaAHBmnI28YlAZtiNUzRFra7/NEv4nKY7K7DbwmIt5iPLScK1w4LmZ0f0ZqalGJtJzbIekjrhTDVogjlaw4WMoqWgkNZcemK0uW4Z+D/KPZMKD5Ga9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=a4nntxlf; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZK9yS6oP"
-Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-969524c1a63so2527646241.0
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 09:57:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786121850; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hcvvTLU5LvrVK34M0fiyZf0fWrIA0W+IQ+WG/KGystThm9IGJP70oWDjrgc7C/T//C
-         D6HhSUmca7t2i6PmF5L6hvx1+bjoI7tl6Zi2ulxQSM7ijnKsw/e/4LfQv7jiwBV5w3qR
-         Z1DZpexRP0dxwwaGxrcn+lLX21kVRgjvDcC8YLyB5hhKJDGxYjFRQ6ZLMaJfJgPPNKZk
-         DXnTBjbrQWyMjuEB1TWRr39zch1HkOZSfC1eRi0la7x2Ak/h4WMaKzJnyL/xp9GZ8bqy
-         4+X8ejiwKa07X5C/xgS2bDrD9fIdBuQJN7gXUHJnhuiFAl2Pk9Sxy2bZBEhrcIG/dsI7
-         JbXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Hq8X/4Xg0Ta1JBUv3CIgDq4vQ920HdWsgV3I1NkcJTQ=;
-        fh=MCN5Ru9XiC/sxWgzCmxwbB/s9mzy1NiSYSoNK9WV3o0=;
-        b=Qsh9Z8SsN6vsfmqZcAijhg62nQ7wsFF41ev7QpFZ3mGGlK4WXQx6ten07hRSEwaYZz
-         XsS2j7FAWJe9UDbntepjzjMS8G/Ntb81jBw0Hy/K8Tt+ct4i+VQt9FWNIPeFq9d93QgQ
-         Azi/KcTIL2K3FBjAr/u5VVq9JroeU6BnmlM/rmjqemEP9q4ZAEr5nFRLp4kFP3CM9bA8
-         KJ3OD6BeZMtkZH3k850GeSiuW18jrqC5iUzWybHQZ5Qi/oaX4boVY36w/IlFRZGu3qe9
-         H2hzNjmwbO/ACpD0cirRyHytEuPma5uD1u45uAUSAx9OdS5BGZ2B3ULKM4DBrxxAHTSv
-         0siw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786121850; x=1786726650; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Hq8X/4Xg0Ta1JBUv3CIgDq4vQ920HdWsgV3I1NkcJTQ=;
-        b=ZK9yS6oPddDRHcub2lYpDVpOUZls/qh9M73aAGKloU+Tjxx7YQ2YndrPmRrCnitLwp
-         cmOUrStBohAFMc41kZpgvgB9q/n2dFUGJQ+o1PYtQXO3VlU+JVvxiJFddx/MV1wZQ1lm
-         rVrAiJQoTQOvgpBFyg2FiLhr0STJ2q1S4WGksGyvn9wtYBnZMgGe4WW0EJ2h3e0AcvhJ
-         afWpjCwmPzpVbpGt34Sxz9fTfe55cuUakvJCtGplV1GQcR2oSumfWSQWq3vmI1JDzwjb
-         8rJQ0YXCqbHScYk6JEIJ9TCHUYsO2YvCjIbf6vGDMyIC/9dPe82+bswk6MrKhLOq9btT
-         6CUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786121850; x=1786726650;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Hq8X/4Xg0Ta1JBUv3CIgDq4vQ920HdWsgV3I1NkcJTQ=;
-        b=hQU7yHSaz8BhOUWfbgOVt3IHpQAKxGy3uPyZT5dv5aHAS9/gkRGI1CeDxuKS2Fxt40
-         3UvOGlUor8dqYGaB/gUEbZbM/kUCFtT6ce83VKA5+gvx/hVzc10y5zK2sbtzAThBZSZl
-         NucoNpK0JtFHtU0ZALGIuedkKrtYsLBVKLFW2Aulx6qpo1SuvWZ3jqakcGdb8WPWF7cb
-         MeFhjQf/7GBleTuu4RjtOFwAaYuG/Ryj+cQRPg75NUbeFs59BRSvsJIo/kSTBOLsvRYw
-         /uDYZ28DDqPdvZnN3rnvUjQn47tnnV2PsDRGsptRMbNnXcvoMdQpvj70VLSUJS4QlA2u
-         vQsw==
-X-Forwarded-Encrypted: i=1; AHgh+RpHMPH9SJsiiGCIkc+6DK0EdXwmh8sIS6PUCh0wJf2WrIZyIa3CeFe2FtCmVeo6Wif1N6Jvse0=@vger.kernel.org
-X-Gm-Message-State: AOJu0YxY84HQ1vo1Ax30/oaw6BrhJkMS8bCMRrWCGhKHSKgHYja84Ewh
-	ytXwRePrQStHhkwLv5yVf0kmEd1HiPUcxGEjSuNKYIQRnUKIdgzt+Mi7RrtdvXtLfPCPisEK2aQ
-	JZGczmdKhBKStdcUJkmxN3G8WbMpZZY8=
-X-Gm-Gg: AR+sD128TgRiq81qqL0yfN1B5bgahBvJiJzDdnbAfI+rTzUjsn8iS5O8ypEoDXZ6eXX
-	O2uusDiJydivN398bYGPVMnzIj0NVDpPo9FG9QA8uDrw/sNOyrLpd0zgtNj2lxteYar+kxLr26+
-	wf70dpKHkRwg0m90UyWRiB+VVHSs4yR1acUa4wjRwp/GaGomACyFX0RIayrqgzXJK6oYbkEembu
-	bpktt+LRDuSeQkq6gaWarrlZKchaSUGL8YIf6phIOG0rTFcgoOPczooywynlejeXsnC4uVF4VYw
-	lR0ULIfMdXHJB3/y3cLZ5fVFogE7ECrr8HBNoM3yNpnUgRlp40GV2a0y4Ncn5o3ezEEMOjbWnql
-	s5acyMYb+lRGIYm1uV6ZfjzVAEU+m9P3hDuIrcycKEKDa4QTcZr12axl6CXRCR1ZIIYUDRWXEkS
-	OP6Kkx9Y4JJjED2Bxx4RTP3Uz3/77SzegLDgmy
-X-Received: by 2002:a05:6102:390f:b0:744:d1a6:b11d with SMTP id
- ada2fe7eead31-764e4f2985dmr717652137.3.1786121850298; Fri, 07 Aug 2026
- 09:57:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="a4nntxlf"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 677GmAT91929310;
+	Fri, 7 Aug 2026 16:57:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=HEehugBrKXC+nPPwRbkxanoKLWwW7pNizAB21fVAm
+	pk=; b=a4nntxlf0YShKsg2VvV2G+KkkTeCr0bTQEGbwMefzEt3w3YfhiDieE/Xi
+	dMjesuJdaLj8YjRqjn4DNxMAtSUs+B6zxaDGnmWc+amWpJnsP+5UR1VM2m/3A0Yt
+	JTPnkyDDSRV8BWCnyJfVIkFqT0rW/qgGVo6GuIwpeYTHjVjaqXze9+l29U2MZksP
+	b1WmZNkLMEK3WClnx/quRkPJCQ1R6FRx7wxgYS7v8lF7vv1DqLwDfeQ4TuDNdhmz
+	OcEu/9Fvw1XKq1Th5WWcJBintkOvFC5XKVzdJ8Vi19ebvxEBiePzlB3mVoP6kRw/
+	nK+jAh+BA2tGJBj0sUE06uQzX3p4A==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fvy02ct54-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 07 Aug 2026 16:57:47 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 677GuSLa002884;
+	Fri, 7 Aug 2026 16:57:47 GMT
+Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fsugwgmfk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 07 Aug 2026 16:57:47 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 677Gvj9R38797914
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 7 Aug 2026 16:57:46 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D8C6A5805C;
+	Fri,  7 Aug 2026 16:57:45 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id ACDA15805A;
+	Fri,  7 Aug 2026 16:57:45 +0000 (GMT)
+Received: from ltcd41-lp6.ltc.tadn.ibm.com (unknown [9.5.7.39])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri,  7 Aug 2026 16:57:45 +0000 (GMT)
+Received: (from gcwilson@localhost)
+	by ltcd41-lp6.ltc.tadn.ibm.com (8.16.1/8.16.1/Submit) id 677GwHjd038779;
+	Fri, 7 Aug 2026 11:58:17 -0500
+X-Authentication-Warning: ltcd41-lp6.ltc.tadn.ibm.com: gcwilson set sender to gcwilson@linux.ibm.com using -f
+From: George Wilson <gcwilson@linux.ibm.com>
+To: "Madhavan Srinivasan" <maddy@linux.ibm.com>
+Cc: security@kernel.org, George Wilson <gcwilson@linux.ibm.com>,
+        Haren Myneni <haren@linux.ibm.com>, Nayna Jain <nayna@linux.ibm.com>,
+        R Nageswara Sastry <rnsastry@linux.ibm.com>, stable@vger.kernel.org
+Subject: [PATCH] powerpc/pseries: papr-phy-attest - validate cmd.length, plug mem leak
+Date: Fri,  7 Aug 2026 11:56:21 -0500
+Message-ID: <20260807165621.38765-1-gcwilson@linux.ibm.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260717-submit-sunxi-nand-h6-h616-timings-v2-0-225515107640@gmail.com>
- <87ik5mav6x.fsf@bootlin.com>
-In-Reply-To: <87ik5mav6x.fsf@bootlin.com>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 7 Aug 2026 10:57:19 -0600
-X-Gm-Features: AUfX_myfeWEyYh7Y2JNZ3tcJ-zpan6IsdJA8dIqxxvbXvmFsYYO1pP5EnmrWVAg
-Message-ID: <CADvTj4pHOpKfNCoVcfDmtCuHh2F0H8e+_AhCwcSKG8xosLpbzA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] mtd: rawnand: sunxi: fix H6/H616 controller timings
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Richard Genoud <richard.genoud@bootlin.com>, linux-mtd@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=G6ws1dk5 c=1 sm=1 tr=0 ts=6a760e8b cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8
+ a=JnY3h8uHB8_D2nh96v8A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDEzMSBTYWx0ZWRfX/bNP1kwl7s/k
+ CmWz6jLZh8uqDU0OxhlccYXNQ86CkNoGGrEIB92x+tbZw184e0PM2Y2kfTe61cdAQR5xhMf2eXg
+ T5Hj+4zDtfLaDA8jly1BJuFYve19L0JvC7n6pSLSYueJVRE5c6gSHDFOY47m2tMEei+fjsTEh/b
+ AI0zxtIg6ULi76u1aUAz7r6u848pm+l1Qh3XAS2qNPu2Ua0FeB/vs2ivGmUfabLCsK9qFTrVhC1
+ k8qJ8Yn1DcyEoDDQJOkRe4pOk1td1y3dyxF4Puv2ZlZl0IIme9UMqqk/lkrijzxjvRbAkK7/cjq
+ 7oFf7mfjlnn5JMF+HD11j8XUonvzBuUFz4WDwxNKdWUW6x4beqm04hTafA3nY2K2okYIX66m88I
+ 6fC4Ay11XqBaqNQiEgbiAf7z510jvU759+D/z/2BubULZKbL2x69AufKCEXSXoe+hsd0TcJtwK1
+ tigiRw9QfLtozXYYt1Q==
+X-Proofpoint-ORIG-GUID: dJeiuhSbeocZ5-xUBxzxzxfLfjssBKwv
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDEzMSBTYWx0ZWRfX0hewgxFSGpso
+ TFOSQ+3AnHJtDNTKiiyWsM8pfFEl7n8e543xdJDyHx5lA72LrP3Ahfvf7H+HTFvJdQypzsBk+vx
+ JDTvn2ul7p9TxhmUzkkRsgdJvJ2GALQ=
+X-Proofpoint-GUID: dJeiuhSbeocZ5-xUBxzxzxfLfjssBKwv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-07_03,2026-08-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ phishscore=0 priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1011
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608070131
 
-On Fri, Aug 7, 2026 at 7:58=E2=80=AFAM Miquel Raynal <miquel.raynal@bootlin=
-.com> wrote:
->
-> Hi James,
->
-> On 17/07/2026 at 11:33:56 -06, James Hilliard <james.hilliard1@gmail.com>=
- wrote:
->
-> > The sunxi NAND timing solver currently applies the original A10 NDFC
-> > timing characteristics to every supported controller. The H6/H616 NDFC
-> > uses two internal cycles for several setup and hold intervals and has
-> > different delay-field encodings, so the resulting clock and timing
-> > register values do not match the hardware.
-> >
-> > Prepare for per-controller timing data in two behaviorally focused
-> > patches, then add and select the H616 characteristics in the final fix.
-> > Legacy controllers retain their existing setup-cycle behavior and delay
-> > encodings.
-> >
-> > Tested on an H616 board with Toshiba TC58NVG1S3H NAND.
-> >
-> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
->
-> There are a number of checkpatch issue. Can you please fix them? (except
-> the camelcase one which is fine with timing names coming from the ONFI
-> spec).
+In papr_phy_attest_create_handle(), the params->cmd.length is not
+validated before use, which can result in a buffer overlow.  Check it and
+return -EINVAL if it is either 0 or exceeds sizeof(params->cmd).
 
-Should be fixed in my v3:
-https://lore.kernel.org/all/20260807-submit-sunxi-nand-h6-h616-timings-v3-0=
--91287b543f41@gmail.com/
+Also, params is freed on the success path but not error. Free it on
+errors after memory allocation.  And free it on negative fd.
 
->
-> Thanks,
-> Miqu=C3=A8l
+Fixes: 86900ab620a4 ("powerpc/pseries: Add a char driver for physical-attestation RTAS")
+Acked-by: Haren Myneni <haren@linux.ibm.com>
+Acked-by: Nayna Jain <nayna@linux.ibm.com>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+Cc: stable@vger.kernel.org # 6.16
+Signed-off-by: George Wilson <gcwilson@linux.ibm.com>
+---
+ arch/powerpc/platforms/pseries/papr-phy-attest.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/arch/powerpc/platforms/pseries/papr-phy-attest.c b/arch/powerpc/platforms/pseries/papr-phy-attest.c
+index 20a0e1581302..350ba26e5962 100644
+--- a/arch/powerpc/platforms/pseries/papr-phy-attest.c
++++ b/arch/powerpc/platforms/pseries/papr-phy-attest.c
+@@ -230,10 +230,17 @@ static long papr_phy_attest_create_handle(struct papr_phy_attest_io_block __user
+ 		return -ENOMEM;
+ 
+ 	if (copy_from_user(&params->cmd, ulc,
+-			sizeof(struct papr_phy_attest_io_block)))
++			sizeof(struct papr_phy_attest_io_block))) {
++		kfree(params);
+ 		return -EFAULT;
++	}
+ 
+ 	params->cmd_len = be32_to_cpu(params->cmd.length);
++	if (params->cmd_len == 0 || params->cmd_len > sizeof(params->cmd)) {
++		kfree(params);
++		return -EINVAL;
++	}
++
+ 	seq = (struct papr_rtas_sequence) {
+ 		.begin = phy_attest_sequence_begin,
+ 		.end = phy_attest_sequence_end,
+@@ -246,6 +253,9 @@ static long papr_phy_attest_create_handle(struct papr_phy_attest_io_block __user
+ 			&papr_phy_attest_handle_ops,
+ 			"[papr-physical-attestation]");
+ 
++	if (fd < 0)
++		kfree(params);
++
+ 	return fd;
+ }
+ 
+-- 
+2.47.3
+
