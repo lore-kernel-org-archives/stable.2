@@ -1,113 +1,222 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE18286D70
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7503B331200
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:14:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786111903; cv=none; b=XhNHZJbnBH6pig0aSX0n02Dc7+fyCpXmud6bugb3xEstyK5JcHsCnOw2/LYltsoEUIh7hqkIKhJzST1aLPyrK5TqV9b6p8RFftZFGxephtKXeWgzvKTTXxO8f0vnAZXZCNAsV0nOyVwDNroGzrHUmyITVFVUOtxaHOfiqsfvBpU=
+	t=1786112074; cv=none; b=O/uu/armgvmimbFbm01QamNEwS9ErqN2DYTdSVpmpra5qtJpi2556Sfy9Mh789TmWpmvNVo6pqbRVLbnoDBwu6ZqCNWsptXF29fb2DVbS/w9QkYO2c1jxmnqxD9dWhwPp9UKAizPx+7BKuXq3DNxE2bjEXCs0U21EXdWkBR7lAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786111903; c=relaxed/simple;
-	bh=wSxVRXPayQFZL2Or1DKkVoNQv3x5/H2PNAbaoULWcZo=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=IsbqILwxfJ95ZUDls8Gjz6YLcT6YqWc5UYPL5F3SO1Bp94I4ygjbFI3P73rWxIl9qAIAj18o/OCH1hD6EvGXuWRu4hcjvTPFAeBx3k5nQyLy2gNUPTI2sSr6R3SQTeBdbV51Zu7cM3LmV0A/kdc+gTUJ4ENRB1XFb8qwRKXfadY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FWFmE14O; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1786112074; c=relaxed/simple;
+	bh=9glZgDhJsCoSG9bSfFFi+1mXs7svligfcqnbVMyG/TQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qU1JnrY+c95Lf7Yc4UwEOIvcs7vzJc2RvJnGazmkl5M6oTKQLcLd5M5aCPp28+uIVQMs1hGBdXHVPg7L3Zz8n9MTNxM25YClb3WMxj/PsSVqz1/vURqFOO+9rKqJwCk9N6Dn6E/4hGUXnnHRR9q1cUSFeRG/SDjNrwzvAQM9wtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GTL8X3lu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FWFmE14O"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cb733fc5024so4772529a12.2
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 07:11:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786111899; x=1786716699; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cUK/CN4zZCrXo07AjY1uCS28FEvZBeq6g3hx3cmp4/s=;
-        b=FWFmE14Ohz45mULgq6PuY8BGn8Jp3iWlAIhAPkbJ8G5Y8GbpQzCeg9hoEOghN3C7AE
-         Mse++8Vr0vyuGDsneH9/czaB/MLpm9CDUlIR06utX9lK6lbcHhk8Dn9XAc21S+gckogk
-         F0a4OPkYdE7FYxAShEUrNA2Si9jpjyjKthRU1WZY5LbD5aST8CE8RLLcKl6zQgV6Dv3P
-         sak1IG8e5HmPCP7FltN534ICgHNlmNzn/6OedgOaKGMbjU55AnQJF//bccZ6Ne0W1zvm
-         z8z5nniHFYXTScxuRPo30zmarRwYQ/AhzWPuZ+DvS11/oOmXmx1ZtqdSPXSVdFhgkIjS
-         RZXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786111899; x=1786716699;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cUK/CN4zZCrXo07AjY1uCS28FEvZBeq6g3hx3cmp4/s=;
-        b=OyEl2ZNxXsjuxjI2ZFqGjWrL4m3ChPEBjxuwCRPvon1KmxHVHVGFL4k17UWgDA1I8Z
-         hOj6y0IkcOcVK8sZY4VdZRLRMp33Su3kKBYqxLzCxo1r5ZhvpX02SRTlTkwxDVWeq6xU
-         kx1cPqc5jumaq6pkq+1KI7S/4EdOG6H8t2W/GBFF+/XqPyNVQckmRjzaeBCaxnmBncSq
-         vhey+d7hAlo5uncjSQkwTyuukpzBjfHmG0foDHgauLkO3Y3ijaxJcyO+xUPBKWXGAlgo
-         DIfcWgPgf1kUeeRyz5OGHnXnM1CGOrA9Ty7lo0lcxiBhN69kC3Prn8I4LH8jC4+fIChe
-         s/qg==
-X-Forwarded-Encrypted: i=1; AHgh+RqlFUavGYoJLSaBA0SraMz81vrjDSXz6WfurfTL99BeAFdhOE0iSU556V6w87IWJfLGWcbMNmU=@vger.kernel.org
-X-Gm-Message-State: AOJu0YwbUMrfHD1peswalSeu3I2q5QnuNUnjhPzg5G+GUEoC6UzxGXiw
-	K3mQQ5SWlYiwkbCa3k0YLjG+DWqoGiSW+2tarVxp6yFv43Jc5E2wWVKr3L6z6CTg+sweNmfdo8F
-	nizmOOg==
-X-Received: from pgjx8.prod.google.com ([2002:a63:fe48:0:b0:c9a:ddfd:b879])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:9595:b0:3c4:36ef:3dc9
- with SMTP id adf61e73a8af0-3cb85e45aa3mr29843874637.17.1786111898994; Fri, 07
- Aug 2026 07:11:38 -0700 (PDT)
-Date: Fri, 7 Aug 2026 07:11:38 -0700
-In-Reply-To: <20260807071934.786879-1-zeng_chi911@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GTL8X3lu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8191F00A3F
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:14:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786112068;
+	bh=QSBQq1iZ4TIttTi7WtPUV0Lctn3BW8e48z0P6hPV+rg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=GTL8X3luoJo8ojA2eygaPsq8zHijMD3dU2i3jNschrAb4qHvxO6Qg0PNKHhwUIYVz
+	 dya9F9p5gBS2dUNqPlMl3c8Bxu9LOdv3ZjCOirsjUFJ6OfmlTU8xlj25ZupahK6k5h
+	 IxC3+uR5g9KaxbxFXWUcuXokH5hODYhyV0h33eR51O1sLHBj80GfwnpYk72o43T/6K
+	 icxbshYswHl6bpwk1rBlm+vDBJE0Vt0u5cPrIFFRoyWZwHpBQZ9u9hoMa+2XQxWIDu
+	 f3wtGQMWDXahGUsA97LIDvFpX+IrdFyAM7HYT+6dfwkWWV0sCnDgNslcLgS9L4YoCX
+	 +nJEcX7GEwc1A==
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-39f91ba1ef7so23014801fa.3
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 07:14:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqKuLLkTl6f1GUpxHnLocl/hddbSBd6aY38VbOLW24+ZAPkKW1YzOMLLmK+2m+4NEm5a/w5nZs=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBlrxDz2Zh35DRIkrV1pt8JCB65sPD9OCdLyzi0xLCL82lfBV5
+	aJaue0Po2XN2X2sbmPevZ68OUoWVQ2VOvA4Pc2OhJatvEgpPTp/eCD2Nws3kKGxPAy1G/+zn6KE
+	/0U9v7SEW8qVc78PW/f/t/hsfuP774ys=
+X-Received: by 2002:a05:651c:a394:20b0:39b:695:32a3 with SMTP id
+ 38308e7fff4ca-39fe56d06bemr804331fa.13.1786112066901; Fri, 07 Aug 2026
+ 07:14:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260807071934.786879-1-zeng_chi911@163.com>
-Message-ID: <anXnmvp2_Rj62huS@google.com>
-Subject: Re: [PATCH] KVM: Remove the kvm debugfs directory if kvm_init() fails
-From: Sean Christopherson <seanjc@google.com>
-To: Zeng Chi <zeng_chi911@163.com>
-Cc: pbonzini@redhat.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	zengchi@kylinos.cn, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <19fd74e46a8.25f5bfd941182.5953196137231825269@a0rg.com> <19fd7a647c3.1059430542637.572965728630481984@a0rg.com>
+In-Reply-To: <19fd7a647c3.1059430542637.572965728630481984@a0rg.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 7 Aug 2026 16:14:14 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0j5N-=yzvUF3wqsJCCnqeT50d8NECqpnWDPkfp7HCpUBg@mail.gmail.com>
+X-Gm-Features: AUfX_myJ24AZX--Dy6aql1rCvYDOlICOhVSQ7k5e-kcqZNrAIq9efsEhhXqmyMs
+Message-ID: <CAJZ5v0j5N-=yzvUF3wqsJCCnqeT50d8NECqpnWDPkfp7HCpUBg@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: pfr_update: fix stack buffer overflow in query_capability()
+To: Anirudh Prasad <icarus@a0rg.com>
+Cc: linux-acpi <linux-acpi@vger.kernel.org>, rafaeljwysocki <rafael.j.wysocki@intel.com>, 
+	linux-kernel <linux-kernel@vger.kernel.org>, stable <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 07, 2026, Zeng Chi wrote:
-> From: zengchi <zengchi@kylinos.cn>
-> 
-> kvm_init_debug() creates the "kvm" debugfs directory along with all of
-> the VM/vCPU stat files, but none of kvm_init()'s error paths removes it.
-> If kvm_vfio_ops_init(), kvm_gmem_init(), kvm_init_virtualization() or
-> misc_register() fails, the directory is leaked, and none of kvm_init()'s
-> callers invokes kvm_exit() on failure, i.e. nothing papers over the
-> leak.
-> 
-> The stale /sys/kernel/debug/kvm directory isn't just cosmetic: a
-> subsequent attempt to load KVM makes debugfs_create_dir() fail with
-> -EEXIST, after which kvm_debugfs_dir holds an ERR_PTR and all stat
-> files are silently never created again.  Worse, the leaked stat files
-> reference file_operations and stat data that live in the KVM module; if
-> the module is unloaded after the failed initialization, reading the
-> stale files is a use-after-free.
-> 
-> Remove the debugfs directory in the error path, mirroring kvm_exit().
-> 
-> Fixes: 2b0128127373 ("KVM: Register /dev/kvm as the _very_ last thing during initialization")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: zengchi <zengchi@kylinos.cn>
+On Thu, Aug 6, 2026 at 5:17=E2=80=AFPM Anirudh Prasad <icarus@a0rg.com> wro=
+te:
+>
+> > If the firmware wants the kernel to copy more data than the latter has
+> > room for, the operation should fail instead of pretending to succeed.
+>
+> Agreed. v2 validates all four buffer lengths upfront and returns
+> -EINVAL if any exceeds its destination field size.
+
+Can you please resend this afresh with proper versioning?
+
 > ---
->  virt/kvm/kvm_main.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index 45e784462ec6..8a503ac1adbd 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -6553,6 +6553,7 @@ int kvm_init(unsigned vcpu_size, unsigned vcpu_align, struct module *module)
->  err_gmem:
->  	kvm_vfio_ops_exit();
->  err_vfio:
-> +	debugfs_remove_recursive(kvm_debugfs_dir);
->  	kvm_async_pf_deinit();
->  err_async_pf:
->  	kvm_irqfd_exit();
-> -- 
-
-Already posted (twice) and applied:
-
-https://lore.kernel.org/all/20260706095910.39798-1-leixiang@kylinos.cn
+>
+> query_capability() copies four ACPI buffer objects returned by the
+> firmware _DSM into fixed-size u8[16] fields in struct
+> pfru_update_cap_info using memcpy with the firmware-supplied length:
+>
+>   memcpy(&cap_hdr->code_type,
+>          elements[CAP_CODE_TYPE_IDX].buffer.pointer,
+>          elements[CAP_CODE_TYPE_IDX].buffer.length);
+>
+> The same pattern repeats for drv_type, platform_id, and oem_id.
+> If the firmware returns buffer.length > 16 for any of these fields,
+> memcpy writes past the destination array.
+>
+> struct pfru_update_cap_info is stack-allocated in pfru_ioctl().
+> Confirmed with KASAN on 7.2-rc6: three stack-out-of-bounds reports
+> are generated when a DSM returns 64-byte buffers, with writes reaching
+> 44 bytes past the end of cap_hdr's [64, 156) frame window into
+> adjacent stack redzones.
+>
+> Fix by validating each buffer length against its destination field
+> size before copying, and returning -EINVAL if the firmware supplies
+> an oversized buffer.
+>
+> Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update de=
+vice driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Anirudh Prasad <icarus@a0rg.com>
+> ---
+>  drivers/acpi/pfr_update.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
+> index 6283105bb0e8..e14e053cea44 100644
+> --- a/drivers/acpi/pfr_update.c
+> +++ b/drivers/acpi/pfr_update.c
+> @@ -158,6 +158,14 @@ static int query_capability(struct pfru_update_cap_i=
+nfo *cap_hdr,
+>                 goto free_acpi_buffer;
+>         }
+>
+> +       if (out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length > =
+sizeof(cap_hdr->code_type) ||
+> +           out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length > s=
+izeof(cap_hdr->drv_type) ||
+> +           out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length > si=
+zeof(cap_hdr->platform_id) ||
+> +           out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length > siz=
+eof(cap_hdr->oem_id)) {
+> +               ret =3D -EINVAL;
+> +               goto free_acpi_buffer;
+> +       }
+> +
+>         cap_hdr->update_cap =3D out_obj->package.elements[CAP_UPDATE_IDX]=
+.integer.value;
+>         memcpy(&cap_hdr->code_type,
+>                out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.pointe=
+r,
+> --
+> 2.55.0
+>
+>
+>
+>
+>
+> From: Anirudh Prasad <icarus@a0rg.com>
+> To: "linux-acpi"<linux-acpi@vger.kernel.org>
+> Cc: "rafaeljwysocki"<rafael.j.wysocki@intel.com>, "linux-kernel"<linux-ke=
+rnel@vger.kernel.org>, "stable"<stable@vger.kernel.org>
+> Date: Thu, 06 Aug 2026 19:10:59 +0530
+> Subject: [PATCH] ACPI: pfr_update: fix stack buffer overflow in query_cap=
+ability()
+>
+>  > query_capability() copies four ACPI buffer objects returned by the
+>  > firmware _DSM into fixed-size u8[16] fields in struct
+>  > pfru_update_cap_info using memcpy with the firmware-supplied length:
+>  >
+>  >  memcpy(&cap_hdr->code_type,
+>  >  elements[CAP_CODE_TYPE_IDX].buffer.pointer,
+>  >  elements[CAP_CODE_TYPE_IDX].buffer.length);
+>  >
+>  > The same pattern repeats for drv_type, platform_id, and oem_id.
+>  > If the firmware returns buffer.length > 16 for any of these fields,
+>  > memcpy writes past the destination array.
+>  >
+>  > struct pfru_update_cap_info is stack-allocated in pfru_ioctl().
+>  > Confirmed with KASAN on 7.2-rc6: three stack-out-of-bounds reports
+>  > are generated when a DSM returns 64-byte buffers, with writes reaching
+>  > 44 bytes past the end of cap_hdr's [64, 156) frame window into
+>  > adjacent stack redzones.
+>  >
+>  > Fix by clamping each memcpy length to the size of its destination
+>  > field with min_t(u32, buffer.length, sizeof(cap_hdr->field)).
+>  >
+>  > Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update=
+ device driver")
+>  > Cc: stable@vger.kernel.org
+>  > Signed-off-by: Anirudh Prasad <icarus@a0rg.com>
+>  > ---
+>  >  drivers/acpi/pfr_update.c | 12 ++++++++----
+>  >  1 file changed, 8 insertions(+), 4 deletions(-)
+>  >
+>  > diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
+>  > index 6283105bb0e8..0219347cd78f 100644
+>  > --- a/drivers/acpi/pfr_update.c
+>  > +++ b/drivers/acpi/pfr_update.c
+>  > @@ -161,24 +161,28 @@ static int query_capability(struct pfru_update_c=
+ap_info *cap_hdr,
+>  >      cap_hdr->update_cap =3D out_obj->package.elements[CAP_UPDATE_IDX]=
+.integer.value;
+>  >      memcpy(&cap_hdr->code_type,
+>  >             out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.pointe=
+r,
+>  > -           out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length=
+);
+>  > +           min_t(u32, out_obj->package.elements[CAP_CODE_TYPE_IDX].bu=
+ffer.length,
+>  > +             sizeof(cap_hdr->code_type)));
+>  >      cap_hdr->fw_version =3D
+>  >          out_obj->package.elements[CAP_FW_VER_IDX].integer.value;
+>  >      cap_hdr->code_rt_version =3D
+>  >          out_obj->package.elements[CAP_CODE_RT_VER_IDX].integer.value;
+>  >      memcpy(&cap_hdr->drv_type,
+>  >             out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.pointer=
+,
+>  > -           out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length)=
+;
+>  > +           min_t(u32, out_obj->package.elements[CAP_DRV_TYPE_IDX].buf=
+fer.length,
+>  > +             sizeof(cap_hdr->drv_type)));
+>  >      cap_hdr->drv_rt_version =3D
+>  >          out_obj->package.elements[CAP_DRV_RT_VER_IDX].integer.value;
+>  >      cap_hdr->drv_svn =3D
+>  >          out_obj->package.elements[CAP_DRV_SVN_IDX].integer.value;
+>  >      memcpy(&cap_hdr->platform_id,
+>  >             out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.pointer,
+>  > -           out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length);
+>  > +           min_t(u32, out_obj->package.elements[CAP_PLAT_ID_IDX].buff=
+er.length,
+>  > +             sizeof(cap_hdr->platform_id)));
+>  >      memcpy(&cap_hdr->oem_id,
+>  >             out_obj->package.elements[CAP_OEM_ID_IDX].buffer.pointer,
+>  > -           out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length);
+>  > +           min_t(u32, out_obj->package.elements[CAP_OEM_ID_IDX].buffe=
+r.length,
+>  > +             sizeof(cap_hdr->oem_id)));
+>  >      cap_hdr->oem_info_len =3D
+>  >          out_obj->package.elements[CAP_OEM_INFO_IDX].buffer.length;
+>  >
+>  > --
+>  > 2.55.0
+>  >
+>
+>
