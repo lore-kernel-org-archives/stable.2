@@ -1,97 +1,75 @@
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6ADD30B53A;
-	Fri,  7 Aug 2026 01:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3526736C9D0;
+	Fri,  7 Aug 2026 01:59:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786067369; cv=none; b=iu6ceFTGkgb6pycsEiKKpp6j5OxoznxVwTL/Pex7n7A+2mRsMNTfSpI/vgcvNgYmoyYZk4/ludGpn+c5abRzI+/sIhV7koKt5qnrGHS0XkjazitZXjU92jbiQBi2Hi7qbZzJe8TnxieQzotOnhRIGf0birHiGUMn5B1qUd4+bpQ=
+	t=1786067958; cv=none; b=QhG0TNYHhFtiMKsELszSUBGNCC9ijQBptN3NWJphmn7VghpJNPakvAfZVOMB7RKr1r+MXT9IrBc9A3c/P0HFZHMOfQRAk/0aJtsn/Mw6Jb8ZHZ2wDsS63FaeWQR9XwIrXIx02dnpEBplqtByf2VyrSOXcOm9KTUoQuortWuhRlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786067369; c=relaxed/simple;
-	bh=yDgYfMmrz+U12FzZfCQiQFXVCtWBJZrahgKWZmWdfDo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t5UVcVP6lBoGwYwYq6D/BM6nKE3kfgYA3LmfqHye9Tt5BlqOpxVfW7HYMGxmezu39errzzn4ID5ztNrVUwcNs8PGbTQPGlsFNe/bAcHYlaTtyLe7GuB3fYzFrJwgx9OtozKq+wuGR7SDppzPfhq2D5eWecIgIQoNEjpYw5Xj+yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=QvPe6nTa; arc=none smtp.client-ip=115.124.30.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1786067958; c=relaxed/simple;
+	bh=on2D0luqT6mzoqhF+mDYoAnSPwR8IXyf430Vv0Aw674=;
+	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
+	 In-Reply-To:Content-Type; b=hcnqc9na2GG3VhRQRJkMzJmDg20HkkozaNwbRPznTi2y1q8kEB84x0djWjVKbG5YJoOJKlm9Pxfzn2gtWLNjkxVyA4aAjIbwHFcLhwjGYqKbe+f/LzKjl6mh1gabAftlcefHbQzELNV58SbHYZYWqtxqCTFtWq6q9UsTEotx+4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=dGGo+H1p; arc=none smtp.client-ip=117.135.210.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="QvPe6nTa"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1786067364; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=tKmLlK6uJ3edkxIIYSB/SjE+4uEsk26hCxc4VlHPNFE=;
-	b=QvPe6nTaZK42kYANUFfbkzS6D4KjCGX1rX+EISzbXoDtMBzWS+/uuGtR4NqCa8GGS2VNP1+MEZcIEnGf2mdfdiNLiE7oaHnOTuh3HjLQjcVUUCVigDs5t/J5+gSUV+L7VS9hVWPOVCXxF3l6OhdwxHdTph00S/DkLJDUVtL1yGo=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0X8V9VcH_1786067361;
-Received: from 30.246.177.19(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0X8V9VcH_1786067361 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 07 Aug 2026 09:49:22 +0800
-Message-ID: <f008965b-bb6f-49b4-9eed-96ef0be30c30@linux.alibaba.com>
-Date: Fri, 7 Aug 2026 09:49:20 +0800
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="dGGo+H1p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
+	Content-Type; bh=5DUrrGdlyZvyvoUP0goFItoyUXVm51ZRkbFuiWOVPCQ=;
+	b=dGGo+H1pBBL8Z09tJjOMsqy4Bv0+zz08RGo/Ta/UE+57b/ny8sPOUqcmMQMbLM
+	SOwyqPWA1pCMCPWwAqb3MeVlQUF+WaqIuemQGJjakwzc7qetTLI38fOykEAZ2xHv
+	RoH9CWR3u4VOeZI1qzNWXnNMOk3ebZE/RiYicO2EiupXU=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDnf4Y6O3Vq21rUEw--.16321S2;
+	Fri, 07 Aug 2026 09:56:10 +0800 (CST)
+Message-ID: <6A753B23.3070908@126.com>
+Date: Fri, 07 Aug 2026 09:55:47 +0800
+From: Hongling Zeng <zhongling0719@126.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/memory-failure: fix folio refcount leak and
- min_order_for_split() locking
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>,
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Wei Yang <richard.weiyang@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Luis Chamberlain <mcgrof@kernel.org>, Li Youhong <liyouhong@kylinos.cn>,
+To: Namjae Jeon <linkinjeon@kernel.org>, 
+ Hongling Zeng <zenghongling@kylinos.cn>
+CC: hyc.lee@gmail.com, alexandro.calo@nozominetworks.com, 
+ ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org
-References: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3] ntfs: validate non-resident attribute offsets
+References: <20260806055713.42067-1-zenghongling@kylinos.cn> <CAKYAXd91TzMghrpOG4pBYr-9UBY9qJ6by=mrkS0m4BxMZEbrHg@mail.gmail.com>
+In-Reply-To: <CAKYAXd91TzMghrpOG4pBYr-9UBY9qJ6by=mrkS0m4BxMZEbrHg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnf4Y6O3Vq21rUEw--.16321S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Jw48AFWrWrWDKr1rCw1UGFg_yoWftrX_Wa
+	93Xr1xu395Aw45Ca1DKrWxKFy7t39rX3W3Xrs8CF4fZry8JFZxXan5Xa4jvryDJrZYq3ZI
+	y34kWFyUGwsF9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU8q0P3UUUUU==
+X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBoBrUpWp1OzqfdAAA3+
 
 
+在 2026年08月06日 21:17, Namjae Jeon 写道:
+>> +       /* Ensure there's room for the compressed_size field if needed. */
+>> +       if (!(a->flags & ATTR_IS_SPARSE) &&
+>> +           !(a->flags & ATTR_IS_COMPRESSED) &&
+>> +           attr_len - mp_offset < sizeof(a->data.non_resident.compressed_size))
+>> +               return false;
+> Sorry for the confusion. I rechecked the code and realized that
+> ATTR_COMPRESSION_MASK is correct here. It covers the entire
+> compression field, while ATTR_IS_COMPRESSED checks only the 0x0001
+> bit. Since this validation checks whether the attribute layout
+> includes compressed_size, it should use the mask, consistent with the
+> existing min_len check.  So I have applied the previously attached
+> patch.
+>
+> Thanks!
+You're absolutely correct， Thanks for the guidance and applied the 
+patch . I now understand that ATTR_COMPRESSION_MASK
+   (0x00ff) is the correct choice—it covers all compression cases, not 
+just  the 0x0001 flag.
 
-On 8/6/26 7:14 PM, David Hildenbrand (Arm) wrote:
-> hwpoison code can end up calling min_order_for_split() without holding
-> the folio lock. There isn't really something that would prevent
-> concurrent folio split. Consequently folio->mapping can get set to
-> NULL after checking for "!folio->mapping", and if the compiler
-> reloads folio->mapping, mapping_min_folio_order() would try to
-> dereference NULL.
-> 
-> While very unlikely to happen in practice, let's just enforce that
-> min_order_for_split() is called with the folio lock held. We can
-> significantly cleanup the calling hwpoison code, and just get rid
-> of try_to_split_thp_page() to hold the folio lock for a bit longer.
-> 
-> Just work on folios now, which further cleans up the code. We just
-> have to be careful about doing the page_folio() after splitting, which
-> we have to do already either way. Do not change the way we split for
-> now, this needs more thought and should be done separately.
-> 
-> Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
-> would currently have leaked a folio reference.
-> 
-> In folio_split(), document and assert that we need the folio lock.
-> Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
-> 
-> The folio->mapping problem was identified by Sashiko, and Li Youhong
-> reported it by sending a proposal fix.
-> 
-> This likely does not really warrant CCing stable, but I expect little
-> conflicts when doing the backport, so let's just CC stable because of
-> the refcount leak.
-> 
-> Reported-by: Li Youhong <liyouhong@kylinos.cn>
-> Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
-> Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
-
-LGTM. Thanks.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
