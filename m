@@ -1,122 +1,76 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0614539A807;
-	Fri,  7 Aug 2026 11:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49375473C63;
+	Fri,  7 Aug 2026 12:17:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786103416; cv=none; b=Us2JarJZo8o9mcI3MIcR4Xc0S9a53oAgXSxJrtyHASvtG900PplCDIzyNu/V+xTgdL1Cpm52aTmplOa7wrfinZYXSGpaZeNUwqiN5KnY4BANlw8sDE6ZTGoGLGOnv/IlvicnVdNR3/JapHGOoAQC271MUuTaKVdd1wHDv0eJDYI=
+	t=1786105084; cv=none; b=dU7w+WpvzlhVYxx8mHw9mTq+a5OcdRijdCxKyFEtuK+ruYlmwCQ5feCeVM504uZBmvY6xqjAqqg2uxf/vsrtPzh5se5p8s3JZyDHdf0AxGM7Brih1JjgeC6iGSqm/sOY2Uf9d2+JYuk8P9WAB3rd6sze9ctJ6qxkkBc+oid0PZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786103416; c=relaxed/simple;
-	bh=Ov5O6+IUmIoxKUd7aa3NlEk6KfvP352nl59N378600A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=F4VkoYWg11ZsBOttxZ84l19myR0qUsID46AE9DZdcGbktXJnOfEGmDLJizOBet/ZsdwPYByhFFXE86pQl+GqUOV+UumkAsFih7iJkdjKYa1x1PrgKQXv0V4hic9UwuIWuT2cGVSpZtY9EhNg2dip+9AZ8xNRhmTXSR+Gma/Fz+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=c4hYXkr9; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1786105084; c=relaxed/simple;
+	bh=J6ACastlw3ueUj4928B5vWpBPVjv9ubZo/drKFS08do=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OJR7Drp3a1ZGH95e3IYXFCgsYZbhehNHdICyB4+/af0IZvjbOpfbqpff29wN4zw/H1jPDGlU76ryJtlGBf7UCDxybLl52Dfvak2hLRIaA8rw45/q8TD/HgmGzdxaQFYByHzdlQahADqQgDkqFcBwvz0LmTTF/NkiSph6TKY1SHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aQ609VhW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="c4hYXkr9"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 4C9881A14A4;
-	Fri,  7 Aug 2026 11:50:01 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 218A1603F0;
-	Fri,  7 Aug 2026 11:50:01 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 551BB11C37725;
-	Fri,  7 Aug 2026 13:49:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1786103396; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=amECKdhGa2WRnIHdDlpYZ0s3e5gaENTiWLRcewHI7Vc=;
-	b=c4hYXkr9KDRL3Lg0Vo9fSaWjVWLWQ6TnV679Za34oV/VW1KLMbZy3ZCMe4wSI9LWQkFm+W
-	nhTh5GM2cChXE9DWTEfd+eZrqT+04DoBIGfmWrtKuTPnFyzQhxrcuRARbLSDqCCMvmcX6y
-	+P70odqTQLKoZy0ZNyycadBTJkT5X07Tsu/Pu6XxJf42HJDtOLbo6ksCmMKHBOmkFmOnS1
-	pQLotRud8R/lsryRRShq1/+p4KJb32NK0fdHhqIKgICqN2F4n6KJJVzggZ6lY0G46MoiHy
-	Ghl2EHWce4CxZN1hWpp4yTX6PpMyU+wWJ2N9O5zQp2YkdWhbjrFLN16b+I6E3A==
-From: "Diogo Ivo (Schneider Electric)" <diogo.ivo@bootlin.com>
-Date: Fri, 07 Aug 2026 13:49:21 +0200
-Subject: [PATCH 6.12.y 2/2] spi: cadence-quadspi: release DMA channel on
- probe failure
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aQ609VhW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D221F000E9;
+	Fri,  7 Aug 2026 12:17:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786105023;
+	bh=iIlXgd92q5l3WMeJYxjd8gakHUDLPPBJ4dZQ2jzM1q8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aQ609VhWKoMxZV5B/k6aZXcTx4TL+yj0Oqv8Ck2VatM/sFQ9XfAtp8nCCiwVKXg68
+	 4N0urObXCmDTjzXq7U8NuPXV9wzCUtZzg0jVJlxlD61SifrXsSqX65UF1dRto4y3Q1
+	 Ms4YJsWHspDH+ggcTif6ddzNYWDhG65x5vbLYHWzY19sy1TGbL2J83IPiqFV9W4clY
+	 aC+XzW+fcZxpLC8Z6M4GYqTgNed07yzMeqblP0bVIZk1bnZXNO2MLfWTqlx3JwAhJ/
+	 z2+CNj713VWnuA5jBTNo6QklxSsIqmzVSbTbBhZYl7ZwTmHAejYx2D7st1yPux15dR
+	 /tFvcjva2sAYA==
+Date: Fri, 7 Aug 2026 13:16:58 +0100
+From: Will Deacon <will@kernel.org>
+To: gus bourg <gus@bourg.net>
+Cc: ardb@kernel.org, catalin.marinas@arm.com, ilias.apalodimas@linaro.org,
+	linux-efi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] arm64/efi: Do not call EFI runtime services preemptibly
+ under SW PAN
+Message-ID: <anXMug2_-vZl_pZ7@willie-the-truck>
+References: <20260806000144.3388823-1-gus@bourg.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-cqspi-pm_runtime-v1-2-5973a0a208c4@bootlin.com>
-References: <20260807-cqspi-pm_runtime-v1-0-5973a0a208c4@bootlin.com>
-In-Reply-To: <20260807-cqspi-pm_runtime-v1-0-5973a0a208c4@bootlin.com>
-To: Mark Brown <broonie@kernel.org>, 
- Matthew Gerlach <matthew.gerlach@altera.com>, 
- Khairul Anuar Romli <khairul.anuar.romli@altera.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dan Carpenter <dan.carpenter@linaro.org>
-Cc: miquel.raynal@bootlin.com, thomas.petazzoni@bootlin.com, 
- Pascal EBERHARD <pascal.eberhard@se.com>, linux-spi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- "Diogo Ivo (Schneider Electric)" <diogo.ivo@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1424; i=diogo.ivo@bootlin.com;
- h=from:subject:message-id; bh=Ov5O6+IUmIoxKUd7aa3NlEk6KfvP352nl59N378600A=;
- b=owEBbQKS/ZANAwAKAQa+fFtWXslFAcsmYgBqdcZX6j6wpnZXX+UE9uVB23fgx0nHArdMa7Gvr
- mQj6EScisSJAjMEAAEKAB0WIQTma35o1i1081e8B2UGvnxbVl7JRQUCanXGVwAKCRAGvnxbVl7J
- RaqZD/9W0rqepOXwdjEaITiIKREozCU+pSG5rNF+kDqOZG7/3OQYsTXoxrwJ0woogzGdjIjmsqh
- HsDKkXHuZ8E1wU8mfXo5u/0A6PtE32iBrZVSY+24NQjTZMfr6lmc+q23GE6e5g7uYyITXoDZ+GI
- aY/fvdZZ5kOrMuBeu1Mn5WaJpYUjIEmtavc5deRLXBHlOgZgNWH2+RJp/Ua+4sK+1bkMu6nvx4s
- Ff7gPQzMDYSmocN8wvNJR3DyWWk+bpeb5K4BcWMYNplGHdD2erA3cMQ5I1ALoL1ITXh1njoE2Tl
- 0GpcNgvJeYZMpHKv1QggYUT93YiVMfT7RWaiTyDB+ulaJJ5ZqaKS0Gzk1yOgPin/xvhEWyvbtPL
- FomCa5hmPs93W2qFL2/otLUYowlWuMLqpadS+Uv/dPIRU6V7JICaoLEKe09uEQS214x54y1mZPL
- FWIURVSpg/YGrCB8DM1GL5Jj8H9aRJXwuAL9bRCFohmGiI4zLRcctF4jXwnhNWt+lj5MhvFdPjU
- jKJiyd2eIebHFqhQamYrCp1pEd/nDrVd381OKNnNCT+RgVyvnvzZSRt+hYa6DrGIXjGkl8HY8nj
- k6ef+4FeOKGyfuZm+FWSfq+HJnkwS5Va600m8t9b54ELSZdnTDYtqmhc6wUJ+fnPXEjReEMx8X7
- Q0RfMtPLdiEpgEQ==
-X-Developer-Key: i=diogo.ivo@bootlin.com; a=openpgp;
- fpr=E66B7E68D62D74F357BC076506BE7C5B565EC945
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806000144.3388823-1-gus@bourg.net>
 
-When spi_register_controller() fails in cqspi_probe(), the DMA channel
-acquired via cqspi_request_mmap_dma() is not released, leaking the channel.
-Add a dedicated error label to release the DMA channel before the
-existing runtime PM teardown path.
+On Wed, Aug 05, 2026 at 05:01:44PM -0700, gus bourg wrote:
+> From: Gus Bourg <gus@bourg.net>
+> 
+> When PAN is emulated by switching TTBR0_EL1, arch_efi_call_virt_setup()
+> installs the EFI mm into TTBR0_EL1 via uaccess_ttbr0_enable(), and only a
+> return from exception ever puts it back: check_and_switch_context() skips
+> the register write by design ("Defer TTBR0_EL1 setting for user threads to
+> uaccess_enable() when emulating PAN"), and __switch_to() does not touch it
+> either. switch_mm() updates only thread_info->ttbr0.
+> 
+> Since commit a5baf582f4c0 ("arm64/efi: Call EFI runtime services without
+> disabling preemption") the runtime call is preemptible, so the EFI worker
+> can now be scheduled out inside that window. An involuntary preemption is
+> harmless, because __swpan_entry_el1()/__swpan_exit_el1() save and restore
+> the state around the exception. A voluntary reschedule is not: it performs
+> no return from exception, so the worker resumes with another task's
+> TTBR0_EL1 - or reserved_pg_dir - and the next efi_mm access takes a level 0
+> translation fault.
+> 
+> There is such a preemption point in arch_efi_call_virt_setup() itself,
+> immediately after the TTBR0 install: __efi_fpsimd_begin() ->
+> kernel_neon_begin() -> put_cpu_fpsimd_context() -> local_bh_enable() ->
+> preempt_check_resched().
 
-This fix is one part of upstream commit f18c8cfa4f1a ("spi: cadence-qspi:
-Fix probe error path and remove").
+Hmm, can we move the ttbr0 toggling until after __efi_fpsimd_begin() so
+that this preemption point doesn't interfere?
 
-Fixes: b85815675fc5 ("spi: cadence-quadspi: fix cleanup of rx_chan on failure paths")
-Cc: stable@vger.kernel.org
-Signed-off-by: Diogo Ivo (Schneider Electric) <diogo.ivo@bootlin.com>
----
- drivers/spi/spi-cadence-quadspi.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-quadspi.c
-index d749dee54015..66304664a1cf 100644
---- a/drivers/spi/spi-cadence-quadspi.c
-+++ b/drivers/spi/spi-cadence-quadspi.c
-@@ -1982,14 +1982,17 @@ static int cqspi_probe(struct platform_device *pdev)
- 	ret = spi_register_controller(host);
- 	if (ret) {
- 		dev_err(&pdev->dev, "failed to register SPI ctlr %d\n", ret);
--		goto disable_rpm;
-+		goto release_dma_chan;
- 	}
- 
- 	pm_runtime_mark_last_busy(dev);
- 	pm_runtime_put_autosuspend(dev);
- 
- 	return 0;
--disable_rpm:
-+release_dma_chan:
-+	if (cqspi->rx_chan)
-+		dma_release_channel(cqspi->rx_chan);
-+
- 	pm_runtime_put_noidle(dev);
- 	pm_runtime_dont_use_autosuspend(dev);
- 	pm_runtime_disable(dev);
-
--- 
-2.55.0
-
+Will
