@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03ECE3F9F4C;
-	Fri,  7 Aug 2026 10:38:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F5F41D206;
+	Fri,  7 Aug 2026 10:42:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786099083; cv=none; b=Cc4Nh9isadK6fMxPQR2L1H4jlRzETfT/pYvIUMrZ+0pF9ht3eYJw8PHNZAz1XmVtQ+G3UvnSJTBGlfyrMXnp1ofApfQgGnsvlNQ4iaw4zgMXJR0DDxFyvEEglOffd02bls4loqFNJTmYAsAXt3FVlnMfZm8Ay8Y1qgS/3rTVecY=
+	t=1786099380; cv=none; b=R0SHjkNskBJHtR2T0z7zSPH9aTGGTjXDf1TItrhTek4OjfaTzZYrHFX1MNtTLwOCBWirUVYEerRP2hoQA4+4WjTIz8MoF+FkPMyG37Hx7iIrJ39xHQ1nsEEatGDdyZ1sQoW5Uj2xCWCg2V5fyiLJcDu8LOmbhid0NnxwZtz2sbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786099083; c=relaxed/simple;
-	bh=z6Z8LBGl3RkNiHLsq6kPLrQgvzB8Q9u+XPV8bKOR9gY=;
+	s=arc-20240116; t=1786099380; c=relaxed/simple;
+	bh=hLZnEGgoUnmCpVM2b9YH19E8aPgtVW/sHhuV/o9Czl4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WNLWMEJn+YFoQA7CtS4zp9p3aThiVpMk/XKmloT+MHfhh2GZwAgbzAZy3ZJQq77UA1qKDZtbAw9dXDYwTO0+fXulJj+YGLWjorOTBXea4kRMuibVTbnpoxpMY5M+YCnqnDOJEszvfzWEFkAra/twqyAH2fJ09/6wERDo/QrZqRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+6+Tghv; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Uv2WCJPDSATPIZi5UWm+fuAVuG7oU3tOGFxmUfUny5xTTQMy63wfgrtLDo0hoxjuEnB1N+OBQaL/583auzOrBzItym40Ll0gbCGozRR/ktFld31Yy2mTZ52nPA/3NWLLzoJBVaNnMThhxXOj9CN8agVmoPpvJJuzxDKomxcDYSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gwEWI+Sg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+6+Tghv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB8C31F000E9;
-	Fri,  7 Aug 2026 10:37:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gwEWI+Sg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECE451F000E9;
+	Fri,  7 Aug 2026 10:42:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786099081;
-	bh=DMe+w8ZugcPdrhpHQLsYy+xfEYOqiNOiSN8P/ahZYGU=;
+	s=k20260515; t=1786099375;
+	bh=0ubMx73RyrMuL1RsZe+QO50m7c2wIr+B9zDqg8dBcT8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=S+6+TghvCfQaDWjey0d6PgA1fkL1h3V1rFNbqipybecl+gTD3xhBWtVdl2UKpbeZt
-	 QQT4WGwiX7TS2cbeXxPs6IJN/8RgMDgjse1vvkiNYTVWsUUmT6Bk69YvYqSL8vAtgv
-	 Ft+zic4LvmpSqD1NLoLTD9fCr5Cob9ICx9zZvRtaczjPs0hpVbFyxAo6ImauKYff9m
-	 rzUm7FEQ49LnVUJEQL5abQzh3/A1YUE3gZSnmUjGSX4lPg6ANXbajOjtBrQNiGEHdW
-	 fJLl30YR2Jc4x3NQG3D011NpkKUw8wNhOB65M9OkwZFYhJ0D8pjIseH2fssiARdAXq
-	 ZMmCY+hAo4Nhg==
-Message-ID: <2b1b9e00-a65f-436f-8ee1-b48c69d24104@kernel.org>
-Date: Fri, 7 Aug 2026 13:37:57 +0300
+	b=gwEWI+SgFR633SkQ1IrjSgP+mSLn88LgYo71++vEWeANwqaYEhMNAIfgQh1Sa30Wu
+	 KgqCLcBs6u071ZCy6j+gFwsqvLwhfvRmOwyQrA7YTCs4Ybn6mbvBbo4PUQjGldmo9g
+	 q42rnb6FwSnJ4yhA2Dl+FkjwwIZ4qeZSRKW+6RJ71K6tSZbWtfUcsAOp+H/UqzBUr0
+	 kxUjGXs/OuM+ArsgULx0hPc5gZq2Zkvy6osMXRuOu/W1w2HSM27UG5OWwt4upb68CD
+	 3Vjz7aOciWgVbGqNSr4pJDAp3digj0W6eOJoKAeIdHLSYMHK9y/FVDzt+jGdaevjBx
+	 azLg+SZzP0oaA==
+Message-ID: <cb5e974f-136c-4231-8262-078aef2fe156@kernel.org>
+Date: Fri, 7 Aug 2026 13:42:52 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,176 +35,37 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/10] media: microchip-isc: take a reference on the
- parsed endpoints
+Subject: Re: [PATCH v4 05/10] media: microchip-isc: do not touch WB registers
+ when not streaming
 To: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Hans Verkuil <hverkuil@kernel.org>,
  Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
 References: <20260803-balki-isc-prefix-fixes-v1-v4-0-f625d6aa0ae1@microchip.com>
- <20260803-balki-isc-prefix-fixes-v1-v4-2-f625d6aa0ae1@microchip.com>
-Content-Language: en-US
+ <20260803-balki-isc-prefix-fixes-v1-v4-5-f625d6aa0ae1@microchip.com>
 From: Eugen Hristev <ehristev@kernel.org>
-In-Reply-To: <20260803-balki-isc-prefix-fixes-v1-v4-2-f625d6aa0ae1@microchip.com>
+Content-Language: en-US
+In-Reply-To: <20260803-balki-isc-prefix-fixes-v1-v4-5-f625d6aa0ae1@microchip.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 8/3/26 13:20, Balakrishnan Sambath wrote:
-> for_each_endpoint_of_node() drops the reference on the current node as
-> it advances. xisc_parse_dt() and isc_parse_dt() store the node in
-> subdev_entity->epn and release it later with of_node_put(), but never
-> took their own reference, so the stored pointer refers to an
-> already-released node. This underflows the refcount and can
-> use-after-free, reachable through the camera device tree overlay.
+> isc_s_awb_ctrl() called isc_update_awb_ctrls() unconditionally, writing
+> the white balance registers even when the device is runtime suspended;
+> on many ARM platforms accessing the unclocked registers is an external
+> abort. The write was also done without awb_lock, racing isc_awb_work(),
+> which holds it so the DMA done IRQ cannot latch a half-updated pipeline.
 > 
-> Take a reference with of_node_get() when storing the node, and drop it
-> in microchip_isc_subdev_cleanup() so the entities the bind loop never
-> reaches on an early exit do not leak it.
+> Write the registers only while streaming and not stopping, under
+> awb_lock, and update the profile there. The isc->stop check covers the
+> window where isc_stop_streaming() has gated the clocks but vb2 still
+> reports streaming. Otherwise the new values stay cached and
+> isc_configure() programs them at the next stream start.
 > 
-> Fixes: c9aa973884a1 ("media: atmel: atmel-isc: add microchip-xisc driver")
-> Fixes: d6701f13bd07 ("media: atmel: Use v4l2_async_notifier_add_fwnode_remote_subdev")
+> Fixes: 4e52889f48fe ("media: atmel: atmel-isc-base: expose white balance as v4l2 controls")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 > ---
->  drivers/media/platform/microchip/microchip-isc-base.c  |  6 ++++++
->  .../media/platform/microchip/microchip-sama5d2-isc.c   | 18 ++++++++++++------
->  .../media/platform/microchip/microchip-sama7g5-isc.c   | 18 ++++++++++++------
->  3 files changed, 30 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-> index eebbcb28a7ee..ca4f3b5f58aa 100644
-> --- a/drivers/media/platform/microchip/microchip-isc-base.c
-> +++ b/drivers/media/platform/microchip/microchip-isc-base.c
-> @@ -1853,6 +1853,12 @@ void microchip_isc_subdev_cleanup(struct isc_device *isc)
->  	list_for_each_entry(subdev_entity, &isc->subdev_entities, list) {
->  		v4l2_async_nf_unregister(&subdev_entity->notifier);
->  		v4l2_async_nf_cleanup(&subdev_entity->notifier);
-> +		/*
-> +		 * Release the endpoint reference taken while parsing. It is
-> +		 * NULL for entities the bind loop already consumed, so this
-> +		 * only drops the ones left over on an early exit.
-> +		 */
-> +		of_node_put(subdev_entity->epn);
->  	}
->  
->  	INIT_LIST_HEAD(&isc->subdev_entities);
-> diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-> index 25d241b4c66a..532f2b50e2ea 100644
-> --- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-> +++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-> @@ -357,28 +357,28 @@ static int isc_parse_dt(struct device *dev, struct isc_device *isc)
->  	struct device_node *epn;
->  	struct isc_subdev_entity *subdev_entity;
->  	unsigned int flags;
-> +	int ret;
->  
->  	INIT_LIST_HEAD(&isc->subdev_entities);
->  
->  	for_each_endpoint_of_node(np, epn) {
->  		struct v4l2_fwnode_endpoint v4l2_epn = { .bus_type = 0 };
-> -		int ret;
->  
->  		ret = v4l2_fwnode_endpoint_parse(of_fwnode_handle(epn),
->  						 &v4l2_epn);
->  		if (ret) {
-> -			of_node_put(epn);
->  			dev_err(dev, "Could not parse the endpoint\n");
-> -			return -EINVAL;
-> +			ret = -EINVAL;
-> +			goto err_put;
->  		}
->  
->  		subdev_entity = devm_kzalloc(dev, sizeof(*subdev_entity),
->  					     GFP_KERNEL);
->  		if (!subdev_entity) {
-> -			of_node_put(epn);
-> -			return -ENOMEM;
-> +			ret = -ENOMEM;
-> +			goto err_put;
->  		}
-> -		subdev_entity->epn = epn;
-> +		subdev_entity->epn = of_node_get(epn);
->  
->  		flags = v4l2_epn.bus.parallel.flags;
->  
-> @@ -399,6 +399,12 @@ static int isc_parse_dt(struct device *dev, struct isc_device *isc)
->  	}
->  
->  	return 0;
-> +
-> +err_put:
-> +	of_node_put(epn);
-> +	list_for_each_entry(subdev_entity, &isc->subdev_entities, list)
-> +		of_node_put(subdev_entity->epn);
-> +	return ret;
->  }
->  
->  static int microchip_isc_probe(struct platform_device *pdev)
-> diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-> index 998146adabd8..0b72a61b51ee 100644
-> --- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-> +++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-> @@ -341,6 +341,7 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
->  	struct isc_subdev_entity *subdev_entity;
->  	unsigned int flags;
->  	bool mipi_mode;
-> +	int ret;
->  
->  	INIT_LIST_HEAD(&isc->subdev_entities);
->  
-> @@ -348,23 +349,22 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
->  
->  	for_each_endpoint_of_node(np, epn) {
->  		struct v4l2_fwnode_endpoint v4l2_epn = { .bus_type = 0 };
-> -		int ret;
->  
->  		ret = v4l2_fwnode_endpoint_parse(of_fwnode_handle(epn),
->  						 &v4l2_epn);
->  		if (ret) {
-> -			of_node_put(epn);
->  			dev_err(dev, "Could not parse the endpoint\n");
-> -			return -EINVAL;
-> +			ret = -EINVAL;
-> +			goto err_put;
->  		}
->  
->  		subdev_entity = devm_kzalloc(dev, sizeof(*subdev_entity),
->  					     GFP_KERNEL);
->  		if (!subdev_entity) {
-> -			of_node_put(epn);
-> -			return -ENOMEM;
-> +			ret = -ENOMEM;
-> +			goto err_put;
->  		}
-> -		subdev_entity->epn = epn;
-> +		subdev_entity->epn = of_node_get(epn);
->  
->  		flags = v4l2_epn.bus.parallel.flags;
->  
-> @@ -388,6 +388,12 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
->  	}
->  
->  	return 0;
-> +
-> +err_put:
-> +	of_node_put(epn);
 
-epn is used for the iterator right ? Why calling put here outside of the
-iterator ?
-Even if the code is duplicated it makes more sense for me to cleanup
-inside the iterator.
-Outside the iterator the epn should be unused, at least my take on it.
-
-> +	list_for_each_entry(subdev_entity, &isc->subdev_entities, list)
-> +		of_node_put(subdev_entity->epn);
-
-Does it make sense to remove the entities from the list as well , aka
-cleanup the list ?
-
-> +	return ret;
->  }
->  
->  static int microchip_xisc_probe(struct platform_device *pdev)
-> 
-
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
