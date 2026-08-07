@@ -1,161 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1426045D5D5
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 22:16:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786140979; cv=none; b=oGeoy+G/vW4ZLLrQh+qIbNCk0UAIGqmevPpUjoat/FybGj0N6AtJIQtpXyZpGRPzio9dVelZv4lQlIhu/icbYnhyKicrqnFZIm/RXgAgVKd+HZlLlNMeo+XAhiEfpxYO94PvaE5wwTdSs7SGy+vPs/YqQzPm8TUaLvHRlbRAgA4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786140979; c=relaxed/simple;
-	bh=Qs5Wx6BorEOIZSyxD6wy9JVxhbR2iYsauaCKbqXbv4k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eIPCsQPT7HVlK1rBH2UUZ6m26FXFkCoMDlbwX2FkW3si2VYacNd2dWFbL2Nha3DWvfNuyAeG6E+m3TWWJi/XKYkwuhXrXL2vN2txhFBJsGV1+4aroE/vDTQDExLby5PvEOhqqxF/yeYiT01AmCplWNT5R85QdCQYaHlqrPXk5zM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E8nszL9u; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6755F4570C4
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 22:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786141170; cv=pass; b=Q+JUSJjm0ODmxWXWpLF4fOi9T48V5n7nPhfOXm3yYjVZPxCc1YeowTvdLLucERB93ai1UTFVv/TyknornZbpiOuxEVMHK4vdl4qWpPGAE4Vni7FX/YfPZZPkMDxkj+P71CwR0Maz4mlNL2DGK6ImCsJedqulEwEfZgRWTXQD1EI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786141170; c=relaxed/simple;
+	bh=e8Y1Xf7NJBWvn3GcoXqfY0ReAr4Anku3u7aZBDyqicM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=scP3BsYjcLB0RINlT9kEGiH5NaU9/jLd3r3UiwJNmLH84YaCleFQPIYiRdbNWhXPFiJkFNlos+4MyEjJWA8Sp2FwYf8/Eczge4evOBb6G6ZVAhcLqQlxveQcAD9eZ9AfJFxmkyUpW54XNslqZIdZyPIVUz3xSTCF/OmHIUXmAC8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VaX76M3u; arc=pass smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E8nszL9u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 234D61F00A3A;
-	Fri,  7 Aug 2026 22:16:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786140974;
-	bh=Irw7EJkhSmAIoWbccn+06K9ktTnd2rQVutr9cbPSWhg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E8nszL9uNUKlyACteZ7VyeZQCm6b8+EPmgD64lwpYE7BKoaJDHSPE9OVvmZ/hEVFJ
-	 WUWj4rCLlX7LvfrKfY0byKHceRmTFG2pt0rPF3zsZdImGTczZKRZ7Tm9n15nxk75xh
-	 rV2gMBuKb5h7w4rK9CJKimlCfOQWrROsJMhnKZk5Kr18KoMmKekwA8KRb97PG1No+n
-	 +5VcflJbTHtWTbCim5n5VXZ0t/hbRmlAQ+BjBY9Mg3Y/+s/kJhDdgKz6Rk2OKDdXGC
-	 49lfVohiK6JmUqh++g04b0qhXVrY8fwsjqlQsNebKXm7yVpGmx1z8UzAYM/MosgLqZ
-	 ucPyr/rGwbfmQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Max Kellermann <max.kellermann@ionos.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	Xiubo Li <xiubo.li@clyso.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ceph: avoid fs reclaim while using current->journal_info
-Date: Fri,  7 Aug 2026 18:16:12 -0400
-Message-ID: <20260807221612.3808124-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072958-anchovy-deeply-2497@gregkh>
-References: <2026072958-anchovy-deeply-2497@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VaX76M3u"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d027b7c8easo236335ad.3
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 15:19:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786141169; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jIOgR8nLobwbkT7VgdZ9aOyfF0rPbt8ibQTtxmYQ6QUh6jhKtw/U3n6bD/AoaQ/m85
+         BuMTG8aY6aixLvtozx4xJ/m/oXx0mgoXfpPMY4gmxGPU2YmS4xs6i2opT28lEM/4q5Ko
+         mw/HQSoI5B/frOmHl1zYSDoGfUmcCNCrqT1TYWVDgCe3Gwnn3TCgGmGvIUWM6M6Qbe7R
+         QMOp//A4B7VdhHbWLEKZ2LRPR+LqyfnefxEJK8N87YoDDpSA4nLRj62ML1N/Rh/mR2Xa
+         KLXZczFxT172a5VbKhuE/ea8EYBjPw39baDzrp+6oxS+QVnM6v6S59l5wlz2D8AkTGMF
+         yCuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9kg8y3o57QGeppntQHDvu4FgsLPM5YrqCaAU724RNaQ=;
+        fh=eoKttCc5ioHsYpmSX0uIUpJ5GqGEE8V1hh4xn7tVo3M=;
+        b=gxJV4ONFUQ3ydLTerEFBKX+aXelhSYU7uLLD9hUUV6uCCxfYDHibi1ncENSRcDy3k+
+         BBTu2Gti3/veZK8LC8le09xxTUO3/KfY0l9E/jzF/UlXVkS+ObWGsyDues1t6qRe8e8e
+         FWYOz/Ck7hx8k7aq5moTB8J3PubkflId+htjMEH8GMTeJHPmark/gwEnonwD+AYCwuwx
+         fDHolwqA4tzNs2i3rYsZSk1TmOoc4rEVh21NDdTFAJfTht+I2Agmb+Lkpz6JKETcEfZL
+         jyuRaVZHTT/YDpaWMxN0ex27A1+xGn/EThWa82h3XNJxc4MBF/mod8ypT1dx0da2wLlJ
+         5sSg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786141169; x=1786745969; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9kg8y3o57QGeppntQHDvu4FgsLPM5YrqCaAU724RNaQ=;
+        b=VaX76M3uV0U7ynjUY6VIWK6Lh5U/jYu4k0l1104e16U7N9vWpql5u/QJlvVyeEVzZ8
+         Qse1Do9DmmSDDwEYxynDNyDPP5xEDhL5cVB1EZEn/a545pEDpn1XyHEbn4kLAit5Eiat
+         s6voTa/o+nlI/UOyY8i20d/fubia49euLOm7IS1G8YD6mVmvP2QhDWPLQuF8CS72uXiP
+         7YNBe7D2vukbEyoSA4Ud65TaF26xGvJWYSOePGhNrirRNvKZ78Tqw2Nzu5EpCnUypjVW
+         Oc1hWyi3XdyT/DOjmIlNghGZzDApP2Q/4n2EiVMEmxgPZDkVhImPmFu9tUtedoHP/qdS
+         kB4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786141169; x=1786745969;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9kg8y3o57QGeppntQHDvu4FgsLPM5YrqCaAU724RNaQ=;
+        b=OGFYZ/s5zCS611bEao5we7YNi9TykWVPVaLi3LoGbxVPYt/O4lXl8zEfpU3FcnIgtn
+         nq+N7LGJcp4d30xLtbIBIM/vRW0eZuPoHw3VYOJ92UUiMSHfthCoIdPpXhon0Ikg5MqU
+         OqtvxmzQyF+6t5agV4q96l+UbXdicNT8JSvf2H9+7tkG5DUhRdRfBatbQM2IPEpQ/REt
+         /Te5GnsAr2ciUaiRhPUbEC9ujov+pQka43L58P/m1/pmewvc9DSJElFJynqmN7vwyfIY
+         edcABOFJ/wMIQJRz9tyvD6kongrImNjRGe3Tj/zkXJyjGGMv3vxWgbcwW1S0S80ydxOG
+         Pz5w==
+X-Forwarded-Encrypted: i=1; AHgh+RrPi8kwBhOVQAbJSCujYWbS/ZAiK3ns4XtG9l/dnOjJMmUOn71Zdb9+O798G+OymjiCJOCDDSo=@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKOvIyZ044ORb+wGpKed8zETAbIlXCjUAZxgibb1t7fC4pvkGt
+	Jf0lkgmBWnYiRBiD8jjgJ8TAltrIG58OMAK6TSEzw29kA1N2KUcV8TYatGcOFRBvEykLJQo3lzi
+	NZtHSLxWbwjS1zc/M0+8lxQ8QMxGm/q0=
+X-Gm-Gg: AR+sD10EyBzIqiehk64OJofmiN01eS7y81X10tb6KwWmq/+NYvTtAhx8PIqOxROQWwo
+	s/pPhz0EkedrWCq3BKnoOZ7xfMyhmBiZF4hIJJZcjAHcmVx+ljjdleMGZ+c+7X4Eft5Nh6zpI2Z
+	rx7BtcZOnX5gj5RDWNFsTDKGkh/8xATH449DrMLVeXpzeVcWkmxAuZKh6uZUWUeiUA1F6KUHBev
+	vTHT7FxXHQm82m2dycoax8m5ajHG4FwKflxpJfNxJ50H1GXOxOWHStPkhcg1K7/TJ3SrI5MsB7d
+	wskzbyAVM5aUpas0Nai7zNd9BA6j9dyE995eZKZOqMDX1a9MFqLHaCZHZX6fxiZUU+yCY0BK5am
+	Ou87xrshbauOvI15/sPNy2ggvkxevfWus/2w0imUDuG66tBqmQOOvT8X4sjFv
+X-Received: by 2002:a17:903:2f8f:b0:2ca:d803:5c8f with SMTP id
+ d9443c01a7336-2d0ca73a210mr199280125ad.1.1786141168638; Fri, 07 Aug 2026
+ 15:19:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260807221429.155946-1-ojeda@kernel.org>
+In-Reply-To: <20260807221429.155946-1-ojeda@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sat, 8 Aug 2026 00:19:13 +0200
+X-Gm-Features: AUfX_mwU-H5_dufTVjV8Trje33MyfE-Oane2tYYmAglrqJ8h4ShpzMvOIUP5krs
+Message-ID: <CANiq72kz2Ec119ZW2uiu0-RPHr=Zy5-WRA5tSOYk5it6PqpH2g@mail.gmail.com>
+Subject: Re: [PATCH] rust: bug: fix `dead_code` warning in `warn_on!`
+To: Miguel Ojeda <ojeda@kernel.org>, FUJITA Tomonori <fujita.tomonori@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
+	Huacai Chen <chenhuacai@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, Drew Fustini <fustini@kernel.org>, 
+	moderated for non-subscribers <linux-arm-kernel@lists.infradead.org>, soc@lists.linux.dev, 
+	WANG Xuerui <kernel@xen0n.name>, loongarch@lists.linux.dev, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Max Kellermann <max.kellermann@ionos.com>
+On Sat, Aug 8, 2026 at 12:14=E2=80=AFAM Miguel Ojeda <ojeda@kernel.org> wro=
+te:
+>
+> On arm and loongarch64, or under `CONFIG_BUG=3Dn`, the upcoming SRCU
+> abstractions from commit
+>
+>   59cf3a5bda61 ("rust: sync: add SRCU abstraction")
+>
+> use `warn_on!`, which in turn warns:
+>
+>     error: constant `WARN_ON_FLAGS` is never used
+>        --> rust/kernel/bug.rs:126:19
+>         |
+>     126 |               const WARN_ON_FLAGS: u32 =3D $crate::bug::bugflag=
+_taint($crate::bindings::TAINT_WARN);
+>         |                     ^^^^^^^^^^^^^
+>         |
+>        ::: rust/kernel/sync/srcu.rs:106:12
+>         |
+>     106 |           if crate::warn_on!(
+>         |  ____________-
+>     107 | |             // SAFETY: By the type invariants, `self` contain=
+s a valid and pinned `struct srcu_struct`
+>     108 | |             // and `srcu_readers_active()` only checks the ac=
+tive reader count.
+>     109 | |             unsafe { bindings::srcu_readers_active(ptr) }
+>     110 | |         ) {
+>         | |_________- in this macro invocation
+>         |
+>         =3D note: `-D dead-code` implied by `-D warnings`
+>         =3D help: to override `-D warnings` add `#[allow(dead_code)]`
+>         =3D note: this error originates in the macro `crate::warn_on` (in=
+ Nightly builds, run with -Z macro-backtrace for more info)
+>
+> The reason is that `warn_flags!` discards both arguments in those cases,
+> and so the `const` becomes unused. And since it is a macro, it went
+> unnoticed so far.
+>
+> Thus fix it by simplifying by removing the `const`.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: dff64b072708 ("rust: Add warn_on macro")
+> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 
-[ Upstream commit 5b602344a49e039e792ce5a8923bcc61412ee134 ]
+Sorry, I forgot the Cc to Tomonori:
 
-handle_reply() stores a `ceph_mds_request` pointer in
-`current->journal_info` while filling the inode and dentry cache from
-an MDS reply.
+Cc: FUJITA Tomonori <fujita.tomonori@gmail.com>
 
-An allocation in this section can enter direct reclaim and prune
-dentries from another filesystem.  If this dirties an ext4 inode, ext4
-starts a JBD2 transaction.  JBD2 interprets the Ceph request in
-`current->journal_info` as a journal handle and dereferences the
-request's `r_tid` as `h_transaction`, causing a kernel crash, e.g.:
-
- Unable to handle kernel paging request at virtual address 00000000077b4818
- [...]
- Internal error: Oops: 0000000096000004 [#1]  SMP
- Modules linked in:
- CPU: 6 UID: 0 PID: 2699135 Comm: kworker/6:3 Tainted: G        W           6.18.38-i3 #1113 NONE
- [...]
- Workqueue: ceph-msgr ceph_con_workfn
- pstate: 80400009 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
- pc : jbd2__journal_start+0x2c/0x208
- lr : __ext4_journal_start_sb+0x100/0x178
- [...]
- Call trace:
-  jbd2__journal_start+0x2c/0x208 (P)
-  __ext4_journal_start_sb+0x100/0x178
-  ext4_dirty_inode+0x3c/0x90
-  __mark_inode_dirty+0x58/0x400
-  iput.part.0+0x2b0/0x370
-  iput+0x18/0x30
-  dentry_unlink_inode+0xc0/0x158
-  __dentry_kill+0x80/0x250
-  shrink_dentry_list+0x90/0x130
-  prune_dcache_sb+0x60/0x98
-  super_cache_scan+0xe8/0x190
-  do_shrink_slab+0x174/0x388
-  shrink_slab+0xd8/0x4c0
-  shrink_node+0x31c/0x908
-  do_try_to_free_pages+0xd0/0x508
-  try_to_free_pages+0x11c/0x238
-  __alloc_frozen_pages_noprof+0x4d0/0xdd0
-  __folio_alloc_noprof+0x18/0x70
-  __filemap_get_folio+0x248/0x440
-  ceph_readdir_prepopulate+0x570/0x9e8
-  mds_dispatch+0x1424/0x1ba0
-  ceph_con_process_message+0x74/0xa0
-  ceph_con_v1_try_read+0x3a0/0x1510
-  ceph_con_workfn+0x260/0x460
-
-Enter a scoped NOFS allocation context and leave it after clearing
-`journal_info`.  This prevents filesystem reclaim from recursing into
-another filesystem while the field contains Ceph-private data.
-
-Cc: stable@vger.kernel.org
-Fixes: 315f24088048 ("ceph: fix security xattr deadlock")
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/ceph/mds_client.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index 741ca7d10032c..bd19b89550136 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -6,6 +6,7 @@
- #include <linux/slab.h>
- #include <linux/gfp.h>
- #include <linux/sched.h>
-+#include <linux/sched/mm.h>
- #include <linux/debugfs.h>
- #include <linux/seq_file.h>
- #include <linux/ratelimit.h>
-@@ -3268,6 +3269,7 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
- 	struct ceph_mds_reply_head *head = msg->front.iov_base;
- 	struct ceph_mds_reply_info_parsed *rinfo;  /* parsed reply info */
- 	struct ceph_snap_realm *realm;
-+	unsigned int nofs_flags;
- 	u64 tid;
- 	int err, result;
- 	int mds = session->s_mds;
-@@ -3396,6 +3398,14 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
- 
- 	/* insert trace into our cache */
- 	mutex_lock(&req->r_fill_mutex);
-+
-+	/* disable fs reclaim while we are using current->journal_info
-+	 * for our own purposes, or else shrinkers of other
-+	 * filesystems might dereference this pointer as a different
-+	 * type
-+	 */
-+	nofs_flags = memalloc_nofs_save();
-+
- 	current->journal_info = req;
- 	err = ceph_fill_trace(mdsc->fsc->sb, req);
- 	if (err == 0) {
-@@ -3404,6 +3414,7 @@ static void handle_reply(struct ceph_mds_session *session, struct ceph_msg *msg)
- 			ceph_readdir_prepopulate(req, req->r_session);
- 	}
- 	current->journal_info = NULL;
-+	memalloc_nofs_restore(nofs_flags);
- 	mutex_unlock(&req->r_fill_mutex);
- 
- 	up_read(&mdsc->snap_rwsem);
--- 
-2.53.0
-
+Cheers,
+Miguel
