@@ -1,61 +1,59 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7575A381E9A;
-	Fri,  7 Aug 2026 18:43:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B0B37DAA6;
+	Fri,  7 Aug 2026 18:44:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786128242; cv=none; b=a4hydrCjnkvLlLQ81rddmu2U/7FOd5tnRFfIYtNuRkJn9UlsO+sfK9rfwKMXtrqwl6qPPkrXIxx/PSeyUptxaN3/DsEWObRXwe5XFUQ1d8q1pP/qcY+4faQ6gbFzMaCNzr0aoTnAWA5j9VWGt3SA3jgCJCRmXv5A+txstYtNKQA=
+	t=1786128271; cv=none; b=oNyqlSgLjuAiCWuDzQ9zKDHq1B6yqdAUXP4ocKDQhM/OwzxBq1W4U3jS/Sqf7U1qtR9udvHgumIxOVQ2eJ+2ejpN8r102L6lCQirLtvsD/pHAFOrWv5xID3chEGJNaqcpsPvkSjrq8WclDPshjpdJH1GNvyhHv5WqnJF5CUDAto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786128242; c=relaxed/simple;
-	bh=Li2bF1Qa1Kne42S2clg+CXLFGUErXVc50f7GFkXcp38=;
+	s=arc-20240116; t=1786128271; c=relaxed/simple;
+	bh=KFObHX1iI+l/6qrQhGhFFBiQyOqRqeWlGZE4C0B+E/c=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=K27SaKJ0s4QKOk25mkpLcrXQ8q3c/vfw7lYWR4QT/D4s5nwKFjn3c49rRxScyRln7/xo2WHH9kCd5XOjjpAHrNW61kPUIYM5fLB+cwIVkh1ozw+bXDKDWBZctpuEB9LsoNbmAsWu8UW5/91z9QE+0lmsB9pj5fG7hJxSSTCR8MY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fNBUlcaH; arc=none smtp.client-ip=198.175.65.10
+	 Content-Type:MIME-Version; b=E05BoymIu7a5N7C2TGwQkVhSNh3L6YDBl95KEZ5xh3kRcrBEfJVhP2jaG907drAEBww3mdV6cTKkPsZy6OIi0p3IFDpFj1uGw0oD/TvuRuUY+KvEQGytXwvDhRiQSelEExiuHhJGbb3STrrQxEhczfEyQTJzDfzNjtLwnktPWaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EWHlAF3+; arc=none smtp.client-ip=198.175.65.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fNBUlcaH"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EWHlAF3+"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786128240; x=1817664240;
+  t=1786128270; x=1817664270;
   h=message-id:subject:from:to:cc:date:in-reply-to:
    references:content-transfer-encoding:mime-version;
-  bh=Li2bF1Qa1Kne42S2clg+CXLFGUErXVc50f7GFkXcp38=;
-  b=fNBUlcaHg3Eg3VEiBXgPSeq5EwSEigEAXdoTHI3rQQlNPOii/lsWEHIU
-   /LiRAlVIzqN0DEGrp1nAOvyNh5H3A4lvh5Y7KhgCbuIbzV9FxPqVmYMkd
-   pXZwqI7UBTiUIwqf7UarhCgTRTXhyW2tJENst426UyrKEfbRIiYwO9+Gn
-   5jMQ++nYTBAQ2E0S48zUQrxKc3cQ+hjdeuj5DvvgzIpHiwQhged7wUwRR
-   csvkkZ32A+ydIJ/F8F89OdZBX6jlezExc0lkpPXFXtQJkzNx6PeiGiK0h
-   S+semB3LnrTOtjHk/I9urj+GGMRTcsavqxjjskjCcSLkjvPLDgRPtpxdx
+  bh=KFObHX1iI+l/6qrQhGhFFBiQyOqRqeWlGZE4C0B+E/c=;
+  b=EWHlAF3+jaOci7i79lA0QLK9hk+jJy3s08ZNQTRGL7AqJ7q6xe3rX1hZ
+   pAXbJXBOZ5hC84rFBit1t5N7B+VtI7KdXwCSG5K0Z1bXiN8sh9FcGSOZM
+   yWmUBWRMQREogalODMnPAMxTFjeZq/pu3XMgx+3UeIie5ZyKxE2hCzvV3
+   6GSR0Juhe6Q6ip0qa6gj9at6JDmXKpfFgX1jAG5kpsAUDzSCY2dm4zQs4
+   ksmLFjGYIiGJzbCuThJDQonSv13LvEtpdTghpgLNnaEeuewlModJ9yfUe
+   mcvbt4MfFXX8NLM47wzXPP7EdkaYE8PQCMk3YyetibTP5aNnNND5soJg8
    Q==;
-X-CSE-ConnectionGUID: aDVHFwYbStmNoB8munSmfQ==
-X-CSE-MsgGUID: Xjs6SeJgQNSRIfHR2YBZTg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11868"; a="104141374"
+X-CSE-ConnectionGUID: n2G9/mzWSIWIDERZWN5y3A==
+X-CSE-MsgGUID: 6jRQGXcJSMquSB8588OPeA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11868"; a="86754004"
 X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
-   d="scan'208";a="104141374"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 11:43:58 -0700
-X-CSE-ConnectionGUID: YHSRs9BSTBm5Sp0UH0hGhQ==
-X-CSE-MsgGUID: CqO1PwEYQHuBYLDjdtWBEA==
+   d="scan'208";a="86754004"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 11:44:29 -0700
+X-CSE-ConnectionGUID: wNxO9ySrQpK10FPvC7PH0g==
+X-CSE-MsgGUID: 8MXiUvy9SuuFwHxoelSR2w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
-   d="scan'208";a="260718813"
+   d="scan'208";a="287162162"
 Received: from spandruv-desk1.amr.corp.intel.com ([10.124.222.41])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 11:43:58 -0700
-Message-ID: <930a4677a7c8a65f621893549b1527a8f3ecb536.camel@linux.intel.com>
-Subject: Re: [PATCH 2/2] platform/x86: ISST: Validate level in perf mask
- ioctls
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 11:44:28 -0700
+Message-ID: <184506c48a92d6ada2696360a59d10c0cc641ee1.camel@linux.intel.com>
+Subject: Re: [PATCH 0/2] platform/x86: ISST: Two ioctl input validation fixes
 From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
 To: HyeongJun An <sammiee5311@gmail.com>, Hans de Goede <hansg@kernel.org>, 
  Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
 	 <ilpo.jarvinen@linux.intel.com>
 Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Date: Fri, 07 Aug 2026 11:43:57 -0700
-In-Reply-To: <20260807144003.3498972-3-sammiee5311@gmail.com>
+Date: Fri, 07 Aug 2026 11:44:28 -0700
+In-Reply-To: <20260807144003.3498972-1-sammiee5311@gmail.com>
 References: <20260807144003.3498972-1-sammiee5311@gmail.com>
-	 <20260807144003.3498972-3-sammiee5311@gmail.com>
 Autocrypt: addr=srinivas.pandruvada@linux.intel.com; prefer-encrypt=mutual;
  keydata=mQGNBGYHNAsBDAC7tv5u9cIsSDvdgBBEDG0/a/nTaC1GXOx5MFNEDL0LWia2p8Asl7igx
  YrB68fyfPNLSIgtCmps0EbRUkPtoN5/HTbAEZeJUTL8Xdoe6sTywf8/6/DMheEUzprE4Qyjt0HheW
@@ -85,69 +83,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
 On Fri, 2026-08-07 at 23:40 +0900, HyeongJun An wrote:
-> isst_if_get_perf_level_mask() and isst_if_get_base_freq_mask() use
+> Two out-of-bounds accesses reachable from the ISST character device
+> ioctls, both from user-supplied index values that are not bounded
+> before
+> use.
+>=20
+> The first is an off-by-one on socket_id in the CLOS association
+> ioctl,
+> plus a missing NULL check on the resulting instance pointer. The same
+> file already gets both of these right in get_instance(), which
+> rejects
+> pkg_id with in_range(pkg_id, 0, topology_max_packages()) and then
+> checks
+> the instance for NULL before returning it.
+>=20
+> The second is a missing level bound in the two perf-mask ioctls. The
+> four adjacent helpers that read the same per-level register block all
+> reject a level above max_level first.
+>=20
+> Neither path is behind CAP_SYS_ADMIN. Commit 69cd1ca440a9
+> ("platform/x86:
+> ISST: Check for admin capability for write commands") describes
+> deployments that relax the permissions on /dev/isst_interface so that
+> non-root users can read SST capabilities, and deliberately gates only
 > the
-> user-provided level as an index into perf_levels[] via
-> _read_pp_level_info() and _read_bf_level_info(), but neither helper
-> validates it first.
+> write commands.
 >=20
-> The adjacent level-info helpers reject levels above max_level before
-> reading the same per-level register block. Add the same bounds checks
-> to
-> the mask helpers, and reject disabled SST-PP levels in
-> isst_if_get_perf_level_mask() to match isst_if_get_perf_level_info().
->=20
-> This prevents out-of-bounds reads from the per-level offset table on
-> invalid ioctl input.
->=20
-> Fixes: ea009e4769fa3 ("platform/x86: ISST: Add SST-PP support via
-> TPMI")
-> Fixes: 06a61df83209 ("platform/x86: ISST: Add SST-BF support via
-> TPMI")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+> Found by inspection, not reproduced on hardware.
 
-Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Thanks for the fixes.
 
-> ---
-> =C2=A0.../platform/x86/intel/speed_select_if/isst_tpmi_core.c=C2=A0 | 9
-> +++++++++
-> =C2=A01 file changed, 9 insertions(+)
+-Srinivas
+
 >=20
-> diff --git
-> a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-> b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-> index b2965baeaa36..f1b6109521c5 100644
-> --- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-> +++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-> @@ -1263,6 +1263,12 @@ static int isst_if_get_perf_level_mask(void
-> __user *argp)
-> =C2=A0	if (!power_domain_info)
-> =C2=A0		return -EINVAL;
-> =C2=A0
-> +	if (cpumask.level > power_domain_info->max_level)
-> +		return -EINVAL;
-> +
-> +	if (!(power_domain_info->pp_header.level_en_mask &
-> BIT(cpumask.level)))
-> +		return -EINVAL;
-> +
-> =C2=A0	_read_pp_level_info("mask", mask, cpumask.level,
-> SST_PP_INFO_2_OFFSET,
-> =C2=A0			=C2=A0=C2=A0=C2=A0 SST_PP_RSLVD_CORE_MASK_START,
-> SST_PP_RSLVD_CORE_MASK_WIDTH,
-> =C2=A0			=C2=A0=C2=A0=C2=A0 SST_MUL_FACTOR_NONE)
-> @@ -1344,6 +1350,9 @@ static int isst_if_get_base_freq_mask(void
-> __user *argp)
-> =C2=A0	if (!power_domain_info)
-> =C2=A0		return -EINVAL;
-> =C2=A0
-> +	if (cpumask.level > power_domain_info->max_level)
-> +		return -EINVAL;
-> +
-> =C2=A0	_read_bf_level_info("BF-cpumask", mask, cpumask.level,
-> SST_BF_INFO_1_OFFSET,
-> =C2=A0			=C2=A0=C2=A0=C2=A0 P1_HI_CORE_MASK_START,
-> P1_HI_CORE_MASK_WIDTH,
-> =C2=A0			=C2=A0=C2=A0=C2=A0 SST_MUL_FACTOR_NONE)
+> HyeongJun An (2):
+> =C2=A0 platform/x86: ISST: Validate socket ID in clos_assoc ioctl
+> =C2=A0 platform/x86: ISST: Validate level in perf mask ioctls
+>=20
+> =C2=A0.../x86/intel/speed_select_if/isst_tpmi_core.c=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 | 13
+> ++++++++++++-
+> =C2=A01 file changed, 12 insertions(+), 1 deletion(-)
