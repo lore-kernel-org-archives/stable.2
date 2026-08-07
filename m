@@ -1,137 +1,464 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 268BC3AD525
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA5F4734E5
 	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 11:48:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786103313; cv=none; b=TOlWGLCeji+3vCAnBaZJal+KPcCAk9djyMWaJ2a83MNb8x8dJgQUzBAxMSI4smJfCiw1NPdTuJfdnvEVUAj7KLoCberTxob9dTKB+2nxXuBKVSavcy0D8aHg205/EE4rJQxdmk+6BefZQl8g49Lq0+Jx1olF3iVfgJMkbdSXi50=
+	t=1786103317; cv=none; b=djC+FT0UwqG/r6f7vWrm4Wb9lRDhrTwBnWoLA3kY2TtGcm6RdSWzyi3ZxQjg+tZ39bPa4EYKHNHvhl1f7hAHb4c87sF+mqEDPJ/jvRD8P/mmTEup3EvyWXZ4sHUWd3CCyRYSLQTRUoaeXJzKfzw2mR7SlJTi5NBIqWJwOAIDsYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786103313; c=relaxed/simple;
-	bh=yQgiObThLBNLrq0f325zeHXIHm+v8LNfkDAiuFHAwok=;
+	s=arc-20240116; t=1786103317; c=relaxed/simple;
+	bh=Tc54CpcxRRzriPUplkkOMJMUemU8Al0ovWrmdMvjtKk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lZZEZsc1OArE0fXFrKYCoSb8+GbMPo9pmYz3VEFg1wvnGY/vi6f3LAOg8gwdE//1+aH/v1MK/9nu0oVPfncbq+BSGHI+HUeWV/lxvg4TCxAp84BnG0j5+nKSJVeJtdTUdovv7Ce9Qo1ZaxPvimzZrChr7ALiye2cGcQN2zgpjZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eE9zjX+u; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=jNSZw6MFXiO1KUgJ34NCdjCuKe0SQwXMWR28Wg2uzHAuZIgRq55LY9OgWxf5qbK4ukBPlGyPONAOALDrosHZ/xS8uKQq0bK0ghpZKWs2axAmACcIHG5CJShRcFbkppb2NspZwQafLr5mNBZDaxym3iVnPlSA5o5/q/nojnV81oU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GsqmaOR/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eE9zjX+u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6739B1F00ACA;
-	Fri,  7 Aug 2026 11:48:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GsqmaOR/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 795E31F00A3E;
+	Fri,  7 Aug 2026 11:48:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786103300;
-	bh=0m8MOGySINZm1jqvRc0zochQ7+jdLwwUceZv7KrdnpY=;
+	s=k20260515; t=1786103306;
+	bh=zY7IJQC4wVJVrqFDgeeZ+vlwxm7PNR9kjVIxtlEbFDw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eE9zjX+uay96inxQLmMy0E0ZlnbCda+CqyId3bIaP0cOiaLWuA94lvcfr3ie712Qh
-	 0D9odPAFYCgFNhhU1zPJbU2cllI8KkSAGMdOPpcOn14GDV3c2qitWgOKTQe8nnuisQ
-	 E0/5XHWPAOoRBqgcXZ1jJganp1Czv31Jdr0/6YRYBFRKTPiqt9vp/7rv/zqWRcz1UB
-	 i+zt3yShzFQECg5nsJLuBOEpo9ucPljOLVhQXhb5bd9tw8srho+hVnlyHqmSCK3qKG
-	 xORXFz/enqhFbbR//VFPzPh6gpHwD4zovtZfsEQLIV+pCHJ5lzkMiEacd7mo8pRLu7
-	 tp2wUaWmZT8Aw==
+	b=GsqmaOR/TaF+83dlBBjKy6UZkYWYJ/aB0WPSqvDAv9QP56VrjQ0eC/X8yD3ZKs0uo
+	 p+WuHD6YvILAprefZRH76LSdthepIojPwDT54pUyyrMTbNeCYM+N9n5n6xXtb/SqMC
+	 vKINeFHBxRm4nvJbhES1OQWrcSkt+aOCmuBMrgWghKTsCnrSs9ZyH/cOYDghKRC9+C
+	 rVAwfYLXRLwuRjbKvKUg/86rUDvAQPnPhLhphG/z9dxys1U+kU4MCaBt0yFxUQn0WE
+	 sXi2oq8PzOlh0tAOPYaGDkPFcf2rXEasHBblt2CAG9r9TpnV31Mo60nImfFzKhPHIc
+	 wGjrMMzxALz0g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paolo Abeni <pabeni@redhat.com>,
-	Mat Martineau <mathew.j.martineau@linux.intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Kees Cook <keescook@chromium.org>,
+	"David S. Miller" <davem@davemloft.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] mptcp: fix subflow accounting on close
-Date: Fri,  7 Aug 2026 07:48:16 -0400
-Message-ID: <20260807114817.2056504-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/3] sysctl: treewide: constify ctl_table_header::ctl_table_arg
+Date: Fri,  7 Aug 2026 07:48:21 -0400
+Message-ID: <20260807114823.2056694-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072945-unsalted-ozone-c2bf@gregkh>
-References: <2026072945-unsalted-ozone-c2bf@gregkh>
+In-Reply-To: <2026072946-amulet-patriarch-e5e9@gregkh>
+References: <2026072946-amulet-patriarch-e5e9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Paolo Abeni <pabeni@redhat.com>
+From: Thomas Weißschuh <linux@weissschuh.net>
 
-[ Upstream commit 95d686517884a403412b000361cee2b08b2ed1e6 ]
+[ Upstream commit bfa858f220ab8c950dd3e1310fee61950d0ecdae ]
 
-If the PM closes a fully established MPJ subflow or the subflow
-creation errors out in it's early stage the subflows counter is
-not bumped accordingly.
+To be able to constify instances of struct ctl_tables it is necessary to
+remove ways through which non-const versions are exposed from the
+sysctl core.
+One of these is the ctl_table_arg member of struct ctl_table_header.
 
-This change adds the missing accounting, additionally taking care
-of updating accordingly the 'accept_subflow' flag.
+Constify this reference as a prerequisite for the full constification of
+struct ctl_table instances.
+No functional change.
 
-Fixes: a88c9e496937 ("mptcp: do not block subflows creation on errors")
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Mat Martineau <mathew.j.martineau@linux.intel.com>
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: f3ca0ee2cc30 ("mptcp: decrement subflows counter on failed passive join")
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+Reviewed-by: Kees Cook <keescook@chromium.org>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Stable-dep-of: ffb2bd7ade36 ("sctp: close UDP tunnel sockets during netns teardown")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/protocol.h | 14 ++++++++++++++
- net/mptcp/subflow.c  | 12 +++++++++---
- 2 files changed, 23 insertions(+), 3 deletions(-)
+ drivers/net/vrf.c                       | 2 +-
+ include/linux/sysctl.h                  | 2 +-
+ ipc/ipc_sysctl.c                        | 2 +-
+ ipc/mq_sysctl.c                         | 2 +-
+ kernel/ucount.c                         | 2 +-
+ net/ax25/sysctl_net_ax25.c              | 2 +-
+ net/bridge/br_netfilter_hooks.c         | 2 +-
+ net/core/sysctl_net_core.c              | 2 +-
+ net/ieee802154/6lowpan/reassembly.c     | 2 +-
+ net/ipv4/devinet.c                      | 2 +-
+ net/ipv4/ip_fragment.c                  | 2 +-
+ net/ipv4/route.c                        | 2 +-
+ net/ipv4/sysctl_net_ipv4.c              | 2 +-
+ net/ipv4/xfrm4_policy.c                 | 2 +-
+ net/ipv6/addrconf.c                     | 2 +-
+ net/ipv6/netfilter/nf_conntrack_reasm.c | 2 +-
+ net/ipv6/reassembly.c                   | 2 +-
+ net/ipv6/sysctl_net_ipv6.c              | 6 +++---
+ net/ipv6/xfrm6_policy.c                 | 2 +-
+ net/mpls/af_mpls.c                      | 4 ++--
+ net/mptcp/ctrl.c                        | 2 +-
+ net/netfilter/nf_conntrack_standalone.c | 2 +-
+ net/netfilter/nf_log.c                  | 2 +-
+ net/sctp/sysctl.c                       | 2 +-
+ net/smc/smc_sysctl.c                    | 2 +-
+ net/unix/sysctl_net_unix.c              | 2 +-
+ net/xfrm/xfrm_sysctl.c                  | 2 +-
+ 27 files changed, 30 insertions(+), 30 deletions(-)
 
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index 313c8898b3b2c..ac064c44079d7 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -498,6 +498,20 @@ void mptcp_pm_nl_rm_subflow_received(struct mptcp_sock *msk, u8 rm_id);
- int mptcp_pm_nl_get_local_id(struct mptcp_sock *msk, struct sock_common *skc);
- bool mptcp_pm_nl_is_backup(struct mptcp_sock *msk, struct mptcp_addr_info *skc);
- 
-+/* called under PM lock */
-+static inline void __mptcp_pm_close_subflow(struct mptcp_sock *msk)
-+{
-+	if (--msk->pm.subflows < msk->pm.subflows_max)
-+		WRITE_ONCE(msk->pm.accept_subflow, true);
-+}
-+
-+static inline void mptcp_pm_close_subflow(struct mptcp_sock *msk)
-+{
-+	spin_lock_bh(&msk->pm.lock);
-+	__mptcp_pm_close_subflow(msk);
-+	spin_unlock_bh(&msk->pm.lock);
-+}
-+
- static inline struct mptcp_ext *mptcp_get_ext(struct sk_buff *skb)
+diff --git a/drivers/net/vrf.c b/drivers/net/vrf.c
+index 9f7b05a010519..bce55ad2bcd99 100644
+--- a/drivers/net/vrf.c
++++ b/drivers/net/vrf.c
+@@ -1983,7 +1983,7 @@ static int vrf_netns_init_sysctl(struct net *net, struct netns_vrf *nn_vrf)
+ static void vrf_netns_exit_sysctl(struct net *net)
  {
- 	return (struct mptcp_ext *)skb_ext_find(skb, SKB_EXT_MPTCP);
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index 9a8d0d877bd13..b13cd310882d3 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -1122,18 +1122,18 @@ int __mptcp_subflow_connect(struct sock *sk, const struct mptcp_addr_info *loc,
- 	struct sockaddr_storage addr;
- 	int remote_id = remote->id;
- 	int local_id = loc->id;
-+	int err = -ENOTCONN;
- 	struct socket *sf;
- 	struct sock *ssk;
- 	u32 remote_token;
- 	int addrlen;
--	int err;
+ 	struct netns_vrf *nn_vrf = net_generic(net, vrf_net_id);
+-	struct ctl_table *table;
++	const struct ctl_table *table;
  
- 	if (!mptcp_is_fully_established(sk))
--		return -ENOTCONN;
-+		goto err_out;
+ 	table = nn_vrf->ctl_hdr->ctl_table_arg;
+ 	unregister_net_sysctl_table(nn_vrf->ctl_hdr);
+diff --git a/include/linux/sysctl.h b/include/linux/sysctl.h
+index 698a71422a14b..ef84ac08e6c97 100644
+--- a/include/linux/sysctl.h
++++ b/include/linux/sysctl.h
+@@ -182,7 +182,7 @@ struct ctl_table_header {
+ 		struct rcu_head rcu;
+ 	};
+ 	struct completion *unregistering;
+-	struct ctl_table *ctl_table_arg;
++	const struct ctl_table *ctl_table_arg;
+ 	struct ctl_table_root *root;
+ 	struct ctl_table_set *set;
+ 	struct ctl_dir *parent;
+diff --git a/ipc/ipc_sysctl.c b/ipc/ipc_sysctl.c
+index 22b12a482ba91..becf66235cb04 100644
+--- a/ipc/ipc_sysctl.c
++++ b/ipc/ipc_sysctl.c
+@@ -306,7 +306,7 @@ bool setup_ipc_sysctls(struct ipc_namespace *ns)
  
- 	err = mptcp_subflow_create_socket(sk, &sf);
- 	if (err)
--		return err;
-+		goto err_out;
+ void retire_ipc_sysctls(struct ipc_namespace *ns)
+ {
+-	struct ctl_table *tbl;
++	const struct ctl_table *tbl;
  
- 	ssk = sf->sk;
- 	subflow = mptcp_subflow_ctx(ssk);
-@@ -1187,6 +1187,12 @@ int __mptcp_subflow_connect(struct sock *sk, const struct mptcp_addr_info *loc,
+ 	tbl = ns->ipc_sysctls->ctl_table_arg;
+ 	unregister_sysctl_table(ns->ipc_sysctls);
+diff --git a/ipc/mq_sysctl.c b/ipc/mq_sysctl.c
+index 6bb1c5397c69b..42bce339ca97e 100644
+--- a/ipc/mq_sysctl.c
++++ b/ipc/mq_sysctl.c
+@@ -159,7 +159,7 @@ bool setup_mq_sysctls(struct ipc_namespace *ns)
  
- failed:
- 	sock_release(sf);
-+
-+err_out:
-+	/* we account subflows before the creation, and this failures will not
-+	 * be caught by sk_state_change()
-+	 */
-+	mptcp_pm_close_subflow(msk);
- 	return err;
- }
+ void retire_mq_sysctls(struct ipc_namespace *ns)
+ {
+-	struct ctl_table *tbl;
++	const struct ctl_table *tbl;
  
+ 	tbl = ns->mq_sysctls->ctl_table_arg;
+ 	unregister_sysctl_table(ns->mq_sysctls);
+diff --git a/kernel/ucount.c b/kernel/ucount.c
+index 44ede7a6b805a..0ae13e4b6e9f9 100644
+--- a/kernel/ucount.c
++++ b/kernel/ucount.c
+@@ -119,7 +119,7 @@ bool setup_userns_sysctls(struct user_namespace *ns)
+ void retire_userns_sysctls(struct user_namespace *ns)
+ {
+ #ifdef CONFIG_SYSCTL
+-	struct ctl_table *tbl;
++	const struct ctl_table *tbl;
+ 
+ 	tbl = ns->sysctls->ctl_table_arg;
+ 	unregister_sysctl_table(ns->sysctls);
+diff --git a/net/ax25/sysctl_net_ax25.c b/net/ax25/sysctl_net_ax25.c
+index db66e11e7fe8b..e0128dc9def33 100644
+--- a/net/ax25/sysctl_net_ax25.c
++++ b/net/ax25/sysctl_net_ax25.c
+@@ -171,7 +171,7 @@ int ax25_register_dev_sysctl(ax25_dev *ax25_dev)
+ void ax25_unregister_dev_sysctl(ax25_dev *ax25_dev)
+ {
+ 	struct ctl_table_header *header = ax25_dev->sysheader;
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	if (header) {
+ 		ax25_dev->sysheader = NULL;
+diff --git a/net/bridge/br_netfilter_hooks.c b/net/bridge/br_netfilter_hooks.c
+index e6962d693359b..12e9e5af139b6 100644
+--- a/net/bridge/br_netfilter_hooks.c
++++ b/net/bridge/br_netfilter_hooks.c
+@@ -1286,7 +1286,7 @@ static int br_netfilter_sysctl_init_net(struct net *net)
+ static void br_netfilter_sysctl_exit_net(struct net *net,
+ 					 struct brnf_net *brnet)
+ {
+-	struct ctl_table *table = brnet->ctl_hdr->ctl_table_arg;
++	const struct ctl_table *table = brnet->ctl_hdr->ctl_table_arg;
+ 
+ 	unregister_net_sysctl_table(brnet->ctl_hdr);
+ 	if (!net_eq(net, &init_net))
+diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
+index a7fa17b6a1297..1c82146b5079f 100644
+--- a/net/core/sysctl_net_core.c
++++ b/net/core/sysctl_net_core.c
+@@ -741,7 +741,7 @@ static __net_init int sysctl_core_net_init(struct net *net)
+ 
+ static __net_exit void sysctl_core_net_exit(struct net *net)
+ {
+-	struct ctl_table *tbl;
++	const struct ctl_table *tbl;
+ 
+ 	tbl = net->core.sysctl_hdr->ctl_table_arg;
+ 	unregister_net_sysctl_table(net->core.sysctl_hdr);
+diff --git a/net/ieee802154/6lowpan/reassembly.c b/net/ieee802154/6lowpan/reassembly.c
+index ba0455ad77019..26506dd4b357d 100644
+--- a/net/ieee802154/6lowpan/reassembly.c
++++ b/net/ieee802154/6lowpan/reassembly.c
+@@ -399,7 +399,7 @@ static int __net_init lowpan_frags_ns_sysctl_register(struct net *net)
+ 
+ static void __net_exit lowpan_frags_ns_sysctl_unregister(struct net *net)
+ {
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 	struct netns_ieee802154_lowpan *ieee802154_lowpan =
+ 		net_ieee802154_lowpan(net);
+ 
+diff --git a/net/ipv4/devinet.c b/net/ipv4/devinet.c
+index 798497c8b1923..5d0994ee34097 100644
+--- a/net/ipv4/devinet.c
++++ b/net/ipv4/devinet.c
+@@ -2793,7 +2793,7 @@ static __net_init int devinet_init_net(struct net *net)
+ static __net_exit void devinet_exit_net(struct net *net)
+ {
+ #ifdef CONFIG_SYSCTL
+-	struct ctl_table *tbl;
++	const struct ctl_table *tbl;
+ 
+ 	tbl = net->ipv4.forw_hdr->ctl_table_arg;
+ 	unregister_net_sysctl_table(net->ipv4.forw_hdr);
+diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
+index 786e761bd0a1b..66bd7e29f4c71 100644
+--- a/net/ipv4/ip_fragment.c
++++ b/net/ipv4/ip_fragment.c
+@@ -632,7 +632,7 @@ static int __net_init ip4_frags_ns_ctl_register(struct net *net)
+ 
+ static void __net_exit ip4_frags_ns_ctl_unregister(struct net *net)
+ {
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	table = net->ipv4.frags_hdr->ctl_table_arg;
+ 	unregister_net_sysctl_table(net->ipv4.frags_hdr);
+diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+index f134c59f839e2..0ebc1cb65f60e 100644
+--- a/net/ipv4/route.c
++++ b/net/ipv4/route.c
+@@ -3623,7 +3623,7 @@ static __net_init int sysctl_route_net_init(struct net *net)
+ 
+ static __net_exit void sysctl_route_net_exit(struct net *net)
+ {
+-	struct ctl_table *tbl;
++	const struct ctl_table *tbl;
+ 
+ 	tbl = net->ipv4.route_hdr->ctl_table_arg;
+ 	unregister_net_sysctl_table(net->ipv4.route_hdr);
+diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
+index 47f2a00e457da..ff849a5b863e5 100644
+--- a/net/ipv4/sysctl_net_ipv4.c
++++ b/net/ipv4/sysctl_net_ipv4.c
+@@ -1564,7 +1564,7 @@ static __net_init int ipv4_sysctl_init_net(struct net *net)
+ 
+ static __net_exit void ipv4_sysctl_exit_net(struct net *net)
+ {
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	table = net->ipv4.ipv4_hdr->ctl_table_arg;
+ 	unregister_net_sysctl_table(net->ipv4.ipv4_hdr);
+diff --git a/net/ipv4/xfrm4_policy.c b/net/ipv4/xfrm4_policy.c
+index 63bbc7f6a5a88..96fd07ce5a363 100644
+--- a/net/ipv4/xfrm4_policy.c
++++ b/net/ipv4/xfrm4_policy.c
+@@ -182,7 +182,7 @@ static __net_init int xfrm4_net_sysctl_init(struct net *net)
+ 
+ static __net_exit void xfrm4_net_sysctl_exit(struct net *net)
+ {
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	if (!net->ipv4.xfrm4_hdr)
+ 		return;
+diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
+index 83dc90a8990c9..048ce7fb57fd5 100644
+--- a/net/ipv6/addrconf.c
++++ b/net/ipv6/addrconf.c
+@@ -7251,7 +7251,7 @@ static int __addrconf_sysctl_register(struct net *net, char *dev_name,
+ static void __addrconf_sysctl_unregister(struct net *net,
+ 					 struct ipv6_devconf *p, int ifindex)
+ {
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	if (!p->sysctl_header)
+ 		return;
+diff --git a/net/ipv6/netfilter/nf_conntrack_reasm.c b/net/ipv6/netfilter/nf_conntrack_reasm.c
+index 18e0e1c76c1eb..aee6d8eee8c9f 100644
+--- a/net/ipv6/netfilter/nf_conntrack_reasm.c
++++ b/net/ipv6/netfilter/nf_conntrack_reasm.c
+@@ -105,7 +105,7 @@ static int nf_ct_frag6_sysctl_register(struct net *net)
+ static void __net_exit nf_ct_frags6_sysctl_unregister(struct net *net)
+ {
+ 	struct nft_ct_frag6_pernet *nf_frag = nf_frag_pernet(net);
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	table = nf_frag->nf_frag_frags_hdr->ctl_table_arg;
+ 	unregister_net_sysctl_table(nf_frag->nf_frag_frags_hdr);
+diff --git a/net/ipv6/reassembly.c b/net/ipv6/reassembly.c
+index cb219d4bdf25e..225a23f7fefa7 100644
+--- a/net/ipv6/reassembly.c
++++ b/net/ipv6/reassembly.c
+@@ -487,7 +487,7 @@ static int __net_init ip6_frags_ns_sysctl_register(struct net *net)
+ 
+ static void __net_exit ip6_frags_ns_sysctl_unregister(struct net *net)
+ {
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	table = net->ipv6.sysctl.frags_hdr->ctl_table_arg;
+ 	unregister_net_sysctl_table(net->ipv6.sysctl.frags_hdr);
+diff --git a/net/ipv6/sysctl_net_ipv6.c b/net/ipv6/sysctl_net_ipv6.c
+index 888676163e900..75de55f907b07 100644
+--- a/net/ipv6/sysctl_net_ipv6.c
++++ b/net/ipv6/sysctl_net_ipv6.c
+@@ -313,9 +313,9 @@ static int __net_init ipv6_sysctl_net_init(struct net *net)
+ 
+ static void __net_exit ipv6_sysctl_net_exit(struct net *net)
+ {
+-	struct ctl_table *ipv6_table;
+-	struct ctl_table *ipv6_route_table;
+-	struct ctl_table *ipv6_icmp_table;
++	const struct ctl_table *ipv6_table;
++	const struct ctl_table *ipv6_route_table;
++	const struct ctl_table *ipv6_icmp_table;
+ 
+ 	ipv6_table = net->ipv6.sysctl.hdr->ctl_table_arg;
+ 	ipv6_route_table = net->ipv6.sysctl.route_hdr->ctl_table_arg;
+diff --git a/net/ipv6/xfrm6_policy.c b/net/ipv6/xfrm6_policy.c
+index 6bf22fd9cd380..cf31d884fa58d 100644
+--- a/net/ipv6/xfrm6_policy.c
++++ b/net/ipv6/xfrm6_policy.c
+@@ -229,7 +229,7 @@ static int __net_init xfrm6_net_sysctl_init(struct net *net)
+ 
+ static void __net_exit xfrm6_net_sysctl_exit(struct net *net)
+ {
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	if (!net->ipv6.sysctl.xfrm6_hdr)
+ 		return;
+diff --git a/net/mpls/af_mpls.c b/net/mpls/af_mpls.c
+index 2099ce095edc8..969871197c25c 100644
+--- a/net/mpls/af_mpls.c
++++ b/net/mpls/af_mpls.c
+@@ -1422,7 +1422,7 @@ static void mpls_dev_sysctl_unregister(struct net_device *dev,
+ 				       struct mpls_dev *mdev)
+ {
+ 	struct net *net = dev_net(dev);
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	if (!mdev->sysctl)
+ 		return;
+@@ -2691,7 +2691,7 @@ static void mpls_net_exit(struct net *net)
+ {
+ 	struct mpls_route __rcu **platform_label;
+ 	size_t platform_labels;
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 	unsigned int index;
+ 
+ 	table = net->mpls.ctl->ctl_table_arg;
+diff --git a/net/mptcp/ctrl.c b/net/mptcp/ctrl.c
+index 34ae0ef4f9f39..d430f3d4af36a 100644
+--- a/net/mptcp/ctrl.c
++++ b/net/mptcp/ctrl.c
+@@ -218,7 +218,7 @@ static int mptcp_pernet_new_table(struct net *net, struct mptcp_pernet *pernet)
+ 
+ static void mptcp_pernet_del_table(struct mptcp_pernet *pernet)
+ {
+-	struct ctl_table *table = pernet->ctl_table_hdr->ctl_table_arg;
++	const struct ctl_table *table = pernet->ctl_table_hdr->ctl_table_arg;
+ 
+ 	unregister_net_sysctl_table(pernet->ctl_table_hdr);
+ 
+diff --git a/net/netfilter/nf_conntrack_standalone.c b/net/netfilter/nf_conntrack_standalone.c
+index 1d5de1d9f008d..a0434ac356ee9 100644
+--- a/net/netfilter/nf_conntrack_standalone.c
++++ b/net/netfilter/nf_conntrack_standalone.c
+@@ -1113,7 +1113,7 @@ static int nf_conntrack_standalone_init_sysctl(struct net *net)
+ static void nf_conntrack_standalone_fini_sysctl(struct net *net)
+ {
+ 	struct nf_conntrack_net *cnet = nf_ct_pernet(net);
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	table = cnet->sysctl_header->ctl_table_arg;
+ 	unregister_net_sysctl_table(cnet->sysctl_header);
+diff --git a/net/netfilter/nf_log.c b/net/netfilter/nf_log.c
+index 75c812f157e20..3cc569ac8a06b 100644
+--- a/net/netfilter/nf_log.c
++++ b/net/netfilter/nf_log.c
+@@ -509,7 +509,7 @@ static int netfilter_log_sysctl_init(struct net *net)
+ 
+ static void netfilter_log_sysctl_exit(struct net *net)
+ {
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	table = net->nf.nf_log_dir_header->ctl_table_arg;
+ 	unregister_net_sysctl_table(net->nf.nf_log_dir_header);
+diff --git a/net/sctp/sysctl.c b/net/sctp/sysctl.c
+index 77a76634014a5..9c55a70f2b64b 100644
+--- a/net/sctp/sysctl.c
++++ b/net/sctp/sysctl.c
+@@ -630,7 +630,7 @@ int sctp_sysctl_net_register(struct net *net)
+ 
+ void sctp_sysctl_net_unregister(struct net *net)
+ {
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	table = net->sctp.sysctl_header->ctl_table_arg;
+ 	unregister_net_sysctl_table(net->sctp.sysctl_header);
+diff --git a/net/smc/smc_sysctl.c b/net/smc/smc_sysctl.c
+index 5cbc18c6e62b0..c632df62ff908 100644
+--- a/net/smc/smc_sysctl.c
++++ b/net/smc/smc_sysctl.c
+@@ -109,7 +109,7 @@ int __net_init smc_sysctl_net_init(struct net *net)
+ 
+ void __net_exit smc_sysctl_net_exit(struct net *net)
+ {
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	table = net->smc.smc_hdr->ctl_table_arg;
+ 	unregister_net_sysctl_table(net->smc.smc_hdr);
+diff --git a/net/unix/sysctl_net_unix.c b/net/unix/sysctl_net_unix.c
+index 3e84b31c355a2..44996af61999b 100644
+--- a/net/unix/sysctl_net_unix.c
++++ b/net/unix/sysctl_net_unix.c
+@@ -52,7 +52,7 @@ int __net_init unix_sysctl_register(struct net *net)
+ 
+ void unix_sysctl_unregister(struct net *net)
+ {
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	table = net->unx.ctl->ctl_table_arg;
+ 	unregister_net_sysctl_table(net->unx.ctl);
+diff --git a/net/xfrm/xfrm_sysctl.c b/net/xfrm/xfrm_sysctl.c
+index 7fdeafc838a7c..e972930c292b6 100644
+--- a/net/xfrm/xfrm_sysctl.c
++++ b/net/xfrm/xfrm_sysctl.c
+@@ -76,7 +76,7 @@ int __net_init xfrm_sysctl_init(struct net *net)
+ 
+ void __net_exit xfrm_sysctl_fini(struct net *net)
+ {
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 
+ 	table = net->xfrm.sysctl_hdr->ctl_table_arg;
+ 	unregister_net_sysctl_table(net->xfrm.sysctl_hdr);
 -- 
 2.53.0
 
