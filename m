@@ -1,87 +1,106 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F35A125DB1C;
-	Fri,  7 Aug 2026 12:53:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B699647607F;
+	Fri,  7 Aug 2026 12:59:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786107212; cv=none; b=rxlMFSkWRWXl+zizD1m3uBc6eNFVoaQErVhWOts/rarQchH2pwt+wKqSlA4OD55SIujZxyR1ZUStkkfBQ6TghJNaCnphLCm6gIFWyCTvQL4SqGvY4z0v/SWgN0S3n9uYPI/KP64wHkI4lReRLYmbgIlGtWH6sCqdY4F0/dxjZcs=
+	t=1786107588; cv=none; b=mZ6i3hSDOpLFyPgwankBKBTp6NWxwEOcoKShyuIqCU69O0uqU1V+IGZfWxiBUAxS8dhJ2+DQApjpqf4WSbMVM9uHdmY22+qNg+LFFmvYNNYyuUJCNWAu9u1tOE2MmzpQov4A5ubtwYdQPcWZBGgjnCm2VJ1ZKssgngm7eIN2wLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786107212; c=relaxed/simple;
-	bh=rUkBAjb3eEuDoy2WuDuyIP98jM9oBwsHgsWuCSkxWrc=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=L0LpGNBjHGRbNh+G9CfbvE21qdUrT5FzODNX7GWxoLnoLv8zxzek1bj6hkvnl3u73sMVE4xAfCbx661vbdCu6Uswtt0VUdkLYPZWjpAeBEeo0rJARiqGGkX4sieN6+bv0iwkdw0SVqjjtfZzydHs6BLI2PHFD13Kn7eO0JLDoOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.190.163.182])
-	by mtasvr (Coremail) with SMTP id _____wCHgD8j1XVq5NxyAA--.38353S3;
-	Fri, 07 Aug 2026 20:52:52 +0800 (CST)
-Received: from smtpclient.apple (unknown [10.190.163.182])
-	by mail-app3 (Coremail) with SMTP id zS_KCgB3jW8j1XVqOqsRBA--.31227S2;
-	Fri, 07 Aug 2026 20:52:51 +0800 (CST)
-Content-Type: text/plain;
-	charset=utf-8
+	s=arc-20240116; t=1786107588; c=relaxed/simple;
+	bh=yMiK1yh6xy1Np/nBghOM2UqhnZKJlwY+ByNtCjfrCI8=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=o/Tkuw3s1xz1/9ejIqnkv0XPip+PoSNZ/fBgafx062lE1rdgtfiRNdpQkK8+sREHikvhJdwE50a+oS+PwKyysw/LSn2BCNUx/rrsxD9b6Um8ni18lRZDh7OzqE2ypvEUDc7/hAcvj7jAK+5twDGiwHCyofpVOel0J6ujgMo7Mnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wt/1R8rw; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wt/1R8rw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BF291F000E9;
+	Fri,  7 Aug 2026 12:59:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786107582;
+	bh=WGWe62w4uZOGlTd+Rt6sdGbT/Nouu499hkPKmGKxmLg=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=Wt/1R8rwmGTx2f8PYIuCEP4H+iJa5y9BsvjmVm2lUyxYIkXsJ2OOrEl5qLluvQ4FO
+	 gR8D6wPxIvholh5dqf9AmiEaTihz/DZ7/bp3LNMdFRqmi/poK/JuGskMzKSHvZz+rH
+	 wVEKyeNooy4xgO4DalnL9F977Tkbpw3ASKWDczWH9A4b3a4BcVOrxHmugYRcpbuQzL
+	 Xd4CGv3HFgkDILwOJfoJUrtiD31AgyG9Av8qqFdmErTziujfC9Rda8lqxV2iYJvKuq
+	 oCdL+JelJ10bP+bqSvX5WpnSA9ps34stkgjh3ky3C1ZnFutjcidlObQMoPtYi2Kww8
+	 wb4QUz12MUEOA==
+Content-Type: multipart/mixed; boundary="===============4091664156689549777=="
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
-Subject: Re: [PATCH] ieee802154: cc2520: fix FIFOP work use-after-free
-From: Fan Wu <12321260@zju.edu.cn>
-In-Reply-To: <87pkzucdft.fsf@bootlin.com>
-Date: Fri, 7 Aug 2026 20:52:41 +0800
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
- linux-wpan@vger.kernel.org,
- Stefan Schmidt <stefan@datenfreihafen.org>,
- Alexander Aring <alex.aring@gmail.com>,
- Varka Bhadram <varkab@cdac.in>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <4A1FAADE-AC28-4197-8547-EC7EF5ECE927@zju.edu.cn>
-References: <20260806050328.422480-1-fanwu01@zju.edu.cn>
- <87pkzucdft.fsf@bootlin.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-X-Mailer: Apple Mail (2.3774.600.62)
-X-CM-TRANSID:zS_KCgB3jW8j1XVqOqsRBA--.31227S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?G/yVVwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WPoyxOUvSJwEUFKaRvEar3skd5reE36IWJNXy2ehh2UXY9E
-	R1h2aZX6O1ig2+h8hVCp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7
-	ZEXasCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29K
-	BjDU0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26c
-	xKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vE
-	j48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxV
-	AFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x02
-	67AKxVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc
-	804VCY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY
-	67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y4
-	8IcxkI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY
-	04v7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
-	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
-	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
-	W8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
-	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUU
-	U==
+MIME-Version: 1.0
+Message-Id: <20bc24b322d3a8ef52eef9b3cd05eef275efabc0be00be3fd6df5a9765bba321@mail.kernel.org>
+In-Reply-To: <e827cffd10c37ae7d0b1fca59523acda38db1704.1786099877.git.skb99@linux.ibm.com>
+References: <e827cffd10c37ae7d0b1fca59523acda38db1704.1786099877.git.skb99@linux.ibm.com>
+Subject: Re: [PATCH v11 3/8] selftests/bpf: Fixing powerpc JIT disassembly failure
+From: bot+bpf-ci@kernel.org
+To: skb99@linux.ibm.com,bpf@vger.kernel.org,linuxppc-dev@lists.ozlabs.org
+Cc: hbathini@linux.ibm.com,maddy@linux.ibm.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,shuah@kernel.org,linux-kselftest@vger.kernel.org,stable@vger.kernel.org,venkat88@linux.ibm.com,yeswanth@linux.ibm.com,skb99@linux.ibm.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,clm@meta.com,ihor.solodrai@linux.dev
+Date: Fri,  7 Aug 2026 12:59:41 +0000 (UTC)
 
- Thanks, this is a much simpler solution,  I will respin accordingly.
+--===============4091664156689549777==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-> On Aug 7, 2026, at 20:39, Miquel Raynal <miquel.raynal@bootlin.com> =
-wrote:
->=20
-> Hi Fan,
->=20
-> While I may agree on the problem, I don't like the solution. It is
-> overly complex. If the problem is the fact that we might queue works,
-> what about disable_work[_sync]() ?
->=20
-> Thanks,
-> Miqu=C3=A8l
+> diff --git a/tools/testing/selftests/bpf/jit_disasm_helpers.c b/tools/testing/selftests/bpf/jit_disasm_helpers.c
+> index 3558fe10e28cf..c4aa1d69d3bbf 100644
+> --- a/tools/testing/selftests/bpf/jit_disasm_helpers.c
+> +++ b/tools/testing/selftests/bpf/jit_disasm_helpers.c
 
+[ ... ]
+
+> @@ -225,9 +227,30 @@ int get_jited_program_text(int fd, char *text, size_t text_sz)
+>  	if (!ASSERT_OK(err, "bpf_prog_get_info_by_fd #2"))
+>  		goto out;
+>
+> +	/*
+> +	 * last 8 bytes contains dummy_trampoline address in JIT
+> +	 * output on 64-bit and last 4 bytes on 32-bit powerpc,
+> +	 * which can't disassemble to a valid instruction.
+> +	 */
+> +	triple = LLVMGetDefaultTargetTriple();
+> +	if (triple) {
+> +		if (strstr(triple, "powerpc64") || strstr(triple, "ppc64"))
+> +			trunc_len = 8;
+> +		else if (strstr(triple, "powerpc") || strstr(triple, "ppc"))
+> +			trunc_len = 4;
+> +		LLVMDisposeMessage(triple);
+> +	}
+> +
+>  	for (pc = 0, i = 0; i < jited_funcs; ++i) {
+> +
+
+This isn't a bug, but are the two new blank lines inside this loop
+intentional? Dropping them would keep the diff to just the truncation
+logic and match how the loops in disasm_one_func() are laid out.
+
+>  		fprintf(text_out, "func #%d:\n", i);
+>  		/*
+>  		 * Disabled JIT have zero func_lens, hence underflow
+>  		 */
+>  		disasm_len = func_lens[i] > trunc_len ?
+>  					func_lens[i] - trunc_len : 0;
+>  		disasm_one_func(text_out, image + pc, disasm_len);
+> +
+>  		fprintf(text_out, "\n");
+>  		pc += func_lens[i];
+>  	}
+
+> selftests/bpf: Fixing powerpc JIT disassembly failure
+
+This isn't a bug, but would the subject read better in the imperative
+mood, "selftests/bpf: Fix powerpc JIT disassembly failure", to match
+the rest of the series?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/31176427801
+--===============4091664156689549777==--
