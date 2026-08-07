@@ -1,98 +1,243 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895EF4756D7
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 12:45:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 418C422B594;
+	Fri,  7 Aug 2026 12:50:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786106764; cv=none; b=Gb2otODPxae2E5IloGmtlLKkbjwosjk31kZlU+kY0jjtv43daugF1W+8kf582kCs3YE/Y2oJysgGtwSmHInx8iL5VibUjU3y+seilYNhLCg0NS1/PkW6OqZQOlA2+zgLLS1FgnJbYe7/Mzs4kg7U93vYXdMswiZS7LbkNJui8MA=
+	t=1786107007; cv=none; b=qQk2k5w+xaZKJ6RJ//omXd2dFFXOgoF6lJs3N0KG0djeP4VrR2QffMUIJ8KvNvQqgoNN6Ke8U6XNKVxn29qtHp70magScek3eaH27hgEJybOO9lsEFOc6cnDkqNAC5VIlKvRGZhZZ+96eYGR3u5JMd/aiBu6IQlTgUIPUFGXBCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786106764; c=relaxed/simple;
-	bh=lJBJIWfnlJuBrmy0UBwJ59rfYvxzSekY2abk4IjTU/4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=iQ2PC/+KS0coA2f5AK9HGO7/loSBUGVJG/kgY9XSZDdg7x62R7/2M5eJkuZ/3D22usrKqxAWAAlORXLoF8E62GgmSk5oKoRIgMerZeQo1UoRWqkrlscfoDmp2YAYIkd0fq6+bEM1uoq780ASZf+RI7PkGRMdnXgOMLSvHcpxwnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bv7c9pVE; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786107007; c=relaxed/simple;
+	bh=Ygwoxj/qtp59qkhR0JC9cNOQGDSxqQ2MhDy99C2cWdY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XlmHZSQwJz6z8rWHmpVIdQORNw/xquo/XONOB50ED1xuJnpCxBX9Q+oobE0aeSMCvhae9DcPA25rGeKbUKhtEzfGrNL4CnXDqUvera3n8eKGzT/6+RhpcZqKzwigEEC9W0c577V3Q/FoS9b13U3IAnQnoECMzrOstZGt9XwofyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ipBLdBfG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bv7c9pVE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786106758; x=1817642758;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version:content-transfer-encoding;
-  bh=lJBJIWfnlJuBrmy0UBwJ59rfYvxzSekY2abk4IjTU/4=;
-  b=bv7c9pVEkCH5/Q6zUFfI6BkR11CdCINP765YatEuGhFk+TPDA2ekW/VD
-   HZ9BAdociVOsAw0PA25joIXn+B/X1eAJQf3+2mZOW9w2htBRK//IOzoPQ
-   LRz6gqaXOHHF1A9388y9T7abxjlqlqHJAjVFlao0GbgdxZE+N7VEbY2YD
-   AAlhkS0B9yZM2k3fIPVerFVq4wpogz6LNMOIVB44WgOxrW8MHvgsSumlo
-   wv1a3A3XrkOEcgCyr/xubgLgpEGSRoL1tBEIjeuobp/WQGfhjThZ3IvPy
-   Gqxh3n7JarFJmcGKN0tOt4+MFuJ2RaZ47yrlePnsNvzdLhrhKobpwe0Gh
-   w==;
-X-CSE-ConnectionGUID: tTav609eTbieSJXix4QmTA==
-X-CSE-MsgGUID: tABrWE4NT92DqbU2x/YNJg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="85683577"
-X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
-   d="scan'208";a="85683577"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 05:45:52 -0700
-X-CSE-ConnectionGUID: eZDgOUZgSIOAEME3x7UdNA==
-X-CSE-MsgGUID: JtUTtpvMRH6WFFyuV9CSiQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
-   d="scan'208";a="263019122"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.152])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 05:45:50 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/display: Limit max joined dotclock on pipes
- available
-In-Reply-To: <95cc059b-056e-4aa3-8431-1e497002f58d@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260806143738.2710312-1-jani.nikula@intel.com>
- <ca6f4f3b-9c94-4b24-a8e4-7c351e730429@intel.com>
- <788a51d6-4eca-4365-bad1-037d25f388d0@intel.com>
- <95cc059b-056e-4aa3-8431-1e497002f58d@intel.com>
-Date: Fri, 07 Aug 2026 15:45:46 +0300
-Message-ID: <65d9cdfb093f5e1e048738aaf1b20131f18ed16b@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ipBLdBfG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D4BA1F000E9;
+	Fri,  7 Aug 2026 12:49:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786106999;
+	bh=722Cc1Rl8cvrCGD72DvJ3L0CwBbXdiDoCrPoTA21Xws=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ipBLdBfGx6IZkiJDEZqLnWgNdmWisrNOaej1LpO0yS+bLonBHqXpNYi4l1W4nxtJ7
+	 a1CRNf05shtsMT2gkkhF3huVkGeAg6lOHXYLXmuGd+yggQKODrPx7OAgZURJcDHDFv
+	 9eYA+42hnN1iojNYNczE+cp6cFyG7skpqDraUT/F4o8K0tlVtmz2srZZQCgri5sL5Z
+	 sq+Q1dTvISiUmPEF6JBVYUSRKh1zAJ/eqco41HsExaJb/ert6VuGINE57UnNpzcmwq
+	 5Aw3QOK0jipV+TqA/u4VKRyA+Oha3MnJ4OL1I+4z4MhWCyj+DX2NhD+Vn+6hiausPN
+	 p1ZulrTZxLnIQ==
+From: Simon Horman <horms@kernel.org>
+To: fanwu01@zju.edu.cn
+Cc: Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	kys@microsoft.com,
+	haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	longli@microsoft.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] net: mana: fix reset work race with device removal
+Date: Fri,  7 Aug 2026 13:49:45 +0100
+Message-ID: <20260807124945.713853-1-horms@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260805143812.220509-1-fanwu01@zju.edu.cn>
+References: <20260805143812.220509-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, 06 Aug 2026, "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com> wrote:
-> On 8/6/2026 9:19 PM, Nautiyal, Ankit K wrote:
->> On 8/6/2026 9:15 PM, Nautiyal, Ankit K wrote:
->>> If fused pipes are AC or BD this will still give us 2. Perhaps should=20
->>> have a check for atleast 2 consecutive pipes from=20
->>> DISPLAY_RUNTIME_INFO(display)->pipe_mask
->>
->>
->> ^I meant :=C2=A0 if fused pipes are B or D, resulting in A,C and B,D=20
->> respectively, as available pipes...
->
->
-> Correction (typo'd twice (facepalm)): I meant if the available pipes are=
-=20
-> non-consecutive, like {A,C} or {B,D}=C2=A0 the count is still 2, but=20
-> bigjoiner needs 2 consecutive pipes.
->
-> So we should check pipe_mask for a consecutive pair.
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260805143812.220509-1-fanwu01@zju.edu.cn?part=1
+---
+--- Patch [1]: [PATCH net] net: mana: fix reset work race with device removal ---
+commit 789cdee15635f51361a37bb4e10ca06127d69f71
+Author: Fan Wu <fanwu01@zju.edu.cn>
 
-Agreed. The more complete approach at [1].
+net: mana: fix reset work race with device removal
 
-Thanks,
-Jani.
+The patch makes mana_serv_reset() take the driver-core device lock around
+the pci_get_drvdata() read and the whole reset sequence, drops the lock
+before calling mana_serv_rescan(), and has mana_gd_remove() clear the PCI
+drvdata before vfree()ing the gdma_context.  It also clears GC_IN_SERVICE
+on the resume-failure exit before rescanning.
 
-[1] https://lore.kernel.org/r/20260806143738.2710312-1-jani.nikula@intel.com
+A couple of questions about the new locking and the new clear_bit().
 
+> diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> index e8b7ffb47eb98..ae03d7a53348e 100644
+> --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> @@ -591,15 +591,16 @@ static void mana_serv_fpga(struct pci_dev *pdev)
+>  
+>  static void mana_serv_reset(struct pci_dev *pdev)
+>  {
+> -	struct gdma_context *gc = pci_get_drvdata(pdev);
+> +	struct gdma_context *gc;
+>  	struct hw_channel_context *hwc;
+>  	int ret;
+>  
+> +	device_lock(&pdev->dev);
+> +	gc = pci_get_drvdata(pdev);
 
---=20
-Jani Nikula, Intel
+[Severity: High]
+[Finding: fable-5-5-8]
+[Sources: fable-5, opus-5]
+Is it intended that &pdev->dev's mutex is now held across the entire reset
+cycle rather than just the drvdata read?  With the new labels the lock is
+only dropped at out: and rescan:, so it covers this part of
+mana_serv_reset():
+
+	mana_gd_suspend(pdev, PMSG_SUSPEND);
+
+	msleep(MANA_SERVICE_PERIOD * 1000);
+
+	ret = mana_gd_resume(pdev);
+
+That is an unconditional 10 second msleep(), plus mana_gd_resume(), which
+re-runs mana_gd_setup()/mana_probe()/mana_rdma_probe(); the first HWC
+command there can wait up to HW_CHANNEL_WAIT_RESOURCE_TIMEOUT_MS (30000
+ms) when the adapter is unresponsive.
+
+This runs from a system_wq work item (mana_serv_func() -> mana_do_service()
+-> mana_serv_reset()), so everything that serializes on the same device
+mutex blocks for that whole time:
+
+  device_release_driver_internal() -> __device_driver_lock()  (sysfs
+    unbind, driver removal)
+  device_shutdown()  (reboot/shutdown, takes device_lock(parent) plus
+    device_lock(dev))
+  drivers/base/power/main.c device_suspend()/device_resume(), which arm
+    the DPM watchdog before taking device_lock(dev)
+  pci_stop_and_remove_bus_device() -> pci_stop_dev() ->
+    device_release_driver(), which blocks on this mutex while holding the
+    global pci_rescan_remove_lock
+
+Can this stall system suspend/resume, reboot and all PCI hotplug/rescan on
+the machine for tens of seconds?  And with CONFIG_DPM_WATCHDOG set below
+the hold time, would the PM core's watchdog fire because it is armed before
+device_lock()?
+
+The trigger is not driver-internal: mana_schedule_serv_work() is called
+from mana_gd_process_eqe() for a device-supplied
+GDMA_EQE_HWC_RESET_REQUEST, and GC_IN_SERVICE only prevents overlap, not
+back-to-back requests.
+
+Would narrowing the lock to the pci_get_drvdata() read, and getting the
+lifetime guarantee from a driver-private mutex, a refcounted
+gdma_context, or cancelling the service work in mana_gd_remove(), be
+enough for the stated goal?
+
+There is also a structural concern with the wide hold: under this lock the
+code reaches mana_rdma_remove() (flush_workqueue(gc->service_wq)),
+mana_gd_cleanup_device() (destroy_workqueue(gc->service_wq)) and
+mana_remove() (disable_work_sync(&apc->queue_reset_work),
+cancel_delayed_work_sync(&ac->gf_stats_work), rtnl_lock()).  Would a later
+flush or cancel of the service work from the remove path then deadlock
+against this lock?
+
+>  	if (!gc) {
+>  		/* Perform PCI rescan on device if GC is not set up */
+>  		dev_err(&pdev->dev, "MANA service: GC not setup, rescanning\n");
+> -		mana_serv_rescan(pdev);
+> -		return;
+> +		goto rescan;
+>  	}
+>  
+>  	hwc = gc->hwc.driver_data;
+> @@ -621,8 +622,8 @@ static void mana_serv_reset(struct pci_dev *pdev)
+>  	if (ret == -ETIMEDOUT || ret == -EPROTO) {
+>  		/* Perform PCI rescan on device if we failed on HWC */
+>  		dev_err(&pdev->dev, "MANA service: resume failed, rescanning\n");
+> -		mana_serv_rescan(pdev);
+> -		return;
+> +		clear_bit(GC_IN_SERVICE, &gc->flags);
+> +		goto rescan;
+>  	}
+
+[Severity: Medium]
+[Finding: fable-5-2-2]
+[Sources: fable-5, opus-5]
+Does clearing GC_IN_SERVICE before the rescan change the service gating
+semantics on this exit?  Previously this path returned with the bit still
+set, and it only stopped mattering because mana_serv_rescan() removed the
+device and vfree()d gc (a freshly probed device starts with flags == 0).
+
+GC_IN_SERVICE looks like the only "a service cycle is in flight" gate:
+
+  mana_schedule_serv_work():
+	if (test_and_set_bit(GC_IN_SERVICE, &gc->flags)) {
+		dev_info(gc->dev, "Already in service\n");
+		return -EBUSY;
+	}
+
+  mana_tx_timeout() in mana_en.c:
+	/* Already in service, hence tx queue reset is not required.*/
+	if (test_bit(GC_IN_SERVICE, &gc->flags))
+		return;
+
+With the bit cleared first, the flag reads "not in service" for the whole
+teardown window: device_unlock() happens, then mana_serv_rescan() can block
+for a long time on pci_lock_rescan_remove() and again on device_lock inside
+pci_stop_and_remove_bus_device() -> pci_stop_dev() ->
+device_release_driver().
+
+Is that window reachable with the HWC still alive?  mana_gd_resume()
+returns -ETIMEDOUT when mana_rdma_probe() -> mana_gd_register_device()
+times out on HWC, and in that case only mana_rdma_remove() has been undone
+- the HWC channel, its EQ and the MSI-X IRQs are still up and the netdevs
+are still registered.  In that state two triggers can queue a second
+service work:
+
+  mana_gd_process_eqe()          (incoming GDMA_EQE_HWC_RESET_REQUEST)
+      -> mana_schedule_serv_work()
+
+  mana_gf_stats_work_handler()   (re-arms every 2 s, on -ETIMEDOUT)
+      -> mana_schedule_serv_work(gc, GDMA_EQE_HWC_RESET_REQUEST)
+
+Can that second work then win the unfair device_lock ahead of the in-flight
+removal, observe a still non-NULL gc, and run another full
+mana_gd_suspend() + msleep(10 s) + mana_gd_resume() cycle while the first
+work is stuck inside pci_stop_and_remove_bus_device() holding
+pci_rescan_remove_lock?
+
+Separately, with the bit cleared, is mana_tx_timeout() still suppressed
+during teardown, or can it now queue apc->queue_reset_work and drive HWC
+and queue programming against an adapter that just requested a reset and is
+being removed?
+
+The commit message describes this hunk only as:
+
+    Also clear GC_IN_SERVICE before rescanning after a failed resume, so
+    this exit follows the same service-state cleanup as the other reset
+    exits.
+
+Could the changelog also mention the change in service-gating behaviour,
+given this is tagged for stable?
+
+>  
+>  	if (ret)
+> @@ -632,6 +633,12 @@ static void mana_serv_reset(struct pci_dev *pdev)
+>  
+>  out:
+>  	clear_bit(GC_IN_SERVICE, &gc->flags);
+> +	device_unlock(&pdev->dev);
+> +	return;
+> +
+> +rescan:
+> +	device_unlock(&pdev->dev);
+> +	mana_serv_rescan(pdev);
+>  }
+
+[ ... ]
