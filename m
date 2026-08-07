@@ -1,127 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8753B05A4;
-	Fri,  7 Aug 2026 14:59:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7056D33DEFE
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 14:59:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786114745; cv=none; b=Ylyskk+zo51nPjrNRQ8qjVFpZLrYQfRIuWv8bs9bgxwXmXcqk4D8s/LxXM1yIj0l65jvqecHE1TL5q6Wy24FnYNmjYjtOfASqZZwaoiyihV8dC59pmXgNz++5Zss3WO6vAKR323QHdMiK+mAXXUwnNph2hient8OAqrwONPnrV0=
+	t=1786114748; cv=none; b=I9UxeozZtw8B7/QRivddIg6EuCnaDAv+i/X3MMUnjtcIZohIdGie8EMs61NPi9d3CpjtWD9NFxCzNEDDBMHfkeom9NG8SScQ6gcwOjQ3ZJhmOG1Lbg5TLK5gg6oTc5O2gyrPhJh4dcnLS2LU+HtiSDXRnWZYjP0Grqiu+2glGrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786114745; c=relaxed/simple;
-	bh=dLEMk8bKW9/91Ymlmvmkh+5xxgZqyCl6RnZy6PlYOss=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mDGkf2Y/kgmPR10ZiKhn5u02c4K1F8OYEwKIDSvUjCIbBRMxuY8K6DXHozYR+sDp8lQSuYdA63wsQQRF2sR1dncNCACJiytYg465TwrfOq+K0ScIystoibOkCq4sPgjT3U1klgX7gqEwacEW6jSdIQrDNx0folB+2jHD8RGVLY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TQ3T1FuW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786114748; c=relaxed/simple;
+	bh=SHHzAbJfdnPZtdWXfC2j8SzUVJsq7sWoeZOsg/Eu1Oo=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=NQlvOG29n0wFS+cGEUuMhjqVWS0DUwcE3Lshpi6MrWeAdvknSLM5a8mcOHAYW+bBoCo1iUd39hVl+ig20A+ia1IuQdpgFwYO8X8nHYkCA9VsAIoVydYPa+1kmS1PFa1JZI3wOnTGmsftxgvlSvlFGvzQD0sxTZ2VphGluo9AvW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=Is33a1kn; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TQ3T1FuW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0CA51F000E9;
-	Fri,  7 Aug 2026 14:59:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786114744;
-	bh=0ebgqhF924UyLDGZA+cFSrYIo+JzjYSRgtKQB1tPUuQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TQ3T1FuWFyoBiYjjoXwMyh8o8cf4HwRsVdX1ntCiWC63QEsAP3BdlBhjIMKYJeoyj
-	 oMwYcN5SMdc/BqXKPR5UeQQdH8In5VaUYjMOQ0aHUdgwNQAiJEhZrI22TC/1OmLIfQ
-	 bN7sA7eNOsI8DwhAvlkQNVZuz5db1q9XOS65Haw8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 032/396] phy: zynqmp: fix clock error handling in xpsgtr_phy_init()
-Date: Fri,  7 Aug 2026 16:33:12 +0200
-Message-ID: <20260807143424.965730135@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260807143424.272339768@linuxfoundation.org>
-References: <20260807143424.272339768@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="Is33a1kn"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38101f85591so1933700a91.1
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 07:59:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1786114746; x=1786719546; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PU1wKjH0h+P2PvvnD8HJePOSNu/jMJxnsy78sXCEOUI=;
+        b=Is33a1knoroCGaF975JAEWiHB5RoJPtEAK/uAUHPgjkNt2y3v69ZsyeICxQbG0mfgX
+         ekP4c4xUV8HmDjBo04pc+K/nTVfpPWbdEwHOWzdeP+nu7VpgcwWizxAw72xw/3ROhUCk
+         kfWWVO/i5wRakCnloRD8RNb8sm03MxVXJwxvFRKBuyn9Vb54HO2Mu+6vXDac3oq1nC87
+         fFA8G8GaSQ/cSxznsnZBrBVByGm1RfFEZvDzl0+yCrCsO5UPjZwnR/qfjkO6gTh1hWPv
+         Too7THfaBXqJk9VQJOFhBh+VX5fwSfDcQ/YItvCGleQLB2HjW9PtMLIy8BevRIxWKM+I
+         Jb6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786114746; x=1786719546;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PU1wKjH0h+P2PvvnD8HJePOSNu/jMJxnsy78sXCEOUI=;
+        b=K+FpDa/8qIutZx3XrwRoxIT60blwrK9QbwsxOM0mHNg72riwFSPOV/4IhfQcDH1tXd
+         rosbna188kpAmAqZ3gyqHRXHyg91YQ35WK+4jT3l51bvweVkcItTG2Fqn01CLcPd/Tjb
+         xmd8W1O2uy4+G3XGSOcg129RiaeCeCQlHA7+6MoCh8L667DWYJIR1wrCgw2hdsB62KMA
+         ZneWNKhcv4Xj5qn5loy7hj60wnudyxba86/JdWTpI5Tzmh2ofgGaojmF0vMQ3Q2Z/res
+         1UmRm0vSuOVQYI+BFd9vnbnmBdBKB0sf/NCqQV5xRosEKMRwnWVGYEAOyfBB1KwUtjQI
+         rudg==
+X-Gm-Message-State: AOJu0YyBUmFPqz26j4LD9YYzXV1mUzRCu+tIK0r2Mpy7uGfnj2fXFZ8r
+	PCyuQDh1bSauYbfxujWPBV6QS6ZNM755YQeXSMZ59d1KgLJdz7A7oifjevORsKCrEfw=
+X-Gm-Gg: AR+sD10BgR2+fbl7JK6K3ON7KrUF+RB+O5nP/B7icvceZHqhpX7iCzEqPDjsJec+R2M
+	QRotqhehUVq9M/DIc3dZJ3HZRMYN5LQG1Sx72RiEFEwf7abIqdElJLYeYqSCqFKvSezwfbdD5tn
+	ANq4VhVHxLR3pRIpF7rj2XLPy019FYyEq6wNVA0vDRupAcdgfHX7u91x48aRkEv+N0mMaxJv7y4
+	KT3V8PY+M/LS44o7MtruM+ox0AWf5tcUF2q3yFGq7+iOp4Wg3fdCsm8UsGnrdG3m40zA+2ie3kh
+	DkQc6CjdxCq70F2MxEJbbpbGU8ZlcB7j7LPr1kfxxN+12ZYSEM4dhMkCNFBx1z4tCnXIfKxUlBA
+	AN3Q0TxTsUKUI7RjCioKqY9hqJ1WUF9rkTSoppytBRCAEKtTjAktr9cCvMFiWG8jyiQCjqkm0ZH
+	F3a64n89QBr43a8t3NPaf4fDFaWVZfhZaLYa1TCB2IqvlNN1vbi2OFrZ3+b02zziR+RA2GRSbPv
+	OR2
+X-Received: by 2002:a17:90a:c107:b0:387:d9cc:7dc3 with SMTP id 98e67ed59e1d1-39083b8f11emr8782659a91.21.1786114745522;
+        Fri, 07 Aug 2026 07:59:05 -0700 (PDT)
+Received: from 92650adf53de ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14101b95b20sm7733954c88.15.2026.08.07.07.59.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 07 Aug 2026 07:59:04 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-6.12.y: (build)
+ /tmp/kci/linux/mm/slab.h:572:24:
+ error: duplicate 'inline' declara...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Fri, 07 Aug 2026 14:59:04 -0000
+Message-ID: <178611474407.7658.14431237412617748501@kernelci.org>
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+New build issue found on stable-rc/linux-6.12.y:
 
-------------------
-
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-
-[ Upstream commit e4779e2a16d600892aaf743438f6ce8cc4eb3c4c ]
-
-Propagate clk_prepare_enable() failures to the caller instead of
-returning success, and disable the reference clock on initialization
-error paths to avoid leaking clock references when phy_exit() is not
-called.
-
-Fixes: 25d700833513 ("phy: xilinx: phy-zynqmp: dynamic clock support for power-save")
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Reviewed-by: Michal Simek <michal.simek@amd.com>
-Link: https://patch.msgid.link/20260720153832.1130006-2-radhey.shyam.pandey@amd.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/phy/xilinx/phy-zynqmp.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ /tmp/kci/linux/mm/slab.h:572:24: error: duplicate 'inline' declaration specifier [-Werror,-Wduplicate-decl-specifier] in mm/mempool.o (mm/mempool.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-diff --git a/drivers/phy/xilinx/phy-zynqmp.c b/drivers/phy/xilinx/phy-zynqmp.c
-index fe6b4925d1662..c8230f2bda629 100644
---- a/drivers/phy/xilinx/phy-zynqmp.c
-+++ b/drivers/phy/xilinx/phy-zynqmp.c
-@@ -658,12 +658,13 @@ static int xpsgtr_phy_init(struct phy *phy)
- {
- 	struct xpsgtr_phy *gtr_phy = phy_get_drvdata(phy);
- 	struct xpsgtr_dev *gtr_dev = gtr_phy->dev;
--	int ret = 0;
-+	int ret;
- 
- 	mutex_lock(&gtr_dev->gtr_mutex);
- 
- 	/* Configure and enable the clock when peripheral phy_init call */
--	if (clk_prepare_enable(gtr_dev->clk[gtr_phy->refclk]))
-+	ret = clk_prepare_enable(gtr_dev->clk[gtr_phy->refclk]);
-+	if (ret)
- 		goto out;
- 
- 	/* Skip initialization if not required. */
-@@ -673,7 +674,7 @@ static int xpsgtr_phy_init(struct phy *phy)
- 	if (gtr_dev->tx_term_fix) {
- 		ret = xpsgtr_phy_tx_term_fix(gtr_phy);
- 		if (ret < 0)
--			goto out;
-+			goto out_disable_clk;
- 
- 		gtr_dev->tx_term_fix = false;
- 	}
-@@ -687,7 +688,7 @@ static int xpsgtr_phy_init(struct phy *phy)
- 	 */
- 	ret = xpsgtr_configure_pll(gtr_phy);
- 	if (ret)
--		goto out;
-+		goto out_disable_clk;
- 
- 	xpsgtr_lane_set_protocol(gtr_phy);
- 
-@@ -705,6 +706,10 @@ static int xpsgtr_phy_init(struct phy *phy)
- 		break;
- 	}
- 
-+	goto out;
-+
-+out_disable_clk:
-+	clk_disable_unprepare(gtr_dev->clk[gtr_phy->refclk]);
- out:
- 	mutex_unlock(&gtr_dev->gtr_mutex);
- 	return ret;
--- 
-2.53.0
+Log excerpt:
+=====================================================
+In file included from /tmp/kci/linux/mm/mempool.c:21:
+/tmp/kci/linux/mm/slab.h:572:24: error: duplicate 'inline' declaration specifier [-Werror,-Wduplicate-decl-specifier]
+  572 | static __always_inline inline bool need_kmalloc_no_objext(void)
+      |                        ^
+/tmp/kci/linux/include/linux/compiler_types.h:249:16: note: expanded from macro 'inline'
+  249 | #define inline inline __gnu_inline __inline_maybe_unused notrace
+      |                ^
+1 error generated.
 
+=====================================================
 
+When fixing this issue, please attribute this report according to the
+patch submission rules:
 
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:552fff16b3e598443df3b1292b7e338292e7187c
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  993a046a044df0f29fc81dc45039a2a90dd4ae67
+
+# Builds where the incident occurred:
+
+## x86_64_defconfig+kselftest+x86-board on (x86_64):
+- compiler: clang-21
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6a75ea8862f33761c09011cf
+
+#kernelci issue maestro:552fff16b3e598443df3b1292b7e338292e7187c
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
