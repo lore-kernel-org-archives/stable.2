@@ -1,214 +1,110 @@
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D14B23C4F3
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 04:00:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18FB91684BE
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 04:22:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786075236; cv=none; b=TVwh4bg7bOgaUJu6RhZVZvrxTa2YVr4YdU+IGR5T2s7ybNKtioJzBYN2C8Q0KGQMDPyOG+wRtHol3uIiCQzxITsSQAFEyhPPHJgXpclsYmWxjzpHZFffQrEZym1nxQm/3B7FViJdAlhXQqQ5XWaXPmPbi01DtSokP4CwDQhXyK8=
+	t=1786076576; cv=none; b=IRSotWM13nESnjWkyxNqZJuPngpIV/Txy9vFTpu1k44Npb6zebZHRruO2jC8IY+J0F6eu/Q6CYAKH2prk0DqfFJMuV58OtrSOOMyheCuQkiHhnWIrFpa7l9ESxuG3aRCSNyVj84IJQmZsX+y6RAUayenfmtuOBwJzXASsebVoNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786075236; c=relaxed/simple;
-	bh=hmZuclTFZzpwPanYMBMzflpA2nQmvtKusjc96jxp2FE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=fQq0r95jfzwo1/d6dfs2yMqxixaEte4ExPnBlYxQxiiOlqb02VdnifI5YNMg3qsVIvb1j0ljh3KjXfGFoRLfIYix2GSH6gpey2kJ39UmZkIHQl/o0b9asL24GHE8OUuQ+pk8yR3TUA/Db6cvxjI39t7blih7NSGrgViDXss25OE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ri2HG5CG; arc=none smtp.client-ip=113.46.200.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1786076576; c=relaxed/simple;
+	bh=iFF1Ii4BbRtvgCuTzJ+dT2gNzke1lY9L5cq82zA0A+E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NlnQHRNV2Dhpv+TG581ofvW/NKLa+g62gn5R2N/MglJ0v5bZwHH37JKgOH92zSx0HUHLJLUgsN+qXe1cV4mGMhuoBxU6LpPqsA2TCGz8tmVCrC2r6rMNn+J/mK+1wZ2Wjy+FsplG8UQdMSK2He2PJR4TlmxuzmS8CapNNaiVa8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HiTXdcfG; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ri2HG5CG"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=5R1g/lTULmE0cpizN2C7xpl0sqIGETJfyPJS85LVXWU=;
-	b=ri2HG5CGFuk8tcKqZxbnIsBGwNt20PeeMCJijON/OfdinYe905qjRB0sO4Cy98idpAIDEziJ3
-	e24qjH5bZG6rPeJWQUrHhKAzcqicTHkv79R+XE0f1dnir/ew7dfwwgmbH6PJl2JHZYDPgRmciG6
-	dZTEGT/7G0nUwHRL9Wv3d8M=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hGVYH6cTNzpSvB;
-	Fri,  7 Aug 2026 11:50:43 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id C03864057F;
-	Fri,  7 Aug 2026 12:00:16 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Fri, 7 Aug 2026 12:00:15 +0800
-Message-ID: <2b96cf93-ddf2-4700-91d2-a0587343c3ff@huawei.com>
-Date: Fri, 7 Aug 2026 12:00:14 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HiTXdcfG"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47f703a9e5dso1483150f8f.0
+        for <stable@vger.kernel.org>; Thu, 06 Aug 2026 21:22:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786076573; x=1786681373; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=GwROwkmiHrpoWilT8NKMPgQZsuspf+l7q9+MCcf4wEo=;
+        b=HiTXdcfGDz7onJuRKB6A2B2omxntwVrToqPHW4OPyjR3VE1BcA5nDUHnVE1OzJBA+j
+         Q5KbcleSjs9YWgMFjVDrlbLA7HJUKmzYYxbwsaIMY/thpI6kOiD/SFwSG35ANcvnSc1c
+         rO7Mf+WPQpkDp7OSPTragg0CrO7bhJttHKEPr1pdZy2cdKZeLcTOedIpwkxB8NpepVy0
+         YkSDMhrknS+nBvXXYtWtTZ4TzARdReOVcIf4MqvDOG3c9Rh+gAEEVyXKuHvqwmWdH92/
+         DUiKcCIzzSxcLvBzPAfgUMBvuhVi7dc+pQNkEJi+hHx35kEuLWVIp0OMHFV6fN6lsxd3
+         i/Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786076573; x=1786681373;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GwROwkmiHrpoWilT8NKMPgQZsuspf+l7q9+MCcf4wEo=;
+        b=jWbwrxMefOlYp5zyMJRqdaO0RAjd8Uo8aNkcUlNzcVZpMCy5Nm+KOVHY3iXrnAydn7
+         GFk49NlXyV/J4sIgjE7+CF8WeoaFwq0i13agt9YwPLUyR2y5Um1aoABWuNtmWWdrvCO1
+         N/0VrtY2wh3Ytca05OSfxBXul56sPG9Adr4sCsCOe+OgACgzQm1khEG3JlLHwrNKDyWT
+         ZRAKRWTpon3ZOLzwgmt/pB5e8D+sFSWqUkfiWKPoNyonNzKh54jwFhUnSCydicMVZT/z
+         3zUdaEvxKCMC34EqVbKgLJR1ZgLP9WvQ+O/lmK3yYAW2xWGPq0Gd4mgAzMNOLgZiHMMb
+         nCeQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrOyb50GuHbNSJ/oZbcxAE6RkkFgsoENJQzScRF7nYhk+12VZD1Og7cEhIUXuQ0A8EQ0goz7UU=@vger.kernel.org
+X-Gm-Message-State: AOJu0YwoHltbqP4Diw46bfhB6emDBoClb1hL4rEFxx0ZcXruhqb1bJSJ
+	ypT6cassRd7wUtrbp3/Nnl9y2bFb4NnYzH42dI0q9hQL1bkqsH9/j90E
+X-Gm-Gg: AR+sD12bjhH6J+fx+MhxK7/I+qXxy3NKZIwW7HDpjGEclJ2yu0jaC1NjWHg8/oQBTwH
+	0EemIrLlA5RTnpIQ2MVBkiAieeaFgn3UdoJnBJcNKquwUlZ9FSkj5UEwHXBus5JyVb6n8WuS1KA
+	awnJeVQqrJFuQ+xvcyeUrgBRZHjIuo3tQA3PG5gXbOrMqkHvB33An9eXzVDVOZ37GAphfHZz+CK
+	MC8qqSboxO09Tfl6j8IkhwDyq7CmlrRu/ptMoMtwD0M5luHGXvfdEY62tjxcKy7ljQEouxGxFut
+	PEwTQJK/beED+E2Asf37AfHscS83pBDcfC7k6S089gZb1p8IcaeDnruePvu23+xhdNWGXRo3QWQ
+	FSu9zSGHssIE0MHXtTYTles7Ln98QPQrf0KXB0TGvgpQV15+ZC8OOE68fN0zvpxIuzI21PrdBE3
+	oi73m9S3soXTIMQfFiPX/SNymWl8IHPVjG+7vizjsuwvrxx01qnVIppAhWzQDEp82+eOiqJEskJ
+	T8FCRhv7NUCMSyYPN09+OpA
+X-Received: by 2002:a5d:624a:0:b0:47f:9750:26cc with SMTP id ffacd0b85a97d-47fec630b5cmr24277446f8f.23.1786076573196;
+        Thu, 06 Aug 2026 21:22:53 -0700 (PDT)
+Received: from eldamar.lan (c-82-192-247-196.customer.ggaweb.ch. [82.192.247.196])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021e902dsm1786284f8f.21.2026.08.06.21.22.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 21:22:51 -0700 (PDT)
+Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
+Received: by eldamar.lan (Postfix, from userid 1000)
+	id 41479BE2DE0; Fri, 07 Aug 2026 06:22:50 +0200 (CEST)
+Date: Fri, 7 Aug 2026 06:22:50 +0200
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Borislav Petkov <bp@alien8.de>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	David Kaplan <David.Kaplan@amd.com>
+Subject: CVE-2026-68480 mitigations for older stable series (was: Re: Linux
+ 6.6.149)
+Message-ID: <anVdmsj0Ko294nBP@eldamar.lan>
+References: <2026080618-mulch-nullify-723f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/20] arm64: percpu: Fix this_cpu_write() casting
-To: Mark Rutland <mark.rutland@arm.com>,
-	<linux-arm-kernel@lists.infradead.org>
-CC: <ada.coupriediaz@arm.com>, <ardb@kernel.org>, <catalin.marinas@arm.com>,
-	<cl@gentwo.org>, <david@kernel.org>, <david.laight.linux@gmail.com>,
-	<james.morse@arm.com>, <ljs@kernel.org>, <maz@kernel.org>,
-	<peterz@infradead.org>, <ryan.roberts@arm.com>, <stable@vger.kernel.org>,
-	<vladimir.murzin@arm.com>, <will@kernel.org>, <yang@os.amperecomputing.com>
-References: <20260804170503.3513916-1-mark.rutland@arm.com>
- <20260804170503.3513916-2-mark.rutland@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260804170503.3513916-2-mark.rutland@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- dggpemf500011.china.huawei.com (7.185.36.131)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026080618-mulch-nullify-723f@gregkh>
 
+Hi Greg, hi Borislav,
 
+On Thu, Aug 06, 2026 at 07:32:17PM +0200, Greg Kroah-Hartman wrote:
+> I'm announcing the release of the 6.6.149 kernel.
+> 
+> All users of the 6.6 kernel series must upgrade.
+> 
+> The updated 6.6.y git tree can be found at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git linux-6.6.y
+> and can be browsed at the normal kernel.org git web browser:
+> 	https://git.kernel.org/?p=linux/kernel/git/stable/linux-stable.git;a=summary
 
-在 2026/8/5 1:04, Mark Rutland 写道:
-> The arm64 implementation of this_cpu_write() casts 'val' to unsigned
-> long. This is necessary to handle cases where 'val' is a pointer type,
-> and to avoid spurious compiler warnings for the (unreachable!) cases
-> where the pointer type would be cast to a smaller integer type.
-> 
-> Unfortunately, the cast is applied to 'val' rather than '(val)', which
-> won't always generate the expected value when 'val' is an expression.
-> 
-> For example, for this_cpu_write(pcp, zero - 1), where 'pcp' is a u64 and
-> 'zero' is a u32:
-> 
-> * 'zero'                      ===> (u32) 0x00000000
-> * 'zero - 1'                  ===> (u32) 0xffffffff
-> * '(unsigned long)zero - 1'   ===> (u64) 0xffffffffffffffff
-> * '(unsigned long)(zero - 1)' ===> (u64) 0x00000000ffffffff
+It got mentioned outside of the stable list that the backports of
+7e7f81cf6f5c ("x86/bugs: Make Safe-RET robust against interrupt
+injection") to address CVE-2026-68480 will not work. So raising the
+problem here.
 
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+In fact at least they depend on CONFIG_MITIGATION_SRSO, which only was
+renamed in a033eec9a06c ("x86/bugs: Rename CONFIG_CPU_SRSO
+=> CONFIG_MITIGATION_SRSO") v6.9-rc1, correct?
 
-> 
-> Fix this by adding brackets around 'val'
-> 
-> The bug described above can be seen from the disassembly of the
-> following test code:
-> 
-> | void this_cpu_write_zero_minus_1(u64 __percpu *pcp)
-> | {
-> | 	u32 zero = 0;
-> | 	this_cpu_write(*pcp, zero - 1);
-> | }
-> |
-> | void this_cpu_write_zero_minus_1_brackets(u64 __percpu *pcp)
-> | {
-> | 	u32 zero = 0;
-> | 	this_cpu_write(*pcp, (zero - 1));
-> | }
-> 
-> Generated code before this patch:
-> 
-> | <this_cpu_write_zero_minus_1>:
-> |        paciasp
-> |        stp     x29, x30, [sp, #-16]!
-> |        mrs     x1, sp_el0
-> |        mov     x29, sp
-> |        ldr     w2, [x1, #8]
-> |        add     w2, w2, #0x1
-> |        str     w2, [x1, #8]
-> |        mov     x3, #0xffffffffffffffff
-> |        mrs     x2, tpidr_el1
-> |        str     x3, [x0, x2]
-> |        ldr     x0, [x1, #8]
-> |        add     x0, x0, x3
-> |        str     w0, [x1, #8]
-> |        cbz     x0, 1f
-> |        ldr     x0, [x1, #8]
-> |        cbnz    x0, 2f
-> | 1:     bl      preempt_schedule_notrace
-> | 2:     ldp     x29, x30, [sp], #16
-> |        autiasp
-> |        ret
-> |
-> | <this_cpu_write_zero_minus_1_brackets>:
-> |        paciasp
-> |        stp     x29, x30, [sp, #-16]!
-> |        mrs     x1, sp_el0
-> |        mov     x29, sp
-> |        ldr     w2, [x1, #8]
-> |        add     w2, w2, #0x1
-> |        str     w2, [x1, #8]
-> |        mov     x3, #0xffffffff
-> |        mrs     x2, tpidr_el1
-> |        str     x3, [x0, x2]
-> |        ldr     x0, [x1, #8]
-> |        sub     x0, x0, #0x1
-> |        str     w0, [x1, #8]
-> |        cbz     x0, 1f
-> |        ldr     x0, [x1, #8]
-> |        cbnz    x0, 2f
-> | 1:     bl      preempt_schedule_notrace
-> | 2:     ldp     x29, x30, [sp], #16
-> |        autiasp
-> |        ret
-> 
-> Generated code after this patch:
-> 
-> | <this_cpu_write_zero_minus_1>:
-> |        paciasp
-> |        stp     x29, x30, [sp, #-16]!
-> |        mrs     x1, sp_el0
-> |        mov     x29, sp
-> |        ldr     w2, [x1, #8]
-> |        add     w2, w2, #0x1
-> |        str     w2, [x1, #8]
-> |        mov     x3, #0xffffffff
-> |        mrs     x2, tpidr_el1
-> |        str     x3, [x0, x2]
-> |        ldr     x0, [x1, #8]
-> |        sub     x0, x0, #0x1
-> |        str     w0, [x1, #8]
-> |        cbz     x0, 1f
-> |        ldr     x0, [x1, #8]
-> |        cbnz    x0, 2f
-> | 1:     bl      preempt_schedule_notrace
-> | 2:     ldp     x29, x30, [sp], #16
-> |        autiasp
-> |        ret
-> |
-> | <this_cpu_write_zero_minus_1_brackets>:
-> |        b       this_cpu_write_zero_minus_1
-> 
-> Fixes: 959bf2fd03b5 ("arm64: percpu: Rewrite per-cpu ops to allow use of LSE atomics")
-> Reported-by: David Laight <david.laight.linux@gmail.com>
-> Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-> Cc: Ard Biesheuvel <ardb@kernel.org>
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: James Morse <james.morse@arm.com>
-> Cc: Jinjie Ruan <ruanjinjie@huawei.com>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Cc: Vladimir Murzin <vladimir.murzin@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Yang Shi <yang@os.amperecomputing.com>
-> Cc: stable@vger.kernel.org
-> ---
->  arch/arm64/include/asm/percpu.h | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
-> index b57b2bb009677..63bbfd4944a37 100644
-> --- a/arch/arm64/include/asm/percpu.h
-> +++ b/arch/arm64/include/asm/percpu.h
-> @@ -179,13 +179,13 @@ PERCPU_RET_OP(add, add, ldadd)
->  	_pcp_protect_return(__percpu_read_64, pcp)
->  
->  #define this_cpu_write_1(pcp, val)	\
-> -	_pcp_protect(__percpu_write_8, pcp, (unsigned long)val)
-> +	_pcp_protect(__percpu_write_8, pcp, (unsigned long)(val))
->  #define this_cpu_write_2(pcp, val)	\
-> -	_pcp_protect(__percpu_write_16, pcp, (unsigned long)val)
-> +	_pcp_protect(__percpu_write_16, pcp, (unsigned long)(val))
->  #define this_cpu_write_4(pcp, val)	\
-> -	_pcp_protect(__percpu_write_32, pcp, (unsigned long)val)
-> +	_pcp_protect(__percpu_write_32, pcp, (unsigned long)(val))
->  #define this_cpu_write_8(pcp, val)	\
-> -	_pcp_protect(__percpu_write_64, pcp, (unsigned long)val)
-> +	_pcp_protect(__percpu_write_64, pcp, (unsigned long)(val))
->  
->  #define this_cpu_add_1(pcp, val)	\
->  	_pcp_protect(__percpu_add_case_8, pcp, val)
+Borislav, can you have a look for the older backports?
 
+Regards,
+Salvatore
