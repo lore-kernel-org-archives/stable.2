@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0929448B84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B324846AF2A
 	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 11:48:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786103305; cv=none; b=N8iKef9LI2864PKvcDNYRk2bVr99SklLiSLbnvJP7i3nL8JI8+EQbmFwUx7AR6ZJZyTp3oloVp3hH1yBgLWgx6kax4Vj2jaM3Ua4Uym+Lrwrb82a2eI/GMz5gw7OY6MqscC2j+y7vIH607S7V9P7Mc8JeSxkS1Bqf6btxd148Dk=
+	t=1786103303; cv=none; b=fSFYwUjUPA1LfVMUNDgeZnvSq4nZDQnqehqBdSVq4YHcXqBp32dlHe7ARuV7aT2riKI5M1hN4cEXvEX4CHm/u/1H6xRmQ+orTiE+02y7lsaM5yNfUYr4cRmoE+9+CUbGFkjF7jLzcqUjjZPu8KN3wDRV+L5eBDRT4F7m00ZNnY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786103305; c=relaxed/simple;
-	bh=bIiZtZ9Px155FsjMVerf6i69FABcMZyj994gn4yKf0U=;
+	s=arc-20240116; t=1786103303; c=relaxed/simple;
+	bh=cS8QlEGWiSh0RNllWjqmYzD53RIhSVTRjuFEA88DPE0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CmN9ZG0DvU4vFroayRe7VQYYBnIhGkz0TU1C2OCVCP2UmTiXltgCBMjjS8+TFG5xxq9vJRi6bDNm7EMPr+O+QWxeuqmJK2RjyP+xqrDAaxOKmpuwv4kfIcf25XD4isdk8rgPdbQPep/6yYPMEv8sQUSr0EbbIQ3lAC2xeYNmmPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M8VIXvtW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OgN6fYOFCVwLLKWbjY3iCKBE8vru0/J2Uf55DBRuTiL10W+RPkpumz4rRrVZWxD6e6WSG/SljECUENBQbmPUMUKcEojz8CzBVbJqTH+JUR4VJQBiO5QUSAmtPmm3iGMOq4TFRMrI76BzwsB7mRflJo8lkedN2spvI6UiLCeWCCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oQ9u6mfk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M8VIXvtW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5B501F00A3A;
-	Fri,  7 Aug 2026 11:48:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oQ9u6mfk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 567221F00A3E;
+	Fri,  7 Aug 2026 11:48:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786103293;
-	bh=moRJ64cw7e5TIte0VfVci+iKHW1S2vFFjZs1zJIkezU=;
+	s=k20260515; t=1786103295;
+	bh=lW1wj5gnOCcmmX0IRpEe/AvHanQQT2gDlE+9HzGvyZc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M8VIXvtW6C2Zl9JCCIoekY1wGDYPXy3pLdd13OEF9nddkVadaw4HHA5D3NzLp89s+
-	 ghUQv4zjez94wfJ8su13DIM8gCDhu6ypuRQrTU1o8t6YmEtm9gZvr5fT9LDqSmL7uI
-	 3C8pXNnxiOeHC3M8NygYpPdqGn5Ps3JXcO//IkUZDepv3Mxu6l38MB1xi3gE0g9XLU
-	 9tYrtAoqQnwJrjP5yQg5WkUIiul5rBIRIdEDpCAWn8fLE+/QyMfY4248rT7sOM0IlA
-	 iGnN+T/Nt8G+dQ8qYcZuKRRAMAMWOkeDWyfyc+HZbTJHJzw8evplcW3Qkyfxu0E9a7
-	 lpeYLSuUvDJvQ==
+	b=oQ9u6mfkUrxxNPZSClUfjOCxRT9UYHJO2qPONAr+LsYHjQJCewkOohexXE3rw782V
+	 WHi9EYbeT15wt9uUmg+bof8G4e6GVsxfqRTJVuWF5YT76i+8yFewI+0UP2qk0tq0GP
+	 Hj5LEn24lyqxYKEOijeK4OGotIIp+ZzO9EpUB5BBcsksDhQMHgXQ9MN+l3le6ZyoG6
+	 AyPGu18zGsOhum+rhPV7f3K2KFvvTp7hl5N8oEAuQUU6FYgrBUUFmWtbTra9OQyatt
+	 Wd75nJqI5sUVWewIitaoZRilczb148NWEP/lnePuI1E+oHHkgLTfWCAMK1tKqXnO1u
+	 qjnI9ov/m5q2g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: WenTao Liang <vulab@iscas.ac.cn>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
+Cc: Geliang Tang <tanggeliang@kylinos.cn>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] ceph: fix refcount leak in ceph_readdir()
-Date: Fri,  7 Aug 2026 07:48:08 -0400
-Message-ID: <20260807114809.2056244-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/4] mptcp: pm: avoid code duplication to lookup endp
+Date: Fri,  7 Aug 2026 07:48:10 -0400
+Message-ID: <20260807114813.2056374-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260807114809.2056244-1-sashal@kernel.org>
-References: <2026072936-dispersal-unwanted-0d62@gregkh>
- <20260807114809.2056244-1-sashal@kernel.org>
+In-Reply-To: <2026072920-budding-prescribe-9ea0@gregkh>
+References: <2026072920-budding-prescribe-9ea0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,54 +46,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: WenTao Liang <vulab@iscas.ac.cn>
+From: Geliang Tang <tanggeliang@kylinos.cn>
 
-[ Upstream commit c3e64079d8b9663e3998d0caac9aba915b6b93ae ]
+[ Upstream commit 1d7fa6ceb91fddbe38cae3521d5d1075bce6a00e ]
 
-The ceph_readdir() function allocates a ceph_mds_request via
-ceph_mdsc_create_request() and stores it in dfi->last_readdir. In
-the directory entry processing loop, if the entry's offset is less
-than ctx->pos or if the inode pointer is unexpectedly NULL, the
-function returns -EIO without releasing the reference held by
-dfi->last_readdir, causing a refcount leak.
+The helper __lookup_addr() can be used in mptcp_pm_nl_get_local_id()
+and mptcp_pm_nl_is_backup() to simplify the code, and avoid code
+duplication.
 
-Fix this by adding ceph_mdsc_put_request(dfi->last_readdir) before
-returning on these error paths. Also set dfi->last_readdir to NULL
-for safety, matching the cleanup done at the normal exit.
-
-Cc: stable@vger.kernel.org
-Fixes: af9ffa6df7e3 ("ceph: add support to readdir for encrypted names")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+Co-developed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Geliang Tang <tanggeliang@kylinos.cn>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20241115-net-next-mptcp-pm-lockless-dump-v1-2-f4a1bcb4ca2c@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 9bc6d5e4ca9f ("mptcp: pm: userspace: fix use-after-free in get_local_id")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ceph/dir.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ net/mptcp/pm_netlink.c | 20 ++++++--------------
+ 1 file changed, 6 insertions(+), 14 deletions(-)
 
-diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
-index c5819319e8c08..0b764dcbc7bf6 100644
---- a/fs/ceph/dir.c
-+++ b/fs/ceph/dir.c
-@@ -546,11 +546,16 @@ static int ceph_readdir(struct file *file, struct dir_context *ctx)
- 			pr_warn_client(cl,
- 				"%p %llx.%llx rde->offset 0x%llx ctx->pos 0x%llx\n",
- 				inode, ceph_vinop(inode), rde->offset, ctx->pos);
-+			ceph_mdsc_put_request(dfi->last_readdir);
-+			dfi->last_readdir = NULL;
- 			return -EIO;
- 		}
+diff --git a/net/mptcp/pm_netlink.c b/net/mptcp/pm_netlink.c
+index 74ec7ecf4e8ff..2de42055b78f9 100644
+--- a/net/mptcp/pm_netlink.c
++++ b/net/mptcp/pm_netlink.c
+@@ -1281,17 +1281,13 @@ int mptcp_pm_nl_get_local_id(struct mptcp_sock *msk, struct mptcp_addr_info *skc
+ {
+ 	struct mptcp_pm_addr_entry *entry;
+ 	struct pm_nl_pernet *pernet;
+-	int ret = -1;
++	int ret;
  
--		if (WARN_ON_ONCE(!rde->inode.in))
-+		if (WARN_ON_ONCE(!rde->inode.in)) {
-+			ceph_mdsc_put_request(dfi->last_readdir);
-+			dfi->last_readdir = NULL;
- 			return -EIO;
-+		}
+ 	pernet = pm_nl_get_pernet_from_msk(msk);
  
- 		ctx->pos = rde->offset;
- 		doutc(cl, "%p %llx.%llx (%d/%d) -> %llx '%.*s' %p\n", inode,
+ 	rcu_read_lock();
+-	list_for_each_entry_rcu(entry, &pernet->local_addr_list, list) {
+-		if (mptcp_addresses_equal(&entry->addr, skc, entry->addr.port)) {
+-			ret = entry->addr.id;
+-			break;
+-		}
+-	}
++	entry = __lookup_addr(pernet, skc);
++	ret = entry ? entry->addr.id : -1;
+ 	rcu_read_unlock();
+ 	if (ret >= 0)
+ 		return ret;
+@@ -1318,15 +1314,11 @@ bool mptcp_pm_nl_is_backup(struct mptcp_sock *msk, struct mptcp_addr_info *skc)
+ {
+ 	struct pm_nl_pernet *pernet = pm_nl_get_pernet_from_msk(msk);
+ 	struct mptcp_pm_addr_entry *entry;
+-	bool backup = false;
++	bool backup;
+ 
+ 	rcu_read_lock();
+-	list_for_each_entry_rcu(entry, &pernet->local_addr_list, list) {
+-		if (mptcp_addresses_equal(&entry->addr, skc, entry->addr.port)) {
+-			backup = !!(entry->flags & MPTCP_PM_ADDR_FLAG_BACKUP);
+-			break;
+-		}
+-	}
++	entry = __lookup_addr(pernet, skc);
++	backup = entry && !!(entry->flags & MPTCP_PM_ADDR_FLAG_BACKUP);
+ 	rcu_read_unlock();
+ 
+ 	return backup;
 -- 
 2.53.0
 
