@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570E442F71B;
-	Fri,  7 Aug 2026 14:42:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A8B3B38AD;
+	Fri,  7 Aug 2026 14:42:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786113794; cv=none; b=tfPwQ9ti5wu2ni1tfMaNx1u48o697BFqzQmQYX4fg3mYOkYbMwr8lO5E264Vb334CYuu8xcQvk6UnS9Y6G2LY3ISnBN/kBsPijXiU7J9lGAc4L+nxZ1ju/g9wIppjpKRo46SCK+qnwwMEA9Z19LFnEPF8/RBIS5gopMHur9+soE=
+	t=1786113799; cv=none; b=kbaMwu3RTQ4FscMZKHBXRpGdrnzXhrTv9LwvFIUxM1IbSUWAwVxIAxNkoQorsvD6TN/EY5E8nqaTyQzSwNAVC/O8vyefa7f2RJlrpqwHkSQxjQv9kyajk90ZeKY7LdrNaF0JqWttTMDHzm9GQyAVYM6ZXmLBQgk+967R/6pOtV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786113794; c=relaxed/simple;
-	bh=r+Q0RrTIt31QrvmEdEmJT9C+3D+GrefJB03R18EYUMw=;
+	s=arc-20240116; t=1786113799; c=relaxed/simple;
+	bh=Mg1gXM5oUN3O0NSLefTH39L7G3e8u5KYW2RWxTVxFAg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vww679UIUHLA5NBf6vi6WX827dkGYUy5lfp8KxCtg7eT6M+dAcsBDYWDdIKX05CBPOkdptu+zS5hjG/ot+dTZWrtF8EaraaSwCUrme7X1IR9h3GoCjqiRGxwTs9QIpq8aVT+ihn6Kq84aVQUzsrgoQCFrHPTV4/pGV2WcByBFMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TulftksZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=E8oVpGX0ciAMJu8lAYhhp7rzqB8aBmHIauzpDGI5kO5EvKTMb6+vYe4ogIblrjUICqIl6rFY5FH4MHUhLcOfMzl0ITNjt3wkZ3EASvogpluhUvD9hp5lMcEF0U7OVyXy0K1ToKSMU8O4SnR4gNbqj01/awcH4mEEA1HEbT3es+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZoBUGv3u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TulftksZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CE6F1F000E9;
-	Fri,  7 Aug 2026 14:42:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZoBUGv3u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDF2D1F00A3D;
+	Fri,  7 Aug 2026 14:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786113774;
-	bh=az/ELvLLrT2M+lUpsgtu/PcbeNA6t8+DMyyKqYl8GoU=;
+	s=korg; t=1786113771;
+	bh=xHEs5qRF7gMatqWt0QliCcBh9r2ATNY3CjQqNkWOzqA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TulftksZIIDcTo2NEIKVxak8Md2C5C6k6KloOZbbnfKCc9hzPPJGgx+rx26Sio1M7
-	 wE1q3WcJukQp48uR+iyADjQ0uaNREf8pNikYBJw2Zgm1Q2AFUwPkqIcIxKKnJr+pPT
-	 tpdrjhS3ceJwPNNYX0lzF/2H56ClZha2KSWrxP2I=
+	b=ZoBUGv3uG3onuWWh+rZxz7aUXx4FzZOeEIll+QuCSKKLy4GTas99kOlgtHinrzgdC
+	 7a3BohvCvhW1pbeUWx5oT80tzlwjPw4otdItdzJ8n7GhnFga9rMb2vE24BnfvEzr1v
+	 UbALO+tujARIl49JVqOKGOre7cCYd6wY1hkwxLoA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Benjamin Berg <benjamin.berg@intel.com>,
+	Tiwei Bie <tiwei.btw@antgroup.com>,
 	Johannes Berg <johannes.berg@intel.com>,
 	Florian Fainelli <florian.fainelli@broadcom.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 007/337] um: Set parent death signal for userspace process
-Date: Fri,  7 Aug 2026 16:33:30 +0200
-Message-ID: <20260807143418.681796906@linuxfoundation.org>
+Subject: [PATCH 6.12 006/337] um: Set parent-death signal for write_sigio thread/process
+Date: Fri,  7 Aug 2026 16:33:29 +0200
+Message-ID: <20260807143418.659800352@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
 References: <20260807143418.516897842@linuxfoundation.org>
@@ -52,40 +52,35 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Benjamin Berg <benjamin.berg@intel.com>
+From: Tiwei Bie <tiwei.btw@antgroup.com>
 
-commit 801e00d3a1b78b7f71675fae79946ff4aa3ee070 upstream.
+commit c6c4adee65969218b0b7b13f568fd2c6f2333373 upstream.
 
-Enable PR_SET_PDEATHSIG so that the UML userspace process will be killed
-when the kernel exits unexpectedly.
+The write_sigio thread is not really a traditional thread. Set
+the parent-death signal for it to ensure that it will be killed
+if the UML kernel dies unexpectedly without proper cleanup.
 
-Signed-off-by: Benjamin Berg <benjamin.berg@intel.com>
-Link: https://patch.msgid.link/20240919124511.282088-4-benjamin@sipsolutions.net
+Signed-off-by: Tiwei Bie <tiwei.btw@antgroup.com>
+Link: https://patch.msgid.link/20241024142828.2612828-4-tiwei.btw@antgroup.com
 Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[florian: upstream applies os_set_pdeathsig() in stub_exe.c, a file
-introduced in v6.13 that does not exist in 6.12; applied instead to
-userspace_tramp() in arch/um/os-Linux/skas/process.c, which is the
-equivalent entry-point for the userspace process in 6.12]
 Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/um/os-Linux/skas/process.c | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/um/os-Linux/sigio.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/um/os-Linux/skas/process.c b/arch/um/os-Linux/skas/process.c
-index b6f656bcffb1..cca016b0b29b 100644
---- a/arch/um/os-Linux/skas/process.c
-+++ b/arch/um/os-Linux/skas/process.c
-@@ -214,6 +214,9 @@ static int userspace_tramp(void *stack)
- 				     (unsigned long) stub_segv_handler -
- 				     (unsigned long) __syscall_stub_start;
+diff --git a/arch/um/os-Linux/sigio.c b/arch/um/os-Linux/sigio.c
+index 9e71794839e8..9aac8def4d63 100644
+--- a/arch/um/os-Linux/sigio.c
++++ b/arch/um/os-Linux/sigio.c
+@@ -55,6 +55,7 @@ static int write_sigio_thread(void *unused)
+ 	int i, n, respond_fd;
+ 	char c;
  
-+	/* Make sure this process dies if the kernel dies */
 +	os_set_pdeathsig();
-+
- 	ptrace(PTRACE_TRACEME, 0, 0, 0);
- 
- 	signal(SIGTERM, SIG_DFL);
+ 	os_fix_helper_signals();
+ 	fds = &current_poll;
+ 	while (1) {
 -- 
 2.53.0
 
