@@ -1,83 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C193431F5;
-	Fri,  7 Aug 2026 15:42:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2CE3F4125;
+	Fri,  7 Aug 2026 15:42:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786117348; cv=none; b=aAPpzpOQGQLOdfa/5v0ILfsUCxSv39cu/rsB0euvkoE+Md4JDEYwmwGuR3SHOA+CFTheE5GATg4z6u9Yck4gYRG1+mS9nOzgxvmOHSdlx1pEp8+N6C3ADtFowEr/nqNJ19r7j+1el8c95T126QWxHQF6EU1NugorMuONoTC5EMs=
+	t=1786117349; cv=none; b=nfLgUS/h11D50nodAhpyrccIdF+g7atx9g7RDjKPdqAiwUZVerDMZEKPcKARZD8CRuMcNKeCIWNIgbRRDM/dss9o1rnozDI1Squ+pbFxjcoKDS/yBqIT3TetiQS61dkS4jgVMf3tRKJ6VPSOgAIL2FPnEaacEiOQwnT0g+1HjFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786117348; c=relaxed/simple;
-	bh=msolPwwn2q0arwbEa/tpsIFiinqpS0udGChrzptIue4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aESHTdwWWYPUFvMmuPXyCq4yQcSz+50BRiQcchC+kGZo0lMJHAxzdPTkVK4wgNV6ZonOYQGUw7nbg8F45VMt37TfTmQ0H0V2eYdF7vrxQF1wZkXzKjrb1LBW3cpj34KHP8co2Xtm/lmRuQ07a1fCxLpC5S3TpF7cRWT1J7iICrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IQcN7V4M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786117349; c=relaxed/simple;
+	bh=rCEqMV+uPIsth9n1E1JQC2j8NZuXu4XTM3VkXsyPAZI=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TV0+dAl7+djp5Ttf85ZveIHUTmRD3etrdwuodnCUhfe0cigg9x8ent2xhg2/8BlptETz6DhcbRSGwiDm9rHunwrGNmN/Zyff23ASiXeXLa6ZvJfrEo4chm4yWp+LquUa7c5aQYFEfxgNw8bmIF8WAeBj8Cyv5aqZVF+5Kl/ki2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fbKUZSLA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IQcN7V4M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90B221F000E9;
-	Fri,  7 Aug 2026 15:42:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786117347;
-	bh=sisWwvp/Vwa8clNu8RIVTOvEwHos8egdc73DTD2XMVI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IQcN7V4MwZjoNgon6X9jJ1yHS/jdVjWhQ5ZCJnLi8x1pte0S3Y6IJeFBDSSKi8+A7
-	 tUy4sCVZtOE6h5QIJR6xxNISUDhS5gmpjggGIOb09mNJzBRpQrb4hPLbrIU+a/46+L
-	 HVcADDYmy2ulOtCJo5d8S+koPtgGjveckDBS37KA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Shengjiu Wang <shengjiu.wang@nxp.com>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 7.1 260/438] ASoC: fsl_easrc: fix m2m_init error path to use goto instead of bare return
-Date: Fri,  7 Aug 2026 16:37:36 +0200
-Message-ID: <20260807143433.536372941@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260807143428.008222056@linuxfoundation.org>
-References: <20260807143428.008222056@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fbKUZSLA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B2781F00A3A;
+	Fri,  7 Aug 2026 15:42:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786117348;
+	bh=E582xZDvt+4gsNcuth6hcv6sLRoTSurZWsRQ5mdDTfE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=fbKUZSLAEE+K/4fea2CIPBaXkUycKN/2PNjz2wULzKmBffAptjyRqGSYjgA/88OQe
+	 jpMHpaoffMQKgdFT21SSYdbKvrtRUZ2fnyAjlBEWkPvvRb2cj22qlwvaFwCSv/Ljtk
+	 U2XiAytFEKYCBDzxmlOR0KoTjYBpRgOGAQcxP0k8EezCGms6eF1+eI3GfpCPcMRAnh
+	 iDDsZdP2WZu5T8CYTWYTTtLoiYt6eq2x3BP5VU07vwDNiFpxHGQ9KMbbMbGWnnJrq2
+	 nQELkZ+bkhoV1Or0mQDWSTgTipkgII/CVNIDPuMbAVVn3DgPqMKuxuFpQybw1kBOdx
+	 Fc+B6mMV9gsRA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wsMiI-0000000DR3X-18fk;
+	Fri, 07 Aug 2026 15:42:26 +0000
+Date: Fri, 07 Aug 2026 16:43:47 +0100
+Message-ID: <87h5l6os0c.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Wei-Lin Chang <weilin.chang@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	grayhat@foxmail.com
+Subject: Re: [PATCH v3] KVM: arm64: nv: Keep the shadow S2 MMUs at fixed addresses
+In-Reply-To: <anUt9gd8HIwaj9jf@gmail.com>
+References: <20260806192451.10169-1-kmehltretter@gmail.com>
+	<d5svhw3jkjnkucohx2ntwhphemgbtfcmjt2zoyyw6svz56zfrh@z2ziydov5ras>
+	<anUt9gd8HIwaj9jf@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: kmehltretter@gmail.com, weilin.chang@arm.com, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org, grayhat@foxmail.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+On Fri, 07 Aug 2026 02:13:17 +0100,
+Karl Mehltretter <kmehltretter@gmail.com> wrote:
+> 
+> On Thu, Aug 06, 2026 at 10:54:03PM +0100, Wei-Lin Chang wrote:
+> > 
+> > Hey sorry for nitpicking once more, I actually like v2 more, as this
+> > version splits the error handling to two places. Marc's implementation
+> > [1] is also good, but that requires a twist in kvm_arch_flush_shadow_all().
+> > So I'd personally go with v2 (+my suggestions for it :)), but also fine if
+> > others have other opinions.
+> > 
+> > I also think the comment in kvm_vcpu_init_nested() is worth adjusting
+> > slightly, too.
+> > 
+> 
+> No worries, thanks for taking another look.
+> 
+> I was following the guidance in include/linux/cleanup.h:
+> 
+>   the expectation is that usage of "goto" and cleanup helpers is never
+>   mixed in the same function.
+> 
+> But maybe keeping goto is better. I'll wait a bit for others
+> to comment.
 
-------------------
+The version I proposed in response to your first version had no goto,
+and trivial error handling. Can we *please* stop the bike shedding and
+settle on the simplest possible fix? Or *any* fix at all?
 
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
+> 
+> For the comment, I propose replacing the current text with:
+> 
+> 	/*
+> 	 * If allocating an MMU object fails, keep the VNCR page alive so
+> 	 * that userspace can retry vCPU initialisation without affecting
+> 	 * the VM.
+> 	 */
+> 
+> Is that the adjustment you had in mind?
 
-commit a54bc0eef90ea760039c14bb7f3b5db42529f84d upstream.
+I don't think we need to change any comment. If anything, it should be
+deleted altogether. This is a security fix, not a literary exercise.
 
-When fsl_asrc_m2m_init() fails in fsl_easrc_probe(), the code did a
-bare return ret, bypassing pm_runtime_disable() in err_pm_disable.
-Use goto err_pm_disable to ensure proper cleanup on failure.
+	M.
 
-Fixes: b62eaff0650d ("ASoC: fsl_easrc: register m2m platform device")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Link: https://patch.msgid.link/20260715024758.1252801-3-shengjiu.wang@oss.nxp.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- sound/soc/fsl/fsl_easrc.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/sound/soc/fsl/fsl_easrc.c
-+++ b/sound/soc/fsl/fsl_easrc.c
-@@ -2269,7 +2269,7 @@ static int fsl_easrc_probe(struct platfo
- 	ret = fsl_asrc_m2m_init(easrc);
- 	if (ret) {
- 		dev_err(&pdev->dev, "failed to init m2m device %d\n", ret);
--		return ret;
-+		goto err_pm_disable;
- 	}
- 
- 	return 0;
-
-
+-- 
+Jazz isn't dead. It just smells funny.
