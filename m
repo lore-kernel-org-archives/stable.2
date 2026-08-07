@@ -1,73 +1,81 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010017.outbound.protection.outlook.com [40.93.198.17])
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3BE36896D;
-	Fri,  7 Aug 2026 07:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F38639184B
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 07:48:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.220
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786088200; cv=fail; b=NpyKdWUGlgvvEWZkDMnWW2QjQyfuUCR0vTBj3G4zYb5xoVWn6caPhudqM5i+UaHZqOJMh4DS46NBHegwglpCk2065c76m6wPnLDtdXHi4pewpFCOUHNEhKM/h6a2fQ8xnxx3tAsNNwomeSY8MU008zmUdGyxxzJkiN6cWV2mLDY=
+	t=1786088917; cv=pass; b=P5/oPkn6TmMoxLqxYBIFk9wRmvzlrMESRoDquC8foOVjTkx1XcOZ5QsNefrMlUFijThgkuL9nfbaLV/Uz/tuy6Bvgdop6iuVR1lLdwwH5M1herIBOQSomekkyvPnXFsNqSR0mdTSpdIiYbMzWsgDOzgmt9+OX3mM3lVuIby+M3E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786088200; c=relaxed/simple;
-	bh=xBWilqP5WFyUvdR6tSF5SEb74ovPgvSRoMPWH4gR8/8=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OqvheWdWJsVMm3rj5fnoT50qI3uCU+3anhTCA0AkdjCtd9VHZSUPAwN4OynKcXWSvxSOVN4QASsWgadUUhbqrBZIkra4PqCK7EYWtF0BnTyjLiO30BWEwI7djX7RG0NykDOFzQ1AN2jPc6qOBpD9ZSOfUAsuagJV/eiDtXcJhmk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=UM7Fo5WJ; arc=fail smtp.client-ip=40.93.198.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1786088917; c=relaxed/simple;
+	bh=4M/J7s3RoTPKOct0cqAH0Sjn9ku0AlxUUha1jSEjkBc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sCHsamN2daiIfzjTBKeJBSQT0rHrag7n6CL9dLqcaTH1PFno7VTYY5pbEuFbfnUwq5D1e7KFkXdX9KxAxJeTLr27vQhSE/hKD4rOu6nHA6ks2v0wSM/0kmrEAC6dGcyEsr79wM5MbxV30xk9i0074dV61Z3CVsKgtORFw5XsqJk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=Ckjp9npx; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=Fk0JxKuL; arc=pass smtp.client-ip=81.169.146.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="UM7Fo5WJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dy0WFC3Ucy3ogBJ8Q7esKPTyDBRXNt9xntTCwuicXr1Qw0kBDlrJAaJw14mvgKS+j/1k7EvZi6cCQYLWI58DnK849bLp6ciGs/GWC8h7gYxXqymfAE7ZZ3UL/DtwXs7t1yg1AA2+T7el53niUib6cLD9WWarSeoPf8grTQ8XWhswW0GC7Pc/myQI1pJH+hYJ3rF+e7yD6fESyQdlN94kb63WrON9KAgdH2iqhgB3hH/J013GxtGQeScnbNyDAp9KfOKnpFHYESO+pPNAZg/swWPg1O5HT5B4jMP5HJ0Sig7u79+MyVbdM/50lVHhERnz4eUIXGClOab/XnNEMUEAuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5uBBPi6TiB7DjUjak6BRnRFpdYxUDjfu5qiDpusTgLg=;
- b=C0kyGoumhf9tFM5fPq17JVJWVhy670BsDmld724hwpyED2HqtIF3R4A8xK2CvbxOpaOTT/fWOBpq1R95PVkT1igmJ/aWckz0aI6hjybD82RpwnX5pa3YEnFWtB4sUyHR+8Cg8JBptEyMDdtUScoT8Rfh+A7DmyCPKaCv5iM1lxXfvCqeo+MF04Qpmh0xRyWQ+pAX0SWQMGze2o8m1k4TRDlquxQcnX0l/Q74sut75F1DPwWfChRo/+EcTN4LyPNL2rBLUXaAWNpfbjpsBH1br4VDY9WEOZnRU5IOLwk6s2UUgjtv9zTzUO5O+2TASslGq20C6qpb8IuOV/57p7I9AQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5uBBPi6TiB7DjUjak6BRnRFpdYxUDjfu5qiDpusTgLg=;
- b=UM7Fo5WJ/2kQ5W2N5rc2m1RbQzMEzUlVZIW4qacgCZssZBHf0zRQP6CHkGFZq+h1bJF72wg01D1vsz3L7TYEd+Ygh9xuIAZsoNyPlVac+QzXxLCA+h9hz3fKeJNjqKPTK5uCBiAvfiXIdNaHnQNqE/DgHpm92Hsvn+lCcKjWFaU=
-Received: from SJ0PR03CA0274.namprd03.prod.outlook.com (2603:10b6:a03:39e::9)
- by SN7PR12MB6887.namprd12.prod.outlook.com (2603:10b6:806:261::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.21; Fri, 7 Aug
- 2026 07:36:33 +0000
-Received: from SJ1PEPF000026C8.namprd04.prod.outlook.com
- (2603:10b6:a03:39e:cafe::43) by SJ0PR03CA0274.outlook.office365.com
- (2603:10b6:a03:39e::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.23 via Frontend Transport; Fri, 7
- Aug 2026 07:36:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000026C8.mail.protection.outlook.com (10.167.244.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Fri, 7 Aug 2026 07:36:33 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 7 Aug
- 2026 02:36:33 -0500
-Received: from airavat.amd.com (10.180.168.240) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 7 Aug
- 2026 00:36:28 -0700
-From: Vishal Badole <Vishal.Badole@amd.com>
-To: <tglx@kernel.org>, <akpm@linux-foundation.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <bp@alien8.de>, <wangyang.guo@intel.com>, <tianyou.li@intel.com>,
-	<tim.c.chen@linux.intel.com>, <dan.liang@intel.com>, Vishal Badole
-	<Vishal.Badole@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH] lib/group_cpus: Snapshot cluster masks to keep grouping hotplug invariant
-Date: Fri, 7 Aug 2026 13:06:12 +0530
-Message-ID: <20260807073612.3711269-1-Vishal.Badole@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="Ckjp9npx";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="Fk0JxKuL"
+ARC-Seal: i=1; a=rsa-sha256; t=1786088900; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=a/4jMUiorBUfnCwDifUkiZK8AEuqQgb9WVuQTFphgmPYQsG21aeiqrscSTPQOxrqb3
+    S2etGqfZ5JszkY1ygW96lfpJTdNwGmU+H1ifMtyO1jaHHgf0Ku4FOBZ9rdKgDOaiog43
+    AzpKYDAKvdxQvQ41NY6vwmMRIt6+j9z0fxSdKya1wjj2QrTC8T+Pz91UegkWy0AGx2nY
+    16hbKuoSNn/qW//woWDF+Be0GASjTTTvVO18DOoFgUwcNs8A0yoSz1eJTKrmjwXXCgWQ
+    LpiyoWmA7UF+bW8ZgFPcqwPKyfz8D84gCdiS1Tc0cMJ2e/tjKM+uRA44bxAD/gmPGCEr
+    c4Ig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1786088900;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=Y5xnzyg2BK28IgnnCg+iZ+zrM87aereYhHZaeq7Y4Uc=;
+    b=Xr5uEiTYILGOmW3KHfbP/+WBDINR+CHMnqXmOc1sCyqVG+uXLrSewralyJm47eHycE
+    YQCs+F4y/ptfhOGhw9lYwwHtD1+j/240uCzfo7iddBrzEd5u8vcqTOARzjtLBuTitKua
+    TWLE9OSXvrrv/Gs5IoKKICiUVmoP3S7F1ejxPtcplCRT+fTbWHDY8EJ+j9ajw0MlEPRy
+    GpULHo/IDrEFxs/9xD3aqg4E1E48mdm5ZCYEY93WhIDEM1R4NtI5l/A1nS3ba4QZZF9j
+    T8GNHC8ZI7Rywkwqdh8s962oJLzA4/lLS/x4lf/0XLtoCo47cKdZh9oVg1fDgG8feUHH
+    2Zqg==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1786088900;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=Y5xnzyg2BK28IgnnCg+iZ+zrM87aereYhHZaeq7Y4Uc=;
+    b=Ckjp9npxFkWFNuG5ztZxfZkvcRULxUIb6FdxEKra7qZB4TgBz7uSMaYT7h8EUw0bf4
+    KCOgdDNn+AVWNWjOyLibZMICMF8sZPXXyVEmo4P45kpFhwVGNr6nZvOsuvJPVRdpyNQR
+    tlGLZ4Tjc3VCC0l+b/7QmKB3bXFRKCR63/56lQaR7pw2tY5vZSrq1y8G4pzAwrm+/BoO
+    fMDWE49S3J1NdHu3M4EOF6lBoyLH+zxZUrNXw3cx6CmIe6Q8FSubQOLm1RZv8LThJ8gy
+    VtcdnQGy5ukOKZnfBz6iQ1Uto2t5QF9j/rcNWqX8tVjMP/w8XHFjl9z81RzNDN99nPr0
+    +RGQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1786088900;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=Y5xnzyg2BK28IgnnCg+iZ+zrM87aereYhHZaeq7Y4Uc=;
+    b=Fk0JxKuLO6EuJjHkHeP4SSKwRlZfzcMZ+twYpNlLIUw1fA42Zr+v5MBxdGlQV1+QkE
+    ciF6P+9ZgonBNpcopUBA==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
+Received: from vivo.lan
+    by smtp.strato.de (RZmta 55.5.6 DYNA|AUTH)
+    with ESMTPSA id K528192777mKFW2
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Fri, 7 Aug 2026 09:48:20 +0200 (CEST)
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+To: stable@vger.kernel.org
+Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [PATCH 6.6.y v2 2/2] can: isotp: fix timer drain order, wakeup handling and tx_gen ordering
+Date: Fri,  7 Aug 2026 09:47:57 +0200
+Message-ID: <20260807074757.104211-2-socketcan@hartkopp.net>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260807074757.104211-1-socketcan@hartkopp.net>
+References: <2026080520-carload-spotting-5cab@gregkh>
+ <20260807074757.104211-1-socketcan@hartkopp.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,209 +83,885 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
- (10.181.42.218)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C8:EE_|SN7PR12MB6887:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5edc1ad1-52c5-420d-558b-08def4569acf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|376014|36860700016|1800799024|18002099003|3023799007|11063799006|56012099006|10067099003|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	mZzh8qislUHpdmmGvlkRhWv2hc/PHe8FQIVqBfk3u58Hv2hkd5GdhPfClkRGA5qttTG3Xgs4YY8nMcsIaimaOgvdn7VCGN6exP15+X3e4OLBTSvoIoKhxMSl4fq13PzJuRq2c+4SjjJMGFQ7VkLpKVM4G9VGh0Aj21Y43sTqtFGuIDP72y9Vkmn+cKJq2p3ZxhzioIXEbYRcZx9lnaTczSjB9XyKfNe9aVgING8ilGzCQjhJOVo/5fKl1SkHBwFgEhHQ8jkfTrnbzPD9eM5eZub2a6rZqfoFXgi9pB8w7R7eqlUiSoXm2/40yyGtbXPsw2wUiOz/gnU8bDeDCrS/vdJsAwDwKFziwdtYGrsEAaS0z2Z1rOUXowwZFjVNSzHQ1yUDpQmVadDOvks2/MrUDetL9Z2PxPVZTeurHUv50Yq2vWvd5uGZEHZsDaeabuO0kUfEF35TfCCfGFdbDdiP7JpYOgI0My66quLp9lke0gI7RjCi1cpDsQwZx/N8alopZjHKv7BqBz5zwNjAW0wa8jySVXxbmvEqlCB8xltY3il/kFtpK4d1C5Bmn4jUF1Pmh7+ile4D5G1b0seegFkFpK/NFZp1jv7wTi0y/K4f7gDnB1V4QRVG9hSB/9yHmoxTMq2fodq04WUFtuEFDCOUJ7BKpNLpZvzhk3lBcoAiz+b0EC4Ved3YFWCnVguVaK9sctAguLf+pJTOo60wmndBhA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(376014)(36860700016)(1800799024)(18002099003)(3023799007)(11063799006)(56012099006)(10067099003)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	y0icenl0mNBIGV+pBR6JifTsdL54GlHOkl3aWFe4jNZeptcNVPK+wmALKZLIgQBxAUX8Y3v+V2SvfEEtL1MOBvYl6E/9Uo1q7rAUOxNWWagc51birBHbO+TYwLG1+a6wdFrSvcoXsyV1XX3ZAQqq4q+NapIoO0pkd9QY+y7y8Dc0qN6nLJBzaA9X5Vur3kbhqm41un7+KTVheyR5hyKYtYQ26UcdPBGhx9w43bEoZl2CJJDnMmVrNt6DVqofjRC3B4GDyZCkok1ki44enZZo9YaFQXbFlTfRlwUDMrknuc3vZeidTvwBI70Jku0BMgjDBxhpmNLw9UBTJ5bQO2WBA29BFtxE1fY9aTd8Z/oUvGk8003oQYN6beZ/hwueVts+CO5ft2g2bSMxSyTtaFqg88adXbSmVKydFALzEfhXx3+5uLQAi6BY/6ZgpZNQqhnU
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 07:36:33.4138
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5edc1ad1-52c5-420d-558b-08def4569acf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000026C8.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6887
+Content-Type: text/plain; charset="us-ascii"
 
-group_cpus_evenly() builds the managed-IRQ affinity spread used by
-multi-queue devices such as NVMe. That spread is meant to be a property
-of the static CPU topology: it walks cpu_present_mask and then
-cpu_possible_mask so every hardware queue owns a fixed set of CPUs,
-including CPUs that are offline at the time. A driver depends on that
-partition staying stable across re-computation - the CPUs a queue is
-given at probe must still describe the same queue after the device is
-later reset and its affinity recomputed.
+commit 050f010f920da17c1044a4f174766ad553e770b6 upstream.
 
-On an AMD system that stability breaks across an s2idle cycle. With CPUs
-3-11 offlined and only CPUs 0-2 left online, the machine is suspended to
-s2idle and resumed. The NVMe controller uses the simple-suspend quirk, so
-resume fully re-initialises it and recomputes the affinity spread. The
-system then hangs for roughly two minutes and stays sluggish afterwards,
-the controller only making progress through its command-timeout poll:
+This patch is a follow-up to commit cf070fe33bfb ("can: isotp: serialize
+TX state transitions under so->rx_lock") which addresses following
+sashiko-bot findings:
 
-  nvme nvme0: I/O tag 898 (3382) QID 9 timeout, completion polled
-  nvme nvme0: I/O tag 398 (618e) QID 11 timeout, completion polled
+- isotp_sendmsg(): drain so->txfrtimer first so a stale callback can't
+  re-arm echotimer after the claim
 
-QID 9 and QID 11 are the queues whose CPUs were offline when the spread
-was recomputed. "completion polled" means the commands did finish in
-hardware, but their interrupts were never delivered to a CPU that was
-watching the queue, so nothing reaped them until the timeout fired.
+- isotp_release(): wake so->wait after forcing ISOTP_SHUTDOWN so a
+  sleeping sendmsg() claim isn't stranded
 
-It happens because commit 89802ca36c96 ("lib/group_cpus: make group CPU
-cluster aware") derives the cluster groups from topology_cluster_cpumask(),
-which lists only the cluster siblings that are online when it is called.
-The resulting partition therefore depends on the transient online mask
-rather than on the topology alone. Recomputed on resume while the non-boot
-CPUs are still offline, it no longer matches the boot-time partition, and a
-queue is left with an affinity that does not cover the CPU it is meant to
-serve once that CPU comes back online. The dependence is on the online
-mask, not on any AMD-specific behaviour, so the same stall is reproducible
-on Intel platforms as well.
+- isotp_sendmsg(): have both wait_event_interruptible() calls in
+  isotp_sendmsg() also wake on ISOTP_SHUTDOWN and do not return claim to
+  IDLE to avoid corrupting a concurrent isotp_release() process.
 
-Make the cluster grouping depend on the complete cluster topology rather
-than on whichever CPUs happen to be online. Snapshot the cluster masks
-once while every CPU is online and reuse that view for every later spread.
-A fully-online view is the complete cluster membership, so the partition
-derived from it is identical no matter which CPUs are online when the
-controller is reset, which is exactly the invariance the callers already
-assume.
+- isotp_sendmsg(): handle potential claim of a new transfer when
+  the wait_event_interruptible() call returns in CAN_ISOTP_WAIT_TX_DONE
+  mode. Don't touch timers and states of the new transfer if a new thread
+  incremented so->tx_gen before getting the lock at err_event_drop.
 
-Fixes: 89802ca36c96 ("lib/group_cpus: make group CPU cluster aware")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
+- isotp_sendmsg(): handle a stuck can_send() and omit timer and state
+  changes if a new transfer was claimed. wait_tx_done() returns the error
+  recorded in so->tx_result[], tagged with the caller's own generation.
+
+- isotp_tx_timeout(): on a claimed timeout, record the ECOMM error for
+  the timed-out transfer's own generation in so->tx_result[]; sk->sk_err
+  is raised unconditionally, same as every other error path here.
+
+- isotp_tx_gen_done()/isotp_tx_timeout(): always read tx.state (acquire)
+  before tx_gen - the reverse order let a weakly ordered CPU pair a fresh
+  tx.state with a stale tx_gen/tx_result slot.
+
+- isotp_sendmsg(): wait_tx_done: drain sk_err via sock_error() once we
+  have read the result from so->tx_result[], so an already-reported error
+  doesn't stay latched for a later poll()/SO_ERROR.
+
+Also align the remaining lock-free so->tx.state/rx.state/cfecho accesses
+and use skb->hash as unique loopback echo frame indicator.
+
+Fixes: cf070fe33bfb ("can: isotp: serialize TX state transitions under so->rx_lock")
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Link: https://patch.msgid.link/20260724181525.43556-1-socketcan@hartkopp.net
+Cc: stable@kernel.org
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
 ---
- lib/group_cpus.c | 84 ++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 82 insertions(+), 2 deletions(-)
+ net/can/isotp.c | 317 +++++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 230 insertions(+), 87 deletions(-)
 
-diff --git a/lib/group_cpus.c b/lib/group_cpus.c
-index e6e18d7a49bb..3ec9b2c4c908 100644
---- a/lib/group_cpus.c
-+++ b/lib/group_cpus.c
-@@ -6,6 +6,7 @@
- #include <linux/kernel.h>
- #include <linux/slab.h>
- #include <linux/cpu.h>
-+#include <linux/mutex.h>
- #include <linux/sort.h>
- #include <linux/group_cpus.h>
+diff --git a/net/can/isotp.c b/net/can/isotp.c
+index 01ba0d3831fd..e6019ca1e5a4 100644
+--- a/net/can/isotp.c
++++ b/net/can/isotp.c
+@@ -123,10 +123,19 @@ MODULE_PARM_DESC(max_pdu_size, "maximum isotp pdu size (default "
+ #define ISOTP_FC_OVFLW 2	/* overflow */
  
-@@ -286,6 +287,74 @@ static void assign_cpus_to_groups(unsigned int ncpus,
- 	}
- }
+ #define ISOTP_FC_TIMEOUT 1	/* 1 sec */
+ #define ISOTP_ECHO_TIMEOUT 2	/* 2 secs */
  
-+/*
-+ * topology_cluster_cpumask() only lists the cluster siblings that are online,
-+ * so group_cpus_evenly() would compute a different managed-IRQ partition when
-+ * recomputed with CPUs offline (e.g. an NVMe reset across s2idle), steering a
-+ * queue's IRQ away from the CPU it serves.
-+ *
-+ * Snapshot the cluster masks once, on the first spread seen with every CPU
-+ * online, and reuse it so the grouping stays stable. If no snapshot exists
-+ * (partial boot via maxcpus=/nosmp, or allocation failure) the cluster path
-+ * is skipped and the plain present/possible spread is used. Only the cluster
-+ * path is stabilised; grp_spread_init_one()'s sibling mask is unchanged. The
-+ * snapshot lives for the system lifetime and is not refreshed for CPUs
-+ * hot-added after boot.
++/* so->tx_result[so->tx_gen % ISOTP_TX_RESULT_SLOTS] holds the packed value
++ * (err << ISOTP_TX_RESULT_GEN_BITS | gen) for each tx generation slot, so it
++ * can be handled with a single READ_ONCE()/WRITE_ONCE() access.
 + */
-+static cpumask_var_t *cluster_snapshot;
-+static bool cluster_snapshot_ready;
-+static DEFINE_MUTEX(cluster_snapshot_lock);
++#define ISOTP_TX_RESULT_SLOTS 4
++#define ISOTP_TX_RESULT_GEN_BITS 24
++#define ISOTP_TX_RESULT_GEN_MASK ((1U << ISOTP_TX_RESULT_GEN_BITS) - 1)
++#define ISOTP_TX_RESULT_ERR_MASK 0xFF
 +
-+static void capture_cluster_snapshot(void)
+ enum {
+ 	ISOTP_IDLE = 0,
+ 	ISOTP_WAIT_FIRST_FC,
+ 	ISOTP_WAIT_FC,
+ 	ISOTP_WAIT_DATA,
+@@ -161,21 +170,81 @@ struct isotp_sock {
+ 	struct can_isotp_ll_options ll;
+ 	u32 frame_txtime;
+ 	u32 force_tx_stmin;
+ 	u32 force_rx_stmin;
+ 	u32 cfecho; /* consecutive frame echo tag */
+-	u32 tx_gen; /* generation, bumped per new tx transfer */
++	u32 tx_gen; /* transfer generation, increased per new tx transfer */
++	u32 tx_result[ISOTP_TX_RESULT_SLOTS]; /* per-generation result slots */
+ 	struct tpcon rx, tx;
+ 	struct list_head notifier;
+ 	wait_queue_head_t wait;
+ 	spinlock_t rx_lock; /* protect single thread state machine */
+ };
+ 
+ static LIST_HEAD(isotp_notifier_list);
+ static DEFINE_SPINLOCK(isotp_notifier_lock);
+ static struct isotp_sock *isotp_busy_notifier;
+ 
++/* increase (24 bit) tx generation value */
++static u32 isotp_inc_tx_gen(u32 gen)
 +{
-+	cpumask_var_t *snapshot;
-+	unsigned int cpu;
-+
-+	/* Pairs with the smp_store_release() below. */
-+	if (smp_load_acquire(&cluster_snapshot_ready))
-+		return;
-+
-+	/*
-+	 * Only a fully-online view is the complete cluster membership; if any
-+	 * CPU is offline, retry on a later call. The read races hotplug, but a
-+	 * wrong guess only defers the capture.
-+	 */
-+	if (!data_race(cpumask_equal(cpu_possible_mask, cpu_online_mask)))
-+		return;
-+
-+	mutex_lock(&cluster_snapshot_lock);
-+	if (cluster_snapshot_ready)
-+		goto out;
-+
-+	snapshot = kcalloc(nr_cpu_ids, sizeof(*snapshot), GFP_KERNEL);
-+	if (!snapshot)
-+		goto out;
-+
-+	for_each_possible_cpu(cpu) {
-+		if (!zalloc_cpumask_var(&snapshot[cpu], GFP_KERNEL)) {
-+			while (cpu--)
-+				free_cpumask_var(snapshot[cpu]);
-+			kfree(snapshot);
-+			goto out;
-+		}
-+		cpumask_copy(snapshot[cpu], topology_cluster_cpumask(cpu));
-+	}
-+
-+	/* Drop it if a CPU changed state mid-copy; never latch a torn view. */
-+	if (!data_race(cpumask_equal(cpu_possible_mask, cpu_online_mask))) {
-+		for_each_possible_cpu(cpu)
-+			free_cpumask_var(snapshot[cpu]);
-+		kfree(snapshot);
-+		goto out;
-+	}
-+
-+	cluster_snapshot = snapshot;
-+	/* Publish the filled snapshot before the ready flag. */
-+	smp_store_release(&cluster_snapshot_ready, true);
-+out:
-+	mutex_unlock(&cluster_snapshot_lock);
++	return (gen + 1) & ISOTP_TX_RESULT_GEN_MASK;
 +}
 +
- static int alloc_cluster_groups(unsigned int ncpus,
- 				unsigned int ngroups,
- 				struct cpumask *node_cpumask,
-@@ -299,6 +368,17 @@ static int alloc_cluster_groups(unsigned int ncpus,
- 	const struct cpumask **clusters;
- 	struct node_groups *cluster_groups;
- 
-+	/*
-+	 * Capture on the first fully-online spread (normally the first device
-+	 * probe); later spreads reuse it. Sample the ready flag once so both
-+	 * loops below use one consistent source.
-+	 */
-+	capture_cluster_snapshot();
++/* store 8 bit error and 24 bit tx generation values in packed u32 element */
++static u32 isotp_pack_tx_result(u32 gen, int err)
++{
++	return gen | ((u32)err << ISOTP_TX_RESULT_GEN_BITS);
++}
 +
-+	/* Pairs with the smp_store_release() in capture_cluster_snapshot(). */
-+	if (!smp_load_acquire(&cluster_snapshot_ready))
-+		goto no_cluster;
++/* get the 24 bit tx generation value from the tx result */
++static u32 isotp_get_tx_gen(u32 gen_err)
++{
++	return gen_err & ISOTP_TX_RESULT_GEN_MASK;
++}
 +
- 	cpumask_copy(msk, node_cpumask);
++/* get the 8 bit error value from the tx result */
++static u32 isotp_get_tx_err(u32 gen_err)
++{
++	return (gen_err >> ISOTP_TX_RESULT_GEN_BITS) & ISOTP_TX_RESULT_ERR_MASK;
++}
++
++/* store transfer result in per-generation%4 so->tx_result[] slot */
++static void isotp_set_tx_result(struct isotp_sock *so, u32 gen, int err)
++{
++	WRITE_ONCE(so->tx_result[gen % ISOTP_TX_RESULT_SLOTS],
++		   isotp_pack_tx_result(gen, err));
++}
++
++/* fetch the result recorded for 'gen', as a (negative) errno (0 for success) */
++static int isotp_get_tx_result(struct isotp_sock *so, u32 gen)
++{
++	u32 result = READ_ONCE(so->tx_result[gen % ISOTP_TX_RESULT_SLOTS]);
++
++	if (isotp_get_tx_gen(result) != gen) {
++		pr_notice_once("can-isotp: tx_result[] slot reused before read\n");
++
++		/* report failure rather than risk a false success */
++		return -ECOMM;
++	}
++
++	return -(isotp_get_tx_err(result));
++}
++
++/* true if done, shut down or superseded ('gen' is no longer the active
++ * transfer). Reads tx.state first (acquire) so tx_gen/tx_result reads
++ * below see at least what that state write published (common sequence).
++ */
++static bool isotp_tx_gen_done(struct isotp_sock *so, u32 gen)
++{
++	/* read tx.state first for the common sequence */
++	u32 state = smp_load_acquire(&so->tx.state);
++
++	return state == ISOTP_IDLE || state == ISOTP_SHUTDOWN ||
++	       READ_ONCE(so->tx_gen) != gen;
++}
++
+ static inline struct isotp_sock *isotp_sk(const struct sock *sk)
+ {
+ 	return (struct isotp_sock *)sk;
+ }
  
- 	/* Probe how many clusters in this node. */
-@@ -307,7 +387,7 @@ static int alloc_cluster_groups(unsigned int ncpus,
- 		if (cpu >= nr_cpu_ids)
+@@ -194,20 +263,20 @@ static enum hrtimer_restart isotp_rx_timer_handler(struct hrtimer *hrtimer)
+ {
+ 	struct isotp_sock *so = container_of(hrtimer, struct isotp_sock,
+ 					     rxtimer);
+ 	struct sock *sk = &so->sk;
+ 
+-	if (so->rx.state == ISOTP_WAIT_DATA) {
++	if (READ_ONCE(so->rx.state) == ISOTP_WAIT_DATA) {
+ 		/* we did not get new data frames in time */
+ 
+ 		/* report 'connection timed out' */
+ 		sk->sk_err = ETIMEDOUT;
+ 		if (!sock_flag(sk, SOCK_DEAD))
+ 			sk_error_report(sk);
+ 
+ 		/* reset rx state */
+-		so->rx.state = ISOTP_IDLE;
++		WRITE_ONCE(so->rx.state, ISOTP_IDLE);
+ 	}
+ 
+ 	return HRTIMER_NORESTART;
+ }
+ 
+@@ -360,41 +429,42 @@ static int check_pad(struct isotp_sock *so, struct canfd_frame *cf,
+ static void isotp_send_cframe(struct isotp_sock *so);
+ 
+ static int isotp_rcv_fc(struct isotp_sock *so, struct canfd_frame *cf, int ae)
+ {
+ 	struct sock *sk = &so->sk;
++	int tx_err = EBADMSG; /* default for unknown FC status */
+ 
+-	if (so->tx.state != ISOTP_WAIT_FC &&
+-	    so->tx.state != ISOTP_WAIT_FIRST_FC)
++	if (READ_ONCE(so->tx.state) != ISOTP_WAIT_FC &&
++	    READ_ONCE(so->tx.state) != ISOTP_WAIT_FIRST_FC)
+ 		return 0;
+ 
+ 	hrtimer_cancel(&so->txtimer);
+ 
+ 	/* isotp_tx_timeout() may have given up on this job while
+-	 * hrtimer_cancel() above waited for it to finish; so->rx_lock
+-	 * (held by our caller isotp_rcv()) rules out a concurrent claim,
+-	 * so a plain recheck is enough here.
++	 * hrtimer_cancel() above waited for it to finish => recheck
+ 	 */
+-	if (so->tx.state != ISOTP_WAIT_FC &&
+-	    so->tx.state != ISOTP_WAIT_FIRST_FC)
++	if (READ_ONCE(so->tx.state) != ISOTP_WAIT_FC &&
++	    READ_ONCE(so->tx.state) != ISOTP_WAIT_FIRST_FC)
+ 		return 1;
+ 
+ 	if ((cf->len < ae + FC_CONTENT_SZ) ||
+ 	    ((so->opt.flags & ISOTP_CHECK_PADDING) &&
+ 	     check_pad(so, cf, ae + FC_CONTENT_SZ, so->opt.rxpad_content))) {
+ 		/* malformed PDU - report 'not a data message' */
+ 		sk->sk_err = EBADMSG;
+ 		if (!sock_flag(sk, SOCK_DEAD))
+ 			sk_error_report(sk);
+ 
+-		so->tx.state = ISOTP_IDLE;
++		isotp_set_tx_result(so, so->tx_gen, EBADMSG);
++		/* set to IDLE after publishing tx_result */
++		smp_store_release(&so->tx.state, ISOTP_IDLE);
+ 		wake_up_interruptible(&so->wait);
+ 		return 1;
+ 	}
+ 
+ 	/* get communication parameters only from the first FC frame */
+-	if (so->tx.state == ISOTP_WAIT_FIRST_FC) {
++	if (READ_ONCE(so->tx.state) == ISOTP_WAIT_FIRST_FC) {
+ 		so->txfc.bs = cf->data[ae + 1];
+ 		so->txfc.stmin = cf->data[ae + 2];
+ 
+ 		/* fix wrong STmin values according spec */
+ 		if (so->txfc.stmin > 0x7F &&
+@@ -413,17 +483,17 @@ static int isotp_rcv_fc(struct isotp_sock *so, struct canfd_frame *cf, int ae)
+ 						  so->txfc.stmin * 1000000);
+ 		else
+ 			so->tx_gap = ktime_add_ns(so->tx_gap,
+ 						  (so->txfc.stmin - 0xF0)
+ 						  * 100000);
+-		so->tx.state = ISOTP_WAIT_FC;
++		WRITE_ONCE(so->tx.state, ISOTP_WAIT_FC);
+ 	}
+ 
+ 	switch (cf->data[ae] & 0x0F) {
+ 	case ISOTP_FC_CTS:
+ 		so->tx.bs = 0;
+-		so->tx.state = ISOTP_SENDING;
++		WRITE_ONCE(so->tx.state, ISOTP_SENDING);
+ 		/* send CF frame and enable echo timeout handling */
+ 		hrtimer_start(&so->echotimer, ktime_set(ISOTP_ECHO_TIMEOUT, 0),
+ 			      HRTIMER_MODE_REL_SOFT);
+ 		isotp_send_cframe(so);
+ 		break;
+@@ -434,18 +504,23 @@ static int isotp_rcv_fc(struct isotp_sock *so, struct canfd_frame *cf, int ae)
+ 			      HRTIMER_MODE_REL_SOFT);
+ 		break;
+ 
+ 	case ISOTP_FC_OVFLW:
+ 		/* overflow on receiver side - report 'message too long' */
+-		sk->sk_err = EMSGSIZE;
+-		if (!sock_flag(sk, SOCK_DEAD))
+-			sk_error_report(sk);
++		tx_err = EMSGSIZE;
+ 		fallthrough;
+ 
+ 	default:
+-		/* stop this tx job */
+-		so->tx.state = ISOTP_IDLE;
++		/* reserved/unknown flow status (tx_err defaults to EBADMSG) */
++
++		sk->sk_err = tx_err;
++		if (!sock_flag(sk, SOCK_DEAD))
++			sk_error_report(sk);
++
++		isotp_set_tx_result(so, so->tx_gen, tx_err);
++		/* set to IDLE after publishing tx_result */
++		smp_store_release(&so->tx.state, ISOTP_IDLE);
+ 		wake_up_interruptible(&so->wait);
+ 	}
+ 	return 0;
+ }
+ 
+@@ -454,11 +529,11 @@ static int isotp_rcv_sf(struct sock *sk, struct canfd_frame *cf, int pcilen,
+ {
+ 	struct isotp_sock *so = isotp_sk(sk);
+ 	struct sk_buff *nskb;
+ 
+ 	hrtimer_cancel(&so->rxtimer);
+-	so->rx.state = ISOTP_IDLE;
++	WRITE_ONCE(so->rx.state, ISOTP_IDLE);
+ 
+ 	if (!len || len > cf->len - pcilen)
+ 		return 1;
+ 
+ 	if ((so->opt.flags & ISOTP_CHECK_PADDING) &&
+@@ -488,11 +563,11 @@ static int isotp_rcv_ff(struct sock *sk, struct canfd_frame *cf, int ae)
+ 	int i;
+ 	int off;
+ 	int ff_pci_sz;
+ 
+ 	hrtimer_cancel(&so->rxtimer);
+-	so->rx.state = ISOTP_IDLE;
++	WRITE_ONCE(so->rx.state, ISOTP_IDLE);
+ 
+ 	/* get the used sender LL_DL from the (first) CAN frame data length */
+ 	so->rx.ll_dl = padlen(cf->len);
+ 
+ 	/* the first frame has to use the entire frame up to LL_DL length */
+@@ -542,11 +617,11 @@ static int isotp_rcv_ff(struct sock *sk, struct canfd_frame *cf, int ae)
+ 	for (i = ae + ff_pci_sz; i < so->rx.ll_dl; i++)
+ 		so->rx.buf[so->rx.idx++] = cf->data[i];
+ 
+ 	/* initial setup for this pdu reception */
+ 	so->rx.sn = 1;
+-	so->rx.state = ISOTP_WAIT_DATA;
++	WRITE_ONCE(so->rx.state, ISOTP_WAIT_DATA);
+ 
+ 	/* no creation of flow control frames */
+ 	if (so->opt.flags & CAN_ISOTP_LISTEN_MODE)
+ 		return 0;
+ 
+@@ -560,11 +635,11 @@ static int isotp_rcv_cf(struct sock *sk, struct canfd_frame *cf, int ae,
+ {
+ 	struct isotp_sock *so = isotp_sk(sk);
+ 	struct sk_buff *nskb;
+ 	int i;
+ 
+-	if (so->rx.state != ISOTP_WAIT_DATA)
++	if (READ_ONCE(so->rx.state) != ISOTP_WAIT_DATA)
+ 		return 0;
+ 
+ 	/* drop if timestamp gap is less than force_rx_stmin nano secs */
+ 	if (so->opt.flags & CAN_ISOTP_FORCE_RXSTMIN) {
+ 		if (ktime_to_ns(ktime_sub(skb->tstamp, so->lastrxcf_tstamp)) <
+@@ -575,15 +650,13 @@ static int isotp_rcv_cf(struct sock *sk, struct canfd_frame *cf, int ae,
+ 	}
+ 
+ 	hrtimer_cancel(&so->rxtimer);
+ 
+ 	/* isotp_rx_timer_handler() may have raced us for so->rx.state
+-	 * while hrtimer_cancel() above waited for it to finish, already
+-	 * reporting ETIMEDOUT and resetting the reception; don't process
+-	 * this CF into a reassembly that has already been given up on.
++	 * while hrtimer_cancel() above waited for it to finish => recheck
+ 	 */
+-	if (so->rx.state != ISOTP_WAIT_DATA)
++	if (READ_ONCE(so->rx.state) != ISOTP_WAIT_DATA)
+ 		return 1;
+ 
+ 	/* CFs are never longer than the FF */
+ 	if (cf->len > so->rx.ll_dl)
+ 		return 1;
+@@ -600,11 +673,11 @@ static int isotp_rcv_cf(struct sock *sk, struct canfd_frame *cf, int ae,
+ 		sk->sk_err = EILSEQ;
+ 		if (!sock_flag(sk, SOCK_DEAD))
+ 			sk_error_report(sk);
+ 
+ 		/* reset rx state */
+-		so->rx.state = ISOTP_IDLE;
++		WRITE_ONCE(so->rx.state, ISOTP_IDLE);
+ 		return 1;
+ 	}
+ 	so->rx.sn++;
+ 	so->rx.sn %= 16;
+ 
+@@ -614,11 +687,11 @@ static int isotp_rcv_cf(struct sock *sk, struct canfd_frame *cf, int ae,
  			break;
+ 	}
  
--		cluster_mask = topology_cluster_cpumask(cpu);
-+		cluster_mask = cluster_snapshot[cpu];
- 		if (!cpumask_weight(cluster_mask))
- 			goto no_cluster;
- 		/* Clean out CPUs on the same cluster. */
-@@ -331,7 +411,7 @@ static int alloc_cluster_groups(unsigned int ncpus,
- 	cpumask_copy(msk, node_cpumask);
- 	for (n = 0; n < ncluster; n++) {
- 		cpu = cpumask_first(msk);
--		cluster_mask = topology_cluster_cpumask(cpu);
-+		cluster_mask = cluster_snapshot[cpu];
- 		nc = cpumask_weight_and(cluster_mask, node_cpumask);
- 		clusters[n] = cluster_mask;
- 		cluster_groups[n].id = n;
+ 	if (so->rx.idx >= so->rx.len) {
+ 		/* we are done */
+-		so->rx.state = ISOTP_IDLE;
++		WRITE_ONCE(so->rx.state, ISOTP_IDLE);
+ 
+ 		if ((so->opt.flags & ISOTP_CHECK_PADDING) &&
+ 		    check_pad(so, cf, i + 1, so->opt.rxpad_content)) {
+ 			/* malformed PDU - report 'not a data message' */
+ 			sk->sk_err = EBADMSG;
+@@ -685,12 +758,14 @@ static void isotp_rcv(struct sk_buff *skb, void *data)
+ 	 */
+ 	spin_lock(&so->rx_lock);
+ 
+ 	if (so->opt.flags & CAN_ISOTP_HALF_DUPLEX) {
+ 		/* check rx/tx path half duplex expectations */
+-		if ((so->tx.state != ISOTP_IDLE && n_pci_type != N_PCI_FC) ||
+-		    (so->rx.state != ISOTP_IDLE && n_pci_type == N_PCI_FC))
++		if ((READ_ONCE(so->tx.state) != ISOTP_IDLE &&
++		     n_pci_type != N_PCI_FC) ||
++		    (READ_ONCE(so->rx.state) != ISOTP_IDLE &&
++		     n_pci_type == N_PCI_FC))
+ 			goto out_unlock;
+ 	}
+ 
+ 	switch (n_pci_type) {
+ 	case N_PCI_FC:
+@@ -780,10 +855,11 @@ static void isotp_send_cframe(struct isotp_sock *so)
+ 	struct sk_buff *skb;
+ 	struct net_device *dev;
+ 	struct canfd_frame *cf;
+ 	int can_send_ret;
+ 	int ae = (so->opt.flags & CAN_ISOTP_EXTEND_ADDR) ? 1 : 0;
++	u32 old_cfecho;
+ 
+ 	dev = dev_get_by_index(sock_net(sk), so->ifindex);
+ 	if (!dev)
+ 		return;
+ 
+@@ -794,10 +870,13 @@ static void isotp_send_cframe(struct isotp_sock *so)
+ 	}
+ 
+ 	can_skb_reserve(skb);
+ 	can_skb_prv(skb)->ifindex = dev->ifindex;
+ 
++	/* set uid in tx skb to identify CF echo frames */
++	can_set_skb_uid(skb);
++
+ 	cf = (struct canfd_frame *)skb->data;
+ 	skb_put_zero(skb, so->ll.mtu);
+ 
+ 	/* create consecutive frame */
+ 	isotp_fill_dataframe(cf, so, ae, 0);
+@@ -810,16 +889,19 @@ static void isotp_send_cframe(struct isotp_sock *so)
+ 	cf->flags = so->ll.tx_flags;
+ 
+ 	skb->dev = dev;
+ 	can_skb_set_owner(skb, sk);
+ 
+-	/* cfecho should have been zero'ed by init/isotp_rcv_echo() */
+-	if (so->cfecho)
+-		pr_notice_once("can-isotp: cfecho is %08X != 0\n", so->cfecho);
++	/* zero'ed by init/isotp_rcv_echo(); reached lock-free via
++	 * isotp_txfr_timer_handler() too, so use READ_ONCE()/WRITE_ONCE()
++	 */
++	old_cfecho = READ_ONCE(so->cfecho);
++	if (old_cfecho)
++		pr_notice_once("can-isotp: cfecho is %08X != 0\n", old_cfecho);
+ 
+ 	/* set consecutive frame echo tag */
+-	so->cfecho = *(u32 *)cf->data;
++	WRITE_ONCE(so->cfecho, skb->hash);
+ 
+ 	/* send frame with local echo enabled */
+ 	can_send_ret = can_send(skb, 1);
+ 	if (can_send_ret) {
+ 		pr_notice_once("can-isotp: %s: can_send_ret %pe\n",
+@@ -867,11 +949,10 @@ static void isotp_create_fframe(struct canfd_frame *cf, struct isotp_sock *so,
+ 
+ static void isotp_rcv_echo(struct sk_buff *skb, void *data)
+ {
+ 	struct sock *sk = (struct sock *)data;
+ 	struct isotp_sock *so = isotp_sk(sk);
+-	struct canfd_frame *cf = (struct canfd_frame *)skb->data;
+ 
+ 	/* only handle my own local echo CF/SF skb's (no FF!) */
+ 	if (skb->sk != sk)
+ 		return;
+ 
+@@ -879,36 +960,39 @@ static void isotp_rcv_echo(struct sk_buff *skb, void *data)
+ 	 * (no isotp_rcv() caller here), so take it ourselves
+ 	 */
+ 	spin_lock(&so->rx_lock);
+ 
+ 	/* so->cfecho may since belong to a new transfer; recheck under lock */
+-	if (so->cfecho != *(u32 *)cf->data)
++	if (READ_ONCE(so->cfecho) != skb->hash)
+ 		goto out_unlock;
+ 
+ 	/* cancel local echo timeout */
+ 	hrtimer_cancel(&so->echotimer);
+ 
+ 	/* local echo skb with consecutive frame has been consumed */
+-	so->cfecho = 0;
++	WRITE_ONCE(so->cfecho, 0);
+ 
+ 	/* claiming a transfer also takes so->rx_lock, so a plain recheck
+ 	 * is enough: so->tx.state can't have flipped to ISOTP_SENDING for
+ 	 * a new claim while we're still in here
+ 	 */
+-	if (so->tx.state != ISOTP_SENDING)
++	if (READ_ONCE(so->tx.state) != ISOTP_SENDING)
+ 		goto out_unlock;
+ 
+ 	if (so->tx.idx >= so->tx.len) {
+ 		/* we are done */
+-		so->tx.state = ISOTP_IDLE;
++
++		isotp_set_tx_result(so, so->tx_gen, 0);
++		/* set to IDLE after publishing tx_result */
++		smp_store_release(&so->tx.state, ISOTP_IDLE);
+ 		wake_up_interruptible(&so->wait);
+ 		goto out_unlock;
+ 	}
+ 
+ 	if (so->txfc.bs && so->tx.bs >= so->txfc.bs) {
+ 		/* stop and wait for FC with timeout */
+-		so->tx.state = ISOTP_WAIT_FC;
++		WRITE_ONCE(so->tx.state, ISOTP_WAIT_FC);
+ 		hrtimer_start(&so->txtimer, ktime_set(ISOTP_FC_TIMEOUT, 0),
+ 			      HRTIMER_MODE_REL_SOFT);
+ 		goto out_unlock;
+ 	}
+ 
+@@ -926,37 +1010,41 @@ static void isotp_rcv_echo(struct sk_buff *skb, void *data)
+ 
+ out_unlock:
+ 	spin_unlock(&so->rx_lock);
+ }
+ 
+-/* shared by so->txtimer's and so->echotimer's callbacks. Both timers get
+- * cancelled under so->rx_lock elsewhere, so this must stay lock-free to
+- * avoid deadlocking with that; uses so->tx_gen instead to avoid tainting
+- * a new transfer with an error from the one that just timed out.
++/* isotp_tx_timeout: we did not get any flow control or echo frame in time
++ *
++ * Shared by so->txtimer's and so->echotimer's callbacks. Both timers get
++ * cancelled under so->rx_lock elsewhere, so this must stay lock-free.
++ *
++ * tx.state is acquired before tx_gen. Common sequence in isotp_tx_gen_done().
++ * cmpxchg() only orders itself, not the two preceding loads.
+  */
+ static enum hrtimer_restart isotp_tx_timeout(struct isotp_sock *so)
+ {
+ 	struct sock *sk = &so->sk;
++	/* read tx.state first for the common sequence */
++	u32 old_state = smp_load_acquire(&so->tx.state);
+ 	u32 gen = READ_ONCE(so->tx_gen);
+-	u32 old_state = READ_ONCE(so->tx.state);
+ 
+ 	/* don't handle timeouts in IDLE or SHUTDOWN state */
+ 	if (old_state == ISOTP_IDLE || old_state == ISOTP_SHUTDOWN)
+ 		return HRTIMER_NORESTART;
+ 
+ 	/* only claim the timeout if the state is still unchanged */
+ 	if (cmpxchg(&so->tx.state, old_state, ISOTP_IDLE) != old_state)
+ 		return HRTIMER_NORESTART;
+ 
+-	/* we did not get any flow control or echo frame in time */
++	/* detected timeout: report 'communication error on send' */
+ 
+-	if (READ_ONCE(so->tx_gen) == gen) {
+-		/* report 'communication error on send' */
+-		sk->sk_err = ECOMM;
+-		if (!sock_flag(sk, SOCK_DEAD))
+-			sk_error_report(sk);
+-	}
++	/* a stale read of this slot by a waiter still falls back to ECOMM */
++	isotp_set_tx_result(so, gen, ECOMM);
++
++	sk->sk_err = ECOMM;
++	if (!sock_flag(sk, SOCK_DEAD))
++		sk_error_report(sk);
+ 
+ 	wake_up_interruptible(&so->wait);
+ 
+ 	return HRTIMER_NORESTART;
+ }
+@@ -987,11 +1075,11 @@ static enum hrtimer_restart isotp_txfr_timer_handler(struct hrtimer *hrtimer)
+ 	/* start echo timeout handling and cover below protocol error */
+ 	hrtimer_start(&so->echotimer, ktime_set(ISOTP_ECHO_TIMEOUT, 0),
+ 		      HRTIMER_MODE_REL_SOFT);
+ 
+ 	/* cfecho should be consumed by isotp_rcv_echo() here */
+-	if (so->tx.state == ISOTP_SENDING && !so->cfecho)
++	if (READ_ONCE(so->tx.state) == ISOTP_SENDING && !READ_ONCE(so->cfecho))
+ 		isotp_send_cframe(so);
+ 
+ 	return HRTIMER_NORESTART;
+ }
+ 
+@@ -1005,14 +1093,16 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 	int ae = (so->opt.flags & CAN_ISOTP_EXTEND_ADDR) ? 1 : 0;
+ 	int wait_tx_done = (so->opt.flags & CAN_ISOTP_WAIT_TX_DONE) ? 1 : 0;
+ 	s64 hrtimer_sec = ISOTP_ECHO_TIMEOUT;
+ 	struct hrtimer *tx_hrt = &so->echotimer;
+ 	u32 new_state = ISOTP_SENDING;
++	u32 my_gen;
++	u32 old_cfecho;
+ 	int off;
+ 	int err;
+ 
+-	if (!so->bound || so->tx.state == ISOTP_SHUTDOWN)
++	if (!so->bound || READ_ONCE(so->tx.state) == ISOTP_SHUTDOWN)
+ 		return -EADDRNOTAVAIL;
+ 
+ 	/* claim the socket under so->rx_lock: this serializes the claim
+ 	 * with the RX path and with sendmsg()'s own error paths below, so
+ 	 * none of them can ever see a transfer mid-claim
+@@ -1025,33 +1115,37 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 
+ 		/* we do not support multiple buffers - for now */
+ 		if (msg->msg_flags & MSG_DONTWAIT)
+ 			return -EAGAIN;
+ 
+-		if (so->tx.state == ISOTP_SHUTDOWN)
++		if (READ_ONCE(so->tx.state) == ISOTP_SHUTDOWN)
+ 			return -EADDRNOTAVAIL;
+ 
+ 		/* wait for complete transmission of current pdu */
+ 		err = wait_event_interruptible(so->wait,
+-					       so->tx.state == ISOTP_IDLE);
++					       READ_ONCE(so->tx.state) == ISOTP_IDLE ||
++					       READ_ONCE(so->tx.state) == ISOTP_SHUTDOWN);
+ 		if (err)
+ 			return err;
+ 	}
+ 
+-	/* new transfer: bump so->tx_gen and drain the old one's timers,
+-	 * still under the so->rx_lock we just claimed the socket with
+-	 */
+-	WRITE_ONCE(so->tx.state, ISOTP_SENDING);
+-	WRITE_ONCE(so->tx_gen, READ_ONCE(so->tx_gen) + 1);
++	/* txfrtimer's callback re-arms echotimer lock-free: drain it first */
++	hrtimer_cancel(&so->txfrtimer);
+ 	hrtimer_cancel(&so->txtimer);
+ 	hrtimer_cancel(&so->echotimer);
+-	hrtimer_cancel(&so->txfrtimer);
+-	so->cfecho = 0;
++
++	/* new transfer: increment so->tx_gen and set tx.state after barrier */
++	my_gen = isotp_inc_tx_gen(READ_ONCE(so->tx_gen));
++	isotp_set_tx_result(so, my_gen, ECOMM); /* prevent stale slot matching */
++	WRITE_ONCE(so->tx_gen, my_gen);
++	smp_wmb(); /* see smp_load_acquire() in isotp_tx_[timeout|gen_done] */
++	WRITE_ONCE(so->tx.state, ISOTP_SENDING);
++	WRITE_ONCE(so->cfecho, 0);
+ 	spin_unlock_bh(&so->rx_lock);
+ 
+ 	/* so->bound is only checked once above - a wakeup may have
+-	 * unbound/rebound the socket meanwhile, so re-validate it
++	 * unbound/rebound the socket meanwhile => recheck
+ 	 */
+ 	if (!so->bound) {
+ 		err = -EADDRNOTAVAIL;
+ 		goto err_out_drop;
+ 	}
+@@ -1099,19 +1193,23 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 	}
+ 
+ 	can_skb_reserve(skb);
+ 	can_skb_prv(skb)->ifindex = dev->ifindex;
+ 
++	/* set uid in tx skb to identify CF echo frames */
++	can_set_skb_uid(skb);
++
+ 	so->tx.len = size;
+ 	so->tx.idx = 0;
+ 
+ 	cf = (struct canfd_frame *)skb->data;
+ 	skb_put_zero(skb, so->ll.mtu);
+ 
+ 	/* cfecho should have been zero'ed by init / former isotp_rcv_echo() */
+-	if (so->cfecho)
+-		pr_notice_once("can-isotp: uninit cfecho %08X\n", so->cfecho);
++	old_cfecho = READ_ONCE(so->cfecho);
++	if (old_cfecho)
++		pr_notice_once("can-isotp: uninit cfecho %08X\n", old_cfecho);
+ 
+ 	/* check for single frame transmission depending on TX_DL */
+ 	if (size <= so->tx.ll_dl - SF_PCI_SZ4 - ae - off) {
+ 		/* The message size generally fits into a SingleFrame - good.
+ 		 *
+@@ -1135,11 +1233,11 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 			cf->data[SF_PCI_SZ4 + ae] = size;
+ 		else
+ 			cf->data[ae] |= size;
+ 
+ 		/* set CF echo tag for isotp_rcv_echo() (SF-mode) */
+-		so->cfecho = *(u32 *)cf->data;
++		WRITE_ONCE(so->cfecho, skb->hash);
+ 	} else {
+ 		/* send first frame */
+ 
+ 		isotp_create_fframe(cf, so, ae);
+ 
+@@ -1152,37 +1250,37 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 
+ 			/* disable wait for FCs due to activated block size */
+ 			so->txfc.bs = 0;
+ 
+ 			/* set CF echo tag for isotp_rcv_echo() (CF-mode) */
+-			so->cfecho = *(u32 *)cf->data;
++			WRITE_ONCE(so->cfecho, skb->hash);
+ 		} else {
+ 			/* standard flow control check */
+ 			new_state = ISOTP_WAIT_FIRST_FC;
+ 
+ 			/* start timeout for FC */
+ 			hrtimer_sec = ISOTP_FC_TIMEOUT;
+ 			tx_hrt = &so->txtimer;
+ 
+ 			/* no CF echo tag for isotp_rcv_echo() (FF-mode) */
+-			so->cfecho = 0;
++			WRITE_ONCE(so->cfecho, 0);
+ 		}
+ 	}
+ 
+ 	spin_lock_bh(&so->rx_lock);
+-	if (so->tx.state == ISOTP_SHUTDOWN) {
++	if (READ_ONCE(so->tx.state) == ISOTP_SHUTDOWN) {
+ 		/* isotp_release() has since taken over and already drained
+ 		 * our timers - don't send into a socket that's going away
+ 		 */
+ 		spin_unlock_bh(&so->rx_lock);
+ 		kfree_skb(skb);
+ 		dev_put(dev);
+ 		wake_up_interruptible(&so->wait);
+ 		return -EADDRNOTAVAIL;
+ 	}
+ 	/* WAIT_FIRST_FC for standard FF, else stays ISOTP_SENDING */
+-	so->tx.state = new_state;
++	WRITE_ONCE(so->tx.state, new_state);
+ 	hrtimer_start(tx_hrt, ktime_set(hrtimer_sec, 0),
+ 		      HRTIMER_MODE_REL_SOFT);
+ 	spin_unlock_bh(&so->rx_lock);
+ 
+ 	/* send the first or only CAN frame */
+@@ -1195,42 +1293,82 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 	if (err) {
+ 		pr_notice_once("can-isotp: %s: can_send_ret %pe\n",
+ 			       __func__, ERR_PTR(err));
+ 
+ 		spin_lock_bh(&so->rx_lock);
++
++		/* new transfer already claimed by a concurrent completion,
++		 * timeout or sendmsg() while we were stuck in can_send()?
++		 */
++		if (READ_ONCE(so->tx_gen) != my_gen) {
++			/* don't touch timers and state of the new transfer */
++			spin_unlock_bh(&so->rx_lock);
++			return err;
++		}
++
+ 		/* no transmission -> no timeout monitoring */
+ 		hrtimer_cancel(tx_hrt);
+ 		goto err_out_drop_locked;
+ 	}
+ 
+ 	if (wait_tx_done) {
+-		/* wait for complete transmission of current pdu */
+-		err = wait_event_interruptible(so->wait, so->tx.state == ISOTP_IDLE);
++		/* wake up for:
++		 * - concurrent sendmsg() claiming a new transfer
++		 * - complete transmission of current PDU
++		 * - shutdown state change in isotp_release()
++		 * isotp_tx_gen_done() uses common tx.state/tx_gen read sequence
++		 */
++		err = wait_event_interruptible(so->wait,
++					       isotp_tx_gen_done(so, my_gen));
+ 		if (err)
+ 			goto err_event_drop;
+ 
+-		err = sock_error(sk);
+-		if (err)
+-			return err;
++		/* still our claim, but isotp_release() force-shut it down */
++		if (smp_load_acquire(&so->tx.state) == ISOTP_SHUTDOWN &&
++		    READ_ONCE(so->tx_gen) == my_gen) {
++			err = -EADDRNOTAVAIL;
++			goto err_event_drop;
++		}
++
++		/* own completion, or tx_gen moved on - either way this is
++		 * what isotp_get_tx_result() recorded for my_gen
++		 */
++		err = isotp_get_tx_result(so, my_gen);
++
++		/* drain to avoid stale error for a later poll()/SO_ERROR */
++		sock_error(sk);
++
++		return err ? err : size;
+ 	}
+ 
+ 	return size;
+ 
+ err_out_drop:
+ 	/* claimed but nothing sent yet - no timer to cancel */
+ 	spin_lock_bh(&so->rx_lock);
+ 	goto err_out_drop_locked;
+ err_event_drop:
+-	/* interrupted waiting on our own transfer - drain its timers */
++	/* interrupted or shut down while waiting on our own transfer */
+ 	spin_lock_bh(&so->rx_lock);
++
++	/* new transfer already started by concurrent sendmsg()? */
++	if (READ_ONCE(so->tx_gen) != my_gen) {
++		/* don't touch timers and states of the new transfer */
++		spin_unlock_bh(&so->rx_lock);
++		return err;
++	}
++
+ 	hrtimer_cancel(&so->txfrtimer);
+ 	hrtimer_cancel(&so->txtimer);
+ 	hrtimer_cancel(&so->echotimer);
+ err_out_drop_locked:
+ 	/* release the claim; so->rx_lock still held from above */
+-	so->cfecho = 0;
+-	so->tx.state = ISOTP_IDLE;
++	WRITE_ONCE(so->cfecho, 0);
++
++	/* only claim to IDLE if isotp_release() has not taken over */
++	if (READ_ONCE(so->tx.state) != ISOTP_SHUTDOWN)
++		WRITE_ONCE(so->tx.state, ISOTP_IDLE);
+ 	spin_unlock_bh(&so->rx_lock);
+ 	wake_up_interruptible(&so->wait);
+ 
+ 	return err;
+ }
+@@ -1292,22 +1430,26 @@ static int isotp_release(struct socket *sock)
+ 	net = sock_net(sk);
+ 
+ 	/* best-effort: wait for a running pdu to finish, but don't block on
+ 	 * it forever - give up after the first signal
+ 	 */
+-	while (so->tx.state != ISOTP_IDLE &&
+-	       wait_event_interruptible(so->wait, so->tx.state == ISOTP_IDLE) == 0)
++	while (READ_ONCE(so->tx.state) != ISOTP_IDLE &&
++	       wait_event_interruptible(so->wait,
++					READ_ONCE(so->tx.state) == ISOTP_IDLE) == 0)
+ 		;
+ 
+ 	/* claim the socket under so->rx_lock like sendmsg() does, so its
+ 	 * claim can't race the forced ISOTP_SHUTDOWN below; force it
+ 	 * unconditionally, even when a signal cut the wait above short
+ 	 */
+ 	spin_lock_bh(&so->rx_lock);
+-	so->tx.state = ISOTP_SHUTDOWN;
++	WRITE_ONCE(so->tx.state, ISOTP_SHUTDOWN);
+ 	spin_unlock_bh(&so->rx_lock);
+-	so->rx.state = ISOTP_IDLE;
++	WRITE_ONCE(so->rx.state, ISOTP_IDLE);
++
++	/* forced SHUTDOWN may have skipped IDLE (gave up on a signal) */
++	wake_up_interruptible(&so->wait);
+ 
+ 	spin_lock(&isotp_notifier_lock);
+ 	while (isotp_busy_notifier == so) {
+ 		spin_unlock(&isotp_notifier_lock);
+ 		schedule_timeout_uninterruptible(1);
+@@ -1418,11 +1560,12 @@ static int isotp_bind(struct socket *sock, struct sockaddr *uaddr, int len)
+ 	 * (unbound by NETDEV_UNREGISTER) may still be draining; the FC/echo
+ 	 * and RX watchdog timers bound how long this takes. Checked together
+ 	 * with so->bound in the same lock_sock() section above, so there is
+ 	 * no window in which a concurrent isotp_notify() could be missed.
+ 	 */
+-	if (so->tx.state != ISOTP_IDLE || so->rx.state != ISOTP_IDLE) {
++	if (READ_ONCE(so->tx.state) != ISOTP_IDLE ||
++	    READ_ONCE(so->rx.state) != ISOTP_IDLE) {
+ 		err = -EAGAIN;
+ 		goto out;
+ 	}
+ 
+ 	/* ensure different CAN IDs when the rx_id is to be registered */
+@@ -1452,11 +1595,11 @@ static int isotp_bind(struct socket *sock, struct sockaddr *uaddr, int len)
+ 	if (isotp_register_rxid(so))
+ 		can_rx_register(net, dev, rx_id, SINGLE_MASK(rx_id),
+ 				isotp_rcv, sk, "isotp", sk);
+ 
+ 	/* no consecutive frame echo skb in flight */
+-	so->cfecho = 0;
++	WRITE_ONCE(so->cfecho, 0);
+ 
+ 	/* register for echo skb's */
+ 	can_rx_register(net, dev, tx_id, SINGLE_MASK(tx_id),
+ 			isotp_rcv_echo, sk, "isotpe", sk);
+ 
+@@ -1818,11 +1961,11 @@ static __poll_t isotp_poll(struct file *file, struct socket *sock, poll_table *w
+ 
+ 	__poll_t mask = datagram_poll(file, sock, wait);
+ 	poll_wait(file, &so->wait, wait);
+ 
+ 	/* Check for false positives due to TX state */
+-	if ((mask & EPOLLWRNORM) && (so->tx.state != ISOTP_IDLE))
++	if ((mask & EPOLLWRNORM) && (READ_ONCE(so->tx.state) != ISOTP_IDLE))
+ 		mask &= ~(EPOLLOUT | EPOLLWRNORM);
+ 
+ 	return mask;
+ }
+ 
 -- 
-2.34.1
+2.53.0
 
