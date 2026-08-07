@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8229C3B5F63;
-	Fri,  7 Aug 2026 02:02:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334B03B6363;
+	Fri,  7 Aug 2026 02:02:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786068155; cv=none; b=TzfiIFRHtLTJbJiGd++dsZCS+Z624tEDlYlaQ6SGLneVIzwX1QUCMT5u53PyUrXuNRossKKLiOza8jcKMZ5Y1KEE0I78yeOj6XivN7voC4iMqHn+7lr2S2OlM8uFyoENHlI8+5Fgapa8IWRGUzMHDJe2eGiMb6PKjAdGH8DnoXA=
+	t=1786068160; cv=none; b=cS7w63opahKGXBw5hyeIo57FNDR4peOakkDmyUGVzCBc9T4UeEzspxzOjDuDPhQtDfBT7fqliLktYtI5a+uPVwv0Lsg+bAzUzrshMy3u+angqxc04HI2pIbggQ5p+au73sOj2yaKSWDXQujxCXH0WVToCZ8d5GX5hxhQLOOfApI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786068155; c=relaxed/simple;
-	bh=pIRDE0yVefb3plqNChcS9Ws2XGE3F2mPNm4yKQa2Gh8=;
-	h=Date:To:From:Subject:Message-Id; b=Y8UDMX7y/tfg2MrR2JuyYSFsKucnPD6EgSVaAlKupg7+Myuaf6JH+N6QTRSHmVV6WjhCUKgivjGI5Gk2sCVOL16ecP3FHrcpwDH/xiEOKTJd6ulmTX5KLV49u9cd+rx+KBPHirc8/J6pUIfIJL91yPGD9HqGdlZMWybNj7KWDUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=KRZVvnFT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786068160; c=relaxed/simple;
+	bh=Cm1fgpX/FgQsKNuimrEd+KcUHPiLTq7ilR6NhLRqNd4=;
+	h=Date:To:From:Subject:Message-Id; b=cNt5o9BSh63SznNtC9NC2wuC36ed6KNmnkW8rFpbe0gWYTx4JMj8KSPDXIhPQLl2FEjvimEgkP/du6+myaX+qGA498Bph9d1XsCBI2lCQ9CAO6KmOdL5FgO77Xf1h1Mt5gjUybVsrhncwnRJj9aLpKBjy9TZSCn4WhStfcTmmEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=T8yeeIQ1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="KRZVvnFT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 587B81F000E9;
-	Fri,  7 Aug 2026 02:02:34 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="T8yeeIQ1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A0011F000E9;
+	Fri,  7 Aug 2026 02:02:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1786068154;
-	bh=DWtzUpOmTbx8p5Fg23JlK5WkAgabAPcpX6IbPMBILI8=;
+	d=linux-foundation.org; s=korg; t=1786068159;
+	bh=TJmCCmOzIWlgogVXxHeJhUY/6PkXKezdrdCMnkLbI8E=;
 	h=Date:To:From:Subject;
-	b=KRZVvnFT1/qUe/9zfgHg/J1UEcx4EEqXf2rBbMq1G8HxXzap6At8wWXXTx0QUDdqY
-	 yn4opB8b9PvPWOxMuDSrg2VTu0UulLzlGEycbZjo0GAwndR4uVSgX9G/cGkdgJ6X0Q
-	 /7ETy/w9jEc6EQ3ZBuLZnylmSGfgf3oO8CpUgZ4I=
-Date: Thu, 06 Aug 2026 19:02:33 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,rppt@kernel.org,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,gourry@gourry.net,david@kernel.org,brendan.jackman@linux.dev,hannes@cmpxchg.org,akpm@linux-foundation.org
+	b=T8yeeIQ1s+ytZm8X1lVlnMHdKUKHs3DBvjiI0iEDIRE7KizVXKY0jcLOopG6uUWba
+	 vx911mVdTU6Y59aqAlFSohRFxzlCYJIMyghwwASS9bolzijtdnqnoatUxND9Y/7zUA
+	 arRTeDOn1+MlV2i25XRCi69cG4Kj2SsxuyPIhKfs=
+Date: Thu, 06 Aug 2026 19:02:38 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,stable@vger.kernel.org,rakie.kim@sk.com,paulmck@kernel.org,matthew.brost@intel.com,joshua.hahnjy@gmail.com,gourry@gourry.net,david@kernel.org,byungchul@sk.com,apopple@nvidia.com,leitao@debian.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-page_alloc-fix-non-movable-reclaim-storm-in-defrag_mode.patch removed from -mm tree
-Message-Id: <20260807020234.587B81F000E9@smtp.kernel.org>
+Subject: [merged mm-stable] mm-migrate-report-rcu-tasks-quiescent-states-in-migrate_pages_batch.patch removed from -mm tree
+Message-Id: <20260807020239.0A0011F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,172 +35,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm: page_alloc: fix non-movable reclaim storm in defrag_mode
+     Subject: mm/migrate: report RCU-tasks quiescent states in migrate_pages_batch()
 has been removed from the -mm tree.  Its filename was
-     mm-page_alloc-fix-non-movable-reclaim-storm-in-defrag_mode.patch
+     mm-migrate-report-rcu-tasks-quiescent-states-in-migrate_pages_batch.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Johannes Weiner <hannes@cmpxchg.org>
-Subject: mm: page_alloc: fix non-movable reclaim storm in defrag_mode
-Date: Wed, 22 Jul 2026 10:56:47 -0400
+From: Breno Leitao <leitao@debian.org>
+Subject: mm/migrate: report RCU-tasks quiescent states in migrate_pages_batch()
+Date: Mon, 27 Jul 2026 06:50:19 -0700
 
-As we deployed defrag_mode into Meta production, pressure spikes and
-excessive swapping were observed on some workloads.  Tracing confirmed
-that this is unmovable/reclaimable requests spinning in the allocator and
-direct reclaim, causing excessive amounts of swap.
+migrate_pages_batch() unmaps each folio before moving it, and every
+unmap runs the mmu_notifier invalidate callbacks.  On KVM hosts
+try_to_migrate() ends up in kvm_mmu_notifier_invalidate_range_start() ->
+tdp_mmu_zap_leafs(), which is expensive, so unmapping a large batch keeps
+the CPU busy for a long time.
 
-The initial plan for defrag_mode was to rely on kswapd/kcompactd to
-produce blocks, and if those are overwhelmed under high pressure, let the
-allocator fall back (__rmqueue_steal()) after its retry loops.  However,
-that retrying results in more reclaim on some of these workloads than we'd
-hoped, sometimes excessively so, spurred on by the !costly order
-conditions in should_reclaim_retry().
+The loop already calls cond_resched(), but on PREEMPTION kernels that is
+a no-op, and involuntary preemption is not a Tasks-RCU quiescent state.
 
-The storms are dependent on the request type.  Reclaim will inevitably
-make room in existing movable blocks, since that's where the LRU pages
-live.  So if movable requests retry on reclaim, they make progress.
+A long batch therefore never reports a quiescent state, and the
+migrating task (e.g. kcompactd) becomes a Tasks-RCU holdout, stalling the
+Tasks-RCU grace period for minutes, which is common at Meta fleet:
 
-When non-movable requests spin in reclaim that isn't productive.  They
-cannot use the individually freed pages, and the process is unlikely to
-accidentally free whole blocks to meet the ALLOC_NOFRAGMENT bar.  They
-spin and overreclaim excessively, which tanks performance and triggers
-userspace guards like swap exhaustion or pressure based OOM.
+  INFO: rcu_tasks detected stalls on tasks:
+  0000000055349ecc: .. nvcsw: 1157401/1157401 holdout: 1 idle_cpu: -1/56 task:kcompactd0      state:R  running task
+  Call Trace:
+   tdp_mmu_zap_leafs
+   tdp_mmu_next_root
+   gfn_to_pfn_cache_invalidate_start
+   kvm_mmu_notifier_invalidate_range_start
+   __mmu_notifier_invalidate_range_start
+   try_to_migrate_one
+   try_to_migrate
+   migrate_pages_batch
+   migrate_pages
+   compact_zone
+   compact_node
+   kcompactd
+   kthread
 
-To fix this, send non-movable requests, regardless of order, into
-pageblock reclaim/compaction.  This way, they help move things along to
-meet the ALLOC_NOFRAGMENT bar.  After this patch, the reclaim storms and
-excess OOM rates are no longer observed in production.
+Use cond_resched_tasks_rcu_qs() so a quiescent state is reported even
+when cond_resched() does nothing.
 
-The longer-term plan is still to have all requests, including the movable
-ones, help make blocks to spread the cost of defragmenting more evenly and
-fairly; combined with proper watermarking to reduce allocation latencies
-in the common case.  However, doing this naively unearths scaling and
-concurrency limitations in compaction that need to be addressed first. 
-Promoting just non-movables for now is the minimally viable bug fix for
-the above issue.
+This has also been discussed at [1]
 
-[brendan.jackman@linux.dev: fix try_to_compact_pages() kerneldoc]
-  Link: https://lore.kernel.org/DK7NM9RPUJOD.11PNJJ5N2OBED@linux.dev
-Link: https://lore.kernel.org/20260722150006.3848560-5-hannes@cmpxchg.org
-Fixes: e3aa7df331bc ("mm: page_alloc: defrag_mode")
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: "Brendan Jackman" <brendan.jackman@linux.dev>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Gregory Price <gourry@gourry.net>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Zi Yan <ziy@nvidia.com>
+Link: https://lore.kernel.org/20260727-kcompact-v1-1-bdfefddd6874@debian.org
+Link: https://lore.kernel.org/all/amdWVTs0WKOxguxP@gmail.com/ [1]
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Gregory Price <gourry@gourry.net>
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- mm/compaction.c |    2 +-
- mm/internal.h   |    6 ++++++
- mm/page_alloc.c |   31 ++++++++++++++++++++++++++-----
- 3 files changed, 33 insertions(+), 6 deletions(-)
+ mm/migrate.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/mm/compaction.c~mm-page_alloc-fix-non-movable-reclaim-storm-in-defrag_mode
-+++ a/mm/compaction.c
-@@ -2823,7 +2823,7 @@ static enum compact_result compact_zone_
- /**
-  * try_to_compact_pages - Direct compact to satisfy a high-order allocation
-  * @gfp_mask: The GFP mask of the current allocation
-- * @order: The order of the current allocation
-+ * @order: The order to try to make available
-  * @alloc_flags: The allocation flags of the current allocation
-  * @ac: The context of current allocation
-  * @prio: Determines how hard direct compaction should try to succeed
---- a/mm/internal.h~mm-page_alloc-fix-non-movable-reclaim-storm-in-defrag_mode
-+++ a/mm/internal.h
-@@ -870,6 +870,12 @@ struct compact_control {
- struct capture_control {
- 	struct zone *zone;
- 	int migratetype;
-+	/*
-+	 * Allocation request order. May differ from the compaction
-+	 * order: defrag_mode promotes sub-block allocations to
-+	 * pageblock-order compaction; capture still matches at the
-+	 * original allocation order so prep_new_page() is consistent.
-+	 */
- 	int order;
- 	struct page *page;
- };
---- a/mm/page_alloc.c~mm-page_alloc-fix-non-movable-reclaim-storm-in-defrag_mode
-+++ a/mm/page_alloc.c
-@@ -4149,8 +4149,24 @@ __alloc_pages_direct_compact(gfp_t gfp_m
- 		.order = order,
- 		.page = NULL,
- 	};
-+	int compact_order = order;
+--- a/mm/migrate.c~mm-migrate-report-rcu-tasks-quiescent-states-in-migrate_pages_batch
++++ a/mm/migrate.c
+@@ -1841,7 +1841,7 @@ static int migrate_pages_batch(struct li
+ 			is_thp = folio_test_pmd_mappable(folio);
+ 			nr_pages = folio_nr_pages(folio);
  
--	if (!order)
-+	/*
-+	 * If fallbacks are not permitted (defrag_mode), we either
-+	 * need to reclaim space in a block of matching type, or clear
-+	 * out an entire block to allow __rmqueue_claim() to convert.
-+	 *
-+	 * Reclaim by itself is primarily freeing space in movable
-+	 * blocks, since that's where the LRU pages live. So this
-+	 * works for movable requests, but not for others.
-+	 *
-+	 * For those, promote the order to help make blocks, instead
-+	 * of spinning in reclaim alone unproductively.
-+	 */
-+	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
-+		compact_order = max(order, pageblock_order);
-+
-+	if (!compact_order)
- 		return NULL;
+-			cond_resched();
++			cond_resched_tasks_rcu_qs();
  
- 	psi_memstall_enter(&pflags);
-@@ -4166,8 +4182,8 @@ __alloc_pages_direct_compact(gfp_t gfp_m
- 	barrier();
- 	WRITE_ONCE(current->capture_control, &capc);
- 
--	*compact_result = try_to_compact_pages(gfp_mask, order, alloc_flags, ac,
--							       prio, &capc);
-+	*compact_result = try_to_compact_pages(gfp_mask, compact_order,
-+					       alloc_flags, ac, prio, &capc);
- 
- 	/*
- 	 * Make sure we hide capture control first before we read the captured
-@@ -4212,7 +4228,7 @@ __alloc_pages_direct_compact(gfp_t gfp_m
- 		struct zone *zone = page_zone(page);
- 
- 		zone->compact_blockskip_flush = false;
--		compaction_defer_reset(zone, order, true);
-+		compaction_defer_reset(zone, compact_order, true);
- 		count_vm_event(COMPACTSUCCESS);
- 		return page;
- 	}
-@@ -4452,9 +4468,14 @@ __alloc_pages_direct_reclaim(gfp_t gfp_m
- 	struct page *page = NULL;
- 	unsigned long pflags;
- 	bool drained = false;
-+	int reclaim_order = order;
-+
-+	/* Match the slowpath compaction promotion in __alloc_pages_direct_compact */
-+	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
-+		reclaim_order = max(order, pageblock_order);
- 
- 	psi_memstall_enter(&pflags);
--	*did_some_progress = __perform_reclaim(gfp_mask, order, ac);
-+	*did_some_progress = __perform_reclaim(gfp_mask, reclaim_order, ac);
- 	if (unlikely(!(*did_some_progress)))
- 		goto out;
- 
+ 			/*
+ 			 * The rare folio on the deferred split list should
 _
 
-Patches currently in -mm which might be from hannes@cmpxchg.org are
+Patches currently in -mm which might be from leitao@debian.org are
 
-mm-mempolicy-fix-automatic-numa-balancing-for-shmem.patch
+mm-kmemleak-report-leaks-only-after-n-consecutive-unreferenced-scans.patch
+mm-kmemleak-factor-leak-confirmation-into-a-helper.patch
+selftests-mm-test-kmemleaks-n-consecutive-scan-leak-confirmation.patch
+radix-tree-fix-kmemleak-false-positives-on-tree-head-reassignment.patch
+mm-kmemleak-report-rcu-tasks-quiescent-states-during-the-scan.patch
+mm-kmemleak-default-min_unref_scans-to-2-for-verbose-auto-scan.patch
+documentation-kmemleak-document-the-conditional-min_unref_scans-default.patch
+selftests-mm-kmemleak-drop-stale-min_unref_scans-default-from-comments.patch
 
