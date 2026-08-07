@@ -1,54 +1,54 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5456137F329
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 18:57:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D7438552C
+	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 18:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786129073; cv=none; b=HoKTY6jkBMFd1qznPa8Ntt4uVgTx+66jtQpecJq9CVo42Ki01F/YTUtv/RkgMCiJVApnVb/vQxbEXvYY4wU5nDd2y2kr8QYmQXOblpNEyT0pcU/uwCH1gHo95WWbnL1jbQQfOyjRzQ8+Lhz6rwWCFGAR0EIEc1UpdC4AFkfByds=
+	t=1786129086; cv=none; b=X66NZX32NMLil1mn1CRDZGfDXTXHnu/NLv839D8bd+oWGEAmV7GtwnChmoi765+DwEkO908dyTnaufoue47/Hk+G/dZeiZZvk1sqtutG65myOD9jzI8EoECRZzfWr9U5vXRUHp2rafeNfoyIokNaCCv1r8qLtuRyG4lSG7NKaYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786129073; c=relaxed/simple;
-	bh=A8QauitKj6kdPxo0FY6SLxiSDCRXH4BRtmThI8JYJqY=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=kQfIaogNWEu6fwqzjVvCPqyL5CL2MhafD4qobP7hYeJmUiAl0euNe6TfgeS/OXa3YcSxcJV+UHhY0yq9zTxlipM1lArO+BcRiKBGIHrA8+nKlbiU0cX/tXsSVX4DPiye2Fz8+Aq8dJZkv0z7shybpFh5IgrMvDYb/htzkFWvKkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tkjos.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LCgK7FgO; arc=none smtp.client-ip=209.85.214.198
+	s=arc-20240116; t=1786129086; c=relaxed/simple;
+	bh=/UlkqE6Kwtr8l/2MUbRvgx5wrWjyzsnBrLinwJxUsZ4=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=lgOlzfDbcIfv9RbbjUan5cK8kyiIAR/JXrgycNGMXFuAVssn1vT5GfXjpLZmmTZ4Y20Xnv8vDsRTzpHTL94wvLkLlvTY12OT3mqn64dFkzwXINE01vKmdphVMdGslKWNozWbVI8RVFWXLdkozayg5VpZF2p9j1Z0OdxAWmKE7xE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tkjos.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=S6v2mNBY; arc=none smtp.client-ip=209.85.210.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tkjos.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LCgK7FgO"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cfa4e4684bso89340815ad.2
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 11:57:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="S6v2mNBY"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-84c4cd31b51so2943242b3a.0
+        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 11:58:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786129070; x=1786733870; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1786129084; x=1786733884; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sZFLG0LckSPAPDoOKXfqFXRPPINFUaCQQNZeuOefs8I=;
-        b=LCgK7FgO0ZsycDOOBzaZG1kevl0TqB3EyoZ6sU5VTf5CNDKTOCvT0ecWKxMbKGvdNo
-         587TxHuI4jtiR64inrRfe6kGZvI3FnTZ3qx2ViwP/fU1FztsUXD1czXVNcDFxl84F/zI
-         Xa4ef92xwh59ZJz2HG5xlCmrXLNBV+PWfy5eR4ydrLAVTF5+j0C6j+kkiw2Nc8UxaI0F
-         DZSWzNE/PtNmdWLgtsJXQegFG3+S4WlPJPNCUOCfMdBLal4xz9cHrWfgqt+tT+uoDFlp
-         eOjCi1FwiSvstSNsrHxdRPiqbkhrxj/KwmxRS81NB9S4wnmOKxw/XaY1r94QnFp3adQw
-         qh7A==
+        bh=IskRFIZLE8WWgtniqWhBFdf2ZAh7Qpa7a1d0FhEwpW4=;
+        b=S6v2mNBYqfCj3oOA0pa/YBjz/LrxV1chjv3H4jH/PE0sjwi9gSq1knC9lCcVxFFp6+
+         qUecWoXd9P1gs9u2z+Svg3HoHSCYSeg162yTY53ovQ+zbbEhGBdB8ZXTVMAGXx9S039W
+         Jh008KiA4x6wui/Zu78wcHzZRlszCQIayMqMWtC6+l2Nc2qUegXvzwQpw9UEHIQTFr9K
+         gLWYGwX7TIT8tp25LZ4EMZ6M9dNeVxE4K+L29SIfLN7rUtnxr+YZlPbIekrpCXHP2e6k
+         2e/XxJgHX0rDe9Bce0zwW8PNBtUHtpOPh6Hahp34dz4usSDtlWYI3LGZhWtCnjML921n
+         KLZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786129070; x=1786733870;
+        d=1e100.net; s=20251104; t=1786129084; x=1786733884;
         h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sZFLG0LckSPAPDoOKXfqFXRPPINFUaCQQNZeuOefs8I=;
-        b=FPfqVuPBaAOFx9sYFxzJjXk1ilaOyKuypwr8Oy97/TOaPFlG1MRy5C2BITTXpbUUOJ
-         +EhvnnW70StBbD5V3GDlEkV9AbagoPRr3X4491rGQi+ChIVrbqLPceV2F8nVVLNKl0LA
-         OZQ9xABQNYLRa0MV0+n0DB+vNiyyylyTh/6h1nhD9gx0UKtqO1yKZ3MpTvGyZSszZjTz
-         86UjadqNz5kIpZCZqzDPGnwGBHdL45MJAnPlydUTeOsFbvFReeeJOJJkm33zwF5Vvsj4
-         FU6ISUwgBiTVrTH1VsBPeZqaMMZmHAf6J7xbA4aZDYJZDQtlRsbjPh2IFXYfl+uAlflc
-         P4Tw==
-X-Gm-Message-State: AOJu0YxSj3pb2NoS0Ja7IkElwZposqulLWTy+qp832jK8cAC7dk3JzW5
-	2vXqUwC6MqW8s2KVGgpUI8BhG7Bxnld8Dvp4p61i4CLUwFVz+oTUJrzrvtRohTszbbbQIoaz8nj
-	vuV9F/b+GsDgReoqLFFp4DVbHCCFYPnAQj9tZSZbgLENx5oozOADg/ZEF9Ii7mXfvKOTYGiOGHL
-	uq5ybz/jBxBttx6qown3a4zBpGE3fbEHA=
-X-Received: from plgv4.prod.google.com ([2002:a17:902:e8c4:b0:2d0:1ce9:b121])
- (user=tkjos job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1d1:b0:2bd:c925:3a16
- with SMTP id d9443c01a7336-2d294b29138mr70471775ad.2.1786129070156; Fri, 07
- Aug 2026 11:57:50 -0700 (PDT)
-Date: Fri,  7 Aug 2026 18:57:47 +0000
+        bh=IskRFIZLE8WWgtniqWhBFdf2ZAh7Qpa7a1d0FhEwpW4=;
+        b=n/XRdM8ZvZbbPM0U5d5ryyPZtZXF20OD9pwZMV0mWfcNWqc8dS89/culCCyWxlt7dz
+         J0XsXNoDjveHt4V8Uf+2U2uT7MBNS+ePAvPgvAH/UoIgAJbUROU7e5FFtcBR4+S1hOKV
+         0qb7vBeFAWSHEFwYzjyeC6ynoKQw51azjjOGUOW3kFegIeSVmtfmHdXUGIxk/S9z08Hl
+         +N5Qic0j+VOn7Hb3quofAoaSSODwV7/mnCO5z+NJMJC8tK3Pn0fTSfc9Rdd9oCyVRtwX
+         lahm3OGJAbbTQUfvaB1bUVKQSlwYWvYzEytWYhYwtT2vZo29oehWTC/BUGKZoChFU+GA
+         BtLw==
+X-Gm-Message-State: AOJu0YzLPCvA0ARGUd2i9RUEgMA54U1BuJpE7itonfHGUZ9zLJyRNEM5
+	H8+2r7GKA36WxIP1VkKW88E1k1QGeGVUjYPY3HQMqczMDnZ1Wunob46/NVeqCJzkm8yfkIV/4a3
+	opbKx5+ksR8xPN5DNrzVXT76IXaP2Ju5YgUJVqGUlns0IJmVqT0aGyePAjxxlvznRdmah5PlecK
+	p/zsLG0h9NYtAweh8E8hxpcQdAMDFiBQw=
+X-Received: from pfbhr5-n1.prod.google.com ([2002:a05:6a00:6b85:10b0:848:560e:ff7b])
+ (user=tkjos job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4b45:b0:84e:cd14:aeba
+ with SMTP id d2e1a72fcca58-84f6b6f2e61mr740076b3a.6.1786129083819; Fri, 07
+ Aug 2026 11:58:03 -0700 (PDT)
+Date: Fri,  7 Aug 2026 18:58:01 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,9 +56,9 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.55.0.654.g21b8a5bc05-goog
-Message-ID: <20260807185747.2070211-1-tkjos@google.com>
-Subject: [PATCH v2 6.1.y] Bluetooth: L2CAP: Fix UAF in channel timeout by
- holding conn ref
+Message-ID: <20260807185801.2070943-1-tkjos@google.com>
+Subject: [PATCH 5.15.y, 5.10.y] Bluetooth: L2CAP: Fix UAF in channel timeout
+ by holding conn ref
 From: Todd Kjos <tkjos@google.com>
 To: stable@vger.kernel.org
 Cc: kernel-team@android.com, Lee Jones <lee@kernel.org>, 
@@ -162,17 +162,15 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Todd Kjos <tkjos@google.com>
 ---
-v2: added S-O-B
-
  include/net/bluetooth/l2cap.h |  1 +
- net/bluetooth/l2cap_core.c    | 33 ++++++++++++++++++++-------------
- 2 files changed, 21 insertions(+), 13 deletions(-)
+ net/bluetooth/l2cap_core.c    | 36 +++++++++++++++++++++--------------
+ 2 files changed, 23 insertions(+), 14 deletions(-)
 
 diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
-index 97ad02840530e32d3860323377103a31d53c8f0b..ba230c3cf43155e06135cac86a8a92a601680afa 100644
+index beb690a162ff2eea370f4fe241f1af82a6f7d036..57315b9dc059e36ac7ec270faf8e4ff7a66adfa7 100644
 --- a/include/net/bluetooth/l2cap.h
 +++ b/include/net/bluetooth/l2cap.h
-@@ -743,6 +743,7 @@ enum {
+@@ -776,6 +776,7 @@ enum {
  	FLAG_ECRED_CONN_REQ_SENT,
  	FLAG_PENDING_SECURITY,
  	FLAG_HOLD_HCI_CONN,
@@ -181,10 +179,10 @@ index 97ad02840530e32d3860323377103a31d53c8f0b..ba230c3cf43155e06135cac86a8a92a6
  
  /* Lock nesting levels for L2CAP channels. We need these because lockdep
 diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 1da637f81db34ca6567dc2c2fda1d10b1d3b6877..1b3f3dfb3a5ee82254d29c92cdff90e79994c645 100644
+index 196b3bdca2644f20c3d2a04cf88b7e0eb3db779c..4d1aa66bc5c23b50e49b09c3b29801d41dd7af26 100644
 --- a/net/bluetooth/l2cap_core.c
 +++ b/net/bluetooth/l2cap_core.c
-@@ -415,7 +415,7 @@ static void l2cap_chan_timeout(struct work_struct *work)
+@@ -435,7 +435,7 @@ static void l2cap_chan_timeout(struct work_struct *work)
  
  	BT_DBG("chan %p state %s", chan, state_to_string(chan->state));
  
@@ -193,7 +191,7 @@ index 1da637f81db34ca6567dc2c2fda1d10b1d3b6877..1b3f3dfb3a5ee82254d29c92cdff90e7
  		l2cap_chan_put(chan);
  		return;
  	}
-@@ -426,6 +426,9 @@ static void l2cap_chan_timeout(struct work_struct *work)
+@@ -446,6 +446,9 @@ static void l2cap_chan_timeout(struct work_struct *work)
  	 */
  	l2cap_chan_lock(chan);
  
@@ -203,7 +201,7 @@ index 1da637f81db34ca6567dc2c2fda1d10b1d3b6877..1b3f3dfb3a5ee82254d29c92cdff90e7
  	if (chan->state == BT_CONNECTED || chan->state == BT_CONFIG)
  		reason = ECONNREFUSED;
  	else if (chan->state == BT_CONNECT &&
-@@ -438,10 +441,11 @@ static void l2cap_chan_timeout(struct work_struct *work)
+@@ -458,10 +461,11 @@ static void l2cap_chan_timeout(struct work_struct *work)
  
  	chan->ops->close(chan);
  
@@ -216,7 +214,7 @@ index 1da637f81db34ca6567dc2c2fda1d10b1d3b6877..1b3f3dfb3a5ee82254d29c92cdff90e7
  }
  
  struct l2cap_chan *l2cap_chan_create(void)
-@@ -494,6 +498,9 @@ static void l2cap_chan_destroy(struct kref *kref)
+@@ -511,6 +515,9 @@ static void l2cap_chan_destroy(struct kref *kref)
  	list_del(&chan->global_l);
  	write_unlock(&chan_list_lock);
  
@@ -226,7 +224,7 @@ index 1da637f81db34ca6567dc2c2fda1d10b1d3b6877..1b3f3dfb3a5ee82254d29c92cdff90e7
  	kfree(chan);
  }
  
-@@ -625,7 +632,7 @@ void __l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan)
+@@ -593,7 +600,7 @@ void __l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan)
  
  	conn->disc_reason = HCI_ERROR_REMOTE_USER_TERM;
  
@@ -235,7 +233,7 @@ index 1da637f81db34ca6567dc2c2fda1d10b1d3b6877..1b3f3dfb3a5ee82254d29c92cdff90e7
  
  	switch (chan->chan_type) {
  	case L2CAP_CHAN_CONN_ORIENTED:
-@@ -680,30 +687,26 @@ void l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan)
+@@ -648,31 +655,28 @@ void l2cap_chan_add(struct l2cap_conn *conn, struct l2cap_chan *chan)
  
  void l2cap_chan_del(struct l2cap_chan *chan, int err)
  {
@@ -250,7 +248,10 @@ index 1da637f81db34ca6567dc2c2fda1d10b1d3b6877..1b3f3dfb3a5ee82254d29c92cdff90e7
  	chan->ops->teardown(chan, err);
  
 -	if (conn) {
+-		struct amp_mgr *mgr = conn->hcon->amp_mgr;
 +	if (!test_and_set_bit(FLAG_DEL, &chan->flags)) {
++		struct amp_mgr *mgr = chan->conn->hcon->amp_mgr;
++
  		/* Delete from channel list */
  		list_del(&chan->list);
  
@@ -266,19 +267,10 @@ index 1da637f81db34ca6567dc2c2fda1d10b1d3b6877..1b3f3dfb3a5ee82254d29c92cdff90e7
  		    test_bit(FLAG_HOLD_HCI_CONN, &chan->flags))
 -			hci_conn_drop(conn->hcon);
 +			hci_conn_drop(chan->conn->hcon);
- 	}
  
- 	if (test_bit(CONF_NOT_COMPLETE, &chan->conf_state))
-@@ -1930,7 +1933,7 @@ static void l2cap_monitor_timeout(struct work_struct *work)
- 
- 	l2cap_chan_lock(chan);
- 
--	if (!chan->conn) {
-+	if (test_bit(FLAG_DEL, &chan->flags)) {
- 		l2cap_chan_unlock(chan);
- 		l2cap_chan_put(chan);
- 		return;
-@@ -1951,7 +1954,7 @@ static void l2cap_retrans_timeout(struct work_struct *work)
+ 		if (mgr && mgr->bredr_chan == chan)
+ 			mgr->bredr_chan = NULL;
+@@ -2044,7 +2048,7 @@ static void l2cap_monitor_timeout(struct work_struct *work)
  
  	l2cap_chan_lock(chan);
  
@@ -287,7 +279,16 @@ index 1da637f81db34ca6567dc2c2fda1d10b1d3b6877..1b3f3dfb3a5ee82254d29c92cdff90e7
  		l2cap_chan_unlock(chan);
  		l2cap_chan_put(chan);
  		return;
-@@ -2566,7 +2569,7 @@ int l2cap_chan_send(struct l2cap_chan *chan, struct msghdr *msg, size_t len)
+@@ -2065,7 +2069,7 @@ static void l2cap_retrans_timeout(struct work_struct *work)
+ 
+ 	l2cap_chan_lock(chan);
+ 
+-	if (!chan->conn) {
++	if (test_bit(FLAG_DEL, &chan->flags)) {
+ 		l2cap_chan_unlock(chan);
+ 		l2cap_chan_put(chan);
+ 		return;
+@@ -2690,7 +2694,7 @@ int l2cap_chan_send(struct l2cap_chan *chan, struct msghdr *msg, size_t len)
  	int err;
  	struct sk_buff_head seg_queue;
  
@@ -296,7 +297,7 @@ index 1da637f81db34ca6567dc2c2fda1d10b1d3b6877..1b3f3dfb3a5ee82254d29c92cdff90e7
  		return -ENOTCONN;
  
  	/* Connectionless channel */
-@@ -3167,12 +3170,16 @@ static void l2cap_ack_timeout(struct work_struct *work)
+@@ -3291,12 +3295,16 @@ static void l2cap_ack_timeout(struct work_struct *work)
  
  	l2cap_chan_lock(chan);
  
@@ -314,5 +315,5 @@ index 1da637f81db34ca6567dc2c2fda1d10b1d3b6877..1b3f3dfb3a5ee82254d29c92cdff90e7
  	l2cap_chan_put(chan);
  }
 -- 
-2.55.0.629.g250fe7f194-goog
+2.55.0.654.g21b8a5bc05-goog
 
