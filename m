@@ -1,96 +1,83 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D22873B8D76;
-	Fri,  7 Aug 2026 07:20:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD6E3C3429;
+	Fri,  7 Aug 2026 07:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786087211; cv=none; b=nYlfLxMPxjV2ANrKhpZ6AUBIeElg4IMQlrOZb/fdoIZPSw3u+1DE31thPddpqLUcKg+EEn66SXoEPsKWAFHU2kk0JDnGypStn2uuAbmrKXJQX8VDV4VoXM6EU6srzHlsYY7JugDqVUyzuC2Tz7FP8bpdskv+pAWReVrfxjpsNJg=
+	t=1786087947; cv=none; b=MVLI3goOHwIw3AZBOCivHUNvtufosLWyGeRiy+qQ8dwrVdGaSYSOEOnlje7mz1YrpPAXfjGUPHW49lIx6EWklweW8+N9rP463WmMY07+Ur1qUo47li0/DYR3h0dBUsAkXrp01uZqroUFPS0sNORYxIuncJEVHq0LIXZa/1B1wpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786087211; c=relaxed/simple;
-	bh=09FxRqYvAJ+jCowdoPG6nKLl0vJVRvMT3zYvdMBxi70=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tKsyP+wT8mDlN+XyBWzXbyt27Qn34gncpA46QAWHVo7IkV1efL2UoW3uZBh5cuMfDViobCEkkalE+yPtfV+ID+Ty2ldkF/lq+fFhrqE3jHWjnytNOg74vcsiVfntCzxNRElX1wgq0RJsSbDBGX0gJHUaTo23158Q+U1HCCH3JBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AVBKHKkX; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1786087947; c=relaxed/simple;
+	bh=unZyHVEipl9wdEWFBpOzZAY8m4Aj3u2FhP2DEVz2+VE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=go6xZZ4c1eTwP+/xdWMv+1r4COQmcgOYCU3dVSmGZ+uQoF1DtYQSH29Gx6QBDoQXHhNQZVjlwEfDMmyjiWZmKbOa0onObjx5xpm7vXB3o7FN8kXqRpIsmh3f8M1UjLSRnJzti/AYp/4uCdxNgfavJiMRFiK4Xj3FBUI92/DeDMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=DeG4ygGW; arc=none smtp.client-ip=109.224.244.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AVBKHKkX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=4k
-	4eYf9bOPqnAHVpQmp8wdukJyoXQOWZpKAZndTwb5Q=; b=AVBKHKkXtcruXVqvLY
-	ySP4TgDZZv1v9G6o47UerlbIFDdM+UUCYTDgo+uQEImEqPE0kZumpaJiz0e72AlJ
-	V9OpNDcpOTX+p1lmsDs3fH2PtfqPJ3YCNrPJOtcCkt0Ejpz6/rL6b8guPyTqoK9F
-	GKxI0K+zDDRuj6Hf+qFS4lh0A=
-Received: from zengchi (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wBncb0Ih3VqqOGZOQ--.50948S2;
-	Fri, 07 Aug 2026 15:19:37 +0800 (CST)
-From: Zeng Chi <zeng_chi911@163.com>
-To: pbonzini@redhat.com,
-	seanjc@google.com
-Cc: kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zengchi@kylinos.cn,
-	stable@vger.kernel.org
-Subject: [PATCH] KVM: Remove the kvm debugfs directory if kvm_init() fails
-Date: Fri,  7 Aug 2026 15:19:34 +0800
-Message-Id: <20260807071934.786879-1-zeng_chi911@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="DeG4ygGW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail3; t=1786087929; x=1786347129;
+	bh=unZyHVEipl9wdEWFBpOzZAY8m4Aj3u2FhP2DEVz2+VE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=DeG4ygGW8G2ec6P+5H3tLB1u4xfYKnvgVHhRXMU4YCKQ/JBf6WCGm5yx6hVotC+Ob
+	 pTTQ6uLov/tHcDqXEikbq0M7MKtoTigXpNemWOwZwdo9MH5KGA+iVgdftoKY2urYdB
+	 wIJh9y/VlqnhcwApTJfFjU5DhDttXIFDHcx+lTXz2FBHewBOftTbUWMO2+b9WxNdhH
+	 mVVhepRRT8NZwd8TNgC6dhVWWA+YCjemhdOPQyvCiCijrgG0PY3xq5DJgzXuG5vAAd
+	 sHbyVGNnprvOJLLGuTEdMRHAKPsj73HUgBWHToO8gE9GX+Y6ftM3YT6PCKQFueGn/q
+	 uFjIEsPhBxztA==
+X-Pm-Submission-Id: 4hGbSk5SPqz1DDrs
+From: Esben Haabendal <esben@geanix.com>
+To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>,  "David Lechner"
+ <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
+  "Andy Shevchenko"
+ <andy@kernel.org>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
+  "Nikita Travkin" <nikita@trvn.ru>,  "Maslov Dmitry"
+ <maslovdmitry@seeed.cc>,  "Kuppuswamy Sathyanarayanan"
+ <sathyanarayanan.kuppuswamy@linux.intel.com>,
+  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
+  <linux-kernel@vger.kernel.org>,  <stable@vger.kernel.org>
+Subject: Re: [PATCH v3 4/6] iio: light: ltr501: Power down chip if request
+ irq fails
+In-Reply-To: <anT-qMXnSJ2BL9x2@ashevche-desk.local> (Andy Shevchenko's message
+	of "Fri, 07 Aug 2026 00:37:44 +0300")
+References: <20260804-liteon-ltr329-v3-0-c6b768c7c745@geanix.com>
+	<20260804-liteon-ltr329-v3-4-c6b768c7c745@geanix.com>
+	<Zg1kHClcaJDFipprnST6IAFp1kSIfzNtPzTtyzC1z4Eg_i5zCWZEysYVmODsCK7SrQ9uupp0K1upHP0skEoRzQ==@protonmail.internalid>
+	<anT-qMXnSJ2BL9x2@ashevche-desk.local>
+Date: Fri, 07 Aug 2026 09:32:05 +0200
+Message-ID: <87mruyxu6i.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBncb0Ih3VqqOGZOQ--.50948S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Cr1ktFW3Jw1rAr18Cr4xCrg_yoW8Ww48pa
-	n8Grs5KrZYyr42ya4vkFn5ur18GrZ7Ga1fX3W8Zr15JryDKrsYvry0qrWY9FWDWF4kt3WY
-	vFy0qFyUAw1DJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnZ23UUUUU=
-X-CM-SenderInfo: 52hqws5fklmiqr6rljoofrz/xtbCwAnbl2p1hwlMMQAA3p
+Content-Type: text/plain
 
-From: zengchi <zengchi@kylinos.cn>
+"Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
 
-kvm_init_debug() creates the "kvm" debugfs directory along with all of
-the VM/vCPU stat files, but none of kvm_init()'s error paths removes it.
-If kvm_vfio_ops_init(), kvm_gmem_init(), kvm_init_virtualization() or
-misc_register() fails, the directory is leaked, and none of kvm_init()'s
-callers invokes kvm_exit() on failure, i.e. nothing papers over the
-leak.
+> On Tue, Aug 04, 2026 at 07:02:15PM +0200, Esben Haabendal wrote:
+>> In case devm_request_threaded_irq() failed, we were leaving the chip
+>> powered instead of powering it down again. Power down the chip switching
+>> ALS and PS modes to standby.
+>>
+>> The dev_err() message was causing duplicated error messages, as
+>> devm_request_threaded_irq() calls dev_err_probe() on failure.
+>
+>> Fixes: 7ac702b3144b ("iio: ltr501: Add interrupt support")
+>
+> Be careful with this. The removing of the error message should either go
+> separately, or you should be assured that the IRQ core prints it for you
+> in all stable kernels where this goes to be backported.
 
-The stale /sys/kernel/debug/kvm directory isn't just cosmetic: a
-subsequent attempt to load KVM makes debugfs_create_dir() fail with
--EEXIST, after which kvm_debugfs_dir holds an ERR_PTR and all stat
-files are silently never created again.  Worse, the leaked stat files
-reference file_operations and stat data that live in the KVM module; if
-the module is unloaded after the failed initialization, reading the
-stale files is a use-after-free.
+Ah yes. The duplicate error message removal is only valid as of
+6.18.
+I will split into a separate patch, and mark it with Fixes against the
+change in devres.c that prints the error messsage.
 
-Remove the debugfs directory in the error path, mirroring kvm_exit().
-
-Fixes: 2b0128127373 ("KVM: Register /dev/kvm as the _very_ last thing during initialization")
-Cc: stable@vger.kernel.org
-Signed-off-by: zengchi <zengchi@kylinos.cn>
----
- virt/kvm/kvm_main.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 45e784462ec6..8a503ac1adbd 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -6553,6 +6553,7 @@ int kvm_init(unsigned vcpu_size, unsigned vcpu_align, struct module *module)
- err_gmem:
- 	kvm_vfio_ops_exit();
- err_vfio:
-+	debugfs_remove_recursive(kvm_debugfs_dir);
- 	kvm_async_pf_deinit();
- err_async_pf:
- 	kvm_irqfd_exit();
--- 
-2.25.1
-
-
-No virus found
-		Checked by Hillstone Network AntiVirus
-
+/Esben
