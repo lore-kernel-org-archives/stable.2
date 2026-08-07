@@ -1,89 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84359432E85;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 180C9397958;
 	Fri,  7 Aug 2026 15:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786116858; cv=none; b=TwUHeUJp9aAWHdz6QV/6ivoY43PlWZ5Hkq1+8r0XjkigQaLU5MYHxg0PRNTJvwZVutCRDtzvN4uwDzkSjtIsOvFgh97D7lLX73N1/kK1LmsLnEUo33M/9Sg7AdiEyL0LUQGWs8ejc1ATHH7BfFwsTfvQnArqGyOx5EoLtGBRO0g=
+	t=1786116859; cv=none; b=FOaicftNp2Q4khz5oOkkjYzX1f+3QrOSa/k8Nbam+dNWNvlq6+qbv+TW6orgidLFUUOS2/FPurmB3KgI+p+7z/o0/5/umyvKD5tDu0JzF2w2mjxCxmxStRWSC9Zdr2z2jB6uPIKJzyDhldw7C8w8rKFQbgJcd5f4/r1TLvoJTZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786116858; c=relaxed/simple;
-	bh=XFpBbM7dKf6vueF5qonzaePZm8FfI6ihpnTx6A1HJxo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IgnmLgk0fUgYObRNYnOrlOscCTqbA0Um2ajVXuRSCTAp9YjeXIZWZdRaTgLeAxIFB6+0WVKfoaHjAXIw6yMV93kvVdxujn8yGJNZDlazCDE2jAE29uofzaszG6tKDDIl7RMysI0gSdbnKhadIX1OmeY42Jns+niSZchY5CQO1p8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=K2wkRMIK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786116859; c=relaxed/simple;
+	bh=o6criyFXz5XNJXKePGEh6FY3/c1PQF3YBAZ6SGKj1gw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FGPTRhAlGhOkz8DQzkrL3Wl+XqBwMHkaIFuzEwOFe+6dnO1breVpmS2RWSwn6ecL754WEreavq7srnawnfneN3Qi7vsaQLahxfkAuD7cZZecGjEn3umtlnPetOcnPwuyFn+FiAkos3Xm92xhJSubeXaONKurWqrVLZvsD3+F9Gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=Ff93ZCqK; arc=none smtp.client-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="K2wkRMIK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DF2A1F00A3A;
-	Fri,  7 Aug 2026 15:34:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1786116857;
-	bh=SALSkfKvgEkOECsttcK6xHg/I1xU7wLKXgmSQq1Po34=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K2wkRMIKuD+UcdvG2HL/brQOqazDI1EERxu9nPwd0xitRFRtl5uN3lEJ/8dit3mRL
-	 35y5MrAeSAooYzSnPNVFknPxiIvt5pPyryeDeP37G7Ek/wPl0c560V2J+Qtu1SHUxK
-	 3b9OzNN1wFZjDLVlkj1SoIXp+Qd6mzp6iM9Eqtuo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Thorsten Blum <thorsten.blum@linux.dev>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1 113/438] powerpc/boot: Fix treeboot-currituck CPU node lookup check
-Date: Fri,  7 Aug 2026 16:35:09 +0200
-Message-ID: <20260807143430.404124468@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260807143428.008222056@linuxfoundation.org>
-References: <20260807143428.008222056@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="Ff93ZCqK"
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hGp953PhPzlfpLt;
+	Fri,  7 Aug 2026 15:34:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1786116853; x=1788708854; bh=hZ3qF3FjrIBLYa4HiSl8Imx6
+	G+Rc9bHPb9+hoVsyquA=; b=Ff93ZCqKuPGA7uuAp+45nitP0TlB6Z11nztoGrZ4
+	SUaPCpq2qzpwyoUTI7d8DpUxPTwK5t9jVpeNHCq0CEzuQdSGytbIkPuJVcm4DuNJ
+	eEjWHwAOdWFVKiC7c88Im+YCUB6ajM8rn6LxvXUfFLHBtS+G5jASQ91JYsJU7KiB
+	icgVfh0aLIVFgYXoy6SqioZV/iiGaywsB3zW6K0hU+kokqdKGetALNCfluAuSq6R
+	7kFib24TExMOxbsHTpGPaktrRznj7a6LzeUQmOalW+G24Z91LdNqRzRHBFqrsTY/
+	2APdNsMnTfXCkQubTt9MFAxlyy1wzCfKK+wbn/b6d2XfUg==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id G78Nacv49Vz1; Fri,  7 Aug 2026 15:34:13 +0000 (UTC)
+Received: from [100.119.48.131] (unknown [104.135.180.219])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hGp8y5ZBLzlfwgT;
+	Fri,  7 Aug 2026 15:34:10 +0000 (UTC)
+Message-ID: <cf1f02ad-3706-4e90-9f17-94a873be0bef@acm.org>
+Date: Fri, 7 Aug 2026 08:34:09 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] scsi: fill in DMA padding bytes in scsi_alloc_sgtables
+To: Petr Vaganov <p.vaganov@ideco.ru>, stable@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Jens Axboe <axboe@kernel.dk>, Tejun Heo <htejun@gmail.com>,
+ linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org
+References: <20260628185229.37957-1-p.vaganov@ideco.ru>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20260628185229.37957-1-p.vaganov@ideco.ru>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+On 6/28/26 11:52 AM, Petr Vaganov wrote:
+> Extend last_sg->length by pad_len first, then use sg_zero_buffer() to
+> zero those pad_len bytes.  sg_zero_buffer() uses sg_miter internally,
+> which correctly handles sg entries spanning multiple pages and padding
+> that crosses a page boundary.
 
-------------------
-
-From: Thorsten Blum <thorsten.blum@linux.dev>
-
-[ Upstream commit 43863f6575d2211e8c5157fefb83ad0ad046aab4 ]
-
-fdt_node_offset_by_prop_value() returns a negative error code on
-failure - fix the check accordingly.
-
-Fixes: 228d55053397 ("powerpc/47x: Add support for the new IBM currituck platform")
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Link: https://patch.msgid.link/20260702211554.56923-5-thorsten.blum@linux.dev
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/powerpc/boot/treeboot-currituck.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/powerpc/boot/treeboot-currituck.c b/arch/powerpc/boot/treeboot-currituck.c
-index d53e8a592f816..5b5363b74f9f3 100644
---- a/arch/powerpc/boot/treeboot-currituck.c
-+++ b/arch/powerpc/boot/treeboot-currituck.c
-@@ -102,7 +102,7 @@ void platform_init(void)
- 
- 	node = fdt_node_offset_by_prop_value(_dtb_start, -1, "device_type",
- 	                                     "cpu", sizeof("cpu"));
--	if (!node)
-+	if (node < 0)
- 		fatal("Cannot find cpu node\n");
- 	timebase = fdt_getprop(_dtb_start, node, "timebase-frequency", &size);
- 	if (timebase && (size == 4))
--- 
-2.53.0
-
-
-
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
