@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0A63B992C;
-	Fri,  7 Aug 2026 02:02:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C103B5F63;
+	Fri,  7 Aug 2026 02:02:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786068129; cv=none; b=f3KOHBzJ8VqVeBfpCW9tBXPG0ci4F9rWHryIKO8TH02yftpgpPKOPO7sz2EajPaTcB5X9dUGJRqGdf0aF3r62/oKeKe8A0wK4elh4beDbZ0o/9bMjN+Fvs4m3pGNUponUZP3ykO580sHs0fibqgrlfSwNPdnM1MAoJKzhNbXZkw=
+	t=1786068152; cv=none; b=LZ4K+E23YMTbIuFo1OXln5Z110SZ3S49lrkwc3yh1FhrrdtoYbY0wYpeJGWy3LBOhlpRTYT12/hB4PcLBnJQCK9o8sNU2pHI081agrtlDxEZ/s0qSrxyeMf4ciLnith4UfbkqPYLY7vRU8isTf4/KAPgp4aqI/Kj9MeaBYTMG/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786068129; c=relaxed/simple;
-	bh=9mVDisbw1UCdxYMW5ndA7+tUS1d1gj/Y+UL4qSB3nV4=;
-	h=Date:To:From:Subject:Message-Id; b=V2Ct0WI3IpBm2bwsyCSs2P4Ij4keaHMKY4QDnwT5ZI4C3FJUaSTYQp5ciSjfYBF3P6c35JmO3Lu5IUnMjwTWypNMPrqyvAu/1rW8NOJ9ZTAgExDNUcIbyhVbuZsWrQLrvccYg7bTVY2Q+rzikfL4rbWrDWgW7lTz9SzXM/ZT+qs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=GhNBldyT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786068152; c=relaxed/simple;
+	bh=lb3oNpr5oZQOdQPFDzQP+EylMvAc3jn9Zw2HGjdkM88=;
+	h=Date:To:From:Subject:Message-Id; b=FNqkLpmQV329YiFyyvUMhCKvw7/LWU7APXidUb2kBnuw899LdDmmcvdchIoSCfnqj+k4eSobbpGk37XSNwS+5BfXJMi6Z4YfKqSwU5TdTxS/vbK3SOegVIPmm8LCWPiCQmbXM8ig5hnAfkgOTqp9GOFz9ZFKvgvYXknaZusNios=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=y+D2e2dS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="GhNBldyT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 513251F000E9;
-	Fri,  7 Aug 2026 02:02:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="y+D2e2dS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C8671F00A3A;
+	Fri,  7 Aug 2026 02:02:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1786068127;
-	bh=/8C1/32h4IHYznYPaPftABoCl+KZZodfC2qhpIFV4Mw=;
+	d=linux-foundation.org; s=korg; t=1786068150;
+	bh=wJKs5KsJlCpfh4HTFKP/q+Ei1DOyplYsEGSKVo1FH34=;
 	h=Date:To:From:Subject;
-	b=GhNBldyTEXlh2Y2DlkTUrV5zbM3lgj2Gg6Q2Iqp/+7hJPQAge+ixQ+QVBRH2awKD3
-	 YWdgVnRmjGOmPB/crUKsMPXOgbvpYGovFnmYZ87i6783xWrX16KL/U3MeAuuyU1uOj
-	 QLUK83ig2D6CHSa79quApucUegbyOK49LcKjBt/s=
-Date: Thu, 06 Aug 2026 19:02:06 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
+	b=y+D2e2dSZLFmlwOnJklFHaYKfDjSfsLJvMpkLCykdwxGsoS2zDuT1QWMlN0Ext49k
+	 uYbZoOoc2pB6XQET9TrZgiy4hJCweV6fgi2dz8f0R7flnaQaVIN2sykg7izGjb41U/
+	 DrIicTbHn9HEb+7Vm3WH2o6+gFKd1KpJl7/LiI7s=
+Date: Thu, 06 Aug 2026 19:02:30 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,rppt@kernel.org,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,jackmanb@google.com,gourry@gourry.net,david@kernel.org,brendan.jackman@linux.dev,hannes@cmpxchg.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-damon-core-handle-region-split-failure-in-apply_min_nr_regions.patch removed from -mm tree
-Message-Id: <20260807020207.513251F000E9@smtp.kernel.org>
+Subject: [merged mm-stable] mm-page_alloc-__gfp_fs-lockdep-annotation-for-direct-compaction.patch removed from -mm tree
+Message-Id: <20260807020230.7C8671F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,110 +35,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/damon/core: handle region split failure in apply_min_nr_regions()
+     Subject: mm: page_alloc: __GFP_FS lockdep annotation for direct compaction
 has been removed from the -mm tree.  Its filename was
-     mm-damon-core-handle-region-split-failure-in-apply_min_nr_regions.patch
+     mm-page_alloc-__gfp_fs-lockdep-annotation-for-direct-compaction.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/core: handle region split failure in apply_min_nr_regions()
-Date: Sun, 19 Jul 2026 08:54:40 -0700
+From: Johannes Weiner <hannes@cmpxchg.org>
+Subject: mm: page_alloc: __GFP_FS lockdep annotation for direct compaction
+Date: Wed, 22 Jul 2026 10:56:44 -0400
 
-damon_apply_min_nr_regions() repeatedly split each region until its size
-becomes small enough to meet the user-defined low limit of the number of
-regions.  The loop assumes the split operation (damon_split_region_at())
-will always succeed and create the new region.  But the operation could
-silently fail for memory allocation failures, for example.
+Patch series "mm: fix reclaim storms in defrag_mode", v2.
 
-If such failure happens and the region was the last region, the linked
-list-based next region fetching returns invalid pointer.  As a result,
-invalid memory dereference and corruption could happen.  Even if the
-corner case is handled, it imposes stress to the allocator by trying split
-regions for other targets.  Fix the issue by breaking all the loops for
-any region split failure.
+As we deployed vm.defrag_mode=1 in Meta production, some workloads
+regressed with recurring pressure spikes and swap storms (which in turn
+triggered userspace OOM rules on pressure and swap utilization levels).
 
-This means there could be a min_nr_regions violation.  It will only rarely
-happen since the allocation is arguably too small to fail.  Even if it
-happens, it is only temporal.  damon_apply_min_nr_regions() will be called
-again after the aggregation interval.
+Tracing pinned this to non-movable requests spinning and reclaiming
+unproductively when kswapd/kcompactd are overwhelmed.  Direct reclaim
+predominantly frees up pages in movable blocks, but those requests cannot
+use that space under defrag_mode rules; and it is unlikely to free up
+whole blocks incidentally for __rmqueue_claim() to work.
 
-The user impact of the issue should be minor, since the allocation is
-arguably too small to fail.  But, it could still theoretically happen, and
-the consequence is very bad.
+This series fixes it by making non-movable requests participate in
+pageblock production in the allocator slowpath - meaning, they will invoke
+direct reclaim and direct compaction with pageblock_order.
 
-This issue was discovered [1] by Sashiko.
+That requires some small-ish adjustments up front in the allocator and the
+compaction code: three prep patches and the fix last.
 
-Link: https://lore.kernel.org/20260719155442.88794-1-sj@kernel.org
-Link: https://lore.kernel.org/20260717011834.120715-1-sj@kernel.org [1]
-Fixes: b1029f29eb1d ("mm/damon/core: split regions for min_nr_regions")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 7.1.x
+The series has been in production against one of the affected workloads
+for several weeks and restores the OOM kill rate to !defrag_mode baseline.
+
+
+This patch (of 4):
+
+A subsequent patch will have some order-0 allocations participate in
+compaction under defrag_mode, to stave off extfrag events.
+
+Since this is a sprawling expansion of entry points, and compaction can
+enter filesystem paths, add lockdep annotations that catches __GFP_FS
+passing errors.
+
+Direct reclaim has had this annotation for a while, and since reclaim and
+compaction are usually used in conjunction, this is unlikely to unearth
+old bugs.  It's more about future proofing and peace of mind.
+
+Link: https://lore.kernel.org/20260722150006.3848560-1-hannes@cmpxchg.org
+Link: https://lore.kernel.org/20260722150006.3848560-2-hannes@cmpxchg.org
+Fixes: e3aa7df331bc ("mm: page_alloc: defrag_mode")
+Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Brendan Jackman <jackmanb@google.com>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- mm/damon/core.c |   13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ mm/page_alloc.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
---- a/mm/damon/core.c~mm-damon-core-handle-region-split-failure-in-apply_min_nr_regions
-+++ a/mm/damon/core.c
-@@ -1886,7 +1886,7 @@ static unsigned long damon_region_sz_lim
- 	return sz;
- }
+--- a/mm/page_alloc.c~mm-page_alloc-__gfp_fs-lockdep-annotation-for-direct-compaction
++++ a/mm/page_alloc.c
+@@ -4149,12 +4149,14 @@ __alloc_pages_direct_compact(gfp_t gfp_m
  
--static void damon_split_region_at(struct damon_target *t,
-+static int damon_split_region_at(struct damon_target *t,
- 				  struct damon_region *r, unsigned long sz_r);
+ 	psi_memstall_enter(&pflags);
+ 	delayacct_compact_start();
++	fs_reclaim_acquire(gfp_mask);
+ 	noreclaim_flag = memalloc_noreclaim_save();
  
- /*
-@@ -1912,11 +1912,13 @@ static unsigned long damon_apply_min_nr_
- 	damon_for_each_target(t, ctx) {
- 		damon_for_each_region_safe(r, next, t) {
- 			while (damon_sz_region(r) > max_region_sz) {
--				damon_split_region_at(t, r, max_region_sz);
-+				if (damon_split_region_at(t, r, max_region_sz))
-+					goto out;
- 				r = damon_next_region(r);
- 			}
- 		}
- 	}
-+out:
- 	return max_region_sz;
- }
+ 	*compact_result = try_to_compact_pages(gfp_mask, order, alloc_flags, ac,
+ 								prio, &page);
  
-@@ -3411,8 +3413,10 @@ static void damon_verify_split_region_at
-  *
-  * r		the region to be split
-  * sz_r		size of the first sub-region that will be made
-+ *
-+ * Return: 0 on success, negative error code otherwise.
-  */
--static void damon_split_region_at(struct damon_target *t,
-+static int damon_split_region_at(struct damon_target *t,
- 				  struct damon_region *r, unsigned long sz_r)
- {
- 	struct damon_region *new;
-@@ -3420,7 +3424,7 @@ static void damon_split_region_at(struct
- 	damon_verify_split_region_at(r, sz_r);
- 	new = damon_new_region(r->ar.start + sz_r, r->ar.end);
- 	if (!new)
--		return;
-+		return -ENOMEM;
+ 	memalloc_noreclaim_restore(noreclaim_flag);
++	fs_reclaim_release(gfp_mask);
+ 	psi_memstall_leave(&pflags);
+ 	delayacct_compact_end();
  
- 	r->ar.end = new->ar.start;
- 
-@@ -3433,6 +3437,7 @@ static void damon_split_region_at(struct
- 			sizeof(r->last_probe_hits));
- 
- 	damon_insert_region(new, r, damon_next_region(r), t);
-+	return 0;
- }
- 
- /* Split every region in the given target into 'nr_subs' regions */
 _
 
-Patches currently in -mm which might be from sj@kernel.org are
+Patches currently in -mm which might be from hannes@cmpxchg.org are
 
+mm-mempolicy-fix-automatic-numa-balancing-for-shmem.patch
 
