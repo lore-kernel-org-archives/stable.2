@@ -1,127 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F17473C8C
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 15:43:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8484D4756D5;
+	Fri,  7 Aug 2026 15:43:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786117384; cv=none; b=HIiOR77zyyk1b6G7FXc10nu8/e5/uhVdIeZBLFCYI/SVGkEN+NhxilpX7an+MyJgwOmBQe2/k+vvU1ZJ4GmIasYnTXmumHMsYc7FrzsKsZzExwFs6S3+g/JTDWIdVmUwDjcTCOBPKipMQI2D79SpwABGJYq9MUdWlr9kaQOEvF4=
+	t=1786117386; cv=none; b=fT+smm3ofH+yUHvDRjj0C7XObaOqWZP4uwfEyqodtd/l3bgKxLvvc6ca3j/yiWeoIZNHL81yyEsxurlJR79IcwPjUhpereDfdSIczlZqUFXvJC2JwcG0X12R5IzTYKeneofQ8x5P8hIl8XABxToCxJxZvM3x3NoZ5nITX8FZAbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786117384; c=relaxed/simple;
-	bh=Xr+cu/zPX+O8fmSzHx7QXbQQakMypOf38lODNpejLXE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=L8xIvS7ZgRUBSKbpytUSH9PG//hxv+BancF5VozBHlFxoyBjW0aFcaqJrWDk3Tcup1YulBLJremuUk8Wcb4/C5UEfErf0aYT80/ItFoAw1GVO2LJFySeIC+HDH0PA5BF2Hjb6QR37P3HRqyhsRhPoskAp15a+QJB9iqop4pbtHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aMisoxZE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786117386; c=relaxed/simple;
+	bh=apBF3RMRJiUp7zAhjfjlMMiaARoezf1CzARMLd8ylJg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XUqIYoNjapZwu24q9tnjczJMjtDjLCbX4wS0zBzcGTKTXAiRBrhYlz0sZHHAAJPuAb0vl9UOjHtwuAikWUi8lr2j+epQoITw6pNQn/zhbbY56Z/QvWka79EFlp3f4Rp+1jgw/VpJ4FZEam0UlvAdnhK/NLdc/e+NVli9OC6waGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fT6q0VcH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aMisoxZE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 301A01F00A3F
-	for <stable@vger.kernel.org>; Fri,  7 Aug 2026 15:43:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786117383;
-	bh=wkeRhg3PC1j+S7tF+z/YeHO/VYSEXzodmxqwU3Ai6Dc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=aMisoxZE3n22HdwFVirubUV+kx0w9rSjeoqqjER0pC2uMfftoHPowxbRu4vFPlf60
-	 /ajnwIJfqj4bGWQXlBYmFTEJtlSOTujCKd2thlEuW+YR70A27TOtPGAp0vM1sdkJP8
-	 UzkYdxHrGIqkn4zAGzyAf54Mv4/nzcHyAFS/x/gQtTDz+X4QCt2aEAJlooF+rGeOkQ
-	 NEqSfDjYDCTN5cg5TACCbF2reoQeDdZiZlfRc9Hdovh6W9DpT4dyjb7KTK7VNpKGvO
-	 GnTulpYHoJcgBXsUFzHNp0It/mADOWsQUMGFoOQ/QCjsSqpfzdoHy4GnozG0C+EJHt
-	 5Fbxx/+Jl76Hw==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-39c8ee87f7eso29589401fa.3
-        for <stable@vger.kernel.org>; Fri, 07 Aug 2026 08:43:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqII9xSApfQsu5UzkKRpsfuqfj2zcqyRSVcOUXr30SjuXqDmOMeC9Yej8w8g990b2vsUSRlbT8=@vger.kernel.org
-X-Gm-Message-State: AOJu0YzTLCVGB46/taOYbc027kDwfhgicvHTO3j2swPaNRV5Ek6hU+BD
-	xwGcD8LHHAw1ozekY/l7Ae+U7XjBtOA1rtBDWHZT+MEZFjCQgTbexhI6EhnggCtVdYQh1GBLy5J
-	GCRztLIHzsgbsM+WC5BVw7p6wMSr8yPU=
-X-Received: by 2002:a05:651c:a20f:10b0:39c:7859:a2cd with SMTP id
- 38308e7fff4ca-39fe57110e1mr1533581fa.13.1786117381537; Fri, 07 Aug 2026
- 08:43:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fT6q0VcH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B844E1F000E9;
+	Fri,  7 Aug 2026 15:43:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1786117384;
+	bh=U/47Hsb0NKEHt1jIfzAYkGGjE4m8/hpGOYudGqYIwYg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fT6q0VcHpC/ZbjUgaOUGEHzaXn4Ir/G92QvF1a83vdNGjEtyQ8Yc/pvvF4esaqQbe
+	 gnXEYU3H644bzCjWKX0aGs+vO7XFCfOB27Ikn1a3dfhaxzwl34+SLw0/JyQiA2ReHb
+	 sl3uk6YtBxz4Z2xwl+7V9RzoakHQaeJBKfJvlMd8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Vega <vega@nebusec.ai>,
+	Zhiling Zou <zhilinz@nebusec.ai>,
+	Ren Wei <enjou1224z@gmail.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 7.1 298/438] net: bridge: stop fast-leave after deleting a port group
+Date: Fri,  7 Aug 2026 16:38:14 +0200
+Message-ID: <20260807143434.325695174@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260807143428.008222056@linuxfoundation.org>
+References: <20260807143428.008222056@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <19fdcaa3013.263bb5511124041.2034910216820799254@a0rg.com>
-In-Reply-To: <19fdcaa3013.263bb5511124041.2034910216820799254@a0rg.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 7 Aug 2026 17:42:49 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0h-HiNNO4Cwqd_8Rs2u+05U-sM4cnektpKCWFW1NWxLLg@mail.gmail.com>
-X-Gm-Features: AUfX_mz0ZoCfH81jnagtzaIJJ6j5tJ-qHsYXsx6aIZzwS5v6jcFU72ax1LmbF7Y
-Message-ID: <CAJZ5v0h-HiNNO4Cwqd_8Rs2u+05U-sM4cnektpKCWFW1NWxLLg@mail.gmail.com>
-Subject: Re: [PATCH v2] ACPI: pfr_update: fix stack buffer overflow in query_capability()
-To: Anirudh Prasad <icarus@a0rg.com>
-Cc: linux-acpi <linux-acpi@vger.kernel.org>, rafaeljwysocki <rafael.j.wysocki@intel.com>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, stable <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 7, 2026 at 4:40=E2=80=AFPM Anirudh Prasad <icarus@a0rg.com> wro=
-te:
->
-> query_capability() copies four ACPI buffer objects returned by the
-> firmware _DSM into fixed-size u8[16] fields in struct
-> pfru_update_cap_info using memcpy with the firmware-supplied length:
->
->   memcpy(&cap_hdr->code_type,
->          elements[CAP_CODE_TYPE_IDX].buffer.pointer,
->          elements[CAP_CODE_TYPE_IDX].buffer.length);
->
-> The same pattern repeats for drv_type, platform_id, and oem_id.
-> If the firmware returns buffer.length > 16 for any of these fields,
-> memcpy writes past the destination array.
->
-> struct pfru_update_cap_info is stack-allocated in pfru_ioctl().
-> Confirmed with KASAN on 7.2-rc6: three stack-out-of-bounds reports
-> are generated when a DSM returns 64-byte buffers, with writes reaching
-> 44 bytes past the end of cap_hdr's [64, 156) frame window into
-> adjacent stack redzones.
->
-> Fix by validating each buffer length against its destination field
-> size before copying, and returning -EINVAL if the firmware supplies
-> an oversized buffer.
->
-> Fixes: 0db89fa243e5 ("ACPI: Introduce Platform Firmware Runtime Update de=
-vice driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Anirudh Prasad <icarus@a0rg.com>
-> ---
->  drivers/acpi/pfr_update.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/drivers/acpi/pfr_update.c b/drivers/acpi/pfr_update.c
-> index 6283105bb0e8..e14e053cea44 100644
-> --- a/drivers/acpi/pfr_update.c
-> +++ b/drivers/acpi/pfr_update.c
-> @@ -158,6 +158,14 @@ static int query_capability(struct pfru_update_cap_i=
-nfo *cap_hdr,
->                 goto free_acpi_buffer;
->         }
->
-> +       if (out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.length > =
-sizeof(cap_hdr->code_type) ||
-> +           out_obj->package.elements[CAP_DRV_TYPE_IDX].buffer.length > s=
-izeof(cap_hdr->drv_type) ||
-> +           out_obj->package.elements[CAP_PLAT_ID_IDX].buffer.length > si=
-zeof(cap_hdr->platform_id) ||
-> +           out_obj->package.elements[CAP_OEM_ID_IDX].buffer.length > siz=
-eof(cap_hdr->oem_id)) {
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-The lines above are too long.
+------------------
 
-Please introduce a helper pointer to the elements array, say "elem =3D
-out_obj->package.elements", and use if in these checks.
+From: Zhiling Zou <zhilinz@nebusec.ai>
 
-> +               ret =3D -EINVAL;
-> +               goto free_acpi_buffer;
-> +       }
-> +
->         cap_hdr->update_cap =3D out_obj->package.elements[CAP_UPDATE_IDX]=
-.integer.value;
->         memcpy(&cap_hdr->code_type,
->                out_obj->package.elements[CAP_CODE_TYPE_IDX].buffer.pointe=
-r,
-> --
-> 2.55.0
->
->
->
+commit a39789f211b8a4125f0c70e05b30cf715f4f187d upstream.
+
+br_multicast_leave_group() iterates mp->ports with pp = &p->next in
+its fast-leave path. After br_multicast_del_pg() removes p,
+continuing the loop advances pp through the deleted entry.
+
+If multicast-to-unicast was enabled, the bridge can hold multiple port
+groups for the same port and group with different source MAC
+addresses. Once multicast-to-unicast is disabled,
+br_port_group_equal() matches those entries by port only. A fast leave
+can then delete one entry and continue from its stale next pointer,
+leaving mp->ports pointing at a deleted port group.
+
+Fast leave only needs to remove one matching port group. Break after
+br_multicast_del_pg() so the loop stops before dereferencing the
+removed entry.
+
+Fixes: 6db6f0eae605 ("bridge: multicast to unicast")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Signed-off-by: Ren Wei <enjou1224z@gmail.com>
+Acked-by: Nikolay Aleksandrov <razor@blackwall.org>
+Link: https://patch.msgid.link/1cf0898872ef7c72d5f4c0304414a192c6dac591.1784707712.git.zhilinz@nebusec.ai
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ net/bridge/br_multicast.c |    1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/net/bridge/br_multicast.c
++++ b/net/bridge/br_multicast.c
+@@ -3686,6 +3686,7 @@ br_multicast_leave_group(struct net_brid
+ 
+ 			p->flags |= MDB_PG_FLAGS_FAST_LEAVE;
+ 			br_multicast_del_pg(mp, p, pp);
++			break;
+ 		}
+ 		goto out;
+ 	}
+
+
